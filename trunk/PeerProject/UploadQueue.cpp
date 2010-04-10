@@ -1,7 +1,7 @@
 //
 // UploadQueue.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -25,7 +25,6 @@
 #include "Uploads.h"
 #include "UploadQueue.h"
 #include "UploadQueues.h"
-#include "UploadTransfer.h"
 #include "UploadTransferED2K.h"
 #include "EDClient.h"
 #include "QuerySearch.h"
@@ -41,27 +40,27 @@ static char THIS_FILE[]=__FILE__;
 //////////////////////////////////////////////////////////////////////
 // CUploadQueue construction
 
-CUploadQueue::CUploadQueue() :
-	m_nIndex			( 0 )
-,	m_bEnable			( TRUE )
+CUploadQueue::CUploadQueue()
+	: m_nIndex			( 0 )
+	, m_bEnable			( TRUE )
 
-,	m_nProtocols		( 0ul )
-,	m_nMinSize			( 0ull )
-,	m_nMaxSize			( ~0ull )
-,	m_nFileStateFlag	( ulqBoth )
+	, m_nProtocols		( 0ul )
+	, m_nMinSize		( 0ull )
+	, m_nMaxSize		( ~0ull )
+	, m_nFileStateFlag	( ulqBoth )
 
-,	m_nCapacity			( 20 )
-,	m_nMinTransfers		( 1 )
-,	m_nMaxTransfers		( 10 )
-,	m_nBandwidthPoints	( 10 )
-,	m_bRotate			( FALSE )
-,	m_nRotateTime		( 300ul )
-,	m_nRotateChunk		( 0ul )
-,	m_bRewardUploaders	( FALSE )
+	, m_nCapacity		( 20 )
+	, m_nMinTransfers	( 1 )
+	, m_nMaxTransfers	( 10 )
+	, m_nBandwidthPoints ( 10 )
+	, m_bRotate			( FALSE )
+	, m_nRotateTime		( 300ul )
+	, m_nRotateChunk	( 0ul )
+	, m_bRewardUploaders ( FALSE )
 
-,	m_bExpanded			( TRUE )
-,	m_bSelected			( FALSE )
-,	m_nMeasured			( 0ul )
+	, m_bExpanded		( TRUE )
+	, m_bSelected		( FALSE )
+	, m_nMeasured		( 0ul )
 {
 }
 
@@ -73,7 +72,7 @@ CUploadQueue::~CUploadQueue()
 		pUpload->m_pQueue = NULL;
 	}
 
-	for ( int nPosition = 0 ; nPosition < m_pQueued.GetSize() ; nPosition++ )
+	for ( DWORD nPosition = 0 ; nPosition < GetQueuedCount() ; nPosition++ )
 	{
 		CUploadTransfer* pUpload = m_pQueued.GetAt( nPosition );
 		pUpload->m_pQueue = NULL;
@@ -85,57 +84,53 @@ CUploadQueue::~CUploadQueue()
 
 CString CUploadQueue::GetCriteriaString() const
 {
-	CString str1, str2;
+	CString str;
 
 	if ( m_nProtocols != 0 )
 	{
 		if ( m_nProtocols & (1<<PROTOCOL_HTTP) )
 		{
-			if ( str1.GetLength() ) str1 += _T(", ");
-			str1 += _T("HTTP");
+			if ( str.GetLength() ) str += _T(", ");
+			str += _T("HTTP");
 		}
 		if ( m_nProtocols & (1<<PROTOCOL_ED2K) )
 		{
-			if ( str1.GetLength() ) str1 += _T(", ");
-			str1 += _T("ED2K");
+			if ( str.GetLength() ) str += _T(", ");
+			str += _T("ED2K");
 		}
 		if ( m_nProtocols & (1<<PROTOCOL_BT) )
 		{
-			if ( str1.GetLength() ) str1 += _T(", ");
-			str1 += _T("BT");
+			if ( str.GetLength() ) str += _T(", ");
+			str += _T("BT");
 		}
 	}
 
 	if ( m_nMinSize > 0 )
 	{
-		if ( str1.GetLength() ) str1 += _T(", ");
-		str2.Format( _T(">=%s"), Settings.SmartVolume( m_nMinSize ) );
-		str1 += str2;
+		if ( str.GetLength() ) str += _T(", ");
+		str = str + _T(">=") + Settings.SmartVolume( m_nMinSize );
 	}
 
 	if ( m_nMaxSize < ~0ull )
 	{
-		if ( str1.GetLength() ) str1 += _T(", ");
-		str2.Format( _T("<=%s"), Settings.SmartVolume( m_nMaxSize ) );
-		str1 += str2;
+		if ( str.GetLength() ) str += _T(", ");
+		str = str + _T("<=") + Settings.SmartVolume( m_nMaxSize );
 	}
 
 	if ( m_nFileStateFlag == ulqPartial )
 	{
-		if ( str1.GetLength() ) str1 += _T(", ");
-		LoadString( str2, IDS_UPLOAD_QUEUE_PARTIAL );
-		str1 += str2;
+		if ( str.GetLength() ) str += _T(", ");
+		str += LoadString(IDS_UPLOAD_QUEUE_PARTIAL );
 	}
 	else if ( m_nFileStateFlag == ulqLibrary )
 	{
-		if ( str1.GetLength() ) str1 += _T(", ");
-		LoadString( str2, IDS_UPLOAD_QUEUE_LIBRARY );
-		str1 += str2;
+		if ( str.GetLength() ) str += _T(", ");
+		str += LoadString( IDS_UPLOAD_QUEUE_LIBRARY );
 	}
 
 	// ToDo: Add Release States Queue!
 
-	return str1;
+	return str;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -183,8 +178,8 @@ BOOL CUploadQueue::Enqueue(CUploadTransfer* pUpload, BOOL bForce, BOOL bStart)
 			// If reward is on, a non-sharer might not queue.
 			// Check if the # already queued plus # reserved by the reward
 			// percentage is greater than the queue would be able to hold.
-			DWORD nReserved = GetQueueCapacity() * Settings.Uploads.RewardQueuePercentage / 100ul;
-			if ( GetQueuedCount() + nReserved >= GetQueueCapacity() )
+			DWORD nReserved = m_nCapacity * Settings.Uploads.RewardQueuePercentage / 100ul;
+			if ( GetQueuedCount() + nReserved >= m_nCapacity )
 			{
 				return FALSE;
 			}
@@ -192,7 +187,7 @@ BOOL CUploadQueue::Enqueue(CUploadTransfer* pUpload, BOOL bForce, BOOL bStart)
 		else
 		{
 			// If reward is off, or user is known to share, just check if the queue is full
-			if ( GetQueueRemaining() <= 0 )
+			if ( IsFull() )
 				return FALSE;
 		}
 	}
@@ -207,7 +202,7 @@ BOOL CUploadQueue::Enqueue(CUploadTransfer* pUpload, BOOL bForce, BOOL bStart)
 		if ( GetTransferCount() <= m_nMinTransfers )
 			SpreadBandwidth();
 		else
-			pUpload->m_nBandwidth = Settings.Bandwidth.Uploads / max( 1, m_nMinTransfers );
+			pUpload->m_nBandwidth = Settings.Bandwidth.Uploads / max( 1ul, m_nMinTransfers );
 	}
 
 	return TRUE;
@@ -229,7 +224,7 @@ BOOL CUploadQueue::Dequeue(CUploadTransfer* pUpload)
 		return TRUE;
 	}
 
-	for ( int nPosition = 0 ; nPosition < m_pQueued.GetSize() ; nPosition++ )
+	for ( DWORD nPosition = 0 ; nPosition < GetQueuedCount() ; nPosition++ )
 	{
 		if ( m_pQueued.GetAt( nPosition ) == pUpload )
 		{
@@ -252,7 +247,7 @@ int CUploadQueue::GetPosition(CUploadTransfer* pUpload, BOOL bStart)
 
 	if ( m_pActive.Find( pUpload ) ) return 0;
 
-	for ( int nPosition = 0 ; nPosition < m_pQueued.GetSize() ; nPosition++ )
+	for ( DWORD nPosition = 0 ; nPosition < GetQueuedCount() ; nPosition++ )
 	{
 		if ( m_pQueued.GetAt( nPosition ) == pUpload )
 		{
@@ -283,7 +278,7 @@ BOOL CUploadQueue::StealPosition(CUploadTransfer* pTarget, CUploadTransfer* pSou
 		return TRUE;
 	}
 
-	for ( int nPosition = 0 ; nPosition < m_pQueued.GetSize() ; nPosition++ )
+	for ( DWORD nPosition = 0 ; nPosition < GetQueuedCount() ; nPosition++ )
 	{
 		if ( m_pQueued.GetAt( nPosition ) == pSource )
 		{
@@ -306,7 +301,7 @@ BOOL CUploadQueue::Start(CUploadTransfer* pUpload, BOOL bPeek)
 	ASSERT( pUpload->m_pQueue == this );
 	ASSERT( m_pActive.Find( pUpload ) == NULL );
 
-	INT_PTR nTransfers = GetTransferCount();
+	DWORD nTransfers = GetTransferCount();
 	if ( nTransfers >= m_nMaxTransfers ) return FALSE;
 
 	if ( nTransfers < m_nMinTransfers )
@@ -349,22 +344,23 @@ void CUploadQueue::StartImpl(CUploadTransfer* pUpload)
 //////////////////////////////////////////////////////////////////////
 // CUploadQueue bandwidth limiting
 
-INT_PTR CUploadQueue::GetBandwidthPoints(INT_PTR nTransfers) const
+DWORD CUploadQueue::GetBandwidthPoints(DWORD nTransfers) const
 {
-	if ( nTransfers < 0 ) nTransfers = GetTransferCount();
+	if ( nTransfers == (DWORD)-1 )
+		nTransfers = GetTransferCount();
 
 	if ( nTransfers == 0 ) return 0;
 	if ( nTransfers >= m_nMinTransfers ) return m_nBandwidthPoints;
 
-	return m_nBandwidthPoints * nTransfers / max( 1, m_nMinTransfers );
+	return m_nBandwidthPoints * nTransfers / max( 1ul, m_nMinTransfers );
 }
 
-DWORD CUploadQueue::GetBandwidthLimit(INT_PTR nTransfers) const
+DWORD CUploadQueue::GetBandwidthLimit(DWORD nTransfers) const
 {
-	INT_PTR nLocalPoints = GetBandwidthPoints( nTransfers );
+	DWORD nLocalPoints = GetBandwidthPoints( nTransfers );
 	if ( nLocalPoints == 0 ) return 0;
 
-	INT_PTR nTotalPoints = nLocalPoints;
+	DWORD nTotalPoints = nLocalPoints;
 
 	CQuickLock oLock( UploadQueues.m_pSection );
 	for ( POSITION pos = UploadQueues.GetIterator() ; pos ; )
@@ -382,19 +378,18 @@ DWORD CUploadQueue::GetBandwidthLimit(INT_PTR nTransfers) const
 	if ( Uploads.m_nTorrentSpeed > 0 )
 		nLimit = ( nLimit * Settings.BitTorrent.BandwidthPercentage ) / 100;
 
-	return static_cast< DWORD >( nLimit
-			* ( nLocalPoints + Settings.Uploads.ThrottleMode )
-			/ max( 1, nTotalPoints ) );
+	return nLimit * ( nLocalPoints + Settings.Uploads.ThrottleMode ) /
+		max( 1ul, nTotalPoints );
 }
 
 DWORD CUploadQueue::GetAvailableBandwidth() const
 {
-	INT_PTR nTransfers = GetTransferCount();
+	DWORD nTransfers = GetTransferCount();
 
 	if ( nTransfers < m_nMinTransfers )
 	{
 		nTransfers ++;
-		return static_cast< DWORD >( GetBandwidthLimit( nTransfers ) / nTransfers );
+		return GetBandwidthLimit( nTransfers ) / nTransfers;
 	}
 
 	DWORD nTotal = GetBandwidthLimit();
@@ -421,7 +416,8 @@ DWORD CUploadQueue::GetAvailableBandwidth() const
 DWORD CUploadQueue::GetPredictedBandwidth() const
 {
 	// This could be more accurate
-	return GetBandwidthLimit( m_nMinTransfers ) / DWORD( min( max( m_nMinTransfers, 1 ), GetTransferCount() + 1 ) );
+	return GetBandwidthLimit( m_nMinTransfers ) /
+		min( max( m_nMinTransfers, 1ul ), GetTransferCount() + 1 );
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -429,30 +425,35 @@ DWORD CUploadQueue::GetPredictedBandwidth() const
 
 void CUploadQueue::SpreadBandwidth()
 {
-	ASSERT( GetTransferCount() <= m_nMinTransfers );
+	const DWORD nCount = GetTransferCount();
+	if ( nCount == 0 )
+		return;	// Nothing to do
 
-	DWORD nTotal = GetBandwidthLimit();
-
+	const DWORD nLimit = GetBandwidthLimit() / nCount;
 	for ( POSITION pos = m_pActive.GetHeadPosition() ; pos ; )
 	{
 		CUploadTransfer* pActive = m_pActive.GetNext( pos );
-		pActive->SetSpeedLimit( static_cast< DWORD >( nTotal / GetTransferCount() ) );
+		pActive->SetSpeedLimit( nLimit );
 	}
 }
 
 void CUploadQueue::RescaleBandwidth()
 {
-	if ( GetTransferCount() <= m_nMinTransfers )
+	const DWORD nCount = GetTransferCount();
+	if ( nCount == 0 )
+		return;	// Nothing to do
+
+	if ( nCount <= m_nMinTransfers )
 	{
 		SpreadBandwidth();
 		return;
 	}
 
-	DWORD nTotal		= GetBandwidthLimit();
-	DWORD nAllocated	= 0;
+	const DWORD nTotal = GetBandwidthLimit();
+	if ( nTotal == 0 )
+		return;
 
-	if ( nTotal == 0 ) return;
-
+	DWORD nAllocated = 0;
 	for ( POSITION pos = m_pActive.GetHeadPosition() ; pos ; )
 	{
 		CUploadTransfer* pActive = m_pActive.GetNext( pos );
@@ -461,8 +462,13 @@ void CUploadQueue::RescaleBandwidth()
 		nAllocated += pActive->GetMaxSpeed();
 	}
 
-	double nScale = (double)nTotal / (double)nAllocated;
+	if ( nAllocated == 0 )
+	{
+		SpreadBandwidth();
+		return;
+	}
 
+	const double nScale = (double)nTotal / nAllocated;
 	for ( POSITION pos = m_pActive.GetHeadPosition() ; pos ; )
 	{
 		CUploadTransfer* pActive = m_pActive.GetNext( pos );
@@ -473,7 +479,7 @@ void CUploadQueue::RescaleBandwidth()
 //////////////////////////////////////////////////////////////////////
 // CUploadQueue serialize
 
-void CUploadQueue::Serialize(CArchive& ar, int nVersion)
+void CUploadQueue::Serialize(CArchive& ar, int /*nVersion*/)
 {
 	if ( ar.IsStoring() )
 	{
@@ -498,44 +504,40 @@ void CUploadQueue::Serialize(CArchive& ar, int nVersion)
 
 		ar << m_bExpanded;
 	}
-	else
+	else // Loading
 	{
 		ar >> m_sName;
 		ar >> m_bEnable;
 
 		ar >> m_nProtocols;
 
-		if ( nVersion >= 3 )
-		{
+	//	if ( nVersion >= 3 )
+	//	{
 			ar >> m_nMinSize;
 			ar >> m_nMaxSize;
-		}
-		else
-		{
-			DWORD nInt32;
-			ar >> nInt32;
-			m_nMinSize = nInt32;
-			ar >> nInt32;
-			m_nMaxSize = nInt32;
-		}
+	//	}
+	//	else
+	//	{
+	//		DWORD nInt32;
+	//		ar >> nInt32;
+	//		m_nMinSize = nInt32;
+	//		ar >> nInt32;
+	//		m_nMaxSize = nInt32;
+	//	}
 
-		if ( nVersion >= 6 )
-		{
+	//	if ( nVersion >= 6 )
+	//	{
 			ar >> m_nFileStateFlag;
-		}
-		else
-		{
-			BOOL bPartial;
-			ar >> bPartial;
-			if ( bPartial )
-			{
-				m_nFileStateFlag = ulqPartial;
-			}
-			else
-			{
-				m_nFileStateFlag = ulqBoth;
-			}
-		}
+	//	}
+	//	else
+	//	{
+	//		BOOL bPartial;
+	//		ar >> bPartial;
+	//		if ( bPartial )
+	//			m_nFileStateFlag = ulqPartial;
+	//		else
+	//			m_nFileStateFlag = ulqBoth;
+	//	}
 
 		ar >> m_sShareTag;
 		ar >> m_sNameMatch;
@@ -548,8 +550,10 @@ void CUploadQueue::Serialize(CArchive& ar, int nVersion)
 		ar >> m_nRotateTime;
 		ar >> m_nRotateChunk;
 
-		if ( nVersion >= 5 ) ar >> m_bRewardUploaders;
+	//	if ( nVersion >= 5 )
+			ar >> m_bRewardUploaders;
 
-		if ( nVersion >= 4 ) ar >> m_bExpanded;
+	//	if ( nVersion >= 4 )
+			ar >> m_bExpanded;
 	}
 }

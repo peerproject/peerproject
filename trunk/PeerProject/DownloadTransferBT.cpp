@@ -410,7 +410,7 @@ void CDownloadTransferBT::ShowInterest()
 		Send( CBTPacket::New( bInterested ? BT_PACKET_INTERESTED : BT_PACKET_NOT_INTERESTED ) );
 
 		if ( ! bInterested )
-            m_oRequested.clear();
+			m_oRequested.clear();
 	}
 }
 
@@ -655,7 +655,7 @@ BOOL CDownloadTransferBT::OnSourceResponse(CBTPacket* pPacket)
 		else
 		{
 			CBENode* pID = pPeer->GetNode( "peer id" );
-            if ( ! pID->IsType( CBENode::beString ) || pID->m_nValue != Hashes::BtGuid::byteCount ) continue;
+			if ( ! pID->IsType( CBENode::beString ) || pID->m_nValue != Hashes::BtGuid::byteCount ) continue;
 
 			CBENode* pIP = pPeer->GetNode( "ip" );
 			if ( ! pIP->IsType( CBENode::beString ) ) continue;

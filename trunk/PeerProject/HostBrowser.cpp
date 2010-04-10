@@ -48,25 +48,25 @@ static char THIS_FILE[]=__FILE__;
 // CHostBrowser construction
 
 CHostBrowser::CHostBrowser(CBrowseHostWnd* pNotify, PROTOCOLID nProtocol, IN_ADDR* pAddress,
-	WORD nPort, BOOL bMustPush, const Hashes::Guid& oClientID) :
-	m_nState		( hbsNull )
-,	m_pNotify		( pNotify )
-,	m_pProfile		( NULL )
-,	m_bNewBrowse	( FALSE )
-,	m_nPort			( nPort )
-,	m_oClientID		( oClientID )
-,	m_bMustPush		( bMustPush )
-,	m_bCanPush		( m_oClientID.isValid() )
-,	m_tPushed		( 0ul )
-,	m_bConnect		( FALSE )
-,	m_nHits			( 0 )
-,	m_pVendor		( NULL )
-,	m_bCanChat		( FALSE )
-,	m_bDeflate		( FALSE )
-,	m_nLength		( ~0ul )
-,	m_nReceived		( 0ul )
-,	m_pBuffer		( NULL )
-,	m_pInflate		( NULL )
+	WORD nPort, BOOL bMustPush, const Hashes::Guid& oClientID)
+	: m_nState		( hbsNull )
+	, m_pNotify		( pNotify )
+	, m_pProfile	( NULL )
+	, m_bNewBrowse	( FALSE )
+	, m_nPort		( nPort )
+	, m_oClientID	( oClientID )
+	, m_bMustPush	( bMustPush )
+	, m_bCanPush	( m_oClientID.isValid() )
+	, m_tPushed		( 0ul )
+	, m_bConnect	( FALSE )
+	, m_nHits		( 0 )
+	, m_pVendor		( NULL )
+	, m_bCanChat	( FALSE )
+	, m_bDeflate	( FALSE )
+	, m_nLength		( ~0ul )
+	, m_nReceived	( 0ul )
+	, m_pBuffer		( NULL )
+	, m_pInflate	( NULL )
 {
 	if ( pAddress )
 		m_pAddress = *pAddress;
@@ -258,7 +258,6 @@ BOOL CHostBrowser::OnRead()
 
 	case hbsContent:
 		return ReadContent();
-
 	}
 
 	return TRUE;
@@ -893,7 +892,7 @@ void CHostBrowser::Serialize(CArchive& ar)
 		bProfilePresent = ( m_pProfile != NULL );
 		ar << bProfilePresent;
 	}
-	else
+	else // Loading
 	{
 		Stop();
 

@@ -57,24 +57,32 @@ CSearchManager::~CSearchManager()
 //////////////////////////////////////////////////////////////////////
 // CSearchManager add and remove
 
-void CSearchManager::Add(CManagedSearch* pSearch)
+bool CSearchManager::Add(CManagedSearch* pSearch)
 {
 	ASSUME_LOCK( m_pSection );
 
 	POSITION pos = m_pList.Find( pSearch );
-	ASSERT( pos == NULL );
-	if ( pos == NULL )
-		m_pList.AddHead( pSearch );
+	if ( pos )
+		return false;	// Already started
+
+	pSearch->ComAddRef( NULL );
+	m_pList.AddHead( pSearch );
+
+	return true;
 }
 
-void CSearchManager::Remove(CManagedSearch* pSearch)
+bool CSearchManager::Remove(CManagedSearch* pSearch)
 {
 	ASSUME_LOCK( m_pSection );
 
 	POSITION pos = m_pList.Find( pSearch );
-	ASSERT( pos != NULL );
-	if ( pos != NULL )
-		m_pList.RemoveAt( pos );
+	if ( ! pos )
+		return false;	// Already stopped
+
+	m_pList.RemoveAt( pos );
+	pSearch->ComRelease( NULL );
+
+	return true;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -108,9 +116,6 @@ void CSearchManager::OnRun()
 	// Don't run if we aren't connected
 	if ( ! Network.IsWellConnected() ) return;
 
-	if ( Settings.Gnutella2.EnableToday )
-		HostCache.Gnutella2.PruneByQueryAck();
-
 	CSingleLock pLock( &m_pSection );
 	if ( ! pLock.Lock( 200 ) ) return;
 
@@ -127,7 +132,7 @@ void CSearchManager::OnRun()
 		for ( POSITION pos = m_pList.GetHeadPosition(); pos ; )
 		{
 			POSITION posCur = pos;
-			CSearchPtr pSearch = m_pList.GetNext( pos );
+			CManagedSearch* pSearch = m_pList.GetNext( pos );
 
 			if ( pSearch->Execute( m_nPriorityClass ) )
 			{

@@ -1,7 +1,7 @@
 //
 // CtrlWizard.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -89,7 +89,8 @@ CString CWizardCtrl::ReadFile(LPCTSTR pszPath)
 	}
 	catch ( CException* pException )
 	{
-		if (pFile.m_hFile != CFile::hFileNull) pFile.Close(); //Check if file is still open, if yes close
+		if ( pFile.m_hFile != CFile::hFileNull )
+			pFile.Close(); // If file is still open, close it
 		pException->Delete();
 	}
 
@@ -122,9 +123,7 @@ CString CWizardCtrl::ReadFile(LPCTSTR pszPath)
 	else
 	{
 		if ( nByte >= 3 && pByte[0] == 0xEF && pByte[1] == 0xBB && pByte[2] == 0xBF )
-		{
 			pByte += 3; nByte -= 3;
-		}
 
 		strXML = UTF8Decode( (LPCSTR)pByte, nByte );
 	}
@@ -160,7 +159,7 @@ void CWizardCtrl::OnPaint()
 {
 	CRect rcClient, rcItem;
 	int nOffsetX, nOffsetY;
-	CPaintDC dc( this );  // device context for painting
+	CPaintDC dc( this );  // Device context for painting
 
 	GetClientRect( &rcClient );
 	rcItem.CopyRect( &rcClient );
@@ -186,17 +185,17 @@ void CWizardCtrl::OnPaint()
 				CString strUINT, strValue;
 				strUINT.Format( _T("%d"), IDC_WIZARD_CONTROL + nControl );
 				m_pItems.Lookup( strUINT, strValue );
-				if ( strValue.Right( 1 ) == "m" ) // make more space for multipicker rows
+				if ( strValue.Right( 1 ) == "m" )	// Make more space for multipicker rows
 				{
 					nFactor = 1.5;
 					rcItem.bottom += (int)(m_nItemHeight * nFactor);
 				}
 
 				dc.SetBkColor( Colors.m_crSchemaRow[ nRows & 1 ] );
-				// draw row label
+				// Draw row label
 				dc.ExtTextOut( rcItem.left + 6, rcItem.top + nOffsetY, ETO_OPAQUE|ETO_CLIPPED,
 					&rcItem, m_pCaptions.GetAt( nControl ), NULL );
-				// draw file name for multipicker row
+				// Draw file name for multipicker row
 				if ( nFactor != 1 )
 				{
 					CRect rcFileName;
@@ -208,7 +207,7 @@ void CWizardCtrl::OnPaint()
 					CSize size = dc.GetTextExtent( strFileName );
 					if ( size.cx > rcFileName.Width() - 24 - 12 )
 					{
-						// show only song name if possible
+						// Show only song name if possible
 						int nDashPos = strFileName.ReverseFind( '-' );
 						if ( nDashPos != -1 )
 							strFileName = _T("\x2026") + strFileName.Right( strFileName.GetLength() - nDashPos - 1 );
@@ -223,7 +222,7 @@ void CWizardCtrl::OnPaint()
 			}
 		}
 	}
-	else  // no customizations
+	else  // No customizations
 	{
 		CString str;
 		if ( ! m_bValid )
@@ -349,7 +348,7 @@ void CWizardCtrl::OnShowWindow(BOOL bShow, UINT /*nStatus*/)
 		CollectImages( pBase );
 
 		// Sort Files
-		// TODO: make sure all CLibraryFile*s remain valid throughout
+		// ToDo: Make sure all CLibraryFile*s remain valid throughout
 		CQuickLock oLibraryLock( Library.m_pSection );
 
 		std::vector< CLibraryFile* > pList;
@@ -446,9 +445,9 @@ BOOL CWizardCtrl::MakeControls(CXMLElement* pBase, std::vector< CLibraryFile* > 
 
 	if ( pTemplate )
 	{
-		for ( POSITION pos = pTemplate->GetElementIterator() ; pos ; )
+		for ( POSITION posTemplate = pTemplate->GetElementIterator() ; posTemplate ; )
 		{
-			CXMLElement* pLangGroup = pTemplate->GetNextElement( pos );
+			CXMLElement* pLangGroup = pTemplate->GetNextElement( posTemplate );
 			CString strLang = pLangGroup->GetAttributeValue( _T("language") );
 
 			// Collect only english and language specific data
@@ -460,9 +459,9 @@ BOOL CWizardCtrl::MakeControls(CXMLElement* pBase, std::vector< CLibraryFile* > 
 				if ( strLang != "en" ) Clear();
 
 				int nItemCount = 0;
-				for ( POSITION pos = pLangGroup->GetElementIterator() ; pos ; )
+				for ( POSITION posLangGroup = pLangGroup->GetElementIterator() ; posLangGroup ; )
 				{
-					CXMLElement* pItem = pLangGroup->GetNextElement( pos );
+					CXMLElement* pItem = pLangGroup->GetNextElement( posLangGroup );
 					if ( pItem->IsNamed( _T("item") ) )
 					{
 						CString strType = pItem->GetAttributeValue( _T("type") );
@@ -512,26 +511,26 @@ BOOL CWizardCtrl::MakeControls(CXMLElement* pBase, std::vector< CLibraryFile* > 
 								pControl->SetFont( &theApp.m_gdiFont );
 								nItemCount++;
 
-								if ( bPickers ) // add buttons after control
+								if ( bPickers ) // Add buttons after control
 								{
 									CIconButtonCtrl* pButton = new CIconButtonCtrl();
 									CString strCaption;
 									pButton->Create( rc, this, IDC_WIZARD_CONTROL + nItemCount );
 									if ( bFilePickers )
 									{
-										// a kind of hack to store button type
+										// A kind of hack to store button type
 										pButton->SetText( _T(" ") );
 										pButton->SetCoolIcon( IDI_BROWSE, Settings.General.LanguageRTL );
 									}
 									else if (strType == "colorpicker")
 										pButton->SetCoolIcon( IDI_COLORS, Settings.General.LanguageRTL );
 									pControl = pButton;
-									// store file name which will be displayed for each multipicker row
+									// Store file name which will be displayed for each multipicker row
 									strCaption = pList[ pos ]->m_sName;
 									m_pCaptions.Add( strCaption );
 									m_pControls.Add( pControl );
 									nItemCount++;
-									// is it correct?
+									// Is it correct?
 									SetWindowLongPtr( pControl->GetSafeHwnd(), GWLP_USERDATA, (LONG_PTR)pItem );
 								}
 								nFileCount++;
@@ -540,15 +539,17 @@ BOOL CWizardCtrl::MakeControls(CXMLElement* pBase, std::vector< CLibraryFile* > 
 									if ( nFileCount > m_pFileDocs.GetCount() )
 										PrepareDoc( pList[ pos ], nFileCount % 2 == 0 ? m_sEvenFilePath : m_sOddFilePath );
 								}
-								else break;
-							} // for
+								else
+									break;
+							} // for pos
 						}
 					}
-				} // for
+				} // for posLangGroup
 			}
-		} // for
+		} // for posTemplate
 	}
-	else return FALSE;
+	else
+		return FALSE;
 
 	return TRUE;
 }
@@ -687,7 +688,7 @@ BOOL CWizardCtrl::PrepareDoc(CLibraryFile* pFile, LPCTSTR pszTemplate)
 			}
 			else
 			{
-				strOld.Format( _T("$meta:%s$"), str );
+				strOld.Format( _T("$meta:%s$"), (LPCTSTR)str );
 				ReplaceNoCase( strDoc, strOld, strReplace );
 			}
 		}
@@ -703,7 +704,7 @@ BOOL CWizardCtrl::PrepareDoc(CLibraryFile* pFile, LPCTSTR pszTemplate)
 
 	if ( pFile->m_nSize )
 	{
-		strSize.Format( _T("%d"), pFile->m_nSize ); // bytes
+		strSize.Format( _T("%I64u"), pFile->m_nSize ); // bytes
 		ReplaceNoCase( strDoc, _T("$meta:sizebytes$"), strSize );
 	}
 
@@ -811,7 +812,8 @@ void CWizardCtrl::ReplaceNoCase(CString& sInStr, LPCTSTR pszOldStr, LPCTSTR pszN
 			DWORD nOffset = 0;
 			while ( TCHAR nChar2 = pszOldStr[ ++nOffset ] )
 			{
-				if ( nChar2 != ToLower( pszInStr[ nPos + nOffset ] ) ) goto fail;
+				if ( nChar2 != ToLower( pszInStr[ nPos + nOffset ] ) )
+					goto fail;
 			}
 			nPos += nOffset;
 			result.insert( result.end(), pszNewStr, pNewStrEnd );
@@ -835,30 +837,20 @@ BOOL CWizardCtrl::OnCommand(WPARAM wParam, LPARAM lParam)
 
 		if ( ! pButton->IsKindOf( RUNTIME_CLASS(CIconButtonCtrl) ) &&
 			 ! pEdit->IsKindOf( RUNTIME_CLASS(CEdit) ) ) return TRUE;
-		if ( pButton->GetWindowTextLength() ) // file picker
+		if ( pButton->GetWindowTextLength() ) // File picker
 		{
 			CFileDialog dlg( TRUE, NULL, NULL, OFN_HIDEREADONLY|OFN_FILEMUSTEXIST,
 				_T("All Files(*.*)|*.*||"), this );
 			if ( dlg.DoModal() == IDOK )
 				pEdit->SetWindowText( dlg.GetPathName() );
 		}
-		else // color picker
+		else // Color picker
 		{
-			// find default color
+			// Find default color
 			int r, g, b;
-			int nLen = pEdit->GetWindowTextLength();
-			LPTSTR pszSource = new TCHAR[ nLen + 1 ];
-			CHAR* pszDest = new CHAR[ nLen + 1 ];
-
-			pEdit->GetWindowText( pszSource, nLen + 1 );
-			for ( unsigned int nLen = 0; nLen < _tcslen( pszSource ); nLen++ )
-				pszDest[nLen] = (CHAR) pszSource[nLen];
-
-			COLORREF crColor = sscanf( pszDest, "#%2x%2x%2x", &r, &g, &b ) != 3 ?
-								RGB(0, 0, 0) : RGB(r, g, b);
-
-			delete [] pszSource;
-			delete [] pszDest;
+			pEdit->GetWindowText( str );
+			COLORREF crColor = _stscanf( str, _T("#%2x%2x%2x"), &r, &g, &b ) != 3 ?
+				RGB(0, 0, 0) : RGB(r, g, b);
 
 			CColorDialog dlg( crColor, CC_ANYCOLOR|CC_FULLOPEN|CC_RGBINIT, this );
 			if ( dlg.DoModal() == IDOK )
@@ -959,13 +951,9 @@ void CWizardCtrl::SetFocusTo(CWnd* pControl)
 	ScreenToClient( &rcControl );
 
 	if ( rcControl.top < rcClient.top )
-	{
 		ScrollBy( rcControl.top - rcClient.top - 8 );
-	}
 	else if ( rcControl.bottom > rcClient.bottom )
-	{
 		ScrollBy( rcControl.bottom - rcClient.bottom + 8 );
-	}
 
 	pControl->SetFocus();
 }

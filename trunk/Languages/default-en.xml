@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
+<skin xmlns="http://schemas.peerproject.org/Skin.xsd" version="1.0">
 
 <!-- PeerProject Default English Skin File -->
 
-<!-- Translation based on default-en.xml r48 -->
-<!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
+<!-- Translation based on default-en.xml r50 -->
+<!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
 <!-- Use this file as a basis for creating new language skins,   -->
@@ -547,7 +547,7 @@
 	</menu>
 	<!-- MAIN WINDOW MENU BAR -->
 	<menu name="CMainWnd.DropMenu" type="bar">
-		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160;">
+		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160;">
 			<item id="ID_TOOLS_SETTINGS" text="_Settings..."/>
 			<menu text="_Network">
 				<item id="ID_NETWORK_CONNECT" text="_Connect" shortcut="Ctrl+G"/>
@@ -1142,47 +1142,50 @@
 	<!-- DOWNLOADS WINDOW -->
 	<menu name="CDownloadsWnd.Download.Basic">
 		<item id="ID_DOWNLOADS_LAUNCH" text="_Preview"/>
-		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="Re_mote Preview"/>
-		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="_View Reviews"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_RESUME" text="_Resume"/>
 		<item id="ID_DOWNLOADS_PAUSE" text="P_ause"/>
 		<item id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="_Cancel"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_SOURCES" text="_Find More Sources"/>
+		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="Re_mote Preview"/>
+		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="_View Reviews"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_HELP" text="_Help..."/>
 	</menu>
 	<menu name="CDownloadsWnd.Download">
-		<item id="ID_DOWNLOADS_LAUNCH" text="_Preview Partial File"/>
 		<item id="ID_DOWNLOADS_LAUNCH_COPY" text="Pre_view File Copy"/>
+		<item id="ID_DOWNLOADS_LAUNCH" text="_Preview Partial File"/>
 		<item id="ID_DOWNLOADS_ENQUEUE" text="Add to Pla_ylist"/>
-		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="Re_mote Preview"/>
-		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="Vie_w Reviews"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_RESUME" text="_Resume"/>
 		<item id="ID_DOWNLOADS_PAUSE" text="Pa_use"/>
 		<item id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="_Cancel"/>
 		<separator/>
+		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="Vie_w Reviews"/>
+		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="Re_mote Preview"/>
 		<item id="ID_DOWNLOADS_SOURCES" text="_Find More Sources"/>
+		<separator/>
 		<menu text="_Advanced">
 			<item id="ID_DOWNLOADS_SHARE" text="_Share File"/>
 			<separator/>
-			<item id="ID_DOWNLOADS_ADD_SOURCE" text="_Add Source..."/>
 			<item id="ID_DOWNLOADS_URI" text="Get P2P Link (_URI)"/>
+			<item id="ID_DOWNLOADS_ADD_SOURCE" text="_Add Source..."/>
+			<item id="ID_DOWNLOADS_MERGE" text="Merge _Local File..."/>
 			<separator/>
-			<item id="ID_DOWNLOADS_MONITOR" text="_Monitor Window"/>
+			<item id="ID_DOWNLOADS_MONITOR" text="Monitor _Window"/>
+		</menu>
+		<menu text="Pri_ority">
 			<item id="ID_DOWNLOADS_BOOST" text="_Ignore Bandwidth Limit"/>
 			<separator/>
-			<item id="ID_DOWNLOADS_MOVE_UP" text="Move _Up" shortcut="Ctrl+Up"/>
-			<item id="ID_DOWNLOADS_MOVE_DOWN" text="Move _Down" shortcut="Ctrl+Dn"/>
 			<item id="ID_DOWNLOADS_MOVE_TOP" text="Move to _Top" shortcut="Ctrl+Home"/>
 			<item id="ID_DOWNLOADS_MOVE_BOTTOM" text="Move to _Bottom" shortcut="Ctrl+End"/>
+			<item id="ID_DOWNLOADS_MOVE_UP" text="Move _Up" shortcut="Ctrl+Up"/>
+			<item id="ID_DOWNLOADS_MOVE_DOWN" text="Move _Down" shortcut="Ctrl+Down"/>
 		</menu>
-		<separator/>
 		<item id="ID_DOWNLOADS_HELP" text="_Help..."/>
 		<separator/>
-		<item id="ID_DOWNLOADS_EDIT" text="Download Propert_ies"/>
+		<item id="ID_DOWNLOADS_EDIT" text="_Download Properties"/>
 	</menu>
 	<menu name="CDownloadsWnd.Source">
 		<item id="ID_TRANSFERS_CONNECT" text="_Access"/>
@@ -1381,9 +1384,9 @@
 			<item id="ID_LIBRARY_LAUNCH_FOLDER" text="Open _Folder"/>
 			<item id="ID_LIBRARY_UNLINK" text="Remove _Files"/>
 			<separator/>
-			<item id="ID_LIBRARY_RENAME" text="_Rename File"/>
-			<item id="ID_LIBRARY_COPY" text="_Copy Files..."/>
-			<item id="ID_LIBRARY_MOVE" text="_Move Files..."/>
+			<item id="ID_LIBRARY_RENAME" text="_Rename File" shortcut="F2"/>
+			<item id="ID_LIBRARY_COPY" text="_Copy Files..." shortcut="Ctrl+C"/>
+			<item id="ID_LIBRARY_MOVE" text="_Move Files..." shortcut="Ctrl+X"/>
 		</menu>
 		<separator/>
 		<menu text="S_earch For">
@@ -1417,9 +1420,9 @@
 		<separator/>
 		<item id="ID_LIBRARY_DELETE" text="_Delete"/>
 		<menu text="O_rganize">
-			<item id="ID_LIBRARY_RENAME" text="_Rename File"/>
 			<item id="ID_LIBRARY_UNLINK" text="Remove _Files"/>
 			<separator/>
+			<item id="ID_LIBRARY_RENAME" text="_Rename File"/>
 			<item id="ID_LIBRARY_MOVE" text="_Move Files..."/>
 			<item id="ID_LIBRARY_COPY" text="_Copy Files..."/>
 		</menu>
@@ -1448,9 +1451,9 @@
 			<item id="ID_LIBRARY_LAUNCH_FOLDER" text="Open _Folder"/>
 			<item id="ID_LIBRARY_UNLINK" text="Remove _Files"/>
 			<separator/>
-			<item id="ID_LIBRARY_RENAME" text="_Rename File"/>
-			<item id="ID_LIBRARY_COPY" text="_Copy Files..."/>
-			<item id="ID_LIBRARY_MOVE" text="_Move Files..."/>
+			<item id="ID_LIBRARY_RENAME" text="_Rename File" shortcut="F2"/>
+			<item id="ID_LIBRARY_COPY" text="_Copy Files..." shortcut="Ctrl+C"/>
+			<item id="ID_LIBRARY_MOVE" text="_Move Files..." shortcut="Ctrl+X"/>
 		</menu>
 		<separator/>
 		<menu text="S_earch For">
@@ -1896,7 +1899,7 @@
 		</group>
 		<icon group="20" command="ID_NETWORK_G2"/>
 		<text group="20" align="middle" format="b">&#160;Gnutella2: </text>
-		<text group="21" align="middle">Disconnected</text>
+		<text group="21" align="middle">Disconnected </text>
 		<text group="22" align="middle">Connecting...</text>
 		<text group="23" align="middle" id="G2Peers">Hub mode</text>
 		<text group="24" align="middle" id="G2Hubs">%i Hubs</text>
@@ -1904,7 +1907,7 @@
 		<newline group="20" gap="2"/>
 		<icon group="10" command="ID_NETWORK_G1"/>
 		<text group="10" align="middle" format="b">&#160;Gnutella: </text>
-		<text group="11" align="middle">Disconnected</text>
+		<text group="11" align="middle">Disconnected </text>
 		<text group="12" align="middle">Connecting...</text>
 		<text group="13" align="middle" id="G1Peers">Ultrapeer</text>
 		<text group="14" align="middle" id="G1Hubs">%i Peers</text>
@@ -1912,7 +1915,7 @@
 		<newline group="10" gap="2"/>
 		<icon group="30" command="ID_NETWORK_ED2K"/>
 		<text group="30" align="middle" format="b">&#160;eDonkey: </text>
-		<text group="31" align="middle">Disconnected</text>
+		<text group="31" align="middle">Disconnected </text>
 		<text group="32" align="middle">Connecting...</text>
 		<text group="33" align="middle" id="ED2KServers">1 Server</text>
 		<newline group="30" gap="2"/>
@@ -1972,7 +1975,7 @@
 				<newline gap="4"/>
 			</group>
 			<link id="DownloadsNone" target="peer:command:ID_VIEW_DOWNLOADS">Go to Downloads View</link>
-			<link id="DownloadsOne"  target="peer:command:ID_VIEW_DOWNLOADS" format="bu">1 active download</link>
+			<link id="DownloadsOne" target="peer:command:ID_VIEW_DOWNLOADS" format="bu">1 active download</link>
 			<link id="DownloadsMany" target="peer:command:ID_VIEW_DOWNLOADS" format="bu">%i active downloads</link>
 			<newline gap="4"/>
 			<text id="DownloadedNone">No files (</text>
@@ -2008,7 +2011,7 @@
 		<text format="b">Welcome to PeerProject's Settings Manager</text>
 		<newline gap="16"/>
 		<text>These option pages allow advanced users to customize how PeerProject works.
-		&#160;Settings in the </text>
+			&#160;Settings in the </text>
 		<text format="b">General </text>
 		<text>section relate to user experience.</text>
 		<newline gap="16" indent="16"/>
@@ -2188,7 +2191,7 @@
 		<text format="b">The Disk is Full</text>
 		<newline gap="8"/>
 		<text>PeerProject has paused this download automatically because the hard disk
-		appears to be full, or the download file cannot be written to. If you wish to 
+		appears to be full, or the download file cannot be written to. If you wish to
 		continue downloading, please free some space on your hard disk and/or check
 		to make sure the incomplete file folder is accessible, and then resume the download.</text>
 	</document>
@@ -2451,34 +2454,38 @@
 	<tip id="ID_DOWNLOADS_CLEAR" message="Clear/Remove selected downloads."/>
 	<tip id="ID_DOWNLOADS_CLEAR_COMPLETE" message="Remove selected complete downloads from the list."/>
 	<tip id="ID_DOWNLOADS_CLEAR_COMPLETED" message="Clear downloads which have been completed."/>
-	<tip id="ID_DOWNLOADS_CLEAR_INCOMPLETE" message="Cancel the selected incomplete download(s)."/>
+	<tip id="ID_DOWNLOADS_CLEAR_INCOMPLETE" message="Cancel selected incomplete downloads."/>
 	<tip id="ID_DOWNLOADS_CLEAR_PAUSED" message="Clear downloads which have been paused."/>
 	<tip id="ID_DOWNLOADS_URI" message="Copy the URI of the selected file. (P2P hyperlink)"/>
 	<tip id="ID_DOWNLOADS_EDIT" message="Show the advanced edit download interface..."/>
 	<tip id="ID_DOWNLOADS_ENQUEUE" message="Add selected downloads to your media playlist."/>
-	<tip id="ID_DOWNLOADS_FILE_DELETE" message="Delete the selected completed file(s)."/>
-	<tip id="ID_DOWNLOADS_FILTER_ACTIVE" message="Show downloads which are active."/>
+	<tip id="ID_DOWNLOADS_FILE_DELETE" message="Delete the selected completed files."/>
+	<tip id="ID_DOWNLOADS_FILTER_ACTIVE" message="Show downloads that are active."/>
 	<tip id="ID_DOWNLOADS_FILTER_ALL" message="Show all downloads."/>
 	<tip id="ID_DOWNLOADS_FILTER_MENU" message="Choose which types of downloads to show and which types to hide in this view."/>
-	<tip id="ID_DOWNLOADS_FILTER_PAUSED" message="Show downloads which are paused."/>
-	<tip id="ID_DOWNLOADS_FILTER_QUEUED" message="Show downloads which are waiting in queues."/>
-	<tip id="ID_DOWNLOADS_FILTER_SOURCES" message="Show downloads which are waiting for sources."/>
+	<tip id="ID_DOWNLOADS_FILTER_PAUSED" message="Show downloads that are paused."/>
+	<tip id="ID_DOWNLOADS_FILTER_QUEUED" message="Show downloads that are waiting in queues."/>
+	<tip id="ID_DOWNLOADS_FILTER_SOURCES" message="Show downloads that are waiting for sources."/>
+	<tip id="ID_DOWNLOADS_FILTER_SEEDS" message="Show completed torrents that are seeding for others."/>
 	<tip id="ID_DOWNLOADS_HELP" message="View help information on this download..."/>
-	<tip id="ID_DOWNLOADS_LAUNCH" message="Preview the selected file(s) in place."/>
-	<tip id="ID_DOWNLOADS_LAUNCH_COMPLETE" message="Open or play the selected file(s)."/>
-	<tip id="ID_DOWNLOADS_LAUNCH_COPY" message="SmartPreview the selected download(s)."/>
+	<tip id="ID_DOWNLOADS_LAUNCH" message="Preview the selected partial files in place."/>
+	<tip id="ID_DOWNLOADS_LAUNCH_COMPLETE" message="Open or play selected files."/>
+	<tip id="ID_DOWNLOADS_LAUNCH_COPY" message="SmartPreview selected downloads."/>
+	<tip id="ID_DOWNLOADS_MERGE" message="Add a file-part you may already have, and verify."/>
 	<tip id="ID_DOWNLOADS_MONITOR" message="Open a download monitor window for this download..."/>
-	<tip id="ID_DOWNLOADS_MOVE_DOWN" message="Move the selected download(s) down the priority list."/>
-	<tip id="ID_DOWNLOADS_MOVE_UP" message="Move the selected download(s) up the priority list."/>
-	<tip id="ID_DOWNLOADS_PAUSE" message="Pause the selected download(s)."/>
+	<tip id="ID_DOWNLOADS_MOVE_DOWN" message="Move selected downloads one step down the priority list."/>
+	<tip id="ID_DOWNLOADS_MOVE_UP" message="Move selected downloads one step up the priority list."/>
+	<tip id="ID_DOWNLOADS_MOVE_TOP" message="Move selected downloads to the top of the priority list."/>
+	<tip id="ID_DOWNLOADS_MOVE_BOTTOM" message="Move selected downloads to the end of the priority list."/>
+	<tip id="ID_DOWNLOADS_PAUSE" message="Pause selected downloads."/>
 	<tip id="ID_DOWNLOADS_RATE" message="Rate the selected download."/>
 	<tip id="ID_DOWNLOADS_REMOTE_PREVIEW" message="Download preview image for the selected download."/>
 	<tip id="ID_DOWNLOADS_RESUME" message="Resume selected downloads."/>
 	<tip id="ID_DOWNLOADS_SETTINGS" message="Configure download settings..."/>
 	<tip id="ID_DOWNLOADS_SHARE" message="Share this partially downloaded file with other users."/>
 	<tip id="ID_DOWNLOADS_SHOW_SOURCES" message="Display sources which are not currently being used."/>
-	<tip id="ID_DOWNLOADS_SOURCES" message="Search for more sources for the selected download(s)."/>
 	<tip id="ID_DOWNLOADS_ADD_SOURCE" message="Add a source URL to the selected download..."/>
+	<tip id="ID_DOWNLOADS_SOURCES" message="Search for more sources for selected downloads."/>
 	<tip id="ID_DOWNLOADS_VIEW_REVIEWS" message="View reviews for the selected download"/>
 	<tip id="ID_HELP_ABOUT" message="Display the PeerProject about dialog..."/>
 	<tip id="ID_HELP_CODEC" message="All about codecs and video problems."/>
@@ -2654,7 +2661,7 @@
 	<tip id="ID_TAB_NETWORK" message="See how well you are connected to the Network."/>
 	<tip id="ID_TAB_LIBRARY" message="View and manage your local content library."/>
 	<tip id="ID_TAB_MEDIA" message="Play audio and video media files from your library."/>
-	<tip id="ID_TAB_IRC" message="Show the IRC Chat window."/>
+	<tip id="ID_TAB_IRC" message="Show the IRC chatrooms view."/>
 	<tip id="ID_TOOLS_DOWNLOAD" message="Start downloading a new file or torrent..."/>
 	<tip id="ID_TOOLS_LANGUAGE" message="Select the language you wish to use PeerProject in..."/>
 	<tip id="ID_TOOLS_PROFILE" message="Edit your user profile..."/>
@@ -2841,23 +2848,23 @@
 	<string id="8181" value="Max Filesize:"/>
 	<string id="8208" value="PeerProject is creating hashes for %Iu files:"/>
 	<string id="8223" value="%i days and %i hours"/>
-	<string id="8224" value="PeerProject is downloading:"/>
-	<string id="8225" value="This download is paused:"/>
+	<string id="8224" value="PeerProject is downloading:"/> <!-- Not used -->
+	<string id="8225" value="This download is paused:"/> <!-- Not used -->
 	<string id="8226" value="PeerProject has completed downloading:"/>
 	<string id="8227" value="%i hours and %i minutes"/>
 	<string id="8228" value="%i minutes and %i seconds"/>
 	<string id="8229" value="%i seconds"/>
-	<string id="8230" value="PeerProject is looking for sources for:"/>
+	<string id="8230" value="PeerProject is looking for sources for:"/> <!-- Not used -->
 	<string id="8231" value="No sources"/>
 	<string id="8232" value="Open"/>
-	<string id="8233" value="Preview"/>
+	<string id="8233" value="Cancel"/>
 	<string id="8235" value="Total transfer speed:"/>
-	<string id="8236" value="Estimated time remaining:"/>
-	<string id="8237" value="Volume downloaded:"/>
+	<string id="8236" value="Estimated time:"/>
+	<string id="8237" value="Total downloaded:"/>
 	<string id="8238" value="Number of sources:"/>
 	<string id="8239" value="Completed"/>
-	<string id="8240" value="PeerProject is moving the download:"/>
-	<string id="8241" value="PeerProject is checking the download for errors:"/>
+	<string id="8240" value="PeerProject is moving the download:"/> <!-- Not used -->
+	<string id="8241" value="Checking download for errors:"/> <!-- Not used -->
 	<string id="8243" value="Volume uploaded:"/>
 	<string id="8244" value="Number of reviews:"/>
 	<string id="8288" value="Exploring Your PeerProject Library"/>
@@ -3118,7 +3125,7 @@
 	<string id="16402" value="PeerProject received a collection file:\n\n&quot;%s&quot;\n\nThis file does not appear to be a valid collection file."/>
 	<string id="16403" value="PeerProject has added the collection file &quot;%s&quot; to your library."/>
 	<string id="16404" value="PeerProject was unable to install the collection file &quot;%s&quot; by copying it to the folder &quot;%s&quot;."/>
-	<string id="16405" value="Would you like to download this file?\n\n&quot;%s&quot;\n\nChoose Cancel to stop any further prompts."/>
+	<!-- No id="16405" -->
 	<string id="16406" value="Would you like to download all files in this collection?\n\nChoose Cancel to stop any further prompts."/>
 	<string id="16407" value="Would you like to prevent this collection from prompting you to download anything else?"/>
 	<string id="16408" value="Get P2P Link (&amp;URI)"/>
@@ -3375,6 +3382,10 @@
 	<string id="18509" value="You cannot assume this download is complete and reverify it because you do not yet have any partial verification data, such as tiger-tree volume, eDonkey hashset or BitTorrent hashset. Without verification information the download cannot be reverified."/>
 	<string id="18510" value="Are you sure you want to assume this download is complete and reverify it? The whole file will be considered, and PeerProject will accept parts which pass verification and redownload parts which fail verification."/>
 	<string id="18511" value="You have made changes to the file size. Are you sure you want to change the file size for this download?"/>
+	<string id="18512" value="Do you wish to cancel this download but save the incomplete files?"/>
+	<string id="18513" value="You have typed an %s hash value, however it is invalid. Please check it and try again."/>
+	<string id="18514" value="You have provided an %s hash value that is different from the one currently associated with this download. Are you sure you want to change the %s hash now?"/>
+	<string id="18515" value="The selected download currently has an active Task, please wait."/>
 	<string id="19000" value="Remote access is disabled."/>
 	<string id="19001" value="You must choose a username and password."/>
 	<string id="19002" value="Unable to accept connections, URL unavailable."/>
@@ -3504,14 +3515,14 @@
 		<control caption="Minimize button behavior:"/>
 		<control caption="Normal Taskbar|Minimize to Tray"/>
 	</dialog>
-	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBu" caption="Library">
+	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuBuCoBuBuBuCoBuBuBuEdBu" caption="Library">
 		<control caption="_Options:"/>
 		<control caption="Allow others to browse"/>
+		<control caption="Remember folder views"/>
 		<control caption="Watch library folders"/>
 		<control caption="Quick hashing  (more CPU)"/>
 		<control caption="Smart media series detection"/>
-		<control caption="Create ghost files when deleting"/>
-		<control caption="Remember folder views"/>
+		<control caption="Create ghost files by default"/>
 		<control caption="_Recent Files:"/>
 		<control caption="Remember:"/>
 		<control/>
@@ -3521,7 +3532,8 @@
 		<control/>
 		<control/>
 		<control caption="days"/>
-		<control caption="Clear History Now"/>
+		<control caption="Clear History"/>
+		<control caption="Clear Ghosts"/>
 		<control caption="_Safe to Open Types:"/>
 		<control/>
 		<control caption="_Add"/>
@@ -4166,8 +4178,7 @@
 		<control caption="Cancel"/>
 		<control/>
 	</dialog>
-	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStStBuBuBuBuBu" caption="Download">
-		<control caption="PeerProject is downloading:"/>
+	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStBuBuBuBu" caption="Download">
 		<control caption="..."/>
 		<control/>
 		<control/>
@@ -4181,7 +4192,6 @@
 		<control caption="Total downloaded:"/>
 		<control caption="..."/>
 		<control caption="Show"/>
-		<control caption="Open"/>
 		<control caption="Cancel"/>
 		<control caption="Close"/>
 		<control caption="Close window when completed"/>
@@ -4566,23 +4576,23 @@
 		<control caption="to"/>
 		<control caption="Erase"/>
 	</dialog>
-	<dialog name="CDownloadGroupDlg" cookie="BuBuEdCoBuCoBuBuEdBuBuBuBuBuBuSt" caption="Download Group Properties">
-		<control caption="OK"/>
-		<control caption="Cancel"/>
+	<dialog name="CDownloadGroupDlg" cookie="BuEdBuEdBuBuBuCoBuBuBuCoStBuBu" caption="Download Group Properties">
+		<control caption="_Group Name:"/>
+		<control/>
+		<control caption="_Completed File Folder:"/>
 		<control/>
 		<control/>
-		<control caption="_BitTorrent downloads+seeds"/>
+		<control/>
+		<control caption="_Auto-Filters:"/>
 		<control/>
 		<control caption="_Add"/>
 		<control caption="_Remove"/>
+		<control caption="_Types of Files:"/>
 		<control/>
-		<control/>
-		<control/>
-		<control caption="_Group Name:"/>
-		<control caption="_Auto-Filters:"/>
-		<control caption="_Completed File Folder:"/>
-		<control caption="_Type of Files:"/>
-		<control caption="_*Drag&apos;n&apos;drop any download later."/>
+		<control caption="_BitTorrent packages"/>
+		<control caption="*Add any download type later."/>
+		<control caption="OK"/>
+		<control caption="Cancel"/>
 	</dialog>
 	<dialog name="CMediaVisDlg" cookie="StBuSyCoBuBuBu" caption="Select Visualisation">
 		<control/>

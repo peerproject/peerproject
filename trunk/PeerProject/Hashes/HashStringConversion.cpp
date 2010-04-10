@@ -1,7 +1,7 @@
 //
 // Hashes/HashStringConversion.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2005-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -21,10 +21,11 @@
 
 //! \file       Hashes/HashStringConversion.cpp
 //! \brief      Defines functions for conversion between hashes and strings.
+// Note: "CString" were custom "StringType"
 
 #include "..\StdAfx.h"
 
-// If we are compiling in debug mode, replace the text "THIS_FILE" in the code with the name of this file
+// Constant "THIS_FILE" is the name of this file, in Debug mode
 #ifdef _DEBUG
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
@@ -60,14 +61,14 @@ namespace Hashes
 		return true;
 	}
 
-	StringType toGuid(const uchar* hash)
+	CString toGuid(const uchar* hash)
 	{
 		return toGuid( *reinterpret_cast< const CLSID* >( hash ), false );
 	}
 
-	StringType toGuid(REFCLSID hash, bool enclosed)
+	CString toGuid(REFCLSID hash, bool enclosed)
 	{
-		StringType str;
+		CString str;
 		if ( enclosed )
 			str.Format( _T("{%.8X-%.4X-%.4X-%.2X%.2X-%.2X%.2X%.2X%.2X%.2X%.2X}"),
 			hash.Data1, hash.Data2, hash.Data3,
@@ -124,7 +125,7 @@ namespace Hashes
 		return fromGuid( reinterpret_cast< uchar* >( hash ), input );
 	}
 
-	StringType toBase16(const uchar* hash, size_t byteCount)
+	CString toBase16(const uchar* hash, size_t byteCount)
 	{
 		wchar result[ maxByteCount * 2 + 1 ];
 		for ( size_t i = 0; i < byteCount; ++i )
@@ -162,7 +163,7 @@ namespace Hashes
 		return true;
 	}
 
-	StringType toBase32(const uchar* hash, size_t byteCount)
+	CString toBase32(const uchar* hash, size_t byteCount)
 	{
 		const size_t base32Chars = ( byteCount * CHAR_BIT + 4 ) / 5;
 		wchar result[ ( maxByteCount * CHAR_BIT + 4 ) / 5 + 1 ];

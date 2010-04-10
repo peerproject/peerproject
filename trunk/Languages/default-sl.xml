@@ -1,9 +1,9 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
+<?xml version="1.0" encoding="UTF-8"?>
+<skin xmlns="http://schemas.peerproject.org/Skin.xsd" version="1.0">
 
 <!-- PeerProject Default Slovenian Skin File -->
 
-<!-- Translation based on default-en.xml r48 (Shareaza 2.2.2.12) -->
+<!-- Translation based on default-en.xml r50 (Shareaza 2.2.2.12) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1004,31 +1004,28 @@
 	<!-- DOWNLOADS WINDOW -->
 	<menu name="CDownloadsWnd.Download.Basic">
 		<item id="ID_DOWNLOADS_LAUNCH" text="_Predogled"/>
-		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="R_emote Preview"/>
-		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="Poglej _ocene"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_RESUME" text="_Nadaljuj"/>
 		<item id="ID_DOWNLOADS_PAUSE" text="P_remor"/>
 		<item id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="_Prekliči"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_SOURCES" text="Najdi _dodatne vire"/>
-		<!-- <separator/>
-		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Počisti _kočano"/>
-		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="_Samodejno počisti"/> -->
+		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="R_emote Preview"/>
+		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="Poglej _ocene"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_HELP" text="_Pomoč..."/>
 	</menu>
 	<menu name="CDownloadsWnd.Download">
-		<item id="ID_DOWNLOADS_LAUNCH" text="_Predogled"/>
 		<item id="ID_DOWNLOADS_LAUNCH_COPY" text="Pre_view Copy"/>
+		<item id="ID_DOWNLOADS_LAUNCH" text="_Predogled"/>
 		<item id="ID_DOWNLOADS_ENQUEUE" text="_Dodaj predvajalnemu seznamu"/>
-		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="R_emote Preview"/>
-		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="Poglej _ocene"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_RESUME" text="_Nadaljuj"/>
 		<item id="ID_DOWNLOADS_PAUSE" text="P_remor"/>
 		<item id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Pre_kliči"/>
 		<separator/>
+		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="Poglej _ocene"/>
+		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="R_emote Preview"/>
 		<item id="ID_DOWNLOADS_SOURCES" text="Najdi _dodatne vire"/>
 		<separator/>
 		<menu text="_Napredno">
@@ -1036,14 +1033,17 @@
 			<separator/>
 			<item id="ID_DOWNLOADS_URI" text="_Kopiraj URI"/>
 			<item id="ID_DOWNLOADS_ADD_SOURCE" text="Dodaj _vir..."/>
+			<item id="ID_DOWNLOADS_MERGE" text="Spajanje lokalne datoteke"/>
 			<separator/>
 			<item id="ID_DOWNLOADS_MONITOR" text="Okno _nadzornika"/>
+		</menu>
+		<menu text="Predn_ost">
 			<item id="ID_DOWNLOADS_BOOST" text="Prezri _omejitev pasovne širine"/>
 			<separator/>
-			<item id="ID_DOWNLOADS_MOVE_UP" text="Premakni _gor"/>
-			<item id="ID_DOWNLOADS_MOVE_DOWN" text="Premakni _dol"/>
 			<item id="ID_DOWNLOADS_MOVE_TOP" text="Premakni _gor!"/>
 			<item id="ID_DOWNLOADS_MOVE_BOTTOM" text="Premakni _dol!"/>
+			<item id="ID_DOWNLOADS_MOVE_UP" text="Premakni _gor"/>
+			<item id="ID_DOWNLOADS_MOVE_DOWN" text="Premakni _dol"/>
 		</menu>
 		<item id="ID_DOWNLOADS_HELP" text="_Pomoč..."/>
 		<separator/>
@@ -2588,7 +2588,7 @@
 	<string id="8230" value="PeerProject išče vire za:"/>
 	<string id="8231" value="Ni virov"/>
 	<string id="8232" value="Odpri"/>
-	<string id="8233" value="Predogled"/>
+	<string id="8233" value="Prekliči"/>
 	<string id="8235" value="Skupna hitrost prenosa:"/>
 	<string id="8236" value="Ocenjen čas do konca:"/>
 	<string id="8237" value="Prenešen zvezek (volume):"/>
@@ -2852,7 +2852,6 @@
 	<string id="16402" value="PeerProject je prejela kolekcijsko datoteko (collection):\n\n&quot;%s&quot;\n\nKot kaže, datoteka ni ustrezna kolekcijska datoteka."/>
 	<string id="16403" value="PeerProject je dodala kolekcijsko datoteko &quot;%s&quot; v vašo knjižnico."/>
 	<string id="16404" value="PeerProject ni uspela namestiti kolekcijske datoteke &quot;%s&quot; med postopkom kopiranja v mapo &quot;%s&quot;."/>
-	<string id="16405" value="Želite prenesti to datoteko?\n\n&quot;%s&quot;\n\nIzberite Prekliči (Cancel), če želite ustaviti nadaljna vprašanja glede tega."/>
 	<string id="16406" value="Želite prenesti vse datoteke v tej kolekciji?\n\nIzberite Prekliči (Cancel), če želite ustaviti nadaljna vprašanja glede tega."/>
 	<string id="16407" value="Želite preprečiti tej kolekciji, da vas sprašuje po prenašanju česarkoli drugega?"/>
 	<string id="16408" value="Kopiraj &amp;URI"/>
@@ -3201,14 +3200,14 @@
 		<control caption="Ko izberem minimizranje:"/>
 		<control caption="Navadno|Minimiziraj v opravilno vrstico"/>
 	</dialog>
-	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBu" caption="Knjižnica">
+	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuBuCoBuBuBuCoBuBuBuEdBu" caption="Knjižnica">
 		<control caption="_Možnosti:"/>
 		<control caption="Dovoljuj brskanje drugim"/>
-		<control caption="Opazuj knjižnične mape"/>
-		<control caption="Hitro zgoščevanje (obremenjuje procesor)"/>
-		<control caption="Smart video series detection"/>
-		<control caption="Create ghost files when deleting"/>
 		<control caption="Zapomni si poglede map"/>
+		<control caption="Opazuj knjižnične mape"/>
+		<control caption="Hitro zgoščevanje (+procesor)"/>
+		<control caption="Smart video series detection"/>
+		<control caption="Create ghost files by default"/>
 		<control caption="_Nedavne datoteke:"/>
 		<control caption="Zapomnite si:"/>
 		<control/>
@@ -3219,6 +3218,7 @@
 		<control/>
 		<control caption="dni"/>
 		<control caption="Počisti zgodovino"/>
+		<control caption="Počisti ghosts"/>
 		<control caption="_Varno za odpiranje:"/>
 		<control/>
 		<control caption="_Dodaj"/>
@@ -3819,8 +3819,7 @@
 		<control caption="V redu"/>
 		<control caption="Prekliči"/>
 	</dialog>
-	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStStBuBuBuBuBu" caption="Prenesi">
-		<control caption="PeerProject prenaša:"/>
+	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStBuBuBuBu" caption="Prenesi">
 		<control caption="..."/>
 		<control/>
 		<control/>
@@ -3834,7 +3833,6 @@
 		<control caption="Prenešen zvezek:"/>
 		<control caption="..."/>
 		<control caption="Ogled knjižnice"/>
-		<control caption="Odpri datoteko"/>
 		<control caption="Prekliči prenos"/>
 		<control caption="Skrij"/>
 		<control caption="Po končanem prenosu zapri to okno"/>
@@ -4209,23 +4207,22 @@
 		<control caption="do"/>
 		<control caption="Briši"/>
 	</dialog>
-	<dialog name="CDownloadGroupDlg" cookie="BuBuEdCoBuCoBuBuEdBuBuBuBuBuBuSt" caption="Lastnosti prenosne skupine">
-		<control caption="V redu"/>
-		<control caption="Prekliči"/>
+	<dialog name="CDownloadGroupDlg" cookie="BuEdBuEdBuBuBuCoBuBuBuCoStBuBu" caption="Lastnosti prenosne skupine">
+		<control caption="_Ime:"/>
+		<control/>
+		<control caption="_Mapa z dokončanimi datotekami:"/>
 		<control/>
 		<control/>
-		<control caption="_BitTorrent"/>
+		<control/>
+		<control caption="_Filtri:"/>
 		<control/>
 		<control caption="_Dodaj"/>
 		<control caption="_Odstrani"/>
-		<control/>
-		<control/>
-		<control/>
-		<control caption="_Ime:"/>
-		<control caption="_Filtri:"/>
-		<control caption="_Mapa z dokončanimi datotekami:"/>
 		<control caption="_Datotečnih tipov:"/>
-		<control caption="_*Drag&apos;n&apos;drop any download later."/>
+		<control/>
+		<control caption="*Drag&apos;n&apos;drop any download later."/>
+		<control caption="V redu"/>
+		<control caption="Prekliči"/>
 	</dialog>
 	<dialog name="CMediaVisDlg" cookie="StBuSyCoBuBuBu" caption="Izberi vizualizacijo">
 		<control/>
@@ -4419,4 +4416,4 @@
 		<column from="Order" to="Zaporedje"/>
 	</list>
 </listColumns>
-</skin>
+</skin>خ醸욍

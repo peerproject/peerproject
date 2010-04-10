@@ -1,9 +1,9 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
+<?xml version="1.0" encoding="UTF-8"?>
+<skin xmlns="http://schemas.peerproject.org/Skin.xsd" version="1.0">
 
 <!-- PeerProject Default Italian Skin File -->
 
-<!-- Translation based on default-en.xml r48 -->
+<!-- Translation based on default-en.xml r50 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1050,46 +1050,46 @@
 	<!-- DOWNLOADS WINDOW -->
 	<menu name="CDownloadsWnd.Download.Basic">
 		<item id="ID_DOWNLOADS_LAUNCH" text="Anteprima"/>
-		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="Anteprima r_emota"/>
-		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="_Visualizza revisioni"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_RESUME" text="Riprendi"/>
 		<item id="ID_DOWNLOADS_PAUSE" text="Pausa"/>
 		<item id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Annulla"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_SOURCES" text="Trova più fonti"/>
-		<!-- <separator/>
-		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Rimuovi file completati"/>
-		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="Rimozione automatica"/> -->
+		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="Anteprima r_emota"/>
+		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="_Visualizza revisioni"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_HELP" text="Aiuto..."/>
 	</menu>
 	<menu name="CDownloadsWnd.Download">
-		<item id="ID_DOWNLOADS_LAUNCH" text="Anteprima"/>
 		<item id="ID_DOWNLOADS_LAUNCH_COPY" text="Copia di anteprima"/>
+		<item id="ID_DOWNLOADS_LAUNCH" text="Anteprima"/>
 		<item id="ID_DOWNLOADS_ENQUEUE" text="Aggiungi alla playlist"/>
-		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="Anteprima r_emota"/>
-		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="_Visualizza revisioni"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_RESUME" text="Riprendi"/>
 		<item id="ID_DOWNLOADS_PAUSE" text="Pausa"/>
 		<item id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Annulla"/>
 		<separator/>
-		<item id="ID_DOWNLOADS_SOURCES" text="Trova più fonti"/>
+		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="_Visualizza revisioni"/>
+		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="Anteprima r_emota"/>
+		<item id="ID_DOWNLOADS_ADD_SOURCE" text="Aggiungi fonte..."/>
 		<separator/>
-		<menu text="Avanzate">
+		<menu text="_Avanzate">
 			<item id="ID_DOWNLOADS_SHARE" text="Condividi file"/>
 			<separator/>
 			<item id="ID_DOWNLOADS_URI" text="Copia URI"/>
-			<item id="ID_DOWNLOADS_ADD_SOURCE" text="Aggiungi fonte..."/>
+			<item id="ID_DOWNLOADS_SOURCES" text="Trova più fonti"/>
+			<item id="ID_DOWNLOADS_MERGE" text="Unione file locale..."/>
 			<separator/>
 			<item id="ID_DOWNLOADS_MONITOR" text="Finestra monitor"/>
+		</menu>
+		<menu text="Pri_orità">
 			<item id="ID_DOWNLOADS_BOOST" text="Ignora limite di banda"/>
 			<separator/>
-			<item id="ID_DOWNLOADS_MOVE_UP" text="Sposta su"/>
-			<item id="ID_DOWNLOADS_MOVE_DOWN" text="Sposta giù"/>
-			<item id="ID_DOWNLOADS_MOVE_TOP" text="Sposta su!"/>
-			<item id="ID_DOWNLOADS_MOVE_BOTTOM" text="Sposta giù!"/>
+			<item id="ID_DOWNLOADS_MOVE_TOP" text="Sposta su!" shortcut="Ctrl+Home"/>
+			<item id="ID_DOWNLOADS_MOVE_BOTTOM" text="Sposta giù!" shortcut="Ctrl+End"/>
+			<item id="ID_DOWNLOADS_MOVE_UP" text="Sposta su" shortcut="Ctrl+Up"/>
+			<item id="ID_DOWNLOADS_MOVE_DOWN" text="Sposta giù" shortcut="Ctrl+Down"/>
 		</menu>
 		<item id="ID_DOWNLOADS_HELP" text="Aiuto..."/>
 		<separator/>
@@ -2746,7 +2746,7 @@
 	<string id="8230" value="PeerProject sta cercando fonti per:"/>
 	<string id="8231" value="Nessuna fonte"/>
 	<string id="8232" value="Apri"/>
-	<string id="8233" value="Anteprima"/>
+	<string id="8233" value="Annulla"/>
 	<string id="8235" value="Velocità totale:"/>
 	<string id="8236" value="Tempo residuo stimato:"/>
 	<string id="8237" value="Volume scaricato:"/>
@@ -3014,7 +3014,6 @@
 	<string id="16402" value="PeerProject ha ricevuto un file collezione:\n\n&quot;%s&quot;\n\nQuesto file non sembra essere un file collezione valido."/>
 	<string id="16403" value="PeerProject ha aggiunto la collezione &quot;%s&quot; alla tua libreria."/>
 	<string id="16404" value="PeerProject non è riuscito ad installare la collezione &quot;%s&quot; copiandola nella cartella &quot;%s&quot;."/>
-	<string id="16405" value="Desideri scaricare questo file?\n\n&quot;%s&quot;\n\nScegli Annulla per non mostrare ulteriori richieste."/>
 	<string id="16406" value="Desideri scaricare tutti i file in questa collezione?\n\nScegli Annulla per non mostrare ulteriori richieste."/>
 	<string id="16407" value="Desideri impedire a questa collezione di chiederti di scaricare qualcosiasi altra cosa?"/>
 	<string id="16408" value="Copia &amp;URI"/>
@@ -3400,14 +3399,14 @@
 		<control caption="Quando clicco minimizza:"/>
 		<control caption="Normale|Minimizza nell'area di notifica"/>
 	</dialog>
-	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBu" caption="Libreria">
+	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuBuCoBuBuBuCoBuBuBuEdBu" caption="Libreria">
 		<control caption="_Opzioni:"/>
 		<control caption="Permetti di vedere i tuoi file"/>
+		<control caption="Salva visualizzazione cartelle"/>
 		<control caption="Visualizza cartelle nella libreria"/>
 		<control caption="Hash veloce (molta CPU)"/>
 		<control caption="Rilevamento serie di video"/>
 		<control caption="Crea file fantasma di cancellazione"/>
-		<control caption="Salva visualizzazione cartelle"/>
 		<control caption="_File recenti:"/>
 		<control caption="Memorizza:"/>
 		<control/>
@@ -3417,7 +3416,8 @@
 		<control/>
 		<control/>
 		<control caption="giorni"/>
-		<control caption="Cancella cronologia"/>
+		<control caption="Cancella crono."/>
+		<control caption="Cancella fantasmas"/>
 		<control caption="Estensioni _sicure:"/>
 		<control/>
 		<control caption="_Aggiungi"/>
@@ -4062,8 +4062,7 @@
 		<control caption="Annulla"/>
 		<control/>
 	</dialog>
-	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStStBuBuBuBuBu" caption="Download">
-		<control caption="PeerProject sta scaricando:"/>
+	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStBuBuBuBu" caption="Download">
 		<control caption="..."/>
 		<control/>
 		<control/>
@@ -4077,7 +4076,6 @@
 		<control caption="Volume scaricato:"/>
 		<control caption="..."/>
 		<control caption="Visualizza"/>
-		<control caption="Apri"/>
 		<control caption="Annulla"/>
 		<control caption="Chiudi"/>
 		<control caption="Chiudi questa finestra al termine del download"/>
@@ -4452,23 +4450,22 @@
 		<control caption="a"/>
 		<control caption="Cancella"/>
 	</dialog>
-	<dialog name="CDownloadGroupDlg" cookie="BuBuEdCoBuCoBuBuEdBuBuBuBuBuBuSt" caption="Proprietà gruppo di download">
-		<control caption="OK"/>
-		<control caption="Annulla"/>
+	<dialog name="CDownloadGroupDlg" cookie="BuEdBuEdBuBuBuCoBuBuBuCoStBuBu" caption="Proprietà gruppo di download">
+		<control caption="_Nome di Gruppo:"/>
+		<control/>
+		<control caption="_Cartella dei file completati:"/>
 		<control/>
 		<control/>
-		<control caption="_BitTorrent"/>
+		<control/>
+		<control caption="_Filtri:"/>
 		<control/>
 		<control caption="_Aggiungi"/>
 		<control caption="_Rimuovi"/>
-		<control/>
-		<control/>
-		<control/>
-		<control caption="_Nome di Gruppo:"/>
-		<control caption="_Filtri:"/>
-		<control caption="_Cartella dei file completati:"/>
 		<control caption="_Tipo file:"/>
-		<control caption="_*Drag&apos;n&apos;drop any download later."/>
+		<control/>
+		<control caption="*Drag&apos;n&apos;drop any download later."/>
+		<control caption="OK"/>
+		<control caption="Annulla"/>
 	</dialog>
 	<dialog name="CMediaVisDlg" cookie="StBuSyCoBuBuBu" caption="Scegli visualizzazione">
 		<control/>

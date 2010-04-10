@@ -1950,10 +1950,11 @@ void CQuerySearch::Serialize(CArchive& ar)
 		ar << m_nMinSize;
 		ar << m_nMaxSize;
 	}
-	else
+	else // Loading
 	{
 		ar >> nVersion;
-		if ( nVersion < 8 ) AfxThrowUserException();
+		if ( nVersion < 8 )
+			AfxThrowUserException();
 
 		ReadArchive( ar, &m_oGUID[ 0 ], Hashes::Guid::byteCount );
 

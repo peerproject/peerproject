@@ -1,7 +1,7 @@
 //
 // RichDocument.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -126,7 +126,8 @@ void CRichDocument::ShowGroup(int nGroup, BOOL bShow)
 	for ( POSITION pos = GetIterator() ; pos ; )
 	{
 		CRichElement* pElement = GetNext( pos );
-		if ( pElement->m_nGroup == nGroup ) pElement->Show( bShow );
+		if ( pElement->m_nGroup == nGroup )
+			pElement->Show( bShow );
 	}
 }
 
@@ -316,9 +317,7 @@ BOOL CRichDocument::LoadXML(CXMLElement* pBase, CMap< CString, const CString&, C
 			{
 				if ( ! LoadXML( pXML, pMap, nGroup ) ) return FALSE;
 				if ( pElement->m_sText.CompareNoCase( _T("left") ) )
-				{
 					Add( new CRichElement( retAlign, _T("left") ) );
-				}
 			}
 
 			continue;
@@ -397,10 +396,12 @@ BOOL CRichDocument::LoadXML(CXMLElement* pBase, CMap< CString, const CString&, C
 			strTemp = pXML->GetAttributeValue( _T("width") );
 			if ( strTemp.GetLength() )
 			{
-				if ( pElement->m_sText.GetLength() ) pElement->m_sText += '.';
+				if ( pElement->m_sText.GetLength() )
+					pElement->m_sText += '.';
 				pElement->m_sText += strTemp;
 				strTemp = pXML->GetAttributeValue( _T("height") );
-				if ( strTemp.GetLength() ) pElement->m_sText += '.' + strTemp;
+				if ( strTemp.GetLength() )
+					pElement->m_sText += '.' + strTemp;
 			}
 		}
 
@@ -409,7 +410,8 @@ BOOL CRichDocument::LoadXML(CXMLElement* pBase, CMap< CString, const CString&, C
 		if ( pMap )
 		{
 			strTemp = pXML->GetAttributeValue( _T("id") );
-			if ( strTemp.GetLength() ) pMap->SetAt( strTemp, pElement );
+			if ( strTemp.GetLength() )
+				pMap->SetAt( strTemp, pElement );
 		}
 
 		Add( pElement );
@@ -440,20 +442,18 @@ BOOL CRichDocument::LoadXMLStyles(CXMLElement* pParent)
 		{
 			CString strFontFace = pFont->GetAttributeValue( _T("face") );
 			if ( ! strFontFace.IsEmpty() )
-			{
 				_tcsncpy( lf.lfFaceName, strFontFace, LF_FACESIZE );
-			}
+
 			CString strSize = pFont->GetAttributeValue( _T("size") );
 			if ( ! strSize.IsEmpty() )
 			{
 				if ( _stscanf( strSize, _T("%i"), &lf.lfHeight ) == 1 )
 					lf.lfHeight = - lf.lfHeight;
 			}
+
 			CString strWeight = pFont->GetAttributeValue( _T("weight") );
 			if ( ! strWeight.IsEmpty() )
-			{
 				_stscanf( strWeight, _T("%i"), &lf.lfWeight );
-			}
 		}
 
 		CXMLElement* pColors = pXML->GetElementByName( _T("colors") );

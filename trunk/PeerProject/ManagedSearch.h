@@ -95,7 +95,6 @@ public:
 
 protected:
 	int				m_nPriority;
-	BOOL			m_bStarted;				// Search started (and managed by SearchManager)
 	BOOL			m_bActive;
 	DWORD			m_tLastG2;				// Time a G2 hub was last searched
 	DWORD			m_nEDServers;			// Number of EDonkey servers searched

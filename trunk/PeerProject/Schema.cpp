@@ -141,7 +141,7 @@ BOOL CSchema::Load(LPCTSTR pszFile)
 	if ( theApp.m_bIsWin2000 || ! LoadIcon() )
 	{
 		m_sIcon = m_sIcon.Left( m_sIcon.GetLength() - 4 );
-		m_sIcon += _T("Safe.ico");
+		m_sIcon += _T(".Safe.ico");
 		LoadIcon();
 	}
 
@@ -162,7 +162,7 @@ BOOL CSchema::LoadSchema(LPCTSTR pszFile)
 	CString strXML;
 
 	CXMLElement* pRoot = CXMLElement::FromFile( pszFile );
-	if ( NULL == pRoot ) return FALSE;
+	if ( pRoot == NULL ) return FALSE;
 
 	BOOL bResult = FALSE;
 
@@ -200,8 +200,7 @@ BOOL CSchema::LoadSchema(LPCTSTR pszFile)
 		}
 	}
 
-	CXMLElement* pMapping = pRoot->GetElementByName( _T("mapping") );
-	if ( pMapping )
+	if ( CXMLElement* pMapping = pRoot->GetElementByName( _T("mapping") ) )
 	{
 		for ( POSITION pos = pMapping->GetElementIterator() ; pos ; )
 		{
@@ -221,6 +220,20 @@ BOOL CSchema::LoadSchema(LPCTSTR pszFile)
 			}
 		}
 	}
+
+	// ToDo: External documents
+	//CString strImported;
+	//if ( CXMLElement* pImported = pRoot->GetElementByName( _T("import") ) )
+	//	strImported = pImported->GetAttributeValue( _T("schemaLocation") );
+	//else if ( CXMLElement* pIncluded = pRoot->GetElementByName( _T("include") ) )
+	//	strImported = pIncluded->GetAttributeValue( _T("schemaDescriptor") );
+	//
+	//if ( strImported.GetLength() > 5 && strImported.Find( _T(".xsd") ) > 1 )
+	//{
+	//	CString strFile( pszFile );
+	//	strFile = strFile.Left( strFile.ReverseFind( '\\' ) + 1 ) + strImported;
+	//	LoadSchema( (LPCTSTR)strFile );
+	//}
 
 	delete pRoot;
 
@@ -320,18 +333,15 @@ BOOL CSchema::LoadDescriptor(LPCTSTR pszFile)
 				m_nAvailability = saSystem;
 			else if ( strType == _T("advanced") )
 				m_nAvailability = saAdvanced;
-			else
+			else // "default"
 				m_nAvailability = saDefault;
 
-			if ( pElement->GetAttribute( _T("private") ) ) m_bPrivate = TRUE;
+			if ( pElement->GetAttribute( _T("private") ) )
+				m_bPrivate = TRUE;
 		}
 		else if ( pElement->IsNamed( _T("titles") ) )
 		{
 			LoadDescriptorTitles( pElement );
-		}
-		else if ( pElement->IsNamed( _T("images") ) )
-		{
-			LoadDescriptorIcons( pElement );
 		}
 		else if ( pElement->IsNamed( _T("members") ) )
 		{
@@ -345,14 +355,6 @@ BOOL CSchema::LoadDescriptor(LPCTSTR pszFile)
 		{
 			LoadDescriptorContains( pElement );
 		}
-		else if ( pElement->IsNamed( _T("typeFilter") ) )
-		{
-			LoadDescriptorTypeFilter( pElement );
-		}
-		else if ( pElement->IsNamed( _T("bitziImport") ) )
-		{
-			LoadDescriptorBitziImport( pElement );
-		}
 		else if ( pElement->IsNamed( _T("headerContent") ) )
 		{
 			LoadDescriptorHeaderContent( pElement );
@@ -361,7 +363,19 @@ BOOL CSchema::LoadDescriptor(LPCTSTR pszFile)
 		{
 			LoadDescriptorViewContent( pElement );
 		}
-		// ToDo: Add this to schemas
+		else if ( pElement->IsNamed( _T("typeFilter") ) )
+		{
+			LoadDescriptorTypeFilter( pElement );
+		}
+		else if ( pElement->IsNamed( _T("bitziImport") ) )
+		{
+			LoadDescriptorBitziImport( pElement );
+		}
+		else if ( pElement->IsNamed( _T("images") ) )
+		{
+			LoadDescriptorIcons( pElement );
+		}
+		// ToDo: Add this to schemas for ed2k
 		//else if ( pElement->IsNamed( _T("donkeyType") ) )
 		//{
 		//	LoadDescriptorDonkeyType( pElement );
@@ -480,11 +494,16 @@ void CSchema::LoadDescriptorTypeFilter(CXMLElement* pElement)
 		if ( pType->GetName().CompareNoCase( _T("type") ) == 0 )
 		{
 			CString strType = pType->GetAttributeValue( _T("extension"), _T("") );
-			ToLower( strType );
-
-			m_sTypeFilter += _T("|.");
-			m_sTypeFilter += strType;
-			m_sTypeFilter += '|';
+			if ( strType.GetLength() )
+			{
+				ToLower( strType );
+				m_sTypeFilter += _T("|.") + strType;
+			}
+			else
+			{
+				strType = pType->GetAttributeValue( _T("keyword"), _T("") );
+				m_sTypeFilter += _T("|") + strType;
+			}
 		}
 	}
 }
@@ -851,3 +870,5 @@ LPCTSTR	CSchema::uriGhostFolder				= _T("http://www.shareaza.com/schemas/ghostFo
 LPCTSTR CSchema::uriComments				= _T("http://www.shareaza.com/schemas/comments.xsd");
 
 LPCTSTR CSchema::uriBitTorrent				= _T("http://www.shareaza.com/schemas/bittorrent.xsd");
+
+LPCTSTR	CSchema::uriSkin					= _T("http://schemas.peerproject.org/Skin.xsd");

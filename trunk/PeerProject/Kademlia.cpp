@@ -1,7 +1,7 @@
 //
 // Kademlia.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -43,7 +43,7 @@ CKademlia Kademlia;
 
 BOOL CKademlia::Send(SOCKADDR_IN* pHost, CEDPacket* pPacket)
 {
-	// TODO: Kademlia packets statistics
+	// ToDo: Kademlia packets statistics
 
 	return Datagrams.Send( pHost, pPacket );
 }
@@ -56,13 +56,9 @@ BOOL CKademlia::Send(SOCKADDR_IN* pHost, BYTE nType)
 BOOL CKademlia::Bootstrap(SOCKADDR_IN* pHost, bool bKad2)
 {
 	if ( bKad2 )
-	{
 		return Send( pHost, KADEMLIA2_BOOTSTRAP_REQ );
-	}
 	else
-	{
 		return SendMyDetails( pHost, KADEMLIA_BOOTSTRAP_REQ, false );
-	}
 }
 
 BOOL CKademlia::SendMyDetails(SOCKADDR_IN* pHost, BYTE nType, bool bKad2)
@@ -96,7 +92,7 @@ BOOL CKademlia::OnPacket(SOCKADDR_IN* pHost, CEDPacket* pPacket)
 {
 	pPacket->SmartDump( pHost, TRUE, FALSE );
 
-	// TODO: Kademlia packets statistics
+	// ToDo: Kademlia packets statistics
 
 	CQuickLock oLock( m_pSection );
 
@@ -250,7 +246,6 @@ BOOL CKademlia::OnPacket_KADEMLIA2_BOOTSTRAP_RES(SOCKADDR_IN* pHost, CEDPacket* 
 	pCache->m_nUDPPort = htons( pHost->sin_port );
 	pCache->m_nKADVersion = nVersion;
 	pCache->m_sDescription = oGUID.toString();
-	pCache->m_tAck = 0;
 	pCache->m_tFailure = 0;
 	pCache->m_nFailures = 0;
 	pCache->m_bCheckedLocally = TRUE;
@@ -280,12 +275,12 @@ BOOL CKademlia::OnPacket_KADEMLIA2_BOOTSTRAP_RES(SOCKADDR_IN* pHost, CEDPacket* 
 
 BOOL CKademlia::OnPacket_KADEMLIA2_PING(SOCKADDR_IN* pHost, CEDPacket* /*pPacket*/)
 {
-	return Send( pHost, KADEMLIA2_PONG ); 
+	return Send( pHost, KADEMLIA2_PONG );
 }
 
 BOOL CKademlia::OnPacket_KADEMLIA2_PONG(SOCKADDR_IN* /*pHost*/, CEDPacket* /*pPacket*/)
 {
-	// TODO: Implement Kademlia Pong packet handling
+	// ToDo: Implement Kademlia Pong packet handling
 
 	return TRUE;
 }

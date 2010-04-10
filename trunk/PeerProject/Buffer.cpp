@@ -31,7 +31,7 @@
 #include "Statistics.h"
 #include "ZLib.h"
 
-// If we are compiling in debug mode, replace the text "THIS_FILE" in the code with the name of this file
+// Constant "THIS_FILE" is the filename, in Debug mode only
 #ifdef _DEBUG
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;

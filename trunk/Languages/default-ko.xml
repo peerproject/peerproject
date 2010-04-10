@@ -1,9 +1,9 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
+<?xml version="1.0" encoding="UTF-8"?>
+<skin xmlns="http://schemas.peerproject.org/Skin.xsd" version="1.0">
 
 <!-- PeerProject Korean Language Skin File -->
 
-<!-- Translation based on default-en.xml r48 --> <!--Machine Translated!-->
+<!-- Translation based on default-en.xml r50 --> <!--Machine Translated!-->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -616,8 +616,8 @@
 			<item id="ID_NETWORK_DISCONNECT" text="끊습니다"/>
 			<separator/>
 			<menu text="Choose _Networks">
-				<item id="ID_NETWORK_G2" text="연결 to _Gnutella2"/>
-				<item id="ID_NETWORK_G1" text="연결 to Gnutella_1"/>
+				<item id="ID_NETWORK_G2" text="연결 to Gnutella_2"/>
+				<item id="ID_NETWORK_G1" text="연결 to _Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="연결 to _eDonkey"/>
 			</menu>
 			<separator/>
@@ -763,7 +763,7 @@
 			<separator/>
 			<item id="ID_TOOLS_SETTINGS" text="_PeerProject 설정..."/>
 		</menu>
-		<menu text="_Help">
+		<menu text="_도움">
 			<item id="ID_HELP_FAQ" text="PeerProject 자주 묻는 질문"/>
 			<item id="ID_HELP_TEST" text="연결 테스트 "/>
 			<separator/>
@@ -1118,47 +1118,50 @@
 	<!-- DOWNLOADS WINDOW -->
 	<menu name="CDownloadsWnd.Download.Basic">
 		<item id="ID_DOWNLOADS_LAUNCH" text="_Preview"/>
-		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="Re_mote Preview"/>
-		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="_View Reviews"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_RESUME" text="_Resume"/>
 		<item id="ID_DOWNLOADS_PAUSE" text="P_ause"/>
 		<item id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="_Cancel"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_SOURCES" text="_Find More Sources"/>
+		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="Re_mote Preview"/>
+		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="_View Reviews"/>
 		<separator/>
-		<item id="ID_DOWNLOADS_HELP" text="_Help..."/>
+		<item id="ID_DOWNLOADS_HELP" text="도움..."/>
 	</menu>
 	<menu name="CDownloadsWnd.Download">
-		<item id="ID_DOWNLOADS_LAUNCH" text="_Preview Partial File"/>
 		<item id="ID_DOWNLOADS_LAUNCH_COPY" text="Pre_view File Copy"/>
+		<item id="ID_DOWNLOADS_LAUNCH" text="_Preview Partial File"/>
 		<item id="ID_DOWNLOADS_ENQUEUE" text="Add to Pla_ylist"/>
-		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="Re_mote Preview"/>
-		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="Vie_w Reviews"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_RESUME" text="_Resume"/>
 		<item id="ID_DOWNLOADS_PAUSE" text="Pa_use"/>
 		<item id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="_Cancel"/>
 		<separator/>
+		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="Vie_w Reviews"/>
+		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="Re_mote Preview"/>
 		<item id="ID_DOWNLOADS_SOURCES" text="_Find More Sources"/>
-		<menu text="_Advanced">
+		<separator/>
+		<menu text="고급">
 			<item id="ID_DOWNLOADS_SHARE" text="_Share File"/>
 			<separator/>
-			<item id="ID_DOWNLOADS_ADD_SOURCE" text="_Add Source..."/>
 			<item id="ID_DOWNLOADS_URI" text="Get P2P Link (_URI)"/>
+			<item id="ID_DOWNLOADS_ADD_SOURCE" text="_Add Source..."/>
+			<item id="ID_DOWNLOADS_MERGE" text="로컬 파일을 병합합니다..."/>
 			<separator/>
 			<item id="ID_DOWNLOADS_MONITOR" text="_Monitor Window"/>
+		</menu>
+		<menu text="우선순위">
 			<item id="ID_DOWNLOADS_BOOST" text="_Ignore Bandwidth Limit"/>
 			<separator/>
-			<item id="ID_DOWNLOADS_MOVE_UP" text="Move Up" shortcut="Ctrl+Up"/>
-			<item id="ID_DOWNLOADS_MOVE_DOWN" text="Move Down" shortcut="Ctrl+Dn"/>
 			<item id="ID_DOWNLOADS_MOVE_TOP" text="Move to _Top" shortcut="Ctrl+Home"/>
 			<item id="ID_DOWNLOADS_MOVE_BOTTOM" text="Move to _Bottom" shortcut="Ctrl+End"/>
+			<item id="ID_DOWNLOADS_MOVE_UP" text="Move _Up" shortcut="Ctrl+Up"/>
+			<item id="ID_DOWNLOADS_MOVE_DOWN" text="Move _Down" shortcut="Ctrl+Down"/>
 		</menu>
+		<item id="ID_DOWNLOADS_HELP" text="도움..."/>
 		<separator/>
-		<item id="ID_DOWNLOADS_HELP" text="_Help..."/>
-		<separator/>
-		<item id="ID_DOWNLOADS_EDIT" text="Download Propert_ies"/>
+		<item id="ID_DOWNLOADS_EDIT" text="_Download Properties"/>
 	</menu>
 	<menu name="CDownloadsWnd.Source">
 		<item id="ID_TRANSFERS_CONNECT" text="_Access"/>
@@ -1193,7 +1196,7 @@
 		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="_Open File"/>
 		<item id="ID_DOWNLOADS_FOLDER" text="Open _Folder"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="_Stop Seeding"/>
-		<item id="ID_DOWNLOADS_HELP" text="_Help..."/>
+		<item id="ID_DOWNLOADS_HELP" text="_도움..."/>
 		<separator/>
 		<item id="ID_DOWNLOADS_EDIT" text="Torrent _Properties..."/>
 	</menu>
@@ -1202,7 +1205,7 @@
 		<item id="ID_TOOLS_SEEDTORRENT" text="Seed New _Torrent"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="_Clear Completed"/>
 		<separator/>
-		<item id="ID_DOWNLOADS_HELP" text="_Help..."/>
+		<item id="ID_DOWNLOADS_HELP" text="_도움..."/>
 	</menu>
 	<menu name="CDownloadTabBar">
 		<item id="ID_DOWNLOAD_GROUP_OPEN" text="_Open Folder"/>
@@ -1239,7 +1242,7 @@
 		<item id="ID_BROWSE_LAUNCH" text="찾아보기 사용자"/>
 		<item id="ID_UPLOADS_CHAT" text="채팅 사용자에게"/>
 		<separator/>
-		<item id="ID_UPLOADS_HELP" text="_Help..."/>
+		<item id="ID_UPLOADS_HELP" text="_도움..."/>
 	</menu>
 	<menu name="CUploadsWnd.Upload">
 		<item id="ID_UPLOADS_START" text="_Start Now"/>
@@ -1255,7 +1258,7 @@
 		<item id="ID_UPLOADS_SETTINGS" text="_Queue Settings..."/>
 		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="_Clear Completed"/>
 		<separator/>
-		<item id="ID_UPLOADS_HELP" text="_Help..."/>
+		<item id="ID_UPLOADS_HELP" text="_도움..."/>
 	</menu>
 	<menu name="CUploadsWnd.Filter">
 		<item id="ID_UPLOADS_FILTER_ALL" text="모두보기"/>
@@ -2060,7 +2063,7 @@
 	<string id="8230" value="PeerProject is looking for sources for:"/>
 	<string id="8231" value="No sources"/>
 	<string id="8232" value="Open"/>
-	<string id="8233" value="Preview"/>
+	<string id="8233" value="취소"/>
 	<string id="8235" value="Total transfer speed:"/>
 	<string id="8236" value="Estimated time remaining:"/>
 	<string id="8237" value="Volume downloaded:"/>
@@ -2324,11 +2327,10 @@
 	<string id="16398" value="PeerProject could not rename:\n\n%s\nto\n%s"/>
 	<string id="16399" value="PeerProject could not delete the file:\n\n%s"/>
 	<string id="16400" value="Target file exists:\n\n%s\n\nWould you like to overwrite it?"/>
-	<string id="16401" value="모두보기 파일 형식"/>
-	<string id="16402" value="PeerProject received a collection file:\n\n&quot;%s&quot;\n\nThis file does not appear to be a valid collection file."/>
+-->	<string id="16401" value="모두보기 파일 형식"/>
+<!--	<string id="16402" value="PeerProject received a collection file:\n\n&quot;%s&quot;\n\nThis file does not appear to be a valid collection file."/>
 	<string id="16403" value="PeerProject has added the collection file &quot;%s&quot; to your library."/>
 	<string id="16404" value="PeerProject was unable to install the collection file &quot;%s&quot; by copying it to the folder &quot;%s&quot;."/>
-	<string id="16405" value="Would you like to download this file?\n\n&quot;%s&quot;\n\nChoose Cancel to stop any further prompts."/>
 	<string id="16406" value="Would you like to download all files in this collection?\n\nChoose Cancel to stop any further prompts."/>
 	<string id="16407" value="Would you like to prevent this collection from prompting you to download anything else?"/>
 	<string id="16408" value="Get P2P Link (&amp;URI)"/>
@@ -2336,8 +2338,8 @@
 	<string id="16410" value="A subfolder of the selected folder &quot;%s&quot; is already part of your library.\nAdding this folder will cause re-hashing of some files.\n\nDo you want to continue ?"/>
 	<string id="16411" value="Unable to move the file %s. The file may be in use by another application.\n\nDo you wish to try to copy this file instead?"/>
 	<string id="16412" value="Ghost File"/>
-	<string id="16413" value="새 그룹"/>
-	<string id="16448" value="Connected to %s, handshaking..."/>
+-->	<string id="16413" value="새 그룹"/>
+<!--	<string id="16448" value="Connected to %s, handshaking..."/>
 	<string id="16449" value="Now chatting with %s (%s)."/>
 	<string id="16450" value="Connection to %s closed."/>
 	<string id="16451" value="The connection to %s was lost."/>
@@ -2390,7 +2392,7 @@
 	<string id="16782" value="Success!"/>
 	<string id="16783" value="Finished, click Close"/>
 	<string id="16784" value="&amp;닫기"/>
-	<string id="16785" value="(No Visualisation)"/>
+<!--	<string id="16785" value="(No Visualisation)"/>
 	<string id="16800" value="You have not yet specified a connection speed. Before continuing, please either choose your Internet connection type, or type in a connection speed."/>
 	<string id="16802" value="You have not specified any folders to share. Are you sure?"/>
 	<string id="16803" value="The folder you are sharing is already shared as part of another shared folder:\n\n%s"/>
@@ -2400,9 +2402,9 @@
 	<string id="16807" value="Please type the bandwidth limit you wish to set in the form &quot;123 kb/s&quot; for kilobits per second, or &quot;123 KB/s&quot; for kilobytes per second."/>
 	<string id="16808" value="You have not selected your age and gender. Are you sure you want to continue without doing this?"/>
 	<string id="16809" value="E&amp;xit"/>
-	<string id="16810" value="살짜리"/>
+-->	<string id="16810" value="살짜리"/>
 	<string id="16811" value="자동"/>
-	<string id="16812" value="Please wait: Finding UPnP devices and setting them up..."/>
+<!--	<string id="16812" value="Please wait: Finding UPnP devices and setting them up..."/>
 	<string id="16813" value="Please wait: Updating discovery services..."/>
 	<string id="16814" value="Please wait: Updating eDonkey server list..."/>
 	<string id="16815" value="UPnP Device Host Service is not running. This service is required to perform the setup.\nYou need to set the startup type of the service to automatic."/>
@@ -2440,7 +2442,7 @@
 	<string id="16994" value="Unable to load media file &quot;%s&quot;"/>
 	<string id="16995" value="The file may be damaged, or you may not have the necessary codecs to play it."/>
 	<string id="16996" value="Part of this file could not be played, you may need to download additional codecs."/>
-	<string id="16997" value="아니 파일을 재생합니다. 미디어를 클릭하여 라이브러리에서 파일을 재생할 수있습니다."/>
+-->	<string id="16997" value="아니 파일을 재생합니다. 미디어를 클릭하여 라이브러리에서 파일을 재생할 수있습니다."/>
 	<string id="16998" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
 	<string id="16999" value="재생 목록:"/>
 	<string id="17016" value="Welcome to the PeerProject IRC Chatrooms"/>
@@ -2713,14 +2715,14 @@
 		<control caption="Minimize button behavior:"/>
 		<control caption="Normal Taskbar|Minimize to Tray"/>
 	</dialog>
-	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBu" caption="도서관">
+	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuBuCoBuBuBuCoBuBuBuEdBu" caption="도서관">
 		<control caption="옵션:"/>
 		<control caption="Allow others to browse"/>
+		<control caption="Remember folder views"/>
 		<control caption="Watch library folders"/>
 		<control caption="Quick hashing  (more CPU)"/>
 		<control caption="Smart media series detection"/>
-		<control caption="Create ghost files when deleting"/>
-		<control caption="Remember folder views"/>
+		<control caption="Create ghost files by default"/>
 		<control caption="Recent Files:"/>
 		<control caption="Remember:"/>
 		<control/>
@@ -2730,7 +2732,8 @@
 		<control/>
 		<control/>
 		<control caption="days"/>
-		<control caption="Clear History Now"/>
+		<control caption="Clear History"/>
+		<control caption="Clear Ghosts"/>
 		<control caption="Safe to Open Types:"/>
 		<control/>
 		<control caption="추가"/>
@@ -3375,8 +3378,7 @@
 		<control caption="취소"/>
 		<control/>
 	</dialog>
-	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStStBuBuBuBuBu" caption="다운로드">
-		<control caption="PeerProject is downloading:"/>
+	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStBuBuBuBu" caption="다운로드">
 		<control caption="..."/>
 		<control/>
 		<control/>
@@ -3390,7 +3392,6 @@
 		<control caption="Total downloaded:"/>
 		<control caption="..."/>
 		<control caption="Show"/>
-		<control caption="Open"/>
 		<control caption="취소"/>
 		<control caption="Close"/>
 		<control caption="Close window when completed"/>
@@ -3765,23 +3766,22 @@
 		<control caption="to"/>
 		<control caption="Erase"/>
 	</dialog>
-	<dialog name="CDownloadGroupDlg" cookie="BuBuEdCoBuCoBuBuEdBuBuBuBuBuBuSt" caption="Download Group Properties">
+	<dialog name="CDownloadGroupDlg" cookie="BuEdBuEdBuBuBuCoBuBuBuCoStBuBu" caption="Download Group Properties">
+		<control caption="_Group Name:"/>
+		<control/>
+		<control caption="_Completed File Folder:"/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="_Auto-Filters:"/>
+		<control/>
+		<control caption="_Add"/>
+		<control caption="_Remove"/>
+		<control caption="_Types of Files:"/>
+		<control/>
+		<control caption="*Add any download type later."/>
 		<control caption="OK"/>
 		<control caption="취소"/>
-		<control/>
-		<control/>
-		<control caption="BitTorrent Downloads"/>
-		<control/>
-		<control caption="Add"/>
-		<control caption="Remove"/>
-		<control/>
-		<control/>
-		<control/>
-		<control caption="Group Name:"/>
-		<control caption="Auto-Filters:"/>
-		<control caption="Completed File Folder:"/>
-		<control caption="Type of Files:"/>
-		<control caption="*Drag&apos;n&apos;drop any download later."/>
 	</dialog>
 	<dialog name="CMediaVisDlg" cookie="StBuSyCoBuBuBu" caption="Select Visualisation">
 		<control/>
@@ -3964,4 +3964,4 @@
 		<column from="Order" to="주문"/>
 	</list>
 </listColumns>
-</skin>
+</skin>꾈

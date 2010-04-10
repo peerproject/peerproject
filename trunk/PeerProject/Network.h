@@ -61,19 +61,21 @@ protected:
 	CStringA		m_sHostName;
 	CList< ULONG >	m_pHostAddresses;
 	DWORD			m_nSequence;
-	struct ResolveStruct
+	typedef struct
 	{
-		CString* m_sAddress;
-		PROTOCOLID m_nProtocol;
-		WORD m_nPort;
-		BYTE m_nCommand;
+		CString		m_sAddress;
+		PROTOCOLID	m_nProtocol;
+		WORD		m_nPort;
+		BYTE		m_nCommand;
 		union
 		{
-			char m_pBuffer[ MAXGETHOSTSTRUCT ];
-			HOSTENT m_pHost;
+			char	m_pBuffer[ MAXGETHOSTSTRUCT ];
+			HOSTENT	m_pHost;
 		};
-	};
-	CMap< HANDLE, HANDLE, ResolveStruct*, ResolveStruct* > m_pLookups;
+	} ResolveStruct;
+	typedef CMap< HANDLE, HANDLE, ResolveStruct*, ResolveStruct* > CResolveMap;
+	CResolveMap			m_pLookups;
+	CCriticalSection	m_pLookupsSection;
 
 	class CDelayedHit
 	{
@@ -85,16 +87,21 @@ protected:
 	};
 	CList< CDelayedHit > m_pDelayedHits;
 
+
+	ResolveStruct* GetResolve(HANDLE hAsync);	// Get asynchronously resolved host
+	void		ClearResolve(); 				// Clear asynchronous resolver queue
+	void		InternetConnect();				// Restore WinINet connection to Internet
+
 	BOOL		PreRun();
 	void		OnRun();
 	void		PostRun();
-	void		RunQueryHits();	// Handle and destroy query hits
+	void		RunQueryHits(); 				// Handle and destroy query hits
 
 // Operations
 public:
 	BOOL		IsSelfIP(const IN_ADDR& nAddress) const;
 	bool		IsAvailable() const;
-	bool		IsConnected() const;
+	bool		IsConnected() const throw();
 	bool		IsListening() const;
 	bool		IsWellConnected() const;
 	bool		IsStable() const;

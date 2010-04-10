@@ -1,7 +1,7 @@
 //
 // SQLite.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -33,13 +33,11 @@ using namespace SQLite;
 //////////////////////////////////////////////////////////////////////////////
 // CDatabase
 
-CDatabase::CSQLitePtr::CSQLitePtr(LPCWSTR szDatabasePath) :
-	m_db( NULL )
+CDatabase::CSQLitePtr::CSQLitePtr(LPCWSTR szDatabasePath)
+	: m_db	( NULL )
 {
 	if( sqlite3_open16( szDatabasePath, &m_db ) == SQLITE_OK )
-	{
 		sqlite3_busy_timeout( m_db, 1000 ); // 1 sec
-	}
 }
 
 CDatabase::CSQLitePtr::~CSQLitePtr()
@@ -54,9 +52,7 @@ CDatabase::CSQLitePtr::~CSQLitePtr()
 CDatabase::CDatabase(LPCTSTR szDatabasePath)
 {
 	if ( szDatabasePath )
-	{
 		Open( szDatabasePath );
-	}
 }
 
 CDatabase::~CDatabase()
@@ -97,8 +93,7 @@ bool CDatabase::Exec(LPCWSTR szQuery)
 		st.Finalize();
 
 		if ( ! st.IsPending() )
-			// No more SQL commands
-			return true;
+			return true;	// No more SQL commands
 	}
 	return false;
 }
@@ -112,12 +107,12 @@ LPCWSTR CDatabase::GetLastErrorMessage() const
 //////////////////////////////////////////////////////////////////////////////
 // CStatement
 
-CStatement::CStatement(const CDatabase& db, LPCWSTR pszQuery) :
-	m_db( db.GetHandle() ),
-	m_query( pszQuery ),
-	m_st( NULL ),
-	m_prepared( false ),
-	m_busy( false )
+CStatement::CStatement(const CDatabase& db, LPCWSTR pszQuery)
+	: m_db		( db.GetHandle() )
+	, m_query	( pszQuery )
+	, m_st		( NULL )
+	, m_busy	( false )
+	, m_prepared ( false )
 {
 }
 
@@ -162,15 +157,12 @@ bool CStatement::Prepare()
 				if ( pszTail && *pszTail )
 					m_query = pszTail;
 				else
-				{
-					// FIXIT: when SQL command ends with a space in a composite SQL query
-					// it enters an infinite loop.
 					m_query.clear();
-				}
+					// FIXIT: When SQL command ends with a space in a composite SQL query
+					// it enters an infinite loop.
 
 				if ( m_st == NULL )
-					// This happens for a comment or white-space
-					continue;
+					continue;	// This happens for a comment or white-space
 
 				m_prepared = true;
 				break;
@@ -194,9 +186,8 @@ bool CStatement::Prepare()
 void CStatement::Reset()
 {
 	if ( m_st && m_prepared )
-	{
 		sqlite3_reset( m_st );
-	}
+
 	m_busy = false;
 	m_raw.clear();
 }
@@ -257,14 +248,12 @@ int CStatement::GetColumn(LPCWSTR szName) const
 	{
 		CRaw::const_iterator i = m_raw.find( szName );
 		if ( i != m_raw.end() && IsValidIndex( (*i).second ) )
-			// Specified column
-			return (*i).second;
+			return (*i).second;	// Specified column
 	}
 	else
 	{
 		if ( IsValidIndex( 0 ) )
-			// First column
-			return 0;
+			return 0;	// First column
 	}
 	// Error
 	return -1;
@@ -279,9 +268,8 @@ int CStatement::GetType(LPCWSTR pszName) const
 {
 	int column = GetColumn( pszName );
 	if ( column != -1 )
-	{
 		return sqlite3_column_type( m_st, column );
-	}
+
 	return 0;
 }
 
@@ -289,9 +277,8 @@ int CStatement::GetInt(LPCWSTR pszName) const
 {
 	int column = GetColumn( pszName );
 	if ( column != -1 )
-	{
 		return sqlite3_column_int( m_st, column );
-	}
+
 	return 0;
 }
 
@@ -299,9 +286,8 @@ __int64 CStatement::GetInt64(LPCWSTR pszName) const
 {
 	int column = GetColumn( pszName );
 	if ( column != -1 )
-	{
 		return sqlite3_column_int64( m_st, column );
-	}
+
 	return 0;
 }
 
@@ -309,9 +295,8 @@ double CStatement::GetDouble(LPCWSTR pszName) const
 {
 	int column = GetColumn( pszName );
 	if ( column != -1 )
-	{
 		return sqlite3_column_double( m_st, column );
-	}
+
 	return 0;
 }
 
@@ -319,9 +304,8 @@ LPCWSTR CStatement::GetString(LPCWSTR pszName) const
 {
 	int column = GetColumn( pszName );
 	if ( column != -1 )
-	{
 		return (LPCWSTR)sqlite3_column_text16( m_st, column );
-	}
+
 	return NULL;
 }
 
@@ -342,27 +326,24 @@ LPCVOID CStatement::GetBlob(LPCWSTR pszName, int* pnLength) const
 bool CStatement::Bind(int nNumber, int nData)
 {
 	if ( Prepare() )
-	{
 		return sqlite3_bind_int( m_st, nNumber, nData ) == SQLITE_OK;
-	}
+
 	return false;
 }
 
 bool CStatement::Bind(int nNumber, __int64 nData)
 {
 	if ( Prepare() )
-	{
 		return sqlite3_bind_int64( m_st, nNumber, nData ) == SQLITE_OK;
-	}
+
 	return false;
 }
 
 bool CStatement::Bind(int nNumber, double dData)
 {
 	if ( Prepare() )
-	{
 		return sqlite3_bind_double( m_st, nNumber, dData ) == SQLITE_OK;
-	}
+
 	return false;
 }
 

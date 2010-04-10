@@ -46,7 +46,7 @@ public:
 	CList< CString >	m_pFilters;			// Filters list
 	int					m_nImage;			// 16x16 group icon
 	BOOL				m_bRemoteSelected;	// Active(selected) group for Remote Interface
-	BOOL				m_bTorrent;			// Filter BitTorrent downloads
+	//BOOL				m_bTorrent;			// Filter BitTorrent downloads - Obsolete (Detect Schema instead)
 
 // Operations
 public:

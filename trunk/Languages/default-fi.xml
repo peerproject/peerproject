@@ -1,9 +1,9 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
+<?xml version="1.0" encoding="UTF-8"?>
+<skin xmlns="http://schemas.peerproject.org/Skin.xsd" version="1.0">
 
 <!-- PeerProject Default Finnish Skin File -->
 
-<!-- Translation based on default-en.xml r48 (Shareaza 2.1.3.7) -->
+<!-- Translation based on default-en.xml r50 (Shareaza 2.1.3.7) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -483,7 +483,7 @@
 			<menu text="_Näytä">
 				<item id="ID_TAB_HOME" text="_Koti" shortcut="Ctrl+H"/>
 				<item id="ID_VIEW_NEIGHBOURS" text="N_aapurit" shortcut="Ctrl+F11"/>
-				<item id="ID_VIEW_SYSTEM" text="J_ärjestelmä" shortcut="F11"/>	
+				<item id="ID_VIEW_SYSTEM" text="J_ärjestelmä" shortcut="F11"/>
 				<item id="ID_VIEW_DOWNLOADS" text="_Lataukset" shortcut="F3"/>
 				<item id="ID_VIEW_UPLOADS" text="_Lähetykset" shortcut="F4"/>
 				<item id="ID_VIEW_LIBRARY" text="_Kirjasto" shortcut="F5"/>
@@ -999,31 +999,28 @@
 	<!-- DOWNLOADS WINDOW -->
 	<menu name="CDownloadsWnd.Download.Basic">
 		<item id="ID_DOWNLOADS_LAUNCH" text="_Esikatsele"/>
-		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="R_emote Preview"/>
-		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="_Näytä Arvostelut"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_RESUME" text="_Palaa"/>
 		<item id="ID_DOWNLOADS_PAUSE" text="K_eskeytä"/>
 		<item id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="_Peruuta"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_SOURCES" text="_Etsi Lisää Lähteitä"/>
-		<!-- <separator/>
-		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="T_yhjennä Valmiit"/>
-		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="A_utomaattinen Tyhjennys"/> -->
+		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="R_emote Preview"/>
+		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="_Näytä Arvostelut"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_HELP" text="_Ohje..."/>
 	</menu>
 	<menu name="CDownloadsWnd.Download">
-		<item id="ID_DOWNLOADS_LAUNCH" text="_Esikatsele"/>
 		<item id="ID_DOWNLOADS_LAUNCH_COPY" text="Esi_katsele Kopio"/>
+		<item id="ID_DOWNLOADS_LAUNCH" text="_Esikatsele"/>
 		<item id="ID_DOWNLOADS_ENQUEUE" text="Lisää Soi_ttolistaan"/>
-		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="R_emote Preview"/>
-		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="_Näytä Arvostelut"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_RESUME" text="_Palaa"/>
 		<item id="ID_DOWNLOADS_PAUSE" text="K_eskeytä"/>
 		<item id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="_Peruuta"/>
 		<separator/>
+		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="_Näytä Arvostelut"/>
+		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="R_emote Preview"/>
 		<item id="ID_DOWNLOADS_SOURCES" text="_Etsi Lisää Lähteitä"/>
 		<separator/>
 		<menu text="_Lisää">
@@ -1031,14 +1028,17 @@
 			<separator/>
 			<item id="ID_DOWNLOADS_URI" text="_Kopioi URI"/>
 			<item id="ID_DOWNLOADS_ADD_SOURCE" text="_Lisää Lähde..."/>
+			<item id="ID_DOWNLOADS_MERGE" text="Sulautua paikallinen tiedosto"/>
 			<separator/>
 			<item id="ID_DOWNLOADS_MONITOR" text="Monitori _Ikkuna"/>
+		</menu>
+		<menu text="Ensisi_jaisia">
 			<item id="ID_DOWNLOADS_BOOST" text="_Hylkää Kaista Rajoitus"/>
 			<separator/>
-			<item id="ID_DOWNLOADS_MOVE_UP" text="Siirrä _Ylös"/>
-			<item id="ID_DOWNLOADS_MOVE_DOWN" text="Siirrä _Alas"/>
 			<item id="ID_DOWNLOADS_MOVE_TOP" text="Siirrä _Ylös!"/>
 			<item id="ID_DOWNLOADS_MOVE_BOTTOM" text="Siirrä _Alas!"/>
+			<item id="ID_DOWNLOADS_MOVE_UP" text="Siirrä _Ylös"/>
+			<item id="ID_DOWNLOADS_MOVE_DOWN" text="Siirrä _Alas"/>
 		</menu>
 		<item id="ID_DOWNLOADS_HELP" text="_Ohje..."/>
 		<separator/>

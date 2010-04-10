@@ -1,7 +1,7 @@
 //
 // DlgQueueProperties.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -137,7 +137,7 @@ BOOL CQueuePropertiesDlg::OnInitDialog()
 
 	CBitmap bmProtocols;
 	bmProtocols.LoadBitmap( IDB_PROTOCOLS );
-	if ( Settings.General.LanguageRTL ) 
+	if ( Settings.General.LanguageRTL )
 		bmProtocols.m_hObject = CreateMirroredBitmap( (HBITMAP)bmProtocols.m_hObject );
 
 	m_gdiProtocols.Create( 16, 16, ILC_COLOR32|ILC_MASK, 7, 1 ) ||
@@ -235,8 +235,8 @@ BOOL CQueuePropertiesDlg::OnInitDialog()
 	DWORD nLimit = Settings.Bandwidth.Uploads;
 
 	if ( nLimit == 0 || nLimit > nTotal ) nLimit = nTotal;
-	int nOtherPoints = UploadQueues.GetTotalBandwidthPoints( !( m_pQueue->m_nProtocols & (1<<PROTOCOL_ED2K) ) ) - m_pQueue->m_nBandwidthPoints;
-
+	int nOtherPoints = (int)UploadQueues.GetTotalBandwidthPoints( !( m_pQueue->m_nProtocols & (1<<PROTOCOL_ED2K) ) )
+						- (int)m_pQueue->m_nBandwidthPoints;
 	if ( nOtherPoints < 0 ) nOtherPoints = 0;
 
 	m_wndBandwidthSlider.SetRange( 1, max( 100, nOtherPoints * 3 ) );
@@ -334,7 +334,8 @@ void CQueuePropertiesDlg::OnHScroll(UINT /*nSBCode*/, UINT /*nPos*/, CScrollBar*
 
 	if ( nLimit == 0 || nLimit > nTotal ) nLimit = nTotal;
 
-	int nOtherPoints = UploadQueues.GetTotalBandwidthPoints( !( m_pQueue->m_nProtocols & (1<<PROTOCOL_ED2K) ) ) - m_pQueue->m_nBandwidthPoints;
+	int nOtherPoints = (int)UploadQueues.GetTotalBandwidthPoints( !( m_pQueue->m_nProtocols & (1<<PROTOCOL_ED2K) ) )
+						- (int)m_pQueue->m_nBandwidthPoints;
 	if ( nOtherPoints < 0 ) nOtherPoints = 0;
 
 	int nLocalPoints = m_wndBandwidthSlider.GetPos();
@@ -343,7 +344,7 @@ void CQueuePropertiesDlg::OnHScroll(UINT /*nSBCode*/, UINT /*nPos*/, CScrollBar*
 	DWORD nBandwidth = nLimit * nLocalPoints / max( 1, nTotalPoints );
 
 	CString str;
-	str.Format( _T("%.2f%% (%lu/%lu)"), 100.0 * nBandwidth / nLimit,
+	str.Format( _T("%u%% (%lu/%lu)"), ( 100 * nBandwidth ) / nLimit,
 		nLocalPoints, nTotalPoints );
 
 	m_wndBandwidthPoints.SetWindowText( str );
@@ -369,42 +370,31 @@ void CQueuePropertiesDlg::OnOK()
 	if ( m_wndPartialOnly.GetCheck() ) m_nFileStatusFlag = (CUploadQueue::ulqPartial);
 	m_pQueue->m_nFileStateFlag = ( m_nFileStatusFlag != CUploadQueue::ulqNull ) ? m_nFileStatusFlag : (CUploadQueue::ulqBoth);
 
-	if ( m_bMinSize )
-	{
-		m_pQueue->m_nMinSize = Settings.ParseVolume( m_sMinSize );
-	}
-	else
-	{
-		m_pQueue->m_nMinSize = 0;
-	}
-
 	if ( m_bMaxSize )
 	{
 		m_pQueue->m_nMaxSize = Settings.ParseVolume( m_sMaxSize );
-		if ( m_pQueue->m_nMaxSize == 0 ) m_pQueue->m_nMaxSize = SIZE_UNKNOWN;
+		if ( m_pQueue->m_nMaxSize == 0 )
+			m_pQueue->m_nMaxSize = SIZE_UNKNOWN;
 	}
 	else
 	{
 		m_pQueue->m_nMaxSize = SIZE_UNKNOWN;
 	}
 
-	if ( m_bMarked )
-	{
-		m_pQueue->m_sShareTag = m_sMarked;
-	}
+	if ( m_bMinSize )
+		m_pQueue->m_nMinSize = Settings.ParseVolume( m_sMinSize );
 	else
-	{
+		m_pQueue->m_nMinSize = 0;
+
+	if ( m_bMarked )
+		m_pQueue->m_sShareTag = m_sMarked;
+	else
 		m_pQueue->m_sShareTag.Empty();
-	}
 
 	if ( m_bMatch )
-	{
 		m_pQueue->m_sNameMatch = m_sMatch;
-	}
 	else
-	{
 		m_pQueue->m_sNameMatch.Empty();
-	}
 
 	m_pQueue->m_nProtocols = 0;
 

@@ -30,13 +30,15 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 -->
 
 <schemaDescriptor location="http://www.shareaza.com/schemas/archive.xsd" xmlns="http://www.shareaza.com/schemas/SchemaDescriptor.xsd">
+
 	<object type="file" availability="default"/>
+	<images>
+		<icon path="Archive.ico"/>
+	</images>
 	<titles>
 		<title language="en">Archive</title>
 		<title language="af">Archive</title>
 		<title language="ca">Archive</title>
-		<title language="zhs">档案</title>
-		<title language="zht">Archive</title>
 		<title language="cz">Archive</title>
 		<title language="de">Archive</title>
 		<title language="ee">Archive</title>
@@ -59,6 +61,8 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<title language="sr">Archive</title>
 		<title language="sv">Arkiv</title>
 		<title language="tr">Archive</title>
+		<title language="zhs">档案</title>
+		<title language="zht">Archive</title>
 	</titles>
 	<members>
 		<member name="title" search="generic">
@@ -66,8 +70,6 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="en">Title</title>
 			<title language="af">Titel</title>
 			<title language="ca">Títol</title>
-			<title language="zhs">标题</title>
-			<title language="zht">標題</title>
 			<title language="cz">Název</title>
 			<title language="de">Titel</title>
 			<title language="ee">Pealkiri</title>
@@ -80,6 +82,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="hu">Cím</title>
 			<title language="it">Titolo</title>
 			<title language="ja">タイトル</title>
+			<title language="ko">제목</title>
 			<title language="lt">Pavadinimas</title>
 			<title language="nl">Titel</title>
 			<title language="no">Tittel</title>
@@ -90,13 +93,13 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="sr">Naslov</title>
 			<title language="sv">Titel</title>
 			<title language="tr">Başlık</title>
+			<title language="zhs">标题</title>
+			<title language="zht">標題</title>
 		</member>
 		<member name="folders" search="generic">
 			<title language="en">Folders</title>
 			<title language="af">Folders</title>
 			<title language="ca">Folders</title>
-			<title language="zhs">文件夹</title>
-			<title language="zht">Folders</title>
 			<title language="cz">Folders</title>
 			<title language="de">Folders</title>
 			<title language="ee">Folders</title>
@@ -119,13 +122,13 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="sr">Folders</title>
 			<title language="sv">Mappar</title>
 			<title language="tr">Folders</title>
+			<title language="zhs">文件夹</title>
+			<title language="zht">文件夹</title>
 		</member>
 		<member name="files" search="generic">
 			<title language="en">Files</title>
 			<title language="af">Files</title>
 			<title language="ca">Files</title>
-			<title language="zhs">文件</title>
-			<title language="zht">Files</title>
 			<title language="cz">Files</title>
 			<title language="de">Files</title>
 			<title language="ee">Files</title>
@@ -148,13 +151,13 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="sr">Files</title>
 			<title language="sv">Filer</title>
 			<title language="tr">Files</title>
+			<title language="zhs">文件</title>
+			<title language="zht">文件</title>
 		</member>
 		<member name="comments" search="generic">
 			<title language="en">Comments</title>
 			<title language="af">Kommentaar</title>
 			<title language="ca">Comentaris</title>
-			<title language="zhs">注释</title>
-			<title language="zht">注釋</title>
 			<title language="cz">Komentáře</title>
 			<title language="de">Kommentar</title>
 			<title language="ee">Arvamused</title>
@@ -177,13 +180,13 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="sr">Komentari</title>
 			<title language="sv">Kommentarer</title>
 			<title language="tr">Yorumlar</title>
+			<title language="zhs">注释</title>
+			<title language="zht">注釋</title>
 		</member>
 		<member name="archive" search="indexed">
 			<title language="en">Archive Type</title>
 			<title language="af">Argieftipe</title>
 			<title language="ca">Tipus d'arxiu</title>
-			<title language="zhs">文件类型</title>
-			<title language="zht">檔案類型</title>
 			<title language="cz">Typ archívu</title>
 			<title language="de">Archivtyp</title>
 			<title language="ee">Arhiivi Tüüp</title>
@@ -206,13 +209,13 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="sr">Vrsta Arhive</title>
 			<title language="sv">Arkivtyp</title>
 			<title language="tr">Arşiv Tipi</title>
+			<title language="zhs">文件类型</title>
+			<title language="zht">檔案類型</title>
 		</member>
 		<member name="keywords">
 			<title language="en">Keywords</title>
 			<title language="af">Sleutelwoorde</title>
 			<title language="ca">Paraules clau</title>
-			<title language="zhs">关键词</title>
-			<title language="zht">關鍵字</title>
 			<title language="cz">Klíčová slova</title>
 			<title language="de">Schlüsselwörter</title>
 			<title language="ee">Võtmesõnad</title>
@@ -235,14 +238,14 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="sr">Ključne Reči</title>
 			<title language="sv">Nyckelord</title>
 			<title language="tr">Anahtar Kelimeler</title>
+			<title language="zhs">关键词</title>
+			<title language="zht">關鍵字</title>
 		</member>
 		<member name="encrypted">
 			<display columnAlign="center"/>
 			<title language="en">Encrypted</title>
 			<title language="af">Encrypted</title>
 			<title language="ca">Encrypted</title>
-			<title language="zhs">加密</title>
-			<title language="zht">Encrypted</title>
 			<title language="cz">Encrypted</title>
 			<title language="de">Encrypted</title>
 			<title language="ee">Encrypted</title>
@@ -265,14 +268,14 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="sr">Encrypted</title>
 			<title language="sv">Krypterad</title>
 			<title language="tr">Encrypted</title>
+			<title language="zhs">加密</title>
+			<title language="zht">加密</title>
 		</member>
 		<member name="unpackedsize">
 			<display columnAlign="center"/>
 			<title language="en">Unpacked Size</title>
 			<title language="af">Unpacked Size</title>
 			<title language="ca">Unpacked Size</title>
-			<title language="zhs">解包大小</title>
-			<title language="zht">Unpacked Size</title>
 			<title language="cz">Unpacked Size</title>
 			<title language="de">Unpacked Size</title>
 			<title language="ee">Unpacked Size</title>
@@ -295,17 +298,28 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="sr">Unpacked Size</title>
 			<title language="sv">Okomprimerad storlek</title>
 			<title language="tr">Unpacked Size</title>
+			<title language="zhs">解包大小</title>
+			<title language="zht">解包大小</title>
 		</member>
 	</members>
 	<typeFilter>
+		<type extension="001"/>
 		<type extension="7z"/>
 		<type extension="ace"/>
 		<type extension="arj"/>
 		<type extension="bz2"/>
 		<type extension="cab"/>
+		<type extension="cbr"/>
+		<type extension="cbz"/>
+		<type extension="exe"/>
+		<type extension="iso"/>
 		<type extension="jar"/>
 		<type extension="gz"/>
 		<type extension="gzip"/>
+		<type extension="msi"/>
+		<type extension="psk"/>
+		<type extension="sks"/>
+		<type extension="r00"/>
 		<type extension="rar"/>
 		<type extension="tar"/>
 		<type extension="tar.gz"/>
@@ -314,4 +328,5 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<type extension="tgz"/>
 		<type extension="zip"/>
 	</typeFilter>
+
 </schemaDescriptor>

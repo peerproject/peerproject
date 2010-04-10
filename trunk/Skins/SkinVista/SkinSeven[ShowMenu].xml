@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
+<skin xmlns="schemas.peerproject.org/Skin.xsd" version="1.0">
 
 <manifest
  name="SkinSeven.ShowMenu"
  author="SkinVista"
- description="Mix to Add Classic XP-Style Menu Bar to SkinSeven"
+ description="Mix to add classic XP-style menu bar to SkinSeven"
  link="http://PeerProject.org"
  email="Contact(at)PeerProject.org"
+ license="Persistent Public Domain (PPD)"
  path="SkinVista"
  version="1.0"
  type="Skin"
@@ -17,7 +18,7 @@
  <option name="MonitorBar" value="110"/>
 </options>
 
-<watermarks> 
+<watermarks>
  <watermark target="CCoolMenuBar" path="Seven\RibbonMenubarBlank.png"/>
  <watermark target="CCoolMenuItem.Hover" path="Seven\MenuButtonState.png"/>
  <watermark target="CCoolMenuItem.Down"  path="Seven\MenuButtonState.png"/>

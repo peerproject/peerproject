@@ -1,7 +1,7 @@
 //
 // GraphLine.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -49,7 +49,7 @@ CLineGraph::CLineGraph()
 	m_nMinGridVert	= 32;
 
 	m_nSpeed		= 100;
-	m_nScale		= 2;
+	m_nScale		= 1;	// ToDo: Remove?  Was "2"
 	m_nMaximum		= 0;
 	m_nUpdates		= 0;
 	m_tLastScale	= 0;
@@ -160,7 +160,7 @@ void CLineGraph::Serialize(CArchive& ar)
 			GetNextItem( pos )->Serialize( ar );
 		}
 	}
-	else
+	else // Loading
 	{
 		ar >> m_bShowAxis;
 		ar >> m_bShowGrid;
@@ -202,7 +202,7 @@ void CLineGraph::Paint(CDC* pDC, CRect* pRect)
 {
 	if ( m_pGridPen.m_hObject == NULL ) m_pGridPen.CreatePen( PS_SOLID, 1, m_crGrid );
 
-	DWORD nWidth = (DWORD)pRect->Width() / max( m_nScale, 2ul ) + 2;
+	DWORD nWidth = (DWORD)pRect->Width() / m_nScale + 2;
 
 	if ( pRect->Width() > 64 )
 	{
@@ -220,7 +220,8 @@ void CLineGraph::Paint(CDC* pDC, CRect* pRect)
 	CFont* pOldFont = (CFont*)pDC->SelectObject( &theApp.m_gdiFont );
 	pDC->SetBkMode( TRANSPARENT );
 
-	if ( m_bShowGrid ) PaintGrid( pDC, pRect );
+	if ( m_bShowGrid )
+		PaintGrid( pDC, pRect );
 
 	for ( POSITION pos = m_pItems.GetHeadPosition() ; pos ; )
 	{
@@ -291,15 +292,15 @@ void CLineGraph::PaintGrid(CDC* pDC, CRect* pRect)
 	{
 		for ( POSITION pos = GetItemIterator() ; pos && ! bVolume ; )
 		{
-			CGraphItem* pItem	= GetNextItem( pos );
-			GRAPHITEM* pDesc	= pItem->GetItemDesc( pItem->m_nCode );
+			const CGraphItem* pItem	= GetNextItem( pos );
+			const GRAPHITEM* pDesc	= pItem->GetItemDesc( pItem->m_nCode );
 			if ( pDesc && pDesc->m_nUnits == 1 ) bVolume = TRUE;
 		}
 		pDC->SetTextColor( Colors.m_crTrafficWindowText );
 	}
 
 	nScale = m_nMinGridVert * m_nMaximum / ( pRect->Height() - TOP_MARGIN );
-	if ( ! nScale  ) nScale = 1;
+	if ( ! nScale ) nScale = 1;
 
 	int nOldY = pRect->bottom;
 

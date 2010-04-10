@@ -1,7 +1,7 @@
 //
 // DlgDecodeMetadata.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -52,9 +52,9 @@ const unsigned CDecodeMetadataDlg::codePages[] =
 // CDecodeMetadataDlg dialog
 
 CDecodeMetadataDlg::CDecodeMetadataDlg(CWnd* pParent) : CSkinDialog(CDecodeMetadataDlg::IDD, pParent)
-, m_nMethod( 0 )
-, m_sPreview1( L"" )
-, m_sPreview2( L"" )
+	, m_nMethod 	( 0 )
+	, m_sPreview1	( L"" )
+	, m_sPreview2	( L"" )
 {
 }
 
@@ -70,13 +70,13 @@ void CDecodeMetadataDlg::DoDataExchange(CDataExchange* pDX)
 /////////////////////////////////////////////////////////////////////////////
 // CDecodeMetadataDlg message handlers
 
-BOOL CDecodeMetadataDlg::OnInitDialog() 
+BOOL CDecodeMetadataDlg::OnInitDialog()
 {
 	CSkinDialog::OnInitDialog();
-	
+
 	SkinMe( _T("CDecodeMetadataDlg"), IDI_WORLD );
 
-	if ( !m_pFiles.IsEmpty() ) 
+	if ( ! m_pFiles.IsEmpty() )
 	{
 		CQuickLock oLock( Library.m_pSection );
 		CLibraryFile* pFile = Library.LookupFile( m_pFiles.GetHead() );
@@ -84,7 +84,7 @@ BOOL CDecodeMetadataDlg::OnInitDialog()
 
 		CXMLElement* pXML = pFile->m_pMetadata;
 		m_sOriginalWords = pFile->m_pSchema->GetVisibleWords( pXML );
-		
+
 		m_sPreview1 = m_sOriginalWords;
 		GetEncodedText( m_sPreview1, 0 );
 		m_sPreview2 = m_sOriginalWords;
@@ -101,20 +101,20 @@ void CDecodeMetadataDlg::AddFile(CLibraryFile* pFile)
 	m_pFiles.AddTail( pFile->m_nIndex );
 }
 
-void CDecodeMetadataDlg::OnOK() 
+void CDecodeMetadataDlg::OnOK()
 {
 	UpdateData();
 
 	unsigned nCodePage = m_wndCodepages.GetCurSel();
-	nCodePage = nCodePage < 13 ? codePages[ nCodePage ] : 1252; // english
+	nCodePage = nCodePage < 13 ? codePages[ nCodePage ] : 1252; // English
 
-	// close dialog and perform decoding in background
+	// Close dialog and perform decoding in background
 	CSkinDialog::OnOK();
 
-	for ( POSITION pos = m_pFiles.GetHeadPosition() ; pos ; )
+	for ( POSITION posFiles = m_pFiles.GetHeadPosition() ; posFiles ; )
 	{
-		DWORD nIndex = m_pFiles.GetNext( pos );
-		
+		DWORD nIndex = m_pFiles.GetNext( posFiles );
+
 		CXMLElement* pXML;
 		CLibraryFile* pFile;
 
@@ -129,9 +129,9 @@ void CDecodeMetadataDlg::OnOK()
 			pXML = pFile->m_pMetadata->Clone();
 		}
 
-		for ( POSITION pos = pXML->GetAttributeIterator() ; pos ; )
+		for ( POSITION posXML = pXML->GetAttributeIterator() ; posXML ; )
 		{
-			CXMLAttribute* pAttribute = pXML->GetNextAttribute( pos );
+			CXMLAttribute* pAttribute = pXML->GetNextAttribute( posXML );
 
 			CString strAttribute = pAttribute->GetValue();
 			GetEncodedText( strAttribute, m_nMethod );
@@ -139,13 +139,13 @@ void CDecodeMetadataDlg::OnOK()
 		}
 
 		CQuickLock oLock( Library.m_pSection );
-		// make a clean copy of schema with namespace included
+		// Make a clean copy of schema with namespace included
 		CXMLElement* pContainer	= pFile->m_pSchema->Instantiate( TRUE );
 		if ( pContainer )
 		{
-			// append modified metadata
-			/*CXMLElement* pMetadata	=*/ pContainer->AddElement( pXML );
-			// save metadata by creating XML file
+			// Append modified metadata
+			/*CXMLElement* pMetadata =*/ pContainer->AddElement( pXML );
+			// Save metadata by creating XML file
 			pFile->SetMetadata( pContainer );
 			delete pContainer;
 		}

@@ -1,7 +1,7 @@
 //
 // WndDownloads.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -125,8 +125,12 @@ protected:
 	afx_msg void OnTransfersForget();
 	afx_msg void OnUpdateTransfersChat(CCmdUI* pCmdUI);
 	afx_msg void OnTransfersChat();
+	afx_msg void OnUpdateDownloadsMergeLocal(CCmdUI* pCmdUI);
+	afx_msg void OnDownloadsMergeLocal();
 	afx_msg void OnUpdateDownloadsAddSource(CCmdUI* pCmdUI);
 	afx_msg void OnDownloadsAddSource();
+	afx_msg void OnUpdateDownloadsBoost(CCmdUI* pCmdUI);
+	afx_msg void OnDownloadsBoost();
 	afx_msg void OnUpdateDownloadsEnqueue(CCmdUI* pCmdUI);
 	afx_msg void OnDownloadsEnqueue();
 	afx_msg void OnUpdateDownloadsAutoClear(CCmdUI* pCmdUI);
@@ -137,8 +141,6 @@ protected:
 	afx_msg void OnDownloadsShowSources();
 	afx_msg void OnUpdateBrowseLaunch(CCmdUI* pCmdUI);
 	afx_msg void OnBrowseLaunch();
-	afx_msg void OnUpdateDownloadsBoost(CCmdUI* pCmdUI);
-	afx_msg void OnDownloadsBoost();
 	afx_msg void OnUpdateDownloadsLaunchCopy(CCmdUI* pCmdUI);
 	afx_msg void OnDownloadsLaunchCopy();
 	afx_msg void OnUpdateDownloadsFolder(CCmdUI* pCmdUI);

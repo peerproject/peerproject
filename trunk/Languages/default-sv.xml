@@ -1,9 +1,9 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
+<?xml version="1.0" encoding="UTF-8"?>
+<skin xmlns="http://schemas.peerproject.org/Skin.xsd" version="1.0">
 
 <!-- PeerProject Default Swedish Skin File -->
 
-<!-- Translation based on default-en.xml r48 -->
+<!-- Translation based on default-en.xml r50 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1043,31 +1043,28 @@
 	<!-- DOWNLOADS WINDOW -->
 	<menu name="CDownloadsWnd.Download.Basic">
 		<item id="ID_DOWNLOADS_LAUNCH" text="_Förhandsvisa"/>
-		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="Fjärrförhandsvisning"/>
-		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="_Visa recensioner"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_RESUME" text="_Återuppta nedladdning"/>
 		<item id="ID_DOWNLOADS_PAUSE" text="Gör _paus i nedladdning"/>
 		<item id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="_Avbryt nedladdningar"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_SOURCES" text="_Sök efter fler källor"/>
-		<!-- <separator/>
-		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="_Rensa avslutade nedladdningar"/>
-		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="Rensa avslutade nedladdningar a_utomatiskt"/> -->
+		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="Fjärrförhandsvisning"/>
+		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="_Visa recensioner"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_HELP" text="_Hjälp…"/>
 	</menu>
 	<menu name="CDownloadsWnd.Download">
-		<item id="ID_DOWNLOADS_LAUNCH" text="_Förhandsvisa"/>
 		<item id="ID_DOWNLOADS_LAUNCH_COPY" text="Förhandsvisa _kopia"/>
+		<item id="ID_DOWNLOADS_LAUNCH" text="_Förhandsvisa"/>
 		<item id="ID_DOWNLOADS_ENQUEUE" text="_Lägg till i spellista"/>
-		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="Fjärrförhandsvisning"/>
-		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="_Visa recensioner"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_RESUME" text="_Återuppta nedladdning"/>
 		<item id="ID_DOWNLOADS_PAUSE" text="Gör _paus i nedladdning"/>
 		<item id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="_Avbryt nedladdningar"/>
 		<separator/>
+		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="_Visa recensioner"/>
+		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="Fjärrförhandsvisning"/>
 		<item id="ID_DOWNLOADS_SOURCES" text="_Sök efter fler källor"/>
 		<separator/>
 		<menu text="_Avancerat">
@@ -1075,14 +1072,17 @@
 			<separator/>
 			<item id="ID_DOWNLOADS_URI" text="_Kopiera URI"/>
 			<item id="ID_DOWNLOADS_ADD_SOURCE" text="_Lägg till källa…"/>
+			<item id="ID_DOWNLOADS_MERGE" text="_Merge lokal fil…"/>
 			<separator/>
 			<item id="ID_DOWNLOADS_MONITOR" text="Monitor_fönster"/>
+		</menu>
+		<menu text="Pri_oritet">
 			<item id="ID_DOWNLOADS_BOOST" text="_Ignorera bandbreddsbegränsning"/>
 			<separator/>
-			<item id="ID_DOWNLOADS_MOVE_UP" text="Flytta _upp"/>
-			<item id="ID_DOWNLOADS_MOVE_DOWN" text="Flytta _ned"/>
-			<item id="ID_DOWNLOADS_MOVE_TOP" text="Flytta _upp!"/>
-			<item id="ID_DOWNLOADS_MOVE_BOTTOM" text="Flytta _ned!"/>
+			<item id="ID_DOWNLOADS_MOVE_TOP" text="Flytta _upp!" shortcut="Ctrl+Home"/>
+			<item id="ID_DOWNLOADS_MOVE_BOTTOM" text="Flytta _ned!" shortcut="Ctrl+End"/>
+			<item id="ID_DOWNLOADS_MOVE_UP" text="Flytta _upp" shortcut="Ctrl+Up"/>
+			<item id="ID_DOWNLOADS_MOVE_DOWN" text="Flytta _ned" shortcut="Ctrl+Down"/>
 		</menu>
 		<item id="ID_DOWNLOADS_HELP" text="_Hjälp…"/>
 		<separator/>
@@ -2127,8 +2127,8 @@
 		<newline gap="8"/>
 		<text>Tillgänligt diskutrymme på en eller flera enheter som används av PeerProject är lågt.</text>
 		<newline gap="8"/>
-		<text>Du bör alltid försöka hålla en resonlig mängd utrymme ledigt. 
-		Program kan bli instabila om diskutrymmet tar slut och tillfälliga filer kan förloras. 
+		<text>Du bör alltid försöka hålla en resonlig mängd utrymme ledigt.
+		Program kan bli instabila om diskutrymmet tar slut och tillfälliga filer kan förloras.
 		Du bör köra en diskrensning, radera filera du inte vill ha eller avinstallera mjukvara som du inte längre behöver.</text>
 	</document>
 	<document name="GeneralHelp.DiskWriteFail">
@@ -2705,7 +2705,7 @@
 	<string id="8230" value="PeerProject söker efter källor för:"/>
 	<string id="8231" value="Inga källor"/>
 	<string id="8232" value="Öppna"/>
-	<string id="8233" value="Förhandsvisa"/>
+	<string id="8233" value="Avbryt"/>
 	<string id="8235" value="Total överföringsfart:"/>
 	<string id="8236" value="Beräknad återstående tid:"/>
 	<string id="8237" value="Nedladdad volym:"/>
@@ -2972,7 +2972,6 @@
 	<string id="16402" value="PeerProject mottog en samlingsfil:\n\n&quot;%s&quot;\n\nDenna fil verkar inte vara en giltig samlingsfil."/>
 	<string id="16403" value="PeerProject har lagt till samlingsfilen &quot;%s&quot; till ditt bibliotek."/>
 	<string id="16404" value="PeerProject kan inte installera samlingsfilen &quot;%s&quot; genom att kopiera den till mappen &quot;%s&quot;."/>
-	<string id="16405" value="Vill du ladda ned denna fil?\n\n&quot;%s&quot;\n\nVälj Avbryt om du inte vill få denna fråga igen."/>
 	<string id="16406" value="Vill du ladda ned alla filer i denna samling?\n\nVälj Avbryt om du inte vill få denna fråga igen."/>
 	<string id="16407" value="Vill du hindra denna samling från att fråga dig om nedladdning av något annat?"/>
 	<string id="16408" value="Kopiera &amp;URI"/>
@@ -3343,14 +3342,14 @@
 		<control caption="När jag klickar minimera."/>
 		<control caption="Normal|Minimera till aktivitetsfltet"/>
 	</dialog>
-	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBu" caption="Bibliotek">
+	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuBuCoBuBuBuCoBuBuBuEdBu" caption="Bibliotek">
 		<control caption="_Alternativ:"/>
 		<control caption="Tillåt andra användare att se fillistan"/>
+		<control caption="Kom ihåg mappvyer"/>
 		<control caption="Bevaka biblioteksmappar"/>
 		<control caption="Snabb hashing (mer processorkraft)"/>
 		<control caption="Smart video series detection"/>
 		<control caption="Skapa skuggfil vid radering"/>
-		<control caption="Kom ihåg mappvyer"/>
 		<control caption="_Senast använda filer:"/>
 		<control caption="Kom ihåg:"/>
 		<control/>
@@ -3360,7 +3359,8 @@
 		<control/>
 		<control/>
 		<control caption="dagar"/>
-		<control caption="Rensa historik nu"/>
+		<control caption="Rensa historik"/>
+		<control caption="Rensa skuggfil"/>
 		<control caption="Säkra att _öppna:"/>
 		<control/>
 		<control caption="Lägg till"/>
@@ -4005,8 +4005,7 @@
 		<control caption="Avbryt"/>
 		<control/>
 	</dialog>
-	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStStBuBuBuBuBu" caption="Ladda ned">
-		<control caption="PeerProject laddas ned:"/>
+	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStBuBuBuBu" caption="Ladda ned">
 		<control caption="..."/>
 		<control/>
 		<control/>
@@ -4019,11 +4018,10 @@
 		<control caption="..."/>
 		<control caption="Nedladdad volym:"/>
 		<control caption="..."/>
-		<control caption="Stäng detta fönster när nedladdningen är klar"/>
-		<control caption="Öppna fil"/>
-		<control caption="Visa bibliotek"/>
-		<control caption="Avbryt nedladdning"/>
+		<control caption="Visa"/>
+		<control caption="Avbryt"/>
 		<control caption="Stäng"/>
+		<control caption="Stäng detta fönster när nedladdningen är klar"/>
 	</dialog>
 	<dialog name="CFileGeneralPage" cookie="EdStStStStStEdEdEdEdEdStEdEdEdEd" caption="Generellt">
 		<control/>
@@ -4395,23 +4393,22 @@
 		<control caption="till"/>
 		<control caption="Ta bort"/>
 	</dialog>
-	<dialog name="CDownloadGroupDlg" cookie="BuBuEdCoBuCoBuBuEdBuBuBuBuBuBuSt" caption="Egenskaper för nedladdningsgruppen">
-		<control caption="OK"/>
-		<control caption="Avbryt"/>
+	<dialog name="CDownloadGroupDlg" cookie="BuEdBuEdBuBuBuCoBuBuBuCoStBuBu" caption="Egenskaper för nedladdningsgruppen">
+		<control caption="Gruppen _Namn:"/>
+		<control/>
+		<control caption="Färdiga _filmappar:"/>
 		<control/>
 		<control/>
-		<control caption="_BitTorrent"/>
+		<control/>
+		<control caption="_Filter:"/>
 		<control/>
 		<control caption="_Lägg till"/>
 		<control caption="_Readera"/>
-		<control/>
-		<control/>
-		<control/>
-		<control caption="Gruppen _Namn:"/>
-		<control caption="_Filter:"/>
-		<control caption="Färdiga _filmappar:"/>
 		<control caption="Fil_typ:"/>
-		<control caption="_*Drag&apos;n&apos;drop any download later."/>
+		<control/>
+		<control caption="*Drag&apos;n&apos;drop any download later."/>
+		<control caption="OK"/>
+		<control caption="Avbryt"/>
 	</dialog>
 	<dialog name="CMediaVisDlg" cookie="StBuSyCoBuBuBu" caption="Välj visualisering">
 		<control/>
@@ -4605,4 +4602,4 @@
 		<column from="Order" to="Ordna"/>
 	</list>
 </listColumns>
-</skin>
+</skin>�

@@ -33,6 +33,7 @@ public:
 	virtual ~CCoolTipCtrl();
 
 	virtual BOOL Create(CWnd* pParentWnd, bool* pbEnable = NULL);
+	virtual void Hide();
 
 	//void Show(T* pContext, HWND hAltWnd = NULL)
 	//{
@@ -42,9 +43,8 @@ public:
 	//	ShowImpl( bChanged );
 	//}
 
-	virtual void Hide();
-
 protected:
+	static LPCTSTR	m_hClass;
 	bool*	m_pbEnable;
 	HWND	m_hAltWnd;
 	BOOL	m_bTimer;
@@ -52,7 +52,6 @@ protected:
 	DWORD	m_tOpen;
 	CPoint	m_pOpen;
 	CSize	m_sz;
-	static LPCTSTR	m_hClass;
 
 	void	ShowImpl(bool bChanged = false);
 	void	CalcSizeHelper();
@@ -86,6 +85,15 @@ protected:
   #define LWA_ALPHA		0x02
 #endif
 
+
+//#define TIP_TIMER_GRAPH 72	// 30s display (Settings.Interface.RefreshRateGraph)
+#define TIP_TIMER_TEXT	400		// (Settings.Interface.RefreshRateText ?)
+#define TIP_OFFSET_X	0
+#define TIP_OFFSET_Y	24
+#define TIP_MARGIN		6
+
+#define TIP_GRAPHHEIGHT	40
+#define TIP_BARHEIGHT	14
 #define TIP_TEXTHEIGHT	14
 #define TIP_RULE		11
 #define TIP_GAP			5

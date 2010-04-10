@@ -72,6 +72,8 @@ void CCoolMenu::OnInitMenuPopup(CMenu* pPopupMenu, UINT nIndex, BOOL bSysMenu)
 
 	if ( m_pContextMenu2 )
 	{
+		HRESULT hr;
+
 		MENUITEMINFO mii = {};
 		mii.cbSize = sizeof( mii );
 		mii.fMask = MIIM_ID;
@@ -82,7 +84,7 @@ void CCoolMenu::OnInitMenuPopup(CMenu* pPopupMenu, UINT nIndex, BOOL bSysMenu)
 			{
 				// Shell menu
 				CString strHelp;
-				HRESULT hr = m_pContextMenu2->GetCommandString( mii.wID - ID_SHELL_MENU_MIN,
+				hr = m_pContextMenu2->GetCommandString( mii.wID - ID_SHELL_MENU_MIN,
 					GCS_HELPTEXTW, NULL, (LPSTR)strHelp.GetBuffer( 256 ), 256 );
 				strHelp.ReleaseBuffer();
 				if ( SUCCEEDED( hr ) )
@@ -96,10 +98,11 @@ void CCoolMenu::OnInitMenuPopup(CMenu* pPopupMenu, UINT nIndex, BOOL bSysMenu)
 				continue;
 			if ( mii.wID >= ID_SHELL_MENU_MIN && mii.wID <= ID_SHELL_MENU_MAX )
 			{
-				m_pContextMenu2->HandleMenuMsg( WM_INITMENUPOPUP,
+				// Shell menu
+				hr = m_pContextMenu2->HandleMenuMsg( WM_INITMENUPOPUP,
 					(WPARAM)pPopupMenu->GetSafeHmenu(),
 					(LPARAM)MAKELONG( nIndex, TRUE ) );
-				return;	// Shell menu
+				return;
 			}
 			break;	// Regular menu
 		}
@@ -603,18 +606,30 @@ void CCoolMenu::RegisterEdge(int nLeft, int nTop, int nLength)
 	m_nEdgeSize	= nLength;
 }
 
-UINT_PTR CCoolMenu::DoExplorerMenu(HWND hwnd, const CStringList& oFiles, POINT point,
+static HRESULT SafeQueryContextMenu(IContextMenu* pContextMenu, HMENU hmenu, UINT indexMenu, UINT idCmdFirst, UINT idCmdLast, UINT uFlags) throw()
+{
+	__try
+	{
+		return pContextMenu->QueryContextMenu( hmenu, indexMenu, idCmdFirst, idCmdLast, uFlags );
+	}
+	__except( EXCEPTION_EXECUTE_HANDLER )
+	{
+		return E_UNEXPECTED;
+	}
+}
+
+void CCoolMenu::DoExplorerMenu(HWND hwnd, const CStringList& oFiles, POINT point,
 	HMENU hMenu, HMENU hSubMenu, UINT nFlags)
 {
-	UINT_PTR nCmd = 0;
+	HRESULT hr;
+
 	CComPtr< IContextMenu > pContextMenu1;
 	CShellList oItemIDListList( oFiles );
 	if ( oItemIDListList.GetMenu( hwnd, (void**)&pContextMenu1 ) )
 	{
-		HRESULT hr;
 		{
 			CWaitCursor wc;
-			hr = pContextMenu1->QueryContextMenu( hSubMenu, 0,
+			hr = SafeQueryContextMenu( pContextMenu1, hSubMenu, 0,
 				ID_SHELL_MENU_MIN, ID_SHELL_MENU_MAX, CMF_NORMAL | CMF_EXPLORE );
 		}
 		if ( SUCCEEDED( hr ) )
@@ -623,7 +638,7 @@ UINT_PTR CCoolMenu::DoExplorerMenu(HWND hwnd, const CStringList& oFiles, POINT p
 			hr = pContextMenu1.QueryInterface( &m_pContextMenu3 );
 
 			::SetForegroundWindow( hwnd );
-			nCmd = ::TrackPopupMenu( hMenu, TPM_RETURNCMD | nFlags,
+			UINT_PTR nCmd = ::TrackPopupMenu( hMenu, TPM_RETURNCMD | nFlags,
 				point.x, point.y, 0, hwnd, NULL );
 			::PostMessage( hwnd, WM_NULL, 0, 0 );
 
@@ -633,13 +648,13 @@ UINT_PTR CCoolMenu::DoExplorerMenu(HWND hwnd, const CStringList& oFiles, POINT p
 				CMINVOKECOMMANDINFOEX ici = {};
 				ici.cbSize = sizeof( CMINVOKECOMMANDINFOEX );
 				ici.hwnd = hwnd;
+				ici.fMask = CMIC_MASK_ASYNCOK | CMIC_MASK_NOZONECHECKS | CMIC_MASK_FLAG_LOG_USAGE;
 				ici.lpVerb = reinterpret_cast< LPCSTR >( nCmd - ID_SHELL_MENU_MIN );
 				ici.lpVerbW = reinterpret_cast< LPCWSTR >( nCmd - ID_SHELL_MENU_MIN );
 				ici.nShow = SW_SHOWNORMAL;
-				hr = pContextMenu1->InvokeCommand( (CMINVOKECOMMANDINFO*)&ici );
-				VERIFY( SUCCEEDED( hr ) );
+				pContextMenu1->InvokeCommand( (CMINVOKECOMMANDINFO*)&ici );
 			}
-			else if ( ( TPM_RETURNCMD & nFlags ) == 0 )
+			else // if ( ( TPM_RETURNCMD & nFlags ) == 0 )
 			{
 				// Emulate normal message handling
 				::PostMessage( hwnd, WM_COMMAND, nCmd, 0 );
@@ -655,8 +670,6 @@ UINT_PTR CCoolMenu::DoExplorerMenu(HWND hwnd, const CStringList& oFiles, POINT p
 		// ToDo: Determine if it still crashes inside Windows Shell SetSite() function
 		SafeRelease( pContextMenuCache );
 	}
-
-	return nCmd;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -694,7 +707,14 @@ LRESULT CALLBACK CCoolMenu::MsgHook(int nCode, WPARAM wParam, LPARAM lParam)
 		break;
 	}
 
-	return CallNextHookEx( CCoolMenu::m_hMsgHook, nCode, wParam, lParam );
+	__try
+	{
+		return CallNextHookEx( CCoolMenu::m_hMsgHook, nCode, wParam, lParam );
+	}
+	__except( EXCEPTION_EXECUTE_HANDLER )
+	{
+		return 0;
+	}
 }
 
 LRESULT CALLBACK CCoolMenu::MenuProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)

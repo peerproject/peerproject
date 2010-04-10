@@ -1,7 +1,7 @@
 //
-// MD4.h
+// MD4.h (ED2K)
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2006.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -51,6 +51,6 @@ private:
 	MD4State m_State;
 
 #ifndef HASHLIB_USE_ASM
-	void Transform(const uint32* data);
+	__forceinline void Transform(const uint32* data);
 #endif
 };

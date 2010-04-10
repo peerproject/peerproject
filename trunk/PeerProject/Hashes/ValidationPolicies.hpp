@@ -1,47 +1,42 @@
-////////////////////////////////////////////////////////////////////////////////
-//                                                                            //
-// Hashes/ValidationPolicies.hpp                                              //
-//                                                                            //
-// This file is part of PeerProject (peerproject.org) © 2008                  //
-// Portions Copyright Shareaza Development Team, 2005.                        //
-//                                                                            //
-// PeerProject is free software; you can redistribute it and/or               //
-// modify it under the terms of the GNU General Public License                //
-// as published by the Free Software Foundation; either version 3             //
-// of the License, or later version (at your option).                         //
-//                                                                            //
-// PeerProject is distributed in the hope that it will be useful,             //
-// but WITHOUT ANY WARRANTY; without even the implied warranty of             //
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.                       //
-// See the See the GNU General Public License for more details.               //
-//                                                                            //
-// You should have received a copy of the GNU General Public License 3.0          //
-// along with PeerProject; if not, write to Free Software Foundation, Inc.    //
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)     //
-//                                                                            //
-////////////////////////////////////////////////////////////////////////////////
+//
+// Hashes/ValidationPolicies.hpp
+//
+// This file is part of PeerProject (peerproject.org) © 2008-2010
+// Portions Copyright Shareaza Development Team, 2005.
+//
+// PeerProject is free software; you can redistribute it and/or
+// modify it under the terms of the GNU General Public License
+// as published by the Free Software Foundation; either version 3
+// of the License, or later version (at your option).
+//
+// PeerProject is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+// See the GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License 3.0
+// along with PeerProject; if not, write to Free Software Foundation, Inc.
+// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+//
 
 //! \file       Hashes/ValidationPolicies.hpp
 //! \brief      Defines validation policies.
 
-#ifndef HASHES_VALIDATIONPOLICIES_HPP_INCLUDED
-#define HASHES_VALIDATIONPOLICIES_HPP_INCLUDED
+#pragma once
+
 
 namespace Hashes
 {
-
 	namespace Policies
 	{
-
-		//! \brief A model of
-		//!        \ref hashvalidationpoliciespage "Validation Policy"
+		//! \brief A model of \ref hashvalidationpoliciespage "Validation Policy"
 		//!
 		//! This policy does not store the result of \a check().
 		//! Its member function \a isValid() will always return \c true in turn.
-		//! It is the responsibility of the calling code, to ensure that this
-		//! makes sense. Use this policy to avoid overhead were it's not needed.
-		//! In conjunction with Hashes::Policies::NoCheck it results in a hash
-		//! type thats as space efficient as a plain struct would be.
+		//! It's the responsibility of the calling code to ensure that this makes sense.
+		//! Use this policy to avoid overhead where it's not needed.
+		//! In conjunction with Hashes::Policies::NoCheck it results in a
+		//! hash type that's as space efficient as a plain struct would be.
 		template<class CheckingPolicyT>
 		struct NoValidation : public CheckingPolicyT
 		{
@@ -73,9 +68,7 @@ namespace Hashes
 			bool isValid() const { return true; }
 		};
 
-		//! \brief A model of 
-		//!        \ref hashvalidationpoliciespage "Validation Policy"
-		//!
+		//! \brief A model of \ref hashvalidationpoliciespage "Validation Policy"
 		template<class CheckingPolicyT>
 		struct BasicValidation : public CheckingPolicyT
 		{
@@ -125,15 +118,14 @@ namespace Hashes
 			bool m_valid;
 		};
 
-		//! \brief A model of
-		//!        \ref hashvalidationpoliciespage "Validation Policy"
+		//! \brief A model of \ref hashvalidationpoliciespage "Validation Policy"
 		//!
 		//! This policy is a refinement of Hashes::Policies::BasicValidation.
 		//! It associates another flag "trusted" with the hash.
 		//! The exact semantics of trusted is unspecified, except that:
 		//! - The flag can be set only if the hash is valid.
-		//! - This flag is cleared if conversion from another Validation
-		//!   Policy occurs. It is copied if copying from another hash with
+		//! - This flag is cleared if conversion from another Validation Policy occurs.
+		//!   It is copied if copying from another hash with
 		//!   this Policy provided the hash can be validated here.
 		template<class CheckingPolicyT>
 		struct ExtendedValidation : public BasicValidation< CheckingPolicyT >
@@ -178,28 +170,30 @@ namespace Hashes
 				return *this;
 			}
 
-			//! \brief Overides \a clear() in order to clear the trusted flag
-			//!        as well
+			//! \brief Overides \a clear() in order to clear the trusted flag as well
 			void clear()
 			{
 				BasicValidation< CheckingPolicy >::clear();
 				m_trusted = false;
 			}
-			//! \brief Overides \a validate() in order to clear the trusted
-			//!        flag if validation fails.
+			//! \brief Overrides \a validate() in order to clear the trusted flag
+			//!        if validation fails.
 			bool validate()
 			{
 				if ( BasicValidation< CheckingPolicy >::validate() )
 					return true;
-				return m_trusted = false;
+				m_trusted = false;
+				return false;
 			}
 
 			//! \brief Sets trusted flag, provided the Hash is valid.
 			//!        Returns the valid state of the hash.
 			bool signalTrusted()
 			{
-				if ( !isValid() ) return false;
-				return m_trusted = true;
+				if ( ! isValid() )
+					return false;
+				m_trusted = true;
+				return true;
 			}
 			//! \brief Clears the trusted flag.
 			void signalUntrusted()
@@ -213,8 +207,6 @@ namespace Hashes
 			bool m_trusted;
 		};
 
-	} // Policies
+	} // namespace Policies
 
 } // namespace Hashes
-
-#endif // #ifndef HASHES_VALIDATIONPOLICIES_HPP_INCLUDED

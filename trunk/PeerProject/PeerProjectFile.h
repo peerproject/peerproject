@@ -23,7 +23,7 @@
 
 #include "PeerProjectOM.h"
 
-typedef CMap< CString, CString&, FILETIME, FILETIME& > CMapStringToFILETIME;
+typedef CMap< CString, const CString&, FILETIME, FILETIME& > CMapStringToFILETIME;		// "const CString&" for StringType fix
 
 class CPeerProjectFile : public CComObject
 {
@@ -48,7 +48,7 @@ public:
 									// CBTFile      : Relative path inside .torrent
 									// CDownload    : Path of .pd file (.sd)
 									// CUploadFile  : Path of requested file	// ToDo: Fix This?!
-	
+
 	// Returns "urn:bitprint:SHA1.TIGER" or "urn:sha1:SHA1" or "urn:tree:tiger/:TIGER"
 	CString GetBitprint() const;
 

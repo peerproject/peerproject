@@ -124,7 +124,7 @@ END_MESSAGE_MAP()
 #define META_DELAY		10000
 #define TIME_FACTOR		1000000
 #define ONE_SECOND		10000000
-// ToDo: Make Skinnable Options
+// ToDo: Make Above Skinnable Options ?
 
 CMediaFrame* CMediaFrame::g_pMediaFrame = NULL;
 
@@ -634,8 +634,10 @@ void CMediaFrame::PaintStatus(CDC& dc, CRect& rcBar)
 	CSize sz;
 
 	int nState = 0;
-	if ( m_nState >= smsPlaying ) nState = 2;
-	else if ( m_nState >= smsPaused ) nState = 1;
+	if ( m_nState >= smsPlaying )
+		nState = 2;
+	else if ( m_nState >= smsPaused )
+		nState = 1;
 	ImageList_DrawEx( m_pIcons, nState, dc, rcBar.left + 2,
 		( rcBar.top + rcBar.bottom ) / 2 - 8, 16, 16,
 		crBack, CLR_NONE, ILD_NORMAL );
@@ -649,17 +651,17 @@ void CMediaFrame::PaintStatus(CDC& dc, CRect& rcBar)
 	if ( CMetaItem* pItem = m_pMetadata.GetFirst() )
 	{
 		dc.SelectObject( &m_pFontKey );
-		CString str = Settings.General.LanguageRTL ? ':' + pItem->m_sKey : pItem->m_sKey + ':';
-		sz				= dc.GetTextExtent( str );
-		rcPart.left		= rcBar.left + 20;
-		rcPart.right	= rcPart.left + sz.cx + 8;
+		str 		= Settings.General.LanguageRTL ? ':' + pItem->m_sKey : pItem->m_sKey + ':';
+		sz			= dc.GetTextExtent( str );
+		rcPart.left = rcBar.left + 20;
+		rcPart.right = rcPart.left + sz.cx + 8;
 		dc.ExtTextOut( rcPart.left + 4, nY, ETO_CLIPPED|ETO_OPAQUE|dwOptions, &rcPart, str, NULL );
 		dc.ExcludeClipRect( &rcPart );
 
 		dc.SelectObject( &m_pFontValue );
-		sz				= dc.GetTextExtent( pItem->m_sValue );
-		rcPart.left		= rcPart.right;
-		rcPart.right	= rcPart.left + sz.cx + 8;
+		sz			= dc.GetTextExtent( pItem->m_sValue );
+		rcPart.left = rcPart.right;
+		rcPart.right = rcPart.left + sz.cx + 8;
 		dc.ExtTextOut( rcPart.left + 4, nY, ETO_CLIPPED|ETO_OPAQUE|dwOptions, &rcPart, pItem->m_sValue, NULL );
 		dc.ExcludeClipRect( &rcPart );
 	}
@@ -742,11 +744,11 @@ BOOL CMediaFrame::PaintStatusMicro(CDC& dc, CRect& rcBar)
 
 	if ( CMetaItem* pItem = m_pMetadata.GetFirst() )
 	{
-		CString str = Settings.General.LanguageRTL ? ':' + pItem->m_sKey : pItem->m_sKey + ':';
-		sz				= pMemDC->GetTextExtent( str );
-		rcPart.left		= rcStatus.left;
-		rcPart.right	= rcPart.left + sz.cx + 2;
-		rcStatus.left	= rcPart.right;
+		str 		= Settings.General.LanguageRTL ? ':' + pItem->m_sKey : pItem->m_sKey + ':';
+		sz			= pMemDC->GetTextExtent( str );
+		rcPart.left = rcStatus.left;
+		rcPart.right = rcPart.left + sz.cx + 2;
+		rcStatus.left = rcPart.right;
 
 		pMemDC->DrawText( str, &rcPart, DT_SINGLELINE|DT_VCENTER|DT_LEFT|DT_NOPREFIX|dwOptions );
 		pMemDC->DrawText( pItem->m_sValue, &rcStatus, DT_SINGLELINE|DT_VCENTER|DT_LEFT|DT_NOPREFIX|DT_END_ELLIPSIS|dwOptions );

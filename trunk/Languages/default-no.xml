@@ -1,9 +1,9 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
+<?xml version="1.0" encoding="UTF-8"?>
+<skin xmlns="http://schemas.peerproject.org/Skin.xsd" version="1.0">
 
 <!-- PeerProject Default Norwegian Skin File -->
 
-<!-- Translation based on default-en.xml r48 (Shareaza 2.2.0.2) -->
+<!-- Translation based on default-en.xml r50 (Shareaza 2.2.0.2) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -912,31 +912,28 @@
 	<!-- DOWNLOADS WINDOW -->
 	<menu name="CDownloadsWnd.Download.Basic">
 		<item id="ID_DOWNLOADS_LAUNCH" text="Forhåndsvis"/>
-		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="R_emote Preview"/>
-		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="Se omtaler"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_RESUME" text="Fortsett"/>
 		<item id="ID_DOWNLOADS_PAUSE" text="Pause"/>
 		<item id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Avbryt"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_SOURCES" text="Finn flere kilder"/>
-		<!-- <separator/>
-		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Fjern ferdige"/>
-		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="Fjern automatisk"/> -->
+		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="R_emote Preview"/>
+		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="Se omtaler"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_HELP" text="Hjelp..."/>
 	</menu>
 	<menu name="CDownloadsWnd.Download">
-		<item id="ID_DOWNLOADS_LAUNCH" text="Forhåndsvis"/>
 		<item id="ID_DOWNLOADS_LAUNCH_COPY" text="Forhåndsvis kopi"/>
+		<item id="ID_DOWNLOADS_LAUNCH" text="Forhåndsvis"/>
 		<item id="ID_DOWNLOADS_ENQUEUE" text="Legg til spilleliste"/>
-		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="R_emote Preview"/>
-		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="Se omtaler"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_RESUME" text="Fortsett"/>
 		<item id="ID_DOWNLOADS_PAUSE" text="Pause"/>
 		<item id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Avbryt"/>
 		<separator/>
+		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="Se omtaler"/>
+		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="R_emote Preview"/>
 		<item id="ID_DOWNLOADS_SOURCES" text="Finn flere kilder"/>
 		<separator/>
 		<menu text="Avansert">
@@ -944,14 +941,17 @@
 			<separator/>
 			<item id="ID_DOWNLOADS_URI" text="Kopier URI"/>
 			<item id="ID_DOWNLOADS_ADD_SOURCE" text="Legg til kilde..."/>
+			<item id="ID_DOWNLOADS_MERGE" text="Flett lokal fil..."/>
 			<separator/>
 			<item id="ID_DOWNLOADS_MONITOR" text="Monitor-vindu"/>
+		</menu>
+		<menu text="Prioritet">
 			<item id="ID_DOWNLOADS_BOOST" text="Ignorer hastighetsinnstillinger"/>
 			<separator/>
-			<item id="ID_DOWNLOADS_MOVE_UP" text="Flytt opp"/>
-			<item id="ID_DOWNLOADS_MOVE_DOWN" text="Flytt ned"/>
 			<item id="ID_DOWNLOADS_MOVE_TOP" text="Flytt opp!"/>
 			<item id="ID_DOWNLOADS_MOVE_BOTTOM" text="Flytt ned!"/>
+			<item id="ID_DOWNLOADS_MOVE_UP" text="Flytt opp"/>
+			<item id="ID_DOWNLOADS_MOVE_DOWN" text="Flytt ned"/>
 		</menu>
 		<item id="ID_DOWNLOADS_HELP" text="Hjelp..."/>
 		<separator/>
@@ -2487,7 +2487,7 @@
 	<string id="8230" value="PeerProject søker etter kilder til:"/>
 	<string id="8231" value="Ingen kilder"/>
 	<string id="8232" value="Åpne"/>
-	<string id="8233" value="Forhåndsvis"/>
+	<string id="8233" value="Avbryt"/>
 	<string id="8235" value="Hastighet:"/>
 	<string id="8236" value="Estimert tid igjen:"/>
 	<string id="8237" value="Lastet ned:"/>
@@ -2750,7 +2750,6 @@
 	<string id="16402" value="PeerProject mottok en samlings-fil:\r\n\r\n&quot;%s&quot;\r\n\r\nDette ser ikke ut som en gyldig samlings-fil."/>
 	<string id="16403" value="PeerProject har lagt samlings-filen &quot;%s&quot; til mine filer."/>
 	<string id="16404" value="PeerProject klarte ikke å legge inn samlings-filen &quot;%s&quot; ved  kopiere den til mappe &quot;%s&quot;."/>
-	<string id="16405" value="Vil du laste ned denne filen?\r\n\r\n&quot;%s&quot;\r\n\r\nVelg avbryt for å slippe flere spørsmål."/>
 	<string id="16406" value="Vil du laste ned alle filene i denne samlingen?\r\n\r\nVelg avbryt for å slippe flere spørsmål."/>
 	<string id="16407" value="Vil du sette en stopp på denne samlingen slik at du slipper flere spørsmål om å laste ned mer"/>
 	<string id="16408" value="Kopier &amp;URI"/>
@@ -3087,14 +3086,14 @@
 		<control caption="Når jeg trykker minimer:"/>
 		<control caption="Normal|Minimer til systemfeltet"/>
 	</dialog>
-	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBu" caption="Bibliotek">
+	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuBuCoBuBuBuCoBuBuBuEdBu" caption="Bibliotek">
 		<control caption="_Egenskaper:"/>
 		<control caption="La andre utforske mine filer"/>
+		<control caption="Husk mappevisning"/>
 		<control caption="Overvåk mapper i biblioteket"/>
 		<control caption="Rask hashing (bruker mer CPU)"/>
 		<control caption="Smart media series detection"/>
-		<control caption="Create ghost files when deleting"/>
-		<control caption="Husk mappevisning"/>
+		<control caption="Create ghost files by default"/>
 		<control caption="Nye filer:"/>
 		<control caption="Husk:"/>
 		<control/>
@@ -3104,7 +3103,8 @@
 		<control/>
 		<control/>
 		<control caption="dager"/>
-		<control caption="Slett historie nå"/>
+		<control caption="Slett historie"/>
+		<control caption="Slett ghosts"/>
 		<control caption="_Sikre å åpne:"/>
 		<control/>
 		<control caption="_Legg til"/>
@@ -3706,8 +3706,7 @@
 		<control caption="Avbryt"/>
 		<control/>
 	</dialog>
-	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStStBuBuBuBuBu" caption="Nedlasting">
-		<control caption="PeerProject laster ned:"/>
+	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStBuBuBuBu" caption="Nedlasting">
 		<control caption="..."/>
 		<control/>
 		<control/>
@@ -3721,7 +3720,6 @@
 		<control caption="Lastet ned:"/>
 		<control caption="..."/>
 		<control caption="Vis"/>
-		<control caption="Åpne"/>
 		<control caption="Avbryt"/>
 		<control caption="Skjul"/>
 		<control caption="Lukk dette vinduet når filen er ferdig"/>
@@ -4096,23 +4094,22 @@
 		<control caption="til"/>
 		<control caption="Slett"/>
 	</dialog>
-	<dialog name="CDownloadGroupDlg" cookie="BuBuEdCoBuCoBuBuEdBuBuBuBuBuBuSt" caption="Gruppeegenskaper">
-		<control caption="OK"/>
-		<control caption="Avbryt"/>
+	<dialog name="CDownloadGroupDlg" cookie="BuEdBuEdBuBuBuCoBuBuBuCoStBuBu" caption="Gruppeegenskaper">
+		<control caption="_Navn:"/>
+		<control/>
+		<control caption="Ferdige filer i mappe:"/>
 		<control/>
 		<control/>
-		<control caption="_BitTorrent"/>
+		<control/>
+		<control caption="_Filter:"/>
 		<control/>
 		<control caption="Legg til"/>
 		<control caption="Fjern"/>
-		<control/>
-		<control/>
-		<control/>
-		<control caption="_Navn:"/>
-		<control caption="_Filter:"/>
-		<control caption="Ferdige filer i mappe:"/>
 		<control caption="_Filtype (schema):"/>
-		<control caption="_*Drag&apos;n&apos;drop any download later."/>
+		<control/>
+		<control caption="*Drag&apos;n&apos;drop any download later."/>
+		<control caption="OK"/>
+		<control caption="Avbryt"/>
 	</dialog>
 	<dialog name="CMediaVisDlg" cookie="StBuSyCoBuBuBu" caption="Velg effekter">
 		<control/>
@@ -4306,4 +4303,4 @@
 		<column from="Order" to="Rekkefølge"/>
 	</list>
 </listColumns>
-</skin>
+</skin>찝趕

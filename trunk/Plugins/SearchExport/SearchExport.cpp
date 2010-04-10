@@ -1,7 +1,9 @@
+//
 // SearchExport.cpp : Implementation of DLL Exports.
+//
 
 #include "StdAfx.h"
-#include "SearchExport_h.h"
+#include "SearchExport.h"
 
 class CSearchExportModule : public CAtlDllModuleT< CSearchExportModule >
 {
@@ -56,9 +58,7 @@ STDAPI DllInstall(BOOL bInstall, LPCWSTR pszCmdLine)
 	{
 		hr = DllRegisterServer();
 		if (FAILED(hr))
-		{
 			DllUnregisterServer();
-		}
 	}
 	else
 	{

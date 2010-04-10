@@ -1,9 +1,9 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
+<?xml version="1.0" encoding="UTF-8"?>
+<skin xmlns="http://schemas.peerproject.org/Skin.xsd" version="1.0">
 
 <!-- PeerProject Default Catalan Skin File -->
 
-<!-- Translation based on default-en.xml r48 -->
+<!-- Translation based on default-en.xml r50 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1066,46 +1066,46 @@
 	<!-- DOWNLOADS WINDOW -->
 	<menu name="CDownloadsWnd.Download.Basic">
 		<item id="ID_DOWNLOADS_LAUNCH_COPY" text="_Vista prèvia"/>
-		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="Vista prèvia remota"/>
-		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="_Mostra ressenyes"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_RESUME" text="_Continua"/>
 		<item id="ID_DOWNLOADS_PAUSE" text="Atur_a"/>
 		<item id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="_Cancel·la"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_SOURCES" text="_Cerca més fonts"/>
-		<!-- <separator/>
-		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="N_eteja completats"/>
-		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="A_utoneteja"/> -->
+		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="Vista prèvia remota"/>
+		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="_Mostra ressenyes"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_HELP" text="_Ajuda..."/>
 	</menu>
 	<menu name="CDownloadsWnd.Download">
-		<item id="ID_DOWNLOADS_LAUNCH" text="_Vista prèvia"/>
 		<item id="ID_DOWNLOADS_LAUNCH_COPY" text="Vi_sta Prèvia de còpia"/>
+		<item id="ID_DOWNLOADS_LAUNCH" text="_Vista prèvia"/>
 		<item id="ID_DOWNLOADS_ENQUEUE" text="Afegeix a  la llista de reproducció"/>
-		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="R_emote Preview"/>
-		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="_Mostra ressenyes"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_RESUME" text="_Continua"/>
 		<item id="ID_DOWNLOADS_PAUSE" text="Atur_a"/>
 		<item id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="_Cancel·la"/>
 		<separator/>
+		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="_Mostra ressenyes"/>
+		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="R_emote Preview"/>
 		<item id="ID_DOWNLOADS_SOURCES" text="_Cerca més fonts"/>
 		<separator/>
 		<menu text="_Avançat">
-			<item id="ID_DOWNLOADS_SHARE" text="_Comparteix arxiu"/>
+			<item id="ID_DOWNLOADS_SHARE" text="Compartei_x arxiu"/>
 			<separator/>
-			<item id="ID_DOWNLOADS_URI" text="_Copia URI (enllaç)"/>
+			<item id="ID_DOWNLOADS_URI" text="Copia _URI (enllaç)"/>
 			<item id="ID_DOWNLOADS_ADD_SOURCE" text="_Afegeix font..."/>
+			<item id="ID_DOWNLOADS_MERGE" text="Fusionar el fitxer local"/>
 			<separator/>
 			<item id="ID_DOWNLOADS_MONITOR" text="Finestra del _monitor"/>
+		</menu>
+		<menu text="Pri_oritat">
 			<item id="ID_DOWNLOADS_BOOST" text="_Ignora el límit de banda"/>
 			<separator/>
-			<item id="ID_DOWNLOADS_MOVE_UP" text="Moure _amunt" shortcut="Ctrl+Up"/>
-			<item id="ID_DOWNLOADS_MOVE_DOWN" text="Moure _avall" shortcut="Ctrl+Dn"/>
 			<item id="ID_DOWNLOADS_MOVE_TOP" text="Moure _amunt!" shortcut="Ctrl+Home"/>
 			<item id="ID_DOWNLOADS_MOVE_BOTTOM" text="Moure _avall!" shortcut="Ctrl+End"/>
+			<item id="ID_DOWNLOADS_MOVE_UP" text="Moure _amunt" shortcut="Ctrl+Up"/>
+			<item id="ID_DOWNLOADS_MOVE_DOWN" text="Moure _avall" shortcut="Ctrl+Dn"/>
 		</menu>
 		<item id="ID_DOWNLOADS_HELP" text="_Ajuda..."/>
 		<separator/>
@@ -2703,7 +2703,7 @@
 	<string id="8230" value="PeerProject està buscant fonts per a:"/>
 	<string id="8231" value="No hi ha fonts"/>
 	<string id="8232" value="Obre"/>
-	<string id="8233" value="Vista prèvia"/>
+	<string id="8233" value="Cancel·la"/>
 	<string id="8235" value="Velocitat total de transferència:"/>
 	<string id="8236" value="Temps estimat per a que la descàrrega acabi:"/>
 	<string id="8237" value="Volum descarregat:"/>
@@ -2970,7 +2970,6 @@
 	<string id="16402" value="PeerProject ha rebut un arxiu de col·lecció:\n\n&quot;%s&quot;\n\nAquest arxiu no sembla ser un arxiu de col·lecció vàlid."/>
 	<string id="16403" value="PeerProject ha afegit l'arxiu de col·lecció &quot;%s&quot; a la teva biblioteca."/>
 	<string id="16404" value="PeerProject no ha pogut instal·lar l'arxiu de col·lecció &quot;%s&quot; per copiar-lo a la carpeta &quot;%s&quot;."/>
-	<string id="16405" value="Vols descarregar aquest arxiu?\n\n&quot;%s&quot;\n\nTria cancel·lar per a evitar futurs avissos."/>
 	<string id="16406" value="Vols descarregar tots els arxius d'aquesta col·lecció?\n\nTria cancel·lar per a evitar futurs avissos."/>
 	<string id="16407" value="Vols evitar que aquesta col·lecció et pregunti si vols descarregar alguna una altra cosa?"/>
 	<string id="16408" value="Copiar &amp;URI"/>
@@ -3342,14 +3341,14 @@
 		<control caption="Quant es fa clic a minimitzar:"/>
 		<control caption="Normal|Minimitza a la barra de tasques"/>
 	</dialog>
-	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBu" caption="Col·lecció">
+	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuBuCoBuBuBuCoBuBuBuEdBu" caption="Col·lecció">
 		<control caption="_Opcions:"/>
 		<control caption="Permet que altres exploren"/>
-		<control caption="Mostra les carpetes de la col·lecció"/>
-		<control caption="Hashing ràpid (utilitza més CPU)"/>
+		<control caption="Recordar les vistes"/>
+		<control caption="Mostra les carpetes"/>
+		<control caption="Hashing ràpid  (més CPU)"/>
 		<control caption="Smart media series detection"/>
-		<control caption="Crea arxius fantasma a l'esborrar"/>
-		<control caption="Recordar les vistes de carpetes"/>
+		<control caption="Crea arxius fantasma"/>
 		<control caption="Arxius _recents:"/>
 		<control caption="Recorda:"/>
 		<control/>
@@ -3360,6 +3359,7 @@
 		<control/>
 		<control caption="dies"/>
 		<control caption="Esborra l'historial"/>
+		<control caption="Esborra fantasmas"/>
 		<control caption="_Arxius segurs per a obrir:"/>
 		<control/>
 		<control caption="_Afegeix"/>
@@ -3960,8 +3960,7 @@
 		<control caption="Cancel·la"/>
 		<control/>
 	</dialog>
-	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStStBuBuBuBuBu" caption="Descàrrega">
-		<control caption="PeerProject està descarregant:"/>
+	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStBuBuBuBu" caption="Descàrrega">
 		<control caption="..."/>
 		<control/>
 		<control/>
@@ -3975,7 +3974,6 @@
 		<control caption="Volum descarregat:"/>
 		<control caption="..."/>
 		<control caption="Mostra"/>
-		<control caption="Obre"/>
 		<control caption="Cancel·la"/>
 		<control caption="Tanca"/>
 		<control caption="Tanca aquesta finestra al finalitzar"/>
@@ -4350,23 +4348,22 @@
 		<control caption="a"/>
 		<control caption="Esborra"/>
 	</dialog>
-	<dialog name="CDownloadGroupDlg" cookie="BuBuEdCoBuCoBuBuEdBuBuBuBuBuBuSt" caption="Propietats del grup de descàrrega">
-		<control caption="Sí"/>
-		<control caption="Cancel·la"/>
+	<dialog name="CDownloadGroupDlg" cookie="BuEdBuEdBuBuBuCoBuBuBuCoStBuBu" caption="Propietats del grup de descàrrega">
+		<control caption="_Nom de Grup:"/>
+		<control/>
+		<control caption="Carpeta d'_arxius completats:"/>
 		<control/>
 		<control/>
-		<control caption="_BitTorrent descàrrega"/>
+		<control/>
+		<control caption="_Filtres:"/>
 		<control/>
 		<control caption="_Afegeix"/>
 		<control caption="_Esborra"/>
-		<control/>
-		<control/>
-		<control/>
-		<control caption="_Nom de Grup:"/>
-		<control caption="_Filtres:"/>
-		<control caption="Carpeta d'_arxius completats:"/>
 		<control caption="_Tipus d'arxiu:"/>
-		<control caption="_*Drag&apos;n&apos;drop any download later."/>
+		<control/>
+		<control caption="*Drag&apos;n&apos;drop descàrregas"/>
+		<control caption="Sí"/>
+		<control caption="Cancel·la"/>
 	</dialog>
 	<dialog name="CMediaVisDlg" cookie="StBuSyCoBuBuBu" caption="Selecciona una visualització">
 		<control/>
@@ -4560,4 +4557,4 @@
 		<column from="Order" to="Ordre"/>
 	</list>
 </listColumns>
-</skin>
+</skin>᱿

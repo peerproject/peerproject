@@ -196,18 +196,18 @@ CString CDownloadTransfer::GetStateText(BOOL bLong)
 		LoadString( strOf, IDS_GENERAL_OF );
 		if ( ! bLong )
 		{
-			str.Format( m_nQueueLen ? _T("%s %i %s %i") : _T("%s #%i"),
-				strQ, m_nQueuePos, strOf, m_nQueueLen );
+			str.Format( ( m_nQueueLen ? _T("%s %i %s %i") : _T("%s #%i") ),
+				(LPCTSTR)strQ, m_nQueuePos, (LPCTSTR)strOf, m_nQueueLen );
 		}
 		else if ( m_sQueueName.GetLength() )
 		{
-			str.Format( _T("%s: %s: %i %s %i"), strQueued,
-				(LPCTSTR)m_sQueueName, m_nQueuePos, strOf, m_nQueueLen );
+			str.Format( _T("%s: %s: %i %s %i"), (LPCTSTR)strQueued,
+				(LPCTSTR)m_sQueueName, m_nQueuePos, (LPCTSTR)strOf, m_nQueueLen );
 		}
 		else
 		{
-			str.Format( m_nQueueLen ? _T("%s: %i %s %i") : _T("%s: #%i"), strQueued,
-				m_nQueuePos, strOf, m_nQueueLen );
+			str.Format( ( m_nQueueLen ? _T("%s: %i %s %i") : _T("%s: #%i") ),
+				(LPCTSTR)strQueued, m_nQueuePos, (LPCTSTR)strOf, m_nQueueLen );
 		}
 		break;
 	default:
@@ -276,7 +276,7 @@ void CDownloadTransfer::SetState(int nState)
 					m_pSource->m_nSortOrder += min( m_nQueuePos, 10000lu ) & 0xFFFFlu;
 				else										// or IP
 					m_pSource->m_nSortOrder += ( ( m_pSource->m_pAddress.S_un.S_un_b.s_b1 << 8 ) |
-												 ( m_pSource->m_pAddress.S_un.S_un_b.s_b2      ) );
+												 ( m_pSource->m_pAddress.S_un.S_un_b.s_b2 ) );
 
 				m_pDownload->SortSource( m_pSource );		// Do the sort
 			}
@@ -347,8 +347,8 @@ void CDownloadTransfer::ChunkifyRequest(QWORD* pnOffset, QWORD* pnLength, QWORD 
 //////////////////////////////////////////////////////////////////////
 // CDownloadTransfer fragment selection
 //
-// Selects an available block, either unaligned blocks or if none is available
-// a random aligned block
+// Selects an available block, either unaligned blocks or
+// if none is available a random aligned block
 
 blockPair CDownloadTransfer::SelectBlock( const Fragments::List& oPossible,
 	const BYTE* pAvailable) const

@@ -1,7 +1,7 @@
 //
 // DlgGraphItem.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -47,7 +47,7 @@ END_MESSAGE_MAP()
 // CGraphItemDlg dialog
 
 CGraphItemDlg::CGraphItemDlg(CWnd* pParent, CGraphItem* pItem) : CSkinDialog(CGraphItemDlg::IDD, pParent)
-, m_nMultiplier(1.0f)
+	, m_nMultiplier(1.0f)
 {
 	//{{AFX_DATA_INIT(CGraphItemDlg)
 	//}}AFX_DATA_INIT
@@ -81,7 +81,7 @@ BOOL CGraphItemDlg::OnInitDialog()
 
 	for ( int nItem = 1 ; CGraphItem::m_pItemDesc[ nItem ].m_nCode ; nItem++ )
 	{
-		GRAPHITEM* pItem = &CGraphItem::m_pItemDesc[ nItem ];
+		const GRAPHITEM* pItem = &CGraphItem::m_pItemDesc[ nItem ];
 		CString strItem;
 
 		::Skin.LoadString( strItem, pItem->m_nStringID );
@@ -224,27 +224,26 @@ void PASCAL DDX_Float(CDataExchange* pDX, int nIDC, float& nValue)
 	HWND hWndCtrl = pDX->PrepareCtrl( nIDC );
 	_ASSERTE( hWndCtrl != NULL );
 
-	CWnd* pWnd = CWnd::FromHandle( hWndCtrl );	
-	// data from control
+	CWnd* pWnd = CWnd::FromHandle( hWndCtrl );
 
+	// data from control
 	if ( pDX->m_bSaveAndValidate )
 	{
+		nValue = 1.0f;
 		CString str;
 		pWnd->GetWindowText( str );
-		nValue = 1.0f;
-		if ( str.IsEmpty() )
-			return;
+		if ( str.IsEmpty() ) return;
 
 		float nNumber;
 		if ( _stscanf( str, L"%f", &nNumber ) == 1 )
 			nValue = nNumber;
 	}
-	else //data to control
+	else // data to control
 	{
-		CString str;
 		if ( nValue <= 0 )
 			nValue = 1.0;
 
+		CString str;
 		str.Format( L"%f", nValue );
 		pWnd->SetWindowText( (LPCTSTR)str );
 	}

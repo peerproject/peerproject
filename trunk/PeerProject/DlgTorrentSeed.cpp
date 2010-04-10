@@ -1,7 +1,7 @@
 //
 // DlgTorrentSeed.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -60,10 +60,10 @@ const DWORD BUFFER_SIZE = 2 * 1024 * 1024u;
 /////////////////////////////////////////////////////////////////////////////
 // CTorrentSeedDlg construction
 
-CTorrentSeedDlg::CTorrentSeedDlg(LPCTSTR pszTorrent, BOOL bForceSeed, CWnd* pParent) :
-	CSkinDialog( CTorrentSeedDlg::IDD, pParent )
-,	m_sTorrent( pszTorrent )
-,	m_bForceSeed( bForceSeed )
+CTorrentSeedDlg::CTorrentSeedDlg(LPCTSTR pszTorrent, BOOL bForceSeed, CWnd* pParent)
+	: CSkinDialog	( CTorrentSeedDlg::IDD, pParent )
+	, m_sTorrent	( pszTorrent )
+	, m_bForceSeed	( bForceSeed )
 {
 }
 
@@ -84,14 +84,16 @@ BOOL CTorrentSeedDlg::OnInitDialog()
 
 	SkinMe( NULL, IDR_MAINFRAME );
 
-	if ( Settings.General.LanguageRTL ) m_wndProgress.ModifyStyleEx( WS_EX_LAYOUTRTL, 0, 0 );
+	if ( Settings.General.LanguageRTL )
+		m_wndProgress.ModifyStyleEx( WS_EX_LAYOUTRTL, 0, 0 );
 	m_wndProgress.SetRange( 0, 1000 );
 	m_wndProgress.SetPos( 0 );
 
 	if ( m_bForceSeed )
 	{
 		m_wndDownload.EnableWindow( FALSE );
-		if ( Settings.BitTorrent.AutoSeed ) PostMessage( WM_TIMER, 4 );
+		if ( Settings.BitTorrent.AutoSeed )
+			PostMessage( WM_TIMER, 4 );
 
 	}
 	// if ( m_bForceSeed ) m_wndDownload.ShowWindow( SW_HIDE );
@@ -348,11 +350,13 @@ BOOL CTorrentSeedDlg::CreateDownload()
 		}
 		else
 		{
-			CDownload* pDownload = Downloads.Add( CPeerProjectURL( new CBTInfo( m_pInfo ) ) );
-			if ( pDownload && pDownload->SeedTorrent( m_sMessage ) )
-				return TRUE;
+			if ( CDownload* pDownload = Downloads.Add( CPeerProjectURL( new CBTInfo( m_pInfo ) ) ) )
+			{
+				if ( pDownload->SeedTorrent( m_sMessage ) )
+					return TRUE;
 
-			pDownload->Remove();
+				pDownload->Remove();
+			}
 		}
 	}
 

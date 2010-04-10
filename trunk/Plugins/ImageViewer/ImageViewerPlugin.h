@@ -1,23 +1,25 @@
 //
 // ImageViewerPlugin.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
-// Original author Michael Stokes released portions into the public domain. 
+// This file is part of PeerProject (peerproject.org) © 2008-2010
+// Original author Michael Stokes released portions into the public domain.
 // You are free to redistribute and modify this page without any restrictions.
 //
 
-#ifndef __ImageViewerPLUGIN_H_
-#define __ImageViewerPLUGIN_H_
+#pragma once
 
 #include "Resource.h"
+#include "ImageViewer.h"
 
 class CImageWindow;
 
 
 class ATL_NO_VTABLE CImageViewerPlugin : 
-	public CComObjectRootEx<CComSingleThreadModel>,
-	public CComCoClass<CImageViewerPlugin, &CLSID_ImageViewerPlugin>,
-	public IGeneralPlugin, public IExecutePlugin, public ICommandPlugin
+	public CComObjectRootEx< CComSingleThreadModel >,
+	public CComCoClass< CImageViewerPlugin, &CLSID_ImageViewerPlugin >,
+	public IGeneralPlugin,
+	public IExecutePlugin,
+	public ICommandPlugin
 {
 // Construction
 public:
@@ -28,10 +30,10 @@ public:
 public:
 	CComPtr<IApplication>	m_pApplication;
 	CComPtr<IUserInterface>	m_pInterface;
-public:
+
 	CImageWindow*	m_pWindow;
 	HCURSOR			m_hcMove;
-public:
+
 	UINT			m_nCmdBestFit;
 	UINT			m_nCmdActualSize;
 	UINT			m_nCmdRefresh;
@@ -72,14 +74,13 @@ protected:
 protected:
 	virtual HRESULT STDMETHODCALLTYPE RegisterCommands();
 	virtual HRESULT STDMETHODCALLTYPE InsertCommands();
-    virtual HRESULT STDMETHODCALLTYPE OnUpdate( 
-        /* [in] */ UINT nCommandID,
-        /* [out][in] */ TRISTATE __RPC_FAR *pbVisible,
-        /* [out][in] */ TRISTATE __RPC_FAR *pbEnabled,
-        /* [out][in] */ TRISTATE __RPC_FAR *pbChecked);
+	virtual HRESULT STDMETHODCALLTYPE OnUpdate( 
+		/* [in] */ UINT nCommandID,
+		/* [out][in] */ TRISTATE __RPC_FAR *pbVisible,
+		/* [out][in] */ TRISTATE __RPC_FAR *pbEnabled,
+		/* [out][in] */ TRISTATE __RPC_FAR *pbChecked);
 	virtual HRESULT STDMETHODCALLTYPE OnCommand( 
 		/* [in] */ UINT nCommandID);
 
 };
 
-#endif //__ImageViewerPLUGIN_H_

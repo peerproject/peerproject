@@ -1,9 +1,9 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
+<?xml version="1.0" encoding="UTF-8"?>
+<skin xmlns="http://schemas.peerproject.org/Skin.xsd" version="1.0">
 
 <!-- PeerProject Arabic Language Skin File -->
 
-<!-- Translation based on default-en.xml r48 -->
+<!-- Translation based on default-en.xml r50 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -548,9 +548,9 @@
 				<item id="ID_WINDOW_NAVBAR" text="عرض _عامود التصفح" />
 				<item id="ID_WINDOW_TOOLBAR" text="إظهار _مربع الادوات" />
 				<separator />
-				<item id="ID_WINDOW_TABBAR" text="إظهار شريط المع_لومات" />	
+				<item id="ID_WINDOW_TABBAR" text="إظهار شريط المع_لومات" />
 				<item id="ID_WINDOW_MONITOR" text="إظهار _الشاشة" />
-				<item id="ID_WINDOW_REMOTE" text="إظهار _الإتصال عن بعد" />	
+				<item id="ID_WINDOW_REMOTE" text="إظهار _الإتصال عن بعد" />
 			</menu>
 			<menu text="_تعليمات">
 				<item id="ID_HELP_FAQ" text="_إستفسارات PeerProject" />
@@ -1052,31 +1052,28 @@
 	<!-- DOWNLOADS WINDOW -->
 	<menu name="CDownloadsWnd.Download.Basic">
 		<item id="ID_DOWNLOADS_LAUNCH" text="_معاينة" />
-		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="م_عاينة عن بعد" />
-		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="_عرض معاينات" />
 		<separator />
 		<item id="ID_DOWNLOADS_RESUME" text="_متابعة" />
 		<item id="ID_DOWNLOADS_PAUSE" text="ا_يقاف مؤقت" />
 		<item id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="_إلغاء الأمر" />
 		<separator />
 		<item id="ID_DOWNLOADS_SOURCES" text="_إيجاد المزيد من المصادر" />
-		<separator/> <!--
-		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="ت_م المسح"/>
-		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="م_سح تلقائي"/> -->
-		<separator/> -->
+		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="م_عاينة عن بعد" />
+		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="_عرض معاينات" />
+		<separator />
 		<item id="ID_DOWNLOADS_HELP" text="_تعليمات..." />
 	</menu>
 	<menu name="CDownloadsWnd.Download">
-		<item id="ID_DOWNLOADS_LAUNCH" text="_معاينة" />
 		<item id="ID_DOWNLOADS_LAUNCH_COPY" text="معا_ينة النسخة"/>
+		<item id="ID_DOWNLOADS_LAUNCH" text="_معاينة" />
 		<item id="ID_DOWNLOADS_ENQUEUE" text="إضافة إلى _قائمة التشغيل" />
-		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="م_عاينة عن بعد" />
-		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="_عرض معاينات" />
 		<separator />
 		<item id="ID_DOWNLOADS_RESUME" text="_متابعة" />
 		<item id="ID_DOWNLOADS_PAUSE" text="ا_يقاف مؤقت" />
 		<item id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="_إلغاء الأمر" />
 		<separator />
+		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="_عرض معاينات" />
+		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="م_عاينة عن بعد" />
 		<item id="ID_DOWNLOADS_SOURCES" text="_إيجاد مزيد من المصادر" />
 		<separator />
 		<menu text="_متقدم">
@@ -1084,14 +1081,17 @@
 			<separator />
 			<item id="ID_DOWNLOADS_URI" text="_نسخ الرابط" />
 			<item id="ID_DOWNLOADS_ADD_SOURCE" text="_اضف مصدر..." />
+			<item id="ID_DOWNLOADS_MERGE" text="دمج الملفات المحلية"/>
 			<separator />
 			<item id="ID_DOWNLOADS_MONITOR" text="نافذة _الشاشه" />
+		</menu>
+		<menu text="الأولوية">
 			<item id="ID_DOWNLOADS_BOOST" text="السرعة _زيادة" />
 			<separator />
-			<item id="ID_DOWNLOADS_MOVE_UP" text="نقل _للاعلى" />
-			<item id="ID_DOWNLOADS_MOVE_DOWN" text="نقل _للاسفل" />
 			<item id="ID_DOWNLOADS_MOVE_TOP" text="نقل _للاعلى" />
 			<item id="ID_DOWNLOADS_MOVE_BOTTOM" text="نقل _للاسفل" />
+			<item id="ID_DOWNLOADS_MOVE_UP" text="نقل _للاعلى" />
+			<item id="ID_DOWNLOADS_MOVE_DOWN" text="نقل _للاسفل" />
 		</menu>
 		<item id="ID_DOWNLOADS_HELP" text="_تعليمات..." />
 		<separator />
@@ -2709,7 +2709,7 @@
 	<string id="8230" value="PeerProject is looking for sources for:" />
 	<string id="8231" value="No sources" />
 	<string id="8232" value="Open" />
-	<string id="8233" value="Preview" />
+	<string id="8233" value="إلغاء الأمر" />
 	<string id="8235" value="Total transfer speed:" />
 	<string id="8236" value="Estimated time remaining:" />
 	<string id="8237" value="حجم التحميل:" />
@@ -2977,7 +2977,6 @@
 <!--	<string id="16402" value="PeerProject received a collection file:\n\n&quot;%s&quot;\n\nThis file does not appear to be a valid collection file." />
 	<string id="16403" value="PeerProject has added the collection file &quot;%s&quot; to your library." />
 	<string id="16404" value="PeerProject was unable to install the collection file &quot;%s&quot; by copying it to the folder &quot;%s&quot;." />
-	<string id="16405" value="Would you like to download this file?\n\n&quot;%s&quot;\n\nChoose Cancel to stop any further prompts." />
 	<string id="16406" value="Would you like to download all files in this collection?\n\nChoose Cancel to stop any further prompts." />
 	<string id="16407" value="Would you like to prevent this collection from prompting you to download anything else?" />
 	<string id="16408" value="Copy &amp;URI" />
@@ -3358,14 +3357,14 @@
 		<control caption=":عند النقر على تصغير" />
 		<control caption="تصغير عادي|تصغير إلى جوار الساعة" />
 	</dialog>
-    <dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBu" caption="المكتبة">
+    <dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuBuCoBuBuBuCoBuBuBuEdBu" caption="المكتبة">
 		<control caption=":_خيارات" />
 		<control caption="السماح للآخرين بتصفح الملفات المشاركة" />
+		<control caption="تذكر طرق عرض المجلدات" />
 		<control caption="مشاهدة مجلدات المكتبة" />
 		<control caption="(CPU تجزئة سريعة (إستهلاك أكثر لـ" />
 		<control caption="Smart media" />
 		<control caption="إنشاء ملفات وهمية عند الحذف" />
-		<control caption="تذكر طرق عرض المجلدات" />
 		<control caption=":ال_ملفات الأخيرة" />
 		<control caption=":تذكر" />
 		<control />
@@ -3375,6 +3374,7 @@
 		<control />
 		<control />
 		<control caption="يوم" />
+		<control caption="مسح المحفوظات الآن" />
 		<control caption="مسح المحفوظات الآن" />
 		<control caption="_: أمان في فتح" />
 		<control />
@@ -4019,8 +4019,7 @@
 		<control caption="إلغاء الأمر" />
 		<control />
 	</dialog>
-	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStStBuBuBuBuBu" caption="تحميل">
-		<control caption=":يقوم بالتحميل PeerProject" />
+	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStBuBuBuBu" caption="تحميل">
 		<control caption="..." />
 		<control />
 		<control />
@@ -4034,7 +4033,6 @@
 		<control caption=":حجم التحميل" />
 		<control caption="..." />
 		<control caption="عرض المكتبة" />
-		<control caption="فتح ملف" />
 		<control caption="إلغاء التحميل" />
 		<control caption="اخفاء" />
 		<control caption="إغلاق هذه النافذة عند إنتهاء التحميل" />
@@ -4410,23 +4408,22 @@
 		<control caption="to" />
 		<control caption="مسح" />
 	</dialog>
-	<dialog name="CDownloadGroupDlg" cookie="BuBuEdCoBuCoBuBuEdBuBuBuBuBuBuSt" caption="Download Group Properties">
-		<control caption="حسنا" />
-		<control caption="إلغاء الأمر" />
+	<dialog name="CDownloadGroupDlg" cookie="BuEdBuEdBuBuBuCoBuBuBuCoStBuBu" caption="Download Group Properties">
+		<control caption="_Group Name:" />
+		<control />
+		<control caption="_Completed File Folder:" />
 		<control />
 		<control />
-		<control caption="_BitTorrent"/>
+		<control />
+		<control caption="_Auto-Filters:" />
 		<control />
 		<control caption="إ_ضافة" />
 		<control caption="إ_زالة" />
+		<control caption="_Types of Files:"/>
 		<control />
-		<control />
-		<control />
-		<control caption="_Name:" />
-		<control caption="_Filters:" />
-		<control caption="Completed File _Folder:" />
-		<control caption="_Type of Files:"/>
-		<control caption="_*Drag&apos;n&apos;drop any download later."/>
+		<control caption="*Add any download type later."/>
+		<control caption="حسنا" />
+		<control caption="إلغاء الأمر" />
 	</dialog>
 	<dialog name="CMediaVisDlg" cookie="StBuSyCoBuBuBu" caption="Select Visualisation">
 		<control />
@@ -4620,4 +4617,4 @@
 		<column from="Order" to="ترتيب" />
 	</list>
 </listColumns>
-</skin>
+</skin>䙁

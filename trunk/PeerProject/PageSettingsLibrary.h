@@ -54,9 +54,11 @@ protected:
 	BOOL			m_bBrowseFiles;
 	BOOL			m_bMakeGhosts;
 	BOOL			m_bSmartSeries;
-	CIconButtonCtrl	m_wndCollectionPath;
 	CString			m_sCollectionPath;
+	CIconButtonCtrl	m_wndCollectionPath;
 	CEditPath		m_wndCollectionFolder;
+	CButton			m_wndRecentClear;
+	CButton			m_wndRecentClearGhosts;
 
 	virtual BOOL OnInitDialog();
 	virtual void DoDataExchange(CDataExchange* pDX);
@@ -70,6 +72,7 @@ protected:
 	afx_msg void OnPrivateAdd();
 	afx_msg void OnPrivateRemove();
 	afx_msg void OnRecentClear();
+	afx_msg void OnRecentClearGhosts();
 	afx_msg void OnCollectionsBrowse();
 
 	DECLARE_MESSAGE_MAP()

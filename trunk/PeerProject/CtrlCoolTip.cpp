@@ -49,12 +49,6 @@ END_MESSAGE_MAP()
 
 LPCTSTR CCoolTipCtrl::m_hClass = NULL;
 
-#define TIP_TIMER		100
-#define TIP_OFFSET_X	0
-#define TIP_OFFSET_Y	24
-#define TIP_MARGIN		6
-#define TIP_TEXTHEIGHT	14
-
 
 /////////////////////////////////////////////////////////////////////////////
 // CCoolTipCtrl construction
@@ -67,7 +61,8 @@ CCoolTipCtrl::CCoolTipCtrl()
 	, m_tOpen		( 0 )
 {
 	if ( m_hClass == NULL )
-		m_hClass = AfxRegisterWndClass( CS_SAVEBITS );
+		m_hClass = AfxRegisterWndClass( CS_SAVEBITS |
+			( ! Settings.Interface.TipShadow || theApp.m_bIsWin2000 ? 0 : CS_DROPSHADOW ) );
 }
 
 CCoolTipCtrl::~CCoolTipCtrl()
@@ -138,7 +133,8 @@ void CCoolTipCtrl::ShowImpl(bool bChanged)
 
 		if ( ! m_bTimer )
 		{
-			SetTimer( 1, TIP_TIMER, NULL );
+			SetTimer( 1, Settings.Interface.RefreshRateGraph, NULL );
+			SetTimer( 2, TIP_TIMER_TEXT, NULL );
 			m_bTimer = TRUE;
 		}
 		return;
@@ -188,7 +184,8 @@ void CCoolTipCtrl::ShowImpl(bool bChanged)
 
 	if ( ! m_bTimer )
 	{
-		SetTimer( 1, TIP_TIMER, NULL );
+		SetTimer( 1, Settings.Interface.RefreshRateGraph, NULL );
+		SetTimer( 2, TIP_TIMER_TEXT, NULL );
 		m_bTimer = TRUE;
 	}
 }
@@ -323,8 +320,12 @@ int CCoolTipCtrl::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 void CCoolTipCtrl::OnDestroy()
 {
-	if ( m_bTimer ) KillTimer( 1 );
-	m_bTimer = FALSE;
+	if ( m_bTimer )
+	{
+		KillTimer( 1 );
+		KillTimer( 2 );
+		m_bTimer = FALSE;
+	}
 	if ( m_bVisible ) Hide();
 	CWnd::OnDestroy();
 }

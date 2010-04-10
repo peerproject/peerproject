@@ -154,8 +154,10 @@ namespace Hashes
 			in.clear();
 		}
 		uint32 bTrusted = bValid;
-		if ( version >= 31 ) ar >> bTrusted;
-		if ( bTrusted ) in.signalTrusted();
+		if ( version > 30 ) // Obsolete check
+			ar >> bTrusted;
+		if ( bTrusted )
+			in.signalTrusted();
 	}
 
 } // namespace Hashes

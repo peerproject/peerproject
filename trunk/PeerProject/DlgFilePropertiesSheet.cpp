@@ -1,7 +1,7 @@
 //
 // DlgFilePropertiesSheet.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -45,12 +45,12 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CFilePropertiesSheet
 
-CFilePropertiesSheet::CFilePropertiesSheet(CLibraryListItem oObject) :
-	m_sGeneralTitle( L"General" ),
-	m_sCommentsTitle( L"Comments" ),
-	m_sMetadataTitle( L"Metadata" ),
-	m_sSourcesTitle( L"Sources" ),
-	m_sSharingTitle( L"Sharing" )
+CFilePropertiesSheet::CFilePropertiesSheet(CLibraryListItem oObject)
+	: m_sGeneralTitle	( L"General" )
+	, m_sCommentsTitle	( L"Comments" )
+	, m_sMetadataTitle	( L"Metadata" )
+	, m_sSourcesTitle	( L"Sources" )
+	, m_sSharingTitle	( L"Sharing" )
 {
 	if ( oObject.Type != CLibraryListItem::Empty )
 		m_pList.AddTail( oObject );
@@ -65,7 +65,7 @@ void CFilePropertiesSheet::Add(CLibraryListItem oObject)
 	m_pList.CheckAndAdd( oObject );
 }
 
-void CFilePropertiesSheet::Add(CLibraryList* pList)
+void CFilePropertiesSheet::Add(const CLibraryList* pList)
 {
 	m_pList.Merge( pList );
 }

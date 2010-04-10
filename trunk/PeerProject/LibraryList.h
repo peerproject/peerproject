@@ -1,7 +1,7 @@
 //
 // LibraryList.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2006.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -75,7 +75,7 @@ public:
 		return m_List.IsEmpty();
 	}
 
-	inline CLibraryListItem& GetHead()
+	inline const CLibraryListItem& GetHead()const
 	{
 		return m_List.GetHead();
 	}
@@ -151,7 +151,7 @@ public:
 	}
 
 	CLibraryFile*	GetNextFile(POSITION& pos);
-	INT_PTR			Merge(CLibraryList* pList);
+	INT_PTR			Merge(const CLibraryList* pList);
 
 // Automation
 public:

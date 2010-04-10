@@ -54,23 +54,23 @@ static char THIS_FILE[]=__FILE__;
 //////////////////////////////////////////////////////////////////////
 // CDownloadWithTorrent construction
 
-CDownloadWithTorrent::CDownloadWithTorrent() :
-	m_bTorrentRequested		( FALSE )
-,	m_bTorrentStarted		( FALSE )
-,	m_tTorrentTracker		( 0 )
-,	m_nTorrentUploaded		( 0 )
-,	m_nTorrentDownloaded	( 0 )
-,	m_bTorrentEndgame		( FALSE )
-,	m_bTorrentTrackerError	( FALSE )
+CDownloadWithTorrent::CDownloadWithTorrent()
+	: m_bTorrentRequested	( FALSE )
+	, m_bTorrentStarted		( FALSE )
+	, m_tTorrentTracker		( 0 )
+	, m_nTorrentUploaded	( 0 )
+	, m_nTorrentDownloaded	( 0 )
+	, m_bTorrentEndgame		( FALSE )
+	, m_bTorrentTrackerError ( FALSE )
 
-,	m_pTorrentBlock			( NULL )
-,	m_nTorrentBlock			( 0 )
-,	m_nTorrentSize			( 0 )
-,	m_nTorrentSuccess		( 0 )
-,	m_bSeeding				( FALSE )
+	, m_pTorrentBlock		( NULL )
+	, m_nTorrentBlock		( 0 )
+	, m_nTorrentSize		( 0 )
+	, m_nTorrentSuccess		( 0 )
+	, m_bSeeding			( FALSE )
 
-,	m_tTorrentChoke			( 0 )
-,	m_tTorrentSources		( 0 )
+	, m_tTorrentChoke		( 0 )
+	, m_tTorrentSources		( 0 )
 {
 	// Generate random Key value
 	m_sKey = _T("");
@@ -183,7 +183,7 @@ void CDownloadWithTorrent::Serialize(CArchive& ar, int nVersion)
 		ar.Write( m_pTorrentBlock, sizeof(BYTE) * m_nTorrentBlock );
 		ar << BOOL( m_bSeeding && Settings.BitTorrent.AutoSeed );
 	}
-	else
+	else // Loading
 	{
 		m_nTorrentSize	= m_pTorrent.m_nBlockSize;
 		m_nTorrentBlock	= m_pTorrent.m_nBlockCount;
@@ -986,7 +986,6 @@ void CDownloadWithTorrent::CloseTorrent()
 
 	CloseTorrentUploads();
 }
-
 
 //////////////////////////////////////////////////////////////////////
 // CDownloadWithTorrent stats

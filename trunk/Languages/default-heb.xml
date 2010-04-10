@@ -1,9 +1,9 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
+<?xml version="1.0" encoding="UTF-8"?>
+<skin xmlns="http://schemas.peerproject.org/Skin.xsd" version="1.0">
 
 <!-- PeerProject Default Hebrew Skin File -->
 
-<!-- Translation based on default-en.xml r48 -->
+<!-- Translation based on default-en.xml r50 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1084,31 +1084,28 @@ gap i newline
 	<!-- DOWNLOADS WINDOW -->
 	<menu name="CDownloadsWnd.Download.Basic">
 		<item id="ID_DOWNLOADS_LAUNCH" text="‪_תצוגה מקדימה"/>
-		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="R_emote Preview"/>
-		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="‪הצג _ביקורות"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_RESUME" text="‪המשך"/>
 		<item id="ID_DOWNLOADS_PAUSE" text="‪השהה"/>
 		<item id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="‪בטל"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_SOURCES" text="‪מצא מ_קורות נוספים"/>
-		<!-- <separator/>
-		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="‪נקה הורדות שהסתיימו"/>
-		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="‪A_uto Clear"/> -->
+		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="R_emote Preview"/>
+		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="‪הצג _ביקורות"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_HELP" text="‪...ע_זרה"/>
 	</menu>
 	<menu name="CDownloadsWnd.Download">
+		<item id="ID_DOWNLOADS_LAUNCH_COPY" text="‪תצוגה מקדימה _Copy"/>
 		<item id="ID_DOWNLOADS_LAUNCH" text="‪_תצוגה מקדימה"/>
-		<item id="ID_DOWNLOADS_LAUNCH_COPY" text="‪Pre_view Copy"/>
 		<item id="ID_DOWNLOADS_ENQUEUE" text="‪הוסף לרשימת השמעה"/>
-		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="R_emote Preview"/>
-		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="‪הצג _ביקורות"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_RESUME" text="‪המשך"/>
 		<item id="ID_DOWNLOADS_PAUSE" text="‪השהה"/>
 		<item id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="‪בטל"/>
 		<separator/>
+		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="‪הצג _ביקורות"/>
+		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="R_emote תצוגה מקדימה"/>
 		<item id="ID_DOWNLOADS_SOURCES" text="‪מצא מ_קורות נוספים"/>
 		<separator/>
 		<menu text="‪מתק_דם">
@@ -1116,14 +1113,17 @@ gap i newline
 			<separator/>
 			<item id="ID_DOWNLOADS_URI" text="‪URI העתק כתובת"/>
 			<item id="ID_DOWNLOADS_ADD_SOURCE" text="‪הו_סף מקור"/>
+			<item id="ID_DOWNLOADS_MERGE" text="מיזוג הקבצים המקומית"/>
 			<separator/>
 			<item id="ID_DOWNLOADS_MONITOR" text="‪_חלון מוניטור"/>
+		</menu>
+		<menu text="עדיפות">
 			<item id="ID_DOWNLOADS_BOOST" text="‪התעלם מהגבלת רוחב פס"/>
 			<separator/>
-			<item id="ID_DOWNLOADS_MOVE_UP" text="‪העבר מעלה"/>
-			<item id="ID_DOWNLOADS_MOVE_DOWN" text="‪העבר מטה"/>
-			<item id="ID_DOWNLOADS_MOVE_TOP" text="‪העבר מעלה"/>
-			<item id="ID_DOWNLOADS_MOVE_BOTTOM" text="‪העבר מטה"/>
+			<item id="ID_DOWNLOADS_MOVE_TOP" text="‪העבר מעלה" shortcut="Ctrl+Home"/>
+			<item id="ID_DOWNLOADS_MOVE_BOTTOM" text="‪העבר מטה" shortcut="Ctrl+End"/>
+			<item id="ID_DOWNLOADS_MOVE_UP" text="‪העבר מעלה" shortcut="Ctrl+Up"/>
+			<item id="ID_DOWNLOADS_MOVE_DOWN" text="‪העבר מטה" shortcut="Ctrl+Down"/>
 		</menu>
 		<item id="ID_DOWNLOADS_HELP" text="‪...ע_זרה"/>
 		<separator/>
@@ -2612,7 +2612,7 @@ gap i newline
 	<string id="8230" value="‪:שרזה מחפשת מקורות עבור"/>
 	<string id="8231" value="‪אין מקורות"/>
 	<string id="8232" value="‪פתח"/>
-	<string id="8233" value="‪תצוגה מקדימה"/>
+	<string id="8233" value="ביטול"/>
 	<string id="8235" value="‪:מהירות הורדה"/>
 	<string id="8236" value="‪:זמן מוערך שנותר"/>
 	<string id="8237" value="‪:גודל שהורד"/>
@@ -2981,14 +2981,14 @@ gap i newline
 		<control caption="‪:כשאני לוחצ/ת מזער"/>
 		<control caption="‪רגיל|מזער"/>
 	</dialog>
-	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBu" caption="ספריה">
+	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuBuCoBuBuBuCoBuBuBuEdBu" caption="ספריה">
 		<control caption=":אפשרויות"/>
 		<control caption="אפשר לסייר בקבצי המשותפים"/>
+		<control caption="זכור את תצוגות התיקייה"/>
 		<control caption="צפה בתיקיות הספריה"/>
 		<control caption="&#8234;(עומס למעבד)‎ ‏מהיר‎ ‏האשינג"/>
 		<control caption="Create ghost files when deleting"/>
 		<control caption="Smart media series detection"/>
-		<control caption="זכור את תצוגות התיקייה"/>
 		<control caption=":קבצים אחרונים"/>
 		<control caption=":זכור"/>
 		<control/>
@@ -2998,6 +2998,7 @@ gap i newline
 		<control/>
 		<control/>
 		<control caption="ימים"/>
+		<control caption="נקה היסטוריה כעת"/>
 		<control caption="נקה היסטוריה כעת"/>
 		<control caption=":בטוח לפתיחה"/>
 		<control/>
@@ -3600,8 +3601,7 @@ gap i newline
 		<control caption="ביטול"/>
 		<control/>
 	</dialog>
-	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStStBuBuBuBuBu" caption="שרזה : הורדה">
-		<control caption=":שרזה מוריד"/>
+	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStBuBuBuBu" caption="שרזה : הורדה">
 		<control caption="..."/>
 		<control/>
 		<control/>
@@ -3615,7 +3615,6 @@ gap i newline
 		<control caption=":גודל שהורד"/>
 		<control caption="..."/>
 		<control caption="תצוגת ספריה"/>
-		<control caption="פתח קובץ"/>
 		<control caption="בטל הורדה"/>
 		<control caption="הסתר"/>
 		<control caption="סגור את חלון זה כשההורדה מסתיימת"/>
@@ -3989,23 +3988,23 @@ gap i newline
 		<control caption="עד"/>
 		<control caption="מחק"/>
 	</dialog>
-	<dialog name="CDownloadGroupDlg" cookie="BuBuEdCoBuCoBuBuEdBuBuBuBuBuBuSt" caption="הורד מאפייני קבוצה">
-		<control caption="אישור"/>
-		<control caption="ביטול"/>
+	<dialog name="CDownloadGroupDlg" cookie="BuEdBuEdBuBuBuCoBuBuBuCoStBuBu" caption="הורד מאפייני קבוצה">
+		<control caption=":שם"/>
+		<control/>
+		<control caption=":התיקייה לשמירת קבצים כשמסתיימת ההורדה"/>
 		<control/>
 		<control/>
-		<control caption="_BitTorrent"/>
+		<control/>
+		<control caption=":מסננים"/>
 		<control/>
 		<control caption="הוסף"/>
 		<control caption="הסר"/>
-		<control/>
-		<control/>
-		<control/>
-		<control caption=":שם"/>
-		<control caption=":מסננים"/>
-		<control caption=":התיקייה לשמירת קבצים כשמסתיימת ההורדה"/>
 		<control caption=":כל סוג קובץ"/>
-		<control caption="_*Drag&apos;n&apos;drop any download later."/>
+		<control/>
+		<control caption="_BitTorrent"/>
+		<control caption="*Drag&apos;n&apos;drop any download later."/>
+		<control caption="אישור"/>
+		<control caption="ביטול"/>
 	</dialog>
 	<dialog name="CMediaVisDlg" cookie="StBuSyCoBuBuBu" caption="בחר אפקט ויזואלי">
 		<control/>
@@ -4199,4 +4198,4 @@ gap i newline
 		<column from="Order" to="סדר"/>
 	</list>
 </listColumns>
-</skin>
+</skin>홃ꌾ永

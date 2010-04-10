@@ -53,10 +53,9 @@ BEGIN_MESSAGE_MAP(CLibraryTileView, CLibraryView)
 	ON_WM_VSCROLL()
 	ON_WM_MOUSEWHEEL()
 	ON_WM_MOUSEMOVE()
-	ON_WM_LBUTTONDOWN()
 	ON_WM_LBUTTONUP()
+	ON_WM_LBUTTONDOWN()
 	ON_WM_RBUTTONDOWN()
-	ON_WM_XBUTTONDOWN()
 	ON_WM_KEYDOWN()
 	ON_WM_LBUTTONDBLCLK()
 	ON_WM_CONTEXTMENU()
@@ -243,6 +242,18 @@ void CLibraryTileView::Update()
 BOOL CLibraryTileView::Select(DWORD /*nObject*/)
 {
 	return FALSE;
+}
+
+void CLibraryTileView::SelectAll()
+{
+	CSingleLock oLock( &m_pSection, TRUE );
+
+	for ( iterator pItem = begin(); pItem != end(); ++pItem )
+	{
+		Select( pItem, TRI_TRUE );
+	}
+
+	Invalidate();
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -610,11 +621,17 @@ CLibraryTileView::iterator CLibraryTileView::HitTest(const CPoint& point)
 	return end();
 }
 
+DWORD_PTR CLibraryTileView::HitTestIndex(const CPoint& point) const
+{
+	const_iterator pTile = const_cast< CLibraryTileView* >( this )->HitTest( point );
+	return ( pTile != end() ) ? (DWORD_PTR)pTile->m_pFolder : 0;
+}
+
 CLibraryListItem CLibraryTileView::DropHitTest( const CPoint& point )
 {
 	CSingleLock oLock( &m_pSection, TRUE );
 
-	iterator pTile = HitTest( point );
+	const_iterator pTile = HitTest( point );
 	if ( pTile != end() )
 		return pTile->m_pFolder;
 
@@ -722,11 +739,12 @@ void CLibraryTileView::OnRButtonDown(UINT nFlags, CPoint point)
 	CLibraryView::OnRButtonDown( nFlags, point );
 }
 
-void CLibraryTileView::OnXButtonDown(UINT /*nFlags*/, UINT nButton, CPoint /*point*/)
-{
-	if ( nButton == 1 )
-		GetParent()->SendMessage( WM_COMMAND, ID_LIBRARY_PARENT );
-}
+// Inherit from CLibraryView
+//void CLibraryTileView::OnXButtonDown(UINT /*nFlags*/, UINT nButton, CPoint /*point*/)
+//{
+//	if ( nButton == 1 )
+//		GetParent()->SendMessage( WM_COMMAND, ID_LIBRARY_PARENT );
+//}
 
 void CLibraryTileView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
@@ -766,6 +784,9 @@ void CLibraryTileView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 		break;
 	case VK_DELETE:
 		PostMessage( WM_COMMAND, ID_LIBRARY_ALBUM_DELETE );
+		break;
+	case VK_ESCAPE:
+		GetParent()->PostMessage( WM_COMMAND, ID_LIBRARY_PARENT );
 		break;
 	}
 

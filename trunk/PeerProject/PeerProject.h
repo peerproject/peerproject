@@ -87,7 +87,7 @@ public:
 	volatile bool		m_bClosing;					// PeerProject begins closing
 	bool				m_bIsServer;				// Is OS a Server version
 	bool				m_bIsWin2000;				// Is OS Windows 2000
-	bool				m_bIsVistaOrNewer;			// Is OS Vista or newer
+	bool				m_bIsVistaOrNewer;			// Is OS Vista/7 or newer
 	bool				m_bLimitedConnections;		// Networking is limited (XP SP2)
 	BOOL				m_bMenuWasVisible;			// For the menus in media player window
 	DWORD				m_nWindowsVersion;			// Windows version

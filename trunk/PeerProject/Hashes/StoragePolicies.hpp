@@ -1,31 +1,28 @@
-////////////////////////////////////////////////////////////////////////////////
-//                                                                            //
-// Hashes/StoragePolicies.hpp                                                 //
-//                                                                            //
-// This file is part of PeerProject (peerproject.org) © 2008                  //
-// Portions Copyright Shareaza Development Team, 2005.                        //
-//                                                                            //
-// PeerProject is free software; you can redistribute it and/or               //
-// modify it under the terms of the GNU General Public License                //
-// as published by the Free Software Foundation; either version 3             //
-// of the License, or later version (at your option).                         //
-//                                                                            //
-// PeerProject is distributed in the hope that it will be useful,             //
-// but WITHOUT ANY WARRANTY; without even the implied warranty of             //
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.                       //
-// See the See the GNU General Public License for more details.               //
-//                                                                            //
-// You should have received a copy of the GNU General Public License 3.0          //
-// along with PeerProject; if not, write to Free Software Foundation, Inc.    //
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)     //
-//                                                                            //
-////////////////////////////////////////////////////////////////////////////////
+//
+// Hashes/StoragePolicies.hpp
+//
+// This file is part of PeerProject (peerproject.org) © 2008-2010
+// Portions Copyright Shareaza Development Team, 2005.
+//
+// PeerProject is free software; you can redistribute it and/or
+// modify it under the terms of the GNU General Public License
+// as published by the Free Software Foundation; either version 3
+// of the License, or later version (at your option).
+//
+// PeerProject is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+// See the GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License 3.0
+// along with PeerProject; if not, write to Free Software Foundation, Inc.
+// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+//
 
 //! \file       Hashes/StoragePolicies.hpp
 //! \brief      Defines storage policies.
 
-#ifndef HASHES_STORAGEPOLICIES_HPP_INCLUDED
-#define HASHES_STORAGEPOLICIES_HPP_INCLUDED
+#pragma once
 
 namespace Hashes
 {
@@ -33,9 +30,7 @@ namespace Hashes
 	{
 
 		//! \brief A model of \ref hashstoragepoliciespage "Storage Policy"
-		//!
-		//! This policy zero-initializes the hash value upon default construction
-		//! and when clearing the hash.
+		//! This policy zero-initializes the hash value at default construction and when clearing the hash.
 		template<typename DescriptorT>
 		struct ZeroInit : public DescriptorT
 		{
@@ -47,12 +42,14 @@ namespace Hashes
 			typedef typename Descriptor::RawStorage RawStorage;
 			typedef typename Descriptor::AlignedStorage AlignedStorage;
 
-			//! \brief  Defines an STL style random access iterator to
-			//!         access the hash content.
+			//! \brief  Defines an STL style random access iterator to access the hash content.
 			typedef typename AlignedStorage::iterator iterator;
-			//! \brief  Defines an STL style random access const iterator to
-			//!         access the hash content.
+			//! \brief  Defines an STL style random access const iterator to access the hash content.
 			typedef typename AlignedStorage::const_iterator const_iterator;
+			//! \brief  tr1 fix: Defines a TR1 style pointer to access the hash content.
+			//typedef typename AlignedStorage::pointer pointer;
+			//! \brief  tr1 fix: Defines a TR1 style const pointer to access the hash content.
+			//typedef typename AlignedStorage::const_pointer const_pointer;
 
 			// Constructors
 			ZeroInit() : Descriptor(), m_storage() {}
@@ -103,8 +100,7 @@ namespace Hashes
 		};
 
 		//! \brief A model of \ref hashstoragepoliciespage "Storage Policy"
-		//!
-		//! This policy does not initializes the hash value upon default
+		//! This policy does not initialize the hash value upon default
 		//! construction and leaves the hash unchanged when clearing.
 		template<typename DescriptorT>
 		struct NoInit : public DescriptorT
@@ -119,6 +115,8 @@ namespace Hashes
 
 			typedef typename AlignedStorage::iterator iterator;
 			typedef typename AlignedStorage::const_iterator const_iterator;
+			//typedef typename AlignedStorage::pointer pointer;
+			//typedef typename AlignedStorage::const_pointer const_pointer;
 
 			NoInit() : Descriptor() {}
 			NoInit(iterator input)
@@ -153,10 +151,12 @@ namespace Hashes
 			AlignedStorage& alignedStorage() { return m_words; }
 			const AlignedStorage& alignedStorage() const { return m_words; }
 
-			iterator       begin()       { return m_words.begin(); }
-			const_iterator begin() const { return m_words.begin(); }
-			iterator       end()         { return m_words.end(); }
-			const_iterator end()   const { return m_words.end(); }
+			iterator		begin()		  { return m_words.begin(); }
+			const_iterator	begin()	const { return m_words.begin(); }
+			iterator		end()		  { return m_words.end(); }
+			const_iterator	end()	const { return m_words.end(); }
+			//pointer 		data()		  { return m_words.data(); }	// tr1 fix:
+			//const_pointer	data()	const { return m_words.data(); }	// tr1 fix:
 
 		private:
 			union
@@ -169,5 +169,3 @@ namespace Hashes
 	} // namespace Policies
 
 } // namespace Hashes
-
-#endif // #ifndef HASHES_STORAGEPOLICIES_HPP_INCLUDED

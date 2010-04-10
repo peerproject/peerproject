@@ -1,7 +1,7 @@
 //
 // CtrlLibraryThumbView.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -57,9 +57,11 @@ protected:
 // Operations
 public:
 	virtual void		Update();
+	virtual void		SelectAll();
 	virtual BOOL		Select(DWORD nObject);
 	virtual DWORD_PTR	HitTestIndex(const CPoint& point) const;
 	virtual HBITMAP		CreateDragImage(const CPoint& ptMouse, CPoint& ptMiddle);
+
 protected:
 	void				Clear();
 	int					GetThumbIndex(CLibraryThumbItem* pThumb) const;
@@ -67,16 +69,16 @@ protected:
 	BOOL				DeselectAll(CLibraryThumbItem* pThumb = NULL);
 	BOOL				SelectTo(CLibraryThumbItem* pThumb);
 	void				SelectTo(int nDelta);
-protected:
+
 	void				UpdateScroll();
 	void				ScrollBy(int nDelta);
 	void				ScrollTo(int nDelta);
 	CLibraryThumbItem*	HitTest(const CPoint& point) const;
 	BOOL				GetItemRect(CLibraryThumbItem* pThumb, CRect* pRect);
-protected:
-	void		StartThread();
-	void		StopThread();
-	void		OnRun();
+
+	void				StartThread();
+	void				StopThread();
+	void				OnRun();
 
 protected:
 	static int	SortList(LPCVOID pA, LPCVOID pB);
@@ -102,7 +104,6 @@ protected:
 	afx_msg void OnLButtonDblClk(UINT nFlags, CPoint point);
 	afx_msg void OnLButtonUp(UINT nFlags, CPoint point);
 	afx_msg void OnRButtonDown(UINT nFlags, CPoint point);
-	afx_msg void OnXButtonDown(UINT nFlags, UINT nButton, CPoint point);
 	afx_msg void OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
 	afx_msg UINT OnGetDlgCode();
@@ -125,7 +126,7 @@ public:
 	DWORD	m_nCookie;
 	CString	m_sText;
 	BOOL	m_bShared;
-public:
+
 	BOOL	m_bSelected;
 	int		m_nThumb;
 	CBitmap	m_bmThumb;

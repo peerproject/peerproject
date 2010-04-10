@@ -1,7 +1,7 @@
 //
 // UploadQueues.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -40,21 +40,21 @@ public:
 
 	BOOL	Enqueue(CUploadTransfer* pUpload, BOOL bForce = FALSE);
 	BOOL	Dequeue(CUploadTransfer* pUpload);
-	int		GetPosition(CUploadTransfer* pUpload, BOOL bStart);
 	BOOL	StealPosition(CUploadTransfer* pTarget, CUploadTransfer* pSource);
+	int		GetPosition(CUploadTransfer* pUpload, BOOL bStart);
 
-	CUploadQueue*	Create(LPCTSTR pszName = NULL, BOOL bTop = FALSE);
 	void			Delete(CUploadQueue* pQueue);
 	BOOL			Reorder(CUploadQueue* pQueue, CUploadQueue* pBefore);
+	CUploadQueue*	Create(LPCTSTR pszName = NULL, BOOL bTop = FALSE);
 	CUploadQueue*	SelectQueue(PROTOCOLID nProtocol, CLibraryFile const * const pFile);
 	CUploadQueue*	SelectQueue(PROTOCOLID nProtocol, CDownload const * const pFile);
 	CUploadQueue*	SelectQueue(PROTOCOLID nProtocol, LPCTSTR pszName, QWORD nSize, DWORD nFileState, LPCTSTR pszShareTags = NULL);
 
-	int		GetTotalBandwidthPoints( BOOL ActiveOnly = FALSE );
-	int		GetQueueCapacity();
-	INT_PTR	GetQueuedCount();
-	INT_PTR	GetQueueRemaining();
-	INT_PTR	GetTransferCount();
+	DWORD	GetTotalBandwidthPoints(BOOL ActiveOnly = FALSE);
+//	DWORD	GetQueueCapacity();
+//	DWORD	GetQueuedCount();
+//	DWORD	GetQueueRemaining();
+//	DWORD	GetTransferCount();
 	BOOL	IsTransferAvailable();
 	DWORD	GetMinimumDonkeyBandwidth();
 	DWORD	GetCurrentDonkeyBandwidth();
@@ -86,7 +86,7 @@ public:
 		return m_pList.GetCount();
 	}
 
-	inline BOOL Check(CUploadQueue* pQueue) const
+	inline bool Check(CUploadQueue* pQueue) const
 	{
 		CQuickLock oLock( m_pSection );
 		if ( pQueue == NULL ) return FALSE;

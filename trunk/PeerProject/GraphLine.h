@@ -1,7 +1,7 @@
 //
 // GraphLine.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -41,7 +41,7 @@ public:
 	COLORREF	m_crBack;
 	COLORREF	m_crGrid;
 	DWORD		m_nMinGridVert;
-public:
+
 	DWORD		m_nSpeed;
 	DWORD		m_nScale;
 	DWORD		m_nMaximum;
@@ -60,7 +60,7 @@ public:
 	void		RemoveItem(CGraphItem* pItem);
 	void		ClearItems();
 	void		ResetMaximum(BOOL bForce = TRUE);
-public:
+
 	virtual void	CreateDefaults();
 	virtual void	Serialize(CArchive& ar);
 	virtual BOOL	Update();

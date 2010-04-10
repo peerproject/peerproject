@@ -36,22 +36,22 @@ BEGIN_INTERFACE_MAP(CPeerProjectFile, CComObject)
 	INTERFACE_PART(CPeerProjectFile, IID_IPeerProjectFile, PeerProjectFile)
 END_INTERFACE_MAP()
 
-CPeerProjectFile::CPeerProjectFile() :
-	m_nSize( SIZE_UNKNOWN )
+CPeerProjectFile::CPeerProjectFile()
+	: m_nSize	( SIZE_UNKNOWN )
 {
 	EnableDispatch( IID_IPeerProjectFile );
 }
 
-CPeerProjectFile::CPeerProjectFile(const CPeerProjectFile& pFile) :
-	m_sName( pFile.m_sName ),
-	m_nSize( pFile.m_nSize ),
-	m_oSHA1( pFile.m_oSHA1 ),
-	m_oTiger( pFile.m_oTiger ),
-	m_oED2K( pFile.m_oED2K ),
-	m_oBTH( pFile.m_oBTH ),
-	m_oMD5( pFile.m_oMD5 ),
-	m_sPath( pFile.m_sPath ),
-	m_sURL( pFile.m_sURL )
+CPeerProjectFile::CPeerProjectFile(const CPeerProjectFile& pFile)
+	: m_sName	( pFile.m_sName )
+	, m_nSize	( pFile.m_nSize )
+	, m_oSHA1	( pFile.m_oSHA1 )
+	, m_oTiger	( pFile.m_oTiger )
+	, m_oED2K	( pFile.m_oED2K )
+	, m_oBTH	( pFile.m_oBTH )
+	, m_oMD5	( pFile.m_oMD5 )
+	, m_sPath	( pFile.m_sPath )
+	, m_sURL	( pFile.m_sURL )
 {
 	EnableDispatch( IID_IPeerProjectFile );
 }
@@ -181,8 +181,9 @@ bool CPeerProjectFile::SplitStringToURLs(LPCTSTR pszURLs, CMapStringToFILETIME& 
 		if ( nPos > 6 && strURL.GetLength() > nPos + 1 &&
 			strURL.GetAt( nPos + 1 ) != '/' )
 		{
-			int nPort = 0;
-			_stscanf( strURL.Mid( nPos + 1 ), _T("%i"), &nPort );
+			int nPort;
+			if ( _stscanf( strURL.Mid( nPos + 1 ), _T("%i"), &nPort ) != 1 )
+				nPort = 0;
 			DWORD nAddress = inet_addr( CT2CA( strURL.Left( nPos ) ) );
 			if ( nPort > 0 && nPort <= USHRT_MAX && nAddress != INADDR_NONE &&
 				! Network.IsFirewalledAddress( (IN_ADDR*)&nAddress, TRUE ) &&

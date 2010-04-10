@@ -823,22 +823,21 @@ void CLibraryFrame::UpdatePanel(BOOL bForce)
 
 	if ( ! bForce && ! m_bViewSelection ) return;
 	m_bViewSelection = FALSE;
-
-	m_pViewSelection = m_pView ? &m_pView->m_pSelection : &m_pViewEmpty;
-
-	CLibraryTreeItem* pFolders = m_wndTree.GetFirstSelected();
-	BOOL bMetaPanelAvailable = pFolders &&
-		( pFolders->m_pSelNext == NULL ) &&
-		( pFolders->m_pVirtual == NULL ||
-		// Do not display meta panel for Collection folder
-		( ! ( pFolders->m_pVirtual->m_oCollSHA1 &&
-		  pFolders->m_pVirtual->GetBestView().Find( _T("Collection") ) > 0 ||
-		  CheckURI( pFolders->m_pVirtual->m_sSchemaURI, CSchema::uriCollectionsFolder ) ) &&
-		  pFolders->m_pVirtual->GetFileCount() != 0 ) );
-	BOOL bHistoryPanelAvailable = ( pFolders == NULL );
+	m_pViewSelection = m_pView ? m_pView->GetSelection() : &m_pViewEmpty;
 
 	if ( m_bPanelShow )
 	{
+		CLibraryTreeItem* pFolders = m_wndTree.GetFirstSelected();
+		BOOL bMetaPanelAvailable = pFolders &&
+			( pFolders->m_pSelNext == NULL ) &&
+			( pFolders->m_pVirtual == NULL ||
+			// Do not display meta panel for Collection folder
+			( ! ( pFolders->m_pVirtual->m_oCollSHA1 &&
+			  pFolders->m_pVirtual->GetBestView().Find( _T("Collection") ) > 0 ||
+			  CheckURI( pFolders->m_pVirtual->m_sSchemaURI, CSchema::uriCollectionsFolder ) ) &&
+			  pFolders->m_pVirtual->GetFileCount() != 0 ) );
+		BOOL bHistoryPanelAvailable = ( pFolders == NULL );
+
 		if ( m_pPanel == NULL ||
 			( m_pPanel == &m_pMetaPanel    && ! bMetaPanelAvailable ) ||
 			( m_pPanel == &m_pHistoryPanel && ! bHistoryPanelAvailable ) )

@@ -1,7 +1,7 @@
 //
 // PeerProjectThread.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -189,43 +189,50 @@ HANDLE BeginThread(LPCSTR pszName, AFX_THREADPROC pfnThreadProc,
 
 void CloseThread(HANDLE* phThread, DWORD dwTimeout)
 {
-	if ( *phThread )
+	__try
 	{
-		__try
+		if ( *phThread )
 		{
-			::SetThreadPriority( *phThread, THREAD_PRIORITY_NORMAL );
-
-			while( *phThread )
+			__try
 			{
-				SafeMessageLoop();
+				::SetThreadPriority( *phThread, THREAD_PRIORITY_NORMAL );
 
-				DWORD res = MsgWaitForMultipleObjects( 1, phThread,
-					FALSE, dwTimeout, QS_ALLINPUT | QS_ALLPOSTMESSAGE );
-				if ( res == WAIT_OBJECT_0 + 1 )
+				while( *phThread )
 				{
-					// Handle messages
-					continue;
-				}
-				else if ( res != WAIT_TIMEOUT )
-				{
-					// Handle signaled state or errors
-					break;
-				}
-				else
-				{
-					// Timeout
-					CAppThread::Terminate( *phThread );
-					break;
+					SafeMessageLoop();
+
+					DWORD res = MsgWaitForMultipleObjects( 1, phThread,
+						FALSE, dwTimeout, QS_ALLINPUT | QS_ALLPOSTMESSAGE );
+					if ( res == WAIT_OBJECT_0 + 1 )
+					{
+						// Handle messages
+						continue;
+					}
+					else if ( res != WAIT_TIMEOUT )
+					{
+						// Handle signaled state or errors
+						break;
+					}
+					else
+					{
+						// Timeout
+						CAppThread::Terminate( *phThread );
+						break;
+					}
 				}
 			}
-		}
-		__except( EXCEPTION_EXECUTE_HANDLER )
-		{
-			// Thread already ended
-		}
+			__except( EXCEPTION_EXECUTE_HANDLER )
+			{
+				// Thread already ended
+			}
 
-		CAppThread::Remove( *phThread );
+			CAppThread::Remove( *phThread );
 
-		*phThread = NULL;
+			*phThread = NULL;
+		}
+	}
+	__except( EXCEPTION_EXECUTE_HANDLER )
+	{
+		// Deleted thread handler
 	}
 }

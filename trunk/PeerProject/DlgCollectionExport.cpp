@@ -471,12 +471,12 @@ void CCollectionExportDlg::OnOK()
 								m_wndWizard.ReplaceNoCase( m_wndWizard.m_pFileDocs.GetAt( nFileID ),
 									str, strNewReplace );
 							}
-							// copy selected images
+							// Copy selected images
 							if ( ! strMap.IsEmpty() )
 							{
 								CString strTarget, strSourceFile;
 
-								// if default file left, add old value to target and destination
+								// If default file left, add old value to target and destination
 								// since it may contain a relative path.
 								if ( strReplace.Find(':') == -1 )
 								{
@@ -487,7 +487,6 @@ void CCollectionExportDlg::OnOK()
 								}
 								else
 								{
-
 									strTarget = strPath + _T('\\') + strNewReplace;
 									strSourceFile = strReplace;
 								}
@@ -523,13 +522,13 @@ void CCollectionExportDlg::OnOK()
 				}
 
 				// Output to file
-				CFile pFile;
-				if ( pFile.Open( strNewFilePath , CFile::modeWrite|CFile::modeCreate ) )
+				CFile pNewFile;
+				if ( pNewFile.Open( strNewFilePath , CFile::modeWrite|CFile::modeCreate ) )
 				{
 					CStringA strSourceUTF8 = UTF8Encode( strSource );
 
-					pFile.Write( (LPCSTR)strSourceUTF8, strSourceUTF8.GetLength() );
-					pFile.Close();
+					pNewFile.Write( (LPCSTR)strSourceUTF8, strSourceUTF8.GetLength() );
+					pNewFile.Close();
 
 					// Clean-up;
 					strSource.Empty();

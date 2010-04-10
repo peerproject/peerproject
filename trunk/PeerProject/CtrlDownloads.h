@@ -59,8 +59,6 @@ protected:
 	BOOL		HitTest(const CPoint& point, CDownload** ppDownload, CDownloadSource** ppSource, int* pnIndex, RECT* prcItem);
 	BOOL		GetAt(int nSelect, CDownload** ppDownload, CDownloadSource** ppSource);
 	BOOL		GetRect(CDownload* pSelect, RECT* prcItem);
-	CString		GetDownloadStatus(CDownload *pDownload);
-	int 		GetClientStatus(CDownload *pDownload);
 	void		PaintDownload(CDC& dc, const CRect& rcRow, CDownload* pDownload, BOOL bFocus, BOOL bDrop);
 	void		PaintSource(CDC& dc, const CRect& rcRow, CDownload* pDownload, CDownloadSource* pSource, BOOL bFocus);
 	void		OnBeginDrag(CPoint ptAction);

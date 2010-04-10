@@ -237,7 +237,7 @@ BEGIN
     LTEXT           "Select Tracker URL",IDC_TITLE,15,15,300,10
     LTEXT           "A 'Tracker' server maintains the list of active downloaders for each BitTorrent file.",IDC_STATIC,15,35,300,35
     LTEXT           "This Wizard creates full torrentfiles that allow decentralized searching for sources.\nHowever, most BitTorrent users still rely on one or more central BitTorrent trackers.\nYou can find public trackers to use by searching online.",IDC_STATIC,15,52,300,25
-    LTEXT           "Your Torrent should now reference the URL that clients will contact when downloading.\nCopy/paste your tracker's 'announce' link below,  or select one used recently.",IDC_STATIC,15,84,300,25
+    LTEXT           "Your Torrent should now include the URL that clients will contact when downloading.\nCopy/paste your tracker's 'announce' link below,  or select one used recently.",IDC_STATIC,15,84,302,25
     LTEXT           "Type or select a tracker URL:",IDC_STATIC,15,120,300,10
     COMBOBOX        IDC_TRACKER,15,131,300,140,CBS_DROPDOWN | CBS_AUTOHSCROLL | CBS_SORT | WS_VSCROLL | WS_TABSTOP
     LTEXT           "Add an optional secondary tracker URL:",IDC_STATIC,15,150,300,10
@@ -264,7 +264,7 @@ CAPTION "PeerProject Torrent Wizard - Save Torrent File"
 FONT 8, "Tahoma", 0, 0, 0x0
 BEGIN
     LTEXT           "Save Torrent File",IDC_TITLE,15,15,300,10
-    LTEXT           "TorrentWizard has enough information to create your BitTorrent file, now choose a name\nand destination to save it.  (Edit any defaults and click Next to finish.)",IDC_STATIC,15,35,300,20
+    LTEXT           "TorrentWizard has enough information to create your BitTorrent file,\nchoose a name and destination to save it.  (Edit any defaults and click Next to finish.)",IDC_STATIC,15,35,302,22
     LTEXT           ".Torrent Save Name:",IDC_STATIC,15,63,175,10
     EDITTEXT        IDC_TORRENT_NAME,15,75,300,12,ES_AUTOHSCROLL
     LTEXT           ".Torrent Save Location:",IDC_STATIC,15,94,300,10

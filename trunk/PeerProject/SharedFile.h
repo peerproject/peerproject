@@ -51,16 +51,16 @@ public:
 	DWORD			m_nUpdateCookie;
 	DWORD			m_nSelectCookie;
 	DWORD			m_nListCookie;
-	CLibraryFolder*	m_pFolder;				// NULL for Ghost files
 	DWORD			m_nIndex;
+	CLibraryFolder*	m_pFolder;				// NULL for Ghost files
 	FILETIME		m_pTime;
 	QWORD			m_nVirtualBase;
 	QWORD			m_nVirtualSize;
 	TRISTATE		m_bVerify;
 	CSchemaPtr		m_pSchema;
 	CXMLElement*	m_pMetadata;
-	BOOL			m_bMetadataAuto;		// Metadata is auto-generated
 	FILETIME		m_pMetadataTime;		// Metadata time
+	BOOL			m_bMetadataAuto;		// Metadata is auto-generated
 	BOOL			m_bMetadataModified;	// Metadata must be saved
 	//int			m_nPeerTag;				// Permissiveness
 	int				m_nRating;
@@ -76,13 +76,14 @@ public:
 	mutable DWORD				m_nHitsTotal;
 	mutable DWORD				m_nSearchCookie;
 	mutable DWORD				m_nSearchWords;
-	mutable const CLibraryFile*	m_pNextHit;
 	mutable DWORD				m_nCollIndex;
+	mutable const CLibraryFile*	m_pNextHit;
 	int				m_nIcon16;
 	BOOL			m_bNewFile;
 
 	CString			GetPath() const;
-	virtual CString	GetSearchName() const;
+	CString			GetFolder() const;
+	CString 		GetSearchName() const;
 	BOOL			CheckFileAttributes(QWORD nSize, BOOL bSharedOnly, BOOL bAvailableOnly) const;
 	void			SetShared(bool bShared, bool bOverride = false);
 	bool			IsShared(bool bIgnoreOverride = false) const;

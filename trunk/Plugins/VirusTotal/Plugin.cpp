@@ -1,8 +1,8 @@
 //
 // Plugin.cpp : Implementation of CPlugin for VirusTotal
 //
-// This file is part of PeerProject (peerproject.org) © 2009
-// Portions Copyright Shareaza Development Team, 2009.
+// This file is part of PeerProject (peerproject.org) © 2009-2010
+// Portions Copyright Nikolay Raspopov, 2009.
 //
 // PeerProject is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -176,10 +176,10 @@ STDMETHODIMP CPlugin::InsertCommands()
 }
 
 STDMETHODIMP CPlugin::OnUpdate(
-    /*[in]*/ UINT nCommandID,
-    /*[out][in]*/ TRISTATE __RPC_FAR *pbVisible,
-    /*[out][in]*/ TRISTATE __RPC_FAR *pbEnabled,
-    /*[out][in]*/ TRISTATE __RPC_FAR *pbChecked)
+	/*[in]*/ UINT nCommandID,
+	/*[out][in]*/ TRISTATE __RPC_FAR *pbVisible,
+	/*[out][in]*/ TRISTATE __RPC_FAR *pbEnabled,
+	/*[out][in]*/ TRISTATE __RPC_FAR *pbChecked)
 {
 	if ( ! pbVisible || ! pbEnabled || ! pbChecked )
 		return E_POINTER;

@@ -179,6 +179,8 @@ void CSearchWnd::OnDestroy()
 
 	SaveState( _T("CSearchWnd") );
 
+	OnSearchStop();
+
 	CBaseMatchWnd::OnDestroy();
 }
 
@@ -630,7 +632,7 @@ void CSearchWnd::OnSearchDetails()
 
 void CSearchWnd::OnSysCommand(UINT nID, LPARAM lParam)
 {
-	if ( ( ( nID & 0xFFF0 ) == SC_MAXIMIZE ) && m_bPanelMode )
+	if ( ( nID & 0xFFF0 ) == SC_MAXIMIZE && m_bPanelMode )
 		PostMessage( WM_COMMAND, ID_SEARCH_SEARCH );
 	else
 		CBaseMatchWnd::OnSysCommand( nID, lParam );
@@ -648,7 +650,7 @@ CQuerySearchPtr CSearchWnd::GetLastSearch() const
 
 void CSearchWnd::ExecuteSearch()
 {
-	CSingleLock pLock( &m_pMatches->m_pSection );
+	CQuickLock pLock( m_pMatches->m_pSection );
 
 	CSearchPtr pManaged;
 	if ( ! empty() )
@@ -700,7 +702,7 @@ void CSearchWnd::ExecuteSearch()
 
 void CSearchWnd::UpdateMessages()
 {
-	CSingleLock pLock( &m_pMatches->m_pSection );
+	CQuickLock pLock( m_pMatches->m_pSection );
 
 	CSearchPtr pManaged;
 	if ( ! empty() )
@@ -905,7 +907,8 @@ void CSearchWnd::OnTimer(UINT_PTR nIDEvent)
 
 void CSearchWnd::OnSelChangeMatches()
 {
-	CSingleLock pLock( &m_pMatches->m_pSection, TRUE );
+	CQuickLock pLock( m_pMatches->m_pSection );
+
 	m_wndDetails.SetFile( m_pMatches->GetSelectedFile( TRUE ) );
 }
 

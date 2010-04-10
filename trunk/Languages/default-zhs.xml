@@ -1,9 +1,9 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
+<?xml version="1.0" encoding="UTF-8"?>
+<skin xmlns="http://schemas.peerproject.org/Skin.xsd" version="1.0">
 
 <!-- PeerProject Default Chinese (Simplified) Skin File -->
 
-<!-- Translation based on default-en.xml r48 (Shareaza r6092) -->
+<!-- Translation based on default-en.xml r50 (Shareaza r6092) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -520,7 +520,7 @@
 				<item id="ID_VIEW_TABBED" text="标签模式(_A)"/>
 				<item id="ID_VIEW_WINDOWED" text="视窗模式(_W)"/>
 				<separator/>
-				<item id="ID_WINDOW_NAVBAR" text="显示导航栏(_N)"/>	
+				<item id="ID_WINDOW_NAVBAR" text="显示导航栏(_N)"/>
 				<item id="ID_WINDOW_TOOLBAR" text="显示工具栏(_T)"/>
 				<separator/>
 				<item id="ID_WINDOW_TABBAR" text="显示标签栏(_B)"/>
@@ -1014,31 +1014,28 @@
 	<!-- DOWNLOADS WINDOW -->
 	<menu name="CDownloadsWnd.Download.Basic">
 		<item id="ID_DOWNLOADS_LAUNCH" text="预览(_P)"/>
-		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="R_emote Preview"/>
-		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="查看评价(_V)"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_RESUME" text="续传(_R)"/>
 		<item id="ID_DOWNLOADS_PAUSE" text="暂停(_A)"/>
 		<item id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="取消(_C)"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_SOURCES" text="查找更多资源(_F)"/>
-		<!-- <separator/>
-		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="清除完成文件(_L)"/>
-		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="自动清除(_U)"/> -->
+		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="R_emote Preview"/>
+		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="查看评价(_V)"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_HELP" text="帮助(_H)..."/>
 	</menu>
 	<menu name="CDownloadsWnd.Download">
-		<item id="ID_DOWNLOADS_LAUNCH" text="预览(_P)"/>
 		<item id="ID_DOWNLOADS_LAUNCH_COPY" text="预览副本(_V)"/>
+		<item id="ID_DOWNLOADS_LAUNCH" text="预览(_P)"/>
 		<item id="ID_DOWNLOADS_ENQUEUE" text="加入播放列表(_Y)"/>
-		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="R_emote Preview"/>
-		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="查看评价(_V)"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_RESUME" text="续传(_R)"/>
 		<item id="ID_DOWNLOADS_PAUSE" text="暂停(_A)"/>
 		<item id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="取消(_C)"/>
 		<separator/>
+		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="查看评价(_V)"/>
+		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="R_emote Preview"/>
 		<item id="ID_DOWNLOADS_SOURCES" text="查找更多资源(_F)"/>
 		<separator/>
 		<menu text="高级(_A)">
@@ -1046,14 +1043,17 @@
 			<separator/>
 			<item id="ID_DOWNLOADS_URI" text="复制 URI(_C)"/>
 			<item id="ID_DOWNLOADS_ADD_SOURCE" text="添加资源(_A)..."/>
+			<item id="ID_DOWNLOADS_MERGE" text="合并本地文件(_M)..."/>
 			<separator/>
 			<item id="ID_DOWNLOADS_MONITOR" text="监视器(_W)"/>
+		</menu>
+		<menu text="优先(_O)">
 			<item id="ID_DOWNLOADS_BOOST" text="忽略带宽限制(_I)"/>
 			<separator/>
-			<item id="ID_DOWNLOADS_MOVE_UP" text="上移(_U)"/>
-			<item id="ID_DOWNLOADS_MOVE_DOWN" text="下移(_D)"/>
-			<item id="ID_DOWNLOADS_MOVE_TOP" text="上移!(_T)"/>
-			<item id="ID_DOWNLOADS_MOVE_BOTTOM" text="下移!(_B)"/>
+			<item id="ID_DOWNLOADS_MOVE_TOP" text="上移!(_T) shortcut="Ctrl+Home""/>
+			<item id="ID_DOWNLOADS_MOVE_BOTTOM" text="下移!(_B)" shortcut="Ctrl+End"/>
+			<item id="ID_DOWNLOADS_MOVE_UP" text="上移(_U)" shortcut="Ctrl+Up"/>
+			<item id="ID_DOWNLOADS_MOVE_DOWN" text="下移(_D)" shortcut="Ctrl+Down"/>
 		</menu>
 		<item id="ID_DOWNLOADS_HELP" text="帮助(_H)..."/>
 		<separator/>
@@ -2579,7 +2579,7 @@
 	<string id="8230" value="PeerProject 正在查找资源:"/>
 	<string id="8231" value="没有资源"/>
 	<string id="8232" value="打开"/>
-	<string id="8233" value="预览"/>
+	<string id="8233" value="取消"/>
 	<string id="8235" value="总体传送速度:"/>
 	<string id="8236" value="估计剩余时间:"/>
 	<string id="8237" value="完成下载数量:"/>
@@ -2842,7 +2842,6 @@
 	<string id="16402" value="PeerProject 已经收到一个收集文件:\r\n\r\n&quot;%s&quot;\r\n\r\n此文件可能不是一个有效的收集文件。"/>
 	<string id="16403" value="PeerProject 已经将收集文件 &quot;%s&quot; 添加到您的收藏中。"/>
 	<string id="16404" value="PeerProject 不能安装收集文件 &quot;%s&quot; 通过复制它到文件夹 &quot;%s&quot;。"/>
-	<string id="16405" value="您要下载此文件吗？\r\n\r\n&quot;%s&quot;\r\n\r\n选择取消以停止任何进一步的提示。"/>
 	<string id="16406" value="您要下载此收集中的所有文件吗？\r\n\r\n选择取消以停止任何进一步的提示。"/>
 	<string id="16407" value="您要防止此收集提示您下载的任何文件吗？"/>
 	<string id="16408" value="复制 URI(_U)"/>
@@ -3200,14 +3199,14 @@
 		<control caption="点击最小化时:"/>
 		<control caption="标准|最小化到系统托盘"/>
 	</dialog>
-	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBu" caption="收藏">
+	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuBuCoBuBuBuCoBuBuBuEdBu" caption="收藏">
 		<control caption="选项:"/>
 		<control caption="允许他人浏览共享"/>
+		<control caption="记住文件夹视图"/>
 		<control caption="监视收藏文件夹"/>
 		<control caption="快速 Hash(占用更多 CPU 资源)"/>
 		<control caption="Smart media series detection"/>
 		<control caption="当删除时建立回收文件"/>
-		<control caption="记住文件夹视图"/>
 		<control caption="近期文件:"/>
 		<control caption="记住:"/>
 		<control/>
@@ -3217,6 +3216,7 @@
 		<control/>
 		<control/>
 		<control caption="天"/>
+		<control caption="立即清除历史"/>
 		<control caption="立即清除历史"/>
 		<control caption="安全的扩展名:"/>
 		<control/>
@@ -3818,8 +3818,7 @@
 		<control caption="确定"/>
 		<control caption="取消"/>
 	</dialog>
-	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStStBuBuBuBuBu" caption="下载">
-		<control caption="PeerProject 正在下载:"/>
+	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStBuBuBuBu" caption="下载">
 		<control caption="..."/>
 		<control/>
 		<control/>
@@ -3833,7 +3832,6 @@
 		<control caption="完成下载数量:"/>
 		<control caption="..."/>
 		<control caption="查看收藏"/>
-		<control caption="打开文件"/>
 		<control caption="停止下载"/>
 		<control caption="隐藏"/>
 		<control caption="下载完毕后关闭此窗口"/>
@@ -4208,23 +4206,22 @@
 		<control caption="到"/>
 		<control caption="擦除"/>
 	</dialog>
-	<dialog name="CDownloadGroupDlg" cookie="BuBuEdCoBuCoBuBuEdBuBuBuBuBuBuSt" caption="下载组属性">
-		<control caption="确定"/>
-		<control caption="取消"/>
+	<dialog name="CDownloadGroupDlg" cookie="BuEdBuEdBuBuBuCoBuBuBuCoStBuBu" caption="下载组属性">
+		<control caption="名称:"/>
+		<control/>
+		<control caption="已完成文件文件夹:"/>
 		<control/>
 		<control/>
-		<control caption="_BitTorrent"/>
+		<control/>
+		<control caption="过滤:"/>
 		<control/>
 		<control caption="添加(_A)"/>
 		<control caption="移除(_R)"/>
-		<control/>
-		<control/>
-		<control/>
-		<control caption="名称:"/>
-		<control caption="过滤:"/>
-		<control caption="已完成文件文件夹:"/>
 		<control caption="文件类型:"/>
-		<control caption="_*Drag&apos;n&apos;drop any download later."/>
+		<control/>
+		<control caption="*Drag&apos;n&apos;drop any download later."/>
+		<control caption="确定"/>
+		<control caption="取消"/>
 	</dialog>
 	<dialog name="CMediaVisDlg" cookie="StBuSyCoBuBuBu" caption="选择可视化效果">
 		<control/>
@@ -4419,3 +4416,4 @@
 	</list>
 </listColumns>
 </skin>
+仸ꭿ驥

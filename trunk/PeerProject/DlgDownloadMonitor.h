@@ -64,9 +64,10 @@ public:
 	enum { IDD = IDD_DOWNLOAD_MONITOR };
 	CStatic	m_wndVolume;
 	CStatic m_wndVolumeLabel;
-	CButton	m_wndCancel;
+	CButton	m_wndAutoClose;
+	CButton	m_wndAction;
 	CButton	m_wndClose;
-	CButton	m_wndStop;
+	CButton	m_wndShow;
 	CStatic	m_wndProgress;
 	CStatic	m_wndTime;
 	CStatic	m_wndTimeLabel;
@@ -76,7 +77,6 @@ public:
 	CStatic	m_wndSources;
 	CStatic	m_wndSourcesLabel;
 	CButton	m_wndLaunch;
-	CButton	m_wndView;
 	CStatic	m_wndIcon;
 	CStatic	m_wndGraph;
 	CStatic	m_wndFile;
@@ -95,12 +95,11 @@ protected:
 	//{{AFX_MSG(CDownloadMonitorDlg)
 	virtual BOOL OnInitDialog();
 	afx_msg void OnPaint();
-	afx_msg void OnDownloadCancel();
 	afx_msg void OnDestroy();
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
-	afx_msg void OnDownloadLaunch();
-	afx_msg void OnDownloadView();
-	afx_msg void OnDownloadStop();
+	afx_msg void OnDownloadShow();
+	afx_msg void OnDownloadAction();
+	afx_msg void OnDownloadClose();
 	afx_msg void OnClose();
 	afx_msg void OnSysCommand(UINT nID, LPARAM lParam);
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);

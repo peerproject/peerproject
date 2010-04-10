@@ -35,27 +35,19 @@ public:
 
 	void					AddFile(const CLibraryFile& oFile);
 	void					RemoveFile(const CLibraryFile& oFile);
-	void					BuildHashTable();			// Build hash table if needed
-	void					Invalidate();				// Force dictionary and hash table to re-build
+	void					BuildHashTable();		// Build hash table if needed
 	const CQueryHashTable*	GetHashTable();
+	void					Invalidate();			// Force dictionary and hash table to re-build
 	void					Clear();
-	CFileList*				Search(const CQuerySearch* pSearch, int nMaximum = 0, bool bLocal = false, bool bAvailableOnly = true);
 	void					Serialize(CArchive& ar, int nVersion);
+	CFileList*				Search(const CQuerySearch* pSearch, int nMaximum = 0, bool bLocal = false, bool bAvailableOnly = true);
 
 private:
-	class CWord
-	{
-	public:
-		CWord(CFileList* pList = NULL) : m_pList( pList ), m_nCount( 1 ) {}
-		CWord(const CWord& oWord) : m_pList( oWord.m_pList ), m_nCount( oWord.m_nCount ) {}
-		CFileList*			m_pList;
-		DWORD				m_nCount;
-	};
-	typedef CMap< CString, const CString&, CWord, CWord& > CWordMap;
+	typedef CMap< CString, const CString&, CFileList*, CFileList*& > CWordMap;
 
 	CWordMap				m_oWordMap;
 	CQueryHashTable*		m_pTable;
-	bool					m_bValid;					// Table is up to date
+	bool					m_bValid;				// Table is up to date
 	DWORD					m_nSearchCookie;
 
 	void					ProcessFile(const CLibraryFile& oFile, bool bAdd, bool bCanUpload);

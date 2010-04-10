@@ -71,8 +71,8 @@ CExistingFileDlg::Action CExistingFileDlg::CheckExisting(const CPeerProjectFile*
 				pMainWnd->m_pWindows.Open( RUNTIME_CLASS(CLibraryWnd) ) ) )
 			{
 				pLock.Lock();
-				if ( CLibraryFile* pLibFile = Library.LookupFile( nIndex ) )
-					pLibrary->Display( pLibFile );
+				if ( CLibraryFile* pLibFile1 = Library.LookupFile( nIndex ) )
+					pLibrary->Display( pLibFile1 );
 
 				pLock.Unlock();
 			}
@@ -85,28 +85,20 @@ CExistingFileDlg::Action CExistingFileDlg::CheckExisting(const CPeerProjectFile*
 /////////////////////////////////////////////////////////////////////////////
 // CExistingFileDlg dialog
 
-CExistingFileDlg::CExistingFileDlg(CLibraryFile* pFile, CWnd* pParent,
-	 bool bDuplicateSearch)
-:	CSkinDialog( CExistingFileDlg::IDD, pParent )
-,	m_nAction( 0 )
+CExistingFileDlg::CExistingFileDlg(CLibraryFile* pFile, CWnd* pParent, bool bDuplicateSearch)
+	: CSkinDialog( CExistingFileDlg::IDD, pParent )
+	, m_nAction  ( 0 )
 {
 	m_sName = pFile->m_sName;
 
-	if ( !bDuplicateSearch )
+	if ( ! bDuplicateSearch )
 	{
 		if ( pFile->m_oSHA1 && pFile->m_oTiger )
-		{
-			m_sURN	= _T("bitprint:") + pFile->m_oSHA1.toString()
-				+ '.' + pFile->m_oTiger.toString();
-		}
+			m_sURN	= _T("bitprint:") + pFile->m_oSHA1.toString() + '.' + pFile->m_oTiger.toString();
 		else if ( pFile->m_oSHA1 )
-		{
 			m_sURN = pFile->m_oSHA1.toString();
-		}
 		else if ( pFile->m_oTiger )
-		{
 			m_sURN = pFile->m_oTiger.toUrn();
-		}
 
 		m_sComments		= pFile->m_sComments;
 		m_bAvailable	= pFile->IsAvailable() ? TRI_FALSE : TRI_UNKNOWN;
@@ -188,7 +180,8 @@ HBRUSH CExistingFileDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 
 void CExistingFileDlg::OnAction0()
 {
-	if ( m_wndLocate.IsWindowEnabled() ) m_wndOK.EnableWindow( TRUE );
+	if ( m_wndLocate.IsWindowEnabled() )
+		m_wndOK.EnableWindow( TRUE );
 }
 
 void CExistingFileDlg::OnAction1()

@@ -279,7 +279,7 @@ void CDownloadActionsPage::OnMergeAndVerify()
 	if ( ! Downloads.Check( pDownload ) || pDownload->IsTasking() )
 	{
 		pLock.Unlock();
-		strMessage = _T("The selected download item currently has some Task attached, please wait and do it later.");
+		LoadString( strMessage, IDS_DOWNLOAD_EDIT_ACTIVE_TASK );
 		AfxMessageBox( strMessage, MB_ICONEXCLAMATION );
 		return;
 	}
@@ -298,7 +298,7 @@ void CDownloadActionsPage::OnMergeAndVerify()
 		if ( ! Downloads.Check( pDownload ) || pDownload->IsTasking() )
 		{
 			pLock.Unlock();
-			strMessage = _T("The selected download item currently has some Task attached, please wait and do it later.");
+			LoadString( strMessage, IDS_DOWNLOAD_EDIT_ACTIVE_TASK );
 			AfxMessageBox( strMessage, MB_ICONEXCLAMATION );
 			return;
 		}

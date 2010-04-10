@@ -534,7 +534,7 @@ DWORD CDownloads::GetConnectingTransferCount() const
 
 void CDownloads::Remove(CDownload* pDownload)
 {
-	ASSUME_LOCK( Transfers.m_pSection );
+	//ASSUME_LOCK( Transfers.m_pSection );
 
 	POSITION pos = m_pList.Find( pDownload );
 	if ( pos != NULL )
@@ -548,7 +548,7 @@ void CDownloads::Remove(CDownload* pDownload)
 
 BOOL CDownloads::Check(CDownloadSource* pSource) const
 {
-	ASSUME_LOCK( Transfers.m_pSection );
+	//ASSUME_LOCK( Transfers.m_pSection );
 
 	for ( POSITION pos = GetIterator() ; pos ; )
 	{
@@ -576,7 +576,7 @@ bool CDownloads::CheckActive(CDownload* pDownload, int nScope) const
 
 CDownload* CDownloads::FindByPath(const CString& sPath) const
 {
-	ASSUME_LOCK( Transfers.m_pSection );
+	//ASSUME_LOCK( Transfers.m_pSection );
 
 	for ( POSITION pos = GetIterator() ; pos ; )
 	{
@@ -589,7 +589,7 @@ CDownload* CDownloads::FindByPath(const CString& sPath) const
 
 CDownload* CDownloads::FindByURN(LPCTSTR pszURN, BOOL bSharedOnly) const
 {
-	ASSUME_LOCK( Transfers.m_pSection );
+	//ASSUME_LOCK( Transfers.m_pSection );
 
 	CDownload* pDownload;
 	Hashes::TigerHash oTiger;

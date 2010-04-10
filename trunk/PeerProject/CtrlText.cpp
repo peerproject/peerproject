@@ -1,7 +1,7 @@
 //
 // CtrlText.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -51,19 +51,19 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CTextCtrl construction
 
-CTextCtrl::CTextCtrl() :
-	m_nPosition( 0 ),
-	m_nTotal( 0 ),
-	m_bProcess( TRUE ),
-	m_nScrollWheelLines( 3 ),
-	m_nLastClicked( -1 )
+CTextCtrl::CTextCtrl()
+	: m_nPosition	( 0 )
+	, m_nTotal		( 0 )
+	, m_bProcess	( TRUE )
+	, m_nLastClicked ( -1 )
+	, m_nScrollWheelLines ( 3 )
 {
 	// ToDo: Add new log color codes to CColors.m_cr...
 
 	// Severity
 	m_crText[0] = RGB( 255, 0, 0 );			// red		- MSG_ERROR
 	m_crText[1] = RGB( 255, 128, 64 );		// orange	- MSG_WARNING
-	m_crText[2] = RGB( 0, 0, 128 );			// dark blue	- MSG_NOTICE
+	m_crText[2] = RGB( 0, 0, 128 );			// dark blue - MSG_NOTICE
 	m_crText[3] = RGB( 0, 0, 0 );			// black	- MSG_INFO
 	m_crText[4] = RGB( 128, 128, 128 );		// gray		- MSG_DEBUG
 
@@ -73,8 +73,8 @@ CTextCtrl::CTextCtrl() :
 	m_crBackground[2] = RGB( 224, 255, 224 );	// light green	- MSG_FACILITY_INCOMING
 	m_crBackground[3] = RGB( 224, 240, 255 );	// light blue	- MSG_FACILITY_OUTGOING
 
-	m_pFont.CreateFontW( -(int)Settings.Fonts.FontSize, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE,
-		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
+	m_pFont.CreateFont( -(int)Settings.Fonts.FontSize, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE,
+		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, theApp.m_nFontQuality,
 		DEFAULT_PITCH|FF_DONTCARE, Settings.Fonts.SystemLogFont );
 	m_cCharacter = CSize( 0, 0 );
 
@@ -185,8 +185,8 @@ void CTextCtrl::UpdateScroll(BOOL bFull)
 		si.fMask	= SIF_POS|SIF_PAGE|SIF_RANGE|SIF_DISABLENOSCROLL;
 		si.nPos		= m_nPosition;
 		si.nPage	= rc.Height() / m_cCharacter.cy;
-		si.nMin		= 0;
 		si.nMax		= m_nTotal + si.nPage - 1;
+		si.nMin		= 0;
 	}
 	else
 	{
@@ -366,11 +366,15 @@ void CTextCtrl::CopyText() const
 
 		CT2W pszWide( (LPCTSTR)str );
 		DWORD nSize = ( lstrlenW(pszWide) + 1 ) * sizeof(WCHAR);
-		HANDLE hMem = GlobalAlloc( GMEM_MOVEABLE|GMEM_DDESHARE, nSize );
-		LPVOID pMem = GlobalLock( hMem );
-		CopyMemory( pMem, pszWide, nSize );
-		GlobalUnlock( hMem );
-		SetClipboardData( CF_UNICODETEXT, hMem );
+		if ( HANDLE hMem = GlobalAlloc( GMEM_MOVEABLE|GMEM_DDESHARE, nSize ) )
+		{
+			if ( LPVOID pMem = GlobalLock( hMem ) )
+			{
+				CopyMemory( pMem, pszWide, nSize );
+				GlobalUnlock( hMem );
+				SetClipboardData( CF_UNICODETEXT, hMem );
+			}
+		}
 
 		CloseClipboard();
 	}
@@ -403,9 +407,8 @@ void CTextCtrl::OnLButtonDown(UINT nFlags, CPoint point)
 		{
 			// Select from m_nLastClicked to nLine
 			if ( m_nLastClicked == -1 )
-			{
 				m_nLastClicked = nLine;
-			}
+
 			for ( int i = 0; i < m_pLines.GetCount(); i++ )
 			{
 				CTextLine* pLineTemp = m_pLines.GetAt( i );
@@ -434,9 +437,7 @@ void CTextCtrl::OnRButtonDown(UINT /*nFlags*/, CPoint point)
 	CQuickLock pLock( m_pSection );
 
 	if ( m_nLastClicked == -1 )
-	{
 		m_nLastClicked = HitTest( point );
-	}
 }
 
 void CTextCtrl::OnKeyDown(UINT nChar, UINT /*nRepCnt*/, UINT /*nFlags*/)
@@ -454,9 +455,8 @@ void CTextCtrl::OnKeyDown(UINT nChar, UINT /*nRepCnt*/, UINT /*nFlags*/)
 			CopyText();
 			break;
 
-		// Ctrl+A
+		// Ctrl+A = Select all
 		case 'A':
-			// Select all
 			for ( int i = 0; i < m_pLines.GetCount(); i++ )
 			{
 				CTextLine* pLineTemp = m_pLines.GetAt( i );
@@ -467,10 +467,9 @@ void CTextCtrl::OnKeyDown(UINT nChar, UINT /*nRepCnt*/, UINT /*nFlags*/)
 		}
 	}
 
-	// Esc
+	// Esc = Unselect all
 	if ( nChar == VK_ESCAPE )
 	{
-		// Unselect all
 		for ( int i = 0; i < m_pLines.GetCount(); i++ )
 		{
 			CTextLine* pLineTemp = m_pLines.GetAt( i );
@@ -513,12 +512,12 @@ BOOL CTextCtrl::OnMouseWheel(UINT nFlags, short zDelta, CPoint pt)
 /////////////////////////////////////////////////////////////////////////////
 // CTextLine construction
 
-CTextLine::CTextLine(WORD nType, const CString& strText) :
-	m_sText( strText ),
-	m_pLine( NULL ),
-	m_nLine( 0 ),
-	m_nType( nType ),
-	m_bSelected( FALSE )
+CTextLine::CTextLine(WORD nType, const CString& strText)
+	: m_sText	( strText )
+	, m_pLine	( NULL )
+	, m_nLine	( 0 )
+	, m_nType	( nType )
+	, m_bSelected ( FALSE )
 {
 }
 

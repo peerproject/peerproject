@@ -2,9 +2,9 @@
 // CoreUtils.cpp
 //
 //	Created by:	Rolandas Rudomanskis
-//  Last change by:	thetruecamper
+//	Updated by:	thetruecamper
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2005.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -23,8 +23,6 @@
 //
 
 #include "stdafx.h"
-#include "Globals.h"
-#include <olectl.h>    //needed for OleCreatePictureIndirect
 
 ////////////////////////////////////////////////////////////////////
 // Core PropertySet Functions
@@ -32,62 +30,61 @@
 ////////////////////////////////////////////////////////////////////
 // OpenPropertyStorage
 //
-//  Function takes a PropertySetStorage and returns the desired
-//  PropertyStorage for the FMTID. The function will create a storage
-//  if one does not exist (and flags allow).
+//	Function takes a PropertySetStorage and returns the desired
+//	PropertyStorage for the FMTID. The function will create a storage
+//	if one does not exist (and flags allow).
 //
 STDAPI OpenPropertyStorage(IPropertySetStorage* pPropSS, REFFMTID fmtid, BOOL fReadOnly, DWORD dwFlags, IPropertyStorage** ppPropStg)
 {
-    HRESULT hr;
-    DWORD dwMode;
-    BOOL fNoCreate = ((dwFlags & dsoOptionDontAutoCreate) == dsoOptionDontAutoCreate);
-    BOOL fUseANSI = ((dwFlags & dsoOptionUseMBCStringsForNewSets) == dsoOptionUseMBCStringsForNewSets);
+	HRESULT hr;
+	DWORD dwMode;
+	BOOL fNoCreate = ((dwFlags & dsoOptionDontAutoCreate) == dsoOptionDontAutoCreate);
+	BOOL fUseANSI = ((dwFlags & dsoOptionUseMBCStringsForNewSets) == dsoOptionUseMBCStringsForNewSets);
 
-    ASSERT(pPropSS); ASSERT(ppPropStg);
-    if ((pPropSS == NULL) || (ppPropStg == NULL))
-        return E_UNEXPECTED;
+	ASSERT(pPropSS); ASSERT(ppPropStg);
+	if ((pPropSS == NULL) || (ppPropStg == NULL))
+		return E_UNEXPECTED;
 
-    *ppPropStg = NULL;
+	*ppPropStg = NULL;
 
- // Set the access mode for read/write access...
+	// Set the access mode for read/write access...
 	dwMode = (fReadOnly ? (STGM_READ | STGM_SHARE_EXCLUSIVE)
-					    : (STGM_READWRITE | STGM_SHARE_EXCLUSIVE));
+						: (STGM_READWRITE | STGM_SHARE_EXCLUSIVE));
 
- // We try to open the property set. If this fails, it may be beacuse
- // it doesn't exist so we'll try to create the set...
+	// We try to open the property set. If this fails, it may be beacuse
+	// it doesn't exist so we'll try to create the set...
 	hr = pPropSS->Open(fmtid, dwMode, ppPropStg);
 	if ((hr == STG_E_FILENOTFOUND) && !fReadOnly && !fNoCreate)
 	{
-     // FIX -- ADDED BY REQUEST - Feb 1, 2001
-     // Outlook 2000/XP doesn't handle Unicode property sets very well. So if we need to
-     // create a propset for the caller, allow the caller the ability to set the
-     // PROPSETFLAG_ANSI flag on the new set.
-     //
-     // The ANSI flag was the default in File 1.0, but this was changed to Unicode
-     // for version 1.2 to meet request by ASIA/EMEA clients. Unicode should work
-     // but there have been reported problems (in Outlook, Win2K SP2) that indicate
-     // clients may want to use the ANSI flag (so it is passed here)...
+		// FIX -- ADDED BY REQUEST - Feb 1, 2001
+		// Outlook 2000/XP doesn't handle Unicode property sets very well.
+		// So if we need to create a propset for the caller, allow the caller
+		// the ability to set the PROPSETFLAG_ANSI flag on the new set.
+		//
+		// The ANSI flag was the default in File 1.0, but this was changed to Unicode
+		// for version 1.2 to meet request by ASIA/EMEA clients. Unicode should work
+		// but there have been reported problems (in Outlook, Win2K SP2) that indicate
+		// clients may want to use the ANSI flag (so it is passed here)...
 		hr = pPropSS->Create(fmtid, NULL, (fUseANSI ? PROPSETFLAG_ANSI : 0), dwMode, ppPropStg);
 
-    // If we created with ANSI flag, we must set the code page value to match ACP...
-        if (SUCCEEDED(hr) && (fUseANSI) && (*ppPropStg))
+		// If we created with ANSI flag, we must set the code page value to match ACP...
+		if (SUCCEEDED(hr) && (fUseANSI) && (*ppPropStg))
 		{
 			VARIANT vtT;
-            PROPSPEC spc;
-            spc.ulKind = PRSPEC_PROPID; spc.propid = PID_CODEPAGE;
+			PROPSPEC spc;
+			spc.ulKind = PRSPEC_PROPID; spc.propid = PID_CODEPAGE;
 
-         // FIX -- ADDED BY REQUEST - Oct 30, 2001
-         // Check for CodePage first. It appears certain configurations choke on modification
-         // of the code page. This appears to be a change in OLE32 behavior. Workaround is to
-         // check to see if OLE32 has added the code page already during the create, and if so
-         // we can skip out on adding it ourselves...
-            if (FAILED(ReadProperty(*ppPropStg, spc, 0, &vtT)))
-            { // If not, we should add it...
-                vtT.vt = VT_I4; vtT.lVal = GetACP();
-			    WriteProperty(*ppPropStg, spc, 0, &vtT);
-            }
-        }
-
+			// FIX -- ADDED BY REQUEST - Oct 30, 2001
+			// Check for CodePage first. It appears certain configurations choke on modification
+			// of the code page. This appears to be a change in OLE32 behavior. Workaround is to
+			// check to see if OLE32 has added the code page already during the create, and if so
+			// we can skip out on adding it ourselves...
+			if (FAILED(ReadProperty(*ppPropStg, spc, 0, &vtT)))
+			{	// If not, we should add it...
+				vtT.vt = VT_I4; vtT.lVal = GetACP();
+				WriteProperty(*ppPropStg, spc, 0, &vtT);
+			}
+		}
 	}
 
 	return hr;
@@ -96,78 +93,79 @@ STDAPI OpenPropertyStorage(IPropertySetStorage* pPropSS, REFFMTID fmtid, BOOL fR
 ////////////////////////////////////////////////////////////////////
 // ConvertBlobToVarVector
 //
-//  Takes a PROPVARIANT BLOB or pclipdata and converts it to VARIANT SAFEARRAY
-//  which can be treated by VB as vector (1-dim) Byte Array.
+//	Takes a PROPVARIANT BLOB or pclipdata and converts it to VARIANT SAFEARRAY
+//	which can be treated by VB as vector (1-dim) Byte Array.
 //
 STDAPI ConvertBinaryToVarVector(PROPVARIANT *pVarBlob, VARIANT *pVarByteArray)
 {
-    HRESULT hr = S_FALSE;
-    SAFEARRAY* pSA;
-    DWORD dwSize;
+	HRESULT hr = S_FALSE;
+	SAFEARRAY* pSA;
+	DWORD dwSize;
 
-    if ( ( pVarBlob == NULL ) || (pVarBlob->vt != VT_BLOB) &&
-		 ( pVarBlob->vt != VT_CF ) || ( pVarByteArray == NULL ) )
-        return E_UNEXPECTED;
+	if ( ( pVarBlob == NULL ) || (pVarBlob->vt != VT_BLOB) &&
+		( pVarBlob->vt != VT_CF ) || ( pVarByteArray == NULL ) )
+		return E_UNEXPECTED;
 
- // Identify the size
-    if ( pVarBlob->vt == VT_BLOB )
+	// Identify the size
+	if ( pVarBlob->vt == VT_BLOB )
 		dwSize = pVarBlob->blob.cbSize;
 	else
 		dwSize = pVarBlob->pclipdata->cbSize;
 
-    if ((dwSize) && (dwSize < 0x800000))
-    {
-     // Create a vector array the size of the blob or clipdata...
-        pSA = SafeArrayCreateVector(VT_UI1, 0, dwSize);
-        if ( pSA != NULL )
-        {
-         // Copy the data over to the vector
-            BYTE *pByte = NULL;
-            hr = SafeArrayAccessData( pSA, (void**)&pByte );
-            if ( SUCCEEDED(hr) )
-            {
-                SEH_TRY
+	if ((dwSize) && (dwSize < 0x800000))
+	{
+		// Create a vector array the size of the blob or clipdata...
+		pSA = SafeArrayCreateVector(VT_UI1, 0, dwSize);
+		if ( pSA != NULL )
+		{
+			// Copy the data over to the vector
+			BYTE *pByte = NULL;
+			hr = SafeArrayAccessData( pSA, (void**)&pByte );
+			if ( SUCCEEDED(hr) )
+			{
+				SEH_TRY
 				if ( pVarBlob->vt == VT_BLOB )
 					memcpy( pByte, (BYTE*)(pVarBlob->blob.pBlobData), dwSize );
 				else
 					memcpy( pByte, (BYTE*)(pVarBlob->pclipdata->pClipData), dwSize );
-                SEH_EXCEPT(hr)
-                SafeArrayUnaccessData( pSA );
-            }
-        }
+				SEH_EXCEPT(hr)
+				SafeArrayUnaccessData( pSA );
+			}
+		}
 
-        if ( (pSA) && SUCCEEDED(hr) && (pVarByteArray) )
-        {
-            pVarByteArray->vt = (VT_ARRAY | VT_UI1);
-            pVarByteArray->parray = pSA;
-        }
-        else if ( pSA ) SafeArrayDestroy( pSA );
-    }
+		if ( (pSA) && SUCCEEDED(hr) && (pVarByteArray) )
+		{
+			pVarByteArray->vt = (VT_ARRAY | VT_UI1);
+			pVarByteArray->parray = pSA;
+		}
+		else if ( pSA )
+			SafeArrayDestroy( pSA );
+	}
 
-    return hr;
+	return hr;
 }
 
 ////////////////////////////////////////////////////////////////////
 // ReadProperty
 //
-//  Reads a single property from a given PropertyStorage. Code page is
-//  used if we have to translate to/from MBCS to Unicode. We handle one special
-//  case for PIDSI_EDITTIME which is a INT64 saved in FILETIME structure. For
-//  compatibility we cut it down to seconds and store in LONG (VT_I4). This is
-//  OK as long as we don't save it back (which we don't allow in this sample).
+//	Reads a single property from a given PropertyStorage. Code page is
+//	used if we have to translate to/from MBCS to Unicode. We handle one special
+//	case for PIDSI_EDITTIME which is a INT64 saved in FILETIME structure. For
+//	compatibility we cut it down to seconds and store in LONG (VT_I4). This is
+//	OK as long as we don't save it back (which we don't allow in this sample).
 //
 STDAPI ReadProperty(IPropertyStorage* pPropStg, PROPSPEC spc, WORD wCodePage, VARIANT* pvtResult)
 {
-	HRESULT     hr;
-    PROPVARIANT vtProperty;
+	HRESULT 	hr;
+	PROPVARIANT vtProperty;
 
 	if ((pPropStg == NULL) || (pvtResult == NULL))
 		return E_POINTER;
 
- // Initialize PROPVARIANT...
+	// Initialize PROPVARIANT...
 	PropVariantInit(&vtProperty);
 
- // Make the call to read the property from the set...
+	// Make the call to read the property from the set...
 	SEH_TRY
 
 	pvtResult->vt = VT_EMPTY; pvtResult->lVal = 0;
@@ -175,99 +173,101 @@ STDAPI ReadProperty(IPropertyStorage* pPropStg, PROPSPEC spc, WORD wCodePage, VA
 
 	SEH_EXCEPT(hr)
 
- // If the call succeeded, swap the data into a VARIANT...
-    if (SUCCEEDED(hr))
-    {
-     // Make a selected copy based on the type...
-	    switch (vtProperty.vt)
-	    {
-	    case VT_I4:
-	    case VT_UI4: pvtResult->vt = VT_I4; pvtResult->lVal = vtProperty.lVal;
-            break;
+	// If the call succeeded, swap the data into a VARIANT...
+	if (SUCCEEDED(hr))
+	{
+		// Make a selected copy based on the type...
+		switch (vtProperty.vt)
+		{
+		case VT_I4:
+		case VT_UI4:
+			pvtResult->vt = VT_I4;
+			pvtResult->lVal = vtProperty.lVal;
+			break;
 
-	    case VT_I2:
-	    case VT_UI2: pvtResult->vt = VT_I4;  pvtResult->lVal = vtProperty.iVal;
-		    break;
+		case VT_I2:
+		case VT_UI2:
+			pvtResult->vt = VT_I4;
+			pvtResult->lVal = vtProperty.iVal;
+			break;
 
-	    case VT_BSTR:
-		    pvtResult->vt = VT_BSTR;
-            pvtResult->bstrVal = ((vtProperty.bstrVal) ? SysAllocString(vtProperty.bstrVal) : NULL);
-		    break;
+		case VT_BSTR:
+			pvtResult->vt = VT_BSTR;
+			pvtResult->bstrVal = ((vtProperty.bstrVal) ? SysAllocString(vtProperty.bstrVal) : NULL);
+			break;
 
-	    case VT_LPWSTR:
-		    pvtResult->vt = VT_BSTR;
-            pvtResult->bstrVal = ((vtProperty.pwszVal) ? SysAllocString(vtProperty.pwszVal) : NULL);
-		    break;
+		case VT_LPWSTR:
+			pvtResult->vt = VT_BSTR;
+			pvtResult->bstrVal = ((vtProperty.pwszVal) ? SysAllocString(vtProperty.pwszVal) : NULL);
+			break;
 
-	    case VT_LPSTR:
-		    pvtResult->vt = VT_BSTR;
-            pvtResult->bstrVal = ConvertToBSTR(vtProperty.pszVal, wCodePage);
-		    break;
+		case VT_LPSTR:
+			pvtResult->vt = VT_BSTR;
+			pvtResult->bstrVal = ConvertToBSTR(vtProperty.pszVal, wCodePage);
+			break;
 
-	    case VT_FILETIME:
-            // Check fo special case of edit time...
-		    if ((spc.ulKind == PRSPEC_PROPID) && (spc.propid == PIDSI_EDITTIME))
-		    {
-			    unsigned __int64 ns, secs;
-			    ////////////////////////////////////////////////
-			    // FIX - 9/27/99 Assign to unsigned __int64 first, then shift...
-			    // ns = ft.dwLowDateTime + (ft.dwHighDateTime << 32);
-			    //
-			    ns = vtProperty.filetime.dwHighDateTime; ns <<= 32;
-			    ns += vtProperty.filetime.dwLowDateTime;
-			    secs = ns / (10000000);
+		case VT_FILETIME:
+			// Check fo special case of edit time...
+			if ((spc.ulKind == PRSPEC_PROPID) && (spc.propid == PIDSI_EDITTIME))
+			{
+				unsigned __int64 ns, secs;
+				// FIX -- 9/27/99 Assign to unsigned __int64 first, then shift...
+				// ns = ft.dwLowDateTime + (ft.dwHighDateTime << 32);
+				//
+				ns = vtProperty.filetime.dwHighDateTime; ns <<= 32;
+				ns += vtProperty.filetime.dwLowDateTime;
+				secs = ns / (10000000);
 
-			    pvtResult->vt = VT_I4;
-			    pvtResult->lVal = (LONG)((DWORD)(secs / 60));
-		    }
-		    else
-		    {
-			    DATE       dtDate;
-			    FILETIME   lft;
-			    SYSTEMTIME lst;
-			    FILETIME*  pft = &(vtProperty.filetime);
+				pvtResult->vt = VT_I4;
+				pvtResult->lVal = (LONG)((DWORD)(secs / 60));
+			}
+			else
+			{
+				DATE		dtDate;
+				FILETIME	lft;
+				SYSTEMTIME	lst;
+				FILETIME*	pft = &(vtProperty.filetime);
 
-			    if (!((pft->dwLowDateTime == 0) && (pft->dwHighDateTime == 0)))
-			    {
-				    if (FileTimeToLocalFileTime(pft, &lft))
-					    pft = &lft;
+				if (!((pft->dwLowDateTime == 0) && (pft->dwHighDateTime == 0)))
+				{
+					if (FileTimeToLocalFileTime(pft, &lft))
+						pft = &lft;
 
-				    if (FileTimeToSystemTime(pft, &lst) &&
-					    SystemTimeToVariantTime(&lst, &dtDate))
-				    {
-					    pvtResult->vt = VT_DATE;
-					    pvtResult->date = dtDate;
-				    }
-			    }
-		    }
-		    break;
+					if (FileTimeToSystemTime(pft, &lst) &&
+						SystemTimeToVariantTime(&lst, &dtDate))
+					{
+						pvtResult->vt = VT_DATE;
+						pvtResult->date = dtDate;
+					}
+				}
+			}
+			break;
 
-	    case VT_BOOL:
-		    pvtResult->vt = VT_BOOL; pvtResult->boolVal = vtProperty.boolVal;
-		    break;
+		case VT_BOOL:
+			pvtResult->vt = VT_BOOL; pvtResult->boolVal = vtProperty.boolVal;
+			break;
 
-	    case VT_R4:
-		    pvtResult->vt = VT_R4; pvtResult->fltVal = vtProperty.fltVal;
-		    break;
+		case VT_R4:
+			pvtResult->vt = VT_R4; pvtResult->fltVal = vtProperty.fltVal;
+			break;
 
-	    case VT_R8:
-		    pvtResult->vt = VT_R8; pvtResult->dblVal = vtProperty.dblVal;
-		    break;
+		case VT_R8:
+			pvtResult->vt = VT_R8; pvtResult->dblVal = vtProperty.dblVal;
+			break;
 
-        case VT_CF:
-            ConvertBinaryToVarVector(&vtProperty, pvtResult);
-            break;
+		case VT_CF:
+			ConvertBinaryToVarVector(&vtProperty, pvtResult);
+			break;
 
-        case VT_BLOB:
-            ConvertBinaryToVarVector(&vtProperty, pvtResult);
-            break;
+		case VT_BLOB:
+			ConvertBinaryToVarVector(&vtProperty, pvtResult);
+			break;
 
-        default:
-            hr = STG_E_INVALIDPARAMETER;
-            break;
-	    }
-
-    }
+		default:
+			hr = STG_E_INVALIDPARAMETER;
+			break;
+		}
+	}
 
  // Clear PropVariant and return...
 	PropVariantClear(&vtProperty);
@@ -277,18 +277,18 @@ STDAPI ReadProperty(IPropertyStorage* pPropStg, PROPSPEC spc, WORD wCodePage, VA
 ////////////////////////////////////////////////////////////////////
 // WriteProperty
 //
-//  Writes a property to the given PropertyStorage. The code page parameter
-//  is used to convert string into code page of the property set itself only
-//  if the PROPSETFLAG_ANSI is set. Otherwise we save in Unicode.
+//	Writes a property to the given PropertyStorage. The code page parameter
+//	is used to convert string into code page of the property set itself only
+//	if the PROPSETFLAG_ANSI is set. Otherwise we save in Unicode.
 //
 STDAPI WriteProperty(IPropertyStorage* pPropStg, PROPSPEC spc, WORD wCodePage, VARIANT* pvtValue)
 {
-	HRESULT        hr;
-	PROPVARIANT    vtProperty;
-	STATPROPSETSTG statstg;
-	BOOL           fUseANSI = FALSE;
+	HRESULT			hr;
+	PROPVARIANT 	vtProperty;
+	STATPROPSETSTG	statstg;
+	BOOL 			fUseANSI = FALSE;
 
- // Check the storage and discover whether it is ANSI only...
+	// Check the storage and discover whether it is ANSI only...
 	SEH_TRY
 
 	if (SUCCEEDED(pPropStg->Stat(&statstg)))
@@ -296,7 +296,7 @@ STDAPI WriteProperty(IPropertyStorage* pPropStg, PROPSPEC spc, WORD wCodePage, V
 
 	SEH_EXCEPT(hr)
 
- // We only support certain Variant types...
+	// We only support certain Variant types...
 	switch (pvtValue->vt)
 	{
 	case VT_I4:
@@ -321,10 +321,9 @@ STDAPI WriteProperty(IPropertyStorage* pPropStg, PROPSPEC spc, WORD wCodePage, V
 		}
 		else // Otherwise we save the (Unicode) BSTR...
 		{
-		  /////////////////////////////////////////////////////////////////////
-		  // BUG (6/30/01): Changed from saving directly as BSTR to LPWSTR since
-		  // Win2K SP2 introduced bug with VT_BSTR types and does not show them
-		  // correctly in the UI. We just copy string before handing to OLE.
+			// BUG (6/30/01): Changed from saving directly as BSTR to LPWSTR since
+			// Win2K SP2 introduced bug with VT_BSTR types and does not show them
+			// correctly in the UI. We just copy string before handing to OLE.
 			vtProperty.vt = VT_LPWSTR;
 			vtProperty.pwszVal = ConvertToCoTaskMemStr(pvtValue->bstrVal);
 		}
@@ -361,10 +360,10 @@ STDAPI WriteProperty(IPropertyStorage* pPropStg, PROPSPEC spc, WORD wCodePage, V
 		return E_INVALIDARG; //unsupportted type...
 	}
 
- // Do the Write operation to the given IPropertySet...
+	// Do the Write operation to the given IPropertySet...
 	SEH_TRY
-    hr = pPropStg->WriteMultiple(1, &spc, &vtProperty, ((spc.ulKind == PRSPEC_LPWSTR) ? 0x2001 : NULL));
-    SEH_EXCEPT(hr)
+	hr = pPropStg->WriteMultiple(1, &spc, &vtProperty, ((spc.ulKind == PRSPEC_LPWSTR) ? 0x2001 : NULL));
+	SEH_EXCEPT(hr)
 
 	PropVariantClear(&vtProperty);
 	return hr;
@@ -373,132 +372,134 @@ STDAPI WriteProperty(IPropertyStorage* pPropStg, PROPSPEC spc, WORD wCodePage, V
 ////////////////////////////////////////////////////////////////////
 // VarTypeReadable
 //
-//  Returns TRUE if PROPVARIANT VARTYPE is readable by our basic read
-//  function ReadProperty. If type is not supported, we should skip it.
+//	Returns TRUE if PROPVARIANT VARTYPE is readable by our basic read
+//	function ReadProperty. If type is not supported, we should skip it.
 
 STDAPI_(BOOL) VarTypeReadable(VARTYPE vt)
 {
-    BOOL fReadable = FALSE;
-    switch (vt)
-    {
-	    case VT_I4:
-	    case VT_UI4:
-	    case VT_I2:
-	    case VT_UI2:
-	    case VT_BSTR:
-	    case VT_LPWSTR:
-	    case VT_LPSTR:
-	    case VT_FILETIME:
-	    case VT_BOOL:
-	    case VT_R4:
-	    case VT_R8:
-        case VT_CF:
-        case VT_BLOB: fReadable = TRUE;  break;
-    }
-    return fReadable;
+	BOOL fReadable = FALSE;
+	switch (vt)
+	{
+		case VT_I4:
+		case VT_UI4:
+		case VT_I2:
+		case VT_UI2:
+		case VT_BSTR:
+		case VT_LPWSTR:
+		case VT_LPSTR:
+		case VT_FILETIME:
+		case VT_BOOL:
+		case VT_R4:
+		case VT_R8:
+		case VT_CF:
+		case VT_BLOB:
+			fReadable = TRUE;
+			break;
+	}
+	return fReadable;
 }
 
 ////////////////////////////////////////////////////////////////////
 // LoadPropertySetList
 //
-//   This function take an IPropertyStorage and enumerates all the properties
-//   to create a linked list of CDocProperty objects. The linked list is used
-//   to cache the data and manipulate it before a save.
+//	This function take an IPropertyStorage and enumerates all the properties
+//	to create a linked list of CDocProperty objects. The linked list is used
+//	to cache the data and manipulate it before a save.
 //
-//   FUTURE: We ought to consider building prop list first, then call ReadMulitple
-//   with PROPSPEC array to fill in the data in one shot. However, given the properties
-//   we allow are realtively small in size, we have not seen a performance benefit to
-//   make this worth the extra code and regression risk.
+//	FUTURE: We ought to consider building prop list first, then call ReadMulitple
+//	with PROPSPEC array to fill in the data in one shot. However, given the properties
+//	we allow are realtively small in size, we have not seen a performance benefit to
+//	make this worth the extra code and regression risk.
 //
 STDAPI LoadPropertySetList(IPropertyStorage *pPropStg, WORD *pwCodePage, CDocProperty** pplist, BOOL bOnlyThumb)
 {
 	HRESULT hr;
-    CDocProperty* pList = NULL;
-    CDocProperty* pLastItem = NULL;
+	CDocProperty* pList = NULL;
+	CDocProperty* pLastItem = NULL;
 	IEnumSTATPROPSTG* pEnumProp = NULL;
 	ULONG fetched;
 	STATPROPSTG sps;
 	VARIANT vtCodePage;
 	VARIANT vtItem;
 	BSTR bstrName;
-    PROPSPEC spc;
-    WORD wCodePage = 0;
+	PROPSPEC spc;
+	WORD wCodePage = 0;
 
-    if ((pPropStg == NULL) || (pplist == NULL))
-        return E_UNEXPECTED;
+	if ((pPropStg == NULL) || (pplist == NULL))
+		return E_UNEXPECTED;
 
-    memset(&sps, 0, sizeof(sps));
-    memset(&spc, 0, sizeof(spc));
+	memset(&sps, 0, sizeof(sps));
+	memset(&spc, 0, sizeof(spc));
 
- // Get Code page for this storage...
-    spc.ulKind = PRSPEC_PROPID;
-    spc.propid = PID_CODEPAGE;
+	// Get Code page for this storage...
+	spc.ulKind = PRSPEC_PROPID;
+	spc.propid = PID_CODEPAGE;
 	if (SUCCEEDED(ReadProperty(pPropStg, spc, wCodePage, &vtCodePage)) &&
 		((vtCodePage.vt == VT_I4) || (vtCodePage.vt == VT_I2)))
 	{
 		wCodePage = LOWORD(vtCodePage.lVal);
 	}
 
- // Handle exceptions as fatal events...
+	// Handle exceptions as fatal events...
 	SEH_TRY
-    *pplist = NULL;
+	*pplist = NULL;
 
- // Get the property enumerator to see what properties are stored...
+	// Get the property enumerator to see what properties are stored...
 	hr = pPropStg->Enum( &pEnumProp );
-    if ( SUCCEEDED(hr) && (pEnumProp) )
-    {
+	if ( SUCCEEDED(hr) && (pEnumProp) )
+	{
 		while ( SUCCEEDED(hr) && ( pEnumProp->Next( 1, &sps, &fetched ) == S_OK ) )
 		{
-         // We don't handle VECTOR data in this sample. And the PROPVARIANT
-         // data types we handle are limited to just a subset we can convert
-         // to VB supportted types (variant arrays and ole picdisp)...
+			// We don't handle VECTOR data in this sample. And the PROPVARIANT
+			// data types we handle are limited to just a subset we can convert
+			// to VB supportted types (variant arrays and ole picdisp)...
 			BOOL bDontSkip = !( ( ( sps.vt & VT_CF ) == VT_CF ) ^ bOnlyThumb );
-            if ( ( ( sps.vt & VT_VECTOR ) != VT_VECTOR ) &&
-                VarTypeReadable( (VARTYPE)(sps.vt & VT_TYPEMASK) ) && bDontSkip )
-            {
-                spc.ulKind = PRSPEC_PROPID;
-                spc.propid = sps.propid;
+			if ( ( ( sps.vt & VT_VECTOR ) != VT_VECTOR ) &&
+				VarTypeReadable( (VARTYPE)(sps.vt & VT_TYPEMASK) ) && bDontSkip )
+			{
+				spc.ulKind = PRSPEC_PROPID;
+				spc.propid = sps.propid;
 
-             // Read in the property based on the PROPID...
-			    hr = ReadProperty(pPropStg, spc, wCodePage, &vtItem);
-			    if (SUCCEEDED(hr))
-			    {
-                 // If we got the data, make the property object to hold it
-                 // and append last item to link the list (
-                    bstrName = ((sps.lpwstrName) ? SysAllocString(sps.lpwstrName) : NULL);
-				    pLastItem = pList;
+				// Read in the property based on the PROPID...
+				hr = ReadProperty(pPropStg, spc, wCodePage, &vtItem);
+				if (SUCCEEDED(hr))
+				{
+					// If we got the data, make the property object to hold it
+					// and append last item to link the list (
+					bstrName = ((sps.lpwstrName) ? SysAllocString(sps.lpwstrName) : NULL);
+					pLastItem = pList;
 
-                    pList = CDocProperty::CreateObject(bstrName, spc.propid, &vtItem, FALSE, pLastItem);
+					pList = CDocProperty::CreateObject(bstrName, spc.propid, &vtItem, FALSE, pLastItem);
 					if (pList == NULL) { hr = E_OUTOFMEMORY; pList = pLastItem;}
 
-				    if (bstrName) SysFreeString(bstrName);
-				    VariantClear(&vtItem);
-			    }
-            }
-            // else we just skip it...
+					if (bstrName) SysFreeString(bstrName);
+					VariantClear(&vtItem);
+				}
+			}
+			// else we just skip it...
 
 			if (sps.lpwstrName)
 				CoTaskMemFree(sps.lpwstrName);
 		}
 
-        if (SUCCEEDED(hr)) // If here, we loaded all items fine
-        {
-            *pplist = pList;
-            if (pwCodePage) *pwCodePage = wCodePage;
-        }
-        else
-        { // If not, try to clean up...
-            while (pList)
-            {
-                pLastItem = pList->GetNextProperty();
-                pList->Disconnect(); pList = pLastItem;
-            }
-        }
-    }
+		if (SUCCEEDED(hr)) // If here, we loaded all items fine
+		{
+			*pplist = pList;
+			if (pwCodePage) *pwCodePage = wCodePage;
+		}
+		else // If not, try to clean up...
+		{
+			while (pList)
+			{
+				pLastItem = pList->GetNextProperty();
+				pList->Disconnect(); pList = pLastItem;
+			}
+		}
+	}
 
-    SEH_EXCEPT(hr)
+	SEH_EXCEPT(hr)
 
- // Release obtained interface.
+	// Release obtained interface.
 	pEnumProp->Release();
 	pEnumProp = NULL;
 	return hr;
@@ -507,105 +508,105 @@ STDAPI LoadPropertySetList(IPropertyStorage *pPropStg, WORD *pwCodePage, CDocPro
 ////////////////////////////////////////////////////////////////////
 // SavePropertySetList
 //
-//   Takes a linked list of CDocProperty objects and writes those that
-//   have changed back to the IPropertyStorage. It will also call DeleteMultiple
-//   on any item marked as deleted on save.
+//	Takes a linked list of CDocProperty objects and writes those
+//	that have changed back to the IPropertyStorage.
+//	It will also call DeleteMultiple on any item marked as deleted on save.
 //
 STDAPI SavePropertySetList(IPropertyStorage *pPropStg, WORD wCodePage, CDocProperty* plist, ULONG *pcSavedItems)
 {
-    HRESULT hr = S_FALSE;
-    CDocProperty* pitem = plist;
-    VARIANT *pvt;
-    BSTR bstrName = NULL;
-    ULONG cItemsChanged = 0;
-    PROPSPEC spc;
+	HRESULT hr = S_FALSE;
+	CDocProperty* pitem = plist;
+	VARIANT *pvt;
+	BSTR bstrName = NULL;
+	ULONG cItemsChanged = 0;
+	PROPSPEC spc;
 
-    if ((pPropStg == NULL) || (plist == NULL))
-        return E_UNEXPECTED;
+	if ( ( pPropStg == NULL ) || ( plist == NULL ) )
+		return E_UNEXPECTED;
 
- // Loop through each item in the list...
-    while (pitem)
-    {
-     // If the item is removed, remove it from the document...
-        if (pitem->IsRemoved())
-        {
-         // We only need to remove it if it already exists. If
-         // this is an item wehen added then deleted before save,
-         // we don't need to do anything...
-            if (pitem->IsNewItem() == FALSE)
-            {
-             // Determine if item is known by name or by id...
-                pitem->get_Name(&bstrName);
-                if (bstrName)
-                {
-                    spc.ulKind = PRSPEC_LPWSTR;
-                    spc.lpwstr = bstrName;
-                }
-                else
-                {
-                    spc.ulKind = PRSPEC_PROPID;
-                    spc.propid = pitem->GetID();
+	// Loop through each item in the list...
+	while ( pitem )
+	{
+		// If the item is removed, remove it from the document...
+ 		if ( pitem->IsRemoved() )
+		{
+			// We only need to remove it if it already exists.
+			// If this is an item wehen added then deleted before save,
+			// we don't need to do anything...
+			if (pitem->IsNewItem() == FALSE)
+			{
+				// Determine if item is known by name or by id...
+				pitem->get_Name( &bstrName );
+				if ( bstrName )
+				{
+					spc.ulKind = PRSPEC_LPWSTR;
+					spc.lpwstr = bstrName;
+				}
+				else
+				{
+					spc.ulKind = PRSPEC_PROPID;
+					spc.propid = pitem->GetID();
 
-                    if (spc.propid == 0)
-                        { hr = E_UNEXPECTED; break; }
-                }
+					if (spc.propid == 0)
+						{ hr = E_UNEXPECTED; break; }
+				}
 
-             // Now remove the item...
-                hr = pPropStg->DeleteMultiple(1, &spc);
+				// Now remove the item...
+				hr = pPropStg->DeleteMultiple(1, &spc);
 
-             // Break out if error occurred...
-                if (FAILED(hr)) break;
+				// Break out if error occurred...
+				if ( FAILED(hr) ) break;
 
-             // Since we changed an item in the file, we need
-             // to increment the count...
-                pitem->OnRemoveComplete();
-                ++cItemsChanged;
-            }
-        }
-        else if (pitem->IsDirty())
-        {
-     // If the item is dirty, try to save it now...
-            pvt = pitem->GetDataPtr();
-            if ((pvt) && (pvt->vt != VT_EMPTY))
-            {
-             // Determine if we should save by name or by id...
-                pitem->get_Name(&bstrName);
-                if (bstrName)
-                {
-                    spc.ulKind = PRSPEC_LPWSTR;
-                    spc.lpwstr = bstrName;
-                }
-                else
-                {
-                    spc.ulKind = PRSPEC_PROPID;
-                    spc.propid = pitem->GetID();
+				// Since we changed an item in the file,
+				// we need to increment the count...
+				pitem->OnRemoveComplete();
+				++cItemsChanged;
+			}
+		}
+		else if ( pitem->IsDirty() )
+		{
+			// If the item is dirty, try to save it now...
+			pvt = pitem->GetDataPtr();
+			if ( pvt && pvt->vt != VT_EMPTY )
+			{
+				// Determine if we should save by name or by id...
+				pitem->get_Name(&bstrName);
+				if ( bstrName )
+				{
+					spc.ulKind = PRSPEC_LPWSTR;
+					spc.lpwstr = bstrName;
+				}
+				else
+				{
+					spc.ulKind = PRSPEC_PROPID;
+					spc.propid = pitem->GetID();
 
-                    if (spc.propid == 0)
-                        { hr = E_UNEXPECTED; break; }
-                }
+					if ( spc.propid == 0 )
+						{ hr = E_UNEXPECTED; break; }
+				}
 
-             // Write the property to the property set...
-                hr = WriteProperty(pPropStg, spc, wCodePage, pvt);
+				// Write the property to the property set...
+				hr = WriteProperty(pPropStg, spc, wCodePage, pvt);
 
-                FREE_BSTR(bstrName);
+				FREE_BSTR( bstrName );
 
-             // Break out if error occurred...
-                if (FAILED(hr)) break;
+				// Break out if error occurred...
+				if ( FAILED(hr) ) break;
 
-             // Notify object that it was saved, and bump up
-             // the modified item count...
-                pitem->OnSaveComplete();
-                ++cItemsChanged;
-            }
-        }
+				// Notify object that it was saved,
+				// and bump up the modified item count...
+				pitem->OnSaveComplete();
+				++cItemsChanged;
+			}
+		}
 
-        pitem = pitem->GetNextProperty();
-    }
+		pitem = pitem->GetNextProperty();
+	}
 
-    if (pcSavedItems)
-        *pcSavedItems = cItemsChanged;
+	if (pcSavedItems)
+		*pcSavedItems = cItemsChanged;
 
-    return hr;
+	return hr;
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -613,14 +614,14 @@ STDAPI SavePropertySetList(IPropertyStorage *pPropStg, WORD wCodePage, CDocPrope
 //
 STDAPI_(LPVOID) MemAlloc(DWORD cbSize)
 {
-    CHECK_NULL_RETURN(v_hPrivateHeap, NULL);
-    return HeapAlloc(v_hPrivateHeap, 0, cbSize);
+	CHECK_NULL_RETURN(v_hPrivateHeap, NULL);
+	return HeapAlloc(v_hPrivateHeap, 0, cbSize);
 }
 
 STDAPI_(void) MemFree(LPVOID ptr)
 {
-    if ((v_hPrivateHeap) && (ptr))
-        HeapFree(v_hPrivateHeap, 0, ptr);
+	if ((v_hPrivateHeap) && (ptr))
+		HeapFree(v_hPrivateHeap, 0, ptr);
 }
 
 //void * _cdecl operator new(size_t size){ return MemAlloc(size);}
@@ -640,12 +641,12 @@ STDAPI ConvertToUnicodeEx(LPCSTR pszMbcsString, DWORD cbMbcsLen, LPWSTR pwszUnic
 	if (IsValidCodePage((UINT)wCodePage))
 		iCode = (UINT)wCodePage;
 
-	CHECK_NULL_RETURN(pwszUnicode,    E_POINTER);
+	CHECK_NULL_RETURN(pwszUnicode,	E_POINTER);
 	pwszUnicode[0] = L'\0';
 
-	CHECK_NULL_RETURN(pszMbcsString,  E_POINTER);
-	CHECK_NULL_RETURN(cbMbcsLen,      E_INVALIDARG);
-	CHECK_NULL_RETURN(cbUniLen,       E_INVALIDARG);
+	CHECK_NULL_RETURN(pszMbcsString, E_POINTER);
+	CHECK_NULL_RETURN(cbMbcsLen,	E_INVALIDARG);
+	CHECK_NULL_RETURN(cbUniLen, 	E_INVALIDARG);
 
 	cbRet = MultiByteToWideChar(iCode, 0, pszMbcsString, cbMbcsLen, pwszUnicode, cbUniLen);
 	if (cbRet == 0)	return HRESULT_FROM_WIN32(GetLastError());
@@ -665,12 +666,12 @@ STDAPI ConvertToMBCSEx(LPCWSTR pwszUnicodeString, DWORD cbUniLen, LPSTR pszMbcsS
 	if (IsValidCodePage((UINT)wCodePage))
 		iCode = (UINT)wCodePage;
 
-	CHECK_NULL_RETURN(pszMbcsString,     E_POINTER);
+	CHECK_NULL_RETURN(pszMbcsString,	E_POINTER);
 	pszMbcsString[0] = L'\0';
 
 	CHECK_NULL_RETURN(pwszUnicodeString, E_POINTER);
-	CHECK_NULL_RETURN(cbMbcsLen,         E_INVALIDARG);
-	CHECK_NULL_RETURN(cbUniLen,          E_INVALIDARG);
+	CHECK_NULL_RETURN(cbMbcsLen,		E_INVALIDARG);
+	CHECK_NULL_RETURN(cbUniLen, 		E_INVALIDARG);
 
 	cbRet = WideCharToMultiByte(iCode, 0, pwszUnicodeString, -1, pszMbcsString, cbMbcsLen, NULL, NULL);
 	if (cbRet == 0)	return HRESULT_FROM_WIN32(GetLastError());
@@ -684,20 +685,20 @@ STDAPI ConvertToMBCSEx(LPCWSTR pwszUnicodeString, DWORD cbUniLen, LPSTR pszMbcsS
 //
 STDAPI_(LPWSTR) ConvertToCoTaskMemStr(BSTR bstrString)
 {
-    LPWSTR pwsz;
-    ULONG cbLen;
+	LPWSTR pwsz;
+	ULONG cbLen;
 
 	CHECK_NULL_RETURN(bstrString, NULL);
 
-    cbLen = SysStringLen(bstrString);
-    pwsz = (LPWSTR)CoTaskMemAlloc((cbLen * 2) + sizeof(WCHAR));
-    if (pwsz)
-    {
-        memcpy(pwsz, bstrString, (cbLen * 2));
-        pwsz[cbLen] = L'\0'; // Make sure it is NULL terminated.
-    }
+	cbLen = SysStringLen(bstrString);
+	pwsz = (LPWSTR)CoTaskMemAlloc((cbLen * 2) + sizeof(WCHAR));
+	if (pwsz)
+	{
+		memcpy(pwsz, bstrString, (cbLen * 2));
+		pwsz[cbLen] = L'\0'; // Make sure it is NULL terminated.
+	}
 
-    return pwsz;
+	return pwsz;
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -729,7 +730,7 @@ STDAPI_(BSTR) ConvertToBSTR(LPCSTR pszAnsiString, WORD wCodePage)
 {
 	BSTR bstr = NULL;
 	UINT cblen, cbnew;
-    LPWSTR pwsz;
+	LPWSTR pwsz;
 
 	CHECK_NULL_RETURN(pszAnsiString, NULL);
 
@@ -753,9 +754,9 @@ STDAPI_(BSTR) ConvertToBSTR(LPCSTR pszAnsiString, WORD wCodePage)
 ///////////////////////////////////////////////////////////////////////////////////
 // CompareStrings
 //
-//  Calls CompareString API using Unicode version, if available on OS. (Old OS are unsupported.)
-//  Otherwise, we have to thunk strings down to MBCS to compare. This is fairly inefficient for
-//  Win9x systems that don't handle Unicode, but hey...this is only a sample. 9
+//	Calls CompareString API using Unicode version, if available on OS. (Old OS are unsupported.)
+//	Otherwise, we have to thunk strings down to MBCS to compare. This is fairly inefficient for
+//	Win9x systems that don't handle Unicode, but hey...this is only a sample. 9
 //
 STDAPI_(UINT) CompareStrings(LPCWSTR pwsz1, LPCWSTR pwsz2)
 {
@@ -763,19 +764,19 @@ STDAPI_(UINT) CompareStrings(LPCWSTR pwsz1, LPCWSTR pwsz2)
 	LCID lcid = GetThreadLocale();
 	UINT cblen1, cblen2;
 
-    typedef INT (WINAPI *PFN_CMPSTRINGW)(LCID, DWORD, LPCWSTR, INT, LPCWSTR, INT);
-    static PFN_CMPSTRINGW s_pfnCompareStringW = NULL;
+	typedef INT (WINAPI *PFN_CMPSTRINGW)(LCID, DWORD, LPCWSTR, INT, LPCWSTR, INT);
+	static PFN_CMPSTRINGW s_pfnCompareStringW = NULL;
 
- // Check that valid parameters are passed and then contain somethimg...
+	// Check that valid parameters are passed and then contain somethimg...
 	if ((pwsz1 == NULL) || ((cblen1 = lstrlenW(pwsz1)) == 0))
 		return CSTR_LESS_THAN;
 
 	if ((pwsz2 == NULL) || ((cblen2 = lstrlenW(pwsz2)) == 0))
 		return CSTR_GREATER_THAN;
 
- // If the string is of the same size, then we do quick compare to test for
- // equality (this is slightly faster than calling the API, but only if we
- // expect the calls to find an equal match)...
+	// If the string is of the same size, then we do quick compare to test for
+	// equality (this is slightly faster than calling the API, but only if we
+	// expect the calls to find an equal match)...
 	if (cblen1 == cblen2)
 	{
 		for (iret = 0; iret < cblen1; iret++)
@@ -799,9 +800,9 @@ STDAPI_(UINT) CompareStrings(LPCWSTR pwsz1, LPCWSTR pwsz2)
 			return CSTR_EQUAL;
 	}
 
- // Now ask the OS to check the strings and give us its read.
- // (Prefer checking in Unicode, it is faster and the may be
- // strings that can't be thunked down to the local ANSI code page)
+	// Now ask the OS to check the strings and give us its read.
+	// (Prefer checking in Unicode, it is faster and the may be
+	// strings that can't be thunked down to the local ANSI code page)
 
 	//if (v_fRunningOnNT)
 		iret = CompareStringW(lcid, NORM_IGNORECASE | NORM_IGNOREWIDTH, pwsz1, cblen1, pwsz2, cblen2);
@@ -826,7 +827,7 @@ STDAPI_(UINT) CompareStrings(LPCWSTR pwsz1, LPCWSTR pwsz2)
 //
 STDAPI_(BOOL) FFindQualifiedFileName(LPCWSTR pwszFile, LPWSTR pwszPath, ULONG *pcPathIdx)
 {
-    DWORD dwRet = 0;
+	DWORD dwRet = 0;
 
 	//if ( v_fRunningOnNT )  // Windows NT/2000/XP
 	//{
@@ -843,20 +844,17 @@ STDAPI_(BOOL) FFindQualifiedFileName(LPCWSTR pwszFile, LPWSTR pwszPath, ULONG *p
 	//{
 	//	TCHAR szBuffer[MAX_PATH];
 	//	LPSTR lpszFilePart = NULL;
-
 	//	LPSTR szFile = ConvertToMBCS(pwszFile, CP_ACP);
 	//	CHECK_NULL_RETURN(szFile, E_OUTOFMEMORY);
-
 	//	szBuffer[0] = '\0';
 	//	dwRet = SearchPathA( NULL, szFile, NULL, MAX_PATH, szBuffer, &lpszFilePart );
 	//	if ( ( 0 == dwRet || dwRet > MAX_PATH ) ) return FALSE;
-
 	//	if ( pcPathIdx ) *pcPathIdx = (ULONG)( (ULONG_PTR)lpszFilePart - (ULONG_PTR)&szBuffer );
 	//	if ( FAILED(ConvertToUnicodeEx( szBuffer, lstrlen(szBuffer), pwszPath, MAX_PATH, (WORD)GetACP() )) )
 	//		return FALSE;
 	//}
 
-    return TRUE;
+	return TRUE;
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -864,13 +862,13 @@ STDAPI_(BOOL) FFindQualifiedFileName(LPCWSTR pwszFile, LPWSTR pwszPath, ULONG *p
 //
 STDAPI_(BOOL) FGetModuleFileName(HMODULE hModule, WCHAR** wzFileName)
 {
-    CHECK_NULL_RETURN(wzFileName, FALSE);
-    *wzFileName = NULL;
+	CHECK_NULL_RETURN(wzFileName, FALSE);
+	*wzFileName = NULL;
 
-    LPWSTR pwsz = (LPWSTR)MemAlloc( MAX_PATH * 2 );
-    CHECK_NULL_RETURN(pwsz, FALSE);
+	LPWSTR pwsz = (LPWSTR)MemAlloc( MAX_PATH * 2 );
+	CHECK_NULL_RETURN(pwsz, FALSE);
 
- // Call GetModuleFileNameW on Win NT/2000/XP/2003 systems...
+	// Call GetModuleFileNameW on Win NT/2000/XP/2003 systems...
 	//if (v_fRunningOnNT)
 	//{
 		if ( GetModuleFileNameW( hModule, pwsz, MAX_PATH ) == 0 )
@@ -901,8 +899,8 @@ STDAPI_(BOOL) FGetModuleFileName(HMODULE hModule, WCHAR** wzFileName)
 	//	pwsz = pwsz2;
 	//}
 
-    *wzFileName = pwsz;
-    return TRUE;
+	*wzFileName = pwsz;
+	return TRUE;
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -913,33 +911,33 @@ typedef HICON (APIENTRY* PFN_ExtractAssociatedIconW)(HINSTANCE, LPWSTR, LPWORD);
 
 STDAPI_(BOOL) FGetIconForFile(LPCWSTR pwszFile, HICON *pico)
 {
-    WORD idx;
-    WORD rgBuffer[MAX_PATH];
-    static HMODULE s_hShell32 = NULL;
-    static PFN_ExtractAssociatedIconA s_pfnExtractAssociatedIconA = NULL;
-    static PFN_ExtractAssociatedIconW s_pfnExtractAssociatedIconW = NULL;
+	WORD idx;
+	WORD rgBuffer[MAX_PATH];
+	static HMODULE s_hShell32 = NULL;
+	static PFN_ExtractAssociatedIconA s_pfnExtractAssociatedIconA = NULL;
+	static PFN_ExtractAssociatedIconW s_pfnExtractAssociatedIconW = NULL;
 
-    CHECK_NULL_RETURN(pico, FALSE); *pico = NULL;
+	CHECK_NULL_RETURN(pico, FALSE); *pico = NULL;
 
-    if (s_hShell32 == NULL)
-    {
-        s_hShell32 = GetModuleHandle(_T("shell32.dll"));
-        CHECK_NULL_RETURN(s_hShell32, FALSE);
-    }
+	if (s_hShell32 == NULL)
+	{
+		s_hShell32 = GetModuleHandle(_T("shell32.dll"));
+		CHECK_NULL_RETURN(s_hShell32, FALSE);
+	}
 
-    memset(rgBuffer, 0, sizeof(rgBuffer));
+	memset(rgBuffer, 0, sizeof(rgBuffer));
 
 	//if (v_fRunningOnNT)
 	//{
-        if (s_pfnExtractAssociatedIconW == NULL)
-        {
-            s_pfnExtractAssociatedIconW = (PFN_ExtractAssociatedIconW)GetProcAddress(s_hShell32, "ExtractAssociatedIconW");
-            CHECK_NULL_RETURN(s_pfnExtractAssociatedIconW, FALSE);
-        }
+		if (s_pfnExtractAssociatedIconW == NULL)
+		{
+			s_pfnExtractAssociatedIconW = (PFN_ExtractAssociatedIconW)GetProcAddress(s_hShell32, "ExtractAssociatedIconW");
+			CHECK_NULL_RETURN(s_pfnExtractAssociatedIconW, FALSE);
+		}
 
-        idx = (WORD)(lstrlenW(pwszFile) * 2);
-        memcpy((BYTE*)rgBuffer, (BYTE*)pwszFile, idx); idx = 0;
-        *pico = s_pfnExtractAssociatedIconW(DllModuleHandle(), (LPWSTR)rgBuffer, &idx);
+		idx = (WORD)(lstrlenW(pwszFile) * 2);
+		memcpy((BYTE*)rgBuffer, (BYTE*)pwszFile, idx); idx = 0;
+		*pico = s_pfnExtractAssociatedIconW(DllModuleHandle(), (LPWSTR)rgBuffer, &idx);
 	//}
 	//else	// Win98
 	//{

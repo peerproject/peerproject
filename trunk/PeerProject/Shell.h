@@ -1,7 +1,7 @@
 //
 // Shell.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -20,6 +20,7 @@
 //
 
 #pragma once
+
 
 class CShellItem
 {
@@ -77,9 +78,25 @@ class CShellList :
 	public CList< CShellItem* >
 {
 public:
+	CShellList() :
+		m_pID( NULL )
+	{
+	}
 	CShellList(const CStringList& oFiles) :
 		m_pID( NULL )
 	{
+		*this = oFiles;
+	}
+
+	virtual ~CShellList()
+	{
+		Clear();
+	}
+
+	CShellList& operator=(const CStringList& oFiles)
+	{
+		Clear();
+
 		for ( POSITION pos = oFiles.GetHeadPosition(); pos; )
 		{
 			CString strPath = oFiles.GetNext( pos );
@@ -91,23 +108,18 @@ public:
 				delete pItemIDList;	// Bad path
 		}
 
-		if ( GetCount() == 0 )
-			return;		// No files
+		if ( GetCount() )
+		{
+			m_pID.reset( new LPCITEMIDLIST [ GetCount() ] );
+			if ( m_pID.get() )
+			{
+				int i = 0;
+				for ( POSITION pos = GetHeadPosition(); pos; i++)
+					m_pID[ i ] = GetNext( pos )->m_pLastId;
+			}
+		}
 
-		m_pID.reset( new LPCITEMIDLIST [ GetCount() ] );
-		if ( ! m_pID.get() )
-			return;		// Out of memory
-
-		int i = 0;
-		for ( POSITION pos = GetHeadPosition(); pos; i++)
-			m_pID[ i ] = GetNext( pos )->m_pLastId;
-	}
-
-	virtual ~CShellList()
-	{
-		for ( POSITION pos = GetHeadPosition(); pos; )
-			delete GetNext( pos );
-		RemoveAll();
+		return *this;
 	}
 
 	// Creates menu from file paths list
@@ -120,4 +132,13 @@ public:
 protected:
 	CComPtr< IShellFolder >		m_pFolder;	// First file folder
 	auto_array< LPCITEMIDLIST >	m_pID;		// File ItemID array
+
+	void Clear()
+	{
+		for ( POSITION pos = GetHeadPosition(); pos; )
+			delete GetNext( pos );
+		RemoveAll();
+
+		m_pID.reset();
+	}
 };

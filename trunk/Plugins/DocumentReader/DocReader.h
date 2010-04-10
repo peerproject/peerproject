@@ -1,7 +1,7 @@
 //
 // DocReader.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2005.
 // Originally Created by:	Rolandas Rudomanskis
 //
@@ -21,11 +21,8 @@
 //
 
 #pragma once
-#include "Resource.h"       // Main symbols
-#include "Globals.h"
+#include "Resource.h"
 #include "DocumentReader.h"
-
-using namespace std;
 
 // CDocReader
 
@@ -37,7 +34,6 @@ class ATL_NO_VTABLE CDocReader :
 {
 public:
 	CDocReader();
-	friend class CDocumentClassFactory;
 
 	~CDocReader();
 
@@ -154,9 +150,6 @@ protected:
 		HRESULT get_OleDocumentFormat(BSTR* pbstrFormat);
 		HRESULT get_OleDocumentType(BSTR* pbstrType);
 
-		// Internal Functions
-		HRESULT InitializeNewInstance(){return S_OK;} // (for future use?)
-
 	private:
 		HRESULT get_SummaryProperties(CSummaryProperties** ppSummaryProperties);
 
@@ -201,14 +194,13 @@ public:
 		IMAGESERVICEDATA* pParams, SAFEARRAY* pImage);
 
 private:
-	STDMETHODIMP ProcessMSDocument(BSTR bsFile, ISXMLElement* pXML, LPCWSTR pszSchema, LPCWSTR pszFormat);
-	STDMETHODIMP ProcessNewMSDocument(BSTR bsFile, ISXMLElement* pXML, LPCWSTR pszSchema, LPCWSTR pszFormat);
-	STDMETHODIMP ProcessOODocument(BSTR bsFile, ISXMLElement* pXML, LPCWSTR pszSchema, LPCWSTR pszFormat);
-	STDMETHODIMP GetMSThumbnail(BSTR bsFile, IMAGESERVICEDATA* pParams, SAFEARRAY** ppImage);
-	STDMETHODIMP GetOOThumbnail(BSTR bsFile, IMAGESERVICEDATA* pParams, SAFEARRAY** ppImage);
+	STDMETHOD(ProcessMSDocument)(BSTR bsFile, ISXMLElement* pXML, LPCWSTR pszSchema, LPCWSTR pszFormat);
+	STDMETHOD(ProcessNewMSDocument)(BSTR bsFile, ISXMLElement* pXML, LPCWSTR pszSchema, LPCWSTR pszFormat);
+	STDMETHOD(ProcessOODocument)(BSTR bsFile, ISXMLElement* pXML, LPCWSTR pszSchema, LPCWSTR pszFormat);
+	STDMETHOD(GetMSThumbnail)(BSTR bsFile, IMAGESERVICEDATA* pParams, SAFEARRAY** ppImage);
+	STDMETHOD(GetOOThumbnail)(BSTR bsFile, IMAGESERVICEDATA* pParams, SAFEARRAY** ppImage);
 	CComBSTR GetMetadataXML(unzFile pFile, char* pszFile);
 
-	void Initialize(BOOL bOnlyThumb);
 	HBITMAP GetBitmapFromMetaFile(PICTDESC pds, int nResolution,
 		WORD wBitsPerSample, BITMAPINFO **ppBI);
 	HBITMAP GetBitmapFromEnhMetaFile(PICTDESC pds, int nResolution,
@@ -217,13 +209,16 @@ public:
 	LPWSTR GetDocumentFormat(LPCWSTR pszExt);
 	LPWSTR GetSchema(BSTR sFile, LPCWSTR pszExt);
 
-	inline int CalculateDotsForHimetric(int nResolution, int nHimetricUnits)
+	inline static int CalculateDotsForHimetric(int nResolution, int nHimetricUnits)
 	{
 		return static_cast<int>( nResolution * nHimetricUnits * 0.01 / 25.4 );
 	}
 };
 
 OBJECT_ENTRY_AUTO(__uuidof(DocReader), CDocReader)
+
 //Old ImageServices
 //const CLSID CLSID_PNGReader = { 0xD427C22F, 0x23FB, 0x4E51, { 0xA8, 0xB8, 0x70, 0xF2, 0x03, 0x6E, 0xD3, 0xBA } };
+
+// GFLImageServices - {FF5FCD00-2C20-49D8-84F6-888D2E2C95DA}
 const CLSID CLSID_PNGReader = { 0xFF5FCD00, 0x2C20, 0x49D8, { 0x84, 0xF6, 0x88, 0x8D, 0x2E, 0x2C, 0x95, 0xDA } };

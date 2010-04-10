@@ -67,14 +67,13 @@ class CNeighbour : public CConnection
 {
 
 // Construction
-public:
+protected:
 	CNeighbour(PROTOCOLID nProtocol);
 	CNeighbour(PROTOCOLID nProtocol, CNeighbour* pBase);
 	virtual ~CNeighbour();
 
 // Attributes: State
 public:
-	// Used by the list of neighbour objects in CNeighbours
 	DWORD			m_nRunCookie;		// The number of times this neighbour has been run, CNeighboursBase::OnRun uses this to run each neighbour in the list once
 	NrsState		m_nState;			// Neighbour state, like connecting, handshake 1, 2, or 3, or rejected
 	CVendor*		m_pVendor;

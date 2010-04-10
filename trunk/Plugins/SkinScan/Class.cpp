@@ -1,7 +1,7 @@
 //
 // Class.cpp : Implementation of CClass
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -135,11 +135,9 @@ STDMETHODIMP CSkinScan::Process (
 ///////////////////////////////////////////////////////////////////////////////
 // 
 // ScanFile() is a helper function which accepts an XML string, decodes it,
-// checks if it is a PeerProject skin file, and copies the <manifest>
-// metadata to the output.
+// checks if it is a PeerProject skin file, and copies <manifest> metadata to the output.
 // 
 // pszXML  : The XML string
-//
 // pOutput : An empty XML element to build metadata in
 // 
 
@@ -161,11 +159,10 @@ BOOL CSkinScan::ScanFile(LPCSTR pszXML, ISXMLElement* pOutput)
 	delete [] pszUnicode;
 	if ( bBOMPresent ) pszXML -= 3;
 
-	// Use the FromString() method in ISXMLElement to decode an XML document
-	// from the XML string.  Output is in "pFile".
+	// Use the FromString() method in ISXMLElement to decode an XML document from the XML string.
+	// Output is in "pFile".
 	CComPtr< ISXMLElement > pFile;
-	if ( FAILED( pOutput->FromString( sUnicode, &pFile ) ) ||
-		pFile == NULL )
+	if ( FAILED( pOutput->FromString( sUnicode, &pFile ) ) || pFile == NULL )
 	{
 		return FALSE;
 	}
@@ -181,8 +178,7 @@ BOOL CSkinScan::ScanFile(LPCSTR pszXML, ISXMLElement* pOutput)
 
 	// Get the Elements collection from the XML document
 	CComPtr< ISXMLElements > pElements;
-	if ( FAILED( pFile->get_Elements( &pElements ) ) ||
-		pElements == NULL )
+	if ( FAILED( pFile->get_Elements( &pElements ) ) || pElements == NULL )
 	{
 		pFile->Delete();
 		return FALSE;
@@ -190,8 +186,7 @@ BOOL CSkinScan::ScanFile(LPCSTR pszXML, ISXMLElement* pOutput)
 
 	// Find the <manifest> element
 	CComPtr< ISXMLElement > pManifest;
-	if ( FAILED( pElements->get_ByName( CComBSTR( _T("manifest") ), &pManifest ) ) ||
-		pManifest == NULL )
+	if ( FAILED( pElements->get_ByName( CComBSTR( _T("manifest") ), &pManifest ) ) || pManifest == NULL )
 	{
 		pFile->Delete();
 		return FALSE;
@@ -201,8 +196,7 @@ BOOL CSkinScan::ScanFile(LPCSTR pszXML, ISXMLElement* pOutput)
 	CComPtr< ISXMLElement > pPlural;
 	{
 		CComPtr< ISXMLElements > pElements;
-		if ( FAILED( pOutput->get_Elements( &pElements ) ) ||
-			pElements == NULL )
+		if ( FAILED( pOutput->get_Elements( &pElements ) ) || pElements == NULL )
 		{
 			pFile->Delete();
 			return FALSE;
@@ -210,20 +204,19 @@ BOOL CSkinScan::ScanFile(LPCSTR pszXML, ISXMLElement* pOutput)
 		pElements->Create( CComBSTR( _T("PeerProjectSkins") ), &pPlural );
 	}
 
-	// Add xsi:noNamespaceSchemaLocation="http://www.shareaza.com/schemas/shareazaSkin.xsd"
+	// Add xsi:noNamespaceSchemaLocation="http://schemas.peerproject.org/Skin.xsd"
 	// to the Attributes collection of <PeerProjectSkins>
 	{
 		CComPtr< ISXMLAttributes > pAttrs;
 		pPlural->get_Attributes( &pAttrs );
 		pAttrs->Add( CComBSTR( _T("xsi:noNamespaceSchemaLocation") ),
-			CComBSTR( _T("http://www.shareaza.com/schemas/shareazaSkin.xsd") ) );
+			CComBSTR( _T("http://schemas.peerproject.org/Skin.xsd") ) );
 	}
 
 	// Change <manifest> to <PeerProjectSkin>
 	pManifest->put_Name( CComBSTR( _T("PeerProjectSkin") ) );
 
-	// Detach <manifest> from the file document and add it to the
-	// output XML document
+	// Detach <manifest> from the file document and add it to the output XML document
 	pManifest->Detach();
 	{
 		CComPtr< ISXMLElements > pElements;

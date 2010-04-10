@@ -1,7 +1,7 @@
 //
 // GraphItem.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -35,40 +35,39 @@ class CGraphItem
 // Construction
 public:
 	CGraphItem(DWORD nCode = 0, float nMultiplier = 1.0f, COLORREF nColor = RGB(255,255,255));
-	virtual ~CGraphItem();
+	~CGraphItem();
 
 // Attributes
 public:
+	COLORREF	m_nColor;
 	DWORD		m_nCode;
 	float		m_nMultiplier;
-	COLORREF	m_nColor;
-public:
-	CString		m_sName;
-	CPen		m_pPen[4];
+
 	COLORREF	m_cPen[4];
-public:
+	CPen		m_pPen[4];
+	CString		m_sName;
+
 	DWORD*		m_pData;
 	DWORD		m_nData;
 	DWORD		m_nLength;
 	DWORD		m_nPosition;
-public:
-	static GRAPHITEM	m_pItemDesc[];
+
+	const static GRAPHITEM	m_pItemDesc[];
 
 // Operations
 public:
-	void		SetCode(DWORD nCode);
 	void		Clear();
+	void		SetCode(DWORD nCode);
 	DWORD		Add(DWORD nValue);
 	DWORD		GetValueAt(DWORD nPosition) const;
 	DWORD		GetMaximum() const;
 	void		SetHistory(DWORD nSize, BOOL bMax = FALSE);
-	DWORD		Update();
 	void		Serialize(CArchive& ar);
 	void		MakeGradient(COLORREF crBack);
-public:
-	static QWORD		GetValue(DWORD nCode, float nMultiplier = 1.0f);
-	static GRAPHITEM*	GetItemDesc(DWORD nCode);
+	DWORD		Update();
 
+	static QWORD GetValue(const DWORD nCode, const float nMultiplier = 1.0f);
+	static const GRAPHITEM* GetItemDesc(const DWORD nCode);
 };
 
 #define GRC_TOTAL_BANDWIDTH_IN			1

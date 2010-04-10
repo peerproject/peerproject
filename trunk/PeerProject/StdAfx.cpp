@@ -1,7 +1,7 @@
 //
 // StdAfx.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -32,9 +32,8 @@ __int64 GetMicroCount()
 	static __int64 Freq = 0;
 	static __int64 FirstCount = 0;
 	if ( Freq < 0 )
-	{
 		return GetTickCount() * 1000;
-	}
+
 	if ( Freq == 0 )
 	{
 		if ( ! QueryPerformanceFrequency( (LARGE_INTEGER*)&Freq ) )
@@ -75,31 +74,55 @@ UINT GetBestHashTableSize(UINT nCount)
 		( nCount + nCount / 5 ), std::less< UINT >() );	// + 20%
 }
 
-CStringA UTF8Encode(__in_bcount(nInput) LPCWSTR szInput, __in int nInput)
+CStringA UTF8Encode(__in const CStringW& strInput)
 {
-	int nUTF8 = WideCharToMultiByte( CP_UTF8, 0, szInput, nInput, NULL, 0, NULL, NULL );
-	CStringA sUTF8;
-	if ( nUTF8 > 0 )
-	{
-		WideCharToMultiByte( CP_UTF8, 0, szInput, nInput, sUTF8.GetBuffer( nUTF8 ), nUTF8, NULL, NULL );
-		sUTF8.ReleaseBuffer( nUTF8 );
-	}
-	return sUTF8;
+	return UTF8Encode( strInput, strInput.GetLength() );
 }
 
-CStringW UTF8Decode(__in_bcount(nInput) LPCSTR szInput, __in int nInput)
+CStringA UTF8Encode(__in_bcount(nInput) LPCWSTR psInput, __in int nInput)
 {
-	int nWide = MultiByteToWideChar( CP_UTF8, 0, szInput, nInput, NULL, 0 );
-	CStringW sWide;
-	if ( nWide > 0 )
+	CStringA strUTF8;
+	int nUTF8 = ::WideCharToMultiByte( CP_UTF8, 0, psInput, nInput,
+		strUTF8.GetBuffer( nInput * 4 + 1 ), nInput * 4 + 1, NULL, NULL );
+
+	if ( nUTF8 == 0 && GetLastError() == ERROR_INSUFFICIENT_BUFFER )
 	{
-		MultiByteToWideChar( CP_UTF8, 0, szInput, nInput, sWide.GetBuffer( nWide ), nWide );
-		sWide.ReleaseBuffer( nWide );
+		nUTF8 = ::WideCharToMultiByte( CP_UTF8, 0, psInput, nInput,
+			NULL, 0, NULL, NULL );
+
+		nUTF8 = ::WideCharToMultiByte( CP_UTF8, 0, psInput, nInput,
+			strUTF8.GetBuffer( nUTF8 ), nUTF8, NULL, NULL );
 	}
-	return sWide;
+	strUTF8.ReleaseBuffer( nUTF8 );
+
+	return strUTF8;
 }
 
-// Encodes unsafe characters in a string, turning "hello world" into "hello%20world", for instance
+CStringW UTF8Decode(__in const CStringA& strInput)
+{
+	return UTF8Decode( strInput, strInput.GetLength() );
+}
+
+CStringW UTF8Decode(__in_bcount(nInput) LPCSTR psInput, __in int nInput)
+{
+	CStringW strWide;
+	int nWide = ::MultiByteToWideChar( CP_UTF8, 0, psInput, nInput,
+		strWide.GetBuffer( nInput + 1 ), nInput + 1 );
+
+	if ( nWide == 0 && GetLastError() == ERROR_INSUFFICIENT_BUFFER )
+	{
+		nWide = ::MultiByteToWideChar( CP_UTF8, 0, psInput, nInput,
+			NULL, 0 );
+
+		nWide = ::MultiByteToWideChar( CP_UTF8, 0, psInput, nInput,
+			strWide.GetBuffer( nWide ), nWide );
+	}
+	strWide.ReleaseBuffer( nWide );
+
+	return strWide;
+}
+
+// Encodes unsafe characters in a string: "hello world" to "hello%20world"
 // Takes text and returns a string
 CString URLEncode(LPCTSTR pszInputT)
 {
@@ -107,7 +130,6 @@ CString URLEncode(LPCTSTR pszInputT)
 	static LPCTSTR pszHex	= _T("0123456789ABCDEF");	// A string with all the hexidecimal digits
 	static LPCSTR pszUnsafe	= "<>\"#%{}|\\^~[]+?&@=:,";	// A string with all the characters unsafe for a URL
 
-	// The output string starts blank
 	CString strOutput;
 
 	// If the input character pointer points to null or points to the null terminator, just return the blank output string
@@ -151,8 +173,8 @@ CString URLEncode(LPCTSTR pszInputT)
 			*pszOutput++ = pszHex[ ( *pszInput >> 4 ) & 0x0F ];
 			*pszOutput++ = pszHex[ *pszInput & 0x0F ];
 
-		} // The character doesn't need to be encoded
-		else
+		}
+		else	// The character doesn't need to be encoded
 		{
 			// Just copy it across
 			*pszOutput++ = (TCHAR)*pszInput;
@@ -166,12 +188,11 @@ CString URLEncode(LPCTSTR pszInputT)
 	// Free the memory we allocated with the new keyword above
 	delete [] pszUTF8;
 
-
 	// Return the URL-encoded, %20-filled text
 	return strOutput;
 }
 
-// Decodes unsafe characters in a string, turning "hello%20world" into "hello world", for instance
+// Decodes unsafe characters in a string: "hello%20world" to "hello world"
 // Takes text and returns a string
 CString URLDecode(LPCTSTR pszInput)
 {
@@ -179,11 +200,9 @@ CString URLDecode(LPCTSTR pszInput)
 	// Check each character of input text
 	for ( ; *pszLoop ; pszLoop++ )
 	{
+		// This URI is not properly encoded, and has unicode characters in it. URL-decode only
 		if ( *pszLoop > 255 )
-		{
-			// This URI is not properly encoded, and has unicode characters in it. URL-decode only
 			return URLDecodeUnicode( pszInput );
-		}
 	}
 
 	// This is a correctly formatted URI, which must be url-decoded, then UTF-8 decoded.
@@ -230,8 +249,8 @@ CString URLDecodeANSI(LPCTSTR pszInput)
 			// Add a space to the output text, and move the pointer forward
 			*pszOutput++ = ' ';
 
-		} // The input pointer is just on a normal character
-		else
+		}
+		else	// The input pointer is just on a normal character
 		{
 			// Copy it across
 			*pszOutput++ = (CHAR)*pszInput;
@@ -251,7 +270,6 @@ CString URLDecodeANSI(LPCTSTR pszInput)
 	// Free the memory we allocated above
 	delete [] pszBytes;
 
-	// Return the output string
 	return strOutput;
 }
 
@@ -295,8 +313,8 @@ CString URLDecodeUnicode(LPCTSTR pszInput)
 			// Add a space to the output text, and move the pointer forward
 			*pszOutput++ = ' ';
 
-		} // The input pointer is just on a normal character
-		else
+		}
+		else	// The input pointer is just on a normal character
 		{
 			// Copy it across
 			*pszOutput++ = (TCHAR)*pszInput;
@@ -306,5 +324,6 @@ CString URLDecodeUnicode(LPCTSTR pszInput)
 	// Close and return the string
 	*pszOutput = 0;            // End the output text with a null terminator
 	strOutput.ReleaseBuffer(); // Release direct access to the buffer of the CString object
-	return strOutput;          // Return the string
+
+	return strOutput;
 }

@@ -1,9 +1,9 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
+<?xml version="1.0" encoding="UTF-8"?>
+<skin xmlns="http://schemas.peerproject.org/Skin.xsd" version="1.0">
 
 <!-- PeerProject Default Czech Skin File -->
 
-<!-- Translation based on default-en.xml r48 (Shareaza 2.2.5.7) -->
+<!-- Translation based on default-en.xml r50 (Shareaza 2.2.5.7) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1028,31 +1028,28 @@
 	<!-- DOWNLOADS WINDOW -->
 	<menu name="CDownloadsWnd.Download.Basic">
 		<item id="ID_DOWNLOADS_LAUNCH" text="Ná_hled"/>
-		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="Vzdálený náhled"/>
-		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="_Náhled hodnocení"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_RESUME" text="_Pokračovat"/>
 		<item id="ID_DOWNLOADS_PAUSE" text="P_ozastavit"/>
 		<item id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="_Zrušit"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_SOURCES" text="Najít _více zdrojů"/>
-		<!-- <separator/>
-		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="V_ymazat dokončené"/>
-		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="A_uto vymazání"/> -->
+		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="Vzdálený náhled"/>
+		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="_Náhled hodnocení"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_HELP" text="_Nápověda..."/>
 	</menu>
 	<menu name="CDownloadsWnd.Download">
-		<item id="ID_DOWNLOADS_LAUNCH" text="Ná_hled"/>
 		<item id="ID_DOWNLOADS_LAUNCH_COPY" text="Náhled kop_ie"/>
+		<item id="ID_DOWNLOADS_LAUNCH" text="Ná_hled"/>
 		<item id="ID_DOWNLOADS_ENQUEUE" text="Přidat do Pla_ylistu"/>
-		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="Vzdálený náhled"/>
-		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="Náhled _hodnocení"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_RESUME" text="_Pokračovat"/>
 		<item id="ID_DOWNLOADS_PAUSE" text="P_ozastavit"/>
 		<item id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="_Zrušit"/>
 		<separator/>
+		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="Náhled _hodnocení"/>
+		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="Vzdálený náhled"/>
 		<item id="ID_DOWNLOADS_SOURCES" text="Najít _více zdrojů"/>
 		<separator/>
 		<menu text="_Pokročilé">
@@ -1060,14 +1057,17 @@
 			<separator/>
 			<item id="ID_DOWNLOADS_URI" text="_Kopírovat URI"/>
 			<item id="ID_DOWNLOADS_ADD_SOURCE" text="Přid_at zdroj..."/>
+			<item id="ID_DOWNLOADS_MERGE" text="Sloučení místního souboru"/>
 			<separator/>
 			<item id="ID_DOWNLOADS_MONITOR" text="Okno _sledování"/>
+		</menu>
+		<menu text="Pri_orita">
 			<item id="ID_DOWNLOADS_BOOST" text="_Ignorovat omezení šířky pásma"/>
 			<separator/>
-			<item id="ID_DOWNLOADS_MOVE_UP" text="Přesunout _nahoru"/>
-			<item id="ID_DOWNLOADS_MOVE_DOWN" text="Přesunout _dolů"/>
-			<item id="ID_DOWNLOADS_MOVE_TOP" text="Přesunout _nahoru!"/>
-			<item id="ID_DOWNLOADS_MOVE_BOTTOM" text="Přesunout _dolů!"/>
+			<item id="ID_DOWNLOADS_MOVE_TOP" text="Přesunout _nahoru!" shortcut="Ctrl+Home"/>
+			<item id="ID_DOWNLOADS_MOVE_BOTTOM" text="Přesunout _dolů!" shortcut="Ctrl+End"/>
+			<item id="ID_DOWNLOADS_MOVE_UP" text="Přesunout _nahoru" shortcut="Ctrl+Up"/>
+			<item id="ID_DOWNLOADS_MOVE_DOWN" text="Přesunout _dolů" shortcut="Ctrl+Down"/>
 		</menu>
 		<item id="ID_DOWNLOADS_HELP" text="_Nápověda..."/>
 		<separator/>
@@ -2669,7 +2669,7 @@
 	<string id="8230" value="PeerProject hledá zdroje pro:"/>
 	<string id="8231" value="Nenalezeny žádné zdroje"/>
 	<string id="8232" value="Otevřít"/>
-	<string id="8233" value="Náhled"/>
+	<string id="8233" value="Zrušit"/>
 	<string id="8235" value="Celková rychlost přenosu:"/>
 	<string id="8236" value="Odhadovaný čas pro stažení:"/>
 	<string id="8237" value="Stažená velikost:"/>
@@ -2936,7 +2936,6 @@
 	<string id="16402" value="PeerProject stáhla nový soubor se sbírkou:\n\n&quot;%s&quot;\n\nSoubor však nelze přečíst, pravděpodovně je poškozený."/>
 	<string id="16403" value="PeerProject přidala soubor do sbírky &quot;%s&quot; v knihovně."/>
 	<string id="16404" value="PeerProject nemůže instalovat soubor sbírky &quot;%s&quot; zkopírováním do složky &quot;%s&quot;."/>
-	<string id="16405" value="Chcete stáhnout tento soubor?\n\n&quot;%s&quot;\n\nKliknutím na Zrušit zrušíte i všechny další výzvy."/>
 	<string id="16406" value="Chcete stáhnout všechny soubory v této sbírce?\n\nKliknutím na Zrušit zrušíte i všechny další výzvy."/>
 	<string id="16407" value="Chcete zabránit této sbírce v dalším upozorňování na jiné stahování?"/>
 	<string id="16408" value="Kopírovat &amp;URI"/>
@@ -3306,14 +3305,14 @@
 		<control caption="Když kliknu minimalizovat:"/>
 		<control caption="Normálně na lištu|Shodit do ikony v liště"/>
 	</dialog>
-	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBu" caption="Knihovna">
+	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuBuCoBuBuBuCoBuBuBuEdBu" caption="Knihovna">
 		<control caption="_Nastavení:"/>
 		<control caption="Povolit ostatním prohlížet sdílené"/>
+		<control caption="Pamatovat si vzhled složky"/>
 		<control caption="Sledovat složky knihovny"/>
 		<control caption="Rychlý hashing (používá více CPU)"/>
 		<control caption="Smart media series detection"/>
-		<control caption="Ukládat informace o smazaných souborech"/>
-		<control caption="Pamatovat si vzhled složky"/>
+		<control caption="Ukládat informace o smazaných"/>
 		<control caption="_Poslední soubory:"/>
 		<control caption="Pamatuj si:"/>
 		<control/>
@@ -3324,6 +3323,7 @@
 		<control/>
 		<control caption="dnů"/>
 		<control caption="Vymazat historii"/>
+		<control caption="Vymazat informace"/>
 		<control caption="Bezpečné soubory:"/>
 		<control/>
 		<control caption="Přid_at"/>
@@ -3925,8 +3925,7 @@
 		<control caption="Zrušit"/>
 		<control/>
 	</dialog>
-	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStStBuBuBuBuBu" caption="Stáhnout">
-		<control caption="PeerProject stahuje soubor:"/>
+	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStBuBuBuBu" caption="Stáhnout">
 		<control caption="..."/>
 		<control/>
 		<control/>
@@ -3940,7 +3939,6 @@
 		<control caption="Stažená velikost:"/>
 		<control caption="..."/>
 		<control caption="Prohlížet knihovnu"/>
-		<control caption="Otevřít soubor"/>
 		<control caption="Zrušit stahování"/>
 		<control caption="Skrýt"/>
 		<control caption="Zavřít toto okno po dokončení stahování"/>
@@ -4314,23 +4312,22 @@
 		<control caption="do"/>
 		<control caption="Vymazat"/>
 	</dialog>
-	<dialog name="CDownloadGroupDlg" cookie="BuBuEdCoBuCoBuBuEdBuBuBuBuBuBuSt" caption="Stažení vlastností skupiny">
-		<control caption="OK"/>
-		<control caption="Zrušit"/>
+	<dialog name="CDownloadGroupDlg" cookie="BuEdBuEdBuBuBuCoBuBuBuCoStBuBu" caption="Stažení vlastností skupiny">
+		<control caption="_Jméno:"/>
+		<control/>
+		<control caption="Dokončený soubor _Složka:"/>
 		<control/>
 		<control/>
-		<control caption="_BitTorrent"/>
+		<control/>
+		<control caption="_Filtry:"/>
 		<control/>
 		<control caption="Přid_at"/>
 		<control caption="Odst_ranit"/>
-		<control/>
-		<control/>
-		<control/>
-		<control caption="_Jméno:"/>
-		<control caption="_Filtry:"/>
-		<control caption="Dokončený soubor _Složka:"/>
 		<control caption="_Typ souboru:"/>
-		<control caption="_*Drag&apos;n&apos;drop any download later."/>
+		<control/>
+		<control caption="*Drag&apos;n&apos;drop any download later."/>
+		<control caption="OK"/>
+		<control caption="Zrušit"/>
 	</dialog>
 	<dialog name="CMediaVisDlg" cookie="StBuSyCoBuBuBu" caption="Zvolte zobrazení">
 		<control/>

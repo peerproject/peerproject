@@ -87,16 +87,16 @@ END_MESSAGE_MAP()
 // CLibraryDetailView construction
 
 CLibraryDetailView::CLibraryDetailView(UINT nCommandID)
-	: m_nStyle( LVS_REPORT )
-	, m_pSchema( NULL )
-	, m_pCoolMenu( NULL )
+	: m_nStyle		( LVS_REPORT )
+	, m_pSchema		( NULL )
+	, m_pCoolMenu	( NULL )
 	, m_bCreateDragImage( FALSE )
-	, m_pList( NULL )
-	, m_nList( 0 )
-	, m_nBuffer( 0 )
-	, m_nListCookie( 0 )
-	, m_nSortColumn( 0 )
-	, m_bSortFlip( FALSE )
+	, m_pList		( NULL )
+	, m_nList		( 0 )
+	, m_nBuffer		( 0 )
+	, m_nListCookie	( 0 )
+	, m_nSortColumn	( 0 )
+	, m_bSortFlip	( FALSE )
 {
 	switch ( m_nCommandID = nCommandID )
 	{
@@ -213,13 +213,9 @@ void CLibraryDetailView::OnDestroy()
 	if ( m_nStyle == LVS_REPORT )
 	{
 		if ( m_pSchema != NULL )
-		{
 			Settings.SaveList( _T("CLibraryDetailView.") + m_pSchema->m_sSingular, (CListCtrl*)this );
-		}
 		else
-		{
 			Settings.SaveList( _T("CLibraryDetailView"), (CListCtrl*)this );
-		}
 	}
 
 	CLibraryFileView::OnDestroy();
@@ -390,6 +386,20 @@ BOOL CLibraryDetailView::Select(DWORD nObject)
 	return FALSE;
 }
 
+void CLibraryDetailView::SelectAll()
+{
+	GET_LIST();
+
+	SelClear( FALSE );
+
+	for ( DWORD i = 0 ; i < m_nList; i++ )
+	{
+		pList->SetItemState( i, LVIS_SELECTED, LVIS_SELECTED );
+	}
+
+	Invalidate();
+}
+
 void CLibraryDetailView::CacheItem(int nItem)
 {
 	CLibraryFile* pFile = Library.LookupFile( m_pList[ nItem ].nIndex );
@@ -433,7 +443,7 @@ void CLibraryDetailView::CacheItem(int nItem)
 		pText->SetAt( 1, _T("") );
 
 	pText->SetAt( 2, Settings.SmartVolume( pFile->GetSize() ) );
-	if ( pFile->m_pFolder != NULL ) pText->SetAt( 3, pFile->m_pFolder->m_sPath );
+	pText->SetAt( 3, pFile->GetPath() );
 
 	CString str;
 	str.Format( _T("%lu (%lu)"), pFile->m_nHitsToday, pFile->m_nHitsTotal );
@@ -527,9 +537,7 @@ void CLibraryDetailView::OnGetDispInfoW(NMHDR* pNotify, LRESULT* pResult)
 	}
 
 	if ( ((NMLVDISPINFO*) pNotify)->item.mask & LVIF_IMAGE )
-	{
 		((NMLVDISPINFO*) pNotify)->item.iImage = pItem->nIcon;
-	}
 }
 
 void CLibraryDetailView::OnGetDispInfoA(NMHDR* pNotify, LRESULT* pResult)
@@ -541,7 +549,8 @@ void CLibraryDetailView::OnGetDispInfoA(NMHDR* pNotify, LRESULT* pResult)
 	if ( ((NMLVDISPINFO*) pNotify)->item.mask & LVIF_STATE )
 	{
 		((NMLVDISPINFO*) pNotify)->item.state &= (~LVIS_SELECTED & ~LVIS_FOCUSED);
-		if ( pItem->nState & LDVI_SELECTED ) ((NMLVDISPINFO*) pNotify)->item.state |= (LVIS_SELECTED | LVIS_FOCUSED);
+		if ( pItem->nState & LDVI_SELECTED )
+			((NMLVDISPINFO*) pNotify)->item.state |= (LVIS_SELECTED | LVIS_FOCUSED);
 	}
 
 	if ( pItem->nCookie != m_nListCookie )
@@ -566,9 +575,7 @@ void CLibraryDetailView::OnGetDispInfoA(NMHDR* pNotify, LRESULT* pResult)
 	}
 
 	if ( ((NMLVDISPINFO*) pNotify)->item.mask & LVIF_IMAGE )
-	{
 		((NMLVDISPINFO*) pNotify)->item.iImage = pItem->nIcon;
-	}
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -631,12 +638,7 @@ int CLibraryDetailView::ListCompare(LPCVOID pA, LPCVOID pB)
 				nTest = 1;
 			break;
 		case 3:
-			if ( pfA->m_pFolder && pfB->m_pFolder )
-				nTest = _tcsicoll( pfA->m_pFolder->m_sPath, pfB->m_pFolder->m_sPath );
-			else if ( pfB->m_pFolder )
-				nTest = -1;
-			else
-				nTest = 1;
+			nTest = _tcsicoll( pfA->GetPath(), pfB->GetPath() );
 			break;
 		case 4:
 			if ( pfA->m_nHitsTotal == pfB->m_nHitsTotal )
@@ -670,8 +672,7 @@ int CLibraryDetailView::ListCompare(LPCVOID pA, LPCVOID pB)
 				if ( pfB->m_pMetadata ) strB = pMember->GetValueFrom( pfB->m_pMetadata, NULL, TRUE );
 
 				if ( *(LPCTSTR)strA && *(LPCTSTR)strB &&
-					( ((LPCTSTR)strA)[ _tcslen( strA ) - 1 ] == 'k' || ((LPCTSTR)strA)[ _tcslen( strA ) - 1 ] == '~' )
-					&&
+					( ((LPCTSTR)strA)[ _tcslen( strA ) - 1 ] == 'k' || ((LPCTSTR)strA)[ _tcslen( strA ) - 1 ] == '~' ) &&
 					( ((LPCTSTR)strB)[ _tcslen( strB ) - 1 ] == 'k' || ((LPCTSTR)strB)[ _tcslen( strB ) - 1 ] == '~' ) )
 				{
 					nTest = CLiveList::SortProc( strA, strB, TRUE );
@@ -1073,7 +1074,8 @@ void CLibraryDetailView::OnLibraryColumns()
 	if ( Settings.Library.FilterURI.IsEmpty() )
 	{
 		Settings.Library.SchemaURI.Empty();
-		if ( dlg.m_pSchema ) Settings.Library.SchemaURI = dlg.m_pSchema->GetURI();
+		if ( dlg.m_pSchema )
+			Settings.Library.SchemaURI = dlg.m_pSchema->GetURI();
 	}
 
 	SetViewSchema( dlg.m_pSchema, &dlg.m_pColumns, TRUE, TRUE );

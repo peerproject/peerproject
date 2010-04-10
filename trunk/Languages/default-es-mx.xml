@@ -1,9 +1,9 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
+<?xml version="1.0" encoding="UTF-8"?>
+<skin xmlns="http://schemas.peerproject.org/Skin.xsd" version="1.0">
 
 <!-- PeerProject Default Spanish (Mexican) Skin File -->
 
-<!-- Translation based on default-en.xml r48 -->
+<!-- Translation based on default-en.xml r50 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1036,31 +1036,28 @@
 	<!-- DOWNLOADS WINDOW -->
 	<menu name="CDownloadsWnd.Download.Basic">
 		<item id="ID_DOWNLOADS_LAUNCH" text="_Vista Previa"/>
-		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="_Vista Previa Rápida"/>
-		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="_Ver Reviews"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_RESUME" text="_Reanudar"/>
 		<item id="ID_DOWNLOADS_PAUSE" text="P_ausar"/>
 		<item id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="_Cancelar"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_SOURCES" text="_Buscar Más Fuentes"/>
-		<!-- <separator/>
-		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="L_impiar Completo"/>
-		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="A_uto Limpiar"/> -->
+		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="_Vista Previa Rápida"/>
+		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="_Ver Reviews"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_HELP" text="_Ayuda..."/>
 	</menu>
 	<menu name="CDownloadsWnd.Download">
-		<item id="ID_DOWNLOADS_LAUNCH" text="_Vista Previa"/>
 		<item id="ID_DOWNLOADS_LAUNCH_COPY" text="Vi_sta Previa a Copia"/>
+		<item id="ID_DOWNLOADS_LAUNCH" text="_Vista Previa"/>
 		<item id="ID_DOWNLOADS_ENQUEUE" text="Agregar a la lista de reproducción"/>
-		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="_Vista Previa Rápida"/>
-		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="_Ver Reviews"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_RESUME" text="_Reanudar"/>
 		<item id="ID_DOWNLOADS_PAUSE" text="P_ausar"/>
 		<item id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="_Cancelar"/>
 		<separator/>
+		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="_Ver Reviews"/>
+		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="_Vista Previa Rápida"/>
 		<item id="ID_DOWNLOADS_SOURCES" text="_Buscar más fuentes"/>
 		<separator/>
 		<menu text="_Avanzado">
@@ -1068,14 +1065,17 @@
 			<separator/>
 			<item id="ID_DOWNLOADS_URI" text="_Copiar URI"/>
 			<item id="ID_DOWNLOADS_ADD_SOURCE" text="_Agregar Fuente..."/>
+			<item id="ID_DOWNLOADS_MERGE" text="Fusionar el Archivo Local..."/>
 			<separator/>
 			<item id="ID_DOWNLOADS_MONITOR" text="Ventana de _Monitor"/>
+		</menu>
+		<menu text="Pri_oridad">
 			<item id="ID_DOWNLOADS_BOOST" text="_Ignorar Límite de Banda Ancha"/>
 			<separator/>
-			<item id="ID_DOWNLOADS_MOVE_UP" text="Mover _Arriba" shortcut="Ctrl+Up"/>
-			<item id="ID_DOWNLOADS_MOVE_DOWN" text="Mover _Abajo" shortcut="Ctrl+Dn"/>
 			<item id="ID_DOWNLOADS_MOVE_TOP" text="¡Mover _Arriba!" shortcut="Ctrl+Home"/>
 			<item id="ID_DOWNLOADS_MOVE_BOTTOM" text="¡Mover _Abajo!" shortcut="Ctrl+End"/>
+			<item id="ID_DOWNLOADS_MOVE_UP" text="Mover _Arriba" shortcut="Ctrl+Up"/>
+			<item id="ID_DOWNLOADS_MOVE_DOWN" text="Mover _Abajo" shortcut="Ctrl+Dn"/>
 		</menu>
 		<item id="ID_DOWNLOADS_HELP" text="_Ayuda..."/>
 		<separator/>
@@ -2671,7 +2671,7 @@
 	<string id="8230" value="PeerProject esta buscando fuentes para:"/>
 	<string id="8231" value="No hay fuentes"/>
 	<string id="8232" value="Abrir"/>
-	<string id="8233" value="Vista Previa"/>
+	<string id="8233" value="Cancelar"/>
 	<string id="8235" value="Velocidad total de transferencia:"/>
 	<string id="8236" value="Tiempo estimado para que la descarga termine:"/>
 	<string id="8237" value="Volumen Descargado:"/>
@@ -2938,7 +2938,6 @@
 	<string id="16402" value="PeerProject ha recibido un archivo de colección:\n\n&quot;%s&quot;\n\nEste archivo no parece ser un archivo de colección valido."/>
 	<string id="16403" value="PeerProject ha agregado el archivo de colección &quot;%s&quot; a tu librería."/>
 	<string id="16404" value="PeerProject no pudo instalar el archivo de colección &quot;%s&quot; por copiandolo a la carpeta &quot;%s&quot;."/>
-	<string id="16405" value="¿Deseas descargar este archivo?\n\n&quot;%s&quot;\n\nElige cancelar para evitar futuros avisos."/>
 	<string id="16406" value="¿Deseas descargar todos los archivos de esta colección?\n\nElige cancelar para evitar futuros avisos."/>
 	<string id="16407" value="¿Deseas prevenit que esta colección te pregunte si deseas descargar otra cosa de esta?"/>
 	<string id="16408" value="Copiar &amp;URI"/>
@@ -3309,14 +3308,14 @@
 		<control caption="Cuando hago click minimizar:"/>
 		<control caption="Normal|Minimizar barra de tareas"/>
 	</dialog>
-	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBu" caption="Colección">
+	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuBuCoBuBuBuCoBuBuBuEdBu" caption="Colección">
 		<control caption="_Opciones:"/>
 		<control caption="Permitir exploración de usuario"/>
+		<control caption="Recordar vistas de carpetas"/>
 		<control caption="Ver carpetas de Colección"/>
 		<control caption="Hashing rápido (más CPU)"/>
 		<control caption="Detección de la serie de media"/>
 		<control caption="Crear huellas de archivos (fantasmas)"/>
-		<control caption="Recordar vistas de carpetas"/>
 		<control caption="Archivos _Recientes:"/>
 		<control caption="Recordar:"/>
 		<control/>
@@ -3326,7 +3325,8 @@
 		<control/>
 		<control/>
 		<control caption="dias"/>
-		<control caption="Borrar historial"/>
+		<control caption="Borrar Historial"/>
+		<control caption="Borrar Fantasmas"/>
 		<control caption="_Seguros de abrir:"/>
 		<control/>
 		<control caption="_Agregar"/>
@@ -3971,8 +3971,7 @@
 		<control caption="Cancelar"/>
 		<control/>
 	</dialog>
-	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStStBuBuBuBuBu" caption="Descargar">
-		<control caption="PeerProject esta descargando:"/>
+	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStBuBuBuBu" caption="Descargar">
 		<control caption="..."/>
 		<control/>
 		<control/>
@@ -3986,7 +3985,6 @@
 		<control caption="Descargado:"/>
 		<control caption="..."/>
 		<control caption="Ver"/>
-		<control caption="Abrir"/>
 		<control caption="Cancelar"/>
 		<control caption="Cerrar"/>
 		<control caption="Cerrar esta ventana al finalizar"/>
@@ -4361,23 +4359,22 @@
 		<control caption="a"/>
 		<control caption="Eliminar"/>
 	</dialog>
-	<dialog name="CDownloadGroupDlg" cookie="BuBuEdCoBuCoBuBuEdBuBuBuBuBuBuSt" caption="Propiedades del Grupo de Descarga">
-		<control caption="OK"/>
-		<control caption="Cancelar"/>
+	<dialog name="CDownloadGroupDlg" cookie="BuEdBuEdBuBuBuCoBuBuBuCoStBuBu" caption="Propiedades del Grupo de Descarga">
+		<control caption="_Nombre del Grupo:"/>
+		<control/>
+		<control caption="Carpeta de_Archivos Completados:"/>
 		<control/>
 		<control/>
-		<control caption="_BitTorrent"/>
+		<control/>
+		<control caption="_Filtros:"/>
 		<control/>
 		<control caption="_Agregar"/>
 		<control caption="_Eliminar"/>
-		<control/>
-		<control/>
-		<control/>
-		<control caption="_Nombre del Grupo:"/>
-		<control caption="_Filtros:"/>
-		<control caption="Carpeta de_Archivos Completados:"/>
 		<control caption="_Tipo de archivo:"/>
-		<control caption="_*Drag&apos;n&apos;drop algun descarga."/>
+		<control/>
+		<control caption="*Drag&apos;n&apos;drop algun descarga."/>
+		<control caption="OK"/>
+		<control caption="Cancelar"/>
 	</dialog>
 	<dialog name="CMediaVisDlg" cookie="StBuSyCoBuBuBu" caption="Selecciona Visualización">
 		<control/>

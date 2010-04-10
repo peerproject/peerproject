@@ -1,7 +1,7 @@
 //
 // CtrlDownloadTabBar.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010-2009
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -72,13 +72,13 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CDownloadTabBar construction
 
-CDownloadTabBar::CDownloadTabBar() :
-	m_pHot( NULL ),
-	m_bTimer( FALSE ),
-	m_bMenuGray( FALSE ),
-	m_nCookie( 0 ),
-	m_nMaximumWidth( 140 ),
-	m_nMessage( 0 )
+CDownloadTabBar::CDownloadTabBar()
+	: m_pHot		( NULL )
+	, m_bTimer		( FALSE )
+	, m_bMenuGray	( FALSE )
+	, m_nCookie 	( 0 )
+	, m_nMessage	( 0 )
+	, m_nMaximumWidth ( 140 )
 {
 }
 
@@ -239,18 +239,21 @@ INT_PTR CDownloadTabBar::OnToolHitTest(CPoint point, TOOLINFO* pTI) const
 	if ( pItem == NULL ) return -1;
 	if ( pTI == NULL ) return 1;
 
-	CString sTip;
-	LoadString( sTip, IDS_GENERAL_ALL );
-	if ( pItem->m_sName == sTip ) return -1;
+	CString strTip;
+	LoadString( strTip, IDS_GENERAL_ALL );
+	if ( pItem->m_sName == strTip ) return -1;
 
-	LoadString( sTip, IDS_DOWNLOAD_GROUP );
-	sTip.Format( sTip, pItem->m_sName );
+	LoadString( strTip, IDS_DOWNLOAD_GROUP );
+	strTip.Format( strTip, pItem->m_sName );
+
+	if ( pItem->m_sName == _T("Custom") && Settings.General.Language.Left(2) == _T("en") )
+		strTip += _T(", or right-click to customize this tab now.");
 
 	pTI->uFlags		= TTF_NOTBUTTON;
 	pTI->hwnd		= GetSafeHwnd();
 	pTI->uId		= NULL;
 	pTI->rect		= rcItem;
-	pTI->lpszText	= _tcsdup( sTip );
+	pTI->lpszText	= _tcsdup( strTip );
 
 	return pTI->uId;
 }
@@ -663,7 +666,8 @@ void CDownloadTabBar::OnDownloadGroupClear()
 	for ( POSITION pos = pDownloads.GetHeadPosition() ; pos ; )
 	{
 		CDownload* pDownload = (CDownload*)pDownloads.GetNext( pos );
-		if ( Downloads.Check( pDownload ) ) pDownload->Remove();
+		if ( Downloads.Check( pDownload ) )
+			pDownload->Remove();
 	}
 }
 
@@ -671,8 +675,15 @@ void CDownloadTabBar::OnDownloadGroupOpen()
 {
 	CDownloadGroup* pGroup = GetSelectedGroup();
 	CString strPath = pGroup->m_sFolder;
-	if ( strPath.IsEmpty() || ! PathIsDirectory( strPath ) )
+
+	if ( strPath.IsEmpty() )
 		strPath = Settings.Downloads.CompletePath;
+	else if ( ! PathIsDirectory( strPath ) )
+	{
+		strPath = Settings.Downloads.CompletePath + _T("\\") + strPath;
+		if ( ! PathIsDirectory( strPath ) )
+			strPath = Settings.Downloads.CompletePath;
+	}
 
 	ShellExecute( GetSafeHwnd(), _T("open"), strPath, NULL, NULL, SW_SHOWNORMAL );
 }
@@ -740,11 +751,11 @@ BOOL CDownloadTabBar::DropObjects(CList< CDownload* >* pList, const CPoint& ptSc
 /////////////////////////////////////////////////////////////////////////////
 // CDownloadTabBar::TabItem construction
 
-CDownloadTabBar::TabItem::TabItem(CDownloadGroup* pGroup, int nCookie) :
-	m_pGroup( pGroup ),
-	m_nImage( 0 ),
-	m_nCount( 0 ),
-	m_bSelected( pGroup == DownloadGroups.GetSuperGroup() )
+CDownloadTabBar::TabItem::TabItem(CDownloadGroup* pGroup, int nCookie)
+	: m_pGroup	( pGroup )
+	, m_nImage	( 0 )
+	, m_nCount	( 0 )
+	, m_bSelected ( pGroup == DownloadGroups.GetSuperGroup() )
 {
 	Update( nCookie );
 }
@@ -760,7 +771,8 @@ CDownloadTabBar::TabItem::~TabItem()
 
 BOOL CDownloadTabBar::TabItem::Update(int nCookie)
 {
-	if ( m_bSelected && nCookie ) m_pGroup->SetCookie( nCookie );
+	if ( m_bSelected && nCookie )
+		m_pGroup->SetCookie( nCookie );
 
 	BOOL bChanged = FALSE;
 
@@ -848,7 +860,8 @@ void CDownloadTabBar::TabItem::Paint(CDownloadTabBar* pBar, CDC* pDC, CRect* pRe
 		else
 		{
 			crBack = bTransparent ? CLR_NONE : Colors.m_crMidtone;
-			if ( crBack != CLR_NONE ) pDC->Draw3dRect( &rc, crBack, crBack );
+			if ( crBack != CLR_NONE )
+				pDC->Draw3dRect( &rc, crBack, crBack );
 		}
 
 		if ( crBack != CLR_NONE ) pDC->SetBkColor( crBack );

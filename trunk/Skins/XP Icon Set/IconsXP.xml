@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
+<skin xmlns="http://schemas.peerproject.org/Skin.xsd" version="1.0">
 <manifest
-  name="XP Icon Set"
-  author="SkinVista"
-  description="Windows XP Shell Icon Support"
-  link="http://PeerProject.org/"
-  email="Contact(at)PeerProject.org"
-  version="1.0"
-  type="Skin"
+ name="XP Icon Set"
+ author="SkinVista"
+ description="Windows XP Shell Icons"
+ link="http://PeerProject.org/"
+ email="Contact(at)PeerProject.org"
+ version="1.0"
+ type="Skin"
 />
 
 <commandImages>

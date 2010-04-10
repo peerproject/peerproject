@@ -345,11 +345,9 @@ CAlbumFolder* CAlbumFolder::FindFile(CLibraryFile* pFile)
 			CAlbumFolder* pFolder = GetNextFolder( pos )->FindFile( pFile );
 			if ( pFolder != NULL ) return pFolder;
 		}
-
-		CAlbumFolder* pFolder = pFirst->FindFile( pFile );
-		if ( pFolder != NULL ) return pFolder;
 	}
-	else if ( pFirst != NULL )
+
+	if ( pFirst != NULL )
 	{
 		CAlbumFolder* pFolder = pFirst->FindFile( pFile );
 		if ( pFolder != NULL ) return pFolder;
@@ -436,7 +434,7 @@ BOOL CAlbumFolder::SetMetadata(CXMLElement* pXML)
 }
 
 //////////////////////////////////////////////////////////////////////
-// CAlbumFolder metadata synchronisation
+// CAlbumFolder metadata synchronization
 
 BOOL CAlbumFolder::MetaFromFile(CLibraryFile* pFile)
 {
@@ -445,7 +443,8 @@ BOOL CAlbumFolder::MetaFromFile(CLibraryFile* pFile)
 	CSchemaChild* pChild = m_pSchema->GetContained( pFile->m_pSchema->GetURI() );
 	if ( pChild == NULL ) return FALSE;
 
-	if ( m_pXML == NULL ) m_pXML = new CXMLElement( NULL, m_pSchema->m_sSingular );
+	if ( m_pXML == NULL )
+		m_pXML = new CXMLElement( NULL, m_pSchema->m_sSingular );
 
 	pChild->MemberCopy( m_pXML, pFile->m_pMetadata );
 
@@ -648,7 +647,7 @@ BOOL CAlbumFolder::OrganiseFile(CLibraryFile* pFile)
 {
 	BOOL bResult = FALSE;
 
-	if ( pFile->IsGhost() )
+	if ( ! pFile->IsAvailable() )
 	{
 		if ( CheckURI( m_sSchemaURI, CSchema::uriGhostFolder ) )
 		{
@@ -691,7 +690,7 @@ BOOL CAlbumFolder::OrganiseFile(CLibraryFile* pFile)
 	}
 	else if ( CheckURI( m_sSchemaURI, CSchema::uriMusicAlbumCollection ) )
 	{
-		if ( ! pFile->IsSchemaURI( CSchema::uriAudio ) ) return FALSE;
+		if ( ! pFile->m_pMetadata || ! pFile->IsSchemaURI( CSchema::uriAudio ) ) return FALSE;
 
 		CString strAlbum = pFile->m_pMetadata->GetAttributeValue( _T("album") );
 		CXMLNode::UniformString( strAlbum );
@@ -729,7 +728,7 @@ BOOL CAlbumFolder::OrganiseFile(CLibraryFile* pFile)
 	}
 	else if ( CheckURI( m_sSchemaURI, CSchema::uriMusicAlbum ) )
 	{
-		if ( ! pFile->IsSchemaURI( CSchema::uriAudio ) ) return FALSE;
+		if ( ! pFile->m_pMetadata || ! pFile->IsSchemaURI( CSchema::uriAudio ) ) return FALSE;
 
 		CString strAlbum = pFile->m_pMetadata->GetAttributeValue( _T("album") );
 		CXMLNode::UniformString( strAlbum );
@@ -748,7 +747,7 @@ BOOL CAlbumFolder::OrganiseFile(CLibraryFile* pFile)
 	}
 	else if ( CheckURI( m_sSchemaURI, CSchema::uriMusicArtistCollection ) )
 	{
-		if ( ! pFile->IsSchemaURI( CSchema::uriAudio ) ) return FALSE;
+		if ( ! pFile->m_pMetadata || ! pFile->IsSchemaURI( CSchema::uriAudio ) ) return FALSE;
 
 		CString strArtist = pFile->m_pMetadata->GetAttributeValue( _T("artist") );
 		CXMLNode::UniformString( strArtist );
@@ -774,7 +773,7 @@ BOOL CAlbumFolder::OrganiseFile(CLibraryFile* pFile)
 	}
 	else if ( CheckURI( m_sSchemaURI, CSchema::uriMusicArtist ) )
 	{
-		if ( ! pFile->IsSchemaURI( CSchema::uriAudio ) ) return FALSE;
+		if ( ! pFile->m_pMetadata || ! pFile->IsSchemaURI( CSchema::uriAudio ) ) return FALSE;
 
 		CString strArtist = pFile->m_pMetadata->GetAttributeValue( _T("artist") );
 		CXMLNode::UniformString( strArtist );
@@ -787,7 +786,7 @@ BOOL CAlbumFolder::OrganiseFile(CLibraryFile* pFile)
 	}
 	else if ( CheckURI( m_sSchemaURI, CSchema::uriMusicGenreCollection ) )
 	{
-		if ( ! pFile->IsSchemaURI( CSchema::uriAudio ) ) return FALSE;
+		if ( ! pFile->m_pMetadata || ! pFile->IsSchemaURI( CSchema::uriAudio ) ) return FALSE;
 
 		CString strGenre = pFile->m_pMetadata->GetAttributeValue( _T("genre") );
 		if ( strGenre.IsEmpty() ) return FALSE;
@@ -810,7 +809,7 @@ BOOL CAlbumFolder::OrganiseFile(CLibraryFile* pFile)
 	}
 	else if ( CheckURI( m_sSchemaURI, CSchema::uriMusicGenre ) )
 	{
-		if ( ! pFile->IsSchemaURI( CSchema::uriAudio ) ) return FALSE;
+		if ( ! pFile->m_pMetadata || ! pFile->IsSchemaURI( CSchema::uriAudio ) ) return FALSE;
 
 		CString strGenre = pFile->m_pMetadata->GetAttributeValue( _T("genre") );
 		if ( strGenre.CompareNoCase( m_sName ) ) return FALSE;
@@ -832,7 +831,7 @@ BOOL CAlbumFolder::OrganiseFile(CLibraryFile* pFile)
 	}
 	else if ( CheckURI( m_sSchemaURI, CSchema::uriVideoSeriesCollection ) )
 	{
-		if ( ! pFile->IsSchemaURI( CSchema::uriVideo ) ) return FALSE;
+		if ( ! pFile->m_pMetadata || ! pFile->IsSchemaURI( CSchema::uriVideo ) ) return FALSE;
 
 		CString strSeries = pFile->m_pMetadata->GetAttributeValue( _T("series") );
 		CXMLNode::UniformString( strSeries );
@@ -927,7 +926,7 @@ BOOL CAlbumFolder::OrganiseFile(CLibraryFile* pFile)
 	}
 	else if ( CheckURI( m_sSchemaURI, CSchema::uriVideoSeries ) )
 	{
-		if ( ! pFile->IsSchemaURI( CSchema::uriVideo ) ) return FALSE;
+		if ( ! pFile->m_pMetadata || ! pFile->IsSchemaURI( CSchema::uriVideo ) ) return FALSE;
 
 		CString strSeries = pFile->m_pMetadata->GetAttributeValue( _T("series") );
 		CXMLNode::UniformString( strSeries );
@@ -940,7 +939,7 @@ BOOL CAlbumFolder::OrganiseFile(CLibraryFile* pFile)
 	}
 	else if ( CheckURI( m_sSchemaURI, CSchema::uriVideoFilmCollection ) )
 	{
-		if ( ! pFile->IsSchemaURI( CSchema::uriVideo ) ) return FALSE;
+		if ( ! pFile->m_pMetadata || ! pFile->IsSchemaURI( CSchema::uriVideo ) ) return FALSE;
 
 		CString strType = pFile->m_pMetadata->GetAttributeValue( _T("type") );
 		if ( strType.CompareNoCase( _T("film") ) ) return FALSE;
@@ -967,7 +966,7 @@ BOOL CAlbumFolder::OrganiseFile(CLibraryFile* pFile)
 	}
 	else if ( CheckURI( m_sSchemaURI, CSchema::uriVideoFilm ) )
 	{
-		if ( ! pFile->IsSchemaURI( CSchema::uriVideo ) ) return FALSE;
+		if ( ! pFile->m_pMetadata || ! pFile->IsSchemaURI( CSchema::uriVideo ) ) return FALSE;
 
 		CString strType = pFile->m_pMetadata->GetAttributeValue( _T("type") );
 		if ( strType.CompareNoCase( _T("film") ) ) return FALSE;
@@ -983,7 +982,7 @@ BOOL CAlbumFolder::OrganiseFile(CLibraryFile* pFile)
 	}
 	else if ( CheckURI( m_sSchemaURI, CSchema::uriVideoMusicCollection ) )
 	{
-		if ( ! pFile->IsSchemaURI( CSchema::uriVideo ) ) return FALSE;
+		if ( ! pFile->m_pMetadata || ! pFile->IsSchemaURI( CSchema::uriVideo ) ) return FALSE;
 
 		CString strType = pFile->m_pMetadata->GetAttributeValue( _T("type") );
 		if ( strType.CompareNoCase( _T("music video") ) ) return FALSE;
@@ -1018,7 +1017,6 @@ BOOL CAlbumFolder::OrganiseFile(CLibraryFile* pFile)
 		AddFile( pFile );
 		return TRUE;
 	}
-
 	else if ( CheckURI( m_sSchemaURI, CSchema::uriArchiveRoot ) )
 	{
 		if ( ! pFile->IsSchemaURI( CSchema::uriArchive ) ) return FALSE;
@@ -1029,7 +1027,6 @@ BOOL CAlbumFolder::OrganiseFile(CLibraryFile* pFile)
 		AddFile( pFile );
 		return TRUE;
 	}
-
 	else if ( CheckURI( m_sSchemaURI, CSchema::uriBookRoot ) )
 	{
 		if ( ! pFile->IsSchemaURI( CSchema::uriBook ) ) return FALSE;
@@ -1123,26 +1120,26 @@ void CAlbumFolder::Serialize(CArchive& ar, int nVersion)
 			m_pXML->Serialize( ar );
 		}
 
-		if ( nVersion > 19 )
-		{
+		//if ( nVersion > 19 )
+		//{
 			SerializeIn( ar, m_oCollSHA1, nVersion );
 			pCollection = LibraryMaps.LookupFileBySHA1( m_oCollSHA1, FALSE, TRUE );
 			// ToDo: Needs better validation.
-			// Some collections are bound to URIs which assign the whole library as one big collection.
-			if ( pCollection == NULL ||
-				 m_pSchema && ( m_pSchema->CheckURI( CSchema::uriAllFiles ) ||
-								m_pSchema->CheckURI( CSchema::uriGhostFolder ) ||
-								m_pSchema->CheckURI( CSchema::uriApplicationRoot ) ||
-								m_pSchema->CheckURI( CSchema::uriArchiveRoot ) ||
-								m_pSchema->CheckURI( CSchema::uriBookRoot ) ||
-								m_pSchema->CheckURI( CSchema::uriDocumentRoot ) ||
-								m_pSchema->CheckURI( CSchema::uriImageRoot ) ||
-								m_pSchema->CheckURI( CSchema::uriMusicRoot ) ||
-								m_pSchema->CheckURI( CSchema::uriVideoRoot ) ||
-								m_pSchema->CheckURI( CSchema::uriLibrary )
-							  ) )
+			// Some collections are bound to URIs that assign the whole library as one big collection.
+			if ( pCollection == NULL || m_pSchema &&
+					( m_pSchema->CheckURI( CSchema::uriAllFiles ) ||
+					  m_pSchema->CheckURI( CSchema::uriGhostFolder ) ||
+					  m_pSchema->CheckURI( CSchema::uriApplicationRoot ) ||
+					  m_pSchema->CheckURI( CSchema::uriArchiveRoot ) ||
+					  m_pSchema->CheckURI( CSchema::uriBookRoot ) ||
+					  m_pSchema->CheckURI( CSchema::uriDocumentRoot ) ||
+					  m_pSchema->CheckURI( CSchema::uriImageRoot ) ||
+					  m_pSchema->CheckURI( CSchema::uriMusicRoot ) ||
+					  m_pSchema->CheckURI( CSchema::uriVideoRoot ) ||
+					  m_pSchema->CheckURI( CSchema::uriLibrary )
+					) )
 				m_oCollSHA1.clear();
-		}
+		//}
 
 		if ( nVersion >= 24 )
 			SerializeIn( ar, m_oGUID, nVersion );
@@ -1151,7 +1148,7 @@ void CAlbumFolder::Serialize(CArchive& ar, int nVersion)
 		ar >> m_bExpanded;
 		ar >> m_bAutoDelete;
 
-		if ( nVersion > 9 )
+		//if ( nVersion > 9 )
 			ar >> m_sBestView;
 
 		DWORD_PTR nCount = ar.ReadCount();
@@ -1203,4 +1200,6 @@ void CAlbumFolder::Clear()
 
 	if ( m_pCollection != NULL ) delete m_pCollection;
 	m_pCollection = NULL;
+
+	m_nUpdateCookie++;
 }

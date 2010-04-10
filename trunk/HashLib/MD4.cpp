@@ -1,7 +1,7 @@
 //
-// MD4.cpp
+// MD4.cpp (ED2K)
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright RSA Data Security, 1990-1992.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -98,7 +98,7 @@ namespace
 
 	// F transformation
 	template< uint32 round >
-	void F(const uint32* data, uint32& a, uint32 b, uint32 c, uint32 d)
+	__forceinline void F(const uint32* data, uint32& a, uint32 b, uint32 c, uint32 d)
 	{
 		static const uint32 x = round;
 		static const uint8 s = S< 0, round % 4 >::value;
@@ -107,7 +107,7 @@ namespace
 	}
 	// G transformation
 	template< uint32 round >
-	void G(const uint32* data, uint32& a, uint32 b, uint32 c, uint32 d)
+	__forceinline void G(const uint32* data, uint32& a, uint32 b, uint32 c, uint32 d)
 	{
 		static const uint32 x = ( round % 4 ) * 4 + ( round / 4 );
 		static const uint8 s = S< 1, round % 4 >::value;
@@ -116,7 +116,7 @@ namespace
 	}
 	// H transformation
 	template< uint32 round >
-	void H(const uint32* data, uint32& a, uint32 b, uint32 c, uint32 d)
+	__forceinline void H(const uint32* data, uint32& a, uint32 b, uint32 c, uint32 d)
 	{
 		static const uint32 x = ( round % 2 ) * 8 + ( round / 2 % 2 ) * 4
 			+ ( round / 4 % 2 ) * 2 + ( round / 8 );

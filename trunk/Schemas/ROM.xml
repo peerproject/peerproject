@@ -37,8 +37,6 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<title language="en">ROM Image</title>
 		<title language="af">ROM / CD Afdruk</title>
 		<title language="ca">Imatge ROM</title>
-		<title language="zhs">ROM 镜像</title>
-		<title language="zht">ROM 影像</title>
 		<title language="cz">ROM Image</title>
 		<title language="de">ROM-Image</title>
 		<title language="ee">ROM Pilt</title>
@@ -61,6 +59,8 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<title language="sr">ROM Image</title>
 		<title language="sv">ROM-avbild</title>
 		<title language="tr">ROM Görüntü</title>
+		<title language="zhs">ROM 镜像</title>
+		<title language="zht">ROM 影像</title>
 	</titles>
 	<members>
 		<member name="title" search="generic">
@@ -68,8 +68,6 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="en">Title</title>
 			<title language="af">Titel</title>
 			<title language="ca">Títol</title>
-			<title language="zhs">标题</title>
-			<title language="zht">標題</title>
 			<title language="cz">Název</title>
 			<title language="de">Titel</title>
 			<title language="ee">Pealkiri</title>
@@ -82,6 +80,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="hu">Cím</title>
 			<title language="it">Titolo</title>
 			<title language="ja">タイトル</title>
+			<title language="ko">제목</title>
 			<title language="lt">Pavadinimas</title>
 			<title language="nl">Titel</title>
 			<title language="no">Tittel</title>
@@ -92,14 +91,14 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="sr">Naslov</title>
 			<title language="sv">Titel</title>
 			<title language="tr">Başlık</title>
+			<title language="zhs">标题</title>
+			<title language="zht">標題</title>
 		</member>
 		<member name="company" search="generic">
 			<display defaultColumn="true"/>
 			<title language="en">Company</title>
 			<title language="af">Maatskappy</title>
 			<title language="ca">Companyia</title>
-			<title language="zhs">公司</title>
-			<title language="zht">公司</title>
 			<title language="cz">Spolešnost</title>
 			<title language="de">Firma</title>
 			<title language="ee">Firma</title>
@@ -122,14 +121,14 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="sr">Proizvođač</title>
 			<title language="sv">Företag</title>
 			<title language="tr">Şirket</title>
+			<title language="zhs">公司</title>
+			<title language="zht">公司</title>
 		</member>
 		<member name="system">
 			<display defaultColumn="true"/>
 			<title language="en">System</title>
 			<title language="af">Stelsel</title>
 			<title language="ca">Sistema</title>
-			<title language="zhs">系统</title>
-			<title language="zht">系統</title>
 			<title language="cz">System</title>
 			<title language="de">System</title>
 			<title language="ee">Süsteem</title>
@@ -152,13 +151,13 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="sr">Sistem</title>
 			<title language="sv">System</title>
 			<title language="tr">Sistem</title>
+			<title language="zhs">系统</title>
+			<title language="zht">系統</title>
 		</member>
 		<member name="year">
 			<title language="en">Year</title>
 			<title language="af">Jaar</title>
 			<title language="ca">Any</title>
-			<title language="zhs">年份</title>
-			<title language="zht">年份</title>
 			<title language="cz">Rok</title>
 			<title language="de">Jahr</title>
 			<title language="ee">Aasta</title>
@@ -181,13 +180,13 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="sr">Godina</title>
 			<title language="sv">År</title>
 			<title language="tr">Yıl</title>
+			<title language="zhs">年份</title>
+			<title language="zht">年份</title>
 		</member>
 		<member name="type">
 			<title language="en">Type</title>
 			<title language="af">Tipe</title>
 			<title language="ca">Tipus</title>
-			<title language="zhs">类型</title>
-			<title language="zht">類型</title>
 			<title language="cz">Typ</title>
 			<title language="de">Art</title>
 			<title language="ee">Tüüp</title>
@@ -210,14 +209,14 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="sr">Vrsta</title>
 			<title language="sv">Typ</title>
 			<title language="tr">Tip</title>
+			<title language="zhs">类型</title>
+			<title language="zht">類型</title>
 		</member>
 		<member name="language" search="indexed">
 			<display defaultColumn="true"/>
 			<title language="en">Language</title>
 			<title language="af">Taal</title>
 			<title language="ca">Idioma</title>
-			<title language="zhs">语言</title>
-			<title language="zht">語言</title>
 			<title language="cz">Jazyk</title>
 			<title language="de">Sprache</title>
 			<title language="ee">Keel</title>
@@ -240,13 +239,13 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="sr">Jezik</title>
 			<title language="sv">Språk</title>
 			<title language="tr">Dil</title>
+			<title language="zhs">语言</title>
+			<title language="zht">語言</title>
 		</member>
 		<member name="rating">
 			<title language="en">Rating</title>
 			<title language="af">Gradering</title>
 			<title language="ca">Valoració</title>
-			<title language="zhs">分级</title>
-			<title language="zht">評價</title>
 			<title language="cz">Hodnocení</title>
 			<title language="de">FSK</title>
 			<title language="ee">Hinnang</title>
@@ -269,13 +268,13 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="sr">Ocena</title>
 			<title language="sv">Betyg</title>
 			<title language="tr">Değerlendirme</title>
+			<title language="zhs">分级</title>
+			<title language="zht">評價</title>
 		</member>
 		<member name="price">
 			<title language="en">Price</title>
 			<title language="af">Prys</title>
 			<title language="ca">Preu</title>
-			<title language="zhs">价格</title>
-			<title language="zht">價格</title>
 			<title language="cz">Cena</title>
 			<title language="de">Preis</title>
 			<title language="ee">Hind</title>
@@ -298,13 +297,13 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="sr">Cena</title>
 			<title language="sv">Pris</title>
 			<title language="tr">Fiyat</title>
+			<title language="zhs">价格</title>
+			<title language="zht">價格</title>
 		</member>
 		<member name="link">
 			<title language="en">Link</title>
 			<title language="af">Skakel</title>
 			<title language="ca">Enllaç</title>
-			<title language="zhs">链接</title>
-			<title language="zht">連結</title>
 			<title language="cz">Odkaz</title>
 			<title language="de">Link</title>
 			<title language="ee">Link</title>
@@ -327,13 +326,13 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="sr">Link</title>
 			<title language="sv">Länk</title>
 			<title language="tr">Bağlantı</title>
+			<title language="zhs">链接</title>
+			<title language="zht">連結</title>
 		</member>
 		<member name="comments">
 			<title language="en">Comments</title>
 			<title language="af">Kommentaar</title>
 			<title language="ca">Comentaris</title>
-			<title language="zhs">注释</title>
-			<title language="zht">注釋</title>
 			<title language="cz">Komentáře</title>
 			<title language="de">Kommentar</title>
 			<title language="ee">Arvamused</title>
@@ -356,6 +355,8 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="sr">Komentari</title>
 			<title language="sv">Kommentarer</title>
 			<title language="tr">Yorumlar</title>
+			<title language="zhs">注释</title>
+			<title language="zht">注釋</title>
 		</member>
 	</members>
 	<typeFilter>

@@ -61,6 +61,6 @@ protected:
 	DECLARE_MESSAGE_MAP()
 };
 
-// ToDo: Make Skinnable?  (HEADING_HEIGHT)
+// HEADING_HEIGHT  (ToDo: Make Skinnable?)
 #define BANNER_CX		600
 #define BANNER_CY		50

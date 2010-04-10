@@ -1,5 +1,5 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
+<?xml version="1.0" encoding="UTF-8"?>
+<skin xmlns="http://schemas.peerproject.org/Skin.xsd" version="1.0">
 
 <manifest
  name="SkinSeven.NoFrames"
@@ -7,6 +7,8 @@
  description="Windows 7 Theme, with System Default Frames"
  link="http://PeerProject.org"
  email="Contact(at)PeerProject.org"
+ license="Persistent Public Domain (PPD)"
+ platform="PeerProject 1.0"
  path="SkinVista"
  version="1.0"
  type="Skin"
@@ -23,9 +25,7 @@
   <option name="Navbar" offset="0,0"/>
   <option name="DropMenu" value="true"/>
   <option name="MenuBorders" value="false"/>
-<!--<option name="MenuGripper" value="false"/>-->
-<!--<option name="Toolbar" value="28"/>-->
-<!--<option name="Sidebar" value="200"/>-->
+  <option name="MonitorBar"  value="114"/>
 </options>
 
 <colorScheme>
@@ -150,6 +150,7 @@
   <watermark target="CWndTabBar" path="Seven\RibbonBaseline.png"/>
   <watermark target="CMonitorBar" path="Seven\RibbonMonitorBkg.png"/>
   <watermark target="CHashProgressBar" path="Seven\HashWnd.png"/>
+  <watermark target="CMainWndr" path="Seven\RibbonTabsBkg.png"/>
   <watermark target="CMainWnd.Toolbar" path="Seven\RibbonTabsBkg.png"/>
   <watermark target="CMediaFrame.Toolbar" path="Mediabar.png"/>
   <watermark target="CDownloadTabBar" path="DownloadgroupsToolbar.png"/>
@@ -426,7 +427,7 @@
 
 <commandImages>
 
- <icon id="IDI_UPDOWN_ARROW" path="UpDownArrow.ico" types="16" rtf="0"/>
+ <!--icon id="IDI_UPDOWN_ARROW" path="UpDownArrow.ico" types="16" rtf="0"-->
  <icon id="WINDOW_NEIGHBOURS" path="IconConnection.ico" types="16" rtf="0"/>
 
 <bitmap path="IconsMedia.png" mask="00FF00">
@@ -444,9 +445,7 @@
 
 </commandImages>
 
-
 <!-- END INTERFACE -->
-
 
 
 <!-- MULTILINGUAL NAVBARS -->
@@ -460,16 +459,13 @@
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
+<target window="CMainTabBarCtrl.Tabbed"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <parts>
  <part name="_ID_TAB_HOME.Up" rect="60,0,66,24"/>
  <part name="_ID_TAB_HOME.Checked" rect="60,24,66,24"/>
  <part name="_ID_TAB_HOME.Hover" rect="60,48,66,24"/>
  <part name="_ID_TAB_HOME.Down" rect="60,72,66,24"/>
- <part name="_ID_TAB_SEARCH.Up" rect="60,0,66,24"/>
- <part name="_ID_TAB_SEARCH.Checked" rect="60,24,66,24"/>
- <part name="_ID_TAB_SEARCH.Hover" rect="60,48,66,24"/>
- <part name="_ID_TAB_SEARCH.Down" rect="60,72,66,24"/>
  <part name="_ID_TAB_TRANSFERS.Up" rect="126,0,74,24"/>
  <part name="_ID_TAB_TRANSFERS.Checked" rect="126,24,74,24"/>
  <part name="_ID_TAB_TRANSFERS.Hover" rect="126,48,74,24"/>
@@ -490,16 +486,20 @@
  <part name="_ID_TAB_IRC.Checked" rect="0,24,60,24"/>
  <part name="_ID_TAB_IRC.Hover" rect="0,48,60,24"/>
  <part name="_ID_TAB_IRC.Down" rect="0,72,60,24"/>
+ <part name="_ID_TAB_SEARCH.Up" rect="60,0,66,24"/>
+ <part name="_ID_TAB_SEARCH.Checked" rect="60,24,66,24"/>
+ <part name="_ID_TAB_SEARCH.Hover" rect="60,48,66,24"/>
+ <part name="_ID_TAB_SEARCH.Down" rect="60,72,66,24"/>
 </parts>
 <anchors>
- <anchor name="Background" rect="0,0,486,28"/>
+ <anchor name="Background" rect="0,0,484,28"/>
  <anchor name="_ID_TAB_HOME" rect="6,2,66,24"/>
- <anchor name="_ID_TAB_SEARCH" rect="72,2,66,24"/>
- <anchor name="_ID_TAB_TRANSFERS" rect="138,2,74,24"/>
- <anchor name="_ID_TAB_NETWORK" rect="213,2,74,24"/>
- <anchor name="_ID_TAB_LIBRARY" rect="287,2,66,24"/>
- <anchor name="_ID_TAB_MEDIA" rect="353,2,66,24"/>
- <anchor name="_ID_TAB_IRC" rect="419,2,60,24"/>
+ <anchor name="_ID_TAB_TRANSFERS" rect="72,2,74,24"/>
+ <anchor name="_ID_TAB_NETWORK" rect="146,2,74,24"/>
+ <anchor name="_ID_TAB_LIBRARY" rect="220,2,66,24"/>
+ <anchor name="_ID_TAB_MEDIA" rect="286,2,66,24"/>
+ <anchor name="_ID_TAB_IRC" rect="352,2,60,24"/>
+ <anchor name="_ID_TAB_SEARCH" rect="412,2,66,24"/>
 </anchors>
 </windowSkin>
 

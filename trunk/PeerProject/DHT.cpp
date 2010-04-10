@@ -1,7 +1,7 @@
 //
 // DHT.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -44,8 +44,8 @@ CDHT DHT;
 
 BOOL CDHT::OnPacket(SOCKADDR_IN* pHost, const CBENode* pRoot)
 {
-	// TODO: SmartDump( pHost, TRUE, FALSE );
-	theApp.Message( MSG_DEBUG, _T("Recieved UDP BitTorrent packet from %s: %s"),
+	// ToDo: SmartDump( pHost, TRUE, FALSE );
+	theApp.Message( MSG_DEBUG | MSG_FACILITY_INCOMING, _T("DHT: Recieved UDP BitTorrent packet from %s: %s"),
 		(LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ), (LPCTSTR)pRoot->Encode() );
 
 	CQuickLock oLock( m_pSection );
@@ -58,7 +58,6 @@ BOOL CDHT::OnPacket(SOCKADDR_IN* pHost, const CBENode* pRoot)
 	if ( ! pCache )
 		return FALSE;
 	pCache->m_bDHT = TRUE;
-	pCache->m_tAck = 0;
 	pCache->m_tFailure = 0;
 	pCache->m_nFailures = 0;
 	pCache->m_bCheckedLocally = TRUE;
@@ -108,15 +107,15 @@ BOOL CDHT::OnPacket(SOCKADDR_IN* pHost, const CBENode* pRoot)
 					}
 					else if ( pQueryMethod->GetString() == "find_node" )
 					{
-						// TODO: Find node
+						// ToDo: Find node
 					}
 					else if ( pQueryMethod->GetString() == "get_peers" )
 					{
-						// TODO: Get peers
+						// ToDo: Get peers
 					}
 					else if ( pQueryMethod->GetString() == "announce_peer" )
 					{
-						// TODO: Announce peer
+						// ToDo: Announce peer
 					}
 					// else if ( pQueryMethod->GetString() == "error" ) - ???
 					// else Reply: "204 Method Unknown"
@@ -138,7 +137,7 @@ BOOL CDHT::OnPacket(SOCKADDR_IN* pHost, const CBENode* pRoot)
 						pCache->m_oBtGUID = oNodeGUID;
 						pCache->m_sDescription = oNodeGUID.toString();
 
-						// TODO: Check queries pool for pTransID
+						// ToDo: Check queries pool for pTransID
 
 						// Save access token
 						CBENode* pToken = pResponse->GetNode( "token" );
@@ -164,7 +163,7 @@ BOOL CDHT::OnPacket(SOCKADDR_IN* pHost, const CBENode* pRoot)
 			}
 			else if ( pType->GetString() == "e" )
 			{
-				// TODO: Error message
+				// ToDo: Error message
 				CBENode* pError = pRoot->GetNode( "e" );
 				if ( pError && pError->IsType( CBENode::beList ) )
 				{
@@ -174,30 +173,29 @@ BOOL CDHT::OnPacket(SOCKADDR_IN* pHost, const CBENode* pRoot)
 	}
 
 	if ( bHandled )
-	{
 		return TRUE;
-	}
-	// else reply "203 Protocol Error"
+	//else
+		// Reply "203 Protocol Error"
 
 	return FALSE;
 }
 
-/*BOOL CDHT::Ping(SOCKADDR_IN* pHost)
-{
-	CBENode pPing;
-	CBENode* pPingData = pPing.Add( "a" );
-	Hashes::BtGuid oMyGUID( MyProfile.oGUIDBT );
-	pPingData->Add( "id" )->SetString( &oMyGUID[0], oMyGUID.byteCount );
-	pPing.Add( "y" )->SetString( "q" );
-	pPing.Add( "t" )->SetString( "1234" ); // TODO
-	pPing.Add( "q" )->SetString( "ping" );
-	pPing.Add( "v" )->SetString( theApp.m_pBTVersion, 4 );
-	CBuffer pOutput;
-	pPing.Encode( &pOutput );
-	theApp.Message( MSG_DEBUG, _T("UDP: Sent BitTorrent ping packet to %s: %s"),
-		(LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ), (LPCTSTR)pPing.Encode() );
-	return Datagrams.Send( pHost, pOutput );
-}*/
+//BOOL CDHT::Ping(SOCKADDR_IN* pHost)
+//{
+//	CBENode pPing;
+//	CBENode* pPingData = pPing.Add( "a" );
+//	Hashes::BtGuid oMyGUID( MyProfile.oGUIDBT );
+//	pPingData->Add( "id" )->SetString( &oMyGUID[0], oMyGUID.byteCount );
+//	pPing.Add( "y" )->SetString( "q" );
+//	pPing.Add( "t" )->SetString( "1234" ); // TODO
+//	pPing.Add( "q" )->SetString( "ping" );
+//	pPing.Add( "v" )->SetString( theApp.m_pBTVersion, 4 );
+//	CBuffer pOutput;
+//	pPing.Encode( &pOutput );
+//	theApp.Message( MSG_DEBUG, _T("UDP: Sent BitTorrent ping packet to %s: %s"),
+//		(LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ), (LPCTSTR)pPing.Encode() );
+//	return Datagrams.Send( pHost, pOutput );
+//}
 
 BOOL CDHT::Pong(SOCKADDR_IN* pHost, LPCSTR szTransID, size_t nTransIDLength)
 {
@@ -210,24 +208,24 @@ BOOL CDHT::Pong(SOCKADDR_IN* pHost, LPCSTR szTransID, size_t nTransIDLength)
 	pPong.Add( "v" )->SetString( theApp.m_pBTVersion, 4 );
 	CBuffer pOutput;
 	pPong.Encode( &pOutput );
-	theApp.Message( MSG_DEBUG, _T("UDP: Sent BitTorrent pong packet to %s: %s"),
+	theApp.Message( MSG_DEBUG | MSG_FACILITY_OUTGOING, _T("DHT: Sent UDP BitTorrent pong packet to %s: %s"),
 		(LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ), (LPCTSTR)pPong.Encode() );
 	return Datagrams.Send( pHost, pOutput );
 }
 
-/*BOOL CDHT::GetPeers(SOCKADDR_IN* pHost, const Hashes::BtGuid& oNodeGUID, const Hashes::BtHash& oGUID)
-{
-	CBENode pGetPeers;
-	CBENode* pGetPeersData = pGetPeers.Add( "a" );
-	pGetPeersData->Add( "id" )->SetString( &oNodeGUID[0], oNodeGUID.byteCount );
-	pGetPeersData->Add( "info_hash" )->SetString( &oGUID[0], oGUID.byteCount );
-	pGetPeers.Add( "y" )->SetString( "q" );
-	pGetPeers.Add( "t" )->SetString( "4567" ); // TODO
-	pGetPeers.Add( "q" )->SetString( "get_peers" );
-	pGetPeers.Add( "v" )->SetString( theApp.m_pBTVersion, 4 );
-	CBuffer pOutput;
-	pGetPeers.Encode( &pOutput );
-	theApp.Message( MSG_DEBUG, _T("UDP: Sent BitTorrent get peers packet to %s: %s"),
-		(LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ), (LPCTSTR)pGetPeers.Encode() );
-	return Datagrams.Send( pHost, pOutput );
-}*/
+//BOOL CDHT::GetPeers(SOCKADDR_IN* pHost, const Hashes::BtGuid& oNodeGUID, const Hashes::BtHash& oGUID)
+//{
+//	CBENode pGetPeers;
+//	CBENode* pGetPeersData = pGetPeers.Add( "a" );
+//	pGetPeersData->Add( "id" )->SetString( &oNodeGUID[0], oNodeGUID.byteCount );
+//	pGetPeersData->Add( "info_hash" )->SetString( &oGUID[0], oGUID.byteCount );
+//	pGetPeers.Add( "y" )->SetString( "q" );
+//	pGetPeers.Add( "t" )->SetString( "4567" ); // TODO
+//	pGetPeers.Add( "q" )->SetString( "get_peers" );
+//	pGetPeers.Add( "v" )->SetString( theApp.m_pBTVersion, 4 );
+//	CBuffer pOutput;
+//	pGetPeers.Encode( &pOutput );
+//	theApp.Message( MSG_DEBUG, _T("UDP: Sent BitTorrent get peers packet to %s: %s"),
+//		(LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ), (LPCTSTR)pGetPeers.Encode() );
+//	return Datagrams.Send( pHost, pOutput );
+//}

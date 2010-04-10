@@ -1,7 +1,7 @@
 //
 // PeerProjectDataSource.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -76,7 +76,7 @@ protected:
 		FORMATETC					fe;
 		STGMEDIUM					stgm;
 	} DATAENTRY, *LPDATAENTRY;
-	
+
 	template < typename T > class THREADDATA
 	{
 	public:
@@ -201,7 +201,8 @@ public:\
 		METHOD_PROLOGUE( class_name, DropTarget ) \
 		DumpIDataObject( pDataObj ); \
 		m_pDataObj = pDataObj; \
-		m_spdth.CoCreateInstance( CLSID_DragDropHelper ); \
+		HRESULT hr = m_spdth.CoCreateInstance( CLSID_DragDropHelper ); \
+		if ( FAILED( hr ) ) return hr; \
 		POINT point = { ptl.x, ptl.y }; \
 		if ( ! pThis->OnDrop( m_pDataObj, grfKeyState, point, pdwEffect, FALSE ) ) \
 			*pdwEffect = DROPEFFECT_NONE; \
@@ -214,7 +215,7 @@ public:\
 		POINT point = { ptl.x, ptl.y }; \
 		if ( ! pThis->OnDrop( m_pDataObj, grfKeyState, point, pdwEffect, FALSE ) ) \
 			*pdwEffect = DROPEFFECT_NONE; \
-		if (m_spdth) m_spdth->DragOver( &point, *pdwEffect ); \
+		if ( m_spdth ) m_spdth->DragOver( &point, *pdwEffect ); \
 		return S_OK; \
 	} \
 	STDMETHODIMP class_name::XDropTarget::DragLeave() \

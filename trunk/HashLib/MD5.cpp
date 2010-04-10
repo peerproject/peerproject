@@ -1,7 +1,7 @@
 //
 // MD5.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright RSA Data Security, 1991-1992.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -99,7 +99,7 @@ namespace
 
 	// F transformation
 	template< uint32 round, uint32 magic >
-	void F(const uint32* data, uint32& a, uint32 b, uint32 c, uint32 d)
+	__forceinline void F(const uint32* data, uint32& a, uint32 b, uint32 c, uint32 d)
 	{
 		static const uint32 x = round;
 		static const uint32 s = S< 0, round % 4 >::value;
@@ -108,7 +108,7 @@ namespace
 	}
 	// G transformation
 	template< uint32 round, uint32 magic >
-	void G(const uint32* data, uint32& a, uint32 b, uint32 c, uint32 d)
+	__forceinline void G(const uint32* data, uint32& a, uint32 b, uint32 c, uint32 d)
 	{
 		static const uint32 x = ( 1 + ( round & 3 ) * 5 + ( round & 12 ) ) & 15;
 		static const uint32 s = S< 1, round % 4 >::value;
@@ -117,7 +117,7 @@ namespace
 	}
 	// H transformation
 	template< uint32 round, uint32 magic >
-	void H(const uint32* data, uint32& a, uint32 b, uint32 c, uint32 d)
+	__forceinline void H(const uint32* data, uint32& a, uint32 b, uint32 c, uint32 d)
 	{
 		static const uint32 x = ( 5 + ( round & 7 ) * 3 + ( round & 8 ) ) & 15;
 		static const uint32 s = S< 2, round % 4 >::value;
@@ -126,7 +126,7 @@ namespace
 	}
 	// I transformation
 	template< uint32 round, uint32 magic >
-	void I(const uint32* data, uint32& a, uint32 b, uint32 c, uint32 d)
+	__forceinline void I(const uint32* data, uint32& a, uint32 b, uint32 c, uint32 d)
 	{
 		static const uint32 x = ( ( round & 3 ) * 7 + ( round & 4 ) * 3 + ( round & 8 ) ) & 15;
 		static const uint32 s = S< 3, round % 4 >::value;

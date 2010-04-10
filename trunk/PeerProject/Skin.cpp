@@ -1,7 +1,7 @@
 //
 // Skin.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -582,7 +582,6 @@ BOOL CSkin::LoadOptions(CXMLElement* pBase)
 	{
 		CXMLElement* pXML = pBase->GetNextElement( pos );
 
-
 		if ( pXML->IsNamed( _T("option") ) )
 		{
 			CString strName		= pXML->GetAttributeValue( _T("name") );
@@ -590,115 +589,138 @@ BOOL CSkin::LoadOptions(CXMLElement* pBase)
 			CString strHeight	= pXML->GetAttributeValue( _T("height") );
 			CString strWidth	= pXML->GetAttributeValue( _T("width") );
 
-			if ( strName.CompareNoCase( _T("navbar") ) == 0 )
+			ToLower( strName );
+			ToLower( strValue );
+			ToLower( strHeight );
+			ToLower( strWidth );
+
+			// ToDo: Confirm if this switch is any better than typical elseif sequence
+			std::map< const CString, char > OptionName;
+
+			OptionName[ "navbar" ]		= 'n';
+			OptionName[ "dropmenu" ]	= 'd';
+			OptionName[ "submenu" ]		= 'd';
+			OptionName[ "menuborders" ]	= 'm';
+			OptionName[ "menubarbevel" ] = 'm';
+			OptionName[ "menugripper" ]	= 'p';
+			OptionName[ "grippers" ]	= 'p';
+			OptionName[ "toolbar" ]		= 't';
+			OptionName[ "toolbars" ]	= 't';
+			OptionName[ "taskbar" ]		= 'k';
+			OptionName[ "tabbar" ]		= 'k';
+			OptionName[ "sidebar" ]		= 's';
+			OptionName[ "sidepanel" ]	= 's';
+			OptionName[ "titlebar" ]	= 'h';
+			OptionName[ "headerpanel" ]	= 'h';
+			OptionName[ "groupsbar" ]	= 'g';
+			OptionName[ "downloadgroups" ] = 'g';
+			OptionName[ "monitorbar" ]	= 'o';
+			OptionName[ "bandwidth" ]	= 'o';
+			OptionName[ "dragbar" ]		= 'r';
+			OptionName[ "splitter" ]	= 'r';
+			OptionName[ "icongrid" ]	= 'l';
+			OptionName[ "librarytiles" ] = 'i';
+
+			switch( OptionName[ strName ] )
 			{
+			case 'n':	// "navbar"
 				if ( ! LoadNavBar( pXML ) )
 					theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Skin Option [Navbar] Failed"), pXML->ToString() );
-			}
-			else if ( strName.CompareNoCase( _T("dropmenu") ) == 0|| strName.CompareNoCase( _T("submenu") ) == 0 )
-			{
-				if ( strValue.CompareNoCase( _T("true") ) == 0 )
+				break;
+			case 'd':	// "dropmenu" or "submenu"
+				if ( strValue == _T("true") )
 					m_bDropMenu = TRUE;
-				else if ( strValue.CompareNoCase( _T("false") ) == 0 )
+				else if ( strValue == _T("false") )
 					m_bDropMenu = FALSE;
-				else if ( strValue.CompareNoCase( _T("1") ) == 0 )
+				else if ( strValue == _T("on") )
 					m_bDropMenu = TRUE;
-				else if ( strValue.CompareNoCase( _T("0") ) == 0 )
+				else if ( strValue == _T("off") )
 					m_bDropMenu = FALSE;
-				else if ( strValue.CompareNoCase( _T("on") ) == 0 )
+				else if ( strValue == _T("1") )
 					m_bDropMenu = TRUE;
-				else if ( strValue.CompareNoCase( _T("off") ) == 0 )
+				else if ( strValue == _T("0") )
 					m_bDropMenu = FALSE;
-			}
-			else if ( strName.CompareNoCase( _T("menuborders") ) == 0 || strName.CompareNoCase( _T("menubarbevel") ) == 0 )
-			{
-				if ( strValue.CompareNoCase( _T("true") ) == 0 )
+				break;
+			case 'm':	// "menuborders" or "menubarbevel"
+				if ( strValue == _T("true") )
 					m_bMenuBorders = TRUE;
-				else if ( strValue.CompareNoCase( _T("false") ) == 0 )
+				else if ( strValue == _T("false") )
 					m_bMenuBorders = FALSE;
-				else if ( strValue.CompareNoCase( _T("1") ) == 0 )
+				else if ( strValue == _T("on") )
 					m_bMenuBorders = TRUE;
-				else if ( strValue.CompareNoCase( _T("0") ) == 0 )
+				else if ( strValue == _T("off") )
 					m_bMenuBorders = FALSE;
-				else if ( strValue.CompareNoCase( _T("on") ) == 0 )
+				else if ( strValue == _T("1") )
 					m_bMenuBorders = TRUE;
-				else if ( strValue.CompareNoCase( _T("off") ) == 0 )
+				else if ( strValue == _T("0") )
 					m_bMenuBorders = FALSE;
-			}
-			else if ( strName.CompareNoCase( _T("menugripper") ) == 0 || strName.CompareNoCase( _T("grippers") ) == 0 )
-			{
-				if ( strValue.CompareNoCase( _T("true") ) == 0 )
+				break;
+			case 'p':	// "menugripper" or "grippers"
+				if ( strValue == _T("true") )
 					m_bMenuGripper = TRUE;
-				else if ( strValue.CompareNoCase( _T("false") ) == 0 )
+				else if ( strValue == _T("false") )
 					m_bMenuGripper = FALSE;
-				else if ( strValue.CompareNoCase( _T("1") ) == 0 )
+				else if ( strValue == _T("on") )
 					m_bMenuGripper = TRUE;
-				else if ( strValue.CompareNoCase( _T("0") ) == 0 )
+				else if ( strValue == _T("off") )
 					m_bMenuGripper = FALSE;
-				else if ( strValue.CompareNoCase( _T("on") ) == 0 )
+				else if ( strValue == _T("1") )
 					m_bMenuGripper = TRUE;
-				else if ( strValue.CompareNoCase( _T("off") ) == 0 )
+				else if ( strValue == _T("0") )
 					m_bMenuGripper = FALSE;
-			}
-			else if ( strName.CompareNoCase( _T("toolbar") ) == 0 || strName.CompareNoCase( _T("toolbars") ) == 0 )
-			{
+				break;
+			case 't':	// "toolbar" or "toolbars"
 				if ( strHeight.GetLength() )
 					m_nToolbarHeight = _wtoi(strHeight);
 				else if ( strValue.GetLength() )
 					m_nToolbarHeight = _wtoi(strValue);
-			}
-			else if ( strName.CompareNoCase( _T("taskbar") ) == 0 || strName.CompareNoCase( _T("tabbar") ) == 0 )
-			{
+				break;
+			case 'k':	// "taskbar" or "tabbar"
 				if ( strWidth.GetLength() )
 					m_nTaskbarTabWidth = _wtoi(strWidth);
 				if ( strHeight.GetLength() )
 					m_nTaskbarHeight = _wtoi(strHeight);
 				else if ( strValue.GetLength() )
 					m_nTaskbarHeight = _wtoi(strValue);
-			}
-			else if ( strName.CompareNoCase( _T("sidebar") ) == 0 || strName.CompareNoCase( _T("sidepanel") ) == 0 )
-			{
+				break;
+			case 's':	// "sidebar" or "sidepanel"
 				if ( strWidth.GetLength() )
 					m_nSidebarWidth = _wtoi(strWidth);
 				else if ( strValue.GetLength() )
 					m_nSidebarWidth = _wtoi(strValue);
-			}
-			else if ( strName.CompareNoCase( _T("titlebar") ) == 0 || strName.CompareNoCase( _T("headerpanel") ) == 0 )
-			{
+				break;
+			case 'h':	// "titlebar" or "headerpanel"
 				if ( strHeight.GetLength() )
 					m_nHeaderbarHeight = _wtoi(strHeight);
 				else if ( strValue.GetLength() )
 					m_nHeaderbarHeight = _wtoi(strValue);
-			}
-			else if ( strName.CompareNoCase( _T("groupsbar") ) == 0 || strName.CompareNoCase( _T("downloadgroups") ) == 0 )
-			{
+				break;
+			case 'g':	// "groupsbar" or "downloadgroups"
 				if ( strHeight.GetLength() )
 					m_nGroupsbarHeight = _wtoi(strHeight);
 				else if ( strValue.GetLength() )
 					m_nGroupsbarHeight = _wtoi(strValue);
-			}
-			else if ( strName.CompareNoCase( _T("monitorbar") ) == 0 || strName.CompareNoCase( _T("bandwidthbar") ) == 0 )
-			{
+				break;
+			case 'o':	// "monitorbar" or "bandwidthbar"
 				if ( strWidth.GetLength() )
 					m_nMonitorbarWidth = _wtoi(strWidth);
 				else if ( strValue.GetLength() )
 					m_nMonitorbarWidth = _wtoi(strValue);
-			}
-			else if ( strName.CompareNoCase( _T("dragbar") ) == 0 || strName.CompareNoCase( _T("splitter") ) == 0 )
-			{
+				break;
+			case 'r':	// "dragbar" or "splitter"
 				if ( strWidth.GetLength() )
 					m_nSplitter = _wtoi(strWidth);
 				else if ( strValue.GetLength() )
 					m_nSplitter = _wtoi(strValue);
-			}
-			else if ( strName.CompareNoCase( _T("icongrid") ) == 0 || strName.CompareNoCase( _T("librarytiles") ) == 0 )
-			{
+				break;
+			case 'i':	// "icongrid" or "librarytiles"
 				if ( strHeight.GetLength() )
 					m_nLibIconsY = _wtoi(strHeight);
 				if ( strWidth.GetLength() )
 					m_nLibIconsX = _wtoi(strWidth);
 				else if ( strValue.GetLength() )
 					m_nLibIconsX = _wtoi(strValue);
+				break;
 			}
 		}
 		else
@@ -2111,7 +2133,7 @@ BOOL CSkin::LoadCommandIcon(CXMLElement* pXML, const CString& strPath)
 	{
 		theApp.Message( MSG_ERROR, IDS_SKIN_ERROR,
 			_T("Unknown [id] attribute in [icon] element"), pXML->ToString() );
-		return FALSE;
+		return TRUE;	// Skip icon and load remaining skin
 	}
 
 	// Is this a RTL-enabled icon? (default: "0" - no)
@@ -2229,12 +2251,12 @@ BOOL CSkin::LoadCommandBitmap(CXMLElement* pBase, const CString& strPath)
 //////////////////////////////////////////////////////////////////////
 // CSkin popup menu helper
 
-UINT_PTR CSkin::TrackPopupMenu(LPCTSTR pszMenu, const CPoint& point,
-	UINT nDefaultID, UINT nFlags, const CStringList& oFiles, CWnd* pWnd) const
+void CSkin::TrackPopupMenu(LPCTSTR pszMenu, const CPoint& point,
+	UINT nDefaultID, const CStringList& oFiles, CWnd* pWnd) const
 {
 	CMenu* pPopup = GetMenu( pszMenu );
 	if ( pPopup == NULL )
-		return 0;
+		return;
 
 	if ( nDefaultID != 0 )
 		pPopup->SetDefaultItem( nDefaultID );
@@ -2248,30 +2270,29 @@ UINT_PTR CSkin::TrackPopupMenu(LPCTSTR pszMenu, const CPoint& point,
 		pInfo.fState = MFS_ENABLED;
 		HMENU hSubMenu = pInfo.hSubMenu = ::CreatePopupMenu();
 		ASSERT( hSubMenu );
-		if( pPopup->SetMenuItemInfo( ID_SHELL_MENU, &pInfo ) )
+		if ( pPopup->SetMenuItemInfo( ID_SHELL_MENU, &pInfo ) )
 		{
-			UINT_PTR nCmd = CoolMenu.DoExplorerMenu( pWnd->GetSafeHwnd(), oFiles,
+			CoolMenu.DoExplorerMenu( pWnd->GetSafeHwnd(), oFiles,
 				point, pPopup->GetSafeHmenu(), pInfo.hSubMenu,
-				TPM_LEFTALIGN | TPM_LEFTBUTTON | TPM_RIGHTBUTTON | nFlags );
+				TPM_LEFTALIGN | TPM_LEFTBUTTON | TPM_RIGHTBUTTON );
 
 			// Change ID_SHELL_MENU back
 			pInfo.hSubMenu = NULL;
 			VERIFY( pPopup->SetMenuItemInfo( ID_SHELL_MENU, &pInfo ) );
 
-			return nCmd;
+			return;
 		}
 		VERIFY( DestroyMenu( hSubMenu ) );
 	}
 
 	__try	// Fix for strange TrackPopupMenu crash inside GUI
 	{
-		return pPopup->TrackPopupMenu(
-			TPM_LEFTALIGN | TPM_LEFTBUTTON | TPM_RIGHTBUTTON | nFlags,
+		pPopup->TrackPopupMenu(
+			TPM_LEFTALIGN | TPM_LEFTBUTTON | TPM_RIGHTBUTTON,
 			point.x, point.y, pWnd );
 	}
 	__except( EXCEPTION_EXECUTE_HANDLER )
 	{
-		return 0;
 	}
 }
 
@@ -2350,7 +2371,7 @@ int CSkin::GetTextFlowChange(LPCTSTR pszText, BOOL* bIsRTL)
 
 void CSkin::DrawWrappedText(CDC* pDC, CRect* pBox, LPCTSTR pszText, CPoint ptStart, BOOL bExclude)
 {
-	// TODO: Wrap mixed text in RTL and LTR layouts correctly
+	// ToDo: Wrap mixed text in RTL and LTR layouts correctly
 
 	if ( pszText == NULL ) return;
 	if ( ptStart.x == 0 && ptStart.y == 0 ) ptStart = pBox->TopLeft();

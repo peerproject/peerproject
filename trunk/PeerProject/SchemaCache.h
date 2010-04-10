@@ -60,7 +60,7 @@ public:
 	{
 		if ( ! pszURI || ! *pszURI ) return NULL;
 		CString strURI( pszURI );
-		ToLower( strURI );
+		strURI.MakeLower();
 
 		CSchemaPtr pSchema = NULL;
 		return ( m_pURIs.Lookup( strURI, pSchema ) ) ? pSchema : NULL;
@@ -70,14 +70,14 @@ public:
 	{
 		if ( ! pszName || ! *pszName ) return NULL;
 		CString strName( pszName );
-		ToLower( strName );
+		strName.MakeLower();
 
 		CSchemaPtr pSchema = NULL;
 
 		// A quick hack for Limewire documents schema
 		// ToDo: Remove it when the full schema mapping is ready
-		if ( strName == L"document" )
-			return m_pNames.Lookup( L"wordprocessing", pSchema ) ? pSchema : NULL;
+		//if ( strName == L"document" )
+		//	return m_pNames.Lookup( L"wordprocessing", pSchema ) ? pSchema : NULL;
 
 		return m_pNames.Lookup( strName, pSchema ) ? pSchema : NULL;
 	}

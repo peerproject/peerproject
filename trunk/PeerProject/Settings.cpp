@@ -108,7 +108,6 @@ void CSettings::Load()
 	Add( _T("Settings"), _T("LastSettingsIndex"), &General.LastSettingsIndex, 0 );
 	Add( _T("Settings"), _T("RatesInBytes"), &General.RatesInBytes, true );
 	Add( _T("Settings"), _T("RatesUnit"), &General.RatesUnit, 2, 1, 0, 3 );
-	Add( _T("Settings"), _T("RefreshRate"), &General.RefreshRate, 1000, 1, 100, 60000, _T(" ms") );
 	Add( _T("Settings"), _T("Running"), &General.Running, false, true );
 	Add( _T("Settings"), _T("ShowTimestamp"), &General.ShowTimestamp, true );
 	Add( _T("Settings"), _T("SizeLists"), &General.SizeLists, false );
@@ -130,8 +129,10 @@ void CSettings::Load()
 	Add( _T("Interface"), _T("AutoComplete"), &Interface.AutoComplete, true );
 	Add( _T("Interface"), _T("CoolMenuEnable"), &Interface.CoolMenuEnable, true );
 	Add( _T("Interface"), _T("LowResMode"), &Interface.LowResMode, false );
-	Add( _T("Interface"), _T("TipAlpha"), &Interface.TipAlpha, 220, 1, 50, 255 );
+	Add( _T("Interface"), _T("RefreshRateGraph"), &Interface.RefreshRateGraph, 72, 1, 10, 60000, _T(" ms") );	// 30sec display areas
+	Add( _T("Interface"), _T("RefreshRateText"), &Interface.RefreshRateText, 650, 1, 10, 10000, _T(" ms") );	// 3x per 2 sec.
 	Add( _T("Interface"), _T("TipDelay"), &Interface.TipDelay, 500, 1, 100, 5000, _T(" ms") );
+	Add( _T("Interface"), _T("TipAlpha"), &Interface.TipAlpha, 220, 1, 50, 255 );
 	Add( _T("Interface"), _T("TipDownloads"), &Interface.TipDownloads, true );
 	Add( _T("Interface"), _T("TipUploads"), &Interface.TipUploads, true );
 	Add( _T("Interface"), _T("TipLibrary"), &Interface.TipLibrary, true );
@@ -152,13 +153,13 @@ void CSettings::Load()
 	Add( _T("Fonts"), _T("PacketDumpFont"), &Fonts.PacketDumpFont, _T("Lucida Console") );
 	Add( _T("Fonts"), _T("FontSize"), &Fonts.FontSize, 11 );
 
-	Add( _T("Library"), _T("CreateGhosts"), &Library.CreateGhosts, false );
+	Add( _T("Library"), _T("CreateGhosts"), &Library.CreateGhosts, true );
 	Add( _T("Library"), _T("FilterURI"), &Library.FilterURI );
 	Add( _T("Library"), _T("HashWindow"), &Library.HashWindow, true );
 	Add( _T("Library"), _T("HighPriorityHash"), &Library.HighPriorityHash, true );
 	Add( _T("Library"), _T("HighPriorityHashing"), &Library.HighPriorityHashing, 24, 1, 2, 100, _T(" MB/s") );
-	Add( _T("Library"), _T("HistoryDays"), &Library.HistoryDays, 5, 1, 0, 365, _T(" d") );
-	Add( _T("Library"), _T("HistoryTotal"), &Library.HistoryTotal, 32, 1, 0, 100, _T(" files") );
+	Add( _T("Library"), _T("HistoryDays"), &Library.HistoryDays, 10, 1, 0, 365, _T(" d") );
+	Add( _T("Library"), _T("HistoryTotal"), &Library.HistoryTotal, 36, 1, 0, 120, _T(" files") );
 	Add( _T("Library"), _T("LastUsedView"), &Library.LastUsedView );
 	Add( _T("Library"), _T("LowPriorityHashing"), &Library.LowPriorityHashing, 4, 1, 1, 50, _T(" MB/s") );
 	Add( _T("Library"), _T("MarkFileAsDownload"), &Library.MarkFileAsDownload, true );

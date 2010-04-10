@@ -35,8 +35,8 @@ static char THIS_FILE[]=__FILE__;
 // CXMLNode construction
 
 CXMLNode::CXMLNode(CXMLElement* pParent, LPCTSTR pszName)
-	: m_nNode		( xmlNode )
-	, m_pParent		( pParent )
+	: m_nNode	( xmlNode )
+	, m_pParent	( pParent )
 {
 	if ( pszName )
 	{
@@ -93,8 +93,7 @@ BOOL CXMLNode::ParseIdentifier(LPCTSTR& pszBase, CString& strIdentifier)
 		pszXML++;
 		nParse++;
 	}
-	if ( ! *pszXML )
-		return FALSE;
+	if ( ! *pszXML ) return FALSE;
 
 	int nIdentifier = 0;
 	while ( *pszXML && ( _istalnum( *pszXML ) || *pszXML == ':' || *pszXML == '_' || *pszXML == '-' ) )
@@ -102,8 +101,7 @@ BOOL CXMLNode::ParseIdentifier(LPCTSTR& pszBase, CString& strIdentifier)
 		pszXML++;
 		nIdentifier++;
 	}
-	if ( ! nIdentifier )
-		return FALSE;
+	if ( ! nIdentifier ) return FALSE;
 
 	pszBase += nParse;
 	_tcsncpy( strIdentifier.GetBuffer( nIdentifier ), pszBase, nIdentifier );
@@ -677,9 +675,7 @@ CXMLElement* CXMLElement::FromBytes(BYTE* pByte, DWORD nByte, BOOL bHeader)
 	else
 	{
 		if ( nByte >= 3 && pByte[0] == 0xEF && pByte[1] == 0xBB && pByte[2] == 0xBF )
-		{
 			pByte += 3; nByte -= 3;
-		}
 
 		strXML = UTF8Decode( (LPCSTR)pByte, nByte );
 	}
@@ -802,9 +798,7 @@ BOOL CXMLElement::Merge(const CXMLElement* pInput, BOOL bOverwrite)
 	}
 
 	if ( bChanged )
-	{
 		TRACE( _T("resulting XML:%s\n"), ToString( FALSE, TRUE ) );
-	}
 
 	return bChanged;
 }
@@ -844,7 +838,8 @@ void CXMLElement::AddRecursiveWords(CString& strWords) const
 
 	if ( m_sValue.GetLength() )
 	{
-		if ( strWords.GetLength() ) strWords += ' ';
+		if ( strWords.GetLength() )
+			strWords += ' ';
 		strWords += m_sValue;
 	}
 }
@@ -872,7 +867,7 @@ void CXMLElement::Serialize(CArchive& ar)
 			GetNextElement( pos )->Serialize( ar );
 		}
 	}
-	else
+	else // Loading
 	{
 		for ( int nCount = (int)ar.ReadCount() ; nCount > 0 ; nCount-- )
 		{
@@ -945,7 +940,8 @@ CXMLAttribute* CXMLElement::AddAttribute(LPCTSTR pszName, LPCTSTR pszValue)
 		m_pAttributes.SetAt( strName, pAttribute );
 	}
 
-	if ( pszValue ) pAttribute->SetValue( pszValue );
+	if ( pszValue )
+		pAttribute->SetValue( pszValue );
 
 	return pAttribute;
 }

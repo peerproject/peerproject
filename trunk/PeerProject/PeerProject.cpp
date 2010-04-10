@@ -74,9 +74,9 @@
 static char THIS_FILE[] = __FILE__;
 #endif
 
-const LPCTSTR RT_BMP = _T("BMP");
+const LPCTSTR RT_BMP  = _T("BMP");
+const LPCTSTR RT_PNG  = _T("PNG");
 const LPCTSTR RT_JPEG = _T("JPEG");
-const LPCTSTR RT_PNG = _T("PNG");
 const LPCTSTR RT_GZIP = _T("GZIP");
 // double scaleX = 1;
 // double scaleY = 1;
@@ -88,8 +88,8 @@ CPeerProjectCommandLineInfo::CPeerProjectCommandLineInfo()
 	: m_bTray		( FALSE )
 	, m_bNoSplash	( FALSE )
 	, m_bNoAlphaWarning ( FALSE )
-	, m_nGUIMode	( -1 )
 	, m_bHelp		( FALSE )
+	, m_nGUIMode	( -1 )
 {
 }
 
@@ -1342,7 +1342,7 @@ BOOL CPeerProjectApp::InternalURI(LPCTSTR pszURI)
 		CSingleLock oLock( &Library.m_pSection, TRUE );
 		if ( CLibraryFile* pFile = Library.LookupFile( nIndex ) )
 		{
-			if ( pFile->m_pFolder )
+			if ( pFile->IsAvailable() )
 			{
 				CString strPath = pFile->GetPath();
 				oLock.Unlock();
@@ -2117,7 +2117,7 @@ CString CPeerProjectApp::GetDocumentsFolder() const
 CString CPeerProjectApp::GetDownloadsFolder() const
 {
 	HRESULT hr;
-	CString sDownloads;
+	CString strDownloads;
 
 	// Vista+
 	if ( m_pfnSHGetKnownFolderPath )
@@ -2127,18 +2127,21 @@ CString CPeerProjectApp::GetDownloadsFolder() const
 			KF_FLAG_CREATE | KF_FLAG_INIT, NULL, &pPath );
 		if ( pPath )
 		{
-			sDownloads = pPath;
+			strDownloads = pPath;
 			CoTaskMemFree( pPath );
 		}
 
-		if ( SUCCEEDED( hr ) && ! sDownloads.IsEmpty() )
-			return sDownloads;
+		if ( SUCCEEDED( hr ) && ! strDownloads.IsEmpty() )
+		{
+			strDownloads += _T("\\PeerProject");
+			return strDownloads;
+		}
 	}
 
 	// XP/Legacy
-	sDownloads = GetDocumentsFolder() + _T("\\PeerProject Downloads");
+	strDownloads = GetDocumentsFolder() + _T("\\PeerProject Downloads");
 
-	return sDownloads;
+	return strDownloads;
 }
 
 CString CPeerProjectApp::GetAppDataFolder() const
@@ -2450,46 +2453,47 @@ CString LoadHTML(HINSTANCE hInstance, UINT nResourceID)
 {
 	CString strBody;
 	BOOL bGZIP = FALSE;
+
 	HRSRC hRes = FindResource( hInstance, MAKEINTRESOURCE( nResourceID ), RT_HTML );
-	if ( ! hRes )
+
+	if ( ! hRes )	// Try *.xml.gz
 	{
 		hRes = FindResource( hInstance, MAKEINTRESOURCE( nResourceID ), RT_GZIP );
-		bGZIP = ( hRes != NULL );
+		if ( ! hRes ) return strBody;
+		bGZIP = TRUE;
 	}
-	if ( hRes )
+
+	DWORD nSize 	= SizeofResource( hInstance, hRes );
+	HGLOBAL hMemory = LoadResource( hInstance, hRes );
+	if ( ! hMemory ) return strBody;
+
+	LPCSTR pszInput = (LPCSTR)LockResource( hMemory );
+	if ( ! pszInput ) return strBody;
+
+	if ( bGZIP )
 	{
-		DWORD nSize			= SizeofResource( hInstance, hRes );
-		HGLOBAL hMemory		= LoadResource( hInstance, hRes );
-		if ( hMemory )
+		CBuffer buf;
+		buf.Add( pszInput, nSize );
+		if ( buf.Ungzip() )
 		{
-			LPCSTR pszInput	= (LPCSTR)LockResource( hMemory );
-			if ( pszInput )
-			{
-				if ( bGZIP )
-				{
-					CBuffer buf;
-					buf.Add( pszInput, nSize );
-					if ( buf.Ungzip() )
-					{
-						int nWide = MultiByteToWideChar( 0, 0, (LPCSTR)buf.m_pBuffer, buf.m_nLength, NULL, 0 );
-						LPTSTR pszOutput = strBody.GetBuffer( nWide + 1 );
-						MultiByteToWideChar( 0, 0, (LPCSTR)buf.m_pBuffer, buf.m_nLength, pszOutput, nWide );
-						pszOutput[ nWide ] = _T('\0');
-						strBody.ReleaseBuffer();
-					}
-				}
-				else
-				{
-					int nWide = MultiByteToWideChar( 0, 0, pszInput, nSize, NULL, 0 );
-					LPTSTR pszOutput = strBody.GetBuffer( nWide + 1 );
-					MultiByteToWideChar( 0, 0, pszInput, nSize, pszOutput, nWide );
-					pszOutput[ nWide ] = _T('\0');
-					strBody.ReleaseBuffer();
-				}
-			}
-			FreeResource( hMemory );
+			int nWide = MultiByteToWideChar( 0, 0, (LPCSTR)buf.m_pBuffer, buf.m_nLength, NULL, 0 );
+			LPTSTR pszOutput = strBody.GetBuffer( nWide + 1 );
+			MultiByteToWideChar( 0, 0, (LPCSTR)buf.m_pBuffer, buf.m_nLength, pszOutput, nWide );
+			pszOutput[ nWide ] = _T('\0');
+			strBody.ReleaseBuffer();
 		}
 	}
+	else // .xml
+	{
+		int nWide = MultiByteToWideChar( 0, 0, pszInput, nSize, NULL, 0 );
+		LPTSTR pszOutput = strBody.GetBuffer( nWide + 1 );
+		MultiByteToWideChar( 0, 0, pszInput, nSize, pszOutput, nWide );
+		pszOutput[ nWide ] = _T('\0');
+		strBody.ReleaseBuffer();
+	}
+
+	FreeResource( hMemory );
+
 	return strBody;
 }
 
@@ -2649,7 +2653,7 @@ bool LoadGUID(const CString& sFilename, Hashes::Guid& oGUID)
 		{
 			Hashes::Guid oTmpGUID;
 			DWORD dwReaded = 0;
-			bSuccess = ( ReadFile( hFile, oTmpGUID.begin(), oTmpGUID.byteCount,
+			bSuccess = ( ReadFile( hFile, oTmpGUID.begin(), oTmpGUID.byteCount, 	// tr1 fix: .data()
 				&dwReaded, NULL ) && dwReaded == oTmpGUID.byteCount );
 			if ( bSuccess )
 			{
@@ -2679,12 +2683,12 @@ bool SaveGUID(const CString& sFilename, const Hashes::Guid& oGUID)
 		if ( hFile != INVALID_HANDLE_VALUE )
 		{
 			DWORD dwWritten = 0;
-			bSuccess = ( WriteFile( hFile, oGUID.begin(), oGUID.byteCount,
+			bSuccess = ( WriteFile( hFile, oGUID.begin(), oGUID.byteCount,	// tr1 fix: .data()
 				&dwWritten, NULL ) && dwWritten == oGUID.byteCount );
 			CloseHandle( hFile );
 		}
-		else
-			TRACE( "SaveGUID() : CreateFile \"%s\" error %d\n", sFilename, GetLastError() );
+		//else
+		//	TRACE( "SaveGUID() : CreateFile \"%s\" error %d\n", sFilename, GetLastError() );
 
 		if ( bChanged )
 			SetFileAttributes( sFilename, dwOrigAttr );

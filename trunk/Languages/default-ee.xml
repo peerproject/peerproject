@@ -1,9 +1,9 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
+<?xml version="1.0" encoding="UTF-8"?>
+<skin xmlns="http://schemas.peerproject.org/Skin.xsd" version="1.0">
 
 <!-- PeerProject Default Estonian Skin File -->
 
-<!-- Translation based on default-en.xml r48 (Shareaza 2.2.2.9) -->
+<!-- Translation based on default-en.xml r50 (Shareaza 2.2.2.9) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1014,31 +1014,28 @@
 	<!-- DOWNLOADS WINDOW -->
 	<menu name="CDownloadsWnd.Download.Basic">
 		<item id="ID_DOWNLOADS_LAUNCH" text="_Eelvaade"/>
-		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="R_emote Preview"/>
-		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="_Arvamused"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_RESUME" text="_Jätka"/>
 		<item id="ID_DOWNLOADS_PAUSE" text="P_aus"/>
 		<item id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="_Peata"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_SOURCES" text="_Leia Rohkem Kasutajaid"/>
-		<!-- <separator/>
-		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Puhasta Valmis"/>
-		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="A_uto Puhastus"/> -->
+		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="R_emote Preview"/>
+		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="_Arvamused"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_HELP" text="_Abi..."/>
 	</menu>
 	<menu name="CDownloadsWnd.Download">
-		<item id="ID_DOWNLOADS_LAUNCH" text="_Eelvaade"/>
 		<item id="ID_DOWNLOADS_LAUNCH_COPY" text="E_elvaate Koopia"/>
+		<item id="ID_DOWNLOADS_LAUNCH" text="_Eelvaade"/>
 		<item id="ID_DOWNLOADS_ENQUEUE" text="Lisa Pla_ylisti"/>
-		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="R_emote Preview"/>
-		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="_Arvamused"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_RESUME" text="_Jätka"/>
 		<item id="ID_DOWNLOADS_PAUSE" text="P_aus"/>
 		<item id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="_Peata"/>
 		<separator/>
+		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="_Arvamused"/>
+		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="R_emote Preview"/>
 		<item id="ID_DOWNLOADS_SOURCES" text="_Leia Rohkem Kasutajaid"/>
 		<separator/>
 		<menu text="_Täpsemalt">
@@ -1046,14 +1043,17 @@
 			<separator/>
 			<item id="ID_DOWNLOADS_URI" text="_Kopeeri URI"/>
 			<item id="ID_DOWNLOADS_ADD_SOURCE" text="_Lisa Allikas..."/>
+			<item id="ID_DOWNLOADS_MERGE" text="Ühenda kohalikku faili"/>
 			<separator/>
 			<item id="ID_DOWNLOADS_MONITOR" text="J_älgimisaken"/>
+		</menu>
+		<menu text="Pri_oriteet">
 			<item id="ID_DOWNLOADS_BOOST" text="_Eira Piiranguid"/>
 			<separator/>
-			<item id="ID_DOWNLOADS_MOVE_UP" text="Liigu _Üles"/>
-			<item id="ID_DOWNLOADS_MOVE_DOWN" text="Lii_gu Alla"/>
 			<item id="ID_DOWNLOADS_MOVE_TOP" text="Liigu _Üles!"/>
 			<item id="ID_DOWNLOADS_MOVE_BOTTOM" text="Lii_gu Alla!"/>
+			<item id="ID_DOWNLOADS_MOVE_UP" text="Liigu _Üles"/>
+			<item id="ID_DOWNLOADS_MOVE_DOWN" text="Lii_gu Alla"/>
 		</menu>
 		<item id="ID_DOWNLOADS_HELP" text="_Abi..."/>
 		<separator/>
@@ -2590,7 +2590,7 @@
 	<string id="8230" value="PeerProject otsib rohkem allikaid:"/>
 	<string id="8231" value="Ei ole allikaid"/>
 	<string id="8232" value="Ava"/>
-	<string id="8233" value="Eelvaade"/>
+	<string id="8233" value="Tühista"/>
 	<string id="8235" value="Ülekande kiirus:"/>
 	<string id="8236" value="Järelejäänud aeg:"/>
 	<string id="8237" value="Seni allalaadidud:"/>
@@ -2854,7 +2854,6 @@
 	<string id="16402" value="PeerProject võttis vastu kolleksiooni faili:\n\n&quot;%s&quot;\n\nSee ei paista õige fail olema."/>
 	<string id="16403" value="PeerProject lisas kollektsiooni faili &quot;%s&quot; sinu raamatukokku."/>
 	<string id="16404" value="PeerProject ei saanud kollektsiooni faili installida &quot;%s&quot; kopeerides seda &quot;%s&quot; kausta."/>
-	<string id="16405" value="Kas soovid seda faili tõmmata?\n\n&quot;%s&quot;\n\nVali Tühista, et edaspidiseid küsimusi ära hoida."/>
 	<string id="16406" value="Kas soovid tõmmata kõik selle kollektsiooni failid?\n\nVali Tühista, et edaspidiseid küsimusi ära hoida."/>
 	<string id="16407" value="Kas soovid ära hoida selle kollektsiooni küsimusi järgmiste tõmbamiste kohta?"/>
 	<string id="16408" value="Kopeeri &amp;URI"/>
@@ -3203,14 +3202,14 @@
 		<control caption="Kui klikin minimeeri:"/>
 		<control caption="Tavaline|Vähenda Tööriistaribale"/>
 	</dialog>
-	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBu" caption="Raamatukogu">
+	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuBuCoBuBuBuCoBuBuBuEdBu" caption="Raamatukogu">
 		<control caption="_Seaded:"/>
 		<control caption="Luba teistel oma faile vaadata"/>
-		<control caption="Vaata raamatukogu kaustu"/>
-		<control caption="Kiire paigutamine (Kasutab rohkem CPU-d)"/>
-		<control caption="Smart media series detection"/>
-		<control caption="Create ghost files when deleting"/>
 		<control caption="Pea meeles kaustade vaated"/>
+		<control caption="Vaata raamatukogu kaustu"/>
+		<control caption="Kiire paigutamine (+ CPU-d)"/>
+		<control caption="Smart media series detection"/>
+		<control caption="Create ghost files by default"/>
 		<control caption="_Hiljutised Failid:"/>
 		<control caption="Pea Meeles:"/>
 		<control/>
@@ -3220,7 +3219,8 @@
 		<control/>
 		<control/>
 		<control caption="päeva"/>
-		<control caption="Puhasta Kohe Ajalugu"/>
+		<control caption="Puhasta Ajalugu"/>
+		<control caption="Puhasta Ghosts"/>
 		<control caption="_Ohutu Avada:"/>
 		<control/>
 		<control caption="_Lisa"/>
@@ -3818,8 +3818,7 @@
 		<control caption="OK"/>
 		<control caption="Tühista"/>
 	</dialog>
-	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStStBuBuBuBuBu" caption="Allalaadimine">
-		<control caption="PeerProject Tõmbab:"/>
+	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStBuBuBuBu" caption="Allalaadimine">
 		<control caption="..."/>
 		<control/>
 		<control/>
@@ -3832,8 +3831,7 @@
 		<control caption="..."/>
 		<control caption="Seni Allalaetud:"/>
 		<control caption="..."/>
-		<control caption="Vaata Raamatukokku"/>
-		<control caption="Ava Fail"/>
+		<control caption="Vaata"/>
 		<control caption="Tühista"/>
 		<control caption="Peida"/>
 		<control caption="Sulge see aken, kui allalaadimine lõpeb"/>
@@ -4206,23 +4204,22 @@
 		<control caption="kuni"/>
 		<control caption="Kustuta"/>
 	</dialog>
-	<dialog name="CDownloadGroupDlg" cookie="BuBuEdCoBuCoBuBuEdBuBuBuBuBuBuSt" caption="Allalaadimisgrupi Omadused">
-		<control caption="OK"/>
-		<control caption="Tühista"/>
+	<dialog name="CDownloadGroupDlg" cookie="BuEdBuEdBuBuBuCoBuBuBuCoStBuBu" caption="Allalaadimisgrupi Omadused">
+		<control caption="Grupi _Nimi:"/>
+		<control/>
+		<control caption="Valmis Failide _Kaust:"/>
 		<control/>
 		<control/>
-		<control caption="_BitTorrent"/>
+		<control/>
+		<control caption="_Filtrid:"/>
 		<control/>
 		<control caption="_Lisa"/>
 		<control caption="_Eemalda"/>
-		<control/>
-		<control/>
-		<control/>
-		<control caption="Grupi _Nimi:"/>
-		<control caption="_Filtrid:"/>
-		<control caption="Valmis Failide _Kaust:"/>
 		<control caption="Faili _tüüp:" />
-		<control caption="_*Drag&apos;n&apos;drop any download later."/>
+		<control/>
+		<control caption="*Drag&apos;n&apos;drop any download later."/>
+		<control caption="OK"/>
+		<control caption="Tühista"/>
 	</dialog>
 	<dialog name="CMediaVisDlg" cookie="StBuSyCoBuBuBu" caption="Vali Visualisation">
 		<control/>
@@ -4416,4 +4413,4 @@
 		<column from="Order" to="Järjekord"/>
 	</list>
 </listColumns>
-</skin>
+</skin>뚸

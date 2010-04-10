@@ -47,15 +47,15 @@
 static char THIS_FILE[] = __FILE__;
 #endif
 
+
 BEGIN_MESSAGE_MAP(CDownloadMonitorDlg, CSkinDialog)
 	//{{AFX_MSG_MAP(CDownloadMonitorDlg)
 	ON_WM_PAINT()
-	ON_BN_CLICKED(IDC_DOWNLOAD_CANCEL, OnDownloadCancel)
 	ON_WM_DESTROY()
 	ON_WM_TIMER()
-	ON_BN_CLICKED(IDC_DOWNLOAD_LAUNCH, OnDownloadLaunch)
-	ON_BN_CLICKED(IDC_DOWNLOAD_VIEW, OnDownloadView)
-	ON_BN_CLICKED(IDC_DOWNLOAD_STOP, OnDownloadStop)
+	ON_BN_CLICKED(IDC_DOWNLOAD_SHOW, OnDownloadShow)
+	ON_BN_CLICKED(IDC_DOWNLOAD_ACTION, OnDownloadAction)
+	ON_BN_CLICKED(IDC_DOWNLOAD_CLOSE, OnDownloadClose)
 	ON_WM_CLOSE()
 	ON_WM_SYSCOMMAND()
 	ON_WM_CTLCOLOR()
@@ -97,20 +97,19 @@ void CDownloadMonitorDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CSkinDialog::DoDataExchange( pDX );
 	//{{AFX_DATA_MAP(CDownloadMonitorDlg)
-	DDX_Control(pDX, IDC_DOWNLOAD_VOLUME, m_wndVolume);
-	DDX_Control(pDX, IDC_DOWNLOAD_CANCEL, m_wndCancel);
-	DDX_Control(pDX, IDC_DOWNLOAD_CLOSE, m_wndClose);
-	DDX_Control(pDX, IDC_DOWNLOAD_STOP, m_wndStop);
+	//DDX_Control(pDX, IDC_DOWNLOAD_STATUS, m_wndStatus);	// Removed
 	DDX_Control(pDX, IDC_PROGRESS, m_wndProgress);
-	DDX_Control(pDX, IDC_DOWNLOAD_TIME, m_wndTime);
-	DDX_Control(pDX, IDC_DOWNLOAD_STATUS, m_wndStatus);
-	DDX_Control(pDX, IDC_DOWNLOAD_SPEED, m_wndSpeed);
 	DDX_Control(pDX, IDC_DOWNLOAD_SOURCES, m_wndSources);
-	DDX_Control(pDX, IDC_DOWNLOAD_LAUNCH, m_wndLaunch);
-	DDX_Control(pDX, IDC_DOWNLOAD_VIEW, m_wndView);
+	DDX_Control(pDX, IDC_DOWNLOAD_SPEED, m_wndSpeed);
+	DDX_Control(pDX, IDC_DOWNLOAD_TIME, m_wndTime);
+	DDX_Control(pDX, IDC_DOWNLOAD_VOLUME, m_wndVolume);
 	DDX_Control(pDX, IDC_DOWNLOAD_ICON, m_wndIcon);
 	DDX_Control(pDX, IDC_DOWNLOAD_GRAPH, m_wndGraph);
 	DDX_Control(pDX, IDC_DOWNLOAD_FILE, m_wndFile);
+	DDX_Control(pDX, IDC_DOWNLOAD_AUTOCLOSE, m_wndAutoClose);
+	DDX_Control(pDX, IDC_DOWNLOAD_ACTION, m_wndAction);
+	DDX_Control(pDX, IDC_DOWNLOAD_SHOW, m_wndShow);
+	DDX_Control(pDX, IDC_DOWNLOAD_CLOSE, m_wndClose);
 	//}}AFX_DATA_MAP
 }
 
@@ -220,8 +219,8 @@ BOOL CDownloadMonitorDlg::OnInitDialog()
 	CenterWindow();
 	ShowWindow( SW_SHOW );
 
-	SetTimer( 1, 100, NULL );	// Graph History, ~320ms = 1min
-	SetTimer( 2, Settings.General.RefreshRate, NULL );	// Text Update
+	SetTimer( 1, Settings.Interface.RefreshRateGraph, NULL );	// Graph History, 72ms = 30s display
+	SetTimer( 2, Settings.Interface.RefreshRateText, NULL );	// Text Update
 
 	EnableToolTips();
 
@@ -239,7 +238,8 @@ void CDownloadMonitorDlg::OnDestroy()
 
 		if ( pLock.Lock( 250 ) )
 		{
-			if ( Downloads.Check( m_pDownload ) ) m_pDownload->m_pMonitorWnd = NULL;
+			if ( Downloads.Check( m_pDownload ) )
+				m_pDownload->m_pMonitorWnd = NULL;
 			m_pDownload = NULL;
 			pLock.Unlock();
 		}
@@ -264,6 +264,14 @@ void CDownloadMonitorDlg::OnTimer( UINT_PTR nIDEvent )
 {
 	CSingleLock pLock( &Transfers.m_pSection );
 	if ( ! pLock.Lock( 100 ) ) return;
+
+	if ( ! m_pDownload || ! Downloads.Check( m_pDownload ) )
+	{
+		KillTimer( 1 );
+		KillTimer( 2 );
+		PostMessage( WM_CLOSE );
+		return;
+	}
 
 	if ( nIDEvent == 1 )		// Rapid Refresh Graph
 	{
@@ -292,14 +300,6 @@ void CDownloadMonitorDlg::OnTimer( UINT_PTR nIDEvent )
 	}
 	//else if ( nIDEvent == 2 )	// General Text Refresh Rate
 
-	if ( ! m_pDownload || ! Downloads.Check( m_pDownload ) )
-	{
-		KillTimer( 1 );
-		KillTimer( 2 );
-		PostMessage( WM_CLOSE );
-		return;
-	}
-
 	if ( m_bCompleted ) return;
 
 	bool bCompleted	= m_pDownload->IsCompleted();
@@ -316,12 +316,12 @@ void CDownloadMonitorDlg::OnTimer( UINT_PTR nIDEvent )
 		if ( Settings.General.LanguageRTL )
 		{
 			strText.Format( _T("%s %s %.2f%%"),
-				(LPCTSTR)m_pDownload->m_sName, strOf, m_pDownload->GetProgress() );
+				(LPCTSTR)m_pDownload->m_sName, (LPCTSTR)strOf, m_pDownload->GetProgress() );
 		}
 		else
 		{
 			strText.Format( _T("%.2f%% %s %s"),
-				m_pDownload->GetProgress(), strOf, (LPCTSTR)m_pDownload->m_sName );
+				m_pDownload->GetProgress(), (LPCTSTR)strOf, (LPCTSTR)m_pDownload->m_sName );
 		}
 	}
 	else
@@ -345,7 +345,7 @@ void CDownloadMonitorDlg::OnTimer( UINT_PTR nIDEvent )
 
 	if ( bCompleted )
 	{
-		if ( m_wndClose.GetCheck() )
+		if ( m_wndAutoClose.GetCheck() )
 		{
 			PostMessage( WM_CLOSE );
 		}
@@ -364,47 +364,58 @@ void CDownloadMonitorDlg::OnTimer( UINT_PTR nIDEvent )
 
 	int nSourceCount	= m_pDownload->GetSourceCount();
 	int nTransferCount	= m_pDownload->GetTransferCount();
+	CString strAction;
 
 	if ( bCompleted )
 	{
-		LoadString( strText, IDS_DLM_COMPLETED );
-		Update( &m_wndStatus, strText );
-		Update( &m_wndTime, strNA );
-		Update( &m_wndSpeed, strNA );
 		LoadString( strText, IDS_DLM_COMPLETED_WORD );
+		if (  m_pDownload->IsTorrent() && m_pDownload->IsSeeding() )
+		{
+			LoadString( strAction, IDS_STATUS_SEEDING );
+			strText += _T("  (") + strAction + _T(")");
+		}
+		LoadString( strAction, IDS_DLM_ACTION_OPEN );
+		Update( &m_wndAction, TRUE );
+	//	LoadString( strText, IDS_DLM_COMPLETED );
+	//	Update( &m_wndStatus, strText );
 		Update( &m_wndSources, strText );
+		Update( &m_wndSpeed, strNA );
+		Update( &m_wndTime, strNA );
 	}
 	else if ( m_pDownload->IsMoving() )
 	{
-		LoadString( strText, IDS_DLM_MOVING );
-		Update( &m_wndStatus, strText );
-		Update( &m_wndTime, strNA );
-		Update( &m_wndSpeed, strNA );
+		LoadString( strAction, IDS_STATUS_MOVING );
+		Update( &m_wndAction, FALSE );
+	//	Update( &m_wndStatus, strText );
 		LoadString( strText, IDS_DLM_COMPLETED_WORD );
 		Update( &m_wndSources, strText );
+		Update( &m_wndSpeed, strNA );
+		Update( &m_wndTime, strNA );
 	}
 	else if ( m_pDownload->IsPaused() )
 	{
-		LoadString( strText, IDS_DLM_PAUSED );
-		Update( &m_wndStatus, strText );
-		Update( &m_wndTime, strNA );
-		Update( &m_wndSpeed, strNA );
+	//	LoadString( strText, IDS_DLM_PAUSED );
+	//	Update( &m_wndStatus, strText );
 		strText.Format( _T("%i"), nSourceCount );
 		Update( &m_wndSources, strText );
+		Update( &m_wndSpeed, IDS_STATUS_PAUSED );
+		Update( &m_wndTime, strNA );
 	}
 	else if ( m_pDownload->IsStarted() && m_pDownload->GetProgress() == 100.0f )
 	{
-		LoadString( strText, IDS_DLM_VERIFY );
-		Update( &m_wndStatus, strText );
-		Update( &m_wndTime, strNA );
+		LoadString( strAction, IDS_STATUS_VERIFYING );
+		Update( &m_wndAction, FALSE );
+	//	LoadString( strText, IDS_DLM_VERIFY );
+	//	Update( &m_wndSources, strText );
 		Update( &m_wndSpeed, strNA );
+		Update( &m_wndTime, strText );
 	}
 	else if ( nTransferCount > 0 )
 	{
-		LoadString( strText, IDS_DLM_DOWNLOADING );
-		Update( &m_wndStatus, strText );
+	//	LoadString( strText, IDS_DLM_DOWNLOADING );
+	//	Update( &m_wndStatus, strText );
 
-		strText.Format( _T("%i  (%s %i)"), nTransferCount, strOf, nSourceCount );
+		strText.Format( _T("%i  (%s %i)"), nTransferCount, (LPCTSTR)strOf, nSourceCount );
 		if ( Settings.General.LanguageRTL ) strText = _T("\x202B") + strText;
 		Update( &m_wndSources, strText );
 
@@ -449,8 +460,8 @@ void CDownloadMonitorDlg::OnTimer( UINT_PTR nIDEvent )
 	}
 	else if ( nSourceCount )	// No Transfers
 	{
-		LoadString( strText, IDS_DLM_DOWNLOADING );
-		Update( &m_wndStatus, strText );
+	//	LoadString( strText, IDS_DLM_DOWNLOADING );
+	//	Update( &m_wndStatus, strText );
 		strText.Format( _T("%i"), nSourceCount );
 		Update( &m_wndSources, strText );
 		Update( &m_wndSpeed, strNA );
@@ -458,8 +469,8 @@ void CDownloadMonitorDlg::OnTimer( UINT_PTR nIDEvent )
 	}
 	else
 	{
-		LoadString( strText, IDS_DLM_SOURCING );
-		Update( &m_wndStatus, strText );
+	//	LoadString( strText, IDS_DLM_SOURCING );
+	//	Update( &m_wndStatus, strText );
 		LoadString( strText, IDS_DLM_NO_SOURCES );
 		Update( &m_wndSources, strText );
 		Update( &m_wndSpeed, strNA );
@@ -472,16 +483,16 @@ void CDownloadMonitorDlg::OnTimer( UINT_PTR nIDEvent )
 		{
 			strText.Format( _T("(%.2f%%)  %s %s %s"),
 				m_pDownload->GetProgress(),
-				Settings.SmartVolume( m_pDownload->m_nSize ),
-				strOf,
-				Settings.SmartVolume( m_pDownload->GetVolumeComplete() ) );
+				(LPCTSTR)Settings.SmartVolume( m_pDownload->m_nSize ),
+				(LPCTSTR)strOf,
+				(LPCTSTR)Settings.SmartVolume( m_pDownload->GetVolumeComplete() ) );
 		}
 		else
 		{
 			strText.Format( _T("%s %s %s  (%.2f%%)"),
-				Settings.SmartVolume( m_pDownload->GetVolumeComplete() ),
-				strOf,
-				Settings.SmartVolume( m_pDownload->m_nSize ),
+				(LPCTSTR)Settings.SmartVolume( m_pDownload->GetVolumeComplete() ),
+				(LPCTSTR)strOf,
+				(LPCTSTR)Settings.SmartVolume( m_pDownload->m_nSize ),
 				m_pDownload->GetProgress() );
 		}
 		Update( &m_wndVolume, strText );
@@ -492,11 +503,10 @@ void CDownloadMonitorDlg::OnTimer( UINT_PTR nIDEvent )
 		Update( &m_wndVolume, strText );
 	}
 
-	LoadString( strText, bCompleted ? IDS_DLM_OPEN_OPEN : IDS_DLM_OPEN_PREVIEW );
-	Update( &m_wndLaunch, strText );
-	Update( &m_wndLaunch, m_pDownload->IsStarted() );
-	Update( &m_wndStop, ! bCompleted );
-	Update( &m_wndClose, ! bCompleted );
+	if ( ! strAction.GetLength() )
+		LoadString( strAction, IDS_DLM_ACTION_CANCEL );
+	Update( &m_wndAction, strAction );
+	Update( &m_wndAutoClose, ! bCompleted );
 
 	CClientDC dc( this );
 	DoPaint( dc );
@@ -556,37 +566,29 @@ void CDownloadMonitorDlg::DrawProgressBar(CDC* pDC, CRect* pRect)
 	}
 }
 
-void CDownloadMonitorDlg::OnDownloadView()
+void CDownloadMonitorDlg::OnDownloadShow()
 {
 	CWnd* pMainWnd = AfxGetMainWnd();
-	if ( ! pMainWnd )
-		return;
+	if ( ! pMainWnd ) return;
 
+	// ToDo: Highlight specific file, or at least show right download group
 	pMainWnd->PostMessage( WM_COMMAND, ID_VIEW_DOWNLOADS );
 	pMainWnd->PostMessage( WM_SYSCOMMAND, SC_RESTORE );
 }
 
-void CDownloadMonitorDlg::OnDownloadLaunch()
+void CDownloadMonitorDlg::OnDownloadAction()	// OnDownloadStop/OnDownloadLaunch
 {
 	CSingleLock pLock( &Transfers.m_pSection );
-	if ( ! pLock.Lock( 500 ) || ! Downloads.Check( m_pDownload ) )
+	if ( ! pLock.Lock( 300 ) || ! Downloads.Check( m_pDownload ) )
 		return;
 
-	bool bComplete = m_pDownload->IsCompleted();
-
-	m_pDownload->Launch( -1, &pLock, FALSE );
-
-	pLock.Unlock();
-
-	if ( bComplete )
+	if ( m_pDownload->IsCompleted() )
+	{
+		m_pDownload->Launch( -1, &pLock, FALSE );
+		pLock.Unlock();
 		PostMessage( WM_CLOSE );
-}
-
-void CDownloadMonitorDlg::OnDownloadStop()
-{
-	CSingleLock pLock( &Transfers.m_pSection );
-	if ( ! pLock.Lock( 250 ) || ! Downloads.Check( m_pDownload ) )
 		return;
+	}
 
 	if ( m_pDownload->IsStarted() )
 	{
@@ -603,11 +605,12 @@ void CDownloadMonitorDlg::OnDownloadStop()
 	if ( Downloads.Check( m_pDownload ) && ! m_pDownload->IsMoving() )
 	{
 		m_pDownload->Remove();
+		pLock.Unlock();
 		PostMessage( WM_CLOSE );
 	}
 }
 
-void CDownloadMonitorDlg::OnDownloadCancel()
+void CDownloadMonitorDlg::OnDownloadClose()
 {
 	PostMessage( WM_CLOSE );
 }

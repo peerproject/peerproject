@@ -1,9 +1,9 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
+<?xml version="1.0" encoding="UTF-8"?>
+<skin xmlns="http://schemas.peerproject.org/Skin.xsd" version="1.0">
 
 <!-- PeerProject Default Chinese (Traditional) Skin File -->
 
-<!-- Translation based on default-en.xml r48 (Shareaza 2.2.2.12) -->
+<!-- Translation based on default-en.xml r50 (Shareaza 2.2.2.12) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1013,31 +1013,28 @@
 	<!-- DOWNLOADS WINDOW -->
 	<menu name="CDownloadsWnd.Download.Basic">
 		<item id="ID_DOWNLOADS_LAUNCH" text="預覽"/>
-		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="R_emote Preview"/>
-		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="檢視評論"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_RESUME" text="繼續"/>
 		<item id="ID_DOWNLOADS_PAUSE" text="暫停"/>
 		<item id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="取消"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_SOURCES" text="尋找更多來源"/>
-		<!-- <separator/>
-		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="C_lear Completed"/>
-		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="A_uto Clear"/> -->
+		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="R_emote 預覽"/>
+		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="檢視評論"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_HELP" text="說明..."/>
 	</menu>
 	<menu name="CDownloadsWnd.Download">
+		<item id="ID_DOWNLOADS_LAUNCH_COPY" text="預覽 Copy"/>
 		<item id="ID_DOWNLOADS_LAUNCH" text="預覽"/>
-		<item id="ID_DOWNLOADS_LAUNCH_COPY" text="Pre_view Copy"/>
 		<item id="ID_DOWNLOADS_ENQUEUE" text="新增至播放清單"/>
-		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="R_emote Preview"/>
-		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="檢視評論"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_RESUME" text="繼續"/>
 		<item id="ID_DOWNLOADS_PAUSE" text="暫停"/>
 		<item id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="取消"/>
 		<separator/>
+		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="檢視評論"/>
+		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="R_emote 預覽"/>
 		<item id="ID_DOWNLOADS_SOURCES" text="尋找更多來源"/>
 		<separator/>
 		<menu text="進階">
@@ -1045,14 +1042,17 @@
 			<separator/>
 			<item id="ID_DOWNLOADS_URI" text="複製 URI"/>
 			<item id="ID_DOWNLOADS_ADD_SOURCE" text="新增來源..."/>
+			<item id="ID_DOWNLOADS_MERGE" text="合併本地文件..."/>
 			<separator/>
 			<item id="ID_DOWNLOADS_MONITOR" text="Monitor 視窗"/>
+		</menu>
+		<menu text="優先">
 			<item id="ID_DOWNLOADS_BOOST" text="忽略頻寬限制"/>
 			<separator/>
-			<item id="ID_DOWNLOADS_MOVE_UP" text="上移"/>
-			<item id="ID_DOWNLOADS_MOVE_DOWN" text="下移"/>
-			<item id="ID_DOWNLOADS_MOVE_TOP" text="上移!"/>
-			<item id="ID_DOWNLOADS_MOVE_BOTTOM" text="下移!"/>
+			<item id="ID_DOWNLOADS_MOVE_TOP" text="上移!" shortcut="Ctrl+Home"/>
+			<item id="ID_DOWNLOADS_MOVE_BOTTOM" text="下移!" shortcut="Ctrl+End"/>
+			<item id="ID_DOWNLOADS_MOVE_UP" text="上移" shortcut="Ctrl+Up"/>
+			<item id="ID_DOWNLOADS_MOVE_DOWN" text="下移" shortcut="Ctrl+Down"/>
 		</menu>
 		<item id="ID_DOWNLOADS_HELP" text="說明..."/>
 		<separator/>
@@ -2511,7 +2511,7 @@
 	<string id="8230" value="PeerProject 正在尋找這個檔案的來源:"/>
 	<string id="8231" value="沒有來源"/>
 	<string id="8232" value="開啟"/>
-	<string id="8233" value="預覽"/>
+	<string id="8233" value="取消"/>
 	<string id="8235" value="總計傳輸速度:"/>
 	<string id="8236" value="估計剩餘時間:"/>
 	<string id="8237" value="已下載的容量:"/>
@@ -2774,7 +2774,6 @@
 	<string id="16402" value="PeerProject 接收到組檔:\n\n&quot;%s&quot;\n\n這個檔案看起來不是有效的組檔."/>
 	<string id="16403" value="PeerProject 已加入組檔 &quot;%s&quot; 至您的收藏."/>
 	<string id="16404" value="PeerProject 無法經由複製到資料夾 &quot;%s&quot;以安裝組檔 &quot;%s&quot;."/>
-	<string id="16405" value="您要下載這個檔案嗎?\n\n&quot;%s&quot;\n\n選擇取消以停止進一步的提示."/>
 	<string id="16406" value="您要下載這個組檔裡所有的檔案嗎?\n\n選擇取消以停止進一步的提示."/>
 	<string id="16407" value="您要避免這個組檔提示您下載其他東西嗎?"/>
 	<string id="16408" value="複製 &amp;URI"/>
@@ -3125,14 +3124,14 @@
 		<control caption="當我點選最小化時:"/>
 		<control caption="標準|最小化至系統列"/>
 	</dialog>
-	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBu" caption="收藏">
+	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuBuCoBuBuBuCoBuBuBuEdBu" caption="收藏">
 		<control caption="選項:"/>
 		<control caption="允許其他人瀏覽我分享的檔案"/>
+		<control caption="記住資料夾檢視方式"/>
 		<control caption="監視收藏的資料夾"/>
 		<control caption="快速切細(消耗更多CPU 資源)"/>
 		<control caption="Smart media series detection"/>
 		<control caption="当删除时建立回收文件"/>
-		<control caption="記住資料夾檢視方式"/>
 		<control caption="最近的檔案:"/>
 		<control caption="記住:"/>
 		<control/>
@@ -3142,6 +3141,7 @@
 		<control/>
 		<control/>
 		<control caption="天"/>
+		<control caption="立刻清除歷史記錄"/>
 		<control caption="立刻清除歷史記錄"/>
 		<control caption="以下可以安全開啟:"/>
 		<control/>
@@ -3743,8 +3743,7 @@
 		<control caption="確定"/>
 		<control caption="取消"/>
 	</dialog>
-	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStStBuBuBuBuBu" caption="下載">
-		<control caption="PeerProject 正在下載:"/>
+	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStBuBuBuBu" caption="下載">
 		<control caption="..."/>
 		<control/>
 		<control/>
@@ -3758,7 +3757,6 @@
 		<control caption="已下載的容量:"/>
 		<control caption="..."/>
 		<control caption="檢視收藏"/>
-		<control caption="開啟檔案"/>
 		<control caption="取消下載"/>
 		<control caption="隱藏"/>
 		<control caption="下載完成後關閉這個視窗"/>
@@ -4134,23 +4132,22 @@
 		<control caption="-"/>
 		<control caption="抹除"/>
 	</dialog>
-	<dialog name="CDownloadGroupDlg" cookie="BuBuEdCoBuCoBuBuEdBuBuBuBuBuBuSt" caption="下載群組的屬性">
-		<control caption="確定"/>
-		<control caption="取消"/>
+	<dialog name="CDownloadGroupDlg" cookie="BuEdBuEdBuBuBuCoBuBuBuCoStBuBu" caption="下載群組的屬性">
+		<control caption="名稱:"/>
+		<control/>
+		<control caption="完成的檔案的資料夾:"/>
 		<control/>
 		<control/>
-		<control caption="_BitTorrent"/>
+		<control/>
+		<control caption="過濾:"/>
 		<control/>
 		<control caption="新增"/>
 		<control caption="移除"/>
-		<control/>
-		<control/>
-		<control/>
-		<control caption="名稱:"/>
-		<control caption="過濾:"/>
-		<control caption="完成的檔案的資料夾:"/>
 		<control caption="任何檔案類型:"/>
-		<control caption="_*Drag&apos;n&apos;drop any download later."/>
+		<control/>
+		<control caption="*Drag&apos;n&apos;drop any download later."/>
+		<control caption="確定"/>
+		<control caption="取消"/>
 	</dialog>
 	<dialog name="CMediaVisDlg" cookie="StBuSyCoBuBuBu" caption="選擇視覺效果">
 		<control/>
@@ -4346,3 +4343,4 @@
 	</list>
 </listColumns>
 </skin>
+乆ꮙ니

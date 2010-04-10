@@ -88,9 +88,9 @@ CQueryHit::CQueryHit(PROTOCOLID nProtocol, const Hashes::Guid& oSearchID)
 	m_pAddress.s_addr = 0;
 }
 
-CQueryHit::CQueryHit(const CQueryHit& pHit) :
-	m_pNext			( NULL ),
-	m_pXML			( NULL )
+CQueryHit::CQueryHit(const CQueryHit& pHit)
+	: m_pNext		( NULL )
+	, m_pXML		( NULL )
 {
 	*this = pHit;
 }
@@ -1657,7 +1657,7 @@ void CQueryHit::ReadEDPacket(CEDPacket* pPacket, SOCKADDR_IN* pServer, BOOL bUni
 		}
 		else if ( ( pTag.m_nKey == ED2K_FT_BITRATE ) )
 		{	//Bitrate- new style
-			strBitrate.Format( _T("%lu"), pTag.m_nValue );
+			strBitrate.Format( _T("%I64u"), pTag.m_nValue );
 		}
 		else if  ( ( pTag.m_nKey == ED2K_FT_CODEC ) )
 		{	//Codec - new style
@@ -1708,7 +1708,7 @@ void CQueryHit::ReadEDPacket(CEDPacket* pPacket, SOCKADDR_IN* pServer, BOOL bUni
 				  ( pTag.m_nType == ED2K_TAG_INT ) &&
 				  ( pTag.m_sKey == _T("bitrate") ) )
 		{	//Bitrate- old style
-			strBitrate.Format( _T("%lu"), pTag.m_nValue );
+			strBitrate.Format( _T("%I64u"), pTag.m_nValue );
 		}
 		else if ( ( pTag.m_nKey == 0 ) &&
 				  ( pTag.m_nType == ED2K_TAG_STRING ) &&
@@ -1819,6 +1819,11 @@ void CQueryHit::ReadEDPacket(CEDPacket* pPacket, SOCKADDR_IN* pServer, BOOL bUni
 		{	// Application
 			m_sSchemaURI = CSchema::uriApplication;
 		}
+		//else if ( ( pSchema = SchemaCache.Get( CSchema::uriArchive ) ) != NULL &&
+		//		  pSchema->FilterType( strType ) )
+		//{	// Archive
+		//	m_sSchemaURI = CSchema::uriArchive;
+		//}
 		else if ( ( pSchema = SchemaCache.Get( CSchema::uriImage ) ) != NULL &&
 					pSchema->FilterType( strType ) )
 		{	// Image

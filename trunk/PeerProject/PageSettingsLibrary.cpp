@@ -1,7 +1,7 @@
 //
 // PageSettingsLibrary.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -24,6 +24,7 @@
 #include "Settings.h"
 #include "Library.h"
 #include "LibraryHistory.h"
+#include "LibraryFolders.h"
 #include "LibraryBuilder.h"
 #include "PageSettingsLibrary.h"
 
@@ -46,6 +47,7 @@ BEGIN_MESSAGE_MAP(CLibrarySettingsPage, CSettingsPage)
 	ON_BN_CLICKED(IDC_PRIVATE_ADD, OnPrivateAdd)
 	ON_BN_CLICKED(IDC_PRIVATE_REMOVE, OnPrivateRemove)
 	ON_BN_CLICKED(IDC_RECENT_CLEAR, OnRecentClear)
+	ON_BN_CLICKED(IDC_RECENT_CLEAR_GHOSTS, OnRecentClearGhosts)
 	ON_BN_CLICKED(IDC_COLLECTIONS_BROWSE, OnCollectionsBrowse)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
@@ -55,14 +57,14 @@ END_MESSAGE_MAP()
 // CLibrarySettingsPage property page
 
 CLibrarySettingsPage::CLibrarySettingsPage() : CSettingsPage(CLibrarySettingsPage::IDD)
-, m_bMakeGhosts(FALSE)
-, m_bWatchFolders(FALSE)
-, m_nRecentDays(0)
-, m_nRecentTotal(0)
-, m_bStoreViews(FALSE)
-, m_bBrowseFiles(FALSE)
-, m_bHighPriorityHash(FALSE)
-, m_bSmartSeries(FALSE)
+	, m_bMakeGhosts 	(FALSE)
+	, m_bWatchFolders	(FALSE)
+	, m_nRecentDays 	(0)
+	, m_nRecentTotal	(0)
+	, m_bStoreViews 	(FALSE)
+	, m_bBrowseFiles	(FALSE)
+	, m_bSmartSeries	(FALSE)
+	, m_bHighPriorityHash (FALSE)
 {
 }
 
@@ -140,6 +142,10 @@ BOOL CLibrarySettingsPage::OnInitDialog()
 
 	m_wndCollectionFolder.SubclassDlgItem( IDC_COLLECTIONS_FOLDER, this );
 
+	// Why is this button disabling workaround needed here only?
+	GetDlgItem( IDC_RECENT_CLEAR )->EnableWindow( LibraryHistory.GetCount() > 0 );
+	GetDlgItem( IDC_RECENT_CLEAR_GHOSTS )->EnableWindow( LibraryFolders.GetGhostCount() > 0 );
+
 	return TRUE;
 }
 
@@ -214,6 +220,21 @@ void CLibrarySettingsPage::OnRecentClear()
 	CQuickLock oLock( Library.m_pSection );
 	LibraryHistory.Clear();
 	Library.Update();
+
+	//m_wndRecentClear.EnableWindow( FALSE );
+	GetDlgItem( IDC_RECENT_CLEAR )->EnableWindow( FALSE );
+}
+
+void CLibrarySettingsPage::OnRecentClearGhosts()
+{
+	CQuickLock oLock( Library.m_pSection );
+	LibraryFolders.ClearGhosts();
+	Library.Update();
+
+	PostMainWndMessage( WM_COMMAND, ID_LIBRARY_REFRESH );
+
+	//m_wndRecentClearGhosts.EnableWindow( FALSE );
+	GetDlgItem( IDC_RECENT_CLEAR_GHOSTS )->EnableWindow( FALSE );
 }
 
 void CLibrarySettingsPage::OnCollectionsBrowse()
@@ -254,9 +275,7 @@ void CLibrarySettingsPage::OnOK()
 		CString str;
 		m_wndSafeList.GetLBText( nItem, str );
 		if ( str.GetLength() )
-		{
 			Settings.Library.SafeExecute.insert( str );
-		}
 	}
 
 	Settings.Library.PrivateTypes.clear();
@@ -266,9 +285,7 @@ void CLibrarySettingsPage::OnOK()
 		CString str;
 		m_wndPrivateList.GetLBText( nItem, str );
 		if ( str.GetLength() )
-		{
 			Settings.Library.PrivateTypes.insert( str );
-		}
 	}
 
 	CSettingsPage::OnOK();

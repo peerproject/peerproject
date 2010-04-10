@@ -63,7 +63,6 @@ public:
 		bool		HashIntegrity;
 		bool		RatesInBytes;			// Show speeds in bits or Bytes per second
 		DWORD		RatesUnit;				// Units that rates are to be displayed in (B/KB/MB)
-		DWORD		RefreshRate;			// Data display update in milliseconds
 		DWORD		LastSettingsIndex;		// Top item index of Advanced Settings list
 		CString		LastSettingsPage;		// Last selected Settings dialog page
 		CString		Language;
@@ -96,6 +95,8 @@ public:
 		bool		AutoComplete;			// Use text field histories
 		bool		CoolMenuEnable;			// Use skinned menus
 		bool		LowResMode;
+		DWORD		RefreshRateGraph;		// Data display update in milliseconds (set speed)
+		DWORD		RefreshRateText;		// Data display update in milliseconds
 		DWORD		TipDelay;
 		DWORD		TipAlpha;
 		bool		TipShadow;

@@ -60,10 +60,10 @@ IMPLEMENT_DYNAMIC(CLibraryFileView, CLibraryView)
 BEGIN_MESSAGE_MAP(CLibraryFileView, CLibraryView)
 	ON_WM_CONTEXTMENU()
 	ON_WM_MOUSEMOVE()
-	ON_WM_LBUTTONDOWN()
-	ON_WM_RBUTTONDOWN()
-	ON_WM_XBUTTONDOWN()
 	ON_WM_KEYDOWN()
+	ON_WM_CREATE()
+	ON_UPDATE_COMMAND_UI(ID_LIBRARY_LAUNCH_FOLDER, OnUpdateLibraryLaunchFolder)
+	ON_COMMAND(ID_LIBRARY_LAUNCH_FOLDER, OnLibraryLaunchFolder)
 	ON_UPDATE_COMMAND_UI(ID_LIBRARY_LAUNCH, OnUpdateLibraryLaunch)
 	ON_COMMAND(ID_LIBRARY_LAUNCH, OnLibraryLaunch)
 	ON_UPDATE_COMMAND_UI(ID_LIBRARY_ENQUEUE, OnUpdateLibraryEnqueue)
@@ -86,6 +86,24 @@ BEGIN_MESSAGE_MAP(CLibraryFileView, CLibraryView)
 	ON_COMMAND(ID_LIBRARY_SHARED_FILE, OnLibraryShared)
 	ON_UPDATE_COMMAND_UI(ID_LIBRARY_PROPERTIES, OnUpdateLibraryProperties)
 	ON_COMMAND(ID_LIBRARY_PROPERTIES, OnLibraryProperties)
+	ON_UPDATE_COMMAND_UI(ID_LIBRARY_UNLINK, OnUpdateLibraryUnlink)
+	ON_COMMAND(ID_LIBRARY_UNLINK, OnLibraryUnlink)
+	ON_UPDATE_COMMAND_UI(ID_SEARCH_FOR_THIS, OnUpdateSearchForThis)
+	ON_COMMAND(ID_SEARCH_FOR_THIS, OnSearchForThis)
+	ON_UPDATE_COMMAND_UI(ID_SEARCH_FOR_SIMILAR, OnUpdateSearchForSimilar)
+	ON_COMMAND(ID_SEARCH_FOR_SIMILAR, OnSearchForSimilar)
+	ON_UPDATE_COMMAND_UI(ID_SEARCH_FOR_ARTIST, OnUpdateSearchForArtist)
+	ON_COMMAND(ID_SEARCH_FOR_ARTIST, OnSearchForArtist)
+	ON_UPDATE_COMMAND_UI(ID_SEARCH_FOR_ALBUM, OnUpdateSearchForAlbum)
+	ON_COMMAND(ID_SEARCH_FOR_ALBUM, OnSearchForAlbum)
+	ON_UPDATE_COMMAND_UI(ID_SEARCH_FOR_SERIES, OnUpdateSearchForSeries)
+	ON_COMMAND(ID_SEARCH_FOR_SERIES, OnSearchForSeries)
+	ON_UPDATE_COMMAND_UI(ID_LIBRARY_CREATETORRENT, OnUpdateLibraryCreateTorrent)
+	ON_COMMAND(ID_LIBRARY_CREATETORRENT, OnLibraryCreateTorrent)
+	ON_UPDATE_COMMAND_UI(ID_LIBRARY_REBUILD_ANSI, OnUpdateLibraryRebuildAnsi)
+	ON_COMMAND(ID_LIBRARY_REBUILD_ANSI, OnLibraryRebuildAnsi)
+	ON_MESSAGE(WM_METADATA, OnServiceDone)
+	// ToDo: Move ShareMonkey/MusicBrainz Services out ?
 	ON_UPDATE_COMMAND_UI(ID_WEBSERVICES_MUSICBRAINZ, OnUpdateMusicBrainzLookup)
 	ON_COMMAND(ID_WEBSERVICES_MUSICBRAINZ, OnMusicBrainzLookup)
 	ON_UPDATE_COMMAND_UI(ID_MUSICBRAINZ_MATCHES, OnUpdateMusicBrainzMatches)
@@ -110,24 +128,6 @@ BEGIN_MESSAGE_MAP(CLibraryFileView, CLibraryView)
 	ON_COMMAND(ID_SHAREMONKEY_COMPARE, OnShareMonkeyCompare)
 	ON_UPDATE_COMMAND_UI(ID_SHAREMONKEY_BUY, OnUpdateShareMonkeyBuy)
 	ON_COMMAND(ID_SHAREMONKEY_BUY, OnShareMonkeyBuy)
-	ON_WM_CREATE()
-	ON_UPDATE_COMMAND_UI(ID_LIBRARY_UNLINK, OnUpdateLibraryUnlink)
-	ON_COMMAND(ID_LIBRARY_UNLINK, OnLibraryUnlink)
-	ON_UPDATE_COMMAND_UI(ID_SEARCH_FOR_THIS, OnUpdateSearchForThis)
-	ON_COMMAND(ID_SEARCH_FOR_THIS, OnSearchForThis)
-	ON_UPDATE_COMMAND_UI(ID_SEARCH_FOR_SIMILAR, OnUpdateSearchForSimilar)
-	ON_COMMAND(ID_SEARCH_FOR_SIMILAR, OnSearchForSimilar)
-	ON_UPDATE_COMMAND_UI(ID_SEARCH_FOR_ARTIST, OnUpdateSearchForArtist)
-	ON_COMMAND(ID_SEARCH_FOR_ARTIST, OnSearchForArtist)
-	ON_UPDATE_COMMAND_UI(ID_SEARCH_FOR_ALBUM, OnUpdateSearchForAlbum)
-	ON_COMMAND(ID_SEARCH_FOR_ALBUM, OnSearchForAlbum)
-	ON_UPDATE_COMMAND_UI(ID_SEARCH_FOR_SERIES, OnUpdateSearchForSeries)
-	ON_COMMAND(ID_SEARCH_FOR_SERIES, OnSearchForSeries)
-	ON_UPDATE_COMMAND_UI(ID_LIBRARY_CREATETORRENT, OnUpdateLibraryCreateTorrent)
-	ON_COMMAND(ID_LIBRARY_CREATETORRENT, OnLibraryCreateTorrent)
-	ON_UPDATE_COMMAND_UI(ID_LIBRARY_REBUILD_ANSI, OnUpdateLibraryRebuildAnsi)
-	ON_COMMAND(ID_LIBRARY_REBUILD_ANSI, OnLibraryRebuildAnsi)
-	ON_MESSAGE(WM_METADATA, OnServiceDone)
 END_MESSAGE_MAP()
 
 
@@ -166,30 +166,6 @@ BOOL CLibraryFileView::CheckAvailable(CLibraryTreeItem* pSel)
 	return m_bAvailable;
 }
 
-void CLibraryFileView::StartSelectedFileLoop()
-{
-	m_posSel = m_pSelection.GetHeadPosition();
-}
-
-CLibraryFile* CLibraryFileView::GetNextSelectedFile()
-{
-	while ( m_posSel )
-	{
-		CLibraryFile* pFile = Library.LookupFile( m_pSelection.GetNext( m_posSel ) );
-		if ( pFile != NULL && pFile->IsAvailable() ) return pFile;
-	}
-
-	return NULL;
-}
-
-CLibraryFile* CLibraryFileView::GetSelectedFile()
-{
-	if ( m_pSelection.GetCount() == 0 ) return NULL;
-	CLibraryFile* pFile = Library.LookupFile( m_pSelection.GetHead() );
-	if ( pFile != NULL && pFile->IsAvailable() ) return pFile;
-	return NULL;
-}
-
 /////////////////////////////////////////////////////////////////////////////
 // CLibraryFileView message handlers
 
@@ -212,6 +188,9 @@ BOOL CLibraryFileView::PreTranslateMessage(MSG* pMsg)
 		case VK_DELETE:
 			OnLibraryDelete();
 			return TRUE;
+		case VK_ESCAPE:
+			GetParent()->PostMessage( WM_COMMAND, ID_LIBRARY_PARENT );
+			return TRUE;
 		}
 	}
 	else if ( pMsg->message == WM_SYSKEYDOWN && pMsg->wParam == VK_RETURN )
@@ -230,8 +209,8 @@ void CLibraryFileView::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 	CStringList oFiles;
 	{
 		CQuickLock pLock( Library.m_pSection );
-		StartSelectedFileLoop();
-		for ( CLibraryFile* pFile = GetNextSelectedFile(); pFile; pFile = GetNextSelectedFile() )
+		POSITION posSel = StartSelectedFileLoop();
+		while ( CLibraryFile* pFile = GetNextSelectedFile( posSel ) )
 		{
 			oFiles.AddTail( pFile->GetPath() );
 		}
@@ -239,7 +218,7 @@ void CLibraryFileView::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 
 	CString strName( m_pszToolBar );
 	strName += Settings.Library.ShowVirtual ? _T(".Virtual") : _T(".Physical");
-	Skin.TrackPopupMenu( strName, point, ID_LIBRARY_LAUNCH, 0, oFiles );
+	Skin.TrackPopupMenu( strName, point, ID_LIBRARY_LAUNCH, oFiles );
 }
 
 void CLibraryFileView::OnMouseMove(UINT nFlags, CPoint point)
@@ -252,33 +231,19 @@ void CLibraryFileView::OnMouseMove(UINT nFlags, CPoint point)
 		GetToolTip()->Hide();
 }
 
-void CLibraryFileView::OnLButtonDown(UINT nFlags, CPoint point)
-{
-	GetToolTip()->Hide();
-
-	CWnd::OnLButtonDown( nFlags, point );
-}
-
-void CLibraryFileView::OnRButtonDown(UINT nFlags, CPoint point)
-{
-	GetToolTip()->Hide();
-
-	CWnd::OnRButtonDown( nFlags, point );
-}
-
-void CLibraryFileView::OnXButtonDown(UINT /*nFlags*/, UINT nButton, CPoint /*point*/)
-{
-	GetToolTip()->Hide();
-
-	if ( nButton == 1 )
-		GetParent()->SendMessage( WM_COMMAND, ID_LIBRARY_PARENT );
-}
+// Inherit from CLibraryView
+//void CLibraryFileView::OnXButtonDown(UINT /*nFlags*/, UINT nButton, CPoint /*point*/)
+//{
+//	GetToolTip()->Hide();
+//
+//	if ( nButton == 1 )
+//		GetParent()->SendMessage( WM_COMMAND, ID_LIBRARY_PARENT );
+//}
 
 void CLibraryFileView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
-	GetToolTip()->Hide();
+	CLibraryView::OnKeyDown( nChar, nRepCnt, nFlags );
 
-	CWnd::OnKeyDown( nChar, nRepCnt, nFlags );
 	CheckDynamicBar();
 }
 
@@ -301,8 +266,8 @@ void CLibraryFileView::OnLibraryLaunch()
 
 	{
 		CQuickLock pLock( Library.m_pSection );
-		StartSelectedFileLoop();
-		for ( CLibraryFile* pFile = GetNextSelectedFile(); pFile; pFile = GetNextSelectedFile() )
+		POSITION posSel = StartSelectedFileLoop();
+		while ( CLibraryFile* pFile = GetNextSelectedFile( posSel ) )
 		{
 			CString strPath = pFile->GetPath();
 			oFileList.SetAt( strPath, ( pFile->m_bVerify == TRI_FALSE ) &&
@@ -360,9 +325,8 @@ void CLibraryFileView::OnLibraryEnqueue()
 {
 	CSingleLock pLock( &Library.m_pSection, TRUE );
 
-	StartSelectedFileLoop();
-
-	for ( CLibraryFile* pFile = GetNextSelectedFile(); pFile; pFile = GetNextSelectedFile() )
+	POSITION posSel = StartSelectedFileLoop();
+	while ( CLibraryFile* pFile = GetNextSelectedFile( posSel ) )
 	{
 		CString strPath = pFile->GetPath();
 		pLock.Unlock();
@@ -371,13 +335,36 @@ void CLibraryFileView::OnLibraryEnqueue()
 	}
 }
 
-void CLibraryFileView::OnUpdateLibraryURL(CCmdUI* pCmdUI)
+void CLibraryFileView::OnUpdateLibraryLaunchFolder(CCmdUI* pCmdUI)
 {
-	CString strMessage;
 	if ( m_bGhostFolder )
 		pCmdUI->Enable( FALSE );
 	else
 		pCmdUI->Enable( GetSelectedCount() > 0 );
+}
+
+void CLibraryFileView::OnLibraryLaunchFolder()
+{
+	CSingleLock pLock( &Library.m_pSection, TRUE );
+
+	POSITION posSel = StartSelectedFileLoop();
+	while ( CLibraryFile* pFile = GetNextSelectedFile( posSel ) )
+	{
+		CString strPath = pFile->GetPath();
+		pLock.Unlock();
+		ShellExecute( GetSafeHwnd(), NULL, _T("Explorer.exe"), "/select, " + strPath, NULL, SW_SHOWNORMAL );
+		pLock.Lock();
+	}
+}
+
+void CLibraryFileView::OnUpdateLibraryURL(CCmdUI* pCmdUI)
+{
+	if ( m_bGhostFolder )
+		pCmdUI->Enable( FALSE );
+	else
+		pCmdUI->Enable( GetSelectedCount() > 0 );
+
+	CString strMessage;
 	GetSelectedCount() > 1 ? LoadString( strMessage, IDS_LIBRARY_URI_EXPORT ) : LoadString( strMessage, IDS_LIBRARY_URI_COPY );
 	pCmdUI->SetText( strMessage );
 }
@@ -403,9 +390,8 @@ void CLibraryFileView::OnLibraryURL()
 	{
 		CURLExportDlg dlg;
 
-		StartSelectedFileLoop();
-
-		for ( CLibraryFile* pFile = GetNextSelectedFile(); pFile; pFile = GetNextSelectedFile() )
+		POSITION posSel = StartSelectedFileLoop();
+		while ( CLibraryFile* pFile = GetNextSelectedFile( posSel ) )
 		{
 			dlg.Add( pFile );
 		}
@@ -429,9 +415,9 @@ void CLibraryFileView::OnLibraryMove()
 	CSingleLock pLock( &Library.m_pSection, TRUE );
 	CFileCopyDlg dlg( NULL, TRUE );
 
-	StartSelectedFileLoop();
+	POSITION posSel = StartSelectedFileLoop();
 
-	for ( CLibraryFile* pFile = GetNextSelectedFile(); pFile; pFile = GetNextSelectedFile() )
+	while ( CLibraryFile* pFile = GetNextSelectedFile( posSel ) )
 	{
 		dlg.AddFile( pFile );
 	}
@@ -454,9 +440,8 @@ void CLibraryFileView::OnLibraryCopy()
 	CSingleLock pLock( &Library.m_pSection, TRUE );
 	CFileCopyDlg dlg( NULL, FALSE );
 
-	StartSelectedFileLoop();
-
-	for ( CLibraryFile* pFile = GetNextSelectedFile(); pFile; pFile = GetNextSelectedFile() )
+	POSITION posSel = StartSelectedFileLoop();
+	while ( CLibraryFile* pFile = GetNextSelectedFile( posSel ) )
 	{
 		dlg.AddFile( pFile );
 	}
@@ -477,13 +462,10 @@ void CLibraryFileView::OnLibraryDelete()
 	CSingleLock pLibraryLock( &Library.m_pSection, TRUE );
 	CLibraryList pList;
 
-	StartSelectedFileLoop();
-
-	while ( m_posSel )
+	POSITION posSel = StartSelectedFileLoop();
+	while ( CLibraryFile* pFile = GetNextSelectedFile( posSel, FALSE, ! m_bGhostFolder ) )
 	{
-		if ( CLibraryFile* pFile = Library.LookupFile( m_pSelection.GetNext( m_posSel ),
-				FALSE, ! m_bGhostFolder ) )
-			pList.AddTail( pFile );
+		pList.AddTail( pFile );
 	}
 
 	while ( ! pList.IsEmpty() )
@@ -589,58 +571,53 @@ void CLibraryFileView::OnLibraryCreateTorrent()
 
 void CLibraryFileView::OnUpdateLibraryRebuildAnsi(CCmdUI* pCmdUI)
 {
+	CQuickLock oLock( Library.m_pSection );
+
 	if ( m_bGhostFolder )
 	{
 		pCmdUI->Enable( FALSE );
 		return;
 	}
-	INT_PTR nSelected = GetSelectedCount();
-
-	StartSelectedFileLoop();
 
 	// Count only selected mp3's which have no custom metadata in XML format
-	while ( m_posSel )
+	INT_PTR nSelected = GetSelectedCount();
+	POSITION posSel = StartSelectedFileLoop();
+	while ( CLibraryFile* pFile = GetNextSelectedFile( posSel ) )
 	{
-		// Lookup locks library if it finds a file
-		CQuickLock oLock( Library.m_pSection );
+		CString strExtension = pFile->m_sName.Right(3);
+		ToLower( strExtension );
 
-		if ( CLibraryFile* pFile = Library.LookupFile( m_pSelection.GetNext( m_posSel ), FALSE, TRUE ) )
+		BOOL bXmlPossiblyModified = FALSE;
+		if ( ! pFile->m_bMetadataAuto )
 		{
-			CString strExtension = pFile->m_sName.Right(3);
-			ToLower( strExtension );
-
-			BOOL bXmlPossiblyModified = FALSE;
-			if ( ! pFile->m_bMetadataAuto )
+			WIN32_FIND_DATA fd = { 0 };
+			if ( GetFileAttributesEx( pFile->GetPath(), GetFileExInfoStandard, &fd ) )
 			{
-				WIN32_FIND_DATA fd = { 0 };
-				if ( GetFileAttributesEx( pFile->GetPath(), GetFileExInfoStandard, &fd ) )
-				{
-					ULARGE_INTEGER nMetaDataTime;
-					ULARGE_INTEGER nFileDataTime;
+				ULARGE_INTEGER nMetaDataTime;
+				ULARGE_INTEGER nFileDataTime;
 
-					nFileDataTime.HighPart = fd.ftLastWriteTime.dwHighDateTime;
-					nFileDataTime.LowPart = fd.ftLastWriteTime.dwLowDateTime;
-					// Convert 100 ns into seconds
-					nFileDataTime.QuadPart /= 10000000;
+				nFileDataTime.HighPart = fd.ftLastWriteTime.dwHighDateTime;
+				nFileDataTime.LowPart = fd.ftLastWriteTime.dwLowDateTime;
+				// Convert 100 ns into seconds
+				nFileDataTime.QuadPart /= 10000000;
 
-					nMetaDataTime.HighPart = pFile->m_pMetadataTime.dwHighDateTime;
-					nMetaDataTime.LowPart = pFile->m_pMetadataTime.dwLowDateTime;
-					nMetaDataTime.QuadPart /= 10000000;
+				nMetaDataTime.HighPart = pFile->m_pMetadataTime.dwHighDateTime;
+				nMetaDataTime.LowPart = pFile->m_pMetadataTime.dwLowDateTime;
+				nMetaDataTime.QuadPart /= 10000000;
 
-					// Assume that XML was not modified during the first 10 sec. of creation
-					if ( nMetaDataTime.HighPart == nFileDataTime.HighPart &&
-						nMetaDataTime.LowPart - nFileDataTime.LowPart > 10 )
-						bXmlPossiblyModified = TRUE;
-				}
+				// Assume that XML was not modified during the first 10 sec. of creation
+				if ( nMetaDataTime.HighPart == nFileDataTime.HighPart &&
+					nMetaDataTime.LowPart - nFileDataTime.LowPart > 10 )
+					bXmlPossiblyModified = TRUE;
 			}
-			if ( ( strExtension != _T("mp3") && strExtension != _T("pdf") &&
-				   strExtension != _T("mpc") && strExtension != _T("mpp") &&
-				   strExtension != _T("mp+") && strExtension != _T("avi") )
-				 || bXmlPossiblyModified )
-				nSelected--;
 		}
-		else nSelected--;
+		if ( ( strExtension != _T("mp3") && strExtension != _T("pdf") &&
+			   strExtension != _T("mpc") && strExtension != _T("mpp") &&
+			   strExtension != _T("mp+") && strExtension != _T("avi") )
+			  || bXmlPossiblyModified )
+			nSelected--;
 	}
+
 	pCmdUI->Enable( nSelected > 0 );
 }
 
@@ -650,9 +627,8 @@ void CLibraryFileView::OnLibraryRebuildAnsi()
 
 	CSingleLock pLock( &Library.m_pSection, TRUE );
 
-	StartSelectedFileLoop();
-
-	for ( CLibraryFile* pFile = GetNextSelectedFile(); pFile; pFile = GetNextSelectedFile() )
+	POSITION posSel = StartSelectedFileLoop();
+	while ( CLibraryFile* pFile = GetNextSelectedFile( posSel ) )
 	{
 		CString strExtension = pFile->m_sName.Right(3);
 		ToLower( strExtension );
@@ -693,9 +669,8 @@ void CLibraryFileView::OnLibraryBitziDownload()
 	CSingleLock pLock( &Library.m_pSection, TRUE );
 	CBitziDownloadDlg dlg;
 
-	StartSelectedFileLoop();
-
-	for ( CLibraryFile* pFile = GetNextSelectedFile(); pFile; pFile = GetNextSelectedFile() )
+	POSITION posSel = StartSelectedFileLoop();
+	while ( CLibraryFile* pFile = GetNextSelectedFile( posSel ) )
 	{
 		if ( pFile->m_oSHA1 )
 			dlg.AddFile( pFile->m_nIndex );
@@ -715,9 +690,8 @@ void CLibraryFileView::OnLibraryRefreshMetadata()
 {
 	CQuickLock pLock( Library.m_pSection );
 
-	StartSelectedFileLoop();
-
-	for ( CLibraryFile* pFile = GetNextSelectedFile(); pFile; pFile = GetNextSelectedFile() )
+	POSITION posSel = StartSelectedFileLoop();
+	while ( CLibraryFile* pFile = GetNextSelectedFile( posSel ) )
 	{
 		LibraryBuilder.RefreshMetadata( pFile->GetPath() );
 	}
@@ -735,12 +709,11 @@ void CLibraryFileView::OnLibraryProperties()
 	CSingleLock pLock( &Library.m_pSection, TRUE );
 	CFilePropertiesSheet dlg;
 
-	StartSelectedFileLoop();
-	while ( m_posSel )
+	POSITION posSel = StartSelectedFileLoop();
+	while ( CLibraryFile* pFile = GetNextSelectedFile( posSel, FALSE, FALSE ) )
 	{
-		if ( CLibraryFile* pFile = Library.LookupFile( m_pSelection.GetNext( m_posSel ) ) )
-			dlg.Add( pFile );
-			//oFiles.AddTail( pFile->GetPath() );
+		dlg.Add( pFile );
+		//oFiles.AddTail( pFile->GetPath() );
 	}
 	pLock.Unlock();
 
@@ -781,20 +754,17 @@ void CLibraryFileView::OnUpdateLibraryShared(CCmdUI* pCmdUI)
 
 	if ( GetSelectedCount() > 0 && pLock.Lock( 100 ) )
 	{
-		StartSelectedFileLoop();
-		while ( m_posSel )
+		POSITION posSel = StartSelectedFileLoop();
+		while ( CLibraryFile* pFile = GetNextSelectedFile( posSel ) )
 		{
-			if ( CLibraryFile* pFile = Library.LookupFile( m_pSelection.GetNext( m_posSel ) ) )
+			if ( bShared == TRI_UNKNOWN )
 			{
-				if ( bShared == TRI_UNKNOWN )
-				{
-					bShared = pFile->IsShared() ? TRI_TRUE : TRI_FALSE;
-				}
-				else if ( ( bShared == TRI_TRUE ) != pFile->IsShared() )
-				{
-					pCmdUI->Enable( FALSE );
-					return;
-				}
+				bShared = pFile->IsShared() ? TRI_TRUE : TRI_FALSE;
+			}
+			else if ( ( bShared == TRI_TRUE ) != pFile->IsShared() )
+			{
+				pCmdUI->Enable( FALSE );
+				return;
 			}
 		}
 	}
@@ -806,12 +776,10 @@ void CLibraryFileView::OnLibraryShared()
 {
 	CQuickLock oLock( Library.m_pSection );
 
-	StartSelectedFileLoop();
-
-	while ( m_posSel )
+	POSITION posSel = StartSelectedFileLoop();
+	while ( CLibraryFile* pFile = GetNextSelectedFile( posSel ) )
 	{
-		if ( CLibraryFile* pFile = Library.LookupFile( m_pSelection.GetNext( m_posSel ) ) )
-			pFile->SetShared( ! pFile->IsShared() );
+		pFile->SetShared( ! pFile->IsShared() );
 	}
 
 	Library.Update();
@@ -839,9 +807,8 @@ void CLibraryFileView::OnLibraryUnlink()
 	CAlbumFolder* pFolder = pItem->m_pVirtual;
 	if ( ! LibraryFolders.CheckAlbum( pFolder ) ) return;
 
-	StartSelectedFileLoop();
-
-	for ( CLibraryFile* pFile = GetNextSelectedFile(); pFile; pFile = GetNextSelectedFile() )
+	POSITION posSel = StartSelectedFileLoop();
+	while ( CLibraryFile* pFile = GetNextSelectedFile( posSel ) )
 	{
 		pFolder->RemoveFile( pFile );
 	}
@@ -923,7 +890,9 @@ void CLibraryFileView::OnSearchForSeries()
 }
 
 /////////////////////////////////////////////////////////////////////
-// Web services handling
+// Web Services Handling
+
+// ToDo: Move below ShareMonkey & MusicBrainz to own class?
 
 void CLibraryFileView::ClearServicePages()
 {
@@ -949,6 +918,9 @@ void CLibraryFileView::OnShareMonkeyLookup()
 {
 	GetFrame()->SetDynamicBar( L"WebServices.ShareMonkey.WithSave" );
 }
+
+/////////////////////////////////////////////////////////////////////
+// MusicBrainz Services
 
 void CLibraryFileView::OnUpdateMusicBrainzLookup(CCmdUI* pCmdUI)
 {
@@ -1084,6 +1056,9 @@ void CLibraryFileView::OnMusicBrainzAlbums()
 
 	ShellExecute( GetSafeHwnd(), _T("open"), strURL, NULL, NULL, SW_SHOWNORMAL );
 }
+
+/////////////////////////////////////////////////////////////////////
+// ShareMonkey Services
 
 void CLibraryFileView::OnUpdateShareMonkeyDownload(CCmdUI* pCmdUI)
 {
@@ -1273,16 +1248,15 @@ void CLibraryFileView::OnUpdateShareMonkeyPrices(CCmdUI* pCmdUI)
 void CLibraryFileView::OnShareMonkeyPrices()
 {
 	POSITION pos = m_pServiceDataPages.GetHeadPosition();
-	CMetaPanel* pPanelData = NULL;
+	CShareMonkeyData* pData = NULL;
 
 	// ToDo: Change m_pServiceDataPages to CMap. Now it's stupid
 	for ( INT_PTR nPage = 0 ; nPage <= m_nCurrentPage ; nPage++ )
 	{
-		pPanelData = m_pServiceDataPages.GetNext( pos );
+		pData = static_cast< CShareMonkeyData* >( m_pServiceDataPages.GetNext( pos ) );
 	}
 
-	CShareMonkeyData* pData = static_cast< CShareMonkeyData* >( pPanelData );
-	if ( pData->m_pChild == NULL )
+	if ( pData && ! pData->m_pChild )
 	{
 		CShareMonkeyData* pChild = new CShareMonkeyData( 0, CShareMonkeyData::stStoreMatch );
 		pData->m_pChild = pChild;
@@ -1299,7 +1273,7 @@ void CLibraryFileView::OnShareMonkeyPrices()
 	}
 	else
 	{
-		GetFrame()->SetPanelData( pData->m_pChild );
+		GetFrame()->SetPanelData( pData ? pData->m_pChild : NULL );
 	}
 }
 
@@ -1314,16 +1288,15 @@ void CLibraryFileView::OnUpdateShareMonkeyCompare(CCmdUI* pCmdUI)
 void CLibraryFileView::OnShareMonkeyCompare()
 {
 	POSITION pos = m_pServiceDataPages.GetHeadPosition();
-	CMetaPanel* pPanelData = NULL;
+	CShareMonkeyData* pData = NULL;
 
 	// ToDo: Change m_pServiceDataPages to CMap. Now it's stupid
 	for ( INT_PTR nPage = 0 ; nPage <= m_nCurrentPage ; nPage++ )
 	{
-		pPanelData = m_pServiceDataPages.GetNext( pos );
+		pData = static_cast< CShareMonkeyData* >( m_pServiceDataPages.GetNext( pos ) );
 	}
 
-	CShareMonkeyData* pData = static_cast< CShareMonkeyData* >( pPanelData );
-	if ( pData->m_sComparisonURL.GetLength() )
+	if ( pData && pData->m_sComparisonURL.GetLength() )
 		ShellExecute( GetSafeHwnd(), _T("open"), pData->m_sComparisonURL, NULL, NULL, SW_SHOWNORMAL );
 }
 
@@ -1335,18 +1308,18 @@ void CLibraryFileView::OnUpdateShareMonkeyBuy(CCmdUI* pCmdUI)
 void CLibraryFileView::OnShareMonkeyBuy()
 {
 	POSITION pos = m_pServiceDataPages.GetHeadPosition();
-	CMetaPanel* pPanelData = NULL;
+	CShareMonkeyData* pData = NULL;
 
 	// ToDo: Change m_pServiceDataPages to CMap. Now it's stupid
 	for ( INT_PTR nPage = 0 ; nPage <= m_nCurrentPage ; nPage++ )
 	{
-		pPanelData = m_pServiceDataPages.GetNext( pos );
+		pData = static_cast< CShareMonkeyData* >( m_pServiceDataPages.GetNext( pos ) );
 	}
 
-	CShareMonkeyData* pData = static_cast< CShareMonkeyData* >( pPanelData );
-	if ( pData->m_sBuyURL.GetLength() )
+	if ( pData && pData->m_sBuyURL.GetLength() )
 		ShellExecute( GetSafeHwnd(), _T("open"), pData->m_sBuyURL, NULL, NULL, SW_SHOWNORMAL );
 }
+
 
 ////////////////////////////////////////////////////////////////////////////////
 // Set pszMessage to NULL when the work is done, to remove the status item from meta panel.

@@ -1,9 +1,9 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
+<?xml version="1.0" encoding="UTF-8"?>
+<skin xmlns="http://schemas.peerproject.org/Skin.xsd" version="1.0">
 
 <!-- PeerProject Default Lithuanian Skin File -->
 
-<!-- Translation based on default-en.xml r48 -->
+<!-- Translation based on default-en.xml r50 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1073,31 +1073,28 @@
 	<!-- DOWNLOADS WINDOW -->
 	<menu name="CDownloadsWnd.Download.Basic">
 		<item id="ID_DOWNLOADS_LAUNCH" text="_Peržiūra"/>
-		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="_Nuotolinė peržiūra"/>
-		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="P_eržvelgti įvertinimus"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_RESUME" text="_Tęsti"/>
 		<item id="ID_DOWNLOADS_PAUSE" text="_Stabdyti"/>
 		<item id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Š_alinti"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_SOURCES" text="Rasti _daugiau šaltinių"/>
-		<!-- <separator/>
-		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Valyti _sąrašą"/>
-		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="Savai_minis valymas"/> -->
+		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="_Nuotolinė peržiūra"/>
+		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="P_eržvelgti įvertinimus"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_HELP" text="Ži_nynas..."/>
 	</menu>
 	<menu name="CDownloadsWnd.Download">
-		<item id="ID_DOWNLOADS_LAUNCH" text="_Peržiūra"/>
 		<item id="ID_DOWNLOADS_LAUNCH_COPY" text="_Kopijos peržiūra"/>
+		<item id="ID_DOWNLOADS_LAUNCH" text="_Peržiūra"/>
 		<item id="ID_DOWNLOADS_ENQUEUE" text="Įt_raukti į grojaraštį"/>
-		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="_Nuotolinė peržiūra"/>
-		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="P_eržvelgti įvertinimus"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_RESUME" text="_Tęsti"/>
 		<item id="ID_DOWNLOADS_PAUSE" text="_Stabdyti"/>
 		<item id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Š_alinti"/>
 		<separator/>
+		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="P_eržvelgti įvertinimus"/>
+		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="_Nuotolinė peržiūra"/>
 		<item id="ID_DOWNLOADS_SOURCES" text="Rasti _daugiau šaltinių"/>
 		<separator/>
 		<menu text="K_ita">
@@ -1105,18 +1102,21 @@
 			<separator/>
 			<item id="ID_DOWNLOADS_URI" text="Kopijuoti _nuorodą"/>
 			<item id="ID_DOWNLOADS_ADD_SOURCE" text="_Pridėti šaltinį..."/>
+			<item id="ID_DOWNLOADS_MERGE" text="Merge vietos failas..."/>
 			<separator/>
 			<item id="ID_DOWNLOADS_MONITOR" text="_Monitoriaus langas"/>
+		</menu>
+		<menu text="Pri_oritetas">
 			<item id="ID_DOWNLOADS_BOOST" text="Nepaisyti _greitaveikos limito"/>
 			<separator/>
-			<item id="ID_DOWNLOADS_MOVE_UP" text="_Aukštyn"/>
-			<item id="ID_DOWNLOADS_MOVE_DOWN" text="Žem_yn"/>
-			<item id="ID_DOWNLOADS_MOVE_TOP" text="_Aukštyn!"/>
-			<item id="ID_DOWNLOADS_MOVE_BOTTOM" text="Žem_yn!"/>
+			<item id="ID_DOWNLOADS_MOVE_TOP" text="_Aukštyn!" shortcut="Ctrl+Home"/>
+			<item id="ID_DOWNLOADS_MOVE_BOTTOM" text="Žem_yn!" shortcut="Ctrl+End"/>
+			<item id="ID_DOWNLOADS_MOVE_UP" text="_Aukštyn" shortcut="Ctrl+Up"/>
+			<item id="ID_DOWNLOADS_MOVE_DOWN" text="Žem_yn" shortcut="Ctrl+Down"/>
 		</menu>
 		<item id="ID_DOWNLOADS_HELP" text="Ži_nynas..."/>
 		<separator/>
-			<item id="ID_DOWNLOADS_EDIT" text="Sa_vybės"/>
+		<item id="ID_DOWNLOADS_EDIT" text="Sa_vybės"/>
 	</menu>
 	<menu name="CDownloadsWnd.Source">
 		<item id="ID_TRANSFERS_CONNECT" text="_Užklausti šaltinio"/>
@@ -2761,7 +2761,7 @@
 	<string id="8230" value="„PeerProject“ ieško šaltinių failui(-ams):"/>
 	<string id="8231" value="Šaltinių nėra"/>
 	<string id="8232" value="Atverti"/>
-	<string id="8233" value="Peržiūra"/>
+	<string id="8233" value="Atšaukti"/>
 	<string id="8235" value="Visuminė sparta:"/>
 	<string id="8236" value="Apytiksl. likę laiko:"/>
 	<string id="8237" value="Atsisiunt. apimtis:"/>
@@ -3028,7 +3028,6 @@
 	<string id="16402" value="„PeerProject“ parsisiuntė rinkinio failą:\n\n„%s“\n\nTurbūt jis nėra teisingas rinkinio failas."/>
 	<string id="16403" value="„PeerProject“ įtraukė rinkinio failą „%s“ į Jūsų kolekciją."/>
 	<string id="16404" value="„PeerProject“ negalėjo įdiegti rinkinio failo „%s“ kopijavimo į aplanką „%s“ būdu."/>
-	<string id="16405" value="Ar norite parsisiųsti šį failą?\n\n„%s“\n\nPasirinkite „Atšaukti“, jei norite, kad toliau nebūtų klausiama."/>
 	<string id="16406" value="Ar norite parsisiųsti visus failus iš šio rinkinio?\n\nPasirinkite „Atšaukti“, jei norite, kad toliau nebūtų klausiama."/>
 	<string id="16407" value="Ar norite, kad šiam rinkiniui daugiau nebebūtų klausiama apie kokius nors atsisiuntimus?"/>
 	<string id="16408" value="Kopijuoti &amp;nuorodą"/>
@@ -3405,14 +3404,14 @@
 		<control caption="Kai paspaudžiu sutraukti:"/>
 		<control caption="Įprastas veiksmas|Patalpinti juostelėn"/>
 	</dialog>
-	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBu" caption="Kolekcija">
+	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuBuCoBuBuBuCoBuBuBuEdBu" caption="Kolekcija">
 		<control caption="Pa_rinktys:"/>
 		<control caption="Leisti peržiūrėti bendrintus failus"/>
+		<control caption="Prisiminti aplankų peržiūros būdą"/>
 		<control caption="Stebėti kolekcijos katalogus"/>
 		<control caption="Greita maiša (daugiau CPU)"/>
 		<control caption="Gudrus video serialų aptikimas"/>
 		<control caption="Kurti šešėlinius failus trinant"/>
-		<control caption="Prisiminti aplankų peržiūros būdą"/>
 		<control caption="Paskutiniai _failai:"/>
 		<control caption="Prisiminti:"/>
 		<control/>
@@ -3422,7 +3421,8 @@
 		<control/>
 		<control/>
 		<control caption="dienas"/>
-		<control caption="Valyti žurnalą dabar"/>
+		<control caption="Valyti žurnalą"/>
+		<control caption="Valyti failus"/>
 		<control caption="_Saugu atverti:"/>
 		<control/>
 		<control caption="_Pridėti"/>
@@ -4067,8 +4067,7 @@
 		<control caption="Atšaukti"/>
 		<control/>
 	</dialog>
-	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStStBuBuBuBuBu" caption="Siunčiamas failas">
-		<control caption="„PeerProject“ parsisiunčia:"/>
+	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStBuBuBuBu" caption="Siunčiamas failas">
 		<control caption="..."/>
 		<control/>
 		<control/>
@@ -4082,7 +4081,6 @@
 		<control caption="Parsisiuntimo apimtis:"/>
 		<control caption="..."/>
 		<control caption="Rodyti kolekciją"/>
-		<control caption="Atverti failą"/>
 		<control caption="Atšaukti siuntimą"/>
 		<control caption="Slėpti"/>
 		<control caption="Užverti šį langą, kai parsisiuntimas bus baigtas"/>
@@ -4457,23 +4455,22 @@
 		<control caption="iki"/>
 		<control caption="Ištrinti"/>
 	</dialog>
-	<dialog name="CDownloadGroupDlg" cookie="BuBuEdCoBuCoBuBuEdBuBuBuBuBuBuSt" caption="Atsisiuntimų grupės ypatybės">
-		<control caption="Gerai"/>
-		<control caption="Atšaukti"/>
+	<dialog name="CDownloadGroupDlg" cookie="BuEdBuEdBuBuBuCoBuBuBuCoStBuBu" caption="Atsisiuntimų grupės ypatybės">
+		<control caption="Pa_vadinimas:"/>
+		<control/>
+		<control caption="_Aplankas, į kurį išsaugoti atsisiuntus"/>
 		<control/>
 		<control/>
-		<control caption="_BitTorrent"/>
+		<control/>
+		<control caption="_Filtrai:"/>
 		<control/>
 		<control caption="_Pridėti"/>
 		<control caption="Š_alinti"/>
-		<control/>
-		<control/>
-		<control/>
-		<control caption="Pa_vadinimas:"/>
-		<control caption="_Filtrai:"/>
-		<control caption="_Aplankas, į kurį išsaugoti atsisiuntus"/>
 		<control caption="_Failo plėtinys:"/>
-		<control caption="_*Drag&apos;n&apos;drop any download later."/>
+		<control/>
+		<control caption="*Drag&apos;n&apos;drop any download later."/>
+		<control caption="Gerai"/>
+		<control caption="Atšaukti"/>
 	</dialog>
 	<dialog name="CMediaVisDlg" cookie="StBuSyCoBuBuBu" caption="Pasirinkite muzikos vaizdą">
 		<control/>
@@ -4664,4 +4661,4 @@
 		<column from="Order" to="Eilė"/>
 	</list>
 </listColumns>
-</skin>
+</skin>逺

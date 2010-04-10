@@ -1,31 +1,29 @@
-////////////////////////////////////////////////////////////////////////////////
-//                                                                            //
-// Hashes/HashStringConversion.hpp                                            //
-//                                                                            //
-// This file is part of PeerProject (peerproject.org) © 2008                  //
-// Portions Copyright Shareaza Development Team, 2002-2007.                   //
-//                                                                            //
-// PeerProject is free software; you can redistribute it and/or               //
-// modify it under the terms of the GNU General Public License                //
-// as published by the Free Software Foundation; either version 3             //
-// of the License, or later version (at your option).                         //
-//                                                                            //
-// PeerProject is distributed in the hope that it will be useful,             //
-// but WITHOUT ANY WARRANTY; without even the implied warranty of             //
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.                       //
-// See the See the GNU General Public License for more details.               //
-//                                                                            //
-// You should have received a copy of the GNU General Public License 3.0          //
-// along with PeerProject; if not, write to Free Software Foundation, Inc.    //
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)     //
-//                                                                            //
-////////////////////////////////////////////////////////////////////////////////
+//
+// Hashes/HashStringConversion.hpp
+//
+// This file is part of PeerProject (peerproject.org) © 2008-2010
+// Portions Copyright Shareaza Development Team, 2005-2007.
+//
+// PeerProject is free software; you can redistribute it and/or
+// modify it under the terms of the GNU General Public License
+// as published by the Free Software Foundation; either version 3
+// of the License, or later version (at your option).
+//
+// PeerProject is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+// See the GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License 3.0
+// along with PeerProject; if not, write to Free Software Foundation, Inc.
+// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+//
 
 //! \file       Hashes/HashStringConversion.hpp
 //! \brief      Declares functions for conversion between hashes and strings.
+// Note: "CString" were custom "StringType"
 
-#ifndef HASHES_HASHSTRINGCONVERSION_HPP_INCLUDED
-#define HASHES_HASHSTRINGCONVERSION_HPP_INCLUDED
+#pragma once
 
 namespace Hashes
 {
@@ -47,18 +45,18 @@ namespace Hashes
 		//! This encoding is specific to Guids.
 		//! <b>It cannot be used to read from a string.</b>
 		guidEncoding = 0,
-		base16Encoding = 4, //!< Encodes the hash as hexadezimal string.
+		base16Encoding = 4, //!< Encodes the hash as hexadecimal string.
 		base32Encoding = 5  //!< Uses Base32 encoding.
 	};
 
 	//! \brief Encodes a uchar array as guid string without "{}".
-	StringType toGuid(const uchar* hash);
+	CString toGuid(const uchar* hash);
 	//! \brief Encodes a CLSID as guid string with or without "{}".
-	StringType toGuid(REFCLSID hash, bool enclosed = true);
+	CString toGuid(REFCLSID hash, bool enclosed = true);
 	//! \brief Encodes a uchar array of given range as hex string.
-	StringType toBase16(const uchar* hash, size_t byteCount);
+	CString toBase16(const uchar* hash, size_t byteCount);
 	//! \brief Encodes a uchar array of given range as Base32 string.
-	StringType toBase32(const uchar* hash, size_t byteCount);
+	CString toBase32(const uchar* hash, size_t byteCount);
 	//! \brief Reads from a guid encoded string with or without "{}" into a uchar array.
 	bool fromGuid(uchar* hash, const wchar* input);
 	//! \brief Reads from a guid encoded string with or without "{}" into a CLSID.
@@ -71,37 +69,34 @@ namespace Hashes
 	template<Encoding encoding, size_t byteCount> struct HashToString;
 	template<Encoding encoding, size_t byteCount> struct HashFromString;
 
-	//! \brief Helper template to forward calls to the guid encoding
-	//!        function.
+	//! \brief Helper template to forward calls to the guid encoding function.
 	template<size_t byteCount>
 	struct HashToString< guidEncoding, byteCount >
 	{
 		BOOST_STATIC_ASSERT( byteCount <= maxByteCount );
-		inline StringType operator()(const uchar* hash) const
+		CString operator()(const uchar* hash) const
 		{
 			return toGuid( hash );
 		}
 	};
 
-	//! \brief Helper template to forward calls to the base16 encoding
-	//!        function.
+	//! \brief Helper template to forward calls to the base16 encoding function.
 	template<size_t byteCount>
 	struct HashToString< base16Encoding, byteCount >
 	{
 		BOOST_STATIC_ASSERT( byteCount <= maxByteCount );
-		inline StringType operator()(const uchar* hash) const
+		CString operator()(const uchar* hash) const
 		{
 			return toBase16( hash, byteCount );
 		}
 	};
 
-	//! \brief Helper template to forward calls to the base32 encoding
-	//!        function.
+	//! \brief Helper template to forward calls to the base32 encoding function.
 	template<size_t byteCount>
 	struct HashToString< base32Encoding, byteCount >
 	{
 		BOOST_STATIC_ASSERT( byteCount <= maxByteCount );
-		inline StringType operator()(const uchar* hash) const
+		CString operator()(const uchar* hash) const
 		{
 			return toBase32( hash, byteCount );
 		}
@@ -129,8 +124,7 @@ namespace Hashes
 		}
 	};
 
-	//! \brief Helper template to forward calls to the base32 encoding
-	//!        function.
+	//! \brief Helper template to forward calls to the base32 encoding function.
 	template<size_t byteCount>
 	struct HashFromString< base32Encoding, byteCount >
 	{
@@ -141,5 +135,3 @@ namespace Hashes
 	};
 
 } // namespace Hashes
-
-#endif // #ifndef HASHES_HASHSTRINGCONVERSION_HPP_INCLUDED

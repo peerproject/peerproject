@@ -1,7 +1,7 @@
 //
 // TorrentWizard.cpp
 //
-// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008
+// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2007.
 //
 // PeerProject Torrent Wizard is free software; you can redistribute it
@@ -153,21 +153,28 @@ void CTorrentWizardApp::InitEnvironment()
 
 void CTorrentWizardApp::InitResources()
 {
+	BOOL bVista = FALSE;
+	OSVERSIONINFO pVersion;
+	pVersion.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
+	GetVersionEx( &pVersion );
+	if ( pVersion.dwMajorVersion > 5 )
+		bVista = TRUE;
+
 	m_fntNormal.CreateFont( -11, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE,
 		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
-		DEFAULT_PITCH|FF_DONTCARE, _T("Tahoma") );
+		DEFAULT_PITCH|FF_DONTCARE, ( bVista ? _T("Segoe UI") : _T("Tahoma") ) );
 
 	m_fntBold.CreateFont( -11, 0, 0, 0, FW_BOLD, FALSE, FALSE, FALSE,
 		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
-		DEFAULT_PITCH|FF_DONTCARE, _T("Tahoma") );
+		DEFAULT_PITCH|FF_DONTCARE, ( bVista ? _T("Segoe UI") : _T("Tahoma") ) );
 
 	m_fntLine.CreateFont( -11, 0, 0, 0, FW_NORMAL, FALSE, TRUE, FALSE,
 		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
-		DEFAULT_PITCH|FF_DONTCARE, _T("Tahoma") );
+		DEFAULT_PITCH|FF_DONTCARE, ( bVista ? _T("Segoe UI") : _T("Tahoma") ) );
 
 	m_fntTiny.CreateFont( -8, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE,
 		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
-		DEFAULT_PITCH|FF_DONTCARE, _T("Tahoma") );
+		DEFAULT_PITCH|FF_DONTCARE, ( bVista ? _T("Segoe UI") : _T("Tahoma") ) );
 
 	srand( GetTickCount() );
 }

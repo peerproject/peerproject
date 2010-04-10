@@ -38,7 +38,7 @@
 #include "Packet.h"
 #include "VendorCache.h"
 
-// If we are compiling in debug mode, replace the text "THIS_FILE" in the code with the name of this file
+// Constant "THIS_FILE" is the filename, in Debug mode only
 #ifdef _DEBUG
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
@@ -49,25 +49,22 @@ static char THIS_FILE[]=__FILE__;
 // CShakeNeighbour construction
 
 // Make a new CShakeNeighbour object
-CShakeNeighbour::CShakeNeighbour() : CNeighbour( PROTOCOL_NULL ), // Call the CNeighbour constructor first, with no protocol
-	// Set member variables that record headers to false
-m_bSentAddress(FALSE),			// We haven't told the remote computer "Listen-IP: 1.2.3.4:5"
-m_bG1Send(FALSE),				// The remote computer hasn't said "Content-Type: application/x-gnutella-packets" yet
-m_bG1Accept(FALSE),				// The remote computer hasn't said "Accept: application/x-gnutella-packets" yet
-m_bG2Send(FALSE),				// The remote computer hasn't said "Content-Type: application/x-gnutella2" yet
-m_bG2Accept(FALSE),				// The remote computer hasn't said "Accept: application/x-gnutella2" yet
-m_bDeflateSend(FALSE),			// The remote computer hasn't said "Content-Encoding: deflate" yet
-m_bDeflateAccept(FALSE),		// The remote computer hasn't said "Accept-Encoding: deflate" yet
-// Start out ultrapeer settings as unknown
-m_bUltraPeerSet(TRI_UNKNOWN),	// The remote computer hasn't told us if it's ultra or not yet
-m_bUltraPeerNeeded(TRI_UNKNOWN),	// The remote computer hasn't told us if it needs more ultra connections yet
-m_bUltraPeerLoaded(TRI_UNKNOWN),	// May not be in use (do)
-m_nDelayCloseReason(0),
-	//ToDo: Check this - G1 setting?
-	// Set m_bCanDeflate to true if the checkboxes in PeerProject Settings allow us to send and receive compressed data
-m_bCanDeflate( Neighbours.IsG2Leaf() ? ( Settings.Gnutella.DeflateHub2Hub || Settings.Gnutella.DeflateLeaf2Hub )
-: ( Settings.Gnutella.DeflateHub2Hub || Settings.Gnutella.DeflateHub2Leaf ) ),
-m_bDelayClose(FALSE)
+CShakeNeighbour::CShakeNeighbour() : CNeighbour( PROTOCOL_NULL ) // Call the CNeighbour constructor first, with no protocol
+	, m_bSentAddress	(FALSE) 		// We haven't told the remote computer "Listen-IP: 1.2.3.4:5"
+	, m_bG1Send 		(FALSE) 		// Remote computer hasn't said "Content-Type: application/x-gnutella-packets" yet
+	, m_bG1Accept		(FALSE) 		// Remote computer hasn't said "Accept: application/x-gnutella-packets" yet
+	, m_bG2Send 		(FALSE) 		// Remote computer hasn't said "Content-Type: application/x-gnutella2" yet
+	, m_bG2Accept		(FALSE) 		// Remote computer hasn't said "Accept: application/x-gnutella2" yet
+	, m_bDeflateSend	(FALSE) 		// Remote computer hasn't said "Content-Encoding: deflate" yet
+	, m_bDeflateAccept	(FALSE) 		// Remote computer hasn't said "Accept-Encoding: deflate" yet
+	, m_bUltraPeerSet	(TRI_UNKNOWN)	// Remote computer hasn't told us if it's ultra or not yet: unknown
+	, m_bUltraPeerNeeded (TRI_UNKNOWN)	// Remote computer hasn't told us if it needs more ultra connections yet: unknown
+	, m_bUltraPeerLoaded (TRI_UNKNOWN)	// May not be in use (do): unknown
+	, m_nDelayCloseReason (0)
+	, m_bDelayClose 	(FALSE)
+	, m_bCanDeflate 	( Neighbours.IsG2Leaf() ?
+		Settings.Gnutella.DeflateLeaf2Hub : ( Settings.Gnutella.DeflateHub2Leaf || Settings.Gnutella.DeflateHub2Hub ) )
+										// Set m_bCanDeflate to true if the checkboxes in Settings allow us to send and receive compressed data
 {
 }
 
@@ -90,9 +87,9 @@ BOOL CShakeNeighbour::ConnectTo(const IN_ADDR* pAddress, WORD nPort, BOOL bAutom
 	if ( CConnection::ConnectTo( pAddress, nPort ) )
 	{
 		// Have Windows signal our event when the state of the socket changes
-		WSAEventSelect(						// Associate an event object with a specified set of network events
-			m_hSocket,					// The socket
-			Network.GetWakeupEvent(),			// Signal this event when the following network events happen
+		WSAEventSelect(										// Associate an event object with a specified set of network events
+			m_hSocket,										// The socket
+			Network.GetWakeupEvent(),						// Signal this event when the following network events happen
 			FD_CONNECT | FD_READ | FD_WRITE | FD_CLOSE );	// Connection completed, ready to read or write, or socket closed
 
 		// Report that we are attempting this connection
@@ -107,8 +104,8 @@ BOOL CShakeNeighbour::ConnectTo(const IN_ADDR* pAddress, WORD nPort, BOOL bAutom
 	}
 
 	// Initialize more member variables
-	m_nState		= nrsConnecting;			// We've connected the socket, and are waiting for the connection to be made
-	m_bAutomatic	= bAutomatic;					// Copy the given automatic setting into the member variable (do)
+	m_nState		= nrsConnecting;							// We've connected the socket, and are waiting for the connection to be made
+	m_bAutomatic	= bAutomatic;								// Copy the given automatic setting into the member variable (do)
 	m_bUltraPeerSet	= bNoUltraPeer ? TRI_FALSE : TRI_UNKNOWN;	// Set m_bUltraPeerSet to false or unknown (do)
 
 	// Add this CShakeNeighbour object to the list of them
@@ -129,13 +126,13 @@ void CShakeNeighbour::AttachTo(CConnection* pConnection)
 	CConnection::AttachTo( pConnection );
 
 	// Have Windows signal our event when the state of the socket changes
-	WSAEventSelect(					// Associate an event object with a specified set of network events
-		m_hSocket,				// The socket
-		Network.GetWakeupEvent(),		// Signal this event when the following network events happen
+	WSAEventSelect(							// Associate an event object with a specified set of network events
+		m_hSocket,							// The socket
+		Network.GetWakeupEvent(),			// Signal this event when the following network events happen
 		FD_READ | FD_WRITE | FD_CLOSE );	// Signal it when the socket is ready to read or write, or closed
 
 	// Put this CShakeNeighbour object into the Handshake1 state (do)
-	m_nState = nrsHandshake1; // We are waiting the request message
+	m_nState = nrsHandshake1;				// We are waiting the request message
 
 	// Add this CShakeNeighbour object to the list of them
 	Neighbours.Add( this );
@@ -257,11 +254,9 @@ void CShakeNeighbour::OnDropped()
 	if ( m_nState == nrsConnecting )
 		Close( IDS_CONNECTION_REFUSED );
 	else
-	{
+		Close( IDS_CONNECTION_DROPPED );
 		// We are somewhere else in the chain of connecting and doing the handshake
 		// Connection to node has succeeded but was dropped.
-		Close( IDS_CONNECTION_DROPPED );
-	}
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -340,8 +335,8 @@ BOOL CShakeNeighbour::OnRun()
 
 		break;
 	default:
-//		ASSERT( 0 )
 		;
+	//	ASSERT( 0 )
 	}
 
 	// Have CConnection::DoRun keep talking to this remote computer
@@ -387,19 +382,13 @@ void CShakeNeighbour::SendMinimalHeaders()
 		}
 		else if ( m_nProtocol == PROTOCOL_NULL )
 		{
+			// Tell the remote computer we know how to read Gnutella and Gnutella2 packets
 			if ( Settings.Gnutella1.EnableToday && Settings.Gnutella2.EnableToday )
-			{
-				// Tell the remote computer we know how to read Gnutella and Gnutella2 packets
 				Write( _P("Accept: application/x-gnutella2,application/x-gnutella-packets\r\n") );
-			}
 			else if ( Settings.Gnutella2.EnableToday )
-			{
 				Write( _P("Accept: application/x-gnutella2\r\n") );
-			}
 			else if ( Settings.Gnutella1.EnableToday )
-			{
 				Write( _P("Accept: application/x-gnutella-packets\r\n") );
-			}
 		}
 	}
 	else
@@ -430,7 +419,7 @@ void CShakeNeighbour::SendPublicHeaders()
 
 	SendMinimalHeaders();
 
-//  TODO: We currently do not use standard language codes
+//  ToDo: We may not use standard language codes
 //	strHeader.Format( _T("X-Locale-Pref: %s\r\n"), Settings.General.Language );
 //	Write( strHeader );
 
@@ -447,15 +436,11 @@ void CShakeNeighbour::SendPublicHeaders()
 	// PeerProject Settings allow us to exchange compressed data with this computer
 	if ( m_bCanDeflate )
 	{
-		// Tell the remote computer we can accept compressed data
-		Write( _P("Accept-Encoding: deflate\r\n") );
+		Write( _P("Accept-Encoding: deflate\r\n") );		// Tell remote computer we can accept compressed data
 
 		// If the remote computer connected to us and accepts compressed data
 		if ( ! m_bInitiated && m_bDeflateAccept )
-		{
-			// Tell it we will be sending compressed data
-			Write( _P("Content-Encoding: deflate\r\n") );
-		}
+			Write( _P("Content-Encoding: deflate\r\n") );	// Tell it we will be sending compressed data
 	}
 
 	// If the settings say connect to Gnutella and this function got passed Gnutella or the unknown network
@@ -571,17 +556,11 @@ void CShakeNeighbour::SendPrivateHeaders()
 	{
 		// All the data from the remote computer is going to be compressed
 		if ( m_bDeflateSend )
-		{
-			// Tell it we accept compressed data too
-			Write( _P("Accept-Encoding: deflate\r\n") );
-		}
+			Write( _P("Accept-Encoding: deflate\r\n") );		// Tell it we accept compressed data too
 
 		// The remote computer accepts compressed data
 		if ( m_bDeflateAccept )
-		{
-			// Tell it all the data we send it will be compressed
-			Write( _P("Content-Encoding: deflate\r\n") );
-		}
+			Write( _P("Content-Encoding: deflate\r\n") );		// Tell it all the data we send it will be compressed
 	}
 }
 
@@ -694,14 +673,12 @@ BOOL CShakeNeighbour::ReadResponse()
 		// (do)
 		OnHandshakeComplete();	// Deletes this CShakeNeighbour object
 		return FALSE;			// Tell the method that called this one not to call us again, we're done here
-
 	}
 
 	// The line starts "GNUTELLA/0.6", and says something else after that
 	if ( strLine.GetLength() > 13 && strLine.Left( 12 ) == _T("GNUTELLA/0.6") )
 	{
-		// It does not say "200 OK" after that
-		if ( strLine != _T("GNUTELLA/0.6 200 OK") )
+		if ( strLine != _T("GNUTELLA/0.6 200 OK") ) 	// It does not say "200 OK" after that
 		{
 			// Clip out just the part that says why we were rejected, document it, and set the state to rejected
 			strLine = strLine.Mid( 13 );
@@ -713,40 +690,41 @@ BOOL CShakeNeighbour::ReadResponse()
 			{
 				m_bDelayClose = TRUE;
 			}
-		} // It does say "200 OK", and the remote computer contacted us
-		else if ( ! m_bInitiated )
+		}
+		else if ( ! m_bInitiated )	// It does say "200 OK", and the remote computer contacted us
 		{
 			// The remote computer connected to us and sent its headers, we replied with ours, and now it's sending the final group
 			m_nState = nrsHandshake3; // We're reading the final header group from the remote computer
 
-		} // It does say "200 OK", and we initiated the connection
-		else
+		}
+		else	// It does say "200 OK", and we initiated the connection
 		{
 			// We connected and sent our headers, now the remote computer is responding
 			m_nState = nrsHandshake2; // We're reading the initial header group the remote computer has sent
 		}
-
-	} // The remote computer connected to us, and wants to talk with the old 0.4 protocol
+	}
 	else if ( strLine == _T("GNUTELLA CONNECT/0.4") && ! m_bInitiated )
 	{
+		// Obsolete: Remote computer connected to us, and wants to talk with the old 0.4 protocol
 		// Gnutella 0.4 is too old for us, close the connection
 		DelayClose( IDS_HANDSHAKE_SURPLUS );	// Send the buffer then close the socket, citing the reason the connection didn't work out
 		return FALSE;							// Tell the method that called this one to stop calling us
 
-	} // The remote computer connected to us, and wants to talk Gnutella
+	}
 	else if ( strLine.GetLength() > 17 && strLine.Left( 17 ) == _T("GNUTELLA CONNECT/") && ! m_bInitiated )
 	{
+		// The remote computer connected to us, and wants to talk Gnutella
 		// We're reading the initial header group the remote computer has sent
 		m_nState = nrsHandshake2;
 
-	} // The remote computer connected to us, and said "SHAREAZABETA CONNECT/"
+	}
 	else if ( strLine.GetLength() > 21 && strLine.Left( 21 ) == _T("SHAREAZABETA CONNECT/") && ! m_bInitiated )
 	{
+		// The remote computer connected to us, and said "SHAREAZABETA CONNECT/"
 		// We're reading the initial header group the remote computer has sent
 		m_nState = nrsHandshake2;
-
-	} // The remote computer said something else that we aren't expecting here
-	else
+	}
+	else // Remote computer said something else that we aren't expecting here
 	{
 		Close( IDS_HANDSHAKE_FAIL );
 		return FALSE; // Tell the calling method to stop calling us
@@ -801,13 +779,13 @@ BOOL CShakeNeighbour::OnHeaderLine(CString& strHeader, CString& strValue)
 			m_bDelayClose = TRUE;
 		}
 
-	} // The remote computer is telling us our IP address
+	} // Remote computer is telling us our IP address
 	else if ( strHeader.CompareNoCase( _T("Remote-IP") ) == 0 )
 	{
 		// Give the value, which is text like "1.2.3.4", to the Network object
 		Network.AcquireLocalAddress( strValue );
 
-	} // The remote computer is telling us its IP address
+	} // Remote computer is telling us its IP address
 	else if (	strHeader.CompareNoCase( _T("X-My-Address") ) == 0 ||
 				strHeader.CompareNoCase( _T("Listen-IP") ) == 0 ||
 				strHeader.CompareNoCase( _T("X-Node") ) == 0 ||
@@ -823,65 +801,69 @@ BOOL CShakeNeighbour::OnHeaderLine(CString& strHeader, CString& strValue)
 			// Mid clips the strValue text from beyond the colon to the end
 			// _stscanf is like scanf, and %1u means read the text as a long unsigned number
 			// The If block makes sure that _stscanf successfully reads 1 item, and the number it read isn't 0
+
 			if (_stscanf( strValue.Mid( nColon + 1 ), _T("%lu"), &nPort ) == 1 && nPort != 0 )
-			{
-				// Save the remote computer port number in the connection object's m_pHost member variable
 				m_pHost.sin_port = htons( u_short( nPort ) ); // Call htons to go from PC little-endian to Internet big-endian byte order
-			}
+				// Save the remote computer port number in the connection object's m_pHost member variable
 		}
 
-	} // The remote computer is telling us it supports Gnutella pong caching
+	}
 	else if ( strHeader.CompareNoCase( _T("Pong-Caching") ) == 0 )
 	{
+		// Remote computer is telling us it supports Gnutella pong caching
 		// Record this ability in the member variable
 		m_bPongCaching = TRUE;
 
-	} // The remote computer is telling us it supports vendor-specific Gnutella messages
+	}
 	else if ( strHeader.CompareNoCase( _T("Vendor-Message") ) == 0 )
 	{
+		// Remote computer is telling us it supports vendor-specific Gnutella messages
 		// Record this ability in the member variable
 		m_bVendorMsg = TRUE;
 
-	} // The remote computer is telling us it supports Gnutella query routing
+	}
 	else if ( strHeader.CompareNoCase( _T("X-Query-Routing") ) == 0 )
 	{
+		// Remote computer is telling us it supports Gnutella query routing
 		// Only set m_bQueryRouting true if the value isn't "0" or "0.0"
 		m_bQueryRouting = ( strValue != _T("0") && strValue != _T("0.0") );
 
-	} // The remote computer is telling us if it is an hub or a leaf
+	}
 	else if (	strHeader.CompareNoCase( _T("X-Ultrapeer") ) == 0 ||
 				strHeader.CompareNoCase( _T("X-Hub") ) == 0 )
 	{
+		// Remote computer is telling us if it is an hub or a leaf
 		// If the value is the text "True", set m_bUltraPeerSet to true, otherwise set it to false
 		m_bUltraPeerSet = ( strValue.CompareNoCase( _T("True") ) == 0 ) ? TRI_TRUE : TRI_FALSE;
 
-	} // The remote computer is telling us if it needs more connections to ultrapeers or not
+	}
 	else if (	strHeader.CompareNoCase( _T("X-Ultrapeer-Needed") ) == 0 ||
 				strHeader.CompareNoCase( _T("X-Hub-Needed") ) == 0 )
 	{
+		// Remote computer is telling us if it needs more connections to ultrapeers or not
 		// If the value is the text "True", set m_bUltraPeerNeeded to true, otherwise set it to false
 		m_bUltraPeerNeeded = ( strValue.CompareNoCase( _T("True") ) == 0 ) ? TRI_TRUE : TRI_FALSE;
 
-	} // The remote computer is telling us the "X-Ultrapeer-Loaded" header, which may not be in use (do)
+	}
 	else if (	strHeader.CompareNoCase( _T("X-Ultrapeer-Loaded") ) == 0 ||
 				strHeader.CompareNoCase( _T("X-Hub-Loaded") ) == 0 )
 	{
+		// Remote computer is telling us the "X-Ultrapeer-Loaded" header, which may not be in use (do)
 		// If the value is the text "True", set m_bUltraPeerLoaded to true, otherwise set it to false
 		m_bUltraPeerLoaded = ( strValue.CompareNoCase( _T("True") ) == 0 ) ? TRI_TRUE : TRI_FALSE;
 
-	} // The remote computer is telling us it understands GGEP blocks
+	}
 	else if ( strHeader.CompareNoCase( _T("GGEP") ) == 0 )
 	{
+		// Remote computer is telling us it understands GGEP blocks
 		// If we also have GGEP blocks enabled
 		if ( Settings.Gnutella1.EnableGGEP )
-		{
-			// And if the value the remote computer sent isn't "0" or "0.0", set m_bGGEP true
 			m_bGGEP = ( strValue != _T("0") && strValue != _T("0.0") );
-		}
-
-	} // The remote computer is telling us it accepts and can understand a kind of packets
+			// And if the value the remote computer sent isn't "0" or "0.0", set m_bGGEP true
+	}
 	else if ( strHeader.CompareNoCase( _T("Accept") ) == 0 ) // And we're connected to Gnutella2
 	{
+		// Remote computer is telling us it accepts and can understand a kind of packets
 		// Set m_bG2Accept to true if it accepts Gnutella2 or Shareaza packets
 		m_bG1Accept |= ( strValue.Find( _T("application/x-gnutella-packets") ) >= 0 );
 		m_bG2Accept |= ( strValue.Find( _T("application/x-gnutella2") ) >= 0 );
@@ -890,9 +872,10 @@ BOOL CShakeNeighbour::OnHeaderLine(CString& strHeader, CString& strValue)
 		if ( ! m_bG1Accept && ! m_bG2Accept )
 			theApp.Message( MSG_DEBUG, L"Unknown app accepts header: %s", strHeader );
 
-	} // The remote computer is telling us it is sending a kind of packets
+	}
 	else if ( strHeader.CompareNoCase( _T("Content-Type") ) == 0 ) // And we're connected to Gnutella2
 	{
+		// Remote computer is telling us it is sending a kind of packets
 		// Set m_bG2Send to true if it is sending Gnutella2 or PeerProject packets
 		m_bG1Send |= ( strValue.Find( _T("application/x-gnutella-packets") ) >= 0 );
 		m_bG2Send |= ( strValue.Find( _T("application/x-gnutella2") ) >= 0 );
@@ -902,15 +885,17 @@ BOOL CShakeNeighbour::OnHeaderLine(CString& strHeader, CString& strValue)
 			theApp.Message( MSG_DEBUG, L"Unknown app content-type header: %s", strHeader );
 
 
-	} // The remote computer is telling us it can accept compressed data, and the settings allow us to do compression
+	}
 	else if ( strHeader.CompareNoCase( _T("Accept-Encoding") ) == 0 && m_bCanDeflate ) // Settings allow us to do compression
 	{
+		// Remote computer is telling us it can accept compressed data, and the settings allow us to do compression
 		// Look for the text "deflate", and make m_bDeflateAccept true if it's found
 		m_bDeflateAccept |= ( strValue.Find( _T("deflate") ) >= 0 );
 
-	} // The remote computer is telling us it will send compressed data, and the settings allow us to do compression
+	}
 	else if ( strHeader.CompareNoCase( _T("Content-Encoding") ) == 0 && m_bCanDeflate ) // Settings allow us to do compression
 	{
+		// Remote computer is telling us it will send compressed data, and the settings allow us to do compression
 		// Look for the text "deflate", and make m_bDeflateSend true if it's found
 		m_bDeflateSend |= ( strValue.Find( _T("deflate") ) >= 0 );
 	}
@@ -957,23 +942,25 @@ BOOL CShakeNeighbour::OnHeaderLine(CString& strHeader, CString& strValue)
 		// should not be processed, because no guarantee the given list of nodes are not old.
 	}
 	else if ( strHeader.CompareNoCase( _T("X-Try-DNA-Hubs") ) == 0 )
-	{	// The remote computer is giving us a list GnucDNA G2 hubs
+	{
+		// Remote computer is giving us a list GnucDNA G2 hubs
 		m_sTryDNAHubs = strValue;
 	}
 	else if ( strHeader.CompareNoCase( _T("X-Try-Hubs") ) == 0 )
-	{	// The remote computer is giving us a list G2 hubs
+	{
+		// Remote computer is giving us a list G2 hubs
 		m_sTryHubs = strValue;
 	}
 	else if ( strHeader.CompareNoCase( _T("X-Try-Ultrapeers") ) == 0 )
-	{	// This header has been used for several things. In general, it's giving us a list of Gnutella Ultrapeers,
-		// however some old versions of Shareaza can send G2 hubs in it, if the client advertises G2 capability.
-		// However this should not be used for G2 because Shareaza 2.2.1.0 and earlier may give
-		// G1 host list with "accept: application/x-gnutella2" specified, if the node has Gnutella1 enabled
+	{
 		m_sTryUltrapeers = strValue;
+
+		// This header has been used for several things. In general, it gives us a list of Gnutella Ultrapeers.
+		// Should not be used for G2 because Shareaza 2.2.1.0 and earlier may give G1 host list.
+		// (Very old versions of Shareaza can send G2 hubs in it.)
 	}
 
-	// Report success
-	return TRUE;
+	return TRUE;	// Report success
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -986,7 +973,7 @@ BOOL CShakeNeighbour::OnHeadersComplete()
 {
 	BOOL bResult = FALSE;
 
-	// determine what kind of Network this handshake is for.
+	// Determine what kind of Network this handshake is for.
 	if ( m_bInitiated )
 	{
 		if ( ! m_bG1Accept && ! m_bG2Accept ) m_bG1Accept = TRUE;
@@ -1072,7 +1059,8 @@ BOOL CShakeNeighbour::OnHeadersComplete()
 			else if ( m_bG1Accept || m_bG1Send )	// This is a Gnutella connection, not Gnutella2
 			{
 				// Add the host to the Gnutella host cache
-				if ( HostCache.Gnutella1.Add( strHost, 0, NULL ) ) nCount++;
+				if ( HostCache.Gnutella1.Add( strHost, 0, NULL ) )
+					nCount++;
 			}
 		}
 		// Tell discovery services the remote computer's IP address, and how many hosts it just told us about
@@ -1101,7 +1089,8 @@ BOOL CShakeNeighbour::OnHeadersComplete()
 	}
 	else if ( ( ( ! m_bInitiated && m_bG1Accept ) || ( m_bInitiated && m_bG1Send ) ) &&
 			Settings.Gnutella1.EnableToday && m_nProtocol != PROTOCOL_G2 )
-	{	// If the remote computer doesn't accept Gnutella2 packets, or it does but we contacted it and it's not going to send them
+	{
+		// Remote computer doesn't accept Gnutella2 packets, or it's not going to send them because we contacted it
 		// This is a Gnutella connection
 		m_nProtocol = PROTOCOL_G1;
 		bResult = OnHeadersCompleteG1();
@@ -1127,10 +1116,11 @@ BOOL CShakeNeighbour::OnHeadersCompleteG2()
 	{
 		Close( 0 ); 	// Don't specify an error
 		return FALSE;	// Return false all the way back to CHandshakes::RunHandshakes, which will delete this object
-
-	} // We've been reading response headers from a remote computer that contacted us
+	}
 	else if ( m_nState == nrsHandshake3 ) // We were reading the final header group from the remote computer
 	{
+		// We've been reading response headers from a remote computer that contacted us
+
 		// (do)
 		if ( m_bUltraPeerSet == TRI_FALSE									// The remote computer told us it's a leaf
 			&& ( Neighbours.IsG2Hub() || Neighbours.IsG2HubCapable() ) )	// And we're either a hub or capable of becoming one
@@ -1146,8 +1136,8 @@ BOOL CShakeNeighbour::OnHeadersCompleteG2()
 		OnHandshakeComplete();
 		return FALSE; // Return false all the way back to CHandshakes::RunHandshakes, which will delete this object
 
-	} // We initiated the connection
-	else if ( m_bInitiated )
+	}
+	else if ( m_bInitiated )	// We initiated the connection
 	{
 		// We'll set this flag to true if we need to tell the remote computer we're a leaf so we can connect
 		BOOL bFallback = FALSE;
@@ -1192,9 +1182,8 @@ BOOL CShakeNeighbour::OnHeadersCompleteG2()
 				m_nNodeType = ntHub;	// Pretend this connection is to a hub above us
 				bFallback = TRUE;		// We'll tell the remote computer we're a leaf so we can still connect
 			}
-
-		} // The remote computer is a hub
-		else if ( m_bUltraPeerSet == TRI_TRUE )
+		}
+		else if ( m_bUltraPeerSet == TRI_TRUE ) // The remote computer is a hub
 		{
 			// And so are we
 			if ( Settings.Gnutella2.ClientMode == MODE_HUB )
@@ -1208,8 +1197,8 @@ BOOL CShakeNeighbour::OnHeadersCompleteG2()
 			// This connection is to a hub above us
 			m_nNodeType = ntHub;
 
-		} // The remote computer is a leaf
-		else if ( m_bUltraPeerSet == TRI_FALSE )
+		}
+		else if ( m_bUltraPeerSet == TRI_FALSE )	// The remote computer is a leaf
 		{
 			m_nNodeType = ntLeaf;
 			if ( Settings.Gnutella2.ClientMode == MODE_LEAF )
@@ -1243,34 +1232,35 @@ BOOL CShakeNeighbour::OnHeadersCompleteG2()
 		OnHandshakeComplete();
 		return FALSE;		// Return false all the way back to CHandshakes::RunHandshakes, which will delete this object
 
-	} // not rejected, not handshake3, not initiated (do)
-	else
+	}
+	else	// not rejected, not handshake3, not initiated (do)
 	{
 		// We are a leaf
 		if ( Neighbours.IsG2Leaf() )
 		{
 			// The remote computer sent us the header "X-Ultrapeer: False"
 			if ( m_bUltraPeerSet == TRI_FALSE )
-			{
 				HostCache.Gnutella2.Remove( &m_pHost.sin_addr );
-			}
+
 			// Tell the remote computer we can't connect because we are a shielded leaf right now
 			SendHostHeaders( _P("GNUTELLA/0.6 503 Shielded leaf node") );
 			DelayClose( IDS_HANDSHAKE_IAMLEAF ); // Send the buffer then close the socket
 			return FALSE;		// Return false all the way back to CHandshakes::RunHandshakes, which will delete this object
 
-		} // We are a Gnutella2 hub, or at least we are capable of becoming one
+		}
 		else if ( Neighbours.IsG2Hub() || Neighbours.IsG2HubCapable() )
 		{
+			// We are a Gnutella2 hub, or at least we are capable of becoming one
 			if ( m_bUltraPeerSet == TRI_FALSE )		// The remote computer sent us the header "X-Ultrapeer: False"
 				m_nNodeType = ntLeaf;				// This connection is to a leaf below us
 			else if ( m_bUltraPeerSet == TRI_TRUE ) // The remote computer sent us the header "X-Ultrapeer: True"
 				m_nNodeType = ntNode;				// Record that we are both hubs
 			else if ( m_bUltraPeerSet == TRI_UNKNOWN )
 				m_nNodeType = ntLeaf;				// Record that remote Node type is Unknown
-		} // The remote computer is an ultrapeer, and we are not running in hub mode
+		}
 		else if ( m_bUltraPeerSet == TRI_TRUE && ( Settings.Gnutella2.ClientMode != MODE_HUB ) )
 		{
+			// The remote computer is an ultrapeer, and we are not running in hub mode
 			m_nNodeType = ntHub;					// This connection is to a hub above us
 		}
 
@@ -1300,7 +1290,7 @@ BOOL CShakeNeighbour::OnHeadersCompleteG2()
 		}
 
 		// If we don't need another connection to the role the remote computer is acting in
-		if ((
+		if ( (
 				// If the remote computer is a leaf and we don't need any more
 				m_nNodeType == ntLeaf				// This connection is to a leaf below us
 				&& ! Neighbours.NeedMoreHubs( PROTOCOL_G2 )	// And the neighbours object says we don't need more Gnutella2 hubs or leaves
@@ -1310,32 +1300,34 @@ BOOL CShakeNeighbour::OnHeadersCompleteG2()
 				// Or, if the remote computer is a hub and we don't need any more
 				m_nNodeType != ntLeaf				// This connection isn't to a leaf below us
 				&& ! Neighbours.NeedMoreHubs( PROTOCOL_G2 )	// And the neighbours object says we don't need any more Gnutella2 hubs
-			))
+			) )
 		{
 			// Tell the remote computer that we can't connect because we have too many connections already, and close the connection
 			SendHostHeaders( _P("GNUTELLA/0.6 503 Maximum connections reached") ); // Send this error code along with some more IP addresses it can try
 			DelayClose( IDS_HANDSHAKE_SURPLUS );			// Close the connection, but not until we've written the buffered outgoing data first
 			return FALSE;						// Return false all the way back to CHandshakes::RunHandshakes, which will delete this object
 
-		} // Or, if we're both in the same role on the network
+		}
 		else if ( ( m_nNodeType == ntHub && ( Settings.Gnutella2.ClientMode == MODE_HUB ) ) ||  // We're both hubs
 				  ( m_nNodeType == ntLeaf && ( Settings.Gnutella2.ClientMode == MODE_LEAF ) ) ) // We're both leaves
 		{
+			// Or, if we're both in the same role on the network
 			// Tell the remote computer that we can't connect
 			SendHostHeaders( _P("GNUTELLA/0.6 503 Ultrapeer disabled") ); // Send the error code along with more IP addresses the remote computer can try
 			DelayClose( IDS_HANDSHAKE_NOULTRAPEER );		// Close the connection, but not until we've written the buffered outgoing data first
 			return FALSE;						// Return false all the way back to CHandshakes::RunHandshakes, which will delete this object
 
-		} // This connection isn't to a hub above us, and we're a leaf
+		}
 		else if ( m_nNodeType != ntHub && ( Settings.Gnutella2.ClientMode == MODE_LEAF ) )
 		{
+			// This connection isn't to a hub above us, and we're a leaf
 			// Tell the remote computer we can't connect because we need a hub
 			SendHostHeaders( _P("GNUTELLA/0.6 503 Need an Ultrapeer") );
 			DelayClose( IDS_HANDSHAKE_NEEDAPEER );			// Send the buffer then close the socket
 			return FALSE;						// Return false all the way back to CHandshakes::RunHandshakes, which will delete this object
 
-		} // Otherwise, the connection is probably alright
-		else
+		}
+		else	// Otherwise, the connection is probably alright
 		{
 			// Send reply headers to the remote computer
 			Write( _P("GNUTELLA/0.6 200 OK\r\n") );	// Start our group of response headers to the other computer with the 200 OK message
@@ -1366,8 +1358,8 @@ BOOL CShakeNeighbour::OnHeadersCompleteG1()
 	{
 		// Tell the remote computer that we're only connecting to Gnutella2 today
 		Write( _P("GNUTELLA/0.6 503 G2 Required\r\n") );
-		SendMinimalHeaders();       // Tell the remote computer we're PeerProject and we can exchange Gnutella2 packets
-		Write( _P("\r\n") ); // End the group of headers with a blank line
+		SendMinimalHeaders();	// Tell the remote computer we're PeerProject and we can exchange Gnutella2 packets
+		Write( _P("\r\n") );	// End the group of headers with a blank line
 
 		// Close the connection citing not Gnutella2 as the reason, but send the departing buffer first
 		DelayClose( IDS_HANDSHAKE_NOTG2 );
@@ -1379,27 +1371,28 @@ BOOL CShakeNeighbour::OnHeadersCompleteG1()
 	// The remote computer started with "GNUTELLA/0.6", but did not say "200 OK"
 	if ( m_nState == nrsRejected )
 	{
-		Close( 0 );   // Don't specify an error
-		return FALSE; // Return false all the way back to CHandshakes::RunHandshakes, which will delete this object
+		Close( 0 );				// Don't specify an error
+		return FALSE;			// Return false all the way back to CHandshakes::RunHandshakes, which will delete this object
 
-	} // We've been reading response headers from a remote computer that contacted us
+	}
 	else if ( m_nState == nrsHandshake3 ) // We're reading the final header group from the remote computer
 	{
+		// We've been reading response headers from a remote computer that contacted us
 		// If we're both leaves, and yet somehow we're also either an ultrapeer or can become one (do)
 		if ( m_bUltraPeerSet == TRI_FALSE && m_nNodeType == ntNode &&               // The remote computer is a hub and so are we
 			 ( Neighbours.IsG1Ultrapeer() || Neighbours.IsG1UltrapeerCapable() ) ) // And, we're either a Gnutella ultrapeer or we could become one
 		{
 			// Report that the handshake is back to a leaf (do), and consider this connection to be to a leaf below us
 			theApp.Message( MSG_INFO, IDS_HANDSHAKE_BACK2LEAF, (LPCTSTR)m_sAddress );
-			m_nNodeType = ntLeaf; // This connection is to a leaf below us
+			m_nNodeType = ntLeaf;	// This connection is to a leaf below us
 		}
 
 		// Turn this CShakeNeighbour object into a CG1Neighbour object
 		OnHandshakeComplete();
-		return FALSE; // Return false all the way back to CHandshakes::RunHandshakes, which will delete this object
+		return FALSE;	// Return false all the way back to CHandshakes::RunHandshakes, which will delete this object
 
-	} // We initiated the connection to the remote computer
-	else if ( m_bInitiated )
+	}
+	else if ( m_bInitiated )	// We initiated the connection to the remote computer
 	{
 		// We'll set this flag to true if we need to tell the remote computer we're a leaf so we can connect
 		BOOL bFallback = FALSE;
@@ -1407,21 +1400,24 @@ BOOL CShakeNeighbour::OnHeadersCompleteG1()
 		// We are an ultrapeer or at least we are capable of becoming one
 		if ( Neighbours.IsG1Ultrapeer() || Neighbours.IsG1UltrapeerCapable() )
 		{
-			// The remote computer told us "X-Ultrapeer: False"
 			if ( m_bUltraPeerSet == TRI_FALSE )
 			{
+				// The remote computer told us "X-Ultrapeer: False"
 				// This connection is to a leaf below us
 				m_nNodeType = ntLeaf;
 
-			} // The remote computer told us it's an ultrapeer and that it needs connections to more ultrapeers
+			}
 			else if ( m_bUltraPeerSet == TRI_TRUE && m_bUltraPeerNeeded != TRI_FALSE )
-			{// seems like GnucDNA type node do not give "X-Ultrapeer-needed:" header
+			{
+				// The remote computer told us it's an ultrapeer and that it needs connections to more ultrapeers
+				// Seems like GnucDNA type node do not give "X-Ultrapeer-needed:" header
 				// Record that we are both ultrapeers
 				m_nNodeType = ntNode;
 
-			} // The remote computer is an ultrapeer that doesn't need any more ultrapeer connections
+			}
 			else if ( m_bUltraPeerSet == TRI_TRUE && m_bUltraPeerNeeded == TRI_FALSE )
 			{
+				// The remote computer is an ultrapeer that doesn't need any more ultrapeer connections
 				// (do)
 				if ( Neighbours.GetCount( PROTOCOL_G1, nrsConnected, ntLeaf ) > 0 )
 				{
@@ -1445,31 +1441,33 @@ BOOL CShakeNeighbour::OnHeadersCompleteG1()
 				bFallback = TRUE;    // We'll tell the remote computer we're a leaf so we can still connect
 			}
 
-		} // We're a leaf, and the remote computer is an ultrapeer
+		}
 		else if ( m_bUltraPeerSet == TRI_TRUE )
 		{
+			// Remote computer is an ultrapeer, and we should be a leaf
 			// We are an ultrapeer
 			if ( Settings.Gnutella1.ClientMode == MODE_ULTRAPEER )
 			{
 				// Tell the remote computer we can't connect
 				SendHostHeaders( _P("GNUTELLA/0.6 503 Ultrapeer disabled") );
-				DelayClose( IDS_HANDSHAKE_NOULTRAPEER ); // Send the buffer then close the socket
-				return FALSE; // Return false all the way back to CHandshakes::RunHandshakes, which will delete this object
+				DelayClose( IDS_HANDSHAKE_NOULTRAPEER );	// Send the buffer then close the socket
+				return FALSE;	// Return false all the way back to CHandshakes::RunHandshakes, which will delete this object
 			}
 
 			// This connection is to a hub above us
 			m_nNodeType = ntHub;
 
-		} // The remote computer is a leaf
+		}
 		else if ( m_bUltraPeerSet != TRI_TRUE )
 		{
+			// The remote computer is a leaf
 			// And so are we
 			if ( Settings.Gnutella1.ClientMode == MODE_LEAF )
 			{
 				// Tell the remote computer that we can't connect because we're both leaves
 				SendHostHeaders( _P("GNUTELLA/0.6 503 Need an Ultrapeer") );
-				DelayClose( IDS_HANDSHAKE_NEEDAPEER ); // Send the buffer, close the socket, cite need a peer as the reason
-				return FALSE;                          // Return false all the way back to CHandshakes::RunHandshakes, which will delete this object
+				DelayClose( IDS_HANDSHAKE_NEEDAPEER );	// Send the buffer, close the socket, cite need a peer as the reason
+				return FALSE;							// Return false all the way back to CHandshakes::RunHandshakes, which will delete this object
 			}
 		}
 
@@ -1495,25 +1493,26 @@ BOOL CShakeNeighbour::OnHeadersCompleteG1()
 		{
 			// The remote computer told us it is a leaf
 			if ( m_bUltraPeerSet == TRI_FALSE )
-			{
 				HostCache.Gnutella1.Remove( &m_pHost.sin_addr );
-			}
+
 			// Tell the remote computer we can't connect because we are a shielded leaf right now
 			SendHostHeaders( _P("GNUTELLA/0.6 503 Shielded leaf node") );
-			DelayClose( IDS_HANDSHAKE_IAMLEAF ); // Send the buffer and then close the socket citing our being a leaf as the reason
-			return FALSE; // Return false all the way back to CHandshakes::RunHandshakes, which will delete this object
+			DelayClose( IDS_HANDSHAKE_IAMLEAF );	// Send the buffer and then close the socket citing our being a leaf as the reason
+			return FALSE;	// Return false all the way back to CHandshakes::RunHandshakes, which will delete this object
 
-		} // We are an ultrapeer, or at least we are capable of becoming one
+		}
 		else if ( Neighbours.IsG1Ultrapeer() || Neighbours.IsG1UltrapeerCapable() )
 		{
+			// We are an ultrapeer, or at least we are capable of becoming one
 			// The remote computer told us it is a leaf or an ultrapeer
 			if ( m_bUltraPeerSet == TRI_FALSE )
 				m_nNodeType = ntLeaf;	// This connection is to a leaf below us
 			else if ( m_bUltraPeerSet == TRI_TRUE )
 				m_nNodeType = ntNode;	// Record that we are both ultrapeers
-		} // The remote computer is an ultrapeer, but we are just a leaf
+		}
 		else if ( m_bUltraPeerSet == TRI_TRUE && ( Settings.Gnutella1.ClientMode != MODE_ULTRAPEER ) )
 		{
+			// The remote computer is an ultrapeer, but we are just a leaf
 			// This connection is to a hub above us
 			m_nNodeType = ntHub;
 		}
@@ -1527,27 +1526,29 @@ BOOL CShakeNeighbour::OnHeadersCompleteG1()
 			// Tell the remote computer we can't connect because we already have too many connections
 			SendHostHeaders( _P("GNUTELLA/0.6 503 Maximum connections reached") );
 			DelayClose( IDS_HANDSHAKE_SURPLUS );	// Send the buffer then close the socket
-			return FALSE;				// Return false all the way back to CHandshakes::RunHandshakes, which will delete this object
+			return FALSE;						// Return false all the way back to CHandshakes::RunHandshakes, which will delete this object
 
-		} // Weed out this nonsense combination that should never happen
+		}
 		else if ( ( m_nNodeType == ntHub && ( Settings.Gnutella1.ClientMode == MODE_ULTRAPEER ) ) || // This connection is up to a hub, and we are a hub
 				  ( m_nNodeType == ntLeaf && ( Settings.Gnutella1.ClientMode == MODE_LEAF ) ) )      // Or, this connection is down to a leaf like us
 		{
+			// Weed out this nonsense combination that should never happen
 			// Tell the remote computer we can't connect
 			SendHostHeaders( _P("GNUTELLA/0.6 503 Ultrapeer disabled") );
 			DelayClose( IDS_HANDSHAKE_NOULTRAPEER );	// Send the buffer then close the socket
-			return FALSE;					// Return false all the way back to CHandshakes::RunHandshakes, which will delete this object
+			return FALSE;						// Return false all the way back to CHandshakes::RunHandshakes, which will delete this object
 
-		} // Weed out another nonsense combination that should never happen
+		}
 		else if ( m_nNodeType != ntHub && ( Settings.Gnutella1.ClientMode == MODE_LEAF ) )
 		{
+			// Weed out another nonsense combination that should never happen
 			// Tell the remote computer we can't connect
 			SendHostHeaders( _P("GNUTELLA/0.6 503 Need an Ultrapeer") );
 			DelayClose( IDS_HANDSHAKE_NEEDAPEER );		// Send the buffer then close the socket
-			return FALSE;					// Return false all the way back to CHandshakes::RunHandshakes, which will delete this object
+			return FALSE;						// Return false all the way back to CHandshakes::RunHandshakes, which will delete this object
 
-		} // Otherwise, the connection is probably alright
-		else
+		}
+		else	// Otherwise, the connection is probably alright
 		{
 			// Send reply headers to the remote computer
 			Write( _P("GNUTELLA/0.6 200 OK\r\n") );		// Start our group of response headers to the other computer with the 200 OK message
@@ -1576,7 +1577,8 @@ void CShakeNeighbour::OnHandshakeComplete()
 	Neighbours.Remove( this );
 
 	// Point the bandwidth meter limits at the numbers from PeerProject Settings
-	switch ( m_nNodeType ) {
+	switch ( m_nNodeType )
+	{
 	case ntHub:
 
 		// Point the limits at the settings for connections to hubs above us
@@ -1687,8 +1689,8 @@ void CShakeNeighbour::OnHandshakeComplete()
 	if ( pNeighbour == NULL )
 	{
 		theApp.Message( MSG_ERROR, _T("memory allocation error making new connection from CShakeNeighbour.") );
-	}// This connection is to a hub above us
-	else if ( m_nNodeType == ntHub )
+	}
+	else if ( m_nNodeType == ntHub )	// This connection is to a hub above us
 	{
 		// Report that we got a ultrapeer connection
 		theApp.Message( MSG_INFO, IDS_HANDSHAKE_GOTPEER );
@@ -1696,8 +1698,8 @@ void CShakeNeighbour::OnHandshakeComplete()
 		// (do)
 		Neighbours.PeerPrune( pNeighbour->m_nProtocol );
 
-	} // This connection is to a leaf below us
-	else if ( m_nNodeType == ntLeaf )
+	}
+	else if ( m_nNodeType == ntLeaf )	// This connection is to a leaf below us
 	{
 		// Report that we connected to a leaf
 		theApp.Message( MSG_INFO, IDS_HANDSHAKE_GOTLEAF, (LPCTSTR)m_sAddress );

@@ -46,6 +46,10 @@ BEGIN_MESSAGE_MAP(CLibraryView, CWnd)
 	ON_WM_MOUSEWHEEL()
 	ON_WM_CREATE()
 	ON_WM_DESTROY()
+	ON_WM_LBUTTONDOWN()
+	ON_WM_RBUTTONDOWN()
+	ON_WM_XBUTTONDOWN()
+	ON_WM_KEYDOWN()
 END_MESSAGE_MAP()
 
 
@@ -53,11 +57,11 @@ END_MESSAGE_MAP()
 // CLibraryView construction
 
 CLibraryView::CLibraryView()
+	: m_nCommandID	( ID_LIBRARY_VIEW )
+	, m_pszToolBar	( NULL )
+	, m_bAvailable	( FALSE )
+	, m_bGhostFolder( FALSE )
 {
-	m_nCommandID	= ID_LIBRARY_VIEW;
-	m_pszToolBar	= NULL;
-	m_bAvailable	= FALSE;
-	m_bGhostFolder	= FALSE;
 }
 
 CLibraryView::~CLibraryView()
@@ -90,7 +94,7 @@ void CLibraryView::GetHeaderContent(int& nImage, CString& str)
 
 	if ( nCount == 1 )
 	{
-        CLibraryTreeItem* pItem = GetFolderSelection();
+		CLibraryTreeItem* pItem = GetFolderSelection();
 		for ( ; pItem->parent() ;
 			pItem = pItem->parent() )
 		{
@@ -264,6 +268,29 @@ INT_PTR CLibraryView::GetSelectedCount() const
 	return m_pSelection.GetCount();
 }
 
+POSITION CLibraryView::StartSelectedFileLoop() const
+{
+	return m_pSelection.GetHeadPosition();
+}
+
+CLibraryFile* CLibraryView::GetNextSelectedFile(POSITION& posSel, BOOL bSharedOnly, BOOL bAvailableOnly) const
+{
+	while ( posSel )
+	{
+		DWORD_PTR nIndex = m_pSelection.GetNext( posSel );
+		if ( CLibraryFile* pFile = Library.LookupFile( nIndex, bSharedOnly, bAvailableOnly ) )
+			return pFile;
+	}
+
+	return NULL;
+}
+
+CLibraryFile* CLibraryView::GetSelectedFile()
+{
+	if ( m_pSelection.GetCount() == 0 ) return NULL;
+	return Library.LookupFile( m_pSelection.GetHead() );
+}
+
 int CLibraryView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if ( CWnd::OnCreate( lpCreateStruct ) == -1 ) return -1;
@@ -280,6 +307,56 @@ void CLibraryView::OnDestroy()
 	DISABLE_DROP()
 
 	CWnd::OnDestroy();
+}
+
+void CLibraryView::OnLButtonDown(UINT nFlags, CPoint point)
+{
+	GetToolTip()->Hide();
+
+	CWnd::OnLButtonDown( nFlags, point );
+}
+
+void CLibraryView::OnRButtonDown(UINT nFlags, CPoint point)
+{
+	GetToolTip()->Hide();
+
+	CWnd::OnRButtonDown( nFlags, point );
+}
+
+void CLibraryView::OnXButtonDown(UINT /*nFlags*/, UINT nButton, CPoint /*point*/)
+{
+	GetToolTip()->Hide();
+
+	if ( nButton == 1 )
+		GetParent()->PostMessage( WM_COMMAND, ID_LIBRARY_PARENT );
+}
+
+void CLibraryView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
+{
+	GetToolTip()->Hide();
+
+	switch ( nChar )
+	{
+	case 'A':
+	case 'a':
+		if ( ( GetAsyncKeyState( VK_CONTROL ) & 0x8000 ) == 0x8000 )
+			SelectAll();
+		return;
+	case 'C':
+	case 'c':
+		if ( ( GetAsyncKeyState( VK_CONTROL ) & 0x8000 ) == 0x8000
+				&& m_pSelection.GetCount() > 0 )
+			GetParent()->PostMessage( WM_COMMAND, ID_LIBRARY_COPY );
+		return;
+	case 'X':
+	case 'x':
+		if ( ( GetAsyncKeyState( VK_CONTROL ) & 0x8000 ) == 0x8000
+				&& m_pSelection.GetCount() > 0 )
+			GetParent()->PostMessage( WM_COMMAND, ID_LIBRARY_MOVE );
+		return;
+	}
+
+	CWnd::OnKeyDown( nChar, nRepCnt, nFlags );
 }
 
 void CLibraryView::StartDragging(const CPoint& ptMouse)
@@ -312,6 +389,8 @@ IMPLEMENT_DROP(CLibraryView,CWnd)
 
 BOOL CLibraryView::OnDrop(IDataObject* pDataObj, DWORD grfKeyState, POINT ptScreen, DWORD* pdwEffect, BOOL bDrop)
 {
+	CQuickLock oLock( Library.m_pSection );
+
 	if ( ! pDataObj )
 	{
 		m_oDropItem.Type = CLibraryListItem::Empty;
@@ -330,8 +409,6 @@ BOOL CLibraryView::OnDrop(IDataObject* pDataObj, DWORD grfKeyState, POINT ptScre
 
 	if ( oHit.Type == CLibraryListItem::Empty )
 		oHit = GetFolder();
-
-	CQuickLock oLock( Library.m_pSection );
 
 	switch ( oHit.Type )
 	{

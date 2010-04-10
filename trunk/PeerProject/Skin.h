@@ -1,7 +1,7 @@
 //
 // Skin.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -67,8 +67,8 @@ protected:
 // Menus
 public:
 	CMenu*		GetMenu(LPCTSTR pszName) const;
-	UINT_PTR	TrackPopupMenu(LPCTSTR pszMenu, const CPoint& point, UINT nDefaultID = 0, UINT nFlags = 0, const CStringList& oFiles = CStringList(), CWnd* pWnd = AfxGetMainWnd()) const;
 	CMenu*		CreatePopupMenu(LPCTSTR pszName);
+	void		TrackPopupMenu(LPCTSTR pszMenu, const CPoint& point, UINT nDefaultID = 0, const CStringList& oFiles = CStringList(), CWnd* pWnd = AfxGetMainWnd()) const;
 protected:
 	CMap< CString, const CString&, CMenu*, CMenu* > m_pMenus;
 	BOOL		LoadMenus(CXMLElement* pBase);

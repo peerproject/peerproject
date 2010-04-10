@@ -1,10 +1,11 @@
 //
 // ImageViewerWindow.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Original author Michael Stokes released portions into the public domain.
 // You are free to redistribute and modify this page without any restrictions.
 //
+
 // The CImageWindow class contained in this file represents a single image window
 // in the PeerProject GUI.  Several windows can be open at once, viewing different images.
 //
@@ -34,7 +35,6 @@ static char THIS_FILE[]=__FILE__;
 #endif
 
 // Some constants
-
 #define REFRESH_DELAY		4000
 #define TOOLBAR_HEIGHT		28	// ToDo: Get Skin.m_nToolbarHeight ?
 #define BACKGROUND_COLOR	RGB( 254, 254, 254 )
@@ -121,7 +121,7 @@ BOOL CImageWindow::Create(CImageViewerPlugin* pPlugin, LPCTSTR pszFile)
 	else
 	{
 		// No icon, load a default from our resources
-		m_hIcon = (HICON)LoadImage( _Module.GetResourceInstance(),
+		m_hIcon = (HICON)LoadImage( _AtlBaseModule.GetResourceInstance(),
 			MAKEINTRESOURCE(IDI_IMAGE), IMAGE_ICON, 16, 16, 0 );
 	}
 
@@ -468,7 +468,6 @@ LRESULT CImageWindow::OnKeyDown(UINT /*uMsg*/, WPARAM wParam, LPARAM /*lParam*/,
 LRESULT CImageWindow::OnLButtonDblClk(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/)
 {
 	// Switch between full size and best fit modes
-
 	if ( m_bFullSize )
 		OnBestFit();
 	else
