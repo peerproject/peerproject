@@ -1,7 +1,7 @@
 //
 // UploadTransferHTTP.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -57,7 +57,7 @@ protected:
 	// 3 - Mixed G1/G2
 	int			m_nGnutella;
 	int			m_nReaskMultiplier; //Last re-ask time multiplier used
-protected:
+
 	BOOL		m_bTigerTree;
 	BOOL		m_bMetadata;
 	CString		m_sLocations;
@@ -66,6 +66,8 @@ protected:
 // Operations
 public:
 	virtual void	AttachTo(CConnection* pConnection);
+	inline BOOL 	IsBackwards() const { return m_bBackwards; }
+
 protected:
 	BOOL	ReadRequest();
 	BOOL	RequestSharedFile(CLibraryFile* pFile, CSingleLock& oLibraryLock);
@@ -75,7 +77,7 @@ protected:
 	BOOL	RequestMetadata(CXMLElement* pMetadata);
 	BOOL	RequestPreview(CLibraryFile* pFile, CSingleLock& oLibraryLock);
 	BOOL	RequestHostBrowse();
-protected:
+
 	BOOL	IsNetworkDisabled();
 	BOOL	QueueRequest();
 	BOOL	OpenFileSendHeaders();
@@ -84,14 +86,11 @@ protected:
 	void	OnCompleted();
 	void	SendResponse(UINT nResourceID, BOOL bFileHeaders = FALSE);
 	void	GetNeighbourList(CString& strOutput);
-protected:
+
 	virtual BOOL	OnRun();
 	virtual void	OnDropped();
 	virtual BOOL	OnRead();
 	virtual BOOL	OnWrite();
 	virtual BOOL	OnHeaderLine(CString& strHeader, CString& strValue);
 	virtual BOOL	OnHeadersComplete();
-
-public:
-	inline BOOL IsBackwards() const { return m_bBackwards; }
 };

@@ -1,7 +1,7 @@
 //
 // Plugins.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2006.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -35,23 +35,27 @@ public:
 	CList< CPlugin* >	m_pList;
 	UINT				m_nCommandID;
 
-public:
-	// Register all plugins in PeerProject installation folder
-	void		Register();
+	void		Register(); 	// Register all plugins in PeerProject installation folder
 
 	void		Enumerate();
 	void		Clear();
 	BOOL		LookupCLSID(LPCTSTR pszGroup, LPCTSTR pszKey, CLSID& pCLSID) const;
 	BOOL		LookupEnable(REFCLSID pCLSID, LPCTSTR pszExt = NULL) const;
 	CPlugin*	Find(REFCLSID pCLSID) const;
-	void		OnSkinChanged();
-	void		InsertCommands();
-	void		RegisterCommands();
 	UINT		GetCommandID();
-	BOOL		OnUpdate(CChildWnd* pActiveWnd, CCmdUI* pCmdUI);
+
+	// IGeneralPlugin mirroring
+	void		OnSkinChanged();
+	// ICommandPlugin mirroring
+	void		RegisterCommands();
+	void		InsertCommands();
 	BOOL		OnCommand(CChildWnd* pActiveWnd, UINT nCommandID);
+	BOOL		OnUpdate(CChildWnd* pActiveWnd, CCmdUI* pCmdUI);
+	// IExecutePlugin mirroring
 	BOOL		OnExecuteFile(LPCTSTR pszFile, BOOL bUseImageViewer = FALSE);
 	BOOL		OnEnqueueFile(LPCTSTR pszFile);
+	// IChatPlugin mirroring
+	BOOL		OnChatMessage(LPCTSTR pszChatID, BOOL bOutgoing, LPCTSTR pszFrom, LPCTSTR pszTo, LPCTSTR pszMessage);
 
 	inline POSITION GetIterator() const
 	{
@@ -76,17 +80,16 @@ public:
 	CPlugin(REFCLSID pCLSID, LPCTSTR pszName);
 	virtual ~CPlugin();
 
-public:
-	CLSID			m_pCLSID;
-	CString			m_sName;
-	DWORD			m_nCapabilities;
-	IGeneralPlugin*	m_pPlugin;
-	ICommandPlugin*	m_pCommand;
-	IExecutePlugin*	m_pExecute;
+	CLSID						m_pCLSID;
+	CString						m_sName;
+	DWORD						m_nCapabilities;
+	CComPtr< IGeneralPlugin >	m_pPlugin;
+	CComPtr< ICommandPlugin >	m_pCommand;
+	CComPtr< IExecutePlugin >	m_pExecute;
+	CComPtr< IChatPlugin >		m_pChat;
 
-public:
-	BOOL		Start();
 	void		Stop();
+	BOOL		Start();
 	BOOL		StartIfEnabled();
 	CString		GetStringCLSID() const;
 	HICON		LookupIcon() const;

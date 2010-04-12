@@ -47,9 +47,7 @@ CDiscoveryServices DiscoveryServices;
 // CDiscoveryServices construction
 
 CDiscoveryServices::CDiscoveryServices()
-	: m_hInternet		( NULL )
-	, m_hRequest		( NULL )
-	, m_pWebCache		( NULL )
+	: m_pWebCache		( NULL )
 	, m_nWebCache		( wcmHosts )
 	, m_pSubmit			( NULL )
 	, m_nLastQueryProtocol ( PROTOCOL_NULL )
@@ -396,7 +394,11 @@ void CDiscoveryServices::Clear()
 
 void CDiscoveryServices::Stop()
 {
-	StopWebRequest();
+	m_pRequest.Cancel();
+
+	CloseThread();
+
+	m_pRequest.Clear();
 }
 
 
@@ -813,10 +815,10 @@ BOOL CDiscoveryServices::Update()
 		return FALSE;
 
 	// Don't run concurrent request
-	if ( m_hInternet )
+	if ( m_pRequest.IsPending() )
 		return FALSE;
 
-	StopWebRequest();
+	Stop();
 
 	CSingleLock pLock( &Network.m_pSection, FALSE );
 	if ( ! pLock.Lock( 250 ) )
@@ -887,7 +889,8 @@ BOOL CDiscoveryServices::Execute(BOOL bDiscovery, PROTOCOLID nProtocol, USHORT n
 
 	if ( bDiscovery ) // If this is a user-initiated manual query, or AutoStart with Cache empty
 	{
-		if ( m_hInternet ) return FALSE;
+		if ( m_pRequest.IsPending() )
+			return FALSE;
 
 		DWORD tNow = static_cast< DWORD >( time( NULL ) );
 		if ( m_tExecute != 0 && tNow - m_tExecute < 5 && nForceDiscovery < 2 ) return FALSE;
@@ -1117,29 +1120,29 @@ CDiscoveryService* CDiscoveryServices::GetRandomWebCache(PROTOCOLID nProtocol, B
 	{
 		CDiscoveryService* pService = m_pList.GetNext( pos );
 
-		if ( pService->m_nType == CDiscoveryService::dsWebCache && pService != pExclude )
+		if ( pService->m_nType != CDiscoveryService::dsWebCache || pService == pExclude )
+			continue;
+
+		if ( ! bWorkingOnly || ( pService->m_nAccesses > 0 && pService->m_nFailures == 0 && pService->m_nHosts > 0 ) )
 		{
-			if ( ! bWorkingOnly || ( pService->m_nAccesses > 0 && pService->m_nFailures == 0 && pService->m_nHosts > 0 ) )
+			if ( tNow - pService->m_tAccessed > pService->m_nAccessPeriod )
 			{
-				if ( tNow - pService->m_tAccessed > pService->m_nAccessPeriod )
+				if ( ! bForUpdate || tNow - pService->m_tUpdated > pService->m_nUpdatePeriod )
 				{
-					if ( ! bForUpdate || tNow - pService->m_tUpdated > pService->m_nUpdatePeriod )
+					switch ( nProtocol )
 					{
-						switch ( nProtocol )
-						{
-							case PROTOCOL_G1:
-								if ( ( pService->m_nType == CDiscoveryService::dsWebCache ) && ( pService->m_bGnutella1 ) )
-									pWebCaches.Add( pService );
-								break;
-							case PROTOCOL_G2:
-								if ( ( pService->m_nType == CDiscoveryService::dsWebCache ) && ( pService->m_bGnutella2 ) )
-									pWebCaches.Add( pService );
-								break;
-							default:
-								theApp.Message( MSG_ERROR, _T("CDiscoveryServices::GetRandomWebCache() was passed an invalid protocol") );
-								ASSERT( FALSE );
-								return NULL;
-						}
+						case PROTOCOL_G1:
+							if ( ( pService->m_nType == CDiscoveryService::dsWebCache ) && ( pService->m_bGnutella1 ) )
+								pWebCaches.Add( pService );
+							break;
+						case PROTOCOL_G2:
+							if ( ( pService->m_nType == CDiscoveryService::dsWebCache ) && ( pService->m_bGnutella2 ) )
+								pWebCaches.Add( pService );
+							break;
+						default:
+							theApp.Message( MSG_ERROR, _T("CDiscoveryServices::GetRandomWebCache() was passed an invalid protocol") );
+							ASSERT( FALSE );
+							return NULL;
 					}
 				}
 			}
@@ -1158,7 +1161,7 @@ CDiscoveryService* CDiscoveryServices::GetRandomWebCache(PROTOCOLID nProtocol, B
 
 BOOL CDiscoveryServices::RequestWebCache(CDiscoveryService* pService, Mode nMode, PROTOCOLID nProtocol)
 {
-	StopWebRequest();
+	Stop();
 
 	CSingleLock pLock( &Network.m_pSection, FALSE );
 	if ( ! pLock.Lock( 250 ) )
@@ -1190,7 +1193,6 @@ BOOL CDiscoveryServices::RequestWebCache(CDiscoveryService* pService, Mode nMode
 
 	m_pWebCache	= pService;
 	m_nWebCache	= nMode;
-	m_hRequest	= NULL;
 
 	switch ( nMode )
 	{
@@ -1252,24 +1254,13 @@ BOOL CDiscoveryServices::RequestWebCache(CDiscoveryService* pService, Mode nMode
 	return BeginThread( "Discovery" );
 }
 
-void CDiscoveryServices::StopWebRequest()
-{
-	if ( m_hInternet ) InternetCloseHandle( m_hInternet );
-	m_hInternet = NULL;
-
-	CloseThread();
-}
-
 //////////////////////////////////////////////////////////////////////
 // CDiscoveryServices thread run
 
 void CDiscoveryServices::OnRun()
 {
-	if ( m_hInternet ) return;
-
-	m_hInternet = InternetOpen( Settings.SmartAgent(),
-		INTERNET_OPEN_TYPE_PRECONFIG, NULL, NULL, 0 );
-	if ( ! m_hInternet ) return;
+	if ( m_pRequest.IsPending() )
+		return;
 
 	BOOL bSuccess = TRUE;
 
@@ -1282,18 +1273,15 @@ void CDiscoveryServices::OnRun()
 		bSuccess = RunWebCacheGet( FALSE );
 
 		CSingleLock pLock( &Network.m_pSection, FALSE );
-		if ( pLock.Lock( 250 ) )
+		if ( pLock.Lock( 250 ) && bSuccess )
 		{
-			if ( bSuccess && m_hInternet )
+			if ( m_bFirstTime || ( GetCount( CDiscoveryService::dsWebCache ) <
+				(int)Settings.Discovery.Lowpoint ) )
 			{
-				if ( m_bFirstTime || ( GetCount( CDiscoveryService::dsWebCache ) <
-					(int)Settings.Discovery.Lowpoint ) )
-				{
-					m_bFirstTime = FALSE;
-					pLock.Unlock();
+				m_bFirstTime = FALSE;
+				pLock.Unlock();
 
-					bSuccess = RunWebCacheGet( TRUE );
-				}
+				bSuccess = RunWebCacheGet( TRUE );
 			}
 		}
 	}
@@ -1310,7 +1298,7 @@ void CDiscoveryServices::OnRun()
 		bSuccess = RunWebCacheUpdate();
 	}
 
-	if ( m_hInternet && ! bSuccess )
+	if ( ! bSuccess )
 	{
 		if ( m_nWebCache == wcmUpdate )
 		{
@@ -1328,13 +1316,7 @@ void CDiscoveryServices::OnRun()
 			m_pWebCache->OnFailure();
 	}
 
-	if ( m_hInternet != NULL )
-	{
-		if ( m_hRequest != NULL ) InternetCloseHandle( m_hRequest );
-		InternetCloseHandle( m_hInternet );
-		m_hInternet	= NULL;
-		m_hRequest	= NULL;
-	}
+	m_pRequest.Clear();
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -1887,50 +1869,15 @@ BOOL CDiscoveryServices::RunWebCacheUpdate()
 BOOL CDiscoveryServices::SendWebCacheRequest(CString strURL, CString& strOutput)
 {
 	strOutput.Empty();
+//	strURL += _T("&client=")_T(VENDOR_CODE)_T("&version=") + theApp.m_sVersion;  // DELETE
 
-//	strURL += _T("&client=")_T(VENDOR_CODE)_T("&version=");  // DELETE?
-//	strURL += theApp.m_sVersion;  // DELETE?
-
-	theApp.Message( MSG_DEBUG, _T("DiscoveryService URL: %s"), (LPCTSTR)strURL );
-
-	if ( m_hRequest ) InternetCloseHandle( m_hRequest );
-
-	m_hRequest = InternetOpenUrl( m_hInternet, strURL, _T("Connection: close"), ~0u,
-		INTERNET_FLAG_RELOAD|INTERNET_FLAG_DONT_CACHE|INTERNET_FLAG_NO_COOKIES, 0 );
-	if ( m_hRequest == NULL ) return FALSE;
-
-	DWORD nStatusCode = 0, nStatusLen = 32;
-	TCHAR szStatusCode[32];
-
-	if ( ! HttpQueryInfo( m_hRequest, HTTP_QUERY_STATUS_CODE, szStatusCode,
-		&nStatusLen, NULL ) ) return FALSE;
-
-	if ( _stscanf( szStatusCode, _T("%u"), &nStatusCode ) != 1 &&
-		nStatusCode < 200 || nStatusCode > 299 ) return FALSE;
-
-	DWORD nRemaining, nResponse = 0;
-	LPBYTE pResponse = NULL;
-
-	while ( InternetQueryDataAvailable( m_hRequest, &nRemaining, 0, 0 ) && nRemaining > 0 )
-	{
-		pResponse = (LPBYTE)realloc( pResponse, nResponse + nRemaining );
-		if ( ! pResponse ) return FALSE;
-		InternetReadFile( m_hRequest, pResponse + nResponse, nRemaining, &nRemaining );
-		nResponse += nRemaining;
-	}
-
-	if ( nRemaining )
-	{
-		free( pResponse );
+	if ( ! m_pRequest.SetURL( strURL ) )
 		return FALSE;
-	}
 
-	LPTSTR pszResponse = strOutput.GetBuffer( nResponse );
-	for ( nStatusCode = 0 ; nStatusCode < nResponse ; nStatusCode++ )
-		pszResponse[ nStatusCode ] = (TCHAR)pResponse[ nStatusCode ];
-	strOutput.ReleaseBuffer( nResponse );
+	if ( ! m_pRequest.Execute( false ) )
+		return FALSE;
 
-	free( pResponse );
+	strOutput = m_pRequest.GetResponseString();
 
 	return TRUE;
 }
@@ -1954,33 +1901,16 @@ BOOL CDiscoveryServices::RunServerMet()
 
 	pLock.Unlock();
 
-	if ( m_hRequest != NULL ) InternetCloseHandle( m_hRequest );
-
-	m_hRequest = InternetOpenUrl( m_hInternet, strURL, NULL, 0,
-		INTERNET_FLAG_RELOAD|INTERNET_FLAG_DONT_CACHE, 0 );
-
-	if ( m_hRequest == NULL ) return FALSE;
-
-	DWORD nLength = 0, nRemaining = 0;
-	const DWORD nBufferLength = 1024;
-	auto_array< BYTE > pBuffer( new BYTE[ nBufferLength ] );
-	CMemFile pFile;
-
-	while ( InternetQueryDataAvailable( m_hRequest, &nRemaining, 0, 0 ) && nRemaining > 0 )
-	{
-		nLength += nRemaining;
-		while ( nRemaining > 0 )
-		{
-			DWORD nBuffer = min( nRemaining, nBufferLength );
-			InternetReadFile( m_hRequest, pBuffer.get(), nBuffer, &nBuffer );
-			pFile.Write( pBuffer.get(), nBuffer );
-			nRemaining -= nBuffer;
-		}
-	}
-
-	if ( ! nLength )
+	if ( ! m_pRequest.SetURL( strURL ) )
 		return FALSE;
 
+	if ( ! m_pRequest.Execute( false ) )
+		return FALSE;
+
+	const CBuffer* pBuffer = m_pRequest.GetResponseBuffer();
+
+	CMemFile pFile;
+	pFile.Write( pBuffer->m_pBuffer, pBuffer->m_nLength );
 	pFile.Seek( 0, CFile::begin );
 
 	if ( ! pLock.Lock( 250 ) )

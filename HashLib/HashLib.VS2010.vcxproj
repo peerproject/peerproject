@@ -201,7 +201,7 @@
     <ClCompile Include="TigerTree.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="MD4.asm">
+    <CustomBuild Include="MD4.32.asm">
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">ml.exe /c /Cx /coff /Zi /nologo /Fo "$(ProjectDir)$(IntDir)%(Filename).obj" "%(FullPath)"
 </Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)$(IntDir)%(Filename).obj;%(Outputs)</Outputs>
@@ -217,7 +217,7 @@
 </Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectDir)$(IntDir)%(Filename).obj;%(Outputs)</Outputs>
     </CustomBuild>
-    <CustomBuild Include="MD5.asm">
+    <CustomBuild Include="MD5.32.asm">
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">ml.exe /c /Cx /coff /Zi /nologo /Fo "$(ProjectDir)$(IntDir)%(Filename).obj" "%(FullPath)"
 </Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)$(IntDir)%(Filename).obj;%(Outputs)</Outputs>
@@ -233,7 +233,7 @@
 </Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectDir)$(IntDir)%(Filename).obj;%(Outputs)</Outputs>
     </CustomBuild>
-    <CustomBuild Include="SHA.asm">
+    <CustomBuild Include="SHA.32.asm">
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">ml.exe /c /Cx /coff /Zi /nologo /Fo "$(ProjectDir)$(IntDir)%(Filename).obj" "%(FullPath)"
 </Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)$(IntDir)%(Filename).obj;%(Outputs)</Outputs>
@@ -249,7 +249,7 @@
 </Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectDir)$(IntDir)%(Filename).obj;%(Outputs)</Outputs>
     </CustomBuild>
-    <CustomBuild Include="Tiger.asm">
+    <CustomBuild Include="Tiger.32.asm">
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">ml.exe /c /Cx /coff /Zi /nologo /Fo "$(ProjectDir)$(IntDir)%(Filename).obj" "%(FullPath)"
 </Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)$(IntDir)%(Filename).obj;%(Outputs)</Outputs>

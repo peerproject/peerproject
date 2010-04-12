@@ -946,8 +946,9 @@ BOOL CUploadTransferHTTP::QueueRequest()
 		pLock.Unlock();
 
 		Write( strHeader );
-		Write( _P("Content-Length: 0\r\n") );
-		Write( _P("\r\n") );
+		Write( _P("Content-Length: 0\r\n\r\n") );
+
+		LogOutgoing();
 
 		StartSending( upsPreQueue );
 	}
@@ -1155,6 +1156,8 @@ BOOL CUploadTransferHTTP::OpenFileSendHeaders()
 
 	Write( _P("\r\n") );
 
+	LogOutgoing();
+
 	if ( m_bHead )
 	{
 		theApp.Message( MSG_INFO, IDS_UPLOAD_HEADERS, (LPCTSTR)m_sName,
@@ -1179,15 +1182,6 @@ BOOL CUploadTransferHTTP::OpenFileSendHeaders()
 			(LPCTSTR)m_sAddress, (LPCTSTR)m_sUserAgent );
 
 		StartSending( upsUploading );
-	}
-
-	{
-		CLockedBuffer pOutput( GetOutput() );
-		if ( pOutput->m_nLength )
-		{
-			CStringA msg( (const char*)pOutput->m_pBuffer, pOutput->m_nLength );
-			theApp.Message( MSG_DEBUG | MSG_FACILITY_OUTGOING, _T("%s << UPLOAD SEND: %s"), (LPCTSTR)m_sAddress, (LPCTSTR)CA2T( msg ) );
-		}
 	}
 
 	OnWrite();
@@ -1651,10 +1645,10 @@ BOOL CUploadTransferHTTP::RequestPreview(CLibraryFile* pFile, CSingleLock& oLibr
 
 	Write( _P("Content-Type: image/jpeg\r\n") );
 
-	strHeader.Format( _T("Content-Length: %lu\r\n"), nLength );
+	strHeader.Format( _T("Content-Length: %lu\r\n\r\n"), nLength );
 	Write( strHeader );
 
-	Write( _P("\r\n") );
+	LogOutgoing();
 
 	if ( ! m_bHead )
 		Write( pBuffer, nLength );
@@ -1737,6 +1731,8 @@ BOOL CUploadTransferHTTP::RequestHostBrowse()
 	CString strLength;
 	strLength.Format( _T("Content-Length: %lu\r\n\r\n"), pBuffer.m_nLength );
 	Write( strLength );
+
+	LogOutgoing();
 
 	if ( ! m_bHead )
 		Write( &pBuffer );
@@ -1824,6 +1820,8 @@ void CUploadTransferHTTP::SendResponse(UINT nResourceID, BOOL bFileHeaders)
 
 	strResponse.Format( _T("Content-Length: %lu\r\n\r\n"), strBodyUTF8.GetLength() );
 	Write( strResponse );
+
+	LogOutgoing();
 
 	if ( ! m_bHead )
 		Write( (LPCSTR)strBodyUTF8, strBodyUTF8.GetLength() );

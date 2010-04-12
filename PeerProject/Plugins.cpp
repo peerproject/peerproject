@@ -1,7 +1,7 @@
 //
 // Plugins.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2006.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -39,8 +39,8 @@ CPlugins Plugins;
 //////////////////////////////////////////////////////////////////////
 // CPlugins construction
 
-CPlugins::CPlugins() :
-	m_nCommandID( ID_PLUGIN_FIRST )
+CPlugins::CPlugins()
+	: m_nCommandID	( ID_PLUGIN_FIRST )
 {
 }
 
@@ -90,7 +90,7 @@ void CPlugins::Register()
 		}
 	}
 
-	// ToDo: Minimize duplicate code block
+	// ToDo: Minimize duplicate code block ?
 	bWorking = finder.FindFile( Settings.General.Path + _T("\\*.dll") );
 	while ( bWorking )
 	{
@@ -246,7 +246,8 @@ BOOL CPlugins::LookupEnable(REFCLSID pCLSID, LPCTSTR pszExt) const
 	for ( INT_PTR nToken = 0 ; nToken < nTotal ; nToken++ )
 	{
 		CString strToken = oTokens.GetAt( nToken );
-		if ( strToken.Left( 1 ) != _T("-") ) nChecked++;
+		if ( strToken.Left( 1 ) != _T("-") )
+			nChecked++;
 	}
 
 	if ( nChecked == 0 ) return FALSE;
@@ -263,7 +264,8 @@ void CPlugins::OnSkinChanged()
 	{
 		CPlugin* pPlugin = GetNext( pos );
 
-		if ( pPlugin->m_pPlugin ) pPlugin->m_pPlugin->OnSkinChanged();
+		if ( pPlugin->m_pPlugin )
+			pPlugin->m_pPlugin->OnSkinChanged();
 	}
 }
 
@@ -273,7 +275,8 @@ void CPlugins::InsertCommands()
 	{
 		CPlugin* pPlugin = GetNext( pos );
 
-		if ( pPlugin->m_pCommand ) pPlugin->m_pCommand->InsertCommands();
+		if ( pPlugin->m_pCommand )
+			pPlugin->m_pCommand->InsertCommands();
 	}
 }
 
@@ -287,7 +290,8 @@ void CPlugins::RegisterCommands()
 	for ( POSITION pos = GetIterator() ; pos ; )
 	{
 		CPlugin* pPlugin = GetNext( pos );
-		if ( pPlugin->m_pCommand ) pPlugin->m_pCommand->RegisterCommands();
+		if ( pPlugin->m_pCommand )
+			pPlugin->m_pCommand->RegisterCommands();
 	}
 }
 
@@ -381,10 +385,8 @@ BOOL CPlugins::OnCommand(CChildWnd* pActiveWnd, UINT nCommandID)
 
 BOOL CPlugins::OnExecuteFile(LPCTSTR pszFile, BOOL bUseImageViewer)
 {
-	COleVariant vFile( pszFile );
-	vFile.ChangeType( VT_BSTR );
-
 	CPlugin* pImageViewer = NULL;
+
 	for ( POSITION pos = GetIterator() ; pos ; )
 	{
 		CPlugin* pPlugin = GetNext( pos );
@@ -396,35 +398,53 @@ BOOL CPlugins::OnExecuteFile(LPCTSTR pszFile, BOOL bUseImageViewer)
 				pImageViewer = pPlugin;
 				continue;
 			}
-			if ( pPlugin->m_pExecute->OnExecute( vFile.bstrVal ) == S_OK )
+			if ( pPlugin->m_pExecute->OnExecute( CComBSTR( pszFile ) ) == S_OK )
 				return TRUE;
 		}
 	}
+
 	if ( bUseImageViewer && pImageViewer )
-	{
-		return ( pImageViewer->m_pExecute->OnExecute( vFile.bstrVal ) == S_OK );
-	}
+		return ( pImageViewer->m_pExecute->OnExecute( CComBSTR( pszFile ) ) == S_OK );
 
 	return FALSE;
 }
 
 BOOL CPlugins::OnEnqueueFile(LPCTSTR pszFile)
 {
-	COleVariant vFile( pszFile );
-	vFile.ChangeType( VT_BSTR );
-
 	for ( POSITION pos = GetIterator() ; pos ; )
 	{
 		CPlugin* pPlugin = GetNext( pos );
 
 		if ( pPlugin->m_pExecute )
 		{
-			if ( pPlugin->m_pExecute->OnEnqueue( vFile.bstrVal ) == S_OK )
+			if ( pPlugin->m_pExecute->OnEnqueue( CComBSTR( pszFile ) ) == S_OK )
 				return TRUE;
 		}
 	}
 
 	return FALSE;
+}
+
+BOOL CPlugins::OnChatMessage(LPCTSTR pszChatID, BOOL bOutgoing, LPCTSTR pszFrom, LPCTSTR pszTo, LPCTSTR pszMessage)
+{
+	// IChatPlugin capturing (IRC/direct)
+
+	for ( POSITION pos = GetIterator() ; pos ; )
+	{
+		CPlugin* pPlugin = GetNext( pos );
+
+		if ( pPlugin->m_pChat ) 
+		{
+			pPlugin->m_pChat->OnChatMessage(
+				CComBSTR( pszChatID ),
+				( bOutgoing ? VARIANT_TRUE : VARIANT_FALSE ),
+				CComBSTR( pszFrom ),
+				CComBSTR( pszTo ),
+				CComBSTR( pszMessage ) );
+		}
+	}
+
+	return TRUE;
 }
 
 CPlugin* CPlugins::Find(REFCLSID pCLSID) const
@@ -442,13 +462,10 @@ CPlugin* CPlugins::Find(REFCLSID pCLSID) const
 //////////////////////////////////////////////////////////////////////
 // CPlugin construction
 
-CPlugin::CPlugin(REFCLSID pCLSID, LPCTSTR pszName) :
-	m_pCLSID( pCLSID ),
-	m_sName( pszName ),
-	m_nCapabilities( 0 ),
-	m_pPlugin( NULL ),
-	m_pCommand( NULL ),
-	m_pExecute( NULL )
+CPlugin::CPlugin(REFCLSID pCLSID, LPCTSTR pszName)
+	: m_pCLSID	( pCLSID )
+	, m_sName	( pszName )
+	, m_nCapabilities ( 0 )
 {
 }
 
@@ -462,50 +479,41 @@ CPlugin::~CPlugin()
 
 BOOL CPlugin::Start()
 {
-	if ( m_pPlugin != NULL ) return FALSE;
+	HRESULT hr;
 
-	HRESULT hResult = CoCreateInstance( m_pCLSID, NULL, CLSCTX_ALL,
-		IID_IGeneralPlugin, (void**)&m_pPlugin );
+	if ( m_pPlugin )
+		return FALSE;	// Already initialized
 
-	if ( FAILED( hResult ) || m_pPlugin == NULL )
+	CComPtr< IApplication > pApplication;
+	hr = CApplication::GetApp( &pApplication );
+	if ( FAILED( hr ) )
+		return FALSE;	// Something very bad
+
+	hr = m_pPlugin.CoCreateInstance( m_pCLSID );
+	if ( FAILED( hr ) )
 	{
-		m_pPlugin = NULL;
+		m_pPlugin.Release();
 		return FALSE;
 	}
 
-	CComPtr< IApplication > pApplication;
-	if ( SUCCEEDED( CApplication::GetApp( &pApplication ) ) )
-		m_pPlugin->SetApplication( pApplication );
+	hr = m_pPlugin->SetApplication( pApplication );
 
 	m_nCapabilities = 0;
-	m_pPlugin->QueryCapabilities( &m_nCapabilities );
+	hr = m_pPlugin->QueryCapabilities( &m_nCapabilities );
 
-	m_pPlugin->QueryInterface( IID_ICommandPlugin, (void**)&m_pCommand );
-
-	m_pPlugin->QueryInterface( IID_IExecutePlugin, (void**)&m_pExecute );
+	hr = m_pPlugin->QueryInterface( IID_ICommandPlugin, (void**)&m_pCommand );
+	hr = m_pPlugin->QueryInterface( IID_IExecutePlugin, (void**)&m_pExecute );
+	hr = m_pPlugin->QueryInterface( IID_IChatPlugin, (void**)&m_pChat );
 
 	return TRUE;
 }
 
 void CPlugin::Stop()
 {
-	if ( m_pExecute != NULL )
-	{
-		m_pExecute->Release();
-		m_pExecute = NULL;
-	}
-
-	if ( m_pCommand != NULL )
-	{
-		m_pCommand->Release();
-		m_pCommand = NULL;
-	}
-
-	if ( m_pPlugin != NULL )
-	{
-		m_pPlugin->Release();
-		m_pPlugin = NULL;
-	}
+	m_pChat.Release();
+	m_pExecute.Release();
+	m_pCommand.Release();
+	m_pPlugin.Release();
 }
 
 BOOL CPlugin::StartIfEnabled()

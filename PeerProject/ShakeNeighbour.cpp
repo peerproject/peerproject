@@ -345,14 +345,7 @@ BOOL CShakeNeighbour::OnRun()
 
 BOOL CShakeNeighbour::OnWrite()
 {
-	{
-		CLockedBuffer pOutput( GetOutput() );
-		if ( pOutput->m_nLength )
-		{
-			CStringA msg( (const char*)pOutput->m_pBuffer, pOutput->m_nLength );
-			theApp.Message( MSG_DEBUG | MSG_FACILITY_OUTGOING, _T("%s << HANDSHAKE SEND: %s"), (LPCTSTR)m_sAddress, (LPCTSTR)CA2T( msg ) );
-		}
-	}
+	LogOutgoing();
 
 	return CNeighbour::OnWrite();
 }

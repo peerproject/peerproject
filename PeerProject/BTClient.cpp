@@ -1094,7 +1094,7 @@ void CBTClient::SendExtendedHandshake()
 	pM->Add( "ut_metadata" )->SetInt( EXTENDED_PACKET_UT_METADATA );
 	pM->Add( "ut_pex" )->SetInt( EXTENDED_PACKET_UT_PEX );
 
-	if ( m_pDownload->IsTorrent() && ! m_pDownload->m_pTorrent.m_bPrivate )
+	if ( m_pDownload->IsTorrent() && ! m_pDownload->m_pTorrent.m_bPrivate && m_pDownload->m_pTorrent.GetInfoSize() > 0)
 		pRoot.Add( "metadata_size" )->SetInt( m_pDownload->m_pTorrent.GetInfoSize() );
 
 	pRoot.Add( "p" )->SetInt( Settings.Connection.InPort );
@@ -1122,16 +1122,19 @@ BOOL CBTClient::OnExtended(CBTPacket* pPacket)
 	CBuffer pInput;
 	pInput.Add( &pPacket->m_pBuffer[ pPacket->m_nPosition ], pPacket->GetRemaining() );
 
-	CBENode* pRoot = CBENode::Decode( &pInput );
+	DWORD nReaden = 0;
+	CBENode* pRoot = CBENode::Decode( &pInput, &nReaden );
 	if ( pRoot == NULL )
 		return TRUE;
 
 	if ( nPacketID == EXTENDED_PACKET_HANDSHAKE )
 	{
+		theApp.Message( MSG_DEBUG,
+			_T("[BT] EXTENDED PACKET HANDSHAKE: %s"), (LPCTSTR)pRoot->Encode() );
+
 		if ( CBENode* pMetadata = pRoot->GetNode( "m" ) )
 		{
-			CBENode* pUtMetadata = pMetadata->GetNode( "ut_metadata" );
-			if ( ! m_nUtMetadataID && pUtMetadata )
+			if ( CBENode* pUtMetadata = pMetadata->GetNode( "ut_metadata" ) )
 			{
 				m_nUtMetadataID = pUtMetadata->GetInt();
 				if ( m_nUtMetadataID > 0 && ! m_pDownload->m_pTorrent.m_pBlockBTH ) // Send first info request
@@ -1142,10 +1145,10 @@ BOOL CBTClient::OnExtended(CBTPacket* pPacket)
 				}
 			}
 
-			if ( CBENode* pUtMetadataSize = pMetadata->GetNode( "metadata_size" ) )
-				m_nUtMetadataSize = pUtMetadata->GetInt();
+			if ( CBENode* pUtMetadataSize = pRoot->GetNode( "metadata_size" ) )
+				m_nUtMetadataSize = pUtMetadataSize->GetInt();
 
-			if ( CBENode* pUtPex = pMetadata->GetNode( "ut_pex" ) )
+			if ( CBENode* pUtPex = pMetadata->GetNode( "ut_pex" ) )		// peer-exchange
 			{
 				BOOL bSendUtPex = m_nUtPexID != pUtPex->GetInt();
 				m_nUtPexID = pUtPex->GetInt();
@@ -1191,8 +1194,15 @@ BOOL CBTClient::OnExtended(CBTPacket* pPacket)
 				if ( CBENode* pTotalSize = pRoot->GetNode( "total_size" ) )
 				{
 					QWORD nTotalSize = pTotalSize->GetInt();
-					if ( m_pDownload->m_pTorrent.LoadInfoPiece(
-						nTotalSize, nPiece, pPacket->m_pBuffer, pPacket->m_nLength ) ) // If full info loaded
+					ASSERT( !( m_nUtMetadataSize > 0 && m_nUtMetadataSize != nTotalSize ) );
+					if ( ! m_nUtMetadataSize )
+						m_nUtMetadataSize = nTotalSize;
+				}
+
+				if ( m_nUtMetadataSize && ! m_pDownload->m_pTorrent.m_pBlockBTH )
+				{
+					if ( m_pDownload->m_pTorrent.LoadInfoPiece( pInput.m_nLength - nReaden,
+						 m_nUtMetadataSize, nPiece, pPacket->m_pBuffer, pPacket->m_nLength ) ) // If full info loaded
 					{
 						 m_pDownload->SetTorrent( m_pDownload->m_pTorrent );
 					}

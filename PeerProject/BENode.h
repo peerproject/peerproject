@@ -36,6 +36,8 @@ public:
 	int			m_nType;
 	LPVOID		m_pValue;
 	QWORD		m_nValue;
+	QWORD		m_nSize;
+	QWORD		m_nPosition;
 
 	enum { beNull, beString, beInt, beList, beDict };
 
@@ -49,10 +51,10 @@ public:
 	CString		GetStringFromSubNode(LPCSTR pszKey, UINT nEncoding, bool& pEncodingError) const;
 	CString		GetStringFromSubNode(int nItem, UINT nEncoding, bool& pEncodingError) const;
 	void		Encode(CBuffer* pBuffer) const;
-public:
-	static CBENode*	Decode(const CBuffer* pBuffer);
+
+	static CBENode*	Decode(const CBuffer* pBuffer, DWORD *pnReaden = NULL );
 private:
-	void		Decode(LPBYTE& pInput, DWORD& nInput);
+	void		Decode(LPBYTE& pInput, DWORD& nInput, DWORD nSize);
 	static int	DecodeLen(LPBYTE& pInput, DWORD& nInput);
 
 

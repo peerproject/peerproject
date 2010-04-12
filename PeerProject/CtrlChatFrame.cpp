@@ -1,7 +1,7 @@
 //
 // CtrlChatFrame.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -67,7 +67,7 @@ BEGIN_MESSAGE_MAP(CChatFrame, CWnd)
 END_MESSAGE_MAP()
 
 #define EDIT_HISTORY	256
-#define NEWLINE_FORMAT	_T("2")
+//#define NEWLINE_FORMAT	_T("2") // In Header
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -164,14 +164,10 @@ void CChatFrame::SetDesktopMode(BOOL bDesktop)
 		m_pChildWnd = NULL;
 	}
 
-	if ( bDesktop )
-	{
-		// ToDo: m_pDesktopWnd = new CChatDesktopWnd( this );
-	}
-	else
-	{
+	if ( ! bDesktop )
 		m_pChildWnd = new CChatWnd( this );
-	}
+	//else
+		// ToDo: m_pDesktopWnd = new CChatDesktopWnd( this );
 }
 
 void CChatFrame::SetAlert(BOOL /*bAlert*/)
@@ -269,21 +265,15 @@ BOOL CChatFrame::PreTranslateMessage(MSG* pMsg)
 void CChatFrame::MoveHistory(int nDelta)
 {
 	if ( m_nHistory == m_pHistory.GetSize() )
-	{
 		m_wndEdit.GetWindowText( m_sCurrent );
-	}
 
 	m_nHistory += nDelta;
 	m_nHistory = max( 0, min( m_pHistory.GetSize(), m_nHistory ) );
 
 	if ( m_nHistory == m_pHistory.GetSize() )
-	{
 		m_wndEdit.SetWindowText( m_sCurrent );
-	}
 	else
-	{
 		m_wndEdit.SetWindowText( m_pHistory.GetAt( m_nHistory ) );
-	}
 
 	int nLen = m_wndEdit.GetWindowTextLength();
 	m_wndEdit.SetSel( nLen, nLen );
@@ -299,7 +289,8 @@ BOOL CChatFrame::IsInRange(LPCTSTR pszToken)
 
 	m_wndEdit.GetWindowText( strRange );
 	if ( nStart <= 0 ) return FALSE;
-	if ( nStart < strRange.GetLength() ) strRange = strRange.Left( nStart );
+	if ( nStart < strRange.GetLength() )
+		strRange = strRange.Left( nStart );
 
 	ToLower( strRange );
 	strRange.MakeReverse();
@@ -327,7 +318,8 @@ void CChatFrame::InsertText(LPCTSTR pszToken)
 	{
 		CString strIn, strOut;
 		m_wndEdit.GetWindowText( strIn );
-		if ( nEnd < nStart ) m_wndEdit.GetSel( nEnd, nStart );
+		if ( nEnd < nStart )
+			m_wndEdit.GetSel( nEnd, nStart );
 		strOut.Format( _T("%s%s[/%c]"), pszToken,
 			(LPCTSTR)strIn.Mid( nStart, nEnd - nStart ), pszToken[1] );
 		m_wndEdit.ReplaceSel( strOut );
@@ -339,8 +331,23 @@ void CChatFrame::InsertText(LPCTSTR pszToken)
 /////////////////////////////////////////////////////////////////////////////
 // CChatFrame text view controller
 
+void CChatFrame::AddTimestamp()
+{
+	if ( Settings.Community.Timestamp )
+	{
+		CTime tNow = CTime::GetCurrentTime();
+		CString str;
+		str.Format( _T("[%.2i:%.2i:%.2i] "),
+			tNow.GetHour(), tNow.GetMinute(), tNow.GetSecond() );
+		m_pContent.Add( retText, str, NULL, retfColor )->m_cColor =
+			Colors.m_crChatNull;
+	}
+}
+
 void CChatFrame::AddText(LPCTSTR pszText)
 {
+	AddTimestamp();
+
 	m_pContent.Add( retText, pszText );
 	m_pContent.Add( retNewline, NEWLINE_FORMAT );
 	m_wndView.InvalidateIfModified();
@@ -348,17 +355,9 @@ void CChatFrame::AddText(LPCTSTR pszText)
 
 void CChatFrame::AddText(BOOL bSelf, BOOL bAction, LPCTSTR pszNick, LPCTSTR pszBody)
 {
+	AddTimestamp();
+
 	CString str;
-
-	if ( Settings.Community.Timestamp )
-	{
-		CTime tNow = CTime::GetCurrentTime();
-
-		str.Format( _T("[%.2i:%.2i] "),
-			tNow.GetHour(), tNow.GetMinute() );
-		m_pContent.Add( retText, str, NULL, retfColor )->m_cColor = Colors.m_crChatNull;
-	}
-
 	str.Format( bAction ? _T("* %s ") : _T("%s: "), pszNick );
 	m_pContent.Add( retText, str, NULL, retfBold | retfColor )->m_cColor
 		= ( bSelf ? Colors.m_crChatOut : Colors.m_crChatIn );
@@ -374,6 +373,7 @@ void CChatFrame::AddText(BOOL bSelf, BOOL bAction, LPCTSTR pszNick, LPCTSTR pszB
 
 void CChatFrame::OnStatusMessage(int nFlags, LPCTSTR pszText)
 {
+	AddTimestamp();
 	m_pContent.Add( retText, pszText, NULL, retfColor )->m_cColor
 		= nFlags == 1 ? Colors.m_crChatOut : Colors.m_crChatNull;
 	m_pContent.Add( retNewline, NEWLINE_FORMAT );
@@ -390,13 +390,9 @@ void CChatFrame::OnLocalText(LPCTSTR pszText)
 		ToLower( strCommand );
 
 		if ( strCommand == _T("/me") )
-		{
 			OnLocalMessage( true, pszText + 4 );
-		}
 		else
-		{
 			OnLocalCommand( strCommand, pszText + strCommand.GetLength() + 1 );
-		}
 	}
 	else
 	{
@@ -411,25 +407,15 @@ void CChatFrame::OnLocalMessage(bool /*bAction*/, LPCTSTR /*pszText*/)
 void CChatFrame::OnLocalCommand(LPCTSTR pszCommand, LPCTSTR /*pszArgs*/)
 {
 	if ( _tcsicmp( pszCommand, _T("/clear") ) == 0 )
-	{
 		PostMessage( WM_COMMAND, ID_CHAT_CLEAR );
-	}
 	else if ( _tcsicmp( pszCommand, _T("/connect") ) == 0 )
-	{
 		PostMessage( WM_COMMAND, ID_CHAT_CONNECT );
-	}
 	else if ( _tcsicmp( pszCommand, _T("/disconnect") ) == 0 )
-	{
 		PostMessage( WM_COMMAND, ID_CHAT_DISCONNECT );
-	}
 	else if ( _tcsicmp( pszCommand, _T("/close") ) == 0 )
-	{
 		GetParent()->PostMessage( WM_CLOSE );
-	}
 	else if ( _tcsicmp( pszCommand, _T("/exit") ) == 0 )
-	{
 		GetParent()->PostMessage( WM_CLOSE );
-	}
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -624,8 +610,6 @@ void CChatFrame::OnDrawItem(int /*nIDCtl*/, LPDRAWITEMSTRUCT lpDrawItemStruct)
 
 void CChatFrame::OnClickView(NMHDR* pNotify, LRESULT* /*pResult*/)
 {
-	if ( CRichElement* pElement = ((RVN_ELEMENTEVENT*) pNotify)->pElement )
-	{
+	if ( CRichElement* pElement = ((RVN_ELEMENTEVENT*)pNotify)->pElement )
 		theApp.InternalURI( pElement->m_sLink );
-	}
 }

@@ -1,6 +1,6 @@
 ; #####################################################################################################################
 ;
-; MD4.asm
+; MD4.32.asm
 ;
 ; This file is part of PeerProject (peerproject.org) © 2008-2010
 ; Portions Copyright Shareaza Development Team, 2002-2007.
@@ -21,7 +21,7 @@
 ;
 ; #####################################################################################################################
 ;
-; MD4_asm - Implementation of MD4 for x86 - use together with MD4.cpp and MD4.h
+; MD4_asm - Implementation of MD4 for x86 - use together with MD4.cpp and MD4.h  (for ed2k)
 ;
 ; #####################################################################################################################
 

@@ -58,6 +58,8 @@ protected:
 	// Class that looks like CBuffer* but with syncronization
 	typedef CLocked< CBuffer*, CCriticalSectionPtr > CLockedBuffer;
 
+	void LogOutgoing();
+
 private:
 	CCriticalSectionPtr	m_pInputSection;
 	CBuffer*			m_pInput;			// Data from the remote computer, will be compressed if the remote computer is sending compressed data

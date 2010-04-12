@@ -222,15 +222,20 @@ BOOL CZIPFile::LocateCentralDirectory()
 		 != pLoc->nDirectoryOffset )
 		 return FALSE;
 
-	BYTE* pDirectory = new BYTE[ pLoc->nDirectorySize ];
-	ReadFile( m_hFile, pDirectory, pLoc->nDirectorySize, &nBuffer, NULL );
+	auto_array< BYTE > pDirectory( new BYTE[ pLoc->nDirectorySize ] );
+	if ( ! pDirectory.get() )
+		return FALSE;
+
+	nBuffer = 0;
+	if ( ! ReadFile( m_hFile, pDirectory.get(), pLoc->nDirectorySize, &nBuffer, NULL ) )
+		return FALSE;
 
 	if ( nBuffer == pLoc->nDirectorySize )
 	{
 		m_nFile = (int)pLoc->nTotalFiles;
 		m_pFile = new File[ m_nFile ];
 
-		if ( ! ParseCentralDirectory( pDirectory, pLoc->nDirectorySize ) )
+		if ( ! ParseCentralDirectory( pDirectory.get(), pLoc->nDirectorySize ) )
 		{
 			delete [] m_pFile;
 			m_pFile = NULL;
@@ -238,7 +243,7 @@ BOOL CZIPFile::LocateCentralDirectory()
 		}
 	}
 
-	delete [] pDirectory;
+	//delete [] pDirectory;
 
 	return ( m_nFile > 0 );
 }
@@ -382,24 +387,36 @@ BOOL CZIPFile::File::PrepareToDecompress(LPVOID pStream)
 
 CBuffer* CZIPFile::File::Decompress()
 {
+	if ( m_nSize > 48*1024*1024 )
+		return NULL;
+
 	z_stream pStream;
 
-	if ( m_nSize > 32*1024*1024 ) return NULL;
-	if ( ! PrepareToDecompress( &pStream ) ) return NULL;
+	if ( ! PrepareToDecompress( &pStream ) )
+		return NULL;
+
+	auto_ptr< CBuffer > pTarget( new CBuffer() );
+	if ( ! pTarget.get() )
+		return NULL;
 
 	if ( m_nCompression == 0 )
 	{
-		CBuffer* pTarget = new CBuffer();
 		pTarget->EnsureBuffer( (DWORD)m_nSize );
-		ReadFile( m_pZIP->m_hFile, pTarget->m_pBuffer, (DWORD)m_nSize, &pTarget->m_nLength, NULL );
-		if ( pTarget->m_nLength == (DWORD)m_nSize ) return pTarget;
-		delete pTarget;
-		return NULL;
+
+		if ( ! ReadFile( m_pZIP->m_hFile, pTarget->m_pBuffer, (DWORD)m_nSize, &pTarget->m_nLength, NULL ) )
+			return NULL;
+		if ( pTarget->m_nLength != (DWORD)m_nSize )
+			return NULL;
+
+		return pTarget.release();
 	}
 
 	DWORD nSource = (DWORD)m_nCompressedSize;
-	BYTE* pSource = new BYTE[ nSource ];
-	ReadFile( m_pZIP->m_hFile, pSource, nSource, &nSource, NULL );
+	auto_array< BYTE > pSource( new BYTE[ nSource ] );
+	if ( ! pSource.get() )
+		return NULL;
+	if ( ! ReadFile( m_pZIP->m_hFile, pSource.get(), nSource, &nSource, NULL ) )
+		return NULL;
 
 	if ( nSource != (DWORD)m_nCompressedSize )
 	{
@@ -407,28 +424,26 @@ CBuffer* CZIPFile::File::Decompress()
 		return NULL;
 	}
 
-	CBuffer* pTarget = new CBuffer();
 	pTarget->EnsureBuffer( (DWORD)m_nSize );
 	pTarget->m_nLength = (DWORD)m_nSize;
 
-	pStream.next_in		= pSource;
+	pStream.next_in		= pSource.get();
 	pStream.avail_in	= (DWORD)m_nCompressedSize;
 	pStream.next_out	= pTarget->m_pBuffer;
 	pStream.avail_out	= pTarget->m_nLength;
 
 	inflate( &pStream, Z_FINISH );
 
-	delete [] pSource;
+	//delete [] pSource;
 
 	if ( pStream.avail_out != 0 )
 	{
-		delete pTarget;
-		pTarget = NULL;
+		pTarget.reset();
 	}
 
 	inflateEnd( &pStream );
 
-	return pTarget;
+	return pTarget.release();
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -439,73 +454,77 @@ const DWORD BUFFER_OUT_SIZE = 128 * 1024u;
 
 BOOL CZIPFile::File::Extract(LPCTSTR pszFile)
 {
-	z_stream pStream;
-	HANDLE hFile;
-
-	hFile = CreateFile( pszFile, GENERIC_WRITE, 0, NULL, CREATE_NEW,
+	HANDLE hFile = CreateFile( pszFile, GENERIC_WRITE, 0, NULL, CREATE_NEW,
 		FILE_ATTRIBUTE_NORMAL, NULL );
-	if ( hFile == INVALID_HANDLE_VALUE ) return FALSE;
+	if ( hFile == INVALID_HANDLE_VALUE )
+		return FALSE;
 
-	if ( ! PrepareToDecompress( &pStream ) ) return NULL;
+	z_stream pStream;
+	if ( ! PrepareToDecompress( &pStream ) )
+		return FALSE;
 
 	QWORD nCompressed = 0, nUncompressed = 0;
 
 	if ( m_nCompression == Z_DEFLATED )
 	{
-		BYTE* pBufferIn		= new BYTE[BUFFER_IN_SIZE];
-		BYTE* pBufferOut	= new BYTE[BUFFER_OUT_SIZE];
+		auto_array< BYTE > pBufferIn( new BYTE[ BUFFER_IN_SIZE ] );
+		auto_array< BYTE > pBufferOut( new BYTE[ BUFFER_OUT_SIZE ] );
 
-		while ( nCompressed < m_nCompressedSize || nUncompressed < m_nSize )
+		while ( pBufferIn.get() && pBufferOut.get() &&
+			( nCompressed < m_nCompressedSize || nUncompressed < m_nSize ) )
 		{
 			if ( pStream.avail_in == 0 )
 			{
 				pStream.avail_in	= (DWORD)min( m_nCompressedSize - nCompressed, BUFFER_IN_SIZE );
-				pStream.next_in		= pBufferIn;
+				pStream.next_in		= pBufferIn.get();
 
 				DWORD nRead = 0;
-				ReadFile( m_pZIP->m_hFile, pBufferIn, pStream.avail_in, &nRead, NULL );
-				if ( nRead != pStream.avail_in ) break;
+				if ( ! ReadFile( m_pZIP->m_hFile, pBufferIn.get(), pStream.avail_in, &nRead, NULL ) )
+					break;
+				if ( nRead != pStream.avail_in )
+					break;
 				nCompressed += nRead;
 			}
 
 			pStream.avail_out	= BUFFER_OUT_SIZE;
-			pStream.next_out	= pBufferOut;
+			pStream.next_out	= pBufferOut.get();
 
 			/*int nInflate =*/ inflate( &pStream, Z_SYNC_FLUSH );
 
 			if ( pStream.avail_out < BUFFER_OUT_SIZE )
 			{
 				DWORD nWrite = BUFFER_OUT_SIZE - pStream.avail_out;
-				WriteFile( hFile, pBufferOut, nWrite, &nWrite, NULL );
-				if ( nWrite != BUFFER_OUT_SIZE - pStream.avail_out ) break;
+				if ( ! WriteFile( hFile, pBufferOut.get(), nWrite, &nWrite, NULL ) )
+					break;
+				if ( nWrite != BUFFER_OUT_SIZE - pStream.avail_out )
+					break;
 				nUncompressed += nWrite;
 			}
 		}
-
-		delete [] pBufferOut;
-		delete [] pBufferIn;
 
 		inflateEnd( &pStream );
 	}
 	else
 	{
-		BYTE* pBufferOut = new BYTE[BUFFER_OUT_SIZE];
+		auto_array< BYTE > pBufferOut( new BYTE[ BUFFER_OUT_SIZE ] );
 
-		while ( nUncompressed < m_nSize )
+		while ( pBufferOut.get() && nUncompressed < m_nSize )
 		{
 			DWORD nChunk = (DWORD)min( m_nSize - nUncompressed, BUFFER_OUT_SIZE );
 			DWORD nProcess = 0;
 
-			ReadFile( m_pZIP->m_hFile, pBufferOut, nChunk, &nProcess, NULL );
-			if ( nChunk != nProcess ) break;
-			WriteFile( hFile, pBufferOut, nChunk, &nProcess, NULL );
-			if ( nChunk != nProcess ) break;
+			if ( ! ReadFile( m_pZIP->m_hFile, pBufferOut.get(), nChunk, &nProcess, NULL ) )
+				break;
+			if ( nChunk != nProcess )
+				break;
+			if ( ! WriteFile( hFile, pBufferOut.get(), nChunk, &nProcess, NULL ) )
+				break;
+			if ( nChunk != nProcess )
+				break;
 
 			nCompressed += nChunk;
 			nUncompressed += nChunk;
 		}
-
-		delete [] pBufferOut;
 	}
 
 	CloseHandle( hFile );
