@@ -1819,11 +1819,11 @@ void CQueryHit::ReadEDPacket(CEDPacket* pPacket, SOCKADDR_IN* pServer, BOOL bUni
 		{	// Application
 			m_sSchemaURI = CSchema::uriApplication;
 		}
-		//else if ( ( pSchema = SchemaCache.Get( CSchema::uriArchive ) ) != NULL &&
-		//		  pSchema->FilterType( strType ) )
-		//{	// Archive
-		//	m_sSchemaURI = CSchema::uriArchive;
-		//}
+		else if ( ( pSchema = SchemaCache.Get( CSchema::uriArchive ) ) != NULL &&
+				  pSchema->FilterType( strType ) )
+		{	// Archive
+			m_sSchemaURI = CSchema::uriArchive;
+		}
 		else if ( ( pSchema = SchemaCache.Get( CSchema::uriImage ) ) != NULL &&
 					pSchema->FilterType( strType ) )
 		{	// Image

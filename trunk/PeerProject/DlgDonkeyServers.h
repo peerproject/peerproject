@@ -1,7 +1,7 @@
 //
 // DlgDonkeyServers.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -21,53 +21,31 @@
 
 #pragma once
 
-#include "ThreadImpl.h"
+#include "HttpRequest.h"
 #include "DlgSkinDialog.h"
 
 
-class CDonkeyServersDlg :
-	public CSkinDialog,
-	public CThreadImpl
+class CDonkeyServersDlg : public CSkinDialog
 {
-// Construction
 public:
-	CDonkeyServersDlg(CWnd* pParent = NULL);   // standard constructor
-	virtual ~CDonkeyServersDlg();
+	CDonkeyServersDlg(CWnd* pParent = NULL);
 
-// Dialog Data
-public:
-	//{{AFX_DATA(CDonkeyServersDlg)
 	enum { IDD = IDD_DONKEY_SERVERS };
-	CEdit	m_wndURL;
-	CButton	m_wndOK;
+
+protected:
+	CEdit			m_wndURL;
+	CButton			m_wndOK;
 	CProgressCtrl	m_wndProgress;
-	CString	m_sURL;
-	//}}AFX_DATA
+	CHttpRequest	m_pRequest;
+	CString			m_sURL;
 
-// Attributes
-public:
-	HINTERNET	m_hInternet;
-
-// Operations
-protected:
-	void			OnRun();
-
-// Overrides
-public:
-	//{{AFX_VIRTUAL(CDonkeyServersDlg)
-	protected:
 	virtual void DoDataExchange(CDataExchange* pDX);
-	//}}AFX_VIRTUAL
-
-// Implementation
-protected:
-	//{{AFX_MSG(CDonkeyServersDlg)
 	virtual BOOL OnInitDialog();
 	virtual void OnOK();
 	virtual void OnCancel();
+
 	afx_msg void OnChangeURL();
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
-	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()
 };

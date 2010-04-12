@@ -1,6 +1,6 @@
 ; #####################################################################################################################
 ;
-; SHA.asm
+; SHA.32.asm
 ;
 ; This file is part of PeerProject (peerproject.org) © 2008-2010
 ; Portions Copyright Shareaza Development Team, 2002-2007.
@@ -225,7 +225,7 @@ SHA_Compile_p5          ENDP
 
                         ALIGN       16
 
-SHA1_Add_p5              PROC        PUBLIC, _this:DWORD, _Data:DWORD, _nLength:DWORD
+SHA1_Add_p5             PROC        PUBLIC, _this:DWORD, _Data:DWORD, _nLength:DWORD
 
                         pusha
 __this                  textequ     <[esp+36+320]>                              ; different offset due to pusha

@@ -155,10 +155,10 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="MD4.asm">
+    <CustomBuild Include="MD4.32.asm">
       <Filter>Source Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="SHA.asm">
+    <CustomBuild Include="SHA.32.asm">
       <Filter>Source Files</Filter>
     </CustomBuild>
   </ItemGroup>

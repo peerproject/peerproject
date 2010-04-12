@@ -295,7 +295,7 @@
 				>
 			</File>
 			<File
-				RelativePath="MD4.asm"
+				RelativePath="MD4.32.asm"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
@@ -317,7 +317,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="SHA.asm"
+				RelativePath="SHA.32.asm"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"

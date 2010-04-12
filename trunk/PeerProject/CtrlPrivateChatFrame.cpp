@@ -1,7 +1,7 @@
 //
 // CtrlPrivateChatFrame.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -32,6 +32,7 @@
 #include "Skin.h"
 #include "Security.h"
 #include "Settings.h"
+#include "Plugins.h"	// IChatPlugin Capture
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -152,47 +153,74 @@ void CPrivateChatFrame::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 
 void CPrivateChatFrame::OnProfileReceived()
 {
-	CString str;
-
-	LoadString( str, IDS_CHAT_PROFILE_ACCEPTED );
-	m_pContent.Add( retText, str, NULL, retfColor )->m_cColor = Colors.m_crChatNull ;
-
 	m_sNick = m_pSession->m_sUserNick;
-	m_pContent.Add( retLink, m_sNick, _T("peer:command:ID_CHAT_BROWSE") );
 
-	SetWindowText( _T("Chat : ") + m_sNick );
+	AddTimestamp();
+
+	m_pContent.Add( retText, LoadString( IDS_CHAT_PROFILE_ACCEPTED ), NULL, retfColor )->m_cColor = Colors.m_crChatNull ;
+	m_pContent.Add( retLink, m_sNick, _T("peer:command:ID_CHAT_BROWSE") );
+	m_pContent.Add( retNewline, NEWLINE_FORMAT );
+	m_wndView.InvalidateIfModified();
+
+	CString strCaption;
+	LoadString( strCaption, IDR_CHATFRAME );
+	if ( Settings.General.LanguageRTL ) strCaption = _T("\x200F") + strCaption + _T("\x202E");
+	strCaption += _T(" : ");
+	if ( Settings.General.LanguageRTL ) strCaption += _T("\x202B");
+	strCaption += m_sNick;
+	CString strAddress;
+	strAddress.Format( _T(" (%s:%lu)"),
+		(LPCTSTR)CString( inet_ntoa( m_pSession->m_pHost.sin_addr ) ),
+		ntohs( m_pSession->m_pHost.sin_port ) );
+	if ( Settings.General.LanguageRTL ) strCaption += _T("\x200F");
+	strCaption += strAddress;
+	if ( ! m_pSession->m_sUserAgent.IsEmpty() )
+	{
+		if ( Settings.General.LanguageRTL ) strCaption += _T("\x200F");
+		strCaption = strCaption + _T(" - ") + m_pSession->m_sUserAgent;
+	}
+
+	SetWindowText( strCaption );
 	GetParent()->PostMessage( WM_TIMER, 2 );
 
-	AddText( _T(".") );
 	SetAlert();
 }
 
 void CPrivateChatFrame::OnRemoteMessage(BOOL bAction, LPCTSTR pszText)
 {
 	// Check message spam filter (if enabled)
-	if ( !MessageFilter.IsFiltered( pszText ) )
+	if ( MessageFilter.IsFiltered( pszText ) )
+		return;
+
+	DWORD nIdle = (DWORD)time( NULL ) - theApp.m_nLastInput;
+
+	if ( nIdle > Settings.Community.AwayMessageIdleTime )
 	{
-		DWORD nIdle = (DWORD)time( NULL ) - theApp.m_nLastInput;
+		CString strTime;
+		if ( nIdle > 86400 )
+			strTime.Format( _T("%u:%.2u:%.2u:%.2u"), nIdle / 86400, ( nIdle / 3600 ) % 24, ( nIdle / 60 ) % 60, nIdle % 60 );
+		else
+			strTime.Format( _T("%u:%.2u:%.2u"), nIdle / 3600, ( nIdle / 60 ) % 60, nIdle % 60 );
 
-		if ( nIdle > Settings.Community.AwayMessageIdleTime )
-		{
-			CString strTime;
-			if ( nIdle > 86400 )
-				strTime.Format( _T("%i:%.2i:%.2i:%.2i"), nIdle / 86400, ( nIdle / 3600 ) % 24, ( nIdle / 60 ) % 60, nIdle % 60 );
-			else
-				strTime.Format( _T("%i:%.2i:%.2i"), nIdle / 3600, ( nIdle / 60 ) % 60, nIdle % 60 );
-
-			m_pSession->SendAwayMessage( strTime );
-		}
-
-		// Adult filter (if enabled)
-		if ( AdultFilter.IsChatFiltered( pszText ) )
-			AdultFilter.Censor( (TCHAR*)pszText );
-
-		AddText( FALSE, bAction, m_sNick, pszText );
-		SetAlert();
-		PostMessage( WM_TIMER, 4 );
+		CString strMessage;
+		strMessage.Format( IDS_CHAT_PRIVATE_AWAY, _T(""), strTime );
+		m_pSession->SendPrivateMessage( true, strMessage );
 	}
+
+	// Adult filter (if enabled)
+	if ( AdultFilter.IsChatFiltered( pszText ) )
+		AdultFilter.Censor( (TCHAR*)pszText );
+
+	// Notify chat plugins about new remote message
+	CString sChatID;
+	sChatID.Format( _T("%s:%hu"),
+		(LPCTSTR)CString( inet_ntoa( m_pSession->m_pHost.sin_addr ) ),
+		ntohs( m_pSession->m_pHost.sin_port ) );
+	Plugins.OnChatMessage( sChatID, FALSE, m_sNick, MyProfile.GetNick(), pszText );
+
+	AddText( FALSE, bAction, m_sNick, pszText );
+	SetAlert();
+	PostMessage( WM_TIMER, 4 );
 }
 
 void CPrivateChatFrame::OnLocalMessage(bool bAction, LPCTSTR pszText)
@@ -217,20 +245,23 @@ void CPrivateChatFrame::OnLocalMessage(bool bAction, LPCTSTR pszText)
 	if ( AdultFilter.IsChatFiltered( pszText ) )
 		AdultFilter.Censor( (TCHAR*)pszText );
 
-	AddText( TRUE, bAction, MyProfile.GetNick().Left( 255 ), pszText );
+	// Notify chat plugins about new local message
+	CString sChatID;
+	sChatID.Format( _T("%s:%hu"),
+		(LPCTSTR)CString( inet_ntoa( m_pSession->m_pHost.sin_addr ) ),
+		ntohs( m_pSession->m_pHost.sin_port ) );
+	Plugins.OnChatMessage( sChatID, TRUE, MyProfile.GetNick(), m_sNick, pszText );
+
+	AddText( TRUE, bAction, MyProfile.GetNick(), pszText );
 	m_pSession->SendPrivateMessage( bAction, pszText );
 }
 
 void CPrivateChatFrame::OnLocalCommand(LPCTSTR pszCommand, LPCTSTR pszArgs)
 {
 	if ( _tcsicmp( pszCommand, _T("/browse") ) == 0 )
-	{
 		PostMessage( WM_COMMAND, ID_CHAT_BROWSE );
-	}
 	else
-	{
 		CChatFrame::OnLocalCommand( pszCommand, pszArgs );
-	}
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -266,7 +297,7 @@ void CPrivateChatFrame::OnChatPriority()
 	{
 		CUploadTransfer* pUpload = Uploads.GetNext( pos );
 
-		if (	pUpload->m_pHost.sin_addr.S_un.S_addr == nAddress &&
+		if ( pUpload->m_pHost.sin_addr.S_un.S_addr == nAddress &&
 				pUpload->m_nState == upsQueued )
 		{
 			pUpload->Promote();

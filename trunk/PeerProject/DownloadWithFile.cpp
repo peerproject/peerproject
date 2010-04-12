@@ -182,8 +182,8 @@ BOOL CDownloadWithFile::OpenFile()
 
 		if ( pThis->IsTorrent() )
 		{
-			CString sFoo;
-			if ( m_pFile->Open( pThis->m_pTorrent, ! IsCompleted(), sFoo ) )
+			CString str;
+			if ( m_pFile->Open( pThis->m_pTorrent, ! IsCompleted(), str ) )
 				return TRUE;
 		}
 		else

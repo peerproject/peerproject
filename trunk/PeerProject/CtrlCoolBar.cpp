@@ -1,7 +1,7 @@
 //
 // CtrlCoolBar.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -168,8 +168,10 @@ CCoolBarItem* CCoolBarCtrl::Add(UINT nID, LPCTSTR pszText, int nPosition)
 	}
 	else
 	{
-		POSITION pos = m_pItems.FindIndex( nPosition );
-		if ( pos ) m_pItems.InsertBefore( pos, pItem ); else m_pItems.AddTail( pItem );
+		if ( POSITION pos = m_pItems.FindIndex( nPosition ) )
+			m_pItems.InsertBefore( pos, pItem );
+		else
+			m_pItems.AddTail( pItem );
 	}
 
 	pItem->m_nImage = CoolInterface.ImageForID( nID );
@@ -383,7 +385,8 @@ CSize CCoolBarCtrl::CalcFixedLayout(BOOL bStretch, BOOL /*bHorz*/)
 		for ( POSITION pos = m_pItems.GetHeadPosition() ; pos ; )
 		{
 			CCoolBarItem* pItem = m_pItems.GetNext( pos );
-			if ( pItem->m_bVisible ) size.cx += pItem->m_nWidth;
+			if ( pItem->m_bVisible )
+				size.cx += pItem->m_nWidth;
 		}
 
 		m_czLast = size;
@@ -430,7 +433,8 @@ CCoolBarItem* CCoolBarCtrl::HitTest(const CPoint& point, CRect* pItemRect, BOOL 
 			for ( POSITION pos2 = pos ; pos2 ; )
 			{
 				CCoolBarItem* pRight = m_pItems.GetNext( pos2 );
-				if ( pRight->m_bVisible ) nRight += pRight->m_nWidth;
+				if ( pRight->m_bVisible )
+					nRight += pRight->m_nWidth;
 			}
 
 			if ( rcClient.right - rcItem.left >= nRight )
@@ -476,7 +480,8 @@ BOOL CCoolBarCtrl::GetItemRect(CCoolBarItem* pFind, CRect* pRect) const
 			for ( POSITION pos2 = pos ; pos2 ; )
 			{
 				CCoolBarItem* pRight = m_pItems.GetNext( pos2 );
-				if ( pRight->m_bVisible ) nRight += pRight->m_nWidth;
+				if ( pRight->m_bVisible )
+					nRight += pRight->m_nWidth;
 			}
 
 			if ( rcClient.right - rcItem.left >= nRight )
@@ -657,7 +662,8 @@ void CCoolBarCtrl::DoPaint(CDC* pDC, CRect& rcClient, BOOL bTransparent)
 		else if ( pItem->m_nCtrlID )
 		{
 			CWnd* pCtrl = GetDlgItem( pItem->m_nCtrlID );
-			if ( pCtrl && pCtrl->IsWindowVisible() ) pCtrl->ShowWindow( SW_HIDE );
+			if ( pCtrl && pCtrl->IsWindowVisible() )
+				pCtrl->ShowWindow( SW_HIDE );
 		}
 	}
 

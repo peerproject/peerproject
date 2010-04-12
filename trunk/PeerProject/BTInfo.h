@@ -111,6 +111,7 @@ public:
 	int 		m_nStartDownloads;		// When do we start downloads for this torrent
 	int 		m_nTrackerSeeds;		// Count from most recent scrape
 	int 		m_nTrackerPeers;		//
+	DWORD 		m_nTrackerWait; 		// min_request_interval (in ms)
 
 private:
 	CArray< CBTTracker > m_oTrackers;	// Tracker list
@@ -133,11 +134,11 @@ public:
 	void		Serialize(CArchive& ar);
 	void		ConvertOldTorrents();
 
-	int 		NextInfoPiece();
-	BOOL		LoadInfoPiece(DWORD nInfoSize, DWORD nInfoPiece, BYTE *pPacketBuffer, DWORD nPacketLength);
+	int			NextInfoPiece();
+	BOOL		LoadInfoPiece(DWORD nPieceSize, DWORD nInfoSize, DWORD nInfoPiece, BYTE *pPacketBuffer, DWORD nPacketLength);
 	DWORD		GetInfoPiece(DWORD nPiece, BYTE *pInfoPiece);
 	DWORD		GetInfoSize();
-	BOOL		CheckInfoData(const CBuffer* pSource);
+	BOOL		CheckInfoData();
 	BOOL		LoadTorrentFile(LPCTSTR pszFile);
 	BOOL		LoadTorrentBuffer(const CBuffer* pBuffer);
 	BOOL		LoadTorrentTree(const CBENode* pRoot);

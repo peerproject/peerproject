@@ -37,6 +37,7 @@
 #include "WndMain.h"
 #include "GProfile.h"
 #include "DlgIrcInput.h"
+#include "Plugins.h"	// IChatPlugin Capture
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -1035,6 +1036,9 @@ void CIRCFrame::OnLocalText(LPCTSTR pszText)
 				strSend = strMessage;
 
 			strSend = _T("PRIVMSG ") + strTabTitle + _T(" :") + strSend;
+
+			// Notify chat plugins about new local message
+			Plugins.OnChatMessage( strTabTitle, TRUE, m_sNickname, strTabTitle, pszText );
 		}
 	}
 
@@ -1531,6 +1535,10 @@ void CIRCFrame::ActivateMessageByID(CIRCNewMessage& oNewMessage, int nMessageTyp
 			}
 
 			oNewMessage.Add( strSender + GetStringAfterParsedItem( 7 ), m_pWords.GetAt( 0 ), ID_COLOR_TEXT );
+
+			// Notify chat plugins about new remote message
+			Plugins.OnChatMessage( GetTabText( nTab ), FALSE, m_pWords.GetAt( 0 ), m_sNickname, strText );
+
 			return;
 		}
 		case ID_MESSAGE_USER_AWAY:
@@ -1606,7 +1614,12 @@ void CIRCFrame::ActivateMessageByID(CIRCNewMessage& oNewMessage, int nMessageTyp
 			if ( m_nTab != m_wndTab.GetCurSel() )
 				m_wndTab.SetTabColor( m_nTab, Settings.IRC.Colors[ ID_COLOR_NEWMSG ] );
 			CString strSender = m_pWords.GetAt( 0 ) + _T(":  ");	// <NICK>
-			oNewMessage.Add( strSender + GetStringAfterParsedItem( 7 ), m_pWords.GetAt( 6 ), ID_COLOR_TEXT );
+			CString strText = GetStringAfterParsedItem( 7 );		// Isolate for IChatPlugin capture
+			oNewMessage.Add( strSender + strText, m_pWords.GetAt( 6 ), ID_COLOR_TEXT );
+			
+			// Notify chat plugins about new remote message
+			Plugins.OnChatMessage( GetTabText( m_nTab ), FALSE, m_pWords.GetAt( 0 ), m_sNickname, strText );
+
 			return;
 		}
 		case ID_MESSAGE_CHANNEL_ME:

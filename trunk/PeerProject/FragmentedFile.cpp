@@ -294,31 +294,29 @@ BOOL CFragmentedFile::Open(const CPeerProjectFile& oSHFile, BOOL bWrite)
 	return TRUE;
 }
 
-BOOL CFragmentedFile::Open(const CBTInfo& oInfo, const BOOL bWrite,
-	CString& strErrorMessage)
+BOOL CFragmentedFile::Open(const CBTInfo& oInfo, const BOOL bWrite,	CString& strErrorMessage)
 {
 	CString sUniqueName = oInfo.GetFilename();
-	int nCount = 0;
-	CVirtualFile::const_iterator pItr = m_oFile.begin();
+	const int nCount = (int)m_oFile.size();
 	QWORD nOffset = 0;
+	int i = 0;
 
-	for ( POSITION pos = oInfo.m_pFiles.GetHeadPosition() ; pos ; ++nCount )
+	for ( POSITION pos = oInfo.m_pFiles.GetHeadPosition() ; pos ; ++i )
 	{
 		CBTInfo::CBTFile* pBTFile = oInfo.m_pFiles.GetNext( pos );
 		ASSERT( pBTFile->m_nSize != SIZE_UNKNOWN );
 
 		CString strSource;
-		if ( pItr != m_oFile.end() )
+		if ( i < nCount )
 		{
 			// Reopen file
-			strSource = (*pItr).m_sPath;
-			++pItr;
+			strSource = m_oFile[ i ].m_sPath;
 		}
 		else if ( bWrite )
 		{
-			// Generate new filename (inside incomplete folder)
+			// Generate new temp filename (inside incomplete folder)
 			strSource.Format( _T("%s\\%s_%d.partial"),
-				Settings.Downloads.IncompletePath, sUniqueName, nCount );
+				Settings.Downloads.IncompletePath, sUniqueName, i );
 		}
 		else
 		{
@@ -465,7 +463,7 @@ Fragments::List CFragmentedFile::GetWantedFragmentList() const
 {
 	CQuickLock oLock( m_pSection );
 
-	// ToDo: Implement several priorities
+	// ToDo: Implement priorities
 	// ToDo: Optimize this by caching
 
 	// Exclude unwanted files
@@ -540,7 +538,7 @@ int CFragmentedFile::SelectFile(CSingleLock* pLock) const
 
 void CFragmentedFile::Delete()
 {
-	CVirtualFile oFoo;
+	CVirtualFile oPurge;
 
 	{
 		CQuickLock oLock( m_pSection );
@@ -549,7 +547,9 @@ void CFragmentedFile::Delete()
 		CVirtualFile::const_iterator pItr = m_oFile.begin();
 		const CVirtualFile::const_iterator pEnd = m_oFile.end();
 		for ( ; pItr != pEnd; ++pItr )
-			oFoo.push_back( *pItr );
+		{
+			oPurge.push_back( *pItr );
+		}
 
 		// Close own handles
 		std::for_each( m_oFile.begin(), m_oFile.end(), Releaser() );
@@ -559,8 +559,8 @@ void CFragmentedFile::Delete()
 		m_nUnflushed = 0;
 	}
 
-	CVirtualFile::const_iterator pItr = oFoo.begin();
-	const CVirtualFile::const_iterator pEnd = oFoo.end();
+	CVirtualFile::const_iterator pItr = oPurge.begin();
+	const CVirtualFile::const_iterator pEnd = oPurge.end();
 	for( ; pItr != pEnd; ++pItr )
 	{
 		// Delete subfile

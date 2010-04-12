@@ -265,7 +265,7 @@
     <ClCompile Include="SHA1.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="MD4.asm">
+    <CustomBuild Include="MD4.32.asm">
       <FileType>Document</FileType>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">ml.exe /c /Cx /coff /Zi /nologo /Fo "$(IntDir)%(FileName).obj" "%(FullPath)"
 </Command>
@@ -282,7 +282,7 @@
 </Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)%(FileName).obj;%(Outputs)</Outputs>
     </CustomBuild>
-    <CustomBuild Include="SHA.asm">
+    <CustomBuild Include="SHA.32.asm">
       <FileType>Document</FileType>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">ml.exe /c /Cx /coff /Zi /nologo /Fo "$(ProjectDir)$(IntDir)%(FileName).obj" "%(FullPath)"
 </Command>

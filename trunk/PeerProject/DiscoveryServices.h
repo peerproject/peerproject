@@ -1,7 +1,7 @@
 //
 // DiscoveryServices.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -21,7 +21,7 @@
 
 #pragma once
 
-#include "ThreadImpl.h"
+#include "HttpRequest.h"
 
 
 // ToDo: Remove Network locks
@@ -46,7 +46,7 @@ public:
 
 	Type		m_nType;
 	CString		m_sAddress;
-	BOOL		m_bGnutella2;			// Webcache supports Gnutella 2
+	BOOL		m_bGnutella2;			// Webcache supports G2
 	BOOL		m_bGnutella1;			// Webcache supports Gnutella
 	DWORD		m_tCreated;
 	DWORD		m_tAccessed;
@@ -95,14 +95,13 @@ public:
 
 protected:
 	CList< CDiscoveryService* > m_pList;
-	HINTERNET			m_hInternet;
-	HINTERNET			m_hRequest;
+	CHttpRequest		m_pRequest;
+	CDiscoveryService*	m_pSubmit;
 	CDiscoveryService*	m_pWebCache;
 	Mode				m_nWebCache;
-	CDiscoveryService*	m_pSubmit;
 	PROTOCOLID			m_nLastQueryProtocol;		// Protocol that was queried most recently
-	DWORD				m_tUpdated;					// Time a webcache was last updated
 	PROTOCOLID			m_nLastUpdateProtocol;		// Protocol that had a service update most recently
+	DWORD				m_tUpdated;					// Time a webcache was last updated
 	BOOL				m_bFirstTime;
 	DWORD				m_tExecute;					// Time the Execute() function was last run
 	DWORD				m_tQueried;					// Time a webcache/MET was last queried
@@ -139,7 +138,6 @@ protected:
 	CDiscoveryService*  GetRandomService(PROTOCOLID nProtocol);
 	CDiscoveryService*	GetRandomWebCache(PROTOCOLID nProtocol, BOOL bWorkingOnly, CDiscoveryService* pExclude = NULL, BOOL bForUpdate = FALSE);
 	BOOL				RequestWebCache(CDiscoveryService* pService, Mode nMode, PROTOCOLID nProtocol);
-	void				StopWebRequest();
 	void				OnRun();
 	BOOL				RunWebCacheGet(BOOL bCache);
 	BOOL				RunWebCacheUpdate();

@@ -140,6 +140,7 @@ public:
 	static int SendTo(SOCKET s, const char* buf, int len, const SOCKADDR_IN* pTo);  // UDP
 	static int Recv(SOCKET s, char* buf, int len);  // TCP
 	static int RecvFrom(SOCKET s, char* buf, int len, SOCKADDR_IN* pFrom);  // UDP
+	static HINTERNET InternetOpenUrl(HINTERNET hInternet, LPCWSTR lpszUrl, LPCWSTR lpszHeaders, DWORD dwHeadersLength, DWORD dwFlags);	// HTTP
 
 	friend class CHandshakes;
 	friend class CNeighbours;

@@ -1,7 +1,7 @@
 //
 // CtrlChatFrame.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -63,6 +63,7 @@ protected:
 	void			MoveHistory(int nDelta);
 	BOOL			IsInRange(LPCTSTR pszToken);
 	void			InsertText(LPCTSTR pszToken);
+	void			AddTimestamp();
 	void			AddText(LPCTSTR pszText);
 	void			AddText(BOOL bSelf, BOOL bAction, LPCTSTR pszNick, LPCTSTR pszBody);
 public:
@@ -106,3 +107,4 @@ protected:
 
 #define IDC_CHAT_TEXT	100
 #define IDC_CHAT_EDIT	101
+#define NEWLINE_FORMAT	_T("2")

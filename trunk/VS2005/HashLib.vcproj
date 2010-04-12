@@ -384,7 +384,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\HashLib\MD4.asm"
+				RelativePath="..\HashLib\MD4.32.asm"
 				>
 				<FileConfiguration
 					Name="Debug|x64"
@@ -408,7 +408,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\HashLib\MD5.asm"
+				RelativePath="..\HashLib\MD5.32.asm"
 				>
 				<FileConfiguration
 					Name="Debug|x64"
@@ -432,7 +432,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\HashLib\SHA.asm"
+				RelativePath="..\HashLib\SHA.32.asm"
 				>
 				<FileConfiguration
 					Name="Debug|x64"
@@ -488,7 +488,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\HashLib\Tiger.asm"
+				RelativePath="..\HashLib\Tiger.32.asm"
 				>
 				<FileConfiguration
 					Name="Debug|x64"
