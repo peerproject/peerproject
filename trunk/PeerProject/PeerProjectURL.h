@@ -30,8 +30,7 @@ class CPeerProjectURL : public CPeerProjectFile
 {
 // Construction
 public:
-	CPeerProjectURL();
-	CPeerProjectURL(LPCTSTR pszURL);
+	CPeerProjectURL(LPCTSTR pszURL = NULL);
 	CPeerProjectURL(CBTInfo* pTorrent);
 	CPeerProjectURL(const CPeerProjectURL& pURL);
 	virtual ~CPeerProjectURL();

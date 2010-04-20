@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default French Skin File -->
 
-<!-- Translation based on default-en.xml r50 -->
+<!-- Translation based on default-en.xml r52 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2839,7 +2839,7 @@
 	<string id="16064" value="Démarrage du noyau réseau de PeerProject..."/>
 	<string id="16065" value="Impossible de se relier au %s port %i pour les connexions entrantes. Les connexions entrantes ne seront pas supportées."/>
 	<string id="16066" value="Fermeture du noyau réseau de PeerProject..."/>
-	<string id="16067" value="Déconnecté du réseau."/>
+	<string id="16067" value="Déconnecté."/>
 	<string id="16068" value="Connexions TCP entrantes acceptées sur %s port %i."/>
 	<string id="16069" value="Les connexions sortantes se feront depuis %s port %i."/>
 	<string id="16070" value="Impossible de résoudre %s pour les connexions sortantes. Les connexions sortantes utiliseront l'interface par défaut."/>
@@ -2855,7 +2855,6 @@
 	<string id="16080" value="Le planificateur fonctionne actuellement en mode &#171;&#160;limité à G2&#160;&#187;. Voulez-vous désactiver ce mode pour que tous les réseaux actifs restent connectés&#160;?"/>
 	<string id="16081" value="Envoi d'une requête pour &#171;&#160;%s&#160;&#187; à %s."/>
 	<string id="16083" value="Forcer votre PC à passer en mode &#171;&#160;hub&#160;&#187; peut avoir des effets néfastes sur ses performances et le réseau. Il est généralement conseillé de laisser PeerProject décider seul si le mode &#171;&#160;hub&#160;&#187; doit être utilisé.\n\nLe mode &#171;&#160;hub&#160;&#187; n'apporte aucun bénéfice à l'utilisateur local, et il consomme plus de bande passante, de mémoire et de ressources système.\n\nÊtes-vous certain de vouloir le faire&#160;?"/>
-	<string id="16084" value="Désactiver le support des protocoles Gnutella-1 peut limiter vos résultats de recherche et, si vous êtes en mode &#171;&#160;hub&#160;&#187;, cela peut également avoir un impact sur les résultats des autres utilisateurs.\n\nÊtes-vous certain de vouloir le faire&#160;?"/>
 	<string id="16085" value="Gnutella2 est le réseau principal de PeerProject. Le désactiver peut limiter considérablement le nombre de résultats et la qualité de vos recherches.\n\nÊtes-vous certain de vouloir vous déconnecter de ce réseau&#160;?"/>
 	<string id="16087" value="Votre bande passante sortante est trop basse pour activer ce réseau"/>
 	<string id="16128" value="Connexion entrante en provenance de %s port %i acceptée."/>
@@ -3162,13 +3161,13 @@
 	<string id="16997" value="Aucun fichier en lecture. Double-cliquez un fichier média dans votre bibliothèque pour le lire."/>
 	<string id="16998" value="L &#160; E &#160; C &#160; T &#160; E &#160; U &#160; R &#160; &#160; M &#160; U &#160; L &#160; T &#160; I &#160; M &#160; E &#160; D &#160; I &#160; A &#160; &#160; P &#160; E &#160; E &#160; R &#160; P &#160; R &#160; O &#160; J &#160; E &#160; C &#160; T"/>
 	<string id="16999" value="Liste de Lecture"/>
-	<string id="17016" value="Bienvenue au salon IRC de PeerProject&#160;!"/>
-	<string id="17017" value="Veuillez respecter les autres lors de l'utilisation de ce service"/>
-	<string id="17018" value="C'est parti :"/>
+	<string id="17015" value="Bienvenue au salon IRC de PeerProject&#160;!"/>
+	<string id="17016" value="Veuillez respecter les autres lors de l'utilisation de ce service"/>
+	<string id="17017" value="C'est parti :"/>
+	<string id="17018" value="Utilisateurs"/>
+	<string id="17019" value="Canaux"/>
 	<string id="17020" value="Ajouter"/>
 	<string id="17021" value="Enlever"/>
-	<string id="17022" value="Utilisateurs"/>
-	<string id="17023" value="Canaux"/>
 	<string id="17024" value="Initialisation d'une connexion vers %s..."/>
 	<string id="17025" value="Impossible de créer une connexion vers %s."/>
 	<string id="17026" value="Demande une connexion poussée depuis derrière un pare-feu de %s..."/>

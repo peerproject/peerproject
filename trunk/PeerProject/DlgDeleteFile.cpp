@@ -54,10 +54,10 @@ END_MESSAGE_MAP()
 
 CDeleteFileDlg::CDeleteFileDlg(CWnd* pParent)
 	: CSkinDialog	( CDeleteFileDlg::IDD, pParent )
-	, m_bCreateGhost(Settings.Library.CreateGhosts)
-	, m_nOption 	(0)
-	, m_nRateValue	(0)
-	, m_bAll		(FALSE)
+	, m_bCreateGhost( Settings.Library.CreateGhosts )
+	, m_nOption 	( 0 )
+	, m_nRateValue	( 0 )
+	, m_bAll		( FALSE )
 {
 }
 
@@ -127,7 +127,7 @@ HBRUSH CDeleteFileDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 		pDC->SelectObject( &theApp.m_gdiFontBold );
 
 	if ( pWnd == &m_wndPrompt && m_wndPrompt.IsWindowEnabled() &&
-		m_nOption > 0 && m_sComments.GetLength() == 0 && m_nRateValue == 0 )
+		m_nOption > 0 && m_sComments.IsEmpty() && m_nRateValue == 0 )
 	{
 		CDC* pPromptDC = m_wndPrompt.GetDC();
 		if ( m_bCreateGhost || pPromptDC->GetTextColor() != RGB(255, 0, 0 ) )
@@ -252,12 +252,18 @@ void CDeleteFileDlg::OnDrawItem(int /*nIDCtl*/, LPDRAWITEMSTRUCT lpDrawItemStruc
 		dc.SetTextColor( Colors.m_crDisabled );
 		dc.FillSolidRect( &rcItem, Colors.m_crDialog );
 	}
-	else
+	else if ( lpDrawItemStruct->itemState & ODS_SELECTED )
 	{
-		dc.SetTextColor( ( lpDrawItemStruct->itemState & ODS_SELECTED )
-			? Colors.m_crHiText : Colors.m_crText );
-		dc.FillSolidRect( &rcItem, ( lpDrawItemStruct->itemState & ODS_SELECTED )
-			? Colors.m_crHighlight : Colors.m_crSysWindow );
+		dc.SetTextColor( Colors.m_crHiText );
+		if ( Skin.m_bmSelected.m_hObject )
+			CoolInterface.DrawWatermark( &dc, &rcItem, &Skin.m_bmSelected );
+		else
+			dc.FillSolidRect( &rcItem, Colors.m_crHighlight );
+	}
+	else // Unselected
+	{
+		dc.SetTextColor( Colors.m_crText );
+		dc.FillSolidRect( &rcItem, Colors.m_crSysWindow );
 	}
 
 	dc.SetBkMode( TRANSPARENT );

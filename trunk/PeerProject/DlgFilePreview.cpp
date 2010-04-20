@@ -98,23 +98,22 @@ CFilePreviewDlg::CFilePreviewDlg(CDownloadWithExtras* pDownload, DWORD nIndex, C
 		}
 	}
 
-	QWORD nOffset = m_pDownload->GetOffset( nIndex );
-	QWORD nLength = m_pDownload->GetLength( nIndex );
 	if ( ! m_pDownload->GetEmptyFragmentList().empty() )
 	{
+		QWORD nOffset = m_pDownload->GetOffset( nIndex );
+		QWORD nLength = m_pDownload->GetLength( nIndex );
 		Fragments::List oRanges = inverse( m_pDownload->GetEmptyFragmentList() );
-
-		for ( Fragments::List::const_iterator pFragment = oRanges.begin();
-			pFragment != oRanges.end(); ++pFragment )
+		Fragments::List::const_iterator pItr = oRanges.begin();
+		const Fragments::List::const_iterator pEnd = oRanges.end();
+		for ( ; pItr != pEnd ; ++pItr )
 		{
-			if ( pFragment->begin() + pFragment->size() >= nOffset &&
-				 nOffset + nLength >= pFragment->begin() )
+			if ( pItr->begin() + pItr->size() >= nOffset
+				&& nOffset + nLength >= pItr->begin() )
 			{
 				QWORD nPartOffset =
-					max( pFragment->begin(), nOffset );
+					max( pItr->begin(), nOffset );
 				QWORD nPartLength =
-					min( pFragment->begin() + pFragment->size(), nOffset + nLength ) -
-					nPartOffset;
+					min( pItr->begin() + pItr->size(), nOffset + nLength ) - nPartOffset;
 				m_pRanges.Add( nPartOffset - nOffset );
 				m_pRanges.Add( nPartLength );
 			}

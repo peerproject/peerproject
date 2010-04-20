@@ -894,7 +894,8 @@ void CDownloadsCtrl::OnPaint()
 		m_bShowSearching = ! m_bShowSearching;
 	}
 
-	if ( Settings.General.LanguageRTL ) dc.SetTextAlign( TA_RTLREADING );
+	if ( Settings.General.LanguageRTL )
+		dc.SetTextAlign( TA_RTLREADING );
 
 	GetClientRect( &rcClient );
 	rcClient.top += HEADER_HEIGHT;
@@ -909,16 +910,22 @@ void CDownloadsCtrl::OnPaint()
 	CFont* pfOld	= (CFont*)dc.SelectObject( &CoolInterface.m_fntNormal );
 	BOOL bFocus		= ( GetFocus() == this );
 
-	for ( POSITION posDownload = Downloads.GetIterator() ; posDownload && rcItem.top < rcClient.bottom ; )
+	for ( POSITION posDownload = Downloads.GetIterator() ; posDownload ; )
 	{
 		CDownload* pDownload = Downloads.GetNext( posDownload );
 
-		if ( m_nGroupCookie != 0 && m_nGroupCookie != pDownload->m_nGroupCookie ) continue;
-		if ( IsFiltered( pDownload ) ) continue;
+		if ( rcItem.top > rcClient.bottom )
+			break;
+
+		if ( m_nGroupCookie != 0 && m_nGroupCookie != pDownload->m_nGroupCookie )
+			continue;
+
+		if ( IsFiltered( pDownload ) )
+			continue;
 
 		if ( nScroll > 0 )
 		{
-			nScroll --;
+			--nScroll;
 		}
 		else
 		{
@@ -926,9 +933,10 @@ void CDownloadsCtrl::OnPaint()
 			rcItem.OffsetRect( 0, ITEM_HEIGHT );
 		}
 
-		nIndex ++;
+		++nIndex;
 
-		if ( ! pDownload->m_bExpanded || ( pDownload->IsSeeding() && ! Settings.General.DebugBTSources ) ) continue;
+		if ( ! pDownload->m_bExpanded || ( pDownload->IsSeeding() && ! Settings.General.DebugBTSources ) )
+			continue;
 
 		if ( Settings.Downloads.ShowSources )
 		{
@@ -946,11 +954,14 @@ void CDownloadsCtrl::OnPaint()
 		{
 			CDownloadSource* pSource = pDownload->GetNext( posSource );
 
+			if ( rcItem.top > rcClient.bottom )
+				break;
+
 			if ( Settings.Downloads.ShowSources || pSource->IsConnected() )
 			{
 				if ( nScroll > 0 )
 				{
-					nScroll --;
+					--nScroll;
 				}
 				else
 				{
@@ -958,26 +969,43 @@ void CDownloadsCtrl::OnPaint()
 					rcItem.OffsetRect( 0, ITEM_HEIGHT );
 				}
 
-				nIndex ++;
+				++nIndex;
 			}
 		}
 	}
 
 	dc.SelectObject( pfOld );
 
-	rcClient.top = rcItem.top;
-	if ( rcClient.top < rcClient.bottom )
+	if ( rcItem.top < rcClient.bottom )
+	{
+		rcClient.top = rcItem.top;
 		dc.FillSolidRect( &rcClient, Colors.m_crWindow );
+	}
 }
 
 void CDownloadsCtrl::PaintDownload(CDC& dc, const CRect& rcRow, CDownload* pDownload, BOOL bFocus, BOOL bDrop)
 {
+	BOOL bSelected = pDownload->m_bSelected;
+	BOOL bLeftMargin = TRUE;
+
 	COLORREF crNatural		= m_bCreateDragImage ? DRAG_COLOR_KEY : Colors.m_crWindow;
-	COLORREF crBack			= pDownload->m_bSelected ? Colors.m_crHighlight : crNatural;
+	COLORREF crBack			= bSelected ? Colors.m_crHighlight : crNatural;
 	COLORREF crText			= Colors.m_crText;
-	COLORREF crLeftAligned	= crBack ;
-	COLORREF crBorder		= pDownload->m_bSelected ? Colors.m_crFragmentBorderSelected : Colors.m_crFragmentBorder;
-	COLORREF crBorderSimple	= pDownload->m_bSelected ? Colors.m_crFragmentBorderSimpleBarSelected : Colors.m_crFragmentBorderSimpleBar;
+	COLORREF crLeftMargin	= crNatural;
+	COLORREF crBorder		= bSelected ? Colors.m_crFragmentBorderSelected : Colors.m_crFragmentBorder;
+	COLORREF crBorderSimple	= bSelected ? Colors.m_crFragmentBorderSimpleBarSelected : Colors.m_crFragmentBorderSimpleBar;
+
+	// Update Full Row Highlight
+	dc.FillSolidRect( rcRow, crBack );
+
+	// Skinnable Selection Highlight
+	BOOL bSelectmark = FALSE;
+	if ( bSelected && Skin.m_bmSelected.m_hObject )
+	{
+		CRect rcDraw = rcRow;
+		CoolInterface.DrawWatermark( &dc, &rcDraw, &Skin.m_bmSelected );
+		bSelectmark = TRUE;
+	}
 
 	if ( IsExpandable( pDownload ) )
 		dc.SelectObject( &CoolInterface.m_fntBold ) ;
@@ -989,13 +1017,14 @@ void CDownloadsCtrl::PaintDownload(CDC& dc, const CRect& rcRow, CDownload* pDown
 		dc.ExcludeClipRect( &rcDrop );
 	}
 
-	dc.SetBkColor( crBack );
-	dc.SetBkMode( OPAQUE );
+	if ( ! bSelectmark )
+		dc.SetBkColor( crBack );
+	dc.SetBkMode( bSelectmark ? TRANSPARENT : OPAQUE );
 
 	// Modify Text color if required
 	if ( pDownload->IsCompleted() )
 	{
-		if ( pDownload->m_bSelected )
+		if ( bSelected )
 		{
  			if ( pDownload->m_bVerify == TRI_FALSE )
  				crText = Colors.m_crTransferVerifyFailSelected;
@@ -1014,8 +1043,10 @@ void CDownloadsCtrl::PaintDownload(CDC& dc, const CRect& rcRow, CDownload* pDown
 	 			crText = Colors.m_crTransferCompleted;
 		}
 	}
-	else if ( pDownload->m_bSelected )
+	else if ( bSelected )
+	{
 		crText = Colors.m_crHiText;
+	}
 
 	dc.SetTextColor( crText );
 
@@ -1024,8 +1055,7 @@ void CDownloadsCtrl::PaintDownload(CDC& dc, const CRect& rcRow, CDownload* pDown
 
 	pColumn.mask = HDI_FORMAT | HDI_LPARAM;
 
-	int nRating			= pDownload->GetReviewAverage();
-
+	int nRating = pDownload->GetReviewAverage();
 	if ( nRating == 0 && pDownload->GetReviewCount() > 0 )
 		nRating = 3;	// There are reviews but no ratings- give it an "average" rating
 
@@ -1034,15 +1064,13 @@ void CDownloadsCtrl::PaintDownload(CDC& dc, const CRect& rcRow, CDownload* pDown
 		CString strText;
 		CRect rcCell;
 		CString strSource;
-		BOOL bDisplayText	= TRUE;
+		BOOL bDisplayText = TRUE;
 
 		m_wndHeader.GetItemRect( nColumn, &rcCell );
 		rcCell.left		+= rcRow.left;
 		rcCell.right	+= rcRow.left;
 		rcCell.top		= rcRow.top;
 		rcCell.bottom	= rcRow.bottom;
-
-		crLeftAligned = ( rcRow.left == rcCell.left ? crNatural : crBack ) ;
 
 		POINT ptHover;
 		RECT  rcTick = { rcCell.left+2, rcCell.top+2, rcCell.left+14, rcCell.bottom-2 };
@@ -1052,29 +1080,43 @@ void CDownloadsCtrl::PaintDownload(CDC& dc, const CRect& rcRow, CDownload* pDown
 		switch ( pColumn.lParam )
 		{
 		case DOWNLOAD_COLUMN_TITLE:
-			dc.FillSolidRect( rcCell.left, rcCell.bottom - 1, 32, 1, crLeftAligned );
+			bLeftMargin = rcRow.left == rcCell.left;
+			crLeftMargin = ( bLeftMargin ? crNatural : bSelectmark ? -1 : crBack ) ;
+			if ( bLeftMargin || ! bSelectmark )
+				dc.FillSolidRect( rcCell.left, rcCell.bottom - 1, 32, 1, crLeftMargin );
 			if ( IsExpandable( pDownload ) )
 			{
 				if ( pDownload->m_bExpanded )
 				{
 					CoolInterface.Draw( &dc,
 						( PtInRect(&rcTick,ptHover) ? IDI_CLOSETICK_HOVER : IDI_CLOSETICK ),
-						16, rcCell.left, rcCell.top, crLeftAligned );
+						16, rcCell.left, rcCell.top, crLeftMargin );
 				}
 				else
 				{
 					CoolInterface.Draw( &dc,
 						( PtInRect(&rcTick,ptHover) ? IDI_OPENTICK_HOVER : IDI_OPENTICK ),
-						16, rcCell.left, rcCell.top, crLeftAligned );
+						16, rcCell.left, rcCell.top, crLeftMargin );
 				}
 			}
-			else
-				dc.FillSolidRect( rcCell.left, rcCell.top, 16, 16, crLeftAligned );
+			else if ( bLeftMargin || ! bSelectmark )
+			{
+				dc.FillSolidRect( rcCell.left, rcCell.top, 16, 17, crLeftMargin );
+			}
 			rcCell.left += 16;
 
 			// Draw file icon
-			ShellIcons.Draw( &dc, ShellIcons.Get( pDownload->m_sName, 16 ), 16,
-				rcCell.left, rcCell.top, crLeftAligned, pDownload->m_bSelected );
+			if ( pDownload->IsTorrent() && ! pDownload->IsSingleFileTorrent() )
+			{
+				// Special case torrent package
+				CoolInterface.Draw( &dc, IDI_MULTIFILE, 16,
+					rcCell.left, rcCell.top, crLeftMargin, pDownload->m_bSelected );
+			}
+			else
+			{
+				ShellIcons.Draw( &dc, ShellIcons.Get( pDownload->m_sName, 16 ), 16,
+					rcCell.left, rcCell.top, crLeftMargin, pDownload->m_bSelected );
+			}
 
 			// Add rating overlay
 			switch ( nRating )
@@ -1098,7 +1140,8 @@ void CDownloadsCtrl::PaintDownload(CDC& dc, const CRect& rcRow, CDownload* pDown
 			}
 
 			rcCell.left += 16;
-			dc.FillSolidRect( rcCell.left, rcCell.top, 1, rcCell.Height(), crLeftAligned );
+			if ( bLeftMargin || ! bSelectmark )
+				dc.FillSolidRect( rcCell.left, rcCell.top, 1, rcCell.Height(), crLeftMargin );
 			rcCell.left++;
 
 			strText = pDownload->GetDisplayName();
@@ -1115,10 +1158,7 @@ void CDownloadsCtrl::PaintDownload(CDC& dc, const CRect& rcRow, CDownload* pDown
 			if ( rcCell.Width() > 75 )
 			{
 				bDisplayText = FALSE;
-				dc.Draw3dRect( &rcCell, crBack, crBack );
-				rcCell.DeflateRect( 1, 1 );
-				dc.Draw3dRect( &rcCell, crBack, crBack );
-				rcCell.DeflateRect( 0, 1 );
+				rcCell.DeflateRect( 1, 2 );
 
 				if ( Settings.Downloads.SimpleBar )
 				{
@@ -1133,7 +1173,7 @@ void CDownloadsCtrl::PaintDownload(CDC& dc, const CRect& rcRow, CDownload* pDown
 					CFragmentBar::DrawDownload( &dc, &rcCell, pDownload, crNatural );
 				}
 			}
-			else if ( ( pDownload->m_nSize < SIZE_UNKNOWN ) && ( pDownload->m_nSize > 0 ) )
+			else if ( pDownload->m_nSize < SIZE_UNKNOWN && pDownload->m_nSize > 0 )
 			{
 				if ( rcCell.Width() > 50 )
 					strText.Format( _T("%.2f%%"), pDownload->GetProgress() );
@@ -1170,7 +1210,7 @@ void CDownloadsCtrl::PaintDownload(CDC& dc, const CRect& rcRow, CDownload* pDown
 			break;
 
 		case DOWNLOAD_COLUMN_PERCENTAGE:
-			if ( ( pDownload->m_nSize < SIZE_UNKNOWN ) && ( pDownload->m_nSize > 0 ) )
+			if ( pDownload->m_nSize < SIZE_UNKNOWN && pDownload->m_nSize > 0 )
 			{
 				if ( rcCell.Width() > 50 )
 				{
@@ -1225,21 +1265,34 @@ void CDownloadsCtrl::PaintDownload(CDC& dc, const CRect& rcRow, CDownload* pDown
 			break;
 		}
 
-		dc.SetBkColor( crBack );
-		dc.ExtTextOut( nPosition, rcCell.top + 2, ETO_CLIPPED|ETO_OPAQUE,
+		dc.SetBkColor( bSelectmark ? CLR_NONE : crBack );
+		dc.ExtTextOut( nPosition, rcCell.top + 2,
+			ETO_CLIPPED|( bSelectmark ? 0 : ETO_OPAQUE ),
 			&rcCell, strText, NULL );
 	}
 
-	if ( nTextRight < rcRow.right )
-	{
-		CRect rcBlank( nTextRight, rcRow.top, rcRow.right, rcRow.bottom );
-		dc.FillSolidRect( &rcBlank, crBack );
-	}
+	// Non-column whitespace area (redundant)
+	//if ( nTextRight < rcRow.right && ! bSelectmark )
+	//	dc.FillSolidRect( nTextRight, rcRow.top, rcRow.right, rcRow.bottom, crBack );
 
 	if ( bFocus )
 	{
 		CRect rcFocus( nTextLeft, rcRow.top, max( int(rcRow.right), nTextRight ), rcRow.bottom );
 		dc.Draw3dRect( &rcFocus, Colors.m_crHiBorder, Colors.m_crHiBorder );
+
+		if ( Skin.m_bRoundedSelect )
+		{
+			dc.FillSolidRect( rcFocus.left, rcFocus.top, 1, 1, crNatural );
+			dc.FillSolidRect( rcFocus.left, rcFocus.bottom - 1, 1, 1, crNatural );
+			dc.FillSolidRect( rcRow.right - 1, rcRow.top, 1, 1, crNatural );
+			dc.FillSolidRect( rcRow.right - 1, rcRow.bottom - 1, 1, 1, crNatural );
+		}
+
+		if ( Colors.m_crHiBorderIn )
+		{
+			rcFocus.DeflateRect( 1, 1 );
+			dc.Draw3dRect( &rcFocus, Colors.m_crHiBorderIn, Colors.m_crHiBorderIn );
+		}
 	}
 
 	dc.SelectObject( &CoolInterface.m_fntNormal ) ;
@@ -1247,18 +1300,30 @@ void CDownloadsCtrl::PaintDownload(CDC& dc, const CRect& rcRow, CDownload* pDown
 
 void CDownloadsCtrl::PaintSource(CDC& dc, const CRect& rcRow, CDownload* pDownload, CDownloadSource* pSource, BOOL bFocus)
 {
+	BOOL bSelected = pSource->m_bSelected;
+	BOOL bLeftMargin = TRUE;
+
 	COLORREF crNatural		= m_bCreateDragImage ? DRAG_COLOR_KEY : Colors.m_crWindow;
-	COLORREF crBack			= pSource->m_bSelected ? Colors.m_crHighlight : crNatural;
-	COLORREF crLeftAligned	= crBack;
-	COLORREF crBorder		= pSource->m_bSelected ? Colors.m_crFragmentBorderSelected : Colors.m_crFragmentBorder;
+	COLORREF crBack			= bSelected ? Colors.m_crHighlight : crNatural;
+	COLORREF crLeftMargin	= crBack;
+	COLORREF crBorder		= bSelected ? Colors.m_crFragmentBorderSelected : Colors.m_crFragmentBorder;
 
-	dc.SetBkColor( crBack );
-	dc.SetBkMode( OPAQUE );
+	// Update Full Row Highlight
+	dc.FillSolidRect( rcRow, crBack );
 
-	if ( pSource->m_bSelected )
-		dc.SetTextColor( Colors.m_crHiText );
-	else
-		dc.SetTextColor( Colors.m_crTransferSource );
+	// Skinnable Selection Highlight
+	BOOL bSelectmark = FALSE;
+	if ( bSelected && Skin.m_bmSelected.m_hObject )
+	{
+		CRect rcDraw = rcRow;
+		CoolInterface.DrawWatermark( &dc, &rcDraw, &Skin.m_bmSelected );
+		bSelectmark = TRUE;
+	}
+
+	if ( ! bSelectmark )
+		dc.SetBkColor( crBack );
+	dc.SetBkMode( bSelectmark ? TRANSPARENT : OPAQUE );
+	dc.SetTextColor( bSelected ? Colors.m_crHiText : Colors.m_crTransferSource );
 
 	int nTextLeft = rcRow.right, nTextRight = rcRow.left;
 	HDITEM pColumn = {};
@@ -1277,18 +1342,22 @@ void CDownloadsCtrl::PaintSource(CDC& dc, const CRect& rcRow, CDownload* pDownlo
 		rcCell.top		= rcRow.top;
 		rcCell.bottom	= rcRow.bottom;
 
-		crLeftAligned = ( rcRow.left == rcCell.left ? crNatural : crBack ) ;
-
 		switch ( pColumn.lParam )
 		{
 		case DOWNLOAD_COLUMN_TITLE:
-			dc.FillSolidRect( rcCell.left, rcCell.top, 24, rcCell.Height(), crLeftAligned );
+			bLeftMargin = rcRow.left == rcCell.left;
+			crLeftMargin = ( bLeftMargin ? crNatural : bSelectmark ? -1 : crBack ) ;
+
+			if ( bLeftMargin || ! bSelectmark )
+				dc.FillSolidRect( rcCell.left, rcCell.top, 24, rcCell.Height(), crLeftMargin );
 			rcCell.left += 24;
-			dc.FillSolidRect( rcCell.left, rcCell.bottom - 1, 16, 1, crLeftAligned );
+			if ( bLeftMargin || ! bSelectmark )
+				dc.FillSolidRect( rcCell.left, rcCell.bottom - 1, 16, 1, crLeftMargin );
 			ImageList_DrawEx( m_pProtocols, pSource->m_nProtocol, dc.GetSafeHdc(),
-					rcCell.left, rcCell.top, 16, 16, crLeftAligned, CLR_DEFAULT, pSource->m_bSelected ? ILD_SELECTED : ILD_NORMAL );
+					rcCell.left, rcCell.top, 16, 16, crLeftMargin, CLR_DEFAULT, bSelected ? ILD_SELECTED : ILD_NORMAL );
 			rcCell.left += 16;
-			dc.FillSolidRect( rcCell.left, rcCell.top, 1, rcCell.Height(), crLeftAligned );
+			if ( bLeftMargin || ! bSelectmark )
+				dc.FillSolidRect( rcCell.left, rcCell.top, 1, rcCell.Height(), crLeftMargin );
 			rcCell.left++;
 
 			// Is this a firewalled eDonkey client
@@ -1299,7 +1368,7 @@ void CDownloadsCtrl::PaintSource(CDC& dc, const CRect& rcRow, CDownload* pDownlo
 					(LPCTSTR)CString( inet_ntoa( pSource->m_pServerAddress ) ),
 					pSource->m_nServerPort );
 			}
-			else if (  pSource->IsIdle() )	// Or an active transfer
+			else if ( pSource->IsIdle() )	// Or an active transfer
 			{
 				strText.Format( _T("%s:%u"),
 					(LPCTSTR)pSource->GetAddress(),
@@ -1334,10 +1403,7 @@ void CDownloadsCtrl::PaintSource(CDC& dc, const CRect& rcRow, CDownload* pDownlo
 			if ( rcCell.Width() > 75 )
 			{
 				bDisplayText = FALSE;
-				dc.Draw3dRect( &rcCell, crBack, crBack );
-				rcCell.DeflateRect( 1, 1 );
-				dc.Draw3dRect( &rcCell, crBack, crBack );
-				rcCell.DeflateRect( 0, 1 );
+				rcCell.DeflateRect( 1, 2 );
 				dc.Draw3dRect( &rcCell, crBorder, crBorder );
 				rcCell.DeflateRect( 1, 1 );
 				pSource->Draw( &dc, &rcCell, Colors.m_crTransferRanges );
@@ -1401,7 +1467,8 @@ void CDownloadsCtrl::PaintSource(CDC& dc, const CRect& rcRow, CDownload* pDownlo
 		case DOWNLOAD_COLUMN_COUNTRY:
 			int nFlagImage = Flags.GetFlagIndex(pSource->m_sCountry);
 
-			dc.FillSolidRect( rcCell.left, rcCell.top, 20, rcCell.Height(), crBack );
+			if ( ! bSelectmark )
+				dc.FillSolidRect( rcCell.left, rcCell.top, 20, rcCell.Height(), crBack );
 			rcCell.left += 3;
 			if ( nFlagImage >= 0 )
 				ImageList_DrawEx( Flags.m_pImage, nFlagImage, dc.GetSafeHdc(),
@@ -1447,21 +1514,34 @@ void CDownloadsCtrl::PaintSource(CDC& dc, const CRect& rcRow, CDownload* pDownlo
 			break;
 		}
 
-		dc.SetBkColor( crBack );
-		dc.ExtTextOut( nPosition, rcCell.top + 2, ETO_CLIPPED|ETO_OPAQUE,
+		dc.SetBkColor( bSelectmark ? CLR_NONE : crBack );
+		dc.ExtTextOut( nPosition, rcCell.top + 2,
+			ETO_CLIPPED|( bSelectmark ? 0 : ETO_OPAQUE ),
 			&rcCell, strText, NULL );
 	}
 
-	if ( nTextRight < rcRow.right )
-	{
-		CRect rcBlank( nTextRight, rcRow.top, rcRow.right, rcRow.bottom );
-		dc.FillSolidRect( &rcBlank, crBack );
-	}
+	// Non-column whitespace area (redundant)
+	//if ( nTextRight < rcRow.right && ! bSelectmark )
+	//	dc.FillSolidRect( nTextRight, rcRow.top, rcRow.right, rcRow.bottom, crBack );
 
 	if ( bFocus )
 	{
 		CRect rcFocus( nTextLeft, rcRow.top, max( int(rcRow.right), nTextRight ), rcRow.bottom );
 		dc.Draw3dRect( &rcFocus, Colors.m_crHiBorder, Colors.m_crHiBorder );
+
+		if ( Skin.m_bRoundedSelect )
+		{
+			dc.FillSolidRect( rcFocus.left, rcFocus.top, 1, 1, crNatural );
+			dc.FillSolidRect( rcFocus.left, rcFocus.bottom - 1, 1, 1, crNatural );
+			dc.FillSolidRect( rcRow.right - 1, rcRow.top, 1, 1, crNatural );
+			dc.FillSolidRect( rcRow.right - 1, rcRow.bottom - 1, 1, 1, crNatural );
+		}
+
+		if ( Colors.m_crHiBorderIn )
+		{
+			rcFocus.DeflateRect( 1, 1 );
+			dc.Draw3dRect( &rcFocus, Colors.m_crHiBorderIn, Colors.m_crHiBorderIn );
+		}
 	}
 }
 

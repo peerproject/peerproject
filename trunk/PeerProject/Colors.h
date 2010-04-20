@@ -1,8 +1,7 @@
 //
 // Colors.h
 //
-// This file is part of PeerProject (peerproject.org) © 2009
-// Portions Copyright Shareaza Development Team, 2002-2007.
+// This file is part of PeerProject (peerproject.org) © 2009-2010
 //
 // PeerProject is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -38,6 +37,7 @@ public:
 	COLORREF	m_crText;
 	COLORREF	m_crHiText;
 	COLORREF	m_crHiBorder;
+	COLORREF	m_crHiBorderIn;
 	COLORREF	m_crHighlight;
 	COLORREF	m_crBackNormal;
 	COLORREF	m_crBackSel;

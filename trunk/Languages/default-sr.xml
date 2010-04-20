@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Serbian Skin File -->
 
-<!-- Translation based on default-en.xml r50 -->
+<!-- Translation based on default-en.xml r52 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2674,7 +2674,6 @@
 	<string id="16079" value="Jeste li sigurni da se želite isključiti?"/>
 	<string id="16081" value="Šaljem upit za &quot;%s&quot; to %s."/>
 	<string id="16083" value="Forcing your PC into hub mode may have adverse effects on performance and the P2P networkIt is generally better to allow PeerProject to decide whether or not hub mode should be used.\n\nHub mode does NOT produce better search results, or have any other advantages for you.\n\nDo you really want to do this, despite these disadvantages?"/>
-	<string id="16084" value="Obustava podrške za Gnutella-1 protokol može ograničiti rezultate potrage, i ako ste vi hub može imati uticaja na rezultate ostalih korisnika.Jeste li sigurni da to želite?"/>
 	<string id="16085" value="Gnutella2 je PeerProject glavna mreža.Obustavljanje podrške može ozbiljno smanjiti broj i kvalitetu rezultata potrage.Jeste li sigurni da to želite?"/>
 	<string id="16087" value="Brzina slanja podataka je premala da bi se omogućila ova mreža"/>
 	<string id="16128" value="Veza sa %s port %i je prihvaćena."/>

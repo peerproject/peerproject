@@ -14,8 +14,8 @@
 LanguageName=English
 LanguageID=$0409
 LanguageCodePage=0
-; If the language you are translating to requires special font faces or
-; sizes, uncomment any of the following entries and change them accordingly.
+; If the language you are translating to requires special font faces or sizes,
+; uncomment any of the following entries and change them accordingly.
 ;DialogFontName=
 ;DialogFontSize=8
 ;WelcomeFontName=Verdana
@@ -56,7 +56,7 @@ WinVersionTooLowError=This program requires %1 version %2 or later.
 WinVersionTooHighError=This program cannot be installed on %1 version %2 or later.
 AdminPrivilegesRequired=You must be logged in as an administrator when installing this program.
 PowerUserPrivilegesRequired=You must be logged in as an administrator or as a member of the Power Users group when installing this program.
-SetupAppRunningError=Setup has detected that %1 is currently running.%n%nPlease close all instances of it now, then click OK to continue, or Cancel to exit.
+SetupAppRunningError=Setup has detected that %1 is currently running.%n%nPlease close all instances or components of it now,%nthen click OK to continue, or Cancel to exit.
 UninstallAppRunningError=Uninstall has detected that %1 is currently running.%n%nPlease close all instances of it now, then click OK to continue, or Cancel to exit.
 
 ; *** Misc. errors

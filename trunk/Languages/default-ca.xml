@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Catalan Skin File -->
 
-<!-- Translation based on default-en.xml r50 -->
+<!-- Translation based on default-en.xml r52 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2761,7 +2761,7 @@
 	<string id="16064" value="Iniciant el nucli de la xarxa..."/>
 	<string id="16065" value="Ha estat impossible associar %s amb el port %i per a connexions entrants.  No seran suportades connexions entrants."/>
 	<string id="16066" value="Tancant el nucli de la xarxa..."/>
-	<string id="16067" value="Desconnectat de la xarxa."/>
+	<string id="16067" value="Desconnectat."/>
 	<string id="16068" value="Accepta les connexions TCP entrants en %s port %i."/>
 	<string id="16069" value="Accepta les connexions TCP sortints en %s port %i."/>
 	<string id="16070" value="No s'ha pogut resoldre %s per a connexions sortints. Les connexions sortints usaran la interfície predeterminada."/>
@@ -2776,7 +2776,6 @@
 	<string id="16079" value="Estàs segur que vols desconnectar-te?"/>
 	<string id="16081" value="Enviant petició per a &quot;%s&quot; a %s."/>
 	<string id="16083" value="Forçant el teu PC en mode hub pots obtenir conseqüències en el rendiment i a la Xarxa P2P. És millor deixar a PeerProject escollir entre els modes hub o leaf.\n\nEl mode Hub no dóna millors resultats de cerques ni cap altre avantatge per a tu.\n\nEstàs segur que vols fer això?"/>
-	<string id="16084" value="Deshabilitant el suport per al protocol Gnutella-1 limitarà els teus resultats de cerca, i si estàs actuant com a hub podrà afectar als resultats d'altres persones. Estàs segur que vols fer això?"/>
 	<string id="16085" value="Gnutella2 és la xarxa predeterminada de PeerProject.  Deshabilitant el suport a aquesta la teva cerca empitjorarà notablement. Estàs segur que vols fer això?"/>
 	<string id="16087" value="La teva banda ampla de pujada és molt baixa per a aquesta xarxa"/>
 	<string id="16128" value="Aceptada una connexió entrant de %s en port %i."/>

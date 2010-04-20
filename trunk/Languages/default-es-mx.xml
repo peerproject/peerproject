@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Spanish (Mexican) Skin File -->
 
-<!-- Translation based on default-en.xml r50 -->
+<!-- Translation based on default-en.xml r52 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2729,7 +2729,7 @@
 	<string id="16064" value="Iniciando el nucleo de la red..."/>
 	<string id="16065" value="Imposible asociar %s con el puerto %i para conexiones entrantes.  Conexiones entrantes no van a ser soportadas."/>
 	<string id="16066" value="Cerrando el nucleo de la red..."/>
-	<string id="16067" value="Desconectado de la red."/>
+	<string id="16067" value="Desconectado."/>
 	<string id="16068" value="Aceptando conexiones TCP entrantes en %s puerto %i."/>
 	<string id="16069" value="Aceptando conexiones TCP salientes en %s puerto %i."/>
 	<string id="16070" value="No se puede resolver %s para conexiones salientes.  Conexiones salientes van a usar la interfaz predeterminada."/>
@@ -2744,7 +2744,6 @@
 	<string id="16079" value="Estas seguro que deseas desconectarte?"/>
 	<string id="16081" value="Mandando query para &quot;%s&quot; a %s."/>
 	<string id="16083" value="Forzando tu PC en modo hub puede hacer efectos en el rendimiento y en la red P2P Es generalmente mejor dejar a PeerProject eligir si ser hub mode or leaf mode.\n\nEl modo Hub no produce mejores búsquedas, o otra ventaja para ti.\n\nEstas seguro que quieres hacer esto, a pesar de estas desventajas?"/>
-	<string id="16084" value="Deshabilitando suporte para el protocolo Gnutella-1 puede limitar tus resultados de búsqueda, y si estas actuando como hub también va a impactar en los resultados de otras personas. Estas seguro que deseas hacer esto?"/>
 	<string id="16085" value="Gnutella2 es la Red Premiere de PeerProject.  Deshabilitando soporte a esta va severamente empeorar tu búsqueda y cálidad de resultados.  Estas SEGURO que deseas hacer esto?"/>
 	<string id="16087" value="Tu banda ancha de subida es muy baja para esta red"/>
 	<string id="16128" value="Aceptada una conexion entrante de %s en puerto %i."/>
@@ -3051,6 +3050,13 @@
 	<string id="16997" value="No hay ningún archivo reproduciendose.  Haz doble click a un archivo de media en tu librería para reproducirlo."/>
 	<string id="16998" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
 	<string id="16999" value="Lista de Reproducción"/>
+	<string id="17015" value="Bienvenido a las salas de chat IRC"/>
+	<string id="17016" value="Por favor, respetar a los demás durante el uso de este servicio. Pulse Conectar por debajo para iniciar."/>
+	<string id="17017" value="Hablar:"/>
+	<string id="17018" value="Usuarios"/>
+	<string id="17019" value="Canales"/>
+	<string id="17020" value="Añadir..."/>
+	<string id="17021" value="Eliminar"/>
 	<string id="17024" value="Iniciando conexión a %s..."/>
 	<string id="17025" value="Fué imposible conectar con %s."/>
 	<string id="17026" value="Pidiendo un push de %s..."/>

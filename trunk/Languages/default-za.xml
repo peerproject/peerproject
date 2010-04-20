@@ -4,7 +4,7 @@
 <!-- PeerProject Default Afrikaans Skin File -->
 <!-- Weergawe: 27 Oktober 2005 vir Shareaza 2.2.0.2 -->
 
-<!-- Translation based on default-en.xml r50 -->
+<!-- Translation based on default-en.xml r52 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2815,7 +2815,7 @@
 	<string id="16064" value="Begin PeerProject netwerkkern..."/>
 	<string id="16065" value="Kan nie na %s poort %i koppel vir inkomende konneksies nie.  Inkomende konneksies sal nie ondersteun word nie."/>
 	<string id="16066" value="PeerProject netwerkkern word gesluit..."/>
-	<string id="16067" value="Gediskonnekteer van die netwerk."/>
+	<string id="16067" value="Gediskonnekteer."/>
 	<string id="16068" value="Inkomende TCP konneksies van %s poort %i word goedgekeur."/>
 	<string id="16069" value="Uitgaande konneksies sal van %s poort %i wees."/>
 	<string id="16070" value="Kan nie %s gebruik vir uitgaande konneksies nie.  Uitgaande konneksies sal die standaardkoppelvlak gebruik."/>
@@ -2831,7 +2831,6 @@
 	<string id="16080" value="You are running the Scheduler in 'G2 only' mode. Would you like to turn this mode off, so that all active networks remain connected?"/>
 	<string id="16081" value="Navraag vir &quot;%s&quot; word aan %s gestuur."/>
 	<string id="16083" value="Deur jou rekenaar te forseer om in hub-modus te werk, mag 'n negatiewe impak hê op werksverrigting, asook die P2P netwerk.  Dit is normaalweg beter om PeerProject toe te laat om te besluit of hub-modus gebruik moet word of nie.\n\nHub-modus lewer NIE beter soekresultate nie en hou ook geen ander voordele vir jou in nie.\n\nIs jy seker jy wil dit nogsteeds doen, ten spyte van die nadele?"/>
-	<string id="16084" value="Deur ondersteuning van die Gnutella-1 protokol af te skakel mag 'n negatiewe impak op jou soekresultate hê en as jy as 'n hub optree mag dit ook 'n negatiewe impak hê op die resultate van ander gebruikers.  Is jy seker jy wil dit doen?"/>
 	<string id="16085" value="Gnutella2 is PeerProject se primêre netwerk.  Deur ondersteuning daarvan af te skakel mag dit die aantal en kwaliteit van jou soekresultate aansienlik benadeel.  Is jy SEKER jy wil dit doen?"/>
 	<string id="16087" value="Jou uitgaande bandwydte is te laag om hierdie netwerk aan te skakel"/>
 	<string id="16128" value="Inkomende konneksie van %s poort %i goedgekeur."/>

@@ -297,7 +297,7 @@ BOOL CFragmentedFile::Open(const CPeerProjectFile& oSHFile, BOOL bWrite)
 BOOL CFragmentedFile::Open(const CBTInfo& oInfo, const BOOL bWrite,	CString& strErrorMessage)
 {
 	CString sUniqueName = oInfo.GetFilename();
-	const int nCount = (int)m_oFile.size();
+	const size_t nCount = m_oFile.size();
 	QWORD nOffset = 0;
 	int i = 0;
 
@@ -753,7 +753,7 @@ void CFragmentedFile::Serialize(CArchive& ar, int nVersion)
 	{
 		SerializeIn1( ar, m_oFList, nVersion );
 
-		if ( nVersion >= 40 )
+		if ( nVersion > 40 )
 		{
 			DWORD count = 0;
 			ar >> count;
@@ -769,11 +769,8 @@ void CFragmentedFile::Serialize(CArchive& ar, int nVersion)
 				ar >> bWrite;
 				CString sName( m_pDownload ? m_pDownload->m_sName : CString() );
 				int nPriority = prNormal;
-				if ( nVersion >= 41 )
-				{
-					ar >> sName;
-					ar >> nPriority;
-				}
+				ar >> sName;
+				ar >> nPriority;
 
 				if ( sPath.IsEmpty() || sName.IsEmpty() ||
 					bWrite < FALSE || bWrite > TRUE ||

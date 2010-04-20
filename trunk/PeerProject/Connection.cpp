@@ -624,14 +624,14 @@ BOOL CConnection::OnHeaderLine(CString& strHeader, CString& strValue)
 		// Copy the value into the user agent member string
 		m_sUserAgent = strValue; // This tells what software the remote computer is running
 		m_bClientExtended = VendorCache.IsExtended( m_sUserAgent );
-
-	} // It's the remote IP header
+	}
+	// It's the remote IP header
 	else if ( strHeader.CompareNoCase( _T("Remote-IP") ) == 0 )
 	{
 		// Add this address to our record of them
 		Network.AcquireLocalAddress( strValue );
-
-	} // It's the x my address, listen IP, or node header, like "X-My-Address: 10.254.0.16:6349"
+	}
+	// It's the x my address, listen IP, or node header, like "X-My-Address: 10.254.0.16:6349"
 	else if (  strHeader.CompareNoCase( _T("X-My-Address") ) == 0
 			|| strHeader.CompareNoCase( _T("Listen-IP") ) == 0
 			|| strHeader.CompareNoCase( _T("X-Node") ) == 0

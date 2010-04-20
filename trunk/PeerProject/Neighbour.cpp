@@ -107,12 +107,12 @@ CNeighbour::CNeighbour(PROTOCOLID nProtocol)
 // Make a new CNeighbour object, copying values from a base one
 // Takes a protocol ID and a base neighbour to copy information from
 CNeighbour::CNeighbour(PROTOCOLID nProtocol, CNeighbour* pBase)
-	: CConnection( *pBase )
-	, m_nRunCookie( 0 )
+	: CConnection		( *pBase )
+	, m_nRunCookie		( 0 )
 	, m_nState			( nrsConnected )
 	, m_pVendor 		( pBase->m_pVendor )
 	, m_oGUID			( pBase->m_oGUID )
-	, m_oMoreResultsGUID()
+	, m_oMoreResultsGUID( )
 	, m_pProfile		( NULL )
 	, m_bAutomatic		( pBase->m_bAutomatic )
 	, m_nNodeType		( pBase->m_nNodeType )
@@ -254,12 +254,14 @@ BOOL CNeighbour::SendQuery(const CQuerySearch* pSearch, CPacket* pPacket, BOOL b
 	if ( m_pQueryTableRemote != NULL && m_pQueryTableRemote->m_bLive )
 	{
 		// If QHT disables search, leave now
-		if ( !m_pQueryTableRemote->Check( pSearch ) )
+		if ( ! m_pQueryTableRemote->Check( pSearch ) )
 			return FALSE;
-
-	} // If QHT doesn't exist and this connection is to a leaf below us, leave now
+	}
 	else if ( m_nNodeType == ntLeaf && ! bLocal )
+	{
+		// If QHT doesn't exist and this connection is to a leaf below us, leave now
 		return FALSE;
+	}
 
 	// If this is local (do), set the last query time this CG1Neighbour object remembers to now
 	if ( bLocal )

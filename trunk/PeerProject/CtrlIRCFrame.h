@@ -28,6 +28,93 @@
 #include "CtrlCoolBar.h"
 #include "CtrlIRCPanel.h"
 
+
+// IRC Window Dimensions
+// Skin.m_nHeaderbarHeight				64
+#define TABBAR_HEIGHT					22
+#define SEPERATOR_HEIGHT				3
+#define SMALLHEADER_HEIGHT				20
+#define EDITBOX_HEIGHT					22
+// Skin.m_nToolbarHeight				28
+#define STATUSBOX_WIDTH					330
+
+#define MAX_CHANNELS					12
+
+#define ID_MESSAGE_SERVER_DISCONNECT	209
+#define ID_MESSAGE_SERVER_PING			210
+#define ID_MESSAGE_SERVER_NOTICE		211
+#define ID_MESSAGE_SERVER_ERROR			212
+#define ID_MESSAGE_SERVER_CONNECTED		213
+#define ID_MESSAGE_SERVER_MSG			214
+
+#define ID_MESSAGE_CLIENT_JOIN_USERLIST	215
+#define ID_MESSAGE_CLIENT_JOIN_ENDNAMES	216
+#define ID_MESSAGE_CLIENT_JOIN			217
+#define ID_MESSAGE_CLIENT_NOTICE		218
+#define ID_MESSAGE_CLIENT_INVITE		219
+#define ID_MESSAGE_CLIENT_WHOWAS		220
+#define ID_MESSAGE_CLIENT_WHOIS			221
+
+#define ID_MESSAGE_CHANNEL_TOPICSETBY	222
+#define ID_MESSAGE_CHANNEL_TOPICSHOW	223
+#define ID_MESSAGE_CHANNEL_PART			224
+#define ID_MESSAGE_CHANNEL_QUIT			225
+#define ID_MESSAGE_CHANNEL_JOIN			226
+#define ID_MESSAGE_CHANNEL_SETMODE		227
+#define ID_MESSAGE_CHANNEL_NOTICE		228
+#define ID_MESSAGE_CHANNEL_MESSAGE		229
+#define ID_MESSAGE_CHANNEL_LIST			230
+#define ID_MESSAGE_CHANNEL_ME			231
+#define ID_MESSAGE_CHANNEL_LISTEND		232
+#define ID_MESSAGE_CHANNEL_PART_FORCED	244
+
+#define ID_MESSAGE_USER_MESSAGE			233
+#define ID_MESSAGE_USER_ME				236
+#define ID_MESSAGE_USER_AWAY			237
+#define ID_MESSAGE_USER_INVITE			238
+#define ID_MESSAGE_USER_KICK			239
+#define ID_MESSAGE_USER_CTCPTIME		234
+#define	ID_MESSAGE_USER_CTCPVERSION		235
+#define ID_MESSAGE_USER_CTCPBROWSE		245
+
+#define ID_MESSAGE_NICK					240
+#define ID_MESSAGE_IGNORE				241
+#define ID_MESSAGE_STOPAWAY				242
+#define ID_MESSAGE_SETAWAY				243
+
+#define ID_COLOR_CHATWINDOW				0
+#define ID_COLOR_TEXT					1
+#define ID_COLOR_TEXTLOCAL				2
+#define ID_COLOR_CHANNELACTION			3
+#define ID_COLOR_ME						4
+#define ID_COLOR_MSG					5
+#define ID_COLOR_NEWMSG					6
+#define ID_COLOR_SERVERMSG				7
+#define	ID_COLOR_TOPIC					8
+#define ID_COLOR_NOTICE					9
+#define ID_COLOR_SERVERERROR			10
+#define	ID_COLOR_TABS					11
+
+#define ID_KIND_CLIENT					51
+#define ID_KIND_PRIVATEMSG				52
+#define ID_KIND_CHANNEL					53
+
+#define IDC_CHAT_TEXT					100
+#define IDC_CHAT_EDIT					101
+#define IDC_CHAT_TABS					102
+#define IDC_CHAT_TEXTSTATUS				100
+
+#define IDC_IRC_DBLCLKCHANNELS			200
+#define IDC_IRC_DBLCLKUSERS				201
+#define IDC_IRC_MENUUSERS				202
+#define IDC_IRC_CHANNELS				122
+
+#define IDC_IRC_FRAME					400
+
+#define WM_REMOVECHANNEL				20933
+#define WM_ADDCHANNEL					20934
+
+
 class CIRCNewMessage
 {
 protected:
@@ -149,18 +236,8 @@ public:
 
 	void	OnSkinChange();
 	void	OnUpdateCmdUI();
+
 protected:
-	// IRC Window Dimensions
-	//Predefined int Skin.m_nHeaderbarHeight = 64;
-	static const int TABBAR_HEIGHT		= 24;
-	static const int SEPERATOR_HEIGHT	= 3;
-	static const int SMALLHEADER_HEIGHT	= 20;
-	static const int EDITBOX_HEIGHT		= 22;
-	//Predefined int Skin.m_nToolbarHeight = 28;
-	static const int STATUSBOX_WIDTH	= 330;
-
-	#define			MAX_CHANNELS		12
-
 	BOOL			m_bConnected;
 	CString			m_sStatus;
 	int				m_nSelectedTab;
@@ -215,15 +292,16 @@ protected:
 	void			SetFonts();
 	void			OnSettings();
 	BOOL			OnNewMessage(const CString& strMessage);
+	void			StatusMessage(LPCTSTR pszText, int nFlags = ID_COLOR_NOTICE);
 	void			SendString(const CString& strMessage);
 	int				FindParsedItem(LPCTSTR szMessage, int nFirst = 0);
-	int				GetTabIndex(const CString& strTabName) const;
 	void			LoadBufferForWindow(int nTab);
 	void			ParseString(const CString& strMessage, CIRCNewMessage& oNewMessage);
 	CString			TrimString(CString strMessage) const;
 	CString			GetStringAfterParsedItem(int nItem) const;
 	CString			GetTargetName(CString strRecieverName, int nRecieverType, CString strSenderName, int nSenderType) const;
 	CString			GetTabText(int nTabIndex = -1) const;
+	int				GetTabIndex(const CString& strTabName) const;
 	int				AddTab(CString TabName, int nKindOfTab);
 	void			TabClick();
 	void			ReloadViewText();
@@ -232,7 +310,7 @@ protected:
 
 	int				ParseMessageID();
 	void			ActivateMessageByID(CIRCNewMessage& oNewMessage, int nMessageID);
-	CString			GetTextFromRichPoint();
+	CString			GetTextFromRichPoint() const;
 	CString			RemoveModeOfNick(CString strNick) const;
 	void			UserListDblClick();
 	void			ChanListDblClick();
@@ -293,8 +371,8 @@ protected:
 	afx_msg void OnRichDblClk(NMHDR* pNMHDR, LRESULT* pResult);
 	afx_msg void OnClickTab(NMHDR* pNMHDR, LRESULT* pResult);
 	afx_msg void OnDestroy();
-	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg void OnPaint();
+	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg void OnContextMenu(CWnd* pWnd, CPoint point);
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
 	afx_msg void OnIrcShowSettings();
@@ -304,6 +382,7 @@ protected:
 	afx_msg void OnIrcUserCmdWhois();
 	afx_msg void OnIrcUserCmdTime();
 	afx_msg void OnIrcUserCmdVersion();
+	afx_msg void OnIrcUserCmdBrowse();
 	afx_msg void OnIrcUserCmdIgnore();
 	afx_msg void OnIrcUserCmdUnignore();
 
@@ -332,79 +411,3 @@ protected:
 
 	DECLARE_MESSAGE_MAP()
 };
-
-//{{AFX_INSERT_LOCATION}}
-
-#define	ID_MESSAGE_SERVER_DISCONNECT	209
-#define ID_MESSAGE_SERVER_PING			210
-#define ID_MESSAGE_SERVER_NOTICE		211
-#define	ID_MESSAGE_SERVER_ERROR			212
-#define	ID_MESSAGE_SERVER_CONNECTED		213
-#define	ID_MESSAGE_SERVER_MSG			214
-
-
-#define ID_MESSAGE_CLIENT_JOIN_USERLIST	215
-#define ID_MESSAGE_CLIENT_JOIN_ENDNAMES	216
-#define ID_MESSAGE_CLIENT_JOIN			217
-#define	ID_MESSAGE_CLIENT_NOTICE		218
-#define	ID_MESSAGE_CLIENT_INVITE		219
-#define	ID_MESSAGE_CLIENT_WHOWAS		220
-#define	ID_MESSAGE_CLIENT_WHOIS			221
-
-#define ID_MESSAGE_CHANNEL_TOPICSETBY	222
-#define ID_MESSAGE_CHANNEL_TOPICSHOW	223
-#define ID_MESSAGE_CHANNEL_PART			224
-#define ID_MESSAGE_CHANNEL_QUIT			225
-#define ID_MESSAGE_CHANNEL_JOIN			226
-#define ID_MESSAGE_CHANNEL_SETMODE		227
-#define	ID_MESSAGE_CHANNEL_NOTICE		228
-#define	ID_MESSAGE_CHANNEL_MESSAGE		229
-#define	ID_MESSAGE_CHANNEL_LIST			230
-#define	ID_MESSAGE_CHANNEL_ME			231
-#define	ID_MESSAGE_CHANNEL_LISTEND		232
-#define ID_MESSAGE_CHANNEL_PART_FORCED	244
-
-#define	ID_MESSAGE_USER_MESSAGE			233
-#define	ID_MESSAGE_USER_CTCPTIME		234
-#define	ID_MESSAGE_USER_CTCPVERSION		235
-#define	ID_MESSAGE_USER_ME				236
-#define	ID_MESSAGE_USER_AWAY			237
-#define	ID_MESSAGE_USER_INVITE			238
-#define	ID_MESSAGE_USER_KICK			239
-
-#define	ID_MESSAGE_NICK					240
-#define	ID_MESSAGE_IGNORE				241
-#define	ID_MESSAGE_STOPAWAY				242
-#define	ID_MESSAGE_SETAWAY				243
-
-#define	ID_COLOR_CHATWINDOW				0
-#define ID_COLOR_TEXT					1
-#define ID_COLOR_TEXTLOCAL				2
-#define	ID_COLOR_CHANNELACTION			3
-#define	ID_COLOR_ME						4
-#define	ID_COLOR_MSG					5
-#define	ID_COLOR_NEWMSG					6
-#define	ID_COLOR_SERVERMSG				7
-#define	ID_COLOR_TOPIC					8
-#define	ID_COLOR_NOTICE					9
-#define	ID_COLOR_SERVERERROR			10
-#define	ID_COLOR_TABS					11
-
-#define	ID_KIND_CLIENT					51
-#define	ID_KIND_PRIVATEMSG				52
-#define	ID_KIND_CHANNEL					53
-
-#define IDC_IRC_FRAME					400
-
-#define IDC_IRC_DBLCLKCHANNELS			200
-#define IDC_IRC_DBLCLKUSERS				201
-#define	IDC_IRC_MENUUSERS				202
-#define IDC_IRC_CHANNELS				122
-
-#define IDC_CHAT_TEXT					100
-#define IDC_CHAT_EDIT					101
-#define IDC_CHAT_TABS					102
-#define IDC_CHAT_TEXTSTATUS				100
-
-#define	WM_REMOVECHANNEL				20933
-#define	WM_ADDCHANNEL					20934

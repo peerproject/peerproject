@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default German Skin File -->
 
-<!-- Translation based on default-en.xml r50 -->
+<!-- Translation based on default-en.xml r52 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2884,7 +2884,6 @@
 	<string id="16080" value="Sie benutzen die Zeitsteuerung nur mit dem G2-Netzwerk. Möchten Sie dies ausschalten und zu allen aktivierten Netzwerken verbinden ?"/>
 	<string id="16081" value="Suchanfrage für &quot;%s&quot; an %s senden."/>
 	<string id="16083" value="Das Erzwingen des HUB-Modus kann negative Auswirkungen auf das Netzwerk und die Ausführgeschwindigkeit von PeerProjekt haben. Es ist generell besser PeerProjekt diese Entscheidung selbst treffen zu lassen.\n\nDer Hub Modus führt NICHT zu besseren Suchergebnissen, und hat auch keine anderen Vorteile für Sie.\n\nSind Sie SICHER, dass Sie das wollen?"/>
-	<string id="16084" value="Die Deaktivierung des Gnutella1-Protokolls kann ihre Suchergebnisse begrenzen. Wenn Sie ein Hub sind, trifft dies auch für andere Benutzer zu. Sind Sie SICHER, dass Sie das wollen?"/>
 	<string id="16085" value="Gnutella2 ist PeerProjekts Hauptnetzwerk.  Wenn sie die Unterstützung für Gnutella2 deaktivieren, könnten sich die Anzahl und die Qualität Ihrer Suchergebnisse stark verschlechtern.  Sind Sie SICHER, dass Sie das wollen?"/>
 	<string id="16087" value="Ihre Uploadbandbreite reicht nicht aus, um dieses Netzwerk zu aktivieren"/>
 	<string id="16128" value="Eingehende Verbindung von %s Port %i akzeptiert."/>
@@ -3192,13 +3191,13 @@
 	<string id="16997" value="Es wird keine Datei wiedergegeben. Doppelklicken Sie eine Datei in Ihrer Bibliothek an, um sie abzuspielen."/>
 	<string id="16998" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; K &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
 	<string id="16999" value="Playlist:"/>
-	<string id="17016" value="Wilkommen beim PeerProjekt-Chat IRC"/>
-	<string id="17017" value="Bitte gehen Sie respektvoll mit anderen um und drücken sich in einer angemessenen Sprache aus."/>
-	<string id="17018" value="Nachricht:"/>
+	<string id="17015" value="Wilkommen beim PeerProjekt-Chat IRC"/>
+	<string id="17016" value="Bitte gehen Sie respektvoll mit anderen um und drücken sich in einer angemessenen Sprache aus."/>
+	<string id="17017" value="Nachricht:"/>
+	<string id="17018" value="Benutzer"/>
+	<string id="17019" value="Channels"/>
 	<string id="17020" value="Neu..."/>
 	<string id="17021" value="Entfernen"/>
-	<string id="17022" value="Benutzer"/>
-	<string id="17023" value="Channels"/>
 	<string id="17024" value="Verbindung herstellen mit %s..."/>
 	<string id="17025" value="Verbindungsversuch mit %s fehlgeschlagen."/>
 	<string id="17026" value="Push-Verbindung von %s anfordern..."/>

@@ -146,15 +146,12 @@ Source: "Plugins\MediaLibraryBuilder\{#ConfigurationName} {#PlatformName}\MediaL
 Source: "Plugins\RARBuilder\{#ConfigurationName} {#PlatformName}\RARBuilder.dll";   DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
 #if PlatformName == "Win32"
 Source: "Plugins\RARBuilder\Unrar.dll"; DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
-;Source: "Plugins\RARBuilder\Unrar.dll"; DestDir: "{app}"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
 #elif PlatformName == "x64"
 Source: "Plugins\RARBuilder\Unrar64.dll"; DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
-;Source: "Plugins\RARBuilder\Unrar64.dll"; DestDir: "{app}"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
 #endif
 
 Source: "Plugins\7ZipBuilder\{#ConfigurationName} {#PlatformName}\7ZipBuilder.dll"; DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
 Source: "Plugins\7ZipBuilder\{#ConfigurationName} {#PlatformName}\7zxr.dll";  DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion uninsremovereadonly sortfilesbyextension
-;Source: "Plugins\7ZipBuilder\{#ConfigurationName} {#PlatformName}\7zxr.dll"; DestDir: "{app}";         Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension deleteafterinstall
 
 Source: "Plugins\ZIPBuilder\{#ConfigurationName} {#PlatformName}\ZIPBuilder.dll";  DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
 
@@ -168,7 +165,7 @@ Source: "Plugins\VirusTotal\{#ConfigurationName} {#PlatformName}\VirusTotal.dll"
 
 Source: "Plugins\SearchExport\{#ConfigurationName} {#PlatformName}\SearchExport.dll"; DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
 
-;Source: "Plugins\WindowsThumbnail\{#ConfigurationName} {#PlatformName}\WindowsThumbnail.exe";  DestDir: "{app}"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
+Source: "Plugins\WindowsThumbnail\{#ConfigurationName} {#PlatformName}\WindowsThumbnail.exe";  DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
 
 Source: "Plugins\MediaPlayer\{#ConfigurationName} {#PlatformName}\MediaPlayer.dll"; DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
 

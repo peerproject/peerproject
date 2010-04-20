@@ -147,7 +147,6 @@
 #define IDD_FILE_SHARING            	232
 #define IDD_DONKEY_IMPORT           	235
 #define IDD_DOWNLOAD_GROUP          	236
-#define IDR_TORRENT_ICON            	239
 #define IDD_HELP                    	240
 #define IDB_NAVBAR_IMAGE            	241
 #define IDD_DELETE_FILE             	242
@@ -166,6 +165,7 @@
 #define IDR_HOME_HEADER_2           	258
 #define IDB_PANEL_MARK              	262
 #define IDR_BITTORRENT_ICON         	263
+#define IDI_MULTIFILE                  	264
 #define IDI_MAIL                    	265
 #define IDD_CODEPAGES               	266
 #define IDD_TORRENT_GENERAL         	267
@@ -992,7 +992,7 @@
 #define IDS_NETWORK_UNLIMIT         	16080
 #define IDS_NETWORK_SEARCH_SENT     	16081
 #define IDS_NETWORK_FORCE_HUB       	16083
-#define IDS_NETWORK_DISABLE_G1      	16084
+//#define IDS_NETWORK_DISABLE_G1      	16084
 #define IDS_NETWORK_DISABLE_G2      	16085
 #define IDS_NETWORK_BANDWIDTH_LOW   	16087
 #define IDS_CONNECTION_ACCEPTED     	16128
@@ -1301,13 +1301,13 @@
 #define IDS_MEDIA_EMPTY             	16997
 #define IDS_MEDIA_TITLE             	16998
 #define IDS_MEDIA_PLAYLIST          	16999
-#define IDS_IRC_FRAME_TITLE         	17016
-#define IDS_IRC_FRAME_SUBTITLE      	17017
-#define IDS_IRC_FRAME_INPUT         	17018
-#define IDS_IRC_PANEL_ADDCHANNEL    	17020
-#define IDS_IRC_PANEL_REMOVECHANNEL 	17021
-#define IDS_IRC_PANEL_USERS_CAPTION 	17022
-#define IDS_IRC_PANEL_CHANS_CAPTION 	17023
+#define IDS_IRC_HEADERTITLE         	17015
+#define IDS_IRC_HEADERSUBTITLE      	17016
+#define IDS_IRC_HEADERINPUT         	17017
+#define IDS_IRC_USERLIST            	17018
+#define IDS_IRC_CHANLIST            	17019
+#define IDS_IRC_ADDCHANNEL          	17020
+#define IDS_IRC_REMOVECHANNEL       	17021
 #define IDS_CHAT_CONNECTING_TO      	17024
 #define IDS_CHAT_CANT_CONNECT       	17025
 #define IDS_CHAT_PUSH_SENT          	17026
@@ -1452,11 +1452,6 @@
 #define IDS_REMOTE_DISABLED         	19000
 #define IDS_REMOTE_ENABLED          	19001
 #define IDS_REMOTE_UNAVAILABLE      	19002
-#define IDS_IRC_USERLIST            	19100
-#define IDS_IRC_CHANLIST            	19101
-#define IDS_IRC_HEADERTITLE         	19103
-#define IDS_IRC_HEADERSUBTITLE      	19104
-#define IDS_IRC_HEADERCHAT          	19105
 #define IDS_GENERAL_NOURNAVAILABLE  	20000
 #define IDS_GENERAL_CLOSE           	20001
 #define IDS_GENERAL_OF              	20002
@@ -1910,7 +1905,8 @@
 #define ID_IRC_CLOSETAB             	33227
 #define ID_IRC_SETTINGS             	33228
 #define ID_IRC_SENDTEXT                	33229
-#define ID_TAB_IRC                  	33230
+#define ID_IRC_BROWSE                   33230
+#define ID_TAB_IRC                  	33232
 #define ID_WEBSERVICES_LIST         	33300
 #define ID_WEBSERVICES_SHAREMONKEY  	33301
 #define ID_SHAREMONKEY_DOWNLOAD     	33302

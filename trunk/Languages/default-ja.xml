@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Japanese Skin File -->
 
-<!-- Translation based on default-en.xml r50 (Shareaza 2.2.0.2) -->
+<!-- Translation based on default-en.xml r52 (Shareaza 2.2.0.2) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2694,7 +2694,6 @@
 	<string id="16079" value="本当に切断してよろしいですか?"/>
 	<string id="16081" value="&quot;%s&quot; の問い合わせを %s へ送信中です"/>
 	<string id="16083" value="あなたのPCを強制的にハブモードに移行させた場合、マシンの処理能力とP2Pネットワークに悪影響を及ぼす恐れがあります。通常はPeerProject自身にハブモードを使用するかどうか選択させる方が良好な結果が得られます。\n\nハブモードにしたところでよりよい検索結果もありませんし、その他のいかなる利点もありません。\n\nこれらの欠点にも関わらずまだそれを望みますか?"/>
-	<string id="16084" value="Gnutella1プロトコルを使用禁止することはあなた自身の検索結果を制限するだけでなく、もしハブとして機能しているならば他のユーザの検索結果にも影響を与える可能性があります。それでも使用禁止にしますか?"/>
 	<string id="16085" value="Gnutella2はPeerProjectの主ネットワークです。それを禁止した場合、検索結果の数と品質に重大な制限を与える可能性があります。それでも禁止しますか?"/>
 	<string id="16087" value="あなたの出力帯域はこのネットワークへ接続出来る程大きくありません"/>
 	<string id="16128" value="%s ポート %i からの入力接続を受け付けました"/>

@@ -153,7 +153,8 @@ void CBrowseProfileCtrl::UpdateDocument1(CGProfile* pProfile)
 	CSingleLock pLock( &m_pDocument1->m_pSection, TRUE );
 	CString str;
 
-	if ( m_pdNick != NULL ) m_pdNick->SetText( pProfile->GetNick() );
+	if ( m_pdNick != NULL )
+		m_pdNick->SetText( pProfile->GetNick() );
 
 	if ( CXMLElement* pIdentity = pProfile->GetXML( _T("identity") ) )
 	{
@@ -184,7 +185,8 @@ void CBrowseProfileCtrl::UpdateDocument1(CGProfile* pProfile)
 
 	str = pProfile->GetLocation();
 	m_pDocument1->ShowGroup( 2, str.GetLength() > 0 );
-	if ( m_pdFullLocation != NULL ) m_pdFullLocation->SetText( str );
+	if ( m_pdFullLocation != NULL )
+		m_pdFullLocation->SetText( str );
 
 	if ( CXMLElement* pVitals = pProfile->GetXML( _T("vitals") ) )
 	{
@@ -385,7 +387,7 @@ void CBrowseProfileCtrl::OnHeadPacket(CG2Packet* pPacket)
 		}
 		else if ( nType == G2_PACKET_BODY )
 		{
-			if ( m_imgHead.LoadFromMemory( strFile,
+			if ( m_imgHead.LoadFromMemory( PathFindExtension( strFile ),
 				 (LPCVOID)( pPacket->m_pBuffer + pPacket->m_nPosition ), nLength ) &&
 				 m_imgHead.EnsureRGB( Colors.m_crWindow ) &&
 				 m_imgHead.Resample( 128, 128 ) )

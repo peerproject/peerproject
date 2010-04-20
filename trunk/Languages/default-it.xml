@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Italian Skin File -->
 
-<!-- Translation based on default-en.xml r50 -->
+<!-- Translation based on default-en.xml r52 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2804,7 +2804,7 @@
 	<string id="16064" value="Avvio del nucleo della rete in corso..."/>
 	<string id="16065" value="Impossibile connettere a %s porta %i per le connessioni in entrata. Le connessioni in entrata non saranno supportate."/>
 	<string id="16066" value="Chiusura del nucleo della rete in corso..."/>
-	<string id="16067" value="Disconnesso dalla rete."/>
+	<string id="16067" value="Disconnesso."/>
 	<string id="16068" value="Ricezione connessioni TCP in entrata su %s porta %i."/>
 	<string id="16069" value="Le connessioni in uscita saranno effettuate da %s porta %i."/>
 	<string id="16070" value="Impossibile risolvere %s per le connessioni in uscita. Le connessioni in uscita utilizzeranno l'interfaccia predefinita."/>
@@ -2820,7 +2820,6 @@
 	<string id="16080" value="Stai utilizzando il pianificatore in modalità 'solo G2'. Vuoi disabilitare questa modalità, cosicchè tutte le reti attive rimangano connesse?"/>
 	<string id="16081" value="Invio richiesta per &quot;%s&quot; a %s."/>
 	<string id="16083" value="Forzare il tuo PC in modalità hub potrebbe aver riflessi negativi sulla rete. Generalmente è meglio permettere a PeerProject di decidere se deve essere utilizzata la modalità hub.\n\nLa modalità hub non permette migliori risultati nella ricerca, o genera migliori risultati per l'utente. Desideri continuare?"/>
-	<string id="16084" value="Disabilitando il supporto per il protocollo Gnutella-1 potrebbe limitare i risultati nelle tue ricerche, inoltre il tuo comportamento come hub potrebbe impattarsi anche sui risultati di altri utenti. Desideri continuare?"/>
 	<string id="16085" value="Gnutella2 è la rete principale di PeerProject. Disabilitare il supporto per questa può limitare enormemente sia il numero che la qualità delle tue ricerche. Desideri continuare?"/>
 	<string id="16087" value="La tua banda in uscita è troppo bassa per abilitare questa rete"/>
 	<string id="16128" value="Connessione in entrata da %s porta %i accettata."/>
@@ -3127,13 +3126,13 @@
 	<string id="16997" value="Nessun file in riproduzione. Fai doppio click su un file multimediale della tua libreria per riprodurlo."/>
 	<string id="16998" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
 	<string id="16999" value="Playlist:"/>
-	<string id="17016" value="Benvenuto sulla Chat IRC di PeerProject!"/>
-	<string id="17017" value="Per favore rispetta gli altri quando usi questo servizio"/>
-	<string id="17018" value="Invia:"/>
+	<string id="17015" value="Benvenuto sulla Chat IRC di PeerProject!"/>
+	<string id="17016" value="Per favore rispetta gli altri quando usi questo servizio"/>
+	<string id="17017" value="Invia:"/>
+	<string id="17018" value="Utenti"/>
+	<string id="17019" value="Canali"/>
 	<string id="17020" value="Aggiungi"/>
 	<string id="17021" value="Rimuovi"/>
-	<string id="17022" value="Utenti"/>
-	<string id="17023" value="Canali"/>
 	<string id="17024" value="Avvio di una connessione con %s in corso..."/>
 	<string id="17025" value="Impossibile avviare una connessione con %s."/>
 	<string id="17026" value="Richiesta di una connessione push con firewall da %s in corso..."/>
@@ -4659,4 +4658,4 @@
 		<column from="Order" to="Ordine"/>
 	</list>
 </listColumns>
-</skin>
+</skin>�

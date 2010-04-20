@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Dutch Skin File -->
 
-<!-- Translation based on default-en.xml r50 -->
+<!-- Translation based on default-en.xml r52 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2842,7 +2842,6 @@
 	<string id="16079" value="Weet je zeker dat je de verbinding wilt verbreken?"/>
 	<string id="16081" value="Zoekaanvraag voor &quot;%s&quot; is verzonden naar %s."/>
 	<string id="16083" value="Het forceren van je PC naar Hubmodus kan nadelige gevolgen hebben op de prestatie en het P2P netwerk. Het is over het algemeen beter om PeerProject te laten beslissen of al dan niet Hubmodus gebruikt zou moeten worden.\n\nHubmodus produceert GEEN betere zoekresultaten, of enige andere voordelen voor jou.\n\nWil je dit echt doen, ondanks deze nadelen?"/>
-	<string id="16084" value="Het uitschakelen van de ondersteuning voor het Gnutella protocol kan je zoekresultaten begrenzen en als je optreedt als hub kan dit ook invloed hebben op de resultaten van andere gebruikers. Weet je zeker dat je dit wilt doen?"/>
 	<string id="16085" value="Gnutella2 is PeerProject's voornaamste netwerk. Het uitschakelen van de ondersteuning hiervoor kan zowel het aantal als de kwaliteit van je zoekresultaten zwaar begrenzen. Weet je zeker dat je dit wilt doen?"/>
 	<string id="16087" value="Je uitgaande bandbreedte is te laag om dit netwerk aan te kunnen zetten."/>
 	<string id="16128" value="Een binnenkomende verbinding vanaf %s poort %i is geaccepteerd."/>

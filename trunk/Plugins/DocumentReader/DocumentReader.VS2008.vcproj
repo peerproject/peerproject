@@ -105,7 +105,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description="Performing registration"
+				Description="Performing registration (for debug)"
 				CommandLine="copy &quot;..\..\Services\zlib\$(ConfigurationName) $(PlatformName)\zlibwapi.dll&quot; &quot;$(TargetDir)&quot; /b /y&#x0D;&#x0A;regsvr32 /s /c &quot;$(TargetPath)&quot;&#x0D;&#x0A;"
 			/>
 		</Configuration>
@@ -194,7 +194,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description="Performing registration"
+				Description="Performing registration (for debug)"
 				CommandLine="copy &quot;..\..\Services\zlib\$(ConfigurationName) $(PlatformName)\zlibwapi.dll&quot; &quot;$(TargetDir)&quot; /b /y&#x0D;&#x0A;regsvr32 /s /c &quot;$(TargetPath)&quot;&#x0D;&#x0A;"
 			/>
 		</Configuration>
@@ -294,8 +294,6 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description="Performing registration"
-				CommandLine="copy &quot;..\..\Services\zlib\$(ConfigurationName) $(PlatformName)\zlibwapi.dll&quot; &quot;$(TargetDir)&quot; /b /y&#x0D;&#x0A;regsvr32 /s /c &quot;$(TargetPath)&quot;&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
@@ -394,8 +392,6 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description="Performing registration"
-				CommandLine="copy &quot;..\..\Services\zlib\$(ConfigurationName) $(PlatformName)\zlibwapi.dll&quot; &quot;$(TargetDir)&quot; /b /y&#x0D;&#x0A;regsvr32 /s /c &quot;$(TargetPath)&quot;&#x0D;&#x0A;"
 			/>
 		</Configuration>
 	</Configurations>

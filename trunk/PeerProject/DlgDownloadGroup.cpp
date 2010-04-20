@@ -237,7 +237,7 @@ void CDownloadGroupDlg::OnCbnCloseupSchemas()
 
 	// Set default group name if appropriate
 	LoadString( strFilter, IDS_DOWNLOAD_NEW_GROUP );
-	if ( m_sName == strNameOld || m_sName == strFilter || m_sName.GetLength() == 0 )
+	if ( m_sName == strNameOld || m_sName == strFilter || m_sName.IsEmpty() )
 	{
 		m_sName = strNameNew;
 		UpdateData( FALSE );

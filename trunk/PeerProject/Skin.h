@@ -127,6 +127,7 @@ protected:
 // Color Scheme / Watermarks
 public:
 	CBitmap		m_bmPanelMark;
+	CBitmap		m_bmSelected;
 protected:
 	BOOL		LoadColorScheme(CXMLElement* pBase);
 
@@ -164,6 +165,7 @@ public:
 	BOOL		m_bDropMenu;
 	BOOL		m_bMenuBorders;
 	BOOL		m_bMenuGripper;
+	BOOL		m_bRoundedSelect;
 	int			m_nToolbarHeight;
 	int			m_nTaskbarHeight;
 	int			m_nTaskbarTabWidth;

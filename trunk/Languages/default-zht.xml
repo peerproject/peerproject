@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Chinese (Traditional) Skin File -->
 
-<!-- Translation based on default-en.xml r50 (Shareaza 2.2.2.12) -->
+<!-- Translation based on default-en.xml r52 (Shareaza 2.2.2.12) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2581,7 +2581,6 @@
 	<string id="16079" value="您要中斷連線嗎?"/>
 	<string id="16081" value="正在傳送 &quot;%s&quot; 的詢問至 %s."/>
 	<string id="16083" value="強迫您的電腦進入結點模式可能對 P2P 網路與效能有害. 讓PeerProject 自行決定是否進入結點模式為上上之策.\n\n 結點模式不會產生更好的搜尋結果, 或是給您任何優勢.\n\n您要不顧這些不利的條件, 繼續此動作嗎?"/>
-	<string id="16084" value="停止支援 Gnutelle-1 協定可能會限制搜尋結果; 如果您當結點的話, 這種情況可能影響其他用戶的搜尋結果. 您確定要這樣做嗎?"/>
 	<string id="16085" value="Gnutella2 是 PeerProject's 首次推出的網路. 停用對它的支援將可能嚴重影響搜尋結果的數量與品質. 您確定要這樣做嗎?"/>
 	<string id="16087" value="您的輸出頻寬太小, 無法啟用這個網路"/>
 	<string id="16128" value="已接受來自於 %s 連接埠 %i 的輸入連線."/>

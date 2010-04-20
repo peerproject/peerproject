@@ -1,7 +1,7 @@
 //
 // UploadFile.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -36,16 +36,16 @@ static char THIS_FILE[]=__FILE__;
 //////////////////////////////////////////////////////////////////////
 // CUploadFile construction
 
-CUploadFile::CUploadFile(CUploadTransfer* pUpload, const Hashes::Sha1Hash& oSHA1, LPCTSTR pszName, LPCTSTR pszPath, QWORD nSize) :
-	m_pAddress( pUpload->m_pHost.sin_addr ),
-	m_nRequests( 0 ),
-	m_oFragments( nSize ),
-	m_bSelected( FALSE )
+CUploadFile::CUploadFile(CUploadTransfer* pUpload, const Hashes::Sha1Hash& oSHA1, LPCTSTR pszName, LPCTSTR pszPath, QWORD nSize)
+	: m_pAddress	( pUpload->m_pHost.sin_addr )
+	, m_oFragments	( nSize )
+	, m_nRequests	( 0 )
+	, m_bSelected	( FALSE )
 {
-	m_sName		= pszName;
-	m_sPath		= pszPath;
-	m_nSize		= nSize;
-    m_oSHA1		= oSHA1;
+	m_sName = pszName;
+	m_sPath = pszPath;
+	m_nSize = nSize;
+    m_oSHA1 = oSHA1;
 	m_pTransfers.AddTail( pUpload );
 }
 
@@ -58,7 +58,8 @@ CUploadFile::~CUploadFile()
 
 void CUploadFile::Add(CUploadTransfer* pUpload)
 {
-	if ( m_pTransfers.Find( pUpload ) == NULL ) m_pTransfers.AddTail( pUpload );
+	if ( m_pTransfers.Find( pUpload ) == NULL )
+		m_pTransfers.AddTail( pUpload );
 }
 
 BOOL CUploadFile::Remove(CUploadTransfer* pUpload)
@@ -104,4 +105,3 @@ void CUploadFile::AddFragment(QWORD nOffset, QWORD nLength)
 	
 	m_oFragments.insert( Fragments::Fragment( nOffset, nOffset + nLength ) );
 }
-

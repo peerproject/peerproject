@@ -106,7 +106,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description="Performing registration"
+				Description="Performing registration  (for debugging)"
 				CommandLine="&quot;$(TargetPath)&quot; /RegServer"
 			/>
 		</Configuration>
@@ -197,7 +197,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description="Performing registration"
+				Description="Performing registration  (for debugging)"
 				CommandLine="&quot;$(TargetPath)&quot; /RegServer"
 			/>
 		</Configuration>
@@ -295,8 +295,6 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description="Performing registration"
-				CommandLine="&quot;$(TargetPath)&quot; /RegServer"
 			/>
 		</Configuration>
 		<Configuration
@@ -393,8 +391,6 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description="Performing registration"
-				CommandLine="&quot;$(TargetPath)&quot; /RegServer"
 			/>
 		</Configuration>
 	</Configurations>

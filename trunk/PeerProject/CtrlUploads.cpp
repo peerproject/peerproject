@@ -679,8 +679,7 @@ void CUploadsCtrl::OnSize(UINT nType, int cx, int cy)
 	m_wndHeader.SetWindowPos( NULL, -nScroll, 0, rcClient.right + nScroll, HEADER_HEIGHT, SWP_SHOWWINDOW );
 
 //	CSingleLock pTransfersLock( &Transfers.m_pSection, FALSE );
-//	if ( ! pTransfersLock.Lock( 250 ) )
-//		return;
+//	if ( ! pTransfersLock.Lock( 250 ) ) return;
 
 	CSingleLock pUploadQueuesLock( &UploadQueues.m_pSection, FALSE );
 	if ( ! pUploadQueuesLock.Lock( 250 ) )
@@ -813,19 +812,30 @@ void CUploadsCtrl::OnPaint()
 
 void CUploadsCtrl::PaintQueue(CDC& dc, const CRect& rcRow, CUploadQueue* pQueue, BOOL bFocus)
 {
-//	ASSUME_LOCK( UploadQueues.m_pSection );
+	//ASSUME_LOCK( UploadQueues.m_pSection );
+	BOOL bSelected = pQueue->m_bSelected;
+	BOOL bLeftMargin = TRUE;
 
 	COLORREF crNatural	= Colors.m_crWindow;
-	COLORREF crBack		= pQueue->m_bSelected ? Colors.m_crHighlight : crNatural;
-	COLORREF crLeftAligned = crBack ;
+	COLORREF crBack		= bSelected ? Colors.m_crHighlight : crNatural;
+	COLORREF crLeftMargin = crBack ;
 
-	dc.SetBkColor( crBack );
-	dc.SetBkMode( OPAQUE );
+	// Update Full Row Highlight
+	dc.FillSolidRect( rcRow, crBack );
 
-	if ( pQueue->m_bSelected )
-		dc.SetTextColor( Colors.m_crHiText );
-	else
-		dc.SetTextColor( Colors.m_crText );
+	// Skinnable Selection Highlight
+	BOOL bSelectmark = FALSE;
+	if ( bSelected && Skin.m_bmSelected.m_hObject )
+	{
+		CRect rcDraw = rcRow;
+		CoolInterface.DrawWatermark( &dc, &rcDraw, &Skin.m_bmSelected );
+		bSelectmark = TRUE;
+	}
+
+	if ( ! bSelectmark )
+		dc.SetBkColor( crBack );
+	dc.SetBkMode( bSelectmark ? TRANSPARENT : OPAQUE );
+	dc.SetTextColor( bSelected ? Colors.m_crHiText : Colors.m_crText );
 
 	int nTextLeft = rcRow.right, nTextRight = rcRow.left;
 	HDITEM pColumn = {};
@@ -845,8 +855,6 @@ void CUploadsCtrl::PaintQueue(CDC& dc, const CRect& rcRow, CUploadQueue* pQueue,
 		rcCell.top		= rcRow.top;
 		rcCell.bottom	= rcRow.bottom;
 
-		crLeftAligned = ( rcRow.left == rcCell.left ? crNatural : crBack ) ;
-
 		POINT ptHover;
 		RECT  rcTick = { rcCell.left+2, rcCell.top+2, rcCell.left+14, rcCell.bottom-2 };
 		GetCursorPos(&ptHover);
@@ -855,43 +863,48 @@ void CUploadsCtrl::PaintQueue(CDC& dc, const CRect& rcRow, CUploadQueue* pQueue,
 		switch ( pColumn.lParam )
 		{
 		case UPLOAD_COLUMN_TITLE:
-			dc.FillSolidRect( rcCell.left, rcCell.bottom - 1, 32, 1, crLeftAligned );
+			bLeftMargin = rcRow.left == rcCell.left;
+			crLeftMargin = ( bLeftMargin ? crNatural : bSelected ? -1 : crBack );
+
+			if ( bLeftMargin || ! bSelected )
+				dc.FillSolidRect( rcCell.left, rcCell.bottom - 1, 32, 1, crLeftMargin );
 
 			if ( pQueue->m_bExpanded )
 			{
 				CoolInterface.Draw( &dc, PtInRect(&rcTick,ptHover) ? IDI_CLOSETICK_HOVER : IDI_CLOSETICK,
-					16, rcCell.left, rcCell.top, crLeftAligned );
+					16, rcCell.left, rcCell.top, crLeftMargin );
 			}
 			else
 			{
 				CoolInterface.Draw( &dc, PtInRect(&rcTick,ptHover) ? IDI_OPENTICK_HOVER : IDI_OPENTICK,
-					16, rcCell.left, rcCell.top, crLeftAligned );
+					16, rcCell.left, rcCell.top, crLeftMargin );
 			}
 
 			rcCell.left += 16;
 			if ( pQueue == UploadQueues.m_pTorrentQueue )
 			{
 				ImageList_DrawEx( m_pProtocols, PROTOCOL_BT, dc.GetSafeHdc(),
-						rcCell.left, rcCell.top, 16, 16, crLeftAligned, CLR_DEFAULT, pQueue->m_bSelected ? ILD_SELECTED : ILD_NORMAL );
+						rcCell.left, rcCell.top, 16, 16, crLeftMargin, CLR_DEFAULT, pQueue->m_bSelected ? ILD_SELECTED : ILD_NORMAL );
 			}
 			else if ( pQueue->m_nProtocols == ( 1 << PROTOCOL_HTTP ) )
 			{
 				ImageList_DrawEx( m_pProtocols, PROTOCOL_HTTP, dc.GetSafeHdc(),
-						rcCell.left, rcCell.top, 16, 16, crLeftAligned, CLR_DEFAULT, pQueue->m_bSelected ? ILD_SELECTED : ILD_NORMAL );
+						rcCell.left, rcCell.top, 16, 16, crLeftMargin, CLR_DEFAULT, pQueue->m_bSelected ? ILD_SELECTED : ILD_NORMAL );
 			}
 			else if ( pQueue->m_nProtocols == ( 1 << PROTOCOL_ED2K ) )
 			{
 				ImageList_DrawEx( m_pProtocols, PROTOCOL_ED2K, dc.GetSafeHdc(),
-						rcCell.left, rcCell.top, 16, 16, crLeftAligned, CLR_DEFAULT, pQueue->m_bSelected ? ILD_SELECTED : ILD_NORMAL );
+						rcCell.left, rcCell.top, 16, 16, crLeftMargin, CLR_DEFAULT, pQueue->m_bSelected ? ILD_SELECTED : ILD_NORMAL );
 			}
 			else
 			{
 				CoolInterface.Draw( &dc,
 					pQueue->m_bExpanded ? IDI_FOLDER_OPEN : IDI_FOLDER_CLOSED, 16,
-					rcCell.left, rcCell.top, crLeftAligned, pQueue->m_bSelected );
+					rcCell.left, rcCell.top, crLeftMargin, bSelected );
 			}
 			rcCell.left += 16;
-			dc.FillSolidRect( rcCell.left, rcCell.top, 1, rcCell.Height(), crLeftAligned );
+			if ( bLeftMargin || ! bSelected )
+				dc.FillSolidRect( rcCell.left, rcCell.top, 1, rcCell.Height(), crLeftMargin );
 			rcCell.left++;
 
 			strText = pQueue->m_sName;
@@ -933,26 +946,25 @@ void CUploadsCtrl::PaintQueue(CDC& dc, const CRect& rcRow, CUploadQueue* pQueue,
 		switch ( pColumn.fmt & LVCFMT_JUSTIFYMASK )
 		{
 		default:
-			nPosition = ( rcCell.left + 4 );
+			nPosition = rcCell.left + 4;
 			break;
 		case LVCFMT_CENTER:
 			nPosition = ( ( rcCell.left + rcCell.right ) / 2 ) - ( nWidth / 2 );
 			break;
 		case LVCFMT_RIGHT:
-			nPosition = ( rcCell.right - 4 - nWidth );
+			nPosition = rcCell.right - 4 - nWidth;
 			break;
 		}
 
-		dc.SetBkColor( crBack );
-		dc.ExtTextOut( nPosition, rcCell.top + 2, ETO_CLIPPED|ETO_OPAQUE,
+		dc.SetBkColor( bSelectmark ? CLR_NONE : crBack );
+		dc.ExtTextOut( nPosition, rcCell.top + 2,
+			ETO_CLIPPED|( bSelectmark ? 0 : ETO_OPAQUE ),
 			&rcCell, strText, NULL );
 	}
 
-	if ( nTextRight < rcRow.right )
-	{
-		CRect rcBlank( nTextRight, rcRow.top, rcRow.right, rcRow.bottom );
-		dc.FillSolidRect( &rcBlank, crBack );
-	}
+	// Non-column whitespace area (redundant)
+	//if ( nTextRight < rcRow.right && ! bSelectmark )
+	//	dc.FillSolidRect( nTextRight, rcRow.top, rcRow.right, rcRow.bottom, crBack );
 
 	dc.SelectObject( &CoolInterface.m_fntNormal );
 
@@ -960,19 +972,49 @@ void CUploadsCtrl::PaintQueue(CDC& dc, const CRect& rcRow, CUploadQueue* pQueue,
 	{
 		CRect rcFocus( nTextLeft, rcRow.top, max( rcRow.right, nTextRight ), rcRow.bottom );
 		dc.Draw3dRect( &rcFocus, Colors.m_crHiBorder, Colors.m_crHiBorder );
+
+		if ( Skin.m_bRoundedSelect )
+		{
+			dc.FillSolidRect( rcFocus.left, rcFocus.top, 1, 1, crNatural );
+			dc.FillSolidRect( rcFocus.left, rcFocus.bottom - 1, 1, 1, crNatural );
+			dc.FillSolidRect( rcRow.right - 1, rcRow.top, 1, 1, crNatural );
+			dc.FillSolidRect( rcRow.right - 1, rcRow.bottom - 1, 1, 1, crNatural );
+		}
+
+		if ( Colors.m_crHiBorderIn )
+		{
+			rcFocus.DeflateRect( 1, 1 );
+			dc.Draw3dRect( &rcFocus, Colors.m_crHiBorderIn, Colors.m_crHiBorderIn );
+		}
 	}
 }
 
 void CUploadsCtrl::PaintFile(CDC& dc, const CRect& rcRow, CUploadQueue* /*pQueue*/, CUploadFile* pFile, int nPosition, BOOL bFocus)
 {
+	BOOL bSelected = pFile->m_bSelected;
+	BOOL bLeftMargin = TRUE;
+
 	CUploadTransfer* pTransfer = pFile->GetActive();
 	COLORREF crNatural		= Colors.m_crWindow;
-	COLORREF crBack			= pFile->m_bSelected ? Colors.m_crHighlight : crNatural;
-	COLORREF crLeftAligned	= crBack;
-	COLORREF crBorder		= pFile->m_bSelected ? Colors.m_crFragmentBorderSelected : Colors.m_crFragmentBorder;
+	COLORREF crBorder		= bSelected ? Colors.m_crFragmentBorderSelected : Colors.m_crFragmentBorder;
+	COLORREF crBack			= bSelected ? Colors.m_crHighlight : crNatural;
+	COLORREF crLeftMargin	= crBack;
 
-	dc.SetBkColor( crBack );
-	dc.SetBkMode( OPAQUE );
+	// Update Full Row Highlight
+	dc.FillSolidRect( rcRow, crBack );
+
+	// Skinnable Selection Highlight
+	BOOL bSelectmark = FALSE;
+	if ( bSelected && Skin.m_bmSelected.m_hObject )
+	{
+		CRect rcDraw = rcRow;
+		CoolInterface.DrawWatermark( &dc, &rcDraw, &Skin.m_bmSelected );
+		bSelectmark = TRUE;
+	}
+
+	if ( ! bSelectmark )
+		dc.SetBkColor( crBack );
+	dc.SetBkMode( bSelectmark ? TRANSPARENT : OPAQUE );
 
 	if ( pFile->m_bSelected )
 		dc.SetTextColor( Colors.m_crHiText );
@@ -982,8 +1024,12 @@ void CUploadsCtrl::PaintFile(CDC& dc, const CRect& rcRow, CUploadQueue* /*pQueue
 		dc.SetTextColor( Colors.m_crText );
 
 	int nTextLeft = rcRow.right, nTextRight = rcRow.left;
-	HDITEM pColumn = {};
 
+	BOOL bMultifile = pTransfer->m_nProtocol == PROTOCOL_BT;
+	if ( bMultifile && pFile->m_sName.Find( '.' ) > 1 )		// Crude torrent icon workaround fix
+		bMultifile = ( pFile->m_sName.ReverseFind( '.' ) < pFile->m_sName.GetLength() - 4 );
+
+	HDITEM pColumn = {};
 	pColumn.mask = HDI_FORMAT | HDI_LPARAM;
 
 	for ( int nColumn = 0 ; m_wndHeader.GetItem( nColumn, &pColumn ) ; nColumn++ )
@@ -997,18 +1043,22 @@ void CUploadsCtrl::PaintFile(CDC& dc, const CRect& rcRow, CUploadQueue* /*pQueue
 		rcCell.top		= rcRow.top;
 		rcCell.bottom	= rcRow.bottom;
 
-		crLeftAligned = ( rcRow.left == rcCell.left ? crNatural : crBack ) ;
-
 		switch ( pColumn.lParam )
 		{
 		case UPLOAD_COLUMN_TITLE:
-			dc.FillSolidRect( rcCell.left, rcCell.top, 24, rcCell.Height(), crLeftAligned );
+			bLeftMargin = rcRow.left == rcCell.left;
+			crLeftMargin = ( bLeftMargin ? crNatural : bSelectmark ? -1 : crBack ) ;
+
+			if ( bLeftMargin || ! bSelectmark )
+				dc.FillSolidRect( rcCell.left, rcCell.top, 24, rcCell.Height(), crLeftMargin );
 			rcCell.left += 24;
-			dc.FillSolidRect( rcCell.left, rcCell.bottom - 1, 16, 1, crLeftAligned );
-			ImageList_DrawEx( ShellIcons.GetHandle( 16 ), ShellIcons.Get( pFile->m_sName, 16 ), dc.GetSafeHdc(),
-					rcCell.left, rcCell.top, 16, 16, crBack, CLR_DEFAULT, pFile->m_bSelected ? ILD_SELECTED : ILD_NORMAL );
+			if ( bLeftMargin || ! bSelectmark )
+				dc.FillSolidRect( rcCell.left, rcCell.bottom - 1, 16, 1, crLeftMargin );
+			ImageList_DrawEx( ShellIcons.GetHandle( 16 ), ShellIcons.Get( bMultifile ? _T(".torrent") : pFile->m_sName, 16 ), dc.GetSafeHdc(),
+					rcCell.left, rcCell.top, 16, 16, crBack, CLR_DEFAULT, bSelected ? ILD_SELECTED : ILD_NORMAL );
 			rcCell.left += 16;
-			dc.FillSolidRect( rcCell.left, rcCell.top, 1, rcCell.Height(), crLeftAligned );
+			if ( bLeftMargin || ! bSelectmark )
+				dc.FillSolidRect( rcCell.left, rcCell.top, 1, rcCell.Height(), crLeftMargin );
 			rcCell.left++;
 			strText = pFile->m_sName;
 			break;
@@ -1018,10 +1068,7 @@ void CUploadsCtrl::PaintFile(CDC& dc, const CRect& rcRow, CUploadQueue* /*pQueue
 			break;
 
 		case UPLOAD_COLUMN_PROGRESS:
-			dc.Draw3dRect( &rcCell, crBack, crBack );
-			rcCell.DeflateRect( 1, 1 );
-			dc.Draw3dRect( &rcCell, crBack, crBack );
-			rcCell.DeflateRect( 0, 1 );
+			rcCell.DeflateRect( 1, 2 );
 			dc.Draw3dRect( &rcCell, crBorder, crBorder );
 			rcCell.DeflateRect( 1, 1 );
 			CFragmentBar::DrawUpload( &dc, &rcCell, pFile, crNatural );
@@ -1086,11 +1133,12 @@ void CUploadsCtrl::PaintFile(CDC& dc, const CRect& rcRow, CUploadQueue* /*pQueue
 		case UPLOAD_COLUMN_COUNTRY:
 			int nFlagImage = Flags.GetFlagIndex( pTransfer->m_sCountry );
 
-			dc.FillSolidRect( rcCell.left, rcCell.top, 20, rcCell.Height(), crBack );
+			if ( ! bSelectmark )
+				dc.FillSolidRect( rcCell.left, rcCell.top, 20, rcCell.Height(), crBack );
 			rcCell.left += 2;
 			if ( nFlagImage >= 0 )
 				ImageList_DrawEx( Flags.m_pImage, nFlagImage, dc.GetSafeHdc(),
-					rcCell.left, rcCell.top, 16, 16, crBack, CLR_DEFAULT, pFile->m_bSelected ? ILD_SELECTED : ILD_NORMAL );
+					rcCell.left, rcCell.top, 16, 16, crBack, CLR_DEFAULT, bSelected ? ILD_SELECTED : ILD_NORMAL );
 			rcCell.left += 16;
 
 			strText = pTransfer->m_sCountry;
@@ -1112,7 +1160,8 @@ void CUploadsCtrl::PaintFile(CDC& dc, const CRect& rcRow, CUploadQueue* /*pQueue
 				strText.Truncate( strText.GetLength() - 1 );
 			}
 
-			if ( strText.GetLength() > 0 ) strText += _T('\x2026');
+			if ( strText.GetLength() > 0 )
+				strText += _T('\x2026');
 		}
 
 		int nWidth	= dc.GetTextExtent( strText ).cx;
@@ -1131,21 +1180,34 @@ void CUploadsCtrl::PaintFile(CDC& dc, const CRect& rcRow, CUploadQueue* /*pQueue
 			break;
 		}
 
-		dc.SetBkColor( crBack );
-		dc.ExtTextOut( nPos, rcCell.top + 2, ETO_CLIPPED|ETO_OPAQUE,
+		dc.SetBkColor( bSelectmark ? CLR_NONE : crBack );
+		dc.ExtTextOut( nPos, rcCell.top + 2,
+			ETO_CLIPPED|( bSelectmark ? 0 : ETO_OPAQUE ),
 			&rcCell, strText, NULL );
 	}
 
-	if ( nTextRight < rcRow.right )
-	{
-		CRect rcBlank( nTextRight, rcRow.top, rcRow.right, rcRow.bottom );
-		dc.FillSolidRect( &rcBlank, crBack );
-	}
+	// Non-column whitespace area (redundant)
+	//if ( nTextRight < rcRow.right && ! bSelectmark )
+	//	dc.FillSolidRect( nTextRight, rcRow.top, rcRow.right, rcRow.bottom, crBack );
 
 	if ( bFocus )
 	{
 		CRect rcFocus( nTextLeft, rcRow.top, max( rcRow.right, nTextRight ), rcRow.bottom );
 		dc.Draw3dRect( &rcFocus, Colors.m_crHiBorder, Colors.m_crHiBorder );
+
+		if ( Skin.m_bRoundedSelect )
+		{
+			dc.FillSolidRect( rcFocus.left, rcFocus.top, 1, 1, crNatural );
+			dc.FillSolidRect( rcFocus.left, rcFocus.bottom - 1, 1, 1, crNatural );
+			dc.FillSolidRect( rcRow.right - 1, rcRow.top, 1, 1, crNatural );
+			dc.FillSolidRect( rcRow.right - 1, rcRow.bottom - 1, 1, 1, crNatural );
+		}
+
+		if ( Colors.m_crHiBorderIn )
+		{
+			rcFocus.DeflateRect( 1, 1 );
+			dc.Draw3dRect( &rcFocus, Colors.m_crHiBorderIn, Colors.m_crHiBorderIn );
+		}
 	}
 }
 

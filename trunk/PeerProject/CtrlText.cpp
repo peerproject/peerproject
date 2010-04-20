@@ -25,6 +25,9 @@
 #include "CtrlText.h"
 #include "Colors.h"
 
+#include "Skin.h"
+#include "CoolInterface.h"
+
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #undef THIS_FILE
@@ -286,20 +289,36 @@ void CTextCtrl::OnPaint()
 	if ( bModified ) UpdateScroll( TRUE );
 	m_bProcess = FALSE;
 
-	dc.SetBkMode( OPAQUE );
-
 	CRect rcLine( rcClient );
 	rcLine.bottom += ( m_nTotal - m_nPosition ) * m_cCharacter.cy;
 	rcLine.top = rcLine.bottom - m_cCharacter.cy;
 
+	dc.SetBkMode( OPAQUE );
+
 	for ( INT_PTR nLine = m_pLines.GetSize() - 1 ; nLine >= 0 && rcLine.bottom > 0 ; nLine-- )
 	{
 		CTextLine* pLine = m_pLines.GetAt( nLine );
-		dc.SetTextColor( pLine->m_bSelected ? Colors.m_crHiText :
-			m_crText[ pLine->m_nType & MSG_SEVERITY_MASK ] );
-		dc.SetBkColor( pLine->m_bSelected ? Colors.m_crHighlight :
-			m_crBackground[ ( pLine->m_nType & MSG_FACILITY_MASK ) >> 8 ] );
-		pLine->Paint( &dc, &rcLine );
+		if ( pLine->m_bSelected && Skin.m_bmSelected.m_hObject )	// Skinned
+		{
+			dc.SetBkMode( TRANSPARENT );
+			CRect rcClip( rcLine );
+			rcClip.top = rcClip.bottom + 2;
+			rcClip.bottom += 10;
+			dc.ExcludeClipRect( &rcClip );	// Hide overdraw
+			CoolInterface.DrawWatermark( &dc, &rcLine, &Skin.m_bmSelected );
+
+			dc.SetTextColor( m_crText[ pLine->m_nType & MSG_SEVERITY_MASK ] );
+			pLine->Paint( &dc, &rcLine, TRUE );
+			dc.SetBkMode( OPAQUE );
+		}
+		else // Default
+		{
+			dc.SetTextColor( pLine->m_bSelected ?
+				Colors.m_crHiText : m_crText[ pLine->m_nType & MSG_SEVERITY_MASK ] );
+			dc.SetBkColor( pLine->m_bSelected ?
+				Colors.m_crHighlight : m_crBackground[ ( pLine->m_nType & MSG_FACILITY_MASK ) >> 8 ] );
+			pLine->Paint( &dc, &rcLine );
+		}
 	}
 
 	if ( rcLine.bottom > 0 )
@@ -577,7 +596,7 @@ void CTextLine::AddLine(int nLength)
 /////////////////////////////////////////////////////////////////////////////
 // CTextLine paint
 
-void CTextLine::Paint(CDC* pDC, CRect* pRect)
+void CTextLine::Paint(CDC* pDC, CRect* pRect, BOOL bSkinned)
 {
 	int nHeight = pRect->bottom - pRect->top;
 
@@ -591,7 +610,8 @@ void CTextLine::Paint(CDC* pDC, CRect* pRect)
 	{
 		if ( pDC->RectVisible( pRect ) )
 		{
-			pDC->ExtTextOut( pRect->left + 2, pRect->top, ETO_CLIPPED|ETO_OPAQUE,
+			pDC->ExtTextOut( pRect->left + 2, pRect->top,
+				ETO_CLIPPED|( bSkinned ? 0 : ETO_OPAQUE ),
 				pRect, pszLine, *pLength, NULL );
 		}
 		pszLine += *pLength;

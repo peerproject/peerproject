@@ -120,32 +120,29 @@ CNeighbour* CNeighboursWithConnect::ConnectTo(
 		// Activate the appropriate network (if required)
 		switch ( nProtocol )
 		{
-
 		// The computer we will connect to is running Gnutella software
 		case PROTOCOL_G1:
-
 			// Let the program connect to the Gnutella network
 			Settings.Gnutella1.EnableToday = TRUE;
 			break;
 
 		// The computer we will connect to is running Gnutella2 software
 		case PROTOCOL_G2:
-
 			// Let the program connect to the Gnutella2 network
 			Settings.Gnutella2.EnableToday = TRUE;
 			break;
 
 		// The computer we will connect to is running eDonkey2000 software
 		case PROTOCOL_ED2K:
-
 			// Let the program connect to the eDonkey2000 network
 			Settings.eDonkey.EnableToday = TRUE;
 
 			// Reset the eDonkey2000 network (do)
 			CloseDonkeys();
 			break;
+
 		default:
-		//	ASSERT( 0 )
+		//	ASSERT( 0 );
 			;
 		}
 	}
@@ -159,9 +156,8 @@ CNeighbour* CNeighboursWithConnect::ConnectTo(
 			return pNeighbour;		// Started connecting to an ed2k neighbour
 
 		delete pNeighbour;
-
-	} // The computer at the IP address we have is running Gnutella or Gnutella2 software
-	else
+	}
+	else	// The computer at the IP address we have is running Gnutella or Gnutella2 software
 	{
 		// Make a new CShakeNeighbour object, connect it to the IP address, and return a pointer to it
 		CShakeNeighbour* pNeighbour = new CShakeNeighbour();
@@ -689,9 +685,7 @@ DWORD CNeighboursWithConnect::IsG1UltrapeerCapable(BOOL bIgnoreTime, BOOL bDebug
 
 	// If the scheduler isn't enabled, award another point
 	if ( ! Settings.Scheduler.Enable )
-	{
 		nRating++;
-	}
 
 	// ToDo: Find out more about the computer to award more rating points
 	// Scheduler: If the scheduler is going to shut down the program and the computer at any time, this isn't a good choice for an ultrapeer
@@ -735,26 +729,20 @@ BOOL CNeighboursWithConnect::NeedMoreHubs(PROTOCOLID nProtocol)
 
 		// If we've finished the handshake with this neighbour, and our connection to it isn't down to a leaf
 		if ( pNeighbour->m_nState == nrsConnected && pNeighbour->m_nNodeType != ntLeaf )
-		{
-			// Count it as one more for its protocol
-			nConnected[ pNeighbour->m_nProtocol ]++;
-		}
+			nConnected[ pNeighbour->m_nProtocol ]++;	// Count it as one more for its protocol
 	}
 
 	// Compose the answer for the protocol the caller wants to know about
 	switch ( nProtocol )
 	{
-
 	// The caller wants to know if we need more hubs for either Gnutella or Gnutella2
 	case PROTOCOL_NULL:
-
 		// If we need more Gnutella ultrapeers or Gnutella2 hubs, return true, only return false if we don't need more hubs from either network
 		return ( ( Settings.Gnutella1.EnableToday ) && ( ( nConnected[1] ) < ( IsG1Leaf() ? Settings.Gnutella1.NumHubs : Settings.Gnutella1.NumPeers ) ) ||
 				 ( Settings.Gnutella2.EnableToday ) && ( ( nConnected[2] ) < ( IsG2Leaf() ? Settings.Gnutella2.NumHubs : Settings.Gnutella2.NumPeers ) ) );
 
 	// Return true if we need more Gnutella ultrapeer connections
 	case PROTOCOL_G1:
-
 		// If we're not connected to Gnutella, say we have enough ultrapeer connections
 		if ( Settings.Gnutella1.EnableToday == FALSE ) return FALSE;
 
@@ -763,7 +751,6 @@ BOOL CNeighboursWithConnect::NeedMoreHubs(PROTOCOLID nProtocol)
 
 	// Return true if we need more Gnutella2 hub connections
 	case PROTOCOL_G2:
-
 		// If we're not connected to Gnutella2, say we have enough hub connections
 		if ( Settings.Gnutella2.EnableToday == FALSE ) return FALSE;
 
@@ -772,7 +759,6 @@ BOOL CNeighboursWithConnect::NeedMoreHubs(PROTOCOLID nProtocol)
 
 	// The caller specified some other network
 	default:
-
 		// Report no, we don't need any more connections for that
 		return FALSE;
 	}
@@ -797,26 +783,20 @@ BOOL CNeighboursWithConnect::NeedMoreLeafs(PROTOCOLID nProtocol)
 
 		// If we've finished the handshake with this neighbour, and our connection to is down to a leaf
 		if ( pNeighbour->m_nState == nrsConnected && pNeighbour->m_nNodeType == ntLeaf )
-		{
-			// Count it as one more for its protocol
-			nConnected[ pNeighbour->m_nProtocol ]++;
-		}
+			nConnected[ pNeighbour->m_nProtocol ]++;	// Count it as one more for its protocol
 	}
 
 	// Compose the answer for the protocol the caller wants to know about
 	switch ( nProtocol )
 	{
-
 	// The caller wants to know if we need more leaves for either Gnutella or Gnutella2
 	case PROTOCOL_NULL:
-
 		// If we need more Gnutella or Gnutella2 leaves, return true, only return false if we don't need more leaves from either network
 		return ( ( Settings.Gnutella1.EnableToday && ( ( nConnected[1] ) < Settings.Gnutella1.NumLeafs ) ) ||
 				 ( Settings.Gnutella2.EnableToday && ( ( nConnected[2] ) < Settings.Gnutella2.NumLeafs ) ) );
 
 	// Return true if we need more Gnutella ultrapeer connections
 	case PROTOCOL_G1:
-
 		// If we're not connected to Gnutella, say we have enough leaf connections
 		if ( Settings.Gnutella1.EnableToday == FALSE ) return FALSE;
 
@@ -826,7 +806,6 @@ BOOL CNeighboursWithConnect::NeedMoreLeafs(PROTOCOLID nProtocol)
 
 	// Return true if we need more Gnutella2 hub connections
 	case PROTOCOL_G2:
-
 		// If we're not connected to Gnutella2, say we have enough leaf connections
 		if ( Settings.Gnutella2.EnableToday == FALSE ) return FALSE;
 
@@ -836,7 +815,6 @@ BOOL CNeighboursWithConnect::NeedMoreLeafs(PROTOCOLID nProtocol)
 
 	// The caller specified some other network
 	default:
-
 		// Report no, we don't need any more connections for that
 		return FALSE;
 	}
@@ -865,25 +843,19 @@ BOOL CNeighboursWithConnect::IsHubLoaded(PROTOCOLID nProtocol)
 
 		// If we're done with the handshake for this neighbour, and the connection is down to a leaf
 		if ( pNeighbour->m_nState == nrsConnected && pNeighbour->m_nNodeType == ntLeaf )
-		{
-			// Increment the count for this protocol
-			nConnected[ pNeighbour->m_nProtocol ]++;
-		}
+			nConnected[ pNeighbour->m_nProtocol ]++;	// Increment the count for this protocol
 	}
 
 	// Return information based on the protocl the caller wants to know about
 	switch ( nProtocol )
 	{
-
 	// The caller wants to know about Gntuella and Gnutella2 combined
 	case PROTOCOL_NULL:
-
 		// If the total connection number is bigger than 75% of the totals from settings, say yes
 		return ( nConnected[1] + nConnected[2] ) >= ( Settings.Gnutella1.NumLeafs + Settings.Gnutella2.NumLeafs ) * 3 / 4;
 
 	// The caller wants to know about Gnutella
 	case PROTOCOL_G1:
-
 		// If we're not connected to Gnutella, say no
 		if ( Settings.Gnutella1.EnableToday == FALSE ) return FALSE;
 
@@ -892,7 +864,6 @@ BOOL CNeighboursWithConnect::IsHubLoaded(PROTOCOLID nProtocol)
 
 	// The caller wants to know about Gnutella2
 	case PROTOCOL_G2:
-
 		// If we're not connected to Gnutella2, say no
 		if ( Settings.Gnutella2.EnableToday == FALSE ) return FALSE;
 
@@ -901,7 +872,6 @@ BOOL CNeighboursWithConnect::IsHubLoaded(PROTOCOLID nProtocol)
 
 	// The caller wants to know about something else
 	default:
-
 		// Just say no, we don't have the capacity for that
 		return FALSE;
 	}
@@ -921,10 +891,9 @@ void CNeighboursWithConnect::OnRun()
 	{
 		// Maintain the network (do)
 		if ( Network.IsConnected() && Network.m_bAutoConnect )
-		{
+			Maintain();
 			// Count how many connections of each type we have, calculate how many we should have, and close and open connections accordingly
-			Maintain(); // Makes new connections by getting IP addresses from the host caches for each network
-		}
+			// Makes new connections by getting IP addresses from the host caches for each network
 
 		// Release this thread's exclusive access to the network object
 		Network.m_pSection.Unlock();
@@ -969,18 +938,18 @@ void CNeighboursWithConnect::Maintain()
 		// We're done with the handshake with this neighbour
 		if ( pNeighbour->m_nState == nrsConnected )
 		{
-			// We're connected to this neighbour and exchanging Gnutella2 packets
 			if ( pNeighbour->m_nProtocol == PROTOCOL_G2 )
 			{
+				// We're connected to this neighbour and exchanging Gnutella2 packets:
 				// If our connection to this remote computer is up to a hub, we are a leaf, if it's down to a leaf, we are a hub
 				if ( pNeighbour->m_nNodeType == ntHub )
 					m_bG2Leaf = TRUE; // Save these results in the member variables
 				else
 					m_bG2Hub  = TRUE;
-
-			} // We're connected to this neighbours and exchanging Gnutella packets
+			}
 			else if ( pNeighbour->m_nProtocol == PROTOCOL_G1 )
 			{
+				// We're connected to this neighbours and exchanging Gnutella packets:
 				// If our connection to this remote computer is up to a hub, we are a leaf, if it's down to a leaf, we are an ultrapeer
 				if ( pNeighbour->m_nNodeType == ntHub )
 					m_bG1Leaf      = TRUE; // Save these results in the member variables
@@ -999,21 +968,23 @@ void CNeighboursWithConnect::Maintain()
 		// We're done with the handshake and connected to this remote computer
 		if ( pNeighbour->m_nState == nrsConnected )
 		{
-			// We're both Gnutella2 leaves
 			if ( pNeighbour->m_nNodeType != ntHub && m_bG2Leaf && pNeighbour->m_nProtocol == PROTOCOL_G2 )
 			{
+				// We're both Gnutella2 leaves:
 				// Two leaves shouldn't connect, disconnect
 				pNeighbour->Close( IDS_CONNECTION_PEERPRUNE );
 
-			} // We're both Gnutella leaves
+			}
 			else if ( pNeighbour->m_nNodeType != ntHub && m_bG1Leaf && pNeighbour->m_nProtocol == PROTOCOL_G1 )
 			{
+				// We're both Gnutella leaves:
 				// Two leaves shouldn't connect, disconnect
 				pNeighbour->Close( IDS_CONNECTION_PEERPRUNE );
 
-			} // This connection is to a hub above us, or a hub just like us
+			}
 			else if ( pNeighbour->m_nNodeType != ntLeaf )
 			{
+				// This connection is to a hub above us, or a hub just like us:
 				// If we've been connected for more than 8 seconds,
 				// Count one more hub for this connection's protocol
 				if ( tNow - pNeighbour->m_tConnected > 8000 )
@@ -1021,13 +992,14 @@ void CNeighboursWithConnect::Maintain()
 			}
 			else
 			{
-				// We must be a hub, and this connection must be down to a leaf
+				// We must be a hub, and this connection must be down to a leaf:
 				// Count one more leaf for this connection's protocol
 				nCount[ pNeighbour->m_nProtocol ][ ntLeaf ]++;
 			}
-		} // We're still going through the handshake with this remote computer
+		}
 		else if ( pNeighbour->m_nState < nrsConnected )
 		{
+			// We're still going through the handshake with this remote computer
 			// Count one more connection in the 0 column for this protocol
 			nCount[ pNeighbour->m_nProtocol ][ 0 ]++; // This is the same as ntNode, which is 0
 		}
@@ -1080,7 +1052,6 @@ void CNeighboursWithConnect::Maintain()
 	{	// We're a leaf on the Gnutella2 network
 		// Set the limit for Gnutella2 hub connections as whichever is smaller, the number from settings, or 3
 		nLimit[ PROTOCOL_G2 ][ ntHub ] = Settings.Gnutella2.NumHubs; // NumHubs is 2 by default
-
 	}
 	else
 	{	// We're a hub on the Gnutella2 network
@@ -1179,7 +1150,7 @@ void CNeighboursWithConnect::Maintain()
 				}
 			}
 
-			CQuickLock oLock( pCache->m_pSection );
+			CQuickLock oLock( pCache->m_pSection );	// Should this be open?
 
 			// If we need more connections for this network, get IP addresses from the host cache and try to connect to them
 			for ( CHostCacheIterator i = pCache->Begin() ;
@@ -1200,12 +1171,9 @@ void CNeighboursWithConnect::Maintain()
 					// Count that we now have one more handshaking connection for this network
 					nCount[ nProtocol ][0]++;
 
-					// If we're looping for eDonkey2000 right now
+					// When looping for eDonkey2000, Prevent queries while we log on (do)
 					if ( nProtocol == PROTOCOL_ED2K )
-					{
-						// Prevent queries while we log on (do)
 						pHost->m_tQuery = tNow;
-					}
 
 					// If settings wants to limit how frequently this method can run
 					if ( Settings.Connection.ConnectThrottle != 0 )
@@ -1242,8 +1210,8 @@ void CNeighboursWithConnect::Maintain()
 					}
 				}
 			}
-
-		} // We have too many hub connections for this protocol
+		}
+		// We have too many hub connections for this protocol
 		else if ( nCount[ nProtocol ][ ntHub ] > nLimit[ nProtocol ][ ntHub ] ) // We're over the limit we just calculated
 		{
 			// Find the hub we connected to most recently for this protocol

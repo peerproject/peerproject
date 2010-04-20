@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Estonian Skin File -->
 
-<!-- Translation based on default-en.xml r50 (Shareaza 2.2.2.9) -->
+<!-- Translation based on default-en.xml r52 (Shareaza 2.2.2.9) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2660,7 +2660,6 @@
 	<string id="16079" value="Oled kindel, et tahad selle ühenduse katkestada?"/>
 	<string id="16081" value="Saadan päringu &quot;%s&quot;  %s."/>
 	<string id="16083" value="Sundides oma arvutit jaoturiks võivad mõjutada sinu arvutit ja P2P võrku.  Tavakasutajal on parem lasta PeerProjectl otsustada kas olla jaotur või mitte.\n\nJaoturiks olek paranda otsingu tulemusi, ega anna sulle mingit muud eelist.\n\nOled kindel, et tahad seda teha, vaatamata eespool öeldule?"/>
-	<string id="16084" value="Peatades toe Gnutella-1 protokollile, piirab sinu otsingu tulemusi, ja kui sa oled jaotur mõjutab see ka teiste kasutajate otsingute tulemusi.  Oled kindel, et tahad seda teha?"/>
 	<string id="16085" value="Gnutella2 on PeerProject esmane võrk.  Peatades selle töö piirab nii arvuliselt kui kvaliteedilt  sinu otsinute tulemusi. Oled kindel, et tahad seda teha?"/>
 	<string id="16087" value="Sinu võrgu läbilaskevõime on liiga madal, et võimaldada võrgul korralikult töötada"/>
 	<string id="16128" value="Lubatud sissetulev ühendus %s port %i."/>
@@ -4413,4 +4412,4 @@
 		<column from="Order" to="Järjekord"/>
 	</list>
 </listColumns>
-</skin>뚸
+</skin>뚸

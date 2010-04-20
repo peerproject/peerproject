@@ -1,7 +1,7 @@
 //
 // PageSettingsProtocols.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -80,7 +80,7 @@ BOOL CProtocolsSettingsPage::OnInitDialog()
 	AddItem( hG1, _T("Name"), _T("Gnutella") );
 	AddItem( hG1, _T("Type"), _T("Decentralized") );
 	AddItem( hG1, _T("PrimaryURN"), _T("sha1") );
-	AddItem( hG1, _T("NodeClass"), _T("Leaf") );
+	AddItem( hG1, _T("NodeClass"), _T("Leaf, (Ultrapeer)") );
 	AddItem( hG1, _T("ProtocolVersion"), _T("0.6") );
 	AddItem( hG1, _T("ComponentVersion"), _T("1.0.0.0") );
 
@@ -91,6 +91,10 @@ BOOL CProtocolsSettingsPage::OnInitDialog()
 	AddItem( hED, _T("NodeClass"), _T("Client") );
 	AddItem( hED, _T("ProtocolVersion"), _T("1.1") );
 	AddItem( hED, _T("ComponentVersion"), _T("1.0.0.0") );
+
+	//HTREEITEM hED = AddItem( hNetworks, _T("KAD Network") );
+	//AddItem( hED, _T("Name"), _T("KAD (Inactive)") );
+	//AddItem( hED, _T("ComponentVersion"), _T("0.0.0.0") );
 
 	HTREEITEM hTransfers = AddItem( NULL, _T("File Transfer Protocols") );
 
@@ -127,7 +131,7 @@ BOOL CProtocolsSettingsPage::OnInitDialog()
 	AddItem( hBT, _T("Prefix"), _T("btc://") );
 	AddItem( hBT, _T("TransferMode"), _T("Block") );
 	AddItem( hBT, _T("Directions"), _T("Download, Upload") );
-	// AddItem( hBT, _T("Capabilities"), _T("Hashset, SourceExchange, Deflate") );
+	AddItem( hBT, _T("Capabilities"), _T("PeerExchange, (etc.)") );
 	AddItem( hBT, _T("ProtocolVersion"), _T("1.0") );
 	AddItem( hBT, _T("ComponentVersion"), _T("1.0.0.0") );
 
@@ -149,8 +153,7 @@ HTREEITEM CProtocolsSettingsPage::AddItem(HTREEITEM hParent, LPCTSTR pszText, LP
 	{
 		CString str(pszText);
 		if ( Settings.General.LanguageRTL ) str = _T("\x202A") + str;
-		return m_wndTree.InsertItem( TVIF_TEXT|TVIF_STATE,
-			str, 0, 0, TVIS_EXPANDED|TVIS_BOLD,
-			TVIS_EXPANDED|TVIS_BOLD, 0, hParent, TVI_LAST );
+		return m_wndTree.InsertItem( TVIF_TEXT|TVIF_STATE, str, 0, 0,
+			TVIS_EXPANDED|TVIS_BOLD, TVIS_EXPANDED|TVIS_BOLD, 0, hParent, TVI_LAST );
 	}
 }

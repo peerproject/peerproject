@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Lithuanian Skin File -->
 
-<!-- Translation based on default-en.xml r50 -->
+<!-- Translation based on default-en.xml r52 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2835,7 +2835,6 @@
 	<string id="16080" value="Jūsų planuotojas veikia tik G2 tinklo veiksenoje. Ar norite išjungti šią veikseną, kad visi aktyvūs tinklai liktų prijungti?"/>
 	<string id="16081" value="Siunčiama užklausa failui „%s“ adresatui %s."/>
 	<string id="16083" value="Dirbtinis Jūsų kompiuterio veiksenos pakeitimas į mazgo veikseną gali sukelti nepageidaujamą poveikį našumui ir P2P tinklui. Geriau leisti, kad „PeerProject“ pati nuspręstų, ar tapti mazgu, ar ne.\n\nMazgo veiksena NEDUODA daugiau radinių ir nesuteikia Jums jokių pranašumų.\n\nAr tikrai norite tęsti, nežiūrint į visas kliūtis, kurias tai gali sukelti?"/>
-	<string id="16084" value="Atjungus Gnutella-1 protokolų palaikymą, radinių gali sumažėti, ir, jei Jūs veiksite kaip mazgas, tai gali paveikti ir kitų naudotojų paiešką. Ar tikrai norite tęsti?"/>
 	<string id="16085" value="Gnutella2 - tai „PeerProject“ programos pagrindinis tinklas. Atjungus jo palaikymą, gali labai sumažėti tiek radinių skaičius, tiek ir jų kokybė. Ar TIKRAI norite tęsti?"/>
 	<string id="16087" value="Jūsų išeinanti greitaveika yra per maža šio tinklo įgalinimui"/>
 	<string id="16128" value="Priimtas įeinantis susijungimas su %s per %i prievadą."/>
@@ -3141,13 +3140,13 @@
 	<string id="16997" value="Joks failas negrojamas. Grojimui spragtelkite grotuvo failą savo kolekcijoje."/>
 	<string id="16998" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; J &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; I &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M &#160;&#160; A"/>
 	<string id="16999" value="GROJARAŠTIS:"/>
-	<string id="17016" value="Sveiki. Čia PeerProject pokalbiai."/>
-	<string id="17017" value="Gerbkite kitus naudodamiesi šia paslauga"/>
-	<string id="17018" value="Kalbėk:"/>
+	<string id="17015" value="Sveiki. Čia PeerProject pokalbiai."/>
+	<string id="17016" value="Gerbkite kitus naudodamiesi šia paslauga"/>
+	<string id="17017" value="Kalbėk:"/>
+	<string id="17018" value="Naudotojai"/>
+	<string id="17019" value="Kanalai"/>
 	<string id="17020" value="Pridėti"/>
 	<string id="17021" value="Šalinti"/>
-	<string id="17022" value="Naudotojai"/>
-	<string id="17023" value="Kanalai"/>
 	<string id="17024" value="Užmezgamas ryšys su %s..."/>
 	<string id="17025" value="Neįmanoma užmegzti ryšio su %s."/>
 	<string id="17026" value="Prašoma užmegzti įstūmiantįjį ryšį per užkardą su adresatu %s..."/>

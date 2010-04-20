@@ -19,6 +19,8 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 
+// Draw Search and Browse Filelist Windows
+
 #include "StdAfx.h"
 #include "PeerProject.h"
 #include "Settings.h"
@@ -718,12 +720,14 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 	int nNameLen	= static_cast< int >( pszType ? pszType - pszName : _tcslen( pszName ) );
 
 	BOOL bSelected	= pHit ? pHit->m_bSelected : pFile->m_bSelected;
+	BOOL bSelectmark = bSelected && Skin.m_bmSelected.m_hObject != NULL;
+	BOOL bLeftMargin = TRUE;
 	BOOL bGrayed	= FALSE;
-	COLORREF crWnd	= Colors.m_crWindow;
 
+	COLORREF crWnd	= Colors.m_crWindow;
 	COLORREF crText	= bSelected ? Colors.m_crHiText : Colors.m_crText ;
 	COLORREF crBack	= crWnd ;
-	COLORREF crLeftAligned = crBack ;
+	COLORREF crLeftMargin = crBack ;
 
 	if ( pFile->m_bCollection )
 	{
@@ -737,11 +741,13 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 		if ( Colors.m_crSearchTorrent ) crWnd = crBack = Colors.m_crSearchTorrent ;
 		else crWnd = crBack = CColors::CalculateColor( crBack, RGB( 244, 242, 240 ), 10 );
 	}
-	else if ( ( pFile->m_nRated > 1 ) && ( ( pFile->m_nRating / pFile->m_nRated ) > 4 ) )
+	else if ( pFile->m_nRated > 1 && ( pFile->m_nRating / pFile->m_nRated ) > 4 )
 	{
 		// Gold highlight for highly rated files
-		if ( Colors.m_crSearchHighrated ) crWnd = crBack = Colors.m_crSearchHighrated ;
-		else crWnd = crBack = CColors::CalculateColor( crBack, RGB( 255, 250, 50 ), 20 );
+		if ( Colors.m_crSearchHighrated )
+			crWnd = crBack = Colors.m_crSearchHighrated ;
+		else
+			crWnd = crBack = CColors::CalculateColor( crBack, RGB( 255, 250, 50 ), 20 );
 	}
 	///else if ( pFile->m_bDRM )
 	//{	// Pale gree background if DRM
@@ -751,8 +757,10 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 	if ( pFile->GetLibraryStatus() == TRI_FALSE )
 	{
 		// Green if already in the library
-		crText = pHit ? Colors.m_crSearchExistsHit : Colors.m_crSearchExists;
-		if ( bSelected ) crText = Colors.m_crSearchExistsSelected;
+		if ( bSelected )
+			crText = Colors.m_crSearchExistsSelected;
+		else
+			crText = pHit ? Colors.m_crSearchExistsHit : Colors.m_crSearchExists;
 	}
 	else if ( pFile->GetLibraryStatus() == TRI_TRUE )
 	{
@@ -762,8 +770,10 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 	else if ( pFile->m_bDownload || ( pHit && pHit->m_bDownload ) )
 	{
 		// Blue if chosen for download
-		crText = pHit ? Colors.m_crSearchQueuedHit : Colors.m_crSearchQueued;
-		if ( bSelected ) crText = Colors.m_crSearchQueuedSelected;
+		if ( bSelected )
+			crText = Colors.m_crSearchQueuedSelected;
+		else
+			crText = pHit ? Colors.m_crSearchQueuedHit : Colors.m_crSearchQueued;
 	}
 
 	if ( bSelected )
@@ -779,8 +789,18 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 		bGrayed = TRUE;
 	}
 
-	dc.SetBkMode( OPAQUE );
-	dc.SetBkColor( crBack );
+	// Update Full Row Highlight
+	dc.FillSolidRect( rcRow, crBack );
+
+	// Skinnable Selection Highlight
+	if ( bSelectmark )
+	{
+		CRect rcDraw = rcRow;
+		CoolInterface.DrawWatermark( &dc, &rcDraw, &Skin.m_bmSelected );
+	}
+
+	dc.SetBkMode( bSelectmark ? TRANSPARENT : OPAQUE );
+	dc.SetBkColor( bSelectmark ? CLR_NONE : crBack );
 
 	dc.SelectObject( Settings.Search.HighlightNew && ( pHit ? pHit->m_bNew : pFile->m_bNew )
 		? &CoolInterface.m_fntBold : &CoolInterface.m_fntNormal );
@@ -803,8 +823,7 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 		ScreenToClient(&ptHover);
 
 		LPCTSTR pszText	= _T("");
-		int nText		= -1;
-		int nPosition;
+		int nPosition, nText = -1;
 
 		dc.SetTextColor( crText );
 
@@ -816,7 +835,8 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 			pszText = pszName;
 			nText	= nNameLen;
 
-			crLeftAligned = ( rcRow.left == rcCol.left ? crWnd : crBack ) ;
+			bLeftMargin = rcRow.left == rcCol.left;
+			crLeftMargin = bLeftMargin ? crWnd : bSelectmark ? -1 : crBack;
 
 			if ( ! pHit && nHits > 1 )
 			{
@@ -824,30 +844,30 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 				if ( pFile->m_bExpanded )
 				{
 					CoolInterface.Draw( &dc, PtInRect(&rcTick,ptHover) ? IDI_CLOSETICK_HOVER : IDI_CLOSETICK,
-						16, rcCol.left, rcCol.top, crLeftAligned );
+						16, rcCol.left, rcCol.top, crLeftMargin );
 				}
 				else
 				{
 					CoolInterface.Draw( &dc, PtInRect(&rcTick,ptHover) ? IDI_OPENTICK_HOVER : IDI_OPENTICK,
-						16, rcCol.left, rcCol.top, crLeftAligned );
+						16, rcCol.left, rcCol.top, crLeftMargin );
 				}
 
 				// Draw file icon
-				ShellIcons.Draw( &dc, pFile->m_nShellIndex, 16, rcCol.left + 16, rcCol.top,	crLeftAligned, bSelected );
+				ShellIcons.Draw( &dc, pFile->m_nShellIndex, 16, rcCol.left + 16, rcCol.top,	crLeftMargin, bSelected );
 
-				dc.FillSolidRect( rcCol.left, rcCol.top + 16, 32, ITEM_HEIGHT - 16, crLeftAligned );
+				if ( bLeftMargin || ! bSelectmark )
+					dc.FillSolidRect( rcCol.left, rcCol.top + 16, 32, ITEM_HEIGHT - 16, crLeftMargin );
 
 				rcCol.left += 32;
 			}
 			else
 			{
-				dc.FillSolidRect( rcCol.left, rcCol.top, ( pHit ? 24 : 16 ),
-					ITEM_HEIGHT, crLeftAligned );
+				if ( bLeftMargin || ! bSelectmark )
+					dc.FillSolidRect( rcCol.left, rcCol.top, ( pHit ? 24 : 16 ), ITEM_HEIGHT, crLeftMargin );
 				rcCol.left += ( pHit ? 24 : 16 );
 
 				// Draw file icon
-				ShellIcons.Draw( &dc, pFile->m_nShellIndex, 16, rcCol.left, rcCol.top,
-					crLeftAligned, bSelected );
+				ShellIcons.Draw( &dc, pFile->m_nShellIndex, 16, rcCol.left, rcCol.top, crLeftMargin, bSelected );
 
 				// Draw partial status
 				if ( ! pFile->m_bDRM &&
@@ -858,7 +878,8 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 						rcCol.left, rcCol.top, CLR_NONE, bSelected, FALSE );
 				}
 
-				dc.FillSolidRect( rcCol.left, rcCol.top + 16, 16, ITEM_HEIGHT - 16, crLeftAligned );
+				if ( bLeftMargin || ! bSelectmark )
+					dc.FillSolidRect( rcCol.left, rcCol.top + 16, 16, ITEM_HEIGHT - 16, crLeftMargin );
 
 				rcCol.left += 16;
 			}
@@ -867,18 +888,40 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 				CoolInterface.Draw( &dc, IDI_COMMERCIAL, 16,
 					rcCol.left - 16, rcCol.top, CLR_NONE, bSelected );
 
-			dc.FillSolidRect( rcCol.left, rcCol.top, 1, ITEM_HEIGHT, crLeftAligned );
+			if ( bLeftMargin || ! bSelectmark )
+				dc.FillSolidRect( rcCol.left, rcCol.top, 1, ITEM_HEIGHT, crLeftMargin );
 			rcCol.left++;
 
 			if ( bSelected && bFocus )
 			{
 				CRect rcFocus( &rcRow );
-				rcFocus.left = rcCol.left;
+				if ( bLeftMargin ) rcFocus.left = rcCol.left;
 				dc.Draw3dRect( &rcFocus, Colors.m_crHiBorder, Colors.m_crHiBorder );
-				dc.ExcludeClipRect( rcFocus.left, rcFocus.top, rcFocus.right, rcFocus.top + 1 );
-				dc.ExcludeClipRect( rcFocus.left, rcFocus.bottom - 1, rcFocus.right, rcFocus.bottom );
-				dc.ExcludeClipRect( rcFocus.left, rcFocus.top + 1, rcFocus.left + 1, rcFocus.bottom - 1 );
-				dc.ExcludeClipRect( rcFocus.right - 1, rcFocus.top + 1, rcFocus.right, rcFocus.bottom - 1 );
+
+				if ( Skin.m_bRoundedSelect )
+				{
+					dc.FillSolidRect( rcFocus.left, rcFocus.top, 1, 1, crWnd );
+					dc.FillSolidRect( rcFocus.left, rcFocus.bottom - 1, 1, 1, crWnd );
+					dc.FillSolidRect( rcRow.right - 1, rcRow.top, 1, 1, crWnd );
+					dc.FillSolidRect( rcRow.right - 1, rcRow.bottom - 1, 1, 1, crWnd );
+				}
+
+				if ( Colors.m_crHiBorderIn )
+				{
+					rcFocus.DeflateRect( 1, 1 );
+					dc.Draw3dRect( &rcFocus, Colors.m_crHiBorderIn, Colors.m_crHiBorderIn );
+					if ( ! bSelectmark )
+						rcFocus.InflateRect( 1, 1 );
+				}
+
+				if ( ! bSelectmark )
+				{
+					int nOffset = Colors.m_crHiBorderIn == NULL ? 1 : 2;
+					dc.ExcludeClipRect( rcFocus.left, rcFocus.top, rcFocus.right, rcFocus.top + nOffset );
+					dc.ExcludeClipRect( rcFocus.left, rcFocus.bottom - nOffset, rcFocus.right, rcFocus.bottom );
+					dc.ExcludeClipRect( rcFocus.left, rcFocus.top + nOffset, rcFocus.left + nOffset, rcFocus.bottom - nOffset );
+					dc.ExcludeClipRect( rcFocus.right - nOffset, rcFocus.top + nOffset, rcFocus.right, rcFocus.bottom - nOffset );
+				}
 			}
 
 			break;
@@ -1001,27 +1044,27 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 		case MATCH_COL_RATING:
 			if ( pHit )
 			{
-				DrawRating( dc, rcCol, pHit->m_nRating, bSelected, crBack );
+				DrawRating( dc, rcCol, pHit->m_nRating, crBack, bSelected, bSelectmark );
 			}
 			else if ( nHits == 1 )
 			{
-				DrawRating( dc, rcCol, pFile->GetBestRating(), bSelected, crBack );
+				DrawRating( dc, rcCol, pFile->GetBestRating(), crBack, bSelected, bSelectmark );
 			}
 			else
 			{
 				DrawRating( dc, rcCol,
 					pFile->m_nRated ? pFile->m_nRating / pFile->m_nRated : 0,
-					bSelected, crBack );
+					bSelected, crBack, bSelectmark );
 			}
 			break;
 
 		case MATCH_COL_STATUS:
 			if ( pHit )
-				DrawStatus( dc, rcCol, pFile, pHit, bSelected, crBack );
+				DrawStatus( dc, rcCol, pFile, pHit, crBack, bSelected, bSelectmark );
 			else if ( nHits == 1 )
-				DrawStatus( dc, rcCol, pFile, pFile->GetBest(), bSelected, crBack );
+				DrawStatus( dc, rcCol, pFile, pFile->GetBest(), crBack, bSelected, bSelectmark );
 			else
-				DrawStatus( dc, rcCol, pFile, NULL, bSelected, crBack );
+				DrawStatus( dc, rcCol, pFile, NULL, crBack, bSelected, bSelectmark );
 			break;
 
 		case MATCH_COL_CLIENT:
@@ -1040,12 +1083,12 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 		case MATCH_COL_COUNTRY:
 			if ( pHit )
 			{
-				DrawCountry( dc, rcCol, pHit->m_sCountry, bSelected, crBack );
+				DrawCountry( dc, rcCol, pHit->m_sCountry, crBack, bSelected, bSelectmark );
 				pszText = pHit->m_sCountry;
 			}
 			else if ( nHits == 1 )
 			{
-				DrawCountry( dc, rcCol, pFile->GetBestCountry(), bSelected, crBack );
+				DrawCountry( dc, rcCol, pFile->GetBestCountry(), crBack, bSelected, bSelectmark );
 				pszText = pFile->GetBestCountry();
 			}
 			break;
@@ -1088,7 +1131,6 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 			nText = static_cast< int >( _tcslen( pszText ) );
 			nText = min( nText, 128 );
 			break;
-
 		}
 
 		if ( nText < 0 ) nText = static_cast< int >( _tcslen( pszText ) );
@@ -1134,39 +1176,42 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 			CopyMemory( pszTrail, pszText, nText * sizeof(TCHAR) );
 			pszTrail[ nText ] = _T('\x2026');
 			strTrail.ReleaseBuffer( nText + 1 );
-			dc.ExtTextOut( nPosition, rcCol.top + 2, ETO_CLIPPED|ETO_OPAQUE,
+			dc.ExtTextOut( nPosition, rcCol.top + 2,
+				ETO_CLIPPED|( bSelectmark ? 0 : ETO_OPAQUE ),
 				&rcCol, strTrail, nText + 1, NULL );
 		}
 		else
 		{
-			dc.ExtTextOut( nPosition, rcCol.top + 2, ETO_CLIPPED|ETO_OPAQUE,
+			dc.ExtTextOut( nPosition, rcCol.top + 2,
+				ETO_CLIPPED|( bSelectmark ? 0 : ETO_OPAQUE ),
 				&rcCol, pszText, nText, NULL );
 		}
 
 		dc.ExcludeClipRect( nLeft, rcCol.top, rcCol.right, rcCol.bottom  );
 	}
 
-	dc.FillSolidRect( &rcRow, crBack );
+	if ( ! bSelectmark )
+		dc.FillSolidRect( &rcRow, crBack );
 }
 
-void CMatchCtrl::DrawStatus(CDC& dc, CRect& rcCol, CMatchFile* pFile, CQueryHit* pHit, BOOL bSelected, COLORREF crBack)
+void CMatchCtrl::DrawStatus(CDC& dc, CRect& rcCol, CMatchFile* pFile, CQueryHit* pHit, COLORREF crBack, BOOL bSelected, BOOL bSkinned)
 {
 	if ( rcCol.Width() < 16 * 3 ) return;
 
 	int nLeft = rcCol.left;
-
 	if ( rcCol.Width() > 16 * 6 )
 		nLeft = ( rcCol.left + rcCol.right ) / 2 - ( 16 * 6 ) / 2;
-
 	int nPos = nLeft;
-	TRISTATE bState;
 
+	COLORREF crBackMark = bSkinned ? -1 : crBack;
+
+	TRISTATE bState;
 	if ( ( bState = pHit ? pHit->m_bBusy : pFile->m_bBusy ) != FALSE )
 	{
 		CoolInterface.Draw( &dc, ( bState == TRI_TRUE ? IDI_BUSY : IDI_TICK ), 16,
-			nPos, rcCol.top, crBack, bSelected );
+			nPos, rcCol.top, crBackMark, bSelected );
 	}
-	else
+	else if ( ! bSkinned )
 	{
 		dc.FillSolidRect( nPos, rcCol.top, 16, 16, crBack );
 	}
@@ -1176,9 +1221,9 @@ void CMatchCtrl::DrawStatus(CDC& dc, CRect& rcCol, CMatchFile* pFile, CQueryHit*
 	if ( ( bState = pHit ? pHit->m_bPush : pFile->m_bPush ) != FALSE )
 	{
 		CoolInterface.Draw( &dc, ( bState == TRI_TRUE ? IDI_FIREWALLED : IDI_TICK ), 16,
-			nPos, rcCol.top, crBack, bSelected );
+			nPos, rcCol.top, crBackMark, bSelected );
 	}
-	else
+	else if ( ! bSkinned )
 	{
 		dc.FillSolidRect( nPos, rcCol.top, 16, 16, crBack );
 	}
@@ -1188,9 +1233,9 @@ void CMatchCtrl::DrawStatus(CDC& dc, CRect& rcCol, CMatchFile* pFile, CQueryHit*
 	if ( ( bState = pHit ? pHit->m_bStable : pFile->m_bStable ) != FALSE )
 	{
 		CoolInterface.Draw( &dc, ( bState == TRI_TRUE ? IDI_TICK : IDI_UNSTABLE ), 16,
-			nPos, rcCol.top, crBack, bSelected );
+			nPos, rcCol.top, crBackMark, bSelected );
 	}
-	else
+	else if ( ! bSkinned )
 	{
 		dc.FillSolidRect( nPos, rcCol.top, 16, 16, crBack );
 	}
@@ -1200,8 +1245,8 @@ void CMatchCtrl::DrawStatus(CDC& dc, CRect& rcCol, CMatchFile* pFile, CQueryHit*
 	if ( nPos + 16 < rcCol.right )
 	{
 		if ( pHit ? pHit->m_bPreview : pFile->m_bPreview )
-			CoolInterface.Draw( &dc, IDI_PREVIEW, 16, nPos, rcCol.top, crBack, bSelected );
-		else
+			CoolInterface.Draw( &dc, IDI_PREVIEW, 16, nPos, rcCol.top, crBackMark, bSelected );
+		else if ( ! bSkinned )
 			dc.FillSolidRect( nPos, rcCol.top, 16, 16, crBack );
 
 		nPos += 16;
@@ -1210,8 +1255,8 @@ void CMatchCtrl::DrawStatus(CDC& dc, CRect& rcCol, CMatchFile* pFile, CQueryHit*
 	if ( nPos + 16 < rcCol.right && pHit )
 	{
 		if ( pHit->m_bBrowseHost )
-			CoolInterface.Draw( &dc, IDI_BROWSE, 16, nPos, rcCol.top, crBack, bSelected );
-		else
+			CoolInterface.Draw( &dc, IDI_BROWSE, 16, nPos, rcCol.top, crBackMark, bSelected );
+		else if ( ! bSkinned )
 			dc.FillSolidRect( nPos, rcCol.top, 16, 16, crBack );
 
 		nPos += 16;
@@ -1220,7 +1265,7 @@ void CMatchCtrl::DrawStatus(CDC& dc, CRect& rcCol, CMatchFile* pFile, CQueryHit*
 	if ( nPos + 16 < rcCol.right && pHit )
 	{
 		if ( pHit->m_bChat )
-			CoolInterface.Draw( &dc, IDR_CHATFRAME, 16,	nPos, rcCol.top, crBack, bSelected );
+			CoolInterface.Draw( &dc, IDR_CHATFRAME, 16,	nPos, rcCol.top, crBackMark, bSelected );
 		else
 			dc.FillSolidRect( nPos, rcCol.top, 16, 16, crBack );
 
@@ -1230,9 +1275,11 @@ void CMatchCtrl::DrawStatus(CDC& dc, CRect& rcCol, CMatchFile* pFile, CQueryHit*
 	dc.ExcludeClipRect( nLeft, rcCol.top, nPos, rcCol.top + 16 );
 }
 
-void CMatchCtrl::DrawRating(CDC& dc, CRect& rcCol, int nRating, BOOL bSelected, COLORREF crBack)
+void CMatchCtrl::DrawRating(CDC& dc, CRect& rcCol, int nRating, COLORREF crBack, BOOL bSelected, BOOL bSkinned )
 {
-	if ( nRating > 1 && nRating <= 6 )
+	COLORREF crBackMark = bSkinned ? -1 : crBack;
+
+	if ( nRating > 1 && nRating < 7 )
 	{
 		CPoint pt( rcCol.left, rcCol.top + 2 );
 
@@ -1249,7 +1296,7 @@ void CMatchCtrl::DrawRating(CDC& dc, CRect& rcCol, int nRating, BOOL bSelected, 
 		while ( nRating-- )
 		{
 			ImageList_DrawEx( m_pStars, 0, dc, pt.x, pt.y, 12, 12, crBack,
-				crBack, bSelected ? ILD_BLEND50 : ILD_NORMAL );
+				crBackMark, bSelected ? ILD_BLEND50 : ILD_NORMAL );
 			dc.ExcludeClipRect( pt.x, pt.y, pt.x + 12, pt.y + 12 );
 			pt.x += 12;
 		}
@@ -1257,25 +1304,27 @@ void CMatchCtrl::DrawRating(CDC& dc, CRect& rcCol, int nRating, BOOL bSelected, 
 	else if ( nRating == 1 && rcCol.Width() > 12 )
 	{
 		CPoint pt( ( rcCol.left + rcCol.right ) / 2 - 6, rcCol.top + 2 );
-		ImageList_DrawEx( m_pStars, 6, dc, pt.x, pt.y, 12, 12, crBack,
-			crBack, bSelected ? ILD_BLEND50 : ILD_NORMAL );
+		ImageList_DrawEx( m_pStars, 6, dc, pt.x, pt.y, 12, 12, crBackMark,
+			crBackMark, bSelected ? ILD_BLEND50 : ILD_NORMAL );
 		dc.ExcludeClipRect( pt.x, pt.y, pt.x + 12, pt.y + 12 );
 	}
 
-	dc.FillSolidRect( &rcCol, crBack );
+	if ( ! bSkinned )
+		dc.FillSolidRect( &rcCol, crBack );
 }
 
-void CMatchCtrl::DrawCountry(CDC& dc, CRect& rcCol, CString sCountry, BOOL bSelected, COLORREF crBack)
+void CMatchCtrl::DrawCountry(CDC& dc, CRect& rcCol, CString sCountry, COLORREF crBack, BOOL bSelected, BOOL bSkinned)
 {
 	int nFlagIndex = Flags.GetFlagIndex( sCountry );
 	// If the column is very narrow then don't draw the flag.
 	if ( nFlagIndex >= 0 && rcCol.Width() >= 20 )
 	{
 		CPoint pt( rcCol.left + 1, rcCol.top );
-		ImageList_DrawEx( Flags.m_pImage, nFlagIndex, dc,
-			pt.x, pt.y, 16, 16, crBack, crBack, bSelected ? ILD_BLEND50 : ILD_NORMAL );
+		ImageList_DrawEx( Flags.m_pImage, nFlagIndex, dc, pt.x, pt.y, 16, 16, 
+			( bSkinned ? -1 : crBack ), crBack, bSelected ? ILD_BLEND50 : ILD_NORMAL );
 		dc.ExcludeClipRect( pt.x, pt.y, pt.x + 16, pt.y + 16 );
-		dc.FillSolidRect( &rcCol, crBack );
+		if ( ! bSkinned )
+			dc.FillSolidRect( &rcCol, crBack );
 		rcCol.left += 17;
 	}
 }
@@ -1698,18 +1747,15 @@ void CMatchCtrl::OnLButtonUp(UINT /*nFlags*/, CPoint point)
 void CMatchCtrl::OnLButtonDblClk(UINT nFlags, CPoint point)
 {
 	if ( point.x < 16 )
-	{
 		OnLButtonDown( nFlags, point );
-	}
 	else
-	{
+		GetOwner()->PostMessage( WM_COMMAND, ID_SEARCH_DOWNLOAD );
+
 	//	CMatchFile* pFile	= NULL;
 	//	CQueryHit* pHit		= NULL;
 	//	CRect rcItem;
 	//	if ( HitTest( point, &pFile, &pHit, NULL, &rcItem ) )
 	//		// ToDo: Check if its on an action icon and take the appropriate action
-		GetOwner()->PostMessage( WM_COMMAND, ID_SEARCH_DOWNLOAD );
-	}
 }
 
 void CMatchCtrl::OnRButtonDown(UINT nFlags, CPoint point)

@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Hungarian Skin File -->
 
-<!-- Translation based on default-en.xml r50 -->
+<!-- Translation based on default-en.xml r52 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2794,7 +2794,6 @@
 	<string id="16080" value="Az Ütemező jelenleg kizárólagos G2 módban fut. Ki akarja ezt kapcsolni, hogy a többi hálózathoz is kapcsolódva maradhasson?"/>
 	<string id="16081" value="Keresési kérvény elküldése: &quot;%s&quot; ide: %s."/>
 	<string id="16083" value="A PC hub módba való kényszerítése negatívan befolyásolhatja a hálózati teljesítményt. Általában a legjobb, ha a PeerProject dönti el, hogy érdemes-e átkapcsolni vagy nem.\n\nHub módban nem kapsz jobb keresési eredményt, nem teszel szert előnyre.\n\nBiztos, hogy ezt akarja tenni?"/>
-	<string id="16084" value="A Gnutella1 kikapcsolása csökkentheti a találatok számát kereséskor és hub módban másokra is kihat ez a beállítás. Biztos, hogy ezt akarja tenni?"/>
 	<string id="16085" value="A Gnutella2 a PeerProject fő hálózata. Kikapcsolásával lecsökkenhet a találatok száma és minősége kereséskor. Biztos, hogy ezt akarja tenni?"/>
 	<string id="16087" value="A feltöltési sebesség túl alacsony a hálózat bekapcsolásához"/>
 	<string id="16128" value="Bejövő kapcsolat elfogadva: %s port %i."/>

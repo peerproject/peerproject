@@ -81,6 +81,6 @@ protected:
 		/* [out][in] */ TRISTATE __RPC_FAR *pbChecked);
 	virtual HRESULT STDMETHODCALLTYPE OnCommand( 
 		/* [in] */ UINT nCommandID);
-
 };
 
+OBJECT_ENTRY_AUTO(__uuidof(ImageViewerPlugin), CImageViewerPlugin)

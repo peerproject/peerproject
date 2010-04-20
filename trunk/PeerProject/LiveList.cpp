@@ -1,7 +1,7 @@
 //
 // LiveList.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -101,7 +101,7 @@ void CLiveList::Apply(CListCtrl* pCtrl, BOOL bSort)
 
 	for ( int nItem = 0 ; nItem < pCtrl->GetItemCount() ; nItem++ )
 	{
-		DWORD nParam		= (DWORD)pCtrl->GetItemData( nItem );
+		DWORD nParam = (DWORD)pCtrl->GetItemData( nItem );
 		CLiveItem* pItem;
 
 		if ( m_pItems.Lookup( nParam, pItem ) )
@@ -136,7 +136,8 @@ void CLiveList::Apply(CListCtrl* pCtrl, BOOL bSort)
 
 	m_pItems.RemoveAll();
 
-	if ( bModified && bSort ) Sort( pCtrl, -1 );
+	if ( bModified && bSort )
+		Sort( pCtrl, -1 );
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -144,15 +145,15 @@ void CLiveList::Apply(CListCtrl* pCtrl, BOOL bSort)
 
 IMPLEMENT_DYNAMIC( CLiveItem, CObject )
 
-CLiveItem::CLiveItem(int nColumns, DWORD_PTR nParam) :
-	m_bModified		( true ),
-	m_nModified		( 0xffffffff ),
-	m_pColumn		( new CString[ nColumns ] ),
-	m_nParam		( nParam ),
-	m_nImage		( 0 ),
-	m_nMaskOverlay	( 0 ),
-	m_nMaskState	( 0 ),
-	m_bOld			( false )
+CLiveItem::CLiveItem(int nColumns, DWORD_PTR nParam)
+	: m_bModified	( true )
+	, m_nModified	( 0xffffffff )
+	, m_pColumn		( new CString[ nColumns ] )
+	, m_nParam		( nParam )
+	, m_nImage		( 0 )
+	, m_nMaskOverlay ( 0 )
+	, m_nMaskState	( 0 )
+	, m_bOld		( false )
 {
 }
 
@@ -397,7 +398,8 @@ void CLiveList::Sort(CListCtrl* pCtrl, int nColumn, BOOL bGraphic)
 	}
 #endif
 
-	if ( nColumn ) pCtrl->SendMessage( LVM_SORTITEMS, (WPARAM)pCtrl, (LPARAM)SortCallback );
+	if ( nColumn )
+		pCtrl->SendMessage( LVM_SORTITEMS, (WPARAM)pCtrl, (LPARAM)SortCallback );
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -502,7 +504,7 @@ int CLiveList::SortProc(LPCTSTR sB, LPCTSTR sA, BOOL bNumeric)
 		}
 	}
 	if ( bNumeric || ( IsNumber( sA ) && IsNumber( sB ) ) )
-		{
+	{
 		double nA = 0, nB = 0;
 
 			if ( *sA == '(' || *sA == 'Q' )
@@ -542,7 +544,7 @@ BOOL CLiveList::IsNumber(LPCTSTR pszString)
 {
 	if ( ! *pszString ) return FALSE;
 
-	// TODO: Is this the best way to do this?
+	// ToDo: Is this the best way to do this?
 	if ( *pszString == '(' && _tcsstr( pszString, _T(" source") ) != NULL ) return TRUE;
 	if ( *pszString == 'Q' && _istdigit( pszString[1] ) ) return TRUE;
 
@@ -567,6 +569,7 @@ BOOL CLiveList::IsNumber(LPCTSTR pszString)
 		}
 		else if ( *pszString == '(' || *pszString == ')' )
 		{
+			// Do nothing?
 		}
 		else
 		{
@@ -701,8 +704,8 @@ CImageList* CLiveList::CreateDragImage(CListCtrl* pList, const CPoint& ptMouse)
 
 IMPLEMENT_DYNAMIC(CLiveListCtrl, CListCtrl)
 
-CLiveListCtrl::CLiveListCtrl() :
-	m_nColumns( 0 )
+CLiveListCtrl::CLiveListCtrl()
+	: m_nColumns	( 0 )
 {
 }
 
@@ -716,11 +719,9 @@ CLiveListCtrl::~CLiveListCtrl()
 }
 
 BEGIN_MESSAGE_MAP(CLiveListCtrl, CListCtrl)
-	ON_NOTIFY_REFLECT(LVN_GETDISPINFOW, OnLvnGetdispinfoW)
-	ON_NOTIFY_REFLECT(LVN_GETDISPINFOA, OnLvnGetdispinfoA)
-	ON_NOTIFY_REFLECT(LVN_ODFINDITEMW, OnLvnOdfinditemW)
-	ON_NOTIFY_REFLECT(LVN_ODFINDITEMA, OnLvnOdfinditemA)
-	ON_NOTIFY_REFLECT(LVN_ODCACHEHINT, OnLvnOdcachehint)
+	ON_NOTIFY_REFLECT(LVN_GETDISPINFOW, OnLvnGetDispInfo)
+	ON_NOTIFY_REFLECT(LVN_ODFINDITEMW, OnLvnOdFindItem)
+	ON_NOTIFY_REFLECT(LVN_ODCACHEHINT, OnLvnOdCacheHint)
 END_MESSAGE_MAP()
 
 BOOL CLiveListCtrl::Create(DWORD dwStyle, const RECT& rect, CWnd* pParentWnd, UINT nID, int nColumns)
@@ -867,7 +868,7 @@ UINT CLiveListCtrl::GetItemOverlayMask(int nItem) const
 		m_pIndex[ nItem ]->m_nMaskOverlay : 0;
 }
 
-void CLiveListCtrl::OnLvnGetdispinfoW(NMHDR *pNMHDR, LRESULT *pResult)
+void CLiveListCtrl::OnLvnGetDispInfo(NMHDR *pNMHDR, LRESULT *pResult)	// OnLvnGetDispInfoW/OnLvnGetDispInfoA
 {
 	NMLVDISPINFO *pDispInfo = reinterpret_cast<NMLVDISPINFO*>(pNMHDR);
 
@@ -882,60 +883,22 @@ void CLiveListCtrl::OnLvnGetdispinfoW(NMHDR *pNMHDR, LRESULT *pResult)
 			pDispInfo->item.cchTextMax );
 	}
 
-	if ( pDispInfo->item.mask & LVIF_IMAGE )
-	{
-		pDispInfo->item.iImage = pItem->m_nImage;
-	}
-
 	if ( pDispInfo->item.mask & LVIF_STATE )
 	{
 		pDispInfo->item.state = INDEXTOOVERLAYMASK( pItem->m_nMaskOverlay ) |
 			INDEXTOSTATEIMAGEMASK( pItem->m_nMaskState );
 	}
 
-	if ( pDispInfo->item.mask & LVFI_PARAM )
-	{
-		pDispInfo->item.lParam = pItem->m_nParam;
-	}
-
-	*pResult = 0;
-}
-
-void CLiveListCtrl::OnLvnGetdispinfoA(NMHDR *pNMHDR, LRESULT *pResult)
-{
-	NMLVDISPINFO *pDispInfo = reinterpret_cast<NMLVDISPINFO*>(pNMHDR);
-
-	ASSERT( pDispInfo->item.iItem >= 0 && pDispInfo->item.iItem < (int)m_pIndex.size() );
-
-	CLiveItemPtr pItem = m_pIndex[ pDispInfo->item.iItem ];
-
-	if ( pDispInfo->item.mask & LVIF_TEXT )
-	{
-		lstrcpynA( (LPSTR)pDispInfo->item.pszText,
-			(LPCSTR)CT2A( pItem->m_pColumn[ pDispInfo->item.iSubItem ] ),
-			pDispInfo->item.cchTextMax );
-	}
-
 	if ( pDispInfo->item.mask & LVIF_IMAGE )
-	{
 		pDispInfo->item.iImage = pItem->m_nImage;
-	}
-
-	if ( pDispInfo->item.mask & LVIF_STATE )
-	{
-		pDispInfo->item.state = INDEXTOOVERLAYMASK( pItem->m_nMaskOverlay ) |
-			INDEXTOSTATEIMAGEMASK( pItem->m_nMaskState );
-	}
 
 	if ( pDispInfo->item.mask & LVFI_PARAM )
-	{
 		pDispInfo->item.lParam = pItem->m_nParam;
-	}
 
 	*pResult = 0;
 }
 
-void CLiveListCtrl::OnLvnOdfinditemW(NMHDR *pNMHDR, LRESULT *pResult)
+void CLiveListCtrl::OnLvnOdFindItem(NMHDR *pNMHDR, LRESULT *pResult)	// OnLvnOdFindItemW/OnLvnOdFindItemA
 {
 	LPNMLVFINDITEM pFindInfo = reinterpret_cast<LPNMLVFINDITEM>(pNMHDR);
 	UNUSED_ALWAYS( pFindInfo );
@@ -943,15 +906,7 @@ void CLiveListCtrl::OnLvnOdfinditemW(NMHDR *pNMHDR, LRESULT *pResult)
 	*pResult = 0;
 }
 
-void CLiveListCtrl::OnLvnOdfinditemA(NMHDR *pNMHDR, LRESULT *pResult)
-{
-	LPNMLVFINDITEM pFindInfo = reinterpret_cast<LPNMLVFINDITEM>(pNMHDR);
-	UNUSED_ALWAYS( pFindInfo );
-
-	*pResult = 0;
-}
-
-void CLiveListCtrl::OnLvnOdcachehint(NMHDR *pNMHDR, LRESULT *pResult)
+void CLiveListCtrl::OnLvnOdCacheHint(NMHDR *pNMHDR, LRESULT *pResult)
 {
 	LPNMLVCACHEHINT pCacheHint = reinterpret_cast<LPNMLVCACHEHINT>(pNMHDR);
 	UNUSED_ALWAYS( pCacheHint );

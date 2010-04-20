@@ -1,8 +1,7 @@
 //
 // Colors.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2009
-// Portions Copyright Shareaza Development Team, 2002-2008.
+// This file is part of PeerProject (peerproject.org) © 2009-2010
 //
 // PeerProject is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -58,8 +57,9 @@ void CColors::CalculateColors(BOOL bCustom)
 		m_crMidtone				= GetSysColor( COLOR_BTNFACE );
 		m_crText				= GetSysColor( COLOR_WINDOWTEXT );
 		m_crHiText				= GetSysColor( COLOR_HIGHLIGHTTEXT );
-		m_crHiBorder			= GetSysColor( COLOR_HIGHLIGHT );
 		m_crHighlight			= GetSysColor( COLOR_HIGHLIGHT );
+		m_crHiBorder			= GetSysColor( COLOR_HIGHLIGHT );
+		m_crHiBorderIn			= NULL;
 	}
 
 	m_crBackNormal				= CalculateColor( m_crMidtone, m_crWindow, 215 );

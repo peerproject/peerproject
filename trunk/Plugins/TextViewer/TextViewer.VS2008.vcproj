@@ -34,9 +34,6 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				Description="Registering ActiveX Control..."
-				CommandLine="regsvr32 /s /c &quot;$(TargetPath)&quot;&#x0D;&#x0A;echo regsvr32 exec. time &gt; &quot;$(OutDir)\regsvr32.trg&quot;&#x0D;&#x0A;"
-				Outputs="$(OutDir)\regsvr32.trg"
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
@@ -112,6 +109,8 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
+				Description="Performing registration  (for debugging)"
+				CommandLine="regsvr32 /s /c &quot;$(TargetPath)&quot;&#x0D;&#x0A;echo regsvr32 exec. time &gt; &quot;$(OutDir)\regsvr32.trg&quot;&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
@@ -129,9 +128,6 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				Description="Registering ActiveX Control..."
-				CommandLine="regsvr32 /s /c &quot;$(TargetPath)&quot;&#x0D;&#x0A;echo regsvr32 exec. time &gt; &quot;$(OutDir)\regsvr32.trg&quot;&#x0D;&#x0A;"
-				Outputs="$(OutDir)\regsvr32.trg"
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
@@ -205,6 +201,8 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
+				Description="Performing registration (for debugging)"
+				CommandLine="regsvr32 /s /c &quot;$(TargetPath)&quot;&#x0D;&#x0A;echo regsvr32 exec. time &gt; &quot;$(OutDir)\regsvr32.trg&quot;&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
@@ -223,9 +221,6 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				Description="Registering ActiveX Control..."
-				CommandLine="regsvr32 /s /c &quot;$(TargetPath)&quot;&#x0D;&#x0A;echo regsvr32 exec. time &gt; &quot;$(OutDir)\regsvr32.trg&quot;&#x0D;&#x0A;"
-				Outputs="$(OutDir)\regsvr32.trg"
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
@@ -329,9 +324,6 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				Description="Registering ActiveX Control..."
-				CommandLine="regsvr32 /s /c &quot;$(TargetPath)&quot;&#x0D;&#x0A;echo regsvr32 exec. time &gt; &quot;$(OutDir)\regsvr32.trg&quot;&#x0D;&#x0A;"
-				Outputs="$(OutDir)\regsvr32.trg"
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"

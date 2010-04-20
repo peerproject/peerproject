@@ -110,7 +110,6 @@ BOOL CUploadTransferHTTP::OnRead()
 
 	case upsHeaders:
 		return ReadHeaders();
-
 	}
 
 	return TRUE;
@@ -940,7 +939,6 @@ BOOL CUploadTransferHTTP::QueueRequest()
 			theApp.Message( MSG_INFO, IDS_UPLOAD_QUEUED, (LPCTSTR)m_sName,
 				(LPCTSTR)m_sAddress, nPosition, m_pQueue->GetQueuedCount(),
 				(LPCTSTR)strName );
-
 		}
 
 		pLock.Unlock();
@@ -1305,7 +1303,6 @@ BOOL CUploadTransferHTTP::OnRun()
 			return FALSE;
 		}
 		break;
-
 	}
 
 	return TRUE;
@@ -1713,6 +1710,13 @@ BOOL CUploadTransferHTTP::RequestHostBrowse()
 				pAvatar->ToBuffer( &pBuffer );
 				pAvatar->Release();
 			}
+		}
+
+		if ( Settings.Community.ChatEnable )
+		{
+			CG2Packet* pChat = CG2Packet::New( G2_PACKET_PEER_CHAT );
+			pChat->ToBuffer( &pBuffer );
+			pChat->Release();
 		}
 	}
 

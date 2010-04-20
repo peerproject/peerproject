@@ -105,18 +105,18 @@ END_MESSAGE_MAP()
 // CLibraryTreeView construction
 
 CLibraryTreeView::CLibraryTreeView()
-	: m_pRoot( new CLibraryTreeItem() )
-	, m_nTotal( 0 )
-	, m_nVisible( 0 )
-	, m_nScroll( 0 )
-	, m_nSelected( 0 )
+	: m_pRoot		( new CLibraryTreeItem() )
+	, m_nTotal		( 0 )
+	, m_nVisible	( 0 )
+	, m_nScroll 	( 0 )
+	, m_nSelected	( 0 )
 	, m_nCleanCookie( 0 )
-	, m_pSelFirst( NULL )
-	, m_pSelLast( NULL )
-	, m_pFocus( NULL )
-	, m_pDropItem( NULL )
-	, m_bVirtual( -1 )
-	, m_bDrag( FALSE )
+	, m_pSelFirst	( NULL )
+	, m_pSelLast	( NULL )
+	, m_pFocus		( NULL )
+	, m_pDropItem	( NULL )
+	, m_bVirtual	( -1 )
+	, m_bDrag		( FALSE )
 {
 	m_pRoot->m_bExpanded = TRUE;
 }
@@ -1212,7 +1212,7 @@ void CLibraryTreeItem::Paint(CDC& dc, CRect& rc, BOOL bTarget, COLORREF crBack) 
 		dc.GetWindow()->ScreenToClient( &ptHover );
 
 	if ( crBack == CLR_NONE ) crBack = Colors.m_crWindow;
-	dc.FillSolidRect( rc.left, rc.top, 32, 17, crBack );
+	dc.FillSolidRect( rc.left, rc.top, 33, 17, crBack );
 
 	if ( !empty() )
 	{
@@ -1245,16 +1245,22 @@ void CLibraryTreeItem::Paint(CDC& dc, CRect& rc, BOOL bTarget, COLORREF crBack) 
 	crBack = ( m_bSelected || bTarget ) ? Colors.m_crHighlight : crBack;
 	COLORREF crText = ( m_bSelected || bTarget ) ? Colors.m_crHiText : Colors.m_crText;
 
-	dc.SetTextColor( crText );
-	dc.SetBkColor( crBack );
-	dc.SetBkMode( OPAQUE );
+	BOOL bSelectmark = ( m_bSelected || bTarget ) && ( Skin.m_bmSelected.m_hObject != NULL );
 
-	rc.left += 32;
+	rc.left += 33;
+	dc.SetTextColor( crText );
+	dc.SetBkColor( bSelectmark ? CLR_NONE : crBack );
+	dc.SetBkMode( bSelectmark ? TRANSPARENT : OPAQUE );
+	
+	if ( bSelectmark )
+		CoolInterface.DrawWatermark( &dc, &rc, &Skin.m_bmSelected );
+
 	CString strName = m_sText;
 	if ( Settings.General.LanguageRTL ) strName = _T("\x202A") + strName;
-	dc.ExtTextOut( rc.left + 3, rc.top + 1, ETO_OPAQUE|ETO_CLIPPED, &rc,
-		strName, NULL );
-	rc.left -= 32;
+	dc.ExtTextOut( rc.left + 2, rc.top + 1,
+		ETO_CLIPPED|( bSelectmark ? 0 : ETO_OPAQUE ),
+		&rc, strName, NULL );
+	rc.left -= 33;
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -1631,9 +1637,7 @@ void CLibraryTreeView::OnLibraryParent()
 	CLibraryTreeItem* pNew = NULL;
 
 	if ( m_nSelected == 1 && m_pSelFirst->parent() != m_pRoot )
-	{
 		pNew = m_pSelFirst->parent();
-	}
 
 	DeselectAll( pNew );
 
@@ -2004,8 +2008,7 @@ void CLibraryTreeView::OnUpdateLibraryExportCollection(CCmdUI *pCmdUI)
 	BOOL bAllowExport = TRUE;
 
 	// Allow max 1000 files to be parsed and do not export from Ghost or Collection folder
-	if ( ! m_pSelFirst ||
-		 ! m_pSelFirst->m_pVirtual ||
+	if ( ! m_pSelFirst || ! m_pSelFirst->m_pVirtual ||
 		m_pSelFirst->m_pVirtual->GetFileCount() == 0 ||
 		m_pSelFirst->m_pVirtual->GetFileCount() > 1000 ||
 		CheckURI( m_pSelFirst->m_pVirtual->m_sSchemaURI, CSchema::uriGhostFolder ) ||

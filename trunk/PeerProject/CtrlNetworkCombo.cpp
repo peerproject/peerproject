@@ -1,7 +1,7 @@
 //
 // CtrlNetworkCombo.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -156,17 +156,26 @@ void CNetworkCombo::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 	dc.SetTextColor( ( lpDrawItemStruct->itemState & ODS_SELECTED )
 		? Colors.m_crHiText : Colors.m_crText );
 
-	/*dc.FillSolidRect( &rcItem, GetSysColor( ( lpDrawItemStruct->itemState & ODS_SELECTED )
-			? COLOR_HIGHLIGHT : COLOR_WINDOW ) );*/
+	//dc.FillSolidRect( &rcItem, GetSysColor( ( lpDrawItemStruct->itemState & ODS_SELECTED )
+	//	? COLOR_HIGHLIGHT : COLOR_WINDOW ) );
 	if ( IsWindowEnabled() )
 	{
 		if ( lpDrawItemStruct->itemState & ODS_SELECTED )
-			dc.FillSolidRect( &rcItem, Colors.m_crHighlight );
+		{
+			if ( Skin.m_bmSelected.m_hObject )
+				CoolInterface.DrawWatermark( &dc, &rcItem, &Skin.m_bmSelected );
+			else
+				dc.FillSolidRect( &rcItem, Colors.m_crHighlight );
+		}
 		else
+		{
 			dc.FillSolidRect( &rcItem, Colors.m_crWindow );
+		}
 	}
-	else
-		dc.FillSolidRect( &rcItem, Colors.m_crWindow /*GetBkColor(lpDrawItemStruct->hDC)*/ );
+	else // Disabled
+	{
+		dc.FillSolidRect( &rcItem, Colors.m_crWindow ); 	// GetBkColor(lpDrawItemStruct->hDC)
+	}
 
 	dc.SetBkMode( TRANSPARENT );
 

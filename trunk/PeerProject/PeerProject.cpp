@@ -1356,18 +1356,20 @@ BOOL CPeerProjectApp::InternalURI(LPCTSTR pszURI)
 				strURI.Find( _T("mailto:") ) == 0 ||
 				strURI.Find( _T("aim:") ) == 0 ||
 				strURI.Find( _T("magnet:") ) == 0 ||
-				strURI.Find( _T("foxy:") ) == 0 ||
 				strURI.Find( _T("gnutella:") ) == 0 ||
+				strURI.Find( _T("gnutella1:") ) == 0 ||
+				strURI.Find( _T("gnutella2:") ) == 0 ||
 				strURI.Find( _T("shareaza:") ) == 0 ||
 				strURI.Find( _T("peerproject:") ) == 0 ||
+				strURI.Find( _T("peer:") ) == 0 ||
+				strURI.Find( _T("ed2k:") ) == 0 ||
+				strURI.Find( _T("g2:") ) == 0 ||
 				strURI.Find( _T("gwc:") ) == 0 ||
 				strURI.Find( _T("uhc:") ) == 0 ||
 				strURI.Find( _T("ukhl:") ) == 0 ||
 				strURI.Find( _T("gnet:") ) == 0 ||
-				strURI.Find( _T("gnutella1:") ) == 0 ||
-				strURI.Find( _T("gnutella2:") ) == 0 ||
 				strURI.Find( _T("mp2p:") ) == 0 ||
-				strURI.Find( _T("ed2k:") ) == 0 ||
+				strURI.Find( _T("foxy:") ) == 0 ||
 				strURI.Find( _T("sig2dat:") ) == 0 )
 	{
 		ShellExecute( pMainWnd->GetSafeHwnd(), _T("open"), strURI,
@@ -2355,6 +2357,8 @@ void DeleteFiles(CStringList& pList)
 			DeleteFileEx( strPath, TRUE, bToRecycleBin, TRUE );
 		}
 	}
+
+	// ToDo: Delete Empty Folder (for BitTorrent Multifiles)
 }
 
 BOOL DeleteFileEx(LPCTSTR szFileName, BOOL bShared, BOOL bToRecycleBin, BOOL bEnableDelayed)
