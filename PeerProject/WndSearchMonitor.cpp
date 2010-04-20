@@ -159,7 +159,7 @@ void CSearchMonitorWnd::OnSearchMonitorSearch()
 		CQuerySearchPtr pSearch = new CQuerySearch();
 		pSearch->m_sSearch = m_wndList.GetItemText( nItem, 0 );
 
-		if ( pSearch->m_sSearch.GetLength() == 0 ||
+		if ( pSearch->m_sSearch.IsEmpty() ||
 			 _tcscmp( pSearch->m_sSearch, _T("\\") ) == 0 )
 		{
 			pSearch->m_sSearch = m_wndList.GetItemText( nItem, 1 );

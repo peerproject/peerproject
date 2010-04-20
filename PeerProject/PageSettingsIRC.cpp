@@ -1,7 +1,7 @@
 //
 // PageSettingsIRC.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2005-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -123,7 +123,7 @@ BOOL CIRCSettingsPage::OnInitDialog()
 	m_sScreenFont = Settings.IRC.ScreenFont;
 	m_sFontSize.Format( _T("%i"), Settings.IRC.FontSize );
 	m_wndFonts.SubclassDlgItem( IDC_IRC_TEXTFONT, this );
-	m_wndFontSizeSpin.SetRange( 0, 50 );
+	m_wndFontSizeSpin.SetRange( 6, 50 );
 
 	UpdateData( FALSE );
 

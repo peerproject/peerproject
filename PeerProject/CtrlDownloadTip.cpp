@@ -592,10 +592,10 @@ void CDownloadTipCtrl::PrepareDownloadInfo(CDownload* pDownload)
 	{
 		m_sURL = pDownload->m_pTorrent.GetTrackerAddress();
 
-		if ( m_pDownload->m_pTorrent.ScrapeTracker() )
+		if ( pDownload->m_pTorrent.ScrapeTracker() )
 		{
-			m_sSeedsPeers.Format( _T("   ( %i seeds %i peers )"),	// ToDo: Translation ?
-				m_pDownload->m_pTorrent.m_nTrackerSeeds, m_pDownload->m_pTorrent.m_nTrackerPeers );
+			m_sSeedsPeers.Format( _T("   ( %u seeds %u peers )"),	// ToDo: Translation ?
+				pDownload->m_pTorrent.m_nTrackerSeeds, pDownload->m_pTorrent.m_nTrackerPeers );
 		}
 	}
 
@@ -669,7 +669,7 @@ void CDownloadTipCtrl::PrepareDownloadInfo(CDownload* pDownload)
 	//}
 }
 
-void CDownloadTipCtrl::PrepareFileInfo(CPeerProjectFile* pDownload)
+void CDownloadTipCtrl::PrepareFileInfo(CDownload* pDownload)	// CPeerProjectFile
 {
 	m_sName = pDownload->m_sName;
 	m_sSize = Settings.SmartVolume( pDownload->m_nSize );
@@ -680,13 +680,22 @@ void CDownloadTipCtrl::PrepareFileInfo(CPeerProjectFile* pDownload)
 	m_sTiger.Empty();
 	m_sED2K.Empty();
 	m_sBTH.Empty();
-	m_sURL.Empty();
 	m_sMD5.Empty();
+	m_sURL.Empty();
 
 	int nPeriod = m_sName.ReverseFind( '.' );
 
 	m_sType.Empty();
 	m_nIcon = 0;
+
+	if ( pDownload->IsTorrent() && ! pDownload->IsSingleFileTorrent() )
+	{
+		// Special-case multifile icon handling
+		m_sType.Format( ( Settings.General.Language.Left(2) == _T("en") ?		// ToDo: Translate properly (generic IDS_FILES)
+			_T("BitTorrent  ( %u files )") : _T("BitTorrent (%u)") ), pDownload->m_pTorrent.GetCount() );
+		m_nIcon = ShellIcons.Get( _T(".torrent"), 32 );			// ToDo: IDI_MULTIFILE
+		return;
+	}
 
 	if ( nPeriod > 0 )
 	{
@@ -700,7 +709,7 @@ void CDownloadTipCtrl::PrepareFileInfo(CPeerProjectFile* pDownload)
 		{
 			m_sType = strName;
 			if ( strMime.GetLength() )
-				m_sType += _T(" (") + strMime + _T(")");
+				m_sType += _T("  (") + strMime + _T(")");
 		}
 		else
 		{

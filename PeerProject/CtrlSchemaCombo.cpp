@@ -224,17 +224,26 @@ void CSchemaCombo::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 
 	if ( pSchema != NULL )
 	{
-		//dc.FillSolidRect( &rcItem,
-		//	GetSysColor( ( lpDrawItemStruct->itemState & ODS_SELECTED ) ? COLOR_HIGHLIGHT : COLOR_WINDOW ) );
+		//dc.FillSolidRect( &rcItem, GetSysColor( ( lpDrawItemStruct->itemState & ODS_SELECTED )
+		//	? COLOR_HIGHLIGHT : COLOR_WINDOW ) );
 		if ( IsWindowEnabled() )
 		{
 			if ( lpDrawItemStruct->itemState & ODS_SELECTED )
-				dc.FillSolidRect( &rcItem, Colors.m_crHighlight );
+			{
+				if ( Skin.m_bmSelected.m_hObject )
+					CoolInterface.DrawWatermark( &dc, &rcItem, &Skin.m_bmSelected );
+				else
+					dc.FillSolidRect( &rcItem, Colors.m_crHighlight );
+			}
 			else
+			{
 				dc.FillSolidRect( &rcItem, Colors.m_crDropdownBox );
+			}
 		}
-		else
+		else // Disabled
+		{
 			dc.FillSolidRect( &rcItem, GetBkColor(lpDrawItemStruct->hDC) );
+		}
 
 		dc.SetBkMode( TRANSPARENT );
 
@@ -277,12 +286,21 @@ void CSchemaCombo::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 		if ( IsWindowEnabled() )
 		{
 			if ( lpDrawItemStruct->itemState & ODS_SELECTED )
-				dc.FillSolidRect( &rcItem, Colors.m_crHighlight );
+			{
+				if ( Skin.m_bmSelected.m_hObject )
+					CoolInterface.DrawWatermark( &dc, &rcItem, &Skin.m_bmSelected );
+				else
+					dc.FillSolidRect( &rcItem, Colors.m_crHighlight );
+			}
 			else
+			{
 				dc.FillSolidRect( &rcItem, Colors.m_crDropdownBox );
+			}
 		}
-		else
+		else // Disabled
+		{
 			dc.FillSolidRect( &rcItem, GetBkColor(lpDrawItemStruct->hDC) );
+		}
 		dc.SetBkMode( TRANSPARENT );
 
 		CoolInterface.Draw( &dc, IDR_SEARCHFRAME, 16,

@@ -122,8 +122,8 @@ int CUploadsWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	m_wndUploads.Create( this, IDC_UPLOADS );
 
-	//if ( ! theApp.m_bIsWin2000 )
-	//	m_wndUploads.ModifyStyleEx( 0, WS_EX_COMPOSITED );	// Stop rare flicker XP+, CPU intensive?
+	if ( ! theApp.m_bIsWin2000 )
+		m_wndUploads.ModifyStyleEx( 0, WS_EX_COMPOSITED );	// Stop flicker XP+, CPU intensive!
 
 	if ( ! m_wndToolBar.Create( this, WS_CHILD|WS_VISIBLE|CBRS_NOALIGN, AFX_IDW_TOOLBAR ) ) return -1;
 	m_wndToolBar.SetBarStyle( m_wndToolBar.GetBarStyle() | CBRS_TOOLTIPS | CBRS_BORDER_TOP );

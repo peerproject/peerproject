@@ -572,7 +572,7 @@ void CSettings::Load()
 	Add( _T("IRC"), _T("UserName"), &IRC.UserName, _T("PeerIRC") );
 	Add( _T("IRC"), _T("RealName"), &IRC.RealName, _T("PeerIRC") );
 	Add( _T("IRC"), _T("ScreenFont"), &IRC.ScreenFont );
-	Add( _T("IRC"), _T("FontSize"), &IRC.FontSize, 0, 1, 0, 50 );
+	Add( _T("IRC"), _T("FontSize"), &IRC.FontSize, 12, 1, 6, 50 );
 	Add( _T("IRC"), _T("OnConnect"), &IRC.OnConnect, _T("") );
 	Add( _T("IRC"), _T("Updated"), &IRC.Updated, FALSE );
 

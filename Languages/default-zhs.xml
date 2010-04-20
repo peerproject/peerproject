@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Chinese (Simplified) Skin File -->
 
-<!-- Translation based on default-en.xml r50 (Shareaza r6092) -->
+<!-- Translation based on default-en.xml r52 (Shareaza r6092) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2649,7 +2649,6 @@
 	<string id="16079" value="您确定要断开连接吗？"/>
 	<string id="16081" value="为 &quot;%s&quot; 发送查询到 %s。"/>
 	<string id="16083" value="强制您的电脑进入集端模式可能会对机器性能以及 P2P 网络产生负面效用。总体来说更好的方法是让 PeerProject 决定是否使用结端模式。\n\nHub 模式并不会对您产生更好的搜索效果，或是任何其他的优越性。\n\n尽管存在这些缺点，您还是想这样做吗？"/>
-	<string id="16084" value="禁用 Gnutella1 协议可能会限制您的搜索结果，并且如果您作为集端它可能还会影响到其他用户的结果。您确定要这样做吗？"/>
 	<string id="16085" value="Gnutella2 是 PeerProject 的首要网络。停止支持它可能会严重影响您搜索结果的数量和质量。您确定要这样做吗？"/>
 	<string id="16087" value="您的传出带宽太低而无法启用此网络"/>
 	<string id="16128" value="接受来自 %s 主机 %i 端口的进入连接。"/>

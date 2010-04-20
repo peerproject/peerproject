@@ -388,8 +388,8 @@ BOOL CHostCacheList::Add(LPCTSTR pszHost, DWORD tSeen, LPCTSTR pszVendor, DWORD 
 	return ( Add( (IN_ADDR*)&nAddress, (WORD)nPort, tSeen, pszVendor, nUptime, nCurrentLeaves, nLeafLimit ) != NULL );
 }
 
-// This function actually adds the remote client to the host cache. Private,
-// but used by the public functions. No security checking, etc.
+// This function actually adds the remote client to the host cache.
+// Private, but used by the public functions.  No security checking, etc.
 CHostCacheHostPtr CHostCacheList::AddInternal(const IN_ADDR* pAddress, WORD nPort,
 											DWORD tSeen, LPCTSTR pszVendor, DWORD nUptime, DWORD nCurrentLeaves, DWORD nLeafLimit)
 {
@@ -604,14 +604,9 @@ void CHostCacheList::PruneOldHosts()
 
 		bool bRemove = false;
 
-		// Since we discard hosts after 3 failures, it means that we will remove:
-		// Hosts with DU less than 8 hours with no failures when they expire
-		// Hosts with DU less than 16 hours with 1 failure
-		// Hosts with DU less than 24 hours with 2 failures
-		if ( ! pHost->m_bPriority && pHost->IsExpired( tNow ) &&
-			( pHost->m_nProtocol != PROTOCOL_G1 ||
-			(float)pHost->m_nDailyUptime /
-			( 24 * 60 * 60 * ( pHost->m_nFailures + 1 ) ) < .333 ) )
+		// Discard hosts after repeat failures
+		if ( ! pHost->m_bPriority && ( pHost->IsExpired( tNow )
+			|| pHost->m_nFailures > Settings.Connection.FailureLimit ) )
 		{
 			bRemove = true;
 		}
@@ -619,7 +614,6 @@ void CHostCacheList::PruneOldHosts()
 			tNow - pHost->m_tAck > Settings.Gnutella2.QueryHostDeadline )
 		{
 			// Query acknowledgment prune (G2)
-
 			pHost->m_tAck = 0;
 			if ( pHost->m_nFailures++ > Settings.Connection.FailureLimit )
 				bRemove = true;
@@ -691,7 +685,7 @@ void CHostCacheList::Serialize(CArchive& ar, int nVersion)
 			pHost->Serialize( ar, nVersion );
 		}
 	}
-	else
+	else // Loading
 	{
 		DWORD_PTR nCount = ar.ReadCount();
 		for ( DWORD_PTR nItem = 0 ; nItem < nCount; nItem++ )
@@ -1093,22 +1087,22 @@ void CHostCacheHost::Serialize(CArchive& ar, int /*nVersion*/)
 		//}
 		//else if ( nVersion >= 7 )
 		//{
-			ar >> m_sName;
-			if ( m_sName.GetLength() )
-			{
-				ar >> m_sDescription;
-				ar >> m_nUserCount;
-				//if ( nVersion >= 8 )
-					ar >> m_nUserLimit;
-				//if ( nVersion >= 9 )
-					ar >> m_bPriority;
-				//if ( nVersion >= 10 )
-				//{
-					ar >> m_nFileLimit;
-					ar >> m_nTCPFlags;
-					ar >> m_nUDPFlags;
-				//}
-			}
+		//	ar >> m_sName;
+		//	if ( m_sName.GetLength() )
+		//	{
+		//		ar >> m_sDescription;
+		//		ar >> m_nUserCount;
+		//		//if ( nVersion >= 8 )
+		//			ar >> m_nUserLimit;
+		//		//if ( nVersion >= 9 )
+		//			ar >> m_bPriority;
+		//		//if ( nVersion >= 10 )
+		//		//{
+		//			ar >> m_nFileLimit;
+		//			ar >> m_nTCPFlags;
+		//			ar >> m_nUDPFlags;
+		//		//}
+		//	}
 		//}
 
 		ar >> m_nKeyValue;
@@ -1129,10 +1123,9 @@ void CHostCacheHost::Serialize(CArchive& ar, int /*nVersion*/)
 			ar >> m_bCheckedLocally;
 			ar >> m_nDailyUptime;
 		//}
+
 		//if ( nVersion >= 14 )
-		//{
 			ar >> m_sCountry;
-		//}
 		//else
 		//	m_sCountry = theApp.GetCountryCode( m_pAddress );
 
@@ -1152,9 +1145,7 @@ void CHostCacheHost::Serialize(CArchive& ar, int /*nVersion*/)
 		//}
 
 		//if ( nVersion >= 17 )
-		//{
 			ar >> m_tConnect;
-		//}
 	}
 }
 

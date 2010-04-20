@@ -201,6 +201,8 @@ BOOL CDownloadTransferFTP::OnConnected()
 
 BOOL CDownloadTransferFTP::StartNextFragment()
 {
+	//ASSUME_LOCK( Transfers.m_pSection );
+
 	ASSERT( this != NULL );
 	if ( this == NULL ) return FALSE;
 
@@ -242,7 +244,7 @@ BOOL CDownloadTransferFTP::StartNextFragment()
 	}
 	else
 	{
-		if ( m_pSource != NULL )
+		if ( m_pSource )
 			m_pSource->SetAvailableRanges( NULL );
 		theApp.Message( MSG_INFO, IDS_DOWNLOAD_FRAGMENT_END, (LPCTSTR)m_sAddress );
 		Close();

@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Polish Skin File -->
 
-<!-- Translation based on default-en.xml r50 (Shareaza 2.1.2.7) -->
+<!-- Translation based on default-en.xml r52 (Shareaza 2.1.2.7) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2574,7 +2574,6 @@
 	<string id="16080" value="Używasz narzędzia Scheduler w trybie 'tylko G2' mode. Czy chciałbyś wyłączyć ten tryb, żeby wszystkie aktywne sieci pozostały połączone?"/>
 	<string id="16081" value="Wyśli sprostowanie &quot;%s&quot; do %s."/>
 	<string id="16083" value="Zmuszanie Twojego komputera do pracy w trybie hub może mieć szkodliwy wpływ na wydajność sieci P2P. Generalnie lepiej pozwolić PeerProjecte zdecydować czy używać trybu hub lub nie. Tryb \n\nHub NIE powoduje uzyskania lepszych rezultatów szukania ani żadnych innych korzyści dla Ciebie.\n\nDo czy napewno chcesz to zrobić, pomimo tych niekorzyści?"/>
-	<string id="16084" value="Wyłączając wsparcie dla protokołów Gnutelli-1 może zmniejszyć wyniki szukania, a jeżeli funkcjonujesz jako hub to zmiana wpłynie także na innych użytkowników sieci. Jesteś pewien, że chcesz to zrobić?"/>
 	<string id="16085" value="Gnutella 2 jest podstawową siecią PeerProject. Wyłączenie wsparcia dla niej może dotkliwie ograniczyć zarówno liczbę jak jakość Twoich wyników wyszukiwania. Czy jseteś PEWIEN że chcesz to zrobić?"/>
 	<string id="16087" value="Szerokość Twojego pasma połączenia wychodzacego jest za mała aby umożliwić połączyć się z tą siecią."/>
 	<string id="16128" value="Zakceptowano przychodzące połączenie od %s port %i."/>
@@ -2712,13 +2711,13 @@
 	<string id="16997" value="There is no file playing.  Double-click a media file in your library to play it."/>
 	<string id="16998" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
 	<string id="16999" value="Lista Odtwarzania:"/>
-	<string id="17016" value="Witamy w Czacie PeerProject!"/>
-	<string id="17017" value="Proszę szanować innych podczas korzystania z tej usługi"/>
-	<string id="17018" value="Czat:"/>
+	<string id="17015" value="Witamy w Czacie PeerProject!"/>
+	<string id="17016" value="Proszę szanować innych podczas korzystania z tej usługi"/>
+	<string id="17017" value="Czat:"/>
+	<string id="17018" value="Użytkownicy"/>
+	<string id="17019" value="Kanały"/>
 	<string id="17020" value="Dodaj"/>
 	<string id="17021" value="Usuń"/>
-	<string id="17022" value="Użytkownicy"/>
-	<string id="17023" value="Kanały"/>
 	<string id="17024" value="Inicjalizacja połączenia z %s..."/>
 	<string id="17025" value="Nie można było utworzyć połączenia z %s."/>
 	<string id="17026" value="Requesting a firewalled push connection from %s..."/>

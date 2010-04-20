@@ -1,7 +1,7 @@
 //
 // CtrlBrowseTree.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -106,9 +106,7 @@ void CBrowseTreeCtrl::Clear(BOOL bGUI)
 	m_pFocus		= NULL;
 
 	if ( bGUI )
-	{
 		PostMessage( WM_UPDATE );
-	}
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -156,9 +154,7 @@ BOOL CBrowseTreeCtrl::Expand(CBrowseTreeItem* pItem, TRISTATE bExpand, BOOL bInv
 	}
 
 	if ( bInvalidate )
-	{
 		PostMessage( WM_UPDATE );
-	}
 
 	return TRUE;
 }
@@ -267,10 +263,12 @@ BOOL CBrowseTreeCtrl::DeselectAll(CBrowseTreeItem* pExcept, CBrowseTreeItem* pPa
 			bChanged = TRUE;
 		}
 
-		if ( (*pChild)->m_nCount ) bChanged |= DeselectAll( pExcept, *pChild, FALSE );
+		if ( (*pChild)->m_nCount )
+			bChanged |= DeselectAll( pExcept, *pChild, FALSE );
 	}
 
-	if ( bInvalidate && bChanged && pParent == m_pRoot ) Invalidate();
+	if ( bInvalidate && bChanged && pParent == m_pRoot )
+		Invalidate();
 
 	return bChanged;
 }
@@ -344,7 +342,8 @@ BOOL CBrowseTreeCtrl::CleanItems(CBrowseTreeItem* pItem, DWORD nCookie, BOOL bVi
 		{
 			if ( m_pFocus == *pChild ) m_pFocus = NULL;
 
-			if ( (*pChild)->m_bSelected ) Select( *pChild, TRI_FALSE, FALSE );
+			if ( (*pChild)->m_bSelected )
+				Select( *pChild, TRI_FALSE, FALSE );
 			bChanged |= DeselectAll( NULL, *pChild, FALSE );
 
 			if ( bVisible )
@@ -466,11 +465,13 @@ void CBrowseTreeCtrl::OnKeyDown(UINT nChar, UINT /*nRepCnt*/, UINT /*nFlags*/)
 
 	if ( nChar == VK_HOME || ( nChar == VK_UP && m_pFocus == NULL ) )
 	{
-		if ( m_pRoot->m_nCount ) pTo = m_pRoot->m_pList[0];
+		if ( m_pRoot->m_nCount )
+			pTo = m_pRoot->m_pList[0];
 	}
 	else if ( nChar == VK_END || ( nChar == VK_DOWN && m_pFocus == NULL ) )
 	{
-		if ( m_pRoot->m_nCount ) pTo = m_pRoot->m_pList[ m_pRoot->m_nCount - 1 ];
+		if ( m_pRoot->m_nCount )
+			pTo = m_pRoot->m_pList[ m_pRoot->m_nCount - 1 ];
 	}
 	else if ( nChar == VK_UP && m_pFocus != NULL )
 	{
@@ -512,9 +513,7 @@ void CBrowseTreeCtrl::OnKeyDown(UINT nChar, UINT /*nRepCnt*/, UINT /*nFlags*/)
 	else if ( ( nChar == VK_RIGHT || nChar == VK_ADD ) && m_pFocus != NULL )
 	{
 		if ( ! m_pFocus->m_bExpanded && m_pFocus->m_nCount )
-		{
 			bChanged |= Expand( m_pFocus, TRI_TRUE );
-		}
 	}
 	else if ( _istalnum( TCHAR( nChar ) ) )
 	{
@@ -681,7 +680,8 @@ void CBrowseTreeCtrl::Paint(CDC& dc, CRect& rcClient, CPoint& pt, CBrowseTreeIte
 	}
 	else if ( rc.bottom >= rcClient.top )
 	{
-		if ( pItem->m_bBold ) dc.SelectObject( &CoolInterface.m_fntBold );
+		if ( pItem->m_bBold )
+			dc.SelectObject( &CoolInterface.m_fntBold );
 
 		rc.right += 32 + dc.GetTextExtent( pItem->m_sText ).cx + 6;
 
@@ -691,7 +691,8 @@ void CBrowseTreeCtrl::Paint(CDC& dc, CRect& rcClient, CPoint& pt, CBrowseTreeIte
 			dc.ExcludeClipRect( &rc );
 		}
 
-		if ( pItem->m_bBold ) dc.SelectObject( &CoolInterface.m_fntNormal );
+		if ( pItem->m_bBold ) 
+			dc.SelectObject( &CoolInterface.m_fntNormal );
 	}
 
 	if ( pItem->m_bExpanded && pItem->m_nCount )
@@ -932,9 +933,7 @@ CBrowseTreeItem::CBrowseTreeItem(CBrowseTreeItem* pParent)
 CBrowseTreeItem::~CBrowseTreeItem()
 {
 	if ( m_pFiles != NULL )
-	{
 		delete [] m_pFiles;
-	}
 
 	if ( m_pList != NULL )
 	{
@@ -960,7 +959,8 @@ CBrowseTreeItem* CBrowseTreeItem::Add(LPCTSTR pszName)
 		m_pList = pList;
 	}
 
-	if ( m_nCount == 0 ) return m_pList[ m_nCount++ ] = new CBrowseTreeItem( this );
+	if ( m_nCount == 0 )
+		return m_pList[ m_nCount++ ] = new CBrowseTreeItem( this );
 
 	int nFirst = 0;
 	for ( int nLast = m_nCount - 1 ; nLast >= nFirst ; )
@@ -970,13 +970,9 @@ CBrowseTreeItem* CBrowseTreeItem::Add(LPCTSTR pszName)
 		CBrowseTreeItem* pItem = m_pList[ nMiddle ];
 
 		if ( _tcsicoll( pszName, pItem->m_sText ) >= 0 )
-		{
 			nFirst = nMiddle + 1;
-		}
 		else
-		{
 			nLast = nMiddle - 1;
-		}
 	}
 
 	MoveMemory( m_pList + nFirst + 1, m_pList + nFirst, ( m_nCount - nFirst ) * sizeof( CBrowseTreeItem* ) );
@@ -1009,13 +1005,9 @@ CBrowseTreeItem* CBrowseTreeItem::Add(CBrowseTreeItem* pNewItem)
 		CBrowseTreeItem* pItem = m_pList[ nMiddle ];
 
 		if ( _tcsicoll( pNewItem->m_sText, pItem->m_sText ) >= 0 )
-		{
 			nFirst = nMiddle + 1;
-		}
 		else
-		{
 			nLast = nMiddle - 1;
-		}
 	}
 
 	MoveMemory( m_pList + nFirst + 1, m_pList + nFirst, ( m_nCount - nFirst ) * sizeof( CBrowseTreeItem* ) );
@@ -1068,7 +1060,10 @@ void CBrowseTreeItem::Clear()
 {
 	if ( m_pList )
 	{
-		for ( int nChild = 0 ; nChild < m_nCount ; nChild++ ) delete m_pList[ nChild ];
+		for ( int nChild = 0 ; nChild < m_nCount ; nChild++ )
+		{
+			delete m_pList[ nChild ];
+		}
 		delete [] m_pList;
 	}
 
@@ -1098,7 +1093,8 @@ int CBrowseTreeItem::GetChildCount() const
 
 	for ( int nChild = m_nCount ; nChild ; nChild--, pChild++ )
 	{
-		if ( (*pChild)->m_bExpanded ) nCount += (*pChild)->GetChildCount();
+		if ( (*pChild)->m_bExpanded )
+			nCount += (*pChild)->GetChildCount();
 	}
 
 	return nCount;
@@ -1116,7 +1112,7 @@ void CBrowseTreeItem::Paint(CDC& dc, CRect& rc, BOOL bTarget, COLORREF crBack) c
 		dc.GetWindow()->ScreenToClient( &ptHover );
 
 	if ( crBack == CLR_NONE ) crBack = Colors.m_crWindow;
-	dc.FillSolidRect( rc.left, rc.top, 32, 17, crBack );
+	dc.FillSolidRect( rc.left, rc.top, 33, 17, crBack );
 
 	if ( m_bExpanded )
 	{
@@ -1130,26 +1126,36 @@ void CBrowseTreeItem::Paint(CDC& dc, CRect& rc, BOOL bTarget, COLORREF crBack) c
 	}
 
 	if ( m_nIcon16 >= 0 )
+	{
 		// Draw custom icon
 		ShellIcons.Draw( &dc, m_nIcon16, 16,
 			rc.left + 16, rc.top, crBack, ( m_bSelected || bTarget ) );
+	}
 	else
+	{
 		// Draw standard icon
 		CoolInterface.Draw( &dc,
 			( ( m_bExpanded && m_nCount ) ? IDI_FOLDER_OPEN : IDI_FOLDER_CLOSED ),
 			16, rc.left + 16, rc.top, crBack, ( m_bSelected || bTarget ) );
+	}
 
 	crBack = ( m_bSelected || bTarget ) ? Colors.m_crHighlight : crBack;
 	COLORREF crText = ( m_bSelected || bTarget ) ? Colors.m_crHiText : Colors.m_crText;
 
-	dc.SetTextColor( crText );
-	dc.SetBkColor( crBack );
-	dc.SetBkMode( OPAQUE );
+	BOOL bSelectmark = ( m_bSelected || bTarget ) && ( Skin.m_bmSelected.m_hObject != NULL );
 
-	rc.left += 32;
-	dc.ExtTextOut( rc.left + 3, rc.top + 1, ETO_OPAQUE|ETO_CLIPPED, &rc,
-		m_sText, NULL );
-	rc.left -= 32;
+	rc.left += 33;
+	dc.SetTextColor( crText );
+	dc.SetBkColor( bSelectmark ? CLR_NONE : crBack );
+	dc.SetBkMode( bSelectmark ? TRANSPARENT : OPAQUE );
+	
+	if ( bSelectmark )
+		CoolInterface.DrawWatermark( &dc, &rc, &Skin.m_bmSelected );
+
+	dc.ExtTextOut( rc.left + 2, rc.top + 1,
+		ETO_CLIPPED|( bSelectmark ? 0 : ETO_OPAQUE ),
+		&rc, m_sText, NULL );
+	rc.left -= 33;
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -1165,12 +1171,11 @@ void CBrowseTreeItem::AddXML(CXMLElement* pXML)
 		m_nIcon16	= m_pSchema->m_nIcon16;
 
 		if ( CXMLElement* pBody = pXML->GetFirstElement() )
-		{
 			m_sText = pBody->GetAttributeValue( m_pSchema->GetFirstMemberName() );
-		}
 	}
 
-	if ( m_sText.IsEmpty() ) m_sText = _T("Unnamed");
+	if ( m_sText.IsEmpty() )
+		m_sText = _T("Unnamed");
 
 	if ( pXML != NULL ) delete pXML;
 }

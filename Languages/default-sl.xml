@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Slovenian Skin File -->
 
-<!-- Translation based on default-en.xml r50 (Shareaza 2.2.2.12) -->
+<!-- Translation based on default-en.xml r52 (Shareaza 2.2.2.12) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2658,7 +2658,6 @@
 	<string id="16079" value="Ste prepričani, da želite prekiniti povezavo?"/>
 	<string id="16081" value="Pošiljam poizvedbo za &quot;%s&quot; do %s."/>
 	<string id="16083" value="Z vsiljevanjem vašega računalnika v način zvezdišča (hub mode) ima lahko neželjene posledice na učinkovitost delovanja in na P2P omrežje. Na splošno je bolje dovoliti programu, da sam odloči o tem ali naj se uporabi način zvezdišča ali ne.\n\nNačin zvezdišča NE da boljših rezultatov pri iskanju in pri splošnem delovanju sistema.\n\nSte prepričani, da želite nadaljevati, kljub vsem slabostim?"/>
-	<string id="16084" value="Onemogočanje podpore za protokole omrežja Gnutella-1 lahko omeji vaše iskalne rezultate. Prav tako lahko v primeru, če delujete kot zvezdišče, to vpliva na rezultate iskanja drugih uporabnikov. Ste prepričani, da želite nadaljevati?"/>
 	<string id="16085" value="Omrežje Gnutella2 je PeerProjecto glavno omrežje. Onemogočanje podpore za to omrežje lahko izredno omeji tako število kot kvaliteto vaših iskalnih rezultatov. Ste PREPRIČANI, da želite nadaljevati?"/>
 	<string id="16087" value="Vaša izhodna pasovna širina je premajhna za uporabo tega omrežja"/>
 	<string id="16128" value="Sprejeta vhodna povezava od %s na vratih %i."/>

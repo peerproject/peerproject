@@ -80,8 +80,8 @@ protected:
 	CArray< CString >	m_pHeaderValue;
 	CLineGraph* 		m_pGraph;
 	CGraphItem* 		m_pItem;
-	BOOL				m_bDrawGraph;		//Draw the download graph?
-	BOOL				m_bDrawError;		//Display the tracker error?
+	BOOL				m_bDrawGraph;		// Draw the download graph?
+	BOOL				m_bDrawError;		// Display the tracker error?
 
 // Operations
 protected:
@@ -97,7 +97,7 @@ protected:
 	void OnPaint(CDC* pDC, CDownloadSource* pSource);
 
 	void PrepareDownloadInfo(CDownload* pDownload);
-	void PrepareFileInfo(CPeerProjectFile* pDownload);
+	void PrepareFileInfo(CDownload* pDownload);	// CPeerProjectFile
 	void DrawProgressBar(CDC* pDC, CPoint* pPoint, CDownload* pDownload);
 	void DrawProgressBar(CDC* pDC, CPoint* pPoint, CDownloadSource* pSource);
 

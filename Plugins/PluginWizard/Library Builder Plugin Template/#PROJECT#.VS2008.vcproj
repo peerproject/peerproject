@@ -62,7 +62,7 @@
 				/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description="Performing registration"
+				Description="Performing registration (for debugging)"
 				CommandLine="regsvr32 /s /c &quot;$(TargetPath)&quot;"
 				/>
 			<Tool
@@ -149,8 +149,6 @@
 				/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description="Performing registration"
-				CommandLine="regsvr32 /s /c &quot;$(TargetPath)&quot;"
 				/>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -230,7 +228,7 @@
 				/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description="Performing registration"
+				Description="Performing registration (for debugging)"
 				CommandLine="regsvr32 /s /c &quot;$(TargetPath)&quot;"
 				/>
 			<Tool
@@ -317,8 +315,6 @@
 				/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description="Performing registration"
-				CommandLine="regsvr32 /s /c &quot;$(TargetPath)&quot;"
 				/>
 			<Tool
 				Name="VCPreBuildEventTool"

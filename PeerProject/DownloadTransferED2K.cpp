@@ -695,15 +695,11 @@ BOOL CDownloadTransferED2K::SendPrimaryRequest()
 	pPacket->Write( m_pDownload->m_oED2K );
 
 	if ( Settings.eDonkey.ExtendedRequest >= 1 && m_pClient->m_bEmRequest >= 1 )
-	{
 		m_pClient->WritePartStatus( pPacket, m_pDownload );
-	}
 
 	//It's not very accurate
 	if ( Settings.eDonkey.ExtendedRequest >= 2 && m_pClient->m_bEmRequest >= 2 )
-	{
 		pPacket->WriteShortLE( (WORD) m_pDownload->GetED2KCompleteSourceCount() );
-	}
 
 	Send( pPacket );
 
@@ -783,6 +779,8 @@ BOOL CDownloadTransferED2K::SendSecondaryRequest()
 
 bool CDownloadTransferED2K::SendFragmentRequests()
 {
+	//ASSUME_LOCK( Transfers.m_pSection );
+
 	ASSERT( m_pClient != NULL );
 
 	if ( m_nState != dtsDownloading ) return TRUE;
@@ -807,13 +805,13 @@ bool CDownloadTransferED2K::SendFragmentRequests()
 	}
 
 	typedef std::map<QWORD ,Fragments::Fragment> _TRequest;
-	typedef  _TRequest::iterator _TRequestIndex;
-	_TRequest	oRequesting;
+	typedef _TRequest::iterator _TRequestIndex;
+	_TRequest oRequesting;
 	while ( m_oRequested.size() < (int)Settings.eDonkey.RequestPipe )
 	{
 		QWORD nOffset, nLength;
 
-		if ( SelectFragment( oPossible, nOffset, nLength ) )
+		if ( SelectFragment( oPossible, nOffset, nLength, m_pDownload->m_bTorrentEndgame ) )
 		{
 			ChunkifyRequest( &nOffset, &nLength, Settings.eDonkey.RequestSize, FALSE );
 
@@ -917,19 +915,20 @@ bool CDownloadTransferED2K::SendFragmentRequests()
 			 ( m_pDownload->GetVolumeRemaining() <  1*1024*1024 ) )
 		{
 			// Then activate endgame
-			m_pDownload->m_bTorrentEndgame = TRUE;
+			m_pDownload->m_bTorrentEndgame = true;
 			theApp.Message( MSG_DEBUG, _T("Activating endgame for ed2k transfer %s"), m_pDownload->m_sName );
 		}
 	}
 
-	if ( !m_oRequested.empty() ) return TRUE;
+	if ( ! m_oRequested.empty() )
+		return true;
 
 	Send( CEDPacket::New( ED2K_C2C_QUEUERELEASE ) );
 
 	theApp.Message( MSG_INFO, IDS_DOWNLOAD_FRAGMENT_END, (LPCTSTR)m_sAddress );
 	Close( TRI_TRUE );
 
-	return FALSE;
+	return false;
 }
 
 void CDownloadTransferED2K::ClearRequests()

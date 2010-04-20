@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Turkish Skin File -->
 
-<!-- Translation based on default-en.xml r50 -->
+<!-- Translation based on default-en.xml r52 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2800,7 +2800,6 @@
 	<string id="16080" value="Planlayıcıyı 'sadece G2' modunda işletmektesiniz. Tüm etkin ağların bağlı kalması için bu modu devre dışı bırakmak ister misiniz?"/>
 	<string id="16081" value="&quot;%s&quot; için %s 'ye sorgu gönderiliyor."/>
 	<string id="16083" value="Hub modundaki PC'niz performans ve P2P ağında karşıt efektler bulunduğu için zorlanıyor. PeerProject'nın karar vermesine izin vermek genellikle daha iyidir ya da hub modunu kullanmayınız.\n\n	Hub modu daha iyi arama sonuçları üretmez, sizin için üstünlük sağlamaz.\n\nDezavantajlarına rağmen bunu gerçekten yapmak istiyor musunuz?"/>
-	<string id="16084" value="Gnutella-1 protokolleri için destek kaldırma, arama sonuçlarınızı kısıtlayabilir ve eğer bir hub görevindeyseniz bu diğer kullanıcıların sonuçları üzerine etki eder. Bunu yapmak istediğinize emin misiniz?"/>
 	<string id="16085" value="Gnutella2 PeerProject'nın ana ağıdır. Bunun desteği kaldırılırsa arama sonuçlarının kalitesi ve sayısı kısıtlanır. Bunu yapmak istediğinize emin misiniz?"/>
 	<string id="16087" value="Ağı etkinleştirmek için ayrılan bantgenişliği çok az."/>
 	<string id="16128" value="%s portdan gelmekte olan %i bağlantısı kabul edildi."/>
@@ -3109,13 +3108,13 @@
 	<string id="16997" value="Oynayacak dosya yok. Kütüphanenizdeki bir ortam dosyasını oynatmak için çift-tıklın."/>
 	<string id="16998" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; O &#160;&#160; R &#160;&#160; T &#160;&#160; A &#160;&#160; M &#160;&#160; &#160;&#160; S &#160;&#160; İ &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M &#160;&#160; İ"/>
 	<string id="16999" value="Oynatma Listesi:"/>
-	<string id="17016" value="PeerProject Sohbetine Hoşgeldiniz."/>
-	<string id="17017" value="Bu servisi kullanırken diğer kullanıcılara saygı göstermeniz gerektiğini unutmayın"/>
-	<string id="17018" value="Sohbet:"/>
+	<string id="17015" value="PeerProject Sohbetine Hoşgeldiniz."/>
+	<string id="17016" value="Bu servisi kullanırken diğer kullanıcılara saygı göstermeniz gerektiğini unutmayın"/>
+	<string id="17017" value="Sohbet:"/>
+	<string id="17018" value="Kullanıcılar"/>
+	<string id="17019" value="Kanallar"/>
 	<string id="17020" value="Ekle..."/>
 	<string id="17021" value="Kaldır"/>
-	<string id="17022" value="Kullanıcılar"/>
-	<string id="17023" value="Kanallar"/>
 	<string id="17024" value="%s ile bağlantı başlıyor..."/>
 	<string id="17025" value="%s ile bağlantı yaratılamadı."/>
 	<string id="17026" value="%s'den güvenlik duvarlı sıkıştırılmış bağlantı isteniyor..."/>
@@ -4631,4 +4630,4 @@
 		<column from="Order" to="Düzen"/>
 	</list>
 </listColumns>
-</skin>隘
+</skin>隘↟

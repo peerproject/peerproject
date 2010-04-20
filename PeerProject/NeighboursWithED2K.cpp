@@ -196,10 +196,10 @@ BOOL CNeighboursWithED2K::FindDonkeySources(const Hashes::Ed2kHash& oED2K, IN_AD
 	if ( validAndEqual( m_oEDSources[ nHash ], oED2K ) )
 	{
 		// If the hash in the array is less than an hour old, don't do anything and return false
-		if ( tNow - m_tEDSources[ nHash ] < 3600000 ) return FALSE; // 3600000 ms is 1 hour
-
-	} // The m_pEDSources array doesn't have pED2K at position nHash
-	else
+		if ( tNow - m_tEDSources[ nHash ] < 3600000 )
+			return FALSE; // 3600000 ms is 1 hour
+	}
+	else	// The m_pEDSources array doesn't have pED2K at position nHash
 	{
 		// If that spot in the array was added in the last 15 seconds, don't do anything and return false
 		if ( tNow - m_tEDSources[ nHash ] < 15000 ) return FALSE; // 15000 ms is 15 seconds

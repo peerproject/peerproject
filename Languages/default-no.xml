@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Norwegian Skin File -->
 
-<!-- Translation based on default-en.xml r50 (Shareaza 2.2.0.2) -->
+<!-- Translation based on default-en.xml r52 (Shareaza 2.2.0.2) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2555,7 +2555,6 @@
 	<string id="16079" value="Er du sikker på at du vil koble fra?"/>
 	<string id="16081" value="Sender forespørsel for &quot;%s&quot; til %s."/>
 	<string id="16083" value="Å tvinge pc-en til å være hub kan påvirke evnen til å utnytte nettverket. Det er generelt bedre å la PeerProject velge. \n\nHub modus gir IKKE bedre søkeresultat, det hjelper heller ikke på noen annen måte.\n\nEr du helt sikker på at du vil gjøre dette?"/>
-	<string id="16084" value="Å skru av Gnutella-1 protokollen kan gi dårligere søkeresultat, hvis du er hub kan dette også påvirke andre på nettverket. Er du sikker på at du vil gjøre dette?"/>
 	<string id="16085" value="Gnutella2 er hovednettverket til PeerProject. Hvis du skrur det av kan det være at du får både lavere antall søkeresultat og lavere kvalitet på filene. Er du sikker på at du vil gjøre dette?"/>
 	<string id="16087" value="Din utgende bndbresse er for lav for  kunne bruke dette nettverket"/>
 	<string id="16128" value="Godta innkommende koblinger fra %s port %i."/>
@@ -4303,4 +4302,4 @@
 		<column from="Order" to="Rekkefølge"/>
 	</list>
 </listColumns>
-</skin>찝趕
+</skin>찝趕୐

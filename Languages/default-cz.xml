@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Czech Skin File -->
 
-<!-- Translation based on default-en.xml r50 (Shareaza 2.2.5.7) -->
+<!-- Translation based on default-en.xml r52 (Shareaza 2.2.5.7) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2727,7 +2727,7 @@
 	<string id="16064" value="Spouštím síťové jádro PeerProject..."/>
 	<string id="16065" value="Nelze otevřít %s port %i pro příchozí spojení. Příchozí připojení není podporováno."/>
 	<string id="16066" value="Odpojit PeerProject od internetu..."/>
-	<string id="16067" value="Odpojuji ze sítě."/>
+	<string id="16067" value="Odpojuji."/>
 	<string id="16068" value="Přijímám příchozí spojení TCP na portu %s %i."/>
 	<string id="16069" value="Odchozí spojení z portu %s budou procházet %i."/>
 	<string id="16070" value="Nelze přeložit adresu %s pro odchozí spojení. Odchozí spojení bude používat standardní rozhraní."/>
@@ -2742,7 +2742,6 @@
 	<string id="16079" value="Opravdu se chcete odpojit?"/>
 	<string id="16081" value="Posílám dotaz na &quot;%s&quot; do %s."/>
 	<string id="16083" value="Přepnutí vašeho PC do režimu uzle může mít nepříznivé účinky na výkon. Pro síť P2P je většinou lepší umožnit PeerProject rozhodnout zda by měl být režim uzle používán.\n\nRežim uzle pro vás NEVYTVOŘÍ lepší vyhledání výsledků, nebo žádné další jiné výhody.\n\nOpravdu chcete udělat tyto změny navzdory uvedeným nevýhodám?"/>
-	<string id="16084" value="Vyřazení podpory pro protokoly Gnutella-1 může omezit vaše hledávání výsledků, a pokud jednáte jako uzel, může mít také konflikt s výsledky ostatních uživatelů. Opravdu to chcete udělat?"/>
 	<string id="16085" value="Gnutella2 je hlavní síť pro PeerProject. Vyřazení této podpory může hodně omezit počet a kvalitu vašich výsledků při vyhledávání. OPRAVDU to chcete udělat?"/>
 	<string id="16087" value="Vaše odchozí šířka pásma pro tuto síť je příliš malá."/>
 	<string id="16128" value="Přijato příchozí spojení od %s port %i."/>

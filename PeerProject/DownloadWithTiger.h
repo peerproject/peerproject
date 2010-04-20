@@ -70,7 +70,7 @@ public:
 	void		ClearVerification();
 	void		RunValidation();
 	BOOL		GetNextVerifyRange(QWORD& nOffset, QWORD& nLength, BOOL& bSuccess, int nHash = HASH_NULL) const;
-	QWORD		GetVerifyLength(PROTOCOLID nProtocol = PROTOCOL_ANY, int nHash = HASH_NULL) const;
+	DWORD		GetVerifyLength(PROTOCOLID nProtocol = PROTOCOL_ANY, int nHash = HASH_NULL) const;
 
 	virtual CString	GetAvailableRanges() const;
 

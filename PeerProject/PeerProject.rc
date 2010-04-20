@@ -185,6 +185,7 @@ IDI_COLLECTION			ICON		"Res\\Collection.ico"
 IDI_COLLECTION_MASK		ICON		"Res\\CollectionMask.ico"
 IDI_FIREWALLED			ICON		"Res\\Firewalled.ico"
 IDR_BITTORRENT_ICON		ICON		"Res\\BitTorrent.ico"
+IDI_MULTIFILE			ICON		"Res\\PeerProject.ico"
 IDI_COLORS				ICON		"Res\\Colors.ico"
 IDI_HASH				ICON		"Res\\Hash.ico"
 IDR_IRCFRAME			ICON		"Res\\IRC.ico"
@@ -3183,7 +3184,7 @@ BEGIN
 	IDR_SEARCHPADFRAME			"Search"
 	IDR_HELPFRAME				"PeerProject Help"
 	IDR_IRCFRAME				"PeerProject Chat"
-	IDS_SKIN_ERROR				"Skin load error: %s. Element: %s"
+	IDS_SKIN_ERROR				"Skin load error: %s.  Element: %s"
 	IDS_SKIN_LOAD				"Loading skin: %s"
 	IDS_GENERAL_OK				"OK"
 	IDS_GENERAL_CANCEL			"Cancel"
@@ -3213,8 +3214,8 @@ STRINGTABLE
 BEGIN
 	IDS_FILTER_DELETE_CONFIRM	"Are you sure you want to delete this filter ?"
 	IDS_SCHEMAS					"&Schemas"
-	IDS_MULTIPLE_VALUES			"Multiple Values"
 	IDS_MULTIPLE				"Multiple"
+	IDS_MULTIPLE_VALUES			"Multiple Values"
 	IDS_FILTER_REPLACE			"There already is a filter called ""%s"", do you want to replace it?"
 	IDS_FILTER_NO_NAME			"Please give your filter a name."
 END
@@ -3431,7 +3432,7 @@ BEGIN
 	IDS_NETWORK_STARTUP			"Starting PeerProject network core..."
 	IDS_NETWORK_CANT_LISTEN		"Can't bind to %s port %i for incoming connections.  Incoming connections will not be supported."
 	IDS_NETWORK_DISCONNECTING	"Shutting down PeerProject network core..."
-	IDS_NETWORK_DISCONNECTED	"Disconnected from the network."
+	IDS_NETWORK_DISCONNECTED	"Disconnected."
 	IDS_NETWORK_LISTENING_TCP	"Accepting incoming TCP connections on %s port %i."
 	IDS_NETWORK_OUTGOING		"Outgoing connections will be from %s port %i."
 	IDS_NETWORK_CANT_OUTGOING	"Can't resolve %s for outgoing connections.  Outgoing connections will use the default interface."
@@ -3450,9 +3451,9 @@ STRINGTABLE
 BEGIN
 	IDS_NETWORK_UNLIMIT			"You are running the Scheduler in 'G2 only' mode. Would you like to turn this mode off, so that all active networks remain connected?"
 	IDS_NETWORK_SEARCH_SENT		"Sending query for ""%s"" to %s."
-	IDS_NETWORK_FORCE_HUB		"Forcing your PC into hub mode may have adverse effects on performance and the P2P network. It is generally better to allow PeerProject to decide whether or not hub mode should be used.\n\nHub mode does not produce better search results, or have any other advantages for you.\n\nDo you really want to do this, despite these disadvantages?"
-	IDS_NETWORK_DISABLE_G1		"Disabling support for Gnutella-1 protocols may limit your search results, and if you are acting as a hub it may also impact upon the results of other users.  Are you sure you want to do this?"
-	IDS_NETWORK_DISABLE_G2		"Gnutella2 is PeerProject's premiere network.  Disabling support for it may severely limit both the number and quality of your search results.  Are you SURE you want to do this?"
+	IDS_NETWORK_FORCE_HUB		"Forcing your PC into hub mode may have adverse effects on performance and the P2P network. It is generally better to allow PeerProject to decide whether or not hub mode should be used.\n\nHub mode does not produce better search results, or have any other advantages for you.\n\nAre you certain you wish to do this, despite the disadvantages?"
+	//IDS_NETWORK_DISABLE_G1	"Disabling support for Gnutella protocols may limit your search results, and if you are acting as a hub it may also impact upon the results of other users.  Are you sure you wish to do this?"
+	IDS_NETWORK_DISABLE_G2		"G2 (Gnutella2) is PeerProject's premiere network.  Disabling support for it may limit features and the quality of your search results.\nAre you sure you wish to do this?"
 	IDS_NETWORK_BANDWIDTH_LOW	"Your outgoing bandwidth is too low to enable this network"
 	IDS_NETWORK_UPNP_FAILED		"UPnP port mapping failed after 10 attempts."
 END
@@ -3904,13 +3905,13 @@ END
 
 STRINGTABLE
 BEGIN
-	IDS_IRC_FRAME_TITLE			"Welcome to the PeerProject IRC Chatrooms"
-	IDS_IRC_FRAME_SUBTITLE		"Please respect others while using this service"
-	IDS_IRC_FRAME_INPUT			"Chat:"
-	IDS_IRC_PANEL_ADDCHANNEL 	"Add..."
-	IDS_IRC_PANEL_REMOVECHANNEL "Remove"
-	IDS_IRC_PANEL_USERS_CAPTION "Users"
-	IDS_IRC_PANEL_CHANS_CAPTION "Channels"
+	IDS_IRC_HEADERTITLE			"Welcome to the PeerProject IRC Chatrooms"
+	IDS_IRC_HEADERSUBTITLE		"Please respect others while using this service.  Press Connect below to start."
+	IDS_IRC_HEADERINPUT			"Chat:"
+	IDS_IRC_USERLIST			"Users"
+	IDS_IRC_CHANLIST			"Channels"
+	IDS_IRC_ADDCHANNEL			"Add..."
+	IDS_IRC_REMOVECHANNEL		"Remove"
 END
 
 STRINGTABLE
@@ -4300,7 +4301,7 @@ BEGIN
     ID_LIBRARY_COPY				"Copy selected files to another library folder..."
     ID_LIBRARY_DELETE			"Delete the selected files permanently."
     ID_LIBRARY_ENQUEUE			"Add selected files to your media playlist."
-    ID_DOWNLOADS_ENQUEUE		"Add selected downloads to your media playlist."
+    ID_LIBRARY_URI				"Copy the P2P Link of the selected file. (URI)"
 END
 
 STRINGTABLE
@@ -4312,11 +4313,12 @@ BEGIN
     ID_TAB_LIBRARY				"View your locally catalogued files."
 	ID_TAB_TRANSFERS			"Manage all active downloads and uploads."
     ID_TAB_CONNECT				"Connect or disconnect from the network."
+	ID_TAB_IRC					"Show the IRC chatrooms window."
     ID_VIEW_TABBED				"Use PeerProject in standard Tabbed mode. (Home, Transfers, Network, Library, Media, IRC, Search)"
     ID_VIEW_WINDOWED			"Use PeerProject in Windowed power mode."
-    ID_LIBRARY_URI				"Copy the P2P Link of the selected file. (URI)"
     ID_VIEW_DISCOVERY			"Show or hide the network DISCOVERY SERVICES window."
     ID_DISCOVERY_EDIT			"View the properties for the selected discovery service."
+    ID_DOWNLOADS_ENQUEUE		"Add selected downloads to your media playlist."
 END
 
 STRINGTABLE
@@ -4328,8 +4330,8 @@ BEGIN
     ID_DISCOVERY_GNUTELLA		"Show bootstrap services in the Discovery window."
     ID_DISCOVERY_WEBCACHE		"Show GWebCache services in the Discovery window."
     ID_DOWNLOADS_AUTO_CLEAR		"Automatically clear downloads which have been completed."
-    ID_TRANSFERS_CONNECT		"Access the selected download sources and attempt to download."
     ID_DOWNLOADS_SHOW_SOURCES	"Display sources which are not currently being used."
+    ID_TRANSFERS_CONNECT		"Access the selected download sources and attempt to download."
     ID_SYSTEM_VERBOSE			"Display a detailed system activity log."
     ID_DISCOVERY_ADVERTISE		"Advertise the selected GWebCache service to a random existing GWebCache."
     ID_DISCOVERY_BROWSE			"Browse statistics for the selected GWebCache service on the Web."
@@ -4577,14 +4579,6 @@ BEGIN
     ID_WINDOW_CASCADE			"Expand all open windows to fill the screen."
     ID_WINDOW_TILE_HORZ			"Arrange open windows as horizontal, non-overlapping tiles."
     ID_WINDOW_TILE_VERT			"Arrange open windows as vertical, non-overlapping tiles."
-END
-
-STRINGTABLE
-BEGIN
-    ID_TAB_IRC					"Show the IRC chatrooms window."
-	IDS_IRC_HEADERTITLE			"Welcome to PeerProject Chat."
-	IDS_IRC_HEADERSUBTITLE		"Please respect others while using this service"
-	IDS_IRC_HEADERCHAT			"Chat."
 END
 
 STRINGTABLE

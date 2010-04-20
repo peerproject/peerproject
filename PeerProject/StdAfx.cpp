@@ -172,7 +172,6 @@ CString URLEncode(LPCTSTR pszInputT)
 			*pszOutput++ = _T('%');
 			*pszOutput++ = pszHex[ ( *pszInput >> 4 ) & 0x0F ];
 			*pszOutput++ = pszHex[ *pszInput & 0x0F ];
-
 		}
 		else	// The character doesn't need to be encoded
 		{
@@ -226,8 +225,7 @@ CString URLDecodeANSI(LPCTSTR pszInput)
 	// Loop for each character of input text
 	for ( ; *pszInput ; pszInput++ )
 	{
-		// We hit a %, which might be the start of something like %20
-		if ( *pszInput == '%' )
+		if ( *pszInput == '%' )			// We hit a %, which might be the start of something like %20
 		{
 			// Copy characters like "20" into szHex, making sure neither are null
 			if ( ( szHex[0] = pszInput[1] ) == 0 ) break;
@@ -242,13 +240,11 @@ CString URLDecodeANSI(LPCTSTR pszInput)
 
 			// Move the input pointer past the two characters of the "20"
 			pszInput += 2;
-
-		} // We hit a +, which is shorthand for space
-		else if ( *pszInput == '+' )
+		}
+		else if ( *pszInput == '+' )	// We hit a +, which is shorthand for space
 		{
 			// Add a space to the output text, and move the pointer forward
 			*pszOutput++ = ' ';
-
 		}
 		else	// The input pointer is just on a normal character
 		{
@@ -290,8 +286,7 @@ CString URLDecodeUnicode(LPCTSTR pszInput)
 	// Loop for each character of input text
 	for ( ; *pszInput ; pszInput++ )
 	{
-		// We hit a %, which might be the start of something like %20
-		if ( *pszInput == '%' )
+		if ( *pszInput == '%' ) 		// We hit a %, which might be the start of something like %20
 		{
 			// Copy characters like "20" into szHex, making sure neither are null
 			if ( ( szHex[0] = pszInput[1] ) == 0 ) break;
@@ -299,20 +294,18 @@ CString URLDecodeUnicode(LPCTSTR pszInput)
 
 			// Read the text like "20" as a number, and store it in nHex
 			if ( _stscanf( szHex, _T("%x"), &nHex ) != 1 ) break;
-			if ( nHex < 1 ) break; // Make sure the number isn't 0 or negative
+			if ( nHex < 1 ) break;	// Make sure the number isn't 0 or negative
 
 			// That number is the code of a character, copy it into the output string
 			*pszOutput++ = WCHAR( nHex ); // And then move the output pointer to the next spot
 
 			// Move the input pointer past the two characters of the "20"
 			pszInput += 2;
-
-		} // We hit a +, which is shorthand for space
-		else if ( *pszInput == '+' )
+		}
+		else if ( *pszInput == '+' )	// We hit a +, which is shorthand for space
 		{
 			// Add a space to the output text, and move the pointer forward
 			*pszOutput++ = ' ';
-
 		}
 		else	// The input pointer is just on a normal character
 		{

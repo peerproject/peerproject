@@ -41,66 +41,52 @@ static char THIS_FILE[]=__FILE__;
 //////////////////////////////////////////////////////////////////////
 // CPeerProjectURL construction
 
-CPeerProjectURL::CPeerProjectURL()
-{
-	m_pTorrent = NULL;
-	Clear();
-}
-
 CPeerProjectURL::CPeerProjectURL(LPCTSTR pszURL)
+	: m_nProtocol		( PROTOCOL_NULL )
+	, m_nAction			( uriNull )
+	, m_pTorrent		( NULL )
+	, m_pAddress		( )
+	, m_nPort			( 0 )
+	, m_pServerAddress	( )
+	, m_nServerPort		( 0 )
+	, m_bSize			( FALSE )
 {
-	m_pTorrent = NULL;
-	Clear();
 	if ( pszURL != NULL ) Parse( pszURL );
 }
 
 CPeerProjectURL::CPeerProjectURL(CBTInfo* pTorrent)
+	: CPeerProjectFile( static_cast< const CPeerProjectFile& >( *pTorrent ) )
+	, m_nProtocol		( PROTOCOL_NULL )
+	, m_nAction			( uriDownload )
+	, m_pTorrent		( pTorrent )
+	, m_pAddress		( )
+	, m_nPort			( 0 )
+	, m_pServerAddress	( )
+	, m_nServerPort		( 0 )
+	, m_bSize			( TRUE )
 {
-	m_pTorrent = NULL;
-	Clear();
-	m_nAction	= uriDownload;
-	m_pTorrent	= pTorrent;
-	m_oMD5		= pTorrent->m_oMD5;
-	m_oBTH		= pTorrent->m_oBTH;
-	m_oSHA1     = pTorrent->m_oSHA1;
-	m_oED2K		= pTorrent->m_oED2K;
-	m_oTiger	= pTorrent->m_oTiger;
-	m_sName		= pTorrent->m_sName;
-	m_nSize		= pTorrent->m_nSize;
-	m_bSize		= TRUE;
 }
 
 CPeerProjectURL::CPeerProjectURL(const CPeerProjectURL& pURL)
+	: CPeerProjectFile( static_cast< const CPeerProjectFile& >( pURL ) )
+	, m_nProtocol		( pURL.m_nProtocol )
+	, m_nAction			( pURL.m_nAction )
+	, m_pTorrent		( pURL.m_pTorrent )
+	, m_sAddress		( pURL.m_sAddress )
+	, m_pAddress		( pURL.m_pAddress )
+	, m_nPort			( pURL.m_nPort )
+	, m_pServerAddress	( pURL.m_pServerAddress )
+	, m_nServerPort		( pURL.m_nServerPort )
+	, m_bSize			( pURL.m_bSize )
+	, m_oBTC			( pURL.m_oBTC )
+	, m_sLogin			( pURL.m_sLogin )
+	, m_sPassword		( pURL.m_sPassword )
 {
-	// CPeerProjectFile
-	m_sName					= pURL.m_sName;
-	m_nSize					= pURL.m_nSize;
-	m_oSHA1					= pURL.m_oSHA1;
-	m_oTiger				= pURL.m_oTiger;
-	m_oED2K					= pURL.m_oED2K;
-	m_oBTH					= pURL.m_oBTH;
-	m_oMD5					= pURL.m_oMD5;
-	m_sPath					= pURL.m_sPath;
-	m_sURL					= pURL.m_sURL;
-
-	// CPeerProjectURL
-	m_nProtocol				= pURL.m_nProtocol;
-	m_nAction				= pURL.m_nAction;
-	m_pTorrent				= pURL.m_pTorrent;
-	m_sAddress				= pURL.m_sAddress;
-	m_pAddress.s_addr		= pURL.m_pAddress.s_addr;
-	m_nPort					= pURL.m_nPort;
-	m_pServerAddress.s_addr	= pURL.m_pServerAddress.s_addr;
-	m_nServerPort			= pURL.m_nServerPort;
-	m_bSize					= pURL.m_bSize;
-	m_sLogin				= pURL.m_sLogin;
-	m_sPassword				= pURL.m_sPassword;
-	m_oBTC					= pURL.m_oBTC;
 }
 
 CPeerProjectURL::~CPeerProjectURL()
 {
-	Clear();
+	delete m_pTorrent;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -120,10 +106,10 @@ void CPeerProjectURL::Clear()
 	m_sPath.Empty();
 
 	// CPeerProjectURL
+	delete m_pTorrent;
+	m_pTorrent				= NULL;
 	m_nProtocol				= PROTOCOL_NULL;
 	m_nAction				= uriNull;
-	if ( m_pTorrent ) delete m_pTorrent;
-	m_pTorrent				= NULL;
 	m_sAddress.Empty();
 	m_pAddress.s_addr		= 0;
 	m_nPort					= 0; // GNUTELLA_DEFAULT_PORT
@@ -214,6 +200,54 @@ BOOL CPeerProjectURL::ParseRoot(LPCTSTR pszURL, BOOL bResolve)
 		pszURL += 8;
 		return ParseMagnet( pszURL );
 	}
+	else if ( _tcsnicmp( pszURL, _T("ed2k:"), 5 ) == 0 )
+	{
+		SkipSlashes( pszURL, 5 );
+		return ParseDonkey( pszURL );
+	}
+	else if (	_tcsnicmp( pszURL, _T("shareaza:"), 9 ) == 0 ||
+				_tcsnicmp( pszURL, _T("gnutella:"), 9 ) == 0 )
+	{
+		SkipSlashes( pszURL, 9 );
+		return ParsePeerProject( pszURL );
+	}
+	else if (	_tcsnicmp( pszURL, _T("peerproject:"), 12 ) == 0 )
+	{
+		SkipSlashes( pszURL, 12 );
+		return ParsePeerProject( pszURL );
+	}
+	else if ( _tcsnicmp( pszURL, _T("gwc:"), 4 ) == 0 )
+	{
+		CString strTemp;
+		strTemp.Format( _T("peerproject:%s"), pszURL );
+		pszURL = strTemp;
+		SkipSlashes( pszURL, 12 );
+		return ParsePeerProject( pszURL );
+	}
+	else if (	_tcsnicmp( pszURL, _T("uhc:"), 4 ) == 0 ||
+				_tcsnicmp( pszURL, _T("ukhl:"), 5 ) == 0 ||
+				_tcsnicmp( pszURL, _T("gnutella1:"), 10 ) == 0 ||
+				_tcsnicmp( pszURL, _T("gnutella2:"), 10 ) == 0 )
+	{
+		return ParsePeerProject( pszURL );
+	}
+	else if ( _tcsnicmp( pszURL, _T("g2:"), 3 ) == 0 )
+	{
+		SkipSlashes( pszURL, 3 );
+		if ( ! ParseMagnet( pszURL ) )
+			return ParsePeerProject( pszURL );
+		return TRUE;
+	}
+	else if ( _tcsnicmp( pszURL, _T("gnet:"), 5 ) == 0 )
+	{
+		SkipSlashes( pszURL, 5 );
+		return ParsePeerProject( pszURL );
+	}
+	else if ( _tcsnicmp( pszURL, _T("mp2p:"), 5 ) == 0 )
+	{
+		SkipSlashes( pszURL, 5 );
+		return ParsePiolet( pszURL );
+	}
 	else if ( _tcsnicmp( pszURL, _T("foxy:"), 5 ) == 0 )	// Foxy
 	{
 		pszURL += 5;
@@ -227,43 +261,6 @@ BOOL CPeerProjectURL::ParseRoot(LPCTSTR pszURL, BOOL bResolve)
 			pszURL += 12;
 			return ParseMagnet( pszURL );
 		}
-	}
-	else if (	_tcsnicmp( pszURL, _T("peerproject:"), 12 ) == 0 ||
-				_tcsnicmp( pszURL, _T("shareaza:"), 9 ) == 0 ||
-				_tcsnicmp( pszURL, _T("gnutella:"), 9 ) == 0 )
-	{
-		SkipSlashes( pszURL, 9 );
-		return ParsePeerProject( pszURL );
-	}
-	else if ( _tcsnicmp( pszURL, _T("gwc:"), 4 ) == 0 )
-	{
-		CString strTemp;
-		strTemp.Format( _T("peerproject:%s"), pszURL );
-		pszURL = strTemp;
-		SkipSlashes( pszURL, 9 );
-		return ParsePeerProject( pszURL );
-	}
-	else if ( _tcsnicmp( pszURL, _T("gnet:"), 5 ) == 0 )
-	{
-		SkipSlashes( pszURL, 5 );
-		return ParsePeerProject( pszURL );
-	}
-	else if ( _tcsnicmp( pszURL, _T("ed2k:"), 5 ) == 0 )
-	{
-		SkipSlashes( pszURL, 5 );
-		return ParseDonkey( pszURL );
-	}
-	else if ( _tcsnicmp( pszURL, _T("mp2p:"), 5 ) == 0 )
-	{
-		SkipSlashes( pszURL, 5 );
-		return ParsePiolet( pszURL );
-	}
-	else if (	_tcsnicmp( pszURL, _T("uhc:"), 4 ) == 0 ||
-				_tcsnicmp( pszURL, _T("ukhl:"), 5 ) == 0 ||
-				_tcsnicmp( pszURL, _T("gnutella1:"), 10 ) == 0 ||
-				_tcsnicmp( pszURL, _T("gnutella2:"), 10 ) == 0 )
-	{
-		return ParsePeerProject( pszURL );
 	}
 
 	Clear();
@@ -305,14 +302,13 @@ BOOL CPeerProjectURL::ParseHTTP(LPCTSTR pszURL, BOOL bResolve)
 	if ( _tcsnicmp( m_sPath, _T("/uri-res/N2R?"), 13 ) == 0 )
 	{
 		strURL = m_sPath.Mid( 13 );
-		if ( m_oSHA1.fromUrn( strURL ) );
-		else if ( m_oTiger.fromUrn( strURL ) );
-		else if ( m_oED2K.fromUrn( strURL ) );
-		else if ( m_oBTH.fromUrn( strURL ) );
-		else if ( m_oBTH.fromUrn< Hashes::base16Encoding >( strURL ) );
-		else if ( m_oMD5.fromUrn( strURL ) );
-		else
-			return FALSE;
+		if ( m_oSHA1.fromUrn( strURL ) ) ;
+		else if ( m_oTiger.fromUrn( strURL ) ) ;
+		else if ( m_oED2K.fromUrn( strURL ) ) ;
+		else if ( m_oBTH.fromUrn( strURL ) ) ;
+		else if ( m_oBTH.fromUrn< Hashes::base16Encoding >( strURL ) ) ;
+		else if ( m_oMD5.fromUrn( strURL ) ) ;
+		else return FALSE;
 
 		m_nAction	= uriSource;
 	}
@@ -348,8 +344,7 @@ BOOL CPeerProjectURL::ParseHTTP(LPCTSTR pszURL, BOOL bResolve)
 
 BOOL CPeerProjectURL::ParseFTP(LPCTSTR pszURL, BOOL bResolve)
 {
-	// URI format
-	// ftp://[user[:password]@]host[:port][/path]
+	// URI format:	ftp://[user[:password]@]host[:port][/path]
 
 	if ( _tcsncmp( pszURL, _T("ftp://"), 6 ) != 0 ) return FALSE;
 
@@ -392,9 +387,9 @@ BOOL CPeerProjectURL::ParseFTP(LPCTSTR pszURL, BOOL bResolve)
 	if ( m_sAddress.IsEmpty() || m_sLogin.IsEmpty() )
 		return FALSE;
 
-	//add fix set name
+	// Add fix set name
 	int nPos = m_sPath.ReverseFind( '/' );
-	if ( !m_sName.GetLength() && nPos >= 0 )
+	if ( ! m_sName.GetLength() && nPos >= 0 )
 	{
 		CString sName( URLDecode(
 			m_sPath.Mid( nPos + 1 ).SpanExcluding( _T("?") ) ) );
@@ -497,16 +492,17 @@ BOOL CPeerProjectURL::ParseBTC(LPCTSTR pszURL, BOOL bResolve)
 	nSlash = strURL.Find( _T('/') );
 	m_oBTC.clear();
 
+	if ( nSlash < 0 ) return FALSE;
+
 	if ( nSlash == 32 )
 	{
 		CString strGUID	= strURL.Left( 32 );
 		m_oBTC.fromString( strGUID );
 	}
-	else if ( nSlash < 0 ) return FALSE;
 
 	strURL = strURL.Mid( nSlash + 1 );
 
-	if ( !m_oBTH.fromString( strURL ) ) return FALSE;
+	if ( ! m_oBTH.fromString( strURL ) ) return FALSE;
 
 	SOCKADDR_IN saHost;
 	BOOL bResult = Network.Resolve( m_sAddress, ED2K_DEFAULT_PORT, &saHost, bResolve );
@@ -617,13 +613,16 @@ BOOL CPeerProjectURL::ParseMagnet(LPCTSTR pszURL)
 			_tcsicmp( strKey, _T("fs") ) == 0 )		// Foxy
 		{
 			QWORD nSize;
-			if ( ( ! m_bSize ) && ( _stscanf( strValue, _T("%I64i"), &nSize ) == 1 ) && ( nSize > 0 ) )
+			if ( ! m_bSize && ( _stscanf( strValue, _T("%I64i"), &nSize ) == 1 ) && nSize > 0 )
 			{
 				m_nSize = nSize;
 				m_bSize = TRUE;
 			}
 		}
 	}
+
+	if ( m_sName.GetLength() > 3 )
+		m_sName = URLDecode( (LPCTSTR)m_sName );
 
 	if ( m_oBTH && ! m_pTorrent )
 	{
@@ -895,7 +894,6 @@ BOOL CPeerProjectURL::ParseDonkeyFile(LPCTSTR pszURL)
 		if ( nSep < 0 ) return TRUE;
 		strPart	= strURL.Left( nSep );
 		strURL	= strURL.Mid( nSep + 1 );
-
 	}
 
 	while ( strURL.GetLength() > 8 )
@@ -967,7 +965,6 @@ BOOL CPeerProjectURL::ParsePiolet(LPCTSTR pszURL)
 // CPeerProjectURL parse Piolet file URL
 //
 // mp2p://file|Shareaza1600.exe|789544|3fb626ed1a9f4cb9921107f510148370/
-
 
 BOOL CPeerProjectURL::ParsePioletFile(LPCTSTR pszURL)
 {
@@ -1087,7 +1084,8 @@ void CPeerProjectURL::SafeString(CString& strInput)
 	for ( int nIndex = 0 ; nIndex < strInput.GetLength() ; nIndex++ )
 	{
 		TCHAR nChar = strInput.GetAt( nIndex );
-		if ( nChar >= 0 && nChar < 32 ) strInput.SetAt( nIndex, '_' );
+		if ( nChar >= 0 && nChar < 32 )
+			strInput.SetAt( nIndex, '_' );
 	}
 }
 

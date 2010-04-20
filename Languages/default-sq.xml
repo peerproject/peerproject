@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Albanian Skin File -->
 
-<!-- Translation based on default-en.xml r50 -->
+<!-- Translation based on default-en.xml r52 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2845,7 +2845,6 @@
 	<string id="16080" value="Planifikuesi vepron sipas mënyrës 'Vetëm G2'. Do e fikësh këtë mënyrë që tërë rrjetet aktive të mbeten të lidhura?"/>
 	<string id="16081" value="Po dërgoj hetim për &quot;%s&quot; tek %s."/>
 	<string id="16083" value="Detyrimi i PC-së tuaj drejt mënyrës Nyje mund të ketë pasoja të kundërta në efektshmërinë dhe rrjetin P2P. Është më e sigurt nëse PeerProject vendos a duhet përdorur mënyra Nyje.\n\nMënyra Nyje NUK jep rezultate kërkimi më të mira, ose nuk ka ndonjë avantazh tjetër.\n\nVërtet doni ta bëni këtë, pavarësisht dizavantazheve?"/>
-	<string id="16084" value="Moslejimi i përkrahjes për protokollet Gnutella-1 mund t'i kufizojë rezultatet e kërkimit, madje nëse veproni si Nyje mund të prekë edhe rezultatet e përdoruesve të tjerë. A jeni i sigurt se doni ta bëni këtë?"/>
 	<string id="16085" value="Gnutella2 është rrjeti parësor i PeerProject-s. Nëse nuk e lejoni përkrahjen e tij, numri dhe cilësia e rezultateve të kërkimit mund të kufizohet mjaft. A jeni i SIGURT se doni ta bëni këtë?"/>
 	<string id="16087" value="Shtrirja dalëse e bandës tuaj është tepër e vogël për lejimin e këtij rrjeti"/>
 	<string id="16128" value="Pranova një lidhje hyrëse nga %s porti %i."/>
@@ -2979,13 +2978,13 @@
 	<string id="16997" value="There is no file playing.  Double-click a media file in your library to play it."/>
 	<string id="16998" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
 	<string id="16999" value="Lista:"/>
-	<string id="17016" value="Mirë se erdhe te Chat-i i PeerProject-s."/>
-	<string id="17017" value="Të lutem respekto të tjerët kur e përdor këtë shërbim"/>
-	<string id="17018" value="Dërgo:"/>
+	<string id="17015" value="Mirë se erdhe te Chat-i i PeerProject-s."/>
+	<string id="17016" value="Të lutem respekto të tjerët kur e përdor këtë shërbim"/>
+	<string id="17017" value="Dërgo:"/>
+	<string id="17018" value="Përdorues"/>
+	<string id="17019" value="Kanale"/>
 	<string id="17020" value="Shto..."/>
 	<string id="17021" value="Fshije"/>
-	<string id="17022" value="Përdorues"/>
-	<string id="17023" value="Kanale"/>
 	<string id="17024" value="Nis një lidhje te %s..."/>
 	<string id="17025" value="E pamundur të krijohet një lidhje te %s."/>
 	<!--MISSING STRINGS-->

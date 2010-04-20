@@ -71,10 +71,10 @@ CRichViewCtrl::CRichViewCtrl()
 	, m_nScrollWheelLines( 3 )
 	, m_pHover		( NULL )
 	, m_bSelecting	( FALSE )
-	, m_pSelStart	()
-	, m_pSelEnd 	()
-	, m_pSelAbsStart()
-	, m_pSelAbsEnd	()
+	, m_pSelStart	( )
+	, m_pSelEnd 	( )
+	, m_pSelAbsStart( )
+	, m_pSelAbsEnd	( )
 	, m_hcHand		( NULL )
 	, m_hcText		( NULL )
 {
@@ -148,11 +148,11 @@ int CRichViewCtrl::FullHeightMove(int nX, int nY, int nWidth, BOOL bShow)
 	return m_nLength;
 }
 
-BOOL CRichViewCtrl::GetElementRect(CRichElement* pElement, RECT* prc)
+BOOL CRichViewCtrl::GetElementRect(CRichElement* pElement, RECT* prc) const
 {
 	for ( int nFragment = 0 ; nFragment < m_pFragments.GetCount() ; nFragment ++ )
 	{
-		CRichFragment* pFragment = m_pFragments.GetAt( nFragment );
+		const CRichFragment* pFragment = m_pFragments.GetAt( nFragment );
 
 		if ( pFragment->m_pElement == pElement )
 		{
@@ -722,7 +722,7 @@ void CRichViewCtrl::WrapLineHelper(CList< CRichFragment* >& pLine, CPoint& pt, i
 /////////////////////////////////////////////////////////////////////////////
 // CRichViewCtrl coordinate mapping
 
-CRichFragment* CRichViewCtrl::PointToFrag(CPoint& pt)
+CRichFragment* CRichViewCtrl::PointToFrag(CPoint& pt) const
 {
 	if ( m_pDocument == NULL || m_pDocument->m_nCookie != m_nCookie ) return NULL;
 
@@ -746,7 +746,7 @@ CRichFragment* CRichViewCtrl::PointToFrag(CPoint& pt)
 	return NULL;
 }
 
-RICHPOSITION CRichViewCtrl::PointToPosition(CPoint& pt)
+RICHPOSITION CRichViewCtrl::PointToPosition(CPoint& pt) const
 {
 	RICHPOSITION pos = { -1, 0 };
 
@@ -756,9 +756,7 @@ RICHPOSITION CRichViewCtrl::PointToPosition(CPoint& pt)
 
 	for ( int nFragment = 0 ; nFragment < m_pFragments.GetSize() ; nFragment++ )
 	{
-		CRichFragment* pFragment = m_pFragments.GetAt( nFragment );
-
-		// ToDo: Fix Wrapped Multiline Detection (IRC?)
+		const CRichFragment* pFragment = m_pFragments.GetAt( nFragment );
 
 		if ( pt.x >= pFragment->m_pt.x && pt.y >= pFragment->m_pt.y &&
 			 pt.x < pFragment->m_pt.x + pFragment->m_sz.cx &&
@@ -768,24 +766,27 @@ RICHPOSITION CRichViewCtrl::PointToPosition(CPoint& pt)
 
 			if ( pFragment->m_nLength > 0 )
 			{
-				CClientDC dc( this );
-				CFont* pOld = dc.GetCurrentFont();
-				pFragment->m_pElement->PrePaint( &dc, FALSE );
-
-				LPCTSTR pszText = pFragment->m_pElement->m_sText;
-				pszText += pFragment->m_nOffset;
-				int nX = pt.x - pFragment->m_pt.x;
-
-				for ( pos.nOffset = 0 ; pos.nOffset < pFragment->m_nLength ; pszText++ )
+				if ( CDC* pDC = CDC::FromHandle( ::GetDC( GetSafeHwnd() ) ) )
 				{
-					int nWidth = dc.GetTextExtent( pszText, 1 ).cx;
-					if ( nX < ( nWidth >> 1 ) ) break;
-					pos.nOffset++;
-					if ( nX < nWidth ) break;
-					nX -= nWidth;
-				}
+					CFont* pOld = pDC->GetCurrentFont();
+					pFragment->m_pElement->PrePaint( pDC, FALSE );
 
-				dc.SelectObject( pOld );
+					LPCTSTR pszText = pFragment->m_pElement->m_sText;
+					pszText += pFragment->m_nOffset;
+					int nX = pt.x - pFragment->m_pt.x;
+
+					for ( pos.nOffset = 0 ; pos.nOffset < pFragment->m_nLength ; pszText ++ )
+					{
+						int nWidth = pDC->GetTextExtent( pszText, 1 ).cx;
+						if ( nX < ( nWidth >> 1 ) ) break;
+						pos.nOffset++;
+						if ( nX < nWidth ) break;
+						nX -= nWidth;
+					}
+
+					pDC->SelectObject( pOld );
+					::ReleaseDC( GetSafeHwnd(), pDC->GetSafeHdc() );
+				}
 			}
 
 			break;
@@ -797,7 +798,7 @@ RICHPOSITION CRichViewCtrl::PointToPosition(CPoint& pt)
 	return pos;
 }
 
-CPoint CRichViewCtrl::PositionToPoint(RICHPOSITION& pos)
+CPoint CRichViewCtrl::PositionToPoint(RICHPOSITION& pos) const
 {
 	CPoint pt( 0, - GetScrollPos( SB_VERT ) );
 
@@ -806,7 +807,7 @@ CPoint CRichViewCtrl::PositionToPoint(RICHPOSITION& pos)
 
 	BOOL bOverload = pos.nFragment >= m_pFragments.GetSize();
 
-	CRichFragment* pFragment = m_pFragments.GetAt(
+	const CRichFragment* pFragment = m_pFragments.GetAt(
 		bOverload ? m_pFragments.GetSize() - 1 : pos.nFragment );
 
 	pt.x = pFragment->m_pt.x;
@@ -820,13 +821,16 @@ CPoint CRichViewCtrl::PositionToPoint(RICHPOSITION& pos)
 	{
 		if ( pos.nOffset < pFragment->m_nLength )
 		{
-			CClientDC dc( this );
-			CFont* pOld = dc.GetCurrentFont();
-			pFragment->m_pElement->PrePaint( &dc, FALSE );
-			LPCTSTR pszText = pFragment->m_pElement->m_sText;
-			pszText += pFragment->m_nOffset;
-			pt.x += dc.GetTextExtent( pszText, pos.nOffset ).cx;
-			dc.SelectObject( pOld );
+			if ( CDC* pDC = CDC::FromHandle( ::GetDC( GetSafeHwnd() ) ) )
+			{
+				CFont* pOld = pDC->GetCurrentFont();
+				pFragment->m_pElement->PrePaint( pDC, FALSE );
+				LPCTSTR pszText = pFragment->m_pElement->m_sText;
+				pszText += pFragment->m_nOffset;
+				pt.x += pDC->GetTextExtent( pszText, pos.nOffset ).cx;
+				pDC->SelectObject( pOld );
+				::ReleaseDC( GetSafeHwnd(), pDC->GetSafeHdc() );
+			}
 		}
 		else
 		{
@@ -868,13 +872,13 @@ void CRichViewCtrl::UpdateSelection()
 	}
 }
 
-void CRichViewCtrl::CopySelection()
+void CRichViewCtrl::CopySelection() const
 {
 	CString str;
 
 	for ( int nFragment = m_pSelAbsStart.nFragment ; nFragment <= m_pSelAbsEnd.nFragment ; nFragment++ )
 	{
-		CRichFragment* pFragment = m_pFragments.GetAt( nFragment );
+		const CRichFragment* pFragment = m_pFragments.GetAt( nFragment );
 
 		if ( pFragment->m_nLength == 0 )
 		{
@@ -912,7 +916,7 @@ void CRichViewCtrl::CopySelection()
 
 		if ( nFragment < m_pSelAbsEnd.nFragment )
 		{
-			CRichFragment* pNextFrag = m_pFragments.GetAt( nFragment + 1 );
+			const CRichFragment* pNextFrag = m_pFragments.GetAt( nFragment + 1 );
 
 			if ( pFragment->m_pElement != pNextFrag->m_pElement )
 			{
@@ -920,7 +924,7 @@ void CRichViewCtrl::CopySelection()
 
 				while ( pos )
 				{
-					CRichElement* pCopy = m_pDocument->GetNext( pos );
+					const CRichElement* pCopy = m_pDocument->GetNext( pos );
 					if ( pCopy == pNextFrag->m_pElement ) break;
 					if ( pCopy->m_nType == retNewline ) str += _T("\r\n");
 				}
@@ -969,4 +973,34 @@ void CRichViewCtrl::OnLButtonDblClk(UINT nFlags, CPoint point)
 	GetOwner()->SendMessage( WM_NOTIFY, pNotify.hdr.idFrom, (LPARAM)&pNotify );
 
 	CWnd::OnLButtonDblClk(nFlags, point);
+}
+
+CString CRichViewCtrl::GetWordFromPoint(CPoint& point, LPCTSTR szTokens) const
+{
+	ScreenToClient( &point );
+	CSingleLock pLock( &m_pDocument->m_pSection, TRUE );
+
+	const RICHPOSITION rp = PointToPosition( point );
+	if ( rp.nFragment >= 0 )
+	{
+		const CRichFragment* pFragment = m_pFragments.GetAt( rp.nFragment );
+		if ( pFragment->m_nLength )
+		{
+			const int nOffset = pFragment->m_nOffset + rp.nOffset;
+			const CString& strText = pFragment->m_pElement->m_sText;
+			if ( _tcschr( szTokens, strText.GetAt( nOffset ) ) == NULL ) 
+			{
+				for ( int nPos = pFragment->m_nOffset; ; )
+				{
+					CString strWord = strText.Tokenize( szTokens, nPos );
+					if ( strWord.IsEmpty() )
+						break;
+					if ( nPos > nOffset )
+						return strWord;
+				}
+			}
+		}
+	}
+
+	return CString();
 }

@@ -374,7 +374,8 @@ bool CLibraryTileView::SelectTo(iterator pTile)
 		}
 		else
 		{
-			if ( m_pFocus->m_bSelected == FALSE ) bChanged = DeselectAll( m_pFocus );
+			if ( m_pFocus->m_bSelected == FALSE )
+				bChanged = DeselectAll( m_pFocus );
 			bChanged = Select( m_pFocus ) || bChanged;
 		}
 
@@ -573,7 +574,7 @@ void CLibraryTileView::OnPaint()
 			if ( m_oDropItem == CLibraryListItem ( pTile->m_pFolder ) )
 				pTile->m_bSelected = true;
 
-			pTile->Paint( pBuffer, rcBuffer, &dcMem );
+			pTile->Paint( pBuffer, rcBuffer, &dcMem, pTile == m_pFocus );
 			pTile->m_bSelected = bSelected;
 			dc.BitBlt( rcBlock.left, rcBlock.top, m_szBlock.cx, m_szBlock.cy,
 				pBuffer, 0, 0, SRCCOPY );
@@ -897,7 +898,7 @@ HBITMAP CLibraryTileView::CreateDragImage(const CPoint& ptMouse, CPoint& ptMiddl
 		if ( rcDummy.IntersectRect( &rcAll, &rcOne ) )
 		{
 			pBuffer->FillSolidRect( &rcBuffer, DRAG_COLOR_KEY );
-			( *pTile )->Paint( pBuffer, rcBuffer, &dcMem );
+			( *pTile )->Paint( pBuffer, rcBuffer, &dcMem, ( *pTile ) == m_pFocus );
 			dcDrag.BitBlt( rcOne.left - rcAll.left, rcOne.top - rcAll.top,
 				m_szBlock.cx, m_szBlock.cy, pBuffer, 0, 0, SRCCOPY );
 		}
@@ -947,7 +948,7 @@ bool CLibraryTileItem::Update()
 /////////////////////////////////////////////////////////////////////////////
 // CLibraryTileItem paint
 
-void CLibraryTileItem::Paint(CDC* pDC, const CRect& rcBlock, CDC* /*pMemDC*/)
+void CLibraryTileItem::Paint(CDC* pDC, const CRect& rcBlock, CDC* /*pMemDC*/, BOOL bFocus )
 {
 	CRect rc( &rcBlock );
 
@@ -971,68 +972,114 @@ void CLibraryTileItem::Paint(CDC* pDC, const CRect& rcBlock, CDC* /*pMemDC*/)
 	rc.left += 48 + 5;
 	rc.DeflateRect( 10, 5 );
 
+	BOOL bSelectmark = m_bSelected && Skin.m_bmSelected.m_hObject != NULL;
+
 	if ( m_bSelected )
 	{
-		pDC->SetBkColor( Colors.m_crHighlight );
 		pDC->SetTextColor( Colors.m_crHiText );
-		pDC->SetBkMode( OPAQUE );
+		pDC->SetBkColor( bSelectmark ? CLR_NONE : Colors.m_crHighlight );
+		pDC->SetBkMode( bSelectmark ? TRANSPARENT : OPAQUE );
 	}
 	else
 	{
-		pDC->SetBkColor( Colors.m_crWindow );
 		pDC->SetTextColor( Colors.m_crText );
+		pDC->SetBkColor( Colors.m_crWindow );
 		pDC->SetBkMode( TRANSPARENT );
 	}
 
-	int nX = rc.left + 2;
+	int nX = rc.left + 1;
 	int nY = ( rc.top + rc.bottom ) / 2;
 	int nH = pDC->GetTextExtent( _T("Xy") ).cy;
+	CRect rcUnion( nX, nY, nX, nY );
 
 	if ( m_sSubtitle1.GetLength() > 0 )
 	{
-		CRect rcUnion( nX, nY, nX, nY );
-
 		if ( m_sSubtitle2.GetLength() > 0 )
 		{
 			nY -= ( nH * 3 ) / 2;
 			if ( m_bCollection ) pDC->SelectObject( &CoolInterface.m_fntBold );
-			DrawText( pDC, &rc, nX, nY, m_sTitle, &rcUnion );
+			DrawText( pDC, &rc, nX, nY, m_sTitle, &rcUnion, bSelectmark );
 			if ( m_bCollection ) pDC->SelectObject( &CoolInterface.m_fntNormal );
 			if ( ! m_bSelected ) pDC->SetTextColor( Colors.m_crDisabled );
-			DrawText( pDC, &rc, nX, nY + nH, m_sSubtitle1, &rcUnion );
-			DrawText( pDC, &rc, nX, nY + nH + nH, m_sSubtitle2, &rcUnion );
+			DrawText( pDC, &rc, nX, nY + nH, m_sSubtitle1, &rcUnion, bSelectmark );
+			DrawText( pDC, &rc, nX, nY + nH + nH, m_sSubtitle2, &rcUnion, bSelectmark );
 		}
 		else
 		{
 			if ( m_bCollection ) pDC->SelectObject( &CoolInterface.m_fntBold );
-			DrawText( pDC, &rc, nX, nY - nH, m_sTitle, &rcUnion );
+			DrawText( pDC, &rc, nX, nY - nH, m_sTitle, &rcUnion, bSelectmark );
 			if ( m_bCollection ) pDC->SelectObject( &CoolInterface.m_fntNormal );
 			if ( ! m_bSelected ) pDC->SetTextColor( Colors.m_crDisabled );
-			DrawText( pDC, &rc, nX, nY, m_sSubtitle1, &rcUnion );
+			DrawText( pDC, &rc, nX, nY, m_sSubtitle1, &rcUnion, bSelectmark );
 		}
 
-		pDC->FillSolidRect( &rcUnion, pDC->GetBkColor() );
+		if ( bSelectmark )
+			CoolInterface.DrawWatermark( pDC, &rcUnion, &Skin.m_bmSelected );
+		else
+			pDC->FillSolidRect( &rcUnion, pDC->GetBkColor() );
 	}
-	else
+	else // Draw Name
 	{
 		nY -= nH / 2;
 		if ( m_bCollection ) pDC->SelectObject( &CoolInterface.m_fntBold );
-		DrawText( pDC, &rc, nX, nY, m_sTitle );
+		DrawText( pDC, &rc, nX, nY, m_sTitle, &rcUnion, bSelectmark );
+		if ( bSelectmark )
+		{
+			rcUnion.top--;
+			rcUnion.left -= 4;
+			rcUnion.right += 4;
+			rcUnion.bottom += 2;
+			pDC->ExcludeClipRect( rcUnion.right, rcUnion.top, rc.right, rc.bottom );	// Hide overdraw
+			CoolInterface.DrawWatermark( pDC, &rcUnion, &Skin.m_bmSelected );
+			DrawText( pDC, &rc, nX, nY, m_sTitle, NULL, bSelectmark );					// Duplicate Workaround
+		}
+		else if ( bFocus )
+		{
+			rcUnion.InflateRect( 1, 1 );
+			if ( Skin.m_bmSelected.m_hObject )
+			{
+				rcUnion.left -= 3;
+				rcUnion.right += 3;
+				rcUnion.bottom++;
+			}
+		}
 		if ( m_bCollection ) pDC->SelectObject( &CoolInterface.m_fntNormal );
+	}
+
+	if ( bFocus )
+	{
+		pDC->Draw3dRect( &rcUnion, Colors.m_crHiBorder, Colors.m_crHiBorder );
+
+		if ( Skin.m_bRoundedSelect )
+		{
+			pDC->FillSolidRect( rcUnion.left, rcUnion.top, 1, 1, Colors.m_crWindow );
+			pDC->FillSolidRect( rcUnion.left, rcUnion.bottom - 1, 1, 1, Colors.m_crWindow );
+			pDC->FillSolidRect( rcUnion.right - 1, rcUnion.top, 1, 1, Colors.m_crWindow );
+			pDC->FillSolidRect( rcUnion.right - 1, rcUnion.bottom - 1, 1, 1, Colors.m_crWindow );
+		}
+
+		if ( Colors.m_crHiBorderIn )
+		{
+			rcUnion.DeflateRect( 1, 1 );
+			pDC->Draw3dRect( &rcUnion, Colors.m_crHiBorderIn, Colors.m_crHiBorderIn );
+		}
 	}
 
 	pDC->SelectClipRgn( NULL );
 }
 
-void CLibraryTileItem::DrawText(CDC* pDC, const CRect* prcClip, int nX, int nY, const CString& strText, CRect* prcUnion)
+void CLibraryTileItem::DrawText(CDC* pDC, const CRect* prcClip, int nX, int nY, const CString& strText, CRect* prcUnion, BOOL bSkinned)
 {
 	CSize sz = pDC->GetTextExtent( strText );
 	CRect rc( nX - 2, nY - 1, nX + sz.cx + 2, nY + sz.cy + 1 );
 
 	rc.IntersectRect( &rc, prcClip );
 
-	pDC->ExtTextOut( nX, nY, ETO_CLIPPED|ETO_OPAQUE, &rc, strText, NULL );
-	pDC->ExcludeClipRect( rc.left, rc.top, rc.right, rc.bottom );
+	pDC->ExtTextOut( nX, nY,
+		ETO_CLIPPED|( bSkinned ? 0 : ETO_OPAQUE ),
+		&rc, strText, NULL );
+	if ( ! bSkinned )
+		pDC->ExcludeClipRect( rc.left, rc.top, rc.right, rc.bottom );
 
 	if ( prcUnion != NULL ) prcUnion->UnionRect( prcUnion, &rc );
 }

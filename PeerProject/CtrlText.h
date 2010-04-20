@@ -1,7 +1,7 @@
 //
 // CtrlText.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -32,6 +32,7 @@ public:
 
 // Attributes
 protected:
+	mutable CCriticalSection	m_pSection;
 	CArray< CTextLine* > m_pLines;
 	int					m_nPosition;
 	int					m_nTotal;
@@ -40,7 +41,6 @@ protected:
 	COLORREF			m_crBackground[4];
 	COLORREF			m_crText[5];
 	BOOL				m_bProcess;
-	mutable CCriticalSection	m_pSection;
 	UINT				m_nScrollWheelLines;	// number of lines to scroll when the mouse wheel is rotated
 	int					m_nLastClicked;			// Index of last clicked item
 
@@ -49,8 +49,8 @@ public:
 	void	Add(WORD nType, const CString& strText);
 	void	AddLine(WORD nType, const CString& strLine);
 	void	Clear(BOOL bInvalidate = TRUE);
-	CFont*	GetFont();
 	void	CopyText() const;
+	CFont*	GetFont();
 
 protected:
 	void	UpdateScroll(BOOL bFull = FALSE);
@@ -59,7 +59,6 @@ protected:
 // Overrides
 public:
 	//{{AFX_VIRTUAL(CTextCtrl)
-	public:
 	virtual BOOL Create(DWORD dwStyle, const RECT& rect, CWnd* pParentWnd, UINT nID);
 	//}}AFX_VIRTUAL
 
@@ -75,6 +74,7 @@ protected:
 	afx_msg void OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
 	afx_msg BOOL OnMouseWheel(UINT nFlags, short zDelta, CPoint pt);
 	//}}AFX_MSG
+
 	DECLARE_MESSAGE_MAP()
 };
 
@@ -96,8 +96,7 @@ public:
 // Operations
 public:
 	int		Process(int nWidth);
-	void	Paint(CDC* pDC, CRect* pRect);
+	void	Paint(CDC* pDC, CRect* pRect, BOOL bSkinned = FALSE);
 protected:
 	void	AddLine(int nLength);
-
 };

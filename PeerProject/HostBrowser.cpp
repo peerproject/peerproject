@@ -80,7 +80,7 @@ CHostBrowser::~CHostBrowser()
 {
 	Stop();
 
-	if ( m_pProfile ) delete m_pProfile;
+	delete m_pProfile;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -148,7 +148,7 @@ BOOL CHostBrowser::Browse()
 	m_nState	= hbsConnecting;
 	m_nHits		= 0;
 
-	if ( m_pProfile != NULL ) delete m_pProfile;
+	delete m_pProfile;
 	m_pProfile = NULL;
 
 	return TRUE;
@@ -173,17 +173,12 @@ void CHostBrowser::Stop(BOOL bCompleted)
 	m_nState	= hbsNull;
 	m_tPushed	= 0;
 
+	// ED2K connections aren't handled here -they are in ED2KClient
 	if ( m_nProtocol != PROTOCOL_ED2K )
-	{
-		// ED2K connections aren't handled here- they are in ED2KClient
 		CTransfer::Close();
-	}
 
-	if ( m_pBuffer )
-	{
-		delete m_pBuffer;
-		m_pBuffer = NULL;
-	}
+	delete m_pBuffer;
+	m_pBuffer = NULL;
 
 	if ( m_pInflate )
 		GetInput()->InflateStreamCleanup( m_pInflate );
@@ -402,12 +397,14 @@ void CHostBrowser::SendRequest()
 		}
 
 		Write( _P("Accept: text/html, application/x-gnutella-packets, application/x-gnutella2\r\n"
-							 "Accept-Encoding: deflate\r\n"
-							 "Connection: close\r\n") );
+					"Accept-Encoding: deflate\r\n"
+					"Connection: close\r\n") );
 
 		strHeader.Format( _T("Host: %s:%lu\r\n\r\n"), m_sAddress,
 			htons( m_pHost.sin_port ) );
 		Write( strHeader );
+
+		LogOutgoing();
 
 		OnWrite();
 
@@ -437,7 +434,11 @@ BOOL CHostBrowser::ReadResponseLine()
 	if ( ! Read( strLine ) ) return TRUE;
 	if ( strLine.IsEmpty() ) return TRUE;
 
-	if ( strLine.GetLength() > HTTP_HEADER_MAX_LINE ) strLine = _T("#LINE_TOO_LONG#");
+	theApp.Message( MSG_DEBUG | MSG_FACILITY_INCOMING,
+		_T("%s >> %s"), (LPCTSTR)m_sAddress, (LPCTSTR)strLine );
+
+	if ( strLine.GetLength() > HTTP_HEADER_MAX_LINE )
+		strLine = _T("#LINE_TOO_LONG#");
 
 	if ( strLine.GetLength() >= 12 && strLine.Left( 9 ) == _T("HTTP/1.1 ") )
 	{
@@ -536,6 +537,8 @@ BOOL CHostBrowser::OnHeadersComplete()
 		return FALSE;
 	}
 
+	//CSingleLock pLock( &Transfers.m_pSection, TRUE );
+
 	m_nState		= hbsContent;
 	m_nReceived		= 0ul;
 	m_pBuffer		= new CBuffer();
@@ -572,6 +575,8 @@ BOOL CHostBrowser::OnHeadersComplete()
 
 BOOL CHostBrowser::ReadContent()
 {
+	//CSingleLock pLock( &Transfers.m_pSection, TRUE );
+
 	if ( m_nProtocol != PROTOCOL_ED2K )
 	{
 		if ( m_nReceived < m_nLength )
@@ -629,6 +634,7 @@ BOOL CHostBrowser::ReadContent()
 
 BOOL CHostBrowser::StreamPacketsG1()
 {
+	//ASSUME_LOCK( Transfers.m_pSection );
 	ASSERT ( m_nProtocol == PROTOCOL_G1 );
 
 	BOOL bSuccess = TRUE;
@@ -671,6 +677,7 @@ BOOL CHostBrowser::StreamPacketsG1()
 
 BOOL CHostBrowser::StreamPacketsG2()
 {
+	//ASSUME_LOCK( Transfers.m_pSection );
 	ASSERT ( m_nProtocol == PROTOCOL_G2 );
 
 	while ( CG2Packet* pPacket = CG2Packet::ReadBuffer( m_pBuffer ) )
@@ -721,36 +728,56 @@ BOOL CHostBrowser::OnPacket(CG1Packet* pPacket)
 
 BOOL CHostBrowser::OnPacket(CG2Packet* pPacket)
 {
-	if ( pPacket->IsType( G2_PACKET_HIT ) )
+	switch( pPacket->m_nType )
 	{
-		CQueryHit* pHits = CQueryHit::FromG2Packet( pPacket );
-
-		if ( pHits == NULL )
+	case G2_PACKET_HIT:
+		if ( CQueryHit* pHits = CQueryHit::FromG2Packet( pPacket ) )
+		{
+			OnQueryHits( pHits );
+		}
+		else
 		{
 			theApp.Message( MSG_ERROR, IDS_BROWSE_PACKET_ERROR, m_sAddress );
 			return FALSE;
 		}
+		break;
 
-		OnQueryHits( pHits );
-	}
-	else if ( pPacket->IsType( G2_PACKET_PHYSICAL_FOLDER ) )
-	{
-		if ( m_pNotify != NULL ) m_pNotify->OnPhysicalTree( pPacket );
-	}
-	else if ( pPacket->IsType( G2_PACKET_VIRTUAL_FOLDER ) )
-	{
-		if ( m_pNotify != NULL ) m_pNotify->OnVirtualTree( pPacket );
-	}
-	else if ( pPacket->IsType( G2_PACKET_PROFILE_DELIVERY ) )
-	{
+	case G2_PACKET_PHYSICAL_FOLDER:
+		if ( m_pNotify != NULL )
+			m_pNotify->OnPhysicalTree( pPacket );
+		break;
+
+	case G2_PACKET_VIRTUAL_FOLDER:
+		if ( m_pNotify != NULL )
+			m_pNotify->OnVirtualTree( pPacket );
+		break;
+
+	case G2_PACKET_PROFILE_DELIVERY:
 		OnProfilePacket( pPacket );
-
 		if ( m_pProfile && m_pNotify )
 			m_pNotify->OnProfileReceived();
-	}
-	else if ( pPacket->IsType( G2_PACKET_PROFILE_AVATAR ) )
-	{
-		if ( m_pNotify != NULL ) m_pNotify->OnHeadPacket( pPacket );
+		break;
+
+	case G2_PACKET_PROFILE_AVATAR:
+		if ( m_pNotify != NULL )
+			m_pNotify->OnHeadPacket( pPacket );
+		break;
+
+	case G2_PACKET_PEER_CHAT:
+		if ( ! m_bCanChat )
+		{
+			m_bCanChat = TRUE;
+			if ( m_pNotify )
+				m_pNotify->OnProfileReceived();
+		}
+		break;
+
+	default:
+		CString tmp;
+		tmp.Format( _T("Received unexpected G2 Browse packet from %s:%u"),
+			(LPCTSTR)CString( inet_ntoa( m_pHost.sin_addr ) ),
+			htons( m_pHost.sin_port ) );
+		pPacket->Debug( tmp );
 	}
 
 	return TRUE;
@@ -790,6 +817,7 @@ void CHostBrowser::OnProfilePacket(CG2Packet* pPacket)
 
 BOOL CHostBrowser::StreamHTML()
 {
+	//ASSUME_LOCK( Transfers.m_pSection );
 	ASSERT ( m_nProtocol == PROTOCOL_NULL );
 
 	CString strLine;
@@ -913,9 +941,10 @@ void CHostBrowser::Serialize(CArchive& ar)
 		m_pVendor = VendorCache.LookupByName( m_sServer );
 
 		ar >> bProfilePresent;
-		if ( m_pProfile ) delete m_pProfile;
+		delete m_pProfile;
 		m_pProfile = new CGProfile();
 	}
+
 	if ( m_pProfile && bProfilePresent )
 		m_pProfile->Serialize( ar );
 }

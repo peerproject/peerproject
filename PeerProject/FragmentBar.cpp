@@ -169,11 +169,12 @@ void CFragmentBar::DrawDownload(CDC* pDC, CRect* prcBar, CDownload* pDownload, C
 	}
 
 	Fragments::List oList( pDownload->GetEmptyFragmentList() );
-	for ( Fragments::List::const_iterator pFragment = oList.begin();
-		pFragment != oList.end(); ++pFragment )
+	Fragments::List::const_iterator pItr = oList.begin();
+	const Fragments::List::const_iterator pEnd = oList.end();
+	for ( ; pItr != pEnd ; ++pItr )
 	{
-		DrawFragment( pDC, prcBar, pDownload->m_nSize,
-			pFragment->begin(), pFragment->size(), crNatural, FALSE );
+		DrawFragment( pDC, prcBar, pDownload->m_nSize, pItr->begin(),
+			pItr->size(), crNatural, FALSE );
 	}
 
 	for ( POSITION posSource = pDownload->GetIterator(); posSource ; )
@@ -326,11 +327,12 @@ void CFragmentBar::DrawUpload(CDC* pDC, CRect* prcBar, CUploadFile* pFile, COLOR
 	CUploadTransfer* pUpload = pFile->GetActive();
 	if ( pUpload == NULL ) return;
 
-	for ( Fragments::List::const_iterator pFragment = pFile->m_oFragments.begin();
-		pFragment != pFile->m_oFragments.end(); ++pFragment )
+	Fragments::List::const_iterator pItr = pFile->m_oFragments.begin();
+	const Fragments::List::const_iterator pEnd = pFile->m_oFragments.end();
+	for ( ; pItr != pEnd ; ++pItr  )
 	{
-		DrawFragment( pDC, prcBar, pFile->m_nSize, pFragment->begin(),
-			pFragment->size(), Colors.m_crFragmentComplete, TRUE );
+		DrawFragment( pDC, prcBar, pFile->m_nSize, pItr->begin(), pItr->size(),
+			Colors.m_crFragmentComplete, true );
 	}
 
 	if ( pFile == pUpload->m_pBaseFile )

@@ -111,7 +111,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description="Performing registration"
+				Description="Performing registration (for debug)"
 				CommandLine="xcopy &quot;..\..\Services\LibGFL\$(PlatformName)\*.dll&quot; &quot;$(TargetDir)&quot; /y&#x0D;&#x0A;regsvr32 /s /c &quot;$(TargetPath)&quot;&#x0D;&#x0A;"
 			/>
 		</Configuration>
@@ -205,7 +205,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description="Performing registration"
+				Description="Performing registration (for debug)"
 				CommandLine="xcopy &quot;..\..\Services\LibGFL\$(PlatformName)\*.dll&quot; &quot;$(TargetDir)&quot; /y&#x0D;&#x0A;regsvr32 /s /c &quot;$(TargetPath)&quot;&#x0D;&#x0A;"
 			/>
 		</Configuration>
@@ -310,8 +310,6 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description="Performing registration"
-				CommandLine="xcopy &quot;..\..\Services\LibGFL\$(PlatformName)\*.dll&quot; &quot;$(TargetDir)&quot; /y&#x0D;&#x0A;regsvr32 /s /c &quot;$(TargetPath)&quot;&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
@@ -414,8 +412,6 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description="Performing registration"
-				CommandLine="xcopy &quot;..\..\Services\LibGFL\$(PlatformName)\*.dll&quot; &quot;$(TargetDir)&quot; /y&#x0D;&#x0A;regsvr32 /s /c &quot;$(TargetPath)&quot;&#x0D;&#x0A;"
 			/>
 		</Configuration>
 	</Configurations>

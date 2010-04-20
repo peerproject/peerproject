@@ -851,13 +851,13 @@ BOOL CG1Neighbour::OnVendor(CG1Packet* pPacket)
 	WORD nFunction = pPacket->ReadShortLE(); // 2 bytes, function (do)
 	WORD nVersion  = pPacket->ReadShortLE(); // 2 bytes, version (do)
 
-	// If the packet has 0 for the vendor and function (do)
-	if ( nVendor == 0 && nFunction == 0 )
+	
+	if ( nVendor == 0 && nFunction == 0 )	// If the packet has 0 for the vendor and function (do)
 	{
 		// Supported vendor messages array (do)
 
-	} // The packet has vendor or function numbers, and the 2 bytes of function are all 1s
-	else if ( nFunction == 0xFFFF )
+	}
+	else if ( nFunction == 0xFFFF )	// The packet has vendor or function numbers, and the 2 bytes of function are all 1s
 	{
 		// Vendor is 0
 		if ( nVendor == 0 )
@@ -922,8 +922,8 @@ BOOL CG1Neighbour::OnVendor(CG1Packet* pPacket)
 			Send( pReply ); // Send the reply packet to the remote computer
 		}
 
-	} // The vendor "RAZA" is Shareaza, and the function isn't 0xFFFF
-	else if ( nVendor == 'RAZA' || nVendor == 'PEER')
+	}
+	else if ( nVendor == 'RAZA' || nVendor == 'PEER')	// The vendor "RAZA" is Shareaza, and the function isn't 0xFFFF
 	{
 		// Switch on what the function is
 		switch ( nFunction )
@@ -931,7 +931,6 @@ BOOL CG1Neighbour::OnVendor(CG1Packet* pPacket)
 
 		// Version Query (do)
 		case 0x0001:
-
 			// The version number from the packet is 0 or 1
 			if ( nVersion <= 1 )
 			{
@@ -951,7 +950,6 @@ BOOL CG1Neighbour::OnVendor(CG1Packet* pPacket)
 
 		// Version Response (do)
 		case 0x0002:
-
 			// The version number we read from the packet is 0 or 1, and there are 8 bytes of payload left to read
 			if ( nVersion <= 1 && pPacket->GetRemaining() >= 8 )
 			{
@@ -967,16 +965,14 @@ BOOL CG1Neighbour::OnVendor(CG1Packet* pPacket)
 
 		// Cluster Advisor (do)
 		case 0x0003:
-
 			// The version number we read from the packet is 0 or 1, and there are 28 bytes of payload left to read
 			if ( nVersion <= 1 && pPacket->GetRemaining() >= 28 )
 				OnClusterAdvisor( pPacket );	// This is a cluster advisor packet
 
 			break;
 		}
-
-	} // The vendor is "BEAR" for BearShare
-	else if ( nVendor == 'BEAR' )
+	}
+	else if ( nVendor == 'BEAR' )	 // The vendor is "BEAR" for BearShare
 	{
 		// Sort by the function number to see what the vendor specific packet from BearShare wants
 		switch ( nFunction )

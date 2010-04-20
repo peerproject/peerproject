@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Swedish Skin File -->
 
-<!-- Translation based on default-en.xml r50 -->
+<!-- Translation based on default-en.xml r52 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2778,7 +2778,6 @@
 	<string id="16079" value="Är du säker på att du vill koppla ifrån?"/>
 	<string id="16081" value="Skickar begäran om &quot;%s&quot; till %s."/>
 	<string id="16083" value="Att tvinga din PC till navläge kan skada prestandan på fildelningsnätverket. Det är vanligtvis bättre att låta PeerProject bestämma om navläge ska användas eller inte.\n\nNavläge ger INTE bättre sökresultat eller några andra föredelar för dig.\n\nVill du verkligen göra detta trots dessa nackdelar?"/>
-	<string id="16084" value="Avstängning av stöd för Gnutella 1-protokoll kan begränsa dina sökresultat och om du beter dig som ett nav kan det också påverka resultatet för andra användare. Vill du verkligen göra detta?"/>
 	<string id="16085" value="Gnutella2 är PeerProjects primära nätverk. Avstängning av stöd för det kan drastiskt minska både mängden och kvaliteten på sökresultat. Är du SÄKER på att du vill göra detta?"/>
 	<string id="16087" value="Din utgående bandbredd är för låg för att använda detta nätverk"/>
 	<string id="16128" value="Accepterade en inkommande anslutning från %s port %i."/>

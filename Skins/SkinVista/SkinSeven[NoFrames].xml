@@ -25,7 +25,9 @@
   <option name="Navbar" offset="0,0"/>
   <option name="DropMenu" value="true"/>
   <option name="MenuBorders" value="false"/>
+  <option name="MenuGripper" value="false"/>
   <option name="MonitorBar"  value="114"/>
+  <option name="RoundedSelect" value="true"/>
 </options>
 
 <colorScheme>
@@ -35,10 +37,11 @@
   <color name="Navbar.Shadow.Down" value="1E3C5A"/>
 
   <color name="System.Base.Window" value="FEFEFE"/>
-  <color name="System.Base.Midtone" value="FCFBFA"/>
+  <color name="System.Base.Midtone" value="F9F8F6"/>
   <color name="System.Base.Text" value="1A100A"/>
   <color name="System.Base.HiText" value="000000"/>
-  <color name="System.Base.HiBorder" value="90B8E6"/>
+  <color name="System.Base.HiBorder" value="8AB0E0"/>
+  <color name="System.Base.HiBorderIn" value="E2EEFB"/>
   <color name="System.Base.Highlight" value="DFEDFE"/>
   <color name="System.Back.Checked" value="F8F6F4"/>
   <color name="System.Back.Selected" value="F8F6F4"/>
@@ -150,33 +153,13 @@
   <watermark target="CWndTabBar" path="Seven\RibbonBaseline.png"/>
   <watermark target="CMonitorBar" path="Seven\RibbonMonitorBkg.png"/>
   <watermark target="CHashProgressBar" path="Seven\HashWnd.png"/>
-  <watermark target="CMainWndr" path="Seven\RibbonTabsBkg.png"/>
+  <watermark target="CMainWnd" path="Seven\RibbonTabsBkg.png"/>
   <watermark target="CMainWnd.Toolbar" path="Seven\RibbonTabsBkg.png"/>
   <watermark target="CMediaFrame.Toolbar" path="Mediabar.png"/>
   <watermark target="CDownloadTabBar" path="DownloadgroupsToolbar.png"/>
   <watermark target="CDownloadsWnd.Toolbar" path="ToolbarLt.png"/>
-  <watermark target="CUploadsWnd.Toolbar" path="Toolbar.png"/>
-  <watermark target="CPrivateChatFrame.Toolbar" path="ToolbarLt.png"/>
-  <watermark target="CBrowseHostWnd.Toolbar" path="Toolbar.png"/>
-  <watermark target="CBrowseTree.Top.Toolbar" path="Toolbar.png"/>
-  <watermark target="CLibraryTree.Top.Toolbar" path="Toolbar.png"/>
-  <watermark target="CLibraryTree.Virtual.Toolbar" path="Toolbar.png"/>
-  <watermark target="CLibraryHeaderBar.Virtual.Toolbar" path="Toolbar.png"/>
-  <watermark target="CLibraryHeaderBar.Physical.Toolbar" path="Toolbar.png"/>
-  <watermark target="CLibraryHomeView.Physical.Toolbar" path="Toolbar.png"/>
-  <watermark target="CLibraryHomeView.Virtual.Toolbar"  path="Toolbar.png"/>
-  <watermark target="CLibraryFileView.Physical.Toolbar" path="Toolbar.png"/>
-  <watermark target="CLibraryFileView.Virtual.Toolbar"  path="Toolbar.png"/>
-  <watermark target="CLibraryTileView.Physical.Toolbar" path="Toolbar.png"/>
-  <watermark target="CLibraryTileView.Virtual.Toolbar"  path="Toolbar.png"/>
-  <watermark target="CLibraryCollectionView.Virtual.Toolbar" path="Toolbar.png"/>
   <watermark target="ImageViewerWnd.Toolbar" path="Toolbar.png"/>
-  <watermark target="CIRCFrame.Toolbar" path="Toolbar.png"/>
   <watermark target="CNeighboursWnd.Toolbar" path="ToolbarLt.png"/>
-  <watermark target="CDiscoveryWnd.Toolbar"  path="Toolbar.png"/>
-  <watermark target="CHostCacheWnd.Toolbar"  path="Toolbar.png"/>
-  <watermark target="CHitMonitorWnd.Toolbar" path="Toolbar.png"/>
-  <watermark target="CSecurityWnd.Toolbar" path="Toolbar.png"/>
   <watermark target="CSearchWnd.Full.Toolbar" path="ToolbarLt.png"/>
   <watermark target="CSearchWnd.Panel.Toolbar" path="Toolbar.png"/>
   <watermark target="CSearchPanel" path="Seven\SidebarRepeat.png"/>
@@ -217,6 +200,9 @@
   <watermark target="CCoolbar.Hover" path="ToolbarButtonHover.png"/>
   <watermark target="CCoolbar.Checked" path="ToolbarButtonDown.png"/>
   <watermark target="CCoolbar.Separator" path="ToolbarSeparator.png"/>
+
+  <watermark target="System.Highlight"			path="Highlight.png"/>
+  <watermark target="System.Toolbars"	  		path="Toolbar.png"/>
 </watermarks>
 
 <windowSkins>

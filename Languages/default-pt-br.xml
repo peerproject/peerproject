@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Brazilian Portuguese Skin File -->
 
-<!-- Translation based on default-en.xml r50 -->
+<!-- Translation based on default-en.xml r52 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2843,7 +2843,7 @@
 	<string id="16064" value="Iniciando o núcleo de rede do PeerProject..."/>
 	<string id="16065" value="Impossível aceitar conexões de %s na porta %i. Conexões de entrada não serão suportadas."/>
 	<string id="16066" value="Desligando o núcleo de rede do PeerProject..."/>
-	<string id="16067" value="Desconectado da Rede."/>
+	<string id="16067" value="Desconectado."/>
 	<string id="16068" value="Aceitando conexões TCP de entrada na %s porta %i."/>
 	<string id="16069" value="As Conexões de saída serão de %s porta %i."/>
 	<string id="16070" value="Impossível resolver %s para conexões de saída. As Conexões de saída usarão a interface padrão."/>
@@ -2859,7 +2859,6 @@
 	<string id="16080" value="Você está executando a Agenda no modo 'apenas G2'. Você gostaria de desativar esta modo, para que todas as redes ativas permaneçam conectadas?"/>
 	<string id="16081" value="Enviando inquisição para &quot;%s&quot; para %s."/>
 	<string id="16083" value="Forçar o seu PC em modo de HUB pode ter resultados adversos na perfomance e na rede P2P. É geralmente melhor deixar o PeerProject decidir se o modo hub deve ou não ser usado.\n\nModo hub NÃO produz melhores resultados de busca, ou tem quaisquer outras vantagens a você.\n\nVocê realmente quer fazer isso, apesar destas desvantagens?"/>
-	<string id="16084" value="Desativar o suporte aos protocolos Gnutella-1 pode limitar os seus resultados de busca, e se você está agindo como um hub pode também ter um impacto sob os resultados de outros usuários. Você tem certeza que você quer fazer isto?"/>
 	<string id="16085" value="Gnutella 2 é a rede premiére do PeerProject. Desativar o suporte pode limitar severamente ambos o número e a qualidade dos seus resultados de busca. Você tem CERTEZA que você quer fazer isto?"/>
 	<string id="16087" value="Sua banda de upload é muito baixa para ativar essa rede"/>
 	<string id="16128" value="Aceita uma conexão de entrada de %s porta %i."/>
@@ -3166,13 +3165,13 @@
 	<string id="16997" value="Não há arquivo tocando. Clique duas vezes num arquivo de mídia na sua biblioteca para tocá-lo."/>
 	<string id="16998" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
 	<string id="16999" value="Lista de Execuções"/>
-	<string id="17016" value="Bem-Vindo ao Chat do PeerProject."/>
-	<string id="17017" value="Por favor respeite os outros enquanto usar este serviço"/>
-	<string id="17018" value="Chat:"/>
+	<string id="17015" value="Bem-Vindo ao Chat do PeerProject."/>
+	<string id="17016" value="Por favor respeite os outros enquanto usar este serviço"/>
+	<string id="17017" value="Chat:"/>
+	<string id="17018" value="Usuários"/>
+	<string id="17019" value="Canais"/>
 	<string id="17020" value="Adicionar"/>
 	<string id="17021" value="Remover"/>
-	<string id="17022" value="Usuários"/>
-	<string id="17023" value="Canais"/>
 	<string id="17024" value="Iniciando uma conexão para %s..."/>
 	<string id="17025" value="Incapaz de criar uma conexão para %s."/>
 	<string id="17026" value="Pedindo uma conexão push com firewall de %s..."/>
@@ -4696,4 +4695,4 @@
 		<column from="Order" to="Ordem"/>
 	</list>
 </listColumns>
-</skin>輿
+</skin>輿l

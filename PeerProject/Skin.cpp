@@ -129,6 +129,7 @@ void CSkin::CreateDefault()
 	m_nLibIconsY = 56;
 	m_bMenuBorders = TRUE;
 	m_bMenuGripper = TRUE;
+	m_bRoundedSelect = FALSE;
 	m_bDropMenu = FALSE;
 	m_rcNavBarOffset = CRect( 0, 0, 0, 0 );
 
@@ -369,108 +370,135 @@ BOOL CSkin::LoadFromString(const CString& strXML, const CString& strPath)
 
 BOOL CSkin::LoadFromXML(CXMLElement* pXML, const CString& strPath)
 {
+	BOOL bSuccess = FALSE;
+
 	if ( ! pXML->IsNamed( _T("skin") ) )
 	{
 		theApp.Message( MSG_ERROR, IDS_SKIN_ERROR,
-			_T("Unknown [skin] element"), pXML->ToString() );
-		return FALSE;
+			_T("Unknown [skin] root element"), pXML->ToString() );
+		return bSuccess;
 	}
 
-	BOOL bSuccess = FALSE;
+	// Confirm if this switch overhead is any better than typical elseif sequence
+	std::map< const CString, char > XMLElement;
+	XMLElement[ "manifest" ]		= 'm';
+	XMLElement[ "windowskins" ]		= 's';
+	XMLElement[ "watermarks" ]		= 'w';
+	XMLElement[ "commandimages" ]	= 'i';
+	XMLElement[ "icons" ]			= 'i';
+	XMLElement[ "colors" ]			= 'c';
+	XMLElement[ "colorscheme" ]		= 'c';
+	XMLElement[ "colourscheme" ]	= 'c';
+	XMLElement[ "toolbars" ]		= 't';
+	XMLElement[ "menus" ]			= 'u';
+	XMLElement[ "dialogs" ]			= 'a';
+	XMLElement[ "documents" ]		= 'd';
+	XMLElement[ "listcolumns" ]		= 'l';
+	XMLElement[ "options" ]			= 'o';
+	XMLElement[ "navbar" ]			= 'v';	// Legacy .sks
+	XMLElement[ "fonts" ]			= 'f';
+	XMLElement[ "strings" ]			= 'r';
+	XMLElement[ "commandtips" ]		= 'r';
+	XMLElement[ "controltips" ]		= 'n';
+	XMLElement[ "commandmap" ]		= 'p';
+	XMLElement[ "resourcemap" ]		= 'p';
+	XMLElement[ "tipmap" ]			= 'p';
+	CString strElement;
 
 	for ( POSITION pos = pXML->GetElementIterator() ; pos ; )
 	{
 		CXMLElement* pSub = pXML->GetNextElement( pos );
+		strElement = pSub->GetName();
+		ToLower( strElement );
 		bSuccess = FALSE;
 
-		if ( pSub->IsNamed( _T("commandImages") ) )
+		switch( XMLElement[ strElement ] )
 		{
-			if ( ! LoadCommandImages( pSub, strPath ) ) break;
-		}
-		else if ( pSub->IsNamed( _T("watermarks" ) ) )
-		{
-			if ( ! LoadWatermarks( pSub, strPath ) ) break;
-		}
-		else if ( pSub->IsNamed( _T("windowSkins" ) ) )
-		{
-			if ( ! LoadWindowSkins( pSub, strPath ) ) break;
-		}
-		else if ( pSub->IsNamed( _T("colorScheme") ) || pSub->IsNamed( _T("colourScheme") ) )
-		{
-			if ( ! LoadColorScheme( pSub ) ) break;
-		}
-		else if ( pSub->IsNamed( _T("menus") ) )
-		{
-			if ( ! LoadMenus( pSub ) ) break;
-		}
-		else if ( pSub->IsNamed( _T("toolbars") ) )
-		{
-			if ( ! LoadToolbars( pSub ) ) break;
-		}
-		else if ( pSub->IsNamed( _T("dialogs") ) )
-		{
-			if ( ! LoadDialogs( pSub ) ) break;
-		}
-		else if ( pSub->IsNamed( _T("strings") ) || pSub->IsNamed( _T("commandTips") ) )
-		{
-			if ( ! LoadStrings( pSub ) ) break;
-		}
-		else if ( pSub->IsNamed( _T("controltips") ) )
-		{
-			if ( ! LoadControlTips( pSub ) ) break;
-		}
-		else if ( pSub->IsNamed( _T("commandMap") ) || pSub->IsNamed( _T("tipMap") ) ||
-				  pSub->IsNamed( _T("resourceMap") ) )
-		{
-			if ( ! LoadResourceMap( pSub ) ) break;
-		}
-		else if ( pSub->IsNamed( _T("listColumns") ) )
-		{
-			if ( ! LoadListColumns( pSub ) ) break;
-		}
-		else if ( pSub->IsNamed( _T("fonts" ) ) )
-		{
-			if ( ! LoadFonts( pSub, strPath ) ) break;
-		}
-		else if ( pSub->IsNamed( _T("documents" ) ) )
-		{
-			if ( ! LoadDocuments( pSub ) ) break;
-		}
-		else if ( pSub->IsNamed( _T("options") ) )
-		{
-			if ( ! LoadOptions( pSub ) ) break;
-		}
-		else if ( pSub->IsNamed( _T("navbar") ) )
-		{
-			if ( ! LoadNavBar( pSub ) ) break;
-		}
-		else if ( pSub->IsNamed( _T("manifest") ) )
-		{
-			CString strType = pSub->GetAttributeValue( _T("type") );
-			ToLower( strType );
+		case 's':	// windowSkins
+			if ( ! LoadWindowSkins( pSub, strPath ) )
+				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Failed section"), _T("WindowSkins") );
+			break;
+		case 'w':	// watermarks
+			if ( ! LoadWatermarks( pSub, strPath ) )
+				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Failed section"), _T("Watermarks") );
+			break;
+		case 'i':	// commandImages, icons
+			if ( ! LoadCommandImages( pSub, strPath ) )
+				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Failed section"), _T("CommandImages") );
+			break;
+		case 'c':	// colorScheme, colourScheme, colors
+			if ( ! LoadColorScheme( pSub ) )
+				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Failed section"), _T("ColorScheme") );
+			break;
+		case 't':	// toolbars
+			if ( ! LoadToolbars( pSub ) )
+				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Failed section"), _T("Toolbars") );
+			break;
+		case 'u':	// menus
+			if ( ! LoadMenus( pSub ) )
+				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Failed section"), _T("Menus") );
+			break;
+		case 'a':	// dialogs
+			if ( ! LoadDialogs( pSub ) )
+				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Failed section"), _T("Dialogs") );
+			break;
+		case 'd':	// documents
+			if ( ! LoadDocuments( pSub ) )
+				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Failed section"), _T("Documents") );
+			break;
+		case 'r':	// strings, commandTips
+			if ( ! LoadStrings( pSub ) )
+				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Failed section"), _T("Strings") );
+			break;
+		case 'n':	// controltips
+			if ( ! LoadControlTips( pSub ) )
+				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Failed section"), _T("ControlTips") );
+			break;
+		case 'p':	// commandMap, resourceMap, tipMap
+			if ( ! LoadResourceMap( pSub ) )
+				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Failed section"), _T("ResourceMap") );
+			break;
+		case 'l':	// listColumns
+			if ( ! LoadListColumns( pSub ) )
+				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Failed section"), _T("ListColumns") );
+			break;
+		case 'f':	// fonts
+			if ( ! LoadFonts( pSub, strPath ) )
+				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Failed section"), _T("Fonts") );
+			break;
+		case 'o':	// options
+			if ( ! LoadOptions( pSub ) )
+				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Failed section"), _T("Options") );
+			break;
+		case 'v':	// navbar (deprecated)
+			if ( ! LoadNavBar( pSub ) )
+				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Failed section"), _T("NavBar (Deprecated)") );
+			break;
 
-			if ( strType == _T("language") )
+		case 'm':	// manifest
+			if ( pSub->GetAttributeValue( _T("type") ).CompareNoCase( _T("skin") ) == 0 )
+			{
+				CString strSkinName = pSub->GetAttributeValue( _T("name"), _T("") );
+				theApp.Message( MSG_NOTICE, IDS_SKIN_LOAD, strSkinName );
+			}
+			else if ( pSub->GetAttributeValue( _T("type") ).CompareNoCase( _T("language") ) == 0 )
 			{
 				Settings.General.Language = pSub->GetAttributeValue( _T("language"), _T("en") );
 				Settings.General.LanguageRTL = ( pSub->GetAttributeValue( _T("dir"), _T("ltr") ) == "rtl" );
 				TRACE( _T("Loading language: %s\r\n"), Settings.General.Language );
 				TRACE( _T("RTL: %d\r\n"), Settings.General.LanguageRTL );
 			}
-			else if ( strType == _T("skin") )
-			{
-				CString strSkinName = pSub->GetAttributeValue( _T("name"), _T("") );
-				theApp.Message( MSG_NOTICE, IDS_SKIN_LOAD, strSkinName );
-			}
 			else
 			{
 				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR,
 					_T("Unknown [type] attribute in [manifest] element"), pSub->ToString() );
 			}
-		}
-		else
-		{
+			break;
+
+		default:
 			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR,
-				_T("Unknown element in [skin] element"), pSub->ToString() );
+				_T("Unknown element in root [skin] element"), pSub->ToString() );
+			continue;
 		}
 
 		bSuccess = TRUE;
@@ -618,7 +646,9 @@ BOOL CSkin::LoadOptions(CXMLElement* pBase)
 			OptionName[ "bandwidth" ]	= 'o';
 			OptionName[ "dragbar" ]		= 'r';
 			OptionName[ "splitter" ]	= 'r';
-			OptionName[ "icongrid" ]	= 'l';
+			OptionName[ "roundedselect" ] = 'e';
+			OptionName[ "highlightchamfer" ] = 'e';
+			OptionName[ "icongrid" ]	 = 'l';
 			OptionName[ "librarytiles" ] = 'i';
 
 			switch( OptionName[ strName ] )
@@ -668,6 +698,20 @@ BOOL CSkin::LoadOptions(CXMLElement* pBase)
 					m_bMenuGripper = TRUE;
 				else if ( strValue == _T("0") )
 					m_bMenuGripper = FALSE;
+				break;
+			case 'e':	// "roundedselect" or "highlightchamfer"
+				if ( strValue == _T("true") )
+					m_bRoundedSelect = TRUE;
+				else if ( strValue == _T("false") )
+					m_bRoundedSelect = FALSE;
+				else if ( strValue == _T("on") )
+					m_bRoundedSelect = TRUE;
+				else if ( strValue == _T("off") )
+					m_bRoundedSelect = FALSE;
+				else if ( strValue == _T("1") )
+					m_bRoundedSelect = TRUE;
+				else if ( strValue == _T("0") )
+					m_bRoundedSelect = FALSE;
 				break;
 			case 't':	// "toolbar" or "toolbars"
 				if ( strHeight.GetLength() )
@@ -953,7 +997,7 @@ BOOL CSkin::CreateToolBar(LPCTSTR pszName, CCoolBarCtrl* pBar)
 {
 	if ( pszName == NULL ) return FALSE;
 
-	if (pBar->m_hWnd)
+	if ( pBar->m_hWnd )
 	for ( CWnd* pChild = pBar->GetWindow( GW_CHILD ) ; pChild ; pChild = pChild->GetNextWindow() )
 	{
 		pChild->ShowWindow( SW_HIDE );
@@ -966,6 +1010,11 @@ BOOL CSkin::CreateToolBar(LPCTSTR pszName, CCoolBarCtrl* pBar)
 	{
 		HBITMAP hBitmap = LoadBitmap( strPath );
 		pBar->SetWatermark( hBitmap );
+	}
+	else if ( HBITMAP hBitmap = GetWatermark( _T("System.Toolbars") ) )
+	{
+		if ( strPath.Find( _T("CSearchWnd") ) < 0 )	// Crash Workaround  ToDo: Fix properly
+			pBar->SetWatermark( hBitmap );
 	}
 	else
 	{
@@ -1242,6 +1291,13 @@ BOOL CSkin::LoadWatermarks(CXMLElement* pSub, const CString& strPath)
 				_T("Unknown element in [watermarks] element"), pMark->ToString() );
 		}
 	}
+
+	if ( m_bmSelected.m_hObject )
+		m_bmSelected.DeleteObject();
+	if ( HBITMAP hSelected = GetWatermark( _T("CTranfers.Selected") ) )
+		m_bmSelected.Attach( hSelected );
+	else if ( HBITMAP hSelected = GetWatermark( _T("System.Highlight") ) )
+		m_bmSelected.Attach( hSelected );
 
 	return TRUE;
 }
@@ -1712,6 +1768,7 @@ BOOL CSkin::LoadColorScheme(CXMLElement* pBase)
 	pColors.SetAt( _T("system.base.text"), &Colors.m_crText );
 	pColors.SetAt( _T("system.base.hitext"), &Colors.m_crHiText );
 	pColors.SetAt( _T("system.base.hiborder"), &Colors.m_crHiBorder );
+	pColors.SetAt( _T("system.base.hiborderin"), &Colors.m_crHiBorderIn );
 	pColors.SetAt( _T("system.base.highlight"), &Colors.m_crHighlight );
 	pColors.SetAt( _T("system.back.normal"), &Colors.m_crBackNormal );
 	pColors.SetAt( _T("system.back.selected"), &Colors.m_crBackSel );
@@ -1905,7 +1962,7 @@ BOOL CSkin::LoadColorScheme(CXMLElement* pBase)
 
 					*pColor = RGB( nRed, nGreen, nBlue );
 				}
-				else if ( strValue.GetLength() == 0 )
+				else if ( strValue.IsEmpty() )
 				{
 					*pColor = CLR_NONE;
 				}
@@ -1923,7 +1980,8 @@ BOOL CSkin::LoadColorScheme(CXMLElement* pBase)
 		}
 	}
 
-	if ( bSystem && ! bNonBase ) Colors.CalculateColors( TRUE );
+	if ( bSystem && ! bNonBase )
+		Colors.CalculateColors( TRUE );
 
 	return TRUE;
 }
@@ -2497,7 +2555,7 @@ void CSkin::DrawWrappedText(CDC* pDC, CRect* pBox, LPCTSTR pszText, CPoint ptSta
 		}
 	}
 	if ( nTestStart ) delete [] pszSource;
-	// reset align options back
+	// Reset align options back
 	pDC->SetTextAlign( nAlignOptionsOld );
 	if ( nTestStart ) DrawWrappedText( pDC, pBox, pszText, ptStart, bExclude );
 }

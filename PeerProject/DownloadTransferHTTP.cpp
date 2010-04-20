@@ -1016,7 +1016,7 @@ BOOL CDownloadTransferHTTP::OnHeaderLine(CString& strHeader, CString& strValue)
 		BOOL bIsP2P = m_pSource->m_bSHA1 || m_pSource->m_bTiger || m_pSource->m_bED2K || m_pSource->m_bMD5 || m_pSource->m_bBTH;
 
 		// Accept Content-Disposition only if the current display name is empty or if it came from Web Servers and the current display name is shorter than 13 chars (Is likely to be default.html, default.asp, etc.).
-		if ( m_pDownload->m_sName.GetLength() == 0 || ( ! bIsP2P && m_pDownload->m_sName.GetLength() < 13 ) )
+		if ( m_pDownload->m_sName.IsEmpty() || ( ! bIsP2P && m_pDownload->m_sName.GetLength() < 13 ) )
 		{
 			CString strPhrase, strFilename;
 			int nPos = strValue.Find( _T("filename=") );

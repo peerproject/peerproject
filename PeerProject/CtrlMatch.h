@@ -81,25 +81,25 @@ public:
 	void	SetMessage(LPCTSTR pszMessage, BOOL bLink = FALSE);
 	void	EnableTips(BOOL bTips);
 protected:
-	void	InsertColumn(int nColumn, LPCTSTR pszCaption, int nFormat, int nWidth);
-	void	SaveColumnState();
 	BOOL	LoadColumnState();
+	void	SaveColumnState();
+	void	InsertColumn(int nColumn, LPCTSTR pszCaption, int nFormat, int nWidth);
 	void	UpdateScroll(DWORD nScroll = 0xFFFFFFFF);
 	void	ScrollBy(int nDelta);
 	void	ScrollTo(DWORD nIndex);
 	void	DrawItem(CDC& dc, CRect& rc, CMatchFile* pFile, CQueryHit* pHit, BOOL bFocus);
-	void	DrawStatus(CDC& dc, CRect& rcCol, CMatchFile* pFile, CQueryHit* pHit, BOOL bSelected, COLORREF crBack);
-	void	DrawRating(CDC& dc, CRect& rcCol, int nRating, BOOL bSelected, COLORREF crBack);
-	void	DrawCountry(CDC& dc, CRect& rcCol, CString sCountry, BOOL bSelected, COLORREF crBack);
+	void	DrawStatus(CDC& dc, CRect& rcCol, CMatchFile* pFile, CQueryHit* pHit, COLORREF crBack, BOOL bSelected, BOOL bSkinned = FALSE);
+	void	DrawRating(CDC& dc, CRect& rcCol, int nRating, COLORREF crBack, BOOL bSelected, BOOL bSkinned = FALSE);
+	void	DrawCountry(CDC& dc, CRect& rcCol, CString sCountry, COLORREF crBack, BOOL bSelected, BOOL bSkinned = FALSE);
 	void	DrawEmptyMessage(CDC& dc, CRect& rcClient);
 	BOOL	HitTest(const CPoint& point, CMatchFile** poFile, CQueryHit** poHit, DWORD* pnIndex = NULL, CRect* pRect = NULL);
 	BOOL	GetItemRect(CMatchFile* pFindFile, CQueryHit* pFindHit, CRect* pRect);
 	BOOL	PixelTest(const CPoint& point);
 	void	MoveFocus(int nDelta, BOOL bShift);
 	void	NotifySelection();
+	void	SelectAll();
 	void	DoDelete();
 	void	DoExpand(BOOL bExpand);
-	void	SelectAll();
 
 // Overrides
 public:
@@ -131,7 +131,6 @@ public:
 	afx_msg void OnSetFocus(CWnd* pOldWnd);
 	afx_msg void OnKillFocus(CWnd* pNewWnd);
 	afx_msg UINT OnGetDlgCode();
-
 };
 
 #define MATCH_COL_NAME		0

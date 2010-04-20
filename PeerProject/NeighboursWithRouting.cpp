@@ -79,11 +79,9 @@ int CNeighboursWithRouting::Broadcast(CPacket* pPacket, CNeighbour* pExcept, BOO
 		// Get the neighbour under pos, and move pos to the next one in the list
 		CNeighbour* pNeighbour = GetNext( pos );
 
+		// Don't send GGEP packets if neighbour doesn't support them
 		if ( Settings.Gnutella1.EnableGGEP )
-		{
-			// Don't send GGEP packets if neighbour doesn't support them
 			bSend = ( bGGEP && pNeighbour->m_bGGEP );;
-		}
 
 		// If this isn't the neighbour the caller told us to avoid, and we've finished the handshake with it
 		if ( pNeighbour != pExcept && pNeighbour->m_nState == nrsConnected && bSend )
@@ -125,7 +123,10 @@ int CNeighboursWithRouting::RouteQuery(const CQuerySearch* pSearch, CPacket* pPa
 	if ( pG2 )
 	{
 		// If it's a Q2 packet, point pG2Q2 at it, otherwise point pG2Q1 at it
-		if ( pG2->IsType( G2_PACKET_QUERY ) ) pG2Q2 = pG2; else pG2Q1 = pG2;
+		if ( pG2->IsType( G2_PACKET_QUERY ) )
+			pG2Q2 = pG2;
+		else
+			pG2Q1 = pG2;
 	}
 
 	// Loop for each connected neighbour
@@ -143,19 +144,16 @@ int CNeighboursWithRouting::RouteQuery(const CQuerySearch* pSearch, CPacket* pPa
 		{
 			// The caller wants to include hubs, or it doesn't but our connection to this one is down to a leaf anyway
 			if ( bToHubs || pNeighbour->m_nNodeType == ntLeaf )
-			{
-				// This isn't a Gnutella packet
-				if ( pG1 == NULL )
+			{	
+				if ( pG1 == NULL )	// This isn't a Gnutella packet
 				{
-					// This is a Gnutella2 packet, but not a Q2 one
-					if ( pG2Q1 != NULL )
+					if ( pG2Q1 != NULL )	// This is a Gnutella2 packet, but not a Q2 one
 					{
 						// Determine if we can turn it into a Gnutella packet, and do it if possible (do)
 						if ( ! pG2Q1->SeekToWrapped() ) break;
 						pG1 = CG1Packet::New( (GNUTELLAPACKET*)( pG2Q1->m_pBuffer + pG2Q1->m_nPosition ) );
-
-					} // This is a Gnutella2 Q2 packet
-					else
+					}
+					else	// This is a Gnutella2 Q2 packet
 					{
 						// Turn it into a Gnutella packet (do)
 						pG1 = pSearch->ToG1Packet();
@@ -163,11 +161,11 @@ int CNeighboursWithRouting::RouteQuery(const CQuerySearch* pSearch, CPacket* pPa
 				}
 
 				// Send the packet to this connected Gnutella computer
-				if ( pNeighbour->SendQuery( pSearch, pG1, pG2Q2 != NULL ) ) nCount++;
+				if ( pNeighbour->SendQuery( pSearch, pG1, pG2Q2 != NULL ) )
+					nCount++;
 			}
-
-		} // This neighbour is running Gnutella2 software
-		else if ( pNeighbour->m_nProtocol == PROTOCOL_G2 )
+		}
+		else if ( pNeighbour->m_nProtocol == PROTOCOL_G2 )	// This neighbour is running Gnutella2 software
 		{
 			// Our connection to this computer is down to a leaf
 			if ( pNeighbour->m_nNodeType == ntLeaf )
@@ -181,16 +179,15 @@ int CNeighboursWithRouting::RouteQuery(const CQuerySearch* pSearch, CPacket* pPa
 				}
 
 				// Send the packet to this remote computer
-				if ( pNeighbour->SendQuery( pSearch, pG2, FALSE ) ) nCount++;
-
-			} // This remote computer is a hub, and the caller said we can send packets to hubs
-			else if ( bToHubs )
-			{
-				// This isn't a Gnutella2 Q2 packet
-				if ( pG2Q2 == NULL )
+				if ( pNeighbour->SendQuery( pSearch, pG2, FALSE ) )
+					nCount++;
+			}
+			else if ( bToHubs )	// This remote computer is a hub, and the caller said we can send packets to hubs
+			{	
+				if ( pG2Q2 == NULL )	// This isn't a Gnutella2 Q2 packet
 				{
-					// In fact, it's not a Gnutella2 packet at all
-					if ( pG2 == NULL )
+					
+					if ( pG2 == NULL )	// In fact, it's not a Gnutella2 packet at all
 					{
 						// Turn it into one
 						//pG2 = pG2Q1 = CG2Packet::New( G2_PACKET_QUERY_WRAP, pG1, Settings.Gnutella1.TranslateTTL );
@@ -198,7 +195,8 @@ int CNeighboursWithRouting::RouteQuery(const CQuerySearch* pSearch, CPacket* pPa
 					}
 
 					// Send the packet to this remote computer
-					if ( pNeighbour->SendQuery( pSearch, pG2, FALSE ) ) nCount++;
+					if ( pNeighbour->SendQuery( pSearch, pG2, FALSE ) )
+						nCount++;
 				}
 				else // This is a Gnutella2 Q2 packet
 				{
@@ -261,7 +259,8 @@ int CNeighboursWithRouting::RouteQuery(const CQuerySearch* pSearch, CPacket* pPa
 				 pNeighbour->m_nNodeType != ntLeaf )       // This computer isn't a leaf below us
 			{
 				// Send the packet to this computer
-				if ( pNeighbour->SendQuery( pSearch, pG2, FALSE ) ) nCount++;
+				if ( pNeighbour->SendQuery( pSearch, pG2, FALSE ) )
+					nCount++;
 			}
 		}
 	}

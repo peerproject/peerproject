@@ -1,7 +1,7 @@
 //
 // Emoticons.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -18,9 +18,6 @@
 // along with PeerProject; if not, write to Free Software Foundation, Inc.
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
-
-#if !defined(AFX_EMOTICONS_H__0EE665E3_3AD7_4BFF_B2D8_000C806D9D08__INCLUDED_)
-#define AFX_EMOTICONS_H__0EE665E3_3AD7_4BFF_B2D8_000C806D9D08__INCLUDED_
 
 #pragma once
 
@@ -44,23 +41,19 @@ public:
 
 // Operations
 public:
-	LPCTSTR	FindNext(LPCTSTR pszText, int* pnIndex);
 	int		Lookup(LPCTSTR pszText, int nLen = -1) const;
+	LPCTSTR	FindNext(LPCTSTR pszText, int* pnIndex);
 	LPCTSTR	GetText(int nIndex) const;
 	void	Draw(CDC* pDC, int nIndex, int nX, int nY, COLORREF crBack = CLR_NONE);
+	void	FormatText(CRichDocument* pDocument, LPCTSTR pszBody, BOOL bNewlines = FALSE, COLORREF cr = 0);
 	CMenu*	CreateMenu();
-	void	FormatText(CRichDocument* pDocument, LPCTSTR pszBody, BOOL bNewlines = FALSE);
-public:
+
 	BOOL	Load();
 	void	Clear();
 protected:
 	int		AddEmoticon(LPCTSTR pszText, CImageFile* pImage, CRect* pRect, COLORREF crBack, BOOL bButton);
 	void	BuildTokens();
-	BOOL	LoadTrillian(LPCTSTR pszFile);
-
-
+	BOOL	LoadXML(LPCTSTR pszFile);
 };
 
 extern CEmoticons Emoticons;
-
-#endif // !defined(AFX_EMOTICONS_H__0EE665E3_3AD7_4BFF_B2D8_000C806D9D08__INCLUDED_)

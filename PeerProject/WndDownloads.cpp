@@ -203,7 +203,7 @@ int CDownloadsWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_wndDownloads.Create( this, IDC_DOWNLOADS );
 
 	if ( ! theApp.m_bIsWin2000 )
-		m_wndDownloads.ModifyStyleEx( 0, WS_EX_COMPOSITED );	// Stop rare flicker XP+ (high CPU?)
+		m_wndDownloads.ModifyStyleEx( 0, WS_EX_COMPOSITED );	// Stop flicker XP+, CPU intensive
 
 	LoadState( NULL, TRUE );
 

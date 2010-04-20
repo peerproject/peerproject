@@ -91,8 +91,8 @@ BOOL CBrowseFrameCtrl::Create(CWnd* pParentWnd, CMatchCtrl* pMatch)
 	CRect rect( 0, 0, 0, 0 );
 	m_wndList = pMatch;
 	m_wndList->SetBrowseMode();
-	return CWnd::Create(	NULL, _T("CBrowseFrameCtrl"), WS_CHILD|WS_VISIBLE,
-							rect, pParentWnd, IDC_BROWSE_FRAME, NULL );
+	return CWnd::Create( NULL, _T("CBrowseFrameCtrl"), WS_CHILD|WS_VISIBLE,
+						rect, pParentWnd, IDC_BROWSE_FRAME, NULL );
 }
 
 int CBrowseFrameCtrl::OnCreate(LPCREATESTRUCT lpCreateStruct)
@@ -596,7 +596,7 @@ void CBrowseFrameCtrl::Serialize(CArchive& ar)
 		else
 			ar << nBuffer;
 	}
-	else
+	else // Loading
 	{
 		ar >> nBuffer;
 		if ( nBuffer )

@@ -49,9 +49,9 @@ END_MESSAGE_MAP()
 // CFileCommentsPage property page
 
 CFileCommentsPage::CFileCommentsPage()
-	: CFilePropertiesPage( CFileCommentsPage::IDD )
-	, m_sComments ()
-	, m_nRating ( -1 )
+	: CFilePropertiesPage ( CFileCommentsPage::IDD )
+	, m_sComments	( )
+	, m_nRating 	( -1 )
 {
 }
 
@@ -100,7 +100,6 @@ BOOL CFileCommentsPage::OnInitDialog()
 			if ( CLibraryFile* pFile = pFiles->GetNextFile( pos ) )
 				m_nRating = pFile->m_nRating;
 		}
-
 	}
 
 	UpdateData( FALSE );
@@ -131,11 +130,21 @@ void CFileCommentsPage::OnDrawItem(int /*nIDCtl*/, LPDRAWITEMSTRUCT lpDrawItemSt
 	int nRating = lpDrawItemStruct->itemID;
 
 	CFont* pOldFont = (CFont*)dc.SelectObject( nRating > 0 ? &theApp.m_gdiFontBold : &theApp.m_gdiFont );
-	dc.SetTextColor( ( lpDrawItemStruct->itemState & ODS_SELECTED )
-		? Colors.m_crHiText : Colors.m_crText );
-	dc.FillSolidRect( &rcItem, ( lpDrawItemStruct->itemState & ODS_SELECTED )
-		? Colors.m_crHighlight : Colors.m_crSysWindow );
 	dc.SetBkMode( TRANSPARENT );
+
+	if ( lpDrawItemStruct->itemState & ODS_SELECTED )
+	{
+		dc.SetTextColor( Colors.m_crHiText );
+		if ( Skin.m_bmSelected.m_hObject )
+			CoolInterface.DrawWatermark( &dc, &rcItem, &Skin.m_bmSelected );
+		else
+			dc.FillSolidRect( &rcItem, Colors.m_crHighlight );
+	}
+	else // Unselected
+	{
+		dc.SetTextColor( Colors.m_crText );
+		dc.FillSolidRect( &rcItem, Colors.m_crSysWindow );
+	}
 
 	rcItem.DeflateRect( 4, 1 );
 

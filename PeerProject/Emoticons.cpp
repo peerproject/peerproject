@@ -1,7 +1,7 @@
 //
 // Emoticons.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -96,16 +96,14 @@ int CEmoticons::Lookup(LPCTSTR pszText, int nLen) const
 	if ( nLen >= 0 )
 	{
 		cSave = pszText[ nLen ];
-		((LPTSTR)pszText)[ nLen ] = 0;
+		( (LPTSTR)pszText )[ nLen ] = 0;
 	}
 
-    LPCTSTR pszToken = m_pTokens;
+	LPCTSTR pszToken = m_pTokens;
 	for ( ; *pszToken ; nIndex++ )
 	{
 		if ( _tcscmp( pszToken, pszText ) == 0 )
-		{
 			break;
-		}
 
 		pszToken += _tcslen( pszToken ) + 1;
 	}
@@ -158,13 +156,9 @@ CMenu* CEmoticons::CreateMenu()
 		int nIndex = m_pButtons.GetAt( nPos );
 
 		if ( nCount > 0 && ( nCount % 12 ) == 0 )
-		{
 			pMenu->AppendMenu( MF_OWNERDRAW|MF_MENUBREAK, nIndex + 1, (LPCTSTR)NULL );
-		}
 		else
-		{
 			pMenu->AppendMenu( MF_OWNERDRAW, nIndex + 1, (LPCTSTR)NULL );
-		}
 
 		nCount++;
 	}
@@ -178,14 +172,14 @@ CMenu* CEmoticons::CreateMenu()
 BOOL CEmoticons::Load()
 {
 	Clear();
-	m_pImage.Create( EMOTICON_SIZE, EMOTICON_SIZE, ILC_COLOR32|ILC_MASK, 1, 8 ) || 
+	m_pImage.Create( EMOTICON_SIZE, EMOTICON_SIZE, ILC_COLOR32|ILC_MASK, 1, 8 ) ||
 		m_pImage.Create( EMOTICON_SIZE, EMOTICON_SIZE, ILC_COLOR24|ILC_MASK, 1, 8 ) ||
 		m_pImage.Create( EMOTICON_SIZE, EMOTICON_SIZE, ILC_COLOR16|ILC_MASK, 1, 8 );
 
 	CString strFile = Settings.General.Path + _T("\\Data\\Emoticons.xml");
 
-	BOOL bSuccess = LoadTrillian( strFile );
-	if ( ! bSuccess ) return FALSE;
+	if ( ! LoadXML( strFile ) )
+		return FALSE;
 
 	BuildTokens();
 
@@ -228,14 +222,14 @@ int CEmoticons::AddEmoticon(LPCTSTR pszText, CImageFile* pImage, CRect* pRect, C
 	if ( HDC hDC = GetDC( NULL ) ) // Get screen DC
 	{
 		hDCMem1 = CreateCompatibleDC( hDC ); // Create memory DC for the source
-		if ( !hDCMem1 ) 
+		if ( ! hDCMem1 )
 		{
 			ReleaseDC( NULL, hDC );
 			return -1;
 		}
 
 		hDCMem2 = CreateCompatibleDC( hDC ); // Create memory DC for the destination
-		if ( !hDCMem2 )
+		if ( ! hDCMem2 )
 		{
 			DeleteDC( hDCMem1 );
 			ReleaseDC( NULL, hDC );
@@ -245,7 +239,7 @@ int CEmoticons::AddEmoticon(LPCTSTR pszText, CImageFile* pImage, CRect* pRect, C
 		CBitmap bmOriginal, bmMoved;
 		CDC* pDC = CDC::FromHandle( hDC );
 
-		if ( !bmOriginal.CreateCompatibleBitmap( pDC, EMOTICON_SIZE, EMOTICON_SIZE ) ) // Source bitmap
+		if ( ! bmOriginal.CreateCompatibleBitmap( pDC, EMOTICON_SIZE, EMOTICON_SIZE ) ) // Source bitmap
 		{
 			ReleaseDC( NULL, hDC );
 			DeleteDC( hDCMem1 );
@@ -253,7 +247,7 @@ int CEmoticons::AddEmoticon(LPCTSTR pszText, CImageFile* pImage, CRect* pRect, C
 			return -1;
 		}
 
-		if ( !bmMoved.CreateCompatibleBitmap( pDC, EMOTICON_SIZE, EMOTICON_SIZE ) ) // Destination bitmap
+		if ( ! bmMoved.CreateCompatibleBitmap( pDC, EMOTICON_SIZE, EMOTICON_SIZE ) ) // Destination bitmap
 		{
 			ReleaseDC( NULL, hDC );
 			DeleteDC( hDCMem1 );
@@ -295,7 +289,8 @@ int CEmoticons::AddEmoticon(LPCTSTR pszText, CImageFile* pImage, CRect* pRect, C
 		bmOriginal.DeleteObject();
 
 		m_pIndex.Add( pszText );
-		if ( bButton ) m_pButtons.Add( nIndex );
+		if ( bButton )
+			m_pButtons.Add( nIndex );
 
 		return nIndex;
 	}
@@ -330,7 +325,7 @@ void CEmoticons::BuildTokens()
 //////////////////////////////////////////////////////////////////////
 // CEmoticons load Trillian XML
 
-BOOL CEmoticons::LoadTrillian(LPCTSTR pszFile)
+BOOL CEmoticons::LoadXML(LPCTSTR pszFile)
 {
 	CString strPath, strValue;
 
@@ -357,9 +352,9 @@ BOOL CEmoticons::LoadTrillian(LPCTSTR pszFile)
 
 	CImageFile pImage;
 
-	if (	! pImage.LoadFromFile( strValue ) ||
-			! pImage.EnsureRGB( GetSysColor( COLOR_WINDOW ) ) ||
-			! pImage.SwapRGB() )
+	if ( ! pImage.LoadFromFile( strValue ) ||
+		! pImage.EnsureRGB( GetSysColor( COLOR_WINDOW ) ) ||
+		! pImage.SwapRGB() )
 	{
 		delete pXML;
 		return FALSE;
@@ -398,11 +393,10 @@ BOOL CEmoticons::LoadTrillian(LPCTSTR pszFile)
 //////////////////////////////////////////////////////////////////////
 // CEmoticons rich text formatting
 
-void CEmoticons::FormatText(CRichDocument* pDocument, LPCTSTR pszBody, BOOL bNewlines)
+void CEmoticons::FormatText(CRichDocument* pDocument, LPCTSTR pszBody, BOOL bNewlines, COLORREF cr)
 {
-	static LPCTSTR pszURLs[] = { _T("\r\n"), _T("http://"), _T("https://"), _T("ftp://"), _T("mailto:"), _T("aim:"), _T("magnet:?"), _T("gnutella:"), _T("gnet:"), _T("peer:"), _T("peerproject:"), _T("shareaza:"), _T("raza:"), _T("gwc:"), _T("uhc:"), _T("ukhl:"), _T("gnutella1:"), _T("gnutella2:"), _T("mp2p:"), _T("ed2k://"), _T("sig2dat:"), _T("www."), NULL };
+	static LPCTSTR pszURLs[] = { _T("\r\n"), _T("http://"), _T("https://"), _T("ftp://"), _T("mailto:"), _T("aim:"), _T("www."), _T("magnet:?"), _T("ed2k://"), _T("gnutella:"), _T("gnutella1:"), _T("gnutella2:"), _T("g2://"), _T("gnet:"), _T("peer:"), _T("peerproject:"), _T("shareaza:"), _T("raza:"), _T("gwc:"), _T("uhc:"), _T("ukhl:"), _T("mp2p:"), _T("sig2dat:"), NULL };
 	BOOL bBold = FALSE, bItalic = FALSE, bUnderline = FALSE;
-	COLORREF cr = 0;
 	CString str;
 
 	while ( *pszBody )
@@ -419,9 +413,7 @@ void CEmoticons::FormatText(CRichDocument* pDocument, LPCTSTR pszBody, BOOL bNew
 		LPCTSTR pszEmoticon = FindNext( pszBody, &nEmoticon );
 
 		if ( pszEmoticon != NULL && ( pszToken == NULL || pszEmoticon < pszToken ) )
-		{
 			pszToken = pszEmoticon;
-		}
 
 		if ( pszToken != pszBody )
 		{
@@ -459,9 +451,7 @@ void CEmoticons::FormatText(CRichDocument* pDocument, LPCTSTR pszBody, BOOL bNew
 		else if ( pszBody[0] == '\r' && pszBody[1] == '\n' )
 		{
 			if ( bNewlines )
-			{
 				pDocument->Add( retNewline, _T("4") );
-			}
 
 			pszBody += 2;
 			continue;
@@ -482,7 +472,8 @@ void CEmoticons::FormatText(CRichDocument* pDocument, LPCTSTR pszBody, BOOL bNew
 			str = pszBody;
 			*(LPTSTR)pszToken = cSave;
 
-			if ( _tcsnicmp( str, _T("www."), 4 ) == 0 ) str = _T("http://") + str;
+			if ( _tcsnicmp( str, _T("www."), 4 ) == 0 )
+				str = _T("http://") + str;
 
 			pDocument->Add( retLink, str, str,
 				( bBold ? retfBold : 0 ) |

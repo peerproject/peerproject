@@ -1,7 +1,7 @@
 //
 // CtrlIRCPanel.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -113,9 +113,9 @@ void CIRCPanel::OnSkinChange()
 {
 	CString strCaption;
 
-	LoadString( strCaption, IDS_IRC_PANEL_CHANS_CAPTION );
+	LoadString( strCaption, IDS_IRC_CHANLIST );
 	m_boxChans.SetCaption( strCaption );
-	LoadString( strCaption, IDS_IRC_PANEL_USERS_CAPTION );
+	LoadString( strCaption, IDS_IRC_USERLIST );
 	m_boxUsers.SetCaption( strCaption );
 
 	SetWatermark( Skin.GetWatermark( _T("CIRCPanel") ) );
@@ -186,11 +186,11 @@ void CIRCChannelsBox::OnSkinChange()
 {
 	CString strCaption;
 
-	LoadString( strCaption, IDS_IRC_PANEL_ADDCHANNEL );
+	LoadString( strCaption, IDS_IRC_ADDCHANNEL );
 	m_wndAddChannel.SetWindowText( strCaption );
 	m_wndAddChannel.SetCoolIcon( ID_IRC_ADD, Settings.General.LanguageRTL );
 
-	LoadString( strCaption, IDS_IRC_PANEL_REMOVECHANNEL );
+	LoadString( strCaption, IDS_IRC_REMOVECHANNEL );
 	m_wndRemoveChannel.SetWindowText( strCaption );
 	m_wndRemoveChannel.SetCoolIcon( ID_IRC_REMOVE, Settings.General.LanguageRTL );
 
@@ -357,7 +357,7 @@ int CIRCUsersBox::HitTest(const CPoint& pt) const
 void CIRCUsersBox::UpdateCaptionCount()
 {
 	CString strCaption;
-	LoadString( strCaption, IDS_IRC_PANEL_USERS_CAPTION );
+	LoadString( strCaption, IDS_IRC_USERLIST );
 	CString strCount;
 	strCount.Format( _T(" (%d)"), m_wndUserList.GetCount() );
 	SetCaption( strCaption + strCount );

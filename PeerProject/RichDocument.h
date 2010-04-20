@@ -1,7 +1,7 @@
 //
 // RichDocument.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -59,13 +59,12 @@ public:
 	void			ShowGroupRange(int nMin, int nMax, BOOL bShow = TRUE);
 	void			SetModified();
 	void			Clear();
+	void			CreateFonts(const LOGFONT* lpLogFont = NULL, const LOGFONT* lpHeading = NULL);
 	BOOL			LoadXML(CXMLElement* pBase, CMap< CString, const CString&, CRichElement*, CRichElement* >* pMap = NULL, int nGroup = 0);
-//	void			CreateFonts(LPCTSTR pszFaceName = NULL, int nSize = 0);
 
 protected:
 	CList< CRichElement* >	m_pElements;
 
-	void			CreateFonts(const LOGFONT* lpLogFont = NULL, const LOGFONT* lpHeading = NULL);
 	BOOL			LoadXMLStyles(CXMLElement* pParent);
 	BOOL			LoadXMLColor(CXMLElement* pXML, LPCTSTR pszName, COLORREF* pColor);
 };

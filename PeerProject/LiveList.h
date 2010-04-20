@@ -1,7 +1,7 @@
 //
 // LiveList.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -53,9 +53,9 @@ public:
 	UINT		m_nMaskOverlay;
 	UINT		m_nMaskState;
 	CString*	m_pColumn;
-	bool		m_bModified;	// Is data modified?
 	UINT		m_nModified;	// Modified columns (bitmask)
-	bool		m_bOld;			// Is item old? (marked to deletion)
+	bool		m_bModified;	// Is data modified?
+	bool		m_bOld;			// Is item old? (marked for deletion)
 };
 
 typedef CLiveItem* CLiveItemPtr;
@@ -110,7 +110,10 @@ protected:
 };
 
 
-#ifndef CDRF_NOTIFYSUBITEMDRAW
+#ifndef CDRF_NOTIFYSUBITEMDRAW	// Prior to Win98/IE4!
+
+#define CDRF_NOTIFYSUBITEMDRAW  0x00000020
+#define CDDS_SUBITEM            0x00020000
 
 #define LVS_EX_DOUBLEBUFFER 	0x00010000
 #define LVS_EX_NOHSCROLL        0x10000000
@@ -122,27 +125,13 @@ protected:
 #define LVS_EX_UNDERLINECOLD	0x00001000
 #define LVS_EX_MULTIWORKAREAS	0x00002000
 
-#define CDRF_NOTIFYSUBITEMDRAW  0x00000020
-#define CDDS_SUBITEM            0x00020000
-
 #define LVM_GETSUBITEMRECT      (LVM_FIRST + 56)
 #define ListView_GetSubItemRect(hwnd, iItem, iSubItem, code, prc) \
         (BOOL)SNDMSG((hwnd), LVM_GETSUBITEMRECT, (WPARAM)(int)(iItem), \
                 ((prc) ? ((((LPRECT)(prc))->top = iSubItem), (((LPRECT)(prc))->left = code), (LPARAM)(prc)) : (LPARAM)(LPRECT)NULL))
 
-//typedef struct tagLVHITTESTINFOEX
-//{
-//	POINT pt;
-//	UINT flags;
-//	int iItem;
-//	int iSubItem;
-//} LVHITTESTINFOEX, FAR* LPLVHITTESTINFOEX;
+#endif // CDRF_NOTIFYSUBITEMDRAW
 
-//#define LVM_SUBITEMHITTEST      (LVM_FIRST + 57)
-//#define ListView_SubItemHitTest(hwnd, plvhti) \
-//	(int)SNDMSG((hwnd), LVM_SUBITEMHITTEST, 0, (LPARAM)(LPLVHITTESTINFOEX)(plvhti))
-
-#endif
 
 class CLiveListCtrl : public CListCtrl
 {
@@ -152,8 +141,7 @@ public:
 	CLiveListCtrl();
 	virtual ~CLiveListCtrl();
 
-	virtual BOOL Create(DWORD dwStyle, const RECT& rect, CWnd* pParentWnd, UINT nID,
-		int nColumns );
+	virtual BOOL Create(DWORD dwStyle, const RECT& rect, CWnd* pParentWnd, UINT nID, int nColumns);
 
 	CLiveItemPtr Add(DWORD_PTR nParam);
 	CLiveItemPtr Add(LPVOID pParam);
@@ -168,15 +156,13 @@ protected:
 	typedef std::pair< DWORD_PTR, CLiveItemPtr >	CLiveMapPair;
 	typedef std::vector< CLiveItemPtr >				CLiveIndex;
 
-	int					m_nColumns;
-	CLiveMap			m_pItems;
-	CLiveIndex			m_pIndex;
+	int				m_nColumns;
+	CLiveMap		m_pItems;
+	CLiveIndex		m_pIndex;
 
 	DECLARE_MESSAGE_MAP()
 
-	afx_msg void OnLvnGetdispinfoW(NMHDR *pNMHDR, LRESULT *pResult);
-	afx_msg void OnLvnGetdispinfoA(NMHDR *pNMHDR, LRESULT *pResult);
-	afx_msg void OnLvnOdfinditemW(NMHDR *pNMHDR, LRESULT *pResult);
-	afx_msg void OnLvnOdfinditemA(NMHDR *pNMHDR, LRESULT *pResult);
-	afx_msg void OnLvnOdcachehint(NMHDR *pNMHDR, LRESULT *pResult);
+	afx_msg void OnLvnGetDispInfo(NMHDR *pNMHDR, LRESULT *pResult);	// OnLvnGetDispInfoW/OnLvnGetDispInfoA
+	afx_msg void OnLvnOdFindItem(NMHDR *pNMHDR, LRESULT *pResult);	// OnLvnOdFindItemW/OnLvnOdFindItemA
+	afx_msg void OnLvnOdCacheHint(NMHDR *pNMHDR, LRESULT *pResult);
 };

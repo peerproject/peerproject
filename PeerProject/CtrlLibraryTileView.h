@@ -50,10 +50,9 @@ public:
 // Operations
 public:
 	bool	Update();
-	void	Paint(CDC* pDC, const CRect& rcBlock, CDC* pMemDC);
+	void	Paint(CDC* pDC, const CRect& rcBlock, CDC* pMemDC, BOOL bFocus = FALSE);
 private:
-	void	DrawText(CDC* pDC, const CRect* prcClip, int nX, int nY, const CString& strText, CRect* prcUnion = NULL);
-
+	void	DrawText(CDC* pDC, const CRect* prcClip, int nX, int nY, const CString& strText, CRect* prcUnion = NULL, BOOL bSkinned = FALSE);
 };
 
 

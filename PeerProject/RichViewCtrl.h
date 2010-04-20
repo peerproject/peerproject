@@ -1,7 +1,7 @@
 //
 // RichViewCtrl.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -74,17 +74,18 @@ public:
 	BOOL			IsModified() const;
 	void			InvalidateIfModified();
 	int				FullHeightMove(int nX, int nY, int nWidth, BOOL bShow = FALSE);
-	BOOL			GetElementRect(CRichElement* pElement, RECT* prc);
+	BOOL			GetElementRect(CRichElement* pElement, RECT* prc) const;
+	CString			GetWordFromPoint(CPoint& point, LPCTSTR szTokens) const;
 protected:
 	void			ClearFragments();
 	void			Layout(CDC* pDC, CRect* pRect);
 	void			WrapLineHelper(CList< CRichFragment* >& pLine, CPoint& pt, int& nLineHeight, int nWidth, int nAlign);
-	CRichFragment*	PointToFrag(CPoint& pt);
-	RICHPOSITION	PointToPosition(CPoint& pt);
-	CPoint			PositionToPoint(RICHPOSITION& pt);
+	CRichFragment*	PointToFrag(CPoint& pt) const;
+	RICHPOSITION	PointToPosition(CPoint& pt) const;
+	CPoint			PositionToPoint(RICHPOSITION& pt) const;
+	void			CopySelection() const;
 	void			UpdateSelection();
-	void			CopySelection();
-protected:
+
 	virtual void	OnLayoutComplete() {};
 	virtual void	OnPaintBegin(CDC* /*pDC*/) {};
 	virtual void	OnPaintComplete(CDC* /*pDC*/) {};
@@ -93,7 +94,6 @@ protected:
 // Overrides
 public:
 	//{{AFX_VIRTUAL(CRichViewCtrl)
-	public:
 	virtual BOOL Create(DWORD dwStyle, const RECT& rect, CWnd* pParentWnd, UINT nID);
 	//}}AFX_VIRTUAL
 
@@ -117,7 +117,7 @@ protected:
 	DECLARE_MESSAGE_MAP()
 
 	friend class CRichFragment;
-	friend class CIRCFrame;
+	friend class CIRCFrame; 	// For VScroll
 };
 
 typedef struct
