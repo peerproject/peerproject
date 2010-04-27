@@ -299,7 +299,7 @@ BOOL CFragmentedFile::Open(const CBTInfo& oInfo, const BOOL bWrite,	CString& str
 	CString sUniqueName = oInfo.GetFilename();
 	const size_t nCount = m_oFile.size();
 	QWORD nOffset = 0;
-	int i = 0;
+	size_t i = 0;
 
 	for ( POSITION pos = oInfo.m_pFiles.GetHeadPosition() ; pos ; ++i )
 	{

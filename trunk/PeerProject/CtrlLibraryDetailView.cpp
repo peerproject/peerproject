@@ -971,6 +971,9 @@ void CLibraryDetailView::OnContextMenu(CWnd* pWnd, CPoint point)
 		return;
 	}
 
+	if ( point.x == -1 && point.y == -1 ) 	// Keyboard fix
+		ClientToScreen( &point );
+
 	CMenu* pMenu = CSchemaColumnsDlg::BuildColumnMenu( m_pSchema, &m_pColumns );
 
 	pMenu->AppendMenu( MF_SEPARATOR, ID_SEPARATOR, (LPCTSTR)NULL );

@@ -91,6 +91,8 @@ void CDownload::Pause(BOOL bRealPause)
 
 	if ( bRealPause )
 		m_bPaused = TRUE;
+
+	SetModified();
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -98,7 +100,6 @@ void CDownload::Pause(BOOL bRealPause)
 
 void CDownload::Resume()
 {
-	ASSERT( ! IsCompleted() );
 	if ( IsCompleted() )
 		return;
 

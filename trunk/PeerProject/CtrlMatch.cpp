@@ -1320,7 +1320,7 @@ void CMatchCtrl::DrawCountry(CDC& dc, CRect& rcCol, CString sCountry, COLORREF c
 	if ( nFlagIndex >= 0 && rcCol.Width() >= 20 )
 	{
 		CPoint pt( rcCol.left + 1, rcCol.top );
-		ImageList_DrawEx( Flags.m_pImage, nFlagIndex, dc, pt.x, pt.y, 16, 16, 
+		ImageList_DrawEx( Flags.m_pImage, nFlagIndex, dc, pt.x, pt.y, 16, 16,
 			( bSkinned ? -1 : crBack ), crBack, bSelected ? ILD_BLEND50 : ILD_NORMAL );
 		dc.ExcludeClipRect( pt.x, pt.y, pt.x + 16, pt.y + 16 );
 		if ( ! bSkinned )

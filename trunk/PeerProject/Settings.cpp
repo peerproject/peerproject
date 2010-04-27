@@ -216,7 +216,7 @@ void CSettings::Load()
 	Add( _T("Search"), _T("DetailPanelSize"), &Search.DetailPanelSize, 100 );
 	Add( _T("Search"), _T("DetailPanelVisible"), &Search.DetailPanelVisible, true );
 	Add( _T("Search"), _T("ExpandMatches"), &Search.ExpandMatches, false );
-	Add( _T("Search"), _T("FilterMask"), &Search.FilterMask, 0x168 );
+	Add( _T("Search"), _T("FilterMask"), &Search.FilterMask, 0x280 );	// 01010000000 (Reverse Order Options)
 	Add( _T("Search"), _T("GeneralThrottle"), &Search.GeneralThrottle, 200, 1, 200, 1000, _T(" ms") );
 	Add( _T("Search"), _T("HideSearchPanel"), &Search.HideSearchPanel, false );
 	Add( _T("Search"), _T("HighlightNew"), &Search.HighlightNew, true );

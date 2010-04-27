@@ -821,7 +821,6 @@ bool CDownloadTransferED2K::SendFragmentRequests()
 			m_oRequested.push_back( Selected );
 
 			oRequesting.insert( _TRequest::value_type(nOffset, Selected) );
-
 		}
 		else
 		{
@@ -1006,13 +1005,9 @@ BOOL CDownloadTransferED2K::RunQueued(DWORD tNow)
 		m_tRequest = GetTickCount();
 
 		if ( m_pClient->IsOnline() )
-		{
 			return OnConnected();
-		}
 		else
-		{
 			m_pClient->Connect();
-		}
 	}
 
 	return TRUE;

@@ -33,15 +33,16 @@ public:
 
 	CString m_sName; // The options set name
 	CString	m_sFilter;
-	BOOL	m_bFilterBusy;
 	BOOL	m_bFilterPush;
+	BOOL	m_bFilterBusy;
 	BOOL	m_bFilterUnstable;
 	BOOL	m_bFilterLocal;
 	BOOL	m_bFilterReject;
 	BOOL	m_bFilterBogus;
 	BOOL	m_bFilterDRM;
-	BOOL	m_bFilterAdult;
+	BOOL	m_bFilterRestricted;
 	BOOL	m_bFilterSuspicious;
+	BOOL	m_bFilterAdult;
 	BOOL	m_bRegExp;
 	DWORD	m_nFilterSources;
 	QWORD	m_nFilterMinSize;

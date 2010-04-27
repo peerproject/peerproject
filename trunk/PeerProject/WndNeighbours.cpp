@@ -1,7 +1,7 @@
 //
 // WndNeighbours.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -249,7 +249,7 @@ void CNeighboursWnd::Update()
 		{
 			if ( pNeighbour->m_nProtocol == PROTOCOL_G1 )
 			{
-//				CG1Neighbour* pG1 = reinterpret_cast<CG1Neighbour*>(pNeighbour);
+			//	CG1Neighbour* pG1 = reinterpret_cast<CG1Neighbour*>(pNeighbour);
 
 				switch ( pNeighbour->m_nNodeType )
 				{
@@ -334,9 +334,7 @@ void CNeighboursWnd::Update()
 		}
 
 		if ( pNeighbour->m_pProfile != NULL )
-		{
 			pItem->Set( 10, pNeighbour->m_pProfile->GetNick() );
-		}
 
 		pItem->Set( 11, pNeighbour->m_sCountry );
 		int nFlag = Flags.GetFlagIndex( pNeighbour->m_sCountry );
@@ -396,7 +394,8 @@ void CNeighboursWnd::OnSize(UINT nType, int cx, int cy)
 
 	SizeListAndBar( &m_wndList, &m_wndToolBar );
 
-	if ( bSized && m_wndList.GetItemCount() == 0 ) m_wndList.Invalidate();
+	if ( bSized && m_wndList.GetItemCount() == 0 )
+		m_wndList.Invalidate();
 }
 
 void CNeighboursWnd::OnTimer(UINT_PTR nIDEvent)
@@ -417,6 +416,9 @@ void CNeighboursWnd::OnSortList(NMHDR* pNotifyStruct, LRESULT *pResult)
 
 void CNeighboursWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 {
+	if ( point.x == -1 && point.y == -1 ) 	// Keyboard fix
+		ClientToScreen( &point );
+
 	Skin.TrackPopupMenu( _T("CNeighboursWnd"), point );
 }
 
@@ -630,9 +632,7 @@ void CNeighboursWnd::OnCustomDrawList(NMHDR* pNMHDR, LRESULT* pResult)
 	if ( pDraw->nmcd.dwDrawStage == CDDS_PREPAINT )
 	{
 		if ( m_wndList.GetItemCount() == 0 && ! Network.IsConnected() )
-		{
 			DrawEmptyMessage( CDC::FromHandle( pDraw->nmcd.hdc ) );
-		}
 
 		*pResult = CDRF_NOTIFYITEMDRAW;
 	}

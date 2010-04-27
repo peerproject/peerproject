@@ -258,8 +258,10 @@ void CSecurityWnd::OnTimer(UINT_PTR nIDEvent)
 
 		if ( ( tTicks - tLastUpdate ) > tDelay )
 		{
-			if ( tDelay < 2000 ) Update();			// Sort if list is under 1000
-			else Update( -1, FALSE );				// Otherwise just refresh values
+			if ( tDelay < 2000 )		// Sort if list is under 1000
+				Update();
+			else						// Otherwise just refresh values
+				Update( -1, FALSE );
 		}
 	}
 }
@@ -309,6 +311,9 @@ void CSecurityWnd::OnSortList(NMHDR* pNotifyStruct, LRESULT *pResult)
 
 void CSecurityWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 {
+	if ( point.x == -1 && point.y == -1 ) 	// Keyboard fix
+		ClientToScreen( &point );
+
 	Skin.TrackPopupMenu( _T("CSecurityWnd"), point, ID_SECURITY_EDIT );
 }
 
@@ -453,7 +458,7 @@ void CSecurityWnd::OnSecurityExport()
 
 	if ( ! pFile.Open( dlg.GetPathName(), CFile::modeWrite|CFile::modeCreate ) )
 	{
-		// TODO: Error
+		// ToDo: Error
 		AfxMessageBox( _T("Error") );
 		return;
 	}

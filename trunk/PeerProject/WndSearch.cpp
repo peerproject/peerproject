@@ -64,6 +64,7 @@ BEGIN_MESSAGE_MAP(CSearchWnd, CBaseMatchWnd)
 	ON_WM_SYSCOMMAND()
 	ON_WM_SETCURSOR()
 	ON_WM_LBUTTONDOWN()
+	ON_WM_MDIACTIVATE()
 	ON_LBN_SELCHANGE(IDC_MATCHES, OnSelChangeMatches)
 	ON_UPDATE_COMMAND_UI(ID_SEARCH_SEARCH, OnUpdateSearchSearch)
 	ON_COMMAND(ID_SEARCH_SEARCH, OnSearchSearch)
@@ -75,7 +76,6 @@ BEGIN_MESSAGE_MAP(CSearchWnd, CBaseMatchWnd)
 	ON_UPDATE_COMMAND_UI(ID_SEARCH_CLEAR, OnUpdateSearchClear)
 	ON_UPDATE_COMMAND_UI(ID_SEARCH_DETAILS, OnUpdateSearchDetails)
 	ON_COMMAND(ID_SEARCH_DETAILS, OnSearchDetails)
-	ON_WM_MDIACTIVATE()
 	ON_UPDATE_COMMAND_UI_RANGE(3000, 3100, OnUpdateFilters)
 	ON_COMMAND_RANGE(3000, 3100, OnFilters)
 END_MESSAGE_MAP()
@@ -245,6 +245,9 @@ void CSearchWnd::OnSkinChange()
 
 void CSearchWnd::OnContextMenu(CWnd* pWnd, CPoint point)
 {
+	if ( point.x == -1 && point.y == -1 ) 	// Keyboard fix
+		ClientToScreen( &point );
+
 	if ( m_bContextMenu )
 		Skin.TrackPopupMenu( _T("CSearchWnd"), point, ID_SEARCH_DOWNLOAD );
 	else
@@ -318,8 +321,7 @@ void CSearchWnd::OnPaint()
 
 	dc.SetBkColor( Colors.m_crBannerBack );
 	dc.SetTextColor( Colors.m_crBannerText );
-	dc.ExtTextOut( rc.left + 8 + 16, nTop + 1, ETO_CLIPPED|ETO_OPAQUE,
-		&rc, str, NULL );
+	dc.ExtTextOut( rc.left + 8 + 16, nTop + 1, ETO_CLIPPED|ETO_OPAQUE, &rc, str, NULL );
 
 	dc.SelectObject( pFont );
 }

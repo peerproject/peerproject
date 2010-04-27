@@ -54,17 +54,23 @@ CResultFilters::~CResultFilters(void)
 	delete [] ( m_pFilters );
 }
 
+#define RESULTFILTERS_SER_VERSION	1000	// 2
+// nVersion History:
+//  1 - Legacy
+//  2 - Cumulative Additions (Shareaza 2.3)
+//  1000 - (PeerProject 1.0) (2)
+
 void CResultFilters::Serialize(CArchive & ar)
 {
-	int nVersion = 2;
+	int nVersion = RESULTFILTERS_SER_VERSION;
 
 	if ( ar.IsStoring() )
 	{
 		ar << nVersion;
 
-		ar.WriteCount(m_nFilters);
+		ar.WriteCount( m_nFilters );
 
-		for (DWORD i = 0; i < m_nFilters; i++)
+		for ( DWORD i = 0; i < m_nFilters; i++ )
 		{
 			CFilterOptions* pFilter = m_pFilters[ i ];
 			pFilter->Serialize( ar, nVersion );
@@ -81,11 +87,11 @@ void CResultFilters::Serialize(CArchive & ar)
 		m_pFilters = new CFilterOptions *[ m_nFilters ];
 		ZeroMemory( m_pFilters, sizeof(CFilterOptions*) * m_nFilters );
 
-		for (DWORD i = 0; i < m_nFilters; i++)
+		for ( DWORD i = 0; i < m_nFilters; i++ )
 		{
 			CFilterOptions* pFilter = new CFilterOptions();
 			m_pFilters[ i ] = pFilter;
-			pFilter->Serialize( ar, nVersion);
+			pFilter->Serialize( ar, nVersion );
 		}
 
 		ar >> m_nDefault;
@@ -121,7 +127,7 @@ void CResultFilters::Remove(DWORD index)
 	if ( index < m_nFilters )
 	{
 		delete m_pFilters[index];
-		CopyMemory(&m_pFilters[index], &m_pFilters[index + 1], sizeof(CFilterOptions *) * (m_nFilters - index));
+		CopyMemory( &m_pFilters[index], &m_pFilters[index + 1], sizeof(CFilterOptions *) * (m_nFilters - index) );
 		m_nFilters--;
 
 		if ( index == m_nDefault )
@@ -204,36 +210,39 @@ BOOL CResultFilters::Save()
 
 CFilterOptions::CFilterOptions()
 {
-	m_bFilterBusy		= ( Settings.Search.FilterMask & ( 1 << 0 ) ) > 0;
-	m_bFilterPush		= ( Settings.Search.FilterMask & ( 1 << 1 ) ) > 0;
-	m_bFilterUnstable	= ( Settings.Search.FilterMask & ( 1 << 2 ) ) > 0;
-	m_bFilterReject		= ( Settings.Search.FilterMask & ( 1 << 3 ) ) > 0;
-	m_bFilterLocal		= ( Settings.Search.FilterMask & ( 1 << 4 ) ) > 0;
-	m_bFilterBogus		= ( Settings.Search.FilterMask & ( 1 << 5 ) ) > 0;
-	m_bFilterDRM		= ( Settings.Search.FilterMask & ( 1 << 6 ) ) > 0;
-	m_bFilterAdult		= ( Settings.Search.FilterMask & ( 1 << 7 ) ) > 0;
-	m_bFilterSuspicious = ( Settings.Search.FilterMask & ( 1 << 8 ) ) > 0;
-	m_bRegExp			= ( Settings.Search.FilterMask & ( 1 << 9 ) ) > 0;
-	m_nFilterMinSize	= 1;
-	m_nFilterMaxSize	= 0;
-	m_nFilterSources	= 1;
+	// Mask 0x280 = 01010000000  (Reverse Order)
+	m_bRegExp			= ( Settings.Search.FilterMask & ( 1 << 0 ) ) > 0;	// 0
+	m_bFilterPush		= ( Settings.Search.FilterMask & ( 1 << 1 ) ) > 0;	// 0
+	m_bFilterUnstable	= ( Settings.Search.FilterMask & ( 1 << 2 ) ) > 0;	// 0
+	m_bFilterBusy		= ( Settings.Search.FilterMask & ( 1 << 3 ) ) > 0;	// 0
+	m_bFilterReject		= ( Settings.Search.FilterMask & ( 1 << 4 ) ) > 0;	// 0
+	m_bFilterLocal		= ( Settings.Search.FilterMask & ( 1 << 5 ) ) > 0;	// 0
+	m_bFilterBogus		= ( Settings.Search.FilterMask & ( 1 << 6 ) ) > 0;	// 0
+	m_bFilterDRM		= ( Settings.Search.FilterMask & ( 1 << 7 ) ) > 0;	// 1
+	m_bFilterRestricted	= ( Settings.Search.FilterMask & ( 1 << 8 ) ) > 0;	// 0
+	m_bFilterSuspicious	= ( Settings.Search.FilterMask & ( 1 << 9 ) ) > 0;	// 1
+	m_bFilterAdult		= ( Settings.Search.FilterMask & ( 1 << 10 ) ) > 0;	// 0
+	//m_nFilterMinSize	= ( Settings.Search.FilterMask & ( 1 << 10 ) ) > 0;	// 1;
+	//m_nFilterMaxSize	= ( Settings.Search.FilterMask & ( 1 << 11 ) ) > 0;	// 0;
+	//m_nFilterSources	= ( Settings.Search.FilterMask & ( 1 << 12 ) ) > 0;	// 1;
 }
 
-void CFilterOptions::Serialize(CArchive & ar, int nVersion)
+void CFilterOptions::Serialize(CArchive & ar, int /*nVersion*/)	// RESULTFILTERS_SER_VERSION
 {
 	if ( ar.IsStoring() ) // Saving
 	{
 		ar << m_sName;
 		ar << m_sFilter;
-		ar << m_bFilterBusy;
 		ar << m_bFilterPush;
 		ar << m_bFilterUnstable;
-		ar << m_bFilterReject;
+		ar << m_bFilterBusy;
 		ar << m_bFilterLocal;
+		ar << m_bFilterReject;
 		ar << m_bFilterBogus;
 		ar << m_bFilterDRM;
-		ar << m_bFilterAdult;
+		ar << m_bFilterRestricted;
 		ar << m_bFilterSuspicious;
+		ar << m_bFilterAdult;
 		ar << m_nFilterMinSize;
 		ar << m_nFilterMaxSize;
 		ar << m_nFilterSources;
@@ -243,25 +252,22 @@ void CFilterOptions::Serialize(CArchive & ar, int nVersion)
 	{
 		ar >> m_sName;
 		ar >> m_sFilter;
-		ar >> m_bFilterBusy;
 		ar >> m_bFilterPush;
 		ar >> m_bFilterUnstable;
-		ar >> m_bFilterReject;
+		ar >> m_bFilterBusy;
 		ar >> m_bFilterLocal;
+		ar >> m_bFilterReject;
 		ar >> m_bFilterBogus;
-
-		if ( nVersion > 1 )
-		{
-			ar >> m_bFilterDRM;
-			ar >> m_bFilterAdult;
-			ar >> m_bFilterSuspicious;
-			ar >> m_bRegExp;
-			if ( m_sFilter.IsEmpty() )
-				m_bRegExp = FALSE;
-		}
-
+		ar >> m_bFilterDRM;
+		//if ( nVersion >= 1000 )
+			ar >> m_bFilterRestricted;
+		ar >> m_bFilterSuspicious;
+		ar >> m_bFilterAdult;
 		ar >> m_nFilterMinSize;
 		ar >> m_nFilterMaxSize;
 		ar >> m_nFilterSources;
+		ar >> m_bRegExp;
+		if ( m_sFilter.IsEmpty() )
+			m_bRegExp = FALSE;
 	}
 }

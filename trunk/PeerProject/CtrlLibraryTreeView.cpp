@@ -53,10 +53,14 @@ static char THIS_FILE[] = __FILE__;
 IMPLEMENT_DYNAMIC(CLibraryTreeView, CWnd)
 
 BEGIN_MESSAGE_MAP(CLibraryTreeView, CWnd)
+	ON_WM_CREATE()
+	ON_WM_DESTROY()
 	ON_WM_SIZE()
 	ON_WM_VSCROLL()
 	ON_WM_ERASEBKGND()
 	ON_WM_PAINT()
+	ON_WM_SETFOCUS()
+	ON_WM_GETDLGCODE()
 	ON_WM_LBUTTONDOWN()
 	ON_WM_LBUTTONDBLCLK()
 	ON_WM_MOUSEWHEEL()
@@ -87,16 +91,12 @@ BEGIN_MESSAGE_MAP(CLibraryTreeView, CWnd)
 	ON_COMMAND(ID_LIBRARY_FOLDER_METADATA, OnLibraryFolderMetadata)
 	ON_UPDATE_COMMAND_UI(ID_LIBRARY_FOLDER_ENQUEUE, OnUpdateLibraryFolderEnqueue)
 	ON_COMMAND(ID_LIBRARY_FOLDER_ENQUEUE, OnLibraryFolderEnqueue)
-	ON_WM_CREATE()
-	ON_WM_DESTROY()
 	ON_UPDATE_COMMAND_UI(ID_LIBRARY_FOLDER_FILE_PROPERTIES, OnUpdateLibraryFolderFileProperties)
 	ON_COMMAND(ID_LIBRARY_FOLDER_FILE_PROPERTIES, OnLibraryFolderFileProperties)
 	ON_UPDATE_COMMAND_UI(ID_LIBRARY_REBUILD, OnUpdateLibraryRebuild)
 	ON_COMMAND(ID_LIBRARY_REBUILD, OnLibraryRebuild)
 	ON_UPDATE_COMMAND_UI(ID_LIBRARY_EXPORT_COLLECTION, OnUpdateLibraryExportCollection)
 	ON_COMMAND(ID_LIBRARY_EXPORT_COLLECTION, OnLibraryExportCollection)
-	ON_WM_SETFOCUS()
-	ON_WM_GETDLGCODE()
 END_MESSAGE_MAP()
 
 #define ITEM_HEIGHT	17
@@ -1251,7 +1251,7 @@ void CLibraryTreeItem::Paint(CDC& dc, CRect& rc, BOOL bTarget, COLORREF crBack) 
 	dc.SetTextColor( crText );
 	dc.SetBkColor( bSelectmark ? CLR_NONE : crBack );
 	dc.SetBkMode( bSelectmark ? TRANSPARENT : OPAQUE );
-	
+
 	if ( bSelectmark )
 		CoolInterface.DrawWatermark( &dc, &rc, &Skin.m_bmSelected );
 
@@ -1598,6 +1598,9 @@ BOOL CLibraryTreeView::PreTranslateMessage(MSG* pMsg)
 
 void CLibraryTreeView::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 {
+	if ( point.x == -1 && point.y == -1 ) 	// Keyboard fix
+		ClientToScreen( &point );
+
 	if ( m_bVirtual )
 	{
 		Skin.TrackPopupMenu( _T("CLibraryTree.Virtual"), point, ID_LIBRARY_FOLDER_PROPERTIES );

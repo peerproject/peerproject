@@ -41,7 +41,9 @@ BEGIN_MESSAGE_MAP(CTrafficWnd, CChildWnd)
 	ON_WM_CREATE()
 	ON_WM_DESTROY()
 	ON_WM_PAINT()
+	ON_WM_SIZE()
 	ON_WM_TIMER()
+	ON_WM_LBUTTONDBLCLK()
 	ON_WM_CONTEXTMENU()
 	ON_UPDATE_COMMAND_UI(ID_TRAFFIC_GRID, OnUpdateTrafficGrid)
 	ON_COMMAND(ID_TRAFFIC_GRID, OnTrafficGrid)
@@ -51,9 +53,7 @@ BEGIN_MESSAGE_MAP(CTrafficWnd, CChildWnd)
 	ON_COMMAND(ID_TRAFFIC_LEGEND, OnTrafficLegend)
 	ON_COMMAND(ID_TRAFFIC_SETUP, OnTrafficSetup)
 	ON_COMMAND(ID_TRAFFIC_CLEAR, OnTrafficClear)
-	ON_WM_LBUTTONDBLCLK()
 	ON_COMMAND(ID_TRAFFIC_WINDOW, OnTrafficWindow)
-	ON_WM_SIZE()
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -148,11 +148,15 @@ void CTrafficWnd::OnPaint()
 
 void CTrafficWnd::OnTimer(UINT_PTR nIDEvent)
 {
-	if ( nIDEvent == 2 && m_pGraph->Update() ) Invalidate();
+	if ( nIDEvent == 2 && m_pGraph->Update() )
+		Invalidate();
 }
 
 void CTrafficWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 {
+	if ( point.x == -1 && point.y == -1 ) 	// Keyboard fix
+		ClientToScreen( &point );
+
 	Skin.TrackPopupMenu( _T("CTrafficWnd"), point, ID_TRAFFIC_SETUP );
 }
 
@@ -271,7 +275,8 @@ BOOL CTrafficWnd::Serialize(BOOL bSave)
 					ar >> m_nUnique;
 				}
 
-				if ( nVersion >= 1 ) ar >> m_sName;
+				if ( nVersion >= 1 )
+					ar >> m_sName;
 
 				ReadArchive( ar, &pPos, sizeof(pPos) );
 				if ( pPos.showCmd == SW_SHOWNORMAL )

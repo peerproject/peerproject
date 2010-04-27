@@ -145,6 +145,9 @@ void CPrivateChatFrame::OnPaint()
 
 void CPrivateChatFrame::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 {
+	if ( point.x == -1 && point.y == -1 ) 	// Keyboard fix
+		ClientToScreen( &point );
+
 	Skin.TrackPopupMenu( _T("CPrivateChatFrame"), point );
 }
 
@@ -157,7 +160,7 @@ void CPrivateChatFrame::OnProfileReceived()
 
 	AddTimestamp();
 
-	m_pContent.Add( retText, LoadString( IDS_CHAT_PROFILE_ACCEPTED ), NULL, retfColor )->m_cColor = Colors.m_crChatNull ;
+	m_pContent.Add( retText, LoadString( IDS_CHAT_PROFILE_ACCEPTED ), NULL, retfColor )->m_cColor = Colors.m_crChatNull;
 	m_pContent.Add( retLink, m_sNick, _T("peer:command:ID_CHAT_BROWSE") );
 	m_pContent.Add( retNewline, NEWLINE_FORMAT );
 	m_wndView.InvalidateIfModified();

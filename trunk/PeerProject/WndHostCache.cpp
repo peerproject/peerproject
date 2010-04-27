@@ -1,7 +1,7 @@
 //
 // WndHostCache.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -46,20 +46,20 @@ IMPLEMENT_SERIAL(CHostCacheWnd, CPanelWnd, 0)
 
 BEGIN_MESSAGE_MAP(CHostCacheWnd, CPanelWnd)
 	ON_WM_CREATE()
+	ON_WM_DESTROY()
 	ON_WM_SIZE()
+	ON_WM_TIMER()
 	ON_WM_NCMOUSEMOVE()
+	ON_WM_CONTEXTMENU()
 	ON_NOTIFY(NM_CUSTOMDRAW, IDC_HOSTS, OnCustomDrawList)
 	ON_NOTIFY(NM_DBLCLK, IDC_HOSTS, OnDblClkList)
 	ON_NOTIFY(LVN_COLUMNCLICK, IDC_HOSTS, OnSortList)
-	ON_WM_TIMER()
-	ON_WM_CONTEXTMENU()
 	ON_UPDATE_COMMAND_UI(ID_HOSTCACHE_CONNECT, OnUpdateHostCacheConnect)
 	ON_COMMAND(ID_HOSTCACHE_CONNECT, OnHostCacheConnect)
 	ON_UPDATE_COMMAND_UI(ID_HOSTCACHE_DISCONNECT, OnUpdateHostCacheDisconnect)
 	ON_COMMAND(ID_HOSTCACHE_DISCONNECT, OnHostCacheDisconnect)
 	ON_UPDATE_COMMAND_UI(ID_HOSTCACHE_REMOVE, OnUpdateHostCacheRemove)
 	ON_COMMAND(ID_HOSTCACHE_REMOVE, OnHostCacheRemove)
-	ON_WM_DESTROY()
 	ON_UPDATE_COMMAND_UI(ID_HOSTCACHE_G2_HORIZON, OnUpdateHostcacheG2Horizon)
 	ON_COMMAND(ID_HOSTCACHE_G2_HORIZON, OnHostcacheG2Horizon)
 	ON_UPDATE_COMMAND_UI(ID_HOSTCACHE_G2_CACHE, OnUpdateHostcacheG2Cache)
@@ -333,7 +333,10 @@ void CHostCacheWnd::OnSortList(NMHDR* pNotifyStruct, LRESULT *pResult)
 
 void CHostCacheWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 {
-	// do not update the list while user navigates through context menu
+	if ( point.x == -1 && point.y == -1 ) 	// Keyboard fix
+		ClientToScreen( &point );
+
+	// Do not update the list while user navigates through context menu
 	m_bAllowUpdates = FALSE;
 	Skin.TrackPopupMenu( _T("CHostCacheWnd"), point, ID_HOSTCACHE_CONNECT );
 	m_bAllowUpdates = TRUE;
@@ -613,7 +616,7 @@ void CHostCacheWnd::OnHostcacheKADCache()
 
 void CHostCacheWnd::OnHostcacheImport()
 {
-	// TODO: Localize it
+	// ToDo: Localize it
 	CFileDialog dlg( TRUE, _T("met"), NULL, OFN_HIDEREADONLY,
 		_T("eDonkey2000 MET files|*.met|")
 		_T("Kademlia Nodes files|nodes.dat|")
@@ -630,7 +633,8 @@ void CHostCacheWnd::OnHostcacheImport()
 void CHostCacheWnd::OnHostcacheEd2kDownload()
 {
 	CDonkeyServersDlg dlg;
-	if ( dlg.DoModal() == IDOK ) Update( TRUE );
+	if ( dlg.DoModal() == IDOK )
+		Update( TRUE );
 }
 
 BOOL CHostCacheWnd::PreTranslateMessage(MSG* pMsg)

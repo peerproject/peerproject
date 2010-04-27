@@ -87,7 +87,8 @@ int CNeighboursWithRouting::Broadcast(CPacket* pPacket, CNeighbour* pExcept, BOO
 		if ( pNeighbour != pExcept && pNeighbour->m_nState == nrsConnected && bSend )
 		{
 			// Send it the packet, and count one more packet was sent
-			if ( pNeighbour->Send( pPacket, FALSE, TRUE ) ) nCount++;
+			if ( pNeighbour->Send( pPacket, FALSE, TRUE ) )
+				nCount++;
 		}
 	}
 
@@ -144,7 +145,7 @@ int CNeighboursWithRouting::RouteQuery(const CQuerySearch* pSearch, CPacket* pPa
 		{
 			// The caller wants to include hubs, or it doesn't but our connection to this one is down to a leaf anyway
 			if ( bToHubs || pNeighbour->m_nNodeType == ntLeaf )
-			{	
+			{
 				if ( pG1 == NULL )	// This isn't a Gnutella packet
 				{
 					if ( pG2Q1 != NULL )	// This is a Gnutella2 packet, but not a Q2 one
@@ -183,10 +184,9 @@ int CNeighboursWithRouting::RouteQuery(const CQuerySearch* pSearch, CPacket* pPa
 					nCount++;
 			}
 			else if ( bToHubs )	// This remote computer is a hub, and the caller said we can send packets to hubs
-			{	
+			{
 				if ( pG2Q2 == NULL )	// This isn't a Gnutella2 Q2 packet
 				{
-					
 					if ( pG2 == NULL )	// In fact, it's not a Gnutella2 packet at all
 					{
 						// Turn it into one

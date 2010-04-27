@@ -122,6 +122,7 @@ BEGIN_MESSAGE_MAP(CMainWnd, CMDIFrameWnd)
 	ON_WM_NCLBUTTONDBLCLK()
 	ON_WM_GETMINMAXINFO()
 	ON_WM_ENDSESSION()
+	ON_WM_MENUCHAR()
 	ON_WM_WINDOWPOSCHANGING()
 	ON_MESSAGE(WM_WINSOCK, OnWinsock)
 	ON_MESSAGE(WM_URL, OnHandleURL)
@@ -276,7 +277,6 @@ BEGIN_MESSAGE_MAP(CMainWnd, CMDIFrameWnd)
 	ON_COMMAND(ID_HELP, OnHelpFaq)
 	ON_COMMAND(ID_HELP_TEST, OnHelpConnectiontest)
 	ON_UPDATE_COMMAND_UI_RANGE(ID_SHELL_MENU_MIN, ID_SHELL_MENU_MAX, OnUpdateShell)
-	ON_WM_MENUCHAR()
 END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
@@ -728,8 +728,11 @@ void CMainWnd::OnUpdateCmdUI()
 
 void CMainWnd::OnContextMenu(CWnd* pWnd, CPoint point)
 {
-	if ( ( pWnd != this || OnNcHitTest( point ) != HTCAPTION ) )
+	if ( pWnd != this || OnNcHitTest( point ) != HTCAPTION )
 	{
+		if ( point.x == -1 && point.y == -1 ) 	// Keyboard fix
+			ClientToScreen( &point );
+
 		CMenu* pMenu = Skin.GetMenu( _T("CMainWnd.View") );
 		if ( pMenu == NULL ) return;
 		pMenu->TrackPopupMenu( TPM_LEFTALIGN|TPM_LEFTBUTTON|TPM_RIGHTBUTTON, point.x, point.y, this );
@@ -2632,9 +2635,15 @@ void CMainWnd::OnHelpUpdate()
 	const CString strUpdateSite( UPDATE_URL );
 
 	ShellExecute( GetSafeHwnd(), _T("open"),
-		strUpdateSite + _T("?Version=") + theApp.m_sVersion + _T("&Language=") + Settings.General.Language.Left(2),
+		strUpdateSite + _T("?Version=") + theApp.m_sVersion
+#ifdef WIN64
+		+ _T("?Platform=x64")
+#else
+		+ _T("?Platform=Win32")
+#endif
+		+ _T("&Language=") + Settings.General.Language.Left(2),
 		NULL, NULL, SW_SHOWNORMAL );
-	// ToDo: Add 32/64-bit option here ?
+	// Run CVersionChecker::ExecuteRequest() instead?
 }
 
 void CMainWnd::OnHelpRouter()
@@ -2916,7 +2925,7 @@ void CMainWnd::ShowTrayPopup(LPCTSTR szText, LPCTSTR szTitle, DWORD dwIcon, UINT
 
 	m_pTray.dwInfoFlags = dwIcon;
 
-	m_pTray.uTimeout = uTimeout * 1000;   // convert time to ms
+	m_pTray.uTimeout = uTimeout * 1000;   // Convert time to ms
 
 	m_bTrayIcon = Shell_NotifyIcon( NIM_MODIFY, &m_pTray );
 

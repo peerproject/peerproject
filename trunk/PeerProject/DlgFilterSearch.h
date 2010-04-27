@@ -1,7 +1,7 @@
 //
 // DlgFilterSearch.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -18,9 +18,6 @@
 // along with PeerProject; if not, write to Free Software Foundation, Inc.
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
-
-#if !defined(DLGFILTERSEARCH_H_)
-#define DLGFILTERSEARCH_H
 
 #pragma once
 
@@ -47,8 +44,9 @@ public:
 	BOOL	m_bHideUnstable;
 	BOOL	m_bHideBogus;
 	BOOL	m_bHideDRM;
-	BOOL	m_bHideAdult;
+	BOOL	m_bHideRestricted;
 	BOOL	m_bHideSuspicious;
+	BOOL	m_bHideAdult;
 	int		m_nSources;
 	CString	m_sMaxSize;
 	CString	m_sMinSize;
@@ -58,14 +56,13 @@ public:
 	CMatchList*	m_pMatches;
 	CResultFilters * m_pResultFilters;
 
-// Overrides
-protected:
-	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
-
 // Implementation
 protected:
+	virtual void DoDataExchange(CDataExchange* pDX);
+
 	virtual BOOL OnInitDialog();
 	virtual void OnOK();
+
 	DECLARE_MESSAGE_MAP()
 
 public:
@@ -81,5 +78,3 @@ private:
 	void UpdateList();
 	CComboBox m_Filters;
 };
-
-#endif // !defined(DLGFILTERSEARCH_H)

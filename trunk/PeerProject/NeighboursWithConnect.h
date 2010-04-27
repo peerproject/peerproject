@@ -47,6 +47,8 @@ public:
 	BOOL  IsG1Ultrapeer();						// True if we are acting as a Gnutella ultrapeer on at least one connection
 	DWORD IsG1UltrapeerCapable(BOOL bIgnoreTime = FALSE, BOOL bDebug = FALSE);	// True if computer and Internet connection are powerful enough to become a Gnutella ultrapeer
 
+	DWORD CalculateSystemPerformanceScore(BOOL bDebug);	// Hub "Points"
+
 	// Determine our needs on the given network, Gnutella or Gnutella2
 	BOOL NeedMoreHubs(PROTOCOLID nProtocol);	// True if we need more hub connections on the given network
 	BOOL NeedMoreLeafs(PROTOCOLID nProtocol);	// True if we need more leaf connections on the given network

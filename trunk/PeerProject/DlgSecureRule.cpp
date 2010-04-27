@@ -1,7 +1,7 @@
 //
 // DlgSecureRule.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -49,8 +49,8 @@ CSecureRuleDlg::CSecureRuleDlg(CWnd* pParent, CSecureRule* pRule) : CSkinDialog(
 	m_nAction = -1;
 	m_nExpire = -1;
 	m_sComment = _T("");
-	m_nType = -1;
 	m_sContent = _T("");
+	m_nType = -1;
 	m_nMatch = -1;
 	m_pRule	= pRule;
 	m_bNew	= FALSE;
@@ -87,7 +87,7 @@ void CSecureRuleDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_RULE_COMMENT, m_sComment);
 	DDX_CBIndex(pDX, IDC_RULE_TYPE, m_nType);
 	DDX_Text(pDX, IDC_RULE_CONTENT, m_sContent);
-	DDX_Radio(pDX, IDC_RULE_MATCH_0, m_nMatch);
+	DDX_Radio(pDX, IDC_RULE_MATCH_ANY, m_nMatch);
 	//}}AFX_DATA_MAP
 }
 
@@ -175,7 +175,7 @@ void CSecureRuleDlg::ShowGroup(CWnd* pWnd, BOOL bShow)
 
 		if ( pWnd->GetStyle() & WS_GROUP )
 		{
-			if ( pWnd->GetDlgCtrlID() != IDC_RULE_MATCH_0 ) break;
+			if ( pWnd->GetDlgCtrlID() != IDC_RULE_MATCH_ANY ) break;
 		}
 	}
 }

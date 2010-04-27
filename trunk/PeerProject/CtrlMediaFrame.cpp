@@ -418,9 +418,7 @@ void CMediaFrame::OnSize(UINT nType, int cx, int cy)
 	if ( rc.Width() < 32 || rc.Height() < 32 ) return;
 
 	if ( rc.Width() < m_nListSize + Skin.m_nSplitter )
-	{
 		m_nListSize = max( 0, rc.Width() - Skin.m_nSplitter );
-	}
 
 	if ( m_bListVisible || ! m_bFullScreen )
 	{
@@ -779,6 +777,9 @@ BOOL CMediaFrame::PaintStatusMicro(CDC& dc, CRect& rcBar)
 
 void CMediaFrame::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 {
+	if ( point.x == -1 && point.y == -1 ) 	// Keyboard fix
+		ClientToScreen( &point );
+
 	Skin.TrackPopupMenu( _T("CMediaFrame"), point,
 		m_nState == smsPlaying ? ID_MEDIA_PAUSE : ID_MEDIA_PLAY );
 }
@@ -1716,7 +1717,7 @@ HRESULT CMediaFrame::PluginPlay(BSTR bsFilePath)
 	}
 	__except( EXCEPTION_EXECUTE_HANDLER )
 	{
-//		theApp.Message( MSG_ERROR, _T("Media Player failed to open file: %s"), bsFilePath );
+	//	theApp.Message( MSG_ERROR, _T("Media Player failed to open file: %s"), bsFilePath );
 		Cleanup();
 		return E_FAIL;
 	}
@@ -1856,8 +1857,10 @@ void CMediaFrame::OnNewCurrent(NMHDR* /*pNotify*/, LRESULT* pResult)
 		BOOL bCorrupted = FALSE;
 
 		if ( m_bEnqueue )
+		{
 			bPlayIt = FALSE;
-		else
+		}
+		else // Play
 		{
 			// Play when repeat is on or when whithin the playlist
 			bPlayIt = m_bRepeat || ! m_bLastMedia || m_bLastNotPlayed;
@@ -1923,7 +1926,9 @@ void CMediaFrame::OnNewCurrent(NMHDR* /*pNotify*/, LRESULT* pResult)
 		}
 	}
 	else if ( m_pPlayer )
+	{
 		Cleanup();
+	}
 
 	*pResult = 0;
 

@@ -136,7 +136,7 @@ BOOL CDownloadGroup::Link(CDownload* pDownload)
 		}
 	}
 
-	if ( pDownload->IsTorrent() && ! pDownload->IsSingleFileTorrent() && 
+	if ( pDownload->IsTorrent() && ! pDownload->IsSingleFileTorrent() &&
 		CheckURI( m_sSchemaURI, CSchema::uriBitTorrent ) )	// Multifile Torrent Package addition to Schema (Was m_bTorrent)
 	{
 		// Filter by BitTorrent flag last

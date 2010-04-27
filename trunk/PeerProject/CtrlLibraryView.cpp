@@ -106,7 +106,7 @@ void CLibraryView::GetHeaderContent(int& nImage, CString& str)
 		if ( Settings.General.LanguageRTL )
 			str =  _T("\x202A") + str + _T(" \x200E") + strFormat;
 		else
-			str = strFormat + str;
+			str = strFormat + ' ' + str;
 
 		nImage	= SHI_FOLDER_OPEN;
 		pItem	= GetFolderSelection();
@@ -132,7 +132,9 @@ void CLibraryView::GetHeaderContent(int& nImage, CString& str)
 			str = _T("\x202A") + strCaption + _T(" \x200E") + str;
 		}
 		else
-			str += psz ? psz + 1 : pSchema->m_sTitle;
+		{
+			str = str + ' ' + ( psz ? psz + 1 : pSchema->m_sTitle );
+		}
 	}
 	else
 	{

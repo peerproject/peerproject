@@ -49,10 +49,10 @@ END_MESSAGE_MAP()
 
 CFileCopyDlg::CFileCopyDlg(CWnd* pParent, BOOL bMove)
 	: CSkinDialog(CFileCopyDlg::IDD, pParent)
-	, m_bMove( bMove )
-	, m_nFileProg( 0 )
-	, m_nCookie( 0 )
-	, m_bCancel( FALSE )
+	, m_bMove		( bMove )
+	, m_nFileProg	( 0 )
+	, m_nCookie 	( 0 )
+	, m_bCancel		( FALSE )
 {
 }
 
@@ -64,10 +64,10 @@ void CFileCopyDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_MESSAGE_COPY, m_wndCopy);
 	DDX_Control(pDX, IDC_FILE_NAME, m_wndFileName);
 	DDX_Control(pDX, IDC_PROGRESS_FILE, m_wndFileProg);
-	DDX_Control(pDX, IDCANCEL, m_wndCancel);
-	DDX_Control(pDX, IDOK, m_wndOK);
 	DDX_Control(pDX, IDC_PROGRESS, m_wndProgress);
 	DDX_Control(pDX, IDC_PLACEHOLDER, m_wndPlaceholder);
+	DDX_Control(pDX, IDCANCEL, m_wndCancel);
+	DDX_Control(pDX, IDOK, m_wndOK);
 	//}}AFX_DATA_MAP
 }
 
@@ -93,6 +93,9 @@ BOOL CFileCopyDlg::OnInitDialog()
 	strCaption.Format( strBase, m_pFiles.GetCount() );
 	pMessage->SetWindowText( strCaption );
 	pMessage->ShowWindow( SW_SHOW );
+
+	//if ( m_pFiles.GetCount() == 1 )
+	//	GetDlgItem( IDC_PROGRESS )->EnableWindow( FALSE );
 
 	CRect rc;
 	m_wndPlaceholder.GetWindowRect( &rc );

@@ -93,7 +93,6 @@ public:
 	DWORD				m_nWindowsVersion;			// Windows version
 	DWORD				m_nWindowsVersionMinor;		// Windows minor version
 	QWORD				m_nPhysicalMemory;			// Physical RAM installed
-	int					m_nLogicalProcessors;		// Multi-core, Multi-CPUs, or HT modules
 	CAutoPtr< CUPnPFinder > m_pUPnPFinder;
 	TRISTATE			m_bUPnPPortsForwarded;		// UPnP values are assigned when the discovery is complete
 	TRISTATE			m_bUPnPDeviceConnected;		// or when the service notifies
@@ -101,6 +100,8 @@ public:
 	DWORD				m_nLastInput;				// Time of last input event (in secs)
 	HHOOK				m_hHookKbd;
 	HHOOK				m_hHookMouse;
+
+	SYSTEM_INFO			m_SysInfo;					// System Information (CPU cores, etc.)
 
 	// Cryptography Context handle
 	HCRYPTPROV			m_hCryptProv;
@@ -203,6 +204,10 @@ protected:
 	void				FreeCountry();		// Free GeoIP resources
 
 	DECLARE_MESSAGE_MAP()
+
+private:
+	CPeerProjectApp(const CPeerProjectApp&);
+	CPeerProjectApp& operator=(const CPeerProjectApp&);
 };
 
 extern CPeerProjectApp theApp;

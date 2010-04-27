@@ -1690,8 +1690,9 @@
 		<item id="ID_IRC_QUERY" text="_Query"/>
 		<separator/>
 		<menu text="Actions">
-			<item id="ID_IRC_TIME" text="_Time"/>
+			<item id="ID_IRC_BROWSE" text="_Browse"/>
 			<item id="ID_IRC_VERSION" text="_Version"/>
+			<item id="ID_IRC_TIME" text="_Time"/>
 		</menu>
 		<separator/>
 		<menu text="Control">
@@ -2599,7 +2600,7 @@
 		<image id="ID_VIEW_SECURITY"/>
 		<image id="ID_LIBRARY_ADD" id1="ID_LIBRARY_FOLDER_NEW" id2="ID_DOWNLOAD_GROUP_NEW"/>
 		<image id="ID_LIBRARY_FOLDERS"/>
-		<image id="ID_BROWSE_LAUNCH" id1="ID_CHAT_BROWSE" id2="ID_NETWORK_BROWSE_TO" id3="ID_BROWSE_FILES"/>
+		<image id="ID_BROWSE_LAUNCH" id1="ID_CHAT_BROWSE" id2="ID_NETWORK_BROWSE_TO" id3="ID_BROWSE_FILES" id4="ID_IRC_BROWSE"/>
 		<image />
 		<image id="ID_LIBRARY_VIEW_COLLECTION" id1="ID_LIBRARY_EXPORT_COLLECTION" id2="ID_MEDIA_EXPORT_COLLECTION"/>
 		<image id="ID_TAB_LIBRARY" id1="ID_VIEW_LIBRARY" id2="ID_MEDIA_PROPERTIES"/>
@@ -2729,7 +2730,7 @@
 	<icon res="IDI_COMPUTER" id="IDI_COMPUTER" types="16,32,48" rtl="0"/>
 	<icon res="IDI_EXECUTABLE" id="IDI_EXECUTABLE" types="16,32,48" rtl="0"/>
 	<icon res="IDR_BITTORRENT_ICON" id="ID_TOOLS_SEEDTORRENT" types="16" rtl="0"/>
-	<icon res="WINDOW_CHAT" id="WINDOW_CHAT" types="16,32,48" rtl="0"/>
+	<icon res="IDI_MULTIFILE" id="IDI_MULTIFILE" types="16,32,48" rtl="0"/>
 	<icon res="IDI_BROWSE" id="IDI_BROWSE" types="16,32,48" rtl="0"/>
 	<icon res="IDI_FOLDER_CLOSED" id="IDI_FOLDER_CLOSED" types="16,32,48" rtl="0"/>
 	<icon res="IDI_FOLDER_OPEN" id="IDI_FOLDER_OPEN" types="16,32,48" rtl="0"/>
@@ -2744,6 +2745,7 @@
 	<icon res="IDI_RATING_FAKE" id="IDI_RATING_FAKE" types="16" rtl="0"/>
 	<icon res="IDI_RATING_AVERAGE" id="IDI_RATING_AVERAGE" types="16" rtl="0"/>
 	<icon res="IDI_RATING_GOOD" id="IDI_RATING_GOOD" types="16" rtl="0"/>
+	<icon res="WINDOW_CHAT" id="WINDOW_CHAT" types="16,32,48" rtl="0"/>
 	<icon res="WINDOW_SEARCH" id="WINDOW_SEARCH" types="16,32,48" rtl="0"/>
 	<icon res="IDR_DISCOVERYFRAME" id="ID_VIEW_DISCOVERY" types="16" rtl="0"/>
 	<icon res="IDR_NEIGHBOURSFRAME" id="ID_TAB_NETWORK" types="16" rtl="0"/>

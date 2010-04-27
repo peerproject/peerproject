@@ -75,8 +75,9 @@ CMatchList::CMatchList(CBaseMatchWnd* pParent)
 		m_bFilterLocal		= m_pResultFilters->m_pFilters[nDefaultFilter]->m_bFilterLocal;
 		m_bFilterBogus		= m_pResultFilters->m_pFilters[nDefaultFilter]->m_bFilterBogus;
 		m_bFilterDRM		= m_pResultFilters->m_pFilters[nDefaultFilter]->m_bFilterDRM;
-		m_bFilterAdult		= m_pResultFilters->m_pFilters[nDefaultFilter]->m_bFilterAdult;
+		m_bFilterRestricted	= m_pResultFilters->m_pFilters[nDefaultFilter]->m_bFilterRestricted;
 		m_bFilterSuspicious	= m_pResultFilters->m_pFilters[nDefaultFilter]->m_bFilterSuspicious;
+		m_bFilterAdult		= m_pResultFilters->m_pFilters[nDefaultFilter]->m_bFilterAdult;
 		m_nFilterMinSize	= m_pResultFilters->m_pFilters[nDefaultFilter]->m_nFilterMinSize;
 		m_nFilterMaxSize	= m_pResultFilters->m_pFilters[nDefaultFilter]->m_nFilterMaxSize;
 		m_nFilterSources	= m_pResultFilters->m_pFilters[nDefaultFilter]->m_nFilterSources;
@@ -84,19 +85,20 @@ CMatchList::CMatchList(CBaseMatchWnd* pParent)
 	}
 	else
 	{
-		m_bFilterBusy		= ( Settings.Search.FilterMask & ( 1 << 0 ) ) > 0;
-		m_bFilterPush		= ( Settings.Search.FilterMask & ( 1 << 1 ) ) > 0;
-		m_bFilterUnstable	= ( Settings.Search.FilterMask & ( 1 << 2 ) ) > 0;
-		m_bFilterReject		= ( Settings.Search.FilterMask & ( 1 << 3 ) ) > 0;
-		m_bFilterLocal		= ( Settings.Search.FilterMask & ( 1 << 4 ) ) > 0;
-		m_bFilterBogus		= ( Settings.Search.FilterMask & ( 1 << 5 ) ) > 0;
-		m_bFilterDRM		= ( Settings.Search.FilterMask & ( 1 << 6 ) ) > 0;
-		m_bFilterAdult		= ( Settings.Search.FilterMask & ( 1 << 7 ) ) > 0;
-		m_bFilterSuspicious	= ( Settings.Search.FilterMask & ( 1 << 8 ) ) > 0;
+		m_bRegExp			= ( Settings.Search.FilterMask & ( 1 << 0 ) ) > 0;	// 0;
+		m_bFilterPush		= ( Settings.Search.FilterMask & ( 1 << 1 ) ) > 0;	// 0;
+		m_bFilterUnstable	= ( Settings.Search.FilterMask & ( 1 << 2 ) ) > 0;	// 0;
+		m_bFilterBusy		= ( Settings.Search.FilterMask & ( 1 << 3 ) ) > 0;	// 0;
+		m_bFilterLocal		= ( Settings.Search.FilterMask & ( 1 << 4 ) ) > 0;	// 0;
+		m_bFilterReject		= ( Settings.Search.FilterMask & ( 1 << 5 ) ) > 0;	// 0;
+		m_bFilterBogus		= ( Settings.Search.FilterMask & ( 1 << 6 ) ) > 0;	// 0;
+		m_bFilterDRM		= ( Settings.Search.FilterMask & ( 1 << 7 ) ) > 0;	// 1;
+		m_bFilterRestricted	= ( Settings.Search.FilterMask & ( 1 << 8 ) ) > 0;	// 0;
+		m_bFilterSuspicious	= ( Settings.Search.FilterMask & ( 1 << 9 ) ) > 0;	// 1;
+		m_bFilterAdult		= ( Settings.Search.FilterMask & ( 1 << 10 ) ) > 0;	// 0;
 		m_nFilterMinSize	= 1;
 		m_nFilterMaxSize	= 0;
 		m_nFilterSources	= 1;
-		m_bRegExp			= FALSE;
 	}
 
 	m_nSortColumn		= -1;
@@ -248,11 +250,7 @@ void CMatchList::AddHits(const CQueryHit* pHits, const CQuerySearch* pFilter)
 
 			pHit->m_bMatched = pFilter->Match(
 				pHit->m_sName, pHit->m_nSize, pHit->m_sSchemaURI, pHit->m_pXML,
-				pHit->m_oSHA1,
-				pHit->m_oTiger,
-				pHit->m_oED2K,
-				pHit->m_oBTH,
-				pHit->m_oMD5);
+				pHit->m_oSHA1, pHit->m_oTiger, pHit->m_oED2K, pHit->m_oBTH, pHit->m_oMD5 );
 
 			// ToDo: Change to pHit->m_bMatched when we will be able to get folder name from hits.
 			// PeerProject sends hits if folder name matches the search keywords too.
@@ -272,7 +270,7 @@ void CMatchList::AddHits(const CQueryHit* pHits, const CQuerySearch* pFilter)
 
 		FilterHit( pHit );
 
-		CMatchFile* pFile	= NULL;
+		CMatchFile* pFile = NULL;
 		FILESTATS Stats = {};
 
 		if ( pHit->m_oSHA1 )
@@ -692,8 +690,8 @@ bool CMatchList::CreateRegExpFilter(CString strPattern, CString& strFilter)
 			if ( *pszPattern == '<' )
 			{
 				pszPattern++;
+				bool bAll = ( *pszPattern == '%' || *pszPattern == '$'  || *pszPattern == '_' || *pszPattern == '>' );
 				bool bEnds = false;
-				bool bAll = *pszPattern == '_';
 
 				for ( ; *pszPattern ; pszPattern++ )
 				{
@@ -704,14 +702,14 @@ bool CMatchList::CreateRegExpFilter(CString strPattern, CString& strFilter)
 					}
 				}
 
-				if ( bEnds )
+				if ( bEnds ) // Closed '>'
 				{
 					CQuerySearch::const_iterator itWord = pQuery->begin();
 					CQuerySearch::const_iterator itWordEnd = pQuery->end();
 
-					if ( bAll )
+					if ( bAll ) // <%>,<$>,<_>,<>
 					{
-						// Add all keywords at the "<_>" position
+						// Add all keywords at the "< >" position
 						for ( ; itWord != itWordEnd ; itWord++ )
 						{
 							strNewPattern.AppendFormat( L"%s\\s*",
@@ -719,7 +717,7 @@ bool CMatchList::CreateRegExpFilter(CString strPattern, CString& strFilter)
 						}
 						bReplaced = true;
 					}
-					else
+					else // <1>,<2>,<3>,<4>,<5>,<6>,<7>,<8>,<9>
 					{
 						pszPattern--; // Go back
 						int nNumber = 0;
@@ -728,6 +726,7 @@ bool CMatchList::CreateRegExpFilter(CString strPattern, CString& strFilter)
 						if ( _stscanf( &pszPattern[0], L"%i", &nNumber ) != 1 )
 							nNumber = ++nTotal;
 
+						// Add specified keyword at the "< >" position
 						for ( int nWord = 1 ; itWord != itWordEnd ; itWord++, nWord++ )
 						{
 							if ( nWord == nNumber )
@@ -741,12 +740,14 @@ bool CMatchList::CreateRegExpFilter(CString strPattern, CString& strFilter)
 						pszPattern++; // return to the last position
 					}
 				}
-				else
-					return false; // no closing '>'
+				else // No closing '>'
+				{
+					return false;
+				}
 			}
-			else
+			else // No replacing
 			{
-				strNewPattern += *pszPattern; // not replacing
+				strNewPattern += *pszPattern;
 			}
 			pszPattern++;
 		}
@@ -774,16 +775,20 @@ void CMatchList::Filter()
 
 	Settings.Search.FilterMask = 0;
 
-	if ( m_bFilterBusy )		Settings.Search.FilterMask |= ( 1 << 0 );
-	if ( m_bFilterPush )		Settings.Search.FilterMask |= ( 1 << 1 );
-	if ( m_bFilterUnstable )	Settings.Search.FilterMask |= ( 1 << 2 );
-	if ( m_bFilterReject )		Settings.Search.FilterMask |= ( 1 << 3 );
-	if ( m_bFilterLocal )		Settings.Search.FilterMask |= ( 1 << 4 );
-	if ( m_bFilterBogus	)		Settings.Search.FilterMask |= ( 1 << 5 );
-	if ( m_bFilterDRM )			Settings.Search.FilterMask |= ( 1 << 6 );
-	if ( m_bFilterAdult	)		Settings.Search.FilterMask |= ( 1 << 7 );
-	if ( m_bFilterSuspicious )	Settings.Search.FilterMask |= ( 1 << 8 );
-	if ( m_bRegExp )			Settings.Search.FilterMask |= ( 1 << 9 );
+	if ( m_bRegExp )			Settings.Search.FilterMask |= ( 1 << 0 );	// 0;
+	if ( m_bFilterPush )		Settings.Search.FilterMask |= ( 1 << 1 );	// 0;
+	if ( m_bFilterUnstable )	Settings.Search.FilterMask |= ( 1 << 2 );	// 0;
+	if ( m_bFilterBusy )		Settings.Search.FilterMask |= ( 1 << 3 );	// 0;
+	if ( m_bFilterLocal )		Settings.Search.FilterMask |= ( 1 << 4 );	// 0;
+	if ( m_bFilterReject )		Settings.Search.FilterMask |= ( 1 << 5 );	// 0;
+	if ( m_bFilterBogus	)		Settings.Search.FilterMask |= ( 1 << 6 );	// 0;
+	if ( m_bFilterDRM )			Settings.Search.FilterMask |= ( 1 << 7 );	// 1;
+	if ( m_bFilterRestricted )	Settings.Search.FilterMask |= ( 1 << 8 );	// 0;
+	if ( m_bFilterSuspicious )	Settings.Search.FilterMask |= ( 1 << 9 );	// 1;
+	if ( m_bFilterAdult	)		Settings.Search.FilterMask |= ( 1 << 10 );	// 0;
+//	if ( m_nFilterMinSize > 0 )	Settings.Search.FilterMask |= ( 1 << 10 );	// 1;
+//	if ( m_nFilterMaxSize > m_nFilterMinSize )	Settings.Search.FilterMask |= ( 1 << 11 );	// 0;
+//	if ( m_nFilterSources > 0 )	Settings.Search.FilterMask |= ( 1 << 12 );	// 1;
 
 	delete [] m_pszFilter;
 	m_pszFilter = NULL;
@@ -821,7 +826,8 @@ void CMatchList::Filter()
 					else if ( *pszPtr == '-' && ! bQuote )
 						bNot = TRUE;
 
-					if ( bNot && ! bQuote && *pszPtr != '-' ) bNot = FALSE;
+					if ( bNot && ! bQuote && *pszPtr != '-' )
+						bNot = FALSE;
 				}
 			}
 
@@ -1328,6 +1334,7 @@ CMatchFile::CMatchFile(CMatchList* pList, CQueryHit* pHit)
 	, m_nRating 		( 0 )
 	, m_nRated			( 0 )
 	, m_bDRM			( FALSE )
+	, m_bRestricted 	( TRI_UNKNOWN )
 	, m_bSuspicious 	( FALSE )
 	, m_bCollection 	( FALSE )
 	, m_bTorrent		( FALSE )
@@ -1338,10 +1345,10 @@ CMatchFile::CMatchFile(CMatchList* pList, CQueryHit* pHit)
 	, m_bNew			( FALSE )
 	, m_bOneValid		( FALSE )
 	, m_nShellIndex		( -1 )
-	, m_pColumns		( NULL )
 	, m_nColumns		( 0 )
-	, m_pPreview 		( NULL )
+	, m_pColumns		( NULL )
 	, m_nPreview		( 0 )
+	, m_pPreview 		( NULL )
 	, m_pTime			( CTime::GetCurrentTime() )
 {
 	// ToDo: Change to SIZE_UNKNOWN without the size
@@ -1780,13 +1787,47 @@ void CMatchFile::Added(CQueryHit* pHit)
 		m_nColumns = 0;
 	}
 
-	if ( ! m_bDRM && pHit->m_pXML != NULL )
+	if ( pHit->m_pXML != NULL )
 	{
-		if ( pHit->m_pXML->GetAttributeValue( _T("DRM") ).GetLength() > 0 )
-			m_bDRM = TRUE;
+		if ( ! m_bDRM && pHit->m_pXML->GetAttributeValue( _T("DRM") ).GetLength() > 0 )
+		{
+			CString strTag = pHit->m_pXML->GetAttributeValue( _T("DRM") );
+			ToLower( strTag );
+			if ( strTag != _T("0") && strTag != _T("false") && strTag != _T("no") )
+				m_bDRM = TRUE;
+		}
+
+		if ( m_bRestricted == TRI_UNKNOWN &&
+				( pHit->m_pXML->GetAttributeValue( _T("PeerTag") ).GetLength() > 0 ||
+				pHit->m_pXML->GetAttributeValue( _T("Permissive") ).GetLength() > 0 ) )
+		{
+			CString strTag = pHit->m_pXML->GetAttributeValue( _T("PeerTag") );
+			if ( strTag.GetLength() < 1 ) strTag = pHit->m_pXML->GetAttributeValue( _T("Permissive") );
+
+			ToLower( strTag );
+			if ( strTag == _T("1") || strTag == _T("true") || strTag == _T("yes") )
+				m_bRestricted = TRI_FALSE;
+			else if ( strTag == _T("0") || strTag == _T("false") || strTag == _T("no") )
+				m_bRestricted = TRI_TRUE;
+			//else if ( strTag == _T("?") || strTag == _T("unknown") )
+			//	m_bRestricted = TRI_UNKNOWN;
+		}
+		else if ( m_bRestricted == TRI_UNKNOWN &&
+				pHit->m_pXML->GetAttributeValue( _T("Restricted") ).GetLength() > 0 )
+		{
+			CString strTag = pHit->m_pXML->GetAttributeValue( _T("Restricted") );
+
+			ToLower( strTag );
+			if ( strTag == _T("1") || strTag == _T("true") || strTag == _T("yes") )
+				m_bRestricted = TRI_TRUE;
+			else if ( strTag == _T("0") || strTag == _T("false") || strTag == _T("no") )
+				m_bRestricted = TRI_FALSE;
+			//else if ( strTag == _T("?") || strTag == _T("unknown") )
+			//	m_bPermissive = TRI_UNKNOWN;
+		}
 	}
 
-	// cross-packet spam filtering
+	// Cross-packet spam filtering
 	DWORD nBogusCount = 0;
 	DWORD nTotal = 0;
 	for ( CQueryHit* pFileHits = m_pHits; pFileHits ;

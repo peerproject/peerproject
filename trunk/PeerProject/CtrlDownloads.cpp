@@ -473,13 +473,13 @@ int CDownloadsCtrl::GetSelectedCount()
 	for ( POSITION pos = Downloads.GetIterator() ; pos ; )
 	{
 		CDownload* pDownload = Downloads.GetNext( pos );
-		if ( pDownload->m_bSelected ) nCount ++;
+		if ( pDownload->m_bSelected ) nCount++;
 
 		for ( POSITION posSource = pDownload->GetIterator(); posSource ; )
 		{
 			CDownloadSource* pSource = pDownload->GetNext( posSource );
 
-			if ( pSource->m_bSelected )	nCount ++;
+			if ( pSource->m_bSelected )	nCount++;
 		}
 	}
 
@@ -514,7 +514,7 @@ BOOL CDownloadsCtrl::HitTest(const CPoint& point, CDownload** ppDownload, CDownl
 
 		if ( nScroll > 0 )
 		{
-			nScroll --;
+			nScroll--;
 		}
 		else
 		{
@@ -528,7 +528,7 @@ BOOL CDownloadsCtrl::HitTest(const CPoint& point, CDownload** ppDownload, CDownl
 			rcItem.OffsetRect( 0, ITEM_HEIGHT );
 		}
 
-		nIndex ++;
+		nIndex++;
 		if ( ! pDownload->m_bExpanded || ( pDownload->IsSeeding() && ! Settings.General.DebugBTSources ) ) continue;
 
 		if ( Settings.Downloads.ShowSources )
@@ -551,7 +551,7 @@ BOOL CDownloadsCtrl::HitTest(const CPoint& point, CDownload** ppDownload, CDownl
 			{
 				if ( nScroll > 0 )
 				{
-					nScroll --;
+					nScroll--;
 				}
 				else
 				{

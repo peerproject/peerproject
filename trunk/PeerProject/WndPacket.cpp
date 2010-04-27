@@ -44,12 +44,12 @@ BEGIN_MESSAGE_MAP(CPacketWnd, CPanelWnd)
 	//{{AFX_MSG_MAP(CPacketWnd)
 	ON_WM_CREATE()
 	ON_WM_SIZE()
-	ON_NOTIFY(NM_CUSTOMDRAW, IDC_PACKETS, OnCustomDrawList)
 	ON_WM_CONTEXTMENU()
 	ON_WM_MEASUREITEM()
 	ON_WM_DRAWITEM()
 	ON_WM_DESTROY()
 	ON_WM_TIMER()
+	ON_NOTIFY(NM_CUSTOMDRAW, IDC_PACKETS, OnCustomDrawList)
 	ON_UPDATE_COMMAND_UI(ID_SYSTEM_CLEAR, OnUpdateSystemClear)
 	ON_UPDATE_COMMAND_UI_RANGE(1, 3200, OnUpdateBlocker)
 	//}}AFX_MSG_MAP
@@ -416,6 +416,9 @@ void CPacketWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 
 	pLock.Unlock();
 
+	if ( point.x == -1 && point.y == -1 ) 	// Keyboard fix
+		ClientToScreen( &point );
+
 	UINT nCmd = pMenu.TrackPopupMenu( TPM_LEFTALIGN|TPM_LEFTBUTTON|TPM_RIGHTBUTTON|TPM_RETURNCMD,
 		point.x, point.y, this );
 
@@ -526,26 +529,29 @@ void CPacketWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 void CPacketWnd::AddNeighbour(CMenu* pMenus, int nGroup, UINT nID, DWORD_PTR nTarget, LPCTSTR pszText)
 {
 	UINT nChecked = ( ( nGroup == 1 && m_nOutputFilter == nTarget ) ||
-		 ( nGroup == 0 && m_nInputFilter == nTarget ) )
-		 ? MF_CHECKED : 0;
+		 ( nGroup == 0 && m_nInputFilter == nTarget ) ) ? MF_CHECKED : 0;
 
 	pMenus[nGroup].AppendMenu( MF_STRING|nChecked, nID, pszText );
 }
 
 void CPacketWnd::OnMeasureItem(int /*nIDCtl*/, LPMEASUREITEMSTRUCT lpMeasureItemStruct)
 {
-	if ( m_pCoolMenu ) m_pCoolMenu->OnMeasureItem( lpMeasureItemStruct );
+	if ( m_pCoolMenu )
+		m_pCoolMenu->OnMeasureItem( lpMeasureItemStruct );
 }
 
 void CPacketWnd::OnDrawItem(int /*nIDCtl*/, LPDRAWITEMSTRUCT lpDrawItemStruct)
 {
-	if ( m_pCoolMenu ) m_pCoolMenu->OnDrawItem( lpDrawItemStruct );
+	if ( m_pCoolMenu )
+		m_pCoolMenu->OnDrawItem( lpDrawItemStruct );
 }
 
 void CPacketWnd::OnUpdateBlocker(CCmdUI* pCmdUI)
 {
-	if ( m_pCoolMenu ) pCmdUI->Enable( pCmdUI->m_nID != 999 );
-	else pCmdUI->ContinueRouting();
+	if ( m_pCoolMenu )
+		pCmdUI->Enable( pCmdUI->m_nID != 999 );
+	else
+		pCmdUI->ContinueRouting();
 }
 
 void CPacketWnd::OnUpdateSystemClear(CCmdUI* pCmdUI)

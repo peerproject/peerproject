@@ -1,7 +1,7 @@
 //
 // WndHome.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -113,6 +113,9 @@ void CHomeWnd::OnSize(UINT nType, int cx, int cy)
 
 void CHomeWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 {
+	if ( point.x == -1 && point.y == -1 ) 	// Keyboard fix
+		ClientToScreen( &point );
+
 	Skin.TrackPopupMenu( _T("CHomeWnd"), point );
 }
 
@@ -141,9 +144,7 @@ void CHomeWnd::OnMDIActivate(BOOL bActivate, CWnd* pActivateWnd, CWnd* pDeactiva
 void CHomeWnd::OnClickView(NMHDR* pNotify, LRESULT* /*pResult*/)
 {
 	if ( CRichElement* pElement = ((RVN_ELEMENTEVENT*)pNotify)->pElement )
-	{
 		theApp.InternalURI( pElement->m_sLink );
-	}
 
 	PostMessage( WM_TIMER, 2 );
 }

@@ -278,7 +278,6 @@ using augment::IUnknownImplementation;
 //}
 //! \brief Hash function needed for CMap with DWORD_PTR as ARG_KEY.
 
-//! While the default hash function could be used, this one does not generate (false) 64 bit warnings.
 //! \brief Hash function needed for CMap with const CString& as ARG_KEY.
 template<> AFX_INLINE UINT AFXAPI HashKey(const CString& key)
 {
@@ -302,7 +301,7 @@ template<> AFX_INLINE UINT AFXAPI HashKey(const IN_ADDR& key)
 
 #include "Hashes.hpp"
 
-#undef IDC_HAND		// Defined in Windows.h->WinUser.h (then in Resource.h)
+#undef IDC_HAND		// Defined in Windows.h->WinUser.h, and Resource.h
 
 #include "Resource.h"
 
@@ -336,7 +335,8 @@ template<> AFX_INLINE UINT AFXAPI HashKey(const IN_ADDR& key)
 // 64-bit type
 //
 
-typedef unsigned __int64 QWORD;
+typedef uint64 QWORD;
+const QWORD SIZE_UNKNOWN = ~0ull;
 
 #define	MAKEDWORD(a,b)	((DWORD) (((a)) | ((DWORD) ((b))) << 16))
 #define	MAKEQWORD(a,b)	((QWORD) (((a)) | ((QWORD) ((b))) << 32))
@@ -392,7 +392,10 @@ typedef struct _ICONDIR
 #pragma pack( pop )
 
 
-// GEOIP Obsolete, from #included GeoIP.h
+//
+// GEOIP (Obsolete by #included GeoIP.h)
+//
+
 //typedef struct GeoIPTag {
 //	FILE *GeoIPDatabase;
 //	char *file_path;
@@ -403,7 +406,7 @@ typedef struct _ICONDIR
 //	time_t mtime;
 //	int flags;
 //	char record_length;
-//	int record_iter; /* for GeoIP_next_record */
+//	int record_iter; /*for GeoIP_next_record*/
 //} GeoIP;
 
 //typedef enum {
@@ -417,8 +420,6 @@ typedef struct _ICONDIR
 //typedef const char * (*GeoIP_country_code_by_addrFunc) (GeoIP*, const char *);
 //typedef const char * (*GeoIP_country_name_by_addrFunc) (GeoIP*, const char *);
 
-
-const uint64 SIZE_UNKNOWN = ~0ull;
 
 //
 // Protocol IDs

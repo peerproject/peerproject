@@ -1,7 +1,7 @@
 //
 // DlgFilterSearch.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -35,9 +35,9 @@ static char THIS_FILE[] = __FILE__;
 #endif
 
 BEGIN_MESSAGE_MAP(CFilterSearchDlg, CSkinDialog)
-	ON_BN_CLICKED(IDC_SAVE_FILTER, OnBnClickedSaveFilter)
 	ON_WM_DESTROY()
 	ON_CBN_SELCHANGE(IDC_FILTERS, OnCbnSelChangeFilters)
+	ON_BN_CLICKED(IDC_SAVE_FILTER, OnBnClickedSaveFilter)
 	ON_BN_CLICKED(IDC_DELETE_FILTER, OnBnClickedDeleteFilter)
 	ON_BN_CLICKED(IDC_SET_DEFAULT_FILTER, OnBnClickedSetDefaultFilter)
 	ON_EN_KILLFOCUS(IDC_MIN_SIZE, OnEnKillFocusMinMaxSize)
@@ -49,21 +49,22 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CFilterSearchDlg dialog
 
-CFilterSearchDlg::CFilterSearchDlg(CWnd* pParent, CMatchList* pMatches) 
-: CSkinDialog(CFilterSearchDlg::IDD, pParent)
-, m_bHideBusy( FALSE )
-, m_bHideLocal( FALSE )
-, m_bHidePush( FALSE )
-, m_bHideReject( FALSE )
-, m_bHideUnstable( FALSE )
-, m_bHideBogus( FALSE )
-, m_bHideDRM( FALSE )
-, m_bHideAdult( FALSE )
-, m_bHideSuspicious( FALSE )
-, m_nSources( 0 )
-, m_bDefault( FALSE )
-, m_pMatches( pMatches )
-, m_bRegExp( FALSE )
+CFilterSearchDlg::CFilterSearchDlg(CWnd* pParent, CMatchList* pMatches)
+	: CSkinDialog(CFilterSearchDlg::IDD, pParent)
+	, m_bHideBusy	( FALSE )
+	, m_bHideLocal	( FALSE )
+	, m_bHidePush	( FALSE )
+	, m_bHideReject	( FALSE )
+	, m_bHideUnstable ( FALSE )
+	, m_bHideBogus	( FALSE )
+	, m_bHideDRM	( FALSE )
+	, m_bHideRestricted ( FALSE )
+	, m_bHideSuspicious ( FALSE )
+	, m_bHideAdult	( FALSE )
+	, m_nSources	( 0 )
+	, m_bDefault	( FALSE )
+	, m_pMatches	( pMatches )
+	, m_bRegExp 	( FALSE )
 {
 }
 
@@ -72,15 +73,16 @@ void CFilterSearchDlg::DoDataExchange(CDataExchange* pDX)
 	CSkinDialog::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_SOURCES_SPIN, m_wndSources);
 	DDX_Text(pDX, IDC_FILTER, m_sFilter);
+	DDX_Check(pDX, IDC_FILTER_PUSH, m_bHidePush);
+	DDX_Check(pDX, IDC_FILTER_UNSTABLE, m_bHideUnstable);
 	DDX_Check(pDX, IDC_FILTER_BUSY, m_bHideBusy);
 	DDX_Check(pDX, IDC_FILTER_LOCAL, m_bHideLocal);
-	DDX_Check(pDX, IDC_FILTER_PUSH, m_bHidePush);
 	DDX_Check(pDX, IDC_FILTER_REJECT, m_bHideReject);
-	DDX_Check(pDX, IDC_FILTER_UNSTABLE, m_bHideUnstable);
 	DDX_Check(pDX, IDC_FILTER_BOGUS, m_bHideBogus);
 	DDX_Check(pDX, IDC_FILTER_DRM, m_bHideDRM);
+	DDX_Check(pDX, IDC_FILTER_RESTRICTED, m_bHideRestricted);
+	DDX_Check(pDX, IDC_FILTER_SUSPECT, m_bHideSuspicious);
 	DDX_Check(pDX, IDC_ADULT_FILTER, m_bHideAdult);
-	DDX_Check(pDX, IDC_FILTER_SUS, m_bHideSuspicious);
 	DDX_Text(pDX, IDC_SOURCES, m_nSources);
 	DDX_Text(pDX, IDC_MAX_SIZE, m_sMaxSize);
 	DDX_Text(pDX, IDC_MIN_SIZE, m_sMinSize);
@@ -98,7 +100,7 @@ BOOL CFilterSearchDlg::OnInitDialog()
 
 	SkinMe( _T("CFilterSearchDlg"), IDR_SEARCHFRAME );
 
-	if ( m_pMatches != NULL ) 
+	if ( m_pMatches != NULL )
 	{
 		m_pResultFilters = m_pMatches->m_pResultFilters;
 		m_pResultFilters->Load();
@@ -129,8 +131,9 @@ void CFilterSearchDlg::OnOK()
 		m_pMatches->m_bFilterReject		= m_bHideReject;
 		m_pMatches->m_bFilterBogus		= m_bHideBogus;
 		m_pMatches->m_bFilterDRM		= m_bHideDRM;
-		m_pMatches->m_bFilterAdult		= m_bHideAdult;
+		m_pMatches->m_bFilterRestricted	= m_bHideRestricted;
 		m_pMatches->m_bFilterSuspicious	= m_bHideSuspicious;
+		m_pMatches->m_bFilterAdult		= m_bHideAdult;
 		m_pMatches->m_nFilterMinSize	= Settings.ParseVolume( m_sMinSize );
 		m_pMatches->m_nFilterMaxSize	= Settings.ParseVolume( m_sMaxSize );
 		m_pMatches->m_nFilterSources	= m_nSources;
@@ -149,13 +152,9 @@ void CFilterSearchDlg::OnBnClickedSaveFilter()
 		int nExistingFilter = m_pResultFilters->Search( dlg.m_sName );
 		CFilterOptions *pOptions;
 		if ( nExistingFilter >= 0 )
-		{
 			pOptions = m_pResultFilters->m_pFilters[nExistingFilter];
-		}
 		else
-		{
 			pOptions = new CFilterOptions;
-		}
 
 		UpdateData(TRUE);
 
@@ -168,22 +167,22 @@ void CFilterSearchDlg::OnBnClickedSaveFilter()
 		pOptions->m_bFilterReject		= m_bHideReject;
 		pOptions->m_bFilterBogus		= m_bHideBogus;
 		pOptions->m_bFilterDRM			= m_bHideDRM;
-		pOptions->m_bFilterAdult		= m_bHideAdult;
+		pOptions->m_bFilterRestricted	= m_bHideRestricted;
 		pOptions->m_bFilterSuspicious	= m_bHideSuspicious;
+		pOptions->m_bFilterAdult		= m_bHideAdult;
 		pOptions->m_nFilterMinSize		= Settings.ParseVolume( m_sMinSize );
 		pOptions->m_nFilterMaxSize		= Settings.ParseVolume( m_sMaxSize );
 		pOptions->m_nFilterSources		= m_nSources;
 		pOptions->m_bRegExp				= m_bRegExp;
 
 		if ( nExistingFilter < 0 )
-		{
 			m_pResultFilters->Add( pOptions );
-		}
+
 		m_pResultFilters->Save();
 
 		UpdateList();
 
-		m_Filters.SetCurSel( m_pResultFilters->m_nFilters - 1 ); // select the last item added
+		m_Filters.SetCurSel( m_pResultFilters->m_nFilters - 1 ); // Select the last item added
 		OnCbnSelChangeFilters();
 	}
 }
@@ -199,18 +198,19 @@ void CFilterSearchDlg::UpdateFields()
 	m_bHideReject		= m_pMatches->m_bFilterReject;
 	m_bHideBogus		= m_pMatches->m_bFilterBogus;
 	m_bHideDRM			= m_pMatches->m_bFilterDRM;
-	m_bHideAdult		= m_pMatches->m_bFilterAdult;
+	m_bHideRestricted	= m_pMatches->m_bFilterRestricted;
 	m_bHideSuspicious	= m_pMatches->m_bFilterSuspicious;
+	m_bHideAdult		= m_pMatches->m_bFilterAdult || Settings.Search.AdultFilter == true;
 	m_nSources			= m_pMatches->m_nFilterSources;
 	m_bRegExp			= m_pMatches->m_bRegExp;
 
 	if ( m_pMatches->m_nFilterMinSize > 0 )
-		m_sMinSize	= Settings.SmartVolume( m_pMatches->m_nFilterMinSize );
+		m_sMinSize = Settings.SmartVolume( m_pMatches->m_nFilterMinSize );
 	else
 		m_sMinSize.Empty();
 
 	if ( m_pMatches->m_nFilterMaxSize > 0 )
-		m_sMaxSize	= Settings.SmartVolume( m_pMatches->m_nFilterMaxSize );
+		m_sMaxSize = Settings.SmartVolume( m_pMatches->m_nFilterMaxSize );
 	else
 		m_sMaxSize.Empty();
 
@@ -233,7 +233,7 @@ void CFilterSearchDlg::UpdateList()
 		else
 			m_Filters.AddString( m_pResultFilters->m_pFilters[i]->m_sName );
 
-//		m_Filters.SetItemDataPtr( i, m_pResultFilters->m_pFilters[i] ); //save a pointer to the item
+	//	m_Filters.SetItemDataPtr( i, m_pResultFilters->m_pFilters[i] ); //save a pointer to the item
 	}
 
 	GetDlgItem( IDC_SET_DEFAULT_FILTER )->EnableWindow( m_pResultFilters->m_nFilters > 0 );
@@ -245,7 +245,7 @@ void CFilterSearchDlg::OnCbnSelChangeFilters()
 
 	if ( sel != CB_ERR )
 	{
-//		CFilterOptions *pOptions = (CFilterOptions *) m_Filters.GetItemDataPtr(sel);
+	//	CFilterOptions *pOptions = (CFilterOptions *) m_Filters.GetItemDataPtr(sel);
 		CFilterOptions *pOptions = m_pResultFilters->m_pFilters[sel];
 
 		m_sFilter			= pOptions->m_sFilter;
@@ -256,18 +256,19 @@ void CFilterSearchDlg::OnCbnSelChangeFilters()
 		m_bHideReject		= pOptions->m_bFilterReject;
 		m_bHideBogus		= pOptions->m_bFilterBogus;
 		m_bHideDRM			= pOptions->m_bFilterDRM;
-		m_bHideAdult		= pOptions->m_bFilterAdult;
+		m_bHideRestricted	= pOptions->m_bFilterRestricted;
 		m_bHideSuspicious	= pOptions->m_bFilterSuspicious;
+		m_bHideAdult		= pOptions->m_bFilterAdult;
 		m_nSources			= pOptions->m_nFilterSources;
 		m_bRegExp			= pOptions->m_bRegExp;
 
 		if ( pOptions->m_nFilterMinSize > 0 )
-			m_sMinSize	= Settings.SmartVolume( pOptions->m_nFilterMinSize );
+			m_sMinSize = Settings.SmartVolume( pOptions->m_nFilterMinSize );
 		else
 			m_sMinSize.Empty();
 
 		if ( pOptions->m_nFilterMaxSize > 0 )
-			m_sMaxSize	= Settings.SmartVolume( pOptions->m_nFilterMaxSize );
+			m_sMaxSize = Settings.SmartVolume( pOptions->m_nFilterMaxSize );
 		else
 			m_sMaxSize.Empty();
 
@@ -376,7 +377,7 @@ void CFilterSearchDlg::OnClickedRegexp()
 		else
 			m_sFilter.Empty();
 	}
-	
+
 	UpdateData( FALSE );
 
 	if ( m_sFilter.IsEmpty() && m_pMatches )

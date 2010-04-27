@@ -66,6 +66,7 @@ CNetwork::CNetwork()
 	: NodeRoute				( new CRouteCache() )
 	, QueryRoute			( new CRouteCache() )
 	, QueryKeys				( new CQueryKeys() )
+	, m_bConnected			( false )
 	, m_bAutoConnect		( FALSE )
 	, m_tStartedConnecting	( 0 )
 	, m_tLastConnect		( 0 )
@@ -105,16 +106,18 @@ BOOL CNetwork::IsSelfIP(const IN_ADDR& nAddress) const
 	return ( m_pHostAddresses.Find( nAddress.s_addr ) != NULL );
 }
 
-void CNetwork::InternetConnect()
+bool CNetwork::InternetConnect()
 {
 	__try
 	{
-		InternetAttemptConnect( 0 );
+		return ( InternetAttemptConnect( 0 ) == ERROR_SUCCESS );
 	}
 	__except( EXCEPTION_EXECUTE_HANDLER )
 	{
 		// Something blocked WinAPI (for example application level firewall)
 	}
+
+	return false;
 }
 
 bool CNetwork::IsAvailable() const
@@ -139,7 +142,7 @@ bool CNetwork::IsAvailable() const
 
 bool CNetwork::IsConnected() const throw()
 {
-	return IsThreadAlive();
+	return m_bConnected;
 }
 
 bool CNetwork::IsListening() const
@@ -387,13 +390,11 @@ BOOL CNetwork::AsyncResolve(LPCTSTR pszAddress, WORD nPort, PROTOCOLID nProtocol
 
 	HANDLE hAsync = WSAAsyncGetHostByName( AfxGetMainWnd()->GetSafeHwnd(), WM_WINSOCK,
 		CT2CA(pszAddress), pResolve->m_pBuffer, MAXGETHOSTSTRUCT );
-
-	if ( hAsync != NULL )
-		return FALSE;
+	if ( hAsync == NULL ) return FALSE;
 
 	pResolve->m_sAddress = pszAddress;
-	pResolve->m_nProtocol = nProtocol;
 	pResolve->m_nPort = nPort;
+	pResolve->m_nProtocol = nProtocol;
 	pResolve->m_nCommand = nCommand;
 
 	CQuickLock pLock( m_pLookupsSection );
@@ -541,7 +542,7 @@ WORD CNetwork::RandomPort() const
 //////////////////////////////////////////////////////////////////////
 // CNetwork thread run
 
-BOOL CNetwork::PreRun()
+bool CNetwork::PreRun()
 {
 	//CQuickLock oLock( m_pSection );
 
@@ -559,7 +560,13 @@ BOOL CNetwork::PreRun()
 		InternetCloseHandle( hInternet );
 	}
 
-	InternetConnect();
+	if ( ! InternetConnect() )
+	{
+		theApp.Message( MSG_ERROR, _T("Internet connection attempt failed.") );
+		return false;
+	}
+
+	m_bConnected = true;
 
 	gethostname( m_sHostName.GetBuffer( 255 ), 255 );
 	m_sHostName.ReleaseBuffer();
@@ -593,7 +600,7 @@ BOOL CNetwork::PreRun()
 	if ( ! Handshakes.Listen() || ! Datagrams.Listen() )
 	{
 		theApp.Message( MSG_ERROR, _T("The connection process has failed.") );
-		return FALSE;
+		return false;
 	}
 
 	Neighbours.Connect();
@@ -607,7 +614,7 @@ BOOL CNetwork::PreRun()
 	// Check if it is needed inside the function
 	DiscoveryServices.Execute( TRUE, PROTOCOL_NULL, FALSE );
 
-	return TRUE;
+	return true;
 }
 
 void CNetwork::OnRun()
@@ -651,6 +658,8 @@ void CNetwork::OnRun()
 void CNetwork::PostRun()
 {
 	CQuickLock oLock( m_pSection );
+
+	m_bConnected = false;
 
 	Neighbours.Close();
 	Handshakes.Disconnect();

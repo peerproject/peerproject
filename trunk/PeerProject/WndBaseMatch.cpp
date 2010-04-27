@@ -195,7 +195,8 @@ BOOL CBaseMatchWnd::OnCmdMsg(UINT nID, int nCode, void* pExtra, AFX_CMDHANDLERIN
 {
 	if ( m_wndToolBar.m_hWnd )
 	{
-		if ( m_wndToolBar.OnCmdMsg( nID, nCode, pExtra, pHandlerInfo ) ) return TRUE;
+		if ( m_wndToolBar.OnCmdMsg( nID, nCode, pExtra, pHandlerInfo ) )
+			return TRUE;
 	}
 
 	return CPanelWnd::OnCmdMsg( nID, nCode, pExtra, pHandlerInfo );
@@ -209,6 +210,9 @@ void CBaseMatchWnd::OnSize(UINT nType, int cx, int cy)
 
 void CBaseMatchWnd::OnContextMenu(CWnd* pWnd, CPoint point)
 {
+	if ( point.x == -1 && point.y == -1 ) 	// Keyboard fix
+		ClientToScreen( &point );
+
 	if ( m_wndList.HitTestHeader( point ) && m_wndList.m_pSchema != NULL )
 	{
 		CMenu* pMenu = CSchemaColumnsDlg::BuildColumnMenu( m_wndList.m_pSchema,

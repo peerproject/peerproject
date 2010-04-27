@@ -59,6 +59,7 @@ BEGIN_MESSAGE_MAP(CLibraryTileView, CLibraryView)
 	ON_WM_KEYDOWN()
 	ON_WM_LBUTTONDBLCLK()
 	ON_WM_CONTEXTMENU()
+	ON_WM_GETDLGCODE()
 	ON_WM_CHAR()
 	ON_UPDATE_COMMAND_UI(ID_LIBRARY_ALBUM_OPEN, OnUpdateLibraryAlbumOpen)
 	ON_COMMAND(ID_LIBRARY_ALBUM_OPEN, OnLibraryAlbumOpen)
@@ -66,7 +67,6 @@ BEGIN_MESSAGE_MAP(CLibraryTileView, CLibraryView)
 	ON_COMMAND(ID_LIBRARY_ALBUM_DELETE, OnLibraryAlbumDelete)
 	ON_UPDATE_COMMAND_UI(ID_LIBRARY_ALBUM_PROPERTIES, OnUpdateLibraryAlbumProperties)
 	ON_COMMAND(ID_LIBRARY_ALBUM_PROPERTIES, OnLibraryAlbumProperties)
-	ON_WM_GETDLGCODE()
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -1043,7 +1043,8 @@ void CLibraryTileItem::Paint(CDC* pDC, const CRect& rcBlock, CDC* /*pMemDC*/, BO
 				rcUnion.bottom++;
 			}
 		}
-		if ( m_bCollection ) pDC->SelectObject( &CoolInterface.m_fntNormal );
+		if ( m_bCollection )
+			pDC->SelectObject( &CoolInterface.m_fntNormal );
 	}
 
 	if ( bFocus )
@@ -1089,6 +1090,9 @@ void CLibraryTileItem::DrawText(CDC* pDC, const CRect* prcClip, int nX, int nY, 
 
 void CLibraryTileView::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 {
+	if ( point.x == -1 && point.y == -1 ) 	// Keyboard fix
+		ClientToScreen( &point );
+
 	Skin.TrackPopupMenu( m_pszToolBar, point, ID_LIBRARY_ALBUM_OPEN );
 }
 

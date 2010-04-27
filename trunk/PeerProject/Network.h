@@ -53,6 +53,7 @@ public:
 
 	CMutexEx		m_pSection;
 	SOCKADDR_IN		m_pHost;				// Structure (Windows Sockets) which holds address of the local machine
+	volatile bool	m_bConnected;			// Network has finished initializing and is connected
 	BOOL			m_bAutoConnect;
 	DWORD			m_tStartedConnecting;	// Time PeerProject started trying to connect
 	DWORD			m_tLastConnect;			// Last time a neighbor connection attempt was made
@@ -90,9 +91,9 @@ protected:
 
 	ResolveStruct* GetResolve(HANDLE hAsync);	// Get asynchronously resolved host
 	void		ClearResolve(); 				// Clear asynchronous resolver queue
-	void		InternetConnect();				// Restore WinINet connection to Internet
+	bool		InternetConnect();				// Restore WinINet connection to Internet
 
-	BOOL		PreRun();
+	bool		PreRun();
 	void		OnRun();
 	void		PostRun();
 	void		RunQueryHits(); 				// Handle and destroy query hits
