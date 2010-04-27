@@ -70,7 +70,7 @@ CNeighbour::CNeighbour(PROTOCOLID nProtocol)
 	, m_bPongCaching	( FALSE )		//
 	, m_bVendorMsg		( FALSE )		// Remote computer hasn't told us it supports the vendor-specific messages yet
 	, m_bGGEP			( FALSE )		// Remote computer hasn't told us it supports the GGEP block yet
-	, m_bBadClient		( FALSE )	
+	, m_bBadClient		( FALSE )
 	, m_nDegree 		( (DWORD)-1 )
 	, m_nMaxTTL 		( (DWORD)-1 )
 	, m_bDynamicQuerying( FALSE )
@@ -80,7 +80,7 @@ CNeighbour::CNeighbour(PROTOCOLID nProtocol)
 	, m_bExtProbes		( FALSE )
 	// Zero time, packet and file counts
 	, m_tLastQuery		( 0 )			// Set these to the current tick or seconds count when we get a query or packet
-	, m_tLastPacket		( 0 )			// 
+	, m_tLastPacket		( 0 )			//
 	, m_nInputCount		( 0 )
 	, m_nOutputCount	( 0 )
 	, m_nDropCount		( 0 )

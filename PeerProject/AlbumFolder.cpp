@@ -322,13 +322,7 @@ void CAlbumFolder::OnFileDelete(CLibraryFile* pFile, BOOL bDeleteGhost)
 		return;
 	}
 
-	if ( POSITION pos = m_pFiles.Find( pFile ) )
-	{
-		m_pFiles.RemoveAt( pos );
-		m_nUpdateCookie++;
-		Library.Update();
-		Delete( TRUE );
-	}
+	RemoveFile( pFile );
 }
 
 CAlbumFolder* CAlbumFolder::FindFile(CLibraryFile* pFile)
@@ -667,7 +661,7 @@ BOOL CAlbumFolder::OrganiseFile(CLibraryFile* pFile)
 		return TRUE;
 	}
 
-	if ( m_oCollSHA1 && ( m_pCollection != NULL || GetCollection() ) )
+	if ( m_oCollSHA1 && ( m_pCollection || GetCollection() ) )
 	{
 		if ( validAndEqual( m_oCollSHA1, pFile->m_oSHA1 ) ||
 			 m_pCollection->FindFile( pFile, TRUE ) )

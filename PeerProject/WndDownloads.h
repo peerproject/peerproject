@@ -38,8 +38,8 @@ public:
 // Operations
 public:
 	virtual void	OnSkinChange();
-	BOOL			Select(CDownload* pDownload);
 	void			Update();
+	BOOL			Select(CDownload* pDownload);	// From DownloadMonitor
 	void			DragDownloads(CList< CDownload* >* pList, CImageList* pImage, const CPoint& ptScreen);
 protected:
 	void			Prepare();

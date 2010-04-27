@@ -539,7 +539,7 @@ bool CDownloadTransferBT::SendFragmentRequests()
 		SetState( dtsRequesting );
 	}
 
-	if ( m_oRequested.empty() ) 
+	if ( m_oRequested.empty() )
 		SetState( dtsTorrent );
 
 	return true;

@@ -102,6 +102,6 @@ void CUploadFile::AddFragment(QWORD nOffset, QWORD nLength)
 {
 	if ( m_oFragments.empty() )
 		Statistics.Current.Uploads.Files++;
-	
+
 	m_oFragments.insert( Fragments::Fragment( nOffset, nOffset + nLength ) );
 }

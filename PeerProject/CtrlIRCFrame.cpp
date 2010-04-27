@@ -1665,7 +1665,7 @@ void CIRCFrame::ActivateMessageByID(CIRCNewMessage& oNewMessage, int nMessageTyp
 			CString strSender = m_pWords.GetAt( 0 ) + _T(":  ");	// <NICK>
 			CString strText = GetStringAfterParsedItem( 7 );		// Isolate for IChatPlugin capture
 			oNewMessage.Add( strSender + strText, m_pWords.GetAt( 6 ), ID_COLOR_TEXT );
-			
+
 			// Notify chat plugins about new remote message
 			Plugins.OnChatMessage( GetTabText( m_nTab ), FALSE, m_pWords.GetAt( 0 ), m_sNickname, strText );
 

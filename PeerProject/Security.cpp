@@ -419,8 +419,7 @@ BOOL CSecurity::IsDenied(const CPeerProjectFile* pFile)
 	return m_bDenyPolicy;
 }
 
-BOOL CSecurity::IsDenied(CQuerySearch::const_iterator itStart, CQuerySearch::const_iterator itEnd,
-						 LPCTSTR pszContent)
+BOOL CSecurity::IsDenied(CQuerySearch::const_iterator itStart, CQuerySearch::const_iterator itEnd, LPCTSTR pszContent)
 {
 	CQuickLock oLock( m_pSection );
 
@@ -1018,7 +1017,10 @@ BOOL CSecureRule::Match(CQuerySearch::const_iterator itStart,
 			{
 				pszPattern++;
 				bool bEnds = false;
-				bool bAll = ( *pszPattern == '_' );
+				bool bNumber = false;
+				bool bAll = ( *pszPattern == '%' || *pszPattern == '$' || *pszPattern == '_' || *pszPattern == '>' );
+				if ( ! bAll ) bNumber = ( *pszPattern == '1' || *pszPattern == '2' || *pszPattern == '3' || *pszPattern == '4' ||
+					*pszPattern == '5' || *pszPattern == '6' || *pszPattern == '7' || *pszPattern == '8' || *pszPattern == '9' );
 				for ( ; *pszPattern ; pszPattern++ )
 				{
 					if ( *pszPattern == '>' )
@@ -1027,18 +1029,18 @@ BOOL CSecureRule::Match(CQuerySearch::const_iterator itStart,
 						break;
 					}
 				}
-				if ( bEnds )
+				if ( bEnds ) // Closed '>'
 				{
-					if ( bAll )
+					if ( bAll ) // <%>,<$>,<_>,<>
 					{
-						// Add all keywords at the "<_>" position
+						// Add all keywords at the "< >" position
 						for ( ; itStart != itEnd ; itStart++ )
 						{
 							strFilter.AppendFormat( L"%s\\s*",
 								CString( itStart->first, int(itStart->second) ) );
 						}
 					}
-					else
+					else if ( bNumber ) // <1>,<2>,<3>,<4>,<5>,<6>,<7>,<8>,<9>
 					{
 						pszPattern--; // Go back
 						int nNumber = 0;
@@ -1047,6 +1049,7 @@ BOOL CSecureRule::Match(CQuerySearch::const_iterator itStart,
 						if ( _stscanf( &pszPattern[0], L"%i", &nNumber ) != 1 )
 							nNumber = ++nTotal;
 
+						// Add specified keyword at the "< >" position
 						for ( int nWord = 1 ; itStart != itEnd ; itStart++, nWord++ )
 						{
 							if ( nWord == nNumber )
@@ -1059,16 +1062,15 @@ BOOL CSecureRule::Match(CQuerySearch::const_iterator itStart,
 						pszPattern++; // return to the last position
 					}
 				}
-				else
+				else // No closing '>'
 				{
-					// no closing '>'
 					strFilter.Empty();
 					break;
 				}
 			}
-			else
+			else // No replacing
 			{
-				strFilter += *pszPattern; // not replacing
+				strFilter += *pszPattern;
 			}
 		}
 

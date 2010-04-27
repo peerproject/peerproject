@@ -80,8 +80,7 @@ void CShareMonkeyData::Clear()
 // CShareMonkeyData start
 BOOL CShareMonkeyData::Start(CLibraryFileView* pView, DWORD nFileIndex)
 {
-	if ( m_hInternet != NULL )
-		return FALSE;
+	if ( m_hInternet ) return FALSE;
 
 	CString strAgent = Settings.SmartAgent();
 
@@ -102,12 +101,10 @@ BOOL CShareMonkeyData::Start(CLibraryFileView* pView, DWORD nFileIndex)
 // CShareMonkeyData stop
 void CShareMonkeyData::Stop()
 {
-	if ( m_hSession != NULL )
-		InternetCloseHandle( m_hSession );
+	if ( m_hSession ) InternetCloseHandle( m_hSession );
 	m_hSession = NULL;
 
-	if ( m_hInternet )
-		InternetCloseHandle( m_hInternet );
+	if ( m_hInternet ) InternetCloseHandle( m_hInternet );
 	m_hInternet = NULL;
 
 	CloseThread();
@@ -150,29 +147,25 @@ void CShareMonkeyData::OnRun()
 			else
 			{
 				if ( m_hInternet == NULL ) break;
-				if ( m_hRequest != NULL )
-					InternetCloseHandle( m_hRequest );
+				if ( m_hRequest ) InternetCloseHandle( m_hRequest );
 				m_hRequest = NULL;
 				m_sStatus = L"Failed. Retrying...";
-				if ( !NotifyWindow( (LPCTSTR)m_sStatus ) ) break;
+				if ( ! NotifyWindow( (LPCTSTR)m_sStatus ) ) break;
 				Sleep( 1000 );
 			}
 		}
 
-		if ( m_hRequest != NULL )
-			InternetCloseHandle( m_hRequest );
+		if ( m_hRequest ) InternetCloseHandle( m_hRequest );
 		m_hRequest = NULL;
 		m_sResponse.Empty();
 
 		Sleep( min( m_nDelay, 500ul ) );
 	}
 
-	if ( m_hSession != NULL )
-		InternetCloseHandle( m_hSession );
+	if ( m_hSession ) InternetCloseHandle( m_hSession );
 	m_hSession = NULL;
 
-	if ( m_hInternet )
-		InternetCloseHandle( m_hInternet );
+	if ( m_hInternet ) InternetCloseHandle( m_hInternet );
 	m_hInternet = NULL;
 }
 
@@ -209,7 +202,9 @@ BOOL CShareMonkeyData::BuildRequest()
 		m_sURL += str;
 	}
 	else if ( m_nRequestType == stComparison )
+	{
 		m_sURL += L"productMatch?v=latest&stores_amount=0&result_amount=0";
+	}
 
 	if ( m_nRequestType == stProductMatch || m_nRequestType == stComparison )
 	{
@@ -225,10 +220,9 @@ BOOL CShareMonkeyData::BuildRequest()
 
 		{
 			CQuickLock oLock( Library.m_pSection );
-			CLibraryFile* pFile = Library.LookupFile( m_nFileIndex );
 
-			if ( pFile == NULL )
-				return FALSE;
+			CLibraryFile* pFile = Library.LookupFile( m_nFileIndex );
+			if ( pFile == NULL ) return FALSE;
 
 			m_sURL += L"&n=" + pFile->m_sName;
 			m_sURL += L"&sha1=" + pFile->m_oSHA1.toString();
@@ -347,7 +341,7 @@ BOOL CShareMonkeyData::ExecuteRequest()
 
 	if ( m_hRequest == NULL )
 	{
-		if ( m_hSession != NULL ) InternetCloseHandle( m_hSession );
+		if ( m_hSession ) InternetCloseHandle( m_hSession );
 
 		m_hSession = InternetConnect( m_hInternet, strHost, INTERNET_PORT( nPort ),
 			NULL, NULL, INTERNET_SERVICE_HTTP , 0, 0 );
@@ -376,7 +370,13 @@ BOOL CShareMonkeyData::ExecuteRequest()
 
 	while ( InternetQueryDataAvailable( m_hRequest, &nRemaining, 0, 0 ) && nRemaining > 0 )
 	{
-		pResponse = (LPBYTE)realloc( pResponse, nResponse + nRemaining );
+		BYTE* pNewResponse = (BYTE*)realloc( pResponse, nResponse + nRemaining );
+		if ( ! pNewResponse )
+		{
+			free( pResponse );
+			return FALSE;
+		}
+		pResponse = pNewResponse;
 		InternetReadFile( m_hRequest, pResponse + nResponse, nRemaining, &nRemaining );
 		nResponse += nRemaining;
 	}
@@ -396,8 +396,7 @@ BOOL CShareMonkeyData::ExecuteRequest()
 
 	free( pResponse );
 
-	if ( m_hRequest != NULL )
-		InternetCloseHandle( m_hRequest );
+	if ( m_hRequest ) InternetCloseHandle( m_hRequest );
 	m_hRequest = NULL;
 
 	m_nDelay = ( GetTickCount() - nTime ) * 2;
@@ -512,22 +511,23 @@ BOOL CShareMonkeyData::ImportData(CXMLElement* pRoot)
 			{
 				switch ( nCategory )
 				{
-					case 1:
-						m_pSchema = SchemaCache.Get( CSchema::uriAudio );
-						break;
-					case 2:
-						m_pSchema = SchemaCache.Get( CSchema::uriBook ); // For documents
-						break;
-					case 3:
-						m_pSchema = SchemaCache.Get( CSchema::uriArchive ); // For games
-						break;
-					case 4:
-						m_pSchema = SchemaCache.Get( CSchema::uriApplication ); // For software
-						break;
-					case 5:
-						m_pSchema = SchemaCache.Get( CSchema::uriVideo );
-						break;
-					default: break;
+				case 1:
+					m_pSchema = SchemaCache.Get( CSchema::uriAudio );
+					break;
+				case 2:
+					m_pSchema = SchemaCache.Get( CSchema::uriBook ); // For documents
+					break;
+				case 3:
+					m_pSchema = SchemaCache.Get( CSchema::uriArchive ); // For games
+					break;
+				case 4:
+					m_pSchema = SchemaCache.Get( CSchema::uriApplication ); // For software
+					break;
+				case 5:
+					m_pSchema = SchemaCache.Get( CSchema::uriVideo );
+					break;
+				default:
+					break;
 				}
 			}
 		}

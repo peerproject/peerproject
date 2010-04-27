@@ -105,6 +105,9 @@ void CHitMonitorWnd::OnDestroy()
 
 void CHitMonitorWnd::OnContextMenu(CWnd* pWnd, CPoint point)
 {
+	if ( point.x == -1 && point.y == -1 ) 	// Keyboard fix
+		ClientToScreen( &point );
+
 	if ( m_bContextMenu )
 		Skin.TrackPopupMenu( _T("CHitMonitorWnd"), point, ID_SEARCH_DOWNLOAD );
 	else

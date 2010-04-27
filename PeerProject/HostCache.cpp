@@ -79,9 +79,9 @@ BOOL CHostCache::Load()
 
 	Clear();
 
-	CFile pFile;
 	CString strFile = Settings.General.UserPath + _T("\\Data\\HostCache.dat");
 
+	CFile pFile;
 	if ( ! pFile.Open( strFile, CFile::modeRead ) )
 		return FALSE;
 
@@ -105,9 +105,9 @@ BOOL CHostCache::Save()
 {
 	CQuickLock oLock( m_pSection );
 
-	CFile pFile;
 	CString strFile = Settings.General.UserPath + _T("\\Data\\HostCache.dat");
 
+	CFile pFile;
 	if ( ! pFile.Open( strFile, CFile::modeWrite|CFile::modeCreate ) )
 		return FALSE;
 
@@ -525,8 +525,11 @@ void CHostCacheList::OnFailure(const IN_ADDR* pAddress, WORD nPort, bool bRemove
 		pHost->m_nFailures++;
 		if ( pHost->m_bPriority )
 			return;
+
 		if ( bRemove || pHost->m_nFailures >= Settings.Connection.FailureLimit )
+		{
 			Remove( pHost );
+		}
 		else
 		{
 			pHost->m_tFailure = static_cast< DWORD >( time( NULL ) );

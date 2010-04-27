@@ -424,6 +424,9 @@ void CMediaListCtrl::OnDoubleClick(NMHDR* /*pNMHDR*/, LRESULT* pResult)
 
 void CMediaListCtrl::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 {
+	if ( point.x == -1 && point.y == -1 ) 	// Keyboard fix
+		ClientToScreen( &point );
+
 	Skin.TrackPopupMenu( _T("CMediaList"), point, ID_MEDIA_SELECT );
 }
 
@@ -551,7 +554,7 @@ void CMediaListCtrl::OnLButtonUp(UINT nFlags, CPoint point)
 
 		DeleteItem( nItem );
 
-		if ( m_nDragDrop > nItem ) m_nDragDrop --;
+		if ( m_nDragDrop > nItem ) m_nDragDrop--;
 	}
 
 	for ( int nItem = 0 ; nItem < pPaths.GetSize() ; nItem++ )
@@ -668,7 +671,8 @@ void CMediaListCtrl::OnMediaAdd()
 		Enqueue( strFolder, FALSE );
 	}
 
-	if ( GetItemCount() > 0 && bWasEmpty ) GetNext();
+	if ( GetItemCount() > 0 && bWasEmpty )
+		GetNext();
 }
 
 void CMediaListCtrl::OnMediaAddFolder()

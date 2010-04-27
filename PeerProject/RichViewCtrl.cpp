@@ -45,12 +45,12 @@ BEGIN_MESSAGE_MAP(CRichViewCtrl, CWnd)
 	ON_WM_ERASEBKGND()
 	ON_WM_PAINT()
 	ON_WM_SIZE()
+	ON_WM_TIMER()
+	ON_WM_VSCROLL()
 	ON_WM_SETCURSOR()
 	ON_WM_MOUSEMOVE()
 	ON_WM_LBUTTONUP()
-	ON_WM_VSCROLL()
 	ON_WM_LBUTTONDOWN()
-	ON_WM_TIMER()
 	ON_WM_MOUSEWHEEL()
 	ON_WM_LBUTTONDBLCLK()
 	//}}AFX_MSG_MAP
@@ -988,7 +988,7 @@ CString CRichViewCtrl::GetWordFromPoint(CPoint& point, LPCTSTR szTokens) const
 		{
 			const int nOffset = pFragment->m_nOffset + rp.nOffset;
 			const CString& strText = pFragment->m_pElement->m_sText;
-			if ( _tcschr( szTokens, strText.GetAt( nOffset ) ) == NULL ) 
+			if ( _tcschr( szTokens, strText.GetAt( nOffset ) ) == NULL )
 			{
 				for ( int nPos = pFragment->m_nOffset; ; )
 				{

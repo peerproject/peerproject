@@ -22,8 +22,8 @@
 #include "StdAfx.h"
 #include "PeerProject.h"
 #include "Settings.h"
-#include "Colors.h"
 #include "FragmentBar.h"
+#include "Colors.h"
 
 #include "Download.h"
 #include "DownloadSource.h"
@@ -49,23 +49,30 @@ static char THIS_FILE[]=__FILE__;
 
 void CFragmentBar::DrawFragment(CDC* pDC, CRect* prcBar, QWORD nTotal, QWORD nOffset, QWORD nLength, COLORREF crFill, BOOL b3D)
 {
-	CRect rcArea;
+	if ( nTotal == 0 || nLength == 0 )
+		return;
+
+	if ( nTotal == SIZE_UNKNOWN || nOffset == SIZE_UNKNOWN || nLength == SIZE_UNKNOWN )
+		return;
+
+	ASSERT( nLength <= nTotal - nOffset );
 
 	if ( Settings.General.LanguageRTL )
 		nOffset = nTotal - nOffset - nLength;
 
-	if ( nTotal == 0 ) return;
-
-	rcArea.left		= prcBar->left + ( ( prcBar->Width() + 1 ) * nOffset ) / nTotal;
-	rcArea.right	= prcBar->left + ( ( prcBar->Width() + 1 ) * ( nOffset + nLength ) ) / nTotal;
+	CRect rcArea;
 
 	rcArea.top		= prcBar->top;
 	rcArea.bottom	= prcBar->bottom;
 
+	rcArea.left		= prcBar->left + LONG( ( prcBar->Width() + 1 ) * nOffset / nTotal );
+	rcArea.right	= prcBar->left + LONG( ( prcBar->Width() + 1 ) * ( nOffset + nLength ) / nTotal );
+
 	rcArea.left		= max( rcArea.left, prcBar->left );
 	rcArea.right	= min( rcArea.right, prcBar->right );
 
-	if ( rcArea.right <= rcArea.left ) return;
+	if ( rcArea.right <= rcArea.left )
+		return;
 
 	if ( b3D && rcArea.Width() > 2 )
 	{
@@ -89,16 +96,22 @@ void CFragmentBar::DrawFragment(CDC* pDC, CRect* prcBar, QWORD nTotal, QWORD nOf
 
 void CFragmentBar::DrawStateBar(CDC* pDC, CRect* prcBar, QWORD nTotal, QWORD nOffset, QWORD nLength, COLORREF crFill, BOOL bTop)
 {
-	CRect rcArea;
-	// ToDo: Investigate why nLength is greater than nTotal !
-	if ( nLength > nTotal - nOffset )
-		nLength = nTotal - nOffset;
+	if ( nTotal == 0 || nLength == 0 )
+		return;
+
+	if ( nTotal == SIZE_UNKNOWN || nOffset == SIZE_UNKNOWN || nLength == SIZE_UNKNOWN )
+		return;
+
+	ASSERT( nLength <= nTotal - nOffset );
 
 	if ( Settings.General.LanguageRTL )
 		nOffset = nTotal - nOffset - nLength;
 
-	rcArea.left		= prcBar->left + (int)( (float)( prcBar->Width() + 1 ) / (float)nTotal * (float)nOffset );
-	rcArea.right	= prcBar->left + (int)( (float)( prcBar->Width() + 1 ) / (float)nTotal * (float)( nOffset + nLength ) );
+	CRect rcArea;
+
+	rcArea.left		= prcBar->left + LONG( ( prcBar->Width() + 1 ) * nOffset / nTotal );
+	rcArea.right	= prcBar->left + LONG( ( prcBar->Width() + 1 ) * ( nOffset + nLength ) / nTotal );
+
 	rcArea.left		= max( rcArea.left, prcBar->left );
 	rcArea.right	= min( rcArea.right, prcBar->right );
 
@@ -113,7 +126,8 @@ void CFragmentBar::DrawStateBar(CDC* pDC, CRect* prcBar, QWORD nTotal, QWORD nOf
 		rcArea.bottom	= prcBar->bottom;
 	}
 
-	if ( rcArea.right <= rcArea.left ) return;
+	if ( rcArea.right <= rcArea.left )
+		return;
 
 	if ( rcArea.Width() > 2 )
 	{
@@ -155,7 +169,7 @@ void CFragmentBar::DrawDownload(CDC* pDC, CRect* prcBar, CDownload* pDownload, C
 	QWORD nvOffset, nvLength;
 	BOOL bvSuccess;
 
-	if ( Settings.Downloads.ShowPercent && pDownload->IsStarted() )
+	if ( Settings.Downloads.ShowPercent )
 	{
 		DrawStateBar( pDC, prcBar, pDownload->m_nSize, 0, pDownload->GetVolumeComplete(),
 			RGB( 0, 255, 0 ), TRUE );
@@ -192,11 +206,8 @@ void CFragmentBar::DrawDownloadSimple(CDC* pDC, CRect* prcBar, CDownload* pDownl
 {
 	pDC->FillSolidRect( prcBar, crNatural );
 
-	if ( pDownload->IsStarted() )
-	{
-		DrawFragment( pDC, prcBar, pDownload->m_nSize,0, pDownload->GetVolumeComplete(),
-			Colors.m_crFragmentComplete, FALSE );
-	}
+	DrawFragment( pDC, prcBar, pDownload->m_nSize,0, pDownload->GetVolumeComplete(),
+		Colors.m_crFragmentComplete, FALSE );
 }
 
 
@@ -325,7 +336,7 @@ void CFragmentBar::DrawDownloadSimple(CDC* pDC, CRect* prcBar, CDownload* pDownl
 void CFragmentBar::DrawUpload(CDC* pDC, CRect* prcBar, CUploadFile* pFile, COLORREF crNatural)
 {
 	CUploadTransfer* pUpload = pFile->GetActive();
-	if ( pUpload == NULL ) return;
+	if ( ! pUpload ) return;
 
 	Fragments::List::const_iterator pItr = pFile->m_oFragments.begin();
 	const Fragments::List::const_iterator pEnd = pFile->m_oFragments.end();
@@ -335,7 +346,7 @@ void CFragmentBar::DrawUpload(CDC* pDC, CRect* prcBar, CUploadFile* pFile, COLOR
 			Colors.m_crFragmentComplete, true );
 	}
 
-	if ( pFile == pUpload->m_pBaseFile )
+	if ( pFile == pUpload->m_pBaseFile && pUpload->m_nLength != SIZE_UNKNOWN )
 	{
 		if ( pUpload->m_nProtocol == PROTOCOL_HTTP && ((CUploadTransferHTTP*)pUpload)->IsBackwards() )
 		{

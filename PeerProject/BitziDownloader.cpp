@@ -80,7 +80,7 @@ INT_PTR CBitziDownloader::GetFileCount()
 
 BOOL CBitziDownloader::Start(CBitziDownloadDlg* pDlg)
 {
-	if ( m_hInternet != NULL ) return FALSE;
+	if ( m_hInternet ) return FALSE;
 
 	CString strAgent = Settings.SmartAgent();
 
@@ -104,7 +104,7 @@ BOOL CBitziDownloader::Start(CBitziDownloadDlg* pDlg)
 
 void CBitziDownloader::Stop()
 {
-	if ( m_hSession != NULL ) InternetCloseHandle( m_hSession );
+	if ( m_hSession ) InternetCloseHandle( m_hSession );
 	m_hSession = NULL;
 
 	if ( m_hInternet ) InternetCloseHandle( m_hInternet );
@@ -170,7 +170,7 @@ void CBitziDownloader::OnRun()
 			{
 				if ( m_hInternet == NULL ) break;
 
-				if ( m_hRequest != NULL ) InternetCloseHandle( m_hRequest );
+				if ( m_hRequest ) InternetCloseHandle( m_hRequest );
 				m_hRequest = NULL;
 
 				m_pDlg->OnFailure( m_nFileIndex, _T("Failed") );
@@ -181,7 +181,7 @@ void CBitziDownloader::OnRun()
 
 		m_pDlg->OnFinishedFile( m_nFileIndex );
 
-		if ( m_hRequest != NULL ) InternetCloseHandle( m_hRequest );
+		if ( m_hRequest ) InternetCloseHandle( m_hRequest );
 		m_hRequest = NULL;
 
 		m_sResponse.Empty();
@@ -266,21 +266,18 @@ BOOL CBitziDownloader::ExecuteRequest()
 
 	if ( m_hRequest == NULL )
 	{
-		if ( m_hSession != NULL )
-			InternetCloseHandle( m_hSession );
+		if ( m_hSession ) InternetCloseHandle( m_hSession );
 
 		m_hSession = InternetConnect( m_hInternet, strHost, INTERNET_PORT( nPort ),
 			NULL, NULL, INTERNET_SERVICE_HTTP , 0, 0 );
 
-		if ( m_hSession == NULL )
-			return FALSE;
+		if ( m_hSession == NULL ) return FALSE;
 
 		m_hRequest = HttpOpenRequest( m_hSession, _T("GET"), strPath, NULL, NULL, NULL,
 			INTERNET_FLAG_KEEP_CONNECTION | INTERNET_FLAG_NO_COOKIES |
 			INTERNET_FLAG_PRAGMA_NOCACHE | INTERNET_FLAG_RELOAD, 0 );
 
-		if ( m_hRequest == NULL )
-			return FALSE;
+		if ( m_hRequest == NULL ) return FALSE;
 	}
 
 	if ( ! HttpSendRequest( m_hRequest, NULL, 0, NULL, 0 ) )
@@ -294,14 +291,21 @@ BOOL CBitziDownloader::ExecuteRequest()
 		return FALSE;
 
 	if ( _stscanf( szStatusCode, _T("%u"), &nStatusCode ) != 1 ||
-		nStatusCode < 200 || nStatusCode > 299 ) return FALSE;
+		nStatusCode < 200 || nStatusCode > 299 )
+		return FALSE;
 
 	LPBYTE pResponse = NULL;
 	DWORD nRemaining, nResponse = 0;
 
 	while ( InternetQueryDataAvailable( m_hRequest, &nRemaining, 0, 0 ) && nRemaining > 0 )
 	{
-		pResponse = (LPBYTE)realloc( pResponse, nResponse + nRemaining );
+		BYTE* pNewResponse = (BYTE*)realloc( pResponse, nResponse + nRemaining );
+		if ( ! pNewResponse )
+		{
+			free( pResponse );
+			return FALSE;
+		}
+		pResponse = pNewResponse;
 		InternetReadFile( m_hRequest, pResponse + nResponse, nRemaining, &nRemaining );
 		nResponse += nRemaining;
 	}
@@ -321,8 +325,7 @@ BOOL CBitziDownloader::ExecuteRequest()
 
 	free( pResponse );
 
-	if ( m_hRequest != NULL )
-		InternetCloseHandle( m_hRequest );
+	if ( m_hRequest ) InternetCloseHandle( m_hRequest );
 	m_hRequest = NULL;
 
 	m_nDelay = ( GetTickCount() - nTime ) * 2;
@@ -378,9 +381,7 @@ CString CBitziDownloader::LookupValue(LPCTSTR pszPath)
 		strPath = strPath.Mid( strName.GetLength() );
 
 		if ( strPath.IsEmpty() )
-		{
 			return pXML->GetAttributeValue( strName, NULL );
-		}
 
 		if ( bFirst )
 		{
@@ -433,13 +434,9 @@ CXMLElement* CBitziDownloader::ImportData(CSchemaPtr pSchema)
 				nValue *= pMap->m_nFactor;
 
 				if ( nValue == (double)( (int)nValue ) )
-				{
 					strValue.Format( _T("%i"), (int)nValue );
-				}
 				else
-				{
 					strValue.Format( _T("%f"), nValue );
-				}
 			}
 		}
 
@@ -447,7 +444,9 @@ CXMLElement* CBitziDownloader::ImportData(CSchemaPtr pSchema)
 		nCount++;
 	}
 
-	if ( nCount ) return pRoot;
+	if ( nCount )
+		return pRoot;
+
 	delete pRoot;
 
 	return NULL;

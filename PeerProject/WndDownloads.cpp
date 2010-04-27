@@ -377,7 +377,7 @@ void CDownloadsWnd::OnTimer(UINT_PTR nIDEvent)
 	}
 
 	// Window Update event (2 second timer)
-	if ( ( nIDEvent == 2 ) && ( m_pDragList == NULL ) )
+	if ( nIDEvent == 2 && m_pDragList == NULL )
 	{
 		// Lock transfers section
 		CSingleLock pLock( &Transfers.m_pSection );
@@ -428,52 +428,99 @@ void CDownloadsWnd::OnDrawItem(int nIDCtl, LPDRAWITEMSTRUCT lpDrawItemStruct)
 
 void CDownloadsWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 {
-	CSingleLock pLock( &Transfers.m_pSection, TRUE );
-	CDownloadSource* pSource;
-	CDownload* pDownload;
+	if ( point.x == -1 && point.y == -1 ) 	// Keyboard fix
+	{
+		m_wndDownloads.ClientToScreen( &point );
+
+		Prepare();
+		if ( m_bSelDownload )
+		{
+			if ( m_bSelCompleted && m_bSelTorrent )
+				Skin.TrackPopupMenu( _T("CDownloadsWnd.Seeding"), point, ID_DOWNLOADS_LAUNCH_COMPLETE );
+			else if ( m_bSelCompleted )
+				Skin.TrackPopupMenu( _T("CDownloadsWnd.Completed"), point, ID_DOWNLOADS_LAUNCH_COMPLETE );
+			else
+				Skin.TrackPopupMenu( _T("CDownloadsWnd.Download"), point, ID_DOWNLOADS_LAUNCH_COPY );
+			return;
+		}
+		Skin.TrackPopupMenu( _T("CDownloadsWnd.Default"), point, ID_DOWNLOADS_HELP );
+		return;
+	}
 
 	CPoint ptLocal( point );
 	m_wndDownloads.ScreenToClient( &ptLocal );
 	m_tSel = 0;
 
+	CSingleLock pLock( &Transfers.m_pSection );
+	if ( ! pLock.Lock( 1000 ) ) return;
+
+	CDownloadSource* pSource;
+	CDownload* pDownload;
+
 	if ( m_wndDownloads.HitTest( ptLocal, &pDownload, &pSource, NULL, NULL ) )
 	{
-		if ( pSource != NULL )
+		if ( pSource )
 		{
 			pLock.Unlock();
 			Skin.TrackPopupMenu( _T("CDownloadsWnd.Source"), point, ID_TRANSFERS_CONNECT );
 			return;
 		}
-		else if ( pDownload->IsSeeding() )
+		else if ( pDownload )
 		{
+			if ( pDownload->IsSeeding() )
+			{
+				pLock.Unlock();
+				Skin.TrackPopupMenu( _T("CDownloadsWnd.Seeding"), point, ID_DOWNLOADS_LAUNCH_COMPLETE );
+				return;
+			}
+			else if ( pDownload->IsCompleted() )
+			{
+				pLock.Unlock();
+				Skin.TrackPopupMenu( _T("CDownloadsWnd.Completed"), point, ID_DOWNLOADS_LAUNCH_COMPLETE );
+				return;
+			}
+
 			pLock.Unlock();
-			Skin.TrackPopupMenu( _T("CDownloadsWnd.Seeding"), point, ID_DOWNLOADS_LAUNCH_COMPLETE );
-			return;
-		}
-		else if ( pDownload->IsCompleted() )
-		{
-			pLock.Unlock();
-			Skin.TrackPopupMenu( _T("CDownloadsWnd.Completed"), point, ID_DOWNLOADS_LAUNCH_COMPLETE );
+			Skin.TrackPopupMenu( _T("CDownloadsWnd.Download"), point, ID_DOWNLOADS_LAUNCH_COPY );
 			return;
 		}
 	}
 
-	if ( pDownload != NULL )
-		Skin.TrackPopupMenu( _T("CDownloadsWnd.Download"), point, ID_DOWNLOADS_LAUNCH_COPY );
-	else
-		Skin.TrackPopupMenu( _T("CDownloadsWnd.Default"), point, ID_DOWNLOADS_HELP );
-
 	pLock.Unlock();
+	Skin.TrackPopupMenu( _T("CDownloadsWnd.Default"), point, ID_DOWNLOADS_HELP );
 }
 
 BOOL CDownloadsWnd::PreTranslateMessage(MSG* pMsg)
 {
 	if ( pMsg->message == WM_KEYDOWN )
 	{
-		if ( pMsg->wParam == VK_TAB )
+		if ( pMsg->wParam == VK_TAB )	// Toggle Uploads/Downloads Window Focus
 		{
 			GetManager()->Open( RUNTIME_CLASS(CUploadsWnd) );
 			return TRUE;
+		}
+		else if ( pMsg->wParam == VK_ESCAPE && ! m_pDragList )	// Clear selections, when not dragging
+		{
+			CSingleLock pLock( &Transfers.m_pSection );
+			if ( pLock.Lock( 500 ) )
+			{
+				for ( POSITION pos = Downloads.GetIterator() ; pos ; )
+				{
+					CDownload* pDownload = Downloads.GetNext( pos );
+					pDownload->m_bSelected = FALSE;
+
+					if ( pDownload->m_bExpanded )
+					{
+						for ( POSITION posSource = pDownload->GetIterator(); posSource ; )
+						{
+							CDownloadSource* pSource = pDownload->GetNext( posSource );
+							pSource->m_bSelected = FALSE;
+						}
+					}
+				}
+				pLock.Unlock();
+				Update();
+			}
 		}
 	}
 
@@ -484,13 +531,16 @@ BOOL CDownloadsWnd::Select(CDownload* pSelect)
 {
 	CSingleLock pLock( &Transfers.m_pSection, TRUE );
 	BOOL bFound = FALSE;
+	int nIndex = 0;
 
-	for ( POSITION pos = Downloads.GetIterator() ; pos ; )
+	// Find file for Download Monitor
+	for ( POSITION pos = Downloads.GetIterator() ; pos ; nIndex++ )
 	{
 		CDownload* pDownload = Downloads.GetNext( pos );
 
 		if ( pDownload == pSelect )
 		{
+			m_wndDownloads.SelectTo( nIndex );
 			pDownload->m_bSelected = TRUE;
 			bFound = TRUE;
 		}
@@ -499,11 +549,15 @@ BOOL CDownloadsWnd::Select(CDownload* pSelect)
 			pDownload->m_bSelected = FALSE;
 		}
 
-		for ( POSITION posSource = pDownload->GetIterator(); posSource ; )
+		if ( pDownload->m_bExpanded )
 		{
-			CDownloadSource* pSource = pDownload->GetNext( posSource );
-
-			pSource->m_bSelected = FALSE;
+			for ( POSITION posSource = pDownload->GetIterator(); posSource ; )
+			{
+				CDownloadSource* pSource = pDownload->GetNext( posSource );
+				pSource->m_bSelected = FALSE;
+				if ( ! bFound && ( pSource->IsConnected() || Settings.Downloads.ShowSources ) )
+					nIndex++;
+			}
 		}
 	}
 
@@ -1923,7 +1977,10 @@ void CDownloadsWnd::DragDownloads(CList< CDownload* >* pList, CImageList* pImage
 
 void CDownloadsWnd::CancelDrag()
 {
-	if ( m_pDragList == NULL ) return;
+	if ( ! m_pDragList ) return;
+
+	ClipCursor( NULL );
+	ReleaseCapture();
 
 	m_pDragImage->DragLeave( this );
 	m_pDragImage->EndDrag();
@@ -1940,7 +1997,7 @@ void CDownloadsWnd::CancelDrag()
 
 void CDownloadsWnd::OnMouseMove(UINT nFlags, CPoint point)
 {
-	if ( m_pDragList != NULL )
+	if ( m_pDragList )
 	{
 		m_pDragImage->DragMove( point + m_pDragOffs );
 		ClientToScreen( &point );
@@ -1953,7 +2010,7 @@ void CDownloadsWnd::OnMouseMove(UINT nFlags, CPoint point)
 
 void CDownloadsWnd::OnLButtonUp(UINT nFlags, CPoint point)
 {
-	if ( m_pDragList != NULL )
+	if ( m_pDragList )
 	{
 		ClipCursor( NULL );
 		ReleaseCapture();
@@ -1978,7 +2035,7 @@ void CDownloadsWnd::OnLButtonUp(UINT nFlags, CPoint point)
 
 void CDownloadsWnd::OnRButtonDown(UINT nFlags, CPoint point)
 {
-	if ( m_pDragList != NULL )
+	if ( m_pDragList )
 	{
 		CancelDrag();
 		return;
@@ -1989,11 +2046,11 @@ void CDownloadsWnd::OnRButtonDown(UINT nFlags, CPoint point)
 
 void CDownloadsWnd::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
-	if ( nChar == VK_ESCAPE )
+	if ( nChar == VK_ESCAPE && m_pDragList )
+	{
 		CancelDrag();
-
-	if ( m_pDragList != NULL )
 		OnSetCursor( NULL, 0, 0 );
+	}
 
 	CPanelWnd::OnKeyDown( nChar, nRepCnt, nFlags );
 }
@@ -2008,7 +2065,7 @@ void CDownloadsWnd::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 
 BOOL CDownloadsWnd::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 {
-	if ( m_pDragList != NULL )
+	if ( m_pDragList )
 	{
 		if ( GetAsyncKeyState( VK_CONTROL ) & 0x8000 )
 			SetCursor( m_hCursCopy );

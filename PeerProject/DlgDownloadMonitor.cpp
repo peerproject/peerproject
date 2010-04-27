@@ -53,16 +53,16 @@ BEGIN_MESSAGE_MAP(CDownloadMonitorDlg, CSkinDialog)
 	ON_WM_PAINT()
 	ON_WM_DESTROY()
 	ON_WM_TIMER()
-	ON_BN_CLICKED(IDC_DOWNLOAD_SHOW, OnDownloadShow)
-	ON_BN_CLICKED(IDC_DOWNLOAD_ACTION, OnDownloadAction)
-	ON_BN_CLICKED(IDC_DOWNLOAD_CLOSE, OnDownloadClose)
 	ON_WM_CLOSE()
-	ON_WM_SYSCOMMAND()
 	ON_WM_CTLCOLOR()
+	ON_WM_SYSCOMMAND()
 	ON_WM_CONTEXTMENU()
 	ON_WM_INITMENUPOPUP()
 	ON_MESSAGE(WM_TRAY, OnTray)
 	ON_NOTIFY_EX(TTN_NEEDTEXT, 0, OnNeedText)
+	ON_BN_CLICKED(IDC_DOWNLOAD_SHOW, OnDownloadShow)
+	ON_BN_CLICKED(IDC_DOWNLOAD_ACTION, OnDownloadAction)
+	ON_BN_CLICKED(IDC_DOWNLOAD_CLOSE, OnDownloadClose)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -568,10 +568,12 @@ void CDownloadMonitorDlg::DrawProgressBar(CDC* pDC, CRect* pRect)
 
 void CDownloadMonitorDlg::OnDownloadShow()
 {
-	CWnd* pMainWnd = AfxGetMainWnd();
-	if ( ! pMainWnd ) return;
+	CMainWnd* pMainWnd = (CMainWnd*)AfxGetMainWnd();
+	if ( ! pMainWnd || ! IsWindow( pMainWnd->m_hWnd ) ) return;
 
-	// ToDo: Highlight specific file, or at least show right download group
+	CDownloadsWnd* pDownWnd = (CDownloadsWnd*)pMainWnd->m_pWindows.Find( RUNTIME_CLASS(CDownloadsWnd) );
+	if ( pDownWnd ) pDownWnd->Select( m_pDownload );
+
 	pMainWnd->PostMessage( WM_COMMAND, ID_VIEW_DOWNLOADS );
 	pMainWnd->PostMessage( WM_SYSCOMMAND, SC_RESTORE );
 }
@@ -684,6 +686,9 @@ HBRUSH CDownloadMonitorDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 
 void CDownloadMonitorDlg::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 {
+	if ( point.x == -1 && point.y == -1 ) 	// Keyboard fix
+		ClientToScreen( &point );
+
 	CMainWnd* pMainWnd = (CMainWnd*)AfxGetMainWnd();
 	if ( ! pMainWnd || ! IsWindow( pMainWnd->m_hWnd ) ) return;
 

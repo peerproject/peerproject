@@ -851,7 +851,7 @@ BOOL CG1Neighbour::OnVendor(CG1Packet* pPacket)
 	WORD nFunction = pPacket->ReadShortLE(); // 2 bytes, function (do)
 	WORD nVersion  = pPacket->ReadShortLE(); // 2 bytes, version (do)
 
-	
+
 	if ( nVendor == 0 && nFunction == 0 )	// If the packet has 0 for the vendor and function (do)
 	{
 		// Supported vendor messages array (do)

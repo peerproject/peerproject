@@ -53,15 +53,16 @@ public:
 public:
 	CMutex			m_pSection;
 	CString			m_sFilter;
-	BOOL			m_bFilterBusy;
 	BOOL			m_bFilterPush;
 	BOOL			m_bFilterUnstable;
-	BOOL			m_bFilterReject;
+	BOOL			m_bFilterBusy;
 	BOOL			m_bFilterLocal;
+	BOOL			m_bFilterReject;
 	BOOL			m_bFilterBogus;
 	BOOL			m_bFilterDRM;
-	BOOL			m_bFilterAdult;
+	BOOL			m_bFilterRestricted;
 	BOOL			m_bFilterSuspicious;
+	BOOL			m_bFilterAdult;
 	BOOL			m_bRegExp;
 	QWORD			m_nFilterMinSize;
 	QWORD			m_nFilterMaxSize;
@@ -169,6 +170,7 @@ public:
 	int			m_nRating;				// Total value of all ratings
 	int			m_nRated;				// Number of ratings recieved
 	BOOL		m_bDRM;					// Appears to have DRM
+	TRISTATE	m_bRestricted;			// Appears to be a Restricted copyright file, or known Permissive File (False/True PeerTag)
 	BOOL		m_bSuspicious;			// Appears to be a suspicious file (small exe, vbs, etc)
 	BOOL		m_bCollection;			// Appears to be a collection
 	BOOL		m_bTorrent;				// Appears to be a torrent
@@ -197,6 +199,7 @@ public:
 		return ( ! m_pList || ! m_pBest ||
 			( m_pList->m_bFilterDRM && m_bDRM ) ||
 			( m_pList->m_bFilterSuspicious && m_bSuspicious ) ||
+		//	( m_pList->m_bFilterRestricted && m_bRestricted == TRI_TRUE ) ||
 			( m_pList->m_nFilterSources > m_nSources ) ||
 			( m_pList->m_bFilterLocal && GetLibraryStatus() == TRI_FALSE ) ) ?
 			0 : m_nFiltered;

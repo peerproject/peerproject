@@ -42,8 +42,9 @@ IMPLEMENT_SERIAL(CSearchMonitorWnd, CPanelWnd, 0)
 BEGIN_MESSAGE_MAP(CSearchMonitorWnd, CPanelWnd)
 	//{{AFX_MSG_MAP(CSearchMonitorWnd)
 	ON_WM_CREATE()
-	ON_WM_SIZE()
 	ON_WM_DESTROY()
+	ON_WM_SIZE()
+	ON_WM_TIMER()
 	ON_WM_CONTEXTMENU()
 	ON_UPDATE_COMMAND_UI(ID_SEARCHMONITOR_PAUSE, OnUpdateSearchMonitorPause)
 	ON_COMMAND(ID_SEARCHMONITOR_PAUSE, OnSearchMonitorPause)
@@ -55,7 +56,6 @@ BEGIN_MESSAGE_MAP(CSearchMonitorWnd, CPanelWnd)
 	ON_UPDATE_COMMAND_UI(ID_BROWSE_LAUNCH, OnUpdateBrowseLaunch)
 	ON_COMMAND(ID_BROWSE_LAUNCH, OnBrowseLaunch)
 	ON_NOTIFY(LVN_COLUMNCLICK, IDC_SEARCHES, OnDblClkList)
-	ON_WM_TIMER()
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -142,6 +142,9 @@ void CSearchMonitorWnd::OnSize(UINT nType, int cx, int cy)
 
 void CSearchMonitorWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 {
+	if ( point.x == -1 && point.y == -1 ) 	// Keyboard fix
+		ClientToScreen( &point );
+
 	Skin.TrackPopupMenu( _T("CSearchMonitorWnd"), point, ID_HITMONITOR_SEARCH );
 }
 
@@ -291,7 +294,8 @@ void CSearchMonitorWnd::OnTimer(UINT_PTR nIDEvent)
 		delete pItem;
 	}
 
-	if ( bScroll ) m_wndList.EnsureVisible( m_wndList.GetItemCount() - 1, FALSE );
+	if ( bScroll )
+		m_wndList.EnsureVisible( m_wndList.GetItemCount() - 1, FALSE );
 }
 
 void CSearchMonitorWnd::OnUpdateSecurityBan(CCmdUI* pCmdUI)

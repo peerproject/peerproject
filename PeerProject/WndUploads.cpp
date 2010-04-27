@@ -218,18 +218,20 @@ void CUploadsWnd::OnTimer(UINT_PTR nIDEvent)
 
 void CUploadsWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 {
-	CSingleLock pLock( &UploadQueues.m_pSection );
-	if ( ! pLock.Lock( 500 ) )
+	if ( point.x == -1 && point.y == -1 ) 	// Keyboard fix
+	{
+		m_wndUploads.ClientToScreen( &point );
+		Skin.TrackPopupMenu( _T("CUploadsWnd.Default"), point, ID_UPLOADS_HELP );
 		return;
-
-	CUploadQueue* pQueue;
-	CUploadFile* pUpload;
+	}
 
 	CPoint ptLocal( point );
 	m_wndUploads.ScreenToClient( &ptLocal );
 	m_tSel = 0;
 
-	if ( m_wndUploads.HitTest( ptLocal, &pQueue, &pUpload, NULL, NULL ) && pUpload != NULL )
+	CUploadFile* pUpload;
+
+	if ( m_wndUploads.HitTest( ptLocal, NULL , &pUpload, NULL, NULL ) && pUpload != NULL )
 		Skin.TrackPopupMenu( _T("CUploadsWnd.Upload"), point, ID_UPLOADS_LAUNCH );
 	else
 		Skin.TrackPopupMenu( _T("CUploadsWnd.Default"), point, ID_UPLOADS_HELP );
@@ -425,7 +427,8 @@ void CUploadsWnd::OnUploadsClear()
 	for ( POSITION pos = UploadFiles.GetIterator() ; pos ; )
 	{
 		CUploadFile* pFile = UploadFiles.GetNext( pos );
-		if ( IsSelected( pFile ) ) pList.AddTail( pFile );
+		if ( IsSelected( pFile ) )
+			pList.AddTail( pFile );
 	}
 
 	while ( ! pList.IsEmpty() )

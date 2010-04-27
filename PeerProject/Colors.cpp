@@ -58,7 +58,7 @@ void CColors::CalculateColors(BOOL bCustom)
 		m_crText				= GetSysColor( COLOR_WINDOWTEXT );
 		m_crHiText				= GetSysColor( COLOR_HIGHLIGHTTEXT );
 		m_crHighlight			= GetSysColor( COLOR_HIGHLIGHT );
-		m_crHiBorder			= GetSysColor( COLOR_HIGHLIGHT );
+		m_crHiBorder			= m_crHighlight;
 		m_crHiBorderIn			= NULL;
 	}
 
@@ -69,9 +69,9 @@ void CColors::CalculateColors(BOOL bCustom)
 	m_crMargin					= CalculateColor( m_crMidtone, m_crWindow, 40 );
 	m_crShadow					= CalculateColor( m_crHighlight, GetSysColor( COLOR_3DSHADOW ), 200 );
 	m_crBorder					= m_crHighlight;
-	m_crCmdText					= GetSysColor( COLOR_MENUTEXT );
-	m_crCmdTextSel				= GetSysColor( COLOR_MENUTEXT );
 	m_crDisabled				= GetSysColor( COLOR_GRAYTEXT );
+	m_crCmdText					= GetSysColor( COLOR_MENUTEXT );
+	m_crCmdTextSel				= m_crCmdText;
 
 	m_crPanelBorder				= RGB( 0, 0, 0 );
 	m_crPanelText				= RGB( 255, 255, 255 );

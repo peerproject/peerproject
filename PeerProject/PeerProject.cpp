@@ -168,7 +168,6 @@ CPeerProjectApp::CPeerProjectApp()
 	, m_nWindowsVersion			( 0ul )
 	, m_nWindowsVersionMinor	( 0ul )
 	, m_nPhysicalMemory			( 0ull )
-	, m_nLogicalProcessors		( -1 )
 	, m_bUPnPPortsForwarded 	( TRI_UNKNOWN )
 	, m_bUPnPDeviceConnected	( TRI_UNKNOWN )
 	, m_nLastInput				( 0ul )
@@ -201,6 +200,8 @@ CPeerProjectApp::CPeerProjectApp()
 	, m_pfnGeoIP_delete			( NULL )
 	, m_pfnGeoIP_country_code_by_ipnum( NULL )
 	, m_pfnGeoIP_country_name_by_ipnum( NULL )
+
+	, m_SysInfo					( )
 {
 	ZeroMemory( m_nVersion, sizeof( m_nVersion ) );
 	ZeroMemory( m_pBTVersion, sizeof( m_pBTVersion ) );
@@ -743,6 +744,8 @@ BOOL CPeerProjectApp::OpenURL(LPCTSTR lpszFileName, BOOL bDoIt, BOOL bSilent)
 
 void CPeerProjectApp::GetVersionNumber()
 {
+	GetSystemInfo( &m_SysInfo );
+
 	// Set Build Date
 	COleDateTime tCompileTime;
 	tCompileTime.ParseDateTime( _T(__DATE__), LOCALE_NOUSEROVERRIDE, 1033 );
@@ -960,19 +963,9 @@ void CPeerProjectApp::InitResources()
 	if ( GlobalMemoryStatusEx( &pMemory ) )
 		m_nPhysicalMemory = pMemory.ullTotalPhys;
 
-	long nResult = ERROR_SUCCESS;
-	CString strProcKey;
-	while ( nResult == ERROR_SUCCESS )
-	{
-		HKEY hKey;
-		// These keyes are populated during startup, so it's safe to check them
-		strProcKey.Format( L"Hardware\\Description\\System\\CentralProcessor\\%i", ++m_nLogicalProcessors );
-		if ( RegOpenKeyEx( HKEY_LOCAL_MACHINE, strProcKey, 0, KEY_QUERY_VALUE, &hKey ) != ERROR_SUCCESS )
-			break;
-		RegCloseKey( hKey );
-	}
-
+	//
 	// Setup default fonts:
+	//
 
 	// theApp.m_nFontQuality default ClearType
 	UINT nSmoothingType = 0;
@@ -1092,6 +1085,32 @@ void CPeerProjectApp::ShowStartupText()
 		else
 			PrintMessage( MSG_INFO, strLine );
 	}
+
+	CString strCPU;
+	strCPU.Format( _T("\n%u x CPU. Features:"), m_SysInfo.dwNumberOfProcessors );
+	if ( Machine::SupportsMMX() )
+		strCPU += _T(" MMX");
+	if ( Machine::SupportsSSE() )
+		strCPU += _T(" SSE");
+	if ( Machine::SupportsSSE2() )
+		strCPU += _T(" SSE2");
+	if ( Machine::SupportsSSE3() )
+		strCPU += _T(" SSE3");
+	if ( Machine::SupportsSSSE3() )
+		strCPU += _T(" SSSE3");
+	if ( Machine::SupportsSSE41() )
+		strCPU += _T(" SSE4.1");
+	if ( Machine::SupportsSSE42() )
+		strCPU += _T(" SSE4.2");
+	if ( Machine::SupportsSSE4A() )
+		strCPU += _T(" SSE4A");
+	if ( Machine::SupportsSSE5() )
+		strCPU += _T(" SSE5");
+	if ( Machine::Supports3DNOW() )
+		strCPU += _T(" 3DNow");
+	if ( Machine::Supports3DNOWEXT() )
+		strCPU += _T(" 3DNowExt");
+	PrintMessage( MSG_INFO, strCPU );
 }
 
 void CPeerProjectApp::Message(WORD nType, UINT nID, ...)
@@ -1447,8 +1466,8 @@ BOOL CPeerProjectApp::InternalURI(LPCTSTR pszURI)
 /////////////////////////////////////////////////////////////////////////////
 // Runtime class lookup
 
-void AFXAPI AfxLockGlobals(int nLockType);
-void AFXAPI AfxUnlockGlobals(int nLockType);
+//void AFXAPI AfxLockGlobals(int nLockType);
+//void AFXAPI AfxUnlockGlobals(int nLockType);
 
 CRuntimeClass* AfxClassForName(LPCTSTR pszClass)
 {
@@ -1516,7 +1535,7 @@ BOOL LoadSourcesString(CString& str, DWORD num, bool bFraction)
 	{
 		return Skin.LoadString( str, IDS_STATUS_SOURCE );
 	}
-	else if ( ( ( num % 100 ) > 10) && ( ( num % 100 ) < 20 ) )
+	else if ( ( num % 100 ) > 10 && ( num % 100 ) < 20 )
 	{
 		return Skin.LoadString( str, IDS_STATUS_SOURCES11TO19 );
 	}
@@ -1544,7 +1563,7 @@ BOOL LoadSourcesString(CString& str, DWORD num, bool bFraction)
 LPCTSTR _tcsistr(LPCTSTR pszString, LPCTSTR pszSubString)
 {
 	// Return null if string or substring is empty
-	if ( !*pszString || !*pszSubString )
+	if ( ! *pszString || ! *pszSubString )
 		return NULL;
 
 	// Return if string is too small to hold the substring
@@ -1593,7 +1612,7 @@ LPCTSTR _tcsistr(LPCTSTR pszString, LPCTSTR pszSubString)
 
 LPCTSTR _tcsnistr(LPCTSTR pszString, LPCTSTR pszPattern, size_t plen)
 {
-	if ( !*pszString || !*pszPattern || !plen ) return NULL;
+	if ( ! *pszString || ! *pszPattern || ! plen ) return NULL;
 
 	const TCHAR cFirstPatternChar = ToLower( *pszPattern );
 
@@ -1616,7 +1635,8 @@ LPCTSTR _tcsnistr(LPCTSTR pszString, LPCTSTR pszPattern, size_t plen)
 			}
 		}
 
-		if ( i == plen ) return pszString;
+		if ( i == plen )
+			return pszString;
 	}
 }
 
@@ -1653,7 +1673,7 @@ DWORD TimeFromString(LPCTSTR pszTime)
 
 	time_t tGMT = mktime( &pTime );
 	// check for invalid dates
-	if (tGMT == -1)
+	if ( tGMT == -1 )
 	{
 		theApp.Message( MSG_ERROR, _T("Invalid Date/Time"), pszTime );
 		return 0;
@@ -1661,7 +1681,7 @@ DWORD TimeFromString(LPCTSTR pszTime)
 	struct tm* pGM = gmtime( &tGMT );
 	time_t tSub = mktime( pGM );
 
-	if (tSub == -1)
+	if ( tSub == - 1)
 	{
 		theApp.Message( MSG_ERROR, _T("Invalid Date/Time"), pszTime );
 		return 0;
@@ -2546,7 +2566,7 @@ bool ResourceRequest(const CString& strPath, CBuffer& pResponse, CString& sHeade
 								( pSource + sizeof( ICONDIR ) );
 
 							// Find all subicons
-							for ( WORD i = 0; i < piDir->idCount; i++ )
+							for ( WORD j = 0; j < piDir->idCount; j++ )
 							{
 								// pResponse.m_pBuffer may be changed
 								ICONDIRENTRY* piEntry = (ICONDIRENTRY*)
@@ -2554,7 +2574,7 @@ bool ResourceRequest(const CString& strPath, CBuffer& pResponse, CString& sHeade
 
 								// Load subicon
 								HRSRC hResIcon = FindResource( hModule, MAKEINTRESOURCE(
-									piDirEntry[ i ].nID ), RT_ICON );
+									piDirEntry[ j ].nID ), RT_ICON );
 								if ( hResIcon )
 								{
 									DWORD nSizeIcon = SizeofResource( hModule, hResIcon );
@@ -2564,14 +2584,14 @@ bool ResourceRequest(const CString& strPath, CBuffer& pResponse, CString& sHeade
 										BITMAPINFOHEADER* piImage = (BITMAPINFOHEADER*)LockResource( hMemoryIcon );
 
 										// Fill subicon header
-										piEntry[ i ].bWidth = piDirEntry[ i ].bWidth;
-										piEntry[ i ].bHeight = piDirEntry[ i ].bHeight;
-										piEntry[ i ].wPlanes = piDirEntry[ i ].wPlanes;
-										piEntry[ i ].bColorCount = piDirEntry[ i ].bColorCount;
-										piEntry[ i ].bReserved = 0;
-										piEntry[ i ].wBitCount = piDirEntry[ i ].wBitCount;
-										piEntry[ i ].dwBytesInRes = nSizeIcon;
-										piEntry[ i ].dwImageOffset = dwTotalSize;
+										piEntry[ j ].bWidth = piDirEntry[ j ].bWidth;
+										piEntry[ j ].bHeight = piDirEntry[ j ].bHeight;
+										piEntry[ j ].wPlanes = piDirEntry[ j ].wPlanes;
+										piEntry[ j ].bColorCount = piDirEntry[ j ].bColorCount;
+										piEntry[ j ].bReserved = 0;
+										piEntry[ j ].wBitCount = piDirEntry[ j ].wBitCount;
+										piEntry[ j ].dwBytesInRes = nSizeIcon;
+										piEntry[ j ].dwImageOffset = dwTotalSize;
 
 										// Save subicon
 										pResponse.EnsureBuffer( dwTotalSize + nSizeIcon );
@@ -2608,7 +2628,7 @@ bool ResourceRequest(const CString& strPath, CBuffer& pResponse, CString& sHeade
 bool MarkFileAsDownload(const CString& sFilename)
 {
 	LPCTSTR pszExt = PathFindExtension( (LPCTSTR)sFilename );
-	if ( pszExt == NULL ) return false;
+	if ( ! pszExt ) return false;
 
 	bool bSuccess = false;
 
@@ -2626,18 +2646,36 @@ bool MarkFileAsDownload(const CString& sFilename)
 		if ( dwOrigAttr != INVALID_FILE_ATTRIBUTES && ( dwOrigAttr & FILE_ATTRIBUTE_READONLY ) )
 			bChanged = SetFileAttributes( sFilename, dwOrigAttr & ~FILE_ATTRIBUTE_READONLY );
 
-		HANDLE hFile = CreateFile( sFilename + _T(":Zone.Identifier"),
-			GENERIC_WRITE, FILE_SHARE_READ | FILE_SHARE_WRITE | FILE_SHARE_DELETE,
-			NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL );
-		if ( hFile != INVALID_HANDLE_VALUE )
+		HANDLE hStream = CreateFile( sFilename + _T(":Zone.Identifier"),
+			GENERIC_WRITE, FILE_SHARE_READ | FILE_SHARE_WRITE | FILE_SHARE_DELETE, NULL,
+			OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL );
+
+		if ( hStream == INVALID_HANDLE_VALUE )
+		{
+			HANDLE hFile = CreateFile( sFilename,
+				GENERIC_WRITE, FILE_SHARE_READ | FILE_SHARE_WRITE | FILE_SHARE_DELETE, NULL,
+				OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL | FILE_FLAG_BACKUP_SEMANTICS, NULL );
+
+			if ( hFile != INVALID_HANDLE_VALUE )
+			{
+				hStream = CreateFile( sFilename + _T(":Zone.Identifier"),
+					GENERIC_WRITE, FILE_SHARE_READ | FILE_SHARE_WRITE | FILE_SHARE_DELETE, NULL,
+					CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL );
+				CloseHandle( hFile );
+			}
+		}
+
+		if ( hStream != INVALID_HANDLE_VALUE )
 		{
 			DWORD dwWritten = 0;
-			bSuccess = ( WriteFile( hFile, "[ZoneTransfer]\r\nZoneID=3\r\n", 26,
+			bSuccess = ( WriteFile( hStream, "[ZoneTransfer]\r\nZoneID=3\r\n", 26,
 				&dwWritten, NULL ) && dwWritten == 26 );
-			CloseHandle( hFile );
+			CloseHandle( hStream );
 		}
 		else
-			TRACE( "MarkFileAsDownload() : CreateFile \"%s\" error %d\n", sFilename, GetLastError() );
+		{
+			TRACE( "MarkFileAsDownload() : CreateFile \"%s\" error %d\n", (LPCSTR)CT2A( sFilename ), GetLastError() );
+		}
 
 		if ( bChanged )
 			SetFileAttributes( sFilename, dwOrigAttr );
@@ -2651,13 +2689,13 @@ bool LoadGUID(const CString& sFilename, Hashes::Guid& oGUID)
 	if ( Settings.Library.UseFolderGUID )
 	{
 		HANDLE hFile = CreateFile( sFilename + _T(":PeerProject.GUID"),
-			GENERIC_READ, FILE_SHARE_READ | FILE_SHARE_WRITE | FILE_SHARE_DELETE,
-			NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL );
+			GENERIC_READ, FILE_SHARE_READ | FILE_SHARE_WRITE | FILE_SHARE_DELETE, NULL,
+			OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL );
 		if ( hFile != INVALID_HANDLE_VALUE )
 		{
 			Hashes::Guid oTmpGUID;
 			DWORD dwReaded = 0;
-			bSuccess = ( ReadFile( hFile, oTmpGUID.begin(), oTmpGUID.byteCount, 	// tr1 fix: .data()
+			bSuccess = ( ReadFile( hFile, &*oTmpGUID.begin(), oTmpGUID.byteCount,
 				&dwReaded, NULL ) && dwReaded == oTmpGUID.byteCount );
 			if ( bSuccess )
 			{
@@ -2681,15 +2719,31 @@ bool SaveGUID(const CString& sFilename, const Hashes::Guid& oGUID)
 		if ( dwOrigAttr != 0xffffffff && ( dwOrigAttr & FILE_ATTRIBUTE_READONLY ) )
 			bChanged = SetFileAttributes( sFilename, dwOrigAttr & ~FILE_ATTRIBUTE_READONLY );
 
-		HANDLE hFile = CreateFile( sFilename + _T(":PeerProject.GUID"),
-			GENERIC_WRITE, FILE_SHARE_READ | FILE_SHARE_WRITE | FILE_SHARE_DELETE,
-			NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL );
-		if ( hFile != INVALID_HANDLE_VALUE )
+		HANDLE hStream = CreateFile( sFilename + _T(":PeerProject.GUID"),
+			GENERIC_WRITE, FILE_SHARE_READ | FILE_SHARE_WRITE | FILE_SHARE_DELETE, NULL,
+			OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL );
+
+		if ( hStream == INVALID_HANDLE_VALUE )
+		{
+			HANDLE hFile = CreateFile( sFilename,
+				GENERIC_WRITE, FILE_SHARE_READ | FILE_SHARE_WRITE | FILE_SHARE_DELETE, NULL,
+				OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL | FILE_FLAG_BACKUP_SEMANTICS, NULL );
+
+			if ( hFile != INVALID_HANDLE_VALUE )
+			{
+				hStream = CreateFile( sFilename + _T(":PeerProject.GUID"),
+					GENERIC_WRITE, FILE_SHARE_READ | FILE_SHARE_WRITE | FILE_SHARE_DELETE, NULL,
+					CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL );
+				CloseHandle( hFile );
+			}
+		}
+
+		if ( hStream != INVALID_HANDLE_VALUE )
 		{
 			DWORD dwWritten = 0;
-			bSuccess = ( WriteFile( hFile, oGUID.begin(), oGUID.byteCount,	// tr1 fix: .data()
+			bSuccess = ( WriteFile( hStream, &*oGUID.begin(), oGUID.byteCount,
 				&dwWritten, NULL ) && dwWritten == oGUID.byteCount );
-			CloseHandle( hFile );
+			CloseHandle( hStream );
 		}
 		//else
 		//	TRACE( "SaveGUID() : CreateFile \"%s\" error %d\n", sFilename, GetLastError() );
@@ -2963,11 +3017,11 @@ CLowerCaseTable::CLowerCaseTable()
 
 TCHAR CLowerCaseTable::operator()(TCHAR cLookup) const
 {
-	if ( cLookup >= 0 && cLookup <= 127 )
+	if ( cLookup < 128 )
 	{
 		// A..Z -> a..z
 		if ( cLookup >= _T('A') && cLookup <= _T('Z') )
-			return cLookup + 32;
+			return (TCHAR)( cLookup + 32 );
 		else
 			return cLookup;
 	}
@@ -2979,14 +3033,14 @@ CString& CLowerCaseTable::operator()(CString& strSource) const
 {
 	const int nLength = strSource.GetLength();
 	LPTSTR str = strSource.GetBuffer();
-	for ( register int i = 0; i < nLength; ++i, ++str )
+	for ( int i = 0; i < nLength; ++i, ++str )
 	{
-		register TCHAR cLookup = *str;
-		if ( cLookup >= 0 && cLookup <= 127 )
+		TCHAR cLookup = *str;
+		if ( cLookup < 128 )
 		{
 			// A..Z -> a..z
 			if ( cLookup >= _T('A') && cLookup <= _T('Z') )
-				*str = cLookup + 32;
+				*str = (TCHAR)( cLookup + 32 );
 		}
 		else
 			*str = cTable[ cLookup ];

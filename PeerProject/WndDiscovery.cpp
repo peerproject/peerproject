@@ -1,7 +1,7 @@
 //
 // WndDiscovery.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -43,6 +43,7 @@ BEGIN_MESSAGE_MAP(CDiscoveryWnd, CPanelWnd)
 	ON_WM_DESTROY()
 	ON_WM_SIZE()
 	ON_WM_TIMER()
+	ON_WM_CONTEXTMENU()
 	ON_NOTIFY(NM_DBLCLK, IDC_SERVICES, OnDblClkList)
 	ON_NOTIFY(LVN_COLUMNCLICK, IDC_SERVICES, OnSortList)
 	ON_UPDATE_COMMAND_UI(ID_DISCOVERY_QUERY, OnUpdateDiscoveryQuery)
@@ -52,7 +53,6 @@ BEGIN_MESSAGE_MAP(CDiscoveryWnd, CPanelWnd)
 	ON_COMMAND(ID_DISCOVERY_ADD, OnDiscoveryAdd)
 	ON_COMMAND(ID_DISCOVERY_EDIT, OnDiscoveryEdit)
 	ON_UPDATE_COMMAND_UI(ID_DISCOVERY_EDIT, OnUpdateDiscoveryEdit)
-	ON_WM_CONTEXTMENU()
 	ON_UPDATE_COMMAND_UI(ID_DISCOVERY_GNUTELLA, OnUpdateDiscoveryGnutella)
 	ON_COMMAND(ID_DISCOVERY_GNUTELLA, OnDiscoveryGnutella)
 	ON_UPDATE_COMMAND_UI(ID_DISCOVERY_WEBCACHE, OnUpdateDiscoveryWebcache)
@@ -248,7 +248,8 @@ CDiscoveryService* CDiscoveryWnd::GetItem(int nItem)
 	if ( nItem >= 0 && m_wndList.GetItemState( nItem, LVIS_SELECTED ) )
 	{
 		CDiscoveryService* pService = (CDiscoveryService*)m_wndList.GetItemData( nItem );
-		if ( DiscoveryServices.Check( pService ) ) return pService;
+		if ( DiscoveryServices.Check( pService ) )
+			return pService;
 	}
 
 	return NULL;
@@ -273,7 +274,8 @@ void CDiscoveryWnd::OnSize(UINT nType, int cx, int cy)
 
 void CDiscoveryWnd::OnTimer(UINT_PTR nIDEvent)
 {
-	if ( ( nIDEvent == 1 ) && ( IsPartiallyVisible() ) ) Update();
+	if ( ( nIDEvent == 1 ) && ( IsPartiallyVisible() ) )
+		Update();
 }
 
 void CDiscoveryWnd::OnDblClkList(NMHDR* /*pNMHDR*/, LRESULT* pResult)
@@ -291,6 +293,9 @@ void CDiscoveryWnd::OnSortList(NMHDR* pNotifyStruct, LRESULT *pResult)
 
 void CDiscoveryWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 {
+	if ( point.x == -1 && point.y == -1 ) 	// Keyboard fix
+		ClientToScreen( &point );
+
 	Skin.TrackPopupMenu( _T("CDiscoveryWnd"), point, ID_DISCOVERY_EDIT );
 }
 
@@ -409,8 +414,7 @@ void CDiscoveryWnd::OnUpdateDiscoveryEdit(CCmdUI* pCmdUI)
 void CDiscoveryWnd::OnDiscoveryEdit()
 {
 	CSingleLock pLock( &Network.m_pSection, FALSE );
-	if ( ! pLock.Lock( 250 ) )
-		return;
+	if ( ! pLock.Lock( 250 ) ) return;
 
 	CDiscoveryService* pService = GetItem( m_wndList.GetNextItem( -1, LVIS_SELECTED ) );
 	if ( ! pService ) return;
@@ -470,5 +474,6 @@ void CDiscoveryWnd::OnDiscoveryAdd()
 {
 	CDiscoveryServiceDlg dlg;
 
-	if ( dlg.DoModal() == IDOK ) Update();
+	if ( dlg.DoModal() == IDOK )
+		Update();
 }

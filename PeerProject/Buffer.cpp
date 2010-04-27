@@ -191,29 +191,35 @@ bool CBuffer::EnsureBuffer(const size_t nLength)
 		if ( m_nBuffer > 0x80000 && m_nLength + nLength < 0x40000 )
 		{
 			// Reallocate it to make it half as big
-			m_nBuffer = 0x40000;
-			m_pBuffer = (BYTE*)realloc( m_pBuffer, m_nBuffer ); // This may move the block, returning a different pointer
+			const DWORD nBuffer = 0x40000;
+			BYTE* pBuffer = (BYTE*)realloc( m_pBuffer, nBuffer ); // This may move the block, returning a different pointer
+			if ( ! pBuffer )
+				return true;	// Out of memory - original block is left unchanged. It's ok.
+
+			m_nBuffer = nBuffer;
+			m_pBuffer = pBuffer;
 		}
 		return true;
 	}
 
 	// Make m_nBuffer the size of what's written plus what's requested
-	m_nBuffer = m_nLength + static_cast< DWORD >( nLength );
+	DWORD nBuffer = m_nLength + static_cast< DWORD >( nLength );
 
 	// Round that up to the nearest multiple of 1024, or 1 KB
-	m_nBuffer = ( m_nBuffer + BLOCK_SIZE - 1 ) & BLOCK_MASK;
+	nBuffer = ( nBuffer + BLOCK_SIZE - 1 ) & BLOCK_MASK;
 
 	// Reallocate the memory block to this size
-	m_pBuffer = (BYTE*)realloc( m_pBuffer, m_nBuffer ); // May return a different pointer
+	BYTE* pBuffer = (BYTE*)realloc( m_pBuffer, nBuffer ); // May return a different pointer
+	if ( ! pBuffer )
+	{
+		// Out of memory - original block is left unchanged. Error.
+		theApp.Message( MSG_DEBUG, _T("Memory allocation error in CBuffer::EnsureBuffer()") );
+		return false;
+	}
 
-	// Memory allocation succeeded, new buffer created
-	if ( m_pBuffer ) return true;
-
-	// Out of memory
-	m_nLength = 0;
-	m_nBuffer = 0;
-	theApp.Message( MSG_ERROR, _T("Memory allocation error in CBuffer::EnsureBuffer()") );
-	return false;
+	m_nBuffer = nBuffer;
+	m_pBuffer = pBuffer;
+	return true;
 }
 
 // Convert Unicode text to ASCII and add it to the buffer
@@ -861,7 +867,6 @@ BOOL CBuffer::ReadDIME(
 	if ( *pIn++ != 0x00 ) return FALSE;
 
 	// Read nID, nType, and pnBody from the buffer, and move the pointer forward 8 bytes
-	ASSERT( pnBody != NULL ); // Make sure the caller gave us access to a DWORD to write the body length
 	WORD nID	= ( pIn[0] << 8 ) + pIn[1]; pIn += 2;
 	WORD nType	= ( pIn[0] << 8 ) + pIn[1]; pIn += 2;
 	*pnBody 	= ( pIn[0] << 24 ) + ( pIn[1] << 16 ) + ( pIn[2] << 8 ) + pIn[3]; // Write the body length in the DWORD from the caller
@@ -873,14 +878,12 @@ BOOL CBuffer::ReadDIME(
 		return FALSE;					// Make sure the buffer is big enough to skip this far forward
 
 	// Read psID, a GUID in hexadecimal encoding
-	ASSERT( psID != NULL );					// Make sure the caller gave us access to a string to write the guid in hexadecimal encoding
 	*psID = CString( reinterpret_cast< char* >( pIn ), nID );
-	pIn += ( nID + 3 ) & ~3;				// Move pIn forward beyond the psID text and align at 4 bytes
+	pIn += ( nID + 3 ) & ~3;			// Move pIn forward beyond the psID text and align at 4 bytes
 
 	// Read psType, a GUID in hexadecimal encoding
-	ASSERT( psType != NULL );				// Make sure the caller gave us access to a string to write the message body
 	*psType = CString( reinterpret_cast< char* >( pIn ), nType );
-	pIn += ( nType + 3 ) & ~3;				// Move pIn forward beyond the pszType text and align at 4 bytes
+	pIn += ( nType + 3 ) & ~3;			// Move pIn forward beyond the pszType text and align at 4 bytes
 
 	// Remove the first part of the DIME message from the buffer, and report success
 	Remove( nSkip );

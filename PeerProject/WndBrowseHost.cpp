@@ -184,6 +184,9 @@ void CBrowseHostWnd::OnSize(UINT nType, int cx, int cy)
 
 void CBrowseHostWnd::OnContextMenu(CWnd* pWnd, CPoint point)
 {
+	if ( point.x == -1 && point.y == -1 ) 	// Keyboard fix
+		ClientToScreen( &point );
+
 	if ( m_bContextMenu )
 		Skin.TrackPopupMenu( _T("CBrowseHostWnd"), point, ID_SEARCH_DOWNLOAD );
 	else

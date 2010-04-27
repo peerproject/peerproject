@@ -1,7 +1,7 @@
 //
 // WndSystem.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -41,10 +41,10 @@ BEGIN_MESSAGE_MAP(CSystemWnd, CPanelWnd)
 	ON_WM_CREATE()
 	ON_WM_TIMER()
 	ON_WM_SIZE()
+	ON_WM_DESTROY()
 	ON_WM_CONTEXTMENU()
 	ON_COMMAND(ID_SYSTEM_CLEAR, OnSystemClear)
 	ON_COMMAND(ID_SYSTEM_COPY, OnSystemCopy)
-	ON_WM_DESTROY()
 	ON_UPDATE_COMMAND_UI(ID_SYSTEM_VERBOSE_ERROR, OnUpdateSystemVerboseError)
 	ON_COMMAND(ID_SYSTEM_VERBOSE_ERROR, OnSystemVerboseError)
 	ON_UPDATE_COMMAND_UI(ID_SYSTEM_VERBOSE_WARNING, OnUpdateSystemVerboseWarning)
@@ -116,6 +116,9 @@ void CSystemWnd::OnSize(UINT nType, int cx, int cy)
 
 void CSystemWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 {
+	if ( point.x == -1 && point.y == -1 ) 	// Keyboard fix
+		ClientToScreen( &point );
+
 	Skin.TrackPopupMenu( _T("CSystemWnd"), point );
 }
 
