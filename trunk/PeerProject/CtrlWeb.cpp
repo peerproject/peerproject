@@ -1,7 +1,7 @@
 //
 // CtrlWeb.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -115,9 +115,7 @@ HRESULT CWebCtrl::Navigate(LPCTSTR lpszURL, DWORD dwFlags, LPCTSTR lpszTargetFra
 {
 	if ( m_pBrowser == NULL ) return E_UNEXPECTED;
 
-	CString strURL( lpszURL );
-	CComBSTR bstrURL;
-	bstrURL.Attach( strURL.AllocSysString() );
+	CComBSTR bstrURL( lpszURL );
 
 	COleSafeArray vPostData;
 	if ( lpvPostData != NULL )
@@ -310,7 +308,8 @@ void CWebCtrl::OnNewWindow2(LPDISPATCH* /*ppDisp*/, VARIANT_BOOL* pbCancel)
 
 	if ( m_bSandbox )
 	{
-		if ( GetTickCount() - m_tFrame > 1500 ) *pbCancel = VARIANT_TRUE;
+		if ( GetTickCount() - m_tFrame > 1500 )
+			*pbCancel = VARIANT_TRUE;
 	}
 }
 
@@ -332,7 +331,7 @@ CWebCtrl::DocSite::DocSite(CWebCtrl* pCtrl, COleControlContainer* pContainer) : 
 /////////////////////////////////////////////////////////////////////////////
 // CWebCtrl::DocSite IDocHostUIHandler
 
-IMPLEMENT_UNKNOWN(CWebCtrl::DocSite, DocHostUIHandler);
+IMPLEMENT_UNKNOWN(CWebCtrl::DocSite, DocHostUIHandler)
 
 STDMETHODIMP CWebCtrl::DocSite::XDocHostUIHandler::GetExternal(LPDISPATCH *lppDispatch)
 {
@@ -462,7 +461,7 @@ STDMETHODIMP CWebCtrl::DocSite::XDocHostUIHandler::FilterDataObject(LPDATAOBJECT
 /////////////////////////////////////////////////////////////////////////////
 // CWebCtrl::DocSite IDocHostShowUI
 
-IMPLEMENT_UNKNOWN(CWebCtrl::DocSite, DocHostShowUI);
+IMPLEMENT_UNKNOWN(CWebCtrl::DocSite, DocHostShowUI)
 
 STDMETHODIMP CWebCtrl::DocSite::XDocHostShowUI::ShowHelp(HWND /*hwnd*/, LPOLESTR /*pszHelpFile*/, UINT /*uCommand*/, DWORD /*dwData*/, POINT /*ptMouse*/, IDispatch* /*pDispatchObjectHit*/)
 {
@@ -481,7 +480,7 @@ STDMETHODIMP CWebCtrl::DocSite::XDocHostShowUI::ShowMessage(HWND /*hwnd*/, LPOLE
 /////////////////////////////////////////////////////////////////////////////
 // CWebCtrl::DocSite IServiceProvider
 
-IMPLEMENT_UNKNOWN(CWebCtrl::DocSite, ServiceProvider);
+IMPLEMENT_UNKNOWN(CWebCtrl::DocSite, ServiceProvider)
 
 STDMETHODIMP CWebCtrl::DocSite::XServiceProvider::QueryService(REFGUID guidService, REFIID riid, void **ppv)
 {
@@ -491,13 +490,9 @@ STDMETHODIMP CWebCtrl::DocSite::XServiceProvider::QueryService(REFGUID guidServi
 	if ( guidService == SID_SInternetSecurityManager && pCtrl->m_bSandbox )
 	{
 		if ( riid == IID_IInternetSecurityManager )
-		{
 			return pThis->ExternalQueryInterface( &riid, ppv );
-		}
 		else
-		{
 			return E_NOINTERFACE;
-		}
 	}
 	else
 	{
@@ -509,7 +504,7 @@ STDMETHODIMP CWebCtrl::DocSite::XServiceProvider::QueryService(REFGUID guidServi
 /////////////////////////////////////////////////////////////////////////////
 // CWebCtrl::DocSite IInternetSecurityManager
 
-IMPLEMENT_UNKNOWN(CWebCtrl::DocSite, InternetSecurityManager);
+IMPLEMENT_UNKNOWN(CWebCtrl::DocSite, InternetSecurityManager)
 
 STDMETHODIMP CWebCtrl::DocSite::XInternetSecurityManager::GetSecurityId(LPCWSTR /*pwszUrl*/, BYTE* /*pbSecurityId*/, DWORD* /*pcbSecurityId*/, DWORD_PTR /*dwReserved*/)
 {

@@ -1,7 +1,7 @@
 //
 // PageSettingsAdvanced.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -18,6 +18,8 @@
 // along with PeerProject; if not, write to Free Software Foundation, Inc.
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
+
+// Previously "PageSettingsTraffic.cpp"
 
 #include "StdAfx.h"
 #include "PeerProject.h"
@@ -37,8 +39,8 @@ IMPLEMENT_DYNCREATE(CAdvancedSettingsPage, CSettingsPage)
 BEGIN_MESSAGE_MAP(CAdvancedSettingsPage, CSettingsPage)
 	ON_WM_DESTROY()
 	ON_NOTIFY(LVN_ITEMCHANGED, IDC_PROPERTIES, OnItemChangedProperties)
-	ON_EN_CHANGE(IDC_VALUE, OnChangeValue)
 	ON_NOTIFY(LVN_COLUMNCLICK, IDC_PROPERTIES, OnColumnClickProperties)
+	ON_EN_CHANGE(IDC_VALUE, OnChangeValue)
 	ON_BN_CLICKED(IDC_DEFAULT_VALUE, OnBnClickedDefaultValue)
 END_MESSAGE_MAP()
 
@@ -309,7 +311,7 @@ CAdvancedSettingsPage::EditItem::EditItem(CSettings::Item* pItem) :
 	m_nOriginalValue( pItem->m_pDword ? *pItem->m_pDword : 0 ),
 	m_bOriginalValue( pItem->m_pBool ? *pItem->m_pBool : false ),
 	m_sName(  ( ! *pItem->m_szSection ||				// Settings.Name -> General.Name
-		! lstrcmp( pItem->m_szSection, L"Settings" ) )	// .Name -> General.Name
+		! lstrcmpi( pItem->m_szSection, L"Settings" ) )	// .Name -> General.Name
 		? L"General" : pItem->m_szSection )
 {
 	m_sName += L".";

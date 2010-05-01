@@ -1,7 +1,7 @@
 //
 // PageSettingsRich.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -37,41 +37,30 @@
 static char THIS_FILE[] = __FILE__;
 #endif
 
-IMPLEMENT_DYNCREATE(CRichSettingsPage, CSettingsPage)
+IMPLEMENT_DYNAMIC(CRichSettingsPage, CSettingsPage)
 
 BEGIN_MESSAGE_MAP(CRichSettingsPage, CSettingsPage)
 	//{{AFX_MSG_MAP(CRichSettingsPage)
-	//}}AFX_MSG_MAP
 	ON_NOTIFY(RVN_CLICK, IDC_RICH_VIEW, OnClickView)
+	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 
 /////////////////////////////////////////////////////////////////////////////
 // CRichSettingsPage property page
 
-CRichSettingsPage::CRichSettingsPage(LPCTSTR pszName) : CSettingsPage(CRichSettingsPage::IDD)
+CRichSettingsPage::CRichSettingsPage(LPCTSTR pszName)
+	: CSettingsPage(CRichSettingsPage::IDD, pszName )
+	, m_pDocument	( NULL )
 {
-	if ( pszName == NULL )
-		m_sName = GetRuntimeClass()->m_lpszClassName;
-	else
-		m_sName = pszName;
-
-	m_pDocument = NULL;
-
+	// Early caption load for settings tree items
 	if ( CXMLElement* pXML = Skin.GetDocument( m_sName ) )
-	{
 		m_sCaption = pXML->GetAttributeValue( _T("title"), m_sName );
-
-		m_pDocument = new CRichDocument();
-	//	m_pDocument->CreateFonts( Settings.Fonts.DefaultFont, Settings.Fonts.FontSize );
-		m_pDocument->m_crBackground = Colors.m_crDialog;
-		m_pDocument->LoadXML( pXML );
-	}
 }
 
 CRichSettingsPage::~CRichSettingsPage()
 {
-	if ( m_pDocument ) delete m_pDocument;
+	delete m_pDocument;
 }
 
 void CRichSettingsPage::DoDataExchange(CDataExchange* pDX)
@@ -88,17 +77,32 @@ BOOL CRichSettingsPage::OnInitDialog()
 {
 	CSettingsPage::OnInitDialog();
 
-	SetWindowText( m_sCaption );
-	Skin.Apply( m_sName, this );
-
-	m_pDocument->m_crBackground = Colors.m_crDialog;
-
 	CRect rc;
 	GetClientRect( &rc );
 	m_wndView.Create( WS_VISIBLE, rc, this, IDC_RICH_VIEW );
-	m_wndView.SetDocument( m_pDocument );
 
 	return TRUE;
+}
+
+void CRichSettingsPage::OnSkinChange()
+{
+	CSettingsPage::OnSkinChange();
+
+	if ( ! IsWindow( GetSafeHwnd() ) )
+		return;	// No created yet page
+
+	// (Re)Load document
+	if ( CXMLElement* pXML = Skin.GetDocument( m_sName ) )
+	{
+		m_sCaption = pXML->GetAttributeValue( _T("title"), m_sName );
+		SetWindowText( m_sCaption );
+
+		delete m_pDocument;
+		m_pDocument = new CRichDocument();
+		m_pDocument->LoadXML( pXML );
+		m_pDocument->m_crBackground = Colors.m_crDialog;
+		m_wndView.SetDocument( m_pDocument );
+	}
 }
 
 void CRichSettingsPage::OnClickView(NMHDR* pNotify, LRESULT* /*pResult*/)

@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <skin xmlns="http://schemas.peerproject.org/Skin.xsd" version="1.0">
 
 <!-- PeerProject Arabic Language Skin File -->
 
-<!-- Translation based on default-en.xml r52 -->
+<!-- Translation based on default-en.xml r54 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -517,7 +517,7 @@
 				<item id="ID_TOOLS_SKIN" text="تحديد غ_لاف..." />
 				<separator />
 				<item id="ID_TOOLS_PROFILE" text="تحرير _ملفي الخاص..." />
-    				<item id="ID_TOOLS_WIZARD" text="_معالج البدء السريع..." />
+				<item id="ID_TOOLS_WIZARD" text="_معالج البدء السريع..." />
 				<separator />
 				<item id="ID_TOOLS_SETTINGS" text="إ_عدادات PeerProject" />
 			</menu>
@@ -637,7 +637,7 @@
 		<item id="ID_TOOLS_LANGUAGE" text="تحديد _ اللغه..." />
 		<separator />
 		<item id="ID_TOOLS_PROFILE" text="تحرير _ملفي الخاص..." />
-    	<item id="ID_TOOLS_WIZARD" text="_معالج البدء السريع..." />
+		<item id="ID_TOOLS_WIZARD" text="_معالج البدء السريع..." />
 		<separator />
 		<item id="ID_TOOLS_SETTINGS" text="إ_عدادات PeerProject" />
 	</menu>
@@ -677,9 +677,9 @@
   		<item id="ID_NETWORK_CONNECT" text="_إتصال" shortcut="Ctrl+G" />
   		<separator />
   		<menu text="تحديد _الشبكات">
-    		<item id="ID_NETWORK_G2" text="_الإتصال بـ Gnutella2" />
-    		<item id="ID_NETWORK_G1" text="الإتصال بـ Gnutella_1" />
-    		<item id="ID_NETWORK_ED2K" text="_الإتصال بـ eDonkey2000" />
+		<item id="ID_NETWORK_G2" text="_الإتصال بـ Gnutella2" />
+		<item id="ID_NETWORK_G1" text="الإتصال بـ Gnutella_1" />
+		<item id="ID_NETWORK_ED2K" text="_الإتصال بـ eDonkey2000" />
 		</menu>
 		<separator />
 		<item id="ID_NETWORK_AUTO_CLOSE" text="الخروج عند إنتهاء _ نقل البيانات" />
@@ -1740,51 +1740,52 @@
 	</document>
 	<document name="CHomeConnectionBox" title="الإتصال" rightMargin="6" topMargin="6">
 		<styles>
-		  <style name="default">
-			<font size="11" />
-		  </style>
+			<style name="default">
+				<font size="11" />
+		 	</style>
 		</styles>
 		<para align="center">
-		<group id="1">
-			<text format="b">غير متصل</text>
-			<newline gap="4" />
-			<link target="peer:command:ID_NETWORK_CONNECT">اضغط هنا للإتصال</link>
-		</group>
-		<icon group="20" command="ID_NETWORK_G2" />
-		<gap group="20" size="4" />
-		<text group="20" align="middle" format="b">&#160;Gnutella2: </text>
-		<text group="21" align="middle">غير متصل</text>
-		<text group="22" align="middle">إتصال...</text>
-		<text group="23" align="middle">متصل</text>
-		<text group="24" align="middle" id="G2Hubs">%i محور</text>
-		<text group="25" align="middle" id="G2Leaves">%i فرع</text>
-		<newline group="20" gap="2" />
-		<icon group="10" command="ID_NETWORK_G1" />
-		<gap group="10" size="4" />
-		<text group="10" align="middle" format="b">&#160;Gnutella: </text>
-		<text group="11" align="middle">غير متصل</text>
-		<text group="12" align="middle">إتصال...</text>
-		<text group="13" align="middle">متصل</text>
-		<text group="14" align="middle" id="G1Hubs">%i محور</text>
-		<text group="15" align="middle" id="G1Leaves">%i فرع</text>
-		<newline group="10" gap="2" />
-		<icon group="30" command="ID_NETWORK_ED2K" />
-		<gap group="30" size="4" />
-		<text group="30" align="middle" format="b">&#160;eDonkey: </text>
-		<text group="31" align="middle">غير متصل</text>
-		<text group="32" align="middle">إتصال...</text>
-		<text group="33" align="middle">متصل</text>
-		<newline group="30" gap="2" />
-		<group id="2">
-		<para align="center">
-			<newline gap="6" />
-			<text>انت متصل لـ  </text>
-			<text id="ConnectedHours" format="b">%i </text>
-			<text>ساعة و </text>
-			<text id="ConnectedMinutes" format="b">%i </text>
-			<text>دقيقة</text>
+			<group id="1">
+				<text format="b">غير متصل</text>
+				<newline gap="4" />
+				<link target="peer:command:ID_NETWORK_CONNECT">اضغط هنا للإتصال</link>
+			</group>
+			<icon group="20" command="ID_NETWORK_G2" />
+			<gap group="20" size="4" />
+			<text group="20" align="middle" format="b">&#160;Gnutella2: </text>
+			<text group="21" align="middle">غير متصل</text>
+			<text group="22" align="middle">إتصال...</text>
+			<text group="23" align="middle">متصل</text>
+			<text group="24" align="middle" id="G2Hubs">%i محور</text>
+			<text group="25" align="middle" id="G2Leaves">%i فرع</text>
+			<newline group="20" gap="2" />
+			<icon group="10" command="ID_NETWORK_G1" />
+			<gap group="10" size="4" />
+			<text group="10" align="middle" format="b">&#160;Gnutella: </text>
+			<text group="11" align="middle">غير متصل</text>
+			<text group="12" align="middle">إتصال...</text>
+			<text group="13" align="middle">متصل</text>
+			<text group="14" align="middle" id="G1Hubs">%i محور</text>
+			<text group="15" align="middle" id="G1Leaves">%i فرع</text>
+			<newline group="10" gap="2" />
+			<icon group="30" command="ID_NETWORK_ED2K" />
+			<gap group="30" size="4" />
+			<text group="30" align="middle" format="b">&#160;eDonkey: </text>
+			<text group="31" align="middle">غير متصل</text>
+			<text group="32" align="middle">إتصال...</text>
+			<text group="33" align="middle">متصل</text>
+			<newline group="30" gap="2" />
+			<group id="2">
+			<para align="center">
+				<newline gap="6" />
+				<text>انت متصل لـ  </text>
+				<text id="ConnectedHours" format="b">%i </text>
+				<text>ساعة و </text>
+				<text id="ConnectedMinutes" format="b">%i </text>
+				<text>دقيقة</text>
+			</para>
+			</group>
 		</para>
-		</group>
 	</document>
 	<document name="CHomeLibraryBox" title="مكتبتي الخاصة" rightMargin="6" topMargin="6">
 		<styles>
@@ -1885,6 +1886,9 @@
 		<link target="peer:page:CCommunitySettingsPage" format="b">المنتديات:</link> <gap size="4" />
 		<text>ملف الإعدادات الخاص بك و مراسله منتدى الدعم الفني</text>
 		<newline gap="10" />
+		<link target="peer:page:CRemoteSettingsPage" format="b">التحكم عن بعد:</link> <gap size="4" />
+		<text>عملية القدرة للتحكم بالبرنامج عن بعد من خلال المتصفح الخاص بك</text>
+		<newline gap="10" />
 		<link target="peer:page:CWebSettingsPage" format="b">الانترنت:</link> <gap size="4" />
 		<text>إندماج هذا البرنامج مع متصفحك لقبول إرتباطات النظير إلى النظير و من ثم تحميل المحتوى</text>
 	</document>
@@ -1904,368 +1908,365 @@
 		<link target="peer:page:CUploadsSettingsPage" format="b">رفع الملفات:</link> <gap size="4" />
 		<text>قدرة عملية الرفع و قائمة الإنتظار و الخظر و المهلة الوقتية و طلبات خاصة</text>
 		<newline gap="10" />
-		<link target="peer:page:CRemoteSettingsPage" format="b">التحكم عن بعد:</link> <gap size="4" />
-		<text>عملية القدرة للتحكم بالبرنامج عن بعد من خلال المتصفح الخاص بك</text>
-		<newline gap="10" />
 		<link target="peer:page:CSchedulerSettingsPage" format="b">Scheduler:</link> <gap size="4"/>
 		<text>Limit bandwidth on a periodic schedule.</text>
 	</document>
 	<!--تصفح وضعية المستخدم-->
 	<document name="CBrowseHostProfile.1">
-	<heading id="اللقب" />
-	<heading>ملفي الخاص</heading>
-	<newline gap="8" />
-	<group id="1">
-		<newline gap="8" indent="0" />
-		<text format="b">الاسم</text>
-		<newline gap="2" indent="8" />
-		<text id="الإسم بالكامل" />
-	</group>
-	<group id="2">
-		<newline gap="8" indent="0" />
-		<text format="b">الموقع</text>
-		<newline gap="2" indent="8" />
-		<text id="FullLocation" />
-	</group>
-	<group id="3">
-		<newline gap="8" indent="0" />
-		<text format="b">Demographic</text>
-		<newline gap="2" indent="8" />
-		<text id="GenderMale">ذكر</text>
-		<text id="GenderFemale">أنثى</text>
-		<text>, </text>
-		<text id="العمر" />
-	</group>
-	<group id="4">
-		<newline gap="8" indent="0" />
-		<text format="b">معلومات الإتصال</text>
-		<newline gap="1" indent="8" />
-	</group>
-	<group id="40">
-		<newline gap="1" />
-		<icon res="265" />
-		<gap size="5" />
-		<link id="ContactEmail" align="الأوسط" />
-	</group>
-	<group id="44">
-		<newline gap="1" />
-		<icon res="1008" />
-		<gap size="5" />
-		<link id="ContactMSN" />
-	</group>
-	<group id="41">
-		<newline gap="1" />
-		<icon res="206" />
-		<gap size="5" />
-		<link id="ContactYahoo" />
-	</group>
-	<group id="42">
-		<newline gap="1" />
-		<icon res="208" />
-		<gap size="5" />
-		<link id="ContactICQ" />
-	</group>
-	<group id="43">
-		<newline gap="1" />
-		<icon res="207" />
-		<gap size="5" />
-		<link id="ContactAOL" />
-	</group>
-	<group id="45">
-		<newline gap="1" />
-		<icon res="207" />
-		<gap size="5" />
-		<link id="ContactJabber" />
-	</group>
-	<group id="5">
-		<newline gap="8" indent="0" />
-		<text format="b">الإهتمامات</text>
-		<newline gap="2" indent="8" />
-		<text id="الإهتمامات" />
-	</group>
-	<group id="6">
-		<newline gap="8" indent="0" />
-		<text format="b">نبذة عنك</text>
-		<newline gap="2" indent="8" />
-		<text id="BioText" />
-	</group>
+		<heading id="اللقب" />
+		<heading>ملفي الخاص</heading>
+		<newline gap="8" />
+		<group id="1">
+			<newline gap="8" indent="0" />
+			<text format="b">الاسم</text>
+			<newline gap="2" indent="8" />
+			<text id="الإسم بالكامل" />
+		</group>
+		<group id="2">
+			<newline gap="8" indent="0" />
+			<text format="b">الموقع</text>
+			<newline gap="2" indent="8" />
+			<text id="FullLocation" />
+		</group>
+		<group id="3">
+			<newline gap="8" indent="0" />
+			<text format="b">Demographic</text>
+			<newline gap="2" indent="8" />
+			<text id="GenderMale">ذكر</text>
+			<text id="GenderFemale">أنثى</text>
+			<text>, </text>
+			<text id="العمر" />
+		</group>
+		<group id="4">
+			<newline gap="8" indent="0" />
+			<text format="b">معلومات الإتصال</text>
+			<newline gap="1" indent="8" />
+		</group>
+		<group id="40">
+			<newline gap="1" />
+			<icon res="265" />
+			<gap size="5" />
+			<link id="ContactEmail" align="الأوسط" />
+		</group>
+		<group id="44">
+			<newline gap="1" />
+			<icon res="1008" />
+			<gap size="5" />
+			<link id="ContactMSN" />
+		</group>
+		<group id="41">
+			<newline gap="1" />
+			<icon res="206" />
+			<gap size="5" />
+			<link id="ContactYahoo" />
+		</group>
+		<group id="42">
+			<newline gap="1" />
+			<icon res="208" />
+			<gap size="5" />
+			<link id="ContactICQ" />
+		</group>
+		<group id="43">
+			<newline gap="1" />
+			<icon res="207" />
+			<gap size="5" />
+			<link id="ContactAOL" />
+		</group>
+		<group id="45">
+			<newline gap="1" />
+			<icon res="207" />
+			<gap size="5" />
+			<link id="ContactJabber" />
+		</group>
+		<group id="5">
+			<newline gap="8" indent="0" />
+			<text format="b">الإهتمامات</text>
+			<newline gap="2" indent="8" />
+			<text id="الإهتمامات" />
+		</group>
+		<group id="6">
+			<newline gap="8" indent="0" />
+			<text format="b">نبذة عنك</text>
+			<newline gap="2" indent="8" />
+			<text id="BioText" />
+		</group>
 	</document>
 	<document name="CBrowseHostProfile.2">
-	<newline gap="40" indent="0" />
-	<text format="b">ملفات المشاركة</text>
-	<newline gap="4" indent="8" />
-	<icon res="137" target="peer:command:ID_BROWSE_FILES" />
-	<link target="peer:command:ID_BROWSE_FILES" align="middle">عرض الملفات المشاركة</link>
-	<group id="2">
-		<newline gap="16" indent="0" />
-		<text format="b">المنتديات</text>
+		<newline gap="40" indent="0" />
+		<text format="b">ملفات المشاركة</text>
 		<newline gap="4" indent="8" />
-		<icon res="140" target="peer:command:ID_SEARCH_CHAT" />
-		<gap size="5" />
-		<link target="peer:command:ID_SEARCH_CHAT" align="middle">محادثة المستخدم</link>
-	</group>
-	<group id="3">
+		<icon res="137" target="peer:command:ID_BROWSE_FILES" />
+		<link target="peer:command:ID_BROWSE_FILES" align="middle">عرض الملفات المشاركة</link>
+		<group id="2">
+			<newline gap="16" indent="0" />
+			<text format="b">المنتديات</text>
+			<newline gap="4" indent="8" />
+			<icon res="140" target="peer:command:ID_SEARCH_CHAT" />
+			<gap size="5" />
+			<link target="peer:command:ID_SEARCH_CHAT" align="middle">محادثة المستخدم</link>
+		</group>
+		<group id="3">
+			<newline gap="16" indent="0" />
+			<text format="b">المفضلة</text>
+			<newline gap="4" indent="8" id="العلامات" />
+		</group>
 		<newline gap="16" indent="0" />
-		<text format="b">المفضلة</text>
-		<newline gap="4" indent="8" id="العلامات" />
-	</group>
-	<newline gap="16" indent="0" />
 	</document>
 	<!-- Download help documents -->
 	<document name="DownloadHelp.Select">
-	<text format="b">منطقة التحميل</text>
-	<newline gap="8" />
-	<text>هذا هو مكان الملفات المحملة حاليا حيث يتم عرضها . يمكنك عرض
-		المصادر الفردية بتوسيع كل ملف بالعلامة + الصغيرة على اليسار</text>
-	<newline gap="8" />
-	<text>يمكنك أيضا أن تستعمل هذا الأمر للحصول على معلومات تساعد على تحميل معين
-		ببساطة حدد ملف ما ثم إختر هذا الأمر ثانية</text>
+		<text format="b">منطقة التحميل</text>
+		<newline gap="8" />
+		<text>هذا هو مكان الملفات المحملة حاليا حيث يتم عرضها . يمكنك عرض
+			المصادر الفردية بتوسيع كل ملف بالعلامة + الصغيرة على اليسار</text>
+		<newline gap="8" />
+		<text>يمكنك أيضا أن تستعمل هذا الأمر للحصول على معلومات تساعد على تحميل معين
+			ببساطة حدد ملف ما ثم إختر هذا الأمر ثانية</text>
 	</document>
 	<document name="DownloadHelp.Completed">
-	<text format="b">هذا التحميل أكتمل</text>
-	<newline gap="8" />
-	<text>لقد تم تحميل هذا الملف و تم التحقق من صحته
-		100% . كما تم نقله أيضا إلى مجلد التحميلات</text>
+		<text format="b">هذا التحميل أكتمل</text>
+		<newline gap="8" />
+		<text>لقد تم تحميل هذا الملف و تم التحقق من صحته
+			100% . كما تم نقله أيضا إلى مجلد التحميلات</text>
 	</document>
 	<document name="DownloadHelp.Moving">
-	<text format="b">هذا التحميل يتحرك</text>
-	<newline gap="8" />
-	<text>لقد تم تحميل هذا الملف و تم التحقق من صحته
-		100% . كما تم نقله حاليا أو فك حزمه أو بهما معا إلى مجلد التحميلات</text>
+		<text format="b">هذا التحميل يتحرك</text>
+		<newline gap="8" />
+		<text>لقد تم تحميل هذا الملف و تم التحقق من صحته
+			100% . كما تم نقله حاليا أو فك حزمه أو بهما معا إلى مجلد التحميلات</text>
 	</document>
 	<document name="DownloadHelp.Paused">
-	<text format="b">هذا التحميل متوقّف</text>
-	<newline gap="8" />
-	<text>أوقفت هذا التحميل مؤقتا . إذا تريده إستئناف التحميل ، أنقر
-		على '</text>
-	<text format="b">إستئناف التحميل</text>
-	<text>' الأمر</text>
+		<text format="b">هذا التحميل متوقّف</text>
+		<newline gap="8" />
+		<text>أوقفت هذا التحميل مؤقتا . إذا تريده إستئناف التحميل ، أنقر
+			على '</text>
+		<text format="b">إستئناف التحميل</text>
+		<text>' الأمر</text>
 	</document>
 	<document name="DownloadHelp.DiskFull">
-	<text format="b">القرص ممتلئ</text>
-	<newline gap="8" />
-	<text>قام PeerProject بإيقاف هذا التحميل مؤقتا آليا لأن القرص الصلب
-		يبدو أنه ممتلئ أو لا يمكن نسخ ملف التحميل إليه . إذا تريد
-		للإستمرار بالتحميل ، الرجاء إفراغ بعض المساحة من قرصك الصلب و/أو دقق
-		للتأكد من أن مجلد الملف الناقص قابل للوصول و بعد ذلك استأنف
-		التحميل</text>
+		<text format="b">القرص ممتلئ</text>
+		<newline gap="8" />
+		<text>قام PeerProject بإيقاف هذا التحميل مؤقتا آليا لأن القرص الصلب
+			يبدو أنه ممتلئ أو لا يمكن نسخ ملف التحميل إليه . إذا تريد
+			للإستمرار بالتحميل ، الرجاء إفراغ بعض المساحة من قرصك الصلب و/أو دقق
+			للتأكد من أن مجلد الملف الناقص قابل للوصول و بعد ذلك استأنف
+			التحميل</text>
 	</document>
 	<document name="DownloadHelp.Verifying">
-	<text format="b">هذا التحميل يحقّق</text>
-	<newline gap="8" />
-	<text>هذا التحميل أنتهى و شير-أزا يدققه الآن لضمان
-		أنه مضبوط تماما مثل الملف الأصلي . إذا يوجد أي أجزاء متضررة
-		سيصلحها شير-أزا آليا</text>
+		<text format="b">هذا التحميل يحقّق</text>
+		<newline gap="8" />
+		<text>هذا التحميل أنتهى و شير-أزا يدققه الآن لضمان
+			أنه مضبوط تماما مثل الملف الأصلي . إذا يوجد أي أجزاء متضررة
+			سيصلحها شير-أزا آليا</text>
 	</document>
 	<document name="DownloadHelp.Downloading">
-	<text format="b">هذا التحميل نشيط!</text>
-	<newline gap="8" />
-	<text>هذا التحميل حاليا مستمر . إذا كان تحميله بطيئ جدا ,
-		فيمكن أن تحاول البحث في الشبكة عن مصادر أكثر مع الأمر '</text>
-	<text format="b">البحث عن مصادر أخرى</text>
-	<text>' . إذا كانت السرعة ليس لها مفعول معه
-		فقد يكون بسبب قيود سرعة الإرسال للمستخدمين الذين تحمل منهم
-		علما أن التحميل تزيد سرعته عادة مع مرور الوقت</text>
+		<text format="b">هذا التحميل نشيط!</text>
+		<newline gap="8" />
+		<text>هذا التحميل حاليا مستمر . إذا كان تحميله بطيئ جدا ,
+			فيمكن أن تحاول البحث في الشبكة عن مصادر أكثر مع الأمر '</text>
+		<text format="b">البحث عن مصادر أخرى</text>
+		<text>' . إذا كانت السرعة ليس لها مفعول معه
+			فقد يكون بسبب قيود سرعة الإرسال للمستخدمين الذين تحمل منهم
+			علما أن التحميل تزيد سرعته عادة مع مرور الوقت</text>
 	</document>
 	<document name="DownloadHelp.Pending">
-	<text format="b">هذا التحميل معلق</text>
-	<newline gap="8" />
-	<text>هذا التحميل ينتظر شخص ما للبدء بالإرسال
-		شير-أزا مستعد للبدء بتحميل هذا الملف ، لكن لا أحد يرسله حاليا
-		يمكنك أن تنتظر التحميل من قوائم مستخدم آخر و من ثم قد يبدأ التحميل
-		في أي وقت كان . يمكنك أن تفحص المصادر الفردية لمشاهدة كل
-		قائمة إنتظار أنت تنتظر التحميل منها . إذا كنت تشارك في الملفات بنفسك فلديك
-		فرصة لتحسين بدء النقل للتحميل بسرعة</text>
+		<text format="b">هذا التحميل معلق</text>
+		<newline gap="8" />
+		<text>هذا التحميل ينتظر شخص ما للبدء بالإرسال
+			شير-أزا مستعد للبدء بتحميل هذا الملف ، لكن لا أحد يرسله حاليا
+			يمكنك أن تنتظر التحميل من قوائم مستخدم آخر و من ثم قد يبدأ التحميل
+			في أي وقت كان . يمكنك أن تفحص المصادر الفردية لمشاهدة كل
+			قائمة إنتظار أنت تنتظر التحميل منها . إذا كنت تشارك في الملفات بنفسك فلديك
+			فرصة لتحسين بدء النقل للتحميل بسرعة</text>
 	</document>
 	<document name="DownloadHelp.Queued">
-	<text format="b">هذا التحميل في قائمة الإنتظار</text>
-	<newline gap="8" />
-	<text>هذا التحميل ينتظر بعض من تحميلاتك الأخرى أن تكتمل
-		إن إعدادات تحميلك تحدد عدد الملفات المحملة و التي قد تكون نشطة في
-		أي وقت معطى ، لكي تضمن أن تحصل كل تحميله على حصة جيدة من
-		الموجة المتوفرة . يمكن أن تغير هذه الإعدادات عن طريق الأدوات ، إعدادات
-		و بدلا عن ذلك أنت قد تبدأ هذا التحميل يدويا بالأمر إستئناف</text>
+		<text format="b">هذا التحميل في قائمة الإنتظار</text>
+		<newline gap="8" />
+		<text>هذا التحميل ينتظر بعض من تحميلاتك الأخرى أن تكتمل
+			إن إعدادات تحميلك تحدد عدد الملفات المحملة و التي قد تكون نشطة في
+			أي وقت معطى ، لكي تضمن أن تحصل كل تحميله على حصة جيدة من
+			الموجة المتوفرة . يمكن أن تغير هذه الإعدادات عن طريق الأدوات ، إعدادات
+			و بدلا عن ذلك أنت قد تبدأ هذا التحميل يدويا بالأمر إستئناف</text>
 	</document>
 	<document name="DownloadHelp.Searching">
-	<text format="b">هذا التحميل في البحث</text>
-	<newline gap="8" />
-	<text>لا يوجد هناك مصادر معروفة لهذا التحميل ، لذا يبحث شير-أزا
-		عن مصادر جديدة . عند العثور على مصادر P2P في جميع شبكات
-		سيبدأ التحميل آليا . شير-أزا يبحث عن المصادر آليا ،
-		و رغم ذلك يمكنك تسريع العملية ياستخدام</text>
-	<text format="b">الأمر</text>
-	<text>البحث عن مصادر أخرى</text>
-	<newline gap="8" />
-	<text>لسوء الحظ في كثير من الأحيان قد لا يكون هناك مستعملين على الإنترنت عندهم
-		ما تبحث عنه . لذا فالطريقة الوحيدة هنا هي أن تنتظر
-		شخص ما للمجيء على الإنترنت ، أو إلغائه و محاولة إيجاد ملف مماثل يكون
-		متوفرا أكثر من الأول</text>
+		<text format="b">هذا التحميل في البحث</text>
+		<newline gap="8" />
+		<text>لا يوجد هناك مصادر معروفة لهذا التحميل ، لذا يبحث شير-أزا
+			عن مصادر جديدة . عند العثور على مصادر P2P في جميع شبكات
+			سيبدأ التحميل آليا . شير-أزا يبحث عن المصادر آليا ،
+			و رغم ذلك يمكنك تسريع العملية ياستخدام</text>
+		<text format="b">الأمر</text>
+		<text>البحث عن مصادر أخرى</text>
+		<newline gap="8" />
+		<text>لسوء الحظ في كثير من الأحيان قد لا يكون هناك مستعملين على الإنترنت عندهم
+			ما تبحث عنه . لذا فالطريقة الوحيدة هنا هي أن تنتظر
+			شخص ما للمجيء على الإنترنت ، أو إلغائه و محاولة إيجاد ملف مماثل يكون
+			متوفرا أكثر من الأول</text>
 	</document>
 	<document name="DownloadHelp.Creating">
-	<text format="b">هذا التحميل تحت الإنشاء</text>
-	<newline gap="8" />
-	<text>يقوم شير-أزا بتخصيص مكان لتخزين هذا التحميل مسبقا ، من أجل
-		توفير الوقت فيما بعد</text>
+		<text format="b">هذا التحميل تحت الإنشاء</text>
+		<newline gap="8" />
+		<text>يقوم شير-أزا بتخصيص مكان لتخزين هذا التحميل مسبقا ، من أجل
+			توفير الوقت فيما بعد</text>
 	</document>
 	<document name="DownloadHelp.Tracker">
-	<text format="b">ملقم التعقب لـ BitTorrent منهار</text>
-	<newline gap="8" />
-	<text>يبدو أن ملقم التعقب لـ بيت-تورينت لهذا التحميل
-		منهار أو معطل . شير-أزا غير قادر على الإتصال به لإستلام
-		قائمة نظائر أدوات التحميل</text>
+		<text format="b">ملقم التعقب لـ BitTorrent منهار</text>
+		<newline gap="8" />
+		<text>يبدو أن ملقم التعقب لـ بيت-تورينت لهذا التحميل
+			منهار أو معطل . شير-أزا غير قادر على الإتصال به لإستلام
+			قائمة نظائر أدوات التحميل</text>
 	</document>
 	<!-- Upload help documents -->
 	<document name="UploadHelp">
-	<text format="b">منطقة رفع الملفات</text>
-	<newline gap="8" />
-	<text>هذا هو المكان حيث يتم عرض قوائم الإنتزار و الإرسال . يمكنك أن توسع كل قائمة
-		بواسطة + الصغير على اليسار و قم بفرز المعروض بواسطة الزر على
-		اليمين لشريط أدوات النافذة</text>
+		<text format="b">منطقة رفع الملفات</text>
+		<newline gap="8" />
+		<text>هذا هو المكان حيث يتم عرض قوائم الإنتزار و الإرسال . يمكنك أن توسع كل قائمة
+			بواسطة + الصغير على اليسار و قم بفرز المعروض بواسطة الزر على
+			اليمين لشريط أدوات النافذة</text>
 	</document>
 	<!-- General help documents -->
 	<document name="GeneralHelp.DiskSpace">
-	<text format="b">مساحة القرص منخفضة</text>
-	<newline gap="8" />
-	<text>إن المساحة الحرة في أحد الأقراص أو غيرها من الأقراص الأخرى و المستعملة من قبل شير-أزا منخفضة</text>
-	<newline gap="8" />
-	<text>يجب أن تحاول دائما إبقاء كمية معقولة من سعة القرص حرة. البرامج
-		قد تصبح غير مستقرة إذا كانت الأقراص ممتلئة ، و قد تفقد الملفات المؤقتة . يجب أن
-		تقوم بتشغيل منظف الأقراص و حذف الملفات الغير مرغوبة أو حذف البرامج التي لا تحتاجها</text>
+		<text format="b">مساحة القرص منخفضة</text>
+		<newline gap="8" />
+		<text>إن المساحة الحرة في أحد الأقراص أو غيرها من الأقراص الأخرى و المستعملة من قبل شير-أزا منخفضة</text>
+		<newline gap="8" />
+		<text>يجب أن تحاول دائما إبقاء كمية معقولة من سعة القرص حرة. البرامج
+			قد تصبح غير مستقرة إذا كانت الأقراص ممتلئة ، و قد تفقد الملفات المؤقتة . يجب أن
+			تقوم بتشغيل منظف الأقراص و حذف الملفات الغير مرغوبة أو حذف البرامج التي لا تحتاجها</text>
 	</document>
 	<document name="GeneralHelp.DiskWriteFail">
-	<text format="b">المجلد المطلوب غير قابل للكتابة</text>
-	<newline gap="8" />
-	<text>لم يتمكن شير-أزا من الكتابة على قرص أو دليل المطلوب</text>
-	<newline gap="8" />
-	<text>ربما تم فصل قرص الشبكة أو ربما لا يوجد لديك إذن بالكتابة
-		إلى الدليل المحدد . الرجاء عمل تدقيق للأدلة و للرخص ، أو قم بتغيير
-		موقع الملفات المؤقتة</text>
+		<text format="b">المجلد المطلوب غير قابل للكتابة</text>
+		<newline gap="8" />
+		<text>لم يتمكن شير-أزا من الكتابة على قرص أو دليل المطلوب</text>
+		<newline gap="8" />
+		<text>ربما تم فصل قرص الشبكة أو ربما لا يوجد لديك إذن بالكتابة
+			إلى الدليل المحدد . الرجاء عمل تدقيق للأدلة و للرخص ، أو قم بتغيير
+			موقع الملفات المؤقتة</text>
 	</document>
 	<document name="GeneralHelp.ConnectionFail">
-	<text format="b">ضاع الإتصال بالإنترنت</text>
-	<newline gap="8" />
-	<text>الويندوز يفيد بأنه ليس هناك إتصال متوفر بالإنترنت</text>
-	<newline gap="8" />
-	<text>يبدو أن المودم أو جهاز التوجيه فيه مشكلة بمعنى أنه لا يمكن دخول الإنترنت
-		ربما يلزمك أن تعاود الإتصال يدويا أو إعادة إعدادات الإتصال</text>
-	<newline gap="8" />
-	<text>تم تعليق الإتصال مؤقتا من قبل شير-أزا تجنبا لفقد جميع المضيفين المخزنين بشكل وقتي</text>
+		<text format="b">ضاع الإتصال بالإنترنت</text>
+		<newline gap="8" />
+		<text>الويندوز يفيد بأنه ليس هناك إتصال متوفر بالإنترنت</text>
+		<newline gap="8" />
+		<text>يبدو أن المودم أو جهاز التوجيه فيه مشكلة بمعنى أنه لا يمكن دخول الإنترنت
+			ربما يلزمك أن تعاود الإتصال يدويا أو إعادة إعدادات الإتصال</text>
+		<newline gap="8" />
+		<text>تم تعليق الإتصال مؤقتا من قبل شير-أزا تجنبا لفقد جميع المضيفين المخزنين بشكل وقتي</text>
 	</document>
 	<document name="GeneralHelp.AdultFilter">
-	<text format="b">تم تمكين مرشح محتوى البالغين</text>
-	<newline gap="8" />
-	<text>الرجاء ملاحظة أنه (كما هو الحال مع أي مرشح آلي) قد لا يكون مؤثرا 100% في
-		غربلة المحتوى . فهو مصمم ببساطة لفرز النتائج الغير مرغوبة الفائضة ، بدلا من
-		كتلة آمنة 100%</text>
-	<newline gap="8" />
-	<text>إستعمال الإنترنت للأطفال (متضمنا مشاركة الملفات) يجب دائما أن يكون تحت الإشراف الأبوي</text>
+		<text format="b">تم تمكين مرشح محتوى البالغين</text>
+		<newline gap="8" />
+		<text>الرجاء ملاحظة أنه (كما هو الحال مع أي مرشح آلي) قد لا يكون مؤثرا 100% في
+			غربلة المحتوى . فهو مصمم ببساطة لفرز النتائج الغير مرغوبة الفائضة ، بدلا من
+			كتلة آمنة 100%</text>
+		<newline gap="8" />
+		<text>إستعمال الإنترنت للأطفال (متضمنا مشاركة الملفات) يجب دائما أن يكون تحت الإشراف الأبوي</text>
 	</document>
 	<document name="GeneralHelp.BadTorrentEncoding">
-	<text format="b">يبدو ان ملف تورينت هذا فيه خطأ بالترميز</text>
-	<newline gap="8" />
-	<text>أظهر الويندوز عيب بالترجمة أثناء فك ترميز النص في ملف التورينت هذا . قد
-		يكون الملف تالفا ، أو تم فك تشفيره بشكل غير صحيح . بالإمكان تحميل
-		بشكل صحيح ، من ناحية أخرى قد تكون بعض أسماء الملفات غير صحيحة</text>
-	<newline gap="8" />
-	<text>أكثر برامج إنشاء تورينت يجب أن تسمح لك بتصليح هذا الترورينت ، بحيث
-		تضمن عمله بشكل صحيح في كل تطبيقات بيتورينت</text>
-	<newline gap="8" />
-	<link target="http://peerproject.org/help/?torrentencoding">انقر هنا لتعليمات إضافية</link>
-	<text>، أو لتحميل برنامج لتصليح التورينت</text>
+		<text format="b">يبدو ان ملف تورينت هذا فيه خطأ بالترميز</text>
+		<newline gap="8" />
+		<text>أظهر الويندوز عيب بالترجمة أثناء فك ترميز النص في ملف التورينت هذا . قد
+			يكون الملف تالفا ، أو تم فك تشفيره بشكل غير صحيح . بالإمكان تحميل
+			بشكل صحيح ، من ناحية أخرى قد تكون بعض أسماء الملفات غير صحيحة</text>
+		<newline gap="8" />
+		<text>أكثر برامج إنشاء تورينت يجب أن تسمح لك بتصليح هذا الترورينت ، بحيث
+			تضمن عمله بشكل صحيح في كل تطبيقات بيتورينت</text>
+		<newline gap="8" />
+		<link target="http://peerproject.org/help/?torrentencoding">انقر هنا لتعليمات إضافية</link>
+		<text>، أو لتحميل برنامج لتصليح التورينت</text>
 	</document>
 	<document name="GeneralHelp.DonkeyServerList">
-	<text format="b">فارغة eDonkey قائمتك لملقم</text>
-	<newline gap="8" />
-	<text>تحتاج لتحميل . eDonkey لا يوجد هناك ملقمات في قائمتك لملقم
-		ED2K للإتصال إلى (met قائمة ملقم حديثة (ملف</text>
-	<newline gap="8" />
-	<text>أو ed2k يمكنك تحميل قائمة الملقم من صفحة إعداد
-		نافذة خدمات الإستكشاف (أضغط إف-9 لفتح نافذة خدمات الإكتشاف) ـ</text>
+		<text format="b">فارغة eDonkey قائمتك لملقم</text>
+		<newline gap="8" />
+		<text>تحتاج لتحميل . eDonkey لا يوجد هناك ملقمات في قائمتك لملقم
+			ED2K للإتصال إلى (met قائمة ملقم حديثة (ملف</text>
+		<newline gap="8" />
+		<text>أو ed2k يمكنك تحميل قائمة الملقم من صفحة إعداد
+			نافذة خدمات الإستكشاف (أضغط إف-9 لفتح نافذة خدمات الإكتشاف) ـ</text>
 	</document>
 	<document name="GeneralHelp.UploadWarning">
-	<text format="b">إن تحديد عمليات الإرسال أو الرفع قد تبطئ التحميلات</text>
-	<newline gap="8" />
-	<text>العديد من الشبكات التي يتصل بها شير-أزا تفرض النسب ، ضع حدا للعملاء
-		الذي لا يشاركون ، أو ببساطة التفضيل للإرسال يكون لمشاركين معروفين</text>
-	<newline />
-	<text>كخطين سريعين DSL لحسن الحظ ، إتصالات
-		يجب فصل التخصيص للارسال و للتحميل . إذا كان التابع لديك مكون بشكل صحيح ،
-		فستكون قادرا على الإرسال بنسبة جيدة في حين تحتفظ بقدرة تحميل كاملة</text>
-	<newline gap="8" />
-	<text>إفتراضيا ، تم وضع إرسالك إلى حوالي 85% من تدفق نطاق العرض المتوفر ،
-		علما أن التحميل غير محدود . التكوين يجب أن يعطيك أسرع تحميل
-		ممكن يكون متوفر</text>
-  </document>
-  <!--البحث في وثائق التعليمات-->
-  <document name="SearchHelp.BadSearch1">
-	<text format="b">الرجاء إعادة كتابة عبارة البحث</text>
-	<newline gap="8" />
-	<text>هذا البحث مكتوب بشكل سيئ و قد لا يفيد في النتائج
-	عمليات البحث يجب أن تتضمن عدة شروط و يجب أن يتم
-	تعيين نوع الملف . علاوة على ذلك ، عمليات بحث لا يجب أن
-	تحتوى أرقام و يجب أن تتفادى الإستفسارات العامة</text>
-	<newline gap="8" />
-	<text>أغلب التوابع على الشبكة تتجاهل البحث عن جميع
-	لأنها ليست مميزة بما فيه الكفاية و تولد الكثير من النتائج MP3 ملفات</text>
-  </document>
-  <document name="SearchHelp.BadSearch2">
-	<text format="b">الرجاء إعادة كتابة عبارة البحث</text>
-	<newline gap="8" />
-	<text>هذا البحث لا يحتوي شروط كافية . جميع عمليات البحث تحتاج
-	 إلى أقل عدد من الرموز الحرفية للعثور على نتائج لها</text>
-	<newline gap="8" />
-	<text>للبحث عن إمتدادات الملفات المشتركة
-	 (و الأعداد) يجب
-	أن تدخل شروط أخرى أيضا مثل الفواصل و علامات التنقيط و كلمات البدل</text>
-  </document>
-  <document name="SearchHelp.BadSearch3">
-	<text format="b">الرجاء إعادة كتابة عبارة البحث</text>
-	<newline gap="8" />
-	<text>هذا البحث يبدو أنه يحتوي على إمتدادات ملفات مشتركة فقط أو لا يحتوي
-	على كلمات قابلة للبحث</text>
-	<newline gap="8" />
-	<text>إذا البحث عندك مشكلة فتذكر بأنه مشابه للبحث على الإنترنت
-	فقط قم بوضع الشروط أو العبارات و يفضل الأسماء الفريدة
-	و العناوين و الكلمات الرئيسية</text>
-	<newline gap="8" />
-	<text>المصطلحات العامة لا يمكن البحث بها و قد تؤدي إلى لا شيء
-	بالإضافة إلى إستهلاك نطاق عرض عالي أثناء عمليات البحث</text>
-	<newline gap="8" />
-	<text>PeerProject للمزيد من العليمات على موقع</text>
-  </document>
-  <document name="SearchHelp.AdultSearch">
-	<text format="b">الرجاء إعادة كتابة عبارة البحث</text>
-	<newline gap="8" />
-	<text>البحث المحدد قد يؤدي إلى العثور على عدد كبير من النتائج
-	التي تحتوي على أمور للبالغين . علما أن ذلك الخيار مغلق في الإعدادات
-	يجب أن تعيذ صياغة العبارة أو تقوم بتعطيل المرشح</text>
-	<newline gap="8" />
-	<text>لتعطيل المرشح ، أنتقل إلى أدوات &gt; إعدادات &gt; عام ثم قم بتأشير
-		مرشح المحتوى للبالغين</text>
-  </document>
-  <!-- Share help documents -->
-  <document name="ShareHelp.AlreadyShared">
-	<text format="b">مشارك به مسبقا</text>
-	<newline gap="8" />
-	<text>المجلد المحدد مشارك به مسبقا كجزء من مشاركة متوفرة</text>
-	<newline gap="8" />
-	<text> %s </text>
-  </document>
-  <document name="ShareHelp.BadShare">
-	<text format="b">هذا المجلد لا يجب المشاركة فيه</text>
-	<newline gap="8" />
-	<text>هذا المجلد يحتوي على ملفات للنظام أو أن المجلد نفسه للنظام
-		يستحسن عدم المشاركة به بما أن أعلب الملفات التي فيه الناس في غنى عنها</text>
-	<newline gap="8" />
-	<text>المجلدات مثل مجلد Windows و Program Files و المجلدات المماثلة
-		لا تحتوي عادة على ملفات مناسب للمشاركة . أي ملفات مثيرة للإهتمام ستكون
-		في المجلدات الفرعية</text>
-	<text format="i">في داخلها</text>
-	<text>حيث أن هذه المجلدات يمكن المشاركة بها بدلا من ذلك</text>
-	<newline gap="8" />
-	<text>مجلد PeerProject 'للغير مكتملة' يجب أن أيضا عدم المشاركة به من خلال
+		<text format="b">إن تحديد عمليات الإرسال أو الرفع قد تبطئ التحميلات</text>
+		<newline gap="8" />
+		<text>العديد من الشبكات التي يتصل بها شير-أزا تفرض النسب ، ضع حدا للعملاء
+			الذي لا يشاركون ، أو ببساطة التفضيل للإرسال يكون لمشاركين معروفين</text>
+		<newline />
+		<text>كخطين سريعين DSL لحسن الحظ ، إتصالات
+			يجب فصل التخصيص للارسال و للتحميل . إذا كان التابع لديك مكون بشكل صحيح ،
+			فستكون قادرا على الإرسال بنسبة جيدة في حين تحتفظ بقدرة تحميل كاملة</text>
+		<newline gap="8" />
+		<text>إفتراضيا ، تم وضع إرسالك إلى حوالي 85% من تدفق نطاق العرض المتوفر ،
+			علما أن التحميل غير محدود . التكوين يجب أن يعطيك أسرع تحميل
+			ممكن يكون متوفر</text>
+	</document>
+	<!--البحث في وثائق التعليمات-->
+	<document name="SearchHelp.BadSearch1">
+		<text format="b">الرجاء إعادة كتابة عبارة البحث</text>
+		<newline gap="8" />
+		<text>هذا البحث مكتوب بشكل سيئ و قد لا يفيد في النتائج
+			عمليات البحث يجب أن تتضمن عدة شروط و يجب أن يتم
+			تعيين نوع الملف . علاوة على ذلك ، عمليات بحث لا يجب أن
+			تحتوى أرقام و يجب أن تتفادى الإستفسارات العامة</text>
+		<newline gap="8" />
+		<text>أغلب التوابع على الشبكة تتجاهل البحث عن جميع
+			لأنها ليست مميزة بما فيه الكفاية و تولد الكثير من النتائج MP3 ملفات</text>
+	</document>
+	<document name="SearchHelp.BadSearch2">
+		<text format="b">الرجاء إعادة كتابة عبارة البحث</text>
+		<newline gap="8" />
+		<text>هذا البحث لا يحتوي شروط كافية . جميع عمليات البحث تحتاج
+			 إلى أقل عدد من الرموز الحرفية للعثور على نتائج لها</text>
+		<newline gap="8" />
+		<text>للبحث عن إمتدادات الملفات المشتركة
+			 (و الأعداد) يجب
+			أن تدخل شروط أخرى أيضا مثل الفواصل و علامات التنقيط و كلمات البدل</text>
+	</document>
+	<document name="SearchHelp.BadSearch3">
+		<text format="b">الرجاء إعادة كتابة عبارة البحث</text>
+		<newline gap="8" />
+		<text>هذا البحث يبدو أنه يحتوي على إمتدادات ملفات مشتركة فقط أو لا يحتوي
+			على كلمات قابلة للبحث</text>
+		<newline gap="8" />
+		<text>إذا البحث عندك مشكلة فتذكر بأنه مشابه للبحث على الإنترنت
+			فقط قم بوضع الشروط أو العبارات و يفضل الأسماء الفريدة
+			و العناوين و الكلمات الرئيسية</text>
+		<newline gap="8" />
+		<text>المصطلحات العامة لا يمكن البحث بها و قد تؤدي إلى لا شيء
+			بالإضافة إلى إستهلاك نطاق عرض عالي أثناء عمليات البحث</text>
+		<newline gap="8" />
+		<text>PeerProject للمزيد من العليمات على موقع</text>
+	</document>
+	<document name="SearchHelp.AdultSearch">
+		<text format="b">الرجاء إعادة كتابة عبارة البحث</text>
+		<newline gap="8" />
+		<text>البحث المحدد قد يؤدي إلى العثور على عدد كبير من النتائج
+			التي تحتوي على أمور للبالغين . علما أن ذلك الخيار مغلق في الإعدادات
+			يجب أن تعيذ صياغة العبارة أو تقوم بتعطيل المرشح</text>
+		<newline gap="8" />
+		<text>لتعطيل المرشح ، أنتقل إلى أدوات &gt; إعدادات &gt; عام ثم قم بتأشير
+			مرشح المحتوى للبالغين</text>
+	</document>
+	<!-- Share help documents -->
+	<document name="ShareHelp.AlreadyShared">
+		<text format="b">مشارك به مسبقا</text>
+		<newline gap="8" />
+		<text>المجلد المحدد مشارك به مسبقا كجزء من مشاركة متوفرة</text>
+		<newline gap="8" />
+		<text> %s </text>
+	</document>
+	<document name="ShareHelp.BadShare">
+		<text format="b">هذا المجلد لا يجب المشاركة فيه</text>
+		<newline gap="8" />
+		<text>هذا المجلد يحتوي على ملفات للنظام أو أن المجلد نفسه للنظام
+			يستحسن عدم المشاركة به بما أن أعلب الملفات التي فيه الناس في غنى عنها</text>
+		<newline gap="8" />
+		<text>المجلدات مثل مجلد Windows و Program Files و المجلدات المماثلة
+			لا تحتوي عادة على ملفات مناسب للمشاركة . أي ملفات مثيرة للإهتمام ستكون
+			في المجلدات الفرعية</text>
+		<text format="i">في داخلها</text>
+		<text>حيث أن هذه المجلدات يمكن المشاركة بها بدلا من ذلك</text>
+		<newline gap="8" />
+		<text>مجلد PeerProject 'للغير مكتملة' يجب أن أيضا عدم المشاركة به من خلال
 		المكتبة ، لأن تجزئة التحميلات مستمر مما قد يؤثر على الأداء</text>
-  </document>
+	</document>
 </documents>
 <!-- Localized Command Tip Text. "Message" displayed in status bar, "Tip" shown in tooltip -->
 <commandTips>
@@ -2646,8 +2647,8 @@
 	<string id="8071" value="متصل" />
 	<string id="8072" value="قطع الإتصال" />
 	<string id="8096" value="هذه المنطقة تعرض المزيد من المعلومات حول الملف المحدد." />
-	<string id="8097" value="مصدر واحد متوفر (%s).  " />
-	<string id="8098" value="%i المصادر متوفرة (%s).  " />
+	<string id="8097" value="مصدر واحد متوفر (%s/s)" />
+	<string id="8098" value="%i المصادر متوفرة (%s/s)" />
 	<string id="8099" value="هناك مراجعة واحدة." />
 	<string id="8100" value="مراجعات %i هنالك." />
 	<string id="8101" value="%s يكتب:" />
@@ -3311,25 +3312,25 @@
 	<string id="20234" value="Album" />
 	<string id="20235" value="Artist" />
 	<string id="20236" value="Rating" />
-  End Untranslated -->
+End Untranslated -->
 	<string id="20237" value="حسنا"/>
 	<string id="20238" value="إلغاء الأمر"/>
 </strings>
 <!-- Localized Dialog Text, "cookie" verifies that the skin matches current dialog -->
 <dialogs>
-	<dialog name="CGeneralSettingsGroup" cookie="" caption="عام" >
-	</dialog>
-	<dialog name="CSettingSheet" cookie="SyBuBuBu#3" caption="إعدادات شير-أزا">
+	<dialog name="CSettingSheet" cookie="SyBuBuBu" caption="إعدادات شير-أزا">
 		<control />
 		<control caption="حسنا" />
 		<control caption="إلغاء الأمر" />
 		<control caption="تطبيق" />
 		<control />
 	</dialog>
+	<dialog name="CGeneralSettingsGroup" cookie="Af" caption="عام" />
+	<dialog name="CInternetSettingsGroup" cookie="Af" caption="انترنت" />
 	<dialog name="CGeneralSettingsPage" cookie="BuBuBuBuBuBuBuBuStCoBuBuBuBuBuBuSyStEdmsStmsBuBuStCoStCo" caption="عام">
 		<control caption=":_عام" />
-		<control caption="PeerProject إتصال تلقائي عند بدء تشغيل" />
 		<control caption="Windows مع بدء الـ PeerProject تشغيل" />
+		<control caption="PeerProject إتصال تلقائي عند بدء تشغيل" />
 		<control caption="إظهار مطالبة قبل فتح الروابط" />
 		<control caption="التحقق من التحديثات"/>
 		<control caption=":_التحميلات" />
@@ -3356,7 +3357,7 @@
 		<control caption=":عند النقر على تصغير" />
 		<control caption="تصغير عادي|تصغير إلى جوار الساعة" />
 	</dialog>
-    <dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuBuCoBuBuBuCoBuBuBuEdBu" caption="المكتبة">
+	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuBuCoBuBuBuCoBuBuBuEdBu" caption="المكتبة">
 		<control caption=":_خيارات" />
 		<control caption="السماح للآخرين بتصفح الملفات المشاركة" />
 		<control caption="تذكر طرق عرض المجلدات" />
@@ -3469,8 +3470,6 @@
 		<control caption="_إضافة" />
 		<control caption="_إزالة" />
 		<control caption="وظيفة مدير التحميل الإضافية ستحاول فقط تحميل أنواع الملفات المدرجة هنا . أما أنواع الملفات الأخرى فستعالج بواسطة متصفحك . يجب أن يكون &quot;شير-أزا&quot; شغال لإدارة التحميلات" />
-	</dialog>
-	<dialog name="CInternetSettingsGroup" caption="انترنت">
 	</dialog>
 	<dialog name="CConnectionSettingsPage" cookie="BuStCoStCoStEdBuBuBuStCoStCoBuStCoBuBuBuStEdmsStEdms" caption="الإتصال">
 		<control caption="_:عنوان الوارد" />
@@ -3703,17 +3702,15 @@
 		<control caption="_تثبيت..." />
 		<control caption="احضر المزيد" />
 	</dialog>
-	<dialog name="CAdvancedSettingsPage" cookie="SyBuStEdmsStEd" caption="متقدم">
+	<dialog name="CAdvancedSettingsPage" cookie="SyEdmsBuBuSt" caption="متقدم">
 		<control />
 		<control />
 		<control />
 		<control caption="وضع الإفتراضي"/>
 		<control caption=":إعداد الخصائص" />
 		<control caption=":القيمة" />
-		<control caption=":الوصف" />
-		<control />
 	</dialog>
-    <dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="بروتوكول">
+	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="بروتوكول">
 		<control caption=": المشترك PeerProject مستكشف بروتوكول بنية" />
 		<control />
 	</dialog>
@@ -3758,7 +3755,7 @@
 		<control caption="إلغاء الأمر" />
 		<control caption="أصحاب الإرسال الفائزون" />
 	</dialog>
-	<dialog name="CWizardWelcomePage" cookie="StStStStStStStStStStStSt" caption="PeerProject مرحبا بك في">
+	<dialog name="CWizardWelcomePage" cookie="StStStStStStStStStStStSt" caption="(1/8) _ PeerProject مرحبا بك في">
 		<control caption="PeerProject مرحبا بك في" />
 		<control caption="او اي برنامج مشاركة هذا المعالج سوف يساعدك على اعداد البرنامج و الإتصال به  PeerProject  اذا كنت تستخدم برنامج ." />
 		<control caption="لعمل إعدادات الإتصال PeerProject اضغط على خروج  واضغط على ادوات ثم إعدادات  PeerProject اذا كنت مستخدم محترف اضغط  لبرنامج." />
@@ -3772,7 +3769,7 @@
 		<control />
 		<control caption="PeerProject إبدأ الإستعمال" />
 	</dialog>
-	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="(1/6) _ PeerProject مرحبا بكم في">
+	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="(2/8) _ PeerProject مرحبا بكم في">
 		<control caption="للإتصال بالإنترنت PeerProject لأداء مثالي ، يجب إعداد" />
 		<control caption=":إختر نوع إتصال الإنترنت" />
 		<control caption="مودم طلب هاتفي|ISDN (128ك)|DSL (768ك)|DSL (1.5م)|DSL (4.0م)|DSL2 (8.0م)|FIOS (10.0م)|DSL2 (12.0م)|FIOS (20.0م)|DSL2+ (24.0)|مودم كيبل|T1|T3|LAN|OC3" />
@@ -3788,7 +3785,30 @@
 		<control caption=":الحالة" />
 		<control />
 	</dialog>
-	<dialog name="CWizardSharePage" cookie="StStStSyBuBuSt" caption="(2/6) _ PeerProject مرحبا بكم في">
+	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuStBu" caption="(3/8) _ PeerProject مرحبا بكم في">
+		<control caption="شير-أزا هو تطبيق لمشاركة الملفات بشكا عام حيث يمكنه الدخول على العديد من شبكات النظير إلى النظبر في نفس الوقت . هنا يمكنك أن تختار الشبكات المراد الدخول إليها . ملاحظة : يمكنك أن تختار شبكات مختلفة دائما فيما بعد" />
+		<control caption="(مهم جدا) Gnutella2 الإتصال بـ" />
+		<control caption="شبكة نيتيللاGnutella هي الشبكة الرئيسية لبرنامج شير-أزا ، فهي تقدم مميزات و أداء أكثر من أي شبكة أخرى" />
+		<control caption="الأصلية Gnutella الإتصال بـ" />
+		<control caption="أيضا شبكة نيتيللا الأصلية أقل من حيث المميزات من شبكة نيتيللا2 و ملفاتها أقل أيضا من أيدونكي و مع ذلك تبقى مصدر للملفات لا غنى عنه" />
+		<control caption="eDonkey الإتصال بـ" />
+		<control caption="شبكة إدونكي هي شبكة تعتمد على ملقم عام . لكنها ليست بمميزات نيتيللا2 . إدونكي تملك مجموعة ملفات لا يستهان بها" />
+		<control caption=".torrent معالجة روابط" />
+	</dialog>
+	<dialog name="CWizardFoldersPage" cookie="StStEdBuStEdBuStEdBuSt" caption="(4/8) _ PeerProject مرحبا بكم في">
+		<control caption="PeerProject first downloads partial files to a private folder, then moves them when completed according to Download Groups."/>
+		<control caption=":حفظ الملفات الم_كتملة هنا" />
+		<control />
+		<control />
+		<control caption=":تخزين الملفات ال_غير مكتملة المؤقتة هنا" />
+		<control/>
+		<control/>
+		<control caption="Store .Torrent files here:"/>
+		<control/>
+		<control/>
+		<control caption="Common filetypes are initially setup as subfolders of the default location, but Groups can easily be customized by Right-Click.  Simply Drag&apos;n&apos;Drop files."/>
+	</dialog>
+	<dialog name="CWizardSharePage" cookie="StStStSyBuBuSt" caption="(5/8) _ PeerProject مرحبا بكم في">
 		<control caption="شبكات النظير إلى النظير هي فقط صالحة إذا كان من يستخدمها إنسان صالح . كل المحتوبات المتوفر للتحميل يتم مشاركتها مع مستخدمين آخرين" />
 		<control caption="ليس من الضروري أن تشارك من أجل إستعمال شير-أزا و من ناحية أخرى فهناك بعض البرامج تتصرف بشكل مختلف مع المستخدمين الذين لا يشاركون بأي شئ" />
 		<control caption="الرجاء تعيين المجلدات المراد المشاركة بها إن وجدت . أنقر زر إضافة لإضافة أي مجلد جديد" />
@@ -3806,18 +3826,7 @@
 		<control caption="0" />
 		<control caption="إغلاق" />
 	</dialog>
-	<dialog name="CWizardProfilePage" cookie="StStEdStCoCoStCoCo" caption="(3/6) _ PeerProject مرحبا بكم في">
-		<control caption="يعتبر شير-أزا المكان الأكثر ودية عندما يكتب أي شخص بضعة تفاصيل أساسية حول نفسه" />
-		<control caption="أنا إسمي:" />
-		<control />
-		<control caption="الجنس:" />
-		<control caption=" (إختر)" />
-		<control caption=" إختر)|رويجل|بنت|رجل|إمرأة)" />
-		<control caption="من :" />
-		<control />
-		<control />
-	</dialog>
-	<dialog name="CWizardInterfacePage" cookie="StBuBuBuStStBuSt" caption="(4/6) _ PeerProject مرحبا بك مع">
+	<dialog name="CWizardInterfacePage" cookie="StBuBuBuStStBuSt" caption="(6/8) _ PeerProject مرحبا بك مع">
 		<control caption="شير-أزا يدعم واجهة المستخدم المرنة ، لذا يمكنك أن تختار الواجهة التي تريحك . يمكنك أن تغير هذه الخيارات في أي وقت كان" />
 		<control caption=":الرجاء تحديد الواجهة" />
 		<control caption="النمط العادي" />
@@ -3827,15 +3836,27 @@
 		<control caption="عرض أشرطة بسيطة لتقدم التحميل . (تخفض من إستعمال وحدة المعالج المركزية) ـ" />
 		<control caption=""/>
 	</dialog>
-	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuStBu" caption="(5/6) _ PeerProject مرحبا بكم في">
-		<control caption="شير-أزا هو تطبيق لمشاركة الملفات بشكا عام حيث يمكنه الدخول على العديد من شبكات النظير إلى النظبر في نفس الوقت . هنا يمكنك أن تختار الشبكات المراد الدخول إليها . ملاحظة : يمكنك أن تختار شبكات مختلفة دائما فيما بعد" />
-		<control caption="(مهم جدا) Gnutella2 الإتصال بـ" />
-		<control caption="شبكة نيتيللاGnutella هي الشبكة الرئيسية لبرنامج شير-أزا ، فهي تقدم مميزات و أداء أكثر من أي شبكة أخرى" />
-		<control caption="الأصلية Gnutella الإتصال بـ" />
-		<control caption="أيضا شبكة نيتيللا الأصلية أقل من حيث المميزات من شبكة نيتيللا2 و ملفاتها أقل أيضا من أيدونكي و مع ذلك تبقى مصدر للملفات لا غنى عنه" />
-		<control caption="eDonkey الإتصال بـ" />
-		<control caption="شبكة إدونكي هي شبكة تعتمد على ملقم عام . لكنها ليست بمميزات نيتيللا2 . إدونكي تملك مجموعة ملفات لا يستهان بها" />
-		<control caption=".torrent معالجة روابط" />
+	<dialog name="CWizardProfilePage" cookie="StStEdStCoCoStCoStCoStEd" caption="(7/8) _ PeerProject مرحبا بكم في">
+		<control caption="يعتبر شير-أزا المكان الأكثر ودية عندما يكتب أي شخص بضعة تفاصيل أساسية حول نفسه" />
+		<control caption="أنا إسمي:" />
+		<control />
+		<control caption="الجنس:" />
+		<control caption=" (إختر)" />
+		<control caption=" إختر)|رويجل|بنت|رجل|إمرأة)" />
+		<control caption="من :" />
+		<control/>
+		<control caption="Locale:"/>
+		<control/>
+		<control caption="Comments:"/>
+		<control/>
+	</dialog>
+	<dialog name="CWizardFinishedPage" cookie="StStStBuBuSt" caption="(8/8) _ PeerProject مرحبا بكم في">
+		<control caption="ليعمل على كمبيوترك PeerProject هذا كل شيء . تم تكوين" />
+		<control caption="عندما تحتاج إلى تغيير إعداداتك ، يمكنك تشغيل معالج البدء السريع هذا مرة أخرى من قائمة أدوات" />
+		<control caption="بعد إغلاق هذا المعالج بواسطة النقر على زر إنهاء ، يمكنك الإتصال بالشبكات التي قمت بتحديدها و تبدأ البحث عن الملفات و تحميلها" />
+		<control caption="عند تشغيل نظام تشغيل الويندوز PeerProject بداء تشغيل" />
+		<control caption="عند تشغيل البرنامج PeerProject اتصل  بالشبكة " />
+		<control caption=" PeerProject تمتع بإستعمال" />
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="eDonkey2000 تحميل و تصدير ">
 		<control />
@@ -3845,16 +3866,7 @@
 		<control />
 		<control caption="إغلاق" />
 	</dialog>
-	<dialog name="CWizardFinishedPage" cookie="StStStBuBuBuSt" caption="(6/6) _ PeerProject مرحبا بكم في">
-		<control caption="ليعمل على كمبيوترك PeerProject هذا كل شيء . تم تكوين" />
-		<control caption="عندما تحتاج إلى تغيير إعداداتك ، يمكنك تشغيل معالج البدء السريع هذا مرة أخرى من قائمة أدوات" />
-		<control caption="بعد إغلاق هذا المعالج بواسطة النقر على زر إنهاء ، يمكنك الإتصال بالشبكات التي قمت بتحديدها و تبدأ البحث عن الملفات و تحميلها" />
-		<control caption="اتصل بالشبكة عن الإنتهاء من المعالج" />
-		<control caption="عند تشغيل البرنامج PeerProject اتصل  بالشبكة " />
-		<control caption="عند تشغيل نظام تشغيل الويندوز PeerProject بداء تشغيل" />
-		<control caption=" PeerProject تمتع بإستعمال" />
-	</dialog>
-	<dialog name="CProfileManagerDlg" cookie="SyBuBuBu#3" caption="تحرير ملفي الخاص">
+	<dialog name="CProfileManagerDlg" cookie="SyBuBuBu" caption="تحرير ملفي الخاص">
 		<control />
 		<control caption="حسنا" />
 		<control caption="إلغاء الأمر" />
@@ -3943,8 +3955,8 @@
 		<control />
 		<control caption="توليد الآن" />
 	</dialog>
-    <dialog name="CLanguageDlg" cookie="" caption="تحديد اللغة">
-    </dialog>
+	<dialog name="CLanguageDlg" cookie="" caption="تحديد اللغة">
+	</dialog>
 	<dialog name="CConnectToDlg" cookie="BuCoEdBuCoBuBuBu" caption="الإتصال بـ|استعرض المستضيف">
 		<control caption=":تحضير إتصال جديد إلى مضيف أو ملقم|:تصفح هذا المضيف" />
 		<control />
@@ -3984,24 +3996,24 @@
 		<control caption=":على الأقل" />
 		<control />
 		<control />
-		<control caption="مصدر" />
 		<control caption=":إ_خفاء" />
 		<control caption="المضيفون المشغولون" />
 		<control caption="المضيفون المنهكون/أو خلف جدار ناري" />
 		<control caption="المضيفون الغير مستقرين" />
+		<control caption="Restricted ملف" />
+		<control caption="DRM ملف" />
 		<control caption="الملفات الغير مطابقة" />
 		<control caption="الملفات التي لديك مسبقا" />
 		<control caption="النتائج المزيفة" />
-		<control caption="فرز الآن" />
-		<control caption="إلغاء الأمر" />
-		<control />
 		<control caption="وضع كإفتراضي" />
 		<control caption="حفظ _باسم" />
-		<control caption="_حذف" />
 		<control caption="الفرز:" />
-		<control caption="DRM ملف" />
+		<control />
+		<control caption="_حذف" />
 		<control caption="الملفات المشبوهة" />
 		<control caption="نتائج مواد البالغين" />
+		<control caption="فرز الآن" />
+		<control caption="إلغاء الأمر" />
 	</dialog>
 	<dialog name="CSaveFilterAsDlg" cookie="EdBuBuSt" caption="حفظ المرشح باسم">
 		<control />
@@ -4009,7 +4021,7 @@
 		<control caption="إلغاء الأمر" />
 		<control caption="حفظ المرشح الحالي باسم" />
 	</dialog>
-    <dialog name="CDiscoveryServiceDlg" cookie="BuEdStCoBuBuSt" caption="خدمة الإكتشاف">
+	<dialog name="CDiscoveryServiceDlg" cookie="BuEdStCoBuBuSt" caption="خدمة الإكتشاف">
 		<control caption=":عنوان ال_خدمة" />
 		<control />
 		<control caption=": نوع خدمة الإكتشاف" />
@@ -4084,15 +4096,15 @@
 		<control caption="إ_زالة" />
 		<control />
 	</dialog>
-	<dialog name="CFileCopyDlg" cookie="StStmsBuBumsStSt" caption="نسخ الملفات|نقل الملفات">
-		<control caption="You have selected %i file(s) to copy to the following folder:" />
+	<dialog name="CFileCopyDlg" cookie="StStStmsmsStBuBu" caption="نسخ الملفات|نقل الملفات">
+		<control caption="(Copy) : لقد قمت بتحديد %i ملف(ات) للنسخ إلى المجلد التالي" />
+		<control caption=": لقد قمت بتحديد %i ملف(ات) للنسخ إلى المجلد التالي" />
 		<control />
 		<control />
-		<control caption="جاهز..." />
-		<control caption="إلغاء الأمر" />
 		<control />
 		<control caption="Ready..." />
-		<control caption=": لقد قمت بتحديد %i ملف(ات) للنسخ إلى المجلد التالي" />
+		<control caption="جاهز..." />
+		<control caption="إلغاء الأمر" />
 	</dialog>
 	<dialog name="CFolderPropertiesDlg" cookie="StEdStCoBuStBuBu" caption="خصائص مجلد الألبوم">
 		<control caption="عنوان مجلد الألبوم:" />
@@ -4616,4 +4628,4 @@
 		<column from="Order" to="ترتيب" />
 	</list>
 </listColumns>
-</skin>䙁绾
+</skin>

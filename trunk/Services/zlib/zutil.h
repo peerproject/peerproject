@@ -1,28 +1,26 @@
-// zutil.h -- internal interface and configuration of the compression library
-// Copyright (C) 1995-2005 Jean-loup Gailly.
-// For conditions of distribution and use, see copyright notice in zlib.h
+/* zutil.h -- internal interface and configuration of the compression library
+ * Copyright (C) 1995-2010 Jean-loup Gailly.
+ * For conditions of distribution and use, see copyright notice in zlib.h
+ */
 
-// WARNING: this file should *not* be used by applications.
-// It is part of the implementation of the compression library
-// and is subject to change. Applications should only use zlib.h.
+/* WARNING: this file should *not* be used by applications. It is
+   part of the implementation of the compression library and is
+   subject to change. Applications should only use zlib.h.
+ */
 
-// @(#) $Id: zutil.h,v 1.4 2005/11/17 21:34:56 thetruecamper Exp $
+/* @(#) $Id$ */
 
 #ifndef ZUTIL_H
 #define ZUTIL_H
 
 #define ZLIB_INTERNAL
+
 #include "zlib.h"
 
 #ifdef STDC
-#    include <stddef.h>
+#  include <stddef.h>
 #  include <string.h>
 #  include <stdlib.h>
-#endif
-#ifdef NO_ERRNO_H
-    extern int errno;
-#else
-#    include <errno.h>
 #endif
 
 #ifndef local
@@ -90,7 +88,13 @@ extern const char * const z_errmsg[10]; /* indexed by 2-zlib_error */
 #endif
 
 #ifdef _MSC_VER
-#    define fdopen(fd,type)  _fdopen(fd,type)
+#  define fdopen(fd,type)  _fdopen(fd,type)
+#endif
+
+/* provide prototypes for these when building zlib without LFS */
+#if !defined(_LARGEFILE64_SOURCE) || _LFS64_LARGEFILE-0 == 0
+    ZEXTERN uLong ZEXPORT adler32_combine64 OF((uLong, uLong, z_off_t));
+    ZEXTERN uLong ZEXPORT crc32_combine64 OF((uLong, uLong, z_off_t));
 #endif
 
         /* common defaults */
@@ -124,7 +128,9 @@ extern const char * const z_errmsg[10]; /* indexed by 2-zlib_error */
 #  ifdef WIN32
      /* In Win32, vsnprintf is available as the "non-ANSI" _vsnprintf. */
 #    if !defined(vsnprintf) && !defined(NO_vsnprintf)
-#      define vsnprintf _vsnprintf
+#      if !defined(_MSC_VER)
+#         define vsnprintf _vsnprintf
+#      endif
 #    endif
 #  endif
 #  ifdef __SASC
@@ -138,9 +144,8 @@ extern const char * const z_errmsg[10]; /* indexed by 2-zlib_error */
 #if defined(pyr)
 #  define NO_MEMCPY
 #endif
-#if defined(SMALL_MEDIUM) && !defined(_MSC_VER) && !defined(__SC__)
+#if defined(SMALL_MEDIUM) && !defined(_MSC_VER)
  /* Use our own functions for small and medium model with MSC <= 5.0.
-  * The __SC__ check is for Symantec.
   */
 #  define NO_MEMCPY
 #endif
@@ -158,16 +163,16 @@ extern const char * const z_errmsg[10]; /* indexed by 2-zlib_error */
 #    define zmemzero(dest, len) memset(dest, 0, len)
 #  endif
 #else
-   extern void zmemcpy  OF((Bytef* dest, const Bytef* source, uInt len));
-   extern int  zmemcmp  OF((const Bytef* s1, const Bytef* s2, uInt len));
-   extern void zmemzero OF((Bytef* dest, uInt len));
+   void ZLIB_INTERNAL zmemcpy OF((Bytef* dest, const Bytef* source, uInt len));
+   int ZLIB_INTERNAL zmemcmp OF((const Bytef* s1, const Bytef* s2, uInt len));
+   void ZLIB_INTERNAL zmemzero OF((Bytef* dest, uInt len));
 #endif
 
 /* Diagnostic functions */
 #ifdef DEBUG
 #  include <stdio.h>
-   extern int z_verbose;
-   extern void z_error    OF((char *m));
+   extern int ZLIB_INTERNAL z_verbose;
+   extern void ZLIB_INTERNAL z_error OF((char *m));
 #  define Assert(cond,msg) {if(!(cond)) z_error(msg);}
 #  define Trace(x) {if (z_verbose>=0) fprintf x ;}
 #  define Tracev(x) {if (z_verbose>0) fprintf x ;}
@@ -184,8 +189,8 @@ extern const char * const z_errmsg[10]; /* indexed by 2-zlib_error */
 #endif
 
 
-voidpf zcalloc OF((voidpf opaque, unsigned items, unsigned size));
-void   zcfree  OF((voidpf opaque, voidpf ptr));
+voidpf ZLIB_INTERNAL zcalloc OF((voidpf opaque, unsigned items, unsigned size));
+void   ZLIB_INTERNAL zcfree  OF((voidpf opaque, voidpf ptr));
 
 #define ZALLOC(strm, items, size) \
            (*((strm)->zalloc))((strm)->opaque, (items), (size))

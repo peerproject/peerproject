@@ -646,7 +646,7 @@ void CMatchCtrl::OnPaint()
 
 	CFont* pOldFont = (CFont*)dc.SelectObject( &CoolInterface.m_fntNormal );
 
-	m_nTrailWidth = dc.GetTextExtent( _T('\x2026') ).cx;
+	m_nTrailWidth = dc.GetTextExtent( _T("\x2026") ).cx;
 
 	rcItem.SetRect( rcClient.left, rcClient.top, rcClient.right, 0 );
 	rcItem.top -= m_nHitIndex * ITEM_HEIGHT;
@@ -722,7 +722,6 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 	BOOL bSelected	= pHit ? pHit->m_bSelected : pFile->m_bSelected;
 	BOOL bSelectmark = bSelected && Skin.m_bmSelected.m_hObject != NULL;
 	BOOL bLeftMargin = TRUE;
-	BOOL bGrayed	= FALSE;
 
 	COLORREF crWnd	= Colors.m_crWindow;
 	COLORREF crText	= bSelected ? Colors.m_crHiText : Colors.m_crText ;
@@ -732,14 +731,18 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 	if ( pFile->m_bCollection )
 	{
 		// Pale red background for collections
-		if ( Colors.m_crSearchCollection ) crWnd = crBack = Colors.m_crSearchCollection ;
-		else crWnd = crBack = CColors::CalculateColor( crBack, RGB( 254, 120, 10 ), 25 );
+		if ( Colors.m_crSearchCollection )
+			crWnd = crBack = Colors.m_crSearchCollection ;
+		else
+			crWnd = crBack = CColors::CalculateColor( crBack, RGB( 254, 120, 10 ), 25 );
 	}
-	else if ( Settings.BitTorrent.AdvancedInterface && pFile->m_bTorrent )
+	else if ( pFile->m_bTorrent && Settings.BitTorrent.AdvancedInterface )
 	{
 		// Pale grey background for torrents, if extra torrent option is enabled
-		if ( Colors.m_crSearchTorrent ) crWnd = crBack = Colors.m_crSearchTorrent ;
-		else crWnd = crBack = CColors::CalculateColor( crBack, RGB( 244, 242, 240 ), 10 );
+		if ( Colors.m_crSearchTorrent )
+			crWnd = crBack = Colors.m_crSearchTorrent ;
+		else
+			crWnd = crBack = CColors::CalculateColor( crBack, RGB( 244, 242, 240 ), 10 );
 	}
 	else if ( pFile->m_nRated > 1 && ( pFile->m_nRating / pFile->m_nRated ) > 4 )
 	{
@@ -749,10 +752,11 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 		else
 			crWnd = crBack = CColors::CalculateColor( crBack, RGB( 255, 250, 50 ), 20 );
 	}
-	///else if ( pFile->m_bDRM )
-	//{	// Pale gree background if DRM
-	//	crWnd = crBack = CColors::CalculateColor( crBack, RGB( 0, 255, 0 ), 10 );
-	//}
+	else if ( pFile->m_bDRM )
+	{
+		// Red background for DRM
+		crWnd = crBack = CColors::CalculateColor( crBack, RGB( 250, 20, 0 ), 50 );
+	}
 
 	if ( pFile->GetLibraryStatus() == TRI_FALSE )
 	{
@@ -786,7 +790,6 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 	{
 		// Greyed Out if Unstable (or Brown if also Ghostrated)
 		crText = pFile->GetLibraryStatus() == TRI_TRUE ? Colors.m_crSearchGhostrated : Colors.m_crSearchNull;
-		bGrayed = TRUE;
 	}
 
 	// Update Full Row Highlight
@@ -1118,7 +1121,7 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 						pszText = szBuffer;
 
 						// Save to cache
-						lstrcpy( szBufferCache, szBuffer );
+						_tcscpy( szBufferCache, szBuffer );
 						memcpy( &stCache, &st, sizeof( SYSTEMTIME ) );
 					}
 				}

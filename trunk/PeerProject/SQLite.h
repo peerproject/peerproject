@@ -37,13 +37,13 @@
 
 namespace SQLite {
 
-#include "../Services/SQLite/sqlite3.h"
+#include <SQLite/sqlite3.h>	//Services
 
 class CStatement;
 class CDatabase;
 
 
-class CDatabase : boost::noncopyable	// tr1 fix: private boost
+class CDatabase //: boost::noncopyable
 {
 public:
 	CDatabase(LPCWSTR szDatabasePath = NULL);
@@ -51,13 +51,17 @@ public:
 
 	operator bool() const throw();
 
-	class CSQLitePtr : boost::noncopyable	// tr1 fix: private boost
+	class CSQLitePtr //: boost::noncopyable
 	{
 	public:
 		CSQLitePtr(LPCWSTR szDatabasePath);
 		virtual ~CSQLitePtr();
 
 		sqlite3*	m_db;
+
+	private:
+		CSQLitePtr(const CSQLitePtr&);
+		CSQLitePtr& operator=(const CSQLitePtr&);
 	};
 	typedef std::tr1::shared_ptr< CSQLitePtr > CSQLiteSharedPtr;	// tr1 fix:  was boost::
 
@@ -68,10 +72,14 @@ public:
 
 protected:
 	CSQLiteSharedPtr	m_db;
+
+private:
+	CDatabase(const CDatabase&);
+	CDatabase& operator=(const CDatabase&);
 };
 
 
-class CStatement : boost::noncopyable	// tr1 fix: private boost
+class CStatement //: boost::noncopyable
 {
 public:
 	CStatement(const CDatabase& db, LPCWSTR szQuery);
@@ -114,6 +122,10 @@ protected:
 
 	int				GetColumn(LPCWSTR pszName) const;	// Return column index by column name
 	bool			IsValidIndex(int nIndex) const; 	// Check column index for validity
+
+private:
+	CStatement(const CStatement&);
+	CStatement& operator=(const CStatement&);
 };
 
 }	// namespace SQLite

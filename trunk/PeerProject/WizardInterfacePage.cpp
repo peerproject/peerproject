@@ -1,7 +1,7 @@
 //
 // WizardInterfacePage.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -48,8 +48,8 @@ END_MESSAGE_MAP()
 CWizardInterfacePage::CWizardInterfacePage() : CWizardPage(CWizardInterfacePage::IDD)
 {
 	//{{AFX_DATA_INIT(CWizardInterfacePage)
-	m_bExpert				= Settings.General.GUIMode != GUI_BASIC;
-	m_bSimpleDownloadBars	= Settings.Downloads.SimpleBar;
+	m_bExpert = Settings.General.GUIMode != GUI_BASIC;
+	m_bSimpleDownloadBars = Settings.Downloads.SimpleBar;
 	//}}AFX_DATA_INIT
 }
 
@@ -61,11 +61,11 @@ void CWizardInterfacePage::DoDataExchange(CDataExchange* pDX)
 {
 	CWizardPage::DoDataExchange(pDX);
 	//{{AFX_DATA_MAP(CWizardInterfacePage)
-	DDX_Control(pDX, IDC_DESCRIPTION_1, m_wndDescription1);
-	DDX_Control(pDX, IDC_DESCRIPTION_0, m_wndDescription0);
-	DDX_Control(pDX, IDC_INTERFACE_1, m_wndInterface1);
-	DDX_Control(pDX, IDC_INTERFACE_0, m_wndInterface0);
-	DDX_Radio(pDX, IDC_INTERFACE_0, m_bExpert);
+	DDX_Control(pDX, IDC_DESCRIPTION_EXPERT, m_wndDescriptionExpert);
+	DDX_Control(pDX, IDC_DESCRIPTION_BASIC, m_wndDescriptionBasic);
+	DDX_Control(pDX, IDC_INTERFACE_EXPERT, m_wndInterfaceExpert);
+	DDX_Control(pDX, IDC_INTERFACE_BASIC, m_wndInterfaceBasic);
+	DDX_Radio(pDX, IDC_INTERFACE_BASIC, m_bExpert);
 	DDX_Check(pDX, IDC_DOWNLOADS_SIMPLEBAR, m_bSimpleDownloadBars);
 	//}}AFX_DATA_MAP
 }
@@ -80,12 +80,12 @@ BOOL CWizardInterfacePage::OnInitDialog()
 	Skin.Apply( _T("CWizardInterfacePage"), this );
 
 	m_bExpert = Settings.General.GUIMode != GUI_BASIC;
-	m_bSimpleDownloadBars	= Settings.Downloads.SimpleBar;
+	m_bSimpleDownloadBars = Settings.Downloads.SimpleBar;
 
 	UpdateData( FALSE );
 
-	m_wndInterface0.SetFont( &theApp.m_gdiFontBold );
-	m_wndInterface1.SetFont( &theApp.m_gdiFontBold );
+	m_wndInterfaceBasic.SetFont( &theApp.m_gdiFontBold );
+	m_wndInterfaceExpert.SetFont( &theApp.m_gdiFontBold );
 
 	return TRUE;
 }
@@ -112,21 +112,23 @@ void CWizardInterfacePage::OnXButtonDown(UINT /*nFlags*/, UINT nButton, CPoint /
 void CWizardInterfacePage::OnLButtonDown(UINT nFlags, CPoint point)
 {
 	CRect rc;
-
 	ClientToScreen( &point );
 
-	m_wndDescription0.GetWindowRect( &rc );
+	// Select mode by clicking any text
+	m_wndDescriptionBasic.GetWindowRect( &rc );
 	if ( rc.PtInRect( point ) )
 	{
-		m_wndInterface0.SetCheck( TRUE );
-		m_wndInterface0.SetCheck( FALSE );
+		m_wndInterfaceBasic.SetCheck( TRUE );
+		m_wndInterfaceExpert.SetCheck( FALSE );
 	}
-
-	m_wndDescription1.GetWindowRect( &rc );
-	if ( rc.PtInRect( point ) )
+	else
 	{
-		m_wndInterface0.SetCheck( FALSE );
-		m_wndInterface1.SetCheck( TRUE );
+		m_wndDescriptionExpert.GetWindowRect( &rc );
+		if ( rc.PtInRect( point ) )
+		{
+			m_wndInterfaceExpert.SetCheck( TRUE );
+			m_wndInterfaceBasic.SetCheck( FALSE );
+		}
 	}
 
 	CWizardPage::OnLButtonDown(nFlags, point);

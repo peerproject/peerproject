@@ -1,7 +1,7 @@
 //
 // ComMenu.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -184,7 +184,7 @@ STDMETHODIMP CComMenu::XSMenu::get_Text(BSTR FAR* psText)
 	GetMenuString( pThis->m_hParent, pThis->m_nPosition,
 		str.GetBuffer( 256 ), 256, MF_BYPOSITION );
 	str.ReleaseBuffer();
-	str.SetSysString( psText );
+	*psText = CComBSTR( str ).Detach();
 
 	return S_OK;
 }
@@ -234,6 +234,7 @@ STDMETHODIMP CComMenu::XSMenu::InsertSeparator(LONG nPosition)
 
 	if ( pThis->m_hMenu == NULL ) return E_FAIL;
 	if ( nPosition == -1 ) nPosition = GetMenuItemCount( pThis->m_hMenu );
+
 	::InsertMenu( pThis->m_hMenu, (UINT)nPosition, MF_BYPOSITION|MF_SEPARATOR,
 		ID_SEPARATOR, NULL );
 

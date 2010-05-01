@@ -1,7 +1,7 @@
 //
 // PagePropertyAdv.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2006.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -74,9 +74,7 @@ void CPropertyPageAdv::OnPaint()
 		SetLayout( dc.m_hDC, LAYOUT_RTL );
 
 	if ( m_nIcon >= 0 )
-	{
 		ShellIcons.Draw( &dc, m_nIcon, 48, 4, 4 );
-	}
 
 	for ( CWnd* pWnd = GetWindow( GW_CHILD ) ; pWnd ; pWnd = pWnd->GetNextWindow() )
 	{
@@ -196,7 +194,7 @@ BOOL CPropertySheetAdv::OnInitDialog()
 
 void CPropertySheetAdv::SetTabTitle(CPropertyPage* pPage, CString& strTitle)
 {
-	CString strClass = pPage->GetRuntimeClass()->m_lpszClassName;
+	CString strClass( pPage->GetRuntimeClass()->m_lpszClassName );
 	CString strTabLabel = Skin.GetDialogCaption( strClass );
 	if ( ! strTabLabel.IsEmpty() )
 		strTitle = strTabLabel;
@@ -284,8 +282,8 @@ LRESULT CPropertySheetAdv::OnSetText(WPARAM /*wParam*/, LPARAM /*lParam*/)
 		if ( m_pSkin ) m_pSkin->OnSetText( this );
 		return lResult;
 	}
-	else
-		return Default();
+
+	return Default();
 }
 
 //BOOL CPropertySheetAdv::OnEraseBkgnd(CDC* pDC)

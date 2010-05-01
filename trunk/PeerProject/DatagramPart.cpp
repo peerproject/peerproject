@@ -1,7 +1,7 @@
 //
 // DatagramPart.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2006.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -37,11 +37,11 @@ static char THIS_FILE[]=__FILE__;
 //////////////////////////////////////////////////////////////////////
 // CDatagramOut construction
 
-CDatagramOut::CDatagramOut() :
-	m_pBuffer( NULL ),
-	m_pLocked( NULL ),
-	m_nLocked( 0 ),
-	m_bAck( FALSE )
+CDatagramOut::CDatagramOut()
+	: m_pBuffer	( NULL )
+	, m_pLocked	( NULL )
+	, m_nLocked	( 0 )
+	, m_bAck	( FALSE )
 {
 }
 
@@ -71,7 +71,7 @@ void CDatagramOut::Create(SOCKADDR_IN* pHost, CG2Packet* pPacket, WORD nSequence
 
 	SGP_HEADER pHeader;
 
-	strncpy( pHeader.szTag, SGP_TAG_2, 3 );
+	memcpy( pHeader.szTag, SGP_TAG_2, 3 );
 	pHeader.nFlags = m_bCompressed ? SGP_DEFLATE : 0;
 	m_bAck = bAck;
 	if ( bAck ) pHeader.nFlags |= SGP_ACKNOWLEDGE;
@@ -106,8 +106,6 @@ void CDatagramOut::Create(SOCKADDR_IN* pHost, CG2Packet* pPacket, WORD nSequence
 
 BOOL CDatagramOut::GetPacket(DWORD tNow, BYTE** ppPacket, DWORD* pnPacket, BOOL bResend)
 {
-	ASSERT( m_pBuffer != NULL );
-
     int nPart = 0;
 	for ( ; nPart < m_nCount ; nPart++ )
 	{
@@ -124,7 +122,8 @@ BOOL CDatagramOut::GetPacket(DWORD tNow, BYTE** ppPacket, DWORD* pnPacket, BOOL 
 		}
 	}
 
-	if ( nPart >= m_nCount ) return FALSE;
+	if ( nPart >= m_nCount )
+		return FALSE;
 
 	m_pLocked[ nPart ] = bResend ? tNow : 0xFFFFFFFF;
 
@@ -147,7 +146,8 @@ BOOL CDatagramOut::Acknowledge(BYTE nPart)
 		{
 			m_pLocked[ nPart - 1 ] = 0xFFFFFFFF;
 
-			if ( --m_nAcked == 0 ) return TRUE;
+			if ( --m_nAcked == 0 )
+				return TRUE;
 		}
 	}
 

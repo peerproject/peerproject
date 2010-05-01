@@ -42,7 +42,7 @@ public:
 	virtual void Dump(CDumpContext& dc) const;
 #endif
 
-	// Multifile Download priority settings 
+	// Multifile Download priority settings
 	// Not used. (Sets removed PageTorrentFiles combobox order)
 	// Note: Changing this breaks torrents at startup!
 	enum { prUnwanted, prLow, prNormal, prHigh };

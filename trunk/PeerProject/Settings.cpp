@@ -640,7 +640,7 @@ void CSettings::Load()
 		if ( Downloads.IncompletePath.IsEmpty() )
 			Downloads.IncompletePath = General.Path + _T("\\Incomplete");
 		if ( Downloads.CompletePath.IsEmpty() )
-			Downloads.CompletePath = General.Path + _T("\\Downloads");
+			Downloads.CompletePath = theApp.GetDownloadsFolder();	//General.Path + _T("\\Downloads");
 	}
 
 	if ( Downloads.TorrentPath.IsEmpty() )
@@ -1504,7 +1504,7 @@ const CString CSettings::SmartVolume(QWORD nVolume, int nVolumeUnits, bool bTrun
 	return Settings.General.LanguageRTL ? _T("\x200E") + strVolume : strVolume;
 }
 
-const QWORD CSettings::ParseVolume(const CString& strVolume, int nReturnUnits) const
+QWORD CSettings::ParseVolume(const CString& strVolume, int nReturnUnits) const
 {
 	double val = 0;
 	CString strSize( strVolume );

@@ -1,7 +1,7 @@
 //
 // UPnPFinder.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -60,7 +60,7 @@ public:
 private:
 	static FinderPointer CreateFinderInstance() throw();
 
-	struct FindDevice : std::unary_function< DevicePointer, bool >
+	struct FindDevice : public std::unary_function< DevicePointer, bool >
 	{
 		FindDevice(const CComBSTR& udn) : m_udn( udn ) {}
 		result_type operator()(argument_type device) const
@@ -132,14 +132,13 @@ public:
 		: m_instance( instance )
 	{}
 
-// implementation
+	CUPnPFinder& m_instance;
+
+// Implementation
 private:
 	HRESULT __stdcall DeviceAdded(LONG nFindData, IUPnPDevice* pDevice);
 	HRESULT __stdcall DeviceRemoved(LONG nFindData, BSTR bsUDN);
 	HRESULT __stdcall SearchComplete(LONG nFindData);
-
-private:
-	CUPnPFinder& m_instance;
 };
 
 // Service Callback
@@ -151,7 +150,7 @@ public:
 		: m_instance( instance )
 	{}
 
-// implementation
+// Implementation
 private:
 	HRESULT __stdcall StateVariableChanged(IUPnPService* pService, LPCWSTR pszStateVarName, VARIANT varValue);
 	HRESULT __stdcall ServiceInstanceDied(IUPnPService* pService);

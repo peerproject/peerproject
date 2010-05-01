@@ -65,7 +65,7 @@ public:
 	DWORD		m_nKeyHost; 		// G2 query key host
 
 	// Attributes: DHT
-	BOOL		m_bDHT; 			// Host is DHT capable
+	BOOL			m_bDHT; 		// Host is DHT capable
 	Hashes::BtGuid	m_oBtGUID;		// Host GUID (160 bit)
 	CArray< BYTE >	m_Token;		// Host access token
 
@@ -90,7 +90,7 @@ public:
 protected:
 	DWORD		m_tSeen;
 
-	// Return: true - if tSeen cnaged, false - otherwise.
+	// Return: true - if tSeen changed, false - otherwise.
 	bool		Update(WORD nPort, DWORD tSeen = 0, LPCTSTR pszVendor = NULL, DWORD nUptime = 0, DWORD nCurrentLeaves = 0, DWORD nLeafLimit = 0);
 	void		Serialize(CArchive& ar, int nVersion);
 
@@ -103,6 +103,10 @@ protected:
 	}
 
 	friend class CHostCacheList;
+
+private:
+	CHostCacheHost(const CHostCacheHost&);
+	CHostCacheHost& operator=(const CHostCacheHost&);
 };
 
 typedef CHostCacheHost* CHostCacheHostPtr;
@@ -186,12 +190,12 @@ public:
 		return m_HostsTime.rend();
 	}
 
-	inline const CHostCacheHostPtr GetNewest() const throw()
+	inline CHostCacheHostPtr GetNewest() const throw()
 	{
 		return IsEmpty() ? NULL : *Begin();
 	}
 
-	inline const CHostCacheHostPtr GetOldest() const throw()
+	inline CHostCacheHostPtr GetOldest() const throw()
 	{
 		return IsEmpty() ? NULL : *( End()-- );
 	}
@@ -227,7 +231,7 @@ public:
 			std::bind2nd( good_host(), bCountUncheckedLocally ) );
 	}
 
-	inline const CHostCacheHostPtr GetForDHTQuery() const throw()
+	inline CHostCacheHostPtr GetForDHTQuery() const throw()
 	{
 		const DWORD tNow = static_cast< DWORD >( time( NULL ) );
 		for ( CHostCacheIterator it = m_HostsTime.begin();
@@ -240,7 +244,7 @@ public:
 		return NULL;
 	}
 
-	inline const CHostCacheHostPtr GetOldestForQuery() const throw()
+	inline CHostCacheHostPtr GetOldestForQuery() const throw()
 	{
 		const DWORD tNow = static_cast< DWORD >( time( NULL ) );
 		for ( CHostCacheRIterator it = m_HostsTime.rbegin();

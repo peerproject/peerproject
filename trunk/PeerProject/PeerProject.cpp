@@ -687,10 +687,11 @@ BOOL CPeerProjectApp::OpenTorrent(LPCTSTR lpszFileName, BOOL bDoIt)
 					return TRUE;
 
 				// Open torrent
-				auto_array< TCHAR > pszPath( new TCHAR[ lstrlen( lpszFileName ) + 1 ] );
+				const size_t nLen = _tcslen( lpszFileName ) + 1;
+				auto_array< TCHAR > pszPath( new TCHAR[ nLen ] );
 				if ( pszPath.get() )
 				{
-					lstrcpy( pszPath.get(), lpszFileName );
+					_tcscpy_s( pszPath.get(), nLen, lpszFileName );
 					if ( PostMainWndMessage( WM_TORRENT, (WPARAM)pszPath.release() ) )
 						return TRUE;
 				}
@@ -706,10 +707,11 @@ BOOL CPeerProjectApp::OpenCollection(LPCTSTR lpszFileName, BOOL bDoIt)
 	if ( ! bDoIt )
 		return TRUE;
 
-	auto_array< TCHAR > pszPath( new TCHAR[ lstrlen( lpszFileName ) + 1 ] );
+	const size_t nLen = _tcslen( lpszFileName ) + 1;
+	auto_array< TCHAR > pszPath( new TCHAR[ nLen ] );
 	if ( pszPath.get() )
 	{
-		lstrcpy( pszPath.get(), lpszFileName );
+		_tcscpy_s( pszPath.get(), nLen, lpszFileName );
 		if ( PostMainWndMessage( WM_COLLECTION, (WPARAM)pszPath.release() ) )
 			return TRUE;
 	}
@@ -1342,16 +1344,47 @@ BOOL CPeerProjectApp::InternalURI(LPCTSTR pszURI)
 
 	CString strURI( pszURI );
 
+	if ( strURI.Find( _T("peer:") ) != 0 )
+	{
+		if ( strURI.Find( _T("http://") ) == 0 ||
+			strURI.Find( _T("https://") ) == 0 ||
+			strURI.Find( _T("ftp://") ) == 0 ||
+			strURI.Find( _T("mailto:") ) == 0 ||
+			strURI.Find( _T("aim:") ) == 0 ||
+			strURI.Find( _T("magnet:") ) == 0 ||
+			strURI.Find( _T("gnutella:") ) == 0 ||
+			strURI.Find( _T("gnutella1:") ) == 0 ||
+			strURI.Find( _T("gnutella2:") ) == 0 ||
+			strURI.Find( _T("shareaza:") ) == 0 ||
+			strURI.Find( _T("peerproject:") ) == 0 ||
+			strURI.Find( _T("peer:") ) == 0 ||
+			strURI.Find( _T("ed2k:") ) == 0 ||
+			strURI.Find( _T("g2:") ) == 0 ||
+			strURI.Find( _T("gwc:") ) == 0 ||
+			strURI.Find( _T("uhc:") ) == 0 ||
+			strURI.Find( _T("ukhl:") ) == 0 ||
+			strURI.Find( _T("gnet:") ) == 0 ||
+			strURI.Find( _T("mp2p:") ) == 0 ||
+			strURI.Find( _T("foxy:") ) == 0 ||
+			strURI.Find( _T("sig2dat:") ) == 0 )
+		{
+			ShellExecute( pMainWnd->GetSafeHwnd(), _T("open"),
+				strURI, NULL, NULL, SW_SHOWNORMAL );
+
+			return TRUE;
+		}
+
+		theApp.Message( MSG_ERROR, _T("Unknown internal URI:  ") + strURI );
+
+		return FALSE;
+	}
+
+	// "peer:" prefixed internal utilities:
+
 	if ( strURI.Find( _T("peer:command:") ) == 0 )
 	{
 		if ( UINT nCmdID = CoolInterface.NameToID( pszURI + 13 ) )
 			pMainWnd->PostMessage( WM_COMMAND, nCmdID );
-	}
-	else if ( strURI.Find( _T("peer:windowptr:") ) == 0 )
-	{
-		CChildWnd* pChild = NULL;
-		_stscanf( (LPCTSTR)strURI + 15, _T("%lu"), &pChild );
-		if ( pMainWnd->m_pWindows.Check( pChild ) ) pChild->MDIActivate();
 	}
 	else if ( strURI.Find( _T("peer:launch:") ) == 0 )
 	{
@@ -1369,31 +1402,6 @@ BOOL CPeerProjectApp::InternalURI(LPCTSTR pszURI)
 			}
 		}
 	}
-	else if (	strURI.Find( _T("http://") ) == 0 ||
-				strURI.Find( _T("https://") ) == 0 ||
-				strURI.Find( _T("ftp://") ) == 0 ||
-				strURI.Find( _T("mailto:") ) == 0 ||
-				strURI.Find( _T("aim:") ) == 0 ||
-				strURI.Find( _T("magnet:") ) == 0 ||
-				strURI.Find( _T("gnutella:") ) == 0 ||
-				strURI.Find( _T("gnutella1:") ) == 0 ||
-				strURI.Find( _T("gnutella2:") ) == 0 ||
-				strURI.Find( _T("shareaza:") ) == 0 ||
-				strURI.Find( _T("peerproject:") ) == 0 ||
-				strURI.Find( _T("peer:") ) == 0 ||
-				strURI.Find( _T("ed2k:") ) == 0 ||
-				strURI.Find( _T("g2:") ) == 0 ||
-				strURI.Find( _T("gwc:") ) == 0 ||
-				strURI.Find( _T("uhc:") ) == 0 ||
-				strURI.Find( _T("ukhl:") ) == 0 ||
-				strURI.Find( _T("gnet:") ) == 0 ||
-				strURI.Find( _T("mp2p:") ) == 0 ||
-				strURI.Find( _T("foxy:") ) == 0 ||
-				strURI.Find( _T("sig2dat:") ) == 0 )
-	{
-		ShellExecute( pMainWnd->GetSafeHwnd(), _T("open"), strURI,
-			NULL, NULL, SW_SHOWNORMAL );
-	}
 	else if ( strURI == _T("peer:connect") )
 	{
 		pMainWnd->PostMessage( WM_COMMAND, ID_NETWORK_CONNECT );
@@ -1402,13 +1410,10 @@ BOOL CPeerProjectApp::InternalURI(LPCTSTR pszURI)
 	{
 		pMainWnd->PostMessage( WM_COMMAND, ID_NETWORK_DISCONNECT );
 	}
-	else if ( strURI == _T("peer:search") )
+	else if ( strURI == _T("peer:shell:downloads") )
 	{
-		pMainWnd->PostMessage( WM_COMMAND, ID_TAB_SEARCH );
-	}
-	else if ( strURI == _T("peer:neighbours") )
-	{
-		pMainWnd->PostMessage( WM_COMMAND, ID_VIEW_NEIGHBOURS );
+		ShellExecute( pMainWnd->GetSafeHwnd(), _T("open"),
+			Settings.Downloads.CompletePath, NULL, NULL, SW_SHOWNORMAL );
 	}
 	else if ( strURI == _T("peer:downloads") )
 	{
@@ -1418,10 +1423,13 @@ BOOL CPeerProjectApp::InternalURI(LPCTSTR pszURI)
 	{
 		pMainWnd->PostMessage( WM_COMMAND, ID_VIEW_UPLOADS );
 	}
-	else if ( strURI == _T("peer:shell:downloads") )
+	else if ( strURI == _T("peer:search") )
 	{
-		ShellExecute( pMainWnd->GetSafeHwnd(), _T("open"),
-			Settings.Downloads.CompletePath, NULL, NULL, SW_SHOWNORMAL );
+		pMainWnd->PostMessage( WM_COMMAND, ID_TAB_SEARCH );
+	}
+	else if ( strURI == _T("peer:neighbours") )
+	{
+		pMainWnd->PostMessage( WM_COMMAND, ID_VIEW_NEIGHBOURS );
 	}
 	else if ( strURI == _T("peer:upgrade") )
 	{
@@ -1457,8 +1465,18 @@ BOOL CPeerProjectApp::InternalURI(LPCTSTR pszURI)
 		pMainWnd->PostMessage( WM_COMMAND, ID_VIEW_LIBRARY );
 		pMainWnd->PostMessage( WM_COMMAND, ID_LIBRARY_TREE_VIRTUAL );
 	}
+	else if ( strURI.Find( _T("peer:windowptr:") ) == 0 )	// ToDo: Unused, but useful?
+	{
+		CChildWnd* pChild = NULL;
+		_stscanf( (LPCTSTR)strURI + 15, _T("%lu"), &pChild );
+		if ( pMainWnd->m_pWindows.Check( pChild ) ) pChild->MDIActivate();
+	}
 	else
+	{
+		theApp.Message( MSG_ERROR, _T("Unknown internal command:  ") + strURI );
+
 		return FALSE;
+	}
 
 	return TRUE;
 }
@@ -1524,36 +1542,26 @@ CString LoadString(UINT nID)
 BOOL LoadSourcesString(CString& str, DWORD num, bool bFraction)
 {
 	if ( bFraction )
-	{
 		return Skin.LoadString( str, IDS_STATUS_SOURCESOF );
-	}
 	else if ( num == 0 )
-	{
 		return Skin.LoadString( str, IDS_STATUS_NOSOURCES );
-	}
 	else if ( num == 1 )
-	{
 		return Skin.LoadString( str, IDS_STATUS_SOURCE );
-	}
 	else if ( ( num % 100 ) > 10 && ( num % 100 ) < 20 )
-	{
 		return Skin.LoadString( str, IDS_STATUS_SOURCES11TO19 );
-	}
-	else
+
+	switch ( num % 10 )
 	{
-		switch ( num % 10 )
-		{
-			case 0:
-				return Skin.LoadString( str, IDS_STATUS_SOURCESTENS );
-			case 1:
-				return Skin.LoadString( str, IDS_STATUS_SOURCES );
-			case 2:
-			case 3:
-			case 4:
-				return Skin.LoadString( str, IDS_STATUS_SOURCES2TO4 );
-			default:
-				return Skin.LoadString( str, IDS_STATUS_SOURCES5TO9 );
-		}
+		case 0:
+			return Skin.LoadString( str, IDS_STATUS_SOURCESTENS );
+		case 1:
+			return Skin.LoadString( str, IDS_STATUS_SOURCES );
+		case 2:
+		case 3:
+		case 4:
+			return Skin.LoadString( str, IDS_STATUS_SOURCES2TO4 );
+		default:
+			return Skin.LoadString( str, IDS_STATUS_SOURCES5TO9 );
 	}
 }
 
@@ -1671,17 +1679,11 @@ DWORD TimeFromString(LPCTSTR pszTime)
 	if ( _stscanf( psz, _T("%i"), &nTemp ) != 1 ) return 0;
 	pTime.tm_min = nTemp;
 
-	time_t tGMT = mktime( &pTime );
-	// check for invalid dates
-	if ( tGMT == -1 )
-	{
-		theApp.Message( MSG_ERROR, _T("Invalid Date/Time"), pszTime );
-		return 0;
-	}
-	struct tm* pGM = gmtime( &tGMT );
-	time_t tSub = mktime( pGM );
-
-	if ( tSub == - 1)
+	time_t tGMT = mktime( &pTime ), tSub;
+	tm pGM = {};
+	if ( tGMT == -1 ||
+		gmtime_s( &pGM, &tGMT ) != 0 ||
+		( tSub = mktime( &pGM ) ) == -1 )
 	{
 		theApp.Message( MSG_ERROR, _T("Invalid Date/Time"), pszTime );
 		return 0;
@@ -1692,13 +1694,14 @@ DWORD TimeFromString(LPCTSTR pszTime)
 
 CString TimeToString(time_t tVal)
 {
-	tm* pTime = gmtime( &tVal );
+	tm time = {};
 	CString str;
-
-	str.Format( _T("%.4i-%.2i-%.2iT%.2i:%.2iZ"),
-		pTime->tm_year + 1900, pTime->tm_mon + 1, pTime->tm_mday,
-		pTime->tm_hour, pTime->tm_min );
-
+	if ( gmtime_s( &time, &tVal ) == 0 )
+	{
+		str.Format( _T("%.4i-%.2i-%.2iT%.2i:%.2iZ"),
+			time.tm_year + 1900, time.tm_mon + 1, time.tm_mday,
+			time.tm_hour, time.tm_min );
+	}
 	return str;
 }
 
@@ -2279,7 +2282,7 @@ CString SafeFilename(const CString& sOriginalName, bool bPath)
 	int nNameLen = strName.GetLength();
 	for ( int nChar = 0; nChar < nNameLen; ++nChar )
 	{
-		nChar = StrCSpn( ((LPCTSTR)strName) + nChar,
+		nChar = (int)_tcscspn( (LPCTSTR)strName + nChar,
 			bPath ? _T("/:*?\"<>|") : _T("\\/:*?\"<>|") ) + nChar;
 		if ( nChar < 0 || nChar >= nNameLen )
 			break;
@@ -2836,7 +2839,7 @@ CString BrowseForFolder(LPCTSTR szTitle, LPCTSTR szInitialPath, HWND hWnd)
 	if ( ! szInitialPath || ! *szInitialPath )
 	{
 		if ( ! *szDefaultPath )
-			lstrcpyn( szDefaultPath, (LPCTSTR)theApp.GetDocumentsFolder(), MAX_PATH );
+			_tcsncpy_s( szDefaultPath, MAX_PATH, (LPCTSTR)theApp.GetDocumentsFolder(), MAX_PATH - 1 );
 		szInitialPath = szDefaultPath;
 	}
 
@@ -2863,7 +2866,7 @@ CString BrowseForFolder(LPCTSTR szTitle, LPCTSTR szInitialPath, HWND hWnd)
 		return CString();
 
 	// Save last used folder
-	lstrcpyn( szDefaultPath, szPath, MAX_PATH );
+	_tcsncpy_s( szDefaultPath, MAX_PATH, szPath, MAX_PATH - 1 );
 
 	return CString( szPath );
 }

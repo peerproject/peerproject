@@ -93,8 +93,7 @@ void CUploadTipCtrl::OnShow()
 
 void CUploadTipCtrl::OnHide()
 {
-	if ( m_pGraph ) delete m_pGraph;
-
+	delete m_pGraph;
 	m_pGraph = NULL;
 	m_pItem = NULL;
 }
@@ -104,10 +103,9 @@ void CUploadTipCtrl::OnCalcSize(CDC* pDC)
 	if ( ! m_pUploadFile || ! UploadFiles.Check( m_pUploadFile ) ) return;
 	CUploadTransfer* pUpload = m_pUploadFile->GetActive();
 
+	m_sAddress = inet_ntoa( pUpload->m_pHost.sin_addr );
 	if ( pUpload->m_sNick.GetLength() > 0 )
-		m_sAddress = pUpload->m_sNick + _T(" (") + inet_ntoa( pUpload->m_pHost.sin_addr ) + ')';
-	else
-		m_sAddress = inet_ntoa( pUpload->m_pHost.sin_addr );
+		m_sAddress = pUpload->m_sNick + _T(" (") + m_sAddress + _T(")");
 
 	m_pHeaderName.RemoveAll();
 	m_pHeaderValue.RemoveAll();

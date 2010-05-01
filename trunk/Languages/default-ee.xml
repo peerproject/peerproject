@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <skin xmlns="http://schemas.peerproject.org/Skin.xsd" version="1.0">
 
 <!-- PeerProject Default Estonian Skin File -->
 
-<!-- Translation based on default-en.xml r52 (Shareaza 2.2.2.9) -->
+<!-- Translation based on default-en.xml r54 (Shareaza 2.2.2.9) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -13,9 +13,9 @@
 <!-- Better to be concise than literal:  Please test visibility! -->
 
 <!-- Special characters used in Estonian:  Umlauts
-    &#196;  Ä  &#228;  ä
-    &#214;  Ö  &#246;  ö
-    &#220;  Ü  &#252;  ü
+	&#196;  Ä  &#228;  ä
+	&#214;  Ö  &#246;  ö
+	&#220;  Ü  &#252;  ü
 -->
 
 <!-- Manifest -->
@@ -1799,6 +1799,9 @@
 		<link target="peer:page:CCommunitySettingsPage" format="b">Kogukond:</link>
 		<text>&#160;Sinu profiili, vestluse ja sõnumite seaded.</text>
 		<newline gap="10"/>
+		<link target="peer:page:CRemoteSettingsPage" format="b">Pult:</link>
+		<text>&#160;Annab võimaluse PeerProjectt eemalt juhtida, läbi weebibrowseri.</text>
+		<newline gap="10"/>
 		<link target="peer:page:CWebSettingsPage" format="b">Weeb:</link>
 		<text>&#160;Integreeri PeerProject oma weebi browseriga ja ühenda peer-to-peer lingid ja allalaadimised browserist.</text>
 	</document>
@@ -1818,9 +1821,6 @@
 		<newline gap="10"/>
 		<link target="peer:page:CUploadsSettingsPage" format="b">Üleslaadimised:</link>
 		<text>&#160;Üleslaadimise mahud, järjekorrad, keelamised, ajastused ja erinõuded.</text>
-		<newline gap="10"/>
-		<link target="peer:page:CRemoteSettingsPage" format="b">Pult:</link>
-		<text>&#160;Annab võimaluse PeerProjectt eemalt juhtida, läbi weebibrowseri.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CSchedulerSettingsPage" format="b">Scheduler:</link>
 		<text>&#160;Limit download connections based on a periodic schedule.</text>
@@ -2528,8 +2528,8 @@
 	<string id="8071" value="Ühendatud"/>
 	<string id="8072" value="Katkesta ühendus"/>
 	<string id="8096" value="Siin näed valitud faili kohta rohkem informatsiooni."/>
-	<string id="8097" value="Üks allikas on saadaval (%s)."/>
-	<string id="8098" value="%i allikaid on saadaval (%s)."/>
+	<string id="8097" value="Üks allikas on saadaval. (%s/s)"/>
+	<string id="8098" value="%i allikaid on saadaval. (%s/s)"/>
 	<string id="8099" value="On üks arvamus."/>
 	<string id="8100" value="On %i arvamust."/>
 	<string id="8101" value="%s kirjutab:"/>
@@ -2721,7 +2721,7 @@
 	<string id="16264" value="Alustan ühenduse loomist %s porti %i  &quot;%s&quot; allalaadimiseks..."/>
 	<string id="16265" value="Ei saa allalaadimiseks ühendust luua %s."/>
 	<string id="16266" value="Loodud ühendus allalaadimiseks %s."/>
-	<string id="16267" value="Küsin allalaadimiseks fragmenti (%I64i-%I64i)  &quot;%s&quot; -lt %s."/>
+	<string id="16267" value="Küsin allalaadimiseks fragmenti (%I64u-%I64u)  &quot;%s&quot; -lt %s."/>
 	<string id="16268" value="Ei ole rohkem osasid allalaadimiseks, sulgen ühenduse %s."/>
 	<string id="16269" value="Fragment lühenes, sulgen ühenduse %s."/>
 	<string id="16270" value="Allalaadimiseks päring %s ei vasta, sulgen ühenduse."/>
@@ -3162,19 +3162,19 @@
 </strings>
 <!-- Localized Dialog Text, "cookie" verifies that the skin matches current dialog -->
 <dialogs>
-	<dialog name="CGeneralSettingsGroup" cookie="" caption="General">
-	</dialog>
-	<dialog name="CSettingSheet" cookie="SyBuBuBu#3" caption="PeerProject Seaded">
+	<dialog name="CSettingSheet" cookie="SyBuBuBu" caption="PeerProject Seaded">
 		<control/>
 		<control caption="OK"/>
 		<control caption="Tühista"/>
 		<control caption="Kinnita"/>
 		<control/>
 	</dialog>
+	<dialog name="CGeneralSettingsGroup" cookie="Af" caption="Üldiselt"/>
+	<dialog name="CInternetSettingsGroup" cookie="Af" caption="Internet"/>
 	<dialog name="CGeneralSettingsPage" cookie="BuBuBuBuBuBuBuBuStCoBuBuBuBuBuBuSyStEdmsStmsBuBuStCoStCo" caption="Üldiselt">
 		<control caption="_Üldiselt:"/>
-		<control caption="Ühenda automaatselt PeerProject käivitudes"/>
 		<control caption="Käivita PeerProject koos Windowsiga"/>
+		<control caption="Ühenda automaatselt käivitudes"/>
 		<control caption="Näita enne URI avamist hoitust"/>
 		<control caption="Check for updates"/>
 		<control caption="_Allalaadimised:"/>
@@ -3271,8 +3271,6 @@
 		<control caption="_Lisa"/>
 		<control caption="_Eemalda"/>
 		<control caption="Allalaadimishalduri plugin proovib tõmmata ainult nimekirjas olevaid faile.  Teisi failitüüpe käsitleb sinu weebibrauser.  PeerProject peab allalaadimiste haldamiseks töötama."/>
-	</dialog>
-	<dialog name="CInternetSettingsGroup" cookie="" caption="Internet">
 	</dialog>
 	<dialog name="CConnectionSettingsPage" cookie="BuStCoStCoStEdBuBuBuStCoStCoBuStCoBuBuStEdmsStEdms" caption="Ühendused">
 		<control caption="_Sissetulevad Aadressid:"/>
@@ -3392,7 +3390,7 @@
 		<control caption="Ühenda Gnutella2 -te(G2)"/>
 		<control caption="Seadista Gnutella2"/>
 		<control caption="Algupärane Gnutella Võrgustik:"/>
-		<control caption="Algupärane Gnutella võrk ei ole nii võimaluste rohke kui     Gnutella2 ja omab vähem faile kui eDonkey2000 on see siiski arvestatav allikas failijagamiseks."/>
+		<control caption="Algupärane Gnutella võrk ei ole nii võimaluste rohke kui Gnutella2 ja omab vähem faile kui eDonkey2000 on see siiski arvestatav allikas failijagamiseks."/>
 		<control caption="Ühenda Gnutella (G1)"/>
 		<control caption="Seadista Gnutella -te"/>
 		<control caption="eDonkey Võrgustik:"/>
@@ -3504,15 +3502,13 @@
 		<control caption="Seade..."/>
 		<control caption="Otsi lisaks"/>
 	</dialog>
-	<dialog name="CAdvancedSettingsPage" cookie="SyEdmsBuBuStStEd" caption="Täpsem">
+	<dialog name="CAdvancedSettingsPage" cookie="SyEdmsBuBuSt" caption="Täpsem">
 		<control/>
 		<control/>
 		<control/>
 		<control caption="Set Default"/>
 		<control caption="Kirjeldus:"/>
 		<control caption="Seadete Omadused:"/>
-		<control caption="Väärtus:"/>
-		<control/>
 	</dialog>
 	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="Protolollid">
 		<control caption="PeerProject Üldehituse Protokollide Teave:"/>
@@ -3557,7 +3553,7 @@
 		<control caption="Tühista"/>
 		<control caption="Autasusta üleslaadijaid"/>
 	</dialog>
-	<dialog name="CWizardWelcomePage" cookie="StStStStStStStStStStStSt" caption="Teretulemast PeerProject">
+	<dialog name="CWizardWelcomePage" cookie="StStStStStStStStStStStSt" caption="Teretulemast PeerProject (1/8)">
 		<control caption="Teretulemast PeerProjectsse!"/>
 		<control caption="Kui sa ei ole varem PeerProjectt või mõnda muud P2P klienti kasutanud, siis see Kiire abiline aitab sul paari lihtsa sammuga oma klienti kohandada."/>
 		<control caption="Kui sa oled juba kogenenum kasutaja, siis saad täies ulatuses ligipääsu PeerProject seadetele läbi Tööriistade menüü.  Kliki Välja, et sulgeda see abiline suvalisel hetkel."/>
@@ -3571,7 +3567,7 @@
 		<control/>
 		<control caption="Alustada PeerProject kasutamist."/>
 	</dialog>
-	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="Teretulemast PeerProject (1/6)">
+	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="Teretulemast PeerProject (2/8)">
 		<control caption="Optimaalseks kasutuseks vajab PeerProject veidi infot sinu Internetiühenduse kohta."/>
 		<control caption="You may select the Internet connection type:"/>
 		<control caption="|Dial-up Modem|ISDN (128K)|DSL (768K)|DSL (1.5M)|DSL (4.0M)|DSL2 (8.0M)|FIOS (10.0M)|DSL2 (12.0M)|FIOS (20.0M)|DSL2 (24.0M)|Cable Modem|T1|T3|LAN|OC3"/>
@@ -3587,7 +3583,30 @@
 		<control caption="Või vali:"/>
 		<control/>
 	</dialog>
-	<dialog name="CWizardSharePage" cookie="StStStSyBuBuSt" caption="Teretulemast PeerProject (2/6)">
+	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuStBu" caption="Teretulemast PeerProject (3/8)">
+		<control caption="PeerProject on üldptstarbeline failijagamisprogramm, mis suudab ühenduda paljudesse P2P võrkudesse samaegselt.  Siin saad sa valida, millistesse võrkudesse sa tahad ühendada.  Sa saad ka hiljem valida erinevadi võrke."/>
+		<control caption="Ühenda Gnutella2 (Soovituslik)"/>
+		<control caption="Gnutella2 võrk (G2) on PeerProject's peamine töö võrk, pakkudes rohkem võimalusi ja paremat esitust, kui mõni teine P2P võrk."/>
+		<control caption="Ühenda Algupärasesse Gnutella võrkku"/>
+		<control caption="Samuti algne Gnutella võrk (G1), ei ole küll nii võimaluste rohke kui Gnutella2 ja on vähem faile kui eDonkey-l, aga on siiski väärtuslik failijagamise allikas."/>
+		<control caption="Ühenda eDonkey2000"/>
+		<control caption="eDonkey (ED2K) on levinud srerveritel baseeruv võrk.  Küll mitte nii võimaluste rohke, kui Gnutella2, on eDonkey-l muljetavaldav kogus faile ringluses."/>
+		<control caption="Käsitle .torrent linke."/>
+	</dialog>
+	<dialog name="CWizardFoldersPage" cookie="StStEdBuStEdBuStEdBuSt" caption="Welcome to PeerProject (4/8)">
+		<control caption="PeerProject first downloads partial files to a private folder, then moves them when completed according to Download Groups."/>
+		<control caption="Salvesta Lõpetatud Failid Siia:"/>
+		<control/>
+		<control/>
+		<control caption="Salvesta Ajutised Poolikud Failid Siia:"/>
+		<control/>
+		<control/>
+		<control caption="Salvesta .Torrent Failid Siia:"/>
+		<control/>
+		<control/>
+		<control caption="Common filetypes are initially setup as subfolders of the default location, but Groups can easily be customized by Right-Click.  Simply Drag&apos;n&apos;Drop files."/>
+	</dialog>
+	<dialog name="CWizardSharePage" cookie="StStStSyBuBuSt" caption="Teretulemast PeerProject (5/8)">
 		<control caption="P2P võrgud on ainult nii head kui head on nende võrkude kasutajad.  Kõiki saadaolevaid faile jagavad teised kasutajad."/>
 		<control caption="Sa ei pea PeerProject kasutamiseks faile jagama, aga mõni progremm käitub mittemidagi jagavate kasutajatega teistmoodi."/>
 		<control caption="Palun näita, milliseid kaustu jagada.  Kliki Lisa nuppu, et lisada uus kaust."/>
@@ -3605,18 +3624,7 @@
 		<control caption="0"/>
 		<control caption="Sule"/>
 	</dialog>
-	<dialog name="CWizardProfilePage" cookie="StStEdStCoCoStCoCo" caption="Tretulemast PeerProject (3/6)">
-		<control caption="PeerProject on palju sõbralikum koht kui kõik kasutajad kirjutavad midagi enda kohta."/>
-		<control caption="Ma kasutan nime:"/>
-		<control/>
-		<control caption="ja ma olen:"/>
-		<control caption="&#160;(vali)"/>
-		<control caption="&#160;(vali)| poiss| tüdruk| mees| naine"/>
-		<control caption="pärit olen:"/>
-		<control/>
-		<control/>
-	</dialog>
-	<dialog name="CWizardInterfacePage" cookie="StBuBuBuStStBuSt" caption="Teretulemast PeerProject (4/6)">
+	<dialog name="CWizardInterfacePage" cookie="StBuBuBuStStBuSt" caption="Teretulemast PeerProject (6/8)">
 		<control caption="PeerProject toetab paindlikku kasutajaliidest, nii et saad valida just endale sobiva. Sa saad neid seadeid igal ajal muuta."/>
 		<control caption="Vali kasutajaliides:"/>
 		<control caption="Tavaline Vaade"/>
@@ -3626,15 +3634,27 @@
 		<control caption="Kuva lihtsustatud allalaadimisriba."/>
 		<control caption=""/>
 	</dialog>
-	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuStBu" caption="Teretulemast PeerProject (5/6)">
-		<control caption="PeerProject on üldptstarbeline failijagamisprogramm, mis suudab ühenduda paljudesse P2P võrkudesse samaegselt.  Siin saad sa valida, millistesse võrkudesse sa tahad ühendada.  Sa saad ka hiljem valida erinevadi võrke."/>
-		<control caption="Ühenda Gnutella2 (Soovituslik)"/>
-		<control caption="Gnutella2 võrk (G2) on PeerProject's peamine töö võrk, pakkudes rohkem võimalusi ja paremat esitust, kui mõni teine P2P võrk."/>
-		<control caption="Ühenda Algupärasesse Gnutella võrkku"/>
-		<control caption="Samuti algne Gnutella võrk (G1), ei ole küll nii võimaluste rohke kui Gnutella2 ja on vähem faile kui eDonkey-l, aga on siiski väärtuslik failijagamise allikas."/>
-		<control caption="Ühenda eDonkey2000"/>
-		<control caption="eDonkey (ED2K) on levinud srerveritel baseeruv võrk.  Küll mitte nii võimaluste rohke, kui Gnutella2, on eDonkey-l muljetavaldav kogus faile ringluses."/>
-		<control caption="Käsitle .torrent linke."/>
+	<dialog name="CWizardProfilePage" cookie="StStEdStCoCoStCoStCoStEd" caption="Tretulemast PeerProject (7/8)">
+		<control caption="PeerProject on palju sõbralikum koht kui kõik kasutajad kirjutavad midagi enda kohta."/>
+		<control caption="Ma kasutan nime:"/>
+		<control/>
+		<control caption="ja ma olen:"/>
+		<control caption="&#160;(vali)"/>
+		<control caption="&#160;(vali)| poiss| tüdruk| mees| naine"/>
+		<control caption="pärit olen:"/>
+		<control/>
+		<control caption="Locale:"/>
+		<control/>
+		<control caption="Comments:"/>
+		<control/>
+	</dialog>
+	<dialog name="CWizardFinishedPage" cookie="StStStBuBuSt" caption="Teretulemast PeerProject (8/8)">
+		<control caption="Ongi kõik!  PeerProject on valmis sinu arvutis töötama."/>
+		<control caption="Kui sa tahad seadeid muuta, võid uuesti käivitada Kiirabilise Töörista ribalt."/>
+		<control caption="Pärast selle abilise sulgemist, klikkides Valmis nuppu, saad sa ühendada valitud võrkudesse ja alustada otsinguid ning allalaadimist."/>
+		<control caption="Käivita PeerProject koos Windowsiga"/>
+		<control caption="Ühenda võrku igakord kui käivitan PeerProject"/>
+		<control caption="Alusta PeerProject nautimist!"/>
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="Impordi eDonkey2000 Allalaadimised">
 		<control/>
@@ -3644,16 +3664,7 @@
 		<control/>
 		<control caption="Sule"/>
 	</dialog>
-	<dialog name="CWizardFinishedPage" cookie="StStStBuBuBuSt" caption="Teretulemast PeerProject (6/6)">
-		<control caption="Ongi kõik!  PeerProject on valmis sinu arvutis töötama."/>
-		<control caption="Kui sa tahad seadeid muuta, võid uuesti käivitada Kiirabilise Töörista ribalt."/>
-		<control caption="Pärast selle abilise sulgemist, klikkides Valmis nuppu, saad sa ühendada valitud võrkudesse ja alustada otsinguid ning allalaadimist."/>
-		<control caption="Ühenda, kohe pärast abilise sulgemist, võrku"/>
-		<control caption="Ühenda võrku igakord kui käivitan PeerProject"/>
-		<control caption="Käivita PeerProject koos Windowsiga"/>
-		<control caption="Alusta PeerProject nautimist!"/>
-	</dialog>
-	<dialog name="CProfileManagerDlg" cookie="SyBuBuBu#3" caption="Muuda Minu Profiili">
+	<dialog name="CProfileManagerDlg" cookie="SyBuBuBu" caption="Muuda Minu Profiili">
 		<control/>
 		<control caption="OK"/>
 		<control caption="Tühista"/>
@@ -3771,30 +3782,30 @@
 		<control caption="Otsi"/>
 		<control caption="Tühista"/>
 	</dialog>
-	<dialog name="CFilterSearchDlg" cookie="BuEdBuStBuStEdStEdStEdmsStBuBuBuBuBuBuBuBuBuBuBuCoBuBuBuBuBu" caption="Filter">
+	<dialog name="CFilterSearchDlg" cookie="BuEdBuStBuStEdStEdStEdmsBuBuBuBuBuBuBuBuBuBuBuBuBuCoBuBuBuBuBu" caption="Filter">
 		<control caption="Näita ainult neid vastuseid, mis sisaldavad neid s_õnu:"/>
 		<control/>
 		<control caption="Reg. Exp."/>
-		<control caption="( Sa saad ka välistada sõnu kasutades -sõna )"/>
+		<control caption="(Välistada -sõnu)"/>
 		<control caption="On _suuruses:"/>
 		<control caption="Vähemalt:"/>
 		<control/>
 		<control caption="Maksimaalselt:"/>
 		<control/>
-		<control caption="Vähemalt:"/>
+		<control caption="Vähemalt allikaga:"/>
 		<control/>
 		<control/>
-		<control caption="allikaga."/>
 		<control caption="_Peida:"/>
+		<control caption="Failid, mis sul juba on"/>
+		<control caption="Ebasobivad failid"/>
+		<control caption="Võlts tulemused"/>
+		<control caption="Restricted failid"/>
+		<control caption="DRM failid"/>
 		<control caption="Hõivatud serverid"/>
 		<control caption="Tulemüüritud/peidetud serverid"/>
 		<control caption="Ebastabiilsed serverid"/>
-		<control caption="Ebasobivad failid"/>
-		<control caption="Failid, mis sul juba on"/>
-		<control caption="Võlts tulemused"/>
-		<control caption="DRM failid"/>
-		<control caption="Täiskasvanu tulemused"/>
 		<control caption="Kahtlased failid"/>
+		<control caption="Täiskasvanu tulemused"/>
 		<control caption="Filtrid:"/>
 		<control/>
 		<control caption="Sea vaikimisi"/>
@@ -3883,15 +3894,15 @@
 		<control caption="_Eemalda"/>
 		<control/>
 	</dialog>
-	<dialog name="CFileCopyDlg" cookie="StStmsBuBumsStSt" caption="Kopeeri Faile|Liiguta Faile">
+	<dialog name="CFileCopyDlg" cookie="StStStmsmsStBuBu" caption="Kopeeri Faile|Liiguta Faile">
 		<control caption="Sa oled valinud %i faili, et kopeerida see järgnevasse kausta:"/>
+		<control caption="Sa oled valinud %i faili, et viia see järgnevasse kausta:"/>
 		<control/>
 		<control/>
-		<control caption="OK"/>
-		<control caption="Tühista"/>
 		<control/>
 		<control caption="Valmis..."/>
-		<control caption="Sa oled valinud %i faili, et viia see järgnevasse kausta:"/>
+		<control caption="OK"/>
+		<control caption="Tühista"/>
 	</dialog>
 	<dialog name="CFolderPropertiesDlg" cookie="StEdStCoBuStBuBu" caption="Albumi Kaustade Omadused">
 		<control caption="Album Kausta Nimi:"/>
@@ -4412,4 +4423,4 @@
 		<column from="Order" to="Järjekord"/>
 	</list>
 </listColumns>
-</skin>뚸
+</skin>

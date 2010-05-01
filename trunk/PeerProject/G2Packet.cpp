@@ -1,7 +1,7 @@
 //
 // G2Packet.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -38,10 +38,10 @@ CG2Packet::CG2PacketPool CG2Packet::POOL;
 //////////////////////////////////////////////////////////////////////
 // CG2Packet construction
 
-CG2Packet::CG2Packet() :
-	CPacket( PROTOCOL_G2 ),
-	m_nType( G2_PACKET_NULL ),
-	m_bCompound( FALSE )
+CG2Packet::CG2Packet()
+	: CPacket	( PROTOCOL_G2 )
+	, m_nType	( G2_PACKET_NULL )
+	, m_bCompound ( FALSE )
 {
 	m_bBigEndian = FALSE;
 }
@@ -158,13 +158,16 @@ void CG2Packet::WritePacket(G2_PACKET nType, DWORD nLength, BOOL bCompound)
 	if ( nLength > 0xFF )
 	{
 		nLenLen++;
-		if ( nLength > 0xFFFF ) nLenLen++;
+		if ( nLength > 0xFFFF )
+			nLenLen++;
 	}
 
 	BYTE nFlags = ( nLenLen << 6 ) + ( nTypeLen << 3 );
 
-	if ( bCompound ) nFlags |= G2_FLAG_COMPOUND;
-	if ( m_bBigEndian ) nFlags |= G2_FLAG_BIG_ENDIAN;
+	if ( bCompound )
+		nFlags |= G2_FLAG_COMPOUND;
+	if ( m_bBigEndian )
+		nFlags |= G2_FLAG_BIG_ENDIAN;
 
 	WriteByte( nFlags );
 
@@ -364,9 +367,7 @@ void CG2Packet::WriteString(LPCTSTR pszString, BOOL bNull)
 	CStringA strUTF8 = UTF8Encode( pszString, (int)_tcslen( pszString ) );
 
 	if ( bNull )
-	{
 		Write( (LPCSTR)strUTF8, strUTF8.GetLength() + 1 );
-	}
 	else
 		Write( (LPCSTR)strUTF8, strUTF8.GetLength() );
 }
@@ -386,18 +387,9 @@ int CG2Packet::GetStringLen(LPCTSTR pszString) const
 {
 	if ( *pszString == 0 ) return 0;
 
-	LPCTSTR pszScan = pszString;
-	BOOL bPlain = TRUE;
+	int nLength = WideCharToMultiByte( CP_UTF8, 0, pszString, -1, NULL, 0, NULL, NULL );
 
-    int nLength = 0;
-	for ( ; *pszScan ; nLength++ )
-	{
-		if ( ( *pszScan++ ) & 0x80 ) bPlain = FALSE;
-	}
-
-	nLength = WideCharToMultiByte( CP_UTF8, 0, pszString, nLength, NULL, 0, NULL, NULL );
-
-	return nLength;
+	return ( nLength > 0 ) ? ( nLength - 1 ) : 0;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -413,7 +405,8 @@ void CG2Packet::ToBuffer(CBuffer* pBuffer) const
 	if ( m_nLength > 0xFF )
 	{
 		nLenLen++;
-		if ( m_nLength > 0xFFFF ) nLenLen++;
+		if ( m_nLength > 0xFFFF )
+			nLenLen++;
 	}
 
 	BYTE nFlags = ( nLenLen << 6 ) + ( nTypeLen << 3 );

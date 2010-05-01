@@ -1084,7 +1084,7 @@ void CPeerProjectURL::SafeString(CString& strInput)
 	for ( int nIndex = 0 ; nIndex < strInput.GetLength() ; nIndex++ )
 	{
 		TCHAR nChar = strInput.GetAt( nIndex );
-		if ( nChar >= 0 && nChar < 32 )
+		if ( nChar < 32 )
 			strInput.SetAt( nIndex, '_' );
 	}
 }

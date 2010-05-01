@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <skin xmlns="http://schemas.peerproject.org/Skin.xsd" version="1.0">
 
 <!-- PeerProject Default Dutch Skin File -->
 
-<!-- Translation based on default-en.xml r52 -->
+<!-- Translation based on default-en.xml r54 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1955,6 +1955,9 @@
 		<link target="peer:page:CCommunitySettingsPage" format="b">Gemeenschap:</link>
 		<text>&#160;Beheer je profiel en je instelllingen voor het chatten en instant messaging.</text>
 		<newline gap="10"/>
+		<link target="peer:page:CRemoteSettingsPage" format="b">Web Interface:</link>
+		<text>&#160;Mogelijk maken om PeerProject op je PC te laten draaien, en het op afstand te bedienen via een browser.</text>
+		<newline gap="10"/>
 		<link target="peer:page:CWebSettingsPage" format="b">Internet:</link>
 		<text>&#160;Integreer PeerProject met je internetbrowser zodat P2P snelkoppelingen worden geaccepteerd en inhoud wordt gedownload.</text>
 	</document>
@@ -1974,9 +1977,6 @@
 		<newline gap="10"/>
 		<link target="peer:page:CUploadsSettingsPage" format="b">Uploads:</link>
 		<text>&#160;Uploadproductiviteit, wachtrijen, verbannen, pauzes en speciale verzoeken.</text>
-		<newline gap="10"/>
-		<link target="peer:page:CRemoteSettingsPage" format="b">Web Interface:</link>
-		<text>&#160;Mogelijk maken om PeerProject op je PC te laten draaien, en het op afstand te bedienen via een browser.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CSchedulerSettingsPage" format="b">Scheduler:</link>
 		<text>&#160;Limit download connections based on a periodic schedule.</text>
@@ -2706,8 +2706,8 @@
 	<string id="8071" value="Verbonden"/>
 	<string id="8072" value="Verbinding verbreken"/>
 	<string id="8096" value="Dit gedeelte laat meer informatie zien over de geselecteerde bestanden."/>
-	<string id="8097" value="Er is één bron beschikbaar (%s).  "/>
-	<string id="8098" value="Er zijn %i bronnen beschikbaar (%s).  "/>
+	<string id="8097" value="Er is één bron beschikbaar. (%s/s)"/>
+	<string id="8098" value="Er zijn %i bronnen beschikbaar. (%s/s)"/>
 	<string id="8099" value="Er is één recensie."/>
 	<string id="8100" value="Er zijn %i recensies."/>
 	<string id="8101" value="%s schrijft:"/>
@@ -2780,7 +2780,7 @@
 	<string id="8243" value="Hoeveelheid geüpload:"/>
 	<string id="8244" value="Aantal commentaren:"/>
 	<string id="8288" value="Bezig met verkennen van je PeerProject bibliotheek"/>
-	<string id="8289" value="Bezig met verkennen van "/>
+	<string id="8289" value="Bezig met verkennen van"/>
 	<string id="8290" value="Bezig met verkennen van de inhoud van %i mappen"/>
 	<string id="8291" value="Meerdere mappen"/>
 	<string id="8292" value="%i bestanden geselecteerd"/>
@@ -2797,7 +2797,7 @@
 	<string id="8312" value="Je hebt dit bestand al in je downloadlijst."/>
 	<string id="8313" value="Dit bestand is spam."/>
 	<string id="8314" value="Je hebt dit bestand al eens gedownload en verwijderd."/>
-	<string id="8315" value="Op de zwarte lijst: "/>
+	<string id="8315" value="Op de zwarte lijst:"/>
 	<string id="8316" value="Hits"/>
 	<string id="8317" value="Totale volume:"/>
 	<string id="8318" value="%lu nu, %lu totaal"/>
@@ -2902,7 +2902,7 @@
 	<string id="16264" value="Verbinding zoeken met %s poort %i om &quot;%s&quot; te downloaden..."/>
 	<string id="16265" value="Niet mogelijk te verbinden met %s voor het downloaden."/>
 	<string id="16266" value="Downloadverbinding met %s is aangemaakt."/>
-	<string id="16267" value="Aanvraag voor downloadfragment (%I64i-%I64i) van &quot;%s&quot; vanaf %s."/>
+	<string id="16267" value="Aanvraag voor downloadfragment (%I64u-%I64u) van &quot;%s&quot; vanaf %s."/>
 	<string id="16268" value="Geen downloadfragmenten meer, verbinding met %s wordt gesloten."/>
 	<string id="16269" value="Fragment verkleind, verbinding met %s wordt gesloten."/>
 	<string id="16270" value="Downloadaanvraag naar %s is uitgeteld, de verbinding wordt gesloten."/>
@@ -3156,7 +3156,7 @@
 	<string id="17029" value="Handdruk mislukt, de gastheer ondersteunt het chatten misschien niet."/>
 	<string id="17030" value="Handdruk is volbracht, chatprotocol versie %s."/>
 	<string id="17031" value="Profielinformatie wordt uitgewisseld..."/>
-	<string id="17032" value="Bevestigde gebruiker "/>
+	<string id="17032" value="Bevestigde gebruiker"/>
 	<string id="17033" value="Privé gesprek met gebruiker wordt aangevraagd..."/>
 	<string id="17034" value="Privé gesprek is geregeld, je bent nu aan het chatten met %s."/>
 	<string id="17035" value="%s accepteert geen privé gesprekken, sorry."/>
@@ -3353,7 +3353,7 @@
 	<string id="20215" value="Erg goed"/>
 	<string id="20216" value="Perfect"/>
 	<string id="20217" value="Kies de eMule gedeeltelijke(.part) map:"/>
-<!-- Column headers in Library Album View -->
+	<!-- Column headers in Library Album View -->
 	<string id="20230" value="#"/> <!-- Track number -->
 	<string id="20231" value="Titel"/>
 	<string id="20232" value="Duur"/>
@@ -3366,19 +3366,19 @@
 </strings>
 <!-- Localized Dialog Text, "cookie" verifies that the skin matches current dialog -->
 <dialogs>
-	<dialog name="CGeneralSettingsGroup" cookie="" caption="Algemeen">
-	</dialog>
-	<dialog name="CSettingSheet" cookie="SyBuBuBu#3" caption="PeerProject instellingen">
+	<dialog name="CSettingSheet" cookie="SyBuBuBu" caption="PeerProject instellingen">
 		<control/>
 		<control caption="OK"/>
 		<control caption="Annuleren"/>
 		<control caption="Toepassen"/>
 		<control/>
 	</dialog>
+	<dialog name="CGeneralSettingsGroup" cookie="Af" caption="Algemeen"/>
+	<dialog name="CInternetSettingsGroup" cookie="Af" caption="Verkeer"/>
 	<dialog name="CGeneralSettingsPage" cookie="BuBuBuBuBuBuBuBuStCoBuBuBuBuBuBuSyStEdmsStmsBuBuStCoStCo" caption="Algemeen">
 		<control caption="_Algemeen:"/>
+		<control caption="Start PeerProject als Windows opstart"/>
 		<control caption="Verbind bij opstarten van PeerProject"/>
-		<control caption="Start PeerProject als Windows opstart "/>
 		<control caption="Waarschuw mij als ik een URI open"/>
 		<control caption="Check for updates"/>
 		<control caption="_Downloads:"/>
@@ -3518,8 +3518,6 @@
 		<control caption="_Toevoegen"/>
 		<control caption="_Verwijderen"/>
 		<control caption="De plugin voor de downloadbeheerder zal alleen de bestandstypes uit deze lijst proberen te downloaden. Andere bestandstypes zullen worden behandeld door je internetbrowser. PeerProject moet wel werkend zijn om downloads te kunnen beheren."/>
-	</dialog>
-	<dialog name="CInternetSettingsGroup" caption="Verkeer">
 	</dialog>
 	<dialog name="CConnectionSettingsPage" cookie="BuStCoStCoStEdBuBuBuStCoStCoBuStCoBuBuBuStEdmsStEdms" caption="Verbinding">
 		<control caption="_Inkomend adres:"/>
@@ -3752,15 +3750,13 @@
 		<control caption="Instellingen..."/>
 		<control caption="Meer..."/>
 	</dialog>
-	<dialog name="CAdvancedSettingsPage" cookie="SyEdmsBuBuStStEd" caption="Uitgebreid">
+	<dialog name="CAdvancedSettingsPage" cookie="SyEdmsBuBuSt" caption="Uitgebreid">
 		<control/>
 		<control/>
 		<control/>
 		<control caption="Set Default"/>
 		<control caption="Eigenschappen van de instelling:"/>
 		<control caption="Waarde:"/>
-		<control caption="Beschrijving:"/>
-		<control/>
 	</dialog>
 	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="Protocollen">
 		<control caption="PeerProject's algemene architectuur protocolverkenner:"/>
@@ -3807,7 +3803,7 @@
 		<control caption="Annuleren"/>
 		<control caption="Beloon uploaders"/>
 	</dialog>
-	<dialog name="CWizardWelcomePage" cookie="StStStStStStStStStStStSt" caption="Welkom bij PeerProject">
+	<dialog name="CWizardWelcomePage" cookie="StStStStStStStStStStStSt" caption="Welkom bij PeerProject (1/8)">
 		<control caption="Welkom bij PeerProject!"/>
 		<control caption="Als je nog nooit PeerProject of een andere P2P cliënt hebt gebruikt, kan deze SnelStart wizard je in een paar eenvoudige stappen helpen met het installeren."/>
 		<control caption="Meer ervaren gebruikers kunnen alle opties van PeerProject ook direct bereiken via het Hulpmiddelen menu. Druk op &quot;Sluiten&quot; om de wizard te verlaten wanneer je maar wilt."/>
@@ -3821,7 +3817,7 @@
 		<control/>
 		<control caption="Het gebruik van PeerProject te activeren."/>
 	</dialog>
-	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="Welcome bij PeerProject (1/6)">
+	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="Welcome bij PeerProject (2/8)">
 		<control caption="Voor optimale snelheid, moet PeerProject meer weten over de snelheid en de connectie van je internet"/>
 		<control caption="Kies je Internet snelheid:"/>
 		<control caption="Dial-up modem|ISDN (128K)|DSL (768K)|DSL (1.5M)|DSL (4.0M)|DSL2 (8.0M)|FIOS (10.0M)|DSL2 (12.0M)|FIOS (20.0M)|DSL2+ (24.0M)|Kabel modem/SDSL|T1|T3|LAN|OC3"/>
@@ -3837,7 +3833,30 @@
 		<control caption="Status:"/>
 		<control/>
 	</dialog>
-	<dialog name="CWizardSharePage" cookie="StStStSyBuBuSt" caption="Welkom bij PeerProject (2/6)">
+	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuStBu" caption="Welkom bij PeerProject (3/8)">
+		<control caption="PeerProject is een programma voor algemeen gebruik om bestanden uit te wisselen. Het kan meerdere P2P netwerken tegelijkertijd bereiken. Hier kun je selecteren welke netwerken je wilt gebruiken. Je kunt later altijd nog je keuze veranderen."/>
+		<control caption="Verbinden met Gnutella2 (zeer aanbevolen)"/>
+		<control caption="Het Gnutella2 netwerk (G2) is PeerProject's voornaamste netwerk. Het biedt meer opties en prestatie dan enig ander P2P netwerk."/>
+		<control caption="Verbinden met het originele Gnutella netwerk"/>
+		<control caption="Hoewel het originele Gnutella netwerk (G1) minder opties heeft dan Gnutella2, en minder bestanden dan eDonkey, blijft het toch een waardevolle bron."/>
+		<control caption="Verbinden met eDonkey2000"/>
+		<control caption="Het eDonkey netwerk (ED2K) is een populair netwerk, op servers gebaseerd. Hoewel met minder rijk aan opties als G2, heeft ED2K een omvangrijke bestandsverzameling."/>
+		<control caption="Verbinden met BitTorrent (.Torrents)"/>
+	</dialog>
+	<dialog name="CWizardFoldersPage" cookie="StStEdBuStEdBuStEdBuSt" caption="Welkom bij PeerProject (4/8)">
+		<control caption="PeerProject first downloads partial files to a private folder, then moves them when completed according to Download Groups."/>
+		<control caption="Sla voltooide bestanden hier op:"/>
+		<control/>
+		<control/>
+		<control caption="Sla tijdelijke\incomplete bestanden hier op:"/>
+		<control/>
+		<control/>
+		<control caption="Sla .Torrent bestanden hier op:"/>
+		<control/>
+		<control/>
+		<control caption="Common filetypes are initially setup as subfolders of the default location, but Groups can easily be customized by Right-Click.  Simply Drag&apos;n&apos;Drop files."/>
+	</dialog>
+	<dialog name="CWizardSharePage" cookie="StStStSyBuBuSt" caption="Welkom bij PeerProject (5/8)">
 		<control caption="P2P netwerken zijn enkel zo goed als de mensen die ze gebruiken. Al het voor downloaden beschikbare materiaal is vrijgegeven door andere gebruikers."/>
 		<control caption="Je bent niet verplicht om materiaal te delen om PeerProject te mogen gebruiken. Sommige software zal zich echter anders gedragen bij gebruikers, die niets delen."/>
 		<control caption="Geef alsjeblieft aan welke mappen je wilt delen. Druk simpelweg op &quot;Toevoegen&quot; om een nieuwe map toe te voegen."/>
@@ -3855,18 +3874,7 @@
 		<control caption="0"/>
 		<control caption="Sluiten"/>
 	</dialog>
-	<dialog name="CWizardProfilePage" cookie="StStEdStCoCoStCoCo" caption="Welkom bij PeerProject (3/6)">
-		<control caption="PeerProject wordt een veel vriendelijkere plek als iedereen een paar basisgegevens over zichzelf zou opgeven."/>
-		<control caption="Mijn schuilnaam is:"/>
-		<control/>
-		<control caption="en ik ben een:"/>
-		<control caption="&#160;(kies)"/>
-		<control caption="&#160;(kies)|jongen|meisje|man|vrouw"/>
-		<control caption="uit:"/>
-		<control/>
-		<control/>
-	</dialog>
-	<dialog name="CWizardInterfacePage" cookie="StBuBuBuStStBuSt" caption="Welkom bij PeerProject (4/6)">
+	<dialog name="CWizardInterfacePage" cookie="StBuBuBuStStBuSt" caption="Welkom bij PeerProject (6/8)">
 		<control caption="PeerProject ondersteund een flexibele gebruikersomgeving, zodat je kunt kiezen wat het meest comfortabele voor jou is. Je kunt deze opties altijd veranderen."/>
 		<control caption="Selecteer alsjeblieft de gebruikersomgeving:"/>
 		<control caption="Normale Modus"/>
@@ -3876,15 +3884,27 @@
 		<control caption="Toon simpele downloadvooruitgangsbalken."/>
 		<control caption=""/>
 	</dialog>
-	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuStBu" caption="Welkom bij PeerProject (5/6)">
-		<control caption="PeerProject is een programma voor algemeen gebruik om bestanden uit te wisselen. Het kan meerdere P2P netwerken tegelijkertijd bereiken. Hier kun je selecteren welke netwerken je wilt gebruiken. Je kunt later altijd nog je keuze veranderen."/>
-		<control caption="Verbinden met Gnutella2 (zeer aanbevolen)"/>
-		<control caption="Het Gnutella2 netwerk (G2) is PeerProject's voornaamste netwerk. Het biedt meer opties en prestatie dan enig ander P2P netwerk."/>
-		<control caption="Verbinden met het originele Gnutella netwerk"/>
-		<control caption="Hoewel het originele Gnutella netwerk (G1) minder opties heeft dan Gnutella2, en minder bestanden dan eDonkey, blijft het toch een waardevolle bron."/>
-		<control caption="Verbinden met eDonkey2000"/>
-		<control caption="Het eDonkey netwerk (ED2K) is een populair netwerk, op servers gebaseerd. Hoewel met minder rijk aan opties als G2, heeft ED2K een omvangrijke bestandsverzameling."/>
-		<control caption="Verbinden met BitTorrent (.Torrents)"/>
+	<dialog name="CWizardProfilePage" cookie="StStEdStCoCoStCoStCoStEd" caption="Welkom bij PeerProject (7/8)">
+		<control caption="PeerProject wordt een veel vriendelijkere plek als iedereen een paar basisgegevens over zichzelf zou opgeven."/>
+		<control caption="Mijn schuilnaam is:"/>
+		<control/>
+		<control caption="en ik ben een:"/>
+		<control caption="&#160;(kies)"/>
+		<control caption="&#160;(kies)|jongen|meisje|man|vrouw"/>
+		<control caption="uit:"/>
+		<control/>
+		<control caption="Locale:"/>
+		<control/>
+		<control caption="Comments:"/>
+		<control/>
+	</dialog>
+	<dialog name="CWizardFinishedPage" cookie="StStStBuBuSt" caption="Welkom bij PeerProject (8/8)">
+		<control caption="Dat was alles! PeerProject is nu geconfigureerd om met je computer te werken."/>
+		<control caption="Als je ooit je instellingen dient te veranderen, kun je deze SnelStart wizard nogmaals starten door de optie te selecteren vanuit het Hulpmiddelen menu."/>
+		<control caption="Nadat je op &quot;Einde&quot; hebt gedrukt, kun je je verbinden met de door jou geselecteerde netwerken en starten met zoeken en downloaden van bestanden."/>
+		<control caption="Start PeerProject bij het opstarten van Windows"/>
+		<control caption="Verbinden met het netwerk bij het opstarten van PeerProject"/>
+		<control caption="Veel plezier met PeerProject!"/>
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="eDonkey downloads importeren">
 		<control/>
@@ -3894,16 +3914,7 @@
 		<control/>
 		<control caption="Sluiten"/>
 	</dialog>
-	<dialog name="CWizardFinishedPage" cookie="StStStBuBuBuSt" caption="Welkom bij PeerProject (6/6)">
-		<control caption="Dat was alles! PeerProject is nu geconfigureerd om met je computer te werken."/>
-		<control caption="Als je ooit je instellingen dient te veranderen, kun je deze SnelStart wizard nogmaals starten door de optie te selecteren vanuit het Hulpmiddelen menu."/>
-		<control caption="Nadat je op &quot;Einde&quot; hebt gedrukt, kun je je verbinden met de door jou geselecteerde netwerken en starten met zoeken en downloaden van bestanden."/>
-		<control caption="Verbinden met het netwerk nadat ik de wizard afgesloten heb"/>
-		<control caption="Verbinden met het netwerk bij het opstarten van PeerProject"/>
-		<control caption="Start PeerProject bij het opstarten van Windows"/>
-		<control caption="Veel plezier met PeerProject!"/>
-	</dialog>
-	<dialog name="CProfileManagerDlg" cookie="SyBuBuBu#3" caption="Mijn profiel aanpassen">
+	<dialog name="CProfileManagerDlg" cookie="SyBuBuBu" caption="Mijn profiel aanpassen">
 		<control/>
 		<control caption="OK"/>
 		<control caption="Annuleren"/>
@@ -4021,30 +4032,30 @@
 		<control caption="Zoeken"/>
 		<control caption="Annuleren"/>
 	</dialog>
-	<dialog name="CFilterSearchDlg" cookie="BuEdBuStBuStEdStEdStEdmsStBuBuBuBuBuBuBuBuBuBuBuCoBuBuBuBuBu" caption="Filter resultaten">
+	<dialog name="CFilterSearchDlg" cookie="BuEdBuStBuStEdStEdStEdmsBuBuBuBuBuBuBuBuBuBuBuBuBuCoBuBuBuBuBu" caption="Filter resultaten">
 		<control caption="Alleen resultaten tonen die deze _woorden bevatten:"/>
 		<control/>
 		<control caption="Reg. Exp."/>
-		<control caption="( je kunt ook woorden uitsluiten met &quot;-woord&quot; )"/>
+		<control caption="(-woorden uitsluiten)"/>
 		<control caption="En met _grootte:"/>
 		<control caption="Minimaal:"/>
 		<control/>
 		<control caption="Maximaal:"/>
 		<control/>
-		<control caption="Met minstens:"/>
+		<control caption="Met minstens bronnen:"/>
 		<control/>
 		<control/>
-		<control caption="bronnen."/>
 		<control caption="_Verbergen:"/>
-		<control caption="Bezette bronnen"/>
+		<control caption="Bestanden die je al hebt"/>
+		<control caption="Ongeschikte bestanden"/>
+		<control caption="Verdachte bestanden"/>
+		<control caption="Restricted bestanden"/>
+		<control caption="DRM bestanden"/>
 		<control caption="Gefirewalde bronnen"/>
 		<control caption="Onstabiele bronnen"/>
-		<control caption="Ongeschikte bestanden"/>
-		<control caption="Bestanden die je al hebt"/>
+		<control caption="Bezette bronnen"/>
 		<control caption="Nepresultaten"/>
-		<control caption="DRM bestanden"/>
 		<control caption="16+ resultaten"/>
-		<control caption="Verdachte bestanden"/>
 		<control caption="Filters:"/>
 		<control/>
 		<control caption="Markeer als standaard"/>
@@ -4134,15 +4145,15 @@
 		<control caption="_Verwijderen"/>
 		<control/>
 	</dialog>
-	<dialog name="CFileCopyDlg" cookie="StStmsBuBumsStSt" caption="Bestanden kopiëren|Bestanden verplaatsen">
-		<control caption="Je hebt %i bestand(en) geselecteerd om te kopiëren naar de volgende map:"/>
+	<dialog name="CFileCopyDlg" cookie="StStStmsmsStBuBu" caption="Bestanden kopiëren|Bestanden verplaatsen">
+		<control caption="Je hebt %i bestanden geselecteerd om te kopiëren naar de volgende map:"/>
+		<control caption="Je hebt %i bestanden geselecteerd om te verplaatsen naar de volgende map:"/>
 		<control/>
 		<control/>
-		<control caption="OK"/>
-		<control caption="Annuleren"/>
 		<control/>
 		<control caption="Klaar..."/>
-		<control caption="Je hebt %i bestand(en) geselecteerd om te verplaatsen naar de volgende map:"/>
+		<control caption="OK"/>
+		<control caption="Annuleren"/>
 	</dialog>
 	<dialog name="CFolderPropertiesDlg" cookie="StEdStCoBuStBuBu" caption="Albummap eigenschappen">
 		<control caption="Titel albummap:"/>
@@ -4665,4 +4676,4 @@
 		<column from="Order" to="Volgorde"/>
 	</list>
 </listColumns>
-</skin>⹪
+</skin>

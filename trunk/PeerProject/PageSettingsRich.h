@@ -1,7 +1,7 @@
 //
 // PageSettingsRich.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -27,38 +27,28 @@
 
 class CRichSettingsPage : public CSettingsPage
 {
-// Construction
-public:
-	CRichSettingsPage(LPCTSTR pszName = NULL);
-	virtual ~CRichSettingsPage();
-
 	DECLARE_DYNCREATE(CRichSettingsPage)
 
-// Dialog Data
+// Construction
 public:
-	//{{AFX_DATA(CRichSettingsPage)
+	CRichSettingsPage(LPCTSTR pszName);
+	virtual ~CRichSettingsPage();
+
 	enum { IDD = IDD_SETTINGS_RICH };
-	//}}AFX_DATA
 
 // Attributes
-public:
-	CString			m_sName;
-	CString			m_sCaption;
+protected:
 	CRichViewCtrl	m_wndView;
 	CRichDocument*	m_pDocument;
 
 // Overrides
 public:
-	//{{AFX_VIRTUAL(CRichSettingsPage)
-	protected:
-	virtual void DoDataExchange(CDataExchange* pDX);
-	//}}AFX_VIRTUAL
-
-// Implementation
+	virtual void OnSkinChange();
 protected:
-	//{{AFX_MSG(CRichSettingsPage)
 	virtual BOOL OnInitDialog();
-	//}}AFX_MSG
+
+	virtual void DoDataExchange(CDataExchange* pDX);
+
 	afx_msg void OnClickView(NMHDR* pNotify, LRESULT *pResult);
 
 	DECLARE_MESSAGE_MAP()

@@ -339,7 +339,7 @@ void CUploadsWnd::Prepare()
 					CSingleLock pLibraryLock( &Library.m_pSection, TRUE );
 					if ( CLibraryFile* pLibFile = LibraryMaps.LookupFileByHash( &oFile, FALSE, TRUE ) )
 						m_bSelPartial = FALSE;
-					else if ( PathIsDirectory( Settings.Downloads.TorrentPath + "\\" + pFile->m_sName ) )	// Try multifile torrent
+					else if ( PathIsDirectory( Settings.Downloads.TorrentPath + _T("\\") + pFile->m_sName ) )	// Try multifile torrent
 						m_bSelPartial = FALSE;
 				}
 			}
@@ -490,10 +490,10 @@ void CUploadsWnd::OnUploadsLaunch()
 							pLibrary->Display( pLibFile );
 					}
 				}
-				else if ( PathIsDirectory( Settings.Downloads.TorrentPath + "\\" + pFile->m_sName ) )	// Try default multifile torrent folder
+				else if ( PathIsDirectory( Settings.Downloads.TorrentPath + _T("\\") + pFile->m_sName ) )	// Try default multifile torrent folder
 				{
 					ShellExecute( GetSafeHwnd(), _T("open"),
-						Settings.Downloads.TorrentPath + "\\" + pFile->m_sName, NULL, NULL, SW_SHOWNORMAL );
+						Settings.Downloads.TorrentPath + _T("\\") + pFile->m_sName, NULL, NULL, SW_SHOWNORMAL );
 				}
 			}
 		}
@@ -551,13 +551,13 @@ void CUploadsWnd::OnUploadsFolder()
 			//	char charPath[255];
 			//	sprintf( charPath, "%S", strPath );	// CString to Char for <IO> filepath validation
 			//	if (_access (charPath, 0) == 0)
-					ShellExecute( GetSafeHwnd(), NULL, _T("Explorer.exe"), "/select, " + strPath, NULL, SW_SHOWNORMAL );
+					ShellExecute( GetSafeHwnd(), NULL, _T("Explorer.exe"), _T("/select, ") + strPath, NULL, SW_SHOWNORMAL );
 			}
-			else if ( PathIsDirectory( Settings.Downloads.TorrentPath + "\\" + pFile->m_sName ) )
+			else if ( PathIsDirectory( Settings.Downloads.TorrentPath + _T("\\") + pFile->m_sName ) )
 			{
 				// ToDo: Fix non-default multifile torrents
 				ShellExecute( GetSafeHwnd(), _T("open"),
-					Settings.Downloads.TorrentPath + "\\" + pFile->m_sName, NULL, NULL, SW_SHOWNORMAL );
+					Settings.Downloads.TorrentPath + _T("\\") + pFile->m_sName, NULL, NULL, SW_SHOWNORMAL );
 			}
 
 			//AfxMessageBox( _T("Path: ") + strPath +  _T("\nName: ") + pFile->m_sName );	// TEST
@@ -699,15 +699,28 @@ void CUploadsWnd::OnUploadsHelp()
 
 BOOL CUploadsWnd::PreTranslateMessage(MSG* pMsg)
 {
-	if ( pMsg->message == WM_KEYDOWN && pMsg->wParam == VK_DELETE )
+	if ( pMsg->message == WM_KEYDOWN )
 	{
-		OnUploadsClear();
-		return TRUE;
-	}
-	else if ( pMsg->message == WM_KEYDOWN && pMsg->wParam == VK_TAB )
-	{
-		GetManager()->Open( RUNTIME_CLASS(CDownloadsWnd) );
-		return TRUE;
+		if ( pMsg->wParam == VK_TAB )			// Toggle window focus to Downloads
+		{
+			GetManager()->Open( RUNTIME_CLASS(CDownloadsWnd) );
+			return TRUE;
+		}
+		else if ( pMsg->wParam == VK_DELETE )	// Cancel uploads
+		{
+			OnUploadsClear();
+			return TRUE;
+		}
+		else if ( pMsg->wParam == VK_ESCAPE )	// Clear selections
+		{
+			for ( POSITION posFile = UploadFiles.GetIterator() ; posFile ; )
+			{
+				CUploadFile* pFile = UploadFiles.GetNext( posFile );
+				pFile->m_bSelected = FALSE;
+			}
+
+			m_wndUploads.Update();
+		}
 	}
 
 	return CPanelWnd::PreTranslateMessage( pMsg );

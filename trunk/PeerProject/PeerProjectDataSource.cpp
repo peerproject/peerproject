@@ -79,8 +79,8 @@ static LPCTSTR GetFORMATLIST(UINT id)
 		if ( FORMATLIST [i].id == id )
 			return FORMATLIST [i].name;
 	}
-	if ( ! GetClipboardFormatName( id, buf, sizeof( buf ) ) )
-		wsprintf( buf, _T("0x%x"), id );
+	if ( ! GetClipboardFormatName( id, buf, _countof( buf ) ) )
+		_stprintf_s( buf, _countof( buf ), _T("0x%x"), id );
 	return buf;
 }
 
@@ -246,7 +246,7 @@ IMPLEMENT_DYNCREATE(CPeerProjectDataSource, CComObject)
 // {34791E02-51DC-4CF4-9E34-018166D91D0E}
 IMPLEMENT_OLECREATE_FLAGS(CPeerProjectDataSource, "PeerProject.DataSource",
 	afxRegFreeThreading|afxRegApartmentThreading,
-	0x34791e02, 0x51dc, 0x4cf4, 0x9e, 0x34, 0x1, 0x81, 0x66, 0xd9, 0x1d, 0xe);
+	0x34791e02, 0x51dc, 0x4cf4, 0x9e, 0x34, 0x1, 0x81, 0x66, 0xd9, 0x1d, 0xe)
 
 CPeerProjectDataSource::CPeerProjectDataSource() :
 	m_rgde (NULL ),
@@ -579,7 +579,7 @@ BOOL CPeerProjectDataSource::DropToFolder(IDataObject* pIDataObject, DWORD grfKe
 			int nPath2Length = bFolder ? lstrlen( pAFOP->sFrom.GetData() ) :
 				( szPath2 - pAFOP->sFrom.GetData() - 1 );
 			if ( nPath1Length == nPath2Length &&
-				! StrCmpNI( pszDest, pAFOP->sFrom.GetData(), nPath1Length ) )
+				_tcsncicmp( pszDest, pAFOP->sFrom.GetData(), nPath1Length ) == 0 )
 				// source == destination
 				return TRUE;
 		}
@@ -1434,7 +1434,7 @@ void CPeerProjectDataSource::FillBuffer(const CLibraryList* pList, LPTSTR& buf_H
 					int len = pFile->GetPath().GetLength();
 					if ( len )
 					{
-						lstrcpy( buf_HDROP, pFile->GetPath() );
+						_tcscpy_s( buf_HDROP, len + 1, pFile->GetPath() );
 						buf_HDROP += len + 1;
 					}
 
@@ -1473,7 +1473,7 @@ void CPeerProjectDataSource::FillBuffer(const CLibraryList* pList, LPTSTR& buf_H
 					int len = pFolder->m_sPath.GetLength();
 					if ( len )
 					{
-						lstrcpy( buf_HDROP, pFolder->m_sPath );
+						_tcscpy_s( buf_HDROP, len + 1, pFolder->m_sPath );
 						buf_HDROP += len + 1;
 					}
 				}
@@ -1514,7 +1514,7 @@ void CPeerProjectDataSource::FillBuffer(const CLibraryTreeItem* pSelFirst, LPTST
 				int len = pItem->m_pPhysical->m_sPath.GetLength();
 				if ( len )
 				{
-					lstrcpy( buf_HDROP, pItem->m_pPhysical->m_sPath );
+					_tcscpy_s( buf_HDROP, len + 1, pItem->m_pPhysical->m_sPath );
 					buf_HDROP += len + 1;
 				}
 			}

@@ -1,7 +1,7 @@
 //
 // G2Packet.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -40,9 +40,7 @@ typedef QWORD G2_PACKET;
 
 #define	MAKE_G2_PACKET(a,b,c,d,e,f,g,h) \
 	MAKEQWORD(	MAKEDWORD(MAKEWORD(((a)),((b))),MAKEWORD(((c)),((d)))), \
-				MAKEDWORD(MAKEWORD(((e)),((f))),MAKEWORD(((g)),((h)))) \
-	);
-
+				MAKEDWORD(MAKEWORD(((e)),((f))),MAKEWORD(((g)),((h)))) 	)
 
 #define G2_PACKET_LEN(p,len) \
 	(1+(((len)>0xFF)?(((len)>0xFFFF)?3:2):1)+G2_TYPE_LEN(p)+(len))

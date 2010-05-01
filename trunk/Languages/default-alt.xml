@@ -3,7 +3,7 @@
 
 <!-- PeerProject UK English Skin File -->
 
-<!-- Translation based on default-en.xml r52 -->
+<!-- Translation based on default-en.xml r54 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -633,6 +633,9 @@
 		<link target="peer:page:CCommunitySettingsPage" format="b">Community:</link>
 		<text>&#160;Your profile and direct chat settings.</text>
 		<newline gap="10"/>
+		<link target="peer:page:CRemoteSettingsPage" format="b">Remote:</link>
+		<text>&#160;Setup PeerProject to be controlled from a web browser.</text>
+		<newline gap="10"/>
 		<link target="peer:page:CWebSettingsPage" format="b">Web Integration:</link>
 		<text>&#160;Enable your web browser to use PeerProject for peer-to-peer links and as general download manager.</text>
 	</document>
@@ -652,9 +655,6 @@
 		<newline gap="10"/>
 		<link target="peer:page:CUploadsSettingsPage" format="b">Uploads:</link>
 		<text>&#160;Manage bandwidth-out, limits, and queues.</text>
-		<newline gap="10"/>
-		<link target="peer:page:CRemoteSettingsPage" format="b">Remote:</link>
-		<text>&#160;Setup PeerProject to be controlled from a web browser.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CSchedulerSettingsPage" format="b">Scheduler:</link>
 		<text>&#160;Limit download connections based on a periodic schedule.</text>

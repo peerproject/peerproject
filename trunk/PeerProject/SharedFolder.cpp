@@ -91,7 +91,7 @@ bool CLibraryFolder::operator==(const CLibraryFolder& val) const
 
 void CLibraryFolder::RenewGUID()
 {
-	CoCreateGuid( reinterpret_cast< GUID* > ( m_oGUID.begin() ) );	// tr1 fix: .data()
+	CoCreateGuid( reinterpret_cast< GUID* > ( m_oGUID.begin() ) );
 	m_oGUID.validate();
 }
 
@@ -283,7 +283,7 @@ void CLibraryFolder::Serialize(CArchive& ar, int nVersion)
 			GetNextFile( pos )->Serialize( ar, nVersion );
 		}
 	}
-	else
+	else // Loading
 	{
 		Clear();
 
@@ -291,18 +291,18 @@ void CLibraryFolder::Serialize(CArchive& ar, int nVersion)
 
 		LoadGUID( m_sPath, m_oGUID );
 
-		if ( nVersion >= 5 )
-		{
+		//if ( nVersion >= 5 )
+		//{
 			ar >> m_bShared;
-		}
-		else
-		{
-			BYTE bShared;
-			ar >> bShared;
-			m_bShared = bShared ? TRI_UNKNOWN : TRI_FALSE;
-		}
+		//}
+		//else
+		//{
+		//	BYTE bShared;
+		//	ar >> bShared;
+		//	m_bShared = bShared ? TRI_UNKNOWN : TRI_FALSE;
+		//}
 
-		if ( nVersion >= 3 )
+		//if ( nVersion >= 3 )
 			ar >> m_bExpanded;
 
 		PathToName();
@@ -840,14 +840,14 @@ STDMETHODIMP CLibraryFolder::XLibraryFolder::get_Parent(ILibraryFolder FAR* FAR*
 STDMETHODIMP CLibraryFolder::XLibraryFolder::get_Path(BSTR FAR* psPath)
 {
 	METHOD_PROLOGUE( CLibraryFolder, LibraryFolder )
-	pThis->m_sPath.SetSysString( psPath );
+	*psPath = CComBSTR( pThis->m_sPath ).Detach();
 	return S_OK;
 }
 
 STDMETHODIMP CLibraryFolder::XLibraryFolder::get_Name(BSTR FAR* psPath)
 {
 	METHOD_PROLOGUE( CLibraryFolder, LibraryFolder )
-	pThis->m_sName.SetSysString( psPath );
+	*psPath = CComBSTR( pThis->m_sName ).Detach();
 	return S_OK;
 }
 

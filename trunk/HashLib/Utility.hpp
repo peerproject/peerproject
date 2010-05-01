@@ -21,7 +21,23 @@
 
 #pragma once
 
+//#include <stdlib.h>
 #include <Boost/cstdint.hpp>
+
+// Intrinsics  (Workaround for Microsoft double declaration in Visual Studio 2005)
+#if defined(_MSC_VER) && (_MSC_VER < 1500)
+	#define _interlockedbittestandset _ms_set
+	#define _interlockedbittestandreset _ms_reset
+	#define _interlockedbittestandset64 _ms_set64
+	#define _interlockedbittestandreset64 _ms_reset64
+	#include <intrin.h>
+	#undef _interlockedbittestandset
+	#undef _interlockedbittestandreset
+	#undef _interlockedbittestandset64
+	#undef _interlockedbittestandreset64
+#else
+	#include <intrin.h>
+#endif
 
 //! \brief platform independent signed 8 bit integer type.
 typedef boost::int8_t int8;
@@ -67,34 +83,110 @@ namespace Machine
 	//! \brief Specifies the natural byte ordering of the target machine.
 	//! \todo detect endianess during compilation.
 	const Endianess endianess = littleEndian; // x86
-#ifndef _WIN64
-	inline uint64 cpuFlags()
+
+	inline bool SupportsMMX()
 	{
-		__asm
-		{
-			mov   eax, 1
-			cpuid
-			mov   eax, edx
-			mov   edx, ecx
-		}
+		int CPUInfo[ 4 ] = {};
+		__cpuid( CPUInfo, 1 );
+		return ( CPUInfo[ 3 ] & 0x00800000 ) != 0;
 	}
 
-	inline bool SupportsMMX() { return ( cpuFlags() & 0x00800000 ) != 0; }
-	inline bool SupportsSSE() { return ( cpuFlags() & 0x02000000 ) != 0; }
-	inline bool SupportsSSE2() { return ( cpuFlags() & 0x04000000 ) != 0; }
-	inline bool SupportsSSE3() { return ( cpuFlags() & 0x100000000 ) != 0; }
-#elif defined _WIN64
-	inline bool SupportsMMX() { return false; }
-	inline bool SupportsSSE() { return true; }
-	inline bool SupportsSSE2() { return true; }
-#endif
+	inline bool SupportsSSE()
+	{
+		int CPUInfo[ 4 ] = {};
+		__cpuid( CPUInfo, 1 );
+		return ( CPUInfo[ 3 ] & 0x02000000 ) != 0;
+	}
+
+	inline bool SupportsSSE2()
+	{
+		int CPUInfo[ 4 ] = {};
+		__cpuid( CPUInfo, 1 );
+		return ( CPUInfo[ 3 ] & 0x04000000 ) != 0;
+	}
+
+	inline bool SupportsSSE3()
+	{
+		int CPUInfo[ 4 ] = {};
+		__cpuid( CPUInfo, 1 );
+		return ( CPUInfo[ 2 ] & 0x00000001 ) != 0;
+	}
+
+	inline bool SupportsSSSE3()
+	{
+		int CPUInfo[ 4 ] = {};
+		__cpuid( CPUInfo, 1 );
+		return ( CPUInfo[ 2 ] & 0x00000200 ) != 0;
+	}
+
+	inline bool SupportsSSE41()
+	{
+		int CPUInfo[ 4 ] = {};
+		__cpuid( CPUInfo, 1 );
+		return ( CPUInfo[ 2 ] & 0x00080000 ) != 0;
+	}
+
+	inline bool SupportsSSE42()
+	{
+		int CPUInfo[ 4 ] = {};
+		__cpuid( CPUInfo, 1 );
+		return ( CPUInfo[ 2 ] & 0x00100000 ) != 0;
+	}
+
+	inline bool SupportsSSE4A()
+	{
+		int CPUInfo[ 4 ] = {};
+		__cpuid( CPUInfo, 0x80000000 );
+		if ( CPUInfo[ 0 ] >= 0x80000001 )
+		{
+			__cpuid( CPUInfo, 0x80000001 );
+			return ( CPUInfo[ 2 ] & 0x00000040 ) != 0;
+		}
+		return false;
+	}
+
+	inline bool SupportsSSE5()
+	{
+		int CPUInfo[ 4 ] = {};
+		__cpuid( CPUInfo, 0x80000000 );
+		if ( CPUInfo[ 0 ] >= 0x80000001 )
+		{
+			__cpuid( CPUInfo, 0x80000001 );
+			return ( CPUInfo[ 2 ] & 0x00000800 ) != 0;
+		}
+		return false;
+	}
+
+	inline bool Supports3DNOW()
+	{
+		int CPUInfo[ 4 ] = {};
+		__cpuid( CPUInfo, 0x80000000 );
+		if ( CPUInfo[ 0 ] >= 0x80000001 )
+		{
+			__cpuid( CPUInfo, 0x80000001 );
+			return ( CPUInfo[ 3 ] & 0x80000000 ) != 0;
+		}
+		return false;
+	}
+
+	inline bool Supports3DNOWEXT()
+	{
+		int CPUInfo[ 4 ] = {};
+		__cpuid( CPUInfo, 0x80000000 );
+		if ( CPUInfo[ 0 ] >= 0x80000001 )
+		{
+			__cpuid( CPUInfo, 0x80000001 );
+			return ( CPUInfo[ 3 ] & 0x40000000 ) != 0;
+		}
+		return false;
+	}
 }
 
-//! \brief generic function to swap the byte ordering of a given type
+//! \brief Generic function to swap the byte ordering of a given type
 //!
 //! The byte ordering can be swapped meaningfully only for unsigned integer types
-//! therefore specializations are provided only for those types. We use
-//! template specialization in order to avoid automatic argument conversion.
+//! therefore specializations are provided only for those types.
+//! We use template specialization in order to avoid automatic argument conversion.
 template<typename T>
 struct SwapEndianess {};
 
@@ -135,8 +227,8 @@ inline T swapEndianess(T value)
 //! \brief Generic function object to give its char serialization a
 //! 	given specified byte ordering.
 //!
-//! The byte ordering of the argument is swapped unless it matches the byte
-//! ordering of the target machine.
+//! The byte ordering of the argument is swapped unless
+//! it matches the byte ordering of the target machine.
 //! We use partial specialization to achieve this.
 template<typename T, Endianess endianPolicy> struct TransformTo
 {

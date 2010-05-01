@@ -207,8 +207,8 @@ CString CBENode::GetStringFromSubNode(LPCSTR pszKey, UINT nEncoding, bool& bEnco
 		size_t	nUTF8Len = strlen( pszKey ) + 8;
 
 		auto_array< char > pszUTF8Key( new char[ nUTF8Len ] );
-		strncpy( pszUTF8Key.get(), pszKey, nUTF8Len );
-		strncat( pszUTF8Key.get(), ".utf-8", nUTF8Len );
+		strcpy_s( pszUTF8Key.get(), nUTF8Len, pszKey );
+		strcat_s( pszUTF8Key.get(), nUTF8Len, ".utf-8" );
 
 		// Open the supplied node + .utf-8
 		pSubNode = GetNode( pszUTF8Key.get() );
@@ -307,19 +307,16 @@ void CBENode::GetBth(Hashes::BtHash& oBTH) const
 void CBENode::Encode(CBuffer* pBuffer) const
 {
 	CHAR szBuffer[64];
-
-	ASSERT( this != NULL );
-	ASSERT( pBuffer != NULL );
 	CString str;
 
 	if ( m_nType == beString )
 	{
-		pBuffer->Print( szBuffer, sprintf( szBuffer, "%u:", (DWORD)m_nValue ) );
+		pBuffer->Print( szBuffer, sprintf_s( szBuffer, _countof( szBuffer ), "%u:", (DWORD)m_nValue ) );
 		pBuffer->Add( m_pValue, (DWORD)m_nValue );
 	}
 	else if ( m_nType == beInt )
 	{
-		pBuffer->Print( szBuffer, sprintf( szBuffer, "i%I64ie", m_nValue ) );
+		pBuffer->Print( szBuffer, sprintf_s( szBuffer, _countof( szBuffer ), "i%I64ie", m_nValue ) );
 	}
 	else if ( m_nType == beList )
 	{
@@ -344,7 +341,7 @@ void CBENode::Encode(CBuffer* pBuffer) const
 		{
 			LPCSTR pszKey = (LPCSTR)pNode[1];
 			size_t nKeyLength = strlen( pszKey );
-			pBuffer->Print( szBuffer, sprintf( szBuffer, "%i:", nKeyLength ) );
+			pBuffer->Print( szBuffer, sprintf_s( szBuffer, _countof( szBuffer ), "%i:", nKeyLength ) );
 			pBuffer->Print( pszKey, nKeyLength );
 			(*pNode)->Encode( pBuffer );
 		}
@@ -404,7 +401,7 @@ const CString CBENode::Encode() const
 			{
 				if ( n )
 					sOutput += _T(", ");
-				sTmp.Format( _T("\"%s\" = "), (LPCTSTR)CA2T( (LPCSTR)pNode[ 1 ] ) );
+				sTmp.Format( _T("\"%s\" = "), CString( (LPCSTR)pNode[ 1 ] ) );
 				sOutput += sTmp;
 				sOutput += (*pNode)->Encode();
 			}
@@ -422,8 +419,6 @@ const CString CBENode::Encode() const
 
 CBENode* CBENode::Decode(const CBuffer* pBuffer, DWORD *pnReaden)
 {
-	ASSERT( pBuffer != NULL );
-
 	try
 	{
 		auto_ptr< CBENode > pNode( new CBENode() );
@@ -452,7 +447,6 @@ CBENode* CBENode::Decode(const CBuffer* pBuffer, DWORD *pnReaden)
 void CBENode::Decode(LPBYTE& pInput, DWORD& nInput, DWORD nSize)
 {
 	ASSERT( m_nType == beNull );
-	ASSERT( pInput != NULL );
 
 	if ( nInput < 1 )
 		AfxThrowUserException();
@@ -475,7 +469,7 @@ void CBENode::Decode(LPBYTE& pInput, DWORD& nInput, DWORD nSize)
 		if ( nSeek >= 40 ) AfxThrowUserException();
 
 		pInput[nSeek] = 0;
-		if ( sscanf( (LPCSTR)pInput, "%I64i", &m_nValue ) != 1 )
+		if ( sscanf_s( (LPCSTR)pInput, "%I64i", &m_nValue ) != 1 )
 			AfxThrowUserException();
 		pInput[nSeek] = 'e';
 
@@ -556,7 +550,7 @@ int CBENode::DecodeLen(LPBYTE& pInput, DWORD& nInput)
 	int nLen = 0;
 
 	pInput[ nSeek ] = 0;
-	if ( sscanf( (LPCSTR)pInput, "%i", &nLen ) != 1 )
+	if ( sscanf_s( (LPCSTR)pInput, "%i", &nLen ) != 1 )
 		AfxThrowUserException();
 	pInput[ nSeek ] = ':';
 	INC( nSeek + 1 );

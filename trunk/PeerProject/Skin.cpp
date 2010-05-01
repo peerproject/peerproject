@@ -22,6 +22,7 @@
 #include "StdAfx.h"
 #include "PeerProject.h"
 #include "Settings.h"
+#include "Buffer.h"
 #include "CoolInterface.h"
 #include "CoolMenu.h"
 #include "CtrlCoolBar.h"
@@ -32,7 +33,7 @@
 #include "ImageFile.h"
 #include "Plugins.h"
 #include "WndChild.h"
-#include "Buffer.h"
+#include "WndSettingsPage.h"
 #include "XML.h"
 
 #ifdef _DEBUG
@@ -381,28 +382,28 @@ BOOL CSkin::LoadFromXML(CXMLElement* pXML, const CString& strPath)
 
 	// Confirm if this switch overhead is any better than typical elseif sequence
 	std::map< const CString, char > XMLElement;
-	XMLElement[ "manifest" ]		= 'm';
-	XMLElement[ "windowskins" ]		= 's';
-	XMLElement[ "watermarks" ]		= 'w';
-	XMLElement[ "commandimages" ]	= 'i';
-	XMLElement[ "icons" ]			= 'i';
-	XMLElement[ "colors" ]			= 'c';
-	XMLElement[ "colorscheme" ]		= 'c';
-	XMLElement[ "colourscheme" ]	= 'c';
-	XMLElement[ "toolbars" ]		= 't';
-	XMLElement[ "menus" ]			= 'u';
-	XMLElement[ "dialogs" ]			= 'a';
-	XMLElement[ "documents" ]		= 'd';
-	XMLElement[ "listcolumns" ]		= 'l';
-	XMLElement[ "options" ]			= 'o';
-	XMLElement[ "navbar" ]			= 'v';	// Legacy .sks
-	XMLElement[ "fonts" ]			= 'f';
-	XMLElement[ "strings" ]			= 'r';
-	XMLElement[ "commandtips" ]		= 'r';
-	XMLElement[ "controltips" ]		= 'n';
-	XMLElement[ "commandmap" ]		= 'p';
-	XMLElement[ "resourcemap" ]		= 'p';
-	XMLElement[ "tipmap" ]			= 'p';
+	XMLElement[ _T("manifest") ]		= 'm';
+	XMLElement[ _T("windowskins") ]		= 's';
+	XMLElement[ _T("watermarks") ]		= 'w';
+	XMLElement[ _T("commandimages") ]	= 'i';
+	XMLElement[ _T("icons") ]			= 'i';
+	XMLElement[ _T("colors") ]			= 'c';
+	XMLElement[ _T("colorscheme") ]		= 'c';
+	XMLElement[ _T("colourscheme") ]	= 'c';
+	XMLElement[ _T("toolbars") ]		= 't';
+	XMLElement[ _T("menus") ]			= 'u';
+	XMLElement[ _T("dialogs") ]			= 'a';
+	XMLElement[ _T("documents") ]		= 'd';
+	XMLElement[ _T("listcolumns") ]		= 'l';
+	XMLElement[ _T("options") ]			= 'o';
+	XMLElement[ _T("navbar") ]			= 'v';	// Legacy .sks
+	XMLElement[ _T("fonts") ]			= 'f';
+	XMLElement[ _T("strings") ]			= 'r';
+	XMLElement[ _T("commandtips") ]		= 'r';
+	XMLElement[ _T("controltips") ]		= 'n';
+	XMLElement[ _T("commandmap") ]		= 'p';
+	XMLElement[ _T("resourcemap") ]		= 'p';
+	XMLElement[ _T("tipmap") ]			= 'p';
 	CString strElement;
 
 	for ( POSITION pos = pXML->GetElementIterator() ; pos ; )
@@ -610,167 +611,166 @@ BOOL CSkin::LoadOptions(CXMLElement* pBase)
 	{
 		CXMLElement* pXML = pBase->GetNextElement( pos );
 
-		if ( pXML->IsNamed( _T("option") ) )
-		{
-			CString strName		= pXML->GetAttributeValue( _T("name") );
-			CString strValue	= pXML->GetAttributeValue( _T("value") );
-			CString strHeight	= pXML->GetAttributeValue( _T("height") );
-			CString strWidth	= pXML->GetAttributeValue( _T("width") );
-
-			ToLower( strName );
-			ToLower( strValue );
-			ToLower( strHeight );
-			ToLower( strWidth );
-
-			// ToDo: Confirm if this switch is any better than typical elseif sequence
-			std::map< const CString, char > OptionName;
-
-			OptionName[ "navbar" ]		= 'n';
-			OptionName[ "dropmenu" ]	= 'd';
-			OptionName[ "submenu" ]		= 'd';
-			OptionName[ "menuborders" ]	= 'm';
-			OptionName[ "menubarbevel" ] = 'm';
-			OptionName[ "menugripper" ]	= 'p';
-			OptionName[ "grippers" ]	= 'p';
-			OptionName[ "toolbar" ]		= 't';
-			OptionName[ "toolbars" ]	= 't';
-			OptionName[ "taskbar" ]		= 'k';
-			OptionName[ "tabbar" ]		= 'k';
-			OptionName[ "sidebar" ]		= 's';
-			OptionName[ "sidepanel" ]	= 's';
-			OptionName[ "titlebar" ]	= 'h';
-			OptionName[ "headerpanel" ]	= 'h';
-			OptionName[ "groupsbar" ]	= 'g';
-			OptionName[ "downloadgroups" ] = 'g';
-			OptionName[ "monitorbar" ]	= 'o';
-			OptionName[ "bandwidth" ]	= 'o';
-			OptionName[ "dragbar" ]		= 'r';
-			OptionName[ "splitter" ]	= 'r';
-			OptionName[ "roundedselect" ] = 'e';
-			OptionName[ "highlightchamfer" ] = 'e';
-			OptionName[ "icongrid" ]	 = 'l';
-			OptionName[ "librarytiles" ] = 'i';
-
-			switch( OptionName[ strName ] )
-			{
-			case 'n':	// "navbar"
-				if ( ! LoadNavBar( pXML ) )
-					theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Skin Option [Navbar] Failed"), pXML->ToString() );
-				break;
-			case 'd':	// "dropmenu" or "submenu"
-				if ( strValue == _T("true") )
-					m_bDropMenu = TRUE;
-				else if ( strValue == _T("false") )
-					m_bDropMenu = FALSE;
-				else if ( strValue == _T("on") )
-					m_bDropMenu = TRUE;
-				else if ( strValue == _T("off") )
-					m_bDropMenu = FALSE;
-				else if ( strValue == _T("1") )
-					m_bDropMenu = TRUE;
-				else if ( strValue == _T("0") )
-					m_bDropMenu = FALSE;
-				break;
-			case 'm':	// "menuborders" or "menubarbevel"
-				if ( strValue == _T("true") )
-					m_bMenuBorders = TRUE;
-				else if ( strValue == _T("false") )
-					m_bMenuBorders = FALSE;
-				else if ( strValue == _T("on") )
-					m_bMenuBorders = TRUE;
-				else if ( strValue == _T("off") )
-					m_bMenuBorders = FALSE;
-				else if ( strValue == _T("1") )
-					m_bMenuBorders = TRUE;
-				else if ( strValue == _T("0") )
-					m_bMenuBorders = FALSE;
-				break;
-			case 'p':	// "menugripper" or "grippers"
-				if ( strValue == _T("true") )
-					m_bMenuGripper = TRUE;
-				else if ( strValue == _T("false") )
-					m_bMenuGripper = FALSE;
-				else if ( strValue == _T("on") )
-					m_bMenuGripper = TRUE;
-				else if ( strValue == _T("off") )
-					m_bMenuGripper = FALSE;
-				else if ( strValue == _T("1") )
-					m_bMenuGripper = TRUE;
-				else if ( strValue == _T("0") )
-					m_bMenuGripper = FALSE;
-				break;
-			case 'e':	// "roundedselect" or "highlightchamfer"
-				if ( strValue == _T("true") )
-					m_bRoundedSelect = TRUE;
-				else if ( strValue == _T("false") )
-					m_bRoundedSelect = FALSE;
-				else if ( strValue == _T("on") )
-					m_bRoundedSelect = TRUE;
-				else if ( strValue == _T("off") )
-					m_bRoundedSelect = FALSE;
-				else if ( strValue == _T("1") )
-					m_bRoundedSelect = TRUE;
-				else if ( strValue == _T("0") )
-					m_bRoundedSelect = FALSE;
-				break;
-			case 't':	// "toolbar" or "toolbars"
-				if ( strHeight.GetLength() )
-					m_nToolbarHeight = _wtoi(strHeight);
-				else if ( strValue.GetLength() )
-					m_nToolbarHeight = _wtoi(strValue);
-				break;
-			case 'k':	// "taskbar" or "tabbar"
-				if ( strWidth.GetLength() )
-					m_nTaskbarTabWidth = _wtoi(strWidth);
-				if ( strHeight.GetLength() )
-					m_nTaskbarHeight = _wtoi(strHeight);
-				else if ( strValue.GetLength() )
-					m_nTaskbarHeight = _wtoi(strValue);
-				break;
-			case 's':	// "sidebar" or "sidepanel"
-				if ( strWidth.GetLength() )
-					m_nSidebarWidth = _wtoi(strWidth);
-				else if ( strValue.GetLength() )
-					m_nSidebarWidth = _wtoi(strValue);
-				break;
-			case 'h':	// "titlebar" or "headerpanel"
-				if ( strHeight.GetLength() )
-					m_nHeaderbarHeight = _wtoi(strHeight);
-				else if ( strValue.GetLength() )
-					m_nHeaderbarHeight = _wtoi(strValue);
-				break;
-			case 'g':	// "groupsbar" or "downloadgroups"
-				if ( strHeight.GetLength() )
-					m_nGroupsbarHeight = _wtoi(strHeight);
-				else if ( strValue.GetLength() )
-					m_nGroupsbarHeight = _wtoi(strValue);
-				break;
-			case 'o':	// "monitorbar" or "bandwidthbar"
-				if ( strWidth.GetLength() )
-					m_nMonitorbarWidth = _wtoi(strWidth);
-				else if ( strValue.GetLength() )
-					m_nMonitorbarWidth = _wtoi(strValue);
-				break;
-			case 'r':	// "dragbar" or "splitter"
-				if ( strWidth.GetLength() )
-					m_nSplitter = _wtoi(strWidth);
-				else if ( strValue.GetLength() )
-					m_nSplitter = _wtoi(strValue);
-				break;
-			case 'i':	// "icongrid" or "librarytiles"
-				if ( strHeight.GetLength() )
-					m_nLibIconsY = _wtoi(strHeight);
-				if ( strWidth.GetLength() )
-					m_nLibIconsX = _wtoi(strWidth);
-				else if ( strValue.GetLength() )
-					m_nLibIconsX = _wtoi(strValue);
-				break;
-			}
-		}
-		else
+		if ( ! pXML->IsNamed( _T("option") ) )
 		{
 			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR,
 				_T("Unknown element in skin [Options]"), pXML->ToString() );
+			continue;	// Failed, but keep trying
+		}
+
+		CString strName		= pXML->GetAttributeValue( _T("name") );
+		CString strValue	= pXML->GetAttributeValue( _T("value") );
+		CString strHeight	= pXML->GetAttributeValue( _T("height") );
+		CString strWidth	= pXML->GetAttributeValue( _T("width") );
+
+		ToLower( strName );
+		ToLower( strValue );
+		ToLower( strHeight );
+		ToLower( strWidth );
+
+		// ToDo: Confirm if this switch is any better than typical elseif sequence
+		std::map< const CString, char > OptionName;
+
+		OptionName[ _T("navbar") ]		= 'n';
+		OptionName[ _T("dropmenu") ]	= 'd';
+		OptionName[ _T("submenu") ]		= 'd';
+		OptionName[ _T("menuborders") ]	= 'm';
+		OptionName[ _T("menubarbevel") ] = 'm';
+		OptionName[ _T("menugripper") ]	= 'p';
+		OptionName[ _T("grippers") ] 	= 'p';
+		OptionName[ _T("toolbar") ]		= 't';
+		OptionName[ _T("toolbars") ]	= 't';
+		OptionName[ _T("taskbar") ]		= 'k';
+		OptionName[ _T("tabbar") ]		= 'k';
+		OptionName[ _T("sidebar") ]		= 's';
+		OptionName[ _T("sidepanel") ]	= 's';
+		OptionName[ _T("titlebar") ]	= 'h';
+		OptionName[ _T("headerpanel") ]	= 'h';
+		OptionName[ _T("groupsbar") ]	= 'g';
+		OptionName[ _T("downloadgroups") ] = 'g';
+		OptionName[ _T("monitorbar") ]	= 'o';
+		OptionName[ _T("bandwidth") ]	= 'o';
+		OptionName[ _T("dragbar") ]		= 'r';
+		OptionName[ _T("splitter") ]	= 'r';
+		OptionName[ _T("roundedselect") ] = 'e';
+		OptionName[ _T("highlightchamfer") ] = 'e';
+		OptionName[ _T("icongrid") ]	 = 'l';
+		OptionName[ _T("librarytiles") ] = 'i';
+
+		switch( OptionName[ strName ] )
+		{
+		case 'n':	// "navbar"
+			if ( ! LoadNavBar( pXML ) )
+				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Skin Option [Navbar] Failed"), pXML->ToString() );
+			break;
+		case 'd':	// "dropmenu" or "submenu"
+			if ( strValue == _T("true") )
+				m_bDropMenu = TRUE;
+			else if ( strValue == _T("false") )
+				m_bDropMenu = FALSE;
+			else if ( strValue == _T("on") )
+				m_bDropMenu = TRUE;
+			else if ( strValue == _T("off") )
+				m_bDropMenu = FALSE;
+			else if ( strValue == _T("1") )
+				m_bDropMenu = TRUE;
+			else if ( strValue == _T("0") )
+				m_bDropMenu = FALSE;
+			break;
+		case 'm':	// "menuborders" or "menubarbevel"
+			if ( strValue == _T("true") )
+				m_bMenuBorders = TRUE;
+			else if ( strValue == _T("false") )
+				m_bMenuBorders = FALSE;
+			else if ( strValue == _T("on") )
+				m_bMenuBorders = TRUE;
+			else if ( strValue == _T("off") )
+				m_bMenuBorders = FALSE;
+			else if ( strValue == _T("1") )
+				m_bMenuBorders = TRUE;
+			else if ( strValue == _T("0") )
+				m_bMenuBorders = FALSE;
+			break;
+		case 'p':	// "menugripper" or "grippers"
+			if ( strValue == _T("true") )
+				m_bMenuGripper = TRUE;
+			else if ( strValue == _T("false") )
+				m_bMenuGripper = FALSE;
+			else if ( strValue == _T("on") )
+				m_bMenuGripper = TRUE;
+			else if ( strValue == _T("off") )
+				m_bMenuGripper = FALSE;
+			else if ( strValue == _T("1") )
+				m_bMenuGripper = TRUE;
+			else if ( strValue == _T("0") )
+				m_bMenuGripper = FALSE;
+			break;
+		case 'e':	// "roundedselect" or "highlightchamfer"
+			if ( strValue == _T("true") )
+				m_bRoundedSelect = TRUE;
+			else if ( strValue == _T("false") )
+				m_bRoundedSelect = FALSE;
+			else if ( strValue == _T("on") )
+				m_bRoundedSelect = TRUE;
+			else if ( strValue == _T("off") )
+				m_bRoundedSelect = FALSE;
+			else if ( strValue == _T("1") )
+				m_bRoundedSelect = TRUE;
+			else if ( strValue == _T("0") )
+				m_bRoundedSelect = FALSE;
+			break;
+		case 't':	// "toolbar" or "toolbars"
+			if ( strHeight.GetLength() )
+				m_nToolbarHeight = _wtoi(strHeight);
+			else if ( strValue.GetLength() )
+				m_nToolbarHeight = _wtoi(strValue);
+			break;
+		case 'k':	// "taskbar" or "tabbar"
+			if ( strWidth.GetLength() )
+				m_nTaskbarTabWidth = _wtoi(strWidth);
+			if ( strHeight.GetLength() )
+				m_nTaskbarHeight = _wtoi(strHeight);
+			else if ( strValue.GetLength() )
+				m_nTaskbarHeight = _wtoi(strValue);
+			break;
+		case 's':	// "sidebar" or "sidepanel"
+			if ( strWidth.GetLength() )
+				m_nSidebarWidth = _wtoi(strWidth);
+			else if ( strValue.GetLength() )
+				m_nSidebarWidth = _wtoi(strValue);
+			break;
+		case 'h':	// "titlebar" or "headerpanel"
+			if ( strHeight.GetLength() )
+				m_nHeaderbarHeight = _wtoi(strHeight);
+			else if ( strValue.GetLength() )
+				m_nHeaderbarHeight = _wtoi(strValue);
+			break;
+		case 'g':	// "groupsbar" or "downloadgroups"
+			if ( strHeight.GetLength() )
+				m_nGroupsbarHeight = _wtoi(strHeight);
+			else if ( strValue.GetLength() )
+				m_nGroupsbarHeight = _wtoi(strValue);
+			break;
+		case 'o':	// "monitorbar" or "bandwidthbar"
+			if ( strWidth.GetLength() )
+				m_nMonitorbarWidth = _wtoi(strWidth);
+			else if ( strValue.GetLength() )
+				m_nMonitorbarWidth = _wtoi(strValue);
+			break;
+		case 'r':	// "dragbar" or "splitter"
+			if ( strWidth.GetLength() )
+				m_nSplitter = _wtoi(strWidth);
+			else if ( strValue.GetLength() )
+				m_nSplitter = _wtoi(strValue);
+			break;
+		case 'i':	// "icongrid" or "librarytiles"
+			if ( strHeight.GetLength() )
+				m_nLibIconsY = _wtoi(strHeight);
+			if ( strWidth.GetLength() )
+				m_nLibIconsX = _wtoi(strWidth);
+			else if ( strValue.GetLength() )
+				m_nLibIconsX = _wtoi(strValue);
+			break;
 		}
 	}
 
@@ -1445,6 +1445,10 @@ BOOL CSkin::Apply(LPCTSTR pszName, CDialog* pDialog, UINT nIconID, CToolTipCtrl*
 			pWnd->GetNextWindow() == NULL )
 			break;
 
+		// Skip settings pages
+		if ( pWnd->IsKindOf( RUNTIME_CLASS( CSettingsPage ) ) )
+			continue;
+
 		strCaption += szClass;
 	}
 
@@ -1569,7 +1573,7 @@ BOOL CSkin::Apply(LPCTSTR pszName, CDialog* pDialog, UINT nIconID, CToolTipCtrl*
 	if ( strCaption != pBase->GetAttributeValue( _T("cookie") ) )
 	{
 		theApp.Message( MSG_ERROR, IDS_SKIN_ERROR,
-			_T("Invalid [cookie] attribute in [dialog] element"), pBase->ToString() );
+			_T("Invalid [cookie] attribute in [dialog] element, use: ") + strCaption, pBase->ToString() );
 		return FALSE;
 	}
 
@@ -1608,21 +1612,21 @@ BOOL CSkin::Apply(LPCTSTR pszName, CDialog* pDialog, UINT nIconID, CToolTipCtrl*
 				}
 				else
 				{
-					CStringArray pItems;
-					CString strTemp;
-					int nNum;
+					CComboBox* pCombo = (CComboBox*)pWnd;
+					int nNum = pCombo->GetCount();
 
+					CStringArray pItems;
 					Split( strCaption, _T('|'), pItems, TRUE );
-					CComboBox* pCombo = (CComboBox*) pWnd;
-					nNum = pCombo->GetCount();
+
 					if ( nNum == pItems.GetSize() )
 					{
-						for ( int nCount = 0; nCount < nNum; nCount++ )
+						int nCurSel = pCombo->GetCurSel();
+						pCombo->ResetContent();
+						for ( int i = 0; i < nNum; ++i )
 						{
-							pCombo->DeleteString( 0 );
-							strTemp = pItems.GetAt( nCount );
-							pCombo->AddString( (LPCTSTR) strTemp );
+							pCombo->AddString( pItems.GetAt( i ) );
 						}
+						pCombo->SetCurSel( nCurSel );
 					}
 				}
 			}
@@ -1636,6 +1640,8 @@ BOOL CSkin::Apply(LPCTSTR pszName, CDialog* pDialog, UINT nIconID, CToolTipCtrl*
 
 CString CSkin::GetDialogCaption(LPCTSTR pszName)
 {
+	//CQuickLock oLock( m_pSection );
+
 	CXMLElement* pBase = NULL;
 	CString strCaption;
 
@@ -1676,6 +1682,8 @@ BOOL CSkin::LoadDialogs(CXMLElement* pBase)
 
 CSkinWindow* CSkin::GetWindowSkin(LPCTSTR pszWindow, LPCTSTR pszAppend)
 {
+	//CQuickLock oLock( m_pSection );
+
 	CString strWindow;
 	strWindow.Format( _T("|%s%s|"), pszWindow, pszAppend ? pszAppend : _T("") );
 
@@ -1704,13 +1712,13 @@ CSkinWindow* CSkin::GetWindowSkin(CWnd* pWnd)
 		bPanel = pChild->m_bPanelMode;
 	}
 
-	#ifdef _AFXDLL	// ToDo: Clean this up?
+#ifdef _AFXDLL	// ToDo: Clean this up?
 	for ( CRuntimeClass* pClass = pWnd->GetRuntimeClass() ; pClass && pClass->m_pfnGetBaseClass ; pClass = pClass->m_pfnGetBaseClass() )
-	#else
+#else
 	for ( CRuntimeClass* pClass = pWnd->GetRuntimeClass() ; pClass ; pClass = pClass->m_pBaseClass )
-	#endif
+#endif
 	{
-		CA2T sClassName( pClass->m_lpszClassName );
+		CString sClassName( pClass->m_lpszClassName );
 
 		if ( bPanel )
 		{
@@ -2030,39 +2038,67 @@ BOOL CSkin::LoadResourceMap(CXMLElement* pBase)
 
 BOOL CSkin::LoadFonts(CXMLElement* pBase, const CString& strPath)
 {
+	bool bRichDefault = false, bRichHeading = false;
+
 	for ( POSITION pos = pBase->GetElementIterator() ; pos ; )
 	{
 		CXMLElement* pXML = pBase->GetNextElement( pos );
 
 		if ( pXML->IsNamed( _T("font") ) )
 		{
-			CString strName		= pXML->GetAttributeValue( _T("name") );
 			CString strLanguage	= pXML->GetAttributeValue( _T("language") );
-			CString strFace		= pXML->GetAttributeValue( _T("face") );
-			CString strSize		= pXML->GetAttributeValue( _T("size") );
-			CString strWeight	= pXML->GetAttributeValue( _T("weight") );
 
-			if ( ( Settings.General.Language.CompareNoCase( strLanguage ) == 0 ) ||
-				 strLanguage.IsEmpty() )
+			if ( strLanguage.IsEmpty() ||
+				( Settings.General.Language.CompareNoCase( strLanguage ) == 0 ) )
 			{
+				CString strName		= pXML->GetAttributeValue( _T("name") );
+				CString strFace		= pXML->GetAttributeValue( _T("face") );
+				CString strSize		= pXML->GetAttributeValue( _T("size") );
+				CString strWeight	= pXML->GetAttributeValue( _T("weight") );
+
+				if ( strName.GetLength() < 6 ) continue;
+				ToLower( strName );
+
+				// Confirm if this switch overhead is any better than typical elseif sequence
+				std::map< const CString, char > FontName;
+				FontName[ _T("system") ]			= 'd';
+				FontName[ _T("system.default") ]	= 'd';
+				FontName[ _T("system.plain") ]		= 'd';
+				FontName[ _T("system.bold") ]		= 'b';
+				FontName[ _T("panel.caption") ]		= 'p';
+				FontName[ _T("navbar.caption") ]	= 'n';
+				FontName[ _T("richdoc.default") ]	= 'r';
+				FontName[ _T("rich.default") ]		= 'r';
+				FontName[ _T("richdoc.heading") ]	= 'h';
+				FontName[ _T("rich.heading") ]		= 'h';
+
 				CFont* pFont = NULL;
 
-				if ( strName.CompareNoCase( _T("system.plain") ) == 0 )
-					pFont = &CoolInterface.m_fntNormal;
-				else if ( strName.CompareNoCase( _T("system.bold") ) == 0 )
-					pFont = &CoolInterface.m_fntBold;
-				else if ( strName.CompareNoCase( _T("panel.caption") ) == 0 )
-					pFont = &CoolInterface.m_fntCaption;
-				else if ( strName.CompareNoCase( _T("navbar.caption") ) == 0 )
-					pFont = &CoolInterface.m_fntNavBar;
-				else if ( strName.CompareNoCase( _T("richdoc.default") ) == 0 || strName.CompareNoCase( _T("rich.default") ) == 0 )
-					pFont = &CoolInterface.m_fntRichDefault;
-				else if ( strName.CompareNoCase( _T("richdoc.heading") ) == 0 || strName.CompareNoCase( _T("rich.heading") ) == 0 )
-					pFont = &CoolInterface.m_fntRichHeading;
-				else
+				switch( FontName[ strName ] )
 				{
+				case 'd':	// system.default, system.plain, system
+					pFont = &CoolInterface.m_fntNormal;
+					break;
+				case 'b':	// system.bold
+					pFont = &CoolInterface.m_fntBold;
+					break;
+				case 'p':	// panel.caption
+					pFont = &CoolInterface.m_fntCaption;
+					break;
+				case 'n':	// navbar.caption
+					pFont = &CoolInterface.m_fntNavBar;
+					break;
+				case 'r':	// richdoc.default, rich.default
+					pFont = &CoolInterface.m_fntRichDefault;
+					bRichDefault = true;
+					break;
+				case 'h':	// richdoc.heading, rich.heading
+					pFont = &CoolInterface.m_fntRichHeading;
+					bRichHeading = true;
+					break;
+				default:
 					theApp.Message( MSG_ERROR, IDS_SKIN_ERROR,
-						_T("Unknown Font"), pXML->ToString() );
+						_T("Unknown font name"), pXML->ToString() );
 					continue;
 				}
 
@@ -2073,13 +2109,16 @@ BOOL CSkin::LoadFonts(CXMLElement* pBase, const CString& strPath)
 
 				if ( strWeight.CompareNoCase( _T("bold") ) == 0 )
 					strWeight = _T("700");
-				else if ( strWeight.IsEmpty() )
+				else if ( strWeight.IsEmpty() || strWeight.CompareNoCase( _T("normal") ) == 0 )
 					strWeight = _T("400");
 
 				int nFontSize = Settings.Fonts.FontSize, nFontWeight = FW_NORMAL;
 
-				_stscanf( strSize, _T("%i"), &nFontSize );
-				_stscanf( strWeight, _T("%i"), &nFontWeight );
+				if ( strSize.GetLength() && _stscanf( strSize, _T("%i"), &nFontSize ) != 1 )
+					theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Bad [size] attribute in [font] element"), pXML->ToString() );
+
+				if ( strWeight.GetLength() > 2 && _stscanf( strWeight, _T("%i"), &nFontWeight ) != 1 )
+					theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Bad [weight] attribute in [font] element"), pXML->ToString() );
 
 				pFont->CreateFont( -nFontSize, 0, 0, 0, nFontWeight, FALSE, FALSE, FALSE,
 					DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
@@ -2116,9 +2155,7 @@ BOOL CSkin::LoadFonts(CXMLElement* pBase, const CString& strPath)
 		{
 			CString strFile = strPath + pXML->GetAttributeValue( _T("path") );
 
-			BOOL bSuccess = AddFontResourceEx( strFile, FR_PRIVATE, NULL );
-
-			if ( bSuccess )
+			if ( AddFontResourceEx( strFile, FR_PRIVATE, NULL ) )
 				m_pFontPaths.AddTail( strFile );
 			else
 				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR,
@@ -2131,6 +2168,30 @@ BOOL CSkin::LoadFonts(CXMLElement* pBase, const CString& strPath)
 		}
 	}
 
+	// Create Rich Default font based on Normal font, if absent
+	if ( ! bRichDefault )
+	{
+		LOGFONT lfDefault = {};
+		CoolInterface.m_fntNormal.GetLogFont( &lfDefault );
+		lfDefault.lfHeight -= 1;
+		lfDefault.lfWeight += 300;
+		if ( CoolInterface.m_fntRichDefault.m_hObject )
+			CoolInterface.m_fntRichDefault.DeleteObject();
+		CoolInterface.m_fntRichDefault.CreateFontIndirect( &lfDefault );
+	}
+
+	// Create Rich Heading font based on Rich Default font, if absent
+	if ( ! bRichHeading )
+	{
+		LOGFONT lfDefault = {};
+		CoolInterface.m_fntRichDefault.GetLogFont( &lfDefault );
+		lfDefault.lfHeight -= 5;
+		lfDefault.lfWeight += 100;
+		if ( CoolInterface.m_fntRichHeading.m_hObject )
+			CoolInterface.m_fntRichHeading.DeleteObject();
+		CoolInterface.m_fntRichHeading.CreateFontIndirect( &lfDefault );
+	}
+
 	return TRUE;
 }
 
@@ -2139,6 +2200,8 @@ BOOL CSkin::LoadFonts(CXMLElement* pBase, const CString& strPath)
 
 CString	CSkin::GetImagePath(UINT nImageID) const
 {
+	//CQuickLock oLock( m_pSection );
+
 	CString strPath;
 	if ( ! m_pImages.Lookup( nImageID, strPath ) )
 		strPath.Format( _T("\"%s\",-%u"), theApp.m_strBinaryPath, nImageID );
@@ -2372,7 +2435,7 @@ int CSkin::GetTextFlowChange(LPCTSTR pszText, BOOL* bIsRTL)
 	int nPos;
 	for ( nPos = 0; ; pszScan++, nPos++ )
 	{
-		// get the first word with punctuation marks and whitespaces
+		// Get the first word with punctuation marks and whitespaces
 		if ( (unsigned short)*pszScan > 32 && (unsigned short)*pszScan != 160 ) continue;
 
 		if ( pszWord < pszScan )
@@ -2381,7 +2444,7 @@ int CSkin::GetTextFlowChange(LPCTSTR pszText, BOOL* bIsRTL)
 			WORD* nCharType = new WORD[ nLen + 1 ];
 
 			TCHAR* pszTestWord = new TCHAR[ nLen + 1 ];
-			_tcsncpy( pszTestWord, pszWord, nLen );
+			_tcsncpy_s( pszTestWord, nLen + 1, pszWord, nLen );
 			pszTestWord[ nLen ] = 0;
 
 			GetStringTypeEx( LOCALE_NEUTRAL, CT_CTYPE2, pszTestWord, nLen + 1, (LPWORD)nCharType );
@@ -2454,7 +2517,7 @@ void CSkin::DrawWrappedText(CDC* pDC, CRect* pBox, LPCTSTR pszText, CPoint ptSta
 	{
 		// Get the source string to draw and truncate initial string to pass it recursively
 		pszSource = new TCHAR[ nTestStart + 1 ];
-		_tcsncpy( pszSource, pszText, nTestStart );
+		_tcsncpy_s( pszSource, nTestStart + 1, pszText, nTestStart );
 		pszSource[ nTestStart ] = 0;
 		if ( ! bNormalFlow )
 		{
@@ -2471,7 +2534,7 @@ void CSkin::DrawWrappedText(CDC* pDC, CRect* pBox, LPCTSTR pszText, CPoint ptSta
 				str = _T(" ") + str;
 				str = str.Left( nTestStart );
 			}
-			_tcsncpy( pszSource, str.GetBuffer( nTestStart ), nTestStart );
+			_tcsncpy_s( pszSource, nTestStart + 1, str.GetBuffer( nTestStart ), nTestStart );
 		}
 		nLenFull = static_cast< unsigned short >( nTestStart );
 		pszText += nTestStart;

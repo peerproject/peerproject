@@ -1,7 +1,7 @@
 //
 // DlgSplash.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -54,13 +54,13 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CSplashDlg construction
 
-CSplashDlg::CSplashDlg(int nMax, bool bClosing) :
-	CDialog( CSplashDlg::IDD, GetDesktopWindow() ),
-	m_nPos( 0 ),
-	m_nMax( nMax ),
-	m_bClosing( bClosing ),
-	m_sState( theApp.m_sSmartAgent ),
-	m_pfnAnimateWindow( NULL )
+CSplashDlg::CSplashDlg(int nMax, bool bClosing)
+	: CDialog( CSplashDlg::IDD, GetDesktopWindow() )
+	, m_nPos	( 0 )
+	, m_nMax	( nMax )
+	, m_bClosing	( bClosing )
+	, m_sState	( theApp.m_sSmartAgent )
+	, m_pfnAnimateWindow ( NULL )
 {
 	Create( IDD, GetDesktopWindow() );
 }

@@ -1,7 +1,7 @@
 //
 // DownloadGroup.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -46,7 +46,7 @@ public:
 	CList< CString >	m_pFilters;			// Filters list
 	int					m_nImage;			// 16x16 group icon
 	BOOL				m_bRemoteSelected;	// Active(selected) group for Remote Interface
-	//BOOL				m_bTorrent;			// Filter BitTorrent downloads - Obsolete (Detect Schema instead)
+	//BOOL				m_bTorrent;			// Filter BitTorrent downloads (Obsolete, Schema is detected)
 
 // Operations
 public:

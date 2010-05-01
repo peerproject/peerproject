@@ -1047,6 +1047,9 @@
     <ClCompile Include="WizardFinishedPage.cpp">
       <Filter>Source Files\Wizard</Filter>
     </ClCompile>
+    <ClCompile Include="WizardFoldersPage.cpp">
+      <Filter>Source Files\Wizard</Filter>
+    </ClCompile>
     <ClCompile Include="WizardInterfacePage.cpp">
       <Filter>Source Files\Wizard</Filter>
     </ClCompile>
@@ -2559,6 +2562,9 @@
       <Filter>Header Files\Wizard</Filter>
     </ClInclude>
     <ClInclude Include="WizardFinishedPage.h">
+      <Filter>Header Files\Wizard</Filter>
+    </ClInclude>
+    <ClInclude Include="WizardFoldersPage.h">
       <Filter>Header Files\Wizard</Filter>
     </ClInclude>
     <ClInclude Include="WizardInterfacePage.h">

@@ -22,31 +22,32 @@
 #pragma once
 
 #include "NeighboursBase.h"
+#include "RouteCache.h"
+#include "PongCache.h"
 
 class CNeighbour;
 class CG1Neighbour;
-class CRouteCache;
-class CPongCache;
-class CPongItem;
+
 
 // Add the ping route and pong caches to the CNeighbours object
-class CNeighboursWithG1 : public CNeighboursBase // Continue the inheritance column CNeighbours : CNeighboursWithConnect : Routing : ED2K : G2 : G1 : CNeighboursBase
+// Inheritance column CNeighbours : CNeighboursWithConnect : Routing : ED2K : G2 : G1 : CNeighboursBase
+class CNeighboursWithG1 : public CNeighboursBase
 {
+//Construction
 protected:
-	// Called when the program runs and creates the CNeighbours object, and when it closes and deletes it
-	CNeighboursWithG1();          // Setup the ping route and pong caches
-	virtual ~CNeighboursWithG1(); // Delete the ping route and pong cache objects
+	CNeighboursWithG1();			// Setup ping route and pong caches
+	virtual ~CNeighboursWithG1();	// Delete ping route and pong cache objects
 
 public:
-	CRouteCache* m_pPingRoute;
-	CPongCache*  m_pPongCache;
+	CRouteCache	m_pPingRoute;
+	CPongCache	m_pPongCache;
 
 public:
 	void OnG1Ping();					// Relay ping and pong packets to other neighbours
 	void OnG1Pong(CG1Neighbour* pFrom, IN_ADDR* pAddress, WORD nPort, BYTE nHops, DWORD nFiles, DWORD nVolume);
 
 	BOOL AddPingRoute(const Hashes::Guid& oGUID, const CG1Neighbour* pNeighbour);
-	CG1Neighbour* GetPingRoute(const Hashes::Guid& oGUID) const;
+	CG1Neighbour* GetPingRoute(const Hashes::Guid& oGUID);
 
 	CPongItem*	AddPong(CNeighbour* pNeighbour, IN_ADDR* pAddress, WORD nPort, BYTE nHops, DWORD nFiles, DWORD nVolume);
 	CPongItem*	LookupPong(CNeighbour* pNotFrom, BYTE nHops, CList< CPongItem* >* pIgnore);

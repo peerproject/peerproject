@@ -194,7 +194,7 @@ INT_PTR CLocalSearch::ExecutePartialFiles(INT_PTR nMaximum)
 
 	// Browse request, or no partials requested, or non Gnutella 2 request
 	if ( ! m_pSearch || ! m_pSearch->m_bWantPFS || m_nProtocol != PROTOCOL_G2 )
-		return 0;	
+		return 0;
 
 	INT_PTR nHits = 0;
 	CList< const CDownload* > oFilesInPacket;

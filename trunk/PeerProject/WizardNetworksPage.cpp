@@ -1,7 +1,7 @@
 //
 // WizardNetworksPage.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -22,10 +22,11 @@
 #include "StdAfx.h"
 #include "PeerProject.h"
 #include "Settings.h"
-#include "HostCache.h"
 #include "WizardNetworksPage.h"
+#include "Network.h"
+#include "HostCache.h"
 #include "PeerProjectURL.h"
-#include "DlgDonkeyImport.h"
+#include "DlgDonkeyServers.h"
 #include "DlgHelp.h"
 #include "Skin.h"
 
@@ -47,13 +48,13 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CWizardNetworksPage property page
 
-CWizardNetworksPage::CWizardNetworksPage() : CWizardPage(CWizardNetworksPage::IDD)
+CWizardNetworksPage::CWizardNetworksPage()
+	: CWizardPage(CWizardNetworksPage::IDD)
+	, m_bG2Enable	( TRUE )
+	, m_bG1Enable	( TRUE )
+	, m_bEDEnable	( TRUE )
+	, m_bHandleTorrents	( TRUE )
 {
-	//{{AFX_DATA_INIT(CWizardNetworksPage)
-	m_bG2Enable = FALSE;
-	m_bG1Enable = FALSE;
-	m_bEDEnable = FALSE;
-	//}}AFX_DATA_INIT
 }
 
 CWizardNetworksPage::~CWizardNetworksPage()
@@ -143,37 +144,14 @@ LRESULT CWizardNetworksPage::OnWizardNext()
 	Settings.eDonkey.EnableAlways	= m_bEDEnable != FALSE;
 	Settings.eDonkey.EnableToday	= m_bEDEnable != FALSE;
 
-	DoDonkeyImport();
-
-	return 0;
-}
-
-void CWizardNetworksPage::DoDonkeyImport()
-{
-	CString strPrograms( theApp.GetProgramFilesFolder() ), strFolder;
-	CDonkeyImportDlg dlg( this );
-
-	LPCTSTR pszFolders[] =
+	if ( m_bEDEnable && HostCache.eDonkey.GetCount() < 3 )
 	{
-		_T("<%PROGRAMFILES%>\\eMule\\temp"),
-		_T("<%PROGRAMFILES%>\\aMule\\temp"),
-		_T("<%PROGRAMFILES%>\\Neo Mule\\temp"),
-		_T("<%PROGRAMFILES%>\\eDonkey2000\\temp"),
-		NULL
-	};
-
-	int nCount = 0;
-	for ( int nFolder = 0 ; pszFolders[ nFolder ] ; nFolder++ )
-	{
-		strFolder = pszFolders[ nFolder ];
-		strFolder.Replace( _T("<%PROGRAMFILES%>"), strPrograms );
-
-		if ( GetFileAttributes( strFolder ) != 0xFFFFFFFF )
-		{
-			dlg.m_pImporter.AddFolder( strFolder );
-			nCount++;
-		}
+		CDonkeyServersDlg dlg;
+		dlg.DoModal();
 	}
 
-	if ( nCount > 0 ) dlg.DoModal();
+	if ( ! Network.IsConnected() && ( m_bG2Enable || m_bG1Enable || m_bEDEnable ) )
+		Network.Connect( TRUE );
+
+	return 0;
 }

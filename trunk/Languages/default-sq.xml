@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <skin xmlns="http://schemas.peerproject.org/Skin.xsd" version="1.0">
 
 <!-- PeerProject Default Albanian Skin File -->
 
-<!-- Translation based on default-en.xml r52 -->
+<!-- Translation based on default-en.xml r54 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1946,6 +1946,9 @@
 		<link target="peer:page:CCommunitySettingsPage" format="b">Komuniteti:</link>
 		<text>&#160;Kuadrot e profilit, chat-it dhe e mesazheve tuaja të çastit.</text>
 		<newline gap="10"/>
+		<link target="peer:page:CRemoteSettingsPage" format="b">Hyrja në Largësi:</link>
+		<text>&#160;Aftësi për të kontrolluar PeerProject-n me pult nga një shfletues rrjeti.</text>
+		<newline gap="10"/>
 		<link target="peer:page:CWebSettingsPage" format="b">Rrjeti:</link>
 		<text>&#160;Integroni PeerProject-n me shfletuesin e rrjetit që të pranojë linket pikë-më-pikë dhe të shkarkojë përmbajtjen.</text>
 	</document>
@@ -1965,9 +1968,6 @@
 		<newline gap="10"/>
 		<link target="peer:page:CUploadsSettingsPage" format="b">Ngarkesat:</link>
 		<text>&#160;Kapaciteti, pritja, dëbimi, jashtëkoha dhe kërkesat e tjera për ngarkesat.</text>
-		<newline gap="10"/>
-		<link target="peer:page:CRemoteSettingsPage" format="b">Hyrja në Largësi:</link>
-		<text>&#160;Aftësi për të kontrolluar PeerProject-n me pult nga një shfletues rrjeti.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CSchedulerSettingsPage" format="b">Scheduler:</link>
 		<text>&#160;Kufizoni lidhjet e shkarkimit bazuar në një plan periodik.</text>
@@ -2708,8 +2708,8 @@
 	<string id="8071" value="I lidhur"/>
 	<string id="8072" value="Shkëputu"/>
 	<string id="8096" value="Kjo zonë tregon më tepër informacion rreth skedës që zgjidhet."/>
-	<string id="8097" value="Ka një burim të vlefshëm (%s)."/>
-	<string id="8098" value="Ka %i burime të vlefshme (%s)."/>
+	<string id="8097" value="Ka një burim të vlefshëm. (%s/s)"/>
+	<string id="8098" value="Ka %i burime të vlefshme. (%s/s)"/>
 	<string id="8099" value="Ka një pasqyrë."/>
 	<string id="8100" value="Ka %i pasqyra."/>
 	<string id="8101" value="%s shkruan:"/>
@@ -2782,7 +2782,7 @@
 	<string id="8243" value="Në ngarkim:"/>
 	<string id="8244" value="Pasqyra:"/>
 	<string id="8288" value="Eksploroni Librarinë Tuaj në PeerProject"/>
-	<string id="8289" value="Po eksploroni "/>
+	<string id="8289" value="Po eksploroni"/>
 	<string id="8290" value="Eksploroni përmbajtjet e %i dosjeve"/>
 	<string id="8291" value="Dosje Shumëfishe"/>
 	<string id="8292" value="Zgjodhët %i skeda"/>
@@ -3105,19 +3105,19 @@
 </strings>
 <!-- Localized Dialog Text, "cookie" verifies that the skin matches current dialog -->
 <dialogs>
-	<dialog name="CGeneralSettingsGroup" cookie="" caption="Përgjithësi">
-	</dialog>
-	<dialog name="CSettingSheet" cookie="SyBuBuBu#3" caption="Vendosjet e PeerProject-s">
+	<dialog name="CSettingSheet" cookie="SyBuBuBu" caption="Vendosjet e PeerProject-s">
 		<control/>
 		<control caption="OK"/>
 		<control caption="Anulo"/>
 		<control caption="Zbato"/>
 		<control/>
 	</dialog>
+	<dialog name="CGeneralSettingsGroup" cookie="Af" caption="Përgjithësi"/>
+	<dialog name="CInternetSettingsGroup" cookie="Af" caption="Interneti"/>
 	<dialog name="CGeneralSettingsPage" cookie="BuBuBuBuBuBuBuBuStCoBuBuBuBuBuBuSyStEdmsStmsBuBuStCoStCo" caption="Përgjithësi">
 		<control caption="_Përgjithësi:"/>
-		<control caption="Autolidhu kur nis PeerProject"/>
 		<control caption="Nise PeerProject-n kur nis Windows-i"/>
+		<control caption="Autolidhu kur nis PeerProject"/>
 		<control caption="Lajmëro përpara hapjes së URI-ve"/>
 		<control caption="Check for updates"/>
 		<control caption="_Shkarkimi:"/>
@@ -3256,8 +3256,6 @@
 		<control caption="_Fshije"/>
 		<control caption="Priza e menaxherit shkarkues do të orvatet të shkarkojë vetëm llojet e skedave në listë. Llojet e tjera do të trajtohen nga shfletuesi juaj i rrjetit. PeerProject duhet të veprojë për të menaxhuar shkarkesat."/>
 	</dialog>
-	<dialog name="CInternetSettingsGroup" caption="Interneti">
-	</dialog>
 	<dialog name="CConnectionSettingsPage" cookie="BuStCoStCoStEdBuBuBuStCoStCoBuStCoBuBuBuStEdmsStEdms" caption="Lidhje">
 		<control caption="Adresë _Hyrëse:"/>
 		<control caption="Adresa:"/>
@@ -3276,8 +3274,8 @@
 		<control caption="M_undësi:"/>
 		<control caption="Prano lidhjet që vijnë"/>
 		<control/>
-		<control caption="Përbuze adresën me IP private/lokale "/>
-		<control caption="Lejo ndërtimin e mjeteve lidhëse UPnP "/>
+		<control caption="Përbuze adresën me IP private/lokale"/>
+		<control caption="Lejo ndërtimin e mjeteve lidhëse UPnP"/>
 		<control caption="_Jashtëkoha:"/>
 		<control caption="Lidhje:"/>
 		<control/>
@@ -3489,15 +3487,13 @@
 		<control caption="_Ndërto..."/>
 		<control caption="Gjej më Shumë"/>
 	</dialog>
-	<dialog name="CAdvancedSettingsPage" cookie="SyEdmsBuBuStStEd" caption="Përparime">
+	<dialog name="CAdvancedSettingsPage" cookie="SyEdmsBuBuSt" caption="Përparime">
 		<control/>
 		<control/>
 		<control/>
 		<control caption="Vendos Tipiket"/>
 		<control caption="Vetitë e Vendosjes:"/>
 		<control caption="Vlera:"/>
-		<control caption="Përshkrimi:"/>
-		<control/>
 	</dialog>
 	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="Protokollet">
 		<control caption="Eksploruesi i Protokollit Arkitekturor të Zakontë i PeerProject-s:"/>
@@ -3544,7 +3540,7 @@
 		<control caption="Anulo"/>
 		<control caption="Shpërbleji ngarkuesit"/>
 	</dialog>
-	<dialog name="CWizardWelcomePage" cookie="StStStStStStStStStStStSt" caption="Mirë se erdhe te PeerProject">
+	<dialog name="CWizardWelcomePage" cookie="StStStStStStStStStStStSt" caption="Mirë se erdhe te PeerProject (1/8)">
 		<control caption="Mirë se erdhe te PeerProject!"/>
 		<control caption="Nëse nuk e keni përdorur ndonjëherë PeerProject-n apo një klient tjetër P2P, ky udhërrëfyes i shpejtë do ju ndihmojë ta konfiguroni atë sipas disa hapave të thjeshtë."/>
 		<control caption="Nëse jeni përdorues më i përparuar, mundet të hapni gamën e gjerë të mundësive të PeerProject-s, në menynë Mjete. Klikoni Dil që ky udhërrëfyes të mbyllet në çdo kohë."/>
@@ -3558,7 +3554,7 @@
 		<control/>
 		<control caption="Përdorni PeerProject-n."/>
 	</dialog>
-	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="Mirë se erdhët në PeerProject (1/6)">
+	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="Mirë se erdhët në PeerProject (2/8)">
 		<control caption="Për efektshmëri optimale, PeerProject duhet të dijë si lidheni në Internet."/>
 		<control caption="Zgjidheni llojin e lidhjes me Internet:"/>
 		<control caption="Modem Dial up|ISDN (128K)|DSL (768K)|DSL (1.5M)|DSL (4.0M)|DSL2 (8.0M)|FIOS (10.0M)|DSL2 (12.0M)|FIOS (20.0M)|DSL2+ (24.0M)|Modem me Kabllo/SDSL|T1|T3|LAN|OC3"/>
@@ -3574,7 +3570,30 @@
 		<control caption="Statusi:"/>
 		<control/>
 	</dialog>
-	<dialog name="CWizardSharePage" cookie="StStStSyBuBuSt" caption="Mirë se erdhët në PeerProject (2/6)">
+	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuStBu" caption="Mirë se erdhët në PeerProject (3/8)">
+		<control caption="PeerProject është një aplikim skedë-shpërndarës me synim të përgjithshëm hyrjen në sa shumë rrjete P2P në të njëjtën kohë. Këtu mund të zgjidhni në cilat rrjete doni të hyni. Vëreni se gjithmonë mund të zgjidhni rrjete të ndryshme, edhe më vonë."/>
+		<control caption="Lidhu tek Gnutella2 (Rekomandohet Fort)"/>
+		<control caption="Rrjeti Gnutella2 është rrjeti parësor i PeerProject-s, i cili ofron më tepër veçori dhe efektshmëri se çdo rrjet P2P."/>
+		<control caption="Lidhu tek Gnutella Origjinal"/>
+		<control caption="Edhe pse rrjeti origjinal Gnutella ka më pak veçori se Gnutella2, dhe ka më pak skeda se eDonkey, ai mbetet një burim me vlerë."/>
+		<control caption="Lidhu tek eDonkey"/>
+		<control caption="Rrjeti eDonkey është një rrjet i famshëm me bazë serverin. Ndonëse nuk ka aq veçori sa Gnutella2, eDonkey ka një koleksion skedash mahnitës."/>
+		<control caption="Përkrahi linket torrente."/>
+	</dialog>
+	<dialog name="CWizardFoldersPage" cookie="StStEdBuStEdBuStEdBuSt" caption="Mirë se erdhët në PeerProject (4/8)">
+		<control caption="PeerProject first downloads partial files to a private folder, then moves them when completed according to Download Groups."/>
+		<control caption="Depozitoni Këtu Skedat e Përfunduara:"/>
+		<control/>
+		<control/>
+		<control caption="Depozitoni Këtu Skedat e Përkohshme të Papërfunduara:"/>
+		<control/>
+		<control/>
+		<control caption="Depozitoni Këtu Skedat e .Torrent:"/>
+		<control/>
+		<control/>
+		<control caption="Common filetypes are initially setup as subfolders of the default location, but Groups can easily be customized by Right-Click.  Simply Drag&apos;n&apos;Drop files."/>
+	</dialog>
+	<dialog name="CWizardSharePage" cookie="StStStSyBuBuSt" caption="Mirë se erdhët në PeerProject (5/8)">
 		<control caption="Rrjeti P2P është po aq i mirë sa edhe njerëzit që e përdorin atë. Gjithë përmbajtja që vlen të shkarkohet po shpërndahet nga një përdorues tjetër."/>
 		<control caption="Që të përdorni PeerProject-n, nuk duhet patjetër të shpërndani përmbajtje, porse disa softuere sillen ndryshe me përdoruesit që nuk shpërndajnë asgjë."/>
 		<control caption="Ju lutemi tregoni se cilat dosje, nëse keni, dëshironi të shpërndani. Që të shtoni një dosje të re, thjesht klikoni butonin Shto."/>
@@ -3592,18 +3611,7 @@
 		<control caption="0"/>
 		<control caption="Mbylle"/>
 	</dialog>
-	<dialog name="CWizardProfilePage" cookie="StStEdStCoCoStCoCo" caption="Mirë se erdhe te PeerProject (3/6)">
-		<control caption="PeerProject është një vend miqësor ku secili mund të shkruajë disa detaje themelore rreth vetes."/>
-		<control caption="Unë quhem:"/>
-		<control/>
-		<control caption="dhe Jam:"/>
-		<control caption="&#160;(zgjidhe)"/>
-		<control caption="&#160;(zgjidhe)| djalë| vajzë| burrë| grua"/>
-		<control caption="nga:"/>
-		<control/>
-		<control/>
-	</dialog>
-	<dialog name="CWizardInterfacePage" cookie="StBuBuBuStStBuSt" caption="Mirë se erdhe te PeerProject (4/6)">
+	<dialog name="CWizardInterfacePage" cookie="StBuBuBuStStBuSt" caption="Mirë se erdhe te PeerProject (6/8)">
 		<control caption="PeerProject ka një ndërfaqe që mund të ndryshohet, pra ju mund të zgjidhni atë që ju përshtatet më shumë. Këto mundësi mund të ndryshohen në çdo kohë."/>
 		<control caption="Ju lutemi zgjidhni ndërfaqen tuaj:"/>
 		<control caption="E Thjeshtë"/>
@@ -3613,15 +3621,27 @@
 		<control caption="Shfaqe progresin në shufër të thjeshtë."/>
 		<control caption=""/>
 	</dialog>
-	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuStBu" caption="Mirë se erdhët në PeerProject (5/6)">
-		<control caption="PeerProject është një aplikim skedë-shpërndarës me synim të përgjithshëm hyrjen në sa shumë rrjete P2P në të njëjtën kohë. Këtu mund të zgjidhni në cilat rrjete doni të hyni. Vëreni se gjithmonë mund të zgjidhni rrjete të ndryshme, edhe më vonë."/>
-		<control caption="Lidhu tek Gnutella2 (Rekomandohet Fort)"/>
-		<control caption="Rrjeti Gnutella2 është rrjeti parësor i PeerProject-s, i cili ofron më tepër veçori dhe efektshmëri se çdo rrjet P2P."/>
-		<control caption="Lidhu tek Gnutella Origjinal"/>
-		<control caption="Edhe pse rrjeti origjinal Gnutella ka më pak veçori se Gnutella2, dhe ka më pak skeda se eDonkey, ai mbetet një burim me vlerë."/>
-		<control caption="Lidhu tek eDonkey"/>
-		<control caption="Rrjeti eDonkey është një rrjet i famshëm me bazë serverin. Ndonëse nuk ka aq veçori sa Gnutella2, eDonkey ka një koleksion skedash mahnitës."/>
-		<control caption="Përkrahi linket torrente."/>
+	<dialog name="CWizardProfilePage" cookie="StStEdStCoCoStCoStCoStEd" caption="Mirë se erdhe te PeerProject (7/8)">
+		<control caption="PeerProject është një vend miqësor ku secili mund të shkruajë disa detaje themelore rreth vetes."/>
+		<control caption="Unë quhem:"/>
+		<control/>
+		<control caption="dhe Jam:"/>
+		<control caption="&#160;(zgjidhe)"/>
+		<control caption="&#160;(zgjidhe)| djalë| vajzë| burrë| grua"/>
+		<control caption="nga:"/>
+		<control/>
+		<control caption="Locale:"/>
+		<control/>
+		<control caption="Comments:"/>
+		<control/>
+	</dialog>
+	<dialog name="CWizardFinishedPage" cookie="StStStBuBuSt" caption="Mirë se erdhe te PeerProject (8/8)">
+		<control caption="Kaq ishte! Ju konfiguruat PeerProject-n që të punojë në këtë kompjuter."/>
+		<control caption="Nëse doni t'i ndryshoni përsëri kuadrot, uizardi i shpejtë mund të rihapet duke zgjedhur menynë Mjete."/>
+		<control caption="Kur të mbyllni këtë uizard duke klikuar Përfundo, mund të lidheni në rrjetet që zgjodhët dhe të nisni të kërkoni e shkarkoni përmbajtjet e dëshiruara."/>
+		<control caption="Nise PeerProject-n sa herë që Windows nis"/>
+		<control caption="Lidhu në rrjet sa herë që PeerProject nis"/>
+		<control caption="Kënaquni me PeerProject-n!"/>
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="Importoni Shkarkesa nga eDonkey">
 		<control/>
@@ -3631,16 +3651,7 @@
 		<control/>
 		<control caption="Mbylle"/>
 	</dialog>
-	<dialog name="CWizardFinishedPage" cookie="StStStBuBuBuSt" caption="Mirë se erdhe te PeerProject (6/6)">
-		<control caption="Kaq ishte! Ju konfiguruat PeerProject-n që të punojë në këtë kompjuter."/>
-		<control caption="Nëse doni t'i ndryshoni përsëri kuadrot, uizardi i shpejtë mund të rihapet duke zgjedhur menynë Mjete."/>
-		<control caption="Kur të mbyllni këtë uizard duke klikuar Përfundo, mund të lidheni në rrjetet që zgjodhët dhe të nisni të kërkoni e shkarkoni përmbajtjet e dëshiruara."/>
-		<control caption="Lidhu në rrjet kur ky uizard mbyllet"/>
-		<control caption="Lidhu në rrjet sa herë që PeerProject nis"/>
-		<control caption="Nise PeerProject-n sa herë që Windows nis"/>
-		<control caption="Kënaquni me PeerProject-n!"/>
-	</dialog>
-	<dialog name="CProfileManagerDlg" cookie="SyBuBuBu#3" caption="Editoni Profilin">
+	<dialog name="CProfileManagerDlg" cookie="SyBuBuBu" caption="Editoni Profilin">
 		<control/>
 		<control caption="OK"/>
 		<control caption="Anulo"/>
@@ -3758,30 +3769,30 @@
 		<control caption="_Kërko"/>
 		<control caption="_Anulo"/>
 	</dialog>
-	<dialog name="CFilterSearchDlg" cookie="BuEdBuStBuStEdStEdStEdmsStBuBuBuBuBuBuBuBuBuBuBuCoBuBuBuBuBu" caption="Filtroni Krahasimet">
+	<dialog name="CFilterSearchDlg" cookie="BuEdBuStBuStEdStEdStEdmsBuBuBuBuBuBuBuBuBuBuBuBuBuCoBuBuBuBuBu" caption="Filtroni Krahasimet">
 		<control caption="Trego vetëm krahasimet me _fjalët:"/>
 		<control/>
 		<control caption="Reg. Exp."/>
-		<control caption="( mund të përjashtoni edhe fjalët me -fjalë )"/>
+		<control caption="(Përjashtoni edhe -fjalët)"/>
 		<control caption="Dhe që kanë _përmasë:"/>
 		<control caption="Minimumi:"/>
 		<control/>
 		<control caption="Maksimumi:"/>
 		<control/>
-		<control caption="Me të paktën:"/>
+		<control caption="Me të paktën burime:"/>
 		<control/>
 		<control/>
-		<control caption="burime."/>
 		<control caption="_Fshehi:"/>
-		<control caption="Hostet e zëna"/>
+		<control caption="Skedat e mëparshme"/>
+		<control caption="Skedat jo të njëjta"/>
+		<control caption="Skedat e dyshimta"/>
+		<control caption="Skedat Restricted"/>
+		<control caption="Skedat DRM"/>
 		<control caption="Hoste në fajruoll/shtytje"/>
 		<control caption="Hostet e lëkundshme"/>
-		<control caption="Skedat jo të njëjta"/>
-		<control caption="Skedat e mëparshme"/>
+		<control caption="Hostet e zëna"/>
 		<control caption="Rezultatet false"/>
-		<control caption="Skedat DRM"/>
 		<control caption="Rezultatet për të rritur"/>
-		<control caption="Skedat e dyshimta"/>
 		<control caption="Filtri:"/>
 		<control/>
 		<control caption="Vendose si tipik"/>
@@ -3871,15 +3882,15 @@
 		<control caption="_Fshije"/>
 		<control/>
 	</dialog>
-	<dialog name="CFileCopyDlg" cookie="StStmsBuBumsStSt" caption="Kopjo Skedat|Lëvizi Skedat">
+	<dialog name="CFileCopyDlg" cookie="StStStmsmsStBuBu" caption="Kopjo Skedat|Lëvizi Skedat">
 		<control caption="Ju zgjodhët që në dosjen më poshtë të kopjoni %i skedë(a):"/>
+		<control caption="Ju zgjodhët që në dosjen më poshtë të lëvizni %i skedë(a):"/>
 		<control/>
 		<control/>
-		<control caption="OK"/>
-		<control caption="Anulo"/>
 		<control/>
 		<control caption="Gati..."/>
-		<control caption="Ju zgjodhët që në dosjen më poshtë të lëvizni %i skedë(a):"/>
+		<control caption="OK"/>
+		<control caption="Anulo"/>
 	</dialog>
 	<dialog name="CFolderPropertiesDlg" cookie="StEdStCoBuStBuBu" caption="Vetitë e Dosjes si Album">
 		<control caption="Titulli i Dosjes si Album:"/>
@@ -4401,4 +4412,4 @@
 		<column from="Order" to="Rendi"/>
 	</list>
 </listColumns>
-</skin>苖
+</skin>

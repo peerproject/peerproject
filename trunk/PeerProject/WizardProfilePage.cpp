@@ -1,7 +1,7 @@
 //
 // WizardProfilePage.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -47,13 +47,12 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CWizardProfilePage property page
 
-CWizardProfilePage::CWizardProfilePage() : CWizardPage(CWizardProfilePage::IDD)
+CWizardProfilePage::CWizardProfilePage()
+	: CWizardPage(CWizardProfilePage::IDD)
+	, m_nAge	( 0 )
+	, m_nGender	( 0 )
+	, m_pWorld	( NULL )
 {
-	//{{AFX_DATA_INIT(CWizardProfilePage)
-	m_nGender = 0;
-	m_nAge = 0;
-	m_pWorld = NULL;
-	//}}AFX_DATA_INIT
 }
 
 CWizardProfilePage::~CWizardProfilePage()
@@ -73,6 +72,7 @@ void CWizardProfilePage::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_PROFILE_AGE, m_wndAge);
 	DDX_CBIndex(pDX, IDC_PROFILE_AGE, m_nAge);
 	DDX_CBIndex(pDX, IDC_PROFILE_GENDER, m_nGender);
+	DDX_Control(pDX, IDC_PROFILE_BIO, m_wndComments);
 	//}}AFX_DATA_MAP
 }
 
@@ -85,13 +85,16 @@ BOOL CWizardProfilePage::OnInitDialog()
 
 	Skin.Apply( _T("CWizardProfilePage"), this );
 
-	for ( int nAge = 13 ; nAge < 101 ; nAge++ )
+	for ( int nAge = 13 ; nAge < 91 ; nAge++ )
 	{
 		CString str, strYearsOld;
 		LoadString( strYearsOld, IDS_WIZARD_YEARS_OLD );
 		str.Format( _T(" %i ") + strYearsOld, nAge );
 		m_wndAge.SetItemData( m_wndAge.AddString( str ), nAge );
 	}
+
+	if ( CXMLElement* pNotes = MyProfile.GetXML( _T("notes") ) )
+		m_wndComments.SetWindowText( pNotes->GetValue() );
 
 	m_pWorld = new CWorldGPS();
 	m_pWorld->Load();
@@ -102,6 +105,8 @@ BOOL CWizardProfilePage::OnInitDialog()
 	{
 		m_wndCountry.SetItemData( m_wndCountry.AddString( pCountry->m_sName ), (LPARAM)pCountry );
 	}
+
+	//UpdateData( FALSE );
 
 	return TRUE;
 }
@@ -121,7 +126,8 @@ BOOL CWizardProfilePage::OnSetActive()
 	{
 		TCHAR pBuffer[64];
 		DWORD nSize = 64;
-		if ( GetUserNameW( pBuffer, &nSize ) ) m_sNick = pBuffer;
+		if ( GetUserNameW( pBuffer, &nSize ) )
+			m_sNick = pBuffer;
 	}
 
 	if ( CXMLElement* pVitals = MyProfile.GetXML( _T("vitals") ) )
@@ -181,7 +187,8 @@ void CWizardProfilePage::OnSelChangeCountry()
 	CWorldCountry* pCountry = (CWorldCountry*)m_wndCountry.GetItemData( nSel );
 	if ( ! pCountry ) return;
 
-	if ( m_wndCity.GetCount() ) m_wndCity.ResetContent();
+	if ( m_wndCity.GetCount() )
+		m_wndCity.ResetContent();
 
 	CWorldCity* pCity = pCountry->m_pCity;
 	CString strCity;
@@ -217,8 +224,20 @@ LRESULT CWizardProfilePage::OnWizardNext()
 		if ( CXMLElement* pHandle = pIdentity->GetElementByName( _T("handle"), TRUE ) )
 		{
 			pHandle->AddAttribute( _T("primary"), m_sNick );
-			if ( m_sNick.IsEmpty() ) pHandle->Delete();
+			if ( m_sNick.IsEmpty() )
+				pHandle->Delete();
 		}
+	}
+
+	if ( CXMLElement* pNotes = MyProfile.GetXML( _T("notes"), TRUE ) )
+	{
+		CString str;
+		m_wndComments.GetWindowText( str );
+
+		if ( str.GetLength() )
+			pNotes->SetValue( str );
+		//else
+		//	pNotes->Delete();
 	}
 
 	if ( CXMLElement* pVitals = MyProfile.GetXML( _T("vitals"), TRUE ) )
@@ -301,8 +320,7 @@ LRESULT CWizardProfilePage::OnWizardNext()
 			pLocation->Delete();
 	}
 
-	// These popups are pretty annoying. Since this information is underutilized 
-	// do not put so much emphasis on it at this time.
+	// Annoying popups.  This information is underutilized, do not put so much emphasis.
 
 	//if ( MyProfile.GetNick().IsEmpty() )
 	//{
@@ -310,13 +328,11 @@ LRESULT CWizardProfilePage::OnWizardNext()
 	//	AfxMessageBox( strMessage, MB_ICONEXCLAMATION );
 	//	return -1;
 	//}
-
 	//if ( MyProfile.GetXML( _T("vitals") ) == NULL )
 	//{
 	//	LoadString( strMessage, IDS_PROFILE_NO_VITALS );
 	//	if ( AfxMessageBox( strMessage, MB_ICONQUESTION|MB_YESNO|MB_DEFBUTTON2 ) != IDYES ) return -1;
 	//}
-
 	//if ( MyProfile.GetLocation().IsEmpty() )
 	//{
 	//	LoadString( strMessage, IDS_PROFILE_NO_LOCATION );

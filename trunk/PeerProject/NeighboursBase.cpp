@@ -259,8 +259,7 @@ void CNeighboursBase::OnRun()
 	{
 		// Make sure this thread is the only one accessing the network object
 		CSingleLock pLock( &Network.m_pSection, FALSE );
-		if ( ! pLock.Lock( 200 ) )
-			continue;
+		if ( ! pLock.Lock( 200 ) ) continue;
 
 		// Indicate if stats were updated
 		bUpdated = false;
@@ -331,8 +330,7 @@ void CNeighboursBase::Add(CNeighbour* pNeighbour)
 	m_pIndex.SetAt( (DWORD_PTR)pNeighbour, pNeighbour );
 }
 
-// Takes a pointer to a neighbour object
-// Removes it from the list
+// Takes a pointer to a neighbour object, and removes it from the list
 void CNeighboursBase::Remove(CNeighbour* pNeighbour)
 {
 	ASSUME_LOCK( Network.m_pSection );
@@ -342,6 +340,16 @@ void CNeighboursBase::Remove(CNeighbour* pNeighbour)
 	Network.NodeRoute->Remove( pNeighbour );
 
 	// Remove the neighbour object from the map
-	VERIFY( m_pNeighbours.RemoveKey( pNeighbour->m_pHost.sin_addr ) );
+	for ( POSITION pos = m_pNeighbours.GetStartPosition(); pos; )
+	{
+		CNeighbour* pCurNeighbour = NULL;
+		IN_ADDR nCurAddress = {};
+		m_pNeighbours.GetNextAssoc( pos, nCurAddress, pCurNeighbour );
+		if ( pNeighbour == pCurNeighbour )
+		{
+			VERIFY( m_pNeighbours.RemoveKey( nCurAddress ) );
+			break;
+		}
+	}
 	VERIFY( m_pIndex.RemoveKey( (DWORD_PTR)pNeighbour ) );
 }

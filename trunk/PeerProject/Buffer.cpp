@@ -371,7 +371,7 @@ BOOL CBuffer::StartsWith(LPCSTR pszString, const size_t nLength, const BOOL bRem
 // Takes a handle to a socket
 // Reads in data from the socket, moving it into the buffer
 // Returns the number of bytes we got
-const DWORD CBuffer::Receive(const SOCKET hSocket, DWORD nSpeedLimit)
+DWORD CBuffer::Receive(const SOCKET hSocket, DWORD nSpeedLimit)
 {
 	// Start the total at 0
 	DWORD nTotal = 0ul;
@@ -383,15 +383,9 @@ const DWORD CBuffer::Receive(const SOCKET hSocket, DWORD nSpeedLimit)
 		size_t nLength = min( GetBufferFree(), static_cast< size_t >( INT_MAX ) );
 
 		if ( nLength )
-		{
-			// Limit nLength to the speed limit
-			nLength = min( nLength, nSpeedLimit );
-		}
+			nLength = min( nLength, nSpeedLimit );			// Limit nLength to the speed limit
 		else
-		{
-			// Limit nLength to the maximum recieve size
-			nLength = min( nSpeedLimit, MAX_RECV_SIZE );
-		}
+			nLength = min( nSpeedLimit, MAX_RECV_SIZE );	// Limit nLength to the maximum recieve size
 
 		// Exit loop if the buffer isn't big enough to hold the data
 		if ( ! EnsureBuffer( nLength ) )
@@ -426,7 +420,7 @@ const DWORD CBuffer::Receive(const SOCKET hSocket, DWORD nSpeedLimit)
 
 // Send the data from the buffer to the socket
 // Returns the #bytes sent
-const DWORD CBuffer::Send(const SOCKET hSocket, DWORD nSpeedLimit)
+DWORD CBuffer::Send(const SOCKET hSocket, DWORD nSpeedLimit)
 {
 	// Adjust limit if there isn't enough data to send
 	nSpeedLimit = static_cast< DWORD >( min( nSpeedLimit, m_nLength ) );
@@ -634,10 +628,9 @@ BOOL CBuffer::Ungzip()
 // Decompress the data in this buffer into another buffer
 // Returns true if the data is decompressed, false if there was an error
 //
-// Side Effect: This function allocates a new z_stream structure that gets
-// cleaned up when the stream is finished. Call InflateStreamCleanup() to close
-// the stream and delete the z_stream structure before the stream has finished.
-const bool CBuffer::InflateStreamTo( CBuffer& oBuffer, z_streamp& pStream )
+// Side Effect: This function allocates a new z_stream structure that gets cleaned up when the stream is finished.
+// Call InflateStreamCleanup() to close the stream and delete the z_stream structure before the stream has finished.
+bool CBuffer::InflateStreamTo( CBuffer& oBuffer, z_streamp& pStream )
 {
 	// Report success if there was nothing to decompress
 	if ( ! m_nLength )
@@ -783,8 +776,7 @@ void CBuffer::ReverseBuffer(const void* pInput, void* pOutput, size_t nLength)
 // CBuffer DIME handling
 
 // DIME is a specification for sending and receiving SOAP messages along with additional attachments, like binary files or XML fragments
-// Takes information to create a DIME message
-// Composes the DIME message and writes it into this buffer
+// Takes information to create a DIME message.  Composes the DIME message and writes it into this buffer
 void CBuffer::WriteDIME(
 	DWORD nFlags,		// 0, 1, or 2
 	LPCSTR pszID,		// Blank, or a GUID in hexadecimal encoding

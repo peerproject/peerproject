@@ -1,7 +1,7 @@
 //
 // WizardNetworksPage.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -26,39 +26,38 @@
 
 class CWizardNetworksPage : public CWizardPage
 {
+	DECLARE_DYNCREATE(CWizardNetworksPage)
+
 // Construction
 public:
 	CWizardNetworksPage();
 	virtual ~CWizardNetworksPage();
 
-	DECLARE_DYNCREATE(CWizardNetworksPage)
+	enum { IDD = IDD_WIZARD_NETWORKS };
 
 // Dialog Data
 public:
 	//{{AFX_DATA(CWizardNetworksPage)
-	enum { IDD = IDD_WIZARD_NETWORKS };
 	BOOL	m_bG2Enable;
 	BOOL	m_bG1Enable;
 	BOOL	m_bEDEnable;
 	BOOL	m_bHandleTorrents;
 	//}}AFX_DATA
 
-	void DoDonkeyImport();
-
 // Overrides
 public:
 	//{{AFX_VIRTUAL(CWizardNetworksPage)
-	public:
 	virtual BOOL OnSetActive();
 	virtual LRESULT OnWizardNext();
-	protected:
+protected:
+	virtual BOOL OnInitDialog();
+
 	virtual void DoDataExchange(CDataExchange* pDX);
 	//}}AFX_VIRTUAL
 
 // Implementation
 protected:
 	//{{AFX_MSG(CWizardNetworksPage)
-	virtual BOOL OnInitDialog();
 	afx_msg void OnXButtonDown(UINT nFlags, UINT nButton, CPoint point);
 	//}}AFX_MSG
 

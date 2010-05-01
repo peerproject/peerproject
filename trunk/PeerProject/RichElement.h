@@ -1,7 +1,7 @@
 //
 // RichElement.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -65,7 +65,7 @@ enum
 {
 	retNull, retNewline, retGap, retAlign,
 	retBitmap, retIcon, retAnchor, retCmdIcon, retEmoticon,
-	retText, retLink, retHeading,
+	retText, retLink, retHeading
 };
 
 enum
@@ -77,7 +77,7 @@ enum
 	retfHeading		= 0x08,
 	retfMiddle		= 0x10,
 	retfColor		= 0x20,
-	retfHidden		= 0x80,
+	retfHidden		= 0x80
 };
 
 enum

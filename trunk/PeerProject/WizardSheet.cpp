@@ -1,7 +1,7 @@
 //
 // WizardSheet.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -22,17 +22,18 @@
 #include "StdAfx.h"
 #include "PeerProject.h"
 #include "Settings.h"
-#include "Colors.h"
 #include "CoolInterface.h"
+#include "Colors.h"
 #include "GProfile.h"
 #include "WizardSheet.h"
 
 #include "WizardWelcomePage.h"
-#include "WizardInterfacePage.h"
 #include "WizardConnectionPage.h"
-#include "WizardSharePage.h"
-#include "WizardProfilePage.h"
 #include "WizardNetworksPage.h"
+#include "WizardFoldersPage.h"
+#include "WizardSharePage.h"
+#include "WizardInterfacePage.h"
+#include "WizardProfilePage.h"
 #include "WizardFinishedPage.h"
 
 #ifdef _DEBUG
@@ -63,18 +64,20 @@ BOOL CWizardSheet::RunWizard(CWnd* pParent)
 
 	CWizardWelcomePage		pWelcome;
 	CWizardConnectionPage	pConnection;
-	CWizardSharePage		pShare;
-	CWizardProfilePage		pProfile;
-	CWizardInterfacePage	pInterface;
 	CWizardNetworksPage		pNetworks;
+	CWizardFoldersPage		pFolders;
+	CWizardSharePage		pShare;
+	CWizardInterfacePage	pInterface;
+	CWizardProfilePage		pProfile;
 	CWizardFinishedPage		pFinished;
 
 	pSheet.AddPage( &pWelcome );
 	pSheet.AddPage( &pConnection );
-	pSheet.AddPage( &pShare );
-	pSheet.AddPage( &pProfile );
-	pSheet.AddPage( &pInterface );
 	pSheet.AddPage( &pNetworks );
+	pSheet.AddPage( &pFolders );
+	pSheet.AddPage( &pShare );
+	pSheet.AddPage( &pInterface );
+	pSheet.AddPage( &pProfile );
 	pSheet.AddPage( &pFinished );
 
 	bSuccess = ( pSheet.DoModal() == IDOK );
@@ -113,12 +116,12 @@ BOOL CWizardSheet::OnInitDialog()
 
 	GetDlgItem( ID_WIZBACK )->GetWindowRect( &rc );
 	ScreenToClient( &rc );
-	rc.OffsetRect( 95 + 6 - rc.left, 0 );
+	rc.OffsetRect( 95 + 6 - rc.left, -1 );
 	GetDlgItem( ID_WIZBACK )->MoveWindow( &rc );
 
 	GetDlgItem( ID_WIZNEXT )->GetWindowRect( &rc );
 	ScreenToClient( &rc );
-	rc.OffsetRect( 95 + 88 - rc.left, 0 );
+	rc.OffsetRect( 95 + 88 - rc.left, -1 );
 	GetDlgItem( ID_WIZNEXT )->MoveWindow( &rc );
 
 	LoadString( strMessage, IDS_GENERAL_FINISH );
@@ -134,7 +137,7 @@ BOOL CWizardSheet::OnInitDialog()
 
 	GetDlgItem( IDCANCEL )->GetWindowRect( &rc );
 	ScreenToClient( &rc );
-	rc.OffsetRect( 95 + 170 - rc.left, 0 );
+	rc.OffsetRect( 95 + 170 - rc.left, -1 );
 	GetDlgItem( IDCANCEL )->MoveWindow( &rc );
 	LoadString( strMessage, IDS_WIZARD_EXIT );
 	GetDlgItem( IDCANCEL )->SetWindowText( strMessage );
@@ -173,14 +176,9 @@ BOOL CWizardSheet::OnChildNotify(UINT message, WPARAM wParam, LPARAM lParam, LRE
 		GetClassName( pWnd->GetSafeHwnd(), szName, 32 );
 
 		if ( !_tcscmp( szName, _T("Static") ) )
-		{
 			pWnd->SetFont( &theApp.m_gdiFont, FALSE );
-
-		}
 		else if ( _tcscmp( szName, _T("RICHEDIT") ) )
-		{
 			pWnd->SetFont( &theApp.m_gdiFont, TRUE );
-		}
 
 		pWnd = pWnd->GetNextWindow();
 	}
@@ -196,7 +194,7 @@ void CWizardSheet::OnSize(UINT nType, int cx, int cy)
 	{
 		GetClientRect( &m_rcPage );
 
-		m_rcPage.top += 51;	// 50
+		m_rcPage.top += 51;	// BANNER_CY = 50
 		m_rcPage.bottom -= 48;
 
 		pWnd->SetWindowPos( NULL, m_rcPage.left, m_rcPage.top, m_rcPage.Width(),
@@ -219,7 +217,7 @@ void CWizardSheet::OnPaint()
 	mdc.DeleteDC();
 
 	dc.Draw3dRect( 0, 50, rc.Width() + 1, 1,
-		RGB( 128, 128, 128 ), RGB( 128, 128, 128 ) );
+		RGB( 128, 128, 128 ), RGB( 128, 128, 128 ) );	// ToDo: Make skinnable?
 
 	dc.Draw3dRect( 0, rc.bottom - 48, rc.Width() + 1, 2,
 		RGB( 128, 128, 128 ), RGB( 255, 255, 255 ) );
@@ -263,9 +261,7 @@ void CWizardPage::OnSize(UINT nType, int cx, int cy)
 	CWizardSheet* pSheet = (CWizardSheet*)GetParent();
 
 	if ( cx != pSheet->m_rcPage.Width() )
-	{
 		MoveWindow( &pSheet->m_rcPage );
-	}
 }
 
 /////////////////////////////////////////////////////////////////////////////

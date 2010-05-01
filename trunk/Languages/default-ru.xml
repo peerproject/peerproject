@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <skin xmlns="http://schemas.peerproject.org/Skin.xsd" version="1.0">
 
 <!-- PeerProject Default Russian Skin File -->
 
-<!-- Translation based on default-en.xml r52 -->
+<!-- Translation based on default-en.xml r54 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1944,6 +1944,9 @@
 		<link target="peer:page:CCommunitySettingsPage" format="b">Сообщество:</link>
 		<text>&#160;Ваш профиль, чат и установки быстрых сообщений (пейджер).</text>
 		<newline gap="10"/>
+		<link target="peer:page:CRemoteSettingsPage" format="b">Удаленное управление:</link>
+		<text>&#160;Включите поддержку удаленного управления, чтобы контроллировать PeerProject при помощи веб браузера.</text>
+		<newline gap="10"/>
 		<link target="peer:page:CWebSettingsPage" format="b">Веб:</link>
 		<text>&#160;Интегрируйте PeerProject с вашим веб обозревателем для приема P2P ссылок и другого содержимого.</text>
 	</document>
@@ -1964,9 +1967,6 @@
 		<newline gap="10"/>
 		<link target="peer:page:CUploadsSettingsPage" format="b">Раздачи:</link>
 		<text>&#160;Скорости Раздач, организация очереди, запреты, перерывы и специальные запросы.</text>
-		<newline gap="10"/>
-		<link target="peer:page:CRemoteSettingsPage" format="b">Удаленное управление:</link>
-		<text>&#160;Включите поддержку удаленного управления, чтобы контроллировать PeerProject при помощи веб браузера.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CSchedulerSettingsPage" format="b">Расписание:</link>
 		<text>&#160;Составте расписание для ограничения загрузок по времени.</text>
@@ -2612,7 +2612,7 @@
 	<tip id="ID_WINDOW_CASCADE" message="Расширить все открытые окна, чтобы заполнить экран."/>
 	<tip id="ID_WINDOW_MONITOR" message="Показать или скрыть монитор пропускной способности."/>
 	<tip id="ID_WINDOW_NAVBAR" message="Показать или скрыть навигационную полоску."/>
-	<tip id="ID_WINDOW_REMOTE" message="Показать или скрыть пульт управления PeerProject'ой "/>
+	<tip id="ID_WINDOW_REMOTE" message="Показать или скрыть пульт управления PeerProject'ой"/>
 	<tip id="ID_WINDOW_TABBAR" message="Показать или скрыть полоску закладок."/>
 	<tip id="ID_WINDOW_TILE_HORZ" message="Расположить открытые окна горизонтально, без перекрывания."/>
 	<tip id="ID_WINDOW_TILE_VERT" message="Расположить открытые окна вертикально, без перекрывания."/>
@@ -2692,8 +2692,8 @@
 	<string id="8071" value="Подключено"/>
 	<string id="8072" value="Отключиться"/>
 	<string id="8096" value="Эта область показывает подробную информацию о помеченных файлах."/>
-	<string id="8097" value="Один источник доступен (%s).  "/>
-	<string id="8098" value="%i источника(ов) доступно (%s).  "/>
+	<string id="8097" value="Один источник доступен. (%s/s)"/>
+	<string id="8098" value="%i источника(ов) доступно. (%s/s)"/>
 	<string id="8099" value="Есть один просмотр."/>
 	<string id="8100" value="Есть %i просмотр(ов)."/>
 	<string id="8101" value="%s пишет:"/>
@@ -2766,7 +2766,7 @@
 	<string id="8243" value="Соотношение:"/>
 	<string id="8244" value="Число просмотров:"/>
 	<string id="8288" value="Просмотр вашего хранилища"/>
-	<string id="8289" value="Просматривается "/>
+	<string id="8289" value="Просматривается"/>
 	<string id="8290" value="Просматривается содержимое %i папок"/>
 	<string id="8291" value="Несколько папок"/>
 	<string id="8292" value="Помечено %i файлов(ы)"/>
@@ -2783,7 +2783,7 @@
 	<string id="8312" value="Вы уже имеете этот файл в Вашем списке загрузок."/>
 	<string id="8313" value="Этот файл выглядит как спам."/>
 	<string id="8314" value="Вы было раньше загружали и удалили этот файл."/>
-	<string id="8315" value="В черном списке: "/>
+	<string id="8315" value="В черном списке:"/>
 	<string id="8316" value="Обращений"/>
 	<string id="8317" value="Раздач"/>
 	<string id="8318" value="%lu сегодня, %lu в сумме"/>
@@ -3150,7 +3150,7 @@
 	<string id="17029" value="Нет подтверждения соединения, возможно, хост не поддерживает чата."/>
 	<string id="17030" value="Подтверждение соединения окончено, версия протокола чата - %s."/>
 	<string id="17031" value="Обмена информацией профилей..."/>
-	<string id="17032" value="Аутентифицированный пользователь "/>
+	<string id="17032" value="Аутентифицированный пользователь"/>
 	<string id="17033" value="Запрашивается частная беседа с пользователем..."/>
 	<string id="17034" value="Частная беседа предоставлена, Вы сейчас разговариваете с %s."/>
 	<string id="17035" value="Увы, %s не принимает частных бесед."/>
@@ -3366,19 +3366,19 @@
 </strings>
 <!-- Localized Dialog Text, "cookie" verifies that the skin matches current dialog -->
 <dialogs>
-	<dialog name="CGeneralSettingsGroup" cookie="" caption="Главное">
-	</dialog>
-	<dialog name="CSettingSheet" cookie="SyBuBuBu#3" caption="Установки PeerProject">
+	<dialog name="CSettingSheet" cookie="SyBuBuBu" caption="Установки PeerProject">
 		<control/>
 		<control caption="OK"/>
 		<control caption="Отмена"/>
 		<control caption="Применить"/>
 		<control/>
 	</dialog>
+	<dialog name="CGeneralSettingsGroup" cookie="Af" caption="Главное"/>
+	<dialog name="CInternetSettingsGroup" cookie="Af" caption="Интернет"/>
 	<dialog name="CGeneralSettingsPage" cookie="BuBuBuBuBuBuBuBuStCoBuBuBuBuBuBuSyStEdmsStmsBuStCoStCo" caption="Основное">
 		<control caption="_Основное:"/>
-		<control caption="Соединяться с сетями при старте"/>
 		<control caption="Запуск PeerProject вместе с Windows"/>
+		<control caption="Соединяться с сетями при старте"/>
 		<control caption="Спрашивать о перехвате ссылок"/>
 		<control caption="Проверка обновлений"/>
 		<control caption="_Загрузки:"/>
@@ -3518,8 +3518,6 @@
 		<control caption="_Внести"/>
 		<control caption="_Удалить"/>
 		<control caption="Модуль менеджера загрузок предложит загрузить только указанные здесь типы файлов.  Остальные типы файлов будут обработанны вашим обозревателем.  PeerProject должна быть запущена для перехвата загрузок."/>
-	</dialog>
-	<dialog name="CInternetSettingsGroup" cookie="" caption="Интернет">
 	</dialog>
 	<dialog name="CConnectionSettingsPage" cookie="BuStCoStCoStEdBuBuBuStCoStCoBuStCoBuBuBuStEdmsStEdms" caption="Соединения">
 		<control caption="Адрес для входящего потока:"/>
@@ -3752,15 +3750,13 @@
 		<control caption="_Установки..."/>
 		<control caption="_Хочу ещё..."/>
 	</dialog>
-	<dialog name="CAdvancedSettingsPage" cookie="SyEdmsBuBuStStEd" caption="Опытным">
+	<dialog name="CAdvancedSettingsPage" cookie="SyEdmsBuBuSt" caption="Опытным">
 		<control/>
 		<control/>
 		<control/>
 		<control caption="По умолчанию"/>
 		<control caption="Свойства установки:"/>
 		<control caption="Значение:"/>
-		<control caption="Описание:"/>
-		<control/>
 	</dialog>
 	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="Протоколы">
 		<control caption="PeerProject обозреватель протоколов общей архитектуры:"/>
@@ -3807,7 +3803,7 @@
 		<control caption="Отмена"/>
 		<control caption="Вознаградить загрузчиков"/>
 	</dialog>
-	<dialog name="CWizardWelcomePage" cookie="StStStStStStStStStStStSt" caption="Добро пожаловать в PeerProject">
+	<dialog name="CWizardWelcomePage" cookie="StStStStStStStStStStStSt" caption="Добро пожаловать в PeerProject (1/8)">
 		<control caption="Добро пожаловать в PeerProject!"/>
 		<control caption="Если Вы не использовали PeerProject или другого P2P клиента раньше, этот мастер поможет Вам настроить её за несколько простых шагов."/>
 		<control caption="Если Вы опытный пользователь, Вы можете получить доступ к полному диапазону настроек PeerProject в меню Инструменты.  Нажмите «Выход» для закрытия мастера в любое время."/>
@@ -3821,7 +3817,7 @@
 		<control/>
 		<control caption="Начать пользоваться PeerProject'ой."/>
 	</dialog>
-	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="Добро пожаловать в PeerProject (1/6)">
+	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="Добро пожаловать в PeerProject (2/8)">
 		<control caption="Для оптимальной работы PeerProject должна знать о вашем соединении с Интернетом."/>
 		<control caption="Выберите тип подключения к интернету:"/>
 		<control caption="Коммутир. соединение|ИСДН (128 К)|ДСЛ (768 К)|ДСЛ (1,5 М)|ДСЛ (4,0 M)|ДСЛ2 (8,0 M)|ДСЛ2 (10,0 M)|ДСЛ2 (12,0 M)|ДСЛ2+ (20,0 M)|ДСЛ2+ (24,0 M)|Кабельный модем|Т1|Т3|Локальная сеть|OC3"/>
@@ -3837,7 +3833,30 @@
 		<control caption="Статус:"/>
 		<control/>
 	</dialog>
-	<dialog name="CWizardSharePage" cookie="StStStSyBuBuSt" caption="Добро пожаловать в PeerProject (2/6)">
+	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuStBu" caption="Добро пожаловать в PeerProject (3/8)">
+		<control caption="PeerProject - многоцелевая программа обмена файлами, с доступом ко многим P2P сетям одновременно. Здесь Вы можете выбрать, какие P2P сети Вы хотите использовать. Отметьте, что Вы можете выбрать их позже."/>
+		<control caption="Соединяться с Gnutella2 (рекомендуется)"/>
+		<control caption="Gnutella2 (G2) - основная сеть PeerProject, она предлагает больше особенностей и опций работы чем любая другая P2P сеть."/>
+		<control caption="Соединяться с оригинальной Gnutella"/>
+		<control caption="Хотя оригинальная Gnutella (G1) менее богата возможностями чем Gnutella2, и имеет меньше файлов чем eDonkey, всё равно это ценный ресурс."/>
+		<control caption="Соединяться с eDonkey"/>
+		<control caption="eDonkey (ED2K) популярная сеть с использованием серверов.  Не столь богата возможностями как Gnutella2, но содержит больше файлов."/>
+		<control caption="Ассоциировать файлы торрентов с программой."/>
+	</dialog>
+	<dialog name="CWizardFoldersPage" cookie="StStEdBuStEdBuStEdBuSt" caption="Добро пожаловать в PeerProject (4/8)">
+		<control caption="PeerProject first downloads partial files to a private folder, then moves them when completed according to Download Groups."/>
+		<control caption="Сохранять загруженные файлы в папке:"/>
+		<control/>
+		<control/>
+		<control caption="Держать незаконченные файлы в папке:"/>
+		<control/>
+		<control/>
+		<control caption="Держать .Torrent файлы в папке:"/>
+		<control/>
+		<control/>
+		<control caption="Common filetypes are initially setup as subfolders of the default location, but Groups can easily be customized by Right-Click.  Simply Drag&apos;n&apos;Drop files."/>
+	</dialog>
+	<dialog name="CWizardSharePage" cookie="StStStSyBuBuSt" caption="Добро пожаловать в PeerProject (5/8)">
 		<control caption="Качество P2P сетей зависит от самих же пользователей! Файлы в папках указанных для раздач будут открыты для других пользователей."/>
 		<control caption="Вы не обязанны ничем делиться для использования PeerProject, но другие P2P пользователи могут отказать в загрузках тем, у кого нечего взять."/>
 		<control caption="Пожалуйста укажите, какие папки Вы желаете открыть для общего доступа (если такие у Вас есть).  Просто щелкните кнопку «Внести», чтобы указать новую папку."/>
@@ -3855,7 +3874,17 @@
 		<control caption="0"/>
 		<control caption="Закрыть"/>
 	</dialog>
-	<dialog name="CWizardProfilePage" cookie="StStEdStCoCoStCoCo" caption="Добро пожаловать в PeerProject (3/6)">
+	<dialog name="CWizardInterfacePage" cookie="StBuBuBuStStBuSt" caption="Добро пожаловать в PeerProject (6/8)">
+		<control caption="PeerProject поддерживает два типа интерфейса, так что Вы можете выбрать наиболее удобный. Вы сможете изменить эти опции и позже."/>
+		<control caption="Выберите один пользовательский интерфейс:"/>
+		<control caption="Обычный режим"/>
+		<control caption="Режим опытным"/>
+		<control caption="Обычный - удобные меню и кнопки.{n}Знакомый пользователям других программ файлообмена."/>
+		<control caption="Опытным - предлагает много дополнительных команд, окон, и т.д. Он может несколько смутить новичков!"/>
+		<control caption="Показывать упрощенную полосу прогресса."/>
+		<control caption="Попробуйте смешивания нескольких шкур."/>
+	</dialog>
+	<dialog name="CWizardProfilePage" cookie="StStEdStCoCoStCoStCoStEd" caption="Добро пожаловать в PeerProject (7/8)">
 		<control caption="PeerProject  будет ещё дружелюбней, если каждый укажет несколько деталей о себе."/>
 		<control caption="Мой ник будет:"/>
 		<control/>
@@ -3864,27 +3893,18 @@
 		<control caption=" (выберите)| парень| девушка| мужчина| женщина"/>
 		<control caption="Из:"/>
 		<control/>
+		<control caption="Locale:"/>
+		<control/>
+		<control caption="Comments:"/>
 		<control/>
 	</dialog>
-	<dialog name="CWizardInterfacePage" cookie="StBuBuBuStStBuSt" caption="Добро пожаловать в PeerProject (4/6)">
-		<control caption="PeerProject поддерживает два типа интерфейса, так что Вы можете выбрать наиболее удобный. Вы сможете изменить эти опции и позже."/>
-		<control caption="Выберите один пользовательский интерфейс:"/>
-		<control caption="Обычный режим"/>
-		<control caption="Режим опытным"/>
-		<control caption="Обычный - удобные меню и кнопки.{n}Знакомый пользователям других программ файлообмена."/>
-		<control caption="Опытным - предлагает много дополнительных команд, окон, и т.д. Он может несколько смутить новичков!"/>
-		<control caption="Показывать упрощенную полосу прогресса."/>
-		<control caption=""/>
-	</dialog>
-	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuStBu" caption="Добро пожаловать в PeerProject (5/6)">
-		<control caption="PeerProject - многоцелевая программа обмена файлами, с доступом ко многим P2P сетям одновременно. Здесь Вы можете выбрать, какие P2P сети Вы хотите использовать. Отметьте, что Вы можете выбрать их позже."/>
-		<control caption="Соединяться с Gnutella2 (рекомендуется)"/>
-		<control caption="Gnutella2 (G2) - основная сеть PeerProject, она предлагает больше особенностей и опций работы чем любая другая P2P сеть."/>
-		<control caption="Соединяться с оригинальной Gnutella"/>
-		<control caption="Хотя оригинальная Gnutella (G1) менее богата возможностями чем Gnutella2, и имеет меньше файлов чем eDonkey, всё равно это ценный ресурс."/>
-		<control caption="Соединяться с eDonkey"/>
-		<control caption="eDonkey (ED2K) популярная сеть с использованием серверов.  Не столь богата возможностями как Gnutella2, но содержит больше файлов."/>
-		<control caption="Ассоциировать файлы торрентов с программой."/>
+	<dialog name="CWizardFinishedPage" cookie="StStStBuBuSt" caption="Добро пожаловать в PeerProject (8/8)">
+		<control caption="Вот и всё!  Вы настроили PeerProject для работы на Вашем компьютере."/>
+		<control caption="Если Вам понадобится изменить установки, можно перезапустить мастер, выбрав соответствующий пункт из меню Инструменты."/>
+		<control caption="После закрытия мастера, можно своединиться с выбранными сетями и начать поиск и загрузку файлов."/>
+		<control caption="Запускать PeerProject при каждом запуске Windows"/>
+		<control caption="Соединяться с сетью при каждом запуске PeerProject"/>
+		<control caption="Наслаждайтесь использованием PeerProject!"/>
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="Импорт eDonkey Загрузок">
 		<control/>
@@ -3894,16 +3914,7 @@
 		<control/>
 		<control caption="Закрыть"/>
 	</dialog>
-	<dialog name="CWizardFinishedPage" cookie="StStStBuBuBuSt" caption="Добро пожаловать в PeerProject (6/6)">
-		<control caption="Вот и всё!  Вы настроили PeerProject для работы на Вашем компьютере."/>
-		<control caption="Если Вам понадобится изменить установки, можно перезапустить мастер, выбрав соответствующий пункт из меню Инструменты."/>
-		<control caption="После закрытия мастера, можно своединиться с выбранными сетями и начать поиск и загрузку файлов."/>
-		<control caption="Соединиться с сетью, когда я закрою этот мастер"/>
-		<control caption="Соединяться с сетью при каждом запуске PeerProject"/>
-		<control caption="Запускать PeerProject при каждом запуске Windows"/>
-		<control caption="Наслаждайтесь использованием PeerProject!"/>
-	</dialog>
-	<dialog name="CProfileManagerDlg" cookie="SyBuBuBu#3" caption="Правка своего профиля">
+	<dialog name="CProfileManagerDlg" cookie="SyBuBuBu" caption="Правка своего профиля">
 		<control/>
 		<control caption="OK"/>
 		<control caption="Отмена"/>
@@ -4021,30 +4032,30 @@
 		<control caption="Поиск"/>
 		<control caption="Отмена"/>
 	</dialog>
-	<dialog name="CFilterSearchDlg" cookie="BuEdBuStBuStEdStEdStEdmsStBuBuBuBuBuBuBuBuBuBuBuCoBuBuBuBuBu" caption="Фильтрование соответсвий">
+	<dialog name="CFilterSearchDlg" cookie="BuEdBuStBuStEdStEdStEdmsBuBuBuBuBuBuBuBuBuBuBuBuBuCoBuBuBuBuBu" caption="Фильтрование соответсвий">
 		<control caption="Показывать только содержащие слова:"/>
 		<control/>
 		<control caption="Рег. Выраж."/>
-		<control caption="( исключать слова можно ставя '-' перед ними )"/>
+		<control caption="(исключать слова можно ставя '-' перед ними)"/>
 		<control caption="И _размером:"/>
 		<control caption="Минимум:"/>
 		<control/>
 		<control caption="Максимум:"/>
 		<control/>
-		<control caption="Минимум с:"/>
+		<control caption="Минимум с источн:"/>
 		<control/>
 		<control/>
-		<control caption="источн."/>
 		<control caption="Скрыть:"/>
-		<control caption="Занятые"/>
+		<control caption="Нестабильные"/>
 		<control caption="Несоответствующие"/>
+		<control caption="Подозрительные"/>
+		<control caption="Файлы с Restricted"/>
+		<control caption="Файлы с DRM"/>
 		<control caption="За брандмауэром"/>
 		<control caption="Уже загруженные"/>
-		<control caption="Нестабильные"/>
+		<control caption="Занятые"/>
 		<control caption="Подделки"/>
-		<control caption="Файлы с DRM"/>
 		<control caption="Для взрослых"/>
-		<control caption="Подозрительные"/>
 		<control caption="Фильтры:"/>
 		<control/>
 		<control caption="По умолчанию"/>
@@ -4134,15 +4145,15 @@
 		<control caption="_Удалить"/>
 		<control/>
 	</dialog>
-	<dialog name="CFileCopyDlg" cookie="StStmsBuBumsStSt" caption="Копирование|Перемещение файлов">
-		<control caption="Вы выбрали %i файл(а/ов) для копирования в папку:"/>
+	<dialog name="CFileCopyDlg" cookie="StStStmsmsStBuBu" caption="Копирование|Перемещение файлов">
+		<control caption="Вы выбрали %i файлов для копирования в папку:"/>
+		<control caption="Вы выбрали %i файлов для перемещения в папку:"/>
 		<control/>
 		<control/>
-		<control caption="OK"/>
-		<control caption="Отмена"/>
 		<control/>
 		<control caption="Жду..."/>
-		<control caption="Вы выбрали %i файл(а/ов) для перемещения в папку:"/>
+		<control caption="OK"/>
+		<control caption="Отмена"/>
 	</dialog>
 	<dialog name="CFolderPropertiesDlg" cookie="StEdStCoBuStBuBu" caption="Настройка папки хранилища">
 		<control caption="Название папки:"/>
@@ -4665,4 +4676,4 @@
 		<column from="Order" to="Порядок"/>
 	</list>
 </listColumns>
-</skin>⌽
+</skin>

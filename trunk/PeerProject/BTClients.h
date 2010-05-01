@@ -1,7 +1,7 @@
 //
 // BTClients.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -25,7 +25,7 @@ class CConnection;
 class CBTClient;
 
 
-class CBTClients : private boost::noncopyable
+class CBTClients //: private boost::noncopyable
 {
 // Construction
 public:
@@ -47,6 +47,10 @@ protected:
 	void		Remove(CBTClient* pClient);
 
 	friend class CBTClient;
+
+private:
+	CBTClients(const CBTClients&);
+	CBTClients& operator=(const CBTClients&);
 };
 
 extern CBTClients BTClients;

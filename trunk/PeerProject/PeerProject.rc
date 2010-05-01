@@ -586,7 +586,7 @@ BEGIN
 	GROUPBOX		"&General:",IDC_STATIC,6,5,160,70,WS_GROUP
 	CONTROL			"Start PeerProject at Windows startup",IDC_AUTO_START,"Button",BS_AUTOCHECKBOX | WS_GROUP | WS_TABSTOP,14,18,148,10
 	CONTROL			"Auto-connect at PeerProject startup",IDC_AUTO_CONNECT,"Button",BS_AUTOCHECKBOX | WS_GROUP | WS_TABSTOP,14,32,148,10
-	CONTROL			"Show a prompt before opening links",IDC_PROMPT_URLS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,46,148,10
+	CONTROL			"Show a dialog when opening links",IDC_PROMPT_URLS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,46,148,10
 	CONTROL			"Check for updates (monthly)",IDC_UPDATE_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,60,148,10
 	GROUPBOX		"&Downloads:",IDC_STATIC,6,77,160,56
 	CONTROL			"Expand new downloads by default",IDC_EXPAND_DOWNLOAD,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,88,148,10
@@ -671,34 +671,34 @@ BEGIN
 	PUSHBUTTON		"&Remove",IDC_GRAPH_REMOVE,190,40,50,14,WS_DISABLED
 END
 
-IDD_WIZARD_WELCOME DIALOGEX 0, 0, 277, 174
+IDD_WIZARD_WELCOME DIALOGEX 0, 0, 276, 174
 STYLE DS_SETFONT | WS_CHILD | WS_DISABLED | WS_CAPTION
-CAPTION "Welcome to PeerProject"
+CAPTION "Welcome to PeerProject  (1/8)"
 FONT 8, "Tahoma", 0, 0, 0x1
 BEGIN
 	LTEXT			"Welcome to PeerProject file sharing.",IDC_STATIC,10,10,265,10
-	LTEXT			"This QuickStart wizard can help you configure your software in a few simple steps, even if you haven't used PeerProject or other P2P client before.",IDC_STATIC,10,25,265,20
-	LTEXT			"More advanced users can access the full range of PeerProject's options via the Tools menu.  Click Exit to close the wizard at any time.",IDC_STATIC,10,50,265,25
+	LTEXT			"This QuickStart wizard can help configure the software in a few simple steps, \neven if you haven't used PeerProject or other P2P client before.",IDC_STATIC,10,25,265,20
+	LTEXT			"More advanced users can access the full range of PeerProject's options via the Tools menu.  Click Exit at any time to leave the wizard.",IDC_STATIC,10,50,265,25
 	LTEXT			"This wizard will assist you to:",IDC_STATIC,10,80,265,10
-	ICON			IDI_WIZARD_DOT,IDC_STATIC,15,96,16,16,SS_REALSIZEIMAGE
-	LTEXT			"Tell PeerProject about your Internet connection",IDC_STATIC,30,96,245,10,SS_CENTERIMAGE
-	ICON			IDI_WIZARD_DOT,IDC_STATIC,15,110,16,16,SS_REALSIZEIMAGE
-	LTEXT			"Choose which files to share",IDC_STATIC,30,110,245,10,SS_CENTERIMAGE
-	ICON			IDI_WIZARD_DOT,IDC_STATIC,15,124,16,16,SS_REALSIZEIMAGE
-	LTEXT			"Connect to your choice of P2P networks, and",IDC_STATIC,30,124,245,10,SS_CENTERIMAGE
-	ICON			IDI_WIZARD_DOT,IDC_STATIC,15,138,16,16,SS_REALSIZEIMAGE
-	LTEXT			"Get started using PeerProject.",IDC_STATIC,30,138,245,10,SS_CENTERIMAGE
+	ICON			IDI_WIZARD_DOT,IDC_STATIC,15,94,16,16,SS_REALSIZEIMAGE
+	LTEXT			"Tell PeerProject about your Internet connection",IDC_STATIC,30,94,245,10,SS_CENTERIMAGE
+	ICON			IDI_WIZARD_DOT,IDC_STATIC,15,108,16,16,SS_REALSIZEIMAGE
+	LTEXT			"Connect to your choice of P2P networks",IDC_STATIC,30,108,245,10,SS_CENTERIMAGE
+	ICON			IDI_WIZARD_DOT,IDC_STATIC,15,122,16,16,SS_REALSIZEIMAGE
+	LTEXT			"Choose which files to share, and",IDC_STATIC,30,122,245,10,SS_CENTERIMAGE
+	ICON			IDI_WIZARD_DOT,IDC_STATIC,15,136,16,16,SS_REALSIZEIMAGE
+	LTEXT			"Get started using PeerProject.",IDC_STATIC,30,136,245,10,SS_CENTERIMAGE
 END
 
-IDD_WIZARD_CONNECTION DIALOGEX 0, 0, 277, 174
+IDD_WIZARD_CONNECTION DIALOGEX 0, 0, 276, 174
 STYLE DS_SETFONT | WS_CHILD | WS_DISABLED | WS_CAPTION
-CAPTION "Welcome to PeerProject (1/6)"
+CAPTION "Welcome to PeerProject  (2/8)"
 FONT 8, "Tahoma", 0, 0, 0x1
 BEGIN
-	LTEXT			"For best performance, PeerProject needs to know your internet connection.",IDC_STATIC,10,10,263,18
-	LTEXT			"You may select the Internet connection type:",IDC_STATIC,10,30,260,12
+	LTEXT			"For best performance, PeerProject needs to know your internet connection.",IDC_STATIC,10,10,270,18
+	LTEXT			"If unsure, select your general Internet connection type:",IDC_STATIC,10,30,260,12
 	COMBOBOX 		IDC_CONNECTION_TYPE,26,44,104,180,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
-	LTEXT			"Or choose the download speed:",IDC_STATIC,10,64,130,12
+	LTEXT			"Or choose the download speed:",IDC_STATIC,10,64,156,12
 	COMBOBOX		IDC_WIZARD_DOWNLOAD_SPEED,26,77,104,180,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
 	LTEXT			"...and upload speed:",IDC_STATIC,168,64,100,12
 	COMBOBOX		IDC_WIZARD_UPLOAD_SPEED,168,77,104,180,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
@@ -708,81 +708,101 @@ BEGIN
 	EDITTEXT		IDC_WIZARD_PORT,168,112,54,12,ES_NUMBER
 	CONTROL			"Random",IDC_WIZARD_RANDOM,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,230,112,92,12
 	LTEXT			"Status:",IDC_CONNECTION_STATUS,10,132,260,8
-	CONTROL			"",IDC_CONNECTION_PROGRESS,"msctls_progress32",WS_BORDER,14,143,256,7
+	CONTROL			"",IDC_CONNECTION_PROGRESS,"msctls_progress32",WS_BORDER,14,136,260,8
 END
 
-IDD_WIZARD_SHARING DIALOGEX 0, 0, 277, 174
+IDD_WIZARD_NETWORKS DIALOGEX 0, 0, 276, 174
 STYLE DS_SETFONT | WS_CHILD | WS_DISABLED | WS_CAPTION
-CAPTION "Welcome to PeerProject (2/6)"
+CAPTION "Welcome to PeerProject  (3/8)"
 FONT 8, "Tahoma", 0, 0, 0x1
 BEGIN
-	LTEXT			"P2P networks are only as good as the people who use them:\nAnything available for download is being shared by another user like you.",IDC_STATIC,10,10,265,20
-	LTEXT			"You do not need to share any files to use PeerProject,  however your downloading performance may be restricted by other users.  Be polite.",IDC_STATIC,10,34,265,20
-	LTEXT			"First use the Add button to include folders in your local libray,  then click the checkboxes to publicly share or hide them.  Files can be unshared later.",IDC_STATIC,10,58,265,20
+	LTEXT			"PeerProject is a general purpose filesharing application that can swarm multiple P2P networks on a single download, therefore all are recommended.",IDC_STATIC,10,10,270,26
+	CONTROL			"Connect to Gnutella2  (Default)",IDC_G2_ENABLE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,10,36,260,10
+	LTEXT			"The Gnutella2 network (G2) is PeerProject's premiere network, offering more features and performance than any other P2P net.   (~Shareaza)",IDC_STATIC,27,47,250,18
+	CONTROL			"Connect to Gnutella",IDC_G1_ENABLE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,10,70,260,10
+	LTEXT			"The original Gnutella network (G1) is less feature-rich than Gnutella2, with less files than ED2K, yet remains a valuable source.   (~LimeWire)",IDC_STATIC,27,81,250,18
+	CONTROL			"Connect to eDonkey2000",IDC_ED2K_ENABLE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,10,104,260,10
+	LTEXT			"The eDonkey network (ED2K) is a popular server-based system.  While not as feature-rich or fast as G2, ED2K has a vast file collection.   (~eMule)",IDC_STATIC,27,115,254,18
+	CONTROL			"Handle BitTorrent by default   (Associate .Torrent Files)",IDC_URI_TORRENT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,10,138,260,10
+END
+
+IDD_WIZARD_FOLDERS DIALOGEX 0, 0, 276, 174
+STYLE DS_SETFONT | WS_CHILD | WS_DISABLED | WS_CAPTION
+CAPTION "Welcome to PeerProject  (4/8)"
+FONT 8, "Tahoma", 0, 0, 0x1
+BEGIN
+	LTEXT			"PeerProject first downloads partial files to a private folder, \nthen moves them when completed according to Download Groups.",IDC_STATIC,10,10,270,18
+	LTEXT			"Save Complete files here by default:",IDC_STATIC,10,30,260,12
+	EDITTEXT		IDC_DOWNLOADS_FOLDER,26,44,220,12,ES_AUTOHSCROLL | ES_READONLY
+	PUSHBUTTON		"",IDC_DOWNLOADS_BROWSE,252,40,22,20
+	LTEXT			"Store Incomplete files here temporarily:",IDC_STATIC,10,64,260,12
+	EDITTEXT		IDC_INCOMPLETE_FOLDER,26,77,220,12,ES_AUTOHSCROLL | ES_READONLY
+	PUSHBUTTON		"",IDC_INCOMPLETE_BROWSE,252,73,22,20
+	LTEXT			"Store .Torrent files here:",IDC_STATIC,10,98,260,12
+	EDITTEXT		IDC_TORRENTS_FOLDER,26,112,220,12,ES_AUTOHSCROLL | ES_READONLY
+	PUSHBUTTON		"",IDC_TORRENTS_BROWSE,252,108,22,20
+	LTEXT			"Common filetypes are initially setup as subfolders of the default location, \nbut Groups can easily be customized by Right-Click.  Simply Drag'n'Drop files.",IDC_STATIC,10,133,270,26
+END
+
+IDD_WIZARD_SHARING DIALOGEX 0, 0, 276, 174
+STYLE DS_SETFONT | WS_CHILD | WS_DISABLED | WS_CAPTION
+CAPTION "Welcome to PeerProject  (5/8)"
+FONT 8, "Tahoma", 0, 0, 0x1
+BEGIN
+	LTEXT			"P2P networks are only as good as the people who use them:\nAnything available for download is being shared by another user like you.",IDC_STATIC,10,10,270,24
+	LTEXT			"You do not need to share any files to use PeerProject,  however your downloading performance may be restricted by other users.  Be polite.",IDC_STATIC,10,34,270,20
+	LTEXT			"First use the Add button to include folders in your local libray,  then click the checkboxes to publicly share or hide them.  Files can be unshared later.",IDC_STATIC,10,58,270,20
 	CONTROL			"List1",IDC_SHARE_FOLDERS,"SysListView32",LVS_REPORT | LVS_SHAREIMAGELISTS | LVS_ALIGNLEFT | LVS_NOCOLUMNHEADER | WS_BORDER | WS_TABSTOP,15,82,205,55
 	PUSHBUTTON		"&Add...",IDC_SHARE_ADD,230,88,50,15
 	PUSHBUTTON		"&Remove",IDC_SHARE_REMOVE,230,115,50,15,WS_DISABLED
 	LTEXT			"CAUTION!  Uploading unauthorized copyright work is liable in some countries.",IDC_STATIC,10,138,270,16,SS_CENTERIMAGE
 END
 
-IDD_WIZARD_PROFILE DIALOGEX 0, 0, 277, 174
+IDD_WIZARD_INTERFACE DIALOGEX 0, 0, 276, 174
 STYLE DS_SETFONT | WS_CHILD | WS_DISABLED | WS_CAPTION
-CAPTION "Welcome to PeerProject (3/6)"
+CAPTION "Welcome to PeerProject  (6/8)"
 FONT 8, "Tahoma", 0, 0, 0x1
 BEGIN
-	LTEXT			"PeerProject is a friendlier place when everyone shares a few basic details about themselves.  Full profile is available from the Tools menu.",IDC_STATIC,10,10,265,20
-	RTEXT			"I use the name:",IDC_STATIC,12,48,60,12,SS_CENTERIMAGE
-	EDITTEXT		IDC_PROFILE_NICK,84,48,168,12,ES_AUTOHSCROLL
-	RTEXT			"And I'm a:",IDC_STATIC,6,72,66,12,SS_CENTERIMAGE
-	COMBOBOX		IDC_PROFILE_AGE,84,72,80,216,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
-	COMBOBOX		IDC_PROFILE_GENDER,172,72,80,216,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
-	RTEXT			"From:",IDC_STATIC,12,97,60,12,SS_CENTERIMAGE
-	COMBOBOX		IDC_LOC_COUNTRY,84,97,168,155,CBS_DROPDOWN | CBS_AUTOHSCROLL | CBS_SORT | WS_VSCROLL | WS_TABSTOP
-	COMBOBOX		IDC_LOC_CITY,84,120,168,155,CBS_DROPDOWN | CBS_AUTOHSCROLL | CBS_SORT | WS_VSCROLL | WS_TABSTOP
-END
-
-IDD_WIZARD_INTERFACE DIALOGEX 0, 0, 277, 174
-STYLE DS_SETFONT | WS_CHILD | WS_DISABLED | WS_CAPTION
-CAPTION "Welcome to PeerProject (4/6)"
-FONT 8, "Tahoma", 0, 0, 0x1
-BEGIN
-	LTEXT			"PeerProject supports a flexible user interface, so you can choose what is most comfortable for you.  You can change these options at any time.",IDC_STATIC,10,10,258,20
+	LTEXT			"PeerProject supports a flexible user interface, so you can choose what is most comfortable for you.  You can change these options at any time.",IDC_STATIC,10,10,270,20
 	GROUPBOX		"Please select user interface:",IDC_STATIC,7,30,269,83
-	CONTROL			"Basic Mode",IDC_INTERFACE_0,"Button",BS_AUTORADIOBUTTON | WS_GROUP,14,42,250,10
-	CONTROL			"Power Mode",IDC_INTERFACE_1,"Button",BS_AUTORADIOBUTTON,14,78,250,10
-	LTEXT			"Simple, easy to use menus with fewer options.\nHelpful for new users of file sharing.",IDC_DESCRIPTION_0,27,54,243,21
-	LTEXT			"Standard mode offers users all available commands, windows, etc.\nMight be more confusing for brand new users.",IDC_DESCRIPTION_1,27,90,243,21
+	CONTROL			"Basic Mode",IDC_INTERFACE_BASIC,"Button",BS_AUTORADIOBUTTON | WS_GROUP,14,42,250,10
+	CONTROL			"Power Mode",IDC_INTERFACE_EXPERT,"Button",BS_AUTORADIOBUTTON,14,78,250,10
+	LTEXT			"Simple, easy to use menus with fewer options.\nHelpful for new users of file sharing.",IDC_DESCRIPTION_BASIC,27,54,243,21
+	LTEXT			"Standard view offers users all available commands, windows, etc.\nMight be more confusing for brand new users.",IDC_DESCRIPTION_EXPERT,27,90,243,21
 	CONTROL			"Display simplified download progress bars.  (Less detail for new users)",IDC_DOWNLOADS_SIMPLEBAR,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,121,256,10
 	LTEXT			"Try mixing multiple skins to further add/remove capabilities.",IDC_STATIC,14,138,256,10
 END
 
-IDD_WIZARD_NETWORKS DIALOGEX 0, 0, 277, 174
+IDD_WIZARD_PROFILE DIALOGEX 0, 0, 276, 174
 STYLE DS_SETFONT | WS_CHILD | WS_DISABLED | WS_CAPTION
-CAPTION "Welcome to PeerProject (5/6)"
+CAPTION "Welcome to PeerProject  (7/8)"
 FONT 8, "Tahoma", 0, 0, 0x1
 BEGIN
-	LTEXT			"PeerProject is a general purpose filesharing application that can swarm multiple P2P networks on a single download, therefore all are recommended.",IDC_STATIC,10,10,265,26
-	CONTROL			"Connect to Gnutella2 (Default)",IDC_G2_ENABLE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,10,36,260,10
-	LTEXT			"The Gnutella2 network (G2) is PeerProject's premiere network, offering more features and performance than any other P2P net.  (Shareaza)",IDC_STATIC,26,47,252,18
-	CONTROL			"Connect to Gnutella",IDC_G1_ENABLE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,10,70,260,10
-	LTEXT			"The original Gnutella network (G1) is less feature-rich than Gnutella2, with less files than ED2K, yet remains a valuable source.  (LimeWire)",IDC_STATIC,26,81,252,18
-	CONTROL			"Connect to eDonkey2000",IDC_ED2K_ENABLE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,10,104,260,10
-	LTEXT			"The eDonkey network (ED2K) is a popular server-based system.  While not as feature-rich or fast as G2, ED2K has a vast file collection.  (eMule)",IDC_STATIC,26,115,252,18
-	CONTROL			"Handle BitTorrent by default   (Associate .Torrent Files)",IDC_URI_TORRENT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,10,138,260,10
+	LTEXT			"Almost done.  Filesharing is friendlier when everyone shares a few basic details about themselves too.  Full profile is available from the Tools menu.",IDC_STATIC,10,10,272,28
+	RTEXT			"Display name:",IDC_STATIC,6,40,70,12,SS_CENTERIMAGE
+	EDITTEXT		IDC_PROFILE_NICK,84,40,170,12,ES_AUTOHSCROLL
+	RTEXT			"I am a:",IDC_STATIC,6,62,70,12,SS_CENTERIMAGE
+	COMBOBOX		IDC_PROFILE_AGE,84,62,82,216,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+	COMBOBOX		IDC_PROFILE_GENDER,172,62,82,216,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+	RTEXT			"From:",IDC_STATIC,6,84,70,12,SS_CENTERIMAGE
+	COMBOBOX		IDC_LOC_COUNTRY,84,84,170,155,CBS_DROPDOWN | CBS_AUTOHSCROLL | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+	RTEXT			"Locale:",IDC_STATIC,6,106,70,12,SS_CENTERIMAGE
+	COMBOBOX		IDC_LOC_CITY,84,106,170,155,CBS_DROPDOWN | CBS_AUTOHSCROLL | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+	RTEXT			"Comments:",IDC_STATIC,6,128,70,12,SS_CENTERIMAGE
+	EDITTEXT		IDC_PROFILE_BIO,84,128,170,12,ES_AUTOHSCROLL	//24,ES_MULTILINE | ES_WANTRETURN | ES_AUTOVSCROLL |  WS_VSCROLL
 END
 
-IDD_WIZARD_FINISHED DIALOGEX 0, 0, 277, 174
+IDD_WIZARD_FINISHED DIALOGEX 0, 0, 276, 174
 STYLE DS_SETFONT | WS_CHILD | WS_DISABLED | WS_CAPTION
-CAPTION "Welcome to PeerProject (6/6)"
+CAPTION "Welcome to PeerProject  (8/8)"
 FONT 8, "Tahoma", 0, 0, 0x1
 BEGIN
-	LTEXT			"That's it. PeerProject has been configured to work with your computer.",IDC_STATIC,10,10,265,10
-	LTEXT			"If you ever need to change these settings, re-run the QuickStart wizard by selecting it from the Tools menu.",IDC_STATIC,10,24,265,20
-	LTEXT			"After closing this Wizard and connecting, the first thing to do is run a 'fake' random search to catch spammers and Ban them all.  Explore toolbar tabs while waiting.",IDC_STATIC,10,48,265,25
-	CONTROL			"Connect to the networks when I close this wizard",IDC_WIZARD_CONNECT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,20,80,224,10
-	CONTROL			"Connect to the networks every time I start PeerProject",IDC_WIZARD_AUTO,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,20,95,225,10
-	CONTROL			"Start PeerProject every time Windows starts",IDC_WIZARD_STARTUP,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,20,110,225,10
-	LTEXT			"Enjoy using PeerProject p2p filesharing.",IDC_STATIC,10,130,265,10
+	LTEXT			"That's it.  PeerProject has been configured to work with your computer.",IDC_STATIC,10,10,265,14
+	LTEXT			"If you ever need to change these settings, re-run the QuickStart wizard by selecting it from the Tools menu or Home tab.",IDC_STATIC,10,25,265,24
+	LTEXT			"After closing this Wizard, the first thing to do is run a 'fake' random search to catch spammers and Ban them all.  Explore toolbar tabs while waiting.",IDC_STATIC,10,49,265,28
+	CONTROL			"Start PeerProject every time Windows starts",IDC_WIZARD_STARTUP,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,20,88,225,10
+	CONTROL			"Connect to the networks every time I start PeerProject",IDC_WIZARD_AUTO,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,20,102,225,10
+	LTEXT			"Enjoy using PeerProject for your peer-to-peer filesharing.",IDC_STATIC,10,132,265,16
 END
 
 IDD_FOLDER_SCAN DIALOGEX 0, 0, 237, 49
@@ -906,18 +926,18 @@ BEGIN
 	LTEXT			"You have clicked on a PeerProject-powered URI which will add the following Discovery Service to your Discovery Services cache.",IDC_MESSAGE_4,20,40,250,20,NOT WS_VISIBLE
 END
 
-IDD_URL_COPY DIALOGEX 0, 0, 292, 149
+IDD_URL_COPY DIALOGEX 0, 0, 304, 138
 STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Copy URI  (P2P Link)"
 FONT 8, "Tahoma", 0, 0, 0x1
 BEGIN
-	CONTROL			154,IDC_BANNER,"Static",SS_BITMAP,0,0,293,172
-	LTEXT			"You can copy the URI ('P2P Link') for a selected item in various formats. \nSimply click the format you wish to use below:",IDC_MESSAGE,10,40,270,30
-	CONTROL			"...",IDC_URL_MAGNET,"Static",SS_LEFTNOWORDWRAP | SS_NOPREFIX | SS_WORDELLIPSIS | WS_GROUP,10,70,270,10
-	CONTROL			"...",IDC_URL_ED2K,"Static",SS_LEFTNOWORDWRAP | SS_NOPREFIX | SS_WORDELLIPSIS | WS_GROUP,10,85,270,10
-	CONTROL			"...",IDC_URL_HOST,"Static",SS_LEFTNOWORDWRAP | SS_NOPREFIX | SS_WORDELLIPSIS | WS_GROUP,10,100,270,10
-	CONTROL			"Include &myself as a fixed source in the URL",IDC_INCLUDE_SELF,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,10,130,160,14
-	PUSHBUTTON		"Cancel",IDCANCEL,230,130,50,14
+	CONTROL			154,IDC_BANNER,"Static",SS_BITMAP,0,0,304,168
+	LTEXT			"You can copy the URI ('P2P Link') for a selected item in various formats. \nSimply click the format you wish to save to clipboard:",IDC_MESSAGE,10,40,280,30
+	CONTROL			"...",IDC_URL_MAGNET,"Static",SS_LEFTNOWORDWRAP | SS_NOPREFIX | SS_WORDELLIPSIS | WS_GROUP,10,70,290,10
+	CONTROL			"...",IDC_URL_ED2K,"Static",SS_LEFTNOWORDWRAP | SS_NOPREFIX | SS_WORDELLIPSIS | WS_GROUP,10,84,290,10
+	CONTROL			"...",IDC_URL_HOST,"Static",SS_LEFTNOWORDWRAP | SS_NOPREFIX | SS_WORDELLIPSIS | WS_GROUP,10,98,290,10
+	CONTROL			"Include myself as a fixed &source in the URL",IDC_INCLUDE_SELF,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,10,115,160,14
+	PUSHBUTTON		"Cancel",IDCANCEL,246,115,50,14
 END
 
 IDD_SPLASH DIALOGEX 0, 0, 292, 39
@@ -941,69 +961,69 @@ BEGIN
 	PUSHBUTTON		"Cancel",IDCANCEL,235,124,50,14
 END
 
-IDD_SETTINGS_BANDWIDTH DIALOG  0, 0, 282, 220
-STYLE DS_SETFONT | WS_CHILD | WS_DISABLED | WS_CAPTION
-CAPTION "Bandwidth"
-FONT 8, "Tahoma"
-BEGIN
-	LTEXT			"Receive Bandwidth:",IDC_HEAD_RECEIVE,5,5,95,12,SS_CENTERIMAGE
-	CTEXT			"Per Connect",IDC_STATIC,110,5,56,12,SS_CENTERIMAGE
-	CTEXT			"Max Connects",IDC_STATIC,170,5,50,12,SS_CENTERIMAGE
-	CTEXT			"Total",IDC_STATIC,220,5,55,12,SS_CENTERIMAGE
-	LTEXT			"From Gnutella Hubs:",IDC_HEAD_UP_1,15,20,85,12,SS_CENTERIMAGE
-	EDITTEXT		IDC_UPIN_LIMIT,110,20,56,12,ES_CENTER | ES_AUTOHSCROLL
-	CONTROL			"Spin1",IDC_UPIN_SPIN,"msctls_updown32",UDS_AUTOBUDDY | UDS_ALIGNRIGHT | UDS_ARROWKEYS,165,20,8,12
-	EDITTEXT		IDC_UPIN_MAX,175,20,40,12,ES_CENTER | ES_AUTOHSCROLL | ES_READONLY
-	EDITTEXT		IDC_UPIN_TOTAL,220,20,55,12,ES_CENTER | ES_AUTOHSCROLL
-	CONTROL			"Spin1",IDC_UPIN_SPIN2,"msctls_updown32",UDS_AUTOBUDDY | UDS_ALIGNRIGHT | UDS_ARROWKEYS,270,20,8,12
-	LTEXT			"From Gnutella Leafs:",IDC_STATIC,15,35,85,12,SS_CENTERIMAGE
-	EDITTEXT		IDC_LIN_LIMIT,110,35,56,12,ES_CENTER | ES_AUTOHSCROLL
-	CONTROL			"Spin1",IDC_LIN_SPIN,"msctls_updown32",UDS_AUTOBUDDY | UDS_ALIGNRIGHT | UDS_ARROWKEYS,165,35,8,12
-	EDITTEXT		IDC_LIN_MAX,175,35,40,12,ES_CENTER | ES_AUTOHSCROLL | ES_READONLY
-	EDITTEXT		IDC_LIN_TOTAL,220,35,55,12,ES_CENTER | ES_AUTOHSCROLL
-	CONTROL			"Spin1",IDC_LIN_SPIN2,"msctls_updown32",UDS_AUTOBUDDY | UDS_ALIGNRIGHT | UDS_ARROWKEYS,270,35,8,12
-	LTEXT			"Gnutella Peer to Peer:",IDC_STATIC,15,50,85,12,SS_CENTERIMAGE
-	EDITTEXT		IDC_PIN_LIMIT,110,50,56,12,ES_CENTER | ES_AUTOHSCROLL
-	CONTROL			"Spin1",IDC_PIN_SPIN,"msctls_updown32",UDS_AUTOBUDDY | UDS_ALIGNRIGHT | UDS_ARROWKEYS,165,50,8,12
-	EDITTEXT		IDC_PIN_MAX,175,50,40,12,ES_CENTER | ES_AUTOHSCROLL | ES_READONLY
-	EDITTEXT		IDC_PIN_TOTAL,220,50,55,12,ES_CENTER | ES_AUTOHSCROLL
-	CONTROL			"Spin1",IDC_PIN_SPIN2,"msctls_updown32",UDS_AUTOBUDDY | UDS_ALIGNRIGHT | UDS_ARROWKEYS,270,50,8,12
-	LTEXT			"Download Transfers:",IDC_STATIC,15,65,85,12,SS_CENTERIMAGE
-	EDITTEXT		IDC_DL_TOTAL,220,65,55,12,ES_CENTER | ES_AUTOHSCROLL
-	CONTROL			"Spin1",IDC_DL_SPIN2,"msctls_updown32",UDS_AUTOBUDDY | UDS_ALIGNRIGHT | UDS_ARROWKEYS,270,65,8,12
-	RTEXT			"Total Receive: ",IDC_STATIC,110,80,105,12,SS_CENTERIMAGE
-	EDITTEXT		IDC_IN_TOTAL,220,80,55,12,ES_CENTER | ES_AUTOHSCROLL | ES_READONLY
-	LTEXT			"Transmit Bandwidth:",IDC_HEAD_TRANSMIT,5,100,95,12,SS_CENTERIMAGE
-	CTEXT			"Per Connect",IDC_STATIC,110,100,56,12,SS_CENTERIMAGE
-	CTEXT			"Max Connects",IDC_STATIC,170,100,50,12,SS_CENTERIMAGE
-	CTEXT			"Total",IDC_STATIC,220,100,55,12,SS_CENTERIMAGE
-	LTEXT			"To Gnutella Hubs:",IDC_HEAD_UP_2,15,115,85,12,SS_CENTERIMAGE
-	EDITTEXT		IDC_UPOUT_LIMIT,110,115,56,12,ES_CENTER | ES_AUTOHSCROLL
-	CONTROL			"Spin1",IDC_UPOUT_SPIN,"msctls_updown32",UDS_AUTOBUDDY | UDS_ALIGNRIGHT | UDS_ARROWKEYS,165,116,8,12
-	EDITTEXT		IDC_UPOUT_MAX,175,116,40,12,ES_CENTER | ES_AUTOHSCROLL | ES_READONLY
-	EDITTEXT		IDC_UPOUT_TOTAL,220,116,55,12,ES_CENTER | ES_AUTOHSCROLL
-	CONTROL			"Spin1",IDC_UPOUT_SPIN2,"msctls_updown32",UDS_AUTOBUDDY | UDS_ALIGNRIGHT | UDS_ARROWKEYS,270,116,8,12
-	LTEXT			"To Gnutella Leafs:",IDC_STATIC,15,130,85,12,SS_CENTERIMAGE
-	EDITTEXT		IDC_LOUT_LIMIT,110,130,56,12,ES_CENTER | ES_AUTOHSCROLL
-	CONTROL			"Spin1",IDC_LOUT_SPIN,"msctls_updown32",UDS_AUTOBUDDY | UDS_ALIGNRIGHT | UDS_ARROWKEYS,165,130,8,12
-	EDITTEXT		IDC_LOUT_MAX,175,130,40,12,ES_CENTER | ES_AUTOHSCROLL | ES_READONLY
-	EDITTEXT		IDC_LOUT_TOTAL,220,130,55,12,ES_CENTER | ES_AUTOHSCROLL
-	CONTROL			"Spin1",IDC_LOUT_SPIN2,"msctls_updown32",UDS_AUTOBUDDY | UDS_ALIGNRIGHT | UDS_ARROWKEYS,270,130,8,12
-	LTEXT			"Gnutella Peer to Peer:",IDC_STATIC,15,145,85,12,SS_CENTERIMAGE
-	EDITTEXT		IDC_POUT_LIMIT,110,145,56,12,ES_CENTER | ES_AUTOHSCROLL
-	CONTROL			"Spin1",IDC_POUT_SPIN,"msctls_updown32",UDS_AUTOBUDDY | UDS_ALIGNRIGHT | UDS_ARROWKEYS,165,145,8,12
-	EDITTEXT		IDC_POUT_MAX,175,145,40,12,ES_CENTER | ES_AUTOHSCROLL | ES_READONLY
-	EDITTEXT		IDC_POUT_TOTAL,220,145,55,12,ES_CENTER | ES_AUTOHSCROLL
-	CONTROL			"Spin1",IDC_POUT_SPIN2,"msctls_updown32",UDS_AUTOBUDDY | UDS_ALIGNRIGHT | UDS_ARROWKEYS,270,145,8,12
-	LTEXT			"Uploading:",IDC_STATIC,15,160,85,12,SS_CENTERIMAGE
-	EDITTEXT		IDC_UL_TOTAL,220,161,55,12,ES_CENTER | ES_AUTOHSCROLL
-	CONTROL			"Spin1",IDC_UL_SPIN2,"msctls_updown32",UDS_AUTOBUDDY | UDS_ALIGNRIGHT | UDS_ARROWKEYS,270,160,8,12
-	LTEXT			"Gnutella UDP:",IDC_STATIC,15,175,85,12,SS_CENTERIMAGE
-	EDITTEXT		IDC_UDP_TOTAL,220,175,55,12,ES_CENTER | ES_AUTOHSCROLL
-	CONTROL			"Spin1",IDC_UDP_SPIN2,"msctls_updown32",UDS_AUTOBUDDY | UDS_ALIGNRIGHT | UDS_ARROWKEYS,270,175,8,12
-	RTEXT			"Total Transmit: ",IDC_STATIC,110,190,105,12,SS_CENTERIMAGE
-	EDITTEXT		IDC_OUT_TOTAL,220,190,55,12,ES_CENTER | ES_AUTOHSCROLL | ES_READONLY
-END
+//IDD_SETTINGS_BANDWIDTH DIALOG  0, 0, 282, 220
+//STYLE DS_SETFONT | WS_CHILD | WS_DISABLED | WS_CAPTION
+//CAPTION "Bandwidth"
+//FONT 8, "Tahoma"
+//BEGIN
+//	LTEXT			"Receive Bandwidth:",IDC_HEAD_RECEIVE,5,5,95,12,SS_CENTERIMAGE
+//	CTEXT			"Per Connect",IDC_STATIC,110,5,56,12,SS_CENTERIMAGE
+//	CTEXT			"Max Connects",IDC_STATIC,170,5,50,12,SS_CENTERIMAGE
+//	CTEXT			"Total",IDC_STATIC,220,5,55,12,SS_CENTERIMAGE
+//	LTEXT			"From Gnutella Hubs:",IDC_HEAD_UP_1,15,20,85,12,SS_CENTERIMAGE
+//	EDITTEXT		IDC_UPIN_LIMIT,110,20,56,12,ES_CENTER | ES_AUTOHSCROLL
+//	CONTROL			"Spin1",IDC_UPIN_SPIN,"msctls_updown32",UDS_AUTOBUDDY | UDS_ALIGNRIGHT | UDS_ARROWKEYS,165,20,8,12
+//	EDITTEXT		IDC_UPIN_MAX,175,20,40,12,ES_CENTER | ES_AUTOHSCROLL | ES_READONLY
+//	EDITTEXT		IDC_UPIN_TOTAL,220,20,55,12,ES_CENTER | ES_AUTOHSCROLL
+//	CONTROL			"Spin1",IDC_UPIN_SPIN2,"msctls_updown32",UDS_AUTOBUDDY | UDS_ALIGNRIGHT | UDS_ARROWKEYS,270,20,8,12
+//	LTEXT			"From Gnutella Leafs:",IDC_STATIC,15,35,85,12,SS_CENTERIMAGE
+//	EDITTEXT		IDC_LIN_LIMIT,110,35,56,12,ES_CENTER | ES_AUTOHSCROLL
+//	CONTROL			"Spin1",IDC_LIN_SPIN,"msctls_updown32",UDS_AUTOBUDDY | UDS_ALIGNRIGHT | UDS_ARROWKEYS,165,35,8,12
+//	EDITTEXT		IDC_LIN_MAX,175,35,40,12,ES_CENTER | ES_AUTOHSCROLL | ES_READONLY
+//	EDITTEXT		IDC_LIN_TOTAL,220,35,55,12,ES_CENTER | ES_AUTOHSCROLL
+//	CONTROL			"Spin1",IDC_LIN_SPIN2,"msctls_updown32",UDS_AUTOBUDDY | UDS_ALIGNRIGHT | UDS_ARROWKEYS,270,35,8,12
+//	LTEXT			"Gnutella Peer to Peer:",IDC_STATIC,15,50,85,12,SS_CENTERIMAGE
+//	EDITTEXT		IDC_PIN_LIMIT,110,50,56,12,ES_CENTER | ES_AUTOHSCROLL
+//	CONTROL			"Spin1",IDC_PIN_SPIN,"msctls_updown32",UDS_AUTOBUDDY | UDS_ALIGNRIGHT | UDS_ARROWKEYS,165,50,8,12
+//	EDITTEXT		IDC_PIN_MAX,175,50,40,12,ES_CENTER | ES_AUTOHSCROLL | ES_READONLY
+//	EDITTEXT		IDC_PIN_TOTAL,220,50,55,12,ES_CENTER | ES_AUTOHSCROLL
+//	CONTROL			"Spin1",IDC_PIN_SPIN2,"msctls_updown32",UDS_AUTOBUDDY | UDS_ALIGNRIGHT | UDS_ARROWKEYS,270,50,8,12
+//	LTEXT			"Download Transfers:",IDC_STATIC,15,65,85,12,SS_CENTERIMAGE
+//	EDITTEXT		IDC_DL_TOTAL,220,65,55,12,ES_CENTER | ES_AUTOHSCROLL
+//	CONTROL			"Spin1",IDC_DL_SPIN2,"msctls_updown32",UDS_AUTOBUDDY | UDS_ALIGNRIGHT | UDS_ARROWKEYS,270,65,8,12
+//	RTEXT			"Total Receive: ",IDC_STATIC,110,80,105,12,SS_CENTERIMAGE
+//	EDITTEXT		IDC_IN_TOTAL,220,80,55,12,ES_CENTER | ES_AUTOHSCROLL | ES_READONLY
+//	LTEXT			"Transmit Bandwidth:",IDC_HEAD_TRANSMIT,5,100,95,12,SS_CENTERIMAGE
+//	CTEXT			"Per Connect",IDC_STATIC,110,100,56,12,SS_CENTERIMAGE
+//	CTEXT			"Max Connects",IDC_STATIC,170,100,50,12,SS_CENTERIMAGE
+//	CTEXT			"Total",IDC_STATIC,220,100,55,12,SS_CENTERIMAGE
+//	LTEXT			"To Gnutella Hubs:",IDC_HEAD_UP_2,15,115,85,12,SS_CENTERIMAGE
+//	EDITTEXT		IDC_UPOUT_LIMIT,110,115,56,12,ES_CENTER | ES_AUTOHSCROLL
+//	CONTROL			"Spin1",IDC_UPOUT_SPIN,"msctls_updown32",UDS_AUTOBUDDY | UDS_ALIGNRIGHT | UDS_ARROWKEYS,165,116,8,12
+//	EDITTEXT		IDC_UPOUT_MAX,175,116,40,12,ES_CENTER | ES_AUTOHSCROLL | ES_READONLY
+//	EDITTEXT		IDC_UPOUT_TOTAL,220,116,55,12,ES_CENTER | ES_AUTOHSCROLL
+//	CONTROL			"Spin1",IDC_UPOUT_SPIN2,"msctls_updown32",UDS_AUTOBUDDY | UDS_ALIGNRIGHT | UDS_ARROWKEYS,270,116,8,12
+//	LTEXT			"To Gnutella Leafs:",IDC_STATIC,15,130,85,12,SS_CENTERIMAGE
+//	EDITTEXT		IDC_LOUT_LIMIT,110,130,56,12,ES_CENTER | ES_AUTOHSCROLL
+//	CONTROL			"Spin1",IDC_LOUT_SPIN,"msctls_updown32",UDS_AUTOBUDDY | UDS_ALIGNRIGHT | UDS_ARROWKEYS,165,130,8,12
+//	EDITTEXT		IDC_LOUT_MAX,175,130,40,12,ES_CENTER | ES_AUTOHSCROLL | ES_READONLY
+//	EDITTEXT		IDC_LOUT_TOTAL,220,130,55,12,ES_CENTER | ES_AUTOHSCROLL
+//	CONTROL			"Spin1",IDC_LOUT_SPIN2,"msctls_updown32",UDS_AUTOBUDDY | UDS_ALIGNRIGHT | UDS_ARROWKEYS,270,130,8,12
+//	LTEXT			"Gnutella Peer to Peer:",IDC_STATIC,15,145,85,12,SS_CENTERIMAGE
+//	EDITTEXT		IDC_POUT_LIMIT,110,145,56,12,ES_CENTER | ES_AUTOHSCROLL
+//	CONTROL			"Spin1",IDC_POUT_SPIN,"msctls_updown32",UDS_AUTOBUDDY | UDS_ALIGNRIGHT | UDS_ARROWKEYS,165,145,8,12
+//	EDITTEXT		IDC_POUT_MAX,175,145,40,12,ES_CENTER | ES_AUTOHSCROLL | ES_READONLY
+//	EDITTEXT		IDC_POUT_TOTAL,220,145,55,12,ES_CENTER | ES_AUTOHSCROLL
+//	CONTROL			"Spin1",IDC_POUT_SPIN2,"msctls_updown32",UDS_AUTOBUDDY | UDS_ALIGNRIGHT | UDS_ARROWKEYS,270,145,8,12
+//	LTEXT			"Uploading:",IDC_STATIC,15,160,85,12,SS_CENTERIMAGE
+//	EDITTEXT		IDC_UL_TOTAL,220,161,55,12,ES_CENTER | ES_AUTOHSCROLL
+//	CONTROL			"Spin1",IDC_UL_SPIN2,"msctls_updown32",UDS_AUTOBUDDY | UDS_ALIGNRIGHT | UDS_ARROWKEYS,270,160,8,12
+//	LTEXT			"Gnutella UDP:",IDC_STATIC,15,175,85,12,SS_CENTERIMAGE
+//	EDITTEXT		IDC_UDP_TOTAL,220,175,55,12,ES_CENTER | ES_AUTOHSCROLL
+//	CONTROL			"Spin1",IDC_UDP_SPIN2,"msctls_updown32",UDS_AUTOBUDDY | UDS_ALIGNRIGHT | UDS_ARROWKEYS,270,175,8,12
+//	RTEXT			"Total Transmit: ",IDC_STATIC,110,190,105,12,SS_CENTERIMAGE
+//	EDITTEXT		IDC_OUT_TOTAL,220,190,55,12,ES_CENTER | ES_AUTOHSCROLL | ES_READONLY
+//END
 
 IDD_URL_EXPORT DIALOGEX 0, 0, 292, 129
 STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
@@ -1166,8 +1186,8 @@ BEGIN
 	PUSHBUTTON		"&Add",IDC_MEDIA_ADD,81,95,40,15
 	PUSHBUTTON		"&Remove",IDC_MEDIA_REMOVE,81,114,40,15
 	GROUPBOX		"Audio &Visualization Plugins:",IDC_STATIC,140,82,136,112
-	PUSHBUTTON		"&Select Plugin...",IDC_MEDIA_VIS,160,105,95,15
-	LTEXT			"Note:  For playback problems,\ninstall an updated 'Codec Pack'\n(Try Codecs.com)",IDC_STATIC,154,154,112,34
+	PUSHBUTTON		"&Select Plugin...",IDC_MEDIA_VIS,160,104,95,15
+	LTEXT			"Help:  For playback problems,\ninstall an updated 'Codec Pack'\n(Try Codecs.com) \n\nHint:  Hold Shift key when opening files for external default player.",IDC_STATIC,154,132,112,58
 END
 
 IDD_SETTINGS_LIBRARY DIALOGEX 0, 0, 282, 220
@@ -1270,7 +1290,7 @@ BEGIN
 	PUSHBUTTON		"&Add",IDC_EXT_ADD,85,129,44,15
 	PUSHBUTTON		"&Remove",IDC_EXT_REMOVE,85,148,44,15
 	GROUPBOX		"&WebHook Plugin:",IDC_STATIC,144,95,132,120,WS_GROUP
-	LTEXT			"The webhook download manager plugin will only attempt to download file types listed here.  Other file types will be handled by your web browser.  (PeerProject must be running to manage downloads.)",IDC_STATIC,150,130,120,70
+	LTEXT			"The webhook download manager plugin will only attempt to download file types listed here.  Other file types will be handled by your web browser.\n(PeerProject must be running to manage downloads.)",IDC_STATIC,150,130,120,70
 END
 
 IDD_PROFILE_IDENTITY DIALOG  0, 0, 282, 159
@@ -1289,8 +1309,7 @@ BEGIN
 	LTEXT			"Gender:",IDC_STATIC,15,86,35,12,SS_CENTERIMAGE
 	COMBOBOX		IDC_PROFILE_AGE,55,105,45,45,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
 	LTEXT			"Age:",IDC_STATIC,15,105,35,12,SS_CENTERIMAGE
-	CONTROL			"Allow others to browse my user profile",IDC_BROWSE_USER,
-					"Button",BS_AUTOCHECKBOX | WS_TABSTOP,5,140,260,12
+	CONTROL			"Allow others to browse my user profile",IDC_BROWSE_USER,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,5,140,260,12
 END
 
 IDD_PROFILE_FAVOURITES DIALOG  0, 0, 282, 159
@@ -1680,7 +1699,7 @@ BEGIN
 	EDITTEXT		IDC_REMOTE_USERNAME,102,95,94,12,ES_AUTOHSCROLL
 	EDITTEXT		IDC_REMOTE_PASSWORD,102,114,94,12,ES_PASSWORD | ES_AUTOHSCROLL
 	GROUPBOX		"Help:",IDC_STATIC,6,145,270,64
-	LTEXT			"PeerProject Remote Access allows you to leave PeerProject running on your PC, and control it remotely using a web browser.  You will need to be able to accept incoming connections to use this feature.  (Ensure port-forwarding.)",IDC_STATIC,18,162,246,36
+	LTEXT			"PeerProject Remote Access allows you to leave PeerProject running on your PC, and control it remotely using a web browser. \nYou must be able to accept incoming connections to use this feature.  (Ensure port-forwarding.)",IDC_STATIC,18,162,246,36
 END
 
 IDD_SETTINGS_SCHEDULER DIALOGEX 0, 0, 282, 220
@@ -2125,7 +2144,7 @@ BEGIN
 		LEFTMARGIN, 7
 		RIGHTMARGIN, 270
 		TOPMARGIN, 7
-		BOTTOMMARGIN, 167
+		BOTTOMMARGIN, 168
 	END
 
  	IDD_WIZARD_CONNECTION, DIALOG
@@ -2133,7 +2152,15 @@ BEGIN
 		LEFTMARGIN, 7
 		RIGHTMARGIN, 270
 		TOPMARGIN, 7
-		BOTTOMMARGIN, 167
+		BOTTOMMARGIN, 168
+	END
+
+ 	IDD_WIZARD_FOLDERS, DIALOG
+	BEGIN
+		LEFTMARGIN, 7
+		RIGHTMARGIN, 270
+		TOPMARGIN, 7
+		BOTTOMMARGIN, 168
 	END
 
  	IDD_WIZARD_SHARING, DIALOG
@@ -2141,7 +2168,7 @@ BEGIN
 		LEFTMARGIN, 7
 		RIGHTMARGIN, 270
 		TOPMARGIN, 7
-		BOTTOMMARGIN, 167
+		BOTTOMMARGIN, 168
 	END
 
  	IDD_WIZARD_PROFILE, DIALOG
@@ -2149,7 +2176,7 @@ BEGIN
 		LEFTMARGIN, 7
 		RIGHTMARGIN, 270
 		TOPMARGIN, 7
-		BOTTOMMARGIN, 167
+		BOTTOMMARGIN, 168
 	END
 
  	IDD_WIZARD_INTERFACE, DIALOG
@@ -2157,7 +2184,7 @@ BEGIN
 		LEFTMARGIN, 7
 		RIGHTMARGIN, 270
 		TOPMARGIN, 7
-		BOTTOMMARGIN, 166
+		BOTTOMMARGIN, 168
 	END
 
  	IDD_WIZARD_NETWORKS, DIALOG
@@ -2165,7 +2192,7 @@ BEGIN
 		LEFTMARGIN, 7
 		RIGHTMARGIN, 270
 		TOPMARGIN, 7
-		BOTTOMMARGIN, 167
+		BOTTOMMARGIN, 168
 	END
 
  	IDD_WIZARD_FINISHED, DIALOG
@@ -2173,7 +2200,7 @@ BEGIN
 		LEFTMARGIN, 7
 		RIGHTMARGIN, 270
 		TOPMARGIN, 7
-		BOTTOMMARGIN, 167
+		BOTTOMMARGIN, 168
 	END
 
  	IDD_FOLDER_SCAN, DIALOG
@@ -2252,13 +2279,13 @@ BEGIN
 		BOTTOMMARGIN, 138
 	END
 
- 	IDD_SETTINGS_BANDWIDTH, DIALOG
-	BEGIN
-		LEFTMARGIN, 7
-		RIGHTMARGIN, 275
-		TOPMARGIN, 7
-		BOTTOMMARGIN, 213
-	END
+//	IDD_SETTINGS_BANDWIDTH, DIALOG
+//	BEGIN
+//		LEFTMARGIN, 7
+//		RIGHTMARGIN, 275
+//		TOPMARGIN, 7
+//		BOTTOMMARGIN, 213
+//	END
 
  	IDD_URL_EXPORT, DIALOG
 	BEGIN

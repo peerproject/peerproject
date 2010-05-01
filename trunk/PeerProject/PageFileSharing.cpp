@@ -1,7 +1,7 @@
 //
 // PageFileSharing.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -109,11 +109,11 @@ BOOL CFileSharingPage::OnInitDialog()
 	{
 		CQuickLock oLock( Library.m_pSection );
 
-		if ( CLibraryFile* pFile = GetFile() )
+		if ( CLibraryFile* pSingleFile = GetFile() )
 		{
-			m_bOverride	= pFile->IsSharedOverride();
-			m_bShare	= pFile->IsShared();
-			m_sTags		= pFile->m_sShareTags;
+			m_bOverride	= pSingleFile->IsSharedOverride();
+			m_bShare	= pSingleFile->IsShared();
+			m_sTags		= pSingleFile->m_sShareTags;
 		}
 		else if ( CLibraryList* pList = GetList() )
 		{

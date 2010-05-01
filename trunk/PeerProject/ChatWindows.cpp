@@ -1,7 +1,7 @@
 //
 // ChatWindows.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -134,9 +134,7 @@ CPrivateChatFrame* CChatWindows::FindED2KFrame(SOCKADDR_IN* pAddress)
 		if ( pFrame->IsKindOf( RUNTIME_CLASS(CPrivateChatFrame) ) )
 		{
 			if ( ( strHighID == pFrame->m_sNick ) && ( pFrame->m_pSession == NULL ) )
-			{
 				return pFrame;
-			}
 		}
 	}
 
@@ -146,7 +144,6 @@ CPrivateChatFrame* CChatWindows::FindED2KFrame(SOCKADDR_IN* pAddress)
 CPrivateChatFrame* CChatWindows::FindED2KFrame(DWORD nClientID, SOCKADDR_IN* pServerAddress)
 {
 	// For Low ID clients
-
 	if ( ( nClientID > 0 ) && ( nClientID < 16777216 ) )  // ED2K Low ID
 	{
 		CString strLowID;
@@ -162,9 +159,7 @@ CPrivateChatFrame* CChatWindows::FindED2KFrame(DWORD nClientID, SOCKADDR_IN* pSe
 			if ( pFrame->IsKindOf( RUNTIME_CLASS(CPrivateChatFrame) ) )
 			{
 				if ( ( strLowID == pFrame->m_sNick ) && ( pFrame->m_pSession == NULL ) )
-				{
 					return pFrame;
-				}
 			}
 		}
 	}
@@ -196,9 +191,7 @@ CPrivateChatFrame* CChatWindows::OpenPrivate(const Hashes::Guid& oGUID, SOCKADDR
 {
 	CPrivateChatFrame* pFrame = NULL;
 
-	ASSERT ( pHost != NULL );
-
-	if ( ( nProtocol == PROTOCOL_BT ) || ( nProtocol == PROTOCOL_FTP ) )
+	if ( nProtocol == PROTOCOL_BT || nProtocol == PROTOCOL_FTP )
 		return NULL;
 
 	if ( ! MyProfile.IsValid() )
@@ -251,8 +244,10 @@ CPrivateChatFrame* CChatWindows::OpenPrivate(const Hashes::Guid& oGUID, SOCKADDR
 		// Check for an empty frame
 		if ( pFrame == NULL )
 		{
-			if ( bMustPush ) pFrame = FindED2KFrame( pHost->sin_addr.S_un.S_addr, pServer );
-			else pFrame = FindED2KFrame( pHost );
+			if ( bMustPush )
+				pFrame = FindED2KFrame( pHost->sin_addr.S_un.S_addr, pServer );
+			else
+				pFrame = FindED2KFrame( pHost );
 		}
 		if ( pFrame != NULL )
 		{
@@ -294,8 +289,10 @@ CPrivateChatFrame* CChatWindows::OpenPrivate(const Hashes::Guid& oGUID, SOCKADDR
 		return pFrame;
 	}
 
-	if ( oGUID ) pFrame = FindPrivate( oGUID );
-	if ( pFrame == NULL ) pFrame = FindPrivate( &pHost->sin_addr );
+	if ( oGUID )
+		pFrame = FindPrivate( oGUID );
+	if ( pFrame == NULL )
+		pFrame = FindPrivate( &pHost->sin_addr );
 
 	if ( pFrame == NULL )
 	{
@@ -318,10 +315,12 @@ CPrivateChatFrame* CChatWindows::OpenPrivate(const Hashes::Guid& oGUID, SOCKADDR
 
 void CChatWindows::Add(CChatFrame* pFrame)
 {
-	if ( m_pList.Find( pFrame ) == NULL ) m_pList.AddTail( pFrame );
+	if ( m_pList.Find( pFrame ) == NULL )
+		m_pList.AddTail( pFrame );
 }
 
 void CChatWindows::Remove(CChatFrame* pFrame)
 {
-	if ( POSITION pos = m_pList.Find( pFrame ) ) m_pList.RemoveAt( pos );
+	if ( POSITION pos = m_pList.Find( pFrame ) )
+		m_pList.RemoveAt( pos );
 }

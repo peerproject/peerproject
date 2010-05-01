@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <skin xmlns="http://schemas.peerproject.org/Skin.xsd" version="1.0">
 
 <!-- PeerProject Default Japanese Skin File -->
 
-<!-- Translation based on default-en.xml r52 (Shareaza 2.2.0.2) -->
+<!-- Translation based on default-en.xml r54 (Shareaza 2.2.0.2) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1823,6 +1823,9 @@
 		<link target="peer:page:CCommunitySettingsPage" format="b">コミュニティ:</link>
 		<text>&#160;プロフィール、チャット、そしてインスタントメッセージの設定を行います。</text>
 		<newline gap="10"/>
+		<link target="peer:page:CRemoteSettingsPage" format="b">リモート:</link>
+		<text>&#160;ウェブブラウザを通してPeerProjectを遠隔操作する為の設定を行います。</text>
+		<newline gap="10"/>
 		<link target="peer:page:CWebSettingsPage" format="b">ウェブ:</link>
 		<text>&#160;PeerProjectとウェブブラウザを統合してピア・ツー・ピアリンクを受け付け、その内容を ダウンロードすることが出来ます。</text>
 	</document>
@@ -1842,9 +1845,6 @@
 		<newline gap="10"/>
 		<link target="peer:page:CUploadsSettingsPage" format="b">アップロード:</link>
 		<text>&#160;アップロード容量、キュー、BAN(禁止)処理、タイムアウトや特別な要求等の 管理を行います。</text>
-		<newline gap="10"/>
-		<link target="peer:page:CRemoteSettingsPage" format="b">リモート:</link>
-		<text>&#160;ウェブブラウザを通してPeerProjectを遠隔操作する為の設定を行います。</text>
 		<newline gap="10"/>
 		<link target="peer:page:CSchedulerSettingsPage" format="b">Scheduler:</link>
 		<text>&#160;Limit download connections based on a periodic schedule.</text>
@@ -2561,8 +2561,8 @@
 	<string id="8071" value="接続済み"/>
 	<string id="8072" value="切断"/>
 	<string id="8096" value="この領域は選択したファイルに関する詳細な情報を表示します"/>
-	<string id="8097" value="ひとつのソースが利用可能です (%s)"/>
-	<string id="8098" value="%i ソースが利用可能です (%s)"/>
+	<string id="8097" value="ひとつのソースが利用可能です. (%s/s)"/>
+	<string id="8098" value="%i ソースが利用可能です. (%s/s)"/>
 	<string id="8099" value="ひとつのレビューがあります"/>
 	<string id="8100" value="%i レビューがあります"/>
 	<string id="8101" value="%s 記述:"/>
@@ -2754,7 +2754,7 @@
 	<string id="16264" value="%s ポート %i (&quot;%s&quot;のダウンロード用)との接続を初期化中..."/>
 	<string id="16265" value="ダウンロードホスト %s と接続できません"/>
 	<string id="16266" value="%s とのダウンロード接続が確立しました"/>
-	<string id="16267" value="ダウンロードフラグメント (%I64i-%I64i ,ファイル: &quot;%s&quot; ,ダウンロード元: %s)を要求中です..."/>
+	<string id="16267" value="ダウンロードフラグメント (%I64u-%I64u ,ファイル: &quot;%s&quot; ,ダウンロード元: %s)を要求中です..."/>
 	<string id="16268" value="これ以上のダウンロードフラグメントはありません。%s との接続を閉じています"/>
 	<string id="16269" value="フラグメントが短縮されています。%s との接続を閉じています"/>
 	<string id="16270" value="%s へのダウンロード要求が時間切れになりました。接続を閉じています"/>
@@ -3204,19 +3204,19 @@
 </strings>
 <!-- Localized Dialog Text, "cookie" verifies that the skin matches current dialog -->
 <dialogs>
-	<dialog name="CGeneralSettingsGroup" cookie="" caption="一般">
-	</dialog>
-	<dialog name="CSettingSheet" cookie="SyBuBuBu#3" caption="PeerProject設定">
+	<dialog name="CSettingSheet" cookie="SyBuBuBu" caption="PeerProject設定">
 		<control/>
 		<control caption="OK"/>
 		<control caption="キャンセル"/>
 		<control caption="適用"/>
 		<control/>
 	</dialog>
+	<dialog name="CGeneralSettingsGroup" cookie="Af" caption="一般"/>
+	<dialog name="CInternetSettingsGroup" cookie="Af" caption="インターネット"/>
 	<dialog name="CGeneralSettingsPage" cookie="BuBuBuBuBuBuBuBuStCoBuBuBuBuBuBuSyStEdmsStmsBuBuStCoStCo" caption="一般">
 		<control caption="一般:"/>
-		<control caption="PeerProject起動時に自動接続する"/>
 		<control caption="Windows起動時にPeerProjectを開始"/>
+		<control caption="PeerProject起動時に自動接続する"/>
 		<control caption="URIを開く前に確認する"/>
 		<control caption="Check for updates"/>
 		<control caption="ダウンロード:"/>
@@ -3313,8 +3313,6 @@
 		<control caption="追加(_A)"/>
 		<control caption="削除(_R)"/>
 		<control caption="ダウンロードマネージャプラグインはここにリストされた種類のファイルだけをダウンロードします。他のファイルタイプのダウンロードにはウェブブラウザが使用されることになります。ダウンロードを処理するためにはPeerProjectを起動していなければなりません"/>
-	</dialog>
-	<dialog name="CInternetSettingsGroup" caption="インターネット">
 	</dialog>
 	<dialog name="CConnectionSettingsPage" cookie="BuStCoStCoStEdBuBuBuStCoStCoBuStCoBuBuBuStEdmsStEdms" caption="接続">
 		<control caption="入力アドレス:"/>
@@ -3547,15 +3545,13 @@
 		<control caption="設定..."/>
 		<control caption="更に追加"/>
 	</dialog>
-	<dialog name="CAdvancedSettingsPage" cookie="SyEdmsBuBuStStEd" caption="高度設定">
+	<dialog name="CAdvancedSettingsPage" cookie="SyEdmsBuBuSt" caption="高度設定">
 		<control/>
 		<control/>
 		<control/>
 		<control caption="Set Default"/>
 		<control caption="設定プロパティ:"/>
 		<control caption="値:"/>
-		<control caption="説明:"/>
-		<control/>
 	</dialog>
 	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="プロトコル">
 		<control caption="PeerProject一般プロトコル構造エクスプローラ:"/>
@@ -3602,7 +3598,7 @@
 		<control caption="キャンセル"/>
 		<control caption="アップローダに報いる"/>
 	</dialog>
-	<dialog name="CWizardWelcomePage" cookie="StStStStStStStStStStStSt" caption="PeerProjectへようこそ">
+	<dialog name="CWizardWelcomePage" cookie="StStStStStStStStStStStSt" caption="PeerProjectへようこそ (1/8)">
 		<control caption="PeerProjectへようこそ!"/>
 		<control caption="もしあなたがこれまでにPeerProjectや他のP2Pクライアントを使用した経験がないなら、このクイックスタートウィザードはいくつかのステップを通してPeerProjectの設定を構成するお手伝いをします。"/>
 		<control caption="もしあなたが経験豊富なP2Pユーザーなら、ツールメニューからPeerProjectのオプション全てにアクセスすることができます。 ”終了”ボタンをクリックすればウィザードをいつでも終了できます。"/>
@@ -3616,7 +3612,7 @@
 		<control/>
 		<control caption="PeerProjectの開始"/>
 	</dialog>
-	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="PeerProjectへようこそ (1/6)]">
+	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="PeerProjectへようこそ (2/8)">
 		<control caption="最適な性能を得る為、あなたのインターネット接続についての情報をいくつかPeerProjectに提供する必要があります。"/>
 		<control caption="以下の中からあなたが使用しているインターネットの接続を選択して下さい:"/>
 		<control caption="ダイヤルアップモデム|ISDN (128K)|DSL (768K)|DSL (1.5M)|DSL (4.0M)|DSL2 (8.0M)|FIOS (10.0M)|DSL2 (12.0M)|FIOS (20.0M)|DSL2+ (24.0M)| ケーブルモデム/SDSL| T1| T3| LAN| OC3"/>
@@ -3632,7 +3628,30 @@
 		<control caption="状態:"/>
 		<control/>
 	</dialog>
-	<dialog name="CWizardSharePage" cookie="StStStSyBuBuSt" caption="PeerProjectへようこそ (2/6)">
+	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuStBu" caption="PeerProjectへようこそ (3/8)">
+		<control caption="PeerProjectは複数のP2Pネットワークへ同時にアクセスできる汎用ファイル共有アプリケーションです。 このページではあなたがどのP2Pネットワークに接続するかを選択することができます。 ここで選択しなかったとしても、後でいつでも別のネットワークを選択できることを覚えておいて下さい。"/>
+		<control caption="Gnutella2に接続 (推奨)"/>
+		<control caption="Gnutella2ネットワークは他のどんなP2Pネットワークよりも機能・処理能力があり、PeerProjectの主力ネットワークとなっています"/>
+		<control caption="オリジナルGnutellaに接続"/>
+		<control caption="オリジナルGnutellaネットワークはGnutella程機能もなく、eDonkey2000より共有量も少ないですが、それでもまだ貴重なリソースを得ることができます。"/>
+		<control caption="eDonkey2000に接続"/>
+		<control caption="eDonkeyネットワークは典型的なサーバーベースのネットワークです。 機能的にはGnutella2ほど豊富ではありませんが、興味深いファイルの共有があります。"/>
+		<control caption="BitTorrentリンクを処理する"/>
+	</dialog>
+	<dialog name="CWizardFoldersPage" cookie="StStEdBuStEdBuStEdBuSt" caption="PeerProjectへようこそ (4/8)">
+		<control caption="PeerProject first downloads partial files to a private folder, then moves them when completed according to Download Groups."/>
+		<control caption="完了ファイルの保存先:"/>
+		<control/>
+		<control/>
+		<control caption="未完了ファイルの保存先:"/>
+		<control/>
+		<control/>
+		<control caption="Store .Torrent files here:"/>
+		<control/>
+		<control/>
+		<control caption="Common filetypes are initially setup as subfolders of the default location, but Groups can easily be customized by Right-Click.  Simply Drag&apos;n&apos;Drop files."/>
+	</dialog>
+	<dialog name="CWizardSharePage" cookie="StStStSyBuBuSt" caption="PeerProjectへようこそ (5/8)">
 		<control caption="P2Pネットワークはその使用者によって成り立っています。 ダウンロードできる全てのファイルは世界中のユーザによって共有されているものです。"/>
 		<control caption="PeerProjectを使用時に必ずしもファイルを共有する必要はありませんが、いくつかのソフトウェアは共有しないユーザーに対して何らかのペナルティを与えることもあります。"/>
 		<control caption="共有する場合はそのフォルダを指定して下さい。 やり方は単に追加ボタンをクリックして共有するフォルダを選択するだけです。"/>
@@ -3650,18 +3669,7 @@
 		<control caption="0"/>
 		<control caption="閉じる"/>
 	</dialog>
-	<dialog name="CWizardProfilePage" cookie="StStEdStCoCoStCoCo" caption="PeerProjectへようこそ (3/6)">
-		<control caption="全てのユーザが自分自身についての基本的な情報を入力しておくと、PeerProjectは更に親しみの持てる場所となります。"/>
-		<control caption="名前:"/>
-		<control/>
-		<control caption="年齢と性別:"/>
-		<control caption="&#160;(選択)"/>
-		<control caption="&#160;(選択)| 少年| 少女| 男性| 女性"/>
-		<control caption="住所:"/>
-		<control/>
-		<control/>
-	</dialog>
-	<dialog name="CWizardInterfacePage" cookie="StBuBuBuStStBuSt" caption="PeerProjectへようこそ (4/6)">
+	<dialog name="CWizardInterfacePage" cookie="StBuBuBuStStBuSt" caption="PeerProjectへようこそ (6/8)">
 		<control caption="PeerProjectは複数のユーザーインターフェースをサポートしている為、 その中からあなたに相応しいものを選択することができ、これらのオプションは後で何時でも変更することができます"/>
 		<control caption="ユーザーインターフェースを選択して下さい:"/>
 		<control caption="素人モード"/>
@@ -3671,15 +3679,27 @@
 		<control caption="ダウンロード進行バーの表示を簡素化"/>
 		<control caption=""/>
 	</dialog>
-	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuStBu" caption="PeerProjectへようこそ (5/6)">
-		<control caption="PeerProjectは複数のP2Pネットワークへ同時にアクセスできる汎用ファイル共有アプリケーションです。 このページではあなたがどのP2Pネットワークに接続するかを選択することができます。 ここで選択しなかったとしても、後でいつでも別のネットワークを選択できることを覚えておいて下さい。"/>
-		<control caption="Gnutella2に接続 (推奨)"/>
-		<control caption="Gnutella2ネットワークは他のどんなP2Pネットワークよりも機能・処理能力があり、PeerProjectの主力ネットワークとなっています"/>
-		<control caption="オリジナルGnutellaに接続"/>
-		<control caption="オリジナルGnutellaネットワークはGnutella程機能もなく、eDonkey2000より共有量も少ないですが、それでもまだ貴重なリソースを得ることができます。"/>
-		<control caption="eDonkey2000に接続"/>
-		<control caption="eDonkeyネットワークは典型的なサーバーベースのネットワークです。 機能的にはGnutella2ほど豊富ではありませんが、興味深いファイルの共有があります。"/>
-		<control caption="BitTorrentリンクを処理する"/>
+	<dialog name="CWizardProfilePage" cookie="StStEdStCoCoStCoStCoStEd" caption="PeerProjectへようこそ (7/8)">
+		<control caption="全てのユーザが自分自身についての基本的な情報を入力しておくと、PeerProjectは更に親しみの持てる場所となります。"/>
+		<control caption="名前:"/>
+		<control/>
+		<control caption="年齢と性別:"/>
+		<control caption="&#160;(選択)"/>
+		<control caption="&#160;(選択)| 少年| 少女| 男性| 女性"/>
+		<control caption="住所:"/>
+		<control/>
+		<control caption="Locale:"/>
+		<control/>
+		<control caption="Comments:"/>
+		<control/>
+	</dialog>
+	<dialog name="CWizardFinishedPage" cookie="StStStBuBuSt" caption="PeerProjectへようこそ (8/8)">
+		<control caption="完了しました！ あなたのコンピュータ内でPeerProjectが正常に動作するように構成されました。"/>
+		<control caption="後で設定を変更する必要がある場合には、ツールメニューからクイックスタートウィザードを選択することでこのウィザードをやり直すことができます"/>
+		<control caption="完了をクリックしてこのウィザードを終了させた後は、選択したネットワークに接続してファイルを検索し、そのダウンロードを開始することができます"/>
+		<control caption="Windows起動時に常時PeerProjectを開始する"/>
+		<control caption="PeerProject起動時に常時ネットワークへ接続する"/>
+		<control caption="それでは素敵なPeerProjectライフを楽しんで下さい!"/>
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="eDonkey2000ダウンロードのインポート">
 		<control/>
@@ -3689,16 +3709,7 @@
 		<control/>
 		<control caption="閉じる"/>
 	</dialog>
-	<dialog name="CWizardFinishedPage" cookie="StStStBuBuBuSt" caption="PeerProjectへようこそ (6/6)">
-		<control caption="完了しました！ あなたのコンピュータ内でPeerProjectが正常に動作するように構成されました。"/>
-		<control caption="後で設定を変更する必要がある場合には、ツールメニューからクイックスタートウィザードを選択することでこのウィザードをやり直すことができます"/>
-		<control caption="完了をクリックしてこのウィザードを終了させた後は、選択したネットワークに接続してファイルを検索し、そのダウンロードを開始することができます"/>
-		<control caption="このウィザードを終了後すぐにネットワークへ接続する"/>
-		<control caption="PeerProject起動時に常時ネットワークへ接続する"/>
-		<control caption="Windows起動時に常時PeerProjectを開始する"/>
-		<control caption="それでは素敵なPeerProjectライフを楽しんで下さい!"/>
-	</dialog>
-	<dialog name="CProfileManagerDlg" cookie="SyBuBuBu#3" caption="プロフィールを編集">
+	<dialog name="CProfileManagerDlg" cookie="SyBuBuBu" caption="プロフィールを編集">
 		<control/>
 		<control caption="OK"/>
 		<control caption="キャンセル"/>
@@ -3794,7 +3805,7 @@
 		<control/>
 		<control/>
 		<control caption="ネットワークプロトコル:"/>
-		<control caption="Gnutella1 (自動)|Gnutella2 (自動)|eDonkey2000"/>
+		<control caption="Gnutella (自動)|Gnutella2 (自動)|eDonkey2000"/>
 		<control caption="ウルトラピア圧縮(_U)"/>
 		<control caption="接続"/>
 		<control caption="キャンセル"/>
@@ -3816,35 +3827,35 @@
 		<control caption="検索"/>
 		<control caption="キャンセル"/>
 	</dialog>
-	<dialog name="CFilterSearchDlg" cookie="BuEdBuStBuStEdStEdStEdmsStBuBuBuBuBuBuBuBuBuBuBuCoBuBuBuBuBu" caption="フィルタ一致">
+	<dialog name="CFilterSearchDlg" cookie="BuEdBuStBuStEdStEdStEdmsBuBuBuBuBuBuBuBuBuBuBuBuBuCoBuBuBuBuBu" caption="フィルタ一致">
 		<control caption="フィルタに一致させようとする単語を入力して下さい:"/>
 		<control/>
 		<control caption="Reg. Exp."/>
-		<control caption="( -単語 で除外設定を行うことが出来ます )"/>
+		<control caption="(-単語 で除外設定を行うことが出来ます)"/>
 		<control caption="サイズ指定:"/>
 		<control caption="最小:"/>
 		<control/>
 		<control caption="最大:"/>
 		<control/>
-		<control caption="少なくとも:"/>
+		<control caption="少なくとも ソース:"/>
 		<control/>
 		<control/>
-		<control caption="ソース"/>
 		<control caption="非表示:"/>
-		<control caption="ビジー状態のホスト"/>
-		<control caption="FW/プッシュ ホスト"/>
-		<control caption="不安定なホスト"/>
-		<control caption="一致しないファイル"/>
 		<control caption="既に所有しているファイル"/>
-		<control caption="役に立たない結果"/>
-		<control caption="DRMファイル"/>
-		<control caption="アダルトファイル"/>
+		<control caption="一致しないファイル"/>
 		<control caption="不審なファイル"/>
+		<control caption="Restrictedファイル"/>
+		<control caption="DRMファイル"/>
+		<control caption="FW/プッシュ ホスト"/>
+		<control caption="ビジー状態のホスト"/>
+		<control caption="不安定なホスト"/>
+		<control caption="役に立たない結果"/>
+		<control caption="アダルトファイル"/>
 		<control caption="フィルタ:"/>
 		<control/>
 		<control caption="デフォルトに設定"/>
-		<control caption="新規保存(_S)"/>
-		<control caption="削除(_D)"/>
+		<control caption="新規保存"/>
+		<control caption="削除"/>
 		<control caption="フィルタ"/>
 		<control caption="キャンセル"/>
 	</dialog>
@@ -3928,15 +3939,15 @@
 		<control caption="削除(_R)"/>
 		<control/>
 	</dialog>
-	<dialog name="CFileCopyDlg" cookie="StStmsBuBumsStSt" caption="ファイルコピー|ファイル移動">
+	<dialog name="CFileCopyDlg" cookie="StStStmsmsStBuBu" caption="ファイルコピー|ファイル移動">
 		<control caption="選択した %i ファイルを以下のフォルダにコピーします:"/>
+		<control caption="選択した %i ファイルを以下のフォルダに移動します:"/>
 		<control/>
 		<control/>
-		<control caption="OK"/>
-		<control caption="キャンセル"/>
 		<control/>
 		<control caption="準備完了..."/>
-		<control caption="選択した %i ファイルを以下のフォルダに移動します:"/>
+		<control caption="OK"/>
+		<control caption="キャンセル"/>
 	</dialog>
 	<dialog name="CFolderPropertiesDlg" cookie="StEdStCoBuStBuBu" caption="アルバムフォルダプロパティ">
 		<control caption="アルバムフォルダタイトル:"/>
@@ -4460,4 +4471,4 @@
 		<column from="Order" to="順番"/>
 	</list>
 </listColumns>
-</skin>ꙃ
+</skin>

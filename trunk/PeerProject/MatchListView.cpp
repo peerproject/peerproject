@@ -1,7 +1,7 @@
 //
 // MatchListView.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -87,25 +87,17 @@ void CMatchListView::GetNext(POSITION& pos, CMatchFile** ppFile, CQueryHit** ppH
 	if ( ppFile != NULL )
 	{
 		if ( pItem && m_pList->m_pSelectedFiles.Find( static_cast< CMatchFile* >( pItem ) ) )
-		{
 			*ppFile = static_cast< CMatchFile* >( pItem );
-		}
 		else
-		{
 			*ppFile = NULL;
-		}
 	}
 
 	if ( ppHit != NULL )
 	{
 		if ( pItem && m_pList->m_pSelectedHits.Find( static_cast< CQueryHit* >( pItem ) ) )
-		{
 			*ppHit = static_cast< CQueryHit* >( pItem );
-		}
 		else
-		{
 			*ppHit = NULL;
-		}
 	}
 }
 
@@ -117,7 +109,7 @@ IMPLEMENT_DISPATCH(CMatchListView, GenericView)
 STDMETHODIMP CMatchListView::XGenericView::get_Name(BSTR FAR* psName)
 {
 	METHOD_PROLOGUE( CMatchListView, GenericView )
-	pThis->m_sName.SetSysString( psName );
+	*psName = CComBSTR( pThis->m_sName ).Detach();
 	return S_OK;
 }
 
@@ -196,10 +188,13 @@ STDMETHODIMP CMatchListView::XEnumVARIANT::Next(ULONG celt, VARIANT FAR* rgvar, 
 {
 	METHOD_PROLOGUE( CMatchListView, EnumVARIANT )
 
-	if ( pceltFetched ) *pceltFetched = 0;
-	else if ( celt > 1 ) return E_INVALIDARG;
+	if ( pceltFetched )
+		*pceltFetched = 0;
+	else if ( celt > 1 )
+		return E_INVALIDARG;
 
-	if ( m_pos == NULL ) return S_FALSE;
+	if ( m_pos == NULL )
+		return S_FALSE;
 
 	VariantInit( &rgvar[0] );
 
@@ -226,7 +221,8 @@ STDMETHODIMP CMatchListView::XEnumVARIANT::Skip(ULONG celt)
 {
     METHOD_PROLOGUE( CMatchListView, EnumVARIANT )
 
-	while ( celt-- && m_pos ) pThis->GetNext( m_pos, NULL, NULL );
+	while ( celt-- && m_pos )
+		pThis->GetNext( m_pos, NULL, NULL );
 
     return ( celt == 0 ? S_OK : S_FALSE );
 }

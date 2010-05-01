@@ -1,7 +1,7 @@
 //
 // WndSettingsSheet.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2006.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -61,7 +61,8 @@ CSettingsSheet::CSettingsSheet(CWnd* pParent, UINT nCaptionID) :
 	, m_bModified		( FALSE )
 	, m_nButtonHeight	( 20 )
 {
-	if ( nCaptionID ) m_sCaption.LoadString( nCaptionID );
+	if ( nCaptionID )
+		LoadString( m_sCaption, nCaptionID );
 }
 
 CSettingsSheet::~CSettingsSheet()
@@ -251,7 +252,7 @@ BOOL CSettingsSheet::OnInitDialog()
 	CRect rect;
 	m_wndTree.Create( WS_CHILD|WS_TABSTOP|WS_VISIBLE|/*TVS_PRIVATEIMAGELISTS|*/
 		TVS_FULLROWSELECT |TVS_SHOWSELALWAYS|TVS_TRACKSELECT|TVS_NOSCROLL, rect, this, IDC_SETTINGS_TREE );
-		// ToDo: Use TVS_NOHSCROLL instead to add vertical scrollbar to Settings TreeView
+		// ToDo: If needed, use TVS_NOHSCROLL instead to add vertical scrollbar to Settings TreeView
 	m_wndTree.SetIndent( 16 );
 
 	m_wndOK.Create( _T("OK"), WS_CHILD|WS_TABSTOP|WS_VISIBLE|BS_DEFPUSHBUTTON, rect, this, IDOK );
@@ -264,7 +265,7 @@ BOOL CSettingsSheet::OnInitDialog()
 	Layout();
 	CenterWindow();
 
-	if ( m_pFirst == NULL ) m_pFirst = GetPage( INT_PTR(0) );
+	if ( ! m_pFirst ) m_pFirst = GetPage( INT_PTR(0) );
 	SetActivePage( m_pFirst );
 
 	BuildTree();
@@ -356,7 +357,12 @@ BOOL CSettingsSheet::CreatePage(CSettingsPage* pPage)
 	rc.right	= rc.left + m_szPages.cx;
 	rc.bottom	= rc.top  + m_szPages.cy;
 
-	return pPage->Create( rc, this );
+	if ( ! pPage->Create( rc, this ) )
+		return FALSE;
+
+	pPage->OnSkinChange();
+
+	return TRUE;
 }
 
 //void CSettingsSheet::OnTreeExpanding(NMHDR* /*pNotify*/, LRESULT *pResult)
