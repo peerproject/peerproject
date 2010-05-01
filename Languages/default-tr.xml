@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <skin xmlns="http://schemas.peerproject.org/Skin.xsd" version="1.0">
 
 <!-- PeerProject Default Turkish Skin File -->
 
-<!-- Translation based on default-en.xml r52 -->
+<!-- Translation based on default-en.xml r54 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -83,7 +83,7 @@
 		<button id="ID_SEARCH_DOWNLOAD" text="İndir"/>
 		<button id="ID_BROWSE_LAUNCH" text="Kullanıcı Ara"/>
 		<rightAlign/>
-		<button id="ID_SEARCH_FILTER_RAW" text="Filtre:" tip="Filtrelenen sonuçlarla bazı kelime türleri "/>
+		<button id="ID_SEARCH_FILTER_RAW" text="Filtre:" tip="Filtrelenen sonuçlarla bazı kelime türleri"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
 		<button id="ID_SEARCH_DETAILS" text="Ayrıntıları Göster"/>
@@ -94,7 +94,7 @@
 		<button id="ID_BROWSE_LAUNCH" text="Kullanıcı Ara"/>
 		<button id="ID_SECURITY_BAN" text="Ban"/>
 		<rightAlign/>
-		<button id="ID_SEARCH_FILTER_RAW" text="Filtre:" tip="Filtrelenen sonuçlarla bazı kelime türleri "/>
+		<button id="ID_SEARCH_FILTER_RAW" text="Filtre:" tip="Filtrelenen sonuçlarla bazı kelime türleri"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
 		<button id="ID_SEARCH_DETAILS" text="Ayrıntıları Göster"/>
@@ -102,13 +102,13 @@
 	</toolbar>
 	<toolbar name="CSearchWnd.Full">
 		<button id="ID_SEARCH_SEARCH" text="Tekrar Ara..."/>
-		<button id="ID_SEARCH_STOP" text="Aramayı Durdur "/>
+		<button id="ID_SEARCH_STOP" text="Aramayı Durdur"/>
 		<separator/>
 		<button id="ID_SEARCH_DOWNLOAD" text="İndirme"/>
 		<button id="ID_BROWSE_LAUNCH" text="Kullanıcı Ara"/>
 		<button id="ID_SECURITY_BAN" text="Ban"/>
 		<rightAlign/>
-		<button id="ID_SEARCH_FILTER_RAW" text="Filtre:" tip="Filtrelenen sonuçlarla bazı kelime türleri "/>
+		<button id="ID_SEARCH_FILTER_RAW" text="Filtre:" tip="Filtrelenen sonuçlarla bazı kelime türleri"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
 		<button id="ID_SEARCH_DETAILS" text="Ayrıntıları Göster"/>
@@ -127,7 +127,7 @@
 		<button id="ID_SEARCH_DOWNLOAD" text="Dosya İndir"/>
 		<button id="ID_SEARCH_CHAT" text="Sohbet"/>
 		<rightAlign/>
-		<button id="ID_SEARCH_FILTER_RAW" text="Filtre:" tip="Filtrelenen sonuçlarla bazı kelime türleri "/>
+		<button id="ID_SEARCH_FILTER_RAW" text="Filtre:" tip="Filtrelenen sonuçlarla bazı kelime türleri"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
 		<button id="ID_SEARCH_DETAILS" text="Ayrıntıları Göster"/>
@@ -139,7 +139,7 @@
 		<separator/>
 		<button id="ID_SEARCH_CHAT" text="Sohbet"/>
 		<rightAlign/>
-		<button id="ID_SEARCH_FILTER_RAW" text="Filtre:" tip="Filtrelenen sonuçlarla bazı kelime türleri "/>
+		<button id="ID_SEARCH_FILTER_RAW" text="Filtre:" tip="Filtrelenen sonuçlarla bazı kelime türleri"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
 		<button id="ID_SEARCH_DETAILS" text="Ayrıntıları Göster"/>
@@ -732,7 +732,7 @@
 			<item id="ID_HELP_TEST" text="_Bağlantı Testi"/>
 			<separator/>
 			<menu text="_Guides">
-				<item id="ID_HELP_GUIDE" text="PeerProject _Kullanıcı Rehberi "/>
+				<item id="ID_HELP_GUIDE" text="PeerProject _Kullanıcı Rehberi"/>
 				<item id="ID_HELP_ROUTER" text="_Sunucu Yardımı"/>
 				<item id="ID_HELP_SECURITY" text="_Güvenlik Yardımı"/>
 				<item id="ID_HELP_CODEC" text="_Codec Yardımı"/>
@@ -1566,7 +1566,7 @@
 		<separator/>
 		<item id="ID_TRAFFIC_GRID" text="_Izgara Çizgileri"/>
 		<item id="ID_TRAFFIC_AXIS" text="_Eksen"/>
-		<item id="ID_TRAFFIC_LEGEND" text="Gö_sterge "/>
+		<item id="ID_TRAFFIC_LEGEND" text="Gö_sterge"/>
 		<separator/>
 		<item id="ID_TRAFFIC_CLEAR" text="_Temizle"/>
 		<separator/>
@@ -1937,6 +1937,9 @@
 		<link target="peer:page:CCommunitySettingsPage" format="b">İletişim:</link>
 		<text>&#160;Profil, sohbet ve mesaj ayarları.</text>
 		<newline gap="10"/>
+		<link target="peer:page:CRemoteSettingsPage" format="b">Uzak:</link>
+		<text>&#160;Web tarayıcınız aracılığıyla PeerProject uzaktan kontrol yapmanızı sağlayan ayarlar. </text>
+		<newline gap="10"/>
 		<link target="peer:page:CWebSettingsPage" format="b">Web Bütünleşmesi:</link>
 		<text>&#160;PeerProject tarayıcınızın kabul ettiği linkler ve İndirilmiş içeriklerle bütünleşir.</text>
 	</document>
@@ -1956,9 +1959,6 @@
 		<newline gap="10"/>
 		<link target="peer:page:CUploadsSettingsPage" format="b">Aktarımlar:</link>
 		<text>&#160;Aktarım kapasitesi, sıralaması, kısıtlamaları, zamanı ve özel sorgular.</text>
-		<newline gap="10"/>
-		<link target="peer:page:CRemoteSettingsPage" format="b">Uzak:</link>
-		<text>&#160;Web tarayıcınız aracılığıyla PeerProject uzaktan kontrol yapmanızı sağlayan ayarlar. </text>
 		<newline gap="10"/>
 		<link target="peer:page:CSchedulerSettingsPage" format="b">Scheduler:</link>
 		<text>&#160;İndirme bağlantılarını periyodik planlamaya göre sınırlar.</text>
@@ -2663,8 +2663,8 @@
 	<string id="8071" value="Bağlandı"/>
 	<string id="8072" value="Bağlantı Kes"/>
 	<string id="8096" value="Bu alan seçtiğiniz dosya hakkında detaylı bilgi gösterir."/>
-	<string id="8097" value="Tek kaynak bulundu(%s)."/>
-	<string id="8098" value="%i kaynak bulundu(%s)."/>
+	<string id="8097" value="Tek kaynak bulundu. (%s/s)"/>
+	<string id="8098" value="%i kaynak bulundu. (%s/s)"/>
 	<string id="8099" value="Bir eleştiri var."/>
 	<string id="8100" value="%i eleştiri var."/>
 	<string id="8101" value="%s yazılır:"/>
@@ -2685,7 +2685,7 @@
 	<string id="8141" value="Arama panelini göster"/>
 	<string id="8142" value="Arama panelini gizle"/>
 	<string id="8143" value="Aranıyor..."/>
-	<string id="8144" value="Aramaya başla "/>
+	<string id="8144" value="Aramaya başla"/>
 	<string id="8145" value="Daha fazla arama"/>
 	<string id="8146" value="Durdur"/>
 	<string id="8147" value="Her tür dosya"/>
@@ -2737,7 +2737,7 @@
 	<string id="8243" value="Aktarım miktarı:"/>
 	<string id="8244" value="Yorum sayısı:"/>
 	<string id="8288" value="PeerProject kütüphanesi araştırılıyor"/>
-	<string id="8289" value="Araştırılıyor "/>
+	<string id="8289" value="Araştırılıyor"/>
 	<string id="8290" value="%i Klasörden içerikler araştırılıyor"/>
 	<string id="8291" value="Çoklu klasörler"/>
 	<string id="8292" value="%i dosya seçildi"/>
@@ -2861,7 +2861,7 @@
 	<string id="16264" value="%s'e baglantı %i portundan &quot;%s&quot; indirme için başlatılıyor ..."/>
 	<string id="16265" value="%s Hosta indirme için bağlanılamaz."/>
 	<string id="16266" value="%s indirme bağlantısı kuruldu."/>
-	<string id="16267" value="(%I64i-%I64i) indirme parçaları &quot;%s&quot; için %s' den isteniyor."/>
+	<string id="16267" value="(%I64u-%I64u) indirme parçaları &quot;%s&quot; için %s' den isteniyor."/>
 	<string id="16268" value="Daha fazla indirme parçası bulunamadı,%s bağlantısı kapatılıyor ."/>
 	<string id="16269" value="İndirme parçaları kısaldı, %s bağlantısı kapatılıyor."/>
 	<string id="16270" value="%s indirme isteği zaman aşımına uğradı, bağlantı kapatılıyor."/>
@@ -2996,7 +2996,7 @@
 	<string id="16404" value="PeerProject &quot;%s&quot; kolleksiyon dosyasını, &quot;%s&quot; klasörüne kopyalayarak yükleyemedi."/>
 	<string id="16406" value="Bu kolleksiyondaki tüm dosyaları indirmek istiyor musunuz?\n\nHer yeni istemi durdurmak istiyorsanız İptal'i seçmelisiniz."/>
 	<string id="16407" value="Birşeyler indirmeye yönlendiren bu kolleksiyonları önlemek istiyor musunuz?"/>
-	<string id="16408" value="&amp;URI Kopyala "/>
+	<string id="16408" value="&amp;URI Kopyala"/>
 	<string id="16409" value="&amp;URI'leri Gönder..."/>
 	<string id="16410" value="Seçilen klasör &quot;%s&quot; klasörünün alt klasörü, zaten kütüphanenizin parçasıdır.\nEklenen bu klasör bazı dosyaların bozulmasına neden olacaktır.\n\nDevam etmek istiyor musunuz ?"/>
 	<string id="16411" value="%s dosyası taşınamaz. Dosya diğer bir uygulama tarafından kullanılıyor olabilir.\n\nBu dosyanın yerine kopyasını almayı denemek ister misiniz?"/>
@@ -3025,11 +3025,11 @@
 	<string id="16520" value="İndirme Bantgenişliği"/>
 	<string id="16521" value="Aktarım Transfer Sayısı"/>
 	<string id="16522" value="Aktarım Bantgenişliği"/>
-	<string id="16523" value="Gnutella Paketler Alındı "/>
-	<string id="16524" value="Gnutella Paketler Gönderildi "/>
-	<string id="16525" value="Gnutella Paketler Yönlendirildi "/>
+	<string id="16523" value="Gnutella Paketler Alındı"/>
+	<string id="16524" value="Gnutella Paketler Gönderildi"/>
+	<string id="16525" value="Gnutella Paketler Yönlendirildi"/>
 	<string id="16526" value="Gnutella Paketler Durduruldu"/>
-	<string id="16527" value="Gnutella Paketler Kaybedildi "/>
+	<string id="16527" value="Gnutella Paketler Kaybedildi"/>
 	<string id="16528" value="Gnutella Yerel Sorguları"/>
 	<string id="16532" value="Toplam TCP Alım Bantgenişliği"/>
 	<string id="16533" value="Toplam TCP Gönderim Bantgenişliği"/>
@@ -3091,7 +3091,7 @@
 	<string id="16933" value="%s gözatan hostu geçersiz bir HTTP yanıtıyla cevap veriyor."/>
 	<string id="16934" value="%s gözatan hostu %s (%s) kod ile cevap veriyor."/>
 	<string id="16935" value="%s gözatan hostu anlaşılamayan bir yanıt verdi, kullanıcı ya da host taramalarını desteklemiyor olabilir."/>
-	<string id="16936" value="%s (%s) hostdan içerik alınıyor "/>
+	<string id="16936" value="%s (%s) hostdan içerik alınıyor"/>
 	<string id="16938" value="%s hostdan Gnutella paketlerinde şifre çözme hatası."/>
 	<string id="16939" value="%s kullanıcı bağlantısı bitti, %i dosya bulundu."/>
 	<string id="16940" value="%s'ye gözatan kullanıcı bağlantısı durduruldu."/>
@@ -3239,7 +3239,7 @@
 	<string id="18498" value="Geçersiz bir tiger-tree kök değeri yazdınız. Lütfen kontrol edin ve tekrar deneyin."/>
 	<string id="18499" value="Geçersiz bir eDonkey2000 hash değeri yazdınız. Lütfen kontrol edin ve tekrar deneyin."/>
 	<string id="18500" value="Bu indirme ile güncel olarak birleşmiş farklı SHA1 hash  değeri sağlanır. Şimdi SHA1 hash'i değiştirmek istediğinizden amin misiniz?"/>
-	<string id="18501" value="Bu indirme ile güncel olarak birleşmiş farklı tiger-tree hash kök değeri sağlanır.  Şimdi tiger-tree kök hash'i değiştirmek istediğinizden emin misiniz? "/>
+	<string id="18501" value="Bu indirme ile güncel olarak birleşmiş farklı tiger-tree hash kök değeri sağlanır.  Şimdi tiger-tree kök hash'i değiştirmek istediğinizden emin misiniz?"/>
 	<string id="18502" value="Bu indirme ile güncel olarak birleşmiş farklı eDonkey2000 hash değeri sağlanır. Şimdi eDonkey2000 hash'i değiştirmek istediğinizden emin misiniz?"/>
 	<string id="18503" value="Güncel doğrulama durumlarını kaybetmek istediğinize emin misiniz? Tüm İndirme verilerine güvenilmeyecektir ve hashtrees-hashsets zulaları temizlenecektir."/>
 	<string id="18504" value="Seçilen indirme için bütün kaynakları kaybetmek istediğinize emin misiniz?"/>
@@ -3333,19 +3333,19 @@
 </strings>
 <!-- Localized Dialog Text, "cookie" verifies that the skin matches current dialog -->
 <dialogs>
-	<dialog name="CGeneralSettingsGroup" cookie="" caption="Genel">
-	</dialog>
-	<dialog name="CSettingSheet" cookie="SyBuBuBu#3" caption="PeerProject Ayarları">
+	<dialog name="CSettingSheet" cookie="SyBuBuBu" caption="PeerProject Ayarları">
 		<control/>
 		<control caption="Tamam"/>
 		<control caption="İptal"/>
 		<control caption="Uygula"/>
 		<control/>
 	</dialog>
+	<dialog name="CGeneralSettingsGroup" cookie="Af" caption="Genel"/>
+	<dialog name="CInternetSettingsGroup" cookie="Af" caption="İnternet"/>
 	<dialog name="CGeneralSettingsPage" cookie="BuBuBuBuBuBuBuBuStCoBuBuBuBuBuBuSyStEdmsStmsBuBuStCoStCo" caption="Genel">
 		<control caption="_Genel:"/>
-		<control caption="PeerProject'yı çalıştırmak için otomatik bağlan"/>
 		<control caption="PeerProject'yı Windows çalıştırıldığında başlat"/>
+		<control caption="Çalıştırmak için otomatik bağlan"/>
 		<control caption="URIler açılmadan önce uyarı göster"/>
 		<control caption="Check for updates"/>
 		<control caption="_İndirmeler:"/>
@@ -3355,7 +3355,7 @@
 		<control caption="bit/saniye|byte/saniye|b/s|B/s|Kb/s|KB/s|Mb/s|MB/s"/>
 		<control caption="_Ara:"/>
 		<control caption="Varsayılan çoklu kaynak dosyalarını genişlet"/>
-		<control caption="İndirmede transfer anahtarlarını görüntüle "/>
+		<control caption="İndirmede transfer anahtarlarını görüntüle"/>
 		<control caption="Aramaya başladığında yön çubuğunu gizle"/>
 		<control caption="Aramalarda ileri içerik filtresi"/>
 		<control caption="A_raç türleri:"/>
@@ -3484,9 +3484,7 @@
 		<control/>
 		<control caption="_Ekle"/>
 		<control caption="_Kaldır"/>
-		<control caption="İndirme yönetim eklentisi sadece listelenen dosya türlerini indirmeye çalışacak.	Diğer dosya türleri web tarayıcınız tarafından yönetilecek. PeerProject indirme yönetimi çalışıyor olmalı."/>
-	</dialog>
-	<dialog name="CInternetSettingsGroup" cookie="" caption="İnternet">
+		<control caption="İndirme yönetim eklentisi sadece listelenen dosya türlerini indirmeye çalışacak. Diğer dosya türleri web tarayıcınız tarafından yönetilecek. PeerProject indirme yönetimi çalışıyor olmalı."/>
 	</dialog>
 	<dialog name="CConnectionSettingsPage" cookie="BuStCoStCoStEdBuBuBuStCoStCoBuStCoBuBuBuStEdmsStEdms" caption="Bağlantı">
 		<control caption="_Gelen Adres:"/>
@@ -3719,15 +3717,13 @@
 		<control caption="_Kur..."/>
 		<control caption="Dahası"/>
 	</dialog>
-	<dialog name="CAdvancedSettingsPage" cookie="SyEdmsBuBuStStEd" caption="İleri">
+	<dialog name="CAdvancedSettingsPage" cookie="SyEdmsBuBuSt" caption="İleri">
 		<control/>
 		<control/>
 		<control/>
 		<control caption="Temel Yap"/>
 		<control caption="Özellik ayarları:"/>
 		<control caption="Değer:"/>
-		<control caption="Açıklama:"/>
-		<control/>
 	</dialog>
 	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="Protokoller">
 		<control caption="PeerProject Genel Mimarlık Protokol Araştırıcısı:"/>
@@ -3774,7 +3770,7 @@
 		<control caption="İptal"/>
 		<control caption="Aktaranları ödüllendir"/>
 	</dialog>
-	<dialog name="CWizardWelcomePage" cookie="StStStStStStStStStStStSt" caption="PeerProject'ya Hoşgeldiniz">
+	<dialog name="CWizardWelcomePage" cookie="StStStStStStStStStStStSt" caption="PeerProject'ya Hoşgeldiniz (1/8)">
 		<control caption="PeerProject'ya Hoşgeldiniz!"/>
 		<control caption="Daha önce PeerProject ya da farklı bir P2P istemci kullanmadıysanız, HızlıBaşlat sihirbazı basit adımlarla kopyalarınızı ayarlamanıza yardım edebilir."/>
 		<control caption="İleri bir kullanıcıysanız, Araçlar menüsü aracılığıyla PeerProject seçeneklerinin tümüne erişebilirsiniz. Sihirbazı kapatmak için Çıkışı tıklayınız."/>
@@ -3788,7 +3784,7 @@
 		<control/>
 		<control caption="PeerProject'yı kullanmaya başlayın."/>
 	</dialog>
-	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="PeerProject'ya Hoşgeldiniz (1/6)">
+	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="PeerProject'ya Hoşgeldiniz (2/8)">
 		<control caption="En iyi sonuç için PeerProject'nın bağlantınız hakkında bazı temel bilgilere ihtiyacı bulunmaktadır."/>
 		<control caption="İnternet bağlantınızı PeerProject'ya belirtin:"/>
 		<control caption="Çevirmeli Modem|ISDN (128K)|DSL (768K)|DSL (1.5M)|DSL (4.0M)|DSL2 (8.0M)|FIOS (10.0M)|DSL2 (12.0M)|FIOS (20.0M)|DSL2+ (24.0M)|Kablo Modemi/SDSL|T1|T3|LAN|OC3"/>
@@ -3804,7 +3800,30 @@
 		<control caption="Durum:"/>
 		<control/>
 	</dialog>
-	<dialog name="CWizardSharePage" cookie="StStStSyBuBuSt" caption="PeerProject'ya Hoşgeldiniz (2/6)">
+	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuStBu" caption="PeerProject'ya Hoşgeldiniz (3/8)">
+		<control caption="PeerProject aynı zamanda birçok P2P ağa erişebilen genel bir dosya paylaşımı programıdır. Bu sayfada bağlamayı istediğiniz P2P ağları seçebilirsiniz, ve sonra her ağ için belirli ayarları ayarlayabilirsiniz."/>
+		<control caption="Gnutella2'ya Bağlan (hararetle önerilir)"/>
+		<control caption="Gnutella2 ağı PeerProject'nın ana ağıdır, diğer P2P netlerden daha fazla performans ve özellik sunmaktadır."/>
+		<control caption="Orijinal Gnutella'ya Bağlan"/>
+		<control caption="Orijinal Gnutella ağı Gnutella2 den daha zengin özellikleri olmasına ve eDonkey'den daha az dosya olmasına karşın değerli bir kaynak olarak kalacaktır."/>
+		<control caption="eDonkey2000'ye Bağlan"/>
+		<control caption="eDonkey ağı popüler bir sunucu tabanlı ağdır.	Gnutella2 kadar zengin özellikte olmasa da, eDonkey etkileyici dosya kolleksiyonuna sahiptir."/>
+		<control caption="Torrent bağlantılarını yönet."/>
+	</dialog>
+	<dialog name="CWizardFoldersPage" cookie="StStEdBuStEdBuStEdBuSt" caption="PeerProject'ya Hoşgeldiniz (4/8)">
+		<control caption="PeerProject first downloads partial files to a private folder, then moves them when completed according to Download Groups."/>
+		<control caption="Dosyanın tamamını buraya kaydet:"/>
+		<control/>
+		<control/>
+		<control caption="Geçici tamamlanmamış dosyaları burada depola:"/>
+		<control/>
+		<control/>
+		<control caption="Geçici .Torrent burada depola:"/>
+		<control/>
+		<control/>
+		<control caption="Common filetypes are initially setup as subfolders of the default location, but Groups can easily be customized by Right-Click.  Simply Drag&apos;n&apos;Drop files."/>
+	</dialog>
+	<dialog name="CWizardSharePage" cookie="StStStSyBuBuSt" caption="PeerProject'ya Hoşgeldiniz (5/8)">
 		<control caption="P2P ağları onu kullanan insanlar için en iyisidir. İndirme için diğer kullanıcılardan bulunan tüm içerikler paylaştırılıyor."/>
 		<control caption="PeerProject'da içerik paylaştırılamadığında, bazı yazılımlar birşey paylaşmayan kullanıcılara farklı davranacaktır."/>
 		<control caption="Lütfen hangi klasörü paylaşmak istediğinizi belirtin. Ekle butonuna basarak kolayca yeni klasör ekleyebilirsiniz."/>
@@ -3822,18 +3841,7 @@
 		<control caption="0"/>
 		<control caption="Kapat"/>
 	</dialog>
-	<dialog name="CWizardProfilePage" cookie="StStEdStCoCoStCoCo" caption="PeerProject'ya Hoşgeldiniz (3/6)">
-		<control caption="Herkes kendisiyle ilgili bir kaç temel detaylar yazdığında PeerProject daha dostça bir yer olur."/>
-		<control caption="Bu ismi kullanıyorum:"/>
-		<control/>
-		<control caption="ve ben bir:"/>
-		<control caption="&#160;(seçin)"/>
-		<control caption="&#160;(seçin)| erkek| kız| bay| bayan"/>
-		<control caption="Ülkem:"/>
-		<control/>
-		<control/>
-	</dialog>
-	<dialog name="CWizardInterfacePage" cookie="StBuBuBuStStBuSt" caption="PeerProject'ya Hoşgeldiniz (4/6)">
+	<dialog name="CWizardInterfacePage" cookie="StBuBuBuStStBuSt" caption="PeerProject'ya Hoşgeldiniz (6/8)">
 		<control caption="PeerProject esnek bir kullanıcı arayüzü destekler, sizin için rahat olanı seçebilirsiniz. Bu seçenekleri her hangi bir zamanda değiştirebilirsiniz."/>
 		<control caption="Lütfen kullanıcı arayüzü seçin:"/>
 		<control caption="Basic Mod"/>
@@ -3843,15 +3851,27 @@
 		<control caption="İndirme ilerleme çubuğunu basitçe görüntüle."/>
 		<control caption="."/>
 	</dialog>
-	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuStBu" caption="PeerProject'ya Hoşgeldiniz (5/6)">
-		<control caption="PeerProject aynı zamanda birçok P2P ağa erişebilen genel bir dosya paylaşımı programıdır. Bu sayfada bağlamayı istediğiniz P2P ağları seçebilirsiniz, ve sonra her ağ için belirli ayarları ayarlayabilirsiniz."/>
-		<control caption="Gnutella2'ya Bağlan (hararetle önerilir)"/>
-		<control caption="Gnutella2 ağı PeerProject'nın ana ağıdır, diğer P2P netlerden daha fazla performans ve özellik sunmaktadır."/>
-		<control caption="Orijinal Gnutella'ya Bağlan"/>
-		<control caption="Orijinal Gnutella ağı Gnutella2 den daha zengin özellikleri olmasına ve eDonkey'den daha az dosya olmasına karşın değerli bir kaynak olarak kalacaktır."/>
-		<control caption="eDonkey2000'ye Bağlan"/>
-		<control caption="eDonkey ağı popüler bir sunucu tabanlı ağdır.	Gnutella2 kadar zengin özellikte olmasa da, eDonkey etkileyici dosya kolleksiyonuna sahiptir."/>
-		<control caption="Torrent bağlantılarını yönet."/>
+	<dialog name="CWizardProfilePage" cookie="StStEdStCoCoStCoStCoStEd" caption="PeerProject'ya Hoşgeldiniz (7/8)">
+		<control caption="Herkes kendisiyle ilgili bir kaç temel detaylar yazdığında PeerProject daha dostça bir yer olur."/>
+		<control caption="Bu ismi kullanıyorum:"/>
+		<control/>
+		<control caption="ve ben bir:"/>
+		<control caption="&#160;(seçin)"/>
+		<control caption="&#160;(seçin)| erkek| kız| bay| bayan"/>
+		<control caption="Ülkem:"/>
+		<control/>
+		<control caption="Locale:"/>
+		<control/>
+		<control caption="Comments:"/>
+		<control/>
+	</dialog>
+	<dialog name="CWizardFinishedPage" cookie="StStStBuBuSt" caption="PeerProject'ya Hoşgeldiniz (8/8)">
+		<control caption="İşte bu!  PeerProject bilgisayarınızla çalışarak yapılandırıldı."/>
+		<control caption="Eğer ayarlamalarınızı değiştirmeye ihtiyacınız olursa, Araçlar menüsünden Hızlı Başlat Sihirbazını çalıştırarak bunu yapabilirsiniz."/>
+		<control caption="Bitir tıklanarak sihirbaz kapatıldıktan sonra, seçtiğiniz ağa bağlanabilir ve içerik arama - indirme yapabilirsiniz."/>
+		<control caption="Windows her açıldığında PeerProject'yı başlat"/>
+		<control caption="PeerProject'yı her açtığımda ağa bağlan"/>
+		<control caption="PeerProject'yı kullanmak zevklidir."/>
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="eDonkey2000 İndirimlerini Gönder">
 		<control/>
@@ -3861,16 +3881,7 @@
 		<control/>
 		<control caption="Kapat"/>
 	</dialog>
-	<dialog name="CWizardFinishedPage" cookie="StStStBuBuBuSt" caption="PeerProject'ya Hoşgeldiniz (6/6)">
-		<control caption="İşte bu!  PeerProject bilgisayarınızla çalışarak yapılandırıldı."/>
-		<control caption="Eğer ayarlamalarınızı değiştirmeye ihtiyacınız olursa, Araçlar menüsünden Hızlı Başlat Sihirbazını çalıştırarak bunu yapabilirsiniz."/>
-		<control caption="Bitir tıklanarak sihirbaz kapatıldıktan sonra, seçtiğiniz ağa bağlanabilir ve içerik arama - indirme yapabilirsiniz."/>
-		<control caption="Sihirbazı kapattığımda ağa bağlan"/>
-		<control caption="PeerProject'yı her açtığımda ağa bağlan"/>
-		<control caption="Windows her açıldığında PeerProject'yı başlat"/>
-		<control caption="PeerProject'yı kullanmak zevklidir!"/>
-	</dialog>
-	<dialog name="CProfileManagerDlg" cookie="SyBuBuBu#3" caption="Profilimi Düzenle">
+	<dialog name="CProfileManagerDlg" cookie="SyBuBuBu" caption="Profilimi Düzenle">
 		<control/>
 		<control caption="Tamam"/>
 		<control caption="İptal"/>
@@ -3975,7 +3986,7 @@
 		<control/>
 		<control/>
 		<control caption="PeerProject web 'den dosya indirebilir, P2P bağlantılarıyla otomatik arama ve indirebilir. Basit bir şekilde URL ya da URI dosya tanımlamasını yukardaki kutuya yazın ya da yapıştırın ve Enter'a basın. &#160; (http:, ftp:, ed2k:, magnet:, etc.)"/>
-		<control caption="PeerProject ayrıca BitTorrent dosyaları indiriyor. Bir torrent xyz.torrent dosyası ya da .torrent dosyası HTTP bağlantısı ile tanımlanabilir. Bir torrent HTTP indirme bağlantısını yukarıdaki kutuya yapıştırın. Bir .torrent dosyası varsa, Torrent Aç tıklayın: "/>
+		<control caption="PeerProject ayrıca BitTorrent dosyaları indiriyor. Bir torrent xyz.torrent dosyası ya da .torrent dosyası HTTP bağlantısı ile tanımlanabilir. Bir torrent HTTP indirme bağlantısını yukarıdaki kutuya yapıştırın. Bir .torrent dosyası varsa, Torrent Aç tıklayın:"/>
 		<control/>
 		<control/>
 		<control caption="İndir"/>
@@ -3988,28 +3999,28 @@
 		<control caption="Ara"/>
 		<control caption="İptal"/>
 	</dialog>
-	<dialog name="CFilterSearchDlg" cookie="BuEdBuStBuStEdStEdStEdmsStBuBuBuBuBuBuBuBuBuBuBuCoBuBuBuBuBu" caption="Filtre Eşleştirmesi">
+	<dialog name="CFilterSearchDlg" cookie="BuEdBuStBuStEdStEdStEdmsBuBuBuBuBuBuBuBuBuBuBuBuBuCoBuBuBuBuBu" caption="Filtre Eşleştirmesi">
 		<control caption="Sadece kelimeyi içeren eşleştirmeleri göster:"/>
 		<control/>
 		<control caption="Reg. Exp."/>
-		<control caption="( -kelime ile istenen kelimeleri arama dışı tutabilirsiniz )"/>
+		<control caption="(-kelimeleri arama dışı tutabilirsiniz)"/>
 		<control caption="Ve boyutu:"/>
 		<control caption="Minimum:"/>
 		<control/>
 		<control caption="Maksimum:"/>
 		<control/>
-		<control caption="küçük miktar ile:"/>
+		<control caption="küçük miktar ile kaynaklar:"/>
 		<control/>
 		<control/>
-		<control caption="kaynaklar."/>
 		<control caption="_Gizle:"/>
-		<control caption="Meşgul hostlar"/>
-		<control caption="Güvenlik Duvarlı/Sıkıştırılmış hostlar"/>
 		<control caption="Dosyaya Zaten Sahipsiniz"/>
-		<control caption="Değişen hostlar"/>
 		<control caption="Dosya Eşleme yok"/>
 		<control caption="Sahte Sonuçlar"/>
+		<control caption="Restricted Dosyaları"/>
 		<control caption="DRM Dosyaları"/>
+		<control caption="Güvenlik Duvarlı hostlar"/>
+		<control caption="Değişen hostlar"/>
+		<control caption="Meşgul hostlar"/>
 		<control caption="Yetişkinler İçin Sonuçlar"/>
 		<control caption="Şüpheli Dosyalar"/>
 		<control caption="Filtreler"/>
@@ -4101,15 +4112,15 @@
 		<control caption="_Kaldır"/>
 		<control/>
 	</dialog>
-	<dialog name="CFileCopyDlg" cookie="StStmsBuBumsStSt" caption="Dosyaları Kopyala|Dosyaları Taşı">
+	<dialog name="CFileCopyDlg" cookie="StStStmsmsStBuBu" caption="Dosyaları Kopyala|Dosyaları Taşı">
 		<control caption="Klasöre kopyalamak için %i dosya seçildi:"/>
+		<control caption="Klasöre taşımak için %i dosya seçildi:"/>
 		<control/>
 		<control/>
-		<control caption="Tamam"/>
-		<control caption="İptal"/>
 		<control/>
 		<control caption="Hazır..."/>
-		<control caption="Klasöre taşımak için %i dosya seçildi:"/>
+		<control caption="Tamam"/>
+		<control caption="İptal"/>
 	</dialog>
 	<dialog name="CFolderPropertiesDlg" cookie="StEdStCoBuStBuBu" caption="Albüm Klasör Özellikleri">
 		<control caption="Albüm Klasör Başlığı:"/>
@@ -4129,7 +4140,7 @@
 		<control caption="_Göster:"/>
 		<control caption="Izgara Çizgileri"/>
 		<control caption="Dikey Eksen"/>
-		<control caption="Gösterge "/>
+		<control caption="Gösterge"/>
 		<control caption="Sık Örnekleme:"/>
 		<control caption="Örnekler Arasındaki Zaman:"/>
 		<control/>
@@ -4630,4 +4641,4 @@
 		<column from="Order" to="Düzen"/>
 	</list>
 </listColumns>
-</skin>隘↟
+</skin>

@@ -47,13 +47,13 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CSettingsPage construction
 
-CSettingsPage::CSettingsPage(UINT nIDTemplate, LPCTSTR pszCaption) : CDialog( nIDTemplate )
+CSettingsPage::CSettingsPage(UINT nIDTemplate, LPCTSTR pszName) : CDialog( nIDTemplate )
 {
-	//{{AFX_DATA_INIT(CSettingsPage)
-	//}}AFX_DATA_INIT
+	if ( pszName )
+		m_sName = pszName;
 
-	if ( pszCaption != NULL ) m_sCaption = pszCaption;
-	else if ( m_lpszTemplateName != NULL ) LoadDefaultCaption();
+	if ( m_lpszTemplateName != NULL )
+		LoadDefaultCaption();
 }
 
 CSettingsPage::~CSettingsPage()
@@ -146,12 +146,22 @@ BOOL CSettingsPage::OnInitDialog()
 	m_wndToolTip.Create( this );
 	m_wndToolTip.Activate( TRUE );
 	m_wndToolTip.SetMaxTipWidth( 200 );
-	// Show the tooltip for 20 seconds
-	m_wndToolTip.SetDelayTime( TTDT_AUTOPOP, 20 * 1000 );
-
-	Skin.Apply( NULL, this, 0, &m_wndToolTip );
+	m_wndToolTip.SetDelayTime( TTDT_AUTOPOP, 20*1000 );	// Show tooltips for 20 seconds
 
 	return TRUE;
+}
+
+void CSettingsPage::OnSkinChange()
+{
+	if ( ! IsWindow( GetSafeHwnd() ) )
+		return;	// No created yet page
+
+	if ( m_sName.IsEmpty() )
+		m_sName = GetRuntimeClass()->m_lpszClassName;
+
+	SetWindowText( m_sCaption );
+
+	Skin.Apply( m_sName, this, 0, &m_wndToolTip );
 }
 
 void CSettingsPage::DoDataExchange(CDataExchange* pDX)
@@ -249,7 +259,7 @@ BOOL CSettingsPage::PreTranslateMessage(MSG* pMsg)
 /////////////////////////////////////////////////////////////////////////////
 // CEditPath
 
-IMPLEMENT_DYNCREATE(CEditPath, CEdit)
+IMPLEMENT_DYNAMIC(CEditPath, CEdit)
 
 BEGIN_MESSAGE_MAP(CEditPath, CEdit)
 	ON_WM_LBUTTONDBLCLK()
@@ -262,7 +272,7 @@ void CEditPath::OnLButtonDblClk(UINT nFlags, CPoint point)
 	CString sPath;
 	GetWindowText( sPath );
 
-	sPath = CString( _T("\\\\?\\") ) + sPath;	// very long path
+	sPath = CString( _T("\\\\?\\") ) + sPath;	// Very long path
 
 	if ( GetFileAttributes( sPath ) != INVALID_FILE_ATTRIBUTES )
 		ShellExecute( GetSafeHwnd(), NULL, sPath, NULL, NULL, SW_SHOWDEFAULT );

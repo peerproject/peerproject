@@ -44,9 +44,9 @@ BEGIN_MESSAGE_MAP(CQueuePropertiesDlg, CSkinDialog)
 	ON_BN_CLICKED(IDC_PROTOCOLS_CHECK, OnProtocolsCheck)
 	ON_BN_CLICKED(IDC_MARKED_CHECK, OnMarkedCheck)
 	ON_BN_CLICKED(IDC_ROTATE_ENABLE, OnRotateEnable)
-	ON_WM_HSCROLL()
 	ON_EN_CHANGE(IDC_TRANSFERS_MAX, OnChangeTransfersMax)
 	ON_BN_CLICKED(IDC_MATCH_CHECK, OnMatchCheck)
+	ON_WM_HSCROLL()
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -194,16 +194,10 @@ BOOL CQueuePropertiesDlg::OnInitDialog()
 	}
 
 	m_bMinSize = m_pQueue->m_nMinSize > 0;
-	if ( m_bMinSize )
-		m_sMinSize = Settings.SmartVolume( m_pQueue->m_nMinSize );
-	else
-		m_sMinSize = Settings.SmartVolume( 0 );
+	m_sMinSize = Settings.SmartVolume( m_bMinSize ? m_pQueue->m_nMinSize : 0 );
 
 	m_bMaxSize = m_pQueue->m_nMaxSize < SIZE_UNKNOWN;
-	if ( m_bMaxSize )
-		m_sMaxSize = Settings.SmartVolume( m_pQueue->m_nMaxSize );
-	else
-		m_sMaxSize = Settings.SmartVolume( 0 );
+	m_sMaxSize = Settings.SmartVolume( m_bMaxSize ? m_pQueue->m_nMaxSize : 0 );
 
 	m_bMarked = ( m_pQueue->m_sShareTag.GetLength() > 0 );
 	m_sMarked = m_pQueue->m_sShareTag;
@@ -231,10 +225,10 @@ BOOL CQueuePropertiesDlg::OnInitDialog()
 
 	m_bReward		= m_pQueue->m_bRewardUploaders;
 
-	DWORD nTotal = Settings.Connection.OutSpeed * 1024 / 8;
-	DWORD nLimit = Settings.Bandwidth.Uploads;
+	//DWORD nTotal = Settings.Connection.OutSpeed * 1024 / 8;
+	//DWORD nLimit = Settings.Bandwidth.Uploads;
+	//if ( nLimit == 0 || nLimit > nTotal ) nLimit = nTotal;
 
-	if ( nLimit == 0 || nLimit > nTotal ) nLimit = nTotal;
 	int nOtherPoints = (int)UploadQueues.GetTotalBandwidthPoints( !( m_pQueue->m_nProtocols & (1<<PROTOCOL_ED2K) ) )
 						- (int)m_pQueue->m_nBandwidthPoints;
 	if ( nOtherPoints < 0 ) nOtherPoints = 0;

@@ -301,9 +301,7 @@ CQueryHit* CQueryHit::FromG1Packet(CG1Packet* pPacket, int* pnHops)
 CQueryHit* CQueryHit::FromG2Packet(CG2Packet* pPacket, int* pnHops)
 {
 	if ( pPacket->IsType( G2_PACKET_HIT_WRAP ) )
-	{
 		return FromG1Packet( (CG1Packet*)pPacket );
-	}
 
 	if ( ! pPacket->m_bCompound )
 	{
@@ -324,8 +322,8 @@ CQueryHit* CQueryHit::FromG2Packet(CG2Packet* pPacket, int* pnHops)
 	BOOL		bStable		= TRUE;
 	BOOL		bBrowseHost	= FALSE;
 	BOOL		bPeerChat	= FALSE;
-	CVendor*	pVendor		= VendorCache.m_pNull;
 	bool		bSpam		= false;
+	CVendor*	pVendor		= VendorCache.m_pNull;
 	CString		strNick;
 	DWORD		nGroupState[8][4] = {};
 
@@ -870,7 +868,9 @@ BOOL CQueryHit::CheckBogus(CQueryHit* pFirstHit)
 				bDuplicate = true;
 			}
 			else
+			{
 				++it2;
+			}
 		}
 		if ( bDuplicate )
 		{
@@ -878,7 +878,9 @@ BOOL CQueryHit::CheckBogus(CQueryHit* pFirstHit)
 			bDuplicate = false;
 		}
 		else
+		{
 			++it;
+		}
 	}
 
 	nBogus -= pList.size();
@@ -1158,7 +1160,7 @@ void CQueryHit::ReadGGEP(CG1Packet* pPacket)
 			}
 			else if ( pItemPos->IsNamed( GGEP_HEADER_URN ) )
 			{
-				CString strURN( "urn:" + pItemPos->ToString() );
+				CString strURN( _T("urn:") + pItemPos->ToString() );
 				if (      oSHA1.fromUrn(  strURN ) );	// Got SHA1
 				else if ( oTiger.fromUrn( strURN ) );	// Got Tiger
 				else if ( oED2K.fromUrn(  strURN ) );	// Got ED2K
@@ -1619,7 +1621,9 @@ void CQueryHit::ReadEDPacket(CEDPacket* pPacket, SOCKADDR_IN* pServer, BOOL bUni
 		else if ( pTag.m_nKey == ED2K_FT_FILESIZE )
 		{
 			if ( pTag.m_nValue <= 0xFFFFFFFF )
+			{
 				nSize.LowPart = (DWORD)pTag.m_nValue;
+			}
 			else
 			{
 				nSize.LowPart =  (DWORD)(   pTag.m_nValue & 0x00000000FFFFFFFF );
@@ -1652,20 +1656,23 @@ void CQueryHit::ReadEDPacket(CEDPacket* pPacket, SOCKADDR_IN* pServer, BOOL bUni
 				//theApp.Message( MSG_NOTICE, _T("ED2K_FT_COMPLETESOURCES tag reports complete sources present.") );
 		}
 		else if ( pTag.m_nKey == ED2K_FT_LENGTH )
-		{	//Length- new style (DWORD)
+		{
+			// New style Length (DWORD)
 			nLength = (DWORD)pTag.m_nValue;
 		}
 		else if ( ( pTag.m_nKey == ED2K_FT_BITRATE ) )
-		{	//Bitrate- new style
+		{
+			// New style Bitrate
 			strBitrate.Format( _T("%I64u"), pTag.m_nValue );
 		}
 		else if  ( ( pTag.m_nKey == ED2K_FT_CODEC ) )
-		{	//Codec - new style
+		{
+			// New style Codec
 			strCodec = pTag.m_sValue;
 		}
 		else if  ( pTag.m_nKey == ED2K_FT_FILERATING )
-		{	// File Rating
-
+		{
+			// File Rating
 			// The server returns rating as a full range (1-255).
 			// If the majority of ratings are "very good", take it up to "excellent"
 
@@ -1679,20 +1686,21 @@ void CQueryHit::ReadEDPacket(CEDPacket* pPacket, SOCKADDR_IN* pServer, BOOL bUni
 				m_nRating = 4;
 			else if ( m_nRating >= 120 )	// Average
 				m_nRating = 3;
-			else if ( m_nRating >= 80 )		// Poor
+			else if ( m_nRating >= 60 )		// Poor
 				m_nRating = 2;
 			else							// Fake
 				m_nRating = 1;
 
 			// the percentage of clients that have given ratings is:
 			// = ( pTag.m_nValue >> 8 ) & 0xFF;
-			// We could use this in the future to weight the rating...
+			// ToDo: We could use this value in the future to weight the rating...
 		}
-		//Note: Maybe ignore these keys? They seem to have a lot of bad values....
+		// ToDo: Maybe ignore these keys? They seem to have a lot of bad values...
 		else if ( ( pTag.m_nKey == 0 ) &&
 				  ( pTag.m_nType == ED2K_TAG_STRING ) &&
 				  ( pTag.m_sKey == _T("length") )  )
-		{	//Length- old style (As a string- x:x:x, x:x or x)
+		{
+			// Old style Length-  (As a string- x:x:x, x:x or x)
 			DWORD nSecs = 0, nMins = 0, nHours = 0;
 
 			if ( pTag.m_sValue.GetLength() < 3 )
@@ -1707,16 +1715,18 @@ void CQueryHit::ReadEDPacket(CEDPacket* pPacket, SOCKADDR_IN* pServer, BOOL bUni
 		else if ( ( pTag.m_nKey == 0 ) &&
 				  ( pTag.m_nType == ED2K_TAG_INT ) &&
 				  ( pTag.m_sKey == _T("bitrate") ) )
-		{	//Bitrate- old style
+		{
+			// Old style Bitrate
 			strBitrate.Format( _T("%I64u"), pTag.m_nValue );
 		}
 		else if ( ( pTag.m_nKey == 0 ) &&
 				  ( pTag.m_nType == ED2K_TAG_STRING ) &&
 				  ( pTag.m_sKey == _T("codec") ) )
-		{	//Codec - old style
+		{
+			// Old style Codec
 			strCodec = pTag.m_sValue;
 		}
-		//else	//*** Debug check. Todo: Remove this when it's working
+		//else	// Debug check.  Remove this when it's working
 		//{
 		//	CString s;
 		//	s.Format ( _T("Tag: %u sTag: %s Type: %u"), pTag.m_nKey, pTag.m_sKey, pTag.m_nType );

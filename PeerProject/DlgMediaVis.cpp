@@ -1,7 +1,7 @@
 //
 // DlgMediaVis.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -51,9 +51,9 @@ CMediaVisDlg::CMediaVisDlg(CMediaFrame* pFrame) : CSkinDialog( CMediaVisDlg::IDD
 {
 	//{{AFX_DATA_INIT(CMediaVisDlg)
 	m_nSize = -1;
+	m_pFrame = pFrame;
+	m_hIcon = NULL;
 	//}}AFX_DATA_INIT
-	m_pFrame	= pFrame;
-	m_hIcon		= NULL;
 }
 
 CMediaVisDlg::~CMediaVisDlg()
@@ -117,7 +117,7 @@ void CMediaVisDlg::Enumerate()
 	HKEY hKey;
 
 	if ( RegOpenKeyEx( HKEY_CURRENT_USER,
-		_T("Software\\PeerProject\\PeerProject\\Plugins\\AudioVis"),
+		REGISTRY_KEY _T("\\Plugins\\AudioVis"),
 		NULL, KEY_READ, &hKey ) != ERROR_SUCCESS ) return;
 
 	for ( DWORD nKey = 0 ; ; nKey++ )
@@ -138,9 +138,7 @@ void CMediaVisDlg::Enumerate()
 		if ( _tcsistr( szName, _T("wrap") ) )
 		{
 			if ( ! EnumerateWrapped( szName, pCLSID, szCLSID ) )
-			{
 				AddPlugin( szName, szCLSID, NULL );
-			}
 		}
 		else
 		{
@@ -198,7 +196,7 @@ BOOL CMediaVisDlg::EnumerateWrapped(LPCTSTR pszName, REFCLSID pCLSID, LPCTSTR ps
 		return TRUE;
 	}
 
-	for ( ; pIndex[1] >= 0 ; pIndex[1] -- )
+	for ( ; pIndex[1] >= 0 ; pIndex[1]-- )
 	{
 		CString strName, strPath;
 		BSTR bsValue = NULL;
@@ -285,10 +283,8 @@ void CMediaVisDlg::OnSetup()
 		hr = pPlugin->QueryInterface( IID_IWrappedPluginControl, (void**)&pWrap );
 		if ( SUCCEEDED(hr) && pWrap != NULL )
 		{
-			BSTR bsPath = strPath.AllocSysString();
-			pWrap->Load( bsPath, 0 );
+			pWrap->Load( CComBSTR( strPath ), 0 );
 			pWrap->Release();
-			SysFreeString( bsPath );
 		}
 	}
 
@@ -325,4 +321,3 @@ void CMediaVisDlg::OnOK()
 		CSkinDialog::OnCancel();
 	}
 }
-

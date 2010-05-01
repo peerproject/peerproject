@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <skin xmlns="http://schemas.peerproject.org/Skin.xsd" version="1.0">
 
 <!-- PeerProject Default French Skin File -->
 
-<!-- Translation based on default-en.xml r52 -->
+<!-- Translation based on default-en.xml r54 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1962,6 +1962,9 @@
 		<link target="peer:page:CCommunitySettingsPage" format="b">Communauté :</link>
 		<text>&#160;Votre profil, vos préférences pour les sessions de discussion et la messagerie instantanée.</text>
 		<newline gap="10"/>
+		<link target="peer:page:CRemoteSettingsPage" format="b">Accès à distance :</link>
+		<text>&#160;Configurer le contrôle à distance de PeerProject à partir d'un navigateur web.</text>
+		<newline gap="10"/>
 		<link target="peer:page:CWebSettingsPage" format="b">Web :</link>
 		<text>&#160;Intégrez PeerProject dans votre navigateur Web pour accepter les liens p2p (URI) et télécharger du contenu.</text>
 	</document>
@@ -1981,9 +1984,6 @@
 		<newline gap="10"/>
 		<link target="peer:page:CUploadsSettingsPage" format="b">Envois :</link>
 		<text>&#160;Capacité des envois, mise en file, bannissement, temps morts et demandes spéciales.</text>
-		<newline gap="10"/>
-		<link target="peer:page:CRemoteSettingsPage" format="b">Accès à distance :</link>
-		<text>&#160;Configurer le contrôle à distance de PeerProject à partir d'un navigateur web.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CSchedulerSettingsPage" format="b">Scheduler :</link>
 		<text>&#160;Limiter les connexions de téléchargement selon un plan périodique pré-établi.</text>
@@ -2718,8 +2718,8 @@
 	<string id="8071" value="Connecté"/>
 	<string id="8072" value="Se déconnecter"/>
 	<string id="8096" value="Cette fenêtre affiche plus d'informations sur le fichier que vous sélectionnez."/>
-	<string id="8097" value="Une source est disponible (%s)."/>
-	<string id="8098" value="%i sources sont disponibles (%s)."/>
+	<string id="8097" value="Une source est disponible. (%s/s)"/>
+	<string id="8098" value="%i sources sont disponibles. (%s/s)"/>
 	<string id="8099" value="Il y a une description."/>
 	<string id="8100" value="il y a %i descriptions."/>
 	<string id="8101" value="%s a écrit:"/>
@@ -2792,7 +2792,7 @@
 	<string id="8243" value="Ratio d'envoi&#160;:"/>
 	<string id="8244" value="Nombre de revues&#160;:"/>
 	<string id="8288" value="Explorer votre bibliothèque PeerProject"/>
-	<string id="8289" value="Explorer "/>
+	<string id="8289" value="Explorer"/>
 	<string id="8290" value="Explorer le contenu de %i dossiers"/>
 	<string id="8291" value="Dossiers multiples"/>
 	<string id="8292" value="%i fichiers sélectionnés"/>
@@ -2915,7 +2915,7 @@
 	<string id="16264" value="Initialisation d'une connexion à %s port %i pour télécharger &#171;&#160;%s&#160;&#187;..."/>
 	<string id="16265" value="Impossible de se connecter à l'hôte %s pour télécharger."/>
 	<string id="16266" value="La connexion de téléchargement à %s est établie."/>
-	<string id="16267" value="Demande du fragment de téléchargement (%I64i-%I64i) de %s."/>
+	<string id="16267" value="Demande du fragment de téléchargement (%I64u-%I64u) de %s."/>
 	<string id="16268" value="Plus de fragments du téléchargement, fermeture de la connexion avec %s."/>
 	<string id="16269" value="Le fragment a raccourci, fermeture de la connexion avec %s."/>
 	<string id="16270" value="Délai d'attente dépassé pour la demande de téléchargement à %s, fermeture de la connexion."/>
@@ -3176,7 +3176,7 @@
 	<string id="17029" value="Échec de la poignée de main, l'hôte ne supporte peut-être pas la discussion."/>
 	<string id="17030" value="Poignée de main terminée, protocole de discussion version %s."/>
 	<string id="17031" value="Échange de l'information du profil..."/>
-	<string id="17032" value="Utilisateur authentifié "/>
+	<string id="17032" value="Utilisateur authentifié"/>
 	<string id="17033" value="Demande une conversation privée avec l'utilisateur..."/>
 	<string id="17034" value="Conversation privée établie, vous discutez avec %s."/>
 	<string id="17035" value="%s n'accepte pas les conversations privées, dommage."/>
@@ -3386,19 +3386,19 @@
 </strings>
 <!-- Localized Dialog Text, "cookie" verifies that the skin matches current dialog -->
 <dialogs>
-	<dialog name="CGeneralSettingsGroup" cookie="" caption="General">
-	</dialog>
-	<dialog name="CSettingSheet" cookie="SyBuBuBu#3" caption="Réglages PeerProject"><!--This can be is ignored or removed. Also there is some business unique to win98 I think. Try changing cookie to SyBuBuBu#3 if you're on that os. -->
+	<dialog name="CSettingSheet" cookie="SyBuBuBu" caption="Réglages PeerProject">
 		<control/>
 		<control caption="Valider"/>
 		<control caption="Annuler"/>
 		<control caption="Appliquer"/>
 		<control/>
 	</dialog>
+	<dialog name="CGeneralSettingsGroup" cookie="Af" caption="Général"/>
+	<dialog name="CInternetSettingsGroup" cookie="Af" caption="Internet"/>
 	<dialog name="CGeneralSettingsPage" cookie="BuBuBuBuBuBuBuBuStCoBuBuBuBuBuBuSyStEdmsStmsBuBuStCoStCo" caption="Général">
 		<control caption="_Général&#160;:"/>
-		<control caption="Connexion automatique au démarrage"/>
 		<control caption="Démarrer PeerProject avec Windows"/>
+		<control caption="Connexion automatique au démarrage"/>
 		<control caption="Prévenir avant d'ouvrir les URI"/>
 		<control caption="Vérifier les mises à jour"/>
 		<control caption="_Téléchargements&#160;:"/>
@@ -3539,8 +3539,6 @@
 		<control caption="Enleve_r"/>
 		<control caption="Le gestionnaire de téléchargement ne téléchargera que les fichiers dont le type est dans cette liste. Les autres types de fichier seront gérés par votre navigateur Web. PeerProject doit être lancé pour que cette gestion soit active."/>
 	</dialog>
-	<dialog name="CInternetSettingsGroup" caption="Internet">
-	</dialog>
 	<dialog name="CConnectionSettingsPage" cookie="BuStCoStCoStEdBuBuBuStCoStCoBuStCoBuBuBuStEdmsStEdms" caption="Connexion">
 		<control caption="Adresse _entrante&#160;:"/>
 		<control caption="Adresse&#160;:"/>
@@ -3573,7 +3571,7 @@
 		<control caption="_Sauvegarder les fichiers terminés ici&#160;:"/>
 		<control/>
 		<control/>
-		<control caption="Stocker les fichiers _incomplets ici&#160;&#160;&#160;:"/><!--Not enough space to display &#160;: so hiding it with more non breakable spaces-->
+		<control caption="Stocker les fichiers _incomplets ici&#160;:"/>
 		<control/>
 		<control/>
 		<control caption="_Nombre de téléchargements&#160;:"/>
@@ -3772,15 +3770,13 @@
 		<control caption="_Configurer..."/>
 		<control caption="Plus d'extensions"/>
 	</dialog>
-	<dialog name="CAdvancedSettingsPage" cookie="SyEdmsBuBuStStEd" caption="Avancé">
+	<dialog name="CAdvancedSettingsPage" cookie="SyEdmsBuBuSt" caption="Avancé">
 		<control/>
 		<control/>
 		<control/>
 		<control caption="Par défaut"/>
 		<control caption="Paramètres de la propriété&#160;:"/>
 		<control caption="Valeur&#160;:"/>
-		<control caption="Description&#160;:"/>
-		<control/>
 	</dialog>
 	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="Protocoles">
 		<control caption="Explorateur de l'architecture commune aux protocoles de PeerProject&#160;:"/>
@@ -3827,7 +3823,7 @@
 		<control caption="Annuler"/>
 		<control caption="Récompenser les envoyeurs"/>
 	</dialog>
-	<dialog name="CWizardWelcomePage" cookie="StStStStStStStStStStStSt" caption="PeerProject vous souhaite la bienvenue">
+	<dialog name="CWizardWelcomePage" cookie="StStStStStStStStStStStSt" caption="PeerProject vous souhaite la bienvenue &#160;(1/8)">
 		<control caption="PeerProject vous souhaite la bienvenue!"/>
 		<control caption="Si vous n'avez jamais utilisé PeerProject ou un autre client P2P, cet assistant vous aidera à le configurer en quelques étapes."/>
 		<control caption="Si vous êtes un utilisateur avancé, vous pouvez accéder à toutes les options de PeerProject via le menu &#171;&#160;Outils&#160;&#187;. Cliquez sur &#171;&#160;Quitter&#160;&#187; pour quitter l'assistant à n'importe quel moment."/>
@@ -3841,7 +3837,7 @@
 		<control/>
 		<control caption="Commencer à utiliser PeerProject."/>
 	</dialog>
-	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="PeerProject vous souhaite la bienvenue (1/6)">
+	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="PeerProject vous souhaite la bienvenue &#160;(2/8)">
 		<control caption="Pour des performances optimales, PeerProject doit en connaître un peu plus sur votre connexion à Internet."/>
 		<control caption="Veuillez sélectionner le type de connexion&#160;:"/>
 		<control caption="| Modem Dial up|ISDN (128K)|DSL (768K)|DSL (1.5M)|DSL (4.0M)|DSL2 (8.0M)|FIOS (10.0M)|DSL2 (12.0M)|FIOS (20.0M)|DSL2+ (24.0M)| Modem Câble/SDSL| T1| T3| LAN| OC3"/>
@@ -3857,7 +3853,30 @@
 		<control caption="Statut&#160;:"/>
 		<control/>
 	</dialog>
-	<dialog name="CWizardSharePage" cookie="StStStSyBuBuSt" caption="PeerProject vous souhaite la bienvenue (2/6)">
+	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuStBu" caption="PeerProject vous souhaite la bienvenue &#160;(3/8)">
+		<control caption="PeerProject est une application d'échange de fichier à usage universel qui peut accéder à de nombreux réseaux P2P simultanément. Choisissez ci-dessous à quels réseaux se connecter, vous pourrez en sélectionner de différents à tout moment."/>
+		<control caption="Connexion à Gnutella2  (Recommandé)"/>
+		<control caption="Le réseau Gnutella2 (G2) est le réseau de prédilection de PeerProject, il est le plus performant des réseaux P2P. (Shareaza)"/>
+		<control caption="Connexion à Gnutella"/>
+		<control caption="Le réseau Gnutella original (G1) possède moins de fichiers qu'eDonkey, mais il reste une ressource non négligeable. (LimeWire)"/>
+		<control caption="Connexion à eDonkey2000"/>
+		<control caption="Le réseau eDonkey (ED2K) est un réseau populaire basé sur des serveurs. Il peut être moins performant que G2, mais possède plus de contenu. (eMule)"/>
+		<control caption="Prendre en charge les liens torrent."/>
+	</dialog>
+	<dialog name="CWizardFoldersPage" cookie="StStEdBuStEdBuStEdBuSt" caption="PeerProject vous souhaite la bienvenue &#160;(4/8)">
+		<control caption="PeerProject first downloads partial files to a private folder, then moves them when completed according to Download Groups."/>
+		<control caption="Sauvegarder les fichiers terminés ici&#160;:"/>
+		<control/>
+		<control/>
+		<control caption="Stocker les fichiers incomplets ici&#160;:"/>
+		<control/>
+		<control/>
+		<control caption="Stocker les .Torrents ici&#160;:"/>
+		<control/>
+		<control/>
+		<control caption="Common filetypes are initially setup as subfolders of the default location, but Groups can easily be customized by Right-Click.  Simply Drag&apos;n&apos;Drop files."/>
+	</dialog>
+	<dialog name="CWizardSharePage" cookie="StStStSyBuBuSt" caption="PeerProject vous souhaite la bienvenue &#160;(5/8)">
 		<control caption="Les réseaux P2P ne peuvent être performants si vous ne partagez pas. Le contenu disponible en téléchargement provient des utilisateurs."/>
 		<control caption="Vous n'êtes pas obligé de partager avec PeerProject, toutefois certains logiciels peuvent vous refuser l'accès si vous ne partagez pas."/>
 		<control caption="Veuillez indiquer quels dossiers vous désirez partager. Cliquez simplement sur le bouton &#171;&#160;Ajouter&#160;&#187; pour ajouter un dossier."/>
@@ -3875,7 +3894,17 @@
 		<control caption="0"/>
 		<control caption="Fermer"/>
 	</dialog>
-	<dialog name="CWizardProfilePage" cookie="StStEdStCoCoStCoCo" caption="PeerProject vous souhaite la bienvenue (3/6)">
+	<dialog name="CWizardInterfacePage" cookie="StBuBuBuStStBuSt" caption="PeerProject vous souhaite la bienvenue &#160;(6/8)">
+		<control caption="PeerProject offre une interface utilisateur flexible, vous pouvez ainsi choisir ce qui vous paraît le plus confortable."/>
+		<control caption="Veuillez sélectionner l'interface utilisateur&#160;:"/>
+		<control caption="Mode Normal"/>
+		<control caption="Mode Expert"/>
+		<control caption="Simple, facile d'utilisation. Il sera familier pour les utilisateurs d'autres clients P2P."/>
+		<control caption="Le mode Expert propose aux utilisateurs initiés plus de fonctionnalités."/>
+		<control caption="Afficher des barres de progression simplifiées."/>
+		<control caption="Essayez de mélanger plusieurs habillages."/>
+	</dialog>
+	<dialog name="CWizardProfilePage" cookie="StStEdStCoCoStCoStCoStEd" caption="PeerProject vous souhaite la bienvenue &#160;(7/8)">
 		<control caption="PeerProject est beaucoup plus amical quand chacun écrit quelques informations basiques à propos d'eux-mêmes."/>
 		<control caption="J'utilise le nom&#160;:"/>
 		<control/>
@@ -3884,27 +3913,18 @@
 		<control caption="&#160;(choisir)| un homme| une femme| un garçon| une fille"/>
 		<control caption="résidant à&#160;:"/>
 		<control/>
+		<control caption="Locale:"/>
+		<control/>
+		<control caption="Comments:"/>
 		<control/>
 	</dialog>
-	<dialog name="CWizardInterfacePage" cookie="StBuBuBuStStBuSt" caption="PeerProject vous souhaite la bienvenue (4/6)">
-		<control caption="PeerProject offre une interface utilisateur flexible, vous pouvez ainsi choisir ce qui vous paraît le plus confortable."/>
-		<control caption="Veuillez sélectionner l'interface utilisateur&#160;:"/>
-		<control caption="Mode Normal"/>
-		<control caption="Mode Expert"/>
-		<control caption="Simple, facile d'utilisation. Il sera familier pour les utilisateurs d'autres clients P2P."/>
-		<control caption="Le mode Expert propose aux utilisateurs initiés plus de fonctionnalités."/>
-		<control caption="Afficher des barres de progression simplifiées."/>
-		<control caption=""/>
-	</dialog>
-	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuStBu" caption="PeerProject vous souhaite la bienvenue (5/6)">
-		<control caption="PeerProject est une application d'échange de fichier à usage universel qui peut accéder à de nombreux réseaux P2P simultanément. Choisissez ci-dessous à quels réseaux se connecter, vous pourrez en sélectionner de différents à tout moment."/>
-		<control caption="Connexion à Gnutella2  (Recommandé)"/>
-		<control caption="Le réseau Gnutella2 (G2) est le réseau de prédilection de PeerProject, il est le plus performant des réseaux P2P. (Shareaza)"/>
-		<control caption="Connexion à Gnutella"/>
-		<control caption="Le réseau Gnutella original (G1) possède moins de fichiers qu'eDonkey, mais il reste une ressource non négligeable. (LimeWire)"/>
-		<control caption="Connexion à eDonkey2000"/>
-		<control caption="Le réseau eDonkey (ED2K) est un réseau populaire basé sur des serveurs. Il peut être moins performant que G2, mais possède plus de contenu. (eMule)"/>
-		<control caption="Prendre en charge les liens torrent."/>
+	<dialog name="CWizardFinishedPage" cookie="StStStBuBuSt" caption="PeerProject vous souhaite la bienvenue &#160;(8/8)">
+		<control caption="C'est fait&#160;! PeerProject a été configuré pour fonctionner sur votre ordinateur&#160;!"/>
+		<control caption="Si vous voulez par la suite modifier vos paramètres, vous pouvez relancer cet assistant de configuration en le sélectionnant dans le menu outils."/>
+		<control caption="Après avoir fermé cet assistant en cliquant sur terminer, vous pouvez vous connecter aux réseaux que vous avez sélectionnés et commencer une recherche."/>
+		<control caption="Lancer PeerProject au démarrage de &#171;&#160;Windows&#160;&#187;"/>
+		<control caption="Se connecter au réseau à chaque lancement de PeerProject"/>
+		<control caption="Vous pouvez maintenant apprécier PeerProject&#160;!"/>
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="Importer des téléchargements eDonkey">
 		<control/>
@@ -3914,16 +3934,7 @@
 		<control/>
 		<control caption="Fermer"/>
 	</dialog>
-	<dialog name="CWizardFinishedPage" cookie="StStStBuBuBuSt" caption="PeerProject vous souhaite la bienvenue (6/6)">
-		<control caption="C'est fait&#160;! PeerProject a été configuré pour fonctionner sur votre ordinateur&#160;!"/>
-		<control caption="Si vous voulez par la suite modifier vos paramètres, vous pouvez relancer cet assistant de configuration en le sélectionnant dans le menu outils."/>
-		<control caption="Après avoir fermé cet assistant en cliquant sur terminer, vous pouvez vous connecter aux réseaux que vous avez sélectionnés et commencer une recherche."/>
-		<control caption="Se connecter au réseau à la fermeture de cet assistant."/>
-		<control caption="Se connecter au réseau à chaque lancement de PeerProject"/>
-		<control caption="Lancer PeerProject au démarrage de &#171;&#160;Windows&#160;&#187;"/>
-		<control caption="Vous pouvez maintenant apprécier PeerProject&#160;!"/>
-	</dialog>
-	<dialog name="CProfileManagerDlg" cookie="SyBuBuBu#3" caption="Éditer mon profil">
+	<dialog name="CProfileManagerDlg" cookie="SyBuBuBu" caption="Éditer mon profil">
 		<control/>
 		<control caption="Valider"/>
 		<control caption="Annuler"/>
@@ -4041,30 +4052,30 @@
 		<control caption="Rechercher"/>
 		<control caption="Annuler"/>
 	</dialog>
-	<dialog name="CFilterSearchDlg" cookie="BuEdBuStBuStEdStEdStEdmsStBuBuBuBuBuBuBuBuBuBuBuCoBuBuBuBuBu" caption="Assortiments du filtre">
+	<dialog name="CFilterSearchDlg" cookie="BuEdBuStBuStEdStEdStEdmsBuBuBuBuBuBuBuBuBuBuBuBuBuCoBuBuBuBuBu" caption="Assortiments du filtre">
 		<control caption="Montrer seulement les résultats qui contiennent les mots&#160;:"/>
 		<control/>
 		<control caption="Reg. Exp."/>
-		<control caption="( vous pouvez exclure des mots avec -mot )"/>
+		<control caption="(Exclure -mots)"/>
 		<control caption="Et qui ont une taille de&#160;:"/>
 		<control caption="Minimum&#160;:"/>
 		<control/>
 		<control caption="Maximum&#160;:"/>
 		<control/>
-		<control caption="Avec au moins&#160;:"/>
+		<control caption="Avec au moins sources.&#160;:"/>
 		<control/>
 		<control/>
-		<control caption="sources."/>
 		<control caption="Masquer&#160;:"/>
-		<control caption="Hôtes occupés"/>
+		<control caption="Fichiers possédés"/>
+		<control caption="Sans correspondance"/>
+		<control caption="Fichiers suspects"/>
+		<control caption="Fichiers restricte"/>
+		<control caption="Fichiers DRM"/>
 		<control caption="Hôtes avec pare-feu"/>
 		<control caption="Hôtes instables"/>
-		<control caption="Sans correspondance"/>
-		<control caption="Fichiers possédés"/>
+		<control caption="Hôtes occupés"/>
 		<control caption="Faux résultats"/>
-		<control caption="Fichiers DRM"/>
 		<control caption="Résultats pour adultes"/>
-		<control caption="Fichiers suspects"/>
 		<control caption="Filtrer"/>
 		<control/>
 		<control caption="Régler par défaut"/>
@@ -4154,15 +4165,15 @@
 		<control caption="Enleve_r"/>
 		<control/>
 	</dialog>
-	<dialog name="CFileCopyDlg" cookie="StStmsBuBumsStSt" caption="Copier des fichiers|Déplacer des fichiers">
+	<dialog name="CFileCopyDlg" cookie="StStStmsmsStBuBu" caption="Copier des fichiers|Déplacer des fichiers">
 		<control caption="Vous avez sélectionné %i fichiers à copier dans ce dossier&#160;:"/>
+		<control caption="Vous avez sélectionné %i fichiers à déplacer dans ce dossier&#160;:"/>
 		<control/>
 		<control/>
-		<control caption="Valider"/>
-		<control caption="Annuler"/>
 		<control/>
 		<control caption="Prêt..."/>
-		<control caption="Vous avez sélectionné %i fichiers à déplacer dans ce dossier&#160;:"/>
+		<control caption="Valider"/>
+		<control caption="Annuler"/>
 	</dialog>
 	<dialog name="CFolderPropertiesDlg" cookie="StEdStCoBuStBuBu" caption="Propriétés du dossier">
 		<control caption="Titre du dossier&#160;:"/>

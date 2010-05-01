@@ -1,7 +1,7 @@
 //
 // Buffer.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -26,7 +26,7 @@
 #pragma once
 
 // A buffer of memory that takes care of allocating and freeing itself, and has methods for compression and encoding
-class CBuffer : private boost::noncopyable
+class CBuffer //: private boost::noncopyable
 {
 
 // Construction
@@ -44,10 +44,13 @@ public:
 private:
 	DWORD		m_nBuffer;	// The size of the allocated block
 
+	CBuffer(const CBuffer&);
+	CBuffer& operator=(const CBuffer&);
+
 // Accessors
 public:
-	const DWORD	GetBufferSize() const { return m_nBuffer; }	// Return the total size of the buffer
-	BYTE* const	GetDataStart() const { return m_pBuffer; }	// Return a pointer to the start of the data in the buffer
+	DWORD GetBufferSize() const { return m_nBuffer; }	// Return the total size of the buffer
+	BYTE* GetDataStart() const { return m_pBuffer; }	// Return a pointer to the start of the data in the buffer
 
 // Operations
 public:
@@ -85,15 +88,15 @@ public:
 	BOOL    StartsWith(LPCSTR pszString, const size_t nLength, const BOOL bRemove = FALSE) throw();// Returns true if the buffer starts with this text
 
 	// Use the buffer with a socket
-	const DWORD	Receive(SOCKET hSocket, DWORD nSpeedLimit = ~0ul);	// Move incoming data from the socket to this buffer
-	const DWORD	Send(SOCKET hSocket, DWORD nSpeedLimit = ~0ul);		// Send the contents of this buffer to the computer on the far end of the socket
+	DWORD	Receive(SOCKET hSocket, DWORD nSpeedLimit = ~0ul);		// Move incoming data from the socket to this buffer
+	DWORD	Send(SOCKET hSocket, DWORD nSpeedLimit = ~0ul);			// Send the contents of this buffer to the computer on the far end of the socket
 
 	// Use the buffer with the ZLib compression library
-	BOOL		Deflate(BOOL bIfSmaller = FALSE);						// Compress the data in this buffer
-	BOOL		Inflate();												// Decompress the data in this buffer in place
-	const bool	InflateStreamTo(CBuffer& oBuffer, z_streamp& pStream);	// Decompress the data in this buffer into another buffer
-	void		InflateStreamCleanup(z_streamp& pStream) const;			// Stop stream decompression and cleanup
-	BOOL		Ungzip();												// Delete the gzip header and then remove the compression
+	BOOL	Deflate(BOOL bIfSmaller = FALSE);						// Compress the data in this buffer
+	BOOL	Inflate();												// Decompress the data in this buffer in place
+	bool	InflateStreamTo(CBuffer& oBuffer, z_streamp& pStream);	// Decompress the data in this buffer into another buffer
+	void	InflateStreamCleanup(z_streamp& pStream) const;			// Stop stream decompression and cleanup
+	BOOL	Ungzip();												// Delete the gzip header and then remove the compression
 
 	// Read and write a DIME message in the buffer
 	void	WriteDIME(DWORD nFlags, LPCSTR pszID, size_t nIDLength, LPCSTR pszType, size_t nTypeLength, LPCVOID pBody, size_t nBody);
@@ -132,8 +135,8 @@ public:
 	void	Prefix(LPCSTR pszText, const size_t nLength) { Insert( 0, (void*)pszText, nLength ); }
 
 private:
-	BYTE* const		GetDataEnd() const { return m_pBuffer + m_nLength; }	// Return a pointer to the end of the data in the buffer
-	const size_t	GetBufferFree() const { return m_nBuffer - m_nLength; }	// Return the unused #bytes in the buffer
+	BYTE*	GetDataEnd() const { return m_pBuffer + m_nLength; }	// Return a pointer to the end of the data in the buffer
+	size_t	GetBufferFree() const { return m_nBuffer - m_nLength; }	// Return the unused #bytes in the buffer
 
 // Statics
 public:

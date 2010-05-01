@@ -1,7 +1,7 @@
 //
 // DlgSettingsManager.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -88,13 +88,18 @@ BOOL CSettingsManagerDlg::Run(LPCTSTR pszWindow)
 
 void CSettingsManagerDlg::OnSkinChange(BOOL bSet)
 {
-	if ( m_pThis == NULL ) return;
+	if ( ! m_pThis ) return;
 
 	if ( bSet )
 	{
 		m_pThis->SkinMe( _T("CSettingSheet"), IDR_MAINFRAME );
-		if ( CSettingsPage* pPage = m_pThis->GetActivePage() )
-			Skin.Apply( NULL, pPage, 0, &pPage->m_wndToolTip );
+
+		for ( INT_PTR i = 0; i < m_pThis->GetPageCount(); ++i )
+		{
+			CSettingsPage* pPage = m_pThis->GetPage( i );
+
+			pPage->OnSkinChange();
+		}
 
 		m_pThis->Invalidate();
 	}
@@ -114,12 +119,12 @@ INT_PTR CSettingsManagerDlg::DoModal(LPCTSTR pszWindow)
 	CMediaSettingsPage		pMedia;
 	CIRCSettingsPage		pIRC;
 	CCommunitySettingsPage	pCommunity;
+	CRemoteSettingsPage		pRemote;
 	CWebSettingsPage		pWeb;
 	CRichSettingsPage		gInternet( _T("CInternetSettingsGroup") );
 	CConnectionSettingsPage	pConnection;
 	CDownloadsSettingsPage	pDownloads;
 	CUploadsSettingsPage	pUploads;
-	CRemoteSettingsPage		pRemote;
 	CSchedulerSettingsPage	pScheduler;
 	CNetworksSettingsPage	gNetworks;
 	CGnutellaSettingsPage	pGnutella;
@@ -130,40 +135,38 @@ INT_PTR CSettingsManagerDlg::DoModal(LPCTSTR pszWindow)
 	CAdvancedSettingsPage	pAdvanced;
 	CProtocolsSettingsPage	pProtocols;
 
-	AddGroup( &gGeneral );
-	AddPage( &pGeneral );
-	AddPage( &pLibrary );
-	AddPage( &pMedia );
-	AddPage( &pIRC );
-	AddPage( &pCommunity );
-	AddPage( &pWeb );
-	AddGroup( &gInternet );
-	AddPage( &pConnection );
-	AddPage( &pDownloads );
-	AddPage( &pUploads );
+	AddGroup( &gGeneral );			// Richdoc CGeneralSettingsGroup
+	AddPage( &pGeneral );			// IDD_SETTINGS_GENERAL
+	AddPage( &pLibrary );			// IDD_SETTINGS_LIBRARY
+	AddPage( &pMedia ); 			// IDD_SETTINGS_MEDIA
+	AddPage( &pIRC );				// IDD_SETTINGS_IRC
+	AddPage( &pCommunity );			// IDD_SETTINGS_COMMUNITY
+	if ( bAdvanced )
+		AddPage( &pRemote );		// IDD_SETTINGS_REMOTE
+	AddPage( &pWeb );				// IDD_SETTINGS_WEB
+	AddGroup( &gInternet ); 		// Richdoc CInternetSettingsGroup
+	AddPage( &pConnection );		// IDD_SETTINGS_CONNECTION
+	AddPage( &pDownloads ); 		// IDD_SETTINGS_DOWNLOADS
+	AddPage( &pUploads );			// IDD_SETTINGS_UPLOADS
 	if ( bAdvanced )
 	{
-		AddPage( &pRemote );
-		AddPage( &pScheduler );
-		AddGroup( &gNetworks );
-		AddPage( &pGnutella );
+		AddPage( &pScheduler ); 	// IDD_SETTINGS_SCHEDULER
+		AddGroup( &gNetworks ); 	// IDD_SETTINGS_NETWORKS
+		AddPage( &pGnutella );		// IDD_SETTINGS_GNUTELLA
 #ifndef LAN_MODE
-		AddPage( &pDonkey );
-		AddPage( &pTorrent );
+		AddPage( &pDonkey );		// IDD_SETTINGS_DONKEY
+		AddPage( &pTorrent );		// IDD_SETTINGS_BITTORRENT
 #endif //LAN_MOD
 	}
-	AddGroup( &pSkins );
-	AddGroup( &pPlugins );
+	AddGroup( &pSkins );			// IDD_SETTINGS_SKINS
 	if ( bAdvanced )
 	{
-		AddGroup( &pAdvanced );
-		AddPage( &pProtocols ); //ToDo: Remove or Improve Protocol Page
+		AddGroup( &pPlugins );		// IDD_SETTINGS_PLUGINS
+		AddGroup( &pAdvanced ); 	// IDD_SETTINGS_ADVANCED
+		AddPage( &pProtocols ); 	// IDD_SETTINGS_PROTOCOLS	ToDo: Remove or Improve?
 	}
 
-	if ( pszWindow != NULL )
-		SetActivePage( GetPage( pszWindow ) );
-	else
-		SetActivePage( GetPage( Settings.General.LastSettingsPage ) );
+	SetActivePage( GetPage( pszWindow ? pszWindow : Settings.General.LastSettingsPage ) );
 
 	INT_PTR nReturn = CSettingsSheet::DoModal();
 
@@ -188,7 +191,7 @@ void CSettingsManagerDlg::AddGroup(CSettingsPage* pPage)
 	}
 	else
 	{
-		CString strName = pPage->GetRuntimeClass()->m_lpszClassName;
+		CString strName( pPage->GetRuntimeClass()->m_lpszClassName );
 		CString strCaption = Skin.GetDialogCaption( strName );
 		CSettingsSheet::AddGroup( pPage, strCaption.GetLength() ? (LPCTSTR)strCaption : NULL );
 	}
@@ -223,7 +226,7 @@ void CSettingsManagerDlg::DoPaint(CDC& dc)
 	mdc.SelectObject( pOldBitmap );
 	mdc.DeleteDC();
 
-	//ToDo: Remove This?
+	// ToDo: Remove This?
 	//dc.FillSolidRect( 438, 0, rc.right - 438, 48, RGB( 0xBE, 0, 0 ) );
 	//dc.Draw3dRect( 438, 48, rc.right - 437, 2, RGB( 169, 0, 0 ), RGB( 110, 59, 59 ) );
 	//dc.Draw3dRect( 0, 50, rc.Width() + 1, 1, RGB( 128, 128, 128 ), RGB( 128, 128, 128 ) );

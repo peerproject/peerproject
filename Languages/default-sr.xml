@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <skin xmlns="http://schemas.peerproject.org/Skin.xsd" version="1.0">
 
 <!-- PeerProject Default Serbian Skin File -->
 
-<!-- Translation based on default-en.xml r52 -->
+<!-- Translation based on default-en.xml r54 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1817,6 +1817,9 @@
 		<link target="peer:page:CCommunitySettingsPage" format="b">Zajednica:</link>
 		<text>&#160;Vaš profil, podešavanja vezane uz chat i instant messaging.</text>
 		<newline gap="10"/>
+		<link target="peer:page:CRemoteSettingsPage" format="b">Pristup na daljinu:</link>
+		<text>&#160;Omogućuje udaljeno kontrolisanje Shreaze preko Internet preglednika.</text>
+		<newline gap="10"/>
 		<link target="peer:page:CWebSettingsPage" format="b">Web:</link>
 		<text>&#160;Povežite PeerProject sa preglednikom interneta da prihvata skidanje i P2P linkove.</text>
 	</document>
@@ -1836,9 +1839,6 @@
 		<newline gap="10"/>
 		<link target="peer:page:CUploadsSettingsPage" format="b">Deljenje:</link>
 		<text>&#160;Mogućnosti, ograničenja i ostale podešavanja vezana uz deljenje i davanje datoteka.</text>
-		<newline gap="10"/>
-		<link target="peer:page:CRemoteSettingsPage" format="b">Pristup na daljinu:</link>
-		<text>&#160;Omogućuje udaljeno kontrolisanje Shreaze preko Internet preglednika.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CSchedulerSettingsPage" format="b">Scheduler:</link>
 		<text>&#160;Limit download connections based on a periodic schedule.</text>
@@ -2116,7 +2116,7 @@
 		while downloads are unlimited. That configuration should give you the fastest possible
 		downloads that are available.</text>
 	</document>
-    <!-- Search help documents -->
+	<!-- Search help documents -->
 	<document name="SearchHelp.BadSearch1">
 		<text format="b">Molim da promenite frazu za traženje</text>
 		<newline gap="8"/>
@@ -2545,8 +2545,8 @@
 	<string id="8071" value="Spojeno"/>
 	<string id="8072" value="Isključi"/>
 	<string id="8096" value="Ovde možete videti više informacija o datoteci koju označite."/>
-	<string id="8097" value="Dostupan Jedan Izvor (%s)."/>
-	<string id="8098" value="%i Dostupnih Izvora (%s)."/>
+	<string id="8097" value="Dostupan Jedan Izvor. (%s/s)"/>
+	<string id="8098" value="%i Dostupnih Izvora. (%s/s)"/>
 	<string id="8099" value="Jedna kritika je dostupna."/>
 	<string id="8100" value="Dostupno je %i kritika."/>
 	<string id="8101" value="%s piše:"/>
@@ -2610,14 +2610,14 @@
 	<string id="8233" value="Odustani"/>
 	<string id="8235" value="Brzina prenosa:"/>
 	<string id="8236" value="Preostalo vremena:"/>
-	<string id="8237" value="Skinuto:    "/>
+	<string id="8237" value="Skinuto:"/>
 	<string id="8238" value="Broj izvora:"/>
 	<string id="8239" value="Skinuto"/>
 	<string id="8240" value="PeerProject premešta skinuto:"/>
 	<string id="8241" value="PeerProject proverava ako ima greška:"/>
 	<string id="8243" value="Dano:"/>
 	<string id="8288" value="Pregledavam vašu kolekciju"/>
-	<string id="8289" value="Pregledavam "/>
+	<string id="8289" value="Pregledavam"/>
 	<string id="8290" value="Pregledavam sadržaj %i fascikla"/>
 	<string id="8291" value="Više fascikla"/>
 	<string id="8292" value="%i odabranih datoteka"/>
@@ -2634,7 +2634,7 @@
 	<string id="8312" value="Ovo već imate na popisu za skidanje."/>
 	<string id="8313" value="Ovo izgleda kao smeće ."/>
 	<string id="8314" value="Ovu datoteku ste već skinuli i obrisali."/>
-	<string id="8315" value="Na Crnoj Listi: "/>
+	<string id="8315" value="Na Crnoj Listi:"/>
 	<string id="8316" value="Pogodaka"/>
 	<string id="8317" value="Deljenja"/>
 	<string id="8318" value="%lu danas, %lu ukupno"/>
@@ -2736,7 +2736,7 @@
 	<string id="16264" value="Uspostavljam vezu sa %s na portu %i za skidanje &quot;%s&quot;..."/>
 	<string id="16265" value="Ne mogu se spojiti na hosta za skidanje %s ."/>
 	<string id="16266" value="Veza za skidanje na %s uspostavljena."/>
-	<string id="16267" value="Zahtevam delić (%I64i-%I64i) koji trebam skinuti za &quot;%s&quot; od %s."/>
+	<string id="16267" value="Zahtevam delić (%I64u-%I64u) koji trebam skinuti za &quot;%s&quot; od %s."/>
 	<string id="16268" value="Nema više delova, prekidam vezu sa %s."/>
 	<string id="16269" value="Fragment shortened, closing connection to %s."/>
 	<string id="16270" value="Isteklo je vreme zahteva za skidanje sa %s, prekidam vezu."/>
@@ -2980,7 +2980,7 @@
 	<string id="17029" value="Pozdravljanje neuspešno, izgleda da ne podržava razgovor"/>
 	<string id="17030" value="Puno vas pozdravlja, ima protokol verzije %s."/>
 	<string id="17031" value="Razmenjujem informacije o profilu..."/>
-	<string id="17032" value="Korisnik potvrđen "/>
+	<string id="17032" value="Korisnik potvrđen"/>
 	<string id="17033" value="Tražim Privatni Razgovor..."/>
 	<string id="17034" value="Privatni razgovor dopušten, razgovarate s %som."/>
 	<string id="17035" value="Žao mi je, %s ne prihvata razgovor s Vama."/>
@@ -3142,19 +3142,19 @@
 </strings>
 <!-- Localized Dialog Text, "cookie" verifies that the skin matches current dialog -->
 <dialogs>
-	<dialog name="CGeneralSettingsGroup" cookie="" caption="Opšta">
-	</dialog>
-	<dialog name="CSettingSheet" cookie="SyBuBuBu#3" caption="PeerProject Podešavanja">
+	<dialog name="CSettingSheet" cookie="SyBuBuBu" caption="PeerProject Podešavanja">
 		<control/>
 		<control caption="OK"/>
 		<control caption="Odustani"/>
 		<control caption="Potvrdi"/>
 		<control/>
 	</dialog>
+	<dialog name="CGeneralSettingsGroup" cookie="Af" caption="Opšta"/>
+	<dialog name="CInternetSettingsGroup" cookie="Af" caption="Internet"/>
 	<dialog name="CGeneralSettingsPage" cookie="BuBuBuBuBuBuBuBuStCoBuBuBuBuBuBuSyStEdmsStmsBuBuStCoStCo" caption="Opšta">
 		<control caption="Opšta:"/>
-		<control caption="Spoji se kad pokrenem PeerProject"/>
 		<control caption="Pokreni PeerProject sa Windowsom"/>
+		<control caption="Spoji se kad pokrenem PeerProject"/>
 		<control caption="Pitaj potvrdu pre otvaranja URI-ja"/>
 		<control caption="Check for updates"/>
 		<control caption="Ski_danje:"/>
@@ -3251,8 +3251,6 @@
 		<control caption="Dod_aj"/>
 		<control caption="Ukloni"/>
 		<control caption="Upravitelj Skidanja plugin skida samo datoteke onih prsta koje su na listi.Ostale tipove otvara Vaš internet preglednik.PeerProject mora biti pokrenuta da bi Upravitelj Skidanja radio."/>
-	</dialog>
-	<dialog name="CInternetSettingsGroup" caption="Internet">
 	</dialog>
 	<dialog name="CConnectionSettingsPage" cookie="BuStCoStCoStEdBuBuBuStCoStCoBuStCoBuBuStEdmsStEdms" caption="Veza">
 		<control caption="Dolazna Adresa:"/>
@@ -3484,15 +3482,13 @@
 		<control caption="_Podesi..."/>
 		<control caption="Stavi Više"/>
 	</dialog>
-	<dialog name="CAdvancedSettingsPage" cookie="SyEdmsBuBuStStEd" caption="Napredno">
+	<dialog name="CAdvancedSettingsPage" cookie="SyEdmsBuBuSt" caption="Napredno">
 		<control/>
 		<control/>
 		<control/>
 		<control caption="Set Default"/>
 		<control caption="Podešavanja:"/>
 		<control caption="Vrednost:"/>
-		<control caption="Opis:"/>
-		<control/>
 	</dialog>
 	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="Protokoli">
 		<control caption="PeerProject Common Architecture Protocol Explorer:"/>
@@ -3537,7 +3533,7 @@
 		<control caption="Odustani"/>
 		<control caption="Reward uploaders"/>
 	</dialog>
-	<dialog name="CWizardWelcomePage" cookie="StStStStStStStStStStStSt" caption="Dobrodošli u PeerProject">
+	<dialog name="CWizardWelcomePage" cookie="StStStStStStStStStStStSt" caption="Dobrodošli u PeerProject (1/8)">
 		<control caption="Dobrodošli u PeerProject!"/>
 		<control caption="Ako još niste koristili PeerProject ili neki drugi P2P klijent,brzo i lagano pomoćnik će vam u nekoliko jednostavnih koraka pomoći prilikom podešavanja osnovnih opcija."/>
 		<control caption="Ukoliko ste napredni korisnik, sve PeerProject opcije možete naći u meniju Alati.Ako želite zatvoriti ovu pomoć u bilo kojem trentku kliknite na Izlaz."/>
@@ -3551,7 +3547,7 @@
 		<control/>
 		<control caption="Započeti koristiti PeerProject."/>
 	</dialog>
-	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="Dobrodošli u PeerProject (1/6)">
+	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="Dobrodošli u PeerProject (2/8)">
 		<control caption="Da bi ispravno radila, PeerProject treba znati nešto i o Vašoj vezi prema internetu."/>
 		<control caption="Ako znate brzinu vaše veze na Internet molim da odaberete najbolju opciju:"/>
 		<control caption="|Običan Modem (56K)|ISDN (128K)|DSL (768K)|DSL (1.5M)|DSL (4.0M)|DSL2 (8.0M)|FIOS (10.0M)|DSL2 (12.0M)|FIOS (20.0M)|DSL2+ (24.0M)| Kablovski Modem/SDSL| T1| T3| LAN| OC3"/>
@@ -3566,7 +3562,30 @@
 		<control caption="Random"/>
 		<control caption="Status:"/>
 	</dialog>
-	<dialog name="CWizardSharePage" cookie="StStStSyBuBuSt" caption="Dobrodošli u PeerProject (2/6)">
+	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuStBu" caption="Dobrodošli u PeerProject (3/8)">
+		<control caption="PeerProject je program za deljenje i skidanje datoteka opšteg sadržaja, i može se istovremeno spojiti na više P2P mreža.Ovde možete odabrati kojim mrežama želite pristupiti.Posle možete promeniti odabrane mreže."/>
+		<control caption="Spoji se na Gnutellu2 (Preporučeno)"/>
+		<control caption="Gnutella2 mreža je PeerProject osnovna mreža, nudi najviše opcija i najbrža je od svih ostalih P2P mreža."/>
+		<control caption="Spoji se na Originalnu Gnutellu"/>
+		<control caption="Iako originalna Gnutellina mreža ima manje mogućnosti od Gnutelle2,manje datoteka od eDonkey2000, i dalje je vredan izvor datoteka."/>
+		<control caption="Spoji se na eDonkey2000"/>
+		<control caption="eDonkey2000 mreža je popularna server-bazirana mreža.Iako nema mogućnosti kao Gnutella2, poseduje impresivnu zbirku datoteka."/>
+		<control caption="Preuzmi torrent linkove."/>
+	</dialog>
+	<dialog name="CWizardFoldersPage" cookie="StStEdBuStEdBuStEdBuSt" caption="Dobrodošli u PeerProject (4/8)">
+		<control caption="PeerProject first downloads partial files to a private folder, then moves them when completed according to Download Groups."/>
+		<control caption="Skinute Datoteke Sačuvaj Ovde:"/>
+		<control/>
+		<control/>
+		<control caption="Nezavršene Datoteke Sačuvj Ovde:"/>
+		<control/>
+		<control/>
+		<control caption=".Torrent Datoteke Sačuvj Ovde:"/>
+		<control/>
+		<control/>
+		<control caption="Common filetypes are initially setup as subfolders of the default location, but Groups can easily be customized by Right-Click.  Simply Drag&apos;n&apos;Drop files."/>
+	</dialog>
+	<dialog name="CWizardSharePage" cookie="StStStSyBuBuSt" caption="Dobrodošli u PeerProject (5/8)">
 		<control caption="P2P mreže su dobre onoliko koliko i ljudi koji ih koriste.Sve šta je vama dostupno za skidanje, neko to deli sa vama."/>
 		<control caption="Ne morate ništa deliti da bi ste koristili PeerProject, iako neki programi se ponašaju drugačije prema korisnicima koji samo skidaju a ništa ne dele."/>
 		<control caption="Molim odaberite koje fascile, ako želite, želite deliti.Jednostavno kliknite na Dodaj botun za dodati fasciklu."/>
@@ -3584,18 +3603,7 @@
 		<control caption="0"/>
 		<control caption="Zatvori"/>
 	</dialog>
-	<dialog name="CWizardProfilePage" cookie="StStEdStCoCoStCoCo" caption="Dobrodošli u PeerProject (3/6)">
-		<control caption="PeerProject izgleda lepše i prijateljskije kada svatko napiše neke osnovne podatke o sebi."/>
-		<control caption="Moje ime je:"/>
-		<control/>
-		<control caption="i ja sam:"/>
-		<control caption="&#160;(odaberite)"/>
-		<control caption="&#160;(odaberite)| dečko| devojka| muškarac| žena"/>
-		<control caption="Iz:"/>
-		<control/>
-		<control/>
-	</dialog>
-	<dialog name="CWizardInterfacePage" cookie="StBuBuBuStStBuSt" caption="Dobrodošli u PeerProject (4/6)">
+	<dialog name="CWizardInterfacePage" cookie="StBuBuBuStStBuSt" caption="Dobrodošli u PeerProject (6/8)">
 		<control caption="PeerProject podržava dva korisnička izgleda, ovde možete izabrati koji vam više odgovara."/>
 		<control caption="Molim odaberite korisničko izgled:"/>
 		<control caption="Basic Izgled(interface)"/>
@@ -3605,15 +3613,27 @@
 		<control caption="Pokaži jednostavni pokazivač napretka."/>
 		<control caption=""/>
 	</dialog>
-	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuStBu" caption="Dobrodošli u PeerProject (5/6)">
-		<control caption="PeerProject je program za deljenje i skidanje datoteka opšteg sadržaja, i može se istovremeno spojiti na više P2P mreža.Ovde možete odabrati kojim mrežama želite pristupiti.Posle možete promeniti odabrane mreže."/>
-		<control caption="Spoji se na Gnutellu2 (Preporučeno)"/>
-		<control caption="Gnutella2 mreža je PeerProject osnovna mreža, nudi najviše opcija i najbrža je od svih ostalih P2P mreža."/>
-		<control caption="Spoji se na Originalnu Gnutellu"/>
-		<control caption="Iako originalna Gnutellina mreža ima manje mogućnosti od Gnutelle2,manje datoteka od eDonkey2000, i dalje je vredan izvor datoteka."/>
-		<control caption="Spoji se na eDonkey2000"/>
-		<control caption="eDonkey2000 mreža je popularna server-bazirana mreža.Iako nema mogućnosti kao Gnutella2, poseduje impresivnu zbirku datoteka."/>
-		<control caption="Preuzmi torrent linkove."/>
+	<dialog name="CWizardProfilePage" cookie="StStEdStCoCoStCoStCoStEd" caption="Dobrodošli u PeerProject (7/8)">
+		<control caption="PeerProject izgleda lepše i prijateljskije kada svatko napiše neke osnovne podatke o sebi."/>
+		<control caption="Moje ime je:"/>
+		<control/>
+		<control caption="i ja sam:"/>
+		<control caption="&#160;(odaberite)"/>
+		<control caption="&#160;(odaberite)| dečko| devojka| muškarac| žena"/>
+		<control caption="Iz:"/>
+		<control/>
+		<control caption="Locale:"/>
+		<control/>
+		<control caption="Comments:"/>
+		<control/>
+	</dialog>
+	<dialog name="CWizardFinishedPage" cookie="StStStBuBuSt" caption="Dobrodošli u PeerProject (8/8)">
+		<control caption="To je to! PeerProject je prilagođena za rad na Vašem računaru."/>
+		<control caption="Ukoliko kasnije želite da promenite podešavanja, možete odabrati Brzo i Lagano pomoćnika iz menija Alati."/>
+		<control caption="Nakon zatvaranja ovog pomoćnika klikom na Gotovo, možete se spojiti na odabrane mreže i započeti sa traženjem i skidanjem sadržaja."/>
+		<control caption="Upali PeerProject sa Windowsom"/>
+		<control caption="Spoji se na mrežu svaki puta kada pokrenem PeerProject"/>
+		<control caption="Uživajte koristeći PeerProject!"/>
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="Ubaci eDonkey2000 Skidanje">
 		<control/>
@@ -3623,16 +3643,7 @@
 		<control/>
 		<control caption="Zatvori"/>
 	</dialog>
-	<dialog name="CWizardFinishedPage" cookie="StStStBuBuBuSt" caption="Dobrodošli u PeerProject (6/6)">
-		<control caption="To je to! PeerProject je prilagođena za rad na Vašem računaru."/>
-		<control caption="Ukoliko kasnije želite da promenite podešavanja, možete odabrati Brzo i Lagano pomoćnika iz menija Alati."/>
-		<control caption="Nakon zatvaranja ovog pomoćnika klikom na Gotovo, možete se spojiti na odabrane mreže i započeti sa traženjem i skidanjem sadržaja."/>
-		<control caption="Spoji se na mrežu kada zatvorim pomoćnika"/>
-		<control caption="Spoji se na mrežu svaki puta kada pokrenem PeerProject"/>
-		<control caption="Upali PeerProject sa Windowsom"/>
-		<control caption="Uživajte koristeći PeerProject!"/>
-	</dialog>
-	<dialog name="CProfileManagerDlg" cookie="SyBuBuBu#3" caption="Promena Moga Profila">
+	<dialog name="CProfileManagerDlg" cookie="SyBuBuBu" caption="Promena Moga Profila">
 		<control/>
 		<control caption="OK"/>
 		<control caption="Odustani"/>
@@ -3750,30 +3761,30 @@
 		<control caption="Traži"/>
 		<control caption="Odustani"/>
 	</dialog>
-	<dialog name="CFilterSearchDlg" cookie="BuEdBuStBuStEdStEdStEdmsStBuBuBuBuBuBuBuBuBuBuBuCoBuBuBuBuBu" caption="Filtrirani Rezultati">
+	<dialog name="CFilterSearchDlg" cookie="BuEdBuStBuStEdStEdStEdmsBuBuBuBuBuBuBuBuBuBuBuBuBuCoBuBuBuBuBu" caption="Filtrirani Rezultati">
 		<control caption="Pokaži samo rezultate koji sadrže ove reči:"/>
 		<control/>
 		<control caption="Reg. Exp."/>
-		<control caption="( možete i da ne sadrži reči sa -reč )"/>
+		<control caption="(Možete i da ne sadrži -reči)"/>
 		<control caption="I veličine su od (KB):"/>
 		<control caption="Minimalno:"/>
 		<control/>
 		<control caption="Maximalno:"/>
 		<control/>
-		<control caption="Sa barem:"/>
+		<control caption="Sa baremizvora:"/>
 		<control/>
 		<control/>
-		<control caption="izvora."/>
 		<control caption="Sakrij:"/>
-		<control caption="Zauzete hostove"/>
-		<control caption="Non-matching files"/>
+		<control caption="Datoteke koje već imate"/>
+		<control caption="Non-matching datoteke"/>
+		<control caption="Suspicious datoteke"/>
+		<control caption="Restricted datoteke"/>
+		<control caption="DRM files"/>
 		<control caption="Firewalled/push hosts"/>
 		<control caption="Nestabilne hostove"/>
-		<control caption="Datoteke koje već imate"/>
+		<control caption="Zauzete hostove"/>
 		<control caption="Lažne rezultate"/>
-		<control caption="DRM files"/>
-		<control caption="Adult results"/>
-		<control caption="Suspicious files"/>
+		<control caption="Adult rezultate"/>
 		<control caption="Filteri:"/>
 		<control/>
 		<control caption="Postavi za uvek"/>
@@ -3862,15 +3873,15 @@
 		<control caption="Ukloni"/>
 		<control/>
 	</dialog>
-	<dialog name="CFileCopyDlg" cookie="StStmsBuBumsStSt" caption="Kopiraj Datoteke|Premesti Datoteke">
-		<control caption="Odabrali ste %i Datoteka(u) za kopiranje u sledeću fasciklu:"/>
+	<dialog name="CFileCopyDlg" cookie="StStStmsmsStBuBu" caption="Kopiraj Datoteke|Premesti Datoteke">
+		<control caption="Odabrali ste %i Datoteku za kopiranje u sledeću fasciklu:"/>
+		<control caption="Odabrali ste %i Datoteku za kopiranje u sledeću fasciklu:"/>
 		<control/>
 		<control/>
-		<control caption="OK"/>
-		<control caption="Odustani"/>
 		<control/>
 		<control caption="Spremno..."/>
-		<control caption="Odabrali ste %i Datoteka(u) za kopiranje u sledeću fasciklu:"/>
+		<control caption="OK"/>
+		<control caption="Odustani"/>
 	</dialog>
 	<dialog name="CFolderPropertiesDlg" cookie="StEdStCoBuStBuBu" caption="Podešavanje Fascikle sa Albumima">
 		<control caption="Ime Fascikle sa Albumima:"/>
@@ -4393,4 +4404,4 @@
 		<column from="Order" to="Naredba"/>
 	</list>
 </listColumns>
-</skin>ᐅﰅ螎짺
+</skin>

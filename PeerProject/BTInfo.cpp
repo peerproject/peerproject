@@ -211,7 +211,8 @@ CBTInfo& CBTInfo::operator=(const CBTInfo& oSource)
 	if ( oSource.m_pBlockBTH )
 	{
 		m_pBlockBTH = new Hashes::BtPureHash[ m_nBlockCount ];
-		std::copy( oSource.m_pBlockBTH, oSource.m_pBlockBTH + m_nBlockCount, m_pBlockBTH );
+		std::copy( oSource.m_pBlockBTH, oSource.m_pBlockBTH + m_nBlockCount,
+			stdext::make_checked_array_iterator( m_pBlockBTH, m_nBlockCount ) );
 	}
 
 	m_nTotalUpload		= oSource.m_nTotalUpload;
@@ -620,7 +621,7 @@ BOOL CBTInfo::SaveTorrentFile(const CString& sFolder)
 BOOL CBTInfo::LoadInfoPiece(DWORD nPieceSize, DWORD nInfoSize, DWORD nInfoPiece, BYTE *pPacketBuffer, DWORD nPacketLength)
 {
 	ASSERT( nPieceSize <= MAX_PIECE_SIZE );
-	if ( nPieceSize > MAX_PIECE_SIZE ) 
+	if ( nPieceSize > MAX_PIECE_SIZE )
 		return FALSE;
 
 	if ( m_pSource.m_nLength == 0 && nInfoPiece == 0 )
@@ -712,7 +713,7 @@ BOOL CBTInfo::CheckInfoData()
 		pBTH.Add( &m_pSource.m_pBuffer[pInfo->m_nPosition], pInfo->m_nSize );
 		pBTH.Finish();
 		pBTH.GetHash( &oBTH[0] );
-		
+
 		if ( oBTH == m_oBTH )
 		{
 			m_nInfoStart = pInfo->m_nPosition;
@@ -1005,7 +1006,8 @@ BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 	m_pBlockBTH = new Hashes::BtPureHash[ m_nBlockCount ];
 
 	std::copy( static_cast< const Hashes::BtHash::RawStorage* >( pHash->m_pValue ),
-		static_cast< const Hashes::BtHash::RawStorage* >( pHash->m_pValue ) + m_nBlockCount, m_pBlockBTH );
+		static_cast< const Hashes::BtHash::RawStorage* >( pHash->m_pValue ) + m_nBlockCount,
+		stdext::make_checked_array_iterator( m_pBlockBTH, m_nBlockCount ) );
 
 	// Hash info
 	if ( CBENode* pSHA1 = pInfo->GetNode( "sha1" ) )
@@ -1055,11 +1057,11 @@ BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 	}
 
 	// Details on file (or files).
-	if ( CBENode* pLength = pInfo->GetNode( "length" ) )
+	if ( CBENode* pSingleLength = pInfo->GetNode( "length" ) )
 	{
-		if ( ! pLength->IsType( CBENode::beInt ) )
+		if ( ! pSingleLength->IsType( CBENode::beInt ) )
 			return FALSE;
-		m_nSize = pLength->GetInt();
+		m_nSize = pSingleLength->GetInt();
 		if ( ! m_nSize )
 			return FALSE;
 
@@ -1136,17 +1138,17 @@ BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 			if ( ! pPath ) return FALSE;
 			if ( ! pPath->IsType( CBENode::beList ) ) return FALSE;
 
-			CBENode* pPart = pPath->GetNode( 0 );
-			if ( pPart && pPart->IsType( CBENode::beString ) )
+			CBENode* pPathPart = pPath->GetNode( 0 );
+			if ( pPathPart && pPathPart->IsType( CBENode::beString ) )
 			{
 				if ( ! IsValid( strPath ) )
 				{
-					strPath = pPart->GetString();	// Get the path
+					strPath = pPathPart->GetString();	// Get the path
 				}
 				else
 				{
 					// Check the path matches the .utf path
-					CString strCheck =  pPart->GetString();
+					CString strCheck =  pPathPart->GetString();
 					if ( strPath != strCheck )
 						m_bEncodingError = TRUE;
 					// Switch back to the UTF-8 path
@@ -1292,8 +1294,7 @@ BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 
 	pInfo->GetBth( m_oBTH );
 
-	if ( m_pSource.m_nLength > 0 
-		 && pInfo->m_nSize 
+	if ( m_pSource.m_nLength > 0 && pInfo->m_nSize
 		 && pInfo->m_nPosition + pInfo->m_nSize < m_pSource.m_nLength )
 	{
 		Hashes::BtHash oBTH;
@@ -1301,7 +1302,7 @@ BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 		pBTH.Add( &m_pSource.m_pBuffer[pInfo->m_nPosition], pInfo->m_nSize );
 		pBTH.Finish();
 		pBTH.GetHash( &oBTH[0] );
-		
+
 		if ( oBTH == m_oBTH )
 		{
 			m_nInfoStart = pInfo->m_nPosition;
@@ -1361,9 +1362,9 @@ void CBTInfo::AddToTest(LPCVOID pInput, DWORD nLength)
 BOOL CBTInfo::FinishBlockTest(DWORD nBlock)
 {
 	ASSERT( IsAvailable() );
-	ASSERT( m_pBlockBTH != NULL );
 
-	if ( nBlock >= m_nBlockCount ) return FALSE;
+	if ( m_pBlockBTH == NULL || nBlock >= m_nBlockCount )
+		 return FALSE;
 
 	Hashes::BtHash oBTH;
 	m_pTestSHA1.Finish();

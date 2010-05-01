@@ -1,7 +1,7 @@
 //
 // DlgDownload.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -112,7 +112,7 @@ void CDownloadDlg::OnTorrentFile()
 {
 	UpdateData();
 
-	CFileDialog dlg( TRUE, _T("torrent"), ( Settings.Downloads.TorrentPath + "\\." ) , OFN_HIDEREADONLY,
+	CFileDialog dlg( TRUE, _T("torrent"), ( Settings.Downloads.TorrentPath + _T("\\.") ) , OFN_HIDEREADONLY,
 		_T("Torrent Files|*.torrent|All Files|*.*||"), this );
 
 	if ( dlg.DoModal() != IDOK ) return;
@@ -127,5 +127,6 @@ void CDownloadDlg::OnOK()
 	UpdateData();
 
 	CPeerProjectURL pURL;
-	if ( pURL.Parse( m_sURL, m_pURLs ) ) CSkinDialog::OnOK();
+	if ( pURL.Parse( m_sURL, m_pURLs ) )
+		CSkinDialog::OnOK();
 }

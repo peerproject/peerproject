@@ -67,45 +67,45 @@ bool CLibraryBuilderInternals::ExtractMetadata(DWORD nIndex, const CString& strP
 	// ToDo: Verify, is this Switch any faster than typical ElseIf chain ?
 	std::map< const CString, char > FileType;
 
-	FileType[ ".mp3" ]	= '3';
-	FileType[ ".aac" ]	= '3';
-	FileType[ ".flac" ]	= '3';
-	FileType[ ".wma" ]	= 'w';
-	FileType[ ".wmv" ]	= 'w';
-	FileType[ ".asf" ]	= 'w';
-	FileType[ ".avi" ]	= 'v';
-	FileType[ ".mpg" ]	= 'm';
-	FileType[ ".mpeg" ]	= 'm';
-	FileType[ ".jpg" ]	= 'j';
-	FileType[ ".jpeg" ]	= 'j';
-	FileType[ ".png" ]	= 'p';
-	FileType[ ".gif" ]	= 'g';
-	FileType[ ".bmp" ]	= 'b';
-	FileType[ ".pdf" ]	= 'f';
-    FileType[ ".cbr" ]	= 'r';
-    FileType[ ".cbz" ]	= 'r';
-	FileType[ ".chm" ]	= 'h';
-	FileType[ ".exe" ]	= 'e';
-	FileType[ ".dll" ]	= 'e';
-	FileType[ ".msi" ]	= 'i';
-	FileType[ ".ogg" ]	= 'o';
-	FileType[ ".ape" ]	= 'a';
-	FileType[ ".apl" ]	= 'a';
-	FileType[ ".mac" ]	= 'a';
- 	FileType[ ".mpc" ]	= 'u';
-	FileType[ ".mpp" ]	= 'u';
-	FileType[ ".mp+" ]	= 'u';
-	FileType[ ".psk" ]	= 'k';
-	FileType[ ".sks" ]	= 'k';
-	FileType[ ".co" ]	= 'c';
-	FileType[ ".collection" ] = 'c';
-	FileType[ ".emulecollection" ] = 'c';
-	FileType[ ".torrent" ] = 't';
+	FileType[ _T(".mp3") ]	= '3';
+	FileType[ _T(".aac") ]	= '3';
+	FileType[ _T(".flac") ]	= '3';
+	FileType[ _T(".wma") ]	= 'w';
+	FileType[ _T(".wmv") ]	= 'w';
+	FileType[ _T(".asf") ]	= 'w';
+	FileType[ _T(".avi") ]	= 'v';
+	FileType[ _T(".mpg") ]	= 'm';
+	FileType[ _T(".mpeg") ]	= 'm';
+	FileType[ _T(".jpg") ]	= 'j';
+	FileType[ _T(".jpeg") ]	= 'j';
+	FileType[ _T(".png") ]	= 'p';
+	FileType[ _T(".gif") ]	= 'g';
+	FileType[ _T(".bmp") ]	= 'b';
+	FileType[ _T(".pdf") ]	= 'f';
+    FileType[ _T(".cbr") ]	= 'r';
+    FileType[ _T(".cbz") ]	= 'r';
+	FileType[ _T(".chm") ]	= 'h';
+	FileType[ _T(".exe") ]	= 'e';
+	FileType[ _T(".dll") ]	= 'e';
+	FileType[ _T(".msi") ]	= 'i';
+	FileType[ _T(".ogg") ]	= 'o';
+	FileType[ _T(".ape") ]	= 'a';
+	FileType[ _T(".apl") ]	= 'a';
+	FileType[ _T(".mac") ]	= 'a';
+ 	FileType[ _T(".mpc") ]	= 'u';
+	FileType[ _T(".mpp") ]	= 'u';
+	FileType[ _T(".mp+") ]	= 'u';
+	FileType[ _T(".psk") ]	= 'k';
+	FileType[ _T(".sks") ]	= 'k';
+	FileType[ _T(".co") ]	= 'c';
+	FileType[ _T(".collection") ] = 'c';
+	FileType[ _T(".emulecollection") ] = 'c';
+	FileType[ _T(".torrent") ] = 't';
 	// ToDo: Generic Fallback
-	FileType[ ".txt" ]	= 'x';
-	FileType[ ".xml" ]	= 'x';
-	FileType[ ".xps" ]	= 'x';
-	FileType[ ".nfo" ]	= 'x';
+	FileType[ _T(".txt") ]	= 'x';
+	FileType[ _T(".xml") ]	= 'x';
+	FileType[ _T(".xps") ]	= 'x';
+	FileType[ _T(".nfo") ]	= 'x';
 	// Others by plugins: rar/zip/mkv/etc.
 
 	switch( FileType[ strType ] )
@@ -813,8 +813,8 @@ bool CLibraryBuilderInternals::ScanMP3Frame(CXMLElement* pXML, HANDLE hFile, DWO
 		{ 0, 0, 0, 0 }
 	};
 
-	static int nChannelTable[4]		= { 2, 2, 2, 1 };
-	static CString strSoundType[4]	= { "Stereo", "Joint Stereo", "Dual Channel", "Single Channel" };
+	static const int nChannelTable[4]		= { 2, 2, 2, 1 };
+	static const CString strSoundType[4]	= { _T("Stereo"), _T("Joint Stereo"), _T("Dual Channel"), _T("Single Channel") };
 
 	BYTE nLayer					= 0;
 	bool bVariable				= false;
@@ -1079,7 +1079,7 @@ DWORD CLibraryBuilderInternals::GetBestLanguageId(LPVOID pBuffer)
 			{
 				DWORD nSublang = 0;
 				// Read the langid just after StringFileInfo block
-				swscanf( pLanguage, L"%4x%4x", &nLangCode, &nSublang );
+				swscanf_s( pLanguage, L"%4x%4x", &nLangCode, &nSublang );
 				nLangCode += ( nSublang << 16 );
 				return nLangCode;
 			}
@@ -2409,17 +2409,17 @@ bool CLibraryBuilderInternals::ReadAPE(DWORD nIndex, HANDLE hFile, bool bPreferF
 	if ( bHasDiscField )
 	{
 		if ( bHasTotalDiscsField )
-			pXML->AddAttribute( L"disc", strDiscField + "/" + strTotalDiscsField );
+			pXML->AddAttribute( _T("disc"), strDiscField + _T("/") + strTotalDiscsField );
 		else
-			pXML->AddAttribute( L"disc", strDiscField );
+			pXML->AddAttribute( _T("disc"), strDiscField );
 	}
 
 	if ( bHasTrackField == true )
 	{
 		if ( bHasTotalTracksField )
-			pXML->AddAttribute( L"track", strTrackField + "/" + strTotalTracksField );
+			pXML->AddAttribute( _T("track"), strTrackField + _T("/") + strTotalTracksField );
 		else
-			pXML->AddAttribute( L"track", strTrackField );
+			pXML->AddAttribute( _T("track"), strTrackField );
 	}
 
 	if ( nFileSize < sizeof(APE_HEADER) )
@@ -2655,8 +2655,8 @@ bool CLibraryBuilderInternals::ReadAVI(DWORD nIndex, HANDLE hFile)
 					DWORD nDataLength = 0;
 					ReadDwordOrBreak( hFile, nDataLength, nRead )
 
-					CStringA strData;
-					ReadFile( hFile, (BYTE*)strData.GetBufferSetLength( nDataLength ), nDataLength, &nRead, NULL );
+					auto_array< CHAR > strData( new CHAR[ nDataLength ] );
+					ReadFile( hFile, (BYTE*)strData.get(), nDataLength, &nRead, NULL );
 					if ( nRead != nDataLength )
 						break;
 					switch ( nID )
@@ -2664,26 +2664,26 @@ bool CLibraryBuilderInternals::ReadAVI(DWORD nIndex, HANDLE hFile)
 					case FCC('IARL'): // Archival Location
 						break;
 					case FCC('IART'): // Artist
-						pXML->AddAttribute( L"artist", CString( strData ) );
+						pXML->AddAttribute( L"artist", CString( strData.get() ) );
 						break;
 					case FCC('IAS1'): // Language, not documented (?)
 					case FCC('ILNG'):
-						pXML->AddAttribute( L"language", CString( strData ) );
+						pXML->AddAttribute( L"language", CString( strData.get() ) );
 						break;
 					case FCC('ICMS'): // Commissioned
 						break;
 					case FCC('ICMT'): // Comments
-						pXML->AddAttribute( L"comments", CString( strData ) );
+						pXML->AddAttribute( L"comments", CString( strData.get() ) );
 						break;
 					case FCC('ICOP'): // Copyright
-						pXML->AddAttribute( L"copyright", CString( strData ) );
+						pXML->AddAttribute( L"copyright", CString( strData.get() ) );
 						break;
 					case FCC('IDIT'): // ???
 					case FCC('ICRD'): // Creation date. In YYYY-MM-DD format ( 1553-05-03 for May 3, 1553 )
-						pXML->AddAttribute( L"releaseDate", CString( strData ) );
+						pXML->AddAttribute( L"releaseDate", CString( strData.get() ) );
 						break;
 					case FCC('ICRP'): // Cropped, ex: "lower-right corner"
-						pXML->AddAttribute( L"qualityNotes", CString( strData ) );
+						pXML->AddAttribute( L"qualityNotes", CString( strData.get() ) );
 						break;
 					case FCC('IDIM'): // Dimensions, for example, 8.5 in h, 11 in w.
 						break;
@@ -2692,37 +2692,37 @@ bool CLibraryBuilderInternals::ReadAVI(DWORD nIndex, HANDLE hFile)
 					case FCC('IENG'): // Engineer
 						break;
 					case FCC('IGNR'): // Genre
-						pXML->AddAttribute( L"genre", CString( strData ) );
+						pXML->AddAttribute( L"genre", CString( strData.get() ) );
 						break;
 					case FCC('IKEY'): // Keywords
-						pXML->AddAttribute( L"keywords", CString( strData ) );
+						pXML->AddAttribute( L"keywords", CString( strData.get() ) );
 						break;
 					case FCC('ILGT'): // Lightness
 						break;
 					case FCC('IMED'): // Medium
 						break;
 					case FCC('INAM'): // Name
-						pXML->AddAttribute( L"title", CString( strData ) );
+						pXML->AddAttribute( L"title", CString( strData.get() ) );
 						break;
 					case FCC('IPLT'): // Palette Setting
 						break;
 					case FCC('IPRD'): // Product
-						pXML->AddAttribute( L"type", CString( strData ) );
+						pXML->AddAttribute( L"type", CString( strData.get() ) );
 						break;
 					case FCC('ISBJ'): // Subject
-						pXML->AddAttribute( L"description", CString( strData ) );
+						pXML->AddAttribute( L"description", CString( strData.get() ) );
 						break;
 					case FCC('ISFT'): // Software
 						break;
 					case FCC('ISHP'): // Sharpness
 						break;
 					case FCC('ISRC'): // Source
-						pXML->AddAttribute( L"source", CString( strData ) );
+						pXML->AddAttribute( L"source", CString( strData.get() ) );
 						break;
 					case FCC('ISRF'): // Source Form
 						break;
 					case FCC('ITCH'): // Technician
-						pXML->AddAttribute( L"releasegroup", CString( strData ) );
+						pXML->AddAttribute( L"releasegroup", CString( strData.get() ) );
 						break;
 					}
 

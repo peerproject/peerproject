@@ -94,8 +94,8 @@ BOOL CFileCopyDlg::OnInitDialog()
 	pMessage->SetWindowText( strCaption );
 	pMessage->ShowWindow( SW_SHOW );
 
-	//if ( m_pFiles.GetCount() == 1 )
-	//	GetDlgItem( IDC_PROGRESS )->EnableWindow( FALSE );
+	if ( m_pFiles.GetCount() == 1 )
+		GetDlgItem( IDC_PROGRESS )->EnableWindow( FALSE );
 
 	CRect rc;
 	m_wndPlaceholder.GetWindowRect( &rc );

@@ -433,7 +433,7 @@ BOOL CPlugins::OnChatMessage(LPCTSTR pszChatID, BOOL bOutgoing, LPCTSTR pszFrom,
 	{
 		CPlugin* pPlugin = GetNext( pos );
 
-		if ( pPlugin->m_pChat ) 
+		if ( pPlugin->m_pChat )
 		{
 			pPlugin->m_pChat->OnChatMessage(
 				CComBSTR( pszChatID ),

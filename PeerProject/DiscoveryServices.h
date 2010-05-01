@@ -148,6 +148,10 @@ protected:
 	void				MergeURLs();
 
 	friend class CDiscoveryService;
+
+private:
+	CDiscoveryServices(const CDiscoveryServices&);
+	CDiscoveryServices& operator=(const CDiscoveryServices&);
 };
 
 extern CDiscoveryServices DiscoveryServices;

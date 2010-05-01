@@ -1,7 +1,7 @@
 //
 // WizardProfilePage.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -28,44 +28,44 @@ class CWorldGPS;
 
 class CWizardProfilePage : public CWizardPage
 {
+	DECLARE_DYNCREATE(CWizardProfilePage)
+
 // Construction
 public:
 	CWizardProfilePage();
 	virtual ~CWizardProfilePage();
 
-	DECLARE_DYNCREATE(CWizardProfilePage)
+	enum { IDD = IDD_WIZARD_PROFILE };
 
 // Dialog Data
 public:
 	//{{AFX_DATA(CWizardProfilePage)
-	enum { IDD = IDD_WIZARD_PROFILE };
-	CString m_sNick;
+	CString 	m_sNick;
+	CWorldGPS*	m_pWorld;
+	CString		m_sLocCity;
+	CString		m_sLocCountry;
 	CComboBox	m_wndCity;
 	CComboBox	m_wndCountry;
-	CString	m_sLocCity;
-	CString	m_sLocCountry;
-	CComboBox m_wndAge;
-	int m_nAge;
-	int m_nGender;
+	CComboBox	m_wndAge;
+	int 		m_nAge;
+	int			m_nGender;
+	CEdit		m_wndComments;
 	//}}AFX_DATA
-
-	CWorldGPS*	m_pWorld;
 
 // Overrides
 public:
 	//{{AFX_VIRTUAL(CWizardProfilePage)
-	public:
 	virtual LRESULT OnWizardBack();
 	virtual LRESULT OnWizardNext();
 	virtual BOOL OnSetActive();
-	protected:
+protected:
+	virtual BOOL OnInitDialog();
 	virtual void DoDataExchange(CDataExchange* pDX);
 	//}}AFX_VIRTUAL
 
 // Implementation
 protected:
 	//{{AFX_MSG(CWizardProfilePage)
-	virtual BOOL OnInitDialog();
 	afx_msg void OnSelChangeCountry();
 	afx_msg void OnXButtonDown(UINT nFlags, UINT nButton, CPoint point);
 	//}}AFX_MSG

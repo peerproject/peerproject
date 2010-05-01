@@ -808,13 +808,13 @@ void CQuerySearch::ReadGGEP(CG1Packet* pPacket)
 			}
 			else if ( pItemPos->IsNamed( GGEP_HEADER_URN ) )
 			{
-				CString strURN( "urn:" + pItemPos->ToString() );
-				if (      oSHA1.fromUrn(  strURN ) );	// Got SHA1
-				else if ( oTiger.fromUrn( strURN ) );	// Got Tiger
-				else if ( oED2K.fromUrn(  strURN ) );	// Got ED2K
-				else if ( oMD5.fromUrn(   strURN ) );	// Got MD5
-				else if ( oBTH.fromUrn(   strURN ) );	// Got BTH base32
-				else if ( oBTH.fromUrn< Hashes::base16Encoding >( strURN ) );	// Got BTH base16
+				CString strURN( _T("urn:") + pItemPos->ToString() );
+				if (      oSHA1.fromUrn(  strURN ) ) ;	// Got SHA1
+				else if ( oTiger.fromUrn( strURN ) ) ;	// Got Tiger
+				else if ( oED2K.fromUrn(  strURN ) ) ;	// Got ED2K
+				else if ( oMD5.fromUrn(   strURN ) ) ;	// Got MD5
+				else if ( oBTH.fromUrn(   strURN ) ) ;	// Got BTH base32
+				else if ( oBTH.fromUrn< Hashes::base16Encoding >( strURN ) ) ;	// Got BTH base16
 				else
 					theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("[G1] Got query packet with GGEP \"u\" unknown URN: \"%s\" (%d bytes)"), strURN, pItemPos->m_nLength );
 			}
@@ -1677,8 +1677,8 @@ void CQuerySearch::BuildG2PosKeywords()
 
 // Function is used to split a phrase in asian languages to separate keywords
 // to ease keyword matching, allowing user to type as in the natural language.
-// Spacebar key is not a convenient way to separate keywords with IME, and user
-// may not know how application is keywording their files.
+// Spacebar key is not a convenient way to separate keywords with IME,
+// and user may not know how application is keywording their files.
 //
 // The function splits katakana, hiragana and CJK phrases out of the input string.
 // ToDo: "minus" words and quoted phrases for asian languages may not work correctly in all cases.
@@ -1805,7 +1805,7 @@ void CQuerySearch::SlideKeywords(CString& strPhrase)
 
 	while ( _tcslen( pszPhrase ) )
 	{
-		_tcsncpy( pszToken, pszPhrase, 2 );
+		_tcsncpy_s( pszToken, 3, pszPhrase, 2 );
 		pszToken[ 2 ] = 0;
 		if ( IsKanji( pszToken[ 0 ] ) ||
 			 IsKatakana( pszToken[ 0 ] ) ||
@@ -1884,7 +1884,8 @@ void CQuerySearch::BuildWordTable()
 				bSpace = ( *pszPtr == ' ' );
 			}
 
-			if ( bNegate && ! bQuote && *pszPtr != '-' ) bNegate = FALSE;
+			if ( bNegate && ! bQuote && *pszPtr != '-' )
+				bNegate = FALSE;
 		}
 	}
 

@@ -1,7 +1,7 @@
 //
 // PeerProjectThread.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -25,8 +25,8 @@
 #ifdef _DEBUG
 	#define MS_VC_EXCEPTION	0x406D1388
 	#define ALMOST_INFINITE	INFINITE
-#else
-	#define ALMOST_INFINITE	20000
+#else // Release
+	#define ALMOST_INFINITE	15000	// 15s Thread Timeout
 #endif
 
 
@@ -51,7 +51,7 @@ public:
 protected:
 	typedef struct
 	{
-		CAppThread*	pThread;	// Thread object
+		CAppThread* 	pThread;	// Thread object
 		LPCSTR			pszName;	// Thread name
 	} CThreadTag;
 
@@ -60,6 +60,10 @@ protected:
 	static CCriticalSection	m_ThreadMapSection;	// Guarding of m_ThreadMap
 	static CThreadMap		m_ThreadMap;		// Map of running threads
 	AFX_THREADPROC			m_pfnThreadProcExt;
+
+private:
+	CAppThread(const CAppThread&);
+	CAppThread& operator=(const CAppThread&);
 };
 
 void SetThreadName(DWORD dwThreadID, LPCSTR szThreadName);

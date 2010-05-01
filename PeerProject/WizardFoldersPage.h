@@ -1,8 +1,7 @@
 //
-// WizardInterfacePage.h
+// WizardFoldersPage.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2007.
+// This file is part of PeerProject (peerproject.org) © 2010
 //
 // PeerProject is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -22,46 +21,44 @@
 #pragma once
 
 #include "WizardSheet.h"
+#include "WndSettingsPage.h"
+#include "CtrlIconButton.h"
 
 
-class CWizardInterfacePage : public CWizardPage
+class CWizardFoldersPage : public CWizardPage
 {
-	DECLARE_DYNCREATE(CWizardInterfacePage)
+	DECLARE_DYNCREATE(CWizardFoldersPage)
 
-// Construction
 public:
-	CWizardInterfacePage();
-	virtual ~CWizardInterfacePage();
+	CWizardFoldersPage();
+	virtual ~CWizardFoldersPage();
 
-	enum { IDD = IDD_WIZARD_INTERFACE };
+	enum { IDD = IDD_WIZARD_FOLDERS };
 
-// Dialog Data
 public:
-	//{{AFX_DATA(CWizardInterfacePage)
-	CStatic	m_wndDescriptionExpert;
-	CStatic	m_wndDescriptionBasic;
-	CButton	m_wndInterfaceExpert;
-	CButton	m_wndInterfaceBasic;
-	BOOL	m_bSimpleDownloadBars;
-	int		m_bExpert;
-	//}}AFX_DATA
+	CIconButtonCtrl	m_wndDownloadsBrowse;
+	CIconButtonCtrl	m_wndIncompleteBrowse;
+	CIconButtonCtrl	m_wndTorrentsBrowse;
+	CEditPath		m_wndDownloadsFolder;
+	CEditPath		m_wndIncompleteFolder;
+	CEditPath		m_wndTorrentsFolder;
+	CString			m_sDownloadsPath;
+	CString			m_sIncompletePath;
+	CString			m_sTorrentsPath;
 
-// Overrides
-public:
-	//{{AFX_VIRTUAL(CWizardInterfacePage)
+	void DoDonkeyImport();
+
 	virtual BOOL OnSetActive();
 	virtual LRESULT OnWizardNext();
+
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);
-	//}}AFX_VIRTUAL
 
-// Implementation
-protected:
-	//{{AFX_MSG(CWizardInterfacePage)
 	virtual BOOL OnInitDialog();
-	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
+	afx_msg void OnDownloadsBrowse();
+	afx_msg void OnIncompleteBrowse();
+	afx_msg void OnTorrentsBrowse();
 	afx_msg void OnXButtonDown(UINT nFlags, UINT nButton, CPoint point);
-	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()
 };

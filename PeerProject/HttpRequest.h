@@ -1,7 +1,7 @@
 //
 // HttpRequest.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -54,8 +54,8 @@ public:
 	bool		Execute(bool bBackground);
 	BOOL		IsPending() const;
 	BOOL		IsFinished() const;
-	void		Cancel();
 	void		EnableCookie(bool bEnable);
+	void		Cancel();
 
 // Data
 public:
@@ -64,17 +64,21 @@ protected:
 	HINTERNET	m_hInternet;
 	CString		m_sUserAgent;
 	CString		m_sRequestHeaders;
+	bool		m_bUseCookie;
 	DWORD		m_nLimit;
 	int			m_nStatusCode;
 	CString		m_sStatusString;
 //	CBuffer*	m_pPost;
 	CBuffer*	m_pResponse;
-	typedef CMap< CString, const CString&, CString, CString& > Map;
-	Map			m_pResponseHeaders;
 	HWND		m_hNotifyWnd;
 	UINT		m_nNotifyMsg;
 	WPARAM		m_nNotifyParam;
-	bool		m_bUseCookie;
+	typedef CMap< CString, const CString&, CString, CString& > Map;
+	Map			m_pResponseHeaders;
 
 	void		OnRun();
+
+private:
+	CHttpRequest(const CHttpRequest&);
+	CHttpRequest& operator=(const CHttpRequest&);
 };

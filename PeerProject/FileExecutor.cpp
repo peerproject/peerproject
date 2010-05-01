@@ -400,16 +400,15 @@ BOOL CFileExecutor::Enqueue(LPCTSTR pszFile, BOOL /*bSkipSecurityCheck*/, LPCTST
 		return TRUE;
 
 	// Try to create "enqueue" verb from default verb for known players
-	CString strCommand, strParam;
+	CString strCommand;
 	DWORD nBufferSize = MAX_PATH;
 	HRESULT hr = AssocQueryString( 0, ASSOCSTR_COMMAND, strType, NULL,
 		strCommand.GetBuffer( MAX_PATH ), &nBufferSize );
 	strCommand.ReleaseBuffer();
 	int nPos = PathGetArgsIndex( strCommand );
 	if ( nPos != -1 )
-	{
 		strCommand = strCommand.Left( nPos );
-	}
+
 	strCommand = strCommand.Trim( _T("\" ") );
 	if ( hr == S_OK )
 	{

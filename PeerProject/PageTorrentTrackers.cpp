@@ -164,7 +164,7 @@ BOOL CTorrentTrackersPage::OnInitDialog()
 		// Display type
 		if ( sType != _T("UDP") && oInfo.IsMultiTracker() )
 			sType.Format( _T("Tier %i"), oInfo.GetTrackerTier( nTracker ) );
-			
+
 		m_wndTrackers.SetItemText( pItem.iItem, 2, sType );
 	}
 

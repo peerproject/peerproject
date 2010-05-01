@@ -36,8 +36,8 @@ static char THIS_FILE[]=__FILE__;
 
 IMPLEMENT_DYNAMIC( CLiveList, CObject )
 
-CLiveList::CLiveList(int nColumns, UINT nHash) :
-	m_nColumns ( nColumns )
+CLiveList::CLiveList(int nColumns, UINT nHash)
+	: m_nColumns ( nColumns )
 {
 	m_pItems.InitHashTable( GetBestHashTableSize( nHash ) );
 }
@@ -437,8 +437,8 @@ bool CLiveList::Less(const CLiveItemPtr& _Left, const CLiveItemPtr& _Right, int 
 		return ( CLiveList::SortProc( _Right->m_pColumn[ nSortColumn - 1 ],
 			_Left->m_pColumn[ nSortColumn - 1 ] ) < 0 );
 	}
-	else
-		return false;
+
+	return false;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -456,7 +456,7 @@ inline BOOL atoip (LPCTSTR c, DWORD& addr)
 		{
 			num = num * 10 + ( *c - _T('0') );
 			if ( num > 255 )
-				break;				// too big octet
+				break;				// Octet too big
 		}
 		else if ( *c == _T('.') || *c == _T('\0') || *c == _T('/') )
 		{
@@ -767,7 +767,9 @@ void CLiveListCtrl::Apply()
 			i = m_pItems.erase( i );
 		}
 		else
+		{
 			++i;
+		}
 	}
 
 	// Tune virtual list
@@ -808,7 +810,7 @@ void CLiveListCtrl::Sort(int nColumn)
 		}
 
 		SetWindowLongPtr( GetSafeHwnd(), GWLP_USERDATA, nColumn );
-	} 
+	}
 
 #ifdef IDB_SORT_ASC
 	if ( CLiveList::m_bmSortAsc.m_hObject == NULL )
@@ -870,46 +872,44 @@ UINT CLiveListCtrl::GetItemOverlayMask(int nItem) const
 
 void CLiveListCtrl::OnLvnGetDispInfo(NMHDR *pNMHDR, LRESULT *pResult)	// OnLvnGetDispInfoW/OnLvnGetDispInfoA
 {
-	NMLVDISPINFO *pDispInfo = reinterpret_cast<NMLVDISPINFO*>(pNMHDR);
+	LVITEM& pDispInfo = reinterpret_cast<NMLVDISPINFO*>(pNMHDR)->item;
 
-	ASSERT( pDispInfo->item.iItem >= 0 && pDispInfo->item.iItem < (int)m_pIndex.size() );
+	ASSERT( pDispInfo.iItem >= 0 && pDispInfo.iItem < (int)m_pIndex.size() );
 
-	CLiveItemPtr pItem = m_pIndex[ pDispInfo->item.iItem ];
+	CLiveItemPtr pItem = m_pIndex[ pDispInfo.iItem ];
 
-	if ( pDispInfo->item.mask & LVIF_TEXT )
+	if ( pDispInfo.mask & LVIF_TEXT )
 	{
-		lstrcpynW( (LPWSTR)pDispInfo->item.pszText,
-			CT2CW( pItem->m_pColumn[ pDispInfo->item.iSubItem ] ),
-			pDispInfo->item.cchTextMax );
+		wcsncpy_s( (LPWSTR)pDispInfo.pszText, pDispInfo.cchTextMax,
+			CT2CW( pItem->m_pColumn[ pDispInfo.iSubItem ] ),
+			pDispInfo.cchTextMax - 1 );
 	}
 
-	if ( pDispInfo->item.mask & LVIF_STATE )
-	{
-		pDispInfo->item.state = INDEXTOOVERLAYMASK( pItem->m_nMaskOverlay ) |
+	if ( pDispInfo.mask & LVIF_STATE )
+		pDispInfo.state = INDEXTOOVERLAYMASK( pItem->m_nMaskOverlay ) |
 			INDEXTOSTATEIMAGEMASK( pItem->m_nMaskState );
-	}
 
-	if ( pDispInfo->item.mask & LVIF_IMAGE )
-		pDispInfo->item.iImage = pItem->m_nImage;
+	if ( pDispInfo.mask & LVIF_IMAGE )
+		pDispInfo.iImage = pItem->m_nImage;
 
-	if ( pDispInfo->item.mask & LVFI_PARAM )
-		pDispInfo->item.lParam = pItem->m_nParam;
-
-	*pResult = 0;
-}
-
-void CLiveListCtrl::OnLvnOdFindItem(NMHDR *pNMHDR, LRESULT *pResult)	// OnLvnOdFindItemW/OnLvnOdFindItemA
-{
-	LPNMLVFINDITEM pFindInfo = reinterpret_cast<LPNMLVFINDITEM>(pNMHDR);
-	UNUSED_ALWAYS( pFindInfo );
+	if ( pDispInfo.mask & LVFI_PARAM )
+		pDispInfo.lParam = pItem->m_nParam;
 
 	*pResult = 0;
 }
 
-void CLiveListCtrl::OnLvnOdCacheHint(NMHDR *pNMHDR, LRESULT *pResult)
+void CLiveListCtrl::OnLvnOdFindItem(NMHDR * /*pNMHDR*/, LRESULT *pResult)	// OnLvnOdFindItemW/OnLvnOdFindItemA
 {
-	LPNMLVCACHEHINT pCacheHint = reinterpret_cast<LPNMLVCACHEHINT>(pNMHDR);
-	UNUSED_ALWAYS( pCacheHint );
+	//LPNMLVFINDITEM pFindInfo = reinterpret_cast<LPNMLVFINDITEM>(pNMHDR);
+	//UNUSED_ALWAYS( pFindInfo );
+
+	*pResult = 0;
+}
+
+void CLiveListCtrl::OnLvnOdCacheHint(NMHDR * /*pNMHDR*/, LRESULT *pResult)
+{
+	//LPNMLVCACHEHINT pCacheHint = reinterpret_cast<LPNMLVCACHEHINT>(pNMHDR);
+	//UNUSED_ALWAYS( pCacheHint );
 
 	*pResult = 0;
 }

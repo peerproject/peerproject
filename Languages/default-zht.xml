@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <skin xmlns="http://schemas.peerproject.org/Skin.xsd" version="1.0">
 
 <!-- PeerProject Default Chinese (Traditional) Skin File -->
 
-<!-- Translation based on default-en.xml r52 (Shareaza 2.2.2.12) -->
+<!-- Translation based on default-en.xml r54 (Shareaza 2.2.2.12) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -513,6 +513,7 @@
 				<item id="ID_VIEW_PACKETS" text="封包傾印" shortcut="Ctrl+F1"/>
 				<item id="ID_VIEW_SEARCH_MONITOR" text="Search Monitor" shortcut="Ctrl+F2"/>
 				<item id="ID_VIEW_RESULTS_MONITOR" text="搜尋回應監視器" shortcut="Ctrl+F3"/>
+				<item id="ID_TAB_SEARCH" text="搜索" shortcut="Ctrl+S"/>
 			</menu>
 			<menu text="視窗">
 				<item id="ID_VIEW_BASIC" text="標準模式"/>
@@ -1661,7 +1662,7 @@
 			</para>
 		</group>
 		<icon group="20" command="ID_NETWORK_G2"/>
-		<text group="20" align="middle" format="b">&#160;Gnutella2:</text>
+		<text group="20" align="middle" format="b">&#160;Gnutella2: </text>
 		<text group="21" align="middle">已中斷連線</text>
 		<text group="22" align="middle">連線中...</text>
 		<text group="23" align="middle">已連線</text>
@@ -1777,6 +1778,9 @@
 		<link target="peer:page:CCommunitySettingsPage" format="b">社群:</link>
 		<text>&#160;您的個人檔案, 聊天與即時通訊的設定.</text>
 		<newline gap="10"/>
+		<link target="peer:page:CRemoteSettingsPage" format="b">遙控:</link>
+		<text>&#160;有關經由瀏覽器遠端操控 PeerProject 的設定.</text>
+		<newline gap="10"/>
 		<link target="peer:page:CWebSettingsPage" format="b">網際網路:</link>
 		<text>&#160;PeerProject 崁入您的瀏覽器, 處理 P2P 連結與下載內容.</text>
 	</document>
@@ -1796,9 +1800,6 @@
 		<newline gap="10"/>
 		<link target="peer:page:CUploadsSettingsPage" format="b">上傳:</link>
 		<text>&#160;上傳性能 , 排隊等候, 封鎖, 逾時與特別要求.</text>
-		<newline gap="10"/>
-		<link target="peer:page:CRemoteSettingsPage" format="b">遙控:</link>
-		<text>&#160;有關經由瀏覽器遠端操控 PeerProject 的設定.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CSchedulerSettingsPage" format="b">Scheduler:</link>
 		<text>&#160;Limit download connections based on a periodic schedule.</text>
@@ -1828,6 +1829,7 @@
 			<text id="GenderFemale">女性</text>
 			<text>,</text>
 			<text id="Age"/>
+			<text>岁</text>
 		</group>
 		<group id="4">
 			<newline gap="8" indent="0"/>
@@ -2012,7 +2014,7 @@
 		<text format="b">這個 torrent 可能編碼錯誤</text>
 		<newline gap="8"/>
 		<text>Windows 回報, 在解碼這個 torrent 的內含文字時發生轉譯錯誤. 這個 torrent 可能損壞, 或是錯誤地編碼了.
-                您仍然可以正確下載 torrent, 不過有些檔案名稱可能不正確.</text>
+		您仍然可以正確下載 torrent, 不過有些檔案名稱可能不正確.</text>
 		<newline gap="8"/>
 		<text>大部分的 torrent 製作程式允許您修復這個 torrent, 讓它能夠正確地在所有的 BT 程式運作.</text>
 		<newline gap="8"/>
@@ -2040,7 +2042,7 @@
 		<text format="b">請重新修改搜尋字眼(1)</text>
 		<newline gap="8"/>
 		<text>這個搜尋的格式不佳, 可能無法正常進行.
-	        搜尋時, 盡可能使用多個詞, 並且指定一個檔案類型. 還有, 絕不要只打入數字或是負面語, 以及避免過於普通的詢問.</text>
+		搜尋時, 盡可能使用多個詞, 並且指定一個檔案類型. 還有, 絕不要只打入數字或是負面語, 以及避免過於普通的詢問.</text>
 		<newline gap="8"/>
 		<text>幾乎所有在網路上的客戶端會忽略來自於其他人搜尋所有的 MP3 檔, 因為這樣子不夠明確, 而且會產生太多搜尋結果.</text>
 	</document>
@@ -2449,8 +2451,8 @@
 	<string id="8071" value="已連線"/>
 	<string id="8072" value="中斷連線"/>
 	<string id="8096" value="這個區域顯示您選擇的檔案的更多資訊."/>
-	<string id="8097" value="有一個可用的來源 (%s)."/>
-	<string id="8098" value="%i 個可用的來源 (%s)."/>
+	<string id="8097" value="有一個可用的來源. (%s/s)"/>
+	<string id="8098" value="%i 個可用的來源. (%s/s)"/>
 	<string id="8099" value="有一個評論."/>
 	<string id="8100" value="有 %i 個評論."/>
 	<string id="8101" value="%s 寫下:"/>
@@ -2522,7 +2524,7 @@
 	<string id="8243" value="已上傳的容量:"/>
 	<string id="8244" value="評論的數量:"/>
 	<string id="8288" value="探勘你的 PeerProject 收藏中?"/>
-	<string id="8289" value="探勘中 "/>
+	<string id="8289" value="探勘中"/>
 	<string id="8290" value="正在探勘 %i 個資料夾的內容"/>
 	<string id="8291" value="多重資料夾"/>
 	<string id="8292" value="%i 個檔案已選擇"/>
@@ -2641,7 +2643,7 @@
 	<string id="16264" value="正在啟始連線至 %s 連接埠 %i 以下載 &quot;%s&quot;..."/>
 	<string id="16265" value="無法連線至下載主機 %s."/>
 	<string id="16266" value="連到 %s 的下載連線已建立."/>
-	<!-- incorrect translation causes a crash <string id="16267" value="&quot;%s&quot; 的下載分塊(%I64i-%I64i): 正在向 %s 要求."/> -->
+	<string id="16267" value="&quot;%s&quot; 的下載分塊(%I64u-%I64u): 正在向 %s 要求. %s"/>
 	<string id="16268" value="沒有任何可用的下載分塊, 正在與 %s 的關閉連線."/>
 	<string id="16269" value="分塊縮減, 正在關閉與 %s 的連線."/>
 	<string id="16270" value="向 %s 的下載要求已經逾時, 關閉連線中."/>
@@ -2861,7 +2863,7 @@
 	<string id="16933" value="瀏覽主機 %s 送出了無效的 HTTP 回應."/>
 	<string id="16934" value="瀏覽主機 %s 回應指令碼 %s (%s)."/>
 	<string id="16935" value="瀏覽主機 %s 發出不能辨識的回應, 而且可能不支援用戶/主機瀏覽."/>
-	<string id="16936" value="正在從瀏覽主機 %s (%s) 接收內容 "/>
+	<string id="16936" value="正在從瀏覽主機 %s (%s) 接收內容"/>
 	<string id="16938" value="解碼來自於瀏覽主機 %s 的 Gnutella 封包時發生錯誤."/>
 	<string id="16939" value="完成瀏覽用戶 %s, 找到 %i 個檔案."/>
 	<string id="16940" value="與 %s 的瀏覽使用者連線已忽略."/>
@@ -3084,19 +3086,19 @@
 </strings>
 <!-- Localized Dialog Text, "cookie" verifies that the skin matches current dialog -->
 <dialogs>
-	<dialog name="CGeneralSettingsGroup" cookie="" caption="一般">
-	</dialog>
-	<dialog name="CSettingSheet" cookie="SyBuBuBu#3" caption="PeerProject 設定">
+	<dialog name="CSettingSheet" cookie="SyBuBuBu" caption="PeerProject 設定">
 		<control/>
 		<control caption="確定"/>
 		<control caption="取消"/>
 		<control caption="套用"/>
 		<control/>
 	</dialog>
+	<dialog name="CGeneralSettingsGroup" cookie="Af" caption="一般"/>
+	<dialog name="CInternetSettingsGroup" cookie="Af" caption="網際網路"/>
 	<dialog name="CGeneralSettingsPage" cookie="BuBuBuBuBuBuBuBuStCoBuBuBuBuBuBuSyStEdmsStmsBuBuStCoStCo" caption="一般">
 		<control caption="一般:"/>
-		<control caption="PeerProject 啟動時自動連接"/>
 		<control caption="系統啟動時,自動啟動 PeerProject"/>
+		<control caption="PeerProject 啟動時自動連接"/>
 		<control caption="開啟URIs 前提示我"/>
 		<control caption="Check for updates"/>
 		<control caption="下載:"/>
@@ -3194,8 +3196,6 @@
 		<control caption="移除"/>
 		<control caption="這個下載管理員外掛將只嘗試下載以下的檔案類型.  其他的檔案類型交由您的瀏覽器來處理.  PeerProject 在執行時才能管理下載."/>
 	</dialog>
-	<dialog name="CInternetSettingsGroup" caption="網際網路">
-	</dialog>
 	<dialog name="CConnectionSettingsPage" cookie="BuStCoStCoStEdBuBuBuStCoStCoBuStCoBuBuBuStEdmsStEdms" caption="連線">
 		<control caption="輸入位址:"/>
 		<control caption="位址:"/>
@@ -3214,7 +3214,7 @@
 		<control caption="選項:"/>
 		<control caption="能夠接受輸入連線"/>
 		<control/>
-		<control caption="忽略私人/區域 IP 位址 "/>
+		<control caption="忽略私人/區域 IP 位址"/>
 		<control caption="启用 UPnP 连接驱动器设置"/>
 		<control caption="逾時:"/>
 		<control caption="連線:"/>
@@ -3427,15 +3427,13 @@
 		<control caption="設定..."/>
 		<control caption="取得更多"/>
 	</dialog>
-	<dialog name="CAdvancedSettingsPage" cookie="SyEdmsBuBuStStEd" caption="進階">
+	<dialog name="CAdvancedSettingsPage" cookie="SyEdmsBuBuSt" caption="進階">
 		<control/>
 		<control/>
 		<control/>
 		<control caption="Set Default"/>
 		<control caption="敘述:"/>
 		<control caption="設定的屬性:"/>
-		<control caption="值:"/>
-		<control/>
 	</dialog>
 	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="協定">
 		<control caption="PeerProject 通用結構協定探索器:"/>
@@ -3446,8 +3444,8 @@
 		<control/>
 		<control caption="進入排隊隊伍的條件:"/>
 		<control caption="只部分下载的文件"/>
-        <control caption="只共享库中的文件"/>
-        <control caption="部分和库中的文件"/>
+		<control caption="只共享库中的文件"/>
+		<control caption="部分和库中的文件"/>
 		<control caption="最小來源檔案大小:"/>
 		<control/>
 		<control caption="最大來源檔案大小:"/>
@@ -3482,7 +3480,7 @@
 		<control caption="取消"/>
 		<control caption="獎勵上傳者"/>
 	</dialog>
-	<dialog name="CWizardWelcomePage" cookie="StStStStStStStStStStStSt" caption="歡迎使用 PeerProject">
+	<dialog name="CWizardWelcomePage" cookie="StStStStStStStStStStStSt" caption="歡迎使用 PeerProject (1/8)">
 		<control caption="歡迎使用PeerProject!"/>
 		<control caption="如果您從來沒有使用過 PeerProject 或是其他P2P 客戶端軟體, 這個快速啟動精靈將幫助您經由幾個步驟設定."/>
 		<control caption="如果您是進階使用者, 您可以透過工具選單讀取 PeerProject 全部的選項. 點選 離開 可以隨時關閉精靈."/>
@@ -3496,7 +3494,7 @@
 		<control/>
 		<control caption="開始使用PeerProject."/>
 	</dialog>
-	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="歡迎使用者 PeerProject (1/6)">
+	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="歡迎使用者 PeerProject (2/8)">
 		<control caption="為了達到最佳效能, PeerProject 需要知道您的上網方式/地點."/>
 		<control caption="如果知道您網際網路的頻寬, 請選擇最接近的速度:"/>
 		<control caption="|撥接網路|ISDN (128K)|DSL (768K)|DSL (1.5M)|DSL (4.0M)|DSL2 (8.0M)|FIOS (10.0M)|DSL2 (12.0M)|FIOS (20.0M)|DSL2+ (24.0M)| Cable Modem/SDSL| T1| T3| 區域網路| OC3"/>
@@ -3512,7 +3510,30 @@
 		<control caption="身份:"/>
 		<control/>
 	</dialog>
-	<dialog name="CWizardSharePage" cookie="StStStSyBuBuSt" caption="歡迎使用 PeerProject (2/6)">
+	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuStBu" caption="歡迎來到 PeerProject (3/8)">
+		<control caption="PeerProject 為萬用型檔案交換程式, 可同時連線至多種 P2P 網路.  您可在這邊選擇要連線的網路. 您可稍後任意調整這些設定."/>
+		<control caption="連線至 Gnutella2 (強烈建議)"/>
+		<control caption=" Gnutella2 網路是 PeerProject 首次推出的網路, 比其他P2P 網路提供更多的功能與更佳的效能."/>
+		<control caption="連線至原始的 Gnutella"/>
+		<control caption="雖然原始的 Gnutella 網路比 Gnutella2 網路的功能還少, 以及比起eDonkey2000 有更少的檔案, 它仍是寶貴的資源."/>
+		<control caption="連線至 eDonkey2000"/>
+		<control caption="eDonkey2000 網路依賴伺服器運作. 盡管功能比 Gnutella2 少, 但是 eDonkey2000 流通的檔案數量卻十分驚人."/>
+		<control caption="管理 torrent 連結."/>
+	</dialog>
+	<dialog name="CWizardFoldersPage" cookie="StStEdBuStEdBuStEdBuSt" caption="歡迎來到 PeerProject (4/8)">
+		<control caption="PeerProject first downloads partial files to a private folder, then moves them when completed according to Download Groups."/>
+		<control caption="請將下載完成的檔案存放在這裡:"/>
+		<control/>
+		<control/>
+		<control caption="請將暫存的未完成檔案放在這裡:"/>
+		<control/>
+		<control/>
+		<control caption="Store .Torrent files here:"/>
+		<control/>
+		<control/>
+		<control caption="Common filetypes are initially setup as subfolders of the default location, but Groups can easily be customized by Right-Click.  Simply Drag&apos;n&apos;Drop files."/>
+	</dialog>
+	<dialog name="CWizardSharePage" cookie="StStStSyBuBuSt" caption="歡迎使用 PeerProject (5/8)">
 		<control caption="P2P 網路的有效性取決於使用它的用戶.  所有可以下載的檔案內容都是由其他使用者貢獻的."/>
 		<control caption="分享您的檔案並不是使用 PeerProject 的所需條件, 但是某些軟體對於不分享任何檔案的使用者會採取不同的對待方式."/>
 		<control caption="如果您想要分享您的資料夾(如果有的話), 請指示. 按下新增鈕即可新增資料夾."/>
@@ -3530,18 +3551,7 @@
 		<control caption="0"/>
 		<control caption="關閉"/>
 	</dialog>
-	<dialog name="CWizardProfilePage" cookie="StStEdStCoCoStCoCo" caption="歡迎使用 PeerProject (3/6)">
-		<control caption="每個人分享一些自己的基本資料會讓PeerProject成為更友善的社群."/>
-		<control caption="我的代號:"/>
-		<control/>
-		<control caption="我是:"/>
-		<control caption="&#160;(選擇)"/>
-		<control caption="&#160;(選擇)| 男孩| 女孩| 男人| 女人"/>
-		<control caption="來自:"/>
-		<control/>
-		<control/>
-	</dialog>
-	<dialog name="CWizardInterfacePage" cookie="StBuBuBuStStBuSt" caption="歡迎使用 PeerProject (4/6)">
+	<dialog name="CWizardInterfacePage" cookie="StBuBuBuStStBuSt" caption="歡迎使用 PeerProject (6/8)">
 		<control caption="PeerProject 支援十分彈性化的使用介面, 所以請選擇您最感到順手的介面吧. 您可以隨時更改這些設定."/>
 		<control caption="請選擇使用者介面:"/>
 		<control caption="標準模式"/>
@@ -3551,15 +3561,27 @@
 		<control caption="顯示簡化的下載進度棒."/>
 		<control caption=""/>
 	</dialog>
-	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuStBu" caption="歡迎來到 PeerProject (5/6)">
-		<control caption="PeerProject 為萬用型檔案交換程式, 可同時連線至多種 P2P 網路.  您可在這邊選擇要連線的網路. 您可稍後任意調整這些設定."/>
-		<control caption="連線至 Gnutella2 (強烈建議)"/>
-		<control caption=" Gnutella2 網路是 PeerProject 首次推出的網路, 比其他P2P 網路提供更多的功能與更佳的效能."/>
-		<control caption="連線至原始的 Gnutella"/>
-		<control caption="雖然原始的 Gnutella 網路比 Gnutella2 網路的功能還少, 以及比起eDonkey2000 有更少的檔案, 它仍是寶貴的資源."/>
-		<control caption="連線至 eDonkey2000"/>
-		<control caption="eDonkey2000 網路依賴伺服器運作. 盡管功能比 Gnutella2 少, 但是 eDonkey2000 流通的檔案數量卻十分驚人."/>
-		<control caption="管理 torrent 連結."/>
+	<dialog name="CWizardProfilePage" cookie="StStEdStCoCoStCoStCoStEd" caption="歡迎使用 PeerProject (7/8)">
+		<control caption="每個人分享一些自己的基本資料會讓PeerProject成為更友善的社群."/>
+		<control caption="我的代號:"/>
+		<control/>
+		<control caption="我是:"/>
+		<control caption="&#160;(選擇)"/>
+		<control caption="&#160;(選擇)| 男孩| 女孩| 男人| 女人"/>
+		<control caption="來自:"/>
+		<control/>
+		<control caption="Locale:"/>
+		<control/>
+		<control caption="Comments:"/>
+		<control/>
+	</dialog>
+	<dialog name="CWizardFinishedPage" cookie="StStStBuBuSt" caption="歡迎使用 PeerProject (8/8)">
+		<control caption="這樣就可以了! PeerProject 已經設定好在您的電腦上運作了"/>
+		<control caption="如果您需要更改設定, 您可以從Tools Menu 重新執行 快速啟動精靈"/>
+		<control caption="按下完成, 關閉精靈後, 您可以連線至你選擇的網路並且開始搜尋, 下載檔案."/>
+		<control caption="視窗系統啟動時, 啟動 PeerProject"/>
+		<control caption="每次我啟動 PeerProject 時連線至網路"/>
+		<control caption="好好享受使用 PeerProject 的樂趣吧."/>
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="匯入eDonkey2000 下載檔">
 		<control/>
@@ -3569,16 +3591,7 @@
 		<control/>
 		<control caption="關閉"/>
 	</dialog>
-	<dialog name="CWizardFinishedPage" cookie="StStStBuBuBuSt" caption="歡迎使用 PeerProject (6/6)]">
-		<control caption="這樣就可以了! PeerProject 已經設定好在您的電腦上運作了"/>
-		<control caption="如果您需要更改設定, 您可以從Tools Menu 重新執行 快速啟動精靈"/>
-		<control caption="按下完成, 關閉精靈後, 您可以連線至你選擇的網路並且開始搜尋, 下載檔案."/>
-		<control caption="在我關閉快速啟動精靈後, 連線至網路"/>
-		<control caption="每次我啟動 PeerProject 時連線至網路"/>
-		<control caption="視窗系統啟動時, 啟動 PeerProject"/>
-		<control caption="好好享受使用 PeerProject 的樂趣吧!"/>
-	</dialog>
-	<dialog name="CProfileManagerDlg" cookie="SyBuBuBu#3" caption="編輯我的個人檔案">
+	<dialog name="CProfileManagerDlg" cookie="SyBuBuBu" caption="編輯我的個人檔案">
 		<control/>
 		<control caption="確定"/>
 		<control caption="取消"/>
@@ -3696,7 +3709,7 @@
 		<control caption="搜尋"/>
 		<control caption="取消"/>
 	</dialog>
-	<dialog name="CFilterSearchDlg" cookie="BuEdBuStBuStEdStEdStEdmsStBuBuBuBuBuBuBuBuBuBuBuCoBuBuBuBuBu" caption="過濾比對">
+	<dialog name="CFilterSearchDlg" cookie="BuEdBuStBuStEdStEdStEdmsBuBuBuBuBuBuBuBuBuBuBuBuBuCoBuBuBuBuBu" caption="過濾比對">
 		<control caption="只顯示包括這些字眼的比對結果:"/>
 		<control/>
 		<control caption="Reg. Exp."/>
@@ -3706,20 +3719,20 @@
 		<control/>
 		<control caption="最多:"/>
 		<control/>
-		<control caption="至少要有:"/>
+		<control caption="至少要有 來源:"/>
 		<control/>
 		<control/>
-		<control caption="來源."/>
 		<control caption="隱藏:"/>
+		<control caption="您已經擁有的檔案"/>
+		<control caption="不吻合的檔案"/>
+		<control caption="可疑的檔案"/>
+		<control caption="Restricted 檔案"/>
+		<control caption="DRM 檔案"/>
 		<control caption="忙碌中的主機"/>
 		<control caption="受到防火牆保護/推播主機"/>
 		<control caption="不穩定的主機"/>
-		<control caption="不吻合的檔案"/>
-		<control caption="您已經擁有的檔案"/>
 		<control caption="假的結果"/>
-		<control caption="DRM 檔案"/>
 		<control caption="成人內容搜尋結果"/>
-		<control caption="可疑的檔案"/>
 		<control caption="過濾:"/>
 		<control/>
 		<control caption="設為預設"/>
@@ -3808,15 +3821,15 @@
 		<control caption="移除"/>
 		<control/>
 	</dialog>
-	<dialog name="CFileCopyDlg" cookie="StStmsBuBumsStSt" caption="複製檔案|移動檔案">
+	<dialog name="CFileCopyDlg" cookie="StStStmsmsStBuBu" caption="複製檔案|移動檔案">
 		<control caption="您已選擇了 %i 個檔案, 將他們複製至以下的資料夾:"/>
+		<control caption="您已經選擇了 %i 個檔案, 將他們移動至以下的資料夾:"/>
 		<control/>
 		<control/>
-		<control caption="確定"/>
-		<control caption="取消"/>
 		<control/>
 		<control caption="就緒..."/>
-		<control caption="您已經選擇了 %i 個檔案, 將他們移動至以下的資料夾:"/>
+		<control caption="確定"/>
+		<control caption="取消"/>
 	</dialog>
 	<dialog name="CFolderPropertiesDlg" cookie="StEdStCoBuStBuBu" caption="專輯資料夾屬性">
 		<control caption="專輯資料夾標題:"/>
@@ -4068,7 +4081,6 @@
 		<control/>
 		<control/>
 		<control caption="伺服器:"/>
-		<control/>
 		<control caption="目前的伺服器:"/>
 		<control caption="種子(已完成):"/>
 		<control caption="(未完成):"/>
@@ -4201,8 +4213,7 @@
 		<control/>
 	</dialog>
 </dialogs>
-
-<!--  Columns Definitions-->
+<!-- Columns Definitions -->
 <listColumns>
 	<list name="CDownloadCtrl">
 		<column from="Downloaded File" to="已下載檔" />
@@ -4342,4 +4353,3 @@
 	</list>
 </listColumns>
 </skin>
-乆ꮙ니

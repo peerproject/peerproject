@@ -52,7 +52,7 @@ public:
 	DWORD		m_nLength;
 	DWORD		m_nPosition;
 
-	const static GRAPHITEM	m_pItemDesc[];
+	static const GRAPHITEM	m_pItemDesc[];
 
 // Operations
 public:

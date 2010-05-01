@@ -1106,7 +1106,7 @@ void CSecureRule::SetContentWords(const CString& strContent)
 		delete [] m_pContent;
 		m_nContentLength = strContent.GetLength() + 2;
 		LPTSTR pszContent = new TCHAR[ m_nContentLength ];
-		_tcscpy( pszContent, strContent );
+		_tcscpy_s( pszContent, m_nContentLength, strContent );
 		m_pContent = pszContent;
 		pszContent += strContent.GetLength();
 		*pszContent++ = 0;
@@ -1374,39 +1374,37 @@ CXMLElement* CSecureRule::ToXML()
 
 BOOL CSecureRule::FromXML(CXMLElement* pXML)
 {
-	CString strValue;
-
 	m_sComment = pXML->GetAttributeValue( _T("comment") );
 
-	strValue = pXML->GetAttributeValue( _T("type") );
+	CString strType = pXML->GetAttributeValue( _T("type") );
 
-	if ( strValue.CompareNoCase( _T("address") ) == 0 )
+	if ( strType.CompareNoCase( _T("address") ) == 0 )
 	{
 		int x[4];
 
 		m_nType = srAddress;
 
-		strValue = pXML->GetAttributeValue( _T("address") );
-		if ( _stscanf( strValue, _T("%lu.%lu.%lu.%lu"), &x[0], &x[1], &x[2], &x[3] ) == 4 )
+		CString strAddress = pXML->GetAttributeValue( _T("address") );
+		if ( _stscanf( strAddress, _T("%lu.%lu.%lu.%lu"), &x[0], &x[1], &x[2], &x[3] ) == 4 )
 		{
 			m_nIP[0] = (BYTE)x[0]; m_nIP[1] = (BYTE)x[1];
 			m_nIP[2] = (BYTE)x[2]; m_nIP[3] = (BYTE)x[3];
 		}
 
-		strValue = pXML->GetAttributeValue( _T("mask") );
-		if ( _stscanf( strValue, _T("%lu.%lu.%lu.%lu"), &x[0], &x[1], &x[2], &x[3] ) == 4 )
+		CString strMask = pXML->GetAttributeValue( _T("mask") );
+		if ( _stscanf( strMask, _T("%lu.%lu.%lu.%lu"), &x[0], &x[1], &x[2], &x[3] ) == 4 )
 		{
 			m_nMask[0] = (BYTE)x[0]; m_nMask[1] = (BYTE)x[1];
 			m_nMask[2] = (BYTE)x[2]; m_nMask[3] = (BYTE)x[3];
 		}
 	}
-	else if ( strValue.CompareNoCase( _T("content") ) == 0 )
+	else if ( strType.CompareNoCase( _T("content") ) == 0 )
 	{
 		m_nType = srContentAny;
-		CString strValue = pXML->GetAttributeValue( _T("match") );
-		if ( strValue.CompareNoCase( _T("all") ) == 0 )
+		CString strMatch = pXML->GetAttributeValue( _T("match") );
+		if ( strMatch.CompareNoCase( _T("all") ) == 0 )
 			m_nType = srContentAll;
-		else if ( strValue.CompareNoCase( _T("regexp") ) == 0 )
+		else if ( strMatch.CompareNoCase( _T("regexp") ) == 0 )
 			m_nType = srContentRegExp;
 		SetContentWords( pXML->GetAttributeValue( _T("content") ) );
 		if ( m_pContent == NULL ) return FALSE;
@@ -1416,24 +1414,24 @@ BOOL CSecureRule::FromXML(CXMLElement* pXML)
 		return FALSE;
 	}
 
-	strValue = pXML->GetAttributeValue( _T("action") );
+	CString strAction = pXML->GetAttributeValue( _T("action") );
 
-	if ( strValue.CompareNoCase( _T("null") ) == 0 )
+	if ( strAction.CompareNoCase( _T("null") ) == 0 )
 		m_nAction = srNull;
-	else if ( strValue.CompareNoCase( _T("accept") ) == 0 )
+	else if ( strAction.CompareNoCase( _T("accept") ) == 0 )
 		m_nAction = srAccept;
-	else if ( strValue.CompareNoCase( _T("deny") ) == 0 || strValue.IsEmpty() )
+	else if ( strAction.CompareNoCase( _T("deny") ) == 0 || strAction.IsEmpty() )
 		m_nAction = srDeny;
 	else
 		return FALSE;
 
-	strValue = pXML->GetAttributeValue( _T("expire") );
+	CString strExpire = pXML->GetAttributeValue( _T("expire") );
 	m_nExpire = srIndefinite;
 
-	if ( strValue.CompareNoCase( _T("session") ) == 0 )
+	if ( strExpire.CompareNoCase( _T("session") ) == 0 )
 		m_nExpire = srSession;
-	else if ( strValue.CompareNoCase( _T("indefinite") ) != 0 )
-		_stscanf( strValue, _T("%lu"), &m_nExpire );
+	else if ( strExpire.CompareNoCase( _T("indefinite") ) != 0 )
+		_stscanf( strExpire, _T("%lu"), &m_nExpire );
 
 	MaskFix();
 

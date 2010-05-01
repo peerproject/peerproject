@@ -167,7 +167,7 @@ void CIRCSettingsPage::OnDrawItem(int /*nIDCtl*/, LPDRAWITEMSTRUCT lpDrawItemStr
 		SetTextColor( lpDrawItemStruct->hDC, MsgColor );
 		SetBkMode( lpDrawItemStruct->hDC, OPAQUE );
 		SetBkColor( lpDrawItemStruct->hDC, MsgColor );
-		DrawText( lpDrawItemStruct->hDC, _T("W"), 1, 
+		DrawText( lpDrawItemStruct->hDC, _T("W"), 1,
 			&lpDrawItemStruct->rcItem, DT_SINGLELINE|DT_VCENTER|DT_CENTER|DT_NOCLIP );
    }
 }
@@ -176,7 +176,7 @@ void CIRCSettingsPage::OnClickIrcColorBg()
 {
 	CColorDialog colorDlg( Settings.IRC.Colors[ ID_COLOR_CHATWINDOW ], CC_FULLOPEN );
 	if ( colorDlg.DoModal() != IDOK ) return;
-    Settings.IRC.Colors[ ID_COLOR_CHATWINDOW ] = colorDlg.GetColor(); 
+    Settings.IRC.Colors[ ID_COLOR_CHATWINDOW ] = colorDlg.GetColor();
 	ReleaseCapture();
 	Invalidate();
 	UpdateWindow();
@@ -185,7 +185,7 @@ void CIRCSettingsPage::OnClickIrcColorBg()
 
 void CIRCSettingsPage::OnClickIrcColorText()
 {
-	CColorDialog colorDlg( Settings.IRC.Colors[ ID_COLOR_TEXT ], 
+	CColorDialog colorDlg( Settings.IRC.Colors[ ID_COLOR_TEXT ],
 		CC_FULLOPEN | CC_SOLIDCOLOR | CC_RGBINIT );
 	if ( colorDlg.DoModal() != IDOK ) return;
 	Settings.IRC.Colors[ ID_COLOR_TEXT ] = colorDlg.GetColor();
@@ -210,7 +210,7 @@ void CIRCSettingsPage::OnClickIrcColorUserAction()
 {
 	CColorDialog colorDlg( Settings.IRC.Colors[ ID_COLOR_ME ], CC_FULLOPEN );
 	if ( colorDlg.DoModal() != IDOK ) return;
-	Settings.IRC.Colors[ ID_COLOR_ME ] = colorDlg.GetColor(); 
+	Settings.IRC.Colors[ ID_COLOR_ME ] = colorDlg.GetColor();
 	ReleaseCapture();
 	Invalidate();
 	UpdateWindow();
@@ -221,7 +221,7 @@ void CIRCSettingsPage::OnClickIrcColorAction()
 {
 	CColorDialog colorDlg( Settings.IRC.Colors[ ID_COLOR_CHANNELACTION ], CC_FULLOPEN );
 	if ( colorDlg.DoModal() != IDOK ) return;
-	Settings.IRC.Colors[ ID_COLOR_CHANNELACTION ] = colorDlg.GetColor(); 
+	Settings.IRC.Colors[ ID_COLOR_CHANNELACTION ] = colorDlg.GetColor();
 	ReleaseCapture();
 	Invalidate();
 	UpdateWindow();
@@ -232,7 +232,7 @@ void CIRCSettingsPage::OnClickIrcColorServer()
 {
 	CColorDialog colorDlg( Settings.IRC.Colors[ ID_COLOR_SERVERMSG ], CC_FULLOPEN );
 	if ( colorDlg.DoModal() != IDOK ) return;
-	Settings.IRC.Colors[ ID_COLOR_SERVERMSG ] = colorDlg.GetColor(); 
+	Settings.IRC.Colors[ ID_COLOR_SERVERMSG ] = colorDlg.GetColor();
 	ReleaseCapture();
 	Invalidate();
 	UpdateWindow();
@@ -243,7 +243,7 @@ void CIRCSettingsPage::OnClickIrcColorNotice()
 {
 	CColorDialog colorDlg( Settings.IRC.Colors[ ID_COLOR_NOTICE ], CC_FULLOPEN );
 	if ( colorDlg.DoModal() != IDOK ) return;
-	Settings.IRC.Colors[ ID_COLOR_NOTICE ] = colorDlg.GetColor(); 
+	Settings.IRC.Colors[ ID_COLOR_NOTICE ] = colorDlg.GetColor();
 	ReleaseCapture();
 	Invalidate();
 	UpdateWindow();
@@ -254,7 +254,7 @@ void CIRCSettingsPage::OnClickIrcColorTopic()
 {
 	CColorDialog colorDlg( Settings.IRC.Colors[ ID_COLOR_TOPIC ], CC_FULLOPEN );
 	if ( colorDlg.DoModal() != IDOK ) return;
-	Settings.IRC.Colors[ ID_COLOR_TOPIC ] = colorDlg.GetColor(); 
+	Settings.IRC.Colors[ ID_COLOR_TOPIC ] = colorDlg.GetColor();
 	ReleaseCapture();
 	Invalidate();
 	UpdateWindow();
@@ -272,7 +272,7 @@ void CIRCSettingsPage::OnOK()
 		m_sNick = Settings.IRC.Nick = strNick;
 	else
 		Settings.IRC.Nick = m_sNick;
-	
+
 	Settings.IRC.Alternate	 = m_sAlternate;
 	Settings.IRC.RealName	 = m_sRealName;
 	Settings.IRC.UserName	 = m_sUserName;

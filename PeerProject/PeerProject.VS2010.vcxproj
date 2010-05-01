@@ -986,6 +986,7 @@ cscript.exe //nologo Revision.js
     <ClCompile Include="WndUploads.cpp" />
     <ClCompile Include="WizardConnectionPage.cpp" />
     <ClCompile Include="WizardFinishedPage.cpp" />
+    <ClCompile Include="WizardFoldersPage.cpp" />
     <ClCompile Include="WizardInterfacePage.cpp" />
     <ClCompile Include="WizardNetworksPage.cpp" />
     <ClCompile Include="WizardProfilePage.cpp" />
@@ -1591,6 +1592,7 @@ cscript.exe //nologo Revision.js
     <ClInclude Include="DlgWarnings.h" />
     <ClInclude Include="WizardConnectionPage.h" />
     <ClInclude Include="WizardFinishedPage.h" />
+    <ClInclude Include="WizardFoldersPage.h" />
     <ClInclude Include="WizardInterfacePage.h" />
     <ClInclude Include="WizardNetworksPage.h" />
     <ClInclude Include="WizardProfilePage.h" />

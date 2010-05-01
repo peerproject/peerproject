@@ -691,7 +691,7 @@ void CBrowseTreeCtrl::Paint(CDC& dc, CRect& rcClient, CPoint& pt, CBrowseTreeIte
 			dc.ExcludeClipRect( &rc );
 		}
 
-		if ( pItem->m_bBold ) 
+		if ( pItem->m_bBold )
 			dc.SelectObject( &CoolInterface.m_fntNormal );
 	}
 
@@ -1148,7 +1148,7 @@ void CBrowseTreeItem::Paint(CDC& dc, CRect& rc, BOOL bTarget, COLORREF crBack) c
 	dc.SetTextColor( crText );
 	dc.SetBkColor( bSelectmark ? CLR_NONE : crBack );
 	dc.SetBkMode( bSelectmark ? TRANSPARENT : OPAQUE );
-	
+
 	if ( bSelectmark )
 		CoolInterface.DrawWatermark( &dc, &rc, &Skin.m_bmSelected );
 

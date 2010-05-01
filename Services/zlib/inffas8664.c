@@ -1,5 +1,5 @@
-/* inffas8664.c is a hand tuned assembler version of inffast.c - fast decoding
- * version for AMD64 on Windows using Microsoft C compiler
+/* inffas8664.c is a hand tuned assembler version of inffast.c -
+ * fast decoding version for AMD64 on Windows using Microsoft C compiler
  *
  * Copyright (C) 1995-2003 Mark Adler
  * For conditions of distribution and use, see copyright notice in zlib.h
@@ -13,23 +13,21 @@
  *  inffasx64.asm is automatically convert from AMD64 portion of inffas86.c
  *
  * Dec-29-2003 -- I added AMD64 inflate asm support.  This version is also
- * slightly quicker on x86 systems because, instead of using rep movsb to copy
- * data, it uses rep movsw, which moves data in 2-byte chunks instead of single
- * bytes.  I've tested the AMD64 code on a Fedora Core 1 + the x86_64 updates
- * from http://fedora.linux.duke.edu/fc1_x86_64
- * which is running on an Athlon 64 3000+ / Gigabyte GA-K8VT800M system with
- * 1GB ram.  The 64-bit version is about 4% faster than the 32-bit version,
+ * slightly quicker on x86 systems because, instead of using rep movsb to copy data,
+ * it uses rep movsw, which moves data in 2-byte chunks instead of single bytes.
+ * I've tested the AMD64 code on a Fedora Core 1 + the x86_64 updates
+ * which is running on an Athlon 64 3000+ / Gigabyte GA-K8VT800M system with 1GB ram.
+ * The 64-bit version is about 4% faster than the 32-bit version,
  * when decompressing mozilla-source-1.3.tar.gz.
  *
  * Mar-13-2003 -- Most of this is derived from inffast.S which is derived from
  * the gcc -S output of zlib-1.2.0/inffast.c.  Zlib-1.2.0 is in beta release at
  * the moment.  I have successfully compiled and tested this code with gcc2.96,
  * gcc3.2, icc5.0, msvc6.0.  It is very close to the speed of inffast.S
- * compiled with gcc -DNO_MMX, but inffast.S is still faster on the P3 with MMX
- * enabled.  I will attempt to merge the MMX code into this version.  Newer
- * versions of this and inffast.S can be found at
+ * compiled with gcc -DNO_MMX, but inffast.S is still faster on the P3 with MMX enabled.
+ * I will attempt to merge the MMX code into this version.
+ * Newer versions of this and inffast.S can be found at
  * http://www.eetbeetee.com/zlib/ and http://www.charm.net/~christop/zlib/
- *
  */
 
 #include <stdio.h>
@@ -130,7 +128,7 @@ unsigned start;         /* inflate()'s starting value for strm->avail_out */
     ar.beg = ar.out - (start - strm->avail_out);
     ar.end = ar.out + (strm->avail_out - PAD_AVAIL_OUT);
     ar.wsize = state->wsize;
-    ar.write = state->write;
+    ar.write = state->wnext;
     ar.window = state->window;
     ar.hold = state->hold;
     ar.bits = state->bits;

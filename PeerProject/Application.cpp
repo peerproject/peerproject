@@ -48,7 +48,7 @@ IMPLEMENT_DYNCREATE(CApplication, CComObject)
 // {E9B2EF9B-4A0C-451e-801F-257861B87FAD}
 IMPLEMENT_OLECREATE_FLAGS(CApplication, "PeerProject.Application",
 	afxRegFreeThreading|afxRegApartmentThreading,
-	0xe9b2ef9b, 0x4a0c, 0x451e, 0x80, 0x1f, 0x25, 0x78, 0x61, 0xb8, 0x7f, 0xad);
+	0xe9b2ef9b, 0x4a0c, 0x451e, 0x80, 0x1f, 0x25, 0x78, 0x61, 0xb8, 0x7f, 0xad)
 
 BEGIN_MESSAGE_MAP(CApplication, CComObject)
 END_MESSAGE_MAP()
@@ -112,7 +112,7 @@ STDMETHODIMP CApplication::XApplication::get_Version(BSTR FAR* psVersion)
 {
 	METHOD_PROLOGUE( CApplication, Application )
 	if ( psVersion == NULL ) return E_INVALIDARG;
-	theApp.m_sVersion.SetSysString( psVersion );
+	*psVersion = CComBSTR( theApp.m_sVersion ).Detach();
 	return S_OK;
 }
 
@@ -123,7 +123,7 @@ STDMETHODIMP CApplication::XApplication::CheckVersion(BSTR sVersion)
 
 	int nDesired[4];
 
-	if ( swscanf( sVersion, L"%i.%i.%i.%i", &nDesired[3], &nDesired[2],
+	if ( swscanf_s( sVersion, L"%i.%i.%i.%i", &nDesired[3], &nDesired[2],
 		&nDesired[1], &nDesired[0] ) != 4 ) return E_INVALIDARG;
 
 	// Note: Assumes each version component is 8 bit

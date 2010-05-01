@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <skin xmlns="http://schemas.peerproject.org/Skin.xsd" version="1.0">
 
 <!-- PeerProject Default Czech Skin File -->
 
-<!-- Translation based on default-en.xml r52 (Shareaza 2.2.5.7) -->
+<!-- Translation based on default-en.xml r54 (Shareaza 2.2.5.7) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1860,6 +1860,9 @@
 		<link target="peer:page:CCommunitySettingsPage" format="b">Společenství:</link>
 		<text>&#160;Váš profil, pokec a rychlé nastavení zpráv.</text>
 		<newline gap="10"/>
+		<link target="peer:page:CRemoteSettingsPage" format="b">Vzdálené:</link>
+		<text>&#160;Nastavte si možnost ovládat PeerProject na dálku pomocí internetového prohlížeče.</text>
+		<newline gap="10"/>
 		<link target="peer:page:CWebSettingsPage" format="b">Web:</link>
 		<text>&#160;Integrace PeerProject s vaším webovým prohlížečem akceptuje spojení peer-to-peer a tím podporuje vaše stahování.</text>
 	</document>
@@ -1879,9 +1882,6 @@
 		<newline gap="10"/>
 		<link target="peer:page:CUploadsSettingsPage" format="b">Odesílání:</link>
 		<text>&#160;>Kapacita ,fronta ,zákazy ,časový limit a zvláštní žádosti pro odesílání.</text>
-		<newline gap="10"/>
-		<link target="peer:page:CRemoteSettingsPage" format="b">Vzdálené:</link>
-		<text>&#160;Nastavte si možnost ovládat PeerProject na dálku pomocí internetového prohlížeče.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CSchedulerSettingsPage" format="b">Scheduler:</link>
 		<text>&#160;Limit download connections based on a periodic schedule.</text>
@@ -2606,8 +2606,8 @@
 	<string id="8071" value="Připojit"/>
 	<string id="8072" value="Odpojit"/>
 	<string id="8096" value="Tato oblast zobrazuje více informací o vybraných souborech ."/>
-	<string id="8097" value="Je dostupný jeden zdroj (%s)."/>
-	<string id="8098" value="Je dostupných %i zdrojů (%s)."/>
+	<string id="8097" value="Je dostupný jeden zdroj. (%s/s)"/>
+	<string id="8098" value="Je dostupných %i zdrojů. (%s/s)"/>
 	<string id="8099" value="Je zde jedno hodnocení."/>
 	<string id="8100" value="Jsou zde %i hodnocení."/>
 	<string id="8101" value="%s &gt;&gt;&gt; upozorňuje &lt;&lt;&lt;:"/>
@@ -2802,7 +2802,7 @@
 	<string id="16264" value="Zavádím připojení k %s port %i a stahuji &quot;%s&quot;..."/>
 	<string id="16265" value="Nemohu se připojit a stahovat od hosta %s."/>
 	<string id="16266" value="Připojení pro stahování %s ustanoveno."/>
-	<string id="16267" value="Žádost o stahování části (%I64i-%I64i) od &quot;%s&quot; ze %s."/>
+	<string id="16267" value="Žádost o stahování části (%I64u-%I64u) od &quot;%s&quot; ze %s."/>
 	<string id="16268" value="Nejsou žádné části ke stažení, ukončuji a připojuji k %s."/>
 	<string id="16269" value="Části souboru jsou zkrácené, ukončuji a připojuji k %s."/>
 	<string id="16270" value="Žádost ke stahování %s vypršela, ukončuji připojení."/>
@@ -3265,19 +3265,19 @@
 </strings>
 <!-- Localized Dialog Text, "cookie" verifies that the skin matches current dialog -->
 <dialogs>
-	<dialog name="CGeneralSettingsGroup" cookie="" caption="Hlavní">
-	</dialog>
-	<dialog name="CSettingSheet" cookie="SyBuBuBu#3" caption="Nastavení PeerProject">
+	<dialog name="CSettingSheet" cookie="SyBuBuBu" caption="Nastavení PeerProject">
 		<control/>
 		<control caption="OK"/>
 		<control caption="Zrušit"/>
 		<control caption="Použít"/>
 		<control/>
 	</dialog>
+	<dialog name="CGeneralSettingsGroup" cookie="Af" caption="Hlavní"/>
+	<dialog name="CInternetSettingsGroup" cookie="Af" caption="Internet"/>
 	<dialog name="CGeneralSettingsPage" cookie="BuBuBuBuBuBuBuBuStCoBuBuBuBuBuBuSyStEdmsStmsBuBuStCoStCo" caption="Hlavní">
 		<control caption="_Hlavní:"/>
-		<control caption="Automat. se připojit při startu PeerProject"/>
 		<control caption="Spustit PeerProject při startu Windows"/>
+		<control caption="Automat. se připojit při startu"/>
 		<control caption="Upozornit před otevřením URL"/>
 		<control caption="Check for updates"/>
 		<control caption="_Stahování:"/>
@@ -3374,8 +3374,6 @@
 		<control caption="Přid_at"/>
 		<control caption="Odst_ranit"/>
 		<control caption="Plugin správce stahování se bude pokoušet stahovat jen soubory ze seznamu vlevo. Ostatní typy souborů budou stahovány webovým prohlížečem. Správce stahování je aktivní pouze pokud je PeerProject spuštěna."/>
-	</dialog>
-	<dialog name="CInternetSettingsGroup" caption="Internet">
 	</dialog>
 	<dialog name="CConnectionSettingsPage" cookie="BuStCoStCoStEdBuBuBuStCoStCoBuStCoBuBuBuStEdmsStEdms" caption="Připojení">
 		<control caption="Příchozí _adresa:"/>
@@ -3608,15 +3606,13 @@
 		<control caption="Na_stavení..."/>
 		<control caption="Stáhnout další"/>
 	</dialog>
-	<dialog name="CAdvancedSettingsPage" cookie="SyEdmsBuBuStStEd" caption="Pokročilé">
+	<dialog name="CAdvancedSettingsPage" cookie="SyEdmsBuBuSt" caption="Pokročilé">
 		<control/>
 		<control/>
 		<control/>
 		<control caption="Set Default"/>
 		<control caption="Nastavení vlastností:"/>
 		<control caption="Hodnota:"/>
-		<control caption="Popis:"/>
-		<control/>
 	</dialog>
 	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="Protokoly">
 		<control caption="PeerProject Common Architecture Protocol Explorer:"/>
@@ -3663,7 +3659,7 @@
 		<control caption="Zrušit"/>
 		<control caption="Oplatit odesílání"/>
 	</dialog>
-	<dialog name="CWizardWelcomePage" cookie="StStStStStStStStStStStSt" caption="Vítejte v PeerProject">
+	<dialog name="CWizardWelcomePage" cookie="StStStStStStStStStStStSt" caption="Vítejte v PeerProject (1/8)">
 		<control caption="Vítejte v PeerProject!"/>
 		<control caption="Jestliže jste ještě nepoužívali PeerProject nebo podobný klient P2P, tento rychlý Průvodce vám pomůže nakonfigurovat PeerProject v několika jednoduchých krocích."/>
 		<control caption="Pokud jste již pokročilejší uživatel, můžete si zpřístupnit volby nastavení PeerProject přes nabídku Nástroje. Můžete také kliknout na Konec a zavřít Průvodce."/>
@@ -3677,7 +3673,7 @@
 		<control/>
 		<control caption="již můžete používat PeerProject."/>
 	</dialog>
-	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="Welcome to PeerProject (1/6)]">
+	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="Vítejte v PeerProject (2/8)">
 		<control caption="Pro optimální výkon, potřebuje PeerProject vědět pár údajů o vašem připojení k Internetu."/>
 		<control caption="Vyberte typ připojení k internetu:"/>
 		<control caption="Telefoní modem|ISDN (128K)|DSL (768K)|DSL (1.5M)|DSL (4.0M)|DSL2 (8.0M)|FIOS (10.0M)|DSL2 (12.0M)|FIOS (20.0M)|DSL2+ (24.0M)|Kabel/SDSL|T1|T3|LAN|OC3"/>
@@ -3693,7 +3689,30 @@
 		<control caption="Stav:"/>
 		<control/>
 	</dialog>
-	<dialog name="CWizardSharePage" cookie="StStStSyBuBuSt" caption="Vítejte v PeerProject (2/6)">
+	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuStBu" caption="Vítejte v PeerProject (3/8)">
+		<control caption="PeerProject je univerzální aplikace ke sdílení souborů která může zpřístupnit souběžně více sítí P2P. Zde si můžete vybrat které sítě chcete zpřístupnit. Ovšem můžete si také vybrat a nastavit různé sítě později."/>
+		<control caption="Připojit ke Gnutelle2 (velmi doporučeno)"/>
+		<control caption="Síť Gnutella2 je hlavní síť PeerProject, nabízí více možností a výkonu než kterákoli jiná síť P2P."/>
+		<control caption="Připojit k původní síti Gnutella"/>
+		<control caption="Ačkoli původní síť Gnutella má méně možností než Gnutella2, a má méně souborů než eDonkey, zůstává cenným rezervním zdrojem."/>
+		<control caption="Připojit k eDonkey"/>
+		<control caption="eDonkey je také oblíbená síť. Zatím nemá tak bohaté možnosti jako Gnutella2, eDonkey má ale impozantní sbírku souborů."/>
+		<control caption="Associate .Torrent Files  (Handle BitTorrent links)"/>
+	</dialog>
+	<dialog name="CWizardFoldersPage" cookie="StStEdBuStEdBuStEdBuSt" caption="Vítejte v PeerProject (4/8)">
+		<control caption="PeerProject first downloads partial files to a private folder, then moves them when completed according to Download Groups."/>
+		<control caption="Ukládat dokončené soubory do:"/>
+		<control/>
+		<control/>
+		<control caption="Ukládat neúplné soubory do:"/>
+		<control/>
+		<control/>
+		<control caption="Store .Torrent files here:"/>
+		<control/>
+		<control/>
+		<control caption="Common filetypes are initially setup as subfolders of the default location, but Groups can easily be customized by Right-Click.  Simply Drag&apos;n&apos;Drop files."/>
+	</dialog>
+	<dialog name="CWizardSharePage" cookie="StStStSyBuBuSt" caption="Vítejte v PeerProject (5/8)">
 		<control caption="Sítě P2P jsou pouze tak dobré jako lidé, kteří je používají. Všechen obsah ve složce stahování je sdílený a dostupný pro další uživatele."/>
 		<control caption="Při používání PeerProject nemusíte sdílet žádné soubory, ale budete určitě znevýhodněni proti uživatelům kteří sdílejí alespoň nějaké soubory."/>
 		<control caption="Prosím označte které složky, pokud vůbec, si přejete sdílet. Pro přidání nové složky klikněte jednoduše na tlačítko Přidat.."/>
@@ -3711,7 +3730,17 @@
 		<control caption="0"/>
 		<control caption="Zavřít"/>
 	</dialog>
-	<dialog name="CWizardProfilePage" cookie="StStEdStCoCoStCoCo" caption="Vítejte v PeerProject (3/6)">
+	<dialog name="CWizardInterfacePage" cookie="StBuBuBuStStBuSt" caption="Vítejte v PeerProject (6/8)">
+		<control caption="PeerProject podporuje dvě různá rozhraní uživatele, můžete si tak vybrat které rozhraní vám nejvíce vyhovuje."/>
+		<control caption="Prosím vyberte si jedno z těchto dvou rozhraní pro uživatele:"/>
+		<control caption="Normální režim"/>
+		<control caption="Speciální režim"/>
+		<control caption="Normální, snadné používání nabídky a tlačítek. Známé uživatelům ostatních programů pro sdílení souborů."/>
+		<control caption="Speciální režim nabízí zkušeným uživatelům mnoho dodatečných příkazů, oken atd."/>
+		<control caption="Zobrazovat zjednodušený stav stahování. (snižuje zátěž CPU)"/>
+		<control caption=""/>
+	</dialog>
+	<dialog name="CWizardProfilePage" cookie="StStEdStCoCoStCoStCoStEd" caption="Vítejte v PeerProject (7/8)">
 		<control caption="PeerProject je o mnoho přátelštější pokud sdělíte o sobě alespoň několik základních údajů."/>
 		<control caption="Jméno (Přezdívka):"/>
 		<control/>
@@ -3720,27 +3749,18 @@
 		<control caption="&#160;(zvolte)| chlapec| dívka| muž| žena"/>
 		<control caption="jsem z:"/>
 		<control/>
+		<control caption="Locale:"/>
+		<control/>
+		<control caption="Comments:"/>
 		<control/>
 	</dialog>
-	<dialog name="CWizardInterfacePage" cookie="StBuBuBuStStBuSt" caption="Vítejte v PeerProject (4/6)">
-		<control caption="PeerProject podporuje dvě různá rozhraní uživatele, můžete si tak vybrat které rozhraní vám nejvíce vyhovuje."/>
-		<control caption="Prosím vyberte si jedno z těchto dvou rozhraní pro uživatele:"/>
-		<control caption="Normální režim"/>
-		<control caption="Speciální režim"/>
-		<control caption="Normální, snadné používání nabídky a tlačítek.	Známé uživatelům ostatních programů pro sdílení souborů."/>
-		<control caption="Speciální režim nabízí zkušeným uživatelům mnoho dodatečných příkazů, oken atd."/>
-		<control caption="Zobrazovat zjednodušený stav stahování. (snižuje zátěž CPU)"/>
-		<control caption=""/>
-	</dialog>
-	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuStBu" caption="Vítejte v PeerProject (5/6)">
-		<control caption="PeerProject je univerzální aplikace ke sdílení souborů která může zpřístupnit souběžně více sítí P2P. Zde si můžete vybrat které sítě chcete zpřístupnit. Ovšem můžete si také vybrat a nastavit různé sítě později."/>
-		<control caption="Připojit ke Gnutelle2 (velmi doporučeno)"/>
-		<control caption="Síť Gnutella2 je hlavní síť PeerProject, nabízí více možností a výkonu než kterákoli jiná síť P2P."/>
-		<control caption="Připojit k původní síti Gnutella"/>
-		<control caption="Ačkoli původní síť Gnutella má méně možností než Gnutella2, a má méně souborů než eDonkey, zůstává cenným rezervním zdrojem."/>
-		<control caption="Připojit k eDonkey"/>
-		<control caption="eDonkey je také oblíbená síť. Zatím nemá tak bohaté možnosti jako Gnutella2, eDonkey má ale impozantní sbírku souborů."/>
-		<control caption="Associate .Torrent Files  (Handle BitTorrent links)"/>
+	<dialog name="CWizardFinishedPage" cookie="StStStBuBuSt" caption="Vítejte v PeerProject (8/8)">
+		<control caption="To je vše! PeerProject byla nastavena pro práci s vaším počítačem."/>
+		<control caption="Jestliže budete někdy potřebovat změnit vaše nastavení, můžete to zopakovat v Průvodci rychlým startem, výběrem z nabídky Nástroje."/>
+		<control caption="Pro zavření tohoto Průvodce klikněte na Dokončit, můžete se připojit ke zvolené síti a začít vyhledávat a stahovat soubory."/>
+		<control caption="Při startu Windows vždy spustit PeerProject"/>
+		<control caption="Při spuštění PeerProject se připojit k síti"/>
+		<control caption="Užijte si PeerProject!"/>
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="Import stahování eDonkey">
 		<control/>
@@ -3750,16 +3770,7 @@
 		<control/>
 		<control caption="Zavřít"/>
 	</dialog>
-	<dialog name="CWizardFinishedPage" cookie="StStStBuBuBuSt" caption="Vítejte v PeerProject (6/6)">
-		<control caption="To je vše! PeerProject byla nastavena pro práci s vaším počítačem."/>
-		<control caption="Jestliže budete někdy potřebovat změnit vaše nastavení, můžete to zopakovat v Průvodci rychlým startem, výběrem z nabídky Nástroje."/>
-		<control caption="Pro zavření tohoto Průvodce klikněte na Dokončit, můžete se připojit ke zvolené síti a začít vyhledávat a stahovat soubory."/>
-		<control caption="Po zavření tohoto Průvodce se připojit k síti"/>
-		<control caption="Při spuštění PeerProject se připojit k síti"/>
-		<control caption="Při startu Windows vždy spustit PeerProject"/>
-		<control caption="Užijte si PeerProject!"/>
-	</dialog>
-	<dialog name="CProfileManagerDlg" cookie="SyBuBuBu#3" caption="Upravit vlastní profil">
+	<dialog name="CProfileManagerDlg" cookie="SyBuBuBu" caption="Upravit vlastní profil">
 		<control/>
 		<control caption="OK"/>
 		<control caption="Zrušit"/>
@@ -3877,28 +3888,28 @@
 		<control caption="Hledat"/>
 		<control caption="Zrušit"/>
 	</dialog>
-	<dialog name="CFilterSearchDlg" cookie="BuEdBuStBuStEdStEdStEdmsStBuBuBuBuBuBuBuBuBuBuBuCoBuBuBuBuBu" caption="Nastavení filtru">
+	<dialog name="CFilterSearchDlg" cookie="BuEdBuStBuStEdStEdStEdmsBuBuBuBuBuBuBuBuBuBuBuBuBuCoBuBuBuBuBu" caption="Nastavení filtru">
 		<control caption="_Ukázat jen výsledky které obsahují slova:"/>
 		<control/>
 		<control caption="Reg. Exp."/>
-		<control caption="( můžete také vyloučit slova: -slovo )"/>
-		<control caption="a mají veliko_st (KB):"/>
+		<control caption="(Vyloučit -slova)"/>
+		<control caption="a mají veliko_st:"/>
 		<control caption="Minimálně:"/>
 		<control/>
 		<control caption="Maximálně:"/>
 		<control/>
-		<control caption="S nejméně:"/>
+		<control caption="S nejméně zdroje:"/>
 		<control/>
 		<control/>
-		<control caption="zdroje."/>
 		<control caption="_Skrýt:"/>
-		<control caption="Aktivní hostitelé"/>
-		<control caption="Hostitelé za firewallem"/>
-		<control caption="Nestálí hostitelé"/>
 		<control caption="Neodpovídající soubory"/>
 		<control caption="Soubory které již máte"/>
 		<control caption="Falešné výsledky"/>
+		<control caption="Soubory s Restricted"/>
 		<control caption="Soubory s DRM"/>
+		<control caption="Hostitelé za firewallem"/>
+		<control caption="Nestálí hostitelé"/>
+		<control caption="Aktivní hostitelé"/>
 		<control caption="Obsah pro dospělé"/>
 		<control caption="Podezřelé soubory"/>
 		<control caption="_Filtry:"/>
@@ -3990,15 +4001,15 @@
 		<control caption="Odst_ranit"/>
 		<control/>
 	</dialog>
-	<dialog name="CFileCopyDlg" cookie="StStmsBuBumsStSt" caption="Kopírování souborů|Přesunutí souborů">
-		<control caption="Vybrali jste %i soubor(y) ke kopírování do následující složky:"/>
+	<dialog name="CFileCopyDlg" cookie="StStStmsmsStBuBu" caption="Kopírování souborů|Přesunutí souborů">
+		<control caption="Vybrali jste %i soubory ke kopírování do následující složky:"/>
+		<control caption="Vybrali jste %i soubory k přesunutí do následující složky:"/>
 		<control/>
 		<control/>
-		<control caption="OK"/>
-		<control caption="Zrušit"/>
 		<control/>
 		<control caption="Připraven..."/>
-		<control caption="Vybrali jste %i soubor(y) k přesunutí do následující složky:"/>
+		<control caption="OK"/>
+		<control caption="Zrušit"/>
 	</dialog>
 	<dialog name="CFolderPropertiesDlg" cookie="StEdStCoBuStBuBu" caption="Vlastnosti složek v albumu">
 		<control caption="Název složky v albumu:"/>

@@ -118,7 +118,7 @@ bool CUPnPFinder::AreServicesHealthy()
 	}
 	CloseServiceHandle( schService );
 
-	if ( !bResult )
+	if ( ! bResult )
 	{
 		schService = OpenService( schSCManager, _T("upnphost"), SERVICE_START );
 		if ( schService )
@@ -223,7 +223,7 @@ void CUPnPFinder::StartDiscovery(bool bSecondTry)
 	if ( ! Init() )
 		return;
 
-	if ( !bSecondTry )
+	if ( ! bSecondTry )
 		theApp.Message( MSG_INFO, L"Trying to setup port forwardings with UPnP...");
 
 	// On tests, in some cases the search for WANConnectionDevice had no results and only a search for InternetGatewayDevice
@@ -851,7 +851,8 @@ HRESULT CUPnPFinder::InvokeAction(ServicePointer pService,
 					strResult += str;
 					strResult += L"|";
 				}
-				else strResult.Empty();
+				else
+					strResult.Empty();
 			}
 		}
 		else
@@ -930,7 +931,7 @@ INT_PTR CUPnPFinder::CreateVarFromString(const CString& strArgs, VARIANT*** pppV
 		if ( strType == _T("VT_BSTR") )
 		{
 			(*pppVars)[ nArg ]->vt = VT_BSTR;
-			(*pppVars)[ nArg ]->bstrVal = strValue.AllocSysString();
+			(*pppVars)[ nArg ]->bstrVal = CComBSTR( strValue ).Detach();
 		}
 		else if ( strType == _T("VT_UI2") )
 		{
@@ -1017,7 +1018,7 @@ INT_PTR	CUPnPFinder::GetStringFromOutArgs(const VARIANT* pvaOutArgs, CString& st
 				}
 
 				hr = VariantChangeType( &vaOutElement, &vaOutElement,
-							VARIANT_ALPHABOOL, VT_BSTR );
+						VARIANT_ALPHABOOL, VT_BSTR );
 				if ( SUCCEEDED( hr ) )
 				{
 					CString str( vaOutElement.bstrVal );
@@ -1111,8 +1112,8 @@ HRESULT CDeviceFinderCallback::DeviceRemoved(LONG /*nFindData*/, BSTR bsUDN)
 HRESULT CDeviceFinderCallback::SearchComplete(LONG /*nFindData*/)
 {
 	// StopAsyncFind must be here, do not move to OnSearchComplete
-	// Otherwise, "Service died" message is shown, and it means
-	// that the service still was active.
+	// Otherwise, "Service died" message is shown,
+	// and it means that the service still was active.
 	bool bRetry = !m_instance.OnSearchComplete();
 	m_instance.StopAsyncFind();
 	if ( bRetry )
@@ -1121,7 +1122,10 @@ HRESULT CDeviceFinderCallback::SearchComplete(LONG /*nFindData*/)
 		{
 			m_instance.StartDiscovery( true );
 		}
-		catch ( CException* e ) { e->Delete(); }
+		catch ( CException* e )
+		{
+			e->Delete();
+		}
 	}
 	return S_OK;
 }
@@ -1228,7 +1232,7 @@ CString translateUPnPResult(HRESULT hr)
 	messages[ UPNP_E_EVENT_SUBSCRIPTION_FAILED ] =  "Event Subscription Failed";
 	messages[ E_FAIL ] =                            "Generic failure";
 
-	return messages[ hr ].c_str();
+	return CString( messages[ hr ].c_str() );
 }
 
 HRESULT UPnPMessage(HRESULT hr)

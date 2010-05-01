@@ -1,7 +1,7 @@
 //
 // PeerProject.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -28,10 +28,10 @@
 class CThreadImpl
 {
 public:
-	CThreadImpl() :
-		m_bCompleted( false ),
-		m_bThread( false ),
-		m_hThread( NULL )
+	CThreadImpl()
+		: m_bCompleted	( false )
+		, m_bThread 	( false )
+		, m_hThread 	( NULL )
 	{
 	}
 	virtual ~CThreadImpl()
@@ -53,6 +53,9 @@ private:
 		pThis->m_hThread = NULL;
 		return 0;
 	}
+
+	CThreadImpl(const CThreadImpl&);
+	CThreadImpl& operator=(const CThreadImpl&);
 
 protected:
 	virtual void OnRun() = 0;

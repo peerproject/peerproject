@@ -1,7 +1,7 @@
 //
 // DlgDownloadMonitor.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -41,10 +41,10 @@ public:
 	CString			m_sName;
 	CLineGraph*		m_pGraph;
 	CGraphItem*		m_pItem;
-	BOOL			m_bTray;
 	NOTIFYICONDATA	m_pTray;
+	BOOL			m_bTray;
 	BOOL			m_bCompleted;
-public:
+
 	static CList< CDownloadMonitorDlg* >	m_pWindows;
 
 // Operatons
@@ -83,9 +83,8 @@ public:
 	//}}AFX_DATA
 
 // Overrides
-public:
+protected:
 	//{{AFX_VIRTUAL(CDownloadMonitorDlg)
-	protected:
 	virtual void DoDataExchange(CDataExchange* pDX);
 	virtual void PostNcDestroy();
 	//}}AFX_VIRTUAL

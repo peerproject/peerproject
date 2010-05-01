@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <skin xmlns="http://schemas.peerproject.org/Skin.xsd" version="1.0">
 
 <!-- PeerProject Default Afrikaans Skin File -->
 <!-- Weergawe: 27 Oktober 2005 vir Shareaza 2.2.0.2 -->
 
-<!-- Translation based on default-en.xml r52 -->
+<!-- Translation based on default-en.xml r54 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -104,7 +104,7 @@
 	</toolbar>
 	<toolbar name="CSearchWnd.Full">
 		<button id="ID_SEARCH_SEARCH" text="Soek Weer..."/>
-		<button id="ID_SEARCH_STOP" text="Staak Soektog "/>
+		<button id="ID_SEARCH_STOP" text="Staak Soektog"/>
 		<separator/>
 		<button id="ID_SEARCH_DOWNLOAD" text="Laai Af"/>
 		<button id="ID_SECURITY_BAN" text="Ban"/>
@@ -1938,6 +1938,9 @@
 		<link target="peer:page:CCommunitySettingsPage" format="b">Gemeenskap:</link>
 		<text>&#160;Jou profiel, geselsies en kitsboodskap verstellings.</text>
 		<newline gap="10"/>
+		<link target="peer:page:CRemoteSettingsPage" format="b">Afstandbeheer:</link>
+		<text>&#160;Stel die funksie in om PeerProject deur 'n afgeleë web blaaier te kan beheer.</text>
+		<newline gap="10"/>
 		<link target="peer:page:CWebSettingsPage" format="b">Web Integration:</link>
 		<text>&#160;Integreer PeerProject met jou webblaaier om persoon-tot-persoon skakels te aanvaar en inhoud af te laai.</text>
 	</document>
@@ -1957,9 +1960,6 @@
 		<newline gap="10"/>
 		<link target="peer:page:CUploadsSettingsPage" format="b">Oplaaie:</link>
 		<text>&#160;Oplaai kapasiteit, waglyste, verbanning, tydsopskorting en spesiale navrae.</text>
-		<newline gap="10"/>
-		<link target="peer:page:CRemoteSettingsPage" format="b">Afstandbeheer:</link>
-		<text>&#160;Stel die funksie in om PeerProject deur 'n afgeleë web blaaier te kan beheer.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CSchedulerSettingsPage" format="b">Scheduler:</link>
 		<text>&#160;Limit download connections based on a periodic schedule.</text>
@@ -2695,8 +2695,8 @@
 	<string id="8071" value="Gekonnekteer"/>
 	<string id="8072" value="Diskonnekteer"/>
 	<string id="8096" value="Hierdie area vertoon meer inligting oor lêers wat jy selekteer."/>
-	<string id="8097" value="Een bron is beskikbaar (%s).  "/>
-	<string id="8098" value="%i bronne is beskikbaar (%s).  "/>
+	<string id="8097" value="Een bron is beskikbaar. (%s/s)"/>
+	<string id="8098" value="%i bronne is beskikbaar. (%s/s)"/>
 	<string id="8099" value="Daar is een resensie."/>
 	<string id="8100" value="Daar is %i resensies."/>
 	<string id="8101" value="%s skryf:"/>
@@ -2891,7 +2891,7 @@
 	<string id="16264" value="Inisieer 'n konneksie na %s poort %i om die lêer &quot;%s&quot; af te laai..."/>
 	<string id="16265" value="Kan nie na gasheer %s konnekteer nie."/>
 	<string id="16266" value="Aflaaikonneksie na %s bewerkstellig."/>
-	<string id="16267" value="Versoek aflaai-gedeelte (%I64i-%I64i) van &quot;%s&quot; vanaf %s."/>
+	<string id="16267" value="Versoek aflaai-gedeelte (%I64u-%I64u) van &quot;%s&quot; vanaf %s."/>
 	<string id="16268" value="Geen bruikbare aflaai-gedeeltes meer beskikbaar, konneksie na %s word gesluit."/>
 	<string id="16269" value="Gedeelte verklein, konneksie na %s word gesluit."/>
 	<string id="16270" value="Aflaaiversoek na %s se wagtyd is verstreke, konneksie word gesluit."/>
@@ -3141,7 +3141,7 @@
 	<string id="17029" value="Bladskud misluk, gasheer mag dalk nie geselskappe ondersteun nie."/>
 	<string id="17030" value="Bladskud voltooi, geselsprotokol weergawe %s."/>
 	<string id="17031" value="Profiel-inligting word verruil..."/>
-	<string id="17032" value="Geldige gebruiker "/>
+	<string id="17032" value="Geldige gebruiker"/>
 	<string id="17033" value="Privaatgesprek met gebruiker word versoek..."/>
 	<string id="17034" value="Privaatgesprek goedgekeur, jy gesels nou met %s."/>
 	<string id="17035" value="%s laat nie privaatgeselskappe toe nie, jammer."/>
@@ -3351,19 +3351,19 @@
 </strings>
 <!-- Localized Dialog Text, "cookie" verifies that the skin matches current dialog -->
 <dialogs>
-	<dialog name="CGeneralSettingsGroup" cookie="" caption="Algemeen">
-	</dialog>
-	<dialog name="CSettingSheet" cookie="SyBuBuBu#3" caption="PeerProject Verstellings">
+	<dialog name="CSettingSheet" cookie="SyBuBuBu" caption="PeerProject Verstellings">
 		<control/>
 		<control caption="OK"/>
 		<control caption="Kanselleer"/>
 		<control caption="Pas Toe"/>
 		<control/>
 	</dialog>
+	<dialog name="CGeneralSettingsGroup" cookie="Af" caption="Algemeen"/>
+	<dialog name="CInternetSettingsGroup" cookie="Af" caption="Internet"/>
 	<dialog name="CGeneralSettingsPage" cookie="BuBuBuBuBuBuBuBuStCoBuBuBuBuBuBuSyStEdmsStmsBuBuStCoStCo" caption="Algemeen">
 		<control caption="_Algemeen:"/>
-		<control caption="Konnekteer outomaties as begin"/>
 		<control caption="Begin PeerProject as Windows begin"/>
+		<control caption="Konnekteer outomaties as begin"/>
 		<control caption="Vra voor URIs oopgemaak word"/>
 		<control caption="Check for updates"/>
 		<control caption="_Aflaaie:"/>
@@ -3460,8 +3460,6 @@
 		<control caption="_Voeg by"/>
 		<control caption="V_erwyder"/>
 		<control caption="Die aflaai-hanteerder inpropprogram sal net lêertipes probeer aflaai wat hier gelys is.  Ander lêertipes sal hanteer word deur jou webblaaier.  PeerProject moet oop wees om aflaaie te hanteer."/>
-	</dialog>
-	<dialog name="CInternetSettingsGroup" caption="Internet">
 	</dialog>
 	<dialog name="CConnectionSettingsPage" cookie="BuStCoStCoStEdBuBuBuStCoStCoBuStCoBuBuBuStEdmsStEdms" caption="Konneksie">
 		<control caption="_Inkomende Adres:"/>
@@ -3694,15 +3692,13 @@
 		<control caption="_Verstel..."/>
 		<control caption="Kry meer"/>
 	</dialog>
-	<dialog name="CAdvancedSettingsPage" cookie="SyEdmsBuBuStStEd" caption="Gevorderd">
+	<dialog name="CAdvancedSettingsPage" cookie="SyEdmsBuBuSt" caption="Gevorderd">
 		<control/>
 		<control/>
 		<control/>
 		<control caption="Set Default"/>
 		<control caption="Verstellings Eienskappe:"/>
 		<control caption="Waarde:"/>
-		<control caption="Beskrywing:"/>
-		<control/>
 	</dialog>
 	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="Protokolle">
 		<control caption="PeerProject Algemene Argitektuur Protokolverkenner:"/>
@@ -3749,7 +3745,7 @@
 		<control caption="Kanselleer"/>
 		<control caption="Vergoed oplaaiers"/>
 	</dialog>
-	<dialog name="CWizardWelcomePage" cookie="StStStStStStStStStStStSt" caption="Welkom by PeerProject">
+	<dialog name="CWizardWelcomePage" cookie="StStStStStStStStStStStSt" caption="Welkom by PeerProject (1/8)">
 		<control caption="Welkom by PeerProject!"/>
 		<control caption="As jy nog nie voorheen PeerProject gebruik het nie, kan hierdie SnelBegin Assistent jou help om jou kopie in te stel in 'n paar eenvoudige stappe."/>
 		<control caption="As jy 'n meer gevorderde gebruiker is, kan jy toegang tot die volle spektrum van PeerProject se verstellings via die Opsies kieslys verkry. Kliek 'Maak Toe' om die assistent op enige stadium te verlaat."/>
@@ -3763,7 +3759,7 @@
 		<control/>
 		<control caption="PeerProject te begin gebruik."/>
 	</dialog>
-	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="Welkom by PeerProject (1/6)">
+	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="Welkom by PeerProject (2/8)">
 		<control caption="Vir optimale werksverrigting, benodig PeerProject inligting oor jou internet konneksie."/>
 		<control caption="You may select the Internet connection type:"/>
 		<control caption="|Dial-up Modem|ISDN (128K)|DSL (768K)|DSL (1.5M)|DSL (4.0M)|DSL2 (8.0M)|FIOS (10.0M)|DSL2 (12.0M)|FIOS (20.0M)|DSL2 (24.0M)|Cable Modem|T1|T3|LAN|OC3"/>
@@ -3779,7 +3775,30 @@
 		<control caption="Status:"/>
 		<control/>
 	</dialog>
-	<dialog name="CWizardSharePage" cookie="StStStSyBuBuSt" caption="Welkom by PeerProject (2/6)">
+	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuStBu" caption="Welkom by PeerProject (3/8)">
+		<control caption="PeerProject is 'n algemeendoelige lêerdelingsprogram wat toegang tot verskeie P2P netwerke gelyktydig bied.  Op hierdie bladsy kan jy kies aan watter P2P netwerke jy wil koppel. Let wel dat jy altyd later ander netwerke kan selekteer."/>
+		<control caption="Koppel aan Gnutella2 (Sterk Aanbeveel)"/>
+		<control caption="Die Gnutella2 Netwerk is PeerProject se primêre netwerk en bied meer funksies en beter werkverrigting as enige ander P2P netwerk.  Word sterk aanbeveel."/>
+		<control caption="Koppel aan Gnutella"/>
+		<control caption="Alhoewel die oorspronklike Gnutella netwerk minder funksieryk as Gnutella2 is en ook minder lêers het as eDonkey2000, bly dit 'n waardevolle hulpbron."/>
+		<control caption="Koppel aan eDonkey2000"/>
+		<control caption="Die eDonkey netwerk (ED2K) is 'n populêre bediener-gebaseerde netwerk.  Nie so funksieryk soos Gnutella2 nie, maar dit het 'n groot hoeveelheid lêers."/>
+		<control caption="Hanteer torrent skakels."/>
+	</dialog>
+	<dialog name="CWizardFoldersPage" cookie="StStEdBuStEdBuStEdBuSt" caption="Welkom by PeerProject (4/8)">
+		<control caption="PeerProject first downloads partial files to a private folder, then moves them when completed according to Download Groups."/>
+		<control caption="Stoor Volledige Aflaaie Hier:"/>
+		<control/>
+		<control/>
+		<control caption="Stoor Onvolledige Aflaaie Hier:"/>
+		<control/>
+		<control/>
+		<control caption="Stoor .Torrent Aflaaie Hier:"/>
+		<control/>
+		<control/>
+		<control caption="Common filetypes are initially setup as subfolders of the default location, but Groups can easily be customized by Right-Click.  Simply Drag&apos;n&apos;Drop files."/>
+	</dialog>
+	<dialog name="CWizardSharePage" cookie="StStStSyBuBuSt" caption="Welkom by PeerProject (5/8)">
 		<control caption="P2P netwerke is net so goed soos die mense wat hulle gebruik.  Al die inhoud beskikbaar vir aflaai word gedeel deur 'n ander gebruiker."/>
 		<control caption="Dit is nie noodsaaklik om inhoud te deel om PeerProject te gebruik nie, alhoewel sommige sagteware verskillend optree teenoor gebruikers wat niks deel nie."/>
 		<control caption="Dui asseblief aan watter gidse, indien enige, jy wil deel.  Kliek eenvoudig op die Voeg By knoppie om 'n gids by te voeg."/>
@@ -3797,18 +3816,7 @@
 		<control caption="0"/>
 		<control caption="Maak Toe"/>
 	</dialog>
-	<dialog name="CWizardProfilePage" cookie="StStEdStCoCoStCoCo" caption="Welkom by PeerProject (3/6)">
-		<control caption="PeerProject is 'n baie vriendeliker plek as elkeen 'n paar basiese inligting oor homself invul."/>
-		<control caption="My bynaam is:"/>
-		<control/>
-		<control caption="en ek is 'n:"/>
-		<control caption=" (selekteer)"/>
-		<control caption=" (selekteer)| ou| meisie| man| vrou"/>
-		<control caption="van:"/>
-		<control/>
-		<control/>
-	</dialog>
-	<dialog name="CWizardInterfacePage" cookie="StBuBuBuStStBuSt" caption="Welkom by PeerProject (4/6)">
+	<dialog name="CWizardInterfacePage" cookie="StBuBuBuStStBuSt" caption="Welkom by PeerProject (6/8)">
 		<control caption="PeerProject ondersteun 'n buigsame gebruikerskoppelvlak, sodat jy kan kies wat die mees gerieflikste vir jou is. Jy kan hierdie opsies enige tyd verander."/>
 		<control caption="Selekteer asseblief 'n gebruikerskoppelvlak:"/>
 		<control caption="Basic Modus"/>
@@ -3818,15 +3826,27 @@
 		<control caption="Vertoon vereenvoudigde aflaai-vorderingsbalke."/>
 		<control caption=""/>
 	</dialog>
-	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuStBu" caption="Welkom by PeerProject (5/6)">
-		<control caption="PeerProject is 'n algemeendoelige lêerdelingsprogram wat toegang tot verskeie P2P netwerke gelyktydig bied.  Op hierdie bladsy kan jy kies aan watter P2P netwerke jy wil koppel. Let wel dat jy altyd later ander netwerke kan selekteer."/>
-		<control caption="Koppel aan Gnutella2 (Sterk Aanbeveel)"/>
-		<control caption="Die Gnutella2 Netwerk is PeerProject se primêre netwerk en bied meer funksies en beter werkverrigting as enige ander P2P netwerk.  Word sterk aanbeveel."/>
-		<control caption="Koppel aan Gnutella"/>
-		<control caption="Alhoewel die oorspronklike Gnutella netwerk minder funksieryk as Gnutella2 is en ook minder lêers het as eDonkey2000, bly dit 'n waardevolle hulpbron."/>
-		<control caption="Koppel aan eDonkey2000"/>
-		<control caption="Die eDonkey netwerk (ED2K) is 'n populêre bediener-gebaseerde netwerk.  Nie so funksieryk soos Gnutella2 nie, maar dit het 'n groot hoeveelheid lêers."/>
-		<control caption="Hanteer torrent skakels."/>
+	<dialog name="CWizardProfilePage" cookie="StStEdStCoCoStCoStCoStEd" caption="Welkom by PeerProject (7/8)">
+		<control caption="PeerProject is 'n baie vriendeliker plek as elkeen 'n paar basiese inligting oor homself invul."/>
+		<control caption="My bynaam is:"/>
+		<control/>
+		<control caption="en ek is 'n:"/>
+		<control caption=" (selekteer)"/>
+		<control caption=" (selekteer)| ou| meisie| man| vrou"/>
+		<control caption="van:"/>
+		<control/>
+		<control caption="Locale:"/>
+		<control/>
+		<control caption="Comments:"/>
+		<control/>
+	</dialog>
+	<dialog name="CWizardFinishedPage" cookie="StStStBuBuSt" caption="Welkom by PeerProject (8/8)">
+		<control caption="Dis dit!  PeerProject is ingestel om met jou rekenaar te werk."/>
+		<control caption="As jy ooit nodig het om jou verstellings te verander, kan jy hierdie SnelBegin Assistent weer hardloop deur dit te selekteer vanaf die Opsies kieslys."/>
+		<control caption="Nadat jy hierdie assistent toegemaak het deur Finish te kliek, kan jy aan die netwerke konnekteer wat jy selekteer het en begin soek en inhoud aflaai."/>
+		<control caption="Begin PeerProject elke keer as Windows begin"/>
+		<control caption="Konnekteer aan die netwerk elke keer as ek PeerProject begin"/>
+		<control caption="Geniet PeerProject."/>
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="Trek eDonkey2000 Aflaaie In">
 		<control/>
@@ -3836,16 +3856,7 @@
 		<control/>
 		<control caption="Maak Toe"/>
 	</dialog>
-	<dialog name="CWizardFinishedPage" cookie="StStStBuBuBuSt" caption="Welkom by PeerProject (6/6)">
-		<control caption="Dis dit!  PeerProject is ingestel om met jou rekenaar te werk."/>
-		<control caption="As jy ooit nodig het om jou verstellings te verander, kan jy hierdie SnelBegin Assistent weer hardloop deur dit te selekteer vanaf die Opsies kieslys."/>
-		<control caption="Nadat jy hierdie assistent toegemaak het deur Finish te kliek, kan jy aan die netwerke konnekteer wat jy selekteer het en begin soek en inhoud aflaai."/>
-		<control caption="Konnekteer aan die netwerk as ek hierdie assistent toemaak"/>
-		<control caption="Konnekteer aan die netwerk elke keer as ek PeerProject begin"/>
-		<control caption="Begin PeerProject elke keer as Windows begin"/>
-		<control caption="Geniet PeerProject!"/>
-	</dialog>
-	<dialog name="CProfileManagerDlg" cookie="SyBuBuBu#3" caption="Verander My Profiel">
+	<dialog name="CProfileManagerDlg" cookie="SyBuBuBu" caption="Verander My Profiel">
 		<control/>
 		<control caption="OK"/>
 		<control caption="Kanselleer"/>
@@ -3963,30 +3974,30 @@
 		<control caption="Soek"/>
 		<control caption="Kanselleer"/>
 	</dialog>
-	<dialog name="CFilterSearchDlg" cookie="BuEdBuStBuStEdStEdStEdmsStBuBuBuBuBuBuBuBuBuBuBuCoBuBuBuBuBu" caption="Filreer Resultate">
+	<dialog name="CFilterSearchDlg" cookie="BuEdBuStBuStEdStEdStEdmsBuBuBuBuBuBuBuBuBuBuBuBuBuCoBuBuBuBuBu" caption="Filreer Resultate">
 		<control caption="Vertoon net resultate wat die volgende _woorde bevat:"/>
 		<control/>
 		<control caption="Reg. Exp."/>
-		<control caption="( jy kan ook woorde uitsluit met -woord )"/>
+		<control caption="(-woorde uitsluit)"/>
 		<control caption="Van die volgende _grootte:"/>
 		<control caption="Minimum:"/>
 		<control/>
 		<control caption="Maksimum:"/>
 		<control/>
-		<control caption="Met ten minste:"/>
+		<control caption="Met ten minste bronne:"/>
 		<control/>
 		<control/>
-		<control caption="bronne."/>
 		<control caption="_Steek Weg:"/>
-		<control caption="Besige gashere"/>
-		<control caption="Non-matching files"/>
-		<control caption="Netskans/stootgashere"/>
 		<control caption="Lêers wat jy alreeds het"/>
-		<control caption="Onstabiele gashere"/>
-		<control caption="Vals resultate"/>
-		<control caption="DRM files"/>
-		<control caption="Adult results"/>
+		<control caption="Non-matching files"/>
 		<control caption="Verkeerde lêers"/>
+		<control caption="Restricted files"/>
+		<control caption="DRM files"/>
+		<control caption="Netskans/stootgashere"/>
+		<control caption="Onstabiele gashere"/>
+		<control caption="Besige gashere"/>
+		<control caption="Vals resultate"/>
+		<control caption="Adult resultate"/>
 		<control caption="Filters:"/>
 		<control/>
 		<control caption="Stel in as standaard"/>
@@ -4076,15 +4087,15 @@
 		<control caption="_Verwyder"/>
 		<control/>
 	</dialog>
-	<dialog name="CFileCopyDlg" cookie="StStmsBuBumsStSt" caption="Kopieer Lêers|Skuif Lêers">
-		<control caption="Jy het %i lêer(s) geselekteer om na die volgende gids te kopieer:"/>
+	<dialog name="CFileCopyDlg" cookie="StStStmsmsStBuBu" caption="Kopieer Lêers|Skuif Lêers">
+		<control caption="Jy het %i lêers geselekteer om na die volgende gids te kopieer:"/>
+		<control caption="Jy het %i lêers geselekteer om na die volgende gids te skuif:"/>
 		<control/>
 		<control/>
-		<control caption="OK"/>
-		<control caption="Kanselleer"/>
 		<control/>
 		<control caption="Reg..."/>
-		<control caption="Jy het %i lêer(s) geselekteer om na die volgende gids te skuif:"/>
+		<control caption="OK"/>
+		<control caption="Kanselleer"/>
 	</dialog>
 	<dialog name="CFolderPropertiesDlg" cookie="StEdStCoBuStBuBu" caption="Albumgids Eienskappe">
 		<control caption="Albumgids Titel:"/>
@@ -4607,4 +4618,4 @@
 		<column from="Order" to="Volgorde"/>
 	</list>
 </listColumns>
-</skin>೸阯
+</skin>

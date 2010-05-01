@@ -1,7 +1,7 @@
 //
 // WndMonitor.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -44,7 +44,6 @@ BEGIN_MESSAGE_MAP(CRemoteWnd, CWnd)
 	ON_WM_CREATE()
 	ON_WM_DESTROY()
 	ON_WM_WINDOWPOSCHANGING()
-	ON_MESSAGE(WM_IDLEUPDATECMDUI, OnIdleUpdateCmdUI)
 	ON_WM_TIMER()
 	ON_WM_SIZE()
 	ON_WM_PAINT()
@@ -59,6 +58,7 @@ BEGIN_MESSAGE_MAP(CRemoteWnd, CWnd)
 	ON_WM_NCLBUTTONDBLCLK()
 	ON_WM_RBUTTONDOWN()
 	ON_WM_HELPINFO()
+	ON_MESSAGE(WM_IDLEUPDATECMDUI, OnIdleUpdateCmdUI)
 END_MESSAGE_MAP()
 
 LPCTSTR CRemoteWnd::m_hClass = NULL;
@@ -275,9 +275,7 @@ void CRemoteWnd::OnSkinChange()
 		m_pSkin->m_pAnchorList.GetNextAssoc( pos, strAnchor, prcAnchor );
 
 		if ( strAnchor.Find( '_' ) == 0 )
-		{
 			m_pButtons.AddTail( new CmdButton( strAnchor ) );
-		}
 	}
 
 	m_bsStatusText		= m_pSkin->GetAnchor( _T("StatusText"), m_rcsStatusText );
@@ -1088,14 +1086,11 @@ void CRemoteWnd::CmdButton::SetCheck(int nCheck)
 void CRemoteWnd::CmdButton::Execute(CFrameWnd* pTarget)
 {
 	if ( m_bVisible && m_bEnabled )
-	{
 		pTarget->SendMessage( WM_COMMAND, m_nID );
-	}
 }
 
 void CRemoteWnd::CmdButton::Paint(CDC* pdcWindow, CRect& rcWindow, CSkinWindow* pSkin, CmdButton* pHover, CmdButton* pDown)
 {
-	ASSERT( pSkin != NULL );
 	pSkin->GetAnchor( m_sName, m_rc );
 
 	if ( ! m_bVisible )

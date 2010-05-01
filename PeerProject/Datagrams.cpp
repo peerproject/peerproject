@@ -782,7 +782,7 @@ BOOL CDatagrams::OnReceiveSGP(SOCKADDR_IN* pHost, SGP_HEADER* pHeader, DWORD nLe
 	{
 		SGP_HEADER pAck;
 
-		strncpy( pAck.szTag, SGP_TAG_2, 3 );
+		memcpy( pAck.szTag, SGP_TAG_2, 3 );
 		pAck.nFlags		= 0;
 		pAck.nSequence	= pHeader->nSequence;
 		pAck.nPart		= pHeader->nPart;
@@ -1315,7 +1315,7 @@ BOOL CDatagrams::OnQuery(SOCKADDR_IN* pHost, CG2Packet* pPacket)
 	{
 		DWORD nKey = Network.QueryKeys->Create( pSearch->m_pEndpoint.sin_addr.S_un.S_addr );
 
-		CString strNode = inet_ntoa( pSearch->m_pEndpoint.sin_addr );
+		CString strNode( inet_ntoa( pSearch->m_pEndpoint.sin_addr ) );
 		theApp.Message( MSG_DEBUG, _T("Issuing correction for node %s's query key for %s"),
 			(LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ), (LPCTSTR)strNode );
 
@@ -1486,7 +1486,7 @@ BOOL CDatagrams::OnQueryKeyRequest(SOCKADDR_IN* pHost, CG2Packet* pPacket)
 		}
 	}
 
-	CString strNode = inet_ntoa( *(IN_ADDR*)&nRequestedAddress );
+	CString strNode( inet_ntoa( *(IN_ADDR*)&nRequestedAddress ) );
 	theApp.Message( MSG_DEBUG, _T("Node %s asked for a query key for node %s:%i"),
 		(LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ), (LPCTSTR)strNode, nRequestedPort );
 

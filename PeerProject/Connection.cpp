@@ -111,7 +111,7 @@ void CConnection::LogOutgoing()
 		{
 			CStringA msg( (const char*)pOutput->m_pBuffer, pOutput->m_nLength );
 			theApp.Message( MSG_DEBUG | MSG_FACILITY_OUTGOING,
-				_T("%s << %s"), (LPCTSTR)m_sAddress, (LPCTSTR)CA2T( msg ) );
+				_T("%s << %s"), (LPCTSTR)m_sAddress, (LPCTSTR)CString( msg ) );
 		}
 	}
 }

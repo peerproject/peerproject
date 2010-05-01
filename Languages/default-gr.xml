@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <skin xmlns="http://schemas.peerproject.org/Skin.xsd" version="1.0">
 
 <!-- PeerProject Default Greek Skin File -->
 
-<!-- Translation based on default-en.xml r52 -->
+<!-- Translation based on default-en.xml r54 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1973,6 +1973,9 @@
 		<link target="peer:page:CCommunitySettingsPage" format="b">Κοινότητα:</link>
 		<text>&#160;Οι ρυθμίσεις για το προφίλ σας, τις συνομιλίες και τα άμεσα μηνύματα.</text>
 		<newline gap="10"/>
+		<link target="peer:page:CRemoteSettingsPage" format="b">Απομακρυσμένη Πρόσβαση:</link>
+		<text>&#160;Ρυθμίστε τη δυνατότητα να χειρίζεστε το PeerProject από απομακρυσμένα προγράμματα περιήγησης.</text>
+		<newline gap="10"/>
 		<link target="peer:page:CWebSettingsPage" format="b">Ιστός:</link>
 		<text>&#160;Κάντε το πρόγραμμα περιήγησής σας να αναθέτει στο PeerProject τους συνδέσμους peer-to-peer και τη λήψη αρχείων.</text>
 	</document>
@@ -1993,9 +1996,6 @@
 		<newline gap="10"/>
 		<link target="peer:page:CUploadsSettingsPage" format="b">Αποστολές Αρχείων:</link>
 		<text>&#160;Χωρητικότητα αποστολών, ουρές, αποκλεισμοί, προθεσμίες και ειδικές αιτήσεις.</text>
-		<newline gap="10"/>
-		<link target="peer:page:CRemoteSettingsPage" format="b">Απομακρυσμένη Πρόσβαση:</link>
-		<text>&#160;Ρυθμίστε τη δυνατότητα να χειρίζεστε το PeerProject από απομακρυσμένα προγράμματα περιήγησης.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CSchedulerSettingsPage" format="b">Προγραμματιστής:</link>
 		<text>&#160;Περιορίστε τις συνδέσεις λήψης με βάσει ένα περιοδικό πρόγραμμα.</text>
@@ -2087,7 +2087,7 @@
 			<icon res="140" target="peer:command:ID_SEARCH_CHAT"/>
 			<gap size="5"/>
 			<link target="peer:command:ID_SEARCH_CHAT" align="middle">Συνομιλία με Χρήστη</link>
-                </group>
+		</group>
 		<group id="3">
 			<newline gap="16" indent="0"/>
 			<text format="b">Αγαπημένοι Σύνδεσμοι</text>
@@ -2733,8 +2733,8 @@
 	<string id="8071" value="Ενωμένο"/>
 	<string id="8072" value="Αποσύνδεση"/>
 	<string id="8096" value="Αυτό το πεδίο προβάλει περισσότερες πληροφορίες για τα αρχεία που επιλέγετε."/>
-	<string id="8097" value="Μία πηγή είναι διαθέσιμη (%s).  "/>
-	<string id="8098" value="%i πηγές είναι διαθέσιμες (%s).  "/>
+	<string id="8097" value="Μία πηγή είναι διαθέσιμη. (%s/s)"/>
+	<string id="8098" value="%i πηγές είναι διαθέσιμες. (%s/s)"/>
 	<string id="8099" value="Υπάρχει μια κριτική."/>
 	<string id="8100" value="Υπάρχουν %i κριτικές."/>
 	<string id="8101" value="%s γράφει:"/>
@@ -2807,7 +2807,7 @@
 	<string id="8243" value="Αποσταλθήσα ποσότητα:"/>
 	<string id="8244" value="Αριθμός κριτικών:"/>
 	<string id="8288" value="Εξερεύνηση της Βιβλιοθήκης"/>
-	<string id="8289" value="Θέση: "/>
+	<string id="8289" value="Θέση:"/>
 	<string id="8290" value="Εξερεύνηση των περιεχομένων %i φακέλων"/>
 	<string id="8291" value="Πολλαπλοί φάκελοι"/>
 	<string id="8292" value="%i αρχεία επιλεγμένα"/>
@@ -2824,7 +2824,7 @@
 	<string id="8312" value="Έχετε ήδη αυτό το αρχείο στη λίστα λήψεων."/>
 	<string id="8313" value="Αυτό το αρχείο φαίνετε να είναι βρόμα."/>
 	<string id="8314" value="Έχετε λάβει και διαγράψει αυτό το αρχείο παλαιότερα."/>
-	<string id="8315" value="Μαύρη λίστα: "/>
+	<string id="8315" value="Μαύρη λίστα:"/>
 	<string id="8316" value="Ευρέσεις"/>
 	<string id="8317" value="Αποστολές"/>
 	<string id="8318" value="%lu σήμερα, %lu συνολικά"/>
@@ -3184,7 +3184,7 @@
 	<string id="17029" value="Αποτυχία χειραψίας, ο host ίσως δεν υποστηρίζει συνομιλίες."/>
 	<string id="17030" value="Ολοκλήρωση χειραψίας, έκδοση πρωτοκόλου Συνομιλία με Χρήστης %s."/>
 	<string id="17031" value="Ανταλλαγή πληροφοριών προφίλ..."/>
-	<string id="17032" value="Πιστοποιημένος χρήστης "/>
+	<string id="17032" value="Πιστοποιημένος χρήστης"/>
 	<string id="17033" value="Αίτηση Συνομιλία με Χρήστης με τον χρήστη..."/>
 	<string id="17034" value="Αποδοχή Συνομιλία με Χρήστης, τώρα συνομιλείτε με τον/την %s!"/>
 	<string id="17035" value="%s δεν δέχεται συνομιλίες."/>
@@ -3197,9 +3197,9 @@
 	<string id="17042" value="Δεν έχετε συμπληρώσει ακόμη το προφίλ σας. Πρέπει να δώσετε ένα προφίλ για να συνομιλήσετε με άλλους χρήστες.\n\nΘέλετε να συμπληρώσετε το προφίλ σας τώρα;"/>
 	<string id="17043" value="Χορήγηση προτεραιότητας αποστολής στον host %s."/>
 	<string id="17100" value="Gnutella: Σύνδεση Peer-σε-Peer"/>
-	<string id="17101" value="Gnutella: Σύνδεση Φύλλου-σε-Ultrapeer "/>
+	<string id="17101" value="Gnutella: Σύνδεση Φύλλου-σε-Ultrapeer"/>
 	<string id="17102" value="Gnutella: Σύνδεση Ultrapeer-σε-Φύλλο"/>
-	<string id="17103" value="Gnutella II: Σύνδεση Κόμβου-σε-Κόμβο "/>
+	<string id="17103" value="Gnutella II: Σύνδεση Κόμβου-σε-Κόμβο"/>
 	<string id="17104" value="Gnutella II: Σύνδεση Φύλλου-σε-Κόμβο"/>
 	<string id="17105" value="Gnutella II: Σύνδεση Κόμβου-σε-Φύλλο"/>
 	<string id="17106" value="Σύνδεση σε server του ED2K(LOWID: %lu)"/>
@@ -3394,19 +3394,19 @@
 </strings>
 <!-- Localized Dialog Text, "cookie" verifies that the skin matches current dialog -->
 <dialogs>
-	<dialog name="CGeneralSettingsGroup" cookie="" caption="Γενικά">
-	</dialog>
-	<dialog name="CSettingSheet" cookie="SyBuBuBu#3" caption="Ρυθμίσεις PeerProject">
+	<dialog name="CSettingSheet" cookie="SyBuBuBu" caption="Ρυθμίσεις PeerProject">
 		<control/>
 		<control caption="OK"/>
 		<control caption="Άκυρο"/>
 		<control caption="Εφαρμογή"/>
 		<control/>
 	</dialog>
+	<dialog name="CGeneralSettingsGroup" cookie="Af" caption="Γενικά"/>
+	<dialog name="CInternetSettingsGroup" cookie="Af" caption="Διαδίκτυο"/>
 	<dialog name="CGeneralSettingsPage" cookie="BuBuBuBuBuBuBuBuStCoBuBuBuBuBuBuSyStEdmsStmsBuBuStCoStCo" caption="Γενικά">
 		<control caption="_Γενικά:"/>
-		<control caption="Αυτόματη σύνδεση κατά την έναρξη"/>
 		<control caption="Εκκίνηση κατά την έναρξη των Windows"/>
+		<control caption="Αυτόματη σύνδεση κατά την έναρξη"/>
 		<control caption="Προβολή προτροπής πριν το άνοιγμα URIs"/>
 		<control caption="Check for updates"/>
 		<control caption="_Λήψεις:"/>
@@ -3546,8 +3546,6 @@
 		<control caption="_Προσθήκη"/>
 		<control caption="_Αφαίρεση"/>
 		<control caption="Το πρόσθετο (plugin) διαχείρισης λήψεων θα επιχειρεί να λάβει τύπους αρχείων αυτής της λίστας. Ο χειρισμός των υπόλοιπων τύπων παραμένει στο πρόγραμμα περιήγησής σας. Για να διαχειρίζεται τις λήψεις, το PeerProject πρέπει να είναι ανοιγμένο!"/>
-	</dialog>
-	<dialog name="CInternetSettingsGroup" caption="Διαδίκτυο">
 	</dialog>
 	<dialog name="CConnectionSettingsPage" cookie="BuStCoStCoStEdBuBuBuStCoStCoBuStCoBuBuBuStEdmsStEdms" caption="Σύνδεση">
 		<control caption="Ει_σερχόμενη Διεύθυνση:"/>
@@ -3780,15 +3778,13 @@
 		<control caption="_Εγκατάσταση..."/>
 		<control caption="Λήψη επιπλέων"/>
 	</dialog>
-	<dialog name="CAdvancedSettingsPage" cookie="SyBuStEdmsStEd" caption="Προχωρημένες">
+	<dialog name="CAdvancedSettingsPage" cookie="SyEdmsBuBuSt" caption="Προχωρημένες">
 		<control/>
 		<control/>
 		<control/>
 		<control caption="Ορισμός Προεπιλογής"/>
 		<control caption="Εφαρμογή Τιμής:"/>
 		<control caption="Τιμή:"/>
-		<control caption="Περιγραφή:"/>
-		<control/>
 	</dialog>
 	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="Πρωτόκολλα">
 		<control caption="Παράθεση Πρωτοκόλλων του PeerProject:"/>
@@ -3835,7 +3831,7 @@
 		<control caption="Άκυρο"/>
 		<control caption="Ανταμοιβή αποστολέων"/>
 	</dialog>
-	<dialog name="CWizardWelcomePage" cookie="StStStStStStStStStStStSt" caption="Οδηγός Σύντομης Εκκίνησης">
+	<dialog name="CWizardWelcomePage" cookie="StStStStStStStStStStStSt" caption="Οδηγός Σύντομης Εκκίνησης (1/8)">
 		<control caption="Καλώς ήρθατε στο PeerProject."/>
 		<control caption="Αν δεν έχετε προηγούμενη εμπειρία με το PeerProject ή άλλο πρόγραμμα P2P, αυτός ο οδηγός θα σας βοηθήσει να το ρυθμίσετε σε λίγα απλά βήματα."/>
 		<control caption="Αν είστε πιο προχωρημένοι, μπορείτε να ρυθμίσετε κάθε λεπτομέρεια από το μενού Εργαλεία. Για κλείσιμο του οδηγού ανά πάσα στιγμή, κλικ στο Exit."/>
@@ -3849,7 +3845,7 @@
 		<control/>
 		<control caption="Εκκίνηση της χρήσης του PeerProject."/>
 	</dialog>
-	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="Δήλωση Σύνδεσης (1/6)">
+	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="Δήλωση Σύνδεσης (2/8)">
 		<control caption="Για βέλτιστη απόδοση, το PeerProject χρειάζεται να ξέρει λίγα πράγματα για τη σύνδεσή σας στο Διαδίκτυο."/>
 		<control caption="Διαλέξτε τον τύπο της σύνδεσής σας στο Διαδίκτυο:"/>
 		<control caption="|Dial-up Modem|ISDN (128K)|DSL (768K)|DSL (1.5M)|DSL (4.0M)|DSL2 (8.0M)|FIOS (10.0M)|DSL2 (12.0M)|FIOS (20.0M)|DSL2+ (24.0M)|Cable Modem|T1|T3|LAN|OC3"/>
@@ -3865,7 +3861,30 @@
 		<control caption="Κατάσταση:"/>
 		<control/>
 	</dialog>
-	<dialog name="CWizardSharePage" cookie="StStStSyBuBuSt" caption="Καθορισμός Κοινοποιήσεων (2/6)">
+	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuStBu" caption="Επιλογή Δικτύων (3/8)">
+		<control caption="Το PeerProject είναι ένα γενικού σκοπού πρόγραμμα ανταλλαγής αρχείων που συνδέεται σε πολλά P2P δίκτυα ταυτόχρονα. Εδώ μπορείτε να επιλέξετε σε ποια δίκτυα θέλετε να συνδέεστε. Σημειώστε ότι μπορείτε να επιλέξετε διαφορετικά δίκτυα αργότερα."/>
+		<control caption="Σύνδεση στο Gnutella2 (Συστείνεται Ανεπιφύλακτα)"/>
+		<control caption="Το πρωτεύον δίκτυο του PeerProject, που προσφέρει τα περισσότερα χαρακτηριστικά και επιδόσεις από κάθε άλλο."/>
+		<control caption="Σύνδεση στο Gnutella"/>
+		<control caption="Όχι τόσο προχωρημένο όσο το Gnutella2 και με λιγότερα αρχεία από το ED2K, αλλά παραμένει μια πολύτιμη πηγή, κυρίως μουσικής."/>
+		<control caption="Σύνδεση στο ED2K"/>
+		<control caption="Δημοφιλές δίκτυο, βασισμένο σε server. Δεν είναι τόσο προχωρημένο όσο το Gnutella2, αλλά διαθέτει τα περισσότερα αρχεία."/>
+		<control caption="Χειρισμός συνδέσμων .torrent"/>
+	</dialog>
+	<dialog name="CWizardFoldersPage" cookie="StStEdBuStEdBuStEdBuSt" caption="Επιλογή Δικτύων (4/8)">
+		<control caption="PeerProject first downloads partial files to a private folder, then moves them when completed according to Download Groups."/>
+		<control caption="Αποθήκευση Ολοκληρωμένων Αρχείων Σε:"/>
+		<control/>
+		<control/>
+		<control caption="Αποθήκευση Προσωρινών Ημιτελών Αρχείων Σε:"/>
+		<control/>
+		<control/>
+		<control caption="Store .Torrent files here:"/>
+		<control/>
+		<control/>
+		<control caption="Common filetypes are initially setup as subfolders of the default location, but Groups can easily be customized by Right-Click.  Simply Drag&apos;n&apos;Drop files."/>
+	</dialog>
+	<dialog name="CWizardSharePage" cookie="StStStSyBuBuSt" caption="Καθορισμός Κοινοποιήσεων (5/8)">
 		<control caption="Τα δίκτυα P2P είναι τόσο καλά, όσο οι άνθρωποι που τα χρησιμοποιούν. Όλα τα διαθέσιμα προς λήψη αρχεία κοινοποιούνται από άλλους χρήστες."/>
 		<control caption="Για τη χρήση του PeerProject δεν απαιτείται καμία κοινοποίηση, όμως αρκετά λογισμικά συμπεριφέρονται διαφορετικά σε χρήστες που δεν κοινοποιούν τίποτα."/>
 		<control caption="Συστείνεται να κοινοποιήσετε κάποιους φακέλους. Κλικ στο κουμπί Προσθήκη για κάθε επιπλέον φάκελο."/>
@@ -3883,18 +3902,7 @@
 		<control caption="0"/>
 		<control caption="Κλείσιμο"/>
 	</dialog>
-	<dialog name="CWizardProfilePage" cookie="StStEdStCoCoStCoCo" caption="Συμπλήρωση Προφίλ (3/6)">
-		<control caption="Το PeerProject γίνεται πολύ φιλικότερο όταν όλοι γράφουν λίγα στοιχεία για τον εαυτό τους."/>
-		<control caption="Χρήση ονόματος:"/>
-		<control/>
-		<control caption="Είμαι:"/>
-		<control caption=" (διαλέξτε)"/>
-		<control caption=" (διαλέξτε)| αγόρι| κορίτσι| άνδρας| γυναίκα"/>
-		<control caption="από:"/>
-		<control/>
-		<control/>
-	</dialog>
-	<dialog name="CWizardInterfacePage" cookie="StBuBuBuStStBuSt" caption="Επιλογή Μορφής (4/6)">
+	<dialog name="CWizardInterfacePage" cookie="StBuBuBuStStBuSt" caption="Επιλογή Μορφής (6/8)">
 		<control caption="Το PeerProject υποστηρίζει ένα ευέλικτο περιβάλλον, όπου επιλέγετε ό,τι σας βολεύει περισσότερο. Μπορείτε να αλλάξετε αυτές τις επιλογές ανά πάσα στιγμή."/>
 		<control caption="Παρακαλώ επιλέξτε μορφή:"/>
 		<control caption="Απλοποιημένη Μορφή"/>
@@ -3904,15 +3912,27 @@
 		<control caption="Εμφάνιση απλοποιημένης μπάρας προόδου λήψης."/>
 		<control caption=""/>
 	</dialog>
-	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuStBu" caption="Επιλογή Δικτύων (5/6)]">
-		<control caption="Το PeerProject είναι ένα γενικού σκοπού πρόγραμμα ανταλλαγής αρχείων που συνδέεται σε πολλά P2P δίκτυα ταυτόχρονα. Εδώ μπορείτε να επιλέξετε σε ποια δίκτυα θέλετε να συνδέεστε. Σημειώστε ότι μπορείτε να επιλέξετε διαφορετικά δίκτυα αργότερα."/>
-		<control caption="Σύνδεση στο Gnutella2 (Συστείνεται Ανεπιφύλακτα)"/>
-		<control caption="Το πρωτεύον δίκτυο του PeerProject, που προσφέρει τα περισσότερα χαρακτηριστικά και επιδόσεις από κάθε άλλο."/>
-		<control caption="Σύνδεση στο Gnutella"/>
-		<control caption="Όχι τόσο προχωρημένο όσο το Gnutella2 και με λιγότερα αρχεία από το ED2K, αλλά παραμένει μια πολύτιμη πηγή, κυρίως μουσικής."/>
-		<control caption="Σύνδεση στο ED2K"/>
-		<control caption="Δημοφιλές δίκτυο, βασισμένο σε server. Δεν είναι τόσο προχωρημένο όσο το Gnutella2, αλλά διαθέτει τα περισσότερα αρχεία."/>
-		<control caption="Χειρισμός συνδέσμων .torrent"/>
+	<dialog name="CWizardProfilePage" cookie="StStEdStCoCoStCoStCoStEd" caption="Συμπλήρωση Προφίλ (7/8)">
+		<control caption="Το PeerProject γίνεται πολύ φιλικότερο όταν όλοι γράφουν λίγα στοιχεία για τον εαυτό τους."/>
+		<control caption="Χρήση ονόματος:"/>
+		<control/>
+		<control caption="Είμαι:"/>
+		<control caption=" (διαλέξτε)"/>
+		<control caption=" (διαλέξτε)| αγόρι| κορίτσι| άνδρας| γυναίκα"/>
+		<control caption="από:"/>
+		<control/>
+		<control caption="Locale:"/>
+		<control/>
+		<control caption="Comments:"/>
+		<control/>
+	</dialog>
+	<dialog name="CWizardFinishedPage" cookie="StStStBuBuSt" caption="Ολοκλήρωση Οδηγού Σύντομης Εκκίνησης (8/8)">
+		<control caption="Αυτό ήταν! Το PeerProject έχει ρυθμιστεί να δουλεύει με τον υπολογιστή σας."/>
+		<control caption="Αν ποτέ χρειαστεί να αλλάξετε τις ρυθμίσεις σας, μπορείτε να ξανατρέξετε αυτόν τον οδηγό επιλέγοντάς τον από το μενού Εργαλεία."/>
+		<control caption="Μετά το κλείσιμο του οδηγού με κλικ στο Τέλος, μπορείτε να συνδεθείτε στα δίκτυα που επιλέξατε και να αρχίσετε αναζητήσεις και λήψεις."/>
+		<control caption="Εκκίνηση του PeerProject σε κάθε έναρξη των Windows"/>
+		<control caption="Σύνδεση στο δίκτυο σε κάθε εκκίνηση του PeerProject."/>
+		<control caption="Απολαύστε το PeerProject!"/>
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="Εισαγωγή Ημιτελών Αρχείων του eDonkey">
 		<control/>
@@ -3922,16 +3942,7 @@
 		<control/>
 		<control caption="Κλείσιμο"/>
 	</dialog>
-	<dialog name="CWizardFinishedPage" cookie="StStStBuBuBuSt" caption="Ολοκλήρωση Οδηγού Σύντομης Εκκίνησης (6/6)">
-		<control caption="Αυτό ήταν! Το PeerProject έχει ρυθμιστεί να δουλεύει με τον υπολογιστή σας."/>
-		<control caption="Αν ποτέ χρειαστεί να αλλάξετε τις ρυθμίσεις σας, μπορείτε να ξανατρέξετε αυτόν τον οδηγό επιλέγοντάς τον από το μενού Εργαλεία."/>
-		<control caption="Μετά το κλείσιμο του οδηγού με κλικ στο Τέλος, μπορείτε να συνδεθείτε στα δίκτυα που επιλέξατε και να αρχίσετε αναζητήσεις και λήψεις."/>
-		<control caption="Σύνδεση στο δίκτυο μετά το κλείσιμο του οδηγού."/>
-		<control caption="Σύνδεση στο δίκτυο σε κάθε εκκίνηση του PeerProject."/>
-		<control caption="Εκκίνηση του PeerProject σε κάθε έναρξη των Windows"/>
-		<control caption="Απολαύστε το PeerProject!"/>
-	</dialog>
-	<dialog name="CProfileManagerDlg" cookie="SyBuBuBu#3" caption="Επεξεργασία Προφίλ">
+	<dialog name="CProfileManagerDlg" cookie="SyBuBuBu" caption="Επεξεργασία Προφίλ">
 		<control/>
 		<control caption="OK"/>
 		<control caption="Άκυρο"/>
@@ -4049,30 +4060,30 @@
 		<control caption="Αναζήτηση"/>
 		<control caption="Άκυρο"/>
 	</dialog>
-	<dialog name="CFilterSearchDlg" cookie="BuEdBuStBuStEdStEdStEdmsStBuBuBuBuBuBuBuBuBuBuBuCoBuBuBuBuBu" caption="Φίλτρο Αποτελεσμάτων">
+	<dialog name="CFilterSearchDlg" cookie="BuEdBuStBuStEdStEdStEdmsBuBuBuBuBuBuBuBuBuBuBuBuBuCoBuBuBuBuBu" caption="Φίλτρο Αποτελεσμάτων">
 		<control caption="Προβολή μόνο όσων αποτελεσμάτων περιέχουν τις _λέξεις:"/>
 		<control/>
 		<control caption="Καν. Έκφ."/>
-		<control caption="( μπορείτε επίσης να αποκλείσετε λέξεις με -λέξη )"/>
+		<control caption="(Aποκλείσετε -λέξεις)"/>
 		<control caption="Και είναι _μεγέθους:"/>
 		<control caption="Ελάχιστο:"/>
 		<control/>
 		<control caption="Μέγιστο:"/>
 		<control/>
-		<control caption="Με τουλάχιστον:"/>
+		<control caption="Με τουλάχιστον πηγές:"/>
 		<control/>
 		<control/>
-		<control caption="πηγές."/>
 		<control caption="_Απόκρυψη:"/>
-		<control caption="Απασχολημένων hosts"/>
+		<control caption="Πλαστών αποτελεσμάτ"/>
 		<control caption="Αταίριαχτων αρχείων"/>
-		<control caption="Hosts οπίσω Firewall"/>
-		<control caption="Υπαρχόντων αρχείων"/>
-		<control caption="Ασταθών hosts"/>
-		<control caption="Πλαστών αποτελεσμάτ."/>
-		<control caption="Αρχείων DRM"/>
-		<control caption="Αρχείων για Ενήλικες"/>
 		<control caption="Ύποπτων αρχείων"/>
+		<control caption="Αρχείων Restricted"/>
+		<control caption="Αρχείων DRM"/>
+		<control caption="Hosts οπίσω Firewall"/>
+		<control caption="Ασταθών hosts"/>
+		<control caption="Απασχολημένων hosts"/>
+		<control caption="Υπαρχόντων αρχείων"/>
+		<control caption="Αρχείων για Ενήλικες"/>
 		<control caption="Φίλτρα:"/>
 		<control/>
 		<control caption="Ορισμός προεπιλογής"/>
@@ -4162,15 +4173,15 @@
 		<control caption="_Αφαίρεση"/>
 		<control/>
 	</dialog>
-	<dialog name="CFileCopyDlg" cookie="StStmsBuBumsStSt" caption="Αντιγραφή Αρχείων|Μετακίνηση Αρχείων">
+	<dialog name="CFileCopyDlg" cookie="StStStmsmsStBuBu" caption="Αντιγραφή Αρχείων|Μετακίνηση Αρχείων">
 		<control caption="Επιλέξατε %i αρχεία για αντιγραφή στον φάκελο:"/>
+		<control caption="Επιλέξατε %i αρχεία για μετακίνηση στον φάκελο:"/>
 		<control/>
 		<control/>
-		<control caption="OK"/>
-		<control caption="Άκυρο"/>
 		<control/>
 		<control caption="Έτοιμο"/>
-		<control caption="Επιλέξατε %i αρχεία για μετακίνηση στον φάκελο:"/>
+		<control caption="OK"/>
+		<control caption="Άκυρο"/>
 	</dialog>
 	<dialog name="CFolderPropertiesDlg" cookie="StEdStCoBuStBuBu" caption="Ιδιότητες Album">
 		<control caption="Τίτλος Album:"/>
@@ -4692,4 +4703,4 @@
 		<column from="Order" to="Σειρά"/>
 	</list>
 </listColumns>
-</skin>̊酶
+</skin>

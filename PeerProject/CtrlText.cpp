@@ -101,8 +101,6 @@ BOOL CTextCtrl::Create(DWORD dwStyle, const RECT& rect, CWnd* pParentWnd, UINT n
 
 void CTextCtrl::Add(WORD nType, const CString& strText)
 {
-	if ( theApp.IsLogDisabled( nType ) ) return;
-
 	CQuickLock pLock( m_pSection );
 
 	CString strTime;
@@ -579,7 +577,8 @@ int CTextLine::Process(int nWidth)
 		if ( *pszText == 0 ) break;
 	}
 
-	if ( nLength || !m_nLine ) AddLine( nLength );
+	if ( nLength || ! m_nLine )
+		AddLine( nLength );
 
 	return m_nLine;
 }

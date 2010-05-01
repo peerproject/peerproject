@@ -1,7 +1,7 @@
 //
 // WizardFinishedPage.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -24,10 +24,7 @@
 #include "Settings.h"
 #include "WizardSheet.h"
 #include "WizardFinishedPage.h"
-#include "Network.h"
 #include "Skin.h"
-#include "HostCache.h"
-#include "DlgDonkeyServers.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -48,9 +45,8 @@ END_MESSAGE_MAP()
 // CWizardFinishedPage property page
 
 CWizardFinishedPage::CWizardFinishedPage() : CWizardPage(CWizardFinishedPage::IDD)
-, m_bAutoConnect( FALSE )
-, m_bConnect( FALSE )
-, m_bStartup( FALSE )
+	, m_bAutoConnect( FALSE )
+	, m_bStartup	( FALSE )
 {
 	//{{AFX_DATA_INIT(CWizardFinishedPage)
 	//}}AFX_DATA_INIT
@@ -65,7 +61,6 @@ void CWizardFinishedPage::DoDataExchange(CDataExchange* pDX)
 	CWizardPage::DoDataExchange(pDX);
 	//{{AFX_DATA_MAP(CWizardFinishedPage)
 	DDX_Check(pDX, IDC_WIZARD_AUTO, m_bAutoConnect);
-	DDX_Check(pDX, IDC_WIZARD_CONNECT, m_bConnect);
 	DDX_Check(pDX, IDC_WIZARD_STARTUP, m_bStartup);
 	//}}AFX_DATA_MAP
 }
@@ -79,12 +74,8 @@ BOOL CWizardFinishedPage::OnInitDialog()
 
 	Skin.Apply( _T("CWizardFinishedPage"), this );
 
-	m_bAutoConnect	= Settings.Connection.AutoConnect;
-	m_bConnect		= TRUE;
-	if ( Settings.Live.FirstRun )
-		m_bStartup = FALSE;
-	else
-		m_bStartup = Settings.CheckStartup();
+	m_bAutoConnect = Settings.Connection.AutoConnect;
+	m_bStartup = ( Settings.Live.FirstRun ? FALSE : Settings.CheckStartup() );
 
 	UpdateData( FALSE );
 
@@ -118,18 +109,6 @@ BOOL CWizardFinishedPage::OnWizardFinish()
 	UpdateData();
 
 	Settings.Connection.AutoConnect = m_bAutoConnect != FALSE;
-
-	if ( Settings.eDonkey.EnableToday )
-	{
-		if ( HostCache.eDonkey.GetCount() < 3 )
-		{
-			CDonkeyServersDlg dlg;
-			dlg.DoModal();
-		}
-	}
-
-	if ( m_bConnect && !Network.IsConnected() ) Network.Connect( TRUE );
-	else if ( !m_bConnect && Network.IsConnected() ) Network.Disconnect();
 	Settings.SetStartup( m_bStartup );
 
 	return CWizardPage::OnWizardFinish();

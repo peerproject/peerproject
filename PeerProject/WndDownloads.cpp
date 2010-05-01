@@ -494,7 +494,7 @@ BOOL CDownloadsWnd::PreTranslateMessage(MSG* pMsg)
 {
 	if ( pMsg->message == WM_KEYDOWN )
 	{
-		if ( pMsg->wParam == VK_TAB )	// Toggle Uploads/Downloads Window Focus
+		if ( pMsg->wParam == VK_TAB )	// Toggle window focus to Uploads
 		{
 			GetManager()->Open( RUNTIME_CLASS(CUploadsWnd) );
 			return TRUE;
@@ -529,7 +529,8 @@ BOOL CDownloadsWnd::PreTranslateMessage(MSG* pMsg)
 
 BOOL CDownloadsWnd::Select(CDownload* pSelect)
 {
-	CSingleLock pLock( &Transfers.m_pSection, TRUE );
+	CSingleLock pLock( &Transfers.m_pSection );
+	if ( ! pLock.Lock( 500 ) ) return FALSE;
 	BOOL bFound = FALSE;
 	int nIndex = 0;
 
@@ -555,11 +556,12 @@ BOOL CDownloadsWnd::Select(CDownload* pSelect)
 			{
 				CDownloadSource* pSource = pDownload->GetNext( posSource );
 				pSource->m_bSelected = FALSE;
-				if ( ! bFound && ( pSource->IsConnected() || Settings.Downloads.ShowSources ) )
+				if ( ! bFound && ( ! pSource->IsIdle() || Settings.Downloads.ShowSources ) )
 					nIndex++;
 			}
 		}
 	}
+	pLock.Unlock();
 
 	Invalidate();
 	m_tSel = 0;
@@ -1303,7 +1305,8 @@ void CDownloadsWnd::OnUpdateDownloadsURI(CCmdUI* pCmdUI)
 
 void CDownloadsWnd::OnDownloadsURI()
 {
-	CSingleLock pLock( &Transfers.m_pSection, TRUE );
+	CSingleLock pLock( &Transfers.m_pSection );
+	if ( ! pLock.Lock( 500 ) ) return;
 	CList<CPeerProjectFile*> pList;
 
 	for ( POSITION pos = Downloads.GetIterator() ; pos ; )
@@ -1344,24 +1347,27 @@ void CDownloadsWnd::OnDownloadsURI()
 		}
 	}
 
-	if ( pList.GetCount() == 1 )
+	pLock.Unlock();
+
+	if ( pList.GetCount() > 0 )
 	{
 		CURLCopyDlg dlg;
 		POSITION pos = pList.GetHeadPosition();
-		CPeerProjectFile* pFile = pList.GetNext( pos );
-		dlg.Add( pFile );
-		dlg.DoModal();
-	}
-	else if ( pList.GetCount() > 1 )
-	{
-		CURLExportDlg dlg;
 
-		POSITION pos = pList.GetHeadPosition();
-		while ( pos )
+		if ( pList.GetCount() == 1 )
 		{
 			CPeerProjectFile* pFile = pList.GetNext( pos );
 			dlg.Add( pFile );
 		}
+		else //if ( pList.GetCount() > 1 )
+		{
+			while ( pos )
+			{
+				CPeerProjectFile* pFile = pList.GetNext( pos );
+				dlg.Add( pFile );
+			}
+		}
+
 		dlg.DoModal();
 	}
 
@@ -1370,6 +1376,7 @@ void CDownloadsWnd::OnDownloadsURI()
 		CPeerProjectFile* pFile = pList.GetNext( pos );
 		delete pFile;
 	}
+
 	pList.RemoveAll();
 }
 
@@ -1677,7 +1684,7 @@ void CDownloadsWnd::OnDownloadsFolder()
 
 			if ( pDownload->GetFileCount() == 1 )
 			{
-				ShellExecute( GetSafeHwnd(), NULL, _T("Explorer.exe"), "/select, " + strPath, NULL, SW_SHOWNORMAL );
+				ShellExecute( GetSafeHwnd(), NULL, _T("Explorer.exe"), _T("/select, ") + strPath, NULL, SW_SHOWNORMAL );
 			}
 			else
 			{

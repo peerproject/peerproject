@@ -1,7 +1,7 @@
 //
 // WndSettingsPage.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -29,11 +29,12 @@ class CSettingsPage : public CDialog
 	DECLARE_DYNAMIC(CSettingsPage)
 
 public:
-	CSettingsPage(UINT nIDTemplate, LPCTSTR pszCaption = NULL);
+	CSettingsPage(UINT nIDTemplate, LPCTSTR pszName = NULL);
 	virtual ~CSettingsPage();
 
 	CToolTipCtrl	m_wndToolTip;
-	CString			m_sCaption;
+	CString			m_sName;		// Dialog name used for skinning
+	CString			m_sCaption;		// Dialog caption
 	BOOL			m_bGroup;
 
 	BOOL			Create(CRect& rcPage, CWnd* pSheetWnd);
@@ -59,10 +60,12 @@ public:
 	virtual void OnCancel();
 	virtual BOOL OnSetActive();
 	virtual BOOL OnKillActive();
+	virtual void OnSkinChange();
 
 protected:
 	virtual BOOL OnInitDialog();
 	virtual BOOL PreTranslateMessage(MSG* pMsg);
+
 	virtual void DoDataExchange(CDataExchange* pDX);
 
 	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
@@ -77,7 +80,7 @@ protected:
 
 class CEditPath : public CEdit
 {
-	DECLARE_DYNCREATE(CEditPath)
+	DECLARE_DYNAMIC(CEditPath)
 
 protected:
 	afx_msg void OnLButtonDblClk(UINT nFlags, CPoint point);

@@ -62,9 +62,9 @@
 #pragma warning ( disable : 4710 )	// (Level 4)	'function' : function not inlined
 #pragma warning ( disable : 4820 )	// (Level 4)	'bytes' bytes padding added after construct 'member_name'
 
-#define _SCL_SECURE_NO_DEPRECATE
-#define _CRT_SECURE_NO_DEPRECATE
-#define _CRT_NON_CONFORMING_SWPRINTFS
+#define _SCL_SECURE_NO_WARNINGS		// For RegExp only
+#define _CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES 1
+#define _CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES_COUNT 1
 
 // For detecting Memory Leaks
 #ifdef _DEBUG
@@ -92,8 +92,12 @@
 #define NTDDK_VERSION	NTDDI_VERSION	// winioctl.h
 
 #define VC_EXTRALEAN
+
 #define _ATL_NO_COM_SUPPORT
+#define _ATL_CSTRING_EXPLICIT_CONSTRUCTORS
+
 #define BOOST_USE_WINDOWS_H
+#define BOOST_DISABLE_ASSERTS
 
 #pragma warning( push, 0 )	// Suppress Microsoft warnings
 
@@ -255,28 +259,6 @@ using augment::IUnknownImplementation;
 
 
 //typedef CString StringType;		// Previousy for <Hashes>
-
-// Obsolete for custom StringType:
-//! \brief Hash function needed for CMap with const CString& as ARG_KEY.
-//template<> AFX_INLINE UINT AFXAPI HashKey(const CString& key)
-//{
-//	UINT nHash = 0;
-//	LPCTSTR pKey = key.GetString();
-//	while ( *pKey )
-//		nHash = ( nHash << 5 ) + nHash + *pKey++;
-//	return nHash;
-//}
-//! \brief Hash function needed for CMap with CString& as ARG_KEY.
-//template<> AFX_INLINE UINT AFXAPI HashKey(CString& key)
-//{
-//	return HashKey< const CString& >( key );
-//}
-//! \brief Hash function needed for CMap with CString as ARG_KEY.
-//template<> AFX_INLINE UINT AFXAPI HashKey(CString key)
-//{
-//	return HashKey< const CString& >( key );
-//}
-//! \brief Hash function needed for CMap with DWORD_PTR as ARG_KEY.
 
 //! \brief Hash function needed for CMap with const CString& as ARG_KEY.
 template<> AFX_INLINE UINT AFXAPI HashKey(const CString& key)
@@ -462,17 +444,20 @@ inline PROTOCOLID& operator++(PROTOCOLID& arg)
 	arg = PROTOCOLID( arg + 1 );
 	return arg;
 }
+
 inline PROTOCOLID& operator--(PROTOCOLID& arg)
 {
 	ASSERT( arg > PROTOCOL_ANY );
 	arg = PROTOCOLID( arg - 1 );
 	return arg;
 }
+
 inline CArchive& operator<<(CArchive& ar, const PROTOCOLID& rhs)
 {
 	int value = rhs;
 	return ar << value;
-};
+}
+
 inline CArchive& operator>>(CArchive& ar, PROTOCOLID& rhs)
 {
 	int value;
@@ -483,7 +468,7 @@ inline CArchive& operator>>(CArchive& ar, PROTOCOLID& rhs)
 		? PROTOCOLID( value )
 		: PROTOCOL_NULL;
 	return ar;
-};
+}
 
 
 class CQuickLock
@@ -523,7 +508,9 @@ public:
 private:
 	mutable CCriticalSection m_oSection;
 	T m_oValue;
-	CGuarded* operator&() const; // Too unsafe
+
+	CGuarded* operator&() const;	// Too unsafe
+	CGuarded& operator=(const CGuarded&);
 };
 
 
@@ -576,16 +563,16 @@ private:
 	#define ASSUME_LOCK(lock) \
 	if ( (lock).m_nEnterCount < 1 || (lock).m_nThreadId != (LONG)GetCurrentThreadId() ) { \
 		static char BUF[1024] = {}; \
-		lstrcpyA(BUF,THIS_FILE); \
-		lstrcatA(BUF,"\n\nThis code must be protected by " #lock "!"); \
+		strcpy_s(BUF,1024,THIS_FILE); \
+		strcat_s(BUF,1024,"\n\nThis code must be protected by " #lock "!"); \
 		if ( ::AfxAssertFailedLine(BUF, __LINE__) ) AfxDebugBreak(); }
 
 	// Assume we already entered to this lock only once
 	#define ASSUME_SINGLE_LOCK(lock) \
 	if ( (lock).m_nEnterCount != 1 || (lock).m_nThreadId != (LONG)GetCurrentThreadId() ) { \
 		static char BUF[1024] = {}; \
-		lstrcpyA(BUF,THIS_FILE); \
-		lstrcatA(BUF,"\n\nThis code must be protected by " #lock "!"); \
+		strcpy_s(BUF,1024,THIS_FILE); \
+		strcat_s(BUF,1024,"\n\nThis code must be protected by " #lock "!"); \
 		if ( ::AfxAssertFailedLine(BUF, __LINE__) ) AfxDebugBreak(); }
 
 	class CMutexEx : public CMutex
@@ -593,8 +580,8 @@ private:
 	public:
 		CMutexEx(BOOL bInitiallyOwn = FALSE, LPCTSTR lpszName = NULL, LPSECURITY_ATTRIBUTES lpsaAttribute = NULL)
 			: CMutex( bInitiallyOwn, lpszName, lpsaAttribute )
-			, m_nThreadId( 0 )
-			, m_nEnterCount( 0 )
+			, m_nThreadId	( 0 )
+			, m_nEnterCount	( 0 )
 		{
 		}
 
@@ -619,6 +606,10 @@ private:
 
 		volatile LONG m_nThreadId;		// Owner thread
 		volatile LONG m_nEnterCount;	// Re-enter counter
+
+	private:
+		CMutexEx(const CMutexEx&);
+		CMutexEx& operator=(const CMutexEx&);
 	};
 
 #else	// No DEBUG
@@ -710,9 +701,13 @@ inline BOOL StartsWith(const CString& sInput, LPCTSTR pszText, const int len)
 
 // Compute average of values collected by specified time
 template< class T, DWORD dwMilliseconds >
-class CTimeAverage : boost::noncopyable
+class CTimeAverage //: boost::noncopyable
 {
 public:
+	CTimeAverage()
+	{
+	}
+
 	inline T operator()(T Val)
 	{
 		// Add new value
@@ -738,6 +733,11 @@ protected:
 	typedef std::pair< T, DWORD > CAveragePair;
 	typedef std::list< CAveragePair > CAverageList;
 	CAverageList m_Data;
+
+private:
+	CTimeAverage(const CTimeAverage&);
+	CTimeAverage* operator&() const;
+	CTimeAverage& operator=(const CTimeAverage&);
 };
 
 template< class T >
@@ -792,3 +792,8 @@ INT_PTR MsgBox(LPCTSTR lpszText, UINT nType = MB_OK, UINT nIDHelp = 0, DWORD* pn
 INT_PTR MsgBox(UINT nIDPrompt, UINT nType = MB_OK, UINT nIDHelp = 0, DWORD* pnDefault = NULL);
 #undef AfxMessageBox
 #define AfxMessageBox MsgBox
+
+#undef  _stscanf
+#define _stscanf _stscanf_s 	// Don't forget that %s, %c and [ requires buffer size parameter.
+
+#define SERVERLOST(hr) (((hr)==MAKE_HRESULT(SEVERITY_ERROR,FACILITY_WIN32,RPC_S_SERVER_UNAVAILABLE))||((hr)==CO_E_OBJNOTCONNECTED)||((hr)==RPC_E_INVALID_OBJECT))

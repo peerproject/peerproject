@@ -1,7 +1,7 @@
 //
 // WizardFinishedPage.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -26,40 +26,39 @@
 
 class CWizardFinishedPage : public CWizardPage
 {
+	DECLARE_DYNCREATE(CWizardFinishedPage)
+
 // Construction
 public:
 	CWizardFinishedPage();
 	virtual ~CWizardFinishedPage();
 
-	DECLARE_DYNCREATE(CWizardFinishedPage)
+	enum { IDD = IDD_WIZARD_FINISHED };
 
 // Dialog Data
 public:
 	//{{AFX_DATA(CWizardFinishedPage)
-	enum { IDD = IDD_WIZARD_FINISHED };
 	BOOL	m_bAutoConnect;
-	BOOL	m_bConnect;
 	BOOL	m_bStartup;
 	//}}AFX_DATA
 
 // Overrides
 public:
 	//{{AFX_VIRTUAL(CWizardFinishedPage)
-	public:
 	virtual BOOL OnSetActive();
-	virtual LRESULT OnWizardBack();
 	virtual BOOL OnWizardFinish();
-	protected:
+	virtual LRESULT OnWizardBack();
+protected:
+	virtual BOOL OnInitDialog();
+
 	virtual void DoDataExchange(CDataExchange* pDX);
 	//}}AFX_VIRTUAL
 
 // Implementation
 protected:
 	//{{AFX_MSG(CWizardFinishedPage)
-	virtual BOOL OnInitDialog();
-	//}}AFX_MSG
-
 	afx_msg void OnXButtonDown(UINT nFlags, UINT nButton, CPoint point);
+	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()
 };

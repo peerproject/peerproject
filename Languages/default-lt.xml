@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <skin xmlns="http://schemas.peerproject.org/Skin.xsd" version="1.0">
 
 <!-- PeerProject Default Lithuanian Skin File -->
 
-<!-- Translation based on default-en.xml r52 -->
+<!-- Translation based on default-en.xml r54 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -579,7 +579,7 @@
 			<item id="ID_HELP_ABOUT" text="Apie „PeerProject“..."/>
 		</menu>
 		<item id="ID_NETWORK_EXIT" text="Išeiti"/>
-                </menu>
+		</menu>
 	</menu>
 	<menu name="CMainWnd.Tabbed" type="bar">
 		<menu text="_Tinklas">
@@ -1949,6 +1949,9 @@
 		<link target="peer:page:CCommunitySettingsPage" format="b">Bendrija:</link>
 		<text>&#160;Jūsų profilio, pokalbių ir skubiųjų žinučių nuostatos.</text>
 		<newline gap="10"/>
+		<link target="peer:page:CRemoteSettingsPage" format="b">Nuotolinė prieiga:</link>
+		<text>&#160;Įjunkite nuotolinio „PeerProject“ programos valdymo, naudojantis naršykle, galimybę.</text>
+		<newline gap="10"/>
 		<link target="peer:page:CWebSettingsPage" format="b">Žiniatinklis:</link>
 		<text>&#160;„PeerProject“ integravimas į Jūsų naršyklę, siekiant priimti lygiaverčio susijungimo tinklo nuorodas ir parsisiuntimo vertus failus.</text>
 	</document>
@@ -1969,9 +1972,6 @@
 		<newline gap="10"/>
 		<link target="peer:page:CUploadsSettingsPage" format="b">Išsiuntimai:</link>
 		<text>&#160;Išsiuntimo pajėgumo, eilių, prieigos užkirtimo, uždelsties ir specialiųjų užklausų valdymas.</text>
-		<newline gap="10"/>
-		<link target="peer:page:CRemoteSettingsPage" format="b">Nuotolinė prieiga:</link>
-		<text>&#160;Įjunkite nuotolinio „PeerProject“ programos valdymo, naudojantis naršykle, galimybę.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CSchedulerSettingsPage" format="b">Planuotojas:</link>
 		<text>&#160;Ribokite atsisiuntimų ryšį pagal tvarkaraštį.</text>
@@ -2698,8 +2698,8 @@
 	<string id="8071" value="Prisijungta"/>
 	<string id="8072" value="Atsijungti"/>
 	<string id="8096" value="Šioje srityje pateikiama daugiau informacijos apie pasirinktus failus."/>
-	<string id="8097" value="Yra vienas šaltinis (%s)."/>
-	<string id="8098" value="Yra %i šaltinių(-iai)(%s)."/>
+	<string id="8097" value="Yra vienas šaltinis. (%s/s)"/>
+	<string id="8098" value="Yra %i šaltinių(-iai). (%s/s)"/>
 	<string id="8099" value="Yra viena apžvalga."/>
 	<string id="8100" value="Yra %i apžvalgos(-ų)."/>
 	<string id="8101" value="%s rašo:"/>
@@ -2772,7 +2772,7 @@
 	<string id="8243" value="Išsiunt. santykis:"/>
 	<string id="8244" value="Apžvalgų skaičius:"/>
 	<string id="8288" value="Naršoma Jūsų „PeerProject“ kolekcija"/>
-	<string id="8289" value="Naršomas "/>
+	<string id="8289" value="Naršomas"/>
 	<string id="8290" value="Naršomas %i aplankų turinys"/>
 	<string id="8291" value="Aplankų rinkinys"/>
 	<string id="8292" value="Pasirinktas %i failų(-ai)"/>
@@ -2789,7 +2789,7 @@
 	<string id="8312" value="Šis failas jau yra parsisiunčiamų failų sąraše."/>
 	<string id="8313" value="Šis failas, atrodo, yra reklaminė šiukšlė."/>
 	<string id="8314" value="Jūs anksčiau buvote parsisiuntę šį failą ir jį ištrynėte."/>
-	<string id="8315" value="Įtraukta į juodajį sąrašą: "/>
+	<string id="8315" value="Įtraukta į juodajį sąrašą:"/>
 	<string id="8316" value="Kreipinių"/>
 	<string id="8317" value="Išsiųsta"/>
 	<string id="8318" value="%lu šiandien, %lu iš viso"/>
@@ -3155,7 +3155,7 @@
 	<string id="17029" value="Ryšio patvirtinimas buvo nesėkmingas, adresatas galbūt nepalaiko pokalbių."/>
 	<string id="17030" value="Ryšio patvirtinimas baigtas, pokalbių protokolo versija %s."/>
 	<string id="17031" value="Apsikeičiama profilių informacija..."/>
-	<string id="17032" value="Paliudytasis naudotojas "/>
+	<string id="17032" value="Paliudytasis naudotojas"/>
 	<string id="17033" value="Prašoma privataus pokalbio su naudotoju..."/>
 	<string id="17034" value="Leidimas privačiam pokalbiui duotas, Jūs dabar kalbatės su %s."/>
 	<string id="17035" value="Deja, %s nepriima privatiems pokalbiams."/>
@@ -3364,19 +3364,19 @@
 </strings>
 <!-- Localized Dialog Text, "cookie" verifies that the skin matches current dialog -->
 <dialogs>
-	<dialog name="CGeneralSettingsGroup" cookie="" caption="Bendra">
-	</dialog>
-	<dialog name="CSettingSheet" cookie="SyBuBuBu#3" caption="„PeerProject“ nuostatos">
+	<dialog name="CSettingSheet" cookie="SyBuBuBu" caption="„PeerProject“ nuostatos">
 		<control/>
 		<control caption="Gerai"/>
 		<control caption="Atšaukti"/>
 		<control caption="Pritaikyti"/>
 		<control/>
 	</dialog>
+	<dialog name="CGeneralSettingsGroup" cookie="Af" caption="Bendra"/>
+	<dialog name="CInternetSettingsGroup" cookie="Af" caption="Internetas"/>
 	<dialog name="CGeneralSettingsPage" cookie="BuBuBuBuBuBuBuBuStCoBuBuBuBuBuBuSyStEdmsStmsBuBuStCoStCo" caption="Bendra">
 		<control caption="_Bendra:"/>
-		<control caption="Paleidus „PeerProject“, jungtis prie tinklo"/>
 		<control caption="Paleisti „PeerProject“ startuojant Windows"/>
+		<control caption="Paleidus „PeerProject“, jungtis prie tinklo"/>
 		<control caption="Klausti prieš pridedant nuorodas"/>
 		<control caption="Check for updates"/>
 		<control caption="_Atsisiuntimai:"/>
@@ -3516,8 +3516,6 @@
 		<control caption="_Pridėti"/>
 		<control caption="Š_alinti"/>
 		<control caption="Parsisiuntimų tvarkytuvė mėgins parsiųsti tik tuos failus, kurių plėtiniai čia išvardinti. Kitų plėtinių failai bus tvarkomi Jūsų naršykle. „PeerProject“ turi veikti prieš siunčiantis failus."/>
-	</dialog>
-	<dialog name="CInternetSettingsGroup" caption="Internetas">
 	</dialog>
 	<dialog name="CConnectionSettingsPage" cookie="BuStCoStCoStEdBuBuBuStCoStCoBuStCoBuBuBuStEdmsStEdms" caption="Ryšys">
 		<control caption="_Gavimų adresas:"/>
@@ -3750,15 +3748,13 @@
 		<control caption="_Nustatyti..."/>
 		<control caption="Gauti daugiau"/>
 	</dialog>
-	<dialog name="CAdvancedSettingsPage" cookie="SyEdmsBuBuStStEd" caption="Kita">
+	<dialog name="CAdvancedSettingsPage" cookie="SyEdmsBuBuSt" caption="Kita">
 		<control/>
 		<control/>
 		<control/>
 		<control caption="Numatytoji reikšmė"/>
 		<control caption="Nuostatos ypatybės:"/>
 		<control caption="Reikšmė:"/>
-		<control caption="Aprašas:"/>
-		<control/>
 	</dialog>
 	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="Protokolai">
 		<control caption="„PeerProject“ bendros architektūros protokolų naršyklė:"/>
@@ -3805,7 +3801,7 @@
 		<control caption="Atšaukti"/>
 		<control caption="Atlyginti siuntėjus"/>
 	</dialog>
-	<dialog name="CWizardWelcomePage" cookie="StStStStStStStStStStStSt" caption="">
+	<dialog name="CWizardWelcomePage" cookie="StStStStStStStStStStStSt" caption="Sveiki! Čia „PeerProject“ (1/8)">
 		<control caption="Sveiki! Čia „PeerProject“!"/>
 		<control caption="Jei Jūs iki šiol nesate nuodojęsi „PeerProject“ ar kita P2P programa, šis Nuostatų vedlys Jums padės sukonfigūruoti programą per kelis paprastus žingsnius."/>
 		<control caption="Jei esate labiau patyręs naudotojas, Jūs galite pasiekti visas „PeerProject“ parinktis per meniu „Įrankiai“. Paspauskite „Išeiti“, jei norėsite bet kada uždaryti šį vedlį."/>
@@ -3819,7 +3815,7 @@
 		<control/>
 		<control caption="pradėti naudotis „PeerProject“ programa."/>
 	</dialog>
-	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="Sveiki! Čia „PeerProject“ (1/6)">
+	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="Sveiki! Čia „PeerProject“ (2/8)">
 		<control caption="Optimaliam darbui „PeerProjecti“ reikia žinoti šiek tiek apie Jūsų interneto ryšį."/>
 		<control caption="Pasirinkite prisijungimo prie interneto tipą:"/>
 		<control caption="Telefono ryšys|ISDN (128 K)|DSL (768 K)|DSL (1,5 M)|DSL (4,0 M)|DSL2 (8,0 M)|DSL2 (10,0 M)|DSL2 (12,0 M)|DSL2 (20,0 M)|DSL2+ (24,0 M)|Kabelinis modemas|T1|T3|Vietinis tinklas|OC3"/>
@@ -3835,7 +3831,30 @@
 		<control caption="Būklė:"/>
 		<control/>
 	</dialog>
-	<dialog name="CWizardSharePage" cookie="StStStSyBuBuSt" caption="Sveiki! Čia „PeerProject“ (2/6)">
+	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuStBu" caption="Sveiki! Čia „PeerProject“ (3/8)">
+		<control caption="„PeerProject“ - tai bendros paskirties failų apsikeitimo programa, kuri gali prisijungti prie kelių lygiaverčio tarptinklinio susijungimo (P2P) tinklų vienu metu. Pasirinkite, prie kurių P2P tinklų norite jungtis, o po to derinkite kiekvieną tinklą atskirai."/>
+		<control caption="Jungtis prie Gnutella2 (Labai rekomenduojama)"/>
+		<control caption="Gnutella2 tinklas - tai pagrindinis „PeerProject“ tinklas, siūlantis daugiau galimybių ir našumo nei kiti P2P tinklai. Ypač rekomenduojama."/>
+		<control caption="Jungtis prie pirminio Gnutella"/>
+		<control caption="Nors pirminis Gnutella tinklas turi mažiau galimybių, nei Gnutella2, ir mažiau failų, nei eDonkey, šis tinklas pasilieka vertingu ištekliumi."/>
+		<control caption="Jungtis prie eDonkey"/>
+		<control caption="eDonkey tinklas - tai populiarus tinklas su serveriais. Nors neturi tiek galimybių kaip Gnutella2, eDonkey tinkle yra įspūdinga failų kolekcija."/>
+		<control caption="Susieti torrent nuorodas su programa."/>
+	</dialog>
+	<dialog name="CWizardFoldersPage" cookie="StStEdBuStEdBuStEdBuSt" caption="Sveiki! Čia „PeerProject“ (4/8)">
+		<control caption="PeerProject first downloads partial files to a private folder, then moves them when completed according to Download Groups."/>
+		<control caption="Saugoti parsiųstus failus čia:"/>
+		<control/>
+		<control/>
+		<control caption="Laikyti nebaigtus siųstis failus čia:"/>
+		<control/>
+		<control/>
+		<control caption="Laikyti .Torrent failus čia:"/>
+		<control/>
+		<control/>
+		<control caption="Common filetypes are initially setup as subfolders of the default location, but Groups can easily be customized by Right-Click.  Simply Drag&apos;n&apos;Drop files."/>
+	</dialog>
+	<dialog name="CWizardSharePage" cookie="StStStSyBuBuSt" caption="Sveiki! Čia „PeerProject“ (5/8)">
 		<control caption="Lygiaverčio tarptinklinio susijungimo (P2P) tinklai yra geri tiek, kiek patys žmonės, kurie juo naudojasi. Parsisiųsti failus galite dėl to, kad kiti naudotojai dalinasi."/>
 		<control caption="Kad naudotumėtės „PeerProject“, Jūs nebūtinai turite dalintis failais, tačiau kai kuri progr. įranga gali elgtis skirtingai su tais naudotojais, kurie niekuo nesidalina."/>
 		<control caption="Nurodykite, jei norite, aplankus, kurių turinį norite bendrinti. Paprasčiausiai paspauskite mygtuką „Pridėti“ kiekvieno naujo aplanko bendrinimui."/>
@@ -3853,18 +3872,7 @@
 		<control caption="0"/>
 		<control caption="Baigti"/>
 	</dialog>
-	<dialog name="CWizardProfilePage" cookie="StStEdStCoCoStCoCo" caption="Sveiki! Čia „PeerProject“ (3/6)">
-		<control caption="„PeerProject“ taps draugiškesne, jei kiekvienas šiek tiek parašys apie save."/>
-		<control caption="Mano vardas:"/>
-		<control/>
-		<control caption="ir aš esu:"/>
-		<control caption="&#160;(pasirinkite)"/>
-		<control caption="&#160;(pasirinkite)| vaikinas| mergina| vyras| moteris"/>
-		<control caption="iš:"/>
-		<control/>
-		<control/>
-	</dialog>
-	<dialog name="CWizardInterfacePage" cookie="StBuBuBuStStBuSt" caption="Sveiki! Čia „PeerProject“">
+	<dialog name="CWizardInterfacePage" cookie="StBuBuBuStStBuSt" caption="Sveiki! Čia „PeerProject“ (6/8)">
 		<control caption="„PeerProject“ palaiko dvi skirtingas naudotojo sąsajas, todėl galite pasirinkti, kuri iš jų labiausiai Jums patogi. Jūs galėsite vėliau pakeisti šias nuostatas."/>
 		<control caption="Pasirinkite vieną naudotojo sąsają:"/>
 		<control caption="Įprastinė veiksena"/>
@@ -3874,15 +3882,27 @@
 		<control caption="Rodyti supaprastintas eigos juostas."/>
 		<control caption=""/>
 	</dialog>
-	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuStBu" caption="Sveiki! Čia „PeerProject“ (5/6)">
-		<control caption="„PeerProject“ - tai bendros paskirties failų apsikeitimo programa, kuri gali prisijungti prie kelių lygiaverčio tarptinklinio susijungimo (P2P) tinklų vienu metu. Pasirinkite, prie kurių P2P tinklų norite jungtis, o po to derinkite kiekvieną tinklą atskirai."/>
-		<control caption="Jungtis prie Gnutella2 (Labai rekomenduojama)"/>
-		<control caption="Gnutella2 tinklas - tai pagrindinis „PeerProject“ tinklas, siūlantis daugiau galimybių ir našumo nei kiti P2P tinklai. Ypač rekomenduojama."/>
-		<control caption="Jungtis prie pirminio Gnutella"/>
-		<control caption="Nors pirminis Gnutella tinklas turi mažiau galimybių, nei Gnutella2, ir mažiau failų, nei eDonkey, šis tinklas pasilieka vertingu ištekliumi."/>
-		<control caption="Jungtis prie eDonkey"/>
-		<control caption="eDonkey tinklas - tai populiarus tinklas su serveriais. Nors neturi tiek galimybių kaip Gnutella2, eDonkey tinkle yra įspūdinga failų kolekcija."/>
-		<control caption="Susieti torrent nuorodas su programa."/>
+	<dialog name="CWizardProfilePage" cookie="StStEdStCoCoStCoStCoStEd" caption="Sveiki! Čia „PeerProject“ (7/8)">
+		<control caption="„PeerProject“ taps draugiškesne, jei kiekvienas šiek tiek parašys apie save."/>
+		<control caption="Mano vardas:"/>
+		<control/>
+		<control caption="ir aš esu:"/>
+		<control caption="&#160;(pasirinkite)"/>
+		<control caption="&#160;(pasirinkite)| vaikinas| mergina| vyras| moteris"/>
+		<control caption="iš:"/>
+		<control/>
+		<control caption="Locale:"/>
+		<control/>
+		<control caption="Comments:"/>
+		<control/>
+	</dialog>
+	<dialog name="CWizardFinishedPage" cookie="StStStBuBuSt" caption="Sveiki! Čia „PeerProject“ (8/8)">
+		<control caption="Štai ir viskas! „PeerProject“ yra sukonfigūruota darbui Jūsų kompiuteryje."/>
+		<control caption="Jei Jums kada nors prisireiks pakeisti nuostatas, Jūs galėsite iš naujo paleisti šį Nuostatų vedlį, pasirinkdami jį iš meniu „Įrankiai“."/>
+		<control caption="Po to, kai paspausite mygtuką „Baigti“, Jūs galėsite prisijungti prie tinklų, kuriuos Jūs nurodėte, ieškoti ir parsisiųsti failus."/>
+		<control caption="Paleisti „PeerProject“ kiekvieną kartą, kai Windows startuos"/>
+		<control caption="Jungtis prie tinklo kiekvieną kartą, kai „PeerProject“ startuos"/>
+		<control caption="Malonaus darbo su „PeerProject“!"/>
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="eDonkey dalinių failų importas">
 		<control/>
@@ -3892,16 +3912,7 @@
 		<control/>
 		<control caption="Užverti"/>
 	</dialog>
-	<dialog name="CWizardFinishedPage" cookie="StStStBuBuBuSt" caption="Sveiki! Čia „PeerProject“ (6/6)">
-		<control caption="Štai ir viskas! „PeerProject“ yra sukonfigūruota darbui Jūsų kompiuteryje."/>
-		<control caption="Jei Jums kada nors prisireiks pakeisti nuostatas, Jūs galėsite iš naujo paleisti šį Nuostatų vedlį, pasirinkdami jį iš meniu „Įrankiai“."/>
-		<control caption="Po to, kai paspausite mygtuką „Baigti“, Jūs galėsite prisijungti prie tinklų, kuriuos Jūs nurodėte, ieškoti ir parsisiųsti failus."/>
-		<control caption="Jungtis prie tinklo, kai aš užversiu šį vedlį"/>
-		<control caption="Jungtis prie tinklo kiekvieną kartą, kai „PeerProject“ startuos"/>
-		<control caption="Paleisti „PeerProject“ kiekvieną kartą, kai Windows startuos"/>
-		<control caption="Malonaus darbo su „PeerProject“!"/>
-	</dialog>
-	<dialog name="CProfileManagerDlg" cookie="SyBuBuBu#3" caption="Taisyti savo profilį">
+	<dialog name="CProfileManagerDlg" cookie="SyBuBuBu" caption="Taisyti savo profilį">
 		<control/>
 		<control caption="Gerai"/>
 		<control caption="Atšaukti"/>
@@ -4019,30 +4030,30 @@
 		<control caption="Ieškoti"/>
 		<control caption="Atšaukti"/>
 	</dialog>
-	<dialog name="CFilterSearchDlg" cookie="BuEdBuStBuStEdStEdStEdmsStBuBuBuBuBuBuBuBuBuBuBuCoBuBuBuBuBu" caption="Filtruoti radinius">
+	<dialog name="CFilterSearchDlg" cookie="BuEdBuStBuStEdStEdStEdmsBuBuBuBuBuBuBuBuBuBuBuBuBuCoBuBuBuBuBu" caption="Filtruoti radinius">
 		<control caption="Rodyti tik atitikimus, kuriuose yra ž_odžiai:"/>
 		<control/>
 		<control caption="Reg. išr."/>
-		<control caption="( Jūs galite išbraukti iš radinių žodžius su -žodis )"/>
+		<control caption="(Išbraukti iš radinių -žodius)"/>
 		<control caption="Ir yra tokio _dydžio:"/>
 		<control caption="Mažiausiai:"/>
 		<control/>
 		<control caption="Daugiausiai:"/>
 		<control/>
-		<control caption="Mažiausiai su:"/>
+		<control caption="Mažiausiai su šaltinių:"/>
 		<control/>
 		<control/>
-		<control caption="šaltinių."/>
 		<control caption="_Slėpti:"/>
-		<control caption="Užimtus adresatus"/>
-		<control caption="Neatitinka kriterijų"/>
-		<control caption="Už užkardos"/>
 		<control caption="Failus, kuriuos jau turite"/>
-		<control caption="Nestabilius adresatus"/>
-		<control caption="Klastotes"/>
-		<control caption="DRM failus"/>
-		<control caption="Turinį suaugusiems"/>
+		<control caption="Už užkardos"/>
 		<control caption="Įtartinus failus"/>
+		<control caption="Restricted failus"/>
+		<control caption="DRM failus"/>
+		<control caption="Neatitinka kriterijų"/>
+		<control caption="Nestabilius adresatus"/>
+		<control caption="Užimtus adresatus"/>
+		<control caption="Klastotes"/>
+		<control caption="Turinį suaugusiems"/>
 		<control caption="Filtrai:"/>
 		<control/>
 		<control caption="Nustatyti numatytuoju"/>
@@ -4132,15 +4143,15 @@
 		<control caption="Š_alinti"/>
 		<control/>
 	</dialog>
-	<dialog name="CFileCopyDlg" cookie="StStmsBuBumsStSt" caption="Failų kopijavimas|Failų perkėlimas">
-		<control caption="Jūs pasirinkote %i failų(-us) perkėlimui į šį aplanką:"/>
+	<dialog name="CFileCopyDlg" cookie="StStStmsmsStBuBu" caption="Failų kopijavimas|Failų perkėlimas">
+		<control caption="Jūs pasirinkote %i failųs perkėlimui į šį aplanką:"/>
+		<control caption="Jūs pasirinkote %i failųs perkėlimui į šį aplanką:"/>
 		<control/>
 		<control/>
-		<control caption="Gerai"/>
-		<control caption="Atšaukti"/>
 		<control/>
 		<control caption="Pasiruošta..."/>
-		<control caption="Jūs pasirinkote %i failų(-us) perkėlimui į šį aplanką:"/>
+		<control caption="Gerai"/>
+		<control caption="Atšaukti"/>
 	</dialog>
 	<dialog name="CFolderPropertiesDlg" cookie="StEdStCoBuStBuBu" caption="Albumo aplanko ypatybės">
 		<control caption="Albumo katalogo pavadinimas:"/>
@@ -4660,4 +4671,4 @@
 		<column from="Order" to="Eilė"/>
 	</list>
 </listColumns>
-</skin>逺
+</skin>

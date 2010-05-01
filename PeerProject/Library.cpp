@@ -349,8 +349,8 @@ BOOL CLibrary::Load()
 			( ( CompareFileTime( &pFileTime1, &pFileTime2 ) >= 0 ) ? &pFile1 : &pFile2 ) :
 			( bFile1 ? &pFile1 : &pFile2 );
 
-		CArchive ar( pNewest, CArchive::load, 262144 ); // 256 KB buffer
-		if ( ! SafeSerialize( ar ) )
+		CArchive ar1( pNewest, CArchive::load, 262144 );			// 256 KB buffer
+		if ( ! SafeSerialize( ar1 ) )
 		{
 			if ( pNewest == &pFile1 && bFile2 )
 				pNewest = &pFile2;
@@ -361,8 +361,8 @@ BOOL CLibrary::Load()
 
 			if ( pNewest != NULL )
 			{
-				CArchive ar( pNewest, CArchive::load, 262144 ); // 256 KB buffer
-				SafeSerialize( ar );
+				CArchive ar2( pNewest, CArchive::load, 262144 );	// 256 KB buffer
+				SafeSerialize( ar2 );
 			}
 		}
 	}
@@ -464,7 +464,7 @@ void CLibrary::Serialize(CArchive& ar)
 	{
 		ar << nVersion;
 	}
-	else
+	else // Loading
 	{
 		ar >> nVersion;
 		if ( nVersion < 1 || nVersion > LIBRARY_SER_VERSION ) AfxThrowUserException();
@@ -500,7 +500,7 @@ BOOL CLibrary::ThreadScan()
 	CSingleLock pLock( &m_pSection );
 	if ( ! pLock.Lock( 100 ) )
 	{
-		Wakeup();	// skip default delay
+		Wakeup();	// Skip default delay
 		return FALSE;
 	}
 
@@ -582,9 +582,9 @@ BOOL CLibrary::IsBadFile(LPCTSTR pszFilenameOnly, LPCTSTR pszPathOnly, DWORD dwF
 		}
 	}
 
+	// Ignore Typical Private Directories
 	if ( pszPathOnly && (
-		// Ignore Internet Explorer folder
-		_tcsistr( pszPathOnly, _T("\\Temporary Internet Files") ) ) )
+		_tcsistr( pszPathOnly, _T("\\Temporary Internet Files") ) ) )		// MS Internet Explorer folder
 		return TRUE;
 
 	return FALSE;

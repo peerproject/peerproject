@@ -21,18 +21,19 @@
 
 // http://www.maxmind.com/app/c
 
-#ifndef GEOIP_H
-#define GEOIP_H
+#pragma once
+
+//#define GEOIP_H
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-#include<stdio.h>
-#include<stdlib.h>
-#include<string.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/stat.h>  /* for fstat */
 #include <sys/types.h> /* for fstat */
-#include <sys/stat.h>	/* for fstat */
 
 #define SEGMENT_RECORD_LENGTH 3
 #define STANDARD_RECORD_LENGTH 3
@@ -62,7 +63,7 @@ typedef enum {
 	GEOIP_STANDARD = 0,
 	GEOIP_MEMORY_CACHE = 1,
 	GEOIP_CHECK_CACHE = 2,
-	GEOIP_INDEX_CACHE = 4,
+	GEOIP_INDEX_CACHE = 4
 } GeoIPOptions;
 
 typedef enum {
@@ -82,14 +83,14 @@ typedef enum {
 typedef enum {
 	GEOIP_ANON_PROXY = 1,
 	GEOIP_HTTP_X_FORWARDED_FOR_PROXY = 2,
-	GEOIP_HTTP_CLIENT_IP_PROXY = 3,
+	GEOIP_HTTP_CLIENT_IP_PROXY = 3
 } GeoIPProxyTypes;
 
 typedef enum {
 	GEOIP_UNKNOWN_SPEED = 0,
 	GEOIP_DIALUP_SPEED = 1,
 	GEOIP_CABLEDSL_SPEED = 2,
-	GEOIP_CORPORATE_SPEED = 3,
+	GEOIP_CORPORATE_SPEED = 3
 } GeoIPNetspeedValues;
 
 extern char **GeoIPDBFileName;
@@ -130,8 +131,6 @@ GEOIP_API const char *GeoIP_country_code3_by_ipnum (GeoIP* gi, unsigned long ipn
 /* Deprecated - for backwards compatibility only */
 GEOIP_API int GeoIP_country_id_by_addr (GeoIP* gi, const char *addr);
 GEOIP_API int GeoIP_country_id_by_name (GeoIP* gi, const char *host);
-//GEOIP_API char *GeoIP_org_by_addr (GeoIP* gi, const char *addr);
-//GEOIP_API char *GeoIP_org_by_name (GeoIP* gi, const char *host);
 /* End deprecated */
 
 GEOIP_API int GeoIP_id_by_addr (GeoIP* gi, const char *addr);
@@ -159,10 +158,8 @@ GEOIP_API unsigned char GeoIP_database_edition (GeoIP* gi);
 //GEOIP_API const char * GeoIP_region_name_by_code(const char *country_code, const char *region_code);
 
 /* Get timezone from country and region code */
-GEOIP_API const char * GeoIP_time_zone_by_country_and_region(const char *country_code, const char *region_code);
+//GEOIP_API const char * GeoIP_time_zone_by_country_and_region(const char *country_code, const char *region_code);
 
 #ifdef __cplusplus
 }
-#endif
-
-#endif /* GEOIP_H */
+#endif // extern "C"

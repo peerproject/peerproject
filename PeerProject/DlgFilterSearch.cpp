@@ -187,7 +187,7 @@ void CFilterSearchDlg::OnBnClickedSaveFilter()
 	}
 }
 
-//Update the filter fields with current data
+// Update the filter fields with current data
 void CFilterSearchDlg::UpdateFields()
 {
 	m_sFilter			= m_pMatches->m_sFilter;
@@ -221,7 +221,7 @@ void CFilterSearchDlg::UpdateFields()
 
 	UpdateData(FALSE);
 }
-//update the filter selection combo-box with filter list items
+// Update the filter selection combo-box with filter list items
 void CFilterSearchDlg::UpdateList()
 {
 	m_Filters.ResetContent();
@@ -229,7 +229,7 @@ void CFilterSearchDlg::UpdateList()
 	for ( DWORD i = 0; i < m_pResultFilters->m_nFilters; i++ )
 	{
 		if ( i == m_pResultFilters->m_nDefault )
-			m_Filters.AddString( m_pResultFilters->m_pFilters[i]->m_sName + " *" );
+			m_Filters.AddString( m_pResultFilters->m_pFilters[i]->m_sName + _T(" *") );
 		else
 			m_Filters.AddString( m_pResultFilters->m_pFilters[i]->m_sName );
 

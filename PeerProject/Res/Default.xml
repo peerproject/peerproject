@@ -1188,7 +1188,9 @@
 		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="_Open File"/>
 		<item id="ID_DOWNLOADS_FOLDER" text="Open _Folder"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="_Stop Seeding"/>
-		<item id="ID_DOWNLOADS_FILE_DELETE" text="Delete Files"/>
+		<separator/>
+		<item id="ID_DOWNLOADS_FILE_DELETE" text="_Delete Files"/>
+		<item id="ID_DOWNLOADS_URI" text="Get Magnet Link (_URI)"/>
 		<item id="ID_DOWNLOADS_HELP" text="_Help..."/>
 		<separator/>
 		<item id="ID_DOWNLOADS_EDIT" text="Torrent _Properties..."/>
@@ -1971,50 +1973,48 @@
 	<document name="CGeneralSettingsGroup" title="General" leftMargin="8" topMargin="8">
 		<text format="b">Welcome to PeerProject's Settings Manager</text>
 		<newline gap="16"/>
-		<text>These option pages allow advanced users to customize how PeerProject works.
-		&#160;Settings in the </text>
+		<text>These option pages allow users to customize how PeerProject works. Settings in the </text>
 		<text format="b">General </text>
 		<text>section relate to user experience.</text>
-		<newline gap="16" indent="16"/>
-		<link target="peer:page:CGeneralSettingsPage" format="b">General:</link>
+		<newline gap="20" indent="16"/>
+		<link target="peer:page:CGeneralSettingsPage" format="b">General: </link>
 		<text>&#160;Adjust common user interface behaviors, etc.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CLibrarySettingsPage" format="b">Library:</link>
-		<text>&#160;Presentation, file access, and management of the file library.</text>
+		<link target="peer:page:CLibrarySettingsPage" format="b">Library: </link>
+		<text>&#160;File access, management, and presentation of the local library.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CMediaSettingsPage" format="b">Media Player:</link>
+		<link target="peer:page:CMediaSettingsPage" format="b">Media Player: </link>
 		<text>&#160;Set when to use the internal PeerProject Media System.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CIRCSettingsPage" format="b">IRC Chat:</link>
-		<text>&#160;IRC chatroom connection settings and display options.</text>
+		<link target="peer:page:CIRCSettingsPage" format="b">IRC Chat: </link>
+		<text>&#160;Public chatroom connection settings and display options.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CCommunitySettingsPage" format="b">Community:</link>
+		<link target="peer:page:CCommunitySettingsPage" format="b">Community: </link>
 		<text>&#160;Your profile and direct chat settings.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CWebSettingsPage" format="b">Web Integration:</link>
+		<link target="peer:page:CRemoteSettingsPage" format="b">Web Remote: </link>
+		<text>&#160;Set PeerProject to be controlled from a web browser.</text>
+		<newline gap="10"/>
+		<link target="peer:page:CWebSettingsPage" format="b">Web Integration: </link>
 		<text>&#160;Enable your web browser to use PeerProject for peer-to-peer links and as general download manager.</text>
 	</document>
 	<document name="CInternetSettingsGroup" title="Internet" leftMargin="8" topMargin="8">
 		<text format="b">Welcome to PeerProject's Settings Manager</text>
 		<newline gap="16"/>
-		<text>These option pages allow advanced users to customize how PeerProject works.
-			&#160;Settings in the </text>
+		<text>These option pages allow users to customize how PeerProject works. Settings in the </text>
 		<text format="b">Internet </text>
-		<text>section control how PeerProject interacts with other nodes in distributed peer-to-peer networks.</text>
-		<newline gap="16" indent="16"/>
-		<link target="peer:page:CConnectionSettingsPage" format="b">Connection:</link>
+		<text>section relate to connectivity (speeds).</text>
+		<newline gap="20" indent="16"/>
+		<link target="peer:page:CConnectionSettingsPage" format="b">Connection: </link>
 		<text>&#160;Indicate speed and capabilities of your internet access.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CDownloadsSettingsPage" format="b">Downloads:</link>
+		<link target="peer:page:CDownloadsSettingsPage" format="b">Downloads: </link>
 		<text>&#160;Manage bandwidth-in, limits, and folder locations.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CUploadsSettingsPage" format="b">Uploads:</link>
+		<link target="peer:page:CUploadsSettingsPage" format="b">Uploads: </link>
 		<text>&#160;Manage bandwidth-out, limits, and queues.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CRemoteSettingsPage" format="b">Remote:</link>
-		<text>&#160;Setup PeerProject to be controlled from a web browser.</text>
-		<newline gap="10"/>
-		<link target="peer:page:CSchedulerSettingsPage" format="b">Scheduler:</link>
+		<link target="peer:page:CSchedulerSettingsPage" format="b">Scheduler: </link>
 		<text>&#160;Limit download connections based on a periodic schedule.</text>
 	</document>
 	<!-- Browse User Profile -->
@@ -2752,11 +2752,12 @@
 	<icon res="IDR_NEIGHBOURSFRAME" id="ID_TAB_CONNECT" types="16" rtl="0"/>
 </commandImages>
 
-<!-- Tips displayed when mouse is moved over controls in the dialogs -->
+<!-- Tips displayed when mouse is moved over controls in Settings dialog -->
 <controlTips>
-	<tip id="IDC_THROTTLE_MODE" message="In the maximum mode the bandwidth won't exceed the specified value. In the average mode it will fluctuate around the value to both sides."/>
-	<tip id="IDC_REGEXP" message="Enter regular expressions in perl syntax.{n}The search keywords can be specified in a form of &lt;n&gt;, where n is number between 1 and 9. If you want to put all keywords each after other, use &lt;_&gt; markup."/>
-	<tip id="IDC_SHARE_PARTIALS" message="This setting has no effect on downloads previously started, also this setting is ignored if the file have the eDonkey hash and the eDonkey network is enabled or if it is a torrent.{n}However this setting isn't ignored if the download is paused.{n}{n}ATTENTION: Use this option only in case of real necessity, if you abuse of the option you may be banned."/>
+	<tip id="IDC_REGEXP" message="Enter regular expressions in perl syntax.{n}All search keywords can be listed in order with the &lt;%&gt; tag.{n}Individual keywords can be specified with &lt;1&gt;, numbers 1 through 9."/>
+	<tip id="IDC_THROTTLE_MODE" message="In maximum mode bandwidth won't ever exceed the specified value.{n}In average mode it will fluctuate around the value to both sides."/>
+	<tip id="IDC_SHARE_PARTIALS" message="This setting has no effect on current downloads, or torrents, or with eDonkey hash and eDonkey network enabled. However, this setting is not ignored if the download is paused.{n}{n}ATTENTION: Use this option only if necessary, if you abuse the option you may be banned."/>
+	<tip id="IDC_TIP_SHADOW" message="Toggle Drop Shadows under tooltips.{n}-Note changes take effect at next program restart."/>
 </controlTips>
 
 </skin>

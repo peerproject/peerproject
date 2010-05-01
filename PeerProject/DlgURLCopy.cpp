@@ -1,7 +1,7 @@
 //
 // DlgURLCopy.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -21,10 +21,14 @@
 
 #include "StdAfx.h"
 #include "PeerProject.h"
-#include "Colors.h"
 #include "DlgURLCopy.h"
 #include "Transfer.h"
 #include "Network.h"
+#include "Colors.h"
+
+#include "Download.h"	// &tr=
+#include "Downloads.h"
+
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -93,19 +97,11 @@ void CURLCopyDlg::OnIncludeSelf()
 	CString strURN, strIncludeSelfURN, strTemp;
 
 	if ( m_pFile->m_oTiger && m_pFile->m_oSHA1 )
-	{
-		strURN	= _T("xt=urn:bitprint:")
-				+ m_pFile->m_oSHA1.toString() + '.'
-				+ m_pFile->m_oTiger.toString();
-	}
+		strURN = _T("xt=urn:bitprint:") + m_pFile->m_oSHA1.toString() + '.' + m_pFile->m_oTiger.toString();
 	else if ( m_pFile->m_oSHA1 )
-	{
 		strURN = _T("xt=") + m_pFile->m_oSHA1.toUrn();
-	}
 	else if ( m_pFile->m_oTiger )
-	{
 		strURN = _T("xt=") + m_pFile->m_oTiger.toUrn();
-	}
 
 	if ( m_pFile->m_oED2K )
 	{
@@ -114,14 +110,23 @@ void CURLCopyDlg::OnIncludeSelf()
 		strURN += strTemp;
 	}
 
+	if ( m_pFile->m_oBTH && strURN.GetLength() < 1 )
+	{
+		strURN = _T("xt=") + m_pFile->m_oBTH.toUrn();
+		if ( CDownload* pDownload = Downloads.FindByBTH( m_pFile->m_oBTH ) )
+		{
+			strTemp = URLEncode( (LPCTSTR)pDownload->m_pTorrent.GetTrackerAddress() );
+			if ( strTemp.GetLength() > 24 )
+				strURN = strURN + _T("&tr=") + strTemp;
+		}
+	}
+
 	m_sMagnet = strURN;
 
 	if ( m_pFile->m_nSize != 0 && m_pFile->m_nSize != SIZE_UNKNOWN )
 	{
 		CString strSize;
-
-		strSize.Format( _T("xl=%I64i"),
-			m_pFile->m_nSize );
+		strSize.Format( _T("xl=%I64i"), m_pFile->m_nSize );
 
 		if ( m_sMagnet.GetLength() ) m_sMagnet += _T("&");
 		m_sMagnet += strSize;
@@ -154,10 +159,7 @@ void CURLCopyDlg::OnIncludeSelf()
 			(LPCTSTR)m_pFile->m_oSHA1.toUrn() );
 
 		if ( m_pFile->m_sName.GetLength() )
-		{
-			m_sGnutella += URLEncode( m_pFile->m_sName )
-						+ _T("/");
-		}
+			m_sGnutella += URLEncode( m_pFile->m_sName ) + _T("/");
 	}
 
 	if ( m_pFile->m_oED2K &&
@@ -177,9 +179,7 @@ void CURLCopyDlg::OnIncludeSelf()
 					(LPCTSTR)CString( inet_ntoa( Network.m_pHost.sin_addr ) ),
 					htons( Network.m_pHost.sin_port ) );
 
-			m_sED2K += _T("|sources,")
-					+ strURL2
-					+ _T("|/");
+			m_sED2K += _T("|sources,") + strURL2 + _T("|/");
 		}
 	}
 

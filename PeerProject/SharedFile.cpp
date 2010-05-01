@@ -1184,7 +1184,7 @@ STDMETHODIMP CLibraryFile::XLibraryFile::get_Folder(ILibraryFolder FAR* FAR* ppF
 STDMETHODIMP CLibraryFile::XLibraryFile::get_Path(BSTR FAR* psPath)
 {
 	METHOD_PROLOGUE( CLibraryFile, LibraryFile )
-	pThis->GetPath().SetSysString( psPath );
+	*psPath = CComBSTR( pThis->GetPath() ).Detach();
 	return S_OK;
 }
 
@@ -1326,7 +1326,9 @@ STDMETHODIMP CLibraryFile::XLibraryFile::MergeMetadata(ISXMLElement* pXML, VARIA
 			VARIANT_TRUE : VARIANT_FALSE;
 	}
 	else
+	{
 		*pbValue = VARIANT_FALSE;
+	}
 
 	return S_OK;
 }

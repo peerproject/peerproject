@@ -355,7 +355,7 @@ void CLibraryFileView::OnLibraryLaunchFolder()
 	{
 		CString strPath = pFile->GetPath();
 		pLock.Unlock();
-		ShellExecute( GetSafeHwnd(), NULL, _T("Explorer.exe"), "/select, " + strPath, NULL, SW_SHOWNORMAL );
+		ShellExecute( GetSafeHwnd(), NULL, _T("Explorer.exe"), _T("/select, ") + strPath, NULL, SW_SHOWNORMAL );
 		pLock.Lock();
 	}
 }
@@ -560,7 +560,8 @@ void CLibraryFileView::OnLibraryCreateTorrent()
 
 			if ( sPath.GetLength() > 0 )
 			{
-				sCommandLine = _T(" -sourcefile \"") + sPath + _T("\" -destination \"") + Settings.Downloads.TorrentPath + _T("\" -tracker \"" + Settings.BitTorrent.DefaultTracker + "\"" );
+				sCommandLine = _T(" -sourcefile \"") + sPath + _T("\" -destination \"") +
+					Settings.Downloads.TorrentPath + _T("\" -tracker \"") + Settings.BitTorrent.DefaultTracker + _T("\"");
 
 				ShellExecute( GetSafeHwnd(), _T("open"), Settings.BitTorrent.TorrentCreatorPath, sCommandLine, NULL, SW_SHOWNORMAL );
 

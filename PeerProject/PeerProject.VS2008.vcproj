@@ -53,7 +53,7 @@
 				AdditionalOptions="/Wall"
 				Optimization="0"
 				AdditionalIncludeDirectories="..\Services;..\zlib"
-				PreprocessorDefinitions="_DEBUG;WIN32;_WINDOWS;_PEERPROJECT;PEERPROJECT_USE_ASM;ZLIB_WINAPI;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS"
+				PreprocessorDefinitions="_DEBUG;WIN32;_WINDOWS;_PEERPROJECT;PEERPROJECT_USE_ASM;ZLIB_WINAPI;ZLIB_DLL"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
 				EnableFunctionLevelLinking="true"
@@ -146,7 +146,7 @@
 				AdditionalOptions="/Wall"
 				Optimization="0"
 				AdditionalIncludeDirectories="..\Services;..\zlib"
-				PreprocessorDefinitions="_DEBUG;WIN64;_WINDOWS;_PEERPROJECT;ZLIB_WINAPI;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS"
+				PreprocessorDefinitions="_DEBUG;WIN64;_WINDOWS;_PEERPROJECT;ZLIB_WINAPI;ZLIB_DLL"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
 				DefaultCharIsUnsigned="true"
@@ -244,7 +244,7 @@
 				OmitFramePointers="true"
 				EnableFiberSafeOptimizations="true"
 				AdditionalIncludeDirectories="..\Services;..\zlib"
-				PreprocessorDefinitions="NDEBUG;WIN32;_WINDOWS;_PEERPROJECT;PEERPROJECT_USE_ASM;ZLIB_WINAPI;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS"
+				PreprocessorDefinitions="NDEBUG;WIN32;_WINDOWS;_PEERPROJECT;PEERPROJECT_USE_ASM;ZLIB_WINAPI;ZLIB_DLL"
 				StringPooling="true"
 				RuntimeLibrary="0"
 				DefaultCharIsUnsigned="true"
@@ -344,7 +344,7 @@
 				OmitFramePointers="true"
 				EnableFiberSafeOptimizations="true"
 				AdditionalIncludeDirectories="..\Services;..\zlib"
-				PreprocessorDefinitions="NDEBUG;WIN64;_WINDOWS;_PEERPROJECT;ZLIB_WINAPI;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS"
+				PreprocessorDefinitions="NDEBUG;WIN64;_WINDOWS;_PEERPROJECT;ZLIB_WINAPI;ZLIB_DLL"
 				StringPooling="true"
 				RuntimeLibrary="0"
 				DefaultCharIsUnsigned="true"
@@ -2384,6 +2384,10 @@
 					>
 				</File>
 				<File
+					RelativePath="WizardFoldersPage.cpp"
+					>
+				</File>
+				<File
 					RelativePath="WizardInterfacePage.cpp"
 					>
 				</File>
@@ -4010,6 +4014,10 @@
 				</File>
 				<File
 					RelativePath="WizardFinishedPage.h"
+					>
+				</File>
+				<File
+					RelativePath="WizardFoldersPage.h"
 					>
 				</File>
 				<File

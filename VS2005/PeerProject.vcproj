@@ -1751,6 +1751,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\PeerProject\WizardFoldersPage.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\PeerProject\WizardInterfacePage.cpp"
 					>
 				</File>
@@ -3322,6 +3326,10 @@
 				</File>
 				<File
 					RelativePath="..\PeerProject\WizardFinishedPage.h"
+					>
+				</File>
+				<File
+					RelativePath="..\PeerProject\WizardFoldersPage.h"
 					>
 				</File>
 				<File

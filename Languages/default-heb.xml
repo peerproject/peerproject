@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <skin xmlns="http://schemas.peerproject.org/Skin.xsd" version="1.0">
 
 <!-- PeerProject Default Hebrew Skin File -->
 
-<!-- Translation based on default-en.xml r52 -->
+<!-- Translation based on default-en.xml r54 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1694,7 +1694,7 @@ gap i newline
 <documents>
 	<!-- Home View -->
 	<document name="CHomeViewCtrl" leftMargin="20" topMargin="0">
-	    <para align="left">
+		<para align="left">
 		<styles>
 			<style name="default">
 				<font size="15"/>
@@ -1953,9 +1953,11 @@ gap i newline
 		<link target="peer:page:CCommunitySettingsPage" format="b">קהילה:</link>
 		<text>&#160;הגדרות תצוגה וחיבור של חדר השיחה</text>
 		<newline gap="10"/>
+		<link target="peer:page:CRemoteSettingsPage" format="b">שליטה מרחוק:</link>
+		<text>&#160;קביעת אפשרות ליכולת שליטה בשרזה מרחוק על ידי הדפדפן</text>
+		<newline gap="10"/>
 		<link target="peer:page:CWebSettingsPage" format="b">האינטרנט:</link>
 		<text>&#160;מזג את שרזה עם הדפדפן לקבלת לינקים ותוכן להורדה בתקשורת ישירה בין משתמשים</text>
-		<newline gap="10"/>
 	</document>
 	<document name="CInternetSettingsGroup" title="אינטרנט" leftMargin="8" topMargin="8">
 		<text format="b">ברוכים הבאים למנהל ההגדרות של שרזה</text>
@@ -1974,9 +1976,6 @@ gap i newline
 		<newline gap="10"/>
 		<link target="peer:page:CUploadsSettingsPage" format="b">העלאות:</link>
 		<text>&#160;הגדרות העלאה לגבי יכולות אכסון, תורות, חסימות, זמני המתנה לתגובה, ובקשות מיוחדות</text>
-		<newline gap="10"/>
-		<link target="peer:page:CRemoteSettingsPage" format="b">שליטה מרחוק:</link>
-		<text>&#160;קביעת אפשרות ליכולת שליטה בשרזה מרחוק על ידי הדפדפן</text>
 		<newline gap="10"/>
 		<link target="peer:page:CSchedulerSettingsPage" format="b">תזמונים:</link>
 		<text>&#160;הגבלת ההורדות בהתאם ללוח זמנים</text>
@@ -2943,18 +2942,19 @@ gap i newline
 </strings>
 <!-- Localized Dialog Text, "cookie" verifies that the skin matches current dialog -->
 <dialogs>
-	<dialog name="CGeneralSettingsGroup" cookie="" caption="כללי"/>
-	<dialog name="CSettingSheet" cookie="SyBuBuBu#3" caption="הגדרות שרזה">
+	<dialog name="CSettingSheet" cookie="SyBuBuBu" caption="הגדרות שרזה">
 		<control/>
 		<control caption="אישור"/>
 		<control caption="ביטול"/>
 		<control caption="החל"/>
 		<control/>
 	</dialog>
+	<dialog name="CGeneralSettingsGroup" cookie="Af" caption="כללי"/>
+	<dialog name="CInternetSettingsGroup" cookie="Af" caption="אינטרנט"/>
 	<dialog name="CGeneralSettingsPage" cookie="BuBuBuBuBuBuBuBuStCoBuBuBuBuBuBuSyStEdmsStmsBuBuStCoStCo" caption="כללי">
 		<control caption="‪:כללי"/>
-		<control caption="‪התחבר אוטמטית באתחול של שרזה"/>
 		<control caption="‪הפעל את שרזה עם אתחול חלונות"/>
+		<control caption="‪התחבר אוטמטית באתחול של שרזה"/>
 		<control caption="‪URI הראה הודעה לפני פתיחת"/>
 		<control caption="Check for updates"/>
 		<control caption="‪:הורדות"/>
@@ -3051,8 +3051,6 @@ gap i newline
 		<control caption="הוסף"/>
 		<control caption="הסר"/>
 		<control caption="תוסף מנהל ההורדות אך ורק ינסה להוריד את הקבצים המופיעים ברשימה להלן. סוגים אחרים של קבצים יטופלו על ידי הדפדפן. שרזה חייבת להיות מופעלת בכדי לנהל את ההורדות."/>
-	</dialog>
-	<dialog name="CInternetSettingsGroup" caption="אינטרנט">
 	</dialog>
 	<dialog name="CConnectionSettingsPage" cookie="BuStCoStCoStEdBuBuBuStCoStCoBuStCoBuBuBuStEdmsStEdms" caption="חיבור">
 		<control caption=":כתובת נכנסת"/>
@@ -3248,7 +3246,7 @@ gap i newline
 		<control caption="&#160;תן עדיפות למקורות של טורנטים"/>
 		<control caption=":EndGame (האצה)"/>
 		<control caption="כשמסיימים הורדת טורנטים EndGame אפשר אופציית"/>
-		<control caption="נקה טורנטים שהורדו    כשרמת השיתוף תגיע אל"/>
+		<control caption="נקה טורנטים שהורדו  כשרמת השיתוף תגיע אל"/>
 		<control/>
 		<control/>
 		<control caption="%"/>
@@ -3285,15 +3283,13 @@ gap i newline
 		<control caption="...התקנה"/>
 		<control caption=":מידע נוסף"/>
 	</dialog>
-	<dialog name="CAdvancedSettingsPage" cookie="SyBuStEdmsStEd" caption="מתקדם">
+	<dialog name="CAdvancedSettingsPage" cookie="SyEdmsBuBuSt" caption="מתקדם">
 		<control/>
 		<control/>
 		<control/>
 		<control caption=":הגדרות"/>
 		<control caption=":ערך"/>
 		<control caption=":תיאור"/>
-		<control caption=":"/>
-		<control/>
 	</dialog>
 	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="פרוטוקולים">
 		<control caption=":סייר ארכיטקטורת פרוטוקול משותף של שרזה"/>
@@ -3340,7 +3336,7 @@ gap i newline
 		<control caption="ביטול"/>
 		<control caption="הטבות למשתמשים משתפים"/>
 	</dialog>
-	<dialog name="CWizardWelcomePage" cookie="StStStStStStStStStStStSt" caption="ברוכים הבאים לשרזה">
+	<dialog name="CWizardWelcomePage" cookie="StStStStStStStStStStStSt" caption="(1/8) ברוכים הבאים לשרזה">
 		<control caption="!ברוכים הבאים לשרזה"/>
 		<control caption="אם לא השתמשת בשרזה או בתוכנת שיתוף אחרת בעבר, אשף הפעלה מהירה זה יעזור לך להגדיר את התוכנה בכמה צעדים פשוטים"/>
 		<control caption="אם אתה משתמש מתקדם יותר, אתה יכול לגשת לאפשרויות המלאות של שרזה דרך תפריט כלים, לחץ יציאה כדי לצאת מהאשף בכל רגע"/>
@@ -3354,7 +3350,7 @@ gap i newline
 		<control/>
 		<control caption="התחלת השימוש בשרזה"/>
 	</dialog>
-	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="(1/6) ברוכים הבאים לשרזה">
+	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="(2/8) ברוכים הבאים לשרזה">
 		<control caption="לביצועים מירביים, שרזה צריכה לדעת קצת יותר על החיבור שלך לאינטרנט"/>
 		<control caption="&#160;אנא בחר|אני משתמש באינטרנט בביתי|אני משתמש באינטרנט בקו קבוע במכללה|אני משתמש באינטרנט בקו קבוע במשרד|אני משתמש באינטרנט במלון או בשדה תעופה"/>
 		<control caption="|Dial-up Modem|ISDN (128K)|DSL (768K)|DSL (1.5M)|DSL (4.0M)|DSL2 (8.0M)|FIOS (10.0M)|DSL2 (12.0M)|FIOS (20.0M)|DSL2+ (24.0M)|Cable Modem|T1|T3|LAN|OC3"/>
@@ -3370,7 +3366,30 @@ gap i newline
 		<control caption="מצב:"/>
 		<control/>
 	</dialog>
-	<dialog name="CWizardSharePage" cookie="StStStSyBuBuSt" caption="(2/6) ברוכים הבאים לשרזה">
+	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuStBu" caption="(3/8) ברוכים הבאים לשרזה">
+		<control caption="שרזה היא תוכנת שיתוף לשימוש כללי שמסוגלת לגשת למספר רשתות שיתוף קבצים בו זמנית. כאן אתה יכול לבחור לאילו רשתות תרצה לגשת. שים לב שאתה יכול תמיד לבחור רשתות אחרות מאוחר יותר"/>
+		<control caption="(החתבר לגנוטלה2 (מומלץ מאוד"/>
+		<control caption="רשת גנוטלה2 היא הרשת הראשית של שרזה, המציעה יותר אופציות וביצועים מכל רשת שיתוף אחרת"/>
+		<control caption="התחבר לאידונקי2000"/>
+		<control caption="רשת אידונקי היא רשת מבוססת שרת פופלרית. יש בה פחות אופציות מגונטלה2 אבל עם כמות קבצים מרשימה"/>
+		<control caption="התחבר לגנוטלה המקורי"/>
+		<control caption="למרוח שרשת גנוטלה המקורית היא עם פחות אופציות מגנוטלה2 ועם פחות קבצים מאידונקי היא עדיין מקור בעל ערך"/>
+		<control caption=".טפל בקישורי טורנטים"/>
+	</dialog>
+	<dialog name="CWizardFoldersPage" cookie="StStEdBuStEdBuStEdBuSt" caption="(4/8) ברוכים הבאים לשרזה">
+		<control caption="PeerProject first downloads partial files to a private folder, then moves them when completed according to Download Groups."/>
+		<control caption=":אכסן קבצים שהושלמה הורדתם בתיקייה"/>
+		<control/>
+		<control/>
+		<control caption=":אכסן קבצים זמניים כאן"/>
+		<control/>
+		<control/>
+		<control caption="Store .Torrent files here:"/>
+		<control/>
+		<control/>
+		<control caption="Common filetypes are initially setup as subfolders of the default location, but Groups can easily be customized by Right-Click.  Simply Drag&apos;n&apos;Drop files."/>
+	</dialog>
+	<dialog name="CWizardSharePage" cookie="StStStSyBuBuSt" caption="(5/8) ברוכים הבאים לשרזה">
 		<control caption="ערך רשתות השיתוף הוא כערך האנשים שמשתמשים בהן. כל התוכן שזמין להורדה זמין ממשתמשים אחרים"/>
 		<control caption="אתה לא חייב לשתף תוכן כדי להשתמש בשרזה, עם זאת תוכנות שונות יתנהגו בצורה שונה למשתמשים שלא משתפים"/>
 		<control caption="אנא בחר ספריות, אם בכלל, אשר הינך מעוניין לשתף. פשוט לחץ על כפתור הוספה והוסף ספריה חדשה"/>
@@ -3388,18 +3407,7 @@ gap i newline
 		<control caption="0"/>
 		<control caption="סגור"/>
 	</dialog>
-	<dialog name="CWizardProfilePage" cookie="StStEdStCoCoStCoCo" caption="(3/6) ברוכים הבאים לשרזה">
-		<control caption=":שרזה היא מקום הרבה יותר ידידותי כאשר כל אחד רושם קצת פרטים על עצמו"/>
-		<control caption=":שמי"/>
-		<control/>
-		<control caption=":גיל ומין"/>
-		<control caption="(בחר)"/>
-		<control caption="בחר|בחור|בחורה|גבר|אישה"/>
-		<control caption=":מקום מגוריי"/>
-		<control/>
-		<control/>
-	</dialog>
-	<dialog name="CWizardInterfacePage" cookie="StBuBuBuStStBuSt" caption="(4/6) ברוכים הבאים לשרזה">
+	<dialog name="CWizardInterfacePage" cookie="StBuBuBuStStBuSt" caption="(6/8) ברוכים הבאים לשרזה">
 		<control caption="שרזה תומך בשתי ממשקי משתמש, כך שאתה יכול לבחור את האחד שהכי נוח בשבילך"/>
 		<control caption=":אנא בחר אחד משני הממשקים"/>
 		<control caption="מצב רגיל"/>
@@ -3409,15 +3417,27 @@ gap i newline
 		<control caption="הצג פסי התקדמות פשוטים (מפחית שימוש במעבד)"/>
 		<control caption=""/>
 	</dialog>
-	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuStBu" caption="(5/6) ברוכים הבאים לשרזה">
-		<control caption="שרזה היא תוכנת שיתוף לשימוש כללי שמסוגלת לגשת למספר רשתות שיתוף קבצים בו זמנית. כאן אתה יכול לבחור לאילו רשתות תרצה לגשת. שים לב שאתה יכול תמיד לבחור רשתות אחרות מאוחר יותר"/>
-		<control caption="(החתבר לגנוטלה2 (מומלץ מאוד"/>
-		<control caption="רשת גנוטלה2 היא הרשת הראשית של שרזה, המציעה יותר אופציות וביצועים מכל רשת שיתוף אחרת"/>
-		<control caption="התחבר לאידונקי2000"/>
-		<control caption="רשת אידונקי היא רשת מבוססת שרת פופלרית. יש בה פחות אופציות מגונטלה2 אבל עם כמות קבצים מרשימה"/>
-		<control caption="התחבר לגנוטלה המקורי"/>
-		<control caption="למרוח שרשת גנוטלה המקורית היא עם פחות אופציות מגנוטלה2 ועם פחות קבצים מאידונקי היא עדיין מקור בעל ערך"/>
-		<control caption=".טפל בקישורי טורנטים"/>
+	<dialog name="CWizardProfilePage" cookie="StStEdStCoCoStCoStCoStEd" caption="(7/8) ברוכים הבאים לשרזה">
+		<control caption=":שרזה היא מקום הרבה יותר ידידותי כאשר כל אחד רושם קצת פרטים על עצמו"/>
+		<control caption=":שמי"/>
+		<control/>
+		<control caption=":גיל ומין"/>
+		<control caption="(בחר)"/>
+		<control caption="בחר|בחור|בחורה|גבר|אישה"/>
+		<control caption=":מקום מגוריי"/>
+		<control/>
+		<control caption="Locale:"/>
+		<control/>
+		<control caption="Comments:"/>
+		<control/>
+	</dialog>
+	<dialog name="CWizardFinishedPage" cookie="StStStBuBuSt" caption="(8/8) ברוכים הבאים לשרזה">
+		<control caption="זהו! שרזה כעת מוכנה לעבודה עם המחשב שלך"/>
+		<control caption="אם תרצה לשנות את ההגדרות  תוכל להפעיל מחדש את אשף התחלה מהירה מתוך תפריט כלים"/>
+		<control caption="לאחר יציאה מהאשף על ידי לחיצה על סיים, תוכל להתחבר לרשתות שבחרת ולהתחיל לחפש ולהוריד תכנים"/>
+		<control caption="הפעל את שרזה עם אתחול חלונות"/>
+		<control caption="התחבר לרשת עם הפעלת שרזה"/>
+		<control caption="!אנו מקווים שתהנה להשתמש בשרזה"/>
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="ייבא הורדות של אידונקי">
 		<control/>
@@ -3427,16 +3447,7 @@ gap i newline
 		<control/>
 		<control caption="סגור"/>
 	</dialog>
-	<dialog name="CWizardFinishedPage" cookie="StStStBuBuBuSt" caption="(6/6) ברוכים הבאים לשרזה">
-		<control caption="זהו! שרזה כעת מוכנה לעבודה עם המחשב שלך"/>
-		<control caption="אם תרצה לשנות את ההגדרות  תוכל להפעיל מחדש את אשף התחלה מהירה מתוך תפריט כלים"/>
-		<control caption="לאחר יציאה מהאשף על ידי לחיצה על סיים, תוכל להתחבר לרשתות שבחרת ולהתחיל לחפש ולהוריד תכנים"/>
-		<control caption="התחבר לרשת בסגירת האשף"/>
-		<control caption="התחבר לרשת עם הפעלת שרזה"/>
-		<control caption="הפעל את שרזה עם אתחול חלונות"/>
-		<control caption="!אנו מקווים שתהנה להשתמש בשרזה"/>
-	</dialog>
-	<dialog name="CProfileManagerDlg" cookie="SyBuBuBu#3" caption="ערוך את הפרופיל שלי">
+	<dialog name="CProfileManagerDlg" cookie="SyBuBuBu" caption="ערוך את הפרופיל שלי">
 		<control/>
 		<control caption="אישור"/>
 		<control caption="ביטול"/>
@@ -3554,30 +3565,30 @@ gap i newline
 		<control caption="חפש"/>
 		<control caption="ביטול"/>
 	</dialog>
-	<dialog name="CFilterSearchDlg" cookie="BuEdBuStBuStEdStEdStEdmsStBuBuBuBuBuBuBuBuBuBuBuCoBuBuBuBuBu" caption="...מסנן תוצאות">
+	<dialog name="CFilterSearchDlg" cookie="BuEdBuStBuStEdStEdStEdmsBuBuBuBuBuBuBuBuBuBuBuBuBuCoBuBuBuBuBu" caption="...מסנן תוצאות">
 		<control caption=":הראה רק תוצאות שמכילות את המילים"/>
 		<control/>
 		<control caption="Reg. Exp."/>
-		<control caption="‫( תוכל גם להשמיט מילים כך: 'מילה' )"/>
+		<control caption="‫( "/>תוכל גם להשמיט מילים כך: 'מילה')
 		<control caption=":גודל הקבצים"/>
 		<control caption=":מינימום"/>
 		<control/>
 		<control caption=":מקסימום"/>
 		<control/>
-		<control caption="לפחות"/>
+		<control caption="מקורות לפחות"/>
 		<control/>
 		<control/>
-		<control caption=".מקורות"/>
 		<control caption=":הסתר"/>
-		<control caption="משתמשים עסוקים"/>
-		<control caption="תחת חומת אש/push"/>
-		<control caption="משתמשים לא יציבים"/>
 		<control caption="קבצים לא תואמים"/>
 		<control caption="קבצים שכבר יש לך"/>
-		<control caption="תוצאות שגויות"/>
-		<control caption="DRM קבצי"/>
-		<control caption="תוצאות עם תוכן למבוגרים"/>
 		<control caption="קבצים חשודים"/>
+		<control caption="Restricted קבצי"/>
+		<control caption="DRM קבצי"/>
+		<control caption="תחת חומת אש/push"/>
+		<control caption="משתמשים לא יציבים"/>
+		<control caption="משתמשים עסוקים"/>
+		<control caption="תוצאות שגויות"/>
+		<control caption="תוצאות עם תוכן למבוגרים"/>
 		<control caption="אישור"/>
 		<control/>
 		<control caption="קבע כברירת מחדל"/>
@@ -3667,15 +3678,15 @@ gap i newline
 		<control caption="הסר"/>
 		<control/>
 	</dialog>
-	<dialog name="CFileCopyDlg" cookie="StStmsBuBumsStSt" caption="העתק קבצים|העבר קבצים">
+	<dialog name="CFileCopyDlg" cookie="StStStmsmsStBuBu" caption="העתק קבצים|העבר קבצים">
 		<control caption=":הבאה‎ ‏לתיקייה‎ ‏ ‏להעברה‎ ‏קבצים‎ %i ‏בחרת‎ ‏הינך"/>
+		<control caption=":הבאה‎ ‏לתיקייה‎ ‏ ‏להעברה‎‏קבצים‎ %i ‏בחרת‎ ‏הינך"/>
 		<control/>
 		<control/>
-		<control caption="אישור"/>
-		<control caption="ביטול"/>
 		<control/>
 		<control caption="...מוכן"/>
-		<control caption=":הבאה‎ ‏לתיקייה‎ ‏ ‏להעברה‎‏קבצים‎ %i ‏בחרת‎ ‏הינך"/>
+		<control caption="אישור"/>
+		<control caption="ביטול"/>
 	</dialog>
 	<dialog name="CFolderPropertiesDlg" cookie="StEdStCoBuStBuBu" caption="הגדרות תיקיית אלבום">
 		<control caption=":כותרת תיקיית אלבום"/>
@@ -3716,9 +3727,9 @@ gap i newline
 		<control caption=":יחידות"/>
 		<control/>
  		<control caption=":תצוגה"/>
-	    <control caption="...בחר צבע"/>
+		<control caption="...בחר צבע"/>
 		<control/>
-	    <control caption="הסר"/>
+		<control caption="הסר"/>
 	</dialog>
 	<dialog name="CSchemaColumnsDlg" cookie="CoSyBuBuSt" caption="בחר עמודות מהסכמה">
 		<control/>
@@ -4198,4 +4209,4 @@ gap i newline
 		<column from="Order" to="סדר"/>
 	</list>
 </listColumns>
-</skin>홃ꌾ永
+</skin>

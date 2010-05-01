@@ -90,10 +90,10 @@ Name: "quicklaunch"; Description: "{cm:CreateQuickLaunchIcon}"; OnlyBelowVersion
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}";
 Name: "desktopiconwizard"; Description: "{cm:CreateDesktopIconWizard}"; Languages: en en_uk;
 Name: "language"; Description: "{cm:tasks_languages}";
-Name: "multiuser"; Description: "{cm:tasks_multisetup}";
+Name: "multiuser"; Description: "{cm:tasks_multisetup}"; Flags: unchecked;
 Name: "upnp"; Description: "{cm:tasks_upnp}"; MinVersion: 0,5.01; Check: CanUserModifyServices;
 ;Name: "firewall"; Description: "{cm:tasks_firewall}"; MinVersion: 0,5.01sp2;
-Name: "resetdiscoveryhostcache"; Description: "{cm:tasks_resetdiscoveryhostcache}"; Check: EnableDeleteOldSetup; Flags: unchecked; 
+Name: "resetdiscoveryhostcache"; Description: "{cm:tasks_resetdiscoveryhostcache}"; Check: EnableDeleteOldSetup; Flags: unchecked;
 #if alpha == "No"
 Name: "deleteoldsetup"; Description: "{cm:tasks_deleteoldsetup}"; Check: EnableDeleteOldSetup;
 #endif

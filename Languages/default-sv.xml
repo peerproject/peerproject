@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <skin xmlns="http://schemas.peerproject.org/Skin.xsd" version="1.0">
 
 <!-- PeerProject Default Swedish Skin File -->
 
-<!-- Translation based on default-en.xml r52 -->
+<!-- Translation based on default-en.xml r54 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1898,6 +1898,9 @@
 		<link target="peer:page:CCommunitySettingsPage" format="b">Gemenskap:</link>
 		<text>&#160;Inställningar för din profil, chatt och direktmeddelanden.</text>
 		<newline gap="10"/>
+		<link target="peer:page:CRemoteSettingsPage" format="b">Fjärråtkomst:</link>
+		<text>&#160;Sätt upp möjligheten att styra PeerProject från en annan plats genom en webbläsare.</text>
+		<newline gap="10"/>
 		<link target="peer:page:CWebSettingsPage" format="b">Webb:</link>
 		<text>&#160;Integrera PeerProject med din webbläsare för att acceptera fildelningslänkar och ladda ned innehåll.</text>
 	</document>
@@ -1917,9 +1920,6 @@
 		<newline gap="10"/>
 		<link target="peer:page:CUploadsSettingsPage" format="b">Uppladdningar:</link>
 		<text>&#160;Uppladdningskapacitet, köläggning, utestängning, tidsavbrott och specialförfrågningar.</text>
-		<newline gap="10"/>
-		<link target="peer:page:CRemoteSettingsPage" format="b">Fjärråtkomst:</link>
-		<text>&#160;Sätt upp möjligheten att styra PeerProject från en annan plats genom en webbläsare.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CSchedulerSettingsPage" format="b">Scheduler:</link>
 		<text>&#160;Limit download connections based on a periodic schedule.</text>
@@ -2642,8 +2642,8 @@
 	<string id="8071" value="Ansluten"/>
 	<string id="8072" value="Ej ansluten"/>
 	<string id="8096" value="Dessa ytor visar mer information om filer du har valt."/>
-	<string id="8097" value="En källa är tillgänglig (%s). "/>
-	<string id="8098" value="%i källor är tillgängliga (%s). "/>
+	<string id="8097" value="En källa är tillgänglig. (%s/s)"/>
+	<string id="8098" value="%i källor är tillgängliga. (%s/s)"/>
 	<string id="8099" value="Det finns en recension."/>
 	<string id="8100" value="Det finns %i recensioner."/>
 	<string id="8101" value="%s skriver:"/>
@@ -2716,7 +2716,7 @@
 	<string id="8243" value="Uppladdad volym:"/>
 	<string id="8244" value="Antal recensioner:"/>
 	<string id="8288" value="Utforska ditt PeerProjectbibliotek"/>
-	<string id="8289" value="Utforskar "/>
+	<string id="8289" value="Utforskar"/>
 	<string id="8290" value="Utforskar innehåller av %i mappar"/>
 	<string id="8291" value="Flera mappar"/>
 	<string id="8292" value="%i filer valda"/>
@@ -2733,7 +2733,7 @@
 	<string id="8312" value="Du har redan denna fil i din nedladdningslista."/>
 	<string id="8313" value="Denna fil verkar vara spam."/>
 	<string id="8314" value="Du har laddat ned och raderat denna fil förut."/>
-	<string id="8315" value="Svartlistad: "/>
+	<string id="8315" value="Svartlistad:"/>
 	<string id="8316" value="Träffar"/>
 	<string id="8317" value="Uppladdningar"/>
 	<string id="8318" value="%lu idag, %lu totalt"/>
@@ -2838,7 +2838,7 @@
 	<string id="16264" value="Initierar en anslutning till %s port %i för nedladdning av &quot;%s&quot;…"/>
 	<string id="16265" value="Kan inte ansluta till nedladdningsvärd %s."/>
 	<string id="16266" value="Nedladdningsanslutning till %s upprättad."/>
-	<string id="16267" value="Begär nedladdningsframent (%I64i-%I64i) av &quot;%s&quot; från %s."/>
+	<string id="16267" value="Begär nedladdningsframent (%I64u-%I64u) av &quot;%s&quot; från %s."/>
 	<string id="16268" value="Inga fler nedladdningsfragment, stänger anslutning till %s."/>
 	<string id="16269" value="Fragment förkortad, stänger anslutning till %s."/>
 	<string id="16270" value="Tidsavbrott vid nedladdningsbegäran till %s, stänger anslutning."/>
@@ -3217,7 +3217,7 @@
 	<string id="18507" value="Raderade %I64i bytes från nedladdningen."/>
 	<string id="18508" value="Släpper nedladdningskällan %s för &quot;%s&quot; eftersom den kölagda positionen %i är för hög."/>
 	<string id="18509" value="Du kan inte anta att denna nedladdning är färdig och återverifiera den eftersom du inte har någon verifikationsdata, t.ex. tiger-tree-volym, eDonkey hashset eller BitTorrent hashset. Utan verifikationsinformation kan inte nedladdningen verifieras."/>
-	<string id="18510" value="Är du säker på att du vill anta att nedladdningen är färdig och återverifiera den? Hela filen kommer att granskas och PeerProject kommer att acceptera godkänta delar och ladda ned ej godkända delar igen. "/>
+	<string id="18510" value="Är du säker på att du vill anta att nedladdningen är färdig och återverifiera den? Hela filen kommer att granskas och PeerProject kommer att acceptera godkänta delar och ladda ned ej godkända delar igen."/>
 	<string id="18511" value="Du har ndrat filstorleken. Är du säker på att du vill ändra filstorleken för den här nedladdningen?"/>
 	<string id="19000" value="Fjärråtkomst är avstängd."/>
 	<string id="19001" value="Du måste välja ett användarnamn och lösenord."/>
@@ -3302,19 +3302,19 @@
 </strings>
 <!-- Localized Dialog Text, "cookie" verifies that the skin matches current dialog -->
 <dialogs>
-	<dialog name="CGeneralSettingsGroup" cookie="" caption="Generellt">
-	</dialog>
-	<dialog name="CSettingSheet" cookie="SyBuBuBu#3" caption="Inställningar för PeerProject">
+	<dialog name="CSettingSheet" cookie="SyBuBuBu" caption="Inställningar för PeerProject">
 		<control/>
 		<control caption="OK"/>
 		<control caption="Avbryt"/>
 		<control caption="Verkställ"/>
 		<control/>
 	</dialog>
+	<dialog name="CGeneralSettingsGroup" cookie="Af" caption="Generellt"/>
+	<dialog name="CInternetSettingsGroup" cookie="Af" caption="Internet"/>
 	<dialog name="CGeneralSettingsPage" cookie="BuBuBuBuBuBuBuBuStCoBuBuBuBuBuBuSyStEdmsStmsBuBuStCoStCo" caption="Generellt">
 		<control caption="_Generellt:"/>
-		<control caption="Anslut automatiskt vid PeerProjects start"/>
 		<control caption="Starta PeerProject när Windows startas"/>
+		<control caption="Anslut automatiskt vid PeerProjects start"/>
 		<control caption="Visa en dialogruta innan en URL öppnas"/>
 		<control caption="Check for updates"/>
 		<control caption="_Nedladdningar:"/>
@@ -3454,8 +3454,6 @@
 		<control caption="_Lägg till"/>
 		<control caption="_Radera"/>
 		<control caption="Insticksprogrammet för nedladdningshantering kommer endast att försöka att ladda ned filtyper som visas här. Andra filtyper kommer att hanteras av din webbläsare. PeerProject måste vara startad för att hantera nedladdningar."/>
-	</dialog>
-	<dialog name="CInternetSettingsGroup" caption="Internet">
 	</dialog>
 	<dialog name="CConnectionSettingsPage" cookie="BuStCoStCoStEdBuBuBuStCoStCoBuStCoBuBuBuStEdmsStEdms" caption="Anslutning">
 		<control caption="_Ingående adress:"/>
@@ -3688,15 +3686,13 @@
 		<control caption="_Inställningar…"/>
 		<control caption="Skaffa fler"/>
 	</dialog>
-	<dialog name="CAdvancedSettingsPage" cookie="SyEdmsBuBuStStEd" caption="Avancerat">
+	<dialog name="CAdvancedSettingsPage" cookie="SyEdmsBuBuSt" caption="Avancerat">
 		<control/>
 		<control/>
 		<control/>
 		<control caption="Set Default"/>
 		<control caption="Egenskaper för inställning:"/>
 		<control caption="Värde:"/>
-		<control caption="Beskrivning:"/>
-		<control/>
 	</dialog>
 	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="Protokoll">
 		<control caption="PeerProjects gemensamma protokollutforskare:"/>
@@ -3743,7 +3739,7 @@
 		<control caption="Avbryt"/>
 		<control caption="Reward uploaders"/>
 	</dialog>
-	<dialog name="CWizardWelcomePage" cookie="StStStStStStStStStStStSt" caption="Välkommen till PeerProject">
+	<dialog name="CWizardWelcomePage" cookie="StStStStStStStStStStStSt" caption="Välkommen till PeerProject (1/8)">
 		<control caption="Välkommen till PeerProject!"/>
 		<control caption="Om du inte har använt PeerProject eller andra fildelningsnätverk förut kan denna snabbstartsguide hjälpa dig att anpassa din kopia genom några enkla steg."/>
 		<control caption="Om du är en mer avancerad användare kan du komma åt alla PeerProjects alternativ via verktygsmenyn. Välj Avsluta för att när som helst stänga guiden."/>
@@ -3757,7 +3753,7 @@
 		<control/>
 		<control caption="Börja använda PeerProject"/>
 	</dialog>
-	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="Välkommen till PeerProject (1/6)">
+	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="Välkommen till PeerProject (2/8)">
 		<control caption="För att uppnå bästa prestanda måste PeerProject veta lite om din Internetanslutning."/>
 		<control caption="Välj typ av Internetanslutning:"/>
 		<control caption="Uppringt modem|ISDN (128K)|DSL (768K)|DSL (1.5M)|DSL (4.0M)|DSL2 (8.0M)|FIOS (10.0M)|DSL2 (12.0M)|FIOS (20.0M)|DSL2+ (24.0M)|Kabelmodem/SDSL|T1|T3|LAN|OC3"/>
@@ -3773,7 +3769,30 @@
 		<control caption="Status:"/>
 		<control/>
 	</dialog>
-	<dialog name="CWizardSharePage" cookie="StStStSyBuBuSt" caption="Välkomment till PeerProject (2/6)">
+	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuStBu" caption="Välkommen till PeerProject (3/8)">
+		<control caption="PeerProject är ett en mångsidig fildelningsapplikation som kan komma åt många fildelningsnätverk på samma gång. På denna sida kan du välja vilka fildelningsnätverk du vill ansluta till och justera specifika inställningar för varje nätverk."/>
+		<control caption="Anslut till Gnutella2 (mycket rekommenderat)"/>
+		<control caption="Gnutella2 är PeerProjects främsta nätverk, som erbjuder fler funktioner och prestanda än något annat fildelningsnätverk hittils. Mycket rekommenderad."/>
+		<control caption="Anslut till Gnutellas ursprungsnätverk"/>
+		<control caption="Fastän Gnutellas ursprungsnätverk erbjuder färre funktioner än Gnutella2 och färre filer än eDonkey är det ändå en värdefull resurs."/>
+		<control caption="Anslut till eDonkey"/>
+		<control caption="eDonkey-nätverk är ett populärt serverbaserat nätverk, med en imponerande stor filsamling, men utan alla funktioner som Gnutella2 har."/>
+		<control caption="Hantera torrentlänkar."/>
+	</dialog>
+	<dialog name="CWizardFoldersPage" cookie="StStEdBuStEdBuStEdBuSt" caption="Välkommen till PeerProject (4/8)">
+		<control caption="PeerProject first downloads partial files to a private folder, then moves them when completed according to Download Groups."/>
+		<control caption="Spara färdiga nedladdningar här:"/>
+		<control/>
+		<control/>
+		<control caption="Spara tillfälliga ofullständiga nedladdningar här:"/>
+		<control/>
+		<control/>
+		<control caption="Spara .Torrent nedladdningar här:"/>
+		<control/>
+		<control/>
+		<control caption="Common filetypes are initially setup as subfolders of the default location, but Groups can easily be customized by Right-Click.  Simply Drag&apos;n&apos;Drop files."/>
+	</dialog>
+	<dialog name="CWizardSharePage" cookie="StStStSyBuBuSt" caption="Välkomment till PeerProject (5/8)">
 		<control caption="Fildelningsnätverk är bara så bra som användarna vill att de ska vara. Allt innehåll för nedladdning delas ut av anda användare."/>
 		<control caption="Du behöver inte dela ut för att använda PeerProject, men en del mjukvara kommer att bete sig annorlunda mot användare som inte delar ut filer."/>
 		<control caption="Välj vilka mappar du vill dela ut. Klicka på Lägg till för att lägga till fler mappar."/>
@@ -3791,18 +3810,7 @@
 		<control caption="0"/>
 		<control caption="Stäng"/>
 	</dialog>
-	<dialog name="CWizardProfilePage" cookie="StStEdStCoCoStCoCo" caption="Välkommen till PeerProject (3/6)">
-		<control caption="PeerProject är en mycket trevligare plats när alla skriver några detaljer om sig själv."/>
-		<control caption="Jag använder namnet:"/>
-		<control/>
-		<control caption="och jag är en:"/>
-		<control caption="&#160;(välj)"/>
-		<control caption="&#160;(välj)| kille| tjej| man| kvinna"/>
-		<control caption="från:"/>
-		<control/>
-		<control/>
-	</dialog>
-	<dialog name="CWizardInterfacePage" cookie="StBuBuBuStStBuSt" caption="Vlkommen till PeerProject (4/6)">
+	<dialog name="CWizardInterfacePage" cookie="StBuBuBuStStBuSt" caption="Vlkommen till PeerProject (6/8)">
 		<control caption="PeerProject stödjer två olika typer av användargränssnitt, så att du kan välja det som du känner dig mest bekväm med."/>
 		<control caption="Välj ett av dessa två användargränssnitt:"/>
 		<control caption="Normalt läge"/>
@@ -3812,15 +3820,27 @@
 		<control caption="Visa förenklad nedladdningsindikator."/>
 		<control caption=""/>
 	</dialog>
-	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuStBu" caption="Välkommen till PeerProject (5/6)">
-		<control caption="PeerProject är ett en mångsidig fildelningsapplikation som kan komma åt många fildelningsnätverk på samma gång. På denna sida kan du välja vilka fildelningsnätverk du vill ansluta till och justera specifika inställningar för varje nätverk."/>
-		<control caption="Anslut till Gnutella2 (mycket rekommenderat)"/>
-		<control caption="Gnutella2 är PeerProjects främsta nätverk, som erbjuder fler funktioner och prestanda än något annat fildelningsnätverk hittils. Mycket rekommenderad."/>
-		<control caption="Anslut till Gnutellas ursprungsnätverk"/>
-		<control caption="Fastän Gnutellas ursprungsnätverk erbjuder färre funktioner än Gnutella2 och färre filer än eDonkey är det ändå en värdefull resurs."/>
-		<control caption="Anslut till eDonkey"/>
-		<control caption="eDonkey-nätverk är ett populärt serverbaserat nätverk, med en imponerande stor filsamling, men utan alla funktioner som Gnutella2 har."/>
-		<control caption="Hantera torrentlänkar."/>
+	<dialog name="CWizardProfilePage" cookie="StStEdStCoCoStCoStCoStEd" caption="Välkommen till PeerProject (7/8)">
+		<control caption="PeerProject är en mycket trevligare plats när alla skriver några detaljer om sig själv."/>
+		<control caption="Jag använder namnet:"/>
+		<control/>
+		<control caption="och jag är en:"/>
+		<control caption="&#160;(välj)"/>
+		<control caption="&#160;(välj)| kille| tjej| man| kvinna"/>
+		<control caption="från:"/>
+		<control/>
+		<control caption="Locale:"/>
+		<control/>
+		<control caption="Comments:"/>
+		<control/>
+	</dialog>
+	<dialog name="CWizardFinishedPage" cookie="StStStBuBuSt" caption="Välkommen till PeerProject (8/8)">
+		<control caption="Det var det! PeerProject har blivit anpassat för att fungera med din dator."/>
+		<control caption="Om du någon gång vill ändra setta inställningar, kan du köra denna snabbstartsguide igen från verktygsmenyn."/>
+		<control caption="Efter att du stängt guiden genom att välja Slutföra, kan du ansluta till nätverken du valt, starta sökningar och ladda ned innehåll."/>
+		<control caption="Starta PeerProject när Windows startas"/>
+		<control caption="Anslut till dessa nätverk varje gång jag startar PeerProject"/>
+		<control caption="Ha kul med PeerProject!"/>
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="Importera Donkey2000-nedladdningar">
 		<control/>
@@ -3830,16 +3850,7 @@
 		<control/>
 		<control caption="Stäng"/>
 	</dialog>
-	<dialog name="CWizardFinishedPage" cookie="StStStBuBuBuSt" caption="Välkommen till PeerProject (6/6)">
-		<control caption="Det var det! PeerProject har blivit anpassat för att fungera med din dator."/>
-		<control caption="Om du någon gång vill ändra setta inställningar, kan du köra denna snabbstartsguide igen från verktygsmenyn."/>
-		<control caption="Efter att du stängt guiden genom att välja Slutföra, kan du ansluta till nätverken du valt, starta sökningar och ladda ned innehåll."/>
-		<control caption="Anslut till dessa nätverk när jag stänger guiden"/>
-		<control caption="Anslut till dessa nätverk varje gång jag startar PeerProject"/>
-		<control caption="Starta PeerProject när Windows startas"/>
-		<control caption="Ha kul med PeerProject!"/>
-	</dialog>
-	<dialog name="CProfileManagerDlg" cookie="SyBuBuBu#3" caption="Redigera min profil">
+	<dialog name="CProfileManagerDlg" cookie="SyBuBuBu" caption="Redigera min profil">
 		<control/>
 		<control caption="OK"/>
 		<control caption="Avbryt"/>
@@ -3957,30 +3968,30 @@
 		<control caption="Sök"/>
 		<control caption="Avbryt"/>
 	</dialog>
-	<dialog name="CFilterSearchDlg" cookie="BuEdBuStBuStEdStEdStEdmsStBuBuBuBuBuBuBuBuBuBuBuCoBuBuBuBuBu" caption="Filtrera träffar">
+	<dialog name="CFilterSearchDlg" cookie="BuEdBuStBuStEdStEdStEdmsBuBuBuBuBuBuBuBuBuBuBuBuBuCoBuBuBuBuBu" caption="Filtrera träffar">
 		<control caption="Visa endast träffar som innehåller dessa _ord:"/>
 		<control/>
 		<control caption="Reg. Exp."/>
-		<control caption="(du kan också välja bort ord med -ord)"/>
+		<control caption="(Också välja bort -ord)"/>
 		<control caption="Och är av _storleken (KB):"/>
 		<control caption="Minsta:"/>
 		<control/>
 		<control caption="Största:"/>
 		<control/>
-		<control caption="Med minst:"/>
+		<control caption="Med minst källor:"/>
 		<control/>
 		<control/>
-		<control caption="källor."/>
 		<control caption="_Dölj:"/>
-		<control caption="Upptagna värdar"/>
+		<control caption="Filer du redan har"/>
+		<control caption="Filer som inte matchar"/>
+		<control caption="Misstänkta filer"/>
+		<control caption="Restricted filer"/>
+		<control caption="DRM filer"/>
 		<control caption="Värdar bakom brandvägg"/>
 		<control caption="Instabila värdar"/>
-		<control caption="Filer som inte matchar"/>
-		<control caption="Filer du redan har"/>
+		<control caption="Upptagna värdar"/>
 		<control caption="Bluffresultat"/>
-		<control caption="DRM filer"/>
 		<control caption="Filer med åldersgräns"/>
-		<control caption="Misstänkta filer"/>
 		<control caption="Filter:"/>
 		<control/>
 		<control caption="Välj som standard"/>
@@ -4070,15 +4081,15 @@
 		<control caption="_Radera"/>
 		<control/>
 	</dialog>
-	<dialog name="CFileCopyDlg" cookie="StStmsBuBumsStSt" caption="Kopiera filer|Flytta filer">
-		<control caption="Du har valt %i fil/filer att kopiera till följande mapp:"/>
+	<dialog name="CFileCopyDlg" cookie="StStStmsmsStBuBu" caption="Kopiera filer|Flytta filer">
+		<control caption="Du har valt %i filer att kopiera till följande mapp:"/>
+		<control caption="Du har valt %i filer att flytta till följande mapp:"/>
 		<control/>
 		<control/>
-		<control caption="OK"/>
-		<control caption="Avbryt"/>
 		<control/>
 		<control caption="Redo…"/>
-		<control caption="Du har valt %i fil/filer att flytta till följande mapp:"/>
+		<control caption="OK"/>
+		<control caption="Avbryt"/>
 	</dialog>
 	<dialog name="CFolderPropertiesDlg" cookie="StEdStCoBuStBuBu" caption="Egenskaper för albummapp">
 		<control caption="Titel för albummapp:"/>
@@ -4601,4 +4612,4 @@
 		<column from="Order" to="Ordna"/>
 	</list>
 </listColumns>
-</skin>�
+</skin>

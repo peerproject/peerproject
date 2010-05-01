@@ -1,7 +1,7 @@
 //
 // PageSettingsMedia.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -220,7 +220,7 @@ void CMediaSettingsPage::OnOK()
 		CSettingsPage* pPage = pSheet->GetPage( nPage );
 		if ( pPage )
 		{
-			CString strClass = pPage->GetRuntimeClass()->m_lpszClassName;
+			CString strClass( pPage->GetRuntimeClass()->m_lpszClassName );
 			if ( strClass == _T("CPluginsSettingsPage") )
 			{
 				CPluginsSettingsPage* pPluginPage = static_cast< CPluginsSettingsPage* >( pPage );
@@ -237,9 +237,7 @@ void CMediaSettingsPage::OnOK()
 		CString str;
 		m_wndList.GetLBText( nItem, str );
 		if ( str.GetLength() )
-		{
 			Settings.MediaPlayer.FileTypes.insert( str );
-		}
 	}
 
 	CSettingsPage::OnOK();
