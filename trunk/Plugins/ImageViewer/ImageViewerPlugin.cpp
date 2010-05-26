@@ -194,41 +194,40 @@ HRESULT STDMETHODCALLTYPE CImageViewerPlugin::OnEnqueue(BSTR /*sFilePath*/)
 
 HRESULT STDMETHODCALLTYPE CImageViewerPlugin::RegisterCommands()
 {
-	// The RegisterCommands() method is invoked when the user interface manager is building its list
-	// of available commands.  PeerProject uses a unified command architecture in which every command in
-	// the UI is assigned a friendly name and an ID number.  PeerProject has already registered its
-	// internal commands, and is now providing an opportunity for plugins to register their own.
+	// The RegisterCommands() method is invoked when the UI manager is building its list of available commands.
+	// PeerProject uses a unified command architecture in which every command in the UI is assigned
+	// a friendly name and an ID number.  PeerProject has already registered its internal commands,
+	// and is now providing an opportunity for plugins to register their own.
 
-	// The friendly name is assigned by you, and PeerProject will provide you with a command ID number.
-	// Command ID numbers are not fixed, so they should be stored in a variable for later use!
+	// The unique name is assigned by you, and PeerProject will provide you with the command ID number.
+	// Plugin-Command ID numbers are not fixed, so they should be stored in a variable for later use!
 
-	// By convention, name commands with the name of the plugin, followed by an underscore,
-	// followed by your command name.  There should be no spaces (normal C++ identifier rules apply).
+	// By convention name commands with PluginID, underscore, plugin name, another underscore,
+	// followed by command name.  No spaces or special characters (normal C++ identifier rules apply).
 
-	// Note that this method may be called more than once in the lifetime of the plugin,
+	// Note that this method may be called more than once in the lifetime of the plugin (at any skin/plugin load),
 	// in which case you must re-register your commands and receive new command IDs.
-	// This will happen when other skins and plugins are loaded or unloaded.
 
-	// (The second argument, although NULL here, can optionally provide a 16x16 icon handle,
-	// but that is not the neatest way of doing it)
+	// The second argument, although NULL here, can optionally provide a 16x16 icon handle:
+	// LoadIcon( _AtlBaseModule.GetResourceInstance(), MAKEINTRESOURCE( IDI_ICON ) )	-but also skinned normally.
 
-	m_pInterface->RegisterCommand( L"ImageViewer_BestFit", NULL, &m_nCmdBestFit );
-	m_pInterface->RegisterCommand( L"ImageViewer_ActualSize", NULL, &m_nCmdActualSize );
-	m_pInterface->RegisterCommand( L"ImageViewer_Refresh", NULL, &m_nCmdRefresh );
-	m_pInterface->RegisterCommand( L"ImageViewer_Close", NULL, &m_nCmdClose );
+	m_pInterface->RegisterCommand( L"PluginID_ImageViewer_FullSize", NULL, &m_nCmdActualSize );
+	m_pInterface->RegisterCommand( L"PluginID_ImageViewer_BestFit", NULL, &m_nCmdBestFit );
+	m_pInterface->RegisterCommand( L"PluginID_ImageViewer_Refresh", NULL, &m_nCmdRefresh );
+	m_pInterface->RegisterCommand( L"PluginID_ImageViewer_Close", NULL, &m_nCmdClose );
 
 	return S_OK;
 }
 
 HRESULT STDMETHODCALLTYPE CImageViewerPlugin::InsertCommands()
 {
-	// The InsertCommands() method is invoked when the user interface manager is building the user
-	// interface objects such as menus, toolbars, etc.  At this point it has created its internal objects,
-	// and parsed all of the applicable skin files to create their objects.
+	// The InsertCommands() method is invoked when the user interface manager is building the
+	// user interface objects such as context menus, toolbars, etc.  At this point
+	// it has created its internal objects, and parsed all applicable skin files to create their objects.
 
 	// The plugin should use this opportunity to either create its own user interface objects,
-	// and/or modify existing objects to add new commands, etc.  Most of this work is achieved
-	// through the IUserInterface interface.
+	// and/or modify existing objects to add new commands, etc.
+	// Most of this work is achieved through the IUserInterface interface.
 
 	// Via IUserInterface you can access or create menus and toolbars by name (eg "CMainWnd.Tabbed"),
 	// and then view their content, adding, modifying or deleting commands as desired.

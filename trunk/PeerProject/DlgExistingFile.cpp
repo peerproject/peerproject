@@ -153,7 +153,7 @@ BOOL CExistingFileDlg::OnInitDialog()
 
 	UpdateData( FALSE );
 
-	m_wndComments.ShowWindow( m_sComments.GetLength() > 0 ? SW_SHOW : SW_HIDE );
+	m_wndComments.ShowWindow( ! m_sComments.IsEmpty() ? SW_SHOW : SW_HIDE );
 	m_wndMessageAvailable.ShowWindow( m_bAvailable == TRI_FALSE ? SW_SHOW : SW_HIDE );
 	m_wndMessageDeleted.ShowWindow( m_bAvailable != TRI_UNKNOWN ? SW_HIDE : SW_SHOW );
 	m_wndMessageDuplicates.ShowWindow( m_bAvailable == TRI_TRUE ? SW_SHOW : SW_HIDE );

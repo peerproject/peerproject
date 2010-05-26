@@ -205,8 +205,7 @@ void CCoolTipCtrl::CalcSizeHelper()
 
 void CCoolTipCtrl::AddSize(CDC* pDC, LPCTSTR pszText, int nBase)
 {
-	DWORD dwFlags = ( Settings.General.LanguageRTL ? DT_RTLREADING : 0 ) |
-		DT_SINGLELINE | DT_NOPREFIX;
+	DWORD dwFlags = ( Settings.General.LanguageRTL ? DT_RTLREADING : 0 ) | DT_SINGLELINE | DT_NOPREFIX;
 	CRect rcText( 0, 0, 0, 0 );
 	pDC->DrawText( pszText, -1, &rcText, dwFlags | DT_CALCRECT );
 	m_sz.cx = max( m_sz.cx, rcText.Width() + nBase );
@@ -214,8 +213,8 @@ void CCoolTipCtrl::AddSize(CDC* pDC, LPCTSTR pszText, int nBase)
 
 void CCoolTipCtrl::GetPaintRect(RECT* pRect)
 {
-	pRect->left = 0;
 	pRect->top = 0;
+	pRect->left = 0;
 	pRect->right = m_sz.cx;
 	pRect->bottom = m_sz.cy;
 }
@@ -228,8 +227,7 @@ void CCoolTipCtrl::DrawText(CDC* pDC, POINT* pPoint, LPCTSTR pszText, int nBase)
 
 void CCoolTipCtrl::DrawText(CDC* pDC, POINT* pPoint, LPCTSTR pszText, SIZE* pTextMaxSize)
 {
-	DWORD dwFlags = ( Settings.General.LanguageRTL ? DT_RTLREADING : 0 ) |
-		DT_SINGLELINE | DT_NOPREFIX;
+	DWORD dwFlags = ( Settings.General.LanguageRTL ? DT_RTLREADING : 0 ) | DT_SINGLELINE | DT_NOPREFIX;
 	CRect rcText( 0, 0, 0, 0 );
 	pDC->DrawText( pszText, -1, &rcText, dwFlags | DT_CALCRECT );
 	if ( pTextMaxSize )
@@ -240,10 +238,11 @@ void CCoolTipCtrl::DrawText(CDC* pDC, POINT* pPoint, LPCTSTR pszText, SIZE* pTex
 			rcText.bottom = rcText.top + pTextMaxSize->cy;
 	}
 	rcText.MoveToXY( pPoint->x, pPoint->y );
-	pDC->SetBkMode( TRANSPARENT );
-	pDC->FillSolidRect( &rcText, Colors.m_crTipBack );
+	if ( ! Skin.m_bmToolTip.m_hObject )
+		pDC->FillSolidRect( &rcText, Colors.m_crTipBack );
 	pDC->DrawText( pszText, -1, &rcText, dwFlags | DT_END_ELLIPSIS );
-	pDC->ExcludeClipRect( &rcText );
+	if ( ! Skin.m_bmToolTip.m_hObject )
+		pDC->ExcludeClipRect( &rcText );
 }
 
 void CCoolTipCtrl::DrawRule(CDC* pDC, POINT* pPoint, BOOL bPos)
@@ -252,16 +251,14 @@ void CCoolTipCtrl::DrawRule(CDC* pDC, POINT* pPoint, BOOL bPos)
 	if ( bPos )
 	{
 		pDC->Draw3dRect( pPoint->x, pPoint->y,
-			m_sz.cx + ( TIP_MARGIN - 3 ) - pPoint->x, 1, Colors.m_crTipBorder,
-			Colors.m_crTipBorder );
+			m_sz.cx + ( TIP_MARGIN - 3 ) - pPoint->x, 1, Colors.m_crTipBorder, Colors.m_crTipBorder );
 		pDC->ExcludeClipRect( pPoint->x, pPoint->y,
 			m_sz.cx + ( TIP_MARGIN - 3 ), pPoint->y + 1 );
 	}
 	else
 	{
 		pDC->Draw3dRect( -( TIP_MARGIN - 3 ), pPoint->y,
-			m_sz.cx + ( TIP_MARGIN - 3 ) * 2, 1, Colors.m_crTipBorder,
-			Colors.m_crTipBorder );
+			m_sz.cx + ( TIP_MARGIN - 3 ) * 2, 1, Colors.m_crTipBorder, Colors.m_crTipBorder );
 		pDC->ExcludeClipRect( -( TIP_MARGIN - 3 ), pPoint->y,
 			m_sz.cx + ( TIP_MARGIN - 3 ), pPoint->y + 1 );
 	}
@@ -300,10 +297,8 @@ CLineGraph* CCoolTipCtrl::CreateLineGraph()
 	pGraph->m_bShowAxis		= FALSE;
 	pGraph->m_nMinGridVert	= 16;
 
-	pGraph->m_crBack = Colors.CalculateColor(
-		RGB( 255, 255, 255 ), Colors.m_crTipBack, 80 );
-	pGraph->m_crGrid = Colors.CalculateColor(
-		Colors.m_crTipBorder, pGraph->m_crBack, 180 );
+	pGraph->m_crBack = Colors.m_crTipGraph;
+	pGraph->m_crGrid = Colors.m_crTipGraphGrid;
 
 	return pGraph;
 }
@@ -341,20 +336,47 @@ void CCoolTipCtrl::OnPaint()
 
 	CPaintDC dc( this );
 	CRect rc;
-
 	GetClientRect( &rc );
 
-	CFont* pOldFont = (CFont*)dc.SelectObject( &CoolInterface.m_fntBold );
+	if ( ! Skin.m_bmToolTip.m_hObject ) 	// Solid color default
+	{
+		CFont* pOldFont = (CFont*)dc.SelectObject( &CoolInterface.m_fntBold );
 
-	dc.Draw3dRect( &rc, Colors.m_crTipBorder, Colors.m_crTipBorder );
-	dc.SetViewportOrg( TIP_MARGIN, TIP_MARGIN );
+		dc.Draw3dRect( &rc, Colors.m_crTipBorder, Colors.m_crTipBorder );
+		rc.DeflateRect( 1, 1 );
+
+		dc.SetViewportOrg( TIP_MARGIN, TIP_MARGIN );
+		dc.SetTextColor( Colors.m_crTipText );
+		dc.SetBkMode( TRANSPARENT );
+		OnPaint( &dc );
+		dc.SetViewportOrg( 0, 0 );
+		dc.FillSolidRect( &rc, Colors.m_crTipBack );
+		dc.SelectObject( pOldFont );
+		return;
+	}
+
+	// Flicker-free skinning (System.ToolTip):
+
+	CSize size = rc.Size();
+	CDC* pMemDC = CoolInterface.GetBuffer( dc, size );
+
+	CFont* pOldFont = (CFont*)pMemDC->SelectObject( &CoolInterface.m_fntBold );
+
+	pMemDC->Draw3dRect( &rc, Colors.m_crTipBorder, Colors.m_crTipBorder );
 	rc.DeflateRect( 1, 1 );
 
-	OnPaint( &dc );
+	CoolInterface.DrawWatermark( pMemDC, &rc, &Skin.m_bmToolTip, FALSE );
 
-	dc.SetViewportOrg( 0, 0 );
-	dc.FillSolidRect( &rc, Colors.m_crTipBack );
-	dc.SelectObject( pOldFont );
+	pMemDC->SetViewportOrg( TIP_MARGIN, TIP_MARGIN );
+	pMemDC->SetTextColor( Colors.m_crTipText );
+	pMemDC->SetBkMode( TRANSPARENT );
+	OnPaint( pMemDC );
+	pMemDC->SetViewportOrg( 0, 0 );
+	rc.InflateRect( 1, 1 );
+
+	dc.BitBlt( 0, 0, rc.Width(), rc.Height(), pMemDC, 0, 0, SRCCOPY );
+
+	//pMemDC->SelectObject( pOldFont );
 }
 
 void CCoolTipCtrl::OnMouseMove(UINT /*nFlags*/, CPoint /*point*/)

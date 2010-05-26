@@ -136,7 +136,7 @@ public:
 
 	int			NextInfoPiece();
 	BOOL		LoadInfoPiece(DWORD nPieceSize, DWORD nInfoSize, DWORD nInfoPiece, BYTE *pPacketBuffer, DWORD nPacketLength);
-	DWORD		GetInfoPiece(DWORD nPiece, BYTE *pInfoPiece);
+	DWORD		GetInfoPiece(DWORD nPiece, BYTE **pInfoPiece);
 	DWORD		GetInfoSize();
 	BOOL		CheckInfoData();
 	BOOL		LoadTorrentFile(LPCTSTR pszFile);

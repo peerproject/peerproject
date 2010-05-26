@@ -128,26 +128,28 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<member name="files" search="generic">
 			<title language="en">Files</title>
 			<title language="af">Files</title>
-			<title language="ca">Files</title>
-			<title language="cz">Files</title>
-			<title language="de">Files</title>
-			<title language="ee">Files</title>
-			<title language="es">Files</title>
-			<title language="es-mx">Files</title>
-			<title language="fr">Files</title>
+			<title language="ca">Arxius</title>
+			<title language="cz">Soubory</title>
+			<title language="de">Dateien</title>
+			<title language="ee">Failid</title>
+			<title language="es">Archivos</title>
+			<title language="es-mx">Archivos</title>
+			<title language="fr">Fichiers</title>
 			<title language="gr">Αρχεία</title>
-			<title language="heb">Files</title>
-			<title language="hr">Files</title>
-			<title language="hu">Files</title>
+			<title language="heb">קבצים</title>
+			<title language="hr">Datotekes</title>
+			<title language="hu">Fájlok</title>
 			<title language="it">File</title>
-			<title language="ja">Files</title>
+			<title language="ja">ファイル</title>
+			<title language="ko">파일</title>
 			<title language="lt">Failai</title>
 			<title language="nl">Bestanden</title>
 			<title language="no">Files</title>
+			<title language="pl">Pliki</title>
 			<title language="pt-br">Arquivos</title>
 			<title language="ru">Файлы</title>
-			<title language="sl">Files</title>
-			<title language="sq">Files</title>
+			<title language="sl">Datoteke</title>
+			<title language="sq">Skedat</title>
 			<title language="sr">Files</title>
 			<title language="sv">Filer</title>
 			<title language="tr">Files</title>
@@ -300,6 +302,37 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="tr">Unpacked Size</title>
 			<title language="zhs">解包大小</title>
 			<title language="zht">解包大小</title>
+		</member>
+		<member name="filecount">
+			<display columnAlign="center" defaultColumn="true"/>
+			<title language="en">Filecount</title>
+			<title language="af">Filecount</title>
+			<title language="ca">Arxios#</title>
+			<title language="cz">Filecount</title>
+			<title language="de">Dateianzahl</title>
+			<title language="ee">Filecount</title>
+			<title language="es">Archivos#</title>
+			<title language="es-mx">Archivos#</title>
+			<title language="fr">Fichiers#</title>
+			<title language="gr">Filecount</title>
+			<title language="heb">Filecount</title>
+			<title language="hr">Filecount</title>
+			<title language="hu">Filecount</title>
+			<title language="it">Conteggio</title>
+			<title language="ja">ファイル数</title>
+			<title language="ko">파일 개수</title>
+			<title language="lt">Filecount</title>
+			<title language="nl">Filecount</title>
+			<title language="no">Filecount</title>
+			<title language="pt-br">Arquivos#</title>
+			<title language="ru">Кол-во файлов</title>
+			<title language="sl">Filecount</title>
+			<title language="sq">Filecount</title>
+			<title language="sr">Filecount</title>
+			<title language="sv">Filecount</title>
+			<title language="tr">Filecount</title>
+			<title language="zhs">文件数</title>
+			<title language="zht">文件數</title>
 		</member>
 	</members>
 	<typeFilter>

@@ -179,23 +179,20 @@ BOOL CPeerProjectURL::Parse(LPCTSTR pszURL, BOOL bResolve)
 
 BOOL CPeerProjectURL::ParseRoot(LPCTSTR pszURL, BOOL bResolve)
 {
-	if ( ParseHTTP( pszURL, bResolve ) )			// http://
-	{
+	if ( ParseHTTP( pszURL, bResolve ) )		// http://
 		return TRUE;
-	}
-	else if ( ParseFTP( pszURL, bResolve ) )		// ftp://
-	{
+
+	if ( ParseFTP( pszURL, bResolve ) ) 		// ftp://
 		return TRUE;
-	}
-	else if ( ParseED2KFTP( pszURL, bResolve ) )	// ed2kftp://
-	{
+
+	if ( ParseED2KFTP( pszURL, bResolve ) ) 	// ed2kftp://
 		return TRUE;
-	}
-	else if ( ParseBTC( pszURL, bResolve ) )		// btc://
-	{
+
+	if ( ParseBTC( pszURL, bResolve ) ) 		// btc://
 		return TRUE;
-	}
-	else if ( _tcsnicmp( pszURL, _T("magnet:?"), 8 ) == 0 )
+
+
+	if ( _tcsnicmp( pszURL, _T("magnet:?"), 8 ) == 0 )
 	{
 		pszURL += 8;
 		return ParseMagnet( pszURL );
@@ -234,7 +231,7 @@ BOOL CPeerProjectURL::ParseRoot(LPCTSTR pszURL, BOOL bResolve)
 	else if ( _tcsnicmp( pszURL, _T("g2:"), 3 ) == 0 )
 	{
 		SkipSlashes( pszURL, 3 );
-		if ( ! ParseMagnet( pszURL ) )
+		if ( _tcsnicmp( pszURL, _T("browse:"), 7 ) == 0 || ! ParseMagnet( pszURL ) )
 			return ParsePeerProject( pszURL );
 		return TRUE;
 	}
@@ -696,21 +693,19 @@ BOOL CPeerProjectURL::ParsePeerProject(LPCTSTR pszURL)
 
 BOOL CPeerProjectURL::ParsePeerProjectHost(LPCTSTR pszURL, BOOL bBrowse)
 {
+	m_nAction = bBrowse ? uriBrowse : uriHost;
+
 	m_sName = pszURL;
 	m_sName = m_sName.SpanExcluding( _T("/\\") );
 
 	int nPos = m_sName.Find( ':' );
-
 	if ( nPos >= 0 )
 	{
 		_stscanf( m_sName.Mid( nPos + 1 ), _T("%i"), &m_nPort );
 		m_sName = m_sName.Left( nPos );
 	}
 
-	m_sName.TrimLeft();
-	m_sName.TrimRight();
-
-	m_nAction = bBrowse ? uriBrowse : uriHost;
+	m_sName.Trim();
 
 	return m_sName.GetLength();
 }
@@ -727,9 +722,7 @@ BOOL CPeerProjectURL::ParsePeerProjectFile(LPCTSTR pszURL)
 		CString strPart = strURL.SpanExcluding( _T("/|") );
 		strURL = strURL.Mid( strPart.GetLength() + 1 );
 
-		strPart.TrimLeft();
-		strPart.TrimRight();
-
+		strPart.Trim();
 		if ( strPart.IsEmpty() ) continue;
 
 		if (	_tcsnicmp( strPart, _T("urn:"), 4 ) == 0 ||
@@ -937,11 +930,10 @@ BOOL CPeerProjectURL::ParseDonkeyServer(LPCTSTR pszURL)
 	m_sName = pszURL;
 	m_sName = m_sName.Left( static_cast< int >( pszPort - pszURL ) );
 
-	m_sName.TrimLeft();
-	m_sName.TrimRight();
+	m_sName.Trim();
 	if ( m_sName.IsEmpty() ) return FALSE;
 
-	m_nAction	= uriDonkeyServer;
+	m_nAction = uriDonkeyServer;
 
 	return TRUE;
 }
@@ -1014,13 +1006,9 @@ BOOL CPeerProjectURL::ParseDiscovery(LPCTSTR pszURL, int nType)
 
 	nPos = strTemp.Find( '?' );
 
-	if ( nPos >= 0 )
-	{
-		strURL = strTemp.Left( nPos );
-		strNets = strTemp.Mid( nPos + 1 );
-	}
-	else
-		strURL = strTemp;
+	strURL = nPos < 0 ? strTemp : strTemp.Left( nPos );
+	strNets = strTemp.Mid( nPos + 1 );
+
 
 	if ( _tcsnicmp( strNets, _T("nets="), 5 ) == 0 )
 	{
@@ -1045,10 +1033,8 @@ BOOL CPeerProjectURL::ParseDiscovery(LPCTSTR pszURL, int nType)
 		}
 		else if ( bG1 )
 		{
-			if ( Settings.Discovery.EnableG1GWC )
-				m_nProtocol = PROTOCOL_G1;
-			else
-				return FALSE;
+			if ( ! Settings.Discovery.EnableG1GWC ) return FALSE;
+			m_nProtocol = PROTOCOL_G1;
 		}
 		else
 		{
@@ -1078,8 +1064,7 @@ void CPeerProjectURL::SkipSlashes(LPCTSTR& pszURL, int nAdd)
 
 void CPeerProjectURL::SafeString(CString& strInput)
 {
-	strInput.TrimLeft();
-	strInput.TrimRight();
+	strInput.Trim();
 
 	for ( int nIndex = 0 ; nIndex < strInput.GetLength() ; nIndex++ )
 	{
@@ -1134,30 +1119,27 @@ void CPeerProjectURL::Register(BOOL bOnStartup)
 	else
 		UnregisterShellType( _T("Classes"), _T("magnet") );
 
-	if ( Settings.Web.Foxy )
-		RegisterShellType( _T("Classes"), _T("foxy"), _T("URL:Foxy Protocol"), NULL, _T("PeerProject"), _T("URL"), IDR_MAINFRAME );
-	else
-		UnregisterShellType( _T("Classes"), _T("foxy") );
-
 	if ( Settings.Web.Gnutella )
 	{
 		RegisterShellType( _T("Classes"), _T("gnutella"), _T("URL:Gnutella Protocol"), NULL, _T("PeerProject"), _T("URL"), IDR_MAINFRAME );
-		RegisterShellType( _T("Classes"), _T("gnet"), _T("URL:Gnutella Protocol"), NULL, _T("PeerProject"), _T("URL"), IDR_MAINFRAME );
-		RegisterShellType( _T("Classes"), _T("uhc"), _T("URL:Gnutella1 UDP Host Cache"), NULL, _T("PeerProject"), _T("URL"), IDR_MAINFRAME );
-		RegisterShellType( _T("Classes"), _T("ukhl"), _T("URL:Gnutella2 UDP known Hub Cache"), NULL, _T("PeerProject"), _T("URL"), IDR_MAINFRAME );
 		RegisterShellType( _T("Classes"), _T("gnutella1"), _T("URL:Gnutella1 Bootstrap"), NULL, _T("PeerProject"), _T("URL"), IDR_MAINFRAME );
 		RegisterShellType( _T("Classes"), _T("gnutella2"), _T("URL:Gnutella2 Bootstrap"), NULL, _T("PeerProject"), _T("URL"), IDR_MAINFRAME );
 		RegisterShellType( _T("Classes"), _T("gwc"), _T("URL:GWC Protocol"), NULL, _T("PeerProject"), _T("URL"), IDR_MAINFRAME );
+		RegisterShellType( _T("Classes"), _T("g2"), _T("URL:G2 Protocol"), NULL, _T("PeerProject"), _T("URL"), IDR_MAINFRAME );
+		RegisterShellType( _T("Classes"), _T("gnet"), _T("URL:Gnutella Protocol"), NULL, _T("PeerProject"), _T("URL"), IDR_MAINFRAME );
+		RegisterShellType( _T("Classes"), _T("uhc"), _T("URL:Gnutella1 UDP Host Cache"), NULL, _T("PeerProject"), _T("URL"), IDR_MAINFRAME );
+		RegisterShellType( _T("Classes"), _T("ukhl"), _T("URL:Gnutella2 UDP known Hub Cache"), NULL, _T("PeerProject"), _T("URL"), IDR_MAINFRAME );
 	}
 	else
 	{
 		UnregisterShellType( _T("Classes"), _T("gnutella") );
-		UnregisterShellType( _T("Classes"), _T("gnet") );
-		UnregisterShellType( _T("Classes"), _T("uhc") );
-		UnregisterShellType( _T("Classes"), _T("ukhl") );
 		UnregisterShellType( _T("Classes"), _T("gnutella1") );
 		UnregisterShellType( _T("Classes"), _T("gnutella2") );
 		UnregisterShellType( _T("Classes"), _T("gwc") );
+		UnregisterShellType( _T("Classes"), _T("g2") );
+		UnregisterShellType( _T("Classes"), _T("gnet") );
+		UnregisterShellType( _T("Classes"), _T("uhc") );
+		UnregisterShellType( _T("Classes"), _T("ukhl") );
 	}
 
 	if ( Settings.Web.ED2K )
@@ -1170,18 +1152,23 @@ void CPeerProjectURL::Register(BOOL bOnStartup)
 	else
 		UnregisterShellType( _T("Classes"), _T("mp2p") );
 
-	if ( ! bOnStartup || ! Settings.Live.FirstRun )
+	if ( Settings.Web.Foxy )
+		RegisterShellType( _T("Classes"), _T("foxy"), _T("URL:Foxy Protocol"), NULL, _T("PeerProject"), _T("URL"), IDR_MAINFRAME );
+	else
+		UnregisterShellType( _T("Classes"), _T("foxy") );
+
+	if ( ! Settings.Live.FirstRun || ! bOnStartup )
 	{
 		if ( Settings.Web.Torrent )
 		{
-			RegisterShellType( _T("Classes"), _T("bittorrent"), _T("TORRENT File"), _T(".torrent"),
+			RegisterShellType( _T("Classes"), _T("BitTorrent"), _T("Torrent File"), _T(".torrent"),
 				_T("PeerProject"), _T("PEERFORMAT"), IDR_MAINFRAME );
-			RegisterShellType( _T("Classes\\Applications\\PeerProject.exe"), NULL, _T("TORRENT File"), _T(".torrent"),
+			RegisterShellType( _T("Classes\\Applications\\PeerProject.exe"), NULL, _T("Torrent File"), _T(".torrent"),
 				_T("PeerProject"), _T("PEERFORMAT"), IDR_MAINFRAME );
 		}
 		else
 		{
-			UnregisterShellType( _T("Classes"), _T("bittorrent") );
+			UnregisterShellType( _T("Classes"), _T("BitTorrent") );
 			UnregisterShellType( _T("Classes\\Applications\\PeerProject.exe"), NULL );
 		}
 	}
@@ -1196,7 +1183,7 @@ void CPeerProjectURL::Register(BOOL bOnStartup)
 	RegisterShellType( _T("Classes\\Applications\\PeerProject.exe"), NULL, _T("PeerProject Collection File"),
 		_T(".collection"), _T("PeerProject"), _T("PEERFORMAT"), IDI_COLLECTION );
 
-	RegisterShellType( _T("Classes"), _T("eMule"), _T("eMule Collection File"),
+	RegisterShellType( _T("Classes"), _T("eMule.Collection"), _T("eMule Collection File"),
 		_T(".emulecollection"), _T("PeerProject"), _T("PEERFORMAT"), IDI_COLLECTION );
 	RegisterShellType( _T("Classes\\Applications\\PeerProject.exe"), NULL, _T("eMule Collection File"),
 		_T(".emulecollection"), _T("PeerProject"), _T("PEERFORMAT"), IDI_COLLECTION );

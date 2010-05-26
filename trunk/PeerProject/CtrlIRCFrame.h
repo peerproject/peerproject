@@ -122,16 +122,16 @@ protected:
 	{
 	public:
 		CIRCMessage(LPCTSTR szMessage = _T(""), LPCTSTR szTargetName = _T(""), int nColor = 0)
-			: sMessage( szMessage )
-			, sTargetName( szTargetName )
-			, nColorID( nColor )
+			: sMessage		( szMessage )
+			, sTargetName	( szTargetName )
+			, nColorID		( nColor )
 		{
 		}
 
 		CIRCMessage(const CIRCMessage& msg)
-			: sMessage( msg.sMessage )
-			, sTargetName( msg.sTargetName )
-			, nColorID( msg.nColorID )
+			: sMessage		( msg.sMessage )
+			, sTargetName	( msg.sTargetName )
+			, nColorID		( msg.nColorID )
 		{
 		}
 
@@ -168,7 +168,7 @@ class CIRCTabCtrl : public CTabCtrl
 		paintHotTrack = 0x4
 	};
 
-	// Construction
+// Construction
 public:
 	CIRCTabCtrl();
 	virtual ~CIRCTabCtrl();
@@ -178,20 +178,20 @@ protected:
 public:
 	int		m_nHoverTab;
 
-	void			SetTabColor(int nItem, COLORREF cRGB);
-	COLORREF		GetTabColor(int nItem);
-
-	void DrawTabControl(CDC* pDC);
+	void	DrawTabControl(CDC* pDC);
+	void	DrawTabThemed(HDC dc, int nItem, const RECT& rcItem, UINT flags);
+	void	DrawTabItem(HDC dc, int nItem, const RECT& rcItem, UINT flags);
 	HRESULT DrawThemesPart(HDC dc, int nPartID, int nStateID, LPRECT prcBox);
-	void DrawTabThemed(HDC dc, int nItem, const RECT& rcItem, UINT flags);
-	void DrawTabItem(HDC dc, int nItem, const RECT& rcItem, UINT flags);
 
-	virtual BOOL PreTranslateMessage(MSG* pMsg);
-//	virtual BOOL OnEraseBkgnd(CDC* pDC);
+//	void			SetTabColor(int nItem, COLORREF cRGB);
+//	COLORREF		GetTabColor(int nItem);
+
+	virtual BOOL	PreTranslateMessage(MSG* pMsg);
 //	virtual LRESULT WindowProc(UINT message, WPARAM wParam, LPARAM lParam);
+//	virtual BOOL	OnEraseBkgnd(CDC* pDC);
 
-	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
-	afx_msg void OnPaint();
+	afx_msg int 	OnCreate(LPCREATESTRUCT lpCreateStruct);
+	afx_msg void	OnPaint();
 
 	DECLARE_MESSAGE_MAP()
 };
@@ -213,8 +213,8 @@ public:
 	CString			GetNameOfIndex(int nIndex) const;
 // Attributes
 protected:
-	int				m_nCountUserDefined;
 	int				m_nCount;
+	int				m_nCountUserDefined;
 	CStringArray	m_sChannelName;
 	CStringArray	m_sChannelDisplayName;
 	CArray<BOOL>	m_bUserDefined;
@@ -275,6 +275,7 @@ protected:
 	CIRCTabCtrl		m_wndTab;
 	CCoolBarCtrl	m_wndMainBar;
 
+	CString			m_sTemp;
 	CString			m_sCurrent;
 //	CPoint			m_ptCursor;
 //	int				m_nListWidth;
@@ -286,7 +287,7 @@ protected:
 
 	CFont			m_fntEdit;
 	CStringArray	m_pWords;
-	CString			m_sUser;
+	CString 		m_sUser;
 
 	void			ConnectIrc();
 	void			SetFonts();
@@ -302,11 +303,12 @@ protected:
 	CString			GetTargetName(CString strRecieverName, int nRecieverType, CString strSenderName, int nSenderType) const;
 	CString			GetTabText(int nTabIndex = -1) const;
 	int				GetTabIndex(const CString& strTabName) const;
+	void			HighlightTab(int nTab, BOOL bHighlight = TRUE);
 	int				AddTab(CString TabName, int nKindOfTab);
 	void			TabClick();
 	void			ReloadViewText();
-	//void			SortUserList();
 	int				FindInList(CString strName, int nList=0, int nTab=0);
+	//void			SortUserList();
 
 	int				ParseMessageID();
 	void			ActivateMessageByID(CIRCNewMessage& oNewMessage, int nMessageID);
@@ -315,7 +317,8 @@ protected:
 	void			UserListDblClick();
 	void			ChanListDblClick();
 	void			FillChanList();
-	void			FillCountChanList(const CString& strUserCount, const CString& strChannelName);
+	void			FillChanListCount(const CString& strUserCount, const CString& strChannelName);
+	void			ClearChanListCount();
 	int				IsUserInList(CString strUser) const;
 	void			PaintListHeader(CDC& dc, CRect& rcBar, CString strText);
 	void			PaintHeader(CRect rcHeader, CDC &dc);

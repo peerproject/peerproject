@@ -647,8 +647,7 @@ BOOL CPeerProjectDataSource::DropToAlbum(IDataObject* pIDataObject, DWORD grfKey
 		return FALSE;	// This is not PeerProject's drop
 
 	CAlbumFolder* pRoot = Library.GetAlbumRoot();
-	if ( ! pRoot )
-		return FALSE;
+	if ( ! pRoot ) return FALSE;
 
 	BOOL bRet = FALSE;
 
@@ -666,14 +665,12 @@ BOOL CPeerProjectDataSource::DropToAlbum(IDataObject* pIDataObject, DWORD grfKey
 			if ( medium.tymed == TYMED_HGLOBAL && medium.hGlobal != NULL &&
 				size > 0 && size < 10000000 )
 			{
-				LPBYTE p = (LPBYTE)GlobalLock( medium.hGlobal );
-				if ( p )
+				if ( LPBYTE p = (LPBYTE)GlobalLock( medium.hGlobal ) )
 				{
 					while ( size-- )
 					{
 						DWORD index = *(DWORD*)p;
-						CLibraryFile* pFile = Library.LookupFile( index, FALSE, TRUE );
-						if ( pFile )
+						if ( CLibraryFile* pFile = Library.LookupFile( index, FALSE, TRUE ) )
 						{
 							Hashes::Guid oGUID;
 							CopyMemory( oGUID.begin(), p + sizeof( DWORD ), 16 );
@@ -713,7 +710,7 @@ BOOL CPeerProjectDataSource::DropToAlbum(IDataObject* pIDataObject, DWORD grfKey
 	if ( SUCCEEDED ( pIDataObject->QueryGetData( &fmtc2 ) ) )
 	{
 		*pdwEffect = (grfKeyState & MK_CONTROL) ? DROPEFFECT_COPY :
-			( (grfKeyState & MK_SHIFT ) ? DROPEFFECT_MOVE : DROPEFFECT_COPY );
+			( ( grfKeyState & MK_SHIFT ) ? DROPEFFECT_MOVE : DROPEFFECT_COPY );
 
 		CStgMedium medium;
 		if ( SUCCEEDED ( pIDataObject->GetData( &fmtc2, &medium ) ) )
@@ -726,8 +723,7 @@ BOOL CPeerProjectDataSource::DropToAlbum(IDataObject* pIDataObject, DWORD grfKey
 			ar >> (DWORD) size_Archive;
 			while( size_Archive-- )
 			{
-				CAlbumFolder* pFolder =  new CAlbumFolder( pAlbumFolder );
-				if ( pFolder )
+				if ( CAlbumFolder* pFolder = new CAlbumFolder( pAlbumFolder ) )
 				{
 					try {
 						pFolder->Serialize( ar, LIBRARY_SER_VERSION );
@@ -748,20 +744,15 @@ BOOL CPeerProjectDataSource::DropToAlbum(IDataObject* pIDataObject, DWORD grfKey
 									// Delete old album (by GUID)
 									if ( CAlbumFolder* pRealFodler = pRoot->FindFolder( pFolder->m_oGUID ) )
 									{
-										if ( pRealFodler->m_pParent )
-											pRealFodler->m_pParent->OnFolderDelete( pRealFodler );
+										if ( pRealFodler->GetParent() )
+											pRealFodler->GetParent()->OnFolderDelete( pRealFodler );
 										else
 											pRoot->OnFolderDelete( pRealFodler );
 									}
 								}
 
-								// Change album GUID to avoid duplicates
-								pFolder->RenewGUID();
-
 								// Add new album
-								pAlbumFolder->m_pFolders.AddTail( pFolder );
-
-								pAlbumFolder->m_nUpdateCookie++;
+								pAlbumFolder->AddFolder( pFolder );
 
 								// Keep album
 								pFolder = NULL;
@@ -1198,7 +1189,7 @@ STDMETHODIMP CPeerProjectDataSource::XDataObject::EnumFormatEtc(DWORD /*dwDirect
 		pFormatList->AddFormat( &pThis->m_rgde[nIndex].fe );
 	}
 
-	// give it away to OLE (ref count is already 1)
+	// Give it away to OLE (ref count is already 1)
 	*ppenumFormatEtc = (LPENUMFORMATETC) &pFormatList->m_xEnumVOID;
 
 	return S_OK;
@@ -1297,7 +1288,7 @@ STDMETHODIMP CPeerProjectDataSource::XDragSourceHelper::InitializeFromWindow(HWN
 IUnknown* CPeerProjectDataSource::GetCanonicalIUnknown(IUnknown *punk)
 {
 	IUnknown* punkCanonical = NULL;
-	if (punk && SUCCEEDED( punk->QueryInterface( IID_IUnknown, (LPVOID*) &punkCanonical ) ) )
+	if ( punk && SUCCEEDED( punk->QueryInterface( IID_IUnknown, (LPVOID*) &punkCanonical ) ) )
 		punkCanonical->Release();
 	else
 		punkCanonical = punk;
@@ -1431,8 +1422,7 @@ void CPeerProjectDataSource::FillBuffer(const CLibraryList* pList, LPTSTR& buf_H
 						buf_Text += sTemp;
 					}
 
-					int len = pFile->GetPath().GetLength();
-					if ( len )
+					if ( int len = pFile->GetPath().GetLength() )
 					{
 						_tcscpy_s( buf_HDROP, len + 1, pFile->GetPath() );
 						buf_HDROP += len + 1;
@@ -1470,8 +1460,7 @@ void CPeerProjectDataSource::FillBuffer(const CLibraryList* pList, LPTSTR& buf_H
 				ASSERT( pFolder != NULL );
 				if ( pFolder )
 				{
-					int len = pFolder->m_sPath.GetLength();
-					if ( len )
+					if ( int len = pFolder->m_sPath.GetLength() )
 					{
 						_tcscpy_s( buf_HDROP, len + 1, pFolder->m_sPath );
 						buf_HDROP += len + 1;
@@ -1511,8 +1500,7 @@ void CPeerProjectDataSource::FillBuffer(const CLibraryTreeItem* pSelFirst, LPTST
 			// Add physical folder
 			if ( ! pItem->m_pPhysical->m_sPath.IsEmpty() )
 			{
-				int len = pItem->m_pPhysical->m_sPath.GetLength();
-				if ( len )
+				if ( int len = pItem->m_pPhysical->m_sPath.GetLength()  )
 				{
 					_tcscpy_s( buf_HDROP, len + 1, pItem->m_pPhysical->m_sPath );
 					buf_HDROP += len + 1;

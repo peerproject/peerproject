@@ -44,6 +44,11 @@
 static char THIS_FILE[] = __FILE__;
 #endif
 
+#define ROW_HEIGHT		22
+#define ICON_WIDTH		24
+#define RATING_WIDTH	81
+
+
 IMPLEMENT_DYNCREATE(CLibraryAlbumView, CLibraryFileView)
 
 BEGIN_MESSAGE_MAP(CLibraryAlbumView, CLibraryFileView)
@@ -137,6 +142,8 @@ void CLibraryAlbumView::Update()
 			m_pStyle = CSchema::uriMusicAlbum;
 		else if ( CheckURI( pFolder->m_sSchemaURI, CSchema::uriMusicArtist ) )
 			m_pStyle = CSchema::uriMusicArtist;
+		else if ( CheckURI( pFolder->m_sSchemaURI, CSchema::uriMusicAll ) || CheckURI( pFolder->m_sSchemaURI, CSchema::uriMusicGenre ) )
+			m_pStyle = CSchema::uriMusicAll;
 		else if ( CheckURI( pFolder->m_sSchemaURI, CSchema::uriGhostFolder ) )
 			bGhostFolder = TRUE;
 	}
@@ -488,7 +495,7 @@ void CLibraryAlbumView::OnSize(UINT nType, int cx, int cy)
 	CLibraryFileView::OnSize( nType, cx, cy );
 
 	m_szTrack.cx = cx;
-	m_szTrack.cy = 22;
+	m_szTrack.cy = ROW_HEIGHT;
 	m_nRows = cy / m_szTrack.cy - 1;
 
 	UpdateScroll();
@@ -598,10 +605,12 @@ void CLibraryAlbumView::OnPaint()
 
 	CLibraryAlbumTrack** pList = m_pList;
 
+	// Column headers
+
 	pBuffer->SelectObject( &CoolInterface.m_fntBold );
 	CRect rcLine(rcTrack);
-	rcLine.left += 22;
-	rcLine.right -= 78;
+	rcLine.left += ICON_WIDTH;
+	rcLine.right -= RATING_WIDTH;
 	pBuffer->FillSolidRect( &rcBuffer, Colors.m_crWindow );
 	if ( m_pStyle == CSchema::uriMusicAlbum )
 	{
@@ -610,10 +619,6 @@ void CLibraryAlbumView::OnPaint()
 		CLibraryAlbumTrack::PaintText( pBuffer, rcLine,  5,  84, IDS_LIBRARY_ALBUM_TITLE );
 		CLibraryAlbumTrack::PaintText( pBuffer, rcLine, 84,  92, IDS_LIBRARY_ALBUM_LENGTH, TRUE );
 		CLibraryAlbumTrack::PaintText( pBuffer, rcLine, 92, 100, IDS_LIBRARY_ALBUM_BITRATE, TRUE );
-
-		rcLine.left = rcLine.right;
-		rcLine.right += 78;
-		CLibraryAlbumTrack::PaintText( pBuffer, rcLine, 0, 100, IDS_LIBRARY_ALBUM_RATING );
 	}
 	else if ( m_pStyle == CSchema::uriMusicArtist )
 	{
@@ -622,12 +627,8 @@ void CLibraryAlbumView::OnPaint()
 		CLibraryAlbumTrack::PaintText( pBuffer, rcLine, 30,  84, IDS_LIBRARY_ALBUM_TITLE );
 		CLibraryAlbumTrack::PaintText( pBuffer, rcLine, 84,  92, IDS_LIBRARY_ALBUM_LENGTH, TRUE );
 		CLibraryAlbumTrack::PaintText( pBuffer, rcLine, 92, 100, IDS_LIBRARY_ALBUM_BITRATE, TRUE );
-
-		rcLine.left = rcLine.right;
-		rcLine.right += 78;
-		CLibraryAlbumTrack::PaintText( pBuffer, rcLine, 0, 100, IDS_LIBRARY_ALBUM_RATING );
 	}
-	else
+	else if ( m_pStyle == CSchema::uriMusicAll ) // Genre
 	{
 		// Artist, Album, Title, Length, Bitrate
 		CLibraryAlbumTrack::PaintText( pBuffer, rcLine,  0,  25, IDS_LIBRARY_ALBUM_ARTIST );
@@ -635,16 +636,22 @@ void CLibraryAlbumView::OnPaint()
 		CLibraryAlbumTrack::PaintText( pBuffer, rcLine, 50,  84, IDS_LIBRARY_ALBUM_TITLE );
 		CLibraryAlbumTrack::PaintText( pBuffer, rcLine, 84,  92, IDS_LIBRARY_ALBUM_LENGTH, TRUE );
 		CLibraryAlbumTrack::PaintText( pBuffer, rcLine, 92, 100, IDS_LIBRARY_ALBUM_BITRATE, TRUE );
-
-		rcLine.left = rcLine.right;
-		rcLine.right += 78;
-		CLibraryAlbumTrack::PaintText( pBuffer, rcLine, 0, 100, IDS_LIBRARY_ALBUM_RATING );
 	}
+	else // Non-music
+	{
+		//  Title, Artist, Length
+		CLibraryAlbumTrack::PaintText( pBuffer, rcLine,  0,  66, IDS_LIBRARY_ALBUM_TITLE );
+		CLibraryAlbumTrack::PaintText( pBuffer, rcLine, 66,  88, IDS_LIBRARY_ALBUM_ARTIST );
+		CLibraryAlbumTrack::PaintText( pBuffer, rcLine, 88, 100, IDS_TIP_SIZE, TRUE );
+	}
+	// Rating
+	rcLine.left = rcLine.right;
+	rcLine.right += RATING_WIDTH;
+	CLibraryAlbumTrack::PaintText( pBuffer, rcLine, 0, 100, IDS_LIBRARY_ALBUM_RATING, TRUE );
 
 	pBuffer->SelectObject( &CoolInterface.m_fntNormal );
 
-	dc.BitBlt( rcTrack.left, rcTrack.top, rcBuffer.right, rcBuffer.bottom,
-		pBuffer, 0, 0, SRCCOPY );
+	dc.BitBlt( rcTrack.left, rcTrack.top, rcBuffer.right, rcBuffer.bottom, pBuffer, 0, 0, SRCCOPY );
 	dc.ExcludeClipRect( &rcTrack );
 	rcTrack.OffsetRect( 0, rcClient.top - m_nScroll );
 	rcTrack.OffsetRect( 0, m_szTrack.cy );
@@ -657,8 +664,7 @@ void CLibraryAlbumView::OnPaint()
 		{
 			pBuffer->FillSolidRect( &rcBuffer, Colors.m_crWindow );
 			pTrack->Paint( this, pBuffer, rcBuffer, nItem );
-			dc.BitBlt( rcTrack.left, rcTrack.top, rcBuffer.right, rcBuffer.bottom,
-				pBuffer, 0, 0, SRCCOPY );
+			dc.BitBlt( rcTrack.left, rcTrack.top, rcBuffer.right, rcBuffer.bottom, pBuffer, 0, 0, SRCCOPY );
 			dc.ExcludeClipRect( &rcTrack );
 		}
 
@@ -1011,7 +1017,7 @@ BOOL CLibraryAlbumTrack::Update(CLibraryFile* pFile)
 	m_bShared	= bShared;
 	m_nShell	= ShellIcons.Get( pFile->m_sName, 16 );
 	m_nRating	= pFile->m_nRating;
-	m_bComments	= pFile->m_sComments.GetLength() > 0;
+	m_bComments	= ! pFile->m_sComments.IsEmpty();
 	m_nTrack	= 0;
 	m_sTrack.Empty();
 	m_sTitle.Empty();
@@ -1022,7 +1028,7 @@ BOOL CLibraryAlbumTrack::Update(CLibraryFile* pFile)
 	m_nBitrate	= 0;
 	m_sBitrate.Empty();
 
-	if ( pFile->IsSchemaURI( CSchema::uriAudio ) )
+	if ( pFile->IsSchemaURI( CSchema::uriAudio ) )	// Music file
 	{
 		CString str = pFile->m_pMetadata->GetAttributeValue( _T("track") );
 		LPCTSTR psz = str;
@@ -1030,49 +1036,123 @@ BOOL CLibraryAlbumTrack::Update(CLibraryFile* pFile)
 		while ( *psz == '0' ) psz++;
 		if ( *psz ) _stscanf( psz, _T("%i"), &m_nTrack );
 
+		_stscanf( pFile->m_pMetadata->GetAttributeValue( _T("seconds") ), _T("%i"), &m_nLength );
+		_stscanf( pFile->m_pMetadata->GetAttributeValue( _T("bitrate") ), _T("%i"), &m_nBitrate );
+
 		m_sTitle	= pFile->m_pMetadata->GetAttributeValue( _T("title") );
 		m_sArtist	= pFile->m_pMetadata->GetAttributeValue( _T("artist") );
 		m_sAlbum	= pFile->m_pMetadata->GetAttributeValue( _T("album") );
+		m_sAlbum.Trim();
 
-		_stscanf( pFile->m_pMetadata->GetAttributeValue( _T("seconds") ), _T("%i"), &m_nLength );
-		_stscanf( pFile->m_pMetadata->GetAttributeValue( _T("bitrate") ), _T("%i"), &m_nBitrate );
-	}
-
-	int nDash = pFile->m_sName.Find( '-' );
-
-	if ( nDash > 0 )
-	{
-		if ( m_sArtist.IsEmpty() ) m_sArtist = pFile->m_sName.Left( nDash );
-		nDash = pFile->m_sName.ReverseFind( '-' );
-		if ( m_sTitle.IsEmpty() )
+		if ( m_sArtist.IsEmpty() || m_sTitle.IsEmpty() )
 		{
-			m_sTitle = pFile->m_sName.Mid( nDash + 1 );
-			nDash = m_sTitle.ReverseFind( '.' );
-			if ( nDash >= 0 ) m_sTitle = m_sTitle.Left( nDash );
+			int nDash = pFile->m_sName.Find( '-' );
+			if ( nDash > 0 )
+			{
+				if ( m_sArtist.IsEmpty() )
+					m_sArtist = pFile->m_sName.Left( nDash );
+				if ( m_sTitle.IsEmpty() )
+				{
+					nDash = pFile->m_sName.ReverseFind( '-' );
+					m_sTitle = pFile->m_sName.Mid( nDash + 1 );
+					nDash = m_sTitle.ReverseFind( '.' );
+					if ( nDash >= 0 ) m_sTitle = m_sTitle.Left( nDash );
+				}
+			}
+			else if ( m_sTitle.IsEmpty() )
+			{
+				m_sTitle = pFile->m_sName;
+				nDash = m_sTitle.ReverseFind( '.' );
+				if ( nDash >= 0 ) m_sTitle = m_sTitle.Left( nDash );
+			}
 		}
 	}
-	else if ( m_sTitle.IsEmpty() )
+	else if ( pFile->m_pMetadata ) // Non-music file
 	{
-		m_sTitle = pFile->m_sName;
-		nDash = m_sTitle.ReverseFind( '.' );
-		if ( nDash >= 0 ) m_sTitle = m_sTitle.Left( nDash );
+		m_sArtist	= pFile->m_pMetadata->GetAttributeValue( _T("artist") );
+		if ( m_sArtist.IsEmpty() )
+		{
+			m_sArtist = pFile->m_pMetadata->GetAttributeValue( _T("author") );
+			if ( m_sArtist.IsEmpty() )
+				m_sArtist = pFile->m_pMetadata->GetAttributeValue( _T("releasegroup") );
+		}
+		m_sTitle	= pFile->m_pMetadata->GetAttributeValue( _T("title") );
+		if ( m_sTitle.IsEmpty() )
+		{
+			m_sTitle = pFile->m_sName;
+			m_sTitle = m_sTitle.Left( m_sTitle.ReverseFind( '.' ) );
+			m_sTitle.Replace( '_', ' ' );
+			if ( ! m_sArtist.IsEmpty() )
+				m_sTitle.Replace( m_sArtist, _T("") );
+		}
+		m_sLength	= pFile->m_pMetadata->GetAttributeValue( _T("minutes") );  // Video
+		if ( ! m_sLength.IsEmpty() )
+		{
+			int nSplit = m_sLength.Find( '.' );
+			float fSeconds = 0.000;
+
+			if ( nSplit >= 0 && nSplit < m_sLength.GetLength() )
+				swscanf_s( m_sLength.Mid( nSplit ), _T("%f"), &fSeconds );
+
+			m_sLength.Format( _T("%s:%02i"), m_sLength.Left( nSplit ), (int)(fSeconds * 60) );
+		}
+		else
+		{
+			CString strSize = pFile->m_pMetadata->GetAttributeValue( _T("width") );  // Image
+			if ( ! strSize.IsEmpty() )
+			{
+				m_sLength.Format( _T("%s x %s"), strSize, pFile->m_pMetadata->GetAttributeValue( _T("height") ) );
+			}
+			else
+			{
+				if ( m_sTitle.Left( 6 ) == _T("eBook ") || m_sTitle.Left( 6 ) == _T("ebook ") )
+					m_sTitle = m_sTitle.Mid( ( m_sTitle.GetAt( 6 ) == '-' ) ? 7 : 6 );
+
+				strSize = pFile->m_pMetadata->GetAttributeValue( _T("pages") );  // Document
+				if ( ! strSize.IsEmpty() )
+				{
+					m_sLength = strSize + _T("p");
+				}
+				else
+				{
+					strSize = pFile->m_pMetadata->GetAttributeValue( _T("filecount") );  // Archive
+					if ( ! strSize.IsEmpty() )
+					{
+						m_sLength.Format( _T("%s"), strSize );
+					}
+					else
+					{
+						strSize = pFile->m_pMetadata->GetAttributeValue( _T("files") );  // Archive legacy
+						if ( ! strSize.IsEmpty() )
+						{
+							int nCount = 1;
+							for( int nIndex = 4 ; nIndex < strSize.GetLength() ; nIndex++ )
+							{
+								if ( strSize[ nIndex ] == ',' )
+								{
+									nCount++;
+									nIndex += 4;
+								}
+							}
+							m_sLength.Format( _T("%i"), nCount );
+						}
+					}
+				}
+			}
+		}
 	}
 
-	m_sTitle.TrimLeft();
-	m_sTitle.TrimRight();
-	m_sArtist.TrimLeft();
-	m_sArtist.TrimRight();
-	m_sAlbum.TrimLeft();
-	m_sAlbum.TrimRight();
+	m_sTitle.Trim();
+	m_sArtist.Trim();
 
 	if ( m_nTrack > 0 )
 		m_sTrack.Format( _T("%i"), m_nTrack );
 
-	if ( m_nLength > 0 )
-		m_sLength.Format( _T("%i:%.2i"), m_nLength / 60, m_nLength % 60 );
-
 	if ( m_nBitrate > 0 )
 		m_sBitrate.Format( _T("%ik"), m_nBitrate );
+
+	if ( m_nLength > 0 )
+		m_sLength.Format( _T("%i:%.2i"), m_nLength / 60, m_nLength % 60 );
 
 	return TRUE;
 }
@@ -1082,37 +1162,40 @@ BOOL CLibraryAlbumTrack::Update(CLibraryFile* pFile)
 
 void CLibraryAlbumTrack::Paint(CLibraryAlbumView* pView, CDC* pDC, const CRect& rcTrack, int nCount)
 {
-	COLORREF crBack1 = CLibraryAlbumView::m_crRows[ nCount & 1 ];
-	COLORREF crBack2 = m_bSelected ? Colors.m_crHighlight : crBack1;
+	COLORREF crBack = m_bSelected ? Colors.m_crHighlight : CLibraryAlbumView::m_crRows[ nCount & 1 ];
 
-	CRect rcLine( &rcTrack );
-	rcLine.DeflateRect( 1, 1 );
-	rcLine.left ++; rcLine.right --;
-
-	CRect rcTemp( rcLine.left, rcLine.top, rcLine.left + 22, rcLine.bottom );
-	rcLine.left += 22;
-
-	pDC->SetBkColor( crBack1 );
-	if ( nCount >= 0 ) PaintText( pDC, rcTemp, 0, 100, NULL );
-	if ( m_bSelected ) pDC->SetBkColor( crBack2 );
-
-	ShellIcons.Draw( pDC, m_nShell, 16, rcTemp.left + 3,
-		( rcTemp.top + rcTemp.bottom ) / 2 - 8, CLR_NONE, m_bSelected );
-
+	pDC->SetBkColor( crBack );
 	pDC->SetTextColor( m_bSelected ? Colors.m_crHiText : Colors.m_crText );
 
-	rcTemp.SetRect( rcLine.right - 78, rcLine.top, rcLine.right, rcLine.bottom );
-	rcLine.right -= 78;
+	CRect rcLine( &rcTrack );
+	rcLine.DeflateRect( 2, 1 );
 
-	CPoint ptStar( rcTemp.left + 3, ( rcTemp.top + rcTemp.bottom ) / 2 - 6 );
-	PaintText( pDC, rcTemp, 0, 100, NULL );
+	// Icon Box
+
+	CRect rcTemp( rcLine.left, rcLine.top, rcLine.left + ICON_WIDTH, rcLine.bottom );
+	rcLine.left += ICON_WIDTH;
+
+	if ( nCount >= 0 )
+		PaintText( pDC, rcTemp, 0, 100, NULL );
+
+	ShellIcons.Draw( pDC, m_nShell, 16, rcTemp.left + 4,
+		( rcTemp.top + rcTemp.bottom ) / 2 - 8, CLR_NONE, m_bSelected );
+
+	// Rating Stars Box
+
+	rcTemp.SetRect( rcLine.right - RATING_WIDTH, rcLine.top, rcLine.right, rcLine.bottom );
+	rcLine.right -= RATING_WIDTH;
+
+	CPoint ptStar( rcTemp.left + 4, ( rcTemp.top + rcTemp.bottom ) / 2 - 6 );
+	PaintText( pDC, rcTemp, 0, 100, NULL, TRUE );
 
 	if ( pView->m_pRating == this && m_nSetRating < 7 )
 	{
 		for ( int nRating = 2 ; nRating <= 6 ; nRating++ )
 		{
 			ImageList_DrawEx( pView->m_pStars, m_nSetRating >= nRating ? 2 : 1,
-				*pDC, ptStar.x, ptStar.y, 12, 12, crBack2, crBack2,
+				*pDC, ptStar.x, ptStar.y, 12, 12,
+				m_bSelected ? CLR_NONE : crBack, crBack,
 				m_nSetRating >= nRating ? ILD_NORMAL : ILD_BLEND50 );
 			ptStar.x += 12;
 		}
@@ -1122,23 +1205,29 @@ void CLibraryAlbumTrack::Paint(CLibraryAlbumView* pView, CDC* pDC, const CRect& 
 		for ( int nRating = 2 ; nRating <= 6 ; nRating++ )
 		{
 			ImageList_DrawEx( pView->m_pStars, m_nRating >= nRating ? 0 : 1,
-				*pDC, ptStar.x, ptStar.y, 12, 12, crBack2, crBack2,
+				*pDC, ptStar.x, ptStar.y, 12, 12,
+				m_bSelected ? CLR_NONE : crBack, crBack,
 				m_nRating >= nRating ? ILD_NORMAL : ILD_BLEND50 );
 			ptStar.x += 12;
 		}
 	}
 
+	ptStar.x++;	// Comment icon gap
+
 	if ( pView->m_pRating == this && m_nSetRating == 7 )
 	{
 		ImageList_DrawEx( pView->m_pStars, 5,
-			*pDC, ptStar.x, ptStar.y, 12, 12, crBack2, crBack2, ILD_NORMAL );
+			*pDC, ptStar.x, ptStar.y, 12, 12, CLR_NONE, crBack, ILD_NORMAL );
 	}
 	else
 	{
 		ImageList_DrawEx( pView->m_pStars, m_bComments ? 3 : 4,
-			*pDC, ptStar.x, ptStar.y, 12, 12, crBack2, crBack2,
+			*pDC, ptStar.x, ptStar.y, 12, 12,
+			m_bSelected ? CLR_NONE : crBack, crBack,
 			m_bComments ? ILD_NORMAL : ILD_BLEND50 );
 	}
+
+	// Metadata Boxes  (Available space %)
 
 	if ( pView->m_pStyle == CSchema::uriMusicAlbum )
 	{
@@ -1156,7 +1245,7 @@ void CLibraryAlbumTrack::Paint(CLibraryAlbumView* pView, CDC* pDC, const CRect& 
 		PaintText( pDC, rcLine, 84, 92, &m_sLength, TRUE );
 		PaintText( pDC, rcLine, 92, 100, &m_sBitrate, TRUE );
 	}
-	else
+	else if ( pView->m_pStyle == CSchema::uriMusicAll ) // Genre
 	{
 		// Artist, Album, Title, Length, Bitrate
 		PaintText( pDC, rcLine, 0, 25, &m_sArtist );
@@ -1165,18 +1254,28 @@ void CLibraryAlbumTrack::Paint(CLibraryAlbumView* pView, CDC* pDC, const CRect& 
 		PaintText( pDC, rcLine, 84, 92, &m_sLength, TRUE );
 		PaintText( pDC, rcLine, 92, 100, &m_sBitrate, TRUE );
 	}
+	else // Non-music
+	{
+		// Title, Artist, Length
+		PaintText( pDC, rcLine,  0, 66, &m_sTitle );
+		PaintText( pDC, rcLine, 66, 88, &m_sArtist );
+		PaintText( pDC, rcLine, 88, 100, &m_sLength, TRUE );
+	}
 }
 
 void CLibraryAlbumTrack::PaintText(CDC* pDC, const CRect& rcTrack, int nFrom, int nTo, const CString* pstr, BOOL bCenter)
 {
-	CRect rcText;
+	CRect rcText( rcTrack );
+	rcText.left  = rcTrack.left + rcTrack.Width() * nFrom / 100 + 1;
+	rcText.right = rcTrack.left + rcTrack.Width() * nTo / 100 - 1;
 
-	rcText.left		= rcTrack.left + rcTrack.Width() * nFrom / 100 + 1;
-	rcText.right	= rcTrack.left + rcTrack.Width() * nTo / 100 - 1;
-	rcText.top		= rcTrack.top;
-	rcText.bottom	= rcTrack.bottom;
-
-	COLORREF crOld = pDC->GetPixel( rcText.left, rcText.top );
+	//COLORREF crOld = pDC->GetPixel( rcText.left, rcText.top );
+	BOOL bSelectmark = pDC->GetBkColor() == Colors.m_crHighlight && Skin.m_bmSelected.m_hObject != NULL;
+	if ( bSelectmark)
+	{
+		CoolInterface.DrawWatermark( pDC, &rcText, &Skin.m_bmSelected, FALSE ); 	// No overdraw
+		pDC->SetBkMode( TRANSPARENT );
+	}
 
 	if ( pstr != NULL )
 	{
@@ -1199,13 +1298,13 @@ void CLibraryAlbumTrack::PaintText(CDC* pDC, const CRect& rcTrack, int nFrom, in
 
 				pDC->ExtTextOut( bCenter ? ( ( rcText.left + rcText.right ) / 2 - szText.cx / 2 ) : ( rcText.left + 4 ),
 					( rcText.top + rcText.bottom ) / 2 - szText.cy / 2 - 1,
-					ETO_CLIPPED|ETO_OPAQUE, &rcText, str, NULL );
+					ETO_CLIPPED|( bSelectmark ? 0 : ETO_OPAQUE ), &rcText, str, NULL );
 			}
 			else
 			{
 				pDC->ExtTextOut( bCenter ? ( ( rcText.left + rcText.right ) / 2 - szText.cx / 2 ) : ( rcText.left + 4 ),
 					( rcText.top + rcText.bottom ) / 2 - szText.cy / 2 - 1,
-					ETO_CLIPPED|ETO_OPAQUE, &rcText, *pstr, nText, NULL );
+					ETO_CLIPPED|( bSelectmark ? 0 : ETO_OPAQUE ), &rcText, *pstr, nText, NULL );
 			}
 		}
 		else
@@ -1214,18 +1313,18 @@ void CLibraryAlbumTrack::PaintText(CDC* pDC, const CRect& rcTrack, int nFrom, in
 
 			pDC->ExtTextOut( ( rcText.left + 4 ),
 				( rcText.top + rcText.bottom ) / 2 - szText.cy / 2 - 1,
-				ETO_CLIPPED|ETO_OPAQUE, &rcText, _T("?"), 1, NULL );
+				ETO_CLIPPED|( bSelectmark ? 0 : ETO_OPAQUE ), &rcText, _T("?"), 1, NULL );
 		}
 	}
 	else
 	{
-		pDC->ExtTextOut( rcText.left, rcText.top, ETO_OPAQUE, &rcText, NULL, 0, NULL );
+		pDC->ExtTextOut( rcText.left, rcText.top, ( bSelectmark ? 0 : ETO_OPAQUE ), &rcText, NULL, 0, NULL );
 	}
 
-	pDC->SetPixel( rcText.left, rcText.top, crOld );
-	pDC->SetPixel( rcText.right - 1, rcText.top, crOld );
-	pDC->SetPixel( rcText.left, rcText.bottom - 1, crOld );
-	pDC->SetPixel( rcText.right - 1, rcText.bottom - 1, crOld );
+	pDC->SetPixel( rcText.left, rcText.top, Colors.m_crWindow );
+	pDC->SetPixel( rcText.right - 1, rcText.top, Colors.m_crWindow );
+	pDC->SetPixel( rcText.left, rcText.bottom - 1, Colors.m_crWindow );
+	pDC->SetPixel( rcText.right - 1, rcText.bottom - 1, Colors.m_crWindow );
 }
 
 void CLibraryAlbumTrack::PaintText(CDC* pDC, const CRect& rcTrack, int nFrom, int nTo, int nID, BOOL bCenter)

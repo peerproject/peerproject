@@ -6,9 +6,9 @@
 //
 // This code may be treated as Public Domain, provided:
 // the work in all its forms and attendant uses shall remain available as
-// persistently "Public Domain" until it naturally enters the public domain.
+// persistently "Public Domain" until such time it naturally enters the public domain.
 // History remains immutable:  Authors do not disclaim copyright, but do disclaim
-// all rights beyond asserting the reach and duration and spirit of this license.
+// all conferred rights beyond asserting the reach and duration and spirit of this license.
 
 // This file contains the CTextViewerPlugin class, which is the "plugin object".
 // It is created by PeerProject when the plugin is loaded or enabled by the user,
@@ -140,7 +140,7 @@ HRESULT STDMETHODCALLTYPE CTextViewerPlugin::OnExecute(BSTR sFilePath)
 	if ( lstrcmpi( pszFileType, _T(".pdf") ) == 0 ) return S_FALSE;
 	if ( lstrcmpi( pszFileType, _T(".xps") ) == 0 ) return S_FALSE;
 
-	// Assuming now that it is not a video file.  The next (and primary) step is to
+	// Assuming now that it is not an unsupported file.  The next (and primary) step is to
 	// check if there is an ImageService plugin available for this file type.
 	// This is done by checking a registry key:
 
@@ -186,108 +186,115 @@ HRESULT STDMETHODCALLTYPE CTextViewerPlugin::OnEnqueue(BSTR /*sFilePath*/)
 
 /////////////////////////////////////////////////////////////////////////////
 // CTextViewerPlugin ICommandPlugin implementation
+//
+// Custom Interface Command IDs
+
+//	RegisterCommands
+//
+// The RegisterCommands() method is invoked when the UI manager is building its list of available commands.
+// PeerProject uses a unified command architecture in which every command in the UI is assigned
+// a friendly name and an ID number.  PeerProject has already registered its internal commands,
+// and is now providing an opportunity for plugins to register their own.
+// The unique name is assigned by you, and PeerProject will provide you with the command ID number.
+//
+// Plugin-Command ID numbers are not fixed, so they should be stored in a variable for later use!
+// By convention name commands with PluginID, underscore, plugin name, another underscore,
+// followed by command name.  No spaces or special characters (normal C++ identifier rules apply).
+//
+// Note that this method may be called more than once in the lifetime of the plugin (at any skin/plugin load),
+// in which case you must re-register your commands and receive new command IDs.
+//
+// The second argument, although NULL here, can optionally provide a 16x16 icon handle:
+// LoadIcon( _AtlBaseModule.GetResourceInstance(), MAKEINTRESOURCE( IDI_ICON ) )	-but also skinned normally.
 
 HRESULT STDMETHODCALLTYPE CTextViewerPlugin::RegisterCommands()
 {
-	// The RegisterCommands() method is invoked when the user interface manager is building its list
-	// of available commands.  PeerProject uses a unified command architecture in which every command in
-	// the UI is assigned a friendly name and an ID number.  PeerProject has already registered its
-	// internal commands, and is now providing an opportunity for plugins to register their own.
-
-	// The friendly name is assigned by you, and PeerProject will provide you with a command ID number.
-	// Command ID numbers are not fixed, so they should be stored in a variable for later use!
-
-	// By convention, name commands with the name of the plugin, followed by an underscore,
-	// followed by your command name.  There should be no spaces (normal C++ identifier rules apply).
-
-	// Note that this method may be called more than once in the lifetime of the plugin,
-	// in which case you must re-register your commands and receive new command IDs.
-	// This will happen when other skins and plugins are loaded or unloaded.
-
-	// (The second argument, although NULL here, can optionally provide a 16x16 icon handle,
-	// but that is not the neatest way of doing it)
-
-	m_pInterface->RegisterCommand( L"TextViewer_SystemFont", NULL, &m_nCmdSystemFont );
-	m_pInterface->RegisterCommand( L"TextViewer_MonoFont", NULL, &m_nCmdMonoFont );
-	m_pInterface->RegisterCommand( L"TextViewer_Wrap", NULL, &m_nCmdWrap );
-	m_pInterface->RegisterCommand( L"TextViewer_Close", NULL, &m_nCmdClose );
+	m_pInterface->RegisterCommand( L"PluginID_TextViewer_SystemFont", NULL, &m_nCmdSystemFont );
+	m_pInterface->RegisterCommand( L"PluginID_TextViewer_MonoFont", NULL, &m_nCmdMonoFont );
+	m_pInterface->RegisterCommand( L"PluginID_TextViewer_Wrap", NULL, &m_nCmdWrap );
+	m_pInterface->RegisterCommand( L"PluginID_TextViewer_Close", NULL, &m_nCmdClose );
 
 	return S_OK;
 }
+
+//	InsertCommands
+//
+// The InsertCommands() method is invoked when the user interface manager is building the
+// user interface objects such as context menus, toolbars, etc.  At this point
+// it has created its internal objects, and parsed all applicable skin files to create their objects.
+//
+// The plugin should use this opportunity to either create its own user interface objects,
+// and/or modify existing objects to add new commands, etc.
+// Most of this work is achieved through the IUserInterface interface.
+//
+// Via IUserInterface you can access or create menus and toolbars by name (eg "CMainWnd.Tabbed"),
+// and then view their content, adding, modifying or deleting commands as desired.
+//
+// If you are not modifying existing user interface objects, but rather creating your own
+// (as in the case of this text viewer), it is a lot easier to actually use the XML skin file system.
+// This is a lot better than having to do it all here programatically.
+// The IUserInterface interface provides three methods for loading and incorporating a chunk of skin XML.
+//
+// The best choice is often to include the XML as a resource in your DLL, which is done here.
+// IUserInterface::AddFromResource allows you to load a skin XML resource directly!
+//
+// Note that the resource type should be 23 decimal.  See the Skin.xml file for further detail.
 
 HRESULT STDMETHODCALLTYPE CTextViewerPlugin::InsertCommands()
 {
-	// The InsertCommands() method is invoked when the user interface manager is building the user
-	// interface objects such as menus, toolbars, etc.  At this point it has created its internal objects,
-	// and parsed all of the applicable skin files to create their objects.
-
-	// The plugin should use this opportunity to either create its own user interface objects,
-	// and/or modify existing objects to add new commands, etc.  Most of this work is achieved
-	// through the IUserInterface interface.
-
-	// Via IUserInterface you can access or create menus and toolbars by name (eg "CMainWnd.Tabbed"),
-	// and then view their content, adding, modifying or deleting commands as desired.
-
-	// If you are not modifying existing user interface objects, but rather creating your own
-	// (as in the case of this image viewer), it is a lot easier to actually use the XML skin file system.
-	// This is a lot better than having to do it all here programatically.  The
-	// IUserInterface interface provides three methods for loading and incorporating a chunk of skin XML.
-
-	// The best choice is often to include the XML as a resource in your DLL, which is done here.
-	// IUserInterface::AddFromResource allows you to load a skin XML resource directly!
-
 	m_pInterface->AddFromResource( _AtlBaseModule.GetResourceInstance(), IDR_SKIN );
-
-	// Note that the resource type should be 23 decimal.  See the Skin.xml file for further detail.
 
 	return S_OK;
 }
 
+//	OnUpdate Command
+//
+// The OnUpdate() method is invoked when PeerProject needs to update the state of a command in its user interface.
+// This provides an opportunity to show or hide, enable or disable, and check or uncheck user interface commands.
+// Because of unified command architecture, it doesn't matter if a command is a menu or toolbar or something else entirely.
+//
+// The nCommandID argument is the ID of the command being updated.  You should check this against
+// a list of command IDs your plugin has registered.  If you don't get a match, return S_FALSE.
+// Unless you have a really good reason, you don't want to mess with commands that you didn't
+// register (for one thing, you probably won't know what their ID number is).
+// The S_FALSE code tells PeerProject to keep looking.
+//
+// If you do find a match, you should modify pbVisible, pbEnabled and pbChecked.
+// Each is a "tri-state" enumeration, defaulting to TSUNKNOWN.
+// Set TSTRUE to activate, or TSFALSE to deactivate.  Then,
+// return S_OK to indicate that you are responsible for this command, and have updated it.
+//
+// You must check whether pbVisible, pbEnabled and pbChecked are NULL before reading or writing to them,
+// as one or more of them may be NULL if it is not required.
+//
+// Here we are not interested in updating any commands, so we return S_FALSE.
+
 HRESULT STDMETHODCALLTYPE CTextViewerPlugin::OnUpdate(UINT /*nCommandID*/, TRISTATE __RPC_FAR* /*pbVisible*/, TRISTATE __RPC_FAR* /*pbEnabled*/, TRISTATE __RPC_FAR* /*pbChecked*/)
 {
-	// The OnUpdate() method is invoked when PeerProject needs to update the state of a command in its user interface.
-	// This provides an opportunity to show or hide, enable or disable, and check or uncheck user interface commands.
-	// Because of the unified command architecture, it does not matter
-	// if the command is in a menu or a toolbar or something else entirely.
-
-	// The nCommandID argument is the ID of the command being updated.  You should check this against
-	// a list of command IDs your plugin has registered.  If you don't get a match, return S_FALSE.
-	// Unless you have a really good reason, you don't want to mess with commands that you didn't
-	// register (for one thing, you probably won't know what their ID number is).
-	// The S_FALSE code tells PeerProject to keep looking.
-
-	// If you do find a match, you should modify pbVisible, pbEnabled and pbChecked.
-	// Each is a "tri-state" enumeration, defaulting to TSUNKNOWN.
-	// Set TSTRUE to activate, or TSFALSE to deactivate.  Then,
-	// return S_OK to indicate that you are responsible for this command, and have updated it.
-
-	// You must check whether pbVisible, pbEnabled and pbChecked are NULL before reading or writing to them,
-	// as one or more of them may be NULL if it is not required.
-
-	// Here we are not interested in updating any commands, so we return S_FALSE.
-
 	return S_FALSE;
 }
 
+//	OnCommand
+//
+// The OnCommand() method is invoked whenever the user invokes a command.
+// This applies to ANY command in the unified architecture, which could be a built-in command,
+// a command you registered, or a command registered by another plugin.
+//
+// Return S_OK if you are handling the command, or S_FALSE if PeerProject should keep looking.
+// Failure codes (E_*) will also cause PeerProject to stop looking for a handler.
+//
+// Typically you would check the nCommandID argument against a list of command IDs you have registered,
+// and only return S_OK if you get a match.
+// If the command is not currently available, return E_UNEXPECTED.
+//
+// However, for a good cause, you could also check for internal commands from the base PeerProject UI,
+// (those which did not come from plugins).  These have fixed command IDs, so they can be safely detected.
+// If you return S_OK for one of these, PeerProject won't take its default action.
+//
+// Here we are not interested in handling any commands, so we return S_FALSE.
+
 HRESULT STDMETHODCALLTYPE CTextViewerPlugin::OnCommand(UINT /*nCommandID*/)
 {
-	// The OnCommand() method is invoked whenever the user invokes a command.
-	// This applies to ANY command in the unified architecture, which could be a built-in command,
-	// a command you registered, or a command registered by another plugin.
-
-	// Return S_OK if you are handling the command, or S_FALSE if PeerProject should keep looking.
-	// Failure codes (E_*) will also cause PeerProject to stop looking for a handler.
-
-	// Typically you would check the nCommandID argument against a list of command IDs you have registered,
-	// and only return S_OK if you get a match.
-	// If the command is not currently available, return E_UNEXPECTED.
-
-	// However, for a good cause, you could also check for internal commands from the base PeerProject UI,
-	// (those which did not come from plugins).  These have fixed command IDs, so they can be safely detected.
-	// If you return S_OK for one of these, PeerProject won't take its default action.
-
-	// Here we are not interested in handling any commands, so we return S_FALSE.
-
 	return S_FALSE;
 }
 

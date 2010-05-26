@@ -75,12 +75,8 @@ CEDNeighbour* CNeighboursWithED2K::GetDonkeyServer() const // Here, const means 
 		if ( pNeighbour->m_nProtocol == PROTOCOL_ED2K )
 		{
 			// And, we've finished the handshake with it, and it has a client ID
-			if ( pNeighbour->m_nState == nrsConnected &&
-				 pNeighbour->m_nClientID != 0 )
-			{
-				// Return a pointer to it
-				return pNeighbour;
-			}
+			if ( pNeighbour->m_nState == nrsConnected && pNeighbour->m_nClientID != 0 )
+				return pNeighbour;	// Return a pointer to it
 		}
 	}
 
@@ -135,7 +131,7 @@ void CNeighboursWithED2K::SendDonkeyDownload(CDownload* pDownload)
 // Takes a client ID (do), the IP address of an eDonkey2000 computer we're connected to, nServerPort unused (do)
 // Finds the computer we're connected to with that IP address, and sends it a call back request with the client ID
 // Returns true if we sent the packet, false if we couldn't find the computer
-BOOL CNeighboursWithED2K::PushDonkey(DWORD nClientID, IN_ADDR* pServerAddress, WORD) // Was named nServerPort (do)
+BOOL CNeighboursWithED2K::PushDonkey(DWORD nClientID, const IN_ADDR& pServerAddress, WORD) // Was named nServerPort (do)
 {
 	CSingleLock oNetworkLock( &Network.m_pSection );
 	if ( ! oNetworkLock.Lock( 300 ) )
@@ -189,8 +185,10 @@ BOOL CNeighboursWithED2K::FindDonkeySources(const Hashes::Ed2kHash& oED2K, IN_AD
 	DWORD tNow = GetTickCount();
 
 	// Make sure nHash is between 0 and 255
-	if ( nHash < 0 ) nHash = 0;
-	else if ( nHash > 255 ) nHash = 255;
+	if ( nHash < 0 )
+		nHash = 0;
+	else if ( nHash > 255 )
+		nHash = 255;
 
 	// Lookup the MD4 hash at nHash in the m_pEDSources array of them, if it's equal to the given hash
 	if ( validAndEqual( m_oEDSources[ nHash ], oED2K ) )

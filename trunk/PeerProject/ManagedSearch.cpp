@@ -113,12 +113,12 @@ void CManagedSearch::Serialize(CArchive& ar)
 		// Auto-start search ability turned off
 		m_bActive = m_bReceive = FALSE;
 
-		if ( nVersion > 2 )
-		{
+		//if ( nVersion > 2 )
+		//{
 			ar >> m_bAllowG2;
 			ar >> m_bAllowG1;
 			ar >> m_bAllowED2K;
-		}
+		//}
 	}
 }
 
@@ -312,9 +312,10 @@ BOOL CManagedSearch::ExecuteNeighbours(const DWORD tTicks, const DWORD tSecs)
 						continue;	// Maximum hits reached
 					nTTL++;
 				}
-				else
-					// It's first step
+				else	// It's the first step
+				{
 					nTTL = 1;
+				}
 			}
 			else
 			{
@@ -394,7 +395,7 @@ BOOL CManagedSearch::ExecuteG2Mesh(const DWORD /*tTicks*/, const DWORD tSecs)
 		ASSERT( pHost->m_nProtocol == PROTOCOL_G2 );
 
 		// If this host is a neighbour, don't UDP to it
-		if ( Neighbours.Get( &pHost->m_pAddress ) )
+		if ( Neighbours.Get( pHost->m_pAddress ) )
 			continue;
 
 		// If this host can't be queried now, don't query it
@@ -409,7 +410,7 @@ BOOL CManagedSearch::ExecuteG2Mesh(const DWORD /*tTicks*/, const DWORD tSecs)
 		{
 			// We already know we don't have a key... pretty simple
 		}
-		else if ( !Network.IsFirewalled(CHECK_UDP) )
+		else if ( ! Network.IsFirewalled(CHECK_UDP) )
 		{
 			// If we are "stable", we have to TX/RX our own UDP traffic,
 			// so we must have a query key for the local addess
@@ -422,7 +423,7 @@ BOOL CManagedSearch::ExecuteG2Mesh(const DWORD /*tTicks*/, const DWORD tSecs)
 		{
 			// Make sure we have a query key via one of our neighbours,
 			// and ensure we have queried this neighbour
-			if ( CNeighbour* pNeighbour = Neighbours.Get( (IN_ADDR*)&pHost->m_nKeyHost ) )
+			if ( CNeighbour* pNeighbour = Neighbours.Get( *(IN_ADDR*)&pHost->m_nKeyHost ) )
 			{
 				DWORD nTemp;
 				if ( m_pNodes.Lookup( pHost->m_nKeyHost, nTemp ) )
@@ -443,7 +444,6 @@ BOOL CManagedSearch::ExecuteG2Mesh(const DWORD /*tTicks*/, const DWORD tSecs)
 			ASSERT( pReceiver != NULL );
 
 			// Lookup the host
-
 			if ( m_pNodes.Lookup( pHost->m_pAddress.s_addr, tLastQuery ) )
 			{
 				// Check per-hub re-query time
@@ -605,7 +605,7 @@ BOOL CManagedSearch::ExecuteDonkeyMesh(const DWORD /*tTicks*/, const DWORD tSecs
 		ASSERT( pHost->m_nProtocol == PROTOCOL_ED2K );
 
 		// If this host is a neighbour, don't UDP to it
-		if ( Neighbours.Get( &pHost->m_pAddress ) )
+		if ( Neighbours.Get( pHost->m_pAddress ) )
 			continue;
 
 		// Make sure this host can be queried (now)

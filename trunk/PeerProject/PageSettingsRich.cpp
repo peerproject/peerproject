@@ -107,12 +107,12 @@ void CRichSettingsPage::OnSkinChange()
 
 void CRichSettingsPage::OnClickView(NMHDR* pNotify, LRESULT* /*pResult*/)
 {
-	CRichElement* pElement = ((RVN_ELEMENTEVENT*) pNotify )->pElement;
+	CRichElement* pElement = ( (RVN_ELEMENTEVENT*)pNotify )->pElement;
 	if ( ! pElement ) return;
 
-	if ( _tcsncmp( pElement->m_sLink, _T("peer:page:"), 10 ) == 0 )
+	if ( _tcsncmp( pElement->m_sLink, _T("page:"), 5 ) == 0 )
 	{
-		CString strPage = pElement->m_sLink.Mid( 10 );
+		CString strPage = pElement->m_sLink.Mid( 5 );
 		GetSheet()->SetActivePage( GetSheet()->GetPage( strPage ) );
 	}
 }

@@ -124,10 +124,32 @@ protected:
 	BOOL		LoadWindowSkins(CXMLElement* pSub, const CString& strPath);
 	CList< CSkinWindow* > m_pSkins;
 
-// Color Scheme / Watermarks
+// Watermarks + Color Scheme
 public:
 	CBitmap		m_bmPanelMark;
 	CBitmap		m_bmSelected;
+	CBitmap		m_bmProgress;
+	CBitmap		m_bmProgressNone;
+	CBitmap		m_bmProgressShaded;
+	CBitmap		m_bmToolTip;
+
+	CBitmap		m_bmRichButton;
+	CBitmap		m_bmRichButtonPart;
+	CBitmap		m_bmRichButtonFocus;
+	CBitmap		m_bmRichButtonFocusPart;
+	CBitmap		m_bmRichButtonHover;
+	CBitmap		m_bmRichButtonHoverPart;
+	CBitmap		m_bmRichButtonPress;
+	CBitmap		m_bmRichButtonPressPart;
+	CBitmap		m_bmRichButtonDisabled;
+	CBitmap		m_bmRichButtonDisabledPart;
+
+	CBitmap		m_bmIconButton;
+	CBitmap		m_bmIconButtonFocus;
+	CBitmap		m_bmIconButtonHover;
+	CBitmap		m_bmIconButtonPress;
+	CBitmap		m_bmIconButtonDisabled;
+
 protected:
 	BOOL		LoadColorScheme(CXMLElement* pBase);
 

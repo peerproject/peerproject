@@ -124,9 +124,8 @@ STDMETHODIMP CPlugin::RegisterCommands()
 	if ( ! m_pUserInterface )
 		return E_UNEXPECTED;
 
-	HRESULT hr = m_pUserInterface->RegisterCommand( CComBSTR( L"VirusTotalPlugin_Check" ),
-		LoadIcon( _AtlBaseModule.GetResourceInstance(), MAKEINTRESOURCE( IDI_ICON ) ),
-		&m_nCmdCheck );
+	HRESULT hr = m_pUserInterface->RegisterCommand( CComBSTR( L"PluginID_VirusTotal_Check" ),
+		LoadIcon( _AtlBaseModule.GetResourceInstance(), MAKEINTRESOURCE( IDI_ICON ) ), &m_nCmdCheck );
 	if ( SUCCEEDED( hr ) )
 		return S_OK;
 

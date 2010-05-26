@@ -41,7 +41,6 @@ protected:
 	COLORREF			m_crBackground[4];
 	COLORREF			m_crText[5];
 	BOOL				m_bProcess;
-	UINT				m_nScrollWheelLines;	// number of lines to scroll when the mouse wheel is rotated
 	int					m_nLastClicked;			// Index of last clicked item
 
 // Operations
@@ -65,7 +64,7 @@ public:
 // Implementation
 protected:
 	//{{AFX_MSG(CTextCtrl)
-	afx_msg void OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar);
+	afx_msg void OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar = NULL);
 	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
 	afx_msg void OnPaint();
 	afx_msg void OnSize(UINT nType, int cx, int cy);

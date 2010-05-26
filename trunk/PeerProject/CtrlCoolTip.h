@@ -90,7 +90,7 @@ protected:
 #define TIP_TIMER_TEXT	400		// (Settings.Interface.RefreshRateText ?)
 #define TIP_OFFSET_X	0
 #define TIP_OFFSET_Y	24
-#define TIP_MARGIN		6
+#define TIP_MARGIN		7
 
 #define TIP_GRAPHHEIGHT	40
 #define TIP_BARHEIGHT	14

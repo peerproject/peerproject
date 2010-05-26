@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Hebrew Skin File -->
 
-<!-- Translation based on default-en.xml r54 -->
+<!-- Translation based on default-en.xml r55 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -458,12 +458,12 @@ gap i newline
 	</toolbar>
 	<!-- IMAGE VIEWER PLUGIN WINDOW -->
 	<toolbar name="ImageViewerWnd">
-		<button id="ImageViewer_BestFit" text="התאמה מיטבית"/>
-		<button id="ImageViewer_ActualSize" text="גודל מקורי"/>
+		<button id="PluginID_ImageViewer_BestFit" text="התאמה מיטבית"/>
+		<button id="PluginID_ImageViewer_FullSize" text="גודל מקורי"/>
 		<separator/>
-		<button id="ImageViewer_Refresh" text="רענן"/>
+		<button id="PluginID_ImageViewer_Refresh" text="רענן"/>
 		<rightAlign/>
-		<button id="ImageViewer_Close" text="סגור"/>
+		<button id="PluginID_ImageViewer_Close" text="סגור"/>
 	</toolbar>
 </toolbars>
 <!-- Menu Definitions -->
@@ -1649,12 +1649,12 @@ gap i newline
 	</menu>
 	<!-- PLUGIN MENUS -->
 	<menu name="ImageViewer_Context">
-		<item id="ImageViewer_ActualSize" text="גודל מקורי"/>
-		<item id="ImageViewer_BestFit" text="התאמה מיטבית"/>
+		<item id="PluginID_ImageViewer_FullSize" text="גודל מקורי"/>
+		<item id="PluginID_ImageViewer_BestFit" text="התאמה מיטבית"/>
 		<separator/>
-		<item id="ImageViewer_Refresh" text="רענן"/>
+		<item id="PluginID_ImageViewer_Refresh" text="רענן"/>
 		<separator/>
-		<item id="ImageViewer_Close" text="סגור"/>
+		<item id="PluginID_ImageViewer_Close" text="סגור"/>
 	</menu>
 	<!-- IRC WINDOW -->
 	<menu name="CIRCTabRClick">
@@ -1706,28 +1706,28 @@ gap i newline
 		<anchor id="Header" width="32" height="152"/>
 		<newline gap="0"/>
 		<group id="1">
-			<gap size="16"/><icon res="130" width="32" height="32" target="peer:command:ID_NETWORK_CONNECT"/>
+			<gap size="16"/><icon res="130" width="32" height="32" target="command:ID_NETWORK_CONNECT"/>
 			<heading align="middle">&#160; ה ת ח ב ר</heading>
 			<newline gap="8" indent="42"/>
 			<text> ברוך הבא לשרזה! &#160;</text>
 			<newline gap="8" indent="42"/>
 			<text>אתה כרגע לא מחובר לאף רשת שיתוף קבצים. &#160;</text>
-			<link target="peer:command:ID_NETWORK_CONNECT">לחץ כאן כדי להתחיל!</link>
+			<link target="command:ID_NETWORK_CONNECT">לחץ כאן כדי להתחיל!</link>
 			<newline gap="18" indent="16"/>
 		</group>
 		<group id="2">
-			<gap size="16"/><icon res="134" width="32" height="32" target="peer:command:ID_TAB_SEARCH"/>
+			<gap size="16"/><icon res="134" width="32" height="32" target="command:ID_TAB_SEARCH"/>
 			<heading align="middle">חפש  בשרזה</heading>
 			<newline gap="8" indent="42"/>
 			<anchor id="SearchBox" width="256" height="80"/>
 			<newline gap="14" indent="16"/>
-			<gap size="16"/><icon res="134" width="32" height="32" target="peer:command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
+			<gap size="16"/><icon res="134" width="32" height="32" target="command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
 			<heading align="middle">התחל &#160; הורדה</heading>
 			<newline gap="8" indent="42"/>
-			<link target="peer:command:ID_TOOLS_DOWNLOAD" format="bu">לחץ כאן כדי להתחיל </link>
+			<link target="command:ID_TOOLS_DOWNLOAD" format="bu">לחץ כאן כדי להתחיל </link>
 			<text> מוריד קובץ או טורנט.</text>
 			<newline gap="2" indent="42"/>
-			<link target="peer:shell:downloads">פתח את תקיית ההורדות שלי</link>
+			<link target="command:shell:downloads">פתח את תקיית ההורדות שלי</link>
 			<newline gap="20" indent="0"/>
 		</group>
 		<group id="3">
@@ -1736,18 +1736,18 @@ gap i newline
 			<newline gap="8" indent="42"/>
 			<text id="שדרוג"/>
 			<newline gap="6"/>
-			<link target="peer:upgrade">.לחץ כאן לשדרוג</link>
+			<link target="command:upgrade">.לחץ כאן לשדרוג</link>
 			<newline gap="18" indent="16"/>
 		</group>
 		<group id="4">
-			<icon res="252" width="32" height="32" target="peer:command:ID_TOOLS_WIZARD"/><gap size="8"/>
+			<icon res="252" width="32" height="32" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 			<heading align="middle">א ז ה ר ה &#160; - &#160; א ת ה &#160; ח ס ו ם &#160; ב ח ו מ ת  א ש</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000"> (NAT) שרזה זיהה שאתה מאחורי חומת-אש או ראוטר,
 			ואינך מצליח לקבל חיבורי UDP מהאינטרנט. &#160;</text>
 			<text color="FF0000" format="b">זה עלול לגרום לביצועי הורדה נמוכים</text>
 			<newline gap="6"/>
-			<link target="peer:command:ID_HELP_ROUTER">לחץ כאן כדי ללמוד איך להגדיר את הראוטר וחומת האש</link>
+			<link target="command:ID_HELP_ROUTER">לחץ כאן כדי ללמוד איך להגדיר את הראוטר וחומת האש</link>
 			<newline gap="18" indent="16"/>
 		</group>
 		<group id="6">
@@ -1758,7 +1758,7 @@ gap i newline
 			ואינך מצליח לקבל חיבורי UDP מהאינטרנט. &#160;</text>
 			<text color="FF0000" format="b">זה עלול לגרום לביצועי הורדה נמוכים</text>
 			<newline gap="6"/>
-			<link target="peer:command:ID_HELP_ROUTER">Click here to learn how to configure your router or firewall</link>
+			<link target="command:ID_HELP_ROUTER">Click here to learn how to configure your router or firewall</link>
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="7">
@@ -1769,30 +1769,30 @@ gap i newline
 			ואינך מצליח לקבל חיבורי UDP מהאינטרנט. &#160;</text>
 			<text color="FF0000" format="b">זה עלול לגרום לביצועי הורדה נמוכים.</text>
 			<newline gap="6"/>
-			<link target="peer:command:ID_HELP_ROUTER">לחץ כאן כדי ללמוד איך להגדיר את הראוטר וחומת האש</link>
+			<link target="command:ID_HELP_ROUTER">לחץ כאן כדי ללמוד איך להגדיר את הראוטר וחומת האש</link>
 			<newline gap="18" indent="0"/>
 		</group>
-		<icon res="128" width="32" height="32" target="peer:command:ID_TOOLS_SETTINGS"/><gap size="8"/>
+		<icon res="128" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">ה ת א מ ת &#160; ש ר ז ה&#160;&#160;&#160;</heading>
 		<newline gap="12" indent="42"/>
-		<icon res="182" width="16" height="16" target="peer:command:ID_TOOLS_SKIN"/><gap size="8"/>
-		<link target="peer:command:ID_TOOLS_SKIN" align="middle" format="bu">מעטפות</link>
+		<icon res="182" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
+		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">מעטפות</link>
 		<text align="middle">&#160;- שנה לשרזה את המראה וההרגשה</text>
 		<newline gap="8"/>
-		<icon res="141" width="16" height="16" target="peer:command:ID_VIEW_SECURITY"/><gap size="8"/>
-		<link target="peer:command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
+		<icon res="141" width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
+		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
 		<text align="middle">&#160;- Update blocklist</text>
 		<newline gap="8"/>
-		<icon res="317" width="16" height="16" target="peer:command:ID_TOOLS_WIZARD"/><gap size="8"/>
-		<link target="peer:command:ID_TOOLS_WIZARD" align="middle">אשף ההגדרות</link>
+		<icon res="317" width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
+		<link target="command:ID_TOOLS_WIZARD" align="middle">אשף ההגדרות</link>
 		<text align="middle">&#160;- ערוך את הגדרות שרזה</text>
 		<newline gap="8"/>
-		<icon res="147" width="16" height="16" target="peer:command:ID_HELP_FAQ"/><gap size="8"/>
-		<link target="peer:command:ID_HELP_FAQ" align="middle">עזרה מהירה</link>
+		<icon res="147" width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
+		<link target="command:ID_HELP_FAQ" align="middle">עזרה מהירה</link>
 		<text align="middle">&#160;- קבל עזרה בסיסית בהפעלת שרזה</text>
 		<newline gap="8"/>
-		<icon res="175" width="16" height="16" target="peer:command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
-		<link target="peer:command:ID_HELP_FORUMS_LOCAL" align="middle">מקומי פורום</link>
+		<icon res="175" width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
+		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">מקומי פורום</link>
 		<text align="middle">&#160;- עברית עבור השפה שלך לדיון בפורום</text>
 		<newline gap="18" indent="16"/>
 		<group id="5">
@@ -1818,7 +1818,7 @@ gap i newline
 			<para align="center">
 				<text format="b">לא מחובר.</text>
 				<newline gap="4"/>
-				<link target="peer:command:ID_NETWORK_CONNECT">לחץ כאן כדי להתחבר.</link>
+				<link target="command:ID_NETWORK_CONNECT">לחץ כאן כדי להתחבר.</link>
 			</para>
 		</group>
 		<icon group="20" command="ID_NETWORK_G2"/><gap group="20" size="4"/>
@@ -1865,7 +1865,7 @@ gap i newline
 				<text>לא הורדת אף קובץ חדש לאחרונה.</text>
 				<newline gap="8"/>
 			</group>
-			<link target="peer:command:ID_VIEW_LIBRARY">עבור לספריה שלי</link>
+			<link target="command:ID_VIEW_LIBRARY">עבור לספריה שלי</link>
 			<newline gap="4"/>
 			<text id="LibraryFiles" format="b">%lu</text>
 			<text>&#160;קבצים,&#160;</text>
@@ -1878,10 +1878,10 @@ gap i newline
 				<newline gap="8"/>
 			</group>
 			<group id="3">
-				<link target="peer:command:ID_LIBRARY_HASH_PRIORITY">מהיר יותר hash לחץ כאן לביצוע.</link>
+				<link target="command:ID_LIBRARY_HASH_PRIORITY">מהיר יותר hash לחץ כאן לביצוע.</link>
 			</group>
 			<group id="4">
-				<link target="peer:command:ID_LIBRARY_HASH_PRIORITY">איטי יותר hash לחץ כאן לביצוע.</link>
+				<link target="command:ID_LIBRARY_HASH_PRIORITY">איטי יותר hash לחץ כאן לביצוע.</link>
 			</group>
 		</para>
 	</document>
@@ -1896,9 +1896,9 @@ gap i newline
 				<text>אינך מוריד אף קובץ עדיין.</text>
 				<newline gap="4"/>
 			</group>
-			<link id="DownloadsNone" target="peer:command:ID_VIEW_DOWNLOADS">עבור להורדות</link>
-			<link id="DownloadsOne" target="peer:command:ID_VIEW_DOWNLOADS" format="bu">&#8234;(1) ‏‏להורדות‎ ‏עבור</link>
-			<link id="DownloadsMany" target="peer:command:ID_VIEW_DOWNLOADS" format="bu">‎‏‏‫‫‏‫‏‫‏‏‫‫‫‫‫‫‎‎&#8234;(%i) ‏להורדות‎ ‏עבור</link>
+			<link id="DownloadsNone" target="command:ID_VIEW_DOWNLOADS">עבור להורדות</link>
+			<link id="DownloadsOne" target="command:ID_VIEW_DOWNLOADS" format="bu">&#8234;(1) ‏‏להורדות‎ ‏עבור</link>
+			<link id="DownloadsMany" target="command:ID_VIEW_DOWNLOADS" format="bu">‎‏‏‫‫‏‫‏‫‏‏‫‫‫‫‫‫‎‎&#8234;(%i) ‏להורדות‎ ‏עבור</link>
 			<newline gap="4"/>
 			<text id="DownloadedNone">No files (</text>
 			<text id="DownloadedOne">1 file (</text>
@@ -1915,8 +1915,8 @@ gap i newline
 		</styles>
 		<para align="center">
 			<text id="UploadsNone" format="b">אין העלאות פעילות</text>
-			<link id="UploadsOne" target="peer:command:ID_VIEW_UPLOADS" format="bu">העלאה פעילה אחת</link>
-			<link id="UploadsMany" target="peer:command:ID_VIEW_UPLOADS" format="bu">‏&#8234;.‏פעילות‎ ‏העלאות‎ %i</link>
+			<link id="UploadsOne" target="command:ID_VIEW_UPLOADS" format="bu">העלאה פעילה אחת</link>
+			<link id="UploadsMany" target="command:ID_VIEW_UPLOADS" format="bu">‏&#8234;.‏פעילות‎ ‏העלאות‎ %i</link>
 			<newline gap="4"/>
 			<group id="1">
 				<text id="TorrentsOne">טורנט אחד מופץ כעת.</text>
@@ -1938,25 +1938,25 @@ gap i newline
 		<text format="b"> כללי: </text>
 		<text>נועד להגדרת העדפות המשתמש:</text>
 		<newline gap="16" indent="16"/>
-		<link target="peer:page:CGeneralSettingsPage" format="b">כללי:</link>
+		<link target="page:CGeneralSettingsPage" format="b">כללי:</link>
 		<text>&#160;הגדרות ממשק משתמש רגילות כמו טיפים, מדיניות מזעור, צורת הצגת מספרים, הודעות וכדומה</text>
 		<newline gap="10"/>
-		<link target="peer:page:CLibrarySettingsPage" format="b">ספריה:</link>
+		<link target="page:CLibrarySettingsPage" format="b">ספריה:</link>
 		<text>&#160;הצגת אפשרויות ניהול של קבצי הספריה ופתיחת קבצים</text>
 		<newline gap="10"/>
-		<link target="peer:page:CMediaSettingsPage" format="b">נגן המדיה:</link>
+		<link target="page:CMediaSettingsPage" format="b">נגן המדיה:</link>
 		<text>&#160;מתי ואיפה להשתמש בנגן המדיה הפנימי של שרזה</text>
 		<newline gap="10"/>
-		<link target="peer:page:CIRCSettingsPage" format="b">חדר שיחה:</link>
+		<link target="page:CIRCSettingsPage" format="b">חדר שיחה:</link>
 		<text>&#160;הגדרות הפרופיל שלך, הצ'אט והמסרים מיידים</text>
 		<newline gap="10"/>
-		<link target="peer:page:CCommunitySettingsPage" format="b">קהילה:</link>
+		<link target="page:CCommunitySettingsPage" format="b">קהילה:</link>
 		<text>&#160;הגדרות תצוגה וחיבור של חדר השיחה</text>
 		<newline gap="10"/>
-		<link target="peer:page:CRemoteSettingsPage" format="b">שליטה מרחוק:</link>
+		<link target="page:CRemoteSettingsPage" format="b">שליטה מרחוק:</link>
 		<text>&#160;קביעת אפשרות ליכולת שליטה בשרזה מרחוק על ידי הדפדפן</text>
 		<newline gap="10"/>
-		<link target="peer:page:CWebSettingsPage" format="b">האינטרנט:</link>
+		<link target="page:CWebSettingsPage" format="b">האינטרנט:</link>
 		<text>&#160;מזג את שרזה עם הדפדפן לקבלת לינקים ותוכן להורדה בתקשורת ישירה בין משתמשים</text>
 	</document>
 	<document name="CInternetSettingsGroup" title="אינטרנט" leftMargin="8" topMargin="8">
@@ -1968,16 +1968,16 @@ gap i newline
 		<text format="b"> אינטרנט: </text>
 		<text>חלק זה מגדיר את האופן שבה	שרזה מתקשרת עם נקודות אחרות ברשתות שיתוף:</text>
 		<newline gap="16" indent="16"/>
-		<link target="peer:page:CConnectionSettingsPage" format="b">חיבור:</link>
+		<link target="page:CConnectionSettingsPage" format="b">חיבור:</link>
 		<text>&#160;המהירות והיכולות של חיבור האינטרנט שלך</text>
 		<newline gap="10"/>
-		<link target="peer:page:CDownloadsSettingsPage" format="b">הורדות:</link>
+		<link target="page:CDownloadsSettingsPage" format="b">הורדות:</link>
 		<text>&#160;הגדרות הורדה לגבי התפוקה, התזמונים, האימותים, זמן המתנה לתגובה וניהול כללי</text>
 		<newline gap="10"/>
-		<link target="peer:page:CUploadsSettingsPage" format="b">העלאות:</link>
+		<link target="page:CUploadsSettingsPage" format="b">העלאות:</link>
 		<text>&#160;הגדרות העלאה לגבי יכולות אכסון, תורות, חסימות, זמני המתנה לתגובה, ובקשות מיוחדות</text>
 		<newline gap="10"/>
-		<link target="peer:page:CSchedulerSettingsPage" format="b">תזמונים:</link>
+		<link target="page:CSchedulerSettingsPage" format="b">תזמונים:</link>
 		<text>&#160;הגבלת ההורדות בהתאם ללוח זמנים</text>
 	</document>
 	<!-- Browse User Profile -->
@@ -2058,15 +2058,15 @@ gap i newline
 		<newline gap="40" indent="0"/>
 		<text format="b">קבצים משותפים:</text>
 		<newline gap="4" indent="8"/>
-		<icon res="137" target="peer:command:ID_BROWSE_FILES"/><gap size="5"/>
-		<link target="peer:command:ID_BROWSE_FILES" align="middle">הצג קבצים משותפים</link>
+		<icon res="137" target="command:ID_BROWSE_FILES"/><gap size="5"/>
+		<link target="command:ID_BROWSE_FILES" align="middle">הצג קבצים משותפים</link>
 		<group id="2">
 			<newline gap="16" indent="0"/>
 			<text format="b">קהילה:</text>
 			<newline gap="4" indent="8"/>
-			<icon res="140" target="peer:command:ID_SEARCH_CHAT"/>
+			<icon res="140" target="command:ID_SEARCH_CHAT"/>
 			<gap size="5"/>
-			<link target="peer:command:ID_SEARCH_CHAT" align="middle">שוחח עם משתמש</link>
+			<link target="command:ID_SEARCH_CHAT" align="middle">שוחח עם משתמש</link>
 		</group>
 		<group id="3">
 			<newline gap="16" indent="0"/>
@@ -2483,10 +2483,10 @@ gap i newline
 	<tip id="ID_WEBSERVICES_LIST" message="Choose the web service to get more information about the selected file."/>
 	<tip id="ID_WEBSERVICES_SHAREMONKEY" message="Search for the file infomation using ShareMonkey service."/>
 	<!-- PLUGIN TIPS -->
-	<tip id="ImageViewer_BestFit" message="Resize the image to fit within the window."/>
-	<tip id="ImageViewer_ActualSize" message="Show the image at its natural size."/>
-	<tip id="ImageViewer_Refresh" message="Refresh the image."/>
-	<tip id="ImageViewer_Close" message="Close the image viewer window."/>
+	<tip id="PluginID_ImageViewer_BestFit" message="Resize the image to fit within the window."/>
+	<tip id="PluginID_ImageViewer_FullSize" message="Show the image at its natural size."/>
+	<tip id="PluginID_ImageViewer_Refresh" message="Refresh the image."/>
+	<tip id="PluginID_ImageViewer_Close" message="Close the image viewer window."/>
 </commandTips>
 <!-- Tips displayed when mouse is moved over controls in the dialogs -->
 <controlTips>
@@ -2601,26 +2601,26 @@ gap i newline
 	<string id="8180" value="‪:גודל הקובץ"/>
 	<string id="8181" value="‪:גודל הקובץ"/>
 	<string id="8208" value="‪PeerProject is creating hashes for %Iu files:" />
-	<string id="8223" value="&#8235;%i ימים %i שעות"/>
-	<string id="8224" value="‪:שרזה מוריד"/>
-	<string id="8225" value="‪:הורדה זו מושהת"/>
+<!--	<string id="8221" value="‪:שרזה מחפשת מקורות עבור"/>
+	<string id="8222" value="‪:שרזה מוריד"/>
+	<string id="8223" value="‪:הורדה זו מושהת"/>
+	<string id="8224" value="‪:שרזה מעביר את ההורדה"/>
+	<string id="8225" value="‪:שרזה בודקת אם יש שגיאות בהורדה"/>
 	<string id="8226" value="‪:שרזה סיים להוריד"/>
-	<string id="8227" value="‪&#8235;%i שעות %i דקות"/>
-	<string id="8228" value="‪&#8235;%i דקות %i שניות"/>
-	<string id="8229" value="‪%i שניות"/>
-	<string id="8230" value="‪:שרזה מחפשת מקורות עבור"/>
+-->	<string id="8227" value="&#8235;%i ימים %i שעות"/>
+	<string id="8228" value="‪&#8235;%i שעות %i דקות"/>
+	<string id="8229" value="‪&#8235;%i דקות %i שניות"/>
+	<string id="8230" value="‪%i שניות"/>
 	<string id="8231" value="‪אין מקורות"/>
 	<string id="8232" value="‪פתח"/>
 	<string id="8233" value="ביטול"/>
 	<string id="8235" value="‪:מהירות הורדה"/>
 	<string id="8236" value="‪:זמן מוערך שנותר"/>
 	<string id="8237" value="‪:גודל שהורד"/>
-	<string id="8238" value="‪:מספר מקורות"/>
+	<string id="8238" value="‪:העותק התעדכן"/>
 	<string id="8239" value="‪הושלם"/>
-	<string id="8240" value="‪:שרזה מעביר את ההורדה"/>
-	<string id="8241" value="‪:שרזה בודקת אם יש שגיאות בהורדה"/>
-	<string id="8243" value="‪:העותק התעדכן"/>
-	<string id="8244" value="Number of reviews:"/>
+	<string id="8240" value="‪:מספר מקורות"/>
+	<string id="8241" value="Number of reviews:"/>
 	<string id="8288" value="‪סייר בספריית השיתוף שלך בשרזה"/>
 	<string id="8289" value="‪סיור"/>
 	<string id="8290" value="תיקיות ‪%i סייר בתכנים של"/>
@@ -2684,6 +2684,7 @@ gap i newline
 	<string id="16079" value="‪?האם אתה בטוח שברצונך להתנתק"/>
 	<!-- Missing Strings -->
 	<string id="16213" value="‪&#8234;%s  ‏משכן‎ ‏ניווט‎ ‏בקשת‎ (‏ &#8234;%i bit = %lu[%i], %i%% full)"/>
+	<string id="16254" value="ברירת המחדל של הורדת הקבוצה. (הצג את כל הקבצים)"/>
 	<string id="16255" value="Drag'n'drop קבצים לקבוצה %s"/>
 	<string id="16260" value="‪&quot;%s&quot; :הורדה הוסרה"/>
 	<string id="16283" value="‪כבר בהורדה, מוסיף מקורות &quot;%s&quot; הקובץ"/>
@@ -2860,7 +2861,7 @@ gap i newline
 	<string id="18510" value="‪.האם אתה בטוח שברצונך ששרזה תניח שההורדה הושלמה,  ולאמת את ההורדה מחדש? כל הקובץ ייחשב, ושרזה תאשר את החלקים שיעברו את האימות בהצלחה ותוריד מחדש את החלקים שיכשלו בשלב האימות"/>
 	<string id="18511" value="You have made changes to the file size. Are you sure you want to change the file size for this download?"/>
 	<string id="19000" value="‪גישה מרחוק לא מאופשרת"/>
-	<string id="19001" value="‪.אתה חייב לבחור שם משתמש וסיסמא"/>
+	<string id="19001" value="‪.אתה חייב לבחור שם משתמש וסיסמא http://%s:%i/remote"/>
 	<string id="19002" value="‪לא מצליח לקבל התקשרויות, כתובת האינטרנט לא זמינה"/>
 	<string id="20000" value="‪זמין URN אין"/>
 	<string id="20001" value="Close"/>
@@ -2939,6 +2940,7 @@ gap i newline
 	<string id="20236" value="דרוג"/>
 	<string id="20237" value="אישור"/>
 	<string id="20238" value="ביטול"/>
+	<string id="20245" value="תיקיה חדשה"/>
 </strings>
 <!-- Localized Dialog Text, "cookie" verifies that the skin matches current dialog -->
 <dialogs>
@@ -3628,7 +3630,7 @@ gap i newline
 		<control caption="תצוגת ספריה"/>
 		<control caption="בטל הורדה"/>
 		<control caption="הסתר"/>
-		<control caption="סגור את חלון זה כשההורדה מסתיימת"/>
+		<control caption="אוטומטי"/>
 	</dialog>
 	<dialog name="CFileGeneralPage" cookie="EdStStStStStEdEdEdEdEdStEdEdEdEd" caption="כללי">
 		<control/>
@@ -3805,11 +3807,11 @@ gap i newline
 		<control/>
 		<control caption="ביטול"/>
 	</dialog>
-	<dialog name="CURLActionDlg" cookie="StStStStStEdStEdStBuBuBuBuBuSt" caption="מנהל URI של שרזה">
-		<control/>
+	<dialog name="CURLActionDlg" cookie="StStStStStStEdStEdStBuBuBuBuBu" caption="מנהל URI של שרזה">
 		<control caption=":לחצת על כתובת URI אשר מקשרת לתוכן הבא ברשת"/>
 		<control caption=":לחצת על כתובת URI אשר מחברת לשרת או המשתמש הבא ברשת"/>
 		<control caption="‪:אשר מאפשר לסייר בקבצים המשותפים הזמינים אצל המשתמש הבא URI לחצת על כתובת"/>
+		<control caption="‪של שרזה אשר יוסיף את שירותי משאבי חיבור הבאים לזיכרון המטמון של שירותי המשאבי חיבור URI לחצתה על"/>
 		<control/>
 		<control/>
 		<control/>
@@ -3820,11 +3822,10 @@ gap i newline
 		<control caption="‪ביטול"/>
 		<control caption="‪זכור את בחירתי בפעם הבאה"/>
 		<control caption="‪פתוח חלון מוניטור הורדות"/>
-		<control caption="‪של שרזה אשר יוסיף את שירותי משאבי חיבור הבאים לזיכרון המטמון של שירותי המשאבי חיבור URI לחצתה על"/>
 	</dialog>
 	<dialog name="CBitziDownloadDlg" cookie="StStmsBuSySt" caption="...Metadata מוריד">
 		<control/>
-		<control caption="...Bitzi(TM)-מ Metadata שרזה מנסה להוריד"/>
+		<control caption="...Bitzi-מ Metadata שרזה מנסה להוריד"/>
 		<control/>
 		<control caption="ביטול"/>
 		<control/>

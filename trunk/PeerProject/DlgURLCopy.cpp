@@ -110,7 +110,7 @@ void CURLCopyDlg::OnIncludeSelf()
 		strURN += strTemp;
 	}
 
-	if ( m_pFile->m_oBTH && strURN.GetLength() < 1 )
+	if ( m_pFile->m_oBTH && strURN.IsEmpty() )	// BitTorrent Magnet
 	{
 		strURN = _T("xt=") + m_pFile->m_oBTH.toUrn();
 		if ( CDownload* pDownload = Downloads.FindByBTH( m_pFile->m_oBTH ) )

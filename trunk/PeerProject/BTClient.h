@@ -39,7 +39,7 @@ public:
 
 // Attributes
 public:
-    Hashes::BtGuid          m_oGUID;
+	Hashes::BtGuid			m_oGUID;
 	BOOL					m_bExchange;		// Exchange sources/other info (with extended client)
 	BOOL					m_bExtended;		// Extension Protocol support
 	CUploadTransferBT*		m_pUpload;

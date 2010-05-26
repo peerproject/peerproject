@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Norwegian Skin File -->
 
-<!-- Translation based on default-en.xml r54 (Shareaza 2.2.0.2) -->
+<!-- Translation based on default-en.xml r55 (Shareaza 2.2.0.2) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1478,7 +1478,7 @@
 			<heading align="middle">KOBLE TIL</heading>
 			<newline gap="8" indent="42"/>
 			<text>Velkommen til PeerProject! &#160;Du er ikke koblet til P2P-nettverket. &#160;</text>
-			<link target="peer:command:ID_NETWORK_CONNECT">Klikk her for å starte!</link>
+			<link target="command:ID_NETWORK_CONNECT">Klikk her for å starte!</link>
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="2">
@@ -1487,11 +1487,11 @@
 			<newline gap="8" indent="42"/>
 			<anchor id="SearchBox" width="256" height="80"/>
 			<newline gap="12" indent="0"/>
-			<icon res="136" width="32" height="32" target="peer:shell:downloads"/><gap size="8"/>
+			<icon res="136" width="32" height="32" target="command:shell:downloads"/><gap size="8"/>
 			<heading align="middle">MINE NEDLASTINGER</heading>
 			<newline gap="8" indent="42"/>
 			<text>Or open your completed </text>
-			<link target="peer:shell:downloads">downloads folder.</link>
+			<link target="command:shell:downloads">downloads folder.</link>
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="3">
@@ -1500,42 +1500,42 @@
 			<newline gap="8" indent="42"/>
 			<text id="Oppdater"/>
 			<newline gap="6"/>
-			<link target="peer:upgrade">Klikk her for å oppdatere</link>
+			<link target="command:upgrade">Klikk her for å oppdatere</link>
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="4">
-			<icon res="252" width="32" height="32" target="peer:command:ID_TOOLS_WIZARD"/><gap size="8"/>
+			<icon res="252" width="32" height="32" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 			<heading align="middle">OBS - DU ER BAK EN BRANNMUR</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">PeerProject har oppdaget at du er bak en NAT-router eller brannmur,
 			og klarer ikke å motta tilkoblinger fra internett. &#160;</text>
 			<text color="FF0000" format="b">Dette kan gi lav nedlastingshastighet.</text>
 			<newline gap="6"/>
-			<link target="peer:command:ID_HELP_ROUTER">Klikk her for å lære hvordan du skal sette opp routeren eller brannmuren din</link>
+			<link target="command:ID_HELP_ROUTER">Klikk her for å lære hvordan du skal sette opp routeren eller brannmuren din</link>
 			<newline gap="18" indent="0"/>
 		</group>
-		<icon res="128" width="32" height="32" target="peer:command:ID_TOOLS_SETTINGS"/><gap size="8"/>
+		<icon res="128" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">MODIFISER PEERPROJECT</heading>
 		<newline gap="12" indent="42"/>
-		<icon res="182" width="16" height="16" target="peer:command:ID_TOOLS_SKIN"/><gap size="8"/>
-		<link target="peer:command:ID_TOOLS_SKIN" align="middle" format="bu">Skins</link>
+		<icon res="182" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
+		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">Skins</link>
 		<text align="middle">&#160;- Endre PeerProject's utseende</text>
 		<newline gap="8"/>
-		<icon res="141" width="16" height="16" target="peer:command:ID_VIEW_SECURITY"/><gap size="8"/>
-		<link target="peer:command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
+		<icon res="141" width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
+		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
 		<text align="middle">&#160;- Update blocklist to avoid bad search results</text>
 		<newline gap="8"/>
-		<icon res="317" width="16" height="16" target="peer:command:ID_TOOLS_WIZARD"/><gap size="8"/>
-		<link target="peer:command:ID_TOOLS_WIZARD" align="middle">Innstillingsveiviser</link>
+		<icon res="317" width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
+		<link target="command:ID_TOOLS_WIZARD" align="middle">Innstillingsveiviser</link>
 		<text align="middle">&#160;- Endre PeerProject's innstillinger</text>
 		<newline gap="8"/>
-		<icon res="147" width="16" height="16" target="peer:command:ID_HELP_FAQ"/><gap size="8"/>
-		<link target="peer:command:ID_HELP_FAQ" align="middle">Hjelp</link>
+		<icon res="147" width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
+		<link target="command:ID_HELP_FAQ" align="middle">Hjelp</link>
 		<text align="middle">&#160;- Få grunnleggende hjelp til å bruke PeerProject, or </text>
-		<link target="peer:command:ID_TAB_IRC" align="middle">IRC.</link>
+		<link target="command:ID_TAB_IRC" align="middle">IRC.</link>
 		<newline gap="8"/>
-		<icon res="175" width="16" height="16" target="peer:command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
-		<link target="peer:command:ID_HELP_FORUMS_LOCAL" align="middle">Lokal Forum</link>
+		<icon res="175" width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
+		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">Lokal Forum</link>
 		<text align="middle">&#160;- Gå til din norske språket diskusjonsforum</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
@@ -1560,7 +1560,7 @@
 			<para align="center">
 				<text format="b">Ikke tilkoblet</text>
 				<newline gap="4"/>
-				<link target="peer:command:ID_NETWORK_CONNECT">Klikk her for å koble til</link>
+				<link target="command:ID_NETWORK_CONNECT">Klikk her for å koble til</link>
 			</para>
 		</group>
 		<icon group="20" command="ID_NETWORK_G2"/>
@@ -1608,7 +1608,7 @@
 				<text>Du har ikke lastet ned noen nye filer i det siste.</text>
 				<newline gap="8"/>
 			</group>
-			<link target="peer:command:ID_VIEW_LIBRARY">Gå til mine filer</link>
+			<link target="command:ID_VIEW_LIBRARY">Gå til mine filer</link>
 			<newline gap="4"/>
 			<text id="LibraryFiles" format="b">%lu </text>
 			<text>filer (</text>
@@ -1622,10 +1622,10 @@
 				<newline gap="8"/>
 			</group>
 			<group id="3">
-				<link target="peer:command:ID_LIBRARY_HASH_PRIORITY">Klikk her for å hashe raskere</link>
+				<link target="command:ID_LIBRARY_HASH_PRIORITY">Klikk her for å hashe raskere</link>
 			</group>
 			<group id="4">
-				<link target="peer:command:ID_LIBRARY_HASH_PRIORITY">Klikk her for å hashe tregere</link>
+				<link target="command:ID_LIBRARY_HASH_PRIORITY">Klikk her for å hashe tregere</link>
 			</group>
 		</para>
 	</document>
@@ -1640,9 +1640,9 @@
 				<text>Du laster ikke ned noen filer.</text>
 				<newline gap="4"/>
 			</group>
-			<link id="DownloadsNone" target="peer:command:ID_VIEW_DOWNLOADS">Gå til nedlastinger</link>
-			<link id="DownloadsOne"  target="peer:command:ID_VIEW_DOWNLOADS" format="bu">Gå til nedlastinger (1)</link>
-			<link id="DownloadsMany" target="peer:command:ID_VIEW_DOWNLOADS" format="bu">Gå til nedlastinger (%i)</link>
+			<link id="DownloadsNone" target="command:ID_VIEW_DOWNLOADS">Gå til nedlastinger</link>
+			<link id="DownloadsOne"  target="command:ID_VIEW_DOWNLOADS" format="bu">Gå til nedlastinger (1)</link>
+			<link id="DownloadsMany" target="command:ID_VIEW_DOWNLOADS" format="bu">Gå til nedlastinger (%i)</link>
 			<newline gap="4"/>
 			<text id="DownloadedNone">No filer (</text>
 			<text id="DownloadedOne">1 fil (</text>
@@ -1659,8 +1659,8 @@
 		</styles>
 		<para align="center">
 			<text id="UploadsNone" format="b">Ingen opplastinger</text>
-			<link id="UploadsOne"  target="peer:command:ID_VIEW_UPLOADS" format="bu">1 aktiv opplasting</link>
-			<link id="UploadsMany" target="peer:command:ID_VIEW_UPLOADS" format="bu">%i opplastinger</link>
+			<link id="UploadsOne"  target="command:ID_VIEW_UPLOADS" format="bu">1 aktiv opplasting</link>
+			<link id="UploadsMany" target="command:ID_VIEW_UPLOADS" format="bu">%i opplastinger</link>
 			<newline gap="4"/>
 			<group id="1">
 				<text id="TorrentsOne">Sprer 1 torrent</text>
@@ -1681,25 +1681,25 @@
 		<text format="b">Generelt </text>
 		<text>-vinduet er relatert til brukeropplevelsen.</text>
 		<newline gap="16" indent="16"/>
-		<link target="peer:page:CGeneralSettingsPage" format="b">Generelt:</link>
+		<link target="page:CGeneralSettingsPage" format="b">Generelt:</link>
 		<text>&#160;De vanligste innstillingene. Endre benevnelse, minimering, meldingsvinduer o.l.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CLibrarySettingsPage" format="b">Mine filer:</link>
+		<link target="page:CLibrarySettingsPage" format="b">Mine filer:</link>
 		<text>&#160;Innstillinger for dine filer, organisering og filegenskaper.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CMediaSettingsPage" format="b">Mediaspiller:</link>
+		<link target="page:CMediaSettingsPage" format="b">Mediaspiller:</link>
 		<text>&#160;Når og hvordan du vil bruke PeerProject mediaspiller.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CIRCSettingsPage" format="b">IRC:</link>
+		<link target="page:CIRCSettingsPage" format="b">IRC:</link>
 		<text>&#160;IRC chatroom connection settings and display options.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CCommunitySettingsPage" format="b">Min profil:</link>
+		<link target="page:CCommunitySettingsPage" format="b">Min profil:</link>
 		<text>&#160;Din profil. Egenskaper for samtale og meldinger.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CRemoteSettingsPage" format="b">Fjernkonsoll:</link>
+		<link target="page:CRemoteSettingsPage" format="b">Fjernkonsoll:</link>
 		<text>&#160;Sett opp PeerProject slik at du kan kjøre programmet gjennom en vanlig Internett browser.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CWebSettingsPage" format="b">Internett:</link>
+		<link target="page:CWebSettingsPage" format="b">Internett:</link>
 		<text>&#160;Endre PeerProject slik at du automatisk starter nedlastinger fra Internett Explorer.</text>
 	</document>
 	<document name="CInternetSettingsGroup" title="Tilkobling" leftMargin="8" topMargin="8">
@@ -1710,16 +1710,16 @@
 		<text format="b">Internett </text>
 		<text>-viduet bestemmer hvordan PeerProject arbeider med andre noder på	nettverket</text>
 		<newline gap="16" indent="16"/>
-		<link target="peer:page:CConnectionSettingsPage" format="b">Linjetype:</link>
+		<link target="page:CConnectionSettingsPage" format="b">Linjetype:</link>
 		<text>&#160;Dine tilkoblingsegenskaper og hastigheter.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CDownloadsSettingsPage" format="b">Nedlastinger:</link>
+		<link target="page:CDownloadsSettingsPage" format="b">Nedlastinger:</link>
 		<text>&#160;Nedlastingshastighet, planlegging, godkjennelse, tidsavbrudd og annet.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CUploadsSettingsPage" format="b">Opplastinger:</link>
+		<link target="page:CUploadsSettingsPage" format="b">Opplastinger:</link>
 		<text>&#160;Endre opplastingskapasiteten, køer, blokkeringer og andre innstillinger.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CSchedulerSettingsPage" format="b">Scheduler:</link>
+		<link target="page:CSchedulerSettingsPage" format="b">Scheduler:</link>
 		<text>&#160;Limit download connections based on a periodic schedule.</text>
 	</document>
 	<!-- Browse User Profile -->
@@ -1800,15 +1800,15 @@
 		<newline gap="40" indent="0"/>
 		<text format="b">Delte filer</text>
 		<newline gap="4" indent="8"/>
-		<icon res="137" target="peer:command:ID_BROWSE_FILES"/><gap size="5"/>
-		<link target="peer:command:ID_BROWSE_FILES" align="middle">Vis delte filer</link>
+		<icon res="137" target="command:ID_BROWSE_FILES"/><gap size="5"/>
+		<link target="command:ID_BROWSE_FILES" align="middle">Vis delte filer</link>
 		<group id="2">
 			<newline gap="16" indent="0"/>
 			<text format="b">Online</text>
 			<newline gap="4" indent="8"/>
-			<icon res="140" target="peer:command:ID_SEARCH_CHAT"/>
+			<icon res="140" target="command:ID_SEARCH_CHAT"/>
 			<gap size="5"/>
-			<link target="peer:command:ID_SEARCH_CHAT" align="middle">Snakk med bruker</link>
+			<link target="command:ID_SEARCH_CHAT" align="middle">Snakk med bruker</link>
 		</group>
 		<group id="3">
 		<newline gap="16" indent="0"/>
@@ -2477,25 +2477,26 @@
 	<string id="8180" value="Filstørrelsen Min:"/>
 	<string id="8181" value="Filstørrelsen Max:"/>
 	<string id="8208" value="PeerProject lager hash for %Iu filer:"/>
-	<string id="8223" value="%i dager og %i timer"/>
-	<string id="8224" value="PeerProject laster ned:"/>
-	<string id="8225" value="Denne nedlastingen er pauset:"/>
+<!--	<string id="8221" value="PeerProject søker etter kilder til:"/>
+	<string id="8222" value="PeerProject laster ned:"/>
+	<string id="8223" value="Denne nedlastingen er pauset:"/>
+	<string id="8224" value="PeerProject flytter filen."/>
+	<string id="8225" value="PeerProject sjekker om det finnes feil på filen:"/>
 	<string id="8226" value="PeerProject er ferdig med å laste ned:"/>
-	<string id="8227" value="%i timer og %i minutter"/>
-	<string id="8228" value="%i minutter og %i sekunder"/>
-	<string id="8229" value="%i sekunder"/>
-	<string id="8230" value="PeerProject søker etter kilder til:"/>
+-->	<string id="8227" value="%i dager og %i timer"/>
+	<string id="8228" value="%i timer og %i minutter"/>
+	<string id="8229" value="%i minutter og %i sekunder"/>
+	<string id="8230" value="%i sekunder"/>
 	<string id="8231" value="Ingen kilder"/>
 	<string id="8232" value="Åpne"/>
 	<string id="8233" value="Avbryt"/>
 	<string id="8235" value="Hastighet:"/>
 	<string id="8236" value="Estimert tid igjen:"/>
 	<string id="8237" value="Lastet ned:"/>
-	<string id="8238" value="Antall kilder:"/>
+	<string id="8238" value="Lastet opp:"/>
 	<string id="8239" value="Ferdig"/>
-	<string id="8240" value="PeerProject flytter filen."/>
-	<string id="8241" value="PeerProject sjekker om det finnes feil på filen:"/>
-	<string id="8243" value="Lastet opp:"/>
+	<string id="8240" value="Antall kilder:"/>
+	<string id="8241" value="Antall reviews:"/>
 	<string id="8288" value="Utforsker mine filer."/>
 	<string id="8289" value="Utforsker"/>
 	<string id="8290" value="Utforske innholdet i %i mapper"/>
@@ -2605,6 +2606,7 @@
 	<string id="16211" value="Nabo %s videresendte en push-anmodning til en adresse bak brannmur, ignorerer."/>
 	<string id="16212" value="Nabo %s videresendte en utvidet pakke som ikke er GGEP kodet."/>
 	<string id="16213" value="Sender spørre-routingtabell til nabo %s (%i bit = %lu[%i], %i%% full)"/>
+	<string id="16254" value="Standard nedlasting gruppe. (Vis alle filer)"/>
 	<string id="16255" value="Drag'n'drop filer til %s gruppen."/>
 	<string id="16256" value="La til &quot;%s&quot; til nedlastingskø med %i kilder."/>
 	<string id="16257" value="Ferdig med nedlastingen av &quot;%s&quot;."/>
@@ -2980,7 +2982,7 @@
 	<string id="18509" value="Du kan ikke gå ut i fra at denne filen er ferdig og reverifisere den fordi du har ennå ingen partielle verifikasjons data, slik som tiger-tree innhold, eDonkey hashset eller BitTorrent hashset. Uten verifikasjons-data kan ikke filen reverifiseres."/>
 	<string id="18510" value="Er du sikker på at du vil gå ut i fra at denne filen er ferdig og reverifisere den? Hele filen vil betraktes, PeerProject vil godta deler som blit verifiserte og laste ned nye deler for de som feilet verifiseringen."/>
 	<string id="19000" value="Fjern konsoll er AV."/>
-	<string id="19001" value="Du må velge et brukernavn og et passord."/>
+	<string id="19001" value="http://%s:%i/remote - velge et brukernavn og et passord."/>
 	<string id="19002" value="Klarte ikke  motta tilkoblinger, URL ikke tilgjengelig."/>
 	<string id="20000" value="URN ikke tilgjengelig"/>
 	<string id="20002" value="av"/> <!-- "1 of 10" -->
@@ -3043,6 +3045,7 @@
 	<string id="20216" value="Utmerket"/>
 	<string id="20237" value="OK"/>
 	<string id="20238" value="Avbryt"/>
+	<string id="20245" value="Ny Mappe"/>
 </strings>
 <!-- Localized Dialog Text, "cookie" verifies that the skin matches current dialog -->
 <dialogs>
@@ -3732,7 +3735,7 @@
 		<control caption="Vis"/>
 		<control caption="Avbryt"/>
 		<control caption="Skjul"/>
-		<control caption="Lukk dette vinduet når filen er ferdig"/>
+		<control caption="Auto"/>
 	</dialog>
 	<dialog name="CFileGeneralPage" cookie="EdStStStStStEdEdEdEdEdStEdEdEdEd" caption="Generelt">
 		<control/>
@@ -3909,11 +3912,11 @@
 		<control/>
 		<control caption="Avbryt"/>
 	</dialog>
-	<dialog name="CURLActionDlg" cookie="StStStStStEdStEdStBuBuBuBuBuSt" caption="PeerProjects URI-verktøy">
-		<control/>
+	<dialog name="CURLActionDlg" cookie="StStStStStStEdStEdStBuBuBuBuBu" caption="PeerProjects URI-verktøy">
 		<control caption="Du har klikket på en PeerProject URI som peker til innholdet på nettverket:"/>
 		<control caption="Du har klikket en PeerProject URL som vil koble deg til denne verten eller denne serveren:"/>
 		<control caption="Du har klikket på en PeerProject URI som vil gi deg muligheten til å utforske filene på denne verten:"/>
+		<control caption="Du har klikket på en PeerProject-URI som vil legge til følgende oppdagelsestjeneste i din oppdagelsestjeneste cache."/>
 		<control/>
 		<control/>
 		<control/>
@@ -3924,11 +3927,10 @@
 		<control caption="Avbryt"/>
 		<control caption="_Husk mitt valg neste gang"/>
 		<control caption="Åpne et nedlastings _monitor vindu"/>
-		<control caption="Du har klikket på en PeerProject-URI som vil legge til følgende oppdagelsestjeneste i din oppdagelsestjeneste cache."/>
 	</dialog>
 	<dialog name="CBitziDownloadDlg" cookie="StStmsBuSySt" caption="Laster ned metadata...">
 		<control/>
-		<control caption="PeerProject prøver å laste ned metadata fra Bitzi(TM)..."/>
+		<control caption="PeerProject prøver å laste ned metadata fra Bitzi..."/>
 		<control/>
 		<control caption="Avbryt"/>
 		<control/>

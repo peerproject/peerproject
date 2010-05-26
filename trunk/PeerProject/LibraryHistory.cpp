@@ -1,7 +1,7 @@
 //
 // LibraryHistory.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -266,17 +266,13 @@ void CLibraryHistory::Serialize(CArchive& ar, int nVersion)
 			pRecent->Serialize( ar, nVersion );
 
 			if ( pRecent->m_pFile != NULL )
-			{
 				m_pList.AddTail( pRecent );
-			}
 			else
-			{
 				delete pRecent;
-			}
 		}
 
-		if ( nVersion > 22 )
-		{
+		//if ( nVersion > 22 )
+		//{
 			ar >> LastSeededTorrent.m_sPath;
 			if ( LastSeededTorrent.m_sPath.GetLength() )
 			{
@@ -286,7 +282,7 @@ void CLibraryHistory::Serialize(CArchive& ar, int nVersion)
 				SerializeIn( ar, tmp, nVersion );
 				LastSeededTorrent.m_oBTH = tmp;
 			}
-		}
+		//}
 
 		Prune();
 	}

@@ -84,6 +84,10 @@ BOOL CWizardFoldersPage::OnInitDialog()
 	m_wndIncompleteBrowse.SetIcon( IDI_BROWSE );
 	m_wndTorrentsBrowse.SetIcon( IDI_BROWSE );
 
+	m_wndDownloadsBrowse.SetHandCursor( TRUE );
+	m_wndIncompleteBrowse.SetHandCursor( TRUE );
+	m_wndTorrentsBrowse.SetHandCursor( TRUE );
+
 	m_sDownloadsPath	= Settings.Downloads.CompletePath;
 	m_sIncompletePath	= Settings.Downloads.IncompletePath;
 	m_sTorrentsPath 	= Settings.Downloads.TorrentPath;

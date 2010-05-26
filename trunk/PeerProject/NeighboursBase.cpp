@@ -100,13 +100,12 @@ CNeighbour* CNeighboursBase::Get(DWORD_PTR nUnique) const
 }
 
 // Takes an IP address, and finds the neighbour object in the m_pUniques map that represents the remote computer with that address
-//(Saying const here means this method won't change any member variables)
-CNeighbour* CNeighboursBase::Get(const IN_ADDR* pAddress) const
+CNeighbour* CNeighboursBase::Get(const IN_ADDR& pAddress) const
 {
 	ASSUME_LOCK( Network.m_pSection );
 
 	CNeighbour* pNeighbour;
-	if ( m_pNeighbours.Lookup( *pAddress, pNeighbour ) )
+	if ( m_pNeighbours.Lookup( pAddress, pNeighbour ) )
 		return pNeighbour;
 
 	return NULL;
@@ -323,7 +322,7 @@ void CNeighboursBase::Add(CNeighbour* pNeighbour)
 	ASSUME_LOCK( Network.m_pSection );
 	ASSERT( pNeighbour->m_pHost.sin_addr.s_addr != INADDR_ANY );
 	ASSERT( pNeighbour->m_pHost.sin_addr.s_addr != INADDR_NONE );
-	ASSERT( Get( &pNeighbour->m_pHost.sin_addr ) == NULL );
+	ASSERT( Get( pNeighbour->m_pHost.sin_addr ) == NULL );
 	ASSERT( Get( (DWORD_PTR)pNeighbour ) == NULL );
 
 	m_pNeighbours.SetAt( pNeighbour->m_pHost.sin_addr, pNeighbour );

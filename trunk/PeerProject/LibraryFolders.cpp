@@ -89,7 +89,7 @@ CLibraryFolder* CLibraryFolders::GetNextFolder(POSITION& pos) const
 
 CLibraryFolder* CLibraryFolders::GetFolder(LPCTSTR pszPath) const
 {
-	//ASSUME_LOCK( Library.m_pSection );
+	ASSUME_LOCK( Library.m_pSection );
 
 	for ( POSITION pos = GetFolderIterator() ; pos ; )
 	{
@@ -102,7 +102,7 @@ CLibraryFolder* CLibraryFolders::GetFolder(LPCTSTR pszPath) const
 
 BOOL CLibraryFolders::CheckFolder(CLibraryFolder* pFolder, BOOL bRecursive) const
 {
-	//ASSUME_LOCK( Library.m_pSection );
+	ASSUME_LOCK( Library.m_pSection );
 
 	if ( m_pFolders.Find( pFolder ) != NULL ) return TRUE;
 	if ( ! bRecursive ) return FALSE;
@@ -117,7 +117,7 @@ BOOL CLibraryFolders::CheckFolder(CLibraryFolder* pFolder, BOOL bRecursive) cons
 
 CLibraryFolder* CLibraryFolders::GetFolderByName(LPCTSTR pszName) const
 {
-	//ASSUME_LOCK( Library.m_pSection );
+	ASSUME_LOCK( Library.m_pSection );
 
 	CString strName( pszName );
 	ToLower( strName );
@@ -422,7 +422,7 @@ CAlbumFolder* CLibraryFolders::GetAlbumRoot() const
 
 BOOL CLibraryFolders::CheckAlbum(CAlbumFolder* pFolder) const
 {
-	//ASSUME_LOCK( Library.m_pSection );
+	ASSUME_LOCK( Library.m_pSection );
 
 	return m_pAlbumRoot && m_pAlbumRoot->CheckFolder( pFolder, TRUE );
 }
@@ -463,7 +463,7 @@ CAlbumFolder* CLibraryFolders::GetAlbumTarget(LPCTSTR pszSchemaURI, LPCTSTR pszM
 
 CAlbumFolder* CLibraryFolders::GetCollection(const Hashes::Sha1Hash& oSHA1)
 {
-	//ASSUME_LOCK( Library.m_pSection );
+	ASSUME_LOCK( Library.m_pSection );
 
 	return m_pAlbumRoot ? m_pAlbumRoot->FindCollection( oSHA1 ) : NULL;
 }
@@ -495,7 +495,7 @@ BOOL CLibraryFolders::MountCollection(const Hashes::Sha1Hash& oSHA1, CCollection
 
 CAlbumFolder* CLibraryFolders::CreateAlbumTree()
 {
-	//ASSUME_LOCK( Library.m_pSection );
+	ASSUME_LOCK( Library.m_pSection );
 
 	if ( m_pAlbumRoot == NULL )
 		m_pAlbumRoot = new CAlbumFolder( NULL, CSchema::uriLibrary );
@@ -576,7 +576,8 @@ CAlbumFolder* CLibraryFolders::CreateAlbumTree()
 		for ( POSITION pos = LibraryMaps.GetFileIterator() ; pos ; )
 		{
 			CLibraryFile* pFile = LibraryMaps.GetNextFile( pos );
-			if ( pFile->IsAvailable() ) m_pAlbumRoot->OrganiseFile( pFile );
+			if ( pFile->IsAvailable() )
+				m_pAlbumRoot->OrganiseFile( pFile );
 		}
 	}
 
@@ -588,12 +589,16 @@ CAlbumFolder* CLibraryFolders::CreateAlbumTree()
 
 BOOL CLibraryFolders::OnFileDelete(CLibraryFile* pFile, BOOL bDeleteGhost)
 {
+	ASSUME_LOCK( Library.m_pSection );
+
 	if ( m_pAlbumRoot )
 		m_pAlbumRoot->OnFileDelete( pFile, bDeleteGhost );
 
 	for ( POSITION pos = GetFolderIterator() ; pos ; )
+	{
 		if ( GetNextFolder( pos )->OnFileDelete( pFile ) )
 			return TRUE;
+	}
 
 	return FALSE;
 }
@@ -603,19 +608,19 @@ BOOL CLibraryFolders::OnFileDelete(CLibraryFile* pFile, BOOL bDeleteGhost)
 
 void CLibraryFolders::Clear()
 {
-	//ASSUME_LOCK( Library.m_pSection );
+	ASSUME_LOCK( Library.m_pSection );
 
 	for ( POSITION pos = GetFolderIterator() ; pos ; )
 		delete GetNextFolder( pos );
 	m_pFolders.RemoveAll();
 
 	delete m_pAlbumRoot;
-	m_pAlbumRoot = new CAlbumFolder( NULL, CSchema::uriLibrary );
+	m_pAlbumRoot = NULL;
 }
 
 void CLibraryFolders::ClearGhosts()
 {
-	//ASSUME_LOCK( Library.m_pSection );
+	ASSUME_LOCK( Library.m_pSection );
 
 	if ( m_pAlbumRoot )
 	{
@@ -649,7 +654,7 @@ DWORD CLibraryFolders::GetGhostCount() const
 
 BOOL CLibraryFolders::ThreadScan(const BOOL bForce)
 {
-	//ASSUME_LOCK( Library.m_pSection );
+	ASSUME_LOCK( Library.m_pSection );
 
 	BOOL bChanged = FALSE;
 
@@ -667,7 +672,9 @@ BOOL CLibraryFolders::ThreadScan(const BOOL bForce)
 			}
 		}
 		else
+		{
 			if ( pFolder->SetOffline() ) bChanged = TRUE;
+		}
 	}
 
 	return bChanged;
@@ -678,7 +685,7 @@ BOOL CLibraryFolders::ThreadScan(const BOOL bForce)
 
 void CLibraryFolders::Serialize(CArchive& ar, int nVersion)
 {
-	//ASSUME_LOCK( Library.m_pSection );
+	ASSUME_LOCK( Library.m_pSection );
 
 	if ( ar.IsStoring() )
 	{

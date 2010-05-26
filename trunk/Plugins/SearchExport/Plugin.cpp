@@ -1,7 +1,7 @@
 //
 // Plugin.cpp : Implementation of CPlugin for SearchExport
 //
-// This file is part of PeerProject (peerproject.org) © 2009
+// This file is part of PeerProject (peerproject.org) © 2009-2010
 // Portions Previously Copyright Nikolay Raspopov, 2009.
 //
 // PeerProject is free software; you can redistribute it
@@ -195,7 +195,7 @@ public:
 
 		// Header
 		CString strHeader;
-		strHeader.Format( 
+		strHeader.Format(
 			_T("From: <Saved by PeerProject>\r\n")
 			_T("Subject: Search Results\r\n")
 			_T("MIME-Version: 1.0\r\n")
@@ -394,7 +394,7 @@ HRESULT CPlugin::Export(IGenericView* pGenericView, LONG nCount)
 
 // IGeneralPlugin
 
-STDMETHODIMP CPlugin::SetApplication( 
+STDMETHODIMP CPlugin::SetApplication(
 	/*[in]*/ IApplication __RPC_FAR *pApplication)
 {
 	if ( ! pApplication )
@@ -431,9 +431,8 @@ STDMETHODIMP CPlugin::RegisterCommands()
 	if ( ! m_pUserInterface )
 		return E_UNEXPECTED;
 
-	HRESULT hr = m_pUserInterface->RegisterCommand( CComBSTR( L"SearchExportPlugin_Check" ),
-		LoadIcon( _AtlBaseModule.GetResourceInstance(), MAKEINTRESOURCE( IDI_ICON ) ),
-		&m_nCmdCheck );
+	HRESULT hr = m_pUserInterface->RegisterCommand( CComBSTR( L"PluginID_SearchExport_Check" ),
+		LoadIcon( _AtlBaseModule.GetResourceInstance(), MAKEINTRESOURCE( IDI_ICON ) ), &m_nCmdCheck );
 	if ( SUCCEEDED( hr ) )
 		return S_OK;
 
@@ -455,7 +454,7 @@ STDMETHODIMP CPlugin::InsertCommands()
 	return E_FAIL;
 }
 
-STDMETHODIMP CPlugin::OnUpdate( 
+STDMETHODIMP CPlugin::OnUpdate(
     /*[in]*/ UINT nCommandID,
     /*[out][in]*/ TRISTATE __RPC_FAR *pbVisible,
     /*[out][in]*/ TRISTATE __RPC_FAR *pbEnabled,
@@ -488,7 +487,7 @@ STDMETHODIMP CPlugin::OnUpdate(
 	return S_FALSE;
 }
 
-STDMETHODIMP CPlugin::OnCommand( 
+STDMETHODIMP CPlugin::OnCommand(
 	/*[in]*/ UINT nCommandID)
 {
 	if ( ! m_pUserInterface )

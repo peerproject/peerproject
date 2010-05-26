@@ -92,7 +92,7 @@ protected:
 			CString in( m_sData ), out;
 			for ( int n = 0; Split( in, _T(' '), out ); ++n )
 			{
-                int i = 0;
+				int i = 0;
 				for ( ; i < out.GetLength(); ++i )
 					if ( !isdigit( out [i] ) )
 						break;

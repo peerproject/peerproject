@@ -224,17 +224,17 @@ void CLibraryTileView::Update()
 	{
 		// ToDo: Review if still necessary for modern libs...
 		// Crude workaround broken std::list::sort (vc++7.1):
-		// sort may invalidate at the end iterator
-		// At this time (boost 1.33.0) ptr_list does not provide
+		// sort() may invalidate at the end iterator
+		// As of Boost 1.33.0, ptr_list does not provide
 		// iterator versions of sort, which might solve this problem just as well.
+		BOOL bFocusAtEnd = m_pFocus == m_oList.end();
+		BOOL bFirstAtEnd = m_pFirst == m_oList.end();
 
-		bool focusAtEnd = m_pFocus == m_oList.end();
-		bool firstAtEnd = m_pFirst == m_oList.end();
 		m_oList.sort( SortList() );
-		if ( focusAtEnd )
-			m_pFocus = m_oList.end();
-		if ( firstAtEnd )
-			m_pFirst = m_oList.end();
+
+		if ( bFocusAtEnd ) m_pFocus = m_oList.end();
+		if ( bFirstAtEnd ) m_pFirst = m_oList.end();
+
 		UpdateScroll();
 	}
 }
@@ -992,9 +992,9 @@ void CLibraryTileItem::Paint(CDC* pDC, const CRect& rcBlock, CDC* /*pMemDC*/, BO
 	int nH = pDC->GetTextExtent( _T("Xy") ).cy;
 	CRect rcUnion( nX, nY, nX, nY );
 
-	if ( m_sSubtitle1.GetLength() > 0 )
+	if ( ! m_sSubtitle1.IsEmpty() )
 	{
-		if ( m_sSubtitle2.GetLength() > 0 )
+		if ( ! m_sSubtitle2.IsEmpty() )
 		{
 			nY -= ( nH * 3 ) / 2;
 			if ( m_bCollection ) pDC->SelectObject( &CoolInterface.m_fntBold );
@@ -1013,10 +1013,26 @@ void CLibraryTileItem::Paint(CDC* pDC, const CRect& rcBlock, CDC* /*pMemDC*/, BO
 			DrawText( pDC, &rc, nX, nY, m_sSubtitle1, &rcUnion, bSelectmark );
 		}
 
-		if ( bSelectmark )
-			CoolInterface.DrawWatermark( pDC, &rcUnion, &Skin.m_bmSelected );
+		if ( bSelectmark )	// ToDo: Is this aesthetic right?  When are subtitles shown with highlight?
+		{
+			rcUnion.top--;
+			rcUnion.left -= 4;
+			rcUnion.right += 4;
+			rcUnion.bottom += 2;
+			CoolInterface.DrawWatermark( pDC, &rcUnion, &Skin.m_bmSelected, FALSE );	// No overdraw
+			DrawText( pDC, &rc, nX, nY, m_sTitle, NULL, bSelectmark );					// Duplicate Workaround
+		}
 		else
+		{
+			rcUnion.InflateRect( 1, 1 );
+			if ( bFocus && Skin.m_bmSelected.m_hObject )
+			{
+				rcUnion.left -= 3;
+				rcUnion.right += 3;
+				rcUnion.bottom++;
+			}
 			pDC->FillSolidRect( &rcUnion, pDC->GetBkColor() );
+		}
 	}
 	else // Draw Name
 	{
@@ -1029,8 +1045,7 @@ void CLibraryTileItem::Paint(CDC* pDC, const CRect& rcBlock, CDC* /*pMemDC*/, BO
 			rcUnion.left -= 4;
 			rcUnion.right += 4;
 			rcUnion.bottom += 2;
-			pDC->ExcludeClipRect( rcUnion.right, rcUnion.top, rc.right, rc.bottom );	// Hide overdraw
-			CoolInterface.DrawWatermark( pDC, &rcUnion, &Skin.m_bmSelected );
+			CoolInterface.DrawWatermark( pDC, &rcUnion, &Skin.m_bmSelected, FALSE );	// No overdraw
 			DrawText( pDC, &rc, nX, nY, m_sTitle, NULL, bSelectmark );					// Duplicate Workaround
 		}
 		else if ( bFocus )
@@ -1053,10 +1068,10 @@ void CLibraryTileItem::Paint(CDC* pDC, const CRect& rcBlock, CDC* /*pMemDC*/, BO
 
 		if ( Skin.m_bRoundedSelect )
 		{
-			pDC->FillSolidRect( rcUnion.left, rcUnion.top, 1, 1, Colors.m_crWindow );
-			pDC->FillSolidRect( rcUnion.left, rcUnion.bottom - 1, 1, 1, Colors.m_crWindow );
-			pDC->FillSolidRect( rcUnion.right - 1, rcUnion.top, 1, 1, Colors.m_crWindow );
-			pDC->FillSolidRect( rcUnion.right - 1, rcUnion.bottom - 1, 1, 1, Colors.m_crWindow );
+			pDC->SetPixel( rcUnion.left, rcUnion.top, Colors.m_crWindow );
+			pDC->SetPixel( rcUnion.left, rcUnion.bottom - 1, Colors.m_crWindow );
+			pDC->SetPixel( rcUnion.right - 1, rcUnion.top, Colors.m_crWindow );
+			pDC->SetPixel( rcUnion.right - 1, rcUnion.bottom - 1, Colors.m_crWindow );
 		}
 
 		if ( Colors.m_crHiBorderIn )

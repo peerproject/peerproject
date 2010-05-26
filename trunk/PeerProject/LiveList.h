@@ -69,6 +69,7 @@ public:
 	CLiveList(int nColumns, UINT nHash = 0);
 	virtual ~CLiveList();
 
+public:
 	static CBitmap		m_bmSortAsc;
 	static CBitmap		m_bmSortDesc;
 
@@ -84,6 +85,14 @@ public:
 	}
 #endif
 
+protected:
+	typedef CMap< DWORD_PTR, DWORD_PTR, CLiveItem*, CLiveItem*& > CLiveItemMap;
+
+	CLiveItemMap		m_pItems;
+	CCriticalSection	m_pSection;
+	int					m_nColumns;
+
+public:
 	CLiveItem*			Add(DWORD_PTR nParam);
 	CLiveItem*			Add(LPVOID pParam);
 	void				Apply(CListCtrl* pCtrl, BOOL bSort = FALSE);
@@ -91,8 +100,8 @@ public:
 // Sort Helpers
 	static void			Sort(CListCtrl* pCtrl, int nColumn = -1, BOOL bGraphic = TRUE);
 	static int CALLBACK	SortCallback(LPARAM lParam1, LPARAM lParam2, LPARAM lParamSort);
-	static bool			Less(const CLiveItemPtr& _Left, const CLiveItemPtr& _Right, int nSortColumn);
 	static int			SortProc(LPCTSTR sA, LPCTSTR sB, BOOL bNumeric = FALSE);
+	static bool			Less(const CLiveItemPtr& _Left, const CLiveItemPtr& _Right, int nSortColumn);
 	static inline BOOL	IsNumber(LPCTSTR pszString);
 
 // Drag Helpers
@@ -100,23 +109,17 @@ public:
 	static CImageList*	CreateDragImage(CListCtrl* pList, const CPoint& ptMouse);
 
 protected:
-	typedef CMap< DWORD_PTR, DWORD_PTR, CLiveItem*, CLiveItem*& > CLiveItemMap;
-
-	int					m_nColumns;
-	CLiveItemMap		m_pItems;
-	CCriticalSection	m_pSection;
-
 	void				Clear();
 };
 
 
-#ifndef CDRF_NOTIFYSUBITEMDRAW	// Prior to Win98/IE4!
+#ifndef CDRF_NOTIFYSUBITEMDRAW	// Prior to Win98/IE4 (Obsolete)
 
-#define CDRF_NOTIFYSUBITEMDRAW  0x00000020
-#define CDDS_SUBITEM            0x00020000
+#define CDRF_NOTIFYSUBITEMDRAW	0x00000020
+#define CDDS_SUBITEM			0x00020000
 
 #define LVS_EX_DOUBLEBUFFER 	0x00010000
-#define LVS_EX_NOHSCROLL        0x10000000
+#define LVS_EX_NOHSCROLL		0x10000000
 #define LVS_EX_FLATSB			0x00000100
 #define LVS_EX_REGIONAL			0x00000200
 #define LVS_EX_INFOTIP			0x00000400
@@ -127,8 +130,8 @@ protected:
 
 #define LVM_GETSUBITEMRECT      (LVM_FIRST + 56)
 #define ListView_GetSubItemRect(hwnd, iItem, iSubItem, code, prc) \
-        (BOOL)SNDMSG((hwnd), LVM_GETSUBITEMRECT, (WPARAM)(int)(iItem), \
-                ((prc) ? ((((LPRECT)(prc))->top = iSubItem), (((LPRECT)(prc))->left = code), (LPARAM)(prc)) : (LPARAM)(LPRECT)NULL))
+	(BOOL)SNDMSG((hwnd), LVM_GETSUBITEMRECT, (WPARAM)(int)(iItem), \
+	((prc) ? ((((LPRECT)(prc))->top = iSubItem), (((LPRECT)(prc))->left = code), (LPARAM)(prc)) : (LPARAM)(LPRECT)NULL))
 
 #endif // CDRF_NOTIFYSUBITEMDRAW
 
@@ -141,25 +144,28 @@ public:
 	CLiveListCtrl();
 	virtual ~CLiveListCtrl();
 
-	virtual BOOL Create(DWORD dwStyle, const RECT& rect, CWnd* pParentWnd, UINT nID, int nColumns);
-
-	CLiveItemPtr Add(DWORD_PTR nParam);
-	CLiveItemPtr Add(LPVOID pParam);
-	void Apply();
-	void Sort(int nColumn = -1);
-
-	DWORD_PTR GetItemData(int nItem) const;
-	UINT GetItemOverlayMask(int nItem) const;
-
 protected:
 	typedef std::map< DWORD_PTR, CLiveItemPtr >		CLiveMap;
 	typedef std::pair< DWORD_PTR, CLiveItemPtr >	CLiveMapPair;
 	typedef std::vector< CLiveItemPtr >				CLiveIndex;
 
-	int				m_nColumns;
 	CLiveMap		m_pItems;
 	CLiveIndex		m_pIndex;
+	int				m_nColumns;
 
+public:
+	virtual BOOL Create(DWORD dwStyle, const RECT& rect, CWnd* pParentWnd, UINT nID, int nColumns);
+
+	void Apply();
+	void Sort(int nColumn = -1);
+
+	CLiveItemPtr Add(DWORD_PTR nParam);
+	CLiveItemPtr Add(LPVOID pParam);
+
+	DWORD_PTR GetItemData(int nItem) const;
+	UINT GetItemOverlayMask(int nItem) const;
+
+protected:
 	DECLARE_MESSAGE_MAP()
 
 	afx_msg void OnLvnGetDispInfo(NMHDR *pNMHDR, LRESULT *pResult);	// OnLvnGetDispInfoW/OnLvnGetDispInfoA

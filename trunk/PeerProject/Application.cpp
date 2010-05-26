@@ -267,8 +267,17 @@ STDMETHODIMP CApplication::XUserInterface::RegisterCommand(BSTR bsName, HICON hI
 {
 	METHOD_PROLOGUE( CApplication, UserInterface )
 	if ( pnCommandID == NULL ) return E_INVALIDARG;
-	*pnCommandID = Plugins.GetCommandID();
-	if ( bsName != NULL ) CoolInterface.NameCommand( *pnCommandID, CString( bsName ) );
+	UINT nID = CoolInterface.NameToID( CString( bsName ) );
+	if ( nID > 0 && nID < Plugins.m_nCommandID )
+	{
+		// Name exists, reuse existing ID (commmon/conflict)
+		*pnCommandID = nID;
+	}
+	else
+	{
+		*pnCommandID = Plugins.GetCommandID();
+		if ( bsName != NULL ) CoolInterface.NameCommand( *pnCommandID, CString( bsName ) );
+	}
 	if ( hIcon ) CoolInterface.AddIcon( *pnCommandID, hIcon );
 	return S_OK;
 }

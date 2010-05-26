@@ -1,7 +1,7 @@
 //
 // CtrlHomeView.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -25,6 +25,9 @@
 #include "RichDocument.h"
 #include "CtrlHomeSearch.h"
 
+#define IDC_HOME_VIEW		150
+#define IDC_HOME_SEARCH		151
+
 
 class CHomeViewCtrl : public CRichViewCtrl
 {
@@ -39,14 +42,15 @@ public:
 	CRichElement*	m_peUpgrade;
 	CRichElement*	m_peRemote1;
 	CRichElement*	m_peRemote2;
+	CRichElement*	m_peRemoteBrowse;
 	CHomeSearchCtrl	m_wndSearch;
 	CBitmap			m_bmHeader1;
 	CBitmap			m_bmHeader2;
 
 	virtual BOOL	Create(const RECT& rect, CWnd* pParentWnd);
-	void			OnSkinChange();
 	void			Activate();
 	void			Update();
+	void			OnSkinChange();
 
 protected:
 	virtual void	OnLayoutComplete();
@@ -57,6 +61,3 @@ protected:
 
 	DECLARE_MESSAGE_MAP()
 };
-
-#define IDC_HOME_VIEW		150
-#define IDC_HOME_SEARCH		151

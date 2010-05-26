@@ -21,6 +21,7 @@
 			<attribute name="keywords" type="string"/>
 			<attribute name="encrypted" type="boolean"/>
 			<attribute name="unpackedsize" type="string"/>
+			<attribute name="filecount" type="string"/>
 		</all>
 	</complexType>
 

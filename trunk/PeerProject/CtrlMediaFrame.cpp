@@ -231,6 +231,9 @@ int CMediaFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_pIcons.Create( 16, 16, ILC_COLOR16|ILC_MASK, 3, 0 );
 	m_pIcons.Add( &bmIcons, RGB( 0, 255, 0 ) );
 
+	m_wndList.LoadTextList(
+		Settings.General.UserPath + _T("\\Data\\Playlist.m3u") );
+
 	UpdateState();
 
 	SetTimer( 1, 200, NULL );
@@ -240,9 +243,12 @@ int CMediaFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 void CMediaFrame::OnDestroy()
 {
-	Settings.MediaPlayer.StatusVisible	= m_bStatusVisible != FALSE;
-	Settings.MediaPlayer.ListVisible	= m_bListVisible != FALSE;
+	m_wndList.SaveTextList(
+		Settings.General.UserPath + _T("\\Data\\Playlist.m3u") );
+
 	Settings.MediaPlayer.ListSize		= m_nListSize;
+	Settings.MediaPlayer.ListVisible	= m_bListVisible != FALSE;
+	Settings.MediaPlayer.StatusVisible	= m_bStatusVisible != FALSE;
 
 	KillTimer( 2 );
 	KillTimer( 1 );
@@ -1940,13 +1946,13 @@ void CMediaFrame::DisableScreenSaver()
 {
 	if ( m_bScreenSaverEnabled )
 	{
-		GetActivePwrScheme( &m_nPowerSchemeId );				// get ID of current power scheme
-		GetCurrentPowerPolicies( &m_CurrentGP, &m_CurrentPP );	// get active policies
+		GetActivePwrScheme( &m_nPowerSchemeId );				// Get ID of current power scheme
+		GetCurrentPowerPolicies( &m_CurrentGP, &m_CurrentPP );	// Get active policies
 
-		m_nVidAC = m_CurrentPP.user.VideoTimeoutAc;				// save current values
+		m_nVidAC = m_CurrentPP.user.VideoTimeoutAc;				// Save current values
 		m_nVidDC = m_CurrentPP.user.VideoTimeoutDc;
 
-		m_CurrentPP.user.VideoTimeoutAc = 0;					// disallow display shutoff
+		m_CurrentPP.user.VideoTimeoutAc = 0;					// Disallow display shutoff
 		m_CurrentPP.user.VideoTimeoutDc = 0;
 
 		// set new values
@@ -1970,7 +1976,7 @@ void CMediaFrame::EnableScreenSaver()
 {
 	if ( ! m_bScreenSaverEnabled )
 	{
-		// restore previous values
+		// Restore previous values
 		m_CurrentPP.user.VideoTimeoutAc = m_nVidAC;
 		m_CurrentPP.user.VideoTimeoutDc = m_nVidDC;
 

@@ -18,7 +18,7 @@
 class CTextWindow;
 
 
-class ATL_NO_VTABLE CTextViewerPlugin : 
+class ATL_NO_VTABLE CTextViewerPlugin :
 	public CComObjectRootEx< CComSingleThreadModel >,
 	public CComCoClass< CTextViewerPlugin, &CLSID_TextViewerPlugin >,
 	public IGeneralPlugin,
@@ -47,7 +47,7 @@ public:
 public:
 	BOOL			OpenNewWindow(LPCTSTR pszFilePath);
 	void			RemoveWindow(CTextWindow* pWindow);
-	
+
 // Interfaces
 public:
 	DECLARE_REGISTRY_RESOURCEID(IDR_TEXTVIEWER)
@@ -60,7 +60,7 @@ public:
 
 // IGeneralPlugin
 protected:
-	virtual HRESULT STDMETHODCALLTYPE SetApplication( 
+	virtual HRESULT STDMETHODCALLTYPE SetApplication(
 		/* [in] */ IApplication __RPC_FAR *pApplication);
 	virtual HRESULT STDMETHODCALLTYPE QueryCapabilities(
 		/* [in] */ DWORD __RPC_FAR *pnCaps);
@@ -78,12 +78,12 @@ protected:
 protected:
 	virtual HRESULT STDMETHODCALLTYPE RegisterCommands();
 	virtual HRESULT STDMETHODCALLTYPE InsertCommands();
-	virtual HRESULT STDMETHODCALLTYPE OnUpdate( 
+	virtual HRESULT STDMETHODCALLTYPE OnUpdate(
 		/* [in] */ UINT nCommandID,
 		/* [out][in] */ TRISTATE __RPC_FAR *pbVisible,
 		/* [out][in] */ TRISTATE __RPC_FAR *pbEnabled,
 		/* [out][in] */ TRISTATE __RPC_FAR *pbChecked);
-	virtual HRESULT STDMETHODCALLTYPE OnCommand( 
+	virtual HRESULT STDMETHODCALLTYPE OnCommand(
 		/* [in] */ UINT nCommandID);
 
 };

@@ -56,9 +56,9 @@ BOOL CTorrentWizardApp::InitInstance()
 	cmdInfo.GetOption( _T("destination"), m_sCommandLineDestination );
 	cmdInfo.GetOption( _T("tracker"), m_sCommandLineTracker );
 
-	if( ( m_sCommandLineSourceFile.GetLength() > 0 ) &&
-		( m_sCommandLineDestination.GetLength() > 0 ) &&
-		( m_sCommandLineTracker.GetLength() > 0 ) )
+	if( ! m_sCommandLineSourceFile.IsEmpty() &&
+		! m_sCommandLineDestination.IsEmpty() &&
+		! m_sCommandLineTracker.IsEmpty() )
 	{
 		m_bCommandLine = TRUE;
 	}
@@ -196,21 +196,13 @@ CString SmartSize(QWORD nVolume)
 	nVolume /= 1024;
 
 	if ( nVolume < 1024 )
-	{
 		strVolume.Format( _T("%lu K%s"), (DWORD)nVolume, pszUnit );
-	}
 	else if ( nVolume < 1024*1024 )
-	{
 		strVolume.Format( _T("%.2lf M%s"), (double)(__int64)nVolume / 1024, pszUnit );
-	}
 	else if ( nVolume < 1024*1024*1024 )
-	{
 		strVolume.Format( _T("%.3lf G%s"), (double)(__int64)nVolume / (1024*1024), pszUnit );
-	}
 	else
-	{
 		strVolume.Format( _T("%.3lf T%s"), (double)(__int64)nVolume / (1024*1024*1024), pszUnit );
-	}
 
 	return strVolume;
 }

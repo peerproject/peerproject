@@ -558,7 +558,7 @@ void CLibraryFileView::OnLibraryCreateTorrent()
 			CString sCommandLine, sPath = pFile->GetPath();
 			pLock.Unlock();
 
-			if ( sPath.GetLength() > 0 )
+			if ( ! sPath.IsEmpty() )
 			{
 				sCommandLine = _T(" -sourcefile \"") + sPath + _T("\" -destination \"") +
 					Settings.Downloads.TorrentPath + _T("\" -tracker \"") + Settings.BitTorrent.DefaultTracker + _T("\"");
@@ -1021,7 +1021,7 @@ void CLibraryFileView::OnUpdateMusicBrainzMatches(CCmdUI* pCmdUI)
 	ASSERT( pFile->m_pMetadata != NULL );
 
 	CXMLAttribute* pAttribute = pFile->m_pMetadata->GetAttribute( L"mbpuid" );
-	pCmdUI->Enable( pAttribute != NULL && pAttribute->GetValue().GetLength() > 0 );
+	pCmdUI->Enable( pAttribute != NULL && ! pAttribute->GetValue().IsEmpty() );
 }
 
 void CLibraryFileView::OnMusicBrainzMatches()
@@ -1045,7 +1045,7 @@ void CLibraryFileView::OnUpdateMusicBrainzAlbums(CCmdUI* pCmdUI)
 	ASSERT( pFile->m_pMetadata != NULL );
 
 	CXMLAttribute* pAttribute = pFile->m_pMetadata->GetAttribute( L"mbartistid" );
-	pCmdUI->Enable( pAttribute != NULL && pAttribute->GetValue().GetLength() > 0 );
+	pCmdUI->Enable( pAttribute != NULL && ! pAttribute->GetValue().IsEmpty() );
 }
 
 void CLibraryFileView::OnMusicBrainzAlbums()

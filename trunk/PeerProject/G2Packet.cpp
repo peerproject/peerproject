@@ -345,7 +345,7 @@ CString CG2Packet::ReadString(DWORD nMaximum)
 	LPCSTR pszScan	= pszInput;
 //	BOOL bEncoded	= FALSE;
 
-    DWORD nLength = 0;
+	DWORD nLength = 0;
 	for ( ; nLength < nMaximum ; nLength++ )
 	{
 		m_nPosition++;

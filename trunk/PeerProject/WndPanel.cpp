@@ -1,7 +1,7 @@
 //
 // WndPanel.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -42,11 +42,11 @@ BEGIN_MESSAGE_MAP(CPanelWnd, CChildWnd)
 	ON_WM_NCCALCSIZE()
 	ON_WM_NCHITTEST()
 	ON_WM_NCACTIVATE()
-	ON_WM_SIZE()
 	ON_WM_NCLBUTTONDOWN()
+	ON_WM_SIZE()
 	ON_WM_SETCURSOR()
-	//}}AFX_MSG_MAP
 	ON_MESSAGE(WM_SETTEXT, OnSetText)
+	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 #define CAPTION_HEIGHT	20
@@ -199,7 +199,7 @@ void CPanelWnd::PaintCaption(CDC& dc)
 	CSize size = rc.Size();
 	CDC* pBuffer = CoolInterface.GetBuffer( dc, size );
 
-	if ( ! CoolInterface.DrawWatermark( pBuffer, &rc, &Skin.m_bmPanelMark, 0, 0 ) )
+	if ( ! CoolInterface.DrawWatermark( pBuffer, &rc, &Skin.m_bmPanelMark ) )
 		pBuffer->FillSolidRect( &rc, Colors.m_crPanelBack );
 
 	int nIconY = rc.Height() / 2 - 8;
@@ -339,7 +339,7 @@ void CPanelWnd::PanelSizeLoop()
 		if ( nSplitter < 0.1f ) nSplitter = 0.1f;
 		if ( nSplitter > 0.9f ) nSplitter = 0.9f;
 
-		if ( nSplitter >= 0.47f && nSplitter <= 0.53f ) nSplitter = 0.5f;
+		if ( nSplitter > 0.47f && nSplitter < 0.53f ) nSplitter = 0.5f;
 
 		if ( nSplitter != m_pGroupParent->m_nGroupSize )
 		{

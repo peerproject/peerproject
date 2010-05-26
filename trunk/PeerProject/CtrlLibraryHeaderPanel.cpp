@@ -1,7 +1,7 @@
 //
 // CtrlLibraryHeaderPanel.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -86,7 +86,7 @@ int CLibraryHeaderPanel::Update()
 	m_sTitle	= pFolder->m_pSchema->m_sHeaderTitle;
 	m_sSubtitle	= pFolder->m_pSchema->m_sHeaderSubtitle;
 
-	if ( pFolder->m_pParent == NULL )
+	if ( pFolder->GetParent() == NULL )
 	{
 		QWORD nTotalVolume;
 		DWORD nTotalFiles;
@@ -123,14 +123,14 @@ int CLibraryHeaderPanel::Update()
 		dc.SelectObject( pFont );
 	}
 
-	if (m_hWnd) Invalidate();
+	if ( m_hWnd ) Invalidate();
 
 	//Set Skinable Header Height (64px)
 	int nHeight = static_cast< int >( m_pMetadata.GetCount() * 12 + 8 );
 	nHeight = max( Skin.m_nHeaderbarHeight, nHeight );
 
 	//Set Home View Header Differently?
-	//if ( pFolder->m_pParent != NULL ) nHeight = 56;
+	//if ( pFolder->GetParent() == NULL ) nHeight = 56;
 
 	return min( 80, nHeight );
 }
@@ -149,7 +149,7 @@ void CLibraryHeaderPanel::OnSkinChange()
 
 CAlbumFolder* CLibraryHeaderPanel::GetSelectedAlbum() const
 {
-	if (!m_hWnd) return Library.GetAlbumRoot();
+	if ( ! m_hWnd ) return Library.GetAlbumRoot();
 	CLibraryFrame* pFrame = (CLibraryFrame*)GetOwner();
 	ASSERT_KINDOF(CLibraryFrame, pFrame );
 
@@ -214,10 +214,8 @@ void CLibraryHeaderPanel::OnPaint()
 		m_hBuffer = (HBITMAP)m_dcBuffer.SelectObject( &m_bmBuffer )->m_hObject;
 	}
 
-	if ( ! CoolInterface.DrawWatermark( &m_dcBuffer, &rcClient, &m_bmWatermark, 0, 0 ) )
-	{
+	if ( ! CoolInterface.DrawWatermark( &m_dcBuffer, &rcClient, &m_bmWatermark ) )
 		m_dcBuffer.FillSolidRect( &rcClient, Colors.m_crBannerBack );
-	}
 
 	DoPaint( &m_dcBuffer, rcClient );
 
@@ -263,7 +261,8 @@ void CLibraryHeaderPanel::DoPaint(CDC* pDC, CRect& rcClient)
 			pDC->SelectObject( &CoolInterface.m_fntNormal );
 			DrawText( pDC, rcMeta.left, nY, Settings.General.LanguageRTL ? ':' + pItem->m_sKey : pItem->m_sKey + ':' );
 
-			if ( pItem->m_bLink ) pDC->SelectObject( &CoolInterface.m_fntUnder );
+			if ( pItem->m_bLink )
+				pDC->SelectObject( &CoolInterface.m_fntUnder );
 			DrawText( pDC, rcMeta.left + m_nKeyWidth, nY, pItem->m_sValue );
 
 			pItem->SetRect( rcMeta.left + m_nKeyWidth, nY, rcMeta.right, nY + 12 );

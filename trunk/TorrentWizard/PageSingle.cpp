@@ -1,7 +1,7 @@
 //
 // PageSingle.cpp
 //
-// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008
+// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2007.
 //
 // PeerProject Torrent Wizard is free software; you can redistribute it
@@ -69,14 +69,14 @@ void CSinglePage::DoDataExchange(CDataExchange* pDX)
 /////////////////////////////////////////////////////////////////////////////
 // CSinglePage message handlers
 
-void CSinglePage::OnReset() 
+void CSinglePage::OnReset()
 {
 	m_sFileName.Empty();
 	m_sFileSize.Empty();
 	UpdateData( FALSE );
 }
 
-BOOL CSinglePage::OnSetActive() 
+BOOL CSinglePage::OnSetActive()
 {
 	if ( m_sFileName.IsEmpty() ) SetTimer( 1, 25, NULL );
 	SetWizardButtons( PSWIZB_BACK | PSWIZB_NEXT );
@@ -85,9 +85,9 @@ BOOL CSinglePage::OnSetActive()
 	return CWizardPage::OnSetActive();
 }
 
-void CSinglePage::OnTimer(UINT_PTR /*nIDEvent*/) 
+void CSinglePage::OnTimer(UINT_PTR /*nIDEvent*/)
 {
-	KillTimer( 1 );	
+	KillTimer( 1 );
 	PostMessage( WM_COMMAND, MAKELONG( IDC_BROWSE_FILE, BN_CLICKED ) );
 }
 
@@ -109,7 +109,7 @@ void CSinglePage::OnDropFiles( HDROP hDropInfo )
 		DWORD nLow, nHigh;
 		nLow = GetFileSize( hFile, &nHigh );
 		CloseHandle( hFile );
-		
+
 		QWORD nSize = ( (QWORD)nHigh << 32 ) + (QWORD)nLow;
 		m_sFileSize = SmartSize( nSize );
 
@@ -117,23 +117,23 @@ void CSinglePage::OnDropFiles( HDROP hDropInfo )
 	}
 }
 
-void CSinglePage::OnBrowseFile() 
+void CSinglePage::OnBrowseFile()
 {
 	UpdateData( TRUE );
-	
+
 	CFileDialog dlg( TRUE, NULL, NULL, OFN_HIDEREADONLY, _T("All Files|*.*||"), this );
 	if ( dlg.DoModal() != IDOK ) return;
-	
+
 	m_sFileName = dlg.GetPathName();
-	
+
 	HANDLE hFile = CreateFile( m_sFileName, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, 0, NULL );
-	
+
 	if ( hFile != INVALID_HANDLE_VALUE )
 	{
 		DWORD nLow, nHigh;
 		nLow = GetFileSize( hFile, &nHigh );
 		CloseHandle( hFile );
-		
+
 		QWORD nSize = ( (QWORD)nHigh << 32 ) + (QWORD)nLow;
 		m_sFileSize = SmartSize( nSize );
 	}
@@ -143,31 +143,31 @@ void CSinglePage::OnBrowseFile()
 		strFormat.LoadString( IDS_SINGLE_CANT_OPEN );
 		strMessage.Format( strFormat, (LPCTSTR)m_sFileName );
 		AfxMessageBox( strMessage, MB_ICONEXCLAMATION );
-		
+
 		m_sFileName.Empty();
 	}
-	
+
 	UpdateData( FALSE );
 }
 
 // ToDo: Display Magnet Link in new textbox on file-load
 
-LRESULT CSinglePage::OnWizardBack() 
+LRESULT CSinglePage::OnWizardBack()
 {
 	return IDD_WELCOME_PAGE;
 }
 
-LRESULT CSinglePage::OnWizardNext() 
+LRESULT CSinglePage::OnWizardNext()
 {
 	UpdateData();
-	
+
 	if ( m_sFileName.IsEmpty() ||
 		 GetFileAttributes( m_sFileName ) == 0xFFFFFFFF )
 	{
 		AfxMessageBox( IDS_SINGLE_NEED_FILE, MB_ICONEXCLAMATION );
 		return -1;
 	}
-	
+
 	return IDD_TRACKER_PAGE;
 }
 

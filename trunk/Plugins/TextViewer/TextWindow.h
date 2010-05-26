@@ -19,7 +19,7 @@
 class CTextViewerPlugin;
 
 
-class CTextWindow : 
+class CTextWindow :
 	public CComObjectRootEx<CComSingleThreadModel>,
 	public CWindow, public IPluginWindowOwner
 {
@@ -58,7 +58,7 @@ protected:
 protected:
 	void	OnBestFit();
 	void	OnActualSize();
-	
+
 // Interfaces
 public:
 	BEGIN_COM_MAP(CTextWindow)
@@ -71,7 +71,7 @@ protected:
 	virtual HRESULT STDMETHODCALLTYPE OnMessage(UINT nMessage, WPARAM wParam, LPARAM lParam, LRESULT __RPC_FAR *plResult);
     virtual HRESULT STDMETHODCALLTYPE OnUpdate(UINT nCommandID, TRISTATE __RPC_FAR *pbVisible, TRISTATE __RPC_FAR *pbEnabled, TRISTATE __RPC_FAR *pbChecked);
 	virtual HRESULT STDMETHODCALLTYPE OnCommand(UINT nCommandID);
-	
+
 // Message Map
 public:
 	BEGIN_MSG_MAP(CTextViewerWindow)

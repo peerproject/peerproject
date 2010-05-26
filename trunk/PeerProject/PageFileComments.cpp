@@ -136,7 +136,7 @@ void CFileCommentsPage::OnDrawItem(int /*nIDCtl*/, LPDRAWITEMSTRUCT lpDrawItemSt
 	{
 		dc.SetTextColor( Colors.m_crHiText );
 		if ( Skin.m_bmSelected.m_hObject )
-			CoolInterface.DrawWatermark( &dc, &rcItem, &Skin.m_bmSelected );
+			CoolInterface.DrawWatermark( &dc, &rcItem, &Skin.m_bmSelected, FALSE ); 	// No overdraw
 		else
 			dc.FillSolidRect( &rcItem, Colors.m_crHighlight );
 	}
@@ -193,8 +193,7 @@ void CFileCommentsPage::OnDrawItem(int /*nIDCtl*/, LPDRAWITEMSTRUCT lpDrawItemSt
 void CFileCommentsPage::OnOK()
 {
 	UpdateData();
-	m_sComments.TrimLeft();
-	m_sComments.TrimRight();
+	m_sComments.Trim();
 
 	CLibraryList* pFiles = GetList();
 

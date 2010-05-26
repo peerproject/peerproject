@@ -12,7 +12,7 @@
 #include <rpcndr.h>
 
 
-// Forward Declarations 
+// Forward Declarations
 
 #ifndef __IPropertySetter_FWD_DEFINED__
 #define __IPropertySetter_FWD_DEFINED__
@@ -270,13 +270,13 @@ extern "C"{
 
 
 /* interface __MIDL_itf_qedit_0000_0000 */
-/* [local] */ 
+/* [local] */
 
 
-typedef /* [public] */ 
+typedef /* [public] */
 enum __MIDL___MIDL_itf_qedit_0000_0000_0001
 	{	DEXTERF_JUMP	= 0,
-	DEXTERF_INTERPOLATE	= ( DEXTERF_JUMP + 1 ) 
+	DEXTERF_INTERPOLATE	= ( DEXTERF_JUMP + 1 )
 	} 	DEXTERF;
 
 typedef /* [public][public][public][public] */ struct __MIDL___MIDL_itf_qedit_0000_0000_0002
@@ -296,7 +296,7 @@ typedef /* [public][public][public][public] */ struct __MIDL___MIDL_itf_qedit_00
 
 enum __MIDL___MIDL_itf_qedit_0000_0000_0004
 	{	DEXTER_AUDIO_JUMP	= 0,
-	DEXTER_AUDIO_INTERPOLATE	= ( DEXTER_AUDIO_JUMP + 1 ) 
+	DEXTER_AUDIO_INTERPOLATE	= ( DEXTER_AUDIO_JUMP + 1 )
 	} ;
 typedef /* [public] */ struct __MIDL___MIDL_itf_qedit_0000_0000_0005
 	{
@@ -310,7 +310,7 @@ enum __MIDL___MIDL_itf_qedit_0000_0000_0006
 	{	TIMELINE_INSERT_MODE_INSERT	= 1,
 	TIMELINE_INSERT_MODE_OVERLAY	= 2
 	} ;
-typedef /* [public][public][public][public][public][public][public][public] */ 
+typedef /* [public][public][public][public][public][public][public][public] */
 enum __MIDL___MIDL_itf_qedit_0000_0000_0007
 	{	TIMELINE_MAJOR_TYPE_COMPOSITE	= 1,
 	TIMELINE_MAJOR_TYPE_TRACK	= 2,
@@ -320,7 +320,7 @@ enum __MIDL___MIDL_itf_qedit_0000_0000_0007
 	TIMELINE_MAJOR_TYPE_GROUP	= 128
 	} 	TIMELINE_MAJOR_TYPE;
 
-typedef /* [public] */ 
+typedef /* [public] */
 enum __MIDL___MIDL_itf_qedit_0000_0000_0008
 	{	DEXTERF_BOUNDING	= -1,
 	DEXTERF_EXACTLY_AT	= 0,
@@ -338,7 +338,7 @@ enum __MIDL___MIDL_itf_qedit_0000_0000_0009
 	{	RESIZEF_STRETCH	= 0,
 	RESIZEF_CROP	= ( RESIZEF_STRETCH + 1 ) ,
 	RESIZEF_PRESERVEASPECTRATIO	= ( RESIZEF_CROP + 1 ) ,
-	RESIZEF_PRESERVEASPECTRATIO_NOLETTERBOX	= ( RESIZEF_PRESERVEASPECTRATIO + 1 ) 
+	RESIZEF_PRESERVEASPECTRATIO_NOLETTERBOX	= ( RESIZEF_PRESERVEASPECTRATIO + 1 )
 	} ;
 
 enum __MIDL___MIDL_itf_qedit_0000_0000_0010
@@ -355,7 +355,7 @@ enum __MIDL___MIDL_itf_qedit_0000_0000_0011
 	SFN_VALIDATEF_USELOCAL	= 0x10,
 	SFN_VALIDATEF_NOFIND	= 0x20,
 	SFN_VALIDATEF_IGNOREMUTED	= 0x40,
-	SFN_VALIDATEF_END	= ( SFN_VALIDATEF_IGNOREMUTED + 1 ) 
+	SFN_VALIDATEF_END	= ( SFN_VALIDATEF_IGNOREMUTED + 1 )
 	} ;
 
 enum __MIDL___MIDL_itf_qedit_0000_0000_0012
@@ -363,7 +363,7 @@ enum __MIDL___MIDL_itf_qedit_0000_0000_0012
 	DXTKEY_NONRED	= ( DXTKEY_RGB + 1 ) ,
 	DXTKEY_LUMINANCE	= ( DXTKEY_NONRED + 1 ) ,
 	DXTKEY_ALPHA	= ( DXTKEY_LUMINANCE + 1 ) ,
-	DXTKEY_HUE	= ( DXTKEY_ALPHA + 1 ) 
+	DXTKEY_HUE	= ( DXTKEY_ALPHA + 1 )
 	} ;
 
 
@@ -374,57 +374,57 @@ extern RPC_IF_HANDLE __MIDL_itf_qedit_0000_0000_v0_0_s_ifspec;
 #define __IPropertySetter_INTERFACE_DEFINED__
 
 /* interface IPropertySetter */
-/* [unique][helpstring][uuid][object] */ 
+/* [unique][helpstring][uuid][object] */
 
 EXTERN_C const IID IID_IPropertySetter;
-	
+
 	MIDL_INTERFACE("AE9472BD-B0C3-11D2-8D24-00A0C9441E20")
 	IPropertySetter : public IUnknown
 	{
 	public:
-		virtual HRESULT STDMETHODCALLTYPE LoadXML( 
+		virtual HRESULT STDMETHODCALLTYPE LoadXML(
 			/* [in] */ __RPC__in_opt IUnknown *pxml) = 0;
-		
-		virtual HRESULT STDMETHODCALLTYPE PrintXML( 
+
+		virtual HRESULT STDMETHODCALLTYPE PrintXML(
 			/* [out] */ __RPC__out char *pszXML,
 			/* [in] */ int cbXML,
 			/* [out] */ __RPC__out int *pcbPrinted,
 			/* [in] */ int indent) = 0;
-		
-		virtual HRESULT STDMETHODCALLTYPE CloneProps( 
+
+		virtual HRESULT STDMETHODCALLTYPE CloneProps(
 			/* [out] */ __RPC__deref_out_opt IPropertySetter **ppSetter,
 			/* [in] */ REFERENCE_TIME rtStart,
 			/* [in] */ REFERENCE_TIME rtStop) = 0;
-		
-		virtual HRESULT STDMETHODCALLTYPE AddProp( 
+
+		virtual HRESULT STDMETHODCALLTYPE AddProp(
 			/* [in] */ DEXTER_PARAM Param,
 			/* [in] */ __RPC__in DEXTER_VALUE *paValue) = 0;
-		
-		virtual HRESULT STDMETHODCALLTYPE GetProps( 
+
+		virtual HRESULT STDMETHODCALLTYPE GetProps(
 			/* [out] */ __RPC__out LONG *pcParams,
 			/* [out] */ __RPC__deref_out_opt DEXTER_PARAM **paParam,
 			/* [out] */ __RPC__deref_out_opt DEXTER_VALUE **paValue) = 0;
-		
-		virtual HRESULT STDMETHODCALLTYPE FreeProps( 
+
+		virtual HRESULT STDMETHODCALLTYPE FreeProps(
 			/* [in] */ LONG cParams,
 			/* [in] */ __RPC__in DEXTER_PARAM *paParam,
 			/* [in] */ __RPC__in DEXTER_VALUE *paValue) = 0;
-		
+
 		virtual HRESULT STDMETHODCALLTYPE ClearProps( void) = 0;
-		
-		virtual HRESULT STDMETHODCALLTYPE SaveToBlob( 
+
+		virtual HRESULT STDMETHODCALLTYPE SaveToBlob(
 			/* [out] */ __RPC__out LONG *pcSize,
 			/* [out] */ __RPC__deref_out_opt BYTE **ppb) = 0;
-		
-		virtual HRESULT STDMETHODCALLTYPE LoadFromBlob( 
+
+		virtual HRESULT STDMETHODCALLTYPE LoadFromBlob(
 			/* [in] */ LONG cSize,
 			/* [in] */ __RPC__in BYTE *pb) = 0;
-		
-		virtual HRESULT STDMETHODCALLTYPE SetProps( 
+
+		virtual HRESULT STDMETHODCALLTYPE SetProps(
 			/* [in] */ __RPC__in_opt IUnknown *pTarget,
 			/* [in] */ REFERENCE_TIME rtNow) = 0;
-		
-		virtual HRESULT STDMETHODCALLTYPE PrintXMLW( 
+
+		virtual HRESULT STDMETHODCALLTYPE PrintXMLW(
 			/* [out] */ __RPC__out WCHAR *pszXML,
 			/* [in] */ int cchXML,
 			/* [out] */ __RPC__out int *pcchPrinted,
@@ -462,21 +462,21 @@ EXTERN_C const IID IID_IPropertySetter;
 #define __IMediaLocator_INTERFACE_DEFINED__
 
 /* interface IMediaLocator */
-/* [unique][helpstring][uuid][object] */ 
+/* [unique][helpstring][uuid][object] */
 
 EXTERN_C const IID IID_IMediaLocator;
-	
+
 	MIDL_INTERFACE("288581E0-66CE-11d2-918F-00C0DF10D434")
 	IMediaLocator : public IUnknown
 	{
 	public:
-		virtual HRESULT STDMETHODCALLTYPE FindMediaFile( 
+		virtual HRESULT STDMETHODCALLTYPE FindMediaFile(
 			__RPC__in BSTR Input,
 			__RPC__in BSTR FilterString,
 			__RPC__deref_in_opt BSTR *pOutput,
 			long Flags) = 0;
-		
-		virtual HRESULT STDMETHODCALLTYPE AddFoundLocation( 
+
+		virtual HRESULT STDMETHODCALLTYPE AddFoundLocation(
 			__RPC__in BSTR DirectoryName) = 0;
 	};
 
@@ -487,67 +487,67 @@ EXTERN_C const IID IID_IMediaLocator;
 #define __IMediaDet_INTERFACE_DEFINED__
 
 /* interface IMediaDet */
-/* [unique][helpstring][uuid][object] */ 
+/* [unique][helpstring][uuid][object] */
 
 EXTERN_C const IID IID_IMediaDet;
-	
+
 	MIDL_INTERFACE("65BD0710-24D2-4ff7-9324-ED2E5D3ABAFA")
 	IMediaDet : public IUnknown
 	{
 	public:
-		virtual /* [helpstring][id][propget] */ HRESULT STDMETHODCALLTYPE get_Filter( 
+		virtual /* [helpstring][id][propget] */ HRESULT STDMETHODCALLTYPE get_Filter(
 			/* [retval][out] */ __RPC__deref_out_opt IUnknown **pVal) = 0;
-		
-		virtual /* [helpstring][id][propput] */ HRESULT STDMETHODCALLTYPE put_Filter( 
+
+		virtual /* [helpstring][id][propput] */ HRESULT STDMETHODCALLTYPE put_Filter(
 			/* [in] */ __RPC__in_opt IUnknown *newVal) = 0;
-		
-		virtual /* [helpstring][id][propget] */ HRESULT STDMETHODCALLTYPE get_OutputStreams( 
+
+		virtual /* [helpstring][id][propget] */ HRESULT STDMETHODCALLTYPE get_OutputStreams(
 			/* [retval][out] */ __RPC__out long *pVal) = 0;
-		
-		virtual /* [helpstring][id][propget] */ HRESULT STDMETHODCALLTYPE get_CurrentStream( 
+
+		virtual /* [helpstring][id][propget] */ HRESULT STDMETHODCALLTYPE get_CurrentStream(
 			/* [retval][out] */ __RPC__out long *pVal) = 0;
-		
-		virtual /* [helpstring][id][propput] */ HRESULT STDMETHODCALLTYPE put_CurrentStream( 
+
+		virtual /* [helpstring][id][propput] */ HRESULT STDMETHODCALLTYPE put_CurrentStream(
 			/* [in] */ long newVal) = 0;
-		
-		virtual /* [helpstring][id][propget] */ HRESULT STDMETHODCALLTYPE get_StreamType( 
+
+		virtual /* [helpstring][id][propget] */ HRESULT STDMETHODCALLTYPE get_StreamType(
 			/* [retval][out] */ __RPC__out GUID *pVal) = 0;
-		
-		virtual /* [helpstring][id][propget] */ HRESULT STDMETHODCALLTYPE get_StreamTypeB( 
+
+		virtual /* [helpstring][id][propget] */ HRESULT STDMETHODCALLTYPE get_StreamTypeB(
 			/* [retval][out] */ __RPC__deref_out_opt BSTR *pVal) = 0;
-		
-		virtual /* [helpstring][id][propget] */ HRESULT STDMETHODCALLTYPE get_StreamLength( 
+
+		virtual /* [helpstring][id][propget] */ HRESULT STDMETHODCALLTYPE get_StreamLength(
 			/* [retval][out] */ __RPC__out double *pVal) = 0;
-		
-		virtual /* [helpstring][id][propget] */ HRESULT STDMETHODCALLTYPE get_Filename( 
+
+		virtual /* [helpstring][id][propget] */ HRESULT STDMETHODCALLTYPE get_Filename(
 			/* [retval][out] */ __RPC__deref_out_opt BSTR *pVal) = 0;
-		
-		virtual /* [helpstring][id][propput] */ HRESULT STDMETHODCALLTYPE put_Filename( 
+
+		virtual /* [helpstring][id][propput] */ HRESULT STDMETHODCALLTYPE put_Filename(
 			/* [in] */ __RPC__in BSTR newVal) = 0;
-		
-		virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE GetBitmapBits( 
+
+		virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE GetBitmapBits(
 			double StreamTime,
 			__RPC__in long *pBufferSize,
 			__RPC__in char *pBuffer,
 			long Width,
 			long Height) = 0;
-		
-		virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE WriteBitmapBits( 
+
+		virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE WriteBitmapBits(
 			double StreamTime,
 			long Width,
 			long Height,
 			__RPC__in BSTR Filename) = 0;
-		
-		virtual /* [helpstring][id][propget] */ HRESULT STDMETHODCALLTYPE get_StreamMediaType( 
+
+		virtual /* [helpstring][id][propget] */ HRESULT STDMETHODCALLTYPE get_StreamMediaType(
 			/* [retval][out] */ __RPC__out AM_MEDIA_TYPE *pVal) = 0;
-		
-		virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE GetSampleGrabber( 
+
+		virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE GetSampleGrabber(
 			/* [out] */ __RPC__deref_out_opt ISampleGrabber **ppVal) = 0;
-		
-		virtual /* [helpstring][id][propget] */ HRESULT STDMETHODCALLTYPE get_FrameRate( 
+
+		virtual /* [helpstring][id][propget] */ HRESULT STDMETHODCALLTYPE get_FrameRate(
 			/* [retval][out] */ __RPC__out double *pVal) = 0;
-		
-		virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE EnterBitmapGrabMode( 
+
+		virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE EnterBitmapGrabMode(
 			double SeekTime) = 0;
 	};
 
@@ -558,30 +558,30 @@ EXTERN_C const IID IID_IMediaDet;
 #define __IGrfCache_INTERFACE_DEFINED__
 
 /* interface IGrfCache */
-/* [unique][helpstring][uuid][object] */ 
+/* [unique][helpstring][uuid][object] */
 
 EXTERN_C const IID IID_IGrfCache;
-	
+
 	MIDL_INTERFACE("AE9472BE-B0C3-11D2-8D24-00A0C9441E20")
 	IGrfCache : public IDispatch
 	{
 	public:
-		virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE AddFilter( 
+		virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE AddFilter(
 			__RPC__in_opt IGrfCache *ChainedCache,
 			LONGLONG ID,
 			__RPC__in_opt const IBaseFilter *pFilter,
 			__RPC__in LPCWSTR pName) = 0;
-		
-		virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE ConnectPins( 
+
+		virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE ConnectPins(
 			__RPC__in_opt IGrfCache *ChainedCache,
 			LONGLONG PinID1,
 			__RPC__in_opt const IPin *pPin1,
 			LONGLONG PinID2,
 			__RPC__in_opt const IPin *pPin2) = 0;
-		
-		virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE SetGraph( 
+
+		virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE SetGraph(
 			__RPC__in_opt const IGraphBuilder *pGraph) = 0;
-		
+
 		virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE DoConnectionsNow( void) = 0;
 	};
 
@@ -592,75 +592,75 @@ EXTERN_C const IID IID_IGrfCache;
 #define __IRenderEngine_INTERFACE_DEFINED__
 
 /* interface IRenderEngine */
-/* [unique][helpstring][uuid][object] */ 
+/* [unique][helpstring][uuid][object] */
 
 EXTERN_C const IID IID_IRenderEngine;
-	
+
 	MIDL_INTERFACE("6BEE3A81-66C9-11d2-918F-00C0DF10D434")
 	IRenderEngine : public IUnknown
 	{
 	public:
-		virtual HRESULT STDMETHODCALLTYPE SetTimelineObject( 
+		virtual HRESULT STDMETHODCALLTYPE SetTimelineObject(
 			__RPC__in_opt IAMTimeline *pTimeline) = 0;
-		
-		virtual HRESULT STDMETHODCALLTYPE GetTimelineObject( 
+
+		virtual HRESULT STDMETHODCALLTYPE GetTimelineObject(
 			/* [out] */ __RPC__deref_out_opt IAMTimeline **ppTimeline) = 0;
-		
-		virtual HRESULT STDMETHODCALLTYPE GetFilterGraph( 
+
+		virtual HRESULT STDMETHODCALLTYPE GetFilterGraph(
 			/* [out] */ __RPC__deref_out_opt IGraphBuilder **ppFG) = 0;
-		
-		virtual HRESULT STDMETHODCALLTYPE SetFilterGraph( 
+
+		virtual HRESULT STDMETHODCALLTYPE SetFilterGraph(
 			__RPC__in_opt IGraphBuilder *pFG) = 0;
-		
-		virtual HRESULT STDMETHODCALLTYPE SetInterestRange( 
+
+		virtual HRESULT STDMETHODCALLTYPE SetInterestRange(
 			REFERENCE_TIME Start,
 			REFERENCE_TIME Stop) = 0;
-		
-		virtual HRESULT STDMETHODCALLTYPE SetInterestRange2( 
+
+		virtual HRESULT STDMETHODCALLTYPE SetInterestRange2(
 			double Start,
 			double Stop) = 0;
-		
-		virtual HRESULT STDMETHODCALLTYPE SetRenderRange( 
+
+		virtual HRESULT STDMETHODCALLTYPE SetRenderRange(
 			REFERENCE_TIME Start,
 			REFERENCE_TIME Stop) = 0;
-		
-		virtual HRESULT STDMETHODCALLTYPE SetRenderRange2( 
+
+		virtual HRESULT STDMETHODCALLTYPE SetRenderRange2(
 			double Start,
 			double Stop) = 0;
-		
-		virtual HRESULT STDMETHODCALLTYPE GetGroupOutputPin( 
+
+		virtual HRESULT STDMETHODCALLTYPE GetGroupOutputPin(
 			long Group,
 			/* [out] */ __RPC__deref_out_opt IPin **ppRenderPin) = 0;
-		
+
 		virtual HRESULT STDMETHODCALLTYPE ScrapIt( void) = 0;
-		
+
 		virtual HRESULT STDMETHODCALLTYPE RenderOutputPins( void) = 0;
-		
-		virtual HRESULT STDMETHODCALLTYPE GetVendorString( 
+
+		virtual HRESULT STDMETHODCALLTYPE GetVendorString(
 			/* [retval][out] */ __RPC__deref_out_opt BSTR *pVendorID) = 0;
-		
+
 		virtual HRESULT STDMETHODCALLTYPE ConnectFrontEnd( void) = 0;
-		
-		virtual HRESULT STDMETHODCALLTYPE SetSourceConnectCallback( 
+
+		virtual HRESULT STDMETHODCALLTYPE SetSourceConnectCallback(
 			__RPC__in_opt IGrfCache *pCallback) = 0;
-		
-		virtual HRESULT STDMETHODCALLTYPE SetDynamicReconnectLevel( 
+
+		virtual HRESULT STDMETHODCALLTYPE SetDynamicReconnectLevel(
 			long Level) = 0;
-		
+
 		virtual HRESULT STDMETHODCALLTYPE DoSmartRecompression( void) = 0;
-		
+
 		virtual HRESULT STDMETHODCALLTYPE UseInSmartRecompressionGraph( void) = 0;
-		
-		virtual HRESULT STDMETHODCALLTYPE SetSourceNameValidation( 
+
+		virtual HRESULT STDMETHODCALLTYPE SetSourceNameValidation(
 			__RPC__in BSTR FilterString,
 			__RPC__in_opt IMediaLocator *pOverride,
 			LONG Flags) = 0;
-		
+
 		virtual HRESULT STDMETHODCALLTYPE Commit( void) = 0;
-		
+
 		virtual HRESULT STDMETHODCALLTYPE Decommit( void) = 0;
-		
-		virtual HRESULT STDMETHODCALLTYPE GetCaps( 
+
+		virtual HRESULT STDMETHODCALLTYPE GetCaps(
 			long Index,
 			__RPC__in long *pReturn) = 0;
 	};
@@ -672,15 +672,15 @@ EXTERN_C const IID IID_IRenderEngine;
 #define __IRenderEngine2_INTERFACE_DEFINED__
 
 /* interface IRenderEngine2 */
-/* [unique][helpstring][uuid][object] */ 
+/* [unique][helpstring][uuid][object] */
 
 EXTERN_C const IID IID_IRenderEngine2;
-	
+
 	MIDL_INTERFACE("6BEE3A82-66C9-11d2-918F-00C0DF10D434")
 	IRenderEngine2 : public IUnknown
 	{
 	public:
-		virtual HRESULT STDMETHODCALLTYPE SetResizerGUID( 
+		virtual HRESULT STDMETHODCALLTYPE SetResizerGUID(
 			GUID ResizerGuid) = 0;
 	};
 
@@ -691,15 +691,15 @@ EXTERN_C const IID IID_IRenderEngine2;
 #define __IFindCompressorCB_INTERFACE_DEFINED__
 
 /* interface IFindCompressorCB */
-/* [unique][helpstring][uuid][object] */ 
+/* [unique][helpstring][uuid][object] */
 
 EXTERN_C const IID IID_IFindCompressorCB;
-	
+
 	MIDL_INTERFACE("F03FA8DE-879A-4d59-9B2C-26BB1CF83461")
 	IFindCompressorCB : public IUnknown
 	{
 	public:
-		virtual HRESULT STDMETHODCALLTYPE GetCompressor( 
+		virtual HRESULT STDMETHODCALLTYPE GetCompressor(
 			__RPC__in AM_MEDIA_TYPE *pType,
 			__RPC__in AM_MEDIA_TYPE *pCompType,
 			/* [out] */ __RPC__deref_out_opt IBaseFilter **ppFilter) = 0;
@@ -712,25 +712,25 @@ EXTERN_C const IID IID_IFindCompressorCB;
 #define __ISmartRenderEngine_INTERFACE_DEFINED__
 
 /* interface ISmartRenderEngine */
-/* [unique][helpstring][uuid][object] */ 
+/* [unique][helpstring][uuid][object] */
 
 EXTERN_C const IID IID_ISmartRenderEngine;
-	
+
 	MIDL_INTERFACE("F03FA8CE-879A-4d59-9B2C-26BB1CF83461")
 	ISmartRenderEngine : public IUnknown
 	{
 	public:
-		virtual HRESULT STDMETHODCALLTYPE SetGroupCompressor( 
+		virtual HRESULT STDMETHODCALLTYPE SetGroupCompressor(
 			long Group,
 			__RPC__in_opt IBaseFilter *pCompressor) = 0;
-		
-		virtual HRESULT STDMETHODCALLTYPE GetGroupCompressor( 
+
+		virtual HRESULT STDMETHODCALLTYPE GetGroupCompressor(
 			long Group,
 			__RPC__deref_in_opt IBaseFilter **pCompressor) = 0;
-		
-		virtual HRESULT STDMETHODCALLTYPE SetFindCompressorCB( 
+
+		virtual HRESULT STDMETHODCALLTYPE SetFindCompressorCB(
 			__RPC__in_opt IFindCompressorCB *pCallback) = 0;
-		
+
 	};
 
 #endif 	// __ISmartRenderEngine_INTERFACE_DEFINED__
@@ -740,135 +740,135 @@ EXTERN_C const IID IID_ISmartRenderEngine;
 #define __IAMTimelineObj_INTERFACE_DEFINED__
 
 /* interface IAMTimelineObj */
-/* [unique][helpstring][uuid][local][object] */ 
+/* [unique][helpstring][uuid][local][object] */
 
 EXTERN_C const IID IID_IAMTimelineObj;
-	
+
 	MIDL_INTERFACE("78530B77-61F9-11D2-8CAD-00A024580902")
 	IAMTimelineObj : public IUnknown
 	{
 	public:
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetStartStop( 
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetStartStop(
 			REFERENCE_TIME *pStart,
 			REFERENCE_TIME *pStop) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetStartStop2( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetStartStop2(
 			REFTIME *pStart,
 			REFTIME *pStop) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE FixTimes( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE FixTimes(
 			REFERENCE_TIME *pStart,
 			REFERENCE_TIME *pStop) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE FixTimes2( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE FixTimes2(
 			REFTIME *pStart,
 			REFTIME *pStop) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SetStartStop( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SetStartStop(
 			REFERENCE_TIME Start,
 			REFERENCE_TIME Stop) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SetStartStop2( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SetStartStop2(
 			REFTIME Start,
 			REFTIME Stop) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetPropertySetter( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetPropertySetter(
 			/* [retval][out] */ IPropertySetter **pVal) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SetPropertySetter( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SetPropertySetter(
 			IPropertySetter *newVal) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetSubObject( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetSubObject(
 			/* [retval][out] */ IUnknown **pVal) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SetSubObject( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SetSubObject(
 			IUnknown *newVal) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SetSubObjectGUID( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SetSubObjectGUID(
 			GUID newVal) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SetSubObjectGUIDB( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SetSubObjectGUIDB(
 			BSTR newVal) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetSubObjectGUID( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetSubObjectGUID(
 			GUID *pVal) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetSubObjectGUIDB( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetSubObjectGUIDB(
 			/* [retval][out] */ BSTR *pVal) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetSubObjectLoaded( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetSubObjectLoaded(
 			BOOL *pVal) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetTimelineType( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetTimelineType(
 			TIMELINE_MAJOR_TYPE *pVal) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SetTimelineType( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SetTimelineType(
 			TIMELINE_MAJOR_TYPE newVal) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetUserID( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetUserID(
 			long *pVal) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SetUserID( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SetUserID(
 			long newVal) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetGenID( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetGenID(
 			long *pVal) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetUserName( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetUserName(
 			/* [retval][out] */ BSTR *pVal) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SetUserName( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SetUserName(
 			BSTR newVal) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetUserData( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetUserData(
 			BYTE *pData,
 			long *pSize) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SetUserData( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SetUserData(
 			BYTE *pData,
 			long Size) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetMuted( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetMuted(
 			BOOL *pVal) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SetMuted( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SetMuted(
 			BOOL newVal) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetLocked( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetLocked(
 			BOOL *pVal) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SetLocked( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SetLocked(
 			BOOL newVal) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetDirtyRange( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetDirtyRange(
 			REFERENCE_TIME *pStart,
 			REFERENCE_TIME *pStop) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetDirtyRange2( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetDirtyRange2(
 			REFTIME *pStart,
 			REFTIME *pStop) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SetDirtyRange( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SetDirtyRange(
 			REFERENCE_TIME Start,
 			REFERENCE_TIME Stop) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SetDirtyRange2( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SetDirtyRange2(
 			REFTIME Start,
 			REFTIME Stop) = 0;
-		
+
 		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE ClearDirty( void) = 0;
-		
+
 		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE Remove( void) = 0;
-		
+
 		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE RemoveAll( void) = 0;
-		
-		virtual HRESULT STDMETHODCALLTYPE GetTimelineNoRef( 
+
+		virtual HRESULT STDMETHODCALLTYPE GetTimelineNoRef(
 			IAMTimeline **ppResult) = 0;
-		
-		virtual HRESULT STDMETHODCALLTYPE GetGroupIBelongTo( 
+
+		virtual HRESULT STDMETHODCALLTYPE GetGroupIBelongTo(
 			/* [out] */ IAMTimelineGroup **ppGroup) = 0;
-		
-		virtual HRESULT STDMETHODCALLTYPE GetEmbedDepth( 
+
+		virtual HRESULT STDMETHODCALLTYPE GetEmbedDepth(
 			long *pVal) = 0;
 	};
 
@@ -879,26 +879,26 @@ EXTERN_C const IID IID_IAMTimelineObj;
 #define __IAMTimelineEffectable_INTERFACE_DEFINED__
 
 /* interface IAMTimelineEffectable */
-/* [unique][helpstring][uuid][object] */ 
+/* [unique][helpstring][uuid][object] */
 
 EXTERN_C const IID IID_IAMTimelineEffectable;
-	
+
 	MIDL_INTERFACE("EAE58537-622E-11d2-8CAD-00A024580902")
 	IAMTimelineEffectable : public IUnknown
 	{
 	public:
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE EffectInsBefore( 
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE EffectInsBefore(
 			__RPC__in_opt IAMTimelineObj *pFX,
 			long priority) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE EffectSwapPriorities( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE EffectSwapPriorities(
 			long PriorityA,
 			long PriorityB) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE EffectGetCount( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE EffectGetCount(
 			__RPC__in long *pCount) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetEffect( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetEffect(
 			/* [out] */ __RPC__deref_out_opt IAMTimelineObj **ppFx,
 			long Which) = 0;
 	};
@@ -910,15 +910,15 @@ EXTERN_C const IID IID_IAMTimelineEffectable;
 #define __IAMTimelineEffect_INTERFACE_DEFINED__
 
 /* interface IAMTimelineEffect */
-/* [unique][helpstring][uuid][object] */ 
+/* [unique][helpstring][uuid][object] */
 
 EXTERN_C const IID IID_IAMTimelineEffect;
-	
+
 	MIDL_INTERFACE("BCE0C264-622D-11d2-8CAD-00A024580902")
 	IAMTimelineEffect : public IUnknown
 	{
 	public:
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE EffectGetPriority( 
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE EffectGetPriority(
 			__RPC__in long *pVal) = 0;
 	};
 
@@ -929,34 +929,34 @@ EXTERN_C const IID IID_IAMTimelineEffect;
 #define __IAMTimelineTransable_INTERFACE_DEFINED__
 
 /* interface IAMTimelineTransable */
-/* [unique][helpstring][uuid][object] */ 
+/* [unique][helpstring][uuid][object] */
 
 EXTERN_C const IID IID_IAMTimelineTransable;
-	
+
 	MIDL_INTERFACE("378FA386-622E-11d2-8CAD-00A024580902")
 	IAMTimelineTransable : public IUnknown
 	{
 	public:
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE TransAdd( 
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE TransAdd(
 			__RPC__in_opt IAMTimelineObj *pTrans) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE TransGetCount( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE TransGetCount(
 			__RPC__in long *pCount) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetNextTrans( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetNextTrans(
 			/* [out] */ __RPC__deref_out_opt IAMTimelineObj **ppTrans,
 			__RPC__in REFERENCE_TIME *pInOut) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetNextTrans2( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetNextTrans2(
 			/* [out] */ __RPC__deref_out_opt IAMTimelineObj **ppTrans,
 			__RPC__in REFTIME *pInOut) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetTransAtTime( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetTransAtTime(
 			/* [out] */ __RPC__deref_out_opt IAMTimelineObj **ppObj,
 			REFERENCE_TIME Time,
 			long SearchDirection) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetTransAtTime2( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetTransAtTime2(
 			/* [out] */ __RPC__deref_out_opt IAMTimelineObj **ppObj,
 			REFTIME Time,
 			long SearchDirection) = 0;
@@ -969,18 +969,18 @@ EXTERN_C const IID IID_IAMTimelineTransable;
 #define __IAMTimelineSplittable_INTERFACE_DEFINED__
 
 /* interface IAMTimelineSplittable */
-/* [unique][helpstring][uuid][object] */ 
+/* [unique][helpstring][uuid][object] */
 
 EXTERN_C const IID IID_IAMTimelineSplittable;
-	
+
 	MIDL_INTERFACE("A0F840A0-D590-11d2-8D55-00A0C9441E20")
 	IAMTimelineSplittable : public IUnknown
 	{
 	public:
-		virtual HRESULT STDMETHODCALLTYPE SplitAt( 
+		virtual HRESULT STDMETHODCALLTYPE SplitAt(
 			REFERENCE_TIME Time) = 0;
-		
-		virtual HRESULT STDMETHODCALLTYPE SplitAt2( 
+
+		virtual HRESULT STDMETHODCALLTYPE SplitAt2(
 			REFTIME Time) = 0;
 	};
 
@@ -991,36 +991,36 @@ EXTERN_C const IID IID_IAMTimelineSplittable;
 #define __IAMTimelineTrans_INTERFACE_DEFINED__
 
 /* interface IAMTimelineTrans */
-/* [unique][helpstring][uuid][object] */ 
+/* [unique][helpstring][uuid][object] */
 
 EXTERN_C const IID IID_IAMTimelineTrans;
-	
+
 	MIDL_INTERFACE("BCE0C265-622D-11d2-8CAD-00A024580902")
 	IAMTimelineTrans : public IUnknown
 	{
 	public:
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetCutPoint( 
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetCutPoint(
 			__RPC__in REFERENCE_TIME *pTLTime) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetCutPoint2( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetCutPoint2(
 			__RPC__in REFTIME *pTLTime) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SetCutPoint( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SetCutPoint(
 			REFERENCE_TIME TLTime) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SetCutPoint2( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SetCutPoint2(
 			REFTIME TLTime) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetSwapInputs( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetSwapInputs(
 			__RPC__in BOOL *pVal) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SetSwapInputs( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SetSwapInputs(
 			BOOL pVal) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetCutsOnly( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetCutsOnly(
 			__RPC__in BOOL *pVal) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SetCutsOnly( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SetCutsOnly(
 			BOOL pVal) = 0;
 	};
 
@@ -1031,84 +1031,84 @@ EXTERN_C const IID IID_IAMTimelineTrans;
 #define __IAMTimelineSrc_INTERFACE_DEFINED__
 
 /* interface IAMTimelineSrc */
-/* [unique][helpstring][uuid][object] */ 
+/* [unique][helpstring][uuid][object] */
 
 EXTERN_C const IID IID_IAMTimelineSrc;
-	
+
 	MIDL_INTERFACE("78530B79-61F9-11D2-8CAD-00A024580902")
 	IAMTimelineSrc : public IUnknown
 	{
 	public:
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetMediaTimes( 
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetMediaTimes(
 			__RPC__in REFERENCE_TIME *pStart,
 			__RPC__in REFERENCE_TIME *pStop) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetMediaTimes2( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetMediaTimes2(
 			__RPC__in REFTIME *pStart,
 			__RPC__in REFTIME *pStop) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE ModifyStopTime( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE ModifyStopTime(
 			REFERENCE_TIME Stop) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE ModifyStopTime2( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE ModifyStopTime2(
 			REFTIME Stop) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE FixMediaTimes( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE FixMediaTimes(
 			__RPC__in REFERENCE_TIME *pStart,
 			__RPC__in REFERENCE_TIME *pStop) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE FixMediaTimes2( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE FixMediaTimes2(
 			__RPC__in REFTIME *pStart,
 			__RPC__in REFTIME *pStop) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SetMediaTimes( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SetMediaTimes(
 			REFERENCE_TIME Start,
 			REFERENCE_TIME Stop) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SetMediaTimes2( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SetMediaTimes2(
 			REFTIME Start,
 			REFTIME Stop) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SetMediaLength( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SetMediaLength(
 			REFERENCE_TIME Length) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SetMediaLength2( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SetMediaLength2(
 			REFTIME Length) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetMediaLength( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetMediaLength(
 			__RPC__in REFERENCE_TIME *pLength) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetMediaLength2( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetMediaLength2(
 			__RPC__in REFTIME *pLength) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetMediaName( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetMediaName(
 			/* [retval][out] */ __RPC__deref_out_opt BSTR *pVal) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SetMediaName( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SetMediaName(
 			__RPC__in BSTR newVal) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SpliceWithNext( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SpliceWithNext(
 			__RPC__in_opt IAMTimelineObj *pNext) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetStreamNumber( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetStreamNumber(
 			__RPC__in long *pVal) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SetStreamNumber( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SetStreamNumber(
 			long Val) = 0;
-		
-		virtual HRESULT STDMETHODCALLTYPE IsNormalRate( 
+
+		virtual HRESULT STDMETHODCALLTYPE IsNormalRate(
 			__RPC__in BOOL *pVal) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetDefaultFPS( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetDefaultFPS(
 			__RPC__in double *pFPS) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SetDefaultFPS( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SetDefaultFPS(
 			double FPS) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetStretchMode( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetStretchMode(
 			__RPC__in int *pnStretchMode) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SetStretchMode( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SetStretchMode(
 			int nStretchMode) = 0;
 	};
 
@@ -1119,66 +1119,66 @@ EXTERN_C const IID IID_IAMTimelineSrc;
 #define __IAMTimelineTrack_INTERFACE_DEFINED__
 
 /* interface IAMTimelineTrack */
-/* [unique][helpstring][uuid][object] */ 
+/* [unique][helpstring][uuid][object] */
 
 EXTERN_C const IID IID_IAMTimelineTrack;
-	
+
 	MIDL_INTERFACE("EAE58538-622E-11d2-8CAD-00A024580902")
 	IAMTimelineTrack : public IUnknown
 	{
 	public:
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SrcAdd( 
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SrcAdd(
 			__RPC__in_opt IAMTimelineObj *pSource) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetNextSrc( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetNextSrc(
 			/* [out] */ __RPC__deref_out_opt IAMTimelineObj **ppSrc,
 			__RPC__in REFERENCE_TIME *pInOut) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetNextSrc2( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetNextSrc2(
 			/* [out] */ __RPC__deref_out_opt IAMTimelineObj **ppSrc,
 			__RPC__in REFTIME *pInOut) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE MoveEverythingBy( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE MoveEverythingBy(
 			REFERENCE_TIME Start,
 			REFERENCE_TIME MoveBy) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE MoveEverythingBy2( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE MoveEverythingBy2(
 			REFTIME Start,
 			REFTIME MoveBy) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetSourcesCount( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetSourcesCount(
 			__RPC__in long *pVal) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE AreYouBlank( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE AreYouBlank(
 			__RPC__in long *pVal) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetSrcAtTime( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetSrcAtTime(
 			/* [out] */ __RPC__deref_out_opt IAMTimelineObj **ppSrc,
 			REFERENCE_TIME Time,
 			long SearchDirection) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetSrcAtTime2( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetSrcAtTime2(
 			/* [out] */ __RPC__deref_out_opt IAMTimelineObj **ppSrc,
 			REFTIME Time,
 			long SearchDirection) = 0;
-		
-		virtual HRESULT STDMETHODCALLTYPE InsertSpace( 
+
+		virtual HRESULT STDMETHODCALLTYPE InsertSpace(
 			REFERENCE_TIME rtStart,
 			REFERENCE_TIME rtEnd) = 0;
-		
-		virtual HRESULT STDMETHODCALLTYPE InsertSpace2( 
+
+		virtual HRESULT STDMETHODCALLTYPE InsertSpace2(
 			REFTIME rtStart,
 			REFTIME rtEnd) = 0;
-		
-		virtual HRESULT STDMETHODCALLTYPE ZeroBetween( 
+
+		virtual HRESULT STDMETHODCALLTYPE ZeroBetween(
 			REFERENCE_TIME rtStart,
 			REFERENCE_TIME rtEnd) = 0;
-		
-		virtual HRESULT STDMETHODCALLTYPE ZeroBetween2( 
+
+		virtual HRESULT STDMETHODCALLTYPE ZeroBetween2(
 			REFTIME rtStart,
 			REFTIME rtEnd) = 0;
-		
-		virtual HRESULT STDMETHODCALLTYPE GetNextSrcEx( 
+
+		virtual HRESULT STDMETHODCALLTYPE GetNextSrcEx(
 			__RPC__in_opt IAMTimelineObj *pLast,
 			/* [out] */ __RPC__deref_out_opt IAMTimelineObj **ppNext) = 0;
 	};
@@ -1190,17 +1190,17 @@ EXTERN_C const IID IID_IAMTimelineTrack;
 #define __IAMTimelineVirtualTrack_INTERFACE_DEFINED__
 
 /* interface IAMTimelineVirtualTrack */
-/* [unique][helpstring][uuid][object] */ 
+/* [unique][helpstring][uuid][object] */
 
 EXTERN_C const IID IID_IAMTimelineVirtualTrack;
-	
+
 	MIDL_INTERFACE("A8ED5F80-C2C7-11d2-8D39-00A0C9441E20")
 	IAMTimelineVirtualTrack : public IUnknown
 	{
 	public:
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE TrackGetPriority( 
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE TrackGetPriority(
 			__RPC__in long *pPriority) = 0;
-		
+
 		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SetTrackDirty( void) = 0;
 	};
 
@@ -1211,45 +1211,45 @@ EXTERN_C const IID IID_IAMTimelineVirtualTrack;
 #define __IAMTimelineComp_INTERFACE_DEFINED__
 
 /* interface IAMTimelineComp */
-/* [unique][helpstring][uuid][object] */ 
+/* [unique][helpstring][uuid][object] */
 
 EXTERN_C const IID IID_IAMTimelineComp;
-	
+
 	MIDL_INTERFACE("EAE58536-622E-11d2-8CAD-00A024580902")
 	IAMTimelineComp : public IUnknown
 	{
 	public:
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE VTrackInsBefore( 
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE VTrackInsBefore(
 			__RPC__in_opt IAMTimelineObj *pVirtualTrack,
 			long Priority) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE VTrackSwapPriorities( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE VTrackSwapPriorities(
 			long VirtualTrackA,
 			long VirtualTrackB) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE VTrackGetCount( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE VTrackGetCount(
 			__RPC__in long *pVal) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetVTrack( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetVTrack(
 			/* [out] */ __RPC__deref_out_opt IAMTimelineObj **ppVirtualTrack,
 			long Which) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetCountOfType( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetCountOfType(
 			__RPC__in long *pVal,
 			__RPC__in long *pValWithComps,
 			TIMELINE_MAJOR_TYPE MajorType) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetRecursiveLayerOfType( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetRecursiveLayerOfType(
 			/* [out] */ __RPC__deref_out_opt IAMTimelineObj **ppVirtualTrack,
 			long WhichLayer,
 			TIMELINE_MAJOR_TYPE Type) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetRecursiveLayerOfTypeI( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetRecursiveLayerOfTypeI(
 			/* [out] */ __RPC__deref_out_opt IAMTimelineObj **ppVirtualTrack,
 			/* [out][in] */ __RPC__inout long *pWhichLayer,
 			TIMELINE_MAJOR_TYPE Type) = 0;
-		
-		virtual HRESULT STDMETHODCALLTYPE GetNextVTrack( 
+
+		virtual HRESULT STDMETHODCALLTYPE GetNextVTrack(
 			__RPC__in_opt IAMTimelineObj *pVirtualTrack,
 			/* [out] */ __RPC__deref_out_opt IAMTimelineObj **ppNextVirtualTrack) = 0;
 	};
@@ -1261,71 +1261,71 @@ EXTERN_C const IID IID_IAMTimelineComp;
 #define __IAMTimelineGroup_INTERFACE_DEFINED__
 
 /* interface IAMTimelineGroup */
-/* [unique][helpstring][uuid][object] */ 
+/* [unique][helpstring][uuid][object] */
 
 EXTERN_C const IID IID_IAMTimelineGroup;
-	
+
 	MIDL_INTERFACE("9EED4F00-B8A6-11d2-8023-00C0DF10D434")
 	IAMTimelineGroup : public IUnknown
 	{
 	public:
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SetTimeline( 
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SetTimeline(
 			__RPC__in_opt IAMTimeline *pTimeline) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetTimeline( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetTimeline(
 			/* [out] */ __RPC__deref_out_opt IAMTimeline **ppTimeline) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetPriority( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetPriority(
 			__RPC__in long *pPriority) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetMediaType( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetMediaType(
 			/* [out] */ __RPC__out AM_MEDIA_TYPE *__MIDL__IAMTimelineGroup0000) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SetMediaType( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SetMediaType(
 			/* [in] */ __RPC__in AM_MEDIA_TYPE *__MIDL__IAMTimelineGroup0001) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SetOutputFPS( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SetOutputFPS(
 			double FPS) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetOutputFPS( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetOutputFPS(
 			__RPC__in double *pFPS) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SetGroupName( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SetGroupName(
 			__RPC__in BSTR pGroupName) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetGroupName( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetGroupName(
 			/* [retval][out] */ __RPC__deref_out_opt BSTR *pGroupName) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SetPreviewMode( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SetPreviewMode(
 			BOOL fPreview) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetPreviewMode( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetPreviewMode(
 			__RPC__in BOOL *pfPreview) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SetMediaTypeForVB( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SetMediaTypeForVB(
 			/* [in] */ long Val) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetOutputBuffering( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetOutputBuffering(
 			/* [out] */ __RPC__out int *pnBuffer) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SetOutputBuffering( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SetOutputBuffering(
 			/* [in] */ int nBuffer) = 0;
-		
-		virtual HRESULT STDMETHODCALLTYPE SetSmartRecompressFormat( 
+
+		virtual HRESULT STDMETHODCALLTYPE SetSmartRecompressFormat(
 			__RPC__in long *pFormat) = 0;
-		
-		virtual HRESULT STDMETHODCALLTYPE GetSmartRecompressFormat( 
+
+		virtual HRESULT STDMETHODCALLTYPE GetSmartRecompressFormat(
 			__RPC__deref_in_opt long **ppFormat) = 0;
-		
-		virtual HRESULT STDMETHODCALLTYPE IsSmartRecompressFormatSet( 
+
+		virtual HRESULT STDMETHODCALLTYPE IsSmartRecompressFormatSet(
 			__RPC__in BOOL *pVal) = 0;
-		
-		virtual HRESULT STDMETHODCALLTYPE IsRecompressFormatDirty( 
+
+		virtual HRESULT STDMETHODCALLTYPE IsRecompressFormatDirty(
 			__RPC__in BOOL *pVal) = 0;
-		
+
 		virtual HRESULT STDMETHODCALLTYPE ClearRecompressFormatDirty( void) = 0;
-		
-		virtual HRESULT STDMETHODCALLTYPE SetRecompFormatFromSource( 
+
+		virtual HRESULT STDMETHODCALLTYPE SetRecompFormatFromSource(
 			__RPC__in_opt IAMTimelineSrc *pSource) = 0;
 	};
 
@@ -1336,107 +1336,107 @@ EXTERN_C const IID IID_IAMTimelineGroup;
 #define __IAMTimeline_INTERFACE_DEFINED__
 
 /* interface IAMTimeline */
-/* [unique][helpstring][uuid][object] */ 
+/* [unique][helpstring][uuid][object] */
 
 EXTERN_C const IID IID_IAMTimeline;
-	
+
 	MIDL_INTERFACE("78530B74-61F9-11D2-8CAD-00A024580902")
 	IAMTimeline : public IUnknown
 	{
 	public:
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE CreateEmptyNode( 
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE CreateEmptyNode(
 			/* [out] */ __RPC__deref_out_opt IAMTimelineObj **ppObj,
 			TIMELINE_MAJOR_TYPE Type) = 0;
-		
-		virtual HRESULT STDMETHODCALLTYPE AddGroup( 
+
+		virtual HRESULT STDMETHODCALLTYPE AddGroup(
 			__RPC__in_opt IAMTimelineObj *pGroup) = 0;
-		
-		virtual HRESULT STDMETHODCALLTYPE RemGroupFromList( 
+
+		virtual HRESULT STDMETHODCALLTYPE RemGroupFromList(
 			__RPC__in_opt IAMTimelineObj *pGroup) = 0;
-		
-		virtual HRESULT STDMETHODCALLTYPE GetGroup( 
+
+		virtual HRESULT STDMETHODCALLTYPE GetGroup(
 			/* [out] */ __RPC__deref_out_opt IAMTimelineObj **ppGroup,
 			long WhichGroup) = 0;
-		
-		virtual HRESULT STDMETHODCALLTYPE GetGroupCount( 
+
+		virtual HRESULT STDMETHODCALLTYPE GetGroupCount(
 			__RPC__in long *pCount) = 0;
-		
+
 		virtual HRESULT STDMETHODCALLTYPE ClearAllGroups( void) = 0;
-		
-		virtual HRESULT STDMETHODCALLTYPE GetInsertMode( 
+
+		virtual HRESULT STDMETHODCALLTYPE GetInsertMode(
 			__RPC__in long *pMode) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SetInsertMode( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SetInsertMode(
 			long Mode) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE EnableTransitions( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE EnableTransitions(
 			BOOL fEnabled) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE TransitionsEnabled( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE TransitionsEnabled(
 			__RPC__in BOOL *pfEnabled) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE EnableEffects( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE EnableEffects(
 			BOOL fEnabled) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE EffectsEnabled( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE EffectsEnabled(
 			__RPC__in BOOL *pfEnabled) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SetInterestRange( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SetInterestRange(
 			REFERENCE_TIME Start,
 			REFERENCE_TIME Stop) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetDuration( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetDuration(
 			__RPC__in REFERENCE_TIME *pDuration) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetDuration2( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetDuration2(
 			__RPC__in double *pDuration) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SetDefaultFPS( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SetDefaultFPS(
 			double FPS) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetDefaultFPS( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetDefaultFPS(
 			__RPC__in double *pFPS) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE IsDirty( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE IsDirty(
 			__RPC__in BOOL *pDirty) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetDirtyRange( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetDirtyRange(
 			__RPC__in REFERENCE_TIME *pStart,
 			__RPC__in REFERENCE_TIME *pStop) = 0;
-		
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetCountOfType( 
+
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetCountOfType(
 			long Group,
 			__RPC__in long *pVal,
 			__RPC__in long *pValWithComps,
 			TIMELINE_MAJOR_TYPE MajorType) = 0;
-		
-		virtual HRESULT STDMETHODCALLTYPE ValidateSourceNames( 
+
+		virtual HRESULT STDMETHODCALLTYPE ValidateSourceNames(
 			long ValidateFlags,
 			__RPC__in_opt IMediaLocator *pOverride,
 			LONG_PTR NotifyEventHandle) = 0;
-		
-		virtual HRESULT STDMETHODCALLTYPE SetDefaultTransition( 
+
+		virtual HRESULT STDMETHODCALLTYPE SetDefaultTransition(
 			__RPC__in GUID *pGuid) = 0;
-		
-		virtual HRESULT STDMETHODCALLTYPE GetDefaultTransition( 
+
+		virtual HRESULT STDMETHODCALLTYPE GetDefaultTransition(
 			__RPC__in GUID *pGuid) = 0;
-		
-		virtual HRESULT STDMETHODCALLTYPE SetDefaultEffect( 
+
+		virtual HRESULT STDMETHODCALLTYPE SetDefaultEffect(
 			__RPC__in GUID *pGuid) = 0;
-		
-		virtual HRESULT STDMETHODCALLTYPE GetDefaultEffect( 
+
+		virtual HRESULT STDMETHODCALLTYPE GetDefaultEffect(
 			__RPC__in GUID *pGuid) = 0;
-		
-		virtual HRESULT STDMETHODCALLTYPE SetDefaultTransitionB( 
+
+		virtual HRESULT STDMETHODCALLTYPE SetDefaultTransitionB(
 			__RPC__in BSTR pGuid) = 0;
-		
-		virtual HRESULT STDMETHODCALLTYPE GetDefaultTransitionB( 
+
+		virtual HRESULT STDMETHODCALLTYPE GetDefaultTransitionB(
 			/* [retval][out] */ __RPC__deref_out_opt BSTR *pGuid) = 0;
-		
-		virtual HRESULT STDMETHODCALLTYPE SetDefaultEffectB( 
+
+		virtual HRESULT STDMETHODCALLTYPE SetDefaultEffectB(
 			__RPC__in BSTR pGuid) = 0;
-		
-		virtual HRESULT STDMETHODCALLTYPE GetDefaultEffectB( 
+
+		virtual HRESULT STDMETHODCALLTYPE GetDefaultEffectB(
 			/* [retval][out] */ __RPC__deref_out_opt BSTR *pGuid) = 0;
 	};
 
@@ -1447,63 +1447,63 @@ EXTERN_C const IID IID_IAMTimeline;
 #define __IXml2Dex_INTERFACE_DEFINED__
 
 /* interface IXml2Dex */
-/* [unique][helpstring][uuid][object] */ 
+/* [unique][helpstring][uuid][object] */
 
 EXTERN_C const IID IID_IXml2Dex;
-	
+
 	MIDL_INTERFACE("18C628ED-962A-11D2-8D08-00A0C9441E20")
 	IXml2Dex : public IDispatch
 	{
 	public:
-		virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE CreateGraphFromFile( 
+		virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE CreateGraphFromFile(
 			/* [out] */ __RPC__deref_out_opt IUnknown **ppGraph,
 			__RPC__in_opt IUnknown *pTimeline,
 			__RPC__in BSTR Filename) = 0;
-		
-		virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE WriteGrfFile( 
+
+		virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE WriteGrfFile(
 			__RPC__in_opt IUnknown *pGraph,
 			__RPC__in BSTR FileName) = 0;
-		
-		virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE WriteXMLFile( 
+
+		virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE WriteXMLFile(
 			__RPC__in_opt IUnknown *pTimeline,
 			__RPC__in BSTR FileName) = 0;
-		
-		virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE ReadXMLFile( 
+
+		virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE ReadXMLFile(
 			__RPC__in_opt IUnknown *pTimeline,
 			__RPC__in BSTR XMLName) = 0;
-		
-		virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE Delete( 
+
+		virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE Delete(
 			__RPC__in_opt IUnknown *pTimeline,
 			double dStart,
 			double dEnd) = 0;
-		
-		virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE WriteXMLPart( 
+
+		virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE WriteXMLPart(
 			__RPC__in_opt IUnknown *pTimeline,
 			double dStart,
 			double dEnd,
 			__RPC__in BSTR FileName) = 0;
-		
-		virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE PasteXMLFile( 
+
+		virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE PasteXMLFile(
 			__RPC__in_opt IUnknown *pTimeline,
 			double dStart,
 			__RPC__in BSTR FileName) = 0;
-		
-		virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE CopyXML( 
+
+		virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE CopyXML(
 			__RPC__in_opt IUnknown *pTimeline,
 			double dStart,
 			double dEnd) = 0;
-		
-		virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE PasteXML( 
+
+		virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE PasteXML(
 			__RPC__in_opt IUnknown *pTimeline,
 			double dStart) = 0;
-		
+
 		virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE Reset( void) = 0;
-		
-		virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE ReadXML( 
+
+		virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE ReadXML(
 			__RPC__in_opt IUnknown *pTimeline,
 			__RPC__in_opt IUnknown *pXML) = 0;
-		
-		virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE WriteXML( 
+
+		virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE WriteXML(
 			__RPC__in_opt IUnknown *pTimeline,
 			__RPC__deref_in_opt BSTR *pbstrXML) = 0;
 	};
@@ -1515,21 +1515,21 @@ EXTERN_C const IID IID_IXml2Dex;
 #define __IAMErrorLog_INTERFACE_DEFINED__
 
 /* interface IAMErrorLog */
-/* [unique][helpstring][uuid][object] */ 
+/* [unique][helpstring][uuid][object] */
 
 EXTERN_C const IID IID_IAMErrorLog;
-	
+
 	MIDL_INTERFACE("E43E73A2-0EFA-11d3-9601-00A0C9441E20")
 	IAMErrorLog : public IUnknown
 	{
 	public:
-		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE LogError( 
+		virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE LogError(
 			long Severity,
 			__RPC__in BSTR pErrorString,
 			long ErrorCode,
 			long hresult,
 			/* [in] */ __RPC__in VARIANT *pExtraInfo) = 0;
-		
+
 	};
 
 #endif 	// __IAMErrorLog_INTERFACE_DEFINED__
@@ -1539,20 +1539,20 @@ EXTERN_C const IID IID_IAMErrorLog;
 #define __IAMSetErrorLog_INTERFACE_DEFINED__
 
 /* interface IAMSetErrorLog */
-/* [unique][helpstring][uuid][object] */ 
+/* [unique][helpstring][uuid][object] */
 
 EXTERN_C const IID IID_IAMSetErrorLog;
-	
+
 	MIDL_INTERFACE("963566DA-BE21-4eaf-88E9-35704F8F52A1")
 	IAMSetErrorLog : public IUnknown
 	{
 	public:
-		virtual /* [helpstring][propget] */ HRESULT STDMETHODCALLTYPE get_ErrorLog( 
+		virtual /* [helpstring][propget] */ HRESULT STDMETHODCALLTYPE get_ErrorLog(
 			/* [retval][out] */ __RPC__deref_out_opt IAMErrorLog **pVal) = 0;
-		
-		virtual /* [helpstring][propput] */ HRESULT STDMETHODCALLTYPE put_ErrorLog( 
+
+		virtual /* [helpstring][propput] */ HRESULT STDMETHODCALLTYPE put_ErrorLog(
 			/* [in] */ __RPC__in_opt IAMErrorLog *newVal) = 0;
-		
+
 	};
 
 #endif // __IAMSetErrorLog_INTERFACE_DEFINED__
@@ -1562,19 +1562,19 @@ EXTERN_C const IID IID_IAMSetErrorLog;
 #define __ISampleGrabberCB_INTERFACE_DEFINED__
 
 /* interface ISampleGrabberCB */
-/* [unique][helpstring][local][uuid][object] */ 
+/* [unique][helpstring][local][uuid][object] */
 
 EXTERN_C const IID IID_ISampleGrabberCB;
-	
+
 	MIDL_INTERFACE("0579154A-2B53-4994-B0D0-E773148EFF85")
 	ISampleGrabberCB : public IUnknown
 	{
 	public:
-		virtual HRESULT STDMETHODCALLTYPE SampleCB( 
+		virtual HRESULT STDMETHODCALLTYPE SampleCB(
 			double SampleTime,
 			IMediaSample *pSample) = 0;
-		
-		virtual HRESULT STDMETHODCALLTYPE BufferCB( 
+
+		virtual HRESULT STDMETHODCALLTYPE BufferCB(
 			double SampleTime,
 			BYTE *pBuffer,
 			long BufferLen) = 0;
@@ -1587,34 +1587,34 @@ EXTERN_C const IID IID_ISampleGrabberCB;
 #define __ISampleGrabber_INTERFACE_DEFINED__
 
 /* interface ISampleGrabber */
-/* [unique][helpstring][local][uuid][object] */ 
+/* [unique][helpstring][local][uuid][object] */
 
 EXTERN_C const IID IID_ISampleGrabber;
-	
+
 	MIDL_INTERFACE("6B652FFF-11FE-4fce-92AD-0266B5D7C78F")
 	ISampleGrabber : public IUnknown
 	{
 	public:
-		virtual HRESULT STDMETHODCALLTYPE SetOneShot( 
+		virtual HRESULT STDMETHODCALLTYPE SetOneShot(
 			BOOL OneShot) = 0;
-		
-		virtual HRESULT STDMETHODCALLTYPE SetMediaType( 
+
+		virtual HRESULT STDMETHODCALLTYPE SetMediaType(
 			const AM_MEDIA_TYPE *pType) = 0;
-		
-		virtual HRESULT STDMETHODCALLTYPE GetConnectedMediaType( 
+
+		virtual HRESULT STDMETHODCALLTYPE GetConnectedMediaType(
 			AM_MEDIA_TYPE *pType) = 0;
-		
-		virtual HRESULT STDMETHODCALLTYPE SetBufferSamples( 
+
+		virtual HRESULT STDMETHODCALLTYPE SetBufferSamples(
 			BOOL BufferThem) = 0;
-		
-		virtual HRESULT STDMETHODCALLTYPE GetCurrentBuffer( 
+
+		virtual HRESULT STDMETHODCALLTYPE GetCurrentBuffer(
 			/* [out][in] */ long *pBufferSize,
 			/* [out] */ long *pBuffer) = 0;
-		
-		virtual HRESULT STDMETHODCALLTYPE GetCurrentSample( 
+
+		virtual HRESULT STDMETHODCALLTYPE GetCurrentSample(
 			/* [retval][out] */ IMediaSample **ppSample) = 0;
-		
-		virtual HRESULT STDMETHODCALLTYPE SetCallback( 
+
+		virtual HRESULT STDMETHODCALLTYPE SetCallback(
 			ISampleGrabberCB *pCallback,
 			long WhichMethodToCallback) = 0;
 	};
@@ -1627,7 +1627,7 @@ EXTERN_C const IID IID_ISampleGrabber;
 #define __DexterLib_LIBRARY_DEFINED__
 
 /* library DexterLib */
-/* [helpstring][version][uuid] */ 
+/* [helpstring][version][uuid] */
 
 EXTERN_C const IID LIBID_DexterLib;
 
@@ -1636,32 +1636,32 @@ EXTERN_C const IID LIBID_DexterLib;
 #define __IResize_INTERFACE_DEFINED__
 
 /* interface IResize */
-/* [unique][helpstring][uuid][object] */ 
+/* [unique][helpstring][uuid][object] */
 
 EXTERN_C const IID IID_IResize;
-	
+
 	MIDL_INTERFACE("4ada63a0-72d5-11d2-952a-0060081840bc")
 	IResize : public IUnknown
 	{
 	public:
-		virtual HRESULT STDMETHODCALLTYPE get_Size( 
+		virtual HRESULT STDMETHODCALLTYPE get_Size(
 			/* [out] */ __RPC__out int *piHeight,
 			/* [out] */ __RPC__out int *piWidth,
 			/* [out] */ __RPC__out long *pFlag) = 0;
-		
-		virtual HRESULT STDMETHODCALLTYPE get_InputSize( 
+
+		virtual HRESULT STDMETHODCALLTYPE get_InputSize(
 			/* [out] */ __RPC__out int *piHeight,
 			/* [out] */ __RPC__out int *piWidth) = 0;
-		
-		virtual HRESULT STDMETHODCALLTYPE put_Size( 
+
+		virtual HRESULT STDMETHODCALLTYPE put_Size(
 			/* [in] */ int Height,
 			/* [in] */ int Width,
 			/* [in] */ long Flag) = 0;
-		
-		virtual HRESULT STDMETHODCALLTYPE get_MediaType( 
+
+		virtual HRESULT STDMETHODCALLTYPE get_MediaType(
 			/* [out] */ __RPC__out AM_MEDIA_TYPE *pmt) = 0;
-		
-		virtual HRESULT STDMETHODCALLTYPE put_MediaType( 
+
+		virtual HRESULT STDMETHODCALLTYPE put_MediaType(
 			/* [in] */ __RPC__in const AM_MEDIA_TYPE *pmt) = 0;
 	};
 
@@ -1784,7 +1784,7 @@ DxtKey;
 
 
 /* interface __MIDL_itf_qedit_0001_0097 */
-/* [local] */ 
+/* [local] */
 
 
 enum __MIDL___MIDL_itf_qedit_0001_0097_0001
@@ -1819,7 +1819,7 @@ enum __MIDL___MIDL_itf_qedit_0001_0097_0001
 #define DEX_IDS_CANT_FIND_COMPRESSOR 1421
 #define DEX_IDS_TIMELINE_PARSE		1426
 #define DEX_IDS_GRAPH_ERROR 		1427
-#define DEX_IDS_GRID_ERROR		1428
+#define DEX_IDS_GRID_ERROR			1428
 #define DEX_IDS_INTERFACE_ERROR 	1429
 EXTERN_GUID(CLSID_VideoEffects1Category, 0xcc7bfb42, 0xf175, 0x11d1, 0xa3, 0x92, 0x0, 0xe0, 0x29, 0x1f, 0x39, 0x59);
 EXTERN_GUID(CLSID_VideoEffects2Category, 0xcc7bfb43, 0xf175, 0x11d1, 0xa3, 0x92, 0x0, 0xe0, 0x29, 0x1f, 0x39, 0x59);
@@ -1832,25 +1832,25 @@ extern RPC_IF_HANDLE __MIDL_itf_qedit_0001_0097_v0_0_s_ifspec;
 
 // Additional Prototypes for all interfaces
 
-unsigned long   __RPC_USER  BSTR_UserSize(	 unsigned long *, unsigned long, BSTR * ); 
-unsigned char * __RPC_USER  BSTR_UserMarshal(  unsigned long *, unsigned char *, BSTR * ); 
-unsigned char * __RPC_USER  BSTR_UserUnmarshal(unsigned long *, unsigned char *, BSTR * ); 
-void			__RPC_USER  BSTR_UserFree(	 unsigned long *, BSTR * ); 
+unsigned long   __RPC_USER  BSTR_UserSize(	 unsigned long *, unsigned long, BSTR * );
+unsigned char * __RPC_USER  BSTR_UserMarshal(  unsigned long *, unsigned char *, BSTR * );
+unsigned char * __RPC_USER  BSTR_UserUnmarshal(unsigned long *, unsigned char *, BSTR * );
+void			__RPC_USER  BSTR_UserFree(	 unsigned long *, BSTR * );
 
-unsigned long   __RPC_USER  VARIANT_UserSize(	 unsigned long *, unsigned long, VARIANT * ); 
-unsigned char * __RPC_USER  VARIANT_UserMarshal(  unsigned long *, unsigned char *, VARIANT * ); 
-unsigned char * __RPC_USER  VARIANT_UserUnmarshal(unsigned long *, unsigned char *, VARIANT * ); 
-void			__RPC_USER  VARIANT_UserFree(	 unsigned long *, VARIANT * ); 
+unsigned long   __RPC_USER  VARIANT_UserSize(	 unsigned long *, unsigned long, VARIANT * );
+unsigned char * __RPC_USER  VARIANT_UserMarshal(  unsigned long *, unsigned char *, VARIANT * );
+unsigned char * __RPC_USER  VARIANT_UserUnmarshal(unsigned long *, unsigned char *, VARIANT * );
+void			__RPC_USER  VARIANT_UserFree(	 unsigned long *, VARIANT * );
 
-unsigned long   __RPC_USER  BSTR_UserSize64(	 unsigned long *, unsigned long, BSTR * ); 
-unsigned char * __RPC_USER  BSTR_UserMarshal64(  unsigned long *, unsigned char *, BSTR * ); 
-unsigned char * __RPC_USER  BSTR_UserUnmarshal64(unsigned long *, unsigned char *, BSTR * ); 
-void			__RPC_USER  BSTR_UserFree64(	 unsigned long *, BSTR * ); 
+unsigned long   __RPC_USER  BSTR_UserSize64(	 unsigned long *, unsigned long, BSTR * );
+unsigned char * __RPC_USER  BSTR_UserMarshal64(  unsigned long *, unsigned char *, BSTR * );
+unsigned char * __RPC_USER  BSTR_UserUnmarshal64(unsigned long *, unsigned char *, BSTR * );
+void			__RPC_USER  BSTR_UserFree64(	 unsigned long *, BSTR * );
 
-unsigned long   __RPC_USER  VARIANT_UserSize64(	 unsigned long *, unsigned long, VARIANT * ); 
-unsigned char * __RPC_USER  VARIANT_UserMarshal64(  unsigned long *, unsigned char *, VARIANT * ); 
-unsigned char * __RPC_USER  VARIANT_UserUnmarshal64(unsigned long *, unsigned char *, VARIANT * ); 
-void			__RPC_USER  VARIANT_UserFree64(	 unsigned long *, VARIANT * ); 
+unsigned long   __RPC_USER  VARIANT_UserSize64(	 unsigned long *, unsigned long, VARIANT * );
+unsigned char * __RPC_USER  VARIANT_UserMarshal64(  unsigned long *, unsigned char *, VARIANT * );
+unsigned char * __RPC_USER  VARIANT_UserUnmarshal64(unsigned long *, unsigned char *, VARIANT * );
+void			__RPC_USER  VARIANT_UserFree64(	 unsigned long *, VARIANT * );
 
 // end Additional Prototypes
 

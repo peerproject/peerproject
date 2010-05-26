@@ -330,14 +330,12 @@ void CDownloadWithExtras::ShowMonitor(CSingleLock* pLock)
 	bool bLocked = pLock && pLock->IsLocked();
 	if ( bLocked )
 	{
-		if ( !pLock->Unlock() )
+		if ( ! pLock->Unlock() )
 			return;
 	}
 
 	if ( m_pMonitorWnd == NULL )
-	{
 		m_pMonitorWnd = new CDownloadMonitorDlg( (CDownload*)this );
-	}
 
 	m_pMonitorWnd->ShowWindow( SW_SHOWNORMAL );
 	m_pMonitorWnd->BringWindowToTop();
@@ -377,7 +375,7 @@ void CDownloadWithExtras::Serialize(CArchive& ar, int nVersion)
 
 
 	}
-	else
+	else // Loading
 	{
 		for ( DWORD_PTR nCount = ar.ReadCount() ; nCount ; nCount-- )
 		{
@@ -388,7 +386,6 @@ void CDownloadWithExtras::Serialize(CArchive& ar, int nVersion)
 
 		if ( nVersion >= 32 )
 		{
-
 			for ( DWORD_PTR nCount = ar.ReadCount() ; nCount ; nCount-- )
 			{
 				CDownloadReview *pReview = new CDownloadReview;
@@ -504,7 +501,7 @@ void CDownloadReview::Serialize(CArchive& ar, int /*nVersion*/)
 		ar << m_nFileRating;
 		ar << m_sFileComments;
 	}
-	else
+	else // Loading
 	{
 		ar >> m_pUserIP.S_un.S_addr;
 		ar >> m_nUserPicture;

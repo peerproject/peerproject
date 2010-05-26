@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Chinese (Simplified) Skin File -->
 
-<!-- Translation based on default-en.xml r54 (Shareaza r6092) -->
+<!-- Translation based on default-en.xml r55 (Shareaza r6092) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -417,14 +417,14 @@
 	</toolbar>
 	<!-- WEBSERVICES -->
 	<!-- IMAGE VIEWER PLUGIN WINDOW -->
-		<toolbar name="ImageViewerWnd">
-			<button id="ImageViewer_BestFit" text="最佳适合"/>
-			<button id="ImageViewer_ActualSize" text="实际大小"/>
-			<separator/>
-			<button id="ImageViewer_Refresh" text="刷新"/>
-				<rightAlign/>
-			<button id="ImageViewer_Close" text="关闭"/>
-		</toolbar>
+	<toolbar name="ImageViewerWnd">
+		<button id="PluginID_ImageViewer_BestFit" text="最佳适合"/>
+		<button id="PluginID_ImageViewer_FullSize" text="实际大小"/>
+		<separator/>
+		<button id="PluginID_ImageViewer_Refresh" text="刷新"/>
+			<rightAlign/>
+		<button id="PluginID_ImageViewer_Close" text="关闭"/>
+	</toolbar>
 </toolbars>
 
 <!-- Menu Definitions -->
@@ -1581,7 +1581,7 @@
 			<heading align="middle">准 备   连 接</heading>
 			<newline gap="8" indent="42"/>
 			<text>欢迎来到 PeerProject ！&#160;您现在没有连接到任何 P2P 网络。 &#160;</text>
-			<link target="peer:command:ID_NETWORK_CONNECT">点击这里开始！</link>
+			<link target="command:ID_NETWORK_CONNECT">点击这里开始！</link>
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="2">
@@ -1590,11 +1590,11 @@
 			<newline gap="8" indent="42"/>
 			<anchor id="SearchBox" width="256" height="80"/>
 			<newline gap="14" indent="0"/>
-			<icon res="136" width="32" height="32" target="peer:shell:downloads"/><gap size="8"/>
+			<icon res="136" width="32" height="32" target="command:shell:downloads"/><gap size="8"/>
 			<heading align="middle">我 的   下 载</heading>
 			<newline gap="8" indent="42"/>
 			<text>打开您的下载文件夹</text>
-			<link target="peer:shell:downloads">单击这里</link>
+			<link target="command:shell:downloads">单击这里</link>
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="3">
@@ -1603,42 +1603,42 @@
 			<newline gap="8" indent="42"/>
 			<text id="Upgrade"/>
 			<newline gap="6"/>
-			<link target="peer:upgrade">点击这里进行升级</link>
+			<link target="command:upgrade">点击这里进行升级</link>
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="4">
-			<icon res="252" width="32" height="32" target="peer:command:ID_TOOLS_WIZARD"/><gap size="8"/>
+			<icon res="252" width="32" height="32" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 			<heading align="middle">警 告   -   您 位 于 防 火 墙 后</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">PeerProject 发现您位于 NAT 路由器或防火墙之后，
 			并且不能从 Internet 接受连接。 &#160;</text>
 			<text color="FF0000" format="b">这可能导致较差的下载效果。</text>
 			<newline gap="6"/>
-			<link target="peer:command:ID_HELP_ROUTER">单击此处了解如何配置您的路由器或防火墙</link>
+			<link target="command:ID_HELP_ROUTER">单击此处了解如何配置您的路由器或防火墙</link>
 			<newline gap="18" indent="0"/>
 		</group>
-		<icon res="128" width="32" height="32" target="peer:command:ID_TOOLS_SETTINGS"/><gap size="8"/>
+		<icon res="128" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">定 制 &#160;PEERPROJECT</heading>
 		<newline gap="12" indent="42"/>
-		<icon res="182" width="16" height="16" target="peer:command:ID_TOOLS_SKIN"/><gap size="8"/>
-		<link target="peer:command:ID_TOOLS_SKIN" align="middle" format="bu">皮肤外观</link>
+		<icon res="182" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
+		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">皮肤外观</link>
 		<text align="middle">&#160;- 更改 PeerProject 的外观</text>
 		<newline gap="8"/>
-		<icon res="141" width="16" height="16" target="peer:command:ID_VIEW_SECURITY"/><gap size="8"/>
-		<link target="peer:command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
+		<icon res="141" width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
+		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
 		<text align="middle">&#160;- Update blocklist</text>
 		<newline gap="8"/>
-		<icon res="317" width="16" height="16" target="peer:command:ID_TOOLS_WIZARD"/><gap size="8"/>
-		<link target="peer:command:ID_TOOLS_WIZARD" align="middle">设置向导</link>
+		<icon res="317" width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
+		<link target="command:ID_TOOLS_WIZARD" align="middle">设置向导</link>
 		<text align="middle">&#160;- 编辑 PeerProject 的设置</text>
 		<newline gap="8"/>
-		<icon res="147" width="16" height="16" target="peer:command:ID_HELP_FAQ"/><gap size="8"/>
-		<link target="peer:command:ID_HELP_FAQ" align="middle">快速帮助</link>
+		<icon res="147" width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
+		<link target="command:ID_HELP_FAQ" align="middle">快速帮助</link>
 		<text align="middle">&#160;- 获取使用 PeerProject 的基本帮助, or </text>
-		<link target="peer:command:ID_TAB_IRC" align="middle">IRC.</link>
+		<link target="command:ID_TAB_IRC" align="middle">IRC.</link>
 		<newline gap="8"/>
-		<icon res="175" width="16" height="16" target="peer:command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
-		<link target="peer:command:ID_HELP_FORUMS_LOCAL" align="middle">本地论坛</link>
+		<icon res="175" width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
+		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">本地论坛</link>
 		<text align="middle">&#160;- 转到您的中文论坛</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
@@ -1663,7 +1663,7 @@
 			<para align="center">
 				<text format="b">未能连接</text>
 				<newline gap="4"/>
-				<link target="peer:command:ID_NETWORK_CONNECT">点击这里连接</link>
+				<link target="command:ID_NETWORK_CONNECT">点击这里连接</link>
 			</para>
 		</group>
 		<icon group="20" command="ID_NETWORK_G2"/>
@@ -1710,7 +1710,7 @@
 				<text>您最近没有下载新的文件。</text>
 				<newline gap="8"/>
 			</group>
-			<link target="peer:command:ID_VIEW_LIBRARY">切换到收藏</link>
+			<link target="command:ID_VIEW_LIBRARY">切换到收藏</link>
 			<newline gap="4"/>
 			<text id="LibraryFiles" format="b">%lu</text>
 			<text>个文件 (</text>
@@ -1724,10 +1724,10 @@
 				<newline gap="8"/>
 			</group>
 			<group id="3">
-				<link target="peer:command:ID_LIBRARY_HASH_PRIORITY">点击这里加快 Hash</link>
+				<link target="command:ID_LIBRARY_HASH_PRIORITY">点击这里加快 Hash</link>
 			</group>
 			<group id="4">
-				<link target="peer:command:ID_LIBRARY_HASH_PRIORITY">点击这里减慢 Hash</link>
+				<link target="command:ID_LIBRARY_HASH_PRIORITY">点击这里减慢 Hash</link>
 			</group>
 		</para>
 	</document>
@@ -1742,9 +1742,9 @@
 				<text>您还没有下载任何文件。</text>
 				<newline gap="4"/>
 			</group>
-			<link id="DownloadsNone" target="peer:command:ID_VIEW_DOWNLOADS">切换到下载</link>
-			<link id="DownloadsOne" target="peer:command:ID_VIEW_DOWNLOADS" format="bu">切换到下载 (1)</link>
-			<link id="DownloadsMany" target="peer:command:ID_VIEW_DOWNLOADS" format="bu">切换到下载 (%i)</link>
+			<link id="DownloadsNone" target="command:ID_VIEW_DOWNLOADS">切换到下载</link>
+			<link id="DownloadsOne" target="command:ID_VIEW_DOWNLOADS" format="bu">切换到下载 (1)</link>
+			<link id="DownloadsMany" target="command:ID_VIEW_DOWNLOADS" format="bu">切换到下载 (%i)</link>
 			<newline gap="4"/>
 			<text id="DownloadedNone">No 个文件 (</text>
 			<text id="DownloadedOne">1 个文件 (</text>
@@ -1761,8 +1761,8 @@
 		</styles>
 		<para align="center">
 			<text id="UploadsNone" format="b">没有活动的上传</text>
-			<link id="UploadsOne" target="peer:command:ID_VIEW_UPLOADS" format="bu">1 个活动上传</link>
-			<link id="UploadsMany" target="peer:command:ID_VIEW_UPLOADS" format="bu">%i 个活动上传</link>
+			<link id="UploadsOne" target="command:ID_VIEW_UPLOADS" format="bu">1 个活动上传</link>
+			<link id="UploadsMany" target="command:ID_VIEW_UPLOADS" format="bu">%i 个活动上传</link>
 			<newline gap="4"/>
 			<group id="1">
 				<text id="TorrentsOne">1 个做种的 Torrent</text>
@@ -1782,25 +1782,25 @@
 		<text format="b">常规</text>
 		<text>部分的设置与用户的经验存在密切关系。</text>
 		<newline gap="16" indent="16"/>
-		<link target="peer:page:CGeneralSettingsPage" format="b">常规:</link>
+		<link target="page:CGeneralSettingsPage" format="b">常规:</link>
 		<text>&#160;普通用户界面，工具提示，最小化习惯，数字格式，弹出提示等。</text>
 		<newline gap="10"/>
-		<link target="peer:page:CLibrarySettingsPage" format="b">收藏:</link>
+		<link target="page:CLibrarySettingsPage" format="b">收藏:</link>
 		<text>&#160;>描述和管理收藏的文件，查看文件。</text>
 		<newline gap="10"/>
-		<link target="peer:page:CMediaSettingsPage" format="b">媒体:</link>
+		<link target="page:CMediaSettingsPage" format="b">媒体:</link>
 		<text>&#160;何时何地使用内置的媒体播放器。</text>
 		<newline gap="10"/>
-		<link target="peer:page:CIRCSettingsPage" format="b">IRC:</link>
+		<link target="page:CIRCSettingsPage" format="b">IRC:</link>
 		<text>&#160;IRC.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CCommunitySettingsPage" format="b">社区:</link>
+		<link target="page:CCommunitySettingsPage" format="b">社区:</link>
 		<text>&#160;个人资料，聊天和及时讯息的设置。</text>
 		<newline gap="10"/>
-		<link target="peer:page:CRemoteSettingsPage" format="b">远程:</link>
+		<link target="page:CRemoteSettingsPage" format="b">远程:</link>
 		<text>&#160;设置通过网页浏览器远程控制 PeerProject 的功能。</text>
 		<newline gap="10"/>
-		<link target="peer:page:CWebSettingsPage" format="b">网页:</link>
+		<link target="page:CWebSettingsPage" format="b">网页:</link>
 		<text>&#160;集成 PeerProject 到浏览器以便允许对等连接和下载。</text>
 	</document>
 	<document name="CInternetSettingsGroup" title="互联" leftMargin="8" topMargin="8">
@@ -1812,16 +1812,16 @@
 		<text>部分的设置决定 PeerProject 如何与其他 P2P 网络交换信息。
 		</text>
 		<newline gap="16" indent="16"/>
-		<link target="peer:page:CConnectionSettingsPage" format="b">连接:</link>
+		<link target="page:CConnectionSettingsPage" format="b">连接:</link>
 		<text>&#160;互联网连接的速度和兼容性。</text>
 		<newline gap="10"/>
-		<link target="peer:page:CDownloadsSettingsPage" format="b">下载:</link>
+		<link target="page:CDownloadsSettingsPage" format="b">下载:</link>
 		<text>&#160;下载吞吐量，策略，认证，超时，管理。</text>
 		<newline gap="10"/>
-		<link target="peer:page:CUploadsSettingsPage" format="b">上传:</link>
+		<link target="page:CUploadsSettingsPage" format="b">上传:</link>
 		<text>&#160;上传兼容性，队列，禁止用户，超时和特殊请求。</text>
 		<newline gap="10"/>
-		<link target="peer:page:CSchedulerSettingsPage" format="b">Scheduler:</link>
+		<link target="page:CSchedulerSettingsPage" format="b">Scheduler:</link>
 		<text>&#160;Limit download connections based on a periodic schedule.</text>
 	</document>
 	<!-- Browse User Profile -->
@@ -1903,15 +1903,15 @@
 		<newline gap="40" indent="0"/>
 		<text format="b">已共享文件</text>
 		<newline gap="4" indent="8"/>
-		<icon res="137" target="peer:command:ID_BROWSE_FILES"/><gap size="5"/>
-		<link target="peer:command:ID_BROWSE_FILES" align="middle">查看已共享文件</link>
+		<icon res="137" target="command:ID_BROWSE_FILES"/><gap size="5"/>
+		<link target="command:ID_BROWSE_FILES" align="middle">查看已共享文件</link>
 		<group id="2">
 			<newline gap="16" indent="0"/>
 			<text format="b">社区</text>
 			<newline gap="4" indent="8"/>
-			<icon res="140" target="peer:command:ID_SEARCH_CHAT"/>
+			<icon res="140" target="command:ID_SEARCH_CHAT"/>
 			<gap size="5"/>
-			<link target="peer:command:ID_SEARCH_CHAT" align="middle">与用户聊天</link>
+			<link target="command:ID_SEARCH_CHAT" align="middle">与用户聊天</link>
 		</group>
 		<group id="3">
 			<newline gap="16" indent="0"/>
@@ -2566,26 +2566,26 @@
 	<string id="8180" value="文件大小必须为"/>
 	<string id="8181" value="到"/>
 	<string id="8208" value="PeerProject 正在为 %Iu 个文件创建 Hash 值:"/>
-	<string id="8223" value="%i 天 %i 小时"/>
-	<string id="8224" value="PeerProject 正在下载:"/>
-	<string id="8225" value="此下载已暂停:"/>
+<!--	<string id="8221" value="PeerProject 正在查找资源:"/>
+	<string id="8222" value="PeerProject 正在下载:"/>
+	<string id="8223" value="此下载已暂停:"/>
+	<string id="8224" value="PeerProject 正在移动下载:"/>
+	<string id="8225" value="PeerProject 正在检测下载的错误:"/>
 	<string id="8226" value="PeerProject 已经完成下载:"/>
-	<string id="8227" value="%i 小时 %i 分钟"/>
-	<string id="8228" value="%i 分钟 %i 秒"/>
-	<string id="8229" value="%i 秒"/>
-	<string id="8230" value="PeerProject 正在查找资源:"/>
+-->	<string id="8227" value="%i 天 %i 小时"/>
+	<string id="8228" value="%i 小时 %i 分钟"/>
+	<string id="8229" value="%i 分钟 %i 秒"/>
+	<string id="8230" value="%i 秒"/>
 	<string id="8231" value="没有资源"/>
 	<string id="8232" value="打开"/>
 	<string id="8233" value="取消"/>
 	<string id="8235" value="总体传送速度:"/>
 	<string id="8236" value="估计剩余时间:"/>
 	<string id="8237" value="完成下载数量:"/>
-	<string id="8238" value="已知资源数量:"/>
+	<string id="8238" value="已经上传数量:"/>
 	<string id="8239" value="完成"/>
-	<string id="8240" value="PeerProject 正在移动下载:"/>
-	<string id="8241" value="PeerProject 正在检测下载的错误:"/>
-	<string id="8243" value="已经上传数量:"/>
-	<string id="8244" value="评价数目:"/>
+	<string id="8240" value="已知资源数量:"/>
+	<string id="8241" value="评价数目:"/>
 	<string id="8288" value="正在浏览您的 PeerProject 收藏"/>
 	<string id="8289" value="浏览"/>
 	<string id="8290" value="正在浏览 %i 个文件夹的内容"/>
@@ -2694,6 +2694,7 @@
 	<string id="16211" value="邻居主机 %s 前送了请求到防火墙阻隔的地址，正被忽略。"/>
 	<string id="16212" value="邻居主机 %s 前送了非 GGEP 编码得扩展数据包。"/>
 	<string id="16213" value="发送查询路由表到邻居主机 %s (%i bit = %lu[%i]， %i%% 满额)。"/>
+	<string id="16254" value="默认下载组。 （显示所有文件）"/>
 	<string id="16255" value="Drag'n'drop文件复制到%s组。"/>
 	<string id="16256" value="添加 &quot;%s&quot; 的 %i 个资源到下载队列。"/>
 	<string id="16257" value="&quot;%s&quot;已经完成的下载。"/>
@@ -3085,7 +3086,7 @@
 	<string id="18510" value="您确定要假设此下载已完成并验证？ 整个文件将会被考虑，并且 PeerProject 将会接受已通过验证的部分并重新下载未通过验证的部分。"/>
 	<string id="18511" value="BitTorrent 与 %s 的连合未被接受，达到最大连接数。"/>
 	<string id="19000" value="远程访问已禁用。"/>
-	<string id="19001" value="您必须选择一个用户名和密码。"/>
+	<string id="19001" value="http://%s:%i/remote - 您必须选择一个用户名和密码。"/>
 	<string id="19002" value="未能接受连接，链接不可用。"/>
 	<string id="20000" value="无 URN 可用"/>
 	<string id="20001" value="关闭"/>
@@ -3153,6 +3154,7 @@
 	<string id="20216" value="极棒"/>
 	<string id="20237" value="确定"/>
 	<string id="20238" value="取消"/>
+	<string id="20245" value="新建文件夹"/>
 </strings>
 <!-- Localized Dialog Text, "cookie" verifies that the skin matches current dialog -->
 <dialogs>
@@ -3841,7 +3843,7 @@
 		<control caption="查看收藏"/>
 		<control caption="停止下载"/>
 		<control caption="隐藏"/>
-		<control caption="下载完毕后关闭此窗口"/>
+		<control caption="自动"/>
 	</dialog>
 	<dialog name="CFileGeneralPage" cookie="EdStStStStStEdEdEdEdEdStEdEdEdEd" caption="常规">
 		<control/>
@@ -4018,11 +4020,11 @@
 		<control/>
 		<control caption="取消"/>
 	</dialog>
-	<dialog name="CURLActionDlg" cookie="StStStStStEdStEdStBuBuBuBuBuSt" caption="PeerProject URI 管理器">
-		<control/>
+	<dialog name="CURLActionDlg" cookie="StStStStStStEdStEdStBuBuBuBuBu" caption="PeerProject URI 管理器">
 		<control caption="您点击的 PeerProject URI 链接到以下的网络:"/>
 		<control caption="您点击的 PeerProject 链接将会连接您到以下主机或服务器:"/>
 		<control caption="您点击的 PeerProject URI 允许您浏览以下可用主机的共享文件:"/>
+		<control caption="您点击的 PeerProject URI 将会添加以下探索服务到探索服务缓存。"/>
 		<control/>
 		<control/>
 		<control/>
@@ -4033,11 +4035,10 @@
 		<control caption="取消"/>
 		<control caption="记住我的选择(_R)"/>
 		<control caption="打开下载监视器窗口(_M)"/>
-		<control caption="您点击的 PeerProject URI 将会添加以下探索服务到探索服务缓存。"/>
 	</dialog>
 	<dialog name="CBitziDownloadDlg" cookie="StStmsBuSySt" caption="下载元数据...">
 		<control/>
-		<control caption="PeerProject 正从 Bitzi(TM) 尝试下载元数据..."/>
+		<control caption="PeerProject 正从 Bitzi 尝试下载元数据..."/>
 		<control/>
 		<control caption="取消"/>
 		<control/>

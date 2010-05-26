@@ -93,7 +93,7 @@ BOOL CSettingsPage::LoadDefaultCaption()
 
 	GlobalUnlock( pTemplate.m_hTemplate );
 
-	return m_sCaption.GetLength() > 0;
+	return ! m_sCaption.IsEmpty();
 }
 
 BOOL CSettingsPage::Create(CRect& rcPage, CWnd* pSheetWnd)

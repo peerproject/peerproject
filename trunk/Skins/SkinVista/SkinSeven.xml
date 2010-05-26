@@ -38,7 +38,7 @@
   <!--option name="RoundedSelect" value="false"-->
 </options>
 
-<colorScheme>
+<colors>
   <color name="Navbar.Text.Up"				value="1E3C5A"/>
   <color name="Navbar.Text.Hover"			value="203D5B"/>
   <color name="Navbar.Text.Checked"			value="1E3C5A"/>
@@ -71,9 +71,12 @@
   <color name="TaskBox.Caption.Back"			value="4080C0"/>
   <color name="TaskBox.Caption.Text"			value="006699"/>
   <color name="TaskBox.Caption.Hover"			value="3388CC"/>
-  <color name="TaskBox.Client"				value="FDFDFD"/>
+  <!--color name="TaskBox.Client"			value="FDFDFD"--> <!--deprecated-->
+  <color name="TaskBox.Back"				value="FDFDFD"/>
   <color name="ToolTip.Back"				value="FCFBFA"/>
-  <color name="ToolTip.Text"				value="A0A0A0"/>
+  <color name="ToolTip.Text"				value="393630"/>
+  <color name="ToolTip.Graph"				value="F8F6F2"/>
+  <color name="ToolTip.Grid"				value="E2E0DD"/>
   <color name="Dialog.Back"				value="F8F7F6"/>  <!--settings window-->
   <color name="Banner.Back"				value="C4D6FE"/>  <!--library/profile headers-->
   <color name="Banner.Text"				value="FFFFFF"/>
@@ -98,15 +101,16 @@
   <!--color name="Monitor.Download.Bar" 		value="FFFFFF"-->
   <color name="Monitor.Upload.Line" 			value="809AC0"/>
   <color name="Monitor.Upload.Bar" 			value="809AC0"/>
-  <color name="Schema.Row1"				value="F4F2F0"/>
-  <color name="Schema.Row2"				value="EAE8E4"/>
-  <color name="Schema.Rating"				value="4A4440"/>
-  <color name="Schema.Rating0"				value="EA4A60"/>
-  <color name="Schema.Rating1"				value="CAC4C0"/>
-  <color name="Schema.Rating2"				value="B4B2B0"/>
-  <color name="Schema.Rating3"				value="848280"/>
-  <color name="Schema.Rating4"				value="605A55"/>
-  <color name="Schema.Rating5"				value="000000"/>
+  <color name="Monitor.Graph.Border" 			value="908070"/>
+  <color name="Meta.Row"					value="F2F0ED"/>
+  <color name="Meta.Row.Alt"				value="EBEAE8"/>
+  <color name="Meta.Rating" 				value="4A4440"/>
+  <color name="Meta.Rating0"				value="EA4A60"/>
+  <color name="Meta.Rating1"				value="CAC4C0"/>
+  <color name="Meta.Rating2"				value="B4B2B0"/>
+  <color name="Meta.Rating3"				value="848280"/>
+  <color name="Meta.Rating4"				value="605A55"/>
+  <color name="Meta.Rating5"				value="000000"/>
   <color name="Richdoc.Back"				value="FFFFFF"/>
   <color name="Richdoc.Text"				value="4A4840"/>
   <color name="Richdoc.Heading" 			value="B03020"/>
@@ -153,7 +157,7 @@
   <color name="System.Environment.3DShadow" 		value="D8D7D6"/>
   <color name="System.Environment.3DHighlight"		value="FFFFFF"/>
   <!--color name="System.Environment.Borders" 		value=" "-->
-</colorScheme>
+</colors>
 
 <watermarks>
   <watermark target="CCoolMenu" 			path="Seven\MenuBkg.png"/>
@@ -221,10 +225,11 @@
   <!--watermark target="CSearchAdvancedBox"		path="Seven\SideBlock.png"-->
   <!--watermark target="CSearchSchemaBox"  		path="Seven\SideBlock.png"-->
   <!--watermark target="CIRCChannelsBox"		path="Seven\SideBlock.png"-->
+
   <!--watermark target="CNeighboursWnd"  		path="Seven\SideBlock.png"-->
   <!--watermark target="CSecurityWnd"  			path="Seven\SideBlock.png"-->
-  <!--watermark target="CMediaList"	  		path="Seven\SideBlock.png"-->
-  <!--watermark target="CTorrentList"	  		path="Seven\SideBlock.png"-->
+  <!--watermark target="CMediaList"	  		path="Seven\SidebarFooter.jpg"--> <!--playlist-->
+  <!--watermark target="CListCtrl"	  		path="Seven\SideBlock.png"-->	<!--dialog list boxes-->
   <!--watermark target="CHomeViewCtrl.Header1"		path="###.png"-->
   <!--watermark target="CHomeViewCtrl.Header2"		path="###.png"-->
 
@@ -246,9 +251,31 @@
   <watermark target="CCoolbar.Checked" 			path="ToolbarButtonDown.png"/>
   <watermark target="CCoolbar.Separator"		path="ToolbarSeparator.png"/>
 
-  <watermark target="CTranfers.Selected"		path="Highlight.png"/>
-  <!--watermark target="System.Highlight"	  	path="Highlight.png"-->
-  <watermark target="System.Toolbars"	  		path="Toolbar.png"/>
+  <watermark target="RichButton"			path="Buttons\RichButton.png"/>
+  <watermark target="RichButtonPart" 			path="Buttons\RichButtonPart.png"/>
+  <watermark target="RichButton.Focus"			path="Buttons\RichButtonFocus.png"/>
+  <watermark target="RichButtonPart.Focus"		path="Buttons\RichButtonFocusPart.png"/>
+  <watermark target="RichButton.Hover"			path="Buttons\RichButtonHover.png"/>
+  <watermark target="RichButtonPart.Hover"		path="Buttons\RichButtonHoverPart.png"/>
+  <watermark target="RichButton.Press"			path="Buttons\RichButtonPress.png"/>
+  <watermark target="RichButtonPart.Press"		path="Buttons\RichButtonPressPart.png"/>
+  <watermark target="RichButton.Disabled"		path="Buttons\RichButtonDisabled.png"/>
+  <watermark target="RichButtonPart.Disabled"		path="Buttons\RichButtonDisabledPart.png"/>
+
+  <watermark target="IconButton"			path="Buttons\IconButton.png"/>
+  <watermark target="IconButton.Focus"			path="Buttons\IconButtonFocus.png"/>
+  <watermark target="IconButton.Hover"			path="Buttons\IconButtonHover.png"/>
+  <watermark target="IconButton.Press"			path="Buttons\IconButtonPress.png"/>
+  <watermark target="IconButton.Disabled"		path="Buttons\IconButtonDisabled.png"/>
+
+  <!--watermark target="CTranfers.Selected"		path="Highlight.png"-->
+  <watermark target="System.Highlight"			path="Highlight.png"/>
+  <watermark target="System.Progress"			path="Progress.png"/>
+  <watermark target="System.Progress.None"		path="ProgressNone.png"/>
+  <watermark target="System.Progress.Shaded"		path="ProgressNone.png"/>
+  <watermark target="System.Tooltips"			path="ToolTip.png"/>
+  <watermark target="System.Toolbars"			path="Toolbar.png"/>
+
 </watermarks>
 
 <windowSkins>
@@ -566,6 +593,24 @@
 <toolbars>
 
 <toolbar name="CMediaFrame">
+ <control id="117" width="308" height="18"/>
+ <button id="ID_MEDIA_STOP"/>
+ <button id="ID_MEDIA_PREVIOUS"/>
+ <button id="ID_MEDIA_PLAY"/>
+ <button id="ID_MEDIA_PAUSE" visible="false"/>
+ <button id="ID_MEDIA_NEXT"/>
+   <rightAlign/>
+ <control id="119" width="70" height="18"/>
+ <separator/>
+ <button id="ID_MEDIA_ZOOM"/>
+ <button id="ID_MEDIA_VIS"/>
+ <button id="ID_WINDOW_REMOTE"/>
+ <button id="ID_MEDIA_PLAYLIST"/>
+ <separator/>
+ <button id="ID_MEDIA_FULLSCREEN"/>
+</toolbar>
+
+<toolbar name="CMediaFrame.Basic">
  <control id="117" width="308" height="18"/>
  <button id="ID_MEDIA_STOP"/>
  <button id="ID_MEDIA_PREVIOUS"/>

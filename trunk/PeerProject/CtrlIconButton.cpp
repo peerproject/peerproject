@@ -1,7 +1,7 @@
 //
 // CtrlIconButton.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -34,12 +34,12 @@ static char THIS_FILE[] = __FILE__;
 IMPLEMENT_DYNAMIC(CIconButtonCtrl, CWnd)
 
 BEGIN_MESSAGE_MAP(CIconButtonCtrl, CWnd)
+	ON_WM_PAINT()
+	ON_WM_ERASEBKGND()
 	ON_WM_MOUSEMOVE()
 	ON_WM_LBUTTONDOWN()
 	ON_WM_LBUTTONUP()
 	ON_WM_LBUTTONDBLCLK()
-	ON_WM_PAINT()
-	ON_WM_ERASEBKGND()
 	ON_WM_ENABLE()
 	ON_WM_SETFOCUS()
 	ON_WM_KILLFOCUS()
@@ -107,14 +107,14 @@ void CIconButtonCtrl::SetIcon(HICON hIcon, BOOL bMirrored)
 	}
 }
 
-void CIconButtonCtrl::SetCoolIcon(UINT nIconID, BOOL bMirrored)
-{
-	SetIcon( CoolInterface.ExtractIcon( nIconID, bMirrored ), FALSE );
-}
-
 void CIconButtonCtrl::SetIcon(UINT nIconID, BOOL bMirrored)
 {
 	SetIcon( AfxGetApp()->LoadIcon( nIconID ), bMirrored );
+}
+
+void CIconButtonCtrl::SetCoolIcon(UINT nIconID, BOOL bMirrored)
+{
+	SetIcon( CoolInterface.ExtractIcon( nIconID, bMirrored ), FALSE );
 }
 
 void CIconButtonCtrl::SetHandCursor(BOOL bCursor)
@@ -209,7 +209,8 @@ BOOL CIconButtonCtrl::OnEraseBkgnd(CDC* /*pDC*/)
 void CIconButtonCtrl::OnPaint()
 {
 	CPaintDC dc( this );
-	COLORREF crBack;
+	BOOL bSkinned( FALSE );
+	COLORREF crBack( CLR_NONE );
 	CString strText;
 	CPoint ptIcon;
 	CRect rc;
@@ -217,103 +218,254 @@ void CIconButtonCtrl::OnPaint()
 	GetClientRect( &rc );
 	GetWindowText( strText );
 
-	if ( strText.GetLength() )
-	{
-		ptIcon.x = rc.left + 5;
-	}
-	else
-	{
-		ptIcon.x = ( rc.left + rc.right ) / 2 - 8;
-	}
+	BOOL bTextButton = ( strText.IsEmpty() == false );
 
+	ptIcon.x = bTextButton ? ( rc.left + 5 ) : ( ( rc.left + rc.right ) / 2 - 8 );	// Rich Button (left) or Icon Button (centered)
 	ptIcon.y = ( rc.top + rc.bottom ) / 2 - 8;
 
-	if ( m_bDown && m_bCapture )
+	if ( rc.Width() < 20 || rc.Height() < 20 )		// Don't skin special case small buttons
 	{
-		crBack = Colors.m_crBackCheckSel;
-		dc.Draw3dRect( &rc, Colors.m_crBorder, Colors.m_crBorder );
-		rc.DeflateRect( 1, 1 );
+		dc.FillSolidRect( ptIcon.x - 1, ptIcon.y - 1, rc.right, rc.bottom, dc.GetBkColor() );
+
+		if ( m_bDown != m_bCapture ) ptIcon.Offset( -1, -1 );
 
 		ImageList_DrawEx( m_pImageList.m_hImageList, 0, dc.GetSafeHdc(),
-			ptIcon.x, ptIcon.y, 0, 0, crBack, CLR_NONE, ILD_NORMAL );
-		dc.ExcludeClipRect( ptIcon.x, ptIcon.y, ptIcon.x + 16, ptIcon.y + 16 );
+			ptIcon.x, ptIcon.y, 0, 0, CLR_NONE, CLR_NONE,
+			( ! IsWindowEnabled() || ( m_bDown && m_bCapture ) ) ? ILD_BLEND50 : ILD_NORMAL );
+
+		return;
 	}
-	else if ( m_bDown != m_bCapture )
+
+	if ( m_bDown && m_bCapture )		// Pressed
 	{
-		crBack = Colors.m_crBackSel;
-		dc.Draw3dRect( &rc, Colors.m_crBorder, Colors.m_crBorder );
-		rc.DeflateRect( 1, 1 );
+		if ( ! bTextButton && Skin.m_bmIconButtonPress.m_hObject )	// IconButton.Press
+		{
+			CSize szButton( Skin.m_bmIconButtonPress.GetBitmapDimension() );
+			if ( szButton.cx > 18 && szButton.cy > 18 && szButton.cx < rc.Width() + 2 && szButton.cy < rc.Height() + 2 )
+			{
+				dc.FillSolidRect( &rc, dc.GetBkColor() );
+
+				// Set button rect to centered image size
+				rc.top += ( rc.Height() - szButton.cy ) / 2;
+				rc.left += ( rc.Width() - szButton.cx ) / 2;
+				rc.right = rc.left + szButton.cx;
+				rc.bottom = rc.top + szButton.cy;
+			}
+			CoolInterface.DrawWatermark( &dc, &rc, &Skin.m_bmIconButtonPress, FALSE );
+			bSkinned = TRUE;
+		}
+		else if ( Skin.m_bmRichButtonPress.m_hObject )	// RichButton.Press
+		{
+			CoolInterface.DrawWatermark( &dc, &rc, &Skin.m_bmRichButtonPress, FALSE );
+			if ( Skin.m_bmRichButtonPressPart.m_hObject )
+				CoolInterface.DrawWatermark( &dc, &rc, &Skin.m_bmRichButtonPressPart, FALSE,
+					rc.Width() - Skin.m_bmRichButtonPressPart.GetBitmapDimension().cx, 0 );
+			dc.SetBkMode( TRANSPARENT );
+			bSkinned = TRUE;
+			rc.left++;
+		}
+		else
+		{
+			dc.Draw3dRect( &rc, Colors.m_crBorder, Colors.m_crBorder );
+			crBack = Colors.m_crBackCheckSel;
+			rc.DeflateRect( 1, 1 );
+		}
+
+		ImageList_DrawEx( m_pImageList.m_hImageList, 0, dc.GetSafeHdc(),
+			ptIcon.x, ptIcon.y, 0, 0, crBack, CLR_NONE, ILD_BLEND50 );
+	}
+	else if ( m_bDown != m_bCapture )	// Hover  (or Unpressed)
+	{
+		if ( ! bTextButton && Skin.m_bmIconButtonHover.m_hObject )	// IconButton.Hover
+		{
+			CSize szButton( Skin.m_bmIconButtonHover.GetBitmapDimension() );
+			if ( szButton.cx > 18 && szButton.cy > 18 && szButton.cx < rc.Width() + 2 && szButton.cy < rc.Height() + 2 )
+			{
+				dc.FillSolidRect( &rc, dc.GetBkColor() );
+
+				// Set button rect to centered image size
+				rc.top += ( rc.Height() - szButton.cy ) / 2;
+				rc.left += ( rc.Width() - szButton.cx ) / 2;
+				rc.right = rc.left + szButton.cx;
+				rc.bottom = rc.top + szButton.cy;
+			}
+			CoolInterface.DrawWatermark( &dc, &rc, &Skin.m_bmIconButtonHover, FALSE );
+			bSkinned = TRUE;
+		}
+		else if ( Skin.m_bmRichButtonHover.m_hObject )	// RichButton.Hover
+		{
+			CoolInterface.DrawWatermark( &dc, &rc, &Skin.m_bmRichButtonHover, FALSE );
+			if ( Skin.m_bmRichButtonHoverPart.m_hObject )
+				CoolInterface.DrawWatermark( &dc, &rc, &Skin.m_bmRichButtonHoverPart, FALSE,
+					rc.Width() - Skin.m_bmRichButtonHoverPart.GetBitmapDimension().cx, 0 );
+			dc.SetBkMode( TRANSPARENT );
+			bSkinned = TRUE;
+			rc.left++;
+		}
+		else
+		{
+			dc.Draw3dRect( &rc, Colors.m_crBorder, Colors.m_crBorder );
+			crBack = Colors.m_crBackSel;
+			rc.DeflateRect( 1, 1 );
+
+			ptIcon.Offset( -1, -1 );
+			dc.FillSolidRect( ptIcon.x, ptIcon.y, 18, 2, crBack );
+			dc.FillSolidRect( ptIcon.x, ptIcon.y + 2, 2, 16, crBack );
+
+			ptIcon.Offset( 2, 2 );
+			dc.SetTextColor( Colors.m_crShadow );
+			ImageList_DrawEx( m_pImageList.m_hImageList, 0, dc.GetSafeHdc(),
+				ptIcon.x, ptIcon.y, 0, 0, crBack, CLR_NONE, ILD_MASK );
+
+			ptIcon.Offset( -1, -1 );
+		}
 
 		ptIcon.Offset( -1, -1 );
-		dc.FillSolidRect( ptIcon.x, ptIcon.y, 18, 2, crBack );
-		dc.FillSolidRect( ptIcon.x, ptIcon.y + 2, 2, 16, crBack );
-
-		ptIcon.Offset( 2, 2 );
-		dc.SetTextColor( Colors.m_crShadow );
-		ImageList_DrawEx( m_pImageList.m_hImageList, 0, dc.GetSafeHdc(),
-			ptIcon.x, ptIcon.y, 0, 0, crBack, CLR_NONE, ILD_MASK );
-
-		ptIcon.Offset( -2, -2 );
 		ImageList_DrawEx( m_pImageList.m_hImageList, 0, dc.GetSafeHdc(),
 			ptIcon.x, ptIcon.y, 0, 0, CLR_NONE, CLR_NONE, ILD_NORMAL );
 
-		dc.ExcludeClipRect( ptIcon.x, ptIcon.y, ptIcon.x + 18, ptIcon.y + 18 );
+		dc.ExcludeClipRect( ptIcon.x, ptIcon.y, ptIcon.x + 16, ptIcon.y + 16 );
 		ptIcon.Offset( 1, 1 );
 	}
-	else if ( GetFocus() == this && IsWindowEnabled() )
+	else if ( IsWindowEnabled() && GetFocus() == this ) 	// Button w/ Focus
 	{
-		crBack = Colors.m_crBackNormal;
-		dc.Draw3dRect( &rc, Colors.m_crBorder, Colors.m_crBorder );
-		rc.DeflateRect( 1, 1 );
+		if ( ! bTextButton && Skin.m_bmIconButtonFocus.m_hObject )	// IconButton.Focus
+		{
+			CSize szButton( Skin.m_bmIconButtonFocus.GetBitmapDimension() );
+			if ( szButton.cx > 18 && szButton.cy > 18 && szButton.cx < rc.Width() + 2 && szButton.cy < rc.Height() + 2 )
+			{
+				dc.FillSolidRect( &rc, dc.GetBkColor() );
+
+				// Set button rect to centered image size
+				rc.top += ( rc.Height() - szButton.cy ) / 2;
+				rc.left += ( rc.Width() - szButton.cx ) / 2;
+				rc.right = rc.left + szButton.cx;
+				rc.bottom = rc.top + szButton.cy;
+			}
+			CoolInterface.DrawWatermark( &dc, &rc, &Skin.m_bmIconButtonFocus, FALSE );
+			bSkinned = TRUE;
+		}
+		else if ( Skin.m_bmRichButtonFocus.m_hObject )	// RichButton.Focus
+		{
+			CoolInterface.DrawWatermark( &dc, &rc, &Skin.m_bmRichButtonFocus, FALSE );
+			if ( Skin.m_bmRichButtonFocusPart.m_hObject )
+				CoolInterface.DrawWatermark( &dc, &rc, &Skin.m_bmRichButtonFocusPart, FALSE,
+					rc.Width() - Skin.m_bmRichButtonFocusPart.GetBitmapDimension().cx, 0 );
+			dc.SetBkMode( TRANSPARENT );
+			bSkinned = TRUE;
+			rc.left++;
+		}
+		else
+		{
+			dc.Draw3dRect( &rc, Colors.m_crBorder, Colors.m_crBorder );
+			crBack = Colors.m_crBackNormal;
+			rc.DeflateRect( 1, 1 );
+		}
 
 		ImageList_DrawEx( m_pImageList.m_hImageList, 0, dc.GetSafeHdc(),
 			ptIcon.x, ptIcon.y, 0, 0, crBack, CLR_NONE, ILD_NORMAL );
-		dc.ExcludeClipRect( ptIcon.x, ptIcon.y, ptIcon.x + 16, ptIcon.y + 16 );
 	}
-	else if ( IsWindowEnabled() )
+	else if ( IsWindowEnabled() )	// Button Default w/o Focus
 	{
-		crBack = Colors.m_crBackNormal;
-		dc.Draw3dRect( &rc, Colors.m_crShadow, Colors.m_crShadow );
-		rc.DeflateRect( 1, 1 );
+		if ( ! bTextButton && Skin.m_bmIconButton.m_hObject )	// IconButton
+		{
+			CSize szButton( Skin.m_bmIconButton.GetBitmapDimension() );
+			if ( szButton.cx > 18 && szButton.cy > 18 && szButton.cx < rc.Width() + 2 && szButton.cy < rc.Height() + 2 )
+			{
+				dc.FillSolidRect( &rc, dc.GetBkColor() );
+
+				// Set button rect to centered image size
+				rc.top += ( rc.Height() - szButton.cy ) / 2;
+				rc.left += ( rc.Width() - szButton.cx ) / 2;
+				rc.right = rc.left + szButton.cx;
+				rc.bottom = rc.top + szButton.cy;
+			}
+			CoolInterface.DrawWatermark( &dc, &rc, &Skin.m_bmIconButton, FALSE );
+			bSkinned = TRUE;
+		}
+		else if ( Skin.m_bmRichButton.m_hObject )	// RichButton
+		{
+			CoolInterface.DrawWatermark( &dc, &rc, &Skin.m_bmRichButton, FALSE );
+			if ( Skin.m_bmRichButtonPart.m_hObject )
+				CoolInterface.DrawWatermark( &dc, &rc, &Skin.m_bmRichButtonPart, FALSE,
+					rc.Width() - Skin.m_bmRichButtonPart.GetBitmapDimension().cx, 0 );
+			dc.SetBkMode( TRANSPARENT );
+			bSkinned = TRUE;
+			rc.left++;
+		}
+		else
+		{
+			dc.Draw3dRect( &rc, Colors.m_crShadow, Colors.m_crShadow );
+			crBack = Colors.m_crBackNormal;
+			rc.DeflateRect( 1, 1 );
+		}
 
 		ImageList_DrawEx( m_pImageList.m_hImageList, 0, dc.GetSafeHdc(),
-			ptIcon.x, ptIcon.y, 0, 0, crBack, Colors.m_crShadow, ILD_BLEND50 );
-		dc.ExcludeClipRect( ptIcon.x, ptIcon.y, ptIcon.x + 16, ptIcon.y + 16 );
+			ptIcon.x, ptIcon.y, 0, 0, crBack, CLR_NONE, ILD_NORMAL );
 	}
-	else
+	else	// Disabled
 	{
-		crBack = Colors.m_crMidtone;
-		dc.Draw3dRect( &rc, Colors.m_crShadow, Colors.m_crShadow );
-		rc.DeflateRect( 1, 1 );
+		if ( ! bTextButton && Skin.m_bmIconButtonDisabled.m_hObject )	// IconButton.Disabled
+		{
+			CSize szButton( Skin.m_bmIconButtonDisabled.GetBitmapDimension() );
+			if ( szButton.cx > 18 && szButton.cy > 18 && szButton.cx < rc.Width() + 2 && szButton.cy < rc.Height() + 2 )
+			{
+				dc.FillSolidRect( &rc, dc.GetBkColor() );
+
+				// Set button rect to centered image size
+				rc.top += ( rc.Height() - szButton.cy ) / 2;
+				rc.left += ( rc.Width() - szButton.cx ) / 2;
+				rc.right = rc.left + szButton.cx;
+				rc.bottom = rc.top + szButton.cy;
+			}
+			CoolInterface.DrawWatermark( &dc, &rc, &Skin.m_bmIconButtonDisabled, FALSE );
+			bSkinned = TRUE;
+		}
+		else if ( Skin.m_bmRichButtonDisabled.m_hObject )	// RichButton.Disabled
+		{
+			CoolInterface.DrawWatermark( &dc, &rc, &Skin.m_bmRichButtonDisabled, FALSE );
+			if ( Skin.m_bmRichButtonDisabledPart.m_hObject )
+				CoolInterface.DrawWatermark( &dc, &rc, &Skin.m_bmRichButtonDisabledPart, FALSE,
+					rc.Width() - Skin.m_bmRichButtonDisabledPart.GetBitmapDimension().cx, 0 );
+			dc.SetBkMode( TRANSPARENT );
+			bSkinned = TRUE;
+			rc.left++;
+		}
+		else
+		{
+			dc.Draw3dRect( &rc, Colors.m_crShadow, Colors.m_crShadow );
+			crBack = Colors.m_crMidtone;
+			rc.DeflateRect( 1, 1 );
+		}
 
 		dc.SetTextColor( Colors.m_crDisabled );
 		dc.SetBkColor( crBack );
 
-//		ImageList_DrawEx( m_pImageList.m_hImageList, 0, dc.GetSafeHdc(),
-//			ptIcon.x, ptIcon.y, 0, 0, crBack, CLR_NONE, ILD_MASK );
-
 		ImageList_DrawEx( m_pImageList.m_hImageList, 0, dc.GetSafeHdc(),
 			ptIcon.x, ptIcon.y, 0, 0, crBack, Colors.m_crDisabled, ILD_BLEND50 );
-
-		dc.ExcludeClipRect( ptIcon.x, ptIcon.y, ptIcon.x + 16, ptIcon.y + 16 );
+		//	ptIcon.x, ptIcon.y, 0, 0, crBack, CLR_NONE, ILD_MASK );
 	}
 
-	if ( strText.GetLength() )
+	if ( ! bSkinned )
+		dc.ExcludeClipRect( ptIcon.x, ptIcon.y, ptIcon.x + 16, ptIcon.y + 16 );
+
+	if ( bTextButton )	// strText
 	{
-		rc.left += 21;
+		rc.left += ptIcon.x + 16 + 2;	// Text Offset
 
 		CFont* pOldFont = (CFont*)dc.SelectObject( &CoolInterface.m_fntNormal );
 
-		dc.SetBkColor( crBack );
+		if ( ! bSkinned )
+			dc.SetBkColor( crBack );
 		dc.SetTextColor( IsWindowEnabled() ? Colors.m_crCmdText : Colors.m_crDisabled );
-		dc.ExtTextOut( rc.left + 2, ptIcon.y + 1, ETO_CLIPPED|ETO_OPAQUE, &rc, strText, NULL );
+		dc.ExtTextOut( rc.left, ptIcon.y + 1, ETO_CLIPPED|( ! bSkinned ? ETO_OPAQUE : 0 ), &rc, strText, NULL );
 		dc.SelectObject( pOldFont );
 
-		rc.right = rc.left;
-		rc.left -= 21;
+		if ( ! bSkinned )	// Fill icon area not covered by opaque text
+			dc.FillSolidRect( rc.left - ( ptIcon.x + 16 + 2 ), rc.top, rc.left, rc.bottom - 1, crBack );
 	}
-
-	dc.FillSolidRect( &rc, crBack );
+	else if ( ! bSkinned )
+		dc.FillSolidRect( &rc, crBack );
 }
 
 void CIconButtonCtrl::OnEnable(BOOL bEnable)

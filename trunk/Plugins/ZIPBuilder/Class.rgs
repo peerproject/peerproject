@@ -37,6 +37,7 @@ HKCU
 					NoRemove LibraryBuilder
 					{
 						ForceRemove val '.zip' = s '{C2AC3234-100D-4CC4-BCBB-ACF5F18D4854}'
+						ForceRemove val '.cbz' = s '{C2AC3234-100D-4CC4-BCBB-ACF5F18D4854}'
 					}
 				}
 			}

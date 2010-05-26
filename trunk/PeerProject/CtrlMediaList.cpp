@@ -187,24 +187,20 @@ void CMediaListCtrl::Remove(LPCTSTR pszFile)
 
 BOOL CMediaListCtrl::LoadTextList(LPCTSTR pszFile)
 {
-	CString strPath, strItem;
-	CFile pFile;
-
-	strPath = pszFile;
+	CString strPath = pszFile;
 	strPath = strPath.Left( strPath.ReverseFind( '\\' ) + 1 );
 
+	CFile pFile;
 	if ( ! pFile.Open( pszFile, CFile::modeRead ) ) return FALSE;
 
 	CBuffer pBuffer;
 	pBuffer.EnsureBuffer( (DWORD)pFile.GetLength() );
-	pBuffer.m_nLength = (DWORD)pFile.GetLength();
-	pFile.Read( pBuffer.m_pBuffer, pBuffer.m_nLength );
-	pFile.Close();
+	pBuffer.m_nLength = (DWORD)pFile.Read( pBuffer.m_pBuffer, (DWORD)pFile.GetLength() );
 
+	CString strItem;
 	while ( pBuffer.ReadLine( strItem ) )
 	{
-		strItem.TrimLeft();
-		strItem.TrimRight();
+		strItem.Trim();
 
 		if ( strItem.GetLength() && strItem.GetAt( 0 ) != '#' )
 		{
@@ -215,6 +211,33 @@ BOOL CMediaListCtrl::LoadTextList(LPCTSTR pszFile)
 				Enqueue( strItem, FALSE );
 		}
 	}
+
+	return TRUE;
+}
+
+BOOL CMediaListCtrl::SaveTextList(LPCTSTR pszFile)
+{
+	CString strPath = pszFile;
+	strPath = strPath.Left( strPath.ReverseFind( '\\' ) + 1 );
+
+	CString strFile;
+	for ( int nItem = 0 ; nItem < GetItemCount() ; nItem++ )
+	{
+		CString strItem = GetItemText( nItem, 1 );
+
+		if ( _tcsnicmp( strPath, strItem, strPath.GetLength() ) == 0 )
+			strItem = strItem.Mid( strPath.GetLength() );	// Relative path
+
+		strFile += strItem + _T("\r\n");
+	}
+
+	CFile pFile;
+	if ( ! pFile.Open( pszFile, CFile::modeWrite | CFile::modeCreate ) )
+		return FALSE;
+
+	CT2CA strFileA( (LPCTSTR)strFile );
+
+	pFile.Write( strFileA, static_cast< UINT >( strlen( strFileA ) ) );
 
 	return TRUE;
 }
@@ -737,28 +760,7 @@ void CMediaListCtrl::OnMediaSave()
 
 	if ( dlg.DoModal() != IDOK ) return;
 
-	CString strFile, strPath;
-	CFile pFile;
-
-	strPath = dlg.GetPathName();
-	strPath = strPath.Left( strPath.ReverseFind( '\\' ) + 1 );
-
-	for ( int nItem = 0 ; nItem < GetItemCount() ; nItem++ )
-	{
-		CString strItem = GetItemText( nItem, 1 );
-
-		if ( _tcsnicmp( strPath, strItem, strPath.GetLength() ) == 0 )
-			strItem = strItem.Mid( strPath.GetLength() );
-
-		strFile += strItem + _T("\r\n");
-	}
-
-	if ( ! pFile.Open( dlg.GetPathName(), CFile::modeWrite|CFile::modeCreate ) ) return;
-
-	CT2CA pszFile( (LPCTSTR)strFile );
-
-	pFile.Write( pszFile, static_cast< UINT >( strlen(pszFile) ) );
-	pFile.Close();
+	SaveTextList( dlg.GetPathName() );
 }
 
 void CMediaListCtrl::OnUpdateMediaPrevious(CCmdUI* pCmdUI)

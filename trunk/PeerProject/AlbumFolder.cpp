@@ -43,13 +43,17 @@ static char THIS_FILE[]=__FILE__;
 // CAlbumFolder construction
 
 CAlbumFolder::CAlbumFolder(CAlbumFolder* pParent, LPCTSTR pszSchemaURI, LPCTSTR pszName, BOOL bAutoDelete)
+	: m_sSchemaURI		( pszSchemaURI )
+	, m_pSchema			( SchemaCache.Get( pszSchemaURI ) )
+	, m_pXML			( NULL )
+	, m_pParent			( pParent )
+	, m_pCollection		( NULL )
+	, m_bExpanded		( pParent == NULL || pParent->m_pParent == NULL )
+	, m_bAutoDelete		( bAutoDelete )
+	, m_nUpdateCookie	( 0 )
+	, m_nSelectCookie	( 0 )
+	, m_nListCookie		( 0 )
 {
-	m_pParent = pParent;
-
-	m_sSchemaURI	= pszSchemaURI ? pszSchemaURI : NULL;
-	m_pSchema		= pszSchemaURI ? SchemaCache.Get( pszSchemaURI ) : NULL;
-	m_pXML			= NULL;
-
 	if ( pszName > (LPCTSTR)1 )
 	{
 		m_sName = pszName;
@@ -63,16 +67,8 @@ CAlbumFolder::CAlbumFolder(CAlbumFolder* pParent, LPCTSTR pszSchemaURI, LPCTSTR 
 				m_sName = m_pSchema->m_sTitle.Mid( nColon + 1 ).Trim();
 		}
 
-		if ( m_sName.IsEmpty() ) m_sName = _T("New Folder");
+		if ( m_sName.IsEmpty() ) m_sName = LoadString( IDS_NEW_FOLDER );
 	}
-
-	m_bExpanded		= pParent == NULL || pParent->m_pParent == NULL;
-	m_bAutoDelete	= bAutoDelete;
-
-	m_nUpdateCookie	= 0;
-	m_nSelectCookie	= 0;
-	m_nListCookie	= 0;
-	m_pCollection	= NULL;
 
 	RenewGUID();
 }
@@ -91,8 +87,27 @@ void CAlbumFolder::RenewGUID()
 //////////////////////////////////////////////////////////////////////
 // CAlbumFolder folder list
 
+void CAlbumFolder::AddFolder(CAlbumFolder* pFolder)
+{
+	ASSUME_LOCK( Library.m_pSection );
+
+	ASSERT( pFolder->m_pParent == this );
+
+	if ( m_pFolders.Find( pFolder ) )
+		return; 	// Already added
+
+	// Change album GUID to avoid duplicates
+	pFolder->RenewGUID();
+
+	m_pFolders.AddTail( pFolder );
+
+	m_nUpdateCookie++;
+}
+
 CAlbumFolder* CAlbumFolder::AddFolder(LPCTSTR pszSchemaURI, LPCTSTR pszName, BOOL bAutoDelete)
 {
+	ASSUME_LOCK( Library.m_pSection );
+
 	if ( pszSchemaURI == NULL && m_pSchema != NULL )
 		pszSchemaURI = m_pSchema->GetContainedURI( CSchema::stFolder );
 
@@ -103,17 +118,37 @@ CAlbumFolder* CAlbumFolder::AddFolder(LPCTSTR pszSchemaURI, LPCTSTR pszName, BOO
 
 	m_pFolders.AddTail( pFolder );
 
+	m_nUpdateCookie++;
+
 	return pFolder;
+}
+
+DWORD CAlbumFolder::GetFolderCount() const
+{
+	ASSUME_LOCK( Library.m_pSection );
+
+	return (DWORD)m_pFolders.GetCount();
 }
 
 POSITION CAlbumFolder::GetFolderIterator() const
 {
+	ASSUME_LOCK( Library.m_pSection );
+
 	return m_pFolders.GetHeadPosition();
 }
 
 CAlbumFolder* CAlbumFolder::GetNextFolder(POSITION& pos) const
 {
+	ASSUME_LOCK( Library.m_pSection );
+
 	return m_pFolders.GetNext( pos );
+}
+
+CAlbumFolder* CAlbumFolder::GetParent() const
+{
+	//ASSUME_LOCK( Library.m_pSection );
+
+	return m_pParent;
 }
 
 CAlbumFolder* CAlbumFolder::GetFolder(LPCTSTR pszName) const
@@ -217,17 +252,16 @@ bool CAlbumFolder::OnFolderDelete(CAlbumFolder* pFolder)
 {
 	ASSUME_LOCK( Library.m_pSection );
 
+	ASSERT( pFolder->m_pParent == this );
+	pFolder->m_pParent = NULL;
+
 	// Find by pointer (direct)
-	POSITION pos = m_pFolders.Find( pFolder );
-	if ( pos == NULL )
+	if ( POSITION pos = m_pFolders.Find( pFolder ) )
+		m_pFolders.RemoveAt( pos );
+	else
 		return false;
 
-	m_pFolders.RemoveAt( pos );
-
-	ASSERT( pFolder->m_pParent == this );
 	ASSERT( ! LibraryFolders.CheckAlbum( pFolder ) ) ;
-
-	pFolder->m_pParent = NULL;
 
 	Library.Update();
 	m_nUpdateCookie++;
@@ -273,6 +307,13 @@ CLibraryFile* CAlbumFolder::GetNextFile(POSITION& pos) const
 	ASSUME_LOCK( Library.m_pSection );
 
 	return m_pFiles.GetNext( pos );
+}
+
+DWORD CAlbumFolder::GetFileCount() const
+{
+	ASSUME_LOCK( Library.m_pSection );
+
+	return (DWORD)m_pFiles.GetCount();
 }
 
 int CAlbumFolder::GetSharedCount() const
@@ -389,6 +430,7 @@ void CAlbumFolder::Delete(BOOL bIfEmpty)
 	}
 
 	m_pParent->OnFolderDelete( this );
+
 	delete this;
 }
 
@@ -485,11 +527,11 @@ BOOL CAlbumFolder::MetaToFiles(BOOL bAggressive)
 
 CString CAlbumFolder::GetBestView() const
 {
-	if ( m_sBestView.GetLength() > 0 ) return m_sBestView;
+	if ( ! m_sBestView.IsEmpty() ) return m_sBestView;
 
 	if ( m_oCollSHA1 ) return _T("CLibraryCollectionView");
 
-	if ( m_pSchema != NULL && m_pSchema->m_sLibraryView.GetLength() > 0 )
+	if ( m_pSchema && ! m_pSchema->m_sLibraryView.IsEmpty() )
 		return m_pSchema->m_sLibraryView;
 
 	return CString();
@@ -1135,7 +1177,7 @@ void CAlbumFolder::Serialize(CArchive& ar, int nVersion)
 				m_oCollSHA1.clear();
 		//}
 
-		if ( nVersion >= 24 )
+		//if ( nVersion >= 24 )
 			SerializeIn( ar, m_oGUID, nVersion );
 
 		ar >> m_sName;
@@ -1163,7 +1205,9 @@ void CAlbumFolder::Serialize(CArchive& ar, int nVersion)
 
 			if ( CLibraryFile* pFile = Library.LookupFile( nIndex ) )
 			{
-				m_pFiles.AddTail( pFile );
+				POSITION pos = m_pFiles.Find( pFile );
+				if ( pos == NULL )
+					m_pFiles.AddTail( pFile );
 				if ( pCollection != NULL )
 					pFile->m_nCollIndex = pCollection->m_nIndex;
 			}
@@ -1181,6 +1225,8 @@ bool CAlbumFolder::operator==(const CAlbumFolder& val) const
 
 void CAlbumFolder::Clear()
 {
+	ASSUME_LOCK( Library.m_pSection );
+
 	for ( POSITION pos = GetFolderIterator() ; pos ; )
 	{
 		delete GetNextFolder( pos );
@@ -1189,10 +1235,10 @@ void CAlbumFolder::Clear()
 	m_pFolders.RemoveAll();
 	m_pFiles.RemoveAll();
 
-	if ( m_pXML != NULL ) delete m_pXML;
+	delete m_pXML;
 	m_pXML = NULL;
 
-	if ( m_pCollection != NULL ) delete m_pCollection;
+	delete m_pCollection;
 	m_pCollection = NULL;
 
 	m_nUpdateCookie++;

@@ -62,15 +62,25 @@ void CColors::CalculateColors(BOOL bCustom)
 		m_crHiBorderIn			= NULL;
 	}
 
+	m_crSysWindow				= GetSysColor( COLOR_WINDOW );
+	m_crSysBtnFace				= GetSysColor( COLOR_BTNFACE );
+	m_crSysDisabled				= GetSysColor( COLOR_GRAYTEXT );	// Borders
+	m_crSys3DShadow 			= GetSysColor( COLOR_3DSHADOW );
+	m_crSys3DHighlight			= GetSysColor( COLOR_3DHIGHLIGHT );
+	m_crSysActiveCaption		= GetSysColor( COLOR_ACTIVECAPTION );
+	m_crSysMenuText 			= GetSysColor( COLOR_MENUTEXT );
+
+	m_crDialog					= CalculateColor( m_crSysBtnFace, m_crSysWindow, 200 );
+
 	m_crBackNormal				= CalculateColor( m_crMidtone, m_crWindow, 215 );
 	m_crBackSel					= CalculateColor( m_crHighlight, m_crWindow, 180 );
 	m_crBackCheck				= CalculateColor( m_crHighlight, m_crWindow, 200 );
 	m_crBackCheckSel			= CalculateColor( m_crHighlight, m_crWindow, 130 );
 	m_crMargin					= CalculateColor( m_crMidtone, m_crWindow, 40 );
-	m_crShadow					= CalculateColor( m_crHighlight, GetSysColor( COLOR_3DSHADOW ), 200 );
+	m_crShadow					= CalculateColor( m_crHighlight, m_crSys3DShadow, 200 );
 	m_crBorder					= m_crHighlight;
-	m_crDisabled				= GetSysColor( COLOR_GRAYTEXT );
-	m_crCmdText					= GetSysColor( COLOR_MENUTEXT );
+	m_crDisabled				= m_crSysDisabled;
+	m_crCmdText					= m_crSysMenuText;
 	m_crCmdTextSel				= m_crCmdText;
 
 	m_crPanelBorder				= RGB( 0, 0, 0 );
@@ -84,6 +94,8 @@ void CColors::CalculateColors(BOOL bCustom)
 	m_crTipBack					= GetSysColor( COLOR_INFOBK );
 	m_crTipText					= GetSysColor( COLOR_INFOTEXT );
 	m_crTipBorder				= CalculateColor( m_crTipBack, (COLORREF)0, 100 );
+	m_crTipGraph				= CalculateColor( RGB( 255, 255, 255 ), m_crTipBack, 80 );
+	m_crTipGraphGrid			= CalculateColor( Colors.m_crTipBorder, m_crTipGraph, 180 );
 	m_crTipWarnings				= RGB( 64, 64, 64 );	// Grey warning messages
 
 	m_crTaskPanelBack			= RGB( 122, 161, 230 );
@@ -101,12 +113,12 @@ void CColors::CalculateColors(BOOL bCustom)
 	m_crMediaPanelBack 			= RGB( 0x1A, 0x18, 0x16 );
 	m_crMediaPanelText  		= RGB( 0x68, 0x62, 0x5A );
 	m_crMediaPanelActiveBack	= RGB( 0x1C, 0x1B, 0x1A );
-	m_crMediaPanelActiveText	= RGB( 255, 255, 255 );
+	m_crMediaPanelActiveText	= RGB( 0xFF, 0xFF, 0xFF );
 	m_crMediaPanelCaptionBack	= RGB( 0x34, 0x32, 0x32 );
 	m_crMediaPanelCaptionText	= RGB( 0xFD, 0xFC, 0xFA );
 
 	m_crTrafficWindowBack		= RGB( 0, 0, 0 );
-	m_crTrafficWindowText		= RGB( 193, 196, 255 );
+	m_crTrafficWindowText		= RGB( 192, 196, 255 );
 	m_crTrafficWindowGrid		= RGB( 0, 0, 128 );
 
 	m_crMonitorHistoryBack		= RGB( 0, 0, 0 );
@@ -116,6 +128,10 @@ void CColors::CalculateColors(BOOL bCustom)
 	m_crMonitorUploadLine		= RGB( 0xFF, 0xFF, 0 );
 	m_crMonitorDownloadBar		= RGB( 0, 0xBB, 0 );
 	m_crMonitorUploadBar		= RGB( 0xBB, 0xBB, 0 );
+	m_crMonitorGraphBorder		= RGB( 20, 15, 10 );
+	m_crMonitorGraphBack		= RGB( 255, 254, 248 );
+	m_crMonitorGraphGrid		= RGB( 230, 230, 180 );
+	m_crMonitorGraphLine		= RGB( 252, 20, 10 );
 
 	m_crRatingNull				= RGB( 0x4A, 0x44, 0x40 );
 	m_crRating0					= RGB( 0xEA, 0x4A, 0x60 );
@@ -125,8 +141,8 @@ void CColors::CalculateColors(BOOL bCustom)
 	m_crRating4					= RGB( 0x60, 0x5A, 0x55 );
 	m_crRating5					= RGB( 0, 0, 0 );
 
-	m_crRichdocText  			= RGB( 0, 0, 0 );
-	m_crRichdocBack				= RGB( 255, 255, 255 );
+	m_crRichdocBack 			= m_crWindow;
+	m_crRichdocText 			= m_crText;
 	m_crRichdocHeading 			= RGB( 180, 50, 10 );
 	m_crTextAlert 				= RGB( 255, 0, 0 );
 	m_crTextStatus 				= RGB( 0, 128, 0 );
@@ -143,7 +159,7 @@ void CColors::CalculateColors(BOOL bCustom)
 	m_crSearchQueued 			= RGB( 0, 0, 160 );
 	m_crSearchQueuedHit			= RGB( 0, 0, 100 );
 	m_crSearchQueuedSelected	= GetSysColor( COLOR_HIGHLIGHTTEXT );
-	m_crSearchNull  			= GetSysColor( COLOR_3DSHADOW );
+	m_crSearchNull  			= m_crSys3DShadow;
 	//m_crSearchTorrent  		= CalculateColor( m_crWindow, RGB( 244, 242, 240 ), 10 );
 	//m_crSearchCollection 		= CalculateColor( m_crWindow, RGB( 254, 120, 10 ), 25 );
 	//m_crSearchHighrated 		= CalculateColor( m_crWindow, RGB( 255, 250, 50 ), 20 );
@@ -164,36 +180,25 @@ void CColors::CalculateColors(BOOL bCustom)
 	m_crSecurityAllow			= RGB( 0, 128, 0 );
 	m_crSecurityDeny			= RGB( 255, 0, 0 );
 
-	m_crDropdownText			= GetSysColor( COLOR_MENUTEXT );
-	m_crDropdownBox				= GetSysColor( COLOR_WINDOW );
-	m_crResizebarEdge			= GetSysColor( COLOR_BTNFACE );
-	m_crResizebarFace			= GetSysColor( COLOR_BTNFACE );
-	m_crResizebarShadow			= GetSysColor( COLOR_3DSHADOW );
-	m_crResizebarHighlight		= GetSysColor( COLOR_3DHIGHLIGHT );
-	m_crFragmentShaded			= GetSysColor( COLOR_BTNFACE );
-	m_crFragmentComplete		= GetSysColor( COLOR_ACTIVECAPTION );
+	m_crDropdownText			= m_crSysMenuText;
+	m_crDropdownBox				= m_crSysWindow;
+	m_crResizebarEdge			= m_crSysBtnFace;
+	m_crResizebarFace			= m_crSysBtnFace;
+	m_crResizebarShadow			= m_crSys3DShadow;
+	m_crResizebarHighlight		= m_crSys3DHighlight;
+	m_crFragmentShaded			= m_crSysBtnFace;
+	m_crFragmentComplete		= RGB( 90, 240, 80 );
 	m_crFragmentSource1			= RGB( 0, 150, 255 );
 	m_crFragmentSource2			= RGB( 0, 150, 0 );
 	m_crFragmentSource3			= RGB( 255, 50, 0 );
 	m_crFragmentSource4			= RGB( 255, 200, 0 );
 	m_crFragmentSource5			= RGB( 150, 150, 255 );
-	m_crFragmentSource6			= RGB( 204, 153, 0 );
+	m_crFragmentSource6			= RGB( 204, 152, 0 );
 	m_crFragmentPass			= RGB( 0, 220, 0 );
 	m_crFragmentFail			= RGB( 220, 0, 0 );
 	m_crFragmentRequest			= RGB( 255, 255, 0 );
 	m_crFragmentBorder			= RGB( 50, 50, 50 );
 	m_crFragmentBorderSelected	= RGB( 50, 50, 50 );
-	m_crFragmentBorderSimpleBar	= RGB( 50, 50, 50 );
-	m_crFragmentBorderSimpleBarSelected	= RGB( 255, 255, 255 );
-
-	m_crSysWindow				= GetSysColor( COLOR_WINDOW );
-	m_crSysBtnFace				= GetSysColor( COLOR_BTNFACE );
-	m_crSysBorders				= GetSysColor( COLOR_GRAYTEXT );
-	m_crSys3DShadow 			= GetSysColor( COLOR_3DSHADOW );
-	m_crSys3DHighlight			= GetSysColor( COLOR_3DHIGHLIGHT );
-	m_crSysActiveCaption		= GetSysColor( COLOR_ACTIVECAPTION );
-
-	m_crDialog					= CalculateColor( m_crSysBtnFace, m_crSysWindow, 200 );
 }
 
 void CColors::OnSysColorChange()

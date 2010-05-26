@@ -19,6 +19,8 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 
+// System Window Drawing (Network Tab)
+
 #include "StdAfx.h"
 #include "PeerProject.h"
 #include "Settings.h"
@@ -59,19 +61,18 @@ CTextCtrl::CTextCtrl()
 	, m_nTotal		( 0 )
 	, m_bProcess	( TRUE )
 	, m_nLastClicked ( -1 )
-	, m_nScrollWheelLines ( 3 )
 {
 	// ToDo: Add new log color codes to CColors.m_cr...
 
-	// Severity
-	m_crText[0] = RGB( 255, 0, 0 );			// red		- MSG_ERROR
-	m_crText[1] = RGB( 255, 128, 64 );		// orange	- MSG_WARNING
-	m_crText[2] = RGB( 0, 0, 128 );			// dark blue - MSG_NOTICE
-	m_crText[3] = RGB( 0, 0, 0 );			// black	- MSG_INFO
-	m_crText[4] = RGB( 128, 128, 128 );		// gray		- MSG_DEBUG
+	// Severity (Text)
+	m_crText[0] = RGB( 255, 0, 0 );				// red			- MSG_ERROR
+	m_crText[1] = RGB( 255, 128, 64 );			// orange		- MSG_WARNING
+	m_crText[2] = RGB( 0, 0, 128 );				// dark blue	- MSG_NOTICE
+	m_crText[3] = RGB( 0, 0, 0 );				// black		- MSG_INFO
+	m_crText[4] = RGB( 128, 128, 128 );			// gray			- MSG_DEBUG
 
-	// Facility
-	m_crBackground[0] = RGB( 255, 255, 255 );	// white	- MSG_FACILITY_DEFAULT
+	// Facility (Window) DISABLED	ToDo: Fix MSG_FACILITY_MASK
+	m_crBackground[0] = Colors.m_crWindow;		// whitespace	- MSG_FACILITY_DEFAULT
 	m_crBackground[1] = RGB( 255, 255, 224 );	// light yellow	- MSG_FACILITY_SEARCH
 	m_crBackground[2] = RGB( 224, 255, 224 );	// light green	- MSG_FACILITY_INCOMING
 	m_crBackground[3] = RGB( 224, 240, 255 );	// light blue	- MSG_FACILITY_OUTGOING
@@ -80,9 +81,6 @@ CTextCtrl::CTextCtrl()
 		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, theApp.m_nFontQuality,
 		DEFAULT_PITCH|FF_DONTCARE, Settings.Fonts.SystemLogFont );
 	m_cCharacter = CSize( 0, 0 );
-
-	// Try to get the number of lines to scroll when the mouse wheel is rotated
-	SystemParametersInfo ( SPI_GETWHEELSCROLLLINES, 0, &m_nScrollWheelLines, 0);
 }
 
 CTextCtrl::~CTextCtrl()
@@ -299,12 +297,9 @@ void CTextCtrl::OnPaint()
 		if ( pLine->m_bSelected && Skin.m_bmSelected.m_hObject )	// Skinned
 		{
 			dc.SetBkMode( TRANSPARENT );
-			CRect rcClip( rcLine );
-			rcClip.top = rcClip.bottom + 2;
-			rcClip.bottom += 10;
-			dc.ExcludeClipRect( &rcClip );	// Hide overdraw
-			CoolInterface.DrawWatermark( &dc, &rcLine, &Skin.m_bmSelected );
-
+			rcLine.bottom++;	// Set wider for highlight
+			CoolInterface.DrawWatermark( &dc, &rcLine, &Skin.m_bmSelected, FALSE ); 	// No overdraw
+			rcLine.bottom--;
 			dc.SetTextColor( m_crText[ pLine->m_nType & MSG_SEVERITY_MASK ] );
 			pLine->Paint( &dc, &rcLine, TRUE );
 			dc.SetBkMode( OPAQUE );
@@ -314,7 +309,7 @@ void CTextCtrl::OnPaint()
 			dc.SetTextColor( pLine->m_bSelected ?
 				Colors.m_crHiText : m_crText[ pLine->m_nType & MSG_SEVERITY_MASK ] );
 			dc.SetBkColor( pLine->m_bSelected ?
-				Colors.m_crHighlight : m_crBackground[ ( pLine->m_nType & MSG_FACILITY_MASK ) >> 8 ] );
+				Colors.m_crHighlight : Colors.m_crWindow );	 // ToDo: Fix m_crBackground[ ( pLine->m_nType & MSG_FACILITY_MASK ) >> 8 ]
 			pLine->Paint( &dc, &rcLine );
 		}
 	}
@@ -322,7 +317,7 @@ void CTextCtrl::OnPaint()
 	if ( rcLine.bottom > 0 )
 	{
 		rcLine.top = 0;
-		dc.FillSolidRect( &rcLine, m_crBackground[ 0 ] );
+		dc.FillSolidRect( &rcLine, Colors.m_crWindow ); 	// m_crBackground[ 0 ]
 	}
 
 	dc.SelectObject( pOldFont );
@@ -498,26 +493,22 @@ void CTextCtrl::OnKeyDown(UINT nChar, UINT /*nRepCnt*/, UINT /*nFlags*/)
 
 BOOL CTextCtrl::OnMouseWheel(UINT nFlags, short zDelta, CPoint pt)
 {
-	short nRows = ( zDelta / WHEEL_DELTA );
+	int nScroll = zDelta / WHEEL_DELTA * theApp.m_nMouseWheel;
 
-	if ( WHEEL_PAGESCROLL == m_nScrollWheelLines )
+	if ( theApp.m_nMouseWheel == 20 )	// 20 lines set for rare WHEEL_PAGESCROLL (UINT_MAX)
 	{
-		// scroll by page is activated
+		// Scroll by page is activated
 		SCROLLINFO si = {};
-
 		si.cbSize	= sizeof( si );
 		si.fMask	= SIF_ALL;
-
 		GetScrollInfo( SB_VERT, &si );
 
-		nRows = short( nRows * ( si.nPage - 1 ) );
+		nScroll = zDelta / WHEEL_DELTA * ( si.nPage - 1 );
 	}
-	else
-		nRows = short( nRows * m_nScrollWheelLines );
 
 	CQuickLock pLock( m_pSection );
 
-	m_nPosition-= nRows;
+	m_nPosition -= nScroll;
 	m_nPosition = max( 0, min( m_nTotal, m_nPosition ) );
 
 	UpdateScroll();

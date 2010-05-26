@@ -121,11 +121,11 @@ BOOL CDiscoveryServices::Add(LPCTSTR pszAddress, int nType, PROTOCOLID nProtocol
 	// Trim any excess whitespace.
 	// Trim garbage on the end- sometimes you get "//", "./", "./." etc. (Bad caches)
 	bool bEndSlash = strAddress.GetAt( strAddress.GetLength() - 1 ) == '/';
-	strAddress.TrimLeft();
-	strAddress.TrimRight();
+	strAddress.Trim();
 	strAddress.TrimRight( L"./" );
 
-	if ( bEndSlash ) strAddress.Append( L"/" );
+	if ( bEndSlash )
+		strAddress.Append( L"/" );
 
 	if ( strAddress.GetLength() < 8 )
 		return FALSE;	// Reject impossibly short services

@@ -37,6 +37,7 @@ class Review
 public:
 	Review(const Hashes::Guid& oGUID, IN_ADDR* pAddress, LPCTSTR pszNick, int nRating, LPCTSTR pszComments);
 	virtual ~Review();
+
 	void			Layout(CSearchDetailPanel* pParent, CRect* pRect);
 	void			Reposition(int nScroll);
 	void			Paint(CDC* pDC, int nScroll);
@@ -61,6 +62,7 @@ public:
 	CSearchDetailPanel();
 	virtual ~CSearchDetailPanel();
 
+public:
 	virtual void Update();
 
 	void		SetFile(CMatchFile* pFile);
@@ -70,10 +72,10 @@ protected:
 	void		ClearReviews();
 	BOOL		RequestPreview();
 	void		CancelPreview();
-	void		OnRun();
+	BOOL		CachePreviewImage(const Hashes::Sha1Hash& oSHA1, LPBYTE pBuffer, DWORD nBuffer);
 	BOOL		ExecuteRequest(CString strURL, BYTE** ppBuffer, DWORD* pnBuffer);
-    void		OnPreviewLoaded(const Hashes::Sha1Hash& oSHA1, CImageFile* pImage);
-    BOOL		CachePreviewImage(const Hashes::Sha1Hash& oSHA1, LPBYTE pBuffer, DWORD nBuffer);
+	void		OnPreviewLoaded(const Hashes::Sha1Hash& oSHA1, CImageFile* pImage);
+	void		OnRun();
 
 	friend class Review;
 
@@ -101,12 +103,12 @@ protected:
 	CRect				m_rcThumb;			// Thumbnail rect for mouse click detection
 
 	afx_msg void OnDestroy();
-	afx_msg void OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar);
+	afx_msg void OnPaint();
+	afx_msg void OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar = NULL);
 	afx_msg BOOL OnMouseWheel(UINT nFlags, short zDelta, CPoint pt);
 	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
-	afx_msg void OnPaint();
-	afx_msg BOOL OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message);
 	afx_msg void OnLButtonUp(UINT nFlags, CPoint point);
+	afx_msg BOOL OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message);
 	afx_msg void OnClickReview(NMHDR* pNotify, LRESULT *pResult);
 
 	DECLARE_MESSAGE_MAP()

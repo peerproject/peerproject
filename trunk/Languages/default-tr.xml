@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Turkish Skin File -->
 
-<!-- Translation based on default-en.xml r54 -->
+<!-- Translation based on default-en.xml r55 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -449,12 +449,12 @@
 	</toolbar>
 	<!-- IMAGE VIEWER PLUGIN WINDOW -->
 	<toolbar name="ImageViewerWnd">
-		<button id="ImageViewer_ActualSize" text="Gerçek Boyut"/>
-		<button id="ImageViewer_BestFit" text="Ekrana Uy"/>
+		<button id="PluginID_ImageViewer_FullSize" text="Gerçek Boyut"/>
+		<button id="PluginID_ImageViewer_BestFit" text="Ekrana Uy"/>
 		<separator/>
-		<button id="ImageViewer_Refresh" text="Tazele"/>
+		<button id="PluginID_ImageViewer_Refresh" text="Tazele"/>
 		<rightAlign/>
-		<button id="ImageViewer_Close" text="Kapat"/>
+		<button id="PluginID_ImageViewer_Close" text="Kapat"/>
 	</toolbar>
 </toolbars>
 <!-- Menu Definitions -->
@@ -1630,12 +1630,12 @@
 	</menu>
 	<!-- PLUGIN MENUS -->
 	<menu name="ImageViewer_Context">
-		<item id="ImageViewer_BestFit" text="_Ekranı Kapla"/>
-		<item id="ImageViewer_ActualSize" text="Esas _Boy"/>
+		<item id="PluginID_ImageViewer_BestFit" text="_Ekranı Kapla"/>
+		<item id="PluginID_ImageViewer_FullSize" text="Esas _Boy"/>
 		<separator/>
-		<item id="ImageViewer_Refresh" text="_Tazele"/>
+		<item id="PluginID_ImageViewer_Refresh" text="_Tazele"/>
 		<separator/>
-		<item id="ImageViewer_Close" text="_Kapat"/>
+		<item id="PluginID_ImageViewer_Close" text="_Kapat"/>
 	</menu>
 	<!-- IRC WINDOW -->
 	<menu name="CIRCTabRClick">
@@ -1690,7 +1690,7 @@
 			<heading align="middle">BAĞLANTI AL</heading>
 			<newline gap="8" indent="42"/>
 			<text>PeerProject'ya hoşgeldiniz! &#160;Şimdilik ağa bağlı değilsiniz. &#160;</text>
-			<link target="peer:command:ID_NETWORK_CONNECT">Başlamak için buraya tıklayın!</link>
+			<link target="command:ID_NETWORK_CONNECT">Başlamak için buraya tıklayın!</link>
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="2">
@@ -1699,13 +1699,13 @@
 			<newline gap="8" indent="42"/>
 			<anchor id="SearchBox" width="256" height="80"/>
 			<newline gap="14" indent="0"/>
-			<icon res="136" width="32" height="32" target="peer:command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
+			<icon res="136" width="32" height="32" target="command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
 			<heading align="middle">İNDİRMEYE BAŞLA</heading>
 			<newline gap="8" indent="42"/>
-			<link target="peer:command:ID_TOOLS_DOWNLOAD" format="bu">Buraya tıklayıp</link>
+			<link target="command:ID_TOOLS_DOWNLOAD" format="bu">Buraya tıklayıp</link>
 			<text>&#160; yeni bir dosya ya da torrent indirmeye başlayın.</text>
 			<newline gap="2"/>
-			<link target="peer:shell:downloads">İndirmeler Dosyamı Aç</link>
+			<link target="command:shell:downloads">İndirmeler Dosyamı Aç</link>
 			<newline gap="20" indent="0"/>
 		</group>
 		<group id="3">
@@ -1714,17 +1714,17 @@
 			<newline gap="8" indent="42"/>
 			<text id="Upgrade"/>
 			<newline gap="6"/>
-			<link target="peer:upgrade">Güncelleme için tıklayınız!</link>
+			<link target="command:upgrade">Güncelleme için tıklayınız!</link>
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="4">
-			<icon res="252" width="32" height="32" target="peer:command:ID_TOOLS_WIZARD"/><gap size="8"/>
+			<icon res="252" width="32" height="32" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 			<heading align="middle">UYARI - GÜVENLİK DUVARI AÇIK</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">PeerProject sizin bir güvenlik duvarının ya da NAT yönlendiricinin arkasında olduğunuzu tespit etti ve internetten gelecek olan bağlantıları alamazsınız. &#160;</text>
 			<text color="FF0000" format="b">Bu düşük performansla download etmenize neden olur.</text>
 			<newline gap="6"/>
-			<link target="peer:command:ID_HELP_ROUTER">Yönlendirici ya da güvenlik duvarı ayarları için tıklayınız.</link>
+			<link target="command:ID_HELP_ROUTER">Yönlendirici ya da güvenlik duvarı ayarları için tıklayınız.</link>
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="6">
@@ -1735,7 +1735,7 @@
 			TCP bağlantılarını alamayacağınızı tespit etti. &#160;</text>
 			<text color="FF0000" format="b">Bu düşük performansla dosya indirmenize neden olur.</text>
 			<newline gap="6"/>
-			<link target="peer:command:ID_HELP_ROUTER">Yönlendirici ya da güvenlik duvarı ayarları için tıklayınız.</link>
+			<link target="command:ID_HELP_ROUTER">Yönlendirici ya da güvenlik duvarı ayarları için tıklayınız.</link>
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="7">
@@ -1746,39 +1746,39 @@
 			UDP bağlantılarını alamayacağınızı tespit etti. &#160;</text>
 			<text color="FF0000" format="b">Bu düşük performansla dosya indirmenize neden olur.</text>
 			<newline gap="6"/>
-			<link target="peer:command:ID_HELP_ROUTER">Yönlendirici ya da güvenlik duvarı ayarları için tıklayınız.</link>
+			<link target="command:ID_HELP_ROUTER">Yönlendirici ya da güvenlik duvarı ayarları için tıklayınız.</link>
 			<newline gap="18" indent="0"/>
 		</group>
-		<icon res="128" width="32" height="32" target="peer:command:ID_TOOLS_SETTINGS"/><gap size="8"/>
+		<icon res="128" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">PEERPROJECT İstemcisine</heading>
 		<newline gap="12" indent="42"/>
-		<icon res="182" width="16" height="16" target="peer:command:ID_TOOLS_SKIN"/><gap size="8"/>
-		<link target="peer:command:ID_TOOLS_SKIN" align="middle" format="bu">Arayüzler</link>
+		<icon res="182" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
+		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">Arayüzler</link>
 		<text align="middle">&#160;- PeerProject'nın görüntüsünü değiştir.</text>
 		<newline gap="8"/>
-		<icon res="141" width="16" height="16" target="peer:command:ID_VIEW_SECURITY"/><gap size="8"/>
-		<link target="peer:command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
+		<icon res="141" width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
+		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
 		<text align="middle">&#160;- Update blocklist to avoid bad search results</text>
 		<newline gap="8"/>
-		<icon res="317" width="16" height="16" target="peer:command:ID_TOOLS_WIZARD"/><gap size="8"/>
-		<link target="peer:command:ID_TOOLS_WIZARD" align="middle">Ayarlar Sihirbazı</link>
+		<icon res="317" width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
+		<link target="command:ID_TOOLS_WIZARD" align="middle">Ayarlar Sihirbazı</link>
 		<text align="middle">&#160;- PeerProject Ayarlarını Düzenle</text>
 		<newline gap="8"/>
-		<icon res="147" width="16" height="16" target="peer:command:ID_HELP_FAQ"/><gap size="8"/>
-		<link target="peer:command:ID_HELP_FAQ" align="middle">Hızlı Yardım</link>
+		<icon res="147" width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
+		<link target="command:ID_HELP_FAQ" align="middle">Hızlı Yardım</link>
 		<text align="middle">&#160;- PeerProject'nın temel kullanımı ile ilgili yardım, or </text>
-		<link target="peer:command:ID_TAB_IRC" align="middle">IRC.</link>
+		<link target="command:ID_TAB_IRC" align="middle">IRC.</link>
 		<newline gap="8"/>
-		<icon res="175" width="16" height="16" target="peer:command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
-		<link target="peer:command:ID_HELP_FORUMS_LOCAL" align="middle">Yerel Forum</link>
+		<icon res="175" width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
+		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">Yerel Forum</link>
 		<text align="middle">&#160;- Sizin türk dil tartışma forumu git</text>
 		<newline gap="18" indent="0"/>
-		<icon res="136" width="32" height="32" target="peer:shell:downloads"/>
+		<icon res="136" width="32" height="32" target="command:shell:downloads"/>
 		<gap size="8"/>
 		<heading align="middle">İNDİRMELERİM</heading>
 		<newline gap="8" indent="42"/>
 		<text>İndirmeler klasörünü açmak için</text>
-		<link target="peer:shell:downloads">Tıklayın</link>
+		<link target="command:shell:downloads">Tıklayın</link>
 		<newline gap="18" indent="0"/>
 		<group id="5">
 			<icon res="128" width="32" height="32"/><gap size="8"/>
@@ -1802,7 +1802,7 @@
 			<para align="center">
 				<text format="b">Bağlı Değil</text>
 				<newline gap="4"/>
-				<link target="peer:command:ID_NETWORK_CONNECT">Bağlanmak için tıklayınız!</link>
+				<link target="command:ID_NETWORK_CONNECT">Bağlanmak için tıklayınız!</link>
 			</para>
 		</group>
 		<icon group="20" command="ID_NETWORK_G2"/>
@@ -1849,7 +1849,7 @@
 				<text>Son zamanlarda yeni dosya indirmediniz.</text>
 				<newline gap="8"/>
 			</group>
-			<link target="peer:command:ID_VIEW_LIBRARY">Kütüphaneme Git</link>
+			<link target="command:ID_VIEW_LIBRARY">Kütüphaneme Git</link>
 			<newline gap="4"/>
 			<text id="LibraryFiles" format="b">%lu </text>
 			<text>files (</text>
@@ -1863,10 +1863,10 @@
 				<newline gap="8"/>
 			</group>
 			<group id="3">
-				<link target="peer:command:ID_LIBRARY_HASH_PRIORITY">Hızlı hash yaratmak için buraya tıklayın</link>
+				<link target="command:ID_LIBRARY_HASH_PRIORITY">Hızlı hash yaratmak için buraya tıklayın</link>
 			</group>
 			<group id="4">
-				<link target="peer:command:ID_LIBRARY_HASH_PRIORITY">Yavaş hash yaratmak için buraya tıklayın</link>
+				<link target="command:ID_LIBRARY_HASH_PRIORITY">Yavaş hash yaratmak için buraya tıklayın</link>
 			</group>
 		</para>
 	</document>
@@ -1881,9 +1881,9 @@
 				<text>Henüz hiç dosya indirmediniz.</text>
 				<newline gap="4"/>
 			</group>
-			<link id="DownloadsNone" target="peer:command:ID_VIEW_DOWNLOADS">İndirmelere Git</link>
-			<link id="DownloadsOne"  target="peer:command:ID_VIEW_DOWNLOADS" format="bu">1 İndirme</link>
-			<link id="DownloadsMany" target="peer:command:ID_VIEW_DOWNLOADS" format="bu">%i İndirmelere</link>
+			<link id="DownloadsNone" target="command:ID_VIEW_DOWNLOADS">İndirmelere Git</link>
+			<link id="DownloadsOne"  target="command:ID_VIEW_DOWNLOADS" format="bu">1 İndirme</link>
+			<link id="DownloadsMany" target="command:ID_VIEW_DOWNLOADS" format="bu">%i İndirmelere</link>
 			<newline gap="4"/>
 			<text id="DownloadedNone">No dosya (</text>
 			<text id="DownloadedOne">1 dosya (</text>
@@ -1900,8 +1900,8 @@
 		</styles>
 		<para align="center">
 			<text id="UploadsNone" format="b">Aktif aktarım yok</text>
-			<link id="UploadsOne"  target="peer:command:ID_VIEW_UPLOADS" format="bu">1 aktif aktarım</link>
-			<link id="UploadsMany" target="peer:command:ID_VIEW_UPLOADS" format="bu">%i aktif aktarım</link>
+			<link id="UploadsOne"  target="command:ID_VIEW_UPLOADS" format="bu">1 aktif aktarım</link>
+			<link id="UploadsMany" target="command:ID_VIEW_UPLOADS" format="bu">%i aktif aktarım</link>
 			<newline gap="4"/>
 			<group id="1">
 				<text id="TorrentsOne">1 torrent kaynağı</text>
@@ -1922,25 +1922,25 @@
 		<text format="b">Genel</text>
 		<text>sekmesi kullanıcı olaylarını kapsar. </text>
 		<newline gap="16" indent="16"/>
-		<link target="peer:page:CGeneralSettingsPage" format="b">Genel:</link>
+		<link target="page:CGeneralSettingsPage" format="b">Genel:</link>
 		<text>&#160;Ortak kullanıcılar arayüzünde araçlar, küçültme, numara formatları, uyarılar vb. ayarlar vardır. </text>
 		<newline gap="10"/>
-		<link target="peer:page:CLibrarySettingsPage" format="b">Kütüphane:</link>
+		<link target="page:CLibrarySettingsPage" format="b">Kütüphane:</link>
 		<text>&#160;Dosya kütüphanesini tanıtır ve yönetir, ve dosyaları açar.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CMediaSettingsPage" format="b">Media Player:</link>
+		<link target="page:CMediaSettingsPage" format="b">Media Player:</link>
 		<text>&#160;PeerProject Medya Merkezi yapısı nerede ve ne zaman kullanılır.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CIRCSettingsPage" format="b">IRC:</link>
+		<link target="page:CIRCSettingsPage" format="b">IRC:</link>
 		<text>&#160;IRC sohbet odasının görünümü ve bağlantı ayarları.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CCommunitySettingsPage" format="b">İletişim:</link>
+		<link target="page:CCommunitySettingsPage" format="b">İletişim:</link>
 		<text>&#160;Profil, sohbet ve mesaj ayarları.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CRemoteSettingsPage" format="b">Uzak:</link>
+		<link target="page:CRemoteSettingsPage" format="b">Uzak:</link>
 		<text>&#160;Web tarayıcınız aracılığıyla PeerProject uzaktan kontrol yapmanızı sağlayan ayarlar. </text>
 		<newline gap="10"/>
-		<link target="peer:page:CWebSettingsPage" format="b">Web Bütünleşmesi:</link>
+		<link target="page:CWebSettingsPage" format="b">Web Bütünleşmesi:</link>
 		<text>&#160;PeerProject tarayıcınızın kabul ettiği linkler ve İndirilmiş içeriklerle bütünleşir.</text>
 	</document>
 	<document name="CInternetSettingsGroup" title="Internet" leftMargin="8" topMargin="8">
@@ -1951,16 +1951,16 @@
 		<text format="b">İnternet </text>
 		<text> sekmesi karşılıklı ağlardaki diğer düğümlerle etkileşimini kontrol eder. </text>
 		<newline gap="16" indent="16"/>
-		<link target="peer:page:CConnectionSettingsPage" format="b">Bağlantı:</link>
+		<link target="page:CConnectionSettingsPage" format="b">Bağlantı:</link>
 		<text>&#160;İnternet bağlantınızın hızı ve verimidir.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CDownloadsSettingsPage" format="b">İndirmeler:</link>
+		<link target="page:CDownloadsSettingsPage" format="b">İndirmeler:</link>
 		<text>&#160;İndirme programı, doğrulaması, zamanı ve yönetimi.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CUploadsSettingsPage" format="b">Aktarımlar:</link>
+		<link target="page:CUploadsSettingsPage" format="b">Aktarımlar:</link>
 		<text>&#160;Aktarım kapasitesi, sıralaması, kısıtlamaları, zamanı ve özel sorgular.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CSchedulerSettingsPage" format="b">Scheduler:</link>
+		<link target="page:CSchedulerSettingsPage" format="b">Scheduler:</link>
 		<text>&#160;İndirme bağlantılarını periyodik planlamaya göre sınırlar.</text>
 	</document>
 	<!-- Browse User Profile -->
@@ -2041,15 +2041,15 @@
 		<newline gap="40" indent="0"/>
 		<text format="b">Paylaşılan Dosyalar</text>
 		<newline gap="4" indent="8"/>
-		<icon res="137" target="peer:command:ID_BROWSE_FILES"/><gap size="5"/>
-		<link target="peer:command:ID_BROWSE_FILES" align="middle">Paylaşılan Dosyaları Göster</link>
+		<icon res="137" target="command:ID_BROWSE_FILES"/><gap size="5"/>
+		<link target="command:ID_BROWSE_FILES" align="middle">Paylaşılan Dosyaları Göster</link>
 		<group id="2">
 			<newline gap="16" indent="0"/>
 			<text format="b">İletişim</text>
 			<newline gap="4" indent="8"/>
-			<icon res="140" target="peer:command:ID_SEARCH_CHAT"/>
+			<icon res="140" target="command:ID_SEARCH_CHAT"/>
 			<gap size="5"/>
-			<link target="peer:command:ID_SEARCH_CHAT" align="middle">Sohbet</link>
+			<link target="command:ID_SEARCH_CHAT" align="middle">Sohbet</link>
 		</group>
 		<group id="3">
 			<newline gap="16" indent="0"/>
@@ -2592,10 +2592,10 @@
 	<tip id="ID_WEBSERVICES_LIST" message="Seçilen dosya hakkında daha fazla bilgi edinmek için kullanılacak Web servisini berlirle."/>
 	<tip id="ID_WEBSERVICES_SHAREMONKEY" message="Dosyayı Sharemonkey servisinde ara."/>
 	<!-- PLUGIN TIPS -->
-	<tip id="ImageViewer_BestFit" message="Resmi pencereye uyacak şekilde uyarla."/>
-	<tip id="ImageViewer_ActualSize" message="Resmi temel boyutlarında göster."/>
-	<tip id="ImageViewer_Refresh" message="Resmi tazele."/>
-	<tip id="ImageViewer_Close" message="Resmi gösteren pencereyi kapat."/>
+	<tip id="PluginID_ImageViewer_BestFit" message="Resmi pencereye uyacak şekilde uyarla."/>
+	<tip id="PluginID_ImageViewer_FullSize" message="Resmi temel boyutlarında göster."/>
+	<tip id="PluginID_ImageViewer_Refresh" message="Resmi tazele."/>
+	<tip id="PluginID_ImageViewer_Close" message="Resmi gösteren pencereyi kapat."/>
 </commandTips>
 <!-- Tips displayed when mouse is moved over controls in the dialogs -->
 <controlTips>
@@ -2716,26 +2716,26 @@
 	<string id="8180" value="Dosya uzunluğu:"/>
 	<string id="8181" value="Olmalı:"/>
 	<string id="8208" value="PeerProject %Iu dosyası için hash yaratıyor:"/>
-	<string id="8223" value="%i gün ve %i saat"/>
-	<string id="8224" value="PeerProject indiriliyor:"/>
-	<string id="8225" value="İndirme duraklatıldı:"/>
+<!--	<string id="8221" value="PeerProject kaynak arıyor:"/>
+	<string id="8222" value="PeerProject indiriliyor:"/>
+	<string id="8223" value="İndirme duraklatıldı:"/>
+	<string id="8224" value="PeerProject indirmeyi bırakıyor:"/>
+	<string id="8225" value="PeerProject hatalar için İndirmeyi konrol ediyor:"/>
 	<string id="8226" value="PeerProject tamamıyla indirildi:"/>
-	<string id="8227" value="%i saat ve %i dakika"/>
-	<string id="8228" value="%i dakika %i saniye"/>
-	<string id="8229" value="%i saniye"/>
-	<string id="8230" value="PeerProject kaynak arıyor:"/>
+-->	<string id="8227" value="%i gün ve %i saat"/>
+	<string id="8228" value="%i saat ve %i dakika"/>
+	<string id="8229" value="%i dakika %i saniye"/>
+	<string id="8230" value="%i saniye"/>
 	<string id="8231" value="Kaynak yok"/>
 	<string id="8232" value="Aç"/>
 	<string id="8233" value="İptal"/>
 	<string id="8235" value="Toplam transfer hızı:"/>
 	<string id="8236" value="Kalan zaman değerlendirildi:"/>
 	<string id="8237" value="İndirme miktarı:"/>
-	<string id="8238" value="Kaynak numarası:"/>
+	<string id="8238" value="Aktarım miktarı:"/>
 	<string id="8239" value="Tamamlandı"/>
-	<string id="8240" value="PeerProject indirmeyi bırakıyor:"/>
-	<string id="8241" value="PeerProject hatalar için İndirmeyi konrol ediyor:"/>
-	<string id="8243" value="Aktarım miktarı:"/>
-	<string id="8244" value="Yorum sayısı:"/>
+	<string id="8240" value="Kaynak numarası:"/>
+	<string id="8241" value="Yorum sayısı:"/>
 	<string id="8288" value="PeerProject kütüphanesi araştırılıyor"/>
 	<string id="8289" value="Araştırılıyor"/>
 	<string id="8290" value="%i Klasörden içerikler araştırılıyor"/>
@@ -2849,6 +2849,7 @@
 	<string id="16211" value="Komşu %s güvenlik duvarına sıkıştırılmış bir istek gönderdi, görmezlikten geliniyor."/>
 	<string id="16212" value="Komşu %s GGEP kodunda olmayan bir erişim paketi gönderdi."/>
 	<string id="16213" value="Komşu %s'e sorgu yönlendirme tablosu gönderiliyor (%i bit = %lu[%i], %i%% tam)"/>
+	<string id="16254" value="Varsayılan grup indirebilirsiniz. (Tüm dosyaları)"/>
 	<string id="16255" value="Drag'n'drop %s grubuna dosyaları"/>
 	<string id="16256" value="&quot;%s&quot; %i kaynak(lar) ile indirme sırasına eklendi."/>
 	<string id="16257" value="&quot;%s&quot; indirme tamamlandı."/>
@@ -3251,7 +3252,7 @@
 	<string id="18510" value="Bu indirmeyi tamamlanmış kabul etmek istediğine emin misiniz?  Bütün dosya hesaba katılacak ve PeerProject doğrulanan parçaları kabul edecek, doğrulanmayan parçalar kabul edilmeyecek."/>
 	<string id="18511" value="Dosya boyutunda değişiklikler yaptınız. Bu indirme için dosya boyutunu değiştirmek istediğinize emin misiniz?"/>
 	<string id="19000" value="Uzaktan erişim engellendi."/>
-	<string id="19001" value="Bir kullanıcı adı ve şifresi seçmelisiniz."/>
+	<string id="19001" value="http://%s:%i/remote - Bir kullanıcı adı ve şifresi seçmelisiniz."/>
 	<string id="19002" value="Bağlantı onaylanılamaz, URL kullanılamaz."/>
 	<string id="20000" value="URN kullanılamaz"/>
 	<string id="20001" value="Kapat"/>
@@ -3330,6 +3331,7 @@
 	<string id="20236" value="Reyting"/>
 	<string id="20237" value="Tamam"/>
 	<string id="20238" value="İptal"/>
+	<string id="20245" value="Yeni Klasör"/>
 </strings>
 <!-- Localized Dialog Text, "cookie" verifies that the skin matches current dialog -->
 <dialogs>
@@ -4062,7 +4064,7 @@
 		<control caption="Kütüphane Görüntüle"/>
 		<control caption="İndirme İptal"/>
 		<control caption="Kapat"/>
-		<control caption="İndirme tamamlandığında pencereyi kapat"/>
+		<control caption="Otomatik"/>
 	</dialog>
 	<dialog name="CFileGeneralPage" cookie="EdStStStStStEdEdEdEdEdStEdEdEdEd" caption="Genel">
 		<control/>
@@ -4239,11 +4241,11 @@
 		<control/>
 		<control caption="İptal"/>
 	</dialog>
-	<dialog name="CURLActionDlg" cookie="StStStStStEdStEdStBuBuBuBuBuSt" caption="PeerProject URI Yöneticisi">
-		<control/>
+	<dialog name="CURLActionDlg" cookie="StStStStStStEdStEdStBuBuBuBuBu" caption="PeerProject URI Yöneticisi">
 		<control caption="PeerProject-Güç sağlayıcısı URI'ye tıkladınız, ağdaki içerikleri takip eden bağlantılar:"/>
 		<control caption="PeerProject-Güç sağlayıcısı URI'ye tıkladınız, host ya da server aramak için bağlanacaksınız:"/>
 		<control caption="PeerProject-Güç sağlayıcısı URI'ye tıkladınız, aradığınız hostdan paylaştırılabilen dosyalara gözatmanıza izin verilecektir:"/>
+		<control caption="PeerProject-Güç sağlayıcısı URI'ye tıkladınız, keşif servis belleğinize takip ettiğiniz keşif servisiniz eklenecek."/>
 		<control/>
 		<control/>
 		<control/>
@@ -4254,11 +4256,10 @@
 		<control caption="İptal"/>
 		<control caption="_Seçimimi Hatırla"/>
 		<control caption="İndirme Penceresi Aç"/>
-		<control caption="PeerProject-Güç sağlayıcısı URI'ye tıkladınız, keşif servis belleğinize takip ettiğiniz keşif servisiniz eklenecek."/>
 	</dialog>
 	<dialog name="CBitziDownloadDlg" cookie="StStmsBuSySt" caption="Veri İndirmesi...">
 		<control/>
-		<control caption="PeerProject Bitzi(TM) den veri indirmeye çalışıyor ..."/>
+		<control caption="PeerProject Bitzi den veri indirmeye çalışıyor ..."/>
 		<control/>
 		<control caption="İptal"/>
 		<control/>

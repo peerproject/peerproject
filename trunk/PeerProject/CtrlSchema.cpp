@@ -63,10 +63,6 @@ CSchemaCtrl::CSchemaCtrl()
 	CString strText;
 	LoadString( strText, IDS_MULTIPLE_VALUES );
 	strMultipleString = _T("(") + strText + _T(")");
-
-	// Try to get the number of lines to scroll when the mouse wheel is rotated
-	if( !SystemParametersInfo ( SPI_GETWHEELSCROLLLINES, 0, &m_nScrollWheelLines, 0) )
-		m_nScrollWheelLines = 3;
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -398,8 +394,7 @@ void CSchemaCtrl::OnLButtonDown(UINT /*nFlags*/, CPoint /*point*/)
 
 BOOL CSchemaCtrl::OnMouseWheel(UINT /*nFlags*/, short zDelta, CPoint /*pt*/)
 {
-	OnVScroll( SB_THUMBPOSITION, (int)( GetScrollPos( SB_VERT ) -
-		zDelta / WHEEL_DELTA * m_nScrollWheelLines * 8 ), NULL );
+	OnVScroll( SB_THUMBPOSITION, GetScrollPos( SB_VERT ) - zDelta / WHEEL_DELTA * theApp.m_nMouseWheel * 8 );
 	return TRUE;
 }
 

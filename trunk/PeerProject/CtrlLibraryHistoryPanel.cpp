@@ -234,7 +234,7 @@ void CLibraryHistoryPanel::OnPaint()
 
 				if ( szText.cx > rcText.Width() - 4 )
 				{
-					while ( str.GetLength() > 0 )
+					while ( ! str.IsEmpty() )
 					{
 						szText = dc.GetTextExtent( str + _T('\x2026') );
 						if ( szText.cx < rcText.Width() - 4 ) break;

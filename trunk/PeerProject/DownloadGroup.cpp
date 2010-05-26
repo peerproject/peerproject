@@ -308,7 +308,7 @@ void CDownloadGroup::Serialize(CArchive& ar, int nVersion)
 			{
 				CString strFilter = strFilters.SpanExcluding( _T(" |") );
 				strFilters = strFilters.Mid( strFilter.GetLength() + 1 );
-				strFilter.TrimLeft(); strFilter.TrimRight();
+				strFilter.Trim();
 				if ( strFilter.GetLength() ) AddFilter( strFilter );
 			}
 		}

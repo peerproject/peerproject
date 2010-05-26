@@ -60,9 +60,9 @@ BEGIN_MESSAGE_MAP(CDownloadMonitorDlg, CSkinDialog)
 	ON_WM_INITMENUPOPUP()
 	ON_MESSAGE(WM_TRAY, OnTray)
 	ON_NOTIFY_EX(TTN_NEEDTEXT, 0, OnNeedText)
-	ON_BN_CLICKED(IDC_DOWNLOAD_SHOW, OnDownloadShow)
-	ON_BN_CLICKED(IDC_DOWNLOAD_ACTION, OnDownloadAction)
-	ON_BN_CLICKED(IDC_DOWNLOAD_CLOSE, OnDownloadClose)
+	ON_BN_CLICKED(IDC_MONITOR_SHOW, OnDownloadShow)
+	ON_BN_CLICKED(IDC_MONITOR_ACTION, OnDownloadAction)
+	ON_BN_CLICKED(IDC_MONITOR_CLOSE, OnDownloadClose)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -90,26 +90,27 @@ CDownloadMonitorDlg::CDownloadMonitorDlg(CDownload* pDownload) : CSkinDialog( CD
 CDownloadMonitorDlg::~CDownloadMonitorDlg()
 {
 	if ( m_pGraph != NULL ) delete m_pGraph;
-	if ( POSITION pos = m_pWindows.Find( this ) ) m_pWindows.RemoveAt( pos );
+	if ( POSITION pos = m_pWindows.Find( this ) )
+		m_pWindows.RemoveAt( pos );
 }
 
 void CDownloadMonitorDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CSkinDialog::DoDataExchange( pDX );
 	//{{AFX_DATA_MAP(CDownloadMonitorDlg)
-	//DDX_Control(pDX, IDC_DOWNLOAD_STATUS, m_wndStatus);	// Removed
+	//DDX_Control(pDX, IDC_MONITOR_STATUS, m_wndStatus);	// Removed
 	DDX_Control(pDX, IDC_PROGRESS, m_wndProgress);
-	DDX_Control(pDX, IDC_DOWNLOAD_SOURCES, m_wndSources);
-	DDX_Control(pDX, IDC_DOWNLOAD_SPEED, m_wndSpeed);
-	DDX_Control(pDX, IDC_DOWNLOAD_TIME, m_wndTime);
-	DDX_Control(pDX, IDC_DOWNLOAD_VOLUME, m_wndVolume);
-	DDX_Control(pDX, IDC_DOWNLOAD_ICON, m_wndIcon);
-	DDX_Control(pDX, IDC_DOWNLOAD_GRAPH, m_wndGraph);
-	DDX_Control(pDX, IDC_DOWNLOAD_FILE, m_wndFile);
-	DDX_Control(pDX, IDC_DOWNLOAD_AUTOCLOSE, m_wndAutoClose);
-	DDX_Control(pDX, IDC_DOWNLOAD_ACTION, m_wndAction);
-	DDX_Control(pDX, IDC_DOWNLOAD_SHOW, m_wndShow);
-	DDX_Control(pDX, IDC_DOWNLOAD_CLOSE, m_wndClose);
+	DDX_Control(pDX, IDC_MONITOR_SOURCES, m_wndSources);
+	DDX_Control(pDX, IDC_MONITOR_SPEED, m_wndSpeed);
+	DDX_Control(pDX, IDC_MONITOR_TIME, m_wndTime);
+	DDX_Control(pDX, IDC_MONITOR_VOLUME, m_wndVolume);
+	DDX_Control(pDX, IDC_MONITOR_ICON, m_wndIcon);
+	DDX_Control(pDX, IDC_MONITOR_GRAPH, m_wndGraph);
+	DDX_Control(pDX, IDC_MONITOR_FILE, m_wndFile);
+	DDX_Control(pDX, IDC_MONITOR_AUTOCLOSE, m_wndAutoClose);
+	DDX_Control(pDX, IDC_MONITOR_ACTION, m_wndAction);
+	DDX_Control(pDX, IDC_MONITOR_SHOW, m_wndShow);
+	DDX_Control(pDX, IDC_MONITOR_CLOSE, m_wndClose);
 	//}}AFX_DATA_MAP
 }
 
@@ -120,12 +121,10 @@ BOOL CDownloadMonitorDlg::CreateReal(UINT nID)
 {
 	LPCTSTR lpszTemplateName = MAKEINTRESOURCE( nID );
 	BOOL bResult = FALSE;
-	HINSTANCE hInst		= AfxFindResourceHandle( lpszTemplateName, RT_DIALOG );
-	HRSRC hResource		= ::FindResource( hInst, lpszTemplateName, RT_DIALOG );
-	if ( hResource )
+	HINSTANCE hInst = AfxFindResourceHandle( lpszTemplateName, RT_DIALOG );
+	if ( HRSRC hResource = ::FindResource( hInst, lpszTemplateName, RT_DIALOG ) )
 	{
-		HGLOBAL hTemplate = LoadResource( hInst, hResource );
-		if ( hTemplate )
+		if ( HGLOBAL hTemplate = LoadResource( hInst, hResource ) )
 		{
 			LPCDLGTEMPLATE lpDialogTemplate = (LPCDLGTEMPLATE)LockResource( hTemplate );
 			if ( lpDialogTemplate )
@@ -151,6 +150,8 @@ void CDownloadMonitorDlg::OnSkinChange(BOOL bSet)
 		{
 			pDlg->m_pSkin = NULL;
 		}
+
+		pDlg->m_pGraph->m_crBack = Colors.m_crMonitorGraphBack;
 	}
 }
 
@@ -203,14 +204,14 @@ BOOL CDownloadMonitorDlg::OnInitDialog()
 
 	pLock.Unlock();
 
-	m_pGraph	= new CLineGraph();
-	m_pItem		= new CGraphItem( 0, 1.0f, RGB( 252, 20, 10 ) );
+	m_pGraph = new CLineGraph();
+	m_pItem  = new CGraphItem( 0, 1.0f, Colors.m_crMonitorGraphLine  );	// RGB( 252, 20, 10 )
 
 	m_pGraph->m_bShowLegend		= FALSE;
 	m_pGraph->m_bShowAxis		= FALSE;
-	m_pGraph->m_crBack			= RGB( 255, 255, 242 );
-	m_pGraph->m_crGrid			= RGB( 230, 230, 180 );
 	m_pGraph->m_nMinGridVert	= 16;
+	m_pGraph->m_crGrid			= Colors.m_crMonitorGraphGrid;	// RGB( 230, 230, 180 )
+	m_pGraph->m_crBack			= Colors.m_crMonitorGraphBack;	// RGB( 255, 255, 242 )
 
 	m_pGraph->AddItem( m_pItem );
 
@@ -368,15 +369,15 @@ void CDownloadMonitorDlg::OnTimer( UINT_PTR nIDEvent )
 
 	if ( bCompleted )
 	{
-		LoadString( strText, IDS_DLM_COMPLETED_WORD );
+		LoadString( strText, IDS_MONITOR_COMPLETED_WORD );
 		if (  m_pDownload->IsTorrent() && m_pDownload->IsSeeding() )
 		{
 			LoadString( strAction, IDS_STATUS_SEEDING );
 			strText += _T("  (") + strAction + _T(")");
 		}
-		LoadString( strAction, IDS_DLM_ACTION_OPEN );
+		LoadString( strAction, IDS_MONITOR_ACTION_OPEN );
 		Update( &m_wndAction, TRUE );
-	//	LoadString( strText, IDS_DLM_COMPLETED );
+	//	LoadString( strText, IDS_MONITOR_COMPLETED );
 	//	Update( &m_wndStatus, strText );
 		Update( &m_wndSources, strText );
 		Update( &m_wndSpeed, strNA );
@@ -387,14 +388,14 @@ void CDownloadMonitorDlg::OnTimer( UINT_PTR nIDEvent )
 		LoadString( strAction, IDS_STATUS_MOVING );
 		Update( &m_wndAction, FALSE );
 	//	Update( &m_wndStatus, strText );
-		LoadString( strText, IDS_DLM_COMPLETED_WORD );
+		LoadString( strText, IDS_MONITOR_COMPLETED_WORD );
 		Update( &m_wndSources, strText );
 		Update( &m_wndSpeed, strNA );
 		Update( &m_wndTime, strNA );
 	}
 	else if ( m_pDownload->IsPaused() )
 	{
-	//	LoadString( strText, IDS_DLM_PAUSED );
+	//	LoadString( strText, IDS_MONITOR_PAUSED );
 	//	Update( &m_wndStatus, strText );
 		strText.Format( _T("%i"), nSourceCount );
 		Update( &m_wndSources, strText );
@@ -405,14 +406,14 @@ void CDownloadMonitorDlg::OnTimer( UINT_PTR nIDEvent )
 	{
 		LoadString( strAction, IDS_STATUS_VERIFYING );
 		Update( &m_wndAction, FALSE );
-	//	LoadString( strText, IDS_DLM_VERIFY );
+	//	LoadString( strText, IDS_MONITOR_VERIFY );
 	//	Update( &m_wndSources, strText );
 		Update( &m_wndSpeed, strNA );
-		Update( &m_wndTime, strText );
+		Update( &m_wndTime, strNA );
 	}
 	else if ( nTransferCount > 0 )
 	{
-	//	LoadString( strText, IDS_DLM_DOWNLOADING );
+	//	LoadString( strText, IDS_MONITOR_DOWNLOADING );
 	//	Update( &m_wndStatus, strText );
 
 		strText.Format( _T("%i  (%s %i)"), nTransferCount, (LPCTSTR)strOf, nSourceCount );
@@ -432,22 +433,22 @@ void CDownloadMonitorDlg::OnTimer( UINT_PTR nIDEvent )
 		{
 			if ( nTime > 90000 )
 			{
-				LoadString( strFormat, IDS_DLM_TIME_DAH );
+				LoadString( strFormat, IDS_MONITOR_TIME_DH );
 				strText.Format( strFormat, nTime / 86400, ( nTime / 3600 ) % 24 );
 			}
 			else if ( nTime > 3660 )
 			{
-				LoadString( strFormat, IDS_DLM_TIME_HAM );
+				LoadString( strFormat, IDS_MONITOR_TIME_HM );
 				strText.Format( strFormat, nTime / 3600, ( nTime % 3600 ) / 60 );
 			}
 			else if ( nTime > 61 )
 			{
-				LoadString( strFormat, IDS_DLM_TIME_MAS );
+				LoadString( strFormat, IDS_MONITOR_TIME_MS );
 				strText.Format( strFormat, nTime / 60, nTime % 60 );
 			}
 			else
 			{
-				LoadString( strFormat, IDS_DLM_TIME_S );
+				LoadString( strFormat, IDS_MONITOR_TIME_S );
 				strText.Format( strFormat, nTime % 60 );
 			}
 		}
@@ -460,7 +461,7 @@ void CDownloadMonitorDlg::OnTimer( UINT_PTR nIDEvent )
 	}
 	else if ( nSourceCount )	// No Transfers
 	{
-	//	LoadString( strText, IDS_DLM_DOWNLOADING );
+	//	LoadString( strText, IDS_MONITOR_DOWNLOADING );
 	//	Update( &m_wndStatus, strText );
 		strText.Format( _T("%i"), nSourceCount );
 		Update( &m_wndSources, strText );
@@ -469,9 +470,9 @@ void CDownloadMonitorDlg::OnTimer( UINT_PTR nIDEvent )
 	}
 	else
 	{
-	//	LoadString( strText, IDS_DLM_SOURCING );
+	//	LoadString( strText, IDS_MONITOR_SOURCING );
 	//	Update( &m_wndStatus, strText );
-		LoadString( strText, IDS_DLM_NO_SOURCES );
+		LoadString( strText, IDS_MONITOR_NO_SOURCES );
 		Update( &m_wndSources, strText );
 		Update( &m_wndSpeed, strNA );
 		Update( &m_wndTime, strNA );
@@ -504,7 +505,7 @@ void CDownloadMonitorDlg::OnTimer( UINT_PTR nIDEvent )
 	}
 
 	if ( ! strAction.GetLength() )
-		LoadString( strAction, IDS_DLM_ACTION_CANCEL );
+		LoadString( strAction, IDS_MONITOR_ACTION_CANCEL );
 	Update( &m_wndAction, strAction );
 	Update( &m_wndAutoClose, ! bCompleted );
 
@@ -537,17 +538,18 @@ void CDownloadMonitorDlg::DoPaint(CDC& dc)
 {
 	CRect rc;
 
+	// Draw Progress Bar
 	m_wndProgress.GetWindowRect( &rc );
 	ScreenToClient( &rc );
 
 	DrawProgressBar( &dc, &rc );
 
+	// Draw Bandwidth Graph
 	m_wndGraph.GetWindowRect( &rc );
 	ScreenToClient( &rc );
 
-	dc.Draw3dRect( &rc, 0, 0 );
+	dc.Draw3dRect( &rc, Colors.m_crMonitorGraphBorder, Colors.m_crMonitorGraphBorder );
 	rc.DeflateRect( 1, 1 );
-
 	m_pGraph->BufferedPaint( &dc, &rc );
 }
 
@@ -555,13 +557,13 @@ void CDownloadMonitorDlg::DrawProgressBar(CDC* pDC, CRect* pRect)
 {
 	CRect rcCell( pRect );
 
-	pDC->Draw3dRect( &rcCell, 0, 0 );
+	pDC->Draw3dRect( &rcCell, Colors.m_crMonitorGraphBorder, Colors.m_crMonitorGraphBorder );
 	rcCell.DeflateRect( 1, 1 );
 
 	if ( Transfers.m_pSection.Lock( 50 ) )
 	{
 		if ( Downloads.Check( m_pDownload ) )
-			CFragmentBar::DrawDownload( pDC, &rcCell, m_pDownload, Colors.m_crDialog );
+			CFragmentBar::DrawDownload( pDC, &rcCell, m_pDownload, Colors.m_crMonitorGraphBack );
 		Transfers.m_pSection.Unlock();
 	}
 }
@@ -697,16 +699,19 @@ void CDownloadMonitorDlg::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 
 	if ( ! pDownWnd->Select( m_pDownload ) ) return;
 
-	CMenu* pPopup = ::Skin.GetMenu( _T("CDownloadsWnd.Download") );
+	const BOOL bCompleted = m_pDownload->IsCompleted();
+
+	CMenu* pPopup = ::Skin.GetMenu( bCompleted ?
+		( m_pDownload->IsSeeding() ? _T("CDownloadsWnd.Seeding") : _T("CDownloadsWnd.Completed") ) : _T("CDownloadsWnd.Download") );
 	if ( ! pPopup ) return;
 
 	MENUITEMINFO pInfo;
 	pInfo.cbSize	= sizeof(pInfo);
 	pInfo.fMask		= MIIM_STATE;
-	GetMenuItemInfo( pPopup->GetSafeHmenu(), m_pDownload->IsCompleted() ?
+	GetMenuItemInfo( pPopup->GetSafeHmenu(), bCompleted ?
 		ID_DOWNLOADS_LAUNCH_COMPLETE : ID_DOWNLOADS_LAUNCH_COPY, FALSE, &pInfo );
 	pInfo.fState	|= MFS_DEFAULT;
-	SetMenuItemInfo( pPopup->GetSafeHmenu(), m_pDownload->IsCompleted() ?
+	SetMenuItemInfo( pPopup->GetSafeHmenu(), bCompleted ?
 		ID_DOWNLOADS_LAUNCH_COMPLETE : ID_DOWNLOADS_LAUNCH_COPY, FALSE, &pInfo );
 
 	CoolMenu.AddMenu( pPopup, TRUE );
@@ -721,7 +726,7 @@ void CDownloadMonitorDlg::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 BOOL CDownloadMonitorDlg::OnNeedText(UINT /*nID*/, NMHDR* pTTTH, LRESULT* /*pResult*/)
 {
 	// ToDo: Fix This? It does not get a notification from the static window (!)
-	if ( pTTTH->idFrom == IDC_DOWNLOAD_FILE )
+	if ( pTTTH->idFrom == IDC_MONITOR_FILE )
 	{
 		TOOLTIPTEXT* pTTT = (TOOLTIPTEXT*)pTTTH;
 		pTTT->lpszText = (LPTSTR)(LPCTSTR)m_sName;

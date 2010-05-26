@@ -332,6 +332,5 @@ public:
 template<>
 inline void boost::checked_delete< CFragmentedFile >(CFragmentedFile* x)
 {
-    if ( x )
-		x->Release();
+	if ( x ) x->Release();
 }

@@ -143,7 +143,7 @@ void CDownloadGroupDlg::OnFilterAdd()
 	CString strType;
 	m_wndFilterList.GetWindowText( strType );
 
-	strType.TrimLeft(); strType.TrimRight();
+	strType.Trim();
 	if ( strType.IsEmpty() ) return;
 
 	if ( m_wndFilterList.FindString( -1, strType ) >= 0 ) return;

@@ -1,7 +1,7 @@
 //
 // CtrlMediaFrame.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -138,13 +138,14 @@ protected:
 	DECLARE_MESSAGE_MAP()
 	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnDestroy();
-	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg void OnPaint();
+	afx_msg void OnSize(UINT nType, int cx, int cy);
+	afx_msg void OnTimer(UINT_PTR nIDEvent);
 	afx_msg void OnContextMenu(CWnd* pWnd, CPoint point);
 	afx_msg BOOL OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message);
 	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
 	afx_msg void OnLButtonDblClk(UINT nFlags, CPoint point);
-	afx_msg void OnTimer(UINT_PTR nIDEvent);
+	afx_msg void OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar = NULL);
 	afx_msg void OnClose();
 
 	afx_msg void OnUpdateMediaClose(CCmdUI* pCmdUI);
@@ -166,7 +167,6 @@ protected:
 	afx_msg void OnMediaSizeTwo();
 	afx_msg void OnUpdateMediaSizeHalf(CCmdUI* pCmdUI);
 	afx_msg void OnMediaSizeHalf();
-	afx_msg void OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar);
 	afx_msg void OnUpdateMediaAspectDefault(CCmdUI* pCmdUI);
 	afx_msg void OnMediaAspectDefault();
 	afx_msg void OnUpdateMediaAspect43(CCmdUI* pCmdUI);
@@ -188,7 +188,6 @@ protected:
 
 	afx_msg void OnNewCurrent(NMHDR* pNotify, LRESULT* pResult);
 	afx_msg LRESULT OnMediaKey(WPARAM wParam, LPARAM lParam);
-
 };
 
 //{{AFX_INSERT_LOCATION}}

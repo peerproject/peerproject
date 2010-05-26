@@ -195,8 +195,7 @@ BOOL CEDNeighbour::OnConnected()
 	// 1 - User name
 	if ( Settings.eDonkey.LearnNewServers )
 		CEDTag( ED2K_CT_NAME, MyProfile.GetNick().Left( 255 ) ).Write( pPacket );
-	else
-		// nolistsrvs in the nick say to the server that we don't want server list
+	else	// nolistsrvs in the nick say to the server that we don't want server list
 		CEDTag( ED2K_CT_NAME, MyProfile.GetNick().Left( 255 - 13 ) + _T(" - nolistsrvs") ).Write( pPacket );
 
 	// 2 - Version ('ed2k version')
@@ -320,18 +319,18 @@ BOOL CEDNeighbour::OnServerMessage(CEDPacket* pPacket)
 	CString	strMessage = pPacket->ReadEDString(
 		( m_nTCPFlags & ED2K_SERVER_TCP_UNICODE ) != 0 );
 
-	while ( strMessage.GetLength() > 0 )
+	while ( ! strMessage.IsEmpty() )
 	{
 		CString strLine = strMessage.SpanExcluding( _T("\r\n") );
 
-		if ( strLine.GetLength() > 0 )
+		if ( ! strLine.IsEmpty() )
 		{
 			strMessage = strMessage.Mid( strLine.GetLength() );
 			theApp.Message( MSG_NOTICE, IDS_ED2K_SERVER_MESSAGE,
 				(LPCTSTR)m_sAddress, (LPCTSTR)strLine );
 		}
 
-		if ( strMessage.GetLength() > 0 )
+		if ( ! strMessage.IsEmpty() )
 			strMessage = strMessage.Mid( 1 );
 	}
 
@@ -474,8 +473,7 @@ BOOL CEDNeighbour::OnServerIdent(CEDPacket* pPacket)
 	while ( nTags-- > 0 && pPacket->GetRemaining() > 1 )
 	{
 		CEDTag pTag;
-		if ( ! pTag.Read( pPacket,
-			( m_nTCPFlags & ED2K_SERVER_TCP_UNICODE ) != 0 ) )
+		if ( ! pTag.Read( pPacket, ( m_nTCPFlags & ED2K_SERVER_TCP_UNICODE ) != 0 ) )
 			break;
 
 		switch ( pTag.m_nKey )

@@ -1440,8 +1440,7 @@ bool CQueryHit::ReadG2Packet(CG2Packet* pPacket, DWORD nLength)
 							m_sSchemaPlural		= pXML->GetName();
 							m_sSchemaURI		= pURI->GetValue();
 							CXMLElement* pChild	= pXML->GetFirstElement();
-							if ( pChild != NULL && m_sSchemaPlural.GetLength() > 0 &&
-								m_sSchemaURI.GetLength() > 0 )
+							if ( pChild != NULL && ! m_sSchemaPlural.IsEmpty() && ! m_sSchemaURI.IsEmpty() )
 							{
 								m_pXML->Delete();
 								m_pXML = pChild->Detach();
@@ -1987,10 +1986,9 @@ BOOL CQueryHit::ParseXML(CXMLElement* pMetaData, DWORD nRealIndex)
 				m_sSchemaPlural	= pXML->GetName();
 				m_sSchemaURI	= pXML->GetAttributeValue( CXMLAttribute::schemaName, _T("") );
 
-				if ( m_sSchemaPlural.GetLength() > 0 && m_sSchemaURI.GetLength() > 0 )
+				if ( ! m_sSchemaPlural.IsEmpty() && ! m_sSchemaURI.IsEmpty() )
 				{
-					if ( m_pXML )
-						delete m_pXML;
+					if ( m_pXML ) delete m_pXML;
 					m_pXML = pHit->Detach();
 					pIndex->Delete();
 

@@ -87,7 +87,7 @@ BOOL CDownloadTransferED2K::Initiate()
 	ASSERT( m_pClient == NULL );
 	ASSERT( m_nState == dtsNull );
 
-    if ( ! m_pDownload->m_oED2K || m_pDownload->m_nSize == SIZE_UNKNOWN )
+	if ( ! m_pDownload->m_oED2K || m_pDownload->m_nSize == SIZE_UNKNOWN )
 	{
 		Close( TRI_FALSE );
 		return FALSE;
@@ -290,7 +290,7 @@ BOOL CDownloadTransferED2K::OnFileStatus(CEDPacket* pPacket)
 {
 	if ( m_nState <= dtsConnecting ) return TRUE;
 
-    if ( pPacket->GetRemaining() < Hashes::Ed2kHash::byteCount + 2 )
+	if ( pPacket->GetRemaining() < Hashes::Ed2kHash::byteCount + 2 )
 	{
 		theApp.Message( MSG_ERROR, IDS_ED2K_CLIENT_BAD_PACKET, (LPCTSTR)m_sAddress, pPacket->m_nType );
 		Close( TRI_FALSE );
@@ -311,7 +311,7 @@ BOOL CDownloadTransferED2K::OnFileStatus(CEDPacket* pPacket)
 
 	if ( nBlocks == (DWORD)( ( m_pDownload->m_nSize + ED2K_PART_SIZE - 1 ) / ED2K_PART_SIZE ) )
 	{
-        m_pSource->m_oAvailable.clear();
+		m_pSource->m_oAvailable.clear();
 
 		delete [] m_pAvailable;
 		m_pAvailable = new BYTE[ nBlocks ];
@@ -359,14 +359,14 @@ BOOL CDownloadTransferED2K::OnHashsetAnswer(CEDPacket* pPacket)
 {
 	if ( m_nState != dtsHashset ) return TRUE;
 
-    if ( pPacket->GetRemaining() < Hashes::Ed2kHash::byteCount + 2 )
+	if ( pPacket->GetRemaining() < Hashes::Ed2kHash::byteCount + 2 )
 	{
 		theApp.Message( MSG_ERROR, IDS_ED2K_CLIENT_BAD_PACKET, (LPCTSTR)m_sAddress, pPacket->m_nType );
 		Close( TRI_FALSE );
 		return FALSE;
 	}
 
-    Hashes::Ed2kHash oED2K;
+	Hashes::Ed2kHash oED2K;
 	pPacket->Read( oED2K );
 
 	if ( validAndUnequal( oED2K, m_pDownload->m_oED2K ) )
@@ -494,7 +494,7 @@ BOOL CDownloadTransferED2K::OnFinishUpload(CEDPacket* /*pPacket*/)
 
 BOOL CDownloadTransferED2K::OnSendingPart(CEDPacket* pPacket)
 {
-    if ( pPacket->GetRemaining() <= Hashes::Ed2kHash::byteCount + 8 )
+	if ( pPacket->GetRemaining() <= Hashes::Ed2kHash::byteCount + 8 )
 	{
 		theApp.Message( MSG_ERROR, IDS_ED2K_CLIENT_BAD_PACKET, (LPCTSTR)m_sAddress, pPacket->m_nType );
 		Close( TRI_FALSE );
@@ -548,7 +548,7 @@ BOOL CDownloadTransferED2K::OnSendingPart(CEDPacket* pPacket)
 
 BOOL CDownloadTransferED2K::OnCompressedPart(CEDPacket* pPacket)
 {
-    if ( pPacket->GetRemaining() <= Hashes::Ed2kHash::byteCount + 8 )
+	if ( pPacket->GetRemaining() <= Hashes::Ed2kHash::byteCount + 8 )
 	{
 		theApp.Message( MSG_ERROR, IDS_ED2K_CLIENT_BAD_PACKET, (LPCTSTR)m_sAddress, pPacket->m_nType );
 		Close( TRI_FALSE );

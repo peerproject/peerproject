@@ -342,14 +342,14 @@ CDC* CCoolInterface::GetBuffer(CDC& dcScreen, const CSize& szItem)
 //////////////////////////////////////////////////////////////////////
 // CCoolInterface watermarking
 
-BOOL CCoolInterface::DrawWatermark(CDC* pDC, CRect* pRect, CBitmap* pMark, int nOffX, int nOffY)
+BOOL CCoolInterface::DrawWatermark(CDC* pDC, CRect* pRect, CBitmap* pMark, BOOL bOverdraw, int nOffX, int nOffY)
 {
+	if ( pDC == NULL || pRect == NULL || pMark == NULL || pMark->m_hObject == NULL )
+		return FALSE;
+
 	BITMAP pWatermark;
 	CBitmap* pOldMark;
 	CDC dcMark;
-
-	if ( pDC == NULL || pRect == NULL || pMark == NULL || pMark->m_hObject == NULL )
-		return FALSE;
 
 	dcMark.CreateCompatibleDC( pDC );
 	if ( Settings.General.LanguageRTL )
@@ -357,15 +357,21 @@ BOOL CCoolInterface::DrawWatermark(CDC* pDC, CRect* pRect, CBitmap* pMark, int n
 	pOldMark = (CBitmap*)dcMark.SelectObject( pMark );
 	pMark->GetBitmap( &pWatermark );
 
-	for ( int nY = pRect->top - nOffY ; nY < pRect->bottom ; nY += pWatermark.bmHeight )
+	if ( ! bOverdraw && nOffX < 0 )		// Rare case fix
+		pDC->ExcludeClipRect( pRect->left + nOffX, pRect->top, pRect->left, pRect->bottom );
+
+	for ( int nY = pRect->top + nOffY ; nY < pRect->bottom ; nY += pWatermark.bmHeight )
 	{
 		if ( nY + pWatermark.bmHeight < pRect->top ) continue;
 
-		for ( int nX = pRect->left - nOffX ; nX < pRect->right ; nX += pWatermark.bmWidth )
+		for ( int nX = pRect->left + nOffX ; nX < pRect->right ; nX += pWatermark.bmWidth )
 		{
 			if ( nX + pWatermark.bmWidth < pRect->left ) continue;
 
-			pDC->BitBlt( nX, nY, pWatermark.bmWidth, pWatermark.bmHeight, &dcMark, 0, 0, SRCCOPY );
+			pDC->BitBlt( nX, nY,
+				bOverdraw ? pWatermark.bmWidth  : min( pWatermark.bmWidth, pRect->right - nX ),
+				bOverdraw ? pWatermark.bmHeight : min( pWatermark.bmHeight, pRect->bottom - nY ),
+				&dcMark, 0, 0, SRCCOPY );
 		}
 	}
 

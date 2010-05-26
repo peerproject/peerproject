@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Greek Skin File -->
 
-<!-- Translation based on default-en.xml r54 -->
+<!-- Translation based on default-en.xml r55 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -456,12 +456,12 @@
 	</toolbar>
 	<!-- IMAGE VIEWER PLUGIN WINDOW -->
 	<toolbar name="ImageViewerWnd">
-		<button id="ImageViewer_ActualSize" text="Πραγματικό Μέγεθος"/>
-		<button id="ImageViewer_BestFit" text="Προσαρμογή"/>
+		<button id="PluginID_ImageViewer_FullSize" text="Πραγματικό Μέγεθος"/>
+		<button id="PluginID_ImageViewer_BestFit" text="Προσαρμογή"/>
 		<separator/>
-		<button id="ImageViewer_Refresh" text="Ανανέωση"/>
+		<button id="PluginID_ImageViewer_Refresh" text="Ανανέωση"/>
 		<rightAlign/>
-		<button id="ImageViewer_Close" text="Κλείσιμο"/>
+		<button id="PluginID_ImageViewer_Close" text="Κλείσιμο"/>
 	</toolbar>
 </toolbars>
 <!-- Menu Definitions -->
@@ -1665,12 +1665,12 @@
 	</menu>
 	<!-- PLUGIN MENUS -->
 	<menu name="ImageViewer_Context">
-		<item id="ImageViewer_BestFit" text="_Προσαρμογή"/>
-		<item id="ImageViewer_ActualSize" text="_Πραγματικό Μέγεθος"/>
+		<item id="PluginID_ImageViewer_BestFit" text="_Προσαρμογή"/>
+		<item id="PluginID_ImageViewer_FullSize" text="_Πραγματικό Μέγεθος"/>
 		<separator/>
-		<item id="ImageViewer_Refresh" text="_Ανανέωση"/>
+		<item id="PluginID_ImageViewer_Refresh" text="_Ανανέωση"/>
 		<separator/>
-		<item id="ImageViewer_Close" text="_Κλείσιμο"/>
+		<item id="PluginID_ImageViewer_Close" text="_Κλείσιμο"/>
 	</menu>
 	<!-- IRC WINDOW -->
 	<menu name="CIRCTabRClick">
@@ -1721,28 +1721,28 @@
 		<anchor id="Header" width="32" height="152"/>
 		<newline gap="0"/>
 		<group id="1">
-			<icon res="130" width="32" height="32" target="peer:command:ID_NETWORK_CONNECT"/><gap size="8"/>
+			<icon res="130" width="32" height="32" target="command:ID_NETWORK_CONNECT"/><gap size="8"/>
 			<heading align="middle">ΣΥΝΔΕΘΕΙΤΕ</heading>
 			<newline gap="8" indent="42"/>
 			<text>Καλώς ήρθατε στο PeerProject!</text>
 			<newline gap="8" indent="42"/>
 			<text>Αυτήν τη στιγμή δεν είστε ενωμένοι σε κανένα peer to peer δίκτυο. &#160;</text>
-			<link target="peer:command:ID_NETWORK_CONNECT">Κλικ εδώ για να αρχίσετε!</link>
+			<link target="command:ID_NETWORK_CONNECT">Κλικ εδώ για να αρχίσετε!</link>
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="2">
-			<icon res="134" width="32" height="32" target="peer:command:ID_TAB_SEARCH"/><gap size="8"/>
+			<icon res="134" width="32" height="32" target="command:ID_TAB_SEARCH"/><gap size="8"/>
 			<heading align="middle">ΑΝΑΖΗΤΕΙΣΤΕ ΕΝΑ ΑΡΧΕΙΟ</heading>
 			<newline gap="8" indent="42"/>
 			<anchor id="SearchBox" width="256" height="80"/>
 			<newline gap="14" indent="0"/>
-			<icon res="136" width="32" height="32" target="peer:command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
+			<icon res="136" width="32" height="32" target="command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
 			<heading align="middle">ΑΡΧΗ ΛΗΨΗΣ</heading>
 			<newline gap="8" indent="42"/>
-			<link target="peer:command:ID_TOOLS_DOWNLOAD" format="bu">Κλικ εδώ για να αρχίσετε</link>
+			<link target="command:ID_TOOLS_DOWNLOAD" format="bu">Κλικ εδώ για να αρχίσετε</link>
 			<text>&#160; τη λήψη ενός νέου αρχείου ή torrent.</text>
 			<newline gap="2" indent="42"/>
-			<link target="peer:shell:downloads">Άνοιγμα φακέλου Ληφθέντων</link>
+			<link target="command:shell:downloads">Άνοιγμα φακέλου Ληφθέντων</link>
 			<newline gap="20" indent="0"/>
 		</group>
 		<group id="3">
@@ -1751,18 +1751,18 @@
 			<newline gap="8" indent="42"/>
 			<text id="Upgrade"/>
 			<newline gap="6"/>
-			<link target="peer:upgrade">Κλικ εδώ για την αναβάθμιση</link>
+			<link target="command:upgrade">Κλικ εδώ για την αναβάθμιση</link>
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="4">
-			<icon res="252" width="32" height="32" target="peer:command:ID_TOOLS_WIZARD"/><gap size="8"/>
+			<icon res="252" width="32" height="32" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 			<heading align="middle">ΠΡΟΕΙΔΟΠΟΙΗΣΗ: ΕΝΟΧΛΗΤΙΚΟ FIREWALL</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">Το PeerProject εντόπισε ότι είστε πίσω από NAT router ή firewall,
 			και δεν είστε σε θέση να λάβετε συνδέσεις από το Διαδίκτυο. &#160;</text>
 			<text color="FF0000" format="b">Αυτό ίσως προκαλέσει χαμηλές επιδόσεις αναζήτησης και λήψης.</text>
 			<newline gap="6"/>
-			<link target="peer:command:ID_HELP_ROUTER">Κλικ εδώ για να μάθετε πώς να ρυθμίσετε τον router ή firewall σας</link>
+			<link target="command:ID_HELP_ROUTER">Κλικ εδώ για να μάθετε πώς να ρυθμίσετε τον router ή firewall σας</link>
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="6">
@@ -1773,7 +1773,7 @@
 			και δεν είστε σε θέση να λάβετε TCP συνδέσεις από το Διαδίκτυο. &#160;</text>
 			<text color="FF0000" format="b">Αυτό ίσως προκαλέσει χαμηλές επιδόσεις λήψης.</text>
 			<newline gap="6"/>
-			<link target="peer:command:ID_HELP_ROUTER">Κλικ εδώ για να μάθετε πώς να ρυθμίσετε τον router ή firewall σας</link>
+			<link target="command:ID_HELP_ROUTER">Κλικ εδώ για να μάθετε πώς να ρυθμίσετε τον router ή firewall σας</link>
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="7">
@@ -1784,31 +1784,31 @@
 			και δεν είστε σε θέση να λάβετε UDP συνδέσεις από το Διαδίκτυο. &#160;</text>
 			<text color="FF0000" format="b">Αυτό ίσως προκαλέσει χαμηλές επιδόσεις αναζήτησης.</text>
 			<newline gap="6"/>
-			<link target="peer:command:ID_HELP_ROUTER">Κλικ εδώ για να μάθετε πώς να ρυθμίσετε τον router ή firewall σας</link>
+			<link target="command:ID_HELP_ROUTER">Κλικ εδώ για να μάθετε πώς να ρυθμίσετε τον router ή firewall σας</link>
 			<newline gap="18" indent="0"/>
 		</group>
-		<icon res="128" width="32" height="32" target="peer:command:ID_TOOLS_SETTINGS"/><gap size="8"/>
+		<icon res="128" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">ΠΡΟΣΑΡΜΟΓΗ  TOΥ PEERPROJECT</heading>
 		<newline gap="12" indent="42"/>
-		<icon res="182" width="16" height="16" target="peer:command:ID_TOOLS_SKIN"/><gap size="8"/>
-		<link target="peer:command:ID_TOOLS_SKIN" align="middle" format="bu">Φλοιοί</link>
+		<icon res="182" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
+		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">Φλοιοί</link>
 		<text align="middle">&#160;- Αλλαγή της όψης και της αισθητικής του PeerProject</text>
 		<newline gap="8"/>
-		<icon res="141" width="16" height="16" target="peer:command:ID_VIEW_SECURITY"/><gap size="8"/>
-		<link target="peer:command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
+		<icon res="141" width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
+		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
 		<text align="middle">&#160;- Update blocklist to avoid bad search results</text>
 		<newline gap="8"/>
-		<icon res="317" width="16" height="16" target="peer:command:ID_TOOLS_WIZARD"/><gap size="8"/>
-		<link target="peer:command:ID_TOOLS_WIZARD" align="middle">Οδηγός Σύντομης Εκκίνησης</link>
+		<icon res="317" width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
+		<link target="command:ID_TOOLS_WIZARD" align="middle">Οδηγός Σύντομης Εκκίνησης</link>
 		<text align="middle">&#160;- Βασική ρύθμιση του PeerProject</text>
 		<newline gap="8"/>
-		<icon res="147" width="16" height="16" target="peer:command:ID_HELP_FAQ"/><gap size="8"/>
-		<link target="peer:command:ID_HELP_FAQ" align="middle">Βοήθεια</link>
+		<icon res="147" width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
+		<link target="command:ID_HELP_FAQ" align="middle">Βοήθεια</link>
 		<text align="middle">&#160;- Ιστοσελίδα βοήθειας στη χρήση του PeerProject, or </text>
-		<link target="peer:command:ID_TAB_IRC" align="middle">IRC.</link>
+		<link target="command:ID_TAB_IRC" align="middle">IRC.</link>
 		<newline gap="8"/>
-		<icon res="175" width="16" height="16" target="peer:command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
-		<link target="peer:command:ID_HELP_FORUMS_LOCAL" align="middle">Τοπική Forum</link>
+		<icon res="175" width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
+		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">Τοπική Forum</link>
 		<text align="middle">&#160;- GΜετάβαση στο ελληνικό φόρουμ συζήτησης σας γλώσσα</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
@@ -1833,7 +1833,7 @@
 			<para align="center">
 				<text format="b">Δεν έχετε συνδεθεί</text>
 				<newline gap="4"/>
-				<link target="peer:command:ID_NETWORK_CONNECT">Κλικ εδώ για να συνδεθείτε</link>
+				<link target="command:ID_NETWORK_CONNECT">Κλικ εδώ για να συνδεθείτε</link>
 			</para>
 		</group>
 		<icon group="20" command="ID_NETWORK_G2"/>
@@ -1881,7 +1881,7 @@
 				<text>Δεν λάβατε κανένα αρχείο πρόσφατα.</text>
 				<newline gap="8"/>
 			</group>
-			<link target="peer:command:ID_VIEW_LIBRARY">Μετάβαση στη Βιβλιοθήκη</link>
+			<link target="command:ID_VIEW_LIBRARY">Μετάβαση στη Βιβλιοθήκη</link>
 			<newline gap="4"/>
 			<text id="LibraryFiles" format="b">%lu </text>
 			<text>αρχεία (</text>
@@ -1895,10 +1895,10 @@
 				<newline gap="8"/>
 			</group>
 			<group id="3">
-				<link target="peer:command:ID_LIBRARY_HASH_PRIORITY">Κλικ εδώ για γρηγορότερη σάρωση</link>
+				<link target="command:ID_LIBRARY_HASH_PRIORITY">Κλικ εδώ για γρηγορότερη σάρωση</link>
 			</group>
 			<group id="4">
-				<link target="peer:command:ID_LIBRARY_HASH_PRIORITY">Κλικ εδώ για πιο αργή σάρωση</link>
+				<link target="command:ID_LIBRARY_HASH_PRIORITY">Κλικ εδώ για πιο αργή σάρωση</link>
 			</group>
 		</para>
 	</document>
@@ -1913,9 +1913,9 @@
 				<text>Δεν λαμβάνετε κανένα αρχείο αυτήν τη στιγμή.</text>
 				<newline gap="4"/>
 			</group>
-			<link id="DownloadsNone" target="peer:command:ID_VIEW_DOWNLOADS">Μετάβαση στις Λήψεις</link>
-			<link id="DownloadsOne" target="peer:command:ID_VIEW_DOWNLOADS" format="bu">Μετάβαση στις Λήψεις (1)</link>
-			<link id="DownloadsMany" target="peer:command:ID_VIEW_DOWNLOADS" format="bu">Μετάβαση στις Λήψεις (%i)</link>
+			<link id="DownloadsNone" target="command:ID_VIEW_DOWNLOADS">Μετάβαση στις Λήψεις</link>
+			<link id="DownloadsOne" target="command:ID_VIEW_DOWNLOADS" format="bu">Μετάβαση στις Λήψεις (1)</link>
+			<link id="DownloadsMany" target="command:ID_VIEW_DOWNLOADS" format="bu">Μετάβαση στις Λήψεις (%i)</link>
 			<newline gap="4"/>
 			<text id="DownloadedNone">No αρχεία (</text>
 			<text id="DownloadedOne">1 αρχείο (</text>
@@ -1932,8 +1932,8 @@
 		</styles>
 		<para align="center">
 			<text id="UploadsNone" format="b">Καμία ενεργή αποστολή</text>
-			<link id="UploadsOne" target="peer:command:ID_VIEW_UPLOADS" format="bu">1 ενεργή αποστολή</link>
-			<link id="UploadsMany" target="peer:command:ID_VIEW_UPLOADS" format="bu">%i ενεργές αποστολές</link>
+			<link id="UploadsOne" target="command:ID_VIEW_UPLOADS" format="bu">1 ενεργή αποστολή</link>
+			<link id="UploadsMany" target="command:ID_VIEW_UPLOADS" format="bu">%i ενεργές αποστολές</link>
 			<newline gap="4"/>
 			<group id="1">
 				<text id="TorrentsOne">1 κοινοποιημένο torrent</text>
@@ -1958,25 +1958,25 @@
 		αφορούν την εμπειρία του χρήστη.
 		</text>
 		<newline gap="16" indent="16"/>
-		<link target="peer:page:CGeneralSettingsPage" format="b">Γενικά:</link>
+		<link target="page:CGeneralSettingsPage" format="b">Γενικά:</link>
 		<text>&#160;Ρυθμίσεις περιβάλλοντος, όπως αιωρούμενες επεξηγήσεις, συμπεριφορά σμίκρυνσης, μορφές αριθμών, προτροπές κτλ.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CLibrarySettingsPage" format="b">Βιβλιοθήκη:</link>
+		<link target="page:CLibrarySettingsPage" format="b">Βιβλιοθήκη:</link>
 		<text>&#160;Παρουσίαση και διαχείριση της Βιβλιοθήκης και του ανοίγματος αρχείων.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CMediaSettingsPage" format="b">Πολυμέσα:</link>
+		<link target="page:CMediaSettingsPage" format="b">Πολυμέσα:</link>
 		<text>&#160;Πότε και πού θα χρησιμοποιείται η ενσωματωμένη Αναπαραγωγή Πολυμέσων του PeerProject.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CIRCSettingsPage" format="b">Συνομιλία με Χρήστη:</link>
+		<link target="page:CIRCSettingsPage" format="b">Συνομιλία με Χρήστη:</link>
 		<text>&#160;Οπτική εμφάνιση του Δωματίου Συνομιλιών IRC και ρυθμίσεις σύνδεσης.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CCommunitySettingsPage" format="b">Κοινότητα:</link>
+		<link target="page:CCommunitySettingsPage" format="b">Κοινότητα:</link>
 		<text>&#160;Οι ρυθμίσεις για το προφίλ σας, τις συνομιλίες και τα άμεσα μηνύματα.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CRemoteSettingsPage" format="b">Απομακρυσμένη Πρόσβαση:</link>
+		<link target="page:CRemoteSettingsPage" format="b">Απομακρυσμένη Πρόσβαση:</link>
 		<text>&#160;Ρυθμίστε τη δυνατότητα να χειρίζεστε το PeerProject από απομακρυσμένα προγράμματα περιήγησης.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CWebSettingsPage" format="b">Ιστός:</link>
+		<link target="page:CWebSettingsPage" format="b">Ιστός:</link>
 		<text>&#160;Κάντε το πρόγραμμα περιήγησής σας να αναθέτει στο PeerProject τους συνδέσμους peer-to-peer και τη λήψη αρχείων.</text>
 	</document>
 	<document name="CInternetSettingsGroup" title="Διαδίκτυο" leftMargin="8" topMargin="8">
@@ -1988,16 +1988,16 @@
 		<text>ελέγχουν το πώς το PeerProject αλληλεπιδρά με τα άλλα peers μέσα στα peer-to-peer δίκτυα.
 		</text>
 		<newline gap="16" indent="16"/>
-		<link target="peer:page:CConnectionSettingsPage" format="b">Σύνδεση:</link>
+		<link target="page:CConnectionSettingsPage" format="b">Σύνδεση:</link>
 		<text>&#160;Οι ταχύτητες και οι ικανότητες της σύνδεσής σας στο Διαδίκτυο.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CDownloadsSettingsPage" format="b">Λήψεις Αρχείων:</link>
+		<link target="page:CDownloadsSettingsPage" format="b">Λήψεις Αρχείων:</link>
 		<text>&#160;Όγκος λήψης, χρονοδιάγραμμα, επαλήθευση, προθεσμίες και διαχείριση.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CUploadsSettingsPage" format="b">Αποστολές Αρχείων:</link>
+		<link target="page:CUploadsSettingsPage" format="b">Αποστολές Αρχείων:</link>
 		<text>&#160;Χωρητικότητα αποστολών, ουρές, αποκλεισμοί, προθεσμίες και ειδικές αιτήσεις.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CSchedulerSettingsPage" format="b">Προγραμματιστής:</link>
+		<link target="page:CSchedulerSettingsPage" format="b">Προγραμματιστής:</link>
 		<text>&#160;Περιορίστε τις συνδέσεις λήψης με βάσει ένα περιοδικό πρόγραμμα.</text>
 	</document>
 	<!-- Browse User Profile -->
@@ -2078,15 +2078,15 @@
 		<newline gap="40" indent="0"/>
 		<text format="b">Κοινοποιημένα Αρχεία</text>
 		<newline gap="4" indent="8"/>
-		<icon res="137" target="peer:command:ID_BROWSE_FILES"/><gap size="5"/>
-		<link target="peer:command:ID_BROWSE_FILES" align="middle">Εμφάνιση Κοινοποιημένων Αρχείων</link>
+		<icon res="137" target="command:ID_BROWSE_FILES"/><gap size="5"/>
+		<link target="command:ID_BROWSE_FILES" align="middle">Εμφάνιση Κοινοποιημένων Αρχείων</link>
 		<group id="2">
 			<newline gap="16" indent="0"/>
 			<text format="b">Κοινότητα</text>
 			<newline gap="4" indent="8"/>
-			<icon res="140" target="peer:command:ID_SEARCH_CHAT"/>
+			<icon res="140" target="command:ID_SEARCH_CHAT"/>
 			<gap size="5"/>
-			<link target="peer:command:ID_SEARCH_CHAT" align="middle">Συνομιλία με Χρήστη</link>
+			<link target="command:ID_SEARCH_CHAT" align="middle">Συνομιλία με Χρήστη</link>
 		</group>
 		<group id="3">
 			<newline gap="16" indent="0"/>
@@ -2663,10 +2663,10 @@
 	<tip id="ID_WEBSERVICES_LIST" message="Επιλέξτε τις υπηρεσίες διαδικτύου, για να λάβετε περισσότερες πληροφορίες για το επιλεγόμενο αρχείο"/>
 	<tip id="ID_WEBSERVICES_SHAREMONKEY" message="Κάντε έρευνα για τις πληροφορίες αρχείου, χρησιμοποιώντας την υπηρεσία ShareMonkey"/>
 	<!-- PLUGIN TIPS -->
-	<tip id="ImageViewer_BestFit" message="Προσαρμογή του μεγέθους της εικόνας ώστε να χωρέσει στο παράθυρο."/>
-	<tip id="ImageViewer_ActualSize" message="Προβολή της εικόνας στο φυσικό της μέγεθος."/>
-	<tip id="ImageViewer_Refresh" message="Ανανέωση της εικόνας."/>
-	<tip id="ImageViewer_Close" message="Κλείσιμο του παραθύρου προβολής εικόνων."/>
+	<tip id="PluginID_ImageViewer_BestFit" message="Προσαρμογή του μεγέθους της εικόνας ώστε να χωρέσει στο παράθυρο."/>
+	<tip id="PluginID_ImageViewer_FullSize" message="Προβολή της εικόνας στο φυσικό της μέγεθος."/>
+	<tip id="PluginID_ImageViewer_Refresh" message="Ανανέωση της εικόνας."/>
+	<tip id="PluginID_ImageViewer_Close" message="Κλείσιμο του παραθύρου προβολής εικόνων."/>
 </commandTips>
 <!-- Tips displayed when mouse is moved over controls in the dialogs -->
 <controlTips>
@@ -2786,26 +2786,26 @@
 	<string id="8180" value="Μέγεθος Min:"/>
 	<string id="8181" value="Μέγεθος Max:"/>
 	<string id="8208" value="Το PeerProject σαρώνει %Iu αρχεία:"/>
-	<string id="8223" value="%i μέρες και %i ώρες"/>
-	<string id="8224" value="Το PeerProject λαμβάνει:"/>
-	<string id="8225" value="Αυτή η λήψη είναι σταματημένη:"/>
+<!--	<string id="8221" value="Το PeerProject αναζητά πηγές για:"/>
+	<string id="8222" value="Το PeerProject λαμβάνει:"/>
+	<string id="8223" value="Αυτή η λήψη είναι σταματημένη:"/>
+	<string id="8224" value="Το PeerProject μετακινεί το αρχείο:"/>
+	<string id="8225" value="Το PeerProject ελέγχει το αρχείο για σφάλματα:"/>
 	<string id="8226" value="Το PeerProject ολοκλήρωσε τη λήψη:"/>
-	<string id="8227" value="%i ώρες and %i λεπτά"/>
-	<string id="8228" value="%i λεπτά και %i δευτερόλεπτα"/>
-	<string id="8229" value="%i δευτερόλεπτα"/>
-	<string id="8230" value="Το PeerProject αναζητά πηγές για:"/>
+-->	<string id="8227" value="%i μέρες και %i ώρες"/>
+	<string id="8228" value="%i ώρες και %i λεπτά"/>
+	<string id="8229" value="%i λεπτά και %i δευτερόλεπτα"/>
+	<string id="8230" value="%i δευτερόλεπτα"/>
 	<string id="8231" value="Καμία πηγή"/>
 	<string id="8232" value="Άνοιγμα"/>
 	<string id="8233" value="Άκυρο"/>
 	<string id="8235" value="Συνολική ταχύτητα μεταφοράς:"/>
 	<string id="8236" value="Εκτιμώμενος απομένοντας χρόνος:"/>
 	<string id="8237" value="Παραληφθήσα ποσότητα:"/>
-	<string id="8238" value="Αριθμός πηγών:"/>
+	<string id="8238" value="Αποσταλθήσα ποσότητα:"/>
 	<string id="8239" value="Ολοκληρωμένο"/>
-	<string id="8240" value="Το PeerProject μετακινεί το αρχείο:"/>
-	<string id="8241" value="Το PeerProject ελέγχει το αρχείο για σφάλματα:"/>
-	<string id="8243" value="Αποσταλθήσα ποσότητα:"/>
-	<string id="8244" value="Αριθμός κριτικών:"/>
+	<string id="8240" value="Αριθμός πηγών:"/>
+	<string id="8241" value="Αριθμός κριτικών:"/>
 	<string id="8288" value="Εξερεύνηση της Βιβλιοθήκης"/>
 	<string id="8289" value="Θέση:"/>
 	<string id="8290" value="Εξερεύνηση των περιεχομένων %i φακέλων"/>
@@ -2918,6 +2918,7 @@
 	<string id="16211" value="Αγνόηση πακέτου αίτησης push προς διεύθυνση πίσω από firewall, προωθημένο από τον γείτονα %s."/>
 	<string id="16212" value="Μη κωδικοποιημένο κατά GGEP εκτεταμένο πακέτο, προωθημένο από τον γείτονα %s."/>
 	<string id="16213" value="Αποστολή πίνακα δρομολόγησης ερωτημάτων προς τον γείτονα %s (%i bit = %lu[%i], %i%% full)"/>
+	<string id="16254" value="Προεπιλεγμένη ομάδα. (Δείτε όλα τα αρχεία)"/>
 	<string id="16255" value="Drag'n'drop αρχεία στην ομάδα %s"/>
 	<string id="16256" value="Προσθήκη του &quot;%s&quot; στην ουρά λήψης με %i πηγές."/>
 	<string id="16257" value="Ολοκλήρωση λήψης &quot;%s&quot;."/>
@@ -3312,7 +3313,7 @@
 	<string id="18510" value="Θέλετε σίγουρα να θεωρηθεί αυτή η λήψη ως ολοκληρωμένη και να επαναεπαληθευθεί; Το σύνολο του αρχείου θα σαρωθεί, όσα τμήματα επαληθευθούν θα κρατηθούν και τα υπόλοιπα θα ξαναληφθούν."/>
 	<string id="18511" value="Αλλάξατε το μέγεθος του αρχείου. Είστε σίγουροι;"/>
 	<string id="19000" value="Η απομακρυσμένη πρόσβαση είναι απενεργοποιημένη."/>
-	<string id="19001" value="Πρέπει να διαλέξετε ένα όνομα και έναν κωδικό."/>
+	<string id="19001" value="http://%s:%i/remote - Πρέπει να διαλέξετε ένα όνομα και έναν κωδικό."/>
 	<string id="19002" value="Αδυναμία υποδοχής συνδέσεων, μη διαθέσιμο URL."/>
 	<string id="20000" value="Μη διαθέσιμο URN"/>
 	<string id="20001" value="Κλείσιμο"/>
@@ -3391,6 +3392,7 @@
 	<string id="20236" value="Βαθμολογία"/>
 	<string id="20237" value="OK"/>
 	<string id="20238" value="Άκυρο"/>
+	<string id="20245" value="Νέος φάκελος"/>
 </strings>
 <!-- Localized Dialog Text, "cookie" verifies that the skin matches current dialog -->
 <dialogs>
@@ -4123,7 +4125,7 @@
 		<control caption="Εμφάνιση Βιβλιοθήκης"/>
 		<control caption="Διαγραφή Λήψης"/>
 		<control caption="Απόκρυψη"/>
-		<control caption="Μετά την ολοκλήρωση της λήψης, κλείσιμο παραθύρου."/>
+		<control caption="Αυτό"/>
 	</dialog>
 	<dialog name="CFileGeneralPage" cookie="EdStStStStStEdEdEdEdEdStEdEdEdEd" caption="Γενικά">
 		<control/>
@@ -4300,11 +4302,11 @@
 		<control/>
 		<control caption="Άκυρο"/>
 	</dialog>
-	<dialog name="CURLActionDlg" cookie="StStStStStEdStEdStBuBuBuBuBuSt" caption="Διαχειριστής URI">
-		<control/>
+	<dialog name="CURLActionDlg" cookie="StStStStStStEdStEdStBuBuBuBuBu" caption="Διαχειριστής URI">
 		<control caption="Κάνατε κλικ σε ένα URI που στο δίκτυο αντιστοιχεί στο εξής περιεχόμενο:"/>
 		<control caption="Κάνατε κλικ σε μια URL που συνδέει στον εξής host ή server:"/>
 		<control caption="Κάνατε κλικ σε ένα URI που επιτρέπει την περιήγηση των κοινοποιημένων αρχείων του εξής host:"/>
+		<control caption="Κάνατε κλικ σε ένα URI που προσθέτει την εξής Υπηρεσία Ανακάλυψης:"/>
 		<control/>
 		<control/>
 		<control/>
@@ -4315,11 +4317,10 @@
 		<control caption="Άκυρο"/>
 		<control caption="_Απομνημόνευση επιλογής"/>
 		<control caption="Άνοιγμα παραθύρου _εποπτίας λήψης"/>
-		<control caption="Κάνατε κλικ σε ένα URI που προσθέτει την εξής Υπηρεσία Ανακάλυψης:"/>
 	</dialog>
 	<dialog name="CBitziDownloadDlg" cookie="StStmsBuSySt" caption="Λήψη Metadata...">
 		<control/>
-		<control caption="Προσπάθεια λήψης metadata από Bitzi(TM)..."/>
+		<control caption="Προσπάθεια λήψης metadata από Bitzi..."/>
 		<control/>
 		<control caption="Άκυρο"/>
 		<control/>

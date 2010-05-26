@@ -998,7 +998,7 @@ void CUploadTransferHTTP::SendDefaultHeaders()
 
 		strLine = MyProfile.GetNick().Left( 255 );
 
-		if ( strLine.GetLength() > 0 )
+		if ( ! strLine.IsEmpty() )
 		{
 			strLine = _T("X-Nick: ") + URLEncode( strLine ) + _T("\r\n");
 			Write( strLine );
@@ -1777,9 +1777,7 @@ void CUploadTransferHTTP::SendResponse(UINT nResourceID, BOOL bFileHeaders)
 		if ( nEnd < nStart ) break;
 
 		CString strReplace = strBody.Mid( nStart + 2, nEnd - nStart - 2 );
-
-		strReplace.TrimLeft();
-		strReplace.TrimRight();
+		strReplace.Trim();
 
 		if ( strReplace.CompareNoCase( _T("Name") ) == 0 )
 			strReplace = m_sName;

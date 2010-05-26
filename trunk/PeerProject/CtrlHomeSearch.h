@@ -1,7 +1,7 @@
 //
 // CtrlHomeSearch.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -31,7 +31,7 @@ class CHomeSearchCtrl : public CWnd
 public:
 	CHomeSearchCtrl();
 
-	void	OnSkinChange(COLORREF crWindow);
+	void	OnSkinChange(COLORREF crWindow, COLORREF crText = 0);
 	void	Activate();
 
 	virtual BOOL Create(CWnd* pParentWnd, UINT nID);
@@ -43,11 +43,12 @@ protected:
 	CIconButtonCtrl	m_wndSearch;
 	CIconButtonCtrl	m_wndAdvanced;
 	COLORREF		m_crWindow;
+	COLORREF		m_crText;
 
 	void	FillHistory();
 	void	Search(bool bAutostart);
 
-	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg void OnPaint();
 	afx_msg void OnCloseUpText();

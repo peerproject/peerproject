@@ -603,6 +603,8 @@ BOOL CLibraryFolder::IsShared() const
 				return TRUE;
 			if ( pFolder->m_bShared == TRI_FALSE )
 				return FALSE;
+			//if ( pFolder->m_bShared == TRI_UNKNOWN )
+			//	return FALSE;
 		}
 	}
 

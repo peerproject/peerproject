@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Swedish Skin File -->
 
-<!-- Translation based on default-en.xml r54 -->
+<!-- Translation based on default-en.xml r55 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -419,12 +419,12 @@
 	<!-- WEBSERVICES -->
 	<!-- IMAGE VIEWER PLUGIN WINDOW -->
 	<toolbar name="ImageViewerWnd">
-		<button id="ImageViewer_BestFit" text="Anpassa efter skrmen"/>
-		<button id="ImageViewer_ActualSize" text="Verklig storlek"/>
+		<button id="PluginID_ImageViewer_BestFit" text="Anpassa efter skrmen"/>
+		<button id="PluginID_ImageViewer_FullSize" text="Verklig storlek"/>
 		<separator/>
-		<button id="ImageViewer_Refresh" text="Uppdatera"/>
+		<button id="PluginID_ImageViewer_Refresh" text="Uppdatera"/>
 		<rightAlign/>
-		<button id="ImageViewer_Close" text="Stäng"/>
+		<button id="PluginID_ImageViewer_Close" text="Stäng"/>
 	</toolbar>
 </toolbars>
 <!-- Menu Definitions -->
@@ -1649,29 +1649,29 @@
 		<anchor id="Header" width="32" height="152"/>
 		<newline gap="0"/>
 		<group id="1">
-			<icon res="130" width="32" height="32" target="peer:command:ID_NETWORK_CONNECT"/><gap size="8"/>
+			<icon res="130" width="32" height="32" target="command:ID_NETWORK_CONNECT"/><gap size="8"/>
 			<heading align="middle">BLI ANSLUTEN</heading>
 			<newline gap="8" indent="42"/>
 			<text>Welcome to PeerProject!</text>
 			<newline gap="8" indent="42"/>
 			<text>Du är för tillfället inte ansluten till något fildelningsnätverk. &#160;</text>
-			<link target="peer:command:ID_NETWORK_CONNECT">Klicka här för att starta!</link>
+			<link target="command:ID_NETWORK_CONNECT">Klicka här för att starta!</link>
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="2">
-			<icon res="134" width="32" height="32" target="peer:command:ID_TAB_SEARCH"/><gap size="8"/>
+			<icon res="134" width="32" height="32" target="command:ID_TAB_SEARCH"/><gap size="8"/>
 			<heading align="middle">SÖK HÄR</heading>
 			<newline gap="8" indent="42"/>
 			<anchor id="SearchBox" width="256" height="80"/>
 			<newline gap="14" indent="0"/>
-			<icon res="136" width="32" height="32" target="peer:command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
+			<icon res="136" width="32" height="32" target="command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
 			<heading align="middle">START NEDLADDAD</heading>
 			<newline gap="8" indent="42"/>
-			<link target="peer:command:ID_TOOLS_DOWNLOAD" format="bu">Klicka här för att starta</link>
+			<link target="command:ID_TOOLS_DOWNLOAD" format="bu">Klicka här för att starta</link>
 			<text>&#160;nedladdning av ny fil eller torrent.</text>
 			<newline gap="2" indent="42"/>
 			<text>Eller öppna min mapp med </text>
-			<link target="peer:shell:downloads">nedladdade filer.</link>
+			<link target="command:shell:downloads">nedladdade filer.</link>
 			<newline gap="20" indent="0"/>
 		</group>
 		<group id="3">
@@ -1680,18 +1680,18 @@
 			<newline gap="8" indent="42"/>
 			<text id="Uppgradera"/>
 			<newline gap="6"/>
-			<link target="peer:upgrade">Klicka här för att uppgradera</link>
+			<link target="command:upgrade">Klicka här för att uppgradera</link>
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="4">
-			<icon res="252" width="32" height="32" target="peer:command:ID_TOOLS_WIZARD"/><gap size="8"/>
+			<icon res="252" width="32" height="32" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 			<heading align="middle">VARNING: DU ÄR BAKOM BRANDVÄGG</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">PeerProject har detekterat att du är bakom en NAT-router eller en brandvägg,
 				och inte kan ta emot anslutningar från Internet. &#160;</text>
 			<text color="FF0000" format="b">Detta kan orsaka dålig nedladdningsprestanda.</text>
 			<newline gap="6"/>
-			<link target="peer:command:ID_HELP_ROUTER">Klicka här för att lära dig hur du anpassar din router eller brandvägg</link>
+			<link target="command:ID_HELP_ROUTER">Klicka här för att lära dig hur du anpassar din router eller brandvägg</link>
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="6">
@@ -1702,7 +1702,7 @@
 			och kan ej ta emot TCP anslutningar från Internet. &#160;</text>
 			<text color="FF0000" format="b">Detta kan leda till långsamma nedladdningar.</text>
 			<newline gap="6"/>
-			<link target="peer:command:ID_HELP_ROUTER">Klicka här för att lära dig hur du anpassar din router eller brandvägg</link>
+			<link target="command:ID_HELP_ROUTER">Klicka här för att lära dig hur du anpassar din router eller brandvägg</link>
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="7">
@@ -1713,31 +1713,31 @@
 			och inte kan ta emot UDP meddelanden från Internet. &#160;</text>
 			<text color="FF0000" format="b">Detta kan orsaka långsamma nedladdningar.</text>
 			<newline gap="6"/>
-			<link target="peer:command:ID_HELP_ROUTER">Klicka här för att lära dig hur du anpassar din router eller brandvägg</link>
+			<link target="command:ID_HELP_ROUTER">Klicka här för att lära dig hur du anpassar din router eller brandvägg</link>
 			<newline gap="18" indent="0"/>
 		</group>
-		<icon res="128" width="32" height="32" target="peer:command:ID_TOOLS_SETTINGS"/><gap size="8"/>
+		<icon res="128" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">ANPASSA PEERPROJECT</heading>
 		<newline gap="12" indent="42"/>
-		<icon res="182" width="16" height="16" target="peer:command:ID_TOOLS_SKIN"/><gap size="8"/>
-		<link target="peer:command:ID_TOOLS_SKIN" align="middle" format="bu">Skinn</link>
+		<icon res="182" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
+		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">Skinn</link>
 		<text align="middle">&#160;- Ändra PeerProjects utseende &amp; känsla</text>
 		<newline gap="8"/>
-		<icon res="141" width="16" height="16" target="peer:command:ID_VIEW_SECURITY"/><gap size="8"/>
-		<link target="peer:command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
+		<icon res="141" width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
+		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
 		<text align="middle">&#160;- Update blocklist to avoid bad search results</text>
 		<newline gap="8"/>
-		<icon res="317" width="16" height="16" target="peer:command:ID_TOOLS_WIZARD"/><gap size="8"/>
-		<link target="peer:command:ID_TOOLS_WIZARD" align="middle">Inställningsguide</link>
+		<icon res="317" width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
+		<link target="command:ID_TOOLS_WIZARD" align="middle">Inställningsguide</link>
 		<text align="middle">&#160;- Ändra PeerProjectinställningar</text>
 		<newline gap="8"/>
-		<icon res="147" width="16" height="16" target="peer:command:ID_HELP_FAQ"/><gap size="8"/>
-		<link target="peer:command:ID_HELP_FAQ" align="middle">Snabbhjälp</link>
+		<icon res="147" width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
+		<link target="command:ID_HELP_FAQ" align="middle">Snabbhjälp</link>
 		<text align="middle">&#160;- Få grundläggande hjälp om PeerProject, or </text>
-		<link target="peer:command:ID_TAB_IRC" align="middle">IRC.</link>
+		<link target="command:ID_TAB_IRC" align="middle">IRC.</link>
 		<newline gap="8"/>
-		<icon res="175" width="16" height="16" target="peer:command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
-		<link target="peer:command:ID_HELP_FORUMS_LOCAL" align="middle">Local Forums</link>
+		<icon res="175" width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
+		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">Local Forums</link>
 		<text align="middle">&#160;- Gå till din svenska språket diskussionsforum</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
@@ -1762,7 +1762,7 @@
 			<para align="center">
 				<text format="b">Inte ansluten</text>
 				<newline gap="4"/>
-				<link target="peer:command:ID_NETWORK_CONNECT">Klicka här för att ansluta</link>
+				<link target="command:ID_NETWORK_CONNECT">Klicka här för att ansluta</link>
 			</para>
 		</group>
 		<icon group="20" command="ID_NETWORK_G2"/>
@@ -1790,7 +1790,7 @@
 		<group id="2">
 			<para align="center">
 				<newline gap="2"/>
-				<link target="peer:command:ID_TAB_NETWORK">Nätverk Session</link>
+				<link target="command:ID_TAB_NETWORK">Nätverk Session</link>
 				<newline gap="2"/>
 				<text id="ConnectedHours" format="b">%i </text>
 				<text>timmar och </text>
@@ -1810,7 +1810,7 @@
 				<text>Du har inte laddat ned några ny filer på sistone.</text>
 				<newline gap="8"/>
 			</group>
-			<link target="peer:command:ID_VIEW_LIBRARY">Gå till bibliotek</link>
+			<link target="command:ID_VIEW_LIBRARY">Gå till bibliotek</link>
 			<newline gap="4"/>
 			<text id="LibraryFiles" format="b">%lu </text>
 			<text>filer (</text>
@@ -1824,10 +1824,10 @@
 				<newline gap="8"/>
 			</group>
 			<group id="3">
-				<link target="peer:command:ID_LIBRARY_HASH_PRIORITY">Klicka här för att granska filer fortare</link>
+				<link target="command:ID_LIBRARY_HASH_PRIORITY">Klicka här för att granska filer fortare</link>
 			</group>
 			<group id="4">
-				<link target="peer:command:ID_LIBRARY_HASH_PRIORITY">Klicka här för att granska filer långsammare</link>
+				<link target="command:ID_LIBRARY_HASH_PRIORITY">Klicka här för att granska filer långsammare</link>
 			</group>
 		</para>
 	</document>
@@ -1842,9 +1842,9 @@
 				<text>Du laddar inte ned några filer ännu.</text>
 				<newline gap="4"/>
 			</group>
-			<link id="DownloadsNone" target="peer:command:ID_VIEW_DOWNLOADS">Gå till nedladdningar</link>
-			<link id="DownloadsOne"  target="peer:command:ID_VIEW_DOWNLOADS" format="bu">1 nedladdning</link>
-			<link id="DownloadsMany" target="peer:command:ID_VIEW_DOWNLOADS" format="bu">%i nedladdningar</link>
+			<link id="DownloadsNone" target="command:ID_VIEW_DOWNLOADS">Gå till nedladdningar</link>
+			<link id="DownloadsOne"  target="command:ID_VIEW_DOWNLOADS" format="bu">1 nedladdning</link>
+			<link id="DownloadsMany" target="command:ID_VIEW_DOWNLOADS" format="bu">%i nedladdningar</link>
 			<newline gap="4"/>
 			<text id="DownloadedNone">No filer (</text>
 			<text id="DownloadedOne">1 fil (</text>
@@ -1861,8 +1861,8 @@
 		</styles>
 		<para align="center">
 			<text id="UploadsNone" format="b">Inga aktiva uppladdningar</text>
-			<link id="UploadsOne"  target="peer:command:ID_VIEW_UPLOADS" format="bu">1 aktiv uppladdning</link>
-			<link id="UploadsMany" target="peer:command:ID_VIEW_UPLOADS" format="bu">%i aktiva uppladdningar</link>
+			<link id="UploadsOne"  target="command:ID_VIEW_UPLOADS" format="bu">1 aktiv uppladdning</link>
+			<link id="UploadsMany" target="command:ID_VIEW_UPLOADS" format="bu">%i aktiva uppladdningar</link>
 			<newline gap="4"/>
 			<group id="1">
 				<text id="TorrentsOne">1 sådd torren</text>
@@ -1883,25 +1883,25 @@
 		<text format="b">Generellt -</text>
 		<text>sektionen relaterar till användarens upplevelse.</text>
 		<newline gap="16" indent="16"/>
-		<link target="peer:page:CGeneralSettingsPage" format="b">Generellt:</link>
+		<link target="page:CGeneralSettingsPage" format="b">Generellt:</link>
 		<text>&#160;Vanliga inställningar för användargränssnitt som verktygstips, minimeringsbeteende, nummerformat, dialogrutor etc.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CLibrarySettingsPage" format="b">Bibliotek:</link>
+		<link target="page:CLibrarySettingsPage" format="b">Bibliotek:</link>
 		<text>&#160;Presentation och hantering av ditt filbibliotek och öppna filer.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CMediaSettingsPage" format="b">Mediaspelare:</link>
+		<link target="page:CMediaSettingsPage" format="b">Mediaspelare:</link>
 		<text>&#160;När och var den inbyggda mediaspelaren ska användas.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CIRCSettingsPage" format="b">IRC:</link>
+		<link target="page:CIRCSettingsPage" format="b">IRC:</link>
 		<text>&#160;IRC chatroom connection settings and display options.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CCommunitySettingsPage" format="b">Gemenskap:</link>
+		<link target="page:CCommunitySettingsPage" format="b">Gemenskap:</link>
 		<text>&#160;Inställningar för din profil, chatt och direktmeddelanden.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CRemoteSettingsPage" format="b">Fjärråtkomst:</link>
+		<link target="page:CRemoteSettingsPage" format="b">Fjärråtkomst:</link>
 		<text>&#160;Sätt upp möjligheten att styra PeerProject från en annan plats genom en webbläsare.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CWebSettingsPage" format="b">Webb:</link>
+		<link target="page:CWebSettingsPage" format="b">Webb:</link>
 		<text>&#160;Integrera PeerProject med din webbläsare för att acceptera fildelningslänkar och ladda ned innehåll.</text>
 	</document>
 	<document name="CInternetSettingsGroup" title="Internet" leftMargin="8" topMargin="8">
@@ -1912,16 +1912,16 @@
 		<text format="b">Internet -</text>
 		<text>sektionen styr hur PeerProject förhåller sig till andra noder inom fildelningsnätverk.</text>
 		<newline gap="16" indent="16"/>
-		<link target="peer:page:CConnectionSettingsPage" format="b">Anslutning:</link>
+		<link target="page:CConnectionSettingsPage" format="b">Anslutning:</link>
 		<text>&#160;Hastighet och möjligheter hos din Internetanslutning.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CDownloadsSettingsPage" format="b">Nedladdningar:</link>
+		<link target="page:CDownloadsSettingsPage" format="b">Nedladdningar:</link>
 		<text>&#160;Nedladdningskapacitet, schemaläggning, verifikation, tidsavbrott och hantering.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CUploadsSettingsPage" format="b">Uppladdningar:</link>
+		<link target="page:CUploadsSettingsPage" format="b">Uppladdningar:</link>
 		<text>&#160;Uppladdningskapacitet, köläggning, utestängning, tidsavbrott och specialförfrågningar.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CSchedulerSettingsPage" format="b">Scheduler:</link>
+		<link target="page:CSchedulerSettingsPage" format="b">Scheduler:</link>
 		<text>&#160;Limit download connections based on a periodic schedule.</text>
 	</document>
 	<!-- Browse User Profile -->
@@ -2002,15 +2002,15 @@
 		<newline gap="40" indent="0"/>
 		<text format="b">Utdelade filer</text>
 		<newline gap="4" indent="8"/>
-		<icon res="137" target="peer:command:ID_BROWSE_FILES"/><gap size="5"/>
-		<link target="peer:command:ID_BROWSE_FILES" align="middle">Visa utdelade filer</link>
+		<icon res="137" target="command:ID_BROWSE_FILES"/><gap size="5"/>
+		<link target="command:ID_BROWSE_FILES" align="middle">Visa utdelade filer</link>
 		<group id="2">
 			<newline gap="16" indent="0"/>
 			<text format="b">Gemenskap</text>
 			<newline gap="4" indent="8"/>
-			<icon res="140" target="peer:command:ID_SEARCH_CHAT"/>
+			<icon res="140" target="command:ID_SEARCH_CHAT"/>
 			<gap size="5"/>
-			<link target="peer:command:ID_SEARCH_CHAT" align="middle">Chatta med användaren</link>
+			<link target="command:ID_SEARCH_CHAT" align="middle">Chatta med användaren</link>
 		</group>
 		<group id="3">
 			<newline gap="16" indent="0"/>
@@ -2574,10 +2574,10 @@
 	<tip id="ID_WEBSERVICES_LIST" message="Välj webbtjänsten för att ta reda på mer information om den valda filen."/>
 	<tip id="ID_WEBSERVICES_SHAREMONKEY" message="Sök efter filinformation med tjänsten ShareMonkey."/>
 	<!-- PLUGIN TIPS -->
-	<tip id="ImageViewer_BestFit" message="Anpassa bilden till fönstrets storlek."/>
-	<tip id="ImageViewer_ActualSize" message="Visa bilden i originalstorlek."/>
-	<tip id="ImageViewer_Refresh" message="Uppdatera bilden."/>
-	<tip id="ImageViewer_Close" message="Stäng bildvisningsfönstret."/>
+	<tip id="PluginID_ImageViewer_BestFit" message="Anpassa bilden till fönstrets storlek."/>
+	<tip id="PluginID_ImageViewer_FullSize" message="Visa bilden i originalstorlek."/>
+	<tip id="PluginID_ImageViewer_Refresh" message="Uppdatera bilden."/>
+	<tip id="PluginID_ImageViewer_Close" message="Stäng bildvisningsfönstret."/>
 </commandTips>
 <!-- Tips displayed when mouse is moved over controls in the dialogs -->
 <controlTips>
@@ -2695,26 +2695,26 @@
 	<string id="8180" value="Storleken Min:"/>
 	<string id="8181" value="Storleken Max:"/>
 	<string id="8208" value="PeerProject granskar %Iu filer:"/>
-	<string id="8223" value="%i dagar och %i timmar"/>
-	<string id="8224" value="PeerProject laddar ned:"/>
-	<string id="8225" value="Denna nedladdning är pausad:"/>
+<!--	<string id="8221" value="PeerProject söker efter källor för:"/>
+	<string id="8222" value="PeerProject laddar ned:"/>
+	<string id="8223" value="Denna nedladdning är pausad:"/>
+	<string id="8224" value="PeerProject flyttar nedladdningen:"/>
+	<string id="8225" value="PeerProject kontrollerar nedladdningen efter fil:"/>
 	<string id="8226" value="PeerProject har fullständigt laddat ned:"/>
-	<string id="8227" value="%i timmar och %i minuter"/>
-	<string id="8228" value="%i minuter och %i sekunder"/>
-	<string id="8229" value="%i sekunder"/>
-	<string id="8230" value="PeerProject söker efter källor för:"/>
+-->	<string id="8227" value="%i dagar och %i timmar"/>
+	<string id="8228" value="%i timmar och %i minuter"/>
+	<string id="8229" value="%i minuter och %i sekunder"/>
+	<string id="8230" value="%i sekunder"/>
 	<string id="8231" value="Inga källor"/>
 	<string id="8232" value="Öppna"/>
 	<string id="8233" value="Avbryt"/>
 	<string id="8235" value="Total överföringsfart:"/>
 	<string id="8236" value="Beräknad återstående tid:"/>
 	<string id="8237" value="Nedladdad volym:"/>
-	<string id="8238" value="Antal källor:"/>
+	<string id="8238" value="Uppladdad volym:"/>
 	<string id="8239" value="Färdig"/>
-	<string id="8240" value="PeerProject flyttar nedladdningen:"/>
-	<string id="8241" value="PeerProject kontrollerar nedladdningen efter fil:"/>
-	<string id="8243" value="Uppladdad volym:"/>
-	<string id="8244" value="Antal recensioner:"/>
+	<string id="8240" value="Antal källor:"/>
+	<string id="8241" value="Antal recensioner:"/>
 	<string id="8288" value="Utforska ditt PeerProjectbibliotek"/>
 	<string id="8289" value="Utforskar"/>
 	<string id="8290" value="Utforskar innehåller av %i mappar"/>
@@ -2826,6 +2826,7 @@
 	<string id="16211" value="Grannen %s skickade vidare en anslutningsbegäran till en adress bakom brandvägg, ignorerar."/>
 	<string id="16212" value="Grannen %s skickade vidare ett utökat paket som inte är GGEP-kodat."/>
 	<string id="16213" value="Skickar frågeroutingtabell till grannen %s (%i bitar = %lu[%i], %i%% full)"/>
+	<string id="16254" value="Standard nedladdning grupp. (Visa alla filer)"/>
 	<string id="16255" value="Dra och släpp filer till %s gruppen"/>
 	<string id="16256" value="Lade till &quot;%s&quot; till nedladdningslistan med %i källor."/>
 	<string id="16257" value="Fullständig nedladdning av &quot;%s&quot;."/>
@@ -3220,7 +3221,7 @@
 	<string id="18510" value="Är du säker på att du vill anta att nedladdningen är färdig och återverifiera den? Hela filen kommer att granskas och PeerProject kommer att acceptera godkänta delar och ladda ned ej godkända delar igen."/>
 	<string id="18511" value="Du har ndrat filstorleken. Är du säker på att du vill ändra filstorleken för den här nedladdningen?"/>
 	<string id="19000" value="Fjärråtkomst är avstängd."/>
-	<string id="19001" value="Du måste välja ett användarnamn och lösenord."/>
+	<string id="19001" value="http://%s:%i/remote - välja ett användarnamn och lösenord."/>
 	<string id="19002" value="Kan inte acceptera anslutningar. URL otillgänlig."/>
 	<string id="20000" value="Ingen URN tillgänglig"/>
 	<string id="20001" value="Stng"/>
@@ -3299,6 +3300,7 @@
 	<string id="20236" value="Betyg"/>
 	<string id="20237" value="OK"/>
 	<string id="20238" value="Avbryt"/>
+	<string id="20245" value="Ny Mapp"/>
 </strings>
 <!-- Localized Dialog Text, "cookie" verifies that the skin matches current dialog -->
 <dialogs>
@@ -4031,7 +4033,7 @@
 		<control caption="Visa"/>
 		<control caption="Avbryt"/>
 		<control caption="Stäng"/>
-		<control caption="Stäng detta fönster när nedladdningen är klar"/>
+		<control caption="Auto"/>
 	</dialog>
 	<dialog name="CFileGeneralPage" cookie="EdStStStStStEdEdEdEdEdStEdEdEdEd" caption="Generellt">
 		<control/>
@@ -4208,11 +4210,11 @@
 		<control/>
 		<control caption="Avbryt"/>
 	</dialog>
-	<dialog name="CURLActionDlg" cookie="StStStStStEdStEdStBuBuBuBuBuSt" caption="PeerProject URI-hanterare">
-		<control/>
+	<dialog name="CURLActionDlg" cookie="StStStStStStEdStEdStBuBuBuBuBu" caption="PeerProject URI-hanterare">
 		<control caption="Du har klickat på en PeerProject-URI som länkar till följande innehåll på nätverket:"/>
 		<control caption="Du har klickat på en PeerProject-URI som kommer att ansluta dig till följande värd eller server:"/>
 		<control caption="Du har klickat på en PeerProject-URI som tillåter dig att visa de utdelade filer tillgängliga hos denna värd:"/>
+		<control caption="Du har klickat på en PeerProject-URI som kommer att lägga till följande upptäckstjänst till din cache över upptäckstjänster."/>
 		<control/>
 		<control/>
 		<control/>
@@ -4223,11 +4225,10 @@
 		<control caption="Avbryt"/>
 		<control caption="_Kom ihåg mitt val till nästa gång"/>
 		<control caption="Öppna en nedladdningsmonitor"/>
-		<control caption="Du har klickat på en PeerProject-URI som kommer att lägga till följande upptäckstjänst till din cache över upptäckstjänster."/>
 	</dialog>
 	<dialog name="CBitziDownloadDlg" cookie="StStmsBuSySt" caption="Ladda ned metadata…">
 		<control/>
-		<control caption="PeerProject försöker ladda ned metadata från Bitzi(TM)…"/>
+		<control caption="PeerProject försöker ladda ned metadata från Bitzi…"/>
 		<control/>
 		<control caption="Avbryt"/>
 		<control/>

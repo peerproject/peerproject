@@ -48,9 +48,10 @@ public:
 // Attributes
 protected:
 	CUploadFile*		m_pUploadFile;
-	CString				m_sAddress;
 	CLineGraph*			m_pGraph;
 	CGraphItem*			m_pItem;
+	CString				m_sAddress;
+	CString				m_sSeedsPeers;
 	CRect				m_rcUpdateText;
 	int					m_nHeaderWidth;
 	CArray< CString >	m_pHeaderName;

@@ -148,8 +148,7 @@ BOOL CQueuePropertiesDlg::OnInitDialog()
 	// Replace with the skin images (if fails old images remain)
 	for ( int nImage = 1 ; nImage < 7 ; nImage++ )
 	{
-		HICON hIcon = CoolInterface.ExtractIcon( (UINT)protocolCmdMap[ nImage ].commandID, FALSE );
-		if ( hIcon )
+		if ( HICON hIcon = CoolInterface.ExtractIcon( (UINT)protocolCmdMap[ nImage ].commandID, FALSE ) )
 		{
 			m_gdiProtocols.Replace( nImage, hIcon );
 			DestroyIcon( hIcon );
@@ -199,10 +198,10 @@ BOOL CQueuePropertiesDlg::OnInitDialog()
 	m_bMaxSize = m_pQueue->m_nMaxSize < SIZE_UNKNOWN;
 	m_sMaxSize = Settings.SmartVolume( m_bMaxSize ? m_pQueue->m_nMaxSize : 0 );
 
-	m_bMarked = ( m_pQueue->m_sShareTag.GetLength() > 0 );
+	m_bMarked = ( ! m_pQueue->m_sShareTag.IsEmpty() );
 	m_sMarked = m_pQueue->m_sShareTag;
 
-	m_bMatch = ( m_pQueue->m_sNameMatch.GetLength() > 0 );
+	m_bMatch = ( ! m_pQueue->m_sNameMatch.IsEmpty() );
 	m_sMatch = m_pQueue->m_sNameMatch;
 
 	m_bProtocols = ( m_pQueue->m_nProtocols != 0 );
@@ -251,7 +250,6 @@ BOOL CQueuePropertiesDlg::OnInitDialog()
 	m_wndRotateTimeSpin.EnableWindow( m_bRotate );
 	m_wndCapacity.SetRange32( static_cast< int >( m_nTransfersMax ), 4096 );
 	OnHScroll( 0, 0, NULL );
-
 
 	if ( Settings.General.GUIMode == GUI_BASIC )
 	{

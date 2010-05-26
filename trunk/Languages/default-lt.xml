@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Lithuanian Skin File -->
 
-<!-- Translation based on default-en.xml r54 -->
+<!-- Translation based on default-en.xml r55 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -448,12 +448,12 @@
 	</toolbar>
 	<!-- IMAGE VIEWER PLUGIN WINDOW -->
 	<toolbar name="ImageViewerWnd">
-		<button id="ImageViewer_BestFit" text="Geriausias dydis"/>
-		<button id="ImageViewer_ActualSize" text="Tikras dydis"/>
+		<button id="PluginID_ImageViewer_BestFit" text="Geriausias dydis"/>
+		<button id="PluginID_ImageViewer_FullSize" text="Tikras dydis"/>
 		<separator/>
-		<button id="ImageViewer_Refresh" text="Atnaujinti"/>
+		<button id="PluginID_ImageViewer_Refresh" text="Atnaujinti"/>
 		<rightAlign/>
-		<button id="ImageViewer_Close" text="Užverti"/>
+		<button id="PluginID_ImageViewer_Close" text="Užverti"/>
 	</toolbar>
 </toolbars>
 <!-- Menu Definitions -->
@@ -1638,12 +1638,12 @@
 	</menu>
 	<!-- PLUGIN MENUS -->
 	<menu name="ImageViewer_Context">
-		<item id="ImageViewer_BestFit" text="_Geriausias dydis"/>
-		<item id="ImageViewer_ActualSize" text="_Tikras dydis"/>
+		<item id="PluginID_ImageViewer_BestFit" text="_Geriausias dydis"/>
+		<item id="PluginID_ImageViewer_FullSize" text="_Tikras dydis"/>
 		<separator/>
-		<item id="ImageViewer_Refresh" text="_Atnaujinti"/>
+		<item id="PluginID_ImageViewer_Refresh" text="_Atnaujinti"/>
 		<separator/>
-		<item id="ImageViewer_Close" text="_Užverti"/>
+		<item id="PluginID_ImageViewer_Close" text="_Užverti"/>
 	</menu>
 	<!-- IRC WINDOW -->
 	<menu name="CIRCTabRClick">
@@ -1694,28 +1694,28 @@
 		<anchor id="Header" width="32" height="152"/>
 		<newline gap="0"/>
 		<group id="1">
-			<icon res="130" width="32" height="32" target="peer:command:ID_NETWORK_CONNECT"/><gap size="8"/>
+			<icon res="130" width="32" height="32" target="command:ID_NETWORK_CONNECT"/><gap size="8"/>
 			<heading align="middle">PRISIJUNKITE</heading>
 			<newline gap="8" indent="42"/>
 			<text>Sveiki, „PeerProject“ naudotojau!</text>
 			<newline gap="8" indent="42"/>
 			<text>Jūs šiuo metu nesate prijungę prie jokio lygiaverčio susijungimo tinklo. &#160;</text>
-			<link target="peer:command:ID_NETWORK_CONNECT">Startuokite paspaudę čia!</link>
+			<link target="command:ID_NETWORK_CONNECT">Startuokite paspaudę čia!</link>
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="2">
-			<icon res="134" width="32" height="32" target="peer:command:ID_TAB_SEARCH"/><gap size="8"/>
+			<icon res="134" width="32" height="32" target="command:ID_TAB_SEARCH"/><gap size="8"/>
 			<heading align="middle">IEŠKOTI FAILO</heading>
 			<newline gap="8" indent="42"/>
 			<anchor id="SearchBox" width="256" height="80"/>
 			<newline gap="14" indent="0"/>
-			<icon res="136" width="32" height="32" target="peer:command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
+			<icon res="136" width="32" height="32" target="command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
 			<heading align="middle">PRADĖTI SIŲSTIS</heading>
 			<newline gap="8" indent="42"/>
-			<link target="peer:command:ID_TOOLS_DOWNLOAD" format="bu">Paspauskite čia</link>
+			<link target="command:ID_TOOLS_DOWNLOAD" format="bu">Paspauskite čia</link>
 			<text>, jei norite pradėti siųstis failą ar torentą.</text>
 			<newline gap="2" indent="42"/>
-			<link target="peer:shell:downloads">Atverti atsisiuntimų katalogą.</link>
+			<link target="command:shell:downloads">Atverti atsisiuntimų katalogą.</link>
 			<newline gap="20" indent="0"/>
 		</group>
 		<group id="3">
@@ -1724,18 +1724,18 @@
 			<newline gap="8" indent="42"/>
 			<text id="Upgrade"/>
 			<newline gap="6"/>
-			<link target="peer:upgrade">Atnaujinkite paspaudę čia</link>
+			<link target="command:upgrade">Atnaujinkite paspaudę čia</link>
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="4">
-			<icon res="252" width="32" height="32" target="peer:command:ID_TOOLS_WIZARD"/><gap size="8"/>
+			<icon res="252" width="32" height="32" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 			<heading align="middle">ĮSPĖJIMAS: JŪS ESATE UŽ UŽKARDOS</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">„PeerProject“ nustatė, kad jūs esate už NAT maršrutizatoriaus ar užkardos,
 			ir negali priimti susijungimų iš Interneto. &#160;</text>
 			<text color="FF0000" format="b">Tai gali sumažinti atsisiuntimų našumą.</text>
 			<newline gap="6"/>
-			<link target="peer:command:ID_HELP_ROUTER">Paspauskite čia, jei norite sužinoti, kaip suderinti savo maršrutizatorių ar užkardą</link>
+			<link target="command:ID_HELP_ROUTER">Paspauskite čia, jei norite sužinoti, kaip suderinti savo maršrutizatorių ar užkardą</link>
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="6">
@@ -1746,7 +1746,7 @@
 			ir negali priimti TCP susijungimų iš Interneto. &#160;</text>
 			<text color="FF0000" format="b">Tai gali sumažinti atsisiuntimų našumą.</text>
 			<newline gap="6"/>
-			<link target="peer:command:ID_HELP_ROUTER">Paspauskite čia, jei norite sužinoti, kaip suderinti savo maršrutizatorių ar užkardą</link>
+			<link target="command:ID_HELP_ROUTER">Paspauskite čia, jei norite sužinoti, kaip suderinti savo maršrutizatorių ar užkardą</link>
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="7">
@@ -1757,31 +1757,31 @@
 			ir negali priimti UDP susijungimų iš Interneto. &#160;</text>
 			<text color="FF0000" format="b">Tai gali sumažinti atsisiuntimų našumą.</text>
 			<newline gap="6"/>
-			<link target="peer:command:ID_HELP_ROUTER">Paspauskite čia, jei norite sužinoti, kaip suderinti savo maršrutizatorių ar užkardą</link>
+			<link target="command:ID_HELP_ROUTER">Paspauskite čia, jei norite sužinoti, kaip suderinti savo maršrutizatorių ar užkardą</link>
 			<newline gap="18" indent="0"/>
 		</group>
-		<icon res="128" width="32" height="32" target="peer:command:ID_TOOLS_SETTINGS"/><gap size="8"/>
+		<icon res="128" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">PRISITAIKYKITE SAU „PEERPROJECT“</heading>
 		<newline gap="12" indent="42"/>
-		<icon res="182" width="16" height="16" target="peer:command:ID_TOOLS_SKIN"/><gap size="8"/>
-		<link target="peer:command:ID_TOOLS_SKIN" align="middle" format="bu">Apvalkalai</link>
+		<icon res="182" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
+		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">Apvalkalai</link>
 		<text align="middle">&#160;- Pakeiskite „PeerProject“ išvaizdą</text>
 		<newline gap="8"/>
-		<icon res="141" width="16" height="16" target="peer:command:ID_VIEW_SECURITY"/><gap size="8"/>
-		<link target="peer:command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
+		<icon res="141" width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
+		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
 		<text align="middle">&#160;- Update blocklist to avoid bad search results</text>
 		<newline gap="8"/>
-		<icon res="317" width="16" height="16" target="peer:command:ID_TOOLS_WIZARD"/><gap size="8"/>
-		<link target="peer:command:ID_TOOLS_WIZARD" align="middle">Nuostatų vedlys</link>
+		<icon res="317" width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
+		<link target="command:ID_TOOLS_WIZARD" align="middle">Nuostatų vedlys</link>
 		<text align="middle">&#160;- Taisykite „PeerProject“ nuostatas</text>
 		<newline gap="8"/>
-		<icon res="147" width="16" height="16" target="peer:command:ID_HELP_FAQ"/><gap size="8"/>
-		<link target="peer:command:ID_HELP_FAQ" align="middle">Trumpas žinynas</link>
+		<icon res="147" width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
+		<link target="command:ID_HELP_FAQ" align="middle">Trumpas žinynas</link>
 		<text align="middle">&#160;- Sužinokite esminius dalykus apie „PeerProject“ or </text>
-		<link target="peer:command:ID_TAB_IRC" align="middle">IRC.</link>
+		<link target="command:ID_TAB_IRC" align="middle">IRC.</link>
 		<newline gap="8"/>
-		<icon res="175" width="16" height="16" target="peer:command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
-		<link target="peer:command:ID_HELP_FORUMS_LOCAL" align="middle">Vietinis Forumai</link>
+		<icon res="175" width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
+		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">Vietinis Forumai</link>
 		<text align="middle">&#160;- Eikite į Lietuvių kalbą diskusijų forumas</text>
 		<newline gap="8"/>
 		<icon res="147" width="16" height="16"/><gap size="8"/>
@@ -1812,7 +1812,7 @@
 			<para align="center">
 				<text format="b">Nesate prisijungę</text>
 				<newline gap="4"/>
-				<link target="peer:command:ID_NETWORK_CONNECT">Prisijungti</link>
+				<link target="command:ID_NETWORK_CONNECT">Prisijungti</link>
 			</para>
 		</group>
 		<icon group="20" command="ID_NETWORK_G2"/>
@@ -1860,7 +1860,7 @@
 				<text>Jūs kol kas nesate atsisiuntę jokių failų.</text>
 				<newline gap="8"/>
 			</group>
-			<link target="peer:command:ID_VIEW_LIBRARY">Eiti į savo kolekciją</link>
+			<link target="command:ID_VIEW_LIBRARY">Eiti į savo kolekciją</link>
 			<newline gap="4"/>
 			<text id="LibraryFiles" format="b">%lu</text>
 			<text>failų (</text>
@@ -1874,10 +1874,10 @@
 				<newline gap="8"/>
 			</group>
 			<group id="3">
-				<link target="peer:command:ID_LIBRARY_HASH_PRIORITY">Skaičiuoti maišas sparčiau</link>
+				<link target="command:ID_LIBRARY_HASH_PRIORITY">Skaičiuoti maišas sparčiau</link>
 			</group>
 			<group id="4">
-				<link target="peer:command:ID_LIBRARY_HASH_PRIORITY">Skaičiuoti maišas lėčiau</link>
+				<link target="command:ID_LIBRARY_HASH_PRIORITY">Skaičiuoti maišas lėčiau</link>
 			</group>
 		</para>
 	</document>
@@ -1892,9 +1892,9 @@
 				<text>Jūs kol kas nesisiunčiate jokių failų.</text>
 				<newline gap="4"/>
 			</group>
-			<link id="DownloadsNone" target="peer:command:ID_VIEW_DOWNLOADS">Eiti į atsisiuntimus</link>
-			<link id="DownloadsOne" target="peer:command:ID_VIEW_DOWNLOADS" format="bu">Eiti į atsisiuntimą (1)</link>
-			<link id="DownloadsMany" target="peer:command:ID_VIEW_DOWNLOADS" format="bu">Eiti į atsisiuntimus (%i)</link>
+			<link id="DownloadsNone" target="command:ID_VIEW_DOWNLOADS">Eiti į atsisiuntimus</link>
+			<link id="DownloadsOne" target="command:ID_VIEW_DOWNLOADS" format="bu">Eiti į atsisiuntimą (1)</link>
+			<link id="DownloadsMany" target="command:ID_VIEW_DOWNLOADS" format="bu">Eiti į atsisiuntimus (%i)</link>
 			<newline gap="4"/>
 			<text id="DownloadedNone">No failų (</text>
 			<text id="DownloadedOne">1 failą (</text>
@@ -1911,8 +1911,8 @@
 		</styles>
 		<para align="center">
 			<text id="UploadsNone" format="b">Nėra aktyvių išsiuntimų</text>
-			<link id="UploadsOne" target="peer:command:ID_VIEW_UPLOADS" format="bu">1 aktyvus išsiuntimas</link>
-			<link id="UploadsMany" target="peer:command:ID_VIEW_UPLOADS" format="bu">%i aktyvūs išsiuntimai(-ų)</link>
+			<link id="UploadsOne" target="command:ID_VIEW_UPLOADS" format="bu">1 aktyvus išsiuntimas</link>
+			<link id="UploadsMany" target="command:ID_VIEW_UPLOADS" format="bu">%i aktyvūs išsiuntimai(-ų)</link>
 			<newline gap="4"/>
 			<group id="1">
 				<text id="TorrentsOne">Skleidžiamas 1 failas</text>
@@ -1934,25 +1934,25 @@
 		<text format="b">Bendra </text>
 		<text>tereikia turėti tik patirties.</text>
 		<newline gap="16" indent="16"/>
-		<link target="peer:page:CGeneralSettingsPage" format="b">Bendra:</link>
+		<link target="page:CGeneralSettingsPage" format="b">Bendra:</link>
 		<text>&#160;Bendros naudotojo sąsajos nuostatos tokios, kaip patarimų kortelės, lango sumažinimo elgesys, skaičių formatai, užuominos ir t.t.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CLibrarySettingsPage" format="b">Kolekcija:</link>
+		<link target="page:CLibrarySettingsPage" format="b">Kolekcija:</link>
 		<text>&#160;Failų kolekcijos pateiktis ir valdymas bei failų atvėrimas.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CMediaSettingsPage" format="b">Grotuvas:</link>
+		<link target="page:CMediaSettingsPage" format="b">Grotuvas:</link>
 		<text>&#160;Kada ir kur naudoti įmontuotą „PeerProject“ Grotuvo Centrą.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CIRCSettingsPage" format="b">Pokalbiai:</link>
+		<link target="page:CIRCSettingsPage" format="b">Pokalbiai:</link>
 		<text>&#160;IRC pokalbių kanalų išvaizda ir susijugimo nuostatos.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CCommunitySettingsPage" format="b">Bendrija:</link>
+		<link target="page:CCommunitySettingsPage" format="b">Bendrija:</link>
 		<text>&#160;Jūsų profilio, pokalbių ir skubiųjų žinučių nuostatos.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CRemoteSettingsPage" format="b">Nuotolinė prieiga:</link>
+		<link target="page:CRemoteSettingsPage" format="b">Nuotolinė prieiga:</link>
 		<text>&#160;Įjunkite nuotolinio „PeerProject“ programos valdymo, naudojantis naršykle, galimybę.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CWebSettingsPage" format="b">Žiniatinklis:</link>
+		<link target="page:CWebSettingsPage" format="b">Žiniatinklis:</link>
 		<text>&#160;„PeerProject“ integravimas į Jūsų naršyklę, siekiant priimti lygiaverčio susijungimo tinklo nuorodas ir parsisiuntimo vertus failus.</text>
 	</document>
 	<document name="CInternetSettingsGroup" title="Internetas" leftMargin="8" topMargin="8">
@@ -1964,16 +1964,16 @@
 		<text>leidžia kontroliuoti, kaip „PeerProject“ sąveikauja su kitais adresatais lygiaverčio susijungimo
 			tinkluose.</text>
 		<newline gap="16" indent="16"/>
-		<link target="peer:page:CConnectionSettingsPage" format="b">Ryšys:</link>
+		<link target="page:CConnectionSettingsPage" format="b">Ryšys:</link>
 		<text>&#160;Jūsų interneto ryšio sparta ir pajėgumai.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CDownloadsSettingsPage" format="b">Atsisiuntimai:</link>
+		<link target="page:CDownloadsSettingsPage" format="b">Atsisiuntimai:</link>
 		<text>&#160;Atsisiuntimo greitaveika, planavimas, patikra, uždelstis ir valdymas.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CUploadsSettingsPage" format="b">Išsiuntimai:</link>
+		<link target="page:CUploadsSettingsPage" format="b">Išsiuntimai:</link>
 		<text>&#160;Išsiuntimo pajėgumo, eilių, prieigos užkirtimo, uždelsties ir specialiųjų užklausų valdymas.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CSchedulerSettingsPage" format="b">Planuotojas:</link>
+		<link target="page:CSchedulerSettingsPage" format="b">Planuotojas:</link>
 		<text>&#160;Ribokite atsisiuntimų ryšį pagal tvarkaraštį.</text>
 	</document>
 	<!-- Browse User Profile -->
@@ -2054,15 +2054,15 @@
 		<newline gap="40" indent="0"/>
 		<text format="b">Bendrinti failai</text>
 		<newline gap="4" indent="8"/>
-		<icon res="137" target="peer:command:ID_BROWSE_FILES"/><gap size="5"/>
-		<link target="peer:command:ID_BROWSE_FILES" align="middle">Peržvelgti bendrintus failus</link>
+		<icon res="137" target="command:ID_BROWSE_FILES"/><gap size="5"/>
+		<link target="command:ID_BROWSE_FILES" align="middle">Peržvelgti bendrintus failus</link>
 		<group id="2">
 			<newline gap="16" indent="0"/>
 			<text format="b">Bendrija</text>
 			<newline gap="4" indent="8"/>
-			<icon res="140" target="peer:command:ID_SEARCH_CHAT"/>
+			<icon res="140" target="command:ID_SEARCH_CHAT"/>
 			<gap size="5"/>
-			<link target="peer:command:ID_SEARCH_CHAT" align="middle">Kalbėtis su naudotoju</link>
+			<link target="command:ID_SEARCH_CHAT" align="middle">Kalbėtis su naudotoju</link>
 		</group>
 		<group id="3">
 			<newline gap="16" indent="0"/>
@@ -2627,10 +2627,10 @@
 	<tip id="ID_WEBSERVICES_LIST" message="Pasirinkite paslaugą internete ir gaukite daugiau informacijos apie pasirinktą failą."/>
 	<tip id="ID_WEBSERVICES_SHAREMONKEY" message="Ieškokite failo informacijos naudodamiesi ShareMonkey tarnyba."/>
 	<!-- PLUGIN TIPS -->
-	<tip id="ImageViewer_BestFit" message="Keisti paveikslėlio dydį, kad tilptų į langą."/>
-	<tip id="ImageViewer_ActualSize" message="Rodyti natūralaus dydžio paveikslėlį."/>
-	<tip id="ImageViewer_Refresh" message="Atnaujinti paveikslėlį."/>
-	<tip id="ImageViewer_Close" message="Užverti pavekslėlių žiūryklės langą."/>
+	<tip id="PluginID_ImageViewer_BestFit" message="Keisti paveikslėlio dydį, kad tilptų į langą."/>
+	<tip id="PluginID_ImageViewer_FullSize" message="Rodyti natūralaus dydžio paveikslėlį."/>
+	<tip id="PluginID_ImageViewer_Refresh" message="Atnaujinti paveikslėlį."/>
+	<tip id="PluginID_ImageViewer_Close" message="Užverti pavekslėlių žiūryklės langą."/>
 </commandTips>
 <!-- Tips displayed when mouse is moved over controls in the dialogs -->
 <controlTips>
@@ -2751,26 +2751,26 @@
 	<string id="8180" value="Failo dydis min:"/>
 	<string id="8181" value="Failo dydis max:"/>
 	<string id="8208" value="„PeerProject“ kuria maišą (tapatyb. kodą) failui (liko %Iu):"/>
-	<string id="8223" value="%i d. ir %i val."/>
-	<string id="8224" value="„PeerProject“ siunčiasi:"/>
-	<string id="8225" value="Šio failo parsisiuntimas pristabdytas:"/>
+<!--	<string id="8221" value="„PeerProject“ ieško šaltinių failui(-ams):"/>
+	<string id="8222" value="„PeerProject“ siunčiasi:"/>
+	<string id="8223" value="Šio failo parsisiuntimas pristabdytas:"/>
+	<string id="8224" value="„PeerProject“ perkelia parsisiųstą failą:"/>
+	<string id="8225" value="„PeerProject“ ieško klaidų parsisiųstame faile:"/>
 	<string id="8226" value="„PeerProject“ baigė parsisiųsti:"/>
-	<string id="8227" value="%i val. ir %i min."/>
-	<string id="8228" value="%i min. ir %i sek."/>
-	<string id="8229" value="%i sek."/>
-	<string id="8230" value="„PeerProject“ ieško šaltinių failui(-ams):"/>
+-->	<string id="8227" value="%i d. ir %i val."/>
+	<string id="8228" value="%i val. ir %i min."/>
+	<string id="8229" value="%i min. ir %i sek."/>
+	<string id="8230" value="%i sek."/>
 	<string id="8231" value="Šaltinių nėra"/>
 	<string id="8232" value="Atverti"/>
 	<string id="8233" value="Atšaukti"/>
 	<string id="8235" value="Visuminė sparta:"/>
 	<string id="8236" value="Apytiksl. likę laiko:"/>
 	<string id="8237" value="Atsisiunt. apimtis:"/>
-	<string id="8238" value="Šaltinių skaičius:"/>
+	<string id="8238" value="Išsiunt. santykis:"/>
 	<string id="8239" value="Baigta"/>
-	<string id="8240" value="„PeerProject“ perkelia parsisiųstą failą:"/>
-	<string id="8241" value="„PeerProject“ ieško klaidų parsisiųstame faile:"/>
-	<string id="8243" value="Išsiunt. santykis:"/>
-	<string id="8244" value="Apžvalgų skaičius:"/>
+	<string id="8240" value="Šaltinių skaičius:"/>
+	<string id="8241" value="Apžvalgų skaičius:"/>
 	<string id="8288" value="Naršoma Jūsų „PeerProject“ kolekcija"/>
 	<string id="8289" value="Naršomas"/>
 	<string id="8290" value="Naršomas %i aplankų turinys"/>
@@ -2882,6 +2882,7 @@
 	<string id="16211" value="Kaimynas adresu %s persiuntė įstūmiančiojo susijungimo užklausą adresatui už užkardos, ignoruojama."/>
 	<string id="16212" value="Kaimynas adresu %s persiuntė pernelyg išplėstą paketą, kuris nėra užkoduotas pagal GGEP protokolą."/>
 	<string id="16213" value="Siunčiama užklausos maršruto lentelė kaimynui %s (%i bitų = %lu[%i], %i%% užimtumas)"/>
+	<string id="16254" value="Numatytoji grupė. (Rodyti visus failus)"/>
 	<string id="16255" value="Drag'n'drop failus %s grupės"/>
 	<string id="16256" value="Adresatas „%s“ įtrauktas į parsisiuntimo eilę su %i šaltinių(-iais)."/>
 	<string id="16257" value="„%s“ parsisiuntimas užbaigtas."/>
@@ -3282,7 +3283,7 @@
 	<string id="18510" value="Ar tikrai norite nustatyti, kad šio failo parsisiuntimas baigtas ir atlikti jos patikrą? Bus peržiūrimas visas failas, ir „PeerProject“ priims tas dalis, kurios praeis patikrą, o tas dalis, kurios nepraeis patikros, atsiųs iš naujo."/>
 	<string id="18511" value="Jūs pakeitėte failo dydį. Ar tikrai norite jį pakeisti šiam parsisiunčiamam failui?"/>
 	<string id="19000" value="Nuotolinė prieiga neįgalinta."/>
-	<string id="19001" value="Jūs privalote įrašyti naudotojo vardą ir slaptažodį."/>
+	<string id="19001" value="http://%s:%i/remote - įrašyti naudotojo vardą ir slaptažodį."/>
 	<string id="19002" value="Neįmanoma priimti susijungimų, nuoroda nepasiekiama."/>
 	<string id="20000" value="Nėra universalių šaltinių vardų."/>
 	<string id="20001" value="Užverti"/>
@@ -3361,6 +3362,7 @@
 	<string id="20236" value="Įvertinimas"/>
 	<string id="20237" value="Gerai"/>
 	<string id="20238" value="Atšaukti"/>
+	<string id="20245" value="Naujas Aplankas"/>
 </strings>
 <!-- Localized Dialog Text, "cookie" verifies that the skin matches current dialog -->
 <dialogs>
@@ -4093,7 +4095,7 @@
 		<control caption="Rodyti kolekciją"/>
 		<control caption="Atšaukti siuntimą"/>
 		<control caption="Slėpti"/>
-		<control caption="Užverti šį langą, kai parsisiuntimas bus baigtas"/>
+		<control caption="Auto"/>
 	</dialog>
 	<dialog name="CFileGeneralPage" cookie="EdStStStStStEdEdEdEdEdStEdEdEdEd" caption="Bendra">
 		<control/>
@@ -4270,11 +4272,11 @@
 		<control/>
 		<control caption="Atšaukti"/>
 	</dialog>
-	<dialog name="CURLActionDlg" cookie="StStStStStEdStEdStBuBuBuBuBuSt" caption="„PeerProject“ nuorodų tvarkytuvė">
-		<control/>
+	<dialog name="CURLActionDlg" cookie="StStStStStStEdStEdStBuBuBuBuBu" caption="„PeerProject“ nuorodų tvarkytuvė">
 		<control caption="Jūs paspaudėte su „PeerProject“ susietą nuorodą, kuri nukreipia į šį failą tinkle:"/>
 		<control caption="Jūs paspaudėte su „PeerProject“ susietą nuorodą, kuri sujungs Jus su šiuo kompiuteriu ar serveriu:"/>
 		<control caption="Jūs paspaudėte su „PeerProject“ susietą nuorodą, kuri leis peržiūrėti failus, esančius šiame kompiuteryje:"/>
+		<control caption="Jūs paspaudėte su „PeerProject“ susietą nuorodą, kuri pridės šią paslaugų radimo tarnybą į Jūsų tarnybų talpyklą."/>
 		<control/>
 		<control/>
 		<control/>
@@ -4285,11 +4287,10 @@
 		<control caption="_Atšaukti"/>
 		<control caption="_Prisiminti pasirinkimą sekantį kartą"/>
 		<control caption="Stebėti parsisiuntimą _monitoriuje"/>
-		<control caption="Jūs paspaudėte su „PeerProject“ susietą nuorodą, kuri pridės šią paslaugų radimo tarnybą į Jūsų tarnybų talpyklą."/>
 	</dialog>
 	<dialog name="CBitziDownloadDlg" cookie="StStmsBuSySt" caption="Parsiunčiami meta duomenys...">
 		<control/>
-		<control caption="„PeerProject“ mėgina parsiųsti meta duomenis iš Bitzi(TM)..."/>
+		<control caption="„PeerProject“ mėgina parsiųsti meta duomenis iš Bitzi..."/>
 		<control/>
 		<control caption="_Atšaukti"/>
 		<control/>

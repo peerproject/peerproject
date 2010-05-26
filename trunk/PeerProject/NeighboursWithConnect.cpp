@@ -73,7 +73,7 @@ CNeighboursWithConnect::~CNeighboursWithConnect()
 // Takes an IP address and port number from the host cache, and connects to it
 // Returns a pointer to the new neighbour in the connected list, or null if no connection was made
 CNeighbour* CNeighboursWithConnect::ConnectTo(
-	const IN_ADDR* pAddress,	// IP address from the host cache to connect to, like 67.163.208.23
+	const IN_ADDR& pAddress,	// IP address from the host cache to connect to, like 67.163.208.23
 	WORD       nPort,			// Port number that goes with that IP address, like 6346
 	PROTOCOLID nProtocol,		// Protocol name, like PROTOCOL_G1 for Gnutella
 	BOOL       bAutomatic,		// True to (do)
@@ -89,27 +89,27 @@ CNeighbour* CNeighboursWithConnect::ConnectTo(
 		if ( bAutomatic ) return NULL;
 
 		// Report that we're already connected to that computer, and return no new connection made
-		theApp.Message( MSG_ERROR, IDS_CONNECTION_ALREADY_ABORT, (LPCTSTR)CString( inet_ntoa( *pAddress ) ) );
+		theApp.Message( MSG_ERROR, IDS_CONNECTION_ALREADY_ABORT, (LPCTSTR)CString( inet_ntoa( pAddress ) ) );
 		return NULL;
 	}
 
 	// Don't connect to self
-	if ( Settings.Connection.IgnoreOwnIP && Network.IsSelfIP( *pAddress ) )
+	if ( Settings.Connection.IgnoreOwnIP && Network.IsSelfIP( pAddress ) )
 		return NULL;
 
 	// Don't connect to blocked addresses
-	if ( Security.IsDenied( pAddress ) )
+	if ( Security.IsDenied( &pAddress ) )
 	{
 		// If automatic (do) leave without making a note of the error
 		if ( bAutomatic ) return NULL;
 
 		// Report that this address is on the block list, and return no new connection made
-		theApp.Message( MSG_ERROR, IDS_NETWORK_SECURITY_OUTGOING, (LPCTSTR)CString( inet_ntoa( *pAddress ) ) );
+		theApp.Message( MSG_ERROR, IDS_NETWORK_SECURITY_OUTGOING, (LPCTSTR)CString( inet_ntoa( pAddress ) ) );
 		return NULL;
 	}
 
 	// If automatic (do) and the network object knows this IP address is firewalled and can't receive connections, give up
-	if ( bAutomatic && Network.IsFirewalledAddress( pAddress, TRUE ) ) return NULL;
+	if ( bAutomatic && Network.IsFirewalledAddress( &pAddress, TRUE ) ) return NULL;
 
 	// Run network connect (do), and leave if it reports an error
 	if ( ! Network.Connect() ) return NULL;
@@ -152,7 +152,7 @@ CNeighbour* CNeighboursWithConnect::ConnectTo(
 	{
 		// Make a new CEDNeighbour object, connect it to the IP address, and return a pointer to it
 		CEDNeighbour* pNeighbour = new CEDNeighbour();
-		if ( pNeighbour->ConnectTo( pAddress, nPort, bAutomatic ) )
+		if ( pNeighbour->ConnectTo( &pAddress, nPort, bAutomatic ) )
 			return pNeighbour;		// Started connecting to an ed2k neighbour
 
 		delete pNeighbour;
@@ -161,7 +161,7 @@ CNeighbour* CNeighboursWithConnect::ConnectTo(
 	{
 		// Make a new CShakeNeighbour object, connect it to the IP address, and return a pointer to it
 		CShakeNeighbour* pNeighbour = new CShakeNeighbour();
-		if ( pNeighbour->ConnectTo( pAddress, nPort, bAutomatic, bNoUltraPeer ) ) // Started connecting to a Gnutella or Gnutella2 neighbour
+		if ( pNeighbour->ConnectTo( &pAddress, nPort, bAutomatic, bNoUltraPeer ) ) // Started connecting to a Gnutella or Gnutella2 neighbour
 		{
 			// Started connecting to a G1/G2 neighbour
 
@@ -193,7 +193,7 @@ CNeighbour* CNeighboursWithConnect::OnAccept(CConnection* pConnection)
 	CSingleLock pLock( &Network.m_pSection ); // When control leaves the method, pLock will go out of scope and release access
 	if ( ! pLock.Lock( 250 ) ) return NULL;   // If more than a quarter second passes here waiting for access, give up and leave now
 
-	if ( Neighbours.Get( &pConnection->m_pHost.sin_addr ) != NULL )
+	if ( Neighbours.Get( pConnection->m_pHost.sin_addr ) != NULL )
 		return NULL;	// Duplicate connection
 
 	// Make a new CShakeNeighbour object, have it pickup this incoming connection, and return a pointer to it

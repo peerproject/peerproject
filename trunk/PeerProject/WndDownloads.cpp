@@ -355,15 +355,11 @@ void CDownloadsWnd::OnTimer(UINT_PTR nIDEvent)
 					tNow - pDownload->m_tCompleted > Settings.Downloads.ClearDelay )
 				{
 					// We might want to clear this download
-					if ( pDownload->IsTorrent() == TRUE )		// It's a torrent
+					if ( Settings.BitTorrent.AutoClear && pDownload->IsTorrent() == true )		// It's a torrent and may be ratio-limited
 					{
-						// Check the torrent clear settings
-						if ( Settings.BitTorrent.AutoClear )
-						{
-							// If we're seeding and have reached the required ratio
-							if ( pDownload->IsSeeding() && ( Settings.BitTorrent.ClearRatio < pDownload->GetRatio() ) )
-								pDownload->Remove();
-						}
+						// If we're seeding and have reached the required ratio
+						if ( pDownload->IsSeeding() && ( Settings.BitTorrent.ClearRatio < pDownload->GetRatio() ) )
+							pDownload->Remove();
 					}
 					else // A normal download
 					{
@@ -399,9 +395,9 @@ void CDownloadsWnd::OnTimer(UINT_PTR nIDEvent)
 			}
 		}
 
-		// If the window is visible or hasn't been updated in 10 seconds
+		// Refresh the window if visible, or hasn't been updated in 10 seconds
 		if ( ( IsWindowVisible() && IsActive( FALSE ) ) || ( ( GetTickCount() - m_tLastUpdate ) > 10*1000 ) )
-			Update();	// Refresh the window
+			Update();
 	}
 }
 
@@ -874,17 +870,28 @@ void CDownloadsWnd::OnUpdateDownloadsClearComplete(CCmdUI *pCmdUI)
 
 void CDownloadsWnd::OnDownloadsClearComplete()
 {
+	CList<CDownload*> pList;
+	CDownload* pDownload;
+
 	CSingleLock pLock( &Transfers.m_pSection, TRUE );
 
 	for ( POSITION pos = Downloads.GetIterator() ; pos ; )
 	{
-		CDownload* pDownload = Downloads.GetNext( pos );
+		pDownload = Downloads.GetNext( pos );
+		if ( pDownload->m_bSelected && pDownload->IsCompleted() && ! pDownload->IsTasking() && ! pDownload->IsPreviewVisible() )
+			pList.AddTail( pDownload );
+	}
 
-		if ( pDownload->m_bSelected )
-		{
-			if ( pDownload->IsCompleted() && ! pDownload->IsPreviewVisible() )
-				pDownload->Remove();
-		}
+	//pLock.Unlock();
+	// ToDo: Stop freezing GUI for many cleared downloads/seeds
+
+	//if ( pList.GetCount() > 10 )
+		// ToDo: Workaround user notification at least
+
+	while ( ! pList.IsEmpty() )
+	{
+		pDownload = pList.RemoveHead();
+		pDownload->Remove();
 	}
 
 	Update();
@@ -1180,22 +1187,19 @@ void CDownloadsWnd::OnDownloadsAddSource()
 	{
 		CDownload* pDownload = pList.RemoveHead();
 
-		if ( Downloads.Check( pDownload ) )
+		if ( Downloads.Check( pDownload ) && ! pDownload->IsMoving() )
 		{
-			if ( ! pDownload->IsMoving() )
+			CDownloadDlg dlg( NULL, pDownload );
+
+			pLock.Unlock();
+			if ( dlg.DoModal() != IDOK ) break;
+			pLock.Lock();
+
+			if ( ! Downloads.Check( pDownload ) || pDownload->IsMoving() ) continue;
+
+			for ( POSITION pos = dlg.m_pURLs.GetHeadPosition(); pos; )
 			{
-				CDownloadDlg dlg( NULL, pDownload );
-
-				pLock.Unlock();
-				if ( dlg.DoModal() != IDOK ) break;
-				pLock.Lock();
-
-				if ( ! Downloads.Check( pDownload ) || pDownload->IsMoving() ) continue;
-
-				for ( POSITION pos = dlg.m_pURLs.GetHeadPosition(); pos; )
-				{
-					pDownload->AddSourceURL( dlg.m_pURLs.GetNext( pos ), FALSE );
-				}
+				pDownload->AddSourceURL( dlg.m_pURLs.GetNext( pos ), FALSE );
 			}
 		}
 	}
@@ -1211,7 +1215,7 @@ void CDownloadsWnd::OnUpdateDownloadsMergeLocal(CCmdUI* pCmdUI)
 
 void CDownloadsWnd::OnDownloadsMergeLocal()
 {
-	CDownload* pDownload;
+	CDownload* pDownload = NULL;
 
 	CSingleLock pLock( &Transfers.m_pSection );
 	if ( ! pLock.Lock( 300 ) ) return;
@@ -1223,7 +1227,7 @@ void CDownloadsWnd::OnDownloadsMergeLocal()
 			break;	// Found it
 	}
 
-	if ( ! Downloads.Check( pDownload ) || pDownload->IsCompleted() || pDownload->IsMoving() || ! pDownload->PrepareFile() )
+	if ( ! pDownload || ! Downloads.Check( pDownload ) || pDownload->IsCompleted() || pDownload->IsMoving() || ! pDownload->PrepareFile() )
 		return;		// Unavailable
 
 	if ( pDownload->NeedTigerTree() && pDownload->NeedHashset() && ! pDownload->IsTorrent() )

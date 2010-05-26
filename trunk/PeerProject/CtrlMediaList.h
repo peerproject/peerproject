@@ -1,7 +1,7 @@
 //
 // CtrlMediaList.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -26,31 +26,28 @@
 
 class CMediaListCtrl : public CListCtrl
 {
+	DECLARE_DYNAMIC(CMediaListCtrl)
+
 // Construction
 public:
 	CMediaListCtrl();
 	virtual ~CMediaListCtrl();
 
-	DECLARE_DYNAMIC(CMediaListCtrl)
-
 // Attributes
 protected:
+	CLibraryTipCtrl	m_wndTip;
 	CImageList*	m_pDragImage;
 	int			m_nDragDrop;
 	BOOL		m_bCreateDragImage;
-protected:
-	CLibraryTipCtrl	m_wndTip;
 
 // Operations
-protected:
-	int		Add(LPCTSTR pszPath, int nItem = -1);
-	void	Remove(int nItem);
 public:
 	BOOL	Open(LPCTSTR pszFile);
 	BOOL	Enqueue(LPCTSTR pszFile, BOOL bStart = TRUE);
 	int		RecursiveEnqueue(LPCTSTR pszPath);
 	void	Remove(LPCTSTR pszFile);
 	BOOL	LoadTextList(LPCTSTR pszFile);
+	BOOL	SaveTextList(LPCTSTR pszFile);
 	int		GetCount();
 	void	Clear();
 	int		GetCurrent();
@@ -59,13 +56,16 @@ public:
 	void	Reset(BOOL bNext = TRUE);
 	CString	GetPath(int nItem);
 	void	OnSkinChange();
-private:
+
+protected:
+	int		Add(LPCTSTR pszPath, int nItem = -1);
+	void	Remove(int nItem);
 	BOOL	AreSelectedFilesInLibrary();
 	void	ShowFilePropertiesDlg(int nPage = 0 );
+
 // Overrides
 public:
 	//{{AFX_VIRTUAL(CMediaListCtrl)
-	public:
 	virtual BOOL Create(CWnd* pParentWnd, UINT nID);
 	//}}AFX_VIRTUAL
 

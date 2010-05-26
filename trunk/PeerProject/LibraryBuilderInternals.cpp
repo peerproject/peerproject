@@ -82,8 +82,8 @@ bool CLibraryBuilderInternals::ExtractMetadata(DWORD nIndex, const CString& strP
 	FileType[ _T(".gif") ]	= 'g';
 	FileType[ _T(".bmp") ]	= 'b';
 	FileType[ _T(".pdf") ]	= 'f';
-    FileType[ _T(".cbr") ]	= 'r';
-    FileType[ _T(".cbz") ]	= 'r';
+	FileType[ _T(".cbr") ]	= 'r';	// RARBuilder
+	FileType[ _T(".cbz") ]	= 'r';	// ZipBuilder
 	FileType[ _T(".chm") ]	= 'h';
 	FileType[ _T(".exe") ]	= 'e';
 	FileType[ _T(".dll") ]	= 'e';
@@ -201,13 +201,13 @@ bool CLibraryBuilderInternals::ExtractMetadata(DWORD nIndex, const CString& strP
 	case 'k': // .psk/.sks
 		return ReadSkin( nIndex );
 
-	case 'r': // .cbr/.cbz
+	case 'r': // .cbr/.cbz	( Plugins by default )
 		return ReadBook( nIndex, strPath );
 
 	case 'x': // .txt/.xml/.nfo/.etc.
 		return ReadOther( nIndex, strPath );
 
-	// ToDo: Default Case, with exclusions for plugins?
+	// ToDo: Default Case (Plugins excluded)
 	}
 
 	return false;
@@ -1324,8 +1324,7 @@ bool CLibraryBuilderInternals::ReadJPEG(DWORD nIndex, HANDLE hFile)
 	if ( nWidth == 0 || nHeight == 0 )
 		return false;
 
-	strComment.TrimLeft();
-	strComment.TrimRight();
+	strComment.Trim();
 
 	for ( int nChar = 0 ; nChar < strComment.GetLength() ; nChar++ )
 	{
@@ -1943,7 +1942,7 @@ bool CLibraryBuilderInternals::ReadOGG(DWORD nIndex, HANDLE hFile)
 		CString strKey		= strComment.Left( nEquals );
 		CString strValue	= strComment.Mid( nEquals + 1 );
 
-		strKey.TrimLeft(); strKey.TrimRight();
+		strKey.Trim();
 		CharUpper( strKey.GetBuffer() );
 		strKey.ReleaseBuffer();
 
@@ -2180,9 +2179,8 @@ bool CLibraryBuilderInternals::ReadAPE(DWORD nIndex, HANDLE hFile, bool bPreferF
 			break;
 
 		strValue = UTF8Decode( pszInput.get(), nLength );
-
-		strKey.TrimLeft(); strKey.TrimRight();
-		strValue.TrimLeft(); strValue.TrimRight();
+		strValue.Trim();
+		strKey.Trim();
 
 		if ( strKey.GetLength() && strValue.GetLength() )
 		{
@@ -3045,8 +3043,7 @@ bool CLibraryBuilderInternals::ReadPDF(DWORD nIndex, HANDLE hFile, LPCTSTR pszPa
 		{
 			strLine = pszName + 8;
 			strLine = strLine.SpanExcluding( _T(".") );
-			strLine.TrimLeft();
-			strLine.TrimRight();
+			strLine.Trim();
 			pXML->AddAttribute( _T("title"), strLine );
 		}
 		else if ( _tcsnicmp( pszName, _T("(ebook"), 6 ) == 0 )
@@ -3058,8 +3055,7 @@ bool CLibraryBuilderInternals::ReadPDF(DWORD nIndex, HANDLE hFile, LPCTSTR pszPa
 				else
 					strLine = pszName + 1;
 				strLine = strLine.SpanExcluding( _T(".") );
-				strLine.TrimLeft();
-				strLine.TrimRight();
+				strLine.Trim();
 				pXML->AddAttribute( _T("title"), strLine );
 			}
 		}
@@ -3732,8 +3728,7 @@ bool CLibraryBuilderInternals::ReadCHM(DWORD nIndex, HANDLE hFile, LPCTSTR pszPa
 				else
 					strLine = pszName + 1;
 				strLine = strLine.SpanExcluding( _T(".") );
-				strLine.TrimLeft();
-				strLine.TrimRight();
+				strLine.Trim();
 				pXML->AddAttribute( _T("title"), strLine );
 			}
 		}
@@ -3941,7 +3936,7 @@ bool CLibraryBuilderInternals::ReadBook(DWORD nIndex, CString strPath)
 	strPath = PathFindFileName( strPath );
 	if ( strPath.GetLength() > 16 )
 	{
-		// Common .cbr filename info
+		// Common .cbr filename info ( RARBuilder/ZipBuilder plugins by default )
 		strPath.MakeLower();
 		if ( strPath.Find( _T("minutemen") ) > 0 )
 			pXML->AddAttribute( L"releasegroup", L"Minutemen" );

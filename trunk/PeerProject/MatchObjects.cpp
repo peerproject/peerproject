@@ -1789,7 +1789,7 @@ void CMatchFile::Added(CQueryHit* pHit)
 
 	if ( pHit->m_pXML != NULL )
 	{
-		if ( ! m_bDRM && pHit->m_pXML->GetAttributeValue( _T("DRM") ).GetLength() > 0 )
+		if ( ! m_bDRM && ! pHit->m_pXML->GetAttributeValue( _T("DRM") ).IsEmpty() )
 		{
 			CString strTag = pHit->m_pXML->GetAttributeValue( _T("DRM") );
 			ToLower( strTag );
@@ -1798,11 +1798,11 @@ void CMatchFile::Added(CQueryHit* pHit)
 		}
 
 		if ( m_bRestricted == TRI_UNKNOWN &&
-				( pHit->m_pXML->GetAttributeValue( _T("PeerTag") ).GetLength() > 0 ||
-				pHit->m_pXML->GetAttributeValue( _T("Permissive") ).GetLength() > 0 ) )
+				( ! pHit->m_pXML->GetAttributeValue( _T("PeerTag") ).IsEmpty() ||
+				  ! pHit->m_pXML->GetAttributeValue( _T("Permissive") ).IsEmpty() ) )
 		{
 			CString strTag = pHit->m_pXML->GetAttributeValue( _T("PeerTag") );
-			if ( strTag.GetLength() < 1 ) strTag = pHit->m_pXML->GetAttributeValue( _T("Permissive") );
+			if ( strTag.IsEmpty() ) strTag = pHit->m_pXML->GetAttributeValue( _T("Permissive") );
 
 			ToLower( strTag );
 			if ( strTag == _T("1") || strTag == _T("true") || strTag == _T("yes") )
@@ -1813,7 +1813,7 @@ void CMatchFile::Added(CQueryHit* pHit)
 			//	m_bRestricted = TRI_UNKNOWN;
 		}
 		else if ( m_bRestricted == TRI_UNKNOWN &&
-				pHit->m_pXML->GetAttributeValue( _T("Restricted") ).GetLength() > 0 )
+				! pHit->m_pXML->GetAttributeValue( _T("Restricted") ).IsEmpty() )
 		{
 			CString strTag = pHit->m_pXML->GetAttributeValue( _T("Restricted") );
 

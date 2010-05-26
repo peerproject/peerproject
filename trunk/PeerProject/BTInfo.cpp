@@ -673,14 +673,14 @@ int CBTInfo::NextInfoPiece()
 	return -1;
 }
 
-DWORD CBTInfo::GetInfoPiece(DWORD nPiece, BYTE *pInfoPiece)
+DWORD CBTInfo::GetInfoPiece(DWORD nPiece, BYTE **pInfoPiece)
 {
 	DWORD nPiceStart = MAX_PIECE_SIZE * nPiece;
 	if ( m_nInfoSize && m_nInfoStart &&
 		m_pSource.m_nLength - m_nInfoStart > m_nInfoSize &&
 		nPiceStart < m_nInfoSize )
 	{
-		pInfoPiece = &m_pSource.m_pBuffer[ m_nInfoStart + nPiceStart ];
+		*pInfoPiece = &m_pSource.m_pBuffer[ m_nInfoStart + nPiceStart ];
 		DWORD nPiceSize = m_nInfoSize - nPiceStart;
 		return nPiceSize > MAX_PIECE_SIZE ? MAX_PIECE_SIZE : nPiceSize;
 	}
@@ -821,12 +821,10 @@ BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 
 	// Get the creation date (if present)
 	CBENode* pDate = pRoot->GetNode( "creation date" );
-	if ( ( pDate ) &&  ( pDate->IsType( CBENode::beInt )  ) )
-	{
+	if ( ( pDate ) && ( pDate->IsType( CBENode::beInt ) ) )
 		m_tCreationDate = (DWORD)pDate->GetInt();
 		// CTime pTime( (time_t)m_tCreationDate );
 		// theApp.Message( MSG_NOTICE, pTime.Format( _T("%Y-%m-%d %H:%M:%S") ) );
-	}
 
 	// Get the creator (if present)
 	m_sCreatedBy = pRoot->GetStringFromSubNode( "created by", m_nEncoding, m_bEncodingError );
@@ -855,13 +853,16 @@ BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 						CString strTracker = pTracker->GetString();	// Get the tracker
 
 						// Check tracker is valid
-						if ( _tcsncicmp( (LPCTSTR)strTracker, _T("http://"), 7 ) == 0 )
+						if ( strTracker == _T("http://tracker.thepiratebay.org/announce") )
+							bUnsupported = true;		// Skip dead trackers, but store below for display
+						else if ( _tcsncicmp( (LPCTSTR)strTracker, _T("http://"), 7 ) == 0 )
 							pTrackers.AddTail( strTracker );		// Store HTTP tracker
 						else if ( _tcsncicmp( (LPCTSTR)strTracker, _T("udp://"), 6 ) == 0 )
 							bUnsupported = true;		// Store below for display, ToDo: Add UDP tracker support
 						else if ( _tcsncicmp( (LPCTSTR)strTracker, _T("https://"), 8 ) == 0 )
-							bUnsupported = true;		// Store below, ToDo: Verify https or try converting to http?
-						//else unknown tracker protocol
+							bUnsupported = true;		// Store below, ToDo: Verify rare https or try converting to http?
+						else
+							theApp.Message( MSG_DEBUG, _T("Unknown torrent tracker protocol:  %s"), strTracker );
 					}
 				}
 
@@ -920,7 +921,9 @@ BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 						{
 							CString strTracker = pTracker->GetString();
 
-							if ( _tcsncicmp( (LPCTSTR)strTracker, _T("udp://"), 6 ) == 0 )
+							if ( strTracker == _T("http://tracker.thepiratebay.org/announce") )
+								pTrackers.AddTail( strTracker );		// Store dead trackers for display
+							else if ( _tcsncicmp( (LPCTSTR)strTracker, _T("udp://"), 6 ) == 0 )
 								pTrackers.AddTail( strTracker );		// Store for display, ToDo: Add UDP tracker support
 							else if ( _tcsncicmp( (LPCTSTR)strTracker, _T("https://"), 8 ) == 0 )
 								pTrackers.AddTail( strTracker );		// Rare for display, ToDo: Verify https or try converting to http?
@@ -957,19 +960,19 @@ BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 			// Store it if it's valid. (Some torrents have invalid trackers)
 			if ( _tcsncicmp( (LPCTSTR)strTracker, _T("http://"), 7 ) == 0 )
 			{
+				if ( strTracker.Find( _T("piratebay"), 7 ) > 7 )	// Catch defunct trackers
+					strTracker = _T("http://tracker.openbittorrent.com/announce");
+
 				// Set the torrent to be a single-tracker torrent
 				m_nTrackerMode = tSingle;
 				SetTracker( strTracker );
 
-				// Backup defunct PirateBay tracker
-				if ( strTracker.Find( _T("piratebay") ) > 6 )
-				{
-					CBTTracker oTracker;
-					oTracker.m_sAddress	= _T("http://tracker.openbittorrent.com/announce");
-					oTracker.m_nTier	= 0;
-					m_nTrackerMode = tMultiFinding;
-					AddTracker( oTracker );
-				}
+				// Backup tracker
+				//CBTTracker oTracker;
+				//oTracker.m_sAddress = _T("http://tracker.openbittorrent.com/announce");
+				//oTracker.m_nTier = 0;
+				//m_nTrackerMode = tMultiFinding;
+				//AddTracker( oTracker );
 			}
 			//else	// Torrents should always have a valid announce node, udp:// is unlikely.
 		}
@@ -1605,10 +1608,7 @@ BOOL CBTInfo::ScrapeTracker()
 		return FALSE;
 
 	CSingleLock oLock( &Transfers.m_pSection );
-	if ( ! oLock.Lock( 500 ) )
-		return FALSE;
-
-	//CDownload pDownload;	// ToDo: Remove this quick PeerID workaround
+	if ( ! oLock.Lock( 500 ) ) return FALSE;
 
 	// Fetch scrape only for the given info hash
 	strURL = strURL.TrimRight( _T('&') ) +
@@ -1674,7 +1674,7 @@ BOOL CBTInfo::ScrapeTracker()
 					if ( pWait->IsType( CBENode::beInt ) )
 						m_nTrackerWait = pWait->GetInt() * 1000;
 
-					if ( m_nTrackerWait < 90 * 1000 )
+					if ( m_nTrackerWait < 60 * 1000 )
 						m_nTrackerWait = 90 * 1000;
 					else if ( m_nTrackerWait > 6 * 60 * 60 * 1000 )
 						m_nTrackerWait = 30 * 60 * 1000;

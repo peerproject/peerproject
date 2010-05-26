@@ -147,8 +147,7 @@ void CNetworkCombo::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 	CDC dc;
 
 	dc.Attach( lpDrawItemStruct->hDC );
-	if ( Settings.General.LanguageRTL )
-		SetLayout( dc.m_hDC, LAYOUT_RTL );
+	if ( Settings.General.LanguageRTL ) SetLayout( dc.m_hDC, LAYOUT_RTL );
 
 	CFont* pOldFont = (CFont*)dc.SelectObject( lpDrawItemStruct->itemData == 0 ?
 		&CoolInterface.m_fntBold : &CoolInterface.m_fntNormal );
@@ -163,7 +162,7 @@ void CNetworkCombo::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 		if ( lpDrawItemStruct->itemState & ODS_SELECTED )
 		{
 			if ( Skin.m_bmSelected.m_hObject )
-				CoolInterface.DrawWatermark( &dc, &rcItem, &Skin.m_bmSelected );
+				CoolInterface.DrawWatermark( &dc, &rcItem, &Skin.m_bmSelected, FALSE ); 	// No overdraw
 			else
 				dc.FillSolidRect( &rcItem, Colors.m_crHighlight );
 		}
@@ -179,7 +178,6 @@ void CNetworkCombo::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 
 	dc.SetBkMode( TRANSPARENT );
 
-
 	int nImage = (int)lpDrawItemStruct->itemData;
 	if ( nImage ) nImage ++;
 
@@ -187,7 +185,8 @@ void CNetworkCombo::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 	m_gdiImageList.Draw( &dc, nImage, pt,
 		( lpDrawItemStruct->itemState & ODS_SELECTED ) ? ILD_SELECTED : ILD_NORMAL );
 
-	rcItem.left += 20; rcItem.right -= 2;
+	rcItem.left += 20;
+	rcItem.right -= 2;
 
 	CString str;
 	GetLBText( lpDrawItemStruct->itemID, str );

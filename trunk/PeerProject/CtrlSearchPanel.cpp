@@ -246,14 +246,16 @@ void CSearchPanel::ShowSearch(const CManagedSearch* pManaged)
 			strSize = Settings.SmartVolume(pSearch->m_nMinSize, Bytes, true );
 		else
 			strSize.Empty();
-		if ( m_boxAdvanced.m_wndSizeMin.m_hWnd != NULL ) m_boxAdvanced.m_wndSizeMin.SetWindowText( strSize );
+		if ( m_boxAdvanced.m_wndSizeMin.m_hWnd != NULL )
+			m_boxAdvanced.m_wndSizeMin.SetWindowText( strSize );
 
 
 		if ( pSearch->m_nMaxSize > 0 && pSearch->m_nMaxSize < SIZE_UNKNOWN )
 			strSize = Settings.SmartVolume( pSearch->m_nMaxSize, Bytes, true );
 		else
 			strSize.Empty();
-		if ( m_boxAdvanced.m_wndSizeMax.m_hWnd != NULL ) m_boxAdvanced.m_wndSizeMax.SetWindowText( strSize );
+		if ( m_boxAdvanced.m_wndSizeMax.m_hWnd != NULL )
+			m_boxAdvanced.m_wndSizeMax.SetWindowText( strSize );
 	}
 
 	OnSchemaChange();
@@ -265,32 +267,16 @@ void CSearchPanel::ShowSearch(const CManagedSearch* pManaged)
 void CSearchPanel::ShowStatus(BOOL bStarted, BOOL bSearching, DWORD nHubs, DWORD nLeaves, DWORD nFiles, DWORD nHits, DWORD nBadHits)
 {
 	CString strCaption;
-
-	if ( bStarted )
-	{
-		if ( bSearching )
-		{
-			LoadString( strCaption, IDS_SEARCH_PANEL_SEARCHING );
-			m_boxSearch.m_wndStart.EnableWindow( FALSE );
-			m_boxSearch.m_wndPrefix.EnableWindow( FALSE );
-		}
-		else
-		{
-			LoadString( strCaption, IDS_SEARCH_PANEL_MORE );
-			m_boxSearch.m_wndStart.EnableWindow( TRUE );
-			m_boxSearch.m_wndPrefix.EnableWindow( TRUE );
-		}
-	}
-	else
-	{
-		LoadString( strCaption, IDS_SEARCH_PANEL_START );
-		m_boxSearch.m_wndStart.EnableWindow( TRUE );
-		m_boxSearch.m_wndPrefix.EnableWindow( TRUE );
-	}
+	LoadString( strCaption, bStarted ?
+		( bSearching ? IDS_SEARCH_PANEL_SEARCHING : IDS_SEARCH_PANEL_MORE ) : IDS_SEARCH_PANEL_START );
 	m_boxSearch.m_wndStart.SetText( strCaption );
 
 	LoadString( strCaption, bStarted ? IDS_SEARCH_PANEL_STOP : IDS_SEARCH_PANEL_CLEAR );
 	m_boxSearch.m_wndStop.SetText( strCaption );
+
+	m_boxSearch.m_wndStart.EnableWindow( ! bStarted );
+	m_boxSearch.m_wndPrefix.EnableWindow( ! bStarted );
+	m_boxSearch.m_wndPrefix.ShowWindow( Settings.General.GUIMode != GUI_BASIC );
 
 	m_boxResults.Update( bStarted, nHubs, nLeaves, nFiles, nHits, nBadHits );
 }
@@ -540,8 +526,7 @@ void CSearchInputBox::OnSkinChange()
 	BOOL bSearching = ! pwndSearch->IsWaitMore();
 
 	LoadString( strCaption, bStarted ?
-		( bSearching? IDS_SEARCH_PANEL_SEARCHING : IDS_SEARCH_PANEL_MORE ) :
-		IDS_SEARCH_PANEL_START );
+		( bSearching? IDS_SEARCH_PANEL_SEARCHING : IDS_SEARCH_PANEL_MORE ) : IDS_SEARCH_PANEL_START );
 	m_wndStart.SetWindowText( strCaption );
 	m_wndStart.SetCoolIcon( ID_SEARCH_SEARCH, FALSE );
 

@@ -37,6 +37,7 @@ HKCU
 					NoRemove LibraryBuilder
 					{
 						ForceRemove val '.rar' = s '{C2F61D04-BE35-4AE3-84A8-BE140613E26D}'
+						ForceRemove val '.cbr' = s '{C2F61D04-BE35-4AE3-84A8-BE140613E26D}'
 					}
 				}
 			}

@@ -210,11 +210,11 @@ CPrivateChatFrame* CChatWindows::OpenPrivate(const Hashes::Guid& oGUID, SOCKADDR
 		// First, check if it's a low ID user on another server.
 		if ( bMustPush && pServer )
 		{
-			// It's a firewalled user (Low ID). If they are using another server, we
-			// can't (shouldn't) contact them. (It places a heavy load on the ed2k servers)
+			// It's a firewalled user (Low ID). If they are using another server,
+			// we can't (shouldn't) contact them. (Places heavy load on ed2k servers)
 			CSingleLock pLock1( &Network.m_pSection );
 			if ( ! pLock1.Lock( 250 ) ) return NULL;
-			if ( Neighbours.Get( &pServer->sin_addr ) == NULL ) return NULL;
+			if ( Neighbours.Get( pServer->sin_addr ) == NULL ) return NULL;
 			pLock1.Unlock();
 		}
 
@@ -259,8 +259,8 @@ CPrivateChatFrame* CChatWindows::OpenPrivate(const Hashes::Guid& oGUID, SOCKADDR
 			// And exit
 			return pFrame;
 		}
-		// Open an empty (blank) chat frame. This is totally unnecessary- The EDClient will open
-		// one as required, but it looks better to open one here.
+		// Open an empty (blank) chat frame. This is totally unnecessary-
+		// The EDClient will open one as required, but it looks better to open one here.
 		pFrame = new CPrivateChatFrame();
 		// Set name (Also used to match incoming connection)
 		if ( bMustPush && pServer ) // Firewalled user (Low ID)

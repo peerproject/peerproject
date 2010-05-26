@@ -135,8 +135,8 @@ Source: "Plugins\DocumentReader\{#ConfigurationName} {#PlatformName}\DocumentRea
 
 Source: "Plugins\ImageViewer\{#ConfigurationName} {#PlatformName}\ImageViewer.dll";   DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
 
-Source: "Services\LibGFL\{#PlatformName}\LibGFL290.dll"; DestDir: "{app}\Plugins";  Flags: overwritereadonly replacesameversion uninsremovereadonly sortfilesbyextension deleteafterinstall
 Source: "Services\LibGFL\{#PlatformName}\LibGFL290.dll"; DestDir: "{app}";  Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
+Source: "Services\LibGFL\{#PlatformName}\LibGFL290.dll"; DestDir: "{app}\Plugins";  Flags: overwritereadonly replacesameversion uninsremovereadonly sortfilesbyextension deleteafterinstall
 Source: "Plugins\GFLImageServices\{#ConfigurationName} {#PlatformName}\GFLImageServices.dll";  DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
 Source: "Plugins\GFLLibraryBuilder\{#ConfigurationName} {#PlatformName}\GFLLibraryBuilder.dll";  DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
 
@@ -316,8 +316,8 @@ Filename: "{app}\PeerProject.exe"; Description: "{cm:LaunchProgram,PeerProject}"
 Filename: "{app}\SkinInstaller.exe"; Parameters: "/uninstallsilent"; WorkingDir: "{app}"; StatusMsg: "{cm:run_skinexe}"; RunOnceId: "uninstallskinexe"
 
 [Registry]
-Root: HKLM; Subkey: "SOFTWARE\PeerProject\PeerProject"; ValueType: dword; ValueName: "MultiUser"; ValueData: 1; Flags: deletevalue; Tasks: multiuser
-Root: HKLM; Subkey: "SOFTWARE\PeerProject\PeerProject"; ValueType: dword; ValueName: "MultiUser"; ValueData: 0; Flags: deletevalue; Tasks: not multiuser
+Root: HKLM; Subkey: "SOFTWARE\PeerProject\PeerProject"; ValueType: dword; ValueName: "MultiUser"; ValueData: 1; Flags: deletevalue uninsdeletekey; Tasks: multiuser
+Root: HKLM; Subkey: "SOFTWARE\PeerProject\PeerProject"; ValueType: dword; ValueName: "MultiUser"; ValueData: 0; Flags: deletevalue uninsdeletekey; Tasks: not multiuser
 
 ; Write installation path to registry
 Root: HKLM; Subkey: "SOFTWARE\PeerProject"; ValueType: string; ValueName: ; ValueData: "{app}"; Flags: uninsdeletekey deletevalue
@@ -351,73 +351,51 @@ Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Connection"; ValueType: dw
 ; ShareMonkey CID
 Root: HKCU; Subkey: "Software\PeerProject\PeerProject\WebServices"; ValueType: string; ValueName: "ShareMonkeyCid"; ValueData: "197506"; Flags: deletevalue uninsdeletekey
 
-
-; Set permissions on registry keys
-Root: HKLM; Subkey: "SOFTWARE\Classes\.co"; Permissions: users-modify; Tasks: not multiuser
-Root: HKLM; Subkey: "SOFTWARE\Classes\.collection"; Permissions: users-modify; Tasks: not multiuser
-Root: HKLM; Subkey: "SOFTWARE\Classes\.torrent"; Permissions: users-modify; Tasks: not multiuser
-Root: HKLM; Subkey: "SOFTWARE\Classes\bittorrent"; Permissions: users-modify; Tasks: not multiuser
-Root: HKLM; Subkey: "SOFTWARE\Classes\ed2k"; Permissions: users-modify; Tasks: not multiuser
-Root: HKLM; Subkey: "SOFTWARE\Classes\gnet"; Permissions: users-modify; Tasks: not multiuser
-Root: HKLM; Subkey: "SOFTWARE\Classes\gnutella"; Permissions: users-modify; Tasks: not multiuser
-Root: HKLM; Subkey: "SOFTWARE\Classes\gnutella1"; Permissions: users-modify; Tasks: not multiuser
-Root: HKLM; Subkey: "SOFTWARE\Classes\gnutella2"; Permissions: users-modify; Tasks: not multiuser
-Root: HKLM; Subkey: "SOFTWARE\Classes\uhc"; Permissions: users-modify; Tasks: not multiuser
-Root: HKLM; Subkey: "SOFTWARE\Classes\ukhl"; Permissions: users-modify; Tasks: not multiuser
-Root: HKLM; Subkey: "SOFTWARE\Classes\magnet"; Permissions: users-modify; Tasks: not multiuser
-Root: HKLM; Subkey: "SOFTWARE\Classes\mp2p"; Permissions: users-modify; Tasks: not multiuser
-Root: HKLM; Subkey: "SOFTWARE\Classes\gwc"; Permissions: users-modify; Tasks: not multiuser
-Root: HKLM; Subkey: "SOFTWARE\Classes\PeerProject"; Permissions: users-modify; Tasks: not multiuser
-Root: HKLM; Subkey: "SOFTWARE\Classes\PeerProject.Collection"; Permissions: users-modify; Tasks: not multiuser
-Root: HKLM; Subkey: "SOFTWARE\Classes\Applications\PeerProject.exe"; Permissions: users-modify; Tasks: not multiuser
-
-
 ; Delete keys at uninstall
+Root: HKU; Subkey: ".DEFAULT\Software\PeerProject"; Flags: dontcreatekey uninsdeletekey
 Root: HKLM; Subkey: "SOFTWARE\PeerProject"; Flags: dontcreatekey uninsdeletekey
 Root: HKCU; Subkey: "Software\PeerProject"; Flags: dontcreatekey uninsdeletekey
-Root: HKU; Subkey: ".DEFAULT\Software\PeerProject"; Flags: dontcreatekey uninsdeletekey
 Root: HKCU; Subkey: "Software\Microsoft\Windows\CurrentVersion\Run"; ValueName: "PeerProject"; Flags: dontcreatekey uninsdeletevalue
 
-Root: HKLM; Subkey: "SOFTWARE\Classes\.psk"; Flags: dontcreatekey uninsdeletekey
-Root: HKLM; Subkey: "SOFTWARE\Classes\.sks"; Flags: dontcreatekey uninsdeletekey
-Root: HKLM; Subkey: "SOFTWARE\Classes\.co"; Flags: dontcreatekey uninsdeletekey
-Root: HKLM; Subkey: "SOFTWARE\Classes\.collection"; Flags: dontcreatekey uninsdeletekey
-Root: HKLM; Subkey: "SOFTWARE\Classes\.torrent"; Flags: dontcreatekey uninsdeletekey
-Root: HKLM; Subkey: "SOFTWARE\Classes\bittorrent"; Flags: dontcreatekey uninsdeletekey
-Root: HKLM; Subkey: "SOFTWARE\Classes\ed2k"; Flags: dontcreatekey uninsdeletekey
-Root: HKLM; Subkey: "SOFTWARE\Classes\gnet"; Flags: dontcreatekey uninsdeletekey
-Root: HKLM; Subkey: "SOFTWARE\Classes\gnutella"; Flags: dontcreatekey uninsdeletekey
-Root: HKLM; Subkey: "SOFTWARE\Classes\gnutella1"; Flags: dontcreatekey uninsdeletekey
-Root: HKLM; Subkey: "SOFTWARE\Classes\gnutella2"; Flags: dontcreatekey uninsdeletekey
-Root: HKLM; Subkey: "SOFTWARE\Classes\uhc"; Flags: dontcreatekey uninsdeletekey
-Root: HKLM; Subkey: "SOFTWARE\Classes\ukhl"; Flags: dontcreatekey uninsdeletekey
-Root: HKLM; Subkey: "SOFTWARE\Classes\magnet"; Flags: dontcreatekey uninsdeletekey
-Root: HKLM; Subkey: "SOFTWARE\Classes\mp2p"; Flags: dontcreatekey uninsdeletekey
-Root: HKLM; Subkey: "SOFTWARE\Classes\gwc"; Flags: dontcreatekey uninsdeletekey
-Root: HKLM; Subkey: "SOFTWARE\Classes\peerproject"; Flags: dontcreatekey uninsdeletekey
-Root: HKLM; Subkey: "SOFTWARE\Classes\PeerProject.*"; Flags: dontcreatekey uninsdeletekey
-Root: HKLM; Subkey: "SOFTWARE\Classes\Applications\PeerProject.exe"; Flags: dontcreatekey uninsdeletekey
-Root: HKLM; Subkey: "SOFTWARE\Classes\Applications\SkinInstaller.exe"; Flags: dontcreatekey uninsdeletekey
+Root: HKCR; Subkey: "SOFTWARE\Classes\.psk"; Flags: dontcreatekey uninsdeletekey
+Root: HKCR; Subkey: "SOFTWARE\Classes\.sks"; Flags: dontcreatekey uninsdeletekey; Check: WeOwnTorrentAssoc
+Root: HKCR; Subkey: "SOFTWARE\Classes\.co"; Flags: dontcreatekey uninsdeletekey
+Root: HKCR; Subkey: "SOFTWARE\Classes\.collection"; Flags: dontcreatekey uninsdeletekey
+;Root: HKCR; Subkey: ".torrent"; ValueType: string; ValueName: ""; ValueData: "BitTorrent"; Flags: dontcreatekey uninsdeletevalue
+Root: HKCR; Subkey: "BitTorrent"; ValueType: string; Flags: dontcreatekey uninsdeletekey; Check: WeOwnTorrentAssoc
+Root: HKCR; Subkey: "PeerProject.Application"; Flags: dontcreatekey uninsdeletekey
+Root: HKCR; Subkey: "PeerProject.Collection"; Flags: dontcreatekey uninsdeletekey
+Root: HKCR; Subkey: "PeerProject.DataSource"; Flags: dontcreatekey uninsdeletekey
+Root: HKCR; Subkey: "PeerProject.DocReader"; Flags: dontcreatekey uninsdeletekey
+Root: HKCR; Subkey: "PeerProject.DocReader.1"; Flags: dontcreatekey uninsdeletekey
+Root: HKCR; Subkey: "PeerProject.IEProtocol"; Flags: dontcreatekey uninsdeletekey
+Root: HKCR; Subkey: "PeerProject.IEProtocolRequest"; Flags: dontcreatekey uninsdeletekey
+Root: HKCR; Subkey: "PeerProject.SkinInfoExtractor"; Flags: dontcreatekey uninsdeletekey
+Root: HKCR; Subkey: "PeerProject.SkinInfoExtractor.1"; Flags: dontcreatekey uninsdeletekey
+Root: HKCR; Subkey: "PeerProject.XMLCollection"; Flags: dontcreatekey uninsdeletekey
+Root: HKCR; Subkey: "PeerProject.XML"; Flags: dontcreatekey uninsdeletekey
 
 Root: HKCU; Subkey: "SOFTWARE\Classes\.psk"; Flags: dontcreatekey uninsdeletekey
-Root: HKCU; Subkey: "SOFTWARE\Classes\.sks"; Flags: dontcreatekey uninsdeletekey
+Root: HKCU; Subkey: "SOFTWARE\Classes\.sks"; Flags: dontcreatekey uninsdeletekey; Check: WeOwnTorrentAssoc
 Root: HKCU; Subkey: "SOFTWARE\Classes\.co"; Flags: dontcreatekey uninsdeletekey
 Root: HKCU; Subkey: "SOFTWARE\Classes\.collection"; Flags: dontcreatekey uninsdeletekey
 Root: HKCU; Subkey: "SOFTWARE\Classes\.emulecollection"; Flags: dontcreatekey uninsdeletekey
-Root: HKCU; Subkey: "SOFTWARE\Classes\.torrent"; Flags: dontcreatekey uninsdeletekey
-Root: HKCU; Subkey: "SOFTWARE\Classes\bittorrent"; Flags: dontcreatekey uninsdeletekey
+;Root: HKCU; Subkey: "SOFTWARE\Classes\.torrent"; ValueName: "BitTorrent"; Flags: dontcreatekey uninsdeletevalue
+Root: HKCU; Subkey: "SOFTWARE\Classes\BitTorrent"; Flags: dontcreatekey uninsdeletekey; Check: WeOwnTorrentAssoc
+Root: HKCU; Subkey: "SOFTWARE\Classes\magnet"; Flags: dontcreatekey uninsdeletekey
 Root: HKCU; Subkey: "SOFTWARE\Classes\ed2k"; Flags: dontcreatekey uninsdeletekey
 Root: HKCU; Subkey: "SOFTWARE\Classes\gnet"; Flags: dontcreatekey uninsdeletekey
 Root: HKCU; Subkey: "SOFTWARE\Classes\gnutella"; Flags: dontcreatekey uninsdeletekey
 Root: HKCU; Subkey: "SOFTWARE\Classes\gnutella1"; Flags: dontcreatekey uninsdeletekey
 Root: HKCU; Subkey: "SOFTWARE\Classes\gnutella2"; Flags: dontcreatekey uninsdeletekey
+Root: HKCU; Subkey: "SOFTWARE\Classes\gwc"; Flags: dontcreatekey uninsdeletekey
+Root: HKCU; Subkey: "SOFTWARE\Classes\g2"; Flags: dontcreatekey uninsdeletekey
 Root: HKCU; Subkey: "SOFTWARE\Classes\uhc"; Flags: dontcreatekey uninsdeletekey
 Root: HKCU; Subkey: "SOFTWARE\Classes\ukhl"; Flags: dontcreatekey uninsdeletekey
-Root: HKCU; Subkey: "SOFTWARE\Classes\magnet"; Flags: dontcreatekey uninsdeletekey
 Root: HKCU; Subkey: "SOFTWARE\Classes\mp2p"; Flags: dontcreatekey uninsdeletekey
-Root: HKCU; Subkey: "SOFTWARE\Classes\gwc"; Flags: dontcreatekey uninsdeletekey
 Root: HKCU; Subkey: "SOFTWARE\Classes\peerproject"; Flags: dontcreatekey uninsdeletekey
 Root: HKCU; Subkey: "SOFTWARE\Classes\PeerProject.*"; Flags: dontcreatekey uninsdeletekey
+Root: HKCU; Subkey: "SOFTWARE\Classes\PeerProject.Collection"; Flags: dontcreatekey uninsdeletekey
 Root: HKCU; Subkey: "SOFTWARE\Classes\Applications\PeerProject.exe"; Flags: dontcreatekey uninsdeletekey
 Root: HKCU; Subkey: "SOFTWARE\Classes\Applications\SkinInstaller.exe"; Flags: dontcreatekey uninsdeletekey
 
@@ -521,8 +499,8 @@ Type: files; Name: "{userappdata}\PeerProject\Data\HostCache.dat"; Tasks: resetd
 
 [UninstallDelete]
 ; Clean up files created after installation
-Type: filesandordirs; Name: "{app}\Data"
 Type: filesandordirs; Name: "{userappdata}\PeerProject\Data"
+Type: filesandordirs; Name: "{app}\Data"
 Type: filesandordirs; Name: "{app}\Skins"
 Type: filesandordirs; Name: "{app}\Templates"
 Type: filesandordirs; Name: "{app}\Schemas"
@@ -779,19 +757,6 @@ Begin
   Result := Installed;
 End;
 
-Function WeOwnTorrentAssoc: boolean;
-var
-  CommandString: string;
-  Position: Integer;
-Begin
-  Result := False;
-  if RegQueryStringValue(HKEY_CLASSES_ROOT, 'bittorrent\shell\open\command','', CommandString) then
-    Begin
-      Position := Pos('PeerProject.exe', LowerCase(CommandString));
-      Result := (Position > 0);
-    End
-End;
-
 Function ShouldSkipPage(PageID: Integer): Boolean;
 Begin
   Result := False;
@@ -824,15 +789,24 @@ Begin
     i := WizardForm.TasksList.Items.IndexOf(ExpandConstant('{cm:tasks_multisetup}'));
     if i <> -1 then begin
       if RegQueryDWordValue(HKEY_LOCAL_MACHINE, 'SOFTWARE\PeerProject\PeerProject', 'MultiUser', MultiUserValue) then begin
-        if MultiUserValue = 1 then
-          Wizardform.TasksList.Checked[i] := true
-        else
-          Wizardform.TasksList.Checked[i] := false;
-
+        Wizardform.TasksList.Checked[i] := (MultiUserValue = 1);
         WizardForm.TasksList.ItemEnabled[i] := false;
       End;
     End;
   End;
+End;
+
+Function WeOwnTorrentAssoc: boolean;
+var
+  CommandString: string;
+  Position: Integer;
+Begin
+  Result := False;
+  if RegQueryStringValue(HKEY_CLASSES_ROOT, 'BitTorrent\shell\open\command','', CommandString) then
+    Begin
+      Position := Pos('PeerProject.exe', CommandString);
+      Result := (Position > 0);
+    End
 End;
 
 Procedure CurUninstallStepChanged(CurUninstallStep: TUninstallStep);
@@ -863,7 +837,7 @@ Begin
     End;
     if WeOwnTorrentAssoc then begin
       RegDeleteKeyIncludingSubkeys(HKEY_CLASSES_ROOT,'.torrent');
-      RegDeleteKeyIncludingSubkeys(HKEY_CLASSES_ROOT,'bittorrent');
+      RegDeleteKeyIncludingSubkeys(HKEY_CLASSES_ROOT,'BitTorrent');
     End;
   End;
 End;

@@ -1,7 +1,7 @@
 //
 // CtrlUploads.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -44,7 +44,7 @@ protected:
 	void		SaveColumnState();
 	BOOL		LoadColumnState();
 	void		SelectTo(int nIndex);
-    void		DeselectAll(CUploadFile* pExcept = NULL);
+	void		DeselectAll(CUploadFile* pExcept = NULL);
 	BOOL		HitTest(const CPoint& point, CUploadQueue** ppQueue, CUploadFile** ppFile, int* pnIndex, RECT* prcItem);
 	BOOL		GetAt(int nSelect, CUploadQueue** ppQueue, CUploadFile** ppFile);
 	void		PaintQueue(CDC& dc, const CRect& rcRow, CUploadQueue* pQueue, BOOL bFocus);
@@ -59,9 +59,8 @@ protected:
 	CHeaderCtrl			m_wndHeader;
 	CUploadTipCtrl		m_wndTip;
 	CImageList			m_pProtocols;
-	int					m_nFocus;
 	CUploadFile*		m_pDeselect;
-	int					m_nScrollWheelLines;
+	int					m_nFocus;
 
 // Queue/File Abstractation Layer
 public:
@@ -78,8 +77,8 @@ public:
 	afx_msg void OnDestroy();
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg void OnPaint();
-	afx_msg void OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar);
-	afx_msg void OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar);
+	afx_msg void OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar = NULL);
+	afx_msg void OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar = NULL);
 	afx_msg BOOL OnMouseWheel(UINT nFlags, short zDelta, CPoint pt);
 	afx_msg void OnChangeHeader(NMHDR* pNotifyStruct, LRESULT* pResult);
 	afx_msg void OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);

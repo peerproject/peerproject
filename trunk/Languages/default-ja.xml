@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Japanese Skin File -->
 
-<!-- Translation based on default-en.xml r54 (Shareaza 2.2.0.2) -->
+<!-- Translation based on default-en.xml r55 (Shareaza 2.2.0.2) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -417,12 +417,12 @@
 	<!-- WEBSERVICES -->
 	<!-- IMAGE VIEWER PLUGIN WINDOW -->
 	<toolbar name="ImageViewerWnd">
-		<button id="ImageViewer_BestFit" text="自動拡大/縮小"/>
-		<button id="ImageViewer_ActualSize" text="原寸大"/>
+		<button id="PluginID_ImageViewer_BestFit" text="自動拡大/縮小"/>
+		<button id="PluginID_ImageViewer_FullSize" text="原寸大"/>
 		<separator/>
-		<button id="ImageViewer_Refresh" text="更新"/>
+		<button id="PluginID_ImageViewer_Refresh" text="更新"/>
 		<rightAlign/>
-		<button id="ImageViewer_Close" text="閉じる"/>
+		<button id="PluginID_ImageViewer_Close" text="閉じる"/>
 	</toolbar>
 </toolbars>
 <!-- Menu Definitions -->
@@ -1571,12 +1571,12 @@
 	</menu>
 	<!-- PLUGIN MENUS -->
 	<menu name="ImageViewer_Context">
-		<item id="ImageViewer_BestFit" text="自動(_B)"/>
-		<item id="ImageViewer_ActualSize" text="原寸大(_A)"/>
+		<item id="PluginID_ImageViewer_BestFit" text="自動(_B)"/>
+		<item id="PluginID_ImageViewer_FullSize" text="原寸大(_A)"/>
 		<separator/>
-		<item id="ImageViewer_Refresh" text="更新(_R)"/>
+		<item id="PluginID_ImageViewer_Refresh" text="更新(_R)"/>
 		<separator/>
-		<item id="ImageViewer_Close" text="閉じる(_C)"/>
+		<item id="PluginID_ImageViewer_Close" text="閉じる(_C)"/>
 	</menu>
 </menus>
 <!-- Documents -->
@@ -1600,23 +1600,23 @@
 			<text>PeerProjectへようこそ! &#160;現時点ではまだどのピア・ツー・ピアネットワークにも接続していません。 &#160;</text>
 			<newline gap="8" indent="42"/>
 			<text>You are not currently connected to any peer to peer networks. &#160;</text>
-			<link target="peer:command:ID_NETWORK_CONNECT">ここをクリックすると接続を開始します!</link>
+			<link target="command:ID_NETWORK_CONNECT">ここをクリックすると接続を開始します!</link>
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="2">
-			<icon res="134" width="32" height="32" target="peer:command:ID_TAB_SEARCH"/><gap size="8"/>
+			<icon res="134" width="32" height="32" target="command:ID_TAB_SEARCH"/><gap size="8"/>
 			<heading align="middle">SEARCH FOR A FILE</heading>
 			<newline gap="8" indent="42"/>
 			<anchor id="SearchBox" width="256" height="80"/>
 			<newline gap="12" indent="0"/>
-			<icon res="136" width="32" height="32" target="peer:command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
+			<icon res="136" width="32" height="32" target="command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
 			<heading align="middle">PEERPROJECT 検 索</heading>
 			<newline gap="8" indent="42"/>
-			<link target="peer:command:ID_TOOLS_DOWNLOAD" format="bu">Click here to start</link>
+			<link target="command:ID_TOOLS_DOWNLOAD" format="bu">Click here to start</link>
 			<text>&#160;downloading a new file or torrent.</text>
 			<newline gap="2" indent="42"/>
 			<text>Or open your completed</text>
-			<link target="peer:shell:downloads">downloads folder.</link>
+			<link target="command:shell:downloads">downloads folder.</link>
 			<newline gap="24" indent="0"/>
 		</group>
 		<group id="3">
@@ -1625,18 +1625,18 @@
 			<newline gap="8" indent="42"/>
 			<text id="Upgrade"/>
 			<newline gap="6"/>
-			<link target="peer:upgrade">ここをクリックするとアップグレードします</link>
+			<link target="command:upgrade">ここをクリックするとアップグレードします</link>
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="4">
-			<icon res="252" width="32" height="32" target="peer:command:ID_TOOLS_WIZARD"/><gap size="8"/>
+			<icon res="252" width="32" height="32" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 			<heading align="middle">警 告 - あ な た は フ ァ イ アー ウ ォ ー ル の 中 に い ま す</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">PeerProjectはあなたがNATまたはファイアーウォールの背後に隠れていて、
 			  インターネットからの接続を受け付けることができないことを検出しました。&#160;</text>
 			<text color="FF0000" format="b">これはダウンロード性能やサーチ性能の著しい低下を意味します。</text>
 			<newline gap="6"/>
-			<link target="peer:command:ID_HELP_ROUTER">ここをクリックすればルータやファイアーウォールの設定法について知ることができます</link>
+			<link target="command:ID_HELP_ROUTER">ここをクリックすればルータやファイアーウォールの設定法について知ることができます</link>
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="6">
@@ -1647,7 +1647,7 @@
 			  インターネットからの接続を受け付けることができないことを検出しました。&#160;</text>
 			<text color="FF0000" format="b">これはダウンロード性能の著しい低下を意味します。</text>
 			<newline gap="6"/>
-			<link target="peer:command:ID_HELP_ROUTER">ここをクリックすればルータやファイアーウォールの設定法について知ることができます</link>
+			<link target="command:ID_HELP_ROUTER">ここをクリックすればルータやファイアーウォールの設定法について知ることができます</link>
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="7">
@@ -1658,31 +1658,31 @@
 			  インターネットからのメッセージを受け付けることができないことを検出しました。&#160;</text>
 			<text color="FF0000" format="b">これはサーチ性能の著しい低下を意味します。</text>
 			<newline gap="6"/>
-			<link target="peer:command:ID_HELP_ROUTER">ここをクリックすればルータやファイアーウォールの設定法について知ることができます</link>
+			<link target="command:ID_HELP_ROUTER">ここをクリックすればルータやファイアーウォールの設定法について知ることができます</link>
 			<newline gap="18" indent="0"/>
 		</group>
-		<icon res="128" width="32" height="32" target="peer:command:ID_TOOLS_SETTINGS"/><gap size="8"/>
+		<icon res="128" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">PEERPROJECT  カ ス タ マ イ ズ</heading>
 		<newline gap="12" indent="42"/>
-		<icon res="182" width="16" height="16" target="peer:command:ID_TOOLS_SKIN"/><gap size="8"/>
-		<link target="peer:command:ID_TOOLS_SKIN" align="middle" format="bu">スキン</link>
+		<icon res="182" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
+		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">スキン</link>
 		<text align="middle">&#160;- PeerProjectの外観を変更することが出来ます</text>
 		<newline gap="8"/>
-		<icon res="141" width="16" height="16" target="peer:command:ID_VIEW_SECURITY"/><gap size="8"/>
-		<link target="peer:command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
+		<icon res="141" width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
+		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
 		<text align="middle">&#160;- Update blocklist</text>
 		<newline gap="8"/>
-		<icon res="317" width="16" height="16" target="peer:command:ID_TOOLS_WIZARD"/><gap size="8"/>
-		<link target="peer:command:ID_TOOLS_WIZARD" align="middle">設定ウィザード</link>
+		<icon res="317" width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
+		<link target="command:ID_TOOLS_WIZARD" align="middle">設定ウィザード</link>
 		<text align="middle">&#160;- PeerProjectの設定を行います</text>
 		<newline gap="8"/>
-		<icon res="147" width="16" height="16" target="peer:command:ID_HELP_FAQ"/><gap size="8"/>
-		<link target="peer:command:ID_HELP_FAQ" align="middle">クイックヘルプ</link>
+		<icon res="147" width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
+		<link target="command:ID_HELP_FAQ" align="middle">クイックヘルプ</link>
 		<text align="middle">&#160;- PeerProjectを使う上での基本的なヘルプを参照出来ます, or </text>
-		<link target="peer:command:ID_TAB_IRC" align="middle">IRC.</link>
+		<link target="command:ID_TAB_IRC" align="middle">IRC.</link>
 		<newline gap="8"/>
-		<icon res="175" width="16" height="16" target="peer:command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
-		<link target="peer:command:ID_HELP_FORUMS_LOCAL" align="middle">ローカルフォーラム</link>
+		<icon res="175" width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
+		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">ローカルフォーラム</link>
 		<text align="middle">&#160;- あなたの日本語のディスカッションフォーラムへ</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
@@ -1703,7 +1703,7 @@
 			<para align="center">
 				<text format="b">未接続</text>
 				<newline gap="4"/>
-				<link target="peer:command:ID_NETWORK_CONNECT">ここをクリックして接続を開始します</link>
+				<link target="command:ID_NETWORK_CONNECT">ここをクリックして接続を開始します</link>
 			</para>
 		</group>
 		<icon group="20" command="ID_NETWORK_G2"/>
@@ -1745,7 +1745,7 @@
 				<text>最近ダウンロードしたファイルはありません。</text>
 				<newline gap="8"/>
 			</group>
-			<link target="peer:command:ID_VIEW_LIBRARY">ライブラリを表示</link>
+			<link target="command:ID_VIEW_LIBRARY">ライブラリを表示</link>
 			<newline gap="4"/>
 			<text id="LibraryFiles" format="b">%lu </text>
 			<text>ファイル (</text>
@@ -1759,10 +1759,10 @@
 				<newline gap="8"/>
 			</group>
 			<group id="3">
-				<link target="peer:command:ID_LIBRARY_HASH_PRIORITY">ここをクリックして高速ハッシュを行います</link>
+				<link target="command:ID_LIBRARY_HASH_PRIORITY">ここをクリックして高速ハッシュを行います</link>
 			</group>
 			<group id="4">
-				<link target="peer:command:ID_LIBRARY_HASH_PRIORITY">ここをクリックして低速ハッシュを行います</link>
+				<link target="command:ID_LIBRARY_HASH_PRIORITY">ここをクリックして低速ハッシュを行います</link>
 			</group>
 		</para>
 	</document>
@@ -1772,9 +1772,9 @@
 				<text>現在ダウンロード中のファイルはありません</text>
 				<newline gap="4"/>
 			</group>
-			<link id="DownloadsNone" target="peer:command:ID_VIEW_DOWNLOADS">ダウンロードを表示</link>
-			<link id="DownloadsOne" target="peer:command:ID_VIEW_DOWNLOADS" format="bu">ダウンロードを表示 (1)</link>
-			<link id="DownloadsMany" target="peer:command:ID_VIEW_DOWNLOADS" format="bu">ダウンロードを表示 (%i)</link>
+			<link id="DownloadsNone" target="command:ID_VIEW_DOWNLOADS">ダウンロードを表示</link>
+			<link id="DownloadsOne" target="command:ID_VIEW_DOWNLOADS" format="bu">ダウンロードを表示 (1)</link>
+			<link id="DownloadsMany" target="command:ID_VIEW_DOWNLOADS" format="bu">ダウンロードを表示 (%i)</link>
 			<newline gap="4"/>
 			<text id="DownloadedNone">No ﾌｧｲﾙ (</text>
 			<text id="DownloadedOne">1 ﾌｧｲﾙ (</text>
@@ -1786,8 +1786,8 @@
 	<document name="CHomeUploadsBox" title="アップロード" leftMargin="6" topMargin="6">
 		<para align="center">
 			<text id="UploadsNone" format="b">アクティブなアップロードはありません</text>
-			<link id="UploadsOne" target="peer:command:ID_VIEW_UPLOADS" format="bu">1 アクティブアップロード</link>
-			<link id="UploadsMany" target="peer:command:ID_VIEW_UPLOADS" format="bu">%i アクティブアップロード</link>
+			<link id="UploadsOne" target="command:ID_VIEW_UPLOADS" format="bu">1 アクティブアップロード</link>
+			<link id="UploadsMany" target="command:ID_VIEW_UPLOADS" format="bu">%i アクティブアップロード</link>
 			<newline gap="4"/>
 			<group id="1">
 				<text id="TorrentsOne">1 シード</text>
@@ -1808,25 +1808,25 @@
 		<!-- <text format="b">一般</text> -->
 		<text>各セクションの設定はユーザの経験に左右されるところがあります。</text>
 		<newline gap="16" indent="16"/>
-		<link target="peer:page:CGeneralSettingsPage" format="b">一般:</link>
+		<link target="page:CGeneralSettingsPage" format="b">一般:</link>
 		<text>&#160;一般的なユーザーインターフェースはツールチップのようなものが好まれます。 その為フォーマット数やプロンプト等の動作は最小限のものとなります。</text>
 		<newline gap="10"/>
-		<link target="peer:page:CLibrarySettingsPage" format="b">ライブラリ:</link>
+		<link target="page:CLibrarySettingsPage" format="b">ライブラリ:</link>
 		<text>&#160;ファイルライブラリの表示と管理、及びファイルを開き方を設定します。</text>
 		<newline gap="10"/>
-		<link target="peer:page:CMediaSettingsPage" format="b">メディアプレーヤー:</link>
+		<link target="page:CMediaSettingsPage" format="b">メディアプレーヤー:</link>
 		<text>&#160;内蔵PeerProjectメディアセンターを何時何処で使用するかを設定します。</text>
 		<newline gap="10"/>
-		<link target="peer:page:CIRCSettingsPage" format="b">IRC:</link>
+		<link target="page:CIRCSettingsPage" format="b">IRC:</link>
 		<text>&#160;IRC chatroom connection settings and display options.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CCommunitySettingsPage" format="b">コミュニティ:</link>
+		<link target="page:CCommunitySettingsPage" format="b">コミュニティ:</link>
 		<text>&#160;プロフィール、チャット、そしてインスタントメッセージの設定を行います。</text>
 		<newline gap="10"/>
-		<link target="peer:page:CRemoteSettingsPage" format="b">リモート:</link>
+		<link target="page:CRemoteSettingsPage" format="b">リモート:</link>
 		<text>&#160;ウェブブラウザを通してPeerProjectを遠隔操作する為の設定を行います。</text>
 		<newline gap="10"/>
-		<link target="peer:page:CWebSettingsPage" format="b">ウェブ:</link>
+		<link target="page:CWebSettingsPage" format="b">ウェブ:</link>
 		<text>&#160;PeerProjectとウェブブラウザを統合してピア・ツー・ピアリンクを受け付け、その内容を ダウンロードすることが出来ます。</text>
 	</document>
 	<document name="CInternetSettingsGroup" title="インターネット" leftMargin="8" topMargin="8">
@@ -1837,16 +1837,16 @@
 		<text format="b">インターネット </text>
 		<text>セクションの設定ではPeerProjectが分散型ピア・ツー・ピアネットワーク内で 他のユーザーとどのように対話するかの制御を行います。</text>
 		<newline gap="16" indent="16"/>
-		<link target="peer:page:CConnectionSettingsPage" format="b">接続:</link>
+		<link target="page:CConnectionSettingsPage" format="b">接続:</link>
 		<text>&#160;インターネット接続の速度と性能の設定を行います。</text>
 		<newline gap="10"/>
-		<link target="peer:page:CDownloadsSettingsPage" format="b">ダウンロード:</link>
+		<link target="page:CDownloadsSettingsPage" format="b">ダウンロード:</link>
 		<text>&#160;ダウンロードのスループット、スケジューリング、検査、タイムアウト等の管理を行います。</text>
 		<newline gap="10"/>
-		<link target="peer:page:CUploadsSettingsPage" format="b">アップロード:</link>
+		<link target="page:CUploadsSettingsPage" format="b">アップロード:</link>
 		<text>&#160;アップロード容量、キュー、BAN(禁止)処理、タイムアウトや特別な要求等の 管理を行います。</text>
 		<newline gap="10"/>
-		<link target="peer:page:CSchedulerSettingsPage" format="b">Scheduler:</link>
+		<link target="page:CSchedulerSettingsPage" format="b">Scheduler:</link>
 		<text>&#160;Limit download connections based on a periodic schedule.</text>
 	</document>
 	<!-- Browse User Profile -->
@@ -1927,15 +1927,15 @@
 		<newline gap="40" indent="0"/>
 		<text format="b">共有ファイル</text>
 		<newline gap="4" indent="8"/>
-		<icon res="137" target="peer:command:ID_BROWSE_FILES"/><gap size="5"/>
-		<link target="peer:command:ID_BROWSE_FILES" align="middle">共有ファイルを表示</link>
+		<icon res="137" target="command:ID_BROWSE_FILES"/><gap size="5"/>
+		<link target="command:ID_BROWSE_FILES" align="middle">共有ファイルを表示</link>
 		<group id="2">
 			<newline gap="16" indent="0"/>
 			<text format="b">コミュニティ</text>
 			<newline gap="4" indent="8"/>
-			<icon res="140" target="peer:command:ID_SEARCH_CHAT"/>
+			<icon res="140" target="command:ID_SEARCH_CHAT"/>
 			<gap size="5"/>
-			<link target="peer:command:ID_SEARCH_CHAT" align="middle">チャット</link>
+			<link target="command:ID_SEARCH_CHAT" align="middle">チャット</link>
 		</group>
 		<group id="3">
 			<newline gap="16" indent="0"/>
@@ -2497,10 +2497,10 @@
 	<tip id="ID_WINDOW_TILE_VERT" message="開いているウィンドウを重ならないようにタイル状に縦に並べて表示します"/>
 	<tip id="ID_WINDOW_TOOLBAR" message="ツールバーを表示・非表示します"/>
 	<!-- PLUGIN TIPS -->
-	<tip id="ImageViewer_BestFit" message="イメージの大きさをウインドウの大きさにあわせて自動的に拡大・縮小します"/>
-	<tip id="ImageViewer_ActualSize" message="イメージを原寸大で表示します"/>
-	<tip id="ImageViewer_Refresh" message="イメージを更新します"/>
-	<tip id="ImageViewer_Close" message="イメージビュアーを閉じます"/>
+	<tip id="PluginID_ImageViewer_BestFit" message="イメージの大きさをウインドウの大きさにあわせて自動的に拡大・縮小します"/>
+	<tip id="PluginID_ImageViewer_FullSize" message="イメージを原寸大で表示します"/>
+	<tip id="PluginID_ImageViewer_Refresh" message="イメージを更新します"/>
+	<tip id="PluginID_ImageViewer_Close" message="イメージビュアーを閉じます"/>
 </commandTips>
 
 <!-- Localized Strings -->
@@ -2614,26 +2614,26 @@
 	<string id="8180" value="最小ファイルサイズ"/>
 	<string id="8181" value="～"/>
 	<string id="8208" value="PeerProjectは %Iu ファイルのハッシュを作成しています:"/>
-	<string id="8223" value="%i 日 %i 時間"/>
-	<string id="8224" value="PeerProjectはダウンロード中です:"/>
-	<string id="8225" value="このダウンロードは一時停止しています:"/>
+<!--	<string id="8221" value="PeerProjectはソースを探しています:"/>
+	<string id="8222" value="PeerProjectはダウンロード中です:"/>
+	<string id="8223" value="このダウンロードは一時停止しています:"/>
+	<string id="8224" value="PeerProjectはダウンロードデータを移動中です:"/>
+	<string id="8225" value="PeerProjectはダウンロードエラーをチェック中です:"/>
 	<string id="8226" value="PeerProjectはダウンロード終了しました:"/>
-	<string id="8227" value="%i 時間 %i 分"/>
-	<string id="8228" value="%i 分 %i 秒"/>
-	<string id="8229" value="%i 秒"/>
-	<string id="8230" value="PeerProjectはソースを探しています:"/>
+-->	<string id="8227" value="%i 日 %i 時間"/>
+	<string id="8228" value="%i 時間 %i 分"/>
+	<string id="8229" value="%i 分 %i 秒"/>
+	<string id="8230" value="%i 秒"/>
 	<string id="8231" value="ソース無し"/>
 	<string id="8232" value="開く"/>
 	<string id="8233" value="キャンセル"/>
 	<string id="8235" value="総転送速度:"/>
 	<string id="8236" value="予想残り時間:"/>
 	<string id="8237" value="ダウンロード量:"/>
-	<string id="8238" value="ソース数:"/>
+	<string id="8238" value="アップロード量:"/>
 	<string id="8239" value="完了"/>
-	<string id="8240" value="PeerProjectはダウンロードデータを移動中です:"/>
-	<string id="8241" value="PeerProjectはダウンロードエラーをチェック中です:"/>
-	<string id="8243" value="アップロード量:"/>
-	<string id="8244" value="レビュー数:"/>
+	<string id="8240" value="ソース数:"/>
+	<string id="8241" value="レビュー数:"/>
 	<string id="8288" value="PeerProjectライブラリを閲覧中です"/>
 	<string id="8289" value="閲覧:"/>
 	<string id="8290" value="%i フォルダの内容を閲覧しています"/>
@@ -2742,6 +2742,7 @@
 	<string id="16211" value="近隣 %s がファイアーウォールされたアドレスにプッシュ要求を転送した為、無視しています"/>
 	<string id="16212" value="近隣 %s がGGEP以外でエンコードされた拡張パケットを転送しました"/>
 	<string id="16213" value="近隣 %s に問い合わせルーチンテーブルを送信中です (%i bit = %lu[%i], 進行 %i%%)"/>
+	<string id="16254" value="デフォルトではグループをダウンロードします。 （地図を表示すべてのファイル）"/>
 	<string id="16255" value="ドラッグ＆ドロップ %s グループにコピーします。"/>
 	<string id="16256" value="ダウンロードキューに &quot;%s&quot; を追加しました(ソース数:  %i)"/>
 	<string id="16257" value="&quot;%s&quot;のダウンロードが完了しました"/>
@@ -3133,7 +3134,7 @@
 	<string id="18510" value="このダウンロードを完了済みとして再検証しますか?　ファイル全体が考慮され、PeerProjectは検証に成功する部分を受け付け、検証に失敗する部分を再ダウンロードします"/>
 	<string id="18511" value="ファイルサイズの変更が行われました。 本当にこのダウンロードのファイルサイズを変更して宜しいですか?"/>
 	<string id="19000" value="リモートアクセスが無効になりました"/>
-	<string id="19001" value="ユーザー名とパスワードを入力しなければなりません"/>
+	<string id="19001" value="http://%s:%i/remote - ユーザー名とパスワードを入力しなければなりません"/>
 	<string id="19002" value="接続を受け付けることができません。URLが利用不能です"/>
 	<string id="20000" value="利用可能なURNがありません"/>
 	<string id="20001" value="閉じる"/>
@@ -3201,6 +3202,7 @@
 	<string id="20216" value="素薔薇しい"/>
 	<string id="20237" value="OK"/>
 	<string id="20238" value="キャンセル"/>
+	<string id="20245" value="新しいフォルダ"/>
 </strings>
 <!-- Localized Dialog Text, "cookie" verifies that the skin matches current dialog -->
 <dialogs>
@@ -3889,7 +3891,7 @@
 		<control caption="ライブラリを表示"/>
 		<control caption="キャンセル"/>
 		<control caption="非表示"/>
-		<control caption="ダウンロード完了時にこのウィンドウを閉じる"/>
+		<control caption="自動"/>
 	</dialog>
 	<dialog name="CFileGeneralPage" cookie="EdStStStStStEdEdEdEdEdStEdEdEdEd" caption="一般">
 		<control/>
@@ -4066,11 +4068,11 @@
 		<control/>
 		<control caption="キャンセル"/>
 	</dialog>
-	<dialog name="CURLActionDlg" cookie="StStStStStEdStEdStBuBuBuBuBuSt" caption="PeerProject URIマネージャ">
-		<control/>
+	<dialog name="CURLActionDlg" cookie="StStStStStStEdStEdStBuBuBuBuBu" caption="PeerProject URIマネージャ">
 		<control caption="ネットワーク上にある以下の内容へのリンクであるURIをクリックしました:"/>
 		<control caption="以下のホストかサーバに接続するURIをクリックしました:"/>
 		<control caption="以下のホストで利用可能な共有ファイルを参照するURIをクリックしました:"/>
+		<control caption="ディスカバリサービスキャッシュに以下のディスカバリサービスを加えるURIをクリックしました:"/>
 		<control/>
 		<control/>
 		<control/>
@@ -4081,11 +4083,10 @@
 		<control caption="キャンセル"/>
 		<control caption="この選択を記憶(_R)"/>
 		<control caption="ﾀﾞｳﾝﾛｰﾄﾞﾓﾆﾀｳｨﾝﾄﾞｳを開く(_M)"/>
-		<control caption="ディスカバリサービスキャッシュに以下のディスカバリサービスを加えるURIをクリックしました:"/>
 	</dialog>
 	<dialog name="CBitziDownloadDlg" cookie="StStmsBuSySt" caption="メタデータをダウンロード中...">
 		<control/>
-		<control caption="PeerProjectはBitzi(TM)からメタデータのダウンロードしようとしています..."/>
+		<control caption="PeerProjectはBitziからメタデータのダウンロードしようとしています..."/>
 		<control/>
 		<control caption="キャンセル"/>
 		<control/>

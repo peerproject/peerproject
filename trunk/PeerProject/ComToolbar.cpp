@@ -272,25 +272,25 @@ STDMETHODIMP CComToolbar::XEnumVARIANT::Next(ULONG celt, VARIANT FAR* rgvar, ULO
 
 STDMETHODIMP CComToolbar::XEnumVARIANT::Skip(ULONG celt)
 {
-    METHOD_PROLOGUE( CComToolbar, EnumVARIANT )
+	METHOD_PROLOGUE( CComToolbar, EnumVARIANT )
 
 	UINT nCount = static_cast< UINT >( pThis->m_pBar->GetCount() );
 
 	while ( celt-- && m_nIndex++ < nCount );
 
-    return ( celt == 0 ? S_OK : S_FALSE );
+	return ( celt == 0 ? S_OK : S_FALSE );
 }
 
 STDMETHODIMP CComToolbar::XEnumVARIANT::Reset()
 {
-    METHOD_PROLOGUE( CComToolbar, EnumVARIANT )
+	METHOD_PROLOGUE( CComToolbar, EnumVARIANT )
 	m_nIndex = 0;
-    return S_OK;
+	return S_OK;
 }
 
 STDMETHODIMP CComToolbar::XEnumVARIANT::Clone(IEnumVARIANT FAR* FAR* /*ppenum*/)
 {
-    METHOD_PROLOGUE( CComToolbar, EnumVARIANT )
-    return E_NOTIMPL;
+	METHOD_PROLOGUE( CComToolbar, EnumVARIANT )
+	return E_NOTIMPL;
 }
 

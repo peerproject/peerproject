@@ -187,7 +187,7 @@ BOOL CEDClient::Connect()
 	if ( EDClients.IsFull( this ) )
 	{
 		// If this download isn't queued, don't try to start it.
-		if ( !m_pDownload || m_pDownload->m_nState != dtsQueued )
+		if ( ! m_pDownload || m_pDownload->m_nState != dtsQueued )
 			return FALSE;
 
 		// If we're really overloaded, we may have to drop some queued downloads
@@ -200,14 +200,14 @@ BOOL CEDClient::Connect()
 
 	if ( CEDPacket::IsLowID( m_nClientID ) )
 	{
-		if ( !Neighbours.PushDonkey( m_nClientID, &m_pServer.sin_addr, htons( m_pServer.sin_port ) ) )
+		if ( ! Neighbours.PushDonkey( m_nClientID, m_pServer.sin_addr, htons( m_pServer.sin_port ) ) )
 			return FALSE;
 
 		m_tConnected = GetTickCount();
 	}
 	else
 	{
-		if ( !CConnection::ConnectTo( &m_pHost ) )
+		if ( ! CConnection::ConnectTo( &m_pHost ) )
 			return FALSE;
 
 		theApp.Message( MSG_INFO, IDS_ED2K_CLIENT_CONNECTING, (LPCTSTR)m_sAddress );
@@ -575,13 +575,9 @@ BOOL CEDClient::OnLoggedIn()
 	EDClients.Merge( this );
 
 	if ( m_pDownload != NULL )
-	{
 		m_pDownload->OnConnected();
-	}
 	else
-	{
 		SeekNewDownload();
-	}
 
 	if ( m_pUpload != NULL ) m_pUpload->OnConnected();
 
@@ -590,9 +586,7 @@ BOOL CEDClient::OnLoggedIn()
 		pBrowser->OnConnected();
 
 		if ( CEDPacket* pPacket = CEDPacket::New( ED2K_C2C_ASKSHAREDDIRS ) )
-		{
 			Send( pPacket );
-		}
 	}
 
 	return TRUE;
@@ -808,8 +802,7 @@ void CEDClient::SendHello(BYTE nType)
 	CEDPacket* pPacket = CEDPacket::New( nType );
 
 	if ( nType == ED2K_C2C_HELLO )
-		// Size of user hash (legacy)
-		pPacket->WriteByte( 0x10 );
+		pPacket->WriteByte( 0x10 );	// Size of user hash (legacy)
 
 	CEDNeighbour* pServer = Neighbours.GetDonkeyServer();
 
@@ -1593,11 +1586,9 @@ BOOL CEDClient::OnHashsetRequest(CEDPacket* pPacket)
 
 BOOL CEDClient::OnQueueRequest(CEDPacket* /*pPacket*/)
 {
-	if ( !m_oUpED2K  )
-	{
-		// MESSAGE: File not requested yet
+	if ( ! m_oUpED2K  )
 		return TRUE;
-	}
+		// MESSAGE: File not requested yet
 
 	if ( m_pUpload != NULL && validAndUnequal( m_pUpload->m_oED2K, m_oUpED2K ) )
 		DetachUpload();
@@ -1932,9 +1923,7 @@ BOOL CEDClient::OnViewSharedDir(CEDPacket* pPacket)
 	}
 
 	if ( CEDPacket* pReply = CEDPacket::New( ED2K_C2C_ASKSHAREDDIRSDENIED ) )
-	{
 		Send( pReply );
-	}
 
 	return TRUE;
 }
@@ -1942,9 +1931,7 @@ BOOL CEDClient::OnViewSharedDir(CEDPacket* pPacket)
 BOOL CEDClient::OnAskSharedDirsAnswer(CEDPacket* pPacket)
 {
 	if ( CHostBrowser* pBrowser = GetBrowser() )
-	{
 		pBrowser->OnHeadersComplete();
-	}
 
 	if ( pPacket->GetRemaining() >= 4 )
 	{
@@ -1979,9 +1966,7 @@ BOOL CEDClient::OnAskSharedDirsAnswer(CEDPacket* pPacket)
 BOOL CEDClient::OnViewSharedDirAnswer(CEDPacket* pPacket)
 {
 	if ( CHostBrowser* pBrowser = GetBrowser() )
-	{
 		pBrowser->m_nState = CHostBrowser::hbsContent;
-	}
 
 	CQueryHit* pHits = NULL;
 
@@ -2023,13 +2008,9 @@ BOOL CEDClient::OnViewSharedDirAnswer(CEDPacket* pPacket)
 	if ( pHits )
 	{
 		if ( CHostBrowser* pBrowser = GetBrowser() )
-		{
 			pBrowser->OnQueryHits( pHits );
-		}
 		else
-		{
 			Network.OnQueryHits( pHits );
-		}
 	}
 
 	ASSERT( m_nDirsWaiting );
@@ -2037,9 +2018,7 @@ BOOL CEDClient::OnViewSharedDirAnswer(CEDPacket* pPacket)
 	{
 		// Browse complete
 		if ( CHostBrowser* pBrowser = GetBrowser() )
-		{
 			pBrowser->Stop();
-		}
 	}
 
 	return TRUE;
@@ -2049,9 +2028,7 @@ BOOL CEDClient::OnAskSharedDirsDenied(CEDPacket* /*pPacket*/)
 {
 	// Access denied
 	if ( CHostBrowser* pBrowser = GetBrowser() )
-	{
 		pBrowser->Stop();
-	}
 
 	return TRUE;
 }
@@ -2359,9 +2336,7 @@ void CEDClient::WritePartStatus(CEDPacket* pPacket, CDownload* pDownload)
 			for ( DWORD nBit = 0 ; nBit < 8 && nPart < nParts ; nBit++, nPart++ )
 			{
 				if ( pDownload->m_pHashsetBlock[ nPart ] == TRI_TRUE )
-				{
 					nByte |= ( 1 << nBit );
-				}
 			}
 
 			pPacket->WriteByte( nByte );
@@ -2393,7 +2368,7 @@ void CEDClient::WritePartStatus(CEDPacket* pPacket, CDownload* pDownload)
 BOOL CEDClient::OnUdpReask(CEDPacket* pPacket)
 {
 	if ( pPacket->GetRemaining() < Hashes::Ed2kHash::byteCount ) return FALSE;
-	if ( !m_oUpED2K || m_pUpload == NULL ) return FALSE;
+	if ( ! m_oUpED2K || m_pUpload == NULL ) return FALSE;
 
 	Hashes::Ed2kHash oED2K;
 	pPacket->Read( oED2K );

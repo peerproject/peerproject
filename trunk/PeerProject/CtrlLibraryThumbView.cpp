@@ -978,35 +978,47 @@ void CLibraryThumbItem::Paint(CDC* pDC, const CRect& rcBlock)
 	CFont* pOldFont = pDC->SelectObject( &CoolInterface.m_fntNormal );
 	const UINT nStyle = DT_CENTER | DT_TOP | DT_WORDBREAK | DT_EDITCONTROL |
 		DT_NOPREFIX | DT_END_ELLIPSIS;
+
 	CRect rcText( rcBlock.left + 4, rcThumb.bottom + 4,
 		rcBlock.right - 4, rcBlock.bottom );
+
+	BOOL bSelectmark = m_bSelected && Skin.m_bmSelected.m_hObject != NULL;
+
 	if ( m_bSelected )
 	{
-		pDC->SetBkColor( Colors.m_crHighlight );
 		pDC->SetTextColor( Colors.m_crHiText );
+		pDC->SetBkColor( Colors.m_crHighlight );
+		pDC->SetBkMode( bSelectmark ? TRANSPARENT : OPAQUE );
 
 		CRect rcCalc( rcText );
 		int nHeight = pDC->DrawText( m_sText, &rcCalc, nStyle | DT_CALCRECT );
 		if ( nHeight > rcText.Height() )
-			rcText.bottom = rcText.top + nHeight;
-	}
-	else if ( ! m_bShared )
-	{
-		pDC->SetBkColor( Colors.m_crWindow );
-		pDC->SetTextColor( Colors.m_crHighlight );
+			rcText.bottom = rcText.top + nHeight + 2;
 	}
 	else
 	{
+		pDC->SetTextColor( m_bShared ? Colors.m_crText : Colors.m_crShadow );
 		pDC->SetBkColor( Colors.m_crWindow );
-		pDC->SetTextColor( Colors.m_crText );
 	}
-	pDC->FillSolidRect( &rcText, pDC->GetBkColor() );
+
+	if ( bSelectmark )
+		CoolInterface.DrawWatermark( pDC, &rcText, &Skin.m_bmSelected, FALSE ); 	// No overdraw
+	else
+		pDC->FillSolidRect( &rcText, pDC->GetBkColor() );
 	pDC->DrawText( m_sText, &rcText, nStyle );
-	pDC->ExcludeClipRect( &rcText );
 	pDC->SelectObject( pOldFont );
 
-	// Draw Background
+	if ( m_bSelected && Skin.m_bRoundedSelect )
+	{
+		pDC->SetPixel( rcText.left, rcText.top, Colors.m_crWindow );
+		pDC->SetPixel( rcText.left, rcText.bottom - 1, Colors.m_crWindow );
+		pDC->SetPixel( rcText.right - 1, rcText.top, Colors.m_crWindow );
+		pDC->SetPixel( rcText.right - 1, rcText.bottom - 1, Colors.m_crWindow );
+	}
 
+	pDC->ExcludeClipRect( &rcText );
+
+	// Draw Background Window
 	pDC->FillSolidRect( &rcBlock, Colors.m_crWindow );
 	pDC->ExcludeClipRect( &rcBlock );
 }

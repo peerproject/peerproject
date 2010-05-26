@@ -1,7 +1,7 @@
 //
 // PageTorrentFiles.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -38,7 +38,7 @@ public:
 protected:
 	CComboListCtrl	m_wndFiles;
 
-	void Update();		// Refresh interface
+	void Update();	// Refresh interface
 
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
 	virtual BOOL OnInitDialog();
@@ -49,6 +49,7 @@ protected:
 	afx_msg void OnCheckbox(NMHDR *pNMHDR, LRESULT *pResult);
 	afx_msg void OnSortColumn(NMHDR* pNotifyStruct, LRESULT* pResult);
 	afx_msg void OnNMDblclkTorrentFiles(NMHDR *pNMHDR, LRESULT *pResult);
+	afx_msg void OnCustomDrawList(NMHDR* pNMHDR, LRESULT* pResult);
 
 	DECLARE_MESSAGE_MAP()
 };

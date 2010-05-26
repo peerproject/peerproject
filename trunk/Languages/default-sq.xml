@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Albanian Skin File -->
 
-<!-- Translation based on default-en.xml r54 -->
+<!-- Translation based on default-en.xml r55 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -458,12 +458,12 @@
 	</toolbar>
 	<!-- IMAGE VIEWER PLUGIN WINDOW -->
 	<toolbar name="ImageViewerWnd">
-		<button id="ImageViewer_BestFit" text="Përmasa Perfekte"/>
-		<button id="ImageViewer_ActualSize" text="Përmasa Akuale"/>
+		<button id="PluginID_ImageViewer_BestFit" text="Përmasa Perfekte"/>
+		<button id="PluginID_ImageViewer_FullSize" text="Përmasa Akuale"/>
 		<separator/>
-		<button id="ImageViewer_Refresh" text="Rifresko"/>
+		<button id="PluginID_ImageViewer_Refresh" text="Rifresko"/>
 		<rightAlign/>
-		<button id="ImageViewer_Close" text="Mbylle"/>
+		<button id="PluginID_ImageViewer_Close" text="Mbylle"/>
 	</toolbar>
 </toolbars>
 <!-- Menu Definitions -->
@@ -1639,12 +1639,12 @@
 	</menu>
 	<!-- PLUGIN MENUS -->
 	<menu name="ImageViewer_Context">
-		<item id="ImageViewer_BestFit" text="_Masa Perfekte"/>
-		<item id="ImageViewer_ActualSize" text="Masa _Aktuale"/>
+		<item id="PluginID_ImageViewer_BestFit" text="_Masa Perfekte"/>
+		<item id="PluginID_ImageViewer_FullSize" text="Masa _Aktuale"/>
 		<separator/>
-		<item id="ImageViewer_Refresh" text="_Rifresko"/>
+		<item id="PluginID_ImageViewer_Refresh" text="_Rifresko"/>
 		<separator/>
-		<item id="ImageViewer_Close" text="_Mbylle"/>
+		<item id="PluginID_ImageViewer_Close" text="_Mbylle"/>
 	</menu>
 	<!-- IRC WINDOW -->
 	<menu name="CIRCTabRClick">
@@ -1695,28 +1695,28 @@
 		<anchor id="Header" width="32" height="152"/>
 		<newline gap="0"/>
 		<group id="1">
-			<icon res="130" width="32" height="32" target="peer:command:ID_NETWORK_CONNECT"/><gap size="8"/>
+			<icon res="130" width="32" height="32" target="command:ID_NETWORK_CONNECT"/><gap size="8"/>
 			<heading align="middle">LIDHUNI</heading>
 			<newline gap="8" indent="42"/>
 			<text>Mirë se erdhët në PeerProject!</text>
 			<newline gap="8" indent="42"/>
 			<text>Ju nuk jeni i lidhur te asnjë rrjet pikë më pikë. &#160;</text>
-			<link target="peer:command:ID_NETWORK_CONNECT">Lidhuni Tani!</link>
+			<link target="command:ID_NETWORK_CONNECT">Lidhuni Tani!</link>
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="2">
-			<icon res="134" width="32" height="32" target="peer:command:ID_TAB_SEARCH"/><gap size="8"/>
+			<icon res="134" width="32" height="32" target="command:ID_TAB_SEARCH"/><gap size="8"/>
 			<heading align="middle">KËRKONI NJË SKEDË</heading>
 			<newline gap="8" indent="42"/>
 			<anchor id="SearchBox" width="256" height="80"/>
 			<newline gap="14" indent="0"/>
-			<icon res="136" width="32" height="32" target="peer:command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
+			<icon res="136" width="32" height="32" target="command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
 			<heading align="middle">NISNI TË SHKARKONI</heading>
 			<newline gap="8" indent="42"/>
-			<link target="peer:command:ID_TOOLS_DOWNLOAD" format="bu">Klikoni që të nisni</link>
+			<link target="command:ID_TOOLS_DOWNLOAD" format="bu">Klikoni që të nisni</link>
 			<text align="middle">&#160; të shkarkoni një skedë ose torrent të ri.</text>
 			<newline gap="2" indent="42"/>
-			<link target="peer:shell:downloads">Shko te Shkarkesat e Mia.</link>
+			<link target="command:shell:downloads">Shko te Shkarkesat e Mia.</link>
 			<newline gap="20" indent="0"/>
 		</group>
 		<group id="3">
@@ -1725,18 +1725,18 @@
 			<newline gap="8" indent="42"/>
 			<text id="Përmirësoni"/>
 			<newline gap="6"/>
-			<link target="peer:upgrade">Klikoni që të përmirësoni</link>
+			<link target="command:upgrade">Klikoni që të përmirësoni</link>
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="4">
-			<icon res="252" width="32" height="32" target="peer:command:ID_TOOLS_WIZARD"/><gap size="8"/>
+			<icon res="252" width="32" height="32" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 			<heading align="middle">KUJDES: KENI NJË FAJRUOLL</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">PeerProject diktoi se ndodheni pas një routeri NAT ose fajruolli,
 			  dhe nuk mund të merrni lidhje nga Interneti.&#160;</text>
 			<text color="FF0000" format="b">Kjo shkakton dobësi tek rendimenti i shkarkimit.</text>
 			<newline gap="6"/>
-			<link target="peer:command:ID_HELP_ROUTER">Mësoni rreth konfigurimit të routerit ose fajruollit</link>
+			<link target="command:ID_HELP_ROUTER">Mësoni rreth konfigurimit të routerit ose fajruollit</link>
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="6">
@@ -1747,7 +1747,7 @@
 			  dhe nuk mund të merrni lidhje TCP nga Interneti.&#160;</text>
 			<text color="FF0000" format="b">Kjo shkakton dobësi tek rendimenti i shkarkimit.</text>
 			<newline gap="6"/>
-			<link target="peer:command:ID_HELP_ROUTER">Mësoni rreth konfigurimit të routerit ose fajruollit</link>
+			<link target="command:ID_HELP_ROUTER">Mësoni rreth konfigurimit të routerit ose fajruollit</link>
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="7">
@@ -1758,35 +1758,35 @@
 			  dhe nuk mund të merrni lidhje UDP nga Interneti.&#160;</text>
 			<text color="FF0000" format="b">Kjo shkakton dobësi tek rendimenti i shkarkimit.</text>
 			<newline gap="6"/>
-			<link target="peer:command:ID_HELP_ROUTER">Mësoni rreth konfigurimit të routerit ose fajruollit</link>
+			<link target="command:ID_HELP_ROUTER">Mësoni rreth konfigurimit të routerit ose fajruollit</link>
 			<newline gap="18" indent="0"/>
 		</group>
-		<icon res="128" width="32" height="32" target="peer:command:ID_TOOLS_SETTINGS"/><gap size="8"/>
+		<icon res="128" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">POROSITENI PEERPROJECT - n</heading>
 		<newline gap="12" indent="42"/>
-		<icon res="182" width="16" height="16" target="peer:command:ID_TOOLS_SKIN"/><gap size="8"/>
-		<link target="peer:command:ID_TOOLS_SKIN" align="middle" format="bu">Lëvoret</link>
+		<icon res="182" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
+		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">Lëvoret</link>
 		<text align="middle">&#160;- Ndryshoni pamjen &amp; ndjesinë e PeerProject-s</text>
 		<newline gap="8"/>
-		<icon res="141" width="16" height="16" target="peer:command:ID_VIEW_SECURITY"/><gap size="8"/>
-		<link target="peer:command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
+		<icon res="141" width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
+		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
 		<text align="middle">&#160;- Update blocklist to avoid bad search results</text>
 		<newline gap="8"/>
-		<icon res="317" width="16" height="16" target="peer:command:ID_TOOLS_WIZARD"/><gap size="8"/>
-		<link target="peer:command:ID_TOOLS_WIZARD" align="middle">Uizardi i Shpejtë</link>
+		<icon res="317" width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
+		<link target="command:ID_TOOLS_WIZARD" align="middle">Uizardi i Shpejtë</link>
 		<text align="middle">&#160;- Editoni kuadrot e PeerProject-s</text>
 		<newline gap="8"/>
-		<icon res="141" width="16" height="16" target="peer:command:ID_VIEW_SECURITY"/><gap size="8"/>
-		<link target="peer:command:ID_VIEW_SECURITY" align="middle">Filtrat e Sigurisë</link>
+		<icon res="141" width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
+		<link target="command:ID_VIEW_SECURITY" align="middle">Filtrat e Sigurisë</link>
 		<text align="middle">&#160;- Shto/Fshiji filtrat që të përmirësosh rezultatet e kërkimit</text>
 		<newline gap="8"/>
-		<icon res="147" width="16" height="16" target="peer:command:ID_HELP_FAQ"/><gap size="8"/>
-		<link target="peer:command:ID_HELP_FAQ" align="middle">Ndihmë e Shpejtë</link>
+		<icon res="147" width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
+		<link target="command:ID_HELP_FAQ" align="middle">Ndihmë e Shpejtë</link>
 		<text align="middle">&#160;- Merrni ndihmën kryesore mbi përdorimin e PeerProject-s, or </text>
-		<link target="peer:command:ID_TAB_IRC" align="middle">IRC.</link>
+		<link target="command:ID_TAB_IRC" align="middle">IRC.</link>
 		<newline gap="8"/>
-		<icon res="175" width="16" height="16" target="peer:command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
-		<link target="peer:command:ID_HELP_FORUMS_LOCAL" align="middle">Local Forum</link>
+		<icon res="175" width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
+		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">Local Forum</link>
 		<text align="middle">&#160;- Shko tek forumi shqiptar tuaj diskutim gjuhën</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
@@ -1811,7 +1811,7 @@
 			<para align="center">
 				<text format="b">I Palidhur</text>
 				<newline gap="4"/>
-				<link target="peer:command:ID_NETWORK_CONNECT">Lidhu Tani</link>
+				<link target="command:ID_NETWORK_CONNECT">Lidhu Tani</link>
 			</para>
 		</group>
 		<icon group="20" command="ID_NETWORK_G2"/>
@@ -1859,7 +1859,7 @@
 				<text>Kohët e fundit nuk po shkarkoni ndonjë skedë të re.</text>
 				<newline gap="8"/>
 			</group>
-			<link target="peer:command:ID_VIEW_LIBRARY">Shko në Librari</link>
+			<link target="command:ID_VIEW_LIBRARY">Shko në Librari</link>
 			<newline gap="4"/>
 			<text id="LibraryFiles" format="b">%lu </text>
 			<text>skeda, </text>
@@ -1872,10 +1872,10 @@
 				<newline gap="8"/>
 			</group>
 			<group id="3">
-				<link target="peer:command:ID_LIBRARY_HASH_PRIORITY">Klikoni që të grini më shpejt</link>
+				<link target="command:ID_LIBRARY_HASH_PRIORITY">Klikoni që të grini më shpejt</link>
 			</group>
 			<group id="4">
-				<link target="peer:command:ID_LIBRARY_HASH_PRIORITY">Klikoni që të grini më ngadalë</link>
+				<link target="command:ID_LIBRARY_HASH_PRIORITY">Klikoni që të grini më ngadalë</link>
 			</group>
 		</para>
 	</document>
@@ -1890,9 +1890,9 @@
 				<text>Nuk po shkarkoni asnjë skedë.</text>
 				<newline gap="4"/>
 			</group>
-			<link id="DownloadsNone" target="peer:command:ID_VIEW_DOWNLOADS">Shko te Shkarkimi</link>
-			<link id="DownloadsOne"  target="peer:command:ID_VIEW_DOWNLOADS" format="bu">Shko te Transferimi (1)</link>
-			<link id="DownloadsMany" target="peer:command:ID_VIEW_DOWNLOADS" format="bu">Shko te Transferimi (%i)</link>
+			<link id="DownloadsNone" target="command:ID_VIEW_DOWNLOADS">Shko te Shkarkimi</link>
+			<link id="DownloadsOne"  target="command:ID_VIEW_DOWNLOADS" format="bu">Shko te Transferimi (1)</link>
+			<link id="DownloadsMany" target="command:ID_VIEW_DOWNLOADS" format="bu">Shko te Transferimi (%i)</link>
 			<newline gap="4"/>
 			<text id="DownloadedNone">No skeda (</text>
 			<text id="DownloadedOne">1 skedë (</text>
@@ -1909,8 +1909,8 @@
 		</styles>
 		<para align="center">
 			<text id="UploadsNone" format="b">Asnjë ngarkesë aktive</text>
-			<link id="UploadsOne"  target="peer:command:ID_VIEW_UPLOADS" format="bu">1 ngarkesë aktive</link>
-			<link id="UploadsMany" target="peer:command:ID_VIEW_UPLOADS" format="bu">%i ngarkesa aktive</link>
+			<link id="UploadsOne"  target="command:ID_VIEW_UPLOADS" format="bu">1 ngarkesë aktive</link>
+			<link id="UploadsMany" target="command:ID_VIEW_UPLOADS" format="bu">%i ngarkesa aktive</link>
 			<newline gap="4"/>
 			<group id="1">
 				<text id="TorrentsOne">1 torrent i mbjellë</text>
@@ -1931,25 +1931,25 @@
 		<text format="b">Përgjithësi </text>
 		<text>kanë të bëjnë me përvojën e përdoruesit.</text>
 		<newline gap="16" indent="16"/>
-		<link target="peer:page:CGeneralSettingsPage" format="b">Përgjithësi:</link>
+		<link target="page:CGeneralSettingsPage" format="b">Përgjithësi:</link>
 		<text>&#160;Kuadro për ndërfaqen e zakontë të përdoruesit: me këshilla, sjellje minimizuese, formatet e numrave, lajmërime etj.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CLibrarySettingsPage" format="b">Librari:</link>
+		<link target="page:CLibrarySettingsPage" format="b">Librari:</link>
 		<text>&#160;Paraqet dhe menaxhon librarinë dhe hapjen e skedës.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CMediaSettingsPage" format="b">Lexuesi:</link>
+		<link target="page:CMediaSettingsPage" format="b">Lexuesi:</link>
 		<text>&#160;Ku/kur përdoret qendra mediatike si pjesë e PeerProject-s.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CIRCSettingsPage" format="b">IRC:</link>
+		<link target="page:CIRCSettingsPage" format="b">IRC:</link>
 		<text>&#160;Pamje figurative të dhomës IRC dhe vendosjet e lidhjes.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CCommunitySettingsPage" format="b">Komuniteti:</link>
+		<link target="page:CCommunitySettingsPage" format="b">Komuniteti:</link>
 		<text>&#160;Kuadrot e profilit, chat-it dhe e mesazheve tuaja të çastit.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CRemoteSettingsPage" format="b">Hyrja në Largësi:</link>
+		<link target="page:CRemoteSettingsPage" format="b">Hyrja në Largësi:</link>
 		<text>&#160;Aftësi për të kontrolluar PeerProject-n me pult nga një shfletues rrjeti.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CWebSettingsPage" format="b">Rrjeti:</link>
+		<link target="page:CWebSettingsPage" format="b">Rrjeti:</link>
 		<text>&#160;Integroni PeerProject-n me shfletuesin e rrjetit që të pranojë linket pikë-më-pikë dhe të shkarkojë përmbajtjen.</text>
 	</document>
 	<document name="CInternetSettingsGroup" title="Interneti" leftMargin="8" topMargin="8">
@@ -1960,16 +1960,16 @@
 		<text format="b">Interneti </text>
 		<text>tregojnë si ndërvepron PeerProject me nyjet e tjera në rrjetet pikë-më-pikë të klasifikuara.</text>
 		<newline gap="16" indent="16"/>
-		<link target="peer:page:CConnectionSettingsPage" format="b">Lidhja:</link>
+		<link target="page:CConnectionSettingsPage" format="b">Lidhja:</link>
 		<text>&#160;Shpejtësitë dhe aftësitë e lidhjes tuaj me Internetin.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CDownloadsSettingsPage" format="b">Shkarkesat:</link>
+		<link target="page:CDownloadsSettingsPage" format="b">Shkarkesat:</link>
 		<text>&#160;Avitja, planifikimi, verifikimi, jashtëkoha dhe menaxhimi i shkarkesave.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CUploadsSettingsPage" format="b">Ngarkesat:</link>
+		<link target="page:CUploadsSettingsPage" format="b">Ngarkesat:</link>
 		<text>&#160;Kapaciteti, pritja, dëbimi, jashtëkoha dhe kërkesat e tjera për ngarkesat.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CSchedulerSettingsPage" format="b">Scheduler:</link>
+		<link target="page:CSchedulerSettingsPage" format="b">Scheduler:</link>
 		<text>&#160;Kufizoni lidhjet e shkarkimit bazuar në një plan periodik.</text>
 	</document>
 	<!-- Browse User Profile -->
@@ -2050,15 +2050,15 @@
 		<newline gap="40" indent="0"/>
 		<text format="b">Skedat e Shpërndara</text>
 		<newline gap="4" indent="8"/>
-		<icon res="137" target="peer:command:ID_BROWSE_FILES"/><gap size="5"/>
-		<link target="peer:command:ID_BROWSE_FILES" align="middle">Shikoni Skedat e Shpërndara</link>
+		<icon res="137" target="command:ID_BROWSE_FILES"/><gap size="5"/>
+		<link target="command:ID_BROWSE_FILES" align="middle">Shikoni Skedat e Shpërndara</link>
 		<group id="2">
 			<newline gap="16" indent="0"/>
 			<text format="b">Komuniteti</text>
 			<newline gap="4" indent="8"/>
-			<icon res="140" target="peer:command:ID_SEARCH_CHAT"/>
+			<icon res="140" target="command:ID_SEARCH_CHAT"/>
 			<gap size="5"/>
-			<link target="peer:command:ID_SEARCH_CHAT" align="middle">Bisedo</link>
+			<link target="command:ID_SEARCH_CHAT" align="middle">Bisedo</link>
 		</group>
 		<group id="3">
 			<newline gap="16" indent="0"/>
@@ -2636,10 +2636,10 @@
 	<tip id="ID_WEBSERVICES_LIST" message="Zgjidh shërbimin e rrjetit që të marrësh më shumë informacion për skedën e zgjedhur."/>
 	<tip id="ID_WEBSERVICES_SHAREMONKEY" message="Kërkon për informacionin e skedës duke përdorur shërbimin ShareMonkey."/>
 	<!-- PLUGIN TIPS -->
-	<tip id="ImageViewer_BestFit" message="Ripërmason figurën që të jetë brenda dritares."/>
-	<tip id="ImageViewer_ActualSize" message="Tregon figurën në masën e saj natyrale."/>
-	<tip id="ImageViewer_Refresh" message="Rifreskon figurën."/>
-	<tip id="ImageViewer_Close" message="Mbyll dritaren e shikuesit të figurave."/>
+	<tip id="PluginID_ImageViewer_BestFit" message="Ripërmason figurën që të jetë brenda dritares."/>
+	<tip id="PluginID_ImageViewer_FullSize" message="Tregon figurën në masën e saj natyrale."/>
+	<tip id="PluginID_ImageViewer_Refresh" message="Rifreskon figurën."/>
+	<tip id="PluginID_ImageViewer_Close" message="Mbyll dritaren e shikuesit të figurave."/>
 </commandTips>
 <!-- Tips displayed when mouse is moved over controls in the dialogs -->
 <controlTips>
@@ -2761,26 +2761,26 @@
 	<string id="8180" value="Masa Min:"/>
 	<string id="8181" value="Masa Maks:"/>
 	<string id="8208" value="PeerProject po krijon hashe për %Iu skeda:"/>
-	<string id="8223" value="%i ditë %i orë"/>
-	<string id="8224" value="PeerProject po shkarkon:"/>
-	<string id="8225" value="Kjo shkarkesë po pushon:"/>
+<!--	<string id="8221" value="PeerProject po gjen burime për:"/>
+	<string id="8222" value="PeerProject po shkarkon:"/>
+	<string id="8223" value="Kjo shkarkesë po pushon:"/>
+	<string id="8224" value="PeerProject po lëviz shkarkesën:"/>
+	<string id="8225" value="PeerProject po verifikon shkarkesën për gabime:"/>
 	<string id="8226" value="PeerProject përfundoi shkarkimin:"/>
-	<string id="8227" value="%i orë e %i minuta"/>
-	<string id="8228" value="%i minuta e %i sekonda"/>
-	<string id="8229" value="%i sekonda"/>
-	<string id="8230" value="PeerProject po gjen burime për:"/>
+-->	<string id="8227" value="%i ditë %i orë"/>
+	<string id="8228" value="%i orë e %i minuta"/>
+	<string id="8229" value="%i minuta e %i sekonda"/>
+	<string id="8230" value="%i sekonda"/>
 	<string id="8231" value="Asnjë burim"/>
 	<string id="8232" value="Hape"/>
 	<string id="8233" value="Anulo"/>
 	<string id="8235" value="Shpejtësi:"/>
 	<string id="8236" value="Kohë e mbetur:"/>
 	<string id="8237" value="Në shkarkim:"/>
-	<string id="8238" value="Burime:"/>
+	<string id="8238" value="Në ngarkim:"/>
 	<string id="8239" value="Përfundon"/>
-	<string id="8240" value="PeerProject po lëviz shkarkesën:"/>
-	<string id="8241" value="PeerProject po verifikon shkarkesën për gabime:"/>
-	<string id="8243" value="Në ngarkim:"/>
-	<string id="8244" value="Pasqyra:"/>
+	<string id="8240" value="Burime:"/>
+	<string id="8241" value="Pasqyra:"/>
 	<string id="8288" value="Eksploroni Librarinë Tuaj në PeerProject"/>
 	<string id="8289" value="Po eksploroni"/>
 	<string id="8290" value="Eksploroni përmbajtjet e %i dosjeve"/>
@@ -2886,6 +2886,7 @@
 	<string id="16200" value="Fqinji %s përcolli një pong me të dhëna adrese invalide, përbuzje."/>
 	<string id="16201" value="%s:  Fqinji %s përcolli një invalide, përbuzje."/>
 	<string id="16202" value="Fqinji %s përcolli një invalide, përbuzje."/>
+	<string id="16254" value="Default shkarko grup. (Trego të gjitha dosjet)"/>
 	<string id="16255" value="Drag'n'drop dosjet grupit %s"/>
 	<!--MISSING STRINGS-->
 	<string id="16391" value="Ju nuk jeni i lidhur në rrjet."/>
@@ -3017,7 +3018,7 @@
 	<string id="18510" value="A jeni i sigurt se doni të supozoni se kjo shkarkesë ka përfunduar dhe do e riverifikoni atë?  E tërë skeda do të merret parasysh dhe PeerProject do të pranojë pjesë të cilat e kalojnë verifikimin dhe do të rishkarkojë pjesët që nuk e kalojnë atë."/>
 	<string id="18511" value="Ju kryet ndryshime në masën e skedës. A jeni i sigurt se doni të ndryshoni masën për këtë shkarkesë?"/>
 	<string id="19000" value="Hyrja në largësi është çaktivizuar."/>
-	<string id="19001" value="Duhet të zgjidhet një emër përdoruesi dhe fjalëkalimi."/>
+	<string id="19001" value="http://%s:%i/remote - një emër përdoruesi dhe fjalëkalimi."/>
 	<string id="19002" value="Nuk mund të pranoj lidhjet, URLi pa vlerë."/>
 	<string id="20000" value="Asnjë URN me vlerë"/>
 	<string id="20001" value="Mbylle"/>
@@ -3102,6 +3103,7 @@
 	<string id="20242" value="Provo Përsëri"/>
 	<string id="20243" value="Vijo"/>
 	<string id="20244" value="&amp;Mbaj mend zgjedhjen time herën tjetër"/>
+	<string id="20245" value="Re Dosja"/>
 </strings>
 <!-- Localized Dialog Text, "cookie" verifies that the skin matches current dialog -->
 <dialogs>
@@ -3832,7 +3834,7 @@
 		<control caption="Shiko"/>
 		<control caption="Anuloje"/>
 		<control caption="Fshehe"/>
-		<control caption="Mbylle dritaren kur shkarkimi përfundon"/>
+		<control caption="Auto"/>
 	</dialog>
 	<dialog name="CFileGeneralPage" cookie="EdStStStStStEdEdEdEdEdStEdEdEdEd" caption="Përgjithësi">
 		<control/>
@@ -4009,11 +4011,11 @@
 		<control/>
 		<control caption="Anulo"/>
 	</dialog>
-	<dialog name="CURLActionDlg" cookie="StStStStStEdStEdStBuBuBuBuBuSt" caption="Menaxheri i URI-ve në PeerProject">
-		<control/>
+	<dialog name="CURLActionDlg" cookie="StStStStStStEdStEdStBuBuBuBuBu" caption="Menaxheri i URI-ve në PeerProject">
 		<control caption="Klikuat një URI me fuqi në PeerProject, i cili lidhet në rrjet me këtë përmbajtje:"/>
 		<control caption="Klikuat një URL me fuqi në PeerProject, i cili do të lidhet te hosti ose serveri më poshtë:"/>
 		<control caption="Klikuat një URI me fuqi në PeerProject, i cili do t'ju lejojë të shfletoni skedat e shpërndara të vlefshme në hostin më poshtë:"/>
+		<control caption="Ju keni klikuar në një URI me fuqi në PeerProject i cili do të shtojë Shërbimin Zbulues të mëposhtëm në depon tuaj për Shërbimin Zbulues."/>
 		<control/>
 		<control/>
 		<control/>
@@ -4024,7 +4026,6 @@
 		<control caption="Anulo"/>
 		<control caption="_Mbaje mend këtë zgjedhjen"/>
 		<control caption="_Monitoro shkarkimin"/>
-		<control caption="Ju keni klikuar në një URI me fuqi në PeerProject i cili do të shtojë Shërbimin Zbulues të mëposhtëm në depon tuaj për Shërbimin Zbulues."/>
 	</dialog>
 	<dialog name="CBitziDownloadDlg" cookie="StStmsBuSySt" caption="Po shkarkoj Metadatat...">
 		<control/>

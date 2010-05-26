@@ -37,6 +37,11 @@
 #include "FragmentBar.h"
 #include "CtrlUploadTip.h"
 
+// Torrent Scrape:
+#include "Download.h"
+#include "Downloads.h"
+#include "BENode.h"
+
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #undef THIS_FILE
@@ -85,8 +90,8 @@ void CUploadTipCtrl::OnShow()
 {
 	if ( m_pGraph ) delete m_pGraph;
 
-	m_pGraph	= CreateLineGraph();
-	m_pItem		= new CGraphItem( 0, 1.0f, RGB( 0xFF, 0, 0 ) );
+	m_pGraph = CreateLineGraph();
+	m_pItem  = new CGraphItem( 0, 1.0f, RGB( 0xFF, 0, 0 ) );	// ToDo: Skin tip graphlines?  Colors.m_cr
 
 	m_pGraph->AddItem( m_pItem );
 }
@@ -95,7 +100,9 @@ void CUploadTipCtrl::OnHide()
 {
 	delete m_pGraph;
 	m_pGraph = NULL;
-	m_pItem = NULL;
+	m_pItem  = NULL;
+
+	if ( ! m_sSeedsPeers.IsEmpty() ) m_sSeedsPeers.Empty();
 }
 
 void CUploadTipCtrl::OnCalcSize(CDC* pDC)
@@ -104,7 +111,7 @@ void CUploadTipCtrl::OnCalcSize(CDC* pDC)
 	CUploadTransfer* pUpload = m_pUploadFile->GetActive();
 
 	m_sAddress = inet_ntoa( pUpload->m_pHost.sin_addr );
-	if ( pUpload->m_sNick.GetLength() > 0 )
+	if ( ! pUpload->m_sNick.IsEmpty() )
 		m_sAddress = pUpload->m_sNick + _T(" (") + m_sAddress + _T(")");
 
 	m_pHeaderName.RemoveAll();
@@ -136,7 +143,7 @@ void CUploadTipCtrl::OnCalcSize(CDC* pDC)
 	m_sz.cy += TIP_BARHEIGHT;
 	m_sz.cy += TIP_GAP;
 	m_sz.cy += TIP_GRAPHHEIGHT;
-	m_sz.cy += TIP_GAP;
+	//m_sz.cy += TIP_GAP;
 
 	int nValueWidth = 0;
 	m_nHeaderWidth = 0;
@@ -183,8 +190,8 @@ void CUploadTipCtrl::OnPaint(CDC* pDC)
 	int nFlagIndex = Flags.GetFlagIndex( pUpload->m_sCountry );
 	if ( nFlagIndex >= 0 )
 	{
-		ImageList_DrawEx( Flags.m_pImage, nFlagIndex, pDC->GetSafeHdc(),
-			pt.x, pt.y, 16, 16, Colors.m_crTipBack, CLR_NONE, ILD_NORMAL );
+		ImageList_DrawEx( Flags.m_pImage, nFlagIndex, pDC->GetSafeHdc(), pt.x, pt.y, 16, 16,
+			( Skin.m_bmToolTip.m_hObject ) ? CLR_NONE : Colors.m_crTipBack, CLR_NONE, ILD_NORMAL );
 		pDC->ExcludeClipRect( pt.x, pt.y, pt.x + 16, pt.y + 16 );
 	}
 
@@ -260,6 +267,10 @@ void CUploadTipCtrl::OnPaint(CDC* pDC)
 		LoadString( strStatus, IDS_TIP_ACTIVE );
 	}
 
+	// Add Torrent Seeds/Peers from last Tracker Scrape
+	if ( pUpload->m_nProtocol == PROTOCOL_BT )
+		strStatus += m_sSeedsPeers;
+
 	// Starting dynamic text
 	m_rcUpdateText.top = pt.y;
 	m_rcUpdateText.right = m_sz.cx - 2;
@@ -288,24 +299,25 @@ void CUploadTipCtrl::OnPaint(CDC* pDC)
 	// End dynamic text
 	m_rcUpdateText.bottom = pt.y + TIP_TEXTHEIGHT;
 
+	// Progress Bar
 	pt.y += TIP_GAP;
 	DrawProgressBar( pDC, &pt, m_pUploadFile );
 	pt.y += TIP_GAP;
 
+	// Graph Bar
 	CRect rc( pt.x, pt.y, m_sz.cx, pt.y + TIP_GRAPHHEIGHT );
 	pDC->Draw3dRect( &rc, Colors.m_crTipBorder, Colors.m_crTipBorder );
 	rc.DeflateRect( 1, 1 );
-	if ( m_pGraph )	// Rare crash fix
-		m_pGraph->BufferedPaint( pDC, &rc );
+	if ( m_pGraph ) m_pGraph->BufferedPaint( pDC, &rc );
 	rc.InflateRect( 1, 1 );
 	pDC->ExcludeClipRect( &rc );
 	pt.y += TIP_GRAPHHEIGHT;
-	pt.y += TIP_GAP;
+	//pt.y += TIP_GAP;
 
 	for ( int nHeader = 0 ; nHeader < m_pHeaderName.GetSize() ; nHeader++ )
 	{
-		CString strName		= m_pHeaderName.GetAt( nHeader );
-		CString strValue	= m_pHeaderValue.GetAt( nHeader );
+		CString strName  = m_pHeaderName.GetAt( nHeader );
+		CString strValue = m_pHeaderValue.GetAt( nHeader );
 
 		DrawText( pDC, &pt, strName + ':' );
 		DrawText( pDC, &pt, strValue, m_nHeaderWidth );
@@ -360,12 +372,26 @@ void CUploadTipCtrl::OnTimer(UINT_PTR nIDEvent)
 		m_pGraph->m_nUpdates++;
 		m_pGraph->m_nMaximum = max( m_pGraph->m_nMaximum, nSpeed );
 
-		if ( pUpload->m_nState == upsNull || m_pGraph->m_nMaximum < 8 )
-			return;
+		if ( pUpload->m_nState != upsNull && m_pGraph->m_nMaximum >= 8 )
+		{
+			CRect rcUpdateGraph;
+			SystemParametersInfo( SPI_GETWORKAREA, 0, rcUpdateGraph, 0 );
+			rcUpdateGraph.top += TIP_TEXTHEIGHT * 8 + TIP_GAP + TIP_GAP ;
+			InvalidateRect( &rcUpdateGraph, FALSE );
+		}
 
-		CRect rcUpdateGraph;
-		SystemParametersInfo( SPI_GETWORKAREA, 0, rcUpdateGraph, 0 );
-		rcUpdateGraph.top += TIP_TEXTHEIGHT * 8 + TIP_GAP + TIP_GAP ;
-		InvalidateRect( &rcUpdateGraph, FALSE );
+		// Update torrent Seeds/Peers asynchronously, Scrape if needed
+		if ( pUpload->m_nProtocol == PROTOCOL_BT && m_sSeedsPeers.IsEmpty() )
+		{
+			if ( CDownload* pDownload = Downloads.FindByBTH( m_pUploadFile->GetActive()->m_oBTH ) )
+			{
+				if ( pDownload->m_pTorrent.ScrapeTracker() )
+				{
+					m_sSeedsPeers.Format( _T("   ( %i seeds %i peers )"),	// ToDo: Translation ?
+						pDownload->m_pTorrent.m_nTrackerSeeds, pDownload->m_pTorrent.m_nTrackerPeers );
+					InvalidateRect( &m_rcUpdateText, FALSE );
+				}
+			}
+		}
 	}
 }

@@ -176,7 +176,7 @@ void CIRCSettingsPage::OnClickIrcColorBg()
 {
 	CColorDialog colorDlg( Settings.IRC.Colors[ ID_COLOR_CHATWINDOW ], CC_FULLOPEN );
 	if ( colorDlg.DoModal() != IDOK ) return;
-    Settings.IRC.Colors[ ID_COLOR_CHATWINDOW ] = colorDlg.GetColor();
+	Settings.IRC.Colors[ ID_COLOR_CHATWINDOW ] = colorDlg.GetColor();
 	ReleaseCapture();
 	Invalidate();
 	UpdateWindow();

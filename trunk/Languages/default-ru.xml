@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Russian Skin File -->
 
-<!-- Translation based on default-en.xml r54 -->
+<!-- Translation based on default-en.xml r55 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -450,12 +450,12 @@
 	</toolbar>
 	<!-- IMAGE VIEWER PLUGIN WINDOW -->
 	<toolbar name="ImageViewerWnd">
-		<button id="ImageViewer_BestFit" text="Лучший размер"/>
-		<button id="ImageViewer_ActualSize" text="Оригинальный размер"/>
+		<button id="PluginID_ImageViewer_BestFit" text="Лучший размер"/>
+		<button id="PluginID_ImageViewer_FullSize" text="Оригинальный размер"/>
 		<separator/>
-		<button id="ImageViewer_Refresh" text="Обновить"/>
+		<button id="PluginID_ImageViewer_Refresh" text="Обновить"/>
 		<rightAlign/>
-		<button id="ImageViewer_Close" text="Закрыть"/>
+		<button id="PluginID_ImageViewer_Close" text="Закрыть"/>
 	</toolbar>
 </toolbars>
 <!-- Menu Definitions -->
@@ -1693,23 +1693,23 @@
 			<newline gap="8" indent="42"/>
 			<text>В настоящее время вы не подключены ни к одной из пиринговых сетей.</text>
 			<newline gap="8" indent="42"/>
-			<link target="peer:command:ID_NETWORK_CONNECT">Щелкните здесь для начала работы!</link>
+			<link target="command:ID_NETWORK_CONNECT">Щелкните здесь для начала работы!</link>
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="2">
-			<icon res="134" width="32" height="32" target="peer:command:ID_TAB_SEARCH"/><gap size="8"/>
+			<icon res="134" width="32" height="32" target="command:ID_TAB_SEARCH"/><gap size="8"/>
 			<heading align="middle">ПОИСК ФАЙЛА</heading>
 			<newline gap="8" indent="42"/>
 			<anchor id="SearchBox" width="256" height="80"/>
 			<newline gap="18" indent="0"/>
-			<icon res="136" width="32" height="32" target="peer:command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
+			<icon res="136" width="32" height="32" target="command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
 			<heading align="middle">НАЧАТЬ ЗАГРУЗКУ</heading>
 			<newline gap="8" indent="42"/>
-			<link target="peer:command:ID_TOOLS_DOWNLOAD" format="bu">Щелкните здесь</link>
+			<link target="command:ID_TOOLS_DOWNLOAD" format="bu">Щелкните здесь</link>
 			<text align="middle">, чтобы начать загрузку файла или торрента.</text>
 			<newline gap="4" indent="42"/>
 			<text align="middle">Открыть папку с </text>
-			<link target="peer:shell:downloads">загрузками</link>
+			<link target="command:shell:downloads">загрузками</link>
 			<newline gap="20" indent="0"/>
 		</group>
 		<group id="3">
@@ -1718,20 +1718,20 @@
 			<newline gap="8" indent="42"/>
 			<text id="Upgrade"/>
 			<newline gap="6"/>
-			<link target="peer:upgrade">Щелкните здесь для получения обновления</link>
+			<link target="command:upgrade">Щелкните здесь для получения обновления</link>
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="4">
-			<icon res="252" width="32" height="32" target="peer:command:ID_TOOLS_WIZARD"/><gap size="8"/>
+			<icon res="252" width="32" height="32" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 			<heading align="middle">ВНИМАНИЕ: ВЫ ЗА БРАНДМАУЭРОМ</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">PeerProject обнаружила что вы за маршрутизатором или брандмаудэром,
 			и неспособны принимать соединения из Интернета. &#160;</text>
 			<text color="FF0000" format="b">Это может ограничить скорость Загрузок/Раздач.</text>
 			<newline gap="6"/>
-			<link target="peer:command:ID_TOOLS_WIZARD">Enable Plug'n'Play port forwarding</link>
+			<link target="command:ID_TOOLS_WIZARD">Enable Plug'n'Play port forwarding</link>
 			<text>&#160;или </text>
-			<link target="peer:command:ID_HELP_ROUTER">Щелкните здесь, чтобы узнать, как настроить ваш маршрутизатор или брандмауэр</link>
+			<link target="command:ID_HELP_ROUTER">Щелкните здесь, чтобы узнать, как настроить ваш маршрутизатор или брандмауэр</link>
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="6">
@@ -1742,9 +1742,9 @@
 			и неспособны принимать TCP соединения из Интернета. &#160;</text>
 			<text color="FF0000" format="b">Это может ограничить скорость Загрузок/Раздач.</text>
 			<newline gap="6"/>
-			<link target="peer:command:ID_TOOLS_WIZARD">Enable Plug'n'Play port forwarding</link>
+			<link target="command:ID_TOOLS_WIZARD">Enable Plug'n'Play port forwarding</link>
 			<text>&#160;или </text>
-			<link target="peer:command:ID_HELP_ROUTER">Щелкните здесь, чтобы узнать, как настроить ваш маршрутизатор или брандмауэр</link>
+			<link target="command:ID_HELP_ROUTER">Щелкните здесь, чтобы узнать, как настроить ваш маршрутизатор или брандмауэр</link>
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="7">
@@ -1755,33 +1755,33 @@
 			и неспособны принимать TCP соединения из Интернета. &#160;</text>
 			<text color="FF0000" format="b">Это может ограничить скорость Загрузок/Раздач.</text>
 			<newline gap="6"/>
-			<link target="peer:command:ID_TOOLS_WIZARD">Enable Plug'n'Play port forwarding</link>
+			<link target="command:ID_TOOLS_WIZARD">Enable Plug'n'Play port forwarding</link>
 			<text>&#160;или </text>
-			<link target="peer:command:ID_HELP_ROUTER">Щелкните здесь, чтобы узнать, как настроить ваш маршрутизатор или брандмауэр</link>
+			<link target="command:ID_HELP_ROUTER">Щелкните здесь, чтобы узнать, как настроить ваш маршрутизатор или брандмауэр</link>
 			<newline gap="18" indent="0"/>
 		</group>
-		<icon res="128" width="32" height="32" target="peer:command:ID_TOOLS_SETTINGS"/><gap size="8"/>
+		<icon res="128" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">НАСТРОЙТЕ PEERPROJECT</heading>
 		<newline gap="12" indent="42"/>
-		<icon res="182" width="16" height="16" target="peer:command:ID_TOOLS_SKIN"/><gap size="8"/>
-		<link target="peer:command:ID_TOOLS_SKIN" align="middle" format="bu">Шкурки</link>
+		<icon res="182" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
+		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">Шкурки</link>
 		<text align="middle">&#160;- Измeнение обликa Sharеaza</text>
 		<newline gap="8"/>
-		<icon res="141" width="16" height="16" target="peer:command:ID_VIEW_SECURITY"/><gap size="8"/>
-		<link target="peer:command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
+		<icon res="141" width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
+		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
 		<text align="middle">&#160;- Update blocklist to avoid bad search results</text>
 		<newline gap="8"/>
-		<icon res="317" width="16" height="16" target="peer:command:ID_TOOLS_WIZARD"/><gap size="8"/>
-		<link target="peer:command:ID_TOOLS_WIZARD" align="middle">Мaстер Устанoвок</link>
+		<icon res="317" width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
+		<link target="command:ID_TOOLS_WIZARD" align="middle">Мaстер Устанoвок</link>
 		<text align="middle">&#160;- Пошaговый мaстер устанoвок Sharеaza</text>
 		<newline gap="8"/>
-		<icon res="147" width="16" height="16" target="peer:command:ID_HELP_FAQ"/><gap size="8"/>
-		<link target="peer:command:ID_HELP_FAQ" align="middle">Быстрaя Помoщь</link>
+		<icon res="147" width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
+		<link target="command:ID_HELP_FAQ" align="middle">Быстрaя Помoщь</link>
 		<text align="middle">&#160;- Онлайновая Справочная Система Wiki, or </text>
-		<link target="peer:command:ID_TAB_IRC" align="middle">IRC.</link>
+		<link target="command:ID_TAB_IRC" align="middle">IRC.</link>
 		<newline gap="8"/>
-		<icon res="175" width="16" height="16" target="peer:command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
-		<link target="peer:command:ID_HELP_FORUMS_LOCAL" align="middle">Местных форумах</link>
+		<icon res="175" width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
+		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">Местных форумах</link>
 		<text align="middle">&#160;- Перейдите на русский язык дискуссионный форум</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
@@ -1808,7 +1808,7 @@
 			<para align="center">
 				<text format="b">Нет подключения</text>
 				<newline gap="4"/>
-				<link target="peer:command:ID_NETWORK_CONNECT">Подключиться!</link>
+				<link target="command:ID_NETWORK_CONNECT">Подключиться!</link>
 			</para>
 		</group>
 		<icon group="20" command="ID_NETWORK_G2"/>
@@ -1856,7 +1856,7 @@
 				<text>Вы не загружали никаких новых файлов недавно.</text>
 				<newline gap="8"/>
 			</group>
-			<link target="peer:command:ID_VIEW_LIBRARY">Перейти в хранилище</link>
+			<link target="command:ID_VIEW_LIBRARY">Перейти в хранилище</link>
 			<newline gap="4"/>
 			<text id="LibraryFiles" format="b">%lu</text>
 			<text>файла(ов) (</text>
@@ -1870,10 +1870,10 @@
 				<newline gap="8"/>
 			</group>
 			<group id="3">
-				<link target="peer:command:ID_LIBRARY_HASH_PRIORITY">Хешировать быстрее</link>
+				<link target="command:ID_LIBRARY_HASH_PRIORITY">Хешировать быстрее</link>
 			</group>
 			<group id="4">
-				<link target="peer:command:ID_LIBRARY_HASH_PRIORITY">Хешировать медленнее</link>
+				<link target="command:ID_LIBRARY_HASH_PRIORITY">Хешировать медленнее</link>
 			</group>
 		</para>
 	</document>
@@ -1888,9 +1888,9 @@
 				<text>Нет активных загрузок</text>
 				<newline gap="4"/>
 			</group>
-			<link id="DownloadsNone" target="peer:command:ID_VIEW_DOWNLOADS">Перейти к загрузкам</link>
-			<link id="DownloadsOne"  target="peer:command:ID_VIEW_DOWNLOADS" format="bu">Перейти к загрузке (1)</link>
-			<link id="DownloadsMany" target="peer:command:ID_VIEW_DOWNLOADS" format="bu">Перейти к загрузкам (%i)</link>
+			<link id="DownloadsNone" target="command:ID_VIEW_DOWNLOADS">Перейти к загрузкам</link>
+			<link id="DownloadsOne"  target="command:ID_VIEW_DOWNLOADS" format="bu">Перейти к загрузке (1)</link>
+			<link id="DownloadsMany" target="command:ID_VIEW_DOWNLOADS" format="bu">Перейти к загрузкам (%i)</link>
 			<newline gap="4"/>
 			<text id="DownloadedNone">No файла/ов (</text>
 			<text id="DownloadedOne">1 файл (</text>
@@ -1907,8 +1907,8 @@
 		</styles>
 		<para align="center">
 			<text id="UploadsNone" format="b">Нет активных раздач</text>
-			<link id="UploadsOne"  target="peer:command:ID_VIEW_UPLOADS" format="bu">1 раздача активна</link>
-			<link id="UploadsMany" target="peer:command:ID_VIEW_UPLOADS" format="bu">%i раздача(и) активна(ы)</link>
+			<link id="UploadsOne"  target="command:ID_VIEW_UPLOADS" format="bu">1 раздача активна</link>
+			<link id="UploadsMany" target="command:ID_VIEW_UPLOADS" format="bu">%i раздача(и) активна(ы)</link>
 			<newline gap="4"/>
 			<group id="1">
 				<text id="TorrentsOne">Раздается 1 торрент</text>
@@ -1929,25 +1929,25 @@
 		<text format="b">Основное </text>
 		<text>потребуют некоторого пользовательского опыта.</text>
 		<newline gap="16" indent="16"/>
-		<link target="peer:page:CGeneralSettingsPage" format="b">Основное:</link>
+		<link target="page:CGeneralSettingsPage" format="b">Основное:</link>
 		<text>&#160;Обычные пользовательские настройки как подсказки, минимизация, форматы номеров, запросы, и т.д.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CLibrarySettingsPage" format="b">Хранилище:</link>
+		<link target="page:CLibrarySettingsPage" format="b">Хранилище:</link>
 		<text>&#160;Представление и управление Хранилищем, и связи файлов.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CMediaSettingsPage" format="b">Проигрыватель:</link>
+		<link target="page:CMediaSettingsPage" format="b">Проигрыватель:</link>
 		<text>&#160;Когда и где использовать встроенный в PeerProject Медиа Центр.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CIRCSettingsPage" format="b">IRC:</link>
+		<link target="page:CIRCSettingsPage" format="b">IRC:</link>
 		<text>&#160;IRC Czat.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CCommunitySettingsPage" format="b">Сообщество:</link>
+		<link target="page:CCommunitySettingsPage" format="b">Сообщество:</link>
 		<text>&#160;Ваш профиль, чат и установки быстрых сообщений (пейджер).</text>
 		<newline gap="10"/>
-		<link target="peer:page:CRemoteSettingsPage" format="b">Удаленное управление:</link>
+		<link target="page:CRemoteSettingsPage" format="b">Удаленное управление:</link>
 		<text>&#160;Включите поддержку удаленного управления, чтобы контроллировать PeerProject при помощи веб браузера.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CWebSettingsPage" format="b">Веб:</link>
+		<link target="page:CWebSettingsPage" format="b">Веб:</link>
 		<text>&#160;Интегрируйте PeerProject с вашим веб обозревателем для приема P2P ссылок и другого содержимого.</text>
 	</document>
 	<document name="CInternetSettingsGroup" title="Интернет" leftMargin="8" topMargin="8">
@@ -1959,16 +1959,16 @@
 		<text>контролируют взаимодействие PeerProject с другими узлами в пределах распределенного соединения равноправных узлов.
 		</text>
 		<newline gap="16" indent="16"/>
-		<link target="peer:page:CConnectionSettingsPage" format="b">Соединения:</link>
+		<link target="page:CConnectionSettingsPage" format="b">Соединения:</link>
 		<text>&#160;Скорости и способности вашего соединения с Интернетом.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CDownloadsSettingsPage" format="b">Загрузки:</link>
+		<link target="page:CDownloadsSettingsPage" format="b">Загрузки:</link>
 		<text>&#160;Производительность загрузки, планирование, проверка, перерывы и управление.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CUploadsSettingsPage" format="b">Раздачи:</link>
+		<link target="page:CUploadsSettingsPage" format="b">Раздачи:</link>
 		<text>&#160;Скорости Раздач, организация очереди, запреты, перерывы и специальные запросы.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CSchedulerSettingsPage" format="b">Расписание:</link>
+		<link target="page:CSchedulerSettingsPage" format="b">Расписание:</link>
 		<text>&#160;Составте расписание для ограничения загрузок по времени.</text>
 	</document>
 	<!-- Browse User Profile -->
@@ -2049,15 +2049,15 @@
 		<newline gap="40" indent="0"/>
 		<text format="b">Общий доступ</text>
 		<newline gap="4" indent="8"/>
-		<icon res="137" target="peer:command:ID_BROWSE_FILES"/><gap size="5"/>
-		<link target="peer:command:ID_BROWSE_FILES" align="middle">Файлы</link>
+		<icon res="137" target="command:ID_BROWSE_FILES"/><gap size="5"/>
+		<link target="command:ID_BROWSE_FILES" align="middle">Файлы</link>
 		<group id="2">
 			<newline gap="16" indent="0"/>
 			<text format="b">Сообщество</text>
 			<newline gap="4" indent="8"/>
-			<icon res="140" target="peer:command:ID_SEARCH_CHAT"/>
+			<icon res="140" target="command:ID_SEARCH_CHAT"/>
 			<gap size="5"/>
-			<link target="peer:command:ID_SEARCH_CHAT" align="middle">Чат</link>
+			<link target="command:ID_SEARCH_CHAT" align="middle">Чат</link>
 		</group>
 		<group id="3">
 			<newline gap="16" indent="0"/>
@@ -2620,10 +2620,10 @@
 	<tip id="ID_WEBSERVICES_LIST" message="Выберите сервис для получения более полной информации о файле."/>
 	<tip id="ID_WEBSERVICES_SHAREMONKEY" message="Поиск информации о файле при помощи службы ShareMonkey."/>
 	<!-- PLUGIN TIPS -->
-	<tip id="ImageViewer_BestFit" message="Изменить размер, чтобы картинка посметилась в окне."/>
-	<tip id="ImageViewer_ActualSize" message="Показывать картинку в натуральном размере."/>
-	<tip id="ImageViewer_Refresh" message="Обновить картинку."/>
-	<tip id="ImageViewer_Close" message="Закрыть окно просмотра картинки."/>
+	<tip id="PluginID_ImageViewer_BestFit" message="Изменить размер, чтобы картинка посметилась в окне."/>
+	<tip id="PluginID_ImageViewer_FullSize" message="Показывать картинку в натуральном размере."/>
+	<tip id="PluginID_ImageViewer_Refresh" message="Обновить картинку."/>
+	<tip id="PluginID_ImageViewer_Close" message="Закрыть окно просмотра картинки."/>
 </commandTips>
 <!-- Tips displayed when mouse is moved over controls in the dialogs -->
 <controlTips>
@@ -2745,26 +2745,26 @@
 	<string id="8180" value="Минимальная:"/> <!--Pазмер-->
 	<string id="8181" value="Максимальный:"/>
 	<string id="8208" value="PeerProject создает хешы для %Iu файлов:"/>
-	<string id="8223" value="%i д. и %i час."/>
-	<string id="8224" value="PeerProject загружает:"/>
-	<string id="8225" value="Загрузка приостановлена:"/>
+<!--	<string id="8221" value="PeerProject ищет источники для:"/>
+	<string id="8222" value="PeerProject загружает:"/>
+	<string id="8223" value="Загрузка приостановлена:"/>
+	<string id="8224" value="PeerProject перемещает загрузку:"/>
+	<string id="8225" value="PeerProject проверяет загрузку на ошибки:"/>
 	<string id="8226" value="PeerProject завершила загрузку:"/>
-	<string id="8227" value="%i час. и %i мин."/>
-	<string id="8228" value="%i мин. и %i сек."/>
-	<string id="8229" value="%i сек."/>
-	<string id="8230" value="PeerProject ищет источники для:"/>
+-->	<string id="8227" value="%i д. и %i час."/>
+	<string id="8228" value="%i час. и %i мин."/>
+	<string id="8229" value="%i мин. и %i сек."/>
+	<string id="8230" value="%i сек."/>
 	<string id="8231" value="Нет источников"/>
 	<string id="8232" value="Открыть"/>
 	<string id="8233" value="Отмена"/>
 	<string id="8235" value="Скорость передачи:"/>
 	<string id="8236" value="Примерно осталось:"/>
 	<string id="8237" value="Загрузили|Всего|%:"/>
-	<string id="8238" value="Кол-во источников:"/>
+	<string id="8238" value="Соотношение:"/>
 	<string id="8239" value="Завершено"/>
-	<string id="8240" value="PeerProject перемещает загрузку:"/>
-	<string id="8241" value="PeerProject проверяет загрузку на ошибки:"/>
-	<string id="8243" value="Соотношение:"/>
-	<string id="8244" value="Число просмотров:"/>
+	<string id="8240" value="Кол-во источников:"/>
+	<string id="8241" value="Число просмотров:"/>
 	<string id="8288" value="Просмотр вашего хранилища"/>
 	<string id="8289" value="Просматривается"/>
 	<string id="8290" value="Просматривается содержимое %i папок"/>
@@ -2877,6 +2877,7 @@
 	<string id="16211" value="Хост %s переслал запрос для активной доставки на адрес за бранмауэром, игнорирую."/>
 	<string id="16212" value="Хост %s переслал расширенный пакет, который закодирован не по GGEP."/>
 	<string id="16213" value="Посылаю таблицу маршрутизации для запросов на хост %s (%i bit = %lu[%i], %i%% заполнен)"/>
+	<string id="16254" value="По умолчанию скачать группу. (Показать все файлы)"/>
 	<string id="16255" value="Drag'n'Drop файлов в группе %s"/>
 	<string id="16256" value="Добавлен «%s» в очередь загрузок с %i источником(ами)."/>
 	<string id="16257" value="Завершенна загрузка файла «%s»."/>
@@ -3278,7 +3279,7 @@
 	<string id="18510" value="Вы уверены, что хотите предположить, что эта загрузка полна, и повторно её проверить?  Будет рассмотрен весь файл, и PeerProject примет только те части, которые пройдут проверку. Другие же части будут загружены заново."/>
 	<string id="18511" value="Вы внесли изменения в размер файла.  Уверены, что хотите изменить размер для этой загрузки?"/>
 	<string id="19000" value="Удаленный доступ отключен."/>
-	<string id="19001" value="Вы должны выбрать имя пользователя и пароль."/>
+	<string id="19001" value="http://%s:%i/remote - выбрать имя пользователя и пароль."/>
 	<string id="19002" value="Невозможно принять соединений, ссылка недоступна."/>
 	<string id="20000" value="Нет доступных ссылок"/>
 	<string id="20001" value="Закрыть"/>
@@ -3363,6 +3364,7 @@
 	<string id="20242" value="Повторить снова"/>
 	<string id="20243" value="Продолжить"/>
 	<string id="20244" value="&amp;Запомнить мой выбор на будущее"/>
+	<string id="20245" value="Новая Папка"/>
 </strings>
 <!-- Localized Dialog Text, "cookie" verifies that the skin matches current dialog -->
 <dialogs>
@@ -4095,7 +4097,7 @@
 		<control caption="Просмотр хранилища"/>
 		<control caption="Удалить загрузку"/>
 		<control caption="Закрыть"/>
-		<control caption="Закрыть окно по завершению загрузки"/>
+		<control caption="Авто"/>
 	</dialog>
 	<dialog name="CFileGeneralPage" cookie="EdStStStStStEdEdEdEdEdStEdEdEdEd" caption="Основное">
 		<control/>
@@ -4272,11 +4274,11 @@
 		<control/>
 		<control caption="_Отмена"/>
 	</dialog>
-	<dialog name="CURLActionDlg" cookie="StStStStStEdStEdStBuBuBuBuBuSt" caption="Менеджер ссылок PeerProject">
-		<control/>
+	<dialog name="CURLActionDlg" cookie="StStStStStStEdStEdStBuBuBuBuBu" caption="Менеджер ссылок P2P">
 		<control caption="Вы щёлкнули по PeerProject-поддерживаемой ссылке, которая ведет к содержимому файла в сети:"/>
 		<control caption="Вы щёлкнули по PeerProject-поддерживаемой ссылке, которая свяжет Вас со следующим хостом или сервером:"/>
 		<control caption="Вы щёлкнули по PeerProject-поддерживаемой ссылке, которая позволит Вам просмотреть разделяемые файлы на следующем хосте:"/>
+		<control caption="Вы щёлкнули по PeerProject-поддерживаемой ссылке, которая добавит следующую службу ресурсов соединений в Ваш список."/>
 		<control/>
 		<control/>
 		<control/>
@@ -4287,11 +4289,10 @@
 		<control caption="_Отмена"/>
 		<control caption="Запомнить мой _выбор"/>
 		<control caption="Открыть окно _Монитора"/>
-		<control caption="Вы щёлкнули по PeerProject-поддерживаемой ссылке, которая добавит следующую службу ресурсов соединений в Ваш список."/>
 	</dialog>
 	<dialog name="CBitziDownloadDlg" cookie="StStmsBuSySt" caption="Загрузка мета данных...">
 		<control/>
-		<control caption="PeerProject пытается загрузить мета данные с Bitzi(TM)..."/>
+		<control caption="PeerProject пытается загрузить мета данные с Bitzi..."/>
 		<control/>
 		<control caption="Отмена"/>
 		<control/>

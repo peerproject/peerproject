@@ -266,8 +266,23 @@ void CSecurityWnd::OnTimer(UINT_PTR nIDEvent)
 	}
 }
 
+void CSecurityWnd::OnSkinChange()
+{
+	OnSize( 0, 0, 0 );
+	CPanelWnd::OnSkinChange();
+	Settings.LoadList( _T("CSecurityWnd"), &m_wndList, -3 );
+	Skin.CreateToolBar( _T("CSecurityWnd"), &m_wndToolBar );
+
+	if ( m_wndList.SetBkImage( Skin.GetWatermark( _T("CSecurityWnd") ) ) )
+		m_wndList.SetExtendedStyle( LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP|LVS_EX_LABELTIP|LVS_EX_SUBITEMIMAGES );	// No LVS_EX_DOUBLEBUFFER
+	else
+		m_wndList.SetBkColor( Colors.m_crWindow );
+}
+
 void CSecurityWnd::OnCustomDrawList(NMHDR* pNMHDR, LRESULT* pResult)
 {
+	if ( ! ::IsWindow( m_wndList.GetSafeHwnd() ) ) return;
+
 	NMLVCUSTOMDRAW* pDraw = (NMLVCUSTOMDRAW*)pNMHDR;
 
 	if ( pDraw->nmcd.dwDrawStage == CDDS_PREPAINT )
@@ -281,6 +296,9 @@ void CSecurityWnd::OnCustomDrawList(NMHDR* pNMHDR, LRESULT* pResult)
 		pItem.iItem		= static_cast< int >( pDraw->nmcd.dwItemSpec );
 		pItem.iSubItem	= 0;
 		m_wndList.GetItem( &pItem );
+
+		if ( m_wndList.GetBkColor() == Colors.m_crWindow )
+			pDraw->clrTextBk = Colors.m_crWindow;
 
 		switch ( Settings.General.LanguageRTL ? 2 - pItem.iImage : pItem.iImage )
 		{
@@ -526,16 +544,6 @@ void CSecurityWnd::OnSecurityImport()
 		Security.Save();
 	else
 		AfxMessageBox( _T("Error") );	// ToDo: Error message, unable to import rules
-}
-
-void CSecurityWnd::OnSkinChange()
-{
-	OnSize( 0, 0, 0 );
-	CPanelWnd::OnSkinChange();
-	Settings.LoadList( _T("CSecurityWnd"), &m_wndList, -3 );
-	Skin.CreateToolBar( _T("CSecurityWnd"), &m_wndToolBar );
-
-	m_wndList.SetBkImage( Skin.GetWatermark( _T("CSecurityWnd") ) );
 }
 
 void CSecurityWnd::OnUpdateSecurityPolicyAccept(CCmdUI* pCmdUI)
