@@ -253,7 +253,7 @@ void CFilePreviewDlg::OnTimer(UINT_PTR nIDEvent)
 
 	CSingleLock pLock( &m_pSection, TRUE );
 
-	if ( nIDEvent == 2 && m_sExecute.GetLength() > 0 )
+	if ( nIDEvent == 2 && ! m_sExecute.IsEmpty() )
 	{
 		CString strExecute = m_sExecute;
 		m_sExecute.Empty();

@@ -29,34 +29,35 @@ class CLibraryAlbumTrack;
 
 class CLibraryAlbumView : public CLibraryFileView
 {
+	DECLARE_DYNCREATE(CLibraryAlbumView)
+
 // Construction
 public:
 	CLibraryAlbumView();
 
-	DECLARE_DYNCREATE(CLibraryAlbumView)
-
 // Attributes
+public:
+	static COLORREF			m_crRows[2];
+
 protected:
 	CSize					m_szTrack;
 	int						m_nRows;
 	LPCTSTR					m_pStyle;
 	static LPCTSTR			m_pStaticStyle;
-protected:
+
 	CLibraryAlbumTrack**	m_pList;
+	CImageList				m_pStars;
 	int						m_nCount;
 	int						m_nBuffer;
 	int						m_nScroll;
-	CImageList				m_pStars;
-protected:
-	CList< CLibraryAlbumTrack* > m_pSelTrack;
+
 	int						m_nSelected;
+	CList< CLibraryAlbumTrack* > m_pSelTrack;
 	CLibraryAlbumTrack*		m_pFocus;
 	CLibraryAlbumTrack*		m_pFirst;
 	CLibraryAlbumTrack*		m_pRating;
 	BOOL					m_bDrag;
 	CPoint					m_ptDrag;
-public:
-	static COLORREF			m_crRows[2];
 
 // Operations
 public:
@@ -65,13 +66,14 @@ public:
 	virtual BOOL		Select(DWORD nObject);
 	virtual DWORD_PTR 	HitTestIndex(const CPoint& point) const;
 	virtual HBITMAP		CreateDragImage(const CPoint& ptMouse, CPoint& ptMiddle);
+
 protected:
 	void				Clear();
 	BOOL				Select(CLibraryAlbumTrack* pItem, TRISTATE bSelect = TRI_TRUE);
 	BOOL				DeselectAll(CLibraryAlbumTrack* pItem = NULL);
 	BOOL				SelectTo(CLibraryAlbumTrack* pItem);
 	void				SelectTo(int nDelta);
-protected:
+
 	void				UpdateScroll();
 	void				ScrollBy(int nDelta);
 	void				ScrollTo(int nDelta);
@@ -82,9 +84,8 @@ protected:
 	static int			SortList(LPCVOID pA, LPCVOID pB);
 
 // Overrides
-public:
+protected:
 	//{{AFX_VIRTUAL(CLibraryAlbumView)
-	protected:
 	virtual BOOL Create(CWnd* pParentWnd);
 	//}}AFX_VIRTUAL
 
@@ -95,7 +96,7 @@ protected:
 	afx_msg void OnDestroy();
 	afx_msg void OnPaint();
 	afx_msg void OnSize(UINT nType, int cx, int cy);
-	afx_msg void OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar);
+	afx_msg void OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar = NULL);
 	afx_msg BOOL OnMouseWheel(UINT nFlags, short zDelta, CPoint pt);
 	afx_msg void OnMouseMove(UINT nFlags, CPoint point);
 	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
@@ -121,20 +122,20 @@ public:
 // Attributes
 public:
 	DWORD	m_nIndex;
-	DWORD		m_nCookie;
-	BOOL		m_bShared;
-	BOOL		m_bSelected;
-public:
+	DWORD	m_nCookie;
+	BOOL	m_bShared;
+	BOOL	m_bSelected;
+
 	int		m_nShell;
 	int		m_nTrack;
 	CString	m_sTrack;
 	CString	m_sTitle;
 	CString	m_sArtist;
 	CString	m_sAlbum;
-	int		m_nLength;
 	CString	m_sLength;
-	int		m_nBitrate;
+	int		m_nLength;
 	CString	m_sBitrate;
+	int		m_nBitrate;
 	int		m_nRating;
 	BOOL	m_bComments;
 	int		m_nSetRating;

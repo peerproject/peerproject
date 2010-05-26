@@ -325,13 +325,9 @@ void CLocalSearch::AddHitG1(CLibraryFile const * const pFile, int nIndex)
 	m_pPacket->WriteLongLE( pFile->m_nIndex );
 	m_pPacket->WriteLongLE( (DWORD)min( pFile->GetSize(), 0xFFFFFFFF ) );
 	if ( Settings.Gnutella1.QueryHitUTF8 ) //Support UTF-8 Query
-	{
 		m_pPacket->WriteStringUTF8( pFile->m_sName );
-	}
 	else
-	{
 		m_pPacket->WriteString( pFile->m_sName );
-	}
 
 	if ( pFile->m_oSHA1 )
 	{
@@ -373,9 +369,7 @@ void CLocalSearch::AddHitG1(CLibraryFile const * const pFile, int nIndex)
 	}
 
 	if ( pFile->m_pSchema != NULL && pFile->m_pMetadata != NULL && ( ! m_pSearch || m_pSearch->m_bWantXML ) )
-	{
 		AddMetadata( pFile->m_pSchema, pFile->m_pMetadata, nIndex );
-	}
 }
 
 void CLocalSearch::AddHitG2(CLibraryFile const * const pFile, int /*nIndex*/)
@@ -396,7 +390,9 @@ void CLocalSearch::AddHitG2(CLibraryFile const * const pFile, int /*nIndex*/)
 		{
 			const char prefix[] = "bp";
 			if ( bCalculate )
+			{
 				nGroup += G2_PACKET_LEN( G2_PACKET_URN, sizeof( prefix ) + Hashes::Sha1Hash::byteCount + Hashes::TigerHash::byteCount );
+			}
 			else
 			{
 				pPacket->WritePacket( G2_PACKET_URN, sizeof( prefix ) + Hashes::Sha1Hash::byteCount + Hashes::TigerHash::byteCount );
@@ -409,7 +405,9 @@ void CLocalSearch::AddHitG2(CLibraryFile const * const pFile, int /*nIndex*/)
 		{
 			const char prefix[] = "ttr";
 			if ( bCalculate )
+			{
 				nGroup += G2_PACKET_LEN( G2_PACKET_URN, sizeof( prefix ) + Hashes::TigerHash::byteCount );
+			}
 			else
 			{
 				pPacket->WritePacket( G2_PACKET_URN, sizeof( prefix ) + Hashes::TigerHash::byteCount );
@@ -434,7 +432,9 @@ void CLocalSearch::AddHitG2(CLibraryFile const * const pFile, int /*nIndex*/)
 		{
 			const char prefix[] = "ed2k";
 			if ( bCalculate )
+			{
 				nGroup += G2_PACKET_LEN( G2_PACKET_URN, sizeof( prefix ) + Hashes::Ed2kHash::byteCount );
+			}
 			else
 			{
 				pPacket->WritePacket( G2_PACKET_URN, sizeof( prefix ) + Hashes::Ed2kHash::byteCount );
@@ -447,7 +447,9 @@ void CLocalSearch::AddHitG2(CLibraryFile const * const pFile, int /*nIndex*/)
 		{
 			const char prefix[] = "btih";
 			if ( bCalculate )
+			{
 				nGroup += G2_PACKET_LEN( G2_PACKET_URN, sizeof( prefix ) + Hashes::BtHash::byteCount );
+			}
 			else
 			{
 				pPacket->WritePacket( G2_PACKET_URN, sizeof( prefix ) + Hashes::BtHash::byteCount );
@@ -460,7 +462,9 @@ void CLocalSearch::AddHitG2(CLibraryFile const * const pFile, int /*nIndex*/)
 		{
 			const char prefix[] = "md5";
 			if ( bCalculate )
+			{
 				nGroup += G2_PACKET_LEN( G2_PACKET_URN, sizeof( prefix ) + Hashes::Md5Hash::byteCount );
+			}
 			else
 			{
 				pPacket->WritePacket( G2_PACKET_URN, sizeof( prefix ) + Hashes::Md5Hash::byteCount );
@@ -474,7 +478,9 @@ void CLocalSearch::AddHitG2(CLibraryFile const * const pFile, int /*nIndex*/)
 			if ( pFile->GetSize() <= 0xFFFFFFFF )
 			{
 				if ( bCalculate )
+				{
 					nGroup += G2_PACKET_LEN( G2_PACKET_DESCRIPTIVE_NAME, sizeof( DWORD ) + pPacket->GetStringLen( pFile->m_sName ) );
+				}
 				else
 				{
 					pPacket->WritePacket( G2_PACKET_DESCRIPTIVE_NAME, sizeof( DWORD ) + pPacket->GetStringLen( pFile->m_sName ) );
@@ -485,8 +491,10 @@ void CLocalSearch::AddHitG2(CLibraryFile const * const pFile, int /*nIndex*/)
 			else
 			{
 				if ( bCalculate )
+				{
 					nGroup += G2_PACKET_LEN( G2_PACKET_SIZE, sizeof( QWORD ) ) +
 						G2_PACKET_LEN( G2_PACKET_DESCRIPTIVE_NAME, pPacket->GetStringLen( pFile->m_sName ) );
+				}
 				else
 				{
 					pPacket->WritePacket( G2_PACKET_SIZE, sizeof( QWORD ) );
@@ -523,7 +531,9 @@ void CLocalSearch::AddHitG2(CLibraryFile const * const pFile, int /*nIndex*/)
 			if ( INT_PTR nCount = pFile->m_pSources.GetCount() )
 			{
 				if ( bCalculate )
+				{
 					nGroup += G2_PACKET_LEN( G2_PACKET_CACHED_SOURCES, sizeof( WORD ) );
+				}
 				else
 				{
 					pPacket->WritePacket( G2_PACKET_CACHED_SOURCES, sizeof( WORD ) );
@@ -546,7 +556,9 @@ void CLocalSearch::AddHitG2(CLibraryFile const * const pFile, int /*nIndex*/)
 		{
 			CString strMetadata = pFile->m_pMetadata->ToString();
 			if ( bCalculate )
+			{
 				nGroup += G2_PACKET_LEN( G2_PACKET_METADATA, pPacket->GetStringLen( strMetadata ) );
+			}
 			else
 			{
 				pPacket->WritePacket( G2_PACKET_METADATA, pPacket->GetStringLen( strMetadata ) );
@@ -558,7 +570,9 @@ void CLocalSearch::AddHitG2(CLibraryFile const * const pFile, int /*nIndex*/)
 			CQuickLock pQueueLock( UploadQueues.m_pSection );
 			CUploadQueue* pQueue = UploadQueues.SelectQueue( PROTOCOL_HTTP, pFile );
 			if ( bCalculate )
+			{
 				nGroup += G2_PACKET_LEN( G2_PACKET_GROUP_ID, sizeof( BYTE ) );
+			}
 			else
 			{
 				pPacket->WritePacket( G2_PACKET_GROUP_ID, sizeof( BYTE ) );
@@ -580,7 +594,9 @@ void CLocalSearch::AddHitG2(CLibraryFile const * const pFile, int /*nIndex*/)
 				strComment += _T("</comment>");
 				strComment.Replace( _T("\r\n"), _T("{n}") );
 				if ( bCalculate )
+				{
 					nGroup += G2_PACKET_LEN( G2_PACKET_COMMENT, pPacket->GetStringLen( strComment ) );
+				}
 				else
 				{
 					pPacket->WritePacket( G2_PACKET_COMMENT, pPacket->GetStringLen( strComment ) );
@@ -597,11 +613,12 @@ void CLocalSearch::AddHitG2(CLibraryFile const * const pFile, int /*nIndex*/)
 			}
 		}
 
-
 		if ( ! m_pSearch )
 		{
 			if ( bCalculate )
+			{
 				nGroup += G2_PACKET_LEN( G2_PACKET_OBJECT_ID, sizeof( DWORD ) );
+			}
 			else
 			{
 				pPacket->WritePacket( G2_PACKET_OBJECT_ID, sizeof( DWORD ) );
@@ -628,15 +645,15 @@ void CLocalSearch::AddHit< CDownload >(const CDownload* pDownload, int /*nIndex*
 		bCalculate = ! bCalculate;
 
 		if ( ! bCalculate )
-		{
 			pPacket->WritePacket( G2_PACKET_HIT_DESCRIPTOR, nGroup, TRUE );
-		}
 
 		if ( pDownload->m_oTiger && pDownload->m_oSHA1 )
 		{
 			const char prefix[] = "bp";
 			if ( bCalculate )
+			{
 				nGroup += G2_PACKET_LEN( G2_PACKET_URN, sizeof( prefix ) + Hashes::Sha1Hash::byteCount + Hashes::TigerHash::byteCount );
+			}
 			else
 			{
 				pPacket->WritePacket( G2_PACKET_URN, sizeof( prefix ) + Hashes::Sha1Hash::byteCount + Hashes::TigerHash::byteCount );
@@ -649,7 +666,9 @@ void CLocalSearch::AddHit< CDownload >(const CDownload* pDownload, int /*nIndex*
 		{
 			const char prefix[] = "ttr";
 			if ( bCalculate )
+			{
 				nGroup += G2_PACKET_LEN( G2_PACKET_URN, sizeof( prefix ) + Hashes::TigerHash::byteCount );
+			}
 			else
 			{
 				pPacket->WritePacket( G2_PACKET_URN, sizeof( prefix ) + Hashes::TigerHash::byteCount );
@@ -661,7 +680,9 @@ void CLocalSearch::AddHit< CDownload >(const CDownload* pDownload, int /*nIndex*
 		{
 			const char prefix[] = "sha1";
 			if ( bCalculate )
+			{
 				nGroup += G2_PACKET_LEN( G2_PACKET_URN, sizeof( prefix ) + Hashes::Sha1Hash::byteCount );
+			}
 			else
 			{
 				pPacket->WritePacket( G2_PACKET_URN, sizeof( prefix ) + Hashes::Sha1Hash::byteCount );
@@ -674,7 +695,9 @@ void CLocalSearch::AddHit< CDownload >(const CDownload* pDownload, int /*nIndex*
 		{
 			const char prefix[] = "ed2k";
 			if ( bCalculate )
+			{
 				nGroup += G2_PACKET_LEN( G2_PACKET_URN, sizeof( prefix ) + Hashes::Ed2kHash::byteCount );
+			}
 			else
 			{
 				pPacket->WritePacket( G2_PACKET_URN, sizeof( prefix ) + Hashes::Ed2kHash::byteCount );
@@ -687,7 +710,9 @@ void CLocalSearch::AddHit< CDownload >(const CDownload* pDownload, int /*nIndex*
 		{
 			const char prefix[] = "btih";
 			if ( bCalculate )
+			{
 				nGroup += G2_PACKET_LEN( G2_PACKET_URN, sizeof( prefix ) + Hashes::BtHash::byteCount );
+			}
 			else
 			{
 				pPacket->WritePacket( G2_PACKET_URN, sizeof( prefix ) + Hashes::BtHash::byteCount );
@@ -700,7 +725,9 @@ void CLocalSearch::AddHit< CDownload >(const CDownload* pDownload, int /*nIndex*
 		{
 			const char prefix[] = "md5";
 			if ( bCalculate )
+			{
 				nGroup += G2_PACKET_LEN( G2_PACKET_URN, sizeof( prefix ) + Hashes::Md5Hash::byteCount );
+			}
 			else
 			{
 				pPacket->WritePacket( G2_PACKET_URN, sizeof( prefix ) + Hashes::Md5Hash::byteCount );
@@ -714,7 +741,9 @@ void CLocalSearch::AddHit< CDownload >(const CDownload* pDownload, int /*nIndex*
 			if ( pDownload->m_nSize <= 0xFFFFFFFF )
 			{
 				if ( bCalculate )
+				{
 					nGroup += G2_PACKET_LEN( G2_PACKET_DESCRIPTIVE_NAME, sizeof( DWORD ) + pPacket->GetStringLen( pDownload->m_sName ) );
+				}
 				else
 				{
 					pPacket->WritePacket( G2_PACKET_DESCRIPTIVE_NAME, sizeof( DWORD ) + pPacket->GetStringLen( pDownload->m_sName ) );
@@ -725,8 +754,10 @@ void CLocalSearch::AddHit< CDownload >(const CDownload* pDownload, int /*nIndex*
 			else
 			{
 				if ( bCalculate )
+				{
 					nGroup += G2_PACKET_LEN( G2_PACKET_SIZE, sizeof( QWORD ) ) +
 						G2_PACKET_LEN( G2_PACKET_DESCRIPTIVE_NAME, pPacket->GetStringLen( pDownload->m_sName ) );
+				}
 				else
 				{
 					pPacket->WritePacket( G2_PACKET_SIZE, sizeof( QWORD ) );
@@ -749,7 +780,9 @@ void CLocalSearch::AddHit< CDownload >(const CDownload* pDownload, int /*nIndex*
 		if ( nComplete <= 0xFFFFFFFF )
 		{
 			if ( bCalculate )
+			{
 				nGroup += G2_PACKET_LEN( G2_PACKET_PARTIAL, sizeof( DWORD ) );
+			}
 			else
 			{
 				pPacket->WritePacket( G2_PACKET_PARTIAL, sizeof( DWORD ) );
@@ -759,7 +792,9 @@ void CLocalSearch::AddHit< CDownload >(const CDownload* pDownload, int /*nIndex*
 		else
 		{
 			if ( bCalculate )
+			{
 				nGroup += G2_PACKET_LEN( G2_PACKET_PARTIAL, sizeof( QWORD ) );
+			}
 			else
 			{
 				pPacket->WritePacket( G2_PACKET_PARTIAL, sizeof( QWORD ) );
@@ -980,7 +1015,7 @@ void CLocalSearch::WriteTrailerG1()
 	LPSTR pszXML = NULL;
 	int nXML = 0;
 
-	if ( strXML.GetLength() > 0 )
+	if ( ! strXML.IsEmpty() )
 	{
 		nXML = WideCharToMultiByte( CP_ACP, 0, strXML, -1, NULL, 0, NULL, NULL );
 		pszXML = new CHAR[ nXML ];

@@ -298,24 +298,24 @@ STDMETHODIMP CComMenu::XEnumVARIANT::Next(ULONG celt, VARIANT FAR* rgvar, ULONG 
 
 STDMETHODIMP CComMenu::XEnumVARIANT::Skip(ULONG celt)
 {
-    METHOD_PROLOGUE( CComMenu, EnumVARIANT )
+	METHOD_PROLOGUE( CComMenu, EnumVARIANT )
 
 	int nCount = GetMenuItemCount( pThis->m_hMenu );
 
 	while ( celt-- && m_nIndex++ < (UINT)nCount );
 
-    return ( celt == 0 ? S_OK : S_FALSE );
+	return ( celt == 0 ? S_OK : S_FALSE );
 }
 
 STDMETHODIMP CComMenu::XEnumVARIANT::Reset()
 {
-    METHOD_PROLOGUE( CComMenu, EnumVARIANT )
+	METHOD_PROLOGUE( CComMenu, EnumVARIANT )
 	m_nIndex = 0;
-    return S_OK;
+	return S_OK;
 }
 
 STDMETHODIMP CComMenu::XEnumVARIANT::Clone(IEnumVARIANT FAR* FAR* /*ppenum*/)
 {
-    METHOD_PROLOGUE( CComMenu, EnumVARIANT )
-    return E_NOTIMPL;
+	METHOD_PROLOGUE( CComMenu, EnumVARIANT )
+	return E_NOTIMPL;
 }

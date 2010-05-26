@@ -146,15 +146,15 @@ BOOL CUploadQueue::CanAccept(PROTOCOLID nProtocol, LPCTSTR pszName, QWORD nSize,
 	if ( m_nProtocols != 0 &&
 		 ( m_nProtocols & ( 1 << nProtocol ) ) == 0 ) return FALSE;
 
-	if ( (m_nFileStateFlag & nFileState) == 0 ) return FALSE;
+	if ( ( m_nFileStateFlag & nFileState ) == 0 ) return FALSE;
 
-	if ( m_sShareTag.GetLength() > 0 )
+	if ( ! m_sShareTag.IsEmpty() )
 	{
 		if ( pszShareTags == NULL ) return FALSE;
 		if ( _tcsistr( pszShareTags, m_sShareTag ) == NULL ) return FALSE;
 	}
 
-	if ( m_sNameMatch.GetLength() > 0 )
+	if ( ! m_sNameMatch.IsEmpty() )
 	{
 		if ( pszName == NULL ) return FALSE;
 		if ( CQuerySearch::WordMatch( pszName, m_sNameMatch ) == FALSE ) return FALSE;
@@ -180,9 +180,7 @@ BOOL CUploadQueue::Enqueue(CUploadTransfer* pUpload, BOOL bForce, BOOL bStart)
 			// percentage is greater than the queue would be able to hold.
 			DWORD nReserved = m_nCapacity * Settings.Uploads.RewardQueuePercentage / 100ul;
 			if ( GetQueuedCount() + nReserved >= m_nCapacity )
-			{
 				return FALSE;
-			}
 		}
 		else
 		{

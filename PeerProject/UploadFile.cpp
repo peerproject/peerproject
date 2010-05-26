@@ -45,7 +45,7 @@ CUploadFile::CUploadFile(CUploadTransfer* pUpload, const Hashes::Sha1Hash& oSHA1
 	m_sName = pszName;
 	m_sPath = pszPath;
 	m_nSize = nSize;
-    m_oSHA1 = oSHA1;
+	m_oSHA1 = oSHA1;
 	m_pTransfers.AddTail( pUpload );
 }
 

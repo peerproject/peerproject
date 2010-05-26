@@ -95,10 +95,6 @@ CMatchCtrl::CMatchCtrl()
 	m_bTips			= TRUE;
 	m_pLastSelectedFile = NULL;
 	m_pLastSelectedHit = NULL;
-
-	// Try to get the number of lines to scroll when the mouse wheel is rotated
-	if( ! SystemParametersInfo ( SPI_GETWHEELSCROLLLINES, 0, &m_nScrollWheelLines, 0) )
-		m_nScrollWheelLines = 3;
 }
 
 CMatchCtrl::~CMatchCtrl()
@@ -551,7 +547,7 @@ BOOL CMatchCtrl::OnMouseWheel(UINT nFlags, short zDelta, CPoint pt)
 		}
 	}
 
-	ScrollBy( zDelta / WHEEL_DELTA * -m_nScrollWheelLines );
+	ScrollBy( - zDelta / WHEEL_DELTA * theApp.m_nMouseWheel );
 	return TRUE;
 }
 
@@ -903,10 +899,10 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 
 				if ( Skin.m_bRoundedSelect )
 				{
-					dc.FillSolidRect( rcFocus.left, rcFocus.top, 1, 1, crWnd );
-					dc.FillSolidRect( rcFocus.left, rcFocus.bottom - 1, 1, 1, crWnd );
-					dc.FillSolidRect( rcRow.right - 1, rcRow.top, 1, 1, crWnd );
-					dc.FillSolidRect( rcRow.right - 1, rcRow.bottom - 1, 1, 1, crWnd );
+					dc.SetPixel( rcFocus.left, rcFocus.top, crWnd );
+					dc.SetPixel( rcFocus.left, rcFocus.bottom - 1, crWnd );
+					dc.SetPixel( rcRow.right - 1, rcRow.top, crWnd );
+					dc.SetPixel( rcRow.right - 1, rcRow.bottom - 1, crWnd );
 				}
 
 				if ( Colors.m_crHiBorderIn )

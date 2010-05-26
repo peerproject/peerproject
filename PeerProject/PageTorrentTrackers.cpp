@@ -28,9 +28,11 @@
 #include "PageTorrentTrackers.h"
 #include "CoolInterface.h"
 #include "Network.h"
-#include "Skin.h"
 #include "Transfers.h"
 #include "Downloads.h"
+
+#include "Skin.h"
+#include "Colors.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -44,9 +46,10 @@ BEGIN_MESSAGE_MAP(CTorrentTrackersPage, CPropertyPageAdv)
 	ON_WM_PAINT()
 	ON_WM_TIMER()
 	ON_WM_DESTROY()
+	ON_NOTIFY(NM_CUSTOMDRAW, IDC_TORRENT_TRACKERS, &CTorrentTrackersPage::OnCustomDrawList)
+	ON_NOTIFY(NM_CLICK, IDC_TORRENT_TRACKERS, &CTorrentTrackersPage::OnNMClickTorrentTrackers)
 	ON_BN_CLICKED(IDC_TORRENT_REFRESH, &CTorrentTrackersPage::OnTorrentRefresh)
 	ON_EN_CHANGE(IDC_TORRENT_TRACKER, &CTorrentTrackersPage::OnEnChangeTorrentTracker)
-	ON_NOTIFY(NM_CLICK, IDC_TORRENT_TRACKERS, &CTorrentTrackersPage::OnNMClickTorrentTrackers)
 	ON_CBN_SELCHANGE(IDC_TORRENT_TRACKERMODE, &CTorrentTrackersPage::OnCbnSelchangeTorrentTrackermode)
 END_MESSAGE_MAP()
 
@@ -54,9 +57,9 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CTorrentTrackersPage property page
 
-CTorrentTrackersPage::CTorrentTrackersPage() :
-	CPropertyPageAdv( CTorrentTrackersPage::IDD ),
-	m_pDownload( NULL )
+CTorrentTrackersPage::CTorrentTrackersPage()
+	: CPropertyPageAdv( CTorrentTrackersPage::IDD )
+	, m_pDownload( NULL )
 {
 }
 
@@ -117,7 +120,10 @@ BOOL CTorrentTrackersPage::OnInitDialog()
 	m_wndTrackers.InsertColumn( 2, _T("Type"), LVCFMT_CENTER, 0, 0 );
 	Skin.Translate( _T("CTorrentTrackerList"), m_wndTrackers.GetHeaderCtrl() );
 
-	m_wndTrackers.SetBkImage( Skin.GetWatermark( _T("CTorrentList") ) );
+	if ( m_wndTrackers.SetBkImage( Skin.GetWatermark( _T("CListCtrl") ) ) )
+		m_wndTrackers.SetExtendedStyle( LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP|LVS_EX_LABELTIP );	// No LVS_EX_DOUBLEBUFFER
+	else
+		m_wndTrackers.SetBkColor( Colors.m_crWindow );
 
 	int nTracker = 0;
 	for ( nTracker = 0 ; nTracker < nCount; nTracker++ )
@@ -352,7 +358,7 @@ BOOL CTorrentTrackersPage::OnTree(CBENode* pNode)
 		nKey = &m_pDownload->m_pTorrent.m_oBTH[ 0 ];
 	}
 
-    CBENode* pFile = pFiles->GetNode( nKey, Hashes::BtHash::byteCount );
+	CBENode* pFile = pFiles->GetNode( nKey, Hashes::BtHash::byteCount );
 	if ( ! pFile->IsType( CBENode::beDict ) ) return FALSE;
 
 	m_nComplete		= 0;
@@ -419,4 +425,25 @@ void CTorrentTrackersPage::OnCbnSelchangeTorrentTrackermode()
 	int nMode = m_wndTrackerMode.GetCurSel();
 
 	GetDlgItem( IDC_TORRENT_TRACKER )->EnableWindow( nMode != CBTInfo::tNull );
+}
+
+void CTorrentTrackersPage::OnCustomDrawList(NMHDR* pNMHDR, LRESULT* pResult)
+{
+	if ( ! ::IsWindow( m_wndTrackers.GetSafeHwnd() ) ) return;
+
+	if ( m_wndTrackers.GetBkColor() != Colors.m_crWindow ) return;	// Rarely needed (Remove this line when useful)
+
+	NMLVCUSTOMDRAW* pDraw = (NMLVCUSTOMDRAW*)pNMHDR;
+
+	if ( pDraw->nmcd.dwDrawStage == CDDS_PREPAINT )
+	{
+		*pResult = CDRF_NOTIFYITEMDRAW;
+	}
+	else if ( pDraw->nmcd.dwDrawStage == CDDS_ITEMPREPAINT )
+	{
+		if ( m_wndTrackers.GetBkColor() == Colors.m_crWindow )
+			pDraw->clrTextBk = Colors.m_crWindow;
+
+		*pResult = CDRF_DODEFAULT;
+	}
 }

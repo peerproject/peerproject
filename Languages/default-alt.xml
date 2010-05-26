@@ -3,7 +3,7 @@
 
 <!-- PeerProject UK English Skin File -->
 
-<!-- Translation based on default-en.xml r54 -->
+<!-- Translation based on default-en.xml r55 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -499,52 +499,52 @@
 		<anchor id="Header" width="32" height="152"/>
 		<newline gap="0"/>
 		<group id="1">
-			<icon res="130" width="32" height="32" target="peer:command:ID_NETWORK_CONNECT"/><gap size="8"/>
+			<icon res="130" width="32" height="32" target="command:ID_NETWORK_CONNECT"/><gap size="8"/>
 			<heading align="middle">Get Connected</heading>
 			<newline gap="8" indent="42"/>
 			<text>Welcome to PeerProject.</text>
 			<newline gap="8" indent="42"/>
 			<text>You are not currently connected to any peer-to-peer networks.</text>
 			<newline gap="2" indent="42"/>
-			<link target="peer:command:ID_NETWORK_CONNECT" format="bu">Click here to start!</link>
+			<link target="command:ID_NETWORK_CONNECT" format="bu">Click here to start!</link>
 			<newline gap="20" indent="0"/>
 		</group>
 		<group id="2">
-			<icon res="134" width="32" height="32" target="peer:command:ID_TAB_SEARCH"/><gap size="8"/>
+			<icon res="134" width="32" height="32" target="command:ID_TAB_SEARCH"/><gap size="8"/>
 			<heading align="middle">Search for Files</heading>
 			<newline gap="4" indent="42"/>
 			<anchor id="SearchBox" width="256" height="80"/>
 			<newline gap="20" indent="0"/>
-			<icon res="136" width="32" height="32" target="peer:command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
+			<icon res="136" width="32" height="32" target="command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
 			<heading align="middle">Start a Download</heading>
 			<newline gap="8" indent="42"/>
-			<link target="peer:command:ID_TOOLS_DOWNLOAD" format="bu">Click here to start</link>
+			<link target="command:ID_TOOLS_DOWNLOAD" format="bu">Click here to start</link>
 			<text align="middle">&#160;downloading a new file or torrent link.</text>
 			<newline gap="4" indent="42"/>
 			<text align="middle">Or open your completed </text>
-			<link target="peer:shell:downloads">downloads folder.</link>
+			<link target="command:shell:downloads">downloads folder.</link>
 			<newline gap="20" indent="0"/>
 		</group>
 		<group id="3">
-			<icon res="128" width="32" height="32" target="peer:upgrade"/><gap size="8"/>
+			<icon res="128" width="32" height="32" target="command:upgrade"/><gap size="8"/>
 			<heading align="middle">Upgrade Notice</heading>
 			<newline gap="8" indent="42"/>
 			<text id="Upgrade"/>
 			<newline gap="6"/>
-			<link target="peer:upgrade">Click here to upgrade</link>
+			<link target="command:upgrade">Click here to upgrade</link>
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="4">
-			<icon res="252" width="32" height="32" target="peer:command:ID_TOOLS_WIZARD"/><gap size="8"/>
+			<icon res="252" width="32" height="32" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 			<heading align="middle">Warning: You Are Firewalled</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">PeerProject has detected that you are hidden behind a router or firewall,
 			and are unable to receive active connections from the Internet. &#160;</text>
 			<text color="FF0000" format="b">This may cause poor download and search performance.</text>
 			<newline gap="6"/>
-			<link target="peer:command:ID_TOOLS_WIZARD">Enable Plug'n'Play port forwarding</link>
+			<link target="command:ID_TOOLS_WIZARD">Enable Plug'n'Play port forwarding</link>
 			<text>&#160;or </text>
-			<link target="peer:command:ID_HELP_ROUTER">learn how to configure your router.</link>
+			<link target="command:ID_HELP_ROUTER">learn how to configure your router.</link>
 			<newline gap="20" indent="0"/>
 		</group>
 		<group id="6">
@@ -555,9 +555,9 @@
 			and are unable to receive TCP connections from the Internet. &#160;</text>
 			<text color="FF0000" format="b">This may cause poor download performance.</text>
 			<newline gap="6"/>
-			<link target="peer:command:ID_TOOLS_WIZARD">Enable Plug'n'Play port forwarding</link>
+			<link target="command:ID_TOOLS_WIZARD">Enable Plug'n'Play port forwarding</link>
 			<text>&#160;or </text>
-			<link target="peer:command:ID_HELP_ROUTER">learn how to configure your router.</link>
+			<link target="command:ID_HELP_ROUTER">learn how to configure your router.</link>
 			<newline gap="20" indent="0"/>
 		</group>
 		<group id="7">
@@ -568,32 +568,32 @@
 			and are unable to receive UDP messages from the Internet. &#160;</text>
 			<text color="FF0000" format="b">This may cause poor search performance.</text>
 			<newline gap="6"/>
-			<link target="peer:command:ID_TOOLS_WIZARD">Enable Plug'n'Play port forwarding</link>
+			<link target="command:ID_TOOLS_WIZARD">Enable Plug'n'Play port forwarding</link>
 			<text>&#160;or </text>
-			<link target="peer:command:ID_HELP_ROUTER">learn how to configure your router.</link>
+			<link target="command:ID_HELP_ROUTER">learn how to configure your router.</link>
 			<newline gap="20" indent="0"/>
 		</group>
-		<icon res="128" width="30" height="30" target="peer:command:ID_TOOLS_SETTINGS"/><gap size="8"/>
+		<icon res="128" width="30" height="30" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">Customise PeerProject</heading>
 		<newline gap="12" indent="42"/>
-		<icon res="182" width="16" height="16" target="peer:command:ID_TOOLS_SKIN"/><gap size="8"/>
-		<link target="peer:command:ID_TOOLS_SKIN" align="middle" format="bu">Skins</link>
+		<icon res="182" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
+		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">Skins</link>
 		<text align="middle">&#160;- Change PeerProject's visual appearance</text>
 		<newline gap="8"/>
-		<icon res="141" width="16" height="16" target="peer:command:ID_VIEW_SECURITY"/><gap size="8"/>
-		<link target="peer:command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
+		<icon res="141" width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
+		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
 		<text align="middle">&#160;- Update blocklist to avoid bad search results</text>
 		<newline gap="8"/>
-		<icon res="317" width="16" height="16" target="peer:command:ID_TOOLS_WIZARD"/><gap size="8"/>
-		<link target="peer:command:ID_TOOLS_WIZARD" align="middle">Settings Wizard</link>
+		<icon res="317" width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
+		<link target="command:ID_TOOLS_WIZARD" align="middle">Settings Wizard</link>
 		<text align="middle">&#160;- Quick-edit PeerProject's basic settings</text>
 		<newline gap="8"/>
-		<icon res="147" width="16" height="16" target="peer:command:ID_HELP_FAQ"/><gap size="8"/>
-		<link target="peer:command:ID_HELP_FAQ" align="middle">Quick Help</link>
+		<icon res="147" width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
+		<link target="command:ID_HELP_FAQ" align="middle">Quick Help</link>
 		<text align="middle">&#160;- Get online support using PeerProject</text>
 		<newline gap="8"/>
-		<icon res="175" width="16" height="16" target="peer:command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
-		<link target="peer:command:ID_HELP_FORUMS_LOCAL" align="middle">Local Forums</link>
+		<icon res="175" width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
+		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">Local Forums</link>
 		<text align="middle">&#160;- Go to the local English language forum</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
@@ -618,25 +618,25 @@
 		<text format="b">General </text>
 		<text>section relate to the user experience.</text>
 		<newline gap="16" indent="16"/>
-		<link target="peer:page:CGeneralSettingsPage" format="b">General:</link>
+		<link target="page:CGeneralSettingsPage" format="b">General:</link>
 		<text>&#160;Common user interface settings like tooltips, minimize behavior, number formats, prompts, etc.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CLibrarySettingsPage" format="b">Library:</link>
+		<link target="page:CLibrarySettingsPage" format="b">Library:</link>
 		<text>&#160;Presentation, file access, and management of the file library.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CMediaSettingsPage" format="b">Media Player:</link>
+		<link target="page:CMediaSettingsPage" format="b">Media Player:</link>
 		<text>&#160;Set when to use the internal PeerProject Media Center.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CIRCSettingsPage" format="b">IRC Chat:</link>
+		<link target="page:CIRCSettingsPage" format="b">IRC Chat:</link>
 		<text>&#160;IRC chatroom connection settings and display options.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CCommunitySettingsPage" format="b">Community:</link>
+		<link target="page:CCommunitySettingsPage" format="b">Community:</link>
 		<text>&#160;Your profile and direct chat settings.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CRemoteSettingsPage" format="b">Remote:</link>
+		<link target="page:CRemoteSettingsPage" format="b">Remote:</link>
 		<text>&#160;Setup PeerProject to be controlled from a web browser.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CWebSettingsPage" format="b">Web Integration:</link>
+		<link target="page:CWebSettingsPage" format="b">Web Integration:</link>
 		<text>&#160;Enable your web browser to use PeerProject for peer-to-peer links and as general download manager.</text>
 	</document>
 	<document name="CInternetSettingsGroup" title="Internet" leftMargin="8" topMargin="8">
@@ -647,31 +647,31 @@
 		<text format="b">Internet </text>
 		<text>section control how PeerProject interacts with other nodes in distributed peer-to-peer networks.</text>
 		<newline gap="16" indent="16"/>
-		<link target="peer:page:CConnectionSettingsPage" format="b">Connection:</link>
+		<link target="page:CConnectionSettingsPage" format="b">Connection:</link>
 		<text>&#160;Indicate speed and capabilities of your Internet access.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CDownloadsSettingsPage" format="b">Downloads:</link>
+		<link target="page:CDownloadsSettingsPage" format="b">Downloads:</link>
 		<text>&#160;Manage bandwidth-in, limits, and folder locations.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CUploadsSettingsPage" format="b">Uploads:</link>
+		<link target="page:CUploadsSettingsPage" format="b">Uploads:</link>
 		<text>&#160;Manage bandwidth-out, limits, and queues.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CSchedulerSettingsPage" format="b">Scheduler:</link>
+		<link target="page:CSchedulerSettingsPage" format="b">Scheduler:</link>
 		<text>&#160;Limit download connections based on a periodic schedule.</text>
 	</document>
 	<document name="CBrowseHostProfile.2">
 		<newline gap="40" indent="0"/>
 		<text format="b">Shared Files</text>
 		<newline gap="4" indent="8"/>
-		<icon res="137" target="peer:command:ID_BROWSE_FILES"/><gap size="5"/>
-		<link target="peer:command:ID_BROWSE_FILES" align="middle">View Shared Files</link>
+		<icon res="137" target="command:ID_BROWSE_FILES"/><gap size="5"/>
+		<link target="command:ID_BROWSE_FILES" align="middle">View Shared Files</link>
 		<group id="2">
 			<newline gap="16" indent="0"/>
 			<text format="b">Community</text>
 			<newline gap="4" indent="8"/>
-			<icon res="140" target="peer:command:ID_SEARCH_CHAT"/>
+			<icon res="140" target="command:ID_SEARCH_CHAT"/>
 			<gap size="5"/>
-			<link target="peer:command:ID_SEARCH_CHAT" align="middle">Chat With User</link>
+			<link target="command:ID_SEARCH_CHAT" align="middle">Chat With User</link>
 		</group>
 		<group id="3">
 			<newline gap="16" indent="0"/>
@@ -737,10 +737,10 @@
 <dialogs>
 	<dialog name="CGeneralSettingsPage" cookie="BuBuBuBuBuBuBuBuStCoBuBuBuBuBuBuSyStEdmsStmsBuBuStCoStCo" caption="General">
 		<control caption="_General:"/>
-		<control caption="Auto-connect on PeerProject startup"/>
 		<control caption="Start PeerProject at Windows startup"/>
+		<control caption="Auto-connect at PeerProject startup"/>
 		<control caption="Show a prompt before opening URIs"/>
-		<control caption="Check for updates monthly"/>
+		<control caption="Check for updates (monthly)"/>
 		<control caption="_Downloads:"/>
 		<control caption="Expand new downloads by default"/>
 		<control caption="Display simple progress bar"/>
@@ -896,5 +896,5 @@
 		<control caption="Cancel"/>
 	</dialog>
 </dialogs>
-<!-- No Columns Definitions -->
+<!-- No Column Definitions -->
 </skin>

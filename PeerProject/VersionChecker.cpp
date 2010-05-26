@@ -1,8 +1,8 @@
 //
 // VersionChecker.cpp
 //
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
-// This file is part of PeerProject (peerproject.org) © 2008
 //
 // PeerProject is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -159,10 +159,9 @@ BOOL CVersionChecker::ExecuteRequest()
 
 		CString strKey = strItem.SpanExcluding( _T("=") );
 		if ( strKey.GetLength() == strItem.GetLength() ) continue;
-		strItem = URLDecode( strItem.Mid( strKey.GetLength() + 1 ) );
 
-		strItem.TrimLeft();
-		strItem.TrimRight();
+		strItem = URLDecode( strItem.Mid( strKey.GetLength() + 1 ) );
+		strItem.Trim();
 
 		m_pResponse.SetAt( strKey, strItem );
 	}

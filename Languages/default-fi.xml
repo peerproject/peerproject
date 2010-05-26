@@ -1,9 +1,9 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <skin xmlns="http://schemas.peerproject.org/Skin.xsd" version="1.0">
 
 <!-- PeerProject Default Finnish Skin File -->
 
-<!-- Translation based on default-en.xml r54 (Shareaza 2.1.3.7) -->
+<!-- Translation based on default-en.xml r55 (Shareaza 2.1.3.7) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1568,7 +1568,7 @@
 			<heading align="middle">YHDISTÄ NYT</heading>
 			<newline gap="8" indent="42"/>
 			<text>Tervetuloa PeerProjectan! &#160;Sinä et ole tällä hetkellä yhteydessä mihinkään p2p verkkoon. &#160;</text>
-			<link target="peer:command:ID_NETWORK_CONNECT">Klikkaa tähän aloittaaksesi!</link>
+			<link target="command:ID_NETWORK_CONNECT">Klikkaa tähän aloittaaksesi!</link>
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="2">
@@ -1577,11 +1577,11 @@
 			<newline gap="8" indent="42"/>
 			<anchor id="SearchBox" width="256" height="80"/>
 			<newline gap="12" indent="0"/>
-			<icon res="136" width="32" height="32" target="peer:shell:downloads"/><gap size="8"/>
+			<icon res="136" width="32" height="32" target="command:shell:downloads"/><gap size="8"/>
 			<heading align="middle">OMAT LATAUKSET</heading>
 			<newline gap="8" indent="42"/>
 			<text>Or open your completed </text>
-			<link target="peer:shell:downloads">downloads folder.</link>
+			<link target="command:shell:downloads">downloads folder.</link>
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="3">
@@ -1590,42 +1590,42 @@
 			<newline gap="8" indent="42"/>
 			<text id="Päivitä"/>
 			<newline gap="6"/>
-			<link target="peer:upgrade">Klikkaa tähän päivittääksesi</link>
+			<link target="command:upgrade">Klikkaa tähän päivittääksesi</link>
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="4">
-			<icon res="252" width="32" height="32" target="peer:command:ID_TOOLS_WIZARD"/><gap size="8"/>
+			<icon res="252" width="32" height="32" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 			<heading align="middle">VAROITUS: SINUT ON PALOMUURTETTU</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">PeerProject on huomannut että olet NAT reitittimen tai palomuurin takana,
 			ja sinä et voi ottaa yhteyksiä netistä. &#160;</text>
 			<text color="FF0000" format="b">Tämä saattaa aiheuttaa huonon lataus tehon.</text>
 			<newline gap="6"/>
-			<link target="peer:command:ID_HELP_ROUTER">Klikkaa tähän kunika konfiguroida reitittimesi tai palomuurisi</link>
+			<link target="command:ID_HELP_ROUTER">Klikkaa tähän kunika konfiguroida reitittimesi tai palomuurisi</link>
 			<newline gap="18" indent="0"/>
 		</group>
-		<icon res="128" width="32" height="32" target="peer:command:ID_TOOLS_SETTINGS"/><gap size="8"/>
+		<icon res="128" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">KUSTOMOI PEERPROJECT A</heading>
 		<newline gap="12" indent="42"/>
-		<icon res="182" width="16" height="16" target="peer:command:ID_TOOLS_SKIN"/><gap size="8"/>
-		<link target="peer:command:ID_TOOLS_SKIN" align="middle" format="bu">Ulkoasut</link>
+		<icon res="182" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
+		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">Ulkoasut</link>
 		<text align="middle">&#160;- Muuta PeerProjectn ulkonäköä</text>
 		<newline gap="8"/>
-		<icon res="141" width="16" height="16" target="peer:command:ID_VIEW_SECURITY"/><gap size="8"/>
-		<link target="peer:command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
+		<icon res="141" width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
+		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
 		<text align="middle">&#160;- Update blocklist to avoid bad search results</text>
 		<newline gap="8"/>
-		<icon res="317" width="16" height="16" target="peer:command:ID_TOOLS_WIZARD"/><gap size="8"/>
-		<link target="peer:command:ID_TOOLS_WIZARD" align="middle">Asetus Velho</link>
+		<icon res="317" width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
+		<link target="command:ID_TOOLS_WIZARD" align="middle">Asetus Velho</link>
 		<text align="middle">&#160;- Editoi PeerProject:n Asetuksia</text>
 		<newline gap="8"/>
-		<icon res="147" width="16" height="16" target="peer:command:ID_HELP_FAQ"/><gap size="8"/>
-		<link target="peer:command:ID_HELP_FAQ" align="middle">Pika Apu</link>
+		<icon res="147" width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
+		<link target="command:ID_HELP_FAQ" align="middle">Pika Apu</link>
 		<text align="middle">&#160;- Hanki joitain perus ohjeita PeerProjectn käyttämiseen, or </text>
-		<link target="peer:command:ID_TAB_IRC" align="middle">IRC.</link>
+		<link target="command:ID_TAB_IRC" align="middle">IRC.</link>
 		<newline gap="8"/>
-		<icon res="175" width="16" height="16" target="peer:command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
-		<link target="peer:command:ID_HELP_FORUMS_LOCAL" align="middle">Paikallinen Forum</link>
+		<icon res="175" width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
+		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">Paikallinen Forum</link>
 		<text align="middle">&#160;- Mene Suomen kielen keskustelufoorumi</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
@@ -1652,7 +1652,7 @@
 			<para align="center">
 				<text format="b">Ei yhdistetty</text>
 				<newline gap="4"/>
-				<link target="peer:command:ID_NETWORK_CONNECT">Klikkaa tähän yhdistääksesi</link>
+				<link target="command:ID_NETWORK_CONNECT">Klikkaa tähän yhdistääksesi</link>
 			</para>
 		</group>
 		<icon group="20" command="ID_NETWORK_G2"/>
@@ -1700,7 +1700,7 @@
 				<text>Sinä et ole ladannut yhtään tiedostoa viime aikoina.</text>
 				<newline gap="8"/>
 			</group>
-			<link target="peer:command:ID_VIEW_LIBRARY">Mene Kirjastoon</link>
+			<link target="command:ID_VIEW_LIBRARY">Mene Kirjastoon</link>
 			<newline gap="4"/>
 			<text id="LibraryFiles" format="b">%lu </text>
 			<text>tiedostoa (</text>
@@ -1714,10 +1714,10 @@
 				<newline gap="8"/>
 			</group>
 			<group id="3">
-				<link target="peer:command:ID_LIBRARY_HASH_PRIORITY">Klikkaa tähän käsitelläksesi nopeammin</link>
+				<link target="command:ID_LIBRARY_HASH_PRIORITY">Klikkaa tähän käsitelläksesi nopeammin</link>
 			</group>
 			<group id="4">
-				<link target="peer:command:ID_LIBRARY_HASH_PRIORITY">Klikkaa tähän käsitelläksesi hitaammin</link>
+				<link target="command:ID_LIBRARY_HASH_PRIORITY">Klikkaa tähän käsitelläksesi hitaammin</link>
 			</group>
 		</para>
 	</document>
@@ -1732,9 +1732,9 @@
 				<text>Sinä et ole vielä lataamassa yhtään tiedostoa.</text>
 				<newline gap="4"/>
 			</group>
-			<link id="DownloadsNone" target="peer:command:ID_VIEW_DOWNLOADS">Mene Latauksiin</link>
-			<link id="DownloadsOne" target="peer:command:ID_VIEW_DOWNLOADS" format="bu">Mene Lataukseen (1)</link>
-			<link id="DownloadsMany" target="peer:command:ID_VIEW_DOWNLOADS" format="bu">Mene Latauksiin (%i)</link>
+			<link id="DownloadsNone" target="command:ID_VIEW_DOWNLOADS">Mene Latauksiin</link>
+			<link id="DownloadsOne" target="command:ID_VIEW_DOWNLOADS" format="bu">Mene Lataukseen (1)</link>
+			<link id="DownloadsMany" target="command:ID_VIEW_DOWNLOADS" format="bu">Mene Latauksiin (%i)</link>
 			<newline gap="4"/>
 			<text id="DownloadedNone">No tiedostoa (</text>
 			<text id="DownloadedOne">1 tiedoston (</text>
@@ -1751,8 +1751,8 @@
 		</styles>
 		<para align="center">
 			<text id="UploadsNone" format="b">Ei aktiivisia lähetyksiä</text>
-			<link id="UploadsOne" target="peer:command:ID_VIEW_UPLOADS" format="bu">1 aktiivinen lähetys</link>
-			<link id="UploadsMany" target="peer:command:ID_VIEW_UPLOADS" format="bu">%i aktiivista lähetystä</link>
+			<link id="UploadsOne" target="command:ID_VIEW_UPLOADS" format="bu">1 aktiivinen lähetys</link>
+			<link id="UploadsMany" target="command:ID_VIEW_UPLOADS" format="bu">%i aktiivista lähetystä</link>
 			<newline gap="4"/>
 			<group id="1">
 				<text id="TorrentsOne">1 jaettu torrentti</text>
@@ -1773,25 +1773,25 @@
 		<text format="b">Yleiset </text>
 		<text>alue joka liittyy käyttö kokemukseen.</text>
 		<newline gap="16" indent="16"/>
-		<link target="peer:page:CGeneralSettingsPage" format="b">Yleinen:</link>
+		<link target="page:CGeneralSettingsPage" format="b">Yleinen:</link>
 		<text>&#160;Yleiset käyttöliitymän asetukset kuten työkaluvihjeet, pienennys käyttäytyminen, formaattien määrä, kyselyt, jne.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CLibrarySettingsPage" format="b">Kirjasto:</link>
+		<link target="page:CLibrarySettingsPage" format="b">Kirjasto:</link>
 		<text>&#160;Kirjaston näyttö ja managerointi, ja tiedostojen avaus.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CMediaSettingsPage" format="b">Media Toistin:</link>
+		<link target="page:CMediaSettingsPage" format="b">Media Toistin:</link>
 		<text>&#160;Missä ja milloin käyttää sisään rakennettuaPeerProjectn Media Keskusta.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CIRCSettingsPage" format="b">IRC:</link>
+		<link target="page:CIRCSettingsPage" format="b">IRC:</link>
 		<text>&#160;IRC chatroom connection settings and display options.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CCommunitySettingsPage" format="b">Yhteisö:</link>
+		<link target="page:CCommunitySettingsPage" format="b">Yhteisö:</link>
 		<text>&#160;Sinun profiilisi, chat ja pikaviesti asetukset.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CRemoteSettingsPage" format="b">Kauko-ohjaus:</link>
+		<link target="page:CRemoteSettingsPage" format="b">Kauko-ohjaus:</link>
 		<text>&#160;Aseta mahdollisuus kontrolloida PeerProjecta nettiselaimellasi.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CWebSettingsPage" format="b">Web:</link>
+		<link target="page:CWebSettingsPage" format="b">Web:</link>
 		<text>&#160;Integroi PeerProject sinun nettiselaimeesi hyväksyäksesi p2p linkkejä ja ladata sisältöä.</text>
 	</document>
 	<document name="CInternetSettingsGroup" title="Internet" leftMargin="8" topMargin="8">
@@ -1802,16 +1802,16 @@
 		<text format="b">Internet </text>
 		<text>alue joka kontrolloi kuinka PeerProject käyttäytyy toisien koneiden kanssa jaetuissa p2p verkoissa.</text>
 		<newline gap="16" indent="16"/>
-		<link target="peer:page:CConnectionSettingsPage" format="b">Yhteys:</link>
+		<link target="page:CConnectionSettingsPage" format="b">Yhteys:</link>
 		<text>&#160;Internet yhteytesi nopeus ja toimivuus.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CDownloadsSettingsPage" format="b">Lataukset:</link>
+		<link target="page:CDownloadsSettingsPage" format="b">Lataukset:</link>
 		<text>&#160;Latauksen tuotos, ajastus, varmistus, aikakatkaisut ja managerointi.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CUploadsSettingsPage" format="b">Lähetykset:</link>
+		<link target="page:CUploadsSettingsPage" format="b">Lähetykset:</link>
 		<text>&#160;Lähetys kyky, jonotus, estäminen, aikakatkaisut ja erikois pyynnöt.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CSchedulerSettingsPage" format="b">Scheduler:</link>
+		<link target="page:CSchedulerSettingsPage" format="b">Scheduler:</link>
 		<text>&#160;Limit download connections based on a periodic schedule.</text>
 	</document>
 	<!-- Browse User Profile -->
@@ -1892,15 +1892,15 @@
 		<newline gap="40" indent="0"/>
 		<text format="b">Jaetut Tiedostot</text>
 		<newline gap="4" indent="8"/>
-		<icon res="137" target="peer:command:ID_BROWSE_FILES"/><gap size="5"/>
-		<link target="peer:command:ID_BROWSE_FILES" align="middle">Näytä Jaetut Tiedostot</link>
+		<icon res="137" target="command:ID_BROWSE_FILES"/><gap size="5"/>
+		<link target="command:ID_BROWSE_FILES" align="middle">Näytä Jaetut Tiedostot</link>
 		<group id="2">
 			<newline gap="16" indent="0"/>
 			<text format="b">Yhteisö</text>
 			<newline gap="4" indent="8"/>
-			<icon res="140" target="peer:command:ID_SEARCH_CHAT"/>
+			<icon res="140" target="command:ID_SEARCH_CHAT"/>
 			<gap size="5"/>
-			<link target="peer:command:ID_SEARCH_CHAT" align="middle">Keskustele Käyttäjän Kanssa</link>
+			<link target="command:ID_SEARCH_CHAT" align="middle">Keskustele Käyttäjän Kanssa</link>
 		</group>
 		<group id="3">
 			<newline gap="16" indent="0"/>

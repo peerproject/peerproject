@@ -312,6 +312,9 @@ BOOL CLibrary::SafeSerialize(CArchive& ar) throw()
 	__except( EXCEPTION_EXECUTE_HANDLER )
 	{
 	}
+
+	LibraryFolders.CreateAlbumTree();
+
 	return FALSE;
 }
 

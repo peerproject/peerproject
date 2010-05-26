@@ -1,7 +1,7 @@
 //
-// Class.cpp : Implementation of CClass
+// Class.cpp : Implementation of CClass (Zip)
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -67,34 +67,28 @@ STDMETHODIMP CZIPBuilder::Process (
 		return E_POINTER;
 
 	CComPtr <ISXMLElements> pISXMLRootElements;
-	HRESULT hr = pXML->get_Elements(&pISXMLRootElements);
-	if ( FAILED( hr ) )
-		return hr;
+	HRESULT hr = pXML->get_Elements( &pISXMLRootElements );
+	if ( FAILED( hr ) ) return hr;
 	CComPtr <ISXMLElement> pXMLRootElement;
-	hr = pISXMLRootElements->Create (CComBSTR ("archives"), &pXMLRootElement);
-	if ( FAILED( hr ) )
-		return hr;
+	hr = pISXMLRootElements->Create( CComBSTR( "archives" ), &pXMLRootElement );
+	if ( FAILED( hr ) ) return hr;
 	CComPtr <ISXMLAttributes> pISXMLRootAttributes;
-	hr = pXMLRootElement->get_Attributes(&pISXMLRootAttributes);
-	if ( FAILED( hr ) )
-		return hr;
-	pISXMLRootAttributes->Add (CComBSTR ("xmlns:xsi"),
-		CComBSTR ("http://www.w3.org/2001/XMLSchema-instance"));
-	pISXMLRootAttributes->Add (CComBSTR ("xsi:noNamespaceSchemaLocation"),
-		CComBSTR ("http://www.shareaza.com/schemas/archive.xsd"));
+	hr = pXMLRootElement->get_Attributes( &pISXMLRootAttributes );
+	if ( FAILED( hr ) ) return hr;
+	pISXMLRootAttributes->Add( CComBSTR( "xmlns:xsi" ),
+		CComBSTR( "http://www.w3.org/2001/XMLSchema-instance" ) );
+	pISXMLRootAttributes->Add( CComBSTR( "xsi:noNamespaceSchemaLocation" ),
+		CComBSTR( "http://www.shareaza.com/schemas/archive.xsd" ) );
 
 	CComPtr <ISXMLElements> pISXMLElements;
 	hr = pXMLRootElement->get_Elements(&pISXMLElements);
-	if ( FAILED( hr ) )
-		return hr;
+	if ( FAILED( hr ) ) return hr;
 	CComPtr <ISXMLElement> pXMLElement;
 	hr = pISXMLElements->Create (CComBSTR ("archive"), &pXMLElement);
-	if ( FAILED( hr ) )
-		return hr;
+	if ( FAILED( hr ) ) return hr;
 	CComPtr <ISXMLAttributes> pISXMLAttributes;
 	hr = pXMLElement->get_Attributes(&pISXMLAttributes);
-	if ( FAILED( hr ) )
-		return hr;
+	if ( FAILED( hr ) ) return hr;
 
 	CString sFiles;					// Plain list of archive files
 	bool bMoreFiles = false;		// More files than listed in sFiles
@@ -103,6 +97,7 @@ STDMETHODIMP CZIPBuilder::Process (
 	CString sComment;				// Archive comments
 	bool bEncrypted = false;		// Archive itself or selective files are encrypted
 	ULONGLONG nUnpackedSize = 0;	// Total size of unpacked files
+	int nFileCount = 0;				// Total number of contained files
 
 	USES_CONVERSION;
 	CZipHandler pFile( OLE2CT( sFile ) );
@@ -111,10 +106,7 @@ STDMETHODIMP CZIPBuilder::Process (
 
 	unz_global_info pDir = {};
 	if ( unzGetGlobalInfo( pFile, &pDir ) != UNZ_OK )
-	{
-		// Bad format. Call CLibraryBuilder::SubmitCorrupted()
-		return E_UNEXPECTED;
-	}
+		return E_UNEXPECTED;		// Bad format. Call CLibraryBuilder::SubmitCorrupted()
 
 	if ( pDir.size_comment )
 	{
@@ -122,8 +114,7 @@ STDMETHODIMP CZIPBuilder::Process (
 		int nResult = unzGetGlobalComment( pFile, szCmtBuf, MAX_SIZE_COMMENTS );
 		if ( nResult < 0 )
 		{
-			// Bad format. Call CLibraryBuilder::SubmitCorrupted()
-			return E_UNEXPECTED;
+			return E_UNEXPECTED;	// Bad format. Call CLibraryBuilder::SubmitCorrupted()
 		}
 		else
 		{
@@ -138,18 +129,14 @@ STDMETHODIMP CZIPBuilder::Process (
 	for ( UINT nFile = 0; nFile < pDir.number_entry; nFile++ )
 	{
 		if ( nFile && unzGoToNextFile( pFile ) != UNZ_OK )
-		{
-			// Bad format. Call CLibraryBuilder::SubmitCorrupted()
-			return E_UNEXPECTED;
-		}
+			return E_UNEXPECTED;	// Bad format. Call CLibraryBuilder::SubmitCorrupted()
 
 		unz_file_info pInfo = {};
 		CHAR szFile[ MAX_PATH ] = {};
 		if ( unzGetCurrentFileInfo( pFile, &pInfo, szFile,
 			MAX_PATH, NULL, 0, NULL, 0 ) != UNZ_OK )
 		{
-			// Bad format. Call CLibraryBuilder::SubmitCorrupted()
-			return E_UNEXPECTED;
+			return E_UNEXPECTED;	// Bad format. Call CLibraryBuilder::SubmitCorrupted()
 		}
 		OemToCharA( szFile, szFile );
 
@@ -183,8 +170,10 @@ STDMETHODIMP CZIPBuilder::Process (
 			else
 				bMoreFolders = true;
 		}
-		else
+		else	// File
 		{
+			nFileCount++;
+
 			if ( sFiles.GetLength() + sName.GetLength() <= MAX_SIZE_FILES - 5 )
 			{
 				if ( sFiles.GetLength() )
@@ -198,21 +187,21 @@ STDMETHODIMP CZIPBuilder::Process (
 		}
 	}
 
-	if ( sFiles.GetLength() )
+	if ( ! sFiles.IsEmpty() )
 	{
 		if ( bMoreFiles )
 			sFiles += _T(", ...");
 		pISXMLAttributes->Add( CComBSTR( "files" ), CComBSTR( sFiles ) );
 	}
 
-	if ( sFolders.GetLength() )
+	if ( ! sFolders.IsEmpty() )
 	{
 		if ( bMoreFolders )
 			sFolders += _T(", ...");
 		pISXMLAttributes->Add( CComBSTR( "folders" ), CComBSTR( sFolders ) );
 	}
 
-	if ( sComment.GetLength() )
+	if ( ! sComment.IsEmpty() )
 		pISXMLAttributes->Add( CComBSTR( "comments" ), CComBSTR( sComment ) );
 
 	if ( bEncrypted )
@@ -223,6 +212,47 @@ STDMETHODIMP CZIPBuilder::Process (
 		CString sTmp;
 		sTmp.Format( _T("%I64u"), nUnpackedSize );
 		pISXMLAttributes->Add( CComBSTR( "unpackedsize" ), CComBSTR( sTmp ) );
+	}
+
+	if ( nFileCount > 0 )
+	{
+		CString strFileCount;
+		strFileCount.Format( _T("%i"), nFileCount );
+		pISXMLAttributes->Add( CComBSTR( "filecount" ), CComBSTR( strFileCount ) );
+	}
+	else
+	{
+		CString strFileCount;
+		strFileCount.Format( _T("%I32u"), pDir.number_entry );
+		pISXMLAttributes->Add( CComBSTR( "filecount" ), CComBSTR( strFileCount ) );
+	}
+
+	// Special case .CBZ - Common filename metadata
+	{
+		CString strName( sFile );
+		if ( strName.Right( 4 ) == _T(".cbz") )
+		{
+			strName.MakeLower();
+			if ( strName.Find( _T("minutemen") ) > 0 )
+				pISXMLAttributes->Add( CComBSTR( "releasegroup" ), CComBSTR( L"Minutemen" ) );
+			else if ( strName.Find( _T("dcp") ) > 0 )
+				pISXMLAttributes->Add( CComBSTR( "releasegroup" ), CComBSTR( L"DCP" ) );
+			else if ( strName.Find( _T("cps") ) > 0 )
+				pISXMLAttributes->Add( CComBSTR( "releasegroup" ), CComBSTR( L"CPS" ) );
+		}
+		if ( strName.Find( _T("20") ) > 4 || strName.Find( _T("19") ) > 4 )
+		{
+			CString strYear;
+			for ( int i = 2022; i > 1940; i-- )
+			{
+				strYear.Format( _T("%i"), i );
+				if ( strName.Find( strYear ) > 4 )
+				{
+					pISXMLAttributes->Add( CComBSTR( "year" ), CComBSTR( strYear ) );
+					break;
+				}
+			}
+		}
 	}
 
 	return S_OK;

@@ -49,7 +49,7 @@ protected:
 
 // IGeneralPlugin
 public:
-	STDMETHOD(SetApplication)( 
+	STDMETHOD(SetApplication)(
 		/* [in] */ IApplication __RPC_FAR *pApplication);
 	STDMETHOD(QueryCapabilities)(
 		/* [in] */ DWORD __RPC_FAR *pnCaps);
@@ -60,12 +60,12 @@ public:
 public:
 	STDMETHOD(RegisterCommands)();
 	STDMETHOD(InsertCommands)();
-	STDMETHOD(OnUpdate)( 
+	STDMETHOD(OnUpdate)(
 		/* [in] */ UINT nCommandID,
 		/* [out][in] */ TRISTATE __RPC_FAR *pbVisible,
 		/* [out][in] */ TRISTATE __RPC_FAR *pbEnabled,
 		/* [out][in] */ TRISTATE __RPC_FAR *pbChecked);
-	STDMETHOD(OnCommand)( 
+	STDMETHOD(OnCommand)(
 		/* [in] */ UINT nCommandID);
 };
 

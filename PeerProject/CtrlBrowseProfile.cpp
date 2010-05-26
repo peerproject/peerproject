@@ -184,14 +184,14 @@ void CBrowseProfileCtrl::UpdateDocument1(CGProfile* pProfile)
 	}
 
 	str = pProfile->GetLocation();
-	m_pDocument1->ShowGroup( 2, str.GetLength() > 0 );
+	m_pDocument1->ShowGroup( 2, ! str.IsEmpty() );
 	if ( m_pdFullLocation != NULL )
 		m_pdFullLocation->SetText( str );
 
 	if ( CXMLElement* pVitals = pProfile->GetXML( _T("vitals") ) )
 	{
 		str = pVitals->GetAttributeValue( _T("gender") );
-		m_pDocument1->ShowGroup( 3, str.GetLength() > 0 );
+		m_pDocument1->ShowGroup( 3, ! str.IsEmpty() );
 
 		if ( m_pdGenderMale != NULL && m_pdGenderFemale != NULL )
 		{
@@ -210,8 +210,8 @@ void CBrowseProfileCtrl::UpdateDocument1(CGProfile* pProfile)
 	BOOL bContact = FALSE;
 
 	str = pProfile->GetContact( _T("Email") );
-	bContact |= ( str.GetLength() > 0 );
-	m_pDocument1->ShowGroup( 40, str.GetLength() > 0 );
+	bContact |= ( ! str.IsEmpty() );
+	m_pDocument1->ShowGroup( 40, ! str.IsEmpty() );
 	if ( m_pdContactEmail != NULL )
 	{
 		m_pdContactEmail->SetText( str );
@@ -219,8 +219,8 @@ void CBrowseProfileCtrl::UpdateDocument1(CGProfile* pProfile)
 	}
 
 	str = pProfile->GetContact( _T("MSN") );
-	bContact |= ( str.GetLength() > 0 );
-	m_pDocument1->ShowGroup( 44, str.GetLength() > 0 );
+	bContact |= ( ! str.IsEmpty() );
+	m_pDocument1->ShowGroup( 44, ! str.IsEmpty() );
 	if ( m_pdContactMSN != NULL )
 	{
 		m_pdContactMSN->SetText( str );
@@ -228,8 +228,8 @@ void CBrowseProfileCtrl::UpdateDocument1(CGProfile* pProfile)
 	}
 
 	str = pProfile->GetContact( _T("Yahoo") );
-	bContact |= ( str.GetLength() > 0 );
-	m_pDocument1->ShowGroup( 41, str.GetLength() > 0 );
+	bContact |= ( ! str.IsEmpty() );
+	m_pDocument1->ShowGroup( 41, ! str.IsEmpty() );
 	if ( m_pdContactYahoo != NULL )
 	{
 		m_pdContactYahoo->SetText( str );
@@ -237,8 +237,8 @@ void CBrowseProfileCtrl::UpdateDocument1(CGProfile* pProfile)
 	}
 
 	str = pProfile->GetContact( _T("ICQ") );
-	bContact |= ( str.GetLength() > 0 );
-	m_pDocument1->ShowGroup( 42, str.GetLength() > 0 );
+	bContact |= ( ! str.IsEmpty() );
+	m_pDocument1->ShowGroup( 42, ! str.IsEmpty() );
 	if ( m_pdContactICQ != NULL )
 	{
 		m_pdContactICQ->SetText( str );
@@ -246,8 +246,8 @@ void CBrowseProfileCtrl::UpdateDocument1(CGProfile* pProfile)
 	}
 
 	str = pProfile->GetContact( _T("AOL") );
-	bContact |= ( str.GetLength() > 0 );
-	m_pDocument1->ShowGroup( 43, str.GetLength() > 0 );
+	bContact |= ( ! str.IsEmpty() );
+	m_pDocument1->ShowGroup( 43, ! str.IsEmpty() );
 	if ( m_pdContactAOL != NULL )
 	{
 		m_pdContactAOL->SetText( str );
@@ -255,8 +255,8 @@ void CBrowseProfileCtrl::UpdateDocument1(CGProfile* pProfile)
 	}
 
 	str = pProfile->GetContact( _T("Jabber") );
-	bContact |= ( str.GetLength() > 0 );
-	m_pDocument1->ShowGroup( 45, str.GetLength() > 0 );
+	bContact |= ( ! str.IsEmpty() );
+	m_pDocument1->ShowGroup( 45, ! str.IsEmpty() );
 	if ( m_pdContactJabber != NULL )
 	{
 		m_pdContactJabber->SetText( str );
@@ -274,20 +274,19 @@ void CBrowseProfileCtrl::UpdateDocument1(CGProfile* pProfile)
 
 			if ( pInterest->IsNamed( _T("interest") ) )
 			{
-				if ( str.GetLength() )
-					str += _T(", ");
+				if ( ! str.IsEmpty() ) str += _T(", ");
 				str += pInterest->GetValue();
 			}
 		}
 	}
 
-	m_pDocument1->ShowGroup( 5, str.GetLength() > 0 );
+	m_pDocument1->ShowGroup( 5, ! str.IsEmpty() );
 	if ( m_pdInterests != NULL ) m_pdInterests->SetText( str );
 
 	str.Empty();
 	if ( CXMLElement* pBio = pProfile->GetXML( _T("notes") ) )
 		str = pBio->GetValue();
-	m_pDocument1->ShowGroup( 6, str.GetLength() > 0 );
+	m_pDocument1->ShowGroup( 6, ! str.IsEmpty() );
 	if ( m_pdBioText != NULL ) m_pdBioText->SetText( str );
 
 	m_wndDoc1.InvalidateIfModified();

@@ -1,7 +1,7 @@
 //
 // PageTorrentTrackers.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2006.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -52,16 +52,17 @@ protected:
 	void			OnRun();
 	BOOL			OnTree(CBENode* pNode);
 
-	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
+	virtual void	DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
 	virtual BOOL	OnInitDialog();
-	virtual BOOL OnApply();
+	virtual BOOL	OnApply();
 
 	afx_msg void	OnTorrentRefresh();
 	afx_msg void	OnTimer(UINT_PTR nIDEvent);
 	afx_msg void	OnDestroy();
-	afx_msg void OnEnChangeTorrentTracker();
-	afx_msg void OnNMClickTorrentTrackers(NMHDR *pNMHDR, LRESULT *pResult);
-	afx_msg void OnCbnSelchangeTorrentTrackermode();
+	afx_msg void	OnEnChangeTorrentTracker();
+	afx_msg void	OnNMClickTorrentTrackers(NMHDR *pNMHDR, LRESULT *pResult);
+	afx_msg void	OnCbnSelchangeTorrentTrackermode();
+	afx_msg void	OnCustomDrawList(NMHDR* pNMHDR, LRESULT* pResult);
 
 	DECLARE_MESSAGE_MAP()
 };

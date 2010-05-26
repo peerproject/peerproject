@@ -147,22 +147,21 @@ void CDownload::Resume()
 //////////////////////////////////////////////////////////////////////
 // CDownload control : remove
 
+// ToDo: Stop freezing GUI during many cleared downloads/seeds
+
 void CDownload::Remove()
 {
+	AbortTask();
 	StopTrying();
 	CloseTorrent();
 	CloseTransfers();
-	AbortTask();
 
 	if ( IsTrying() )
 		Downloads.StopTrying( IsTorrent() );
 
 	theApp.Message( MSG_NOTICE, IDS_DOWNLOAD_REMOVE, (LPCTSTR)GetDisplayName() );
 
-	if ( IsCompleted() )
-		CloseFile();
-	else
-		DeleteFile();
+	IsCompleted() ? CloseFile() : DeleteFile();
 
 	DeletePreviews();
 

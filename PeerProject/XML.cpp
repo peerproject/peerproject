@@ -811,8 +811,7 @@ CString CXMLElement::GetRecursiveWords() const
 	CString strWords;
 
 	AddRecursiveWords( strWords );
-	strWords.TrimLeft();
-	strWords.TrimRight();
+	strWords.Trim();
 
 	return strWords;
 }

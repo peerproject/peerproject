@@ -321,13 +321,9 @@ BOOL CDownloadTransferHTTP::SendRequest()
 		Write( _P("X-Features: g2/1.0\r\n") );
 
 	if ( m_bTigerFetch )
-	{
 		Write( _P("Accept: application/dime, application/tigertree-breadthfirst\r\n") );
-	}
 	else if ( m_bMetaFetch )
-	{
 		Write( _P("Accept: text/xml\r\n") );
-	}
 
 	if ( m_nOffset != SIZE_UNKNOWN && ! m_bTigerFetch && ! m_bMetaFetch )
 	{
@@ -344,9 +340,7 @@ BOOL CDownloadTransferHTTP::SendRequest()
 	}
 
 	if ( m_bWantBackwards && Settings.Downloads.AllowBackwards )
-	{
 		Write( _P("Accept-Encoding: backwards\r\n") );
-	}
 
 	strLine = Settings.SmartAgent();
 
@@ -359,11 +353,12 @@ BOOL CDownloadTransferHTTP::SendRequest()
 
 	if ( m_nRequests == 0 )
 	{
-		if ( m_bInitiated ) SendMyAddress();
+		if ( m_bInitiated )
+			SendMyAddress();
 
 		strLine = MyProfile.GetNick().Left( 255 );
 
-		if ( strLine.GetLength() > 0 )
+		if ( ! strLine.IsEmpty() )
 		{
 			Write( _P("X-Nick: ") );
 			Write( URLEncode( strLine ) );

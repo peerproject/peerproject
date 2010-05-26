@@ -68,7 +68,6 @@ CRichViewCtrl::CRichViewCtrl()
 	, m_pDocument	( NULL )
 	, m_nCookie 	( 0 )
 	, m_nLength 	( 0 )
-	, m_nScrollWheelLines( 3 )
 	, m_pHover		( NULL )
 	, m_bSelecting	( FALSE )
 	, m_pSelStart	( )
@@ -78,8 +77,6 @@ CRichViewCtrl::CRichViewCtrl()
 	, m_hcHand		( NULL )
 	, m_hcText		( NULL )
 {
-	// Get number of lines to scroll with mouse
-	SystemParametersInfo( SPI_GETWHEELSCROLLLINES, 0, &m_nScrollWheelLines, 0);
 }
 
 CRichViewCtrl::~CRichViewCtrl()
@@ -487,8 +484,7 @@ void CRichViewCtrl::OnTimer(UINT_PTR /*nIDEvent*/)
 
 BOOL CRichViewCtrl::OnMouseWheel(UINT /*nFlags*/, short zDelta, CPoint /*pt*/)
 {
-	OnVScroll( SB_THUMBPOSITION, (int)( GetScrollPos( SB_VERT ) -
-		zDelta / WHEEL_DELTA * m_nScrollWheelLines * 16 ), NULL );
+	OnVScroll( SB_THUMBPOSITION, GetScrollPos( SB_VERT ) - zDelta / WHEEL_DELTA * theApp.m_nMouseWheel * 16 );
 	return TRUE;
 }
 

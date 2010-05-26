@@ -691,8 +691,7 @@ BOOL CSecurity::Import(LPCTSTR pszFile)
 
 		while ( pBuffer.ReadLine( strLine ) )
 		{
-			strLine.TrimLeft();
-			strLine.TrimRight();
+			strLine.Trim();
 			if ( strLine.IsEmpty() ) continue;
 			if ( strLine.GetAt( 0 ) == ';' ) continue;
 

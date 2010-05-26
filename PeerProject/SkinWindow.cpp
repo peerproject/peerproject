@@ -321,7 +321,7 @@ BOOL CSkinWindow::Parse(CXMLElement* pBase, const CString& strPath)
 			ParseColor( str, m_crCaptionShadow );
 
 			str = pGroup->GetAttributeValue( _T("caps") );
-			m_bCaptionCaps = str.GetLength() > 0;
+			m_bCaptionCaps = ! str.IsEmpty();
 
 			str = pGroup->GetAttributeValue( _T("align") );
 			if ( str.CompareNoCase( _T("left") ) == 0 )
@@ -342,7 +342,7 @@ BOOL CSkinWindow::Parse(CXMLElement* pBase, const CString& strPath)
 		{
 			str = pGroup->GetAttributeValue( _T("language") );
 
-			if ( str.GetLength() > 0 )
+			if ( ! str.IsEmpty() )
 			{
 				if ( str.CompareNoCase( Settings.General.Language ) != 0 ) continue;
 				m_sLanguage = str;
@@ -356,7 +356,7 @@ BOOL CSkinWindow::Parse(CXMLElement* pBase, const CString& strPath)
 			CString strFile	= pGroup->GetAttributeValue( _T("path") );
 			HBITMAP hBitmap = NULL;
 
-			if ( strFile.GetLength() > 0 )
+			if ( ! strFile.IsEmpty() )
 			{
 				strFile = strPath + strFile;
 				hBitmap = CImageFile::LoadBitmapFromFile( strFile );
@@ -376,7 +376,7 @@ BOOL CSkinWindow::Parse(CXMLElement* pBase, const CString& strPath)
 			//		hBitmap = pFile.CreateBitmap();
 			//	}
 			}
-			else if ( strRes.GetLength() > 0 )
+			else if ( ! strRes.IsEmpty() )
 			{
 				UINT nResID = 0;
 				if ( _stscanf( strRes, _T("%lu"), &nResID ) != 1 )
@@ -404,7 +404,7 @@ BOOL CSkinWindow::Parse(CXMLElement* pBase, const CString& strPath)
 					MAKEINTRESOURCE(nResID), IMAGE_BITMAP, 0, 0, 0 );
 				//	ToDo: Convert Resources to .PNG ?
 				//	hBitmap = CImageFile::LoadBitmapFromFile( nResID, RT_PNG );
-				}
+			}
 
 			if ( hBitmap == NULL )
 			{

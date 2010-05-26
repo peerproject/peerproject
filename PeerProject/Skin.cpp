@@ -388,6 +388,7 @@ BOOL CSkin::LoadFromXML(CXMLElement* pXML, const CString& strPath)
 	XMLElement[ _T("commandimages") ]	= 'i';
 	XMLElement[ _T("icons") ]			= 'i';
 	XMLElement[ _T("colors") ]			= 'c';
+	XMLElement[ _T("colours") ]			= 'c';
 	XMLElement[ _T("colorscheme") ]		= 'c';
 	XMLElement[ _T("colourscheme") ]	= 'c';
 	XMLElement[ _T("toolbars") ]		= 't';
@@ -396,7 +397,7 @@ BOOL CSkin::LoadFromXML(CXMLElement* pXML, const CString& strPath)
 	XMLElement[ _T("documents") ]		= 'd';
 	XMLElement[ _T("listcolumns") ]		= 'l';
 	XMLElement[ _T("options") ]			= 'o';
-	XMLElement[ _T("navbar") ]			= 'v';	// Legacy .sks
+	XMLElement[ _T("navbar") ]			= 'v';	// .sks
 	XMLElement[ _T("fonts") ]			= 'f';
 	XMLElement[ _T("strings") ]			= 'r';
 	XMLElement[ _T("commandtips") ]		= 'r';
@@ -649,7 +650,7 @@ BOOL CSkin::LoadOptions(CXMLElement* pBase)
 		OptionName[ _T("groupsbar") ]	= 'g';
 		OptionName[ _T("downloadgroups") ] = 'g';
 		OptionName[ _T("monitorbar") ]	= 'o';
-		OptionName[ _T("bandwidth") ]	= 'o';
+		OptionName[ _T("bandwidthwidget") ]	= 'o';
 		OptionName[ _T("dragbar") ]		= 'r';
 		OptionName[ _T("splitter") ]	= 'r';
 		OptionName[ _T("roundedselect") ] = 'e';
@@ -751,7 +752,7 @@ BOOL CSkin::LoadOptions(CXMLElement* pBase)
 			else if ( strValue.GetLength() )
 				m_nGroupsbarHeight = _wtoi(strValue);
 			break;
-		case 'o':	// "monitorbar" or "bandwidthbar"
+		case 'o':	// "monitorbar" or "bandwidthwidget"
 			if ( strWidth.GetLength() )
 				m_nMonitorbarWidth = _wtoi(strWidth);
 			else if ( strValue.GetLength() )
@@ -1013,7 +1014,7 @@ BOOL CSkin::CreateToolBar(LPCTSTR pszName, CCoolBarCtrl* pBar)
 	}
 	else if ( HBITMAP hBitmap = GetWatermark( _T("System.Toolbars") ) )
 	{
-		if ( strPath.Find( _T("CSearchWnd") ) < 0 )	// Crash Workaround  ToDo: Fix properly
+		if ( strPath.Find( _T("CSearchWnd") ) < 0 ) 	// Crash Workaround 	// ToDo: Fix properly
 			pBar->SetWatermark( hBitmap );
 	}
 	else
@@ -1292,12 +1293,158 @@ BOOL CSkin::LoadWatermarks(CXMLElement* pSub, const CString& strPath)
 		}
 	}
 
-	if ( m_bmSelected.m_hObject )
-		m_bmSelected.DeleteObject();
-	if ( HBITMAP hSelected = GetWatermark( _T("CTranfers.Selected") ) )
+	// Common volatile system-wide bitmaps:
+
+	if ( m_bmSelected.m_hObject ) m_bmSelected.DeleteObject();
+	if ( HBITMAP hSelected = GetWatermark( _T("System.Highlight") ) )
 		m_bmSelected.Attach( hSelected );
-	else if ( HBITMAP hSelected = GetWatermark( _T("System.Highlight") ) )
+	else if ( HBITMAP hSelected = GetWatermark( _T("CTranfers.Selected") ) )
 		m_bmSelected.Attach( hSelected );
+
+	if ( m_bmProgress.m_hObject ) m_bmProgress.DeleteObject();
+	if ( HBITMAP hProgress = GetWatermark( _T("System.Progress") ) )
+		m_bmProgress.Attach( hProgress );
+
+	if ( m_bmProgressNone.m_hObject ) m_bmProgressNone.DeleteObject();
+	if ( HBITMAP hProgress = GetWatermark( _T("System.Progress.None") ) )
+		m_bmProgressNone.Attach( hProgress );
+
+	if ( m_bmProgressShaded.m_hObject ) m_bmProgressShaded.DeleteObject();
+	if ( HBITMAP hProgress = GetWatermark( _T("System.Progress.Shaded") ) )
+		m_bmProgressShaded.Attach( hProgress );
+
+	if ( m_bmToolTip.m_hObject ) m_bmToolTip.DeleteObject();
+	if ( HBITMAP hToolTip = GetWatermark( _T("System.ToolTip") ) )
+		m_bmToolTip.Attach( hToolTip );
+	else if ( HBITMAP hToolTip = GetWatermark( _T("System.Tooltips") ) )
+		m_bmToolTip.Attach( hToolTip );
+
+	// "System.Toolbars" fallback at toolbar creation
+
+	// Button states:
+
+	if ( m_bmRichButton.m_hObject ) m_bmRichButton.DeleteObject();
+	if ( m_bmRichButtonPart.m_hObject ) m_bmRichButtonPart.DeleteObject();
+	if ( HBITMAP hButton = GetWatermark( _T("RichButton") ) )
+	{
+		m_bmRichButton.Attach( hButton );
+		if ( HBITMAP hPart = GetWatermark( _T("RichButtonPart") ) )
+		{
+			BITMAP bmInfo;
+			m_bmRichButtonPart.Attach( hPart );
+			m_bmRichButtonPart.GetObject( sizeof(BITMAP), &bmInfo );
+			m_bmRichButtonPart.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
+		}
+	}
+	if ( m_bmRichButtonFocus.m_hObject ) m_bmRichButtonFocus.DeleteObject();
+	if ( m_bmRichButtonFocusPart.m_hObject ) m_bmRichButtonFocusPart.DeleteObject();
+	if ( HBITMAP hButton = GetWatermark( _T("RichButton.Focus") ) )
+	{
+		m_bmRichButtonFocus.Attach( hButton );
+		if ( HBITMAP hPart = GetWatermark( _T("RichButtonPart.Focus") ) )
+		{
+			BITMAP bmInfo;
+			m_bmRichButtonFocusPart.Attach( hPart );
+			m_bmRichButtonFocusPart.GetObject( sizeof(BITMAP), &bmInfo );
+			m_bmRichButtonFocusPart.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
+		}
+	}
+	if ( m_bmRichButtonHover.m_hObject ) m_bmRichButtonHover.DeleteObject();
+	if ( m_bmRichButtonHoverPart.m_hObject ) m_bmRichButtonHoverPart.DeleteObject();
+	if ( HBITMAP hButton = GetWatermark( _T("RichButton.Hover") ) )
+	{
+		m_bmRichButtonHover.Attach( hButton );
+		if ( HBITMAP hPart = GetWatermark( _T("RichButtonPart.Hover") ) )
+		{
+			BITMAP bmInfo;
+			m_bmRichButtonHoverPart.Attach( hPart );
+			m_bmRichButtonHoverPart.GetObject( sizeof(BITMAP), &bmInfo );
+			m_bmRichButtonHoverPart.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
+		}
+	}
+	if ( m_bmRichButtonPress.m_hObject ) m_bmRichButtonPress.DeleteObject();
+	if ( m_bmRichButtonPressPart.m_hObject ) m_bmRichButtonPressPart.DeleteObject();
+	if ( HBITMAP hButton = GetWatermark( _T("RichButton.Press") ) )
+	{
+		m_bmRichButtonPress.Attach( hButton );
+		if ( HBITMAP hPart = GetWatermark( _T("RichButtonPart.Press") ) )
+		{
+			BITMAP bmInfo;
+			m_bmRichButtonPressPart.Attach( hPart );
+			m_bmRichButtonPressPart.GetObject( sizeof(BITMAP), &bmInfo );
+			m_bmRichButtonPressPart.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
+		}
+	}
+	if ( m_bmRichButtonDisabled.m_hObject ) m_bmRichButtonDisabled.DeleteObject();
+	if ( m_bmRichButtonDisabledPart.m_hObject ) m_bmRichButtonDisabledPart.DeleteObject();
+	if ( HBITMAP hButton = GetWatermark( _T("RichButton.Disabled") ) )
+	{
+		m_bmRichButtonDisabled.Attach( hButton );
+		if ( HBITMAP hPart = GetWatermark( _T("RichButtonPart.Disabled") ) )
+		{
+			BITMAP bmInfo;
+			m_bmRichButtonDisabledPart.Attach( hPart );
+			m_bmRichButtonDisabledPart.GetObject( sizeof(BITMAP), &bmInfo );
+			m_bmRichButtonDisabledPart.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
+		}
+	}
+
+	if ( m_bmIconButton.m_hObject ) m_bmIconButton.DeleteObject();
+	if ( HBITMAP hButton = GetWatermark( _T("IconButton") ) )
+	{
+		BITMAP bmInfo;
+		m_bmIconButton.Attach( hButton );
+		m_bmIconButton.GetObject( sizeof(BITMAP), &bmInfo );
+		m_bmIconButton.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
+	}
+	if ( m_bmIconButtonFocus.m_hObject ) m_bmIconButtonFocus.DeleteObject();
+	if ( HBITMAP hButton = GetWatermark( _T("IconButton.Focus") ) )
+	{
+		BITMAP bmInfo;
+		m_bmIconButtonFocus.Attach( hButton );
+		m_bmIconButtonFocus.GetObject( sizeof(BITMAP), &bmInfo );
+		m_bmIconButtonFocus.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
+	}
+	if ( m_bmIconButtonHover.m_hObject ) m_bmIconButtonHover.DeleteObject();
+	if ( HBITMAP hButton = GetWatermark( _T("IconButton.Hover") ) )
+	{
+		BITMAP bmInfo;
+		m_bmIconButtonHover.Attach( hButton );
+		m_bmIconButtonHover.GetObject( sizeof(BITMAP), &bmInfo );
+		m_bmIconButtonHover.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
+	}
+	if ( m_bmIconButtonPress.m_hObject ) m_bmIconButtonPress.DeleteObject();
+	if ( HBITMAP hButton = GetWatermark( _T("IconButton.Press") ) )
+	{
+		BITMAP bmInfo;
+		m_bmIconButtonPress.Attach( hButton );
+		m_bmIconButtonPress.GetObject( sizeof(BITMAP), &bmInfo );
+		m_bmIconButtonPress.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
+	}
+	if ( m_bmIconButtonDisabled.m_hObject ) m_bmIconButtonDisabled.DeleteObject();
+	if ( HBITMAP hButton = GetWatermark( _T("IconButton.Disabled") ) )
+	{
+		BITMAP bmInfo;
+		m_bmIconButtonDisabled.Attach( hButton );
+		m_bmIconButtonDisabled.GetObject( sizeof(BITMAP), &bmInfo );
+		m_bmIconButtonDisabled.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
+	}
+
+	//if ( m_bmToolbarButton.m_hObject ) m_bmToolbarButton.DeleteObject();
+	//if ( m_bmToolbarButtonPart.m_hObject ) m_bmToolbarButtonPart.DeleteObject();
+	//if ( HBITMAP hButton = GetWatermark( _T("ToolbarButton") ) )
+	//{
+	//	m_bmToolbarButton.Attach( hButton );
+	//	if ( HBITMAP hPart = GetWatermark( _T("ToolbarButtonPart") ) )
+	//	{
+	//		BITMAP bmInfo;
+	//		m_bmToolbarButtonPart.Attach( hPart );
+	//		m_bmToolbarButtonPart.GetObject( sizeof(BITMAP), &bmInfo );
+	//		m_bmToolbarButtonPart.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
+	//	}
+	//}
+
+
 
 	return TRUE;
 }
@@ -1791,16 +1938,19 @@ BOOL CSkin::LoadColorScheme(CXMLElement* pBase)
 
 	pColors.SetAt( _T("tooltip.back"), &Colors.m_crTipBack );
 	pColors.SetAt( _T("tooltip.text"), &Colors.m_crTipText );
+	pColors.SetAt( _T("tooltip.graph"), &Colors.m_crTipGraph );
+	pColors.SetAt( _T("tooltip.grid"), &Colors.m_crTipGraphGrid );
 	pColors.SetAt( _T("tooltip.border"), &Colors.m_crTipBorder );
 	pColors.SetAt( _T("tooltip.warnings"), &Colors.m_crTipWarnings );
 
 	pColors.SetAt( _T("taskpanel.back"), &Colors.m_crTaskPanelBack );
 	pColors.SetAt( _T("taskbox.caption.back"), &Colors.m_crTaskBoxCaptionBack );
 	pColors.SetAt( _T("taskbox.caption.text"), &Colors.m_crTaskBoxCaptionText );
+	pColors.SetAt( _T("taskbox.caption.hover"), &Colors.m_crTaskBoxCaptionHover );
 	pColors.SetAt( _T("taskbox.primary.back"), &Colors.m_crTaskBoxPrimaryBack );
 	pColors.SetAt( _T("taskbox.primary.text"), &Colors.m_crTaskBoxPrimaryText );
-	pColors.SetAt( _T("taskbox.caption.hover"), &Colors.m_crTaskBoxCaptionHover );
-	pColors.SetAt( _T("taskbox.client"), &Colors.m_crTaskBoxClient );
+	pColors.SetAt( _T("taskbox.client"), &Colors.m_crTaskBoxClient );	// Deprecated
+	pColors.SetAt( _T("taskbox.back"), &Colors.m_crTaskBoxClient );
 
 	pColors.SetAt( _T("dialog.back"), &Colors.m_crDialog );
 	pColors.SetAt( _T("panel.caption.back"), &Colors.m_crPanelBack );
@@ -1839,6 +1989,10 @@ BOOL CSkin::LoadColorScheme(CXMLElement* pBase)
 	pColors.SetAt( _T("monitor.upload.line"), &Colors.m_crMonitorUploadLine );
 	pColors.SetAt( _T("monitor.download.bar"), &Colors.m_crMonitorDownloadBar );
 	pColors.SetAt( _T("monitor.upload.bar"), &Colors.m_crMonitorUploadBar );
+	pColors.SetAt( _T("monitor.graph.border"), &Colors.m_crMonitorGraphBorder );
+	pColors.SetAt( _T("monitor.graph.back"), &Colors.m_crMonitorGraphBack );
+	pColors.SetAt( _T("monitor.graph.grid"), &Colors.m_crMonitorGraphGrid );
+	pColors.SetAt( _T("monitor.graph.line"), &Colors.m_crMonitorGraphLine );
 
 	pColors.SetAt( _T("schema.rating"), &Colors.m_crRatingNull );
 	pColors.SetAt( _T("schema.rating0"), &Colors.m_crRating0 );
@@ -1847,6 +2001,19 @@ BOOL CSkin::LoadColorScheme(CXMLElement* pBase)
 	pColors.SetAt( _T("schema.rating3"), &Colors.m_crRating3 );
 	pColors.SetAt( _T("schema.rating4"), &Colors.m_crRating4 );
 	pColors.SetAt( _T("schema.rating5"), &Colors.m_crRating5 );
+
+	pColors.SetAt( _T("meta.row"), &Colors.m_crSchemaRow[0] );
+	pColors.SetAt( _T("meta.row"), &Colors.m_crSchemaRow[1] );
+	pColors.SetAt( _T("meta.row.alt"), &Colors.m_crSchemaRow[1] );
+	pColors.SetAt( _T("meta.row.odd"), &Colors.m_crSchemaRow[0] );
+	pColors.SetAt( _T("meta.row.even"), &Colors.m_crSchemaRow[1] );
+	pColors.SetAt( _T("meta.rating"),  &Colors.m_crRatingNull );
+	pColors.SetAt( _T("meta.rating0"), &Colors.m_crRating0 );
+	pColors.SetAt( _T("meta.rating1"), &Colors.m_crRating1 );
+	pColors.SetAt( _T("meta.rating2"), &Colors.m_crRating2 );
+	pColors.SetAt( _T("meta.rating3"), &Colors.m_crRating3 );
+	pColors.SetAt( _T("meta.rating4"), &Colors.m_crRating4 );
+	pColors.SetAt( _T("meta.rating5"), &Colors.m_crRating5 );
 
 	pColors.SetAt( _T("richdoc.back"), &Colors.m_crRichdocBack );
 	pColors.SetAt( _T("richdoc.text"), &Colors.m_crRichdocText );
@@ -1907,15 +2074,15 @@ BOOL CSkin::LoadColorScheme(CXMLElement* pBase)
 	pColors.SetAt( _T("fragmentbar.request"), &Colors.m_crFragmentRequest );
 	pColors.SetAt( _T("fragmentbar.border"), &Colors.m_crFragmentBorder );
 	pColors.SetAt( _T("fragmentbar.border.selected"), &Colors.m_crFragmentBorderSelected );
-	pColors.SetAt( _T("fragmentbar.border.simplebar"), &Colors.m_crFragmentBorderSimpleBar );
-	pColors.SetAt( _T("fragmentbar.border.simplebar.selected"), &Colors.m_crFragmentBorderSimpleBarSelected );
 
-	pColors.SetAt( _T("system.environment.borders"), &Colors.m_crSysBorders );
+	pColors.SetAt( _T("system.environment.borders"), &Colors.m_crSysDisabled );
+	pColors.SetAt( _T("system.environment.disabled"), &Colors.m_crSysDisabled );
 	pColors.SetAt( _T("system.environment.window"), &Colors.m_crSysWindow );
 	pColors.SetAt( _T("system.environment.btnface"), &Colors.m_crSysBtnFace );
 	pColors.SetAt( _T("system.environment.3dshadow"), &Colors.m_crSys3DShadow );
 	pColors.SetAt( _T("system.environment.3dhighlight"), &Colors.m_crSys3DHighlight );
 	pColors.SetAt( _T("system.environment.activecaption"), &Colors.m_crSysActiveCaption );
+	pColors.SetAt( _T("system.environment.menutext"), &Colors.m_crSysMenuText );
 
 	pColors.SetAt( _T("navbar.text"), &Colors.m_crNavBarText );
 	pColors.SetAt( _T("navbar.text.up"), &Colors.m_crNavBarTextUp );

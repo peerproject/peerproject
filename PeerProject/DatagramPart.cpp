@@ -106,7 +106,7 @@ void CDatagramOut::Create(SOCKADDR_IN* pHost, CG2Packet* pPacket, WORD nSequence
 
 BOOL CDatagramOut::GetPacket(DWORD tNow, BYTE** ppPacket, DWORD* pnPacket, BOOL bResend)
 {
-    int nPart = 0;
+	int nPart = 0;
 	for ( ; nPart < m_nCount ; nPart++ )
 	{
 		if ( m_pLocked[ nPart ] < 0xFFFFFFFF )

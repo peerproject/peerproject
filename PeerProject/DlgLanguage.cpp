@@ -324,7 +324,7 @@ void CLanguageDlg::OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* /*pScrollBar*/
 
 BOOL CLanguageDlg::OnMouseWheel(UINT /*nFlags*/, short zDelta, CPoint /*pt*/)
 {
-	OnVScroll( SB_THUMBPOSITION, (int)( GetScrollPos( SB_VERT ) - zDelta / WHEEL_DELTA ), NULL );
+	OnVScroll( SB_THUMBPOSITION, GetScrollPos( SB_VERT ) - zDelta / WHEEL_DELTA );
 	return TRUE;
 }
 

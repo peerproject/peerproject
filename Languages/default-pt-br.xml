@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Brazilian Portuguese Skin File -->
 
-<!-- Translation based on default-en.xml r54 -->
+<!-- Translation based on default-en.xml r55 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -464,12 +464,12 @@
 	</toolbar>
 	<!-- IMAGE VIEWER PLUGIN WINDOW -->
 	<toolbar name="ImageViewerWnd">
-		<button id="ImageViewer_ActualSize" text="Tamanho Verdadeiro"/>
-		<button id="ImageViewer_BestFit" text="Melhor Encaixe"/>
+		<button id="PluginID_ImageViewer_FullSize" text="Tamanho Verdadeiro"/>
+		<button id="PluginID_ImageViewer_BestFit" text="Melhor Encaixe"/>
 		<separator/>
-		<button id="ImageViewer_Refresh" text="Atualizar"/>
+		<button id="PluginID_ImageViewer_Refresh" text="Atualizar"/>
 		<rightAlign/>
-		<button id="ImageViewer_Close" text="Fechar"/>
+		<button id="PluginID_ImageViewer_Close" text="Fechar"/>
 	</toolbar>
 </toolbars>
 <!-- Menu Definitions -->
@@ -1651,12 +1651,12 @@
 	</menu>
 	<!-- PLUGIN MENUS -->
 	<menu name="ImageViewer_Context">
-		<item id="ImageViewer_ActualSize" text="_Tamanho Verdadeiro"/>
-		<item id="ImageViewer_BestFit" text="_Melhor Encaixe"/>
+		<item id="PluginID_ImageViewer_FullSize" text="_Tamanho Verdadeiro"/>
+		<item id="PluginID_ImageViewer_BestFit" text="_Melhor Encaixe"/>
 		<separator/>
-		<item id="ImageViewer_Refresh" text="_Atualizar"/>
+		<item id="PluginID_ImageViewer_Refresh" text="_Atualizar"/>
 		<separator/>
-		<item id="ImageViewer_Close" text="_Fechar"/>
+		<item id="PluginID_ImageViewer_Close" text="_Fechar"/>
 	</menu>
 	<!-- IRC WINDOW -->
 	<menu name="CIRCTabRClick">
@@ -1707,30 +1707,30 @@
 	  <anchor id="Header" width="32" height="152"/>
 	  <newline gap="0"/>
 	  <group id="1">
-		<icon res="130" width="32" height="32" target="peer:command:ID_NETWORK_CONNECT"/><gap size="8"/>
+		<icon res="130" width="32" height="32" target="command:ID_NETWORK_CONNECT"/><gap size="8"/>
 		<heading align="middle">Se Conecte</heading>
 		<newline gap="8" indent="42"/>
 		<text>Bem-vindo ao PeerProject!</text>
 		<newline gap="8" indent="42"/>
 		<text>Você não está conectado atualmente a quaisquer redes peer to peer.</text>
 		<newline gap="2" indent="42"/>
-		<link target="peer:command:ID_NETWORK_CONNECT">Clique aqui para começar!</link>
+		<link target="command:ID_NETWORK_CONNECT">Clique aqui para começar!</link>
 		<newline gap="18" indent="0"/>
 	  </group>
 	  <group id="2">
-		<icon res="134" width="32" height="32" target="peer:command:ID_TAB_SEARCH"/><gap size="8"/>
+		<icon res="134" width="32" height="32" target="command:ID_TAB_SEARCH"/><gap size="8"/>
 		<heading align="middle">Procurar Por Um Arquivo</heading>
 		<newline gap="4" indent="42"/>
 		<anchor id="SearchBox" width="256" height="80"/>
 		<newline gap="18" indent="0"/>
-		<icon res="136" width="32" height="32" target="peer:command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
+		<icon res="136" width="32" height="32" target="command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
 		<heading align="middle">Iniciar Download</heading>
 		<newline gap="8" indent="42"/>
-		<link target="peer:command:ID_TOOLS_DOWNLOAD" format="bu">Clique aqui para iniciar</link>
+		<link target="command:ID_TOOLS_DOWNLOAD" format="bu">Clique aqui para iniciar</link>
 		<text align="middle">&#160;baixar um novo arquivo ou torrent.</text>
 		<newline gap="4" indent="42"/>
 		<text align="middle">O abrir a minha </text>
-		<link target="peer:shell:downloads">pasta de downloads.</link>
+		<link target="command:shell:downloads">pasta de downloads.</link>
 		<newline gap="20" indent="0"/>
 	  </group>
 	  <group id="3">
@@ -1739,20 +1739,20 @@
 		<newline gap="8" indent="42"/>
 		<text id="Atualizar"/>
 		<newline gap="6"/>
-		<link target="peer:upgrade">Clique aqui para atualizar</link>
+		<link target="command:upgrade">Clique aqui para atualizar</link>
 		<newline gap="18" indent="0"/>
 	  </group>
 	  <group id="4">
-		<icon res="252" width="32" height="32" target="peer:command:ID_TOOLS_WIZARD"/><gap size="8"/>
+		<icon res="252" width="32" height="32" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 		<heading align="middle">Aviso: Vocé Está Sob Firewall</heading>
 		<newline gap="8" indent="42"/>
 		<text color="FF0000">O PeerProject detectou que você está atrás de um roteador NAT ou firewall,
 		  e está incapacitado de receber conexões da internet. &#160;</text>
 		<text color="FF0000" format="b">Isto pode causar uma performance pobre no download e na busca.</text>
 		<newline gap="6"/>
-		<link target="peer:command:ID_TOOLS_WIZARD">Enable Plug'n'Play port forwarding</link>
+		<link target="command:ID_TOOLS_WIZARD">Enable Plug'n'Play port forwarding</link>
 		<text>&#160;ou </text>
-		<link target="peer:command:ID_HELP_ROUTER">aprender como configurar o seu roteador.</link>
+		<link target="command:ID_HELP_ROUTER">aprender como configurar o seu roteador.</link>
 		<newline gap="18" indent="0"/>
 	  </group>
 	  <group id="6">
@@ -1763,9 +1763,9 @@
 		  e está incapacitado de receber conexões TCP da Internet. &#160;</text>
 		<text color="FF0000" format="b">Isto pode causar uma performance pobre de download.</text>
 		<newline gap="6"/>
-		<link target="peer:command:ID_TOOLS_WIZARD">Enable Plug'n'Play port forwarding</link>
+		<link target="command:ID_TOOLS_WIZARD">Enable Plug'n'Play port forwarding</link>
 		<text>&#160;ou </text>
-		<link target="peer:command:ID_HELP_ROUTER">aprender como configurar o seu roteador.</link>
+		<link target="command:ID_HELP_ROUTER">aprender como configurar o seu roteador.</link>
 		<newline gap="18" indent="0"/>
 	  </group>
 	  <group id="7">
@@ -1776,33 +1776,33 @@
 		  e está incapacitado de receber mensagens UDP da Internet. &#160;</text>
 		<text color="FF0000" format="b">Isto pode causar performance pobre na busca.</text>
 		<newline gap="6"/>
-		<link target="peer:command:ID_TOOLS_WIZARD">Enable Plug'n'Play port forwarding</link>
+		<link target="command:ID_TOOLS_WIZARD">Enable Plug'n'Play port forwarding</link>
 		<text>&#160;ou </text>
-		<link target="peer:command:ID_HELP_ROUTER">aprender como configurar o seu roteador.</link>
+		<link target="command:ID_HELP_ROUTER">aprender como configurar o seu roteador.</link>
 		<newline gap="18" indent="0"/>
 	  </group>
-	  <icon res="128" width="32" height="32" target="peer:command:ID_TOOLS_SETTINGS"/> <gap size="8"/>
+	  <icon res="128" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/> <gap size="8"/>
 	  <heading align="middle">Modifique O PeerProject</heading>
 	  <newline gap="12" indent="42"/>
-	  <icon res="182" width="16" height="16" target="peer:command:ID_TOOLS_SKIN"/><gap size="8"/>
-	  <link target="peer:command:ID_TOOLS_SKIN" align="middle" format="bu">Skins</link>
+	  <icon res="182" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
+	  <link target="command:ID_TOOLS_SKIN" align="middle" format="bu">Skins</link>
 	  <text align="middle">&#160;- Mude a aparência do PeerProject</text>
 	  <newline gap="8"/>
-	  <icon res="141" width="16" height="16" target="peer:command:ID_VIEW_SECURITY"/><gap size="8"/>
-	  <link target="peer:command:ID_VIEW_SECURITY" align="middle">Filtros de Segurança</link>
+	  <icon res="141" width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
+	  <link target="command:ID_VIEW_SECURITY" align="middle">Filtros de Segurança</link>
 	  <text align="middle">&#160;- Adicionar/Remover os filtros para melhorar sua performance de busca</text>
 	  <newline gap="8"/>
-	  <icon res="317" width="16" height="16" target="peer:command:ID_TOOLS_WIZARD"/><gap size="8"/>
-	  <link target="peer:command:ID_TOOLS_WIZARD" align="middle">Assistente de Configurações</link>
+	  <icon res="317" width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
+	  <link target="command:ID_TOOLS_WIZARD" align="middle">Assistente de Configurações</link>
 	  <text align="middle">&#160;- Edite as configurações do PeerProject</text>
 	  <newline gap="8"/>
-	  <icon res="147" width="16" height="16" target="peer:command:ID_HELP_FAQ"/><gap size="8"/>
-	  <link target="peer:command:ID_HELP_FAQ" align="middle">Ajuda Rápida</link>
+	  <icon res="147" width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
+	  <link target="command:ID_HELP_FAQ" align="middle">Ajuda Rápida</link>
 	  <text align="middle">&#160;- Obtenha um pouco de ajuda básica sobre como usar o PeerProject, ou </text>
-		<link target="peer:command:ID_TAB_IRC" align="middle">IRC.</link>
+		<link target="command:ID_TAB_IRC" align="middle">IRC.</link>
 	  <newline gap="8"/>
-	  <icon res="175" width="16" height="16" target="peer:command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
-	  <link target="peer:command:ID_HELP_FORUMS_LOCAL" align="middle">Local Fóruns</link>
+	  <icon res="175" width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
+	  <link target="command:ID_HELP_FORUMS_LOCAL" align="middle">Local Fóruns</link>
 	  <text align="middle">&#160;- Vá para o Fórum Português Língua discussão</text>
 	  <newline gap="18" indent="0"/>
 	  <group id="5">
@@ -1829,7 +1829,7 @@
 		<para align="center">
 		  <text format="b">Não conectado</text>
 		  <newline gap="4"/>
-		  <link target="peer:command:ID_NETWORK_CONNECT">Clique aqui para conectar</link>
+		  <link target="command:ID_NETWORK_CONNECT">Clique aqui para conectar</link>
 		</para>
 	  </group>
 	  <icon group="20" command="ID_NETWORK_G2"/>
@@ -1857,7 +1857,7 @@
 	  <group id="2">
 		<para align="center">
 		  <newline gap="4"/>
-		  <link target="peer:command:ID_TAB_NETWORK">Conectado</link>
+		  <link target="command:ID_TAB_NETWORK">Conectado</link>
 		  <newline gap="4"/>
 		  <text id="ConnectedHours" format="b">%i </text>
 		  <text>horas e </text>
@@ -1877,7 +1877,7 @@
 		  <text>Você não baixou quaisquer arquivos novos recentemente.</text>
 		  <newline gap="8"/>
 		</group>
-		<link target="peer:command:ID_VIEW_LIBRARY">Ir a Biblioteca</link>
+		<link target="command:ID_VIEW_LIBRARY">Ir a Biblioteca</link>
 		<newline gap="4"/>
 		<text id="LibraryFiles" format="b">%lu </text>
 		<text>arquivos (</text>
@@ -1890,10 +1890,10 @@
 		  <text>arquivos:</text>
 		  <newline gap="2"/>
 		  <group id="3">
-			<link target="peer:command:ID_LIBRARY_HASH_PRIORITY">Fazer o Hashing mais rápido</link>
+			<link target="command:ID_LIBRARY_HASH_PRIORITY">Fazer o Hashing mais rápido</link>
 		  </group>
 		  <group id="4">
-			<link target="peer:command:ID_LIBRARY_HASH_PRIORITY">Fazer o Hashing mais lento</link>
+			<link target="command:ID_LIBRARY_HASH_PRIORITY">Fazer o Hashing mais lento</link>
 		  </group>
 		</group>
 	  </para>
@@ -1909,9 +1909,9 @@
 		  <text>Você não está baixando quaisquer arquivos ainda.</text>
 		  <newline gap="4"/>
 		</group>
-		<link id="DownloadsNone" target="peer:command:ID_VIEW_DOWNLOADS">Ir para Downloads</link>
-		<link id="DownloadsOne"  target="peer:command:ID_VIEW_DOWNLOADS" format="bu">1 download ativo</link>
-		<link id="DownloadsMany" target="peer:command:ID_VIEW_DOWNLOADS" format="bu">%i downloads ativos</link>
+		<link id="DownloadsNone" target="command:ID_VIEW_DOWNLOADS">Ir para Downloads</link>
+		<link id="DownloadsOne"  target="command:ID_VIEW_DOWNLOADS" format="bu">1 download ativo</link>
+		<link id="DownloadsMany" target="command:ID_VIEW_DOWNLOADS" format="bu">%i downloads ativos</link>
 		<newline gap="4"/>
 		<text id="DownloadedNone">No arquivos (</text>
 		<text id="DownloadedOne">1 arquivo (</text>
@@ -1928,8 +1928,8 @@
 	  </styles>
 	  <para align="center">
 		<text id="UploadsNone" format="b">Sem uploads ativos</text>
-		<link id="UploadsOne"  target="peer:command:ID_VIEW_UPLOADS" format="bu">1 upload ativo</link>
-		<link id="UploadsMany" target="peer:command:ID_VIEW_UPLOADS" format="bu">%i uploads ativos</link>
+		<link id="UploadsOne"  target="command:ID_VIEW_UPLOADS" format="bu">1 upload ativo</link>
+		<link id="UploadsMany" target="command:ID_VIEW_UPLOADS" format="bu">%i uploads ativos</link>
 		<newline gap="4"/>
 		<group id="1">
 			<text id="TorrentsOne">Seed de 1 torrent</text>
@@ -1950,25 +1950,25 @@
 		<text format="b">Geral </text>
 		<text>relatam a experiência do usuário.</text>
 		<newline gap="16" indent="16"/>
-		<link target="peer:page:CGeneralSettingsPage" format="b">Geral:</link>
+		<link target="page:CGeneralSettingsPage" format="b">Geral:</link>
 		<text>&#160;As Configurações comuns de interface do usuário como dicas, comportamento ao minimizar, formato dos números, avisos, etc.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CLibrarySettingsPage" format="b">Biblioteca:</link>
+		<link target="page:CLibrarySettingsPage" format="b">Biblioteca:</link>
 		<text>&#160;Apresentação e gerenciamento da Biblioteca de arquivos, e da abertura de arquivos.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CMediaSettingsPage" format="b">Media Player:</link>
+		<link target="page:CMediaSettingsPage" format="b">Media Player:</link>
 		<text>&#160;Quando e onde usar o Centro de Mídia Embutido do PeerProject.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CIRCSettingsPage" format="b">IRC:</link>
+		<link target="page:CIRCSettingsPage" format="b">IRC:</link>
 		<text>&#160;Configurações da conexão e visual da sala de chat do IRC.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CCommunitySettingsPage" format="b">Comunidade:</link>
+		<link target="page:CCommunitySettingsPage" format="b">Comunidade:</link>
 		<text>&#160;Seu perfil, configurações de conversa e de mensagens instantâneas.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CRemoteSettingsPage" format="b">Remoto:</link>
+		<link target="page:CRemoteSettingsPage" format="b">Remoto:</link>
 		<text>&#160;Configurar a habilidade de controlar o PeerProject remotamente através de um navegador de Internet.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CWebSettingsPage" format="b">Web:</link>
+		<link target="page:CWebSettingsPage" format="b">Web:</link>
 		<text>&#160;Integrar o PeerProject ao seu navegador da web para aceitar links peer-to-peer e baixar conteúdo.</text>
 	</document>
 	<document name="CInternetSettingsGroup" title="Internet" leftMargin="8" topMargin="8">
@@ -1979,16 +1979,16 @@
 		<text format="b">Internet </text>
 		<text>controlam como o PeerProject interage com outros nodes dentro das redes peer-to-peer.</text>
 		<newline gap="16" indent="16"/>
-		<link target="peer:page:CConnectionSettingsPage" format="b">Conexão:</link>
+		<link target="page:CConnectionSettingsPage" format="b">Conexão:</link>
 		<text>&#160;As velocidades e capacidades da sua conexão de Internet.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CDownloadsSettingsPage" format="b">Downloads:</link>
+		<link target="page:CDownloadsSettingsPage" format="b">Downloads:</link>
 		<text>&#160;Taxa de transferência efetivia de download, agendamento, verificação, tempo(s) esgotado(s) e gerenciamento.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CUploadsSettingsPage" format="b">Uploads:</link>
+		<link target="page:CUploadsSettingsPage" format="b">Uploads:</link>
 		<text>&#160;Capacidade de upload, filas de espera, banimento(s), intervalos e pedidos especiais.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CSchedulerSettingsPage" format="b">Agendador:</link>
+		<link target="page:CSchedulerSettingsPage" format="b">Agendador:</link>
 		<text>&#160;Limitar as conexões de download baseado numa agenda periódica.</text>
 	</document>
 	<!-- Browse User Profile -->
@@ -2069,16 +2069,16 @@
 		<newline gap="40" indent="0"/>
 		<text format="b">Arquivos Compartilhados</text>
 		<newline gap="4" indent="8"/>
-		<icon res="137" target="peer:command:ID_BROWSE_FILES"/>
+		<icon res="137" target="command:ID_BROWSE_FILES"/>
 		<gap size="5"/>
-		<link target="peer:command:ID_BROWSE_FILES" align="middle">Ver Arquivos Compartilhados</link>
+		<link target="command:ID_BROWSE_FILES" align="middle">Ver Arquivos Compartilhados</link>
 		<group id="2">
 		<newline gap="16" indent="0"/>
 		<text format="b">Comunidade</text>
 		<newline gap="4" indent="8"/>
-		<icon res="140" target="peer:command:ID_SEARCH_CHAT"/>
+		<icon res="140" target="command:ID_SEARCH_CHAT"/>
 		<gap size="5"/>
-		<link target="peer:command:ID_SEARCH_CHAT" align="middle">Conversar com Usuário</link>
+		<link target="command:ID_SEARCH_CHAT" align="middle">Conversar com Usuário</link>
 		</group>
 		<group id="3">
 		<newline gap="16" indent="0"/>
@@ -2650,10 +2650,10 @@
 	<tip id="ID_WEBSERVICES_LIST" message="Escolha o serviço da web para obter mais informação sobre o arquivo selecionado."/>
 	<tip id="ID_WEBSERVICES_SHAREMONKEY" message="Procurar a informação do arquivo usando o serviço ShareMonkey."/>
 	<!-- PLUGIN TIPS -->
-	<tip id="ImageViewer_BestFit" message="Re-dimensionar a imagem para encaixar dentro da janela."/>
-	<tip id="ImageViewer_ActualSize" message="Mostrar a imagem no seu tamanho natural."/>
-	<tip id="ImageViewer_Refresh" message="Atualizar a imagem."/>
-	<tip id="ImageViewer_Close" message="Fechar a janela do visualizador de imagens."/>
+	<tip id="PluginID_ImageViewer_BestFit" message="Re-dimensionar a imagem para encaixar dentro da janela."/>
+	<tip id="PluginID_ImageViewer_FullSize" message="Mostrar a imagem no seu tamanho natural."/>
+	<tip id="PluginID_ImageViewer_Refresh" message="Atualizar a imagem."/>
+	<tip id="PluginID_ImageViewer_Close" message="Fechar a janela do visualizador de imagens."/>
 </commandTips>
 <!-- Tips displayed when mouse is moved over controls in the dialogs -->
 <controlTips>
@@ -2775,26 +2775,26 @@
 	<string id="8180" value="Tamanho Min:"/>
 	<string id="8181" value="Tamanho Max:"/>
 	<string id="8208" value="PeerProject está criando Hashes para %Iu os arquivos:"/>
-	<string id="8223" value="%i dias e %i horas"/>
-	<string id="8224" value="O PeerProject está baixando:"/>
-	<string id="8225" value="Este download está pausado:"/>
+<!--	<string id="8221" value="O PeerProject está procurando por fontes para:"/>
+	<string id="8222" value="O PeerProject está baixando:"/>
+	<string id="8223" value="Este download está pausado:"/>
+	<string id="8224" value="O PeerProject está movendo o download:"/>
+	<string id="8225" value="O PeerProject está verificando o download por erros:"/>
 	<string id="8226" value="O PeerProject completou o download:"/>
-	<string id="8227" value="%i horas e %i minutos"/>
-	<string id="8228" value="%i minutos e %i segundos"/>
-	<string id="8229" value="%i segundos"/>
-	<string id="8230" value="O PeerProject está procurando por fontes para:"/>
+-->	<string id="8227" value="%i dias e %i horas"/>
+	<string id="8228" value="%i horas e %i minutos"/>
+	<string id="8229" value="%i minutos e %i segundos"/>
+	<string id="8230" value="%i segundos"/>
 	<string id="8231" value="Sem fontes"/>
 	<string id="8232" value="Abrir"/>
 	<string id="8233" value="Cancelar"/>
 	<string id="8235" value="Velocidade total:"/>
 	<string id="8236" value="Tempo restante estimado:"/>
 	<string id="8237" value="Volume baixado:"/>
-	<string id="8238" value="Número de fontes:"/>
+	<string id="8238" value="Volume feito de upload:"/>
 	<string id="8239" value="Completado"/>
-	<string id="8240" value="O PeerProject está movendo o download:"/>
-	<string id="8241" value="O PeerProject está verificando o download por erros:"/>
-	<string id="8243" value="Volume feito de upload:"/>
-	<string id="8244" value="Número de comentários:"/>
+	<string id="8240" value="Número de fontes:"/>
+	<string id="8241" value="Número de comentários:"/>
 	<string id="8288" value="Explorando a sua Biblioteca no PeerProject"/>
 	<string id="8289" value="Explorando"/>
 	<string id="8290" value="Explorando os conteúdos de %i pastas"/>
@@ -2907,8 +2907,9 @@
 	<string id="16211" value="O Vizinho %s enviou uma requisição de push para um endereço atrás de um firewall , ignorando."/>
 	<string id="16212" value="O Vizinho %s enviou um pacote extendido que não é codificado por GGEP."/>
 	<string id="16213" value="Enviando tabela de roteamento de pesquisa para o vizinho %s (%i bit = %lu[%i], %i%% full)"/>
+	<string id="16254" value="Grupo padrão. (Mostrar todos os arquivos)"/>
 	<string id="16255" value="Drag'n'drop arquivos para o grupo %s"/>
-	<string id="16256" value="Foi &quot;%s&quot; adicionado a fila de download com %i fonte(s)."/>
+	<string id="16256" value="Foi &quot;%s&quot; adicionado a fila de download com %i fontes."/>
 	<string id="16257" value="Download de &quot;%s&quot; completado."/>
 	<string id="16258" value="Pausando download de &quot;%s&quot;."/>
 	<string id="16259" value="Resumindo o download de &quot;%s&quot;."/>
@@ -3308,7 +3309,7 @@
 	<string id="18510" value="Você tem certeza de que você quer assumir que este download está completo e re-verificá-lo? O arquivo inteiro será considerado, e o PeerProject aceitará as partes que passarem na verificação e baixará de novo as partes que falharem na verificação."/>
 	<string id="18511" value="Você mudou o tamanho do arquivo. Você tem certeza de que você quer mudar o tamanho deste download?"/>
 	<string id="19000" value="O acesso remoto está desativado."/>
-	<string id="19001" value="Você deve escolher um nome de usuário e senha."/>
+	<string id="19001" value="http://%s:%i/remote - Escolher um nome de usuário e senha."/>
 	<string id="19002" value="Incapaz de aceitar conexões, URL indisponível."/>
 	<string id="20000" value="Nenhuma URN disponível"/>
 	<string id="20001" value="Fechar"/>
@@ -3393,6 +3394,7 @@
 	<string id="20242" value="Tentar de Novo"/>
 	<string id="20243" value="Continuar"/>
 	<string id="20244" value="&amp;Lembrar da minha seleção da próxima vez"/>
+	<string id="20245" value="Nova Pasta"/>
 </strings>
 <!-- Localized Dialog Text, "cookie" verifies that the skin matches current dialog -->
 <dialogs>
@@ -4125,7 +4127,7 @@
 		<control caption="Ver"/>
 		<control caption="Cancelar"/>
 		<control caption="Fechar"/>
-		<control caption="Fechar esta janela quando o download completar"/>
+		<control caption="Auto"/>
 	</dialog>
 	<dialog name="CFileGeneralPage" cookie="EdStStStStStEdEdEdEdEdStEdEdEdEd" caption="Geral">
 		<control/>
@@ -4302,11 +4304,11 @@
 		<control/>
 		<control caption="Cancelar"/>
 	</dialog>
-	<dialog name="CURLActionDlg" cookie="StStStStStEdStEdStBuBuBuBuBuSt" caption="Gerenciador das URIs do PeerProject">
-		<control/>
+	<dialog name="CURLActionDlg" cookie="StStStStStStEdStEdStBuBuBuBuBu" caption="Gerenciador das URIs do P2P">
 		<control caption="Você clicou num link URI o qual leva ao seguinte conteúdo na rede:"/>
 		<control caption="Você clicou num link URI o qual conectará você ao seguinte host ou servidor:"/>
 		<control caption="Você clicou num link URI o qual permitirá a você navegar os arquivos compartilhados disponíveis do seguinte host:"/>
+		<control caption="Você clicou numa URI do PeerProject a qual adicionará o seguinte Serviço de Descobrimento ao seu cache de Serviços de Descobrimento."/>
 		<control/>
 		<control/>
 		<control/>
@@ -4317,11 +4319,10 @@
 		<control caption="Cancelar"/>
 		<control caption="_Lembrar minha seleção da próxima vez"/>
 		<control caption="Abrir uma janela do _monitor de downloads"/>
-		<control caption="Você clicou numa URI do PeerProject a qual adicionará o seguinte Serviço de Descobrimento ao seu cache de Serviços de Descobrimento."/>
 	</dialog>
 	<dialog name="CBitziDownloadDlg" cookie="StStmsBuSySt" caption="Baixando Metadata...">
 		<control/>
-		<control caption="O PeerProject está tentando baixar o metadata do Bitzi(TM)..."/>
+		<control caption="O PeerProject está tentando baixar o metadata do Bitzi..."/>
 		<control/>
 		<control caption="Cancelar"/>
 		<control/>

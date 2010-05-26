@@ -44,11 +44,11 @@ BEGIN_MESSAGE_MAP(CDeleteFileDlg, CSkinDialog)
 	ON_WM_CTLCOLOR()
 	ON_WM_MEASUREITEM()
 	ON_WM_DRAWITEM()
-	ON_CBN_SELCHANGE(IDC_DELETE_OPTIONS, OnCbnChangeOptions)
 	ON_BN_CLICKED(IDC_DELETE_ALL, OnDeleteAll)
+	ON_BN_CLICKED(IDC_CREATE_GHOST, OnClickedCreateGhost)
+	ON_CBN_SELCHANGE(IDC_DELETE_OPTIONS, OnCbnChangeOptions)
 	ON_CBN_SELCHANGE(IDC_GHOST_RATING, OnCbnChangeGhostRating)
 	ON_EN_CHANGE(IDC_RATE_COMMENTS, OnChangeComments)
-	ON_BN_CLICKED(IDC_CREATE_GHOST, OnClickedCreateGhost)
 END_MESSAGE_MAP()
 
 
@@ -147,11 +147,11 @@ void CDeleteFileDlg::OnDeleteAll()
 
 void CDeleteFileDlg::Apply(CLibraryFile* pFile)
 {
-	if ( m_nRateValue > 0 || m_sComments.GetLength() > 0 )
+	if ( m_nRateValue > 0 || ! m_sComments.IsEmpty() )
 	{
 		if ( m_bCreateGhost )
 		{
-			if ( m_sComments.GetLength() > 0 )
+			if ( ! m_sComments.IsEmpty() )
 				pFile->m_sComments = m_sComments;
 
 			pFile->m_nRating = m_nRateValue;
@@ -200,7 +200,7 @@ void CDeleteFileDlg::Create(CDownload* pDownload, BOOL bShare)
 		pFile = LibraryMaps.LookupFileByMD5( pDownload->m_oMD5 );
 
 	if ( pFile == NULL && m_bCreateGhost &&
-		 ( m_nRateValue > 0 || m_sComments.GetLength() > 0 ) ) // The file is not completed
+		 ( m_nRateValue > 0 || ! m_sComments.IsEmpty() ) ) // The file is not completed
 	{
 		pFile = new CLibraryFile( NULL, pDownload->m_sName );
 		pFile->m_nSize		= pDownload->m_nSize;
@@ -256,7 +256,7 @@ void CDeleteFileDlg::OnDrawItem(int /*nIDCtl*/, LPDRAWITEMSTRUCT lpDrawItemStruc
 	{
 		dc.SetTextColor( Colors.m_crHiText );
 		if ( Skin.m_bmSelected.m_hObject )
-			CoolInterface.DrawWatermark( &dc, &rcItem, &Skin.m_bmSelected );
+			CoolInterface.DrawWatermark( &dc, &rcItem, &Skin.m_bmSelected, FALSE ); 	// No overdraw
 		else
 			dc.FillSolidRect( &rcItem, Colors.m_crHighlight );
 	}

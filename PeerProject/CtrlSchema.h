@@ -46,7 +46,6 @@ protected:
 	CArray< CWnd* >	m_pControls;
 	CArray< CString >	m_pCaptions;
 	int				m_nScroll;
-	int				m_nScrollWheelLines;
 	CString			strMultipleString;
 
 // Operations
@@ -66,7 +65,7 @@ protected:
 	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
 	afx_msg void OnDestroy();
 	afx_msg void OnPaint();
-	afx_msg void OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar);
+	afx_msg void OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar = NULL);
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg void OnNcPaint();
 	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);

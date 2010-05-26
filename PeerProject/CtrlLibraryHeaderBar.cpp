@@ -1,7 +1,7 @@
 //
 // CtrlLibraryHeaderBar.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -76,10 +76,10 @@ void CLibraryHeaderBar::Update(CLibraryView* pView)
 
 	if ( nImage != m_nImage || strTitle != m_sTitle )
 	{
-		m_nImage	= nImage;
-		m_sTitle	= strTitle;
+		m_nImage = nImage;
+		m_sTitle = strTitle;
 
-		if (m_hWnd) Invalidate();
+		if ( m_hWnd ) Invalidate();
 	}
 
 	if ( pView != m_pLastView && ( m_pLastView = pView ) != NULL )
@@ -88,6 +88,8 @@ void CLibraryHeaderBar::Update(CLibraryView* pView)
 		{
 			CString strName;
 			Skin.LoadString( strName, pView->m_nCommandID );
+			if ( pView->m_nCommandID != ID_LIBRARY_VIEW_TILE )
+				strName += _T(" •");	// Add dropdown list indicator ›
 			LPCTSTR pszName = _tcschr( strName, '\n' );
 			pszName = ( pszName ) ? ( pszName + 1 ) : (LPCTSTR)strName;
 			pItem->SetImage( pView->m_nCommandID );
@@ -107,14 +109,13 @@ void CLibraryHeaderBar::PrepareRect(CRect* pRect) const
 	pRect->left -= 10;
 	if ( m_czLast.cx < pRect->Width() ) pRect->left = pRect->right - m_czLast.cx;
 	pRect->left += 10;
-	pRect->bottom --;
+	pRect->bottom--;
 }
 
 void CLibraryHeaderBar::DoPaint(CDC* pDC, CRect& rcBar, BOOL bTransparent)
 {
-	pDC->FillSolidRect( rcBar.left, rcBar.bottom - 1, rcBar.Width(), 1,
-		Colors.m_crSys3DShadow );
-	rcBar.bottom --;
+	pDC->FillSolidRect( rcBar.left, rcBar.bottom - 1, rcBar.Width(), 1, Colors.m_crSys3DShadow );
+	rcBar.bottom--;
 
 	if ( m_czLast.cx < rcBar.Width() - 22 )
 	{
@@ -154,8 +155,7 @@ void CLibraryHeaderBar::PaintHeader(CDC* pDC, CRect& rcBar, BOOL bTransparent)
 		if ( m_nImage )
 		{
 			ImageList_DrawEx( ShellIcons.GetHandle( 16 ), m_nImage, pDC->GetSafeHdc(),
-				rcBar.left + 4, nMiddle - 8, 16, 16, CLR_NONE, CLR_NONE,
-				ILD_NORMAL );
+				rcBar.left + 4, nMiddle - 8, 16, 16, CLR_NONE, CLR_NONE, ILD_NORMAL );
 		}
 
 		pDC->SetBkMode( TRANSPARENT );
@@ -169,14 +169,12 @@ void CLibraryHeaderBar::PaintHeader(CDC* pDC, CRect& rcBar, BOOL bTransparent)
 		if ( m_nImage )
 		{
 			ImageList_DrawEx( ShellIcons.GetHandle( 16 ), m_nImage, pDC->GetSafeHdc(),
-				rcBar.left + 4, nMiddle - 8, 16, 16, Colors.m_crMidtone, CLR_NONE,
-				ILD_NORMAL );
+				rcBar.left + 4, nMiddle - 8, 16, 16, Colors.m_crMidtone, CLR_NONE, ILD_NORMAL );
 
 			pDC->ExcludeClipRect( rcBar.left + 4, nMiddle - 8, rcBar.left + 20, nMiddle + 8 );
 		}
 
-		pDC->FillSolidRect( rcBar.left, rcBar.top, 20, rcBar.Height(),
-			Colors.m_crMidtone );
+		pDC->FillSolidRect( rcBar.left, rcBar.top, 20, rcBar.Height(), Colors.m_crMidtone );
 
 		rcBar.left += 20;
 		pDC->ExtTextOut( rcBar.left + 2, nMiddle - szText.cy / 2,
@@ -224,9 +222,7 @@ void CLibraryHeaderBar::OnLibraryView()
 			CLibraryView* pView = (CLibraryView*)pViews->GetNext( pos );
 
 			if ( pView->m_nCommandID == nCmd )
-			{
 				pFrame->SetView( pView );
-			}
 		}
 	}
 

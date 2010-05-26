@@ -1,7 +1,7 @@
 //
 // PageDownloadEdit.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -46,13 +46,13 @@ END_MESSAGE_MAP()
 //////////////////////////////////////////////////////////////////////////////
 // CDownloadEditPage construction
 
-CDownloadEditPage::CDownloadEditPage() :
-	CPropertyPageAdv( CDownloadEditPage::IDD ),
-	m_bSHA1Trusted( FALSE ),
-	m_bED2KTrusted( FALSE ),
-	m_bMD5Trusted( FALSE ),
-	m_bTigerTrusted( FALSE ),
-	m_bBTHTrusted( FALSE )
+CDownloadEditPage::CDownloadEditPage()
+	: CPropertyPageAdv( CDownloadEditPage::IDD )
+	, m_bSHA1Trusted	( FALSE )
+	, m_bED2KTrusted	( FALSE )
+	, m_bMD5Trusted		( FALSE )
+	, m_bTigerTrusted	( FALSE )
+	, m_bBTHTrusted		( FALSE )
 {
 }
 
@@ -99,11 +99,11 @@ BOOL CDownloadEditPage::OnInitDialog()
 	if ( pDownload->m_oTiger )
 		m_sTiger = pDownload->m_oTiger.toString();
 	if ( pDownload->m_oED2K )
-        m_sED2K = pDownload->m_oED2K.toString();
+		m_sED2K = pDownload->m_oED2K.toString();
 	if ( pDownload->m_oMD5 )
-        m_sMD5 = pDownload->m_oMD5.toString();
+		m_sMD5 = pDownload->m_oMD5.toString();
 	if ( pDownload->m_oBTH )
-        m_sBTH = pDownload->m_oBTH.toString();
+		m_sBTH = pDownload->m_oBTH.toString();
 
 	m_bSHA1Trusted	=	pDownload->m_bSHA1Trusted;
 	m_bTigerTrusted	=	pDownload->m_bTigerTrusted;
@@ -128,13 +128,13 @@ BOOL CDownloadEditPage::OnApply()
 	Hashes::Md5Hash oMD5;
 	Hashes::BtHash oBTH;
 
-    oSHA1.fromString( m_sSHA1 );
-    oTiger.fromString( m_sTiger );
-    oED2K.fromString( m_sED2K );
-    oMD5.fromString( m_sMD5 );
-    oBTH.fromString( m_sBTH );
+	oSHA1.fromString( m_sSHA1 );
+	oTiger.fromString( m_sTiger );
+	oED2K.fromString( m_sED2K );
+	oMD5.fromString( m_sMD5 );
+	oBTH.fromString( m_sBTH );
 
-	if ( m_sSHA1.GetLength() > 0 && !oSHA1 )
+	if ( ! m_sSHA1.IsEmpty() && ! oSHA1 )
 	{
 		LoadString( strFormat, IDS_DOWNLOAD_EDIT_BAD_HASH );
 		strMessage.Format( strFormat, _T("SHA1") );
@@ -142,7 +142,7 @@ BOOL CDownloadEditPage::OnApply()
 		GetDlgItem( IDC_URN_SHA1 )->SetFocus();
 		return FALSE;
 	}
-	else if ( m_sTiger.GetLength() > 0 && !oTiger )
+	else if ( ! m_sTiger.IsEmpty() && ! oTiger )
 	{
 		LoadString( strFormat, IDS_DOWNLOAD_EDIT_BAD_HASH );
 		strMessage.Format( strFormat, _T("Tiger-Root") );
@@ -150,7 +150,7 @@ BOOL CDownloadEditPage::OnApply()
 		GetDlgItem( IDC_URN_TIGER )->SetFocus();
 		return FALSE;
 	}
-	else if ( m_sED2K.GetLength() > 0 && !oED2K )
+	else if ( ! m_sED2K.IsEmpty() && ! oED2K )
 	{
 		LoadString( strFormat, IDS_DOWNLOAD_EDIT_BAD_HASH );
 		strMessage.Format( strFormat, _T("ED2K") );
@@ -158,7 +158,7 @@ BOOL CDownloadEditPage::OnApply()
 		GetDlgItem( IDC_URN_ED2K )->SetFocus();
 		return FALSE;
 	}
-	else if ( m_sMD5.GetLength() > 0 && !oMD5 )
+	else if ( ! m_sMD5.IsEmpty() && ! oMD5 )
 	{
 		LoadString( strFormat, IDS_DOWNLOAD_EDIT_BAD_HASH );
 		strMessage.Format( strFormat, _T("MD5") );
@@ -166,7 +166,7 @@ BOOL CDownloadEditPage::OnApply()
 		GetDlgItem( IDC_URN_MD5 )->SetFocus();
 		return FALSE;
 	}
-	else if ( m_sBTH.GetLength() > 0 && !oBTH )
+	else if ( ! m_sBTH.IsEmpty() && ! oBTH )
 	{
 		LoadString( strFormat, IDS_DOWNLOAD_EDIT_BAD_HASH );
 		strMessage.Format( strFormat, _T("BitTorrent") );
@@ -187,7 +187,7 @@ BOOL CDownloadEditPage::OnApply()
 	bNeedUpdate	|= pDownload->m_bMD5Trusted ^ ( m_bMD5Trusted == TRUE );
 	bNeedUpdate	|= pDownload->m_bBTHTrusted ^ ( m_bBTHTrusted == TRUE );
 
-    if ( ! Downloads.Check( pDownload ) || pDownload->IsMoving() ) return FALSE;
+	if ( ! Downloads.Check( pDownload ) || pDownload->IsMoving() ) return FALSE;
 
 	if ( pDownload->m_sName != m_sName )
 	{
@@ -201,7 +201,7 @@ BOOL CDownloadEditPage::OnApply()
 	}
 
 	QWORD nNewSize = 0;
-    if ( _stscanf( m_sFileSize, _T("%I64i"), &nNewSize ) == 1 && nNewSize != pDownload->m_nSize )
+	if ( _stscanf( m_sFileSize, _T("%I64i"), &nNewSize ) == 1 && nNewSize != pDownload->m_nSize )
 	{
 		pLock.Unlock();
 		LoadString( strMessage, IDS_DOWNLOAD_EDIT_CHANGE_SIZE );
@@ -310,9 +310,7 @@ BOOL CDownloadEditPage::OnApply()
 	}
 
 	if ( bNeedUpdate )
-	{
 		pDownload->SetModified();
-	}
 
 	return CPropertyPageAdv::OnApply();
 }

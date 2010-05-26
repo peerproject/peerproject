@@ -1,7 +1,7 @@
 //
 // MetaPanel.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -47,8 +47,8 @@ static char THIS_FILE[]=__FILE__;
 // CMetaPanel construction
 
 CMetaPanel::CMetaPanel()
-: m_nHeight(0)
-, m_pChild( NULL )
+	: m_nHeight	( 0 )
+	, m_pChild	( NULL )
 {
 	m_bmMusicBrainz.LoadBitmap( IDB_MUSICBRAINZ_LOGO );
 }
@@ -84,7 +84,9 @@ int CMetaPanel::Layout(CDC* pDC, int nWidth)
 			if ( CMetaItem* pNext = GetNext( pos ) )
 			{
 				while ( pNext && pNext->m_pMember && pNext->m_pMember->m_bHidden )
+				{
 					pNext = GetNext( pos );
+				}
 
 				if ( pNext == NULL )
 				{
@@ -151,8 +153,7 @@ void CMetaPanel::Paint(CDC* pDC, const CRect* prcArea)
 
 	if ( m_bMusicBrainz )
 	{
-		pDC->FillSolidRect( rcWork.left, rcWork.top, rcWork.Width(), MUSICBRAINZ_HEIGHT + 4,
-			Colors.m_crWindow );
+		pDC->FillSolidRect( rcWork.left, rcWork.top, rcWork.Width(), MUSICBRAINZ_HEIGHT + 4, Colors.m_crWindow );
 
 		CDC dcMem;
 		dcMem.CreateCompatibleDC( pDC );

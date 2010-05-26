@@ -353,25 +353,6 @@ CNeighbour* CNeighboursWnd::GetItem(int nItem)
 	return NULL;
 }
 
-void CNeighboursWnd::OnSkinChange()
-{
-	OnSize( 0, 0, 0 );
-	CPanelWnd::OnSkinChange();
-	Settings.LoadList( _T("CNeighboursWnd"), &m_wndList );
-	Skin.CreateToolBar( _T("CNeighboursWnd"), &m_wndToolBar );
-	m_wndList.SetBkImage( Skin.GetWatermark( _T("CNeighboursWnd") ) );
-
-	for ( int nImage = 0 ; nImage < 4 ; nImage++ )
-	{
-		HICON hIcon = CoolInterface.ExtractIcon( (UINT)protocolCmdMap[ nImage ].commandID, FALSE );
-		if ( hIcon )
-		{
-			m_gdiImageList.Replace( Settings.General.LanguageRTL ? m_nProtocolRev - nImage : nImage, hIcon );
-			DestroyIcon( hIcon );
-		}
-	}
-}
-
 /////////////////////////////////////////////////////////////////////////////
 // CNeighboursWnd message handlers
 
@@ -623,11 +604,34 @@ void CNeighboursWnd::OpenPacketWnd(BOOL bIncoming, BOOL bOutgoing)
 	pWnd->BringWindowToTop();
 }
 
+void CNeighboursWnd::OnSkinChange()
+{
+	OnSize( 0, 0, 0 );
+	CPanelWnd::OnSkinChange();
+	Settings.LoadList( _T("CNeighboursWnd"), &m_wndList );
+	Skin.CreateToolBar( _T("CNeighboursWnd"), &m_wndToolBar );
+
+	if ( m_wndList.SetBkImage( Skin.GetWatermark( _T("CNeighboursWnd") ) ) )
+		m_wndList.SetExtendedStyle( LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP|LVS_EX_LABELTIP|LVS_EX_SUBITEMIMAGES );	// No LVS_EX_DOUBLEBUFFER
+	else
+		m_wndList.SetBkColor( Colors.m_crWindow );
+
+	for ( int nImage = 0 ; nImage < 4 ; nImage++ )
+	{
+		HICON hIcon = CoolInterface.ExtractIcon( (UINT)protocolCmdMap[ nImage ].commandID, FALSE );
+		if ( hIcon )
+		{
+			m_gdiImageList.Replace( Settings.General.LanguageRTL ? m_nProtocolRev - nImage : nImage, hIcon );
+			DestroyIcon( hIcon );
+		}
+	}
+}
+
 void CNeighboursWnd::OnCustomDrawList(NMHDR* pNMHDR, LRESULT* pResult)
 {
-	NMLVCUSTOMDRAW* pDraw = (NMLVCUSTOMDRAW*)pNMHDR;
-
 	if ( ! ::IsWindow( m_wndList.GetSafeHwnd() ) ) return;
+
+	NMLVCUSTOMDRAW* pDraw = (NMLVCUSTOMDRAW*)pNMHDR;
 
 	if ( pDraw->nmcd.dwDrawStage == CDDS_PREPAINT )
 	{
@@ -641,20 +645,23 @@ void CNeighboursWnd::OnCustomDrawList(NMHDR* pNMHDR, LRESULT* pResult)
 		LV_ITEM pItem = { LVIF_IMAGE, static_cast< int >( pDraw->nmcd.dwItemSpec ) };
 		m_wndList.GetItem( &pItem );
 
+		if ( m_wndList.GetBkColor() == Colors.m_crWindow )
+			pDraw->clrTextBk = Colors.m_crWindow;
+
 		int nImage = Settings.General.LanguageRTL ? m_nProtocolRev - pItem.iImage : pItem.iImage;
 		switch ( nImage )
 		{
 		case PROTOCOL_NULL:
-			pDraw->clrText = Colors.m_crNetworkNull ;
+			pDraw->clrText = Colors.m_crNetworkNull;
 			break;
 		case PROTOCOL_G1:
-			pDraw->clrText = Colors.m_crNetworkG1 ;
+			pDraw->clrText = Colors.m_crNetworkG1;
 			break;
 		case PROTOCOL_G2:
-			pDraw->clrText = Colors.m_crNetworkG2 ;
+			pDraw->clrText = Colors.m_crNetworkG2;
 			break;
 		case PROTOCOL_ED2K:
-			pDraw->clrText = Colors.m_crNetworkED2K ;
+			pDraw->clrText = Colors.m_crNetworkED2K;
 			break;
 		}
 
@@ -693,12 +700,6 @@ void CNeighboursWnd::DrawEmptyMessage(CDC* pDC)
 	pDC->SelectObject( pOldFont );
 }
 
-void CNeighboursWnd::OnActivate(UINT nState, CWnd* pWndOther, BOOL bMinimized)
-{
-	CPanelWnd::OnActivate(nState, pWndOther, bMinimized);
-	Update();
-}
-
 BOOL CNeighboursWnd::PreTranslateMessage(MSG* pMsg)
 {
 	if ( pMsg->message == WM_KEYDOWN && pMsg->wParam == VK_TAB )
@@ -708,4 +709,10 @@ BOOL CNeighboursWnd::PreTranslateMessage(MSG* pMsg)
 	}
 
 	return CPanelWnd::PreTranslateMessage(pMsg);
+}
+
+void CNeighboursWnd::OnActivate(UINT nState, CWnd* pWndOther, BOOL bMinimized)
+{
+	CPanelWnd::OnActivate(nState, pWndOther, bMinimized);
+	Update();
 }

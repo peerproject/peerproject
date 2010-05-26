@@ -913,3 +913,10 @@ void CLiveListCtrl::OnLvnOdCacheHint(NMHDR * /*pNMHDR*/, LRESULT *pResult)
 
 	*pResult = 0;
 }
+
+// To implement list skinning elsewhere:
+//void CLiveListCtrl::OnSkinChange()
+//{
+//	SetBkColor( Colors.m_crWindow );
+//	SetBkImage( Skin.GetWatermark( _T("CLiveList") ) );
+//}

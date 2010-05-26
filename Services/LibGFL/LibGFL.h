@@ -24,6 +24,10 @@
 extern "C" {
 #endif
 
+#if defined(_WIN32) && !defined(WIN32)
+	#define WIN32
+#endif
+
 #if defined( WIN32 )
 	#pragma pack (push, before_push)
 	#pragma pack (8)
@@ -38,6 +42,7 @@ extern "C" {
 #endif
 
 #define GFL_VERSION  "2.90"
+#define GFL_VERSION_ 0x0290
 
 #define GFL_FALSE    0
 #define GFL_TRUE     1
@@ -61,19 +66,6 @@ extern "C" {
     typedef int32_t    GFL_INT32;
     typedef uint32_t   GFL_UINT32;
 #endif
-/*
-typedef signed char    GFL_INT8;
-typedef unsigned char  GFL_UINT8;
-typedef signed short   GFL_INT16;
-typedef unsigned short GFL_UINT16;
-#if __WORDSIZE == 64
-typedef signed int     GFL_INT32;
-typedef unsigned int   GFL_UINT32;
-#else
-typedef signed long    GFL_INT32;
-typedef unsigned long  GFL_UINT32;
-#endif
-*/
 
 typedef unsigned char  GFL_BOOL;
 
@@ -266,8 +258,8 @@ typedef GFL_ERROR (GFLAPI *GFL_VIRTUAL_SAVE_CALLBACK)(void** pBuffer, GFL_INT32 
 /*
  *  LOAD_PARAMS Flags
  */
-#define GFL_LOAD_SKIP_ALPHA 			  0x00000001 /* Alpha not loaded (32bits only)                     */
-#define GFL_LOAD_IGNORE_READ_ERROR	      0x00000002
+#define GFL_LOAD_SKIP_ALPHA               0x00000001 /* Alpha not loaded (32bits only)                     */
+#define GFL_LOAD_IGNORE_READ_ERROR        0x00000002
 #define GFL_LOAD_BY_EXTENSION_ONLY        0x00000004 /* Use only extension to recognize format. Faster     */
 #define GFL_LOAD_READ_ALL_COMMENT         0x00000008 /* Read Comment in GFL_FILE_DESCRIPTION               */
 #define GFL_LOAD_FORCE_COLOR_MODEL        0x00000010 /* Force to load picture in the ColorModel            */
@@ -282,7 +274,7 @@ typedef GFL_ERROR (GFLAPI *GFL_VIRTUAL_SAVE_CALLBACK)(void** pBuffer, GFL_INT32 
 #define GFL_LOAD_EMBEDDED_THUMBNAIL       0x00002000 /* gflLoadThumbnail                                   */
 #define GFL_LOAD_ORIENTED_THUMBNAIL       0x00004000 /* gflLoadThumbnail                                   */
 #define GFL_LOAD_ORIGINAL_EMBEDDED_THUMBNAIL 0x00008000 /* gflLoadThumbnail                                   */
-#define GFL_LOAD_ORIENTED				  0x00008000
+#define GFL_LOAD_ORIENTED                 0x00008000
 /*
  *  GFL_LOAD_CALLBACKS struct
  */
@@ -308,7 +300,7 @@ typedef struct {
 typedef struct {
 		GFL_UINT32       Flags;
 		GFL_INT32        FormatIndex; /* -1 for automatic recognition */
-    GFL_INT32        ImageWanted; /* for multi-page or animated file */
+		GFL_INT32        ImageWanted; /* for multi-page or animated file */
 		GFL_ORIGIN       Origin;      /* default: GFL_TOP_LEFT   */
 		GFL_BITMAP_TYPE  ColorModel;  /* Only for 24/32 bits picture, GFL_RGB/GFL_RGBA (default), GFL_BGR/GFL_ABGR, GFL_BGRA, GFL_ARGB */
 		GFL_UINT32       LinePadding; /* 1 (default), 2, 4, .... */
@@ -498,58 +490,58 @@ typedef struct {
 		GFL_IPTC_ENTRY * ItemsList;
 	} GFL_IPTC_DATA;
 
-#define GFL_IPTC_BYLINE										0x50
-#define GFL_IPTC_BYLINETITLE							0x55
-#define GFL_IPTC_CREDITS 									0x6e
-#define GFL_IPTC_SOURCE 									0x73
-#define GFL_IPTC_CAPTIONWRITER 						0x7a
-#define GFL_IPTC_CAPTION 									0x78
-#define GFL_IPTC_HEADLINE 								0x69
-#define GFL_IPTC_SPECIALINSTRUCTIONS 			0x28
-#define GFL_IPTC_OBJECTNAME 							0x05
-#define GFL_IPTC_DATECREATED 							0x37
-#define GFL_IPTC_RELEASEDATE 							0x1e
-#define GFL_IPTC_TIMECREATED 							0x3c
-#define GFL_IPTC_RELEASETIME 							0x23
-#define GFL_IPTC_CITY 										0x5a
-#define GFL_IPTC_STATE 										0x5f
-#define GFL_IPTC_COUNTRY 									0x65
-#define GFL_IPTC_COUNTRYCODE 							0x64
-#define GFL_IPTC_SUBLOCATION 							0x5c
-#define GFL_IPTC_ORIGINALTRREF 						0x67
-#define GFL_IPTC_CATEGORY 								0x0f
-#define GFL_IPTC_COPYRIGHT 								0x74
-#define GFL_IPTC_EDITSTATUS 							0x07
-#define GFL_IPTC_PRIORITY 								0x0a
-#define GFL_IPTC_OBJECTCYCLE 							0x4b
-#define GFL_IPTC_JOBID 										0x16
-#define GFL_IPTC_PROGRAM 									0x41
-#define GFL_IPTC_KEYWORDS									0x19
-#define GFL_IPTC_SUPCATEGORIES						0x14
-#define GFL_IPTC_CONTENT_LOCATION         0x1b
-#define GFL_IPTC_PROGRAM_VERSION          0x46
-#define GFL_IPTC_CONTACT                  0x76
+#define GFL_IPTC_BYLINE						0x50
+#define GFL_IPTC_BYLINETITLE				0x55
+#define GFL_IPTC_CREDITS					0x6e
+#define GFL_IPTC_SOURCE 					0x73
+#define GFL_IPTC_CAPTIONWRITER				0x7a
+#define GFL_IPTC_CAPTION					0x78
+#define GFL_IPTC_HEADLINE					0x69
+#define GFL_IPTC_SPECIALINSTRUCTIONS		0x28
+#define GFL_IPTC_OBJECTNAME 				0x05
+#define GFL_IPTC_DATECREATED				0x37
+#define GFL_IPTC_RELEASEDATE				0x1e
+#define GFL_IPTC_TIMECREATED				0x3c
+#define GFL_IPTC_RELEASETIME				0x23
+#define GFL_IPTC_CITY						0x5a
+#define GFL_IPTC_STATE						0x5f
+#define GFL_IPTC_COUNTRY					0x65
+#define GFL_IPTC_COUNTRYCODE				0x64
+#define GFL_IPTC_SUBLOCATION				0x5c
+#define GFL_IPTC_ORIGINALTRREF				0x67
+#define GFL_IPTC_CATEGORY					0x0f
+#define GFL_IPTC_COPYRIGHT					0x74
+#define GFL_IPTC_EDITSTATUS 				0x07
+#define GFL_IPTC_PRIORITY					0x0a
+#define GFL_IPTC_OBJECTCYCLE				0x4b
+#define GFL_IPTC_JOBID						0x16
+#define GFL_IPTC_PROGRAM					0x41
+#define GFL_IPTC_KEYWORDS					0x19
+#define GFL_IPTC_SUPCATEGORIES				0x14
+#define GFL_IPTC_CONTENT_LOCATION			0x1b
+#define GFL_IPTC_PROGRAM_VERSION			0x46
+#define GFL_IPTC_CONTACT					0x76
 
 /*
  *  EXIF
  */
-#define GFL_EXIF_MAIN_IFD								0x0001
-#define GFL_EXIF_IFD_0									0x0002
+#define GFL_EXIF_MAIN_IFD					0x0001	// ToDo: Are these reversed
+#define GFL_EXIF_IFD_0						0x0002	// or correct for v2.90?
 #define GFL_EXIF_INTEROPERABILITY_IFD		0x0004
-#define GFL_EXIF_IFD_THUMBNAIL					0x0008
-#define GFL_EXIF_GPS_IFD								0x0010
-#define GFL_EXIF_MAKERNOTE_IFD					0x0020
+#define GFL_EXIF_IFD_THUMBNAIL				0x0008
+#define GFL_EXIF_GPS_IFD					0x0010
+#define GFL_EXIF_MAKERNOTE_IFD				0x0020
 
-#define GFL_EXIF_MAKER									0x010F
-#define GFL_EXIF_MODEL									0x0110
-#define GFL_EXIF_ORIENTATION						0x0112
-#define GFL_EXIF_EXPOSURETIME						0x829A
-#define GFL_EXIF_FNUMBER								0x829D
+#define GFL_EXIF_MAKER						0x010F
+#define GFL_EXIF_MODEL						0x0110
+#define GFL_EXIF_ORIENTATION				0x0112
+#define GFL_EXIF_EXPOSURETIME				0x829A
+#define GFL_EXIF_FNUMBER					0x829D
 #define GFL_EXIF_DATETIME_ORIGINAL			0x9003
-#define GFL_EXIF_SHUTTERSPEED						0x9201
-#define GFL_EXIF_APERTURE								0x9202
-#define GFL_EXIF_MAXAPERTURE						0x9205
-#define GFL_EXIF_FOCALLENGTH						0x920A
+#define GFL_EXIF_SHUTTERSPEED				0x9201
+#define GFL_EXIF_APERTURE					0x9202
+#define GFL_EXIF_MAXAPERTURE				0x9205
+#define GFL_EXIF_FOCALLENGTH				0x920A
 
 typedef struct {
 		GFL_UINT32 Flag; /* EXIF_...IFD */

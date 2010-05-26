@@ -231,7 +231,7 @@ void CSchemaCombo::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 			if ( lpDrawItemStruct->itemState & ODS_SELECTED )
 			{
 				if ( Skin.m_bmSelected.m_hObject )
-					CoolInterface.DrawWatermark( &dc, &rcItem, &Skin.m_bmSelected );
+					CoolInterface.DrawWatermark( &dc, &rcItem, &Skin.m_bmSelected, FALSE );	// No overdraw
 				else
 					dc.FillSolidRect( &rcItem, Colors.m_crHighlight );
 			}
@@ -288,7 +288,7 @@ void CSchemaCombo::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 			if ( lpDrawItemStruct->itemState & ODS_SELECTED )
 			{
 				if ( Skin.m_bmSelected.m_hObject )
-					CoolInterface.DrawWatermark( &dc, &rcItem, &Skin.m_bmSelected );
+					CoolInterface.DrawWatermark( &dc, &rcItem, &Skin.m_bmSelected, FALSE ); 	// No overdraw
 				else
 					dc.FillSolidRect( &rcItem, Colors.m_crHighlight );
 			}

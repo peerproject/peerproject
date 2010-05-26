@@ -1,7 +1,7 @@
 //
 // CtrlPanel.cpp (Library)
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2009
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -42,11 +42,6 @@ END_MESSAGE_MAP()
 
 CPanelCtrl::CPanelCtrl()
 {
-	// Try to get the number of lines to scroll when the mouse wheel is rotated
-	if( !SystemParametersInfo ( SPI_GETWHEELSCROLLLINES, 0, &m_nScrollWheelLines, 0) )
-	{
-		m_nScrollWheelLines = 3;
-	}
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -63,11 +58,13 @@ BOOL CPanelCtrl::OnMouseWheel(UINT nFlags, short zDelta, CPoint pt)
 {
 	// Scroll window under cursor
 	if ( CWnd* pWnd = WindowFromPoint( pt ) )
+	{
 		if ( pWnd != this )
 			return pWnd->SendMessage( WM_MOUSEWHEEL, MAKEWPARAM( nFlags, zDelta ), MAKELPARAM( pt.x, pt.y ) );
+	}
 
-	PostMessage( WM_VSCROLL, MAKEWPARAM( SB_THUMBPOSITION, GetScrollPos( SB_VERT ) -
-		zDelta / WHEEL_DELTA * m_nScrollWheelLines * 8 ), NULL );
+	PostMessage( WM_VSCROLL, MAKEWPARAM( SB_THUMBPOSITION,
+		GetScrollPos( SB_VERT ) - zDelta / WHEEL_DELTA * 3 * 8 ), NULL );	// theApp.m_nMouseWheel lines = 3, line height = 8
 
 	return TRUE;
 }
@@ -118,6 +115,5 @@ void CPanelCtrl::OnSize(UINT nType, int cx, int cy)
 	CWnd::OnSize( nType, cx, cy );
 
 	Update();
-
 	UpdateWindow();
 }

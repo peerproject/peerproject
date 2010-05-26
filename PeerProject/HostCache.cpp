@@ -210,8 +210,8 @@ int CHostCache::Import(LPCTSTR pszFile, BOOL bFreshOnly)
 		theApp.Message( MSG_NOTICE, _T("Importing Nodes file: %s ..."), pszFile );
 		return ImportNodes( &pFile );
 	}
-	else
-		return 0;
+
+	return 0;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -355,12 +355,9 @@ CHostCacheHostPtr CHostCacheList::Add(IN_ADDR* pAddress, WORD nPort, DWORD tSeen
 BOOL CHostCacheList::Add(LPCTSTR pszHost, DWORD tSeen, LPCTSTR pszVendor, DWORD nUptime, DWORD nCurrentLeaves, DWORD nLeafLimit)
 {
 	CString strHost( pszHost );
-
-	strHost.TrimLeft();
-	strHost.TrimRight();
+	strHost.Trim();
 
 	int nPos = strHost.ReverseFind( ' ' );
-
 	if ( nPos > 0 )
 	{
 		CString strTime = strHost.Mid( nPos + 1 );
@@ -881,8 +878,8 @@ int CHostCache::LoadDefaultED2KServers()
 	int nServers = 0;
 	CString strFile = Settings.General.Path + _T("\\Data\\DefaultServers.dat");
 
-	// Ignore old files (120 days)
-	if ( ! IsFileNewerThan( strFile, 120ull * 24 * 60 * 60 * 1000 ) )
+	// Ignore old files (180 days)
+	if ( ! IsFileNewerThan( strFile, 180ull * 24 * 60 * 60 * 1000 ) )
 		return 0;
 
 	if ( pFile.Open( strFile, CFile::modeRead ) )			// Load default list from file if possible
@@ -900,44 +897,44 @@ int CHostCache::LoadDefaultED2KServers()
 			pFile.Read( pBuffer.m_pBuffer, pBuffer.m_nLength );
 			pFile.Close();
 
+			// Format: P 255.255.255.255:1024	# NameForConvenience
+
 			while ( pBuffer.ReadLine( strLine ) )
 			{
-				if ( strLine.GetLength() < 7 ) continue; // Blank comment line
+				if ( strLine.GetLength() < 16 ) continue;		// Blank or invalid line
 
 				cType = strLine.GetAt( 0 );
+				if ( cType == '#' || cType == 'X' ) continue;	// Comment line - ToDo: Handle bad IPs
 
-				if ( cType != '#' )
+				CString strServer = strLine.Mid( 2 );			// Remove leading 2 spaces
+
+				if ( strServer.Find( _T("\t"), 14) > 1 )		// Trim at whitespace (remove any comments)
+					strServer.Left( strServer.Find( _T("\t"), 14) );
+				else if ( strServer.Find( _T(" "), 14) > 1 )
+					strServer.Left( strServer.Find( _T(" "), 14) );
+
+				int nIP[4], nPort;
+
+				if ( _stscanf( strServer, _T("%i.%i.%i.%i:%i"), &nIP[0], &nIP[1], &nIP[2], &nIP[3],	&nPort ) == 5 )
 				{
-					CString strServer = strLine.Right( strLine.GetLength() - 2 );
+					IN_ADDR pAddress;
+					pAddress.S_un.S_un_b.s_b1 = (BYTE)nIP[0];
+					pAddress.S_un.S_un_b.s_b2 = (BYTE)nIP[1];
+					pAddress.S_un.S_un_b.s_b3 = (BYTE)nIP[2];
+					pAddress.S_un.S_un_b.s_b4 = (BYTE)nIP[3];
 
-					int nIP[4], nPort;
-
-					if ( _stscanf( strServer, _T("%i.%i.%i.%i:%i"), &nIP[0], &nIP[1], &nIP[2], &nIP[3],	&nPort ) == 5 )
+					if ( CHostCacheHostPtr pServer = eDonkey.Add( &pAddress, (WORD)nPort ) )
 					{
-						IN_ADDR pAddress;
-						pAddress.S_un.S_un_b.s_b1 = (BYTE)nIP[0];
-						pAddress.S_un.S_un_b.s_b2 = (BYTE)nIP[1];
-						pAddress.S_un.S_un_b.s_b3 = (BYTE)nIP[2];
-						pAddress.S_un.S_un_b.s_b4 = (BYTE)nIP[3];
-
-						CHostCacheHostPtr pServer = eDonkey.Add( &pAddress, (WORD)nPort );
-
-						if ( pServer )
-						{
-							if ( cType == 'P' )
-								pServer->m_bPriority = TRUE;
-							else
-								pServer->m_bPriority = FALSE;
-
-							nServers++;
-						}
+						pServer->m_bPriority = ( cType == 'P' );
+						nServers++;
 					}
 				}
 			}
 		}
 		catch ( CException* pException )
 		{
-			if (pFile.m_hFile != CFile::hFileNull) pFile.Close(); // Check if file is still open, if yes close
+			if ( pFile.m_hFile != CFile::hFileNull )
+				pFile.Close();	// File is still open so close it
 			pException->Delete();
 		}
 	}
@@ -1182,13 +1179,10 @@ bool CHostCacheHost::Update(WORD nPort, DWORD tSeen, LPCTSTR pszVendor, DWORD nU
 
 	if ( pszVendor != NULL )
 	{
-		CString strVendorCode(pszVendor);
+		CString strVendorCode( pszVendor );
 		strVendorCode.Trim();
-		if ( ( m_pVendor == NULL || m_pVendor->m_sCode != strVendorCode ) &&
-			strVendorCode.GetLength() != 0 )
-		{
+		if ( ( m_pVendor == NULL || m_pVendor->m_sCode != strVendorCode ) && ! strVendorCode.IsEmpty() )
 			m_pVendor = VendorCache.Lookup( (LPCTSTR)strVendorCode );
-		}
 	}
 
 	if ( m_sCountry.IsEmpty() )
@@ -1209,7 +1203,7 @@ CNeighbour* CHostCacheHost::ConnectTo(BOOL bAutomatic)
 	case PROTOCOL_G1:
 	case PROTOCOL_G2:
 	case PROTOCOL_ED2K:
-		return Neighbours.ConnectTo( &m_pAddress, m_nPort, m_nProtocol, bAutomatic );
+		return Neighbours.ConnectTo( m_pAddress, m_nPort, m_nProtocol, bAutomatic );
 	case PROTOCOL_KAD:
 		{
 			SOCKADDR_IN pHost = { 0 };
@@ -1334,7 +1328,6 @@ bool CHostCacheHost::CanQuery(const DWORD tNow) const throw()
 		// If haven't queried yet, its ok
 		if ( m_tQuery == 0 ) return true;
 
-
 		// Don't query too fast
 		return ( tNow - m_tQuery ) >= Settings.Gnutella2.QueryHostThrottle;
 
@@ -1346,7 +1339,6 @@ bool CHostCacheHost::CanQuery(const DWORD tNow) const throw()
 		// If haven't queried yet, its ok
 		if ( m_tQuery == 0 ) return true;
 
-
 		// Don't query too fast
 		return ( tNow - m_tQuery ) >= Settings.eDonkey.QueryServerThrottle;
 
@@ -1356,7 +1348,6 @@ bool CHostCacheHost::CanQuery(const DWORD tNow) const throw()
 
 		// If haven't queried yet, its ok
 		if ( m_tQuery == 0 ) return true;
-
 
 		// Don't query too fast
 		return ( tNow - m_tQuery ) >= 90u;
@@ -1385,8 +1376,8 @@ void CHostCacheHost::SetKey(DWORD nKey, const IN_ADDR* pHost)
 		m_tAck		= 0;
 		m_nFailures	= 0;
 		m_tFailure	= 0;
-		m_tKeyTime	= static_cast< DWORD >( time( NULL ) );
 		m_nKeyValue	= nKey;
+		m_tKeyTime	= static_cast< DWORD >( time( NULL ) );
 		m_nKeyHost	= pHost ? pHost->S_un.S_addr : Network.m_pHost.sin_addr.S_un.S_addr;
 	}
 }

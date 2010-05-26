@@ -122,16 +122,14 @@ bool CLibraryListItem::operator == (const CLibraryListItem& val) const
 			return dwLibraryFile == val.dwLibraryFile;
 
 		case CLibraryListItem::AlbumFolder:
-			// Same object or...
+			// Same object, or same parent album and same album name
 			return ( pAlbumFolder == val.pAlbumFolder ) ||
-				// Same parent album and same album name
-				( ( pAlbumFolder->m_pParent == val.pAlbumFolder->m_pParent ) &&
-				( pAlbumFolder->m_sName == val.pAlbumFolder->m_sName ) );
+				( pAlbumFolder->GetParent() == val.pAlbumFolder->GetParent() &&
+				  pAlbumFolder->m_sName == val.pAlbumFolder->m_sName );
 
 		case CLibraryListItem::LibraryFolder:
-			// Same object or...
+			// Same object, or same path
 			return ( pLibraryFolder == val.pLibraryFolder ) ||
-				// Same path
 				( pLibraryFolder->m_sPath == val.pLibraryFolder->m_sPath );
 		}
 	}

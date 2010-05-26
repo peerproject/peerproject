@@ -1,7 +1,7 @@
 //
 // CtrlSearchDetailPanel.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -61,17 +61,17 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CSearchDetailPanel construction
 
-CSearchDetailPanel::CSearchDetailPanel() :
-	m_pMatches( NULL ),
-	m_bValid( FALSE ),
-	m_pFile( NULL ),
-	m_nIcon48( 0 ),
-	m_nIcon32( 0 ),
-	m_nRating( 0 ),
-	m_pSchema( NULL ),
-	m_bCanPreview( FALSE ),
-	m_bRunPreview( FALSE ),
-	m_bIsPreviewing( FALSE )
+CSearchDetailPanel::CSearchDetailPanel()
+	: m_pMatches	( NULL )
+	, m_bValid		( FALSE )
+	, m_pFile		( NULL )
+	, m_nIcon32 	( 0 )
+	, m_nIcon48 	( 0 )
+	, m_nRating 	( 0 )
+	, m_pSchema 	( NULL )
+	, m_bCanPreview ( FALSE )
+	, m_bRunPreview ( FALSE )
+	, m_bIsPreviewing ( FALSE )
 {
 	m_rcStatus.SetRectEmpty();
 	m_rcThumb.SetRectEmpty();
@@ -155,9 +155,7 @@ void CSearchDetailPanel::SetFile(CMatchFile* pFile)
 	Update();
 
 	if ( m_bCanPreview && ! m_bIsPreviewing && Settings.Search.AutoPreview )
-	{
 		RequestPreview();
-	}
 }
 
 void CSearchDetailPanel::Update()
@@ -215,7 +213,6 @@ void CSearchDetailPanel::ClearReviews()
 void CSearchDetailPanel::OnDestroy()
 {
 	ClearReviews();
-
 	CancelPreview();
 
 	CloseThread();
@@ -223,9 +220,9 @@ void CSearchDetailPanel::OnDestroy()
 	CPanelCtrl::OnDestroy();
 }
 
-void CSearchDetailPanel::OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
+void CSearchDetailPanel::OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* /*pScrollBar*/)
 {
-	CPanelCtrl::OnVScroll( nSBCode, nPos, pScrollBar );
+	CPanelCtrl::OnVScroll( nSBCode, nPos, NULL );
 
 	SCROLLINFO pScroll = {};
 	pScroll.cbSize	= sizeof(pScroll);
@@ -281,8 +278,7 @@ void CSearchDetailPanel::OnPaint()
 
 	CString strLabel;
 	if ( m_bCanPreview )
-		LoadString( strLabel,
-			m_bIsPreviewing ? IDS_SEARCH_DETAILS_PREVIEWING : IDS_SEARCH_DETAILS_PREVIEW );
+		LoadString( strLabel, m_bIsPreviewing ? IDS_SEARCH_DETAILS_PREVIEWING : IDS_SEARCH_DETAILS_PREVIEW );
 
 	CoolInterface.DrawThumbnail( &dc, rcWork, m_bIsPreviewing, FALSE,
 		m_bmThumb, m_nIcon48, m_nIcon32, strLabel );
@@ -344,7 +340,7 @@ void CSearchDetailPanel::OnPaint()
 	{
 		dc.SelectObject( &CoolInterface.m_fntUnder );
 		dc.SetTextColor( Colors.m_crTextLink );
-		CSize sz = dc.GetTextExtent( m_sStatus );	
+		CSize sz = dc.GetTextExtent( m_sStatus );
 		CString sReviews;
 		LoadString( sReviews, m_pReviews.GetCount() == 1 ?
 			IDS_SEARCH_DETAILS_REVIEWS_ONE : IDS_SEARCH_DETAILS_REVIEWS_MANY );
@@ -376,15 +372,15 @@ void CSearchDetailPanel::DrawText(CDC* pDC, int nX, int nY, LPCTSTR pszText, REC
 
 	int nWidth = sz.cx;
 	if ( nMaxWidth > 0 )
-	{
 		nWidth = min( sz.cx, nMaxWidth );
-	}
+
 	CRect rc( nX - 2, nY - 2, nX + nWidth + 2, nY + sz.cy + 2 );
 
 	pDC->ExtTextOut( nX, nY, ETO_CLIPPED|ETO_OPAQUE, &rc, pszText, static_cast< UINT >( _tcslen( pszText ) ), NULL );
 	pDC->ExcludeClipRect( &rc );
 
-	if ( pRect != NULL ) CopyMemory( pRect, &rc, sizeof(RECT) );
+	if ( pRect != NULL )
+		CopyMemory( pRect, &rc, sizeof(RECT) );
 }
 
 BOOL CSearchDetailPanel::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
@@ -420,9 +416,7 @@ BOOL CSearchDetailPanel::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 void CSearchDetailPanel::OnLButtonUp(UINT nFlags, CPoint point)
 {
 	if ( m_bValid && m_bCanPreview && ! m_bIsPreviewing && m_rcThumb.PtInRect( point ) )
-	{
 		RequestPreview();
-	}
 
 	point.y += GetScrollPos( SB_VERT );
 
@@ -543,9 +537,7 @@ void Review::Paint(CDC* pDC, int nScroll)
 void CSearchDetailPanel::OnClickReview(NMHDR* pNotify, LRESULT* /*pResult*/)
 {
 	if ( CRichElement* pElement = ((RVN_ELEMENTEVENT*) pNotify)->pElement )
-	{
 		theApp.InternalURI( pElement->m_sLink );
-	}
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -587,6 +579,9 @@ void CSearchDetailPanel::CancelPreview()
 		Invalidate();
 	}
 
+	if ( m_pRequest.IsPending() && ! m_pRequest.IsThreadEnabled() )
+		return; 	// Already asked for stop
+
 	m_pRequest.Cancel();
 }
 
@@ -614,7 +609,7 @@ void CSearchDetailPanel::OnRun()
 		}
 
 		CString strURL	= m_pPreviewURLs.RemoveHead();
-        Hashes::Sha1Hash oSHA1( m_oSHA1 );
+		Hashes::Sha1Hash oSHA1( m_oSHA1 );
 
 		if ( ! m_bIsPreviewing )
 		{

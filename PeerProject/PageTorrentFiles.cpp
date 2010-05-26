@@ -26,11 +26,13 @@
 #include "ShellIcons.h"
 #include "DlgDownloadSheet.h"
 #include "PageTorrentFiles.h"
-#include "Skin.h"
 #include "LiveList.h"
 #include "Transfers.h"
 #include "Downloads.h"
 #include "CtrlLibraryTip.h"
+
+#include "Skin.h"
+#include "Colors.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -44,6 +46,7 @@ BEGIN_MESSAGE_MAP(CTorrentFilesPage, CPropertyPageAdv)
 	ON_WM_PAINT()
 	ON_WM_TIMER()
 	ON_WM_DESTROY()
+	ON_NOTIFY(NM_CUSTOMDRAW, IDC_TORRENT_FILES, &CTorrentFilesPage::OnCustomDrawList)
 	ON_NOTIFY(HDN_ITEMCLICK, 0, OnSortColumn)
 	ON_NOTIFY(LVN_ITEMCHANGED, IDC_TORRENT_FILES, &CTorrentFilesPage::OnCheckbox)
 	ON_NOTIFY(NM_DBLCLK, IDC_TORRENT_FILES, &CTorrentFilesPage::OnNMDblclkTorrentFiles)
@@ -52,8 +55,8 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CTorrentFilesPage property page
 
-CTorrentFilesPage::CTorrentFilesPage() :
-	CPropertyPageAdv( CTorrentFilesPage::IDD )
+CTorrentFilesPage::CTorrentFilesPage()
+	: CPropertyPageAdv( CTorrentFilesPage::IDD )
 {
 }
 
@@ -100,7 +103,10 @@ BOOL CTorrentFilesPage::OnInitDialog()
 //	m_wndFiles.InsertColumn( 4, _T("Priority"), LVCFMT_RIGHT, 52, 0 );
 	Skin.Translate( _T("CTorrentFileList"), m_wndFiles.GetHeaderCtrl() );
 
-	m_wndFiles.SetBkImage( Skin.GetWatermark( _T("CTorrentList") ) );
+	if ( m_wndFiles.SetBkImage( Skin.GetWatermark( _T("CListCtrl") ) ) )
+		m_wndFiles.SetExtendedStyle( LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP|LVS_EX_LABELTIP|LVS_EX_CHECKBOXES );	// No LVS_EX_DOUBLEBUFFER
+	else
+		m_wndFiles.SetBkColor( Colors.m_crWindow );
 
 // Priority Column Combobox:
 //	BEGIN_COLUMN_MAP()
@@ -222,8 +228,7 @@ BOOL CTorrentFilesPage::OnApply()
 // Unused Priority Column:
 
 //	CSingleLock oLock( &Transfers.m_pSection );
-//	if ( ! oLock.Lock( 250 ) )
-//		return FALSE;
+//	if ( ! oLock.Lock( 250 ) ) return FALSE;
 
 //	CDownload* pDownload = ((CDownloadSheet*)GetParent())->m_pDownload;
 //	if ( ! Downloads.Check( pDownload ) || ! pDownload->IsTorrent() )
@@ -238,14 +243,6 @@ BOOL CTorrentFilesPage::OnApply()
 //	}
 
 	return CPropertyPageAdv::OnApply();
-}
-
-void CTorrentFilesPage::OnTimer(UINT_PTR nIDEvent)
-{
-	CPropertyPageAdv::OnTimer( nIDEvent );
-
-	if ( static_cast< CPropertySheet* >( GetParent() )->GetActivePage() == this )
-		Update();
 }
 
 void CTorrentFilesPage::Update()
@@ -277,9 +274,38 @@ void CTorrentFilesPage::Update()
 	}
 }
 
+void CTorrentFilesPage::OnTimer(UINT_PTR nIDEvent)
+{
+	CPropertyPageAdv::OnTimer( nIDEvent );
+
+	if ( static_cast< CPropertySheet* >( GetParent() )->GetActivePage() == this )
+		Update();
+}
+
 void CTorrentFilesPage::OnDestroy()
 {
 	KillTimer( 1 );
 
 	CPropertyPageAdv::OnDestroy();
+}
+
+void CTorrentFilesPage::OnCustomDrawList(NMHDR* pNMHDR, LRESULT* pResult)
+{
+	if ( ! ::IsWindow( m_wndFiles.GetSafeHwnd() ) ) return;
+
+	if ( m_wndFiles.GetBkColor() != Colors.m_crWindow ) return;	// Rarely needed (Remove this line when useful)
+
+	NMLVCUSTOMDRAW* pDraw = (NMLVCUSTOMDRAW*)pNMHDR;
+
+	if ( pDraw->nmcd.dwDrawStage == CDDS_PREPAINT )
+	{
+		*pResult = CDRF_NOTIFYITEMDRAW;
+	}
+	else if ( pDraw->nmcd.dwDrawStage == CDDS_ITEMPREPAINT )
+	{
+		if ( m_wndFiles.GetBkColor() == Colors.m_crWindow )
+			pDraw->clrTextBk = Colors.m_crWindow;
+
+		*pResult = CDRF_DODEFAULT;
+	}
 }

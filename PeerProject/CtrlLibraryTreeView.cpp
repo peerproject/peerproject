@@ -1482,9 +1482,9 @@ BOOL CLibraryTreeView::Update(CAlbumFolder* pFolder, CLibraryTreeItem* pItem, CL
 
 	if ( nSelectCookie && pItem->m_bSelected )
 	{
-		for ( POSITION pos = pFolder->m_pFiles.GetHeadPosition() ; pos ; )
+		for ( POSITION pos = pFolder->GetFileIterator() ; pos ; )
 		{
-			CLibraryFile* pFile = (CLibraryFile*)pFolder->m_pFiles.GetNext( pos );
+			CLibraryFile* pFile = pFolder->GetNextFile( pos );
 			pFile->m_nSelectCookie = nSelectCookie;
 		}
 
@@ -1798,7 +1798,7 @@ void CLibraryTreeView::OnLibraryAdd()
 void CLibraryTreeView::OnUpdateLibraryFolderEnqueue(CCmdUI* pCmdUI)
 {
 	CSingleLock oLock( &Library.m_pSection );
-	if ( ! oLock.Lock( 100 ) ) return;
+	if ( ! oLock.Lock( 200 ) ) return;
 
 	for ( CLibraryTreeItem* pItem = m_pSelFirst ; pItem ; pItem = pItem->m_pSelNext )
 	{
@@ -1911,7 +1911,7 @@ void CLibraryTreeView::OnLibraryFolderNew()
 		if ( m_pSelFirst )
 			pFolder = m_pSelFirst->m_pVirtual;
 
-		pFolder = pFolder->AddFolder( NULL, _T("New Folder") );
+		pFolder = pFolder->AddFolder( NULL, LoadString( IDS_NEW_FOLDER ) );
 
 		if ( m_pSelFirst )
 			Expand( m_pSelFirst, TRI_TRUE, FALSE );
@@ -2008,6 +2008,9 @@ void CLibraryTreeView::OnLibraryFolderFileProperties()
 
 void CLibraryTreeView::OnUpdateLibraryExportCollection(CCmdUI *pCmdUI)
 {
+	CSingleLock oLock( &Library.m_pSection );
+	if ( ! oLock.Lock( 500 ) ) return;
+
 	BOOL bAllowExport = TRUE;
 
 	// Allow max 1000 files to be parsed and do not export from Ghost or Collection folder

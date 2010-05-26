@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Hungarian Skin File -->
 
-<!-- Translation based on default-en.xml r54 -->
+<!-- Translation based on default-en.xml r55 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -450,12 +450,12 @@
 	</toolbar>
 	<!-- IMAGE VIEWER PLUGIN WINDOW -->
 	<toolbar name="ImageViewerWnd">
-		<button id="ImageViewer_ActualSize" text="Eredeti méret"/>
-		<button id="ImageViewer_BestFit" text="Ablakhoz igazít"/>
+		<button id="PluginID_ImageViewer_FullSize" text="Eredeti méret"/>
+		<button id="PluginID_ImageViewer_BestFit" text="Ablakhoz igazít"/>
 		<separator/>
-		<button id="ImageViewer_Refresh" text="Frissít"/>
+		<button id="PluginID_ImageViewer_Refresh" text="Frissít"/>
 		<rightAlign/>
-		<button id="ImageViewer_Close" text="Bezárás"/>
+		<button id="PluginID_ImageViewer_Close" text="Bezárás"/>
 	</toolbar>
 </toolbars>
 <!-- Menu Definitions -->
@@ -1690,22 +1690,22 @@
 			<text>Üdvözlöm a PeerProject!</text>
 			<newline gap="8" indent="42"/>
 			<text>Jelenleg egyik p2p hálózathoz sem csatlakozik. &#160;</text>
-			<link target="peer:command:ID_NETWORK_CONNECT">Az indításhoz kattintson ide.</link>
+			<link target="command:ID_NETWORK_CONNECT">Az indításhoz kattintson ide.</link>
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="2">
-			<icon res="134" width="32" height="32" target="peer:command:ID_TAB_SEARCH"/><gap size="8"/>
+			<icon res="134" width="32" height="32" target="command:ID_TAB_SEARCH"/><gap size="8"/>
 			<heading align="middle">KERESÉS</heading>
 			<newline gap="8" indent="42"/>
 			<anchor id="SearchBox" width="256" height="80"/>
 			<newline gap="12" indent="0"/>
-			<icon res="136" width="32" height="32" target="peer:command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
+			<icon res="136" width="32" height="32" target="command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
 			<heading align="middle">LETÖLTÉS INDÍTÁSA</heading>
 			<newline gap="8" indent="42"/>
-			<link target="peer:command:ID_TOOLS_DOWNLOAD" format="bu">Kattintson ide</link>
+			<link target="command:ID_TOOLS_DOWNLOAD" format="bu">Kattintson ide</link>
 			<text>&#160;egy új fájl vagy torrent letöltéséhez.</text>
 			<newline gap="2" indent="42"/>
-			<link target="peer:shell:downloads">Letöltések mappa megnyitása.</link>
+			<link target="command:shell:downloads">Letöltések mappa megnyitása.</link>
 			<newline gap="20" indent="0"/>
 		</group>
 		<group id="3">
@@ -1714,18 +1714,18 @@
 			<newline gap="8" indent="42"/>
 			<text id="Upgrade"/>
 			<newline gap="6"/>
-			<link target="peer:upgrade">Kattintson ide a frissítéshez.</link>
+			<link target="command:upgrade">Kattintson ide a frissítéshez.</link>
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="4">
-			<icon res="252" width="32" height="32" target="peer:command:ID_TOOLS_WIZARD"/><gap size="8"/>
+			<icon res="252" width="32" height="32" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 			<heading align="middle">FIGYELEM: TŰZFAL MÖGÖTT VAN!</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">A PeerProject észlelte, hogy egy NAT router vagy tűzfal mögött van
 				és ezért nem tud bejövő kapcsolatokat fogadni az Internetről (passzív kapcsolat). &#160;</text>
 			<text color="FF0000" format="b">Ez csökkenti az ön számára használható források számát.</text>
 			<newline gap="6"/>
-			<link target="peer:command:ID_HELP_ROUTER">Kattintson ide a router vagy tűzfal helyes beállításához.</link>
+			<link target="command:ID_HELP_ROUTER">Kattintson ide a router vagy tűzfal helyes beállításához.</link>
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="6">
@@ -1736,7 +1736,7 @@
 				és ezért nem tud bejövő TCP kapcsolatokat fogadni az Internetről (passzív kapcsolat). &#160;</text>
 			<text color="FF0000" format="b">Ez csökkentheti a letöltési sebességet.</text>
 			<newline gap="6"/>
-			<link target="peer:command:ID_HELP_ROUTER">Kattintson ide a router vagy tűzfal helyes beállításához.</link>
+			<link target="command:ID_HELP_ROUTER">Kattintson ide a router vagy tűzfal helyes beállításához.</link>
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="7">
@@ -1747,31 +1747,31 @@
 				és ezért nem tud bejövő UDP kapcsolatokat fogadni az Internetről (passzív kapcsolat). &#160;</text>
 			<text color="FF0000" format="b">Ez csökkentheti a keresés hatékonyságát.</text>
 			<newline gap="6"/>
-			<link target="peer:command:ID_HELP_ROUTER">Kattintson ide a router vagy tűzfal helyes beállításához.</link>
+			<link target="command:ID_HELP_ROUTER">Kattintson ide a router vagy tűzfal helyes beállításához.</link>
 			<newline gap="18" indent="0"/>
 		</group>
-		<icon res="128" width="32" height="32" target="peer:command:ID_TOOLS_SETTINGS"/><gap size="8"/>
+		<icon res="128" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">TESTRESZABÁS</heading>
 		<newline gap="12" indent="42"/>
-		<icon res="182" width="16" height="16" target="peer:command:ID_TOOLS_SKIN"/><gap size="8"/>
-		<link target="peer:command:ID_TOOLS_SKIN" align="middle" format="bu">Kinézetek</link>
+		<icon res="182" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
+		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">Kinézetek</link>
 		<text align="middle">&#160;- Változtassa meg a PeerProject kinézetét.</text>
 		<newline gap="8"/>
-		<icon res="141" width="16" height="16" target="peer:command:ID_VIEW_SECURITY"/><gap size="8"/>
-		<link target="peer:command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
+		<icon res="141" width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
+		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
 		<text align="middle">&#160;- Update blocklist to avoid bad search results</text>
 		<newline gap="8"/>
-		<icon res="317" width="16" height="16" target="peer:command:ID_TOOLS_WIZARD"/><gap size="8"/>
-		<link target="peer:command:ID_TOOLS_WIZARD" align="middle">Gyors beállítás</link>
+		<icon res="317" width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
+		<link target="command:ID_TOOLS_WIZARD" align="middle">Gyors beállítás</link>
 		<text align="middle">&#160;- PeerProject beállítások egyszerűen.</text>
 		<newline gap="8"/>
-		<icon res="147" width="16" height="16" target="peer:command:ID_HELP_FAQ"/><gap size="8"/>
-		<link target="peer:command:ID_HELP_FAQ" align="middle">Súgó</link>
+		<icon res="147" width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
+		<link target="command:ID_HELP_FAQ" align="middle">Súgó</link>
 		<text align="middle">&#160;- Segítség a program használatához, or </text>
-		<link target="peer:command:ID_TAB_IRC" align="middle">IRC.</link>
+		<link target="command:ID_TAB_IRC" align="middle">IRC.</link>
 		<newline gap="8"/>
-		<icon res="175" width="16" height="16" target="peer:command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
-		<link target="peer:command:ID_HELP_FORUMS_LOCAL" align="middle">Helyi Fórum</link>
+		<icon res="175" width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
+		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">Helyi Fórum</link>
 		<text align="middle">&#160;- Menj el a magyar nyelv vitafórum</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
@@ -1796,7 +1796,7 @@
 			<para align="center">
 				<text format="b">Nincs kapcsolat</text>
 				<newline gap="4"/>
-				<link target="peer:command:ID_NETWORK_CONNECT">Kattintson ide a kapcsolódáshoz</link>
+				<link target="command:ID_NETWORK_CONNECT">Kattintson ide a kapcsolódáshoz</link>
 				</para>
 		</group>
 		<icon group="20" command="ID_NETWORK_G2"/>
@@ -1843,7 +1843,7 @@
 				<text>Mostanában nem volt semmilyen új letöltés.</text>
 					<newline gap="8"/>
 			</group>
-			<link target="peer:command:ID_VIEW_LIBRARY">Menjen a könyvtárba</link>
+			<link target="command:ID_VIEW_LIBRARY">Menjen a könyvtárba</link>
 			<newline gap="4"/>
 			<text id="LibraryFiles" format="b">%lu </text>
 			<text>fájl (</text>
@@ -1857,10 +1857,10 @@
 				<newline gap="8"/>
 			</group>
 			<group id="3">
-				<link target="peer:command:ID_LIBRARY_HASH_PRIORITY">Kattintson ide a gyorsabb hasheléshez</link>
+				<link target="command:ID_LIBRARY_HASH_PRIORITY">Kattintson ide a gyorsabb hasheléshez</link>
 			</group>
 			<group id="4">
-				<link target="peer:command:ID_LIBRARY_HASH_PRIORITY">Kattintson ide a lassabb hasheléshez</link>
+				<link target="command:ID_LIBRARY_HASH_PRIORITY">Kattintson ide a lassabb hasheléshez</link>
 			</group>
 		</para>
 	</document>
@@ -1875,9 +1875,9 @@
 				<text>Jelenleg nem folyik semmilyen letöltés.</text>
 				<newline gap="4"/>
 			</group>
-			<link id="DownloadsNone" target="peer:command:ID_VIEW_DOWNLOADS">Menjen a letöltésekhez</link>
-			<link id="DownloadsOne" target="peer:command:ID_VIEW_DOWNLOADS" format="bu">Menjen a letöltésekhez (1)</link>
-			<link id="DownloadsMany" target="peer:command:ID_VIEW_DOWNLOADS" format="bu">Menjen a letöltésekhez (%i)</link>
+			<link id="DownloadsNone" target="command:ID_VIEW_DOWNLOADS">Menjen a letöltésekhez</link>
+			<link id="DownloadsOne" target="command:ID_VIEW_DOWNLOADS" format="bu">Menjen a letöltésekhez (1)</link>
+			<link id="DownloadsMany" target="command:ID_VIEW_DOWNLOADS" format="bu">Menjen a letöltésekhez (%i)</link>
 			<newline gap="4"/>
 			<text id="DownloadedNone">No fájlt (</text>
 			<text id="DownloadedOne">1 fájlt (</text>
@@ -1894,8 +1894,8 @@
 		</styles>
 		<para align="center">
 			<text id="UploadsNone" format="b">Nincs feltöltés</text>
-			<link id="UploadsOne" target="peer:command:ID_VIEW_UPLOADS" format="bu">1 aktív feltöltés</link>
-			<link id="UploadsMany" target="peer:command:ID_VIEW_UPLOADS" format="bu">%i aktív feltöltés</link>
+			<link id="UploadsOne" target="command:ID_VIEW_UPLOADS" format="bu">1 aktív feltöltés</link>
+			<link id="UploadsMany" target="command:ID_VIEW_UPLOADS" format="bu">%i aktív feltöltés</link>
 			<newline gap="4"/>
 			<group id="1">
 				<text id="TorrentsOne">1 torrent seedelés</text>
@@ -1915,25 +1915,25 @@
 		<text format="b">Általános </text>
 		<text>részben a felhasználói szokásaihoz igazíthatja a programot.</text>
 		<newline gap="16" indent="16"/>
-		<link target="peer:page:CGeneralSettingsPage" format="b">Általános:</link>
+		<link target="page:CGeneralSettingsPage" format="b">Általános:</link>
 		<text>&#160;Felhasználói felület, gyorstippek, tálca, stb. beállításai.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CLibrarySettingsPage" format="b">Könyvtár:</link>
+		<link target="page:CLibrarySettingsPage" format="b">Könyvtár:</link>
 		<text>&#160;A könyvtár beállításai, adatszervezés.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CMediaSettingsPage" format="b">Médialejátszó:</link>
+		<link target="page:CMediaSettingsPage" format="b">Médialejátszó:</link>
 		<text>&#160;Mikor és hogyan működjön a Médialejátszó.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CIRCSettingsPage" format="b">Csevegés:</link>
+		<link target="page:CIRCSettingsPage" format="b">Csevegés:</link>
 		<text>&#160;Az IRC kliens kinézeti és hálózati beállításai.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CCommunitySettingsPage" format="b">Közösség:</link>
+		<link target="page:CCommunitySettingsPage" format="b">Közösség:</link>
 		<text>&#160;Saját adatlap beállítása, üzenetküldő szolgáltatások.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CRemoteSettingsPage" format="b">Távoli elérés:</link>
+		<link target="page:CRemoteSettingsPage" format="b">Távoli elérés:</link>
 		<text>&#160;A távoli használat beállításai.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CWebSettingsPage" format="b">Web:</link>
+		<link target="page:CWebSettingsPage" format="b">Web:</link>
 		<text>&#160;P2P linkek és letöltésmenedzser.</text>
 	</document>
 	<document name="CInternetSettingsGroup" title="Internet" leftMargin="8" topMargin="8">
@@ -1943,16 +1943,16 @@
 		<text format="b">Internet </text>
 		<text>	részben a különböző hálózatok beállításai találhatók.</text>
 		<newline gap="16" indent="16"/>
-		<link target="peer:page:CConnectionSettingsPage" format="b">Kapcsolat:</link>
+		<link target="page:CConnectionSettingsPage" format="b">Kapcsolat:</link>
 		<text>&#160;A saját internetkapcsolatának sebessége és tulajdonságai.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CDownloadsSettingsPage" format="b">Letöltések:</link>
+		<link target="page:CDownloadsSettingsPage" format="b">Letöltések:</link>
 		<text>&#160;Letöltések száma, időtúllépések, letöltési könyvtár.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CUploadsSettingsPage" format="b">Feltöltések:</link>
+		<link target="page:CUploadsSettingsPage" format="b">Feltöltések:</link>
 		<text>&#160;Feltöltési sebesség, korlátozások, letiltások.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CSchedulerSettingsPage" format="b">Ütemező:</link>
+		<link target="page:CSchedulerSettingsPage" format="b">Ütemező:</link>
 		<text>&#160;Letöltések előreprogramozása, sávszélesség beállítása. Csak az Összetett módban elérhető!</text>
 	</document>
 	<!-- Browse User Profile -->
@@ -2033,15 +2033,15 @@
 		<newline gap="40" indent="0"/>
 		<text format="b">Megosztott fájlok</text>
 		<newline gap="4" indent="8"/>
-		<icon res="137" target="peer:command:ID_BROWSE_FILES"/><gap size="5"/>
-		<link target="peer:command:ID_BROWSE_FILES" align="middle">Megosztott fájlok megnézése</link>
+		<icon res="137" target="command:ID_BROWSE_FILES"/><gap size="5"/>
+		<link target="command:ID_BROWSE_FILES" align="middle">Megosztott fájlok megnézése</link>
 		<group id="2">
 			<newline gap="16" indent="0"/>
 			<text format="b">Közösség</text>
 			<newline gap="4" indent="8"/>
-			<icon res="140" target="peer:command:ID_SEARCH_CHAT"/>
+			<icon res="140" target="command:ID_SEARCH_CHAT"/>
 			<gap size="5"/>
-			<link target="peer:command:ID_SEARCH_CHAT" align="middle">Chat</link>
+			<link target="command:ID_SEARCH_CHAT" align="middle">Chat</link>
 		</group>
 		<group id="3">
 			<newline gap="16" indent="0"/>
@@ -2585,10 +2585,10 @@
 	<tip id="ID_WEBSERVICES_LIST" message="Kattintson a webszolgáltatásra, hogy több információt tudjon meg a fájlról."/>
 	<tip id="ID_WEBSERVICES_SHAREMONKEY" message="A ShareMonkey segítségével több információt tudhat meg a fájlról."/>
 	<!-- PLUGIN TIPS -->
-	<tip id="ImageViewer_BestFit" message="Átméretezi a képet, hogy beleférjen az ablakba."/>
-	<tip id="ImageViewer_ActualSize" message="Eredeti méretben mutatja a képet."/>
-	<tip id="ImageViewer_Refresh" message="Frissíti a képet."/>
-	<tip id="ImageViewer_Close" message="Bezárja a képnézegető ablakot."/>
+	<tip id="PluginID_ImageViewer_BestFit" message="Átméretezi a képet, hogy beleférjen az ablakba."/>
+	<tip id="PluginID_ImageViewer_FullSize" message="Eredeti méretben mutatja a képet."/>
+	<tip id="PluginID_ImageViewer_Refresh" message="Frissíti a képet."/>
+	<tip id="PluginID_ImageViewer_Close" message="Bezárja a képnézegető ablakot."/>
 </commandTips>
 <!-- Tips displayed when mouse is moved over controls in the dialogs -->
 <controlTips>
@@ -2708,26 +2708,26 @@
 	<string id="8180" value="Fájlméret Min:"/>
 	<string id="8181" value="Fájlméret Max:"/>
 	<string id="8208" value="%Iu fájl hashelése:"/>
-	<string id="8223" value="%i nap %i óra"/>
-	<string id="8224" value="Letöltés folyamatban:"/>
-	<string id="8225" value="Letöltés szüneteltetve:"/>
+<!--	<string id="8221" value="Források keresése ennek:"/>
+	<string id="8222" value="Letöltés folyamatban:"/>
+	<string id="8223" value="Letöltés szüneteltetve:"/>
+	<string id="8224" value="Letöltés áthelyezése:"/>
+	<string id="8225" value="Hibaellenőrzés:"/>
 	<string id="8226" value="Letöltés befejezve:"/>
-	<string id="8227" value="%i óra %i perc"/>
-	<string id="8228" value="%i perc %i másodperc"/>
-	<string id="8229" value="%i másodperc"/>
-	<string id="8230" value="Források keresése ennek:"/>
+-->	<string id="8227" value="%i nap %i óra"/>
+	<string id="8228" value="%i óra %i perc"/>
+	<string id="8229" value="%i perc %i másodperc"/>
+	<string id="8230" value="%i másodperc"/>
 	<string id="8231" value="Nincs forrás"/>
 	<string id="8232" value="Megnyitás"/>
 	<string id="8233" value="Mégse"/>
 	<string id="8235" value="Sebesség:"/>
 	<string id="8236" value="Hátralévő idő:"/>
 	<string id="8237" value="Letöltve:"/>
-	<string id="8238" value="Források:"/>
+	<string id="8238" value="Feltöltve:"/>
 	<string id="8239" value="Kész"/>
-	<string id="8240" value="Letöltés áthelyezése:"/>
-	<string id="8241" value="Hibaellenőrzés:"/>
-	<string id="8243" value="Feltöltve:"/>
-	<string id="8244" value="Megjegyzések száma:"/>
+	<string id="8240" value="Források:"/>
+	<string id="8241" value="Megjegyzések száma:"/>
 	<string id="8288" value="Tallózás a könyvtárban"/>
 	<string id="8289" value="Tallózás"/>
 	<string id="8290" value="%i mappa tartalmának a tallózása"/>
@@ -2840,6 +2840,7 @@
 	<string id="16211" value="%s továbbküldött egy push request-et egy tűzfallal védett címre, ignorálás."/>
 	<string id="16212" value="%s egy kiterjesztett csomagot küldött tovább, ami GGEP kódolású."/>
 	<string id="16213" value="Query routing table elküldése %s (%i bit = %lu[%i], %i%% full)"/>
+	<string id="16254" value="Alapértelmezett letöltési csoport. (Minden fájl megjelenítése)"/>
 	<string id="16255" value="Drag'n'drop fájlokat a %s csoporthoz"/>
 	<string id="16256" value="&quot;%s&quot; a letöltési sorhoz lett hozzáadva %i forrással."/>
 	<string id="16257" value="Letöltés kész: &quot;%s&quot;."/>
@@ -3234,7 +3235,7 @@
 	<string id="18510" value="Késznek veszis a letöltést és úgy ellenőrzi? A fájl újra lesz hashelve, jó és rossz részek is elfogadásra kerülnek."/>
 	<string id="18511" value="BitTorrent kapcsolódás visszautasítva: %s, több kapcsolat már nem hozható létre."/>
 	<string id="19000" value="Távoli használat kikapcsolva."/>
-	<string id="19001" value="Egy felhasználónevet és egy jelszót kell választania."/>
+	<string id="19001" value="http://%s:%i/remote - Egy felhasználónevet és egy jelszót kell választania."/>
 	<string id="19002" value="Nem tudom fogadni a kapcsolatokat, URL érvénytelen."/>
 	<string id="20000" value="Nincs elérhető URN"/>
 	<string id="20001" value="Bezárás"/>
@@ -3313,6 +3314,7 @@
 	<string id="20236" value="Osztályzat"/>
 	<string id="20237" value="OK"/>
 	<string id="20238" value="Mégse"/>
+	<string id="20245" value="Új Mappa"/>
 </strings>
 <!-- Localized Dialog Text, "cookie" verifies that the skin matches current dialog -->
 <dialogs>
@@ -4045,7 +4047,7 @@
 		<control caption="Könyvtár"/>
 		<control caption="Letöltés törlése"/>
 		<control caption="Elrejt"/>
-		<control caption="A letöltés végeztével zárja be ezt az ablakot"/>
+		<control caption="Auto"/>
 	</dialog>
 	<dialog name="CFileGeneralPage" cookie="EdStStStStStEdEdEdEdEdStEdEdEdEd" caption="Általános">
 		<control/>
@@ -4222,11 +4224,11 @@
 		<control/>
 		<control caption="Mégse"/>
 	</dialog>
-	<dialog name="CURLActionDlg" cookie="StStStStStEdStEdStBuBuBuBuBuSt" caption="URI menedzser">
-		<control/>
+	<dialog name="CURLActionDlg" cookie="StStStStStStEdStEdStBuBuBuBuBu" caption="URI menedzser">
 		<control caption="Egy PeerProject által is támogatott URI-re kattintott, amely a következő fájlhoz vezet el téged:"/>
 		<control caption="Egy PeerProject által is támogatott URL-re kattintott, amely a következő szerverhez vagy p2p kiszolgálóhoz fog kapcsolni:"/>
 		<control caption="Egy PeerProject által is támogatott URI-re kattintott, amely engedélyezi a következő kiszlgáló megosztásának a böngészését:"/>
+		<control caption="Egy PeerProject által is támogatott URI-re kattintott, amely a következő Szerverkereső szolgáltatást adja hozzá a gyűjteményhez."/>
 		<control/>
 		<control/>
 		<control/>
@@ -4237,11 +4239,10 @@
 		<control caption="Mégse"/>
 		<control caption="_Beállítás megjegyzése"/>
 		<control caption="Letöltés_monitor megnyitása"/>
-		<control caption="Egy PeerProject által is támogatott URI-re kattintott, amely a következő Szerverkereső szolgáltatást adja hozzá a gyűjteményhez."/>
 	</dialog>
 	<dialog name="CBitziDownloadDlg" cookie="StStmsBuSySt" caption="Metaadat letöltése...">
 		<control/>
-		<control caption="Metaadat letöltése: Bitzi(TM)..."/>
+		<control caption="Metaadat letöltése: Bitzi..."/>
 		<control/>
 		<control caption="Mégse"/>
 		<control/>

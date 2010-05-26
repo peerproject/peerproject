@@ -608,7 +608,7 @@ void CDownloadWithTorrent::OnTrackerEvent(bool bSuccess, LPCTSTR pszReason, LPCT
 		// Success: Reset error conditions
 		m_bTorrentTrackerError = FALSE;
 		m_sTorrentTrackerError.Empty();
-		m_pTorrent.SetTrackerSucceeded(tNow);
+		m_pTorrent.SetTrackerSucceeded( tNow );
 
 		theApp.Message( MSG_INFO, _T("%s"), pszReason );
 

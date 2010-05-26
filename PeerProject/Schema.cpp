@@ -782,10 +782,9 @@ void CSchema::ResolveTokens(CString& str, CXMLElement* pXML) const
 		if ( nClose <= nOpen ) break;
 
 		CString strMember = str.Mid( nOpen + 1, nClose - nOpen - 1 );
-		strMember.TrimLeft(); strMember.TrimRight();
+		strMember.Trim();
 
 		CString strValue;
-
 		if ( CSchemaMember* pMember = GetMember( strMember ) )
 			strValue = pMember->GetValueFrom( pXML, NULL, TRUE );
 

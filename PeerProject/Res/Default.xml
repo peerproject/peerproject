@@ -1692,9 +1692,9 @@
 		<item id="ID_IRC_QUERY" text="_Query"/>
 		<separator/>
 		<menu text="Actions">
-			<item id="ID_IRC_BROWSE" text="_Browse"/>
-			<item id="ID_IRC_VERSION" text="_Version"/>
 			<item id="ID_IRC_TIME" text="_Time"/>
+			<item id="ID_IRC_VERSION" text="_Version"/>
+			<item id="ID_IRC_BROWSE" text="_Browse (G2)"/>
 		</menu>
 		<separator/>
 		<menu text="Control">
@@ -1735,52 +1735,52 @@
 		<anchor id="Header" width="32" height="152"/>
 		<newline gap="0"/>
 		<group id="1">
-			<icon res="130" width="32" height="32" target="peer:command:ID_NETWORK_CONNECT"/><gap size="8"/>
+			<icon res="130" width="32" height="32" target="command:ID_NETWORK_CONNECT"/><gap size="8"/>
 			<heading align="middle">Get Connected</heading>
 			<newline gap="8" indent="42"/>
 			<text>Welcome to PeerProject.</text>
 			<newline gap="8" indent="42"/>
 			<text>You are not currently connected to any peer-to-peer networks.</text>
 			<newline gap="2" indent="42"/>
-			<link target="peer:command:ID_NETWORK_CONNECT" format="bu">Click here to start!</link>
+			<link target="command:ID_NETWORK_CONNECT" format="bu">Click here to start!</link>
 			<newline gap="20" indent="0"/>
 		</group>
 		<group id="2">
-			<icon res="134" width="32" height="32" target="peer:command:ID_TAB_SEARCH"/><gap size="8"/>
+			<icon res="134" width="32" height="32" target="command:ID_TAB_SEARCH"/><gap size="8"/>
 			<heading align="middle">Search for Files</heading>
 			<newline gap="4" indent="42"/>
 			<anchor id="SearchBox" width="256" height="80"/>
 			<newline gap="20" indent="0"/>
-			<icon res="136" width="32" height="32" target="peer:command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
+			<icon res="136" width="32" height="32" target="command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
 			<heading align="middle">Start a Download</heading>
 			<newline gap="8" indent="42"/>
-			<link target="peer:command:ID_TOOLS_DOWNLOAD" format="bu">Click here to start</link>
+			<link target="command:ID_TOOLS_DOWNLOAD" format="bu">Click here to start</link>
 			<text>&#160;downloading a new file or torrent link.</text>
 			<newline gap="4" indent="42"/>
 			<text>Or open your default completed </text>
-			<link target="peer:shell:downloads">downloads folder.</link>
+			<link target="command:shell:downloads">downloads folder.</link>
 			<newline gap="20" indent="0"/>
 		</group>
 		<group id="3">
-			<icon res="128" width="32" height="32" target="peer:upgrade"/><gap size="8"/>
+			<icon res="128" width="32" height="32" target="command:upgrade"/><gap size="8"/>
 			<heading align="middle">Upgrade Notice</heading>
 			<newline gap="8" indent="42"/>
 			<text id="Upgrade"/>
 			<newline gap="6"/>
-			<link target="peer:upgrade">Click here to upgrade</link>
+			<link target="command:upgrade">Click here to upgrade</link>
 			<newline gap="20" indent="0"/>
 		</group>
 		<group id="4">
-			<icon res="252" width="32" height="32" target="peer:command:ID_TOOLS_WIZARD"/><gap size="8"/>
+			<icon res="252" width="32" height="32" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 			<heading align="middle">Warning: You Are Firewalled!</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">PeerProject has detected that you are hidden behind a router or firewall,
 			and are unable to receive active connections from the Internet. &#160;</text>
 			<text color="FF0000" format="b">This may cause poor download and search performance.</text>
 			<newline gap="6"/>
-			<link target="peer:command:ID_TOOLS_WIZARD">Enable Plug'n'Play port forwarding</link>
+			<link target="command:ID_TOOLS_WIZARD">Enable Plug'n'Play port forwarding</link>
 			<text>&#160;or </text>
-			<link target="peer:command:ID_HELP_ROUTER">learn how to configure your router.</link>
+			<link target="command:ID_HELP_ROUTER">learn how to configure your router.</link>
 			<newline gap="20" indent="0"/>
 		</group>
 		<group id="6">
@@ -1791,9 +1791,9 @@
 			and are unable to receive TCP connections from the Internet. &#160;</text>
 			<text color="FF0000" format="b">This may cause poor download performance.</text>
 			<newline gap="6"/>
-			<link target="peer:command:ID_TOOLS_WIZARD">Enable Plug'n'Play port forwarding</link>
+			<link target="command:ID_TOOLS_WIZARD">Enable Plug'n'Play port forwarding</link>
 			<text>&#160;or </text>
-			<link target="peer:command:ID_HELP_ROUTER">learn how to configure your router.</link>
+			<link target="command:ID_HELP_ROUTER">learn how to configure your router.</link>
 			<newline gap="20" indent="0"/>
 		</group>
 		<group id="7">
@@ -1804,33 +1804,33 @@
 			and are unable to receive UDP messages from the Internet. &#160;</text>
 			<text color="FF0000" format="b">This may cause poor search performance.</text>
 			<newline gap="6"/>
-			<link target="peer:command:ID_TOOLS_WIZARD">Enable Plug'n'Play port forwarding</link>
+			<link target="command:ID_TOOLS_WIZARD">Enable Plug'n'Play port forwarding</link>
 			<text>&#160;or </text>
-			<link target="peer:command:ID_HELP_ROUTER">learn how to configure your router.</link>
+			<link target="command:ID_HELP_ROUTER">learn how to configure your router.</link>
 			<newline gap="20" indent="0"/>
 		</group>
-		<icon res="128" width="30" height="30" target="peer:command:ID_TOOLS_SETTINGS"/><gap size="8"/>
+		<icon res="128" width="30" height="30" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">Customize PeerProject</heading>
 		<newline gap="12" indent="42"/>
-		<icon res="182" width="16" height="16" target="peer:command:ID_TOOLS_SKIN"/><gap size="8"/>
-		<link target="peer:command:ID_TOOLS_SKIN" align="middle" format="bu">Skins</link>
+		<icon res="182" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
+		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">Skins</link>
 		<text align="middle">&#160;- Mix&apos;n&apos;match changes to visual appearances</text>
 		<newline gap="8"/>
-		<icon res="141" width="16" height="16" target="peer:command:ID_VIEW_SECURITY"/><gap size="8"/>
-		<link target="peer:command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
+		<icon res="141" width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
+		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
 		<text align="middle">&#160;- Update blocklist to avoid bad search results</text>
 		<newline gap="8"/>
-		<icon res="317" width="16" height="16" target="peer:command:ID_TOOLS_WIZARD"/><gap size="8"/>
-		<link target="peer:command:ID_TOOLS_WIZARD" align="middle">Settings Wizard</link>
+		<icon res="317" width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
+		<link target="command:ID_TOOLS_WIZARD" align="middle">Settings Wizard</link>
 		<text align="middle">&#160;- Quick-edit PeerProject's basic settings</text>
 		<newline gap="8"/>
-		<icon res="147" width="16" height="16" target="peer:command:ID_HELP_FAQ"/><gap size="8"/>
-		<link target="peer:command:ID_HELP_FAQ" align="middle">Quick Help</link>
+		<icon res="147" width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
+		<link target="command:ID_HELP_FAQ" align="middle">Quick Help</link>
 		<text align="middle">&#160;- Get online support using PeerProject, or </text>
-		<link target="peer:command:ID_TAB_IRC" align="middle">live chat.</link>
+		<link target="command:ID_TAB_IRC" align="middle">live chat.</link>
 	<!--	<newline gap="8"/>
-		<icon res="175" width="16" height="16" target="peer:command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
-		<link target="peer:command:ID_HELP_FORUMS_LOCAL" align="middle">Local Forum</link>
+		<icon res="175" width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
+		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">Local Forum</link>
 		<text align="middle">&#160;- Go to the English local forum</text>
 	-->	<newline gap="18" indent="0"/>
 		<group id="5">
@@ -1838,10 +1838,14 @@
 			<heading align="middle">Remote Access Enabled</heading>
 			<newline gap="8" indent="42"/>
 			<text>Control PeerProject using your web browser at:</text>
-			<newline gap="6"/>
+			<newline gap="4"/>
 			<link id="RemoteAccessURL1"/>
 			<text>&#160; or &#160;</text>
 			<link id="RemoteAccessURL2"/>
+			<newline gap="6"/>
+			<text>Or allow others on Gnutella2 to browse your files at: &#160</text>
+			<newline gap="4"/>
+			<link id="RemoteBrowseURL"/>
 			<newline gap="18" indent="0"/>
 		</group>
 		<newline gap="4" indent="0"/>
@@ -1857,7 +1861,7 @@
 			<para align="center">
 				<text format="b">Not connected</text>
 				<newline gap="4"/>
-				<link target="peer:command:ID_NETWORK_CONNECT">Click here to connect</link>
+				<link target="command:ID_NETWORK_CONNECT">Click here to connect</link>
 			</para>
 		</group>
 		<icon group="20" command="ID_NETWORK_G2"/>
@@ -1885,7 +1889,7 @@
 		<group id="2">
 			<para align="center">
 				<newline gap="4"/>
-				<link target="peer:command:ID_TAB_NETWORK">Network Session</link>
+				<link target="command:ID_TAB_NETWORK">Network Session</link>
 				<newline gap="4"/>
 				<text id="ConnectedHours" format="b">%i </text>
 				<text>hours and </text>
@@ -1905,7 +1909,7 @@
 				<text>No new files downloaded recently.</text>
 				<newline gap="8"/>
 			</group>
-			<link target="peer:command:ID_VIEW_LIBRARY">Local Library</link>
+			<link target="command:ID_VIEW_LIBRARY">Local Library</link>
 			<newline gap="4"/>
 			<text id="LibraryFiles" format="b">%lu </text>
 			<text>files (</text>
@@ -1918,10 +1922,10 @@
 				<text>files:</text>
 				<newline gap="2"/>
 				<group id="3">
-					<link id="LibraryHashFaster" target="peer:command:ID_LIBRARY_HASH_PRIORITY">Click here to hash faster.</link>
+					<link id="LibraryHashFaster" target="command:ID_LIBRARY_HASH_PRIORITY">Click here to hash faster.</link>
 				</group>
 				<group id="4">
-					<link id="LibraryHashFaster" target="peer:command:ID_LIBRARY_HASH_PRIORITY">Click here to hash slower.</link>
+					<link id="LibraryHashFaster" target="command:ID_LIBRARY_HASH_PRIORITY">Click here to hash slower.</link>
 				</group>
 			</group>
 		</para>
@@ -1937,9 +1941,9 @@
 				<text format="b">No active downloads</text>
 				<newline gap="4"/>
 			</group>
-			<link id="DownloadsNone" target="peer:command:ID_VIEW_DOWNLOADS">Go to Downloads View</link>
-			<link id="DownloadsOne"  target="peer:command:ID_VIEW_DOWNLOADS" format="bu">1 active download</link>
-			<link id="DownloadsMany" target="peer:command:ID_VIEW_DOWNLOADS" format="bu">%i active downloads</link>
+			<link id="DownloadsNone" target="command:ID_VIEW_DOWNLOADS">View Downloads</link>
+			<link id="DownloadsOne"  target="command:ID_VIEW_DOWNLOADS" format="bu">1 active download</link>
+			<link id="DownloadsMany" target="command:ID_VIEW_DOWNLOADS" format="bu">%i active downloads</link>
 			<newline gap="4"/>
 			<text id="DownloadedNone">No files (</text>
 			<text id="DownloadedOne">1 file (</text>
@@ -1961,8 +1965,8 @@
 				<newline gap="8"/>
 			</group>
 			<text id="UploadsNone" format="b">No active uploads</text>
-			<link id="UploadsOne"  target="peer:command:ID_VIEW_UPLOADS" format="bu">1 active upload</link>
-			<link id="UploadsMany" target="peer:command:ID_VIEW_UPLOADS" format="bu">%i active uploads</link>
+			<link id="UploadsOne"  target="command:ID_VIEW_UPLOADS" format="bu">1 active upload</link>
+			<link id="UploadsMany" target="command:ID_VIEW_UPLOADS" format="bu">%i active uploads</link>
 			<newline gap="4"/>
 			<text id="UploadedNone">No files uploaded</text>
 			<text id="UploadedOne">1 file (%s)</text>
@@ -1977,25 +1981,25 @@
 		<text format="b">General </text>
 		<text>section relate to user experience.</text>
 		<newline gap="20" indent="16"/>
-		<link target="peer:page:CGeneralSettingsPage" format="b">General: </link>
+		<link target="page:CGeneralSettingsPage" format="b">General: </link>
 		<text>&#160;Adjust common user interface behaviors, etc.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CLibrarySettingsPage" format="b">Library: </link>
+		<link target="page:CLibrarySettingsPage" format="b">Library: </link>
 		<text>&#160;File access, management, and presentation of the local library.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CMediaSettingsPage" format="b">Media Player: </link>
+		<link target="page:CMediaSettingsPage" format="b">Media Player: </link>
 		<text>&#160;Set when to use the internal PeerProject Media System.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CIRCSettingsPage" format="b">IRC Chat: </link>
+		<link target="page:CIRCSettingsPage" format="b">IRC Chat: </link>
 		<text>&#160;Public chatroom connection settings and display options.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CCommunitySettingsPage" format="b">Community: </link>
+		<link target="page:CCommunitySettingsPage" format="b">Community: </link>
 		<text>&#160;Your profile and direct chat settings.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CRemoteSettingsPage" format="b">Web Remote: </link>
+		<link target="page:CRemoteSettingsPage" format="b">Web Remote: </link>
 		<text>&#160;Set PeerProject to be controlled from a web browser.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CWebSettingsPage" format="b">Web Integration: </link>
+		<link target="page:CWebSettingsPage" format="b">Web Integration: </link>
 		<text>&#160;Enable your web browser to use PeerProject for peer-to-peer links and as general download manager.</text>
 	</document>
 	<document name="CInternetSettingsGroup" title="Internet" leftMargin="8" topMargin="8">
@@ -2005,16 +2009,16 @@
 		<text format="b">Internet </text>
 		<text>section relate to connectivity (speeds).</text>
 		<newline gap="20" indent="16"/>
-		<link target="peer:page:CConnectionSettingsPage" format="b">Connection: </link>
+		<link target="page:CConnectionSettingsPage" format="b">Connection: </link>
 		<text>&#160;Indicate speed and capabilities of your internet access.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CDownloadsSettingsPage" format="b">Downloads: </link>
+		<link target="page:CDownloadsSettingsPage" format="b">Downloads: </link>
 		<text>&#160;Manage bandwidth-in, limits, and folder locations.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CUploadsSettingsPage" format="b">Uploads: </link>
+		<link target="page:CUploadsSettingsPage" format="b">Uploads: </link>
 		<text>&#160;Manage bandwidth-out, limits, and queues.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CSchedulerSettingsPage" format="b">Scheduler: </link>
+		<link target="page:CSchedulerSettingsPage" format="b">Scheduler: </link>
 		<text>&#160;Limit download connections based on a periodic schedule.</text>
 	</document>
 	<!-- Browse User Profile -->
@@ -2095,18 +2099,17 @@
 		<newline gap="40" indent="0"/>
 		<text format="b">Shared Files</text>
 		<newline gap="4" indent="8"/>
-		<icon res="137" target="peer:command:ID_BROWSE_FILES"/><gap size="5"/>
-		<link target="peer:command:ID_BROWSE_FILES" align="middle">View Shared Files</link>
+		<icon res="137" target="command:ID_BROWSE_FILES"/><gap size="5"/>
+		<link target="command:ID_BROWSE_FILES" align="middle">View Shared Files</link>
 		<group id="2">
 			<newline gap="16" indent="0"/>
 			<text format="b">Community</text>
 			<newline gap="4" indent="8"/>
-			<icon res="140" target="peer:command:ID_SEARCH_CHAT"/><gap size="5"/>
-			<link target="peer:command:ID_SEARCH_CHAT" align="middle">Chat With User</link>
+			<icon res="140" target="command:ID_SEARCH_CHAT"/><gap size="5"/>
+			<link target="command:ID_SEARCH_CHAT" align="middle">Chat With User</link>
 		</group>
 		<!-- ToDo: Add Client/Flag to Profile -->
-		<!--
-		<group id="3">
+<!--	<group id="3">
 			<newline gap="16" indent="0"/>
 			<text format="b">Region</text>
 			<newline gap="4" indent="8"/>
@@ -2119,9 +2122,8 @@
 			<newline gap="4" indent="8"/>
 			<anchor id="VendorIcon" width="16" height="12"/>
 			<gap size="4"/><text id="Vendor"/>
-			</group>
-		-->
-		<group id="3">
+		</group>
+-->		<group id="3">
 			<newline gap="16" indent="0"/>
 			<text format="b">Favorite Web Links</text>
 			<newline gap="4" indent="8" id="Bookmarks"/>
@@ -2169,7 +2171,7 @@
 		<text format="b">The Disk is Full</text>
 		<newline gap="8"/>
 		<text>PeerProject has paused this download automatically because the hard disk
-		appears to be full, or the download file cannot be written to. If you wish to 
+		appears to be full, or the download file cannot be written to. If you wish to
 		continue downloading, please free some space on your hard disk and/or check
 		to make sure the incomplete file folder is accessible, and then resume the download.</text>
 	</document>
@@ -2276,8 +2278,8 @@
 		<text format="b">Adult content filter enabled</text>
 		<newline gap="8"/>
 		<text>Please note that (as with any automated filter) it may not be 100% effective at
-		screening content. It is designed simply to filter out excess unwanted results, rather than
-		as a 100% safe block.</text>
+		screening content. It is designed simply to filter out excess unwanted results,
+		rather than as a 100% safe block.</text>
 		<newline gap="8"/>
 		<text>Children's Internet use (including P2P file sharing) should always be under parental supervision.</text>
 	</document>
@@ -2285,14 +2287,9 @@
 		<text format="b">Torrent encoding error detected</text>
 		<newline gap="8"/>
 		<text>Windows has reported a 'translation fault' while decoding text in this torrent.
-		The torrent file may be corrupt, or just incorrectly encoded.
-		The target file itself can most likely still be downloaded.</text>
+		The .torrent file may be corrupt, or just incorrectly encoded.</text>
 		<newline gap="8"/>
-		<text>Many torrent creation programs should allow you to repair this torrent,
-		which will ensure it works properly in all BitTorrent applications.</text>
-		<newline gap="8"/>
-		<link target="http://peerproject.org/help/?torrentencoding">Click here for additional help</link>
-		<text>, or to download software to repair the torrent.</text>
+		<text>The target file itself can most likely still be downloaded.</text>
 	</document>
 	<document name="GeneralHelp.DonkeyServerList">
 		<text format="b">Your eDonkey server list is empty</text>
@@ -2580,7 +2577,7 @@
 		<image id="ID_NEIGHBOURS_DISCONNECT" id1="ID_NETWORK_DISCONNECT" id2="ID_TRANSFERS_DISCONNECT" id3="ID_MONITOR_CLOSE" id4="ID_NETWORK_EXIT" id5="ID_SEARCH_CLEAR" id6="ID_SYSTEM_CLEAR"/>
 		<image id="ID_DOWNLOADS_CLEAR_INCOMPLETE" id1="ID_UPLOADS_CLEAR" id2="ID_DOWNLOADS_FILE_DELETE" id3="ID_SECURITY_REMOVE"
 			id4="ID_LIBRARY_DELETE" id5="ID_LIBRARY_ALBUM_DELETE" id6="ID_LIBRARY_FOLDER_DELETE" id7="ID_LIBRARY_REMOVE" id8="ID_HOSTCACHE_REMOVE" id9="ID_DISCOVERY_REMOVE"/>
-		<image /> <!--Delete-->
+		<image id="PluginID_ImageViewer_Close"/> <!--Delete-->
 		<image id="ID_SEARCH_STOP" id1="ID_BROWSE_STOP" id2="ID_NETWORK_DISCONNECT" id3="ID_UPLOADS_DISCONNECT"
 			id4="ID_IRC_DISCONNECT" id5="ID_CHAT_DISCONNECT" id6="ID_HOSTCACHE_DISCONNECT"/>
 		<image id="ID_SECURITY_BAN" id1="ID_TRANSFERS_FORGET" id2="ID_DOWNLOAD_GROUP_REMOVE"/>
@@ -2653,9 +2650,9 @@
 		<image id="ID_LIBRARY_VIEW_THUMBNAIL"/>
 		<image id="ID_LIBRARY_VIEW_ALBUM" id1="ID_MUSICBRAINZ_ALBUMS"/>
 		<!--MediaOptions-->
-		<image id="ImageViewer_BestFit" id1="ID_MEDIA_SIZE_ONE"/>
-		<image id="ImageViewer_ActualSize" id1="ID_MEDIA_SIZE_FILL"/>
-		<image id="ImageViewer_Refresh" id1="ID_BROWSE_REFRESH" id2="ID_LIBRARY_REFRESH" id3="ID_LIBRARY_REFRESH_METADATA"/>
+		<image id="PluginID_ImageViewer_BestFit" id1="ID_MEDIA_SIZE_ONE"/>
+		<image id="PluginID_ImageViewer_FullSize" id1="ID_MEDIA_SIZE_FILL"/>
+		<image id="PluginID_ImageViewer_Refresh" id1="ID_BROWSE_REFRESH" id2="ID_LIBRARY_REFRESH" id3="ID_LIBRARY_REFRESH_METADATA"/>
 		<image id="ID_MEDIA_REPEAT"/>
 		<image id="ID_MEDIA_RANDOM"/>
 		<image id="ID_MEDIA_ZOOM"/>

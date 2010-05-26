@@ -800,7 +800,7 @@ STDMETHODIMP CXMLCOMCol::XEnumVARIANT::Next(ULONG celt, VARIANT FAR* rgvar, ULON
 
 STDMETHODIMP CXMLCOMCol::XEnumVARIANT::Skip(ULONG celt)
 {
-    METHOD_PROLOGUE( CXMLCOMCol, EnumVARIANT )
+	METHOD_PROLOGUE( CXMLCOMCol, EnumVARIANT )
 
 	if ( m_bAttributes )
 	{
@@ -813,18 +813,18 @@ STDMETHODIMP CXMLCOMCol::XEnumVARIANT::Skip(ULONG celt)
 			celt--;
 	}
 
-    return ( celt == 0 ? S_OK : ResultFromScode( S_FALSE ) );
+	return ( celt == 0 ? S_OK : ResultFromScode( S_FALSE ) );
 }
 
 STDMETHODIMP CXMLCOMCol::XEnumVARIANT::Reset()
 {
-    METHOD_PROLOGUE( CXMLCOMCol, EnumVARIANT )
+	METHOD_PROLOGUE( CXMLCOMCol, EnumVARIANT )
 	m_posCurrent = m_bAttributes ? pThis->m_pElement->GetAttributeIterator() : pThis->m_pElement->GetElementIterator();
-    return S_OK;
+	return S_OK;
 }
 
 STDMETHODIMP CXMLCOMCol::XEnumVARIANT::Clone(IEnumVARIANT FAR* FAR* /*ppenum*/)
 {
-    METHOD_PROLOGUE( CXMLCOMCol, EnumVARIANT )
-    return E_NOTIMPL;
+	METHOD_PROLOGUE( CXMLCOMCol, EnumVARIANT )
+	return E_NOTIMPL;
 }

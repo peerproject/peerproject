@@ -23,6 +23,7 @@
 #include "PeerProject.h"
 #include "Settings.h"
 #include "Colors.h"
+#include "CoolInterface.h"
 #include "Download.h"
 #include "Downloads.h"
 #include "DownloadSource.h"
@@ -98,8 +99,9 @@ CDownloadSource::CDownloadSource(const CDownload* pDownload, const CQueryHit* pH
 	}
 	else if ( pHit->m_nProtocol == PROTOCOL_ED2K )
 	{
+		// Add the size if it was missing.
 		if ( ( m_sURL.Right( 3 ) == _T("/0/") ) && ( pDownload->m_nSize ) )
-		{	//Add the size if it was missing.
+		{
 			CString strTemp =  m_sURL.Left( m_sURL.GetLength() - 2 );
 			m_sURL.Format( _T("%s%I64i/"), strTemp, pDownload->m_nSize );
 		}
@@ -396,45 +398,43 @@ void CDownloadSource::Serialize(CArchive& ar, int nVersion)	// DOWNLOAD_SER_VERS
 		if ( nVersion >= 42 )	// 1000
 			ar >> m_bMetaIgnore;
 	}
-	else	// nVersion < 21	ToDo: Is this ever needed?
-	{
-		DWORD nIndex;
-		ReadArchive( ar, &m_pAddress, sizeof(m_pAddress) );
-		ar >> m_nPort;
-		ar >> m_nSpeed;
-		ar >> nIndex;
-		ar >> m_sName;
-		//if ( nVersion >= 4 ) ar >> m_sURL;
-		//if ( nVersion >= 21 ) ar >> m_nProtocol;
-		ar >> m_bSHA1;
-		//if ( nVersion >= 13 ) ar >> m_bTiger;
-		//if ( nVersion >= 13 ) ar >> m_bED2K;
-		//if ( nVersion >= 10 ) ar >> m_bHashAuth;
-
-		//if ( nVersion == 8 )
-		//{
-		//	DWORD nV;
-		//	ar >> nV;
-		//	m_sServer.Format( _T("%c%c%c%c"), nV & 0xFF, ( nV >> 8 ) & 0xFF, ( nV >> 16 ) & 0xFF, nV >> 24 );
-		//}
-		//else if ( nVersion >= 9 )
-		//{
-		//	ar >> m_sServer;
-		//}
-
-		ar >> m_bPushOnly;
-		ar >> m_bReadContent;
-		//if ( nVersion >= 7 ) ar >> m_bCloseConn;
-		//if ( nVersion >= 12 ) ReadArchive( ar, &m_tLastSeen, sizeof(FILETIME) );
-
-		ReadArchive( ar, &m_oGUID[ 0 ], Hashes::Guid::byteCount );
-		ReadArchive( ar, &m_oGUID[ 0 ], Hashes::Guid::byteCount );
-		m_oGUID.validate();
-
-		SerializeIn2( ar, m_oPastFragments, nVersion );
-
-		ResolveURL();
-	}
+	//else	// nVersion < 21	ToDo: Is this ever useful?
+	//{
+	//	DWORD nIndex;
+	//	ReadArchive( ar, &m_pAddress, sizeof(m_pAddress) );
+	//	ar >> m_nPort;
+	//	ar >> m_nSpeed;
+	//	ar >> nIndex;
+	//	ar >> m_sName;
+	//	if ( nVersion >= 4 ) ar >> m_sURL;
+	//	if ( nVersion >= 21 ) ar >> m_nProtocol;
+	//	ar >> m_bSHA1;
+	//	if ( nVersion >= 13 ) ar >> m_bTiger;
+	//	if ( nVersion >= 13 ) ar >> m_bED2K;
+	//	if ( nVersion >= 10 ) ar >> m_bHashAuth;
+	//
+	//	if ( nVersion == 8 )
+	//	{
+	//		DWORD nV;
+	//		ar >> nV;
+	//		m_sServer.Format( _T("%c%c%c%c"), nV & 0xFF, ( nV >> 8 ) & 0xFF, ( nV >> 16 ) & 0xFF, nV >> 24 );
+	//	}
+	//	else if ( nVersion >= 9 )
+	//		ar >> m_sServer;
+	//
+	//	ar >> m_bPushOnly;
+	//	ar >> m_bReadContent;
+	//	if ( nVersion >= 7 ) ar >> m_bCloseConn;
+	//	if ( nVersion >= 12 ) ReadArchive( ar, &m_tLastSeen, sizeof(FILETIME) );
+	//
+	//	ReadArchive( ar, &m_oGUID[ 0 ], Hashes::Guid::byteCount );
+	//	ReadArchive( ar, &m_oGUID[ 0 ], Hashes::Guid::byteCount );
+	//	m_oGUID.validate();
+	//
+	//	SerializeIn2( ar, m_oPastFragments, nVersion );
+	//
+	//	ResolveURL();
+	//}
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -841,7 +841,7 @@ BOOL CDownloadSource::PushRequest()
 			return TRUE;
 		}
 
-		if ( Neighbours.PushDonkey( m_pAddress.S_un.S_addr, &m_pServerAddress, m_nServerPort ) )
+		if ( Neighbours.PushDonkey( m_pAddress.S_un.S_addr, m_pServerAddress, m_nServerPort ) )
 		{
 			theApp.Message( MSG_INFO, IDS_DOWNLOAD_PUSH_SENT, (LPCTSTR)m_pDownload->m_sName );
 			m_tAttempt = GetTickCount() + Settings.Downloads.PushTimeout;
@@ -911,10 +911,8 @@ void CDownloadSource::SetAvailableRanges(LPCTSTR pszRanges)
 	{
 		CString strRange = strRanges.SpanExcluding( _T(", \t") );
 		strRanges = strRanges.Mid( strRange.GetLength() + 1 );
-
-		strRange.TrimLeft();
-		strRange.TrimRight();
 		if ( strRange.Find( '-' ) < 0 ) continue;
+		strRange.Trim();
 
 		QWORD nFirst = 0, nLast = 0;
 
@@ -922,11 +920,9 @@ void CDownloadSource::SetAvailableRanges(LPCTSTR pszRanges)
 		if ( _stscanf( strRange, _T("%I64i-%I64i"), &nFirst, &nLast ) == 2 && nLast > nFirst )
 		{
 			if( nFirst < m_oAvailable.limit() ) // Sanity check
-			{
-				// perhaps the file size we expect is incorrect or the source is erronous
-				// in either case we make sure the range fits - so we chop off the end if necessary
 				m_oAvailable.insert( Fragments::Fragment( nFirst, min( nLast + 1, m_oAvailable.limit() ) ) );
-			}
+				// Perhaps the file size we expect is incorrect or the source is erronous
+				// in either case we make sure the range fits - so we chop off the end if necessary
 		}
 	}
 
@@ -1032,6 +1028,7 @@ void CDownloadSource::Draw(CDC* pDC, CRect* prcBar, COLORREF crNatural)
 
 	Draw( pDC, prcBar );
 
+	// Draw empty bar areas
 	if ( ! m_oAvailable.empty() )
 	{
 		Fragments::List::const_iterator pItr = m_oAvailable.begin();
@@ -1042,15 +1039,24 @@ void CDownloadSource::Draw(CDC* pDC, CRect* prcBar, COLORREF crNatural)
 				pItr->begin(), pItr->size(), crNatural, FALSE );
 		}
 
-		pDC->FillSolidRect( prcBar, Colors.m_crWindow );
+		if ( Skin.m_bmProgressNone.m_hObject != NULL )
+			CoolInterface.DrawWatermark( pDC, prcBar, &Skin.m_bmProgressNone, FALSE );
+		else
+			pDC->FillSolidRect( prcBar, Colors.m_crWindow );
 	}
 	else if ( IsOnline() && HasUsefulRanges() || ! m_oPastFragments.empty() )
 	{
-		pDC->FillSolidRect( prcBar, crNatural );
+		if ( Skin.m_bmProgressShaded.m_hObject != NULL )
+			CoolInterface.DrawWatermark( pDC, prcBar, &Skin.m_bmProgressShaded, FALSE );
+		else
+			pDC->FillSolidRect( prcBar, crNatural );
 	}
 	else
 	{
-		pDC->FillSolidRect( prcBar, Colors.m_crWindow );
+		if ( Skin.m_bmProgressNone.m_hObject != NULL )
+			CoolInterface.DrawWatermark( pDC, prcBar, &Skin.m_bmProgressNone, FALSE );
+		else
+			pDC->FillSolidRect( prcBar, Colors.m_crWindow );
 	}
 }
 
@@ -1065,31 +1071,22 @@ void CDownloadSource::Draw(CDC* pDC, CRect* prcBar)
 		Colors.m_crFragmentSource5, Colors.m_crFragmentSource6
 	};
 
-	COLORREF crTransfer;
-
-	if ( m_bReadContent )
-		crTransfer = crFill[ GetColor() ];
-	else
-		crTransfer = Colors.m_crFragmentComplete;
-
+	COLORREF crTransfer = m_bReadContent ? crFill[ GetColor() ] : Colors.m_crFragmentComplete;
 	crTransfer = CColors::CalculateColor( crTransfer, Colors.m_crHighlight, 90 );
 
-	if ( ! IsIdle() )
+	if ( ! IsIdle() && GetState() == dtsDownloading )	// && m_pTransfer->m_nOffset < SIZE_UNKNOWN )
 	{
-		if ( GetState() == dtsDownloading )	// && m_pTransfer->m_nOffset < SIZE_UNKNOWN )
+		if ( m_pTransfer->m_bRecvBackwards )
 		{
-			if ( m_pTransfer->m_bRecvBackwards )
-			{
-				CFragmentBar::DrawFragment( pDC, prcBar, m_pDownload->m_nSize,
-					m_pTransfer->m_nOffset + m_pTransfer->m_nLength - m_pTransfer->m_nPosition,
-					m_pTransfer->m_nPosition, crTransfer, TRUE );
-			}
-			else
-			{
-				CFragmentBar::DrawFragment( pDC, prcBar, m_pDownload->m_nSize,
-					m_pTransfer->m_nOffset,
-					m_pTransfer->m_nPosition, crTransfer, TRUE );
-			}
+			CFragmentBar::DrawFragment( pDC, prcBar, m_pDownload->m_nSize,
+				m_pTransfer->m_nOffset + m_pTransfer->m_nLength - m_pTransfer->m_nPosition,
+				m_pTransfer->m_nPosition, crTransfer, TRUE );
+		}
+		else
+		{
+			CFragmentBar::DrawFragment( pDC, prcBar, m_pDownload->m_nSize,
+				m_pTransfer->m_nOffset,
+				m_pTransfer->m_nPosition, crTransfer, TRUE );
 		}
 	}
 

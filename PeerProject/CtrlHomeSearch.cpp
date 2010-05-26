@@ -40,8 +40,12 @@
 static char THIS_FILE[] = __FILE__;
 #endif
 
-//#define BUTTON_WIDTH 140
-//#define SCHEMA_WIDTH 160
+#define SCHEMA_WIDTH	164
+#define BUTTON_WIDTH	96
+#define BUTTON_HEIGHT	24
+#define BUTTON_GAP		12
+#define ROW_GAP 		11
+
 
 IMPLEMENT_DYNCREATE(CHomeSearchCtrl, CWnd)
 
@@ -107,23 +111,26 @@ int CHomeSearchCtrl::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_wndAdvanced.Create( rc, this, IDC_SEARCH_ADVANCED, WS_TABSTOP );
 	m_wndAdvanced.SetHandCursor( TRUE );
 
-	OnSkinChange( Colors.m_crWindow );
+	OnSkinChange( Colors.m_crRichdocBack, Colors.m_crRichdocText );
 
 	return 0;
 }
 
-void CHomeSearchCtrl::OnSkinChange(COLORREF crWindow)
+void CHomeSearchCtrl::OnSkinChange(COLORREF crWindow, COLORREF crText)
 {
 	CString strCaption;
 
+	// Custom RichDoc values passed from CtrlHomeView
 	m_crWindow = crWindow;
+	m_crText = crText;
 
 	LoadString( strCaption, IDS_SEARCH_PANEL_START );
-	m_wndSearch.SetWindowText( strCaption );
+	m_wndSearch.SetWindowText( strCaption );					// "Search"
 	m_wndSearch.SetCoolIcon( ID_SEARCH_SEARCH, FALSE );
 
 	LoadString( strCaption, IDS_SEARCH_PANEL_ADVANCED );
-	m_wndAdvanced.SetWindowText( strCaption + _T('\x2026') );
+	strCaption += _T('\x2026'); 								// "Advanced..."
+	m_wndAdvanced.SetWindowText( strCaption );
 	m_wndAdvanced.SetCoolIcon( ID_SEARCH_DETAILS, FALSE );
 
 	LoadString( m_wndSchema.m_sNoSchemaText, IDS_SEARCH_PANEL_AFT );
@@ -164,20 +171,25 @@ void CHomeSearchCtrl::OnSize(UINT nType, int cx, int cy)
 
 	rcClient.DeflateRect( 1, 1 );
 
-	rcClient.top += 18;
-	rcItem.SetRect( rcClient.left, rcClient.top, rcClient.right - 104, rcClient.top + 256 );
+	rcClient.top += 18;		// Caption text
+
+	// Text Area
+	rcItem.SetRect( rcClient.left, rcClient.top + 2, rcClient.right - BUTTON_WIDTH - BUTTON_GAP, rcClient.top + 256 );	// Dropdown
 	m_wndText.MoveWindow( &rcItem );
 
-	rcItem.SetRect( rcClient.right - 92, rcClient.top - 2, rcClient.right, rcClient.top + 22 );
+	// Search Button
+	rcItem.SetRect( rcClient.right - BUTTON_WIDTH, rcClient.top, rcClient.right, rcClient.top + BUTTON_HEIGHT );
 	m_wndSearch.MoveWindow( &rcItem );
 
-	rcClient.top += 32;
+	rcClient.top += BUTTON_HEIGHT + ROW_GAP;
 
-	rcItem.SetRect( rcClient.right - 104 - 160, rcClient.top, rcClient.right - 104, rcClient.top + 256 );
+	// Filetype Menu
+	rcItem.SetRect( rcClient.right - BUTTON_WIDTH - BUTTON_GAP - SCHEMA_WIDTH, rcClient.top, rcClient.right - BUTTON_WIDTH - BUTTON_GAP, rcClient.top + 256 );	// Dropdown
 	rcItem.left = max( rcItem.left, rcClient.left );
 	m_wndSchema.MoveWindow( &rcItem );
 
-	rcItem.SetRect( rcClient.right - 92, rcClient.top, rcClient.right, rcClient.top + 24 );
+	// Search Tab Button  (Advanced...)
+	rcItem.SetRect( rcClient.right - BUTTON_WIDTH, rcClient.top, rcClient.right, rcClient.top + BUTTON_HEIGHT );
 	m_wndAdvanced.MoveWindow( &rcItem );
 }
 
@@ -193,7 +205,7 @@ void CHomeSearchCtrl::OnPaint()
 	CFont* pOldFont = (CFont*)dc.SelectObject( &CoolInterface.m_fntBold );
 	dc.SetBkMode( OPAQUE );
 	dc.SetBkColor( m_crWindow );
-	dc.SetTextColor( 0 );
+	dc.SetTextColor( m_crText );
 
 	LoadString( str, IDS_SEARCH_PAD_WORDS );
 
@@ -202,10 +214,10 @@ void CHomeSearchCtrl::OnPaint()
 	dc.ExcludeClipRect( &rcItem );
 
 	rcClient.top += 18;
-	rcClient.top += 32;
+	rcClient.top += BUTTON_HEIGHT + ROW_GAP;
 
 	rcItem.SetRect( rcClient.left, rcClient.top,
-		rcClient.right - 104 - 160 - 8, rcClient.top + 22 );
+		rcClient.right - BUTTON_WIDTH - BUTTON_GAP - SCHEMA_WIDTH - 10, rcClient.top + BUTTON_HEIGHT - 2 );
 
 	LoadString( str, IDS_SEARCH_PAD_TYPE );
 	CSize sz = dc.GetTextExtent( str );
@@ -257,8 +269,7 @@ void CHomeSearchCtrl::Search(bool bAutostart)
 	CString strText, strURI, strEntry, strClear;
 
 	m_wndText.GetWindowText( strText );
-	strText.TrimLeft();
-	strText.TrimRight();
+	strText.Trim();
 
 	LoadString( strClear, IDS_SEARCH_PAD_CLEAR_HISTORY );
 	if ( _tcscmp ( strClear , strText ) == 0 ) return;

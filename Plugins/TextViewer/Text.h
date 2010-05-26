@@ -12,13 +12,13 @@
 
 #pragma once
 
-class CText  
+class CText
 {
 // Construction
 public:
 	CText();
 	virtual ~CImage();
-	
+
 // Attributes
 public:
 	BYTE*	m_pImage;		// Pointer to image data
@@ -26,7 +26,7 @@ public:
 	int		m_nHeight;		// Height
 	int		m_nComponents;	// Components (1=mono, 3=RGB, 4=RGBA)
 	BOOL	m_bPartial;		// Is it partially loaded?
-	
+
 // Operations
 public:
 	BOOL	Load(LPCTSTR pszFile);
@@ -35,7 +35,7 @@ public:
 	BOOL	MonoToRGB();
 	BOOL	AlphaToRGB(COLORREF crFill);
 	HBITMAP	Resample(int nWidth, int nHeight);
-	
+
 // Internal Helpers
 protected:
 	IImageServicePlugin*	LoadService(LPCTSTR pszFile);

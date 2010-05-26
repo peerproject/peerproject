@@ -996,7 +996,7 @@ void CLibraryFrame::OnLibrarySearchQuick()
 	CString str;
 	m_wndSearch.GetWindowText( str );
 
-	if ( str.GetLength() > 0 )
+	if ( ! str.IsEmpty() )
 	{
 		CQuerySearchPtr pSearch = new CQuerySearch();
 		pSearch->m_sSearch = str;

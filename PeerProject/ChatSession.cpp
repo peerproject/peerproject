@@ -1100,8 +1100,7 @@ bool CChatSession::SendPrivateMessage(bool bAction, const CString& strText)
 	//if ( m_nState == cssAway )
 	//{
 	//	CString strNick = MyProfile.GetNick();
-	//	if ( strNick.IsEmpty() )
-	//		strNick = CLIENT_NAME _T(" User");	// Is TChar Okay?
+	//	if ( strNick.IsEmpty() ) strNick = CLIENT_NAME _T(" User");
 	//	strMessage.Format( IDS_CHAT_PRIVATE_AWAY, strNick, strText );
 	//}
 

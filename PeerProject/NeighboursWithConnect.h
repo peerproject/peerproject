@@ -68,7 +68,7 @@ protected:
 
 public:
 	// Connect to a computer at an IP address, and accept a connection from a computer that has connected to us
-	CNeighbour* ConnectTo(const IN_ADDR* pAddress, WORD nPort, PROTOCOLID nProtocol, BOOL bAutomatic = FALSE, BOOL bNoUltraPeer = FALSE);
+	CNeighbour* ConnectTo(const IN_ADDR& pAddress, WORD nPort, PROTOCOLID nProtocol, BOOL bAutomatic = FALSE, BOOL bNoUltraPeer = FALSE);
 	CNeighbour* OnAccept(CConnection* pConnection);
 
 	// Methods implimented by several classes in the CNeighbours inheritance column

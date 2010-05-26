@@ -1,7 +1,7 @@
 //
 // ED2K.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2006.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -25,12 +25,12 @@
 //////////////////////////////////////////////////////////////////////
 // CED2K construction
 
-CED2K::CED2K() :
-	m_pList			( NULL )
-,	m_nList			( 0 )
-,	m_nCurHash		( 0 )
-,	m_nCurByte		( 0 )
-,	m_bNullBlock	( FALSE )
+CED2K::CED2K()
+	: m_pList		( NULL )
+	, m_nList		( 0 )
+	, m_nCurHash		( 0 )
+	, m_nCurByte		( 0 )
+	, m_bNullBlock	( FALSE )
 {
     std::fill_n( &m_pRoot[ 0 ], 4, 0 );
 }
@@ -94,8 +94,8 @@ void CED2K::Load(const uchar* pBuf)
 uint32 CED2K::GetSerialSize() const
 {
 	uint32 nSize = 0;
-    if ( m_nList > 0 ) nSize += sizeof( CMD4::Digest );
-    if ( m_nList > 1 ) nSize += sizeof( CMD4::Digest ) * m_nList;
+	if ( m_nList > 0 ) nSize += sizeof( CMD4::Digest );
+	if ( m_nList > 1 ) nSize += sizeof( CMD4::Digest ) * m_nList;
 	return nSize;
 }
 
@@ -107,9 +107,9 @@ void CED2K::BeginFile(uint64 nLength)
 	Clear();
 
 	m_nList = nLength ? (uint32)( ( nLength + ED2K_PART_SIZE ) / ED2K_PART_SIZE ) : 0;
-	if ( nLength % ED2K_PART_SIZE == 0 && nLength ) 
+	if ( nLength % ED2K_PART_SIZE == 0 && nLength )
 		m_bNullBlock = true;
-    m_pList	= new CMD4::Digest[ m_nList ];
+	m_pList = new CMD4::Digest[ m_nList ];
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -123,8 +123,8 @@ void CED2K::AddToFile(LPCVOID pInput, uint32 nLength)
 
 	while ( nLength > 0 )
 	{
-		uint32 nInThisHash	= ( ED2K_PART_SIZE - m_nCurByte );
-		uint32 nToProcess	= min( nInThisHash, nLength );
+		uint32 nInThisHash = ( ED2K_PART_SIZE - m_nCurByte );
+		uint32 nToProcess  = min( nInThisHash, nLength );
 
 		m_pSegment.Add( pBytes, nToProcess );
 
@@ -162,7 +162,7 @@ BOOL CED2K::FinishFile()
 
 	if ( m_nList == 1 )
 	{
-        std::copy( &m_pList[ 0 ][ 0 ], &m_pList[ 0 ][ 4 ], &m_pRoot[ 0 ] );
+		std::copy( &m_pList[ 0 ][ 0 ], &m_pList[ 0 ][ 4 ], &m_pRoot[ 0 ] );
 	}
 	else if ( m_nList == 0 )
 	{
@@ -172,7 +172,7 @@ BOOL CED2K::FinishFile()
 	else
 	{
 		CMD4 pOverall;
-        pOverall.Add( m_pList, sizeof( CMD4::Digest ) * m_nList );
+		pOverall.Add( m_pList, sizeof( CMD4::Digest ) * m_nList );
 		pOverall.Finish();
 		pOverall.GetHash( (uchar*)&m_pRoot[ 0 ] );
 	}
@@ -206,13 +206,13 @@ void CED2K::AddToTest(LPCVOID pInput, uint32 nLength)
 BOOL CED2K::FinishBlockTest(uint32 nBlock)
 {
 	if ( nBlock >= m_nList ) return FALSE;
-	
-    CMD4::Digest pMD4;
+
+	CMD4::Digest pMD4;
 
 	m_pSegment.Finish();
 	m_pSegment.GetHash( (uchar*)&pMD4[ 0 ] );
-	
-    return std::equal( &pMD4[ 0 ], &pMD4[ 4 ], &m_pList[ nBlock ][ 0 ] );
+
+	return std::equal( &pMD4[ 0 ], &pMD4[ 4 ], &m_pList[ nBlock ][ 0 ] );
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -220,14 +220,12 @@ BOOL CED2K::FinishBlockTest(uint32 nBlock)
 
 BOOL CED2K::ToBytes(BYTE** ppOutput, uint32* pnOutput)
 {
-	if ( m_nList == 0 )
-		return FALSE;
+	if ( m_nList == 0 ) return FALSE;
 
-    *pnOutput = sizeof( CMD4::Digest ) * m_nList;
+	*pnOutput = sizeof( CMD4::Digest ) * m_nList;
 
 	*ppOutput = (uint8*)GlobalAlloc( GPTR, *pnOutput );
-	if ( ! *ppOutput )
-		return FALSE;
+	if ( ! *ppOutput ) return FALSE;
 
 	CopyMemory( *ppOutput, m_pList, *pnOutput );
 
@@ -260,12 +258,12 @@ void CED2K::FromRoot(__in_bcount(16) const uchar* pHash)
 BOOL CED2K::FromBytes(BYTE* pOutput, uint32 nOutput, uint64 nSize)
 {
 	Clear();
-	
-    if ( pOutput == NULL || nOutput == 0 || ( nOutput % sizeof( CMD4::Digest ) ) != 0 ) return FALSE;
-	
+
+	if ( pOutput == NULL || nOutput == 0 || ( nOutput % sizeof( CMD4::Digest ) ) != 0 ) return FALSE;
+
 	if ( nSize > 0 )
 	{
-        if ( nSize % ED2K_PART_SIZE == 0 && nSize ) 
+        if ( nSize % ED2K_PART_SIZE == 0 && nSize )
 			m_bNullBlock = true;
 
 		uint64 nValidBlocks = ( nSize + ED2K_PART_SIZE - 1 ) / ED2K_PART_SIZE;
@@ -275,10 +273,10 @@ BOOL CED2K::FromBytes(BYTE* pOutput, uint32 nOutput, uint64 nSize)
 		if ( nOutput / sizeof( CMD4::Digest ) != nValidBlocks )
 			return FALSE;
 	}
-	
-    m_nList	= nOutput / sizeof( CMD4::Digest );
-    m_pList = new CMD4::Digest[ m_nList ];
-	
+
+	m_nList = nOutput / sizeof( CMD4::Digest );
+	m_pList = new CMD4::Digest[ m_nList ];
+
 	CopyMemory( m_pList, pOutput, nOutput );
 
 	if ( m_nList == 1 )
@@ -288,7 +286,7 @@ BOOL CED2K::FromBytes(BYTE* pOutput, uint32 nOutput, uint64 nSize)
 	else
 	{
 		CMD4 pOverall;
-        pOverall.Add( m_pList, sizeof( CMD4::Digest ) * m_nList );
+		pOverall.Add( m_pList, sizeof( CMD4::Digest ) * m_nList );
 		pOverall.Finish();
 		pOverall.GetHash( (uchar*)&m_pRoot[ 0 ] );
 	}
@@ -303,17 +301,17 @@ BOOL CED2K::CheckIntegrity()
 {
 	if ( m_nList == 1 )
 	{
-        return std::equal( &m_pRoot[ 0 ], &m_pRoot[ 4 ], &m_pList[ 0 ][ 0 ] );
+		return std::equal( &m_pRoot[ 0 ], &m_pRoot[ 4 ], &m_pList[ 0 ][ 0 ] );
 	}
 	else
 	{
 		CMD4 pOverall;
-        CMD4::Digest pRoot;
-		
-        pOverall.Add( m_pList, sizeof( CMD4::Digest ) * m_nList );
+		CMD4::Digest pRoot;
+
+		pOverall.Add( m_pList, sizeof( CMD4::Digest ) * m_nList );
 		pOverall.Finish();
 		pOverall.GetHash( (uchar*)&pRoot[ 0 ] );
-		
+
 		return std::equal( &m_pRoot[ 0 ], &m_pRoot[ 4 ], &pRoot[ 0 ] );
 	}
 }

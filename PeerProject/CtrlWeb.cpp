@@ -125,7 +125,7 @@ HRESULT CWebCtrl::Navigate(LPCTSTR lpszURL, DWORD dwFlags, LPCTSTR lpszTargetFra
 	}
 
 	return m_pBrowser->Navigate( bstrURL, COleVariant( (long) dwFlags, VT_I4 ),
-        COleVariant( lpszTargetFrameName, VT_BSTR ), vPostData,
+	COleVariant( lpszTargetFrameName, VT_BSTR ), vPostData,
 		COleVariant( lpszHeaders, VT_BSTR ) );
 }
 
@@ -231,7 +231,7 @@ void CWebCtrl::EnterMenu(POINT* pPoint)
 	CPoint ptScreen( *pPoint );
 	ptScreen.Offset( 2, 2 );
 
-    CWnd* pChild = this;
+	CWnd* pChild = this;
 	for ( ; ; )
 	{
 		CPoint ptClient( ptScreen );
@@ -242,7 +242,7 @@ void CWebCtrl::EnterMenu(POINT* pPoint)
 	}
 
 	TCHAR szClass[128];
-    GetClassName( *pChild, szClass, 128 );
+	GetClassName( *pChild, szClass, 128 );
 	if ( _tcsistr( szClass, _T("Internet Explorer") ) == NULL ) return;
 
 	m_pThis = this;
@@ -257,7 +257,7 @@ LRESULT PASCAL CWebCtrl::WebWndProc(HWND hWnd, UINT nMsg, WPARAM wParam, LPARAM 
 
 	ASSERT( m_pThis->m_hWndThis == hWnd );
 
-    switch ( nMsg )
+	switch ( nMsg )
 	{
 	case WM_DESTROY:
 	case WM_EXITMENULOOP:

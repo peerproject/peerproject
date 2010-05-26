@@ -64,9 +64,11 @@
   <color name="TaskBox.Caption.Back" value="4080C0"/>
   <color name="TaskBox.Caption.Text" value="006699"/>
   <color name="TaskBox.Caption.Hover" value="3388CC"/>
-  <color name="TaskBox.Client" value="FDFDFD"/>
+  <color name="TaskBox.Back" value="FDFDFD"/>
   <color name="ToolTip.Back" value="FCFBFA"/>
   <color name="ToolTip.Text" value="A0A0A0"/>
+  <color name="ToolTip.Graph" value="F8F6F2"/>
+  <color name="ToolTip.Grid" value="E2E0DD"/>
   <color name="Dialog.Back" value="F8F7F6"/>
   <color name="Banner.Text" value="FFFFFF"/>
   <color name="Banner.Back" value="C4D6FE"/>
@@ -89,6 +91,7 @@
   <color name="Monitor.History.Back.Max" value="444240"/>
   <color name="Monitor.Upload.Line" value="809AC0"/>
   <color name="Monitor.Upload.Bar" value="809AC0"/>
+  <color name="Monitor.Graph.Border" value="998877"/>
   <color name="Schema.Row1" value="F4F2F0"/>
   <color name="Schema.Row2" value="EAE8E4"/>
   <color name="Schema.Rating" value="4A4440"/>
@@ -201,8 +204,27 @@
   <watermark target="CCoolbar.Checked" path="ToolbarButtonDown.png"/>
   <watermark target="CCoolbar.Separator" path="ToolbarSeparator.png"/>
 
-  <watermark target="System.Highlight"			path="Highlight.png"/>
-  <watermark target="System.Toolbars"	  		path="Toolbar.png"/>
+  <watermark target="RichButton" path="Buttons\RichButton.png"/>
+  <watermark target="RichButtonPart" path="Buttons\RichButtonPart.png"/>
+  <watermark target="RichButton.Focus" path="Buttons\RichButtonFocus.png"/>
+  <watermark target="RichButtonPart.Focus" path="Buttons\RichButtonFocusPart.png"/>
+  <watermark target="RichButton.Hover" path="Buttons\RichButtonHover.png"/>
+  <watermark target="RichButtonPart.Hover" path="Buttons\RichButtonHoverPart.png"/>
+  <watermark target="RichButton.Press" path="Buttons\RichButtonPress.png"/>
+  <watermark target="RichButtonPart.Press" path="Buttons\RichButtonPressPart.png"/>
+  <watermark target="RichButton.Disabled" path="Buttons\RichButtonDisabled.png"/>
+  <watermark target="RichButtonPart.Disabled" path="Buttons\RichButtonDisabledPart.png"/>
+
+  <watermark target="IconButton" path="Buttons\IconButton.png"/>
+  <watermark target="IconButton.Focus" path="Buttons\IconButtonFocus.png"/>
+  <watermark target="IconButton.Hover" path="Buttons\IconButtonHover.png"/>
+  <watermark target="IconButton.Press" path="Buttons\IconButtonPress.png"/>
+  <watermark target="IconButton.Disabled" path="Buttons\IconButtonDisabled.png"/>
+
+  <watermark target="System.Highlight" path="Highlight.png"/>
+  <watermark target="System.Progress" path="Progress.png"/>
+  <watermark target="System.Tooltips" path="ToolTip.png"/>
+  <watermark target="System.Toolbars" path="Toolbar.png"/>
 </watermarks>
 
 <windowSkins>
@@ -398,6 +420,24 @@
  <button id="ID_MEDIA_FULLSCREEN"/>
 </toolbar>
 
+<toolbar name="CMediaFrame.Basic">
+ <control id="117" width="308" height="18"/>
+ <button id="ID_MEDIA_STOP"/>
+ <button id="ID_MEDIA_PREVIOUS"/>
+ <button id="ID_MEDIA_PLAY"/>
+ <button id="ID_MEDIA_PAUSE" visible="false"/>
+ <button id="ID_MEDIA_NEXT"/>
+   <rightAlign/>
+ <control id="119" width="70" height="18"/>
+ <separator/>
+ <button id="ID_MEDIA_ZOOM"/>
+ <button id="ID_MEDIA_VIS"/>
+ <button id="ID_WINDOW_REMOTE"/>
+ <button id="ID_MEDIA_PLAYLIST"/>
+ <separator/>
+ <button id="ID_MEDIA_FULLSCREEN"/>
+</toolbar>
+
 <toolbar name="CMediaList">
    <rightAlign/>
  <button id="ID_MEDIA_ADD"/>
@@ -489,6 +529,49 @@
 </anchors>
 </windowSkin>
 
+<!-- English Basic -->
+
+<windowSkin>
+<image type="image" path="Seven\RibbonTabsBlank.png"/>
+<image type="watermark" path="Seven\RibbonTabsBkg.png"/>
+<target window="CMainTabBarCtrl.Basic"/>
+<parts>
+ <part name="_ID_TAB_HOME.Up" rect="60,0,66,24"/>
+ <part name="_ID_TAB_HOME.Checked" rect="60,24,66,24"/>
+ <part name="_ID_TAB_HOME.Hover" rect="60,48,66,24"/>
+ <part name="_ID_TAB_HOME.Down" rect="60,72,66,24"/>
+ <part name="_ID_TAB_TRANSFERS.Up" rect="200,0,80,24"/>
+ <part name="_ID_TAB_TRANSFERS.Checked" rect="200,24,80,24"/>
+ <part name="_ID_TAB_TRANSFERS.Hover" rect="200,48,80,24"/>
+ <part name="_ID_TAB_TRANSFERS.Down" rect="200,72,80,24"/>
+ <part name="_ID_TAB_LIBRARY.Up" rect="60,0,66,24"/>
+ <part name="_ID_TAB_LIBRARY.Checked" rect="60,24,66,24"/>
+ <part name="_ID_TAB_LIBRARY.Hover" rect="60,48,66,24"/>
+ <part name="_ID_TAB_LIBRARY.Down" rect="60,72,66,24"/>
+ <part name="_ID_TAB_MEDIA.Up" rect="60,0,66,24"/>
+ <part name="_ID_TAB_MEDIA.Checked" rect="60,24,66,24"/>
+ <part name="_ID_TAB_MEDIA.Hover" rect="60,48,66,24"/>
+ <part name="_ID_TAB_MEDIA.Down" rect="60,72,66,24"/>
+ <part name="_ID_TAB_IRC.Up" rect="0,0,60,24"/>
+ <part name="_ID_TAB_IRC.Checked" rect="0,24,60,24"/>
+ <part name="_ID_TAB_IRC.Hover" rect="0,48,60,24"/>
+ <part name="_ID_TAB_IRC.Down" rect="0,72,60,24"/>
+ <part name="_ID_TAB_SEARCH.Up" rect="60,0,66,24"/>
+ <part name="_ID_TAB_SEARCH.Checked" rect="60,24,66,24"/>
+ <part name="_ID_TAB_SEARCH.Hover" rect="60,48,66,24"/>
+ <part name="_ID_TAB_SEARCH.Down" rect="60,72,66,24"/>
+</parts>
+<anchors>
+ <anchor name="Background" rect="0,0,414,28"/>
+ <anchor name="_ID_TAB_HOME" rect="6,2,66,24"/>
+ <anchor name="_ID_TAB_TRANSFERS" rect="72,2,80,24"/>
+ <anchor name="_ID_TAB_LIBRARY" rect="152,2,66,24"/>
+ <anchor name="_ID_TAB_MEDIA" rect="218,2,66,24"/>
+ <anchor name="_ID_TAB_IRC" rect="284,2,60,24"/>
+ <anchor name="_ID_TAB_SEARCH" rect="344,2,66,24"/>
+</anchors>
+</windowSkin>
+
 <!-- Afrikaans -->
 
 <windowSkin>
@@ -496,16 +579,13 @@
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
+<target window="CMainTabBarCtrl.Tabbed"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <parts>
  <part name="_ID_TAB_HOME.Up" rect="126,0,74,24"/>
  <part name="_ID_TAB_HOME.Checked" rect="126,24,74,24"/>
  <part name="_ID_TAB_HOME.Hover" rect="126,48,74,24"/>
  <part name="_ID_TAB_HOME.Down" rect="126,72,74,24"/>
- <part name="_ID_TAB_SEARCH.Up" rect="0,0,60,24"/>
- <part name="_ID_TAB_SEARCH.Checked" rect="0,24,60,24"/>
- <part name="_ID_TAB_SEARCH.Hover" rect="0,48,60,24"/>
- <part name="_ID_TAB_SEARCH.Down" rect="0,72,60,24"/>
  <part name="_ID_TAB_TRANSFERS.Up" rect="200,0,80,24"/>
  <part name="_ID_TAB_TRANSFERS.Checked" rect="200,24,80,24"/>
  <part name="_ID_TAB_TRANSFERS.Hover" rect="200,48,80,24"/>
@@ -526,6 +606,10 @@
  <part name="_ID_TAB_IRC.Checked" rect="0,24,60,24"/>
  <part name="_ID_TAB_IRC.Hover" rect="0,48,60,24"/>
  <part name="_ID_TAB_IRC.Down" rect="0,72,60,24"/>
+ <part name="_ID_TAB_SEARCH.Up" rect="0,0,60,24"/>
+ <part name="_ID_TAB_SEARCH.Checked" rect="0,24,60,24"/>
+ <part name="_ID_TAB_SEARCH.Hover" rect="0,48,60,24"/>
+ <part name="_ID_TAB_SEARCH.Down" rect="0,72,60,24"/>
 </parts>
 <anchors>
  <anchor name="Background" rect="0,0,492,28"/>
@@ -546,16 +630,13 @@
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
+<target window="CMainTabBarCtrl.Tabbed"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <parts>
  <part name="_ID_TAB_HOME.Up" rect="60,0,66,24"/>
  <part name="_ID_TAB_HOME.Checked" rect="60,24,66,24"/>
  <part name="_ID_TAB_HOME.Hover" rect="60,48,66,24"/>
  <part name="_ID_TAB_HOME.Down" rect="60,72,66,24"/>
- <part name="_ID_TAB_SEARCH.Up" rect="60,0,66,24"/>
- <part name="_ID_TAB_SEARCH.Checked" rect="60,24,66,24"/>
- <part name="_ID_TAB_SEARCH.Hover" rect="60,48,66,24"/>
- <part name="_ID_TAB_SEARCH.Down" rect="60,72,66,24"/>
  <part name="_ID_TAB_TRANSFERS.Up" rect="370,0,100,24"/>
  <part name="_ID_TAB_TRANSFERS.Checked" rect="370,24,100,24"/>
  <part name="_ID_TAB_TRANSFERS.Hover" rect="370,48,100,24"/>
@@ -576,6 +657,10 @@
  <part name="_ID_TAB_IRC.Checked" rect="0,24,60,24"/>
  <part name="_ID_TAB_IRC.Hover" rect="0,48,60,24"/>
  <part name="_ID_TAB_IRC.Down" rect="0,72,60,24"/>
+ <part name="_ID_TAB_SEARCH.Up" rect="60,0,66,24"/>
+ <part name="_ID_TAB_SEARCH.Checked" rect="60,24,66,24"/>
+ <part name="_ID_TAB_SEARCH.Hover" rect="60,48,66,24"/>
+ <part name="_ID_TAB_SEARCH.Down" rect="60,72,66,24"/>
 </parts>
 <anchors>
  <anchor name="Background" rect="0,0,528,28"/>
@@ -595,17 +680,14 @@
 <image type="image" language="cz" path="Seven\RibbonTabsBlank.png"/>
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
-<target window="CMainTabBarCtrl.Windowed"/>
 <target window="CMainTabBarCtrl.Basic"/>
+<target window="CMainTabBarCtrl.Tabbed"/>
+<target window="CMainTabBarCtrl.Windowed"/>
 <parts>
  <part name="_ID_TAB_HOME.Up" rect="60,0,66,24"/>
  <part name="_ID_TAB_HOME.Checked" rect="60,24,66,24"/>
  <part name="_ID_TAB_HOME.Hover" rect="60,48,66,24"/>
  <part name="_ID_TAB_HOME.Down" rect="60,72,66,24"/>
- <part name="_ID_TAB_SEARCH.Up" rect="60,0,66,24"/>
- <part name="_ID_TAB_SEARCH.Checked" rect="60,24,66,24"/>
- <part name="_ID_TAB_SEARCH.Hover" rect="60,48,66,24"/>
- <part name="_ID_TAB_SEARCH.Down" rect="60,72,66,24"/>
  <part name="_ID_TAB_TRANSFERS.Up" rect="60,0,66,24"/>
  <part name="_ID_TAB_TRANSFERS.Checked" rect="60,24,66,24"/>
  <part name="_ID_TAB_TRANSFERS.Hover" rect="60,48,66,24"/>
@@ -626,6 +708,10 @@
  <part name="_ID_TAB_IRC.Checked" rect="0,24,60,24"/>
  <part name="_ID_TAB_IRC.Hover" rect="0,48,60,24"/>
  <part name="_ID_TAB_IRC.Down" rect="0,72,60,24"/>
+ <part name="_ID_TAB_SEARCH.Up" rect="60,0,66,24"/>
+ <part name="_ID_TAB_SEARCH.Checked" rect="60,24,66,24"/>
+ <part name="_ID_TAB_SEARCH.Hover" rect="60,48,66,24"/>
+ <part name="_ID_TAB_SEARCH.Down" rect="60,72,66,24"/>
 </parts>
 <anchors>
  <anchor name="Background" rect="0,0,478,28"/>
@@ -646,16 +732,13 @@
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
+<target window="CMainTabBarCtrl.Tabbed"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <parts>
  <part name="_ID_TAB_HOME.Up" rect="60,0,66,24"/>
  <part name="_ID_TAB_HOME.Checked" rect="60,24,66,24"/>
  <part name="_ID_TAB_HOME.Hover" rect="60,48,66,24"/>
  <part name="_ID_TAB_HOME.Down" rect="60,72,66,24"/>
- <part name="_ID_TAB_SEARCH.Up" rect="60,0,66,24"/>
- <part name="_ID_TAB_SEARCH.Checked" rect="60,24,66,24"/>
- <part name="_ID_TAB_SEARCH.Hover" rect="60,48,66,24"/>
- <part name="_ID_TAB_SEARCH.Down" rect="60,72,66,24"/>
  <part name="_ID_TAB_TRANSFERS.Up" rect="200,0,80,24"/>
  <part name="_ID_TAB_TRANSFERS.Checked" rect="200,24,80,24"/>
  <part name="_ID_TAB_TRANSFERS.Hover" rect="200,48,80,24"/>
@@ -676,6 +759,10 @@
  <part name="_ID_TAB_IRC.Checked" rect="0,24,60,24"/>
  <part name="_ID_TAB_IRC.Hover" rect="0,48,60,24"/>
  <part name="_ID_TAB_IRC.Down" rect="0,72,60,24"/>
+ <part name="_ID_TAB_SEARCH.Up" rect="60,0,66,24"/>
+ <part name="_ID_TAB_SEARCH.Checked" rect="60,24,66,24"/>
+ <part name="_ID_TAB_SEARCH.Hover" rect="60,48,66,24"/>
+ <part name="_ID_TAB_SEARCH.Down" rect="60,72,66,24"/>
 </parts>
 <anchors>
  <anchor name="Background" rect="0,0,510,28"/>
@@ -696,16 +783,13 @@
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
+<target window="CMainTabBarCtrl.Tabbed"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <parts>
  <part name="_ID_TAB_HOME.Up" rect="60,0,66,24"/>
  <part name="_ID_TAB_HOME.Checked" rect="60,24,66,24"/>
  <part name="_ID_TAB_HOME.Hover" rect="60,48,66,24"/>
  <part name="_ID_TAB_HOME.Down" rect="60,72,66,24"/>
- <part name="_ID_TAB_SEARCH.Up" rect="60,0,66,24"/>
- <part name="_ID_TAB_SEARCH.Checked" rect="60,24,66,24"/>
- <part name="_ID_TAB_SEARCH.Hover" rect="60,48,66,24"/>
- <part name="_ID_TAB_SEARCH.Down" rect="60,72,66,24"/>
  <part name="_ID_TAB_TRANSFERS.Up" rect="60,0,66,24"/>
  <part name="_ID_TAB_TRANSFERS.Checked" rect="60,24,66,24"/>
  <part name="_ID_TAB_TRANSFERS.Hover" rect="60,48,66,24"/>
@@ -726,6 +810,10 @@
  <part name="_ID_TAB_IRC.Checked" rect="0,24,60,24"/>
  <part name="_ID_TAB_IRC.Hover" rect="0,48,60,24"/>
  <part name="_ID_TAB_IRC.Down" rect="0,72,60,24"/>
+ <part name="_ID_TAB_SEARCH.Up" rect="60,0,66,24"/>
+ <part name="_ID_TAB_SEARCH.Checked" rect="60,24,66,24"/>
+ <part name="_ID_TAB_SEARCH.Hover" rect="60,48,66,24"/>
+ <part name="_ID_TAB_SEARCH.Down" rect="60,72,66,24"/>
 </parts>
 <anchors>
  <anchor name="Background" rect="0,0,484,28"/>
@@ -746,16 +834,13 @@
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
+<target window="CMainTabBarCtrl.Tabbed"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <parts>
  <part name="_ID_TAB_HOME.Up" rect="60,0,66,24"/>
  <part name="_ID_TAB_HOME.Checked" rect="60,24,66,24"/>
  <part name="_ID_TAB_HOME.Hover" rect="60,48,66,24"/>
  <part name="_ID_TAB_HOME.Down" rect="60,72,66,24"/>
- <part name="_ID_TAB_SEARCH.Up" rect="60,0,66,24"/>
- <part name="_ID_TAB_SEARCH.Checked" rect="60,24,66,24"/>
- <part name="_ID_TAB_SEARCH.Hover" rect="60,48,66,24"/>
- <part name="_ID_TAB_SEARCH.Down" rect="60,72,66,24"/>
  <part name="_ID_TAB_TRANSFERS.Up" rect="370,0,100,24"/>
  <part name="_ID_TAB_TRANSFERS.Checked" rect="370,24,100,24"/>
  <part name="_ID_TAB_TRANSFERS.Hover" rect="370,48,100,24"/>
@@ -776,6 +861,10 @@
  <part name="_ID_TAB_IRC.Checked" rect="0,24,60,24"/>
  <part name="_ID_TAB_IRC.Hover" rect="0,48,60,24"/>
  <part name="_ID_TAB_IRC.Down" rect="0,72,60,24"/>
+ <part name="_ID_TAB_SEARCH.Up" rect="60,0,66,24"/>
+ <part name="_ID_TAB_SEARCH.Checked" rect="60,24,66,24"/>
+ <part name="_ID_TAB_SEARCH.Hover" rect="60,48,66,24"/>
+ <part name="_ID_TAB_SEARCH.Down" rect="60,72,66,24"/>
 </parts>
 <anchors>
  <anchor name="Background" rect="0,0,534,28"/>
@@ -796,16 +885,13 @@
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
+<target window="CMainTabBarCtrl.Tabbed"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <parts>
  <part name="_ID_TAB_HOME.Up" rect="60,0,66,24"/>
  <part name="_ID_TAB_HOME.Checked" rect="60,24,66,24"/>
  <part name="_ID_TAB_HOME.Hover" rect="60,48,66,24"/>
  <part name="_ID_TAB_HOME.Down" rect="60,72,66,24"/>
- <part name="_ID_TAB_SEARCH.Up" rect="60,0,66,24"/>
- <part name="_ID_TAB_SEARCH.Checked" rect="60,24,66,24"/>
- <part name="_ID_TAB_SEARCH.Hover" rect="60,48,66,24"/>
- <part name="_ID_TAB_SEARCH.Down" rect="60,72,66,24"/>
  <part name="_ID_TAB_TRANSFERS.Up" rect="370,0,100,24"/>
  <part name="_ID_TAB_TRANSFERS.Checked" rect="370,24,100,24"/>
  <part name="_ID_TAB_TRANSFERS.Hover" rect="370,48,100,24"/>
@@ -826,6 +912,10 @@
  <part name="_ID_TAB_IRC.Checked" rect="0,24,60,24"/>
  <part name="_ID_TAB_IRC.Hover" rect="0,48,60,24"/>
  <part name="_ID_TAB_IRC.Down" rect="0,72,60,24"/>
+ <part name="_ID_TAB_SEARCH.Up" rect="60,0,66,24"/>
+ <part name="_ID_TAB_SEARCH.Checked" rect="60,24,66,24"/>
+ <part name="_ID_TAB_SEARCH.Hover" rect="60,48,66,24"/>
+ <part name="_ID_TAB_SEARCH.Down" rect="60,72,66,24"/>
 </parts>
 <anchors>
  <anchor name="Background" rect="0,0,534,28"/>
@@ -846,16 +936,13 @@
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
+<target window="CMainTabBarCtrl.Tabbed"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <parts>
  <part name="_ID_TAB_HOME.Up" rect="0,0,60,24"/>
  <part name="_ID_TAB_HOME.Checked" rect="0,24,60,24"/>
  <part name="_ID_TAB_HOME.Hover" rect="0,48,60,24"/>
  <part name="_ID_TAB_HOME.Down" rect="0,72,60,24"/>
- <part name="_ID_TAB_SEARCH.Up" rect="0,0,60,24"/>
- <part name="_ID_TAB_SEARCH.Checked" rect="0,24,60,24"/>
- <part name="_ID_TAB_SEARCH.Hover" rect="0,48,60,24"/>
- <part name="_ID_TAB_SEARCH.Down" rect="0,72,60,24"/>
  <part name="_ID_TAB_TRANSFERS.Up" rect="60,0,66,24"/>
  <part name="_ID_TAB_TRANSFERS.Checked" rect="60,24,66,24"/>
  <part name="_ID_TAB_TRANSFERS.Hover" rect="60,48,66,24"/>
@@ -876,6 +963,10 @@
  <part name="_ID_TAB_IRC.Checked" rect="0,24,60,24"/>
  <part name="_ID_TAB_IRC.Hover" rect="0,48,60,24"/>
  <part name="_ID_TAB_IRC.Down" rect="0,72,60,24"/>
+ <part name="_ID_TAB_SEARCH.Up" rect="0,0,60,24"/>
+ <part name="_ID_TAB_SEARCH.Checked" rect="0,24,60,24"/>
+ <part name="_ID_TAB_SEARCH.Hover" rect="0,48,60,24"/>
+ <part name="_ID_TAB_SEARCH.Down" rect="0,72,60,24"/>
 </parts>
 <anchors>
  <anchor name="Background" rect="0,0,456,28"/>
@@ -896,16 +987,13 @@
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
+<target window="CMainTabBarCtrl.Tabbed"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <parts>
  <part name="_ID_TAB_HOME.Up" rect="60,0,66,24"/>
  <part name="_ID_TAB_HOME.Checked" rect="60,24,66,24"/>
  <part name="_ID_TAB_HOME.Hover" rect="60,48,66,24"/>
  <part name="_ID_TAB_HOME.Down" rect="60,72,66,24"/>
- <part name="_ID_TAB_SEARCH.Up" rect="200,0,80,24"/>
- <part name="_ID_TAB_SEARCH.Checked" rect="200,24,80,24"/>
- <part name="_ID_TAB_SEARCH.Hover" rect="200,48,80,24"/>
- <part name="_ID_TAB_SEARCH.Down" rect="200,72,80,24"/>
  <part name="_ID_TAB_TRANSFERS.Up" rect="126,0,74,24"/>
  <part name="_ID_TAB_TRANSFERS.Checked" rect="126,24,74,24"/>
  <part name="_ID_TAB_TRANSFERS.Hover" rect="126,48,74,24"/>
@@ -926,16 +1014,20 @@
  <part name="_ID_TAB_IRC.Checked" rect="0,24,60,24"/>
  <part name="_ID_TAB_IRC.Hover" rect="0,48,60,24"/>
  <part name="_ID_TAB_IRC.Down" rect="0,72,60,24"/>
+ <part name="_ID_TAB_SEARCH.Up" rect="200,0,80,24"/>
+ <part name="_ID_TAB_SEARCH.Checked" rect="200,24,80,24"/>
+ <part name="_ID_TAB_SEARCH.Hover" rect="200,48,80,24"/>
+ <part name="_ID_TAB_SEARCH.Down" rect="200,72,80,24"/>
 </parts>
 <anchors>
- <anchor name="Background" rect="0,0,538,28"/>
+ <anchor name="Background" rect="0,0,534,28"/>
  <anchor name="_ID_TAB_HOME" rect="6,2,66,24"/>
- <anchor name="_ID_TAB_SEARCH" rect="72,2,80,24"/>
- <anchor name="_ID_TAB_TRANSFERS" rect="152,2,74,24"/>
- <anchor name="_ID_TAB_NETWORK" rect="226,2,66,24"/>
- <anchor name="_ID_TAB_LIBRARY" rect="292,2,90,24"/>
- <anchor name="_ID_TAB_MEDIA" rect="382,2,90,24"/>
- <anchor name="_ID_TAB_IRC" rect="472,2,60,24"/>
+ <anchor name="_ID_TAB_TRANSFERS" rect="72,2,74,24"/>
+ <anchor name="_ID_TAB_NETWORK" rect="146,2,66,24"/>
+ <anchor name="_ID_TAB_LIBRARY" rect="212,2,90,24"/>
+ <anchor name="_ID_TAB_MEDIA" rect="302,2,90,24"/>
+ <anchor name="_ID_TAB_IRC" rect="392,2,60,24"/>
+ <anchor name="_ID_TAB_SEARCH" rect="452,2,80,24"/>
 </anchors>
 </windowSkin>
 
@@ -946,16 +1038,13 @@
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
+<target window="CMainTabBarCtrl.Tabbed"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <parts>
  <part name="_ID_TAB_HOME.Up" rect="60,0,66,24"/>
  <part name="_ID_TAB_HOME.Checked" rect="60,24,66,24"/>
  <part name="_ID_TAB_HOME.Hover" rect="60,48,66,24"/>
  <part name="_ID_TAB_HOME.Down" rect="60,72,66,24"/>
- <part name="_ID_TAB_SEARCH.Up" rect="200,0,80,24"/>
- <part name="_ID_TAB_SEARCH.Checked" rect="200,24,80,24"/>
- <part name="_ID_TAB_SEARCH.Hover" rect="200,48,80,24"/>
- <part name="_ID_TAB_SEARCH.Down" rect="200,72,80,24"/>
  <part name="_ID_TAB_TRANSFERS.Up" rect="280,0,90,24"/>
  <part name="_ID_TAB_TRANSFERS.Checked" rect="280,24,90,24"/>
  <part name="_ID_TAB_TRANSFERS.Hover" rect="280,48,90,24"/>
@@ -976,6 +1065,10 @@
  <part name="_ID_TAB_IRC.Checked" rect="0,24,60,24"/>
  <part name="_ID_TAB_IRC.Hover" rect="0,48,60,24"/>
  <part name="_ID_TAB_IRC.Down" rect="0,72,60,24"/>
+ <part name="_ID_TAB_SEARCH.Up" rect="200,0,80,24"/>
+ <part name="_ID_TAB_SEARCH.Checked" rect="200,24,80,24"/>
+ <part name="_ID_TAB_SEARCH.Hover" rect="200,48,80,24"/>
+ <part name="_ID_TAB_SEARCH.Down" rect="200,72,80,24"/>
 </parts>
 <anchors>
  <anchor name="Background" rect="0,0,534,28"/>
@@ -996,16 +1089,13 @@
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
+<target window="CMainTabBarCtrl.Tabbed"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <parts>
  <part name="_ID_TAB_HOME.Up" rect="126,0,74,24"/>
  <part name="_ID_TAB_HOME.Checked" rect="126,24,74,24"/>
  <part name="_ID_TAB_HOME.Hover" rect="126,48,74,24"/>
  <part name="_ID_TAB_HOME.Down" rect="126,72,74,24"/>
- <part name="_ID_TAB_SEARCH.Up" rect="0,0,60,24"/>
- <part name="_ID_TAB_SEARCH.Checked" rect="0,24,60,24"/>
- <part name="_ID_TAB_SEARCH.Hover" rect="0,48,60,24"/>
- <part name="_ID_TAB_SEARCH.Down" rect="0,72,60,24"/>
  <part name="_ID_TAB_TRANSFERS.Up" rect="126,0,74,24"/>
  <part name="_ID_TAB_TRANSFERS.Checked" rect="126,24,74,24"/>
  <part name="_ID_TAB_TRANSFERS.Hover" rect="126,48,74,24"/>
@@ -1026,6 +1116,10 @@
  <part name="_ID_TAB_IRC.Checked" rect="0,24,60,24"/>
  <part name="_ID_TAB_IRC.Hover" rect="0,48,60,24"/>
  <part name="_ID_TAB_IRC.Down" rect="0,72,60,24"/>
+ <part name="_ID_TAB_SEARCH.Up" rect="0,0,60,24"/>
+ <part name="_ID_TAB_SEARCH.Checked" rect="0,24,60,24"/>
+ <part name="_ID_TAB_SEARCH.Hover" rect="0,48,60,24"/>
+ <part name="_ID_TAB_SEARCH.Down" rect="0,72,60,24"/>
 </parts>
 <anchors>
  <anchor name="Background" rect="0,0,478,28"/>
@@ -1046,16 +1140,13 @@
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
+<target window="CMainTabBarCtrl.Tabbed"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <parts>
  <part name="_ID_TAB_HOME.Up" rect="126,0,74,24"/>
  <part name="_ID_TAB_HOME.Checked" rect="126,24,74,24"/>
  <part name="_ID_TAB_HOME.Hover" rect="126,48,74,24"/>
  <part name="_ID_TAB_HOME.Down" rect="126,72,74,24"/>
- <part name="_ID_TAB_SEARCH.Up" rect="60,0,66,24"/>
- <part name="_ID_TAB_SEARCH.Checked" rect="60,24,66,24"/>
- <part name="_ID_TAB_SEARCH.Hover" rect="60,48,66,24"/>
- <part name="_ID_TAB_SEARCH.Down" rect="60,72,66,24"/>
  <part name="_ID_TAB_TRANSFERS.Up" rect="126,0,74,24"/>
  <part name="_ID_TAB_TRANSFERS.Checked" rect="126,24,74,24"/>
  <part name="_ID_TAB_TRANSFERS.Hover" rect="126,48,74,24"/>
@@ -1076,6 +1167,10 @@
  <part name="_ID_TAB_IRC.Checked" rect="0,24,60,24"/>
  <part name="_ID_TAB_IRC.Hover" rect="0,48,60,24"/>
  <part name="_ID_TAB_IRC.Down" rect="0,72,60,24"/>
+ <part name="_ID_TAB_SEARCH.Up" rect="60,0,66,24"/>
+ <part name="_ID_TAB_SEARCH.Checked" rect="60,24,66,24"/>
+ <part name="_ID_TAB_SEARCH.Hover" rect="60,48,66,24"/>
+ <part name="_ID_TAB_SEARCH.Down" rect="60,72,66,24"/>
 </parts>
 <anchors>
  <anchor name="Background" rect="0,0,518,28"/>
@@ -1096,16 +1191,13 @@
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
+<target window="CMainTabBarCtrl.Tabbed"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <parts>
  <part name="_ID_TAB_HOME.Up" rect="60,0,66,24"/>
  <part name="_ID_TAB_HOME.Checked" rect="60,24,66,24"/>
  <part name="_ID_TAB_HOME.Hover" rect="60,48,66,24"/>
  <part name="_ID_TAB_HOME.Down" rect="60,72,66,24"/>
- <part name="_ID_TAB_SEARCH.Up" rect="0,0,60,24"/>
- <part name="_ID_TAB_SEARCH.Checked" rect="0,24,60,24"/>
- <part name="_ID_TAB_SEARCH.Hover" rect="0,48,60,24"/>
- <part name="_ID_TAB_SEARCH.Down" rect="0,72,60,24"/>
  <part name="_ID_TAB_TRANSFERS.Up" rect="280,0,90,24"/>
  <part name="_ID_TAB_TRANSFERS.Checked" rect="280,24,90,24"/>
  <part name="_ID_TAB_TRANSFERS.Hover" rect="280,48,90,24"/>
@@ -1126,6 +1218,10 @@
  <part name="_ID_TAB_IRC.Checked" rect="0,24,60,24"/>
  <part name="_ID_TAB_IRC.Hover" rect="0,48,60,24"/>
  <part name="_ID_TAB_IRC.Down" rect="0,72,60,24"/>
+ <part name="_ID_TAB_SEARCH.Up" rect="0,0,60,24"/>
+ <part name="_ID_TAB_SEARCH.Checked" rect="0,24,60,24"/>
+ <part name="_ID_TAB_SEARCH.Hover" rect="0,48,60,24"/>
+ <part name="_ID_TAB_SEARCH.Down" rect="0,72,60,24"/>
 </parts>
 <anchors>
  <anchor name="Background" rect="0,0,490,28"/>
@@ -1146,16 +1242,13 @@
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
+<target window="CMainTabBarCtrl.Tabbed"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <parts>
  <part name="_ID_TAB_HOME.Up" rect="60,0,66,24"/>
  <part name="_ID_TAB_HOME.Checked" rect="60,24,66,24"/>
  <part name="_ID_TAB_HOME.Hover" rect="60,48,66,24"/>
  <part name="_ID_TAB_HOME.Down" rect="60,72,66,24"/>
- <part name="_ID_TAB_SEARCH.Up" rect="60,0,66,24"/>
- <part name="_ID_TAB_SEARCH.Checked" rect="60,24,66,24"/>
- <part name="_ID_TAB_SEARCH.Hover" rect="60,48,66,24"/>
- <part name="_ID_TAB_SEARCH.Down" rect="60,72,66,24"/>
  <part name="_ID_TAB_TRANSFERS.Up" rect="126,0,74,24"/>
  <part name="_ID_TAB_TRANSFERS.Checked" rect="126,24,74,24"/>
  <part name="_ID_TAB_TRANSFERS.Hover" rect="126,48,74,24"/>
@@ -1176,6 +1269,10 @@
  <part name="_ID_TAB_IRC.Checked" rect="0,24,60,24"/>
  <part name="_ID_TAB_IRC.Hover" rect="0,48,60,24"/>
  <part name="_ID_TAB_IRC.Down" rect="0,72,60,24"/>
+ <part name="_ID_TAB_SEARCH.Up" rect="60,0,66,24"/>
+ <part name="_ID_TAB_SEARCH.Checked" rect="60,24,66,24"/>
+ <part name="_ID_TAB_SEARCH.Hover" rect="60,48,66,24"/>
+ <part name="_ID_TAB_SEARCH.Down" rect="60,72,66,24"/>
 </parts>
 <anchors>
  <anchor name="Background" rect="0,0,492,28"/>
@@ -1196,16 +1293,13 @@
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
+<target window="CMainTabBarCtrl.Tabbed"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <parts>
  <part name="_ID_TAB_HOME.Up" rect="200,0,80,24"/>
  <part name="_ID_TAB_HOME.Checked" rect="200,24,80,24"/>
  <part name="_ID_TAB_HOME.Hover" rect="200,48,80,24"/>
  <part name="_ID_TAB_HOME.Down" rect="200,72,80,24"/>
- <part name="_ID_TAB_SEARCH.Up" rect="60,0,66,24"/>
- <part name="_ID_TAB_SEARCH.Checked" rect="60,24,66,24"/>
- <part name="_ID_TAB_SEARCH.Hover" rect="60,48,66,24"/>
- <part name="_ID_TAB_SEARCH.Down" rect="60,72,66,24"/>
  <part name="_ID_TAB_TRANSFERS.Up" rect="60,0,66,24"/>
  <part name="_ID_TAB_TRANSFERS.Checked" rect="60,24,66,24"/>
  <part name="_ID_TAB_TRANSFERS.Hover" rect="60,48,66,24"/>
@@ -1226,6 +1320,10 @@
  <part name="_ID_TAB_IRC.Checked" rect="0,24,60,24"/>
  <part name="_ID_TAB_IRC.Hover" rect="0,48,60,24"/>
  <part name="_ID_TAB_IRC.Down" rect="0,72,60,24"/>
+ <part name="_ID_TAB_SEARCH.Up" rect="60,0,66,24"/>
+ <part name="_ID_TAB_SEARCH.Checked" rect="60,24,66,24"/>
+ <part name="_ID_TAB_SEARCH.Hover" rect="60,48,66,24"/>
+ <part name="_ID_TAB_SEARCH.Down" rect="60,72,66,24"/>
 </parts>
 <anchors>
  <anchor name="Background" rect="0,0,498,28"/>
@@ -1246,16 +1344,13 @@
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
+<target window="CMainTabBarCtrl.Tabbed"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <parts>
  <part name="_ID_TAB_HOME.Up" rect="60,0,66,24"/>
  <part name="_ID_TAB_HOME.Checked" rect="60,24,66,24"/>
  <part name="_ID_TAB_HOME.Hover" rect="60,48,66,24"/>
  <part name="_ID_TAB_HOME.Down" rect="60,72,66,24"/>
- <part name="_ID_TAB_SEARCH.Up" rect="0,0,60,24"/>
- <part name="_ID_TAB_SEARCH.Checked" rect="0,24,60,24"/>
- <part name="_ID_TAB_SEARCH.Hover" rect="0,48,60,24"/>
- <part name="_ID_TAB_SEARCH.Down" rect="0,72,60,24"/>
  <part name="_ID_TAB_TRANSFERS.Up" rect="280,0,90,24"/>
  <part name="_ID_TAB_TRANSFERS.Checked" rect="280,24,90,24"/>
  <part name="_ID_TAB_TRANSFERS.Hover" rect="280,48,90,24"/>
@@ -1276,6 +1371,10 @@
  <part name="_ID_TAB_IRC.Checked" rect="0,24,60,24"/>
  <part name="_ID_TAB_IRC.Hover" rect="0,48,60,24"/>
  <part name="_ID_TAB_IRC.Down" rect="0,72,60,24"/>
+ <part name="_ID_TAB_SEARCH.Up" rect="0,0,60,24"/>
+ <part name="_ID_TAB_SEARCH.Checked" rect="0,24,60,24"/>
+ <part name="_ID_TAB_SEARCH.Hover" rect="0,48,60,24"/>
+ <part name="_ID_TAB_SEARCH.Down" rect="0,72,60,24"/>
 </parts>
 <anchors>
  <anchor name="Background" rect="0,0,480,28"/>
@@ -1296,16 +1395,13 @@
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
+<target window="CMainTabBarCtrl.Tabbed"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <parts>
  <part name="_ID_TAB_HOME.Up" rect="60,0,66,24"/>
  <part name="_ID_TAB_HOME.Checked" rect="60,24,66,24"/>
  <part name="_ID_TAB_HOME.Hover" rect="60,48,66,24"/>
  <part name="_ID_TAB_HOME.Down" rect="60,72,66,24"/>
- <part name="_ID_TAB_SEARCH.Up" rect="60,0,66,24"/>
- <part name="_ID_TAB_SEARCH.Checked" rect="60,24,66,24"/>
- <part name="_ID_TAB_SEARCH.Hover" rect="60,48,66,24"/>
- <part name="_ID_TAB_SEARCH.Down" rect="60,72,66,24"/>
  <part name="_ID_TAB_TRANSFERS.Up" rect="126,0,74,24"/>
  <part name="_ID_TAB_TRANSFERS.Checked" rect="126,24,74,24"/>
  <part name="_ID_TAB_TRANSFERS.Hover" rect="126,48,74,24"/>
@@ -1326,6 +1422,10 @@
  <part name="_ID_TAB_IRC.Checked" rect="0,24,60,24"/>
  <part name="_ID_TAB_IRC.Hover" rect="0,48,60,24"/>
  <part name="_ID_TAB_IRC.Down" rect="0,72,60,24"/>
+ <part name="_ID_TAB_SEARCH.Up" rect="60,0,66,24"/>
+ <part name="_ID_TAB_SEARCH.Checked" rect="60,24,66,24"/>
+ <part name="_ID_TAB_SEARCH.Hover" rect="60,48,66,24"/>
+ <part name="_ID_TAB_SEARCH.Down" rect="60,72,66,24"/>
 </parts>
 <anchors>
  <anchor name="Background" rect="0,0,470,28"/>
@@ -1346,16 +1446,13 @@
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
+<target window="CMainTabBarCtrl.Tabbed"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <parts>
  <part name="_ID_TAB_HOME.Up" rect="0,0,60,24"/>
  <part name="_ID_TAB_HOME.Checked" rect="0,24,60,24"/>
  <part name="_ID_TAB_HOME.Hover" rect="0,48,60,24"/>
  <part name="_ID_TAB_HOME.Down" rect="0,72,60,24"/>
- <part name="_ID_TAB_SEARCH.Up" rect="60,0,66,24"/>
- <part name="_ID_TAB_SEARCH.Checked" rect="60,24,66,24"/>
- <part name="_ID_TAB_SEARCH.Hover" rect="60,48,66,24"/>
- <part name="_ID_TAB_SEARCH.Down" rect="60,72,66,24"/>
  <part name="_ID_TAB_TRANSFERS.Up" rect="370,0,100,24"/>
  <part name="_ID_TAB_TRANSFERS.Checked" rect="370,24,100,24"/>
  <part name="_ID_TAB_TRANSFERS.Hover" rect="370,48,100,24"/>
@@ -1376,6 +1473,10 @@
  <part name="_ID_TAB_IRC.Checked" rect="0,24,60,24"/>
  <part name="_ID_TAB_IRC.Hover" rect="0,48,60,24"/>
  <part name="_ID_TAB_IRC.Down" rect="0,72,60,24"/>
+ <part name="_ID_TAB_SEARCH.Up" rect="60,0,66,24"/>
+ <part name="_ID_TAB_SEARCH.Checked" rect="60,24,66,24"/>
+ <part name="_ID_TAB_SEARCH.Hover" rect="60,48,66,24"/>
+ <part name="_ID_TAB_SEARCH.Down" rect="60,72,66,24"/>
 </parts>
 <anchors>
  <anchor name="Background" rect="0,0,492,28"/>
@@ -1396,16 +1497,13 @@
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
+<target window="CMainTabBarCtrl.Tabbed"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <parts>
  <part name="_ID_TAB_HOME.Up" rect="60,0,66,24"/>
  <part name="_ID_TAB_HOME.Checked" rect="60,24,66,24"/>
  <part name="_ID_TAB_HOME.Hover" rect="60,48,66,24"/>
  <part name="_ID_TAB_HOME.Down" rect="60,72,66,24"/>
- <part name="_ID_TAB_SEARCH.Up" rect="0,0,60,24"/>
- <part name="_ID_TAB_SEARCH.Checked" rect="0,24,60,24"/>
- <part name="_ID_TAB_SEARCH.Hover" rect="0,48,60,24"/>
- <part name="_ID_TAB_SEARCH.Down" rect="0,72,60,24"/>
  <part name="_ID_TAB_TRANSFERS.Up" rect="200,0,80,24"/>
  <part name="_ID_TAB_TRANSFERS.Checked" rect="200,24,80,24"/>
  <part name="_ID_TAB_TRANSFERS.Hover" rect="200,48,80,24"/>
@@ -1426,6 +1524,10 @@
  <part name="_ID_TAB_IRC.Checked" rect="0,24,60,24"/>
  <part name="_ID_TAB_IRC.Hover" rect="0,48,60,24"/>
  <part name="_ID_TAB_IRC.Down" rect="0,72,60,24"/>
+ <part name="_ID_TAB_SEARCH.Up" rect="0,0,60,24"/>
+ <part name="_ID_TAB_SEARCH.Checked" rect="0,24,60,24"/>
+ <part name="_ID_TAB_SEARCH.Hover" rect="0,48,60,24"/>
+ <part name="_ID_TAB_SEARCH.Down" rect="0,72,60,24"/>
 </parts>
 <anchors>
  <anchor name="Background" rect="0,0,528,28"/>
@@ -1446,16 +1548,13 @@
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
+<target window="CMainTabBarCtrl.Tabbed"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <parts>
  <part name="_ID_TAB_HOME.Up" rect="60,0,66,24"/>
  <part name="_ID_TAB_HOME.Checked" rect="60,24,66,24"/>
  <part name="_ID_TAB_HOME.Hover" rect="60,48,66,24"/>
  <part name="_ID_TAB_HOME.Down" rect="60,72,66,24"/>
- <part name="_ID_TAB_SEARCH.Up" rect="60,0,66,24"/>
- <part name="_ID_TAB_SEARCH.Checked" rect="60,24,66,24"/>
- <part name="_ID_TAB_SEARCH.Hover" rect="60,48,66,24"/>
- <part name="_ID_TAB_SEARCH.Down" rect="60,72,66,24"/>
  <part name="_ID_TAB_TRANSFERS.Up" rect="60,0,66,24"/>
  <part name="_ID_TAB_TRANSFERS.Checked" rect="60,24,66,24"/>
  <part name="_ID_TAB_TRANSFERS.Hover" rect="60,48,66,24"/>
@@ -1476,6 +1575,10 @@
  <part name="_ID_TAB_IRC.Checked" rect="0,24,60,24"/>
  <part name="_ID_TAB_IRC.Hover" rect="0,48,60,24"/>
  <part name="_ID_TAB_IRC.Down" rect="0,72,60,24"/>
+ <part name="_ID_TAB_SEARCH.Up" rect="60,0,66,24"/>
+ <part name="_ID_TAB_SEARCH.Checked" rect="60,24,66,24"/>
+ <part name="_ID_TAB_SEARCH.Hover" rect="60,48,66,24"/>
+ <part name="_ID_TAB_SEARCH.Down" rect="60,72,66,24"/>
 </parts>
 <anchors>
  <anchor name="Background" rect="0,0,476,28"/>
@@ -1496,16 +1599,13 @@
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
+<target window="CMainTabBarCtrl.Tabbed"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <parts>
  <part name="_ID_TAB_HOME.Up" rect="126,0,74,24"/>
  <part name="_ID_TAB_HOME.Checked" rect="126,24,74,24"/>
  <part name="_ID_TAB_HOME.Hover" rect="126,48,74,24"/>
  <part name="_ID_TAB_HOME.Down" rect="126,72,74,24"/>
- <part name="_ID_TAB_SEARCH.Up" rect="0,0,60,24"/>
- <part name="_ID_TAB_SEARCH.Checked" rect="0,24,60,24"/>
- <part name="_ID_TAB_SEARCH.Hover" rect="0,48,60,24"/>
- <part name="_ID_TAB_SEARCH.Down" rect="0,72,60,24"/>
  <part name="_ID_TAB_TRANSFERS.Up" rect="126,0,74,24"/>
  <part name="_ID_TAB_TRANSFERS.Checked" rect="126,24,74,24"/>
  <part name="_ID_TAB_TRANSFERS.Hover" rect="126,48,74,24"/>
@@ -1526,6 +1626,10 @@
  <part name="_ID_TAB_IRC.Checked" rect="0,24,60,24"/>
  <part name="_ID_TAB_IRC.Hover" rect="0,48,60,24"/>
  <part name="_ID_TAB_IRC.Down" rect="0,72,60,24"/>
+ <part name="_ID_TAB_SEARCH.Up" rect="0,0,60,24"/>
+ <part name="_ID_TAB_SEARCH.Checked" rect="0,24,60,24"/>
+ <part name="_ID_TAB_SEARCH.Hover" rect="0,48,60,24"/>
+ <part name="_ID_TAB_SEARCH.Down" rect="0,72,60,24"/>
 </parts>
 <anchors>
  <anchor name="Background" rect="0,0,478,28"/>
@@ -1546,16 +1650,13 @@
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
+<target window="CMainTabBarCtrl.Tabbed"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <parts>
  <part name="_ID_TAB_HOME.Up" rect="60,0,66,24"/>
  <part name="_ID_TAB_HOME.Checked" rect="60,24,66,24"/>
  <part name="_ID_TAB_HOME.Hover" rect="60,48,66,24"/>
  <part name="_ID_TAB_HOME.Down" rect="60,72,66,24"/>
- <part name="_ID_TAB_SEARCH.Up" rect="60,0,66,24"/>
- <part name="_ID_TAB_SEARCH.Checked" rect="60,24,66,24"/>
- <part name="_ID_TAB_SEARCH.Hover" rect="60,48,66,24"/>
- <part name="_ID_TAB_SEARCH.Down" rect="60,72,66,24"/>
  <part name="_ID_TAB_TRANSFERS.Up" rect="200,0,80,24"/>
  <part name="_ID_TAB_TRANSFERS.Checked" rect="200,24,80,24"/>
  <part name="_ID_TAB_TRANSFERS.Hover" rect="200,48,80,24"/>
@@ -1576,6 +1677,10 @@
  <part name="_ID_TAB_IRC.Checked" rect="0,24,60,24"/>
  <part name="_ID_TAB_IRC.Hover" rect="0,48,60,24"/>
  <part name="_ID_TAB_IRC.Down" rect="0,72,60,24"/>
+ <part name="_ID_TAB_SEARCH.Up" rect="60,0,66,24"/>
+ <part name="_ID_TAB_SEARCH.Checked" rect="60,24,66,24"/>
+ <part name="_ID_TAB_SEARCH.Hover" rect="60,48,66,24"/>
+ <part name="_ID_TAB_SEARCH.Down" rect="60,72,66,24"/>
 </parts>
 <anchors>
  <anchor name="Background" rect="0,0,482,28"/>
@@ -1596,16 +1701,13 @@
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
+<target window="CMainTabBarCtrl.Tabbed"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <parts>
  <part name="_ID_TAB_HOME.Up" rect="0,0,60,24"/>
  <part name="_ID_TAB_HOME.Checked" rect="0,24,60,24"/>
  <part name="_ID_TAB_HOME.Hover" rect="0,48,60,24"/>
  <part name="_ID_TAB_HOME.Down" rect="0,72,60,24"/>
- <part name="_ID_TAB_SEARCH.Up" rect="0,0,60,24"/>
- <part name="_ID_TAB_SEARCH.Checked" rect="0,24,60,24"/>
- <part name="_ID_TAB_SEARCH.Hover" rect="0,48,60,24"/>
- <part name="_ID_TAB_SEARCH.Down" rect="0,72,60,24"/>
  <part name="_ID_TAB_TRANSFERS.Up" rect="280,0,90,24"/>
  <part name="_ID_TAB_TRANSFERS.Checked" rect="280,24,90,24"/>
  <part name="_ID_TAB_TRANSFERS.Hover" rect="280,48,90,24"/>
@@ -1626,6 +1728,10 @@
  <part name="_ID_TAB_IRC.Checked" rect="0,24,60,24"/>
  <part name="_ID_TAB_IRC.Hover" rect="0,48,60,24"/>
  <part name="_ID_TAB_IRC.Down" rect="0,72,60,24"/>
+ <part name="_ID_TAB_SEARCH.Up" rect="0,0,60,24"/>
+ <part name="_ID_TAB_SEARCH.Checked" rect="0,24,60,24"/>
+ <part name="_ID_TAB_SEARCH.Hover" rect="0,48,60,24"/>
+ <part name="_ID_TAB_SEARCH.Down" rect="0,72,60,24"/>
 </parts>
 <anchors>
  <anchor name="Background" rect="0,0,502,28"/>
@@ -1646,16 +1752,13 @@
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
+<target window="CMainTabBarCtrl.Tabbed"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <parts>
  <part name="_ID_TAB_HOME.Up" rect="200,0,80,24"/>
  <part name="_ID_TAB_HOME.Checked" rect="200,24,80,24"/>
  <part name="_ID_TAB_HOME.Hover" rect="200,48,80,24"/>
  <part name="_ID_TAB_HOME.Down" rect="200,72,80,24"/>
- <part name="_ID_TAB_SEARCH.Up" rect="0,0,60,24"/>
- <part name="_ID_TAB_SEARCH.Checked" rect="0,24,60,24"/>
- <part name="_ID_TAB_SEARCH.Hover" rect="0,48,60,24"/>
- <part name="_ID_TAB_SEARCH.Down" rect="0,72,60,24"/>
  <part name="_ID_TAB_TRANSFERS.Up" rect="200,0,80,24"/>
  <part name="_ID_TAB_TRANSFERS.Checked" rect="200,24,80,24"/>
  <part name="_ID_TAB_TRANSFERS.Hover" rect="200,48,80,24"/>
@@ -1676,6 +1779,10 @@
  <part name="_ID_TAB_IRC.Checked" rect="0,24,60,24"/>
  <part name="_ID_TAB_IRC.Hover" rect="0,48,60,24"/>
  <part name="_ID_TAB_IRC.Down" rect="0,72,60,24"/>
+ <part name="_ID_TAB_SEARCH.Up" rect="0,0,60,24"/>
+ <part name="_ID_TAB_SEARCH.Checked" rect="0,24,60,24"/>
+ <part name="_ID_TAB_SEARCH.Hover" rect="0,48,60,24"/>
+ <part name="_ID_TAB_SEARCH.Down" rect="0,72,60,24"/>
 </parts>
 <anchors>
  <anchor name="Background" rect="0,0,492,28"/>
@@ -1696,16 +1803,13 @@
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
+<target window="CMainTabBarCtrl.Tabbed"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <parts>
  <part name="_ID_TAB_HOME.Up" rect="60,0,66,24"/>
  <part name="_ID_TAB_HOME.Checked" rect="60,24,66,24"/>
  <part name="_ID_TAB_HOME.Hover" rect="60,48,66,24"/>
  <part name="_ID_TAB_HOME.Down" rect="60,72,66,24"/>
- <part name="_ID_TAB_SEARCH.Up" rect="60,0,66,24"/>
- <part name="_ID_TAB_SEARCH.Checked" rect="60,24,66,24"/>
- <part name="_ID_TAB_SEARCH.Hover" rect="60,48,66,24"/>
- <part name="_ID_TAB_SEARCH.Down" rect="60,72,66,24"/>
  <part name="_ID_TAB_TRANSFERS.Up" rect="60,0,66,24"/>
  <part name="_ID_TAB_TRANSFERS.Checked" rect="60,24,66,24"/>
  <part name="_ID_TAB_TRANSFERS.Hover" rect="60,48,66,24"/>
@@ -1726,6 +1830,10 @@
  <part name="_ID_TAB_IRC.Checked" rect="0,24,60,24"/>
  <part name="_ID_TAB_IRC.Hover" rect="0,48,60,24"/>
  <part name="_ID_TAB_IRC.Down" rect="0,72,60,24"/>
+ <part name="_ID_TAB_SEARCH.Up" rect="60,0,66,24"/>
+ <part name="_ID_TAB_SEARCH.Checked" rect="60,24,66,24"/>
+ <part name="_ID_TAB_SEARCH.Hover" rect="60,48,66,24"/>
+ <part name="_ID_TAB_SEARCH.Down" rect="60,72,66,24"/>
 </parts>
 <anchors>
  <anchor name="Background" rect="0,0,514,28"/>
@@ -1746,16 +1854,13 @@
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
+<target window="CMainTabBarCtrl.Tabbed"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <parts>
  <part name="_ID_TAB_HOME.Up" rect="0,0,60,24"/>
  <part name="_ID_TAB_HOME.Checked" rect="0,24,60,24"/>
  <part name="_ID_TAB_HOME.Hover" rect="0,48,60,24"/>
  <part name="_ID_TAB_HOME.Down" rect="0,72,60,24"/>
- <part name="_ID_TAB_SEARCH.Up" rect="0,0,60,24"/>
- <part name="_ID_TAB_SEARCH.Checked" rect="0,24,60,24"/>
- <part name="_ID_TAB_SEARCH.Hover" rect="0,48,60,24"/>
- <part name="_ID_TAB_SEARCH.Down" rect="0,72,60,24"/>
  <part name="_ID_TAB_TRANSFERS.Up" rect="0,0,60,24"/>
  <part name="_ID_TAB_TRANSFERS.Checked" rect="0,24,60,24"/>
  <part name="_ID_TAB_TRANSFERS.Hover" rect="0,48,60,24"/>
@@ -1776,6 +1881,10 @@
  <part name="_ID_TAB_IRC.Checked" rect="0,24,60,24"/>
  <part name="_ID_TAB_IRC.Hover" rect="0,48,60,24"/>
  <part name="_ID_TAB_IRC.Down" rect="0,72,60,24"/>
+ <part name="_ID_TAB_SEARCH.Up" rect="0,0,60,24"/>
+ <part name="_ID_TAB_SEARCH.Checked" rect="0,24,60,24"/>
+ <part name="_ID_TAB_SEARCH.Hover" rect="0,48,60,24"/>
+ <part name="_ID_TAB_SEARCH.Down" rect="0,72,60,24"/>
 </parts>
 <anchors>
  <anchor name="Background" rect="0,0,452,28"/>
@@ -1796,16 +1905,13 @@
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
+<target window="CMainTabBarCtrl.Tabbed"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <parts>
  <part name="_ID_TAB_HOME.Up" rect="0,0,60,24"/>
  <part name="_ID_TAB_HOME.Checked" rect="0,24,60,24"/>
  <part name="_ID_TAB_HOME.Hover" rect="0,48,60,24"/>
  <part name="_ID_TAB_HOME.Down" rect="0,72,60,24"/>
- <part name="_ID_TAB_SEARCH.Up" rect="0,0,60,24"/>
- <part name="_ID_TAB_SEARCH.Checked" rect="0,24,60,24"/>
- <part name="_ID_TAB_SEARCH.Hover" rect="0,48,60,24"/>
- <part name="_ID_TAB_SEARCH.Down" rect="0,72,60,24"/>
  <part name="_ID_TAB_TRANSFERS.Up" rect="0,0,60,24"/>
  <part name="_ID_TAB_TRANSFERS.Checked" rect="0,24,60,24"/>
  <part name="_ID_TAB_TRANSFERS.Hover" rect="0,48,60,24"/>
@@ -1826,6 +1932,10 @@
  <part name="_ID_TAB_IRC.Checked" rect="0,24,60,24"/>
  <part name="_ID_TAB_IRC.Hover" rect="0,48,60,24"/>
  <part name="_ID_TAB_IRC.Down" rect="0,72,60,24"/>
+ <part name="_ID_TAB_SEARCH.Up" rect="0,0,60,24"/>
+ <part name="_ID_TAB_SEARCH.Checked" rect="0,24,60,24"/>
+ <part name="_ID_TAB_SEARCH.Hover" rect="0,48,60,24"/>
+ <part name="_ID_TAB_SEARCH.Down" rect="0,72,60,24"/>
 </parts>
 <anchors>
  <anchor name="Background" rect="0,0,432,28"/>
@@ -1846,16 +1956,13 @@
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
+<target window="CMainTabBarCtrl.Tabbed"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <parts>
  <part name="_ID_TAB_HOME.Up" rect="0,0,60,24"/>
  <part name="_ID_TAB_HOME.Checked" rect="0,24,60,24"/>
  <part name="_ID_TAB_HOME.Hover" rect="0,48,60,24"/>
  <part name="_ID_TAB_HOME.Down" rect="0,72,60,24"/>
- <part name="_ID_TAB_SEARCH.Up" rect="0,0,60,24"/>
- <part name="_ID_TAB_SEARCH.Checked" rect="0,24,60,24"/>
- <part name="_ID_TAB_SEARCH.Hover" rect="0,48,60,24"/>
- <part name="_ID_TAB_SEARCH.Down" rect="0,72,60,24"/>
  <part name="_ID_TAB_TRANSFERS.Up" rect="0,0,60,24"/>
  <part name="_ID_TAB_TRANSFERS.Checked" rect="0,24,60,24"/>
  <part name="_ID_TAB_TRANSFERS.Hover" rect="0,48,60,24"/>
@@ -1876,6 +1983,10 @@
  <part name="_ID_TAB_IRC.Checked" rect="0,24,60,24"/>
  <part name="_ID_TAB_IRC.Hover" rect="0,48,60,24"/>
  <part name="_ID_TAB_IRC.Down" rect="0,72,60,24"/>
+ <part name="_ID_TAB_SEARCH.Up" rect="0,0,60,24"/>
+ <part name="_ID_TAB_SEARCH.Checked" rect="0,24,60,24"/>
+ <part name="_ID_TAB_SEARCH.Hover" rect="0,48,60,24"/>
+ <part name="_ID_TAB_SEARCH.Down" rect="0,72,60,24"/>
 </parts>
 <anchors>
  <anchor name="Background" rect="0,0,438,28"/>

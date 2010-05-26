@@ -170,10 +170,11 @@ CPeerProjectApp::CPeerProjectApp()
 	, m_nPhysicalMemory			( 0ull )
 	, m_bUPnPPortsForwarded 	( TRI_UNKNOWN )
 	, m_bUPnPDeviceConnected	( TRI_UNKNOWN )
+	, m_bMenuWasVisible			( FALSE )
 	, m_nLastInput				( 0ul )
 	, m_hHookKbd				( NULL )
 	, m_hHookMouse				( NULL )
-	, m_bMenuWasVisible			( FALSE )
+	, m_nMouseWheel 			( 3 )
 	, m_nFontQuality			( DEFAULT_QUALITY )
 
 	, m_hCryptProv				( NULL )
@@ -956,7 +957,7 @@ void CPeerProjectApp::InitResources()
 
 	LoadCountry();	// GeoIP
 
-	// Load LibGFL in a custom way, so PeerProject plugins can use this library also when not in its search path (very useful when running inside Visual Studio)
+	// Load LibGFL in a custom way, so PeerProject plugins can use this library also when not in its search path (Plugins folder, and useful when running inside Visual Studio)
 	m_hLibGFL = CustomLoadLibrary( _T("LibGFL290.dll") );
 
 	// Use GlobalMemoryStatusEx if possible (WinXP)
@@ -1025,6 +1026,14 @@ void CPeerProjectApp::InitResources()
 	m_hHookKbd   = SetWindowsHookEx( WH_KEYBOARD, (HOOKPROC)KbdHook, NULL, AfxGetThread()->m_nThreadID );
 	m_hHookMouse = SetWindowsHookEx( WH_MOUSE, (HOOKPROC)MouseHook, NULL, AfxGetThread()->m_nThreadID );
 	m_nLastInput = (DWORD)time( NULL );
+
+	if( SystemParametersInfo( SPI_GETWHEELSCROLLLINES, 0, &m_nMouseWheel, 0 ) )
+	{
+		if ( m_nMouseWheel > 20 )			// Catch WHEEL_PAGESCROLL (UINT_MAX)
+			m_nMouseWheel = 20;				// ToDo: Better handling rare mouse wheel set to scroll by page?
+		else if ( m_nMouseWheel < 1 )
+			m_nMouseWheel = 3;				// Default lines set at initialization
+	}
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -1076,8 +1085,7 @@ void CPeerProjectApp::ShowStartupText()
 		CString strLine = strBody.SpanExcluding( _T("\r\n") );
 		strBody = strBody.Mid( strLine.GetLength() + 1 );
 
-		strLine.TrimLeft();
-		strLine.TrimRight();
+		strLine.Trim();
 		if ( strLine.IsEmpty() ) continue;
 
 		if ( strLine == _T(".") ) strLine.Empty();
@@ -1343,142 +1351,98 @@ BOOL CPeerProjectApp::InternalURI(LPCTSTR pszURI)
 	if ( pMainWnd == NULL ) return FALSE;
 
 	CString strURI( pszURI );
+	strURI = strURI.Left( 24 ).MakeLower(); 	// Most chars needed to determine protocol or command
 
-	if ( strURI.Find( _T("peer:") ) != 0 )
+	if ( strURI.Find( _T("command:") ) != 0 )
 	{
-		if ( strURI.Find( _T("http://") ) == 0 ||
+		if ( strURI.Find( _T("magnet:") ) == 0 ||
+			strURI.Find( _T("http://") ) == 0 ||
 			strURI.Find( _T("https://") ) == 0 ||
 			strURI.Find( _T("ftp://") ) == 0 ||
 			strURI.Find( _T("mailto:") ) == 0 ||
-			strURI.Find( _T("aim:") ) == 0 ||
-			strURI.Find( _T("magnet:") ) == 0 ||
 			strURI.Find( _T("gnutella:") ) == 0 ||
 			strURI.Find( _T("gnutella1:") ) == 0 ||
 			strURI.Find( _T("gnutella2:") ) == 0 ||
 			strURI.Find( _T("shareaza:") ) == 0 ||
 			strURI.Find( _T("peerproject:") ) == 0 ||
-			strURI.Find( _T("peer:") ) == 0 ||
 			strURI.Find( _T("ed2k:") ) == 0 ||
 			strURI.Find( _T("g2:") ) == 0 ||
 			strURI.Find( _T("gwc:") ) == 0 ||
 			strURI.Find( _T("uhc:") ) == 0 ||
 			strURI.Find( _T("ukhl:") ) == 0 ||
 			strURI.Find( _T("gnet:") ) == 0 ||
+			strURI.Find( _T("peer:") ) == 0 ||
+			strURI.Find( _T("p2p:") ) == 0 ||
 			strURI.Find( _T("mp2p:") ) == 0 ||
 			strURI.Find( _T("foxy:") ) == 0 ||
+			strURI.Find( _T("aim:") ) == 0 ||
 			strURI.Find( _T("sig2dat:") ) == 0 )
 		{
 			ShellExecute( pMainWnd->GetSafeHwnd(), _T("open"),
-				strURI, NULL, NULL, SW_SHOWNORMAL );
+				pszURI, NULL, NULL, SW_SHOWNORMAL );
 
 			return TRUE;
 		}
 
-		theApp.Message( MSG_ERROR, _T("Unknown internal URI:  ") + strURI );
-
+		theApp.Message( MSG_ERROR, _T("Unknown link URI:  ") + strURI );
 		return FALSE;
 	}
 
-	// "peer:" prefixed internal utilities:
+	// Specific "command:" prefixed internal utilities:
 
-	if ( strURI.Find( _T("peer:command:") ) == 0 )
+	if ( strURI.Find( _T(":id_"), 6 ) > 1 ) 			// Common "command:ID_"
 	{
-		if ( UINT nCmdID = CoolInterface.NameToID( pszURI + 13 ) )
-			pMainWnd->PostMessage( WM_COMMAND, nCmdID );
-	}
-	else if ( strURI.Find( _T("peer:launch:") ) == 0 )
-	{
-		DWORD nIndex = 0;
-		_stscanf( (LPCTSTR)strURI + 12, _T("%lu"), &nIndex );
-
-		CSingleLock oLock( &Library.m_pSection, TRUE );
-		if ( CLibraryFile* pFile = Library.LookupFile( nIndex ) )
+		if ( UINT nCmdID = CoolInterface.NameToID( pszURI + 8 ) )
 		{
-			if ( pFile->IsAvailable() )
-			{
-				CString strPath = pFile->GetPath();
-				oLock.Unlock();
-				CFileExecutor::Execute( strPath, FALSE );
-			}
+			pMainWnd->PostMessage( WM_COMMAND, nCmdID );
+			return TRUE;
 		}
 	}
-	else if ( strURI == _T("peer:connect") )
-	{
-		pMainWnd->PostMessage( WM_COMMAND, ID_NETWORK_CONNECT );
-	}
-	else if ( strURI == _T("peer:disconnect") )
-	{
-		pMainWnd->PostMessage( WM_COMMAND, ID_NETWORK_DISCONNECT );
-	}
-	else if ( strURI == _T("peer:shell:downloads") )
+	else if ( strURI.Find( _T(":shell:"), 6 ) > 1 ) 	// Assume "command:shell:downloads"
 	{
 		ShellExecute( pMainWnd->GetSafeHwnd(), _T("open"),
 			Settings.Downloads.CompletePath, NULL, NULL, SW_SHOWNORMAL );
+		if ( strURI.Find( _T(":downloads"), 12 ) > 1 )
+			return TRUE;
 	}
-	else if ( strURI == _T("peer:downloads") )
-	{
-		pMainWnd->PostMessage( WM_COMMAND, ID_VIEW_DOWNLOADS );
-	}
-	else if ( strURI == _T("peer:uploads") )
-	{
-		pMainWnd->PostMessage( WM_COMMAND, ID_VIEW_UPLOADS );
-	}
-	else if ( strURI == _T("peer:search") )
-	{
-		pMainWnd->PostMessage( WM_COMMAND, ID_TAB_SEARCH );
-	}
-	else if ( strURI == _T("peer:neighbours") )
-	{
-		pMainWnd->PostMessage( WM_COMMAND, ID_VIEW_NEIGHBOURS );
-	}
-	else if ( strURI == _T("peer:upgrade") )
+	else if ( strURI.Find( _T(":update"), 6 ) > 1 ) 	// Version notice "command:update"
 	{
 		pMainWnd->PostMessage( WM_VERSIONCHECK, VC_CONFIRM );
+		return TRUE;
 	}
-	else if ( strURI == _T("peer:options") )
-	{
-		pMainWnd->PostMessage( WM_COMMAND, ID_TOOLS_SETTINGS );
-	}
-	else if ( strURI == _T("peer:options:skins") )
-	{
-		pMainWnd->PostMessage( WM_COMMAND, ID_TOOLS_SKIN );
-	}
-	else if ( strURI == _T("peer:wizard") )
-	{
-		pMainWnd->PostMessage( WM_COMMAND, ID_TOOLS_WIZARD );
-	}
-	else if ( strURI == _T("peer:library") )
-	{
-		pMainWnd->PostMessage( WM_COMMAND, ID_VIEW_LIBRARY );
-	}
-	else if ( strURI == _T("peer:library:downloads") )
-	{
-		pMainWnd->PostMessage( WM_COMMAND, ID_VIEW_LIBRARY );
-	}
-	else if ( strURI == _T("peer:library:history") )
-	{
-		pMainWnd->PostMessage( WM_COMMAND, ID_VIEW_LIBRARY );
-		pMainWnd->PostMessage( WM_COMMAND, ID_LIBRARY_TREE_VIRTUAL );
-	}
-	else if ( strURI.Find( _T("peer:library:/") ) == 0 )
-	{
-		pMainWnd->PostMessage( WM_COMMAND, ID_VIEW_LIBRARY );
-		pMainWnd->PostMessage( WM_COMMAND, ID_LIBRARY_TREE_VIRTUAL );
-	}
-	else if ( strURI.Find( _T("peer:windowptr:") ) == 0 )	// ToDo: Unused, but useful?
-	{
-		CChildWnd* pChild = NULL;
-		_stscanf( (LPCTSTR)strURI + 15, _T("%lu"), &pChild );
-		if ( pMainWnd->m_pWindows.Check( pChild ) ) pChild->MDIActivate();
-	}
-	else
-	{
-		theApp.Message( MSG_ERROR, _T("Unknown internal command:  ") + strURI );
+	//else if ( strURI.Find( _T(":launch:"), 6 ) > 0 )	// Unused but useful? "command:launch:"
+	//{
+	//	DWORD nIndex = 0;
+	//	_stscanf( (LPCTSTR)strURI + 12, _T("%lu"), &nIndex );
+	//
+	//	CSingleLock oLock( &Library.m_pSection, TRUE );
+	//	if ( CLibraryFile* pFile = Library.LookupFile( nIndex ) )
+	//	{
+	//		if ( pFile->IsAvailable() )
+	//		{
+	//			CString strPath = pFile->GetPath();
+	//			oLock.Unlock();
+	//			CFileExecutor::Execute( strPath, FALSE );
+	//			return TRUE;
+	//		}
+	//	}
+	//	oLock.Unlock();
+	//}
+	//else if ( strURI.Find( _T(":windowptr:"), 6 ) > 0 ) // Unused but useful? "command:windowptr:"
+	//{
+	//	CChildWnd* pChild = NULL;
+	//	_stscanf( (LPCTSTR)strURI + 15, _T("%lu"), &pChild );
+	//	if ( pMainWnd->m_pWindows.Check( pChild ) )
+	//	{
+	//		pChild->MDIActivate();
+	//		return TRUE;
+	//	}
+	//}
 
-		return FALSE;
-	}
+	//if ( strURI.Find( _T("page:") ) == 0 )			// "page:CSettingsPage" defined in PageSettingsRich
 
-	return TRUE;
+	theApp.Message( MSG_ERROR, _T("Unknown internal command:  ") + CString( pszURI ) );
+	return FALSE;
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -1518,9 +1482,8 @@ void Split(const CString& strSource, TCHAR cDelimiter, CStringArray& pAddIt, BOO
 		int len = c ? (int) ( c - start ) : (int) _tcslen( start );
 		if ( len > 0 )
 			pAddIt.Add( CString( start, len ) );
-		else
-			if ( bAddFirstEmpty && ( start == strSource ) )
-				pAddIt.Add( CString() );
+		else if ( bAddFirstEmpty && ( start == strSource ) )
+			pAddIt.Add( CString() );
 		if ( ! c )
 			break;
 		start = c;
@@ -1607,7 +1570,7 @@ LPCTSTR _tcsistr(LPCTSTR pszString, LPCTSTR pszSubString)
 		}
 
 		// If substring matched return pointer to the start of the match
-		if ( !pszSubString[nChar] )
+		if ( ! pszSubString[nChar] )
 			return pszString;
 
 		// Move on to next character and continue search
@@ -3029,7 +2992,9 @@ TCHAR CLowerCaseTable::operator()(TCHAR cLookup) const
 			return cLookup;
 	}
 	else
+	{
 		return cTable[ cLookup ];
+	}
 }
 
 CString& CLowerCaseTable::operator()(CString& strSource) const
@@ -3046,7 +3011,9 @@ CString& CLowerCaseTable::operator()(CString& strSource) const
 				*str = (TCHAR)( cLookup + 32 );
 		}
 		else
+		{
 			*str = cTable[ cLookup ];
+		}
 	}
 	strSource.ReleaseBuffer( nLength );
 

@@ -516,10 +516,10 @@ BEGIN
 	LTEXT			"%",IDC_STATIC,266,91,8,12,SS_CENTERIMAGE,WS_EX_TRANSPARENT
 	GROUPBOX		"&Store Torrents Here:",IDC_STATIC,6,114,270,35,WS_GROUP
 	EDITTEXT		IDC_TORRENTS_FOLDER,14,127,225,12,ES_AUTOHSCROLL | ES_READONLY | NOT WS_TABSTOP
-	PUSHBUTTON		"",IDC_TORRENTS_BROWSE,245,123,23,20
+	PUSHBUTTON		"",IDC_TORRENTS_BROWSE,245,123,22,20
 	GROUPBOX		"&Torrent Creator:",IDC_STATIC,6,152,270,56,WS_GROUP
 	EDITTEXT		IDC_TORRENTS_TORRENTMAKER,14,166,225,12,ES_AUTOHSCROLL | ES_READONLY | NOT WS_TABSTOP
-	PUSHBUTTON		"",IDC_TORRENTS_TORRENTMAKERBROWSE,245,162,23,20
+	PUSHBUTTON		"",IDC_TORRENTS_TORRENTMAKERBROWSE,245,162,22,20
 	RTEXT			"Default Tracker:",IDC_STATIC,14,188,68,12,SS_CENTERIMAGE
 	EDITTEXT		IDC_TORRENT_DEFAULTTRACKER,84,188,184,12,ES_AUTOHSCROLL
 END
@@ -555,10 +555,10 @@ FONT 8, "Tahoma", 0, 0, 0x1
 BEGIN
 	GROUPBOX		"Save Default &Completed Files Here:",IDC_STATIC,6,5,270,36,WS_GROUP
 	EDITTEXT		IDC_DOWNLOADS_FOLDER,15,19,225,12,ES_AUTOHSCROLL | ES_READONLY
-	PUSHBUTTON		"",IDC_DOWNLOADS_BROWSE,245,15,23,20
+	PUSHBUTTON		"",IDC_DOWNLOADS_BROWSE,246,15,22,20
 	GROUPBOX		"Store Temporary &Incomplete Files Here:",IDC_STATIC,6,45,270,36,WS_GROUP
 	EDITTEXT		IDC_INCOMPLETE_FOLDER,16,59,225,12,ES_AUTOHSCROLL | ES_READONLY
-	PUSHBUTTON		"",IDC_INCOMPLETE_BROWSE,245,55,23,20
+	PUSHBUTTON		"",IDC_INCOMPLETE_BROWSE,246,55,22,20
 	GROUPBOX		"&Number of Downloads:",IDC_STATIC,6,86,130,76,WS_GROUP
 	LTEXT			"Maximum Files:",IDC_STATIC,15,102,70,12,SS_CENTERIMAGE
 	EDITTEXT		IDC_MAX_FILES,90,102,36,12,ES_AUTOHSCROLL | ES_NUMBER
@@ -707,8 +707,8 @@ BEGIN
 	LTEXT			"Port:    (Any 4-5 digit number)",IDC_STATIC,168,98,120,12
 	EDITTEXT		IDC_WIZARD_PORT,168,112,54,12,ES_NUMBER
 	CONTROL			"Random",IDC_WIZARD_RANDOM,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,230,112,92,12
-	LTEXT			"Status:",IDC_CONNECTION_STATUS,10,132,260,8
-	CONTROL			"",IDC_CONNECTION_PROGRESS,"msctls_progress32",WS_BORDER,14,136,260,8
+	LTEXT			"Status:",IDC_CONNECTION_STATUS,10,130,260,8
+	CONTROL			"",IDC_CONNECTION_PROGRESS,"msctls_progress32",WS_BORDER,14,140,260,8
 END
 
 IDD_WIZARD_NETWORKS DIALOGEX 0, 0, 276, 174
@@ -752,7 +752,7 @@ BEGIN
 	LTEXT			"P2P networks are only as good as the people who use them:\nAnything available for download is being shared by another user like you.",IDC_STATIC,10,10,270,24
 	LTEXT			"You do not need to share any files to use PeerProject,  however your downloading performance may be restricted by other users.  Be polite.",IDC_STATIC,10,34,270,20
 	LTEXT			"First use the Add button to include folders in your local libray,  then click the checkboxes to publicly share or hide them.  Files can be unshared later.",IDC_STATIC,10,58,270,20
-	CONTROL			"List1",IDC_SHARE_FOLDERS,"SysListView32",LVS_REPORT | LVS_SHAREIMAGELISTS | LVS_ALIGNLEFT | LVS_NOCOLUMNHEADER | WS_BORDER | WS_TABSTOP,15,82,205,55
+	CONTROL			"List1",IDC_SHARE_FOLDERS,"SysListView32",LVS_REPORT | LVS_SHAREIMAGELISTS | LVS_ALIGNLEFT | LVS_NOCOLUMNHEADER | WS_BORDER | WS_TABSTOP,11,82,210,55
 	PUSHBUTTON		"&Add...",IDC_SHARE_ADD,230,88,50,15
 	PUSHBUTTON		"&Remove",IDC_SHARE_REMOVE,230,115,50,15,WS_DISABLED
 	LTEXT			"CAUTION!  Uploading unauthorized copyright work is liable in some countries.",IDC_STATIC,10,138,270,16,SS_CENTERIMAGE
@@ -802,7 +802,7 @@ BEGIN
 	LTEXT			"After closing this Wizard, the first thing to do is run a 'fake' random search to catch spammers and Ban them all.  Explore toolbar tabs while waiting.",IDC_STATIC,10,49,265,28
 	CONTROL			"Start PeerProject every time Windows starts",IDC_WIZARD_STARTUP,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,20,88,225,10
 	CONTROL			"Connect to the networks every time I start PeerProject",IDC_WIZARD_AUTO,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,20,102,225,10
-	LTEXT			"Enjoy using PeerProject for your peer-to-peer filesharing.",IDC_STATIC,10,132,265,16
+	LTEXT			"And Thanks.  Enjoy using PeerProject for your peer-to-peer networking.",IDC_STATIC,10,132,265,16
 END
 
 IDD_FOLDER_SCAN DIALOGEX 0, 0, 237, 49
@@ -904,26 +904,25 @@ BEGIN
 	PUSHBUTTON		"Cancel",IDCANCEL,161,170,50,14
 END
 
-IDD_URL_ACTION DIALOGEX 0, 0, 292, 154
+IDD_URL_ACTION DIALOGEX 0, 0, 292, 102
 STYLE DS_SETFONT | DS_MODALFRAME | DS_3DLOOK | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "PeerProject URI Link Manager"
 FONT 8, "Tahoma", 0, 0, 0x1
 BEGIN
-	CONTROL			154,IDC_BANNER,"Static",SS_BITMAP | WS_GROUP,0,0,293,172
-	LTEXT			"You have clicked on a PeerProject-powered URI which links to the following content on the network:",IDC_MESSAGE_1,20,40,250,20,NOT WS_VISIBLE
-	LTEXT			"You have clicked on a PeerProject-powered URL which will connect you to the following host or server:",IDC_MESSAGE_2,20,40,250,20,NOT WS_VISIBLE
-	LTEXT			"You have clicked on a PeerProject-powered URI which will allow you to browse the shared files available on the following host:",IDC_MESSAGE_3,20,40,250,20,NOT WS_VISIBLE
-	LTEXT			"Filename:",IDC_URL_NAME_TITLE,25,65,35,12
-	EDITTEXT		IDC_URL_NAME_VALUE,65,65,205,12,ES_AUTOHSCROLL | ES_READONLY | NOT WS_BORDER
-	LTEXT			"URN:",IDC_URL_URN_TITLE,25,80,35,12
-	EDITTEXT		IDC_URL_URN_VALUE,65,80,205,12,ES_AUTOHSCROLL | ES_READONLY | NOT WS_BORDER
-	LTEXT			"Please select the action you would like PeerProject to take:",IDC_STATIC,20,98,250,10
-	DEFPUSHBUTTON	"&Download Now",IDC_URL_DOWNLOAD,10,115,65,15,WS_GROUP
-	PUSHBUTTON		"&Search for File",IDC_URL_SEARCH,80,115,65,15
-	PUSHBUTTON		"Cancel",IDCANCEL,220,115,65,15
-	CONTROL			"&Remember my selection next time",IDC_ALWAYS_OPEN,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,10,135,135,15
-	CONTROL			"Open a download &monitor window",IDC_NEW_WINDOW,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,155,135,135,15
-	LTEXT			"You have clicked on a PeerProject-powered URI which will add the following Discovery Service to your Discovery Services cache.",IDC_MESSAGE_4,20,40,250,20,NOT WS_VISIBLE
+	LTEXT			"You have clicked a PeerProject-powered URI that links to this network content:",IDC_MESSAGE_1,8,5,270,22,NOT WS_VISIBLE
+	LTEXT			"You have clicked a PeerProject-powered URL that will connect you to this host or server:",IDC_MESSAGE_2,8,5,270,22,NOT WS_VISIBLE
+	LTEXT			"You have clicked a PeerProject-powered URI that will allow you to browse the shared files available on this host:",IDC_MESSAGE_3,8,5,270,22,NOT WS_VISIBLE
+	LTEXT			"You have clicked a PeerProject-powered URI that will add this Discovery Service to your Discovery Services cache.",IDC_MESSAGE_4,8,5,270,22,NOT WS_VISIBLE
+	LTEXT			"Filename:",IDC_URL_NAME_TITLE,20,25,35,12
+	EDITTEXT		IDC_URL_NAME_VALUE,62,25,220,12,ES_AUTOHSCROLL | ES_READONLY | NOT WS_BORDER
+	LTEXT			"URN:",IDC_URL_URN_TITLE,20,38,35,12
+	EDITTEXT		IDC_URL_URN_VALUE,62,38,220,12,ES_AUTOHSCROLL | ES_READONLY | NOT WS_BORDER
+	LTEXT			"Select what action you would like to take:",IDC_STATIC,8,55,250,10
+	DEFPUSHBUTTON	"&Download Now",IDC_URL_DOWNLOAD,8,68,68,15,WS_GROUP
+	PUSHBUTTON		"&Search for File",IDC_URL_SEARCH,80,68,68,15
+	PUSHBUTTON		"Cancel",IDCANCEL,218,68,68,15
+	CONTROL			"&Use this selection by default",IDC_ALWAYS_OPEN,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,9,86,140,15
+	CONTROL			"Open download &monitor window",IDC_NEW_WINDOW,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,155,86,135,15
 END
 
 IDD_URL_COPY DIALOGEX 0, 0, 304, 138
@@ -931,7 +930,7 @@ STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Copy URI  (P2P Link)"
 FONT 8, "Tahoma", 0, 0, 0x1
 BEGIN
-	CONTROL			154,IDC_BANNER,"Static",SS_BITMAP,0,0,304,168
+	CONTROL			154,IDC_BANNER,"Static",SS_BITMAP,0,0,302,168
 	LTEXT			"You can copy the URI ('P2P Link') for a selected item in various formats. \nSimply click the format you wish to save to clipboard:",IDC_MESSAGE,10,40,280,30
 	CONTROL			"...",IDC_URL_MAGNET,"Static",SS_LEFTNOWORDWRAP | SS_NOPREFIX | SS_WORDELLIPSIS | WS_GROUP,10,70,290,10
 	CONTROL			"...",IDC_URL_ED2K,"Static",SS_LEFTNOWORDWRAP | SS_NOPREFIX | SS_WORDELLIPSIS | WS_GROUP,10,84,290,10
@@ -960,6 +959,47 @@ BEGIN
 	DEFPUSHBUTTON	"OK",IDOK,179,124,50,14
 	PUSHBUTTON		"Cancel",IDCANCEL,235,124,50,14
 END
+
+//IDD_SCHEDULE_TASK DIALOGEX 0, 0, 260, 328
+//STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+//CAPTION "Schedule Event"
+//FONT 8, "Tahoma", 400, 0, 0x0
+//BEGIN
+//	DEFPUSHBUTTON   "OK",IDOK,66,307,60,16,WS_GROUP
+//	PUSHBUTTON      "Cancel",IDCANCEL,133,307,60,16
+//	CONTROL         "One-time only",IDC_ONLYONCE,"Button",BS_AUTORADIOBUTTON,14,23,105,10
+//	CONTROL         "Specific days of week",IDC_EVERYDAY,"Button",BS_AUTORADIOBUTTON,124,23,122,10
+//	CONTROL         "",IDC_DATE,"SysDateTimePick32",DTS_RIGHTALIGN | DTS_LONGDATEFORMAT | WS_TABSTOP,7,59,132,15
+//	CONTROL         "",IDC_TIME,"SysDateTimePick32",DTS_RIGHTALIGN | DTS_UPDOWN | WS_TABSTOP | 0x8,171,59,80,15
+//	CONTROL         "Sunday",IDC_CHECK_SUN,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,96,56,10
+//	CONTROL         "Monday",IDC_CHECK_MON,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,72,96,56,10
+//	CONTROL         "Tuesday",IDC_CHECK_TUES,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,130,96,56,10
+//	CONTROL         "Wednesday",IDC_CHECK_WED,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,189,96,56,10
+//	CONTROL         "Thursday",IDC_CHECK_THU,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,109,56,10
+//	CONTROL         " Friday",IDC_CHECK_FRI,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,72,109,56,10
+//	CONTROL         "Saturday",IDC_CHECK_SAT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,130,109,56,10
+//	PUSHBUTTON      "All",IDC_BUTTON_ALLDAYS,189,109,56,11
+//	COMBOBOX        IDC_EVENTTYPE,7,150,151,80,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+//	EDITTEXT        IDC_SCHEDULER_LIMITED,7,172,36,12,ES_AUTOHSCROLL | ES_NUMBER
+//	CONTROL         "",IDC_SCHEDULER_LIMITED_SPIN,"msctls_updown32",UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_AUTOBUDDY | UDS_ARROWKEYS | UDS_NOTHOUSANDS,42,172,11,12
+//	EDITTEXT        IDC_SCHEDULER_LIMITED_DOWN,7,187,36,12,ES_AUTOHSCROLL | ES_NUMBER
+//	CONTROL         "",IDC_SCHEDULER_LIMITED_SPIN_DOWN,"msctls_updown32",UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_AUTOBUDDY | UDS_ARROWKEYS | UDS_NOTHOUSANDS,42,187,11,12
+//	EDITTEXT        IDC_SCHEDULER_LIMITED_UP,7,202,36,12,ES_AUTOHSCROLL | ES_NUMBER
+//	CONTROL         "",IDC_SCHEDULER_LIMITED_SPIN_UP,"msctls_updown32",UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_AUTOBUDDY | UDS_ARROWKEYS | UDS_NOTHOUSANDS,42,202,11,12
+//	CONTROL         " &Toggle bandwidth independently",IDC_SCHEDULER_TOGGLE_BANDWIDTH,"Button",BS_AUTOCHECKBOX | WS_GROUP | WS_TABSTOP,15,217,142,15,WS_EX_TRANSPARENT
+//	CONTROL         " &Limit network to Gnutella2",IDC_SCHEDULER_LIMITED_NETWORKS,"Button",BS_AUTOCHECKBOX | WS_GROUP | WS_TABSTOP,15,230,142,15,WS_EX_TRANSPARENT
+//	EDITTEXT        IDC_DESCRIPTION,7,262,245,14,ES_AUTOHSCROLL
+//	CONTROL         "Make this event active",IDC_ACTIVE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,284,245,10
+//	LTEXT           "Please select a date:",IDC_STATIC,7,47,132,8
+//	LTEXT           "Please select a time:",IDC_STATIC,171,47,80,8
+//	LTEXT           "Select the event type:",IDC_STATIC,7,138,243,8
+//	LTEXT           "Description: (optional)",IDC_STATIC,7,250,245,8
+//	LTEXT           "% of &bandwidth under limit",IDC_STATIC_LIMITED,56,175,195,8
+//	LTEXT           "% of &download under limit",IDC_STATIC_LIMITED_DOWN,56,190,195,8
+//	LTEXT           "% of &upload under limit",IDC_STATIC_LIMITED_UP,56,205,195,8
+//	GROUPBOX        "Days Of Week",IDC_DAYOFWEEK_GBOX,7,81,244,47
+//	GROUPBOX        "Run this event",IDC_STATIC,7,8,244,33
+//END
 
 //IDD_SETTINGS_BANDWIDTH DIALOG  0, 0, 282, 220
 //STYLE DS_SETFONT | WS_CHILD | WS_DISABLED | WS_CAPTION
@@ -1071,28 +1111,27 @@ BEGIN
 	CONTROL			"Censor profanity in chat",IDC_CHAT_CENSOR,"Button",BS_AUTOCHECKBOX | WS_GROUP | WS_TABSTOP,14,132,250,15
 END
 
-IDD_DOWNLOAD_MONITOR DIALOGEX 0, 0, 250, 134
+IDD_DOWNLOAD_MONITOR DIALOGEX 0, 0, 250, 124
 STYLE DS_SETFONT | DS_MODALFRAME | WS_MINIMIZEBOX | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Download"
 FONT 8, "Tahoma", 0, 0, 0x1
 BEGIN
-//	LTEXT			"PeerProject is downloading:",IDC_DOWNLOAD_STATUS,5,4,220,10
-	CONTROL			"...",IDC_DOWNLOAD_FILE,"Static",SS_LEFTNOWORDWRAP | SS_CENTERIMAGE | SS_WORDELLIPSIS | WS_GROUP,5,3,242,10
+	CONTROL			"...",IDC_MONITOR_FILE,"Static",SS_LEFTNOWORDWRAP | SS_CENTERIMAGE | SS_WORDELLIPSIS | WS_GROUP,5,3,242,10
 	CONTROL			"",IDC_PROGRESS,"Static",SS_BLACKFRAME | NOT WS_VISIBLE,5,16,238,10
-	CONTROL			"",IDC_DOWNLOAD_GRAPH,"Static",SS_BLACKFRAME | NOT WS_VISIBLE,5,30,238,25
-	ICON			IDR_MAINFRAME,IDC_DOWNLOAD_ICON,10,70,20,20
+	CONTROL			"",IDC_MONITOR_GRAPH,"Static",SS_BLACKFRAME | NOT WS_VISIBLE,5,30,238,25
+	ICON			IDR_MAINFRAME,IDC_MONITOR_ICON,10,70,20,20
 	LTEXT			"Number of sources:",IDC_STATIC,40,60,90,10
-	CONTROL			"...",IDC_DOWNLOAD_SOURCES,"Static",SS_LEFTNOWORDWRAP | WS_GROUP,128,60,110,10
+	CONTROL			"...",IDC_MONITOR_SOURCES,"Static",SS_LEFTNOWORDWRAP | WS_GROUP,128,60,110,10
 	LTEXT			"Transfer speed:",IDC_STATIC,40,70,90,10
-	CONTROL			"...",IDC_DOWNLOAD_SPEED,"Static",SS_LEFTNOWORDWRAP | WS_GROUP,128,70,110,10
+	CONTROL			"...",IDC_MONITOR_SPEED,"Static",SS_LEFTNOWORDWRAP | WS_GROUP,128,70,110,10
 	LTEXT			"Time remaining:",IDC_STATIC,40,80,90,10
-	CONTROL			"...",IDC_DOWNLOAD_TIME,"Static",SS_LEFTNOWORDWRAP | WS_GROUP,128,80,110,10
+	CONTROL			"...",IDC_MONITOR_TIME,"Static",SS_LEFTNOWORDWRAP | WS_GROUP,128,80,110,10
 	LTEXT			"Total downloaded:",IDC_STATIC,40,90,90,10
-	CONTROL			"...",IDC_DOWNLOAD_VOLUME,"Static",SS_LEFTNOWORDWRAP | WS_GROUP,128,90,120,10
-	PUSHBUTTON		"Show",IDC_DOWNLOAD_SHOW,5,116,59,14,WS_GROUP
-	PUSHBUTTON		"Cancel",IDC_DOWNLOAD_ACTION,66,116,59,14
-	PUSHBUTTON		"Close",IDC_DOWNLOAD_CLOSE,195,116,50,14
-	CONTROL			"Close window when completed",IDC_DOWNLOAD_AUTOCLOSE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,6,101,220,15
+	CONTROL			"...",IDC_MONITOR_VOLUME,"Static",SS_LEFTNOWORDWRAP | WS_GROUP,128,90,120,10
+	PUSHBUTTON		"Show",IDC_MONITOR_SHOW,5,106,60,14,WS_GROUP
+	PUSHBUTTON		"Cancel",IDC_MONITOR_ACTION,69,106,60,14
+	PUSHBUTTON		"Close",IDC_MONITOR_CLOSE,194,106,50,14
+	CONTROL			"Auto",IDC_MONITOR_AUTOCLOSE,"Button",BS_AUTOCHECKBOX | BS_LEFTTEXT | BS_RIGHT | WS_TABSTOP,134,106,55,14
 END
 
 IDD_FILE_PREVIEW DIALOGEX 0, 0, 257, 81
@@ -1223,7 +1262,7 @@ BEGIN
 	PUSHBUTTON		"&Remove",IDC_PRIVATE_REMOVE,226,123,42,15
 	GROUPBOX		"Store &Collections Here:",IDC_STATIC,6,179,270,35,WS_GROUP
 	EDITTEXT		IDC_COLLECTIONS_FOLDER,14,192,225,12,ES_AUTOHSCROLL | ES_READONLY
-	PUSHBUTTON		"",IDC_COLLECTIONS_BROWSE,246,188,23,20
+	PUSHBUTTON		"",IDC_COLLECTIONS_BROWSE,246,188,22,20
 END
 
 IDD_FILE_METADATA DIALOG  0, 0, 246, 218
@@ -1618,15 +1657,15 @@ BEGIN
 	EDITTEXT		IDC_NAME,16,20,248,12,ES_AUTOHSCROLL
 	GROUPBOX		"&Completed Files Folder:",IDC_STATIC,7,49,266,36,WS_GROUP
 	EDITTEXT		IDC_FOLDER,16,63,192,12,ES_AUTOHSCROLL
-	PUSHBUTTON		"",IDC_DOWNLOADS_BROWSE,215,59,23,20
-	PUSHBUTTON		"",IDC_DOWNLOADS_DEFAULT,241,59,23,20
+	PUSHBUTTON		"",IDC_DOWNLOADS_BROWSE,215,59,22,20
+	PUSHBUTTON		"",IDC_DOWNLOADS_DEFAULT,241,59,22,20
 	GROUPBOX		"&Auto-Filters:",IDC_STATIC,7,91,127,105,WS_GROUP
 	COMBOBOX		IDC_FILTER_LIST,16,106,110,65,CBS_SIMPLE | CBS_AUTOHSCROLL | CBS_SORT | CBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
 	PUSHBUTTON		"&Add",IDC_FILTER_ADD,16,174,53,15
 	PUSHBUTTON		"&Remove",IDC_FILTER_REMOVE,73,174,53,15
 	GROUPBOX		"&Types of Files:",IDC_STATIC,141,91,132,105,WS_GROUP
 	COMBOBOX		IDC_SCHEMAS,149,106,115,139,CBS_DROPDOWNLIST | CBS_OWNERDRAWVARIABLE | CBS_SORT | CBS_HASSTRINGS | WS_VSCROLL | WS_TABSTOP
-	LTEXT			"*Add any download type later.",IDC_STATIC,150,177,116,16
+	LTEXT			"*Drag'n'Drop any downloads.",IDC_STATIC,150,177,116,16
 	DEFPUSHBUTTON	"OK",IDOK,168,202,50,14
 	PUSHBUTTON		"Cancel",IDCANCEL,223,202,50,14
 END
@@ -3217,6 +3256,7 @@ BEGIN
 	IDS_GENERAL_TRYAGAIN		"Try Again"
 	IDS_GENERAL_CONTINUE		"Continue"
 	IDS_INFO_REMEMBER			"&Remember my selection next time"
+	IDS_NEW_FOLDER				"New Folder"
 END
 
 STRINGTABLE
@@ -3358,30 +3398,30 @@ END
 STRINGTABLE
 BEGIN
 	IDS_HASH_MESSAGE			"PeerProject is hashing %Iu files:"
-	IDS_DLM_TIME_DAH			"%i days %i hours"
-	IDS_DLM_TIME_HAM			"%i hours %i minutes"
-	IDS_DLM_TIME_MAS			"%i minutes %i seconds"
-	IDS_DLM_TIME_S				"%i seconds"
+	IDS_MONITOR_TIME_DH			"%i days %i hours"
+	IDS_MONITOR_TIME_HM			"%i hours %i minutes"
+	IDS_MONITOR_TIME_MS			"%i minutes %i seconds"
+	IDS_MONITOR_TIME_S			"%i seconds"
 END
 
 STRINGTABLE
 BEGIN
-	IDS_DLM_COMPLETED			"PeerProject has completed downloading:"
-//	IDS_DLM_DOWNLOADING			"PeerProject is downloading:"
-//	IDS_DLM_PAUSED				"This download is paused:"
-//	IDS_DLM_MOVING				"PeerProject is moving the download:"
-//	IDS_DLM_VERIFY				"Checking file for errors:"
-//	IDS_DLM_SOURCING			"PeerProject is looking for sources for:"
-	IDS_DLM_NO_SOURCES			"No sources"
-	IDS_DLM_ACTION_OPEN			"Open"
-	IDS_DLM_ACTION_CANCEL		"Cancel"
-	IDS_DLM_TOTAL_SPEED			"Total transfer speed:"
-	IDS_DLM_ESTIMATED_TIME		"Estimated time:"
-	IDS_DLM_VOLUME_DOWNLOADED	"Total downloaded:"
-	IDS_DLM_VOLUME_UPLOADED		"Upload ratio:"
-	IDS_DLM_NUMBER_OF_SOURCES	"Number of sources:"
-	IDS_DLM_NUMBER_OF_REVIEWS	"Number of reviews:"
-	IDS_DLM_COMPLETED_WORD		"Completed"
+//	IDS_MONITOR_COMPLETED		"PeerProject has completed downloading:"
+//	IDS_MONITOR_DOWNLOADING		"PeerProject is downloading:"
+//	IDS_MONITOR_PAUSED			"This download is paused:"
+//	IDS_MONITOR_MOVING			"PeerProject is moving the download:"
+//	IDS_MONITOR_VERIFY			"Checking file for errors:"
+//	IDS_MONITOR_SOURCING		"PeerProject is looking for sources for:"
+	IDS_MONITOR_NO_SOURCES		"No sources"
+	IDS_MONITOR_ACTION_OPEN		"Open"
+	IDS_MONITOR_ACTION_CANCEL	"Cancel"
+	IDS_MONITOR_TOTAL_SPEED		"Total transfer speed:"
+	IDS_MONITOR_ESTIMATED_TIME	"Estimated time:"
+	IDS_MONITOR_VOLUME_DOWNLOADED "Total downloaded:"
+	IDS_MONITOR_VOLUME_UPLOADED	"Upload ratio:"
+	IDS_MONITOR_COMPLETED_WORD	"Completed"
+	IDS_MONITOR_NUMBER_SOURCES	"Number of sources:"
+	IDS_MONITOR_NUMBER_REVIEWS	"Number of reviews:"
 END
 
 STRINGTABLE
@@ -3535,12 +3575,13 @@ END
 
 STRINGTABLE
 BEGIN
+	IDS_DOWNLOAD_GROUP_DEFAULT	"Default download group.  (Show all files)"
 	IDS_DOWNLOAD_GROUP			"Drag'n'drop files to the %s group"
 	IDS_DOWNLOAD_ADDED			"Added ""%s"" to download queue with %i sources."
-	IDS_DOWNLOAD_COMPLETED		"Completed download of ""%s""."
-	IDS_DOWNLOAD_PAUSED			"Pausing download of ""%s""."
-	IDS_DOWNLOAD_RESUMED		"Resuming download of ""%s""."
-	IDS_DOWNLOAD_REMOVE			"Cleared download ""%s""."
+	IDS_DOWNLOAD_COMPLETED		"Completed download of ""%s."""
+	IDS_DOWNLOAD_PAUSED			"Pausing download of ""%s."""
+	IDS_DOWNLOAD_RESUMED		"Resuming download of ""%s."""
+	IDS_DOWNLOAD_REMOVE			"Cleared download ""%s."""
 	IDS_DOWNLOAD_FILE_CREATE	"Creating file ""%s"" for download."
 	IDS_DOWNLOAD_FILE_CREATE_ERROR "Unable to create local file ""%s"" for download, aborting."
 	IDS_DOWNLOAD_FILE_OPEN_ERROR "Unable to open local file ""%s"" for download, aborting."
@@ -4069,9 +4110,9 @@ BEGIN
 	IDS_DOWNLOAD_EDIT_ERASED	"Erased %I64i bytes from the download."
 	IDS_DOWNLOAD_EDIT_COMPLETE_NOHASH "You cannot assume this download is complete and reverify it because you do not yet have any partial verification data, such as tiger-tree volume, eDonkey hashset or BitTorrent hashset.  Without verification information the download cannot be reverified."
 	IDS_DOWNLOAD_EDIT_COMPLETE_VERIFY "Are you sure you want to assume this download is complete and reverify it?  The whole file will be considered, and PeerProject will accept parts which pass verification and redownload parts which fail verification."
-	IDS_DOWNLOAD_EDIT_CHANGE_SIZE "You have made changes to the file size.  Are you sure you want to change the file size for this download?"
 	IDS_DOWNLOAD_EDIT_CANCEL_DOWNLOAD "Do you wish to cancel this download but save the incomplete files?"
-	IDS_DOWNLOAD_EDIT_BAD_HASH "You have typed an %s hash value, however it is invalid.  Please check it and try again."
+	IDS_DOWNLOAD_EDIT_CHANGE_SIZE "You have made changes to the file size.  Are you sure you want to change the file size for this download?"
+	IDS_DOWNLOAD_EDIT_BAD_HASH	"You have typed an %s hash value, however it is invalid.  Please check it and try again."
 	IDS_DOWNLOAD_EDIT_CHANGE_HASH "You have provided an %s hash value that is different from the one currently associated with this download.  Are you sure you want to change the %s hash now?"
 	IDS_DOWNLOAD_EDIT_ACTIVE_TASK "\nThe selected download already has an active Task, please wait."
 	IDS_DOWNLOAD_QUEUE_HUGE		"Dropping download source %s for ""%s"" because queue position %i is too high."
@@ -4080,7 +4121,7 @@ END
 STRINGTABLE
 BEGIN
 	IDS_REMOTE_DISABLED			"Remote access is disabled."
-	IDS_REMOTE_ENABLED			"You must choose a username and password."
+	IDS_REMOTE_ENABLED			"http://%s:%i/remote  -  Username/password required."
 	IDS_REMOTE_UNAVAILABLE		"Unable to accept connections, URL unavailable."
 END
 

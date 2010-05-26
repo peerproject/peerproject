@@ -219,22 +219,22 @@ STDMETHODIMP CMatchListView::XEnumVARIANT::Next(ULONG celt, VARIANT FAR* rgvar, 
 
 STDMETHODIMP CMatchListView::XEnumVARIANT::Skip(ULONG celt)
 {
-    METHOD_PROLOGUE( CMatchListView, EnumVARIANT )
+	METHOD_PROLOGUE( CMatchListView, EnumVARIANT )
 
 	while ( celt-- && m_pos )
 		pThis->GetNext( m_pos, NULL, NULL );
 
-    return ( celt == 0 ? S_OK : S_FALSE );
+	return ( celt == 0 ? S_OK : S_FALSE );
 }
 
 STDMETHODIMP CMatchListView::XEnumVARIANT::Reset()
 {
-    METHOD_PROLOGUE( CMatchListView, EnumVARIANT )
+	METHOD_PROLOGUE( CMatchListView, EnumVARIANT )
 	m_pos = pThis->GetIterator();
-    return S_OK;
+	return S_OK;
 }
 
 STDMETHODIMP CMatchListView::XEnumVARIANT::Clone(IEnumVARIANT FAR* FAR* /*ppenum*/)
 {
-    return E_NOTIMPL;
+	return E_NOTIMPL;
 }

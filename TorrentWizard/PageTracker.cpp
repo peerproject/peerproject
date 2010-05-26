@@ -1,7 +1,7 @@
 //
 // PageTracker.cpp
 //
-// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008
+// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2007.
 //
 // PeerProject Torrent Wizard is free software; you can redistribute it
@@ -68,12 +68,12 @@ void CTrackerPage::DoDataExchange(CDataExchange* pDX)
 /////////////////////////////////////////////////////////////////////////////
 // CTrackerPage message handlers
 
-BOOL CTrackerPage::OnInitDialog() 
+BOOL CTrackerPage::OnInitDialog()
 {
 	CWizardPage::OnInitDialog();
-	
+
 	int nCount = theApp.GetProfileInt( _T("Trackers"), _T("Count"), 0 );
-	
+
 	for ( int nItem = 0 ; nItem < nCount ; nItem++ )
 	{
 		CString strName, strURL;
@@ -85,20 +85,20 @@ BOOL CTrackerPage::OnInitDialog()
 			m_wndTracker2.AddString( strURL );
 		}
 	}
-	
+
 	m_sTracker = theApp.GetProfileString( _T("Trackers"), _T("Last") );
 	UpdateData( FALSE );
-	
+
 	return TRUE;
 }
 
-BOOL CTrackerPage::OnSetActive() 
+BOOL CTrackerPage::OnSetActive()
 {
 	SetWizardButtons( PSWIZB_BACK | PSWIZB_NEXT );
 	return CWizardPage::OnSetActive();
 }
 
-void CTrackerPage::OnClearTrackers() 
+void CTrackerPage::OnClearTrackers()
 {
 	theApp.WriteProfileInt( _T("Trackers"), _T("Count"), 0 );
 	m_sTracker.Empty();
@@ -108,16 +108,16 @@ void CTrackerPage::OnClearTrackers()
 	m_wndTracker.SetFocus();
 }
 
-LRESULT CTrackerPage::OnWizardBack() 
+LRESULT CTrackerPage::OnWizardBack()
 {
 	GET_PAGE( CWelcomePage, pWelcome );
 	return pWelcome->m_nType ? IDD_PACKAGE_PAGE : IDD_SINGLE_PAGE;
 }
 
-LRESULT CTrackerPage::OnWizardNext() 
+LRESULT CTrackerPage::OnWizardNext()
 {
 	UpdateData( TRUE );
-	
+
 	if ( m_sTracker.Find( _T("http") ) != 0 || m_sTracker.GetLength() < 16 )
 	{
 		if ( IDYES != AfxMessageBox( IDS_TRACKER_NEED_URL, MB_ICONQUESTION|MB_YESNO ) )
@@ -126,12 +126,12 @@ LRESULT CTrackerPage::OnWizardNext()
 			return -1;
 		}
 	}
-	
+
 	if ( m_sTracker.GetLength() > 15 && m_wndTracker.FindStringExact( -1, m_sTracker ) < 0 )
 	{
 		m_wndTracker.AddString( m_sTracker );	// Populate Combo-box
 		m_wndTracker2.AddString( m_sTracker );
-		
+
 		CString strName;
 		int nCount = theApp.GetProfileInt( _T("Trackers"), _T("Count"), 0 );
 		strName.Format( _T("%.3i.URL"), ++nCount );
@@ -143,7 +143,7 @@ LRESULT CTrackerPage::OnWizardNext()
 	{
 		m_wndTracker.AddString( m_sTracker2 );
 		m_wndTracker2.AddString( m_sTracker2 );
-		
+
 		CString strName;
 		int nCount = theApp.GetProfileInt( _T("Trackers"), _T("Count"), 0 );
 		strName.Format( _T("%.3i.URL"), ++nCount );
@@ -152,7 +152,7 @@ LRESULT CTrackerPage::OnWizardNext()
 	}
 
 	theApp.WriteProfileString( _T("Trackers"), _T("Last"), m_sTracker );
-	
+
 	return IDD_COMMENT_PAGE;
 }
 

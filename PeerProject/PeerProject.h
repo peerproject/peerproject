@@ -100,6 +100,7 @@ public:
 	DWORD				m_nLastInput;				// Time of last input event (in secs)
 	HHOOK				m_hHookKbd;
 	HHOOK				m_hHookMouse;
+	UINT				m_nMouseWheel;				// System-defined number of lines to move with mouse wheel
 
 	SYSTEM_INFO			m_SysInfo;					// System Information (CPU cores, etc.)
 

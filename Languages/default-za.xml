@@ -4,7 +4,7 @@
 <!-- PeerProject Default Afrikaans Skin File -->
 <!-- Weergawe: 27 Oktober 2005 vir Shareaza 2.2.0.2 -->
 
-<!-- Translation based on default-en.xml r54 -->
+<!-- Translation based on default-en.xml r55 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -455,12 +455,12 @@
 	</toolbar>
 	<!-- IMAGE VIEWER WINDOW -->
 	<toolbar name="ImageViewerWnd">
-		<button id="ImageViewer_ActualSize" text="Actual Size"/>
-		<button id="ImageViewer_BestFit" text="Best Fit"/>
+		<button id="PluginID_ImageViewer_FullSize" text="Actual Size"/>
+		<button id="PluginID_ImageViewer_BestFit" text="Best Fit"/>
 		<separator/>
-		<button id="ImageViewer_Refresh" text="Refresh"/>
-		<separator/>
-		<button id="ImageViewer_Close" text="Sluit"/>
+		<button id="PluginID_ImageViewer_Refresh" text="Refresh"/>
+		<rightAlign/>
+		<button id="PluginID_ImageViewer_Close" text="Sluit"/>
 	</toolbar>
 </toolbars>
 <!-- Menu Definitions -->
@@ -1695,7 +1695,7 @@
 			<heading align="middle">KONNEKTEER NOU</heading>
 			<newline gap="8" indent="42"/>
 			<text>Welkom by PeerProject! &#160;Jy is nie tans aan enige persoon-tot-persoon netwerke gekonnekteer nie. &#160;</text>
-			<link target="peer:command:ID_NETWORK_CONNECT">Kliek hier om te begin!</link>
+			<link target="command:ID_NETWORK_CONNECT">Kliek hier om te begin!</link>
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="2">
@@ -1704,14 +1704,14 @@
 			<newline gap="8" indent="42"/>
 			<anchor id="SearchBox" width="256" height="80"/>
 			<newline gap="12" indent="0"/>
-			<icon res="136" width="32" height="32" target="peer:shell:downloads"/><gap size="8"/>
+			<icon res="136" width="32" height="32" target="command:shell:downloads"/><gap size="8"/>
 			<heading align="middle">AFLAAIE</heading>
 			<newline gap="8" indent="42"/>
-			<link target="peer:command:ID_TOOLS_DOWNLOAD" format="bu">Click here to start</link>
+			<link target="command:ID_TOOLS_DOWNLOAD" format="bu">Click here to start</link>
 			<text>&#160;downloading a new file or torrent link.</text>
 			<newline gap="4" indent="42"/>
 			<text>Or open your </text>
-			<link target="peer:shell:downloads">downloads folder.</link>
+			<link target="command:shell:downloads">downloads folder.</link>
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="3">
@@ -1720,18 +1720,18 @@
 			<newline gap="8" indent="42"/>
 			<text id="Upgrade"/>
 			<newline gap="6"/>
-			<link target="peer:upgrade">Kliek hier om op te gradeer</link>
+			<link target="command:upgrade">Kliek hier om op te gradeer</link>
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="4">
-			<icon res="252" width="32" height="32" target="peer:command:ID_TOOLS_WIZARD"/><gap size="8"/>
+			<icon res="252" width="32" height="32" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 			<heading align="middle">WAARSKUWING: AGTER 'N NETSKANS</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">PeerProject het raakgesien dat jy agter 'n NAT roeteerder of netskans is
 			en nie inkomende konneksies van die Internet kan ontvang nie. &#160;</text>
 			<text color="FF0000" format="b">Dit mag swak aflaaiprestasie veroorsaak.</text>
 			<newline gap="6"/>
-			<link target="peer:command:ID_HELP_ROUTER">Kliek hier om uit te vind hoe om jou roeteerder of netskans reg in te stel</link>
+			<link target="command:ID_HELP_ROUTER">Kliek hier om uit te vind hoe om jou roeteerder of netskans reg in te stel</link>
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="6">
@@ -1742,7 +1742,7 @@
 			and are unable to receive TCP connections from the Internet. &#160;</text>
 			<text color="FF0000" format="b">This may cause poor download performance.</text>
 			<newline gap="6"/>
-			<link target="peer:command:ID_HELP_ROUTER">Click here to learn how to configure your router or firewall</link>
+			<link target="command:ID_HELP_ROUTER">Click here to learn how to configure your router or firewall</link>
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="7">
@@ -1753,31 +1753,31 @@
 			and are unable to receive UDP messages from the Internet. &#160;</text>
 			<text color="FF0000" format="b">This may cause poor search performance.</text>
 			<newline gap="6"/>
-			<link target="peer:command:ID_HELP_ROUTER">Kliek hier om uit te vind hoe om jou roeteerder of netskans reg in te stel</link>
+			<link target="command:ID_HELP_ROUTER">Kliek hier om uit te vind hoe om jou roeteerder of netskans reg in te stel</link>
 			<newline gap="18" indent="0"/>
 		</group>
-		<icon res="128" width="32" height="32" target="peer:command:ID_TOOLS_SETTINGS"/><gap size="8"/>
+		<icon res="128" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">VERANDER PEERPROJECT</heading>
 		<newline gap="12" indent="42"/>
-		<icon res="182" width="16" height="16" target="peer:command:ID_TOOLS_SKIN"/><gap size="8"/>
-		<link target="peer:command:ID_TOOLS_SKIN" align="middle" format="bu">Omslae</link>
+		<icon res="182" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
+		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">Omslae</link>
 		<text align="middle">&#160;- Verander hoe PeerProject lyk en voel</text>
 		<newline gap="8"/>
-		<icon res="141" width="16" height="16" target="peer:command:ID_VIEW_SECURITY"/><gap size="8"/>
-		<link target="peer:command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
+		<icon res="141" width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
+		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
 		<text align="middle">&#160;- Update blocklist to avoid bad search results</text>
 		<newline gap="8"/>
-		<icon res="317" width="16" height="16" target="peer:command:ID_TOOLS_WIZARD"/><gap size="8"/>
-		<link target="peer:command:ID_TOOLS_WIZARD" align="middle">Verstellingsassistent</link>
+		<icon res="317" width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
+		<link target="command:ID_TOOLS_WIZARD" align="middle">Verstellingsassistent</link>
 		<text align="middle">&#160;- Verstel die PeerProject Opsies</text>
 		<newline gap="8"/>
-		<icon res="147" width="16" height="16" target="peer:command:ID_HELP_FAQ"/><gap size="8"/>
-		<link target="peer:command:ID_HELP_FAQ" align="middle">Vinnige Hulp</link>
+		<icon res="147" width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
+		<link target="command:ID_HELP_FAQ" align="middle">Vinnige Hulp</link>
 		<text align="middle">&#160;- Kry basiese hulp met die gebruik van PeerProject, or </text>
-		<link target="peer:command:ID_TAB_IRC" align="middle">IRC.</link>
+		<link target="command:ID_TAB_IRC" align="middle">IRC.</link>
 		<newline gap="8"/>
-		<icon res="175" width="16" height="16" target="peer:command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
-		<link target="peer:command:ID_HELP_FORUMS_LOCAL" align="middle">Local Forum</link>
+		<icon res="175" width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
+		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">Local Forum</link>
 		<text align="middle">&#160;- Go to your Afrikaans language forum</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
@@ -1802,7 +1802,7 @@
 			<para align="center">
 				<text format="b">Nie gekonnekteer</text>
 				<newline gap="4"/>
-				<link target="peer:command:ID_NETWORK_CONNECT">Kliek hier om te konnekteer</link>
+				<link target="command:ID_NETWORK_CONNECT">Kliek hier om te konnekteer</link>
 			</para>
 		</group>
 		<icon group="20" command="ID_NETWORK_G2"/>
@@ -1850,7 +1850,7 @@
 				<text>Jy het nie enige nuwe lêers onlangs afgelaai nie.</text>
 				<newline gap="8"/>
 			</group>
-			<link target="peer:command:ID_VIEW_LIBRARY">Gaan na My Biblioteek</link>
+			<link target="command:ID_VIEW_LIBRARY">Gaan na My Biblioteek</link>
 			<newline gap="4"/>
 			<text id="LibraryFiles" format="b">%lu </text>
 			<text>lêers (</text>
@@ -1864,10 +1864,10 @@
 				<newline gap="8"/>
 			</group>
 			<group id="3">
-				<link target="peer:command:ID_LIBRARY_HASH_PRIORITY">Kliek hier om vinniger te werk</link>
+				<link target="command:ID_LIBRARY_HASH_PRIORITY">Kliek hier om vinniger te werk</link>
 			</group>
 			<group id="4">
-				<link target="peer:command:ID_LIBRARY_HASH_PRIORITY">Kliek hier om stadiger te werk</link>
+				<link target="command:ID_LIBRARY_HASH_PRIORITY">Kliek hier om stadiger te werk</link>
 			</group>
 		</para>
 	</document>
@@ -1882,9 +1882,9 @@
 				<text>Jy is nie tans besig met enige aflaaie nie.</text>
 				<newline gap="4"/>
 			</group>
-			<link id="DownloadsNone" target="peer:command:ID_VIEW_DOWNLOADS">Gaan na Aflaaie</link>
-			<link id="DownloadsOne" target="peer:command:ID_VIEW_DOWNLOADS" format="bu">Gaan na Aflaai (1)</link>
-			<link id="DownloadsMany" target="peer:command:ID_VIEW_DOWNLOADS" format="bu">Gaan na Aflaaie (%i)</link>
+			<link id="DownloadsNone" target="command:ID_VIEW_DOWNLOADS">Gaan na Aflaaie</link>
+			<link id="DownloadsOne" target="command:ID_VIEW_DOWNLOADS" format="bu">Gaan na Aflaai (1)</link>
+			<link id="DownloadsMany" target="command:ID_VIEW_DOWNLOADS" format="bu">Gaan na Aflaaie (%i)</link>
 			<newline gap="4"/>
 			<text id="DownloadedNone">No lêers (</text>
 			<text id="DownloadedOne">1 lêer (</text>
@@ -1901,8 +1901,8 @@
 		</styles>
 		<para align="center">
 			<text id="UploadsNone" format="b">Geen aktiewe oplaaie nie</text>
-			<link id="UploadsOne" target="peer:command:ID_VIEW_UPLOADS" format="bu">1 aktiewe oplaai</link>
-			<link id="UploadsMany" target="peer:command:ID_VIEW_UPLOADS" format="bu">%i aktiewe oplaaie</link>
+			<link id="UploadsOne" target="command:ID_VIEW_UPLOADS" format="bu">1 aktiewe oplaai</link>
+			<link id="UploadsMany" target="command:ID_VIEW_UPLOADS" format="bu">%i aktiewe oplaaie</link>
 			<newline gap="4"/>
 			<group id="1">
 				<text id="TorrentsOne">1 saaiende torrent</text>
@@ -1923,25 +1923,25 @@
 		<text format="b">Algemeen </text>
 		<text>afdeling hou verband met die gebruikerskoppelvlak.</text>
 		<newline gap="16" indent="16"/>
-		<link target="peer:page:CGeneralSettingsPage" format="b">Algemeen:</link>
+		<link target="page:CGeneralSettingsPage" format="b">Algemeen:</link>
 		<text>&#160;Algemene gebruikerskoppelvlak verstellings soos tooltips, minimeer gedrag, syferformate, vrae, ens.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CLibrarySettingsPage" format="b">Biblioteek:</link>
+		<link target="page:CLibrarySettingsPage" format="b">Biblioteek:</link>
 		<text>&#160;Voorstelling en beheer van die lêerbiblioteek en die oopmaak van lêers.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CMediaSettingsPage" format="b">Media Speler:</link>
+		<link target="page:CMediaSettingsPage" format="b">Media Speler:</link>
 		<text>&#160;Waar en wanneer om die ingeboude PeerProject Mediasentrum te gebruik.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CIRCSettingsPage" format="b">IRC:</link>
+		<link target="page:CIRCSettingsPage" format="b">IRC:</link>
 		<text>&#160;IRC chatroom connection settings and display options.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CCommunitySettingsPage" format="b">Gemeenskap:</link>
+		<link target="page:CCommunitySettingsPage" format="b">Gemeenskap:</link>
 		<text>&#160;Jou profiel, geselsies en kitsboodskap verstellings.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CRemoteSettingsPage" format="b">Afstandbeheer:</link>
+		<link target="page:CRemoteSettingsPage" format="b">Afstandbeheer:</link>
 		<text>&#160;Stel die funksie in om PeerProject deur 'n afgeleë web blaaier te kan beheer.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CWebSettingsPage" format="b">Web Integration:</link>
+		<link target="page:CWebSettingsPage" format="b">Web Integration:</link>
 		<text>&#160;Integreer PeerProject met jou webblaaier om persoon-tot-persoon skakels te aanvaar en inhoud af te laai.</text>
 	</document>
 	<document name="CInternetSettingsGroup" title="Internet" leftMargin="8" topMargin="8">
@@ -1952,16 +1952,16 @@
 		<text format="b">Internet </text>
 		<text> afdeling beheer hoe PeerProject met ander nodusse binne verspreide persoon-tot-persoon netwerke kommunikeer. </text>
 		<newline gap="16" indent="16"/>
-		<link target="peer:page:CConnectionSettingsPage" format="b">Konneksie:</link>
+		<link target="page:CConnectionSettingsPage" format="b">Konneksie:</link>
 		<text>&#160;Die spoed en vermoëns van jou Internet konneksie.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CDownloadsSettingsPage" format="b">Aflaaie:</link>
+		<link target="page:CDownloadsSettingsPage" format="b">Aflaaie:</link>
 		<text>&#160;Aflaai datavloei, skedulering, kontrolering, tydsopskorting en beheer.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CUploadsSettingsPage" format="b">Oplaaie:</link>
+		<link target="page:CUploadsSettingsPage" format="b">Oplaaie:</link>
 		<text>&#160;Oplaai kapasiteit, waglyste, verbanning, tydsopskorting en spesiale navrae.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CSchedulerSettingsPage" format="b">Scheduler:</link>
+		<link target="page:CSchedulerSettingsPage" format="b">Scheduler:</link>
 		<text>&#160;Limit download connections based on a periodic schedule.</text>
 	</document>
 	<!-- Browse User Profile -->
@@ -2042,15 +2042,15 @@
 		<newline gap="40" indent="0"/>
 		<text format="b">Gedeelde Lêers</text>
 		<newline gap="4" indent="8"/>
-		<icon res="137" target="peer:command:ID_BROWSE_FILES"/><gap size="5"/>
-		<link target="peer:command:ID_BROWSE_FILES" align="middle">Vertoon Gedeelde Lêers</link>
+		<icon res="137" target="command:ID_BROWSE_FILES"/><gap size="5"/>
+		<link target="command:ID_BROWSE_FILES" align="middle">Vertoon Gedeelde Lêers</link>
 		<group id="2">
 			<newline gap="16" indent="0"/>
 			<text format="b">Gemeenskap</text>
 			<newline gap="4" indent="8"/>
-			<icon res="140" target="peer:command:ID_SEARCH_CHAT"/>
+			<icon res="140" target="command:ID_SEARCH_CHAT"/>
 			<gap size="5"/>
-			<link target="peer:command:ID_SEARCH_CHAT" align="middle">Gesels met Gebruiker</link>
+			<link target="command:ID_SEARCH_CHAT" align="middle">Gesels met Gebruiker</link>
 		</group>
 		<group id="3">
 			<newline gap="16" indent="0"/>
@@ -2624,10 +2624,10 @@
 	<tip id="ID_WEBSERVICES_LIST" message="Choose the web service to get more information about the selected file."/>
 	<tip id="ID_WEBSERVICES_SHAREMONKEY" message="Search for the file infomation using ShareMonkey service."/>
 	<!-- PLUGIN TIPS -->
-	<tip id="ImageViewer_BestFit" message="Resize the image to fit within the window."/>
-	<tip id="ImageViewer_ActualSize" message="Show the image at its natural size."/>
-	<tip id="ImageViewer_Refresh" message="Refresh the image."/>
-	<tip id="ImageViewer_Close" message="Close the image viewer window."/>
+	<tip id="PluginID_ImageViewer_BestFit" message="Resize the image to fit within the window."/>
+	<tip id="PluginID_ImageViewer_FullSize" message="Show the image at its natural size."/>
+	<tip id="PluginID_ImageViewer_Refresh" message="Refresh the image."/>
+	<tip id="PluginID_ImageViewer_Close" message="Close the image viewer window."/>
 </commandTips>
 <!-- Tips displayed when mouse is moved over controls in the dialogs -->
 <controlTips>
@@ -2748,25 +2748,26 @@
 	<string id="8180" value="Lêergrootte Min:"/>
 	<string id="8181" value="Lêergrootte Max:"/>
 	<string id="8208" value="PeerProject prosesseer %Iu lêers:"/>
-	<string id="8223" value="%i dae en %i ure"/>
-	<string id="8224" value="PeerProject is besig om af te laai:"/>
-	<string id="8225" value="Hierdie aflaai is gevries:"/>
+<!--	<string id="8221" value="PeerProject soek bronne vir:"/>
+	<string id="8222" value="PeerProject is besig om af te laai:"/>
+	<string id="8223" value="Hierdie aflaai is gevries:"/>
+	<string id="8224" value="PeerProject skuif die lêer:"/>
+	<string id="8225" value="PeerProject kontroleer die aflaai vir foute:"/>
 	<string id="8226" value="Aflaai is voltooi:"/>
-	<string id="8227" value="%i ure en %i minute"/>
-	<string id="8228" value="%i minute en %i sekondes"/>
-	<string id="8229" value="%i sekondes"/>
-	<string id="8230" value="PeerProject soek bronne vir:"/>
+-->	<string id="8227" value="%i dae en %i ure"/>
+	<string id="8228" value="%i ure en %i minute"/>
+	<string id="8229" value="%i minute en %i sekondes"/>
+	<string id="8230" value="%i sekondes"/>
 	<string id="8231" value="Geen bronne"/>
 	<string id="8232" value="Open"/>
 	<string id="8233" value="Kanselleer"/>
 	<string id="8235" value="Spoed:"/>
 	<string id="8236" value="Tyd oor:"/>
 	<string id="8237" value="Voltooi:"/>
-	<string id="8238" value="Bronne:"/>
+	<string id="8238" value="Gestuur:"/>
 	<string id="8239" value="Voltooi"/>
-	<string id="8240" value="PeerProject skuif die lêer:"/>
-	<string id="8241" value="PeerProject kontroleer die aflaai vir foute:"/>
-	<string id="8243" value="Gestuur:"/>
+	<string id="8240" value="Bronne:"/>
+	<string id="8241" value="Geen reviews"/>
 	<string id="8288" value="Blaai deur jou PeerProject Biblioteek"/>
 	<string id="8289" value="Blaai deur&#160;"/>
 	<string id="8290" value="Blaai deur die inhoud van %i gidse"/>
@@ -2879,6 +2880,7 @@
 	<string id="16211" value="Gasheer %s het 'n druk-aanvraag aangestuur na 'n gasheer agter 'n netskans, oorgesien."/>
 	<string id="16212" value="Gasheer %s het 'n uitgebreide pakkie aangestuur wat nie GGEP ge-enkodeer is nie."/>
 	<string id="16213" value="Navraag-tabel word gestuur aan gasheer %s (%i bit = %lu[%i], %i%% vol)"/>
+	<string id="16254" value="Standaard aflaai groep. (Wys alle lêers)"/>
 	<string id="16255" value="Drag'n'drop lêers na die %s groep"/>
 	<string id="16256" value="Die lêer &quot;%s&quot; word op die aflaai lys gevoeg met %i bron(ne)."/>
 	<string id="16257" value="Aflaai van &quot;%s&quot; suksesvol voltooi."/>
@@ -3269,7 +3271,7 @@
 	<string id="18510" value="Is jy seker jy wil aanneem dat hierdie aflaai voltooi is en dit herkontroleer? Die totale lêer sal oorweeg word, en PeerProject sal net dele aanvaar wat die kontrole deurkom, en die res weer aflaai."/>
 	<string id="18511" value="You have made changes to the file size. Are you sure you want to change the file size for this download?"/>
 	<string id="19000" value="Web toegang is afgeskakel."/>
-	<string id="19001" value="Jy moet 'n gebruikersnaam en wagwoord kies."/>
+	<string id="19001" value="http://%s:%i/remote - Jy moet 'n gebruikersnaam en wagwoord kies."/>
 	<string id="19002" value="Kan nie konneksies ontvang nie, URL nie beskikbaar."/>
 	<string id="20000" value="Geen URN beskikbaar"/>
 	<string id="20001" value="Sluit"/>
@@ -3348,6 +3350,7 @@
 	<string id="20236" value="Rating"/>
 	<string id="20237" value="OK"/>
 	<string id="20238" value="Kanselleer"/>
+	<string id="20245" value="Nuwe Gids"/>
 </strings>
 <!-- Localized Dialog Text, "cookie" verifies that the skin matches current dialog -->
 <dialogs>
@@ -4037,7 +4040,7 @@
 		<control caption="Vertoon"/>
 		<control caption="Staak Aflaai"/>
 		<control caption="Steek Weg"/>
-		<control caption="Maak hierdie venster toe wanneer aflaai voltooi het"/>
+		<control caption="Auto"/>
 	</dialog>
 	<dialog name="CFileGeneralPage" cookie="StEdEdEdEdStStEdStEdStEdStEdEdEd" caption="Algemeen">
 		<control caption="Universele Hulpbronname (URNs)"/>
@@ -4214,11 +4217,11 @@
 		<control/>
 		<control caption="Kanselleer"/>
 	</dialog>
-	<dialog name="CURLActionDlg" cookie="StStStStStEdStEdStBuBuBuBuBuSt" caption="PeerProject URI Beheerder">
-		<control/>
+	<dialog name="CURLActionDlg" cookie="StStStStStStEdStEdStBuBuBuBuBu" caption="PeerProject URI Beheerder">
 		<control caption="Jy het gekliek op 'n PeerProject ondersteunende URI wat skakel na die volgende inhoud op die netwerk:"/>
 		<control caption="Jy het gekliek op 'n PeerProject ondersteunende URL wat jou aan die volgende gasheer of bediener sal konnekteer:"/>
 		<control caption="Jy het gekliek op 'n PeerProject ondersteunende URI wat jou die deur die gedeelde lêers van die volgende gasheer sal laat blaai:"/>
+		<control caption="Jy het gekliek op 'n PeerProject ondersteunende URI wat die volgende Ontdekkingsdiens by jou Ontdekkingsdienskasgeheue sal voeg."/>
 		<control/>
 		<control/>
 		<control/>
@@ -4229,11 +4232,10 @@
 		<control caption="Kanselleer"/>
 		<control caption="_Onthou my keuse volgende keer"/>
 		<control caption="Open 'n aflaai_monitor venster"/>
-		<control caption="Jy het gekliek op 'n PeerProject ondersteunende URI wat die volgende Ontdekkingsdiens by jou Ontdekkingsdienskasgeheue sal voeg."/>
 	</dialog>
 	<dialog name="CBitziDownloadDlg" cookie="StStmsBuSySt" caption="Laai Metadata Af...">
 		<control/>
-		<control caption="PeerProject probeer metadata aflaai vanaf Bitzi(TM)..."/>
+		<control caption="PeerProject probeer metadata aflaai vanaf Bitzi..."/>
 		<control/>
 		<control caption="Kanselleer"/>
 		<control/>
@@ -4619,3 +4621,4 @@
 	</list>
 </listColumns>
 </skin>
+ቜ

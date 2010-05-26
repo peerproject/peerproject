@@ -3,7 +3,7 @@
 
 <!-- PeerProject Arabic Language Skin File -->
 
-<!-- Translation based on default-en.xml r54 -->
+<!-- Translation based on default-en.xml r55 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -443,12 +443,12 @@
 	</toolbar>
 	<!--نافذة عارض الصور-->
 	<toolbar name="ImageViewerWnd">
-		<button id="ImageViewer_ActualSize" text="الحجم الفعلي" />
-		<button id="ImageViewer_BestFit" text="أفضل تناسب" />
+		<button id="PluginID_ImageViewer_FullSize" text="الحجم الفعلي" />
+		<button id="PluginID_ImageViewer_BestFit" text="أفضل تناسب" />
 		<separator />
-		<button id="ImageViewer_Refresh" text="تحديث" />
+		<button id="PluginID_ImageViewer_Refresh" text="تحديث" />
 			<rightAlign/>
-		<button id="ImageViewer_Close" text="إغلاق" />
+		<button id="PluginID_ImageViewer_Close" text="إغلاق" />
 	</toolbar>
 </toolbars>
 <!-- Menu Definitions -->
@@ -1609,12 +1609,12 @@
 	</menu>
 	<!-- PLUGIN MENUS -->
 	<menu name="ImageViewer_Context">
-		<item id="ImageViewer_BestFit" text="أ_فضل تناسب" />
-		<item id="ImageViewer_ActualSize" text="الحجم ال_فعلي" />
+		<item id="PluginID_ImageViewer_BestFit" text="أ_فضل تناسب" />
+		<item id="PluginID_ImageViewer_FullSize" text="الحجم ال_فعلي" />
 		<separator />
-		<item id="ImageViewer_Refresh" text="ت_حديث" />
+		<item id="PluginID_ImageViewer_Refresh" text="ت_حديث" />
 		<separator />
-		<item id="ImageViewer_Close" text="إ_غلاق" />
+		<item id="PluginID_ImageViewer_Close" text="إ_غلاق" />
 	</menu>
 </menus>
 <!-- Documents -->
@@ -1632,30 +1632,30 @@
 		<anchor id="المقدمة" width="32" height="152" />
 		<newline gap="0" />
 		<group id="1">
-			<icon res="130" width="32" height="32" target="peer:command:ID_NETWORK_CONNECT" />
+			<icon res="130" width="32" height="32" target="command:ID_NETWORK_CONNECT" />
 			<gap size="8" />
 			<heading align="middle">كـن على إتـصـال</heading>
 			<newline gap="8" indent="42" />
 			<text>مرحبا مع PeerProject</text>
 			<newline gap="8" indent="42" />
 			<text>أنت غير متصل حاليا إلى أي شبكة نظير إلى نظر</text>
-			<link target="peer:command:ID_NETWORK_CONNECT">أنقر هنا لتبدأ</link>
+			<link target="command:ID_NETWORK_CONNECT">أنقر هنا لتبدأ</link>
 			<newline gap="18" indent="0" />
 		</group>
 		<group id="2">
-			<icon res="134" width="32" height="32" target="peer:command:ID_TAB_SEARCH" />
+			<icon res="134" width="32" height="32" target="command:ID_TAB_SEARCH" />
 			<gap size="8" />
 			<heading align="middle">إبــحــث عــن مــلــف</heading>
 			<newline gap="8" indent="42" />
 			<anchor id="SearchBox" width="256" height="80" />
 			<newline gap="12" indent="0" />
-			<icon res="136" width="32" height="32" target="peer:command:ID_TOOLS_DOWNLOAD" />
+			<icon res="136" width="32" height="32" target="command:ID_TOOLS_DOWNLOAD" />
 			<heading align="middle"> ابدأ التحميل </heading>
 			<newline gap="8" indent="42" />
-			<link target="peer:command:ID_TOOLS_DOWNLOAD" format="bu">أنقر هنا لتبدأ</link>
+			<link target="command:ID_TOOLS_DOWNLOAD" format="bu">أنقر هنا لتبدأ</link>
 			<text>   - حمل ملف جديد أو حمل ملف torrent.</text>
 			<newline gap="2" indent="42" />
-			<link target="peer:shell:downloads">فتح مجلد تحميلاتي</link>
+			<link target="command:shell:downloads">فتح مجلد تحميلاتي</link>
 			<newline gap="20" indent="0" />
 		</group>
 		<group id="3">
@@ -1665,11 +1665,11 @@
 			<newline gap="8" indent="42" />
 			<text id="ترقية" />
 			<newline gap="6" />
-			<link target="peer:upgrade">اضغط هنا للتحديث</link>
+			<link target="command:upgrade">اضغط هنا للتحديث</link>
 			<newline gap="18" indent="0" />
 		</group>
 		<group id="4">
-			<icon res="252" width="32" height="32" target="peer:command:ID_TOOLS_WIZARD" />
+			<icon res="252" width="32" height="32" target="command:ID_TOOLS_WIZARD" />
 			<gap size="8" />
 			<heading align="middle">تـــحـــذيـــر - أنـــت خـــلـــف جـــدار نـــاري</heading>
 			<newline gap="8" indent="42" />
@@ -1677,7 +1677,7 @@
 			و لذلك يتعذر إستقبال الإتصالات من الإنترنت .  </text>
 			<text color="FF0000" format="b">قد يسبب هذا ضعف في التحميل و ضعف في عملية البحث .</text>
 			<newline gap="6" />
-			<link target="peer:command:ID_HELP_ROUTER">إنقر هنا لتتعلم عن كيفية تكوين جهاز الوجيه الخاص بك أو الجدار الناري</link>
+			<link target="command:ID_HELP_ROUTER">إنقر هنا لتتعلم عن كيفية تكوين جهاز الوجيه الخاص بك أو الجدار الناري</link>
 			<newline gap="18" indent="0" />
 		</group>
 		<group id="6">
@@ -1688,7 +1688,7 @@
 			<text color="FF0000">تم إكتشاف أنك وراء جهاز توجيه NAT أو جدار ناري و غير قادر على إستقبال إتصالات TCP من الإنترنت</text>
 			<text color="FF0000" format="b">هذا قد يسبب اداء سئ في التحميل </text>
 			<newline gap="6" />
-			<link target="peer:command:ID_HELP_ROUTER">أنقر هنا لتتعلم عن كيفية تكوين جهاز توجيهك أو جدارك الناري</link>
+			<link target="command:ID_HELP_ROUTER">أنقر هنا لتتعلم عن كيفية تكوين جهاز توجيهك أو جدارك الناري</link>
 			<newline gap="18" indent="0" />
 		</group>
 		<group id="7">
@@ -1699,30 +1699,30 @@
 			<text color="FF0000">تم إكتشاف أنك وراء جهاز توجيه NAT أو جدار ناري و غير قادر على إستقبال إتصالات UDP من الإنترنت</text>
 			<text color="FF0000" format="b">هذا قد يسبب اداء سئ في التحميل </text>
 			<newline gap="6" />
-			<link target="peer:command:ID_HELP_ROUTER">أنقر هنا لتتعلم عن كيفية تكوين جهاز توجيهك أو جدارك الناري</link>
+			<link target="command:ID_HELP_ROUTER">أنقر هنا لتتعلم عن كيفية تكوين جهاز توجيهك أو جدارك الناري</link>
 			<newline gap="18" indent="0" />
 		</group>
-		<icon res="128" width="32" height="32" target="peer:command:ID_TOOLS_SETTINGS" /> <gap size="8" />
+		<icon res="128" width="32" height="32" target="command:ID_TOOLS_SETTINGS" /> <gap size="8" />
 		<heading align="middle">تــخــصــيــص PEERPROJECT</heading>
 		<newline gap="12" indent="42" />
-		<icon res="182" width="16" height="16" target="peer:command:ID_TOOLS_SKIN" /> <gap size="8" />
-		<link target="peer:command:ID_TOOLS_SKIN" align="middle" format="bu">الغلافات</link>
+		<icon res="182" width="16" height="16" target="command:ID_TOOLS_SKIN" /> <gap size="8" />
+		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">الغلافات</link>
 		<text align="middle"> - تغيير غلاف PeerProject و سمته</text>
 		<newline gap="8" />
-		<icon res="141" width="16" height="16" target="peer:command:ID_VIEW_SECURITY"/><gap size="8"/>
-		<link target="peer:command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
+		<icon res="141" width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
+		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
 		<text align="middle">&#160;- Update blocklist</text>
 		<newline gap="8"/>
-		<icon res="317" width="16" height="16" target="peer:command:ID_TOOLS_WIZARD" /> <gap size="8" />
-		<link target="peer:command:ID_TOOLS_WIZARD" align="middle">معالج الإعدادات</link>
+		<icon res="317" width="16" height="16" target="command:ID_TOOLS_WIZARD" /> <gap size="8" />
+		<link target="command:ID_TOOLS_WIZARD" align="middle">معالج الإعدادات</link>
 		<text align="middle">&#160;- تحرير إعدادات PeerProject</text>
 		<newline gap="8" />
-		<icon res="147" width="16" height="16" target="peer:command:ID_HELP_FAQ" /> <gap size="8" />
-		<link target="peer:command:ID_HELP_FAQ" align="middle">تعليمات سريعة</link>
+		<icon res="147" width="16" height="16" target="command:ID_HELP_FAQ" /> <gap size="8" />
+		<link target="command:ID_HELP_FAQ" align="middle">تعليمات سريعة</link>
 		<text align="middle">&#160;- أحصل على بعض التعليمات الأساسية عن PeerProject</text>
 		<newline gap="8"/>
-		<icon res="175" width="16" height="16" target="peer:command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
-		<link target="peer:command:ID_HELP_FORUMS_LOCAL" align="middle">المحلية المنتدى</link>
+		<icon res="175" width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
+		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">المحلية المنتدى</link>
 		<text align="middle">&#160;- اذهب الى حسابك في اللغة العربية مناقشة منتدى</text>
 		<newline gap="18" indent="0" />
 		<group id="5">
@@ -1748,7 +1748,7 @@
 			<group id="1">
 				<text format="b">غير متصل</text>
 				<newline gap="4" />
-				<link target="peer:command:ID_NETWORK_CONNECT">اضغط هنا للإتصال</link>
+				<link target="command:ID_NETWORK_CONNECT">اضغط هنا للإتصال</link>
 			</group>
 			<icon group="20" command="ID_NETWORK_G2" />
 			<gap group="20" size="4" />
@@ -1798,7 +1798,7 @@
 				<text>لا تقوم بتحميل اي ملفات الان</text>
 				<newline gap="8" />
 			</group>
-			<link target="peer:command:ID_VIEW_LIBRARY">الإنتقال إلى مكتبتي</link>
+			<link target="command:ID_VIEW_LIBRARY">الإنتقال إلى مكتبتي</link>
 			<newline gap="4" />
 			<text id="LibraryFiles" format="b">%lu </text>
 			<text>ملفات, </text>
@@ -1812,10 +1812,10 @@
 				<newline gap="8" />
 			</group>
 			<group id="3">
-				<link target="peer:command:ID_LIBRARY_HASH_PRIORITY">إضغط هنا للتجزئة بشكل أسرع</link>
+				<link target="command:ID_LIBRARY_HASH_PRIORITY">إضغط هنا للتجزئة بشكل أسرع</link>
 			</group>
 			<group id="4">
-				<link target="peer:command:ID_LIBRARY_HASH_PRIORITY">إضغط هنا للتجزئة بشكل أبطأ</link>
+				<link target="command:ID_LIBRARY_HASH_PRIORITY">إضغط هنا للتجزئة بشكل أبطأ</link>
 			</group>
 		</para>
 	</document>
@@ -1830,9 +1830,9 @@
 			<text>لم تقم بتحميل اي ملفات بعد</text>
 			<newline gap="4" />
 		</group>
-		<link id="DownloadsNone" format="bu" target="peer:command:ID_VIEW_DOWNLOADS">اذهب الى مكتبة الملفات</link>
-		<link id="DownloadsOne" format="bu" target="peer:command:ID_VIEW_DOWNLOADS">اذهب الى مكتبة الملفات (%i)</link>
-		<link id="DownloadsMany" format="bu" target="peer:command:ID_VIEW_DOWNLOADS"></link>
+		<link id="DownloadsNone" format="bu" target="command:ID_VIEW_DOWNLOADS">اذهب الى مكتبة الملفات</link>
+		<link id="DownloadsOne" format="bu" target="command:ID_VIEW_DOWNLOADS">اذهب الى مكتبة الملفات (%i)</link>
+		<link id="DownloadsMany" format="bu" target="command:ID_VIEW_DOWNLOADS"></link>
 		<newline gap="4"/>
 		<text id="DownloadedNone">No files (</text>
 		<text id="DownloadedOne">1 file (</text>
@@ -1849,8 +1849,8 @@
 		</styles>
 		<para align="center">
 		<text id="UploadsNone" format="b">لا يوجد ملفات نشطة</text>
-		<link id="UploadsOne" format="bu" target="peer:command:ID_VIEW_UPLOADS">1 عملية رفع نشطة</link>
-		<link id="UploadsMany" format="bu" target="peer:command:ID_VIEW_UPLOADS">%i عملية رفع نشطة</link>
+		<link id="UploadsOne" format="bu" target="command:ID_VIEW_UPLOADS">1 عملية رفع نشطة</link>
+		<link id="UploadsMany" format="bu" target="command:ID_VIEW_UPLOADS">%i عملية رفع نشطة</link>
 		<newline gap="4" />
 		<group id="1">
 			<text id="TorrentsOne">تم ارسال torrent</text>
@@ -1871,25 +1871,25 @@
 		<text format="b">عام</text>
 		<text>يتعلق بتجربة المستخدم</text>
 		<newline gap="16" indent="16" />
-		<link target="peer:page:CGeneralSettingsPage" format="b">عام:</link> <gap size="4" />
+		<link target="page:CGeneralSettingsPage" format="b">عام:</link> <gap size="4" />
 		<text>إعدادات واجهة المستخدم المشتركة مثل التلميحات و إجراءات التصغير و صيغ الأرقام و المطالبات الخ</text>
 		<newline gap="10" />
-		<link target="peer:page:CLibrarySettingsPage" format="b">المكتبة:</link> <gap size="4" />
+		<link target="page:CLibrarySettingsPage" format="b">المكتبة:</link> <gap size="4" />
 		<text>تحتوي المكتبة على ملفات الخاصة و الملفات التي قيد التحميل</text>
 		<newline gap="10" />
-		<link target="peer:page:CMediaSettingsPage" format="b">مشغل الوسائط:</link> <gap size="4" />
+		<link target="page:CMediaSettingsPage" format="b">مشغل الوسائط:</link> <gap size="4" />
 		<text>يستعمل مركز مشغل الوسائط PeerProject </text>
 		<newline gap="10" />
-		<link target="peer:page:CIRCSettingsPage" format="b">IRC Chat:</link> <gap size="4" />
+		<link target="page:CIRCSettingsPage" format="b">IRC Chat:</link> <gap size="4" />
 		<text>&#160;IRC chatroom connection settings and display options.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CCommunitySettingsPage" format="b">المنتديات:</link> <gap size="4" />
+		<link target="page:CCommunitySettingsPage" format="b">المنتديات:</link> <gap size="4" />
 		<text>ملف الإعدادات الخاص بك و مراسله منتدى الدعم الفني</text>
 		<newline gap="10" />
-		<link target="peer:page:CRemoteSettingsPage" format="b">التحكم عن بعد:</link> <gap size="4" />
+		<link target="page:CRemoteSettingsPage" format="b">التحكم عن بعد:</link> <gap size="4" />
 		<text>عملية القدرة للتحكم بالبرنامج عن بعد من خلال المتصفح الخاص بك</text>
 		<newline gap="10" />
-		<link target="peer:page:CWebSettingsPage" format="b">الانترنت:</link> <gap size="4" />
+		<link target="page:CWebSettingsPage" format="b">الانترنت:</link> <gap size="4" />
 		<text>إندماج هذا البرنامج مع متصفحك لقبول إرتباطات النظير إلى النظير و من ثم تحميل المحتوى</text>
 	</document>
 	<document name="CInternetSettingsGroup" title="الانترنت" rightMargin="8" topMargin="8">
@@ -1899,16 +1899,16 @@
 		<text format="b">انترنت </text>
 		<text>للتحكم بكيفية تفاعل PeerProject مع العقد الأخرى ضمن شبكة نظير إلى إلى نظير</text>
 		<newline gap="16" indent="16" />
-		<link target="peer:page:CConnectionSettingsPage" format="b">الإتصال :</link> <gap size="4" />
+		<link target="page:CConnectionSettingsPage" format="b">الإتصال :</link> <gap size="4" />
 		<text>السرعة و إمكانات الإتصال بالإنترنت</text>
 		<newline gap="10" />
-		<link target="peer:page:CDownloadsSettingsPage" format="b">مكتبة الملفات:</link> <gap size="4" />
+		<link target="page:CDownloadsSettingsPage" format="b">مكتبة الملفات:</link> <gap size="4" />
 		<text>طاقة التحميل الإنتاجية و الجدولة و التحقق و مهلة الوقت و الإدارة</text>
 		<newline gap="10" />
-		<link target="peer:page:CUploadsSettingsPage" format="b">رفع الملفات:</link> <gap size="4" />
+		<link target="page:CUploadsSettingsPage" format="b">رفع الملفات:</link> <gap size="4" />
 		<text>قدرة عملية الرفع و قائمة الإنتظار و الخظر و المهلة الوقتية و طلبات خاصة</text>
 		<newline gap="10" />
-		<link target="peer:page:CSchedulerSettingsPage" format="b">Scheduler:</link> <gap size="4"/>
+		<link target="page:CSchedulerSettingsPage" format="b">Scheduler:</link> <gap size="4"/>
 		<text>Limit bandwidth on a periodic schedule.</text>
 	</document>
 	<!--تصفح وضعية المستخدم-->
@@ -1995,15 +1995,15 @@
 		<newline gap="40" indent="0" />
 		<text format="b">ملفات المشاركة</text>
 		<newline gap="4" indent="8" />
-		<icon res="137" target="peer:command:ID_BROWSE_FILES" />
-		<link target="peer:command:ID_BROWSE_FILES" align="middle">عرض الملفات المشاركة</link>
+		<icon res="137" target="command:ID_BROWSE_FILES" />
+		<link target="command:ID_BROWSE_FILES" align="middle">عرض الملفات المشاركة</link>
 		<group id="2">
 			<newline gap="16" indent="0" />
 			<text format="b">المنتديات</text>
 			<newline gap="4" indent="8" />
-			<icon res="140" target="peer:command:ID_SEARCH_CHAT" />
+			<icon res="140" target="command:ID_SEARCH_CHAT" />
 			<gap size="5" />
-			<link target="peer:command:ID_SEARCH_CHAT" align="middle">محادثة المستخدم</link>
+			<link target="command:ID_SEARCH_CHAT" align="middle">محادثة المستخدم</link>
 		</group>
 		<group id="3">
 			<newline gap="16" indent="0" />
@@ -2579,10 +2579,10 @@
 	<tip id="ID_WEBSERVICES_LIST" message="إختيار خدمة الويب للحصول على مزيد من المعلومات حول الملف المحدد" />
 	<tip id="ID_WEBSERVICES_SHAREMONKEY" message="البحث عن معلومات الملف باستعمال خدمة ShareMonkey" />
 	<!-- PLUGIN TIPS -->
-	<tip id="ImageViewer_BestFit" message="تحجيم الصورة لملائمة حجم النافذة" />
-	<tip id="ImageViewer_ActualSize" message="إظهار الصورة بحجمها الطبيعي" />
-	<tip id="ImageViewer_Refresh" message="تحديث الصورة" />
-	<tip id="ImageViewer_Close" message="إغلاق نافذة عارض الصور" />
+	<tip id="PluginID_ImageViewer_BestFit" message="تحجيم الصورة لملائمة حجم النافذة" />
+	<tip id="PluginID_ImageViewer_FullSize" message="إظهار الصورة بحجمها الطبيعي" />
+	<tip id="PluginID_ImageViewer_Refresh" message="تحديث الصورة" />
+	<tip id="PluginID_ImageViewer_Close" message="إغلاق نافذة عارض الصور" />
 </commandTips>
 <!-- Tips displayed when mouse is moved over controls in the dialogs -->
 <!-- <controlTips>
@@ -2700,26 +2700,20 @@
 	<string id="8180" value="Min Filesize:" />
 	<string id="8181" value="Max Filesize:" />
 	<string id="8208" value="PeerProject is creating hashes for %Iu files:" />
-	<string id="8223" value="%i days and %i hours" />
-	<string id="8224" value="PeerProject is downloading:" />
-	<string id="8225" value="This download is paused:" />
-	<string id="8226" value="PeerProject has completed downloading:" />
-	<string id="8227" value="%i ساعات و  %i دقائق" />
-	<string id="8228" value="%i دقائق و  %i ثواني" />
-	<string id="8229" value="%i ثواني" />
-	<string id="8230" value="PeerProject is looking for sources for:" />
+	<string id="8227" value="%i days %i ساعات و" />
+	<string id="8228" value="%i ساعات و  %i دقائق" />
+	<string id="8229" value="%i دقائق و  %i ثواني" />
+	<string id="8230" value="%i ثواني" />
 	<string id="8231" value="No sources" />
 	<string id="8232" value="Open" />
 	<string id="8233" value="إلغاء الأمر" />
 	<string id="8235" value="Total transfer speed:" />
 	<string id="8236" value="Estimated time remaining:" />
 	<string id="8237" value="حجم التحميل:" />
-	<string id="8238" value="عدد المصادر:" />
+	<string id="8238" value="حجم التحميل:" />
 	<string id="8239" value="مكمل" />
-	<string id="8240" value="PeerProject is moving the download:" />
-	<string id="8241" value="PeerProject is checking the download for errors:" />
-	<string id="8243" value="Volume uploaded:" />
-	<string id="8244" value="Number of reviews:" />
+	<string id="8240" value="عدد المصادر:" />
+	<string id="8241" value="Number of reviews:" />
 	<string id="8288" value="Exploring Your PeerProject Library" />
 	<string id="8289" value="Exploring" />
 	<string id="8290" value="Exploring the contents of %i folders" />
@@ -2832,7 +2826,8 @@
 	<string id="16211" value="Neighbour %s forwarded a push request to a firewalled address, ignoring." />
 	<string id="16212" value="Neighbour %s forwarded an extended packet that is not GGEP encoded." />
 	<string id="16213" value="Sending query routing table to neighbour %s (%i bit = %lu[%i], %i%% full)" />
-	<string id="16255" value="Drag'n'Drop الملفات إلى المجموعة %s"/>
+	<string id="16254" value="افتراضي تحميل المجموعة. (إظهار كافة الملفات)" />
+	<string id="16255" value="Drag'n'Drop الملفات إلى المجموعة %s" />
 	<string id="16256" value="Added &quot;%s&quot; to download queue with %i source(s)." />
 	<string id="16257" value="Completed download of &quot;%s&quot;." />
 	<string id="16258" value="Pausing download of &quot;%s&quot;." />
@@ -3235,14 +3230,14 @@
 	<string id="18510" value="Are you sure you want to assume this download is complete and reverify it?  The whole file will be considered, and PeerProject will accept parts which pass verification and redownload parts which fail verification." />
 	<string id="18511" value="You have made changes to the file size. Are you sure you want to change the file size for this download?" />
 	<string id="19000" value="Remote access is disabled." />
-	<string id="19001" value="You must choose a username and password." />
+	<string id="19001" value="http://%s:%i/remote - username/password required." />
 	<string id="19002" value="Unable to accept connections, URL unavailable." />
 	<string id="20000" value="No URN available" />
 	<string id="20001" value="Close" />
 	<string id="20002" value="of" />	<!-- "1 of 10" >
 	<string id="20003" value="Changing interface direction requires restart. \nYou will need to start PeerProject manually. Exit now?" />
 	<string id="20005" value="No" />
-	<string id="20007" value="Auto" />
+	<string id="20007" value="تلقائيا" />
 	<string id="20008" value="Default" />
 	<string id="20009" value="Custom" />
 	<string id="20010" value="&amp;Back" />
@@ -3315,6 +3310,7 @@
 End Untranslated -->
 	<string id="20237" value="حسنا"/>
 	<string id="20238" value="إلغاء الأمر"/>
+	<string id="20245" value="مجلد جديد"/>
 </strings>
 <!-- Localized Dialog Text, "cookie" verifies that the skin matches current dialog -->
 <dialogs>
@@ -4046,7 +4042,7 @@ End Untranslated -->
 		<control caption="عرض المكتبة" />
 		<control caption="إلغاء التحميل" />
 		<control caption="اخفاء" />
-		<control caption="إغلاق هذه النافذة عند إنتهاء التحميل" />
+		<control caption="تلقائيا" />
 	</dialog>
 	<dialog name="CFileGeneralPage" cookie="EdStStStStStEdEdEdEdEdStEdEdEdEd" caption="عام">
 		<control />
@@ -4222,26 +4218,25 @@ End Untranslated -->
 		<control />
 		<control caption="إلغاء الأمر" />
 	</dialog>
-	<dialog name="CURLActionDlg" cookie="StStStStStEdStEdStBuBuBuBuBuSt" caption="PeerProject URI Manager">
-		<control />
-		<control caption="You have clicked on a PeerProject-powered URI which links to the following content on the network:" />
-		<control caption="You have clicked on a PeerProject-powered URL which will connect you to the following host or server:" />
-		<control caption="You have clicked on a PeerProject-powered URI which will allow you to browse the shared files available on the following host:" />
-		<control />
-		<control />
+	<dialog name="CURLActionDlg" cookie="StStStStStStEdStEdStBuBuBuBuBu" caption="PeerProject URI Manager">
+		<control caption="You have clicked a PeerProject-powered URI that links to this content on the network:" />
+		<control caption="You have clicked a PeerProject-powered URL that will connect you to this host or server:" />
+		<control caption="You have clicked a PeerProject-powered URI that will allow you to browse the shared files available on the following host:" />
+		<control caption="You have clicked a PeerProject-powered URI that will add this Discovery Service to your Discovery Services cache." />
 		<control />
 		<control />
-		<control caption="Please select the action you would like PeerProject to take:" />
+		<control />
+		<control />
+		<control caption="Select the action you would like to take:" />
 		<control caption="_تحميل الان" />
 		<control caption="_البحث عن ملف" />
 		<control caption="إلغاء الأمر" />
 		<control caption="_تذكر اختياري في المرة القادمة" />
 		<control caption="شاشة التحميل _افتح نافذة " />
-		<control caption="You have clicked on a PeerProject-powered URI which will add the following Discovery Service to your Discovery Services cache." />
 	</dialog>
 	<dialog name="CBitziDownloadDlg" cookie="StStmsBuSySt" caption="Downloading Metadata...">
 		<control />
-		<control caption="PeerProject is attempting to download metadata from Bitzi(TM)..." />
+		<control caption="PeerProject is attempting to download metadata from Bitzi..." />
 		<control />
 		<control caption="إلغاء الأمر" />
 		<control />

@@ -23,6 +23,7 @@
 #include "PeerProject.h"
 #include "Settings.h"
 #include "FragmentBar.h"
+#include "CoolInterface.h"
 #include "Colors.h"
 
 #include "Download.h"
@@ -74,10 +75,15 @@ void CFragmentBar::DrawFragment(CDC* pDC, CRect* prcBar, QWORD nTotal, QWORD nOf
 	if ( rcArea.right <= rcArea.left )
 		return;
 
-	if ( b3D && rcArea.Width() > 2 )
+	if ( crFill == Colors.m_crFragmentComplete && Skin.m_bmProgress.m_hObject != NULL )
 	{
-		pDC->Draw3dRect( &rcArea,	CColors::CalculateColor( crFill, RGB(255,255,255), 75 ),
-									CColors::CalculateColor( crFill, RGB(0,0,0), 75 ) );
+		CoolInterface.DrawWatermark( pDC, &rcArea, &Skin.m_bmProgress, FALSE ); 	// No overdraw
+	}
+	else if ( b3D && rcArea.Width() > 2 )
+	{
+		pDC->Draw3dRect( &rcArea,
+			CColors::CalculateColor( crFill, RGB(255,255,255), 75 ),
+			CColors::CalculateColor( crFill, RGB(0,0,0), 75 ) );
 
 		rcArea.DeflateRect( 1, 1 );
 		pDC->FillSolidRect( &rcArea, crFill );
@@ -187,20 +193,23 @@ void CFragmentBar::DrawDownload(CDC* pDC, CRect* prcBar, CDownload* pDownload, C
 	const Fragments::List::const_iterator pEnd = oList.end();
 	for ( ; pItr != pEnd ; ++pItr )
 	{
-		DrawFragment( pDC, prcBar, pDownload->m_nSize, pItr->begin(),
-			pItr->size(), crNatural, FALSE );
+		DrawFragment( pDC, prcBar, pDownload->m_nSize,
+			pItr->begin(), pItr->size(), crNatural, FALSE );
 	}
 
 	for ( POSITION posSource = pDownload->GetIterator(); posSource ; )
 	{
 		CDownloadSource* pSource = pDownload->GetNext( posSource );
-
 		pSource->Draw( pDC, prcBar );
 	}
 
-	pDC->FillSolidRect( prcBar, pDownload->IsStarted() ? Colors.m_crFragmentComplete : crNatural );
+	if ( pDownload->IsStarted() && Skin.m_bmProgress.m_hObject != NULL )
+		CoolInterface.DrawWatermark( pDC, prcBar, &Skin.m_bmProgress, FALSE );		// No overdraw (bar)
+	else if ( ! pDownload->IsStarted() && Skin.m_bmProgressNone.m_hObject != NULL )
+		CoolInterface.DrawWatermark( pDC, prcBar, &Skin.m_bmProgress, FALSE );		// No overdraw (empty)
+	else
+		pDC->FillSolidRect( prcBar, pDownload->IsStarted() ? Colors.m_crFragmentComplete : crNatural );
 }
-
 
 void CFragmentBar::DrawDownloadSimple(CDC* pDC, CRect* prcBar, CDownload* pDownload, COLORREF crNatural)
 {
@@ -370,6 +379,12 @@ void CFragmentBar::DrawUpload(CDC* pDC, CRect* prcBar, CUploadFile* pFile, COLOR
 		}
 	}
 
-	pDC->FillSolidRect( prcBar, ( pFile == pUpload->m_pBaseFile )
-		? Colors.m_crFragmentShaded : crNatural );
+	// Empty Bar
+	if ( pFile == pUpload->m_pBaseFile && Skin.m_bmProgressShaded.m_hObject != NULL )
+		CoolInterface.DrawWatermark( pDC, prcBar, &Skin.m_bmProgressShaded, FALSE );
+	else if ( pFile != pUpload->m_pBaseFile && Skin.m_bmProgressNone.m_hObject != NULL )
+		CoolInterface.DrawWatermark( pDC, prcBar, &Skin.m_bmProgressNone, FALSE );
+	else
+		pDC->FillSolidRect( prcBar, ( pFile == pUpload->m_pBaseFile )
+			? Colors.m_crFragmentShaded : crNatural );
 }

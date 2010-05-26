@@ -257,12 +257,12 @@ void CSettings::Load()
 	Add( _T("MediaPlayer"), _T("Volume"), &MediaPlayer.Volume, 1.0f );
 	Add( _T("MediaPlayer"), _T("Zoom"), (DWORD*)&MediaPlayer.Zoom, smzOne );
 
-	Add( _T("Web"), _T("ED2K"), &Web.ED2K, true );
-	Add( _T("Web"), _T("Gnutella"), &Web.Gnutella, true );
+	Add( _T("Web"), _T("Torrent"), &Web.Torrent, ( CRegistry::GetString( _T("Software\\Classes\\.torrent"), NULL, NULL, NULL ).GetLength() < 4 ) );
 	Add( _T("Web"), _T("Magnet"), &Web.Magnet, true );
+	Add( _T("Web"), _T("Gnutella"), &Web.Gnutella, true );
+	Add( _T("Web"), _T("ED2K"), &Web.ED2K, true );
 	Add( _T("Web"), _T("Foxy"), &Web.Foxy, true );
 	Add( _T("Web"), _T("Piolet"), &Web.Piolet, true );
-	Add( _T("Web"), _T("Torrent"), &Web.Torrent, true );
 
 	Add( _T("Connection"), _T("AutoConnect"), &Connection.AutoConnect, true );
 	Add( _T("Connection"), _T("ConnectThrottle"), &Connection.ConnectThrottle, 0, 1, 0, 500, _T(" ms") );
@@ -976,7 +976,7 @@ void CSettings::SmartUpgrade()
 	//	if ( General.SmartVersion < 50 )
 	//	{
 	//		CString strExts = theApp.GetProfileString( L"Plugins", L"{C88A4A9E-17C4-429D-86BA-3327CED6DE62}" );
-	//		if ( strExts.GetLength() > 0 && strExts.GetAt( 0 ) == '|' )
+	//		if ( ! strExts.IsEmpty() && strExts.GetAt( 0 ) == '|' )
 	//		{
 	//			if ( _tcsistr( strExts, L"|.3gp|" ) == NULL && _tcsistr( strExts, L"|-.3gp|" ) == NULL )
 	//				strExts += L"|.3gp|";
@@ -1009,7 +1009,7 @@ void CSettings::SmartUpgrade()
 	//			theApp.WriteProfileString( L"Plugins", L"{C88A4A9E-17C4-429D-86BA-3327CED6DE62}", strExts );
 	//		}
 	//		strExts = theApp.GetProfileString( L"Plugins", L"{C8613374-9313-4E34-AD6C-A6F7FA317D3A}" );
-	//		if ( strExts.GetLength() > 0 && strExts.GetAt( 0 ) == '|' )
+	//		if ( ! strExts.IsEmpty() && strExts.GetAt( 0 ) == '|' )
 	//		{
 	//			if ( _tcsistr( strExts, L"|.3gp|" ) == NULL && _tcsistr( strExts, L"|-.3gp|" ) == NULL )
 	//				strExts += L"|.3gp|";

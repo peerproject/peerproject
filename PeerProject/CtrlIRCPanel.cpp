@@ -27,8 +27,9 @@
 #include "CtrlIRCPanel.h"
 #include "DlgIrcInput.h"
 
-#include "CoolInterface.h"
 #include "RichDocument.h"
+#include "CoolInterface.h"
+#include "Colors.h"
 #include "Skin.h"
 #include "XML.h"
 
@@ -160,7 +161,7 @@ int CIRCChannelsBox::OnCreate(LPCREATESTRUCT lpCreateStruct)
 		LVS_NOCOLUMNHEADER | LVS_SORTASCENDING | LVS_NOLABELWRAP,
 		rc, this, IDC_IRC_CHANNELS );
 	rc.right -= GetSystemMetrics( SM_CXVSCROLL );
-	m_wndChanList.SetExtendedStyle( LVS_EX_DOUBLEBUFFER|LVS_EX_FULLROWSELECT|LVS_EX_LABELTIP );
+	m_wndChanList.SetExtendedStyle( LVS_EX_DOUBLEBUFFER|LVS_EX_TRANSPARENTBKGND|LVS_EX_FULLROWSELECT|LVS_EX_LABELTIP );
 	m_wndChanList.InsertColumn( 0, _T("Channels"), LVCFMT_LEFT, rc.right - 36 );
 	m_wndChanList.InsertColumn( 1, _T("UserCount"), LVCFMT_RIGHT, 36 );
 
@@ -194,7 +195,10 @@ void CIRCChannelsBox::OnSkinChange()
 	m_wndRemoveChannel.SetWindowText( strCaption );
 	m_wndRemoveChannel.SetCoolIcon( ID_IRC_REMOVE, Settings.General.LanguageRTL );
 
-	m_wndChanList.SetBkImage( Skin.GetWatermark( _T("CIRCChannelsBox") ) );
+	if ( m_wndChanList.SetBkImage( Skin.GetWatermark( _T("CIRCChannelsBox") ) ) )
+		m_wndChanList.SetExtendedStyle( LVS_EX_FULLROWSELECT|LVS_EX_LABELTIP ); 	// No LVS_EX_DOUBLEBUFFER
+	else
+		m_wndChanList.SetBkColor( Colors.m_crTaskBoxClient );
 }
 
 void CIRCChannelsBox::OnSize(UINT nType, int cx, int cy)
@@ -283,7 +287,7 @@ int CIRCUsersBox::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_wndUserList.Create( WS_CHILD | WS_VISIBLE | WS_VSCROLL | WS_TABSTOP |
 		LBS_NOTIFY | LBS_NOINTEGRALHEIGHT | LBS_SORT | LBS_HASSTRINGS,
 		rc, this, IDC_IRC_USERS );
-	//m_wndUserList.ModifyStyleEx( 0, WS_EX_CLIENTEDGE );
+	//m_wndUserList.ModifyStyleEx( 0, WS_EX_CLIENTEDGE );	// WS_EX_TRANSPARENT?
 	if ( Settings.General.LanguageRTL )
 		m_wndUserList.ModifyStyleEx( WS_EX_LAYOUTRTL, 0, 0 );
 
@@ -294,6 +298,7 @@ int CIRCUsersBox::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 void CIRCUsersBox::OnSkinChange()
 {
+	// ToDo: Skin m_wndUserList ListBox:  Colors.m_crTaskBoxClient + Skin.GetWatermark( &bmTaskBox, _T("CIRCUsersBox") )
 }
 
 void CIRCUsersBox::OnPaint()

@@ -222,7 +222,7 @@ void CCoolMenuBarCtrl::UpdateWindowMenu(CMenu* pMenu)
 	CMDIFrameWnd* pFrame = (CMDIFrameWnd*)AfxGetMainWnd();
 	if ( ! pFrame->IsKindOf( RUNTIME_CLASS(CMDIFrameWnd) ) ) return;
 
-    CWnd* pClient = pFrame->GetWindow( GW_CHILD );
+	CWnd* pClient = pFrame->GetWindow( GW_CHILD );
 	for ( ; pClient ; pClient = pClient->GetNextWindow() )
 	{
 		TCHAR szClass[64];

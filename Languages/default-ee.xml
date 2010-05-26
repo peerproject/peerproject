@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Estonian Skin File -->
 
-<!-- Translation based on default-en.xml r54 (Shareaza 2.2.2.9) -->
+<!-- Translation based on default-en.xml r55 (Shareaza 2.2.2.9) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1581,7 +1581,7 @@
 			<heading align="middle">OLE ÜHENDATUD</heading>
 			<newline gap="8" indent="42"/>
 			<text>Teretulemast PeerProjectsse! &#160;Sa ei ole praegu ühendatud ühtegi peer to peer võrku. &#160;</text>
-			<link target="peer:command:ID_NETWORK_CONNECT">Kliki siia, et alustada!</link>
+			<link target="command:ID_NETWORK_CONNECT">Kliki siia, et alustada!</link>
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="2">
@@ -1590,11 +1590,11 @@
 			<newline gap="8" indent="42"/>
 			<anchor id="SearchBox" width="256" height="80"/>
 			<newline gap="14" indent="0"/>
-			<icon res="136" width="32" height="32" target="peer:shell:downloads"/><gap size="8"/>
+			<icon res="136" width="32" height="32" target="command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
 			<heading align="middle">MINU TÕMBAMISED</heading>
 			<newline gap="8" indent="42"/>
 			<text>Or open your completed </text>
-			<link target="peer:shell:downloads">downloads folder.</link>
+			<link target="command:shell:downloads">downloads folder.</link>
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="3">
@@ -1603,42 +1603,42 @@
 			<newline gap="8" indent="42"/>
 			<text id="Upgrade"/>
 			<newline gap="6"/>
-			<link target="peer:upgrade">Kliki siia, et uuendada</link>
+			<link target="command:upgrade">Kliki siia, et uuendada</link>
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="4">
-			<icon res="252" width="32" height="32" target="peer:command:ID_TOOLS_WIZARD"/><gap size="8"/>
+			<icon res="252" width="32" height="32" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 			<heading align="middle">HOIATUS - SA OLED TULEMÜÜRITUD</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">PeerProject tuvastas, et sinu arvuti on NAT ruuteri või tulemüüri poolt suletud ja ei ole
 			  suuteline sissetulevaid ühendusi vastu võtma. &#160;</text>
 			<text color="FF0000" format="b">See võib põhjustada kehva allalaadimist.</text>
 			<newline gap="6"/>
-			<link target="peer:command:ID_HELP_ROUTER">Kliki siia, et abi saada.</link>
+			<link target="command:ID_HELP_ROUTER">Kliki siia, et abi saada.</link>
 			<newline gap="18" indent="0"/>
 		</group>
-		<icon res="128" width="32" height="32" target="peer:command:ID_TOOLS_SETTINGS"/><gap size="8"/>
+		<icon res="128" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">KOHANDA PEERPROJECT</heading>
 		<newline gap="12" indent="42"/>
-		<icon res="182" width="16" height="16" target="peer:command:ID_TOOLS_SKIN"/><gap size="8"/>
-		<link target="peer:command:ID_TOOLS_SKIN" align="middle" format="bu">Nahad</link>
+		<icon res="182" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
+		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">Nahad</link>
 		<text align="middle">&#160;- Muuda PeerProject välimust</text>
 		<newline gap="8"/>
-		<icon res="141" width="16" height="16" target="peer:command:ID_VIEW_SECURITY"/><gap size="8"/>
-		<link target="peer:command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
+		<icon res="141" width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
+		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
 		<text align="middle">&#160;- Update blocklist to avoid bad search results</text>
 		<newline gap="8"/>
-		<icon res="317" width="16" height="16" target="peer:command:ID_TOOLS_WIZARD"/><gap size="8"/>
-		<link target="peer:command:ID_TOOLS_WIZARD" align="middle">Seadete Abiline</link>
+		<icon res="317" width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
+		<link target="command:ID_TOOLS_WIZARD" align="middle">Seadete Abiline</link>
 		<text align="middle">&#160;- Muuda PeerProject seadeid</text>
 		<newline gap="8"/>
-		<icon res="147" width="16" height="16" target="peer:command:ID_HELP_FAQ"/><gap size="8"/>
-		<link target="peer:command:ID_HELP_FAQ" align="middle">Kiire Abi</link>
+		<icon res="147" width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
+		<link target="command:ID_HELP_FAQ" align="middle">Kiire Abi</link>
 		<text align="middle">&#160;- PeerProject kasutusõpetused, o </text>
-		<link target="peer:command:ID_TAB_IRC" align="middle">IRC.</link>
+		<link target="command:ID_TAB_IRC" align="middle">IRC.</link>
 		<newline gap="8"/>
-		<icon res="175" width="16" height="16" target="peer:command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
-		<link target="peer:command:ID_HELP_FORUMS_LOCAL" align="middle">Kohalik Foorum</link>
+		<icon res="175" width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
+		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">Kohalik Foorum</link>
 		<text align="middle">&#160;- Mine oma eesti keele foorum</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
@@ -1664,7 +1664,7 @@
 			<para align="center">
 				<text format="b">Ühenduseta</text>
 				<newline gap="4"/>
-				<link target="peer:command:ID_NETWORK_CONNECT">Kliki siia, et ühendada</link>
+				<link target="command:ID_NETWORK_CONNECT">Kliki siia, et ühendada</link>
 			</para>
 		</group>
 		<icon group="20" command="ID_NETWORK_G2"/>
@@ -1711,7 +1711,7 @@
 				<text>Sa ei ole midagi uut tõmmanud.</text>
 				<newline gap="8"/>
 			</group>
-			<link target="peer:command:ID_VIEW_LIBRARY">Mine Raamatukokku</link>
+			<link target="command:ID_VIEW_LIBRARY">Mine Raamatukokku</link>
 			<newline gap="4"/>
 			<text id="LibraryFiles" format="b">%lu </text>
 			<text>fail (</text>
@@ -1725,10 +1725,10 @@
 				<newline gap="8"/>
 			</group>
 			<group id="3">
-				<link target="peer:command:ID_LIBRARY_HASH_PRIORITY">Kliki siia, et kiiremini</link>
+				<link target="command:ID_LIBRARY_HASH_PRIORITY">Kliki siia, et kiiremini</link>
 			</group>
 			<group id="4">
-				<link target="peer:command:ID_LIBRARY_HASH_PRIORITY">Kliki siia, et aeglasemalt</link>
+				<link target="command:ID_LIBRARY_HASH_PRIORITY">Kliki siia, et aeglasemalt</link>
 			</group>
 		</para>
 	</document>
@@ -1743,9 +1743,9 @@
 				<text>Sa ei tõmba hetkel midagi.</text>
 				<newline gap="4"/>
 			</group>
-			<link id="DownloadsNone" target="peer:command:ID_VIEW_DOWNLOADS">Mine Ülekannetesse</link>
-			<link id="DownloadsOne" target="peer:command:ID_VIEW_DOWNLOADS" format="bu">Mine Ülekannetesse (1)</link>
-			<link id="DownloadsMany" target="peer:command:ID_VIEW_DOWNLOADS" format="bu">Mine Ülekannetesse (%i)</link>
+			<link id="DownloadsNone" target="command:ID_VIEW_DOWNLOADS">Mine Ülekannetesse</link>
+			<link id="DownloadsOne" target="command:ID_VIEW_DOWNLOADS" format="bu">Mine Ülekannetesse (1)</link>
+			<link id="DownloadsMany" target="command:ID_VIEW_DOWNLOADS" format="bu">Mine Ülekannetesse (%i)</link>
 			<newline gap="4"/>
 			<text id="DownloadedNone">No faili (</text>
 			<text id="DownloadedOne">1 faili (</text>
@@ -1762,8 +1762,8 @@
 		</styles>
 		<para align="center">
 			<text id="UploadsNone" format="b">Ühtegi aktiivset üleslaadimist ei ole</text>
-			<link id="UploadsOne" target="peer:command:ID_VIEW_UPLOADS" format="bu">1 aktiine üleslaadimine</link>
-			<link id="UploadsMany" target="peer:command:ID_VIEW_UPLOADS" format="bu">%i aktiivset üleslaadimist</link>
+			<link id="UploadsOne" target="command:ID_VIEW_UPLOADS" format="bu">1 aktiine üleslaadimine</link>
+			<link id="UploadsMany" target="command:ID_VIEW_UPLOADS" format="bu">%i aktiivset üleslaadimist</link>
 			<newline gap="4"/>
 			<group id="1">
 				<text id="TorrentsOne">Jagad 1 torrentit</text>
@@ -1784,25 +1784,25 @@
 		<text format="b">Üldine </text>
 		<text>osas on seotud kasutusmugavusega.</text>
 		<newline gap="16" indent="16"/>
-		<link target="peer:page:CGeneralSettingsPage" format="b">Üldine:</link>
+		<link target="page:CGeneralSettingsPage" format="b">Üldine:</link>
 		<text>&#160;Tavalise kasutajaliidese seaded nagu  vihjed, minimeerimine, numbrite formaat, jne.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CLibrarySettingsPage" format="b">Raamatukogu:</link>
+		<link target="page:CLibrarySettingsPage" format="b">Raamatukogu:</link>
 		<text>&#160;Failide ja kaustade käsitlus, esitlus ja failide avamine.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CMediaSettingsPage" format="b">Meedia:</link>
+		<link target="page:CMediaSettingsPage" format="b">Meedia:</link>
 		<text>&#160;Kuidas ja millal kasutada PeerProject Meediakeskust.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CIRCSettingsPage" format="b">Chat:</link>
+		<link target="page:CIRCSettingsPage" format="b">Chat:</link>
 		<text>&#160;IRC chatroom connection settings and display options.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CCommunitySettingsPage" format="b">Kogukond:</link>
+		<link target="page:CCommunitySettingsPage" format="b">Kogukond:</link>
 		<text>&#160;Sinu profiili, vestluse ja sõnumite seaded.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CRemoteSettingsPage" format="b">Pult:</link>
+		<link target="page:CRemoteSettingsPage" format="b">Pult:</link>
 		<text>&#160;Annab võimaluse PeerProjectt eemalt juhtida, läbi weebibrowseri.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CWebSettingsPage" format="b">Weeb:</link>
+		<link target="page:CWebSettingsPage" format="b">Weeb:</link>
 		<text>&#160;Integreeri PeerProject oma weebi browseriga ja ühenda peer-to-peer lingid ja allalaadimised browserist.</text>
 	</document>
 	<document name="CInternetSettingsGroup" title="Internet" leftMargin="8" topMargin="8">
@@ -1813,16 +1813,16 @@
 		<text format="b">Internet </text>
 		<text>osas, kontrollib kuidas PeerProject suhtleb teiste serveritega peer-to-peer võrgus.</text>
 		<newline gap="16" indent="16"/>
-		<link target="peer:page:CConnectionSettingsPage" format="b">Ühendused:</link>
+		<link target="page:CConnectionSettingsPage" format="b">Ühendused:</link>
 		<text>&#160;Sinu Internetiühenduse kiirus ja võimalused.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CDownloadsSettingsPage" format="b">Allalaadimised:</link>
+		<link target="page:CDownloadsSettingsPage" format="b">Allalaadimised:</link>
 		<text>&#160;Allalaadimiste läbilaskevõime, ajastus, kinnitus, haldus.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CUploadsSettingsPage" format="b">Üleslaadimised:</link>
+		<link target="page:CUploadsSettingsPage" format="b">Üleslaadimised:</link>
 		<text>&#160;Üleslaadimise mahud, järjekorrad, keelamised, ajastused ja erinõuded.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CSchedulerSettingsPage" format="b">Scheduler:</link>
+		<link target="page:CSchedulerSettingsPage" format="b">Scheduler:</link>
 		<text>&#160;Limit download connections based on a periodic schedule.</text>
 	</document>
 	<!-- Browse User Profile -->
@@ -1903,15 +1903,15 @@
 		<newline gap="40" indent="0"/>
 		<text format="b">Jagatud Failid</text>
 		<newline gap="4" indent="8"/>
-		<icon res="137" target="peer:command:ID_BROWSE_FILES"/><gap size="5"/>
-		<link target="peer:command:ID_BROWSE_FILES" align="middle">Vaata Jagatud Faile</link>
+		<icon res="137" target="command:ID_BROWSE_FILES"/><gap size="5"/>
+		<link target="command:ID_BROWSE_FILES" align="middle">Vaata Jagatud Faile</link>
 		<group id="2">
 			<newline gap="16" indent="0"/>
 			<text format="b">Kogukond</text>
 			<newline gap="4" indent="8"/>
-			<icon res="140" target="peer:command:ID_SEARCH_CHAT"/>
+			<icon res="140" target="command:ID_SEARCH_CHAT"/>
 			<gap size="5"/>
-			<link target="peer:command:ID_SEARCH_CHAT" align="middle">Vestle Kasutajaga</link>
+			<link target="command:ID_SEARCH_CHAT" align="middle">Vestle Kasutajaga</link>
 		</group>
 		<group id="3">
 			<newline gap="16" indent="0"/>
@@ -2580,26 +2580,26 @@
 	<string id="8180" value="Faili suurus peaks olema"/>
 	<string id="8181" value="kuni"/>
 	<string id="8208" value="PeerProject loob kohti %Iu failile:"/>
-	<string id="8223" value="%i päeva ja %i tundi"/>
-	<string id="8224" value="PeerProject tõmbab:"/>
-	<string id="8225" value="See allalaadimine on peatatud:"/>
+<!--	<string id="8221" value="PeerProject otsib rohkem allikaid:"/>
+	<string id="8222" value="PeerProject tõmbab:"/>
+	<string id="8223" value="See allalaadimine on peatatud:"/>
+	<string id="8224" value="PeerProject tõstab faili ringi:"/>
+	<string id="8225" value="PeerProject kontrollib faili vigu:"/>
 	<string id="8226" value="PeerProject on lõpetanud allalaadimise:"/>
-	<string id="8227" value="%i tundi ja %i minutit"/>
-	<string id="8228" value="%i minutit ja %i sekundit"/>
-	<string id="8229" value="%i sekundit"/>
-	<string id="8230" value="PeerProject otsib rohkem allikaid:"/>
+-->	<string id="8227" value="%i päeva ja %i tundi"/>
+	<string id="8228" value="%i tundi ja %i minutit"/>
+	<string id="8229" value="%i minutit ja %i sekundit"/>
+	<string id="8230" value="%i sekundit"/>
 	<string id="8231" value="Ei ole allikaid"/>
 	<string id="8232" value="Ava"/>
 	<string id="8233" value="Tühista"/>
 	<string id="8235" value="Ülekande kiirus:"/>
 	<string id="8236" value="Järelejäänud aeg:"/>
 	<string id="8237" value="Seni allalaadidud:"/>
-	<string id="8238" value="Allikate arv:"/>
+	<string id="8238" value="Seni üleslaaditud:"/>
 	<string id="8239" value="Lõpetatud"/>
-	<string id="8240" value="PeerProject tõstab faili ringi:"/>
-	<string id="8241" value="PeerProject kontrollib faili vigu:"/>
-	<string id="8243" value="Seni üleslaaditud:"/>
-	<string id="8244" value="Arvamuste arv:"/>
+	<string id="8240" value="Allikate arv:"/>
+	<string id="8241" value="Arvamuste arv:"/>
 	<string id="8288" value="Uuri oma PeerProject Raamatukogu"/>
 	<string id="8289" value="Vaatan   "/>
 	<string id="8290" value=" Vaatan   %i kausta sisu"/>
@@ -2709,6 +2709,7 @@
 	<string id="16211" value="%s saatis päringu tulemüüri aadressiga, ignoreerin."/>
 	<string id="16212" value="%s saatis laiendatut paketi, mis ei ole GGEP kodeeringus."/>
 	<string id="16213" value="Saadan päringu marsruutinguga %s (%i bit = %lu[%i], %i%% täis)"/>
+	<string id="16254" value="Default download grupp. (Näita kõik failid)"/>
 	<string id="16255" value="Drag'n'drop faile %s grupp"/>
 	<string id="16256" value="Lisatud &quot;%s&quot; allalaadimis järjekorda %i allikale."/>
 	<string id="16257" value="Lõpetatud allalaadimine &quot;%s&quot;."/>
@@ -3093,7 +3094,7 @@
 	<string id="18510" value="Oled kindel, et tahad eeldada, et fail on tervenisti alla tõmmatud ja üle kinnitada?  Terve fail vaadatakse üle ja PeerProject nõustub kinnitatud faili osadega ja tõmbab uuesti need osad, mis kinnitust ei läbinud."/>
 	<string id="18511" value="Sa oled muutnud faili suurust.  Oled kindel, et tahad selle tõmbamise failisuurust muuta?"/>
 	<string id="19000" value="Kaugtöö ei ole käivitatud."/>
-	<string id="19001" value="Sa pead valima kasutajanime ja salasõna."/>
+	<string id="19001" value="http://%s:%i/remote - Sa pead valima kasutajanime ja salasõna."/>
 	<string id="19002" value="Ei saa ühendust, URL ei ole saadaval."/>
 	<string id="20000" value="URN-i ei ole saadaval"/>
 	<string id="20001" value="Sule"/>
@@ -3159,6 +3160,7 @@
 	<string id="20216" value="Suurepärane"/>
 	<string id="20237" value="OK"/>
 	<string id="20238" value="Tühista"/>
+	<string id="20245" value="Uus Kataloog"/>
 </strings>
 <!-- Localized Dialog Text, "cookie" verifies that the skin matches current dialog -->
 <dialogs>
@@ -3844,7 +3846,7 @@
 		<control caption="Vaata"/>
 		<control caption="Tühista"/>
 		<control caption="Peida"/>
-		<control caption="Sulge see aken, kui allalaadimine lõpeb"/>
+		<control caption="Auto"/>
 	</dialog>
 	<dialog name="CFileGeneralPage" cookie="EdStStStStStEdEdEdEdEdStEdEdEdEd" caption="Üldist">
 		<control/>
@@ -4020,11 +4022,11 @@
 		<control/>
 		<control caption="Tühista"/>
 	</dialog>
-	<dialog name="CURLActionDlg" cookie="StStStStStEdStEdStBuBuBuBuBuSt" caption="PeerProject URI Haldur">
-		<control/>
+	<dialog name="CURLActionDlg" cookie="StStStStStStEdStEdStBuBuBuBuBu" caption="PeerProject URI Haldur">
 		<control caption="Sa oled klikkinud PeerProject poolt koostatud URI-l, mis viitab Võrgus järgnevale sisule:"/>
 		<control caption="Sa oled klikkinud PeerProject poolt koostatud URI-l, mis ühendab sind järgneva serveriga:"/>
 		<control caption="Sa oled klikkinud PeerProject poolt koostatud URI-l, mis laseb sul kasutaja poolt jagatavaid faile sirvida:"/>
+		<control caption="Sa oled klikkinud PeerProject poolt koostatud URI-l, mis lisab järgmised Serverid sinu Serverite mälusse."/>
 		<control/>
 		<control/>
 		<control/>
@@ -4035,11 +4037,10 @@
 		<control caption="Tühista"/>
 		<control caption="_Pea minu valik meeles"/>
 		<control caption="Ava allalaadimise _jälgimise aken"/>
-		<control caption="Sa oled klikkinud PeerProject poolt koostatud URI-l, mis lisab järgmised Serverid sinu Serverite mälusse."/>
 	</dialog>
 	<dialog name="CBitziDownloadDlg" cookie="StStmsBuSySt" caption="Tõmban Andmebaasi...">
 		<control/>
-		<control caption="PeerProject üritab tõmmata Bitzi(TM) andmebaasi..."/>
+		<control caption="PeerProject üritab tõmmata Bitzi andmebaasi..."/>
 		<control/>
 		<control caption="Tühista"/>
 		<control/>

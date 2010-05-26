@@ -764,7 +764,7 @@ BOOL CRemoteWnd::OnSetCursor(CWnd* /*pWnd*/, UINT /*nHitTest*/, UINT /*message*/
 		SetCursor( AfxGetApp()->LoadCursor( IDC_HAND ) );
 		return TRUE;
 	}
-    else
+	else
 	{
 		SetCursor( AfxGetApp()->LoadStandardCursor( IDC_ARROW ) );
 		return TRUE;

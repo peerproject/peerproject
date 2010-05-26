@@ -1,7 +1,7 @@
 //
 // RichElement.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -58,13 +58,9 @@ CRichElement::CRichElement(int nType, LPCTSTR pszText, LPCTSTR pszLink, DWORD nF
 	if ( pszText != NULL )
 	{
 		if ( ( m_nType == retBitmap || m_nType == retIcon ) && HIWORD(pszText) == 0 )
-		{
 			m_sText.Format( _T("%Iu"), (size_t)pszText );
-		}
 		else
-		{
 			m_sText = pszText;
-		}
 	}
 
 	if ( pszLink != NULL ) m_sLink = pszLink;
@@ -163,14 +159,14 @@ void CRichElement::PrePaint(CDC* pDC, BOOL bHover)
 		pFont = NULL;
 		break;
 	case retEmoticon:
-		_stscanf( m_sText, _T("%i"), &m_nImageIndex );		// (TODO)
+		_stscanf( m_sText, _T("%i"), &m_nImageIndex );		// ToDo:
 		m_hImage = NULL;
 		pFont = NULL;
 		break;
 	case retCmdIcon:
 		if ( UINT nID = CoolInterface.NameToID( m_sText ) )
 		{
-			m_nImageIndex = CoolInterface.ImageForID( nID );	// (TODO)
+			m_nImageIndex = CoolInterface.ImageForID( nID );	// ToDo:
 			m_hImage = NULL;
 		}
 		break;

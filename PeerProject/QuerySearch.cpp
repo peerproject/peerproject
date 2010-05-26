@@ -77,8 +77,8 @@ CQuerySearch::CQuerySearch(BOOL bGUID)
 	, m_bExtQuery	( false )
 	, m_bWarning	( false )
 	, m_nMeta		( 0 )
-	, m_oWords		()
-	, m_oNegWords	()
+	, m_oWords		( )
+	, m_oNegWords	( )
 {
 	if ( bGUID ) Network.CreateID( m_oGUID );
 
@@ -488,7 +488,6 @@ CEDPacket* CQuerySearch::ToEDPacket(BOOL bUDP, DWORD nServerFlags) const
 				pPacket->WriteLongLE( (DWORD)m_nMaxSize );
 				// Add any other hashes that need to be searched for.
 				WriteHashesToEDPacket( pPacket, bUDP );
-
 			}
 			else
 			{
@@ -498,7 +497,7 @@ CEDPacket* CQuerySearch::ToEDPacket(BOOL bUDP, DWORD nServerFlags) const
 			}
 		}
 	}
-	else if ( !m_sKeywords.IsEmpty() && !m_sSearch.IsEmpty() || strWords.GetLength() > 0 )
+	else if ( ! m_sKeywords.IsEmpty() && ! m_sSearch.IsEmpty() || ! strWords.IsEmpty() )
 	{
 		pPacket = CEDPacket::New( bUDP ? ED2K_C2SG_SEARCHREQUEST : ED2K_C2S_SEARCHREQUEST );
 
@@ -1265,7 +1264,7 @@ BOOL CQuerySearch::Match(LPCTSTR pszFilename, QWORD nSize, LPCTSTR pszSchemaURI,
 		if ( bResult != TRI_UNKNOWN && !Settings.Search.SchemaTypes )
 			return ( bResult == TRI_TRUE );
 
-		if ( m_sKeywords.GetLength() > 0 )
+		if ( ! m_sKeywords.IsEmpty() )
 		{
 			bool bReject = false;
 			if ( MatchMetadataShallow( pszSchemaURI, pXML, &bReject ) )
@@ -1289,7 +1288,8 @@ BOOL CQuerySearch::Match(LPCTSTR pszFilename, QWORD nSize, LPCTSTR pszSchemaURI,
 							if ( nMinusPos > 0 )
 								bNegative &= ( IsCharacter( m_sKeywords.GetAt( nMinusPos - 1 ) ) == 0 );
 						}
-						else break;
+						else
+							break;
 					}
 				}
 				return bNegative ? WordMatch( pszFilename, m_sKeywords ) : TRUE;
@@ -1654,11 +1654,11 @@ void CQuerySearch::BuildWordList(bool bExpression, bool /* bLocal */ )
 
 void CQuerySearch::BuildG2PosKeywords()
 {
-	// clear QueryStrings.
+	// Clear QueryStrings.
 	m_sPosKeywords.Empty();
 	m_sG2Keywords.Empty();
 
-	// create string with positive keywords.
+	// Create string with positive keywords.
 	for ( const_iterator pWord = begin(); pWord != end(); pWord++ )
 	{
 		m_sPosKeywords.AppendFormat( _T("%s "), LPCTSTR( CString( pWord->first, int(pWord->second) ) ) );
@@ -1667,7 +1667,7 @@ void CQuerySearch::BuildG2PosKeywords()
 	m_sG2Keywords = m_sPosKeywords;	// copy Positive keywords string to G2 keywords string.
 	m_sPosKeywords.TrimRight();		// trim off extra space char at the end of string.
 
-	// append negative keywords to G2 keywords string.
+	// Append negative keywords to G2 keywords string.
 	for ( const_iterator pWord = beginNeg(); pWord != endNeg(); pWord++ )
 	{
 		m_sG2Keywords.AppendFormat( _T("-%s "), LPCTSTR( CString( pWord->first, int(pWord->second) ) ) );
@@ -1717,7 +1717,7 @@ void CQuerySearch::MakeKeywords(CString& strPhrase, bool bExpression)
 
 		bool bCharacter = ( boundary[ 1 ] & sRegular )||
 			bExpression && ( *pszPtr == '-' || *pszPtr == '"' );
-		if ( !( boundary[ 0 ] & sRegular ) && *pszPtr == '-' ) bNegative = TRUE;
+		if ( ! ( boundary[ 0 ] & sRegular ) && *pszPtr == '-' ) bNegative = TRUE;
 		else if ( *pszPtr == ' ' ) bNegative = FALSE;
 
 		int nDistance = !bCharacter ? 1 : 0;
@@ -1759,10 +1759,10 @@ void CQuerySearch::MakeKeywords(CString& strPhrase, bool bExpression)
 				else
 				{
 					str += strPhrase.Mid( nPrevWord, nPos - nPrevWord );
-					if ( boundary[ 1 ] == sNone && !bCharacter || *pszPtr == ' ' || !bExpression ||
-						( ( boundary[ 0 ] & ( sHiragana | sKatakana | sKanji ) ) && !bNegative ) )
+					if ( boundary[ 1 ] == sNone && ! bCharacter || *pszPtr == ' ' || ! bExpression ||
+						( ( boundary[ 0 ] & ( sHiragana | sKatakana | sKanji ) ) && ! bNegative ) )
 						str.Append( L" " );
-					else if ( !bNegative && ( ( boundary[ 0 ] & ( sHiragana | sKatakana | sKanji ) ) ||
+					else if ( ! bNegative && ( ( boundary[ 0 ] & ( sHiragana | sKatakana | sKanji ) ) ||
 						( boundary[ 0 ] & ( sHiragana | sKatakana | sKanji ) ) !=
 						( boundary[ 1 ] & ( sHiragana | sKatakana | sKanji ) ) ) )
 						str.Append( L" " );

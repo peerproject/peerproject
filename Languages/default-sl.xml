@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Slovenian Skin File -->
 
-<!-- Translation based on default-en.xml r54 (Shareaza 2.2.2.12) -->
+<!-- Translation based on default-en.xml r55 (Shareaza 2.2.2.12) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1571,7 +1571,7 @@
 			<heading align="middle">POVEŽITE SE</heading>
 			<newline gap="8" indent="42"/>
 			<text>Dobrodošli v PeerProject! &#160;Trenutno niste povezani z nobenim omrežjem. &#160;</text>
-			<link target="peer:command:ID_NETWORK_CONNECT">Za začetek kliknite sem!</link>
+			<link target="command:ID_NETWORK_CONNECT">Za začetek kliknite sem!</link>
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="2">
@@ -1580,14 +1580,14 @@
 			<newline gap="8" indent="42"/>
 			<anchor id="SearchBox" width="256" height="80"/>
 			<newline gap="14" indent="0"/>
-			<icon res="136" width="32" height="32" target="peer:shell:downloads"/><gap size="8"/>
+			<icon res="136" width="32" height="32" target="command:shell:downloads"/><gap size="8"/>
 			<heading align="middle">MOJI PRENOSI</heading>
 			<newline gap="8" indent="42"/>
-			<link target="peer:command:ID_TOOLS_DOWNLOAD" format="bu">Click here to start</link>
+			<link target="command:ID_TOOLS_DOWNLOAD" format="bu">Click here to start</link>
 			<text>&#160;downloading a new file or torrent link.</text>
 			<newline gap="4" indent="42"/>
 			<text>Če želite odpreti mapo z vašimi prenešenimi datotekami, </text>
-			<link target="peer:shell:downloads">kliknite sem</link><text>.</text>
+			<link target="command:shell:downloads">kliknite sem</link><text>.</text>
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="3">
@@ -1596,42 +1596,42 @@
 			<newline gap="8" indent="42"/>
 			<text id="Posodobi"/>
 			<newline gap="6"/>
-			<link target="peer:upgrade">Kliknite sem za posodobitev</link>
+			<link target="command:upgrade">Kliknite sem za posodobitev</link>
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="4">
-			<icon res="252" width="32" height="32" target="peer:command:ID_TOOLS_WIZARD"/><gap size="8"/>
+			<icon res="252" width="32" height="32" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 			<heading align="middle">POZOR: STE ZA POŽARNIM ZIDOM</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">Program PeerProject je zaznal, da se nahajate za NAT usmerjevalnikom oz. požarnim zidom,
 			  in ne boste mogli sprejemati povezav iz spleta. &#160;</text>
 			<text color="FF0000" format="b">To lahko povzroči počasnejši prenos podatkov.</text>
 			<newline gap="6"/>
-			<link target="peer:command:ID_HELP_ROUTER">Kliknite sem, da izveste, kako nastaviti vaš usmerjevalnik oz. požarni zid.</link>
+			<link target="command:ID_HELP_ROUTER">Kliknite sem, da izveste, kako nastaviti vaš usmerjevalnik oz. požarni zid.</link>
 			<newline gap="18" indent="0"/>
 		</group>
-		<icon res="128" width="32" height="32" target="peer:command:ID_TOOLS_SETTINGS"/><gap size="8"/>
+		<icon res="128" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">PRILAGODI PEERPROJECT</heading>
 		<newline gap="12" indent="42"/>
-		<icon res="182" width="16" height="16" target="peer:command:ID_TOOLS_SKIN"/><gap size="8"/>
-		<link target="peer:command:ID_TOOLS_SKIN" align="middle" format="bu">Preobleke</link>
+		<icon res="182" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
+		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">Preobleke</link>
 		<text align="middle">&#160;- Spremeni izgled PeerProject</text>
 		<newline gap="8"/>
-		<icon res="141" width="16" height="16" target="peer:command:ID_VIEW_SECURITY"/><gap size="8"/>
-		<link target="peer:command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
+		<icon res="141" width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
+		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
 		<text align="middle">&#160;- Update blocklist to avoid bad search results</text>
 		<newline gap="8"/>
-		<icon res="317" width="16" height="16" target="peer:command:ID_TOOLS_WIZARD"/><gap size="8"/>
-		<link target="peer:command:ID_TOOLS_WIZARD" align="middle">Čarovnik za nastavitve</link>
+		<icon res="317" width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
+		<link target="command:ID_TOOLS_WIZARD" align="middle">Čarovnik za nastavitve</link>
 		<text align="middle">&#160;- Uredi PeerProject Nastavitve</text>
 		<newline gap="8"/>
-		<icon res="147" width="16" height="16" target="peer:command:ID_HELP_FAQ"/><gap size="8"/>
-		<link target="peer:command:ID_HELP_FAQ" align="middle">Hitra pomoč</link>
+		<icon res="147" width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
+		<link target="command:ID_HELP_FAQ" align="middle">Hitra pomoč</link>
 		<text align="middle">&#160;- Osnovna pomoč za uporabo PeerProject, or </text>
-		<link target="peer:command:ID_TAB_IRC" align="middle">IRC.</link>
+		<link target="command:ID_TAB_IRC" align="middle">IRC.</link>
 		<newline gap="8"/>
-		<icon res="175" width="16" height="16" target="peer:command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
-		<link target="peer:command:ID_HELP_FORUMS_LOCAL" align="middle">Lokalna Forums</link>
+		<icon res="175" width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
+		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">Lokalna Forums</link>
 		<text align="middle">&#160;- Pojdite na slovenski jezik debatni forum</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
@@ -1656,7 +1656,7 @@
 			<para align="center">
 				<text format="b">Povezava prekinjena</text>
 				<newline gap="4"/>
-				<link target="peer:command:ID_NETWORK_CONNECT">Kliknite sem za vzpostavitev povezave</link>
+				<link target="command:ID_NETWORK_CONNECT">Kliknite sem za vzpostavitev povezave</link>
 			</para>
 		</group>
 		<icon group="20" command="ID_NETWORK_G2"/>
@@ -1704,7 +1704,7 @@
 				<text>Nedavno niste prenesli nobenih novih datotek.</text>
 				<newline gap="8"/>
 			</group>
-			<link target="peer:command:ID_VIEW_LIBRARY">Pojdi v mojo knjižnico</link>
+			<link target="command:ID_VIEW_LIBRARY">Pojdi v mojo knjižnico</link>
 			<newline gap="4"/>
 			<text id="LibraryFiles" format="b">%lu </text>
 			<text>datotek (</text>
@@ -1718,10 +1718,10 @@
 				<newline gap="8"/>
 			</group>
 			<group id="3">
-				<link target="peer:command:ID_LIBRARY_HASH_PRIORITY">Kliknite sem za hitrejšo zgoščevanje (hashing)</link>
+				<link target="command:ID_LIBRARY_HASH_PRIORITY">Kliknite sem za hitrejšo zgoščevanje (hashing)</link>
 			</group>
 			<group id="4">
-				<link target="peer:command:ID_LIBRARY_HASH_PRIORITY">Kliknite sem za počasnejše zgoščevanje (hashing)</link>
+				<link target="command:ID_LIBRARY_HASH_PRIORITY">Kliknite sem za počasnejše zgoščevanje (hashing)</link>
 			</group>
 		</para>
 	</document>
@@ -1736,9 +1736,9 @@
 				<text>Trenutno ne prenašate nobenih datotek.</text>
 				<newline gap="4"/>
 			</group>
-			<link id="DownloadsNone" target="peer:command:ID_VIEW_DOWNLOADS">Pojdi na Prenose</link>
-			<link id="DownloadsOne"  target="peer:command:ID_VIEW_DOWNLOADS" format="bu">Pojdi na prenos (1)</link>
-			<link id="DownloadsMany" target="peer:command:ID_VIEW_DOWNLOADS" format="bu">Pojdi na prenose (%i)</link>
+			<link id="DownloadsNone" target="command:ID_VIEW_DOWNLOADS">Pojdi na Prenose</link>
+			<link id="DownloadsOne"  target="command:ID_VIEW_DOWNLOADS" format="bu">Pojdi na prenos (1)</link>
+			<link id="DownloadsMany" target="command:ID_VIEW_DOWNLOADS" format="bu">Pojdi na prenose (%i)</link>
 			<newline gap="4"/>
 			<text id="DownloadedNone">No datotek (</text>
 			<text id="DownloadedOne">Eno datoteko (</text>
@@ -1755,8 +1755,8 @@
 		</styles>
 		<para align="center">
 			<text id="UploadsNone" format="b">Ni aktivnih naložkov</text>
-			<link id="UploadsOne"  target="peer:command:ID_VIEW_UPLOADS" format="bu">1 aktivni naložek</link>
-			<link id="UploadsMany" target="peer:command:ID_VIEW_UPLOADS" format="bu">%i aktivnih(a) naložkov(a)</link>
+			<link id="UploadsOne"  target="command:ID_VIEW_UPLOADS" format="bu">1 aktivni naložek</link>
+			<link id="UploadsMany" target="command:ID_VIEW_UPLOADS" format="bu">%i aktivnih(a) naložkov(a)</link>
 			<newline gap="4"/>
 			<group id="1">
 				<text id="TorrentsOne">1 sejan torrent</text>
@@ -1777,25 +1777,25 @@
 		<text format="b">splošni </text>
 		<text>sekciji se nanaša na uporabnikovo doživljanje programa.</text>
 		<newline gap="16" indent="16"/>
-		<link target="peer:page:CGeneralSettingsPage" format="b">Splošno:</link>
+		<link target="page:CGeneralSettingsPage" format="b">Splošno:</link>
 		<text>&#160;Nastavitve uporabniškega vmesnika kot npr.: orodni namigi, obnašanje minimiranja, oblike števil, kazalci (prompts), itd.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CLibrarySettingsPage" format="b">Knjižnica:</link>
+		<link target="page:CLibrarySettingsPage" format="b">Knjižnica:</link>
 		<text>&#160;Predstavitev in upravljanje datotečne knjižnice ter odpiranje datotek.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CMediaSettingsPage" format="b">Medijski predvajalnik:</link>
+		<link target="page:CMediaSettingsPage" format="b">Medijski predvajalnik:</link>
 		<text>&#160;Kdaj in kako uporabiti vgrajen PeerProject medijski predvajalnik.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CIRCSettingsPage" format="b">IRC:</link>
+		<link target="page:CIRCSettingsPage" format="b">IRC:</link>
 		<text>&#160;IRC chatroom connection settings and display options.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CCommunitySettingsPage" format="b">Družba:</link>
+		<link target="page:CCommunitySettingsPage" format="b">Družba:</link>
 		<text>&#160;Nastavitve vašega profila, kramljanja (chat) in takojšnjega sporočanja (instant messaging).</text>
 		<newline gap="10"/>
-		<link target="peer:page:CRemoteSettingsPage" format="b">Oddaljeno:</link>
+		<link target="page:CRemoteSettingsPage" format="b">Oddaljeno:</link>
 		<text>&#160;Nastavljanje zmogljivosti za oddaljen dostop do PeerProject z uporabo spletnega brskalnika.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CWebSettingsPage" format="b">Splet:</link>
+		<link target="page:CWebSettingsPage" format="b">Splet:</link>
 		<text>&#160;Povežite PeerProject z vašim spletnim brskalnikom. Tako boste lahko prejemali P2P povezave in druge vsebine prenosov.</text>
 	</document>
 	<document name="CInternetSettingsGroup" title="Splet" leftMargin="8" topMargin="8">
@@ -1806,16 +1806,16 @@
 		<text format="b">spletni </text>
 		<text>sekciji upravlja način medsebojnega delovanja med PeerProject in drugimi vozli (nodes) znotraj P2P omrežij.</text>
 		<newline gap="16" indent="16"/>
-		<link target="peer:page:CConnectionSettingsPage" format="b">Povezava:</link>
+		<link target="page:CConnectionSettingsPage" format="b">Povezava:</link>
 		<text>&#160;Hitrost in zmožnosti vaše spletne povezave.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CDownloadsSettingsPage" format="b">Prenosi:</link>
+		<link target="page:CDownloadsSettingsPage" format="b">Prenosi:</link>
 		<text>&#160;Pretok prenosov, časovno razporejanje (scheduling), preverjanje (verifikacija), časoven omejitve in upravljanje.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CUploadsSettingsPage" format="b">Nalaganje (uploads):</link>
+		<link target="page:CUploadsSettingsPage" format="b">Nalaganje (uploads):</link>
 		<text>&#160;Zmogljivost nalaganja, razvrščanje (queuing), prepovedi oz. izobčenja (banning), časovne omejitve in posebni zahtevki.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CSchedulerSettingsPage" format="b">Scheduler:</link>
+		<link target="page:CSchedulerSettingsPage" format="b">Scheduler:</link>
 		<text>&#160;Limit download connections based on a periodic schedule.</text>
 	</document>
 	<!-- Browse User Profile -->
@@ -1896,15 +1896,15 @@
 		<newline gap="40" indent="0"/>
 		<text format="b">Datoteke v skupni rabi</text>
 		<newline gap="4" indent="8"/>
-		<icon res="137" target="peer:command:ID_BROWSE_FILES"/><gap size="5"/>
-		<link target="peer:command:ID_BROWSE_FILES" align="middle">Ogled datotek v skupni rabi</link>
+		<icon res="137" target="command:ID_BROWSE_FILES"/><gap size="5"/>
+		<link target="command:ID_BROWSE_FILES" align="middle">Ogled datotek v skupni rabi</link>
 		<group id="2">
 			<newline gap="16" indent="0"/>
 			<text format="b">Družba</text>
 			<newline gap="4" indent="8"/>
-			<icon res="140" target="peer:command:ID_SEARCH_CHAT"/>
+			<icon res="140" target="command:ID_SEARCH_CHAT"/>
 			<gap size="5"/>
-			<link target="peer:command:ID_SEARCH_CHAT" align="middle">Kramljaj z uporabnikom</link>
+			<link target="command:ID_SEARCH_CHAT" align="middle">Kramljaj z uporabnikom</link>
 		</group>
 		<group id="3">
 			<newline gap="16" indent="0"/>
@@ -2578,26 +2578,26 @@
 	<string id="8180" value="Velikost Min:"/>
 	<string id="8181" value="Velikost Max:"/>
 	<string id="8208" value="PeerProject ustvarja izvlečke (hashes) za število datotek %Iu:"/>
-	<string id="8223" value="%i dni in %i ur"/>
-	<string id="8224" value="PeerProject prenaša:"/>
-	<string id="8225" value="Prenos je trenutno prekinjen:"/>
+<!--	<string id="8221" value="PeerProject išče vire za:"/>
+	<string id="8222" value="PeerProject prenaša:"/>
+	<string id="8223" value="Prenos je trenutno prekinjen:"/>
+	<string id="8224" value="PeerProject premika prenos:"/>
+	<string id="8225" value="PeerProject preverja prenos po morebitnih napakah:"/>
 	<string id="8226" value="PeerProject je končala prenos:"/>
-	<string id="8227" value="%i ur in %i minut"/>
-	<string id="8228" value="%i minut in %i sekund"/>
-	<string id="8229" value="%i sekund"/>
-	<string id="8230" value="PeerProject išče vire za:"/>
+-->	<string id="8227" value="%i dni in %i ur"/>
+	<string id="8228" value="%i ur in %i minut"/>
+	<string id="8229" value="%i minut in %i sekund"/>
+	<string id="8230" value="%i sekund"/>
 	<string id="8231" value="Ni virov"/>
 	<string id="8232" value="Odpri"/>
 	<string id="8233" value="Prekliči"/>
 	<string id="8235" value="Skupna hitrost prenosa:"/>
 	<string id="8236" value="Ocenjen čas do konca:"/>
-	<string id="8237" value="Prenešen zvezek (volume):"/>
-	<string id="8238" value="število virov:"/>
+	<string id="8237" value="Prenešen zvezek (total):"/>
+	<string id="8238" value="Naložen zvezek (ratio):"/>
 	<string id="8239" value="Končano"/>
-	<string id="8240" value="PeerProject premika prenos:"/>
-	<string id="8241" value="PeerProject preverja prenos po morebitnih napakah:"/>
-	<string id="8243" value="Naložen zvezek (volume):"/>
-	<string id="8244" value="Število ocen:"/>
+	<string id="8240" value="število virov:"/>
+	<string id="8241" value="Število ocen:"/>
 	<string id="8288" value="Raziskujem tvojo PeerProject knjižnico"/>
 	<string id="8289" value="Raziskujem:"/>
 	<string id="8290" value="Raziskujem vsebino %i map(e)"/>
@@ -2707,6 +2707,7 @@
 	<string id="16211" value="Sosed %s je posredoval potisno (push) prošnjo v naslov, ki je za požarnim zidom, ignoriram."/>
 	<string id="16212" value="Sosed %s je posredoval razširjen paket, ki ni enkordiran po principu GGEP."/>
 	<string id="16213" value="Pošiljam tabelo za usmerjevanje poizvedb sosedu %s (%i bitov = %lu[%i], %i%% polno)"/>
+	<string id="16254" value="Privzeto skupino. (Prikaži vse datoteke)"/>
 	<string id="16255" value="Vzemi in pusti datotek v skupini %s"/>
 	<string id="16256" value="Dodal &quot;%s&quot; preosnemu seznamu s številom virov %i."/>
 	<string id="16257" value="Končan prenos za &quot;%s&quot;."/>
@@ -3091,7 +3092,7 @@
 	<string id="18510" value="Ste prepričani, da želite sklepati, da je prenos zaključen in ga ponovno preveriti? V poštev bo prišla celotna datoteka in PeerProject bo potrdila dele, ki opravijo preverjanje ter prenese dele, ki preverjanja ne opravijo."/>
 	<string id="18511" value="Spremenili ste velikost datoteke. Ste prepričani, da želite spremeniti velikost datoteke za ta prenos?"/>
 	<string id="19000" value="Oddaljen dostop je onemogočen."/>
-	<string id="19001" value="Vnesti morate uporabniško ime in geslo."/>
+	<string id="19001" value="http://%s:%i/remote - Vnesti morate uporabniško ime in geslo."/>
 	<string id="19002" value="Sprejemanje povezav ni mogoče, URL ni na voljo."/>
 	<string id="20000" value="URN ni na voljo"/>
 	<string id="20001" value="Zapri"/>
@@ -3157,6 +3158,7 @@
 	<string id="20216" value="Odlična"/>
 	<string id="20237" value="V redu"/>
 	<string id="20238" value="Prekliči"/>
+	<string id="20245" value="Nova Mapa"/>
 </strings>
 <!-- Localized Dialog Text, "cookie" verifies that the skin matches current dialog -->
 <dialogs>
@@ -3845,7 +3847,7 @@
 		<control caption="Ogled knjižnice"/>
 		<control caption="Prekliči prenos"/>
 		<control caption="Skrij"/>
-		<control caption="Po končanem prenosu zapri to okno"/>
+		<control caption="Samodejno"/>
 	</dialog>
 	<dialog name="CFileGeneralPage" cookie="EdStStStStStEdEdEdEdEdStEdEdEdEd" caption="Splošno">
 		<control/>
@@ -4022,11 +4024,11 @@
 		<control/>
 		<control caption="Prekliči"/>
 	</dialog>
-	<dialog name="CURLActionDlg" cookie="StStStStStEdStEdStBuBuBuBuBuSt" caption="PeerProject upravljalec URI-jev">
-		<control/>
+	<dialog name="CURLActionDlg" cookie="StStStStStStEdStEdStBuBuBuBuBu" caption="PeerProject upravljalec URI-jev">
 		<control caption="Kliknile ste na PeerProject podprt URI, ki se navezuje na mrežno vsebino:"/>
 		<control caption="Kliknile ste na PeerProject podprt URL, ki vas bo povezal z gostiteljem na mreži:"/>
 		<control caption="Kliknile ste na PeerProject podprt URI, ki vam bo omogočal brskanje po datotekah, ki so na voljo na gostitelju:"/>
+		<control caption="Kliknile ste na PeerProject podprt URI, ki bo dodal storitev Discovery v predpomnilnik vaše Discovery storitve."/>
 		<control/>
 		<control/>
 		<control/>
@@ -4037,11 +4039,10 @@
 		<control caption="Prekliči"/>
 		<control caption="_Zapomni si moj izbor za naslednjič"/>
 		<control caption="Odpri _nadzorno okno za prenos"/>
-		<control caption="Kliknile ste na PeerProject podprt URI, ki bo dodal storitev Discovery v predpomnilnik vaše Discovery storitve."/>
 	</dialog>
 	<dialog name="CBitziDownloadDlg" cookie="StStmsBuSySt" caption="Prenašanje metapodatkov...">
 		<control/>
-		<control caption="PeerProject poskuša prenesti metapodatke iz sistema Bitzi(tm)..."/>
+		<control caption="PeerProject poskuša prenesti metapodatke iz sistema Bitzi..."/>
 		<control/>
 		<control caption="Prekliči"/>
 		<control/>

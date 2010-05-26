@@ -1,7 +1,7 @@
 //
 // EDClients.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -435,9 +435,7 @@ BOOL CEDClients::OnPacket(SOCKADDR_IN* pHost, CEDPacket* pPacket)
 			pClient->m_nUDP = ntohs( pHost->sin_port );
 
 			if ( ! pClient->OnUdpReask( pPacket ) )
-			{
 				Datagrams.Send( pHost, CEDPacket::New( ED2K_C2C_UDP_FILENOTFOUND, ED2K_PROTOCOL_EMULE ) );
-			}
 		}
 		else
 		{
@@ -470,31 +468,30 @@ BOOL CEDClients::OnPacket(SOCKADDR_IN* pHost, CEDPacket* pPacket)
 		break;
 	case ED2K_S2CG_SEARCHRESULT:
 	case ED2K_S2CG_FOUNDSOURCES:
-		{
 		// Correct port value. (UDP port is TCP port + 4)
 		pHost->sin_port = htons( ntohs( pHost->sin_port ) - 4 );
-
-		CQuickLock oLock( HostCache.eDonkey.m_pSection );
-
-		// Check server details in host cache
-		DWORD nServerFlags = Settings.eDonkey.DefaultServerFlags;
-		CHostCacheHost* pServer = HostCache.eDonkey.Find( &pHost->sin_addr );
-		if ( pServer && pServer->m_nUDPFlags )
 		{
-			nServerFlags = pServer->m_nUDPFlags;
-		}
+			CQuickLock oLock( HostCache.eDonkey.m_pSection );
 
-		// Decode packet and create hits
-		if ( CQueryHit* pHits = CQueryHit::FromEDPacket( pPacket, pHost, nServerFlags ) )
-		{
-			if ( pPacket->m_nType == ED2K_S2CG_SEARCHRESULT )
-				Network.OnQueryHits( pHits );
-			else
+			// Check server details in host cache
+			DWORD nServerFlags = Settings.eDonkey.DefaultServerFlags;
+			CHostCacheHost* pServer = HostCache.eDonkey.Find( &pHost->sin_addr );
+			if ( pServer && pServer->m_nUDPFlags )
+				nServerFlags = pServer->m_nUDPFlags;
+
+			// Decode packet and create hits
+			if ( CQueryHit* pHits = CQueryHit::FromEDPacket( pPacket, pHost, nServerFlags ) )
 			{
-				Downloads.OnQueryHits( pHits );
-				pHits->Delete();
+				if ( pPacket->m_nType == ED2K_S2CG_SEARCHRESULT )
+				{
+					Network.OnQueryHits( pHits );
+				}
+				else
+				{
+					Downloads.OnQueryHits( pHits );
+					pHits->Delete();
+				}
 			}
-		}
 		}
 		break;
 	default:
@@ -669,7 +666,7 @@ void CEDClients::RunGlobalStatsRequests(DWORD tNow)
 				if ( ! pLock.Lock( 200 ) ) continue;
 
 				// Don't ask current neighbours for stats
-				if ( ! Neighbours.Get( &pHost->m_pAddress ) )
+				if ( ! Neighbours.Get( pHost->m_pAddress ) )
 				{
 					// Send a request for stats to this server
 					if ( pHost->m_sName.GetLength() )

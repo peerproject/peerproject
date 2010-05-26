@@ -252,12 +252,12 @@ BOOL CRemote::CheckCookie()
 			CString strValue( m_pHeaderValue.GetAt( nHeader ) );
 			ToLower( strValue );
 
-			int nPos = strValue.Find( _T("shareazaremote=") ); // ToDo: Why can't this name be fixed?
+			int nPos = strValue.Find( _T("peerprojectremote=") ); // ToDo: Why can't this name be fixed?
 
 			if ( nPos >= 0 )
 			{
 				int nCookie = 0;
-				_stscanf( strValue.Mid( nPos + 15 ), _T("%i"), &nCookie );
+				_stscanf( strValue.Mid( nPos + 18 ), _T("%i"), &nCookie );
 				if ( m_pCookies.Find( nCookie ) != NULL ) return FALSE;
 			}
 		}
@@ -267,8 +267,7 @@ BOOL CRemote::CheckCookie()
 	return TRUE;
 }
 
-// Determines what session ID is currently being used by the logged in user
-// and removes it from the cookie list.
+// Determines what session ID is currently being used by the logged in user and removes it from the cookie list.
 BOOL CRemote::RemoveCookie()
 {
 	for ( INT_PTR nHeader = 0 ; nHeader < m_pHeaderName.GetSize() ; nHeader ++ )
@@ -278,12 +277,12 @@ BOOL CRemote::RemoveCookie()
 			CString strValue( m_pHeaderValue.GetAt( nHeader ) );
 			ToLower( strValue );
 
-			int nPos = strValue.Find( _T("shareazaremote=") );	// ToDo: Why can't this name be fixed?
+			int nPos = strValue.Find( _T("peerprojectremote=") );
 
 			if ( nPos >= 0 )
 			{
 				int nCookie = 0;
-				_stscanf( strValue.Mid( nPos + 15 ), _T("%i"), &nCookie );
+				_stscanf( strValue.Mid( nPos + 18 ), _T("%i"), &nCookie );
 				POSITION pos = m_pCookies.Find( nCookie );
 				if ( pos != NULL )
 				{
@@ -305,7 +304,8 @@ void CRemote::Prepare(LPCTSTR pszPrefix)
 	if ( pszPrefix == NULL )
 	{
 		m_pKeys.RemoveAll();
-		if ( m_sResponse.IsEmpty() ) Output( _T("commonHeader") );
+		if ( m_sResponse.IsEmpty() )
+			Output( _T("commonHeader") );
 	}
 	else
 	{
@@ -313,7 +313,8 @@ void CRemote::Prepare(LPCTSTR pszPrefix)
 		{
 			CString strKey, strValue;
 			m_pKeys.GetNextAssoc( pos, strKey, strValue );
-			if ( strKey.Find( pszPrefix ) == 0 ) m_pKeys.RemoveKey( strKey );
+			if ( strKey.Find( pszPrefix ) == 0 )
+				m_pKeys.RemoveKey( strKey );
 		}
 	}
 }
@@ -383,12 +384,12 @@ void CRemote::Output(LPCTSTR pszName)
 		CString strKey = strBody.Left( nEnd );
 		strBody = strBody.Mid( nEnd + 2 );
 
-		strKey.TrimLeft();
-		strKey.TrimRight();
+		strKey.Trim();
 		ToLower( strKey );
 
 		if ( strKey.IsEmpty() )
 		{
+			// Nothing
 		}
 		else if ( strKey.GetAt( 0 ) == '=' && bDisplay )
 		{
@@ -478,18 +479,19 @@ void CRemote::PageLogin()
 
 	if ( GetKey( _T("username") ) == Settings.Remote.Username &&
 					  strPassword == Settings.Remote.Password &&
-		 Settings.Remote.Username.GetLength() > 0 &&
-		 Settings.Remote.Password.GetLength() > 0 )
+					! Settings.Remote.Username.IsEmpty() &&
+					! Settings.Remote.Password.IsEmpty() )
 	{
 		__int32 nCookie = GetRandomNum( 0i32, _I32_MAX );
 		m_pCookies.AddTail( nCookie );
-		m_sHeader.Format( _T("Set-Cookie: ShareazaRemote=%i; path=/remote\r\n"), nCookie );	//ToDo: Why can't this name be fixed?
+		m_sHeader.Format( _T("Set-Cookie: PeerProjectRemote=%i; path=/remote\r\n"), nCookie );
 		m_sRedirect.Format( _T("/remote/home?%i"), GetRandomNum( 0i32, _I32_MAX ) );
 	}
 	else
 	{
 		Prepare();
-		if ( GetKey( _T("submit") ).GetLength() > 0 ) Add( _T("failure"), _T("true") );
+		if ( ! GetKey( _T("submit") ).IsEmpty() )
+			Add( _T("failure"), _T("true") );
 		Output( _T("login") );
 	}
 }
@@ -498,8 +500,9 @@ void CRemote::PageLogout()
 {
 	// Clear server-side session cookie
 	RemoveCookie();
+
 	// Clear client-side session cookie
-	m_sHeader.Format( _T("Set-Cookie: ShareazaRemote=0; path=/remote; Max-Age=0\r\n") );	//ToDo: Why can't this name be fixed?
+	m_sHeader.Format( _T("Set-Cookie: PeerProjectRemote=0; path=/remote; Max-Age=0\r\n") );
 	m_sRedirect.Format( _T("/remote/") );
 }
 
@@ -655,7 +658,8 @@ void CRemote::PageSearch()
 	Add( _T("search_id"), str );
 	str.Format( _T("%i"), GetRandomNum( 0i32, _I32_MAX ) );
 	Add( _T("random"), str );
-	if ( ! pSearchWnd->IsPaused() ) Add( _T("searching"), _T("true") );
+	if ( ! pSearchWnd->IsPaused() )
+		Add( _T("searching"), _T("true") );
 	Add( _T("search_filter"), pMatches->m_sFilter );
 	Output( _T("searchTop") );
 
@@ -927,7 +931,7 @@ void CRemote::PageDownloads()
 					continue;
 				}
 			}
-			else if ( strAction == _T("more_sources"))
+			else if ( strAction == _T("more_sources") )
 			{
 				// roo_koo_too improvement
 				pDownload->FindMoreSources();
@@ -1000,11 +1004,12 @@ void CRemote::PageDownloads()
 							pDownload->Resume();
 
 							if ( pSource->m_bPushOnly )
+							{
 								pSource->PushRequest();
+							}
 							else
 							{
-								CDownloadTransfer* pTransfer = pSource->CreateTransfer();
-								if ( pTransfer )
+								if ( CDownloadTransfer* pTransfer = pSource->CreateTransfer() )
 									pTransfer->Initiate();
 							}
 						}
@@ -1026,8 +1031,7 @@ void CRemote::PageDownloads()
 					{
 						Add( _T("source_status"), pSource->GetState( FALSE ) );
 						Add( _T("source_volume"), Settings.SmartVolume( pSource->GetDownloaded() ) );
-						DWORD nSpeed = pSource->GetMeasuredSpeed();
-						if ( nSpeed )
+						if ( DWORD nSpeed = pSource->GetMeasuredSpeed() )
 							Add( _T("source_speed"), Settings.SmartSpeed( nSpeed ) );
 						Add( _T("source_address"), pSource->GetAddress() );
 						Add( _T("source_caption"), pSource->GetAddress() + _T(" - ") + pSource->m_sNick );
@@ -1175,8 +1179,7 @@ void CRemote::PageUploads()
 						LoadString( str, IDS_STATUS_CHOKED );
 					else
 					{
-						DWORD nSpeed = pTransfer->GetMeasuredSpeed();
-						if ( nSpeed )
+						if ( DWORD nSpeed = pTransfer->GetMeasuredSpeed() )
 							str = Settings.SmartSpeed( nSpeed );
 					}
 				}
@@ -1187,8 +1190,7 @@ void CRemote::PageUploads()
 				}
 				else
 				{
-					DWORD nSpeed = pTransfer->GetMeasuredSpeed();
-					if ( nSpeed )
+					if ( DWORD nSpeed = pTransfer->GetMeasuredSpeed() )
 						str = Settings.SmartSpeed( nSpeed );
 					else
 						LoadString( str, IDS_STATUS_NEXT );

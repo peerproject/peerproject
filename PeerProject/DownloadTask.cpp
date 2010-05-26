@@ -285,10 +285,8 @@ BOOL CDownloadTask::CopyFile(HANDLE hSource, LPCTSTR pszTarget, QWORD nLength)
 		DWORD nSuccess	= 0;
 		DWORD tStart	= GetTickCount();
 
-		if ( !ReadFile( hSource, pBuffer, nBuffer, &nBuffer, NULL )
-			|| !nBuffer
-			|| !WriteFile( hTarget, pBuffer, nBuffer, &nSuccess, NULL )
-			|| nSuccess != nBuffer )
+		if ( ! ReadFile( hSource, pBuffer, nBuffer, &nBuffer, NULL ) || ! nBuffer ||
+			! WriteFile( hTarget, pBuffer, nBuffer, &nSuccess, NULL ) || nSuccess != nBuffer )
 		{
 			m_nFileError = GetLastError();
 			break;
@@ -471,12 +469,10 @@ void CDownloadTask::RunMerge()
 		LONG nFileOffsetHigh = (LONG)( qwFileOffset >> 32 );
 		LONG nFileOffsetLow = (LONG)( qwFileOffset & 0xFFFFFFFF );
 		SetFilePointer( hSource, nFileOffsetLow, &nFileOffsetHigh, FILE_BEGIN );
-		if ( GetLastError() != NO_ERROR )
-			continue;
+		if ( GetLastError() != NO_ERROR ) continue;
 
 		DWORD dwToRead;
-		while ( ( dwToRead = (DWORD)min( qwLength, (QWORD)nBufferLength ) ) != 0 &&
-			m_pEvent == NULL )
+		while ( ( dwToRead = (DWORD)min( qwLength, (QWORD)nBufferLength ) ) != 0 && m_pEvent == NULL )
 		{
 			DWORD dwReaded = 0;
 			if ( ReadFile( hSource, Buf.get(), dwToRead, &dwReaded, NULL ) &&
@@ -600,7 +596,7 @@ CBuffer* CDownloadTask::IsPreviewAnswerValid() const
 				bValid = false;
 			oLock.Unlock();
 		}
-		if ( !bValid )
+		if ( ! bValid )
 		{
 			theApp.Message( MSG_DEBUG, L"Preview failed: wrong URN." );
 			return NULL;

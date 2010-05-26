@@ -37,6 +37,7 @@ HKCU
 					NoRemove LibraryBuilder
 					{
 						ForceRemove val '.7z' = s '{C2D1E91C-5C0B-4F01-BA5A-447D1F28A53B}'
+						ForceRemove val '.lzma' = s '{C2D1E91C-5C0B-4F01-BA5A-447D1F28A53B}'
 					}
 				}
 			}

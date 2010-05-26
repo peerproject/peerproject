@@ -3,7 +3,7 @@
 
 <!-- PeerProject Korean Language Skin File -->
 
-<!-- Translation based on default-en.xml r54 --> <!--Machine Translated!-->
+<!-- Translation based on default-en.xml r55 --> <!--Machine Translated!-->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -470,12 +470,12 @@
 	</toolbar> -->
 	<!-- IMAGE VIEWER PLUGIN WINDOW -->
 	<toolbar name="ImageViewerWnd">
-		<button id="ImageViewer_ActualSize" text="실제 크기"/>
-		<button id="ImageViewer_BestFit" text="가장 적합"/>
+		<button id="PluginID_ImageViewer_FullSize" text="실제 크기"/>
+		<button id="PluginID_ImageViewer_BestFit" text="가장 적합"/>
 		<separator/>
-		<button id="ImageViewer_Refresh" text="새로고침"/>
+		<button id="PluginID_ImageViewer_Refresh" text="새로고침"/>
 			<rightAlign/>
-		<button id="ImageViewer_Close" text="닫기"/>
+		<button id="PluginID_ImageViewer_Close" text="닫기"/>
 	</toolbar>
 </toolbars>
 <!-- Menu Definitions -->
@@ -1676,7 +1676,7 @@
 			<para align="center">
 				<text format="b">Not connected</text>
 				<newline gap="4"/>
-				<link target="peer:command:ID_NETWORK_CONNECT">여기를 클릭하여 연결합니다.</link>
+				<link target="command:ID_NETWORK_CONNECT">여기를 클릭하여 연결합니다.</link>
 			</para>
 		</group>
 		<icon group="20" command="ID_NETWORK_G2"/>
@@ -1704,7 +1704,7 @@
 		<group id="2">
 			<para align="center">
 				<newline gap="4"/>
-				<link target="peer:command:ID_TAB_NETWORK">Network Session</link>
+				<link target="command:ID_TAB_NETWORK">Network Session</link>
 				<newline gap="4"/>
 				<text id="ConnectedHours" format="b">%i </text>
 				<text>hours and </text>
@@ -1724,7 +1724,7 @@
 				<text>No new files downloaded recently.</text>
 				<newline gap="8"/>
 			</group>
-			<link target="peer:command:ID_VIEW_LIBRARY">Local Library</link>
+			<link target="command:ID_VIEW_LIBRARY">Local Library</link>
 			<newline gap="4"/>
 			<text id="LibraryFiles" format="b">%lu </text>
 			<text>files (</text>
@@ -1737,10 +1737,10 @@
 				<text>files:</text>
 				<newline gap="2"/>
 				<group id="3">
-					<link id="LibraryHashFaster" target="peer:command:ID_LIBRARY_HASH_PRIORITY">Click here to hash faster.</link>
+					<link id="LibraryHashFaster" target="command:ID_LIBRARY_HASH_PRIORITY">Click here to hash faster.</link>
 				</group>
 				<group id="4">
-					<link id="LibraryHashFaster" target="peer:command:ID_LIBRARY_HASH_PRIORITY">Click here to hash slower.</link>
+					<link id="LibraryHashFaster" target="command:ID_LIBRARY_HASH_PRIORITY">Click here to hash slower.</link>
 				</group>
 			</group>
 		</para>
@@ -1756,9 +1756,9 @@
 				<text format="b">No active downloads</text>
 				<newline gap="4"/>
 			</group>
-			<link id="DownloadsNone" format="u" target="peer:command:ID_VIEW_DOWNLOADS">Go to Downloads View</link>
-			<link id="DownloadsOne" format="bu" target="peer:command:ID_VIEW_DOWNLOADS">1 active download</link>
-			<link id="DownloadsMany" format="bu" target="peer:command:ID_VIEW_DOWNLOADS">%i active downloads</link>
+			<link id="DownloadsNone" format="u" target="command:ID_VIEW_DOWNLOADS">Go to Downloads View</link>
+			<link id="DownloadsOne" format="bu" target="command:ID_VIEW_DOWNLOADS">1 active download</link>
+			<link id="DownloadsMany" format="bu" target="command:ID_VIEW_DOWNLOADS">%i active downloads</link>
 			<newline gap="4"/>
 			<text id="DownloadedNone">No files (</text>
 			<text id="DownloadedOne">1 file (</text>
@@ -1775,8 +1775,8 @@
 		</styles>
 		<para align="center">
 			<text id="UploadsNone" format="b">No active uploads</text>
-			<link id="UploadsOne" format="bu" target="peer:command:ID_VIEW_UPLOADS">1 active upload</link>
-			<link id="UploadsMany" format="bu" target="peer:command:ID_VIEW_UPLOADS">%i active uploads</link>
+			<link id="UploadsOne" format="bu" target="command:ID_VIEW_UPLOADS">1 active upload</link>
+			<link id="UploadsMany" format="bu" target="command:ID_VIEW_UPLOADS">%i active uploads</link>
 			<newline gap="4"/>
 			<group id="1">
 				<text id="TorrentsOne">1 seeding torrent</text>
@@ -1797,25 +1797,25 @@
 		<text format="b">General </text>
 		<text>section relate to the user experience.</text>
 		<newline gap="16" indent="16"/>
-		<link target="peer:page:CGeneralSettingsPage" format="b">General:</link>
+		<link target="page:CGeneralSettingsPage" format="b">General:</link>
 		<text>&#160;Common user interface settings like tooltips, minimize behavior, number formats, prompts, etc.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CLibrarySettingsPage" format="b">Library:</link>
+		<link target="page:CLibrarySettingsPage" format="b">Library:</link>
 		<text>&#160;Presentation, file access, and management of the file library.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CMediaSettingsPage" format="b">Media Player:</link>
+		<link target="page:CMediaSettingsPage" format="b">Media Player:</link>
 		<text>&#160;Set when to use the internal PeerProject Media System.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CIRCSettingsPage" format="b">IRC Chat:</link>
+		<link target="page:CIRCSettingsPage" format="b">IRC Chat:</link>
 		<text>&#160;IRC chatroom connection settings and display options.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CCommunitySettingsPage" format="b">Community:</link>
+		<link target="page:CCommunitySettingsPage" format="b">Community:</link>
 		<text>&#160;Your profile and direct chat settings.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CRemoteSettingsPage" format="b">Remote:</link>
+		<link target="page:CRemoteSettingsPage" format="b">Remote:</link>
 		<text>&#160;Setup the ability to control PeerProject remotely through a web browser.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CWebSettingsPage" format="b">Web Integration:</link>
+		<link target="page:CWebSettingsPage" format="b">Web Integration:</link>
 		<text>&#160;Integrate PeerProject with your web browser to accept peer-to-peer links and download content.</text>
 	</document> -->
 <!--<document name="CInternetSettingsGroup" title="Internet" leftMargin="8" topMargin="8">
@@ -1826,16 +1826,16 @@
 		<text format="b">Internet </text>
 		<text>section control how PeerProject interacts with other nodes in distributed peer-to-peer networks.</text>
 		<newline gap="16" indent="16"/>
-		<link target="peer:page:CConnectionSettingsPage" format="b">Connection:</link>
+		<link target="page:CConnectionSettingsPage" format="b">Connection:</link>
 		<text>&#160;The speeds and capabilities of your Internet connection.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CDownloadsSettingsPage" format="b">Downloads:</link>
+		<link target="page:CDownloadsSettingsPage" format="b">Downloads:</link>
 		<text>&#160;Download throughput, scheduling, verification, timeouts and management.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CUploadsSettingsPage" format="b">Uploads:</link>
+		<link target="page:CUploadsSettingsPage" format="b">Uploads:</link>
 		<text>&#160;Upload capacity, queuing, banning, timeouts and special requests.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CSchedulerSettingsPage" format="b">Scheduler:</link>
+		<link target="page:CSchedulerSettingsPage" format="b">Scheduler:</link>
 		<text>&#160;Limit download connections based on a periodic schedule.</text>
 	</document> -->
 	<!-- Browse User Profile -->
@@ -1916,14 +1916,14 @@
 		<newline gap="40" indent="0"/>
 		<text format="b">Shared Files</text>
 		<newline gap="4" indent="8"/>
-		<icon res="137" target="peer:command:ID_BROWSE_FILES"/><gap size="5"/>
-		<link target="peer:command:ID_BROWSE_FILES" align="middle">View Shared Files</link>
+		<icon res="137" target="command:ID_BROWSE_FILES"/><gap size="5"/>
+		<link target="command:ID_BROWSE_FILES" align="middle">View Shared Files</link>
 		<group id="2">
 			<newline gap="16" indent="0"/>
 			<text format="b">Community</text>
 			<newline gap="4" indent="8"/>
-			<icon res="140" target="peer:command:ID_SEARCH_CHAT"/><gap size="5"/>
-			<link target="peer:command:ID_SEARCH_CHAT" align="middle">Chat With User</link>
+			<icon res="140" target="command:ID_SEARCH_CHAT"/><gap size="5"/>
+			<link target="command:ID_SEARCH_CHAT" align="middle">Chat With User</link>
 		</group>
 		<group id="3">
 			<newline gap="16" indent="0"/>
@@ -2053,26 +2053,20 @@
 	<string id="8180" value="최소 파일 크기:"/>
 	<string id="8181" value="최대 파일 크기:"/>
 	<string id="8208" value="PeerProject is creating hashes for %Iu files:"/>
-	<string id="8223" value="%i days and %i hours"/>
-	<string id="8224" value="PeerProject is downloading:"/>
-	<string id="8225" value="This download is paused:"/>
-	<string id="8226" value="PeerProject has completed downloading:"/>
-	<string id="8227" value="%i hours and %i minutes"/>
-	<string id="8228" value="%i minutes and %i seconds"/>
-	<string id="8229" value="%i seconds"/>
-	<string id="8230" value="PeerProject is looking for sources for:"/>
+	<string id="8227" value="%i days %i hours"/>
+	<string id="8228" value="%i hours %i minutes"/>
+	<string id="8229" value="%i minutes %i seconds"/>
+	<string id="8230" value="%i seconds"/>
 	<string id="8231" value="No sources"/>
 	<string id="8232" value="Open"/>
 	<string id="8233" value="취소"/>
 	<string id="8235" value="Total transfer speed:"/>
 	<string id="8236" value="Estimated time remaining:"/>
 	<string id="8237" value="Volume downloaded:"/>
-	<string id="8238" value="Number of sources:"/>
+	<string id="8238" value="Volume uploaded:"/>
 	<string id="8239" value="수료"/>
-	<string id="8240" value="PeerProject is moving the download:"/>
-	<string id="8241" value="PeerProject is checking the download for errors:"/>
-	<string id="8243" value="Volume uploaded:"/>
-	<string id="8244" value="Number of reviews:"/>
+	<string id="8240" value="Number of sources:"/>
+	<string id="8241" value="Number of reviews:"/>
 	<string id="8288" value="Exploring Your PeerProject Library"/>
 	<string id="8289" value="탐방"/>
 	<string id="8290" value="Exploring the contents of %i folders"/>
@@ -2185,8 +2179,9 @@
 	<string id="16211" value="Neighbor %s forwarded a push request to a firewalled address, ignoring."/>
 	<string id="16212" value="Neighbor %s forwarded an extended packet that is not GGEP encoded."/>
 	<string id="16213" value="Sending query routing table to neighbor %s (%i bit = %lu[%i], %i%% full)"/>
+-->	<string id="16254" value="기본 그룹을 다운로드하십시오. (모두보기 파일)"/>
 	<string id="16255" value="끌어 다 놓으십시오 %s 그룹에 파일을"/>
-	<string id="16256" value="Added &quot;%s&quot; to download queue with %i source(s)."/>
+<!--	<string id="16256" value="Added &quot;%s&quot; to download queue with %i sources."/>
 	<string id="16257" value="Completed download of &quot;%s&quot;."/>
 	<string id="16258" value="Pausing download of &quot;%s&quot;."/>
 	<string id="16259" value="Resuming download of &quot;%s&quot;."/>
@@ -2587,7 +2582,7 @@
 	<string id="18510" value="Are you sure you want to assume this download is complete and reverify it? The whole file will be considered, and PeerProject will accept parts which pass verification and redownload parts which fail verification."/>
 	<string id="18511" value="You have made changes to the file size. Are you sure you want to change the file size for this download?"/>
 	<string id="19000" value="Remote access is disabled."/>
-	<string id="19001" value="You must choose a username and password."/>
+	<string id="19001" value="http://%s:%i/remote - Username/password required."/>
 	<string id="19002" value="Unable to accept connections, URL unavailable."/>
 	<string id="20000" value="No URN available"/>
 	<string id="20001" value="닫기"/>
@@ -2672,6 +2667,7 @@
 	<string id="20242" value="다시 시도"/>
 	<string id="20243" value="계속"/>
 	<string id="20244" value="&amp;나의 선택을 다음 번에 기억"/>
+	<string id="20245" value="새 폴더"/>
 </strings>
 <!-- Localized Dialog Text, "cookie" verifies that the skin matches current dialog -->
 <dialogs>
@@ -3404,7 +3400,7 @@
 		<control caption="Show"/>
 		<control caption="취소"/>
 		<control caption="Close"/>
-		<control caption="Close window when completed"/>
+		<control caption="자동"/>
 	</dialog>
 <!--	<dialog name="CFileGeneralPage" cookie="EdStStStStStEdEdEdEdEdStEdEdEdEd" caption="General">
 		<control/>
@@ -3581,26 +3577,25 @@
 		<control/>
 		<control caption="취소"/>
 	</dialog>
-	<dialog name="CURLActionDlg" cookie="StStStStStEdStEdStBuBuBuBuBuSt" caption="PeerProject URI Link Manager">
-		<control/>
-		<control caption="You have clicked on a PeerProject-powered URI which links to the following content on the network:"/>
-		<control caption="You have clicked on a PeerProject-powered URL which will connect you to the following host or server:"/>
-		<control caption="You have clicked on a PeerProject-powered URI which will allow you to browse the shared files available on the following host:"/>
-		<control/>
-		<control/>
+	<dialog name="CURLActionDlg" cookie="StStStStStStEdStEdStBuBuBuBuBu" caption="PeerProject URI Link Manager">
+		<control caption="You have clicked a PeerProject-powered URI that links to this content on the network:"/>
+		<control caption="You have clicked a PeerProject-powered URL that will connect you to this host or server:"/>
+		<control caption="You have clicked a PeerProject-powered URI that will allow you to browse the shared files available on the following host:"/>
+		<control caption="You have clicked a PeerProject-powered URI that will add this Discovery Service to your Discovery Services cache."/>
 		<control/>
 		<control/>
-		<control caption="Please select the action you would like PeerProject to take:"/>
+		<control/>
+		<control/>
+		<control caption="Select the action you would like to take:"/>
 		<control caption="Download Now"/>
 		<control caption="Search for File"/>
 		<control caption="취소"/>
 		<control caption="Remember my selection next time"/>
 		<control caption="Open a download monitor window"/>
-		<control caption="You have clicked on a PeerProject-powered URI which will add the following Discovery Service to your Discovery Services cache."/>
 	</dialog>
 	<dialog name="CBitziDownloadDlg" cookie="StStmsBuSySt" caption="Downloading Metadata...">
 		<control/>
-		<control caption="PeerProject is attempting to download metadata from Bitzi(TM)..."/>
+		<control caption="PeerProject is attempting to download metadata from Bitzi..."/>
 		<control/>
 		<control caption="취소"/>
 		<control/>

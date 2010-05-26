@@ -241,13 +241,18 @@ INT_PTR CDownloadTabBar::OnToolHitTest(CPoint point, TOOLINFO* pTI) const
 
 	CString strTip;
 	LoadString( strTip, IDS_GENERAL_ALL );
-	if ( pItem->m_sName == strTip ) return -1;
+	if ( pItem->m_sName == strTip )
+	{
+		LoadString( strTip, IDS_DOWNLOAD_GROUP_DEFAULT );
+	}
+	else // All other groups
+	{
+		LoadString( strTip, IDS_DOWNLOAD_GROUP );
+		strTip.Format( strTip, pItem->m_sName );
 
-	LoadString( strTip, IDS_DOWNLOAD_GROUP );
-	strTip.Format( strTip, pItem->m_sName );
-
-	if ( pItem->m_sName == _T("Custom") && Settings.General.Language.Left(2) == _T("en") )
-		strTip += _T(", or right-click to customize this tab now.");
+		if ( pItem->m_sName == _T("Custom") && Settings.General.Language.Left(2) == _T("en") )
+			strTip += _T(", or right-click to customize this tab now.");
+	}
 
 	pTI->uFlags		= TTF_NOTBUTTON;
 	pTI->hwnd		= GetSafeHwnd();
@@ -919,7 +924,7 @@ void CDownloadTabBar::TabItem::Paint(CDownloadTabBar* pBar, CDC* pDC, CRect* pRe
 			strText = strText.Left( strText.GetLength() - 1 );
 		}
 
-		if ( strText.GetLength() ) strText += _T('\x2026');
+		if ( ! strText.IsEmpty() ) strText += _T('\x2026');
 	}
 
 	rc.left -= 20;

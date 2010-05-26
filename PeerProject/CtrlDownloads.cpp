@@ -99,9 +99,6 @@ CDownloadsCtrl::CDownloadsCtrl()
 	, m_bShowSearching	( TRUE )
 	, m_tSwitchTimer	( 0 )
 {
-	// Try to get the number of lines to scroll when the mouse wheel is rotated
-	if( ! SystemParametersInfo ( SPI_GETWHEELSCROLLLINES, 0, &m_nScrollWheelLines, 0) )
-		m_nScrollWheelLines = 3;
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -993,18 +990,19 @@ void CDownloadsCtrl::PaintDownload(CDC& dc, const CRect& rcRow, CDownload* pDown
 	COLORREF crText			= Colors.m_crText;
 	COLORREF crLeftMargin	= crNatural;
 	COLORREF crBorder		= bSelected ? Colors.m_crFragmentBorderSelected : Colors.m_crFragmentBorder;
-	COLORREF crBorderSimple	= bSelected ? Colors.m_crFragmentBorderSimpleBarSelected : Colors.m_crFragmentBorderSimpleBar;
-
-	// Update Full Row Highlight
-	dc.FillSolidRect( rcRow, crBack );
 
 	// Skinnable Selection Highlight
 	BOOL bSelectmark = FALSE;
 	if ( bSelected && Skin.m_bmSelected.m_hObject )
 	{
-		CRect rcDraw = rcRow;
+		CRect rcDraw( rcRow );	// non-const
 		CoolInterface.DrawWatermark( &dc, &rcDraw, &Skin.m_bmSelected );
 		bSelectmark = TRUE;
+	}
+	else
+	{
+		// Update Full Row Highlight
+		dc.FillSolidRect( rcRow, crBack );
 	}
 
 	if ( IsExpandable( pDownload ) )
@@ -1021,27 +1019,15 @@ void CDownloadsCtrl::PaintDownload(CDC& dc, const CRect& rcRow, CDownload* pDown
 		dc.SetBkColor( crBack );
 	dc.SetBkMode( bSelectmark ? TRANSPARENT : OPAQUE );
 
-	// Modify Text color if required
+	// Modify Text color if needed
 	if ( pDownload->IsCompleted() )
 	{
-		if ( bSelected )
-		{
- 			if ( pDownload->m_bVerify == TRI_FALSE )
- 				crText = Colors.m_crTransferVerifyFailSelected;
-			else if ( pDownload->IsSeeding() && ( pDownload->m_nSize > pDownload->m_nTorrentUploaded ) )
-	 			crText = Colors.m_crTransferVerifyPassSelected;
-	  		else
-	 			crText = Colors.m_crTransferCompletedSelected;
-		}
+		if ( pDownload->m_bVerify == TRI_FALSE )
+			crText = bSelected ? Colors.m_crTransferVerifyFailSelected : Colors.m_crTransferVerifyFail;
+		else if ( pDownload->IsSeeding() && pDownload->m_nTorrentUploaded < pDownload->m_nSize )
+ 			crText = bSelected ? Colors.m_crTransferVerifyPassSelected : Colors.m_crTransferVerifyPass;
 		else
-		{
- 			if ( pDownload->m_bVerify == TRI_FALSE )
- 				crText = Colors.m_crTransferVerifyFail;
-	 		else if ( pDownload->IsSeeding() && ( pDownload->m_nSize > pDownload->m_nTorrentUploaded ) )
-	 			crText = Colors.m_crTransferVerifyPass;
-	  		else
-	 			crText = Colors.m_crTransferCompleted;
-		}
+			crText = bSelected ? Colors.m_crTransferCompletedSelected : Colors.m_crTransferCompleted;
 	}
 	else if ( bSelected )
 	{
@@ -1160,18 +1146,9 @@ void CDownloadsCtrl::PaintDownload(CDC& dc, const CRect& rcRow, CDownload* pDown
 				bDisplayText = FALSE;
 				rcCell.DeflateRect( 1, 2 );
 
-				if ( Settings.Downloads.SimpleBar )
-				{
-					dc.Draw3dRect( &rcCell, crBorderSimple, crBorderSimple );
-					rcCell.DeflateRect( 1, 1 );
-					CFragmentBar::DrawDownloadSimple( &dc, &rcCell, pDownload, crNatural );
-				}
-				else
-				{
-					dc.Draw3dRect( &rcCell, crBorder, crBorder );
-					rcCell.DeflateRect( 1, 1 );
-					CFragmentBar::DrawDownload( &dc, &rcCell, pDownload, crNatural );
-				}
+				dc.Draw3dRect( &rcCell, crBorder, crBorder );
+				rcCell.DeflateRect( 1, 1 );
+				CFragmentBar::DrawDownload( &dc, &rcCell, pDownload, crNatural );
 			}
 			else if ( pDownload->m_nSize < SIZE_UNKNOWN && pDownload->m_nSize > 0 )
 			{
@@ -1232,22 +1209,22 @@ void CDownloadsCtrl::PaintDownload(CDC& dc, const CRect& rcRow, CDownload* pDown
 			break;
 		}
 
-		nTextLeft	= min( nTextLeft, int(rcCell.left) );
-		nTextRight	= max( nTextRight, int(rcCell.right) );
-
 		if ( ! bDisplayText ) continue;
 
 		if ( rcCell.Width() < 8 ) strText.Empty();
 
 		if ( dc.GetTextExtent( strText ).cx > rcCell.Width() - 8 )
 		{
-			while ( dc.GetTextExtent( strText + _T('\x2026') ).cx > ( rcCell.Width() - 8 ) && strText.GetLength() > 0 )
+			while ( dc.GetTextExtent( strText + _T('\x2026') ).cx > ( rcCell.Width() - 8 ) && ! strText.IsEmpty() )
 			{
 				strText.Truncate( strText.GetLength() - 1 );
 			}
 
-			if ( strText.GetLength() > 0 ) strText += _T('\x2026');
+			if ( ! strText.IsEmpty() ) strText += _T('\x2026');
 		}
+
+		nTextLeft	= min( nTextLeft, (int)rcCell.left );
+		nTextRight	= max( nTextRight, (int)rcCell.right );
 
 		int nWidth		= dc.GetTextExtent( strText ).cx;
 		int nPosition	= 0;
@@ -1277,15 +1254,15 @@ void CDownloadsCtrl::PaintDownload(CDC& dc, const CRect& rcRow, CDownload* pDown
 
 	if ( bFocus )
 	{
-		CRect rcFocus( nTextLeft, rcRow.top, max( int(rcRow.right), nTextRight ), rcRow.bottom );
+		CRect rcFocus( nTextLeft, rcRow.top, max( (int)rcRow.right, nTextRight ), rcRow.bottom );
 		dc.Draw3dRect( &rcFocus, Colors.m_crHiBorder, Colors.m_crHiBorder );
 
 		if ( Skin.m_bRoundedSelect )
 		{
-			dc.FillSolidRect( rcFocus.left, rcFocus.top, 1, 1, crNatural );
-			dc.FillSolidRect( rcFocus.left, rcFocus.bottom - 1, 1, 1, crNatural );
-			dc.FillSolidRect( rcRow.right - 1, rcRow.top, 1, 1, crNatural );
-			dc.FillSolidRect( rcRow.right - 1, rcRow.bottom - 1, 1, 1, crNatural );
+			dc.SetPixel( rcFocus.left, rcFocus.top, crNatural );
+			dc.SetPixel( rcFocus.left, rcFocus.bottom - 1, crNatural );
+			dc.SetPixel( rcRow.right - 1, rcRow.top, crNatural );
+			dc.SetPixel( rcRow.right - 1, rcRow.bottom - 1, crNatural );
 		}
 
 		if ( Colors.m_crHiBorderIn )
@@ -1479,9 +1456,6 @@ void CDownloadsCtrl::PaintSource(CDC& dc, const CRect& rcRow, CDownload* pDownlo
 			break;
 		}
 
-		nTextLeft	= min( nTextLeft, int(rcCell.left) );
-		nTextRight	= max( nTextRight, int(rcCell.right) );
-
 		if ( ! bDisplayText )
 			continue;
 
@@ -1489,14 +1463,17 @@ void CDownloadsCtrl::PaintSource(CDC& dc, const CRect& rcRow, CDownload* pDownlo
 
 		if ( dc.GetTextExtent( strText ).cx > rcCell.Width() - 8 )
 		{
-			while ( dc.GetTextExtent( strText + _T('\x2026') ).cx > ( rcCell.Width() - 8 ) && strText.GetLength() > 0 )
+			while ( dc.GetTextExtent( strText + _T('\x2026') ).cx > ( rcCell.Width() - 8 ) && ! strText.IsEmpty() )
 			{
 				strText.Truncate( strText.GetLength() - 1 );
 			}
 
-			if ( strText.GetLength() > 0 )
+			if ( ! strText.IsEmpty() )
 				strText += _T('\x2026');
 		}
+
+		nTextLeft	= min( nTextLeft, (int)rcCell.left );
+		nTextRight	= max( nTextRight, (int)rcCell.right );
 
 		int nWidth		= dc.GetTextExtent( strText ).cx;
 		int nPosition	= 0;
@@ -1526,15 +1503,15 @@ void CDownloadsCtrl::PaintSource(CDC& dc, const CRect& rcRow, CDownload* pDownlo
 
 	if ( bFocus )
 	{
-		CRect rcFocus( nTextLeft, rcRow.top, max( int(rcRow.right), nTextRight ), rcRow.bottom );
+		CRect rcFocus( nTextLeft, rcRow.top, max( (int)rcRow.right, nTextRight ), rcRow.bottom );
 		dc.Draw3dRect( &rcFocus, Colors.m_crHiBorder, Colors.m_crHiBorder );
 
 		if ( Skin.m_bRoundedSelect )
 		{
-			dc.FillSolidRect( rcFocus.left, rcFocus.top, 1, 1, crNatural );
-			dc.FillSolidRect( rcFocus.left, rcFocus.bottom - 1, 1, 1, crNatural );
-			dc.FillSolidRect( rcRow.right - 1, rcRow.top, 1, 1, crNatural );
-			dc.FillSolidRect( rcRow.right - 1, rcRow.bottom - 1, 1, 1, crNatural );
+			dc.SetPixel( rcFocus.left, rcFocus.top, crNatural );
+			dc.SetPixel( rcFocus.left, rcFocus.bottom - 1, crNatural );
+			dc.SetPixel( rcRow.right - 1, rcRow.top, crNatural );
+			dc.SetPixel( rcRow.right - 1, rcRow.bottom - 1, crNatural );
 		}
 
 		if ( Colors.m_crHiBorderIn )
@@ -1659,7 +1636,7 @@ void CDownloadsCtrl::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* /*pScrollBar
 
 BOOL CDownloadsCtrl::OnMouseWheel(UINT /*nFlags*/, short zDelta, CPoint /*pt*/)
 {
-	OnVScroll( SB_THUMBPOSITION, (int)( GetScrollPos( SB_VERT ) - zDelta / WHEEL_DELTA * m_nScrollWheelLines ), NULL );
+	OnVScroll( SB_THUMBPOSITION, GetScrollPos( SB_VERT ) - zDelta / WHEEL_DELTA * theApp.m_nMouseWheel );
 	return TRUE;
 }
 

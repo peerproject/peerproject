@@ -1,7 +1,7 @@
 //
-// Class.cpp : Implementation of CClass
+// Class.cpp : Implementation of CClass (7z)
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -123,7 +123,7 @@ public:
 		value.LowPart = SetFilePointer( pFile, value.LowPart,
 			&value.HighPart, seekOrigin );
 		if ( value.LowPart == 0xFFFFFFFF )
-			if( GetLastError() != NO_ERROR ) 
+			if( GetLastError() != NO_ERROR )
 				return E_FAIL;
 		if ( newPosition )
 			*newPosition = value.QuadPart;
@@ -173,16 +173,13 @@ STDMETHODIMP C7ZipBuilder::Process (
 
 	CComPtr <ISXMLElements> pISXMLRootElements;
 	HRESULT hr = pXML->get_Elements(&pISXMLRootElements);
-	if ( FAILED( hr ) )
-		return hr;
+	if ( FAILED( hr ) ) return hr;
 	CComPtr <ISXMLElement> pXMLRootElement;
 	hr = pISXMLRootElements->Create (CComBSTR ("archives"), &pXMLRootElement);
-	if ( FAILED( hr ) )
-		return hr;
+	if ( FAILED( hr ) ) return hr;
 	CComPtr <ISXMLAttributes> pISXMLRootAttributes;
 	hr = pXMLRootElement->get_Attributes(&pISXMLRootAttributes);
-	if ( FAILED( hr ) )
-		return hr;
+	if ( FAILED( hr ) ) return hr;
 	pISXMLRootAttributes->Add (CComBSTR ("xmlns:xsi"),
 		CComBSTR ("http://www.w3.org/2001/XMLSchema-instance"));
 	pISXMLRootAttributes->Add (CComBSTR ("xsi:noNamespaceSchemaLocation"),
@@ -190,16 +187,13 @@ STDMETHODIMP C7ZipBuilder::Process (
 
 	CComPtr <ISXMLElements> pISXMLElements;
 	hr = pXMLRootElement->get_Elements(&pISXMLElements);
-	if ( FAILED( hr ) )
-		return hr;
+	if ( FAILED( hr ) ) return hr;
 	CComPtr <ISXMLElement> pXMLElement;
 	hr = pISXMLElements->Create (CComBSTR ("archive"), &pXMLElement);
-	if ( FAILED( hr ) )
-		return hr;
+	if ( FAILED( hr ) ) return hr;
 	CComPtr <ISXMLAttributes> pISXMLAttributes;
 	hr = pXMLElement->get_Attributes(&pISXMLAttributes);
-	if ( FAILED( hr ) )
-		return hr;
+	if ( FAILED( hr ) ) return hr;
 
 	CString strFiles;				// Plain list of archive files
 	bool bMoreFiles = false;		// More files than listed in sFiles
@@ -208,29 +202,26 @@ STDMETHODIMP C7ZipBuilder::Process (
 	CString strComment;				// Archive comments
 	bool bEncrypted = false;		// Archive itself or selective files are encrypted
 	ULONGLONG nUnpackedSize = 0;	// Total size of unpacked files
+	int nFileCount = 0;				// Total number of contained files
 
 	USES_CONVERSION;
 	CInStream oInStream;
 	if ( ! oInStream.Open( OLE2CT( sFile ) ) )
-		// Cannot open file
-		return E_FAIL;
+		return E_FAIL;	// Cannot open file
 
 	CComPtr< IInArchive > pIInArchive;
 	hr = fnCreateObject( &CLSID_CFormat7z, &IID_IInArchive, (void**)&pIInArchive );
 	if ( FAILED( hr ) )
-		// Bad 7zxr.dll version?
-		return E_NOTIMPL;
+		return E_NOTIMPL;	// Bad 7zxr.dll version?
 
 	hr = pIInArchive->Open( static_cast< IInStream* >( &oInStream ), NULL, NULL );
 	if ( hr != S_OK ) // S_FALSE - unknown format
-		// Bad format. Call CLibraryBuilder::SubmitCorrupted()
-		return E_UNEXPECTED;
+		return E_UNEXPECTED;	// Bad format. Call CLibraryBuilder::SubmitCorrupted()
 
 	UInt32 numProperties = 0;
-	hr = pIInArchive->GetNumberOfArchiveProperties( &numProperties );  
+	hr = pIInArchive->GetNumberOfArchiveProperties( &numProperties );
 	if ( FAILED( hr ) )
-		// Bad format. Call CLibraryBuilder::SubmitCorrupted()
-		return E_UNEXPECTED;
+		return E_UNEXPECTED;	// Bad format. Call CLibraryBuilder::SubmitCorrupted()
 
 	for ( UInt32 p = 0; p < numProperties; p++ )
 	{
@@ -239,17 +230,15 @@ STDMETHODIMP C7ZipBuilder::Process (
 		VARTYPE varType = 0;
 		hr = pIInArchive->GetArchivePropertyInfo( p, &name, &propID, &varType);
 		if ( FAILED( hr ) )
-			// Bad format. Call CLibraryBuilder::SubmitCorrupted()
-			return E_UNEXPECTED;
+			return E_UNEXPECTED;	// Bad format. Call CLibraryBuilder::SubmitCorrupted()
 		SysFreeString( name );
 	}
 
 	// List command
 	UInt32 numItems = 0;
-	hr = pIInArchive->GetNumberOfItems( &numItems );  
+	hr = pIInArchive->GetNumberOfItems( &numItems );
 	if ( FAILED( hr ) )
-		// Bad format. Call CLibraryBuilder::SubmitCorrupted()
-		return E_UNEXPECTED;
+		return E_UNEXPECTED;	// Bad format. Call CLibraryBuilder::SubmitCorrupted()
 
 	for ( UInt32 i = 0; i < numItems; i++ )
 	{
@@ -257,8 +246,7 @@ STDMETHODIMP C7ZipBuilder::Process (
 		CComPropVariant propPath;
 		hr = pIInArchive->GetProperty( i, kpidPath, &propPath );
 		if ( FAILED( hr ) || propPath.vt != VT_BSTR )
-			// Bad format. Call CLibraryBuilder::SubmitCorrupted()
-			return E_UNEXPECTED;
+			return E_UNEXPECTED;	// Bad format. Call CLibraryBuilder::SubmitCorrupted()
 
 		CString strName( propPath.bstrVal );
 		int nBackSlashPos = strName.ReverseFind( _T('\\') );
@@ -269,12 +257,10 @@ STDMETHODIMP C7ZipBuilder::Process (
 		CComPropVariant propIsFolder;
 		hr = pIInArchive->GetProperty( i, kpidIsDir, &propIsFolder );
 		if ( FAILED( hr ) || propIsFolder.vt != VT_BOOL )
-			// Bad format. Call CLibraryBuilder::SubmitCorrupted()
-			return E_UNEXPECTED;
+			return E_UNEXPECTED;	// Bad format. Call CLibraryBuilder::SubmitCorrupted()
 
-		if ( propIsFolder.boolVal == VARIANT_TRUE )
+		if ( propIsFolder.boolVal == VARIANT_TRUE )	// Folder
 		{
-			// Folder
 			if ( strFolders.GetLength() + strName.GetLength() <= MAX_SIZE_FOLDERS - 5 )
 			{
 				if ( strFolders.GetLength() )
@@ -284,9 +270,10 @@ STDMETHODIMP C7ZipBuilder::Process (
 			else
 				bMoreFolders = true;
 		}
-		else
+		else	// File
 		{
-			// File
+			nFileCount++;
+
 			if ( strFiles.GetLength() + strName.GetLength() <= MAX_SIZE_FILES - 5 )
 			{
 				if ( strFiles.GetLength() )
@@ -300,8 +287,7 @@ STDMETHODIMP C7ZipBuilder::Process (
 			CComPropVariant propSize;
 			hr = pIInArchive->GetProperty( i, kpidSize, &propSize );
 			if ( FAILED( hr ) || propSize.vt != VT_UI8 )
-				// Bad format. Call CLibraryBuilder::SubmitCorrupted()
-				return E_UNEXPECTED;
+				return E_UNEXPECTED;	// Bad format. Call CLibraryBuilder::SubmitCorrupted()
 
 			nUnpackedSize += propSize.uhVal.QuadPart;
 		}
@@ -309,21 +295,21 @@ STDMETHODIMP C7ZipBuilder::Process (
 
 	pIInArchive->Close();
 
-	if ( strFiles.GetLength() )
+	if ( ! strFiles.IsEmpty() )
 	{
 		if ( bMoreFiles )
 			strFiles += _T(", ...");
 		pISXMLAttributes->Add( CComBSTR( "files" ), CComBSTR( strFiles ) );
 	}
 
-	if ( strFolders.GetLength() )
+	if ( ! strFolders.IsEmpty() )
 	{
 		if ( bMoreFolders )
 			strFolders += _T(", ...");
 		pISXMLAttributes->Add( CComBSTR( "folders" ), CComBSTR( strFolders ) );
 	}
 
-	if ( strComment.GetLength() )
+	if ( ! strComment.IsEmpty() )
 		pISXMLAttributes->Add( CComBSTR( "comments" ), CComBSTR( strComment ) );
 
 	if ( bEncrypted )
@@ -334,6 +320,19 @@ STDMETHODIMP C7ZipBuilder::Process (
 		CString strUnpackedSize;
 		strUnpackedSize.Format( _T("%I64u"), nUnpackedSize );
 		pISXMLAttributes->Add( CComBSTR( "unpackedsize" ), CComBSTR( strUnpackedSize ) );
+	}
+
+	if ( nFileCount > 0 )
+	{
+		CString strFileCount;
+		strFileCount.Format( _T("%i"), nFileCount );
+		pISXMLAttributes->Add( CComBSTR( "filecount" ), CComBSTR( strFileCount ) );
+	}
+	else
+	{
+		CString strFileCount;
+		strFileCount.Format( _T("%I32u"), numItems );
+		pISXMLAttributes->Add( CComBSTR( "filecount" ), CComBSTR( strFileCount ) );
 	}
 
 	return S_OK;

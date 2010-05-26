@@ -37,8 +37,6 @@
 #include "Skin.h"
 #include "Flags.h"
 
-#include "Downloads.h"
-
 #ifdef _DEBUG
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
@@ -91,9 +89,6 @@ CUploadsCtrl::CUploadsCtrl()
 	: m_nFocus		( 0 )
 	, m_pDeselect	( NULL )
 {
-	// Try to get the number of lines to scroll when the mouse wheel is rotated
-	if( !SystemParametersInfo ( SPI_GETWHEELSCROLLLINES, 0, &m_nScrollWheelLines, 0) )
-		m_nScrollWheelLines = 3;
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -931,12 +926,12 @@ void CUploadsCtrl::PaintQueue(CDC& dc, const CRect& rcRow, CUploadQueue* pQueue,
 
 		if ( dc.GetTextExtent( strText ).cx > rcCell.Width() - 8 )
 		{
-			while ( dc.GetTextExtent( strText + _T('\x2026') ).cx > ( rcCell.Width() - 8 ) && strText.GetLength() > 0 )
+			while ( dc.GetTextExtent( strText + _T('\x2026') ).cx > ( rcCell.Width() - 8 ) && ! strText.IsEmpty() )
 			{
 				strText.Truncate( strText.GetLength() - 1 );
 			}
 
-			if ( strText.GetLength() > 0 )
+			if ( ! strText.IsEmpty() )
 				strText += _T('\x2026');
 		}
 
@@ -975,10 +970,10 @@ void CUploadsCtrl::PaintQueue(CDC& dc, const CRect& rcRow, CUploadQueue* pQueue,
 
 		if ( Skin.m_bRoundedSelect )
 		{
-			dc.FillSolidRect( rcFocus.left, rcFocus.top, 1, 1, crNatural );
-			dc.FillSolidRect( rcFocus.left, rcFocus.bottom - 1, 1, 1, crNatural );
-			dc.FillSolidRect( rcRow.right - 1, rcRow.top, 1, 1, crNatural );
-			dc.FillSolidRect( rcRow.right - 1, rcRow.bottom - 1, 1, 1, crNatural );
+			dc.SetPixel( rcFocus.left, rcFocus.top, crNatural );
+			dc.SetPixel( rcFocus.left, rcFocus.bottom - 1, crNatural );
+			dc.SetPixel( rcRow.right - 1, rcRow.top, crNatural );
+			dc.SetPixel( rcRow.right - 1, rcRow.bottom - 1, crNatural );
 		}
 
 		if ( Colors.m_crHiBorderIn )
@@ -1155,12 +1150,12 @@ void CUploadsCtrl::PaintFile(CDC& dc, const CRect& rcRow, CUploadQueue* /*pQueue
 
 		if ( dc.GetTextExtent( strText ).cx > rcCell.Width() - 8 )
 		{
-			while ( dc.GetTextExtent( strText + _T('\x2026') ).cx > ( rcCell.Width() - 8 ) && strText.GetLength() > 0 )
+			while ( dc.GetTextExtent( strText + _T('\x2026') ).cx > ( rcCell.Width() - 8 ) && ! strText.IsEmpty() )
 			{
 				strText.Truncate( strText.GetLength() - 1 );
 			}
 
-			if ( strText.GetLength() > 0 )
+			if ( ! strText.IsEmpty() )
 				strText += _T('\x2026');
 		}
 
@@ -1197,10 +1192,10 @@ void CUploadsCtrl::PaintFile(CDC& dc, const CRect& rcRow, CUploadQueue* /*pQueue
 
 		if ( Skin.m_bRoundedSelect )
 		{
-			dc.FillSolidRect( rcFocus.left, rcFocus.top, 1, 1, crNatural );
-			dc.FillSolidRect( rcFocus.left, rcFocus.bottom - 1, 1, 1, crNatural );
-			dc.FillSolidRect( rcRow.right - 1, rcRow.top, 1, 1, crNatural );
-			dc.FillSolidRect( rcRow.right - 1, rcRow.bottom - 1, 1, 1, crNatural );
+			dc.SetPixel( rcFocus.left, rcFocus.top, crNatural );
+			dc.SetPixel( rcFocus.left, rcFocus.bottom - 1, crNatural );
+			dc.SetPixel( rcRow.right - 1, rcRow.top, crNatural );
+			dc.SetPixel( rcRow.right - 1, rcRow.bottom - 1, crNatural );
 		}
 
 		if ( Colors.m_crHiBorderIn )
@@ -1324,7 +1319,7 @@ void CUploadsCtrl::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* /*pScrollBar*/
 
 BOOL CUploadsCtrl::OnMouseWheel(UINT /*nFlags*/, short zDelta, CPoint /*pt*/)
 {
-	OnVScroll( SB_THUMBPOSITION, (int)( GetScrollPos( SB_VERT ) - zDelta / WHEEL_DELTA * m_nScrollWheelLines ), NULL );
+	OnVScroll( SB_THUMBPOSITION, GetScrollPos( SB_VERT ) - zDelta / WHEEL_DELTA * theApp.m_nMouseWheel );
 	return TRUE;
 }
 

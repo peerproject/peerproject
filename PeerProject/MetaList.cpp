@@ -187,7 +187,7 @@ void CMetaList::Setup(CMetaList* pMetaList)
 		}
 
 		if ( pItem )
-			pItem->m_bValueDefined = pItemOther->m_sValue.GetLength() > 0;
+			pItem->m_bValueDefined = ! pItemOther->m_sValue.IsEmpty();
 	}
 
 	for ( POSITION pos = GetIterator() ; pos ; )
@@ -298,7 +298,7 @@ void CMetaList::ComputeWidth(CDC* pDC, int& nKeyWidth, int& nValueWidth)
 
 INT_PTR CMetaList::GetCount(BOOL bVisibleOnly) const
 {
-	if ( !bVisibleOnly ) return GetCount();
+	if ( ! bVisibleOnly ) return GetCount();
 
 	INT_PTR nTotal = 0;
 
@@ -373,7 +373,7 @@ BOOL CMetaItem::Combine(CXMLElement* pXML)
 	CString strValue = m_pMember->GetValueFrom( pXML, NULL, TRUE );
 	strValue.Trim();
 
-	if ( !m_bValueDefined )
+	if ( ! m_bValueDefined )
 		m_sValue = strValue;
 	else if ( m_sValue != strValue )
 		m_sValue = g_strMultiple;

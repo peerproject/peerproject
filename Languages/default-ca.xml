@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Catalan Skin File -->
 
-<!-- Translation based on default-en.xml r54 -->
+<!-- Translation based on default-en.xml r55 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -450,12 +450,12 @@
 	</toolbar>
 	<!-- IMAGE VIEWER PLUGIN WINDOW -->
 	<toolbar name="ImageViewerWnd">
-		<button id="ImageViewer_BestFit" text="Millor ajust"/>
-		<button id="ImageViewer_ActualSize" text="Mida actual"/>
+		<button id="PluginID_ImageViewer_BestFit" text="Millor ajust"/>
+		<button id="PluginID_ImageViewer_FullSize" text="Mida actual"/>
 		<separator/>
-		<button id="ImageViewer_Refresh" text="Actualitza"/>
+		<button id="PluginID_ImageViewer_Refresh" text="Actualitza"/>
 			<rightAlign/>
-		<button id="ImageViewer_Close" text="Tanca"/>
+		<button id="PluginID_ImageViewer_Close" text="Tanca"/>
 	</toolbar>
 </toolbars>
 <!-- Menu Definitions -->
@@ -1633,12 +1633,12 @@
 	</menu>
 	<!-- PLUGIN MENUS -->
 	<menu name="ImageViewer_Context">
-		<item id="ImageViewer_BestFit" text="_Millor ajust"/>
-		<item id="ImageViewer_ActualSize" text="_Mida actual"/>
+		<item id="PluginID_ImageViewer_BestFit" text="_Millor ajust"/>
+		<item id="PluginID_ImageViewer_FullSize" text="_Mida actual"/>
 		<separator/>
-		<item id="ImageViewer_Refresh" text="_Actualitza"/>
+		<item id="PluginID_ImageViewer_Refresh" text="_Actualitza"/>
 		<separator/>
-		<item id="ImageViewer_Close" text="_Tanca"/>
+		<item id="PluginID_ImageViewer_Close" text="_Tanca"/>
 	</menu>
 	<!-- IRC WINDOW -->
 </menus>
@@ -1663,23 +1663,23 @@
 			<text>Benvingut/da a PeerProject!</text>
 			<newline gap="8" indent="42"/>
 			<text>No estàs connectat a cap xarxa Peer 2 Peer. &#160;</text>
-			<link target="peer:command:ID_NETWORK_CONNECT">¡Fes clic aquí per a començar!</link>
+			<link target="command:ID_NETWORK_CONNECT">¡Fes clic aquí per a començar!</link>
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="2">
-			<icon res="134" width="32" height="32" target="peer:command:ID_TAB_SEARCH"/><gap size="8"/>
+			<icon res="134" width="32" height="32" target="command:ID_TAB_SEARCH"/><gap size="8"/>
 			<heading align="middle">CERCA UN A ARXIU</heading>
 			<newline gap="8" indent="42"/>
 			<anchor id="SearchBox" width="256" height="80"/>
 			<newline gap="14" indent="0"/>
-			<icon res="136" width="32" height="32" target="peer:command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
+			<icon res="136" width="32" height="32" target="command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
 			<heading align="middle">COMENÇA A DESCARREGAR</heading>
 			<newline gap="8" indent="42"/>
-			<link target="peer:command:ID_TOOLS_DOWNLOAD" format="bu">Fes click aquí per a començar</link>
+			<link target="command:ID_TOOLS_DOWNLOAD" format="bu">Fes click aquí per a començar</link>
 			<text>&#160; a descarregar un nou arxiu o torrent.</text>
 			<newline gap="2" indent="42"/>
 			<text>O obre la meva </text>
-			<link target="peer:shell:downloads">carpeta de descàrregues.</link>
+			<link target="command:shell:downloads">carpeta de descàrregues.</link>
 			<newline gap="20" indent="0"/>
 		</group>
 		<group id="3">
@@ -1688,18 +1688,18 @@
 			<newline gap="8" indent="42"/>
 			<text id="Upgrade"/>
 			<newline gap="6"/>
-			<link target="peer:upgrade">Prem aquí per A actualitzar PeerProject</link>
+			<link target="command:upgrade">Prem aquí per A actualitzar PeerProject</link>
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="4">
-			<icon res="252" width="32" height="32" target="peer:command:ID_TOOLS_WIZARD"/><gap size="8"/>
+			<icon res="252" width="32" height="32" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 			<heading align="middle">ADVERTIMENT - PROBLEMA AMB CONNEXIONS ENTRANTS</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">PeerProject ha detectat que estàs sota un NAT, router o un tallafocs,
 			i no pots rebre connexions entrants d'Internet. &#160;</text>
 			<text color="FF0000" format="b">Això provocarà un rendiment baix a les descàrregues.</text>
 			<newline gap="6"/>
-			<link target="peer:command:ID_HELP_ROUTER">Clica aquí per a aprendre com configurar el teu router o tallafocs</link>
+			<link target="command:ID_HELP_ROUTER">Clica aquí per a aprendre com configurar el teu router o tallafocs</link>
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="6">
@@ -1710,7 +1710,7 @@
 			i no pots rebre connexions entrants d'Internet. &#160;</text>
 			<text color="FF0000" format="b">Això provocarà un rendiment baix a les descàrregues.</text>
 			<newline gap="6"/>
-			<link target="peer:command:ID_HELP_ROUTER">Clica aquí per a aprendre com configurar el teu router o tallafocs</link>
+			<link target="command:ID_HELP_ROUTER">Clica aquí per a aprendre com configurar el teu router o tallafocs</link>
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="7">
@@ -1721,31 +1721,31 @@
 			i no pots rebre connexions entrants d'Internet. &#160;</text>
 			<text color="FF0000" format="b">Això provocarà un rendiment baix a les descàrregues.</text>
 			<newline gap="6"/>
-			<link target="peer:command:ID_HELP_ROUTER">Clica aquí per a aprendre com configurar el teu router o tallafocs</link>
+			<link target="command:ID_HELP_ROUTER">Clica aquí per a aprendre com configurar el teu router o tallafocs</link>
 			<newline gap="18" indent="0"/>
 		</group>
-		<icon res="128" width="32" height="32" target="peer:command:ID_TOOLS_SETTINGS"/><gap size="8"/>
+		<icon res="128" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">PERSONALITZA PEERPROJECT</heading>
 		<newline gap="12" indent="42"/>
-		<icon res="182" width="16" height="16" target="peer:command:ID_TOOLS_SKIN"/><gap size="8"/>
-		<link target="peer:command:ID_TOOLS_SKIN" align="middle" format="bu">Skins</link>
+		<icon res="182" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
+		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">Skins</link>
 		<text align="middle">&#160;- Canvia l'aspecte del PeerProject</text>
 		<newline gap="8"/>
-		<icon res="141" width="16" height="16" target="peer:command:ID_VIEW_SECURITY"/><gap size="8"/>
-		<link target="peer:command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
+		<icon res="141" width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
+		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
 		<text align="middle">&#160;- Update blocklist to avoid bad search results</text>
 		<newline gap="8"/>
-		<icon res="317" width="16" height="16" target="peer:command:ID_TOOLS_WIZARD"/><gap size="8"/>
-		<link target="peer:command:ID_TOOLS_WIZARD" align="middle">Assistent de configuració</link>
+		<icon res="317" width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
+		<link target="command:ID_TOOLS_WIZARD" align="middle">Assistent de configuració</link>
 		<text align="middle">&#160;- Configuració de PeerProject</text>
 		<newline gap="8"/>
-		<icon res="147" width="16" height="16" target="peer:command:ID_HELP_FAQ"/><gap size="8"/>
-		<link target="peer:command:ID_HELP_FAQ" align="middle">Ajuda ràpida</link>
+		<icon res="147" width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
+		<link target="command:ID_HELP_FAQ" align="middle">Ajuda ràpida</link>
 		<text align="middle">&#160;- Rep ajuda ràpida de com usar PeerProject, o </text>
-		<link target="peer:command:ID_TAB_IRC" align="middle">IRC.</link>
+		<link target="command:ID_TAB_IRC" align="middle">IRC.</link>
 		<newline gap="8"/>
-		<icon res="175" width="16" height="16" target="peer:command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
-		<link target="peer:command:ID_HELP_FORUMS_LOCAL" align="middle">Fòrum Local</link>
+		<icon res="175" width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
+		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">Fòrum Local</link>
 		<text align="middle">&#160;- Vés a la teva llengua català fòrum de discussió</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
@@ -1770,7 +1770,7 @@
 			<para align="center">
 				<text format="b">No connectat</text>
 				<newline gap="4"/>
-				<link target="peer:command:ID_NETWORK_CONNECT">Fes clic aquí per a connectar-te</link>
+				<link target="command:ID_NETWORK_CONNECT">Fes clic aquí per a connectar-te</link>
 			</para>
 		</group>
 		<icon group="20" command="ID_NETWORK_G2"/>
@@ -1818,7 +1818,7 @@
 				<text>No has descarregat cap arxiu recentment.</text>
 				<newline gap="8"/>
 			</group>
-			<link target="peer:command:ID_VIEW_LIBRARY">Meva col·lecció</link>
+			<link target="command:ID_VIEW_LIBRARY">Meva col·lecció</link>
 			<newline gap="4"/>
 			<text id="LibraryFiles" format="b">%lu </text>
 			<text>arxius (</text>
@@ -1832,10 +1832,10 @@
 				<newline gap="8"/>
 			</group>
 			<group id="3">
-				<link target="peer:command:ID_LIBRARY_HASH_PRIORITY">Fes clic aquí per a processar els hash més ràpidament</link>
+				<link target="command:ID_LIBRARY_HASH_PRIORITY">Fes clic aquí per a processar els hash més ràpidament</link>
 			</group>
 			<group id="4">
-				<link target="peer:command:ID_LIBRARY_HASH_PRIORITY">Fes clic aquí per a processar els hash més lentament</link>
+				<link target="command:ID_LIBRARY_HASH_PRIORITY">Fes clic aquí per a processar els hash més lentament</link>
 			</group>
 		</para>
 	</document>
@@ -1850,9 +1850,9 @@
 				<text>No estàs descarregant cap arxiu encara.</text>
 				<newline gap="4"/>
 			</group>
-			<link id="DownloadsNone" target="peer:command:ID_VIEW_DOWNLOADS">Mostra les descàrregues </link>
-			<link id="DownloadsOne" target="peer:command:ID_VIEW_DOWNLOADS" format="bu">1 descàrregues</link>
-			<link id="DownloadsMany" target="peer:command:ID_VIEW_DOWNLOADS" format="bu">%i descàrregues</link>
+			<link id="DownloadsNone" target="command:ID_VIEW_DOWNLOADS">Mostra les descàrregues </link>
+			<link id="DownloadsOne" target="command:ID_VIEW_DOWNLOADS" format="bu">1 descàrregues</link>
+			<link id="DownloadsMany" target="command:ID_VIEW_DOWNLOADS" format="bu">%i descàrregues</link>
 			<newline gap="4"/>
 			<text id="DownloadedNone">No arxius (</text>
 			<text id="DownloadedOne">1 arxiu (</text>
@@ -1869,8 +1869,8 @@
 		</styles>
 		<para align="center">
 			<text id="UploadsNone" format="b">No hi ha pujades</text>
-			<link id="UploadsOne" target="peer:command:ID_VIEW_UPLOADS" format="bu">1 pujada</link>
-			<link id="UploadsMany" target="peer:command:ID_VIEW_UPLOADS" format="bu">%i pujades</link>
+			<link id="UploadsOne" target="command:ID_VIEW_UPLOADS" format="bu">1 pujada</link>
+			<link id="UploadsMany" target="command:ID_VIEW_UPLOADS" format="bu">%i pujades</link>
 			<newline gap="4"/>
 			<group id="1">
 				<text id="TorrentsOne">1 torrent compartit</text>
@@ -1891,25 +1891,25 @@
 		<text format="b">General </text>
 		<text>està relacionada amb l'experiència de l'usuari.</text>
 		<newline gap="16" indent="16"/>
-		<link target="peer:page:CGeneralSettingsPage" format="b">General:</link>
+		<link target="page:CGeneralSettingsPage" format="b">General:</link>
 		<text>&#160;Configuració general com pistes, acció del botó minimitzar, formats, etc.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CLibrarySettingsPage" format="b">La meva col·lecció:</link>
+		<link target="page:CLibrarySettingsPage" format="b">La meva col·lecció:</link>
 		<text>&#160;Presentació i control de la col·lecció, i obertura d'arxius.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CMediaSettingsPage" format="b">Reproductor:</link>
+		<link target="page:CMediaSettingsPage" format="b">Reproductor:</link>
 		<text>&#160;Quan i com usar el Centre de Media de PeerProject.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CIRCSettingsPage" format="b">Chat:</link>
+		<link target="page:CIRCSettingsPage" format="b">Chat:</link>
 		<text>&#160;IRC chatroom connection settings and display options.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CCommunitySettingsPage" format="b">Comunitat:</link>
+		<link target="page:CCommunitySettingsPage" format="b">Comunitat:</link>
 		<text>&#160;Configura el teu perfil, xat i serveis de missatgeria.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CNetworksSettingsPage" format="b">Remot:</link>
+		<link target="page:CNetworksSettingsPage" format="b">Remot:</link>
 		<text>&#160;Configura PeerProject per a ser controlat remotament des d'un navegador d'internet.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CWebSettingsPage" format="b">Web:</link>
+		<link target="page:CWebSettingsPage" format="b">Web:</link>
 		<text>&#160;Integra PeerProject amb el teu navegador d'internet, per a acceptar enllaços peer-to-peer i controlar les descàrregues.</text>
 	</document>
 	<document name="CInternetSettingsGroup" title="Internet" leftMargin="8" topMargin="8">
@@ -1920,16 +1920,16 @@
 		<text format="b">Internet </text>
 		<text>permet configurar la interacció de PeerProject amb les xarxes peer-to-peer.</text>
 		<newline gap="16" indent="16"/>
-		<link target="peer:page:CConnectionSettingsPage" format="b">Connexió:</link>
+		<link target="page:CConnectionSettingsPage" format="b">Connexió:</link>
 		<text>&#160;Velocitat i capacitat de la teva connexió.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CDownloadsSettingsPage" format="b">Descàrregues:</link>
+		<link target="page:CDownloadsSettingsPage" format="b">Descàrregues:</link>
 		<text>&#160;Configura el comportament de les descàrregues, ample de banda, verificació, temps i control.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CUploadsSettingsPage" format="b">Pujades:</link>
+		<link target="page:CUploadsSettingsPage" format="b">Pujades:</link>
 		<text>&#160;Capacitat de pujar, encuar, blocar, temps d'expiracions i peticions especials.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CSchedulerSettingsPage" format="b">Scheduler:</link>
+		<link target="page:CSchedulerSettingsPage" format="b">Scheduler:</link>
 		<text>&#160;Limit download connections based on a periodic schedule.</text>
 	</document>
 	<!-- Browse User Profile -->
@@ -2010,15 +2010,15 @@
 		<newline gap="40" indent="0"/>
 		<text format="b">Arxius compartits</text>
 		<newline gap="4" indent="8"/>
-		<icon res="137" target="peer:command:ID_BROWSE_FILES"/><gap size="5"/>
-		<link target="peer:command:ID_BROWSE_FILES" align="middle">Mostra els arxius compartits</link>
+		<icon res="137" target="command:ID_BROWSE_FILES"/><gap size="5"/>
+		<link target="command:ID_BROWSE_FILES" align="middle">Mostra els arxius compartits</link>
 		<group id="2">
 			<newline gap="16" indent="0"/>
 			<text format="b">Comunitat</text>
 			<newline gap="4" indent="8"/>
-			<icon res="140" target="peer:command:ID_SEARCH_CHAT"/>
+			<icon res="140" target="command:ID_SEARCH_CHAT"/>
 			<gap size="5"/>
-			<link target="peer:command:ID_SEARCH_CHAT" align="middle">Parla amb l'usuari</link>
+			<link target="command:ID_SEARCH_CHAT" align="middle">Parla amb l'usuari</link>
 		</group>
 		<group id="3">
 			<newline gap="16" indent="0"/>
@@ -2570,10 +2570,10 @@
 	<tip id="ID_WINDOW_TILE_VERT" message="Organitza les finestres de forma vertical."/>
 	<tip id="ID_WINDOW_TOOLBAR" message="Mostra o oculta la barra d'eines."/>
 	<!-- PLUGIN TIPS -->
-	<tip id="ImageViewer_BestFit" message="Canvia la mida de la imatge per a ocupar tota la finestra."/>
-	<tip id="ImageViewer_ActualSize" message="Mostra la imatge amb sa mida original."/>
-	<tip id="ImageViewer_Refresh" message="Actualitza la imatge."/>
-	<tip id="ImageViewer_Close" message="Tanca la finestra del visor de imatges."/>
+	<tip id="PluginID_ImageViewer_BestFit" message="Canvia la mida de la imatge per a ocupar tota la finestra."/>
+	<tip id="PluginID_ImageViewer_FullSize" message="Mostra la imatge amb sa mida original."/>
+	<tip id="PluginID_ImageViewer_Refresh" message="Actualitza la imatge."/>
+	<tip id="PluginID_ImageViewer_Close" message="Tanca la finestra del visor de imatges."/>
 </commandTips>
 <!-- Tips displayed when mouse is moved over controls in the dialogs -->
 <controlTips>
@@ -2693,26 +2693,26 @@
 	<string id="8180" value="La mida min:"/>
 	<string id="8181" value="La mida max:"/>
 	<string id="8208" value="PeerProject està creant els hashs per a %Iu arxius:"/>
-	<string id="8223" value="%i dius i %i hores"/>
-	<string id="8224" value="PeerProject està descarregant:"/>
-	<string id="8225" value="Aquesta descàrrega està pausada:"/>
-	<string id="8226" value="PeerProject ha acabat de descarregar:"/>
-	<string id="8227" value="%i hores i %i minuts"/>
-	<string id="8228" value="%i minuts i %i segons"/>
-	<string id="8229" value="%i segons"/>
-	<string id="8230" value="PeerProject està buscant fonts per a:"/>
+<!--	<string id="8221" value="PeerProject està buscant fonts per a:"/>
+	<string id="8222" value="PeerProject està descarregant:"/>
+	<string id="8223" value="Aquesta descàrrega està pausada:"/>
+	<string id="8224" value="PeerProject ha acabat de descarregar:"/>
+	<string id="8225" value="PeerProject està movent l'arxiu descarregat:"/>
+	<string id="8226" value="PeerProject està verificant l'arxiu descarregat:"/>
+-->	<string id="8227" value="%i dius i %i hores"/>
+	<string id="8228" value="%i hores i %i minuts"/>
+	<string id="8229" value="%i minuts i %i segons"/>
+	<string id="8230" value="%i segons"/>
 	<string id="8231" value="No hi ha fonts"/>
 	<string id="8232" value="Obre"/>
 	<string id="8233" value="Cancel·la"/>
 	<string id="8235" value="Velocitat total de transferència:"/>
 	<string id="8236" value="Temps estimat per a que la descàrrega acabi:"/>
 	<string id="8237" value="Volum descarregat:"/>
-	<string id="8238" value="Nombre de fonts:"/>
+	<string id="8238" value="Volum pujat:"/>
 	<string id="8239" value="Completat"/>
-	<string id="8240" value="PeerProject està movent l'arxiu descarregat:"/>
-	<string id="8241" value="PeerProject està verificant l'arxiu descarregat:"/>
-	<string id="8243" value="Volum pujat:"/>
-	<string id="8244" value="Nombre de comentaris:"/>
+	<string id="8240" value="Nombre de fonts:"/>
+	<string id="8241" value="Nombre de comentaris:"/>
 	<string id="8288" value="Explorant La meva col·lecció de PeerProject"/>
 	<string id="8289" value="Explorant"/>
 	<string id="8290" value="Explorant els continguts de les carpetes %i "/>
@@ -2824,6 +2824,7 @@
 	<string id="16211" value="El veí %s ha enviat un push a una adreça sota tallafocs, ignorant..."/>
 	<string id="16212" value="El veí %s ha enviat un paquet extès no compatible amb GGEP."/>
 	<string id="16213" value="Enviant QRT a %s (%i bit = %lu[%i], %i%% full)"/>
+	<string id="16254" value="Descàrrega per defecte al grup. (Mostrar tots els arxius)"/>
 	<string id="16255" value="Arrossegar i deixar anar els fitxers en el grup %s"/>
 	<string id="16256" value="&quot;%s&quot; ha estat agregat a la cua de descàrregues, i té %i font(s)."/>
 	<string id="16257" value="Completada la descàrrega de &quot;%s&quot;."/>
@@ -3219,7 +3220,7 @@
 	<string id="18510" value="Estàs segur/a d'asumir aquesta descàrrega com completa i reverificar-la? PeerProject reverificarà l'arxiu, i acceptarà les parts correctes, i descarregarà de nou aquelles incorrectes."/>
 	<string id="18511" value="Has fet canvis a la mida de l'arxiu.  Estàs segur de que vols canviar la mida d'aquesta descàrrega?"/>
 	<string id="19000" value="L'accès remot està deshabilitat."/>
-	<string id="19001" value="Has d'escollir un nom d'usuari i contrasenya."/>
+	<string id="19001" value="http://%s:%i/remote - Nom d'usuari i contrasenya?"/>
 	<string id="19002" value="No es poden acceptar connexions, URL no disponible."/>
 	<string id="20000" value="No hi ha URN disponible"/>
 	<string id="20001" value="Tanca"/>
@@ -3298,6 +3299,7 @@
 	<string id="20236" value="Valoració"/>
 	<string id="20237" value="Accepta"/>
 	<string id="20238" value="Cancel·la"/>
+	<string id="20245" value="Nova carpeta"/>
 </strings>
 <!-- Localized Dialog Text, "cookie" verifies that the skin matches current dialog -->
 <dialogs>
@@ -3987,7 +3989,7 @@
 		<control caption="Mostra"/>
 		<control caption="Cancel·la"/>
 		<control caption="Tanca"/>
-		<control caption="Tanca aquesta finestra al finalitzar"/>
+		<control caption="Auto"/>
 	</dialog>
 	<dialog name="CFileGeneralPage" cookie="EdStStStStStEdEdEdEdEdStEdEdEdEd" caption="General">
 		<control/>
@@ -4164,11 +4166,11 @@
 		<control/>
 		<control caption="Cancel·la"/>
 	</dialog>
-	<dialog name="CURLActionDlg" cookie="StStStStStEdStEdStBuBuBuBuBuSt" caption="Controlador d'URIs de PeerProject">
-		<control/>
+	<dialog name="CURLActionDlg" cookie="StStStStStStEdStEdStBuBuBuBuBu" caption="Controlador d'URIs de PeerProject">
 		<control caption="Has obert un URI controlat per PeerProject, que enllaça amb el següent contingut a la xarxa:"/>
 		<control caption="Has obert un URL controlat per PeerProject, que connectarà amb el següent usuari o servidor:"/>
 		<control caption="Has obert un URI controlat per PeerProject, que permet explorar el següent usuari o servidor:"/>
+		<control caption="Aquest enllaç URI permet afegir a PeerProject el següent servei de descobriment:"/>
 		<control/>
 		<control/>
 		<control/>
@@ -4179,11 +4181,10 @@
 		<control caption="_Cancel·la"/>
 		<control caption="_Recorda la selecció"/>
 		<control caption="Obre el _monitor de transferències"/>
-		<control caption="Aquest enllaç URI permet afegir a PeerProject el següent servei de descobriment:"/>
 	</dialog>
 	<dialog name="CBitziDownloadDlg" cookie="StStmsBuSySt" caption="Descarregant metainformació...">
 		<control/>
-		<control caption="PeerProject està contactant amb Bitzi(TM)..."/>
+		<control caption="PeerProject està contactant amb Bitzi..."/>
 		<control/>
 		<control caption="Cancel·la"/>
 		<control/>

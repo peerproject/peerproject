@@ -158,7 +158,7 @@ BOOL CSkinsSettingsPage::AddSkin(LPCTSTR pszPath, LPCTSTR pszName)
 	if ( pszPath ) strXML += pszPath;
 	strXML += pszName;
 
-    if ( ! pFile.Open( strXML, CFile::modeRead ) ) return FALSE;
+	if ( ! pFile.Open( strXML, CFile::modeRead ) ) return FALSE;
 
 	DWORD nSource = (DWORD)pFile.GetLength();
 	if ( nSource > 4096*1024 ) return FALSE;

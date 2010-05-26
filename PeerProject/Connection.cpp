@@ -571,34 +571,35 @@ BOOL CConnection::ReadHeaders()
 
 			// Call the OnHeadersComplete method for the most advanced class that inherits from CConnection
 			return OnHeadersComplete();
-		} // The line starts with a space
+		}
 		else if ( _istspace( strLine.GetAt( 0 ) ) ) // Get the first character in the string, and see if its a space
 		{
-			// The last header has length
-			if ( m_sLastHeader.GetLength() )
-			{
-				// Trim the spaces from both ends of the line, and see if it still has length
-				strLine.TrimLeft();
-				strLine.TrimRight();
-				if ( strLine.GetLength() > 0 )
-				{
-					// Give OnHeaderLine the last header and this line
-					if ( ! OnHeaderLine( m_sLastHeader, strLine ) )
-						return FALSE;
-				}
-			}
+			// The line starts with a space
 
-		} // The colon is at a distance greater than 1 and less than 64
+			// The last header has length
+			if ( ! m_sLastHeader.IsEmpty() )
+			{
+				// Trim whitespace from both ends of the line, and ensure it still has length
+				strLine.Trim();
+				if ( strLine.IsEmpty() ) continue;
+
+				// Give OnHeaderLine the last header and this line
+				if ( ! OnHeaderLine( m_sLastHeader, strLine ) )
+					return FALSE;
+			}
+		}
 		else if ( nPos > 1 && nPos < 64 ) // ":a" is 0 and "a:a" is 1, but "aa:a" is greater than 1
 		{
+			// The colon is at a distance greater than 1 and less than 64
+
 			// The line is like "header:value", copy out both parts
 			CString strHeader	= strLine.Left( nPos );
 			CString strValue	= strLine.Mid( nPos + 1 );
 			m_sLastHeader = strHeader;
 
-			// Trim spaces from both ends of the value, and see if it still has length
-			strValue.TrimLeft();
-			strValue.TrimRight();
+			// Trim whitespace from both ends of the value, and ensure it still has length
+			strValue.Trim();
+			if ( strValue.IsEmpty() ) continue;
 
 			// Give OnHeaderLine this last header, and its value
 			if ( ! OnHeaderLine( strHeader, strValue ) )
@@ -773,10 +774,12 @@ DWORD CConnection::TCPBandwidthMeter::CalculateUsage( DWORD tTime ) const
 	if ( pTimes[ 0 ] > tTime )
 	{
 		// Find the next reading in the time limit
-		while ( slot < METER_LENGTH && pTimes[ slot ] <= tTime ) slot++;
+		while ( slot < METER_LENGTH && pTimes[ slot ] <= tTime )
+			slot++;
 
 		// Add history up to the end of the meter
-		while ( slot < METER_LENGTH ) nData += pHistory[ slot++ ];
+		while ( slot < METER_LENGTH )
+			nData += pHistory[ slot++ ];
 	}
 
 	// return the #bytes in time period

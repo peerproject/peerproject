@@ -50,6 +50,14 @@ public:
 	COLORREF	m_crCmdTextSel;
 	COLORREF	m_crDisabled;
 
+	COLORREF	m_crSysWindow;
+	COLORREF	m_crSysBtnFace;
+	COLORREF	m_crSysDisabled;
+	COLORREF	m_crSys3DShadow;
+	COLORREF	m_crSys3DHighlight;
+	COLORREF	m_crSysActiveCaption;
+	COLORREF	m_crSysMenuText;
+
 	CBrush		m_brDialog;
 	COLORREF	m_crDialog;
 	COLORREF	m_crPanelText;
@@ -61,6 +69,8 @@ public:
 
 	COLORREF	m_crTipBack;
 	COLORREF	m_crTipText;
+	COLORREF	m_crTipGraph;
+	COLORREF	m_crTipGraphGrid;
 	COLORREF	m_crTipBorder;
 	COLORREF	m_crTipWarnings;
 
@@ -94,6 +104,10 @@ public:
 	COLORREF	m_crMonitorUploadLine;
 	COLORREF	m_crMonitorDownloadBar;
 	COLORREF	m_crMonitorUploadBar;
+	COLORREF	m_crMonitorGraphBorder;
+	COLORREF	m_crMonitorGraphBack;
+	COLORREF	m_crMonitorGraphGrid;
+	COLORREF	m_crMonitorGraphLine;
 
 	COLORREF	m_crNavBarText;
 	COLORREF	m_crNavBarTextUp;
@@ -177,15 +191,6 @@ public:
 	COLORREF	m_crFragmentRequest;
 	COLORREF	m_crFragmentBorder;
 	COLORREF	m_crFragmentBorderSelected;
-	COLORREF	m_crFragmentBorderSimpleBar;
-	COLORREF	m_crFragmentBorderSimpleBarSelected;
-
-	COLORREF	m_crSysWindow;
-	COLORREF	m_crSysBtnFace;
-	COLORREF	m_crSysBorders;
-	COLORREF	m_crSys3DShadow;
-	COLORREF	m_crSys3DHighlight;
-	COLORREF	m_crSysActiveCaption;
 
 	void		Load();
 	void		OnSysColorChange();

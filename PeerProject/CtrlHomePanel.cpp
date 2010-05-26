@@ -605,8 +605,8 @@ void CHomeLibraryBox::OnPaint()
 	rcIcon.SetRect( 4, rcClient.top, 4 + 16, rcClient.top + 16 );
 	rcText.SetRect( rcIcon.right, rcIcon.top, rcClient.right - 4, rcIcon.bottom );
 
-	dc.SetBkMode( OPAQUE );
-	dc.SetBkColor( Colors.m_crWindow );
+	dc.SetBkMode( OPAQUE );	// ToDo: Transparent for skinning
+	dc.SetBkColor( Colors.m_crRichdocBack );	// ToDo: m_crTaskBoxClient
 	dc.SetTextColor( Colors.m_crTextLink );
 
 	CFont* pOldFont = (CFont*)dc.SelectObject( &m_pFont );
@@ -615,8 +615,7 @@ void CHomeLibraryBox::OnPaint()
 	{
 		Item* pItem = m_pList.GetAt( nItem );
 
-		ShellIcons.Draw( &dc, pItem->m_nIcon16, 16, rcIcon.left, rcIcon.top,
-			Colors.m_crWindow );
+		ShellIcons.Draw( &dc, pItem->m_nIcon16, 16, rcIcon.left, rcIcon.top, Colors.m_crRichdocBack );	// ToDo: m_crTaskBoxClient
 
 		CString str = pItem->m_sText;
 
@@ -641,7 +640,7 @@ void CHomeLibraryBox::OnPaint()
 	}
 
 	rcClient.top = 0;
-	dc.FillSolidRect( &rcClient, Colors.m_crWindow );
+	dc.FillSolidRect( &rcClient, Colors.m_crRichdocBack );	// ToDo: m_crTaskBoxClient
 	dc.SelectObject( pOldFont );
 }
 
@@ -1027,8 +1026,8 @@ void CHomeDownloadsBox::OnPaint()
 	rcText.SetRect( rcIcon.right, rcIcon.top, rcClient.right - 4, rcIcon.bottom );
 	rcIcon.DeflateRect( 0, 2 );
 
-	dc.SetBkMode( OPAQUE );
-	dc.SetBkColor( Colors.m_crRichdocBack );
+	dc.SetBkMode( OPAQUE ); 	// ToDo: Transparent for skinning
+	dc.SetBkColor( Colors.m_crRichdocBack );	// ToDo: m_crTaskBoxClient
 	dc.SetTextColor( Colors.m_crTextLink );
 
 	CFont* pOldFont = (CFont*)dc.SelectObject( &m_pFont );
@@ -1042,8 +1041,7 @@ void CHomeDownloadsBox::OnPaint()
 		if ( pItem->m_nComplete == 0 || pItem->m_nSize == SIZE_UNKNOWN )
 		{
 			CRect rc( rcIcon.left, rcIcon.top, rcIcon.left + 16, rcIcon.top + 16 );
-			ShellIcons.Draw( &dc, pItem->m_nIcon16, 16, rc.left, rc.top,
-				Colors.m_crWindow );
+			ShellIcons.Draw( &dc, pItem->m_nIcon16, 16, rc.left, rc.top, Colors.m_crRichdocBack );	// ToDo: m_crTaskBoxClient
 			dc.ExcludeClipRect( &rc );
 		}
 		else
@@ -1052,7 +1050,7 @@ void CHomeDownloadsBox::OnPaint()
 			dc.Draw3dRect( &rcIcon, Colors.m_crFragmentBorder, Colors.m_crFragmentBorder );
 			rcIcon.DeflateRect( 1, 1 );
 			CFragmentBar::DrawFragment( &dc, &rcIcon, pItem->m_nSize, 0, pItem->m_nComplete, cr, TRUE );
-			dc.FillSolidRect( &rcIcon, Colors.m_crWindow );
+			dc.FillSolidRect( &rcIcon, Colors.m_crRichdocBack );	// ToDo: m_crTaskBoxClient
 			rcIcon.InflateRect( 1, 1 );
 			dc.ExcludeClipRect( &rcIcon );
 		}
@@ -1080,7 +1078,7 @@ void CHomeDownloadsBox::OnPaint()
 
 
 	rcClient.top = 0;
-	dc.FillSolidRect( &rcClient, Colors.m_crWindow );
+	dc.FillSolidRect( &rcClient, Colors.m_crRichdocBack );	// ToDo: m_crTaskBoxClient
 	dc.SelectObject( pOldFont );
 }
 

@@ -1,7 +1,7 @@
 //
 // CtrlPanel.h (Library)
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -29,16 +29,12 @@ class CPanelCtrl : public CWnd
 public:
 	CPanelCtrl();
 
+public:
 	virtual BOOL Create(CWnd* pParentWnd);
-
-	// Recalculate content sizes and update scrollbars
-	virtual void Update() = 0;
-
-protected:
-	int	m_nScrollWheelLines;	// Number of lines to scroll when the mouse wheel is rotated
+	virtual void Update() = 0;		// Recalculate content sizes and update scrollbars
 
 	afx_msg BOOL OnMouseWheel(UINT nFlags, short zDelta, CPoint pt);
-	afx_msg void OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar);
+	afx_msg void OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar = NULL);
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 
 	DECLARE_MESSAGE_MAP()

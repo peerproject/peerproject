@@ -1,7 +1,7 @@
 //
 // WizardConnectionPage.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -60,13 +60,14 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CWizardConnectionPage property page
 
-CWizardConnectionPage::CWizardConnectionPage() : CWizardPage(CWizardConnectionPage::IDD)
-, m_bQueryDiscoveries(false)
-, m_bUpdateDonkeyServers(false)
-, m_bUPnPForward(false)
-, m_bRandom(false)
-, m_nPort(0)
-, m_nProgressSteps(0)
+CWizardConnectionPage::CWizardConnectionPage()
+	: CWizardPage(CWizardConnectionPage::IDD)
+	, m_bQueryDiscoveries	( false )
+	, m_bUpdateDonkeyServers( false )
+	, m_bUPnPForward		( false )
+	, m_bRandom 			( false )
+	, m_nPort				( 0 )
+	, m_nProgressSteps		( 0 )
 {
 }
 
@@ -141,32 +142,31 @@ BOOL CWizardConnectionPage::OnInitDialog()
 	LoadString( strTemp, IDS_GENERAL_YES );
 	m_wndUPnP.AddString(strTemp);
 	LoadString( strTemp, IDS_GENERAL_NO );
-	m_wndUPnP.AddString(strTemp);
-	m_wndUPnP.SetCurSel( (Settings.Connection.EnableUPnP) ? 0 : 1 );
+	m_wndUPnP.AddString( strTemp );
+	m_wndUPnP.SetCurSel( Settings.Connection.EnableUPnP ? 0 : 1 );
 	OnSelChangeUPnP();
 
 	m_bRandom = ( Settings.Connection.RandomPort == true );
 	m_nPort	= Settings.Connection.InPort;
 
-	if ( m_nPort == GNUTELLA_DEFAULT_PORT )
+	if ( Settings.Live.FirstRun && m_nPort == GNUTELLA_DEFAULT_PORT )
 	{
+		m_nPort	= GNUTELLA_ALTERNATE_PORT;		// Substitute Non-standard Port (6480)
+
+		// Obsolete check:
+		//CString sRegName = _T("InPort");
+		//CString sRegPath = _T("Connection");
+		//DWORD nPort = CRegistry::GetDword( (LPCTSTR)sRegPath, (LPCTSTR)sRegName );
+
+		// Initially try using Shareaza's port to accomodate possible existing port-forwarding ...with conflict?
 		CString sRegName = _T("InPort");
-		CString sRegPath = _T("Connection");
-		DWORD nPort = CRegistry::GetDword( (LPCTSTR)sRegPath, (LPCTSTR)sRegName );
-		if ( nPort < 1030 )
-		{
-			m_nPort	= 6480;		// Substitute Non-standard Port
+		CString sRegPath = _T("Software\\Shareaza\\Shareaza\\Connection");
+		DWORD nType = 0, nPort, nSize = sizeof( m_nPort );
+		LONG nErrorCode = SHRegGetUSValue( (LPCTSTR)sRegPath, (LPCTSTR)sRegName,
+			&nType, (PBYTE)&nPort, &nSize, FALSE, NULL, 0 );
 
-			// On first run, try using Shareaza's port to accomodate possible UPnP
-			sRegPath = _T("Software\\Shareaza\\Shareaza\\Connection");
-			DWORD nType = 0, nSize = sizeof( nPort );
-			LONG nErrorCode = SHRegGetUSValue( (LPCTSTR)sRegPath, (LPCTSTR)sRegName,
-				&nType, (PBYTE)&nPort, &nSize, FALSE, NULL, 0 );
-
-			if ( nErrorCode == ERROR_SUCCESS && nType == REG_DWORD && nSize == sizeof( nPort ) )
-				if ( nPort > 1030 && nPort < 65535 )
-					m_nPort	= nPort;
-		}
+		if ( nErrorCode == ERROR_SUCCESS && nPort > 1030 && nPort < 65535 ) 	//&& nType == REG_DWORD && nSize == sizeof( nPort ) )
+			m_nPort	= nPort;
 	}
 
 	// 3 steps with 30 sub-steps each
@@ -414,7 +414,7 @@ void CWizardConnectionPage::OnRun()
 			nCurrentStep += 5;
 			m_wndProgress.PostMessage( PBM_SETPOS, nCurrentStep );
 
-			if ( !bConnected )
+			if ( ! bConnected )
 				Network.Disconnect();
 		}
 		else
