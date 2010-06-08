@@ -1,7 +1,7 @@
 //
 // ImageFile.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -19,6 +19,8 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 
+// ToDo: Support Alpha transparency from PNG loading (at least allow for some)
+
 #include "StdAfx.h"
 #include "PeerProject.h"
 #include "ImageServices.h"
@@ -35,14 +37,14 @@ static char THIS_FILE[] = __FILE__;
 /////////////////////////////////////////////////////////////////////////////
 // CImageFile construction
 
-CImageFile::CImageFile() :
-	m_bScanned( FALSE ),
-	m_nWidth( 0 ),
-	m_nHeight( 0 ),
-	m_nComponents( 0 ),
-	m_bLoaded( FALSE ),
-	m_pImage( NULL ),
-	m_nFlags( 0 )
+CImageFile::CImageFile()
+	: m_bScanned	( FALSE )
+	, m_nWidth		( 0 )
+	, m_nHeight 	( 0 )
+	, m_nComponents ( 0 )
+	, m_bLoaded 	( FALSE )
+	, m_pImage		( NULL )
+	, m_nFlags		( 0 )
 {
 }
 
@@ -127,11 +129,11 @@ BOOL CImageFile::LoadFromURL(LPCTSTR pszURL)
 {
 	CHttpRequest pImageFetcher;
 
-	if ( !pImageFetcher.SetURL( pszURL ) )
+	if ( ! pImageFetcher.SetURL( pszURL ) )
 		return FALSE;
 	pImageFetcher.LimitContentLength( Settings.Search.MaxPreviewLength * 100 );
 
-	if ( !pImageFetcher.Execute( TRUE ) )
+	if ( ! pImageFetcher.Execute( TRUE ) )
 		return FALSE;
 	while ( pImageFetcher.IsPending() )
 		Sleep( 50 );
@@ -153,8 +155,8 @@ BOOL CImageFile::LoadFromURL(LPCTSTR pszURL)
 		if ( pBuffer == NULL ) return FALSE;
 
 		strMIME.Replace( '/', '.' );
-		m_bLoaded = ImageServices.LoadFromMemory( this, strMIME, (LPVOID)pBuffer->m_pBuffer,
-													pBuffer->m_nLength );
+		m_bLoaded = ImageServices.LoadFromMemory( this,
+			strMIME, (LPVOID)pBuffer->m_pBuffer, pBuffer->m_nLength );
 		if ( m_bLoaded )
 			m_nFlags |= idRemote;
 
@@ -179,7 +181,7 @@ BOOL CImageFile::LoadFromBitmap(HBITMAP hBitmap, BOOL bScanOnly)
 	m_nHeight = bmInfo.bmHeight;
 	//if ( bmInfo.bmBitsPixel == 32 )
 	//	m_nComponents = 4;
-	//else //if ( bmInfo.bmBitsPixel == 24 )
+	//else if ( bmInfo.bmBitsPixel == 24 )
 	m_nComponents = 3;
 
 	if ( bScanOnly )
@@ -286,7 +288,7 @@ void CImageFile::Serialize(CArchive& ar)
 
 		ar.Write( m_pImage, ( ( m_nWidth * m_nComponents + 3 ) & ~3 ) * m_nHeight );
 	}
-	else
+	else // Loading
 	{
 		Clear();
 
@@ -316,7 +318,7 @@ void CImageFile::Serialize(CArchive& ar)
 HBITMAP CImageFile::CreateBitmap(HDC hUseDC)
 {
 	if ( ! m_bLoaded ) return NULL;
-	if ( m_nComponents != 3 ) return NULL;
+	if ( m_nComponents != 3 ) return NULL;	// ToDo: Support Alpha transparency
 
 	BITMAPV5HEADER pV5Header = {};
 
@@ -329,10 +331,10 @@ HBITMAP CImageFile::CreateBitmap(HDC hUseDC)
 	pV5Header.bV5SizeImage		= m_nWidth * m_nHeight * 3;
 
 	// ToDo: The following mask specification specifies a supported 32 BPP alpha format for Windows XP.
+	// pV5Header.bV5AlphaMask =  0xFF000000;
 	// pV5Header.bV5RedMask   =  0x00FF0000;
 	// pV5Header.bV5GreenMask =  0x0000FF00;
 	// pV5Header.bV5BlueMask  =  0x000000FF;
-	// pV5Header.bV5AlphaMask =  0xFF000000;
 
 	HDC hDC = hUseDC ? hUseDC : GetDC( 0 );
 	HBITMAP hBitmap;
@@ -374,7 +376,7 @@ HBITMAP CImageFile::CreateBitmap(HDC hUseDC)
 
 	if ( hDC != hUseDC )
 	{
-		SelectObject( hDC, GetStockObject( ANSI_VAR_FONT ) ); // font leak fix
+		SelectObject( hDC, GetStockObject( ANSI_VAR_FONT ) ); // Font leak fix
 		ReleaseDC( 0, hDC );
 	}
 
@@ -406,7 +408,7 @@ BOOL CImageFile::Resample(int nNewWidth, int nNewHeight)
 		return FALSE;
 	if ( ! m_bLoaded )
 		return FALSE;
-	if ( m_nComponents != 3 )
+	if ( m_nComponents != 3 ) // ToDo: Support Alpha transparency?
 		return FALSE;
 	if ( nNewWidth == m_nWidth && nNewHeight == m_nHeight )
 		return TRUE;
@@ -526,7 +528,7 @@ BOOL CImageFile::EnsureRGB(COLORREF crBack)
 		return TRUE;
 	else if ( m_nComponents == 1 )
 		return MonoToRGB();
-	else if ( m_nComponents == 4 )
+	else if ( m_nComponents == 4 )	// ToDo: Support transparent PNGs
 		return AlphaToRGB( crBack );
 	else
 		return FALSE;
@@ -651,4 +653,37 @@ BOOL CImageFile::SwapRGB()
 	}
 
 	return TRUE;
+}
+
+
+/////////////////////////////////////////////////////////////////////////////
+// CImageFile image loading
+
+HBITMAP CImageFile::LoadBitmapFromFile(LPCTSTR pszFile)
+{
+	if ( _tcsicmp( PathFindExtension( pszFile ), _T(".bmp") ) == 0 )
+		return (HBITMAP)LoadImage( NULL, pszFile, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE );
+
+	CImageFile pFile;
+	return ( pFile.LoadFromFile( pszFile, FALSE, FALSE ) && pFile.EnsureRGB() ) ?	// ToDo: Support Alpha
+		pFile.CreateBitmap() : NULL;
+}
+
+HBITMAP CImageFile::LoadBitmapFromResource(UINT nResourceID, HINSTANCE hInstance)
+{
+	HBITMAP hBitmap = (HBITMAP)LoadImage( hInstance,
+		MAKEINTRESOURCE( nResourceID ), IMAGE_BITMAP, 0, 0, 0 );
+	if ( ! hBitmap )
+	{
+		CImageFile pFile;
+		hBitmap = ( pFile.LoadFromResource( hInstance, nResourceID, RT_PNG ) &&
+			pFile.EnsureRGB() ) ? pFile.CreateBitmap() : NULL;
+	}
+	if ( ! hBitmap )
+	{
+		CImageFile pFile;
+		hBitmap = ( pFile.LoadFromResource( hInstance, nResourceID, RT_JPEG ) &&
+			pFile.EnsureRGB() ) ? pFile.CreateBitmap() : NULL;
+	}
+	return hBitmap;
 }

@@ -319,7 +319,7 @@
     <None Include="Res\Hand.cur" />
     <None Include="Res\TorrentWizard.ico" />
     <None Include="Res\TorrentWizard.rc2" />
-    <None Include="Res\Wizard.bmp" />
+    <None Include="Res\Banner.bmp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="TorrentWizard.rc" />

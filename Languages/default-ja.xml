@@ -3642,13 +3642,13 @@
 	</dialog>
 	<dialog name="CWizardFoldersPage" cookie="StStEdBuStEdBuStEdBuSt" caption="PeerProjectへようこそ (4/8)">
 		<control caption="PeerProject first downloads partial files to a private folder, then moves them when completed according to Download Groups."/>
-		<control caption="完了ファイルの保存先:"/>
-		<control/>
-		<control/>
 		<control caption="未完了ファイルの保存先:"/>
 		<control/>
 		<control/>
-		<control caption="Store .Torrent files here:"/>
+		<control caption="完了ファイルの保存先:"/>
+		<control/>
+		<control/>
+		<control caption=".Torrent了ファイルの保存先:"/>
 		<control/>
 		<control/>
 		<control caption="Common filetypes are initially setup as subfolders of the default location, but Groups can easily be customized by Right-Click.  Simply Drag&apos;n&apos;Drop files."/>
@@ -3703,8 +3703,7 @@
 		<control caption="PeerProject起動時に常時ネットワークへ接続する"/>
 		<control caption="それでは素敵なPeerProjectライフを楽しんで下さい!"/>
 	</dialog>
-	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="eDonkey2000ダウンロードのインポート">
-		<control/>
+	<dialog name="CDonkeyImportDlg" cookie="StBuBuEdBu" caption="eDonkey2000ダウンロードのインポート">
 		<control caption="PeerProjectはあなたのコンピュータ内に別のeDonkey2000互換プログラムがインストールされていることを検出しました。 未完了のファイルをPeerProjectにインポートしますか?"/>
 		<control caption="はい"/>
 		<control caption="いいえ|キャンセル"/>
@@ -3812,8 +3811,7 @@
 		<control caption="接続"/>
 		<control caption="キャンセル"/>
 	</dialog>
-	<dialog name="CDownloadDlg" cookie="StStStStEdStBuBuBu" caption="ファイル・Torrentダウンロード">
-		<control/>
+	<dialog name="CDownloadDlg" cookie="StStStEdStBuBuBu" caption="ファイル・Torrentダウンロード">
 		<control/>
 		<control caption="PeerProjectはウェブ からファイルをダウンロードすることができ、P2Pリンク で自動的に検索・ダウンロードできます. PeerProjectではどんなファイルをダウンロードするのも簡単です。ファイルへのURLかURIを入力するか、貼り付けてEnterキーを押して下さい (http:, ftp:, ed2k:, magnet:, etc.)"/>
 		<control caption="PeerProjectはBitTorrentファイルのダウンロードもできます。 torrentは拡張子.torrentファイルへのHTTPリンクで記述されています。 torrentのHTTPリンクをダウンロードするには上のボックスにそれを貼り付けます。.torrentファイルがある場合はそれを開いて下さい:"/>
@@ -4037,8 +4035,7 @@
 		<control caption="OK"/>
 		<control caption="キャンセル"/>
 	</dialog>
-	<dialog name="CShareManagerDlg" cookie="StStSyBuBuBuBu" caption="共有フォルダ管理">
-		<control/>
+	<dialog name="CShareManagerDlg" cookie="StSyBuBuBuBu" caption="共有フォルダ管理">
 		<control caption="これはライブラリ内のフォルダリストです。 左側のボタンを使用することでフォルダの追加・削除ができます。 新規フォルダ追加時にはデフォルトで共有する設定になりますが、必要であればPeerProjectライブラリでそれを非共有にすることも出来ます。"/>
 		<control/>
 		<control caption="追加(_A)..."/>
@@ -4046,8 +4043,7 @@
 		<control caption="OK"/>
 		<control caption="キャンセル"/>
 	</dialog>
-	<dialog name="CURLCopyDlg" cookie="StStStStStBuBu" caption="URIをコピー">
-		<control/>
+	<dialog name="CURLCopyDlg" cookie="StStStStBuBu" caption="URIをコピー">
 		<control caption="選択したファイル用にそれぞれ異なる形式のURIをコピーすることが出来ます。 以下の中から使用したい形式のURIを選択して下さい:"/>
 		<control/>
 		<control/>
@@ -4055,8 +4051,7 @@
 		<control caption="固定ソースとしてURLに自分自身を含める(_M)"/>
 		<control caption="キャンセル"/>
 	</dialog>
-	<dialog name="CURLExportDlg" cookie="StStEdStCoStCoBuBumsBu" caption="URIのエクスポート">
-		<control/>
+	<dialog name="CURLExportDlg" cookie="StEdStCoStCoBuBumsBu" caption="URIのエクスポート">
 		<control caption="選択した %lu ファイルをPeerProjectのURI参照としてエクスポートします。 URIの形式を選択し、保存をクリックして下さい:"/>
 		<control/>
 		<control caption="トークン挿入:"/>
@@ -4100,8 +4095,7 @@
 		<control caption="(新規プレビューファイルにダウンロードしたチャンクをコピー中)"/>
 		<control caption="キャンセル"/>
 	</dialog>
-	<dialog name="CWarningsDlg" cookie="StStStStStStStBu" caption="PeerProjectはユーザーをリスペクトしています">
-		<control/>
+	<dialog name="CWarningsDlg" cookie="StStStStStStBu" caption="PeerProjectはユーザーをリスペクトしています">
 		<control caption="PeerProjectが100%フリーな製品であることを知っていますか?"/>
 		<control caption="PeerProjectはどのような種類の &quot;スパイウェア&quot;や&quot;アドウェア&quot; も含んでいませんし、 どんな広告・ &quot;ポップアップ&quot; も表示されません。{n}{n}もしPeerProjectを使用中に広告や&quot;ポップアップ&quot;が表示されたとしても、 それはこのプログラムが原因ではありませんので安心して下さい。"/>
 		<control caption="残念ながら他の多くのソフトウェアは望まれていないアドウェアやスパイウェアを含んでいることがあります。 もし疑わしいものを発見したら、スパイウェア削除プログラムであなたのマシンをチェックした方が良いでしょう"/>
@@ -4110,8 +4104,7 @@
 		<control caption="http://PeerProject.org"/>
 		<control caption="閉じる"/>
 	</dialog>
-	<dialog name="CPromoteDlg" cookie="StStStStStStStBu" caption="言葉を世界へ">
-		<control/>
+	<dialog name="CPromoteDlg" cookie="StStStStStStBu" caption="言葉を世界へ">
 		<control caption="PeerProjectという言葉を広めるお手伝いをして下さい"/>
 		<control caption="我々はあなたがPeerProjectを楽しんで使用してくれることを願っています。 我々はこれが最良のファイル共有アプリケーションであると信じています"/>
 		<control caption="残念ながら、多くのファイル共有者はPeerProjectの存在を知りません!"/>
@@ -4120,8 +4113,7 @@
 		<control caption="http://PeerProject.org"/>
 		<control caption="OK"/>
 	</dialog>
-	<dialog name="CExistingFileDlg" cookie="StStStStStBuBuBuBuBuStSt" caption="既存ファイル">
-		<control/>
+	<dialog name="CExistingFileDlg" cookie="StStStStBuBuBuBuBuStSt" caption="既存ファイル">
 		<control/>
 		<control/>
 		<control/>
@@ -4134,8 +4126,7 @@
 		<control caption="あなたは以前このファイルをダウンロードして、削除したことがあります。どうしますか?"/>
 		<control caption="警告!!! ファイルのコピーが検出されました。 いくつかの悪意のあるソフトウェアがあなたのライブラリを汚染させる可能性があります。 あなたがこのファイルをダウンロードしたか手動でライブラリに追加したかどうかを必ず確認して下さい。 もし記憶に無ければ直ちにPeerProjectを終了させ、コンピュータをアンチウイルスプログラムでスキャンして下さい。"/>
 	</dialog>
-	<dialog name="CCloseModeDlg" cookie="StStBuBuBuBuBu" caption="終了ボタン">
-		<control/>
+	<dialog name="CCloseModeDlg" cookie="StBuBuBuBuBu" caption="終了ボタン">
 		<control caption="初めてPeerProjectの終了ボタンをクリックしました。 次回から終了ボタンをクリックした時にPeerProjectがどういう挙動をするかを選択して下さい:"/>
 		<control caption="タスクトレイに最小化する"/>
 		<control caption="即座にPeerProjectを終了する"/>
@@ -4143,8 +4134,7 @@
 		<control caption="OK"/>
 		<control caption="キャンセル"/>
 	</dialog>
-	<dialog name="CDonkeyServersDlg" cookie="StStEdmsBuBu" caption="Server.metファイルのダウンロード">
-		<control/>
+	<dialog name="CDonkeyServersDlg" cookie="StEdmsBuBu" caption="Server.metファイルのダウンロード">
 		<control caption="ローカルサーバリストを更新する為にウェブからeDonkey2000 server.metファイルをダウンロードします"/>
 		<control/>
 		<control/>
@@ -4182,8 +4172,7 @@
 		<control caption="次へ(_N)|エクスポート..."/>
 		<control caption="キャンセル(_C)"/>
 	</dialog>
-	<dialog name="CTorrentSeedDlg" cookie="StStBuBuBuStms" caption="Torrentファイルを開く">
-		<control/>
+	<dialog name="CTorrentSeedDlg" cookie="StBuBuBuStms" caption="Torrentファイルを開く">
 		<control caption="BitTorrentファイルを開きました。 その内容をダウンロード、又は再シードしますか??"/>
 		<control caption="ダウンロード"/>
 		<control caption="シード"/>
@@ -4279,8 +4268,7 @@
 		<control caption="OK"/>
 		<control caption="キャンセル"/>
 	</dialog>
-	<dialog name="CMediaVisDlg" cookie="StBuSyCoBuBuBu" caption="視覚効果を選択">
-		<control/>
+	<dialog name="CMediaVisDlg" cookie="BuSyCoBuBuBu" caption="視覚効果を選択">
 		<control caption="リストからオーディオ視覚効果を選択して下さい:"/>
 		<control/>
 		<control caption="フッタ表示|フルサイズ表示|大きな表示|通常表示|小さな表示"/>
@@ -4288,8 +4276,7 @@
 		<control caption="OK"/>
 		<control caption="キャンセル"/>
 	</dialog>
-	<dialog name="CUpgradeDlg" cookie="StStStBuBuBu" caption="アップグレード警告">
-		<control/>
+	<dialog name="CUpgradeDlg" cookie="StStBuBuBu" caption="アップグレード警告">
 		<control caption="新しいバージョンのPeerProjectが利用可能になりました。 アップグレードしますか?"/>
 		<control caption="「今すぐアップグレード」を選択した場合、PeerProjectはダウンロードキューにアップグレードプログラムを追加し、自動的にダウンロードします。"/>
 		<control caption="今すぐアップグレード"/>
@@ -4320,13 +4307,12 @@
 		<control caption="キャンセル(_C)"/>
 		<control caption="Enter channel you want to add:|Enter kick/ban reason:"/>
 	</dialog>
-	<dialog name="CDownloadReviewDlg" cookie="StBuSyEd" caption="ダウンロードレビュー">
-		<control/>
+	<dialog name="CDownloadReviewDlg" cookie="BuSyEd" caption="ダウンロードレビュー">
 		<control caption="OK"/>
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CHelpDlg" cookie="StBuAf" caption="PeerProjectヘルプ">
+	<dialog name="CHelpDlg" cookie="BuAf" caption="PeerProjectヘルプ">
 		<control/>
 		<control caption="閉じる"/>
 		<control/>
@@ -4473,3 +4459,4 @@
 	</list>
 </listColumns>
 </skin>
+︋

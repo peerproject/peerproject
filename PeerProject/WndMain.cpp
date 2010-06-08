@@ -123,6 +123,7 @@ BEGIN_MESSAGE_MAP(CMainWnd, CMDIFrameWnd)
 	ON_WM_GETMINMAXINFO()
 	ON_WM_ENDSESSION()
 	ON_WM_MENUCHAR()
+	ON_WM_POWERBROADCAST()
 	ON_WM_WINDOWPOSCHANGING()
 	ON_MESSAGE(WM_WINSOCK, OnWinsock)
 	ON_MESSAGE(WM_URL, OnHandleURL)
@@ -249,8 +250,9 @@ BEGIN_MESSAGE_MAP(CMainWnd, CMDIFrameWnd)
 	ON_COMMAND(ID_TAB_MEDIA, OnTabMedia)
 	ON_UPDATE_COMMAND_UI(ID_TAB_SEARCH, OnUpdateTabSearch)
 	ON_COMMAND(ID_TAB_SEARCH, OnTabSearch)
-	ON_COMMAND(ID_TOOLS_PROFILE, OnToolsProfile)
+	ON_COMMAND(ID_LIBRARY_SEARCH, OnLibrarySearchBox)
 	ON_COMMAND(ID_LIBRARY_FOLDERS, OnLibraryFolders)
+	ON_COMMAND(ID_TOOLS_PROFILE, OnToolsProfile)
 	ON_COMMAND(ID_HELP_WARNINGS, OnHelpWarnings)
 	ON_COMMAND(ID_HELP_PROMOTE, OnHelpPromote)
 	ON_UPDATE_COMMAND_UI(ID_NETWORK_G2, OnUpdateNetworkG2)
@@ -1349,7 +1351,7 @@ void CMainWnd::UpdateMessages()
 
 		if ( Settings.General.GUIMode == GUI_BASIC )
 		{	// In the basic GUI, don't bother with mode details or neighbour count.
-			strMessage.Format( IDS_STATUS_BAR_CONNECTED_SIMPLE, Settings.SmartVolume( nLocalVolume, KiloBytes ) );
+			strMessage.Format( LoadString( IDS_STATUS_BAR_CONNECTED_SIMPLE ), Settings.SmartVolume( nLocalVolume, KiloBytes ) );
 		}
 		else
 		{	// Display node type and number of neighbours
@@ -1393,7 +1395,7 @@ void CMainWnd::UpdateMessages()
 
 	m_sMsgStatus = strMessage;
 
-	strMessage.Format( IDS_STATUS_BAR_BANDWIDTH,
+	strMessage.Format( LoadString( IDS_STATUS_BAR_BANDWIDTH ),
 		Settings.SmartSpeed( CGraphItem::GetValue( GRC_TOTAL_BANDWIDTH_IN ), bits ),
 		Settings.SmartSpeed( CGraphItem::GetValue( GRC_TOTAL_BANDWIDTH_OUT ), bits ),
 		CGraphItem::GetValue( GRC_DOWNLOADS_TRANSFERS ),
@@ -1405,7 +1407,7 @@ void CMainWnd::UpdateMessages()
 
 	if ( m_bTrayIcon )
 	{
-		strMessage.Format( IDS_TRAY_TIP,
+		strMessage.Format( LoadString( IDS_TRAY_TIP ),
 			Settings.SmartSpeed( CGraphItem::GetValue( GRC_TOTAL_BANDWIDTH_IN ), bits ),
 			Settings.SmartSpeed( CGraphItem::GetValue( GRC_TOTAL_BANDWIDTH_OUT ), bits ),
 			CGraphItem::GetValue( GRC_DOWNLOADS_TRANSFERS ),
@@ -2361,6 +2363,19 @@ void CMainWnd::OnLibraryFolders()
 	dlg.DoModal();
 }
 
+void CMainWnd::OnLibrarySearchBox()
+{
+	if ( CLibraryWnd* pWnd = (CLibraryWnd*)m_pWindows.Find( RUNTIME_CLASS(CLibraryWnd) ) )
+	{
+		pWnd->m_wndFrame.PostMessage( WM_COMMAND, ID_LIBRARY_SEARCH_QUICK );
+		return;
+	}
+
+	OnTabLibrary();
+	if ( CLibraryWnd* pWnd = (CLibraryWnd*)m_pWindows.Find( RUNTIME_CLASS(CLibraryWnd) ) )
+		pWnd->m_wndFrame.SendMessage( WM_COMMAND, ID_LIBRARY_SEARCH_QUICK );
+}
+
 void CMainWnd::OnToolsWizard()
 {
 	if ( ! IsWindowEnabled() ) return;
@@ -2932,4 +2947,38 @@ void CMainWnd::ShowTrayPopup(LPCTSTR szText, LPCTSTR szTitle, DWORD dwIcon, UINT
 
 	m_pTray.szInfo[ 0 ] = _T('\0');
 	m_pTray.szInfoTitle[ 0 ] = _T('\0');
+}
+
+
+/////////////////////////////////////////////////////////////////////////////
+// System hibernation recovery
+
+UINT CMainWnd::OnPowerBroadcast(UINT nPowerEvent, UINT nEventData)
+{
+	static bool bWasConnected = false;
+
+	switch ( nPowerEvent )
+	{
+	case PBT_APMSUSPEND:
+		if ( Network.IsConnected() )
+		{
+			bWasConnected = true;
+
+			Network.Disconnect();
+		}
+		break;
+
+	case PBT_APMRESUMEAUTOMATIC:
+		if ( bWasConnected || Network.IsConnected() )
+		{
+			bWasConnected = false;
+
+			Network.Disconnect();
+
+			PostMessage( WM_COMMAND, ID_NETWORK_CONNECT );
+		}
+		break;
+	}
+
+	return CMDIFrameWnd::OnPowerBroadcast( nPowerEvent, nEventData );
 }

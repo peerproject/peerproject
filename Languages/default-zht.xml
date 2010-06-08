@@ -3474,7 +3474,7 @@
 		<control caption="這個排隊隊伍的上傳頻寬:"/>
 		<control/>
 		<control/>
-		<control caption="在 N 秒後輪流:"/>
+		<control caption="在 # 秒後輪流:"/>
 		<control/>
 		<control/>
 		<control caption="確定"/>
@@ -3523,13 +3523,13 @@
 	</dialog>
 	<dialog name="CWizardFoldersPage" cookie="StStEdBuStEdBuStEdBuSt" caption="歡迎來到 PeerProject (4/8)">
 		<control caption="PeerProject first downloads partial files to a private folder, then moves them when completed according to Download Groups."/>
-		<control caption="請將下載完成的檔案存放在這裡:"/>
-		<control/>
-		<control/>
 		<control caption="請將暫存的未完成檔案放在這裡:"/>
 		<control/>
 		<control/>
-		<control caption="Store .Torrent files here:"/>
+		<control caption="請將下載完成的檔案存放在這裡:"/>
+		<control/>
+		<control/>
+		<control caption="請將.Torrent檔案存放在這裡:"/>
 		<control/>
 		<control/>
 		<control caption="Common filetypes are initially setup as subfolders of the default location, but Groups can easily be customized by Right-Click.  Simply Drag&apos;n&apos;Drop files."/>
@@ -3584,8 +3584,7 @@
 		<control caption="每次我啟動 PeerProject 時連線至網路"/>
 		<control caption="好好享受使用 PeerProject 的樂趣吧."/>
 	</dialog>
-	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="匯入eDonkey2000 下載檔">
-		<control/>
+	<dialog name="CDonkeyImportDlg" cookie="StBuBuEdBu" caption="匯入eDonkey2000 下載檔">
 		<control caption="PeerProject 偵測到您的電腦已經安裝了另一件 eDonkey2000 的程式. 您要將任何尚未下載完成的檔案匯入 PeerProject 嗎??"/>
 		<control caption="要"/>
 		<control caption="不要|取消"/>
@@ -3693,8 +3692,7 @@
 		<control caption="連線"/>
 		<control caption="取消"/>
 	</dialog>
-	<dialog name="CDownloadDlg" cookie="StStStStEdStBuBuBu" caption="下載檔案或 Torrent">
-		<control/>
+	<dialog name="CDownloadDlg" cookie="StStStEdStBuBuBu" caption="下載檔案或 Torrent">
 		<control/>
 		<control caption="PeerProject 可以由網際網路 下載檔案, 以及自動搜尋與下載 P2P 連結. 使用 PeerProject 下載檔案很簡單. 只要在下方的框框鍵入或是貼上 指向檔案的 URL/URI. (http:, ftp:, ed2k:, magnet:, etc.)"/>
 		<control caption="PeerProject 也可以下載 BitTorrent 檔案.  xyz.torrent 檔 敘述了一個 torrent 的樣子;  或是連接到 .torrent 檔的 HTTP 超連結.  想要下載一個 torrent HTTP 連結, 就將它貼在上方的框框.  如果您手上已經有一個 .torrent 檔, 點選 開啟 Torrent:"/>
@@ -3918,8 +3916,7 @@
 		<control caption="確定"/>
 		<control caption="取消"/>
 	</dialog>
-	<dialog name="CShareManagerDlg" cookie="StStSyBuBuBuBu" caption="分享的資料夾管理員">
-		<control/>
+	<dialog name="CShareManagerDlg" cookie="StSyBuBuBuBu" caption="分享的資料夾管理員">
 		<control caption="這是您的收藏的資料夾清單. 您可以使用左方按鈕新增或移除資料夾 .  任何一個新增的資料夾將預設為開放給其他使用者分享, 不過您可以在 PeerProject 收藏停止分享."/>
 		<control/>
 		<control caption="新增"/>
@@ -3927,8 +3924,7 @@
 		<control caption="確定"/>
 		<control caption="取消"/>
 	</dialog>
-	<dialog name="CURLCopyDlg" cookie="StStStStStBuBu" caption="複製 URI">
-		<control/>
+	<dialog name="CURLCopyDlg" cookie="StStStStBuBu" caption="複製 URI">
 		<control caption="您可以為選擇的項目使用不同的格式複製 URL.  請點選以下其中一個 URI 決定您要使用的格式:"/>
 		<control/>
 		<control/>
@@ -3936,8 +3932,7 @@
 		<control caption="請把我當做這個URL的固定來源之一"/>
 		<control caption="取消"/>
 	</dialog>
-	<dialog name="CURLExportDlg" cookie="StStEdStCoStCoBuBumsBu" caption="匯出 URI">
-		<control/>
+	<dialog name="CURLExportDlg" cookie="StEdStCoStCoBuBumsBu" caption="匯出 URI">
 		<control caption="您已經選擇將 %lu 檔案匯出至 PeerProject 驅動的 URI references.  請選擇 URI 的格式, 然後按下儲存:"/>
 		<control/>
 		<control caption="放入 Token:"/>
@@ -3981,8 +3976,7 @@
 		<control caption="(正在複製已下載的區塊(chunk) 至新的預覽檔)"/>
 		<control caption="取消"/>
 	</dialog>
-	<dialog name="CWarningsDlg" cookie="StStStStStStStBu" caption="PeerProject 尊重使用者">
-		<control/>
+	<dialog name="CWarningsDlg" cookie="StStStStStStBu" caption="PeerProject 尊重使用者">
 		<control caption="您知道 PeerProject 是完全免費的產品嗎?"/>
 		<control caption="PeerProject 沒有包含任何 &quot;間碟軟體&quot;, &quot;廣告軟體&quot; 或是其他 bundled 軟體. It does NOT display any advertisements or &quot;popups&quot;, ever.{n}{n}If you ever see advertising or &quot;popups&quot; while using PeerProject, be assured that they are NOT coming from this program."/>
 		<control caption="不幸地, 很多軟體包含討人厭的廣告軟體或是間諜軟體; 因此, 如果您查覺任何可疑的活動, 您可能想要使用反廣告/反間諜軟體."/>
@@ -3991,8 +3985,7 @@
 		<control caption="http://PeerProject.org"/>
 		<control caption="關閉"/>
 	</dialog>
-	<dialog name="CPromoteDlg" cookie="StStStStStStStBu" caption="散佈消息">
-		<control/>
+	<dialog name="CPromoteDlg" cookie="StStStStStStBu" caption="散佈消息">
 		<control caption="請幫我們散佈消息"/>
 		<control caption="我們希望各位享受使用 PeerProject 的樂趣. 我們深信這是目前為止最好的檔案分享軟體."/>
 		<control caption="天不從人願, 眾多檔案分享者不知道他們遺漏了什麼好東西!"/>
@@ -4001,8 +3994,7 @@
 		<control caption="http://PeerProject.org"/>
 		<control caption="確定"/>
 	</dialog>
-	<dialog name="CExistingFileDlg" cookie="StStStStStBuBuBuBuBuStSt" caption="現存的檔案">
-		<control/>
+	<dialog name="CExistingFileDlg" cookie="StStStStBuBuBuBuBuStSt" caption="現存的檔案">
 		<control/>
 		<control/>
 		<control/>
@@ -4015,8 +4007,7 @@
 		<control caption="您曾經下載過並且刪除這個檔案.  請問你要如何處理?"/>
 		<control caption="警告！检测到重复文件.一些恶意软件可能感染您的收藏.请确认您是手动下载或存放此文件.否则，请关闭 PeerProject 并用杀毒软件扫描您的电脑."/>
 	</dialog>
-	<dialog name="CCloseModeDlg" cookie="StStBuBuBuBuBu" caption="關閉鈕">
-		<control/>
+	<dialog name="CCloseModeDlg" cookie="StBuBuBuBuBu" caption="關閉鈕">
 		<control caption="本次是您第一次點選 PeerProject 的關閉鈕. 從現在開始, 請問您點選關閉鈕後, 想要做什麼動作:"/>
 		<control caption="最小化至系統列"/>
 		<control caption="立刻關閉 PeerProject"/>
@@ -4024,8 +4015,7 @@
 		<control caption="確定"/>
 		<control caption="取消"/>
 	</dialog>
-	<dialog name="CDonkeyServersDlg" cookie="StStEdmsBuBu" caption="下載 Server.met 檔">
-		<control/>
+	<dialog name="CDonkeyServersDlg" cookie="StEdmsBuBu" caption="下載 Server.met 檔">
 		<control caption="您可從網際網路下載 eDonkey2000 server.met 檔以更新您本地的伺服器清單."/>
 		<control/>
 		<control/>
@@ -4063,8 +4053,7 @@
 		<control caption="下一個|匯出"/>
 		<control caption="取消"/>
 	</dialog>
-	<dialog name="CTorrentSeedDlg" cookie="StStBuBuBuStms" caption="開啟 Torrent 檔">
-		<control/>
+	<dialog name="CTorrentSeedDlg" cookie="StBuBuBuStms" caption="開啟 Torrent 檔">
 		<control caption="您開啟了一個 BitTorrent 的 torrent 檔. 您要下載它的內容或是重新做種?"/>
 		<control caption="下載"/>
 		<control caption="做種"/>
@@ -4160,8 +4149,7 @@
 		<control caption="確定"/>
 		<control caption="取消"/>
 	</dialog>
-	<dialog name="CMediaVisDlg" cookie="StBuSyCoBuBuBu" caption="選擇視覺效果">
-		<control/>
+	<dialog name="CMediaVisDlg" cookie="BuSyCoBuBuBu" caption="選擇視覺效果">
 		<control caption="由清單選擇音訊視覺效果:"/>
 		<control/>
 		<control caption="腳注顯示|完全顯示|大型顯示|中等顯示|小型顯示"/>
@@ -4169,8 +4157,7 @@
 		<control caption="確定"/>
 		<control caption="取消"/>
 	</dialog>
-	<dialog name="CUpgradeDlg" cookie="StStStBuBuBu" caption="升級通知">
-		<control/>
+	<dialog name="CUpgradeDlg" cookie="StStBuBuBu" caption="升級通知">
 		<control caption="PeerProject 有新版本了. 您要升級嗎?"/>
 		<control caption="如果您現在選擇立刻升級, PeerProject 將新增更新檔至您的下載等待隊伍並自動開始下載."/>
 		<control caption="立刻升級"/>
@@ -4201,14 +4188,12 @@
 		<control caption="取消"/>
 		<control caption="Add a channel name:|Enter kick/ban reason:"/>
 	</dialog>
-	<dialog name="CDownloadReviewDlg" cookie="StBuSyEd" caption="下載評論">
-		<control/>
+	<dialog name="CDownloadReviewDlg" cookie="BuSyEd" caption="下載評論">
 		<control caption="確定"/>
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CHelpDlg" cookie="StBuAf" caption="PeerProject 說明">
-		<control/>
+	<dialog name="CHelpDlg" cookie="BuAf" caption="PeerProject 說明">
 		<control caption="關閉"/>
 		<control/>
 	</dialog>
@@ -4353,3 +4338,4 @@
 	</list>
 </listColumns>
 </skin>
+

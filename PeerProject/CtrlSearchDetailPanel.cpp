@@ -127,7 +127,7 @@ void CSearchDetailPanel::SetFile(CMatchFile* pFile)
 
 	if ( pFile->m_nSources == 1 )
 	{
-		strPart.Format( IDS_SEARCH_DETAILS_SOURCES_ONE,
+		strPart.Format( LoadString( IDS_SEARCH_DETAILS_SOURCES_ONE ),
 			Settings.SmartVolume( nSpeed, KiloBytes ) );
 		m_sStatus += strPart;
 	}
@@ -135,7 +135,7 @@ void CSearchDetailPanel::SetFile(CMatchFile* pFile)
 	{
 		if ( pFile->m_nSources == 0 )
 			nSpeed = 0;
-		strPart.Format( IDS_SEARCH_DETAILS_SOURCES_MANY,
+		strPart.Format( LoadString( IDS_SEARCH_DETAILS_SOURCES_MANY ),
 			pFile->m_nSources,
 			Settings.SmartVolume( nSpeed, KiloBytes ) );
 		m_sStatus += strPart;

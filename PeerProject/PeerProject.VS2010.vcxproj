@@ -1080,6 +1080,7 @@ cscript.exe //nologo Revision.js
     </CustomBuild>
     <None Include="Res\About.htm.gz" />
     <None Include="Res\BadRange.htm" />
+    <None Include="Res\Banner.bmp" />
     <None Include="Res\BannerMark.bmp" />
     <None Include="Res\BitTorrent.ico" />
     <None Include="Res\BoxMark.bmp" />
@@ -1238,7 +1239,6 @@ cscript.exe //nologo Revision.js
     <None Include="Res\Uploads.ico" />
     <None Include="Res\Users.ico" />
     <None Include="Res\WebURL.ico" />
-    <None Include="Res\Wizard.bmp" />
     <None Include="Res\WizardDot.ico" />
     <None Include="Res\World.ico" />
     <None Include="..\Data\Splash.png" />

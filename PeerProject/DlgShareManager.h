@@ -1,7 +1,7 @@
 //
 // DlgShareManager.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -26,24 +26,24 @@
 
 class CShareManagerDlg : public CSkinDialog
 {
+	DECLARE_DYNAMIC(CShareManagerDlg)
+
 // Construction
 public:
 	CShareManagerDlg(CWnd* pParent = NULL);
 
-	DECLARE_DYNAMIC(CShareManagerDlg)
+	enum { IDD = IDD_SHARE_MANAGER };
 
 // Dialog Data
 public:
 	//{{AFX_DATA(CShareManagerDlg)
-	enum { IDD = IDD_SHARE_MANAGER };
-	CButton	m_wndRemove;
 	CListCtrl	m_wndList;
+	CButton 	m_wndRemove;
 	//}}AFX_DATA
 
 // Overrides
-public:
+protected:
 	//{{AFX_VIRTUAL(CShareManagerDlg)
-	protected:
 	virtual void DoDataExchange(CDataExchange* pDX);
 	//}}AFX_VIRTUAL
 
@@ -54,6 +54,7 @@ protected:
 	virtual void OnOK();
 	afx_msg void OnShareAdd();
 	afx_msg void OnShareRemove();
+	afx_msg void OnDoubleClick(NMHDR* pNMHDR, LRESULT* pResult);
 	afx_msg void OnItemChangedShareFolders(NMHDR* pNMHDR, LRESULT* pResult);
 	//}}AFX_MSG
 

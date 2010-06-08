@@ -31,13 +31,25 @@ class CSkinDialog : public CDialog
 public:
 	CSkinDialog(UINT nResID = 0, CWnd* pParent = NULL, BOOL bAutoBanner = TRUE);
 
-	BOOL	SkinMe(LPCTSTR pszSkin = NULL, UINT nIcon = 0, BOOL bLanguage = TRUE);
-	BOOL	SelectCaption(CWnd* pWnd, int nIndex);
+	virtual BOOL	SkinMe(LPCTSTR pszSkin = NULL, UINT nIcon = 0, BOOL bLanguage = TRUE);
+	virtual BOOL	SelectCaption(CWnd* pWnd, int nIndex);
 
 protected:
 	CSkinWindow*	m_pSkin;
+	CStatic			m_oBanner;		// Banner to add (id=IDC_BANNER, bitmap=IDB_BANNER)
 	BOOL			m_bAutoBanner;	// Add banner to top of dialog (default = yes)
-	CStatic			m_oBanner;		// Banner to add (id=IDC_BANNER, bitmap=IDB_WIZARD)
+
+	void EnableBanner(BOOL bEnable);
+	//int GetBannerHeight() const	// Using Skin.m_nBanner instead
+	//{
+	//	if ( CStatic* pBanner = (CStatic*)GetDlgItem( IDC_BANNER ) )
+	//	{
+	//		BITMAP bm = {};
+	//		GetObject( pBanner->GetBitmap(), sizeof( BITMAP ), &bm );
+	//		return bm.bmHeight;
+	//	}
+	//	return 0;
+	//}
 
 	virtual void DoDataExchange(CDataExchange* pDX);
 	virtual BOOL OnInitDialog();
@@ -55,12 +67,8 @@ protected:
 	afx_msg LRESULT OnSetText(WPARAM wParam, LPARAM lParam);
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 	afx_msg void OnWindowPosChanging(WINDOWPOS* lpwndpos);
-	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg BOOL OnHelpInfo(HELPINFO* pHelpInfo);
 
 	DECLARE_MESSAGE_MAP()
 };
-
-// HEADING_HEIGHT  (ToDo: Make Skinnable?)
-#define BANNER_CX		600
-#define BANNER_CY		50

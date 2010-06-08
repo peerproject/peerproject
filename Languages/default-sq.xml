@@ -3535,7 +3535,7 @@
 		<control caption="Gjerësi e bandës për punët në radhë:"/>
 		<control/>
 		<control/>
-		<control caption="Rrotullo pas N sekondash:"/>
+		<control caption="Rrotullo pas # sekondash:"/>
 		<control/>
 		<control/>
 		<control caption="OK"/>
@@ -3584,10 +3584,10 @@
 	</dialog>
 	<dialog name="CWizardFoldersPage" cookie="StStEdBuStEdBuStEdBuSt" caption="Mirë se erdhët në PeerProject (4/8)">
 		<control caption="PeerProject first downloads partial files to a private folder, then moves them when completed according to Download Groups."/>
-		<control caption="Depozitoni Këtu Skedat e Përfunduara:"/>
-		<control/>
-		<control/>
 		<control caption="Depozitoni Këtu Skedat e Përkohshme të Papërfunduara:"/>
+		<control/>
+		<control/>
+		<control caption="Depozitoni Këtu Skedat e Përfunduara:"/>
 		<control/>
 		<control/>
 		<control caption="Depozitoni Këtu Skedat e .Torrent:"/>
@@ -3645,8 +3645,7 @@
 		<control caption="Lidhu në rrjet sa herë që PeerProject nis"/>
 		<control caption="Kënaquni me PeerProject-n!"/>
 	</dialog>
-	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="Importoni Shkarkesa nga eDonkey">
-		<control/>
+	<dialog name="CDonkeyImportDlg" cookie="StBuBuEdBu" caption="Importoni Shkarkesa nga eDonkey">
 		<control caption="PeerProject diktoi se në këtë kompjuter është instaluar një program eDonkey. A doni që çdo shkarkim i papërfunduar të importohet në PeerProject?"/>
 		<control caption="Po"/>
 		<control caption="Jo|Anulo"/>
@@ -3754,8 +3753,7 @@
 		<control caption="Lidhu"/>
 		<control caption="_Anulo"/>
 	</dialog>
-	<dialog name="CDownloadDlg" cookie="StStStStEdStBuBuBu" caption="Shkarkoni një Skedë ose Torrent">
-		<control/>
+	<dialog name="CDownloadDlg" cookie="StStStEdStBuBuBu" caption="Shkarkoni një Skedë ose Torrent">
 		<control/>
 		<control caption="PeerProject mund të shkarkojë skedat nga rrjeti, dhe automatikisht të kërkojë e shkarkojë nga linket P2P. Thjesht shkruani ose ngjisni më poshtë një URL/URI që përshkruan skedën dhe shtypni Enter. &#160; (http:, ftp:, ed2k:, magnet:, etc.)"/>
 		<control caption="PeerProject mund të shkarkojë edhe skedat e BitTorrent. Torrenti përshkruhet nga një skedë .torrent, ose një link HTTP i skedës .torrent. Që të shkarkoni torrent nga një link HTTP, vendoseni atë më sipër. Nëse keni një skedë .torrent, klikoni Hap Torrent."/>
@@ -3809,14 +3807,13 @@
 		<control caption="Anulo"/>
 		<control caption="Ruaje filtrin aktual si:"/>
 	</dialog>
-	<dialog name="CDiscoveryServiceDlg" cookie="BuEdStCoBuBuSt" caption="Shërbime Zbulimi">
+	<dialog name="CDiscoveryServiceDlg" cookie="BuEdStCoBuBu" caption="Shërbime Zbulimi">
 		<control caption="_Adresa e Shërbimit:"/>
 		<control/>
 		<control caption="Lloji i Shërbimit të Zbulimit:"/>
 		<control caption="Gnutella Bootstrap|GWebCache|URL Server.met|Blocked"/>
 		<control caption="OK"/>
 		<control caption="Anulo"/>
-		<control/>
 	</dialog>
 	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStBuBuBuBu" caption="Shkarko">
 		<control caption="..."/>
@@ -3980,8 +3977,7 @@
 		<control caption="OK"/>
 		<control caption="Anulo"/>
 	</dialog>
-	<dialog name="CShareManagerDlg" cookie="StStSyBuBuBuBu" caption="Menaxhoni Dosjet e Shpërndara">
-		<control/>
+	<dialog name="CShareManagerDlg" cookie="StSyBuBuBuBu" caption="Menaxhoni Dosjet e Shpërndara">
 		<control caption="Kjo është lista me dosjet në librarinë tuaj. Dosjet mund t'i shtoni dhe t'i hiqni duke përdorur butonat majtas. Kur shtoni një dosje të re, në fillim ajo shpërndahet me përdoruesit e tjerë; gjithsesi, këtë mund ta çaktivizoni në librarinë e PeerProject-s."/>
 		<control/>
 		<control caption="_Shto..."/>
@@ -3989,8 +3985,7 @@
 		<control caption="OK"/>
 		<control caption="Anulo"/>
 	</dialog>
-	<dialog name="CURLCopyDlg" cookie="StStStStStBuBu" caption="Kopjo URI-n">
-		<control/>
+	<dialog name="CURLCopyDlg" cookie="StStStStBuBu" caption="Kopjo URI-n">
 		<control caption="Ju mund të kopjoni një URI për njësinë e zgjedhuri në një mori formatesh të ndryshme. Ju lutemi zgjidhni formatin që dëshironi të përdorni duke klikuar një nga URI-t më poshtë:"/>
 		<control/>
 		<control/>
@@ -3998,8 +3993,7 @@
 		<control caption="Përfshije _vetveten si një burim i ngulitur në URL"/>
 		<control caption="Anulo"/>
 	</dialog>
-	<dialog name="CURLExportDlg" cookie="StStEdStCoStCoBuBumsBu" caption="Eksporto URI">
-		<control/>
+	<dialog name="CURLExportDlg" cookie="StEdStCoStCoBuBumsBu" caption="Eksporto URI">
 		<control caption="Ju zgjodhët %lu skeda për të eksportuar si referenca URI me fuqi në PeerProject. Ju lutemi zgjidhni formatin për URI-t, dhe klikoni Ruaje:"/>
 		<control/>
 		<control caption="Fusni Dallimin:"/>
@@ -4043,8 +4037,7 @@
 		<control caption="(po kopjoj thelat e shkarkuara tek një skedë e re parashikuese)"/>
 		<control caption="Anulo"/>
 	</dialog>
-	<dialog name="CWarningsDlg" cookie="StStStStStStStBu" caption="PeerProject i Respekton Përdoruesit">
-		<control/>
+	<dialog name="CWarningsDlg" cookie="StStStStStStBu" caption="PeerProject i Respekton Përdoruesit">
 		<control caption="A e dinit që PeerProject është një produkt 100% falas?"/>
 		<control caption="PeerProject NUK përmban ASNJË &quot;spiunues&quot;, &quot;reklamues&quot; apo ndonjë softuer tjetër të paketuar. Reklamat ose &quot;kërcyeset&quot; NUK shfaqen kurrë.{n}{n}Nëse gjatë përdorimit vëreni ndonjë reklamë ose &quot;kërcyese&quot;, të jeni të sigurt se ato NUK janë të programit."/>
 		<control caption="Për fat të keq, shumë nga softueret e tjera bartin reklamuesa apo spiunuesa të padëshirueshëm, ndaj nëse keni dyshime verifikoni PC-në tuaj me një program që heq reklamuesat e spiunuesat."/>
@@ -4053,8 +4046,7 @@
 		<control caption="http://PeerProject.org/"/>
 		<control caption="Mbylle"/>
 	</dialog>
-	<dialog name="CPromoteDlg" cookie="StStStStStStStBu" caption="Ngrini Zërin">
-		<control/>
+	<dialog name="CPromoteDlg" cookie="StStStStStStBu" caption="Ngrini Zërin">
 		<control caption="Na ndihmoni të Ngremë Zërin"/>
 		<control caption="Shpresojmë që deri tani të jeni i kënaqur me përdorimin e PeerProject-s. Ne besojmë se ky është aplikimi skedë-shpërndarës më i mirë përqark."/>
 		<control caption="Për fat të keq, shumë shpërdarës skedash nuk e dinë se sa shumë u duhet!"/>
@@ -4063,8 +4055,7 @@
 		<control caption="PeerProject.org"/>
 		<control caption="OK"/>
 	</dialog>
-	<dialog name="CExistingFileDlg" cookie="StStStStStBuBuBuBuBuStSt" caption="Skedë Ekzistuese">
-		<control/>
+	<dialog name="CExistingFileDlg" cookie="StStStStBuBuBuBuBuStSt" caption="Skedë Ekzistuese">
 		<control/>
 		<control/>
 		<control/>
@@ -4077,8 +4068,7 @@
 		<control caption="Këtë skedë e keni shkarkuar dhe e keni fshirë më parë. Çfarë mendoni të bëni?"/>
 		<control caption="Kujdes! Po diktohet një skedë dyfishe. Një softuer keqbërës mund të infektojë Librarinë tuaj. Sigurohuni që këtë skedë e keni shkarkuar dhe vendosur vetë. Përndryshe, mbylleni PeerProject-n dhe skanoni kompjuterin me një antivirus."/>
 	</dialog>
-	<dialog name="CCloseModeDlg" cookie="StStBuBuBuBuBu" caption="Butoni i Mbylljes">
-		<control/>
+	<dialog name="CCloseModeDlg" cookie="StBuBuBuBuBu" caption="Butoni i Mbylljes">
 		<control caption="Kjo është hera e parë që klikoni butonin e mbylljes në PeerProject. Ju lutemi zgjidhni si doni të sillet PeerProject kur e bëni këtë tani e tutje:"/>
 		<control caption="Minimizohu në tabaka"/>
 		<control caption="Fike PeerProject-n menjëherë"/>
@@ -4086,8 +4076,7 @@
 		<control caption="OK"/>
 		<control caption="Anulo"/>
 	</dialog>
-	<dialog name="CDonkeyServersDlg" cookie="StStEdmsBuBu" caption="Shkarkoni Skedën Server.met">
-		<control/>
+	<dialog name="CDonkeyServersDlg" cookie="StEdmsBuBu" caption="Shkarkoni Skedën Server.met">
 		<control caption="Skeda server.met e eDonkey mund të shkarkohet nga ky rrjet për të rifreskuar listën lokale me serverat tuaj."/>
 		<control/>
 		<control/>
@@ -4125,8 +4114,7 @@
 		<control caption="_Vijo|Eksporto..."/>
 		<control caption="_Anulo"/>
 	</dialog>
-	<dialog name="CTorrentSeedDlg" cookie="StStBuBuBuStms" caption="Hap Skedë Torrent">
-		<control/>
+	<dialog name="CTorrentSeedDlg" cookie="StBuBuBuStms" caption="Hap Skedë Torrent">
 		<control caption="Ju keni hapur një skedë torrent në BitTorrent. A doni t'i shkarkoni përmbajtjet e saj, apo ta rimbillni?"/>
 		<control caption="Shkarko"/>
 		<control caption="Mbille"/>
@@ -4221,8 +4209,7 @@
 		<control caption="OK"/>
 		<control caption="Anulo"/>
 	</dialog>
-	<dialog name="CMediaVisDlg" cookie="StBuSyCoBuBuBu" caption="Zgjidhni Vegimin">
-		<control/>
+	<dialog name="CMediaVisDlg" cookie="BuSyCoBuBuBu" caption="Zgjidhni Vegimin">
 		<control caption="Zgjidhni një vegim zanor nga lista:"/>
 		<control/>
 		<control caption="Shfaqe në Fund|Shfaqe me Përmasë të Plotë|Shfaqe të Madhe|Shfaqe të Mesme|Shfaqe të Vogël"/>
@@ -4230,8 +4217,7 @@
 		<control caption="OK"/>
 		<control caption="Anulo"/>
 	</dialog>
-	<dialog name="CUpgradeDlg" cookie="StStStBuBuBu" caption="Alarmi i Përmirësimit">
-		<control/>
+	<dialog name="CUpgradeDlg" cookie="StStBuBuBu" caption="Alarmi i Përmirësimit">
 		<control caption="Për PeerProject-n ka dalë një version i ri. A doni ta përmirësoni?"/>
 		<control caption="Nëse zgjidhni Përmirëso Tani, PeerProject do ta shtojë përmirësimin në radhën tuaj të punëve për shkarkim dhe do të nisë ta shkarkojë atë automatikisht."/>
 		<control caption="_Përmirëso Tani"/>
@@ -4262,14 +4248,12 @@
 		<control caption="Anulo"/>
 		<control caption="Shkruaj kanalin që do të shtosh:|Shkruaj arsyen e gjuajtjes/dëbimit:"/>
 	</dialog>
-	<dialog name="CDownloadReviewDlg" cookie="StBuSyEd" caption="Pasqyrimet e Shkarkesës">
-		<control/>
+	<dialog name="CDownloadReviewDlg" cookie="BuSyEd" caption="Pasqyrimet e Shkarkesës">
 		<control caption="OK"/>
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CHelpDlg" cookie="StBuAf" caption="Ndihmë në PeerProject">
-		<control/>
+	<dialog name="CHelpDlg" cookie="BuAf" caption="Ndihmë në PeerProject">
 		<control caption="Mbylle"/>
 		<control/>
 	</dialog>

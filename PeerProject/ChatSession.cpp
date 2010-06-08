@@ -1101,7 +1101,7 @@ bool CChatSession::SendPrivateMessage(bool bAction, const CString& strText)
 	//{
 	//	CString strNick = MyProfile.GetNick();
 	//	if ( strNick.IsEmpty() ) strNick = CLIENT_NAME _T(" User");
-	//	strMessage.Format( IDS_CHAT_PRIVATE_AWAY, strNick, strText );
+	//	strMessage.Format( LoadString( IDS_CHAT_PRIVATE_AWAY ), strNick, strText );
 	//}
 
 	if ( m_nProtocol == PROTOCOL_G2 )

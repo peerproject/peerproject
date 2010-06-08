@@ -1,7 +1,7 @@
 //
 // PageSettingsSkins.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -26,28 +26,27 @@
 
 class CSkinsSettingsPage : public CSettingsPage
 {
+	DECLARE_DYNCREATE(CSkinsSettingsPage)
+
 // Construction
 public:
 	CSkinsSettingsPage();
 	virtual ~CSkinsSettingsPage();
 
-	DECLARE_DYNCREATE(CSkinsSettingsPage)
-
-// Dialog Data
-public:
-	//{{AFX_DATA(CSkinsSettingsPage)
 	enum { IDD = IDD_SETTINGS_SKINS };
-	CButton	m_wndDelete;
-	CEdit	m_wndDesc;
-	CStatic	m_wndName;
-	CStatic	m_wndAuthor;
-	CListCtrl	m_wndList;
-	//}}AFX_DATA
 
 // Attributes
 public:
+	//{{AFX_DATA(CSkinsSettingsPage)
+	CListCtrl	m_wndList;
+	CButton 	m_wndDelete;
+	CStatic 	m_wndName;
+	CStatic 	m_wndAuthor;
+	CEdit		m_wndDesc;
+
 	CImageList	m_gdiImageList;
 	int			m_nSelected;
+	//}}AFX_DATA
 
 // Operations
 public:
@@ -57,9 +56,8 @@ public:
 // Overrides
 public:
 	//{{AFX_VIRTUAL(CSkinsSettingsPage)
-	public:
 	virtual void OnOK();
-	protected:
+protected:
 	virtual void DoDataExchange(CDataExchange* pDX);
 	//}}AFX_VIRTUAL
 
@@ -67,9 +65,10 @@ public:
 protected:
 	//{{AFX_MSG(CSkinsSettingsPage)
 	virtual BOOL OnInitDialog();
-	afx_msg void OnLButtonUp(UINT nFlags, CPoint point);
-	afx_msg BOOL OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message);
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
+	afx_msg BOOL OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message);
+	afx_msg void OnLButtonUp(UINT nFlags, CPoint point);
+	afx_msg void OnDoubleClick(NMHDR* pNMHDR, LRESULT* pResult);
 	afx_msg void OnItemChangedSkins(NMHDR* pNMHDR, LRESULT* pResult);
 	afx_msg void OnSkinsBrowse();
 	afx_msg void OnSkinsWeb();

@@ -59,6 +59,7 @@ BEGIN_MESSAGE_MAP(CLibraryFrame, CWnd)
 	ON_WM_PAINT()
 	ON_WM_LBUTTONDOWN()
 	ON_WM_SETCURSOR()
+	ON_WM_SETFOCUS()
 	ON_WM_TIMER()
 	ON_WM_CONTEXTMENU()
 	ON_WM_MEASUREITEM()
@@ -77,7 +78,6 @@ BEGIN_MESSAGE_MAP(CLibraryFrame, CWnd)
 	ON_CBN_CLOSEUP(AFX_IDW_TOOLBAR, OnFilterTypes)
 	ON_BN_CLICKED(AFX_IDW_TOOLBAR, OnToolbarReturn)
 	ON_BN_DOUBLECLICKED(AFX_IDW_TOOLBAR, OnToolbarEscape)
-	ON_WM_SETFOCUS()
 END_MESSAGE_MAP()
 
 //#define SPLIT_SIZE		6	// Skin.m_nSplitter
@@ -218,8 +218,7 @@ void CLibraryFrame::OnSkinChange()
 	SetView( pView, TRUE, FALSE );
 	SetPanel( pPanel );
 
-	if ( m_pView )
-		m_pView->OnSkinChange();
+	if ( m_pView ) m_pView->OnSkinChange();
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -972,8 +971,7 @@ void CLibraryFrame::OnLibraryPanel()
 	{
 		m_bPanelShow = FALSE;
 		SetDynamicBar( NULL );
-		if ( m_pView )
-			m_pView->SendMessage( WM_METADATA );
+		if ( m_pView ) m_pView->SendMessage( WM_METADATA );
 		SetPanel( NULL );
 	}
 	else
@@ -1156,6 +1154,7 @@ void CLibraryFrame::RunLocalSearch(CQuerySearch* pSearch)
 
 	Update();
 	Display( pFolder );
+	GetParent()->PostMessage( WM_COMMAND, ID_VIEW_LIBRARY );
 }
 
 void CLibraryFrame::OnSetFocus(CWnd* pOldWnd)

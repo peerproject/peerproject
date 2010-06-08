@@ -25,6 +25,7 @@
 #include "WndSettingsSheet.h"
 #include "WndSettingsPage.h"
 
+#include "CoolInterface.h"
 #include "Colors.h"
 #include "Skin.h"
 
@@ -154,7 +155,7 @@ BOOL CSettingsPage::OnInitDialog()
 void CSettingsPage::OnSkinChange()
 {
 	if ( ! IsWindow( GetSafeHwnd() ) )
-		return;	// No created yet page
+		return;	// No created page yet
 
 	if ( m_sName.IsEmpty() )
 		m_sName = GetRuntimeClass()->m_lpszClassName;
@@ -162,6 +163,14 @@ void CSettingsPage::OnSkinChange()
 	SetWindowText( m_sCaption );
 
 	Skin.Apply( m_sName, this, 0, &m_wndToolTip );
+
+	if ( Skin.m_bmDialog.m_hObject )
+	{
+		CDC* pDC = GetDC();
+		CRect rc;
+		GetClientRect( &rc );
+		CoolInterface.DrawWatermark( pDC, &rc, &Skin.m_bmDialog );
+	}
 }
 
 void CSettingsPage::DoDataExchange(CDataExchange* pDX)
@@ -217,7 +226,12 @@ BOOL CSettingsPage::OnEraseBkgnd(CDC* pDC)
 {
 	CRect rc;
 	GetClientRect( &rc );
-	pDC->FillSolidRect( &rc, Colors.m_crDialog );
+
+	if ( Skin.m_bmDialog.m_hObject )
+		CoolInterface.DrawWatermark( pDC, &rc, &Skin.m_bmDialog );
+	else
+		pDC->FillSolidRect( &rc, Colors.m_crDialog );
+
 	return TRUE;
 }
 
@@ -225,15 +239,48 @@ HBRUSH CSettingsPage::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 {
 	HBRUSH hbr = CDialog::OnCtlColor( pDC, pWnd, nCtlColor );
 
-	if ( nCtlColor == CTLCOLOR_DLG || nCtlColor == CTLCOLOR_STATIC )
+	// Skinned dialog controls
+	if ( nCtlColor == CTLCOLOR_STATIC && Skin.m_bmDialog.m_hObject )
 	{
+		pDC->SetTextColor( Colors.m_crDialogText );
+		pDC->SetBkMode( TRANSPARENT );
+
+		if ( pWnd->GetDlgCtrlID() != IDC_STATIC )						// Named controls  (Dynamic handling)
+		{
+			if ( ! pWnd->IsWindowEnabled() || ( pWnd->GetStyle() & ES_READONLY ) )
+				return Skin.m_brDialog;									// Skip disabled edit boxes
+
+			const int nCtrlID = pWnd->GetDlgCtrlID();
+			if ( nCtrlID == IDC_SKIN_NAME || nCtrlID == IDC_SKIN_AUTHOR || nCtrlID == IDC_TIP_ALPHA )
+				return Skin.m_brDialog;									// Dynamic text exceptions workaround + slider	ToDo: improve this?
+
+			//TCHAR szName[24];
+			//GetClassName( pWnd->GetSafeHwnd(), szName, 24 );		// Alt detection method
+			//if ( _tcsistr( szName, _T("Static") ) )				"Static" "Button" "ListBox" "ComboBox" "Edit" "RICHEDIT" etc
+
+			if ( ! ( pWnd->GetStyle() & WS_GROUP ) )					// Skip buggy Group Boxes to target Checkboxes
+			{
+				if ( pWnd->GetStyle() & (BS_AUTOCHECKBOX|WS_TABSTOP) )	// Checkbox label skinning workaround
+				{
+					CRect rc;
+					pWnd->GetWindowRect( rc );
+					ScreenToClient( rc );
+					CoolInterface.DrawWatermark( pDC, &rc, &Skin.m_bmDialog, FALSE, -rc.left, -rc.top );
+				}
+			}
+		}
+
+		hbr = (HBRUSH)GetStockObject( NULL_BRUSH );
+	}
+	else if ( nCtlColor == CTLCOLOR_STATIC || nCtlColor == CTLCOLOR_DLG )
+	{
+		pDC->SetTextColor( Colors.m_crDialogText );
 		pDC->SetBkColor( Colors.m_crDialog );
-		hbr = Colors.m_brDialog;
+		hbr = Skin.m_brDialog;
 	}
 
 	return hbr;
 }
-
 
 BOOL CSettingsPage::PreTranslateMessage(MSG* pMsg)
 {

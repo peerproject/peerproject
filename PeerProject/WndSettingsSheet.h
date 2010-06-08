@@ -1,7 +1,7 @@
 //
 // WndSettingsSheet.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -29,12 +29,12 @@ class CSettingsPage;
 
 class CSettingsSheet : public CSkinDialog
 {
+	DECLARE_DYNAMIC(CSettingsSheet)
+
 // Construction
 public:
 	CSettingsSheet(CWnd* pParent = NULL, UINT nCaptionID = 0);
 	virtual ~CSettingsSheet();
-
-	DECLARE_DYNAMIC(CSettingsSheet)
 
 // Attributes
 protected:
@@ -42,19 +42,21 @@ protected:
 	CSettingsPage*	m_pPage;
 	CSettingsPage*	m_pFirst;
 	CSize			m_szPages;
-protected:
+
 	CTreeCtrl		m_wndTree;
 	CButton			m_wndOK;
 	CButton			m_wndCancel;
 	CButton			m_wndApply;
 	BOOL			m_bModified;
-protected:
+
 	DLGTEMPLATE*	m_pTemplate;
 	CString			m_sCaption;
 	int				m_nButtonHeight;
 
 // Operations
 public:
+	virtual BOOL	SkinMe(LPCTSTR pszSkin = NULL, UINT nIcon = 0, BOOL bLanguage = TRUE);
+
 	void			AddPage(CSettingsPage* pPage, LPCTSTR pszCaption = NULL);
 	void			AddGroup(CSettingsPage* pPage, LPCTSTR pszCaption = NULL);
 	CSettingsPage*	GetPage(INT_PTR nPage) const;
@@ -70,19 +72,16 @@ public:
 	INT_PTR			DoModal();
 protected:
 	void			BuildTree();
-	void			Layout();
 	BOOL			CreatePage(CSettingsPage* pPage);
-
-// Overrides
-protected:
-	virtual void	DoPaint(CDC& dc);
-	virtual void	DoDataExchange(CDataExchange* pDX);
-	virtual BOOL	OnInitDialog();
-	virtual BOOL	OnCommand(WPARAM wParam, LPARAM lParam);
 
 // Implementation
 protected:
 	DECLARE_MESSAGE_MAP()
+
+	virtual void	DoPaint(CDC& dc);
+	virtual void	DoDataExchange(CDataExchange* pDX);
+	virtual BOOL	OnCommand(WPARAM wParam, LPARAM lParam);
+	virtual BOOL	OnInitDialog();
 	virtual void	OnOK();
 	virtual void	OnCancel();
 	afx_msg void	OnApply();

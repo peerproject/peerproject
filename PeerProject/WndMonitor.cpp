@@ -196,7 +196,7 @@ void CRemoteWnd::OnTimer(UINT_PTR /*nIDEvent*/)
 			if ( HitTestButtons( point ) != m_pCmdHover ) m_pCmdHover = NULL;
 		}
 
-		m_sStatus.Format( IDS_TRAY_TIP,
+		m_sStatus.Format( LoadString( IDS_TRAY_TIP ),
 			Settings.SmartSpeed( CGraphItem::GetValue( GRC_TOTAL_BANDWIDTH_IN ), bits ),
 			Settings.SmartSpeed( CGraphItem::GetValue( GRC_TOTAL_BANDWIDTH_OUT ), bits ),
 			CGraphItem::GetValue( GRC_DOWNLOADS_TRANSFERS ),

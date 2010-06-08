@@ -623,6 +623,10 @@
 				>
 			</File>
 			<File
+				RelativePath="Res\Banner.bmp"
+				>
+			</File>
+			<File
 				RelativePath="Res\SkinBuilder.ico"
 				>
 			</File>
@@ -632,10 +636,6 @@
 			</File>
 			<File
 				RelativePath="Res\Paint.ico"
-				>
-			</File>
-			<File
-				RelativePath="Res\Wizard.bmp"
 				>
 			</File>
 		</Filter>

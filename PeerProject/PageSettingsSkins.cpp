@@ -38,9 +38,10 @@ IMPLEMENT_DYNCREATE(CSkinsSettingsPage, CSettingsPage)
 
 BEGIN_MESSAGE_MAP(CSkinsSettingsPage, CSettingsPage)
 	//{{AFX_MSG_MAP(CSkinsSettingsPage)
-	ON_WM_LBUTTONUP()
-	ON_WM_SETCURSOR()
 	ON_WM_CTLCOLOR()
+	ON_WM_SETCURSOR()
+	ON_WM_LBUTTONUP()
+	ON_NOTIFY(NM_DBLCLK, IDC_SKINS, OnDoubleClick)
 	ON_NOTIFY(LVN_ITEMCHANGED, IDC_SKINS, OnItemChangedSkins)
 	ON_BN_CLICKED(IDC_SKINS_BROWSE, OnSkinsBrowse)
 	ON_BN_CLICKED(IDC_SKINS_WEB, OnSkinsWeb)
@@ -87,8 +88,8 @@ BOOL CSkinsSettingsPage::OnInitDialog()
 	AddIcon( IDI_SKIN, m_gdiImageList );
 
 	m_wndList.SetImageList( &m_gdiImageList, LVSIL_SMALL );
-	m_wndList.InsertColumn( 0, _T("Name"), LVCFMT_LEFT, 210, 0 );
-	m_wndList.InsertColumn( 1, _T("Author"), LVCFMT_LEFT, 130, 1 );
+	m_wndList.InsertColumn( 0, _T("Name"), LVCFMT_LEFT, 220, 0 );
+	m_wndList.InsertColumn( 1, _T("Author"), LVCFMT_LEFT, 120, 1 );
 	m_wndList.InsertColumn( 2, _T("Version"), LVCFMT_LEFT, 42, 2 );
 	m_wndList.InsertColumn( 3, _T("Path"), LVCFMT_LEFT, 0, 3 );
 	m_wndList.InsertColumn( 4, _T("URL"), LVCFMT_LEFT, 0, 4 );
@@ -374,12 +375,11 @@ BOOL CSkinsSettingsPage::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 {
 	if ( m_nSelected >= 0 )
 	{
-		CPoint point;
 		CRect rc;
-
+		CPoint point;
 		GetCursorPos( &point );
-		m_wndName.GetWindowRect( &rc );
 
+		m_wndName.GetWindowRect( &rc );
 		if ( rc.PtInRect( point ) )
 		{
 			if ( m_wndList.GetItemText( m_nSelected, 4 ).GetLength() )
@@ -390,7 +390,6 @@ BOOL CSkinsSettingsPage::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 		}
 
 		m_wndAuthor.GetWindowRect( &rc );
-
 		if ( rc.PtInRect( point ) )
 		{
 			if ( m_wndList.GetItemText( m_nSelected, 5 ).GetLength() )
@@ -406,37 +405,43 @@ BOOL CSkinsSettingsPage::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 
 void CSkinsSettingsPage::OnLButtonUp(UINT /*nFlags*/, CPoint point)
 {
-	CRect rc;
-
 	if ( m_nSelected < 0 ) return;
 
+	CRect rc;
 	ClientToScreen( &point );
-	m_wndName.GetWindowRect( &rc );
 
+	m_wndName.GetWindowRect( &rc );
 	if ( rc.PtInRect( point ) )
 	{
 		CString strURL = m_wndList.GetItemText( m_nSelected, 4 );
 
 		if ( strURL.GetLength() )
-		{
-			ShellExecute( GetSafeHwnd(), _T("open"), strURL,
-				NULL, NULL, SW_SHOWNORMAL );
-		}
+			ShellExecute( GetSafeHwnd(), _T("open"), strURL, NULL, NULL, SW_SHOWNORMAL );
+
 		return;
 	}
 
 	m_wndAuthor.GetWindowRect( &rc );
-
 	if ( rc.PtInRect( point ) )
 	{
 		CString strEmail = m_wndList.GetItemText( m_nSelected, 5 );
 
 		if ( strEmail.GetLength() )
-		{
-			ShellExecute( GetSafeHwnd(), _T("open"), _T("mailto:") + strEmail,
-				NULL, NULL, SW_SHOWNORMAL );
-		}
+			ShellExecute( GetSafeHwnd(), _T("open"), _T("mailto:") + strEmail, NULL, NULL, SW_SHOWNORMAL );
+
 		return;
+	}
+}
+
+void CSkinsSettingsPage::OnDoubleClick(NMHDR* /*pNMHDR*/, LRESULT* pResult)
+{
+	//NM_LISTVIEW* pNMListView = (NM_LISTVIEW*)pNMHDR;
+	*pResult = 0;
+
+	// Checkmark only selected skin (from first click), clear all others
+	for ( int nItem = 0 ; nItem < m_wndList.GetItemCount() ; nItem++ )
+	{
+		m_wndList.SetItemState( nItem, UINT( ( nItem != m_nSelected ? 1 : 2 ) << 12 ), LVIS_STATEIMAGEMASK );
 	}
 }
 
@@ -479,7 +484,6 @@ void CSkinsSettingsPage::OnOK()
 
 	if ( bChanged )
 		PostMainWndMessage( WM_SKINCHANGED );
-
 
 	CSettingsPage::OnOK();
 }

@@ -2555,7 +2555,7 @@
 	<string id="13000" value="Czy jesteś pewny, że chcesz usunąć zaznaczone reguły bezpieczeństwa? To jest nieodwracalne."/>
 	<string id="13001" value="Files shared over the Internet"/>
 	<string id="16063" value="Po 10 próbach mapowanie UPnP portu nie powiodło się."/>
-	<string id="16064" value="Startuje jądro shareazy..."/>
+	<string id="16064" value="Startuje jądro PeerProjecty..."/>
 	<string id="16065" value="Nie można przydzielić portu %s %i dla połączeń przychodzących. Połączenia przychodzące nie będą aktywne"/>
 	<string id="16066" value="Wyłączanie jądra PeerProject..."/>
 	<string id="16067" value="Rozłączono z sieci."/>
@@ -3172,7 +3172,7 @@
 	</dialog>
 	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="Zdalny dostęp">
 		<control caption="Włącz:"/>
-		<control caption="Włącz zdalny dostęp do Shareazy:"/>
+		<control caption="Włącz zdalny dostęp do PeerProjecty:"/>
 		<control/>
 		<control caption="Szczegóły:"/>
 		<control caption="Wybierz nazwę użytkownika:"/>
@@ -3180,7 +3180,7 @@
 		<control/>
 		<control/>
 		<control caption="Pomoc:"/>
-		<control caption="Zdalny dostęp do Shareazy pozwala ci na zostawienie włączonej Shareazy na Twoim komputerze i zdalne sterowanie nią za pomocą przeglądarki internetowej. Aby używać tej funkcji musisz być w stanie przyjmować połączenia przychodzące (np. właściwie skonfigurowany router, itp.)."/>
+		<control caption="Zdalny dostęp do PeerProjecty pozwala ci na zostawienie włączonej PeerProjecty na Twoim komputerze i zdalne sterowanie nią za pomocą przeglądarki internetowej. Aby używać tej funkcji musisz być w stanie przyjmować połączenia przychodzące (np. właściwie skonfigurowany router, itp.)."/>
 	</dialog>
 	<dialog name="CSchedulerSettingsPage" cookie="EdStStStStStStStBuStStStBuBuBuStEdmsBuSt" caption="Kalendarz">
 		<control/>
@@ -3207,7 +3207,7 @@
 	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuSt" caption="Sieci">
 		<control caption="PeerProject jest aplikacją współdzielącą (udostępniajacą) pliki do ogólnego użytku, która może się połączyć jednocześnie z wieloma sieciami P2P. W tej sekcji wybierasz, do jakich sieci chcesz się włączyć i dostosujesz ustawienia charakterystyczne dla każdej z nich."/>
 		<control caption="Sieć Gnutella2:"/>
-		<control caption="Sieć Gnutella2 jest główną siecią Shareazy, oferującą więcej funkcji i większą wydajność niż jakakolwiek inna sieć. Gorąco zalecamy włączanie się do niej."/>
+		<control caption="Sieć Gnutella2 jest główną siecią PeerProjecty, oferującą więcej funkcji i większą wydajność niż jakakolwiek inna sieć. Gorąco zalecamy włączanie się do niej."/>
 		<control caption="Połącz z Gnutella2 (G2)"/>
 		<control caption="Skonfiguruj Gnutella2"/>
 		<control caption="Oryginalna sieć Gnutella:"/>
@@ -3332,7 +3332,7 @@
 		<control caption="Wartość:"/>
 	</dialog>
 	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="Protokoły">
-		<control caption="Przeglądarka Protokołu Wspólnej Architektury Shareazy:"/>
+		<control caption="Przeglądarka Protokołu Wspólnej Architektury PeerProjecty:"/>
 		<control/>
 	</dialog>
 	<dialog name="CQueuePropertiesDlg" cookie="BuEdBuBuBuBuBuEdBuEdBuCoBuEdBuSyBuBuStEdmsStEdmsStEdmsBuStEdStEdmsBuEdmsBuBuBu" caption="Właściwości kolejki wysyłań">
@@ -3369,7 +3369,7 @@
 		<control caption="Przepustowość wysyłań dla tej kolejki:"/>
 		<control/>
 		<control/>
-		<control caption="Zmień (rotacja) po N sekundach:"/>
+		<control caption="Zmień (rotacja) po # sekundach:"/>
 		<control/>
 		<control/>
 		<control caption="OK"/>
@@ -3378,8 +3378,8 @@
 	</dialog>
 	<dialog name="CWizardWelcomePage" cookie="StStStStStStStStStStStSt" caption="Witaj w PeerProjecte (1/8)">
 		<control caption="Witaj w PeerProjecte!"/>
-		<control caption="Jeśli wcześniej nie używałeś Shareazy lub innych klientów P2P, ten Kreator SzybkiegoStartu pomoże ci skonfigurować Twoją kopię w kilku prostych krokach."/>
-		<control caption="Jeśli jesteś bardziej zaawansowanym użytkownikiem, możesz uzyskać dostęp do wszystkich opcji Shareazy używając menu Narzędzia. Kliknij Wyjście, aby zamknąć w każdej chwili niniejszego kreatora."/>
+		<control caption="Jeśli wcześniej nie używałeś PeerProjecty lub innych klientów P2P, ten Kreator SzybkiegoStartu pomoże ci skonfigurować Twoją kopię w kilku prostych krokach."/>
+		<control caption="Jeśli jesteś bardziej zaawansowanym użytkownikiem, możesz uzyskać dostęp do wszystkich opcji PeerProjecty używając menu Narzędzia. Kliknij Wyjście, aby zamknąć w każdej chwili niniejszego kreatora."/>
 		<control caption="Ten kreator pomoże ci:"/>
 		<control/>
 		<control caption="Przekazać PeerProjecte parametry Twojego połaczenia z Internetem"/>
@@ -3388,7 +3388,7 @@
 		<control/>
 		<control caption="Włączyć się do wybranych przez Ciebie sieci P2P,"/>
 		<control/>
-		<control caption="... i rozpocząć używanie Shareazy."/>
+		<control caption="... i rozpocząć używanie PeerProjecty."/>
 	</dialog>
 	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="Witaj w PeerProjecte (2/8)">
 		<control caption="Do optymalnego działania, PeerProject potrzebuje trochę wiadomości o Twoim połączeniu z Internetem."/>
@@ -3409,7 +3409,7 @@
 	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuStBu" caption="Witaj w PeerProjecte (3/8)">
 		<control caption="PeerProject uniwersalną aplikacją do wymiany plików, która może jednocześnie łączyć się z wieloma sieciami P2P. Tutaj możesz wybrać do których sieci PeerProject ma włączyć. Zauważ, że zawsze możesz później wybrać inne sieci."/>
 		<control caption="Połącz z Gnutella2 (Gorąco Zalecane)"/>
-		<control caption="Gnutella2 jest sztandarową siecią Shareazy, oferuje więcej możliwości i lepsze działanie niż jakakolwiek inna sieć P2P."/>
+		<control caption="Gnutella2 jest sztandarową siecią PeerProjecty, oferuje więcej możliwości i lepsze działanie niż jakakolwiek inna sieć P2P."/>
 		<control caption="Połącz z Oryginalną Gnutellą"/>
 		<control caption="Oryginalna Gnutella ma mniej możliwości niż Gnutella2 i ma mniej plików niż eDonkey, jednak pozostaje cennym zasobem."/>
 		<control caption="Połącz z eDonkey"/>
@@ -3418,10 +3418,10 @@
 	</dialog>
 	<dialog name="CWizardFoldersPage" cookie="StStEdBuStEdBuStEdBuSt" caption="Witaj w PeerProjecte (4/8)">
 		<control caption="PeerProject first downloads partial files to a private folder, then moves them when completed according to Download Groups."/>
-		<control caption="Zapisuj zakończone pliki tutaj:"/>
-		<control/>
-		<control/>
 		<control caption="Przechowuj pliki tymczasowe (jeszcze niekompletne) tutaj:"/>
+		<control/>
+		<control/>
+		<control caption="Zapisuj zakończone pliki tutaj:"/>
 		<control/>
 		<control/>
 		<control caption="Przechowuj .Torrent pliki tutaj:"/>
@@ -3431,7 +3431,7 @@
 	</dialog>
 	<dialog name="CWizardSharePage" cookie="StStStSyBuBuSt" caption="Witaj w PeerProjecte (5/8)">
 		<control caption="Sieci P2P są tylko tak dobre, jak ludzie, którzy ich używają. Cała możliwa do pobrania zawartość (tzw. kontent) jest udostępniana (współdzielona) przez innych użytkowników."/>
-		<control caption="Nie musisz udostępniać żadnej zawartości (tzw. kontentu), aby używać Shareazy, jednak niektóre programy zachowują się inaczej dla użytkowników, którzy nic nie udostępniają."/>
+		<control caption="Nie musisz udostępniać żadnej zawartości (tzw. kontentu), aby używać PeerProjecty, jednak niektóre programy zachowują się inaczej dla użytkowników, którzy nic nie udostępniają."/>
 		<control caption="Proszę wybierz, które foldery (jeśli są takie) chcesz udostępnić. Po prostu kliknij przycisk Dodaj, aby dodać nowy folder."/>
 		<control/>
 		<control caption="Dodaj..."/>
@@ -3477,11 +3477,10 @@
 		<control caption="Po zamknięciu tego kreatora poprzez kliknięcie na Zakończ, możesz się połączyć do sieci, które wybrałeś i zacząć szukać i pobierać pliki."/>
 		<control caption="Uruchom PeerProject razem z uruchomieniem Windows"/>
 		<control caption="Połącz do sieci za każdym razem, gdy uruchomię PeerProject"/>
-		<control caption="Miłej zabawy z Shareazą!"/>
+		<control caption="Miłej zabawy z PeerProject!"/>
 	</dialog>
-	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="Importuj pobierania z eDonkey">
-		<control/>
-		<control caption="PeerProject wykryła, że masz zainstalowany na swoim komputerze inny program korzystający z sieci eDonkey. Czy chciałbyś zaimportować niedokończone pobierania do Shareazy?"/>
+	<dialog name="CDonkeyImportDlg" cookie="StBuBuEdBu" caption="Importuj pobierania z eDonkey">
+		<control caption="PeerProject wykryła, że masz zainstalowany na swoim komputerze inny program korzystający z sieci eDonkey. Czy chciałbyś zaimportować niedokończone pobierania do PeerProjecty?"/>
 		<control caption="Tak"/>
 		<control caption="Nie|Anuluj"/>
 		<control/>
@@ -3588,8 +3587,7 @@
 		<control caption="Połącz"/>
 		<control caption="_Anuluj"/>
 	</dialog>
-	<dialog name="CDownloadDlg" cookie="StStStStEdStBuBuBu" caption="Pobierz plik lub torrent">
-		<control/>
+	<dialog name="CDownloadDlg" cookie="StStStEdStBuBuBu" caption="Pobierz plik lub torrent">
 		<control/>
 		<control caption="PeerProject może pobierać pliki z Internetu oraz automatycznie szukać i pobierać linki P2P. Po prostu wpisz lub wklej URL lub URI opisujące ten plik w miejsce poniżej i wciśnij Enter. &#160; (http:, ftp:, ed2k:, magnet:, etc.)"/>
 		<control caption="PeerProject może także pobierać pliki BitTorrentowe. Torrent może być opisany jak jakiś plik .torrent, lub jako link HTTP do pliku .torrent. Aby pobrać link HTTP do torrentu, wklej go do miejsca powyżej. Jeżeli już masz plik .torrent, kliknij Otwórz Torrent:"/>
@@ -3650,7 +3648,6 @@
 		<control caption="Gnutella Bootstrap|GWebCache|Server.met URL|Zablokowany"/>
 		<control caption="OK"/>
 		<control caption="Anuluj"/>
-		<control/>
 	</dialog>
 	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStBuBuBuBu" caption="Pobieranie">
 		<control caption="..."/>
@@ -3814,17 +3811,15 @@
 		<control caption="OK"/>
 		<control caption="Anuluj"/>
 	</dialog>
-	<dialog name="CShareManagerDlg" cookie="StStSyBuBuBuBu" caption="Menadżer udostępnionych folderów">
-		<control/>
-		<control caption="To jest lista folderów w Twojej bibliotece (zasobach). Możesz dodawać i usuwać foldery używając przycisków po lewej. Gdy dodasz nowy folder początkowo jest on udostępniany innym użytkownikom, jednak możesz przestać go udostępniać z biblioteki zasobów Shareazy jeśli zechcesz."/>
+	<dialog name="CShareManagerDlg" cookie="StSyBuBuBuBu" caption="Menadżer udostępnionych folderów">
+		<control caption="To jest lista folderów w Twojej bibliotece (zasobach). Możesz dodawać i usuwać foldery używając przycisków po lewej. Gdy dodasz nowy folder początkowo jest on udostępniany innym użytkownikom, jednak możesz przestać go udostępniać z biblioteki zasobów PeerProjecty jeśli zechcesz."/>
 		<control/>
 		<control caption="Dodaj..."/>
 		<control caption="Usuń"/>
 		<control caption="OK"/>
 		<control caption="Anuluj"/>
 	</dialog>
-	<dialog name="CURLCopyDlg" cookie="StStStStStBuBu" caption="Kopiuj URI">
-		<control/>
+	<dialog name="CURLCopyDlg" cookie="StStStStBuBu" caption="Kopiuj URI">
 		<control caption="Możesz skopiować URI zaznaczonego pliku w wielu różnych formatach. Proszę, wybierz format który chcesz użyć klikając na jedno URI-ów poniżej:"/>
 		<control/>
 		<control/>
@@ -3832,8 +3827,7 @@
 		<control caption="Umieść mnie jako stałe źródło w URL"/>
 		<control caption="Anuluj"/>
 	</dialog>
-	<dialog name="CURLExportDlg" cookie="StStEdStCoStCoBuBumsBu" caption="Exportuj URI-e">
-		<control/>
+	<dialog name="CURLExportDlg" cookie="StEdStCoStCoBuBumsBu" caption="Exportuj URI-e">
 		<control caption="Wybrałeś %lu plików do wyeksportowania jako odsyłacz PeerProject-powered URI. Proszę wybrać format dla URI-ów i kliknąć Zapisz:"/>
 		<control/>
 		<control caption="Wstaw Token:"/>
@@ -3877,28 +3871,25 @@
 		<control caption="(kopiowanie pobranych części do nowego pliku podglądu)"/>
 		<control caption="Anuluj"/>
 	</dialog>
-	<dialog name="CWarningsDlg" cookie="StStStStStStStBu" caption="PeerProject szanuje swoich Użytkowników">
-		<control/>
+	<dialog name="CWarningsDlg" cookie="StStStStStStBu" caption="PeerProject szanuje swoich Użytkowników">
 		<control caption="Czy wiesz, że PeerProject jest w 100% DARMOWTM produktem?"/>
-		<control caption="PeerProject NIE zawiera ŻADNEGO &quot;spyware'u&quot;, &quot;adware'u&quot; ani innego wmuszanego software'u. PeerProject NIE wyświetla ŻADNYCH reklam ani &quot;wyskakujących okieniek popup'ów&quot;, nigdy.{n}{n}Jeśli kiedykolwiek widziałeś reklamę lub &quot;wyskakujace okienka - popupy&quot; podczas używania Shareazy, bądź pewien, że one NIE pochodzą z tego programu tj. Shareazy."/>
+		<control caption="PeerProject NIE zawiera ŻADNEGO &quot;spyware'u&quot;, &quot;adware'u&quot; ani innego wmuszanego software'u. PeerProject NIE wyświetla ŻADNYCH reklam ani &quot;wyskakujących okieniek popup'ów&quot;, nigdy.{n}{n}Jeśli kiedykolwiek widziałeś reklamę lub &quot;wyskakujace okienka - popupy&quot; podczas używania PeerProjecty, bądź pewien, że one NIE pochodzą z tego programu tj. PeerProjecty."/>
 		<control caption="Niestety wiele innych programów przychodzi z nieporządanym adwarem or spywarem, zatem jeśli widzisz coś podejrzanego you may wish to sprawdzić swój komputer oprogramowaniem likwidującym reklamy i szpiegów."/>
-		<control caption="Nie wolno zmuszać Cię do płacenia jakichkolwiek pieniędzy za otrzymanie Shareazy. Kazdy zawsze może darmowowo pobrać PeerProject ze strony http://PeerProject.org/. Jeśli zapłaciłeś komuś pieniądze za PeerProject, powinieneś żądać natychmiastowego zwrotu tych nienależnych temu komuś pieniędzy, aż do skutku."/>
+		<control caption="Nie wolno zmuszać Cię do płacenia jakichkolwiek pieniędzy za otrzymanie PeerProjecty. Kazdy zawsze może darmowowo pobrać PeerProject ze strony http://PeerProject.org/. Jeśli zapłaciłeś komuś pieniądze za PeerProject, powinieneś żądać natychmiastowego zwrotu tych nienależnych temu komuś pieniędzy, aż do skutku."/>
 		<control caption="PeerProject szanuje swoich użytkowników!"/>
 		<control caption="http://PeerProject.org/"/>
 		<control caption="Zamknij"/>
 	</dialog>
-	<dialog name="CPromoteDlg" cookie="StStStStStStStBu" caption="Spread the Word">
-		<control/>
+	<dialog name="CPromoteDlg" cookie="StStStStStStBu" caption="Spread the Word">
 		<control caption="Pomóż nam Spread the Word"/>
-		<control caption="Mamy nadzieję, żę jak dotąd jesteś zadowolony z używania Shareazy. Wierzymy, że jest to najlepsza aplikacja do wymiany plików na rynku."/>
+		<control caption="Mamy nadzieję, żę jak dotąd jesteś zadowolony z używania PeerProjecty. Wierzymy, że jest to najlepsza aplikacja do wymiany plików na rynku."/>
 		<control caption="Niestety, wielu wymieniających pliki nie wie co traci!"/>
 		<control caption="Jeśli znasz kogoś kto chciałby PeerProject, whether they're a new user or someone still putting up with an inferior product, dlaczego by nie powiadomić ich, że jest lepsza alternatywa?"/>
 		<control caption="Są szanse, że będą Ci wdzięczni za poratowanie!"/>
 		<control caption="http://PeerProject.org/"/>
 		<control caption="OK"/>
 	</dialog>
-	<dialog name="CExistingFileDlg" cookie="StStStStStBuBuBuBuBuStSt" caption="Plik istnieje">
-		<control/>
+	<dialog name="CExistingFileDlg" cookie="StStStStBuBuBuBuBuStSt" caption="Plik istnieje">
 		<control/>
 		<control/>
 		<control/>
@@ -3911,8 +3902,7 @@
 		<control caption="Już sciągnąłeś ten plik ale go usunąłeś.  co chciałbyś zrobić?"/>
 		<control caption="Warning! Duplicate files detected. Some malicious software may infect your Library. Make sure that you downloaded this file or placed it manually. Otherwise, shutdown PeerProject and scan your computer with an antivirus program."/>
 	</dialog>
-	<dialog name="CCloseModeDlg" cookie="StStBuBuBuBuBu" caption="Close Button">
-		<control/>
+	<dialog name="CCloseModeDlg" cookie="StBuBuBuBuBu" caption="Close Button">
 		<control caption="To jest pierwszy raz kiedy kliknąłeś przycisk zamykania PeerProject.  Wybierz co PeerProject ma zrobic gdy będziesz klikać na ten przycisk:"/>
 		<control caption="Zminimalizuj do traya"/>
 		<control caption="Zamknij program natychmiast"/>
@@ -3920,8 +3910,7 @@
 		<control caption="OK"/>
 		<control caption="Anuluj"/>
 	</dialog>
-	<dialog name="CDonkeyServersDlg" cookie="StStEdmsBuBu" caption="Download Server.met File">
-		<control/>
+	<dialog name="CDonkeyServersDlg" cookie="StEdmsBuBu" caption="Download Server.met File">
 		<control caption="Możesz pobrać plik server.met eDonkeya z sieci web aby odświeżyć swoją lokalną liste serwerów eD2k."/>
 		<control/>
 		<control/>
@@ -3959,8 +3948,7 @@
 		<control caption="_Następny|_Eksportuj..."/>
 		<control caption="Anuluj"/>
 	</dialog>
-	<dialog name="CTorrentSeedDlg" cookie="StStBuBuBuStms" caption="Otwórz plik Torrent">
-		<control/>
+	<dialog name="CTorrentSeedDlg" cookie="StBuBuBuStms" caption="Otwórz plik Torrent">
 		<control caption="Otwarłeś BitTorentowy plik torrent. Czy chciałbyś pobrać jego zawartość, czy też re-seedować go?"/>
 		<control caption="Pobierz"/>
 		<control caption="Seeduj"/>
@@ -4056,8 +4044,7 @@
 		<control caption="OK"/>
 		<control caption="Anuluj"/>
 	</dialog>
-	<dialog name="CMediaVisDlg" cookie="StBuSyCoBuBuBu" caption="Wybierz wizualizację">
-		<control/>
+	<dialog name="CMediaVisDlg" cookie="BuSyCoBuBuBu" caption="Wybierz wizualizację">
 		<control caption="Wybierz z listy wizualizację audio:"/>
 		<control/>
 		<control caption="Footer Display|Full Size Display|Large Display|Medium Display|Small Display"/>
@@ -4065,8 +4052,7 @@
 		<control caption="OK"/>
 		<control caption="Anuluj"/>
 	</dialog>
-	<dialog name="CUpgradeDlg" cookie="StStStBuBuBu" caption="Alert aktualizacji">
-		<control/>
+	<dialog name="CUpgradeDlg" cookie="StStBuBuBu" caption="Alert aktualizacji">
 		<control caption="Nowa wersj PeerProject jest dostępna.  Czy chciałbyś aktualizować?"/>
 		<control caption="Jeśli wybierzesz aktualizuj teraz to PeerProject doda aktualizacje do twojej kolejki pobierania."/>
 		<control caption="Aktualizuj teraz"/>
@@ -4091,20 +4077,18 @@
 		<control caption="Anuluj"/>
 		<control/>
 	</dialog>
-	<dialog name="CIrcInputDlg" cookie="EdBuBuSt" caption="Nazwa kanału|Jaki powód (Why reason)">
+	<dialog name="CIrcInputDlg" cookie="EdBuBuSt" caption="Nazwa kanału|Jaki powód (Reason why)">
 		<control/>
 		<control caption="OK"/>
 		<control caption="Anuluj"/>
 		<control caption="Wprowadź nazwę kanału, który chcesz dodać:|Wprowadź powód kick'a/bana:"/>
 	</dialog>
-	<dialog name="CDownloadReviewDlg" cookie="StBuSyEd" caption="Recenzje">
-		<control/>
+	<dialog name="CDownloadReviewDlg" cookie="BuSyEd" caption="Recenzje">
 		<control caption="OK"/>
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CHelpDlg" cookie="StBuAf" caption="Pomoc Shareazy">
-		<control/>
+	<dialog name="CHelpDlg" cookie="BuAf" caption="Pomoc PeerProject-e">
 		<control caption="Zamknij"/>
 		<control/>
 	</dialog>
@@ -4249,3 +4233,4 @@
 	</list>
 </listColumns>
 </skin>
+쮍

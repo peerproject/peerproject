@@ -3523,7 +3523,7 @@
 		<control caption="Upload bandwidth for this queue:"/>
 		<control/>
 		<control/>
-		<control caption="Rotate after N seconds:"/>
+		<control caption="Rotate after # seconds:"/>
 		<control/>
 		<control/>
 		<control caption="OK"/>
@@ -3572,13 +3572,13 @@
 	</dialog>
 	<dialog name="CWizardFoldersPage" cookie="StStEdBuStEdBuStEdBuSt" caption="Dobrodošli u PeerProject (4/8)">
 		<control caption="PeerProject first downloads partial files to a private folder, then moves them when completed according to Download Groups."/>
-		<control caption="Skinute Datoteke Spremi Ovdje:"/>
-		<control/>
-		<control/>
 		<control caption="Nezavršene Datoteke Spremi Ovdje:"/>
 		<control/>
 		<control/>
-		<control caption="Store .Torrent files here:"/>
+		<control caption="Skinute Datoteke Spremi Ovdje:"/>
+		<control/>
+		<control/>
+		<control caption=".Torrent Datoteke Spremi Ovdje:"/>
 		<control/>
 		<control/>
 		<control caption="Common filetypes are initially setup as subfolders of the default location, but Groups can easily be customized by Right-Click.  Simply Drag&apos;n&apos;Drop files."/>
@@ -3633,8 +3633,7 @@
 		<control caption="Spoji se na mrežu svaki puta kada pokrenem PeerProject"/>
 		<control caption="Uživajte koristeći PeerProject!"/>
 	</dialog>
-	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="Ubaci eDonkey2000 Skidanje">
-		<control/>
+	<dialog name="CDonkeyImportDlg" cookie="StBuBuEdBu" caption="Ubaci eDonkey2000 Skidanje">
 		<control caption="PeerProject je našla da već imate neki eDonkey2000 program instaliran.Želite li ubaciti nedovršena skidanja u PeerProject?"/>
 		<control caption="Da"/>
 		<control caption="Ne|Prekini"/>
@@ -3742,8 +3741,7 @@
 		<control caption="Spoji"/>
 		<control caption="Odustani"/>
 	</dialog>
-	<dialog name="CDownloadDlg" cookie="StStStStEdStBuBuBu" caption="Skini Datoteku ili Torrent">
-		<control/>
+	<dialog name="CDownloadDlg" cookie="StStStEdStBuBuBu" caption="Skini Datoteku ili Torrent">
 		<control/>
 		<control caption="PeerProject može skinuti datoteku sa weba, i automatski potražiti i skinuti P2P linkove. Samo upišite ili zalijepite URL ili URI u polje. &#160; (http:, ftp:, ed2k:, magnet:, etc.)"/>
 		<control caption="PeerProject još može skinuti BitTorrent datoteke.Torrent može biti xyz.torrent datoteka, ili HTTP link na .torrent datoteku.Za skinuti torrent HTTP link, zalijepi ga u gornji prostor.Ako već imate .torrent datoteku, kliknite na Otvori Torrent:"/>
@@ -3964,8 +3962,7 @@
 		<control caption="OK"/>
 		<control caption="Odustani"/>
 	</dialog>
-	<dialog name="CShareManagerDlg" cookie="StStSyBuBuBuBu" caption="Pomoćnik oko Djeljenih Mapa">
-		<control/>
+	<dialog name="CShareManagerDlg" cookie="StSyBuBuBuBu" caption="Pomoćnik oko Djeljenih Mapa">
 		<control caption="Ovdje je lista mapa u vašoj kolekciji.Možete maknuti ili dodati mape koristeći butune na lijevoj strani.When you add a new folder it is initially shared with other users, however you can unshare it from the PeerProject library if you wish."/>
 		<control/>
 		<control caption="Dod_aj..."/>
@@ -3973,8 +3970,7 @@
 		<control caption="OK"/>
 		<control caption="Odustani"/>
 	</dialog>
-	<dialog name="CURLCopyDlg" cookie="StStStStStBuBu" caption="Copy URI">
-		<control/>
+	<dialog name="CURLCopyDlg" cookie="StStStStBuBu" caption="Copy URI">
 		<control caption="You can copy a URI for the selected item in a variety of different formats.Please choose the format you wish to use by clicking one of the URIs below:"/>
 		<control/>
 		<control/>
@@ -3982,8 +3978,7 @@
 		<control caption="Include _myself as a fixed source in the URL"/>
 		<control caption="Odustani"/>
 	</dialog>
-	<dialog name="CURLExportDlg" cookie="StStEdStCoStCoBuBumsBu" caption="Export URIs">
-		<control/>
+	<dialog name="CURLExportDlg" cookie="StEdStCoStCoBuBumsBu" caption="Export URIs">
 		<control caption="You have selected %lu files to export as PeerProject-powered URI references.Please select the format for the URIs, and click Save:"/>
 		<control/>
 		<control caption="Insert Token:"/>
@@ -4027,8 +4022,7 @@
 		<control caption="(kopiram skinute djelove u novi datoteku za pregled)"/>
 		<control caption="Odustani"/>
 	</dialog>
-	<dialog name="CWarningsDlg" cookie="StStStStStStStBu" caption="PeerProject Poštuje Svoje Korisnike">
-		<control/>
+	<dialog name="CWarningsDlg" cookie="StStStStStStBu" caption="PeerProject Poštuje Svoje Korisnike">
 		<control caption="Jeste li znali da je PeerProject 100% besplatni proizvod?"/>
 		<control caption="PeerProject NE SADRŽI &quot;spyware&quot;, &quot;adware&quot; ili ostali loši software. NE prikazuje nikakve reklame ili &quot;popupove&quot;, nikada.{n}{n}Ako ikada vidite reklamu ili &quot;popup&quot; dok koristite PeerProject, možete biti uvjereni da ju NE PRIKAZUJE ovaj program."/>
 		<control caption="Na žalost dosta ostalog softwarea uistinu dolazi sa neželjenim adware ili spyware djelovima, ako vidite nešto sumljivo obavezno provjerite vaš PC sa advertising ili spyware removal programom."/>
@@ -4037,8 +4031,7 @@
 		<control caption="http://PeerProject.org"/>
 		<control caption="Zatvori"/>
 	</dialog>
-	<dialog name="CPromoteDlg" cookie="StStStStStStStBu" caption="Razglasi">
-		<control/>
+	<dialog name="CPromoteDlg" cookie="StStStStStStBu" caption="Razglasi">
 		<control caption="Pomogni Nam Raširiti Riječ"/>
 		<control caption="Nadamo se da uživate koristeći PeerProject.Vjerujemo da je najbolji program za raznjenu datoteka koji postoji."/>
 		<control caption="Nažalost, puno ljudi nezna što propušta koristeći zastarijele programe!"/>
@@ -4060,8 +4053,7 @@
 		<control caption="Odustani"/>
 		<control caption="Ovu datoteku ste već skinuli, pa obrisali.  Što želite učiniti?"/>
 	</dialog>
-	<dialog name="CCloseModeDlg" cookie="StStBuBuBuBuBu" caption="Zatvaranje">
-		<control/>
+	<dialog name="CCloseModeDlg" cookie="StBuBuBuBuBu" caption="Zatvaranje">
 		<control caption="Ovo je prvi puta da zatvarate PeerProject.Molim da odaberete što će PeerProject učiniti kada ubuduće kliknete na zatvori:"/>
 		<control caption="Spusti u tray"/>
 		<control caption="Odmah zatvori PeerProject"/>
@@ -4069,8 +4061,7 @@
 		<control caption="OK"/>
 		<control caption="Odustani"/>
 	</dialog>
-	<dialog name="CDonkeyServersDlg" cookie="StStEdmsBuBu" caption="Download Server.met File">
-		<control/>
+	<dialog name="CDonkeyServersDlg" cookie="StEdmsBuBu" caption="Download Server.met File">
 		<control caption="Možete skinuti eDonkey2000 server.met datoteku sa neta da biobnovili vašu listu servera."/>
 		<control/>
 		<control/>
@@ -4108,8 +4099,7 @@
 		<control caption="_Next|_Export..."/>
 		<control caption="Odustani"/>
 	</dialog>
-	<dialog name="CTorrentSeedDlg" cookie="StStBuBuBuStms" caption="Otvori Torrent Datoteku">
-		<control/>
+	<dialog name="CTorrentSeedDlg" cookie="StBuBuBuStms" caption="Otvori Torrent Datoteku">
 		<control caption="Otvorili ste BitTorrent torrent datoteku.Želite je skinuti, ili re-seed?"/>
 		<control caption="Skini"/>
 		<control caption="Seed"/>
@@ -4205,8 +4195,7 @@
 		<control caption="OK"/>
 		<control caption="Odustani"/>
 	</dialog>
-	<dialog name="CMediaVisDlg" cookie="StBuSyCoBuBuBu" caption="Odaberite Vizualizaciju">
-		<control/>
+	<dialog name="CMediaVisDlg" cookie="BuSyCoBuBuBu" caption="Odaberite Vizualizaciju">
 		<control caption="Odaberi audio vizualizaciju sa popisa:"/>
 		<control/>
 		<control caption="Footer Display|Full Size Display|Large Display|Medium Display|Small Display"/>
@@ -4214,8 +4203,7 @@
 		<control caption="OK"/>
 		<control caption="Odustani"/>
 	</dialog>
-	<dialog name="CUpgradeDlg" cookie="StStStBuBuBu" caption="Uzbuna o Poboljšanju">
-		<control/>
+	<dialog name="CUpgradeDlg" cookie="StStBuBuBu" caption="Uzbuna o Poboljšanju">
 		<control caption="Dostupna je nova verzija PeerProject. Želite li je unaprijediti?"/>
 		<control caption="Ako odaberete Unaprijedi Sad, PeerProject će dodati novu verziju u za skinuti i automatski započeti skidanje."/>
 		<control caption="_Unaprijedi Sad"/>
@@ -4246,14 +4234,12 @@
 		<control caption="Odustani"/>
 		<control caption="Add a channel name:|Enter kick/ban reason:"/>
 	</dialog>
-	<dialog name="CDownloadReviewDlg" cookie="StBuSyEd" caption="Skini Kritike">
-		<control/>
+	<dialog name="CDownloadReviewDlg" cookie="BuSyEd" caption="Skini Kritike">
 		<control caption="OK"/>
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CHelpDlg" cookie="StBuAf" caption="PeerProject Pomoć">
-		<control/>
+	<dialog name="CHelpDlg" cookie="BuAf" caption="PeerProject Pomoć">
 		<control caption="Zatvori"/>
 		<control/>
 	</dialog>

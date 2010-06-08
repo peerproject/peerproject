@@ -55,7 +55,7 @@ CRichElement::CRichElement(int nType, LPCTSTR pszText, LPCTSTR pszLink, DWORD nF
 		m_nFlags |= retfHeading;
 	}
 
-	if ( pszText != NULL )
+	if ( pszText )
 	{
 		if ( ( m_nType == retBitmap || m_nType == retIcon ) && HIWORD(pszText) == 0 )
 			m_sText.Format( _T("%Iu"), (size_t)pszText );
@@ -63,7 +63,8 @@ CRichElement::CRichElement(int nType, LPCTSTR pszText, LPCTSTR pszLink, DWORD nF
 			m_sText = pszText;
 	}
 
-	if ( pszLink != NULL ) m_sLink = pszLink;
+	if ( pszLink )
+		m_sLink = pszLink;
 }
 
 CRichElement::~CRichElement()
@@ -175,10 +176,9 @@ void CRichElement::PrePaint(CDC* pDC, BOOL bHover)
 		break;
 	}
 
-	if ( m_nFlags & retfBold )
+	if ( ( m_nFlags & retfBold ) && ( m_nFlags & retfUnderline ) )
 	{
-		if ( m_nFlags & retfUnderline ) pFont = &m_pDocument->m_fntBoldUnder;
-		else pFont = &m_pDocument->m_fntBold;
+		pFont = ( m_nFlags & retfUnderline ) ? &m_pDocument->m_fntBoldUnder : &m_pDocument->m_fntBold;
 	}
 	else if ( m_nFlags & retfItalic )
 	{
@@ -203,18 +203,20 @@ void CRichElement::PrePaintBitmap(CDC* /*pDC*/)
 
 	if ( _tcsnicmp( m_sText, _T("res:"), 4 ) == 0 )
 	{
-		LPCTSTR pszDot = _tcschr( m_sText, '.' );
-		UINT nID;
+		UINT nID = 0;
+		if ( _stscanf( (LPCTSTR)m_sText + 4, _T("%lu"), &nID ) != 1 )
+			return;
 
-		if ( pszDot == NULL || _stscanf( (LPCTSTR)m_sText + 4, _T("%lu"), &nID ) != 1 ) return;
-
-		m_hImage = CImageFile::LoadBitmapFromResource( nID, pszDot + 1 );
+		m_hImage = CImageFile::LoadBitmapFromResource( nID );
 	}
 	else
 	{
-		CString strFile = Settings.General.Path + '\\' + m_sText;
+		CImageFile pFile;
 
-		m_hImage = CImageFile::LoadBitmapFromFile( strFile );
+		CString strFile = Settings.General.Path + '\\' + m_sText;
+		if ( ! pFile.LoadFromFile( strFile ) ) return;
+		if ( ! pFile.EnsureRGB() ) return;	// ToDo: Support Alpha?
+		m_hImage = pFile.CreateBitmap();
 	}
 }
 

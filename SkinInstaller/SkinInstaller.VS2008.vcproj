@@ -403,15 +403,15 @@
 				>
 			</File>
 			<File
+				RelativePath="Res\Banner.bmp"
+				>
+			</File>
+			<File
 				RelativePath="Res\PeerProject.ico"
 				>
 			</File>
 			<File
 				RelativePath="Res\Skin.ico"
-				>
-			</File>
-			<File
-				RelativePath="Res\Wizard.bmp"
 				>
 			</File>
 		</Filter>

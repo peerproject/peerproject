@@ -690,7 +690,7 @@ BOOL CCoolInterface::DrawEx(CDC* pDC, int nImage, POINT pt, SIZE sz, COLORREF cl
 
 BOOL CCoolInterface::Draw(CDC* pDC, UINT nID, int nSize, int nX, int nY, COLORREF crBack, BOOL bSelected, BOOL bExclude) const
 {
-	HIMAGELIST hList = NULL;
+	HIMAGELIST hList;
 	int nType;
 	switch ( nSize )
 	{
@@ -710,11 +710,10 @@ BOOL CCoolInterface::Draw(CDC* pDC, UINT nID, int nSize, int nX, int nY, COLORRE
 		ASSERT( FALSE );
 		return FALSE;
 	}
-	ASSERT( hList );
+
 	int nImage = ImageForID( nID, nType );
-	ASSERT( nImage != -1 );
-	if ( nImage == -1 )
-		return FALSE;
+	if ( nImage == -1 ) return FALSE;
+
 	BOOL bRet = ImageList_DrawEx( hList, nImage, pDC->GetSafeHdc(),
 		nX, nY, nSize, nSize, crBack, CLR_DEFAULT, bSelected ? ILD_SELECTED : ILD_NORMAL );
 	if ( bExclude && crBack == CLR_NONE )

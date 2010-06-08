@@ -88,8 +88,10 @@ void CHomeViewCtrl::OnSkinChange()
 	m_pDocument.Clear();
 	m_peHeader = m_peSearch = m_peUpgrade = m_peRemote1 = m_peRemote2 = NULL;
 
-	Skin.GetWatermark( &m_bmHeader1, _T("CHomeViewCtrl.Header1") );
-	Skin.GetWatermark( &m_bmHeader2, _T("CHomeViewCtrl.Header2") );
+	if ( ! Skin.GetWatermark( &m_bmHeader1, _T("CHomeViewCtrl.Header") ) )
+		Skin.GetWatermark( &m_bmHeader1, _T("CHomeViewCtrl.Header1") );		// .sks
+	if ( ! Skin.GetWatermark( &m_bmHeader2, _T("CHomeViewCtrl.HeaderRepeat") ) )
+		Skin.GetWatermark( &m_bmHeader2, _T("CHomeViewCtrl.Header2") );		// .sks
 
 	CXMLElement* pXML = Skin.GetDocument( _T("CHomeViewCtrl") );
 	CMap< CString, const CString&, CRichElement*, CRichElement* > pMap;
@@ -141,7 +143,8 @@ void CHomeViewCtrl::Update()
 
 	if ( VersionChecker.IsUpgradeAvailable() )
 	{
-		if ( m_peUpgrade ) m_peUpgrade->SetText( Settings.VersionCheck.UpgradePrompt );
+		if ( m_peUpgrade )
+			m_peUpgrade->SetText( Settings.VersionCheck.UpgradePrompt );
 		m_pDocument.ShowGroup( GROUP_UPGRADE, TRUE );
 	}
 	else
@@ -218,7 +221,8 @@ void CHomeViewCtrl::OnLayoutComplete()
 
 		m_wndSearch.SetWindowPos( NULL, rcAnchor.left, rcAnchor.top, rcAnchor.Width(), rcAnchor.Height(), SWP_SHOWWINDOW|SWP_NOACTIVATE );
 
-		if ( bShowed && GetFocus() == this ) m_wndSearch.SetFocus();
+		if ( bShowed && GetFocus() == this )
+			m_wndSearch.SetFocus();
 	}
 	else
 	{

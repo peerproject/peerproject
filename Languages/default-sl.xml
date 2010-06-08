@@ -3598,10 +3598,10 @@
 	</dialog>
 	<dialog name="CWizardFoldersPage" cookie="StStEdBuStEdBuStEdBuSt" caption="Dobrodošli v PeerProject (4/8)">
 		<control caption="PeerProject first downloads partial files to a private folder, then moves them when completed according to Download Groups."/>
-		<control caption="Shrani dokočane datoteke na tem mestu:"/>
-		<control/>
-		<control/>
 		<control caption="Shrani začasne nedokončane datoteke na tem mestu:"/>
+		<control/>
+		<control/>
+		<control caption="Shrani dokočane datoteke na tem mestu:"/>
 		<control/>
 		<control/>
 		<control caption="Shrani .Torrent datoteke na tem mestu:"/>
@@ -3659,8 +3659,7 @@
 		<control caption="Povežite se v omrežje vsakič kot se zažene program PeerProject"/>
 		<control caption="Obilo užitkov ob uporabi PeerProject!"/>
 	</dialog>
-	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="Uvozi eDonkey2000 prenose">
-		<control/>
+	<dialog name="CDonkeyImportDlg" cookie="StBuBuEdBu" caption="Uvozi eDonkey2000 prenose">
 		<control caption="PeerProject je zaznala, da imate na svojem računalniku nameščen dodaten eDonkey2000 program. Želite uvoziti nedokončane prenose v PeerProject?"/>
 		<control caption="Da"/>
 		<control caption="Ne|Prekliči"/>
@@ -3768,8 +3767,7 @@
 		<control caption="Poveži"/>
 		<control caption="_Prekliči"/>
 	</dialog>
-	<dialog name="CDownloadDlg" cookie="StStStStEdStBuBuBu" caption="Prenesi datoteko kot Torrent">
-		<control/>
+	<dialog name="CDownloadDlg" cookie="StStStEdStBuBuBu" caption="Prenesi datoteko kot Torrent">
 		<control/>
 		<control caption="Prenese datoteke iz spleta in samodejno išče in prenese P2P povezave. Vtipkajte ali prilepite URL ali URI naslov v spodnje okence in pritisnite Enter. &#160; (http:, ftp:, ed2k:, magnet:, etc.)"/>
 		<control caption="Prav tako prenese datoteke BitTorrent. Torrent lahko opišemo, kot neko xyz.torrent datoteko ali povezavo tipa HTTP to .torrent datoteke. Za prenos torrent HTTP povezave prilepite naslov s zgornje okence. Če .torrent datoteko že imate, kliknite na Odpri Torrent:"/>
@@ -3993,8 +3991,7 @@
 		<control caption="V redu"/>
 		<control caption="Prekliči"/>
 	</dialog>
-	<dialog name="CShareManagerDlg" cookie="StStSyBuBuBuBu" caption="Upravljalec deljenih map">
-		<control/>
+	<dialog name="CShareManagerDlg" cookie="StSyBuBuBuBu" caption="Upravljalec deljenih map">
 		<control caption="Tu je naveden seznam map v vaši knjižnici. S pomočjo spodnjih gumbov lahko dodajate in odstranjujete mape. Ko dodate novo mapo je ta takoj na voljo drugim uporabnikom na mreži vendar jo lahko naknadno umaknete iz seznama deljenih map."/>
 		<control/>
 		<control caption="_Dodaj..."/>
@@ -4002,8 +3999,7 @@
 		<control caption="V redu"/>
 		<control caption="Prekliči"/>
 	</dialog>
-	<dialog name="CURLCopyDlg" cookie="StStStStStBuBu" caption="Kopiraj URI">
-		<control/>
+	<dialog name="CURLCopyDlg" cookie="StStStStBuBu" caption="Kopiraj URI">
 		<control caption="Omogočeno vam je kopiranje URI naslova za izbran element v različne oblike oz. formate. Obliko izberete tako, da kliknete na enega od spodnjih URI-jev:"/>
 		<control/>
 		<control/>
@@ -4011,8 +4007,7 @@
 		<control caption="Vključi _me kot stalen vir v URL-ju"/>
 		<control caption="Prekliči"/>
 	</dialog>
-	<dialog name="CURLExportDlg" cookie="StStEdStCoStCoBuBumsBu" caption="Izvozi URI-je">
-		<control/>
+	<dialog name="CURLExportDlg" cookie="StEdStCoStCoBuBumsBu" caption="Izvozi URI-je">
 		<control caption="Izbrali ste %lu datotek za izvoz, kot PeerProject podprto URI referenco. Izberite format URI-ja in kliknite Shrani:"/>
 		<control/>
 		<control caption="Vstavi žeton:"/>
@@ -4056,8 +4051,7 @@
 		<control caption="(kopiranje prenesenih kosov v novo datoteko predogleda)"/>
 		<control caption="Prekliči"/>
 	</dialog>
-	<dialog name="CWarningsDlg" cookie="StStStStStStStBu" caption="PeerProject spoštuje svoje uporabnike">
-		<control/>
+	<dialog name="CWarningsDlg" cookie="StStStStStStBu" caption="PeerProject spoštuje svoje uporabnike">
 		<control caption="Ste vedeli, da je PeerProject 100% brezplačen izdelek?"/>
 		<control caption="PeerProject NE vsebuje &quot;spyware&quot;, &quot;adware&quot; ali drugo neželjeno programje. Nikoli NE prikazuje reklam ali &quot;pop-up&quot; oken.{n}{n}Če boste slučajno naleteli na reklame ali &quot;pop-up&quot; okna med uporabo tega programa ste lahko prepričani, da ne izvirajo od PeerProject."/>
 		<control caption="Na žalost je veliko drugim programskim opremam dodano neželjeno adware ali spyware programje. Če boste opazili kaj sumljivega vam priporočamo, da uporabite programe, ki bodo počistili z vašega računalnika neželjeno programje."/>
@@ -4066,8 +4060,7 @@
 		<control caption="http://PeerProject.org"/>
 		<control caption="Zapri"/>
 	</dialog>
-	<dialog name="CPromoteDlg" cookie="StStStStStStStBu" caption="Dober glas seže v deveto vas">
-		<control/>
+	<dialog name="CPromoteDlg" cookie="StStStStStStBu" caption="Dober glas seže v deveto vas">
 		<control caption="Pomagajte nam širiti dobro besedo o PeerProject"/>
 		<control caption="Upamo, da ste bili do sedaj zadovoljni s PeerProject. Smo mnenja, da je to najboljši program za za deljenje datotek daleč naokoli.."/>
 		<control caption="Na žalost se veliko ljudi, ki deli datoteke po medmrežju, ne ve kaj zamuja!"/>
@@ -4076,8 +4069,7 @@
 		<control caption="http://PeerProject.org"/>
 		<control caption="V redu"/>
 	</dialog>
-	<dialog name="CExistingFileDlg" cookie="StStStStStBuBuBuBuBuStSt" caption="Obstoječa datoteka">
-		<control/>
+	<dialog name="CExistingFileDlg" cookie="StStStStBuBuBuBuBuStSt" caption="Obstoječa datoteka">
 		<control/>
 		<control/>
 		<control/>
@@ -4090,8 +4082,7 @@
 		<control caption="To datoteko ste že prenesli in zbrisali. Kaj želite storiti?"/>
 		<control caption="Warning! Duplicate files detected. Some malicious software may infect your Library. Make sure that you downloaded this file or placed it manually. Otherwise, shutdown PeerProject and scan your computer with an antivirus program."/>
 	</dialog>
-	<dialog name="CCloseModeDlg" cookie="StStBuBuBuBuBu" caption="Zapri gumb">
-		<control/>
+	<dialog name="CCloseModeDlg" cookie="StBuBuBuBuBu" caption="Zapri gumb">
 		<control caption="To je prvič, da ste uporabili PeerProject gumb za zapiranje. Izberite dejanje, ki želite da ga izvede PeerProject, od sedaj naprej, ko boste ponovno klinili na ta-isti gumb:"/>
 		<control caption="Minimiziraj v opravilno vrstico"/>
 		<control caption="Zaključi program"/>
@@ -4099,8 +4090,7 @@
 		<control caption="V redu"/>
 		<control caption="Prekliči"/>
 	</dialog>
-	<dialog name="CDonkeyServersDlg" cookie="StStEdmsBuBu" caption="Prenesi datoteko Server.met">
-		<control/>
+	<dialog name="CDonkeyServersDlg" cookie="StEdmsBuBu" caption="Prenesi datoteko Server.met">
 		<control caption="Prenesete lahko eDonkey2000 server.met datoteko iz spleta. S tem boste osvežili lokalni seznam strežnikov tega omrežja."/>
 		<control/>
 		<control/>
@@ -4138,8 +4128,7 @@
 		<control caption="_Naprej|Izvozi"/>
 		<control caption="_Prekliči"/>
 	</dialog>
-	<dialog name="CTorrentSeedDlg" cookie="StStBuBuBuStms" caption="Odpri Torrent datoteko">
-		<control/>
+	<dialog name="CTorrentSeedDlg" cookie="StBuBuBuStms" caption="Odpri Torrent datoteko">
 		<control caption="Odprli ste BitTorrent torrent datoteko. Želite prenesti njeno vsebino ali pa jo ponovno sejati (re-seed)?"/>
 		<control caption="Prenesi"/>
 		<control caption="Sejaj"/>
@@ -4235,8 +4224,7 @@
 		<control caption="V redu"/>
 		<control caption="Prekliči"/>
 	</dialog>
-	<dialog name="CMediaVisDlg" cookie="StBuSyCoBuBuBu" caption="Izberi vizualizacijo">
-		<control/>
+	<dialog name="CMediaVisDlg" cookie="BuSyCoBuBuBu" caption="Izberi vizualizacijo">
 		<control caption="Izberi vizualizacijo zvoka iz ponujenega seznama:"/>
 		<control/>
 		<control caption="Prikaz v vznožju|Celozaslonski način|Velik prikaz|Srednji prikaz|Mali prikaz"/>
@@ -4244,8 +4232,7 @@
 		<control caption="V redu"/>
 		<control caption="Prekliči"/>
 	</dialog>
-	<dialog name="CUpgradeDlg" cookie="StStStBuBuBu" caption="Opozorilo o posodobitvi">
-		<control/>
+	<dialog name="CUpgradeDlg" cookie="StStBuBuBu" caption="Opozorilo o posodobitvi">
 		<control caption="Na voljo je nova različica programa PeerProject. Jo želite posodobiti?"/>
 		<control caption="Če boste izbrali Posodobi takoj, bo PeerProject dodala posodobitev v vašo prenosno čakalno vrsto in bo tudi samodejno pričela s prenosom."/>
 		<control caption="_Posodobi takoj"/>
@@ -4276,14 +4263,12 @@
 		<control caption="Prekliči"/>
 		<control caption="Enter channel you want to add:|Enter kick/ban reason:"/>
 	</dialog>
-	<dialog name="CDownloadReviewDlg" cookie="StBuSyEd" caption="Ocene prenosov">
-		<control/>
+	<dialog name="CDownloadReviewDlg" cookie="BuSyEd" caption="Ocene prenosov">
 		<control caption="V redu"/>
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CHelpDlg" cookie="StBuAf" caption="PeerProject pomoč">
-		<control/>
+	<dialog name="CHelpDlg" cookie="BuAf" caption="PeerProject pomoč">
 		<control caption="Zapri"/>
 		<control/>
 	</dialog>

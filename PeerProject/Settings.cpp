@@ -139,7 +139,7 @@ void CSettings::Load()
 	Add( _T("Interface"), _T("TipNeighbours"), &Interface.TipNeighbours, true );
 	Add( _T("Interface"), _T("TipMedia"), &Interface.TipMedia, true );
 	Add( _T("Interface"), _T("TipSearch"), &Interface.TipSearch, true );
-	Add( _T("Interface"), _T("TipShadow"), &Interface.TipShadow, true );
+	Add( _T("Interface"), _T("TipShadow"), &Interface.TipShadow, theApp.m_bIsWin2000 ? false : true );
 
 	Add( _T("Windows"), _T("RunWizard"), &Windows.RunWizard, false );
 	Add( _T("Windows"), _T("RunWarnings"), &Windows.RunWarnings, false );
@@ -196,7 +196,7 @@ void CSettings::Load()
 	Add( _T("Library"), _T("UseFolderGUID"), &Library.UseFolderGUID, true );
 	Add( _T("Library"), _T("VirtualFiles"), &Library.VirtualFiles, false );
 	Add( _T("Library"), _T("WatchFolders"), &Library.WatchFolders, true );
-	Add( _T("Library"), _T("WatchFoldersTimeout"), &Library.WatchFoldersTimeout, 5, 1, 1, 60, _T(" s") );
+	Add( _T("Library"), _T("WatchFoldersTimeout"), &Library.WatchFoldersTimeout, 10, 1, 1, 60, _T(" s") );
 	Add( _T("Library"), _T("SmartSeriesDetection"), &Library.SmartSeriesDetection, true );
 
 	Add( _T("WebServices"), _T("BitziAgent"), &WebServices.BitziAgent, _T(".") );

@@ -545,6 +545,10 @@
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
 			<File
+				RelativePath="..\TorrentWizard\Res\Banner.bmp"
+				>
+			</File>
+			<File
 				RelativePath="..\TorrentWizard\Res\Hand.cur"
 				>
 			</File>
@@ -562,10 +566,6 @@
 			</File>
 			<File
 				RelativePath="..\TorrentWizard\Res\Uninstall.ico"
-				>
-			</File>
-			<File
-				RelativePath="..\TorrentWizard\Res\Wizard.bmp"
 				>
 			</File>
 		</Filter>

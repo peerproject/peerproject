@@ -242,9 +242,7 @@ bool CLibrary::OnQueryHits(const CQueryHit* pHits)
 
 CFileList* CLibrary::Search(const CQuerySearch* pSearch, int nMaximum, bool bLocal, bool bAvailableOnly)
 {
-	CSingleLock oLock( &m_pSection );
-
-	if ( ! oLock.Lock( 50 ) ) return NULL;
+	ASSUME_LOCK( m_pSection );
 
 	CFileList* pHits = LibraryMaps.Search( pSearch, nMaximum, bLocal, bAvailableOnly );
 

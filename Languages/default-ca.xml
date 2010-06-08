@@ -3690,7 +3690,7 @@
 		<control caption="Banda ampla per a aquesta cua:"/>
 		<control/>
 		<control/>
-		<control caption="Rota després de N segons:"/>
+		<control caption="Rota després de # segons:"/>
 		<control/>
 		<control/>
 		<control caption="Accepta"/>
@@ -3739,13 +3739,13 @@
 	</dialog>
 	<dialog name="CWizardFoldersPage" cookie="StStEdBuStEdBuStEdBuSt" caption="Benvingut a PeerProject (4/8)">
 		<control caption="PeerProject first downloads partial files to a private folder, then moves them when completed according to Download Groups."/>
-		<control caption="_Carpeta d'arxius completats:"/>
-		<control/>
-		<control/>
 		<control caption="Carpeta d'arxius _incomplets: (temporal)"/>
 		<control/>
 		<control/>
-		<control caption="Store .Torrent files here:"/>
+		<control caption="_Carpeta d'arxius completats:"/>
+		<control/>
+		<control/>
+		<control caption="Carpeta d'arxius ._Torrents:"/>
 		<control/>
 		<control/>
 		<control caption="Common filetypes are initially setup as subfolders of the default location, but Groups can easily be customized by Right-Click.  Simply Drag&apos;n&apos;Drop files."/>
@@ -3800,8 +3800,7 @@
 		<control caption="Connecta a la xarxa cada vegada que s'inici PeerProject"/>
 		<control caption="PeerProject usa la tecnologia més avançada d'intercanvi d'arxius. ¡Gaudeix!."/>
 	</dialog>
-	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="Importa transferències d'eDonkey o eMule">
-		<control/>
+	<dialog name="CDonkeyImportDlg" cookie="StBuBuEdBu" caption="Importa transferències d'eDonkey o eMule">
 		<control caption="PeerProject ha detectat eDonkey o eMule instal·lat. Vols importar les transferències a PeerProject?"/>
 		<control caption="Sí"/>
 		<control caption="No|Cancel·la"/>
@@ -3909,8 +3908,7 @@
 		<control caption="Connecta"/>
 		<control caption="Cancel·la"/>
 	</dialog>
-	<dialog name="CDownloadDlg" cookie="StStStStEdStBuBuBu" caption="Descarrega arxiu o torrent">
-		<control/>
+	<dialog name="CDownloadDlg" cookie="StStStEdStBuBuBu" caption="Descarrega arxiu o torrent">
 		<control/>
 		<control caption="Pot descarregar arxius de la web o enllaços de P2P. Simplement escriu o enganxa l'URI o URL de l'arxiu al requadre. &#160; (http:, ftp:, ed2k:, magnet:, etc.)"/>
 		<control caption="També pot descarregar i compartir arxius de BitTorrent. Els torrent poden ser un arxiu o un URL. Per a descarregar-lo d'un enllaç, posa'l al requadre. Si ja tens l'arxiu del torrent, fes clic."/>
@@ -3964,14 +3962,13 @@
 		<control caption="Cancel·la"/>
 		<control caption="Desa el filtre com"/>
 	</dialog>
-	<dialog name="CDiscoveryServiceDlg" cookie="BuEdStCoBuBuSt" caption="Servei de descobriments">
+	<dialog name="CDiscoveryServiceDlg" cookie="BuEdStCoBuBu" caption="Servei de descobriments">
 		<control caption="Adreça _del servei:"/>
 		<control/>
 		<control caption="Tipus de servei de descobriment:"/>
 		<control caption="Nus Gnutella|GWebCache|Server.met URL"/>
 		<control caption="Sí"/>
 		<control caption="Cancel·la"/>
-		<control/>
 	</dialog>
 	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStBuBuBuBu" caption="Descàrrega">
 		<control caption="..."/>
@@ -4135,8 +4132,7 @@
 		<control caption="Accepta"/>
 		<control caption="Cancel·la"/>
 	</dialog>
-	<dialog name="CShareManagerDlg" cookie="StStSyBuBuBuBu" caption="Controlador de carpetes de la col·lecció">
-		<control/>
+	<dialog name="CShareManagerDlg" cookie="StSyBuBuBuBu" caption="Controlador de carpetes de la col·lecció">
 		<control caption="Aquesta és la llista de carpetes en la col·lecció. Pots afegir o treure carpetes amb els botons de baix a l'esquerra. Quan afegeixes una nova carpeta inicialment es comparteix amb altres usuaris; no obstant, pots deixar de compartir-la des de la llista de carpetes de la col·lecció."/>
 		<control/>
 		<control caption="_Afegeix..."/>
@@ -4144,8 +4140,7 @@
 		<control caption="Accepta"/>
 		<control caption="Cancel·la"/>
 	</dialog>
-	<dialog name="CURLCopyDlg" cookie="StStStStStBuBu" caption="Copiar URI">
-		<control/>
+	<dialog name="CURLCopyDlg" cookie="StStStStBuBu" caption="Copiar URI">
 		<control caption="Pots copiar el URI en diversos formats. Per favor, tria el format que vulgues d'aquests:"/>
 		<control/>
 		<control/>
@@ -4153,8 +4148,7 @@
 		<control caption="Incloure'm com a font fixa a l'URI"/>
 		<control caption="Cancel·la"/>
 	</dialog>
-	<dialog name="CURLExportDlg" cookie="StStEdStCoStCoBuBumsBu" caption="Exporta els URIs">
-		<control/>
+	<dialog name="CURLExportDlg" cookie="StEdStCoStCoBuBumsBu" caption="Exporta els URIs">
 		<control caption="Has seleccionat %lu arxius per a exportar com a referències d'URI per a PeerProject. Si us plau, selecciona el format i fes clic a &quot;Desa&quot;:"/>
 		<control/>
 		<control caption="Inserir camp:"/>
@@ -4198,8 +4192,7 @@
 		<control caption="(copiant l'arxiu a un arxiu de vista prèvia)"/>
 		<control caption="Cancel·la"/>
 	</dialog>
-	<dialog name="CWarningsDlg" cookie="StStStStStStStBu" caption="PeerProject respecta els seus usuaris">
-		<control/>
+	<dialog name="CWarningsDlg" cookie="StStStStStStBu" caption="PeerProject respecta els seus usuaris">
 		<control caption="PeerProject és 100% gratuït."/>
 		<control caption="No conté cap programari espia (&quot;spyware&quot;, &quot;adware&quot;) ni qualsevol altre tipus de programes. PeerProject no té ni propaganda, ni &quot;finestres emergents&quot;, mai.{n}{n}Si apareix alguna cosa, estigues segur que no és causa de PeerProject."/>
 		<control caption="Per desgràcia, hi ha programes que instal·len programes espia o virus. Si us plau, comprova-ho amb programes especialitzats i neteja el teu ordinador."/>
@@ -4208,8 +4201,7 @@
 		<control caption="http://PeerProject.org"/>
 		<control caption="Tanca"/>
 	</dialog>
-	<dialog name="CPromoteDlg" cookie="StStStStStStStBu" caption="Ajuda'ns a fer difusió">
-		<control/>
+	<dialog name="CPromoteDlg" cookie="StStStStStStBu" caption="Ajuda'ns a fer difusió">
 		<control caption="Ajuda'ns a difondre'l"/>
 		<control caption="Esperem que fins ara hagis gaudit de PeerProject. Aquest és el millor programa de compartició d'arxius disponible."/>
 		<control caption="Desafortunadament, hi ha molts usuaris que no el coneixen encara!"/>
@@ -4218,8 +4210,7 @@
 		<control caption="http://PeerProject.org"/>
 		<control caption="Tanca"/>
 	</dialog>
-	<dialog name="CExistingFileDlg" cookie="StStStStStBuBuBuBuBuStSt" caption="L'arxiu ja existeix">
-		<control/>
+	<dialog name="CExistingFileDlg" cookie="StStStStBuBuBuBuBuStSt" caption="L'arxiu ja existeix">
 		<control/>
 		<control/>
 		<control/>
@@ -4232,8 +4223,7 @@
 		<control caption="Ja has descarregat i esborrat aquest arxiu anteriorment.  Qué vols fer?"/>
 		<control caption="Atenció!! S'han detectat arxius duplicats. Potser algun programa maliciós hagi infectat la teva col·lecció. Assegura't que has sigut tu. Si no és així, tanca el PeerProject i escaneja els teus discos durs amb un programa antivíric."/>
 	</dialog>
-	<dialog name="CCloseModeDlg" cookie="StStBuBuBuBuBu" caption="Botó de tancament">
-		<control/>
+	<dialog name="CCloseModeDlg" cookie="StBuBuBuBuBu" caption="Botó de tancament">
 		<control caption="Aquesta és la primera vegada que el botó de tancar ha estat premut. Per favor, selecciona l'acció desitjada a efectuar cada vegada que aquest botó sigui premut:"/>
 		<control caption="Minimitza al costat del rellotge"/>
 		<control caption="Tanca el PeerProject de forma inmediata"/>
@@ -4241,8 +4231,7 @@
 		<control caption="Accepta"/>
 		<control caption="Cancel·la"/>
 	</dialog>
-	<dialog name="CDonkeyServersDlg" cookie="StStEdmsBuBu" caption="Descarrega l'arxiu Server.met">
-		<control/>
+	<dialog name="CDonkeyServersDlg" cookie="StEdmsBuBu" caption="Descarrega l'arxiu Server.met">
 		<control caption="Descarrega el Server.met per a eDonkey de la web per a actualitzar el caxè de servidors."/>
 		<control/>
 		<control/>
@@ -4280,8 +4269,7 @@
 		<control caption="_Següent|Exporta"/>
 		<control caption="_Cancel·la"/>
 	</dialog>
-	<dialog name="CTorrentSeedDlg" cookie="StStBuBuBuStms" caption="Obre un arxiu Torrent">
-		<control/>
+	<dialog name="CTorrentSeedDlg" cookie="StBuBuBuStms" caption="Obre un arxiu Torrent">
 		<control caption="Has obert un arxiu Torrent. Vols tornar a baixar els seus fitxers o tornar a compartir-lo?"/>
 		<control caption="Descarrega"/>
 		<control caption="Comparteix"/>
@@ -4377,8 +4365,7 @@
 		<control caption="Sí"/>
 		<control caption="Cancel·la"/>
 	</dialog>
-	<dialog name="CMediaVisDlg" cookie="StBuSyCoBuBuBu" caption="Selecciona una visualització">
-		<control/>
+	<dialog name="CMediaVisDlg" cookie="BuSyCoBuBuBu" caption="Selecciona una visualització">
 		<control caption="Selecciona una visualització de la llista:"/>
 		<control/>
 		<control caption="Visualització al peu de pantalla|Visualització de mida completa|Visualització gran|Visualització mitjana|Visualització petita"/>
@@ -4386,8 +4373,7 @@
 		<control caption="Sí"/>
 		<control caption="Cancel·la"/>
 	</dialog>
-	<dialog name="CUpgradeDlg" cookie="StStStBuBuBu" caption="Avís d'actualització">
-		<control/>
+	<dialog name="CUpgradeDlg" cookie="StStBuBuBu" caption="Avís d'actualització">
 		<control caption="Una nova versió de PeerProject està disponible. Vols actualitzar el programa?"/>
 		<control caption="Si selecciones actualitzar ara, PeerProject afegirà l' actualització a la teva cua de descàrrega i, automàticament, es descarregarà."/>
 		<control caption="_Actualitza ara"/>
@@ -4418,14 +4404,12 @@
 		<control caption="Cancel·la"/>
 		<control caption="Add a channel name:|Enter kick/ban reason:"/>
 	</dialog>
-	<dialog name="CDownloadReviewDlg" cookie="StBuSyEd" caption="Descarrega ressenyes">
-		<control/>
+	<dialog name="CDownloadReviewDlg" cookie="BuSyEd" caption="Descarrega ressenyes">
 		<control caption="Sí"/>
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CHelpDlg" cookie="StBuAf" caption="Ajuda de PeerProject">
-		<control/>
+	<dialog name="CHelpDlg" cookie="BuAf" caption="Ajuda de PeerProject">
 		<control caption="Tanca"/>
 		<control/>
 	</dialog>

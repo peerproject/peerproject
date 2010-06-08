@@ -3101,7 +3101,7 @@
 		<control caption="Upload bandwidth for this queue:"/>
 		<control/>
 		<control/>
-		<control caption="Rotate after N seconds:"/>
+		<control caption="Rotate after # seconds:"/>
 		<control/>
 		<control/>
 		<control caption="OK"/>
@@ -3150,13 +3150,13 @@
 	</dialog>
 	<dialog name="CWizardFoldersPage" cookie="StStEdBuStEdBuStEdBuSt" caption="피어 프로젝트에 오신 것을 환영합니다 (4/8)">
 		<control caption="PeerProject first downloads partial files to a private folder, then moves them when completed according to Download Groups."/>
-		<control caption="Save Complete files here by default:"/>
-		<control/>
-		<control/>
 		<control caption="Store Incomplete files here temporarily:"/>
 		<control/>
 		<control/>
-		<control caption="Store .Torrent files here:"/>
+		<control caption="Save Complete files here by default:"/>
+		<control/>
+		<control/>
+		<control caption="Save .Torrent files here:"/>
 		<control/>
 		<control/>
 		<control caption="Common filetypes are initially setup as subfolders of the default location, but Groups can easily be customized by Right-Click.  Simply Drag&apos;n&apos;Drop files."/>
@@ -3211,8 +3211,7 @@
 		<control caption="Connect to the network every time I start PeerProject"/>
 		<control caption="Enjoy using PeerProject p2p."/>
 	</dialog>
-	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="Import eDonkey Downloads">
-		<control/>
+	<dialog name="CDonkeyImportDlg" cookie="StBuBuEdBu" caption="Import eDonkey Downloads">
 		<control caption="PeerProject has detected that you have another eDonkey program installed on your computer. Would you like to import any unfinished downloads into PeerProject?"/>
 		<control caption="예"/>
 		<control caption="아니오|취소"/>
@@ -3320,8 +3319,7 @@
 		<control caption="Connect"/>
 		<control caption="취소"/>
 	</dialog>
-	<dialog name="CDownloadDlg" cookie="StStStStEdStBuBuBu" caption="Download File from Link">
-		<control/>
+	<dialog name="CDownloadDlg" cookie="StStStEdStBuBuBu" caption="Download File from Link">
 		<control/>
 		<control caption="New files can be downloaded directly from Web and P2P links.  Simply copy/paste the URL or URI link for the file into the box below. &#160; (http:, ftp:, ed2k:, magnet:, etc.)"/>
 		<control caption="A small .torrent file is needed to begin BitTorrent downloads.  Paste the .torrent's direct link above, or select a local .torrent file. (Use drag'n'drop any time.)"/>
@@ -3375,14 +3373,13 @@
 		<control caption="취소"/>
 		<control caption="Save the current filter as"/>
 	</dialog>
-	<dialog name="CDiscoveryServiceDlg" cookie="BuEdStCoBuBuSt" caption="Discovery Service">
+	<dialog name="CDiscoveryServiceDlg" cookie="BuEdStCoBuBu" caption="Discovery Service">
 		<control caption="Service Address:"/>
 		<control/>
 		<control caption="Discovery Service Type:"/>
 		<control caption="Gnutella Bootstrap|G1-WebCache|G2-WebCache|G1+G2-WebCache|Server.met URL|Blocked"/>
 		<control caption="OK"/>
 		<control caption="취소"/>
-		<control/>
 	</dialog>
 	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStBuBuBuBu" caption="다운로드">
 		<control caption="..."/>
@@ -3546,8 +3543,7 @@
 		<control caption="OK"/>
 		<control caption="취소"/>
 	</dialog>
-	<dialog name="CShareManagerDlg" cookie="StStSyBuBuBuBu" caption="Shared Folder Manager">
-		<control/>
+	<dialog name="CShareManagerDlg" cookie="StSyBuBuBuBu" caption="Shared Folder Manager">
 		<control caption="This is a list of folders in your library. You can add and remove folders using the buttons on the left. When you add a new folder it is initially shared with other users, however you can unshare it from the PeerProject library if you wish."/>
 		<control/>
 		<control caption="Add..."/>
@@ -3555,8 +3551,7 @@
 		<control caption="OK"/>
 		<control caption="취소"/>
 	</dialog>
-	<dialog name="CURLCopyDlg" cookie="StStStStStBuBu" caption="Copy URI (P2P Link)">
-		<control/>
+	<dialog name="CURLCopyDlg" cookie="StStStStBuBu" caption="Copy URI (P2P Link)">
 		<control caption="You can copy a URI for the selected item in a variety of different formats. Please choose the format you wish to use by clicking one of the URIs below:"/>
 		<control/>
 		<control/>
@@ -3564,8 +3559,7 @@
 		<control caption="Include myself as a fixed source in the URL"/>
 		<control caption="취소"/>
 	</dialog>
-	<dialog name="CURLExportDlg" cookie="StStEdStCoStCoBuBumsBu" caption="Export URIs (P2P Links)">
-		<control/>
+	<dialog name="CURLExportDlg" cookie="StEdStCoStCoBuBumsBu" caption="Export URIs (P2P Links)">
 		<control caption="You have selected %lu files to export as PeerProject-powered URI references. Please select the format for the URIs, and click Save:"/>
 		<control/>
 		<control caption="Insert Token:"/>
@@ -3609,8 +3603,7 @@
 		<control caption="(Copying downloaded chunks to a new preview file)"/>
 		<control caption="취소"/>
 	</dialog>
-	<dialog name="CWarningsDlg" cookie="StStStStStStStBu" caption="PeerProject Respects its Users">
-		<control/>
+	<dialog name="CWarningsDlg" cookie="StStStStStStBu" caption="PeerProject Respects its Users">
 		<control caption="Did you know PeerProject is 100% free software?"/>
 		<control caption="PeerProject does not contain any spyware, adware or bundled software;{n}it does not display any advertisements, popups, or other bad behavior.{n}{n}If you ever see such activity be assured that it is not coming from this program."/>
 		<control caption="PeerProject is proud to be Free and Open-Source Software.  A non-profit team of passionate volunteers shares this product with all the freedoms of GPL and Creative Commons Licenses, in the hope that it might be useful."/>
@@ -3619,8 +3612,7 @@
 		<control caption="http://PeerProject.org"/>
 		<control caption="닫기"/>
 	</dialog>
-	<dialog name="CPromoteDlg" cookie="StStStStStStStBu" caption="Spread the Word">
-		<control/>
+	<dialog name="CPromoteDlg" cookie="StStStStStStBu" caption="Spread the Word">
 		<control caption="Help Spread the Word"/>
 		<control caption="Hope you've enjoyed using PeerProject so far, it strives to be the best true file sharing software available."/>
 		<control caption="Unfortunately, a lot of potential filesharers don't know what they're missing."/>
@@ -3629,8 +3621,7 @@
 		<control caption="http://PeerProject.org"/>
 		<control caption="OK"/>
 	</dialog>
-	<dialog name="CExistingFileDlg" cookie="StStStStStBuBuBuBuBuStSt" caption="Existing File">
-		<control/>
+	<dialog name="CExistingFileDlg" cookie="StStStStBuBuBuBuBuStSt" caption="Existing File">
 		<control/>
 		<control/>
 		<control/>
@@ -3643,8 +3634,7 @@
 		<control caption="You have downloaded and deleted this file before. What would you like to do?"/>
 		<control caption="Warning! Duplicate files detected. Some malicious software may infect your Library. Make sure that you downloaded this file or placed it manually. Otherwise, shutdown PeerProject and scan your computer with an antivirus program."/>
 	</dialog>
-	<dialog name="CCloseModeDlg" cookie="StStBuBuBuBuBu" caption="Close Button">
-		<control/>
+	<dialog name="CCloseModeDlg" cookie="StBuBuBuBuBu" caption="Close Button">
 		<control caption="This is the first time you have clicked PeerProject's close button. Please choose what action you would like PeerProject to take when clicking the close button from now on:"/>
 		<control caption="Minimize to the tray area"/>
 		<control caption="Shut down PeerProject immediately"/>
@@ -3652,8 +3642,7 @@
 		<control caption="OK"/>
 		<control caption="취소"/>
 	</dialog>
-	<dialog name="CDonkeyServersDlg" cookie="StStEdmsBuBu" caption="Download Server.met File">
-		<control/>
+	<dialog name="CDonkeyServersDlg" cookie="StEdmsBuBu" caption="Download Server.met File">
 		<control caption="You can download an eDonkey server.met file from the web to refresh your local list of servers."/>
 		<control/>
 		<control/>
@@ -3691,8 +3680,7 @@
 		<control caption="Next|Export..."/>
 		<control caption="Cancel"/>
 	</dialog>
-	<dialog name="CTorrentSeedDlg" cookie="StStBuBuBuStms" caption="Open Torrent File">
-		<control/>
+	<dialog name="CTorrentSeedDlg" cookie="StBuBuBuStms" caption="Open Torrent File">
 		<control caption="You have opened a BitTorrent torrent file. Would you like to download its contents, or re-seed it?"/>
 		<control caption="다운로드"/>
 		<control caption="Seed"/>
@@ -3788,8 +3776,7 @@
 		<control caption="OK"/>
 		<control caption="취소"/>
 	</dialog>
-	<dialog name="CMediaVisDlg" cookie="StBuSyCoBuBuBu" caption="Select Visualisation">
-		<control/>
+	<dialog name="CMediaVisDlg" cookie="BuSyCoBuBuBu" caption="Select Visualisation">
 		<control caption="Select an audio visualisation from the list:"/>
 		<control/>
 		<control caption="Footer Display|Full Size Display|Large Display|Medium Display|Small Display"/>
@@ -3797,8 +3784,7 @@
 		<control caption="OK"/>
 		<control caption="취소"/>
 	</dialog>
-	<dialog name="CUpgradeDlg" cookie="StStStBuBuBu" caption="Upgrade Alert">
-		<control/>
+	<dialog name="CUpgradeDlg" cookie="StStBuBuBu" caption="Upgrade Alert">
 		<control caption="A new version of PeerProject is now available. Would you like to upgrade?"/>
 		<control caption="If you select Upgrade Now, PeerProject will add the upgrade to your download queue and automatically begin downloading it."/>
 		<control caption="Upgrade Now"/>

@@ -3436,7 +3436,7 @@
 		<control caption="Opplastingsbåndbredde for denne køen:"/>
 		<control/>
 		<control/>
-		<control caption="Roter etter N sekunder:"/>
+		<control caption="Roter etter # sekunder:"/>
 		<control/>
 		<control/>
 		<control caption="OK"/>
@@ -3485,10 +3485,10 @@
 	</dialog>
 	<dialog name="CWizardFoldersPage" cookie="StStEdBuStEdBuStEdBuSt" caption="Velkommen til PeerProject (4/8)">
 		<control caption="PeerProject first downloads partial files to a private folder, then moves them when completed according to Download Groups."/>
-		<control caption="Lagre ferdige filer her:"/>
-		<control/>
-		<control/>
 		<control caption="Lagre midlertidige filer her:"/>
+		<control/>
+		<control/>
+		<control caption="Lagre ferdige filer her:"/>
 		<control/>
 		<control/>
 		<control caption="Lagre .Torrent filer her:"/>
@@ -3546,8 +3546,7 @@
 		<control caption="Koble til nettverket hver gang jeg starter PeerProject"/>
 		<control caption="Kos deg med PeerProject!"/>
 	</dialog>
-	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="Importer eDonkey2000 nedlastinger">
-		<control/>
+	<dialog name="CDonkeyImportDlg" cookie="StBuBuEdBu" caption="Importer eDonkey2000 nedlastinger">
 		<control caption="PeerProject har oppdaget at du har et annet eDonkey2000 program installert på pc-en.  Vil du importere uferdige nedlastinger til PeerProject?"/>
 		<control caption="Ja"/>
 		<control caption="Nei|Avbryt"/>
@@ -3655,8 +3654,7 @@
 		<control caption="Koble til"/>
 		<control caption="Avbryt"/>
 	</dialog>
-	<dialog name="CDownloadDlg" cookie="StStStStEdStBuBuBu" caption="Last ned fil eller torrent">
-		<control/>
+	<dialog name="CDownloadDlg" cookie="StStStEdStBuBuBu" caption="Last ned fil eller torrent">
 		<control/>
 		<control caption="PeerProject kan laste ned filer fra nettet, og automatisk søke og laste ned P2P linker. Bare skriv inn URL eller URI som beskriver filen i vinduet under og trykk Enter. &#160; (http:, ftp:, ed2k:, magnet:, etc.)"/>
 		<control caption="PeerProject kan også laste ned BitTorrent filer.  En torrent kan bli beskrevet av en xyz.torrent fil, eller en HTTP-link til .torrent-filen.  For å laste ned en torrent HTTP-link, lim den inn i vinduet over.  Hvis du allerede har en .torrent-fil, Klikk Åpne Torrent:"/>
@@ -3710,14 +3708,13 @@
 		<control caption="Avbryt"/>
 		<control caption="Lagre nåværende filter som"/>
 	</dialog>
-	<dialog name="CDiscoveryServiceDlg" cookie="BuEdStCoBuBuSt" caption="Oppdagelsestjeneste">
+	<dialog name="CDiscoveryServiceDlg" cookie="BuEdStCoBuBu" caption="Oppdagelsestjeneste">
 		<control caption="Tjenesteadresse:"/>
 		<control/>
 		<control caption="Oppdagelsestjeneste-type:"/>
 		<control caption="Gnutella Bootstrap|GWebCache|Server.met URL"/>
 		<control caption="OK"/>
 		<control caption="Avbryt"/>
-		<control/>
 	</dialog>
 	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStBuBuBuBu" caption="Nedlasting">
 		<control caption="..."/>
@@ -3881,8 +3878,7 @@
 		<control caption="OK"/>
 		<control caption="Avbryt"/>
 	</dialog>
-	<dialog name="CShareManagerDlg" cookie="StStSyBuBuBuBu" caption="Delte mapper">
-		<control/>
+	<dialog name="CShareManagerDlg" cookie="StSyBuBuBuBu" caption="Delte mapper">
 		<control caption="Dette er en liste over mapper i mine filer. Du kan legge til og fjerne mapper med knappene til høyre. Når du legger til en mappe blir den automatisk delt med andre brukere, men du kan skru av delingen hvis du vil."/>
 		<control/>
 		<control caption="_Legg til..."/>
@@ -3890,8 +3886,7 @@
 		<control caption="OK"/>
 		<control caption="Avbryt"/>
 	</dialog>
-	<dialog name="CURLCopyDlg" cookie="StStStStStBuBu" caption="Kopier URI">
-		<control/>
+	<dialog name="CURLCopyDlg" cookie="StStStStBuBu" caption="Kopier URI">
 		<control caption="Du kan kopiere en URI til valgte objekt på flere forskjellige måter.  Vennligst velg en av URI-typene du ønsker å bruke under:"/>
 		<control/>
 		<control/>
@@ -3899,8 +3894,7 @@
 		<control caption="Inkluder _meg som en fast kilde i URL"/>
 		<control caption="Avbryt"/>
 	</dialog>
-	<dialog name="CURLExportDlg" cookie="StStEdStCoStCoBuBumsBu" caption="Eksporter URI">
-		<control/>
+	<dialog name="CURLExportDlg" cookie="StEdStCoStCoBuBumsBu" caption="Eksporter URI">
 		<control caption="Du har valgt %lu filer som skal eksporteres ved hjelp av PeerProjects URI-referanse.  Vennligst velg hvilket format URI, og klikk Lagre:"/>
 		<control/>
 		<control caption="Sett inn merke:"/>
@@ -3944,8 +3938,7 @@
 		<control caption="(kopierer nedlastede deler til en ny forhåndsvisning)"/>
 		<control caption="Avbryt"/>
 	</dialog>
-	<dialog name="CWarningsDlg" cookie="StStStStStStStBu" caption="PeerProject respekterer sine brukere">
-		<control/>
+	<dialog name="CWarningsDlg" cookie="StStStStStStBu" caption="PeerProject respekterer sine brukere">
 		<control caption="Visste du at PeerProject er et 100% gratis produkt?"/>
 		<control caption="PeerProject inneholder IKKE &quot;spyware&quot;, &quot;adware&quot; eller annet software. Det viser ingen reklamer eller &quot;popups&quot;,.{n}{n}Hvis du ser reklame eller &quot;popups&quot; når du bruker PeerProject, ær sikker det kommer IKKE fra PeerProject."/>
 		<control caption="Uheldigvis kommer mye programvare med uønsket adware eller spyware, så hvis du ser noe suspekt kan det være lurt å sjekke pc-en med et reklame eller spyware fjerningsprogram."/>
@@ -3954,8 +3947,7 @@
 		<control caption="http://PeerProject.org"/>
 		<control caption="Lukk"/>
 	</dialog>
-	<dialog name="CPromoteDlg" cookie="StStStStStStStBu" caption="Spre ryktet">
-		<control/>
+	<dialog name="CPromoteDlg" cookie="StStStStStStBu" caption="Spre ryktet">
 		<control caption="Hjelp oss å spre ryktet"/>
 		<control caption="Vi håper du syns PeerProject er et bra program. Vi mener at det er det beste fildelingsprogrammet som finnes."/>
 		<control caption="Uheldigvis vet ikke alle fildelere hva de går glipp av!"/>
@@ -3964,8 +3956,7 @@
 		<control caption="http://PeerProject.org"/>
 		<control caption="OK"/>
 	</dialog>
-	<dialog name="CExistingFileDlg" cookie="StStStStStBuBuBuBuBuStSt" caption="Laste ned fil på nytt">
-		<control/>
+	<dialog name="CExistingFileDlg" cookie="StStStStBuBuBuBuBuStSt" caption="Laste ned fil på nytt">
 		<control/>
 		<control/>
 		<control/>
@@ -3978,8 +3969,7 @@
 		<control caption="Du har lastet ned og slettet denne filen før. Hva vil du gjøre?"/>
 		<control caption=""/>
 	</dialog>
-	<dialog name="CCloseModeDlg" cookie="StStBuBuBuBuBu" caption="Lukkeknapp">
-		<control/>
+	<dialog name="CCloseModeDlg" cookie="StBuBuBuBuBu" caption="Lukkeknapp">
 		<control caption="Dette er første gang du bruker PeerProject's lukkeknapp.  Vennligst velg hva PeerProject skal gjøre når du trykker på lukk knappen fra nå av:"/>
 		<control caption="Minimer til systemfeltet"/>
 		<control caption="Lukk PeerProject umiddelbart"/>
@@ -3987,8 +3977,7 @@
 		<control caption="OK"/>
 		<control caption="Avbryt"/>
 	</dialog>
-	<dialog name="CDonkeyServersDlg" cookie="StStEdmsBuBu" caption="Last ned server.met fil">
-		<control/>
+	<dialog name="CDonkeyServersDlg" cookie="StEdmsBuBu" caption="Last ned server.met fil">
 		<control caption="Du kan laste ned en eDonkey2000 server.met fil fra nettet for å oppdatere listen med servere."/>
 		<control/>
 		<control/>
@@ -4026,8 +4015,7 @@
 		<control caption="_Next|_Eksporter:..."/>
 		<control caption="Avbryt"/>
 	</dialog>
-	<dialog name="CTorrentSeedDlg" cookie="StStBuBuBuStms" caption="Åpne torrent-fil">
-		<control/>
+	<dialog name="CTorrentSeedDlg" cookie="StBuBuBuStms" caption="Åpne torrent-fil">
 		<control caption="Du har åpnet en BitTorrent-fil. Ønsker du å laste den ned på nytt eller spre den?"/>
 		<control caption="Last ned"/>
 		<control caption="Spre"/>
@@ -4123,8 +4111,7 @@
 		<control caption="OK"/>
 		<control caption="Avbryt"/>
 	</dialog>
-	<dialog name="CMediaVisDlg" cookie="StBuSyCoBuBuBu" caption="Velg effekter">
-		<control/>
+	<dialog name="CMediaVisDlg" cookie="BuSyCoBuBuBu" caption="Velg effekter">
 		<control caption="Velg en audio-visuell effekt fra listen:"/>
 		<control/>
 		<control caption="Minibilde|Fullstørrelse|Stort bilde|Medium bilde|Lite bilde"/>
@@ -4132,8 +4119,7 @@
 		<control caption="OK"/>
 		<control caption="Avbryt"/>
 	</dialog>
-	<dialog name="CUpgradeDlg" cookie="StStStBuBuBu" caption="Oppdateringsvarsel">
-		<control/>
+	<dialog name="CUpgradeDlg" cookie="StStBuBuBu" caption="Oppdateringsvarsel">
 		<control caption="En ny versjon av PeerProject er tilgjengelig. Ønsker du å oppgradere?"/>
 		<control caption="Hvis du velger å oppgradere nå, vil PeerProject legge til oppgraderingen i nedlastingene dine og automatisk starte nedlatningen."/>
 		<control caption="_Oppgrader nå"/>
@@ -4164,14 +4150,12 @@
 		<control caption="Avbryt"/>
 		<control caption="Add a channel name:|Enter kick/ban reason:"/>
 	</dialog>
-	<dialog name="CDownloadReviewDlg" cookie="StBuSyEd" caption="Omtaler av nedlasting">
-		<control/>
+	<dialog name="CDownloadReviewDlg" cookie="BuSyEd" caption="Omtaler av nedlasting">
 		<control caption="OK"/>
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CHelpDlg" cookie="StBuAf" caption="PeerProject hjelp">
-		<control/>
+	<dialog name="CHelpDlg" cookie="BuAf" caption="PeerProject hjelp">
 		<control caption="Lukk"/>
 		<control/>
 	</dialog>

@@ -68,6 +68,7 @@
 	<resource code="322" id="IDI_RATING_FAKE"/>
 	<resource code="323" id="IDI_RATING_AVERAGE"/>
 	<resource code="324" id="IDI_RATING_GOOD"/>
+	<resource code="325" id="IDI_WIZARD_DOT"/>
 	<resource code="994" id="WINDOW_IRC"/>
 	<resource code="999" id="IDB_IRCICONS"/>
 	<resource code="1006" id="IDI_COMPUTER"/>

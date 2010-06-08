@@ -23,8 +23,8 @@
 #include "PeerProject.h"
 #include "DlgLanguage.h"
 #include "Settings.h"
+#include "SkinWindow.h"
 #include "Colors.h"
-//#include "SkinWindow.h"
 #include "XML.h"
 
 #ifdef _DEBUG
@@ -50,7 +50,6 @@ BEGIN_MESSAGE_MAP(CLanguageDlg, CSkinDialog)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
-//#define HEADING_HEIGHT 50	(BANNER_CY)
 #define ITEM_HEIGHT		38
 #define ITEM_WIDTH		200
 #define ITEM_ROWS		11
@@ -81,7 +80,7 @@ BOOL CLanguageDlg::OnInitDialog()
 
 	CWaitCursor pCursor;
 
-	//SkinMe( _T("CLanguageDlg"), ID_TOOLS_LANGUAGE );
+	SkinMe( _T("CLanguageDlg"), ID_TOOLS_LANGUAGE );
 
 	m_hArrow	= theApp.LoadStandardCursor( IDC_ARROW );
 	m_hHand		= theApp.LoadCursor( IDC_HAND );
@@ -110,7 +109,8 @@ BOOL CLanguageDlg::OnInitDialog()
 	m_nDown		= 0;
 	m_bKeyMode	= FALSE;
 
-	CRect rc( 0, 0, ITEM_WIDTH * 3 + GetSystemMetrics( SM_CXVSCROLL ), ITEM_HEIGHT * ITEM_ROWS + BANNER_CY );
+	CRect rc( 0, 0, ITEM_WIDTH * 3 /*+ GetSystemMetrics( SM_CXVSCROLL )*/,
+		ITEM_HEIGHT * ITEM_ROWS + Skin.m_nBanner );
 
 	SCROLLINFO pScroll = {};
 	pScroll.cbSize	= sizeof(pScroll);
@@ -120,9 +120,9 @@ BOOL CLanguageDlg::OnInitDialog()
 	pScroll.nPage	= ITEM_ROWS + 1;
 	SetScrollInfo( SB_VERT, &pScroll, TRUE );
 
-	//if ( m_pSkin )
-	//	m_pSkin->CalcWindowRect( &rc );
-	//else
+	if ( m_pSkin )
+		m_pSkin->CalcWindowRect( &rc );
+	else
 		CalcWindowRect( &rc, adjustBorder );
 
 	rc.OffsetRect(	GetSystemMetrics( SM_CXSCREEN ) / 2 -  rc.Width() / 2 - rc.left,
@@ -159,13 +159,13 @@ void CLanguageDlg::OnPaint()
 	// Obsolete:
 	//CDC mdc;
 	//mdc.CreateCompatibleDC( &dc );
-	//m_bmHeader.LoadBitmap( IDB_WIZARD );
+	//m_bmHeader.LoadBitmap( IDB_BANNER );
 	//CBitmap* pOldBmp = (CBitmap*)mdc.SelectObject( &m_bmHeader );
-	//dc.BitBlt( 0, 0, rc.Width(), BANNER_CY, &mdc, 0, 0, SRCCOPY );
+	//dc.BitBlt( 0, 0, rc.Width(), GetBannerHeight(), &mdc, 0, 0, SRCCOPY );
 	//mdc.SelectObject( pOldBmp );
 	//mdc.DeleteDC();
 
-	rc.top += BANNER_CY;
+	rc.top += Skin.m_nBanner;
 	rc.right = rc.left + ITEM_WIDTH;
 	CFont* pOldFont = (CFont*)dc.SelectObject( &m_fntNormal );
 
@@ -334,7 +334,7 @@ void CLanguageDlg::OnMouseMove(UINT nFlags, CPoint point)
 	int nScroll = GetScrollPos( SB_VERT );
 
 	GetClientRect( &rc );
-	rc.top += BANNER_CY;
+	rc.top += Skin.m_nBanner;
 
 	if ( rc.PtInRect( point ) )
 	{
@@ -366,7 +366,7 @@ BOOL CLanguageDlg::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 		GetCursorPos( &pt );
 		ScreenToClient( &pt );
 
-		SetCursor( pt.y > BANNER_CY && m_nHover - 2 < m_pGUIDirs.GetSize() ? m_hHand : m_hArrow );
+		SetCursor( pt.y > Skin.m_nBanner && m_nHover - 2 < m_pGUIDirs.GetSize() ? m_hHand : m_hArrow );
 		return TRUE;
 	}
 
@@ -626,7 +626,7 @@ BOOL CLanguageDlg::AddSkin(LPCTSTR pszPath, LPCTSTR pszName)
 
 	delete pXML;
 
-	if ( pszPath != NULL ) strXML += pszPath;
+	if ( pszPath ) strXML += pszPath;
 	strXML += pszName;
 
 	m_pPaths.Add( strXML );

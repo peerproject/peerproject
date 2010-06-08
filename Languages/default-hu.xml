@@ -3797,13 +3797,13 @@
 	</dialog>
 	<dialog name="CWizardFoldersPage" cookie="StStEdBuStEdBuStEdBuSt" caption="Köszöntöm a PeerProject (4/8)">
 		<control caption="PeerProject first downloads partial files to a private folder, then moves them when completed according to Download Groups."/>
-		<control caption="Kész letöltések mappája"/>
-		<control/>
-		<control/>
 		<control caption="Félkész letöltések mappája"/>
 		<control/>
 		<control/>
-		<control caption="Store .Torrent files here:"/>
+		<control caption="Kész letöltések mappája"/>
+		<control/>
+		<control/>
+		<control caption=".Torrent letöltések mappája:"/>
 		<control/>
 		<control/>
 		<control caption="Common filetypes are initially setup as subfolders of the default location, but Groups can easily be customized by Right-Click.  Simply Drag&apos;n&apos;Drop files."/>
@@ -3858,8 +3858,7 @@
 		<control caption="Minden PeerProject indításkor kapcsolódik"/>
 		<control caption="Használja a PeerProject! :D"/>
 	</dialog>
-	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="eDonkey letöltések importálása">
-		<control/>
+	<dialog name="CDonkeyImportDlg" cookie="StBuBuEdBu" caption="eDonkey letöltések importálása">
 		<control caption="A PeerProject észlelte, hogy egy másik eDonkey klines is van az ön gépén. Szeretné, hogy a PeerProject importálja a félkész letöltéseit?"/>
 		<control caption="Igen"/>
 		<control caption="Nem|Mégse"/>
@@ -3967,8 +3966,7 @@
 		<control caption="Kapcsolódás"/>
 		<control caption="Mégse"/>
 	</dialog>
-	<dialog name="CDownloadDlg" cookie="StStStStEdStBuBuBu" caption="Torrent vagy fájl letöltése">
-		<control/>
+	<dialog name="CDownloadDlg" cookie="StStStEdStBuBuBu" caption="Torrent vagy fájl letöltése">
 		<control/>
 		<control caption="A weboldalakról is le tud tölteni és a p2p linkeket is kezeli. Írja ide a letöltendő fájl elérési útvonalát. &#160; (http:, ftp:, ed2k:, magnet:, etc.)"/>
 		<control caption="BitTorrent fájlok: Egy torrent lehet egy .torrent fájl vagy egy HTTP link, ami elvezet a .torrent fájlhoz. A torrent elérési útvonalát csak másolja be a felső ablakba. Ha már rendelkezik .torrent fájllal, kattintson a Torrent megnyitása gombra:"/>
@@ -4022,14 +4020,13 @@
 		<control caption="Mégse"/>
 		<control caption="Jelenlegi szűrő mentése másként"/>
 	</dialog>
-	<dialog name="CDiscoveryServiceDlg" cookie="BuEdStCoBuBuSt" caption="Szerverkereső szolgáltatás hozzáadása">
+	<dialog name="CDiscoveryServiceDlg" cookie="BuEdStCoBuBu" caption="Szerverkereső szolgáltatás hozzáadása">
 		<control caption="Szolgáltatás _címe"/>
 		<control/>
 		<control caption="Típusa:"/>
 		<control caption="Gnutella Bootstrap|GWebCache|Server.met URL|Blokkolva"/>
 		<control caption="OK"/>
 		<control caption="Mégse"/>
-		<control/>
 	</dialog>
 	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStBuBuBuBu" caption="Letöltés folyamatban">
 		<control caption="..."/>
@@ -4193,8 +4190,7 @@
 		<control caption="OK"/>
 		<control caption="Mégse"/>
 	</dialog>
-	<dialog name="CShareManagerDlg" cookie="StStSyBuBuBuBu" caption="Megosztott mappák">
-		<control/>
+	<dialog name="CShareManagerDlg" cookie="StSyBuBuBuBu" caption="Megosztott mappák">
 		<control caption="Az itt felvett mappák automatikusan megosztásra kerülnek, de később letilthatja a megoszásukat a Könyvtárban."/>
 		<control/>
 		<control caption="_Hozzáad..."/>
@@ -4202,8 +4198,7 @@
 		<control caption="OK"/>
 		<control caption="Mégse"/>
 	</dialog>
-	<dialog name="CURLCopyDlg" cookie="StStStStStBuBu" caption="URI másolása">
-		<control/>
+	<dialog name="CURLCopyDlg" cookie="StStStStBuBu" caption="URI másolása">
 		<control caption="Különböző formátumokban másolhatja le a kiválasztott URI-t. Válasza ki az önnek legmegfelelőbbet és másolja le:"/>
 		<control/>
 		<control/>
@@ -4211,8 +4206,7 @@
 		<control caption="Engem, mint forrást fölvenni az URI-be"/>
 		<control caption="Mégse"/>
 	</dialog>
-	<dialog name="CURLExportDlg" cookie="StStEdStCoStCoBuBumsBu" caption="URL exportálása">
-		<control/>
+	<dialog name="CURLExportDlg" cookie="StEdStCoStCoBuBumsBu" caption="URL exportálása">
 		<control caption="%lu fájlt választott ki URI exportálásra. Válasza ki a megfelelő formátumot és kattintson a Mentés gombra."/>
 		<control/>
 		<control caption="Adatok:"/>
@@ -4256,8 +4250,7 @@
 		<control caption="(letöltött részek összeszedése az előnézethez)"/>
 		<control caption="Mégse"/>
 	</dialog>
-	<dialog name="CWarningsDlg" cookie="StStStStStStStBu" caption="A PeerProject tiszteli a felhasználóit">
-		<control/>
+	<dialog name="CWarningsDlg" cookie="StStStStStStBu" caption="A PeerProject tiszteli a felhasználóit">
 		<control caption="Tudta, hogy a PeerProject egy teljesen ingyenes termék?"/>
 		<control caption="A PeerProject SEMMILYEN &quot;kémprogramot&quot;, &quot;reklámot&quot; és hasonló programot NEM tartalmaz. SEMMILYEN &quot;felugró ablak&quot; NEM található benne.{n}{n}Ha mégis megjelenne ilyesmi, akkor az nem a PeerProjectól származik!"/>
 		<control caption="Ellenben más programok tartalmazhatnak reklámot és/vagy kémprogramot. Ha ilyenekkel találkozik, futtasson le egy reklám- és kémprogram írtó programot."/>
@@ -4266,8 +4259,7 @@
 		<control caption="http://PeerProject.org"/>
 		<control caption="Bezárás"/>
 	</dialog>
-	<dialog name="CPromoteDlg" cookie="StStStStStStStBu" caption="Terjesztés">
-		<control/>
+	<dialog name="CPromoteDlg" cookie="StStStStStStBu" caption="Terjesztés">
 		<control caption="Terjessze az igét!"/>
 		<control caption="Reméljük, hogy örömmel használja a PeerProject. Szerintünk a PeerProject jelenleg a legjobb fájlmegosztó program a piacon."/>
 		<control caption="Sajnos sokan nem tudják, hogy miből maradnak ki!"/>
@@ -4276,8 +4268,7 @@
 		<control caption="http://PeerProject.org"/>
 		<control caption="OK"/>
 	</dialog>
-	<dialog name="CExistingFileDlg" cookie="StStStStStBuBuBuBuBuStSt" caption="Létező fájl letöltése">
-		<control/>
+	<dialog name="CExistingFileDlg" cookie="StStStStBuBuBuBuBuStSt" caption="Létező fájl letöltése">
 		<control/>
 		<control/>
 		<control/>
@@ -4290,8 +4281,7 @@
 		<control caption="Egyszer már letöltötte és utána törölte ezt a fájlt. Mi legyen?"/>
 		<control caption="Figyelem! Két egyforma fájlt találtam! Néhány kártékony program megfertőzheti a megosztását. Bizonyosodjon meg róla, hogy ön duplázta meg a fájlt.. Ha nem ön volt, zárja be a PeerProject és futtasson le egy vírusellenőrzést."/>
 	</dialog>
-	<dialog name="CCloseModeDlg" cookie="StStBuBuBuBuBu" caption="Bezárás gomb">
-		<control/>
+	<dialog name="CCloseModeDlg" cookie="StBuBuBuBuBu" caption="Bezárás gomb">
 		<control caption="Ez az első alkalom, hogy a Bezárás gombra kattintott. Ezentúl mit csináljon a PeerProject?"/>
 		<control caption="Leküldés a tálcára (az óra mellé)"/>
 		<control caption="Bezárás azonnal"/>
@@ -4299,8 +4289,7 @@
 		<control caption="OK"/>
 		<control caption="Mégse"/>
 	</dialog>
-	<dialog name="CDonkeyServersDlg" cookie="StStEdmsBuBu" caption="Server.met letöltése">
-		<control/>
+	<dialog name="CDonkeyServersDlg" cookie="StEdmsBuBu" caption="Server.met letöltése">
 		<control caption="eDonkey server.met fájl letöltése a netről."/>
 		<control/>
 		<control/>
@@ -4338,8 +4327,7 @@
 		<control caption="_Következő|Exportálás..."/>
 		<control caption="_Mégse"/>
 	</dialog>
-	<dialog name="CTorrentSeedDlg" cookie="StStBuBuBuStms" caption="Torrent fájl megnyitása">
-		<control/>
+	<dialog name="CTorrentSeedDlg" cookie="StBuBuBuStms" caption="Torrent fájl megnyitása">
 		<control caption="Megnyitott egy torrent fájlt. Mit szeretne vele csinálni?"/>
 		<control caption="Letöltés"/>
 		<control caption="Seedelés"/>
@@ -4435,8 +4423,7 @@
 		<control caption="OK"/>
 		<control caption="Mégse"/>
 	</dialog>
-	<dialog name="CMediaVisDlg" cookie="StBuSyCoBuBuBu" caption="Képi megjelenítések">
-		<control/>
+	<dialog name="CMediaVisDlg" cookie="BuSyCoBuBuBu" caption="Képi megjelenítések">
 		<control caption="Elérhető képi megjelenítések"/>
 		<control/>
 		<control caption="Alsó csíkban való megjelenítés|Teljes méretű megjelenítés|Nagy méretű megjelenítés|Közepes méretű megjelenítés|Kis méretű megjelenítés"/>
@@ -4444,8 +4431,7 @@
 		<control caption="OK"/>
 		<control caption="Mégse"/>
 	</dialog>
-	<dialog name="CUpgradeDlg" cookie="StStStBuBuBu" caption="Frissítés!">
-		<control/>
+	<dialog name="CUpgradeDlg" cookie="StStBuBuBu" caption="Frissítés!">
 		<control caption="Elérhetővé vált a PeerProject egy újabb verziója. Szeretne frissíteni?"/>
 		<control caption="Ha most szeretne frissíteni, a PeerProject berakja a letöltendő fájlt a letöltési sorba."/>
 		<control caption="_Frissítés most"/>
@@ -4476,14 +4462,12 @@
 		<control caption="Mégse"/>
 		<control caption="Add a channel name:|Enter kick/ban reason:"/>
 	</dialog>
-	<dialog name="CDownloadReviewDlg" cookie="StBuSyEd" caption="Vélemények letöltése">
-		<control/>
+	<dialog name="CDownloadReviewDlg" cookie="BuSyEd" caption="Vélemények letöltése">
 		<control caption="OK"/>
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CHelpDlg" cookie="StBuAf" caption="PeerProject súgó">
-		<control/>
+	<dialog name="CHelpDlg" cookie="BuAf" caption="PeerProject súgó">
 		<control caption="Bezárás"/>
 		<control/>
 	</dialog>

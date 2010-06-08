@@ -183,6 +183,9 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Res\Banner.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
     <None Include="Res\SkinBuilder.ico">
       <Filter>Resource Files</Filter>
     </None>
@@ -190,9 +193,6 @@
       <Filter>Resource Files</Filter>
     </None>
     <None Include="Res\Paint.ico">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="Res\Wizard.bmp">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

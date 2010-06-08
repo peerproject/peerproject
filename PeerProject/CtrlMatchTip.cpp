@@ -1,7 +1,7 @@
 //
 // CtrlMatchTip.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -55,11 +55,12 @@ BEGIN_MESSAGE_MAP(CMatchTipCtrl, CWnd)
 END_MESSAGE_MAP()
 
 #define TIP_DELAY		500
-#define TIP_OFFSET_X	0
-#define TIP_OFFSET_Y	24
-#define TIP_MARGIN		6
 #define TIP_TEXTHEIGHT	14
 #define TIP_ICONHEIGHT	16
+// In CtrlCoolTip.h:
+//#define TIP_OFFSET_X	0
+//#define TIP_OFFSET_Y	24
+//#define TIP_MARGIN	6
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -74,7 +75,9 @@ CMatchTipCtrl::CMatchTipCtrl()
 	m_tOpen		= 0;
 	m_nIcon		= 0;
 
-	if ( ! m_hClass ) m_hClass = AfxRegisterWndClass( CS_SAVEBITS );
+	if ( ! m_hClass )
+		m_hClass = AfxRegisterWndClass( CS_SAVEBITS |
+			( ! Settings.Interface.TipShadow || theApp.m_bIsWin2000 ? 0 : CS_DROPSHADOW ) );
 }
 
 CMatchTipCtrl::~CMatchTipCtrl()
@@ -83,10 +86,10 @@ CMatchTipCtrl::~CMatchTipCtrl()
 
 LPCTSTR		CMatchTipCtrl::m_hClass = NULL;
 CBrush		CMatchTipCtrl::m_brBack;
-COLORREF	CMatchTipCtrl::m_crBack;
-COLORREF	CMatchTipCtrl::m_crText;
-COLORREF	CMatchTipCtrl::m_crBorder;
-COLORREF	CMatchTipCtrl::m_crWarnings;
+//COLORREF	CMatchTipCtrl::m_crBack;
+//COLORREF	CMatchTipCtrl::m_crText;
+//COLORREF	CMatchTipCtrl::m_crBorder;
+//COLORREF	CMatchTipCtrl::m_crWarnings;
 
 /////////////////////////////////////////////////////////////////////////////
 // CMatchTipCtrl operations
@@ -104,13 +107,13 @@ void CMatchTipCtrl::Show(CMatchFile* pFile, CQueryHit* pHit)
 	if ( AfxGetMainWnd() != GetForegroundWindow() ) return;
 	if ( ! Settings.Interface.TipSearch ) return;
 
-	m_crBack	= Colors.m_crTipBack;
-	m_crText	= Colors.m_crTipText;
-	m_crBorder	= CColors::CalculateColor( m_crBack, (COLORREF)0, 100 );
-	m_crWarnings = Colors.m_crTipWarnings; // Set color of warning messages
+//	m_crBack	= Colors.m_crTipBack;
+//	m_crText	= Colors.m_crTipText;
+//	m_crBorder	= Colors.m_crTipBorder;
+//	m_crWarnings = Colors.m_crTipWarnings; // Set color of warning messages
 
 	if ( m_brBack.m_hObject ) m_brBack.DeleteObject();
-	m_brBack.CreateSolidBrush( m_crBack );
+	m_brBack.CreateSolidBrush( Colors.m_crTipBack );
 
 	CPoint point;
 	GetCursorPos( &point );
@@ -177,7 +180,8 @@ void CMatchTipCtrl::OnTimer(UINT_PTR /*nIDEvent*/)
 	CPoint point;
 	if ( ! GetCursorPos( &point ) || WindowFromPoint( point ) != m_pOwner )
 	{
-		if ( m_bVisible ) Hide();
+		if ( m_bVisible )
+			Hide();
 		return;
 	}
 	else
@@ -186,7 +190,8 @@ void CMatchTipCtrl::OnTimer(UINT_PTR /*nIDEvent*/)
 
 		if ( pWnd != this && pWnd != AfxGetMainWnd() )
 		{
-			if ( m_bVisible ) Hide();
+			if ( m_bVisible )
+				Hide();
 			return;
 		}
 	}
@@ -194,7 +199,8 @@ void CMatchTipCtrl::OnTimer(UINT_PTR /*nIDEvent*/)
 	if ( ! m_bVisible && m_tOpen && GetTickCount() >= m_tOpen )
 	{
 		m_tOpen = 0;
-		if ( point == m_pOpen ) ShowInternal();
+		if ( point == m_pOpen )
+			ShowInternal();
 	}
 }
 
@@ -300,17 +306,17 @@ void CMatchTipCtrl::LoadFromFile()
 	m_pFile->GetStatusTip( m_sStatus, m_crStatus );
 	m_pFile->GetUser( m_sUser );
 
-	if (m_pFile->m_bBusy == 2)
+	if ( m_pFile->m_bBusy == 2 )
 		LoadString( m_sBusy, IDS_TIP_FILE_BUSY );
 	else
 		m_sBusy.Empty();
 
-	if (m_pFile->m_bPush == 2)
+	if ( m_pFile->m_bPush == 2 )
 		LoadString( m_sPush, IDS_TIP_FILE_FIREWALLED );
 	else
 		m_sPush.Empty();
 
-	if (m_pFile->m_bStable == 1)
+	if ( m_pFile->m_bStable == 1 )
 		LoadString( m_sUnstable, IDS_TIP_FILE_UNSTABLE );
 	else
 		m_sUnstable.Empty();
@@ -399,14 +405,14 @@ void CMatchTipCtrl::LoadFromHit()
 		m_sStatus += m_pHit->m_sComments;
 		m_crStatus = Colors.m_crTextAlert ;
 	}
-	else if ( m_pFile->GetLibraryStatus() == TRI_TRUE )  // ghost rated
+	else if ( m_pFile->GetLibraryStatus() == TRI_TRUE )  // Ghost rated
 	{
 		LoadString( m_sStatus, IDS_TIP_EXISTS_DELETED );
 		m_crStatus = Colors.m_crTextAlert ;
 	}
 
 	// Is this a firewalled eDonkey client
-	if ( ( m_pHit->m_nProtocol == PROTOCOL_ED2K ) && ( m_pHit->m_bPush == TRI_TRUE ) )
+	if ( m_pHit->m_nProtocol == PROTOCOL_ED2K && m_pHit->m_bPush == TRI_TRUE )
 	{
 		m_sUser.Format( _T("%lu@%s - %s"),
 			m_pHit->m_oClientID.begin()[2],
@@ -422,23 +428,23 @@ void CMatchTipCtrl::LoadFromHit()
 	}
 
 	// Add the Nickname if there is one and they are being shown
-	if ( Settings.Search.ShowNames && !m_pHit->m_sNick.IsEmpty() )
+	if ( Settings.Search.ShowNames && ! m_pHit->m_sNick.IsEmpty() )
 		m_sUser = m_pHit->m_sNick + _T(" (") + m_sUser + _T(")");
 
 	m_sCountryCode = m_pHit->m_sCountry;
 	m_sCountry = theApp.GetCountryName( m_pHit->m_pAddress );
 
-	if (m_pHit->m_bBusy == 2)
+	if ( m_pHit->m_bBusy == 2 )
 		LoadString( m_sBusy, IDS_TIP_SOURCE_BUSY );
 	else
 		m_sBusy.Empty();
 
-	if (m_pHit->m_bPush == 2)
+	if ( m_pHit->m_bPush == 2 )
 		LoadString( m_sPush, IDS_TIP_SOURCE_FIREWALLED );
 	else
 		m_sPush.Empty();
 
-	if (m_pHit->m_bStable == 1)
+	if ( m_pHit->m_bStable == 1 )
 		LoadString( m_sUnstable, IDS_TIP_SOURCE_UNSTABLE );
 	else
 		m_sUnstable.Empty();
@@ -462,7 +468,8 @@ BOOL CMatchTipCtrl::LoadTypeInfo()
 		if ( strName.GetLength() )
 		{
 			m_sType = strName;
-			if ( strMime.GetLength() ) m_sType += _T(" (") + strMime + _T(")");
+			if ( strMime.GetLength() )
+				m_sType += _T(" (") + strMime + _T(")");
 		}
 		else
 		{
@@ -646,19 +653,27 @@ BOOL CMatchTipCtrl::OnEraseBkgnd(CDC* /*pDC*/)
 
 void CMatchTipCtrl::OnPaint()
 {
-	CPaintDC dc( this );
-	CString str;
-	CRect rc;
+	if ( ! IsWindow( GetSafeHwnd() ) || ! IsWindowVisible() ) return;
 
+	CPaintDC dc( this );
+	CRect rc;
 	GetClientRect( &rc );
 
-	dc.Draw3dRect( &rc, m_crBorder, m_crBorder );
+	dc.Draw3dRect( &rc, Colors.m_crTipBorder, Colors.m_crTipBorder );
 	rc.DeflateRect( 1, 1 );
+
+	if ( Skin.m_bmToolTip.m_hObject )	// Else paint solid color last
+		CoolInterface.DrawWatermark( &dc, &rc, &Skin.m_bmToolTip, FALSE );	// TEMPORARY skinning, use flicker-free pMemDC
 
 	CFont* pOldFont = (CFont*)dc.SelectObject( &CoolInterface.m_fntBold );
 	CPoint pt( TIP_MARGIN, TIP_MARGIN );
 
-	dc.SetTextColor( m_crText );
+	if ( Skin.m_bmToolTip.m_hObject )
+		dc.SetBkMode( TRANSPARENT );
+	else
+		dc.SetBkColor( Colors.m_crTipBack );
+	dc.SetTextColor( Colors.m_crTipText );
+	COLORREF crBack = Skin.m_bmToolTip.m_hObject ? CLR_NONE : Colors.m_crTipBack;
 
 	DrawText( dc, pt, m_sName );
 	pt.y += TIP_TEXTHEIGHT;
@@ -677,7 +692,7 @@ void CMatchTipCtrl::OnPaint()
 		if ( nFlagIndex >= 0 )
 		{
 			ImageList_DrawEx( Flags.m_pImage, nFlagIndex, dc,
-				pt.x, pt.y, 16, 16, m_crBack, m_crBack, ILD_NORMAL );
+				pt.x, pt.y, 16, 16, crBack, crBack, ILD_NORMAL );
 			dc.ExcludeClipRect( pt.x, pt.y, pt.x + 16, pt.y + 16 );
 			pt.x += 20;
 			pt.y += 2;
@@ -692,7 +707,7 @@ void CMatchTipCtrl::OnPaint()
 	}
 
 	pt.y += 5;
-	dc.Draw3dRect( rc.left + 2, pt.y, rc.Width() - 4, 1, m_crBorder, m_crBorder );
+	dc.Draw3dRect( rc.left + 2, pt.y, rc.Width() - 4, 1, Colors.m_crTipBorder, Colors.m_crTipBorder );
 	dc.ExcludeClipRect( rc.left + 2, pt.y, rc.right - 2, pt.y + 1 );
 	pt.y += 6;
 
@@ -702,16 +717,16 @@ void CMatchTipCtrl::OnPaint()
 		dc.SelectObject( &CoolInterface.m_fntBold );
 		DrawText( dc, pt, m_sStatus );
 		dc.SelectObject( &CoolInterface.m_fntNormal );
-		dc.SetTextColor( m_crText );
+		dc.SetTextColor( Colors.m_crTipText );
 		pt.y += TIP_TEXTHEIGHT;
 
 		pt.y += 5;
-		dc.Draw3dRect( rc.left + 2, pt.y, rc.Width() - 4, 1, m_crBorder, m_crBorder );
+		dc.Draw3dRect( rc.left + 2, pt.y, rc.Width() - 4, 1, Colors.m_crTipBorder, Colors.m_crTipBorder );
 		dc.ExcludeClipRect( rc.left + 2, pt.y, rc.right - 2, pt.y + 1 );
 		pt.y += 6;
 	}
 
-	ShellIcons.Draw( &dc, m_nIcon, 32, pt.x, pt.y, m_crBack );
+	ShellIcons.Draw( &dc, m_nIcon, 32, pt.x, pt.y, crBack );
 	dc.ExcludeClipRect( pt.x, pt.y, pt.x + 32, pt.y + 32 );
 
 	if ( m_nRating > 1 )
@@ -721,12 +736,13 @@ void CMatchTipCtrl::OnPaint()
 		for ( int nRating = m_nRating - 1 ; nRating ; nRating-- )
 		{
 			ptStar.x -= 16;
-			CoolInterface.Draw( &dc, IDI_STAR, 16, ptStar.x, ptStar.y, m_crBack );
+			CoolInterface.Draw( &dc, IDI_STAR, 16, ptStar.x, ptStar.y, crBack );
 			dc.ExcludeClipRect( ptStar.x, ptStar.y, ptStar.x + 16, ptStar.y + 16 );
 		}
 	}
 
 	pt.x += 40;
+	CString str;
 	LoadString( str, IDS_TIP_SIZE );
 	str.Append( _T(": ") );
 	DrawText( dc, pt, str );
@@ -753,12 +769,12 @@ void CMatchTipCtrl::OnPaint()
 	pt.x -= sz.cx + 40;
 	pt.y += 16;
 
-	//Hashes
+	// Hashes
 	if ( m_sSHA1.GetLength() || m_sTiger.GetLength() || m_sED2K.GetLength() ||
 		m_sBTH.GetLength() || m_sMD5.GetLength() )
 	{
 		pt.y += 5;
-		dc.Draw3dRect( rc.left + 2, pt.y, rc.Width() - 4, 1, m_crBorder, m_crBorder );
+		dc.Draw3dRect( rc.left + 2, pt.y, rc.Width() - 4, 1, Colors.m_crTipBorder, Colors.m_crTipBorder );
 		dc.ExcludeClipRect( rc.left + 2, pt.y, rc.right - 2, pt.y + 1 );
 		pt.y += 6;
 
@@ -793,22 +809,24 @@ void CMatchTipCtrl::OnPaint()
 		}
 	}
 
-	//Busy, firewalled, unstabled warnings. Queue info
-	if (m_sBusy.GetLength() || m_sPush.GetLength() || m_sUnstable.GetLength() || m_sQueue.GetLength())
+	// Busy, firewalled, unstabled warnings. Queue info
+	if ( m_sBusy.GetLength() || m_sPush.GetLength() || m_sUnstable.GetLength() || m_sQueue.GetLength() )
 	{
 		pt.y += 5;
-		dc.Draw3dRect( rc.left + 2, pt.y, rc.Width() - 4, 1, m_crBorder, m_crBorder );
-		dc.ExcludeClipRect( rc.left + 2, pt.y, rc.right - 2, pt.y + 1 );
+		dc.Draw3dRect( rc.left + 2, pt.y, rc.Width() - 4, 1, Colors.m_crTipBorder, Colors.m_crTipBorder );
+		if ( ! Skin.m_bmToolTip.m_hObject )
+			dc.ExcludeClipRect( rc.left + 2, pt.y, rc.right - 2, pt.y + 1 );
 		pt.y += 6;
 
-		dc.SetTextColor( m_crWarnings );
+		dc.SetTextColor( Colors.m_crTipWarnings );
 		dc.SelectObject( &CoolInterface.m_fntBold );
 
-		//Source busy warning
-		if (m_sBusy.GetLength())
+		// Source busy warning
+		if ( m_sBusy.GetLength() )
 		{
-			CoolInterface.Draw( &dc, IDI_BUSY, 16, pt.x, pt.y, m_crBack );
-			dc.ExcludeClipRect( pt.x, pt.y, pt.x + 16, pt.y + 16 );
+			CoolInterface.Draw( &dc, IDI_BUSY, 16, pt.x, pt.y, crBack );
+			if ( ! Skin.m_bmToolTip.m_hObject )
+				dc.ExcludeClipRect( pt.x, pt.y, pt.x + 16, pt.y + 16 );
 
 			CPoint ptTextWithIcon = pt;
 			ptTextWithIcon.x += 20;
@@ -818,16 +836,16 @@ void CMatchTipCtrl::OnPaint()
 			pt.y += TIP_ICONHEIGHT;
 		}
 
-		dc.SetTextColor( m_crText );
+		dc.SetTextColor( Colors.m_crTipText );
 		dc.SelectObject( &CoolInterface.m_fntNormal );
 
-		//Queue info
+		// Queue info
 		if ( m_sQueue.GetLength() )
 		{
 			CPoint ptTextWithIcon = pt;
 			ptTextWithIcon.x += 20;
 
-			if ( m_sBusy.GetLength() )			//Align queue info with above (if present)
+			if ( m_sBusy.GetLength() )			// Align queue info with above (if present)
 				DrawText( dc, ptTextWithIcon, m_sQueue );
 			else
 				DrawText( dc, pt, m_sQueue );
@@ -835,14 +853,15 @@ void CMatchTipCtrl::OnPaint()
 			pt.y += TIP_TEXTHEIGHT;
 		}
 
-		dc.SetTextColor( m_crWarnings );
+		dc.SetTextColor( Colors.m_crTipWarnings );
 		dc.SelectObject( &CoolInterface.m_fntBold );
 
-		//Source firewalled warning
-		if (m_sPush.GetLength())
+		// Source firewalled warning
+		if ( m_sPush.GetLength() )
 		{
-			CoolInterface.Draw( &dc, IDI_FIREWALLED, 16, pt.x, pt.y, m_crBack );
-			dc.ExcludeClipRect( pt.x, pt.y, pt.x + 16, pt.y + 16 );
+			CoolInterface.Draw( &dc, IDI_FIREWALLED, 16, pt.x, pt.y, crBack );
+			if ( ! Skin.m_bmToolTip.m_hObject )
+				dc.ExcludeClipRect( pt.x, pt.y, pt.x + 16, pt.y + 16 );
 
 			CPoint ptTextWithIcon = pt;
 			ptTextWithIcon.x += 20;
@@ -852,11 +871,12 @@ void CMatchTipCtrl::OnPaint()
 			pt.y += TIP_ICONHEIGHT;
 		}
 
-		//Source unstable warning
-		if (m_sUnstable.GetLength())
+		// Source unstable warning
+		if ( m_sUnstable.GetLength() )
 		{
-			CoolInterface.Draw( &dc, IDI_UNSTABLE, 16, pt.x, pt.y, m_crBack );
-			dc.ExcludeClipRect( pt.x, pt.y, pt.x + 16, pt.y + 16 );
+			CoolInterface.Draw( &dc, IDI_UNSTABLE, 16, pt.x, pt.y, crBack );
+			if ( ! Skin.m_bmToolTip.m_hObject )
+				dc.ExcludeClipRect( pt.x, pt.y, pt.x + 16, pt.y + 16 );
 
 			CPoint ptTextWithIcon = pt;
 			ptTextWithIcon.x += 20;
@@ -865,28 +885,30 @@ void CMatchTipCtrl::OnPaint()
 			DrawText ( dc, ptTextWithIcon, m_sUnstable);
 			pt.y += TIP_ICONHEIGHT;
 		}
-		dc.SetTextColor( m_crText );
+		dc.SetTextColor( Colors.m_crTipText );
 		dc.SelectObject( &CoolInterface.m_fntNormal );
 	}
 
-	//Partial warning
+	// Partial warning
 	if ( m_sPartial.GetLength() )
 	{
 		pt.y += 5;
-		dc.Draw3dRect( rc.left + 2, pt.y, rc.Width() - 4, 1, m_crBorder, m_crBorder );
-		dc.ExcludeClipRect( rc.left + 2, pt.y, rc.right - 2, pt.y + 1 );
+		dc.Draw3dRect( rc.left + 2, pt.y, rc.Width() - 4, 1, Colors.m_crTipBorder, Colors.m_crTipBorder );
+		if ( ! Skin.m_bmToolTip.m_hObject )
+			dc.ExcludeClipRect( rc.left + 2, pt.y, rc.right - 2, pt.y + 1 );
 		pt.y += 6;
 
 		DrawText( dc, pt, m_sPartial );
 		pt.y += TIP_TEXTHEIGHT;
 	}
 
-	//Metadata
+	// Metadata
 	if ( m_pMetadata.GetCount() )
 	{
 		pt.y += 5;
-		dc.Draw3dRect( rc.left + 2, pt.y, rc.Width() - 4, 1, m_crBorder, m_crBorder );
-		dc.ExcludeClipRect( rc.left + 2, pt.y, rc.right - 2, pt.y + 1 );
+		dc.Draw3dRect( rc.left + 2, pt.y, rc.Width() - 4, 1, Colors.m_crTipBorder, Colors.m_crTipBorder );
+		if ( ! Skin.m_bmToolTip.m_hObject )
+			dc.ExcludeClipRect( rc.left + 2, pt.y, rc.right - 2, pt.y + 1 );
 		pt.y += 6;
 
 		for ( POSITION pos = m_pMetadata.GetIterator() ; pos ; )
@@ -902,7 +924,8 @@ void CMatchTipCtrl::OnPaint()
 	}
 
 	dc.SelectObject( pOldFont );
-	dc.FillSolidRect( &rc, m_crBack );
+	if ( ! Skin.m_bmToolTip.m_hObject ) 	// Else watermark already painted
+		dc.FillSolidRect( &rc, crBack );
 }
 
 void CMatchTipCtrl::DrawText(CDC& dc, CPoint& pt, const CString& strText)
@@ -912,8 +935,10 @@ void CMatchTipCtrl::DrawText(CDC& dc, CPoint& pt, const CString& strText)
 	CSize sz = dc.GetTextExtent( strText );
 	CRect rc( pt.x, pt.y, pt.x + sz.cx + nExtraPoint, pt.y + sz.cy );
 
-	dc.SetBkColor( m_crBack );
-	dc.ExtTextOut( pt.x, pt.y, ETO_CLIPPED|ETO_OPAQUE|dwFlags, &rc, strText, NULL );
+	if ( ! Skin.m_bmToolTip.m_hObject )
+		dc.SetBkColor( Colors.m_crTipBack );
+	dc.ExtTextOut( pt.x, pt.y,
+		ETO_CLIPPED|(Skin.m_bmToolTip.m_hObject ? 0 : ETO_OPAQUE)|dwFlags, &rc, strText, NULL );
 	dc.ExcludeClipRect( &rc );
 }
 

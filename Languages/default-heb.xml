@@ -3331,7 +3331,7 @@ gap i newline
 		<control caption=":רוחב פס העלאה לתור זה"/>
 		<control/>
 		<control/>
-		<control caption="שניות N עבור לבא בכל"/>
+		<control caption="שניות # עבור לבא בכל"/>
 		<control/>
 		<control/>
 		<control caption="אישור"/>
@@ -3380,10 +3380,10 @@ gap i newline
 	</dialog>
 	<dialog name="CWizardFoldersPage" cookie="StStEdBuStEdBuStEdBuSt" caption="(4/8) ברוכים הבאים לשרזה">
 		<control caption="PeerProject first downloads partial files to a private folder, then moves them when completed according to Download Groups."/>
-		<control caption=":אכסן קבצים שהושלמה הורדתם בתיקייה"/>
-		<control/>
-		<control/>
 		<control caption=":אכסן קבצים זמניים כאן"/>
+		<control/>
+		<control/>
+		<control caption=":אכסן קבצים שהושלמה הורדתם בתיקייה"/>
 		<control/>
 		<control/>
 		<control caption="Store .Torrent files here:"/>
@@ -3441,8 +3441,7 @@ gap i newline
 		<control caption="התחבר לרשת עם הפעלת שרזה"/>
 		<control caption="!אנו מקווים שתהנה להשתמש בשרזה"/>
 	</dialog>
-	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="ייבא הורדות של אידונקי">
-		<control/>
+	<dialog name="CDonkeyImportDlg" cookie="StBuBuEdBu" caption="ייבא הורדות של אידונקי">
 		<control caption="&#8234;‏שרזה‎? ‏אל‎ ‏הסתיימו‎ ‏שלא‎ ‏הורדות‎ ‏לייבא‎ ‏מעוניין‎ ‏אתה‎ ‏האם‎ ‏מחשבך‎. ‏על‎ ‏מותקנת‎ ‏אחרת‎ ‏אדיונקי‎2000 ‏תוכנת‎ ‏לך‎ ‏שיש‎ ‏זיהה‎ ‏שרזה"/>
 		<control caption="כן"/>
 		<control caption="לא|ביטול"/>
@@ -3550,8 +3549,7 @@ gap i newline
 		<control caption="התחבר"/>
 		<control caption="ביטול"/>
 	</dialog>
-	<dialog name="CDownloadDlg" cookie="StStStStEdStBuBuBu" caption="הורד קובץ או טורנט">
-		<control/>
+	<dialog name="CDownloadDlg" cookie="StStStEdStBuBuBu" caption="הורד קובץ או טורנט">
 		<control/>
 		<control caption="אוטמטי‎ ‏ובאופן ,(HTTP) ‏מהרשת‎ ‏קבצים‎ ‏להוריד‎ ‏יכול‎ ‏שרזה(http:, ftp:, ed2k:, magnet:, etc.) ‏שיתוף‎ ‏לרשתות‎ ‏קישורים‎ ‏ולהוריד‎ ‏לחפש‎. Enter ‏והקש‎‎ ‏לתא URI/URL כתובת‎ ‏הדבק‎/‏רשום‎ ‏‎.בשרזה קל להוריד קבצים"/>
 		<control caption="שרזה יכול להורד קבצים של טורנט-ביט. טורנט הוא למעשה קובץ לינק / ניווט 'torrent' לקבצי"/>
@@ -3605,14 +3603,13 @@ gap i newline
 		<control caption="ביטול"/>
 		<control caption=":שמור את המסנן הנוכחי בשם"/>
 	</dialog>
-	<dialog name="CDiscoveryServiceDlg" cookie="BuEdStCoBuBuSt" caption="שירות משאבי חיבור">
+	<dialog name="CDiscoveryServiceDlg" cookie="BuEdStCoBuBu" caption="שירות משאבי חיבור">
 		<control caption=":כתובת השירות"/>
 		<control/>
 		<control caption=":סוג שירות המשאבי חיבור"/>
 		<control caption="Gnutella Bootstrap|GWebCache|Server.met URL|Blocked"/>
 		<control caption="אישור"/>
 		<control caption="ביטול"/>
-		<control/>
 	</dialog>
 	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStBuBuBuBu" caption="שרזה : הורדה">
 		<control caption="..."/>
@@ -3776,8 +3773,7 @@ gap i newline
 		<control caption="אישור"/>
 		<control caption="ביטול"/>
 	</dialog>
-	<dialog name="CShareManagerDlg" cookie="StStSyBuBuBuBu" caption="מנהל תיקיית שיתוף">
-		<control/>
+	<dialog name="CShareManagerDlg" cookie="StSyBuBuBuBu" caption="מנהל תיקיית שיתוף">
 		<control caption="זוהי רשימת התיקיות שבספריה שלך. אתה יכול להוסיף ולהסיר תיקיות בעזרת הכפתורים משמאל. כשאתה מוסיף תיקייה חדשה היא באופן אוטומטי מתחילה להיות משותפת עם המשתמשים, תוכל לבחור לא לשתף אותה מתוך הספריה"/>
 		<control/>
 		<control caption="...הוסף"/>
@@ -3785,8 +3781,7 @@ gap i newline
 		<control caption="אישור"/>
 		<control caption="ביטול"/>
 	</dialog>
-	<dialog name="CURLCopyDlg" cookie="StStStStStBuBu" caption="URI העתק">
-		<control/>
+	<dialog name="CURLCopyDlg" cookie="StStStStBuBu" caption="URI העתק">
 		<control caption="של הרכיב הנבחר בצורות שונות, אנא בחר את הקונטקסט של הכתובת שאתה מעוניין בה על ידי לחיצה על אחד :מהכתובות שמתחת URI אתה יכול להעתיק את הכתובת"/>
 		<control/>
 		<control/>
@@ -3794,8 +3789,7 @@ gap i newline
 		<control caption="URI כלול אותי כמקור תקין בכתובת"/>
 		<control caption="ביטול"/>
 	</dialog>
-	<dialog name="CURLExportDlg" cookie="StStEdStCoStCoBuBumsBu" caption="URIs ייצא">
-		<control/>
+	<dialog name="CURLExportDlg" cookie="StEdStCoStCoBuBumsBu" caption="URIs ייצא">
 		<control caption="אנא בחר את הצורה לקישורים ולחץ על כפתור שמור URI קבצים לייצא להפניות של קישורי %lu בחרת"/>
 		<control/>
 		<control caption="Token הכנס:"/>
@@ -3839,8 +3833,7 @@ gap i newline
 		<control caption="(מעתיק את החלקים שהורדו לתוך קובץ תצוגה מקדימה חדש)"/>
 		<control caption="ביטול"/>
 	</dialog>
-	<dialog name="CWarningsDlg" cookie="StStStStStStStBu" caption="שרזה מכבדת את משתמשיה">
-		<control/>
+	<dialog name="CWarningsDlg" cookie="StStStStStStBu" caption="שרזה מכבדת את משתמשיה">
 		<control caption="?הידעת ששרזה היא תוכנה חינמית לחלוטין"/>
 		<control caption="שרזה לא מכילה רוגלות, תוספי פרסומות או תוכנה כלשהי נוספת בתוכה. שרזה לא מציגה פרסומות קופצות אף פעם {n}{n} אם אי פעם תראי פרסומות &quot;פרסומות קופצות&quot; בעת שאתה משתמש בשרזה, .הינך יכול להיות בטוח שהם אינם מגיעים משרזה"/>
 		<control caption="לצערנו הרבה תוכנות אחרות כן מגיעות עם תוספי פרסומות ורוגלות, לכן אם הינך רואה משהו חשוד כדאי שתבדוק את המחשב עם תוכנה לניקוי רוגלות ותוספי פרסומות"/>
@@ -3849,8 +3842,7 @@ gap i newline
 		<control caption="http://PeerProject.sourceforge.net/"/>
 		<control caption="סגור"/>
 	</dialog>
-	<dialog name="CPromoteDlg" cookie="StStStStStStStBu" caption="הפץ את השמועה">
-		<control/>
+	<dialog name="CPromoteDlg" cookie="StStStStStStBu" caption="הפץ את השמועה">
 		<control caption="אנא עזור לנו להפיץ את השמועה"/>
 		<control caption="אנו מקווים שנהנית מהשימוש בשרזה עד כה, אנו מאמינים שזוהי תוכנת שיתוף הקבצים הטובה ביותר נכון להיום"/>
 		<control caption="!לצערנו הרב, הרבה מאוד משתפי קבצים לא יודעים מה הם מפסידים"/>
@@ -3859,8 +3851,7 @@ gap i newline
 		<control caption="http://PeerProject.sourceforge.net/"/>
 		<control caption="אישור"/>
 	</dialog>
-	<dialog name="CExistingFileDlg" cookie="StStStStStBuBuBuBuBuStSt" caption="קובץ קיים">
-		<control/>
+	<dialog name="CExistingFileDlg" cookie="StStStStBuBuBuBuBuStSt" caption="קובץ קיים">
 		<control/>
 		<control/>
 		<control/>
@@ -3873,8 +3864,7 @@ gap i newline
 		<control caption="?הורדת ומחקת את קובץ זה בעבר. מה תרצה לעשות"/>
 		<control caption="אזהרה!!! התגלו קבצים משוכפלים. ייתכן ותוכנה זדונית תפגע בספרייה שלך. וודא שהורגת את הקובץ הזה או שמת אותו באופן ידני. אחרת, סגור את שרזה וסרוק את מחשבך עם תוכנת אנטי-וירוס."/>
 	</dialog>
-	<dialog name="CCloseModeDlg" cookie="StStBuBuBuBuBu" caption="כפתור סגירה">
-		<control/>
+	<dialog name="CCloseModeDlg" cookie="StBuBuBuBuBu" caption="כפתור סגירה">
 		<control caption="זוהי הפעם הראשונה בה לחצת על לחצן הסגירה של שרזה. אנא בחר את הפעולה אותה תרצה ששרזה תעשה בכל פעם שתלחץ על כפתור זה מעכשיו והלאה"/>
 		<control caption="מזער לשורת המשימות"/>
 		<control caption="סגור את שרזה באופן מיידי"/>
@@ -3882,8 +3872,7 @@ gap i newline
 		<control caption="אישור"/>
 		<control caption="ביטול"/>
 	</dialog>
-	<dialog name="CDonkeyServersDlg" cookie="StStEdmsBuBu" caption="Server.met הורד קובץ">
-		<control/>
+	<dialog name="CDonkeyServersDlg" cookie="StEdmsBuBu" caption="Server.met הורד קובץ">
 		<control caption="מהרשת בכדי לרענן את רשימת השרתים server.met הורד לאידונקי את"/>
 		<control/>
 		<control/>
@@ -3920,8 +3909,7 @@ gap i newline
 		<control caption="_הבא|יצא..."/>
 		<control caption="_בטל"/>
 	</dialog>
-	<dialog name="CTorrentSeedDlg" cookie="StStBuBuBuStms" caption="פתח קובץ טורנט">
-		<control/>
+	<dialog name="CTorrentSeedDlg" cookie="StBuBuBuStms" caption="פתח קובץ טורנט">
 		<control caption="?פתחת קובץ טורנט של ביטורנט. האם ברצונך להוריד את תכניו, או להפיצו מחדש"/>
 		<control caption="הורד"/>
 		<control caption="הפץ"/>
@@ -4018,8 +4006,7 @@ gap i newline
 		<control caption="אישור"/>
 		<control caption="ביטול"/>
 	</dialog>
-	<dialog name="CMediaVisDlg" cookie="StBuSyCoBuBuBu" caption="בחר אפקט ויזואלי">
-		<control/>
+	<dialog name="CMediaVisDlg" cookie="BuSyCoBuBuBu" caption="בחר אפקט ויזואלי">
 		<control caption=":בחר אפקט ויזואלי למוזיקה מהרשימה"/>
 		<control/>
 		<control caption="תצוגה מיושנת|תצוגה בגודל מלא|תצוגה גדולה|תצוגה בינונית|תצוגה קטנה"/>
@@ -4027,16 +4014,14 @@ gap i newline
 		<control caption="אישור"/>
 		<control caption="ביטול"/>
 	</dialog>
-	<dialog name="CUpgradeDlg" cookie="StStStBuBuBu" caption="הודעת עדכון גרסה">
-		<control/>
+	<dialog name="CUpgradeDlg" cookie="StStBuBuBu" caption="הודעת עדכון גרסה">
 		<control caption="?קיימת גרסא חדשה לשרזה. האם ברצונך לשדרג"/>
 		<control caption="אם בחרת לשדרג כעת, שרזה יוסיף את השדרוג לרשימת ההורדות ויתחיל להוריד אותו באופן אוטומטי"/>
 		<control caption="_שדרג כעת"/>
 		<control caption="אל תבדוק אם קיימות גרסאות חדשות"/>
 		<control caption="אל תשדרג"/>
 	</dialog>
-	<dialog name="CDownloadReviewDlg" cookie="StBuSyEd" caption="הורד ביקורות">
-		<control/>
+	<dialog name="CDownloadReviewDlg" cookie="BuSyEd" caption="הורד ביקורות">
 		<control caption="אישור"/>
 		<control/>
 		<control/>
@@ -4065,8 +4050,7 @@ gap i newline
 		<control caption="ביטול"/>
 		<control caption="Add a channel name:|Enter kick/ban reason:"/>
 	</dialog>
-	<dialog name="CHelpDlg" cookie="StBuAf" caption="עזרה של שרזה">
-		<control/>
+	<dialog name="CHelpDlg" cookie="BuAf" caption="עזרה של שרזה">
 		<control caption="סגור"/>
 		<control/>
 	</dialog>

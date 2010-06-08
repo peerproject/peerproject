@@ -32,7 +32,7 @@
 static char THIS_FILE[] = __FILE__;
 #endif
 
-#define TOPMARGIN		51	// Wizard Banner
+//#define TOPMARGIN		51	// Header: Skin.m_nBanner + 1
 #define LEFTMARGIN		0	// Tree left-edge gap
 #define LISTDIVIDER		6	// Splitter Bar
 #define LISTWIDTH		118	// Tree Window
@@ -53,13 +53,13 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CSettingsSheet construction
 
-CSettingsSheet::CSettingsSheet(CWnd* pParent, UINT nCaptionID) :
-	CSkinDialog( 0, pParent, FALSE )
+CSettingsSheet::CSettingsSheet(CWnd* pParent, UINT nCaptionID)
+	: CSkinDialog( 0, pParent )
 	, m_pPage			( NULL )
 	, m_pFirst			( NULL )
 	, m_pTemplate		( NULL )
 	, m_bModified		( FALSE )
-	, m_nButtonHeight	( 20 )
+	, m_nButtonHeight	( 24 )
 {
 	if ( nCaptionID )
 		LoadString( m_sCaption, nCaptionID );
@@ -137,9 +137,9 @@ CSettingsPage* CSettingsSheet::GetActivePage() const
 
 BOOL CSettingsSheet::SetActivePage(CSettingsPage* pPage)
 {
-	if ( pPage == NULL || pPage == m_pPage ) return FALSE;
+	//if ( pPage == NULL || pPage == m_pPage ) return FALSE;
 
-	ASSERT_KINDOF(CSettingsPage, pPage);
+	//ASSERT_KINDOF(CSettingsPage, pPage);
 
 	if ( m_hWnd == NULL )
 	{
@@ -147,16 +147,34 @@ BOOL CSettingsSheet::SetActivePage(CSettingsPage* pPage)
 		return TRUE;
 	}
 
-	if ( m_pPage != NULL )
+	if ( m_pPage )
 	{
-		if ( ! m_pPage->OnKillActive() ) return FALSE;
+		if ( ! m_pPage->OnKillActive() )
+			return FALSE;
 		m_pPage->ShowWindow( SW_HIDE );
+		m_pPage = NULL;
 	}
 
-	if ( pPage->m_hWnd == NULL && ! CreatePage( pPage ) ) return FALSE;
-	if ( ! pPage->OnSetActive() ) return FALSE;
+	if ( pPage )
+	{
+		if ( pPage->m_hWnd == NULL && ! CreatePage( pPage ) )
+			return FALSE;
+		if ( ! pPage->OnSetActive() )
+			return FALSE;
+	}
 
 	m_pPage = pPage;
+
+	if ( ! pPage )
+		return FALSE;
+
+	CRect rc( LISTWIDTH + LEFTMARGIN + LISTDIVIDER, 0, 0, 0 );
+	if ( GetDlgItem( IDC_BANNER ) )
+		rc.top	= Skin.m_nBanner + 1;
+	rc.right	= rc.left + m_szPages.cx;
+	rc.bottom	= rc.top  + m_szPages.cy;
+	m_pPage->MoveWindow( rc );
+
 	m_pPage->ShowWindow( SW_SHOW );
 
 	CString strCaption;
@@ -251,8 +269,8 @@ BOOL CSettingsSheet::OnInitDialog()
 
 	CRect rect;
 	m_wndTree.Create( WS_CHILD|WS_TABSTOP|WS_VISIBLE|/*TVS_PRIVATEIMAGELISTS|*/
-		TVS_FULLROWSELECT |TVS_SHOWSELALWAYS|TVS_TRACKSELECT|TVS_NOSCROLL, rect, this, IDC_SETTINGS_TREE );
-		// ToDo: If needed, use TVS_NOHSCROLL instead to add vertical scrollbar to Settings TreeView
+		TVS_FULLROWSELECT|TVS_TRACKSELECT|TVS_SHOWSELALWAYS|TVS_NOSCROLL, rect, this, IDC_SETTINGS_TREE );
+		// Note: If needed, use TVS_NOHSCROLL instead to add vertical scrollbar to Settings TreeView
 	m_wndTree.SetIndent( 16 );
 
 	m_wndOK.Create( _T("OK"), WS_CHILD|WS_TABSTOP|WS_VISIBLE|BS_DEFPUSHBUTTON, rect, this, IDOK );
@@ -262,10 +280,7 @@ BOOL CSettingsSheet::OnInitDialog()
 	m_wndApply.Create( _T("Apply"), WS_CHILD|WS_TABSTOP|WS_VISIBLE, rect, this, IDRETRY );
 	m_wndApply.SetFont( &theApp.m_gdiFont );
 
-	Layout();
-	CenterWindow();
-
-	if ( ! m_pFirst ) m_pFirst = GetPage( INT_PTR(0) );
+	if ( m_pFirst == NULL ) m_pFirst = GetPage( INT_PTR(0) );
 	SetActivePage( m_pFirst );
 
 	BuildTree();
@@ -290,14 +305,16 @@ void CSettingsSheet::BuildTree()
 
 		if ( pPage->m_bGroup ) hGroup = hItem;
 
-		if ( pPage == m_pPage ) m_wndTree.SelectItem( hItem );
+		if ( pPage == m_pPage )
+			m_wndTree.SelectItem( hItem );
 	}
 }
 
-void CSettingsSheet::Layout()
+BOOL CSettingsSheet::SkinMe(LPCTSTR pszSkin, UINT nIcon, BOOL bLanguage)
 {
-	TEXTMETRIC txtMetric;
+	EnableBanner( FALSE );
 
+	TEXTMETRIC txtMetric;
 	CDC* pDC = GetDC();
 	CFont* pOldFont = pDC->SelectObject( &theApp.m_gdiFont );
 	pDC->GetTextMetrics( &txtMetric );
@@ -324,36 +341,36 @@ void CSettingsSheet::Layout()
 		}
 	}
 
-	CRect rc( 0, 0, m_szPages.cx, m_szPages.cy );
-	rc.right += LISTWIDTH + LISTDIVIDER + LEFTMARGIN;
-	rc.bottom += TOPMARGIN + m_nButtonHeight + BUTTONGAP*2 + 1;
+	CRect rcWindow( 0, 0, m_szPages.cx + LISTWIDTH + LISTDIVIDER + LEFTMARGIN, m_szPages.cy + m_nButtonHeight + BUTTONGAP*2 + 1 );
+	CalcWindowRect( &rcWindow );
+	SetWindowPos( &wndTop, 0, 0, rcWindow.Width(), rcWindow.Height(), SWP_NOMOVE|SWP_NOZORDER );
 
-	CalcWindowRect( &rc );
-	SetWindowPos( &wndTop, 0, 0, rc.Width(), rc.Height(), SWP_NOMOVE|SWP_NOZORDER );
+	CRect rcTree( LEFTMARGIN, 1, LISTWIDTH, m_szPages.cy );	// Skin.m_nBanner
+	m_wndTree.MoveWindow( &rcTree );
+	m_wndTree.SetBkColor( Colors.m_crDialogMenu );
+	m_wndTree.SetTextColor( Colors.m_crDialogMenuText );
 
-	rc.SetRect( LEFTMARGIN, TOPMARGIN, 0, 0 );
-	rc.right	= rc.left + LISTWIDTH;
-	rc.bottom	= rc.top  + m_szPages.cy;
+	CRect rcButton( m_szPages.cx + LISTWIDTH + LISTDIVIDER - BUTTONWIDTH - BUTTONGAP - 1,
+		m_szPages.cy + BUTTONGAP + 1, BUTTONWIDTH, m_nButtonHeight );
+	rcButton.right += rcButton.left;
+	rcButton.bottom += rcButton.top;
 
-	m_wndTree.MoveWindow( &rc );
+	m_wndCancel.MoveWindow( &rcButton );
+	rcButton.OffsetRect( - BUTTONWIDTH - BUTTONGAP, 0 );
+	m_wndOK.MoveWindow( &rcButton );
+	rcButton.OffsetRect( - BUTTONWIDTH - BUTTONGAP, 0 );
+	m_wndApply.MoveWindow( &rcButton );
 
-	rc.SetRect( m_szPages.cx + LISTWIDTH + LISTDIVIDER - BUTTONWIDTH - BUTTONGAP - 1,
-		rc.bottom + BUTTONGAP + 1, BUTTONWIDTH, m_nButtonHeight );
-	rc.right += rc.left;
-	rc.bottom += rc.top;
+	CenterWindow();
 
-	m_wndCancel.MoveWindow( &rc );
-	rc.OffsetRect( - BUTTONWIDTH - BUTTONGAP, 0 );
-	m_wndOK.MoveWindow( &rc );
-	rc.OffsetRect( - BUTTONWIDTH - BUTTONGAP, 0 );
-	m_wndApply.MoveWindow( &rc );
+	SetActivePage( m_pPage ? m_pPage : m_pFirst );
+
+	return CSkinDialog::SkinMe( pszSkin, nIcon, bLanguage );
 }
 
 BOOL CSettingsSheet::CreatePage(CSettingsPage* pPage)
 {
-	CRect rc( LEFTMARGIN, TOPMARGIN, 0, 0 );
-
-	rc.left		+= LISTWIDTH + LISTDIVIDER;
+	CRect rc( LEFTMARGIN + LISTWIDTH + LISTDIVIDER, 0, 0, 0 );
 	rc.right	= rc.left + m_szPages.cx;
 	rc.bottom	= rc.top  + m_szPages.cy;
 
@@ -389,7 +406,8 @@ void CSettingsSheet::OnPaint()
 
 void CSettingsSheet::DoPaint(CDC& dc)
 {
-	CRect rc( LEFTMARGIN, TOPMARGIN, 0, 0 );
+	// Draw Splitter Bar
+	CRect rc( LEFTMARGIN, Skin.m_nBanner + 1, 0, 0 );
 
 	rc.left		+= LISTWIDTH;
 	rc.right	= rc.left + LISTDIVIDER;
@@ -401,7 +419,7 @@ void CSettingsSheet::DoPaint(CDC& dc)
 	dc.FillSolidRect( rc.left + 2, rc.top, rc.Width() - 3, rc.Height(), Colors.m_crResizebarFace );
 
 	GetClientRect( &rc );
-	rc.top = rc.bottom - ( m_nButtonHeight + 16 );
+	rc.top = rc.bottom - ( m_nButtonHeight + BUTTONGAP*2 );
 
 	dc.FillSolidRect( rc.left, rc.top, rc.Width(), 1, Colors.m_crSysBtnFace );
 	dc.FillSolidRect( rc.left, rc.top + 1, rc.Width(), 1, Colors.m_crSys3DHighlight );

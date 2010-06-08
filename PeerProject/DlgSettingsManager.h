@@ -1,7 +1,7 @@
 //
 // DlgSettingsManager.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -26,40 +26,26 @@
 
 class CSettingsManagerDlg : public CSettingsSheet
 {
-// Construction
+	DECLARE_DYNAMIC(CSettingsManagerDlg)
+
 public:
 	CSettingsManagerDlg(CWnd* pParent = NULL);
 
-// Dialog Data
 public:
-	//{{AFX_DATA(CSettingsManagerDlg)
-	//}}AFX_DATA
-	//{{AFX_VIRTUAL(CSettingsManagerDlg)
-	protected:
-	virtual void DoDataExchange(CDataExchange* pDX);
-	//}}AFX_VIRTUAL
+	INT_PTR	DoModal(LPCTSTR pszWindow = NULL);
 
-	CBitmap	m_bmHeader;
-
-// Static Run
-public:
 	static BOOL Run(LPCTSTR pszWindow = NULL);
 	static void OnSkinChange(BOOL bSet);
 	static CSettingsManagerDlg* m_pThis;
 
-// Operations
-public:
-	INT_PTR	DoModal(LPCTSTR pszWindow = NULL);
 protected:
-	void			AddPage(CSettingsPage* pPage);
-	void			AddGroup(CSettingsPage* pPage);
-	virtual void	DoPaint(CDC& dc);
+	void		AddPage(CSettingsPage* pPage);
+	void		AddGroup(CSettingsPage* pPage);
 
-// Implementation
 protected:
-	//{{AFX_MSG(CSettingsManagerDlg)
+	virtual void DoDataExchange(CDataExchange* pDX);
+
 	virtual BOOL OnInitDialog();
-	//}}AFX_MSG
 	virtual void OnOK();
 	virtual void OnApply();
 

@@ -3548,7 +3548,7 @@
 		<control caption="Üleslaadimise ribalaius sellele järjekorrale:"/>
 		<control/>
 		<control/>
-		<control caption="Keera ümber pärast N sekundit:"/>
+		<control caption="Keera ümber pärast # sekundit:"/>
 		<control/>
 		<control/>
 		<control caption="OK"/>
@@ -3597,10 +3597,10 @@
 	</dialog>
 	<dialog name="CWizardFoldersPage" cookie="StStEdBuStEdBuStEdBuSt" caption="Welcome to PeerProject (4/8)">
 		<control caption="PeerProject first downloads partial files to a private folder, then moves them when completed according to Download Groups."/>
-		<control caption="Salvesta Lõpetatud Failid Siia:"/>
-		<control/>
-		<control/>
 		<control caption="Salvesta Ajutised Poolikud Failid Siia:"/>
+		<control/>
+		<control/>
+		<control caption="Salvesta Lõpetatud Failid Siia:"/>
 		<control/>
 		<control/>
 		<control caption="Salvesta .Torrent Failid Siia:"/>
@@ -3658,8 +3658,7 @@
 		<control caption="Ühenda võrku igakord kui käivitan PeerProject"/>
 		<control caption="Alusta PeerProject nautimist!"/>
 	</dialog>
-	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="Impordi eDonkey2000 Allalaadimised">
-		<control/>
+	<dialog name="CDonkeyImportDlg" cookie="StBuBuEdBu" caption="Impordi eDonkey2000 Allalaadimised">
 		<control caption="PeerProject on avastanud sinu arvutis teise eDonkey2000 programmi.  Kas tahad selle programmi poolikud allalaadimised PeerProjectsse tuua?"/>
 		<control caption="Jah"/>
 		<control caption="Ei|Tühista"/>
@@ -3767,8 +3766,7 @@
 		<control caption="Ühenda"/>
 		<control caption="Tühista"/>
 	</dialog>
-	<dialog name="CDownloadDlg" cookie="StStStStEdStBuBuBu" caption="Tõmba Fail või Torrent">
-		<control/>
+	<dialog name="CDownloadDlg" cookie="StStStEdStBuBuBu" caption="Tõmba Fail või Torrent">
 		<control/>
 		<control caption="Suudab tõmmata faile weebist, automaatselt otsida ja tõmmata P2P linke. Failide allalaadimine PeerProjectga on lihtne.  Lihtsalt trüki või kleebi faili URL või URI all asuvasse kasti ja vajuta Enter oma klaviatuuril. &#160; (http:, ftp:, ed2k:, magnet:, etc.)"/>
 		<control caption="PeerProject tõmbab samuti ka BitTorrenti faile. Torrenti saab kirjeldada kui xyz.torrent faili, või HTTP linki .torrent failile.  Et tõmmata torrenti HTTP lingilt, kleebi see üleval olevasse kasti.  Kui sul juba on .torrent fail, kliki Ava Torrent:"/>
@@ -3822,11 +3820,11 @@
 		<control caption="Tühista"/>
 		<control caption="Salvesta fail nimega"/>
 	</dialog>
-	<dialog name="CDiscoveryServiceDlg" cookie="BuEdStCoBuBu" caption="Serverid">
+	<dialog name="CDiscoveryServiceDlg" cookie="BuEdStCoBuBuSt" caption="Serverid">
 		<control caption="Teenuse _Aadress:"/>
 		<control/>
 		<control caption="Teenuse Tüüp:"/>
-		<control caption="Gnutella Bootstrap|GWebCache|Server.met URL"/>
+		<control caption="Gnutella Bootstrap|G1-WebCache|G2-WebCache|G1+G2-WebCache|Server.met URL|Blocked"/>
 		<control caption="OK"/>
 		<control caption="Tühista"/>
 	</dialog>
@@ -3991,8 +3989,7 @@
 		<control caption="OK"/>
 		<control caption="Tühista"/>
 	</dialog>
-	<dialog name="CShareManagerDlg" cookie="StStSyBuBuBuBu" caption="Jagatud Kausta Haldur">
-		<control/>
+	<dialog name="CShareManagerDlg" cookie="StSyBuBuBuBu" caption="Jagatud Kausta Haldur">
 		<control caption="See on nimekiri sinu Raamautukogus olevatest kaustadest.  Sa võid vasakul asuvatest nuppudest lisada või kustutada kaustu .  Kui lisad uue kausta siis seda jagatakse automaatselt teistega, aga sa saad selle soovi korral ka keelata, PeerProject Raamatukogust."/>
 		<control/>
 		<control caption="_Lisa..."/>
@@ -4000,8 +3997,7 @@
 		<control caption="OK"/>
 		<control caption="Tühista"/>
 	</dialog>
-	<dialog name="CURLCopyDlg" cookie="StStStStStBuBu" caption="Kopeeri URI">
-		<control/>
+	<dialog name="CURLCopyDlg" cookie="StStStStBuBu" caption="Kopeeri URI">
 		<control caption="Kopeeri valitud faili URI, erinevates formaatides.  Palun vali formaat, klikkides allpool oleval URI-l:"/>
 		<control/>
 		<control/>
@@ -4009,8 +4005,7 @@
 		<control caption="Lisa _mind URL-i püsiallikana"/>
 		<control caption="Tühista"/>
 	</dialog>
-	<dialog name="CURLExportDlg" cookie="StStEdStCoStCoBuBumsBu" caption="Ekspordi URI">
-		<control/>
+	<dialog name="CURLExportDlg" cookie="StEdStCoStCoBuBumsBu" caption="Ekspordi URI">
 		<control caption="Sa oled valinud %lu faili, eksportimiseks PeerProject URI soovitustesse.  Palun valie URI jaoks formaat ja kliki Salvesta:"/>
 		<control/>
 		<control caption="Sisesta Märk:"/>
@@ -4054,8 +4049,7 @@
 		<control caption="(kopeerin alalaadimise osasid eelvaatesse)"/>
 		<control caption="Tühista"/>
 	</dialog>
-	<dialog name="CWarningsDlg" cookie="StStStStStStStBu" caption="PeerProject Austab Oma Kasutajaid">
-		<control/>
+	<dialog name="CWarningsDlg" cookie="StStStStStStBu" caption="PeerProject Austab Oma Kasutajaid">
 		<control caption="Kas teadsid, et PeerProject on 100% vabavara?"/>
 		<control caption="PeerProject ei sisalda &quot;spyware&quot;, &quot;adware&quot; ega mõnda muud lisaprogramme. Ta kuva mingeid reklaame ega   &quot;hüpikaknaid&quot;, mitte kunagi.{n}{n}Kui peaksid reklaami nägema &quot;hüpikaknaid&quot; kasutades PeerProjectt, võid kindel olla, et need ei tule sellest programmist."/>
 		<control caption="Kahjuks paljud teised programmid tulevad koos adware'i või spyware'iga, nii et kui näed midagi kahtlast siis peaksid oma arvutit kontrollima spyware eemaldus programmiga (nt.ad-aware)."/>
@@ -4064,8 +4058,7 @@
 		<control caption="http://peerproject.org/"/>
 		<control caption="Sule"/>
 	</dialog>
-	<dialog name="CPromoteDlg" cookie="StStStStStStStBu" caption="Levita">
-		<control/>
+	<dialog name="CPromoteDlg" cookie="StStStStStStBu" caption="Levita">
 		<control caption="Aita meil PeerProjectt levitada"/>
 		<control caption="Loodetavasti on PeerProject sulle meeldinud.  Meie usume, et see on parim failijagamis programm, mis saadaval."/>
 		<control caption="Kahjuks paljud jagajad ei tea millest nad ilma jäävad!"/>
@@ -4074,8 +4067,7 @@
 		<control caption="http://peerproject.org/"/>
 		<control caption="OK"/>
 	</dialog>
-	<dialog name="CExistingFileDlg" cookie="StStStStStBuBuBuBuBuSt" caption="Olemasolev Fail">
-		<control/>
+	<dialog name="CExistingFileDlg" cookie="StStStStBuBuBuBuBuStSt" caption="Olemasolev Fail">
 		<control/>
 		<control/>
 		<control/>
@@ -4086,9 +4078,9 @@
 		<control caption="OK"/>
 		<control caption="Tühista"/>
 		<control caption="Sa oled varem selle faili juba tõmmanud ja siis kustutanud.  Mida sa soovid edasi teha?"/>
+		<control caption="Warning! Duplicate files detected. Some malicious software may infect your Library. Make sure that you downloaded this file or placed it manually. Otherwise, shutdown PeerProject and scan your computer with an antivirus program."/>
 	</dialog>
-	<dialog name="CCloseModeDlg" cookie="StStBuBuBuBuBu" caption="Sule Nupp">
-		<control/>
+	<dialog name="CCloseModeDlg" cookie="StBuBuBuBuBu" caption="Sule Nupp">
 		<control caption="See on esimene kord kui oled PeerProject sule nuppu klikkinud.  Palun vali, mida PeerProject peaks tegema:"/>
 		<control caption="Minimeeri tööriistaribale"/>
 		<control caption="Sulge PeerProject kohe"/>
@@ -4096,8 +4088,7 @@
 		<control caption="OK"/>
 		<control caption="Tühista"/>
 	</dialog>
-	<dialog name="CDonkeyServersDlg" cookie="StStEdmsBuBu" caption="Tõmba Server.met Fail">
-		<control/>
+	<dialog name="CDonkeyServersDlg" cookie="StEdmsBuBu" caption="Tõmba Server.met Fail">
 		<control caption="Tõmba weebist eDonkey2000 server.met fail, et värskendada oma kohalikke serverite nimekirja."/>
 		<control/>
 		<control/>
@@ -4135,8 +4126,7 @@
 		<control caption="_Järgmine|Ekspordi"/>
 		<control caption="_Tühista"/>
 	</dialog>
-	<dialog name="CTorrentSeedDlg" cookie="StStBuBuBuStms" caption="Ava Torrent Fail">
-		<control/>
+	<dialog name="CTorrentSeedDlg" cookie="StBuBuBuStms" caption="Ava Torrent Fail">
 		<control caption="Oled avanud BitTorrenti torrenti.  Kas soovid selle alla laadida, või edasi jagada?"/>
 		<control caption="Laadi alla"/>
 		<control caption="Jaga"/>
@@ -4232,8 +4222,7 @@
 		<control caption="OK"/>
 		<control caption="Tühista"/>
 	</dialog>
-	<dialog name="CMediaVisDlg" cookie="StBuSyCoBuBuBu" caption="Vali Visualisation">
-		<control/>
+	<dialog name="CMediaVisDlg" cookie="BuSyCoBuBuBu" caption="Vali Visualisation">
 		<control caption="Vali nimekirjast visualisation :"/>
 		<control/>
 		<control caption="Jaluse Vaade|Täida Ekraan|Suur|Keskmine Suurus|Väike Suurus"/>
@@ -4241,8 +4230,7 @@
 		<control caption="OK"/>
 		<control caption="Tühista"/>
 	</dialog>
-	<dialog name="CUpgradeDlg" cookie="StStStBuBuBu" caption="Uuenduse Teade">
-		<control/>
+	<dialog name="CUpgradeDlg" cookie="StStBuBuBu" caption="Uuenduse Teade">
 		<control caption="Uus PeerProject versioon on saadaval.  Kas soovid uuendada?"/>
 		<control caption="Kui sa valid Uuenda Kohe, lisab PeerProject uuenduse sinu allalaadimiste järjekorda ja alustab ise selle tõmbamist."/>
 		<control caption="_Uuenda Kohe"/>
@@ -4273,14 +4261,12 @@
 		<control caption="Tühista"/>
 		<control caption="Add a channel name:|Enter kick/ban reason:"/>
 	</dialog>
-	<dialog name="CDownloadReviewDlg" cookie="StBuSyEd" caption="Allalaadimiste ülevaated">
-		<control/>
+	<dialog name="CDownloadReviewDlg" cookie="BuSyEd" caption="Allalaadimiste ülevaated">
 		<control caption="OK"/>
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CHelpDlg" cookie="StBuAf" caption="PeerProject Abi">
-		<control/>
+	<dialog name="CHelpDlg" cookie="BuAf" caption="PeerProject Abi">
 		<control caption="Sule"/>
 		<control/>
 	</dialog>

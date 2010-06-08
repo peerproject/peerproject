@@ -43,6 +43,7 @@ IMPLEMENT_DYNCREATE(CWizardSharePage, CWizardPage)
 BEGIN_MESSAGE_MAP(CWizardSharePage, CWizardPage)
 	//{{AFX_MSG_MAP(CWizardSharePage)
 	ON_NOTIFY(LVN_ITEMCHANGED, IDC_SHARE_FOLDERS, OnItemChangedShareFolders)
+	ON_NOTIFY(NM_DBLCLK, IDC_SHARE_FOLDERS, OnDoubleClick)
 	ON_BN_CLICKED(IDC_SHARE_ADD, OnShareAdd)
 	ON_BN_CLICKED(IDC_SHARE_REMOVE, OnShareRemove)
 	ON_WM_XBUTTONDOWN()
@@ -227,6 +228,18 @@ void CWizardSharePage::OnShareRemove()
 	{
 		if ( m_wndList.GetItemState( nItem, LVIS_SELECTED ) )
 			m_wndList.DeleteItem( nItem-- );
+	}
+}
+
+void CWizardSharePage::OnDoubleClick(NMHDR* /*pNMHDR*/, LRESULT* pResult)
+{
+	*pResult = 0;
+
+	// Toggle checkmarks (newly selected items at second click)
+	for ( int nItem = 0 ; nItem < m_wndList.GetItemCount() ; nItem++ )
+	{
+		if ( m_wndList.GetItemState( nItem, LVIS_SELECTED ) )
+			m_wndList.SetItemState( nItem, UINT( ( m_wndList.GetCheck(nItem) ? 1 : 2 ) << 12 ), LVIS_STATEIMAGEMASK );
 	}
 }
 

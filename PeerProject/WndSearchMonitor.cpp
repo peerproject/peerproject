@@ -89,10 +89,12 @@ int CSearchMonitorWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	AddIcon( IDR_SEARCHMONITORFRAME , m_gdiImageList );
 	m_wndList.SetImageList( &m_gdiImageList, LVSIL_SMALL );
 
-	m_wndList.InsertColumn( 0, _T("Search"), LVCFMT_LEFT, 200, -1 );
-	m_wndList.InsertColumn( 1, _T("URN"), LVCFMT_LEFT, 400, 0 );
+	m_wndList.InsertColumn( 0, _T("Search"), LVCFMT_LEFT, 210, -1 );
+	m_wndList.InsertColumn( 1, _T("URN"), LVCFMT_LEFT, 340, 0 );
+//	m_wndList.InsertColumn( 2, _T("Size"), LVCFMT_LEFT, 100, 1 );
 	m_wndList.InsertColumn( 2, _T("Schema"), LVCFMT_LEFT, 100, 1 );
-	m_wndList.InsertColumn( 3, _T("Endpoint"), LVCFMT_LEFT, 100, 2 );
+//	m_wndList.InsertColumn( 4, _T("Network"), LVCFMT_LEFT, 60, 3 );
+	m_wndList.InsertColumn( 3, _T("Endpoint"), LVCFMT_LEFT, 150, 2 );
 
 	m_wndList.SetFont( &theApp.m_gdiFont );
 
@@ -214,41 +216,59 @@ void CSearchMonitorWnd::OnQuerySearch(const CQuerySearch* pSearch)
 	CLiveItem* pItem = new CLiveItem( 4, NULL );
 
 	CString strSearch	= pSearch->m_sSearch;
-	CString strSchema	= _T("None");
-	CString strURN		= _T("None");
-	CString strNode;
+	CString strSchema	= _T("-");
+	CString strURN		= _T("-");
+	CString strNode 	= _T("-");
+
+//	LoadString( strSchema, IDS_NEIGHBOUR_COMPRESSION_NONE );	// ToDo: Generic "None" translation ?
+//	LoadString( strURN, IDS_NEIGHBOUR_COMPRESSION_NONE );
+
+	CString strSize;	//= _T("-");
+	if ( pSearch->m_nMinSize > 100 )
+	{
+		strSize = Settings.SmartVolume( pSearch->m_nMinSize );
+		if ( pSearch->m_nMaxSize != SIZE_UNKNOWN && ( pSearch->m_nMaxSize - pSearch->m_nMinSize ) < 1024 * 1025 )
+			strSize = _T("~ ") + Settings.SmartVolume( pSearch->m_nMaxSize ); // Specific size
+		else if ( pSearch->m_nMaxSize != SIZE_UNKNOWN && pSearch->m_nMaxSize > 512 )
+			strSize = strSize + _T(" - ") + Settings.SmartVolume( pSearch->m_nMaxSize );
+		else
+			strSize = _T("> ") + strSize;
+	}
+	else if ( pSearch->m_nMaxSize != SIZE_UNKNOWN && pSearch->m_nMaxSize > 100 )
+	{
+		strSize = _T("< ") + Settings.SmartVolume( pSearch->m_nMaxSize );
+	}
+
+	CString strNetwork 	= _T("-");
+	if ( pSearch->m_nProtocol > PROTOCOL_NULL )
+	{
+		if ( pSearch->m_nProtocol == PROTOCOL_G1 )
+			strNetwork = _T("  G1");
+		else if ( pSearch->m_nProtocol == PROTOCOL_G2 )
+			strNetwork = _T("  G2");
+		else if ( pSearch->m_nProtocol == PROTOCOL_ED2K )
+			strNetwork = _T("  ED2K");
+		else
+			strNetwork = _T("  ?");	// Others?
+	}
+
 	if ( pSearch->m_pEndpoint.sin_addr.s_addr )
 		strNode.Format( _T("%hs:%u"),
 			inet_ntoa( pSearch->m_pEndpoint.sin_addr ),
 			ntohs( pSearch->m_pEndpoint.sin_port ) );
 
 	if ( pSearch->m_oSHA1 && pSearch->m_oTiger )
-	{
-		strURN	= _T("bitprint:")
-				+ pSearch->m_oSHA1.toString()
-				+ '.'
-				+ pSearch->m_oTiger.toString();
-	}
-	else if ( pSearch->m_oTiger )
-	{
-		strURN = pSearch->m_oTiger.toShortUrn();
-	}
+		strURN	= _T("bitprint:") + pSearch->m_oSHA1.toString() + '.' + pSearch->m_oTiger.toString();
 	else if ( pSearch->m_oSHA1 )
-	{
 		strURN = pSearch->m_oSHA1.toShortUrn();
-	}
+	else if ( pSearch->m_oTiger )
+		strURN = pSearch->m_oTiger.toShortUrn();
 	else if ( pSearch->m_oED2K )
-	{
 		strURN = pSearch->m_oED2K.toShortUrn();
-	}
 	else if ( pSearch->m_oBTH )
-	{
 		strURN = pSearch->m_oBTH.toShortUrn();
-	}
 	else if ( pSearch->m_oMD5 )
-	{
 		strURN = pSearch->m_oMD5.toShortUrn();
-	}
 
 	if ( pSearch->m_pXML )
 	{
@@ -261,9 +281,23 @@ void CSearchMonitorWnd::OnQuerySearch(const CQuerySearch* pSearch)
 		if ( nSlash > 0 ) strSchema = strSchema.Mid( nSlash + 1 );
 	}
 
+	// ToDo: Add proper Size and Network columns to HitMonitor instead
+	if ( strSize.GetLength() > 1 )
+	{
+		if ( strSchema.GetLength() > 3 )
+			strSchema += _T("  ") + strSize;
+		else
+			strSchema = strSize;
+	}
+
+	if ( strNetwork.GetLength() > 1 )
+		strNode += strNetwork;
+
 	pItem->Set( 0, strSearch );
 	pItem->Set( 1, strURN );
+//	pItem->Set( 2, strSize );
 	pItem->Set( 2, strSchema );
+//	pItem->Set( 4, strNetwork );
 	pItem->Set( 3, strNode );
 
 	m_pQueue.AddTail( pItem );

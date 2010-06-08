@@ -3875,13 +3875,13 @@
 	</dialog>
 	<dialog name="CWizardFoldersPage" cookie="StStEdBuStEdBuStEdBuSt" caption="Επιλογή Δικτύων (4/8)">
 		<control caption="PeerProject first downloads partial files to a private folder, then moves them when completed according to Download Groups."/>
-		<control caption="Αποθήκευση Ολοκληρωμένων Αρχείων Σε:"/>
-		<control/>
-		<control/>
 		<control caption="Αποθήκευση Προσωρινών Ημιτελών Αρχείων Σε:"/>
 		<control/>
 		<control/>
-		<control caption="Store .Torrent files here:"/>
+		<control caption="Αποθήκευση Ολοκληρωμένων Αρχείων Σε:"/>
+		<control/>
+		<control/>
+		<control caption="Αποθήκευση .Torrent Αρχείων Σε:"/>
 		<control/>
 		<control/>
 		<control caption="Common filetypes are initially setup as subfolders of the default location, but Groups can easily be customized by Right-Click.  Simply Drag&apos;n&apos;Drop files."/>
@@ -3936,8 +3936,7 @@
 		<control caption="Σύνδεση στο δίκτυο σε κάθε εκκίνηση του PeerProject."/>
 		<control caption="Απολαύστε το PeerProject!"/>
 	</dialog>
-	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="Εισαγωγή Ημιτελών Αρχείων του eDonkey">
-		<control/>
+	<dialog name="CDonkeyImportDlg" cookie="StBuBuEdBu" caption="Εισαγωγή Ημιτελών Αρχείων του eDonkey">
 		<control caption="Το PeerProject εντόπισε ότι έχετε ένα πρόγραμμα eDonkey εγκατεστημένο στον υπολογιστή σας. Θέλετε να εισάγετε τυχόν ημιτελή αρχεία στο PeerProject;"/>
 		<control caption="Ναι"/>
 		<control caption="Όχι|Άκυρο"/>
@@ -4045,8 +4044,7 @@
 		<control caption="Σύνδεση"/>
 		<control caption="Άκυρο"/>
 	</dialog>
-	<dialog name="CDownloadDlg" cookie="StStStStEdStBuBuBu" caption="Λήψη Αρχείου ή Torrent">
-		<control/>
+	<dialog name="CDownloadDlg" cookie="StStStEdStBuBuBu" caption="Λήψη Αρχείου ή Torrent">
 		<control/>
 		<control caption="Το PeerProject μπορεί να λάβει αρχεία από τον Ιστό και αυτόματα να ψάξει και να κατεβάσει συνδέσμους P2P. Απλά εισάγετε ή επικολλήστε στο πεδίο το URL ή URI του αρχείου και πατήστε Enter. &#160; (http:, ftp:, ed2k:, magnet:, etc.)"/>
 		<control caption="Μπορεί επίσης να λάβει αρχεία BitTorrent. Ένα torrent δηλώνετε με ένα αρχείο τύπου .torrent ή έναν HTTP σύνδεσμο προς αυτό. Αν έχετε τον σύνδεσμο, επικολλήστε τον στο παραπάνω πεδίο. Αν έχετε το αρχείο, κλικ στο Άνοιγμα Torrent:"/>
@@ -4100,14 +4098,13 @@
 		<control caption="Άκυρο"/>
 		<control caption="Αποθήκευση τρέχοντος φίλτρου ως"/>
 	</dialog>
-	<dialog name="CDiscoveryServiceDlg" cookie="BuEdStCoBuBuSt" caption="Υπηρεσία Ανακάλυψης">
+	<dialog name="CDiscoveryServiceDlg" cookie="BuEdStCoBuBu" caption="Υπηρεσία Ανακάλυψης">
 		<control caption="_Διεύθυνση Υπηρεσίας:"/>
 		<control/>
 		<control caption="Τύπος Υπηρεσίας:"/>
 		<control caption="Gnutella Bootstrap|GWebCache|Server.met URL|Φραγμένη"/>
 		<control caption="OK"/>
 		<control caption="Άκυρο"/>
-		<control/>
 	</dialog>
 	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStBuBuBuBu" caption="Λήψη">
 		<control caption="..."/>
@@ -4271,8 +4268,7 @@
 		<control caption="OK"/>
 		<control caption="Άκυρο"/>
 	</dialog>
-	<dialog name="CShareManagerDlg" cookie="StStSyBuBuBuBu" caption="Διαχειριστής Κοινοποίησης Φακέλων">
-		<control/>
+	<dialog name="CShareManagerDlg" cookie="StSyBuBuBuBu" caption="Διαχειριστής Κοινοποίησης Φακέλων">
 		<control caption="Αυτή η λίστα περιέχει τους φακέλους της Βιβλιοθήκης. Μπορείτε να προσθαφαιρέσετε φακέλους χρησιμοποιώντας τα κουμπιά. Κάθε νέος φάκελος αρχικά κοινοποιείται, όμως μπορείτε αν θέλετε να τον αποκοινοποιήσετε στις επιλογές της Βιβλιοθήκης."/>
 		<control/>
 		<control caption="_Προσθήκη..."/>
@@ -4280,8 +4276,7 @@
 		<control caption="OK"/>
 		<control caption="Άκυρο"/>
 	</dialog>
-	<dialog name="CURLCopyDlg" cookie="StStStStStBuBu" caption="Αντιγραφή URI">
-		<control/>
+	<dialog name="CURLCopyDlg" cookie="StStStStBuBu" caption="Αντιγραφή URI">
 		<control caption="Μπορείτε να αντιγράψετε ένα URI για το επιλεγμένο αντικείμενο, σε διάφορες μορφές. Παρακαλώ διαλέξτε τη μορφή που θέλετε με κλικ σε ένα από τα παρακάτω URIs:"/>
 		<control/>
 		<control/>
@@ -4289,8 +4284,7 @@
 		<control caption="Συμπερίληψη στο URL του _εαυτού σας, ως μόνιμη πηγή"/>
 		<control caption="Άκυρο"/>
 	</dialog>
-	<dialog name="CURLExportDlg" cookie="StStEdStCoStCoBuBumsBu" caption="Εξαγωγή URIs">
-		<control/>
+	<dialog name="CURLExportDlg" cookie="StEdStCoStCoBuBumsBu" caption="Εξαγωγή URIs">
 		<control caption="Επιλέξατε %lu αρχεία για εξαγωγή ως αναφορές URI. Παρακαλώ επιλέξτε τη μορφή των URIs και κάντε κλικ στο Αποθήκευση:"/>
 		<control/>
 		<control caption="Εισαγωγή Κουπονιού:"/>
@@ -4334,8 +4328,7 @@
 		<control caption="(αντιγραφή ληφθέντων τμημάτων σε ένα νέο αρχείο προεπισκόπησης)"/>
 		<control caption="Άκυρο"/>
 	</dialog>
-	<dialog name="CWarningsDlg" cookie="StStStStStStStBu" caption="Το PeerProject Σέβεται τους Χρήστες του">
-		<control/>
+	<dialog name="CWarningsDlg" cookie="StStStStStStBu" caption="Το PeerProject Σέβεται τους Χρήστες του">
 		<control caption="Το ξέρατε ότι το PeerProject είναι ένα 100% ελεύθερο προϊόν;"/>
 		<control caption="Το PeerProject ΔΕΝ περιέχει ΚΑΘΟΛΟΥ &quot;spyware&quot;, &quot;adware&quot; και γενικά κακόβουλο λογισμικό. ΔΕΝ δείχνει ποτέ διαφημίσεις ή &quot;popups&quot;.{n}{n}Αν ποτέ δείτε διαφημίσεις ή &quot;popups&quot; καθώς χρησιμοποιείτε το PeerProject, να είστε βέβαιοι ότι ΔΕΝ προέρχονται από αυτό."/>
 		<control caption="Δυστυχώς, πολλά άλλα προγράμματα συνοδεύονται από ανεπιθύμητα adware ή spyware, έτσι, αν δείτε κάτι ύποπτο, ελέγξτε τον υπολογιστή σας με ένα πρόγραμμα αφαίρεσης κακόβουλου λογισμικού."/>
@@ -4344,8 +4337,7 @@
 		<control caption="http://peerproject.org/"/>
 		<control caption="Κλείσιμο"/>
 	</dialog>
-	<dialog name="CPromoteDlg" cookie="StStStStStStStBu" caption="Διαδόστε το">
-		<control/>
+	<dialog name="CPromoteDlg" cookie="StStStStStStBu" caption="Διαδόστε το">
 		<control caption="Βοηθήστε μας στη Διάδοσή του"/>
 		<control caption="Ελπίζουμε να απολαμβάνετε τη χρήση του PeerProject. Πιστεύουμε ότι αποτελεί το καλύτερο πρόγραμμα ανταλλαγής αρχείων."/>
 		<control caption="Δυστυχώς, πολλοί χρήστες δεν ξέρουν τι χάνουν!"/>
@@ -4354,8 +4346,7 @@
 		<control caption="http://peerproject.org/"/>
 		<control caption="OK"/>
 	</dialog>
-	<dialog name="CExistingFileDlg" cookie="StStStStStBuBuBuBuBuStSt" caption="Προϋπάρχοντα Αρχεία">
-		<control/>
+	<dialog name="CExistingFileDlg" cookie="StStStStBuBuBuBuBuStSt" caption="Προϋπάρχοντα Αρχεία">
 		<control/>
 		<control/>
 		<control/>
@@ -4368,8 +4359,7 @@
 		<control caption="Έχετε λάβει και διαγράψει αυτό το αρχείο παλαιότερα. Τι θέλετε να κάνετε;"/>
 		<control caption="Προειδοποίηση!!! Εντοπισμός πανομοιότυπου αρχείου. Κάποιο κακόβουλο λογισμικό ίσως μολύνει τη Βιβλιοθήκη. Εξετάστε μήπως εσείς λάβατε αυτό το αρχείο ή το προσθέσατε χειροκίνητα. Αν όχι, τερματίστε το PeerProject και σαρώστε τον υπολογιστή σας με ένα αντιβιοτικό πρόγραμμα."/>
 	</dialog>
-	<dialog name="CCloseModeDlg" cookie="StStBuBuBuBuBu" caption="Κουμπί Κλεισίματος">
-		<control/>
+	<dialog name="CCloseModeDlg" cookie="StBuBuBuBuBu" caption="Κουμπί Κλεισίματος">
 		<control caption="Αυτή είναι η πρώτη φορά που κάνατε κλικ στο κουμπί κλεισίματος του PeerProject. Παρακαλώ διαλέξτε την ενέργεια αυτού του κουμπιού από δω και στο εξής:"/>
 		<control caption="Ελαχιστοποίηση στη γραμμή συστήματος"/>
 		<control caption="Άμεσος τερματισμός του PeerProject"/>
@@ -4377,8 +4367,7 @@
 		<control caption="OK"/>
 		<control caption="Άκυρο"/>
 	</dialog>
-	<dialog name="CDonkeyServersDlg" cookie="StStEdmsBuBu" caption="Λήψη Αρχείου Server.met">
-		<control/>
+	<dialog name="CDonkeyServersDlg" cookie="StEdmsBuBu" caption="Λήψη Αρχείου Server.met">
 		<control caption="Μπορείτε να λάβετε ένα αρχείο server.met του ED2K από το Διαδίκτυο για να ανανεώσετε την τοπική λίστα servers."/>
 		<control/>
 		<control/>
@@ -4416,8 +4405,7 @@
 		<control caption="Εξαγωγή..."/>
 		<control caption="_Άκυρο"/>
 	</dialog>
-	<dialog name="CTorrentSeedDlg" cookie="StStBuBuBuStms" caption="Άνοιγμα Αρχείου Torrent">
-		<control/>
+	<dialog name="CTorrentSeedDlg" cookie="StBuBuBuStms" caption="Άνοιγμα Αρχείου Torrent">
 		<control caption="Ανοίξατε ένα αρχείο torrent. Θέλετε να λάβετε ξανά τα περιεχόμενά του ή να το κάνετε re-seed;"/>
 		<control caption="Λήψη"/>
 		<control caption="Seed"/>
@@ -4512,8 +4500,7 @@
 		<control caption="OK"/>
 		<control caption="Άκυρο"/>
 	</dialog>
-	<dialog name="CMediaVisDlg" cookie="StBuSyCoBuBuBu" caption="Επιλογή Απεικόνισης">
-		<control/>
+	<dialog name="CMediaVisDlg" cookie="BuSyCoBuBuBu" caption="Επιλογή Απεικόνισης">
 		<control caption="Επιλογή ηχητικής απεικόνισης από τη λίστα:"/>
 		<control/>
 		<control caption="Εμφάνιση στο Υποσέλιδο|Εμφάνιση Πλήρους Μεγέθους|Μεγάλη Εμφάνιση|Μέτρια Εμφάνιση|Μικρή Εμφάνιση"/>
@@ -4521,8 +4508,7 @@
 		<control caption="OK"/>
 		<control caption="Άκυρο"/>
 	</dialog>
-	<dialog name="CUpgradeDlg" cookie="StStStBuBuBu" caption="Συναγερμός Αναβάθμισης">
-		<control/>
+	<dialog name="CUpgradeDlg" cookie="StStBuBuBu" caption="Συναγερμός Αναβάθμισης">
 		<control caption="Μια νέα έκδοση του PeerProject είναι διαθέσιμη. Θέλετε να αναβαθμίσετε;"/>
 		<control caption="Αν επιλέξετε Άμεση Αναβάθμιση, το PeerProject θα προσθέση την αναβάθμιση στη λίστα λήψεων και θα ξεκινήσει αυτόματα να τη λαμβάνει."/>
 		<control caption="_Άμεση Αναβάθμιση"/>
@@ -4553,14 +4539,12 @@
 		<control caption="Άκυρο"/>
 		<control caption="Εισαγωγή ονόματος καναλιού:|Εισαγωγή αιτίας αποπομπής/αποκλεισμού:"/>
 	</dialog>
-	<dialog name="CDownloadReviewDlg" cookie="StBuSyEd" caption="Κριτικές Λήψης">
-		<control/>
+	<dialog name="CDownloadReviewDlg" cookie="BuSyEd" caption="Κριτικές Λήψης">
 		<control caption="OK"/>
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CHelpDlg" cookie="StBuAf" caption="Βοήθεια PeerProject">
-		<control/>
+	<dialog name="CHelpDlg" cookie="BuAf" caption="Βοήθεια PeerProject">
 		<control caption="Κλείσιμο"/>
 		<control/>
 	</dialog>

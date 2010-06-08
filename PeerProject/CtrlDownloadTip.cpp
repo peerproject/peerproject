@@ -101,8 +101,8 @@ void CDownloadTipCtrl::OnShow()
 {
 	if ( m_pGraph ) delete m_pGraph;
 
-	m_pGraph	= CreateLineGraph();
-	m_pItem		= new CGraphItem( 0, 1.0f, RGB( 0, 0, 0xFF ) );
+	m_pGraph = CreateLineGraph();
+	m_pItem  = new CGraphItem( 0, 1.0f, RGB( 0, 0, 0xFF ) );
 	m_pGraph->AddItem( m_pItem );
 }
 
@@ -110,7 +110,7 @@ void CDownloadTipCtrl::OnHide()
 {
 	if ( m_pGraph ) delete m_pGraph;
 	m_pGraph = NULL;
-	m_pItem = NULL;
+	m_pItem  = NULL;
 }
 
 void CDownloadTipCtrl::OnPaint(CDC* pDC)
@@ -211,7 +211,9 @@ void CDownloadTipCtrl::OnCalcSize(CDC* pDC, CDownload* pDownload)
 
 	// Graph (Only for files in progress)
 	if ( pDownload->IsCompleted() )
+	{
 		m_bDrawGraph = FALSE;
+	}
 	else
 	{
 		m_sz.cy += TIP_GAP;
@@ -883,7 +885,7 @@ void CDownloadTipCtrl::OnPaint(CDC* pDC, CDownloadSource* pSource)
 	pt.y += TIP_TEXTHEIGHT;
 
 	// End dynamic text
-	if ( ! Skin.m_bmToolTip.m_hObject ) 
+	if ( ! Skin.m_bmToolTip.m_hObject )
 		m_rcUpdateText.bottom = pt.y + TIP_TEXTHEIGHT;
 
 	LoadString( strText, IDS_TIP_USERAGENT );
@@ -982,7 +984,7 @@ void CDownloadTipCtrl::OnTimer(UINT_PTR nIDEvent)
 		return;
 
 	if ( ( m_pDownload && m_pDownload->IsCompleted() ) || ( m_pSource && m_pSource->IsIdle() ) )
-		return;	// No change
+		return; 	// No change
 
 	DWORD nSpeed = 0;
 	if ( m_pDownload && Downloads.Check( m_pDownload ) )

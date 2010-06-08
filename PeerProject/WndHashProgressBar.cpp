@@ -1,7 +1,7 @@
 //
 // WndHashProgressBar.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -55,10 +55,10 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CHashProgressBar construction
 
-CHashProgressBar::CHashProgressBar() :
-	m_pParent( NULL ),
-	m_hIcon( NULL ),
-	m_nFlash( 0 )
+CHashProgressBar::CHashProgressBar()
+	: m_pParent	( NULL )
+	, m_hIcon	( NULL )
+	, m_nFlash	( 0 )
 {
 }
 
@@ -173,9 +173,9 @@ void CHashProgressBar::OnSkinChange()
 
 void CHashProgressBar::OnPaint()
 {
-	CRect rcClient;
 	CPaintDC dc( this );
 
+	CRect rcClient;
 	GetClientRect( &rcClient );
 
 	dc.Draw3dRect( &rcClient, m_crBorder, m_crBorder );
@@ -187,8 +187,7 @@ void CHashProgressBar::OnPaint()
 	dc.SetBkMode( TRANSPARENT );
 
 	// Icon
-	DrawIconEx( dc, rcClient.left + 5, rcClient.top + 4, m_hIcon, 32, 32,
-		0, NULL, DI_NORMAL );
+	DrawIconEx( dc, rcClient.left + 5, rcClient.top + 4, m_hIcon, 32, 32, 0, NULL, DI_NORMAL );
 
 	// Text
 	CFont* pOld = dc.SelectObject( &CoolInterface.m_fntNormal );
@@ -202,7 +201,7 @@ void CHashProgressBar::OnPaint()
 	if ( m_nFlash++ % 30 > 15 )
 		dc.SetTextColor( Colors.m_crTextStatus );
 
-	strText.Format( IDS_HASH_MESSAGE, LibraryBuilder.GetRemaining() );
+	strText.Format( LoadString( IDS_HASH_MESSAGE ), LibraryBuilder.GetRemaining() );
 
 	CSize sz = dc.GetTextExtent( strText );
 	CRect rcText( rcClient.left + 32 + 12, rcClient.top + 3,
@@ -248,7 +247,7 @@ void CHashProgressBar::OnTimer(UINT_PTR /*nIDEvent*/)
 
 void CHashProgressBar::OnLButtonDown(UINT /*nFlags*/, CPoint point)
 {
-	if ( point.y < 14 && point.x > 296 )
+	if ( point.y < 14 && point.x > ( WINDOW_WIDTH - 14 ) )	// "x"
 		Settings.Library.HashWindow = FALSE;
 
 	ShowWindow( SW_HIDE );

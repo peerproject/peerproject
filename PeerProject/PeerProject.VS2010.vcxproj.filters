@@ -1221,6 +1221,9 @@
     <None Include="Res\BadRange.htm">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="Res\Banner.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
     <None Include="Res\BannerMark.bmp">
       <Filter>Resource Files</Filter>
     </None>
@@ -1555,9 +1558,6 @@
       <Filter>Resource Files</Filter>
     </None>
     <None Include="Res\WebURL.ico">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="Res\Wizard.bmp">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="Res\WizardDot.ico">

@@ -279,7 +279,7 @@ DWORD CDownloadWithFile::MoveFile(LPCTSTR pszDestination, LPPROGRESS_ROUTINE lpP
 		if ( dwError != ERROR_SUCCESS )
 		{
 			CString strMessage;
-			strMessage.Format( IDS_DOWNLOAD_CANT_MOVE,
+			strMessage.Format( LoadString( IDS_DOWNLOAD_CANT_MOVE ),
 				GetDisplayName(), pszDestination );
 			theApp.Message( MSG_ERROR, _T("%s %s"),
 				strMessage, GetErrorString( dwError ) );

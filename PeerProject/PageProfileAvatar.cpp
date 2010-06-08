@@ -1,7 +1,7 @@
 //
 // PageProfileAvatar.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -76,13 +76,9 @@ BOOL CAvatarProfilePage::OnInitDialog()
 	CSettingsPage::OnInitDialog();
 
 	if ( CXMLElement* pAvatar = MyProfile.GetXML( _T("avatar") ) )
-	{
 		m_sAvatar = pAvatar->GetAttributeValue( _T("path") );
-	}
 	else
-	{
 		m_sAvatar = Settings.General.Path + _T("\\Data\\DefaultAvatar.png");
-	}
 
 	PrepareImage();
 
@@ -92,9 +88,7 @@ BOOL CAvatarProfilePage::OnInitDialog()
 void CAvatarProfilePage::OnOK()
 {
 	if ( CXMLElement* pAvatar = MyProfile.GetXML( _T("avatar"), TRUE ) )
-	{
 		pAvatar->AddAttribute( _T("path"), m_sAvatar );
-	}
 
 	CSettingsPage::OnOK();
 }
@@ -102,11 +96,10 @@ void CAvatarProfilePage::OnOK()
 void CAvatarProfilePage::OnPaint()
 {
 	CPaintDC dc( this );
-	CRect rc;
 
+	CRect rc;
 	m_wndPreview.GetWindowRect( &rc );
 	ScreenToClient( &rc );
-
 	rc.right = rc.left + 128;
 	rc.bottom = rc.top + 128;
 
@@ -120,8 +113,9 @@ void CAvatarProfilePage::OnPaint()
 	}
 	else
 	{
+		dc.Draw3dRect( &rc, Colors.m_crWindow, Colors.m_crWindow );
 		rc.InflateRect( 1, 1 );
-		dc.Draw3dRect( &rc, Colors.m_crSysActiveCaption, Colors.m_crSysActiveCaption );
+		dc.Draw3dRect( &rc, Colors.m_crMidtone, Colors.m_crMidtone );
 	}
 }
 
@@ -155,7 +149,7 @@ void CAvatarProfilePage::PrepareImage()
 	CClientDC dc( this );
 	SendMessage( WM_CTLCOLORSTATIC, (WPARAM)dc.GetSafeHdc(), (LPARAM)m_wndPreview.GetSafeHwnd() );
 
-	if ( pFile.LoadFromFile( m_sAvatar ) && pFile.EnsureRGB( dc.GetBkColor() ) )
+	if ( pFile.LoadFromFile( m_sAvatar ) && pFile.EnsureRGB( Colors.m_crDialog ) )	//dc.GetBkColor()
 	{
 		pFile.Resample( 128, 128 );
 		m_bmAvatar.Attach( pFile.CreateBitmap() );

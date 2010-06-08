@@ -255,7 +255,7 @@ bool CLibraryFolders::AddSharedFolder(CListCtrl& oList)
 		if ( bSubFolder )
 		{
 			CString strMessage;
-			strMessage.Format( IDS_LIBRARY_SUBFOLDER_IN_LIBRARY, strPath );
+			strMessage.Format( LoadString( IDS_LIBRARY_SUBFOLDER_IN_LIBRARY ), strPath );
 
 			if ( bForceAdd || AfxMessageBox( strMessage, MB_ICONQUESTION|MB_YESNO ) == IDYES )
 			{
@@ -274,7 +274,7 @@ bool CLibraryFolders::AddSharedFolder(CListCtrl& oList)
 		else
 		{
 			CString strMessage;
-			strMessage.Format( IDS_WIZARD_SHARE_ALREADY, strOldLC );
+			strMessage.Format( LoadString( IDS_WIZARD_SHARE_ALREADY ), strOldLC );
 			AfxMessageBox( strMessage, MB_ICONINFORMATION );
 			return false;
 		}

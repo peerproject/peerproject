@@ -126,7 +126,17 @@ protected:
 
 // Watermarks + Color Scheme
 public:
+	CBitmap		m_bmBanner;
+	int 		m_nBanner;
+
+	CBrush		m_brDialog;
+	CBrush		m_brDialogPanel;
+	CBrush		m_brMediaSlider;
+
+	CBitmap		m_bmDialog;
+	CBitmap		m_bmDialogPanel;
 	CBitmap		m_bmPanelMark;
+
 	CBitmap		m_bmSelected;
 	CBitmap		m_bmProgress;
 	CBitmap		m_bmProgressNone;

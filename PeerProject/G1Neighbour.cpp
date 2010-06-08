@@ -1325,22 +1325,12 @@ BOOL CG1Neighbour::OnQuery(CG1Packet* pPacket)
 		return TRUE;	// Stay connected to the remote computer
 	}
 
-	// Create a new CLocalSearch object, giving the constructor the CQuerySearch object, and the packet it was made from
-	CLocalSearch pLocalSearch( pSearch, this );
-
 	// If this connection isn't up to a hub above us, check the TTL and if that's ok, move 1 from TTL to hops
 	if ( m_nNodeType != ntHub && pPacket->Hop() )
-	{
-		// Have the neighbours object route the query packet (do)
-		Neighbours.RouteQuery( pSearch, pPacket, this, TRUE );
-	}
+		Neighbours.RouteQuery( pSearch, pPacket, this, TRUE );	// Have the neighbours object route the query packet (do)
 
 	// Give the CQuerySearch object to the Network object (do)
-	Network.OnQuerySearch( pSearch );
-
-	// If the CQuerySearch object doesn't detect a firewall, or we're listening, do a local search (do)
-	if ( ! pSearch->m_bFirewall || Network.IsListening() )
-		pLocalSearch.Execute();
+	Network.OnQuerySearch( new CLocalSearch( pSearch, this ) );
 
 	// Delete the local object, and record another Gnutella query packet processed
 	Statistics.Current.Gnutella1.Queries++;

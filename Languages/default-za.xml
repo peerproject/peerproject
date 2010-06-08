@@ -3741,7 +3741,7 @@
 		<control caption="Oplaaibandwydte vir hierdie waglys:"/>
 		<control/>
 		<control/>
-		<control caption="Roteer na N sekondes:"/>
+		<control caption="Roteer na # sekondes:"/>
 		<control/>
 		<control/>
 		<control caption="OK"/>
@@ -3790,10 +3790,10 @@
 	</dialog>
 	<dialog name="CWizardFoldersPage" cookie="StStEdBuStEdBuStEdBuSt" caption="Welkom by PeerProject (4/8)">
 		<control caption="PeerProject first downloads partial files to a private folder, then moves them when completed according to Download Groups."/>
-		<control caption="Stoor Volledige Aflaaie Hier:"/>
-		<control/>
-		<control/>
 		<control caption="Stoor Onvolledige Aflaaie Hier:"/>
+		<control/>
+		<control/>
+		<control caption="Stoor Volledige Aflaaie Hier:"/>
 		<control/>
 		<control/>
 		<control caption="Stoor .Torrent Aflaaie Hier:"/>
@@ -3851,8 +3851,7 @@
 		<control caption="Konnekteer aan die netwerk elke keer as ek PeerProject begin"/>
 		<control caption="Geniet PeerProject."/>
 	</dialog>
-	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="Trek eDonkey2000 Aflaaie In">
-		<control/>
+	<dialog name="CDonkeyImportDlg" cookie="StBuBuEdBu" caption="Trek eDonkey2000 Aflaaie In">
 		<control caption="PeerProject het raakgesien dat jy 'n ander eDonkey2000 program geinstalleer het op jou rekenaar.  Wil jy enige onvolledige aflaaie in PeerProject intrek?"/>
 		<control caption="Ja"/>
 		<control caption="Nee|Kanselleer"/>
@@ -3960,8 +3959,7 @@
 		<control caption="Konnekteer"/>
 		<control caption="Kanselleer"/>
 	</dialog>
-	<dialog name="CDownloadDlg" cookie="StStStStEdStBuBuBu" caption="Laai Lêer of Torrent Af">
-		<control/>
+	<dialog name="CDownloadDlg" cookie="StStStEdStBuBuBu" caption="Laai Lêer of Torrent Af">
 		<control/>
 		<control caption="PeerProject kan lêers van die Web aflaai, en outomaties P2P skakels soek en aflaai.  Plaas net eenvoudig die URL of URI van die lêer in die spasie hieronder en druk Enter. &#160; (http:, ftp:, ed2k:, magnet:, etc.)"/>
 		<control caption="PeerProject kan ook BitTorrent lêers aflaai.  'n Torrent kan beskryf word as 'n xyz.torrent lêer, of 'n HTTP-skakel na die .torrent lêer.  Om 'n torrent HTTP-skakel af te laai, plaas dit in die spasie hierbo.  As jy alreeds 'n .torrent lêer het, kliek Open Torrent:"/>
@@ -4015,14 +4013,13 @@
 		<control caption="Kanselleer"/>
 		<control caption="Stoor die huidige filter as"/>
 	</dialog>
-	<dialog name="CDiscoveryServiceDlg" cookie="BuEdStCoBuBuSt" caption="Ontdekkingsdiens">
+	<dialog name="CDiscoveryServiceDlg" cookie="BuEdStCoBuBu" caption="Ontdekkingsdiens">
 		<control caption="Diens _Adres:"/>
 		<control/>
 		<control caption="Ontdekkingsdiens Tipe:"/>
 		<control caption="Blocked"/>
 		<control caption="OK"/>
 		<control caption="Kanselleer"/>
-		<control/>
 	</dialog>
 	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStBuBuBuBu" caption="Aflaai">
 		<control caption="..."/>
@@ -4186,8 +4183,7 @@
 		<control caption="OK"/>
 		<control caption="Kanselleer"/>
 	</dialog>
-	<dialog name="CShareManagerDlg" cookie="StStSyBuBuBuBu" caption="Gedeelde Lêers Beheerder">
-		<control/>
+	<dialog name="CShareManagerDlg" cookie="StSyBuBuBuBu" caption="Gedeelde Lêers Beheerder">
 		<control caption="Hierdie is 'n lys van gidse in jou biblioteek.  Jy kan gidse byvoeg of verwyder deur die knoppies aan die linkerkant te gebruik.  Wanneer jy 'n nuwe gids byvoeg word dit outomaties gedeel met ander gebruikers, maar jy kan dit afskakel vanuit die PeerProject biblioteek as jy wil."/>
 		<control/>
 		<control caption="_Voeg By..."/>
@@ -4195,8 +4191,7 @@
 		<control caption="OK"/>
 		<control caption="Kanselleer"/>
 	</dialog>
-	<dialog name="CURLCopyDlg" cookie="StStStStStBuBu" caption="Kopieer URI">
-		<control/>
+	<dialog name="CURLCopyDlg" cookie="StStStStBuBu" caption="Kopieer URI">
 		<control caption="Jy kan 'n URI van die geselekteerde item kopieer in 'n verskeidenheid formate.  Kies asseblief die formaat wat jy wil gebruik deur op een van die URIs hieronder te kliek:"/>
 		<control/>
 		<control/>
@@ -4204,8 +4199,7 @@
 		<control caption="Sluit _myself as 'n vaste bron in die URL in"/>
 		<control caption="Kanselleer"/>
 	</dialog>
-	<dialog name="CURLExportDlg" cookie="StStEdStCoStCoBuBumsBu" caption="Voer URIs Uit">
-		<control/>
+	<dialog name="CURLExportDlg" cookie="StEdStCoStCoBuBumsBu" caption="Voer URIs Uit">
 		<control caption="Jy het %lu lêers geselekteer om uit te voer as PeerProject ondersteunende URI verwysings.  Selekteer asseblief die formaat van die URIs en kliek Stoor:"/>
 		<control/>
 		<control caption="Voeg Teken By:"/>
@@ -4249,8 +4243,7 @@
 		<control caption="(kopieer afgelaaide dele na 'n nuwe voorskoulêer)"/>
 		<control caption="Kanselleer"/>
 	</dialog>
-	<dialog name="CWarningsDlg" cookie="StStStStStStStBu" caption="PeerProject Respekteer ons Gebruikers">
-		<control/>
+	<dialog name="CWarningsDlg" cookie="StStStStStStBu" caption="PeerProject Respekteer ons Gebruikers">
 		<control caption="Het jy geweet PeerProject is 'n 100% gratis program?"/>
 		<control caption="PeerProject bevat GEEN &quot;spioenware&quot;, &quot;advertensieware&quot; of enige ander ongewenste sagteware nie. Dit vertoon ook GEEN advertensies of &quot;opspringboodskappe&quot; ooit nie.{n}{n}As jy ooit advertensies of &quot;opspringboodskappe&quot; sien terwyl jy PeerProject gebruik, wees gerus dat hulle NIE van hierdie program afkomstig is nie."/>
 		<control caption="Ongelukkig kom 'n groot aantal ander sagteware met spioen- of advertensieware uit, so as jy iets verdags sien, word jy aangeraai om jou rekenaar met 'n spioen- of advertensieware verwyderaarsprogram te laat deursoek."/>
@@ -4259,8 +4252,7 @@
 		<control caption="http://PeerProject.org"/>
 		<control caption="Maak toe"/>
 	</dialog>
-	<dialog name="CPromoteDlg" cookie="StStStStStStStBu" caption="Versprei die Nuus">
-		<control/>
+	<dialog name="CPromoteDlg" cookie="StStStStStStBu" caption="Versprei die Nuus">
 		<control caption="Help ons om die nuus te versprei"/>
 		<control caption="Ons hoop jy het dit sover geniet om PeerProject te gebruik.  Ons glo dat dit die beste lêerdelingsprogram beskikbaar is."/>
 		<control caption="Ongelukkig weet 'n groot aantal lêerdelers nie wat hulle mis nie!"/>
@@ -4269,8 +4261,7 @@
 		<control caption="http://PeerProject.org"/>
 		<control caption="OK"/>
 	</dialog>
-	<dialog name="CExistingFileDlg" cookie="StStStStStBuBuBuBuBuStSt" caption="Aflaai van bestaande lêer">
-		<control/>
+	<dialog name="CExistingFileDlg" cookie="StStStStBuBuBuBuBuStSt" caption="Aflaai van bestaande lêer">
 		<control/>
 		<control/>
 		<control/>
@@ -4283,8 +4274,7 @@
 		<control caption="Jy het hierdie lêer voorheen afgelaai en geskrap.  Wat wil jy graag doen?"/>
 		<control caption="Warning: Duplicate files detected. Some malicious software may infect your Library. Make sure that you downloaded this file or placed it manually. Otherwise, shutdown PeerProject and scan your computer with an antivirus program."/>
 	</dialog>
-	<dialog name="CCloseModeDlg" cookie="StStBuBuBuBuBu" caption="Sluitingsknoppie">
-		<control/>
+	<dialog name="CCloseModeDlg" cookie="StBuBuBuBuBu" caption="Sluitingsknoppie">
 		<control caption="Hierdie is die eerste keer wat jy PeerProject se sluitingsknoppie gekliek het.  Kies asseblief watter aksie jy wil hê PeerProject moet uitvoer as jy die sluitingsknoppie in die vervolg kliek:"/>
 		<control caption="Minimeer na die taakbalkarea"/>
 		<control caption="Verlaat PeerProject dadelik"/>
@@ -4292,8 +4282,7 @@
 		<control caption="OK"/>
 		<control caption="Cancel"/>
 	</dialog>
-	<dialog name="CDonkeyServersDlg" cookie="StStEdmsBuBu" caption="Laai Server.met Lêer af">
-		<control/>
+	<dialog name="CDonkeyServersDlg" cookie="StEdmsBuBu" caption="Laai Server.met Lêer af">
 		<control caption="Jy kan 'n eDonkey2000 server.met lêer van die web aflaai om jou lokale lys van bedienders te verfris."/>
 		<control/>
 		<control/>
@@ -4331,8 +4320,7 @@
 		<control caption="_Next|_Export..."/>
 		<control caption="Kanselleer"/>
 	</dialog>
-	<dialog name="CTorrentSeedDlg" cookie="StStBuBuBuStms" caption="Open Torrentlêer">
-		<control/>
+	<dialog name="CTorrentSeedDlg" cookie="StBuBuBuStms" caption="Open Torrentlêer">
 		<control caption="Jy het 'n BitTorrent Torrentlêer oopgemaak. Wil jy sy inhoud aflaai, of dit hersaai?"/>
 		<control caption="Laai Af"/>
 		<control caption="Saai"/>
@@ -4428,8 +4416,7 @@
 		<control caption="OK"/>
 		<control caption="Kanselleer"/>
 	</dialog>
-	<dialog name="CMediaVisDlg" cookie="StBuSyCoBuBuBu" caption="Selekteer Visualisering">
-		<control/>
+	<dialog name="CMediaVisDlg" cookie="BuSyCoBuBuBu" caption="Selekteer Visualisering">
 		<control caption="Selekteer 'n klankvisualisering van die lys:"/>
 		<control/>
 		<control caption="Voetrëel Beeld|Volle Beeldgrootte|Groot Beeldgrootte|Medium Beeldgrootte|Klein Beeldgrootte"/>
@@ -4437,8 +4424,7 @@
 		<control caption="OK"/>
 		<control caption="Kanselleer"/>
 	</dialog>
-	<dialog name="CUpgradeDlg" cookie="StStStBuBuBu" caption="Opgradeer Kennisgewing">
-		<control/>
+	<dialog name="CUpgradeDlg" cookie="StStBuBuBu" caption="Opgradeer Kennisgewing">
 		<control caption="'n Nuwe weergawe van PeerProject is nou beskikbaar. Wil jy graag opgradeer?"/>
 		<control caption="As jy Opgradeer Nou kliek sal PeerProject die opgradering by jou aflaailys byvoeg en dit outomaties begin aflaai."/>
 		<control caption="Opgradeer _Nou"/>
@@ -4469,14 +4455,12 @@
 		<control caption="Kanselleer"/>
 		<control caption="Add a channel name:|Enter kick/ban reason:"/>
 	</dialog>
-	<dialog name="CDownloadReviewDlg" cookie="StBuSyEd" caption="Aflaai Resensies">
-		<control/>
+	<dialog name="CDownloadReviewDlg" cookie="BuSyEd" caption="Aflaai Resensies">
 		<control caption="OK"/>
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CHelpDlg" cookie="StBuAf" caption="PeerProject Hulp">
-		<control/>
+	<dialog name="CHelpDlg" cookie="BuAf" caption="PeerProject Hulp">
 		<control caption="Maak Toe"/>
 		<control/>
 	</dialog>
@@ -4621,4 +4605,4 @@
 	</list>
 </listColumns>
 </skin>
-ቜ
+ቜ컒
