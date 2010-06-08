@@ -1,7 +1,7 @@
 //
 // WizardSheet.cpp
 //
-// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008
+// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2007.
 //
 // PeerProject Torrent Wizard is free software; you can redistribute it
@@ -167,7 +167,7 @@ BOOL CWizardSheet::OnInitDialog()
 	if ( GetDlgItem( 0x0009 ) ) GetDlgItem( 0x0009 )->ShowWindow( SW_HIDE );
 	if ( GetDlgItem( 0x3026 ) ) GetDlgItem( 0x3026 )->ShowWindow( SW_HIDE );
 
-	m_bmHeader.LoadBitmap( IDB_WIZARD );
+	m_bmHeader.LoadBitmap( IDB_BANNER );
 
 	return TRUE;
 }
@@ -287,7 +287,7 @@ void CWizardSheet::OnLButtonUp(UINT /*nFlags*/, CPoint point)
 
 void CWizardSheet::OnNcLButtonUp(UINT nHitTest, CPoint /*point*/)
 {
-	// Broken Minimize Button Workaround.  ToDo: Remove this & fix properly
+	// Broken Minimize Button Workaround.  ToDo: Fix properly & Remove this
 	if ( nHitTest == HTCLOSE )
 		PostMessage( WM_SYSCOMMAND, SC_CLOSE );
 	else if ( nHitTest == HTMINBUTTON )

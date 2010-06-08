@@ -299,10 +299,10 @@
 </Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectDir)$(IntDir)%(FileName).obj;%(Outputs)</Outputs>
     </CustomBuild>
+    <None Include="..\Res\Banner.bmp" />
     <None Include="..\Res\Hand.cur" />
     <None Include="..\Res\TorrentWizard.ico" />
     <None Include="..\Res\TorrentWizard.rc2" />
-    <None Include="..\Res\Wizard.bmp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="StdAfx.h" />

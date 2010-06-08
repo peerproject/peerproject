@@ -3798,7 +3798,7 @@
 		<control caption="Трафик очереди:"/>
 		<control/>
 		<control/>
-		<control caption="Возврат после N секунд:"/>
+		<control caption="Возврат после # секунд:"/>
 		<control/>
 		<control/>
 		<control caption="OK"/>
@@ -3847,13 +3847,13 @@
 	</dialog>
 	<dialog name="CWizardFoldersPage" cookie="StStEdBuStEdBuStEdBuSt" caption="Добро пожаловать в PeerProject (4/8)">
 		<control caption="PeerProject first downloads partial files to a private folder, then moves them when completed according to Download Groups."/>
-		<control caption="Сохранять загруженные файлы в папке:"/>
-		<control/>
-		<control/>
 		<control caption="Держать незаконченные файлы в папке:"/>
 		<control/>
 		<control/>
-		<control caption="Держать .Torrent файлы в папке:"/>
+		<control caption="Сохранять загруженные файлы в папке:"/>
+		<control/>
+		<control/>
+		<control caption="Сохранять .Torrent файлы в папке:"/>
 		<control/>
 		<control/>
 		<control caption="Common filetypes are initially setup as subfolders of the default location, but Groups can easily be customized by Right-Click.  Simply Drag&apos;n&apos;Drop files."/>
@@ -3908,8 +3908,7 @@
 		<control caption="Соединяться с сетью при каждом запуске PeerProject"/>
 		<control caption="Наслаждайтесь использованием PeerProject!"/>
 	</dialog>
-	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="Импорт eDonkey Загрузок">
-		<control/>
+	<dialog name="CDonkeyImportDlg" cookie="StBuBuEdBu" caption="Импорт eDonkey Загрузок">
 		<control caption="PeerProject обнаружила, что у Вас установлена другая, eDonkey, программа. Хотели бы Вы импортировать любые незаконченные загрузки в PeerProject?"/>
 		<control caption="Да"/>
 		<control caption="Нет"/>
@@ -4017,8 +4016,7 @@
 		<control caption="Соединиться"/>
 		<control caption="Отмена"/>
 	</dialog>
-	<dialog name="CDownloadDlg" cookie="StStStStEdStBuBuBu" caption="Загрузить файл или торрент">
-		<control/>
+	<dialog name="CDownloadDlg" cookie="StStStEdStBuBuBu" caption="Загрузить файл или торрент">
 		<control/>
 		<control caption="PeerProject может загружать файлы из веба, и автоматически искать и загружать файлы по P2P ссылкам. Просто введите или вставьте ссылку HTTP или P2P ссылку в окно ниже и нажмите «Загрузить». &#160; (http:, ftp:, ed2k:, magnet:, etc.)"/>
 		<control caption="PeerProject может загружать и BitTorrent файлы. Torrent представляет собой xyz.torrent файл или HTTP ссылку на '.torrent' файл.  Для загрузки HTTP Torrent ссылки введите её выше.  Если у Вас уже есть '.torrent' файл, нажмите кнопку"/>
@@ -4072,14 +4070,13 @@
 		<control caption="Отмена"/>
 		<control caption="Сохранить текущий фильтр как"/>
 	</dialog>
-	<dialog name="CDiscoveryServiceDlg" cookie="BuEdStCoBuBuSt" caption="Ресурс соединений">
+	<dialog name="CDiscoveryServiceDlg" cookie="BuEdStCoBuBu" caption="Ресурс соединений">
 		<control caption="Адрес службы:"/>
 		<control/>
 		<control caption="Тип ресурса соединений:"/>
 		<control caption="Gnutella Bootstrap|GWebCache|Server.met ссылка|Блокировано"/>
 		<control caption="OK"/>
 		<control caption="Отмена"/>
-		<control/>
 	</dialog>
 	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStBuBuBuBu" caption="Загрузка">
 		<control caption="..."/>
@@ -4243,8 +4240,7 @@
 		<control caption="OK"/>
 		<control caption="Отмена"/>
 	</dialog>
-	<dialog name="CShareManagerDlg" cookie="StStSyBuBuBuBu" caption="Общий доступ">
-		<control/>
+	<dialog name="CShareManagerDlg" cookie="StSyBuBuBuBu" caption="Общий доступ">
 		<control caption="Это список папок Вашего хранилища.  Можно добавлять или удалять папки кнопками слева.  Когда Вы добавляете новую папку, она становиться доступной для всех, но Вы можете изменить это позже из самого хранилища."/>
 		<control/>
 		<control caption="_Добавить..."/>
@@ -4252,8 +4248,7 @@
 		<control caption="OK"/>
 		<control caption="Отмена"/>
 	</dialog>
-	<dialog name="CURLCopyDlg" cookie="StStStStStBuBu" caption="Копировать ссылку">
-		<control/>
+	<dialog name="CURLCopyDlg" cookie="StStStStBuBu" caption="Копировать ссылку">
 		<control caption="Вы можете скопировать ссылку на объект в различных форматах.  Выберите нужный формат щелкнув на одну из ссылок ниже:"/>
 		<control/>
 		<control/>
@@ -4261,8 +4256,7 @@
 		<control caption="Включить _меня как фиксиров. источник"/>
 		<control caption="Отмена"/>
 	</dialog>
-	<dialog name="CURLExportDlg" cookie="StStEdStCoStCoBuBumsBu" caption="Экспорт ссылок">
-		<control/>
+	<dialog name="CURLExportDlg" cookie="StEdStCoStCoBuBumsBu" caption="Экспорт ссылок">
 		<control caption="Вы выбрали %lu файл(а/ов) для экспорта как PeerProject-поддерживаемые ссылки.  Выберите формат ссылок и нажмите «Сохранить»:"/>
 		<control/>
 		<control caption="Вставить:"/>
@@ -4306,8 +4300,7 @@
 		<control caption="(копируются загруженные части в новый файл)"/>
 		<control caption="Отмена"/>
 	</dialog>
-	<dialog name="CWarningsDlg" cookie="StStStStStStStBu" caption="PeerProject уважает своих пользователей">
-		<control/>
+	<dialog name="CWarningsDlg" cookie="StStStStStStBu" caption="PeerProject уважает своих пользователей">
 		<control caption="Знаете ли Вы, что PeerProject на 100% бесплатный продукт?"/>
 		<control caption="PeerProject не содержит никаких «шпионов», «навесок» или других рекламных программ. Она никогда не показывает никаких баннеров или «всплывающих окон».{n}Если Вы видели рекламу или «всплывающие окна» используя PeerProject, будьте уверенны  - они к вам попали НЕ с PeerProject."/>
 		<control caption="К сожалению много других программ идет со «шпионами» и «навесками», если Вы заметили что-то подобное - проверьте Вашу систему с помощью специальных программ для удаления шпионов и навесков."/>
@@ -4316,8 +4309,7 @@
 		<control caption="http://PeerProject.org"/>
 		<control caption="Закрыть"/>
 	</dialog>
-	<dialog name="CPromoteDlg" cookie="StStStStStStStBu" caption="Распространение">
-		<control/>
+	<dialog name="CPromoteDlg" cookie="StStStStStStBu" caption="Распространение">
 		<control caption="Помогите нам стать популярнее"/>
 		<control caption="Мы надеемся что вам нравиться пользоваться PeerProject.  Мы верим, что это лучшая P2P программа среди подобных."/>
 		<control caption="К сожалению многие пользователи P2P не знают что они пропускают!"/>
@@ -4326,8 +4318,7 @@
 		<control caption="http://PeerProject.org"/>
 		<control caption="OK"/>
 	</dialog>
-	<dialog name="CExistingFileDlg" cookie="StStStStStBuBuBuBuBuStSt" caption="Загрузка имеющегося файла">
-		<control/>
+	<dialog name="CExistingFileDlg" cookie="StStStStBuBuBuBuBuStSt" caption="Загрузка имеющегося файла">
 		<control/>
 		<control/>
 		<control/>
@@ -4340,8 +4331,7 @@
 		<control caption="Вы уже загружали этот файл и удалили его.  Что бы Вы хотели сделать?"/>
 		<control caption="Внимание!!! Найденны дубликаты. Злоумышленные программы могут заразить Ваше хранилище. Проверьте, что это Вы загрузили или поместили этот файл. Иначе, закройте PeerProject и просканируйте Ваш компьютер."/>
 	</dialog>
-	<dialog name="CCloseModeDlg" cookie="StStBuBuBuBuBu" caption="Кнопка «Закрыть»">
-		<control/>
+	<dialog name="CCloseModeDlg" cookie="StBuBuBuBuBu" caption="Кнопка «Закрыть»">
 		<control caption="Это - первый раз, когда Вы щелкнули кнопку «Закрыть» PeerProject.  Выберите, какое действие PeerProject должна выполнять когда Вы её щелкаете:"/>
 		<control caption="Сворачивать в трей"/>
 		<control caption="Закрывать PeerProject сразу"/>
@@ -4349,8 +4339,7 @@
 		<control caption="OK"/>
 		<control caption="Отмена"/>
 	</dialog>
-	<dialog name="CDonkeyServersDlg" cookie="StStEdmsBuBu" caption="Загрузить Server.met файл">
-		<control/>
+	<dialog name="CDonkeyServersDlg" cookie="StEdmsBuBu" caption="Загрузить Server.met файл">
 		<control caption="Вы можете загрузить eDonkey server.met файл из веба, чтобы обновить Ваш список серверов."/>
 		<control/>
 		<control/>
@@ -4388,8 +4377,7 @@
 		<control caption="_Далее|Экспорт..."/>
 		<control caption="Отмена"/>
 	</dialog>
-	<dialog name="CTorrentSeedDlg" cookie="StStBuBuBuStms" caption="Открыть торрент">
-		<control/>
+	<dialog name="CTorrentSeedDlg" cookie="StBuBuBuStms" caption="Открыть торрент">
 		<control caption="Вы открыли торрент..."/>
 		<control caption="Загрузить"/>
 		<control caption="Раздать"/>
@@ -4485,8 +4473,7 @@
 		<control caption="OK"/>
 		<control caption="Отмена"/>
 	</dialog>
-	<dialog name="CMediaVisDlg" cookie="StBuSyCoBuBuBu" caption="Выбор визуализации">
-		<control/>
+	<dialog name="CMediaVisDlg" cookie="BuSyCoBuBuBu" caption="Выбор визуализации">
 		<control caption="Выберите аудио визуализацию из списка:"/>
 		<control/>
 		<control caption="Внизу изображения|Полный экран|Большой экран|Средний экран|Маленький экран"/>
@@ -4494,8 +4481,7 @@
 		<control caption="OK"/>
 		<control caption="Отмена"/>
 	</dialog>
-	<dialog name="CUpgradeDlg" cookie="StStStBuBuBu" caption="Предупреждение об обновлении">
-		<control/>
+	<dialog name="CUpgradeDlg" cookie="StStBuBuBu" caption="Предупреждение об обновлении">
 		<control caption="Уже появилась новая версия PeerProject. Хотите ли Вы обновить?"/>
 		<control caption="Если Вы будете обновлять Сейчас, PeerProject добавит обновление в очередь Вашего списка загрузок и автоматически начнет его загрузку."/>
 		<control caption="_Обновить сейчас"/>
@@ -4526,14 +4512,12 @@
 		<control caption="Отмена"/>
 		<control caption="Add a channel name:|Enter kick/ban reason:"/>
 	</dialog>
-	<dialog name="CDownloadReviewDlg" cookie="StBuSyEd" caption="Оценки закрузки">
-		<control/>
+	<dialog name="CDownloadReviewDlg" cookie="BuSyEd" caption="Оценки закрузки">
 		<control caption="OK"/>
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CHelpDlg" cookie="StBuAf" caption="Справка PeerProject'ы">
-		<control/>
+	<dialog name="CHelpDlg" cookie="BuAf" caption="Справка PeerProject'ы">
 		<control caption="Закрыть"/>
 		<control/>
 	</dialog>
@@ -4678,3 +4662,4 @@
 	</list>
 </listColumns>
 </skin>
+좖

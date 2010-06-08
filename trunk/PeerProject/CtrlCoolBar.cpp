@@ -148,8 +148,7 @@ void CCoolBarItem::SetButtonmark(HBITMAP hBitmap)
 	m_bRegularButton = FALSE;
 	if ( hBitmap != NULL )
 	{
-		if ( m_bmButtonmark.m_hObject )
-			m_bmButtonmark.DeleteObject();
+		if ( m_bmButtonmark.m_hObject ) m_bmButtonmark.DeleteObject();
 		m_bmButtonmark.Attach( hBitmap );
 		m_bRegularButton = TRUE;
 	}
@@ -693,14 +692,17 @@ HBRUSH CCoolBarCtrl::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 
 	if ( nCtlColor == CTLCOLOR_STATIC )
 	{
-		pDC->SetBkColor( Colors.m_crMidtone );
+		// Skin media sliders
+		if ( pWnd->GetDlgCtrlID() == IDC_MEDIA_POSITION || pWnd->GetDlgCtrlID() == IDC_MEDIA_VOLUME || pWnd->GetDlgCtrlID() == IDC_MEDIA_SPEED )
+			return (HBRUSH)Skin.m_brMediaSlider;
 
+		// ToDo: Is this Toolbar brush ever used?  (Verify Obsolete)
+		pDC->SetBkColor( Colors.m_crMidtone );
 		if ( m_crBack != Colors.m_crMidtone )
 		{
 			if ( m_brBack.m_hObject ) m_brBack.DeleteObject();
 			m_brBack.CreateSolidBrush( m_crBack = Colors.m_crMidtone );
 		}
-
 		hbr = m_brBack;
 	}
 

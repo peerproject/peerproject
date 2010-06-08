@@ -239,9 +239,9 @@
     <ResourceCompile Include="Resource.rc" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Res\Banner.bmp" />
     <None Include="Res\PeerProject.ico" />
     <None Include="Res\Skin.ico" />
-    <None Include="Res\Wizard.bmp" />
     <None Include="Readme.txt" />
   </ItemGroup>
   <ItemGroup>

@@ -400,10 +400,7 @@ BOOL CSkinWindow::Parse(CXMLElement* pBase, const CString& strPath)
 						nResID = IDB_NAVBAR_ALPHA;
 				}
 
-				hBitmap = (HBITMAP)LoadImage( AfxGetInstanceHandle(),
-					MAKEINTRESOURCE(nResID), IMAGE_BITMAP, 0, 0, 0 );
-				//	ToDo: Convert Resources to .PNG ?
-				//	hBitmap = CImageFile::LoadBitmapFromFile( nResID, RT_PNG );
+				hBitmap = CImageFile::LoadBitmapFromResource( nResID ); 	// ToDo: Support PNG Alpha
 			}
 
 			if ( hBitmap == NULL )

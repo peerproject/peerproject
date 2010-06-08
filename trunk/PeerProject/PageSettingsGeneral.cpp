@@ -157,6 +157,9 @@ BOOL CGeneralSettingsPage::OnInitDialog()
 	Settings.SetRange( &Settings.Interface.TipAlpha, m_wndTipAlpha );
 	m_wndTipAlpha.SetPos( Settings.Interface.TipAlpha );
 
+	if ( theApp.m_bIsWin2000 )
+		GetDlgItem( IDC_TIP_SHADOW )->EnableWindow( FALSE );
+
 	UpdateData( FALSE );
 
 	return TRUE;
@@ -164,8 +167,7 @@ BOOL CGeneralSettingsPage::OnInitDialog()
 
 void CGeneralSettingsPage::Add(LPCTSTR pszName, BOOL bState)
 {
-	int nItem = m_wndTips.InsertItem( LVIF_TEXT, m_wndTips.GetItemCount(),
-		pszName, 0, 0, 0, 0 );
+	int nItem = m_wndTips.InsertItem( LVIF_TEXT, m_wndTips.GetItemCount(), pszName, 0, 0, 0, 0 );
 
 	if ( bState )
 		m_wndTips.SetItemState( nItem, 2 << 12, LVIS_STATEIMAGEMASK );

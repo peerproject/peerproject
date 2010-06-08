@@ -22,7 +22,6 @@
 #include "StdAfx.h"
 #include "PeerProject.h"
 #include "Settings.h"
-#include "ImageFile.h"
 #include "Plugins.h"
 #include "Library.h"
 #include "SharedFile.h"
@@ -506,7 +505,7 @@ void CMediaFrame::OnPaint()
 
 	if ( m_bmLogo.m_hObject == NULL)
 	{
-		m_bmLogo.m_hObject = CImageFile::LoadBitmapFromResource( IDR_LARGE_LOGO, RT_PNG );
+		m_bmLogo.m_hObject = Skin.GetWatermark( _T("LargeLogo") );
 		if ( m_pPlayer && m_bmLogo.m_hObject )
 			m_pPlayer->SetLogoBitmap( m_bmLogo );
 	}
@@ -1002,11 +1001,11 @@ LRESULT CMediaFrame::OnMediaKey(WPARAM wParam, LPARAM lParam)
 	{
 		MMRESULT result;
 		HMIXER hMixer;
-		// obtain a handle to the mixer device
+		// Obtain a handle to the mixer device
 		result = mixerOpen( &hMixer, MIXER_OBJECTF_MIXER, 0, 0, 0 );
 		if ( result != MMSYSERR_NOERROR ) return 0;
 
-		// get the speaker line of the mixer device
+		// Get the speaker line of the mixer device
 		MIXERLINE ml = {0};
 		ml.cbStruct = sizeof(MIXERLINE);
 		ml.dwComponentType = MIXERLINE_COMPONENTTYPE_DST_SPEAKERS;
@@ -1014,7 +1013,7 @@ LRESULT CMediaFrame::OnMediaKey(WPARAM wParam, LPARAM lParam)
 			MIXER_GETLINEINFOF_COMPONENTTYPE );
 		if ( result != MMSYSERR_NOERROR ) return 0;
 
-		// get the mute control of the speaker line
+		// Get the mute control of the speaker line
 		MIXERLINECONTROLS mlc = {0};
 		MIXERCONTROL mc = {0};
 		mlc.cbStruct = sizeof(MIXERLINECONTROLS);
@@ -1027,11 +1026,11 @@ LRESULT CMediaFrame::OnMediaKey(WPARAM wParam, LPARAM lParam)
 			MIXER_GETLINECONTROLSF_ONEBYTYPE );
 		if ( result != MMSYSERR_NOERROR ) return 0;
 
-		// set 1 channel if it controls mute state for all channels
+		// Set 1 channel if it controls mute state for all channels
 		if ( MIXERCONTROL_CONTROLF_UNIFORM & mc.fdwControl )
 			ml.cChannels = 1;
 
-		// get the current mute values for all channels
+		// Get the current mute values for all channels
 		MIXERCONTROLDETAILS mcd = {0};
 		MIXERCONTROLDETAILS_BOOLEAN* pmcd_b = new MIXERCONTROLDETAILS_BOOLEAN[ ml.cChannels ];
 		mcd.cbStruct = sizeof(mcd);
@@ -1045,18 +1044,18 @@ LRESULT CMediaFrame::OnMediaKey(WPARAM wParam, LPARAM lParam)
 
 		if ( result == MMSYSERR_NOERROR )
 		{
-			// change mute values for all channels
+			// Change mute values for all channels
 			LONG lNewValue = LONG( pmcd_b->fValue == 0 );
 			while ( ml.cChannels-- )
 				pmcd_b[ ml.cChannels ].fValue = lNewValue;
 
-			// set the mute status
+			// Set the mute status
 			result = mixerSetControlDetails( reinterpret_cast<HMIXEROBJ>(hMixer), &mcd,
 				MIXER_SETCONTROLDETAILSF_VALUE );
 		}
 		delete [] pmcd_b;
 
-		// now mute PeerProject player control ( probably, not needed )
+		// Now mute PeerProject player control ( probably, not needed )
 		GetOwner()->PostMessage( WM_COMMAND, ID_MEDIA_MUTE );
 		return 1;
 	}
@@ -1213,7 +1212,8 @@ void CMediaFrame::OnMediaClose()
 void CMediaFrame::OnUpdateMediaPlay(CCmdUI* pCmdUI)
 {
 	MediaState nState = m_nState;
-	if ( m_bThumbPlay && nState == smsPaused ) nState = smsPlaying;
+	if ( m_bThumbPlay && nState == smsPaused )
+		nState = smsPlaying;
 	pCmdUI->Enable( m_nState < smsPlaying );
 	if ( CCoolBarItem* pItem = CCoolBarItem::FromCmdUI( pCmdUI ) )
 		pItem->Show( nState != smsPlaying );
@@ -1400,7 +1400,8 @@ void CMediaFrame::OnUpdateMediaVis(CCmdUI* pCmdUI)
 void CMediaFrame::OnMediaVis()
 {
 	CMediaVisDlg dlg( this );
-	if ( dlg.DoModal() == IDOK ) PrepareVis();
+	if ( dlg.DoModal() == IDOK )
+		PrepareVis();
 }
 
 void CMediaFrame::OnUpdateMediaSettings(CCmdUI* pCmdUI)
@@ -1421,7 +1422,8 @@ void CMediaFrame::OnUpdateMediaMute(CCmdUI* pCmdUI)
 void CMediaFrame::OnMediaMute()
 {
 	m_bMute = ! m_bMute;
-	if ( m_pPlayer != NULL ) m_pPlayer->SetVolume( m_bMute ? 0 : Settings.MediaPlayer.Volume );
+	if ( m_pPlayer != NULL )
+		m_pPlayer->SetVolume( m_bMute ? 0 : Settings.MediaPlayer.Volume );
 }
 
 /////////////////////////////////////////////////////////////////////////////

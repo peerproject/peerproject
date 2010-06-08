@@ -1,7 +1,7 @@
 //
 // PageSettingsScheduler.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -25,6 +25,8 @@
 #include "Scheduler.h"
 #include "PageSettingsScheduler.h"
 
+#include "Skin.h" // Skinned flicker fix
+
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #undef THIS_FILE
@@ -43,8 +45,8 @@ BEGIN_MESSAGE_MAP(CSchedulerSettingsPage, CSettingsPage)
 	ON_WM_LBUTTONDBLCLK()
 	ON_WM_RBUTTONDOWN()
 	ON_WM_RBUTTONUP()
-	//}}AFX_MSG_MAP
 	ON_WM_SETCURSOR()
+	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 
@@ -58,8 +60,8 @@ CSchedulerSettingsPage::CSchedulerSettingsPage() : CSettingsPage(CSchedulerSetti
 {
 	//{{AFX_DATA_INIT(CSchedulerSettingsPage)
 	m_bSchedulerEnable = FALSE;
-	m_nLimited = 0;
 	m_bLimitedNetworks = TRUE;
+	m_nLimited = 0;
 	//}}AFX_DATA_INIT
 }
 
@@ -98,11 +100,11 @@ BOOL CSchedulerSettingsPage::OnInitDialog()
 	CopyMemory( m_pSchedule, Schedule.m_pSchedule, sizeof( m_pSchedule ) );
 
 	m_bSchedulerEnable	= Settings.Scheduler.Enable;
-	m_nLimited			= Settings.Scheduler.LimitedBandwidth;
 	m_bLimitedNetworks	= Settings.Scheduler.LimitedNetworks;
+	m_nLimited			= Settings.Scheduler.LimitedBandwidth;
 
-	m_nDownDay			= m_nHoverDay = 0xFF;
-	m_nDownHour			= m_nHoverHour = 0xFF;
+	m_nDownDay  = m_nHoverDay  = 0xFF;
+	m_nDownHour = m_nHoverHour = 0xFF;
 
 	m_wndLimitedSpin.SetRange( 5, 95 );
 
@@ -119,7 +121,6 @@ BOOL CSchedulerSettingsPage::OnInitDialog()
 
 	return TRUE;
 }
-
 
 void CSchedulerSettingsPage::OnMouseMove(UINT /*nFlags*/, CPoint point)
 {
@@ -142,16 +143,12 @@ void CSchedulerSettingsPage::OnMouseMove(UINT /*nFlags*/, CPoint point)
 		int nHoverDay  = bAllDays ? 7 : ( point.y - ( rc.top + 20 ) ) / 16;
 		int nHoverHour = bAllHours ? 24  : ( point.x - ( rc.left + 30 ) ) / 16;
 
-		if ( ( nHoverDay != m_nHoverDay ) || ( nHoverHour != m_nHoverHour ) )
+		if ( nHoverDay != m_nHoverDay || nHoverHour != m_nHoverHour )
 		{
 			if ( nHoverDay != m_nHoverDay )
-			{
 				m_nHoverDay = BYTE( nHoverDay );
-			}
 			if ( nHoverHour != m_nHoverHour )
-			{
 				m_nHoverHour = BYTE( nHoverHour );
-			}
 
 			if ( m_nHoverHour < 24 && m_nHoverDay == 7 )
 			{
@@ -183,10 +180,10 @@ void CSchedulerSettingsPage::OnMouseMove(UINT /*nFlags*/, CPoint point)
 		::SetCursor( AfxGetApp()->LoadStandardCursor( IDC_ARROW ) );
 		m_wndDisplay.SetWindowText( _T("") );
 
-		if ( ( m_nHoverDay != 0xFF ) || ( m_nHoverHour != 0xFF ) )
+		if ( m_nHoverDay != 0xFF || m_nHoverHour != 0xFF )
 		{
 			m_nHoverDay = m_nHoverHour = 0xFF;
-			m_nDownHour = m_nHoverHour	= 0xFF;
+			m_nDownHour = m_nHoverHour = 0xFF;
 
 			ReleaseCapture();
 			Invalidate();
@@ -199,10 +196,10 @@ void CSchedulerSettingsPage::OnMouseMove(UINT /*nFlags*/, CPoint point)
 
 void CSchedulerSettingsPage::OnLButtonDown(UINT /*nFlags*/, CPoint /*point*/)
 {
-	if ( ( m_nHoverDay == 0xFF ) || ( m_nHoverHour == 0xFF ) ) return;
+	if ( m_nHoverDay == 0xFF || m_nHoverHour == 0xFF ) return;
 	m_nDownDay  = m_nHoverDay;
 	m_nDownHour = m_nHoverHour;
-	
+
 	SetCapture();
 	InvalidateSchedulerRect();
 }
@@ -214,9 +211,9 @@ void CSchedulerSettingsPage::OnLButtonUp(UINT /*nFlags*/, CPoint /*point*/)
 
 void CSchedulerSettingsPage::OnRButtonDown(UINT /*nFlags*/, CPoint /*point*/)
 {
-	if ( ( m_nHoverDay == 0xFF ) || ( m_nHoverHour == 0xFF ) ) return;
-	m_nDownDay		= m_nHoverDay;
-	m_nDownHour		= m_nHoverHour;
+	if ( m_nHoverDay == 0xFF || m_nHoverHour == 0xFF ) return;
+	m_nDownDay  = m_nHoverDay;
+	m_nDownHour = m_nHoverHour;
 	SetCapture();
 	InvalidateSchedulerRect();
 }
@@ -226,8 +223,11 @@ void CSchedulerSettingsPage::OnRButtonUp(UINT /*nFlags*/, CPoint /*point*/)
 	ToggleTimeBlocks(2);
 }
 
-BOOL CSchedulerSettingsPage::OnEraseBkgnd(CDC* /*pDC*/)
+BOOL CSchedulerSettingsPage::OnEraseBkgnd(CDC* pDC)
 {
+	if ( Skin.m_bmDialog.m_hObject && m_nHoverDay == 0xFF )
+		return CSettingsPage::OnEraseBkgnd(pDC); // Pass for skinning (flickers)
+
 	return TRUE;
 }
 
@@ -254,15 +254,18 @@ void CSchedulerSettingsPage::OnPaint()
 	{
 		for ( nHour = 0 ; nHour < 24 ; nHour++ )
 		{
-			if ( ( ( nDay == m_nHoverDay ) && ( nHour == m_nHoverHour ) ) ||
-				 ( ( nDay == m_nHoverDay ) && ( m_nHoverHour == 24 ) ) ||
-				 ( ( m_nHoverDay == 7 ) && ( nHour == m_nHoverHour ) ) 
-				)
+			if ( ( nDay == m_nHoverDay && nHour == m_nHoverHour ) ||
+				 ( nDay == m_nHoverDay && m_nHoverHour == 24 ) ||
+				 ( m_nHoverDay == 7 && nHour == m_nHoverHour ) )
+			{
 				ImageList_DrawEx( m_pTimeSlices, m_pSchedule[nDay][nHour], dc.GetSafeHdc(), rc.left + ( nHour * 16 ),
 					rc.top + ( nDay * 16 ) , 16, 16, CLR_DEFAULT, RGB( 180, 180, 180), ILD_SELECTED );
+			}
 			else
+			{
 				ImageList_DrawEx( m_pTimeSlices, m_pSchedule[nDay][nHour], dc.GetSafeHdc(), rc.left + ( nHour * 16 ),
 					rc.top + ( nDay * 16 ) , 16, 16, CLR_DEFAULT, CLR_DEFAULT, ILD_NORMAL );
+			}
 		}
 	}
 
@@ -289,8 +292,8 @@ void CSchedulerSettingsPage::OnOK()
 	UpdateData();
 
 	Settings.Scheduler.Enable			= m_bSchedulerEnable != FALSE;
-	Settings.Scheduler.LimitedBandwidth = m_nLimited;
 	Settings.Scheduler.LimitedNetworks	= m_bLimitedNetworks != FALSE;
+	Settings.Scheduler.LimitedBandwidth = m_nLimited;
 
 	CopyMemory( Schedule.m_pSchedule , m_pSchedule, sizeof( Schedule.m_pSchedule ) );
 	Schedule.Save();
@@ -301,7 +304,7 @@ void CSchedulerSettingsPage::OnOK()
 void CSchedulerSettingsPage::ToggleTimeBlocks(BYTE nDirection)
 {
 	ASSERT( nDirection == 1 || nDirection == 2 );
-	if ( ( m_nHoverDay == 0xFF ) || ( m_nHoverHour == 0xFF ) ) return;
+	if ( m_nHoverDay == 0xFF || m_nHoverHour == 0xFF ) return;
 
 	if ( m_nDownDay != m_nHoverDay ) return;
 	if ( m_nDownHour != m_nHoverHour ) return;
@@ -339,7 +342,6 @@ void CSchedulerSettingsPage::ToggleTimeBlocks(BYTE nDirection)
 void CSchedulerSettingsPage::InvalidateSchedulerRect()
 {
 	CRect rc;
-
 	GetClientRect( &rc );
 
 	rc.top += HEADING_HEIGHT - 10;
@@ -347,7 +349,7 @@ void CSchedulerSettingsPage::InvalidateSchedulerRect()
 
 	rc.bottom = rc.top + 20 + ( 7 * 16 );
 	rc.right = rc.left + 30 + ( 24 * 16 );
-	
+
 	InvalidateRect(rc);
 }
 

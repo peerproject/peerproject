@@ -45,19 +45,19 @@ void CMessageDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_INFO_ICON, m_Icon);
 	DDX_Control(pDX, IDC_INFO_TEXT, m_pText );
 	DDX_Control(pDX, IDC_INFO_SPLIT, m_pSplit );
-	DDX_Control(pDX, IDC_INFO_REMEMBER, m_pDefault );
 	DDX_Control(pDX, IDC_INFO_BUTTON1, m_pButton1 );
 	DDX_Control(pDX, IDC_INFO_BUTTON2, m_pButton2 );
 	DDX_Control(pDX, IDC_INFO_BUTTON3, m_pButton3 );
-	DDX_Text(pDX, IDC_INFO_TEXT, m_sText);
+	DDX_Control(pDX, IDC_INFO_REMEMBER, m_pDefault );
 	DDX_Check(pDX, IDC_INFO_REMEMBER, m_bRemember);
+	DDX_Text(pDX, IDC_INFO_TEXT, m_sText);
 }
 
 BOOL CMessageDlg::OnInitDialog()
 {
 	CSkinDialog::OnInitDialog();
 
-	SkinMe( _T("CMessageDlg") );
+	SkinMe( _T("CMessageDlg"), IDR_MAINFRAME );
 
 	CRect rc, rcWindow;
 	GetWindowRect( &rcWindow );

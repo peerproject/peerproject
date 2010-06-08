@@ -39,6 +39,7 @@
 #include "HostCache.h"
 #include "IEProtocol.h"
 #include "ImageServices.h"
+#include "ImageFile.h"	// AfxMsgBox Banners
 #include "Library.h"
 #include "LibraryBuilder.h"
 #include "Network.h"
@@ -128,7 +129,7 @@ void CPeerProjectCommandLineInfo::ParseParam(const TCHAR* pszParam, BOOL bFlag, 
 			m_nGUIMode = GUI_WINDOWED;
 			return;
 		}
-		else if ( ! lstrcmpi( pszParam, _T("?") ) )
+		else if ( ! lstrcmpi( pszParam, _T("help") ) || ! lstrcmpi( pszParam, _T("?") ) )
 		{
 			m_bHelp = TRUE;
 			return;
@@ -231,12 +232,13 @@ BOOL CPeerProjectApp::InitInstance()
 
 	SetRegistryKey( CLIENT_NAME );
 
+	AfxOleInit();				// Initializes OLE support for the application.
+
 	GetVersionNumber();
 	Settings.Load();			// Loads settings. Depends on GetVersionNumber()
 	InitResources();			// Loads theApp settings. Depends on Settings::Load()
 	CoolInterface.Load();		// Loads colors and fonts. Depends on InitResources()
 
-	AfxOleInit();
 //	m_pFontManager = new CFontManager();
 //	AfxEnableControlContainer( m_pFontManager );
 	AfxEnableControlContainer();
@@ -248,15 +250,21 @@ BOOL CPeerProjectApp::InitInstance()
 	ParseCommandLine( m_ocmdInfo );
 	if ( m_ocmdInfo.m_bHelp )
 	{
-		AfxMessageBox( _T("Command-line options:\n")
-			_T("-tray\t\tDisable startup splash screen and send application to tray\n")
-			_T("-nosplash\t\tDisable startup splash screen\n")
-			_T("-nowarn\t\tDisable alpha (daily builds) version warning dialog\n")
-			_T("-basic\t\tStart application in Basic interface mode\n")
-			_T("-tabbed\t\tStart application in Tabbed interface mode\n")
-			_T("-windowed\tStart application in Windowed interface mode\n")
-			_T("-regserver\tRegister application internal components\n")
-			_T("-unregserver\tUn-register application internal components\n"),
+		// Unskinned Banner Workaround:
+		Skin.m_bmBanner.Attach( CImageFile::LoadBitmapFromResource( IDB_BANNER ) );
+		Skin.m_nBanner = 50;
+
+		AfxMessageBox( //IDS_COMMANDLINE,	// No translation
+			_T("\nPeerProject command-line options:\n\n")
+			_T(" -help   -? \tDisplay this help screen\n")
+			_T(" -tray\t\tStart application quietly in system tray\n")
+			_T(" -nosplash\tDisable startup splash screen\n")
+			_T(" -nowarn\t\tSkip debug version warning dialog\n")
+			_T(" -basic\t\tStart application in Basic mode\n")
+			_T(" -tabbed\t\tStart application in Tabbed mode\n")
+			_T(" -windowed\tStart application in Windowed mode\n")
+			_T(" -regserver\tRegister application internal components\n")
+			_T(" -unregserver\tUn-register application internal components\n\n"),
 			MB_ICONINFORMATION | MB_OK );
 		return FALSE;
 	}
@@ -321,9 +329,17 @@ BOOL CPeerProjectApp::InitInstance()
 
 	// *****************
 	// NO PUBLIC RELEASE
+	// Remove this section for final releases and public betas.
 
-	// BETA EXPIRATION.  Remember to re-compile to update the time,
-	// and remove this section for final releases and public betas.
+#if defined(_DEBUG) || defined(__REVISION__)		// Show for "pre-release release builds."
+
+	// Unskinned Banner Workaround:
+	Skin.m_bmBanner.Attach( CImageFile::LoadBitmapFromResource( IDB_BANNER ) );
+	Skin.m_nBanner = 50;
+
+
+	// BETA EXPIRATION.  Remember to re-compile to update the time.
+
 	COleDateTime tCurrent = COleDateTime::GetCurrentTime();
 	COleDateTime tCompileTime;
 	tCompileTime.ParseDateTime( _T(__DATE__), LOCALE_NOUSEROVERRIDE, 1033 );
@@ -332,37 +348,35 @@ BOOL CPeerProjectApp::InitInstance()
 #else
 	COleDateTimeSpan tTimeOut( 45, 0, 0, 0);		// Forum Betas (Non-sourceforge release)
 #endif
-#if defined(_DEBUG) || defined(__REVISION__)
+
 	if ( ( tCompileTime + tTimeOut ) < tCurrent )
 	{
 		CString strMessage;
 		LoadString( strMessage, IDS_BETA_EXPIRED);
 		AfxMessageBox( strMessage, MB_ICONQUESTION|MB_OK );
-		//return FALSE;
 	}
-#endif
+
 
 	// ALPHA WARNING.  Remember to remove this section for final releases and public betas.
-//#ifdef _DEBUG
-#if defined(_DEBUG) || defined(__REVISION__)	// Show for "pre-release release builds."
+
 	if ( ! m_ocmdInfo.m_bNoAlphaWarning && m_ocmdInfo.m_bShowSplash )
 	{
-	if ( AfxMessageBox(
-		L"\nWARNING: This is an ALPHA TEST version of PeerProject p2p"
+		if ( AfxMessageBox(
+			L"\nWARNING: This is an ALPHA TEST version of PeerProject p2p"
  #ifdef __REVISION__
-		L", r" _T(__REVISION__)
+			L", r" _T(__REVISION__)
  #endif
-		L".\n\nNOT FOR GENERAL USE, it is intended for pre-release testing in controlled environments.  "
-		L"It may stop running or display Debug info for testing.\n\n"
-		L"If you wish to simply use this software, then download the current\n"
-		L"stable release from PeerProject.org.  If you continue past this point,\n"
-		L"you could possibly experience system instability or lose files.\n"
-		L"Please be aware of recent development before using.\n\n"
-		L"Do you wish to continue?", MB_ICONEXCLAMATION|MB_YESNO|MB_SETFOREGROUND ) == IDNO )
-		return FALSE;
+			L".\n\nNOT FOR GENERAL USE, it is intended for pre-release testing in controlled environments.  "
+			L"It may stop running or display Debug info for testing.\n\n"
+			L"If you wish to simply use this software, then download the current\n"
+			L"stable release from PeerProject.org.  If you continue past this point,\n"
+			L"you could possibly experience system instability or lose files.\n"
+			L"Please be aware of recent development before using.\n\n"
+			L"Do you wish to continue?", MB_ICONEXCLAMATION|MB_YESNO|MB_SETFOREGROUND ) == IDNO )
+				return FALSE;
 	}
-#endif
 
+#endif
 	// END NO PUBLIC RELEASE
 	// *********************
 
@@ -747,8 +761,6 @@ BOOL CPeerProjectApp::OpenURL(LPCTSTR lpszFileName, BOOL bDoIt, BOOL bSilent)
 
 void CPeerProjectApp::GetVersionNumber()
 {
-	GetSystemInfo( &m_SysInfo );
-
 	// Set Build Date
 	COleDateTime tCompileTime;
 	tCompileTime.ParseDateTime( _T(__DATE__), LOCALE_NOUSEROVERRIDE, 1033 );
@@ -827,10 +839,10 @@ void CPeerProjectApp::GetVersionNumber()
 #endif
 
 
-	//Determine the version of Windows
-	OSVERSIONINFOEX pVersion;
-	pVersion.dwOSVersionInfoSize = sizeof(OSVERSIONINFOEX);
+	// Determine the version of Windows
+	OSVERSIONINFOEX pVersion = { sizeof( OSVERSIONINFOEX ) };
 	GetVersionEx( (OSVERSIONINFO*)&pVersion );
+	GetSystemInfo( &m_SysInfo );
 
 	// Determine if it's a server
 	m_bIsServer = pVersion.wProductType != VER_NT_WORKSTATION;
@@ -957,7 +969,7 @@ void CPeerProjectApp::InitResources()
 
 	LoadCountry();	// GeoIP
 
-	// Load LibGFL in a custom way, so PeerProject plugins can use this library also when not in its search path (Plugins folder, and useful when running inside Visual Studio)
+	// Load LibGFL in a custom way, so PeerProject plugins can use this library too when not in their search path (From Plugins folder, and when running inside Visual Studio)
 	m_hLibGFL = CustomLoadLibrary( _T("LibGFL290.dll") );
 
 	// Use GlobalMemoryStatusEx if possible (WinXP)
@@ -973,8 +985,7 @@ void CPeerProjectApp::InitResources()
 	// theApp.m_nFontQuality default ClearType
 	UINT nSmoothingType = 0;
 	BOOL bFontSmoothing = FALSE;
-	if ( SystemParametersInfo( SPI_GETFONTSMOOTHING, 0, &bFontSmoothing, 0 ) &&
-		 bFontSmoothing &&
+	if ( SystemParametersInfo( SPI_GETFONTSMOOTHING, 0, &bFontSmoothing, 0 ) && bFontSmoothing &&
 		 SystemParametersInfo( SPI_GETFONTSMOOTHINGTYPE, 0, &nSmoothingType, 0 ) )
 	{
 		m_nFontQuality = ( nSmoothingType == FE_FONTSMOOTHINGSTANDARD ) ?
@@ -1066,11 +1077,8 @@ CMainWnd* CPeerProjectApp::SafeMainWnd() const
 
 bool CPeerProjectApp::IsLogDisabled(WORD nType) const
 {
-	return
-		// Severity filter
-		( static_cast< DWORD >( nType & MSG_SEVERITY_MASK ) > Settings.General.LogLevel ) ||
-		// Facility filter
-		( ( nType & MSG_FACILITY_MASK ) == MSG_FACILITY_SEARCH && ! Settings.General.SearchLog );
+	return ( static_cast< DWORD >( nType & MSG_SEVERITY_MASK ) > Settings.General.LogLevel ) ||		// Severity filter
+		( ( nType & MSG_FACILITY_MASK ) == MSG_FACILITY_SEARCH && ! Settings.General.SearchLog );	// Facility filter
 }
 
 void CPeerProjectApp::ShowStartupText()
@@ -1750,12 +1758,9 @@ BOOL LoadIcon(LPCTSTR szFilename, HICON* phSmallIcon, HICON* phLargeIcon, HICON*
 {
 	CString strIcon( szFilename );
 
-	if ( phSmallIcon )
-		*phSmallIcon = NULL;
-	if ( phLargeIcon )
-		*phLargeIcon = NULL;
-	if ( phHugeIcon )
-		*phHugeIcon = NULL;
+	if ( phSmallIcon ) *phSmallIcon = NULL;
+	if ( phLargeIcon ) *phLargeIcon = NULL;
+	if ( phHugeIcon )  *phHugeIcon = NULL;
 
 	int nIndex = strIcon.ReverseFind( _T(',') );
 	int nIcon = 0;
@@ -2225,11 +2230,8 @@ void CPeerProjectApp::OnRename(LPCTSTR pszSource, LPCTSTR pszTarget)
 
 		if ( CMainWnd* pMainWnd = theApp.SafeMainWnd() )
 		{
-			if ( CMediaWnd* pMediaWnd =
-				(CMediaWnd*)pMainWnd->m_pWindows.Find( RUNTIME_CLASS( CMediaWnd ) ) )
-			{
+			if ( CMediaWnd* pMediaWnd = (CMediaWnd*)pMainWnd->m_pWindows.Find( RUNTIME_CLASS( CMediaWnd ) ) )
 				pMediaWnd->OnFileDelete( pszSource );
-			}
 		}
 	}
 }
@@ -2838,8 +2840,8 @@ BOOL PostMainWndMessage(UINT Msg, WPARAM wParam, LPARAM lParam)
 {
 	if ( CMainWnd* pWnd = theApp.SafeMainWnd() )
 		return pWnd->PostMessage( Msg, wParam, lParam );
-	else
-		return FALSE;
+
+	return FALSE;
 }
 
 void SafeMessageLoop()
@@ -2866,6 +2868,8 @@ void SafeMessageLoop()
 	}
 	InterlockedDecrement( &theApp.m_bBusy );
 }
+
+// Wide character functions (eastern languages)
 
 bool IsCharacter(const WCHAR nChar)
 {

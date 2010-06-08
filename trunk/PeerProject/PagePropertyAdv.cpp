@@ -37,9 +37,9 @@ static char THIS_FILE[] = __FILE__;
 
 IMPLEMENT_DYNAMIC(CPropertyPageAdv, CPropertyPage)
 
-CPropertyPageAdv::CPropertyPageAdv(UINT nIDD) :
-	CPropertyPage( nIDD ),
-	m_nIcon( -1 )
+CPropertyPageAdv::CPropertyPageAdv(UINT nIDD)
+	: CPropertyPage( nIDD )
+	, m_nIcon	( -1 )
 {
 	m_psp.dwFlags |= PSP_USETITLE;
 }
@@ -50,8 +50,8 @@ void CPropertyPageAdv::DoDataExchange(CDataExchange* pDX)
 }
 
 BEGIN_MESSAGE_MAP(CPropertyPageAdv, CPropertyPage)
-	ON_WM_CTLCOLOR()
 	ON_WM_PAINT()
+	ON_WM_CTLCOLOR()
 	ON_WM_ERASEBKGND()
 END_MESSAGE_MAP()
 
@@ -84,9 +84,8 @@ void CPropertyPageAdv::OnPaint()
 		GetClassName( pWnd->GetSafeHwnd(), szClass, 16 );
 		if ( _tcsicmp( szClass, _T("STATIC") ) ) continue;
 
-		CString str;
 		CRect rc;
-
+		CString str;
 		pWnd->GetWindowText( str );
 		pWnd->GetWindowRect( &rc );
 		ScreenToClient( &rc );
@@ -95,7 +94,7 @@ void CPropertyPageAdv::OnPaint()
 			PaintStaticHeader( &dc, &rc, str );
 	}
 
-	dc.SetBkColor( Colors.m_crDialog );
+	dc.SetBkColor( Skin.m_bmDialog.m_hObject ? CLR_NONE : Colors.m_crDialogPanel );
 }
 
 void CPropertyPageAdv::PaintStaticHeader(CDC* pDC, CRect* prc, LPCTSTR psz)
@@ -127,7 +126,11 @@ BOOL CPropertyPageAdv::OnEraseBkgnd(CDC* pDC)
 
 	CRect rc;
 	GetClientRect( &rc );
-	pDC->FillSolidRect( &rc, Colors.m_crDialog );
+
+	if ( Skin.m_bmDialogPanel.m_hObject )
+		CoolInterface.DrawWatermark( pDC, &rc, &Skin.m_bmDialogPanel );
+	else
+		pDC->FillSolidRect( &rc, Colors.m_crDialogPanel );
 
 	return TRUE;
 }
@@ -136,10 +139,31 @@ HBRUSH CPropertyPageAdv::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 {
 	HBRUSH hbr = CPropertyPage::OnCtlColor(pDC, pWnd, nCtlColor);
 
-	if ( nCtlColor == CTLCOLOR_DLG || nCtlColor == CTLCOLOR_STATIC )
+	// Skinned dialog control panels	(Download/File Properties Tabs + QuickStart Wizard)
+	if ( nCtlColor == CTLCOLOR_STATIC && Skin.m_bmDialogPanel.m_hObject )
 	{
-		pDC->SetBkColor( Colors.m_crDialog );
-		hbr = Colors.m_brDialog;
+		if ( pWnd->GetDlgCtrlID() != IDC_STATIC )
+		{
+			if ( pWnd->GetDlgCtrlID() >= IDC_STATIC_1 && pWnd->GetDlgCtrlID() <= IDC_STATIC_4 )
+				return CreateSolidBrush( Colors.m_crDialogPanel );		// Wizard Icons (SS_REALSIZEIMAGE/ES_READONLY conflict)
+
+			if ( ( pWnd->GetStyle() & ES_READONLY ) && ! ( pWnd->GetStyle() & WS_BORDER ) )
+				return hbr; 											// Skip disabled edit boxes (but not selectable metadata)
+
+			// Checkbox label skinning fix, etc.
+			CRect rc;
+			pWnd->GetWindowRect( rc );
+			ScreenToClient( rc );
+			CoolInterface.DrawWatermark( pDC, &rc, &Skin.m_bmDialogPanel, FALSE, -rc.left, -rc.top );
+		}
+		pDC->SetBkMode( TRANSPARENT );
+		hbr = (HBRUSH)GetStockObject( NULL_BRUSH );
+	}
+	else if ( nCtlColor == CTLCOLOR_STATIC || nCtlColor == CTLCOLOR_DLG )
+	{
+		pDC->SetTextColor( Colors.m_crDialogPanelText );
+		pDC->SetBkColor( Colors.m_crDialogPanel );
+		hbr = Skin.m_brDialogPanel;
 	}
 
 	return hbr;
@@ -164,9 +188,9 @@ BEGIN_MESSAGE_MAP(CPropertySheetAdv, CPropertySheet)
 	ON_WM_HELPINFO()
 END_MESSAGE_MAP()
 
-CPropertySheetAdv::CPropertySheetAdv() :
-	CPropertySheet( _T("") ),
-	m_pSkin( NULL )
+CPropertySheetAdv::CPropertySheetAdv()
+	: CPropertySheet( _T("") )
+	, m_pSkin	( NULL )
 {
 	m_psh.dwFlags &= ~PSP_HASHELP;
 }
@@ -179,12 +203,11 @@ BOOL CPropertySheetAdv::OnInitDialog()
 	if ( m_pSkin == NULL ) m_pSkin = Skin.GetWindowSkin( this );
 	if ( m_pSkin == NULL ) m_pSkin = Skin.GetWindowSkin( _T("CDialog") );
 
-	if ( m_pSkin != NULL )
+	if ( m_pSkin )
 	{
 		CRect rc;
 		GetClientRect( &rc );
 		m_pSkin->CalcWindowRect( &rc );
-		m_brDialog.CreateSolidBrush( Colors.m_crDialog );
 		SetWindowPos( NULL, 0, 0, rc.Width(), rc.Height(), SWP_NOMOVE|SWP_NOZORDER|SWP_NOACTIVATE|SWP_FRAMECHANGED );
 		OnSize( 1982, 0, 0 );
 	}
@@ -286,18 +309,18 @@ LRESULT CPropertySheetAdv::OnSetText(WPARAM /*wParam*/, LPARAM /*lParam*/)
 	return Default();
 }
 
+BOOL CPropertySheetAdv::OnHelpInfo(HELPINFO* /*pHelpInfo*/)
+{
+	return FALSE;
+}
+
 //BOOL CPropertySheetAdv::OnEraseBkgnd(CDC* pDC)
 //{
 //	if ( m_pSkin && m_pSkin->OnEraseBkgnd( this, pDC ) ) return TRUE;
 //
 //	CRect rc;
 //	GetClientRect( &rc );
-//	pDC->FillSolidRect( &rc, Colors.m_crDialog );
+//	pDC->FillSolidRect( &rc, Colors.m_crDialogPanel );
 //
 //	return TRUE;
 //}
-
-BOOL CPropertySheetAdv::OnHelpInfo(HELPINFO* /*pHelpInfo*/)
-{
-	return FALSE;
-}

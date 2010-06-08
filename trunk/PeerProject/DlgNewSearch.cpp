@@ -34,6 +34,12 @@
 static char THIS_FILE[] = __FILE__;
 #endif
 
+#define PART_GAP		8
+#define PART_HEIGHT 	20
+#define BUTTON_HEIGHT	24
+#define BUTTON_WIDTH	72
+
+
 BEGIN_MESSAGE_MAP(CNewSearchDlg, CSkinDialog)
 	ON_WM_SIZE()
 	ON_WM_GETMINMAXINFO()
@@ -47,19 +53,19 @@ END_MESSAGE_MAP()
 // CNewSearchDlg dialog
 
 CNewSearchDlg::CNewSearchDlg(CWnd* pParent, CQuerySearch* pSearch, BOOL bLocal, BOOL bAgain)
-	: CSkinDialog( CNewSearchDlg::IDD, pParent )	//ToDo: Fix Banner Resize Display?
+	: CSkinDialog( CNewSearchDlg::IDD, pParent )
 	, m_pSearch( pSearch ? pSearch : new CQuerySearch() )
 {
-	m_bLocal	= bLocal;
-	m_bAgain	= bAgain;
+	m_bLocal = bLocal;
+	m_bAgain = bAgain;
 }
 
 void CNewSearchDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CSkinDialog::DoDataExchange(pDX);
 	//{{AFX_DATA_MAP(CNewSearchDlg)
-	DDX_Control(pDX, IDCANCEL, m_wndCancel);
 	DDX_Control(pDX, IDOK, m_wndOK);
+	DDX_Control(pDX, IDCANCEL, m_wndCancel);
 	DDX_Control(pDX, IDC_SCHEMAS, m_wndSchemas);
 	DDX_Control(pDX, IDC_SEARCH, m_wndSearch);
 	//}}AFX_DATA_MAP
@@ -113,8 +119,9 @@ BOOL CNewSearchDlg::OnInitDialog()
 void CNewSearchDlg::OnGetMinMaxInfo(MINMAXINFO FAR* lpMMI)
 {
 	CSkinDialog::OnGetMinMaxInfo( lpMMI );
-	lpMMI->ptMinTrackSize.x = 256;
-	lpMMI->ptMinTrackSize.y = 128;
+	lpMMI->ptMinTrackSize.y = Skin.m_nBanner + 4 * PART_GAP + 3 * BUTTON_HEIGHT + 30; 	// 30 = default frame
+	lpMMI->ptMaxTrackSize.x = max( Skin.m_bmBanner.GetBitmapDimension().cx + 8, 400 );	//  8 = typical frame
+	lpMMI->ptMinTrackSize.x = PART_GAP * 3 + BUTTON_WIDTH * 2 + 13;						// 13 = default frame
 }
 
 void CNewSearchDlg::OnSize(UINT nType, int cx, int cy)
@@ -123,18 +130,16 @@ void CNewSearchDlg::OnSize(UINT nType, int cx, int cy)
 
 	if ( ! IsWindow( m_wndSchema.m_hWnd ) ) return;
 
-	int nSpacing	= 8;
-	int nHeight		= 20;
-	int nButtonSize	= 72;
+	m_wndSearch.SetWindowPos( NULL,
+		PART_GAP, Skin.m_nBanner + PART_GAP + 2, cx - PART_GAP * 2, PART_HEIGHT, SWP_NOZORDER );
+	m_wndSchemas.SetWindowPos( NULL,
+		PART_GAP, Skin.m_nBanner + PART_GAP * 2 + PART_HEIGHT + 2, cx - PART_GAP * 2, PART_HEIGHT, SWP_NOZORDER );
 
-	m_wndSearch.SetWindowPos( NULL, nSpacing, nSpacing, cx - nSpacing * 2, nHeight, SWP_NOZORDER );
-	m_wndSchemas.SetWindowPos( NULL, nSpacing, nSpacing * 2 + nHeight, cx - nSpacing * 2, nHeight, SWP_NOZORDER );
-
-	if ( cy > nSpacing * 5 + nHeight * 3 + 4 )
+	if ( cy > PART_GAP * 5 + PART_HEIGHT * 2 + BUTTON_HEIGHT + Skin.m_nBanner )
 	{
 		m_wndSchema.SetWindowPos( NULL,
-			nSpacing, nSpacing * 3 + nHeight * 2,
-			cx - nSpacing * 2, cy - nSpacing * 5 - nHeight * 3 - 4,
+			PART_GAP, Skin.m_nBanner + PART_GAP * 3 + BUTTON_HEIGHT * 2,
+			cx - PART_GAP * 2, cy - PART_GAP * 6 - PART_HEIGHT * 2 - BUTTON_HEIGHT - Skin.m_nBanner,
 			SWP_NOZORDER|SWP_SHOWWINDOW );
 	}
 	else
@@ -142,10 +147,10 @@ void CNewSearchDlg::OnSize(UINT nType, int cx, int cy)
 		m_wndSchema.ShowWindow( SW_HIDE );
 	}
 
-	nHeight += 4;
-
-	m_wndOK.SetWindowPos( NULL, nSpacing - 1, cy - nSpacing - nHeight, nButtonSize, nHeight, SWP_NOZORDER );
-	m_wndCancel.SetWindowPos( NULL, nSpacing * 2 + nButtonSize - 1, cy - nSpacing - nHeight, nButtonSize, nHeight, SWP_NOZORDER );
+	m_wndCancel.SetWindowPos( NULL,
+		cx - BUTTON_WIDTH - PART_GAP, cy - PART_GAP - BUTTON_HEIGHT, BUTTON_WIDTH, BUTTON_HEIGHT, SWP_NOZORDER );
+	m_wndOK.SetWindowPos( NULL,
+		cx - BUTTON_WIDTH - PART_GAP - BUTTON_WIDTH - PART_GAP, cy - PART_GAP - BUTTON_HEIGHT, BUTTON_WIDTH, BUTTON_HEIGHT, SWP_NOZORDER );
 }
 
 void CNewSearchDlg::OnSelChangeSchemas()

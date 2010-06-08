@@ -19,6 +19,9 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 
+// Adds 2 methods helpful for Gnutella2 that look at the list of neighbours
+// http://sourceforge.net/apps/mediawiki/shareaza/index.php?title=Developers.Code.CNeighboursWithG2
+
 #pragma once
 
 #include "NeighboursWithG1.h"
@@ -30,17 +33,18 @@ class CG2Packet;
 class CNeighboursWithG2 : public CNeighboursWithG1 // Continue the inheritance column CNeighbours : CNeighboursWithConnect : Routing : ED2K : G2 : G1 : CNeighboursBase
 {
 protected:
-	// Nothing that CNeighboursWithG2 adds to CNeighbours needs to be set up or put away
-	CNeighboursWithG2();		// The constructor and destructor don't do anything
+	// Constructor/destructor don't do anything: Nothing that CNeighboursWithG2 adds to CNeighbours needs to be set up or put away
+	CNeighboursWithG2();
 	virtual ~CNeighboursWithG2();
 
 public:
 	// Methods implimented by several classes in the CNeighbours inheritance column
-	virtual void Connect(); 	// Set the ping route duration and setup the hub horizon pool
+	// Set the ping route duration and setup the hub horizon pool
+	virtual void Connect();
 
 public:
 	// Make and return a query web packet with IP addresses from the neighbours list and the Gnutella2 host cache
-	CG2Packet* CreateQueryWeb(const Hashes::Guid& oGUID, CNeighbour* pExcept = NULL);
+	CG2Packet* CreateQueryWeb(const Hashes::Guid& oGUID, bool bWithHubs, CNeighbour* pExcept = NULL);
 
 	// Return a random Gnutella2 hub neighbour that isn't pExcept and doesn't know about pGUID
 	CG2Neighbour* GetRandomHub(CG2Neighbour* pExcept, const Hashes::Guid& oGUID);

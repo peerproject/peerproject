@@ -98,7 +98,7 @@ BOOL CHostBrowser::Browse()
 	{
 		m_pVendor = VendorCache.Lookup( _T("ED2K") );
 
-		SOCKADDR_IN* pServer = NULL; // TODO: Add push connections
+		SOCKADDR_IN* pServer = NULL;	// ToDo: Add push connections
 		CEDClient* pClient = EDClients.Connect( m_pAddress.s_addr, m_nPort,
 			( pServer ? &pServer->sin_addr : NULL ), ( pServer ? pServer->sin_port : 0 ),
 			m_oClientID );
@@ -115,7 +115,7 @@ BOOL CHostBrowser::Browse()
 			return FALSE;
 		}
 	}
-	else
+	else // G2/Gunetella
 	{
 		if ( IsValid() ) return FALSE;
 
@@ -145,8 +145,8 @@ BOOL CHostBrowser::Browse()
 		}
 	}
 
-	m_nState	= hbsConnecting;
-	m_nHits		= 0;
+	m_nState = hbsConnecting;
+	m_nHits  = 0;
 
 	delete m_pProfile;
 	m_pProfile = NULL;
@@ -170,8 +170,8 @@ void CHostBrowser::Stop(BOOL bCompleted)
 		theApp.Message( MSG_INFO, IDS_BROWSE_CLOSED, m_sAddress );
 	}
 
-	m_nState	= hbsNull;
-	m_tPushed	= 0;
+	m_nState  = hbsNull;
+	m_tPushed = 0;
 
 	// ED2K connections aren't handled here -they are in ED2KClient
 	if ( m_nProtocol != PROTOCOL_ED2K )
@@ -376,16 +376,11 @@ void CHostBrowser::SendRequest()
 		if ( ! IsValid() ) return;
 
 		if ( m_bNewBrowse )
-		{
 			Write( _P("GET /gnutella/browse/v1 HTTP/1.1\r\n") );
-		}
+		else if ( Settings.Downloads.RequestHTTP11 )
+			Write( _P("GET / HTTP/1.1\r\n") );
 		else
-		{
-			if ( Settings.Downloads.RequestHTTP11 )
-				Write( _P("GET / HTTP/1.1\r\n") );
-			else
-				Write( _P("GET / HTTP/1.0\r\n") );
-		}
+			Write( _P("GET / HTTP/1.0\r\n") );
 
 		CString strHeader = Settings.SmartAgent();
 
@@ -396,12 +391,17 @@ void CHostBrowser::SendRequest()
 			Write( _P("\r\n") );
 		}
 
-		Write( _P("Accept: text/html, application/x-gnutella-packets, application/x-gnutella2\r\n"
-					"Accept-Encoding: deflate\r\n"
-					"Connection: close\r\n") );
+		Write( _P("Accept: text/html") );
+		if ( m_nProtocol == PROTOCOL_G1 || m_nProtocol == PROTOCOL_G2 )
+			Write( _P(", application/x-gnutella-packets") );
+		if ( m_nProtocol == PROTOCOL_G2 )
+			Write( _P(", application/x-gnutella2") );
+		Write( _P("\r\n") );
 
-		strHeader.Format( _T("Host: %s:%lu\r\n\r\n"), m_sAddress,
-			htons( m_pHost.sin_port ) );
+		Write( _P("Accept-Encoding: deflate\r\n") );
+		Write( _P("Connection: close\r\n") );
+
+		strHeader.Format( _T("Host: %s:%lu\r\n\r\n"), m_sAddress, htons( m_pHost.sin_port ) );
 		Write( strHeader );
 
 		LogOutgoing();
@@ -471,10 +471,9 @@ BOOL CHostBrowser::ReadResponseLine()
 	else
 	{
 		strMessage.TrimLeft();
-		if ( strMessage.GetLength() > 256 ) strMessage = _T("No Message");
+		if ( strMessage.GetLength() > 256 ) strMessage = _T("No Message");	// Should it be truncated?
 
-		theApp.Message( MSG_ERROR, IDS_BROWSE_HTTPCODE, m_sAddress, strCode,
-			strMessage );
+		theApp.Message( MSG_ERROR, IDS_BROWSE_HTTPCODE, m_sAddress, strCode, strMessage );
 
 		Stop();
 		return FALSE;
@@ -589,7 +588,7 @@ BOOL CHostBrowser::ReadContent()
 			if ( m_bDeflate )
 			{
 				// Try to decompress the stream
-				if( !pInput->InflateStreamTo( *m_pBuffer, m_pInflate ) )
+				if( ! pInput->InflateStreamTo( *m_pBuffer, m_pInflate ) )
 				{
 					Stop();			// Clean up
 					return FALSE;	// Report failure

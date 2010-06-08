@@ -3796,7 +3796,7 @@
 		<control caption="Šios eilės išsiuntimo greitaveika:"/>
 		<control/>
 		<control/>
-		<control caption="Rotacija po N sekundžių:"/>
+		<control caption="Rotacija po # sekundžių:"/>
 		<control/>
 		<control/>
 		<control caption="Gerai"/>
@@ -3845,13 +3845,13 @@
 	</dialog>
 	<dialog name="CWizardFoldersPage" cookie="StStEdBuStEdBuStEdBuSt" caption="Sveiki! Čia „PeerProject“ (4/8)">
 		<control caption="PeerProject first downloads partial files to a private folder, then moves them when completed according to Download Groups."/>
-		<control caption="Saugoti parsiųstus failus čia:"/>
-		<control/>
-		<control/>
 		<control caption="Laikyti nebaigtus siųstis failus čia:"/>
 		<control/>
 		<control/>
-		<control caption="Laikyti .Torrent failus čia:"/>
+		<control caption="Saugoti parsiųstus failus čia:"/>
+		<control/>
+		<control/>
+		<control caption="Saugoti .Torrent failus čia:"/>
 		<control/>
 		<control/>
 		<control caption="Common filetypes are initially setup as subfolders of the default location, but Groups can easily be customized by Right-Click.  Simply Drag&apos;n&apos;Drop files."/>
@@ -3906,8 +3906,7 @@
 		<control caption="Jungtis prie tinklo kiekvieną kartą, kai „PeerProject“ startuos"/>
 		<control caption="Malonaus darbo su „PeerProject“!"/>
 	</dialog>
-	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="eDonkey dalinių failų importas">
-		<control/>
+	<dialog name="CDonkeyImportDlg" cookie="StBuBuEdBu" caption="eDonkey dalinių failų importas">
 		<control caption="„PeerProject“ aptiko, kad Jūs turite įsidiegę dar vieną, eDonkey, programą. Ar norėtumėte importuoti nebaigtus siųstis failus į „PeerProject“?"/>
 		<control caption="Taip"/>
 		<control caption="Ne|Atšaukti"/>
@@ -4015,8 +4014,7 @@
 		<control caption="Jungtis"/>
 		<control caption="Atšaukti"/>
 	</dialog>
-	<dialog name="CDownloadDlg" cookie="StStStStEdStBuBuBu" caption="Parsisiųsti failą ar Torrent">
-		<control/>
+	<dialog name="CDownloadDlg" cookie="StStStEdStBuBuBu" caption="Parsisiųsti failą ar Torrent">
 		<control/>
 		<control caption="„PeerProject“ gali parsiųsti failus iš žiniatinklio ir automatiškai surasti ir parsisiųsti P2P nuorodas. Tiesiog įrašykite arba įterpkite nukopijuotą failo nuorodą į langelį apačioje ir paspauskite „Parsisiųsti“. &#160; (http:, ftp:, ed2k:, magnet:, etc.)"/>
 		<control caption="Jūs taip pat galite parsisiųsti BitTorrent failus. Tai gali būti failas su .torrent plėtiniu arba HTTP nuoroda į tokį failą. Torrent atsisiuntimui įterpkite nukopijuotą nuorodą į aukščiau esantį langelį. Jei Jūs jau turite .torrent failą, spauskite „Atverti Torrent:“"/>
@@ -4070,14 +4068,13 @@
 		<control caption="Atšaukti"/>
 		<control caption="Išsaugoti šį filtrą kaip"/>
 	</dialog>
-	<dialog name="CDiscoveryServiceDlg" cookie="BuEdStCoBuBuSt" caption="Paslaugų radimo tarnyba">
+	<dialog name="CDiscoveryServiceDlg" cookie="BuEdStCoBuBu" caption="Paslaugų radimo tarnyba">
 		<control caption="Tarnybos _adresas:"/>
 		<control/>
 		<control caption="Tarnybos tipas:"/>
 		<control caption="Gnutella Bootstrap|GWebCache|Server.met nuoroda|Blokuota"/>
 		<control caption="Gerai"/>
 		<control caption="Atšaukti"/>
-		<control/>
 	</dialog>
 	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStBuBuBuBu" caption="Siunčiamas failas">
 		<control caption="..."/>
@@ -4241,8 +4238,7 @@
 		<control caption="Gerai"/>
 		<control caption="Atšaukti"/>
 	</dialog>
-	<dialog name="CShareManagerDlg" cookie="StStSyBuBuBuBu" caption="Bendrintų aplankų tvarkytuvė">
-		<control/>
+	<dialog name="CShareManagerDlg" cookie="StSyBuBuBuBu" caption="Bendrintų aplankų tvarkytuvė">
 		<control caption="Čia yra Jūsų kolekcijos aplankų sąrašas. Jūs galite pridėti ar pašalinti aplankus naudodamiesi mygtukais apačioje. Kai Jūs pridėsite naują aplanką, jis iš pradžių taps bendrintas, tačiau Jūs galėsite atjungti bendrinimą iš PeerProject kolekcijos lango."/>
 		<control/>
 		<control caption="_Pridėti..."/>
@@ -4250,8 +4246,7 @@
 		<control caption="Gerai"/>
 		<control caption="Atšaukti"/>
 	</dialog>
-	<dialog name="CURLCopyDlg" cookie="StStStStStBuBu" caption="Nuorodos kopijavimas">
-		<control/>
+	<dialog name="CURLCopyDlg" cookie="StStStStBuBu" caption="Nuorodos kopijavimas">
 		<control caption="Jūs galite nukopijuoti pasirinkto failo nuorodą skirtingais formatais. Pasirinkite norimą formatą, paspaudę vieną iš žemiau pateiktų nuorodų:"/>
 		<control/>
 		<control/>
@@ -4259,8 +4254,7 @@
 		<control caption="Įtraukti _save kaip pastovų nuorodos šaltinį"/>
 		<control caption="Atšaukti"/>
 	</dialog>
-	<dialog name="CURLExportDlg" cookie="StStEdStCoStCoBuBumsBu" caption="Nuorodų eksportavimas">
-		<control/>
+	<dialog name="CURLExportDlg" cookie="StEdStCoStCoBuBumsBu" caption="Nuorodų eksportavimas">
 		<control caption="Jūs pasirinkote %lu failą(-ų,-us) su „PeerProject“ susietų nuorodų ekspotavimui. Pasirinkite nuorodos formatą ir paspauskite „Išsaugoti“:"/>
 		<control/>
 		<control caption="Įterpti ženklą:"/>
@@ -4304,8 +4298,7 @@
 		<control caption="(kopijuojami parsisiųsti gabalai į naują pežiūros failą)"/>
 		<control caption="_Atšaukti"/>
 	</dialog>
-	<dialog name="CWarningsDlg" cookie="StStStStStStStBu" caption="„PeerProject“ gerbia savo naudotojus">
-		<control/>
+	<dialog name="CWarningsDlg" cookie="StStStStStStBu" caption="„PeerProject“ gerbia savo naudotojus">
 		<control caption="Ar žinote, kad „PeerProject“ yra visiškai nemokamas produktas?"/>
 		<control caption="„PeerProject“ NETURI JOKIŲ šnipinėjimo programų, reklaminių priedų ar kitokios kartu supakuotos programinės įrangos. Ji NIEKADA nerodo jokių reklamų ir joje nėra „iššokinėjančių“ langų.{n}Jei Jūs kada nors pamatysite reklamą ar „iššokinėjančius“ langus besinaudodami „PeerProject“, būkite tikri - jie ne iš šios programos."/>
 		<control caption="Deja, daug kitų programinių produktų įdiegia kartu nepageidaujamus šnipinėjimo ar reklaminius priedus, todėl, jei pamatysite ką nors įtartino, patikrinkite savo kompiuterį kokia nors šių priedų pašalinimo programa."/>
@@ -4314,8 +4307,7 @@
 		<control caption="http://PeerProject.org"/>
 		<control caption="Užverti"/>
 	</dialog>
-	<dialog name="CPromoteDlg" cookie="StStStStStStStBu" caption="Pliskime Pasaulyje">
-		<control/>
+	<dialog name="CPromoteDlg" cookie="StStStStStStBu" caption="Pliskime Pasaulyje">
 		<control caption="Padėkite plisti Pasaulyje"/>
 		<control caption="Mes viliamės, jog Jums ligi šiol buvo malonu naudotis „PeerProject“. Mes tikime, jog tai pati geriausia Jūsų sutikta failų apsikeitimo programa."/>
 		<control caption="Deja, dauguma naudotojų, besidalijančių failais, nežino, ką jie praranda!"/>
@@ -4324,8 +4316,7 @@
 		<control caption="http://PeerProject.org"/>
 		<control caption="Gerai"/>
 	</dialog>
-	<dialog name="CExistingFileDlg" cookie="StStStStStBuBuBuBuBuStSt" caption="Esamo failo parsisiuntimas">
-		<control/>
+	<dialog name="CExistingFileDlg" cookie="StStStStBuBuBuBuBuStSt" caption="Esamo failo parsisiuntimas">
 		<control/>
 		<control/>
 		<control/>
@@ -4338,8 +4329,7 @@
 		<control caption="Jūs buvote anksčiau parsisiuntę ir ištrynėte šį failą. Ką norite daryti?"/>
 		<control caption="Dėmesio!!! Aptikti vienodi failai. Kai kurios kenkėjiškos programos gali užkrėsti Jūsų kolekciją. Įsitikinkite, jog Jūs tikrai atsisiuntėte šį failą ar įtraukėte į savo kolekciją. Jei ne, baikite darbą ir praskenuokite failus su antivirusine programa."/>
 	</dialog>
-	<dialog name="CCloseModeDlg" cookie="StStBuBuBuBuBu" caption="Mygtukas „Užverti“">
-		<control/>
+	<dialog name="CCloseModeDlg" cookie="StBuBuBuBuBu" caption="Mygtukas „Užverti“">
 		<control caption="Tai pirmas kartas, kai Jūs paspaudėte „PeerProject“ programos mygtuką „Užverti“. Pasirinkite, ką „PeerProject“ turėtų atlikti nuo šio momento ir ateityje:"/>
 		<control caption="Minimizuoti į sistemos juostelę"/>
 		<control caption="Tučtuojau baigti „PeerProject“ programos darbą"/>
@@ -4347,8 +4337,7 @@
 		<control caption="Gerai"/>
 		<control caption="Atšaukti"/>
 	</dialog>
-	<dialog name="CDonkeyServersDlg" cookie="StStEdmsBuBu" caption="Server.met failo parsisiuntimas">
-		<control/>
+	<dialog name="CDonkeyServersDlg" cookie="StEdmsBuBu" caption="Server.met failo parsisiuntimas">
 		<control caption="Jūs galite parsisiųsti eDonkey server.met failą iš interneto, jei norite atnaujinti vietinį serverių sąrašą."/>
 		<control/>
 		<control/>
@@ -4386,8 +4375,7 @@
 		<control caption="_Toliau|Eksportuoti"/>
 		<control caption="Atšaukti"/>
 	</dialog>
-	<dialog name="CTorrentSeedDlg" cookie="StStBuBuBuStms" caption="Atverti Torrent failą">
-		<control/>
+	<dialog name="CTorrentSeedDlg" cookie="StBuBuBuStms" caption="Atverti Torrent failą">
 		<control caption="Jūs norėjote atverti BitTorrent tinklo torrent failą. Ar parsisiųsti jo turinį ar pradėti skleisti?"/>
 		<control caption="Siųstis"/>
 		<control caption="Skleisti"/>
@@ -4483,8 +4471,7 @@
 		<control caption="Gerai"/>
 		<control caption="Atšaukti"/>
 	</dialog>
-	<dialog name="CMediaVisDlg" cookie="StBuSyCoBuBuBu" caption="Pasirinkite muzikos vaizdą">
-		<control/>
+	<dialog name="CMediaVisDlg" cookie="BuSyCoBuBuBu" caption="Pasirinkite muzikos vaizdą">
 		<control caption="Pasirinkite muzikos vaizdo papildinį iš sąrašo:"/>
 		<control/>
 		<control caption="Vaizdo apačioje|Pilnas ekranas|Didelis ekranas|Vidutinis ekranas|Mažas ekranas"/>
@@ -4492,8 +4479,7 @@
 		<control caption="Gerai"/>
 		<control caption="Atšaukti"/>
 	</dialog>
-	<dialog name="CUpgradeDlg" cookie="StStStBuBuBu" caption="Įspėjimas apie atnaujinimą">
-		<control/>
+	<dialog name="CUpgradeDlg" cookie="StStBuBuBu" caption="Įspėjimas apie atnaujinimą">
 		<control caption="Pasirodė nauja „PeerProject“ versija. Ar norite atnaujinti?"/>
 		<control caption="Jei pasirinksite „Atnaujinti dabar“, „PeerProject“ pridės atnaujinimą prie atsisiuntimų ir pradės jį siųsti."/>
 		<control caption="_Atnaujinti dabar"/>
@@ -4524,14 +4510,12 @@
 		<control caption="Atšaukti"/>
 		<control caption="Įveskite kanalą, kurį norite pridėti:|Įveskite veiksmo priežastį:"/>
 	</dialog>
-	<dialog name="CDownloadReviewDlg" cookie="StBuSyEd" caption="Atsisiuntimų įvertinimai">
-		<control/>
+	<dialog name="CDownloadReviewDlg" cookie="BuSyEd" caption="Atsisiuntimų įvertinimai">
 		<control caption="Gerai"/>
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CHelpDlg" cookie="StBuAf" caption="„PeerProject“ žinynas">
-		<control/>
+	<dialog name="CHelpDlg" cookie="BuAf" caption="„PeerProject“ žinynas">
 		<control caption="Užverti"/>
 		<control/>
 	</dialog>

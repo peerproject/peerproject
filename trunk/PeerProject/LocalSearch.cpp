@@ -69,42 +69,31 @@ static char THIS_FILE[]=__FILE__;
 //////////////////////////////////////////////////////////////////////
 // CLocalSearch construction
 
-CLocalSearch::CLocalSearch(CQuerySearch* pSearch, CNeighbour* pNeighbour, BOOL bWrapped)
+CLocalSearch::CLocalSearch(CQuerySearch* pSearch)
 	: m_pSearch		( pSearch )
-	, m_pNeighbour	( pNeighbour )
-	, m_pEndpoint	( NULL )
+	, m_pEndpoint	( pSearch->m_pEndpoint )
 	, m_pBuffer		( NULL )
-	, m_pPacket		( NULL )
-	, m_nProtocol	( bWrapped ? PROTOCOL_G1 : pNeighbour->m_nProtocol )
-	, m_bWrapped	( bWrapped )
+	, m_bUDP		( TRUE )
+	, m_nProtocol	( PROTOCOL_G2 )
 {
 }
 
-CLocalSearch::CLocalSearch(CQuerySearch* pSearch, SOCKADDR_IN* pEndpoint)
+CLocalSearch::CLocalSearch(CQuerySearch* pSearch, const CNeighbour* pNeighbour)
 	: m_pSearch		( pSearch )
-	, m_pNeighbour	( NULL )
-	, m_pEndpoint	( pEndpoint )
-	, m_pPacket		( NULL )
+	, m_pEndpoint	( pNeighbour->m_pHost )
 	, m_pBuffer		( NULL )
-	, m_nProtocol	( PROTOCOL_G2 )
-	, m_bWrapped	( FALSE )
+	, m_bUDP		( FALSE )
+	, m_nProtocol	( pNeighbour->m_nProtocol )
 {
 }
 
 CLocalSearch::CLocalSearch(CQuerySearch* pSearch, CBuffer* pBuffer, PROTOCOLID nProtocol)
 	: m_pSearch		( pSearch )
-	, m_pNeighbour	( NULL )
-	, m_pEndpoint	( NULL )
-	, m_pPacket		( NULL )
+	, m_pEndpoint	( )
 	, m_pBuffer		( pBuffer )
+	, m_bUDP		( FALSE )
 	, m_nProtocol	( nProtocol )
-	, m_bWrapped	( FALSE )
 {
-}
-
-CLocalSearch::~CLocalSearch()
-{
-	GetXMLString();
 }
 
 
@@ -155,16 +144,18 @@ bool CLocalSearch::IsValidForHitG1(CLibraryFile const * const pFile) const
 
 bool CLocalSearch::IsValidForHitG2(CLibraryFile const * const pFile) const
 {
+	// Browse request, or comments request, or real file
 	return Settings.Gnutella2.EnableToday &&
-		// Browse request, or comments request, or real file
 		( ! m_pSearch || m_pSearch->m_bWantCOM || pFile->IsAvailable() );
 }
 
 //////////////////////////////////////////////////////////////////////
 // CLocalSearch execute
 
-INT_PTR CLocalSearch::Execute(INT_PTR nMaximum)
+bool CLocalSearch::Execute(int nMaximum, bool bPartial, bool bShared)
 {
+	ASSERT( bPartial || bShared );
+
 	if ( nMaximum < 0 )
 		nMaximum = Settings.Gnutella.MaxHits;
 
@@ -173,30 +164,37 @@ INT_PTR CLocalSearch::Execute(INT_PTR nMaximum)
 	else
 		Network.CreateID( m_oGUID );
 
-	INT_PTR nHits = ExecutePartialFiles( nMaximum );
+	int nHits = 0;
+	if ( bPartial )
+	{
+		if ( ! ExecutePartialFiles( nMaximum, nHits ) )
+			return false;
+	}
 
-	if ( ! nMaximum || nHits < nMaximum )
-		nHits += ExecuteSharedFiles( nMaximum ? nMaximum - nHits : 0 );
+	if ( bShared && ( ! nMaximum || nHits < nMaximum ) )
+	{
+		if ( ! ExecuteSharedFiles( nMaximum, nHits ) )
+			return false;
+	}
 
 	ASSERT( ! nMaximum || nHits <= nMaximum );
 
-	return nHits;
+	return true;
 }
 
 //////////////////////////////////////////////////////////////////////
 // CLocalSearch execute partial files
 
-INT_PTR CLocalSearch::ExecutePartialFiles(INT_PTR nMaximum)
+bool CLocalSearch::ExecutePartialFiles(int nMaximum, int& nHits)
 {
 	CSingleLock pLock( &Transfers.m_pSection );
 	if ( ! pLock.Lock( 250 ) )
-		return 0;
+		return false;
 
 	// Browse request, or no partials requested, or non Gnutella 2 request
 	if ( ! m_pSearch || ! m_pSearch->m_bWantPFS || m_nProtocol != PROTOCOL_G2 )
-		return 0;
+		return true;
 
-	INT_PTR nHits = 0;
 	CList< const CDownload* > oFilesInPacket;
 
 	for ( POSITION pos = Downloads.GetIterator() ;
@@ -205,45 +203,39 @@ INT_PTR CLocalSearch::ExecutePartialFiles(INT_PTR nMaximum)
 		const CDownload* pDownload = Downloads.GetNext( pos );
 
 		if ( IsValidForHit( pDownload ) )
-		{
 			oFilesInPacket.AddTail( pDownload );
 
-			if ( ( Settings.Gnutella.HitsPerPacket &&
-				(DWORD)oFilesInPacket.GetCount() >= Settings.Gnutella.HitsPerPacket ) ||
-				( m_pPacket && m_pPacket->m_nLength >= MAX_QUERY_PACKET_SIZE ) )
-			{
-				// Packet full, send it
-				nHits += SendHits( oFilesInPacket );
-
-				oFilesInPacket.RemoveAll();
-			}
-		}
+		// Obsolete for reference:
+		//	if ( ( Settings.Gnutella.HitsPerPacket && (DWORD)oFilesInPacket.GetCount() >= Settings.Gnutella.HitsPerPacket ) ||
+		//		( m_pPacket && m_pPacket->m_nLength >= MAX_QUERY_PACKET_SIZE ) )
+		//	{
+		//		nHits += SendHits( oFilesInPacket );	// Packet full, send it
+		//		oFilesInPacket.RemoveAll();
+		//	}
 	}
 
-	// Send rest of files
-	nHits += SendHits( oFilesInPacket );
+	SendHits( oFilesInPacket );
 
-	return nHits;
+	nHits = nHits + oFilesInPacket.GetCount();	// int + INT_PTR
+
+	return true;
 }
 
 //////////////////////////////////////////////////////////////////////
 // CLocalSearch execute shared files
 
-INT_PTR CLocalSearch::ExecuteSharedFiles(INT_PTR nMaximum)
+bool CLocalSearch::ExecuteSharedFiles(int nMaximum, int& nHits)
 {
 	CSingleLock oLock( &Library.m_pSection );
-	if ( ! oLock.Lock( 1000 ) )
-		return 0;
+	if ( ! oLock.Lock( 250 ) )
+		return false;
 
-	CFileList* pFiles = Library.Search(
-		m_pSearch, static_cast< int >( nMaximum ), FALSE,
-		// Ghost files only for G2
-		m_nProtocol != PROTOCOL_G2 );
+	auto_ptr< CFileList > pFiles( Library.Search(
+		m_pSearch, nMaximum, FALSE, m_nProtocol != PROTOCOL_G2 ) );	// Ghost files only for G2
 
-	if ( pFiles == NULL )	// No files found
-		return 0;
+	if ( ! pFiles.get() )
+		return true;	// No files found
 
-	INT_PTR nHits = 0;
 	CFileList oFilesInPacket;
 
 	for ( POSITION pos = pFiles->GetHeadPosition() ;
@@ -253,86 +245,87 @@ INT_PTR CLocalSearch::ExecuteSharedFiles(INT_PTR nMaximum)
 
 		// Select valid files
 		if ( IsValidForHit( pFile ) )
-		{
 			oFilesInPacket.AddTail( pFile );
 
-			if ( ( Settings.Gnutella.HitsPerPacket &&
-				(DWORD)oFilesInPacket.GetCount() >= Settings.Gnutella.HitsPerPacket ) ||
-				( m_pPacket && m_pPacket->m_nLength >= MAX_QUERY_PACKET_SIZE ) )
-			{
-				// Packet full, send it
-				nHits += SendHits( oFilesInPacket );
-
-				oFilesInPacket.RemoveAll();
-			}
-		}
+		// Obsolete for reference:
+		//	if ( ( Settings.Gnutella.HitsPerPacket && (DWORD)oFilesInPacket.GetCount() >= Settings.Gnutella.HitsPerPacket ) ||
+		//		( m_pPacket && m_pPacket->m_nLength >= MAX_QUERY_PACKET_SIZE ) )
+		//	{
+		//		nHits += SendHits( oFilesInPacket );	// Packet full, send it
+		//		oFilesInPacket.RemoveAll();
+		//	}
 	}
 
-	// Send rest of files
-	nHits += SendHits( oFilesInPacket );
+	SendHits( oFilesInPacket );
 
-	delete pFiles;
+	nHits = nHits + oFilesInPacket.GetCount();	// int + INT_PTR
 
-	return nHits;
+	return true;
 }
 
 template< typename T >
-INT_PTR CLocalSearch::SendHits(const CList< const T * >& oFiles)
+void CLocalSearch::SendHits(const CList< const T * >& oFiles)
 {
-	INT_PTR nHits = oFiles.GetCount();
+	CPacket* pPacket = NULL;
+	CSchemaMap pSchemas;
+
+	int nHits = 0;
+	for ( POSITION pos = oFiles.GetHeadPosition(); pos; )
+	{
+		if ( ! pPacket )
+			pPacket = CreatePacket();
+
+		AddHit( pPacket, pSchemas, oFiles.GetNext( pos ), nHits ++ );
+
+		// Send full packet
+		if ( ( Settings.Gnutella.HitsPerPacket && (DWORD)nHits >= Settings.Gnutella.HitsPerPacket ) ||
+			 ( pPacket->m_nLength >= MAX_QUERY_PACKET_SIZE ) )
+		{
+			WriteTrailer( pPacket, pSchemas, nHits );
+			DispatchPacket( pPacket );
+			pPacket = NULL;
+			nHits = 0;
+		}
+	}
+
 	if ( nHits )
 	{
-		CreatePacket( (int)nHits );
-
-		int nHitIndex = 0;
-		for ( POSITION pos = oFiles.GetHeadPosition(); pos; )
-		{
-			AddHit( oFiles.GetNext( pos ), nHitIndex++ );
-		}
-
-		WriteTrailer();
-
-		DispatchPacket();
+		WriteTrailer( pPacket, pSchemas, nHits );
+		DispatchPacket( pPacket );
+		pPacket = NULL;
 	}
-	return nHits;
+
+	ASSERT( pPacket == NULL );
+	ASSERT( pSchemas.IsEmpty() );
 }
 
 //////////////////////////////////////////////////////////////////////
-// CLocalSearch add file hit
+// CLocalSearch add library file hit
 
 template<>
-void CLocalSearch::AddHit< CLibraryFile >(const CLibraryFile* pFile, int nIndex)
+void CLocalSearch::AddHit< CLibraryFile >(CPacket* pPacket, CSchemaMap& pSchemas, const CLibraryFile* pFile, int nIndex)
 {
-	ASSERT( m_pPacket != NULL );
+	ASSERT( pPacket != NULL );
 
-	switch ( m_nProtocol )
-	{
-	case PROTOCOL_G1:
-		AddHitG1( pFile, nIndex );
-		break;
-
-	case PROTOCOL_G2:
-		AddHitG2( pFile, nIndex );
-		break;
-
-	default:
-		;
-	}
+	if ( m_nProtocol == PROTOCOL_G1 )
+		AddHitG1( static_cast< CG1Packet* >( pPacket ), pSchemas, pFile, nIndex );
+	else // PROTOCOL_G2
+		AddHitG2( static_cast< CG2Packet* >( pPacket ), pSchemas, pFile, nIndex );
 }
 
-void CLocalSearch::AddHitG1(CLibraryFile const * const pFile, int nIndex)
+void CLocalSearch::AddHitG1(CG1Packet* pPacket, CSchemaMap& pSchemas, CLibraryFile const * const pFile, int nIndex)
 {
-	m_pPacket->WriteLongLE( pFile->m_nIndex );
-	m_pPacket->WriteLongLE( (DWORD)min( pFile->GetSize(), 0xFFFFFFFF ) );
+	pPacket->WriteLongLE( pFile->m_nIndex );
+	pPacket->WriteLongLE( (DWORD)min( pFile->GetSize(), 0xFFFFFFFF ) );
 	if ( Settings.Gnutella1.QueryHitUTF8 ) //Support UTF-8 Query
-		m_pPacket->WriteStringUTF8( pFile->m_sName );
+		pPacket->WriteStringUTF8( pFile->m_sName );
 	else
-		m_pPacket->WriteString( pFile->m_sName );
+		pPacket->WriteString( pFile->m_sName );
 
 	if ( pFile->m_oSHA1 )
 	{
 		CString strHash = pFile->m_oSHA1.toUrn();
-		m_pPacket->WriteString( strHash );
+		pPacket->WriteString( strHash );
 
 		//CGGEPBlock pBlock;
 
@@ -340,43 +333,57 @@ void CLocalSearch::AddHitG1(CLibraryFile const * const pFile, int nIndex)
 		//pItem->WriteByte( 1 );
 		//pItem->Write( &pFile->m_pSHA1, 20 );
 
-		//pBlock.Write( m_pPacket );
-		//m_pPacket->WriteByte( 0 );
+		//pBlock.Write( pPacket );
+		//pPacket->WriteByte( 0 );
 	}
 	else if ( pFile->m_oTiger )
 	{
 		CString strHash = pFile->m_oTiger.toUrn();
-		m_pPacket->WriteString( strHash );
+		pPacket->WriteString( strHash );
 	}
 	else if ( pFile->m_oED2K )
 	{
 		CString strHash = pFile->m_oED2K.toUrn();
-		m_pPacket->WriteString( strHash );
+		pPacket->WriteString( strHash );
 	}
 	else if ( pFile->m_oBTH )
 	{
 		CString strHash = pFile->m_oBTH.toUrn();
-		m_pPacket->WriteString( strHash );
+		pPacket->WriteString( strHash );
 	}
 	else if ( pFile->m_oMD5 )
 	{
 		CString strHash = pFile->m_oMD5.toUrn();
-		m_pPacket->WriteString( strHash );
+		pPacket->WriteString( strHash );
 	}
 	else
 	{
-		m_pPacket->WriteByte( 0 );
+		pPacket->WriteByte( 0 );
 	}
 
+	// Add Metadata
 	if ( pFile->m_pSchema != NULL && pFile->m_pMetadata != NULL && ( ! m_pSearch || m_pSearch->m_bWantXML ) )
-		AddMetadata( pFile->m_pSchema, pFile->m_pMetadata, nIndex );
+	{
+		CXMLElement* pGroup = NULL;
+ 		if ( ! pSchemas.Lookup( pFile->m_pSchema, pGroup ) )
+		{
+			pGroup = pFile->m_pSchema->Instantiate();
+			pSchemas.SetAt( pFile->m_pSchema, pGroup );
+		}
+
+		CString strIndex;
+		strIndex.Format( _T("%lu"), nIndex );
+
+		CXMLElement* pXML = pFile->m_pMetadata->Clone();
+		pXML->AddAttribute( _T("index"), strIndex );
+		pGroup->AddElement( pXML );
+	}
 }
 
-void CLocalSearch::AddHitG2(CLibraryFile const * const pFile, int /*nIndex*/)
+void CLocalSearch::AddHitG2(CG2Packet* pPacket, CSchemaMap& /*pSchemas*/, CLibraryFile const * const pFile, int /*nIndex*/)
 {
 	// Pass 1: Calculate child group size
 	// Pass 2: Write the child packet
-	CG2Packet* pPacket = static_cast< CG2Packet* >( m_pPacket );
 	DWORD nGroup = 0;
 	bool bCalculate = false;
 	do
@@ -419,7 +426,9 @@ void CLocalSearch::AddHitG2(CLibraryFile const * const pFile, int /*nIndex*/)
 		{
 			const char prefix[] = "sha1";
 			if ( bCalculate )
+			{
 				nGroup += G2_PACKET_LEN( G2_PACKET_URN, sizeof( prefix ) + Hashes::Sha1Hash::byteCount );
+			}
 			else
 			{
 				pPacket->WritePacket( G2_PACKET_URN, sizeof( prefix ) + Hashes::Sha1Hash::byteCount );
@@ -488,7 +497,7 @@ void CLocalSearch::AddHitG2(CLibraryFile const * const pFile, int /*nIndex*/)
 					pPacket->WriteString( pFile->m_sName, FALSE );
 				}
 			}
-			else
+			else // size = 0xFFFFFFFF
 			{
 				if ( bCalculate )
 				{
@@ -633,11 +642,25 @@ void CLocalSearch::AddHitG2(CLibraryFile const * const pFile, int /*nIndex*/)
 // CLocalSearch add download hit
 
 template<>
-void CLocalSearch::AddHit< CDownload >(const CDownload* pDownload, int /*nIndex*/)
+void CLocalSearch::AddHit< CDownload >(CPacket* pPacket, CSchemaMap& pSchemas, const CDownload* pDownload, int nIndex)
+{
+	ASSERT( pPacket != NULL );
+
+	if ( m_nProtocol == PROTOCOL_G1 )
+		AddHitG1( static_cast< CG1Packet* >( pPacket ), pSchemas, pDownload, nIndex );
+	else // PROTOCOL_G2
+		AddHitG2( static_cast< CG2Packet* >( pPacket ), pSchemas, pDownload, nIndex );
+}
+
+void CLocalSearch::AddHitG1(CG1Packet* /*pPacket*/, CSchemaMap& /*pSchemas*/, CDownload const * const /*pDownload*/, int /*nIndex*/)
+{
+	// ToDo: Add Gnutella(1) active-download hit packet!
+}
+
+void CLocalSearch::AddHitG2(CG2Packet* pPacket, CSchemaMap& /*pSchemas*/, CDownload const * const pDownload, int /*nIndex*/)
 {
 	// Pass 1: Calculate child group size
 	// Pass 2: Write the child packet
-	CG2Packet* pPacket = static_cast< CG2Packet* >( m_pPacket );
 	DWORD nGroup = 0;
 	bool bCalculate = false;
 	do
@@ -751,7 +774,7 @@ void CLocalSearch::AddHit< CDownload >(const CDownload* pDownload, int /*nIndex*
 					pPacket->WriteString( pDownload->m_sName, FALSE );
 				}
 			}
-			else
+			else // Size > 0xFFFFFFFF
 			{
 				if ( bCalculate )
 				{
@@ -789,7 +812,7 @@ void CLocalSearch::AddHit< CDownload >(const CDownload* pDownload, int /*nIndex*
 				pPacket->WriteLongBE( (DWORD)nComplete );
 			}
 		}
-		else
+		else // Downloaded size > 0xFFFFFFFF
 		{
 			if ( bCalculate )
 			{
@@ -808,47 +831,48 @@ void CLocalSearch::AddHit< CDownload >(const CDownload* pDownload, int /*nIndex*
 //////////////////////////////////////////////////////////////////////
 // CLocalSearch create packet
 
-void CLocalSearch::CreatePacket(int nCount)
+CPacket* CLocalSearch::CreatePacket()
 {
-	ASSERT( m_pPacket == NULL );
+	CPacket* pPacket;
 
 	if ( m_nProtocol == PROTOCOL_G1 )
-		CreatePacketG1( nCount );
-	else
-		CreatePacketG2();
+		pPacket = static_cast< CPacket* >( CreatePacketG1() );
+	else // PROTOCOL_G2
+		pPacket = static_cast< CPacket* >( CreatePacketG2() );
 
-	if ( m_pSchemas.GetCount() ) GetXMLString();
+	return pPacket;
 }
 
-void CLocalSearch::CreatePacketG1(int nCount)
+CG1Packet* CLocalSearch::CreatePacketG1()
 {
-	m_pPacket = CG1Packet::New( G1_PACKET_HIT,
+	CG1Packet* pPacket = CG1Packet::New( G1_PACKET_HIT,
 		( m_pSearch ? m_pSearch->m_nTTL : Settings.Gnutella1.SearchTTL ), m_oGUID );
 
-	m_pPacket->WriteByte( BYTE( nCount ) );
-	m_pPacket->WriteShortLE( htons( Network.m_pHost.sin_port ) );
-	m_pPacket->WriteLongLE( Network.m_pHost.sin_addr.S_un.S_addr );
+	pPacket->WriteByte( 0 ); // Hit count will be set latter
+	pPacket->WriteShortLE( htons( Network.m_pHost.sin_port ) );
+	pPacket->WriteLongLE( Network.m_pHost.sin_addr.S_un.S_addr );
 
 	if ( Uploads.m_bStable )
-		m_pPacket->WriteLongLE( Uploads.m_nBestSpeed * 8 / 1024 );
+		pPacket->WriteLongLE( Uploads.m_nBestSpeed * 8 / 1024 );
 	else
-		m_pPacket->WriteLongLE( Settings.Connection.OutSpeed );
+		pPacket->WriteLongLE( Settings.Connection.OutSpeed );
+
+	return pPacket;
 }
 
-void CLocalSearch::CreatePacketG2()
+CG2Packet* CLocalSearch::CreatePacketG2()
 {
 	CG2Packet* pPacket = CG2Packet::New( G2_PACKET_HIT, TRUE );
-	m_pPacket = pPacket;
 
 	pPacket->WritePacket( G2_PACKET_NODE_GUID, 16 );
 	pPacket->Write( Hashes::Guid( MyProfile.oGUID ) );
 
 	//if ( Network.IsListening() )
-	{
-		pPacket->WritePacket( G2_PACKET_NODE_ADDRESS, 6 );
-		pPacket->WriteLongLE( Network.m_pHost.sin_addr.S_un.S_addr );
-		pPacket->WriteShortBE( htons( Network.m_pHost.sin_port ) );
-	}
+	//{
+	pPacket->WritePacket( G2_PACKET_NODE_ADDRESS, 6 );
+	pPacket->WriteLongLE( Network.m_pHost.sin_addr.S_un.S_addr );
+	pPacket->WriteShortBE( htons( Network.m_pHost.sin_port ) );
+	//}
 
 	pPacket->WritePacket( G2_PACKET_VENDOR, 4 );
 	pPacket->WriteString( VENDOR_CODE, FALSE );
@@ -858,7 +882,6 @@ void CLocalSearch::CreatePacketG2()
 
 	{
 		CSingleLock pNetLock( &Network.m_pSection );
-
 		if ( pNetLock.Lock( 50 ) )
 		{
 			for ( POSITION pos = Neighbours.GetIterator() ; pos ; )
@@ -873,15 +896,17 @@ void CLocalSearch::CreatePacketG2()
 					pPacket->WriteShortBE( htons( pNeighbour->m_pHost.sin_port ) );
 				}
 			}
+			pNetLock.Unlock();
 		}
 	}
 
-	if ( ! Uploads.m_bStable ) pPacket->WritePacket( G2_PACKET_PEER_UNSTABLE, 0 );
+	if ( ! Uploads.m_bStable )
+		pPacket->WritePacket( G2_PACKET_PEER_UNSTABLE, 0 );
 
-	CSingleLock pQueueLock( &UploadQueues.m_pSection );
 	int nQueue = 1;
 
-	if ( pQueueLock.Lock() )
+	CSingleLock pQueueLock( &UploadQueues.m_pSection );
+	if ( pQueueLock.Lock( 2000 ) )
 	{
 		for ( POSITION pos = UploadQueues.GetIterator() ; pos ; nQueue++ )
 		{
@@ -899,10 +924,11 @@ void CLocalSearch::CreatePacketG2()
 	}
 
 	CString strNick = MyProfile.GetNick();
-	if ( strNick.GetLength() > 32 ) strNick = strNick.Left( 32 );
-
-	if ( strNick.GetLength() )
+	if ( ! strNick.IsEmpty() )
 	{
+		if ( strNick.GetLength() > 32 )
+			strNick = strNick.Left( 32 );
+
 		int nNick = pPacket->GetStringLen( strNick );
 		pPacket->WritePacket( G2_PACKET_PROFILE, nNick + 6, TRUE );
 		pPacket->WritePacket( G2_PACKET_NICK, nNick );
@@ -912,79 +938,26 @@ void CLocalSearch::CreatePacketG2()
 	if ( Settings.Community.ServeProfile ) pPacket->WritePacket( G2_PACKET_BROWSE_PROFILE, 0 );
 	if ( Settings.Community.ServeFiles ) pPacket->WritePacket( G2_PACKET_BROWSE_HOST, 0 );
 	if ( Settings.Community.ChatEnable ) pPacket->WritePacket( G2_PACKET_PEER_CHAT, 0 );
-}
 
-//////////////////////////////////////////////////////////////////////
-// CLocalSearch meta data
-
-void CLocalSearch::AddMetadata(CSchemaPtr pSchema, CXMLElement* pXML, int nIndex)
-{
-	ASSERT( pSchema != NULL );
-	ASSERT( pXML != NULL );
-	ASSERT( pXML->GetParent() == NULL );
-
-	CXMLElement* pGroup;
-
-	if ( ! m_pSchemas.Lookup( pSchema, pGroup ) )
-	{
-		pGroup = pSchema->Instantiate();
-		m_pSchemas.SetAt( pSchema, pGroup );
-	}
-
-	CString strIndex;
-	strIndex.Format( _T("%lu"), nIndex );
-
-	pXML->AddAttribute( _T("index"), strIndex );
-	pGroup->AddElement( pXML );
-}
-
-//////////////////////////////////////////////////////////////////////
-// CLocalSearch XML to string
-
-CString CLocalSearch::GetXMLString(BOOL bNewlines)
-{
-	CString strXML;
-
-	for ( POSITION pos1 = m_pSchemas.GetStartPosition() ; pos1 ; )
-	{
-		CXMLElement* pGroup;
-		CSchemaPtr pSchema;
-
-		m_pSchemas.GetNextAssoc( pos1, pSchema, pGroup );
-
-		strXML += pGroup->ToString( TRUE, bNewlines );
-
-		for ( POSITION pos2 = pGroup->GetElementIterator() ; pos2 ; )
-		{
-			CXMLElement* pChild = pGroup->GetNextElement( pos2 );
-			pChild->DeleteAttribute( _T("index") );
-			pChild->Detach();
-		}
-
-		delete pGroup;
-	}
-
-	m_pSchemas.RemoveAll();
-
-	return strXML;
+	return pPacket;
 }
 
 //////////////////////////////////////////////////////////////////////
 // CLocalSearch core trailer
 
-void CLocalSearch::WriteTrailer()
+void CLocalSearch::WriteTrailer(CPacket* pPacket, CSchemaMap& pSchemas, int nHits)
 {
-	ASSERT( m_pPacket != NULL );
+	ASSERT( pPacket != NULL );
 
 	if ( m_nProtocol == PROTOCOL_G1 )
-		WriteTrailerG1();
-	else
-		WriteTrailerG2();
+		WriteTrailerG1( static_cast< CG1Packet* >( pPacket ), pSchemas, nHits );
+	else // PROTOCOL_G2
+		WriteTrailerG2( static_cast< CG2Packet* >( pPacket ), pSchemas, nHits );
 }
 
-void CLocalSearch::WriteTrailerG1()
+void CLocalSearch::WriteTrailerG1(CG1Packet* pPacket, CSchemaMap& pSchemas, int nHits)
 {
-	CG1Packet* pPacket = static_cast< CG1Packet* >( m_pPacket );
+	*(BYTE*)pPacket->m_pBuffer = (BYTE)nHits;	// Correct the number of files sent
 
 	pPacket->WriteString( _T( VENDOR_CODE ), FALSE );
 
@@ -1004,7 +977,17 @@ void CLocalSearch::WriteTrailerG1()
 		nFlags[1] |= G1_QHD_GGEP;
 	}
 
-	CString strXML		= GetXMLString( FALSE );
+	CString strXML;
+	for ( POSITION pos1 = pSchemas.GetStartPosition() ; pos1 ; )
+	{
+		CXMLElement* pGroup;
+		CSchemaPtr pSchema;
+		pSchemas.GetNextAssoc( pos1, pSchema, pGroup );
+		strXML += pGroup->ToString( TRUE );
+		delete pGroup;
+	}
+	pSchemas.RemoveAll();
+
 	DWORD nCompressed	= 0;
 	auto_array< BYTE > pCompressed;
 
@@ -1068,17 +1051,15 @@ void CLocalSearch::WriteTrailerG1()
 	if ( CQueryHit* pDebugHit = CQueryHit::FromG1Packet( pPacket ) )
 	{
 		pDebugHit->Delete();
-		m_pPacket->m_nPosition = 0;
+		pPacket->m_nPosition = 0;
 	}
 	else
 		theApp.Message( MSG_ERROR | MSG_FACILITY_SEARCH, _T("[G1] PeerProject produced search packet above but cannot parse it back.") );
 #endif // _DEBUG
 }
 
-void CLocalSearch::WriteTrailerG2()
+void CLocalSearch::WriteTrailerG2(CG2Packet* pPacket, CSchemaMap& /*pSchemas*/, int /*nHits*/)
 {
-	CG2Packet* pPacket = static_cast< CG2Packet* >( m_pPacket );
-
 	pPacket->WriteByte( 0 );	// End of packet
 	pPacket->WriteByte( 0 );	// nHops
 	pPacket->Write( m_oGUID );	// SearchID
@@ -1088,7 +1069,7 @@ void CLocalSearch::WriteTrailerG2()
 	if ( CQueryHit* pDebugHit = CQueryHit::FromG2Packet( pPacket ) )
 	{
 		pDebugHit->Delete();
-		m_pPacket->m_nPosition = 0;
+		pPacket->m_nPosition = 0;
 	}
 	else
 		theApp.Message( MSG_ERROR | MSG_FACILITY_SEARCH, _T("[G2] PeerProject produced search packet above but cannot parse it back.") );
@@ -1098,41 +1079,29 @@ void CLocalSearch::WriteTrailerG2()
 //////////////////////////////////////////////////////////////////////
 // CLocalSearch dispatch packet
 
-void CLocalSearch::DispatchPacket()
+void CLocalSearch::DispatchPacket(CPacket* pPacket)
 {
-	ASSERT( m_pPacket != NULL );
+	ASSERT( pPacket != NULL );
 
-	if ( m_pNeighbour != NULL )
+	if ( m_pBuffer )
 	{
-		if ( m_bWrapped )
+		pPacket->ToBuffer( m_pBuffer );
+	}
+	else if ( m_bUDP )
+	{
+		Datagrams.Send( &m_pEndpoint, pPacket, FALSE );
+	}
+	else
+	{
+		CQuickLock oLock( Network.m_pSection );
+		if ( CNeighbour* pNeighbour = Neighbours.Get( m_pEndpoint.sin_addr ) )
 		{
-			// Debug:
-			theApp.Message( MSG_INFO | MSG_FACILITY_SEARCH, _T("CLocalSearch::DispatchPacket() Wrapped query hit created") );
-
-			CG2Packet* pG2 = CG2Packet::New( G2_PACKET_HIT_WRAP, (CG1Packet*)m_pPacket );
-			m_pPacket->Release();
-			m_pPacket = pG2;
+			if ( pNeighbour->m_nProtocol == m_nProtocol )
+				pNeighbour->Send( pPacket, FALSE, TRUE );
 		}
-
-		m_pNeighbour->Send( m_pPacket, FALSE, TRUE );
 	}
 
-	if ( m_pEndpoint != NULL )
-		Datagrams.Send( m_pEndpoint, static_cast< CG2Packet* >( m_pPacket ), FALSE );
-
-	if ( m_pBuffer != NULL )
-		m_pPacket->ToBuffer( m_pBuffer );
-
-	DestroyPacket();
-}
-
-void CLocalSearch::DestroyPacket()
-{
-	if ( m_pPacket != NULL )
-	{
-		m_pPacket->Release();
-		m_pPacket = NULL;
-	}
+	pPacket->Release();
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -1143,16 +1112,16 @@ void CLocalSearch::WriteVirtualTree()
 	CSingleLock oLock( &Library.m_pSection );
 	if ( oLock.Lock( 1000 ) )
 	{
-		m_pPacket = AlbumToPacket( Library.GetAlbumRoot() );
+		CG2Packet* pPacket = AlbumToPacket( Library.GetAlbumRoot() );
 		oLock.Unlock();
-		if ( m_pPacket != NULL ) DispatchPacket();
+		if ( pPacket ) DispatchPacket( pPacket );
 	}
 
 	if ( oLock.Lock( 1000 ) )
 	{
-		m_pPacket = FoldersToPacket();
+		CG2Packet* pPacket = FoldersToPacket();
 		oLock.Unlock();
-		if ( m_pPacket != NULL ) DispatchPacket();
+		if ( pPacket ) DispatchPacket( pPacket );
 	}
 }
 

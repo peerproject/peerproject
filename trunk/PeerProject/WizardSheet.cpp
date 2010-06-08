@@ -42,6 +42,8 @@
 static char THIS_FILE[] = __FILE__;
 #endif
 
+#define CONTROLBAR_HEIGHT	44
+
 /////////////////////////////////////////////////////////////////////////////
 // CWizardSheet
 
@@ -103,7 +105,9 @@ CWizardSheet::CWizardSheet(CWnd *pParentWnd, UINT iSelectPage)
 BOOL CWizardSheet::OnInitDialog()
 {
 	CPropertySheetAdv::OnInitDialog();
+
 	CRect rc;
+	GetClientRect( &rc );
 
 	CString strMessage;
 
@@ -111,8 +115,6 @@ BOOL CWizardSheet::OnInitDialog()
 	SetFont( &theApp.m_gdiFont );
 //	LoadString( strMessage, IDS_WIZARD );
 //	SetWindowText( _T( strMessage ) );
-
-	GetClientRect( &rc );
 
 	GetDlgItem( ID_WIZBACK )->GetWindowRect( &rc );
 	ScreenToClient( &rc );
@@ -146,7 +148,7 @@ BOOL CWizardSheet::OnInitDialog()
 	// ATL_IDC_STATIC1?
 	if ( GetDlgItem( 0x3026 ) ) GetDlgItem( 0x3026 )->ShowWindow( SW_HIDE );
 
-	m_bmHeader.LoadBitmap( IDB_WIZARD );
+	//m_bmHeader.Attach( Skin.GetWatermark( _T("Banner") ) );	// Use Skin.m_bmBanner
 
 	return TRUE;
 }
@@ -194,8 +196,8 @@ void CWizardSheet::OnSize(UINT nType, int cx, int cy)
 	{
 		GetClientRect( &m_rcPage );
 
-		m_rcPage.top += 51;	// BANNER_CY = 50
-		m_rcPage.bottom -= 48;
+		m_rcPage.top += Skin.m_nBanner;
+		m_rcPage.bottom -= CONTROLBAR_HEIGHT + 2;
 
 		pWnd->SetWindowPos( NULL, m_rcPage.left, m_rcPage.top, m_rcPage.Width(),
 			m_rcPage.Height(), SWP_NOSIZE );
@@ -205,24 +207,29 @@ void CWizardSheet::OnSize(UINT nType, int cx, int cy)
 void CWizardSheet::OnPaint()
 {
 	CPaintDC dc( this );
-	CRect rc;
 
+	CRect rc;
 	GetClientRect( &rc );
 
 	CDC mdc;
 	mdc.CreateCompatibleDC( &dc );
-	CBitmap* pOldBitmap = (CBitmap*)mdc.SelectObject( &m_bmHeader );
-	dc.BitBlt( 0, 0, 438, 50, &mdc, 0, 0, SRCCOPY );
+	CBitmap* pOldBitmap = (CBitmap*)mdc.SelectObject( &Skin.m_bmBanner );
+	dc.BitBlt( 0, 0, rc.right + 1, Skin.m_nBanner, &mdc, 0, 0, SRCCOPY );
 	mdc.SelectObject( pOldBitmap );
 	mdc.DeleteDC();
 
-	dc.Draw3dRect( 0, 50, rc.Width() + 1, 1,
-		RGB( 128, 128, 128 ), RGB( 128, 128, 128 ) );	// ToDo: Make skinnable?
+//	dc.Draw3dRect( 0, Skin.m_nBanner, rc.Width() + 1, 1,
+//		RGB( 128, 128, 128 ), RGB( 128, 128, 128 ) );
 
-	dc.Draw3dRect( 0, rc.bottom - 48, rc.Width() + 1, 2,
-		RGB( 128, 128, 128 ), RGB( 255, 255, 255 ) );
+	rc.top = rc.bottom - CONTROLBAR_HEIGHT;
 
-	dc.FillSolidRect( rc.left, rc.bottom - 46, rc.Width(), 46, Colors.m_crSysBtnFace );
+	dc.Draw3dRect( 0, rc.top - 2, rc.Width() + 1, 2,
+		RGB( 142, 141, 140 ), RGB( 255, 255, 255 ) );	// ToDo: Make skinned bevel color
+
+	if ( Skin.m_bmDialog.m_hObject )
+		CoolInterface.DrawWatermark( &dc, &rc, &Skin.m_bmDialog );
+	else
+		dc.FillSolidRect( rc.left, rc.top, rc.Width(), CONTROLBAR_HEIGHT, Colors.m_crSysBtnFace ); // Colors.m_crDialog?
 }
 
 void CWizardSheet::OnXButtonDown(UINT /*nFlags*/, UINT nButton, CPoint /*point*/)
@@ -303,7 +310,7 @@ void CWizardPage::StaticReplace(LPCTSTR pszSearch, LPCTSTR pszReplace)
 
 BOOL CWizardPage::IsConnectionCapable()
 {
-	return ( !theApp.m_bLimitedConnections || Settings.General.IgnoreXPsp2 )	// The connection rate limiting (XPsp2) makes multi-network performance awful
+	return ( ! theApp.m_bLimitedConnections || Settings.General.IgnoreXPsp2 )	// The connection rate limiting (XPsp2) makes multi-network performance awful
 		&& ( Settings.Connection.InSpeed > 256 )								// Must have a decent connection to be worth it. (Or extra traffic will slow downloads)
 		&& ( Settings.GetOutgoingBandwidth() > 16 );							// If your outbound bandwidth is too low, the ED2K ratio will throttle you anyway
 }

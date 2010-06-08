@@ -3798,7 +3798,7 @@
 		<control caption="Upload bandbreedte voor deze rij:"/>
 		<control/>
 		<control/>
-		<control caption="Afwisselen na N seconden:"/>
+		<control caption="Afwisselen na # seconden:"/>
 		<control/>
 		<control/>
 		<control caption="OK"/>
@@ -3847,10 +3847,10 @@
 	</dialog>
 	<dialog name="CWizardFoldersPage" cookie="StStEdBuStEdBuStEdBuSt" caption="Welkom bij PeerProject (4/8)">
 		<control caption="PeerProject first downloads partial files to a private folder, then moves them when completed according to Download Groups."/>
-		<control caption="Sla voltooide bestanden hier op:"/>
-		<control/>
-		<control/>
 		<control caption="Sla tijdelijke\incomplete bestanden hier op:"/>
+		<control/>
+		<control/>
+		<control caption="Sla voltooide bestanden hier op:"/>
 		<control/>
 		<control/>
 		<control caption="Sla .Torrent bestanden hier op:"/>
@@ -3908,8 +3908,7 @@
 		<control caption="Verbinden met het netwerk bij het opstarten van PeerProject"/>
 		<control caption="Veel plezier met PeerProject!"/>
 	</dialog>
-	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="eDonkey downloads importeren">
-		<control/>
+	<dialog name="CDonkeyImportDlg" cookie="StBuBuEdBu" caption="eDonkey downloads importeren">
 		<control caption="PeerProject heeft ontdekt dat je een ander eDonkey programma op deze computer hebt geïnstalleerd. Wil je de niet afgeronde downloads importeren naar PeerProject?"/>
 		<control caption="Ja"/>
 		<control caption="Nee|Annuleren"/>
@@ -4017,8 +4016,7 @@
 		<control caption="Verbinden"/>
 		<control caption="Annuleren"/>
 	</dialog>
-	<dialog name="CDownloadDlg" cookie="StStStStEdStBuBuBu" caption="Bestand/torrent downloaden">
-		<control/>
+	<dialog name="CDownloadDlg" cookie="StStStEdStBuBuBu" caption="Bestand/torrent downloaden">
 		<control/>
 		<control caption="PeerProject kan bestanden downloaden vanaf het internet en automatisch P2P snelkoppelingen zoeken en downloaden. Simpelweg de desbetreffende URL of URI in het veld hieronder intypen of plakken. &#160; (http:, ftp:, ed2k:, magnet:, etc.)"/>
 		<control caption="PeerProject kan ook BitTorrent bestanden downloaden. Om een torrent HTTP snelkoppeling te downloaden, plak je het in het veld hierboven. Als je al een torrent bestand hebt, klik dan op &quot;Torrent openen&quot;"/>
@@ -4072,14 +4070,13 @@
 		<control caption="Annuleren"/>
 		<control caption="Geef een filternaam:"/>
 	</dialog>
-	<dialog name="CDiscoveryServiceDlg" cookie="BuEdStCoBuBuSt" caption="Discovery service">
+	<dialog name="CDiscoveryServiceDlg" cookie="BuEdStCoBuBu" caption="Discovery service">
 		<control caption="Service_adres:"/>
 		<control/>
 		<control caption="Discovery service type:"/>
 		<control caption="Gnutella Bootstrap|GWebCache|Server.met URL|Blocked"/>
 		<control caption="OK"/>
 		<control caption="Annuleren"/>
-		<control/>
 	</dialog>
 	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStBuBuBuBu" caption="Download">
 		<control caption="..."/>
@@ -4243,8 +4240,7 @@
 		<control caption="OK"/>
 		<control caption="Annuleren"/>
 	</dialog>
-	<dialog name="CShareManagerDlg" cookie="StStSyBuBuBuBu" caption="Vrijgegeven mappen beheerder">
-		<control/>
+	<dialog name="CShareManagerDlg" cookie="StSyBuBuBuBu" caption="Vrijgegeven mappen beheerder">
 		<control caption="Dit is een lijst met mappen uit je bibliotheek. Je kunt mappen toevoegen en verwijderen met de knoppen linksonder. Een nieuw toegevoegde map wordt automatisch gedeeld met andere gebruikers. In de bibliotheek kun je de vrijgave echter altijd uitschakelen."/>
 		<control/>
 		<control caption="_Toevoegen"/>
@@ -4252,8 +4248,7 @@
 		<control caption="OK"/>
 		<control caption="Annuleren"/>
 	</dialog>
-	<dialog name="CURLCopyDlg" cookie="StStStStStBuBu" caption="URI kopiëren">
-		<control/>
+	<dialog name="CURLCopyDlg" cookie="StStStStBuBu" caption="URI kopiëren">
 		<control caption="Je kunt in verschillende formaten een URI kopiëren van het geselecteerde bestand. Selecteer het formaat naar keuze door te klikken op één van de URI's hieronder:"/>
 		<control/>
 		<control/>
@@ -4261,8 +4256,7 @@
 		<control caption="Voeg _mijzelf toe als een vaste bron"/>
 		<control caption="Annuleren"/>
 	</dialog>
-	<dialog name="CURLExportDlg" cookie="StStEdStCoStCoBuBumsBu" caption="Exporteer URIs">
-		<control/>
+	<dialog name="CURLExportDlg" cookie="StEdStCoStCoBuBumsBu" caption="Exporteer URIs">
 		<control caption="Je hebt %lu bestanden geselecteerd om te exporteren als PeerProject-powered URI referencies. Selecteer alsjeblieft het formaat voor de URIs, en klik op Opslaan:"/>
 		<control/>
 		<control caption="Importeer:"/>
@@ -4306,8 +4300,7 @@
 		<control caption="(gedownloade blokken worden gekopiëerd naar een nieuw voorvertoningsbestand)"/>
 		<control caption="Annuleren"/>
 	</dialog>
-	<dialog name="CWarningsDlg" cookie="StStStStStStStBu" caption="PeerProject respecteert zijn gebruikers">
-		<control/>
+	<dialog name="CWarningsDlg" cookie="StStStStStStBu" caption="PeerProject respecteert zijn gebruikers">
 		<control caption="Wist je al dat PeerProject een 100% gratis product is?"/>
 		<control caption="PeerProject bevat GEEN ENKELE &quot;spyware&quot;, &quot;adware&quot; of andere verpakte/verborgen software. Het laat GEEN advertenties of &quot;popups&quot; zien, niets daarvan.{n}{n}Als je ooit een advertentie of &quot;popup&quot; krijgt tijdens het gebruiken van PeerProject, kun je er gegarandeerd vanuit gaan dat ze NIET afkomstig zijn van dit programma."/>
 		<control caption="Helaas komt een heleboel andere software met ongewenste adware of spyware, dus als je iets verdachts ziet doe je er goed aan om je PC na te kijken met een programma dat reclame of spyware verwijdert."/>
@@ -4316,8 +4309,7 @@
 		<control caption="http://PeerProject.org"/>
 		<control caption="Sluiten"/>
 	</dialog>
-	<dialog name="CPromoteDlg" cookie="StStStStStStStBu" caption="Verspreid het nieuws">
-		<control/>
+	<dialog name="CPromoteDlg" cookie="StStStStStStBu" caption="Verspreid het nieuws">
 		<control caption="Help ons het nieuws te verspreiden"/>
 		<control caption="Wij hopen dat je tot nu toe veel plezier beleeft hebt aan PeerProject. Volgens ons is het het beste programma ter wereld voor het uitwisselen van bestanden."/>
 		<control caption="Helaas weten een heleboel mensen niet wat ze missen!"/>
@@ -4326,8 +4318,7 @@
 		<control caption="http://PeerProject.org"/>
 		<control caption="OK"/>
 	</dialog>
-	<dialog name="CExistingFileDlg" cookie="StStStStStBuBuBuBuBuStSt" caption="Bestaand bestand downloaden">
-		<control/>
+	<dialog name="CExistingFileDlg" cookie="StStStStBuBuBuBuBuStSt" caption="Bestaand bestand downloaden">
 		<control/>
 		<control/>
 		<control/>
@@ -4340,8 +4331,7 @@
 		<control caption="Je hebt dit bestand al een keer gedownload en verwijderd. Wat wil je doen?"/>
 		<control caption="Waarschuwing!!! Dubbele bestanden gevonden. Sommige malifide software heeft misschien je Bibliotheek gewijzigd. Wees zeker dat je dit bestand werkelijk hebt. Anders, sluit PeerProject en scan je computer met beveilingssoftware."/>
 	</dialog>
-	<dialog name="CCloseModeDlg" cookie="StStBuBuBuBuBu" caption="Afsluiten knop">
-		<control/>
+	<dialog name="CCloseModeDlg" cookie="StBuBuBuBuBu" caption="Afsluiten knop">
 		<control caption="Dit is de eerste keer dat je op de afsluiten knop van PeerProject gedrukt hebt. Selecteer alsjeblieft welke handeling PeerProject vanaf nu zou moeten uitvoeren wanneer op de afsluiten knop gedrukt wordt:"/>
 		<control caption="Verkleinen naar de systeembalk"/>
 		<control caption="PeerProject onmiddellijk afsluiten"/>
@@ -4349,8 +4339,7 @@
 		<control caption="OK"/>
 		<control caption="Annuleren"/>
 	</dialog>
-	<dialog name="CDonkeyServersDlg" cookie="StStEdmsBuBu" caption="Server.met bestand downloaden">
-		<control/>
+	<dialog name="CDonkeyServersDlg" cookie="StEdmsBuBu" caption="Server.met bestand downloaden">
 		<control caption="Je kunt een eDonkey Server.met bestand downloaden van het internet om je lokale lijst met servers te verversen."/>
 		<control/>
 		<control/>
@@ -4388,8 +4377,7 @@
 		<control caption="_Volgende|Exporteren..."/>
 		<control caption="_Annuleren"/>
 	</dialog>
-	<dialog name="CTorrentSeedDlg" cookie="StStBuBuBuStms" caption="Torrentbestand openen">
-		<control/>
+	<dialog name="CTorrentSeedDlg" cookie="StBuBuBuStms" caption="Torrentbestand openen">
 		<control caption="Je hebt een BitTorrent bestand geopend. Wil je de inhoud ervan downloaden of het opnieuw uitzaaien?"/>
 		<control caption="Downloaden"/>
 		<control caption="Uitzaaien"/>
@@ -4485,8 +4473,7 @@
 		<control caption="OK"/>
 		<control caption="Annuleren"/>
 	</dialog>
-	<dialog name="CMediaVisDlg" cookie="StBuSyCoBuBuBu" caption="Visualisatie selecteren">
-		<control/>
+	<dialog name="CMediaVisDlg" cookie="BuSyCoBuBuBu" caption="Visualisatie selecteren">
 		<control caption="Selecteer een audiovisualisatie uit de lijst:"/>
 		<control/>
 		<control caption="Voetnoot scherm|Volledig groot scherm|Groot scherm|Middelgroot scherm|Klein scherm"/>
@@ -4494,8 +4481,7 @@
 		<control caption="OK"/>
 		<control caption="Annuleren"/>
 	</dialog>
-	<dialog name="CUpgradeDlg" cookie="StStStBuBuBu" caption="Upgrade waarschuwing">
-		<control/>
+	<dialog name="CUpgradeDlg" cookie="StStBuBuBu" caption="Upgrade waarschuwing">
 		<control caption="Er is een nieuwe versie van PeerProject verkrijgbaar. Wil je upgraden?"/>
 		<control caption="Wanneer je &quot;Nu upgraden&quot; selecteert, zal PeerProject de upgrade toevoegen aan je downloadlijst en zal het automatisch worden gedownload."/>
 		<control caption="Nu _upgraden"/>
@@ -4526,14 +4512,12 @@
 		<control caption="Annuleren"/>
 		<control caption="Add a channel name:|Enter kick/ban reason:"/>
 	</dialog>
-	<dialog name="CDownloadReviewDlg" cookie="StBuSyEd" caption="Downloadcommentaar">
-		<control/>
+	<dialog name="CDownloadReviewDlg" cookie="BuSyEd" caption="Downloadcommentaar">
 		<control caption="OK"/>
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CHelpDlg" cookie="StBuAf" caption="PeerProject help">
-		<control/>
+	<dialog name="CHelpDlg" cookie="BuAf" caption="PeerProject help">
 		<control caption="Sluiten"/>
 		<control/>
 	</dialog>
@@ -4678,3 +4662,4 @@
 	</list>
 </listColumns>
 </skin>
+/

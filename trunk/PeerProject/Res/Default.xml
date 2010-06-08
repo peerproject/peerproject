@@ -548,9 +548,9 @@
 			</menu>
 			<menu text="Advanced _View">
 				<item id="ID_TAB_HOME" text="_Home" shortcut="Alt-Home/Ctrl-H"/>
-				<item id="ID_TAB_SEARCH" text="_Search" shortcut="Ctrl-S"/>
-				<item id="ID_VIEW_DOWNLOADS" text="_Downloads" shortcut="F3"/>
-				<item id="ID_VIEW_UPLOADS" text="_Uploads" shortcut="F4"/>
+				<item id="ID_TAB_SEARCH" text="_Search" shortcut="Ctrl-S/F3"/>
+				<item id="ID_VIEW_DOWNLOADS" text="_Downloads" shortcut="F4"/>
+				<item id="ID_VIEW_UPLOADS" text="_Uploads" shortcut="Ctrl-F4"/>
 				<item id="ID_VIEW_LIBRARY" text="_Library" shortcut="F5"/>
 				<item id="ID_VIEW_MEDIA" text="_Media" shortcut="F6"/>
 				<item id="ID_TAB_IRC" text="_IRC Chat" shortcut="F12"/>
@@ -2387,6 +2387,8 @@
 <watermarks>
 	<watermark target="CHomeViewCtrl.Header1" path="257.PNG"/>
 	<watermark target="CHomeViewCtrl.Header2" path="258.PNG"/>
+	<watermark target="LargeLogo" path="196"/>
+	<watermark target="Banner" path="154"/>
 </watermarks>
 
 <!-- Navigation Bar -->

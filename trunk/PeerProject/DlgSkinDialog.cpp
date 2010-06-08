@@ -34,10 +34,6 @@
 static char THIS_FILE[] = __FILE__;
 #endif
 
-// HEADING_HEIGHT defined in header file:
-//#define BANNER_CX		600
-//#define BANNER_CY		50
-
 IMPLEMENT_DYNAMIC(CSkinDialog, CDialog)
 
 BEGIN_MESSAGE_MAP(CSkinDialog, CDialog)
@@ -50,11 +46,11 @@ BEGIN_MESSAGE_MAP(CSkinDialog, CDialog)
 	ON_WM_NCLBUTTONUP()
 	ON_WM_NCLBUTTONDBLCLK()
 	ON_WM_NCMOUSEMOVE()
+	ON_WM_WINDOWPOSCHANGING()
 	ON_WM_SIZE()
 	ON_WM_ERASEBKGND()
-	ON_MESSAGE(WM_SETTEXT, OnSetText)
 	ON_WM_CTLCOLOR()
-	ON_WM_WINDOWPOSCHANGING()
+	ON_MESSAGE(WM_SETTEXT, OnSetText)
 	ON_WM_CREATE()
 	ON_WM_HELPINFO()
 	//}}AFX_MSG_MAP
@@ -79,18 +75,70 @@ void CSkinDialog::DoDataExchange(CDataExchange* pDX)
 /////////////////////////////////////////////////////////////////////////////
 // CSkinDialog operations
 
+void CSkinDialog::EnableBanner(BOOL bEnable)
+{
+	if ( ! bEnable && m_oBanner.m_hWnd )
+	{
+		// Remove banner
+		m_oBanner.DestroyWindow();
+
+		// Move all controls up
+		for ( CWnd* pChild = GetWindow( GW_CHILD ); pChild;
+			pChild = pChild->GetNextWindow() )
+		{
+			CRect rc;
+			pChild->GetWindowRect( &rc );
+			ScreenToClient( &rc );
+			rc.MoveToY( rc.top - Skin.m_nBanner );
+			pChild->MoveWindow( &rc );
+		}
+
+		// Resize window
+		CRect rcWindow;
+		GetWindowRect( &rcWindow );
+		SetWindowPos( NULL, 0, 0, rcWindow.Width(), rcWindow.Height() - Skin.m_nBanner,
+			SWP_NOACTIVATE | SWP_NOMOVE | SWP_NOZORDER );
+	}
+	else if ( bEnable && ! m_oBanner.m_hWnd && Skin.m_bmBanner.m_hObject )
+	{
+		// Resize window
+		CRect rcWindow;
+		GetWindowRect( &rcWindow );
+		SetWindowPos( NULL, 0, 0, rcWindow.Width(), rcWindow.Height() + Skin.m_nBanner,
+			SWP_NOACTIVATE | SWP_NOMOVE | SWP_NOZORDER );
+
+		// Move all controls down
+		for ( CWnd* pChild = GetWindow( GW_CHILD ); pChild;
+			pChild = pChild->GetNextWindow() )
+		{
+			CRect rc;
+			pChild->GetWindowRect( &rc );
+			ScreenToClient( &rc );
+			rc.MoveToY( rc.top + Skin.m_nBanner );
+			pChild->MoveWindow( &rc );
+		}
+
+		// Add banner
+		CRect rcBanner;
+		GetClientRect( &rcBanner );
+		rcBanner.right = rcBanner.left + Skin.m_bmBanner.GetBitmapDimension().cx;
+		rcBanner.bottom = rcBanner.top + Skin.m_nBanner;
+		VERIFY( m_oBanner.Create( NULL, WS_CHILD | WS_VISIBLE |
+			SS_BITMAP | SS_REALSIZEIMAGE, rcBanner, this, IDC_BANNER ) );
+		m_oBanner.SetBitmap( (HBITMAP)Skin.m_bmBanner.m_hObject );
+	}
+}
+
 BOOL CSkinDialog::SkinMe(LPCTSTR pszSkin, UINT nIcon, BOOL bLanguage)
 {
-	BOOL bSuccess = FALSE;
-	CString strSkin;
-	CRect rc;
+	if ( m_bAutoBanner )
+		EnableBanner( TRUE );
 
+	BOOL bSuccess ( FALSE );
+	CRect rc;
 	GetClientRect( &rc );
 
-	if ( pszSkin == NULL )
-		strSkin = GetRuntimeClass()->m_lpszClassName;
-	else
-		strSkin = pszSkin;
+	CString strSkin = ( pszSkin ? pszSkin : (LPCTSTR)GetRuntimeClass()->m_lpszClassName );
 
 	m_pSkin = ::Skin.GetWindowSkin( strSkin );
 	if ( NULL == m_pSkin ) m_pSkin = ::Skin.GetWindowSkin( this );
@@ -201,12 +249,16 @@ void CSkinDialog::OnSize(UINT nType, int cx, int cy)
 	CStatic* pBanner = (CStatic*)GetDlgItem( IDC_BANNER );
 	if ( pBanner && Settings.General.LanguageRTL )
 	{
-		// Adjust banner width for RTL
+		BITMAP bm = {};
+		GetObject( pBanner->GetBitmap(), sizeof( BITMAP ), &bm );
+
 		CRect rcBanner;
 		GetClientRect( &rcBanner );
-		rcBanner.left -= BANNER_CX - rcBanner.Width();
-		rcBanner.right = rcBanner.left + BANNER_CX;
-		rcBanner.bottom = rcBanner.top + BANNER_CY;
+
+		// Adjust banner width for RTL
+		rcBanner.left -= bm.bmWidth - rcBanner.Width();
+		rcBanner.right = rcBanner.left + bm.bmWidth;
+		rcBanner.bottom = rcBanner.top + bm.bmHeight;
 		pBanner->MoveWindow( &rcBanner );
 		pBanner->ModifyStyle( SS_CENTERIMAGE, SS_REALSIZEIMAGE );
 	}
@@ -218,19 +270,20 @@ void CSkinDialog::OnSize(UINT nType, int cx, int cy)
 
 LRESULT CSkinDialog::OnSetText(WPARAM /*wParam*/, LPARAM /*lParam*/)
 {
+	LRESULT lResult = Default();
+
 	if ( m_pSkin )
 	{
-		BOOL bVisible = IsWindowVisible();
-		if ( bVisible ) ModifyStyle( WS_VISIBLE, 0 );
-		LRESULT lResult = Default();
-		if ( bVisible ) ModifyStyle( 0, WS_VISIBLE );
-		if ( m_pSkin ) m_pSkin->OnSetText( this );
-		return lResult;
+		if ( IsWindowVisible() )
+		{
+			ModifyStyle( WS_VISIBLE, 0 );
+			lResult = Default();
+			ModifyStyle( 0, WS_VISIBLE );
+		}
+		m_pSkin->OnSetText( this );
 	}
-	else
-	{
-		return Default();
-	}
+
+	return lResult;
 }
 
 BOOL CSkinDialog::OnEraseBkgnd(CDC* pDC)
@@ -239,7 +292,12 @@ BOOL CSkinDialog::OnEraseBkgnd(CDC* pDC)
 
 	CRect rc;
 	GetClientRect( &rc );
-	pDC->FillSolidRect( &rc, Colors.m_crDialog );
+	rc.top = Skin.m_nBanner;
+
+	if ( Skin.m_bmDialog.m_hObject )
+		CoolInterface.DrawWatermark( pDC, &rc, &Skin.m_bmDialog );
+	else
+		pDC->FillSolidRect( &rc, Colors.m_crDialog );
 
 	return TRUE;
 }
@@ -248,10 +306,52 @@ HBRUSH CSkinDialog::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 {
 	HBRUSH hbr = CDialog::OnCtlColor( pDC, pWnd, nCtlColor );
 
-	if ( nCtlColor == CTLCOLOR_DLG || nCtlColor == CTLCOLOR_STATIC )
+	// Skinned dialog controls
+	if ( nCtlColor == CTLCOLOR_STATIC && Skin.m_bmDialog.m_hObject )
 	{
+		if ( pWnd->GetDlgCtrlID() != IDC_STATIC )					// Named controls  (Dynamic handling)
+		{
+			if ( ! pWnd->IsWindowEnabled() || ( pWnd->GetStyle() & ES_READONLY ) )	// (Note SS_REALSIZEIMAGE conflict)
+				return Skin.m_brDialog;								// Skip disabled edit boxes
+
+			const int nCtrlID = pWnd->GetDlgCtrlID();
+			if ( nCtrlID == IDC_MONITOR_SOURCES || nCtrlID == IDC_MONITOR_VOLUME ||
+				nCtrlID == IDC_MONITOR_SPEED || nCtrlID == IDC_MONITOR_TIME )
+			{
+				pDC->SetTextColor( Colors.m_crDialogText );
+				pDC->SetBkMode( TRANSPARENT );
+				return Skin.m_brDialog;								// Dynamic text exceptions workaround	ToDo: fix this
+			}
+
+			if ( nCtrlID == IDC_MONITOR_ICON || nCtrlID == IDC_BANDWIDTH_SLIDER )
+				return Skin.m_brDialog;								// Dynmic controls (UploadQueue slider, variable icon, etc.)
+
+			//TCHAR szName[24];
+			//GetClassName( pWnd->GetSafeHwnd(), szName, 24 );		// Alt detection method
+			//if ( _tcsistr( szName, _T("Static") ) )				"Static" "Button" "ListBox" "ComboBox" "Edit" "RICHEDIT" etc
+
+			// Checkbox label skinning fix, etc.
+			CRect rc;
+			pWnd->GetWindowRect( rc );
+			ScreenToClient( rc );
+			CoolInterface.DrawWatermark( pDC, &rc, &Skin.m_bmDialog, FALSE, -rc.left, -rc.top );
+			//pDC->BitBlt( 0, 0, rc.right, rc.bottom, pWnd->GetDC(), 0, 0, SRCCOPY );
+		}
+		else if ( pWnd->GetStyle() & SS_ICON )						// Static icon handling 32 (improve?)
+			return Skin.m_brDialog;
+
+		pDC->SetTextColor( Colors.m_crDialogText );
+		pDC->SetBkMode( TRANSPARENT );
+		hbr = (HBRUSH)GetStockObject( NULL_BRUSH );
+	}
+	else if ( nCtlColor == CTLCOLOR_STATIC || nCtlColor == CTLCOLOR_DLG  )	// Unskinned default behavior
+	{
+		pDC->SetTextColor( Colors.m_crDialogText );
 		pDC->SetBkColor( Colors.m_crDialog );
-		hbr = Colors.m_brDialog;
+		if ( Skin.m_brDialog.m_hObject )
+			hbr = Skin.m_brDialog;
+		else  // Pre-run message boxes (early help/warning screens interpret initial null as white brush in some areas)
+			hbr = CreateSolidBrush( Colors.m_crDialog );
 	}
 
 	return hbr;
@@ -282,7 +382,7 @@ void CSkinDialog::OnWindowPosChanging(WINDOWPOS* lpwndpos)
 
 int CSkinDialog::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
-	if (CDialog::OnCreate(lpCreateStruct) == -1)
+	if ( CDialog::OnCreate(lpCreateStruct) == -1 )
 		return -1;
 
 	if ( Settings.General.LanguageRTL )
@@ -296,38 +396,6 @@ int CSkinDialog::OnCreate(LPCREATESTRUCT lpCreateStruct)
 BOOL CSkinDialog::OnInitDialog()
 {
 	CDialog::OnInitDialog();
-
-	CStatic* pBanner = (CStatic*)GetDlgItem( IDC_BANNER );
-
-	if ( ! pBanner && m_bAutoBanner )
-	{
-		// Resize window
-		CRect rcWindow;
-		GetWindowRect( &rcWindow );
-		SetWindowPos( NULL, 0, 0, rcWindow.Width(), rcWindow.Height() + BANNER_CY,
-			SWP_NOACTIVATE | SWP_NOMOVE | SWP_NOZORDER );
-
-		// Move all controls down
-		for ( CWnd* pChild = GetWindow( GW_CHILD ); pChild;
-			pChild = pChild->GetNextWindow() )
-		{
-			CRect rc;
-			pChild->GetWindowRect( &rc );
-			ScreenToClient( &rc );
-			rc.MoveToY( rc.top + BANNER_CY );
-			pChild->MoveWindow( &rc );
-		}
-
-		// Add banner
-		CRect rcBanner;
-		GetClientRect( &rcBanner );
-		rcBanner.right = rcBanner.left + BANNER_CX;
-		rcBanner.bottom = rcBanner.top + BANNER_CY;
-		VERIFY( m_oBanner.Create( NULL, WS_CHILD | WS_VISIBLE | SS_BITMAP |
-			SS_REALSIZEIMAGE, rcBanner, this, IDC_BANNER ) );
-		m_oBanner.SetBitmap( (HBITMAP)LoadImage( AfxGetResourceHandle(),
-			MAKEINTRESOURCE( IDB_WIZARD ), IMAGE_BITMAP, BANNER_CX, BANNER_CY, 0 ) );
-	}
 
 	return TRUE;
 }

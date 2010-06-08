@@ -108,15 +108,15 @@ void CNeighbourTipCtrl::OnHide()
 void CNeighbourTipCtrl::OnCalcSize(CDC* pDC)
 {
 	CSingleLock pLock( &Network.m_pSection );
-	if ( ! pLock.Lock( 200 ) ) return;
+	if ( ! pLock.Lock( 250 ) ) return;
 
 	CNeighbour* pNeighbour = Neighbours.Get( m_nNeighbour );
 	CString str;
 
-	if ( pNeighbour->m_pProfile && pNeighbour->m_pProfile->IsValid() )
+	if ( pNeighbour->m_pProfile != NULL && pNeighbour->m_pProfile->IsValid() )
 	{
 		str = pNeighbour->m_pProfile->GetNick();
-		if ( str.GetLength() )
+		if ( ! str.IsEmpty() )
 		{
 			pDC->SelectObject( &CoolInterface.m_fntBold );
 			AddSize( pDC, str );
@@ -124,7 +124,7 @@ void CNeighbourTipCtrl::OnCalcSize(CDC* pDC)
 		}
 
 		str = pNeighbour->m_pProfile->GetLocation();
-		if ( str.GetLength() )
+		if ( ! str.IsEmpty() )
 		{
 			pDC->SelectObject( &CoolInterface.m_fntNormal );
 			AddSize( pDC, str );
@@ -163,10 +163,13 @@ void CNeighbourTipCtrl::OnCalcSize(CDC* pDC)
 		m_sz.cy += TIP_TEXTHEIGHT;
 	}
 
-	m_sz.cy += TIP_TEXTHEIGHT;
 	m_sz.cy += TIP_RULE;
+	m_sz.cy += TIP_TEXTHEIGHT * 6 - 2;
 
-	m_sz.cy += TIP_TEXTHEIGHT * 6;
+	float nCompIn, nCompOut;
+	pNeighbour->GetCompression( &nCompIn, &nCompOut );
+	if ( nCompIn > 0 || nCompOut > 0 )
+		m_sz.cy += TIP_TEXTHEIGHT;
 
 	m_sz.cx = max( m_sz.cx, 128 + 160 );
 	m_sz.cy += 40;
@@ -189,19 +192,21 @@ void CNeighbourTipCtrl::OnPaint(CDC* pDC)
 	if ( pNeighbour->m_pProfile != NULL && pNeighbour->m_pProfile->IsValid() )
 	{
 		str = pNeighbour->m_pProfile->GetNick();
-		if ( str.GetLength() )
+		if ( ! str.IsEmpty() )
 		{
 			pDC->SelectObject( &CoolInterface.m_fntBold );
 			DrawText( pDC, &pt, str );
 			pt.y += TIP_TEXTHEIGHT;
 		}
+
 		pDC->SelectObject( &CoolInterface.m_fntNormal );
 		str = pNeighbour->m_pProfile->GetLocation();
-		if ( str.GetLength() )
+		if ( ! str.IsEmpty() )
 		{
 			DrawText( pDC, &pt, str );
 			pt.y += TIP_TEXTHEIGHT;
 		}
+
 		DrawRule( pDC, &pt );
 	}
 	else if ( pNeighbour->m_nProtocol == PROTOCOL_ED2K )
@@ -227,12 +232,12 @@ void CNeighbourTipCtrl::OnPaint(CDC* pDC)
 		int nFlagIndex = Flags.GetFlagIndex( pNeighbour->m_sCountry );
 		if ( nFlagIndex >= 0 )
 		{
-			ImageList_DrawEx( Flags.m_pImage, nFlagIndex, pDC->GetSafeHdc(),
-				pt.x, pt.y, 16, 16, Colors.m_crTipBack, CLR_NONE, ILD_NORMAL );
+			ImageList_DrawEx( Flags.m_pImage, nFlagIndex, pDC->GetSafeHdc(), pt.x, pt.y, 16, 16,
+				Skin.m_bmToolTip.m_hObject ? CLR_NONE : Colors.m_crTipBack, CLR_NONE, ILD_NORMAL );
 			pDC->ExcludeClipRect( pt.x, pt.y, pt.x + 16, pt.y + 16 );
 
-			pt.x += 25;
 			pt.y += 2;
+			pt.x += 25;
 			DrawText( pDC, &pt, pNeighbour->m_sCountryName );
 			pt.x -= 25;
 		}
@@ -354,14 +359,14 @@ void CNeighbourTipCtrl::OnPaint(CDC* pDC)
 	{
 		LoadString( str, IDS_NEIGHBOUR_RATIO );
 		DrawText( pDC, &pt, str );
-		if ( nCompIn > 0 ) str.Format( _T("%.2f%%"), nCompIn * 100.0 ); else str.Empty();
+		( nCompIn > 0  ) ? str.Format( _T("%.2f%%"), nCompIn * 100.0 ) : str.Empty();
 		DrawText( pDC, &pt, str, 128 );
-		if ( nCompOut > 0 ) str.Format( _T("%.2f%%"), nCompOut * 100.0 ); else str.Empty();
+		( nCompOut > 0 ) ? str.Format( _T("%.2f%%"), nCompOut * 100.0 ) : str.Empty();
 		DrawText( pDC, &pt, str, 128 + 80 );
 		pt.y += TIP_TEXTHEIGHT;
 	}
 
-	pt.y += TIP_TEXTHEIGHT;
+	pt.y += TIP_TEXTHEIGHT - 2;
 
 	CRect rc( pt.x, pt.y, m_sz.cx, pt.y + 40 );
 	pDC->Draw3dRect( &rc, Colors.m_crTipBorder, Colors.m_crTipBorder );

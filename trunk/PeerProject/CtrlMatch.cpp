@@ -47,28 +47,28 @@ BEGIN_MESSAGE_MAP(CMatchCtrl, CWnd)
 	ON_WM_CREATE()
 	ON_WM_DESTROY()
 	ON_WM_SIZE()
-	ON_WM_ERASEBKGND()
 	ON_WM_PAINT()
-	ON_WM_VSCROLL()
-	ON_WM_LBUTTONDOWN()
+	ON_WM_ERASEBKGND()
+	ON_WM_TIMER()
+	ON_WM_KEYDOWN()
 	ON_WM_MOUSEMOVE()
+	ON_WM_LBUTTONDOWN()
 	ON_WM_LBUTTONUP()
 	ON_WM_LBUTTONDBLCLK()
-	ON_WM_KEYDOWN()
 	ON_WM_RBUTTONDOWN()
 	ON_WM_RBUTTONUP()
-	ON_WM_SETCURSOR()
 	ON_WM_MOUSEWHEEL()
+	ON_WM_VSCROLL()
 	ON_WM_HSCROLL()
-	ON_WM_TIMER()
+	ON_WM_SETCURSOR()
+	ON_WM_SETFOCUS()
+	ON_WM_KILLFOCUS()
+	ON_WM_GETDLGCODE()
 	ON_NOTIFY(HDN_ITEMCHANGEDW, IDC_MATCH_HEADER, OnChangeHeader)
 	ON_NOTIFY(HDN_ITEMCHANGEDA, IDC_MATCH_HEADER, OnChangeHeader)
 	ON_NOTIFY(HDN_ENDDRAG, IDC_MATCH_HEADER, OnChangeHeader)
 	ON_NOTIFY(HDN_ITEMCLICKW, IDC_MATCH_HEADER, OnClickHeader)
 	ON_NOTIFY(HDN_ITEMCLICKA, IDC_MATCH_HEADER, OnClickHeader)
-	ON_WM_SETFOCUS()
-	ON_WM_KILLFOCUS()
-	ON_WM_GETDLGCODE()
 END_MESSAGE_MAP()
 
 #define HEADER_HEIGHT	20
@@ -1051,9 +1051,8 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 			}
 			else
 			{
-				DrawRating( dc, rcCol,
-					pFile->m_nRated ? pFile->m_nRating / pFile->m_nRated : 0,
-					bSelected, crBack, bSelectmark );
+				DrawRating( dc, rcCol, pFile->m_nRated ? pFile->m_nRating / pFile->m_nRated : 0,
+					crBack, bSelected, bSelectmark );
 			}
 			break;
 
@@ -1745,7 +1744,7 @@ void CMatchCtrl::OnLButtonUp(UINT /*nFlags*/, CPoint point)
 
 void CMatchCtrl::OnLButtonDblClk(UINT nFlags, CPoint point)
 {
-	if ( point.x < 16 )
+	if ( point.x < 18 )
 		OnLButtonDown( nFlags, point );
 	else
 		GetOwner()->PostMessage( WM_COMMAND, ID_SEARCH_DOWNLOAD );
@@ -1782,7 +1781,7 @@ BOOL CMatchCtrl::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 		rc.left		= ( rc.left + rc.right ) / 2 - 64;
 		rc.right	= rc.left + 128;
 		rc.top		= ( rc.top + rc.bottom ) / 2;
-		rc.bottom	= rc.top + 16;
+		rc.bottom	= rc.top + 16; // ITEM_HEIGHT ?
 		ClientToScreen( &rc );
 
 		GetCursorPos( &point );

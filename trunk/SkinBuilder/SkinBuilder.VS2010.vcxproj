@@ -279,10 +279,10 @@
     <ResourceCompile Include="SkinBuilder.rc" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Res\Banner.bmp" />
     <None Include="Res\SkinBuilder.ico" />
     <None Include="Res\Star.ico" />
     <None Include="Res\Paint.ico" />
-    <None Include="Res\Wizard.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

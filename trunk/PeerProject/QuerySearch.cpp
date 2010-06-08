@@ -79,6 +79,7 @@ CQuerySearch::CQuerySearch(BOOL bGUID)
 	, m_nMeta		( 0 )
 	, m_oWords		( )
 	, m_oNegWords	( )
+	, m_nProtocol	( PROTOCOL_ANY ) // Monitor display
 {
 	if ( bGUID ) Network.CreateID( m_oGUID );
 
@@ -93,7 +94,7 @@ CQuerySearch::~CQuerySearch()
 	if ( m_pXML ) delete m_pXML;
 }
 
-// Obsolete, for reference:
+// Obsolete, for reference?
 //CQuerySearch::CQuerySearch(const CQuerySearch* pOrigin)
 //	: m_bAutostart	( pOrigin->m_bAutostart )
 //	, m_oGUID		( pOrigin->m_oGUID )
@@ -623,16 +624,18 @@ CQuerySearchPtr CQuerySearch::FromPacket(CPacket* pPacket, SOCKADDR_IN* pEndpoin
 	{
 		if ( pPacket->m_nProtocol == PROTOCOL_G1 )
 		{
+			pSearch->m_nProtocol = PROTOCOL_G1; 	// Display convenience
 			if ( pSearch->ReadG1Packet( (CG1Packet*)pPacket ) )
 				return pSearch;
 		}
 		else if ( pPacket->m_nProtocol == PROTOCOL_G2 )
 		{
+			pSearch->m_nProtocol = PROTOCOL_G2; 	// Display convenience
 			if ( ((CG2Packet*)pPacket)->IsType( G2_PACKET_QUERY_WRAP ) )
 			{
+				theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("CQuerySearch::FromPacket dropping obsolete wrapped packet") );
 				//if ( pSearch->ReadG1Packet( (CG1Packet*)pPacket ) )
 				//	return pSearch;
-				theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("CQuerySearch::FromPacket dropping obsolete wrapped packet") );
 			}
 			else
 			{
@@ -640,6 +643,10 @@ CQuerySearchPtr CQuerySearch::FromPacket(CPacket* pPacket, SOCKADDR_IN* pEndpoin
 					return pSearch;
 			}
 		}
+		//else
+		//{
+		//	pSearch->m_nProtocol = PROTOCOL_ED2K;	// Assume?
+		//}
 	}
 	catch ( CException* pException )
 	{
@@ -685,13 +692,9 @@ BOOL CQuerySearch::ReadG1Packet(CG1Packet* pPacket)
 	m_bOOB		= ( nFlags & G1_QF_TAG ) && ( nFlags & G1_QF_OOB );
 
 	if ( Settings.Gnutella1.QueryHitUTF8 )
-	{
 		m_sKeywords = m_sSearch	= pPacket->ReadStringUTF8();
-	}
 	else
-	{
 		m_sKeywords = m_sSearch	= pPacket->ReadStringASCII();
-	}
 
 	while ( pPacket->GetRemaining() )
 	{
@@ -973,7 +976,8 @@ BOOL CQuerySearch::ReadG2Packet(CG2Packet* pPacket, SOCKADDR_IN* pEndpoint)
 		else if ( nType == G2_PACKET_URN )
 		{
 			CString strURN = pPacket->ReadString( nLength );
-			if ( strURN.GetLength() + 1 >= (int)nLength ) return FALSE;
+			if ( strURN.GetLength() + 1 >= (int)nLength )
+				return FALSE;
 			nLength -= strURN.GetLength() + 1;
 
 			if ( nLength >= 20 && strURN == _T("sha1") )
@@ -1006,7 +1010,7 @@ BOOL CQuerySearch::ReadG2Packet(CG2Packet* pPacket, SOCKADDR_IN* pEndpoint)
 		{
 			m_sSearch = pPacket->ReadString( nLength );
 			m_sKeywords = m_sSearch;
-			// Following 2 lines called from CheckValid at the end of this function:
+			// These called from CheckValid at end of this function:
 			//ToLower( m_sKeywords );
 			//MakeKeywords( m_sKeywords, false );
 		}
@@ -1058,9 +1062,13 @@ BOOL CQuerySearch::ReadG2Packet(CG2Packet* pPacket, SOCKADDR_IN* pEndpoint)
 		pPacket->m_nPosition = nOffset;
 	}
 
-	if ( pPacket->GetRemaining() < 16 ) return FALSE;
+	if ( pPacket->GetRemaining() < 16 )
+		return FALSE;
 
 	pPacket->Read( m_oGUID );
+
+	if ( ! m_oGUID )
+		return FALSE;
 
 	return CheckValid( true );
 }
@@ -1116,7 +1124,7 @@ BOOL CQuerySearch::CheckValid(bool bExpression)
 	{
 		return TRUE;
 	}
-	else if ( !m_oWords.empty() )
+	else if ( ! m_oWords.empty() )
 	{
 		// Setting up Common keyword list
 		static const LPCTSTR common[] =
@@ -1664,15 +1672,15 @@ void CQuerySearch::BuildG2PosKeywords()
 		m_sPosKeywords.AppendFormat( _T("%s "), LPCTSTR( CString( pWord->first, int(pWord->second) ) ) );
 	}
 
-	m_sG2Keywords = m_sPosKeywords;	// copy Positive keywords string to G2 keywords string.
-	m_sPosKeywords.TrimRight();		// trim off extra space char at the end of string.
+	m_sG2Keywords = m_sPosKeywords;	// Copy Positive keywords string to G2 keywords string.
+	m_sPosKeywords.TrimRight();		// Trim off extra space char at the end of string.
 
 	// Append negative keywords to G2 keywords string.
 	for ( const_iterator pWord = beginNeg(); pWord != endNeg(); pWord++ )
 	{
 		m_sG2Keywords.AppendFormat( _T("-%s "), LPCTSTR( CString( pWord->first, int(pWord->second) ) ) );
 	}
-	m_sG2Keywords.TrimRight();		// trim off extra space char at the end of string.
+	m_sG2Keywords.TrimRight();		// Trim off extra space char at the end of string.
 }
 
 // Function is used to split a phrase in asian languages to separate keywords
@@ -1829,7 +1837,7 @@ void CQuerySearch::SlideKeywords(CString& strPhrase)
 
 void CQuerySearch::BuildWordTable()
 {
-	// clear word tables.
+	// Clear word tables.
 	m_oWords.clear();
 	m_oNegWords.clear();
 
@@ -1911,7 +1919,7 @@ void CQuerySearch::BuildWordTable()
 #define QUERYSEARCH_SER_VERSION		1000	//8
 // nVersion History:
 // 8 - Added m_nMinSize & m_nMaxSize - Shareaza 2.2 (ryo-oh-ki)
-// 1000 - (PeerProject 1.0) (8)
+// 1000 - Added m_nProtocol for display (PeerProject 1.0) (8)
 
 void CQuerySearch::Serialize(CArchive& ar)
 {
@@ -1950,6 +1958,8 @@ void CQuerySearch::Serialize(CArchive& ar)
 		ar << m_bWantPFS;
 		ar << m_nMinSize;
 		ar << m_nMaxSize;
+
+		ar << m_nProtocol;
 	}
 	else // Loading
 	{
@@ -1976,20 +1986,20 @@ void CQuerySearch::Serialize(CArchive& ar)
 			m_pXML->Serialize( ar );
 		}
 
-		//if ( nVersion >= 5 )
-		//{
-			ar >> m_bWantURL;
-			ar >> m_bWantDN;
-			ar >> m_bWantXML;
-			ar >> m_bWantCOM;
-			ar >> m_bWantPFS;
-		//}
+		ar >> m_bWantURL;
+		ar >> m_bWantDN;
+		ar >> m_bWantXML;
+		ar >> m_bWantCOM;
+		ar >> m_bWantPFS;
 
 		//if ( nVersion >= 8 )
 		//{
 			ar >> m_nMinSize;
 			ar >> m_nMaxSize;
 		//}
+
+		//if ( nVersion >= 1000 )
+			ar >> m_nProtocol;
 
 		BuildWordList();
 	}

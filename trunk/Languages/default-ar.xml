@@ -3744,7 +3744,7 @@ End Untranslated -->
 		<control caption="نطاق العرض للإرسال لقائمة الإنتظار هذه :" />
 		<control />
 		<control />
-		<control caption="تدوير بعد N ثانية :" />
+		<control caption="تدوير بعد # ثانية :" />
 		<control />
 		<control />
 		<control caption="حسنا" />
@@ -3793,10 +3793,10 @@ End Untranslated -->
 	</dialog>
 	<dialog name="CWizardFoldersPage" cookie="StStEdBuStEdBuStEdBuSt" caption="(4/8) _ PeerProject مرحبا بكم في">
 		<control caption="PeerProject first downloads partial files to a private folder, then moves them when completed according to Download Groups."/>
-		<control caption=":حفظ الملفات الم_كتملة هنا" />
-		<control />
-		<control />
 		<control caption=":تخزين الملفات ال_غير مكتملة المؤقتة هنا" />
+		<control />
+		<control />
+		<control caption=":حفظ الملفات الم_كتملة هنا" />
 		<control/>
 		<control/>
 		<control caption="Store .Torrent files here:"/>
@@ -3854,8 +3854,7 @@ End Untranslated -->
 		<control caption="عند تشغيل البرنامج PeerProject اتصل  بالشبكة " />
 		<control caption=" PeerProject تمتع بإستعمال" />
 	</dialog>
-	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="eDonkey2000 تحميل و تصدير ">
-		<control />
+	<dialog name="CDonkeyImportDlg" cookie="StBuBuEdBu" caption="eDonkey2000 تحميل و تصدير ">
 		<control caption="إكتشف شير-أزا بأنه لديك برنامج إدونكي مثبت على كمبيوترك . هل تريد أن تستورد أي تحميلات غير منتهية إلى شير-أزا ؟" />
 		<control caption="نعم" />
 		<control caption="لا|إلغاء الأمر" />
@@ -3963,8 +3962,7 @@ End Untranslated -->
 		<control caption="إتصال" />
 		<control caption="إلغاء الأمر" />
 	</dialog>
-	<dialog name="CDownloadDlg" cookie="StStStStEdStBuBuBu" caption="تحميل ملف أو Torrent">
-		<control />
+	<dialog name="CDownloadDlg" cookie="StStStEdStBuBuBu" caption="تحميل ملف أو Torrent">
 		<control />
 		<control caption="شير-أزا يمكنه تحميل الملفات من الويب و البحث تلقائيا عنها و تحميل روابط نظير إلى نظير تحميل أي ملف بواسطة شير-أزا يعتبر أمر سهل . ببساطة أكتب أو ألصق الرابط للملف المراد تحميله أو وصفا عنه في الخانة بالأسفل ثم إضغط &quot;إنتر&quot;ـ {n}(http: و ftp: و ed2k: و magnet:)" />
 		<control caption="شير-أزا يمكنه أيضا تحميل ملفات بيت-تورينت . يمكن وصف أي ملف تورينت بملف{n}torrent لملف HTTP لتحميل رابط , torrent إلى ملف HTTP أو رابط xyz.torrent{n}:&quot;Torrent أنقر على زر &quot;فتح torrent ألصقه فوق . إذا كان لديك مسبقا ملف" />
@@ -4017,14 +4015,13 @@ End Untranslated -->
 		<control caption="إلغاء الأمر" />
 		<control caption="حفظ المرشح الحالي باسم" />
 	</dialog>
-	<dialog name="CDiscoveryServiceDlg" cookie="BuEdStCoBuBuSt" caption="خدمة الإكتشاف">
+	<dialog name="CDiscoveryServiceDlg" cookie="BuEdStCoBuBu" caption="خدمة الإكتشاف">
 		<control caption=":عنوان ال_خدمة" />
 		<control />
 		<control caption=": نوع خدمة الإكتشاف" />
 		<control caption="Gnutella Bootstrap|GWebCache|Server.met رابط|المحجوبة" />
 		<control caption="حسنا" />
 		<control caption="إلغاء الأمر" />
-		<control />
 	</dialog>
 	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStBuBuBuBu" caption="تحميل">
 		<control caption="..." />
@@ -4187,8 +4184,7 @@ End Untranslated -->
 		<control caption="حسنا" />
 		<control caption="إلغاء الأمر" />
 	</dialog>
-	<dialog name="CShareManagerDlg" cookie="StStSyBuBuBuBu" caption="إدارة مجلد المشاركة">
-		<control />
+	<dialog name="CShareManagerDlg" cookie="StSyBuBuBuBu" caption="إدارة مجلد المشاركة">
 		<control caption="هذه هي قائمة المجلدات في مكتبتك . يمكنك أن تضيف و أن تزيل المجلدات باستخدام الأزرار التي على اليسار . عندما تضيف أي مجلد جديد هو أصلا للمشاركة مع المستخدمين الآخرين ، يمكنك أن تزيله من مكتبة شير-أزا متى ما تريد" />
 		<control />
 		<control caption="_إضافة..." />
@@ -4196,8 +4192,7 @@ End Untranslated -->
 		<control caption="حسنا" />
 		<control caption="إلغاء الأمر" />
 	</dialog>
-	<dialog name="CURLCopyDlg" cookie="StStStStStBuBu" caption="نسخ الرابط">
-		<control />
+	<dialog name="CURLCopyDlg" cookie="StStStStBuBu" caption="نسخ الرابط">
 		<control caption="You can copy a URI for the selected item in a variety of different formats.  Please choose the format you wish to use by clicking one of the URIs below:" />
 		<control />
 		<control />
@@ -4205,8 +4200,7 @@ End Untranslated -->
 		<control caption="Include _myself as a fixed source in the URL" />
 		<control caption="إلغاء الأمر" />
 	</dialog>
-	<dialog name="CURLExportDlg" cookie="StStEdStCoStCoBuBumsBu" caption="تصدير الروابط">
-		<control />
+	<dialog name="CURLExportDlg" cookie="StEdStCoStCoBuBumsBu" caption="تصدير الروابط">
 		<control caption="You have selected %lu files to export as PeerProject-powered URI references.  Please select the format for the URIs, and click Save:" />
 		<control />
 		<control caption="Insert Token:" />
@@ -4250,8 +4244,7 @@ End Untranslated -->
 		<control caption="(copying downloaded chunks to a new preview file)" />
 		<control caption="إلغاء الأمر" />
 	</dialog>
-	<dialog name="CWarningsDlg" cookie="StStStStStStStBu" caption="PeerProject Respects its Users">
-		<control />
+	<dialog name="CWarningsDlg" cookie="StStStStStStBu" caption="PeerProject Respects its Users">
 		<control caption="Did you know PeerProject is a 100% free product?" />
 		<control caption="PeerProject does NOT contain ANY &quot;spyware&quot;, &quot;adware&quot; or other bundled software. It does NOT display any advertisements or &quot;popups&quot;, ever.{n}{n}If you ever see advertising or &quot;popups&quot; while using PeerProject, be assured that they are NOT coming from this program." />
 		<control caption="Unfortunately a lot of other software does come with undesirable adware or spyware, so if you see something suspicious you may wish to check your PC with an advertising or spyware removal program." />
@@ -4260,8 +4253,7 @@ End Untranslated -->
 		<control caption="http://PeerProject.org" />
 		<control caption="إغلاق" />
 	</dialog>
-	<dialog name="CPromoteDlg" cookie="StStStStStStStBu" caption="Spread the Word">
-		<control />
+	<dialog name="CPromoteDlg" cookie="StStStStStStBu" caption="Spread the Word">
 		<control caption="Help Us Spread the Word" />
 		<control caption="We hope you have enjoyed using PeerProject so far.  We believe it is the best file sharing application around." />
 		<control caption="Unfortunately, a lot of file sharers don't know what they're missing!" />
@@ -4270,8 +4262,7 @@ End Untranslated -->
 		<control caption="http://PeerProject.org" />
 		<control caption="حسنا" />
 	</dialog>
-	<dialog name="CExistingFileDlg" cookie="StStStStStBuBuBuBuBuStSt" caption="Existing File">
-		<control />
+	<dialog name="CExistingFileDlg" cookie="StStStStBuBuBuBuBuStSt" caption="Existing File">
 		<control />
 		<control />
 		<control />
@@ -4284,8 +4275,7 @@ End Untranslated -->
 		<control caption="You have downloaded and deleted this file before. What would you like to do?" />
 		<control caption="Warning!!! Duplicate files detected. Some malicious software may infect your Library. Make sure that you downloaded this file or placed it manually. Otherwise, shutdown PeerProject and scan your computer with an antivirus program." />
 	</dialog>
-	<dialog name="CCloseModeDlg" cookie="StStBuBuBuBuBu" caption="زر الإغلاق">
-		<control />
+	<dialog name="CCloseModeDlg" cookie="StBuBuBuBuBu" caption="زر الإغلاق">
 		<control caption="هذه اول مره تضغط على زر الإغلاق . رجاء تحديد ماذا تريد انت تعمل لكي يتم تطبيقه على جميع الاحوال:" />
 		<control caption="تصغير البرنامج في الاسفل مع امكانية استرجاعه" />
 		<control caption="حالاً PeerProject إيقاف تشغيل " />
@@ -4293,8 +4283,7 @@ End Untranslated -->
 		<control caption="حسنا" />
 		<control caption="إلغاء الأمر" />
 	</dialog>
-	<dialog name="CDonkeyServersDlg" cookie="StStEdmsBuBu" caption=" Server.met تحميل ملف">
-		<control />
+	<dialog name="CDonkeyServersDlg" cookie="StEdmsBuBu" caption=" Server.met تحميل ملف">
 		<control caption="You can download an eDonkey server.met file from the web to refresh your local list of servers." />
 		<control />
 		<control />
@@ -4332,8 +4321,7 @@ End Untranslated -->
 		<control caption="_Next|Export..." />
 		<control caption="_إلغاء الأمر" />
 	</dialog>
-	<dialog name="CTorrentSeedDlg" cookie="StStBuBuBuStms" caption=" فتح ملف Torrent">
-		<control />
+	<dialog name="CTorrentSeedDlg" cookie="StBuBuBuStms" caption=" فتح ملف Torrent">
 		<control caption="You have opened a BitTorrent torrent file.  Would you like to download its contents, or re-seed it?" />
 		<control caption="Download" />
 		<control caption="Seed" />
@@ -4431,8 +4419,7 @@ End Untranslated -->
 		<control caption="حسنا" />
 		<control caption="إلغاء الأمر" />
 	</dialog>
-	<dialog name="CMediaVisDlg" cookie="StBuSyCoBuBuBu" caption="Select Visualisation">
-		<control />
+	<dialog name="CMediaVisDlg" cookie="BuSyCoBuBuBu" caption="Select Visualisation">
 		<control caption="Select an audio visualisation from the list:" />
 		<control />
 		<control caption="Footer Display|Full Size Display|Large Display|Medium Display|Small Display" />
@@ -4440,8 +4427,7 @@ End Untranslated -->
 		<control caption="حسنا" />
 		<control caption="إلغاء الأمر" />
 	</dialog>
-	<dialog name="CUpgradeDlg" cookie="StStStBuBuBu" caption="Upgrade Alert">
-		<control />
+	<dialog name="CUpgradeDlg" cookie="StStBuBuBu" caption="Upgrade Alert">
 		<control caption="A new version of PeerProject is now available.  Would you like to upgrade?" />
 		<control caption="If you select Upgrade Now, PeerProject will add the upgrade to your download queue and automatically begin downloading it." />
 		<control caption="_رفع الملفات الان" />
@@ -4472,14 +4458,12 @@ End Untranslated -->
 		<control caption="إلغاء الأمر" />
 		<control caption="Add a channel name:|Enter kick/ban reason:"/>
 	</dialog>
-	<dialog name="CDownloadReviewDlg" cookie="StBuSyEd" caption="Download Reviews">
-		<control />
+	<dialog name="CDownloadReviewDlg" cookie="BuSyEd" caption="Download Reviews">
 		<control caption="حسنا" />
 		<control />
 		<control />
 	</dialog>
-	<dialog name="CHelpDlg" cookie="StBuAf" caption="PeerProject تعليمات">
-		<control />
+	<dialog name="CHelpDlg" cookie="BuAf" caption="PeerProject تعليمات">
 		<control caption="إغلاق" />
 		<control />
 	</dialog>

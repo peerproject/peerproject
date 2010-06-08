@@ -110,14 +110,14 @@ IDR_MAINFRAME		ICON			"Res\\TorrentWizard.ico"
 // Cursor
 //
 
-IDC_HAND		CURSOR			"Res\\Hand.cur"
+IDC_HAND			CURSOR			"Res\\Hand.cur"
 
 /////////////////////////////////////////////////////////////////////////////
 //
 // Bitmap
 //
 
-IDB_WIZARD		BITMAP			"Res\\Wizard.bmp"
+IDB_BANNER			BITMAP			"Res\\Banner.bmp"
 
 
 /////////////////////////////////////////////////////////////////////////////

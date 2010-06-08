@@ -14,7 +14,7 @@
 #define IDD_COMMENT_PAGE                113
 #define IDD_COMMANDLINE_PAGE            114
 #define IDR_MAINFRAME                   128
-#define IDB_WIZARD                      130
+#define IDB_BANNER                      130
 #undef  IDC_HAND						//winuser.h
 #define IDC_HAND                        131
 #define IDC_EXPERT_MODE                 1000

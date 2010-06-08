@@ -360,7 +360,7 @@ void CCoolTipCtrl::OnPaint()
 	CSize size = rc.Size();
 	CDC* pMemDC = CoolInterface.GetBuffer( dc, size );
 
-	CFont* pOldFont = (CFont*)pMemDC->SelectObject( &CoolInterface.m_fntBold );
+	pMemDC->SelectObject( &CoolInterface.m_fntBold );
 
 	pMemDC->Draw3dRect( &rc, Colors.m_crTipBorder, Colors.m_crTipBorder );
 	rc.DeflateRect( 1, 1 );
@@ -375,8 +375,6 @@ void CCoolTipCtrl::OnPaint()
 	rc.InflateRect( 1, 1 );
 
 	dc.BitBlt( 0, 0, rc.Width(), rc.Height(), pMemDC, 0, 0, SRCCOPY );
-
-	//pMemDC->SelectObject( pOldFont );
 }
 
 void CCoolTipCtrl::OnMouseMove(UINT /*nFlags*/, CPoint /*point*/)

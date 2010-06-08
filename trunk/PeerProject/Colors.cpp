@@ -70,7 +70,12 @@ void CColors::CalculateColors(BOOL bCustom)
 	m_crSysActiveCaption		= GetSysColor( COLOR_ACTIVECAPTION );
 	m_crSysMenuText 			= GetSysColor( COLOR_MENUTEXT );
 
-	m_crDialog					= CalculateColor( m_crSysBtnFace, m_crSysWindow, 200 );
+	m_crDialog					= CalculateColor( m_crSysBtnFace, m_crSysWindow, 100 );
+	m_crDialogText				= RGB( 0, 0, 0 );
+	m_crDialogMenu  			= m_crWindow;
+	m_crDialogMenuText			= m_crText;
+	m_crDialogPanel 			= m_crWindow;
+	m_crDialogPanelText			= m_crText;
 
 	m_crBackNormal				= CalculateColor( m_crMidtone, m_crWindow, 215 );
 	m_crBackSel					= CalculateColor( m_crHighlight, m_crWindow, 180 );

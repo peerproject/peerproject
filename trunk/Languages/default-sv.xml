@@ -3734,7 +3734,7 @@
 		<control caption="Bandbredd för denna kö:"/>
 		<control/>
 		<control/>
-		<control caption="Rotera efter N sekunder:"/>
+		<control caption="Rotera efter # sekunder:"/>
 		<control/>
 		<control/>
 		<control caption="OK"/>
@@ -3783,10 +3783,10 @@
 	</dialog>
 	<dialog name="CWizardFoldersPage" cookie="StStEdBuStEdBuStEdBuSt" caption="Välkommen till PeerProject (4/8)">
 		<control caption="PeerProject first downloads partial files to a private folder, then moves them when completed according to Download Groups."/>
-		<control caption="Spara färdiga nedladdningar här:"/>
-		<control/>
-		<control/>
 		<control caption="Spara tillfälliga ofullständiga nedladdningar här:"/>
+		<control/>
+		<control/>
+		<control caption="Spara färdiga nedladdningar här:"/>
 		<control/>
 		<control/>
 		<control caption="Spara .Torrent nedladdningar här:"/>
@@ -3844,8 +3844,7 @@
 		<control caption="Anslut till dessa nätverk varje gång jag startar PeerProject"/>
 		<control caption="Ha kul med PeerProject!"/>
 	</dialog>
-	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="Importera Donkey2000-nedladdningar">
-		<control/>
+	<dialog name="CDonkeyImportDlg" cookie="StBuBuEdBu" caption="Importera Donkey2000-nedladdningar">
 		<control caption="PeerProject har upptäckt att du har ett annat eDonkey-program installerat på din dator. Vill du importera oavslutade nedladdningar till PeerProject?"/>
 		<control caption="Ja"/>
 		<control caption="Nej|Avbryt"/>
@@ -3953,8 +3952,7 @@
 		<control caption="Anslut"/>
 		<control caption="Avbryt"/>
 	</dialog>
-	<dialog name="CDownloadDlg" cookie="StStStStEdStBuBuBu" caption="Ladda ned fil eller Torrent">
-		<control/>
+	<dialog name="CDownloadDlg" cookie="StStStEdStBuBuBu" caption="Ladda ned fil eller Torrent">
 		<control/>
 		<control caption="PeerProject kan ladda ned filer från webben och automatiskt söka och ladda ned länkar till filer på fildelningsnätverk. Skriv eller klista in den URL eller URI som beskriver filen du vill ladda ned i rutan nedanför och tryck enter. &#160; (http:, ftp:, ed2k:, magnet:, etc.)"/>
 		<control caption="PeerProject kan också ladda ned BitTorrent-filer. En torrent kan bli beskriven med en fil som har .torrent som filändelse lagrad på din dator eller en HTTP-server. För att ladda ned en torrent via en HTTP-länk klistrar du in länken i rutan nedanför. Om du redan har en .torrent-fil kan du klicka på Öppna Torrent."/>
@@ -4008,14 +4006,13 @@
 		<control caption="Avbryt"/>
 		<control caption="Spara nuvarande filter som"/>
 	</dialog>
-	<dialog name="CDiscoveryServiceDlg" cookie="BuEdStCoBuBuSt" caption="Upptäckstjänst">
+	<dialog name="CDiscoveryServiceDlg" cookie="BuEdStCoBuBu" caption="Upptäckstjänst">
 		<control caption="Tjänst_adress:"/>
 		<control/>
 		<control caption="Typ av upptäckstjänst:"/>
 		<control caption="Gnutella Bootstrap|GWebCache|Server.met URL|Blocked"/>
 		<control caption="OK"/>
 		<control caption="Avbryt"/>
-		<control/>
 	</dialog>
 	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStBuBuBuBu" caption="Ladda ned">
 		<control caption="..."/>
@@ -4179,8 +4176,7 @@
 		<control caption="OK"/>
 		<control caption="Avbryt"/>
 	</dialog>
-	<dialog name="CShareManagerDlg" cookie="StStSyBuBuBuBu" caption="Hanterare för utdelade filer">
-		<control/>
+	<dialog name="CShareManagerDlg" cookie="StSyBuBuBuBu" caption="Hanterare för utdelade filer">
 		<control caption="Detta är en lista över mappar i ditt bibliotek. Du kan lägga till och ta bort mappar med knapparna till vänster. När du lägger till en ny mapp delas den initialt ut till andra användare. Du kan dock sluta dela ut den från biblioteket om du vill."/>
 		<control/>
 		<control caption="_Lägg till…"/>
@@ -4188,8 +4184,7 @@
 		<control caption="OK"/>
 		<control caption="Avbryt"/>
 	</dialog>
-	<dialog name="CURLCopyDlg" cookie="StStStStStBuBu" caption="Kopiera URI">
-		<control/>
+	<dialog name="CURLCopyDlg" cookie="StStStStBuBu" caption="Kopiera URI">
 		<control caption="Du kan kopiera en URI för den valda artikeln till flera olika format. Välj det format som du vill använda genom att klicka på det nedan:"/>
 		<control/>
 		<control/>
@@ -4197,8 +4192,7 @@
 		<control caption="Inkludera _mig själv som en bestämd källa i URLen"/>
 		<control caption="Avbryt"/>
 	</dialog>
-	<dialog name="CURLExportDlg" cookie="StStEdStCoStCoBuBumsBu" caption="Exportera URI">
-		<control/>
+	<dialog name="CURLExportDlg" cookie="StEdStCoStCoBuBumsBu" caption="Exportera URI">
 		<control caption="Du har valt att exportera %lu filer som PeerProject-URI-referenser. Välj formatet för dina URI och klicka på Save."/>
 		<control/>
 		<control caption="Infoga symbol:"/>
@@ -4242,8 +4236,7 @@
 		<control caption="(kopierar nedladdade stycken till en ny förhandsvisningsfil)"/>
 		<control caption="Avbryt"/>
 	</dialog>
-	<dialog name="CWarningsDlg" cookie="StStStStStStStBu" caption="PeerProject respekterar sina användare">
-		<control/>
+	<dialog name="CWarningsDlg" cookie="StStStStStStBu" caption="PeerProject respekterar sina användare">
 		<control caption="Visste du att PeerProject är en 100% fri produkt?"/>
 		<control caption="PeerProject innehåller INTE NÅGOT &quot;spionprogram&quot;, &quot;reklamprogram&quot; eller andra medskickade program. Det visar INGEN reklam eller &quot;popupfönster&quot; någonsin.{n}{n}Om du någonsin ser reklam eller &quot;popupfönster&quot; när du använder PeerProject kan du vara säker på att det INTE kommer från detta program."/>
 		<control caption="Tyvärr innehåller många andra program oönskvärda reklamprogram eller spionprogram. Så om du ser något misstänkt kan du kontrollera din PC med ett program som tar bort dessa program."/>
@@ -4252,8 +4245,7 @@
 		<control caption="http://PeerProject.org"/>
 		<control caption="Stäng"/>
 	</dialog>
-	<dialog name="CPromoteDlg" cookie="StStStStStStStBu" caption="Sprid orden">
-		<control/>
+	<dialog name="CPromoteDlg" cookie="StStStStStStBu" caption="Sprid orden">
 		<control caption="Hjälp oss sprida orden"/>
 		<control caption="Vi hoppas att du har haft glädje av att använda PeerProject hittils. Vi tycker att det är det bästa fildelningsprogrammet som finns."/>
 		<control caption="Tyvärr vet många personer inte vad de missar!"/>
@@ -4262,8 +4254,7 @@
 		<control caption="http://PeerProject.org"/>
 		<control caption="OK"/>
 	</dialog>
-	<dialog name="CExistingFileDlg" cookie="StStStStStBuBuBuBuBuStSt" caption="Eisterande fil">
-		<control/>
+	<dialog name="CExistingFileDlg" cookie="StStStStBuBuBuBuBuStSt" caption="Eisterande fil">
 		<control/>
 		<control/>
 		<control/>
@@ -4276,8 +4267,7 @@
 		<control caption="Du har tidigare laddat ned och raderat denna fil. Vad vill du göra?"/>
 		<control caption="Varning!!! Dubbla filer upptcktes. Skadlig programvara kan infektera ditt bibliotek. Om du inte har laddat ner eller flyttat den h�r filen sj�lv, st�ng PeerProject och skanna datorn med ett antivirusprogram."/>
 	</dialog>
-	<dialog name="CCloseModeDlg" cookie="StStBuBuBuBuBu" caption="Stängkommandot">
-		<control/>
+	<dialog name="CCloseModeDlg" cookie="StBuBuBuBuBu" caption="Stängkommandot">
 		<control caption="Detta är första gången du har valt PeerProjects stängkommando. Välj den handling du vill att PeerProject ska utföra när du väljer stängkommandot från och med nu."/>
 		<control caption="Minimera till aktivitetsfältet"/>
 		<control caption="Avsluta PeerProject direkt"/>
@@ -4285,8 +4275,7 @@
 		<control caption="OK"/>
 		<control caption="Avbryt"/>
 	</dialog>
-	<dialog name="CDonkeyServersDlg" cookie="StStEdmsBuBu" caption="Ladda ned Server.met-fil">
-		<control/>
+	<dialog name="CDonkeyServersDlg" cookie="StEdmsBuBu" caption="Ladda ned Server.met-fil">
 		<control caption="Du kan ladda ned en eDonkey Server.met-fil från webben för att uppdatera din lokala serverlista."/>
 		<control/>
 		<control/>
@@ -4324,8 +4313,7 @@
 		<control caption="_Nästa|Exportera..."/>
 		<control caption="_Avbryt"/>
 	</dialog>
-	<dialog name="CTorrentSeedDlg" cookie="StStBuBuBuStms" caption="Öppna torrentfil">
-		<control/>
+	<dialog name="CTorrentSeedDlg" cookie="StBuBuBuStms" caption="Öppna torrentfil">
 		<control caption="Du har öppnat en BitTorrent torrentfil. Vill du ladda ned dess innehåll eller återså det?"/>
 		<control caption="Ladda nedd"/>
 		<control caption="Så"/>
@@ -4421,8 +4409,7 @@
 		<control caption="OK"/>
 		<control caption="Avbryt"/>
 	</dialog>
-	<dialog name="CMediaVisDlg" cookie="StBuSyCoBuBuBu" caption="Välj visualisering">
-		<control/>
+	<dialog name="CMediaVisDlg" cookie="BuSyCoBuBuBu" caption="Välj visualisering">
 		<control caption="Välj en ljudvisualisering från listan:"/>
 		<control/>
 		<control caption="Footer Display|Full Size Display|Large Display|Medium Display|Small Display"/>
@@ -4430,8 +4417,7 @@
 		<control caption="OK"/>
 		<control caption="Avbryt"/>
 	</dialog>
-	<dialog name="CUpgradeDlg" cookie="StStStBuBuBu" caption="Uppgraderingsnotis">
-		<control/>
+	<dialog name="CUpgradeDlg" cookie="StStBuBuBu" caption="Uppgraderingsnotis">
 		<control caption="En ny version av PeerProject är tillgänglig. Vill du uppgradera?"/>
 		<control caption="Om du väljer Uppgradera Nukommer PeerProject lägga till uppgraderingen till din nedladdningskö och börja ladda ned den."/>
 		<control caption="_Uppgradera nu"/>
@@ -4462,14 +4448,12 @@
 		<control caption="Avbryt"/>
 		<control caption="Add a channel name:|Enter kick/ban reason:"/>
 	</dialog>
-	<dialog name="CDownloadReviewDlg" cookie="StBuSyEd" caption="Ladda ner recensioner">
-		<control/>
+	<dialog name="CDownloadReviewDlg" cookie="BuSyEd" caption="Ladda ner recensioner">
 		<control caption="OK"/>
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CHelpDlg" cookie="StBuAf" caption="Hjälp för PeerProject">
-		<control/>
+	<dialog name="CHelpDlg" cookie="BuAf" caption="Hjälp för PeerProject">
 		<control caption="Stäng"/>
 		<control/>
 	</dialog>

@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default English Skin File -->
 
-<!-- Translation based on default-en.xml r55 -->
+<!-- Translation based on default-en.xml r56 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -3905,7 +3905,7 @@
 		<control caption="Upload bandwidth for this queue:"/>
 		<control/>
 		<control/>
-		<control caption="Rotate after N seconds:"/>
+		<control caption="Rotate after # seconds:"/>
 		<control/>
 		<control/>
 		<control caption="OK"/>
@@ -3954,13 +3954,13 @@
 	</dialog>
 	<dialog name="CWizardFoldersPage" cookie="StStEdBuStEdBuStEdBuSt" caption="Welcome to PeerProject &#160;(4/8)">
 		<control caption="PeerProject first downloads partial files to a private folder, then moves them when completed according to Download Groups."/>
-		<control caption="Save Complete files here by default:"/>
-		<control/>
-		<control/>
 		<control caption="Store Incomplete files here temporarily:"/>
 		<control/>
 		<control/>
-		<control caption="Store .Torrent files here:"/>
+		<control caption="Save Complete files here by default:"/>
+		<control/>
+		<control/>
+		<control caption="Save .Torrent files here:"/>
 		<control/>
 		<control/>
 		<control caption="Common filetypes are initially setup as subfolders of the default location, but Groups can easily be customized by Right-Click.  Simply Drag&apos;n&apos;Drop files."/>
@@ -4015,8 +4015,7 @@
 		<control caption="Connect to the network every time I start PeerProject"/>
 		<control caption="Enjoy using PeerProject P2P."/>
 	</dialog>
-	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="Import eDonkey Downloads">
-		<control/>
+	<dialog name="CDonkeyImportDlg" cookie="StBuBuEdBu" caption="Import eDonkey Downloads">
 		<control caption="PeerProject has detected that you have another eDonkey program installed on your computer. Would you like to import any unfinished downloads into PeerProject?"/>
 		<control caption="Yes"/>
 		<control caption="No|Cancel"/>
@@ -4124,8 +4123,7 @@
 		<control caption="Connect"/>
 		<control caption="Cancel"/>
 	</dialog>
-	<dialog name="CDownloadDlg" cookie="StStStStEdStBuBuBu" caption="Download File from Link">
-		<control/>
+	<dialog name="CDownloadDlg" cookie="StStStEdStBuBuBu" caption="Download File from Link">
 		<control/>
 		<control caption="New files can be downloaded directly from Web and P2P links.  Simply copy/paste the URL or URI link for the file into the box below. (http:, ftp:, ed2k:, magnet:, etc.)"/>
 		<control caption="A small .torrent file is needed to begin BitTorrent downloads.  Paste the .torrent's direct link above, or select a local .torrent file. (Use drag'n'drop any time.)"/>
@@ -4179,14 +4177,13 @@
 		<control caption="Cancel"/>
 		<control caption="Save the current filter as"/>
 	</dialog>
-	<dialog name="CDiscoveryServiceDlg" cookie="BuEdStCoBuBuSt" caption="Discovery Service">
+	<dialog name="CDiscoveryServiceDlg" cookie="BuEdStCoBuBu" caption="Discovery Service">
 		<control caption="Service _Address:"/>
 		<control/>
 		<control caption="Discovery Service Type:"/>
 		<control caption="Gnutella Bootstrap|G1-WebCache|G2-WebCache|G1+G2-WebCache|Server.met URL|Blocked"/>
 		<control caption="OK"/>
 		<control caption="Cancel"/>
-		<control/>
 	</dialog>
 	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStBuBuBuBu" caption="Download">
 		<control caption="..."/>
@@ -4350,8 +4347,7 @@
 		<control caption="OK"/>
 		<control caption="Cancel"/>
 	</dialog>
-	<dialog name="CShareManagerDlg" cookie="StStSyBuBuBuBu" caption="Shared Folders Manager">
-		<control/>
+	<dialog name="CShareManagerDlg" cookie="StSyBuBuBuBu" caption="Shared Folders Manager">
 		<control caption="This is a list of folders in your personal library. {n}First add folders, then click the checkboxes to publicly share or hide them. Specific files and subfolders can be shared/unshared from the Library."/>
 		<control/>
 		<control caption="_Add..."/>
@@ -4359,8 +4355,7 @@
 		<control caption="OK"/>
 		<control caption="Cancel"/>
 	</dialog>
-	<dialog name="CURLCopyDlg" cookie="StStStStStBuBu" caption="Copy URI (P2P Link)">
-		<control/>
+	<dialog name="CURLCopyDlg" cookie="StStStStBuBu" caption="Copy URI (P2P Link)">
 		<control caption="You can copy the P2P Link ('URI') for a selected item in various formats.{n}Simply click the format you wish to save to clipboard:"/>
 		<control/>
 		<control/>
@@ -4368,8 +4363,7 @@
 		<control caption="Include _myself as a fixed source in the URL"/>
 		<control caption="Cancel"/>
 	</dialog>
-	<dialog name="CURLExportDlg" cookie="StStEdStCoStCoBuBumsBu" caption="Export URIs (P2P Links)">
-		<control/>
+	<dialog name="CURLExportDlg" cookie="StEdStCoStCoBuBumsBu" caption="Export URIs (P2P Links)">
 		<control caption="You have selected %lu files to export as PeerProject-powered URI references. Please select the format for the URIs, and click Save:"/>
 		<control/>
 		<control caption="Insert Token:"/>
@@ -4413,8 +4407,7 @@
 		<control caption="(Copying downloaded chunks to a new preview file)"/>
 		<control caption="Cancel"/>
 	</dialog>
-	<dialog name="CWarningsDlg" cookie="StStStStStStStBu" caption="PeerProject Respects its Users">
-		<control/>
+	<dialog name="CWarningsDlg" cookie="StStStStStStBu" caption="PeerProject Respects its Users">
 		<control caption="Did you know PeerProject is 100% free software?"/>
 		<control caption="PeerProject does not contain any spyware, adware or bundled software;{n}it does not display any advertisements, popups, or other bad behavior.{n}{n}If you ever see such activity be assured that it is not coming from a genuine version of this program."/>
 		<control caption="PeerProject is proud to be Free and Open-Source Software.  A non-profit team of passionate volunteers shares this product with all the freedoms of GPL and Creative Commons Licenses, in the hope that it might be useful."/>
@@ -4423,8 +4416,7 @@
 		<control caption="http://PeerProject.org"/>
 		<control caption="Close"/>
 	</dialog>
-	<dialog name="CPromoteDlg" cookie="StStStStStStStBu" caption="Spread the Word">
-		<control/>
+	<dialog name="CPromoteDlg" cookie="StStStStStStBu" caption="Spread the Word">
 		<control caption="Help Spread the Word"/>
 		<control caption="Hope you've enjoyed using PeerProject so far, it strives to be the best true file sharing software available."/>
 		<control caption="Unfortunately, a lot of potential filesharers don't know what they're missing."/>
@@ -4433,8 +4425,7 @@
 		<control caption="http://PeerProject.org"/>
 		<control caption="OK"/>
 	</dialog>
-	<dialog name="CExistingFileDlg" cookie="StStStStStBuBuBuBuBuStSt" caption="Existing File">
-		<control/>
+	<dialog name="CExistingFileDlg" cookie="StStStStBuBuBuBuBuStSt" caption="Existing File">
 		<control/>
 		<control/>
 		<control/>
@@ -4447,8 +4438,7 @@
 		<control caption="You have downloaded and deleted this file before. What would you like to do?"/>
 		<control caption="Warning! Duplicate files detected. Some malicious software may infect your Library. Make sure that you downloaded this file or placed it manually. Otherwise, shutdown PeerProject and scan your computer with an antivirus program."/>
 	</dialog>
-	<dialog name="CCloseModeDlg" cookie="StStBuBuBuBuBu" caption="Close Button">
-		<control/>
+	<dialog name="CCloseModeDlg" cookie="StBuBuBuBuBu" caption="Close Button">
 		<control caption="This is the first time you have clicked PeerProject's close button. Please choose what action you would like PeerProject to take when clicking the close button from now on:"/>
 		<control caption="Minimize to the tray area"/>
 		<control caption="Shut down PeerProject immediately"/>
@@ -4456,8 +4446,7 @@
 		<control caption="OK"/>
 		<control caption="Cancel"/>
 	</dialog>
-	<dialog name="CDonkeyServersDlg" cookie="StStEdmsBuBu" caption="Download Server.met File">
-		<control/>
+	<dialog name="CDonkeyServersDlg" cookie="StEdmsBuBu" caption="Download Server.met File">
 		<control caption="You can download an eDonkey server.met file from the web to refresh your local list of servers."/>
 		<control/>
 		<control/>
@@ -4505,8 +4494,7 @@
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CTorrentSeedDlg" cookie="StStBuBuBuStms" caption="Open Torrent File">
-		<control/>
+	<dialog name="CTorrentSeedDlg" cookie="StBuBuBuStms" caption="Open Torrent File">
 		<control caption="You have opened a BitTorrent torrent file.  Would you like to download its contents, or re-seed it?"/>
 		<control caption="Download"/>
 		<control caption="Seed"/>
@@ -4603,8 +4591,7 @@
 		<control caption="OK"/>
 		<control caption="Cancel"/>
 	</dialog>
-	<dialog name="CMediaVisDlg" cookie="StBuSyCoBuBuBu" caption="Select Visualisation">
-		<control/>
+	<dialog name="CMediaVisDlg" cookie="BuSyCoBuBuBu" caption="Select Visualisation">
 		<control caption="Select an audio visualization from the list:"/>
 		<control/>
 		<control caption="Footer Display|Full Size Display|Large Display|Medium Display|Small Display"/>
@@ -4612,8 +4599,7 @@
 		<control caption="OK"/>
 		<control caption="Cancel"/>
 	</dialog>
-	<dialog name="CUpgradeDlg" cookie="StStStBuBuBu" caption="Upgrade Alert">
-		<control/>
+	<dialog name="CUpgradeDlg" cookie="StStBuBuBu" caption="Upgrade Alert">
 		<control caption="A new version of PeerProject is now available. Would you like to upgrade?"/>
 		<control caption="If you select Upgrade Now, PeerProject will add the upgrade to your download queue and automatically begin downloading it."/>
 		<control caption="_Upgrade Now"/>
@@ -4644,19 +4630,16 @@
 		<control caption="Cancel"/>
 		<control caption="Add new channel to the list:|Enter kick/ban reason:"/>
 	</dialog>
-	<dialog name="CDownloadReviewDlg" cookie="StBuSyEd" caption="Download Reviews">
-		<control/>
+	<dialog name="CDownloadReviewDlg" cookie="BuSyEd" caption="Download Reviews">
 		<control caption="OK"/>
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CHelpDlg" cookie="StBuAf" caption="PeerProject Help">
-		<control/>
+	<dialog name="CHelpDlg" cookie="BuAf" caption="PeerProject Help">
 		<control caption="Close"/>
 		<control/>
 	</dialog>
-	<dialog name="CAboutDlg" cookie="StStStStStStStBu" caption="About PeerProject">
-		<control/>
+	<dialog name="CAboutDlg" cookie="StStStStStStBu" caption="About PeerProject">
 		<control caption="PeerProject Filesharing Client"/>
 		<control caption="&#169; PeerProject Development Team, 2008-"/>
 		<control caption="PeerProject™ is free software; &#160;you can redistribute and/or modify it {n}under the terms of the GNU General Public License as published by {n}the Free Software Foundation, version 3 or later. &#160;(GPL v3)"/>

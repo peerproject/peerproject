@@ -42,6 +42,7 @@ BEGIN_MESSAGE_MAP(CShareManagerDlg, CSkinDialog)
 	//{{AFX_MSG_MAP(CShareManagerDlg)
 	ON_BN_CLICKED(IDC_SHARE_ADD, OnShareAdd)
 	ON_BN_CLICKED(IDC_SHARE_REMOVE, OnShareRemove)
+	ON_NOTIFY(NM_DBLCLK, IDC_SHARE_FOLDERS, OnDoubleClick)
 	ON_NOTIFY(LVN_ITEMCHANGED, IDC_SHARE_FOLDERS, OnItemChangedShareFolders)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
@@ -125,6 +126,20 @@ void CShareManagerDlg::OnShareRemove()
 	{
 		if ( m_wndList.GetItemState( nItem, LVIS_SELECTED ) )
 			m_wndList.DeleteItem( nItem-- );
+	}
+}
+
+void CShareManagerDlg::OnDoubleClick(NMHDR* /*pNMHDR*/, LRESULT* pResult)
+{
+	//NM_LISTVIEW* pNMListView = (NM_LISTVIEW*)pNMHDR;
+	*pResult = 0;
+
+	// Toggle checkmarks (newly selected items at second click)
+	for ( int nItem = 0 ; nItem < m_wndList.GetItemCount() ; nItem++ )
+	{
+		if ( m_wndList.GetItemState( nItem, LVIS_SELECTED ) )
+			m_wndList.SetItemState( nItem, UINT( ( m_wndList.GetCheck(nItem) ? 1 : 2 ) << 12 ), LVIS_STATEIMAGEMASK );
+		//	m_wndList.SetCheck( m_wndList.GetCheck(nItem) ? BST_UNCHECKED : BST_CHECKED);
 	}
 }
 

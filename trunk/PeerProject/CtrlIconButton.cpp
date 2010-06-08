@@ -225,7 +225,7 @@ void CIconButtonCtrl::OnPaint()
 
 	if ( rc.Width() < 20 || rc.Height() < 20 )		// Don't skin special case small buttons
 	{
-		dc.FillSolidRect( ptIcon.x - 1, ptIcon.y - 1, rc.right, rc.bottom, dc.GetBkColor() );
+		dc.FillSolidRect( ptIcon.x - 1, ptIcon.y - 1, rc.right + 1, rc.bottom + 1, dc.GetBkColor() );
 
 		if ( m_bDown != m_bCapture ) ptIcon.Offset( -1, -1 );
 
@@ -243,7 +243,8 @@ void CIconButtonCtrl::OnPaint()
 			CSize szButton( Skin.m_bmIconButtonPress.GetBitmapDimension() );
 			if ( szButton.cx > 18 && szButton.cy > 18 && szButton.cx < rc.Width() + 2 && szButton.cy < rc.Height() + 2 )
 			{
-				dc.FillSolidRect( &rc, dc.GetBkColor() );
+				if ( ! Skin.m_bmDialog.m_hObject )
+					dc.FillSolidRect( &rc, dc.GetBkColor() );
 
 				// Set button rect to centered image size
 				rc.top += ( rc.Height() - szButton.cy ) / 2;
@@ -281,7 +282,8 @@ void CIconButtonCtrl::OnPaint()
 			CSize szButton( Skin.m_bmIconButtonHover.GetBitmapDimension() );
 			if ( szButton.cx > 18 && szButton.cy > 18 && szButton.cx < rc.Width() + 2 && szButton.cy < rc.Height() + 2 )
 			{
-				dc.FillSolidRect( &rc, dc.GetBkColor() );
+				if ( ! Skin.m_bmDialog.m_hObject )
+					dc.FillSolidRect( &rc, dc.GetBkColor() );
 
 				// Set button rect to centered image size
 				rc.top += ( rc.Height() - szButton.cy ) / 2;
@@ -334,7 +336,8 @@ void CIconButtonCtrl::OnPaint()
 			CSize szButton( Skin.m_bmIconButtonFocus.GetBitmapDimension() );
 			if ( szButton.cx > 18 && szButton.cy > 18 && szButton.cx < rc.Width() + 2 && szButton.cy < rc.Height() + 2 )
 			{
-				dc.FillSolidRect( &rc, dc.GetBkColor() );
+				if ( ! Skin.m_bmDialog.m_hObject )
+					dc.FillSolidRect( &rc, dc.GetBkColor() );
 
 				// Set button rect to centered image size
 				rc.top += ( rc.Height() - szButton.cy ) / 2;
@@ -372,7 +375,8 @@ void CIconButtonCtrl::OnPaint()
 			CSize szButton( Skin.m_bmIconButton.GetBitmapDimension() );
 			if ( szButton.cx > 18 && szButton.cy > 18 && szButton.cx < rc.Width() + 2 && szButton.cy < rc.Height() + 2 )
 			{
-				dc.FillSolidRect( &rc, dc.GetBkColor() );
+				if ( ! Skin.m_bmDialog.m_hObject )
+					dc.FillSolidRect( &rc, dc.GetBkColor() );
 
 				// Set button rect to centered image size
 				rc.top += ( rc.Height() - szButton.cy ) / 2;
@@ -410,7 +414,8 @@ void CIconButtonCtrl::OnPaint()
 			CSize szButton( Skin.m_bmIconButtonDisabled.GetBitmapDimension() );
 			if ( szButton.cx > 18 && szButton.cy > 18 && szButton.cx < rc.Width() + 2 && szButton.cy < rc.Height() + 2 )
 			{
-				dc.FillSolidRect( &rc, dc.GetBkColor() );
+				if ( ! Skin.m_bmDialog.m_hObject )
+					dc.FillSolidRect( &rc, dc.GetBkColor() );
 
 				// Set button rect to centered image size
 				rc.top += ( rc.Height() - szButton.cy ) / 2;

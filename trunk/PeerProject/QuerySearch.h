@@ -43,7 +43,7 @@ public:
 	CQuerySearch(BOOL bGUID = TRUE);
 	virtual ~CQuerySearch();
 
-	typedef std::vector<DWORD>					Hash32List;
+	typedef std::vector<DWORD>			Hash32List;
 
 // Attributes
 public:
@@ -63,7 +63,7 @@ public:
 	BOOL				m_bWantXML;		// G1,G2: Metadata request
 	BOOL				m_bWantCOM;		// G2: Comments request
 	BOOL				m_bWantPFS;		// G2: Partial Files Search request
-	BOOL				m_bAndG1;
+	BOOL				m_bAndG1;		// Settings.Gnutella1.EnableToday
 	BYTE				m_nTTL;			// G1: Suggested TTL for answer
 	BOOL				m_bUDP;			// G2: Packet received over UDP
 	SOCKADDR_IN			m_pEndpoint;	// G2: Packet received from this host
@@ -78,9 +78,10 @@ public:
 	bool				m_bNoProxy;		// G1: Disable OOB proxying
 	bool				m_bExtQuery;	// G1: Extended query (long query)
 	bool				m_bWarning;		// Got parser warnings
+	PROTOCOLID			m_nProtocol;	// Pass network for convenience (SearchMonitor)
 
 	Hash32List			m_oURNs;			// Hashed URNs
-	Hash32List			m_oKeywordHashList;	// list of hashed keywords to BOOST QUery Routing.
+	Hash32List			m_oKeywordHashList;	// List of hashed keywords to BOOST QUery Routing.
 
 private:
 	typedef std::pair< LPCTSTR, size_t > WordEntry;
@@ -98,7 +99,7 @@ private:
 		FindStr(const WordEntry& entry) : m_entry( entry ) {}
 		bool operator()(const LPCTSTR& arg) const
 		{
-			//! \todo verify this - this will succeed for every arg that starts withthe search string
+			//! \todo verify this - this will succeed for every arg that starts with the search string
 			//!                     it doesn't have to be an exact match
 			return _tcsnicmp( arg, m_entry.first, m_entry.second ) == 0;
 		}

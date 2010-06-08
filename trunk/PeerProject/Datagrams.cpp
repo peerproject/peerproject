@@ -1305,7 +1305,8 @@ BOOL CDatagrams::OnQuery(SOCKADDR_IN* pHost, CG2Packet* pPacket)
 		return FALSE;
 	}
 
-	if ( Security.IsDenied( &pSearch->m_pEndpoint.sin_addr ) || ! Settings.Gnutella2.EnableToday )
+	if ( Security.IsDenied( &pSearch->m_pEndpoint.sin_addr ) ||
+		! Settings.Gnutella2.EnableToday )
 	{
 		Statistics.Current.Gnutella2.Dropped++;
 		return FALSE;
@@ -1336,14 +1337,19 @@ BOOL CDatagrams::OnQuery(SOCKADDR_IN* pHost, CG2Packet* pPacket)
 
 	if ( ! Network.QueryRoute->Add( pSearch->m_oGUID, &pSearch->m_pEndpoint ) )
 	{
-		CG2Packet* pAnswer = CG2Packet::New( G2_PACKET_QUERY_ACK, TRUE );
-		pAnswer->WritePacket( G2_PACKET_QUERY_DONE, 8 );
-		pAnswer->WriteLongLE( Network.m_pHost.sin_addr.S_un.S_addr );
-		pAnswer->WriteShortBE( htons( Network.m_pHost.sin_port ) );
-		pAnswer->WriteShortBE( 0 );
-		pAnswer->WriteByte( 0 );
-		pAnswer->Write( pSearch->m_oGUID );
-		Send( &pSearch->m_pEndpoint, pAnswer, TRUE );
+	// Obsolete ack for reference:
+	//	CG2Packet* pAnswer = CG2Packet::New( G2_PACKET_QUERY_ACK, TRUE );
+	//	pAnswer->WritePacket( G2_PACKET_QUERY_DONE, 8 );
+	//	pAnswer->WriteLongLE( Network.m_pHost.sin_addr.S_un.S_addr );
+	//	pAnswer->WriteShortBE( htons( Network.m_pHost.sin_port ) );
+	//	pAnswer->WriteShortBE( 0 );
+	//	pAnswer->WriteByte( 0 );
+	//	pAnswer->Write( pSearch->m_oGUID );
+	//	Send( &pSearch->m_pEndpoint, pAnswer, TRUE );
+
+		// Ack without hub list
+		Send( &pSearch->m_pEndpoint,
+			Neighbours.CreateQueryWeb( pSearch->m_oGUID, false ), TRUE );
 
 		Statistics.Current.Gnutella2.Dropped++;
 		return TRUE;
@@ -1351,13 +1357,12 @@ BOOL CDatagrams::OnQuery(SOCKADDR_IN* pHost, CG2Packet* pPacket)
 
 	Neighbours.RouteQuery( pSearch, pPacket, NULL, TRUE );
 
-	Network.OnQuerySearch( pSearch );
+	Network.OnQuerySearch( new CLocalSearch( pSearch ) );
 
-	CLocalSearch pLocal( pSearch, &pSearch->m_pEndpoint );
-	pLocal.Execute();
+	// Ack with hub list
+	Send( &pSearch->m_pEndpoint, Neighbours.CreateQueryWeb( pSearch->m_oGUID, true ), TRUE );
 
-	Send( &pSearch->m_pEndpoint, Neighbours.CreateQueryWeb( pSearch->m_oGUID ), TRUE );
-
+	Statistics.Current.Gnutella2.Queries++;
 	return TRUE;
 }
 
@@ -1387,7 +1392,7 @@ BOOL CDatagrams::OnQueryAck(SOCKADDR_IN* pHost, CG2Packet* pPacket)
 			if ( pNeighbour != NULL && pNeighbour->m_nNodeType == ntLeaf )
 				pNeighbour->Send( pPacket, FALSE, FALSE );
 			//else
-				// Don't route it on via UDP
+				// Don't route it via UDP
 		}
 	}
 
@@ -1734,12 +1739,16 @@ BOOL CDatagrams::OnCrawlRequest(SOCKADDR_IN* pHost, CG2Packet* pPacket)
 		{
 			if ( CGProfile* pProfile = ((CG2Neighbour*)pNeighbour)->m_pProfile )
 			{
-				if ( bWantNames ) strNick = pProfile->GetNick().Left( 255 ); //Trim if over 255 characters
+				if ( bWantNames )
+					strNick = pProfile->GetNick().Left( 255 ); // Trim if over 255 characters
 
-				if ( bWantGPS ) nGPS = pProfile->GetPackedGPS();
+				if ( bWantGPS )
+					nGPS = pProfile->GetPackedGPS();
 
-				if ( strNick.GetLength() ) nExtraLen += 6 + pPacket->GetStringLen( strNick );
-				if ( nGPS ) nExtraLen += 9;
+				if ( strNick.GetLength() )
+					nExtraLen += 6 + pPacket->GetStringLen( strNick );
+				if ( nGPS )
+					nExtraLen += 9;
 			}
 		}
 

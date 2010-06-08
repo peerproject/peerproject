@@ -3791,7 +3791,7 @@
 		<control caption="Banda di upload per questa coda:"/>
 		<control/>
 		<control/>
-		<control caption="Ruota dopo N secondi:"/>
+		<control caption="Ruota dopo # secondi:"/>
 		<control/>
 		<control/>
 		<control caption="OK"/>
@@ -3840,10 +3840,10 @@
 	</dialog>
 	<dialog name="CWizardFoldersPage" cookie="StStEdBuStEdBuStEdBuSt" caption="Benvenuto su PeerProject (4/8)">
 		<control caption="PeerProject first downloads partial files to a private folder, then moves them when completed according to Download Groups."/>
-		<control caption="Cartella dei file Completati:"/>
-		<control/>
-		<control/>
 		<control caption="Cartella dei file Incompleti temporanei:"/>
+		<control/>
+		<control/>
+		<control caption="Cartella dei file Completati:"/>
 		<control/>
 		<control/>
 		<control caption="Cartella dei file .Torrent:"/>
@@ -3902,8 +3902,7 @@
 		<control caption="Esegui PeerProject all'avvio di Windows"/>
 		<control caption="Buon divertimento con PeerProject!"/>
 	</dialog>
-	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="Importa download di eDonkey">
-		<control/>
+	<dialog name="CDonkeyImportDlg" cookie="StBuBuEdBu" caption="Importa download di eDonkey">
 		<control caption="PeerProject ha rilevato che hai un altro client eDonkey installato sul tuo computer. Desideri importare i download incompleti su PeerProject?"/>
 		<control caption="Si"/>
 		<control caption="No|Annulla"/>
@@ -4011,8 +4010,7 @@
 		<control caption="Connetti"/>
 		<control caption="Annulla"/>
 	</dialog>
-	<dialog name="CDownloadDlg" cookie="StStStStEdStBuBuBu" caption="Scarica file o torrent">
-		<control/>
+	<dialog name="CDownloadDlg" cookie="StStStEdStBuBuBu" caption="Scarica file o torrent">
 		<control/>
 		<control caption="PeerProject può scaricare file dal web, cercare e scaricare automaticamente link P2P. Scaricare qualsiasi file con PeerProject è semplice. Scrivi o incolla l'URL o URI che descrive il file nello spazio seguente e premi Invio. &#160; (http:, ftp:, ed2k:, magnet:, etc.)"/>
 		<control caption="PeerProject può anche scaricare file BitTorrent. Un torrent può essere scaricato con un file xyz.torrent o con un link HTTP al file .torrent. Per scaricare un torrent con il link, incollalo nello spazio sopra. Se hai già un file .torrent, clicca su Apri torrent:"/>
@@ -4066,14 +4064,13 @@
 		<control caption="Annulla"/>
 		<control caption="Salva il filtro attuale come"/>
 	</dialog>
-	<dialog name="CDiscoveryServiceDlg" cookie="BuEdStCoBuBuSt" caption="Servizio di ricerca">
+	<dialog name="CDiscoveryServiceDlg" cookie="BuEdStCoBuBu" caption="Servizio di ricerca">
 		<control caption="_Indirizzo servizio:"/>
 		<control/>
 		<control caption="Tipo servizio di ricerca:"/>
 		<control caption="Gnutella Bootstrap|GWebCache|URL server.met|Bloccato"/>
 		<control caption="OK"/>
 		<control caption="Annulla"/>
-		<control/>
 	</dialog>
 	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStBuBuBuBu" caption="Download">
 		<control caption="..."/>
@@ -4237,8 +4234,7 @@
 		<control caption="OK"/>
 		<control caption="Annulla"/>
 	</dialog>
-	<dialog name="CShareManagerDlg" cookie="StStSyBuBuBuBu" caption="Gestore cartelle condivise">
-		<control/>
+	<dialog name="CShareManagerDlg" cookie="StSyBuBuBuBu" caption="Gestore cartelle condivise">
 		<control caption="Questa è la lista delle cartelle nella tua libreria. Puoi aggiungere e rimuovere cartelle utilizzando i pulsanti sulla sinistra. Quando aggiungi una cartella, questa è inizialmente condivisa con altri utenti, tuttavia puoi rimuoverla dalla condivisione su PeerProject."/>
 		<control/>
 		<control caption="_Aggiungi..."/>
@@ -4246,8 +4242,7 @@
 		<control caption="OK"/>
 		<control caption="Annulla"/>
 	</dialog>
-	<dialog name="CURLCopyDlg" cookie="StStStStStBuBu" caption="Copia URI">
-		<control/>
+	<dialog name="CURLCopyDlg" cookie="StStStStBuBu" caption="Copia URI">
 		<control caption="Puoi copiare una URI per l'elemento selezionato in una varietà di formati diversi. Scegli il formato che vuoi utilizzare cliccando su uno degli URI seguenti:"/>
 		<control/>
 		<control/>
@@ -4255,8 +4250,7 @@
 		<control caption="Includi _me stesso come fonte stabile nell'URL"/>
 		<control caption="Annulla"/>
 	</dialog>
-	<dialog name="CURLExportDlg" cookie="StStEdStCoStCoBuBumsBu" caption="Esporta URI">
-		<control/>
+	<dialog name="CURLExportDlg" cookie="StEdStCoStCoBuBumsBu" caption="Esporta URI">
 		<control caption="Hai selezionato %lu file da esportare come riferimenti URI adattati per PeerProject. Seleziona il formato delle URI e clicca su Salva:"/>
 		<control/>
 		<control caption="Inserisci token:"/>
@@ -4300,8 +4294,7 @@
 		<control caption="(copiatura di spezzoni scaricati in un nuovo file anteprima)"/>
 		<control caption="Annulla"/>
 	</dialog>
-	<dialog name="CWarningsDlg" cookie="StStStStStStStBu" caption="PeerProject rispetta i suoi utenti">
-		<control/>
+	<dialog name="CWarningsDlg" cookie="StStStStStStBu" caption="PeerProject rispetta i suoi utenti">
 		<control caption="Sai che PeerProject è un prodotto gratuito al 100%?"/>
 		<control caption="PeerProject NON contiene nessun &quot;spyware&quot;, &quot;adware&quot; o altro software aggiuntivo. NON mostra mai messaggi pubblicitari o &quot;popup&quot;.{n}{n}Se dovessi vedere messaggi pubblicitari o &quot;popup&quot; mentre usi PeerProject, sicuramente NON provengono da questo programma."/>
 		<control caption="Sfortunatamente molti software contengono adware o spyware, di modo che l'utente diventa sospettoso e desidera verificare se il suo PC contiene software aggiuntivi con un programma di rimozione."/>
@@ -4310,8 +4303,7 @@
 		<control caption="http://PeerProject.org"/>
 		<control caption="Chiudi"/>
 	</dialog>
-	<dialog name="CPromoteDlg" cookie="StStStStStStStBu" caption="Diffondilo nel mondo">
-		<control/>
+	<dialog name="CPromoteDlg" cookie="StStStStStStBu" caption="Diffondilo nel mondo">
 		<control caption="Aiutaci a diffonderlo nel mondo"/>
 		<control caption="Spero che abbiate gradito PeerProject. Crediamo che sia la migliore applicazione esistente per la condivisione dei file."/>
 		<control caption="Sfortunatamente molti utenti non lo conoscono!"/>
@@ -4320,8 +4312,7 @@
 		<control caption="http://PeerProject.org"/>
 		<control caption="OK"/>
 	</dialog>
-	<dialog name="CExistingFileDlg" cookie="StStStStStBuBuBuBuBuStSt" caption="Download di un file esistente">
-		<control/>
+	<dialog name="CExistingFileDlg" cookie="StStStStBuBuBuBuBuStSt" caption="Download di un file esistente">
 		<control/>
 		<control/>
 		<control/>
@@ -4334,8 +4325,7 @@
 		<control caption="Hai scaricato ed eliminato questo file precedentemente. Cosa desideri fare?"/>
 		<control caption="Avvertimento!!! Rilevati file duplicati. Un software malevolo potrebbe aver infettato la tua libreria. Assicurati di aver scaricato o messo manualmente questo file. Altrimenti, chiudi PeerProject e scansiona il tuo computer con un antivirus."/>
 	</dialog>
-	<dialog name="CCloseModeDlg" cookie="StStBuBuBuBuBu" caption="Pulsante di chiusura">
-		<control/>
+	<dialog name="CCloseModeDlg" cookie="StBuBuBuBuBu" caption="Pulsante di chiusura">
 		<control caption="Questa è la prima volta che clicchi sul pulsante di chiusura di PeerProject. Scegli l'azione che deve eseguire PeerProject quando clicchi sul pulsante di chiusura:"/>
 		<control caption="Riduci nell'area di notifica"/>
 		<control caption="Chiudi PeerProject immediatamente"/>
@@ -4343,8 +4333,7 @@
 		<control caption="OK"/>
 		<control caption="Annulla"/>
 	</dialog>
-	<dialog name="CDonkeyServersDlg" cookie="StStEdmsBuBu" caption="Scarica file server.met">
-		<control/>
+	<dialog name="CDonkeyServersDlg" cookie="StEdmsBuBu" caption="Scarica file server.met">
 		<control caption="Puoi scaricare il file server.met di eDonkey dal web per aggiornare la tua lista locale dei server."/>
 		<control/>
 		<control/>
@@ -4382,8 +4371,7 @@
 		<control caption="_Avanti|Esporta..."/>
 		<control caption="A_nnulla"/>
 	</dialog>
-	<dialog name="CTorrentSeedDlg" cookie="StStBuBuBuStms" caption="Apri file torrent">
-		<control/>
+	<dialog name="CTorrentSeedDlg" cookie="StBuBuBuStms" caption="Apri file torrent">
 		<control caption="Hai aperto un file torrent di BitTorrent. Desideri scaricare il suo contenuto o ri-condividerlo?"/>
 		<control caption="Scarica"/>
 		<control caption="Condividi"/>
@@ -4479,8 +4467,7 @@
 		<control caption="OK"/>
 		<control caption="Annulla"/>
 	</dialog>
-	<dialog name="CMediaVisDlg" cookie="StBuSyCoBuBuBu" caption="Scegli visualizzazione">
-		<control/>
+	<dialog name="CMediaVisDlg" cookie="BuSyCoBuBuBu" caption="Scegli visualizzazione">
 		<control caption="Seleziona una visualizzazione audio dall'elenco:"/>
 		<control/>
 		<control caption="Visualizzazione a piè di pagina|Visualizzazione completa|Visualizzazione grande|Visualizzazione media|Visualizzazione piccola"/>
@@ -4488,8 +4475,7 @@
 		<control caption="OK"/>
 		<control caption="Annulla"/>
 	</dialog>
-	<dialog name="CUpgradeDlg" cookie="StStStBuBuBu" caption="Avviso di aggiornamento">
-		<control/>
+	<dialog name="CUpgradeDlg" cookie="StStBuBuBu" caption="Avviso di aggiornamento">
 		<control caption="Una nuova versione di PeerProject è ora disponibile. Vuoi effettuare l'aggiornamento ora?"/>
 		<control caption="Se selezioni Aggiorna ora, PeerProject aggiungerà l'aggiornamento alla tua coda dei download e comincerà automaticamente a scaricarlo."/>
 		<control caption="_Aggiorna ora"/>
@@ -4520,14 +4506,12 @@
 		<control caption="Annulla"/>
 		<control caption="Add a channel name:|Enter kick/ban reason:"/>
 	</dialog>
-	<dialog name="CDownloadReviewDlg" cookie="StBuSyEd" caption="Revisioni download">
-		<control/>
+	<dialog name="CDownloadReviewDlg" cookie="BuSyEd" caption="Revisioni download">
 		<control caption="OK"/>
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CHelpDlg" cookie="StBuAf" caption="Aiuto di PeerProject">
-		<control/>
+	<dialog name="CHelpDlg" cookie="BuAf" caption="Aiuto di PeerProject">
 		<control caption="Chiudi"/>
 		<control/>
 	</dialog>

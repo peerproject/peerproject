@@ -3654,7 +3654,7 @@
 		<control caption="Šířka pásma odesílání pro frontu:"/>
 		<control/>
 		<control/>
-		<control caption="Otočit po N vteřinách:"/>
+		<control caption="Otočit po # vteřinách:"/>
 		<control/>
 		<control/>
 		<control caption="OK"/>
@@ -3703,13 +3703,13 @@
 	</dialog>
 	<dialog name="CWizardFoldersPage" cookie="StStEdBuStEdBuStEdBuSt" caption="Vítejte v PeerProject (4/8)">
 		<control caption="PeerProject first downloads partial files to a private folder, then moves them when completed according to Download Groups."/>
-		<control caption="Ukládat dokončené soubory do:"/>
-		<control/>
-		<control/>
 		<control caption="Ukládat neúplné soubory do:"/>
 		<control/>
 		<control/>
-		<control caption="Store .Torrent files here:"/>
+		<control caption="Ukládat dokončené soubory do:"/>
+		<control/>
+		<control/>
+		<control caption="Ukládat .Torrent soubory do:"/>
 		<control/>
 		<control/>
 		<control caption="Common filetypes are initially setup as subfolders of the default location, but Groups can easily be customized by Right-Click.  Simply Drag&apos;n&apos;Drop files."/>
@@ -3764,8 +3764,7 @@
 		<control caption="Při spuštění PeerProject se připojit k síti"/>
 		<control caption="Užijte si PeerProject!"/>
 	</dialog>
-	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="Import stahování eDonkey">
-		<control/>
+	<dialog name="CDonkeyImportDlg" cookie="StBuBuEdBu" caption="Import stahování eDonkey">
 		<control caption="PeerProject objevila že máte instalován jiný program eDonkey ve vašem počítači. Chcete importovat nedokončená stahování do PeerProject?"/>
 		<control caption="Ano"/>
 		<control caption="Ne|Zrušit"/>
@@ -3873,8 +3872,7 @@
 		<control caption="Připojit"/>
 		<control caption="Zrušit"/>
 	</dialog>
-	<dialog name="CDownloadDlg" cookie="StStStStEdStBuBuBu" caption="Stažení souboru/Torrentu">
-		<control/>
+	<dialog name="CDownloadDlg" cookie="StStStEdStBuBuBu" caption="Stažení souboru/Torrentu">
 		<control/>
 		<control caption="Může stahovat soubory také z webu tak, že automaticky vyhledá a stáhne linky P2P. Stahování jakéhokoliv souboru programem PeerProject je snadné. Do následujícího pole napište neob vložte ze schránky URL nebo URI souboru. &#160; (http:, ftp:, ed2k:, magnet:, etc.)"/>
 		<control caption="Také stahovat soubory BitTorrent. Torrent může být např. soubor s příponou torrent (xyz.torrent), nebo HTTP odkaz na torrent soubor. Pokud máte HTTP odkaz na torrent soubor vložte jej do pole nahoře a stiskněte Enter. Pokud již máte torrent soubor otevřte jej kliknutím na tlačítko Otevřít Torrent."/>
@@ -3928,14 +3926,13 @@
 		<control caption="Zrušit"/>
 		<control caption="Uložit aktuální filtr jako"/>
 	</dialog>
-	<dialog name="CDiscoveryServiceDlg" cookie="BuEdStCoBuBuSt" caption="Vyhledávací služba">
+	<dialog name="CDiscoveryServiceDlg" cookie="BuEdStCoBuBu" caption="Vyhledávací služba">
 		<control caption="_Adresa služby:"/>
 		<control/>
 		<control caption="Typ vyhledávací služby:"/>
 		<control caption="Gnutella Bootstrap|GWebCache|Server.met URL|Blocked"/>
 		<control caption="OK"/>
 		<control caption="Zrušit"/>
-		<control/>
 	</dialog>
 	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStBuBuBuBu" caption="Stáhnout">
 		<control caption="..."/>
@@ -4099,8 +4096,7 @@
 		<control caption="OK"/>
 		<control caption="Zrušit"/>
 	</dialog>
-	<dialog name="CShareManagerDlg" cookie="StStSyBuBuBuBu" caption="Správce sdílených složek">
-		<control/>
+	<dialog name="CShareManagerDlg" cookie="StSyBuBuBuBu" caption="Správce sdílených složek">
 		<control caption="Toto je seznam složek ve vaší knihovně. Můžete přidat a odstranit složky pomocí tlačítek dole. Pokud přidáte novou složku ta je ihned sdílena dalšími uživateli, ovšem můžete naopak tuto složku také nesdílet v knihovně PeerProject."/>
 		<control/>
 		<control caption="Přid_at..."/>
@@ -4108,8 +4104,7 @@
 		<control caption="OK"/>
 		<control caption="Zrušit"/>
 	</dialog>
-	<dialog name="CURLCopyDlg" cookie="StStStStStBuBu" caption="Kopírování URI">
-		<control/>
+	<dialog name="CURLCopyDlg" cookie="StStStStBuBu" caption="Kopírování URI">
 		<control caption="Můzete kopírovat URI pro vybranou položku v různých variantách formátů. Klikutím dole na jednu z URI si prosím vyberte formát který chcete použít:"/>
 		<control/>
 		<control/>
@@ -4117,8 +4112,7 @@
 		<control caption="Obsahuje _sebe jako pevný zdroj v URL"/>
 		<control caption="Zrušit"/>
 	</dialog>
-	<dialog name="CURLExportDlg" cookie="StStEdStCoStCoBuBumsBu" caption="Export URI">
-		<control/>
+	<dialog name="CURLExportDlg" cookie="StEdStCoStCoBuBumsBu" caption="Export URI">
 		<control caption="Vybrali jste %lu soubory pro export PeerProject-opatřené URI odkazy. Prosím vyberte formát pro URI, a klikněte na Uložit:"/>
 		<control/>
 		<control caption="Vložte znak:"/>
@@ -4162,8 +4156,7 @@
 		<control caption="(kopíruji stažené části pro nový náhled souboru)"/>
 		<control caption="Zrušit"/>
 	</dialog>
-	<dialog name="CWarningsDlg" cookie="StStStStStStStBu" caption="PeerProject respektuje své uživatele">
-		<control/>
+	<dialog name="CWarningsDlg" cookie="StStStStStStBu" caption="PeerProject respektuje své uživatele">
 		<control caption="Víte, že je PeerProject 100% free?"/>
 		<control caption="PeerProject neobsahuje žádné &quot;spyware&quot;, &quot;adware&quot; nebo další podobný software. Nezobrazuje jakékoli reklamy nebo &quot;popups&quot;, (vyskakovací okna).{n}{n}Jestliže někdy uvidíte reklamu nebo &quot;popups&quot; při používání PeerProject, určitě nepocházejí z našeho programu."/>
 		<control caption="Bohužel hodně jiných programů obtěžuje s nežádoucí reklamou nebo spayware, takže pokud uvidíte něco podezřelého, zkontrolujte váš PC programem Ad-aware nebo podobným programem na odstranění těchto špiónů."/>
@@ -4172,8 +4165,7 @@
 		<control caption="http://PeerProject.org"/>
 		<control caption="Zavřít"/>
 	</dialog>
-	<dialog name="CPromoteDlg" cookie="StStStStStStStBu" caption="Spread the Word">
-		<control/>
+	<dialog name="CPromoteDlg" cookie="StStStStStStBu" caption="Spread the Word">
 		<control caption="Pomozte nám šířit PeerProject"/>
 		<control caption="Těší nás že jste si oblíbili PeerProject. Doufáme, že je to nejlepší aplikace pro sdílení souborů."/>
 		<control caption="Bohužel, mnoho uživatelů neví o co přichází!"/>
@@ -4182,8 +4174,7 @@
 		<control caption="http://PeerProject.org"/>
 		<control caption="OK"/>
 	</dialog>
-	<dialog name="CExistingFileDlg" cookie="StStStStStBuBuBuBuBuStSt" caption="Soubor již existuje">
-		<control/>
+	<dialog name="CExistingFileDlg" cookie="StStStStBuBuBuBuBuStSt" caption="Soubor již existuje">
 		<control/>
 		<control/>
 		<control/>
@@ -4196,8 +4187,7 @@
 		<control caption="Tento soubor jste již jednou stáhli a smazali. Co chcete udělat?"/>
 		<control caption="Pozor!!! Byl nalezeno více kopií téhož souboru. Je možné že se nějaký program snaží infikovat knihovnu virem. Ujistěte se, že jste tento soubor chtěli stáhnout, nebo, že jste jej do knihovny umístili ručně. Pokud ne, pak ukončetě PeerProject a spusťte anitvirovou kontrolu."/>
 	</dialog>
-	<dialog name="CCloseModeDlg" cookie="StStBuBuBuBuBu" caption="Tlačítko Zavřít">
-		<control/>
+	<dialog name="CCloseModeDlg" cookie="StBuBuBuBuBu" caption="Tlačítko Zavřít">
 		<control caption="Je to poprvé co jste kliknuli na tlačítko Zavřít program PeerProject. Prosím zvolte si akci kterou PeerProject provede, když příště kliknete na tlačítko Zavřít:"/>
 		<control caption="Minimalizovat do dolní lišty"/>
 		<control caption="Ihned ukončit program PeerProject"/>
@@ -4205,8 +4195,7 @@
 		<control caption="OK"/>
 		<control caption="Zrušit"/>
 	</dialog>
-	<dialog name="CDonkeyServersDlg" cookie="StStEdmsBuBu" caption="Stáhnout soubor .met ze serveru">
-		<control/>
+	<dialog name="CDonkeyServersDlg" cookie="StEdmsBuBu" caption="Stáhnout soubor .met ze serveru">
 		<control caption="Můžete stáhnout soubor .met ze serveru eDonkey na webu a obnovit tak váš místní seznam."/>
 		<control/>
 		<control/>
@@ -4244,8 +4233,7 @@
 		<control caption="_Next|Export"/>
 		<control caption="_Cancel"/>
 	</dialog>
-	<dialog name="CTorrentSeedDlg" cookie="StStBuBuBuStms" caption="Otevřít torrent">
-		<control/>
+	<dialog name="CTorrentSeedDlg" cookie="StBuBuBuStms" caption="Otevřít torrent">
 		<control caption="Otevřeli jste BitTorrent soubor, chcete stáhnout jeho obsah nebo jej znovu nasdílet?"/>
 		<control caption="Stáhnout"/>
 		<control caption="Sdílet"/>
@@ -4340,8 +4328,7 @@
 		<control caption="OK"/>
 		<control caption="Zrušit"/>
 	</dialog>
-	<dialog name="CMediaVisDlg" cookie="StBuSyCoBuBuBu" caption="Zvolte zobrazení">
-		<control/>
+	<dialog name="CMediaVisDlg" cookie="BuSyCoBuBuBu" caption="Zvolte zobrazení">
 		<control caption="Vyberte ze seznamu zobrazování audia:"/>
 		<control/>
 		<control caption="Zobrazit dole|Plná velikost|Velké zobrazení|Střední zobrazení|Malé zobrazení"/>
@@ -4349,8 +4336,7 @@
 		<control caption="OK"/>
 		<control caption="Zrušit"/>
 	</dialog>
-	<dialog name="CUpgradeDlg" cookie="StStStBuBuBu" caption="Upozornění na aktualizaci">
-		<control/>
+	<dialog name="CUpgradeDlg" cookie="StStBuBuBu" caption="Upozornění na aktualizaci">
 		<control caption="Je k dispozici nová verze PeerProject. Chcete program aktualizovat?"/>
 		<control caption="Jestliže teď zvolíte aktualizaci, PeerProject přidá vaši frontu stahování a automaticky začne stahovat potřebné soubory."/>
 		<control caption="_Aktualizovat"/>
@@ -4381,14 +4367,12 @@
 		<control caption="Zrušit"/>
 		<control caption="Add a channel name:|Enter kick/ban reason:"/>
 	</dialog>
-	<dialog name="CDownloadReviewDlg" cookie="StBuSyEd" caption="Prohlédnout stahování">
-		<control/>
+	<dialog name="CDownloadReviewDlg" cookie="BuSyEd" caption="Prohlédnout stahování">
 		<control caption="OK"/>
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CHelpDlg" cookie="StBuAf" caption="Nápověda PeerProject">
-		<control/>
+	<dialog name="CHelpDlg" cookie="BuAf" caption="Nápověda PeerProject">
 		<control caption="Zavřít"/>
 		<control/>
 	</dialog>

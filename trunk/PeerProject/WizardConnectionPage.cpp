@@ -111,8 +111,10 @@ BOOL CWizardConnectionPage::OnInitDialog()
 	m_wndType.SetItemData( 5, 8192 );	// DSL2 (8.0M)
 	m_wndType.SetItemData( 6, 10240 );	// FIOS (10.0M)
 	m_wndType.SetItemData( 7, 12288 );	// DSL2 (12.0M)
+//	m_wndType.SetItemData( 8, 16384 );	// FIOS (15.0M)
 	m_wndType.SetItemData( 8, 20480 );	// FIOS (20.0M)
 	m_wndType.SetItemData( 9, 24576 );	// DSL2 (24.0M)
+//	m_wndType.SetItemData(10, 30720 );	// FIOS (30.0M)
 	m_wndType.SetItemData(10, 3100 );	// Cable Modem
 	m_wndType.SetItemData(11, 1544 );	// T1
 	m_wndType.SetItemData(12, 45000 );	// T3
@@ -121,7 +123,7 @@ BOOL CWizardConnectionPage::OnInitDialog()
 	m_wndType.SetCurSel( -1 );
 	//Dial-up Modem|ISDN (128K)|DSL (768K)|DSL (1.5M)|DSL (4.0M)|DSL2 (8.0M)|FIOS (10.0M)|DSL2 (12.0M)|FIOS (20.0M)|DSL2 (24.0M)|Cable Modem|T1|T3|LAN|OC3
 
-	const double nSpeeds[] = { 28.8, 33.6, 56, 64, 128, 256, 384, 512, 640, 768, 1024, 1536, 1550, 2048, 3072, 4096, 5120, 7200, 8192, 10240, 12288, 16384, 20480, 24576, 45050, 102400, 0 };
+	const double nSpeeds[] = { 28.8, 33.6, 56, 64, 128, 256, 384, 512, 640, 768, 1024, 1536, 1550, 2048, 3072, 4096, 5120, 7200, 8192, 10240, 12288, 16384, 20480, 24576, 30720, 45050, 102400, 0 };
 	for ( int nSpeed = 0 ; nSpeeds[ nSpeed ] ; nSpeed++ )
 	{
 		if ( nSpeeds[ nSpeed ] < 100 )

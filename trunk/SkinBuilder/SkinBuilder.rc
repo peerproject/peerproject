@@ -62,7 +62,7 @@ IDI_ICON2               ICON                    "Res\\Paint.ico"
 // Bitmap
 //
 
-IDB_BANNER              BITMAP                  "Res\\Wizard.bmp"
+IDB_BANNER              BITMAP                  "Res\\Banner.bmp"
 
 /////////////////////////////////////////////////////////////////////////////
 //

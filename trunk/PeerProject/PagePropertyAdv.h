@@ -1,7 +1,7 @@
 //
 // PagePropertyAdv.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2006.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -39,7 +39,7 @@ protected:
 	void	PaintStaticHeader(CDC* pDC, CRect* prc, LPCTSTR psz);
 
 	virtual BOOL OnInitDialog();
-	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
+	virtual void DoDataExchange(CDataExchange* pDX);
 
 	afx_msg void OnPaint();
 	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
@@ -47,6 +47,7 @@ protected:
 
 	DECLARE_MESSAGE_MAP()
 };
+
 
 // CPropertySheet class with skinning support
 
@@ -59,10 +60,9 @@ public:
 
 protected:
 	CSkinWindow*	m_pSkin;
-	CBrush			m_brDialog;
 
-	virtual BOOL OnInitDialog();
 	void SetTabTitle(CPropertyPage* pPage, CString& strTitle);
+	virtual BOOL OnInitDialog();
 
 	afx_msg void OnNcCalcSize(BOOL bCalcValidRects, NCCALCSIZE_PARAMS FAR* lpncsp);
 	afx_msg LRESULT OnNcHitTest(CPoint point);

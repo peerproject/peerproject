@@ -1,7 +1,7 @@
 //
 // DlgHelp.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -36,7 +36,6 @@ IMPLEMENT_DYNAMIC(CHelpDlg, CSkinDialog)
 
 BEGIN_MESSAGE_MAP(CHelpDlg, CSkinDialog)
 	//{{AFX_MSG_MAP(CHelpDlg)
-	ON_WM_SIZE()
 	ON_NOTIFY(RVN_CLICK, IDC_HELP_VIEW, OnClickView)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
@@ -54,19 +53,15 @@ BOOL CHelpDlg::Show(LPCTSTR pszName, CWnd* pParent)
 /////////////////////////////////////////////////////////////////////////////
 // CHelpDlg construction
 
-CHelpDlg::CHelpDlg(LPCTSTR pszName, CWnd* pParent) : CSkinDialog( CHelpDlg::IDD, pParent )
+CHelpDlg::CHelpDlg(LPCTSTR pszName, CWnd* pParent)
+	: CSkinDialog( CHelpDlg::IDD, pParent )
 {
 	m_sDocument = pszName;
-	//{{AFX_DATA_INIT(CHelpDlg)
-	//}}AFX_DATA_INIT
 }
 
 void CHelpDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CSkinDialog::DoDataExchange(pDX);
-	//{{AFX_DATA_MAP(CHelpDlg)
-	DDX_Control(pDX, IDC_BANNER, m_wndBanner);
-	//}}AFX_DATA_MAP
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -83,40 +78,22 @@ BOOL CHelpDlg::OnInitDialog()
 
 	m_pDocument.m_crBackground = Colors.m_crDialog;
 
-	CRect rect( 0, 0, 0, 0 );
-	m_wndView.Create( WS_CHILD, rect, this, IDC_HELP_VIEW );
+	CRect rcClient;
+	GetClientRect( &rcClient );
+	rcClient.bottom -= 32;	// Dialog Button Area  ToDo: Set Constant?
+	//rcClient.top += Skin.m_nBanner;
+
+	m_wndView.Create( WS_CHILD | WS_VISIBLE, rcClient, this, IDC_HELP_VIEW );
 	m_wndView.SetDocument( &m_pDocument );
 	m_wndView.SetSelectable( TRUE );
 
 	SkinMe( _T("CHelpDlg"), ID_HELP_ABOUT );
-	OnSize( 1982, 0, 0 );
 
 	return TRUE;
-}
-
-void CHelpDlg::OnSize(UINT nType, int cx, int cy)
-{
-	if ( nType != 1982 ) CSkinDialog::OnSize( nType, cx, cy );
-
-	if ( m_wndBanner.m_hWnd != NULL && m_wndView.m_hWnd != NULL )
-	{
-		CRect rcClient, rcBanner;
-
-		GetClientRect( &rcClient );
-		m_wndBanner.GetClientRect( &rcBanner );
-
-		rcClient.top += rcBanner.Height();
-		rcClient.bottom -= 32;
-
-		m_wndView.SetWindowPos( NULL, rcClient.left, rcClient.top,
-			rcClient.Width(), rcClient.Height(), SWP_NOZORDER|SWP_SHOWWINDOW );
-	}
 }
 
 void CHelpDlg::OnClickView(NMHDR* pNotify, LRESULT* /*pResult*/)
 {
 	if ( CRichElement* pElement = ((RVN_ELEMENTEVENT*)pNotify)->pElement )
-	{
 		theApp.InternalURI( pElement->m_sLink );
-	}
 }

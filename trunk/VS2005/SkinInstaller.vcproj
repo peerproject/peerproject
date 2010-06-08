@@ -443,15 +443,15 @@
 				>
 			</File>
 			<File
+				RelativePath="..\SkinInstaller\Res\Banner.bmp"
+				>
+			</File>
+			<File
 				RelativePath="..\SkinInstaller\Res\PeerProject.ico"
 				>
 			</File>
 			<File
 				RelativePath="..\SkinInstaller\Res\Skin.ico"
-				>
-			</File>
-			<File
-				RelativePath="..\SkinInstaller\Res\Wizard.bmp"
 				>
 			</File>
 		</Filter>

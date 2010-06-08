@@ -54,13 +54,14 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CProfileManagerDlg construction
 
-CProfileManagerDlg::CProfileManagerDlg(CWnd* pParent) : CSettingsSheet( pParent, IDS_USER_PROFILE )
+CProfileManagerDlg::CProfileManagerDlg(CWnd* pParent)
+	: CSettingsSheet( pParent, IDS_USER_PROFILE )
 {
 }
 
-CProfileManagerDlg::~CProfileManagerDlg()
-{
-}
+//CProfileManagerDlg::~CProfileManagerDlg()
+//{
+//}
 
 /////////////////////////////////////////////////////////////////////////////
 // CProfileManagerDlg operations
@@ -127,30 +128,31 @@ BOOL CProfileManagerDlg::OnInitDialog()
 {
 	CSettingsSheet::OnInitDialog();
 
-	m_bmHeader.LoadBitmap( IDB_WIZARD );
+//	m_bmHeader.LoadBitmap( IDB_BANNER );
 
 	SkinMe( NULL, IDR_MAINFRAME );
 
 	return TRUE;
 }
 
-void CProfileManagerDlg::DoPaint(CDC& dc)
-{
-	CRect rc;
-	GetClientRect( &rc );
-
-	BITMAP pInfo;
-	m_bmHeader.GetBitmap( &pInfo );
-
-	CDC mdc;
-	mdc.CreateCompatibleDC( &dc );
-	CBitmap* pOldBitmap = (CBitmap*)mdc.SelectObject( &m_bmHeader );
-	dc.BitBlt( 0, 0, pInfo.bmWidth, pInfo.bmHeight, &mdc, 0, 0, SRCCOPY );
-	mdc.SelectObject( pOldBitmap );
-	mdc.DeleteDC();
-
-	CSettingsSheet::DoPaint( dc );
-}
+// Obsolete: Banner handled by WndSettingsPage
+//void CProfileManagerDlg::DoPaint(CDC& dc)
+//{
+//	CRect rc;
+//	GetClientRect( &rc );
+//
+//	BITMAP pInfo;
+//	m_bmHeader.GetBitmap( &pInfo );
+//
+//	CDC mdc;
+//	mdc.CreateCompatibleDC( &dc );
+//	CBitmap* pOldBitmap = (CBitmap*)mdc.SelectObject( &m_bmHeader );
+//	dc.BitBlt( 0, 0, pInfo.bmWidth, pInfo.bmHeight, &mdc, 0, 0, SRCCOPY );
+//	mdc.SelectObject( pOldBitmap );
+//	mdc.DeleteDC();
+//
+//	CSettingsSheet::DoPaint( dc );
+//}
 
 void CProfileManagerDlg::OnOK()
 {

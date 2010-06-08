@@ -852,8 +852,7 @@
 		<control/>
 		<control caption="_Remove"/>
 	</dialog>
-	<dialog name="CCloseModeDlg" cookie="StStBuBuBuBuBu" caption="Close Button">
-		<control/>
+	<dialog name="CCloseModeDlg" cookie="StBuBuBuBuBu" caption="Close Button">
 		<control caption="This is the first time you have clicked PeerProject's close button. Please choose what action you would like to take from now on:"/>
 		<control caption="Minimise to the tray area"/>
 		<control caption="Shut down PeerProject immediately"/>
@@ -875,8 +874,7 @@
 		<control caption="_Next|_Export..."/>
 		<control caption="_Cancel"/>
 	</dialog>
-	<dialog name="CMediaVisDlg" cookie="StBuSyCoBuBuBu" caption="Select Visualisation">
-		<control/>
+	<dialog name="CMediaVisDlg" cookie="BuSyCoBuBuBu" caption="Select Visualisation">
 		<control caption="Select an audio visualisation from the list:"/>
 		<control/>
 		<control caption="Footer Display|Full Size Display|Large Display|Medium Display|Small Display"/>

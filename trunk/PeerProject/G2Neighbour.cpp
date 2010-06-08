@@ -1212,13 +1212,10 @@ BOOL CG2Neighbour::OnQuery(CG2Packet* pPacket)
 		Neighbours.RouteQuery( pSearch, pPacket, this, m_nNodeType == ntLeaf );
 	}
 
-	Network.OnQuerySearch( pSearch );
-
-	if ( pSearch->m_bUDP && /* !Network.IsFirewalled() && */
+	if ( pSearch->m_bUDP && /*! Network.IsFirewalled() &&*/
 		 pSearch->m_pEndpoint.sin_addr.S_un.S_addr != m_pHost.sin_addr.S_un.S_addr )
 	{
-		CLocalSearch pLocal( pSearch, &pSearch->m_pEndpoint );
-		pLocal.Execute();
+		Network.OnQuerySearch( new CLocalSearch( pSearch ) );
 	}
 	else
 	{
@@ -1228,12 +1225,12 @@ BOOL CG2Neighbour::OnQuery(CG2Packet* pPacket)
 		//	CLocalSearch pLocal( pSearch, this, bIsG1 );
 		//	pLocal.Execute();
 		//}
-		CLocalSearch pLocal( pSearch, this, FALSE );
-		pLocal.Execute();
+		Network.OnQuerySearch( new CLocalSearch( pSearch, this ) );
 	}
 
+	// Ack with hub list
 	if ( m_nNodeType == ntLeaf )
-		Send( Neighbours.CreateQueryWeb( pSearch->m_oGUID, this ), TRUE, FALSE );
+		Send( Neighbours.CreateQueryWeb( pSearch->m_oGUID, true, this ), TRUE, FALSE );
 
 	Statistics.Current.Gnutella2.Queries++;
 

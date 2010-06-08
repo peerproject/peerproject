@@ -431,6 +431,10 @@
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
 			<File
+				RelativePath="..\Res\Banner.bmp"
+				>
+			</File>
+			<File
 				RelativePath="..\Res\Hand.cur"
 				>
 			</File>
@@ -440,10 +444,6 @@
 			</File>
 			<File
 				RelativePath="..\Res\TorrentWizard.rc2"
-				>
-			</File>
-			<File
-				RelativePath="..\Res\Wizard.bmp"
 				>
 			</File>
 			<File

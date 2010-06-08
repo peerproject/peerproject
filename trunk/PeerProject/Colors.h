@@ -58,8 +58,12 @@ public:
 	COLORREF	m_crSysActiveCaption;
 	COLORREF	m_crSysMenuText;
 
-	CBrush		m_brDialog;
 	COLORREF	m_crDialog;
+	COLORREF	m_crDialogText;
+	COLORREF	m_crDialogMenu;
+	COLORREF	m_crDialogMenuText;
+	COLORREF	m_crDialogPanel;
+	COLORREF	m_crDialogPanelText;
 	COLORREF	m_crPanelText;
 	COLORREF	m_crPanelBorder;
 	COLORREF	m_crPanelBack;

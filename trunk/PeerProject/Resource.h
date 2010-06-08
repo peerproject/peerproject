@@ -13,6 +13,7 @@
 #define IDC_MEDIA_POSITION          	117
 #define IDC_MEDIA_SPEED             	118
 #define IDC_MEDIA_VOLUME            	119
+//#define IDS_COMMANDLINE           	120
 #define IDB_MENUBAR                 	127
 #define IDR_MAINFRAME               	128
 #define IDR_SYSTEMFRAME             	129
@@ -60,11 +61,10 @@
 #define IDS_SKIN_ERROR                  152
 #define IDD_WIZARD_CONNECTION       	153
 #define IDS_SKIN_LOAD                   153
-#define IDB_WIZARD                  	154
+#define IDB_BANNER                  	154
 #define IDD_WIZARD_SHARING          	154
 #define IDD_WIZARD_FINISHED         	155
 #define IDD_WIZARD_FOLDERS          	156
-#define IDI_WIZARD_DOT              	158
 #define IDB_CHILDFRAME              	159
 #define IDD_FOLDER_SCAN             	160
 #define IDB_SECURITY                	160
@@ -208,6 +208,7 @@
 #define IDI_RATING_FAKE             	322
 #define IDI_RATING_AVERAGE          	323
 #define IDI_RATING_GOOD             	324
+#define IDI_WIZARD_DOT              	325
 #define IDR_CHANSFRAME              	991
 #define IDD_DOWNLOAD_ACTIONS        	993
 #define IDR_IRCFRAME                	994
@@ -810,6 +811,10 @@
 #define IDC_WIZARD_UPNP             	1597
 #define IDC_WIZARD_PORT             	1598
 #define IDC_WIZARD_RANDOM             	1599
+#define IDC_STATIC_1                	1601 //Workarounds
+#define IDC_STATIC_2                	1602
+#define IDC_STATIC_3                	1603
+#define IDC_STATIC_4                	1604
 #define IDS_SCHEMAS                 	7001
 #define IDS_MULTIPLE_VALUES         	7002
 #define IDS_MULTIPLE                	7003
@@ -1642,9 +1647,10 @@
 #define ID_TRAY_OPEN                	32880
 #define ID_NETWORK_AUTO_CLOSE       	32881
 #define ID_UPLOADS_AUTO_CLEAR       	32882
-#define ID_LIBRARY_SEARCH           	32883
+#define ID_WINDOW_NAVBAR            	32883
 #define ID_TRAFFIC_WINDOW           	32884
 #define ID_NEIGHBOURS_CHAT          	32885
+//#define ID_VIEW_SCHEDULER           	32886
 #define ID_VIEW_SECURITY            	32888
 #define ID_SECURITY_EDIT            	32890
 #define ID_SECURITY_REMOVE          	32891
@@ -1850,7 +1856,7 @@
 #define ID_DOWNLOADS_CLEAR_COMPLETE 	33101
 #define ID_LIBRARY_CREATETORRENT    	33102
 #define ID_LIBRARY_SEARCH_QUICK     	33103
-#define ID_WINDOW_NAVBAR            	33104
+#define ID_LIBRARY_SEARCH            	33104
 #define ID_DOWNLOADS_RATE           	33105
 #define ID_LIBRARY_VIEW_COLLECTION  	33106
 #define ID_LIBRARY_FOLDER_DOWNLOAD  	33107

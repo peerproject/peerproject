@@ -52,6 +52,8 @@
 static char THIS_FILE[] = __FILE__;
 #endif
 
+IMPLEMENT_DYNAMIC(CSettingsManagerDlg, CSettingsSheet)
+
 BEGIN_MESSAGE_MAP(CSettingsManagerDlg, CSettingsSheet)
 	//{{AFX_MSG_MAP(CSettingsManagerDlg)
 	ON_COMMAND(IDRETRY, OnApply)
@@ -62,7 +64,8 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CSettingsManagerDlg dialog
 
-CSettingsManagerDlg::CSettingsManagerDlg(CWnd* pParent) : CSettingsSheet( pParent, IDS_SETTINGS )
+CSettingsManagerDlg::CSettingsManagerDlg(CWnd* pParent)
+	: CSettingsSheet( pParent, IDS_SETTINGS )
 {
 }
 
@@ -88,25 +91,23 @@ BOOL CSettingsManagerDlg::Run(LPCTSTR pszWindow)
 
 void CSettingsManagerDlg::OnSkinChange(BOOL bSet)
 {
-	if ( ! m_pThis ) return;
+	if ( m_pThis == NULL ) return;
 
-	if ( bSet )
-	{
-		m_pThis->SkinMe( _T("CSettingSheet"), IDR_MAINFRAME );
-
-		for ( INT_PTR i = 0; i < m_pThis->GetPageCount(); ++i )
-		{
-			CSettingsPage* pPage = m_pThis->GetPage( i );
-
-			pPage->OnSkinChange();
-		}
-
-		m_pThis->Invalidate();
-	}
-	else
+	if ( ! bSet )
 	{
 		m_pThis->m_pSkin = NULL;
+		return;
 	}
+
+	m_pThis->SkinMe( _T("CSettingSheet"), IDR_MAINFRAME );
+
+	for ( INT_PTR i = 0; i < m_pThis->GetPageCount(); ++i )
+	{
+		CSettingsPage* pPage = m_pThis->GetPage( i );
+		pPage->OnSkinChange();
+	}
+
+	m_pThis->Invalidate();
 }
 
 INT_PTR CSettingsManagerDlg::DoModal(LPCTSTR pszWindow)
@@ -204,35 +205,35 @@ BOOL CSettingsManagerDlg::OnInitDialog()
 {
 	CSettingsSheet::OnInitDialog();
 
-	m_bmHeader.LoadBitmap( IDB_WIZARD );
+//	m_bmHeader.LoadBitmap( IDB_BANNER );	// Obsolete
 
 	SkinMe( _T("CSettingSheet"), IDR_MAINFRAME, TRUE );
 
 	return TRUE;
 }
 
-void CSettingsManagerDlg::DoPaint(CDC& dc)
-{
-	CRect rc;
-	GetClientRect( &rc );
-
-	BITMAP pInfo;
-	m_bmHeader.GetBitmap( &pInfo );
-
-	CDC mdc;
-	mdc.CreateCompatibleDC( &dc );
-	CBitmap* pOldBitmap = (CBitmap*)mdc.SelectObject( &m_bmHeader );
-	dc.BitBlt( 0, 0, pInfo.bmWidth, pInfo.bmHeight, &mdc, 0, 0, SRCCOPY );
-	mdc.SelectObject( pOldBitmap );
-	mdc.DeleteDC();
-
-	// ToDo: Remove This?
-	//dc.FillSolidRect( 438, 0, rc.right - 438, 48, RGB( 0xBE, 0, 0 ) );
-	//dc.Draw3dRect( 438, 48, rc.right - 437, 2, RGB( 169, 0, 0 ), RGB( 110, 59, 59 ) );
-	//dc.Draw3dRect( 0, 50, rc.Width() + 1, 1, RGB( 128, 128, 128 ), RGB( 128, 128, 128 ) );
-
-	CSettingsSheet::DoPaint( dc );
-}
+// Obsolete:
+//void CSettingsManagerDlg::DoPaint(CDC& dc)
+//{
+//	CRect rc;
+//	GetClientRect( &rc );
+//
+//	BITMAP pInfo;
+//	m_bmHeader.GetBitmap( &pInfo );
+//
+//	CDC mdc;
+//	mdc.CreateCompatibleDC( &dc );
+//	CBitmap* pOldBitmap = (CBitmap*)mdc.SelectObject( &m_bmHeader );
+//	dc.BitBlt( 0, 0, pInfo.bmWidth, pInfo.bmHeight, &mdc, 0, 0, SRCCOPY );
+//	mdc.SelectObject( pOldBitmap );
+//	mdc.DeleteDC();
+//
+//	//dc.FillSolidRect( 438, 0, rc.right - 438, 48, RGB( 0xBE, 0, 0 ) );
+//	//dc.Draw3dRect( 438, 48, rc.right - 437, 2, RGB( 169, 0, 0 ), RGB( 110, 59, 59 ) );
+//	//dc.Draw3dRect( 0, 50, rc.Width() + 1, 1, RGB( 128, 128, 128 ), RGB( 128, 128, 128 ) );
+//
+//	CSettingsSheet::DoPaint( dc );
+//}
 
 void CSettingsManagerDlg::OnOK()
 {

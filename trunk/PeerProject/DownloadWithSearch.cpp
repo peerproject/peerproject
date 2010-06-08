@@ -181,13 +181,17 @@ void CDownloadWithSearch::PrepareSearch()
 	}
 
 	if ( m_oSHA1 )
-	{
 		pSearch->m_oSHA1 = m_oSHA1;
-	}
+
 	if ( m_oTiger )
-	{
 		pSearch->m_oTiger = m_oTiger;
-	}
+
+	if ( m_oBTH )
+		pSearch->m_oBTH = m_oBTH;
+
+	if ( m_oMD5 )
+		pSearch->m_oMD5 = m_oMD5;
+
 	if ( m_oED2K )
 	{
 		pSearch->m_oED2K = m_oED2K;
@@ -196,14 +200,6 @@ void CDownloadWithSearch::PrepareSearch()
 	else
 	{
 		m_pSearch->m_bAllowED2K = FALSE;
-	}
-	if ( m_oBTH )
-	{
-		pSearch->m_oBTH = m_oBTH;
-	}
-	if ( m_oMD5 )
-	{
-		pSearch->m_oMD5 = m_oMD5;
 	}
 
 	pSearch->m_bWantURL	= TRUE;

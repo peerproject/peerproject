@@ -558,15 +558,15 @@
 				<item id="ID_WINDOW_REMOTE" text="Sanal Uzaktan Kumanda"/>
 			</menu>
 			<menu text="_Yardım">
-				<item id="ID_HELP_GUIDE" text="Shareaza Kullanıcı Rehberi"/>
-				<item id="ID_HELP_FORUMS" text="Shareaza Forumları"/>
-				<item id="ID_HELP_FAQ" text="Shareaza SSS" shortcut="F1"/>
+				<item id="ID_HELP_GUIDE" text="PeerProject Kullanıcı Rehberi"/>
+				<item id="ID_HELP_FORUMS" text="PeerProject Forumları"/>
+				<item id="ID_HELP_FAQ" text="PeerProject SSS" shortcut="F1"/>
 				<menu text="Skin Yardımı">
-  					<menu text="Menü çubuğunun görünümü yanlış ise --">			</menu>
-  					<menu text="Menü: Pencere: Kaydırma Çubuğunu Göster'e bakınız">			</menu>
-  					<menu text="Ve kaydırma ve menü çubuğu kısmılarını ayırınız-">			</menu>
-  					<menu text="(Kaydırıp en üste yerleştirin)">			</menu>
-  					<menu text="Sorunu gidermek için arayüzü tekrar yükleyiniz: Cntrl+Shift+Z">			</menu>
+  					<menu text="Menü çubuğunun görünümü yanlış ise --"> </menu>
+  					<menu text="Menü: Pencere: Kaydırma Çubuğunu Göster'e bakınız"> </menu>
+  					<menu text="Ve kaydırma ve menü çubuğu kısmılarını ayırınız-"> </menu>
+  					<menu text="(Kaydırıp en üste yerleştirin)"> </menu>
+  					<menu text="Sorunu gidermek için arayüzü tekrar yükleyiniz: Cntrl+Shift+Z"> </menu>
 				</menu>
 				<separator/>
 				<menu text="_Web Siteleri">
@@ -3814,10 +3814,10 @@
 	</dialog>
 	<dialog name="CWizardFoldersPage" cookie="StStEdBuStEdBuStEdBuSt" caption="PeerProject'ya Hoşgeldiniz (4/8)">
 		<control caption="PeerProject first downloads partial files to a private folder, then moves them when completed according to Download Groups."/>
-		<control caption="Dosyanın tamamını buraya kaydet:"/>
-		<control/>
-		<control/>
 		<control caption="Geçici tamamlanmamış dosyaları burada depola:"/>
+		<control/>
+		<control/>
+		<control caption="Dosyanın tamamını buraya kaydet:"/>
 		<control/>
 		<control/>
 		<control caption="Geçici .Torrent burada depola:"/>
@@ -3875,8 +3875,7 @@
 		<control caption="PeerProject'yı her açtığımda ağa bağlan"/>
 		<control caption="PeerProject'yı kullanmak zevklidir."/>
 	</dialog>
-	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="eDonkey2000 İndirimlerini Gönder">
-		<control/>
+	<dialog name="CDonkeyImportDlg" cookie="StBuBuEdBu" caption="eDonkey2000 İndirimlerini Gönder">
 		<control caption="PeerProject bilgisayarınızda başka bir eDonkey2000 program yüklemesi buldu. PeerProject'daki bitirilmemiş indirmeleri göndermek istiyor musunuz?"/>
 		<control caption="Evet"/>
 		<control caption="Hayır|İptal"/>
@@ -3984,8 +3983,7 @@
 		<control caption="Bağlan"/>
 		<control caption="İptal"/>
 	</dialog>
-	<dialog name="CDownloadDlg" cookie="StStStStEdStBuBuBu" caption="İndirme Dosyası ya da Torrent">
-		<control/>
+	<dialog name="CDownloadDlg" cookie="StStStEdStBuBuBu" caption="İndirme Dosyası ya da Torrent">
 		<control/>
 		<control caption="PeerProject web 'den dosya indirebilir, P2P bağlantılarıyla otomatik arama ve indirebilir. Basit bir şekilde URL ya da URI dosya tanımlamasını yukardaki kutuya yazın ya da yapıştırın ve Enter'a basın. &#160; (http:, ftp:, ed2k:, magnet:, etc.)"/>
 		<control caption="PeerProject ayrıca BitTorrent dosyaları indiriyor. Bir torrent xyz.torrent dosyası ya da .torrent dosyası HTTP bağlantısı ile tanımlanabilir. Bir torrent HTTP indirme bağlantısını yukarıdaki kutuya yapıştırın. Bir .torrent dosyası varsa, Torrent Aç tıklayın:"/>
@@ -4039,14 +4037,13 @@
 		<control caption="İptal"/>
 		<control caption="Yürürlükteki Filtreyi Farklı Kaydet"/>
 	</dialog>
-	<dialog name="CDiscoveryServiceDlg" cookie="BuEdStCoBuBuSt" caption="Keşif Servisi">
+	<dialog name="CDiscoveryServiceDlg" cookie="BuEdStCoBuBu" caption="Keşif Servisi">
 		<control caption="Servis _Adresi:"/>
 		<control/>
 		<control caption="Keşif Servis Türü:"/>
 		<control caption="Gnutella Bootstrap|GWebCache|Server.met URL|Engellenmiş"/>
 		<control caption="Tamam"/>
 		<control caption="İptal"/>
-		<control/>
 	</dialog>
 	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStBuBuBuBu" caption="İndirim">
 		<control caption="..."/>
@@ -4210,8 +4207,7 @@
 		<control caption="Tamam"/>
 		<control caption="İptal"/>
 	</dialog>
-	<dialog name="CShareManagerDlg" cookie="StStSyBuBuBuBu" caption="Paylaşılan Klasör Yönetimi">
-		<control/>
+	<dialog name="CShareManagerDlg" cookie="StSyBuBuBuBu" caption="Paylaşılan Klasör Yönetimi">
 		<control caption="Bu kütüphanenizdeki klasörlerin listesidir. Soldaki düğmeyi kullanarak klasör ekleyip kaldırabilirsiniz . Daha önce diğer kullanıcılar ile paylaşılan yeni bir klasör eklediğinizde, bununla birlikte isterseniz PeerProject kütüphanesinden bunu paylaşmayabilirsiniz."/>
 		<control/>
 		<control caption="_Ekle..."/>
@@ -4219,8 +4215,7 @@
 		<control caption="Tamam"/>
 		<control caption="İptal"/>
 	</dialog>
-	<dialog name="CURLCopyDlg" cookie="StStStStStBuBu" caption="URI Kopyala ">
-		<control/>
+	<dialog name="CURLCopyDlg" cookie="StStStStBuBu" caption="URI Kopyala">
 		<control caption="Farklı formattaki değişiklik içinden seçilen parça için URI kopyalayabilirsin. Lütfen URI'nin altında kullanmak istediğiniz formatlardan birini tıklayınız:"/>
 		<control/>
 		<control/>
@@ -4228,8 +4223,7 @@
 		<control caption="URL'ye _kendimi sabit kaynak olarak ekleyeyim"/>
 		<control caption="İptal"/>
 	</dialog>
-	<dialog name="CURLExportDlg" cookie="StStEdStCoStCoBuBumsBu" caption="URI'ler Gönder">
-		<control/>
+	<dialog name="CURLExportDlg" cookie="StEdStCoStCoBuBumsBu" caption="URI'ler Gönder">
 		<control caption="PeerProject-Güç sağlayıcısı URI referansları gibi %lu dosyalarının gönderimini seçtiniz. Lütfen URI'ler için bir format seçiniz ve kaydeti tıklayınız:"/>
 		<control/>
 		<control caption="Alıntı Ekle:"/>
@@ -4273,8 +4267,7 @@
 		<control caption="(yeni bir önizleme dosyasının indirme parçaları kopyalanıyor)"/>
 		<control caption="İptal"/>
 	</dialog>
-	<dialog name="CWarningsDlg" cookie="StStStStStStStBu" caption="PeerProject Kullanıcılarına Saygı Duyar">
-		<control/>
+	<dialog name="CWarningsDlg" cookie="StStStStStStBu" caption="PeerProject Kullanıcılarına Saygı Duyar">
 		<control caption="PeerProject'nın 100% özgür bir ürün olduğunu biliyor muydunuz?"/>
 		<control caption="PeerProject &quot;spyware&quot;, &quot;adware&quot; ya da diğer sıkıştırılmış yazılımları içermez. Reklam yada &quot;popupları&quot; asla görüntülemez{n}{n}PeerProject'yı kullanırken reklam ya da &quot;popuplar&quot; görürseniz, emin olun ki bu programdan gelmemiştir."/>
 		<control caption="Maalesef diğer yazılımlar adware ya da casus kötücül yazılımları ile birlikte gelebilir, bu yüzden eğer şüpheli birşey görürseniz, spyware kaldırma ya da bildiri programı ile PC'nizin kontrol edilmesini isteyebilirsiniz."/>
@@ -4283,8 +4276,7 @@
 		<control caption="http://PeerProject.org/"/>
 		<control caption="Kapat"/>
 	</dialog>
-	<dialog name="CPromoteDlg" cookie="StStStStStStStBu" caption="Kelimeyi Yaymak">
-		<control/>
+	<dialog name="CPromoteDlg" cookie="StStStStStStBu" caption="Kelimeyi Yaymak">
 		<control caption="PeerProject'nın yayılmasında bize yardım edin"/>
 		<control caption="Umarız şimdiye kadar PeerProject kullanmaktan zevk almışsınızdır ve inanıyoruz ki bu diğerlerinden daha iyi bir dosya paylaşım programıdır."/>
 		<control caption="Maalesef, bazı dosya paylaşanlar ne kaybettiklerini bilmiyorlar!"/>
@@ -4293,8 +4285,7 @@
 		<control caption="http://PeerProject.org"/>
 		<control caption="Tamam"/>
 	</dialog>
-	<dialog name="CExistingFileDlg" cookie="StStStStStBuBuBuBuBuStSt" caption="Mevcut Dosya">
-		<control/>
+	<dialog name="CExistingFileDlg" cookie="StStStStBuBuBuBuBuStSt" caption="Mevcut Dosya">
 		<control/>
 		<control/>
 		<control/>
@@ -4307,8 +4298,7 @@
 		<control caption="Bu dosyayı daha önce indirdiniz ve sildiniz. Ne yapmak istersiniz?"/>
 		<control caption="Uyarı!!! Kopya - eş dosyalar tespit edilmiştir. Bazı kötücül yazılımlar kütüphanenizdeki dosyalara bulaşabilir. Bu dosyayı indirdiğinizden ya da sizin koyduğunuzdan emin olun. Aksi takdirde PeerProject'yı kapatıp bilgisayarınızı bir antivirüs programıyla tarayın."/>
 	</dialog>
-	<dialog name="CCloseModeDlg" cookie="StStBuBuBuBuBu" caption="Kapat Düğmesi">
-		<control/>
+	<dialog name="CCloseModeDlg" cookie="StBuBuBuBuBu" caption="Kapat Düğmesi">
 		<control caption="Bu PeerProject'nın kapat butonuna ilk basışınızdır. Lütfen bundan böyle bu butona bastığınızda PeerProject'nın yapmasını istediğiniz faaliyeti seçiniz:"/>
 		<control caption="Alanı Küçült"/>
 		<control caption="PeerProject'yı hemen kapat"/>
@@ -4316,8 +4306,7 @@
 		<control caption="Tamam"/>
 		<control caption="İptal"/>
 	</dialog>
-	<dialog name="CDonkeyServersDlg" cookie="StStEdmsBuBu" caption="Server.met İndirme Dosyası">
-		<control/>
+	<dialog name="CDonkeyServersDlg" cookie="StEdmsBuBu" caption="Server.met İndirme Dosyası">
 		<control caption="Yerel Server listenizdeki güncel webden eDonkey2000 server.met dosyalasını indirebilirsiniz."/>
 		<control/>
 		<control/>
@@ -4354,8 +4343,7 @@
 		<control caption="_Sonraki|D_ışa Aktar..."/>
 		<control caption="İ_ptal"/>
 	</dialog>
-	<dialog name="CTorrentSeedDlg" cookie="StStBuBuBuStms" caption="Torrent Dosyası Aç">
-		<control/>
+	<dialog name="CTorrentSeedDlg" cookie="StBuBuBuStms" caption="Torrent Dosyası Aç">
 		<control caption="BitTorrent torrent dosyası açtınız.  Onun içindekileri indirmemek ya da tekrar besleme yapmak ister misiniz?"/>
 		<control caption="İndirme"/>
 		<control caption="Köken"/>
@@ -4450,8 +4438,7 @@
 		<control caption="Tamam"/>
 		<control caption="İptal"/>
 	</dialog>
-	<dialog name="CMediaVisDlg" cookie="StBuSyCoBuBuBu" caption="Biçim Seçimi">
-		<control/>
+	<dialog name="CMediaVisDlg" cookie="BuSyCoBuBuBu" caption="Biçim Seçimi">
 		<control caption="Listeden ses biçimleri seçiniz:"/>
 		<control/>
 		<control caption="Alt Gösterim|Tam Ekran Gösterim|Geniş Gösterim|Orta Gösterim|Küçük Gösterim"/>
@@ -4459,8 +4446,7 @@
 		<control caption="Tamam"/>
 		<control caption="İptal"/>
 	</dialog>
-	<dialog name="CUpgradeDlg" cookie="StStStBuBuBu" caption="Güncelleme Uyarısı">
-		<control/>
+	<dialog name="CUpgradeDlg" cookie="StStBuBuBu" caption="Güncelleme Uyarısı">
 		<control caption="PeerProject'nın yeni bir versiyonu bulunmaktadır. Güncellemek ister misiniz?"/>
 		<control caption="Eğer şimdi güncelemeyi seçerseniz, PeerProject indirme sırasına güncelemeyi ekleyecektir ve indirme otomatik olarak başlayacaktır."/>
 		<control caption="_Şimdi Güncelle"/>
@@ -4491,14 +4477,12 @@
 		<control caption="İptal"/>
 		<control caption="Eklemek istediğiniz kanalı giriniz:|Kovma/yasaklama nedenini giriniz:"/>
 	</dialog>
-	<dialog name="CDownloadReviewDlg" cookie="StBuSyEd" caption="Gözden Geçirilen İndirmeler">
-		<control/>
+	<dialog name="CDownloadReviewDlg" cookie="BuSyEd" caption="Gözden Geçirilen İndirmeler">
 		<control caption="Tamam"/>
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CHelpDlg" cookie="StBuAf" caption="PeerProject Yardım">
-		<control/>
+	<dialog name="CHelpDlg" cookie="BuAf" caption="PeerProject Yardım">
 		<control caption="Kapat"/>
 		<control/>
 	</dialog>
