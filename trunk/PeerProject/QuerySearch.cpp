@@ -1248,28 +1248,18 @@ BOOL CQuerySearch::CheckValid(bool bExpression)
 //////////////////////////////////////////////////////////////////////
 // CQuerySearch matching
 
-BOOL CQuerySearch::Match(LPCTSTR pszFilename, QWORD nSize, LPCTSTR pszSchemaURI, CXMLElement* pXML, const Hashes::Sha1Hash& oSHA1, const Hashes::TigerHash& oTiger, const Hashes::Ed2kHash& oED2K, const Hashes::BtHash& oBTH, const Hashes::Md5Hash& oMD5) const
+BOOL CQuerySearch::Match(LPCTSTR pszFilename, LPCTSTR pszSchemaURI, CXMLElement* pXML, const CPeerProjectFile* pFile) const
 {
-	if ( nSize == SIZE_UNKNOWN || nSize < m_nMinSize || nSize > m_nMaxSize )
+	if ( pFile->m_nSize == SIZE_UNKNOWN || pFile->m_nSize < m_nMinSize || pFile->m_nSize > m_nMaxSize )
 		return FALSE;
 
-	if (  (	validAndEqual  ( oSHA1,	m_oSHA1	 ) ||
-			validAndEqual  ( oTiger,m_oTiger ) ||
-			validAndEqual  ( oED2K,	m_oED2K	 ) ||
-			validAndEqual  ( oMD5,	m_oMD5	 ) ||
-			validAndEqual  ( oBTH,	m_oBTH	 ) ) &&
-		! (	validAndUnequal( oSHA1,	m_oSHA1	 ) ||
-			validAndUnequal( oTiger,m_oTiger ) ||
-			validAndUnequal( oED2K,	m_oED2K	 ) ||
-			validAndUnequal( oMD5,	m_oMD5	 ) ) ) // without BTH
-	{
+	if ( *this == *pFile )
 		return TRUE;
-	}
 
 	if ( pszSchemaURI && *pszSchemaURI && pXML )
 	{
 		TRISTATE bResult = MatchMetadata( pszSchemaURI, pXML );
-		if ( bResult != TRI_UNKNOWN && !Settings.Search.SchemaTypes )
+		if ( bResult != TRI_UNKNOWN && ! Settings.Search.SchemaTypes )
 			return ( bResult == TRI_TRUE );
 
 		if ( ! m_sKeywords.IsEmpty() )
@@ -1287,7 +1277,7 @@ BOOL CQuerySearch::Match(LPCTSTR pszFilename, QWORD nSize, LPCTSTR pszSchemaURI,
 				if ( m_sKeywords.GetLength() > 1 )
 				{
 					int nMinusPos = -1;
-					while ( !bNegative )
+					while ( ! bNegative )
 					{
 						nMinusPos = m_sKeywords.Find( '-', nMinusPos + 1 );
 						if ( nMinusPos != -1 )

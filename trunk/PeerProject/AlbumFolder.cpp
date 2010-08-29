@@ -67,7 +67,8 @@ CAlbumFolder::CAlbumFolder(CAlbumFolder* pParent, LPCTSTR pszSchemaURI, LPCTSTR 
 				m_sName = m_pSchema->m_sTitle.Mid( nColon + 1 ).Trim();
 		}
 
-		if ( m_sName.IsEmpty() ) m_sName = LoadString( IDS_NEW_FOLDER );
+		if ( m_sName.IsEmpty() )
+			m_sName = LoadString( IDS_NEW_FOLDER );
 	}
 
 	RenewGUID();
@@ -80,7 +81,7 @@ CAlbumFolder::~CAlbumFolder()
 
 void CAlbumFolder::RenewGUID()
 {
-	CoCreateGuid( reinterpret_cast< GUID* > ( m_oGUID.begin() ) );
+	CoCreateGuid( reinterpret_cast< GUID* > ( &*m_oGUID.begin() ) );
 	m_oGUID.validate();
 }
 
@@ -1183,9 +1184,7 @@ void CAlbumFolder::Serialize(CArchive& ar, int nVersion)
 		ar >> m_sName;
 		ar >> m_bExpanded;
 		ar >> m_bAutoDelete;
-
-		//if ( nVersion > 9 )
-			ar >> m_sBestView;
+		ar >> m_sBestView;
 
 		DWORD_PTR nCount = ar.ReadCount();
 

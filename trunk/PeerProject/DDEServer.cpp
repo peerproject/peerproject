@@ -1,7 +1,7 @@
 //
 // DDEServer.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -181,7 +181,7 @@ BOOL CDDEServer::CheckAccept(LPCTSTR pszTopic)
 {
 	BOOL bResult = _tcsicmp( pszTopic, _T("URL") ) == 0 ||
 			_tcsicmp( pszTopic, _T("PEERFORMAT") ) == 0;
-	if ( !bResult )
+	if ( ! bResult )
 		theApp.Message( MSG_ERROR, _T("Received an unsupported topic in the DDE message: %s"), pszTopic );
 
 	return bResult;
@@ -239,20 +239,20 @@ BOOL CDDEServer::Execute(LPCTSTR pszTopic, LPCTSTR pszMessage)
 
 	if ( _tcscmp( pszTopic, _T("URL") ) == 0 )
 	{
-		return CPeerProjectApp::OpenURL( pszMessage, TRUE );
+		return CPeerProjectApp::OpenURL( pszMessage );
 	}
 	else if ( _tcscmp( pszTopic, _T("PEERFORMAT") ) == 0 )
 	{
 		LPCTSTR pszType = PathFindExtension( pszMessage );
 		if ( _tcsicmp( pszType, _T(".torrent") ) == 0 ) 
 		{
-			return CPeerProjectApp::OpenTorrent( pszMessage, TRUE );
+			return CPeerProjectApp::OpenTorrent( pszMessage );
 		}
 		else if ( _tcsicmp( pszType, _T(".co") ) == 0 ||
 				  _tcsicmp( pszType, _T(".collection") ) == 0 ||
 				  _tcsicmp( pszType, _T(".emulecollection") ) == 0 )
 		{
-			return CPeerProjectApp::OpenCollection( pszMessage, TRUE );
+			return CPeerProjectApp::OpenCollection( pszMessage );
 		}
 		else
 			theApp.Message( MSG_ERROR, _T("Received a file with a unknown extension: %s"), pszType );

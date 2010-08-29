@@ -91,7 +91,7 @@ bool CLibraryFolder::operator==(const CLibraryFolder& val) const
 
 void CLibraryFolder::RenewGUID()
 {
-	CoCreateGuid( reinterpret_cast< GUID* > ( m_oGUID.begin() ) );
+	CoCreateGuid( reinterpret_cast< GUID* > ( &*m_oGUID.begin() ) );
 	m_oGUID.validate();
 }
 

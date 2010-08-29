@@ -62,9 +62,11 @@
 #pragma warning ( disable : 4710 )	// (Level 4)	'function' : function not inlined
 #pragma warning ( disable : 4820 )	// (Level 4)	'bytes' bytes padding added after construct 'member_name'
 
-#define _SCL_SECURE_NO_WARNINGS		// For RegExp only
 #define _CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES 1
 #define _CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES_COUNT 1
+#ifndef _SCL_SECURE_NO_WARNINGS
+#define _SCL_SECURE_NO_WARNINGS 	// For RegExp only?
+#endif
 
 // For detecting Memory Leaks
 #ifdef _DEBUG
@@ -226,7 +228,7 @@
 
 
 //
-// Standard headers
+// Standard headers (../Services)
 //
 
 #include <zlib/zlib.h>
@@ -235,7 +237,7 @@
 
 #include "MinMax.hpp"
 
-#if _MSC_VER >= 1500 && _MSC_VER < 1600		// Work-around for VC9 (VS2005) where
+#if _MSC_VER >= 1500 && _MSC_VER < 1600		// Work-around for VC9 (VS2008) where
 	#pragma warning( pop )					// a (pop) is ifdef'd out in stdio.h
 #endif
 
@@ -250,11 +252,11 @@ using augment::IUnknownImplementation;
 #include "../HashLib/HashLib.h"
 
 // GeoIP (geolite.maxmind.com)
-#include "../Services/GeoIP/GeoIP.h"
+#include <GeoIP/GeoIP.h>
 
-// BugTrap (www.intellesoft.net)
+// BugTrap (intellesoft.net)
 #ifdef _DEBUG
-	#include "../Services/BugTrap/BugTrap.h"
+	#include <BugTrap/BugTrap.h>
 #endif
 
 
@@ -266,19 +268,14 @@ template<> AFX_INLINE UINT AFXAPI HashKey(const CString& key)
 	return HashKey<LPCTSTR>( key );
 }
 
-template<> AFX_INLINE UINT AFXAPI HashKey(DWORD_PTR key)
+template<> AFX_INLINE UINT AFXAPI HashKey(const IN_ADDR& key)
 {
-	return static_cast< UINT >( key >> 4 );
+	return key.s_addr;
 }
 
 template<> AFX_INLINE BOOL AFXAPI CompareElements(const IN_ADDR* pElement1, const IN_ADDR* pElement2)
 {
 	return pElement1->s_addr == pElement2->s_addr;
-}
-
-template<> AFX_INLINE UINT AFXAPI HashKey(const IN_ADDR& key)
-{
-	return key.s_addr;
 }
 
 #include "Hashes.hpp"
@@ -288,6 +285,48 @@ template<> AFX_INLINE UINT AFXAPI HashKey(const IN_ADDR& key)
 #include "Resource.h"
 
 #include "PeerProjectOM.h"
+
+
+//
+// GEOIP (Redundant by #included GeoIP.h above)
+//
+
+//typedef struct GeoIPTag {
+//	FILE *GeoIPDatabase;
+//	char *file_path;
+//	unsigned char *cache;
+//	unsigned char *index_cache;
+//	unsigned int *databaseSegments;
+//	char databaseType;
+//	time_t mtime;
+//	int flags;
+//	char record_length;
+//	int record_iter; /*for GeoIP_next_record*/
+//} GeoIP;
+
+//typedef enum {
+//	GEOIP_STANDARD = 0,
+//	GEOIP_MEMORY_CACHE = 1,
+//	GEOIP_CHECK_CACHE = 2,
+//	GEOIP_INDEX_CACHE = 4,
+//} GeoIPOptions;
+
+//typedef GeoIP* (*GeoIP_newFunc)(int);
+//typedef const char * (*GeoIP_country_code_by_addrFunc) (GeoIP*, const char *);
+//typedef const char * (*GeoIP_country_name_by_addrFunc) (GeoIP*, const char *);
+
+
+//
+// Missing constants
+//
+
+#ifndef BIF_NEWDIALOGSTYLE
+	#define BIF_NEWDIALOGSTYLE	0x00000040
+#endif
+#ifndef OFN_ENABLESIZING
+	#define OFN_ENABLESIZING	0x00800000
+#endif
+
 
 //
 // Smaller type check fix (/RTCc)
@@ -302,16 +341,6 @@ template<> AFX_INLINE UINT AFXAPI HashKey(const IN_ADDR& key)
 	#define GetBValue(rgb)	((BYTE)(((rgb) >> 16) & 0xff))
 #endif
 
-//
-// Missing constants
-//
-
-#ifndef BIF_NEWDIALOGSTYLE
-	#define BIF_NEWDIALOGSTYLE	0x00000040
-#endif
-#ifndef OFN_ENABLESIZING
-	#define OFN_ENABLESIZING	0x00800000
-#endif
 
 //
 // 64-bit type
@@ -359,7 +388,7 @@ typedef struct _GRPICONDIRENTRY
 	BYTE   bReserved;		// Reserved
 	WORD   wPlanes;			// Color Planes
 	WORD   wBitCount;		// Bits per pixel
-	DWORD  dwBytesInRes;	// how many bytes in this resource?
+	DWORD  dwBytesInRes;	// How many bytes in this resource?
 	WORD   nID; 			// the ID
 } GRPICONDIRENTRY, *LPGRPICONDIRENTRY;
 
@@ -372,35 +401,6 @@ typedef struct _ICONDIR
 } ICONDIR, *LPICONDIR;
 
 #pragma pack( pop )
-
-
-//
-// GEOIP (Obsolete by #included GeoIP.h)
-//
-
-//typedef struct GeoIPTag {
-//	FILE *GeoIPDatabase;
-//	char *file_path;
-//	unsigned char *cache;
-//	unsigned char *index_cache;
-//	unsigned int *databaseSegments;
-//	char databaseType;
-//	time_t mtime;
-//	int flags;
-//	char record_length;
-//	int record_iter; /*for GeoIP_next_record*/
-//} GeoIP;
-
-//typedef enum {
-//	GEOIP_STANDARD = 0,
-//	GEOIP_MEMORY_CACHE = 1,
-//	GEOIP_CHECK_CACHE = 2,
-//	GEOIP_INDEX_CACHE = 4,
-//} GeoIPOptions;
-
-//typedef GeoIP* (*GeoIP_newFunc)(int);
-//typedef const char * (*GeoIP_country_code_by_addrFunc) (GeoIP*, const char *);
-//typedef const char * (*GeoIP_country_name_by_addrFunc) (GeoIP*, const char *);
 
 
 //
@@ -418,6 +418,8 @@ enum PROTOCOLID
 	PROTOCOL_FTP  = 5,
 	PROTOCOL_BT   = 6,
 	PROTOCOL_KAD  = 7
+//	PROTOCOL_DC   = 8,
+//	PROTOCOL_LAST = 9	// Detection workaround
 };
 
 struct ProtocolCmdIDMapEntry
@@ -480,11 +482,12 @@ private:
 	CSyncObject& m_oMutex;
 	CQuickLock(const CQuickLock&);
 	CQuickLock& operator=(const CQuickLock&);
+	CQuickLock* operator&() const;
 	static void* operator new(std::size_t);
 	static void* operator new[](std::size_t);
 	static void operator delete(void*);
 	static void operator delete[](void*);
-	CQuickLock* operator&() const;
+	// Note VS2010 disregard false warning 4986 (unrelated)
 };
 
 template< class T >
@@ -666,11 +669,6 @@ inline UINT ReadArchive(CArchive& ar, void* lpBuf, const UINT nMax)
 		AfxThrowArchiveException( CArchiveException::endOfFile );
 	return nReaded;
 }
-
-// Produces two arguments divided by comma, where first argument is a string itself
-// and second argument is a string length without null terminator
-#define _P(x)	(x),((sizeof(x))/sizeof((x)[0])-1)
-#define _PT(x)	_P(_T(x))
 
 // The GetMicroCount function retrieves the number of microseconds that have elapsed
 // since the application was started.

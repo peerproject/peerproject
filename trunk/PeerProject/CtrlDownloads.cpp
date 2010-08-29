@@ -257,20 +257,25 @@ BOOL CDownloadsCtrl::LoadColumnState()
 //////////////////////////////////////////////////////////////////////////////
 // CDownloadsCtrl item helpers
 
-BOOL CDownloadsCtrl::IsFiltered(CDownload* pDownload)
+bool CDownloadsCtrl::IsFiltered(const CDownload* pDownload)
 {
-	DWORD nFilterMask = Settings.Downloads.FilterMask;
-	if ( Settings.General.GUIMode == GUI_BASIC ) nFilterMask = 0xFFFFFFFF;
+	ASSUME_LOCK( Transfers.m_pSection );
 
+	DWORD nFilterMask = Settings.Downloads.FilterMask;
+
+	if ( Settings.General.GUIMode == GUI_BASIC )
+		return false;
+	if ( pDownload->IsSeeding() )
+		return ( ( nFilterMask & DLF_SEED ) == 0 );
+	if ( pDownload->IsCompleted() )
+		return false;
 	if ( pDownload->IsPaused() )
 		return ( ( nFilterMask & DLF_PAUSED ) == 0 );
-	else if ( pDownload->IsSeeding() )
-		return ( ( nFilterMask & DLF_SEED ) == 0 );
-	else if ( pDownload->IsDownloading() || pDownload->IsMoving() )
+	if ( pDownload->IsDownloading() || pDownload->IsMoving() )
 		return ( ( nFilterMask & DLF_ACTIVE ) == 0 );
-	else if ( pDownload->GetEffectiveSourceCount() > 0 )
+	if ( pDownload->GetEffectiveSourceCount() > 0 )
 		return ( ( nFilterMask & DLF_QUEUED ) == 0 );
-	else //if ( pDownload->m_nSize == SIZE_UNKNOWN )
+	//if ( pDownload->m_nSize == SIZE_UNKNOWN )
 		return ( ( nFilterMask & DLF_SOURCES ) == 0 );
 }
 
@@ -448,7 +453,8 @@ void CDownloadsCtrl::DeselectAll(CDownload* pExcept1, CDownloadSource* pExcept2)
 	{
 		CDownload* pDownload = Downloads.GetNext( pos );
 
-		if ( pDownload != pExcept1 ) pDownload->m_bSelected = FALSE;
+		if ( pDownload != pExcept1 )
+			pDownload->m_bSelected = FALSE;
 
 		for ( POSITION posSource = pDownload->GetIterator(); posSource ; )
 		{
@@ -470,13 +476,14 @@ int CDownloadsCtrl::GetSelectedCount()
 	for ( POSITION pos = Downloads.GetIterator() ; pos ; )
 	{
 		CDownload* pDownload = Downloads.GetNext( pos );
-		if ( pDownload->m_bSelected ) nCount++;
+		if ( pDownload->m_bSelected )
+			nCount++;
 
 		for ( POSITION posSource = pDownload->GetIterator(); posSource ; )
 		{
 			CDownloadSource* pSource = pDownload->GetNext( posSource );
-
-			if ( pSource->m_bSelected )	nCount++;
+			if ( pSource->m_bSelected )
+				nCount++;
 		}
 	}
 
@@ -506,8 +513,10 @@ BOOL CDownloadsCtrl::HitTest(const CPoint& point, CDownload** ppDownload, CDownl
 	{
 		CDownload* pDownload = Downloads.GetNext( posDownload );
 
-		if ( m_nGroupCookie != 0 && m_nGroupCookie != pDownload->m_nGroupCookie ) continue;
-		if ( IsFiltered( pDownload ) ) continue;
+		if ( m_nGroupCookie != 0 && m_nGroupCookie != pDownload->m_nGroupCookie )
+			continue;
+		if ( IsFiltered( pDownload ) )
+			continue;
 
 		if ( nScroll > 0 )
 		{
@@ -517,16 +526,17 @@ BOOL CDownloadsCtrl::HitTest(const CPoint& point, CDownload** ppDownload, CDownl
 		{
 			if ( rcItem.PtInRect( point ) )
 			{
-				if ( ppDownload != NULL ) *ppDownload = pDownload;
-				if ( pnIndex != NULL ) *pnIndex = nIndex;
-				if ( prcItem != NULL ) *prcItem = rcItem;
+				if ( ppDownload ) *ppDownload = pDownload;
+				if ( pnIndex ) *pnIndex = nIndex;
+				if ( prcItem ) *prcItem = rcItem;
 				return TRUE;
 			}
 			rcItem.OffsetRect( 0, ITEM_HEIGHT );
 		}
 
 		nIndex++;
-		if ( ! pDownload->m_bExpanded || ( pDownload->IsSeeding() && ! Settings.General.DebugBTSources ) ) continue;
+		if ( ! pDownload->m_bExpanded || ( pDownload->IsSeeding() && ! Settings.General.DebugBTSources ) )
+			continue;
 
 		if ( Settings.Downloads.ShowSources )
 		{
@@ -637,8 +647,10 @@ BOOL CDownloadsCtrl::GetRect(CDownload* pSelect, RECT* prcItem)
 	{
 		CDownload* pDownload = Downloads.GetNext( posDownload );
 
-		if ( m_nGroupCookie != 0 && m_nGroupCookie != pDownload->m_nGroupCookie ) continue;
-		if ( IsFiltered( pDownload ) ) continue;
+		if ( m_nGroupCookie != 0 && m_nGroupCookie != pDownload->m_nGroupCookie )
+			continue;
+		if ( IsFiltered( pDownload ) )
+			continue;
 
 		if ( pDownload == pSelect )
 		{
@@ -648,7 +660,8 @@ BOOL CDownloadsCtrl::GetRect(CDownload* pSelect, RECT* prcItem)
 
 		rcItem.OffsetRect( 0, ITEM_HEIGHT );
 
-		if ( ! pDownload->m_bExpanded ) continue;
+		if ( ! pDownload->m_bExpanded )
+			continue;
 
 		if ( Settings.Downloads.ShowSources )
 		{
@@ -678,7 +691,8 @@ void CDownloadsCtrl::MoveSelected(int nDelta)
 	for ( pos = Downloads.GetIterator() ; pos ; )
 	{
 		CDownload* pDownload = Downloads.GetNext( pos );
-		if ( pDownload->m_bSelected ) pList.AddTail( pDownload );
+		if ( pDownload->m_bSelected )
+			pList.AddTail( pDownload );
 	}
 
 	pos = nDelta > 0 ? pList.GetTailPosition() : pList.GetHeadPosition();

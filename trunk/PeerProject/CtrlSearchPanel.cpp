@@ -388,7 +388,9 @@ CSearchPtr CSearchPanel::GetSearch()
 
 			m_boxAdvanced.m_wndSizeMin.GetWindowText( strWindowValue );
 			if ( strWindowValue.IsEmpty() || ( _tcsicmp( strWindowValue, _T("any") ) == 0 ) )
+			{
 				pSearch->m_nMinSize = 0;
+			}
 			else
 			{
 				if ( !_tcsstr( strWindowValue, _T("B") ) && !_tcsstr( strWindowValue, _T("b") ) )
@@ -399,7 +401,9 @@ CSearchPtr CSearchPanel::GetSearch()
 
 			m_boxAdvanced.m_wndSizeMax.GetWindowText( strWindowValue );
 			if ( strWindowValue.IsEmpty() || ( _tcsicmp( strWindowValue, _T("any") ) == 0 )  || ( _tcsicmp( strWindowValue, _T("max") ) == 0 ) )
+			{
 				pSearch->m_nMaxSize = SIZE_UNKNOWN;
+			}
 			else
 			{
 				if ( !_tcsstr( strWindowValue, _T("B") ) && !_tcsstr( strWindowValue, _T("b") ) )
@@ -657,8 +661,9 @@ void CSearchInputBox::OnSearchPrefix()
 		mnuPopup.AppendMenu( MF_STRING, IDC_SEARCH_PREFIX_TIGER, _T("Tiger") );
 		mnuPopup.AppendMenu( MF_STRING, IDC_SEARCH_PREFIX_SHA1_TIGER, _T("SHA1 + Tiger") );
 		mnuPopup.AppendMenu( MF_STRING, IDC_SEARCH_PREFIX_ED2K, _T("ED2K") );
-		mnuPopup.AppendMenu( MF_STRING, IDC_SEARCH_PREFIX_BTH, _T("BitTorrent") );
 		mnuPopup.AppendMenu( MF_STRING, IDC_SEARCH_PREFIX_MD5, _T("MD5") );
+		mnuPopup.AppendMenu( MF_STRING, IDC_SEARCH_PREFIX_BTH, _T("BitTorrent") );
+
 		CPoint pt;
 		::GetCursorPos( &pt );
 		mnuPopup.TrackPopupMenu( TPM_LEFTALIGN | TPM_LEFTBUTTON, pt.x, pt.y, this, NULL );

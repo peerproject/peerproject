@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Dutch Skin File -->
 
-<!-- Translation based on default-en.xml r55 -->
+<!-- Translation based on default-en.xml r56 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -347,8 +347,8 @@
 		<separator/>
 		<button id="ID_IRC_CLOSETAB" text="Close" tip="Exit Current Channel Window"/>
 		<rightAlign/>
-		<button id="ID_IRC_CONNECT" text="Verbinden" tip="Connect to IRC"/>
-		<button id="ID_IRC_DISCONNECT" text="Disconnect" tip="Disconnect from IRC"/>
+		<button id="ID_IRC_CONNECT" text="Verbinden" tip="Verbinden met IRC"/>
+		<button id="ID_IRC_DISCONNECT" text="Verbreek" tip="Verbreek verbinding met IRC"/>
 		<separator/>
 		<button id="ID_IRC_SETTINGS" text="Instellingen" tip="Configure IRC Settings"/>
 	</toolbar>
@@ -1128,7 +1128,7 @@
 		</menu>
 		<item id="ID_DOWNLOADS_HELP" text="_Help..."/>
 		<separator/>
-		<item id="ID_DOWNLOADS_EDIT" text="Uitgebreid aan_passen..."/>
+		<item id="ID_DOWNLOADS_EDIT" text="Eigenschappen..."/>
 	</menu>
 	<menu name="CDownloadsWnd.Source">
 		<item id="ID_TRANSFERS_CONNECT" text="_Starten"/>
@@ -1659,6 +1659,7 @@
 		<menu text="Actions">
 			<item id="ID_IRC_TIME" text="_Tijd"/>
 			<item id="ID_IRC_VERSION" text="_Versie"/>
+			<item id="ID_IRC_BROWSE" text="_Bekijken"/> 
 		</menu>
 		<separator/>
 		<menu text="Control">
@@ -2377,7 +2378,7 @@
 	<tip id="ID_DOWNLOADS_CLEAR_INCOMPLETE" message="Beëindig de geselecteerde onvolledige downloads."/>
 	<tip id="ID_DOWNLOADS_CLEAR_PAUSED" message="De gepauzeerde downloads wissen."/>
 	<tip id="ID_DOWNLOADS_URI" message="Kopieër het URI voor het geselecteerde bestand."/>
-	<tip id="ID_DOWNLOADS_EDIT" message="Toon het uitgebreid aanpassen venster..."/>
+	<tip id="ID_DOWNLOADS_EDIT" message="Toon de geadvanceerde download eigenschappen..."/>
 	<tip id="ID_DOWNLOADS_ENQUEUE" message="Voeg de geselecteerde downloads toe aan je afspeellijst."/>
 	<tip id="ID_DOWNLOADS_FILE_DELETE" message="Verwijder de geselecteerde voltooide bestanden."/>
 	<tip id="ID_DOWNLOADS_FILTER_ACTIVE" message="Laat alle actieve downloads zien."/>
@@ -2670,6 +2671,27 @@
 	<string id="WINDOW_MEDIA" value="Media"/>
 	<string id="WINDOW_SEARCHPAD" value="Zoeken"/>
 	<string id="WINDOW_HELP" value="PeerProject help"/>
+	<string id="WINDOW_IRC" value="PeerProject chat"/>
+<!--
+	<string id="WINDOW_SCHEDULER" value="Planner"/>
+	<string id="154" value="Weet je zeker dat je alle geplande taken wilt verwijderen? Dit kan niet ongedaan worden gemaakt."/>
+	<string id="156" value="Geplande tijd is voorbij.\n\nSelecteer alstublieft een tijd in de toekomst."/>
+	<string id="157" value="Bandbreedte: Volledige Snelheid"/>
+	<string id="158" value="Bandbreedte: Gereduceerde Snelheid"/>
+	<string id="159" value="Bandbreedte: Stop"/>
+	<string id="160" value="Systeem: Shareaza Afsluiten"/>
+	<string id="161" value="Systeem: Verbreek Dial-up Verbinding"/>
+	<string id="162" value="Systeem: De Computer Uitzetten"/>
+	<string id="163" value="Selecteer alsjeblieft een taak."/>
+	<string id="164" value="Specifieke dag(en) van de week"/>
+	<string id="165" value="Actief"/>
+	<string id="166" value="Werkeloos"/>
+	<string id="167" value="Gedaan"/>
+	<string id="168" value="Wachten..."/>
+	<string id="169" value="Er Zijn Momenteel Geen Taken Gepland"/>
+	<string id="172" value="Vandaag Gedaan"/>
+	<string id="173" value="Je moet ten minste een dag van de week selecteren."/>
+-->
 	<string id="7000" value="weet je zeker dat je dit filter wilt verwijderen?"/>
 	<string id="7001" value="&amp;Schemas"/>
 	<string id="7002" value="Meerdere Waardes"/>
@@ -2684,7 +2706,7 @@
 	<string id="8002" value="Bestandseigenschappen"/>
 	<string id="8003" value="Mijn profiel aanpassen"/>
 	<string id="8004" value="!Welkom bij PeerProject (version)!\n.\nPeerProject is volledig gratis software.\nGebruik het alsjeblieft verantwoord en respecteer intellectuele eigendomsrechten.\n."/>
-	<string id="8005" value=" (bezig met afsluiten na verkeer)"/>
+	<string id="8005" value="(bezig met afsluiten na verkeer)"/>
 	<string id="8006" value="Je bent niet verbonden. Klik op &quot;verbinden&quot; om te starten."/>
 	<string id="8007" value="Er zijn geen actieve zoekopdrachten. Klik hier om naar bestanden te zoeken."/>
 	<string id="8008" value="PeerProject is klaar met het downloaden van versie (%s). Wil je nu upgraden?\n\nAls je Ja kiest, zal PeerProject tijdelijk worden afgesloten terwijl de upgrade wordt geïnstalleerd."/>
@@ -2704,7 +2726,7 @@
 	<string id="8069" value="Verbinden"/>
 	<string id="8070" value="Verbindt..."/>
 	<string id="8071" value="Verbonden"/>
-	<string id="8072" value="Verbinding verbreken"/>
+	<string id="8072" value="Verbreek Verbinding"/>
 	<string id="8096" value="Dit gedeelte laat meer informatie zien over de geselecteerde bestanden."/>
 	<string id="8097" value="Er is één bron beschikbaar. (%s/s)"/>
 	<string id="8098" value="Er zijn %i bronnen beschikbaar. (%s/s)"/>
@@ -2743,7 +2765,7 @@
 	<string id="8156" value="Zoeken"/>
 	<string id="8157" value="Resultaten"/>
 	<string id="8158" value="Wis"/>
-	<string id="8159" value="Uitgebreid"/>
+	<string id="8159" value="Geadvanceerd"/>
 	<string id="8160" value="Een verbinding wordt aangemaakt met gastheer..."/>
 	<string id="8161" value="Een pushaanvraag is verstuurd, aan het wachten op verbinding..."/>
 	<string id="8162" value="Verbonden, het bekijken is aangevraagd..."/>
@@ -2821,8 +2843,8 @@
 	<string id="8336" value="Bronnen voor dit bestand kunnen instabiel zijn"/>
 	<string id="8337" value="Niet betrouwbaar"/>
 	<string id="8338" value="Geen hashset"/>
-	<string id="13000" value="Ben je zeker dat je deze veiligheidsregels wilt verwijderen? Dit kan niet ongedaan worden gemaakt."/>
-	<string id="13001" value="Bestanden gedeeld over het internet"/>
+	<string id="13000" value="Bestanden gedeeld over het internet"/>
+	<string id="13001" value="Ben je zeker dat je deze veiligheidsregels wilt verwijderen? Dit kan niet ongedaan worden gemaakt."/>
 	<string id="16063" value="Je router automatisch instellen mislukte na 10 pogingen."/>
 	<string id="16064" value="Opstarten van het netwerkcentrum van PeerProject..."/>
 	<string id="16065" value="Kan geen contact maken met %s poort %i voor binnenkomende verbindingen. Binnenkomende verbindingen zijn niet mogelijk."/>
@@ -3365,6 +3387,9 @@
 	<string id="20237" value="OK"/>
 	<string id="20238" value="Annuleren"/>
 	<string id="20245" value="Nieuwe Map"/>
+	<string id="32825" value="Open mijn map met complete downloads"/>
+	<string id="32773" value="Controleer op een nieuwe versie"/>
+	<string id="61215" value="Activeer dit venster"/>
 </strings>
 <!-- Localized Dialog Text, "cookie" verifies that the skin matches current dialog -->
 <dialogs>
@@ -3752,7 +3777,7 @@
 		<control caption="Instellingen..."/>
 		<control caption="Meer..."/>
 	</dialog>
-	<dialog name="CAdvancedSettingsPage" cookie="SyEdmsBuBuSt" caption="Uitgebreid">
+	<dialog name="CAdvancedSettingsPage" cookie="SyEdmsBuBuSt" caption="Geadvanceerd">
 		<control/>
 		<control/>
 		<control/>
@@ -4647,7 +4672,8 @@
 	<list name="CTorrentFileList">
 		<column from="Filename" to="Bestandsnaam"/>
 		<column from="Size" to="Grootte"/>
-		<column from="Status" to=""/>
+		<column from="Status" to="Status"/>
+		<column from="Priority" to="Prioriteit"/>
 	</list>
 	<list name="CTorrentTrackerList">
 		<column from="Tracker" to=""/>
@@ -4662,4 +4688,3 @@
 	</list>
 </listColumns>
 </skin>
-/

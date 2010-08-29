@@ -114,7 +114,7 @@ CLibraryFile::~CLibraryFile()
 {
 	Library.RemoveFile( this );
 
-	if ( m_pMetadata != NULL ) delete m_pMetadata;
+	delete m_pMetadata;
 
 	for ( POSITION pos = m_pSources.GetHeadPosition() ; pos ; )
 	{
@@ -608,7 +608,7 @@ CSharedSource* CLibraryFile::AddAlternateSource(LPCTSTR pszURL, FILETIME* tSeen)
 	if ( Network.IsFirewalledAddress( &pURL.m_pAddress, TRUE ) ||
 		 Network.IsReserved( (IN_ADDR*)&pURL.m_pAddress ) ) return NULL;
 
-	if ( validAndUnequal( pURL.m_oSHA1, m_oSHA1 ) ) return NULL;
+	if ( pURL != *this ) return NULL;
 
 	for ( POSITION pos = m_pSources.GetHeadPosition() ; pos ; )
 	{
@@ -691,7 +691,8 @@ void CLibraryFile::Serialize(CArchive& ar, int nVersion)
 		ar << m_bShared;
 
 		ar << m_nVirtualSize;
-		if ( m_nVirtualSize > 0 ) ar << m_nVirtualBase;
+		if ( m_nVirtualSize > 0 )
+			ar << m_nVirtualBase;
 
 		SerializeOut( ar, m_oSHA1 );
 		SerializeOut( ar, m_oTiger );

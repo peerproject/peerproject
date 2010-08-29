@@ -516,8 +516,9 @@ void CBaseMatchWnd::OnSearchChat()
 	if ( CQueryHit* pHit = m_pMatches->GetSelectedHit() )
 	{
 		ChatWindows.OpenPrivate( pHit->m_oClientID,
-			&pHit->m_pAddress, pHit->m_nPort, pHit->m_bPush == TRI_TRUE, pHit->m_nProtocol,
-			(IN_ADDR*)pHit->m_oClientID.begin(),	// tr1 fix: reinterpret_cast< IN_ADDR* >( pHit->m_oClientID.data() ),
+			&pHit->m_pAddress, pHit->m_nPort, pHit->m_bPush == TRI_TRUE,
+			pHit->m_nProtocol,
+			reinterpret_cast< IN_ADDR* >( &*pHit->m_oClientID.begin() ),
 			(WORD)pHit->m_oClientID.begin()[1] );
 	}
 }

@@ -452,11 +452,12 @@ void CSearchWnd::OnUpdateSearchSearch(CCmdUI* pCmdUI)
 
 void CSearchWnd::OnSearchSearch()
 {
-	if ( ! Network.IsWellConnected() ) Network.Connect( TRUE );
+	if ( ! Network.IsWellConnected() )
+		Network.Connect( TRUE );
 
 	SetModified();
 
-	//The 'Search More' situation
+	// The 'Search More' situation
 	if ( ! m_bPaused && m_bWaitMore )
 	{
 		CQuickLock pLock( m_pMatches->m_pSection );
@@ -465,16 +466,16 @@ void CSearchWnd::OnSearchSearch()
 		{
 			CSearchPtr pManaged = m_oSearches.back();
 
-			//Re-activate search window
+			// Re-activate search window
 			theApp.Message( MSG_DEBUG, _T("Resuming Search") );
 			pManaged->SetActive( TRUE );
 			m_bWaitMore = FALSE;
 
-			//Resume G2 search
+			// Resume G2 search
 			m_nMaxResults = m_pMatches->m_nGnutellaHits + Settings.Gnutella.MaxResults;
 			m_nMaxQueryCount = pManaged->m_nQueryCount + Settings.Gnutella2.QueryLimit;
 
-			//Resume ED2K search
+			// Resume ED2K search
 			m_nMaxED2KResults = m_pMatches->m_nED2KHits + Settings.eDonkey.MaxResults;
 			pManaged->m_tLastED2K = GetTickCount();
 			pManaged->m_tMoreResults = 0;
@@ -487,12 +488,12 @@ void CSearchWnd::OnSearchSearch()
 			return;
 		}
 	}
-	//End of 'Search More'
+	// End of 'Search More'
 
 	// Check if user mistakenly pasted download link to search input box
 	CString sText;
 	m_wndPanel.m_boxSearch.m_wndSearch.GetWindowText( sText );
-	if ( CPeerProjectApp::OpenURL( sText, TRUE, TRUE ) )
+	if ( CPeerProjectApp::OpenURL( sText, TRUE ) )
 	{
 		m_wndPanel.m_boxSearch.m_wndSearch.SetWindowText( _T("") );
 		return;

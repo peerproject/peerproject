@@ -23,7 +23,7 @@
 
 #include "PeerProjectOM.h"
 
-typedef CMap< CString, const CString&, FILETIME, FILETIME& > CMapStringToFILETIME;		// "const CString&" for StringType fix
+typedef CMap< CString, const CString&, FILETIME, FILETIME& > CMapStringToFILETIME;
 
 class CPeerProjectFile : public CComObject
 {
@@ -61,7 +61,13 @@ public:
 	// Split string of URLs delimited by commas to URL list
 	bool SplitStringToURLs(LPCTSTR pszURLs, CMapStringToFILETIME& oUrls) const;
 
-	// Is some of hashes present?
+	// Are files sufficiently equal?
+	bool operator==(const CPeerProjectFile& pFile) const;
+
+	// Are files sufficiently unequal? (diffrent sizes or hashes)
+	bool operator!=(const CPeerProjectFile& pFile) const;
+
+	// Are some hashes present?
 	inline bool IsHashed() const throw()
 	{
 		return m_oSHA1 || m_oTiger || m_oED2K || m_oBTH || m_oMD5;

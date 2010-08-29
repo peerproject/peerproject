@@ -1,7 +1,7 @@
 //
 // XML.inl
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -175,12 +175,7 @@ inline CXMLAttribute* CXMLElement::GetNextAttribute(POSITION& pos) const
 inline CXMLAttribute* CXMLElement::GetAttribute(LPCTSTR pszName) const
 {
 	CXMLAttribute* pAttribute = NULL;
-	CString strName( pszName );
-
-	// Convert to lowercase with CLowerCaseTable
-	ToLower( strName );
-
-	return m_pAttributes.Lookup( strName, pAttribute ) ? pAttribute : NULL;
+	return m_pAttributes.Lookup( CString( pszName ).MakeLower(), pAttribute ) ? pAttribute : NULL;
 }
 
 inline CString CXMLElement::GetAttributeValue(LPCTSTR pszName, LPCTSTR pszDefault) const
@@ -198,12 +193,7 @@ inline CString CXMLElement::GetAttributeValue(LPCTSTR pszName, LPCTSTR pszDefaul
 
 inline void CXMLElement::RemoveAttribute(CXMLAttribute* pAttribute)
 {
-	CString strName( pAttribute->m_sName );
-
-	// Convert to lowercase with CLowerCaseTable
-	ToLower( strName );
-
-	m_pAttributes.RemoveKey( strName );
+	m_pAttributes.RemoveKey( CString( pAttribute->m_sName ).MakeLower() );
 }
 
 inline void CXMLElement::DeleteAttribute(LPCTSTR pszName)

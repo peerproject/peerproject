@@ -1005,8 +1005,11 @@ BOOL CBTClient::OnBeHandshake(CBTPacket* pPacket)
 
 BOOL CBTClient::OnSourceRequest(CBTPacket* /*pPacket*/)
 {
-	if ( m_bClosing ) return TRUE;
-	if ( ( m_pDownload == NULL ) || ( m_pDownload->m_pTorrent.m_bPrivate ) ) return TRUE;
+	if ( m_bClosing )
+		return TRUE;
+
+	if ( ! m_pDownload || m_pDownload->m_pTorrent.m_bPrivate )
+		return TRUE;
 
 	CBENode pRoot;
 	CBENode* pPeers = pRoot.Add( "peers" );
@@ -1015,15 +1018,16 @@ BOOL CBTClient::OnSourceRequest(CBTPacket* /*pPacket*/)
 	{
 		CDownloadSource* pSource = m_pDownload->GetNext( posSource );
 
-		if ( ! pSource->IsConnected() ) continue;
+		if ( ! pSource->IsConnected() )
+			continue;
 
 		if ( pSource->m_nProtocol == PROTOCOL_BT )
 		{
 			CBENode* pPeer = pPeers->Add();
-			CPeerProjectURL pURL;
+			CPeerProjectURL oURL;
 
-			if ( pURL.Parse( pSource->m_sURL ) && pURL.m_oBTC )
-				pPeer->Add( "peer id" )->SetString( pURL.m_oBTC.begin(), Hashes::BtGuid::byteCount );
+			if ( oURL.Parse( pSource->m_sURL ) && oURL.m_oBTC )
+				pPeer->Add( "peer id" )->SetString( &*oURL.m_oBTC.begin(), oURL.m_oBTC.byteCount );
 
 			pPeer->Add( "ip" )->SetString( CString( inet_ntoa( pSource->m_pAddress ) ) );
 			pPeer->Add( "port" )->SetInt( pSource->m_nPort );
@@ -1037,7 +1041,8 @@ BOOL CBTClient::OnSourceRequest(CBTPacket* /*pPacket*/)
 		}
 	}
 
-	if ( pPeers->GetCount() == 0 ) return TRUE;
+	if ( pPeers->GetCount() == 0 )
+		return TRUE;
 
 	CBuffer pOutput;
 	pRoot.Encode( &pOutput );

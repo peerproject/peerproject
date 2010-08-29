@@ -403,7 +403,7 @@ BOOL CPeerProjectApp::InitInstance()
 	if ( Settings.General.GUIMode != GUI_WINDOWED && Settings.General.GUIMode != GUI_TABBED && Settings.General.GUIMode != GUI_BASIC )
 		Settings.General.GUIMode = GUI_BASIC;
 
-	SplashStep( L"PeerProject Database" );
+	SplashStep( L"Database" );
 		PurgeDeletes();
 		CThumbCache::InitDatabase();
 	SplashStep( L"P2P URIs" );
@@ -411,7 +411,11 @@ BOOL CPeerProjectApp::InitInstance()
 	SplashStep( L"Shell Icons" );
 		ShellIcons.Clear();
 	SplashStep( L"Metadata Schemas" );
-		SchemaCache.Load();
+		if ( SchemaCache.Load() < 48 )	// Presumed number of .xsd files in Schemas folder
+		{
+			if ( AfxMessageBox( IDS_SCHEMA_LOAD_ERROR, MB_ICONWARNING|MB_OKCANCEL ) != IDOK )
+				return FALSE;
+		}
 	SplashStep( L"Vendor Data" );
 		VendorCache.Load();
 	SplashStep( L"Profile" );
@@ -518,7 +522,8 @@ int CPeerProjectApp::ExitInstance()
 		Network.Disconnect();
 
 		SplashStep( L"Stopping Library Tasks" );
-		Library.StopThread();
+		LibraryBuilder.CloseThread();
+		Library.CloseThread();
 
 		SplashStep( L"Stopping Transfers" );
 		Transfers.StopThread();
@@ -637,91 +642,75 @@ void CPeerProjectApp::WinHelp(DWORD /*dwData*/, UINT /*nCmd*/)
 CDocument* CPeerProjectApp::OpenDocumentFile(LPCTSTR lpszFileName)
 {
 	if ( lpszFileName )
-		Open( lpszFileName, TRUE );
+		Open( lpszFileName );
 	return NULL;
 }
 
-BOOL CPeerProjectApp::Open(LPCTSTR lpszFileName, BOOL bDoIt)
+BOOL CPeerProjectApp::Open(LPCTSTR lpszFileName)		// Note: No BOOL bDoIt needed
 {
 	int nLength = lstrlen( lpszFileName );
 	if ( nLength > 8 && ! lstrcmpi( lpszFileName + nLength - 8, _T(".torrent") ) )
-		return OpenTorrent( lpszFileName, bDoIt );
+		return OpenTorrent( lpszFileName );
 	else if ( nLength > 3 && ! lstrcmpi( lpszFileName + nLength - 3, _T(".co") ) )
-		return OpenCollection( lpszFileName, bDoIt );
+		return OpenCollection( lpszFileName );
 	else if ( nLength > 11 && ! lstrcmpi( lpszFileName + nLength - 11, _T(".collection") ) )
-		return OpenCollection( lpszFileName, bDoIt );
+		return OpenCollection( lpszFileName );
 	else if ( nLength > 16 && ! lstrcmpi( lpszFileName + nLength - 16, _T(".emulecollection") ) )
-		return OpenCollection( lpszFileName, bDoIt );
+		return OpenCollection( lpszFileName );
 	else if ( nLength > 4 && ! lstrcmpi( lpszFileName + nLength - 4, _T(".url") ) )
-		return OpenInternetShortcut( lpszFileName, bDoIt );
+		return OpenInternetShortcut( lpszFileName );
 	else if ( nLength > 4 && ! lstrcmpi( lpszFileName + nLength - 4, _T(".met") ) )
-		return OpenMET( lpszFileName, bDoIt );
+		return OpenMET( lpszFileName );
 	else if ( nLength > 4 && ! lstrcmpi( lpszFileName + nLength - 4, _T(".dat") ) )
-		return OpenMET( lpszFileName, bDoIt );
+		return OpenMET( lpszFileName );
 	else if ( nLength > 4 && ! lstrcmpi( lpszFileName + nLength - 4, _T(".lnk") ) )
-		return OpenShellShortcut( lpszFileName, bDoIt );
+		return OpenShellShortcut( lpszFileName );
 	else
-		return OpenURL( lpszFileName, bDoIt );
+		return OpenURL( lpszFileName );
 }
 
-BOOL CPeerProjectApp::OpenMET(LPCTSTR lpszFileName, BOOL bDoIt)
+BOOL CPeerProjectApp::OpenMET(LPCTSTR lpszFileName)
 {
-	if ( ! bDoIt )
-		return TRUE;
-
 	return HostCache.Import( lpszFileName );
 }
 
-BOOL CPeerProjectApp::OpenShellShortcut(LPCTSTR lpszFileName, BOOL bDoIt)
+BOOL CPeerProjectApp::OpenShellShortcut(LPCTSTR lpszFileName)
 {
 	CString sPath( ResolveShortcut( lpszFileName ) );
-	return sPath.GetLength() && Open( sPath, bDoIt );
+	return sPath.GetLength() && Open( sPath );
 }
 
-BOOL CPeerProjectApp::OpenInternetShortcut(LPCTSTR lpszFileName, BOOL bDoIt)
+BOOL CPeerProjectApp::OpenInternetShortcut(LPCTSTR lpszFileName)
 {
 	CString sURL;
 	BOOL bResult = ( GetPrivateProfileString( _T("InternetShortcut"), _T("URL"),
 		_T(""), sURL.GetBuffer( MAX_PATH ), MAX_PATH, lpszFileName ) > 3 );
 	sURL.ReleaseBuffer();
-	return bResult && sURL.GetLength() && OpenURL( sURL, bDoIt );
+	return bResult && sURL.GetLength() && OpenURL( sURL );
 }
 
-BOOL CPeerProjectApp::OpenTorrent(LPCTSTR lpszFileName, BOOL bDoIt)
+BOOL CPeerProjectApp::OpenTorrent(LPCTSTR lpszFileName)
 {
 	// Test torrent
-	auto_ptr< CBTInfo > pTorrent( new CBTInfo() );
-	if ( pTorrent.get() )
-	{
-		if ( pTorrent->LoadTorrentFile( lpszFileName ) )
-		{
-			auto_ptr< CPeerProjectURL > pURL( new CPeerProjectURL( pTorrent.release() ) );
-			if ( pURL.get() )
-			{
-				if ( ! bDoIt )
-					return TRUE;
+	//auto_ptr< CBTInfo > pTorrent( new CBTInfo() );
+	//if ( ! pTorrent.get() ) return FALSE;
+	//if ( ! pTorrent->LoadTorrentFile( lpszFileName ) ) return FALSE;
 
-				// Open torrent
-				const size_t nLen = _tcslen( lpszFileName ) + 1;
-				auto_array< TCHAR > pszPath( new TCHAR[ nLen ] );
-				if ( pszPath.get() )
-				{
-					_tcscpy_s( pszPath.get(), nLen, lpszFileName );
-					if ( PostMainWndMessage( WM_TORRENT, (WPARAM)pszPath.release() ) )
-						return TRUE;
-				}
-			}
-		}
+	// Open torrent
+	const size_t nLen = _tcslen( lpszFileName ) + 1;
+	auto_array< TCHAR > pszPath( new TCHAR[ nLen ] );
+	if ( pszPath.get() )
+	{
+		_tcscpy_s( pszPath.get(), nLen, lpszFileName );
+		if ( PostMainWndMessage( WM_TORRENT, (WPARAM)pszPath.release() ) )
+			return TRUE;
 	}
 
 	return FALSE;
 }
 
-BOOL CPeerProjectApp::OpenCollection(LPCTSTR lpszFileName, BOOL bDoIt)
+BOOL CPeerProjectApp::OpenCollection(LPCTSTR lpszFileName)
 {
-	if ( ! bDoIt )
-		return TRUE;
-
 	const size_t nLen = _tcslen( lpszFileName ) + 1;
 	auto_array< TCHAR > pszPath( new TCHAR[ nLen ] );
 	if ( pszPath.get() )
@@ -734,9 +723,9 @@ BOOL CPeerProjectApp::OpenCollection(LPCTSTR lpszFileName, BOOL bDoIt)
 	return FALSE;
 }
 
-BOOL CPeerProjectApp::OpenURL(LPCTSTR lpszFileName, BOOL bDoIt, BOOL bSilent)
+BOOL CPeerProjectApp::OpenURL(LPCTSTR lpszFileName, BOOL bSilent)
 {
-	if ( bDoIt && ! bSilent )
+	if ( ! bSilent )
 		theApp.Message( MSG_NOTICE, IDS_URL_RECEIVED, lpszFileName );
 
 	auto_ptr< CPeerProjectURL > pURL( new CPeerProjectURL() );
@@ -744,13 +733,12 @@ BOOL CPeerProjectApp::OpenURL(LPCTSTR lpszFileName, BOOL bDoIt, BOOL bSilent)
 	{
 		if ( pURL->Parse( lpszFileName ) )
 		{
-			if ( bDoIt )
-				PostMainWndMessage( WM_URL, (WPARAM)pURL.release() );
+			PostMainWndMessage( WM_URL, (WPARAM)pURL.release() );
 			return TRUE;
 		}
 	}
 
-	if ( bDoIt && ! bSilent )
+	if ( ! bSilent )
 		theApp.Message( MSG_NOTICE, IDS_URL_PARSE_ERROR );
 
 	return FALSE;
@@ -766,19 +754,16 @@ void CPeerProjectApp::GetVersionNumber()
 	tCompileTime.ParseDateTime( _T(__DATE__), LOCALE_NOUSEROVERRIDE, 1033 );
 	m_sBuildDate = tCompileTime.Format( _T("%Y%m%d") );
 
-	DWORD dwSize;
-
-	m_nVersion[0] = m_nVersion[1] = m_nVersion[2] = m_nVersion[3] = 0;
-
+	// Get .exe-file name
 	GetModuleFileName( NULL, m_strBinaryPath.GetBuffer( MAX_PATH ), MAX_PATH );
 	m_strBinaryPath.ReleaseBuffer( MAX_PATH );
-	dwSize = GetFileVersionInfoSize( m_strBinaryPath, &dwSize );
 
+	// Load version from .exe-file properties
+	m_nVersion[0] = m_nVersion[1] = m_nVersion[2] = m_nVersion[3] = 0;
+	DWORD dwSize = GetFileVersionInfoSize( m_strBinaryPath, &dwSize );
 	if ( dwSize )
 	{
-		BYTE* pBuffer = new BYTE[ dwSize ];
-
-		if ( pBuffer )
+		if ( BYTE* pBuffer = new BYTE[ dwSize ] )
 		{
 			if ( GetFileVersionInfo( m_strBinaryPath, NULL, dwSize, pBuffer ) )
 			{
@@ -1606,7 +1591,8 @@ LPCTSTR _tcsnistr(LPCTSTR pszString, LPCTSTR pszPattern, size_t plen)
 		{
 			if ( const TCHAR cStringChar = ToLower( pszString[ i ] ) )
 			{
-				if ( cStringChar != ToLower( pszPattern[ i ] ) ) break;
+				if ( cStringChar != ToLower( pszPattern[ i ] ) )
+					break;
 			}
 			else
 			{
@@ -1754,7 +1740,7 @@ void RecalcDropWidth(CComboBox* pWnd)
 	pWnd->SetDroppedWidth( nWidth );
 }
 
-BOOL LoadIcon(LPCTSTR szFilename, HICON* phSmallIcon, HICON* phLargeIcon, HICON* phHugeIcon)
+BOOL LoadIcon(LPCTSTR szFilename, HICON* phSmallIcon, HICON* phLargeIcon, HICON* phHugeIcon, int nIcon)
 {
 	CString strIcon( szFilename );
 
@@ -1763,12 +1749,10 @@ BOOL LoadIcon(LPCTSTR szFilename, HICON* phSmallIcon, HICON* phLargeIcon, HICON*
 	if ( phHugeIcon )  *phHugeIcon = NULL;
 
 	int nIndex = strIcon.ReverseFind( _T(',') );
-	int nIcon = 0;
 	if ( nIndex != -1 )
 	{
-		if ( _stscanf( strIcon.Mid( nIndex + 1 ), _T("%i"), &nIcon ) != 1 )
-			return FALSE;
-		strIcon = strIcon.Left( nIndex );
+		if ( _stscanf( strIcon.Mid( nIndex + 1 ), _T("%i"), &nIcon ) == 1 )
+			strIcon = strIcon.Left( nIndex );
 	}
 	else
 		nIndex = 0;
@@ -2236,21 +2220,20 @@ void CPeerProjectApp::OnRename(LPCTSTR pszSource, LPCTSTR pszTarget)
 	}
 }
 
-CString SafeFilename(const CString& sOriginalName, bool bPath)
+CString SafeFilename(CString strName, bool bPath)
 {
-	CString strName = sOriginalName;
-
 	// Restore spaces
 	strName.Replace( _T("%20"), _T(" ") );
 
 	// Replace incompatible symbols
-	int nNameLen = strName.GetLength();
-	for ( int nChar = 0; nChar < nNameLen; ++nChar )
+	for ( ;; )
 	{
-		nChar = (int)_tcscspn( (LPCTSTR)strName + nChar,
-			bPath ? _T("/:*?\"<>|") : _T("\\/:*?\"<>|") ) + nChar;
-		if ( nChar < 0 || nChar >= nNameLen )
+		int nChar = strName.FindOneOf(
+			bPath ? _T("/:*?\"<>|") : _T("\\/:*?\"<>|") );
+
+		if ( nChar == -1 )
 			break;
+
 		strName.SetAt( nChar, _T('_') );
 	}
 
@@ -2353,55 +2336,55 @@ BOOL DeleteFileEx(LPCTSTR szFileName, BOOL bShared, BOOL bToRecycleBin, BOOL bEn
 {
 	// Should be double zeroed long path
 	DWORD len = GetLongPathName( szFileName, NULL, 0 );
-	if ( len )
-	{
-		auto_array< TCHAR > szPath( new TCHAR[ len + 1 ] );
+	BOOL bLong = len ? TRUE : FALSE;
+	if ( ! bLong )
+		len = lstrlen( szFileName );
+
+	auto_array< TCHAR > szPath( new TCHAR[ len + 1 ] );
+	if ( bLong )
 		GetLongPathName( szFileName, szPath.get(), len );
-		szPath[ len ] = 0;
+	else
+		lstrcpy( szPath.get(), szFileName );
+	szPath[ len ] = 0;
 
-		DWORD dwAttr = GetFileAttributes( szPath.get() );
-		if ( ( dwAttr != INVALID_FILE_ATTRIBUTES ) &&		// Filename exists
-			( dwAttr & FILE_ATTRIBUTE_DIRECTORY ) == 0 )	// Not a folder
+	if ( bShared )	// Stop uploads
+		theApp.OnRename( szPath.get(), NULL );
+
+	DWORD dwAttr = GetFileAttributes( szPath.get() );
+	if ( ( dwAttr != INVALID_FILE_ATTRIBUTES ) &&		// Filename exist
+		( dwAttr & FILE_ATTRIBUTE_DIRECTORY ) == 0 )	// Not a folder
+	{
+		if ( bToRecycleBin )
 		{
-			if ( bShared )
-			{
-				// Stop builder
-				//LibraryBuilder.Remove( szPath.get() );
-
-				// Stop uploads
-				theApp.OnRename( szPath.get(), NULL );
-			}
-
-			if ( bToRecycleBin )
-			{
-				SHFILEOPSTRUCT sfo = {};
-				sfo.hwnd = GetDesktopWindow();
-				sfo.wFunc = FO_DELETE;
-				sfo.pFrom = szPath.get();
-				sfo.fFlags = FOF_ALLOWUNDO | FOF_FILESONLY | FOF_NORECURSION | FOF_NO_UI;
-				SHFileOperation( &sfo );
-			}
-			else
-				DeleteFile( szPath.get() );
-
-			dwAttr = GetFileAttributes( szPath.get() );
-			if ( dwAttr != INVALID_FILE_ATTRIBUTES )
-			{
-				// File still exists
-				if ( bEnableDelayed )
-				{
-					// Set delayed deletion
-					CString sJob;
-					sJob.Format( _T("%d%d"), bShared, bToRecycleBin );
-					theApp.WriteProfileString( _T("Delete"), szPath.get(), sJob );
-				}
-				return FALSE;
-			}
+			SHFILEOPSTRUCT sfo = {};
+			sfo.hwnd = GetDesktopWindow();
+			sfo.wFunc = FO_DELETE;
+			sfo.pFrom = szPath.get();
+			sfo.fFlags = FOF_ALLOWUNDO | FOF_FILESONLY | FOF_NORECURSION | FOF_NO_UI;
+			SHFileOperation( &sfo );
+		}
+		else
+		{
+			DeleteFile( szPath.get() );
 		}
 
-		// Cancel delayed deletion (if any)
-		theApp.WriteProfileString( _T("Delete"), szPath.get(), NULL );
+		dwAttr = GetFileAttributes( szPath.get() );
+		if ( dwAttr != INVALID_FILE_ATTRIBUTES )
+		{
+			// File still exists
+			if ( bEnableDelayed )
+			{
+				// Set delayed deletion
+				CString sJob;
+				sJob.Format( _T("%d%d"), bShared, bToRecycleBin );
+				theApp.WriteProfileString( _T("Delete"), szPath.get(), sJob );
+			}
+			return FALSE;
+		}
 	}
+
+	// Cancel delayed deletion (if any)
+	theApp.WriteProfileString( _T("Delete"), szPath.get(), NULL );
 
 	return TRUE;
 }
@@ -3022,4 +3005,29 @@ CString& CLowerCaseTable::operator()(CString& strSource) const
 	strSource.ReleaseBuffer( nLength );
 
 	return strSource;
+}
+
+
+template <>
+__int8 GetRandomNum<__int8>(const __int8& min, const __int8& max)
+{
+	return (__int8)GetRandomNum<unsigned __int8>( min, max );
+}
+
+template <>
+__int16 GetRandomNum<__int16>(const __int16& min, const __int16& max)
+{
+	return (__int16)GetRandomNum<unsigned __int16>( min, max );
+}
+
+template <>
+__int32 GetRandomNum<__int32>(const __int32& min, const __int32& max)
+{
+	return (__int32)GetRandomNum<unsigned __int32>( min, max );
+}
+
+template <>
+__int64 GetRandomNum<__int64>(const __int64& min, const __int64& max)
+{
+	return (__int64)GetRandomNum<unsigned __int64>( min, max );
 }

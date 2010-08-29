@@ -109,10 +109,7 @@ public:
 	void			Clear();
 	BOOL			Load();
 	BOOL			Save();
-	inline void		StopThread()
-	{
-		CloseThread();
-	}
+	void			StopThread();
 	static BOOL		IsBadFile(LPCTSTR szFilenameOnly, LPCTSTR szPathOnly = NULL, DWORD dwFileAttributes = 0);
 
 protected:

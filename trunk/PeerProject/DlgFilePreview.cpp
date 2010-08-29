@@ -57,8 +57,8 @@ CCriticalSection	CFilePreviewDlg::m_pSection;
 /////////////////////////////////////////////////////////////////////////////
 // CFilePreviewDlg dialog
 
-CFilePreviewDlg::CFilePreviewDlg(CDownloadWithExtras* pDownload, DWORD nIndex, CWnd* pParent) :
-	CSkinDialog( CFilePreviewDlg::IDD, pParent )
+CFilePreviewDlg::CFilePreviewDlg(CDownloadWithExtras* pDownload, DWORD nIndex, CWnd* pParent)
+	: CSkinDialog( CFilePreviewDlg::IDD, pParent )
 	, m_pDownload	( pDownload )
 	, m_sSourceName	( pDownload->GetPath( nIndex ) )
 	, m_sDisplayName( pDownload->GetName( nIndex ) )
@@ -302,13 +302,11 @@ void CFilePreviewDlg::OnClose()
 
 		Exit();
 
-		if ( m_pPlugin != NULL )
+		if ( m_pPlugin )
 			m_pPlugin->Cancel();
 	}
-	else
-	{
-		DestroyWindow();
-	}
+
+	DestroyWindow();
 }
 
 void CFilePreviewDlg::OnDestroy()
@@ -373,6 +371,8 @@ BOOL CFilePreviewDlg::RunPlugin()
 	hr = m_pPlugin->Preview2( CComBSTR( m_sSourceName ), CComBSTR( m_sTargetName ) );
 
 	oLock.Lock();
+
+	m_pPlugin->SetSite( NULL );
 
 	m_pPlugin.Release();
 

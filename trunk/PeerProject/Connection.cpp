@@ -49,7 +49,7 @@ CConnection::CConnection(PROTOCOLID nProtocol)
 	, m_hSocket 	( INVALID_SOCKET )
 	, m_pInput		( NULL )
 	, m_pOutput 	( NULL )
-	, m_bClientExtended( FALSE )
+	, m_bClientExtended ( FALSE )
 	, m_nProtocol	( nProtocol )
 	, m_nQueuedRun	( 0 )			// DoRun sets it to 0, QueueRun sets it to 2 (do)
 {
@@ -428,8 +428,7 @@ void CConnection::QueueRun()
 // Objects that inherit from CConnection have OnConnected methods that do things, unlike this one
 BOOL CConnection::OnConnected()
 {
-	// Just return true ?
-	return TRUE;
+	return TRUE;	// Just return true?
 }
 
 // Objects that inherit from CConnection have OnDropped methods that do things, unlike this one
@@ -441,8 +440,7 @@ void CConnection::OnDropped()
 // Objects that inherit from CConnection have OnRun methods that do things, unlike this one
 BOOL CConnection::OnRun()
 {
-	// Just return true ?
-	return TRUE;
+	return TRUE;	// Just return true?
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -470,9 +468,15 @@ BOOL CConnection::OnRead()
 
 	// Read from the socket and record the # bytes read
 	DWORD nTotal = m_pInput->Receive( m_hSocket, nLimit );
+	if ( nTotal )
+	{
+		// Bytes were read, add # bytes to bandwidth meter
+		m_mInput.Add( nTotal, tNow );
 
-	// If some bytes were read, add # bytes to bandwidth meter
-	if ( nTotal ) m_mInput.Add( nTotal, tNow );
+		// Add the total to statistics
+		Statistics.Current.Bandwidth.Incoming += nTotal;
+		Statistics.Current.Downloads.Volume += ( nTotal / 1024 );	// For Home tab display
+	}
 
 	// Report success
 	return TRUE;
@@ -507,7 +511,13 @@ BOOL CConnection::OnWrite()
 	// Read from the socket and record the # bytes sent
 	DWORD nTotal = m_pOutput->Send( m_hSocket, nLimit );
 	if ( nTotal )
-		m_mOutput.Add( nTotal, tNow );				// Bytes were sent, add # bytes to bandwidth meter
+	{
+		// Bytes were sent, add # bytes to bandwidth meter
+		m_mOutput.Add( nTotal, tNow );
+
+		// Add the total to statistics
+		Statistics.Current.Bandwidth.Outgoing += nTotal;
+	}
 
 	// Report success
 	return TRUE;
@@ -704,7 +714,6 @@ BOOL CConnection::SendMyAddress()
 	// We're not even listening on a port
 	return FALSE;
 }
-
 
 void CConnection::UpdateCountry()
 {

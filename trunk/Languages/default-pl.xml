@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Polish Skin File -->
 
-<!-- Translation based on default-en.xml r55 (Shareaza 2.1.2.7) -->
+<!-- Translation based on default-en.xml r56 (Shareaza 2.1.2.7) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2552,8 +2552,8 @@
 	<string id="8336" value="Źródła dla tego pliku moga być niestabilne"/>
 	<string id="8337" value="Untrusted, nie zaufany"/>
 	<string id="8338" value="Brak Hashset'u"/> <!-- ? A co to jest?sprawdzić! ?? -->
-	<string id="13000" value="Czy jesteś pewny, że chcesz usunąć zaznaczone reguły bezpieczeństwa? To jest nieodwracalne."/>
-	<string id="13001" value="Files shared over the Internet"/>
+	<string id="13000" value="Files shared over the Internet"/>
+	<string id="13001" value="Czy jesteś pewny, że chcesz usunąć zaznaczone reguły bezpieczeństwa? To jest nieodwracalne."/>
 	<string id="16063" value="Po 10 próbach mapowanie UPnP portu nie powiodło się."/>
 	<string id="16064" value="Startuje jądro PeerProjecty..."/>
 	<string id="16065" value="Nie można przydzielić portu %s %i dla połączeń przychodzących. Połączenia przychodzące nie będą aktywne"/>
@@ -4233,4 +4233,3 @@
 	</list>
 </listColumns>
 </skin>
-쮍

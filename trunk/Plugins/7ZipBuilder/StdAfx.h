@@ -1,7 +1,6 @@
 //
-// stdafx.h 
+// stdafx.h
 //
-
 // Source file for standard system include files,
 // or project files that are used frequently but changed infrequently
 

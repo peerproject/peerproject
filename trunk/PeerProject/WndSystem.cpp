@@ -28,6 +28,7 @@
 #include "CrawlSession.h"
 #include "WindowManager.h"
 #include "WndNeighbours.h"
+#include "WndMain.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -103,7 +104,37 @@ void CSystemWnd::OnTimer(UINT_PTR /*nIDEvent*/)
 	for ( int i = 0; i < 50 && ! theApp.m_oMessages.IsEmpty(); i++ )
 	{
 		CLogMessage* pMsg = theApp.m_oMessages.RemoveHead();
+
 		m_wndText.Add( pMsg->m_nType, pMsg->m_strLog );
+
+		if ( ( pMsg->m_nType & MSG_TRAY ) == MSG_TRAY )
+		{
+			// Flagged to show user via system bubble
+			if ( CMainWnd* pWnd = theApp.CPeerProjectApp::SafeMainWnd() )
+			{
+				DWORD nType = NIIF_NONE;
+				switch ( pMsg->m_nType & MSG_SEVERITY_MASK )
+				{
+				case MSG_ERROR:
+					nType = NIIF_ERROR;
+					break;
+
+				case MSG_WARNING:
+					nType = NIIF_WARNING;
+					break;
+
+				case MSG_INFO:
+				case MSG_NOTICE:
+					nType = NIIF_INFO;
+					break;
+				}
+
+				pWnd->ShowTrayPopup( pMsg->m_strLog, NULL, nType );
+
+				i = 50;
+			}
+		}
+
 		delete pMsg;
 	}
 }

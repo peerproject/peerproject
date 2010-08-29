@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Norwegian Skin File -->
 
-<!-- Translation based on default-en.xml r55 (Shareaza 2.2.0.2) -->
+<!-- Translation based on default-en.xml r56 (Shareaza 2.2.0.2) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2404,7 +2404,7 @@
 	<string id="8002" value="Egenskaper"/>
 	<string id="8003" value="Endre min profil"/>
 	<string id="8004" value="!Velkommen til PeerProject (version) !\n.\nPeerProject er helt gratis software.\nVennligst vis ansvar og respekt for materiell opphavsrett.\n."/>
-	<string id="8005" value=" (Avslutter etter overføring)"/>
+	<string id="8005" value="(Avslutter etter overføring)"/>
 	<string id="8006" value="Du er ikke koblet til. Trykk på Koble til knappen for å starte."/>
 	<string id="8007" value="Det er ingen aktive søk. Klikk her for å søke etter filer."/>
 	<string id="8008" value="PeerProject er ferdig med å laste ned den nyeste PeerProject versjonen (%s). Vil du oppgradere nå?\n\nHvis du velger JA, vil PeerProject lukkes for å fullføre oppgraderingen."/>

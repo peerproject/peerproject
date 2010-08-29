@@ -30,6 +30,28 @@ static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
 #endif
 
+inline bool validAndEqual(QWORD nLeft, QWORD nRight)
+{
+	return ( nLeft != SIZE_UNKNOWN && nRight != SIZE_UNKNOWN && nLeft == nRight );
+}
+
+inline bool validAndUnequal(QWORD nLeft, QWORD nRight)
+{
+	return ( nLeft != SIZE_UNKNOWN && nRight != SIZE_UNKNOWN && nLeft != nRight );
+}
+
+inline bool validAndEqual(const CString& sLeft, const CString& sRight)
+{
+	return ( sLeft.GetLength() && sRight.GetLength() && ! sLeft.CompareNoCase( sRight ) );
+}
+
+inline bool validAndUnequal(const CString& sLeft, const CString& sRight)
+{
+	return ( sLeft.GetLength() && sRight.GetLength() && sLeft.CompareNoCase( sRight ) );
+}
+
+// CPeerProjectFile
+
 IMPLEMENT_DYNAMIC(CPeerProjectFile, CComObject)
 
 BEGIN_INTERFACE_MAP(CPeerProjectFile, CComObject)
@@ -68,6 +90,54 @@ CPeerProjectFile& CPeerProjectFile::operator=(const CPeerProjectFile& pFile)
 	m_sPath = pFile.m_sPath;
 	m_sURL = pFile.m_sURL;
 	return *this;
+}
+
+bool CPeerProjectFile::operator==(const CPeerProjectFile& pFile) const
+{
+	if ( this == &pFile )
+		return true;	// Same object
+
+	if ( validAndUnequal( m_nSize,  pFile.m_nSize  ) ||
+		 validAndUnequal( m_oSHA1,  pFile.m_oSHA1  ) ||
+		 validAndUnequal( m_oTiger, pFile.m_oTiger ) ||
+		 validAndUnequal( m_oED2K,  pFile.m_oED2K  ) ||
+		 validAndUnequal( m_oMD5,   pFile.m_oMD5   ) )
+	{
+		return false;	// Different sizes or hashes (excluding BitTorrent)
+	}
+
+	if ( validAndEqual( m_oSHA1,  pFile.m_oSHA1  ) ||
+		 validAndEqual( m_oTiger, pFile.m_oTiger ) ||
+		 validAndEqual( m_oED2K,  pFile.m_oED2K  ) ||
+		 validAndEqual( m_oMD5,   pFile.m_oMD5   ) )
+	{
+		return true;	// Same hash (excluding BitTorrent)
+	}
+
+	if ( validAndEqual( m_oBTH,  pFile.m_oBTH  ) &&
+		 validAndEqual( m_sName, pFile.m_sName ) )
+	{
+		return true;	// Same name and BitTorrent hash
+	}
+
+	return false;		// Insufficient data
+}
+
+bool CPeerProjectFile::operator!=(const CPeerProjectFile& pFile) const
+{
+	if ( this == &pFile )
+		return false;	// Same object
+
+	if ( validAndUnequal( m_nSize,  pFile.m_nSize  ) ||
+		 validAndUnequal( m_oSHA1,  pFile.m_oSHA1  ) ||
+		 validAndUnequal( m_oTiger, pFile.m_oTiger ) ||
+		 validAndUnequal( m_oED2K,  pFile.m_oED2K  ) ||
+		 validAndUnequal( m_oMD5,   pFile.m_oMD5   ) )
+	{
+		return true;	// Different sizes or hashes (excluding BitTorrent)
+	}
+
+	return false;		// Insufficient data
 }
 
 CString CPeerProjectFile::GetURL(const IN_ADDR& nAddress, WORD nPort) const
@@ -127,14 +197,13 @@ CString CPeerProjectFile::GetFilename() const
 		sFilename = CString( _T("sha1_") ) + m_oSHA1.toString();
 	else if ( m_oED2K )
 		sFilename = CString( _T("ed2k_") ) + m_oED2K.toString();
-	else if ( m_oMD5 )
-		sFilename = CString( _T("md5_")  ) + m_oMD5.toString();
 	else if ( m_oBTH )
 		sFilename = CString( _T("btih_") ) + m_oBTH.toString();
+	else if ( m_oMD5 )
+		sFilename = CString( _T("md5_")  ) + m_oMD5.toString();
 	else
-		sFilename.Format( _T("rand_%2i%2i%2i%2i"),
-			GetRandomNum( 0, 99 ), GetRandomNum( 0, 99 ),
-			GetRandomNum( 0, 99 ), GetRandomNum( 0, 99 ) );
+		sFilename.Format( _T("file_%2i%2i%2i"),
+			GetRandomNum( 0, 99 ), GetRandomNum( 0, 99 ), GetRandomNum( 0, 99 ) );
 	return sFilename;
 }
 
@@ -303,8 +372,7 @@ STDMETHODIMP CPeerProjectFile::XPeerProjectFile::get_Hash(URN_TYPE nType, ENCODI
 {
 	METHOD_PROLOGUE( CPeerProjectFile, PeerProjectFile )
 
-	if ( ! psURN )
-		return E_POINTER;
+	if ( ! psURN ) return E_POINTER;
 
 	*psURN = NULL;
 

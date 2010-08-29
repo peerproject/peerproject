@@ -45,10 +45,11 @@ public:
 
 	CWindowManager		m_pWindows;
 
-	void	SetGUIMode(int nMode, BOOL bSaveState = TRUE);	// Set mode GUI_WINDOWED, GUI_TABBED or GUI_BASIC
 	void	CloseToTray();							// Hide application to tray
 	void	OpenFromTray(int nShowCmd = SW_SHOW);	// Open main window from tray
+	void	OpenTrayMenu(); 						// Open context menu from tray
 	void	ShowTrayPopup(LPCTSTR szText, LPCTSTR szTitle = CLIENT_NAME, DWORD dwIcon = NIIF_INFO, UINT uTimeout = 12 /*seconds*/);
+	void	SetGUIMode(int nMode, BOOL bSaveState = TRUE);	// Set mode GUI_WINDOWED, GUI_TABBED or GUI_BASIC
 
 	inline BOOL	IsForegroundWindow() const			// Test if window foreground or not
 	{
@@ -73,18 +74,22 @@ protected:
 	NOTIFYICONDATA		m_pTray;			// Tray icon data
 	BOOL				m_bTrayHide;		// Is main window hidden to tray?
 	BOOL				m_bTrayIcon;		// Is tray icon available?
+	BOOL				m_bTrayNotify;		// Is temporary notification balloon present?
+	BOOL				m_bTrayUpdate;		// Does tray data need to be updated?
 	BOOL				m_bTimer;
 	CString				m_sMsgStatus;
 	CBrush				m_brDockArea;
 	CSkinWindow*		m_pSkin;
 	CURLActionDlg*		m_pURLDialog;
 	DWORD				m_tURLTime;
-	DWORD				m_nAlpha;			// Main window transparency (0...255)
+	DWORD				m_nAlpha;			// Main window transparency (0-255)
 
 	void		UpdateMessages();			// Update main window tile, status bar and tray messages
 	void		LocalSystemChecks();		// Run various networks, host caches and disk checks
 	void		SaveState();				// Save all window states
 	void		RemoveSkin();				// Remove skins from window (primarily for shutdown)
+	void		AddTray();
+	void		DeleteTray();
 
 	virtual BOOL OnCommand(WPARAM wParam, LPARAM lParam);
 	virtual BOOL Create(LPCTSTR lpszClassName, LPCTSTR lpszWindowName, DWORD dwStyle, const RECT& rect, CWnd* pParentWnd, LPCTSTR lpszMenuName, DWORD dwExStyle, CCreateContext* pContext);

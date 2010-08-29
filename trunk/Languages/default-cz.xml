@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Czech Skin File -->
 
-<!-- Translation based on default-en.xml r55 (Shareaza 2.2.5.7) -->
+<!-- Translation based on default-en.xml r56 (Shareaza 2.2.5.7) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2584,7 +2584,7 @@
 	<string id="8002" value="Vlastnosti souboru"/>
 	<string id="8003" value="Upravit vlastní profil"/>
 	<string id="8004" value="!Vítejte v PeerProject (version) !\n.\nPeerProject je naprosto volný software.\nProsím používejte jej zodpovědně a respektujte právo duševního vlastnictví. Krást se nemá.\n."/>
-	<string id="8005" value=" (zavřít po dokončení přenosu)"/>
+	<string id="8005" value="(zavřít po dokončení přenosu)"/>
 	<string id="8006" value="Nejste připojení. Pro spuštění klikněte na tlačítko Připojit se."/>
 	<string id="8007" value="Nejsou spuštěna žádná aktivní hledání. Klikněte zde pro vyhledání souborů."/>
 	<string id="8008" value="PeerProject dokončila stahování novější verze (%s). Chcete ji hned aktualizovat?\n\nPokud zvolíte Ano, PeerProject se dočasně ukončí aby se mohla nainstalovat aktualizace."/>
@@ -2721,8 +2721,8 @@
 	<string id="8336" value="Zdroje pro tento soubor mohou být nestabilní"/>
 	<string id="8337" value="Nedůvěryhodný"/>
 	<string id="8338" value="&#160;(Žádný Hashset)"/>
-	<string id="13000" value="Checte smazat vybraná bezpoečnostní pravidla? Tato operace je nevratná."/>
-	<string id="13001" value="Soubory sdílené v Internetu"/>
+	<string id="13000" value="Soubory sdílené v Internetu"/>
+	<string id="13001" value="Checte smazat vybraná bezpoečnostní pravidla? Tato operace je nevratná."/>
 	<string id="16063" value="Mapování UPnP portu selhalo po 10 pokusech."/>
 	<string id="16064" value="Spouštím síťové jádro PeerProject..."/>
 	<string id="16065" value="Nelze otevřít %s port %i pro příchozí spojení. Příchozí připojení není podporováno."/>

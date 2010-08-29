@@ -39,7 +39,11 @@
 #include <Augment\auto_ptr.hpp>		// (Dependencies moved to file)
 #include <Augment\auto_array.hpp>
 
+#ifndef _PORTABLE
 #include "..\HashLib\HashLib.h"
+//#include "..\PeerProject\Buffer.h"	// Common alternative
+//#include "..\PeerProject\BENode.h"	// (remove local files first)
+#endif
 
 typedef unsigned __int64 QWORD;
 

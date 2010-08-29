@@ -38,7 +38,7 @@ protected:
 
 // Operations
 public:
-	BOOL		Load();
+	int			Load();
 	void		Clear();
 
 // Inlines
@@ -75,7 +75,7 @@ public:
 		CSchemaPtr pSchema = NULL;
 
 		// A quick hack for Limewire documents schema
-		// ToDo: Remove it when the full schema mapping is ready
+		// ToDo: Remove it when the full schema mapping is verified
 		//if ( strName == L"document" )
 		//	return m_pNames.Lookup( L"wordprocessing", pSchema ) ? pSchema : NULL;
 
@@ -86,6 +86,10 @@ public:
 	CXMLElement* Decode(BYTE* pszData, DWORD nLength, CSchemaPtr& pSchema);
 	static CXMLElement* AutoDetectSchema(LPCTSTR pszInfo);
 	static CXMLElement* AutoDetectAudio(LPCTSTR pszInfo);
+
+private:
+	CSchemaCache(const CSchemaCache&);
+	CSchemaCache& operator=(const CSchemaCache&);
 };
 
 extern CSchemaCache	SchemaCache;

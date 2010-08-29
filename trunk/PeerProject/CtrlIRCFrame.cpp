@@ -418,7 +418,11 @@ void CIRCFrame::OnSkinChange()
 	else if ( Colors.m_crBannerBack == RGB( 122, 160, 230 ) )
 		m_bmWatermark.LoadBitmap( IDB_BANNER_MARK );
 
+	SetFonts();
 	m_nHeaderIcon = CoolInterface.ExtractIconID( IDR_IRCFRAME, FALSE, LVSIL_BIG );
+	m_pContent.m_crBackground = Settings.IRC.Colors[ ID_COLOR_CHATWINDOW ];
+	m_wndView.SetDocument( &m_pContent );
+	TabClick();
 }
 
 void CIRCFrame::OnUpdateCmdUI()
@@ -472,11 +476,7 @@ void CIRCFrame::OnPaint()
 	CPaintDC dc( this );
 	CRect rcClient;
 	GetClientRect( &rcClient );
-	if ( Settings.IRC.Updated )
-	{
-		Settings.IRC.Updated = FALSE;
-		OnSettings();
-	}
+
 	dc.SetTextColor( Colors.m_crBannerText );
 	dc.SetBkMode( TRANSPARENT );
 
@@ -1107,8 +1107,8 @@ void CIRCFrame::OnTimer(UINT_PTR nIDEvent)
 		m_bFloodProtectionRunning = FALSE;
 		int nTargetWindow = GetTabIndex( m_sStatus );
 		if ( m_wndTab.GetCurSel() == nTargetWindow )
-			OnStatusMessage( _T("Stopped flood protection."), ID_COLOR_SERVERMSG );
-		m_pIrcBuffer[ nTargetWindow ].Add( char(ID_COLOR_SERVERMSG) + _T("Stopped flood protection.") );
+			OnStatusMessage( _T("Stopped flood protection."), ID_COLOR_SERVERMSG );	// ToDo: Translate?
+		m_pIrcBuffer[ nTargetWindow ].Add( char(ID_COLOR_SERVERMSG) + CString( _T("Stopped flood protection.") ) );
 		KillTimer( 8 );
 		m_nTimerVal = 0;
 		return;
@@ -1129,8 +1129,8 @@ void CIRCFrame::OnTimer(UINT_PTR nIDEvent)
 				m_bFloodProtectionRunning = TRUE;
 				int nTargetWindow = GetTabIndex( m_sStatus );
 				if ( m_wndTab.GetCurSel() != nTargetWindow )
-					m_pIrcBuffer[ m_wndTab.GetCurSel() ].Add( char(ID_COLOR_SERVERMSG ) + _T("Running flood protection.") );
-				OnStatusMessage( _T("Running flood protection."), ID_COLOR_SERVERMSG );
+					m_pIrcBuffer[ m_wndTab.GetCurSel() ].Add( char(ID_COLOR_SERVERMSG ) + CString( _T("Running flood protection.") ) );
+				OnStatusMessage( _T("Running flood protection."), ID_COLOR_SERVERMSG );	// ToDo: Translate?
 			}
 			m_nMsgsInSec = 0;
 		}
@@ -1222,7 +1222,7 @@ void CIRCFrame::StatusMessage(LPCTSTR pszText, int nFlags)
 	else
 	{
 		OnStatusMessage( pszText, nFlags );
-		m_pIrcBuffer[ 0 ].Add( char( nFlags ) + pszText );
+		m_pIrcBuffer[ 0 ].Add( char( nFlags ) + CString( pszText ) );
 	}
 }
 
@@ -2476,7 +2476,8 @@ void CIRCFrame::TabClick()
 
 	m_wndPanel.m_boxUsers.UpdateCaptionCount();
 	LoadBufferForWindow( nTab );
-	this->RedrawWindow();
+
+	RedrawWindow();
 }
 
 int CIRCFrame::AddTab(CString strTabName, int nKindOfTab)
@@ -2612,14 +2613,6 @@ void CIRCFrame::OnRichClk(NMHDR* /*pNMHDR*/, LRESULT* pResult)
 		m_wndPanel.m_boxUsers.m_wndUserList.PostMessage( WM_LBUTTONUP );
 	}
 	*pResult = 0;
-}
-
-void CIRCFrame::OnSettings()
-{
-	m_pContent.m_crBackground = Settings.IRC.Colors[ ID_COLOR_CHATWINDOW ];
-	SetFonts();
-	m_wndView.SetDocument( &m_pContent );
-	TabClick();
 }
 
 // Operations

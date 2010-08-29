@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Italian Skin File -->
 
-<!-- Translation based on default-en.xml r55 -->
+<!-- Translation based on default-en.xml r56 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2659,7 +2659,7 @@
 	<string id="8002" value="Proprietà file"/>
 	<string id="8003" value="Modifica il Mio Profilo"/>
 	<string id="8004" value="!Benvenuto su PeerProject (version) !\n.\nPeerProject è un software completamente gratuito.\nUsalo con responsabilità e rispetto della legge sulla proprietà intellettuale.\n."/>
-	<string id="8005" value=" (chiusura al termine dei trasferimenti)"/>
+	<string id="8005" value="(chiusura al termine dei trasferimenti)"/>
 	<string id="8006" value="Non sei connesso. Clicca sul pulsante Connetti per iniziare."/>
 	<string id="8007" value="Nessuna ricerca attiva. Clicca su Nuova ricerca per iniziare."/>
 	<string id="8008" value="PeerProject ha finito di scaricare la versione di PeerProject più recente (%s). Desideri effettuare l'aggiornamento ora?\n\nSe selezioni Si, PeerProject si chiuderà temporaneamente mentre l'aggiornamento sarà installato."/>
@@ -2798,8 +2798,8 @@
 	<string id="8336" value="I sorgenti di questo file possono essere instabili"/>
 	<string id="8337" value="Non sicuro"/>
 	<string id="8338" value="Non Hashset"/>
-	<string id="13000" value="Sei sicuro di voler cancellare le regole di sicurezza selezionate?  Ciò non può essere annullato."/>
-	<string id="13001" value="File condivisi su internet"/>
+	<string id="13000" value="File condivisi su internet"/>
+	<string id="13001" value="Sei sicuro di voler cancellare le regole di sicurezza selezionate?  Ciò non può essere annullato."/>
 	<string id="16063" value="La mappatura delle porta UPnP è fallita dopo 10 tentativi."/>
 	<string id="16064" value="Avvio del nucleo della rete in corso..."/>
 	<string id="16065" value="Impossibile connettere a %s porta %i per le connessioni in entrata. Le connessioni in entrata non saranno supportate."/>
@@ -2899,7 +2899,7 @@
 	<string id="16282" value="Desideri eseguire il file scaricato &quot;%s&quot;?\n\nAlcuni file possono essere pericolosi per il tuo computer. Assicurati sulla natura del file prima di eseguirlo."/>
 	<string id="16283" value="Il file &quot;%s&quot; si sta già scaricando, verrà aggiunto alle fonti."/>
 	<string id="16284" value="Richiesta GIV malformattata %s ricevuta, chiusura della connessione."/>
-	<string id="16285" value="GIV sconosciuto da %s per il file &quot;%s&quot; ricevuto, chiusura della connessione."/>
+	<string id="16285" value="GIV sconosciuto da %s ricevuto."/>
 	<string id="16286" value="L'host %s sta effettuado il push per il download &quot;%s&quot;, accettato."/>
 	<string id="16287" value="Ulteriori fonti per il download &quot;%s&quot; non trovate perchè non c'è connessione con la rete."/>
 	<string id="16288" value="Richiesta di ulteriori fonti per il download &quot;%s&quot; su %i connessione(i) effettuata..."/>

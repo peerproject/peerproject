@@ -20,8 +20,6 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
-#include "Settings.h"
 #include "BENode.h"
 #include "Buffer.h"
 
@@ -31,6 +29,20 @@ static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
 #endif
 
+static bool Decode(UINT nCodePage, LPCSTR szFrom, CString& strTo)
+{
+	int nLength = MultiByteToWideChar( nCodePage, MB_ERR_INVALID_CHARS, szFrom, -1, NULL, 0 );
+	if ( nLength > 0 )
+	{
+		MultiByteToWideChar( nCodePage, 0, szFrom, -1,
+			strTo.GetBuffer( nLength ), nLength );
+		strTo.ReleaseBuffer();
+		return true;
+	}
+	return false;
+}
+
+UINT CBENode::m_nDefaultCP = CP_ACP;
 
 //////////////////////////////////////////////////////////////////////
 // CBENode construction/destruction
@@ -186,7 +198,8 @@ CBENode* CBENode::GetNode(const LPBYTE pKey, int nKey) const
 
 	for ( DWORD nNode = (DWORD)m_nValue ; nNode ; nNode--, pNode += 2 )
 	{
-		if ( memcmp( pKey, (LPBYTE)pNode[1], nKey ) == 0 ) return *pNode;
+		if ( memcmp( pKey, (LPBYTE)pNode[1], nKey ) == 0 )
+			return *pNode;
 	}
 
 	return NULL;
@@ -198,26 +211,14 @@ CBENode* CBENode::GetNode(const LPBYTE pKey, int nKey) const
 
 CString CBENode::GetStringFromSubNode(LPCSTR pszKey, UINT nEncoding, bool& bEncodingError) const
 {
-	CBENode*	pSubNode;
-	CString		strValue;
+	// Open the supplied node + .utf-8
+	CBENode* pSubNode = GetNode( CStringA( pszKey ) + ".utf-8" );
 
-	if ( Settings.BitTorrent.TorrentExtraKeys )
-	{
-		// check for undocumented nodes
-		size_t	nUTF8Len = strlen( pszKey ) + 8;
-
-		auto_array< char > pszUTF8Key( new char[ nUTF8Len ] );
-		strcpy_s( pszUTF8Key.get(), nUTF8Len, pszKey );
-		strcat_s( pszUTF8Key.get(), nUTF8Len, ".utf-8" );
-
-		// Open the supplied node + .utf-8
-		pSubNode = GetNode( pszUTF8Key.get() );
-
-		// We found a back-up node
-		// If it exists and is a string, try reading it
-		if ( ( pSubNode ) && ( pSubNode->m_nType == CBENode::beString ) )
-			strValue = pSubNode->GetString();	// Assumed to be UTF-8
-	}
+	// We found a back-up node
+	// If it exists and is a string, try reading it
+	CString strValue;
+	if ( ( pSubNode ) && ( pSubNode->m_nType == CBENode::beString ) )
+		strValue = pSubNode->GetString();	// Assumed to be UTF-8
 
 	// Open the supplied sub-node
 	pSubNode = GetNode( pszKey );
@@ -266,7 +267,7 @@ CString CBENode::GetStringFromSubNode(int nItem, UINT nEncoding, bool& bEncoding
 	// Open the supplied list/dictionary item
 	pSubNode = GetNode( nItem );
 
-	// If it exists and is a string, try reading it (using the correct UTF-8 encoding).
+	// If it exists and is a string, try reading it (using correct UTF-8 encoding).
 	if ( pSubNode && ( pSubNode->m_nType == CBENode::beString ) )
 		strValue = pSubNode->GetString();	// Read the string
 
@@ -287,7 +288,7 @@ CString CBENode::GetStringFromSubNode(int nItem, UINT nEncoding, bool& bEncoding
 //////////////////////////////////////////////////////////////////////
 // CBENode SHA1 computation
 
-void CBENode::GetBth(Hashes::BtHash& oBTH) const
+CSHA CBENode::GetSHA1() const
 {
 	ASSERT( this != NULL );
 
@@ -297,8 +298,7 @@ void CBENode::GetBth(Hashes::BtHash& oBTH) const
 	CSHA pSHA;
 	pSHA.Add( pBuffer.m_pBuffer, pBuffer.m_nLength );
 	pSHA.Finish();
-	pSHA.GetHash( &oBTH[ 0 ] );
-	oBTH.validate();
+	return pSHA;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -566,20 +566,15 @@ CString CBENode::GetString() const
 	if ( m_nType != beString )
 		return CString();
 
+	CString str;
+	LPCSTR szValue = (LPCSTR)m_pValue;
+
 	// Decode from UTF-8
-	int nLength = MultiByteToWideChar( CP_UTF8, MB_ERR_INVALID_CHARS,
-		(LPCSTR)m_pValue, -1, NULL, 0 );
-	if ( nLength > 0 )
-	{
-		CString str;
-		MultiByteToWideChar( CP_UTF8, 0,
-			(LPCSTR)m_pValue, -1, str.GetBuffer( nLength ), nLength );
-		str.ReleaseBuffer();
+	if ( ::Decode( CP_UTF8, szValue, str ) )
 		return str;
-	}
 
 	// Use as is
-	return CString( (LPCSTR)m_pValue );
+	return CString( szValue );
 }
 
 CString CBENode::DecodeString(UINT nCodePage) const
@@ -587,51 +582,35 @@ CString CBENode::DecodeString(UINT nCodePage) const
 	if ( m_nType != beString )
 		return CString();
 
-	int nLength = 0;
+	CString str;
+	LPCSTR szValue = (LPCSTR)m_pValue;
 
 	// Use the torrent code page (if present)
 	if ( nCodePage != CP_ACP )
-		nLength = MultiByteToWideChar( nCodePage, MB_ERR_INVALID_CHARS,
-			(LPCSTR)m_pValue, -1 , NULL, 0 );
-	if ( nLength > 0 )
 	{
-		CString str;
-		MultiByteToWideChar( nCodePage, 0,
-			(LPCSTR)m_pValue, -1, str.GetBuffer( nLength ), nLength );
-		str.ReleaseBuffer();
-		return str;
+		if ( ::Decode( nCodePage, szValue, str ) )
+			return str;
 	}
 
-	// Try the user-specified code page if it's set, else use the system code page
-	if ( Settings.BitTorrent.TorrentCodePage != CP_ACP )
-		nCodePage = Settings.BitTorrent.TorrentCodePage;
-	else
-		nCodePage = GetOEMCP();
-
-	if ( nCodePage != CP_ACP )
-		nLength = MultiByteToWideChar( nCodePage, MB_ERR_INVALID_CHARS,
-			(LPCSTR)m_pValue, -1, NULL, 0 );
-	if ( nLength > 0 )
+	// Try the user-specified code page if it's set (previously Settings.BitTorrent.TorrentCodePage)
+	if ( m_nDefaultCP != CP_ACP && m_nDefaultCP != nCodePage )
 	{
-		CString str;
-		MultiByteToWideChar( nCodePage, 0,
-			(LPCSTR)m_pValue, -1, str.GetBuffer( nLength ), nLength );
-		str.ReleaseBuffer();
-		return str;
+		if ( ::Decode( m_nDefaultCP, szValue, str ) )
+			return str;
+	}
+
+	// Try OEM
+	UINT nOEMCodePage = GetOEMCP();
+	if ( nOEMCodePage != nCodePage && nOEMCodePage != m_nDefaultCP )
+	{
+		if ( ::Decode( nOEMCodePage, szValue, str ) )
+			return str;
 	}
 
 	// Try ACP. (Should convert anything, but badly)
-	nLength = MultiByteToWideChar( CP_ACP, MB_ERR_INVALID_CHARS,
-		(LPCSTR)m_pValue, -1, NULL, 0 );
-	if ( nLength > 0 )
-	{
-		CString str;
-		MultiByteToWideChar( CP_ACP, 0,
-			(LPCSTR)m_pValue, -1, str.GetBuffer( nLength ), nLength );
-		str.ReleaseBuffer();
+	if ( ::Decode( CP_ACP, szValue, str ) )
 		return str;
-	}
 
 	// Use as is
-	return CString( (LPCSTR)m_pValue );
+	return CString( szValue );
 }

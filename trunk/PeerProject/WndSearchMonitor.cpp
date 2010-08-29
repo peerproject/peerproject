@@ -92,7 +92,7 @@ int CSearchMonitorWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_wndList.InsertColumn( 0, _T("Search"), LVCFMT_LEFT, 210, -1 );
 	m_wndList.InsertColumn( 1, _T("URN"), LVCFMT_LEFT, 340, 0 );
 //	m_wndList.InsertColumn( 2, _T("Size"), LVCFMT_LEFT, 100, 1 );
-	m_wndList.InsertColumn( 2, _T("Schema"), LVCFMT_LEFT, 100, 1 );
+	m_wndList.InsertColumn( 2, _T("Schema"), LVCFMT_LEFT, 150, 1 );
 //	m_wndList.InsertColumn( 4, _T("Network"), LVCFMT_LEFT, 60, 3 );
 	m_wndList.InsertColumn( 3, _T("Endpoint"), LVCFMT_LEFT, 150, 2 );
 

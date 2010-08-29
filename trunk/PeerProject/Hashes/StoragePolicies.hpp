@@ -56,7 +56,7 @@ namespace Hashes
 			ZeroInit(iterator input)
 				: Descriptor()
 			{
-				std::copy( input, input + wordCount, begin() );
+				CopyMemory( &*begin(), &*input, byteCount );	// std::copy
 			}
 			ZeroInit(const RawStorage& rhs)
 				: Descriptor(), m_storage( rhs )
@@ -72,7 +72,10 @@ namespace Hashes
 				return *this;
 			}
 
-			void clear() { memset( &m_storage[ 0 ], 0, byteCount ); }
+			void clear()
+			{
+				ZeroMemory( &*begin(), byteCount );	// memset
+			}
 
 			uchar& operator[](size_t index) { return m_storage[ index ]; }
 			const uchar& operator[](size_t index) const
@@ -122,7 +125,7 @@ namespace Hashes
 			NoInit(iterator input)
 				: Descriptor()
 			{
-				memcpy( begin(), input, byteCount );
+				CopyMemory( &*begin(), &*input, byteCount );	// memcpy
 			}
 			NoInit(const RawStorage& rhs)
 				: Descriptor(), m_storage( rhs )

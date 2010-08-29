@@ -34,7 +34,7 @@
 #include "Transfer.h"
 #include "CtrlWizard.h"
 
-#include "..\Services\RegExp\RegExpr2.h"
+//#include "..\Services\RegExp\RegExpr2.h"	// Obsolete
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -60,14 +60,14 @@ CWizardCtrl::~CWizardCtrl()
 BEGIN_MESSAGE_MAP(CWizardCtrl, CWnd)
 	//{{AFX_MSG_MAP(CWizardCtrl)
 	ON_WM_PAINT()
-	ON_WM_CREATE()
-	ON_WM_ERASEBKGND()
 	ON_WM_NCPAINT()
-	ON_WM_SETFOCUS()
+	ON_WM_ERASEBKGND()
 	ON_WM_VSCROLL()
+	ON_WM_SETFOCUS()
 	ON_WM_SHOWWINDOW()
-	ON_BN_CLICKED(IDC_WIZARD_CONTROL, OnBtnPress)
+	ON_WM_CREATE()
 	ON_WM_DESTROY()
+	ON_BN_CLICKED(IDC_WIZARD_CONTROL, OnBtnPress)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -408,7 +408,8 @@ BOOL CWizardCtrl::CollectFiles(CXMLElement* pBase)
 		}
 		if ( m_sOddFilePath.IsEmpty() ) m_sOddFilePath = m_sEvenFilePath;
 	}
-	else return FALSE;
+	else
+		return FALSE;
 
 	return TRUE;
 }
@@ -428,7 +429,8 @@ BOOL CWizardCtrl::CollectImages(CXMLElement* pBase)
 				m_pImagePaths.Add( pItem->GetAttributeValue( _T("path") ) );
 		}
 	}
-	else return FALSE;
+	else
+		return FALSE;
 
 	return TRUE;
 }
@@ -774,14 +776,23 @@ BOOL CWizardCtrl::PrepareDoc(CLibraryFile* pFile, LPCTSTR pszTemplate)
 	ReplaceNoCase( strDoc, _T("$meta:number$"), strReplace );
 
 	// Replace all "$meta:xxx$" which were left in the file to "N/A"
-	using namespace regex;
-	const rpattern regExpPattern( _T("\\$meta:.*\\$"), _T("N/A"),
-		NOCASE|GLOBAL|MULTILINE|NOBACKREFS, MODE_SAFE );
-	subst_results results;
-	std::wstring strTemp( strDoc, strDoc.GetLength() );
+	while ( LPCTSTR szStart = StrStrI( strDoc, _T("$meta:") ) )
+	{
+		if ( LPCTSTR szEnd = StrChr( szStart + 6, _T('$') ) )
+			strDoc.Replace( CString( szStart, szEnd - szStart + 1 ), _T("N/A") );
+		else
+			break;
+	}
 
-	regExpPattern.substitute( strTemp, results );
-	strDoc.SetString( strTemp.c_str(), static_cast< int >( strTemp.size() ) );
+	// Obsolete RegExp Alternative
+	//using namespace regex;
+	//const rpattern regExpPattern( _T("\\$meta:.*\\$"), _T("N/A"),
+	//	NOCASE|GLOBAL|MULTILINE|NOBACKREFS, MODE_SAFE );
+	//subst_results results;
+	//std::wstring strTemp( strDoc, strDoc.GetLength() );
+	//
+	//regExpPattern.substitute( strTemp, results );
+	//strDoc.SetString( strTemp.c_str(), static_cast< int >( strTemp.size() ) );
 
 	m_pFileDocs.Add( strDoc );
 	return TRUE;
@@ -829,39 +840,42 @@ fail:		result.push_back( nChar );
 
 BOOL CWizardCtrl::OnCommand(WPARAM wParam, LPARAM lParam)
 {
-	CString str;
-	if ( HIWORD( wParam ) != BN_CLICKED ) return CWnd::OnCommand( wParam, lParam );
+	if ( HIWORD( wParam ) != BN_CLICKED )
+		return CWnd::OnCommand( wParam, lParam );	// Is this right? (Old formatting confused)
+
+	CIconButtonCtrl* pButton = (CIconButtonCtrl*)CWnd::FromHandle( (HWND)lParam );
+	CEdit* pEdit = (CEdit*)( GetDlgItem( static_cast< int >( wParam - 1 ) ) );
+
+	if ( ! pButton->IsKindOf( RUNTIME_CLASS(CIconButtonCtrl) ) &&
+		 ! pEdit->IsKindOf( RUNTIME_CLASS(CEdit) ) )
+		return TRUE;
+
+	if ( pButton->GetWindowTextLength() ) // File picker
 	{
-		CIconButtonCtrl* pButton = (CIconButtonCtrl*)CWnd::FromHandle( (HWND)lParam );
-		CEdit* pEdit = (CEdit*)( GetDlgItem( static_cast< int >( wParam - 1 ) ) );
+		CFileDialog dlg( TRUE, NULL, NULL, OFN_HIDEREADONLY|OFN_FILEMUSTEXIST,
+			_T("All Files(*.*)|*.*||"), this );
+		if ( dlg.DoModal() == IDOK )
+			pEdit->SetWindowText( dlg.GetPathName() );
+	}
+	else // Color picker
+	{
+		// Find default color
+		int r, g, b;
+		CString str;
+		pEdit->GetWindowText( str );
+		COLORREF crColor = _stscanf( str, _T("#%2x%2x%2x"), &r, &g, &b ) != 3 ?
+			RGB(0, 0, 0) : RGB(r, g, b);
 
-		if ( ! pButton->IsKindOf( RUNTIME_CLASS(CIconButtonCtrl) ) &&
-			 ! pEdit->IsKindOf( RUNTIME_CLASS(CEdit) ) ) return TRUE;
-		if ( pButton->GetWindowTextLength() ) // File picker
+		CColorDialog dlg( crColor, CC_ANYCOLOR|CC_FULLOPEN|CC_RGBINIT, this );
+		if ( dlg.DoModal() == IDOK )
 		{
-			CFileDialog dlg( TRUE, NULL, NULL, OFN_HIDEREADONLY|OFN_FILEMUSTEXIST,
-				_T("All Files(*.*)|*.*||"), this );
-			if ( dlg.DoModal() == IDOK )
-				pEdit->SetWindowText( dlg.GetPathName() );
-		}
-		else // Color picker
-		{
-			// Find default color
-			int r, g, b;
-			pEdit->GetWindowText( str );
-			COLORREF crColor = _stscanf( str, _T("#%2x%2x%2x"), &r, &g, &b ) != 3 ?
-				RGB(0, 0, 0) : RGB(r, g, b);
-
-			CColorDialog dlg( crColor, CC_ANYCOLOR|CC_FULLOPEN|CC_RGBINIT, this );
-			if ( dlg.DoModal() == IDOK )
-			{
-				crColor = dlg.GetColor();
-				str.Format( _T("#%0.2x%0.2x%0.2x"),
-						GetRValue(crColor), GetGValue(crColor), GetBValue(crColor) );
-				pEdit->SetWindowText( str.MakeUpper() ); // no need to use CharUpper
-			}
+			crColor = dlg.GetColor();
+			str.Format( _T("#%0.2x%0.2x%0.2x"),
+					GetRValue(crColor), GetGValue(crColor), GetBValue(crColor) );
+			pEdit->SetWindowText( str.MakeUpper() ); // no need to use CharUpper
 		}
 	}
+
 	return CWnd::OnCommand( wParam, lParam );
 }
 

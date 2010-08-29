@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Hungarian Skin File -->
 
-<!-- Translation based on default-en.xml r55 -->
+<!-- Translation based on default-en.xml r56 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2770,8 +2770,8 @@
 	<string id="8336" value="A források ehhez a fájlhoz bizonytalanok"/>
 	<string id="8337" value="Megbízhatatlan"/>
 	<string id="8338" value="&#160;(Nincs Hash)"/>
-	<string id="13000" value="Biztosan törölni akarja a kiválasztott biztonsági szabályokat? Később már nem lehet visszavonni."/>
-	<string id="13001" value="Az interneten megosztott fájlok"/>
+	<string id="13000" value="Az interneten megosztott fájlok"/>
+	<string id="13001" value="Biztosan törölni akarja a kiválasztott biztonsági szabályokat? Később már nem lehet visszavonni."/>
 	<string id="16063" value="Az UPnP port hozzárendelés a 10 próbálkozás után sem sikerült."/>
 	<string id="16064" value="PeerProject hálózati mag indítása..."/>
 	<string id="16065" value="Nem tudok kacsolódni: %s port %i A bejövő kapcsolatok nem támogatottak."/>

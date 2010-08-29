@@ -8,7 +8,7 @@
  description="PeerProject's Windows 7 Theme"
  link="http://PeerProject.org"
  email="Contact(at)PeerProject.org"
- license="Persistent Public Domain (PPD)"
+ license="PPD (Persistent Public Domain)"
  platform="PeerProject 1.0"
  path="SkinVista"
  version="1.0"
@@ -66,18 +66,23 @@
   <color name="Panel.Caption.Text"			value="DEDEDE"/>
   <color name="Panel.Caption.Back"			value="FFFFFF"/>
   <color name="TaskPanel.Back"				value="FFFFFF"/>
+  <color name="TaskBox.Back"				value="FDFDFD"/>  <!--TaskBox.Client-->
   <color name="TaskBox.Primary.Back"			value="F4F2F0"/>
   <color name="TaskBox.Primary.Text"			value="006699"/>
   <color name="TaskBox.Caption.Back"			value="4080C0"/>
   <color name="TaskBox.Caption.Text"			value="006699"/>
   <color name="TaskBox.Caption.Hover"			value="3388CC"/>
-  <!--color name="TaskBox.Client"			value="FDFDFD"--> <!--deprecated-->
-  <color name="TaskBox.Back"				value="FDFDFD"/>
+  <!--color name="ToolTip.Border"			value="FCFBFA"-->
   <color name="ToolTip.Back"				value="FCFBFA"/>
   <color name="ToolTip.Text"				value="393630"/>
   <color name="ToolTip.Graph"				value="F8F6F2"/>
   <color name="ToolTip.Grid"				value="E2E0DD"/>
-  <color name="Dialog.Back"				value="F8F7F6"/>  <!--settings window-->
+  <color name="Dialog.Back"				value="F6F5F4"/>  <!--settings windows-->
+  <color name="Dialog.Text"				value="393630"/> 
+  <color name="Dialog.Panel.Back"			value="FCFBFA"/>  <!--metadata tabs, wizard-->
+  <color name="Dialog.Panel.Text"			value="393630"/>
+  <color name="Dialog.Menu.Back"			value="FAF9F8"/>  <!--settings menu-->
+  <color name="Dialog.Menu.Text"			value="403A34"/>
   <color name="Banner.Back"				value="C4D6FE"/>  <!--library/profile headers-->
   <color name="Banner.Text"				value="FFFFFF"/>
 
@@ -102,7 +107,7 @@
   <color name="Monitor.Upload.Line" 			value="809AC0"/>
   <color name="Monitor.Upload.Bar" 			value="809AC0"/>
   <color name="Monitor.Graph.Border" 			value="908070"/>
-  <color name="Meta.Row"					value="F2F0ED"/>
+  <color name="Meta.Row"				value="F2F0ED"/>
   <color name="Meta.Row.Alt"				value="EBEAE8"/>
   <color name="Meta.Rating" 				value="4A4440"/>
   <color name="Meta.Rating0"				value="EA4A60"/>
@@ -146,8 +151,6 @@
   <color name="FragmentBar.Request"			value="F0FF20"/>
   <color name="FragmentBar.Border"	 		value="888888"/>
   <color name="FragmentBar.Border.Selected" 		value="808080"/>
-  <color name="FragmentBar.Border.Simplebar" 		value="888888"/>
-  <color name="FragmentBar.Border.Simplebar.Selected" 	value="808080"/>
   <color name="DropdownBox.Back"			value="FFFFFF"/>
   <color name="DropdownBox.Text"			value="403A38"/>
   <color name="ResizeBar.Edge"				value="E8E7E6"/>
@@ -170,7 +173,6 @@
   <watermark target="CMainWnd.Toolbar"			path="Seven\RibbonTabsBkg.png"/>
   <watermark target="CMediaFrame.Toolbar"		path="Mediabar.png"/>
   <!--watermark target="CMediaList.Toolbar"		path="ToolbarLt.png"-->
-  <!--watermark target="CDialog"			path="ToolbarLt.png"-->
   <watermark target="CDownloadTabBar"			path="DownloadgroupsToolbar.png"/>
   <watermark target="CDownloadsWnd.Toolbar"		path="ToolbarLt.png"/>
   <!--watermark target="CUploadsWnd.Toolbar"		path="Toolbar.png"-->
@@ -228,10 +230,13 @@
 
   <!--watermark target="CNeighboursWnd"  		path="Seven\SideBlock.png"-->
   <!--watermark target="CSecurityWnd"  			path="Seven\SideBlock.png"-->
-  <!--watermark target="CMediaList"	  		path="Seven\SidebarFooter.jpg"--> <!--playlist-->
   <!--watermark target="CListCtrl"	  		path="Seven\SideBlock.png"-->	<!--dialog list boxes-->
-  <!--watermark target="CHomeViewCtrl.Header1"		path="###.png"-->
-  <!--watermark target="CHomeViewCtrl.Header2"		path="###.png"-->
+  <!--watermark target="CMediaList"	  		path="Seven\SidebarFooter.jpg"--> <!--playlist-->
+  <!--watermark target="CHomeViewCtrl.Header"		path="###.png"--> <!--hometab logo-->
+  <!--watermark target="CHomeViewCtrl.HeaderRepeat"	path="###.png"--> <!--hometab repeat-->
+  <!--watermark target="LargeLogo"			path="###.png"--> <!--mediaplayer-->
+  <watermark target="CDialog"				path="Dialog.png"/> <!--settings bg-->
+  <watermark target="CDialog.Panel"			path="DialogPanel.png"/> <!--meta tabs/wizard-->
 
   <watermark target="CWndTabBar.Active" 		path="Seven\RibbonBaselineTabActive.png"/>
   <watermark target="CWndTabBar.Hover"  		path="Seven\RibbonBaselineTabActive.png"/>
@@ -250,6 +255,7 @@
   <watermark target="CCoolbar.Hover" 			path="ToolbarButtonHover.png"/>
   <watermark target="CCoolbar.Checked" 			path="ToolbarButtonDown.png"/>
   <watermark target="CCoolbar.Separator"		path="ToolbarSeparator.png"/>
+  <watermark target="CCoolbar.Control"			path="MediaSlider.png"/>
 
   <watermark target="RichButton"			path="Buttons\RichButton.png"/>
   <watermark target="RichButtonPart" 			path="Buttons\RichButtonPart.png"/>
@@ -593,14 +599,15 @@
 <toolbars>
 
 <toolbar name="CMediaFrame">
- <control id="117" width="308" height="18"/>
+ <control id="IDC_MEDIA_POSITION" width="308" height="24"/>
  <button id="ID_MEDIA_STOP"/>
  <button id="ID_MEDIA_PREVIOUS"/>
  <button id="ID_MEDIA_PLAY"/>
  <button id="ID_MEDIA_PAUSE" visible="false"/>
  <button id="ID_MEDIA_NEXT"/>
    <rightAlign/>
- <control id="119" width="70" height="18"/>
+ <control id="IDC_MEDIA_VOLUME" width="70" height="24"/>
+ <!--control id="IDC_MEDIA_SPEED" width="70" height="24"-->
  <separator/>
  <button id="ID_MEDIA_ZOOM"/>
  <button id="ID_MEDIA_VIS"/>
@@ -611,14 +618,14 @@
 </toolbar>
 
 <toolbar name="CMediaFrame.Basic">
- <control id="117" width="308" height="18"/>
+ <control id="117" width="308" height="24"/>
  <button id="ID_MEDIA_STOP"/>
  <button id="ID_MEDIA_PREVIOUS"/>
  <button id="ID_MEDIA_PLAY"/>
  <button id="ID_MEDIA_PAUSE" visible="false"/>
  <button id="ID_MEDIA_NEXT"/>
    <rightAlign/>
- <control id="119" width="70" height="18"/>
+ <control id="119" width="70" height="24"/>
  <separator/>
  <button id="ID_MEDIA_ZOOM"/>
  <button id="ID_MEDIA_VIS"/>
@@ -641,10 +648,13 @@
 
 <!-- ICONS -->
 
-<commandImages>
-
+<icons>
  <!--icon id="IDI_UPDOWN_ARROW" path="UpDownArrow.ico" types="16" rtf="0"-->
  <icon id="WINDOW_NEIGHBOURS" path="IconConnection.ico" types="16" rtf="0"/>
+ <icon id="IDI_WIZARD_DOT" path="WizardDot.ico" types="16" rtf="0"/>
+</icons>
+
+<commandImages>
 
 <bitmap path="IconsMedia.png" mask="00FF00">
  <image id="ID_MEDIA_PLAY"/>
@@ -732,30 +742,35 @@
  <part name="_ID_TAB_HOME.Checked"	rect="0,24,68,24"/>
  <part name="_ID_TAB_HOME.Hover"	rect="0,48,68,24"/>
  <part name="_ID_TAB_HOME.Down" 	rect="0,72,68,24"/>
- <part name="_ID_TAB_SEARCH.Up" 	rect="68,0,66,24"/>
- <part name="_ID_TAB_SEARCH.Checked"	rect="68,24,66,24"/>
- <part name="_ID_TAB_SEARCH.Hover"	rect="68,48,66,24"/>
- <part name="_ID_TAB_SEARCH.Down"	rect="68,72,66,24"/>
- <part name="_ID_TAB_TRANSFERS.Up"	rect="134,0,78,24"/>
- <part name="_ID_TAB_TRANSFERS.Checked" rect="134,24,78,24"/>
- <part name="_ID_TAB_TRANSFERS.Hover"	rect="134,48,78,24"/>
- <part name="_ID_TAB_TRANSFERS.Down"	rect="134,72,78,24"/>
- <part name="_ID_TAB_LIBRARY.Up"	rect="286,0,70,24"/>
- <part name="_ID_TAB_LIBRARY.Checked"	rect="286,24,70,24"/>
- <part name="_ID_TAB_LIBRARY.Hover"	rect="286,48,70,24"/>
- <part name="_ID_TAB_LIBRARY.Down"	rect="286,72,70,24"/>
- <part name="_ID_TAB_MEDIA.Up"  	rect="356,0,70,24"/>
- <part name="_ID_TAB_MEDIA.Checked"	rect="356,24,70,24"/>
- <part name="_ID_TAB_MEDIA.Hover"	rect="356,48,70,24"/>
- <part name="_ID_TAB_MEDIA.Down"	rect="356,72,70,24"/>
+ <part name="_ID_TAB_TRANSFERS.Up"	rect="68,0,78,24"/>
+ <part name="_ID_TAB_TRANSFERS.Checked" rect="68,24,78,24"/>
+ <part name="_ID_TAB_TRANSFERS.Hover"	rect="68,48,78,24"/>
+ <part name="_ID_TAB_TRANSFERS.Down"	rect="68,72,78,24"/>
+ <part name="_ID_TAB_LIBRARY.Up"	rect="220,0,70,24"/>
+ <part name="_ID_TAB_LIBRARY.Checked"	rect="220,24,70,24"/>
+ <part name="_ID_TAB_LIBRARY.Hover"	rect="220,48,70,24"/>
+ <part name="_ID_TAB_LIBRARY.Down"	rect="220,72,70,24"/>
+ <part name="_ID_TAB_MEDIA.Up"  	rect="290,0,70,24"/>
+ <part name="_ID_TAB_MEDIA.Checked"	rect="290,24,70,24"/>
+ <part name="_ID_TAB_MEDIA.Hover"	rect="290,48,70,24"/>
+ <part name="_ID_TAB_MEDIA.Down"	rect="290,72,70,24"/>
+ <part name="_ID_TAB_IRC.Up" 		rect="360,0,66,24"/>
+ <part name="_ID_TAB_IRC.Checked"	rect="360,24,66,24"/>
+ <part name="_ID_TAB_IRC.Hover" 	rect="360,48,66,24"/>
+ <part name="_ID_TAB_IRC.Down"		rect="360,72,66,24"/>
+ <part name="_ID_TAB_SEARCH.Up" 	rect="426,0,66,24"/>
+ <part name="_ID_TAB_SEARCH.Checked"	rect="426,24,66,24"/>
+ <part name="_ID_TAB_SEARCH.Hover"	rect="426,48,66,24"/>
+ <part name="_ID_TAB_SEARCH.Down"	rect="426,72,66,24"/>
 </parts>
 <anchors>
- <anchor name="Background"		rect="0,0,370,28"/>
- <anchor name="_ID_TAB_HOME"		rect="6,2,68,24"/>
- <anchor name="_ID_TAB_SEARCH"		rect="74,2,66,24"/>
- <anchor name="_ID_TAB_TRANSFERS"	rect="140,2,78,24"/>
- <anchor name="_ID_TAB_LIBRARY"		rect="218,2,70,24"/>
- <anchor name="_ID_TAB_MEDIA"		rect="298,2,70,24"/>
+ <anchor name="Background"		rect="0,0,428,28"/>
+ <anchor name="_ID_TAB_HOME"		rect="8,2,68,24"/>
+ <anchor name="_ID_TAB_TRANSFERS"	rect="76,2,78,24"/>
+ <anchor name="_ID_TAB_LIBRARY"		rect="154,2,70,24"/>
+ <anchor name="_ID_TAB_MEDIA"		rect="224,2,70,24"/>
+ <anchor name="_ID_TAB_IRC"		rect="294,2,66,24"/>
+ <anchor name="_ID_TAB_SEARCH"		rect="360,2,66,24"/>
 </anchors>
 </windowSkin>
 

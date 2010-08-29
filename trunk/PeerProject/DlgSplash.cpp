@@ -56,10 +56,10 @@ END_MESSAGE_MAP()
 
 CSplashDlg::CSplashDlg(int nMax, bool bClosing)
 	: CDialog( CSplashDlg::IDD, GetDesktopWindow() )
-	, m_nPos	( 0 )
-	, m_nMax	( nMax )
+	, m_nPos		( 0 )
+	, m_nMax		( nMax )
 	, m_bClosing	( bClosing )
-	, m_sState	( theApp.m_sSmartAgent )
+	, m_sState		( theApp.m_sSmartAgent )
 	, m_pfnAnimateWindow ( NULL )
 {
 	Create( IDD, GetDesktopWindow() );
@@ -86,10 +86,12 @@ BOOL CSplashDlg::OnInitDialog()
 	CClientDC dcScreen( this );
 
 	CImageFile pFile;
-	pFile.LoadFromFile( Settings.General.Path + L"\\Data\\Splash.png" );
-	pFile.EnsureRGB();
-	HBITMAP m_bmHandle = pFile.CreateBitmap();
-	m_bmSplash.Attach( m_bmHandle );
+	if ( pFile.LoadFromFile( Settings.General.Path + L"\\Data\\Splash.png" ) )
+	{
+		pFile.EnsureRGB();
+		HBITMAP bmHandle = pFile.CreateBitmap();
+		m_bmSplash.Attach( bmHandle );
+	}
 
 	m_bmBuffer.CreateCompatibleBitmap( &dcScreen, SPLASH_WIDTH, SPLASH_HEIGHT );
 	m_dcBuffer1.CreateCompatibleDC( &dcScreen );
@@ -163,15 +165,18 @@ void CSplashDlg::DoPaint(CDC* pDC)
 	CBitmap* pOld1 = (CBitmap*)m_dcBuffer1.SelectObject( &m_bmSplash );
 	CBitmap* pOld2 = (CBitmap*)m_dcBuffer2.SelectObject( &m_bmBuffer );
 
-	m_dcBuffer2.BitBlt( 0, 0, SPLASH_WIDTH, SPLASH_HEIGHT, &m_dcBuffer1, 0, 0, SRCCOPY );
+	if ( m_bmSplash.m_hObject )
+		m_dcBuffer2.BitBlt( 0, 0, SPLASH_WIDTH, SPLASH_HEIGHT, &m_dcBuffer1, 0, 0, SRCCOPY );
+	else // Missing File
+		m_dcBuffer2.FillSolidRect( 0, 0, SPLASH_WIDTH, SPLASH_HEIGHT, RGB( 160, 50, 4 ) );	// Default Splash Color
 
 	CFont* pOld3 = (CFont*)m_dcBuffer2.SelectObject( &theApp.m_gdiFontBold );
 	m_dcBuffer2.SetBkMode( TRANSPARENT );
 
-	CRect rc( 8, 216, 520, SPLASH_HEIGHT );						// Text Position
+	CRect rc( 8, SPLASH_HEIGHT - 18,  SPLASH_WIDTH - 20, SPLASH_HEIGHT - 2 );	// Text Position
 	UINT nFormat = DT_LEFT|DT_SINGLELINE|DT_VCENTER|DT_NOPREFIX;
 
-	m_dcBuffer2.SetTextColor( RGB( 120, 40, 10 ) );				// Text Outline/Fade
+	m_dcBuffer2.SetTextColor( RGB( 120, 40, 10 ) );						// Text Outline/Fade
 	rc.left--;
 	rc.top += 2;
 	m_dcBuffer2.DrawText( m_sState, &rc, nFormat );
@@ -184,20 +189,20 @@ void CSplashDlg::DoPaint(CDC* pDC)
 	m_dcBuffer2.DrawText( m_sState, &rc, nFormat );
 	rc.left--;
 	rc.top--;
-	m_dcBuffer2.SetTextColor( RGB( 40, 10, 0 ) );				// Text Outline/Shadow
+	m_dcBuffer2.SetTextColor( RGB( 40, 10, 0 ) );						// Text Outline/Shadow
 	m_dcBuffer2.DrawText( m_sState, &rc, nFormat );
 	rc.left--;
 	rc.top -= 2;
 
-	m_dcBuffer2.SetTextColor( RGB( 255, 255, 255 ) );			// Text Color
+	m_dcBuffer2.SetTextColor( RGB( 255, 255, 255 ) );					// Text Color
 	m_dcBuffer2.DrawText( m_sState, &rc, nFormat );
 
 	m_dcBuffer2.SelectObject( pOld3 );
 
-	rc.SetRect( 440, 222, 522, 231 );							// Progress Bar Position
+	rc.SetRect( SPLASH_WIDTH - 90, SPLASH_HEIGHT - 14, SPLASH_WIDTH - 8, SPLASH_HEIGHT - 5 );	// Progress Bar Position ( 440, 222, 522, 231 )
 	m_dcBuffer2.Draw3dRect( &rc, RGB( 0x60, 0x40, 0 ), RGB( 0x20, 0, 0 ) );
-	rc.DeflateRect( 1, 1 );										// Progress Bar Outline
-	m_dcBuffer2.FillSolidRect( &rc, RGB( 0x30, 0x20, 0 ) ); 	// Progress Bar Background
+	rc.DeflateRect( 1, 1 );												// Progress Bar Outline
+	m_dcBuffer2.FillSolidRect( &rc, RGB( 0x30, 0x20, 0 ) ); 			// Progress Bar Background
 
 	int nOffset;
 	if ( Settings.General.LanguageRTL )
@@ -206,7 +211,7 @@ void CSplashDlg::DoPaint(CDC* pDC)
 		nOffset = 0;
 
 	CFragmentBar::DrawFragment( &m_dcBuffer2, &rc, m_nMax, nOffset, min( m_nPos, m_nMax ),
-		RGB( 244, 140, 10 ), TRUE );							// Progress Bar Color
+		RGB( 244, 140, 10 ), TRUE );									// Progress Bar Color
 	m_dcBuffer2.SelectClipRgn( NULL );
 
 	pDC->BitBlt( 0, 0, SPLASH_WIDTH, SPLASH_HEIGHT, &m_dcBuffer2, 0, 0, SRCCOPY );

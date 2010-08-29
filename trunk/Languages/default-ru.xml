@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Russian Skin File -->
 
-<!-- Translation based on default-en.xml r55 -->
+<!-- Translation based on default-en.xml r56 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2807,8 +2807,8 @@
 	<string id="8336" value="Источники этого файла могут раздавать нестабильно"/>
 	<string id="8337" value="Недоверяемый"/>
 	<string id="8338" value="Без набора хеша"/>
-	<string id="13000" value="Уверены, что хотите удалить выбранные правила безопасности? Действие будет необратимое."/>
-	<string id="13001" value="Файлы, открытые для общего доступа"/>
+	<string id="13000" value="Файлы, открытые для общего доступа"/>
+	<string id="13001" value="Уверены, что хотите удалить выбранные правила безопасности? Действие будет необратимое."/>
 	<string id="16063" value="После 10 попыток переадресация порта при помощи UPnP, была неуспешна."/>
 	<string id="16064" value="Старт ядра сети PeerProject..."/>
 	<string id="16065" value="Не могу использовать  %s порт %i для входящих соединений.  Входящие соединения не будут поддерживаться."/>
@@ -4662,4 +4662,3 @@
 	</list>
 </listColumns>
 </skin>
-좖

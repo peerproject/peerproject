@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Chinese (Traditional) Skin File -->
 
-<!-- Translation based on default-en.xml r55 (Shareaza 2.2.2.12) -->
+<!-- Translation based on default-en.xml r56 (Shareaza 2.2.2.12) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -4338,4 +4338,3 @@
 	</list>
 </listColumns>
 </skin>
-

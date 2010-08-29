@@ -1,7 +1,7 @@
 //
 // ShellIcons.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -37,7 +37,7 @@ CShellIcons ShellIcons;
 
 CShellIcons::CShellIcons()
 {
-	// experimental values
+	// Experimental values
 	m_m16.InitHashTable( 31 );
 	m_m32.InitHashTable( 31 );
 	m_m48.InitHashTable( 31 );
@@ -60,9 +60,17 @@ void CShellIcons::Clear()
 	if ( m_i32.m_hImageList ) m_i32.DeleteImageList();
 	if ( m_i48.m_hImageList ) m_i48.DeleteImageList();
 
-	m_i16.Create( 16, 16, ILC_COLOR32|ILC_MASK, 0, 16 );
-	m_i32.Create( 32, 32, ILC_COLOR32|ILC_MASK, 0, 16 );
-	m_i48.Create( 48, 48, ILC_COLOR32|ILC_MASK, 0, 16 );
+	m_i16.Create( 16, 16, ILC_COLOR32|ILC_MASK, 0, 16 ) ||
+	m_i16.Create( 16, 16, ILC_COLOR24|ILC_MASK, 0, 16 ) ||
+	m_i16.Create( 16, 16, ILC_COLOR16|ILC_MASK, 0, 16 );
+
+	m_i32.Create( 32, 32, ILC_COLOR32|ILC_MASK, 0, 16 ) ||
+	m_i32.Create( 32, 32, ILC_COLOR24|ILC_MASK, 0, 16 ) ||
+	m_i32.Create( 32, 32, ILC_COLOR16|ILC_MASK, 0, 16 );
+
+	m_i48.Create( 48, 48, ILC_COLOR32|ILC_MASK, 0, 16 ) ||
+	m_i48.Create( 48, 48, ILC_COLOR24|ILC_MASK, 0, 16 ) ||
+	m_i48.Create( 48, 48, ILC_COLOR16|ILC_MASK, 0, 16 );
 
 	// SHI_FILE = 0
 	VERIFY( AddIcon( CoolInterface.ExtractIcon( IDI_FILE, FALSE, LVSIL_SMALL) , m_i16 ) == SHI_FILE );
@@ -111,60 +119,110 @@ void CShellIcons::Clear()
 
 int CShellIcons::Get(LPCTSTR pszFile, int nSize)
 {
-	LPCTSTR pszType = _tcsrchr( pszFile, '.' );
-	if ( pszType == NULL )
-		return SHI_FILE;
-	
-	if ( m_i16.m_hImageList == NULL ) Clear();
+	if ( m_i16.m_hImageList == NULL )
+		Clear();
 
-	CString strType( pszType );
-	ToLower( strType );
+	CImageList* pImage;
+	CIconMap* pIndex;
+	switch ( nSize )
+	{
+	case 16:
+		pImage = &m_i16;
+		pIndex = &m_m16;
+		break;
+
+	case 32:
+		pImage = &m_i32;
+		pIndex = &m_m32;
+		break;
+
+	case 48:
+		pImage = &m_i48;
+		pIndex = &m_m48;
+		break;
+
+	default:
+		ASSERT( FALSE );
+		return SHI_FILE;
+	}
+
+	CString strType = PathFindExtension( pszFile );
+	if ( strType.IsEmpty() )
+		return SHI_FILE;	// No extension
+
+	strType.MakeLower();
+	CString strFilename;
+	LPCTSTR pszFilename = PathFindFileName( pszFile );
+	if ( pszFilename != pszFile && ( strType == _T(".exe") ) )
+	{
+		strFilename = pszFilename;
+		strFilename.MakeLower();
+	}
 
 	HICON hIcon = NULL;
 	int nIndex = SHI_FILE;
 
-	SHFILEINFO sfi = { 0 };
-	switch ( nSize )
+	if ( strFilename.IsEmpty() )
 	{
-	case 16:
-		if ( m_m16.Lookup( strType, nIndex ) ) return nIndex;
-		Lookup( pszType, &hIcon, NULL, NULL, NULL );
-		if ( ! hIcon && SHGetFileInfo( pszFile, FILE_ATTRIBUTE_NORMAL, &sfi, sizeof( SHFILEINFO ),
-			SHGFI_USEFILEATTRIBUTES | SHGFI_ICON | SHGFI_SMALLICON ) )
-		{
-			hIcon = Settings.General.LanguageRTL ? CreateMirroredIcon( sfi.hIcon ) : sfi.hIcon;
-		}
-		nIndex = hIcon ? m_i16.Add( hIcon ) : 0;
-		m_m16.SetAt( strType, nIndex );
-		break;
-	case 32:
-		if ( m_m32.Lookup( strType, nIndex ) ) return nIndex;
-		Lookup( pszType, NULL, &hIcon, NULL, NULL );
-		if ( ! hIcon && SHGetFileInfo( pszFile, FILE_ATTRIBUTE_NORMAL, &sfi, sizeof( SHFILEINFO ),
-			SHGFI_USEFILEATTRIBUTES | SHGFI_ICON ) )
-		{
-			hIcon = Settings.General.LanguageRTL ? CreateMirroredIcon( sfi.hIcon ) : sfi.hIcon;
-		}
-		nIndex = hIcon ? m_i32.Add( hIcon ) : 0;
-		m_m32.SetAt( strType, nIndex );
-		break;
-	case 48:
-		if ( m_m48.Lookup( strType, nIndex ) ) return nIndex;
-		Lookup( pszType, NULL, NULL, NULL, NULL, &hIcon );
-		if ( ! hIcon && SHGetFileInfo( pszFile, FILE_ATTRIBUTE_NORMAL, &sfi, sizeof( SHFILEINFO ),
-			SHGFI_USEFILEATTRIBUTES | SHGFI_ICON | SHGFI_LARGEICON ) )
-		{
-			hIcon = Settings.General.LanguageRTL ? CreateMirroredIcon( sfi.hIcon ) : sfi.hIcon;
-		}
-		nIndex = hIcon ? m_i48.Add( hIcon ) : 0;
-		m_m48.SetAt( strType, nIndex );
-		break;
+		if ( pIndex->Lookup( strType, nIndex ) )
+			return nIndex;
+
+		Lookup( strType,
+			( ( nSize == 16 ) ? &hIcon : NULL ),
+			( ( nSize == 32 ) ? &hIcon : NULL ), NULL, NULL,
+			( ( nSize == 48 ) ? &hIcon : NULL ) );
 	}
-	
+	else
+	{
+		if ( pIndex->Lookup( strFilename, nIndex ) )
+			return nIndex;
+	}
+
+	if ( ! hIcon && ! strFilename.IsEmpty() )
+	{
+		LoadIcon( pszFile,
+				( ( nSize == 16 ) ? &hIcon : NULL ),
+				( ( nSize == 32 ) ? &hIcon : NULL ),
+				( ( nSize == 48 ) ? &hIcon : NULL ) );
+
+		if ( hIcon && Settings.General.LanguageRTL )
+			hIcon = CreateMirroredIcon( hIcon );
+	}
+
+	if ( ! hIcon && ! strFilename.IsEmpty() )
+	{
+		if ( pIndex->Lookup( strType, nIndex ) )
+		{
+			pIndex->SetAt( strFilename, nIndex );
+			return nIndex;
+		}
+
+		Lookup( strType,
+			( ( nSize == 16 ) ? &hIcon : NULL ),
+			( ( nSize == 32 ) ? &hIcon : NULL ), NULL, NULL,
+			( ( nSize == 48 ) ? &hIcon : NULL ) );
+	}
+
+	SHFILEINFO sfi = {};
+	if ( ! hIcon &&
+		SHGetFileInfo( pszFile, 0, &sfi, sizeof( SHFILEINFO ),
+			( strFilename.IsEmpty() ? SHGFI_USEFILEATTRIBUTES : 0 ) |
+			SHGFI_ICON | ( ( nSize == 16 ) ? SHGFI_SMALLICON : SHGFI_LARGEICON ) ) )
+	{
+		hIcon = Settings.General.LanguageRTL ? CreateMirroredIcon( sfi.hIcon ) : sfi.hIcon;
+	}
+
+	nIndex = hIcon ? pImage->Add( hIcon ) : SHI_FILE;
+	pIndex->SetAt( ( strFilename.IsEmpty() ? strType : strFilename ), nIndex );
+
 	if ( hIcon ) DestroyIcon( hIcon );
+
+	TRACE( _T("Got %dx%d icon %d for %s\n"),
+		nSize, nSize, nIndex, ( strFilename.IsEmpty() ? strType : strFilename ) );
 
 	return nIndex;
 }
+
 
 //////////////////////////////////////////////////////////////////////
 // CShellIcons add icon
@@ -248,6 +306,7 @@ BOOL CShellIcons::Lookup(LPCTSTR pszType, HICON* phSmallIcon, HICON* phLargeIcon
 
 	if ( phSmallIcon ) *phSmallIcon = NULL;
 	if ( phLargeIcon ) *phLargeIcon = NULL;
+	//if ( phHugeIcon ) *phHugeIcon = NULL;
 	if ( psName ) *psName = pszType + 1;
 	if ( psMIME ) psMIME->Empty();
 
@@ -306,7 +365,8 @@ BOOL CShellIcons::Lookup(LPCTSTR pszType, HICON* phSmallIcon, HICON* phLargeIcon
 		RegCloseKey( hKey );
 		szResult[ nResult / sizeof(TCHAR) ] = 0;
 
-		if ( RegOpenKeyEx( HKEY_CLASSES_ROOT, szResult, 0, KEY_READ, &hKey ) != ERROR_SUCCESS ) return FALSE;
+		if ( RegOpenKeyEx( HKEY_CLASSES_ROOT, szResult, 0, KEY_READ, &hKey ) != ERROR_SUCCESS )
+			return FALSE;
 
 		if ( psName )
 		{
@@ -334,7 +394,7 @@ BOOL CShellIcons::Lookup(LPCTSTR pszType, HICON* phSmallIcon, HICON* phLargeIcon
 		RegCloseKey( hKey );
 		return FALSE;
 	}
-	
+
 	RegCloseKey( hSub );
 	RegCloseKey( hKey );
 	szResult[ nResult / sizeof(TCHAR) ] = 0;
@@ -354,3 +414,45 @@ BOOL CShellIcons::Lookup(LPCTSTR pszType, HICON* phSmallIcon, HICON* phLargeIcon
 
 	return TRUE;
 }
+
+//////////////////////////////////////////////////////////////////////
+// CShellIcons attach image list to controls
+
+//void CShellIcons::AttachTo(CListCtrl* const pList, int nSize) const
+//{
+//	if ( nSize == 16 )
+//		pList->SetImageList( const_cast< CImageList* >( &m_i16 ), LVSIL_SMALL );
+//	else if ( nSize == 32 )
+//		pList->SetImageList( const_cast< CImageList* >( &m_i32 ), LVSIL_NORMAL );
+//}
+//
+//void CShellIcons::AttachTo(CTreeCtrl* const pTree) const
+//{
+//	pTree->SetImageList( const_cast< CImageList* >( &m_i16 ), LVSIL_NORMAL );
+//}
+
+//////////////////////////////////////////////////////////////////////
+// CShellIcons draw icon
+
+//BOOL CShellIcons::Draw(CDC* pDC, int nIcon, int nSize, int nX, int nY, COLORREF crBack, BOOL bSelected) const
+//{
+//	HIMAGELIST hImages;
+//	switch ( nSize )
+//	{
+//	case 16:
+//		hImages = m_i16.GetSafeHandle();
+//		break;
+//	case 32:
+//		hImages = m_i32.GetSafeHandle();
+//		break;
+//	case 48:
+//		hImages = m_i48.GetSafeHandle();
+//		break;
+//	default:
+//		return FALSE;
+//	}
+//	return ImageList_DrawEx( hImages, nIcon, pDC->GetSafeHdc(),
+//		nX, nY, nSize, nSize, crBack,
+//		( bSelected ? Colors.m_crHighlight : CLR_NONE ),
+//		( bSelected ? ILD_SELECTED : ILD_NORMAL ) );
+//}

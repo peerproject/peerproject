@@ -127,11 +127,10 @@ void CLibrary::RemoveFile(CLibraryFile* pFile)
 {
 	LibraryMaps.OnFileRemove( pFile );
 
+	LibraryBuilder.Remove( pFile );
+
 	if ( pFile->m_nIndex )
-	{
-		LibraryBuilder.Remove( pFile );
 		LibraryDictionary.RemoveFile( *pFile );
-	}
 }
 
 void CLibrary::CheckDuplicates(CLibraryFile* pFile, bool bForce)
@@ -257,16 +256,18 @@ CFileList* CLibrary::Search(const CQuerySearch* pSearch, int nMaximum, bool bLoc
 
 void CLibrary::Clear()
 {
-	LibraryBuilder.StopThread();
-
-	CloseThread();
-
 	CSingleLock pLock( &m_pSection, TRUE );
 
 	LibraryHistory.Clear();
 	LibraryDictionary.Clear();
 	LibraryFolders.Clear();
 	LibraryMaps.Clear();
+}
+
+void CLibrary::StopThread()
+{
+	Exit();
+	Wakeup();
 }
 
 //////////////////////////////////////////////////////////////////////

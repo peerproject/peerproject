@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Spanish (International) Skin File -->
 
-<!-- Translation based on default-en.xml r55 -->
+<!-- Translation based on default-en.xml r56 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2586,7 +2586,7 @@
 	<string id="8002" value="Propiedades del Archivo"/>
 	<string id="8003" value="Editar Mi Perfil"/>
 	<string id="8004" value="¡Bienvenido a PeerProject! (version) !\n.\nPeerProject es un software completamente libre!.\nPor favor utilizalo con responsabilidad y respetando las leyes intelectuales.\n."/>
-	<string id="8005" value=" (cerrando después de transferencias)"/>
+	<string id="8005" value="(cerrando después de transferencias)"/>
 	<string id="8006" value="No estas conectado.  Haz click a conectar para empezar."/>
 	<string id="8007" value="No hay búsquedas activas.  Haz click aquí para empezar."/>
 	<string id="8008" value="PeerProject ha terminado de bajar PeerProject versión (%s).  ¿Deseas actualizar ahora?\n\nSi seleccionas si, PeerProject se va a cerrar temporalmente para poder instalar la nueva versión."/>
@@ -2725,8 +2725,8 @@
 	<string id="8336" value="Las fuentes pueden ser inestables"/>
 	<string id="8337" value="No confiado"/>
 	<string id="8319" value="&#160;(No Hay Hashset)"/>
-	<string id="13000" value="Estas seguro que quieres borrar las reglas de seguridad seleccionadas? Esto no se puede deshacer."/>
-	<string id="13001" value="Archivos compartidos a través de Internet"/>
+	<string id="13000" value="Archivos compartidos a través de Internet"/>
+	<string id="13001" value="Estas seguro que quieres borrar las reglas de seguridad seleccionadas? Esto no se puede deshacer."/>
 	<string id="16063" value="Mapeo del puerto UPnP falló después de 10 intentos."/>
 	<string id="16064" value="Iniciando el nucleo de la red..."/>
 	<string id="16065" value="Imposible asociar %s con el puerto %i para conexiones entrantes. Conexiones entrantes no van a ser soportadas."/>
@@ -4572,4 +4572,3 @@
 	</list>
 </listColumns>
 </skin>
-皲

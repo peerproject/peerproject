@@ -121,6 +121,8 @@ void CSkinDialog::EnableBanner(BOOL bEnable)
 		// Add banner
 		CRect rcBanner;
 		GetClientRect( &rcBanner );
+		if ( Settings.General.LanguageRTL )
+			rcBanner.left -= Skin.m_bmBanner.GetBitmapDimension().cx - rcBanner.Width();
 		rcBanner.right = rcBanner.left + Skin.m_bmBanner.GetBitmapDimension().cx;
 		rcBanner.bottom = rcBanner.top + Skin.m_nBanner;
 		VERIFY( m_oBanner.Create( NULL, WS_CHILD | WS_VISIBLE |
@@ -246,25 +248,7 @@ void CSkinDialog::OnNcMouseMove(UINT nHitTest, CPoint point)
 
 void CSkinDialog::OnSize(UINT nType, int cx, int cy)
 {
-	CStatic* pBanner = (CStatic*)GetDlgItem( IDC_BANNER );
-	if ( pBanner && Settings.General.LanguageRTL )
-	{
-		BITMAP bm = {};
-		GetObject( pBanner->GetBitmap(), sizeof( BITMAP ), &bm );
-
-		CRect rcBanner;
-		GetClientRect( &rcBanner );
-
-		// Adjust banner width for RTL
-		rcBanner.left -= bm.bmWidth - rcBanner.Width();
-		rcBanner.right = rcBanner.left + bm.bmWidth;
-		rcBanner.bottom = rcBanner.top + bm.bmHeight;
-		pBanner->MoveWindow( &rcBanner );
-		pBanner->ModifyStyle( SS_CENTERIMAGE, SS_REALSIZEIMAGE );
-	}
-
 	if ( m_pSkin ) m_pSkin->OnSize( this );
-
 	CDialog::OnSize( nType, cx, cy );
 }
 
@@ -315,25 +299,26 @@ HBRUSH CSkinDialog::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 				return Skin.m_brDialog;								// Skip disabled edit boxes
 
 			const int nCtrlID = pWnd->GetDlgCtrlID();
+			if ( nCtrlID == IDC_MONITOR_ICON || nCtrlID == IDC_INFO_ICON || nCtrlID == IDC_BANDWIDTH_SLIDER )
+				return Skin.m_brDialog;								// Dynmic controls (UploadQueue slider, variable icon, etc.)
+
 			if ( nCtrlID == IDC_MONITOR_SOURCES || nCtrlID == IDC_MONITOR_VOLUME ||
-				nCtrlID == IDC_MONITOR_SPEED || nCtrlID == IDC_MONITOR_TIME )
+				nCtrlID == IDC_MONITOR_SPEED || nCtrlID == IDC_MONITOR_TIME || nCtrlID == IDC_INFO_TEXT )
 			{
 				pDC->SetTextColor( Colors.m_crDialogText );
 				pDC->SetBkMode( TRANSPARENT );
 				return Skin.m_brDialog;								// Dynamic text exceptions workaround	ToDo: fix this
 			}
 
-			if ( nCtrlID == IDC_MONITOR_ICON || nCtrlID == IDC_BANDWIDTH_SLIDER )
-				return Skin.m_brDialog;								// Dynmic controls (UploadQueue slider, variable icon, etc.)
-
 			//TCHAR szName[24];
 			//GetClassName( pWnd->GetSafeHwnd(), szName, 24 );		// Alt detection method
-			//if ( _tcsistr( szName, _T("Static") ) )				"Static" "Button" "ListBox" "ComboBox" "Edit" "RICHEDIT" etc
+			//if ( _tcsistr( szName, _T("Static") ) )				// "Button" "ListBox" "ComboBox" "Edit" "RICHEDIT" etc
 
 			// Checkbox label skinning fix, etc.
 			CRect rc;
 			pWnd->GetWindowRect( rc );
 			ScreenToClient( rc );
+
 			CoolInterface.DrawWatermark( pDC, &rc, &Skin.m_bmDialog, FALSE, -rc.left, -rc.top );
 			//pDC->BitBlt( 0, 0, rc.right, rc.bottom, pWnd->GetDC(), 0, 0, SRCCOPY );
 		}
@@ -350,7 +335,7 @@ HBRUSH CSkinDialog::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 		pDC->SetBkColor( Colors.m_crDialog );
 		if ( Skin.m_brDialog.m_hObject )
 			hbr = Skin.m_brDialog;
-		else  // Pre-run message boxes (early help/warning screens interpret initial null as white brush in some areas)
+		else  // Pre-run message boxes (startup help/warning screens initial null used as white brush in some areas)
 			hbr = CreateSolidBrush( Colors.m_crDialog );
 	}
 

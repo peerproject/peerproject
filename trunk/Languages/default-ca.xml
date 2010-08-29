@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Catalan Skin File -->
 
-<!-- Translation based on default-en.xml r55 -->
+<!-- Translation based on default-en.xml r56 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2616,7 +2616,7 @@
 	<string id="8002" value="Propietats de l'arxiu"/>
 	<string id="8003" value="Edita el meu perfil"/>
 	<string id="8004" value="Benvingut/uda a PeerProject! (versió) !\n.\nPeerProject és programari completament lliure!.\nSi us plau, utilitza'l amb responsabilitat i respetant les lleis de propietat intelectual.\n."/>
-	<string id="8005" value=" (tancant després de transferències)"/>
+	<string id="8005" value="(tancant després de transferències)"/>
 	<string id="8006" value="No estàs connectat.  Fes clic a &quot;Connecta&quot; per a començar."/>
 	<string id="8007" value="No hi ha cerques actives. Fes clic aquí per a començar."/>
 	<string id="8008" value="PeerProject ha acabat de baixar la versió (%s) de PeerProject. Vols actualitzar ara?\n\nSi selecciones sí, PeerProject es tancarà temporalment per a poder instal·lar la nova versió."/>
@@ -2755,8 +2755,8 @@
 	<string id="8336" value="Les fonts poden ser inestables"/>
 	<string id="8337" value="Amb desconfiança"/>
 	<string id="8338" value="Sense Hashset"/>
-	<string id="13000" value="Estàs segur de esborrar les normes de seguretat seleccionades? Aquesta operació no pot ser desfeta."/>
-	<string id="13001" value="Arxius compartits a Internet"/>
+	<string id="13000" value="Arxius compartits a Internet"/>
+	<string id="13001" value="Estàs segur de esborrar les normes de seguretat seleccionades? Aquesta operació no pot ser desfeta."/>
 	<string id="16063" value="El mapegi de ports UPnP ha fallat després de 10 intents."/>
 	<string id="16064" value="Iniciant el nucli de la xarxa..."/>
 	<string id="16065" value="Ha estat impossible associar %s amb el port %i per a connexions entrants.  No seran suportades connexions entrants."/>

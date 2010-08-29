@@ -275,7 +275,7 @@ void CHomeSearchCtrl::Search(bool bAutostart)
 	if ( _tcscmp ( strClear , strText ) == 0 ) return;
 
 	// Check if user mistakenly pasted download link to search input box
-	if ( CPeerProjectApp::OpenURL( strText, TRUE, TRUE ) )
+	if ( CPeerProjectApp::OpenURL( strText, TRUE ) )
 	{
 		m_wndText.SetWindowText( _T("") );
 		return;

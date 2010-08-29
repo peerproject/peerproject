@@ -19,7 +19,7 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "PeerProject.h"
 #include "SharedFile.h"
 #include "SharedFolder.h"
@@ -111,10 +111,10 @@ void DumpIDataObject(IDataObject* pIDataObject)
 class __declspec(novtable) CStgMedium : public STGMEDIUM
 {
 public:
-	inline CStgMedium() throw() : STGMEDIUM()
+	CStgMedium() : STGMEDIUM()
 	{
 	}
-	inline ~CStgMedium() throw()
+	~CStgMedium()
 	{
 		ReleaseStgMedium( static_cast< STGMEDIUM* >( this ) );
 	}
@@ -673,7 +673,7 @@ BOOL CPeerProjectDataSource::DropToAlbum(IDataObject* pIDataObject, DWORD grfKey
 						if ( CLibraryFile* pFile = Library.LookupFile( index, FALSE, TRUE ) )
 						{
 							Hashes::Guid oGUID;
-							CopyMemory( oGUID.begin(), p + sizeof( DWORD ), 16 );
+							CopyMemory( &*oGUID.begin(), p + sizeof( DWORD ), 16 );
 							CAlbumFolder* pFolder = pRoot->FindFolder( oGUID );
 							if ( pFolder && *pAlbumFolder == *pFolder )
 							{
@@ -1257,7 +1257,7 @@ STDMETHODIMP CPeerProjectDataSource::XDropSource::QueryContinueDrag(BOOL fEscape
 	return S_OK;
 }
 
-STDMETHODIMP CPeerProjectDataSource::XDropSource::GiveFeedback(DWORD /* dwEffect */)
+STDMETHODIMP CPeerProjectDataSource::XDropSource::GiveFeedback(DWORD /*dwEffect*/)
 {
 	METHOD_PROLOGUE( CPeerProjectDataSource, DropSource )
 
@@ -1431,7 +1431,7 @@ void CPeerProjectDataSource::FillBuffer(const CLibraryList* pList, LPTSTR& buf_H
 					if ( bRoot )
 					{
 						*(DWORD*)buf_Files = Item;
-						CopyMemory( buf_Files + sizeof( DWORD ), oGUID.begin(), 16 );
+						CopyMemory( buf_Files + sizeof( DWORD ), &*oGUID.begin(), 16 );
 						buf_Files += 20;
 					}
 				}

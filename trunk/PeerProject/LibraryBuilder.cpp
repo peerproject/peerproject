@@ -99,7 +99,6 @@ CLibraryBuilder::CLibraryBuilder()
 
 CLibraryBuilder::~CLibraryBuilder()
 {
-	StopThread();
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -122,7 +121,8 @@ bool CLibraryBuilder::Add(CLibraryFile* pFile)
 			{
 				m_pFiles.push_back( pFile->m_nIndex );
 
-				StartThread();
+				BeginThread( "LibraryBuilder", m_bPriority ?
+					THREAD_PRIORITY_BELOW_NORMAL : THREAD_PRIORITY_IDLE );
 
 				return true;
 			}
@@ -133,9 +133,10 @@ bool CLibraryBuilder::Add(CLibraryFile* pFile)
 
 void CLibraryBuilder::Remove(DWORD nIndex)
 {
-	ASSERT( nIndex );
+	if ( ! nIndex ) return;
 
 	CQuickLock oLock( m_pSection );
+
 	CFileInfoList::iterator i = std::find( m_pFiles.begin(), m_pFiles.end(), nIndex );
 	if ( i != m_pFiles.end() )
 		m_pFiles.erase( i );
@@ -302,8 +303,7 @@ DWORD CLibraryBuilder::GetNextFileToHash(CString& sPath)
 				nIndex = 0;
 			}
 		}
-		else
-			// Library locked
+		else	// Library locked
 			nIndex = 0;
 
 		if ( nIndex )
@@ -339,20 +339,10 @@ DWORD CLibraryBuilder::GetNextFileToHash(CString& sPath)
 //////////////////////////////////////////////////////////////////////
 // CLibraryBuilder thread control
 
-void CLibraryBuilder::StartThread()
-{
-	CQuickLock pLock( m_pSection );
-
-	if ( ! m_pFiles.empty() )
-	{
-		BeginThread( "LibraryBuilder", m_bPriority ?
-			THREAD_PRIORITY_BELOW_NORMAL : THREAD_PRIORITY_IDLE );
-	}
-}
-
 void CLibraryBuilder::StopThread()
 {
-	CloseThread();
+	Exit();
+	Wakeup();
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -692,10 +682,10 @@ bool CLibraryBuilder::DetectVirtualFile(LPCTSTR szPath, HANDLE hFile, QWORD& nOf
 	{
 		bVirtual |= DetectVirtualID3v2( hFile, nOffset, nLength );
 		bVirtual |= DetectVirtualID3v1( hFile, nOffset, nLength );
-//		bVirtual |= DetectVirtualLyrics( hFile, nOffset, nLength );
-//		bVirtual |= DetectVirtualAPEHeader( hFile, nOffset, nLength );
-//		bVirtual |= DetectVirtualAPEFooter( hFile, nOffset, nLength );
-//		bVirtual |= DetectVirtualLAME( hFile, nOffset, nLength );
+	//	bVirtual |= DetectVirtualLyrics( hFile, nOffset, nLength );
+	//	bVirtual |= DetectVirtualAPEHeader( hFile, nOffset, nLength );
+	//	bVirtual |= DetectVirtualAPEFooter( hFile, nOffset, nLength );
+	//	bVirtual |= DetectVirtualLAME( hFile, nOffset, nLength );
 	}
 
 	return bVirtual;
