@@ -1,7 +1,7 @@
 //
 // Uploads.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -53,8 +53,8 @@ CUploads::CUploads()
 	m_nCount		= 0;
 	m_nBandwidth	= 0;
 	m_nTorrentSpeed	= 0;
-	m_bStable		= FALSE;
 	m_nBestSpeed	= 0;
+	m_bStable		= FALSE;
 }
 
 CUploads::~CUploads()
@@ -80,7 +80,8 @@ void CUploads::Clear(BOOL bMessage)
 
 DWORD CUploads::GetCount(CUploadTransfer* pExcept, int nState) const
 {
-	if ( pExcept == NULL && nState == -1 ) return (DWORD)m_pList.GetCount();
+	if ( pExcept == NULL && nState == -1 )
+		return (DWORD)m_pList.GetCount();
 
 	DWORD nCount = 0;
 
@@ -182,13 +183,13 @@ BOOL CUploads::AllowMoreTo(IN_ADDR* pAddress) const
 	return ( nCount <= Settings.Uploads.MaxPerHost );
 }
 
-BOOL CUploads::CanUploadFileTo(IN_ADDR* pAddress, const Hashes::Sha1Hash& oSHA1) const
+BOOL CUploads::CanUploadFileTo(IN_ADDR* pAddress, const CPeerProjectFile* pFile) const
 {
 	DWORD nCount = 0;
 
 	for ( POSITION pos = GetIterator() ; pos ; )
 	{
-		CUploadTransfer* pUpload = GetNext( pos );
+		const CUploadTransfer* pUpload = GetNext( pos );
 
 		if ( pUpload->m_nState == upsUploading ||
 			 pUpload->m_nState == upsQueued )
@@ -198,7 +199,7 @@ BOOL CUploads::CanUploadFileTo(IN_ADDR* pAddress, const Hashes::Sha1Hash& oSHA1)
 				nCount++;
 
 				// If we're already uploading this file to this client
-				if ( ( pUpload->m_oSHA1 ) && ( oSHA1 ) && validAndEqual( pUpload->m_oSHA1, oSHA1 ) )
+				if ( *pUpload == *pFile )
 					return FALSE;
 			}
 		}
@@ -224,7 +225,8 @@ BOOL CUploads::EnforcePerHostLimit(CUploadTransfer* pHit, BOOL bRequest)
 		}
 	}
 
-	if ( nCount <= Settings.Uploads.MaxPerHost ) return FALSE;
+	if ( nCount <= Settings.Uploads.MaxPerHost )
+		return FALSE;
 
 	while ( nCount > Settings.Uploads.MaxPerHost )
 	{
@@ -296,10 +298,10 @@ void CUploads::OnRun()
 		return;
 
 	int nCountTorrent = 0;
-	POSITION pos;
+	m_nCount = 0;
+	m_nBandwidth = 0;
 
-	m_nCount		= 0;
-	m_nBandwidth	= 0;
+	POSITION pos;
 
 	//Set measured queue speeds to 0
 	for ( pos = UploadQueues.GetIterator() ; pos ; )
@@ -397,8 +399,8 @@ BOOL CUploads::OnAccept(CConnection* pConnection)
 		{
 			CUploadTransfer* pTest = GetNext( pos );
 
-			if (	pTest->m_pHost.sin_addr.S_un.S_addr ==
-					pConnection->m_pHost.sin_addr.S_un.S_addr )
+			if ( pTest->m_pHost.sin_addr.S_un.S_addr ==
+				pConnection->m_pHost.sin_addr.S_un.S_addr )
 			{
 				pTest->m_bLive = FALSE;
 			}
@@ -417,7 +419,9 @@ void CUploads::OnRename(LPCTSTR pszSource, LPCTSTR pszTarget)
 	CQuickLock oTransfersLock( Transfers.m_pSection );
 
 	for ( POSITION pos = GetIterator() ; pos ; )
+	{
 		GetNext( pos )->OnRename( pszSource, pszTarget );
+	}
 }
 
 //////////////////////////////////////////////////////////////////////

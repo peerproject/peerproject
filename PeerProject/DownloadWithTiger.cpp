@@ -256,7 +256,7 @@ bool CDownloadWithTiger::IsFullyVerified() const
 		bAvailable = true;
 	}
 
-	// Allow unverified downloads without hashes (ex. pure HTTP, FTP)
+	// Allow unverified downloads without hashes (pure HTTP, FTP)
 	return ! bAvailable;
 }
 
@@ -749,6 +749,7 @@ Fragments::List CDownloadWithTiger::GetWantedFragmentList() const
 	QWORD nNow = GetVolumeComplete();
 	if ( nNow != m_nWFLCookie || nNow == 0 )
 	{
+		//m_nWFLCookie = nNow;	// ToDo: ?
 		const Fragments::List oList = inverse( GetHashableFragmentList() );
 		m_oWFLCache = GetEmptyFragmentList();
 		m_oWFLCache.erase( oList.begin(), oList.end() );
@@ -909,40 +910,36 @@ BOOL CDownloadWithTiger::GetFragment(CDownloadTransfer* pTransfer)
 }
 
 //////////////////////////////////////////////////////////////////////
-// CDownloadWithTiger available ranges override
+// CDownloadWithTiger available ranges override (Obsolete)
 
-CString CDownloadWithTiger::GetAvailableRanges() const
-{
-	CQuickLock oLock( m_pTigerSection );
+//CString CDownloadWithTiger::GetAvailableRanges() const
+//{
+//	CQuickLock oLock( m_pTigerSection );
+//	CString strRanges, strRange;
+//	QWORD nOffset, nLength;
+//	BOOL bSuccess;
+//	for ( nOffset = 0 ; GetNextVerifyRange( nOffset, nLength, bSuccess ) ; )
+//	{
+//		if ( bSuccess )
+//		{
+//			if ( strRanges.IsEmpty() )
+//				strRanges = _T("bytes ");
+//			else
+//				strRanges += ',';
+//
+//			strRange.Format( _T("%I64i-%I64i"), nOffset, nOffset + nLength - 1 );
+//			strRanges += strRange;
+//
+//			if ( strRanges.GetLength() > HTTP_HEADER_MAX_LINE - 256 )
+//				break;	// Prevent too long a line
+//		}
+//		nOffset += nLength;
+//	}
+//	if ( strRanges.IsEmpty() )
+//		strRanges = CDownloadWithTorrent::GetAvailableRanges();
+//	return strRanges;
+//}
 
-	CString strRanges, strRange;
-	QWORD nOffset, nLength;
-	BOOL bSuccess;
-
-	for ( nOffset = 0 ; GetNextVerifyRange( nOffset, nLength, bSuccess ) ; )
-	{
-		if ( bSuccess )
-		{
-			if ( strRanges.IsEmpty() )
-				strRanges = _T("bytes ");
-			else
-				strRanges += ',';
-
-			strRange.Format( _T("%I64i-%I64i"), nOffset, nOffset + nLength - 1 );
-			strRanges += strRange;
-
-			if ( strRanges.GetLength() > HTTP_HEADER_MAX_LINE - 256 )
-				break;	// Prevent too long a line
-		}
-
-		nOffset += nLength;
-	}
-
-	if ( strRanges.IsEmpty() )
-		strRanges = CDownloadWithTorrent::GetAvailableRanges();
-
-	return strRanges;
-}
 
 //////////////////////////////////////////////////////////////////////
 // CDownloadWithTiger clear data
@@ -958,9 +955,9 @@ void CDownloadWithTiger::ResetVerification()
 	else if ( m_nVerifyHash == HASH_TORRENT )
 		m_pTorrent.FinishBlockTest( m_nVerifyBlock );
 
-	if ( m_pTigerBlock != NULL ) ZeroMemory( m_pTigerBlock, m_nTigerBlock );
-	if ( m_pHashsetBlock != NULL ) ZeroMemory( m_pHashsetBlock, m_nHashsetBlock );
-	if ( m_pTorrentBlock != NULL ) ZeroMemory( m_pTorrentBlock, m_nTorrentBlock );
+	if ( m_pTigerBlock )   ZeroMemory( m_pTigerBlock, m_nTigerBlock );
+	if ( m_pHashsetBlock ) ZeroMemory( m_pHashsetBlock, m_nHashsetBlock );
+	if ( m_pTorrentBlock ) ZeroMemory( m_pTorrentBlock, m_nTorrentBlock );
 
 	m_nTigerSuccess		= 0;
 	m_nHashsetSuccess	= 0;
@@ -979,8 +976,8 @@ void CDownloadWithTiger::ClearVerification()
 
 	ResetVerification();
 
-	if ( m_pTigerBlock != NULL ) delete [] m_pTigerBlock;
-	if ( m_pHashsetBlock != NULL ) delete [] m_pHashsetBlock;
+	if ( m_pTigerBlock ) delete [] m_pTigerBlock;
+	if ( m_pHashsetBlock ) delete [] m_pHashsetBlock;
 
 	m_pTigerBlock		= NULL;
 	m_nTigerBlock		= 0;

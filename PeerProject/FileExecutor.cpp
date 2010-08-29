@@ -204,13 +204,9 @@ BOOL CFileExecutor::Execute(LPCTSTR pszFile, BOOL bSkipSecurityCheck, LPCTSTR ps
 		return TRUE;	// Skip file
 	}
 
-	// Open known file types
-	if ( theApp.Open( pszFile, FALSE ) )
-	{
-		theApp.Open( pszFile, TRUE );
-
+	// Open known file types (links)
+	if ( theApp.Open( pszFile ) )
 		return TRUE;	// Skip file
-	}
 
 	// Prepare partials
 	bool bPartial = false;

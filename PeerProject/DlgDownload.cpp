@@ -117,7 +117,7 @@ void CDownloadDlg::OnTorrentFile()
 
 	if ( dlg.DoModal() != IDOK ) return;
 
-	theApp.OpenTorrent( dlg.GetPathName(), TRUE );
+	theApp.OpenTorrent( dlg.GetPathName() );
 
 	EndDialog( IDCANCEL );
 }

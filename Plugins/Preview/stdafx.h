@@ -1,7 +1,9 @@
 //
-// stdafx.h : include file for standard system include files,
-// or project specific include files that are used frequently,
-// but are changed infrequently
+// stdafx.h
+//
+// Source file for standard system include files,
+// or project files that are used frequently but changed infrequently
+//
 
 #pragma once
 

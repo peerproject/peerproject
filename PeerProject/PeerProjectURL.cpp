@@ -208,7 +208,7 @@ BOOL CPeerProjectURL::ParseRoot(LPCTSTR pszURL, BOOL bResolve)
 		SkipSlashes( pszURL, 9 );
 		return ParsePeerProject( pszURL );
 	}
-	else if (	_tcsnicmp( pszURL, _T("peerproject:"), 12 ) == 0 )
+	else if ( _tcsnicmp( pszURL, _T("peerproject:"), 12 ) == 0 )
 	{
 		SkipSlashes( pszURL, 12 );
 		return ParsePeerProject( pszURL );
@@ -807,6 +807,22 @@ BOOL CPeerProjectURL::ParseDonkey(LPCTSTR pszURL)
 		return ParseDiscovery( pszURL + 8, CDiscoveryService::dsServerMet );
 	else if ( _tcsnicmp( pszURL, _T("|serverlist|"), 12 ) == 0 )
 		return ParseDiscovery( pszURL + 12, CDiscoveryService::dsServerMet );
+	else if ( _tcsnicmp( pszURL, _T("|search|"), 8 ) == 0 )
+	{
+		// ed2k://|search|text_to_find|/
+
+		CString sURL( pszURL + 8 );
+
+		int nSep = sURL.Find( _T('|') );
+		if ( nSep <= 0 ) return FALSE;
+
+		m_sName = URLDecode( sURL.Mid( 0, nSep ) ).Trim();
+		if ( m_sName.IsEmpty() ) return FALSE;
+
+		m_nAction = uriSearch;
+
+		return TRUE;
+	}
 
 	return FALSE;
 }

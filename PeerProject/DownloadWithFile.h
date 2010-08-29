@@ -34,11 +34,11 @@ protected:
 
 // Attributes
 public:
-	TRISTATE		m_bVerify;			// Verify status (TRI_TRUE - verified, TRI_FALSE - failed, TRI_UNKNOWN - not yet)
+	TRISTATE		m_bVerify;				// Verify status (TRI_TRUE verified, TRI_FALSE failed, TRI_UNKNOWN not yet)
 	DWORD			m_tReceived;
 private:
-	DWORD			m_nFileError;		// Last file/disk error
-	auto_ptr< CFragmentedFile >	m_pFile;// File(s)
+	DWORD			m_nFileError;			// Last file/disk error
+	auto_ptr< CFragmentedFile >	m_pFile;	// File(s)
 
 // Operations
 public:
@@ -58,10 +58,11 @@ public:
 //	BOOL			IsRangeUsefulEnough(CDownloadTransfer* pTransfer, QWORD nOffset, QWORD nLength);
 	BOOL			ClipUploadRange(QWORD nOffset, QWORD& nLength) const;
 	BOOL			GetRandomRange(QWORD& nOffset, QWORD& nLength) const;
-	BOOL			SubmitData(QWORD nOffset, LPBYTE pData, QWORD nLength);
+	bool			GetAvailableRanges( CString& strRanges ) const;
 	QWORD			EraseRange(QWORD nOffset, QWORD nLength);
-	BOOL			MakeComplete();
 	QWORD			InvalidateFileRange(QWORD nOffset, QWORD nLength);
+	BOOL			SubmitData(QWORD nOffset, LPBYTE pData, QWORD nLength);
+	BOOL			MakeComplete();
 	Fragments::List	GetFullFragmentList() const;	// All fragments which must be downloaded
 	Fragments::List	GetEmptyFragmentList() const;	// All empty fragments
 //	Fragments::List	GetWantedFragmentList() const;
@@ -91,13 +92,11 @@ protected:
 
 //private:
 //	Fragments::List	GetPossibleFragments(const Fragments::List& oAvailable, Fragments::Fragment& oLargest);
-
-	// Not supported:
+	// Unsupported:
 	//BOOL			AppendMetadata();
 	//BOOL			AppendMetadataID3v1(HANDLE hFile, CXMLElement* pXML);
 
 // Overrides
 protected:
-	virtual CString	GetAvailableRanges() const;
 	virtual void	Serialize(CArchive& ar, int nVersion);
 };

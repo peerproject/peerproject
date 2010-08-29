@@ -36,7 +36,7 @@ IDI_PEERPROJECT		ICON                    "Res\\PeerProject.ico"
 // Bitmap
 //
 
-IDB_BANNER			BITMAP                  "Res\\Wizard.bmp"
+IDB_BANNER			BITMAP                  "Res\\Banner.bmp"
 
 /////////////////////////////////////////////////////////////////////////////
 //

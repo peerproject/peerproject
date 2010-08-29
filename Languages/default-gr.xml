@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Greek Skin File -->
 
-<!-- Translation based on default-en.xml r55 -->
+<!-- Translation based on default-en.xml r56 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2848,8 +2848,8 @@
 	<string id="8336" value="Οι πηγές αυτού του αρχείου δείχνουν ασταθείς"/>
 	<string id="8337" value="Αφερέγγυο"/>
 	<string id="8338" value="Κανένα Hashset"/>
-	<string id="13000" value="Θέλετε σίγουρα να διαγράψετε τους επιλεγμένους κανόνες ασφαλείας; Αυτό δεν μπορεί να αναιρεθεί!"/>
-	<string id="13001" value="Αρχεία κοινοποιημένα στο Διαδίκτυο"/>
+	<string id="13000" value="Αρχεία κοινοποιημένα στο Διαδίκτυο"/>
+	<string id="13001" value="Θέλετε σίγουρα να διαγράψετε τους επιλεγμένους κανόνες ασφαλείας; Αυτό δεν μπορεί να αναιρεθεί!"/>
 	<string id="16063" value="Η αντιστοίχηση θυρών UPnP εγκαταλήφθηκε μετά από 10 προσπάθειες."/>
 	<string id="16064" value="Έναρξη δικτυακού πυρήνα PeerProject..."/>
 	<string id="16065" value="Δεν μπορεί να ενωθεί η %s θύρα %i για εισερχόμενες συνδέσεις, ώστε αυτές θα είναι αδύνατες."/>

@@ -139,7 +139,7 @@ DWORD CDownloadWithSources::GetEffectiveSourceCount() const
 	if ( Settings.Connection.RequireForTransfers )
 	{
 		if ( Settings.Gnutella1.EnableToday || Settings.Gnutella2.EnableToday )
-			nResult = m_nHTTPSourceCount;
+			nResult += m_nHTTPSourceCount;
 		if ( Settings.Gnutella1.EnableToday )
 			nResult += m_nG1SourceCount;
 		if ( Settings.Gnutella2.EnableToday )
@@ -894,7 +894,8 @@ void CDownloadWithSources::ExpireFailedSources()
 				delete pBadSource;
 				m_pFailedSources.RemoveAt( posThis );
 			}
-			else break; // We appended to tail, so we do not need to move further
+			else
+				break; // We appended to tail, so we do not need to move further
 		}
 	}
 }
@@ -1128,7 +1129,7 @@ void CDownloadWithSources::Serialize(CArchive& ar, int nVersion)	// DOWNLOAD_SER
 			if ( ! pSource->m_nPort && ( _tcsnicmp( pSource->m_sURL, _T("ed2kftp://"), 10 ) == 0 )  )
 			{
 				CString strURL = pSource->m_sURL.Mid(10);
-				if ( strURL.GetLength())
+				if ( strURL.GetLength() )
 					_stscanf( strURL, _T("%lu"), &pSource->m_pAddress.S_un.S_addr );
 			}
 

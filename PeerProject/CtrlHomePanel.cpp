@@ -143,7 +143,7 @@ void CHomePanel::OnSkinChange()
 	Update();
 	Invalidate();
 
-	// ToDo: Fix need for duplicate code
+	// ToDo: Fix need for duplicate code workaround
 	m_boxConnection.OnSkinChange();
 	m_boxLibrary.OnSkinChange();
 	m_boxDownloads.OnSkinChange();
@@ -417,8 +417,7 @@ void CHomeLibraryBox::OnSkinChange()
 
 	SetCaption( pXML->GetAttributeValue( _T("title"), _T("Library") ) );
 	HICON hIcon = CoolInterface.ExtractIcon( IDR_LIBRARYFRAME, Settings.General.LanguageRTL );
-	if ( hIcon )
-		SetIcon( hIcon );
+	if ( hIcon ) SetIcon( hIcon );
 
 	m_pDocument = new CRichDocument();
 
@@ -915,24 +914,23 @@ void CHomeDownloadsBox::Update()
 			m_pdDownloadsMany->SetText( str );
 			m_pdDownloadsMany->Show( TRUE );
 		}
-		if ( m_pdDownloadsOne ) m_pdDownloadsOne->Show( FALSE );
+		if ( m_pdDownloadsOne )  m_pdDownloadsOne->Show( FALSE );
 		if ( m_pdDownloadsNone ) m_pdDownloadsNone->Show( FALSE );
 	}
 	else if ( nActive == 1 )
 	{
 		if ( m_pdDownloadsMany ) m_pdDownloadsMany->Show( FALSE );
-		if ( m_pdDownloadsOne ) m_pdDownloadsOne->Show( TRUE );
+		if ( m_pdDownloadsOne )  m_pdDownloadsOne->Show( TRUE );
 		if ( m_pdDownloadsNone ) m_pdDownloadsNone->Show( FALSE );
 	}
 	else
 	{
 		if ( m_pdDownloadsMany ) m_pdDownloadsMany->Show( FALSE );
-		if ( m_pdDownloadsOne ) m_pdDownloadsOne->Show( FALSE );
+		if ( m_pdDownloadsOne )  m_pdDownloadsOne->Show( FALSE );
 		if ( m_pdDownloadsNone ) m_pdDownloadsNone->Show( TRUE );
 	}
 
 	m_pDocument->ShowGroup( 1, nActive == 0 );
-
 
 	// Download Stats Count
 	if ( Statistics.Today.Downloads.Files == 0 )
@@ -965,10 +963,9 @@ void CHomeDownloadsBox::Update()
 	{
 		str = Settings.SmartVolume( Statistics.Today.Downloads.Volume, KiloBytes );
 		m_pdDownloadedVolume->SetText( str );
-		if ( Statistics.Last.Bandwidth.Incoming > 120 )
+		if ( Statistics.Last.Bandwidth.Incoming > 120 )	// More activity than idle connection
 			GetView().Invalidate();
 	}
-
 
 	if ( GetView().IsModified() )
 	{
@@ -1286,7 +1283,6 @@ void CHomeUploadsBox::Update()
 		if ( m_pdUploadsNone ) m_pdUploadsNone->Show( TRUE );
 	}
 
-
 	// Torrent Seed Count
 	nCount = Downloads.GetSeedCount();
 	m_pDocument->ShowGroup( 1, TRUE );
@@ -1304,13 +1300,12 @@ void CHomeUploadsBox::Update()
 	else if ( nCount == 1 )
 	{
 		if ( m_pdTorrentsMany ) m_pdTorrentsMany->Show( FALSE );
-		if ( m_pdTorrentsOne ) m_pdTorrentsOne->Show( TRUE );
+		if ( m_pdTorrentsOne )  m_pdTorrentsOne->Show( TRUE );
 	}
 	else
 	{
 		m_pDocument->ShowGroup( 1, FALSE );
 	}
-
 
 	// Upload Stats Count
 	if ( Statistics.Today.Uploads.Files == 0 )

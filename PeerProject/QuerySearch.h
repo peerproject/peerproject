@@ -99,29 +99,29 @@ private:
 		FindStr(const WordEntry& entry) : m_entry( entry ) {}
 		bool operator()(const LPCTSTR& arg) const
 		{
-			//! \todo verify this - this will succeed for every arg that starts with the search string
-			//!                     it doesn't have to be an exact match
+			// Todo: Verify this - it will succeed for every arg that starts with the search string, not an exact match
 			return _tcsnicmp( arg, m_entry.first, m_entry.second ) == 0;
 		}
 	};
+
 public:
 	typedef std::set< WordEntry, CompareWordEntries > WordTable;
 	typedef WordTable::iterator iterator;
 	typedef WordTable::const_iterator const_iterator;
 	typedef Hash32List::iterator hash_iterator;
 	typedef Hash32List::const_iterator const_hash_iterator;
-	//positive keywords
+	// Positive keywords
 	const_iterator			begin() const { return m_oWords.begin(); }
 	const_iterator			end()   const { return m_oWords.end(); }
 	size_t					tableSize() const { return m_oWords.size(); }
-	//Negative keywords
+	// Negative keywords
 	const_iterator			beginNeg() const { return m_oNegWords.begin(); }
 	const_iterator			endNeg()   const { return m_oNegWords.end(); }
 	size_t					tableSizeNeg() const { return m_oNegWords.size(); }
-	// hashed URNs
+	// Hashed URNs
 	const_hash_iterator		urnBegin() const { return m_oURNs.begin(); }
 	const_hash_iterator		urnEnd()   const { return m_oURNs.end(); }
-	// hashed keywords (Positive words only)
+	// Hashed keywords (Positive words only)
 	const_hash_iterator		keywordBegin() const { return m_oKeywordHashList.begin(); }
 	const_hash_iterator		keywordEnd()   const { return m_oKeywordHashList.end(); }
 private:
@@ -141,8 +141,7 @@ private:
 
 // Operations
 public:
-	BOOL					Match(LPCTSTR pszFilename, QWORD nSize, LPCTSTR pszSchemaURI, CXMLElement* pXML, const Hashes::Sha1Hash& oSHA1,
-								const Hashes::TigerHash& oTiger, const Hashes::Ed2kHash& oED2K, const Hashes::BtHash& oBTH, const Hashes::Md5Hash& oMD5) const;
+	BOOL					Match(LPCTSTR pszFilename, LPCTSTR pszSchemaURI, CXMLElement* pXML, const CPeerProjectFile* pFile ) const;
 	TRISTATE				MatchMetadata(LPCTSTR pszSchemaURI, CXMLElement* pXML) const;
 	BOOL					MatchMetadataShallow(LPCTSTR pszSchemaURI, CXMLElement* pXML, bool* bReject=NULL) const;
 	void					BuildWordList(bool bExpression=true, bool bLocal=false);

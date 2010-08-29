@@ -281,7 +281,7 @@ DWORD CDownloadWithFile::MoveFile(LPCTSTR pszDestination, LPPROGRESS_ROUTINE lpP
 			CString strMessage;
 			strMessage.Format( LoadString( IDS_DOWNLOAD_CANT_MOVE ),
 				GetDisplayName(), pszDestination );
-			theApp.Message( MSG_ERROR, _T("%s %s"),
+			theApp.Message( MSG_ERROR | MSG_TRAY, _T("%s %s"),
 				strMessage, GetErrorString( dwError ) );
 			return dwError;
 		}
@@ -593,7 +593,7 @@ BOOL CDownloadWithFile::IsPositionEmpty(QWORD nOffset)
 //	if ( ! m_pFile.get() || ! m_pFile->IsValid() )
 //		return FALSE;
 //
-//	// range is useful if at least byte within the next amount of data transferable within the next 5 seconds is useful
+//	// Range is useful if at least byte within the next amount of data transferable within the next 5 seconds is useful
 //	DWORD nLength2 = 5 * pTransfer->GetAverageSpeed();
 //	if ( nLength2 < nLength )
 //	{
@@ -607,31 +607,30 @@ BOOL CDownloadWithFile::IsPositionEmpty(QWORD nOffset)
 //////////////////////////////////////////////////////////////////////
 // CDownloadWithFile get a string of available ranges
 
-CString CDownloadWithFile::GetAvailableRanges() const
+bool CDownloadWithFile::GetAvailableRanges(CString& strRanges) const
 {
-	CString strRange, strRanges;
+	strRanges.Empty();
 
 	if ( ! m_pFile.get() || ! m_pFile->IsValid() )
-		return strRanges;
+		return false;
 
 	Fragments::List oAvailable( inverse( GetEmptyFragmentList() ) );
+	if ( oAvailable.empty() )
+		return false;
+
+	CString strRange;
+	strRanges = _T("bytes ");
 	Fragments::List::const_iterator pItr = oAvailable.begin();
 	const Fragments::List::const_iterator pEnd = oAvailable.end();
-	for ( ; pItr != pEnd ; ++pItr )
+	for ( ; pItr != pEnd && strRanges.GetLength() < HTTP_HEADER_MAX_LINE - 256 ; ++pItr )
 	{
-		if ( strRanges.IsEmpty() )
-			strRanges = _T("bytes ");
-		else
-			strRanges += ',';
-
-		strRange.Format( _T("%I64i-%I64i"), pItr->begin(), pItr->end() - 1 );
+		strRange.Format( _T("%I64i-%I64i,"), pItr->begin(), pItr->end() - 1 );
 		strRanges += strRange;
-
-		if ( strRanges.GetLength() > HTTP_HEADER_MAX_LINE - 256 )
-			break;	// Prevent too long a line
 	}
 
-	return strRanges;
+	strRanges.TrimRight( _T(',') );
+
+	return true;
 }
 
 //////////////////////////////////////////////////////////////////////

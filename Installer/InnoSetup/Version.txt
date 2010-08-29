@@ -1,8 +1,8 @@
-Inno Setup 5.3.9 Components
+Inno Setup 5.3.10 Components
 Copyright 2010 Jordan Russell
 Redistributed as per License.txt
 
 http://jrsoftware.org/isdl.php
 http://ispp.sourceforge.net
 
-Source: ispack-5.3.9.exe
+Source: ispack-5.3.10.exe

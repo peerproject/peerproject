@@ -64,12 +64,23 @@ static char THIS_FILE[]=__FILE__;
 //////////////////////////////////////////////////////////////////////
 // CUploadTransferHTTP construction
 
-CUploadTransferHTTP::CUploadTransferHTTP() : CUploadTransfer( PROTOCOL_HTTP )
+CUploadTransferHTTP::CUploadTransferHTTP()
+	: CUploadTransfer	( PROTOCOL_HTTP )
+	, m_tRequest		( 0ul )
+	, m_bHead			( FALSE )
+	, m_bConnectHdr		( FALSE )
+	, m_bKeepAlive		( TRUE )
+	, m_bHostBrowse		( FALSE )
+	, m_bDeflate		( FALSE )
+	, m_bBackwards		( FALSE )
+	, m_bRange			( FALSE )
+	, m_bQueueMe		( FALSE )
+	, m_bNotPeerProject	( FALSE )
+	, m_bTigerTree		( FALSE )
+	, m_bMetadata		( FALSE )
+	, m_nGnutella		( 0 )
+	, m_nReaskMultiplier ( 1 )
 {
-	m_bKeepAlive		= TRUE;
-	m_nGnutella			= 0;
-	m_nReaskMultiplier	= 1;
-	m_bNotPeerProject	= FALSE;
 }
 
 CUploadTransferHTTP::~CUploadTransferHTTP()
@@ -747,11 +758,16 @@ BOOL CUploadTransferHTTP::RequestSharedFile(CLibraryFile* pFile, CSingleLock& oL
 	}
 
 	if ( m_sLocations.GetLength() )
+	{
 		pFile->AddAlternateSources( m_sLocations );
+		m_sLocations.Empty();
+	}
 
-	if ( Settings.Library.SourceMesh )
-		m_sLocations = pFile->GetAlternateSources( &m_pSourcesSent, 15,
-			( m_nGnutella < 2 ) ? PROTOCOL_G1 : PROTOCOL_HTTP );
+	if ( Settings.Library.SourceMesh && m_nGnutella > 1 )
+	{
+		m_sLocations = pFile->GetAlternateSources( &m_pSourcesSent,
+			15, PROTOCOL_HTTP );
+	}
 
 	oLibraryLock.Unlock();
 
@@ -769,7 +785,7 @@ BOOL CUploadTransferHTTP::RequestPartialFile(CDownload* pDownload)
 	if ( ! RequestPartial( pDownload ) )
 	{
 		SendResponse( IDR_HTML_HASHMISMATCH );
-		theApp.Message( MSG_ERROR, IDS_UPLOAD_HASH_MISMATCH, (LPCTSTR)m_sAddress, (LPCTSTR)m_sName );
+		theApp.Message( MSG_WARNING, IDS_UPLOAD_HASH_MISMATCH, (LPCTSTR)m_sAddress, (LPCTSTR)m_sName );
 		return TRUE;
 	}
 
@@ -779,13 +795,18 @@ BOOL CUploadTransferHTTP::RequestPartialFile(CDownload* pDownload)
 	m_bMetadata		= pDownload->HasMetadata();
 
 	if ( m_sLocations.GetLength() )
+	{
 		pDownload->AddSourceURLs( m_sLocations, TRUE );
+		m_sLocations.Empty();
+	}
 
 	if ( Settings.Library.SourceMesh )
+	{
 		m_sLocations = pDownload->GetSourceURLs( &m_pSourcesSent, 15,
 			( m_nGnutella < 2 ) ? PROTOCOL_G1 : PROTOCOL_HTTP, NULL );
+	}
 
-	m_sRanges = pDownload->GetAvailableRanges();
+	pDownload->GetAvailableRanges( m_sRanges );
 
 	if ( m_bRange && m_nOffset == 0 && m_nLength == SIZE_UNKNOWN )
 		pDownload->GetRandomRange( m_nOffset, m_nLength );
@@ -806,7 +827,7 @@ BOOL CUploadTransferHTTP::RequestPartialFile(CDownload* pDownload)
 		else
 		{
 			SendResponse( IDR_HTML_FILENOTFOUND );
-			theApp.Message( MSG_ERROR, IDS_UPLOAD_FILENOTFOUND, (LPCTSTR)m_sAddress, (LPCTSTR)m_sName );
+			theApp.Message( MSG_INFO, IDS_UPLOAD_FILENOTFOUND, (LPCTSTR)m_sAddress, (LPCTSTR)m_sName );
 			return TRUE;
 		}
 	}
@@ -837,7 +858,8 @@ BOOL CUploadTransferHTTP::RequestPartialFile(CDownload* pDownload)
 
 BOOL CUploadTransferHTTP::QueueRequest()
 {
-	if ( m_bHead ) return OpenFileSendHeaders();
+	if ( m_bHead )
+		return OpenFileSendHeaders();
 
 	AllocateBaseFile();
 
@@ -854,8 +876,7 @@ BOOL CUploadTransferHTTP::QueueRequest()
 		if ( pQueue ) pQueue->Dequeue( this );
 	}
 
-
-	if ( Uploads.CanUploadFileTo( &m_pHost.sin_addr, m_oSHA1 ) )	//if ( Uploads.AllowMoreTo( &m_pHost.sin_addr ) )
+	if ( Uploads.CanUploadFileTo( &m_pHost.sin_addr, this ) )	//if ( Uploads.AllowMoreTo( &m_pHost.sin_addr ) )
 	{
 		if ( ( nPosition = UploadQueues.GetPosition( this, TRUE ) ) >= 0 )
 		{
@@ -1066,7 +1087,7 @@ void CUploadTransferHTTP::SendFileHeaders()
 
 	if ( m_sLocations.GetLength() )
 	{
-		if ( m_nGnutella < 2 )
+		if ( m_sLocations.Find( _T("://") ) < 0 )	// m_nGnutella < 2
 			Write( _P("X-Alt: ") );
 		else
 			Write( _P("Alt-Location: ") );

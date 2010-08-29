@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Turkish Skin File -->
 
-<!-- Translation based on default-en.xml r55 -->
+<!-- Translation based on default-en.xml r56 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2778,8 +2778,8 @@
 	<string id="8336" value="Bu dosya için kaynaklar değişken olabilir"/>
 	<string id="8337" value="Güvenliği garanti olmayan"/>
 	<string id="8338" value="&#160;(Hashset yok)"/>
-	<string id="13000" value="Seçilen güvenlik kuralını silmek istediğinizden emin misiniz? Geri dönüş mümkün olmayacaktır."/>
-	<string id="13001" value="İnternet üzerinden paylaşılan dosyalar"/>
+	<string id="13000" value="İnternet üzerinden paylaşılan dosyalar"/>
+	<string id="13001" value="Seçilen güvenlik kuralını silmek istediğinizden emin misiniz? Geri dönüş mümkün olmayacaktır."/>
 	<string id="16063" value="UPnP port açılışı 10 denemeye rağmen başarısız olmuştur."/>
 	<string id="16064" value="PeerProject ağ merkezi başlıyor..."/>
 	<string id="16065" value="Gelen bağlantılar için %s  port %i'den bağlanamaz. Gelen bağlantılar desteklenmeyecektir."/>

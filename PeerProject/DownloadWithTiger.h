@@ -72,8 +72,6 @@ public:
 	BOOL		GetNextVerifyRange(QWORD& nOffset, QWORD& nLength, BOOL& bSuccess, int nHash = HASH_NULL) const;
 	DWORD		GetVerifyLength(PROTOCOLID nProtocol = PROTOCOL_ANY, int nHash = HASH_NULL) const;
 
-	virtual CString	GetAvailableRanges() const;
-
 	// Get list of possible download fragments / empty fragments we really want
 	Fragments::List GetPossibleFragments(const Fragments::List& oAvailable, Fragments::Fragment& oLargest);
 	Fragments::List GetWantedFragmentList() const;
@@ -100,6 +98,6 @@ protected:
 
 	virtual void	Serialize(CArchive& ar, int nVersion);
 
-	friend class CEDClient; // AddSourceED2K && m_nHashsetBlock && m_pHashsetBlock
+	friend class CEDClient; 	// AddSourceED2K && m_nHashsetBlock && m_pHashsetBlock
 	friend class CDownloadTipCtrl;
 };

@@ -204,9 +204,9 @@ void CFragmentBar::DrawDownload(CDC* pDC, CRect* prcBar, CDownload* pDownload, C
 	}
 
 	if ( pDownload->IsStarted() && Skin.m_bmProgress.m_hObject != NULL )
-		CoolInterface.DrawWatermark( pDC, prcBar, &Skin.m_bmProgress, FALSE );		// No overdraw (bar)
+		CoolInterface.DrawWatermark( pDC, prcBar, &Skin.m_bmProgress, FALSE );		// Bar  -no overdraw
 	else if ( ! pDownload->IsStarted() && Skin.m_bmProgressNone.m_hObject != NULL )
-		CoolInterface.DrawWatermark( pDC, prcBar, &Skin.m_bmProgress, FALSE );		// No overdraw (empty)
+		CoolInterface.DrawWatermark( pDC, prcBar, &Skin.m_bmProgressNone, FALSE );	// Empty bar  -no overdraw
 	else
 		pDC->FillSolidRect( prcBar, pDownload->IsStarted() ? Colors.m_crFragmentComplete : crNatural );
 }

@@ -104,8 +104,9 @@
       <FloatingPointModel>Fast</FloatingPointModel>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <WarningLevel>Level4</WarningLevel>
+      <ProgramDataBaseFileName>$(IntDir)$(TargetName).pdb</ProgramDataBaseFileName>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <WarningLevel>Level4</WarningLevel>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -156,6 +157,7 @@ regsvr32 /s /c "$(TargetPath)"
       <FloatingPointModel>Fast</FloatingPointModel>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
       <PrecompiledHeader>Use</PrecompiledHeader>
+      <ProgramDataBaseFileName>$(IntDir)$(TargetName).pdb</ProgramDataBaseFileName>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <WarningLevel>Level4</WarningLevel>
     </ClCompile>
@@ -200,7 +202,7 @@ regsvr32 /s /c "$(TargetPath)"
       <Optimization>Full</Optimization>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <FavorSizeOrSpeed>Size</FavorSizeOrSpeed>
       <OmitFramePointers>true</OmitFramePointers>
       <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
       <AdditionalIncludeDirectories>%(RootDir)%(Directory);../../Services/zlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -235,10 +237,7 @@ regsvr32 /s /c "$(TargetPath)"
       </OutputFile>
     </Bscmake>
     <PostBuildEvent>
-      <Message>Performing registration</Message>
-      <Command>copy "..\..\Services\zlib\$(Configuration) $(Platform)\zlibwapi.dll" "$(TargetDir)" /b /y
-regsvr32 /s /c "$(TargetPath)"
-</Command>
+      <Message>No registration</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -258,7 +257,7 @@ regsvr32 /s /c "$(TargetPath)"
       <Optimization>Full</Optimization>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <FavorSizeOrSpeed>Size</FavorSizeOrSpeed>
       <OmitFramePointers>true</OmitFramePointers>
       <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
       <AdditionalIncludeDirectories>%(RootDir)%(Directory);../../Services/zlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -292,10 +291,7 @@ regsvr32 /s /c "$(TargetPath)"
       </OutputFile>
     </Bscmake>
     <PostBuildEvent>
-      <Message>Performing registration</Message>
-      <Command>copy "..\..\Services\zlib\$(Configuration) $(Platform)\zlibwapi.dll" "$(TargetDir)" /b /y
-regsvr32 /s /c "$(TargetPath)"
-</Command>
+      <Message>No registration</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>

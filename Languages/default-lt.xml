@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Lithuanian Skin File -->
 
-<!-- Translation based on default-en.xml r55 -->
+<!-- Translation based on default-en.xml r56 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2675,7 +2675,7 @@
 	<string id="8002" value="Failo ypatybės"/>
 	<string id="8003" value="Taisyti savo profilį"/>
 	<string id="8004" value="!Sveiki! Čia „PeerProject“ (version) !\n.\n„PeerProject“ - visiškai nemokamas programinis produktas.\nNaudokitės juo atsakingai ir paisykite intelektualios nuosavybės įstatymo.\n."/>
-	<string id="8005" value=" (baigiamas darbas nelikus siuntimų)"/>
+	<string id="8005" value="(baigiamas darbas nelikus siuntimų)"/>
 	<string id="8006" value="Jūs nesate prisijungę. Pradėkite paspaudę „Jungtis“ mygtuką."/>
 	<string id="8007" value="Nėra aktyvių paieškos procesų. Pradėkite paiešką paspaudę čia."/>
 	<string id="8008" value="„PeerProject“ baigė parsisiųsti naujesnę „PeerProject“ versiją (%s). Ar norite dabar atnaujinti?\n\nJei pasirinksite „Taip“, „PeerProject“ laikinai baigs savo darbą, kol vyks atnaujinimas."/>
@@ -2813,8 +2813,8 @@
 	<string id="8336" value="Šio failo šaltiniai gali siųsti nestabiliai"/>
 	<string id="8337" value="Patikimas"/>
 	<string id="8338" value="Be maišos rinkinio"/>
-	<string id="13000" value="Ar tikrai norite ištrinti pasirinktas saugos taisykles? Šio žingsnio negalėsite atšaukti."/>
-	<string id="13001" value="Failai, bendrinami internetu"/>
+	<string id="13000" value="Failai, bendrinami internetu"/>
+	<string id="13001" value="Ar tikrai norite ištrinti pasirinktas saugos taisykles? Šio žingsnio negalėsite atšaukti."/>
 	<string id="16063" value="Prievado peradresavimas naudojant UPnP buvo nesėkmingas po 10 bandymų."/>
 	<string id="16064" value="Startuojamas „PeerProject“ tinklo branduolys..."/>
 	<string id="16065" value="Neįmanoma susieti %s adreso %i prievado įeinantiems susijungimams. Įeinantys susijungimai nebus palaikomi."/>

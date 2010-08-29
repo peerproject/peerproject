@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Albanian Skin File -->
 
-<!-- Translation based on default-en.xml r55 -->
+<!-- Translation based on default-en.xml r56 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2823,8 +2823,8 @@
 	<string id="8336" value="Burimet për këtë skedë mund të jenë të paqëndrueshme"/>
 	<string id="8337" value="I pasigurt"/>
 	<string id="8338" value="Pa Hashset"/>
-	<string id="13000" value="A jeni i sigurt se doni të fshini rregullat e zgjedhur të sigurisë?  Kjo nuk mund të çbëhet."/>
-	<string id="13001" value="Skedat që shpërndahen në Internet"/>
+	<string id="13000" value="Skedat që shpërndahen në Internet"/>
+	<string id="13001" value="A jeni i sigurt se doni të fshini rregullat e zgjedhur të sigurisë?  Kjo nuk mund të çbëhet."/>
 	<string id="16063" value="Përparimi UPnP i portit dështoi pas 10 orvatjesh."/>
 	<string id="16064" value="Po niset bërthama e rrjetit PeerProject..."/>
 	<string id="16065" value="Nuk mund të varem tek %s porti %i për lidhje të hyra. Lidhjet e hyra nuk do të përkrahen."/>

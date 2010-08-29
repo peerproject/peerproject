@@ -291,7 +291,6 @@ protected:
 
 	void			ConnectIrc();
 	void			SetFonts();
-	void			OnSettings();
 	BOOL			OnNewMessage(const CString& strMessage);
 	void			StatusMessage(LPCTSTR pszText, int nFlags = ID_COLOR_NOTICE);
 	void			SendString(const CString& strMessage);

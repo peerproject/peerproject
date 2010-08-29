@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default French Skin File -->
 
-<!-- Translation based on default-en.xml r55 -->
+<!-- Translation based on default-en.xml r56 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2694,7 +2694,7 @@
 	<string id="8002" value="Propriétés du fichier"/>
 	<string id="8003" value="Éditer mon profil"/>
 	<string id="8004" value="!PeerProject (version) vous souhaite la bienvenue!\n.\nPeerProject est un logiciel complètement libre et gratuit.\nMerci de l'utiliser de manière responsable et de respecter les lois sur la propriété intellectuelle.\n."/>
-	<string id="8005" value=" (quitter à la fin des transferts)"/>
+	<string id="8005" value="(quitter à la fin des transferts)"/>
 	<string id="8006" value="Vous n'êtes pas connecté. Cliquez sur le boutton &#171;&#160;Se connecter&#160;&#187; pour commencer."/>
 	<string id="8007" value="Il n'y a pas de recherche active. Cliquez ici pour rechercher des fichiers."/>
 	<string id="8008" value="PeerProject a terminé le téléchargement de la nouvelle version (%s) de PeerProject. Voulez-vous mettre à jour maintenant&#160;?\n\nSi vous choisissez &#171;&#160;Oui&#160;&#187;, PeerProject va se fermer temporairement durant l'installation de la mise à jour."/>
@@ -2833,8 +2833,8 @@
 	<string id="8336" value="Les sources pour ce fichier sont peut-être instables"/>
 	<string id="8337" value="Non fiable"/>
 	<string id="8338" value="&#160;(Aucun Hashset)"/>
-	<string id="13000" value="Êtes-vous certain de vouloir supprimer ces règles&#160;?"/>
-	<string id="13001" value="Fichiers partagés sur Internet"/>
+	<string id="13000" value="Fichiers partagés sur Internet"/>
+	<string id="13001" value="Êtes-vous certain de vouloir supprimer ces règles&#160;?"/>
 	<string id="16063" value="Au bout de dix essais, PeerProject n'a pas réussi à configurer votre pare-feu ou routeur avec l'UPnP"/>
 	<string id="16064" value="Démarrage du noyau réseau de PeerProject..."/>
 	<string id="16065" value="Impossible de se relier au %s port %i pour les connexions entrantes. Les connexions entrantes ne seront pas supportées."/>

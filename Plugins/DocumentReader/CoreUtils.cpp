@@ -465,7 +465,7 @@ STDAPI LoadPropertySetList(IPropertyStorage *pPropStg, WORD *pwCodePage, CDocPro
 				if (SUCCEEDED(hr))
 				{
 					// If we got the data, make the property object to hold it
-					// and append last item to link the list (
+					// and append last item to link the list
 					bstrName = ((sps.lpwstrName) ? SysAllocString(sps.lpwstrName) : NULL);
 					pLastItem = pList;
 
@@ -774,10 +774,9 @@ STDAPI_(UINT) CompareStrings(LPCWSTR pwsz1, LPCWSTR pwsz2)
 	if ((pwsz2 == NULL) || ((cblen2 = lstrlenW(pwsz2)) == 0))
 		return CSTR_GREATER_THAN;
 
-	// If the string is of the same size, then we do quick compare to test for
-	// equality (this is slightly faster than calling the API, but only if we
-	// expect the calls to find an equal match)...
-	if (cblen1 == cblen2)
+	// If the string is of the same size, then we do quick compare to test for equality
+	// (Slightly faster than calling the API, only if we expect the calls to find an equal match)
+	if ( cblen1 == cblen2 )
 	{
 		for (iret = 0; iret < cblen1; iret++)
 		{
@@ -796,7 +795,7 @@ STDAPI_(UINT) CompareStrings(LPCWSTR pwsz1, LPCWSTR pwsz2)
 		}
 
 		// If we made it all the way, then they are equal...
-		if (iret == cblen1)
+		if ( iret == cblen1 )
 			return CSTR_EQUAL;
 	}
 
@@ -804,11 +803,10 @@ STDAPI_(UINT) CompareStrings(LPCWSTR pwsz1, LPCWSTR pwsz2)
 	// (Prefer checking in Unicode, it is faster and the may be
 	// strings that can't be thunked down to the local ANSI code page)
 
-	//if (v_fRunningOnNT)
+	//if ( v_fRunningOnNT )
 		iret = CompareStringW(lcid, NORM_IGNORECASE | NORM_IGNOREWIDTH, pwsz1, cblen1, pwsz2, cblen2);
-	//else
+	//else  // Win9x, doesn't have much choice (thunk the call)...
 	//{
-	//If we are on Win9x, we don't have much of choice (thunk the call)...
 	//	LPTSTR psz1 = ConvertToMBCS(pwsz1, CP_ACP);
 	//	LPTSTR psz2 = ConvertToMBCS(pwsz2, CP_ACP);
 	//	iret = CompareString(lcid, NORM_IGNORECASE,	psz1, -1, psz2, -1);
@@ -877,9 +875,8 @@ STDAPI_(BOOL) FGetModuleFileName(HMODULE hModule, WCHAR** wzFileName)
 			return FALSE;
 		}
 	//}
-	//else	// Win98
+	//else	// Win98, doesn't have much choice (thunk the call)...
 	//{
-	//If we are on Win9x, we don't have much of choice (thunk the call)...
 	//	dw = GetModuleFileName( hModule, (LPTSTR)pwsz, MAX_PATH );
 	//	if (dw == 0)
 	//	{

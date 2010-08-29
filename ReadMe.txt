@@ -2,12 +2,16 @@ PeerProject Compiling Notes:
 ___________________________
 
 
-0. This sourcecode package is self-contained.  Only Visual Studio 2008 is supported.
+0. This sourcecode package is self-contained.  Only Microsoft Visual Studio is supported.
 
 
-1. Install Microsoft Visual Studio 2008 + SP1
+1. Install Visual Studio 2008 + SP1
 	- http://www.microsoft.com/downloads/details.aspx?FamilyID=83c3a1ec-ed72-4a79-8961-25635db0192b  (90day Trial)
 	- http://www.microsoft.com/downloads/details.aspx?FamilyID=fbee1648-7106-44a7-9649-6d9f6d58056e  (Service Pack)
+
+   OR Install Visual Studio 2010
+	- http://www.microsoft.com/downloads/details.aspx?FamilyID=26bae65f-b0df-4081-ae6e-1d828993d4d0  (30/90day Trial)
+	- Note also available Visual Studio 2005 files may be outdated
 
 2. Locate this complete PeerProject sourcecode set.
 	- http://peerproject.svn.sourceforge.net/viewvc/peerproject/trunk.tar.gz
@@ -17,19 +21,17 @@ ___________________________
 
 
 
-X. Alternatives for Browse/Edit only:
-	- Visual Studio 2005 files are available, but may be outdated.
-	- Visual Studio 2010 files are available, but some projects FAIL to build.
-	- Visual C++ Express can be reconfigured, but some projects STILL FAIL to build.
+X. Cost-Free alternative for Browse/Edit only:
+	- Visual C++ Express can be configured, but some projects STILL FAIL to build.
 
-X. Install Visual C++ Express + Windows SDK + WDK  ( FREE )
+   Install Visual C++ Express (2008) + Windows SDK + WDK
 	- http://www.microsoft.com/express/downloads  ( Visual C++ 2008 Express, and/or 2010 )
 	- http://www.microsoft.com/downloads/details.aspx?familyid=C17BA869-9671-4330-A63E-1FD44E0E2505  (Win7 SDK)
 	- http://www.microsoft.com/downloads/details.aspx?FamilyID=36a2630f-5d56-43b5-b996-7633f2ec14ff  (WDK 7.1)
 
 	- For Windows SDK web installer, "Documentation" and "Samples" are not needed: uncheck them.
 	- For WDK (Windows Driver Kit) installer, only "Build Environments" is needed: leave others unchecked.
-	- To add MFC go to:  Tools > Options > Projects and Solutions > VC++ Directories > (See dropdown at upper-right)
+	- To add MFC in VC2008 go to:  Tools > Options > Projects and Solutions > VC++ Directories > (See dropdown at upper-right)
 	--  In "Include Directories" add to top:  C:\<WDK>\inc\atl71  and  C:\<WDK>\inc\mfc42  and  C:\<Win7 SDK>\Include
 	--  In "Library Directores"  add to end:  C:\<WDK>\lib\ATL\i386  and  C:\<WDK>\lib\MFC\i386  (Use actual paths)
 

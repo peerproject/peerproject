@@ -239,8 +239,6 @@ BOOL CNetwork::Connect(BOOL bAutoConnect)
 
 	CSingleLock pLock( &m_pSection, TRUE );
 
-	Settings.Live.AutoClose = FALSE;
-
 	if ( bAutoConnect )
 		m_bAutoConnect = TRUE;
 
@@ -248,7 +246,7 @@ BOOL CNetwork::Connect(BOOL bAutoConnect)
 	if ( IsConnected() )
 		return TRUE;
 
-	m_tStartedConnecting	= GetTickCount();
+	m_tStartedConnecting = GetTickCount();
 	BeginThread( "Network" );
 
 	return TRUE;
@@ -266,8 +264,8 @@ void CNetwork::Disconnect()
 	theApp.Message( MSG_INFO, _T("") );
 	theApp.Message( MSG_NOTICE, IDS_NETWORK_DISCONNECTING );
 
-	m_bAutoConnect			= FALSE;
-	m_tStartedConnecting	= 0;
+	m_bAutoConnect = FALSE;
+	m_tStartedConnecting = 0;
 
 	pLock.Unlock();
 

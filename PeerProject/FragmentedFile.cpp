@@ -246,7 +246,7 @@ BOOL CFragmentedFile::Open(LPCTSTR pszFile, QWORD nOffset, QWORD nLength,
 	return pFile && ( m_nFileError == ERROR_SUCCESS );
 }
 
-BOOL CFragmentedFile::Open(const CPeerProjectFile& oSHFile, BOOL bWrite)
+BOOL CFragmentedFile::Open(CPeerProjectFile& oSHFile, BOOL bWrite)
 {
 	CString sUniqueName = oSHFile.GetFilename();
 
@@ -276,6 +276,9 @@ BOOL CFragmentedFile::Open(const CPeerProjectFile& oSHFile, BOOL bWrite)
 	}
 
 	//ASSERT( lstrcmpi( PathFindExtension( strSource ), _T(".pd") ) != 0 );
+
+	if ( oSHFile.m_sPath.IsEmpty() )
+		oSHFile.m_sPath = strSource;	// For seeded file uploading via Gnutella
 
 	if ( ! Open( strSource, 0, oSHFile.m_nSize, bWrite, oSHFile.m_sName ) )
 	{

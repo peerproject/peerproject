@@ -4,7 +4,7 @@
 <!-- PeerProject Default Afrikaans Skin File -->
 <!-- Weergawe: 27 Oktober 2005 vir Shareaza 2.2.0.2 -->
 
-<!-- Translation based on default-en.xml r55 -->
+<!-- Translation based on default-en.xml r56 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2671,7 +2671,7 @@
 	<string id="8002" value="Lêer Eienskappe"/>
 	<string id="8003" value="Verander My Profiel"/>
 	<string id="8004" value="!Welkom by PeerProject (version) !\n.\nPeerProject is heeltemal gratis sagteware.\nGebruik dit asseblief verantwoordelik en respekteer intellektuele goederereg.\n."/>
-	<string id="8005" value=" (verlaat na oordragte)"/>
+	<string id="8005" value="(verlaat na oordragte)"/>
 	<string id="8006" value="Jy is nie gekonnekteer nie.  Kliek die Konnekteer-knoppie om te begin."/>
 	<string id="8007" value="Daar is geen aktiewe soektogte nie.  Kliek hier om vir lêers te soek."/>
 	<string id="8008" value="PeerProject het die aflaai van die volgende weergawe van PeerProject voltooi (%s).  Wil jy nou opgradeer?\n\nAs jy Ja selekteer, sal jy PeerProject tydelik verlaat terwyl die opgradering installeer."/>
@@ -2810,8 +2810,8 @@
 	<string id="8336" value="Bronne vir hierdie lêer mag onstabiel wees"/>
 	<string id="8337" value="Untrusted"/>
 	<string id="8338" value="&#160;(Geen Hashset)"/>
-	<string id="13000" value="Are you sure you want to delete the selected security rules? This cannot be undone."/>
-	<string id="13001" value="Files shared over the Internet"/>
+	<string id="13000" value="Files shared over the Internet"/>
+	<string id="13001" value="Are you sure you want to delete the selected security rules? This cannot be undone."/>
 	<string id="16063" value="UPnP port mapping failed after 10 attempts."/>
 	<string id="16064" value="Begin PeerProject netwerkkern..."/>
 	<string id="16065" value="Kan nie na %s poort %i koppel vir inkomende konneksies nie.  Inkomende konneksies sal nie ondersteun word nie."/>
@@ -4605,4 +4605,3 @@
 	</list>
 </listColumns>
 </skin>
-ቜ컒

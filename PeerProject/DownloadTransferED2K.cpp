@@ -226,13 +226,13 @@ BOOL CDownloadTransferED2K::OnConnected()
 	ASSERT( m_pClient != NULL );
 	ASSERT( m_pSource != NULL );
 
-	m_pHost		= m_pClient->m_pHost;
-	m_sAddress	= m_pClient->m_sAddress;
+	m_pHost				= m_pClient->m_pHost;
+	m_sAddress			= m_pClient->m_sAddress;
 	UpdateCountry();
 
-	m_pSource->m_oGUID		= m_pClient->m_oGUID;
-	m_pSource->m_sServer	= m_sUserAgent = m_pClient->m_sUserAgent;
-	m_pSource->m_sNick		= m_pClient->m_sNick;
+	m_pSource->m_oGUID	= m_pClient->m_oGUID;
+	m_pSource->m_sNick	= m_pClient->m_sNick;
+	m_pSource->m_sServer = m_sUserAgent = m_pClient->m_sUserAgent;
 	m_pSource->SetLastSeen();
 
 	theApp.Message( MSG_INFO, IDS_DOWNLOAD_CONNECTED, (LPCTSTR)m_sAddress );
@@ -288,7 +288,8 @@ BOOL CDownloadTransferED2K::OnFileNotFound(CEDPacket* /*pPacket*/)
 
 BOOL CDownloadTransferED2K::OnFileStatus(CEDPacket* pPacket)
 {
-	if ( m_nState <= dtsConnecting ) return TRUE;
+	if ( m_nState <= dtsConnecting )
+		return TRUE;
 
 	if ( pPacket->GetRemaining() < Hashes::Ed2kHash::byteCount + 2 )
 	{
@@ -357,7 +358,8 @@ BOOL CDownloadTransferED2K::OnFileStatus(CEDPacket* pPacket)
 
 BOOL CDownloadTransferED2K::OnHashsetAnswer(CEDPacket* pPacket)
 {
-	if ( m_nState != dtsHashset ) return TRUE;
+	if ( m_nState != dtsHashset )
+		return TRUE;
 
 	if ( pPacket->GetRemaining() < Hashes::Ed2kHash::byteCount + 2 )
 	{
@@ -386,17 +388,13 @@ BOOL CDownloadTransferED2K::OnHashsetAnswer(CEDPacket* pPacket)
 	if ( bNullBlock )
 		nBlocksFromSize++;
 
-	if ( nBlocks == 0 ) nBlocks = 1;
+	if ( nBlocks == 0 )
+		nBlocks = 1;
 
 	if ( nBlocks != nBlocksFromSize )
-	{
 		theApp.Message( MSG_ERROR, IDS_DOWNLOAD_HASHSET_ERROR, (LPCTSTR)m_sAddress );
-	}
-	else if ( m_pDownload->SetHashset(	pPacket->m_pBuffer + pPacket->m_nPosition,
-										pPacket->GetRemaining() ) )
-	{
+	else if ( m_pDownload->SetHashset(	pPacket->m_pBuffer + pPacket->m_nPosition, pPacket->GetRemaining() ) )
 		return SendSecondaryRequest();
-	}
 
 	Close( TRI_FALSE );
 	return FALSE;
@@ -404,7 +402,8 @@ BOOL CDownloadTransferED2K::OnHashsetAnswer(CEDPacket* pPacket)
 
 BOOL CDownloadTransferED2K::OnQueueRank(CEDPacket* pPacket)
 {
-	if ( m_nState <= dtsConnecting ) return TRUE;
+	if ( m_nState <= dtsConnecting )
+		return TRUE;
 
 	if ( pPacket->GetRemaining() < 4 )
 	{
@@ -699,7 +698,7 @@ BOOL CDownloadTransferED2K::SendPrimaryRequest()
 
 	//It's not very accurate
 	if ( Settings.eDonkey.ExtendedRequest >= 2 && m_pClient->m_bEmRequest >= 2 )
-		pPacket->WriteShortLE( (WORD) m_pDownload->GetED2KCompleteSourceCount() );
+		pPacket->WriteShortLE( (WORD)m_pDownload->GetED2KCompleteSourceCount() );
 
 	Send( pPacket );
 
@@ -1018,12 +1017,11 @@ BOOL CDownloadTransferED2K::RunQueued(DWORD tNow)
 
 void CDownloadTransferED2K::SetQueueRank(int nRank)
 {
-	SetState( dtsQueued );
-
 	m_tRequest	= m_tRanking = GetTickCount();
 	m_nQueuePos	= nRank;
 	m_bUDP		= FALSE;
 
+	SetState( dtsQueued );
 	ClearRequests();
 
 	theApp.Message( MSG_INFO, IDS_DOWNLOAD_QUEUED,
@@ -1120,7 +1118,6 @@ BOOL CDownloadTransferED2K::OnCompressedPart64(CEDPacket* pPacket)
 			nBaseOffset = ( (QWORD)pPacket->ReadLongLE() << 32 ) | nBaseOffset;
 
 	QWORD	nBaseLength = pPacket->ReadLongLE();	// Length of compressed data is 32bit
-
 
 	z_streamp pStream = (z_streamp)m_pInflatePtr;
 

@@ -1,7 +1,7 @@
 //
 // ShellIcons.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -79,13 +79,15 @@ public:
 	}
 
 // Attributes
-protected:
+private:
+	typedef CMap< CString, const CString&, int, int > CIconMap;
+
 	CImageList		m_i16;
 	CImageList		m_i32;
 	CImageList		m_i48;
-	CMap< CString, const CString&, int, int > m_m16;
-	CMap< CString, const CString&, int, int > m_m32;
-	CMap< CString, const CString&, int, int > m_m48;
+	CIconMap		m_m16;
+	CIconMap		m_m32;
+	CIconMap		m_m48;
 };
 
 extern CShellIcons ShellIcons;

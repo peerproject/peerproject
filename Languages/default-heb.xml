@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Hebrew Skin File -->
 
-<!-- Translation based on default-en.xml r55 -->
+<!-- Translation based on default-en.xml r56 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2661,10 +2661,10 @@ gap i newline
 	<string id="8334" value="‪ה‪מקורות לקובץ כרגע עסוקים"/>
 	<string id="8335" value="‪המקורות לקובץ כרגע מוגנים בחומת אש"/>
 	<string id="8336" value="‪המקורות לקובץ כרגע במצב לא יציב"/>
-	<string id="8337" value="Untrusted"/>
-	<string id="8338" value="No Hashset"/>
-	<string id="13000" value="Are you sure you want to delete the selected security rules? This cannot be undone."/>
-	<string id="13001" value="Files shared over the Internet"/>
+	<string id="8337" value="לא מהימן"/>
+	<string id="8338" value="לא חשיש"/>
+	<string id="13000" value="הקבצים המשותפים באמצעות האינטרנט"/>
+	<string id="13001" value="האם אתה בטוח שאתה רוצה למחוק את כללי הביטחון שנבחרו? זה לא ניתן לבטל."/>
 	<string id="16063" value="UPnP port mapping failed after 10 attempts."/>
 	<string id="16064" value="‪מאתחל את בסיס הרשת של שרזה..."/>
 	<string id="16065" value="‪&#8234;‏נכנסים‎ ‏לחיבורים‎ ‏תמיכה‎ ‏תיהיה‎ ‏לא‎ ‏לכן‎ ‏נכנסים‎. ‏לחיבורים‎ %s ‏של‎ %i ‏פורט‎ ‏את‎ ‏לקבוע‎ ‏ניתן‎ ‏לא"/>
@@ -2673,7 +2673,7 @@ gap i newline
 	<string id="16068" value="‪&#8234;%s ‏של‎ %i  ‏מפורט‎ ‏נכנסים‎ TCP ‏חיבורי‎ ‏מקבל"/>
 	<string id="16069" value="‪&#8234;%s ‏של‎ %i  ‏מפורט‎ ‏חיבורים יוצאים יהיו"/>
 	<string id="16070" value="‪Can't resolve %s for outgoing connections.  Outgoing connections will use the default interface."/>
-	<string id="16071" value="‪Firewalled, not listening for incoming connections."/>
+	<string id="16071" value="חומת האש, לא מקשיב לחיבורים נכנסים."/>
 	<string id="16072" value="‪Listening for UDP datagrams on %s port %i."/>
 	<string id="16073" value="‪‪...&quot;%s&quot; מפענח כתובת משתמש"/>
 	<string id="16074" value="‪‪‪...&quot;%s&quot; לא מצליח לפענח כתובת משתמש"/>
@@ -2705,7 +2705,7 @@ gap i newline
 	<string id="16375" value="‪חלקי"/>
 	<string id="16376" value="‪כל הקבצים"/>
 	<string id="16377" value="‪HTTP שומר"/>
-	<string id="16379" value="Library Files"/>
+	<string id="16379" value="ספריית קבצים"/>
 	<string id="16384" value="‪? &quot;%s&quot; הם הינך בטוח/ה שברצונך להפעיל את הקובץ\n\n.קבצים מסויימים יכולים לפגוע במחשב שלך, אנא וודא איזה קובץ אתה מפעיל"/>
 	<string id="16385" value="‪?קבצים, האם הינך מעוניינ/ת להמשיך %i-ל Meta את/ה עומד/ת לשנות את המידע"/>
 	<string id="16386" value="‪.ל- %i קבצים Meta עורך מידע "/>

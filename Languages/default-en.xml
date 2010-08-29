@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default English Skin File -->
 
-<!-- Translation based on default-en.xml r56 -->
+<!-- Translation based on default-en.xml r57 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2759,6 +2759,8 @@
 	<string id="7003" value="Multiple"/>
 	<string id="7004" value="There already is a filter called &quot;%s&quot;, do you want to replace it?"/>
 	<string id="7005" value="Please give your filter a name."/>
+	<string id="7006" value="Are you sure you wish to delete this filter ?"/>
+	<string id="7007" value="Failed to load Library metadata schemas. Please reinstall application. Continue loading?"/>
 	<string id="7100" value="This template is invalid."/>
 	<string id="7101" value="This template does not have any customizations."/>
 	<string id="7102" value="Are you sure you want to delete the &quot;%s&quot; template?\nThis cannot be undone."/>
@@ -2767,7 +2769,7 @@
 	<string id="8002" value="File Properties"/>
 	<string id="8003" value="Edit My Profile"/>
 	<string id="8004" value="!Welcome to PeerProject (version) !\n.\nPeerProject is completely free software.\nPlease use it responsibly and respect local laws.\n."/>
-	<string id="8005" value="(Closing after transfers)"/>
+	<string id="8005" value="(closing after transfers)"/>
 	<string id="8006" value="You're not connected. Click the Connect button to get started."/>
 	<string id="8007" value="There are no active searches. Click here to search for files."/>
 	<string id="8008" value="PeerProject has finished downloading the next PeerProject version (%s). Would you like to upgrade now?\n\nIf you select Yes, PeerProject will close temporarily while the upgrade is installed."/>
@@ -2906,8 +2908,8 @@
 	<string id="8336" value="Sources for this file may be unstable"/>
 	<string id="8337" value="Untrusted"/>
 	<string id="8338" value="No Hashset"/>
-	<string id="13000" value="Are you sure you want to delete the selected security rules? This cannot be undone."/>
-	<string id="13001" value="Files shared over the Internet"/>
+	<string id="13000" value="Files shared over the Internet"/>
+	<string id="13001" value="Are you sure you want to delete the selected security rules? This cannot be undone."/>
 	<string id="16063" value="UPnP port mapping failed after 10 attempts."/>
 	<string id="16064" value="Starting PeerProject network core..."/>
 	<string id="16065" value="Can't bind to %s port %i for incoming connections. Incoming connections will not be supported."/>

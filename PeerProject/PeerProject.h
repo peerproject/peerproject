@@ -51,7 +51,7 @@ private:
 class __declspec(novtable) CLogMessage
 {
 public:
-	inline CLogMessage(WORD nType, const CString& strLog) :
+	CLogMessage(WORD nType, const CString& strLog) :
 		m_strLog( strLog ),
 		m_nType( nType )
 	{
@@ -166,19 +166,19 @@ public:
 	// Open file or url. Returns NULL always.
 	virtual CDocument*	OpenDocumentFile(LPCTSTR lpszFileName);
 	// Open file or url (generic function)
-	static BOOL			Open(LPCTSTR lpszFileName, BOOL bDoIt);
+	static BOOL			Open(LPCTSTR lpszFileName);
 	// Open .lnk file
-	static BOOL			OpenShellShortcut(LPCTSTR lpszFileName, BOOL bDoIt);
+	static BOOL			OpenShellShortcut(LPCTSTR lpszFileName);
 	// Open .url file
-	static BOOL			OpenInternetShortcut(LPCTSTR lpszFileName, BOOL bDoIt);
+	static BOOL			OpenInternetShortcut(LPCTSTR lpszFileName);
 	// Open .torrent file
-	static BOOL			OpenTorrent(LPCTSTR lpszFileName, BOOL bDoIt);
+	static BOOL			OpenTorrent(LPCTSTR lpszFileName);
 	// Open .co, .collection, or .emulecollection file
-	static BOOL			OpenCollection(LPCTSTR lpszFileName, BOOL bDoIt);
+	static BOOL			OpenCollection(LPCTSTR lpszFileName);
 	// Open .met or .dat file
-	static BOOL			OpenMET(LPCTSTR lpszFileName, BOOL bDoIt);
+	static BOOL			OpenMET(LPCTSTR lpszFileName);
 	// Open url
-	static BOOL			OpenURL(LPCTSTR lpszFileName, BOOL bDoIt, BOOL bSilent = FALSE);
+	static BOOL			OpenURL(LPCTSTR lpszFileName, BOOL bSilent = FALSE);
 
 	CString				GetWindowsFolder() const;
 	CString				GetProgramFilesFolder() const;
@@ -236,7 +236,7 @@ CString	TimeToString(FILETIME* pTime);
 
 void	RecalcDropWidth(CComboBox* pWnd);
 // Load 16x16, 32x32, 48x48 icons from .ico, .exe, .dll files
-BOOL LoadIcon(LPCTSTR szFilename, HICON* phSmallIcon, HICON* phLargeIcon, HICON* phHugeIcon);
+BOOL LoadIcon(LPCTSTR szFilename, HICON* phSmallIcon, HICON* phLargeIcon, HICON* phHugeIcon, int nIcon = 0);
 // Load 16x16 icon from module pointed by its CLSID
 //HICON LoadCLSIDIcon(LPCTSTR szCLSID);
 // Load and add icon to CImageList, mirrored if needed
@@ -252,7 +252,7 @@ LRESULT CALLBACK KbdHook(int nCode, WPARAM wParam, LPARAM lParam);
 LRESULT CALLBACK MouseHook(int nCode, WPARAM wParam, LPARAM lParam);
 
 // Generate safe file name for file system (bPath == true - allow path i.e. "\" symbol)
-CString SafeFilename(const CString& sOriginalName, bool bPath = false);
+CString SafeFilename(CString strName, bool bPath = false);
 
 // Create directory. If one or more of the intermediate folders do not exist, they are created as well.
 BOOL CreateDirectory(LPCTSTR szPath);
@@ -302,7 +302,7 @@ typedef enum
 
 struct CompareNums
 {
-	inline bool operator()(WORD lhs, WORD rhs) const
+	bool operator()(WORD lhs, WORD rhs) const
 	{
 		return lhs > rhs;
 	}
@@ -343,36 +343,26 @@ inline T GetRandomNum(const T& min, const T& max)
 }
 
 template <>
-inline __int8 GetRandomNum<__int8>(const __int8& min, const __int8& max)
-{
-	return (__int8)GetRandomNum<unsigned __int8>( min, max );
-}
+__int8 GetRandomNum<__int8>(const __int8& min, const __int8& max);
 
 template <>
-inline __int16 GetRandomNum<__int16>(const __int16& min, const __int16& max)
-{
-	return (__int16)GetRandomNum<unsigned __int16>( min, max );
-}
+__int16 GetRandomNum<__int16>(const __int16& min, const __int16& max);
 
 template <>
-inline __int32 GetRandomNum<__int32>(const __int32& min, const __int32& max)
-{
-	return (__int32)GetRandomNum<unsigned __int32>( min, max );
-}
+__int32 GetRandomNum<__int32>(const __int32& min, const __int32& max);
 
 template <>
-inline __int64 GetRandomNum<__int64>(const __int64& min, const __int64& max)
-{
-	return (__int64)GetRandomNum<unsigned __int64>( min, max );
-}
+__int64 GetRandomNum<__int64>(const __int64& min, const __int64& max);
+
 
 // Log severity (log level)
-#define MSG_SEVERITY_MASK		0x00ff
+#define MSG_SEVERITY_MASK		0x000f
 #define MSG_ERROR				0x0000
 #define MSG_WARNING				0x0001
 #define MSG_NOTICE				0x0002
 #define MSG_INFO				0x0003
 #define MSG_DEBUG				0x0004
+#define MSG_TRAY				0x0010			// Show message in system tray
 
 // Log facility
 #define MSG_FACILITY_MASK		0xff00
@@ -381,6 +371,8 @@ inline __int64 GetRandomNum<__int64>(const __int64& min, const __int64& max)
 #define MSG_FACILITY_INCOMING	0x0200
 #define MSG_FACILITY_OUTGOING	0x0300
 
+
+// Event Messages
 #define WM_WINSOCK				(WM_APP+101)	// Winsock messages proxy to Network object (Used by WSAAsyncGetHostByName() function)
 #define WM_VERSIONCHECK			(WM_APP+102)	// Version check (WAPARM: VERSION_CHECK nCode, LPARAM: unused)
 #define WM_OPENCHAT				(WM_APP+103)	// Open chat window (WAPARM: CChatSession* pChat, LPARAM: unused)
@@ -418,7 +410,7 @@ inline __int64 GetRandomNum<__int64>(const __int64& min, const __int64& max)
 // Network ID's:
 
 // Client's name
-#define CLIENT_NAME				_T( "PeerProject" )
+#define CLIENT_NAME				_T("PeerProject")
 
 // 4 Character vendor code (G1,G2)
 // PEER, RAZA, RAZB, BEAR, LIME
@@ -435,9 +427,9 @@ inline __int64 GetRandomNum<__int64>(const __int64& min, const __int64& max)
 #define BT_ID2					'E'
 
 // Locations
-#define WEB_SITE				_T( "http://PeerProject.org/" )
-#define UPDATE_URL				_T( "http://peerproject.sourceforge.net/update" )
-#define REGISTRY_KEY			_T( "Software\\PeerProject\\PeerProject" )
+#define WEB_SITE				_T("http://PeerProject.org/")
+#define UPDATE_URL				_T("http://peerproject.sourceforge.net/update")
+#define REGISTRY_KEY			_T("Software\\PeerProject\\PeerProject")
 
 
 extern const LPCTSTR RT_BMP;

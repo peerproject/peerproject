@@ -73,6 +73,7 @@ CBTInfo::CBTInfo()
 	, m_bEncodingError	( false )
 	, m_nEncoding		( Settings.BitTorrent.TorrentCodePage )
 {
+	CBENode::m_nDefaultCP = Settings.BitTorrent.TorrentCodePage;
 }
 
 CBTInfo::CBTInfo(const CBTInfo& oSource)
@@ -93,6 +94,8 @@ CBTInfo::CBTInfo(const CBTInfo& oSource)
 	, m_nEncoding		( Settings.BitTorrent.TorrentCodePage )
 {
 	*this = oSource;
+
+	CBENode::m_nDefaultCP = Settings.BitTorrent.TorrentCodePage;
 }
 
 CBTInfo::~CBTInfo()
@@ -274,7 +277,7 @@ void CBTInfo::Serialize(CArchive& ar)
 		ar << m_nBlockCount;
 		for ( DWORD i = 0; i < m_nBlockCount; ++i )
 		{
-			ar.Write( m_pBlockBTH[ i ].begin(), Hashes::BtPureHash::byteCount );	// tr1 fix: .data()
+			ar.Write( &*m_pBlockBTH[ i ].begin(), m_pBlockBTH->byteCount );
 		}
 
 		ar << m_nTotalUpload;
@@ -335,7 +338,7 @@ void CBTInfo::Serialize(CArchive& ar)
 
 			for ( DWORD i = 0; i < m_nBlockCount; ++i )
 			{
-				ReadArchive( ar, m_pBlockBTH[ i ].begin(), Hashes::BtPureHash::byteCount );	// tr1 fix: .data()
+				ReadArchive( ar, &*m_pBlockBTH[ i ].begin(), m_pBlockBTH->byteCount );
 			}
 		}
 
@@ -755,9 +758,13 @@ BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 
 	if ( m_oBTH )
 	{
+		CSHA oSHA = pInfo->GetSHA1();
 		Hashes::BtHash oBTH;
-		pInfo->GetBth( oBTH );
-		if ( oBTH != m_oBTH ) return FALSE;
+		oSHA.GetHash( &oBTH[ 0 ] );
+		oBTH.validate();
+
+		if ( oBTH != m_oBTH )
+			return FALSE;
 	}
 
 	// Get the encoding (from torrents that have it)
@@ -1121,17 +1128,16 @@ BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 			pBTFile->m_nOffset = nOffset;
 
 			strPath.Empty();
-			CBENode* pPath;
-			// Try path.utf8 if it's set
-			if ( Settings.BitTorrent.TorrentExtraKeys )
+
+			// Try path.utf8 if it's set  (was Settings.BitTorrent.TorrentExtraKeys)
+			CBENode* pPath = pFile->GetNode( "path.utf-8" );
+			if ( pPath )
 			{
-				pPath = pFile->GetNode( "path.utf-8" );
-				if ( pPath )
+				if ( pPath->IsType( CBENode::beList ) && pPath->GetCount() > 32 )
 				{
-					if ( ! pPath->IsType( CBENode::beList ) ) return FALSE;
-					if ( pPath->GetCount() > 32 ) return FALSE;
 					CBENode* pPart = pPath->GetNode( 0 );
-					if ( pPart && pPart->IsType( CBENode::beString ) ) strPath = pPart->GetString();
+					if ( pPart && pPart->IsType( CBENode::beString ) )
+						strPath = pPart->GetString();
 				}
 			}
 
@@ -1295,7 +1301,9 @@ BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 
 	if ( ! CheckFiles() ) return FALSE;
 
-	pInfo->GetBth( m_oBTH );
+	CSHA oSHA = pInfo->GetSHA1();
+	oSHA.GetHash( &m_oBTH[ 0 ] );
+	m_oBTH.validate();
 
 	if ( m_pSource.m_nLength > 0 && pInfo->m_nSize
 		 && pInfo->m_nPosition + pInfo->m_nSize < m_pSource.m_nLength )

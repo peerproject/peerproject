@@ -59,11 +59,9 @@ CNeighboursWithED2K::~CNeighboursWithED2K()
 
 // Looks in the neighbours list for an eDonkey2000 computer that we've finished the handshake with and that has a client ID
 // Returns a pointer to the first one found, or null if none found in the list
-CEDNeighbour* CNeighboursWithED2K::GetDonkeyServer() const // Here, const means this method doesn't change the value of any member variables
+CEDNeighbour* CNeighboursWithED2K::GetDonkeyServer() const
 {
-	CSingleLock pLock( &Network.m_pSection );
-	if ( ! pLock.Lock( 300 ) )
-		return NULL;	// ToDo: Fix this synchronization
+	ASSUME_SINGLE_LOCK( Network.m_pSection );
 
 	// Loop through the list of neighbours
 	for ( POSITION pos = GetIterator() ; pos ; )

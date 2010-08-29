@@ -467,7 +467,6 @@ void CSettings::Load()
 	Add( _T("BitTorrent"), _T("SourceExchangePeriod"), &BitTorrent.SourceExchangePeriod, 10, 1, 1, 60*5, _T(" m") );
 	Add( _T("BitTorrent"), _T("TorrentCodePage"), &BitTorrent.TorrentCodePage, 0, 1, 0, 9999999 );
 	Add( _T("BitTorrent"), _T("TorrentCreatorPath"), &BitTorrent.TorrentCreatorPath );
-	Add( _T("BitTorrent"), _T("TorrentExtraKeys"), &BitTorrent.TorrentExtraKeys, true );
 	Add( _T("BitTorrent"), _T("TrackerKey"), &BitTorrent.TrackerKey, true );
 	Add( _T("BitTorrent"), _T("UploadCount"), &BitTorrent.UploadCount, 4, 1, 2, 20 );
 
@@ -561,20 +560,19 @@ void CSettings::Load()
 	Add( _T("IRC"), _T("Colors[9]"), &IRC.Colors[9], RGB(240,20,10) );		// ID_COLOR_NOTICE
 	Add( _T("IRC"), _T("Colors[10]"), &IRC.Colors[10], RGB(200,30,30) );	// ID_COLOR_SERVERERROR
 	Add( _T("IRC"), _T("Colors[11]"), &IRC.Colors[11], RGB(230,230,230) );	// ID_COLOR_TABS
-	Add( _T("IRC"), _T("Show"), &IRC.Show, TRUE );
+	Add( _T("IRC"), _T("Show"), &IRC.Show, true );
 	Add( _T("IRC"), _T("Nick"), &IRC.Nick );
 	Add( _T("IRC"), _T("Alternate"), &IRC.Alternate );
 	Add( _T("IRC"), _T("ServerName"), &IRC.ServerName, _T("irc.p2pchat.net") );
 	Add( _T("IRC"), _T("ServerPort"), &IRC.ServerPort, 6667, 1, 1024, 65530 );
-	Add( _T("IRC"), _T("FloodEnable"), &IRC.FloodEnable, TRUE );
+	Add( _T("IRC"), _T("FloodEnable"), &IRC.FloodEnable, true );
 	Add( _T("IRC"), _T("FloodLimit"), &IRC.FloodLimit, 24, 1, 2, 100 );
-	Add( _T("IRC"), _T("Timestamp"), &IRC.Timestamp, FALSE );
+	Add( _T("IRC"), _T("Timestamp"), &IRC.Timestamp, false );
 	Add( _T("IRC"), _T("UserName"), &IRC.UserName, _T("PeerIRC") );
 	Add( _T("IRC"), _T("RealName"), &IRC.RealName, _T("PeerIRC") );
 	Add( _T("IRC"), _T("ScreenFont"), &IRC.ScreenFont );
 	Add( _T("IRC"), _T("FontSize"), &IRC.FontSize, 12, 1, 6, 50 );
 	Add( _T("IRC"), _T("OnConnect"), &IRC.OnConnect, _T("") );
-	Add( _T("IRC"), _T("Updated"), &IRC.Updated, FALSE );
 
 	Add( _T("Remote"), _T("Enable"), &Remote.Enable, false );
 	Add( _T("Remote"), _T("Password"), &Remote.Password );

@@ -1,7 +1,7 @@
 //
 // Uploads.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -24,6 +24,7 @@
 class CBuffer;
 class CConnection;
 class CUploadTransfer;
+class CPeerProjectFile;
 
 
 class CUploads
@@ -51,7 +52,7 @@ public:
 	DWORD		GetTorrentCount(int nState) const;
 
 	BOOL		AllowMoreTo(IN_ADDR* pAddress) const;
-	BOOL		CanUploadFileTo(IN_ADDR* pAddress, const Hashes::Sha1Hash& oSHA1) const;
+	BOOL		CanUploadFileTo(IN_ADDR* pAddress, const CPeerProjectFile* pFile) const;
 	BOOL		EnforcePerHostLimit(CUploadTransfer* pUpload, BOOL bRequest = FALSE);
 
 	void		SetStable(DWORD nSpeed);

@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Brazilian Portuguese Skin File -->
 
-<!-- Translation based on default-en.xml r55 -->
+<!-- Translation based on default-en.xml r56 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2837,8 +2837,8 @@
 	<string id="8336" value="As fontes para este arquivo podem ser instáveis"/>
 	<string id="8337" value="Não confiável"/>
 	<string id="8338" value="Sem Hashset"/>
-	<string id="13000" value="Você tem certeza de que você quer apagar as regras de segurança selecionadas?  Isto não pode ser desfeito."/>
-	<string id="13001" value="Arquivos compartilhados pela Internet"/>
+	<string id="13000" value="Arquivos compartilhados pela Internet"/>
+	<string id="13001" value="Você tem certeza de que você quer apagar as regras de segurança selecionadas?  Isto não pode ser desfeito."/>
 	<string id="16063" value="O mapamento de portas UPnP falhou após 10 tentativas."/>
 	<string id="16064" value="Iniciando o núcleo de rede do PeerProject..."/>
 	<string id="16065" value="Impossível aceitar conexões de %s na porta %i. Conexões de entrada não serão suportadas."/>

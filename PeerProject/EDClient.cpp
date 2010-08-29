@@ -65,50 +65,50 @@ static char THIS_FILE[]=__FILE__;
 // CEDClient construction
 
 CEDClient::CEDClient()
-{
-	m_pEdPrev		= NULL;
-	m_pEdNext		= NULL;
+	: m_pEdPrev			( NULL )
+	, m_pEdNext			( NULL )
 
-	m_nClientID		= 0;
-	m_nUDP			= 0;
+	, m_nClientID		( 0ul )
+	, m_nUDP			( 0u )
 
 	// Client ID and version
-	m_bEmule		= FALSE;
-	m_nEmVersion	= 0;
-	m_nEmCompatible	= 0;
-	m_nSoftwareVersion=0;
+	, m_bEmule			( FALSE )
+	, m_nEmCompatible	( 0 )
+	, m_nEmVersion		( 0 )
+	, m_nVersion		( 0 )
+	, m_nSoftwareVersion ( 0ul )
 
 	// Client capabilities
-	m_bEmAICH		= FALSE;		// Not supported
-	m_bEmUnicode	= FALSE;
-	m_bEmUDPVersion	= 0;
-	m_bEmDeflate	= FALSE;
-	m_bEmSecureID	= FALSE;		// Not supported
-	m_bEmSources	= FALSE;
-	m_bEmRequest	= FALSE;
-	m_bEmComments	= FALSE;
-	m_bEmPeerCache	= FALSE;		// Not supported
-	m_bEmBrowse		= FALSE;
-	m_bEmMultiPacket= FALSE;		// Not supported
-	m_bEmPreview	= FALSE;
-	m_bEmLargeFile	= FALSE;		// LargeFile support
+	, m_bEmAICH			( FALSE )	// Unsupported
+	, m_bEmUnicode		( FALSE )
+	, m_bEmUDPVersion	( FALSE )
+	, m_bEmDeflate		( FALSE )
+	, m_bEmSecureID		( FALSE )	// Unsupported
+	, m_bEmSources		( FALSE )
+	, m_bEmRequest		( FALSE )
+	, m_bEmComments		( FALSE )
+	, m_bEmPeerCache	( FALSE )	// Unsupported
+	, m_bEmBrowse		( FALSE )
+	, m_bEmMultiPacket	( FALSE )	// Unsupported
+	, m_bEmPreview		( FALSE )
+	, m_bEmLargeFile	( FALSE )	// LargeFile support
 
 	// Misc stuff
-	m_bLogin		= FALSE;
+	, m_bLogin			( FALSE )
 
-	m_pDownload		= NULL;
-	m_pUpload		= NULL;
-	m_bSeeking		= FALSE;
-	m_bCallbackRequested = false;
-	m_nRunExCookie	= 0;
+	, m_pDownload		( NULL )
+	, m_pUpload			( NULL )
+	, m_bSeeking		( FALSE )
+	, m_bCallbackRequested ( false )
+	, m_nRunExCookie	( 0 )
 
-	m_bOpenChat		= FALSE;
-	m_bCommentSent	= FALSE;
+	, m_bOpenChat		( FALSE )
+	, m_bCommentSent	( FALSE )
 
+,	m_nDirsWaiting			( 0ul )
+{
 	m_mInput.pLimit		= &Settings.Bandwidth.Request;
 	m_mOutput.pLimit	= &Settings.Bandwidth.Request;
-
-	m_nDirsWaiting = 0;
 
 	EDClients.Add( this );
 }
@@ -520,8 +520,8 @@ void CEDClient::NotifyDropped()
 	ASSUME_LOCK( Transfers.m_pSection );
 
 	m_bSeeking = TRUE;
-	if ( m_pDownload != NULL ) m_pDownload->OnDropped();
-	if ( m_pUpload != NULL ) m_pUpload->OnDropped();
+	if ( m_pDownload ) m_pDownload->OnDropped();
+	if ( m_pUpload ) m_pUpload->OnDropped();
 	if ( CHostBrowser* pBrowser = GetBrowser() ) pBrowser->OnDropped();
 	m_bSeeking = FALSE;
 }
@@ -574,12 +574,12 @@ BOOL CEDClient::OnLoggedIn()
 
 	EDClients.Merge( this );
 
-	if ( m_pDownload != NULL )
+	if ( m_pDownload )
 		m_pDownload->OnConnected();
 	else
 		SeekNewDownload();
 
-	if ( m_pUpload != NULL ) m_pUpload->OnConnected();
+	if ( m_pUpload ) m_pUpload->OnConnected();
 
 	if ( CHostBrowser* pBrowser = GetBrowser() )
 	{
@@ -595,30 +595,30 @@ BOOL CEDClient::OnLoggedIn()
 CHostBrowser* CEDClient::GetBrowser() const
 {
 	CSingleLock pLock( &theApp.m_pSection, FALSE );
-	if ( pLock.Lock( 1000 ) )
+	if ( ! pLock.Lock( 1000 ) ) return NULL;
+
+	if ( CMainWnd* pMainWnd = theApp.SafeMainWnd() )
 	{
-		if ( CMainWnd* pMainWnd = theApp.SafeMainWnd() )
+		for ( POSITION pos = pMainWnd->m_pWindows.GetIterator() ; pos ; )
 		{
-			for ( POSITION pos = pMainWnd->m_pWindows.GetIterator() ; pos ; )
+			CChildWnd* pChildWnd = pMainWnd->m_pWindows.GetNext( pos );
+			if ( pChildWnd->IsKindOf( RUNTIME_CLASS( CBrowseHostWnd ) ) )
 			{
-				CChildWnd* pChildWnd = pMainWnd->m_pWindows.GetNext( pos );
-				if ( pChildWnd->IsKindOf( RUNTIME_CLASS( CBrowseHostWnd ) ) )
+				CBrowseHostWnd* pBrowseHostWnd = static_cast< CBrowseHostWnd* >( pChildWnd );
+				if ( CHostBrowser* pBrowser = pBrowseHostWnd->GetBrowser() )
 				{
-					CBrowseHostWnd* pBrowseHostWnd = static_cast< CBrowseHostWnd* >( pChildWnd );
-					if ( CHostBrowser* pBrowser = pBrowseHostWnd->GetBrowser() )
+					if ( pBrowser->IsBrowsing() &&
+						( m_oGUID == pBrowser->m_oClientID ||
+						( m_pHost.sin_addr.s_addr == pBrowser->m_pAddress.s_addr &&
+						  m_pHost.sin_port == htons( pBrowser->m_nPort ) ) ) )
 					{
-						if ( pBrowser->IsBrowsing() &&
-							( m_oGUID == pBrowser->m_oClientID ||
-							( m_pHost.sin_addr.s_addr == pBrowser->m_pAddress.s_addr &&
-							  m_pHost.sin_port == htons( pBrowser->m_nPort ) ) ) )
-						{
-							return pBrowser;
-						}
+						return pBrowser;
 					}
 				}
 			}
 		}
 	}
+
 	return NULL;
 }
 
@@ -639,7 +639,6 @@ BOOL CEDClient::OnPacket(CEDPacket* pPacket)
 		switch ( pPacket->m_nType )
 		{
 		// Handshake
-
 		case ED2K_C2C_HELLO:
 			if ( pPacket->GetRemaining() ) pPacket->ReadByte();
 			return OnHello( pPacket );
@@ -647,7 +646,6 @@ BOOL CEDClient::OnPacket(CEDPacket* pPacket)
 			return OnHello( pPacket );
 
 		// Upload
-
 		case ED2K_C2C_FILEREQUEST:
 			return OnFileRequest( pPacket );
 		case ED2K_C2C_FILESTATUSREQUEST:
@@ -657,37 +655,36 @@ BOOL CEDClient::OnPacket(CEDPacket* pPacket)
 		case ED2K_C2C_QUEUEREQUEST:
 			return OnQueueRequest( pPacket );
 		case ED2K_C2C_QUEUERELEASE:
-			if ( m_pUpload != NULL ) m_pUpload->OnQueueRelease( pPacket );
+			if ( m_pUpload ) m_pUpload->OnQueueRelease( pPacket );
 			return TRUE;
 		case ED2K_C2C_REQUESTPARTS:
-			if ( m_pUpload != NULL ) m_pUpload->OnRequestParts( pPacket );
+			if ( m_pUpload ) m_pUpload->OnRequestParts( pPacket );
 			return TRUE;
 
 		// Download
-
 		case ED2K_C2C_FILEREQANSWER:
-			if ( m_pDownload != NULL ) m_pDownload->OnFileReqAnswer( pPacket );
+			if ( m_pDownload ) m_pDownload->OnFileReqAnswer( pPacket );
 			return TRUE;
 		case ED2K_C2C_FILENOTFOUND:
-			if ( m_pDownload != NULL ) m_pDownload->OnFileNotFound( pPacket );
+			if ( m_pDownload ) m_pDownload->OnFileNotFound( pPacket );
 			return TRUE;
 		case ED2K_C2C_FILESTATUS:
-			if ( m_pDownload != NULL ) m_pDownload->OnFileStatus( pPacket );
+			if ( m_pDownload ) m_pDownload->OnFileStatus( pPacket );
 			return TRUE;
 		case ED2K_C2C_HASHSETANSWER:
-			if ( m_pDownload != NULL ) m_pDownload->OnHashsetAnswer( pPacket );
+			if ( m_pDownload ) m_pDownload->OnHashsetAnswer( pPacket );
 			return TRUE;
 		case ED2K_C2C_QUEUERANK:
-			if ( m_pDownload != NULL ) m_pDownload->OnQueueRank( pPacket );
+			if ( m_pDownload ) m_pDownload->OnQueueRank( pPacket );
 			return TRUE;
 		case ED2K_C2C_STARTUPLOAD:
-			if ( m_pDownload != NULL ) m_pDownload->OnStartUpload( pPacket );
+			if ( m_pDownload ) m_pDownload->OnStartUpload( pPacket );
 			return TRUE;
 		case ED2K_C2C_FINISHUPLOAD:
-			if ( m_pDownload != NULL ) m_pDownload->OnFinishUpload( pPacket );
+			if ( m_pDownload ) m_pDownload->OnFinishUpload( pPacket );
 			return TRUE;
 		case ED2K_C2C_SENDINGPART:
-			if ( m_pDownload != NULL ) m_pDownload->OnSendingPart( pPacket );
+			if ( m_pDownload ) m_pDownload->OnSendingPart( pPacket );
 			return TRUE;
 
 		// Chat
@@ -719,13 +716,13 @@ BOOL CEDClient::OnPacket(CEDPacket* pPacket)
 			return OnEmuleInfo( pPacket );
 
 		case ED2K_C2C_COMPRESSEDPART:
-			if ( m_pDownload != NULL ) m_pDownload->OnCompressedPart( pPacket );
+			if ( m_pDownload ) m_pDownload->OnCompressedPart( pPacket );
 			return TRUE;
 		case ED2K_C2C_QUEUERANKING:
-			if ( m_pDownload != NULL ) m_pDownload->OnRankingInfo( pPacket );
+			if ( m_pDownload ) m_pDownload->OnRankingInfo( pPacket );
 			return TRUE;
 		case ED2K_C2C_FILEDESC:
-			if ( m_pDownload != NULL ) m_pDownload->OnFileComment( pPacket );
+			if ( m_pDownload ) m_pDownload->OnFileComment( pPacket );
 			return TRUE;
 
 		case ED2K_C2C_REQUESTSOURCES:
@@ -737,18 +734,17 @@ BOOL CEDClient::OnPacket(CEDPacket* pPacket)
 		case ED2K_C2C_PREVIEWANWSER:
 			return OnPreviewAnswer( pPacket );
 
-
 		// Extented Upload (64Bit LargeFile support)
 		case ED2K_C2C_REQUESTPARTS_I64:
-			if ( m_pUpload != NULL ) m_pUpload->OnRequestParts64( pPacket );
+			if ( m_pUpload ) m_pUpload->OnRequestParts64( pPacket );
 			return TRUE;
 
 		// Extented Download (64Bit LargeFile support)
 		case ED2K_C2C_SENDINGPART_I64:
-			if ( m_pDownload != NULL ) m_pDownload->OnSendingPart64( pPacket );
+			if ( m_pDownload ) m_pDownload->OnSendingPart64( pPacket );
 			return TRUE;
 		case ED2K_C2C_COMPRESSEDPART_I64:
-			if ( m_pDownload != NULL ) m_pDownload->OnCompressedPart64( pPacket );
+			if ( m_pDownload ) m_pDownload->OnCompressedPart64( pPacket );
 			return TRUE;
 		}
 	}
@@ -804,7 +800,10 @@ void CEDClient::SendHello(BYTE nType)
 	if ( nType == ED2K_C2C_HELLO )
 		pPacket->WriteByte( 0x10 );	// Size of user hash (legacy)
 
-	CEDNeighbour* pServer = Neighbours.GetDonkeyServer();
+	CEDNeighbour* pServer = NULL;
+	CSingleLock oNetworkLock( &Network.m_pSection );
+	if ( oNetworkLock.Lock( 500 ) )
+		pServer = Neighbours.GetDonkeyServer();
 
 	// Write user GUID
 	Hashes::Guid oGUID = MyProfile.oGUID;
@@ -813,7 +812,7 @@ void CEDClient::SendHello(BYTE nType)
 	pPacket->Write( oGUID );
 
 	// Write client ID
-	pPacket->WriteLongLE( pServer ? pServer->m_nClientID : Network.m_pHost.sin_addr.S_un.S_addr );
+	pPacket->WriteLongLE( pServer ? pServer->m_nClientID : Network.m_pHost.sin_addr.s_addr );
 
 	// Write port number
 	pPacket->WriteShortLE( htons( Network.m_pHost.sin_port ) );
@@ -852,8 +851,7 @@ void CEDClient::SendHello(BYTE nType)
 	CEDTag( ED2K_CT_MOREFEATUREVERSIONS, nOpt2 ).Write( pPacket );
 
 	// 6 - Software Version
-	//		Note we're likely to corrupt the beta number, since there's only 3 bits available,
-	//		but it's the least important anyway.
+	//	Note we're likely to corrupt the beta number, since there's only 3 bits available, but it's least important.
 	//		Note: Including this stops the remote client sending the eMuleInfo packet.
 	DWORD nVersion = ( ( ( ED2K_CLIENT_ID & 0xFF ) << 24 ) |
 					   ( ( theApp.m_nVersion[0] & 0x7F ) << 17 ) |
@@ -862,15 +860,17 @@ void CEDClient::SendHello(BYTE nType)
 					   ( ( theApp.m_nVersion[3] & 0x7F )       ) );
 	CEDTag( ED2K_CT_SOFTWAREVERSION, nVersion ).Write( pPacket );
 
-	if ( pServer != NULL )
+	if ( pServer )
 	{
-		pPacket->WriteLongLE( pServer->m_pHost.sin_addr.S_un.S_addr );
+		pPacket->WriteLongLE( pServer->m_pHost.sin_addr.s_addr );
 		pPacket->WriteShortLE( htons( pServer->m_pHost.sin_port ) );
+
+		oNetworkLock.Unlock();
 	}
 	else
 	{
-		pPacket->WriteLongLE( 0 );
-		pPacket->WriteShortLE( 0 );
+		pPacket->WriteLongLE( 0ul );
+		pPacket->WriteShortLE( 0ul );
 	}
 
 	Send( pPacket );
@@ -923,20 +923,21 @@ BOOL CEDClient::OnHello(CEDPacket* pPacket)
 			if ( pTag.m_nType == ED2K_TAG_INT )
 			{
 				m_bEmule = TRUE;
-				m_bEmAICH		= (pTag.m_nValue >> 29) & 0x07;
-				m_bEmUnicode	= (pTag.m_nValue >> 28) & 0x01;
-				m_bEmUDPVersion	= (pTag.m_nValue >> 24) & 0x0F;
-				m_bEmDeflate	= (pTag.m_nValue >> 20) & 0x0F;
-				m_bEmSecureID	= (pTag.m_nValue >> 16) & 0x0F;
-				m_bEmSources	= (pTag.m_nValue >> 12) & 0x0F;
-				m_bEmRequest	= (pTag.m_nValue >> 8 ) & 0x0F;
-				m_bEmComments	= (pTag.m_nValue >> 4 ) & 0x0F;
-				m_bEmPeerCache	= (pTag.m_nValue >> 3 ) & 0x01;
+				m_bEmAICH		= ( pTag.m_nValue >> 29 ) & 0x07;
+				m_bEmUnicode	= ( pTag.m_nValue >> 28 ) & 0x01;
+				m_bEmUDPVersion	= ( pTag.m_nValue >> 24 ) & 0x0F;
+				m_bEmDeflate	= ( pTag.m_nValue >> 20 ) & 0x0F;
+				m_bEmSecureID	= ( pTag.m_nValue >> 16 ) & 0x0F;
+				m_bEmSources	= ( pTag.m_nValue >> 12 ) & 0x0F;
+				m_bEmRequest	= ( pTag.m_nValue >>  8 ) & 0x0F;
+				m_bEmComments	= ( pTag.m_nValue >>  4 ) & 0x0F;
+				m_bEmPeerCache	= ( pTag.m_nValue >>  3 ) & 0x01;
 				m_bEmBrowse		= ! ( ( pTag.m_nValue >> 2 ) & 0x01 );
-				m_bEmMultiPacket= (pTag.m_nValue >> 1 ) & 0x01;
-				m_bEmPreview	= (pTag.m_nValue) & 0x01;
+				m_bEmMultiPacket= ( pTag.m_nValue >>  1 ) & 0x01;
+				m_bEmPreview	= ( pTag.m_nValue ) & 0x01;
+
 				if ( GetSource() && GetSource()->m_bClientExtended )
-					;
+					; // Do Nothing
 				else
 					m_bEmPreview = m_bEmPreview && m_bEmBrowse;
 			}
@@ -1001,7 +1002,8 @@ BOOL CEDClient::OnHello(CEDPacket* pPacket)
 		DWORD nValue = pPacket->ReadLongLE();
 
 		// MLdonkey
-		if ( nValue == 0x4B444C4D ) m_nEmCompatible = 10;
+		if ( nValue == 0x4B444C4D )
+			m_nEmCompatible = 10;
 	}
 
 	// Get client name/version
@@ -1025,14 +1027,14 @@ BOOL CEDClient::OnHello(CEDPacket* pPacket)
 }
 
 //////////////////////////////////////////////////////////////////////
-// CEDClient EMULE INFO packet exchange
+// CEDClient EMULE INFO packet exchange 	( ToDo: Verify spec + Update clients )
 
 void CEDClient::SendEmuleInfo(BYTE nType)
 {
 	CEDPacket* pPacket = CEDPacket::New( nType, ED2K_PROTOCOL_EMULE );
 
-	pPacket->WriteByte( 0x40 );			// eMule version (80 = 0x50?)
-	pPacket->WriteByte( 0x01 );			// eMule protocol
+	pPacket->WriteByte( ED2K_CLIENT_ID );	// eMule version (80 = 0x50?) 0x40?
+	pPacket->WriteByte( 0x01 );				// eMule protocol
 
 	// Write number of tags
 	pPacket->WriteLongLE( Settings.eDonkey.ExtendedRequest ? 7 : 6 );
@@ -1044,7 +1046,9 @@ void CEDClient::SendEmuleInfo(BYTE nType)
 	CEDTag( ED2K_ET_UDPVER, ED2K_VERSION_UDP ).Write( pPacket );
 	CEDTag( ED2K_ET_UDPPORT, htons( Network.m_pHost.sin_port ) ).Write( pPacket );
 	CEDTag( ED2K_ET_COMMENTS, ED2K_VERSION_COMMENTS ).Write( pPacket );
-	if ( Settings.eDonkey.ExtendedRequest ) CEDTag( ED2K_ET_EXTENDEDREQUEST, Settings.eDonkey.ExtendedRequest ).Write( pPacket );
+	if ( Settings.eDonkey.ExtendedRequest )
+		CEDTag( ED2K_ET_EXTENDEDREQUEST, Settings.eDonkey.ExtendedRequest ).Write( pPacket );
+
 	Send( pPacket );
 }
 
@@ -1057,20 +1061,24 @@ BOOL CEDClient::OnEmuleInfo(CEDPacket* pPacket)
 		return FALSE;
 	}
 
-	m_nEmVersion	= pPacket->ReadByte();
+	// First Byte: Client Ident code
+	m_nEmVersion = pPacket->ReadByte();
+
+	// ToDo: Update and abstract these ED2K client codes?
 	if ( m_nEmVersion == 0x2B ) m_nEmVersion = 0x22;
 
+	// Second Byte: ED2K Protocol = 0x01
 	BYTE nProtocol	= pPacket->ReadByte();
 	if ( nProtocol != 1 ) return TRUE;
 
 	// Have to assume capabilities for these versions
-	if ( m_nEmVersion > 0x22 && m_nEmVersion < 0x25 ) m_bEmSources = 1;
+	if ( m_nEmVersion == 0x23 || m_nEmVersion == 0x24 ) m_bEmSources = 1;
 	if ( m_nEmVersion == 0x24 ) m_bEmComments = 1;
 
 	// Set the client ID to unknown
 	m_nEmCompatible = ED2K_CLIENT_UNKNOWN;
 
-	// Read number of tags
+	// Third Byte: Read number of tags
 	DWORD nCount = pPacket->ReadLongLE();
 
 	while ( nCount-- > 0 && pPacket->GetRemaining() > 0 )
@@ -1133,7 +1141,8 @@ BOOL CEDClient::OnEmuleInfo(CEDPacket* pPacket)
 	m_bEmule = TRUE;
 
 	// Send answer if required
-	if ( pPacket->m_nType == ED2K_C2C_EMULEINFO ) SendEmuleInfo( ED2K_C2C_EMULEINFOANSWER );
+	if ( pPacket->m_nType == ED2K_C2C_EMULEINFO )
+		SendEmuleInfo( ED2K_C2C_EMULEINFOANSWER );
 
 	// Get client name/version
 	DetermineUserAgent();
@@ -1152,119 +1161,113 @@ void CEDClient::SendPreviewRequest(CDownload* pDownload)
 //////////////////////////////////////////////////////////////////////
 // CEDClient client version
 
-//Newer clients send the 24 bit "software version" + client ID
 void CEDClient::DetermineUserAgent()
 {
-	//Newer clients send the 24 bit software version + client ID
+	// ToDo: Abstract and Update ED2K Client Codes
+
+	// Newer clients send the 24 bit software version + client ID
 	if ( m_nSoftwareVersion )
 	{
-		// It's eMule compatible
-		m_bEmule = TRUE;
+		m_bEmule = TRUE;	// It's eMule compatible
 
 		// Determine client from the compatible client byte
 		switch ( m_nEmCompatible )
 		{
-			case 0:
-				m_sUserAgent.Format( _T("eMule %i.%i%c"),
-			//	m_sUserAgent.Format( _T("eMule %i.%i%c (%i)")	-Displays additional build number instead.
-					( ( m_nSoftwareVersion >> 17 ) & 0x7F ), ( ( m_nSoftwareVersion >> 10 ) & 0x7F ),
-					( ( m_nSoftwareVersion >>  7 ) & 0x07 ) + 'a' );
+		case 0:
+			m_sUserAgent.Format( _T("eMule %i.%i%c"),
+		//	m_sUserAgent.Format( _T("eMule %i.%i%c (%i)")	// Displays additional build number instead.
+				( ( m_nSoftwareVersion >> 17 ) & 0x7F ), ( ( m_nSoftwareVersion >> 10 ) & 0x7F ),
+				( ( m_nSoftwareVersion >>  7 ) & 0x07 ) + 'a' );
+			break;
+		case 1:
+			m_sUserAgent.Format( _T("cDonkey %i.%i%c"),
+				( ( m_nSoftwareVersion >> 17 ) & 0x7F ), ( ( m_nSoftwareVersion >> 10 ) & 0x7F ),
+				( ( m_nSoftwareVersion >>  7 ) & 0x07 ) + 'a' );
+			break;
+		case 2:
+			m_sUserAgent.Format( _T("xMule %i.%i%c"),
+				( ( m_nSoftwareVersion >> 17 ) & 0x7F ), ( ( m_nSoftwareVersion >> 10 ) & 0x7F ),
+				( ( m_nSoftwareVersion >>  7 ) & 0x07 ) + 'a' );
+			break;
+		case 3:
+			m_sUserAgent.Format( _T("aMule %i.%i.%i"),
+				( ( m_nSoftwareVersion >> 17 ) & 0x7F ), ( ( m_nSoftwareVersion >> 10 ) & 0x7F ),
+				( ( m_nSoftwareVersion >>  7 ) & 0x07 ) );
+			break;
+		case 4:		// Old Shareaza alpha/beta/mod/fork versions
+			if ( m_bEmAICH )
+			{
+				if ( m_sUserAgent.IsEmpty() )								// Banned by Security Rules (Leecher Mod)
+					m_sUserAgent.Format( _T("eMule mod (4) %i.%i.%i.%i"),	// Their version is always 2.1.1.0 or 2.2.1.0
+						( ( m_nSoftwareVersion >> 17 ) &0x7F ), ( ( m_nSoftwareVersion >> 10 ) &0x7F ),
+						( ( m_nSoftwareVersion >>  7 ) &0x07 ), ( ( m_nSoftwareVersion ) &0x7F ) );
 				break;
-			case 1:
-				m_sUserAgent.Format( _T("cDonkey %i.%i%c"),
-					( ( m_nSoftwareVersion >> 17 ) & 0x7F ), ( ( m_nSoftwareVersion >> 10 ) & 0x7F ),
-					( ( m_nSoftwareVersion >>  7 ) & 0x07 ) + 'a' );
+			}
+			// Old Shareaza beta build. Note 2nd last number (Beta build #) may be truncated, since it's only 3 bits.
+			m_sUserAgent.Format( _T("Shareaza %i.%i.%i.%i"),
+				( ( m_nSoftwareVersion >> 17 ) &0x7F ), ( ( m_nSoftwareVersion >> 10 ) &0x7F ),
+				( ( m_nSoftwareVersion >>  7 ) &0x07 ), ( ( m_nSoftwareVersion ) &0x7F ) );
+			break;
+		case 5:
+			m_sUserAgent.Format( _T("ePlus %i.%i%c"),
+				( ( m_nSoftwareVersion >> 17 ) & 0x7F ), ( ( m_nSoftwareVersion >> 10 ) & 0x7F ),
+				( ( m_nSoftwareVersion >>  7 ) & 0x07 ) + 'a' );
+			break;
+		case 10:
+			m_sUserAgent.Format( _T("MLdonkey %i.%i.%i"),
+				( ( m_nSoftwareVersion >> 17 ) &0x7F ), ( ( m_nSoftwareVersion >> 10 ) &0x7F ),
+				( ( m_nSoftwareVersion >>  7 ) &0x07 ) );
+			if ( ( ( m_nSoftwareVersion ) &0x7F ) > 0 )
+				m_sUserAgent.AppendFormat( _T(".%i"), ( ( m_nSoftwareVersion ) &0x7F ) );
+			break;
+		case 20:
+			m_sUserAgent.Format( _T("Lphant %i.%i%c"),
+				( ( m_nSoftwareVersion >> 17 ) & 0x7F ), ( ( m_nSoftwareVersion >> 10 ) & 0x7F ),
+				( ( m_nSoftwareVersion >>  7 ) & 0x07 ) + 'a' );
+			break;
+		case 40:		// Shareaza
+			if ( m_bEmAICH )
+			{
+				if ( m_sUserAgent.IsEmpty() )
+					m_sUserAgent.Format( _T("eMule Mod (40) %i.%i.%i.%i"),
+						( ( m_nSoftwareVersion >> 17 ) &0x7F ), ( ( m_nSoftwareVersion >> 10 ) &0x7F ),
+						( ( m_nSoftwareVersion >>  7 ) &0x07 ), ( ( m_nSoftwareVersion ) &0x7F ) );
 				break;
-			case 2:
-				m_sUserAgent.Format( _T("xMule %i.%i%c"),
-					( ( m_nSoftwareVersion >> 17 ) & 0x7F ), ( ( m_nSoftwareVersion >> 10 ) & 0x7F ),
-					( ( m_nSoftwareVersion >>  7 ) & 0x07 ) + 'a' );
+			}
+			// Note 2nd last number (Beta build #) may be truncated, since it's only 3 bits.
+			m_sUserAgent.Format( _T("Shareaza %i.%i.%i.%i"),
+				( ( m_nSoftwareVersion >> 17 ) &0x7F ), ( ( m_nSoftwareVersion >> 10 ) &0x7F ),
+				( ( m_nSoftwareVersion >>  7 ) &0x07 ), ( ( m_nSoftwareVersion ) &0x7F ) );
+			break;
+		case 80:		// PeerProject (Proposed)
+			if ( m_bEmAICH )
+			{
+				if ( m_sUserAgent.IsEmpty() )
+					m_sUserAgent.Format( _T("eMule Mod (80) %i.%i.%i.%i"),
+						( ( m_nSoftwareVersion >> 17 ) &0x7F ), ( ( m_nSoftwareVersion >> 10 ) &0x7F ),
+						( ( m_nSoftwareVersion >>  7 ) &0x07 ), ( ( m_nSoftwareVersion ) &0x7F ) );
 				break;
-			case 3:
-				m_sUserAgent.Format( _T("aMule %i.%i.%i"),
-					( ( m_nSoftwareVersion >> 17 ) & 0x7F ), ( ( m_nSoftwareVersion >> 10 ) & 0x7F ),
-					( ( m_nSoftwareVersion >>  7 ) & 0x07 ) );
-				break;
-			case 4:		// Shareaza alpha/beta/mod/fork versions
-				if ( m_bEmAICH )
-				{
-					if ( m_sUserAgent.IsEmpty() )								// Banned by Security Rules (Leecher Mod)
-						m_sUserAgent.Format( _T("eMule mod (4) %i.%i.%i.%i"),	// Their version is always 2.1.1.0 or 2.2.1.0
-							( ( m_nSoftwareVersion >> 17 ) &0x7F ), ( ( m_nSoftwareVersion >> 10 ) &0x7F ),
-							( ( m_nSoftwareVersion >>  7 ) &0x07 ), ( ( m_nSoftwareVersion ) &0x7F ) );
-					break;
-				}
-
-				// This is a Shareaza beta build. Note that the 2nd last number (Beta build #)
-				// may be truncated, since it's only 3 bits.
-				m_sUserAgent.Format( _T("Shareaza %i.%i.%i.%i"),
-					( ( m_nSoftwareVersion >> 17 ) &0x7F ), ( ( m_nSoftwareVersion >> 10 ) &0x7F ),
-					( ( m_nSoftwareVersion >>  7 ) &0x07 ), ( ( m_nSoftwareVersion ) &0x7F ) );
-				break;
-			case 5:
-				m_sUserAgent.Format( _T("ePlus %i.%i%c"),
-					( ( m_nSoftwareVersion >> 17 ) & 0x7F ), ( ( m_nSoftwareVersion >> 10 ) & 0x7F ),
-					( ( m_nSoftwareVersion >>  7 ) & 0x07 ) + 'a' );
-				break;
-			case 10:
-				m_sUserAgent.Format( _T("MLdonkey %i.%i.%i"),
-					( ( m_nSoftwareVersion >> 17 ) &0x7F ), ( ( m_nSoftwareVersion >> 10 ) &0x7F ),
-					( ( m_nSoftwareVersion >>  7 ) &0x07 ) );
-
-				if ( ( ( m_nSoftwareVersion ) &0x7F ) > 0 )
-					m_sUserAgent.AppendFormat( _T(".%i"), ( ( m_nSoftwareVersion ) &0x7F ) );
-				break;
-			case 20:
-				m_sUserAgent.Format( _T("Lphant %i.%i%c"),
-					( ( m_nSoftwareVersion >> 17 ) & 0x7F ), ( ( m_nSoftwareVersion >> 10 ) & 0x7F ),
-					( ( m_nSoftwareVersion >>  7 ) & 0x07 ) + 'a' );
-				break;
-			case 40:		// Shareaza
-				if ( m_bEmAICH )
-				{
-					if ( m_sUserAgent.IsEmpty() )
-						m_sUserAgent.Format( _T("eMule Mod (40) %i.%i.%i.%i"),
-							( ( m_nSoftwareVersion >> 17 ) &0x7F ), ( ( m_nSoftwareVersion >> 10 ) &0x7F ),
-							( ( m_nSoftwareVersion >>  7 ) &0x07 ), ( ( m_nSoftwareVersion ) &0x7F ) );
-					break;
-				}
-
-				//Note 2nd last number (Beta build #) may be truncated, since it's only 3 bits.
-				m_sUserAgent.Format( _T("Shareaza %i.%i.%i.%i"),
-					( ( m_nSoftwareVersion >> 17 ) &0x7F ), ( ( m_nSoftwareVersion >> 10 ) &0x7F ),
-					( ( m_nSoftwareVersion >>  7 ) &0x07 ), ( ( m_nSoftwareVersion ) &0x7F ) );
-				break;
-			case 80:		// PeerProject (Proposed)
-				if ( m_bEmAICH )
-				{
-					if ( m_sUserAgent.IsEmpty() )
-						m_sUserAgent.Format( _T("eMule Mod (80) %i.%i.%i.%i"),
-							( ( m_nSoftwareVersion >> 17 ) &0x7F ), ( ( m_nSoftwareVersion >> 10 ) &0x7F ),
-							( ( m_nSoftwareVersion >>  7 ) &0x07 ), ( ( m_nSoftwareVersion ) &0x7F ) );
-					break;
-				}
-
-				//Note 2nd last number (Beta build #) may be truncated, since it's only 3 bits.
-				m_sUserAgent.Format( _T("PeerProject %i.%i.%i.%i"),
-					( ( m_nSoftwareVersion >> 17 ) &0x7F ), ( ( m_nSoftwareVersion >> 10 ) &0x7F ),
-					( ( m_nSoftwareVersion >>  7 ) &0x07 ), ( ( m_nSoftwareVersion ) &0x7F ) );
-				break;
-			case 203:		// ShareazaPlus with RazaCB core
-				//Note 2nd last number (Beta build #) may be truncated, since it's only 3 bits.
-				m_sUserAgent.Format( _T("ShareazaPlus %i.%i.%i.%i"),
-					( ( m_nSoftwareVersion >> 17 ) &0x7F ), ( ( m_nSoftwareVersion >> 10 ) &0x7F ),
-					( ( m_nSoftwareVersion >>  7 ) &0x07 ), ( ( m_nSoftwareVersion ) &0x7F ) );
-				break;
-			default:	// (Sent a compatible client ID, but we don't recognise it)
-				m_sUserAgent.Format( _T("eMule/c (%i) %i.%i%c"), m_nEmCompatible,
-					( ( m_nSoftwareVersion >> 17 ) & 0x7F ), ( ( m_nSoftwareVersion >> 10 ) & 0x7F ),
-					( ( m_nSoftwareVersion >>  7 ) & 0x07 ) + 'a' );
-				break;
+			}
+			// Note 2nd last number (Beta build #) may be truncated, since it's only 3 bits.
+			m_sUserAgent.Format( _T("PeerProject %i.%i.%i.%i"),
+				( ( m_nSoftwareVersion >> 17 ) &0x7F ), ( ( m_nSoftwareVersion >> 10 ) &0x7F ),
+				( ( m_nSoftwareVersion >>  7 ) &0x07 ), ( ( m_nSoftwareVersion ) &0x7F ) );
+			break;
+		case 203:		// ShareazaPlus with RazaCB core
+			// Note 2nd last number (Beta build #) may be truncated, since it's only 3 bits.
+			m_sUserAgent.Format( _T("ShareazaPlus %i.%i.%i.%i"),
+				( ( m_nSoftwareVersion >> 17 ) &0x7F ), ( ( m_nSoftwareVersion >> 10 ) &0x7F ),
+				( ( m_nSoftwareVersion >>  7 ) &0x07 ), ( ( m_nSoftwareVersion ) &0x7F ) );
+			break;
+		default:		// (Sent a compatible client ID, but we don't recognise it)
+			m_sUserAgent.Format( _T("eMule/c (%i) %i.%i%c"), m_nEmCompatible,
+				( ( m_nSoftwareVersion >> 17 ) & 0x7F ), ( ( m_nSoftwareVersion >> 10 ) & 0x7F ),
+				( ( m_nSoftwareVersion >>  7 ) & 0x07 ) + 'a' );
+			break;
 		}
 	}
-	else
+	else // Older style of IDing a client
 	{
-		//This is the older style of IDing a client
 		if ( m_oGUID[5] == 13 && m_oGUID[14] == 110 )
 			m_bEmule = TRUE;
 		else if ( m_oGUID[5] == 14 && m_oGUID[14] == 111 )
@@ -1277,66 +1280,66 @@ void CEDClient::DetermineUserAgent()
 		{
 			switch ( m_nEmCompatible )
 			{
-				case 0:
-					m_sUserAgent.Format( _T("eMule v0.%i%i"), m_nEmVersion >> 4, m_nEmVersion & 15 );
+			case 0:
+				m_sUserAgent.Format( _T("eMule v0.%i%i"), m_nEmVersion >> 4, m_nEmVersion & 15 );
+				break;
+			case 1:
+				m_sUserAgent.Format( _T("cDonkey v%i.%i"), m_nEmVersion >> 4, m_nEmVersion & 15 );
+				break;
+			case 2:
+				m_sUserAgent.Format( _T("xMule v0.%i%i"), m_nEmVersion >> 4, m_nEmVersion & 15 );
+				break;
+			case 3:
+				m_sUserAgent.Format( _T("aMule v0.%i%i"), m_nEmVersion >> 4, m_nEmVersion & 15 );
+				break;
+			case 4:			// Old Shareaza alpha/beta/mod/fork versions
+				if ( m_bEmAICH )	// Unsupported feature for fake detection
+				{
+					if ( m_sUserAgent.IsEmpty() )
+						m_sUserAgent.Format( _T("eMule Mod (4) v%i"), m_nEmVersion );
 					break;
-				case 1:
-					m_sUserAgent.Format( _T("cDonkey v%i.%i"), m_nEmVersion >> 4, m_nEmVersion & 15 );
+				}
+				m_sUserAgent = _T("Shareaza");
+				break;
+			case 10:
+				m_sUserAgent.Format( _T("MLdonkey v0.%i%i"), m_nEmVersion >> 4, m_nEmVersion & 15 );
+				break;
+			case 20:
+				m_sUserAgent.Format( _T("Lphant v0.%i%i"), m_nEmVersion >> 4, m_nEmVersion & 15 );
+				break;
+			case 40:		// Shareaza
+				if ( m_bEmAICH )	// Unsupported feature for fake detection
+				{
+					if ( m_sUserAgent.IsEmpty() )
+						m_sUserAgent.Format( _T("eMule Mod (40) v%i"), m_nEmVersion );
 					break;
-				case 2:
-					m_sUserAgent.Format( _T("xMule v0.%i%i"), m_nEmVersion >> 4, m_nEmVersion & 15 );
+				}
+				m_sUserAgent = _T("Shareaza");
+				break;
+			case 80:		// PeerProject (Proposed)
+				if ( m_bEmAICH )	// Unsupported feature for fake detection (ToDo: support AICH, etc.)
+				{
+					if ( m_sUserAgent.IsEmpty() )
+						m_sUserAgent.Format( _T("eMule Mod (80) v%i"), m_nEmVersion );
 					break;
-				case 3:
-					m_sUserAgent.Format( _T("aMule v0.%i%i"), m_nEmVersion >> 4, m_nEmVersion & 15 );
-					break;
-				case 4:		// Shareaza alpha/beta/mod/fork versions
-					if ( m_bEmAICH )
-					{
-						if ( m_sUserAgent.IsEmpty() )
-							m_sUserAgent.Format( _T("Shareaza Mod (4) v%i"), m_nEmVersion );
-						break;
-					}
-					m_sUserAgent = _T("Shareaza");
-					break;
-				case 10:
-					m_sUserAgent.Format( _T("MLdonkey v0.%i%i"), m_nEmVersion >> 4, m_nEmVersion & 15 );
-					break;
-				case 20:
-					m_sUserAgent.Format( _T("Lphant v0.%i%i"), m_nEmVersion >> 4, m_nEmVersion & 15 );
-					break;
-				case 40:		// Shareaza
-					if ( m_bEmAICH )
-					{
-						if ( m_sUserAgent.IsEmpty() )
-							m_sUserAgent.Format( _T("Shareaza Mod (40) v%i"), m_nEmVersion );
-						break;
-					}
-					m_sUserAgent = _T("Shareaza");
-					break;
-				case 80:		// PeerProject (Proposed)
-					if ( m_bEmAICH )
-					{
-						if ( m_sUserAgent.IsEmpty() )
-							m_sUserAgent.Format( _T("eMule Mod (80) v%i"), m_nEmVersion );
-						break;
-					}
-					m_sUserAgent = _T("PeerProject");
-					break;
-				case 203:		// ShareazaPlus RazaCB
-					m_sUserAgent.Format( _T("ShareazaPlus") );
-					break;
-				case ED2K_CLIENT_MOD:		// (Did not send a compatible client ID, but did send a MOD tag)
-					m_sUserAgent.Format( _T("eMule Mod v%i"), m_nEmVersion );
-					break;
-				case ED2K_CLIENT_UNKNOWN:	// (Did not send a compatible client ID)
-					if ( _tcsistr( m_sNick, _T("www.pruna.com") ) )	// ToDo: Need a better way to recognize pruna?
-						m_sUserAgent.Format( _T("Pruna v%i"), m_nEmVersion );
-					else
-						m_sUserAgent.Format( _T("Unidentified v%i"), m_nEmVersion );
-					break;
-				default:					// (Sent a compatible client ID, but we don't recognise it)
-					m_sUserAgent.Format( _T("eMule/c (%i) v0.%i%i"), m_nEmCompatible, m_nEmVersion >> 4, m_nEmVersion & 15 );
-					break;
+				}
+				m_sUserAgent = _T("PeerProject");
+				break;
+			case 203:		// ShareazaPlus RazaCB
+				m_sUserAgent.Format( _T("ShareazaPlus") );
+				break;
+			case ED2K_CLIENT_MOD:		// (Did not send a compatible client ID, but did send a MOD tag)
+				m_sUserAgent.Format( _T("eMule Mod v%i"), m_nEmVersion );
+				break;
+			case ED2K_CLIENT_UNKNOWN:	// (Did not send a compatible client ID)
+				if ( _tcsistr( m_sNick, _T("www.pruna.com") ) )	// ToDo: Need a better way to recognize pruna?
+					m_sUserAgent.Format( _T("Pruna v%i"), m_nEmVersion );
+				else
+					m_sUserAgent.Format( _T("Unidentified v%i"), m_nEmVersion );
+				break;
+			default:		// (Sent a compatible client ID, but we don't recognise it)
+				m_sUserAgent.Format( _T("eMule/c (%i) v0.%i%i"), m_nEmCompatible, m_nEmVersion >> 4, m_nEmVersion & 15 );
+				break;
 			}
 		}
 		else if ( m_oGUID[5] == 'M' && m_oGUID[14] == 'L' )
@@ -1368,7 +1371,7 @@ void CEDClient::DetermineUserAgent()
 		}
 	}
 
-	//Client allows G2 browse, etc.
+	// Client allows G2 browse, etc.
 	m_bClientExtended = VendorCache.IsExtended( m_sUserAgent );
 	if ( m_pUpload )
 		m_pUpload->m_bClientExtended = m_bClientExtended;
@@ -1681,9 +1684,7 @@ BOOL CEDClient::OnAskSharedDirs(CEDPacket* /*pPacket*/)
 				CLibraryFolder* pFolder = oFolders.RemoveHead();
 
 				if ( pFolder->IsShared() )
-				{
 					oFolderPath.AddTail( pFolder->GetRelativeName() );
-				}
 
 				for ( POSITION pos = pFolder->GetFolderIterator(); pos ; )
 				{
@@ -1760,29 +1761,26 @@ BOOL CEDClient::OnViewSharedDir(CEDPacket* pPacket)
 						--nCount;
 
 						pReply->WriteFile( pFile, pFile->GetSize(), this );
-
-					// Obsolete:
-					// ToDo: Delete?
+					}
+					// Obsolete (ToDo: Delete this?)
 
 					//	// File hash
 					//	pReply->Write( pFile->m_oED2K );
-
+					//
 					//	// ID
 					//	pReply->WriteLongLE( Network.m_pHost.sin_addr.s_addr );
-
+					//
 					//	// Port
 					//	pReply->WriteShortLE( htons( Network.m_pHost.sin_port ) );
-
-					//	DWORD nTags = 5;
-
+					//
 					//	CString strType, strTitle, strArtist, strAlbum, strCodec;
-					//	DWORD nBitrate = 0, nLength = 0;
+					//	DWORD nBitrate = 0, nLength = 0, nTags = 5;
 					//	if ( pFile->m_pSchema &&
 					//		 pFile->m_pSchema->m_sDonkeyType.GetLength() )
 					//	{
 					//		strType = pFile->m_pSchema->m_sDonkeyType;
 					//		nTags ++;
-
+					//
 					//		// Title
 					//		if ( pFile->m_pMetadata->GetAttributeValue( _T("title") ).GetLength() )
 					//		{
@@ -1790,7 +1788,7 @@ BOOL CEDClient::OnViewSharedDir(CEDPacket* pPacket)
 					//			if ( strTitle.GetLength() )
 					//				nTags ++;
 					//		}
-
+					//
 					//		if ( pFile->IsSchemaURI( CSchema::uriAudio ) )
 					//		{
 					//			// Artist
@@ -1800,7 +1798,7 @@ BOOL CEDClient::OnViewSharedDir(CEDPacket* pPacket)
 					//				if ( strArtist.GetLength() )
 					//					nTags ++;
 					//			}
-
+					//
 					//			// Album
 					//			if ( pFile->m_pMetadata->GetAttributeValue( _T("album") ).GetLength() )
 					//			{
@@ -1808,7 +1806,7 @@ BOOL CEDClient::OnViewSharedDir(CEDPacket* pPacket)
 					//				if ( strAlbum.GetLength() )
 					//					nTags ++;
 					//			}
-
+					//
 					//			// Bitrate
 					//			if ( pFile->m_pMetadata->GetAttributeValue( _T("bitrate") ).GetLength() )	//And has a bitrate
 					//			{
@@ -1816,7 +1814,7 @@ BOOL CEDClient::OnViewSharedDir(CEDPacket* pPacket)
 					//				if ( nBitrate )
 					//					nTags ++;
 					//			}
-
+					//
 					//			// Length
 					//			if ( pFile->m_pMetadata->GetAttributeValue( _T("seconds") ).GetLength() )	//And has seconds
 					//			{
@@ -1835,7 +1833,7 @@ BOOL CEDClient::OnViewSharedDir(CEDPacket* pPacket)
 					//				if ( strCodec.GetLength() )
 					//					nTags ++;
 					//			}
-
+					//
 					//			// Length
 					//			if ( pFile->m_pMetadata->GetAttributeValue( _T("minutes") ).GetLength() )
 					//			{
@@ -1847,70 +1845,69 @@ BOOL CEDClient::OnViewSharedDir(CEDPacket* pPacket)
 					//			}
 					//		}
 					//	}
-
+					//
 					//	BYTE nRating = 0;
 					//	if ( pFile->m_nRating )
 					//	{
 					//		nRating = (BYTE)min( pFile->m_nRating, 5 );
 					//		nTags ++;
 					//	}
-
+					//
 					//	if ( pFile->m_nSize > MAX_SIZE_32BIT )
 					//		nTags ++;
-
+					//
 					//	// Number of Tags
 					//	pReply->WriteLongLE( nTags );
-
+					//
 					//	// Filename
 					//	CEDTag( ED2K_FT_FILENAME, pFile->m_sName ).Write( pReply, m_bEmUnicode );
-
+					//
 					//	// File size
 					//	CEDTag( ED2K_FT_FILESIZE, (DWORD)pFile->m_nSize ).Write( pReply );
 					//	if ( pFile->m_nSize > MAX_SIZE_32BIT )
-					//		CEDTag( ED2K_FT_FILESIZE_HI,
-					//			(DWORD)(pFile->m_nSize >> 32 ) ).Write( pReply );
-
+					//		CEDTag( ED2K_FT_FILESIZE_HI, (DWORD)(pFile->m_nSize >> 32 ) ).Write( pReply );
+					//
 					//	// Sources
 					//	CEDTag( ED2K_FT_SOURCES, 1ull ).Write( pReply );
-
+					//
 					//	// Complete sources
 					//	CEDTag( ED2K_FT_COMPLETE_SOURCES, 1ull ).Write( pReply );
-
+					//
 					//	// Last seen
 					//	CEDTag( ED2K_FT_LASTSEENCOMPLETE, 0ull ).Write( pReply );
-
+					//
 					//	// File type
 					//	if ( strType.GetLength() )
 					//		CEDTag( ED2K_FT_FILETYPE, strType ).Write( pReply );
-
+					//
 					//	// Title
 					//	if ( strTitle.GetLength() )
 					//		CEDTag( ED2K_FT_TITLE, strTitle ).Write( pReply );
-
+					//
 					//	// Artist
 					//	if ( strArtist.GetLength() )
 					//		CEDTag( ED2K_FT_ARTIST, strArtist ).Write( pReply );
-
+					//
 					//	// Album
 					//	if ( strAlbum.GetLength() )
 					//		CEDTag( ED2K_FT_ALBUM, strAlbum ).Write( pReply );
-
+					//
 					//	// Bitrate
 					//	if ( nBitrate )
 					//		CEDTag( ED2K_FT_BITRATE, nBitrate ).Write( pReply );
-
+					//
 					//	// Length
 					//	if ( nLength )
 					//		CEDTag( ED2K_FT_LENGTH, nLength ).Write( pReply );
-
+					//
 					//	// Codec
 					//	if ( strCodec.GetLength() )
 					//		CEDTag( ED2K_FT_CODEC, strCodec ).Write( pReply );
-
+					//
 					//	// File rating
 					//	if ( nRating )
 					//		CEDTag( ED2K_FT_FILERATING, nRating ).Write( pReply );
-					}
+					//}
 
 					oLock.Unlock();
 
@@ -1990,7 +1987,8 @@ BOOL CEDClient::OnViewSharedDirAnswer(CEDPacket* pPacket)
 				pHit->m_bBrowseHost = TRUE;
 				pHit->m_bChat = TRUE;
 				pHit->m_pVendor = VendorCache.Lookup( _T("ED2K") );
-				if ( ! pHit->m_pVendor ) pHit->m_pVendor = VendorCache.m_pNull;
+				if ( ! pHit->m_pVendor )
+					pHit->m_pVendor = VendorCache.m_pNull;
 
 				pHit->ReadEDPacket( pPacket, &m_pServer, m_bEmUnicode );
 
@@ -2390,7 +2388,7 @@ BOOL CEDClient::OnUdpReaskAck(CEDPacket* pPacket)
 
 BOOL CEDClient::OnUdpQueueFull(CEDPacket* /*pPacket*/)
 {
-	if ( m_pDownload != NULL )
+	if ( m_pDownload )
 	{
 		if ( CDownloadSource* pSource = GetSource() )
 			pSource->m_tAttempt = GetTickCount() + Settings.eDonkey.ReAskTime * 1000;
@@ -2402,6 +2400,6 @@ BOOL CEDClient::OnUdpQueueFull(CEDPacket* /*pPacket*/)
 
 BOOL CEDClient::OnUdpFileNotFound(CEDPacket* /*pPacket*/)
 {
-	if ( m_pDownload != NULL ) m_pDownload->Close( TRI_FALSE );
+	if ( m_pDownload ) m_pDownload->Close( TRI_FALSE );
 	return TRUE;
 }

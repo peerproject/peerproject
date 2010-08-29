@@ -1,18 +1,25 @@
-// stdafx.h : include file for standard system include files,
-// or project specific include files that are used frequently,
-// but are changed infrequently
+//
+// stdafx.h
+//
+// Source file for standard system include files,
+// or project files that are used frequently but changed infrequently
+//
 
 #pragma once
 
-#ifndef _SECURE_ATL
-#define _SECURE_ATL 1
-#endif
+#include "TargetVer.h"
 
 #ifndef VC_EXTRALEAN
 #define VC_EXTRALEAN            // Exclude rarely-used stuff from Windows headers
 #endif
 
-#include "targetver.h"
+#ifndef _SECURE_ATL
+#define _SECURE_ATL 1
+#endif
+
+#ifndef _SCL_SECURE_NO_WARNINGS
+#define _SCL_SECURE_NO_WARNINGS
+#endif
 
 #define _ATL_CSTRING_EXPLICIT_CONSTRUCTORS      // some CString constructors will be explicit
 

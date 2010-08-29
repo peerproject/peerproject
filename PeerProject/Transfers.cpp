@@ -164,13 +164,19 @@ void CTransfers::OnRun()
 
 void CTransfers::OnRunTransfers()
 {
-	CSingleLock oLock( &m_pSection );
+	// Quick check to avoid locking
+	if ( m_pList.IsEmpty() )
+		return;
+
+	// Overload protection: Spend no more than 300 ms here at once
+	DWORD nBegin = GetTickCount();
+	CSingleLock oLock( &m_pSection, FALSE );
 	if ( ! oLock.Lock( 250 ) )
 		return;
 
 	++m_nRunCookie;
 
-	while ( ! m_pList.IsEmpty() && m_pList.GetHead()->m_nRunCookie != m_nRunCookie )
+	while ( ! m_pList.IsEmpty() && GetTickCount() - nBegin < 300 && m_pList.GetHead()->m_nRunCookie != m_nRunCookie )
 	{
 		CTransfer* pTransfer = m_pList.RemoveHead();
 		m_pList.AddTail( pTransfer );
@@ -190,7 +196,7 @@ void CTransfers::OnCheckExit()
 
 	if ( Settings.Live.AutoClose && GetActiveCount() == 0 )
 	{
-		if ( PostMainWndMessage( WM_CLOSE ) )
-			Settings.Live.AutoClose = FALSE;
+		Settings.Live.AutoClose = false;
+		PostMainWndMessage( WM_CLOSE );
 	}
 }

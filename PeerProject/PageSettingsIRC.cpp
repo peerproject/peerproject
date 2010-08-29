@@ -280,14 +280,17 @@ void CIRCSettingsPage::OnOK()
 	Settings.IRC.ServerPort	 = _tstoi( m_sServerPort );
 	Settings.IRC.OnConnect	 = m_sOnConnect;
 	Settings.IRC.Timestamp	 = m_bTimestamp == TRUE;
-	Settings.IRC.Updated	 = TRUE;
 	Settings.IRC.FontSize	 = _tstoi( m_sFontSize );
 	Settings.IRC.ScreenFont	 = m_sScreenFont;
 
 	UpdateData( FALSE );
 	m_wndFonts.Invalidate();
-	if ( CWnd* pWnd = (CWnd*)CIRCFrame::g_pIrcFrame )
-		pWnd->RedrawWindow( 0, 0, RDW_INTERNALPAINT|RDW_UPDATENOW|RDW_ALLCHILDREN );
+
+	//if ( CWnd* pWnd = (CWnd*)CIRCFrame::g_pIrcFrame )
+	//	pWnd->RedrawWindow( 0, 0, RDW_INTERNALPAINT|RDW_UPDATENOW|RDW_ALLCHILDREN );
+	if ( CIRCFrame::g_pIrcFrame )
+		CIRCFrame::g_pIrcFrame->OnSkinChange();
+
 	CSettingsPage::OnOK();
 }
 
@@ -310,7 +313,6 @@ BOOL CIRCSettingsPage::OnApply()
 	Settings.IRC.ServerPort	 = _tstoi( m_sServerPort );
 	Settings.IRC.OnConnect	 = m_sOnConnect;
 	Settings.IRC.Timestamp	 = m_bTimestamp == TRUE;
-	Settings.IRC.Updated	 = TRUE;
 	Settings.IRC.FontSize	 = _tstoi( m_sFontSize );
 	Settings.IRC.ScreenFont	 = m_sScreenFont;
 

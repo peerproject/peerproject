@@ -170,7 +170,7 @@ Source: "Plugins\WindowsThumbnail\{#ConfigurationName} {#PlatformName}\WindowsTh
 Source: "Plugins\MediaPlayer\{#ConfigurationName} {#PlatformName}\MediaPlayer.dll"; DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
 
 ; Don't register WebHook.dll since it will setup PeerProject as download manager  (ToDo: fix WebHook.dll regserver?)
-Source: "Plugins\WebHook\{#ConfigurationName} {#PlatformName}\WebHook*.dll"; DestDir: "{app}\Plugins"; Flags: noregerror overwritereadonly replacesameversion restartreplace uninsrestartdelete uninsremovereadonly sortfilesbyextension
+Source: "Plugins\WebHook\{#ConfigurationName} {#PlatformName}\WebHook.dll"; DestDir: "{app}\Plugins"; Flags: noregerror overwritereadonly replacesameversion restartreplace uninsrestartdelete uninsremovereadonly sortfilesbyextension
 
 
 ; == Debug Databases ==

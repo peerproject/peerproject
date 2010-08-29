@@ -687,6 +687,9 @@ void CLibraryFolders::Serialize(CArchive& ar, int nVersion)
 {
 	ASSUME_LOCK( Library.m_pSection );
 
+	if ( m_pAlbumRoot == NULL )
+		m_pAlbumRoot = new CAlbumFolder( NULL, CSchema::uriLibrary );
+
 	if ( ar.IsStoring() )
 	{
 		ar.WriteCount( GetFolderCount() );
@@ -698,9 +701,6 @@ void CLibraryFolders::Serialize(CArchive& ar, int nVersion)
 	}
 	else // Loading
 	{
-		if ( m_pAlbumRoot == NULL )
-			m_pAlbumRoot = new CAlbumFolder( NULL, CSchema::uriLibrary );
-
 		for ( DWORD_PTR nCount = ar.ReadCount() ; nCount > 0 ; nCount-- )
 		{
 			CLibraryFolder* pFolder = new CLibraryFolder( NULL );
