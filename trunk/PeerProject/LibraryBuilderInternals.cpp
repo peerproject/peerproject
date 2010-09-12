@@ -19,7 +19,7 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 
-// Library Schema populating (folder inclusion, etc., also handled by Builder plugins)
+// Library Schema populating (folder inclusion etc. also handled by Builder plugins)
 
 #include "StdAfx.h"
 #include "PeerProject.h"
@@ -242,7 +242,7 @@ bool CLibraryBuilderInternals::ReadID3v1(DWORD nIndex, HANDLE hFile, CXMLElement
 	CopyID3v1Field( pXML, _T("album"), CString( pInfo.szAlbum, 30 ) );
 	CopyID3v1Field( pXML, _T("year"), CString( pInfo.szYear, 4 ) );
 
-	if ( pInfo.nGenre < ID3_GENRES )
+	if ( pInfo.nGenre >= 0 &&  pInfo.nGenre < ID3_GENRES )
 		pXML->AddAttribute( _T("genre"), pszID3Genre[ pInfo.nGenre ] );
 
 	if ( pInfo.szComment[28] == 0 && pInfo.szComment[29] > 0 )
@@ -398,8 +398,7 @@ bool CLibraryBuilderInternals::ReadID3v2(DWORD nIndex, HANDLE hFile)
 				if ( nBuffer < nFrameSize )
 					break;
 				// iTunes uses old style of size for v.2.4 when converting.
-				// ToDo: Add code here to find the correct frame size?
-				// Report and solution: http://www.sacredchao.net/quodlibet/ticket/180
+				// ToDo: Add code here to find the correct frame size? (Verify recent iTunes bug)
 			}
 			if ( pFrame->nFlags2 & ~ID3V2_KNOWNFRAME )
 				szFrameTag[0] = 0;
@@ -507,7 +506,7 @@ bool CLibraryBuilderInternals::ReadID3v2(DWORD nIndex, HANDLE hFile)
 					{
 						strValue = _T("Cover");
 					}
-					else if ( _stscanf( strValue, _T("%i"), &nGenre ) == 1 && nGenre < ID3_GENRES )
+					else if ( _stscanf( strValue, _T("%i"), &nGenre ) == 1 && nGenre >= 0 && nGenre < ID3_GENRES )
 					{
 						if ( _tcsistr( strGenre, pszID3Genre[ nGenre ] ) == NULL )
 							strValue = pszID3Genre[ nGenre ];
@@ -916,7 +915,7 @@ bool CLibraryBuilderInternals::ScanMP3Frame(CXMLElement* pXML, HANDLE hFile, DWO
 				nTotalBitrate += nBitrate / 1000;
 				nFrameCount++;
 			}
-			else if ( nFrameCount == 0 ) // reset base values if it was the first frame
+			else if ( nFrameCount == 0 ) // Reset base values if it was the first frame
 			{
 				nBaseBitrate = nBaseFrequency = 0;
 			}
@@ -2174,8 +2173,7 @@ bool CLibraryBuilderInternals::ReadAPE(DWORD nIndex, HANDLE hFile, bool bPreferF
 			break;
 
 		auto_array< CHAR > pszInput( new CHAR[ nLength ] );
-		if ( ! ReadFile( hFile, pszInput.get(), nLength, &nRead, NULL ) ||
-			nLength != nRead )
+		if ( ! ReadFile( hFile, pszInput.get(), nLength, &nRead, NULL ) || nLength != nRead )
 			break;
 
 		strValue = UTF8Decode( pszInput.get(), nLength );
@@ -3188,7 +3186,7 @@ bool CLibraryBuilderInternals::ReadPDF(DWORD nIndex, HANDLE hFile, LPCTSTR pszPa
 					}
 				}
 
-				// Read further if string reading was stopped at "/>" characters
+				// Read further if string reading was stopped at "/>" characters while
 				// inside parentheses and restore missing character
 				if ( strLine.GetAt( 0 ) == _T('(') && strLine.Right( 1 ) != _T(')') )
 				{
@@ -3441,8 +3439,7 @@ CString	CLibraryBuilderInternals::DecodePDFText(CString strInput)
 		strResult.ReleaseBuffer( nByte );
 	}
 
-	// Strip off language and country codes,
-	// could be useful in the future...
+	// Strip off language and country codes, could be useful in the future...
 	int nEscapeStart = 0;
 	do
 	{
@@ -3569,8 +3566,7 @@ CString CLibraryBuilderInternals::ReadPDFLine(HANDLE hFile, bool bReverse, bool 
 
 	str.TrimLeft();
 
-	// Workaround to trim from right if zero bytes are present
-	// between the beginning and the end
+	// Workaround to trim from right if zero bytes are present between the beginning and the end
 	nLength = str.GetLength();
 	while ( nLength && str.GetAt( nLength - 1 ) == ' ' )
 	{
@@ -3634,11 +3630,9 @@ bool CLibraryBuilderInternals::ReadCHM(DWORD nIndex, HANDLE hFile, LPCTSTR pszPa
 	DWORD nSizeHigh	= (DWORD)( nContentOffset >> 32 );
 
 	nSizeLow = SetFilePointer( hFile, nSizeLow, (long*)&nSizeHigh, FILE_BEGIN );
-	if ( nSizeLow == INVALID_SET_FILE_POINTER &&
-		( nError = GetLastError() ) != NO_ERROR )
-	{
+	if ( nSizeLow == INVALID_SET_FILE_POINTER && ( nError = GetLastError() ) != NO_ERROR )
 		return LibraryBuilder.SubmitCorrupted( nIndex );
-	}
+
 	ReadFile( hFile, szMagic, 4, &nRead, NULL );
 	if ( nRead != 4 || strncmp( szMagic, "LZXC", 4 ) ) // Compression method
 		return false;

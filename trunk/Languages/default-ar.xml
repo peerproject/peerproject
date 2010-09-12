@@ -3,7 +3,7 @@
 
 <!-- PeerProject Arabic Language Skin File -->
 
-<!-- Translation based on default-en.xml r56 -->
+<!-- Translation based on default-en.xml r58 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -474,7 +474,7 @@
 	<menu name="CMainWnd.Tray">
 		<item id="ID_TRAY_OPEN" text="فتح PeerProject" />
 		<separator />
-		<item id="ID_WINDOW_REMOTE" text="Show Remote"/>
+		<item id="ID_WINDOW_REMOTE" text="عرض البعيد"/>
 		<item id="ID_TOOLS_SETTINGS" text="فتح إ_عدادات..."/>
 		<item id="ID_NETWORK_SEARCH" text="بحث _جديد..." />
 		<item id="ID_TOOLS_DOWNLOAD" text="_تحميل الملف..." />
@@ -1659,7 +1659,7 @@
 			<newline gap="20" indent="0" />
 		</group>
 		<group id="3">
-			<icon res="128" width="32" height="32" />
+			<icon res="120" width="32" height="32" />
 			<gap size="8" />
 			<heading align="middle">ملاحظة عن الترقية</heading>
 			<newline gap="8" indent="42" />
@@ -1702,7 +1702,7 @@
 			<link target="command:ID_HELP_ROUTER">أنقر هنا لتتعلم عن كيفية تكوين جهاز توجيهك أو جدارك الناري</link>
 			<newline gap="18" indent="0" />
 		</group>
-		<icon res="128" width="32" height="32" target="command:ID_TOOLS_SETTINGS" /> <gap size="8" />
+		<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS" /> <gap size="8" />
 		<heading align="middle">تــخــصــيــص PEERPROJECT</heading>
 		<newline gap="12" indent="42" />
 		<icon res="182" width="16" height="16" target="command:ID_TOOLS_SKIN" /> <gap size="8" />
@@ -1726,7 +1726,7 @@
 		<text align="middle">&#160;- اذهب الى حسابك في اللغة العربية مناقشة منتدى</text>
 		<newline gap="18" indent="0" />
 		<group id="5">
-			<icon res="128" width="32" height="32" />
+			<icon res="120" width="32" height="32" />
 			<gap size="8" />
 			<heading align="middle">التحكم   عن   بعد   مفعل</heading>
 			<newline gap="8" indent="42" />
@@ -1907,9 +1907,6 @@
 		<newline gap="10" />
 		<link target="page:CUploadsSettingsPage" format="b">رفع الملفات:</link> <gap size="4" />
 		<text>قدرة عملية الرفع و قائمة الإنتظار و الخظر و المهلة الوقتية و طلبات خاصة</text>
-		<newline gap="10" />
-		<link target="page:CSchedulerSettingsPage" format="b">Scheduler:</link> <gap size="4"/>
-		<text>Limit bandwidth on a periodic schedule.</text>
 	</document>
 	<!--تصفح وضعية المستخدم-->
 	<document name="CBrowseHostProfile.1">
@@ -2671,10 +2668,10 @@
 	<string id="8143" value="Searching..." />
 	<string id="8144" value="بدء البحث" />
 	<string id="8145" value="Search More" />
-	<string id="8146" value="Stop" />
+	<string id="8146" value="توقف" />
 	<string id="8147" value="أي نوع ملف" />
-	<string id="8148" value="Type your search here:" />
-	<string id="8149" value="Look for this type of file:" />
+	<string id="8148" value="نوع البحث هنا:" />
+	<string id="8149" value="البحث عن هذا نوع من الملفات:" />
 	<string id="8150" value="Searching:" />
 	<string id="8151" value="Found:" />
 	<string id="8152" value="%lu hubs, %lu leaves" />
@@ -2714,6 +2711,8 @@
 	<string id="8239" value="مكمل" />
 	<string id="8240" value="عدد المصادر:" />
 	<string id="8241" value="Number of reviews:" />
+	<string id="8244" value="الحد من سرعة التحميل"/>
+	<string id="8245" value="الحد الأقصى للسرعة تحميل"/>
 	<string id="8288" value="Exploring Your PeerProject Library" />
 	<string id="8289" value="Exploring" />
 	<string id="8290" value="Exploring the contents of %i folders" />
@@ -3273,24 +3272,22 @@
 	<string id="20125" value="Unverified"/>
 	<string id="20126" value="Unsupported"/>
 	<string id="20127" value="Uninterested"/>
-	<string id="20128" value="source"/>  <!-- one -- >
-	<string id="20129" value="sources"/> <!-- numbers 21,22,31,... -- >
-	<string id="20130" value="sources"/> <!-- tens -- >
-	<string id="20131" value="sources"/> <!-- from 11 to 19 -- >
-	<string id="20132" value="sources"/> <!-- from 2 to 4 -- >
-	<string id="20133" value="sources"/> <!-- from 5 to 9 -- >
-	<string id="20134" value="sources"/> <!-- "3/10 sources" -- >
+	<string id="20130" value="source"/>  <!-- one -->
+	<string id="20131" value="sources"/> <!-- ones 21,31,... -->
+	<string id="20132" value="sources"/> <!-- few  2-4 -->
+	<string id="20134" value="sources"/> <!-- others -->
 	<string id="20135" value="(No Sources)"/>
 	<string id="20136" value="Choked"/>
 	<string id="20137" value="Next"/>
 	<string id="20138" value="Q"/>
-	<string id="20200" value="Sunday" />
+	<string id="20200" value="Every Day" />
 	<string id="20201" value="Monday" />
 	<string id="20202" value="Tuesday" />
 	<string id="20203" value="Wednesday" />
 	<string id="20204" value="Thursday" />
 	<string id="20205" value="Friday" />
 	<string id="20206" value="Saturday" />
+	<string id="20207" value="Sunday" />
 	<string id="20210" value="(No Rating)" />
 	<string id="20211" value="Fake / Corrupt" />
 	<string id="20212" value="Poor" />
@@ -3556,28 +3553,6 @@ End Untranslated -->
 		<control caption="إختر كلمة مرور:" />
 		<control caption=":الدليل" />
 		<control caption="يسمح لك الوصول البعيد لشير-أزا بترك &quot;شير-أزا&quot; يعمل في كمبيوترك و من ثم التحكم فيه عن بعد عن طريق متصفح ويب . لكن يجب قبول الإتصالات الواردة لإستخدام هذه الميزة" />
-	</dialog>
-	<dialog name="CSchedulerSettingsPage" cookie="EdStStStStStStStBuStStStBuBuBuStEdmsBuSt" caption="الجدولة">
-		<control />
-		<control caption="أحد" />
-		<control caption="إثنبن" />
-		<control caption="ثلاثاء" />
-		<control caption="أربعاء" />
-		<control caption="خميس" />
-		<control caption="جمعة" />
-		<control caption="سبت" />
-		<control caption=":المفتاح" />
-		<control caption="عدم إتصال" />
-		<control caption="إتصالات محدودة" />
-		<control caption="الإتصال بسرعة كاملة" />
-		<control caption=":ال_خيارات" />
-		<control caption=" ت_مكين الجدولة" />
-		<control caption="عند وجود حدود G2 ال_إتصال فقط إلى" />
-		<control caption="% إذا _نطاق العرض أقل من الحد" />
-		<control />
-		<control />
-		<control caption="تعليمات" />
-		<control caption="تم تصميم الجدولة للسماح لك بجدولة الإتصال و تحميل الملفات لشير-أزا{n}{n}{n}ملاحظة : إذا كان شير-أزا مفتوحا و الجدولة في الوضع النشط فقد ترى بأنه يقوم بتغيير الإعدادات - هذا طبيعي" />
 	</dialog>
 	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuSt" caption="الشبكات">
 		<control caption="شير-أزا هو تطبيق لمشاركة الملفات لأغراض عامة حيث يقوم بالدخول على العديد من شبكات &quot;النظير-إلى-النظير&quot; المختلفة في نفس الوقت . في هذه الصفحة يمكنك تحديد شبكات &quot;النظير-إلى-النظير&quot; المراد الإنصال بها و من ثم ضبط الإعدادات لكل شبكة" />
@@ -4142,13 +4117,6 @@ End Untranslated -->
 		<control />
 		<control caption="_إزالة" />
 	</dialog>
-	<dialog name="CSchemaColumnsDlg" cookie="CoSyBuBuSt" caption="تحديد الأعمدة من المخطط">
-		<control />
-		<control />
-		<control caption="حسنا" />
-		<control caption="إلغاء الأمر" />
-		<control caption="قم بتحديد مخطط من القائمة ثم حدد الحقول لعرضها على شكل أعمدة" />
-	</dialog>
 	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuStCoStCoEdStEdStEdStBuBu" caption="قاعدة الأمان">
 		<control caption=":ال_قاعدة" />
 		<control caption=":النوع" />
@@ -4183,6 +4151,42 @@ End Untranslated -->
 		<control caption="د" />
 		<control caption="حسنا" />
 		<control caption="إلغاء الأمر" />
+	</dialog>
+	<dialog name="CScheduleTaskDlg" cookie="BuBuBuCoEdmsEdmsStStBuBuBuBuBuSySyBuBuBuBuBuBuBuBuBuEd" caption="جدول الأحداث">
+		<control caption="حسنا" />
+		<control caption="إلغاء الأمر" />
+		<control caption="Select Task Type"/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="% under Download limit"/>
+		<control caption="% under Upload limit"/>
+		<control caption="Active Task"/>
+		<control caption="Enable G2 Only"/>
+		<control caption="Set Event Time"/>
+		<control caption="Specified days"/>
+		<control caption="One day only"/>
+		<control/>
+		<control/>
+		<control caption="إثنبن" />
+		<control caption="ثلاثاء" />
+		<control caption="أربعاء" />
+		<control caption="خميس" />
+		<control caption="جمعة" />
+		<control caption="سبت" />
+		<control caption="أحد" />
+		<control caption="جميع"/>
+		<control caption="تلاحظ"/>
+		<control/>
+	</dialog>
+	<dialog name="CSchemaColumnsDlg" cookie="CoSyBuBuSt" caption="تحديد الأعمدة من المخطط">
+		<control />
+		<control />
+		<control caption="حسنا" />
+		<control caption="إلغاء الأمر" />
+		<control caption="قم بتحديد مخطط من القائمة ثم حدد الحقول لعرضها على شكل أعمدة" />
 	</dialog>
 	<dialog name="CShareManagerDlg" cookie="StSyBuBuBuBu" caption="إدارة مجلد المشاركة">
 		<control caption="هذه هي قائمة المجلدات في مكتبتك . يمكنك أن تضيف و أن تزيل المجلدات باستخدام الأزرار التي على اليسار . عندما تضيف أي مجلد جديد هو أصلا للمشاركة مع المستخدمين الآخرين ، يمكنك أن تزيله من مكتبة شير-أزا متى ما تريد" />
@@ -4522,6 +4526,14 @@ End Untranslated -->
 		<column from="Expires" to="الإنتهاء" />
 		<column from="#" to="الأسبقية" />
 		<column from="Comment" to="التعليق" />
+	</list>
+	<list name="CSchedulerWnd">
+		<column from="Task" to="الإجراء"/>
+		<column from="Date" to="تاريخ"/>
+		<column from="Time" to="الوقت"/>
+		<column from="Status" to="الحالة"/>
+		<column from="Activity" to="نشط"/>
+		<column from="Description" to="التعليق"/>
 	</list>
 	<list name="CHostCacheWnd">
 		<column from="Address" to="العنوان" />

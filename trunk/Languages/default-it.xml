@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Italian Skin File -->
 
-<!-- Translation based on default-en.xml r56 -->
+<!-- Translation based on default-en.xml r58 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1694,7 +1694,7 @@
 			<newline gap="20" indent="0"/>
 		</group>
 		<group id="3">
-			<icon res="128" width="32" height="32"/><gap size="8"/>
+			<icon res="120" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">AVVISO DI AGGIORNAMENTO</heading>
 			<newline gap="8" indent="42"/>
 			<text id="Upgrade"/>
@@ -1735,7 +1735,7 @@
 			<link target="command:ID_HELP_ROUTER">Clicca qui per sapere come configurare il tuo router o firewall</link>
 			<newline gap="18" indent="0"/>
 		</group>
-		<icon res="128" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
+		<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">PERSONALIZZA PEERPROJECT</heading>
 		<newline gap="12" indent="42"/>
 		<icon res="182" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
@@ -1764,7 +1764,7 @@
 		<text align="middle">&#160;- Vai al forum di discussione in lingua Italiana</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
-			<icon res="128" width="32" height="32"/><gap size="8"/>
+			<icon res="120" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">ACCESSO REMOTO ABILITATO</heading>
 			<newline gap="8" indent="42"/>
 			<text>L'accesso remoto di PeerProject è abilitato. Controlla PeerProject usando il tuo browser Internet su:</text>
@@ -1943,9 +1943,6 @@
 		<newline gap="10"/>
 		<link target="page:CUploadsSettingsPage" format="b">Upload:</link>
 		<text>&#160;Capacità di upload, accodamento, banning, timeout e richieste speciali.</text>
-		<newline gap="10"/>
-		<link target="page:CSchedulerSettingsPage" format="b">Scheduler:</link>
-		<text>&#160;Limit download connections based on a periodic schedule.</text>
 	</document>
 	<!-- Browse User Profile -->
 	<document name="CBrowseHostProfile.1">
@@ -2756,6 +2753,8 @@
 	<string id="8239" value="Completato"/>
 	<string id="8240" value="Numero di fonti:"/>
 	<string id="8241" value="Numero di revisioni:"/>
+	<string id="8244" value="Limite di velocità di Download"/>
+	<string id="8245" value="Limite di velocità di Upload"/>
 	<string id="8288" value="Libreria di PeerProject"/>
 	<string id="8289" value="Esplorazione"/>
 	<string id="8290" value="Esplorazione del contenuto di %i cartelle"/>
@@ -3315,24 +3314,22 @@
 	<string id="20125" value="Non verificato"/>
 	<string id="20126" value="Non interessato"/>
 	<string id="20127" value="Non interessato"/>
-	<string id="20128" value="fonte"/>
-	<string id="20129" value="fonti"/> <!-- numbers 21, 31, ... -->
-	<string id="20130" value="fonti"/> <!-- tens -->
-	<string id="20131" value="fonti"/> <!-- from 11 to 19 -->
-	<string id="20132" value="fonti"/> <!-- from 2 to 4 -->
-	<string id="20133" value="fonti"/> <!-- from 5 to 9 -->
-	<string id="20134" value="fonti"/> <!-- "3/10 sources" -->
+	<string id="20130" value="fonte"/>
+	<string id="20131" value="fonti"/>
+	<string id="20132" value="fonti"/>
+	<string id="20134" value="fonti"/>
 	<string id="20135" value="(Nessuna fonte)"/>
 	<string id="20136" value="Occupato"/>
 	<string id="20137" value="Successivo"/>
 	<string id="20138" value="C"/>
-	<string id="20200" value="Domenica"/>
+	<string id="20200" value="Dìs"/>
 	<string id="20201" value="Lunedì"/>
 	<string id="20202" value="Martedì"/>
 	<string id="20203" value="Mercoledì"/>
 	<string id="20204" value="Giovedì"/>
 	<string id="20205" value="Venerdì"/>
 	<string id="20206" value="Sabato"/>
+	<string id="20207" value="Domenica"/>
 	<string id="20210" value="(Nessuna valutazione)"/>
 	<string id="20211" value="Falso / Corrotto"/>
 	<string id="20212" value="Scarso"/>
@@ -3603,28 +3600,6 @@
 		<control/>
 		<control caption="Aiuto:"/>
 		<control caption="L'accesso remoto di PeerProject ti permette di lasciare in esecuzione PeerProject sul tuo PC e controllarlo in remoto utilizzando un browser Internet. Sarà necessario essere abilitati ad accettare le connessioni in entrata per usare questa caratteristica (es. router configurato correttamente, ecc)."/>
-	</dialog>
-	<dialog name="CSchedulerSettingsPage" cookie="EdStStStStStStStBuStStStBuBuBuStEdmsBuSt" caption="Scheduler">
-		<control/>
-		<control caption="Dom"/>
-		<control caption="Lun"/>
-		<control caption="Mar"/>
-		<control caption="Mer"/>
-		<control caption="Gio"/>
-		<control caption="Ven"/>
-		<control caption="Sab"/>
-		<control caption="Chiave:"/>
-		<control caption="Non connetterti"/>
-		<control caption="Connessione limitata"/>
-		<control caption="Connettiti alla massima velocità"/>
-		<control caption="Opzioni:"/>
-		<control caption="_Abilita schedulatore"/>
-		<control caption="_Connetti solo a G2 quando limitato"/>
-		<control caption="% della _banda quando limitato"/>
-		<control/>
-		<control/>
-		<control caption="Aiuto:"/>
-		<control caption="Lo schedulatore è stato previsto per permetterti di scegliere quando PeerProject si connetterà per scaricare i file. {n}{n}{n}Nota: Sei hai PeerProject aperto quando questo è attivo, puoi vederlo cambiare le impostazioni - Questo è normale! -"/>
 	</dialog>
 	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuSt" caption="Reti">
 		<control caption="PeerProject è un'applicazione generica per la condivisione dei file che può accedere a molte reti P2P nello stesso momento. In questa pagina puoi selezionare a quale reti P2P vuoi connetterti e configurare ciascuna rete."/>
@@ -4191,13 +4166,6 @@
 		<control/>
 		<control caption="_Rimuovi"/>
 	</dialog>
-	<dialog name="CSchemaColumnsDlg" cookie="CoSyBuBuSt" caption="Seleziona colonne dallo schema">
-		<control/>
-		<control/>
-		<control caption="OK"/>
-		<control caption="Annulla"/>
-		<control caption="Seleziona uno schema dalla lista, poi seleziona i campi da mostrare come colonne."/>
-	</dialog>
 	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuStCoStCoEdStEdStEdStBuBu" caption="Regole di sicurezza">
 		<control caption="_Regola:"/>
 		<control caption="Tipo:"/>
@@ -4233,6 +4201,42 @@
 		<control caption="m"/>
 		<control caption="OK"/>
 		<control caption="Annulla"/>
+	</dialog>
+	<dialog name="CScheduleTaskDlg" cookie="BuBuBuCoEdmsEdmsStStBuBuBuBuBuSySyBuBuBuBuBuBuBuBuBuEd" caption="Pianifica Attività">
+		<control caption="OK"/>
+		<control caption="Annulla"/>
+		<control caption="Select Task Type"/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="% under Download limit"/>
+		<control caption="% under Upload limit"/>
+		<control caption="Active Task"/>
+		<control caption="Enable G2 Only"/>
+		<control caption="Set Event Time"/>
+		<control caption="Specified days"/>
+		<control caption="One day only"/>
+		<control/>
+		<control/>
+		<control caption="Lun"/>
+		<control caption="Mar"/>
+		<control caption="Mer"/>
+		<control caption="Gio"/>
+		<control caption="Ven"/>
+		<control caption="Sab"/>
+		<control caption="Dom"/>
+		<control caption="Tutti"/>
+		<control caption="Commenti"/>
+		<control/>
+	</dialog>
+	<dialog name="CSchemaColumnsDlg" cookie="CoSyBuBuSt" caption="Seleziona colonne dallo schema">
+		<control/>
+		<control/>
+		<control caption="OK"/>
+		<control caption="Annulla"/>
+		<control caption="Seleziona uno schema dalla lista, poi seleziona i campi da mostrare come colonne."/>
 	</dialog>
 	<dialog name="CShareManagerDlg" cookie="StSyBuBuBuBu" caption="Gestore cartelle condivise">
 		<control caption="Questa è la lista delle cartelle nella tua libreria. Puoi aggiungere e rimuovere cartelle utilizzando i pulsanti sulla sinistra. Quando aggiungi una cartella, questa è inizialmente condivisa con altri utenti, tuttavia puoi rimuoverla dalla condivisione su PeerProject."/>
@@ -4570,6 +4574,14 @@
 		<column from="Expires" to="Scade"/>
 		<column from="#" to="#"/>
 		<column from="Comment" to="Commento"/>
+	</list>
+	<list name="CSchedulerWnd">
+		<column from="Task" to="Azione"/>
+		<column from="Date" to="Data"/>
+		<column from="Time" to="Tempo"/>
+		<column from="Status" to="Stato"/>
+		<column from="Activity" to="Attivo"/>
+		<column from="Description" to="Commento"/>
 	</list>
 	<list name="CHostCacheWnd">
 		<column from="Address" to="Indirizzo"/>

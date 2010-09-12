@@ -398,7 +398,8 @@ void CDatagrams::PurgeToken(LPVOID pToken)
 		pDG = pNext;
 	}
 
-	if ( nCount ) theApp.Message( MSG_DEBUG, _T("CDatagrams::PurgeToken() = %i"), nCount );
+	if ( nCount )
+		theApp.Message( MSG_DEBUG, _T("CDatagrams::PurgeToken() = %i"), nCount );
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -454,7 +455,7 @@ BOOL CDatagrams::TryWrite()
 	DWORD nLimit	= 0xFFFFFFFF;
 	DWORD nTotal	= 0;
 
-	if ( Settings.Live.BandwidthScale <= 100 )
+	if ( Settings.Live.BandwidthScaleOut <= 100 )
 	{
 		DWORD tCutoff	= tNow - METER_SECOND;
 		DWORD* pHistory	= m_mOutput.pHistory;
@@ -470,8 +471,8 @@ BOOL CDatagrams::TryWrite()
 		nLimit = Settings.Connection.OutSpeed * 128;
 		if ( Settings.Bandwidth.UdpOut != 0 ) nLimit = Settings.Bandwidth.UdpOut;
 
-		if ( Settings.Live.BandwidthScale < 100 )
-			nLimit = nLimit * Settings.Live.BandwidthScale / 100;
+		if ( Settings.Live.BandwidthScaleOut < 100 )
+			nLimit = nLimit * Settings.Live.BandwidthScaleOut / 100;
 
 		nLimit = ( nUsed >= nLimit ) ? 0 : ( nLimit - nUsed );
 	}
@@ -1848,11 +1849,10 @@ BOOL CDatagrams::OnKHLA(SOCKADDR_IN* pHost, CG2Packet* pPacket)
 	CDiscoveryService * pService = DiscoveryServices.GetByAddress(
 		&(pHost->sin_addr) , ntohs(pHost->sin_port), CDiscoveryService::dsGnutella2UDPKHL );
 
-	if (	pService == NULL &&
-		(	Network.IsFirewalledAddress( &pHost->sin_addr, TRUE ) ||
-			Network.IsReserved( &pHost->sin_addr ) ||
-			Security.IsDenied( &pHost->sin_addr ) )
-		)
+	if ( pService == NULL &&
+		( Network.IsFirewalledAddress( &pHost->sin_addr, TRUE ) ||
+		Network.IsReserved( &pHost->sin_addr ) ||
+		Security.IsDenied( &pHost->sin_addr ) ) )
 	{
 		Statistics.Current.Gnutella2.Dropped++;
 		return FALSE;

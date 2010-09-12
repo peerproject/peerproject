@@ -82,8 +82,8 @@ public:
 		BanHelper( NULL, pFile, nBanLength, bMessage, szComment );
 	}
 
-	bool			Complain(const IN_ADDR* pAddress, int nBanLength = ban5Mins, int nExpire = 30, int nCount = 3);
 	void			Clear();
+	bool			Complain(const IN_ADDR* pAddress, int nBanLength = ban5Mins, int nExpire = 15, int nCount = 3);
 	BOOL			IsDenied(const IN_ADDR* pAddress);
 	BOOL			IsDenied(LPCTSTR pszContent);
 	BOOL			IsDenied(const CPeerProjectFile* pFile);
@@ -132,22 +132,22 @@ public:
 	TCHAR*		m_pContent;
 	DWORD		m_nContentLength;
 
-	void	Remove();
-	void	Reset();
-	void	MaskFix();
-	BOOL	IsExpired(DWORD nNow, BOOL bSession = FALSE) const;
-	BOOL	Match(const IN_ADDR* pAddress) const;
-	BOOL	Match(LPCTSTR pszContent) const;
-	BOOL	Match(const CPeerProjectFile* pFile) const;
-	BOOL	Match(CQuerySearch::const_iterator itStart,
-				  CQuerySearch::const_iterator itEnd, LPCTSTR pszContent) const;
-	CString	GetContentWords();
-	void	SetContentWords(const CString& strContent);
-	void			Serialize(CArchive& ar, int nVersion);
-	BOOL			FromXML(CXMLElement* pXML);
-	CXMLElement*	ToXML();
-	CString			ToGnucleusString();
-	BOOL			FromGnucleusString(CString& str);
+	void		Remove();
+	void		Reset();
+	void		MaskFix();
+	BOOL		IsExpired(DWORD nNow, BOOL bSession = FALSE) const;
+	BOOL		Match(const IN_ADDR* pAddress) const;
+	BOOL		Match(LPCTSTR pszContent) const;
+	BOOL		Match(const CPeerProjectFile* pFile) const;
+	BOOL		Match(CQuerySearch::const_iterator itStart,
+					CQuerySearch::const_iterator itEnd, LPCTSTR pszContent) const;
+	CString 	GetContentWords();
+	void		SetContentWords(const CString& strContent);
+	void		Serialize(CArchive& ar, int nVersion);
+	BOOL		FromXML(CXMLElement* pXML);
+	CXMLElement* ToXML();
+	CString		ToGnucleusString();
+	BOOL		FromGnucleusString(CString& str);
 };
 
 // An adult filter class, used in searches, chat, etc

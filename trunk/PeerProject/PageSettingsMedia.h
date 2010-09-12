@@ -1,7 +1,7 @@
 //
 // PageSettingsMedia.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -33,35 +33,28 @@ public:
 
 	DECLARE_DYNCREATE(CMediaSettingsPage)
 
+	enum { IDD = IDD_SETTINGS_MEDIA };
+
 // Dialog Data
 public:
-	//{{AFX_DATA(CMediaSettingsPage)
-	enum { IDD = IDD_SETTINGS_MEDIA };
 	CButton		m_wndRemove;
 	CButton		m_wndAdd;
 	CComboBox	m_wndList;
 	CComboBox	m_wndServices;
-	CString		m_sServicePath;
+	CString		m_sServicePath[3];
+	int			m_nSelected;
 	CString		m_sType;
 	BOOL		m_bEnablePlay;
 	BOOL		m_bEnableEnqueue;
-	//}}AFX_DATA
 
 // Overrides
-public:
-	//{{AFX_VIRTUAL(CMediaSettingsPage)
-	public:
-	virtual void OnOK();
-	protected:
-	virtual void DoDataExchange(CDataExchange* pDX);
-	//}}AFX_VIRTUAL
-
-// Implementation
 protected:
 	void Update();
 
-	//{{AFX_MSG(CMediaSettingsPage)
+	virtual void DoDataExchange(CDataExchange* pDX);
 	virtual BOOL OnInitDialog();
+	virtual void OnOK();
+
 	afx_msg void OnMediaPlay();
 	afx_msg void OnMediaEnqueue();
 	afx_msg void OnSelChangeMediaTypes();
@@ -70,7 +63,6 @@ protected:
 	afx_msg void OnMediaAdd();
 	afx_msg void OnMediaRemove();
 	afx_msg void OnMediaVis();
-	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()
 };

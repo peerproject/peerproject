@@ -49,9 +49,9 @@ CConnection::CConnection(PROTOCOLID nProtocol)
 	, m_hSocket 	( INVALID_SOCKET )
 	, m_pInput		( NULL )
 	, m_pOutput 	( NULL )
-	, m_bClientExtended ( FALSE )
 	, m_nProtocol	( nProtocol )
 	, m_nQueuedRun	( 0 )			// DoRun sets it to 0, QueueRun sets it to 2 (do)
+	, m_bClientExtended ( FALSE )
 {
 	ZeroMemory( &m_pHost, sizeof( m_pHost ) );
 	m_pHost.sin_family = AF_INET;
@@ -175,10 +175,10 @@ BOOL CConnection::ConnectTo(const IN_ADDR* pAddress, WORD nPort)
 
 	// Choose asynchronous, non-blocking reading and writing on our new socket
 	DWORD dwValue = 1;
-	ioctlsocket(	// Call Windows Sockets ioctlsocket to control the input/output mode of our new socket
-		m_hSocket,	// Give it our new socket
-		FIONBIO,	// Select the option for blocking i/o, should the program wait on read and write calls, or keep going?
-		&dwValue ); // Nonzero, it should keep going
+	ioctlsocket(		// Call Windows Sockets ioctlsocket to control the input/output mode of our new socket
+		m_hSocket,		// Give it our new socket
+		FIONBIO,		// Select the option for blocking i/o, should the program wait on read and write calls, or keep going?
+		&dwValue ); 	// Nonzero, it should keep going
 
 	// If the OutHost string in connection settings has an IP address written in it
 	if ( Settings.Connection.OutHost.GetLength() )
@@ -460,7 +460,7 @@ BOOL CConnection::OnRead()
 	// If we need to worry about throttling bandwidth, calculate nLimit, the number of bytes we are allowed to read now
 	if ( m_mInput.pLimit							// If there is a limit
 		&& *m_mInput.pLimit							// And that limit isn't 0
-		&& Settings.Live.BandwidthScale <= 100 )	// And the bandwidth scale isn't at MAX
+		&& Settings.Live.BandwidthScaleIn <= 100 )	// And the bandwidth scale isn't at MAX
 	{
 		// Work out what the bandwitdh limit is
 		nLimit = m_mInput.CalculateLimit( tNow );
@@ -502,10 +502,10 @@ BOOL CConnection::OnWrite()
 	// If we need to worry about throttling bandwidth, calculate nLimit, the number of bytes we are allowed to write now
 	if ( m_mOutput.pLimit							// If there is a limit
 		&& *m_mOutput.pLimit						// And that limit isn't 0
-		&& Settings.Live.BandwidthScale <= 100 )	// And the bandwidth scale isn't at MAX
+		&& Settings.Live.BandwidthScaleOut < 100 )	// And the bandwidth scale isn't at MAX
 	{
 		// Work out what the bandwidth limit is
-		nLimit = m_mOutput.CalculateLimit( tNow, Settings.Uploads.ThrottleMode == 0 );
+		nLimit = m_mOutput.CalculateLimit( tNow, true, Settings.Uploads.ThrottleMode == 0 );
 	}
 
 	// Read from the socket and record the # bytes sent
@@ -725,19 +725,19 @@ void CConnection::UpdateCountry()
 // TCPBandwidthMeter Utility routines
 
 // Calculate the number of bytes available for use
-DWORD CConnection::TCPBandwidthMeter::CalculateLimit( DWORD tNow, bool bMaxMode ) const
+DWORD CConnection::TCPBandwidthMeter::CalculateLimit( DWORD tNow, bool bOut, bool bMaxMode ) const
 {
 	DWORD tCutoff = tNow - METER_SECOND;			// Time period for bytes
-	if ( bMaxMode ) tCutoff += METER_MINIMUM;		// Adjust time period for Max mode
+	if ( bMaxMode )
+		tCutoff += METER_MINIMUM;					// Adjust time period for Max mode
 	DWORD nData = CalculateUsage( tCutoff, true );	// #bytes in the time period
 
 	// nLimit is the speed limit (bytes/second)
-	DWORD nLimit = *pLimit;						// Get the speed limit
-	if ( Settings.Live.BandwidthScale < 100 )	// The scale is turned down and we should use it
-	{
-		// Adjust limit based on the scale percentage
-		nLimit = nLimit * Settings.Live.BandwidthScale / 100;
-	}
+	DWORD nLimit = *pLimit;							// Get the speed limit
+	if ( bOut && Settings.Live.BandwidthScaleOut < 100 )
+		nLimit = nLimit * Settings.Live.BandwidthScaleOut / 100;	// Adjust limit based on the scale percentage
+	else if ( ! bOut && Settings.Live.BandwidthScaleIn < 100 )		// The scale is turned down and we should use it
+		nLimit = nLimit * Settings.Live.BandwidthScaleIn / 100;		// Adjust limit based on the scale percentage
 
 	// nLimit - nData is the number of bytes still available for this time period
 	// Set nData to this, or 0 if we're over the limit
@@ -760,6 +760,7 @@ DWORD CConnection::TCPBandwidthMeter::CalculateLimit( DWORD tNow, bool bMaxMode 
 		nLimit = nData;
 	}
 	tLastLimit = tNow;	// The time of this limit calculation
+
 	return nLimit;		// Return the new limit
 }
 
@@ -774,10 +775,12 @@ DWORD CConnection::TCPBandwidthMeter::CalculateUsage( DWORD tTime ) const
 	DWORD slot = 0;		// Start at the first slot
 
 	// Find the first reading in the time limit
-	while ( slot <= nPosition && pTimes[ slot ] <= tTime ) slot++;
+	while ( slot <= nPosition && pTimes[ slot ] <= tTime )
+		slot++;
 
 	// Add history up to the latest reading
-	while ( slot <= nPosition ) nData += pHistory[ slot++ ];
+	while ( slot <= nPosition )
+		nData += pHistory[ slot++ ];
 
 	// Did we start with a reading inside the time limit
 	if ( pTimes[ 0 ] > tTime )
@@ -816,8 +819,7 @@ DWORD CConnection::TCPBandwidthMeter::CalculateUsage( DWORD tTime, bool /*bShort
 			break;						// We did, no need to check the rest
 	}
 
-	// return the #bytes in time period
-	return nData;
+	return nData;	// Pass #bytes in time period
 }
 
 // Add #bytes to history

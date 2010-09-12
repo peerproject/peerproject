@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default French Skin File -->
 
-<!-- Translation based on default-en.xml r56 -->
+<!-- Translation based on default-en.xml r58 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -391,7 +391,7 @@
 		<button id="ID_SEARCH_CLEAR" text="Nettoyer"/>
 		<rightAlign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Filtrer :"/>
-		<control id="107" width="100"/>
+		<control id="IDC_FILTER_BOX" width="100"/>
 	</toolbar>
 	<!-- HOST CACHE WINDOW -->
 	<toolbar name="CHostCacheWnd.Basic">
@@ -1731,7 +1731,7 @@
 			<newline gap="20" indent="0"/>
 		</group>
 		<group id="3">
-			<icon res="128" width="32" height="32"/><gap size="8"/>
+			<icon res="120" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">Miseà Jour Disponible</heading>
 			<newline gap="8" indent="42"/>
 			<text id="Mise à jour"/>
@@ -1778,7 +1778,7 @@
 			<link target="command:ID_HELP_ROUTER">apprendre à configurer votre routeur.</link>
 			<newline gap="18" indent="0"/>
 		</group>
-		<icon res="128" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
+		<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">Personnalisez PeerProject</heading>
 		<newline gap="12" indent="42"/>
 		<icon res="182" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
@@ -1803,7 +1803,7 @@
 		<text align="middle">&#160;- Accédez à votre forum de discussion en langue française</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
-			<icon res="128" width="32" height="32"/><gap size="8"/>
+			<icon res="120" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">L'accèsà Distance Est Activé</heading>
 			<newline gap="8" indent="42"/>
 			<text>L'accès à distance de PeerProject est activé. Prenez le contrôle de PeerProject depuis votre navigateur Web à partir de l'adresse:</text>
@@ -1984,9 +1984,6 @@
 		<newline gap="10"/>
 		<link target="page:CUploadsSettingsPage" format="b">Envois :</link>
 		<text>&#160;Capacité des envois, mise en file, bannissement, temps morts et demandes spéciales.</text>
-		<newline gap="10"/>
-		<link target="page:CSchedulerSettingsPage" format="b">Scheduler :</link>
-		<text>&#160;Limiter les connexions de téléchargement selon un plan périodique pré-établi.</text>
 	</document>
 	<!-- Browse User Profile -->
 	<document name="CBrowseHostProfile.1">
@@ -2791,6 +2788,8 @@
 	<string id="8239" value="Terminé"/>
 	<string id="8240" value="Nombre de sources&#160;:"/>
 	<string id="8241" value="Nombre de revues&#160;:"/>
+	<string id="8244" value="Limiter la vitesse de téléchargement"/>
+	<string id="8245" value="Limiter la vitesse de envoyé"/>
 	<string id="8288" value="Explorer votre bibliothèque PeerProject"/>
 	<string id="8289" value="Explorer"/>
 	<string id="8290" value="Explorer le contenu de %i dossiers"/>
@@ -3348,24 +3347,22 @@
 	<string id="20125" value="Non vérifié"/>
 	<string id="20127" value="Pas appuyé"/>
 	<string id="20127" value="N'est pas intéressé"/>
-	<string id="20128" value="source"/>
-	<string id="20129" value="sources"/>
-	<string id="20130" value="sources"/> <!-- tens -->
-	<string id="20131" value="sources"/> <!-- from 11 to 19 -->
-	<string id="20132" value="sources"/> <!-- from 2 to 4 -->
-	<string id="20133" value="sources"/> <!-- from 5 to 9 -->
-	<string id="20134" value="sources"/> <!-- "3/10 sources" -->
+	<string id="20130" value="source"/>
+	<string id="20131" value="sources"/>
+	<string id="20132" value="sources"/>
+	<string id="20134" value="sources"/>
 	<string id="20135" value="(Pas de sources)"/>
 	<string id="20136" value="Occupé"/>
 	<string id="20137" value="Suivant"/>
 	<string id="20138" value="Q"/>
-	<string id="20200" value="Dimanche"/>
+	<string id="20200" value="Tous les Jours"/>
 	<string id="20201" value="Lundi"/>
 	<string id="20202" value="Mardi"/>
 	<string id="20203" value="Mercredi"/>
 	<string id="20204" value="Jeudi"/>
 	<string id="20205" value="Vendredi"/>
 	<string id="20206" value="Samedi"/>
+	<string id="20207" value="Dimanche"/>
 	<string id="20210" value="(Pas d'évaluation)"/>
 	<string id="20211" value="Faux/Corrompu"/>
 	<string id="20212" value="Pauvre"/>
@@ -3630,28 +3627,6 @@
 		<control/>
 		<control caption="Aide:"/>
 		<control caption="L'accès à distance vous permet de laisser PeerProject en exécution sur votre PC, et de contrôler PeerProject à distance depuis n'importe quel autre ordinateur en utilisant un navigateur Internet. Vous devez pouvoir accepter les connexions entrantes (routeur, pare-feu, etc. correctement configurés)."/>
-	</dialog>
-	<dialog name="CSchedulerSettingsPage" cookie="EdStStStStStStStBuStStStBuBuBuStEdmsBuSt" caption="Planificateur">
-		<control/>
-		<control caption="Dim"/>
-		<control caption="Lun"/>
-		<control caption="Mar"/>
-		<control caption="Mer"/>
-		<control caption="Jeu"/>
-		<control caption="Ven"/>
-		<control caption="Sam"/>
-		<control caption="Clé&#160;:"/>
-		<control caption="Ne pas se connecter"/>
-		<control caption="Connexion limitée"/>
-		<control caption="Se connecter à pleine vitesse"/>
-		<control caption="_Options&#160;:"/>
-		<control caption="_Activer le planificateur"/>
-		<control caption="Sauf G2 sur connexion limitée"/>
-		<control caption="% de b-p lorsque limitée"/>
-		<control/>
-		<control/>
-		<control caption="Aide:"/>
-		<control caption="Le planificateur est conçu pour vous permettre de mettre en place des périodes où PeerProject se connectera et téléchargera les fichiers. {n}{n}{n}Note: Si PeerProject est ouvert lorsque le prog. est actif, vous pourrez le voir changer des réglages - C'est normal&#160;!"/>
 	</dialog>
 	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuSt" caption="Réseaux">
 		<control caption="PeerProject est un client P2P multi-réseaux. Il peut se connecter à plusieurs réseaux en même temps. Sur cette page, vous pouvez sélectionner à quels réseaux vous souhaitez vous connecter, puis paramétrer des réglages spécifiques pour chacun."/>
@@ -4217,13 +4192,6 @@
 		<control/>
 		<control caption="_Retirer"/>
 	</dialog>
-	<dialog name="CSchemaColumnsDlg" cookie="CoSyBuBuSt" caption="Sélectionnez les colonnes à partir du schéma">
-		<control/>
-		<control/>
-		<control caption="Valider"/>
-		<control caption="Annuler"/>
-		<control caption="Sélectionnez un schéma dans la liste, puis les champs à afficher en tant que colonnes."/>
-	</dialog>
 	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuStCoStCoEdStEdStEdStBuBu" caption="Règle de sécurité">
 		<control caption="_Règle&#160;:"/>
 		<control caption="Type&#160;:"/>
@@ -4259,6 +4227,42 @@
 		<control caption="m"/>
 		<control caption="Valider"/>
 		<control caption="Annuler"/>
+	</dialog>
+	<dialog name="CScheduleTaskDlg" cookie="BuBuBuCoEdmsEdmsStStBuBuBuBuBuSySyBuBuBuBuBuBuBuBuBuEd" caption="Planifier les Tâches">
+		<control caption="Valider"/>
+		<control caption="Annuler"/>
+		<control caption="Sélectionnez le type de Tâche"/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="% sous la limite Bas"/>
+		<control caption="% sous la limite Des"/>
+		<control caption="Tâche Actif"/>
+		<control caption="Activer G2 seulement"/>
+		<control caption="Temps de Travail Mis"/>
+		<control caption="Des journées spécifiques"/>
+		<control caption="Une journée seulement"/>
+		<control/>
+		<control/>
+		<control caption="Lun"/>
+		<control caption="Mar"/>
+		<control caption="Mer"/>
+		<control caption="Jeu"/>
+		<control caption="Ven"/>
+		<control caption="Sam"/>
+		<control caption="Dim"/>
+		<control caption="Tous"/>
+		<control caption="Commentaires"/>
+		<control/>
+	</dialog>
+	<dialog name="CSchemaColumnsDlg" cookie="CoSyBuBuSt" caption="Sélectionnez les colonnes à partir du schéma">
+		<control/>
+		<control/>
+		<control caption="Valider"/>
+		<control caption="Annuler"/>
+		<control caption="Sélectionnez un schéma dans la liste, puis les champs à afficher en tant que colonnes."/>
 	</dialog>
 	<dialog name="CShareManagerDlg" cookie="StSyBuBuBuBu" caption="Gestionnaire de dossiers partagés">
 		<control caption="Ceci est la liste des dossiers de votre bibliothèque. Vous pouvez ajouter et supprimer des dossiers en utilisant les boutons en dessous de la liste. Lorsque vous ajoutez un nouveau dossier, il est partagé avec les autres utilisateurs."/>
@@ -4597,6 +4601,14 @@
 		<column from="Expires" to="Expiration"/>
 		<column from="#" to="Priorité"/>
 		<column from="Comment" to="Note"/>
+	</list>
+	<list name="CSchedulerWnd">
+		<column from="Task" to="Tâche"/>
+		<column from="Date" to="Date"/>
+		<column from="Time" to="Temps"/>
+		<column from="Status" to="Statut"/>
+		<column from="Activity" to="Actif"/>
+		<column from="Description" to="Note"/>
 	</list>
 	<list name="CHostCacheWnd">
 		<column from="Address" to="Adresse"/>

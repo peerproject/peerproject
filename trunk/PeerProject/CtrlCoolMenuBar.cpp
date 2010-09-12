@@ -41,11 +41,11 @@ static char THIS_FILE[] = __FILE__;
 
 BEGIN_MESSAGE_MAP(CCoolMenuBarCtrl, CCoolBarCtrl)
 	//{{AFX_MSG_MAP(CCoolMenuBarCtrl)
-	ON_WM_LBUTTONDOWN()
 	ON_WM_TIMER()
 	ON_WM_MEASUREITEM()
 	ON_WM_DRAWITEM()
 	ON_WM_INITMENUPOPUP()
+	ON_WM_LBUTTONDOWN()
 	ON_WM_MENUSELECT()
 	ON_WM_ENTERIDLE()
 	ON_WM_ENTERMENULOOP()
@@ -260,8 +260,7 @@ void CCoolMenuBarCtrl::UpdateWindowMenu(CMenu* pMenu)
 
 		strMenu.Format( _T("&%i %s"), nIndex, (LPCTSTR)strWindow );
 
-		pMenu->AppendMenu( MF_STRING | ( pWnd == pActive ? MF_CHECKED : 0 ),
-			nID, strMenu );
+		pMenu->AppendMenu( MF_STRING | ( pWnd == pActive ? MF_CHECKED : 0 ), nID, strMenu );
 	}
 }
 
@@ -276,10 +275,8 @@ void CCoolMenuBarCtrl::ShiftMenu(int nOffset)
 		if ( nIndex >= GetCount() ) nIndex = 0;
 	}
 
-	if ( Settings.WINE.MenuFix )
-		PostMessage( WM_CANCELMODE, 0, 0 );
-	else
-		SendMessage( WM_CANCELMODE, 0, 0 );
+	PostMessage( WM_CANCELMODE, 0, 0 );	// Settings.WINE.MenuFix (No SendMessage)
+
 	m_pSelect = GetIndex( static_cast< int >( nIndex ) );
 	m_pHot = m_pDown = NULL;
 	PostMessage( WM_TIMER, 5 );
@@ -391,12 +388,10 @@ BOOL CCoolMenuBarCtrl::OnMenuMessage(MSG* pMsg)
 
 			if ( pHit && pHit != m_pDown )
 			{
-				if ( Settings.WINE.MenuFix )
-					PostMessage( WM_CANCELMODE, 0, 0 );
-				else
-					SendMessage( WM_CANCELMODE, 0, 0 );
 				m_pHot	= pHit;
 				m_pDown	= NULL;
+
+				PostMessage( WM_CANCELMODE, 0, 0 );	// Settings.WINE.MenuFix (No SendMessage)
 				PostMessage( WM_TIMER, 4 );
 				return TRUE;
 			}
@@ -423,10 +418,7 @@ BOOL CCoolMenuBarCtrl::OnMenuMessage(MSG* pMsg)
 			if ( pHit == NULL )
 			{
 				m_pHot = m_pDown = NULL;
-				if ( Settings.WINE.MenuFix )
-					PostMessage( WM_CANCELMODE, 0, 0 );
-				else
-					SendMessage( WM_CANCELMODE, 0, 0 );
+				PostMessage( WM_CANCELMODE, 0, 0 );	// Settings.WINE.MenuFix (No SendMessage)
 				return TRUE;
 			}
 			else if ( pHit == m_pDown )

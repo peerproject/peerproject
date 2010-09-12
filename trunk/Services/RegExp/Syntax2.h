@@ -20,8 +20,7 @@
 
 #ifdef _MSC_VER
 #pragma warning( push )
-// warning C4786: identifier was truncated to '255' characters in the debug information
-#pragma warning( disable : 4786 )
+#pragma warning( disable : 4786 )	// Identifier was truncated to '255' characters in debug information
 #endif
 
 #include <map>
@@ -845,7 +844,8 @@ public:
 		regex::detail::charset_map_node<CharT> & map_node = charset_map[ ch ];
 		map_node.set( std::basic_string<CharT>( ibegin, pat.end() ) );
 	}
- private:
+
+private:
 	static bool _invalid_charset( char ch )
 	{
 		using namespace std;

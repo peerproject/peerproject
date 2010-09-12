@@ -32,7 +32,7 @@
 #include "WndMain.h"
 #include "WndPacket.h"
 
-// If compiling in debug mode, replace text "THIS_FILE" in the code with the name of this file
+// Text "THIS_FILE" is the name of this file when in Debug
 #ifdef _DEBUG
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
@@ -46,10 +46,10 @@ static char THIS_FILE[]=__FILE__;
 // Makes a new CPacket object to represent a packet
 CPacket::CPacket(PROTOCOLID nProtocol)
 	: m_nProtocol  ( nProtocol )	// Save the given protocol id in the object
-					// This packet isn't in a list yet, and isn't being used at all yet
+									// This packet isn't in a list yet, and isn't being used at all yet:
 	, m_pNext      ( NULL )			// No packet next in a list
 	, m_nReference ( 0 )			// No one needs this packet yet, the reference count starts at 0
-					// Start out memory pointers and lengths at null and 0
+									// Start out memory pointers and lengths at null and 0:
 	, m_pBuffer    ( NULL )			// This is just a pointer to allocated bytes, not a CBuffer object that would take care of itself
 	, m_nBuffer    ( 0 )
 	, m_nLength    ( 0 )
@@ -92,17 +92,10 @@ void CPacket::Reset()
 void CPacket::Seek(DWORD nPosition, int nRelative)
 {
 	// Set the position forwards from the start
-	if ( nRelative == seekStart )
-	{
-		// Move the position in the object to the given position, making sure it's in the data
-		m_nPosition = min( m_nLength, nPosition );
-
-	} // Set the position backwards from the end
-	else
-	{
-		// Move the position in the object to m_nLength - nPosition from the start, which is nPosition from the end
-		m_nPosition = min( m_nLength, m_nLength - nPosition );
-	}
+	if ( nRelative == seekStart )	
+		m_nPosition = min( m_nLength, nPosition );	// Move position in the object to the given position, making sure it's in the data
+	else // Set the position backwards from the end
+		m_nPosition = min( m_nLength, m_nLength - nPosition );	// Move position in the object to nPosition from the end (Length - Position from start)
 }
 
 // Takes a number of bytes
@@ -146,8 +139,8 @@ CString CPacket::ReadString(UINT cp, DWORD nMaximum)
 
 	// Find out how many wide characters the ANSI bytes will become when converted
 	int nWide = MultiByteToWideChar(
-		cp,		// Use the code page for ANSI
-		0,		// No character type options
+		cp, 		// Use the code page for ANSI
+		0,			// No character type options
 		pszInput,	// Pointer to ASCII text in the packet
 		nLength,	// Number of bytes to read there, the number of bytes before we found the null terminator
 		NULL,		// No output buffer, we just want to know how many wide characters one would need to hold
@@ -155,8 +148,8 @@ CString CPacket::ReadString(UINT cp, DWORD nMaximum)
 
 	// Convert the ASCII bytes into wide characters
 	MultiByteToWideChar(
-		cp,		// Use the UTF8 code page
-		0,		// No character type options
+		cp, 		// Use the UTF8 code page
+		0,			// No character type options
 		pszInput, 	// Pointer to ANSI text
 		nLength,	// Number of bytes to read there, the number of bytes before we found the null terminator
 		strString.GetBuffer( nWide ), // Get access to the string's buffer, telling it we will write in nWide wide characters
@@ -247,7 +240,7 @@ int CPacket::GetStringLenUTF8(LPCTSTR pszString) const
 	if ( *pszString == 0 ) return 0;
 
 	// Find the number of characters in the text
-	int nLength = static_cast< int >( _tcslen( pszString ) ); // Same as lstrlen, doesn't include null terminator
+	int nLength = static_cast< int >( _tcslen( pszString ) );	// Same as lstrlen, doesn't include null terminator
 
 	// Find out how many ASCII bytes the text would convert into using the UTF8 code page, and return that number
 	nLength = WideCharToMultiByte( CP_UTF8, 0, pszString, nLength, NULL, 0, NULL, NULL );
@@ -267,10 +260,10 @@ auto_array< BYTE > CPacket::ReadZLib(DWORD nLength, DWORD* pnOutput)
 		return auto_array< BYTE >();
 
 	// Decompress the data
-	*pnOutput = 0;				// CZLib will write the size of the memory block it's returning here
+	*pnOutput = 0;					// CZLib will write the size of the memory block it's returning here
 	auto_array< BYTE > pOutput( CZLib::Decompress( // Use zlib, return a pointer to memory CZLib allocated
 		m_pBuffer + m_nPosition,	// The compressed data starts here
-		nLength,			// And is this long
+		nLength,					// And is this long
 		(DWORD*)pnOutput ) );		// CZLib::Decompress will write the size of the memory it returns a pointer to here
 
 	// Move the position in the packet past the memory we just decompressed
@@ -287,7 +280,7 @@ void CPacket::WriteZLib(LPCVOID pData, DWORD nLength)
 	// Compress the given data
 	DWORD nOutput = 0;			// CZLib will write the size of the memory it returns here
 	auto_array< BYTE > pOutput( CZLib::Compress( // Compress the data, getting a pointer to the memory CZLib allocated
-		pData,				// Compress the data at pData
+		pData,					// Compress the data at pData
 		(DWORD)nLength,			// Where there are nLength bytes
 		&nOutput ) );			// CZLib will write the size of the memory it returns in nOutput
 
@@ -316,7 +309,7 @@ BYTE* CPacket::WriteGetPointer(DWORD nLength, DWORD nOffset)
 			return NULL;
 		CopyMemory( pNew, m_pBuffer, m_nLength );	// Copy all the memory of the old buffer into the new bigger one
 		if ( m_pBuffer ) delete [] m_pBuffer;		// Free the old buffer
-		m_pBuffer = pNew;				// Point this packet object at its new, bigger buffer
+		m_pBuffer = pNew;							// Point this packet object at its new, bigger buffer
 	}
 
 	// If the offset isn't at the very end of the buffer
@@ -344,7 +337,7 @@ BYTE* CPacket::WriteGetPointer(DWORD nLength, DWORD nOffset)
 CString	CPacket::GetType() const	// Saying const indicates this method doesn't change the values of any member variables
 {
 	// This is just a CPacket, not a G1Packet which would have a type
-	return CString();		// Return blank
+	return CString();				// Return blank
 }
 
 // Express all the bytes of the packet as base 16 digits separated by spaces, like "08 C0 12 AF"
@@ -365,7 +358,7 @@ CString CPacket::ToHex() const
 		int nChar = m_pBuffer[i];
 
 		// If this isn't the very start, write a space into the text
-		if ( i ) *pszDump++ = ' '; // Write a space at pszDump, then move the pszDump pointer forward to the next character
+		if ( i ) *pszDump++ = ' ';	// Write a space at pszDump, then move the pszDump pointer forward to the next character
 
 		// Express the byte as two characters in the text, "00" through "FF"
 		*pszDump++ = pszHex[ nChar >> 4 ];
@@ -375,6 +368,7 @@ CString CPacket::ToHex() const
 	// Write a null terminator beyond the characters we wrote, close direct memory access to the string, and return it
 	*pszDump = 0;
 	strDump.ReleaseBuffer();
+
 	return strDump;
 }
 
@@ -383,8 +377,8 @@ CString CPacket::ToHex() const
 CString CPacket::ToASCII() const
 {
 	// Make a string and get direct access to its memory buffer
-	CString strDump;
-	LPTSTR pszDump = strDump.GetBuffer( m_nLength + 1 ); // We'll write a character for each byte, and 1 more for the null terminator
+	CStringA strDump;
+	LPSTR pszDump = strDump.GetBuffer( m_nLength + 1 ); 	// We'll write a character for each byte, and 1 more for the null terminator
 
 	// Loop i down each byte in the packet
 	for ( DWORD i = 0 ; i < m_nLength ; i++ )
@@ -393,13 +387,14 @@ CString CPacket::ToASCII() const
 		int nChar = m_pBuffer[i];
 
 		// If the byte is 32 or greater, read it as an ASCII character and copy that character into the string
-		*pszDump++ = WCHAR( nChar >= 32 ? nChar : '.' ); // If it's 0-31, copy in a period instead
+		*pszDump++ = CHAR( nChar >= 32 ? nChar : '.' ); 	// If it's 0-31, copy in a period instead
 	}
 
 	// Write a null terminator beyond the characters we wrote, close direct memory access to the string, and return it
 	*pszDump = 0;
 	strDump.ReleaseBuffer();
-	return strDump;
+
+	return (LPCTSTR)CA2CT( (LPCSTR)strDump );
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -448,7 +443,7 @@ void CPacket::SmartDump(const SOCKADDR_IN* pAddress, BOOL bUDP, BOOL bOutgoing, 
 }
 
 //////////////////////////////////////////////////////////////////////
-// CPacket RAZA signatures
+// CPacket RAZA signatures	(ToDo: Rename?)
 
 // Takes the number of bytes in this packet to hash
 // Computs the SHA hash of those bytes
@@ -464,10 +459,11 @@ BOOL CPacket::GetRazaHash(Hashes::Sha1Hash& oHash, DWORD nLength) const
 	// Make a new local CSHA object to use to hash the data
 	CSHA pSHA;
 	pSHA.Add( m_pBuffer, nLength );	// Add the bytes of the packet to those it needs to hash
-	pSHA.Finish();			// Tell it that's all we have
+	pSHA.Finish();					// Tell it that's all we have
 	pSHA.GetHash( &oHash[ 0 ] );	// Ask it to write the hash under the pHash pointer
 	oHash.validate();
-	return TRUE;			// Report success
+
+	return TRUE;					// Report success
 }
 
 // Does nothing, and is not overriden by any inheritng class (do)
@@ -490,7 +486,7 @@ BOOL CPacket::RazaVerify() const
 CPacketPool::CPacketPool()
 {
 	// Set member variables to null and 0 defaults
-	m_pFree = NULL; // No pointer to a CPacket object
+	m_pFree = NULL;	// No pointer to a CPacket object
 	m_nFree = 0;    // Start the count at 0 (do)
 }
 
@@ -510,20 +506,20 @@ void CPacketPool::Clear()
 	// Loop from the end of the pointer array back to the start
 	for (
 		INT_PTR nIndex = m_pPools.GetSize() - 1;	// GetSize returns the number of pointers in the array, start nIndex on the last one
-		nIndex >= 0; 					// If nIndex reaches 0, loop one more time, when it's -1, don't do the loop anymore
+		nIndex >= 0; 				// If nIndex reaches 0, loop one more time, when it's -1, don't do the loop anymore
 		nIndex-- )					// Move back one index in the pointer array
 	{
 		// Point pPool at the packet pool at that position in the array
 		CPacket* pPool = m_pPools.GetAt( nIndex );
 
 		// Delete the packet pool, freeing the memory of the 256 packets in it
-		FreePoolImpl( pPool ); // Calls up higher on the inheritance tree
+		FreePoolImpl( pPool );		// Calls up higher on the inheritance tree
 	}
 
 	// Clear all the member variables of this packet pool object
-	m_pPools.RemoveAll();	// Remove all the pointers from the MFC CPtrArray structure
-	m_pFree = NULL; 	// There are no packets to point to anymore
-	m_nFree = 0;		// This packet pool has 0 packets now
+	m_pPools.RemoveAll();			// Remove all the pointers from the MFC CPtrArray structure
+	m_pFree = NULL; 				// There are no packets to point to anymore
+	m_nFree = 0;					// This packet pool has 0 packets now
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -535,23 +531,23 @@ void CPacketPool::NewPool()
 	// Allocate an array of 256 packets, this is a new packet pool
 	CPacket* pPool = NULL;
 	int nPitch = 0, nSize = 256;
-	NewPoolImpl(		// NewPoolImpl allocates an array of packets for this packet pool object
-		nSize,		// The number of packets the array will hold, we want 256
-		pPool,		// NewPoolImpl will save a pointer to the allocated array here
-		nPitch );	// NewPoolImpl will save the size in bytes of each packet in the array here
+	NewPoolImpl(					// NewPoolImpl allocates an array of packets for this packet pool object
+		nSize,						// The number of packets the array will hold, we want 256
+		pPool,						// NewPoolImpl will save a pointer to the allocated array here
+		nPitch );					// NewPoolImpl will save the size in bytes of each packet in the array here
 
 	// Add the new packet pool to m_pPools, this CPacketPool object's list of them
 	m_pPools.Add( pPool );
 
 	// Link the packets in the new pool so m_pFree points at the last one, they each point to the one before, and the first points to what m_pFree used to
-	BYTE* pBytes = (BYTE*)pPool;		// Start the pBytes pointer at the start of our new packet pool
+	BYTE* pBytes = (BYTE*)pPool;	// Start the pBytes pointer at the start of our new packet pool
 	while ( nSize-- > 0 )			// Loop 256 times, once for each packet in the new pool
 	{
 		// Link this packet to the one before it
 		pPool = (CPacket*)pBytes;	// Point pPool at the new packet pool we just created and added to the list
-		pBytes += nPitch;		// Move pBytes to the next packet in the pool
+		pBytes += nPitch;			// Move pBytes to the next packet in the pool
 		pPool->m_pNext = m_pFree;	// Set the next pointer in the first packet in the pool
-		m_pFree = pPool;		// Point m_pFree at the next packet
-		m_nFree++;			// Record one more packet is linked into the list
+		m_pFree = pPool;			// Point m_pFree at the next packet
+		m_nFree++;					// Record one more packet is linked into the list
 	}
 }

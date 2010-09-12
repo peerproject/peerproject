@@ -107,7 +107,7 @@ struct match_param
 	typedef backref_tag<IterT>              backref_type;
 	typedef sub_expr_base<IterT> const *    sub_expr_ptr;
 
-	// for performance reasons, the most frequently used fields 
+	// for performance reasons, the most frequently used fields
 	// are placed at offsets which are a power of 2 (assuming
 	// a 32-bit architecture, and iterators which are 32 bits).
 
@@ -338,9 +338,8 @@ inline void pool_impl<AllocT>::new_block( size_t size )
 	size_t blocksize = regex_max( m_data.m_default_size, size ) + offsetof( mem_block, m_data );
 	mem_block * pnew = reinterpret_cast<mem_block*>( m_data.get_allocator().allocate( blocksize, 0 ) );
 	if( 0 == pnew )
-	{
 		throw std::bad_alloc();
-	}
+
 	pnew->m_offset      = 0;
 	pnew->m_blocksize   = blocksize;
 	pnew->m_pnext       = m_data.m_pfirst;
@@ -966,11 +965,11 @@ struct matcher_helper
 		typedef typename basic_split_results<CharT, TraitsT, AllocT>::string_type  string_type;
 		typedef typename rebind<AllocT, backref_type>::type                      backref_allocator;
 
-		std::vector<backref_type,backref_allocator> rgbackrefs( 
+		std::vector<backref_type,backref_allocator> rgbackrefs(
 			convert_allocator<backref_type>( results.strings().get_allocator(), 0 ) );
 
 		typedef typename rebind<AllocT, CharT>::type                              char_allocator_type;
-		char_allocator_type char_allocator = 
+		char_allocator_type char_allocator =
 			convert_allocator<CharT>( results.strings().get_allocator(), 0 );
 
 		// reserve some initial space

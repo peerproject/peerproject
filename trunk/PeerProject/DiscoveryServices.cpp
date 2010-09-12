@@ -52,8 +52,8 @@ CDiscoveryServices::CDiscoveryServices()
 	, m_pSubmit			( NULL )
 	, m_nLastQueryProtocol ( PROTOCOL_NULL )
 	, m_nLastUpdateProtocol ( PROTOCOL_NULL )
-	, m_tUpdated		( 0 )
 	, m_bFirstTime		( TRUE )
+	, m_tUpdated		( 0 )
 	, m_tExecute		( 0 )
 	, m_tQueried		( 0 )
 	, m_tMetQueried		( 0 )
@@ -225,8 +225,7 @@ BOOL CDiscoveryServices::Add(LPCTSTR pszAddress, int nType, PROTOCOLID nProtocol
 BOOL CDiscoveryServices::Add(CDiscoveryService* pService)
 {
 	if ( pService == NULL )
-		// Can't add a null
-		return FALSE;
+		return FALSE;	// Can't add a null
 
 	// If it's a webcache with no protocols set, assume it's for both.
 	if ( ( pService->m_bGnutella2 == FALSE ) &&
@@ -633,14 +632,11 @@ void CDiscoveryServices::AddDefaults()
 	{
 		theApp.Message( MSG_ERROR, _T("Default discovery service load failed") );
 
-		//CString strServices;
-		//strServices.LoadString( IDS_DISCOVERY_DEFAULTS );
-
+		//CString strServices = _T("\n");
 		//for ( strServices += '\n' ; strServices.GetLength() ; )
 		//{
 		//	CString strService = strServices.SpanExcluding( _T("\r\n") );
 		//	strServices = strServices.Mid( strService.GetLength() + 1 );
-
 		//	if ( strService.GetLength() > 0 )
 		//	{
 		//		if ( _tcsistr( strService, _T("server.met") ) == NULL )
@@ -1112,7 +1108,8 @@ CDiscoveryService* CDiscoveryServices::GetRandomService(PROTOCOLID nProtocol)
 // CDiscoveryServices select a random webcache (For updates, etc)
 
 CDiscoveryService* CDiscoveryServices::GetRandomWebCache(PROTOCOLID nProtocol, BOOL bWorkingOnly, CDiscoveryService* pExclude, BOOL bForUpdate)
-{	// Select a random webcache (G1/G2 only)
+{
+	// Select a random webcache for G2 (and rarely G1)
 	CArray< CDiscoveryService* > pWebCaches;
 	DWORD tNow = static_cast< DWORD >( time( NULL ) );
 
@@ -1123,7 +1120,7 @@ CDiscoveryService* CDiscoveryServices::GetRandomWebCache(PROTOCOLID nProtocol, B
 		if ( pService->m_nType != CDiscoveryService::dsWebCache || pService == pExclude )
 			continue;
 
-		if ( ! bWorkingOnly || ( pService->m_nAccesses > 0 && pService->m_nFailures == 0 && pService->m_nHosts > 0 ) )
+		if ( ! bWorkingOnly || ( pService->m_nAccesses > 0 && pService->m_nFailures == 0 && ( pService->m_nHosts > 1 || Neighbours.IsG2Hub() ) ) )
 		{
 			if ( tNow - pService->m_tAccessed > pService->m_nAccessPeriod )
 			{
@@ -1131,18 +1128,18 @@ CDiscoveryService* CDiscoveryServices::GetRandomWebCache(PROTOCOLID nProtocol, B
 				{
 					switch ( nProtocol )
 					{
-						case PROTOCOL_G1:
-							if ( ( pService->m_nType == CDiscoveryService::dsWebCache ) && ( pService->m_bGnutella1 ) )
-								pWebCaches.Add( pService );
-							break;
-						case PROTOCOL_G2:
-							if ( ( pService->m_nType == CDiscoveryService::dsWebCache ) && ( pService->m_bGnutella2 ) )
-								pWebCaches.Add( pService );
-							break;
-						default:
-							theApp.Message( MSG_ERROR, _T("CDiscoveryServices::GetRandomWebCache() was passed an invalid protocol") );
-							ASSERT( FALSE );
-							return NULL;
+					case PROTOCOL_G1:
+						if ( ( pService->m_nType == CDiscoveryService::dsWebCache ) && ( pService->m_bGnutella1 ) )
+							pWebCaches.Add( pService );
+						break;
+					case PROTOCOL_G2:
+						if ( ( pService->m_nType == CDiscoveryService::dsWebCache ) && ( pService->m_bGnutella2 ) )
+							pWebCaches.Add( pService );
+						break;
+					default:
+						theApp.Message( MSG_ERROR, _T("CDiscoveryServices::GetRandomWebCache() was passed an invalid protocol") );
+						ASSERT( FALSE );
+						return NULL;
 					}
 				}
 			}
@@ -1153,7 +1150,7 @@ CDiscoveryService* CDiscoveryServices::GetRandomWebCache(PROTOCOLID nProtocol, B
 	if ( pWebCaches.GetSize() > 0 )
 		return pWebCaches.GetAt( GetRandomNum< INT_PTR >( 0, pWebCaches.GetSize() - 1 ) );	// Select a random one
 	else
-		return NULL;	// return null to indicate none available
+		return NULL;	// Null indicate none available
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -2149,8 +2146,8 @@ BOOL CDiscoveryService::ResolveGnutella()
 	}
 	else if ( m_nSubType == dsGnutella2TCP )
 	{
-		strHost = strHost.Mid( nSkip );
-		int nPos		= strHost.Find( ':');
+		strHost  = strHost.Mid( nSkip );
+		int nPos = strHost.Find( ':');
 		if ( nPos >= 0 && _stscanf( strHost.Mid( nPos + 1 ), _T("%i"), &nPort ) == 1 )
 			strHost = strHost.Left( nPos );
 
@@ -2162,8 +2159,8 @@ BOOL CDiscoveryService::ResolveGnutella()
 	}
 	else if ( m_nSubType == dsGnutellaUDPHC )
 	{
-		strHost = strHost.Mid( nSkip );
-		int nPos		= strHost.Find( ':');
+		strHost  = strHost.Mid( nSkip );
+		int nPos = strHost.Find( ':');
 		if ( nPos >= 0 && _stscanf( strHost.Mid( nPos + 1 ), _T("%i"), &nPort ) == 1 )
 			strHost = strHost.Left( nPos );
 

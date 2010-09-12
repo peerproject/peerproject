@@ -26,7 +26,6 @@
   <option name="DropMenu" value="true"/>
   <option name="MenuBorders" value="false"/>
   <option name="MenuGripper" value="false"/>
-  <option name="MonitorBar"  value="114"/>
   <option name="RoundedSelect" value="true"/>
 </options>
 
@@ -35,7 +34,6 @@
   <color name="Navbar.Text.Hover" value="203D5B"/>
   <color name="Navbar.Text.Checked" value="1E3C5A"/>
   <color name="Navbar.Shadow.Down" value="1E3C5A"/>
-
   <color name="System.Base.Window" value="FEFEFE"/>
   <color name="System.Base.Midtone" value="F9F8F6"/>
   <color name="System.Base.Text" value="1A100A"/>
@@ -146,7 +144,6 @@
   <color name="ResizeBar.Highlight" value="FDFCFB"/>
   <color name="System.Environment.3DShadow" value="D8D7D6"/>
   <color name="System.Environment.3DHighlight" value="FFFFFF"/>
-  <color name="System.Environment.Borders" value=" "/>
 </colorScheme>
 
 <watermarks>
@@ -403,14 +400,14 @@
 <toolbars>
 
 <toolbar name="CMediaFrame">
- <control id="117" width="308" height="18"/>
+ <control id="114" width="308" height="18"/>
  <button id="ID_MEDIA_STOP"/>
  <button id="ID_MEDIA_PREVIOUS"/>
  <button id="ID_MEDIA_PLAY"/>
  <button id="ID_MEDIA_PAUSE" visible="false"/>
  <button id="ID_MEDIA_NEXT"/>
    <rightAlign/>
- <control id="119" width="70" height="18"/>
+ <control id="116" width="70" height="18"/>
  <separator/>
  <button id="ID_MEDIA_ZOOM"/>
  <button id="ID_MEDIA_VIS"/>
@@ -421,14 +418,14 @@
 </toolbar>
 
 <toolbar name="CMediaFrame.Basic">
- <control id="117" width="308" height="18"/>
+ <control id="114" width="308" height="18"/>
  <button id="ID_MEDIA_STOP"/>
  <button id="ID_MEDIA_PREVIOUS"/>
  <button id="ID_MEDIA_PLAY"/>
  <button id="ID_MEDIA_PAUSE" visible="false"/>
  <button id="ID_MEDIA_NEXT"/>
    <rightAlign/>
- <control id="119" width="70" height="18"/>
+ <control id="116" width="70" height="18"/>
  <separator/>
  <button id="ID_MEDIA_ZOOM"/>
  <button id="ID_MEDIA_VIS"/>
@@ -453,7 +450,6 @@
 
 <commandImages>
 
- <!--icon id="IDI_UPDOWN_ARROW" path="UpDownArrow.ico" types="16" rtf="0"-->
  <icon id="WINDOW_NEIGHBOURS" path="IconConnection.ico" types="16" rtf="0"/>
 
 <bitmap path="IconsMedia.png" mask="00FF00">
@@ -484,7 +480,6 @@
 <image type="image" path="Seven\RibbonTabsBlank.png"/>
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
-<target window="CMainTabBarCtrl.Basic"/>
 <target window="CMainTabBarCtrl.Tabbed"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <parts>

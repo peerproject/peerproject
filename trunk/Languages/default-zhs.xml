@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Chinese (Simplified) Skin File -->
 
-<!-- Translation based on default-en.xml r56 (Shareaza r6092) -->
+<!-- Translation based on default-en.xml r58 (Shareaza r6092) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1598,7 +1598,7 @@
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="3">
-			<icon res="128" width="32" height="32"/><gap size="8"/>
+			<icon res="120" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">升 级   公 告</heading>
 			<newline gap="8" indent="42"/>
 			<text id="Upgrade"/>
@@ -1617,7 +1617,7 @@
 			<link target="command:ID_HELP_ROUTER">单击此处了解如何配置您的路由器或防火墙</link>
 			<newline gap="18" indent="0"/>
 		</group>
-		<icon res="128" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
+		<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">定 制 &#160;PEERPROJECT</heading>
 		<newline gap="12" indent="42"/>
 		<icon res="182" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
@@ -1642,7 +1642,7 @@
 		<text align="middle">&#160;- 转到您的中文论坛</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
-			<icon res="128" width="32" height="32"/><gap size="8"/>
+			<icon res="120" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">已 启 用 远 程 访 问</heading>
 			<newline gap="8" indent="42"/>
 			<text>PeerProject 的远程访问已启用。使用您的网页浏览器控制 PeerProject 于:</text>
@@ -1820,9 +1820,6 @@
 		<newline gap="10"/>
 		<link target="page:CUploadsSettingsPage" format="b">上传:</link>
 		<text>&#160;上传兼容性，队列，禁止用户，超时和特殊请求。</text>
-		<newline gap="10"/>
-		<link target="page:CSchedulerSettingsPage" format="b">Scheduler:</link>
-		<text>&#160;Limit download connections based on a periodic schedule.</text>
 	</document>
 	<!-- Browse User Profile -->
 	<document name="CBrowseHostProfile.1">
@@ -2586,6 +2583,8 @@
 	<string id="8239" value="完成"/>
 	<string id="8240" value="已知资源数量:"/>
 	<string id="8241" value="评价数目:"/>
+	<string id="8244" value="限制下载速度"/>
+	<string id="8245" value="限制上传速度"/>
 	<string id="8288" value="正在浏览您的 PeerProject 收藏"/>
 	<string id="8289" value="浏览"/>
 	<string id="8290" value="正在浏览 %i 个文件夹的内容"/>
@@ -3127,24 +3126,22 @@
 	<string id="20125" value="未校验"/>
 	<string id="20126" value="无所需部分"/>
 	<string id="20127" value="无所需部分"/>
-	<string id="20128" value="个资源"/>
-	<string id="20129" value="个资源"/> <!-- 数目21, 31, ... -->
-	<string id="20120" value="个资源"/> <!-- 数十 -->
-	<string id="20131" value="个资源"/> <!-- 从 11 至 19 -->
-	<string id="20132" value="个资源"/> <!-- 从 2 至 4 -->
-	<string id="20133" value="个资源"/> <!-- 从 5 至 9 -->
-	<string id="20134" value="个资源"/> <!-- 3/10 -->
+	<string id="20130" value="个资源"/>
+	<string id="20131" value="个资源"/>
+	<string id="20132" value="个资源"/>
+	<string id="20134" value="个资源"/>
 	<string id="20135" value="(无资源)"/>
 	<string id="20136" value="通道已满"/>
 	<string id="20137" value="下一个"/>
 	<string id="20138" value="队列"/>
-	<string id="20200" value="星期天"/>
+	<string id="20200" value="星期"/>
 	<string id="20201" value="星期一"/>
 	<string id="20202" value="星期二"/>
 	<string id="20203" value="星期三"/>
 	<string id="20204" value="星期四"/>
 	<string id="20205" value="星期五"/>
 	<string id="20206" value="星期六"/>
+	<string id="20207" value="星期天"/>
 	<string id="20210" value="(无评价)"/>
 	<string id="20211" value="虚假/损坏"/>
 	<string id="20212" value="较差"/>
@@ -3357,28 +3354,6 @@
 		<control/>
 		<control caption="帮助:"/>
 		<control caption="PeerProject 远程访问允许您让 PeerProject 在您的计算机上运行，并使用网页浏览器对它进行远程控制。您将需要能够接受传入连接以使用此功能(也就是正确地配置路由器，等等)。"/>
-	</dialog>
-	<dialog name="CSchedulerSettingsPage" cookie="EdStStStStStStStBuStStStBuBuBuStEdmsBuSt" caption="计划">
-		<control/>
-		<control caption="周日"/>
-		<control caption="周一"/>
-		<control caption="周二"/>
-		<control caption="周三"/>
-		<control caption="周四"/>
-		<control caption="周五"/>
-		<control caption="周六"/>
-		<control caption="关键词:"/>
-		<control caption="不要连接"/>
-		<control caption="限制连接"/>
-		<control caption="全速连接"/>
-		<control caption="选项:"/>
-		<control caption="启用计划(_E)"/>
-		<control caption="仅在受到限制时连接到 _G2"/>
-		<control caption="% 带宽受到限制(_B)"/>
-		<control/>
-		<control/>
-		<control caption="帮助:"/>
-		<control caption="计划功能可以用来让您制定 PeerProject 连接和下载文件的时间。{n}{n}{n}注意: 如果您在计划功能激活的状态下打开 PeerProject，您会发现它正在改变设置 - 这是正常的！"/>
 	</dialog>
 	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuSt" caption="网络">
 		<control caption="PeerProject 是能够同时连接多个 P2P 网络的多用途的文件共享软件。在此您可以选择想要连接的网络，并且调整针对每个网络的设置。"/>
@@ -3944,13 +3919,6 @@
 		<control/>
 		<control caption="移除(_R)"/>
 	</dialog>
-	<dialog name="CSchemaColumnsDlg" cookie="CoSyBuBuSt" caption="从架构中选择列">
-		<control/>
-		<control/>
-		<control caption="确定"/>
-		<control caption="取消"/>
-		<control caption="从列表中选择种类，然后选择要显示的项目。"/>
-	</dialog>
 	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuStCoStCoEdStEdStEdStBuBu" caption="安全策略">
 		<control caption="规则:"/>
 		<control caption="类型:"/>
@@ -3986,6 +3954,42 @@
 		<control caption="分"/>
 		<control caption="确定"/>
 		<control caption="取消"/>
+	</dialog>
+	<dialog name="CScheduleTaskDlg" cookie="BuBuBuCoEdmsEdmsStStBuBuBuBuBuSySyBuBuBuBuBuBuBuBuBuEd" caption="Schedule Event">
+		<control caption="确定"/>
+		<control caption="取消"/>
+		<control caption="Select Task Type"/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="% under Download limit"/>
+		<control caption="% under Upload limit"/>
+		<control caption="Active Task"/>
+		<control caption="Enable G2 Only"/>
+		<control caption="Set Event Time"/>
+		<control caption="Specified days"/>
+		<control caption="One day only"/>
+		<control/>
+		<control/>
+		<control caption="周一"/>
+		<control caption="周二"/>
+		<control caption="周三"/>
+		<control caption="周四"/>
+		<control caption="周五"/>
+		<control caption="周六"/>
+		<control caption="周日"/>
+		<control caption="所有"/>
+		<control caption="笔记"/>
+		<control/>
+	</dialog>
+	<dialog name="CSchemaColumnsDlg" cookie="CoSyBuBuSt" caption="从架构中选择列">
+		<control/>
+		<control/>
+		<control caption="确定"/>
+		<control caption="取消"/>
+		<control caption="从列表中选择种类，然后选择要显示的项目。"/>
 	</dialog>
 	<dialog name="CShareManagerDlg" cookie="StSyBuBuBuBu" caption="共享文件夹管理器">
 		<control caption="此列表显示了您收藏中的所有文件夹。您可以使用右边的按钮进行添加和移除。新添加的文件夹最初是共享给其他用户的，但是您可以在 PeerProject 收藏中取消共享。"/>
@@ -4037,7 +4041,7 @@
 		<control/>
 		<control caption="取消"/>
 		<control/>
-		<control caption="www.bitzi.com"/>
+		<control caption="bitzi.com"/>
 	</dialog>
 	<dialog name="CFilePreviewDlg" cookie="StStStmsStBu" caption="智能下载预览...">
 		<control/>
@@ -4323,6 +4327,14 @@
 		<column from="Expires" to="过期"/>
 		<column from="#" to="优先级"/>
 		<column from="Comment" to="注释"/>
+	</list>
+	<list name="CSchedulerWnd">
+		<column from="Task" to="操作"/>
+		<column from="Date" to="日期"/>
+		<column from="Time" to="时间"/>
+		<column from="Status" to="状态"/>
+		<column from="Activity" to="活跃"/>
+		<column from="Description" to="注释"/>
 	</list>
 	<list name="CHostCacheWnd">
 		<column from="Address" to="地址"/>

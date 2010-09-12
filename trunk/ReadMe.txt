@@ -11,7 +11,7 @@ ___________________________
 
    OR Install Visual Studio 2010
 	- http://www.microsoft.com/downloads/details.aspx?FamilyID=26bae65f-b0df-4081-ae6e-1d828993d4d0  (30/90day Trial)
-	- Note also available Visual Studio 2005 files may be outdated
+	- Note Visual Studio 2005 files also available but likely outdated
 
 2. Locate this complete PeerProject sourcecode set.
 	- http://peerproject.svn.sourceforge.net/viewvc/peerproject/trunk.tar.gz
@@ -49,7 +49,7 @@ _________________________
 1. Code is GPL 2/3, except where noted otherwise.
 	- Any resulting build or reuse must be GPL 3+ compliant, including section 7 "Additional Terms."
 	- To the extent reuse is a server affecting others, AGPL applies (Affero requires public posting of modified code.)
-	- Other original work not covered by a prior license is Persistent Public Domain license.
+	- Other original work not covered by a prior license is Persistent Public Domain license (PPD).
 
 2. Original visual resources are Creative Commons BY-NC-SA or PPD.
 	- Many Images = Attribution, Non-Commercial, Share-Alike.
@@ -65,4 +65,4 @@ _________________________
 PeerProject is copyright PeerProject Development Team. (peerproject.org)
 Some portions previously copyright Shareaza Development Team, and others.
 
-No scams or misrepresentation will be tolerated, all good-faith use is encouraged.  Proud to be Open Source.
+Any good-faith use is encouraged, no scams or misrepresentation will be tolerated.  Proud to be Open Source.

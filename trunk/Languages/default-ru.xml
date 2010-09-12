@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Russian Skin File -->
 
-<!-- Translation based on default-en.xml r56 -->
+<!-- Translation based on default-en.xml r58 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1713,7 +1713,7 @@
 			<newline gap="20" indent="0"/>
 		</group>
 		<group id="3">
-			<icon res="128" width="32" height="32"/><gap size="8"/>
+			<icon res="120" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">УВЕДОМЛЕНИЕ ОБ ОБНОВЛЕНИИ</heading>
 			<newline gap="8" indent="42"/>
 			<text id="Upgrade"/>
@@ -1760,7 +1760,7 @@
 			<link target="command:ID_HELP_ROUTER">Щелкните здесь, чтобы узнать, как настроить ваш маршрутизатор или брандмауэр</link>
 			<newline gap="18" indent="0"/>
 		</group>
-		<icon res="128" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
+		<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">НАСТРОЙТЕ PEERPROJECT</heading>
 		<newline gap="12" indent="42"/>
 		<icon res="182" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
@@ -1785,7 +1785,7 @@
 		<text align="middle">&#160;- Перейдите на русский язык дискуссионный форум</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
-			<icon res="128" width="32" height="32"/><gap size="8"/>
+			<icon res="120" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">ВЫ РАЗРЕШИЛИ УДАЛЕННОЕ УПРАВЛЕНИЕ</heading>
 			<newline gap="8" indent="42"/>
 			<text>Разрешено удаленное управление PeerProject, используйте обозреватель и адрес:</text>
@@ -1967,9 +1967,6 @@
 		<newline gap="10"/>
 		<link target="page:CUploadsSettingsPage" format="b">Раздачи:</link>
 		<text>&#160;Скорости Раздач, организация очереди, запреты, перерывы и специальные запросы.</text>
-		<newline gap="10"/>
-		<link target="page:CSchedulerSettingsPage" format="b">Расписание:</link>
-		<text>&#160;Составте расписание для ограничения загрузок по времени.</text>
 	</document>
 	<!-- Browse User Profile -->
 	<document name="CBrowseHostProfile.1">
@@ -2765,6 +2762,8 @@
 	<string id="8239" value="Завершено"/>
 	<string id="8240" value="Кол-во источников:"/>
 	<string id="8241" value="Число просмотров:"/>
+	<string id="8244" value="Предельная скорость загрузки"/>
+	<string id="8245" value="Предельная скорость загрузки"/>
 	<string id="8288" value="Просмотр вашего хранилища"/>
 	<string id="8289" value="Просматривается"/>
 	<string id="8290" value="Просматривается содержимое %i папок"/>
@@ -3322,24 +3321,22 @@
 	<string id="20125" value="Без проверки"/>
 	<string id="20126" value="Бесполезен"/>
 	<string id="20127" value="Бесполезен"/>
-	<string id="20128" value="источник"/>
-	<string id="20129" value="источник"/>   <!-- numbers 21, 31, etc. -->
-	<string id="20130" value="источников"/> <!-- tens -->
-	<string id="20131" value="источников"/> <!-- from 11 to 19 -->
-	<string id="20132" value="источника"/>  <!-- from 2 to 4 -->
-	<string id="20133" value="источников"/> <!-- from 5 to 9 -->
-	<string id="20134" value="источников"/> <!-- "1/10 sources" -->
+	<string id="20130" value="источник"/>
+	<string id="20131" value="источник"/>   <!-- ones 21,31,... -->
+	<string id="20132" value="источника"/>  <!-- few  2,3,4 -->
+	<string id="20134" value="источников"/> <!-- others -->
 	<string id="20135" value="(нет источников)"/>
 	<string id="20136" value="Заморожен"/>
 	<string id="20137" value="Следующий"/>
 	<string id="20138" value="Оч."/>
-	<string id="20200" value="Воскресенье"/>
+	<string id="20200" value="Every Day"/>
 	<string id="20201" value="Понедельник"/>
 	<string id="20202" value="Вторник"/>
 	<string id="20203" value="Среда"/>
 	<string id="20204" value="Четверг"/>
 	<string id="20205" value="Пятница"/>
 	<string id="20206" value="Суббота"/>
+	<string id="20207" value="Воскресенье"/>
 	<string id="20210" value="(без оценки)"/>
 	<string id="20211" value="Фальшивка / Испорчен"/>
 	<string id="20212" value="Плохой"/>
@@ -3610,28 +3607,6 @@
 		<control/>
 		<control caption="Справка:"/>
 		<control caption="Удаленный доступ к PeerProject позволит Вам оставить PeerProject запущенной и контролировать её удаленно из веб браузера.  Для использования этого Вам понадобится иметь возможность принимать входящие соединения (и правильно настроить брандмауэр)."/>
-	</dialog>
-	<dialog name="CSchedulerSettingsPage" cookie="EdStStStStStStStBuStStStBuBuBuStEdmsBuSt" caption="Планировщик">
-		<control/>
-		<control caption="Вос"/>
-		<control caption="Пон"/>
-		<control caption="Вто"/>
-		<control caption="Сре"/>
-		<control caption="Чет"/>
-		<control caption="Пят"/>
-		<control caption="Суб"/>
-		<control caption="Ключ:"/>
-		<control caption="Не соединяться"/>
-		<control caption="Лимитированное соединение"/>
-		<control caption="Соедин. с полной скоростью"/>
-		<control caption="_Опции:"/>
-		<control caption="_Включить планировщик"/>
-		<control caption="_Соединиться только с G2 при лимите"/>
-		<control caption="% полосы пропуск. при лимите"/>
-		<control/>
-		<control/>
-		<control caption="Справка:"/>
-		<control caption="Планировщик создан для того, чтобы позволить Вам установить, когда PeerProject должна соединиться и начать загрузку файлов.{n}{n}Замечание: Если Вы открыли PeerProject во время работы планировщика, Вы можете заметить, что установки меняются - это нормально!"/>
 	</dialog>
 	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuSt" caption="Сети">
 		<control caption="PeerProject - многоцелевая программа обмена файлами, с доступом ко многим P2P сетям одновременно. Здесь Вы можете выбрать, какие P2P сети Вы хотите использовать, и затем определить настройки для каждой из сетей."/>
@@ -4197,13 +4172,6 @@
 		<control/>
 		<control caption="_Удалить"/>
 	</dialog>
-	<dialog name="CSchemaColumnsDlg" cookie="CoSyBuBuSt" caption="Выбор колонок из схемы">
-		<control/>
-		<control/>
-		<control caption="OK"/>
-		<control caption="Отмена"/>
-		<control caption="Выберите схему из списка, затем выберите колонки для отображения."/>
-	</dialog>
 	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuStCoStCoEdStEdStEdStBuBu" caption="Правило безопасности">
 		<control caption="_Правило:"/>
 		<control caption="Тип:"/>
@@ -4239,6 +4207,42 @@
 		<control caption="м"/>
 		<control caption="OK"/>
 		<control caption="Отмена"/>
+	</dialog>
+	<dialog name="CScheduleTaskDlg" cookie="BuBuBuCoEdmsEdmsStStBuBuBuBuBuSySyBuBuBuBuBuBuBuBuBuEd" caption="Назначить задание">
+		<control caption="OK"/>
+		<control caption="Отмена"/>
+		<control caption="Select Task Type"/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="% under Download limit"/>
+		<control caption="% under Upload limit"/>
+		<control caption="Active Task"/>
+		<control caption="Enable G2 Only"/>
+		<control caption="Set Event Time"/>
+		<control caption="Specified days"/>
+		<control caption="One day only"/>
+		<control/>
+		<control/>
+		<control caption="Пон"/>
+		<control caption="Вто"/>
+		<control caption="Сре"/>
+		<control caption="Чет"/>
+		<control caption="Пят"/>
+		<control caption="Суб"/>
+		<control caption="Вос"/>
+		<control caption="Все"/>
+		<control caption="Комментарии"/>
+		<control/>
+	</dialog>
+	<dialog name="CSchemaColumnsDlg" cookie="CoSyBuBuSt" caption="Выбор колонок из схемы">
+		<control/>
+		<control/>
+		<control caption="OK"/>
+		<control caption="Отмена"/>
+		<control caption="Выберите схему из списка, затем выберите колонки для отображения."/>
 	</dialog>
 	<dialog name="CShareManagerDlg" cookie="StSyBuBuBuBu" caption="Общий доступ">
 		<control caption="Это список папок Вашего хранилища.  Можно добавлять или удалять папки кнопками слева.  Когда Вы добавляете новую папку, она становиться доступной для всех, но Вы можете изменить это позже из самого хранилища."/>
@@ -4576,6 +4580,14 @@
 		<column from="Expires" to="Истекает"/>
 		<column from="#" to="#"/>
 		<column from="Comment" to="Заметка"/>
+	</list>
+	<list name="CSchedulerWnd">
+		<column from="Task" to="Действие"/>
+		<column from="Date" to="День"/>
+		<column from="Time" to="Время"/>
+		<column from="Status" to="Статус"/>
+		<column from="Activity" to="Активный"/>
+		<column from="Description" to="Заметка"/>
 	</list>
 	<list name="CHostCacheWnd">
 		<column from="Address" to="Адрес"/>

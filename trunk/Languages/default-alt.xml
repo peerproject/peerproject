@@ -3,7 +3,7 @@
 
 <!-- PeerProject UK English Skin File -->
 
-<!-- Translation based on default-en.xml r55 -->
+<!-- Translation based on default-en.xml r58 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -526,7 +526,7 @@
 			<newline gap="20" indent="0"/>
 		</group>
 		<group id="3">
-			<icon res="128" width="32" height="32" target="command:upgrade"/><gap size="8"/>
+			<icon res="120" width="32" height="32" target="command:upgrade"/><gap size="8"/>
 			<heading align="middle">Upgrade Notice</heading>
 			<newline gap="8" indent="42"/>
 			<text id="Upgrade"/>
@@ -573,7 +573,7 @@
 			<link target="command:ID_HELP_ROUTER">learn how to configure your router.</link>
 			<newline gap="20" indent="0"/>
 		</group>
-		<icon res="128" width="30" height="30" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
+		<icon res="120" width="30" height="30" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">Customise PeerProject</heading>
 		<newline gap="12" indent="42"/>
 		<icon res="182" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
@@ -597,7 +597,7 @@
 		<text align="middle">&#160;- Go to the local English language forum</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
-			<icon res="128" width="32" height="32"/><gap size="8"/>
+			<icon res="120" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">Remote Access Enabled</heading>
 			<newline gap="8" indent="42"/>
 			<text>Control PeerProject using your web browser at:</text>
@@ -745,7 +745,7 @@
 		<control caption="Expand new downloads by default"/>
 		<control caption="Display simple progress bar"/>
 		<control caption="Show rates in:"/>
-		<control caption="bits/second|bytes/second|b/s|B/s|Kb/s|KB/s|Mb/s|MB/s"/>
+		<control caption="Auto bits/sec|Auto bytes/sec|b/s|B/s|Kb/s|KB/s|Mb/s|MB/s"/>
 		<control caption="_Search:"/>
 		<control caption="Expand multi-source files by default"/>
 		<control caption="Switch to Transfers view on download"/>

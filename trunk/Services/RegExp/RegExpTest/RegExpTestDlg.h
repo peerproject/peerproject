@@ -1,13 +1,13 @@
-// RegExpDlg.h : header file
+//
+// RegExpDlg.h
 //
 
 #pragma once
-#include "afxwin.h"
 
 class CRegExpDlg : public CDialog
 {
 public:
-	CRegExpDlg(CWnd* pParent = NULL);	// standard constructor
+	CRegExpDlg(CWnd* pParent = NULL);	// Standard constructor
 
 	enum { IDD = IDD_REGEXP_DIALOG };
 
@@ -18,8 +18,9 @@ protected:
 	CListBox m_oResult;
 
 	void DoIt();
+	void DoItSafe();
 
-	virtual void DoDataExchange(CDataExchange* pDX);	// DDX/DDV support
+	virtual void DoDataExchange(CDataExchange* pDX);
 	virtual BOOL OnInitDialog();
 
 	afx_msg void OnPaint();

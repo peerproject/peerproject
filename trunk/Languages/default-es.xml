@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Spanish (International) Skin File -->
 
-<!-- Translation based on default-en.xml r56 -->
+<!-- Translation based on default-en.xml r58 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -714,7 +714,7 @@
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProject site"/>
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="Foros de _PeerProject"/>
- 				<item id="ID_HELP_FORUMS_LOCAL" text="Foro en Español"/>
+				<item id="ID_HELP_FORUMS_LOCAL" text="Foro en Español"/>
 				<item id="ID_HELP_UPDATE" text="Últimas Noticias"/>
 			</menu>
 			<separator/>
@@ -1639,7 +1639,7 @@
 			<newline gap="20" indent="0"/>
 		</group>
 		<group id="3">
-			<icon res="128" width="32" height="32"/><gap size="8"/>
+			<icon res="120" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">Noticia De Actualizacion</heading>
 			<newline gap="8" indent="42"/>
 			<text id="Upgrade"/>
@@ -1680,7 +1680,7 @@
 			<link target="command:ID_HELP_ROUTER">Haz click aquí para aprender como configurar tu Firewall y/o router</link>
 			<newline gap="18" indent="0"/>
 		</group>
-		<icon res="128" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
+		<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">Personalizar PeerProject</heading>
 		<newline gap="12" indent="42"/>
 		<icon res="182" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
@@ -1705,7 +1705,7 @@
 		<text align="middle">&#160;- Ve a tu idioma Español foro de discusión</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
-			<icon res="128" width="32" height="32"/><gap size="8"/>
+			<icon res="120" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">Acceso Remoto Esta Habilitado</heading>
 			<newline gap="8" indent="42"/>
 			<text>El Acceso Remoto de PeerProject está habilitado. El Control de PeerProject esta usando tu navegador web:</text>
@@ -1886,9 +1886,6 @@
 		<newline gap="10"/>
 		<link target="page:CUploadsSettingsPage" format="b">Subidas:</link>
 		<text>&#160;Capacidad de subida, colas, ancho de banda y tiempos.</text>
-		<newline gap="10"/>
-		<link target="page:CSchedulerSettingsPage" format="b">Scheduler:</link>
-		<text>&#160;Limit download connections based on a periodic schedule.</text>
 	</document>
 	<!-- Browse User Profile -->
 	<document name="CBrowseHostProfile.1">
@@ -2683,6 +2680,8 @@
 	<string id="8239" value="Completado"/>
 	<string id="8240" value="Número de Fuentes:"/>
 	<string id="8241" value="Nmero de análisis:"/>
+	<string id="8244" value="Limitar la velocidad de Descarga"/>
+	<string id="8245" value="Limitar la velocidad de Subida"/>
 	<string id="8288" value="Explorando la Colección de PeerProject"/>
 	<string id="8289" value="Explorando"/>
 	<string id="8290" value="Explorando los contenidos de las carpetas %i"/>
@@ -3238,24 +3237,22 @@
 	<string id="20125" value="No Verificado"/>
 	<string id="20126" value="No admitido"/>
 	<string id="20127" value="Desinteresado"/>
-	<string id="20128" value="fuente"/>
-	<string id="20129" value="fuentes"/> <!-- numbers 21, 31, ... -->
-	<string id="20130" value="fuentes"/> <!-- tens -->
-	<string id="20131" value="fuentes"/> <!-- from 11 to 19 -->
-	<string id="20132" value="fuentes"/> <!-- from 2 to 4 -->
-	<string id="20133" value="fuentes"/> <!-- from 5 to 9 -->
-	<string id="20134" value="fuentes"/> <!-- "3/10 sources" -->
+	<string id="20130" value="fuente"/>
+	<string id="20131" value="fuentes"/>
+	<string id="20132" value="fuentes"/>
+	<string id="20134" value="fuentes"/>
 	<string id="20135" value="(No hay fuentes)"/>
 	<string id="20136" value="Cortado"/>
 	<string id="20137" value="Siguiente"/>
 	<string id="20138" value="C"/>
-	<string id="20200" value="Domingo"/>
+	<string id="20200" value="Todos los Dias"/>
 	<string id="20201" value="Lunes"/>
 	<string id="20202" value="Martes"/>
 	<string id="20203" value="Miércoles"/>
 	<string id="20204" value="Jueves"/>
 	<string id="20205" value="Viernes"/>
 	<string id="20206" value="Sabado"/>
+	<string id="20207" value="Domingo"/>
 	<string id="20210" value="(Sin respuesta)"/>
 	<string id="20211" value="Falso / Corrupto"/>
 	<string id="20212" value="Malo"/>
@@ -3520,28 +3517,6 @@
 		<control/>
 		<control caption="Ayuda:"/>
 		<control caption="El Acceso Remoto de PeerProject te permite dejar PeerProject corriendo en tu PC, y controlarlo usando un navegador. Vas a necesitar habilitar aceptar conexiones entrantes para usar esta característica (Ej: Configurar tu router, etc)."/>
-	</dialog>
-	<dialog name="CSchedulerSettingsPage" cookie="EdStStStStStStStBuStStStBuBuBuStEdmsBuSt" caption="Calendario">
-		<control/>
-		<control caption="Dom"/>
-		<control caption="Lun"/>
-		<control caption="Mar"/>
-		<control caption="Mier"/>
-		<control caption="Jue"/>
-		<control caption="Vie"/>
-		<control caption="Sab"/>
-		<control caption="Clave:"/>
-		<control caption="No conectar"/>
-		<control caption="Conexión limitada"/>
-		<control caption="Conectar a alta velocidad"/>
-		<control caption="_Opciones:"/>
-		<control caption="_Habilitar Calendario"/>
-		<control caption="_Conectar a G2 sólo cuando está limitado"/>
-		<control caption="% de _banda ancha debajo del limite"/>
-		<control/>
-		<control/>
-		<control caption="Ayuda:"/>
-		<control caption="El Calendario esta diseñado para que puedas asignar tiempos de cuando PeerProject se va a conectar y descargar archivos. {n}Nota: Si tienes PeerProject abierto cuando el calendario esta activo, puede que veas que este cambiando configuraciones- ¡Esto es normal!-"/>
 	</dialog>
 	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuSt" caption="Redes">
 		<control caption="PeerProject tiene la habilidad de acceder varias redes de compartimiento de archivos. En esta página se pueden seleccionar las redes que serán usadas, y ajustar las configuraciones de las mismás."/>
@@ -4107,13 +4082,6 @@
 		<control/>
 		<control caption="_Eliminar"/>
 	</dialog>
-	<dialog name="CSchemaColumnsDlg" cookie="CoSyBuBuSt" caption="Seleccionar columna del esquema">
-		<control/>
-		<control/>
-		<control caption="Aceptar"/>
-		<control caption="Cancelar"/>
-		<control caption="Seleccione un tipo de archivo, y después seleccione los campos a mostrar."/>
-	</dialog>
 	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuStCoStCoEdStEdStEdStBuBu" caption="Reglas de seguridad">
 		<control caption="_Regla:"/>
 		<control caption="Tipo:"/>
@@ -4149,6 +4117,42 @@
 		<control caption="m"/>
 		<control caption="Aceptar"/>
 		<control caption="Cancelar"/>
+	</dialog>
+	<dialog name="CScheduleTaskDlg" cookie="BuBuBuCoEdmsEdmsStStBuBuBuBuBuSySyBuBuBuBuBuBuBuBuBuEd" caption="Calendario de Tareas">
+		<control caption="Aceptar"/>
+		<control caption="Cancelar"/>
+		<control caption="Selectar Tipo de Tarea"/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="% debajo de Download limit"/>
+		<control caption="% debajo de Upload limit"/>
+		<control caption="Tarea Activo"/>
+		<control caption="Enable G2 Only"/>
+		<control caption="Selectar Tiempo de Tarea"/>
+		<control caption="Dias specificos"/>
+		<control caption="Solo un dia"/>
+		<control/>
+		<control/>
+		<control caption="Lunes"/>
+		<control caption="Martes"/>
+		<control caption="Miercoles"/>
+		<control caption="Jueves"/>
+		<control caption="Viernes"/>
+		<control caption="Sabado"/>
+		<control caption="Domingo"/>
+		<control caption="Todos"/>
+		<control caption="Comentarios"/>
+		<control/>
+	</dialog>
+	<dialog name="CSchemaColumnsDlg" cookie="CoSyBuBuSt" caption="Seleccionar columna del esquema">
+		<control/>
+		<control/>
+		<control caption="Aceptar"/>
+		<control caption="Cancelar"/>
+		<control caption="Seleccione un tipo de archivo, y después seleccione los campos a mostrar."/>
 	</dialog>
 	<dialog name="CShareManagerDlg" cookie="StSyBuBuBuBu" caption="Manejador de carpetas en Colección">
 		<control caption="Esta es la lista de carpetas en Colección.  Puedes agregar o quitar carpetas usando los botones en la derecha. Cuando añadas una nueva carpeta va a ser inicialmente compartida con los usuarios, puedes descompartirla desde Mis Colecciones"/>
@@ -4486,6 +4490,14 @@
 		<column from="Expires" to="Expira"/>
 		<column from="#" to="#"/>
 		<column from="Comment" to="Comentario"/>
+	</list>
+	<list name="CSchedulerWnd">
+		<column from="Task" to="Acción"/>
+		<column from="Date" to="Dias"/>
+		<column from="Time" to="Tiempo"/>
+		<column from="Status" to="Estado"/>
+		<column from="Activity" to="Activo"/>
+		<column from="Description" to="Comentario"/>
 	</list>
 	<list name="CHostCacheWnd">
 		<column from="Address" to="IP"/>

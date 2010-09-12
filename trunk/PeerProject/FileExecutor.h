@@ -1,7 +1,7 @@
 //
 // FileExecutor.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -45,4 +45,7 @@ protected:
 
 	// Is file a video, audio or image file?
 	static void DetectFileType(LPCTSTR pszFile, LPCTSTR szType, bool& bVideo, bool& bAudio, bool& bImage);
+
+	//Extracts custom players form settings
+	static int FillServices(CString sServicePaths[]);
 };

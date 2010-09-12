@@ -64,7 +64,7 @@
 		<button id="ID_SECURITY_BAN" text="Ban"/>
 			<rightAlign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Filter :"/>
-		<control id="107" width="80"/>
+		<control id="112" width="80"/>
 		<separator/>
 		<button id="ID_SEARCH_DETAILS" text="Show/Hide Details"/>
 	</toolbar>
@@ -75,7 +75,7 @@
 		<button id="ID_SECURITY_BAN" text="Ban"/>
 			<rightAlign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Filter :"/>
-		<control id="107" width="80"/>
+		<control id="112" width="80"/>
 		<separator/>
 		<button id="ID_SEARCH_DETAILS" text="Hide Details"/>
 		<button id="ID_SEARCH_PANEL" text="Hide Sidebar"/>
@@ -89,7 +89,7 @@
 		<button id="ID_SECURITY_BAN" text="Ban"/>
 			<rightAlign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Filter :"/>
-		<control id="107" width="75"/>
+		<control id="112" width="75"/>
 		<separator/>
 		<button id="ID_SEARCH_DETAILS" text="Hide Details"/>
 		<button id="ID_SEARCH_PANEL" text="Show Sidebar"/>
@@ -109,7 +109,7 @@
 		<button id="ID_SEARCH_CHAT" text="Chat to User"/>
 			<rightAlign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Filter :"/>
-		<control id="107" width="90"/>
+		<control id="112" width="90"/>
 		<separator/>
 		<button id="ID_SEARCH_DETAILS" text="Show/Hide Details"/>
 	</toolbar>
@@ -121,7 +121,7 @@
 		<button id="ID_SEARCH_CHAT" text="Chat User"/>
 			<rightAlign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Filter :"/>
-		<control id="107" width="90"/>
+		<control id="112" width="90"/>
 		<separator/>
 		<button id="ID_SEARCH_DETAILS" text="Show/Hide Details"/>
 	</toolbar>
@@ -203,7 +203,7 @@
 		<button id="ID_LIBRARY_FOLDERS" text="Share Files..."/>
 			<rightAlign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Find:"/>
-		<control id="108" width="90"/>
+		<control id="110" width="90"/>
 		<separator/>
 		<button id="ID_LIBRARY_PANEL" text="Hide Details"/>
 	</toolbar>
@@ -212,7 +212,7 @@
 		<button id="ID_LIBRARY_ALBUM_DELETE" text="Delete Group"/>
 			<rightAlign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Find:"/>
-		<control id="108" width="90"/>
+		<control id="110" width="90"/>
 		<separator/>
 		<button id="ID_LIBRARY_PANEL" text="Hide Details"/>
 	</toolbar>
@@ -222,7 +222,7 @@
 		<separator/>
 			<rightAlign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Find:"/>
-		<control id="108" width="90"/>
+		<control id="110" width="90"/>
 		<separator/>
 		<button id="ID_LIBRARY_PANEL" text="Hide Details"/>
 	</toolbar>
@@ -238,7 +238,7 @@
 		<button id="ID_LIBRARY_DELETE"/>
 			<rightAlign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Find:"/>
-		<control id="108" width="90"/>
+		<control id="110" width="90"/>
 		<separator/>
 		<button id="ID_LIBRARY_PANEL" text="Hide Details"/>
 	</toolbar>
@@ -249,7 +249,7 @@
 		<separator/>
 			<rightAlign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Find:"/>
-		<control id="108" width="90"/>
+		<control id="110" width="90"/>
 		<separator/>
 		<button id="ID_LIBRARY_PANEL" text="Hide Details"/>
 	</toolbar>
@@ -261,7 +261,7 @@
 		<button id="ID_WEBSERVICES_LIST" text="Web Services"/>
 			<rightAlign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Find:"/>
-		<control id="108" width="90"/>
+		<control id="110" width="90"/>
 		<separator/>
 		<button id="ID_LIBRARY_PANEL" text="Hide Details"/>
 	</toolbar>
@@ -371,6 +371,21 @@
 		<button id="ID_SECURITY_IMPORT" text="Import List"/>
 		<button id="ID_SECURITY_EXPORT" text="Export List"/>
 	</toolbar>
+	<!-- SCHEDULER WINDOW -->
+	<toolbar name="CSchedulerWnd">
+		<button id="ID_SCHEDULER_ADD" text="Add Task"/>
+		<separator/>
+		<button id="ID_SCHEDULER_EDIT" text="Edit Task"/>
+		<button id="ID_SCHEDULER_REMOVE" text="Remove Task"/>
+		<separator/>
+		<button id="ID_SCHEDULER_ACTIVATE" text="Activate"/>
+		<button id="ID_SCHEDULER_DEACTIVATE" text="Deactivate"/>
+		<rightAlign/>
+		<button id="ID_SCHEDULER_REMOVE_ALL" text="Remove All"/>
+		<separator/>
+		<button id="ID_SCHEDULER_IMPORT" text="Import List"/>
+		<button id="ID_SCHEDULER_EXPORT" text="Export List"/>
+	</toolbar>
 	<!-- HIT MONITOR WINDOW -->
 	<toolbar name="CHitMonitorWnd">
 		<button id="ID_SEARCH_DOWNLOAD" text="Download"/>
@@ -380,7 +395,7 @@
 		<button id="ID_SEARCH_CLEAR" text="Clear"/>
 			<rightAlign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Filter :"/>
-		<control id="107" width="100"/>
+		<control id="112" width="100"/>
 	</toolbar>
 	<!-- DISCOVERY SERVICES WINDOW -->
 	<toolbar name="CDiscoveryWnd">
@@ -555,6 +570,7 @@
 				<item id="ID_VIEW_MEDIA" text="_Media" shortcut="F6"/>
 				<item id="ID_TAB_IRC" text="_IRC Chat" shortcut="F12"/>
 				<separator/>
+				<item id="ID_VIEW_SCHEDULER" text="Schedule_r" shortcut="Ctrl+F7"/>
 				<item id="ID_VIEW_SECURITY" text="Se_curity" shortcut="F7"/>
 				<item id="ID_VIEW_HOSTS" text="H_ost Cache" shortcut="F8"/>
 				<item id="ID_VIEW_DISCOVERY" text="Disco_very" shortcut="F9"/>
@@ -623,6 +639,7 @@
 			<item id="ID_TAB_IRC" text="IRC _Chat"/>
 			<separator/>
 			<item id="ID_VIEW_SECURITY" text="Se_curity"/>
+			<item id="ID_VIEW_SCHEDULER" text="Schedule_r"/>
 			<item id="ID_VIEW_HOSTS" text="H_ost Cache"/>
 			<separator/>
 			<menu text="A_dvanced">
@@ -633,6 +650,7 @@
 				<item id="ID_VIEW_LIBRARY" text="_Library" shortcut="F5"/>
 				<item id="ID_VIEW_MEDIA" text="_Mediaplayer" shortcut="F6"/>
 				<separator/>
+				<item id="ID_VIEW_SCHEDULER" text="Schedule_r" shortcut="Ctrl+F7"/>
 				<item id="ID_VIEW_SECURITY" text="Se_curity" shortcut="F7"/>
 				<item id="ID_VIEW_HOSTS" text="H_ost Cache" shortcut="F8"/>
 				<item id="ID_VIEW_DISCOVERY" text="Disco_very" shortcut="F9"/>
@@ -732,6 +750,7 @@
 				<item id="ID_VIEW_UPLOADS" text="_Uploads"/>
 				<separator/>
 				<item id="ID_VIEW_SECURITY" text="Se_curity"/>
+				<item id="ID_VIEW_SHEDULER" text="Schedue_r"/>
 				<item id="ID_VIEW_HOSTS" text="H_ost Cache"/>
 				<item id="ID_VIEW_DISCOVERY" text="Disco_very"/>
 			</menu>
@@ -806,6 +825,7 @@
 			<item id="ID_VIEW_MEDIA" text="_Mediaplayer" shortcut="F6"/>
 			<item id="ID_TAB_IRC" text="IRC _Chat" shortcut="F12"/>
 			<separator/>
+				<item id="ID_VIEW_SCHEDULER" text="Schedule_r" shortcut="Ctrl+F7"/>
 			<item id="ID_VIEW_SECURITY" text="Se_curity" shortcut="F7"/>
 			<item id="ID_VIEW_HOSTS" text="H_ost Cache" shortcut="F8"/>
 			<item id="ID_VIEW_DISCOVERY" text="Disco_very" shortcut="F9"/>
@@ -892,6 +912,7 @@
 			<item id="ID_VIEW_NEIGHBOURS" text="_Neighbors"/>
 			<item id="ID_VIEW_UPLOADS" text="_Uploads"/>
 			<item id="ID_VIEW_SECURITY" text="_Security"/>
+			<item id="ID_VIEW_SECURITY" text="Schedule_r"/>
 			<item id="ID_VIEW_HOSTS" text="_Host Cache"/>
 		</menu>
 	</menu>
@@ -905,6 +926,7 @@
 		<item id="ID_TAB_IRC" text="IRC _Chat"/>
 		<separator/>
 		<item id="ID_VIEW_SECURITY" text="Se_curity"/>
+		<item id="ID_VIEW_SCHEDULER" text="Schedule_r"/>
 		<item id="ID_VIEW_HOSTS" text="_Host Cache"/>
 		<item id="ID_VIEW_DISCOVERY" text="Disco_very"/>
 		<item id="ID_VIEW_TRAFFIC" text="_Graph"/>
@@ -924,6 +946,7 @@
 		<item id="ID_VIEW_MEDIA" text="_Media Player"/>
 		<separator/>
 		<item id="ID_VIEW_SECURITY" text="Se_curity"/>
+		<item id="ID_VIEW_SCHEDULER" text="Schedule_r"/>
 		<item id="ID_VIEW_HOSTS" text="_Host Cache"/>
 		<item id="ID_VIEW_DISCOVERY" text="Disco_very"/>
 		<item id="ID_VIEW_TRAFFIC" text="_Graph"/>
@@ -944,6 +967,7 @@
 			<item id="ID_VIEW_NEIGHBOURS" text="_Neighbors"/>
 			<item id="ID_VIEW_UPLOADS" text="_Uploads"/>
 			<item id="ID_VIEW_SECURITY" text="_Security"/>
+			<item id="ID_VIEW_SCHEDULER" text="Schedule_r"/>
 			<item id="ID_VIEW_HOSTS" text="_Host Cache"/>
 		</menu>
 	</menu>
@@ -957,6 +981,7 @@
 		<item id="ID_TAB_IRC" text="IRC _Chat"/>
 		<separator/>
 		<item id="ID_VIEW_SECURITY" text="Se_curity"/>
+		<item id="ID_VIEW_SCHEDULER" text="Schedule_r"/>
 		<item id="ID_VIEW_HOSTS" text="_Host Cache"/>
 		<item id="ID_VIEW_DISCOVERY" text="Disco_very"/>
 		<item id="ID_VIEW_TRAFFIC" text="_Graph"/>
@@ -1647,6 +1672,21 @@
 		<separator/>
 		<item id="ID_SECURITY_EDIT" text="_Properties"/>
 	</menu>
+	<!-- SCHEDULER WINDOW -->
+	<menu name="CSchedulerWnd">
+		<item id="ID_SCHEDULER_ADD" text="_Add Scheduled Task"/>
+		<separator/>
+		<item id="ID_SCHEDULER_EDIT" text="_Edit"/>
+		<item id="ID_SCHEDULER_REMOVE" text="Re_move"/>
+		<separator/>
+		<item id="ID_SCHEDULER_ACTIVATE" text="A_ctivate"/>
+		<item id="ID_SCHEDULER_DEACTIVATE" text="_Deactivate"/>
+		<separator/>
+		<item id="ID_SCHEDULER_REMOVE_ALL" text="Remove Al_l"/>
+		<separator/>
+		<item id="ID_SCHEDULER_IMPORT" text="_Import..."/>
+		<item id="ID_SCHEDULER_EXPORT" text="E_xport..."/>
+	</menu>
 	<!-- DISCOVERY SERVICES WINDOW -->
 	<menu name="CDiscoveryWnd">
 		<item id="ID_DISCOVERY_QUERY" text="_Query Now"/>
@@ -1762,7 +1802,7 @@
 			<newline gap="20" indent="0"/>
 		</group>
 		<group id="3">
-			<icon res="128" width="32" height="32" target="command:upgrade"/><gap size="8"/>
+			<icon res="120" width="32" height="32" target="command:upgrade"/><gap size="8"/>
 			<heading align="middle">Upgrade Notice</heading>
 			<newline gap="8" indent="42"/>
 			<text id="Upgrade"/>
@@ -1809,7 +1849,7 @@
 			<link target="command:ID_HELP_ROUTER">learn how to configure your router.</link>
 			<newline gap="20" indent="0"/>
 		</group>
-		<icon res="128" width="30" height="30" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
+		<icon res="120" width="30" height="30" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">Customize PeerProject</heading>
 		<newline gap="12" indent="42"/>
 		<icon res="182" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
@@ -1834,7 +1874,7 @@
 		<text align="middle">&#160;- Go to the English local forum</text>
 	-->	<newline gap="18" indent="0"/>
 		<group id="5">
-			<icon res="128" width="32" height="32"/><gap size="8"/>
+			<icon res="120" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">Remote Access Enabled</heading>
 			<newline gap="8" indent="42"/>
 			<text>Control PeerProject using your web browser at:</text>
@@ -2017,9 +2057,9 @@
 		<newline gap="10"/>
 		<link target="page:CUploadsSettingsPage" format="b">Uploads: </link>
 		<text>&#160;Manage bandwidth-out, limits, and queues.</text>
+		<newline />
 		<newline gap="10"/>
-		<link target="page:CSchedulerSettingsPage" format="b">Scheduler: </link>
-		<text>&#160;Limit download connections based on a periodic schedule.</text>
+		<text>Find Task Scheduler, Security Filters, Traffic Graphs, and more from the Advanced View menu.</text>
 	</document>
 	<!-- Browse User Profile -->
 	<document name="CBrowseHostProfile.1">
@@ -2557,8 +2597,8 @@
 <commandImages>
 	<bitmap id="IDB_MENUBAR">
 		<image /> <!--Logo-->
-		<image id="ID_MEDIA_PREVIOUS" id1="ID_SHAREMONKEY_PREVIOUS" id2="ID_LIBRARY_PARENT" id3="ID_MOVETAB_LEFT" id4="ID_MOVETAB_FIRST"/>
-		<image id="ID_MEDIA_NEXT" id1="ID_SHAREMONKEY_NEXT" id2="ID_CHAT_PRIORITY" id3="ID_MOVETAB_RIGHT" id4="ID_MOVETAB_LAST"/>
+		<image id="ID_MEDIA_PREVIOUS" id1="ID_SHAREMONKEY_PREVIOUS" id2="ID_LIBRARY_PARENT"/>
+		<image id="ID_MEDIA_NEXT" id1="ID_SHAREMONKEY_NEXT" id2="ID_CHAT_PRIORITY"/>
 		<image id="ID_SEARCH_DOWNLOAD" id1="ID_DOWNLOADS_RESUME" id2="ID_DOWNLOAD_GROUP_RESUME" id3="ID_UPLOADS_START" id4="ID_DISCOVERY_QUERY"
 			id5="ID_HOSTCACHE_CONNECT" id6="ID_NETWORK_CONNECT" id7="ID_NETWORK_CONNECT_TO" id8="ID_TRANSFERS_CONNECT" id9="ID_TOOLS_SETTINGS"/>
 		<image id="ID_CHAT_CONNECT" id1="ID_IRC_CONNECT" id2="ID_SEARCH_DOWNLOADNOW" id3="ID_DOWNLOADS_BOOST" id4="ID_SHAREMONKEY_BUY"/>
@@ -2566,22 +2606,20 @@
 			id5="ID_UPLOADS_LAUNCH" id6="ID_LIBRARY_LAUNCH" id7="ID_LIBRARY_ALBUM_OPEN" id8="ID_LIBRARY_EXPLORE" id9="ID_LIBRARY_FOLDER_ENQUEUE"/>
 		<image id="ID_DOWNLOADS_CLEAR_COMPLETE" id1="ID_DOWNLOADS_CLEAR_COMPLETED" id2="ID_UPLOADS_CLEAR_COMPLETED" id3="ID_DOWNLOAD_GROUP_CLEAR"
 			id4="ID_MEDIA_CLEAR" id5="ID_TRAFFIC_CLEAR" id6="ID_HITMONITOR_CLEAR" id7="ID_DOWNLOADS_CLEAR_PAUSED" id8="ID_SECURITY_RESET"/>
-		<image id="ID_MEDIA_STOP" id1="ID_MEDIA_STATE_STOP" />
+		<image id="ID_MEDIA_STOP" id1="ID_MEDIA_STATE_STOP"/>
 		<image id="ID_MEDIA_PAUSE" id1="ID_MEDIA_STATE_PAUSE" id2="ID_DOWNLOADS_PAUSE" id3="ID_DOWNLOAD_GROUP_PAUSE" id4="ID_HITMONITOR_PAUSE"/>
 		<image id="ID_MEDIA_STATE_PLAY"/>
-		<image id="ID_MEDIA_OPEN" id1="ID_SECURITY_IMPORT"/>
+		<image id="ID_MEDIA_OPEN" id1="ID_SECURITY_IMPORT" id2="ID_SCHEDULER_IMPORT"/>
 		<image id="ID_MEDIA_FULLSCREEN"/>
-		<image id="ID_MEDIA_ADD" id1="ID_TOOLS_DOWNLOAD" id2="ID_DOWNLOADS_ENQUEUE" id3="ID_LIBRARY_ENQUEUE" id4="ID_IRC_ADD" id5="ID_DISCOVERY_ADD"
-			id6="ID_DOWNLOADS_MOVE_TOP" id7="ID_DOWNLOADS_MOVE_UP" id8="ID_SECURITY_MOVE_UP" id9="ID_DOWNLOAD_GROUP_MOVELEFT"/>
-		<image id="ID_MEDIA_REMOVE" id1="ID_VIEW_MEDIA" id2="ID_TAB_MEDIA" id3="ID_IRC_REMOVE"
-			id4="ID_DOWNLOADS_MOVE_BOTTOM" id5="ID_DOWNLOADS_MOVE_DOWN" id6="ID_SECURITY_MOVE_DOWN"	id7="ID_DOWNLOAD_GROUP_MOVERIGHT"/>
+		<image id="ID_MEDIA_ADD" id1="ID_TOOLS_DOWNLOAD" id2="ID_DOWNLOADS_ENQUEUE" id3="ID_LIBRARY_ENQUEUE" id4="ID_IRC_ADD" id5="ID_DISCOVERY_ADD" id6="ID_SCHEDULER_ACTIVATE"/>
+		<image id="ID_MEDIA_REMOVE" id1="ID_VIEW_MEDIA" id2="ID_TAB_MEDIA" id3="ID_IRC_REMOVE" id4="ID_SCHEDULER_DEACTIVATE"/>
 		<!--Cancel/Stars-->
 		<image id="ID_NEIGHBOURS_DISCONNECT" id1="ID_NETWORK_DISCONNECT" id2="ID_TRANSFERS_DISCONNECT" id3="ID_MONITOR_CLOSE" id4="ID_NETWORK_EXIT" id5="ID_SEARCH_CLEAR" id6="ID_SYSTEM_CLEAR"/>
-		<image id="ID_DOWNLOADS_CLEAR_INCOMPLETE" id1="ID_UPLOADS_CLEAR" id2="ID_DOWNLOADS_FILE_DELETE" id3="ID_SECURITY_REMOVE"
-			id4="ID_LIBRARY_DELETE" id5="ID_LIBRARY_ALBUM_DELETE" id6="ID_LIBRARY_FOLDER_DELETE" id7="ID_LIBRARY_REMOVE" id8="ID_HOSTCACHE_REMOVE" id9="ID_DISCOVERY_REMOVE"/>
+		<image id="ID_DOWNLOADS_CLEAR_INCOMPLETE" id1="ID_UPLOADS_CLEAR" id2="ID_DOWNLOADS_FILE_DELETE" id3="ID_SECURITY_REMOVE" id4="ID_SCHEDULER_REMOVE"
+			id5="ID_LIBRARY_DELETE" id6="ID_LIBRARY_ALBUM_DELETE" id7="ID_LIBRARY_FOLDER_DELETE" id8="ID_LIBRARY_REMOVE" id9="ID_HOSTCACHE_REMOVE" id10="ID_DISCOVERY_REMOVE"/>
 		<image id="PluginID_ImageViewer_Close"/> <!--Delete-->
 		<image id="ID_SEARCH_STOP" id1="ID_BROWSE_STOP" id2="ID_NETWORK_DISCONNECT" id3="ID_UPLOADS_DISCONNECT"
-			id4="ID_IRC_DISCONNECT" id5="ID_CHAT_DISCONNECT" id6="ID_HOSTCACHE_DISCONNECT"/>
+			id4="ID_IRC_DISCONNECT" id5="ID_CHAT_DISCONNECT" id6="ID_HOSTCACHE_DISCONNECT" id7="ID_SCHEDULER_REMOVE_ALL"/>
 		<image id="ID_SECURITY_BAN" id1="ID_TRANSFERS_FORGET" id2="ID_DOWNLOAD_GROUP_REMOVE"/>
 		<image id="ID_LIBRARY_UNLINK" /> <!--IDI_RATING_FAKE-->
 		<image /> <!--IDI_RATING_AVERAGE-->
@@ -2611,7 +2649,7 @@
 		<image id="ID_VIEW_DOWNLOADS" id1="ID_TAB_TRANSFERS" id2="ID_LIBRARY_FOLDER_DOWNLOAD" id3="ID_SHAREMONKEY_DOWNLOAD"/>
 		<image id="ID_VIEW_UPLOADS" id1="ID_CHAT_SEND_FILE"/>
 		<image id="ID_HELP_ABOUT" id1="ID_DOWNLOADS_HELP" id2="ID_UPLOADS_HELP"/>
-		<image id="ID_MEDIA_SAVE" id1="ID_SHAREMONKEY_SAVE" id2="ID_SECURITY_EXPORT"/>
+		<image id="ID_MEDIA_SAVE" id1="ID_SHAREMONKEY_SAVE" id2="ID_SECURITY_EXPORT" id3="ID_SCHEDULER_EXPORT"/>
 		<image id="ID_MEDIA_PLAYLIST"/>
 		<image id="ID_SEARCH_PANEL"/>
 		<image id="ID_SEARCH_DETAILS" id1="ID_LIBRARY_PANEL" id2="ID_WINDOW_REMOTE"/>
@@ -2622,7 +2660,7 @@
 		<image id="ID_LIBRARY_BITZI_WEB"/>
 		<image />
 		<image id="ID_TOOLS_SKIN"/>
-		<image />
+		<image id="ID_VIEW_SCHEDULER" id1="ID_SCHEDULER_ADD" id2="ID_SCHEDULER_EDIT"/>
 		<image id="ID_TOOLS_SETTINGS" id1="ID_MEDIA_SETTINGS" id2="ID_NEIGHBOURS_SETTINGS" id3="ID_IRC_SETTINGS"
 			id4="ID_DOWNLOADS_SETTINGS" id5="ID_UPLOADS_SETTINGS" id6="ID_UPLOADS_EDIT_QUEUE" id7="ID_TRAFFIC_SETUP"/>
 		<!--Search/Copy-->
@@ -2666,6 +2704,11 @@
 		<image id="ID_CHAT_UNDERLINE"/>
 		<image id="ID_CHAT_COLOR"/>
 		<image id="ID_CHAT_EMOTICONS"/>
+		<!--Arrows-->  	
+		<image id="ID_DOWNLOADS_MOVE_TOP" id1="ID_DOWNLOADS_MOVE_UP" id2="ID_SECURITY_MOVE_UP"/>
+		<image id="ID_DOWNLOADS_MOVE_BOTTOM" id1="ID_DOWNLOADS_MOVE_DOWN" id2="ID_SECURITY_MOVE_DOWN"/>
+		<image id="ID_DOWNLOAD_GROUP_MOVELEFT" id1="ID_MOVETAB_LEFT" id2="ID_MOVETAB_FIRST"/>
+		<image id="ID_DOWNLOAD_GROUP_MOVERIGHT" id1="ID_MOVETAB_RIGHT" id2="ID_MOVETAB_LAST"/>
 	</bitmap>
 	<bitmap id="IDB_IRCICONS">
 		<image id="ID_TAB_IRC"/>

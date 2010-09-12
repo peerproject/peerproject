@@ -5,17 +5,12 @@
  *
  * Description: C++ wrapper for tracing functions.
  * Author: Maksim Pyatkovskiy.
- *
- * This source code is only intended as a supplement to the
- * BugTrap package reference and related electronic documentation
- * provided with the product. See these sources for detailed
- * information regarding the BugTrap package.
  */
+
+#pragma once
 
 #ifndef _BTTRACE_H_
 #define _BTTRACE_H_
-
-#pragma once
 
 #ifndef _BUGTRAP_H_
  #error Include BugTrap.h first

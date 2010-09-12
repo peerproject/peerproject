@@ -144,11 +144,9 @@ bool _do_match_iterative( sub_expr_base<IterT> const * expr, match_param<IterT> 
 REGEXPR_H_INLINE size_t DEFAULT_BLOCK_SIZE()
 {
 #if REGEX_DEBUG_HEAP
-    // put each allocation in its own mem_block
-    return 1;
+    return 1;	// Put each allocation in its own mem_block
 #else
-    // put multiple allocation in each mem_block
-    return 352;
+    return 352;	// Put multiple allocation in each mem_block
 #endif
 }
 
@@ -207,7 +205,7 @@ class boyer_moore
         return static_cast<unsigned char>( std::char_traits<CharT>::to_int_type( ch ) % 256 );
     }
 
-    // case-sensitive Boyer-Moore search
+    // Case-sensitive Boyer-Moore search
     template< typename OtherT >
     OtherT find_with_case( OtherT begin, OtherT end ) const
     {
@@ -236,7 +234,7 @@ class boyer_moore
         return end;
     }
 
-    // case-insensitive Boyer-Moore search
+    // Case-insensitive Boyer-Moore search
     template< typename OtherT >
     OtherT find_without_case( OtherT begin, OtherT end ) const
     {
@@ -268,8 +266,8 @@ class boyer_moore
     }
 
 public:
-    // initialize the Boyer-Moore search data structure, using the
-    // search sub-sequence to prime the pump.
+    // Initialize the Boyer-Moore search data structure,
+    // using the search sub-sequence to prime the pump.
     boyer_moore( IterT begin, IterT end, char_type const* lower = 0 )
         : m_begin( begin )
         , m_last( begin )
@@ -318,11 +316,9 @@ public:
     }
 };
 
-// This class is used to speed up character set matching by providing
-// a bitset that spans the ASCII range. std::bitset is not used because
-// the range-checking slows it down.
-// Note: The division and modulus operations are optimized by the compiler
-// into bit-shift operations.
+// This class is used to speed up character set matching by providing a bitset
+// that spans the ASCII range. std::bitset is not used because the range-checking slows it down.
+// Note: The division and modulus operations are optimized by the compiler into bit-shift operations.
 class ascii_bitvector
 {
     typedef unsigned int elem_type;
@@ -332,7 +328,7 @@ class ascii_bitvector
         CBELEM = CHAR_BIT * sizeof( elem_type ), // count of bits per element
         CELEMS = ( UCHAR_MAX+1 ) / CBELEM        // number of element in array
     };
-    
+
     elem_type m_rg[ CELEMS ];
 
     // Used to inline operations like: bv1 |= ~bv2; without creating temp bit vectors.
@@ -384,7 +380,7 @@ public:
 
 typedef std::pair<wchar_t, wchar_t> range_type;
 
-// determines if one range is less then another.
+// Determines if one range is less then another.
 // used in binary search of range vector
 struct range_less
 {
@@ -394,8 +390,7 @@ struct range_less
     }
 };
 
-// A singly-linked list, which works even if the allocator
-// has per-instance state.
+// A singly-linked list, which works even if the allocator has per-instance state.
 template< typename T, typename AllocT=std::allocator<T> >
 class slist
 {
@@ -666,7 +661,7 @@ struct basic_charset
         m_nestedcharsets.clear();
     }
 
-    // merge one charset into another
+    // Merge one charset into another
     basic_charset & operator|=( other_type const & that )
     {
         if( that.m_fcompliment )
@@ -785,10 +780,10 @@ struct basic_charset
     {
         if( m_ranges.begin() != m_ranges.end() )
         {
-            // this sorts on range_type.m_pfirst ( uses operator<() for pair templates )
+            // This sorts on range_type.m_pfirst ( uses operator<() for pair templates )
             m_ranges.sort();
 
-            // merge ranges that overlap
+            // Merge ranges that overlap
             typename ranges_type::iterator icur=m_ranges.begin(), iprev=icur++;
             while( icur != m_ranges.end() )
             {
@@ -893,8 +888,8 @@ struct basic_charset
     template< bool CaseT >
     bool in( wchar_t ch REGEX_VC6(COMMA bool2type<CaseT>) ) const
     {
-        // use range_match_type to see if this character is within one of the
-        // ranges stored in m_rgranges.
+        // Use range_match_type to see if this character is within
+        // one of the ranges stored in m_rgranges.
         return m_fcompliment !=
                (
                     ( ( UCHAR_MAX >= ch ) ?
@@ -1054,8 +1049,8 @@ struct bos_t
     }
 };
 
-// Find the beginning of a line, either beginning of a string, or the character
-// immediately following a newline
+// Find the beginning of a line, either beginning of a string,
+// or the character immediately following a newline
 template< typename CStringsT >
 struct bol_t
 {
@@ -1092,8 +1087,7 @@ struct eos_t<true_t>
     }
 };
 
-// Evaluates end-of-line conditions, either the end of the string, or a
-// newline character.
+// Evaluates end-of-line conditions, either the end of the string, or a newline character.
 template< typename CStringsT >
 struct eol_t
 {
@@ -1282,8 +1276,8 @@ struct peek_param
         CharT const *   m_pchars;
     };
 
-    // "must" is a string that must appear in the match. It is used
-    // to speed up the search.
+    // "must" is a string that must appear in the match.
+    // It is used to speed up the search.
     must_have<CharT>    m_must_have;
 };
 
@@ -1458,7 +1452,7 @@ public:
 };
 
 // Base class for sub-expressions which are zero-width
-// ( i.e., assertions eat no characters during matching )
+// (assertions eat no characters during matching)
 // Assertions cannot be quantified.
 template< typename IterT >
 class assertion : public sub_expr<IterT>
@@ -1657,11 +1651,11 @@ public:
     {
     }
 
-    // Why a macro instead of a template, you ask?  Performance.  Due to a known
-    // bug in the VC7 inline heuristic, I cannot get VC7 to inline the calls to
-    // m_psub methods unless I use these macros.  And the performance win is
-    // nothing to sneeze at. It's on the order of a 25% speed up to use a macro
-    // here instead of a template.
+    // Why a macro instead of a template, you ask?  Performance.
+    // Due to a known bug in the VC7 inline heuristic, I cannot get VC7 to
+    // inline the calls to m_psub methods unless I use these macros.
+    // And the performance win is nothing to sneeze at. It's on the order of
+    // a 25% speed up to use a macro here instead of a template.
 #define DECLARE_RECURSIVE_MATCH_ALL(CSTRINGS,EXT)                                                           \
     virtual bool recursive_match_all ## EXT( match_param<IterT> & param, IterT icur ) const                 \
     {                                                                                                       \
@@ -1758,11 +1752,11 @@ public:
     {
     }
 
-    // Why a macro instead of a template, you ask?  Performance.  Due to a known
-    // bug in the VC7 inline heuristic, I cannot get VC7 to inline the calls to
-    // m_psub methods unless I use these macros.  And the performance win is
-    // nothing to sneeze at. It's on the order of a 25% speed up to use a macro
-    // here instead of a template.
+    // Why a macro instead of a template, you ask?  Performance.
+    // Due to a known bug in the VC7 inline heuristic, I cannot get VC7 to
+    // inline the calls to m_psub methods unless I use these macros.
+    // And the performance win is nothing to sneeze at. It's on the order of
+    // a 25% speed up to use a macro here instead of a template.
 #define DECLARE_RECURSIVE_MATCH_ALL(CSTRINGS,EXT)                                                           \
     virtual bool recursive_match_all ## EXT( match_param<IterT> & param, IterT icur ) const                 \
     {                                                                                                       \
@@ -2224,8 +2218,8 @@ inline sub_expr<IterT> * create_literal
     regex_arena &   arena
 )
 {
-    // A match_char is faster than a match_literal, so prefer it
-    // when the literal to match is only 1 char wide.
+    // A match_char is faster than a match_literal,
+    // so prefer it when the literal to match is only 1 char wide.
     if( 1 == std::distance<IEndT>( ibegin, iend ) )
     {
         return create_char<IterT>( *ibegin, flags, arena );
@@ -2364,7 +2358,7 @@ class match_charset_t : public match_charset<IterT>
     template< typename CStringsT >
     bool _do_match_this( match_param<IterT> & param, IterT & icur REGEX_VC6(COMMA CStringsT) ) const
     {
-        if( eos_t<CStringsT>::eval( param, icur ) || 
+        if( eos_t<CStringsT>::eval( param, icur ) ||
             ! m_pcs->REGEX_NVC6(template) in REGEX_NVC6(<CaseT>)( *icur REGEX_VC6(COMMA bool2type<CaseT>()) ) )
             return false;
         ++icur;
@@ -2606,7 +2600,7 @@ private:
     {
         typedef typename alt_list_type::const_iterator iter_type;
 
-        if( 0 != m_peek_chars_begin && 
+        if( 0 != m_peek_chars_begin &&
             ( eos_t<CStringsT>::eval( param, icur ) ||
               m_peek_chars_end == std::find( m_peek_chars_begin, m_peek_chars_end, *icur ) ) )
         {
@@ -2641,7 +2635,7 @@ private:
     template< typename CStringsT >
     bool _iterative_match_this( match_param<IterT> & param REGEX_VC6(COMMA CStringsT) ) const
     {
-        if( 0 != m_peek_chars_begin && 
+        if( 0 != m_peek_chars_begin &&
             ( eos_t<CStringsT>::eval( param, param.m_icur ) ||
               m_peek_chars_end == std::find( m_peek_chars_begin, m_peek_chars_end, *param.m_icur ) ) )
         {
@@ -2847,7 +2841,7 @@ protected:
     alt_list_type           m_rgalternates;
     size_t const            m_cgroup;
     width_type              m_nwidth;
-    
+
     union
     {
         sub_expr<IterT>  ** m_pptail; // only used when adding elements
@@ -2862,16 +2856,16 @@ inline match_group_base<IterT>::~match_group_base()
 {
 }
 
-// A indestructable_sub_expr is an object that brings itself back
-// to life after explicitly being deleted.  It is used
+// A indestructable_sub_expr is an object that brings itself
+// back to life after explicitly being deleted.  It is used
 // to ease clean-up of the sub_expr graph, where most
 // nodes are dynamically allocated, but some nodes are
 // members of other nodes and are not dynamically allocated.
 // The recursive delete of the sub_expr graph causes
 // delete to be ( incorrectly ) called on these members.
 // By inheriting these members from indestructable_sub_expr,
-// explicit attempts to delete the object will have no
-// effect. ( Actually, the object will be destructed and
+// explicit attempts to delete the object will have no effect.
+// ( Actually, the object will be destructed and
 // then immediately reconstructed. ) This is accomplished
 // by calling placement new in operator delete.
 template< typename IterT, typename T >
@@ -3129,7 +3123,9 @@ class independent_group_base : public match_group_base<IterT>
         // be modified by the lookahead.
         if( m_extent.second )
         {
-            prgbr = static_cast<backref_tag<IterT>*>( alloca( m_extent.second * sizeof( backref_tag<IterT> ) ) );
+            prgbr = static_cast<backref_tag<IterT>*>( malloc( m_extent.second * sizeof( backref_tag<IterT> ) ) );
+			if ( ! prgbr ) return false;
+
             std::uninitialized_copy(
                 param.m_prgbackrefs + m_extent.first,
                 param.m_prgbackrefs + m_extent.first + m_extent.second,
@@ -3424,7 +3420,9 @@ class lookbehind_assertion : public independent_group_base<IterT>
         // be modified by the lookbehind.
         if( this->m_extent.second )
         {
-            prgbr = static_cast<backref_tag<IterT>*>( alloca( this->m_extent.second * sizeof( backref_tag<IterT> ) ) );
+            prgbr = static_cast<backref_tag<IterT>*>( malloc( this->m_extent.second * sizeof( backref_tag<IterT> ) ) );
+			if ( ! prgbr ) return false;
+
             std::uninitialized_copy(
                 param.m_prgbackrefs + this->m_extent.first,
                 param.m_prgbackrefs + this->m_extent.first + this->m_extent.second,
@@ -3887,7 +3885,7 @@ protected:
         {
             backref_tag<IterT> & br = param.m_prgbackrefs[ m_pquant->group_number() ];
 
-            // forcibly break the infinite loop
+            // Forcibly break the infinite loop
             if( param.m_icur == br.reserved4 )
             {
                 _push_frame( param );
@@ -3897,8 +3895,7 @@ protected:
 
             _push_frame( param );
 
-            // If we've matched the max nbr of times, move on to the next
-            // sub-expr.
+            // If we've matched the max nbr of times, move on to the next sub-expr.
             if( m_pquant->m_ubound == br.reserved2 )
             {
                 param.m_pnext = m_pquant->next();
@@ -3918,7 +3915,7 @@ protected:
 
             backref_tag<IterT> & br = param.m_prgbackrefs[ m_pquant->group_number() ];
 
-            // infinite loop forcibly broken
+            // Infinite loop forcibly broken
             if( param.m_icur == param.m_pstack->REGEX_NVC6(template) top REGEX_NVC6(<smart_iter_type>) ( REGEX_VC6(type2type<smart_iter_type>()) ) )
             {
                 _pop_frame( param );
@@ -4015,8 +4012,7 @@ public:
 
     virtual ~min_group_quantifier()
     {
-        // Must call _cleanup() here before the end_quant object
-        // gets destroyed.
+        // Must call _cleanup() here before the end_quant object gets destroyed.
         this->_cleanup();
     }
 
@@ -4370,8 +4366,10 @@ class match_recurse : public sub_expr<IterT>
         if( icur == param.m_prgbackrefs[ 0 ].reserved1 )
             return this->recursive_match_next_( param, icur, CStringsT() );
 
-        // copy the backref vector onto the stack
-        IterT * prgci = static_cast<IterT*>( alloca( param.m_cbackrefs * sizeof( IterT ) ) );
+        // Copy the backref vector onto the stack
+        IterT * prgci = static_cast<IterT*>( malloc( param.m_cbackrefs * sizeof( IterT ) ) );
+		if ( ! prgci ) return false;
+
         save_backrefs<IterT>( param.m_prgbackrefs, param.m_prgbackrefs + param.m_cbackrefs, prgci );
 
         // Recurse.
@@ -4735,17 +4733,17 @@ public:
     }
 };
 
-template< typename CatT > 
+template< typename CatT >
 struct is_random_access_helper
 {
     enum { value = false };
 };
-template<> 
+template<>
 struct is_random_access_helper<std::random_access_iterator_tag>
 {
     enum { value = true };
 };
-template< typename IterT > 
+template< typename IterT >
 struct is_random_access
 {
     typedef typename std::iterator_traits<IterT>::iterator_category cat_type;
@@ -4803,7 +4801,7 @@ REGEXPR_H_INLINE void basic_rpattern_base<IterT, SyntaxT>::_common_init( REGEX_F
     this->m_nwidth = pgroup->group_width( rggroups, m_invisible_groups );
 
     //
-    // determine if we can get away with only calling m_pfirst->recursive_match_all only once
+    // Determine if we can get away with only calling m_pfirst->recursive_match_all only once
     //
 
     this->m_floop = true;
@@ -4991,13 +4989,12 @@ inline detail::match_group_base<IterT> * basic_rpattern_base<IterT, SyntaxT>::_f
         while( _find_next( ipat, pgroup.get(), sy, rggroups ) ) {}
         must = pgroup->close_group( this->m_arena );
 
-        // if this is a conditional group, then there must be at
-        // most 2 alternates.
+        // If this is a conditional group, then there must be at most 2 alternates.
         if( fconditional && 2 < pgroup->calternates() )
             throw bad_regexpr( "Too many alternates in conditional subexpression" );
 
-        // if this is the top-level group and it returned a "must have"
-        // string, then use that to initialize a boyer-moore search structure
+        // If this is the top-level group and it returned a "must have" string,
+        // then use that to initialize a boyer-moore search structure
         if( detail::is_random_access<IterT>::value && must.m_has && 0 == pgroup->group_number() )
         {
             typedef typename string_type::const_iterator iter_type;
@@ -5013,13 +5010,12 @@ inline detail::match_group_base<IterT> * basic_rpattern_base<IterT, SyntaxT>::_f
             rggroups[ pgroup->group_number() ] = pgroup.get();
         }
 
-        // tell this group how many groups are contained within it
+        // Tell this group how many groups are contained within it
         pgroup->set_extent( detail::extent_type( extent_start, this->m_cgroups - extent_start ) );
 
-        // If this is not a pattern modifier, restore the
-        // flags to their previous settings.  This causes
-        // pattern modifiers to have the scope of their
-        // enclosing group.
+        // If this is not a pattern modifier,
+        // restore the flags to their previous settings.
+        // This causes pattern modifiers to have the scope of their enclosing group.
         sy.set_flags( old_flags );
     }
 
@@ -5029,8 +5025,8 @@ inline detail::match_group_base<IterT> * basic_rpattern_base<IterT, SyntaxT>::_f
 namespace detail
 {
 
-// If we reached the end of the string before finding the end of the
-// character set, then this is an ill-formed regex
+// If we reached the end of the string before finding the end of the character set,
+// then this is an ill-formed regex
 template< typename IterT >
 inline void check_iter( IterT icur, IterT iend )
 {
@@ -5159,7 +5155,7 @@ inline void parse_charset(
 
     check_iter<iter_type>( icur, iend );
 
-    // remember the current position and grab the next token
+    // Remember the current position and grab the next token
     tok = sy.charset_token( icur, iend );
     do
     {
@@ -5167,7 +5163,7 @@ inline void parse_charset(
 
         if( CHARSET_RANGE == tok && fhave_prev )
         {
-            // remember the current position
+            // Remember the current position
             typename string_type::iterator iprev2 = icur;
             fhave_prev = false;
 
@@ -5202,8 +5198,7 @@ inline void parse_charset(
         switch( tok )
         {
             // None of the intrinsic charsets are case-sensitive,
-            // so no special handling must be done when the NOCASE
-            // flag is set.
+            // so no special handling must be done when NOCASE flag is set.
         case CHARSET_RANGE:
         case CHARSET_NEGATE:
         case CHARSET_END:
@@ -5381,8 +5376,8 @@ inline charset const * get_altern_charset( CharT ch, SyntaxT & sy )
 
 //
 // Read ahead through the pattern and treat sequential atoms
-// as a single atom, making sure to handle quantification
-// correctly. Warning: dense code ahead.
+// as a single atom, making sure to handle quantification correctly.
+// Warning: dense code ahead.
 //
 template< typename IterT, typename SyntaxT >
 inline void basic_rpattern_base<IterT, SyntaxT>::_find_atom(
@@ -5965,9 +5960,8 @@ namespace detail
 {
 
 // Here is the main dispatch loop for the iterative match routine.
-// It is responsible for calling match on the current sub-expression
-// and repeating for the next sub-expression. It also backtracks
-// the match when it needs to.
+// It is responsible for calling match on the current sub-expression and
+// repeating for the next sub-expression. It also backtracks the match when it needs to.
 template< typename CStringsT, typename IterT >
 inline bool _do_match_iterative( sub_expr_base<IterT> const * expr, match_param<IterT> & param, IterT icur, CStringsT )
 {

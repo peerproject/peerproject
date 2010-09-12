@@ -79,7 +79,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="winmm.lib version.lib ws2_32.lib wininet.lib Iphlpapi.lib msi.lib powrprof.lib"
+				AdditionalDependencies="rasapi32.lib winmm.lib version.lib ws2_32.lib wininet.lib Iphlpapi.lib msi.lib powrprof.lib"
 				LinkIncremental="2"
 				GenerateManifest="false"
 				IgnoreDefaultLibraryNames=""
@@ -171,7 +171,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="winmm.lib version.lib ws2_32.lib wininet.lib Iphlpapi.lib msi.lib powrprof.lib"
+				AdditionalDependencies="rasapi32.lib winmm.lib version.lib ws2_32.lib wininet.lib Iphlpapi.lib msi.lib powrprof.lib"
 				LinkIncremental="2"
 				GenerateManifest="false"
 				IgnoreDefaultLibraryNames=""
@@ -269,7 +269,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="winmm.lib version.lib ws2_32.lib wininet.lib Iphlpapi.lib msi.lib powrprof.lib"
+				AdditionalDependencies="rasapi32.lib winmm.lib version.lib ws2_32.lib wininet.lib Iphlpapi.lib msi.lib powrprof.lib"
 				GenerateManifest="false"
 				IgnoreDefaultLibraryNames=""
 				SubSystem="2"
@@ -370,7 +370,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="winmm.lib version.lib ws2_32.lib wininet.lib Iphlpapi.lib msi.lib powrprof.lib"
+				AdditionalDependencies="rasapi32.lib winmm.lib version.lib ws2_32.lib wininet.lib Iphlpapi.lib msi.lib powrprof.lib"
 				GenerateManifest="false"
 				IgnoreDefaultLibraryNames=""
 				SubSystem="2"
@@ -2212,6 +2212,10 @@
 					>
 				</File>
 				<File
+					RelativePath="DlgScheduleTask.cpp"
+					>
+				</File>
+				<File
 					RelativePath="DlgSecureRule.cpp"
 					>
 				</File>
@@ -2337,6 +2341,10 @@
 				</File>
 				<File
 					RelativePath="WndPlugin.cpp"
+					>
+				</File>
+				<File
+					RelativePath="WndScheduler.cpp"
 					>
 				</File>
 				<File
@@ -2629,10 +2637,6 @@
 				</File>
 				<File
 					RelativePath="PageSettingsRich.cpp"
-					>
-				</File>
-				<File
-					RelativePath="PageSettingsScheduler.cpp"
 					>
 				</File>
 				<File
@@ -3765,6 +3769,10 @@
 					>
 				</File>
 				<File
+					RelativePath="WndScheduler.h"
+					>
+				</File>
+				<File
 					RelativePath="WndSearch.h"
 					>
 				</File>
@@ -3954,6 +3962,10 @@
 				</File>
 				<File
 					RelativePath="DlgSaveFilterAs.h"
+					>
+				</File>
+				<File
+					RelativePath="DlgScheduleTask.h"
 					>
 				</File>
 				<File
@@ -4174,10 +4186,6 @@
 				</File>
 				<File
 					RelativePath="PageSettingsRich.h"
-					>
-				</File>
-				<File
-					RelativePath="PageSettingsScheduler.h"
 					>
 				</File>
 				<File
@@ -4803,7 +4811,11 @@
 				>
 			</File>
 			<File
-				RelativePath="Res\PointerArrow.ico"
+				RelativePath="Res\PointerArrowIn.ico"
+				>
+			</File>
+			<File
+				RelativePath="Res\PointerArrowOut.ico"
 				>
 			</File>
 			<File
@@ -4832,22 +4844,6 @@
 			</File>
 			<File
 				RelativePath="Res\RemoteWnd.bmp"
-				>
-			</File>
-			<File
-				RelativePath="Res\Scheduler.bmp"
-				>
-			</File>
-			<File
-				RelativePath="Res\SchedulerDown.cur"
-				>
-			</File>
-			<File
-				RelativePath="Res\SchedulerLeft.cur"
-				>
-			</File>
-			<File
-				RelativePath="Res\SchedulerRight.cur"
 				>
 			</File>
 			<File
@@ -4920,10 +4916,6 @@
 			</File>
 			<File
 				RelativePath="Res\TickOpenedHover.ico"
-				>
-			</File>
-			<File
-				RelativePath="Res\TimeSlices.bmp"
 				>
 			</File>
 			<File
@@ -5017,7 +5009,7 @@
 			Name="Library Files"
 			>
 			<File
-				RelativePath="..\Services\BugTrap\BugTrapU-x64.lib"
+				RelativePath="..\Services\BugTrap\BugTrapLib\BugTrapU-x64.lib"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
@@ -5045,7 +5037,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\Services\BugTrap\BugTrapU.lib"
+				RelativePath="..\Services\BugTrap\BugTrapLib\BugTrapU.lib"
 				>
 				<FileConfiguration
 					Name="Debug|x64"

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
   <skin xmlns="http://schemas.peerproject.org/Skin.xsd" version="1.0">
   <!--
 	Name:		ShareazaOS
@@ -34,6 +34,7 @@
       <color name="System.Disabled"              value="7C7E7C"/>      <!-- item inactive/disabled color -->
       <color name="System.Text"                  value="000000"/>      <!-- active menu / item text color -->
       <color name="Dialog.Back"                  value="E6E6E6"/>      <!-- raza settings bg color -->
+      <color name="Dialog.Panel.Back"            value="E6E6E6"/>      <!-- raza settings meta bg color -->
       <color name="ToolTip.Back"                 value="F7F7F7"/>      <!-- transfers tool tip bg color -->
       <color name="ToolTip.Text"                 value="000000"/>      <!-- transfers tool tip text color -->
       <color name="TaskBox.Primary.Back"         value="DDDDDD"/>      <!-- side panel (header color if applic) -->
@@ -76,7 +77,9 @@
     <commandImages>
 	<icon id="ID_DOWNLOADS_MONITOR" path="DownloadMonitor.ico"/>
 	<icon id="IDI_DOWNLOAD_MONITOR" path="DownloadMonitor.ico"/>
-	<icon id="IDI_POINTER_ARROW" path="PointerArrow.ico"/>
+	<icon id="IDI_POINTER_ARROW_IN" path="PointerArrowIn.ico"/>
+	<icon id="IDI_POINTER_ARROW_OUT" path="PointerArrowOut.ico"/>
+	<icon id="IDI_UPDOWN_ARROW" path="UpDownArrow.ico"/>
 	<!--icon id="IDR_MAINFRAME" path="Shareaza.ico"-->
     </commandImages>
     <WindowSkins>
@@ -337,10 +340,12 @@
         </parts>
         <caption align="left" rect="40,-0,500,30" fontFace="Tahoma" fontSize="14" color="333333" inactivecolor="999999" />
       </windowSkin>
-      <!-- IRC -->
+      <!-- IRC SECURITY SCHEDULER -->
       <windowSkin>
         <image path="sos_area.png"/>
         <target window="CIRCWnd.Panel"/>
+        <target window="CSecurityWnd.Panel"/>
+        <target window="CSchedulerWnd.Panel"/>
         <parts>
           <part name="TopLeft" rect="16,189,40,29"/>
           <part name="Top" rect="56,3,5,29"/>
@@ -2818,4 +2823,3 @@
       <!-- end navbar language for ja -->
 </WindowSkins>
 </skin>
-쑶

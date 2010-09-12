@@ -360,9 +360,9 @@ void CRemoteWnd::OnPaint()
 	pDC->SetBkMode( TRANSPARENT );
 	m_bStatus = FALSE;
 
-	PaintHistory( pDC, m_pMonitor->m_pTxItem, m_pMonitor->m_pRxItem, m_pMonitor->m_nMaximum );
-	PaintFlow( pDC, &m_bsFlowTxDest, &m_rcsFlowTxDest, m_bsFlowTxSrc, m_rcsFlowTxSrc, m_pMonitor->m_pTxItem, m_pMonitor->m_nMaximum );
-	PaintFlow( pDC, &m_bsFlowRxDest, &m_rcsFlowRxDest, m_bsFlowRxSrc, m_rcsFlowRxSrc, m_pMonitor->m_pRxItem, m_pMonitor->m_nMaximum );
+	PaintHistory( pDC, m_pMonitor->m_pTxItem, m_pMonitor->m_pRxItem, m_pMonitor->m_nMaximumIn );
+	PaintFlow( pDC, &m_bsFlowTxDest, &m_rcsFlowTxDest, m_bsFlowTxSrc, m_rcsFlowTxSrc, m_pMonitor->m_pTxItem, m_pMonitor->m_nMaximumOut );
+	PaintFlow( pDC, &m_bsFlowRxDest, &m_rcsFlowRxDest, m_bsFlowRxSrc, m_rcsFlowRxSrc, m_pMonitor->m_pRxItem, m_pMonitor->m_nMaximumIn );
 	PaintScaler( pDC );
 	PaintMedia( pDC );
 	PaintStatus( pDC );
@@ -491,15 +491,16 @@ void CRemoteWnd::PaintFlow(CDC* pDC, BOOL* pbDest, CRect* prcDest, BOOL* pbSrc, 
 
 void CRemoteWnd::PaintScaler(CDC* pDC)
 {
+	// MonitorBar Download throttle  (ToDo: Also Settings.Live.BandwidthScaleOut)
 	if ( m_bsScalerTrack )
 	{
 		CRect rcTrack( &m_rcsScalerTrack ), rcPart;
 		float nPosition = 0;
 
-		if ( Settings.Live.BandwidthScale > 100 )
+		if ( Settings.Live.BandwidthScaleIn > 100 )
 			nPosition = 1.0f;
 		else
-			nPosition = (float)Settings.Live.BandwidthScale / 105.0f;
+			nPosition = (float)Settings.Live.BandwidthScaleIn / 105.0f;
 
 		if ( m_bsScalerTab )
 		{
@@ -936,9 +937,10 @@ void CRemoteWnd::TrackScaler()
 		else if ( nPosition >= 102 ) nPosition = 101;
 		else if ( nPosition >= 100 ) nPosition = 100;
 
-		if ( nPosition != (int)Settings.Live.BandwidthScale )
+		// ToDo: Settings.Live.BandwidthScaleOut
+		if ( nPosition != (int)Settings.Live.BandwidthScaleIn )
 		{
-			Settings.Live.BandwidthScale = (DWORD)nPosition;
+			Settings.Live.BandwidthScaleIn = (DWORD)nPosition;
 			Invalidate();
 		}
 	}

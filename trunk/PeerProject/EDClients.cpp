@@ -229,7 +229,7 @@ CEDClient* CEDClients::GetByID(DWORD nClientID, IN_ADDR* pServer, const Hashes::
 
 		if ( pClient->m_nClientID == nClientID )
 		{
-			if ( !oGUID || validAndEqual( pClient->m_oGUID, oGUID ) )
+			if ( ! oGUID || validAndEqual( pClient->m_oGUID, oGUID ) )
 				return pClient;
 		}
 	}
@@ -311,7 +311,8 @@ BOOL CEDClients::IsOverloaded() const
 
 	for ( CEDClient* pClient = m_pFirst ; pClient ; pClient = pClient->m_pEdNext )
 	{
-		if ( pClient->IsValid() ) nCount++;
+		if ( pClient->IsValid() )
+			nCount++;
 	}
 
 	return ( nCount >= ( Settings.eDonkey.MaxLinks + 25 ) );
@@ -323,7 +324,7 @@ BOOL CEDClients::IsMyDownload(const CDownloadTransferED2K* pDownload) const
 
 	for ( CEDClient* pClient = m_pFirst ; pClient ; pClient = pClient->m_pEdNext )
 	{
-		if( pClient->m_pDownload == pDownload )
+		if( pClient->m_pDownloadTransfer == pDownload )
 			return TRUE;
 	}
 	return FALSE;
@@ -371,7 +372,7 @@ BOOL CEDClients::OnAccept(CConnection* pConnection)
 {
 	ASSERT( pConnection != NULL );
 
-	if ( !Network.IsConnected() || ( Settings.Connection.RequireForTransfers && !Settings.eDonkey.EnableToday ) )
+	if ( ! Network.IsConnected() || ( Settings.Connection.RequireForTransfers && ! Settings.eDonkey.EnableToday ) )
 	{
 		theApp.Message( MSG_ERROR, IDS_ED2K_CLIENT_DISABLED,
 			(LPCTSTR)pConnection->m_sAddress );
@@ -539,27 +540,31 @@ void CEDClients::OnServerStatus(SOCKADDR_IN* /*pHost*/, CEDPacket* pPacket)
 		// Current users and files indexed
 		nUsers = pPacket->ReadLongLE();
 		nFiles = pPacket->ReadLongLE();
-	}
-	if ( nLen >= 12 )
-	{
-		// Maximum users allowed
-		nMaxUsers = pPacket->ReadLongLE();
-	}
-	if ( nLen >= 20 )
-	{
-		// Client file limit. (Maximum files you can send to the server)
-		nFileLimit = pPacket->ReadLongLE();	// Soft limit. (Files over this are ignored)
-		pPacket->ReadLongLE();				// 'Hard' limit. (Obey previous, it saves bandwidth)
-	}
-	if ( nLen >= 24 )
-	{
-		// UDP Flags. (This is important, it determines search types, etc)
-		nUDPFlags = pPacket->ReadLongLE();
-	}
-	if ( nLen >= 28 )
-	{
-		// Low ID users.
-		pPacket->ReadLongLE(); // We don't use this
+
+		if ( nLen >= 12 )
+		{
+			// Maximum users allowed
+			nMaxUsers = pPacket->ReadLongLE();
+
+			if ( nLen >= 20 )
+			{
+				// Client file limit. (Maximum files you can send to the server)
+				nFileLimit = pPacket->ReadLongLE();	// Soft limit. (Files over this are ignored)
+				pPacket->ReadLongLE();				// Hard limit. (Obey previous, it saves bandwidth)
+
+				if ( nLen >= 24 )
+				{
+					// UDP Flags. (This is important, it determines search types, etc.)
+					nUDPFlags = pPacket->ReadLongLE();
+
+					if ( nLen >= 28 )
+					{
+						// Low ID users.
+						pPacket->ReadLongLE(); // We don't use this
+					}
+				}
+			}
+		}
 	}
 
 	// Update the server variables
@@ -656,11 +661,10 @@ void CEDClients::RunGlobalStatsRequests(DWORD tNow)
 			//theApp.Message( MSG_INFO, strT );
 
 			// Check if this server could be asked for stats
-			if ( ( pHost->CanQuery( tSecs ) ) &&												// If it hasn't been searched recently
-				 ( ( tSecs > pHost->m_tStats + Settings.eDonkey.StatsServerThrottle  ) ||		// AND we have not checked this host in a week
-				   ( ( pHost->m_nFailures > 0 ) && ( tSecs > pHost->m_tStats + 8*60*60  ) ) ) && // OR last check failed, have not checked in 8 hours
-				 ( ( pHost->m_nUDPFlags == 0 ) ||												// AND it has no flags set
-				   ( m_bAllServersDone ) ) )													//  OR we have checked all servers
+			if ( ( pHost->CanQuery( tSecs ) ) &&													// If it hasn't been searched recently
+				 ( ( tSecs > pHost->m_tStats + Settings.eDonkey.StatsServerThrottle  ) ||			// AND we have not checked this host in a week
+				   ( ( pHost->m_nFailures > 0 ) && ( tSecs > pHost->m_tStats + 8*60*60  ) ) ) &&	// OR last check failed, have not checked in 8 hours
+				 ( ( pHost->m_nUDPFlags == 0 ) || ( m_bAllServersDone ) ) )							// AND it has no flags set OR we have checked all servers
 			{
 				CSingleLock pLock( &Network.m_pSection );
 				if ( ! pLock.Lock( 200 ) ) continue;
@@ -683,9 +687,7 @@ void CEDClients::RunGlobalStatsRequests(DWORD tNow)
 			}
 		}
 
-		// We have checked all known servers, we may go back and re-query any that didn't respond.
-		m_bAllServersDone = TRUE;
-		// Try again later. (we don't want to keep running this section, it's a little slow)
-		m_tLastServerStats = tNow;
+		m_bAllServersDone  = TRUE;		// We have checked all known servers, we may go back and re-query any that didn't respond.
+		m_tLastServerStats = tNow;		// Try again later. (we don't want to keep running this section, it's a little slow)
 	}
 }

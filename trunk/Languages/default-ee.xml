@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Estonian Skin File -->
 
-<!-- Translation based on default-en.xml r56 (Shareaza 2.2.2.9) -->
+<!-- Translation based on default-en.xml r58 (Shareaza 2.2.2.9) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1598,7 +1598,7 @@
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="3">
-			<icon res="128" width="32" height="32"/><gap size="8"/>
+			<icon res="120" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">UUENDUS TEADE</heading>
 			<newline gap="8" indent="42"/>
 			<text id="Upgrade"/>
@@ -1617,7 +1617,7 @@
 			<link target="command:ID_HELP_ROUTER">Kliki siia, et abi saada.</link>
 			<newline gap="18" indent="0"/>
 		</group>
-		<icon res="128" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
+		<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">KOHANDA PEERPROJECT</heading>
 		<newline gap="12" indent="42"/>
 		<icon res="182" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
@@ -1642,7 +1642,7 @@
 		<text align="middle">&#160;- Mine oma eesti keele foorum</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
-			<icon res="128" width="32" height="32"/><gap size="8"/>
+			<icon res="120" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">KAUGTÖÖ ON LUBATUD</heading>
 			<newline gap="8" indent="42"/>
 			<text>PeerProject Kaugtöö on lubatud. Kontrolli PeerProject, kasutades oma browserit:</text>
@@ -1821,9 +1821,6 @@
 		<newline gap="10"/>
 		<link target="page:CUploadsSettingsPage" format="b">Üleslaadimised:</link>
 		<text>&#160;Üleslaadimise mahud, järjekorrad, keelamised, ajastused ja erinõuded.</text>
-		<newline gap="10"/>
-		<link target="page:CSchedulerSettingsPage" format="b">Scheduler:</link>
-		<text>&#160;Limit download connections based on a periodic schedule.</text>
 	</document>
 	<!-- Browse User Profile -->
 	<document name="CBrowseHostProfile.1">
@@ -2600,6 +2597,8 @@
 	<string id="8239" value="Lõpetatud"/>
 	<string id="8240" value="Allikate arv:"/>
 	<string id="8241" value="Arvamuste arv:"/>
+	<string id="8244" value="Piirmäära alla laadida ribalaiust"/>
+	<string id="8245" value="Piirata üleslaadimise ribalaiust"/>
 	<string id="8288" value="Uuri oma PeerProject Raamatukogu"/>
 	<string id="8289" value="Vaatan   "/>
 	<string id="8290" value=" Vaatan   %i kausta sisu"/>
@@ -3133,24 +3132,22 @@
 	<string id="20125" value="Kinnitamata"/>
 	<string id="20126" value="Mitte Huvitatud"/>
 	<string id="20127" value="Mitte Huvitatud"/>
-	<string id="20128" value="allikas"/>
-	<string id="20129" value="allikat"/> <!-- numbers 21, 31, ... -->
-	<string id="20130" value="allikat"/> <!-- tens -->
-	<string id="20131" value="allikat"/> <!-- from 11 to 19 -->
-	<string id="20132" value="allikat"/> <!-- from 2 to 4 -->
-	<string id="20133" value="allikat"/> <!-- from 5 to 9 -->
-	<string id="20134" value="allikast"/><!-- "3/10 sources" -->
+	<string id="20130" value="allikas"/>
+	<string id="20131" value="allikat"/>
+	<string id="20132" value="allikat"/>
+	<string id="20134" value="allikat"/>
 	<string id="20135" value="(Allikateta)"/>
 	<string id="20136" value="Umbes"/>
 	<string id="20137" value="Järgmine"/>
 	<string id="20138" value="Q"/>
-	<string id="20200" value="Pühapäev"/>
+	<string id="20200" value="Every Day"/>
 	<string id="20201" value="Esmaspäev"/>
 	<string id="20202" value="Teisipäev"/>
 	<string id="20203" value="Kolmapäev"/>
 	<string id="20204" value="Neljapäev"/>
 	<string id="20205" value="Reede"/>
 	<string id="20206" value="Laupäev"/>
+	<string id="20207" value="Pühapäev"/>
 	<string id="20210" value="(Hindamata)"/>
 	<string id="20211" value="Vale / Vigane"/>
 	<string id="20212" value="Kehv"/>
@@ -3362,28 +3359,6 @@
 		<control/>
 		<control caption="Abi:"/>
 		<control caption="PeerProject Kaugtöö laseb sul jätta PeerProject tööle ja kontrollida seda eemalt, kasutades weebibrauserit.  Sa pead selle võimaluse kasutamiseks lubama sissetulevad ühendused (näiteks: seadistama ruuteri, jne.)."/>
-	</dialog>
-	<dialog name="CSchedulerSettingsPage" cookie="EdStStStStStStStBuStStStBuBuBuStEdmsBuSt" caption="Planeerija">
-		<control/>
-		<control caption="Püh"/>
-		<control caption="Esm"/>
-		<control caption="Tei"/>
-		<control caption="Kol"/>
-		<control caption="Nel"/>
-		<control caption="Ree"/>
-		<control caption="Lau"/>
-		<control caption="Võti:"/>
-		<control caption="Ära ühenda"/>
-		<control caption="Piiratud ühendus"/>
-		<control caption="Ühenda täiel võimsusel"/>
-		<control caption="_Seaded:"/>
-		<control caption="_Võimalda Planeerija"/>
-		<control caption="_Ühenda G2-te ainult limiteeritult"/>
-		<control caption="% _alla ülekandepiirangut"/>
-		<control/>
-		<control/>
-		<control caption="Abi:"/>
-		<control caption="Planeerija on disainitud lubama sul seada ajad millal PeerProject ühendab ja hakkab faile allalaadima. {n}{n}{n}Vihje: Kui PeerProject on planeerija käivitudes töös, võid näha seda seadeid muutmas- See on normaalne!-"/>
 	</dialog>
 	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuSt" caption="Võrgud">
 		<control caption="PeerProject üldotstarbeline failijagamisprogramm, mis on suuteline ühenduma mitmesse P2P võrkku korraga.  Sellel lehel saad sa valida, millistesse P2P võrkudesse sa tahad ühendada ja siis iga võrgustiku seadeid muuta."/>
@@ -3947,13 +3922,6 @@
 		<control/>
 		<control caption="_Eemalda"/>
 	</dialog>
-	<dialog name="CSchemaColumnsDlg" cookie="CoSyBuBuSt" caption="Vali Teema Pealkiri">
-		<control/>
-		<control/>
-		<control caption="OK"/>
-		<control caption="Tühista"/>
-		<control caption="Vali nimekirjast teema, seejärel vali milliseid pealkirju kuvada."/>
-	</dialog>
 	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuStCoStCoEdStEdStEdStBuBu" caption="Turva Reeglid">
 		<control caption="_Reegel:"/>
 		<control caption="Tüüp:"/>
@@ -3989,7 +3957,42 @@
 		<control caption="OK"/>
 		<control caption="Tühista"/>
 	</dialog>
-	<dialog name="CShareManagerDlg" cookie="StSyBuBuBuBu" caption="Jagatud Kausta Haldur">
+	<dialog name="CScheduleTaskDlg" cookie="BuBuBuCoEdmsEdmsStStBuBuBuBuBuSySyBuBuBuBuBuBuBuBuBuEd" caption="Graafik ülesanne">
+		<control caption="OK"/>
+		<control caption="Tühista"/>
+		<control caption="Select Task Type"/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="% under Download limit"/>
+		<control caption="% under Upload limit"/>
+		<control caption="Active Task"/>
+		<control caption="Enable G2 Only"/>
+		<control caption="Set Event Time"/>
+		<control caption="Specified days"/>
+		<control caption="One day only"/>
+		<control/>
+		<control/>
+		<control caption="Esm"/>
+		<control caption="Tei"/>
+		<control caption="Kol"/>
+		<control caption="Nel"/>
+		<control caption="Ree"/>
+		<control caption="Lau"/>
+		<control caption="Püh"/>
+		<control caption="Kõik"/>
+		<control caption="Kommentaarid"/>
+		<control/>
+	</dialog>
+	<dialog name="CSchemaColumnsDlg" cookie="CoSyBuBuSt" caption="Vali Teema Pealkiri">
+		<control/>
+		<control/>
+		<control caption="OK"/>
+		<control caption="Tühista"/>
+		<control caption="Vali nimekirjast teema, seejärel vali milliseid pealkirju kuvada."/>
+	</dialog>	<dialog name="CShareManagerDlg" cookie="StSyBuBuBuBu" caption="Jagatud Kausta Haldur">
 		<control caption="See on nimekiri sinu Raamautukogus olevatest kaustadest.  Sa võid vasakul asuvatest nuppudest lisada või kustutada kaustu .  Kui lisad uue kausta siis seda jagatakse automaatselt teistega, aga sa saad selle soovi korral ka keelata, PeerProject Raamatukogust."/>
 		<control/>
 		<control caption="_Lisa..."/>
@@ -4323,8 +4326,16 @@
 		<column from="Hits" to=""/>
 		<column from="Action" to="Tegevus"/>
 		<column from="Expires" to="Aegub"/>
-		<column from="#" to=""/>
+		<column from="#" to="#"/>
 		<column from="Comment" to="Kommentaar"/>
+	</list>
+	<list name="CSchedulerWnd">
+		<column from="Task" to="Tegevus"/>
+		<column from="Date" to="Kuupäev"/>
+		<column from="Time" to="Aeg"/>
+		<column from="Status" to="Olek"/>
+		<column from="Activity" to="Aktiivne"/>
+		<column from="Description" to="Kommentaar"/>
 	</list>
 	<list name="CHostCacheWnd">
 		<column from="Address" to="Aadress"/>

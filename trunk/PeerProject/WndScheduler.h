@@ -34,7 +34,6 @@ public:
 
 	DECLARE_SERIAL(CSchedulerWnd)
 
-// Attributes
 protected:
 	CCoolBarCtrl	m_wndToolBar;
 	CListCtrl		m_wndList;
@@ -42,22 +41,14 @@ protected:
 	CLiveListSizer	m_pSizer;
 	DWORD			tLastUpdate;
 
-// Operations
 public:
-	void			Update(int nColumn = -1, BOOL bSort = TRUE);
 	CScheduleTask*	GetItem(int nItem);
+	void			Update(int nColumn = -1, BOOL bSort = TRUE);
+
 	virtual void	OnSkinChange();
+	virtual BOOL	PreTranslateMessage(MSG* pMsg);
 
-// Overrides
-public:
-	//{{AFX_VIRTUAL(CSchedulerWnd)
-	public:
-	virtual BOOL PreTranslateMessage(MSG* pMsg);
-	//}}AFX_VIRTUAL
-
-// Implementation
 protected:
-	//{{AFX_MSG(CSchedulerWnd)
 	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnDestroy();
 	afx_msg void OnSize(UINT nType, int cx, int cy);
@@ -76,7 +67,6 @@ protected:
 	afx_msg void OnUpdateSchedulerRemove(CCmdUI* pCmdUI);
 	afx_msg void OnSchedulerRemove();
 	afx_msg void OnContextMenu(CWnd* pWnd, CPoint point);
-	//}}AFX_MSG
 
 	afx_msg void OnUpdateSchedulerRemoveAll(CCmdUI* pCmdUI);
 	afx_msg void OnSchedulerRemoveAll();
@@ -89,9 +79,11 @@ protected:
 
 	DECLARE_MESSAGE_MAP()
 };
+
 enum {
-	SCHEDULE_NO_ITEM = 1, SCHEDULE_ITEM_ACTIVE, SCHEDULE_ITEM_INACTIVE
+	SCHEDULE_NO_ITEM = 1,
+	SCHEDULE_ITEM_ACTIVE,
+	SCHEDULE_ITEM_INACTIVE
 };
-//{{AFX_INSERT_LOCATION}}
 
 #define IDC_SCHEDULE		100

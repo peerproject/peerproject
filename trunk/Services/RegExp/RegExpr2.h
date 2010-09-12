@@ -31,8 +31,10 @@
   // warning C4061: enumerate 'x' in switch of enum 'y' is not explicitly handled by a case label
   // warning C4640: 'x' : construction of local static object is not thread-safe
 
-# define REGEX_SEH_STACK_OVERFLOW 0xC00000FDL
-# include <malloc.h> // for _resetstkoflw
+#define REGEX_SEH_STACK_OVERFLOW 0xC00000FDL
+
+#include <malloc.h>	// for _resetstkoflw
+
 extern "C" unsigned long __cdecl _exception_code(void);
 
 #include <list>
@@ -41,6 +43,7 @@ extern "C" unsigned long __cdecl _exception_code(void);
 #include <vector>
 #include <memory>
 #include <cwctype>
+#include <algorithm>
 #include "Syntax2.h"
 #include "Restack.h"
 
@@ -77,8 +80,8 @@ namespace detail
 #endif
 
 	// Used to initialize variables with the same value they would have
-	// if they were initialized as a static global. ( Ptrs get NULL,
-	// integer types get 0, etc, etc )
+	// if they were initialized as a static global.
+	// ( Ptrs get NULL, integer types get 0, etc, etc )
 	template< typename T > struct static_init { static T const value; };
 	template< typename T > T const static_init<T>::value = T();
 
@@ -144,14 +147,14 @@ namespace detail
 
 	template< int SizeT > struct type_with_size { char buffer[ SizeT ]; };
 
-	// make up for the fact that the VC6 std::allocator does
-	// not have template constructors
+	// Make up for the fact that the VC6 std::allocator
+	// does not have template constructors
 	template< typename ToT, typename FromT >
 	std::allocator<ToT> convert_allocator( std::allocator<FromT>, int )
 	{
 		return std::allocator<ToT>();
 	}
-	
+
 	template< typename ToT, typename FromT >
 	FromT const & REGEX_CDECL convert_allocator( FromT const & from, ... )
 	{
@@ -877,8 +880,8 @@ public:
 		basic_match_results<IterT, AllocT> & results
 	) const
 	{
-		// If your compile breaks here, it is because CharT* is not
-		// convertible to type IterT. Check the declaration of your rpattern object.
+		// If compile breaks here:  CharT* is not convertible to type IterT.
+		// Check the declaration of your rpattern object.
 		detail::code_assert< detail::is_convertible<CharT*,IterT>::value > const iterator_types_are_not_convertible;
 		( void ) iterator_types_are_not_convertible;
 
@@ -897,8 +900,8 @@ public:
 		size_type len = static_cast<size_type>(-1)
 	) const
 	{
-		// If your compile breaks here, it is because iter_type is not
-		// convertible to type IterT. Check the declaration of your rpattern object.
+		// If compile breaks here:  iter_type is not convertible to type IterT.
+		// Check the declaration of your rpattern object.
 		typedef typename std::basic_string<CharT, TraitsT, AllocT>::const_iterator iter_type;
 		detail::code_assert< detail::is_convertible<iter_type,IterT>::value > const iterator_types_are_not_convertible;
 		( void ) iterator_types_are_not_convertible;
@@ -917,8 +920,8 @@ public:
 	template< typename OtherT >
 	size_t count( OtherT ibegin, OtherT iend ) const
 	{
-		// If your compile breaks here, it is because OtherT is not
-		// convertible to type IterT. Check the declaration of your rpattern object.
+		// If compile breaks here:  OtherT is not convertible to type IterT.
+		// Check the declaration of your rpattern object.
 		detail::code_assert< detail::is_convertible<OtherT,IterT>::value > const iterator_types_are_not_convertible;
 		( void ) iterator_types_are_not_convertible;
 
@@ -928,8 +931,8 @@ public:
 	template< typename CharT >
 	size_t count( CharT * szbegin ) const
 	{
-		// If your compile breaks here, it is because CharT* is not
-		// convertible to type IterT. Check the declaration of your rpattern object.
+		// If compile breaks here:  CharT* is not convertible to type IterT.
+		// Check the declaration of your rpattern object.
 		detail::code_assert< detail::is_convertible<CharT*,IterT>::value > const iterator_types_are_not_convertible;
 		( void ) iterator_types_are_not_convertible;
 
@@ -944,8 +947,8 @@ public:
 		size_type len = static_cast<size_type>(-1)
 	) const
 	{
-		// If your compile breaks here, it is because iter_type is not
-		// convertible to type IterT. Check the declaration of your rpattern object.
+		// If compile breaks here:  iter_type is not convertible to type IterT.
+		// Check the declaration of your rpattern object.
 		typedef typename std::basic_string<CharT, TraitsT, AllocT>::const_iterator iter_type;
 		detail::code_assert< detail::is_convertible<iter_type,IterT>::value > const iterator_types_are_not_convertible;
 		( void ) iterator_types_are_not_convertible;
@@ -970,8 +973,8 @@ public:
 		int limit = 0
 	) const
 	{
-		// If your compile breaks here, it is because OtherT is not
-		// convertible to type IterT. Check the declaration of your rpattern object.
+		// If compile breaks here:  OtherT is not convertible to type IterT.
+		// Check the declaration of your rpattern object.
 		detail::code_assert< detail::is_convertible<OtherT,IterT>::value > const iterator_types_are_not_convertible;
 		( void ) iterator_types_are_not_convertible;
 
@@ -986,17 +989,17 @@ public:
 		int limit = 0
 	) const
 	{
-		// If your compile breaks here, it is because Iter2 is not
-		// convertible to type IterT. Check the declaration of your rpattern object.
+		// If compile breaks here:  Iter2 is not convertible to type IterT.
+		// Check the declaration of your rpattern object.
 		detail::code_assert< detail::is_convertible<Char1T*,IterT>::value > const iterator_types_are_not_convertible;
 		( void ) iterator_types_are_not_convertible;
 
-		// If your compile breaks here, it's because the string you passed in doesn't have
+		// If compile breaks here:  the string you passed in doesn't have
 		// the same character type as your split_results struct
 		same_char_types( Char1T(), Char2T() );
 
-		// If your compile breaks here, it is because CharT const * is not
-		// convertible to type IterT. Check the declaration of your rpattern object.
+		// If compile breaks here:  CharT const * is not convertible to type IterT.
+		// Check the declaration of your rpattern object.
 		return detail::matcher_helper<IterT>::_do_split( *this, results, szbegin, (Char1T*)0, limit, true );
 	}
 
@@ -1010,8 +1013,8 @@ public:
 		size_type len = static_cast<size_type>(-1)
 	) const
 	{
-		// If your compile breaks here, it is because iter_type is not
-		// convertible to type IterT. Check the declaration of your rpattern object.
+		// If compile breaks here:  iter_type is not convertible to type IterT.
+		// Check the declaration of your rpattern object.
 		typedef typename std::basic_string<CharT, TraitsT, AllocT>::const_iterator iter_type;
 		detail::code_assert< detail::is_convertible<iter_type,IterT>::value > const iterator_types_are_not_convertible;
 		( void ) iterator_types_are_not_convertible;
@@ -1036,8 +1039,8 @@ public:
 		size_type len = static_cast<size_type>(-1)
 	) const
 	{
-		// If your compile breaks here, it is because iter_type is not
-		// convertible to type IterT. Check the declaration of your rpattern object.
+		// If compile breaks here:  iter_type is not convertible to type IterT.
+		// Check the declaration of your rpattern object.
 		typedef typename std::basic_string<CharT, TraitsT, AllocT>::const_iterator iter_type;
 		detail::code_assert< detail::is_convertible<iter_type,IterT>::value > const iterator_types_are_not_convertible;
 		( void ) iterator_types_are_not_convertible;
@@ -1129,16 +1132,15 @@ typedef wchar_t rechar_t;
 
 typedef std::basic_string<rechar_t> restring;
 
-// On many implementations of the STL, string::iterator is not a typedef
-// for char*. Rather, it is a wrapper class. As a result, the regex code
-// gets instantiated twice, once for bare pointers (rpattern_c) and once for
-// the wrapped pointers (rpattern). But if there is a conversion from the
-// bare ptr to the wrapped ptr, then we only need to instantiate the template
-// for the wrapped ptr, and the code will work for the bare ptrs, too.
-// This can be a significant space savings.  The REGEX_FOLD_INSTANTIONS
-// macro controls this optimization. The default is "off" for backwards
-// compatibility. To turn the optimization on, compile with:
-// -DREGEX_FOLD_INSTANTIATIONS=1
+// On many implementations of the STL, string::iterator is not a typedef for char*.
+// Rather, it is a wrapper class. As a result, the regex code gets instantiated twice,
+// once for bare pointers (rpattern_c) and once for the wrapped pointers (rpattern).
+// But if there is a conversion from the bare ptr to the wrapped ptr, then we only
+// need to instantiate the template for the wrapped ptr, and the code will work for
+// the bare ptrs, too. This can be a significant space savings. 
+// The REGEX_FOLD_INSTANTIONS macro controls this optimization.
+// The default is "off" for backwards compatibility. To turn the optimization on,
+// compile with: -DREGEX_FOLD_INSTANTIATIONS=1
 #ifndef REGEX_FOLD_INSTANTIATIONS
 #define REGEX_FOLD_INSTANTIATIONS 1
 #endif

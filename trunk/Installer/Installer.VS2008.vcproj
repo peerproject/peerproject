@@ -107,7 +107,7 @@
 	</References>
 	<Files>
 		<File
-			RelativePath="Scripts\Main.VS2008.iss"
+			RelativePath="Scripts\Main.iss"
 			>
 			<FileConfiguration
 				Name="Debug|Win32"

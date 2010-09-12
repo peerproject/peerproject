@@ -924,6 +924,9 @@
     <ClCompile Include="DlgSaveFilterAs.cpp">
       <Filter>Source Files\Dialogs</Filter>
     </ClCompile>
+    <ClCompile Include="DlgScheduleTask.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
     <ClCompile Include="DlgSecureRule.cpp">
       <Filter>Source Files\Dialogs</Filter>
     </ClCompile>
@@ -1015,6 +1018,9 @@
       <Filter>Source Files\Windows</Filter>
     </ClCompile>
     <ClCompile Include="WndPlugin.cpp">
+      <Filter>Source Files\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="WndScheduler.cpp">
       <Filter>Source Files\Windows</Filter>
     </ClCompile>
     <ClCompile Include="WndSearch.cpp">
@@ -1168,9 +1174,6 @@
       <Filter>Source Files\Pages</Filter>
     </ClCompile>
     <ClCompile Include="PageSettingsRich.cpp">
-      <Filter>Source Files\Pages</Filter>
-    </ClCompile>
-    <ClCompile Include="PageSettingsScheduler.cpp">
       <Filter>Source Files\Pages</Filter>
     </ClCompile>
     <ClCompile Include="PageSettingsSkins.cpp">
@@ -1449,7 +1452,10 @@
     <None Include="Res\PeerProject.rc2">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="Res\PointerArrow.ico">
+    <None Include="Res\PointerArrowIn.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Res\PointerArrowOut.ico">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="Res\Preview.ico">
@@ -1471,18 +1477,6 @@
       <Filter>Resource Files</Filter>
     </None>
     <None Include="Res\RemoteWnd.bmp">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="Res\Scheduler.bmp">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="Res\SchedulerDown.cur">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="Res\SchedulerLeft.cur">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="Res\SchedulerRight.cur">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="Res\Search.ico">
@@ -1537,9 +1531,6 @@
       <Filter>Resource Files</Filter>
     </None>
     <None Include="Res\TickOpenedHover.ico">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="Res\TimeSlices.bmp">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="Res\Traffic.ico">
@@ -2381,6 +2372,9 @@
     <ClInclude Include="WndPlugin.h">
       <Filter>Header Files\Windows</Filter>
     </ClInclude>
+    <ClInclude Include="WndScheduler.h">
+      <Filter>Header Files\Windows</Filter>
+    </ClInclude>
     <ClInclude Include="WndSearch.h">
       <Filter>Header Files\Windows</Filter>
     </ClInclude>
@@ -2520,6 +2514,9 @@
       <Filter>Header Files\Dialogs</Filter>
     </ClInclude>
     <ClInclude Include="DlgSaveFilterAs.h">
+      <Filter>Header Files\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="DlgScheduleTask.h">
       <Filter>Header Files\Dialogs</Filter>
     </ClInclude>
     <ClInclude Include="DlgSecureRule.h">
@@ -2681,9 +2678,6 @@
     <ClInclude Include="PageSettingsRich.h">
       <Filter>Header Files\Pages</Filter>
     </ClInclude>
-    <ClInclude Include="PageSettingsScheduler.h">
-      <Filter>Header Files\Pages</Filter>
-    </ClInclude>
     <ClInclude Include="PageSettingsSkins.h">
       <Filter>Header Files\Pages</Filter>
     </ClInclude>
@@ -2773,10 +2767,10 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuildStep Include="..\Services\BugTrap\BugTrapU-x64.lib">
+    <CustomBuildStep Include="..\Services\BugTrap\BugTrapLib\BugTrapU-x64.lib">
       <Filter>Library Files</Filter>
     </CustomBuildStep>
-    <CustomBuildStep Include="..\Services\BugTrap\BugTrapU.lib">
+    <CustomBuildStep Include="..\Services\BugTrap\BugTrapLib\BugTrapU.lib">
       <Filter>Library Files</Filter>
     </CustomBuildStep>
   </ItemGroup>

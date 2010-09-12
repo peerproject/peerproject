@@ -22,13 +22,11 @@
 #pragma once
 
 #include "DlgSkinDialog.h"
-#include "afxdtctl.h"
-#include "afxwin.h"
+#include <afxdtctl.h>		// MFC date & time controls
 
 class CScheduleTask;
 
 //////////////////////////////////////////////////////////////////////
-//
 // CScheduleTaskDlg class: Schedule Item Dialog
 //
 
@@ -39,78 +37,56 @@ public:
 	CScheduleTaskDlg(CWnd* pParent = NULL, CScheduleTask* pSchTask = NULL);
 	virtual ~CScheduleTaskDlg();
 
-// Dialog Data
-public:
-	//{{AFX_DATA(CScheduleTaskDlg)
 	enum { IDD = IDD_SCHEDULE_TASK };
 
-	//}}AFX_DATA
-
+public:
 	CScheduleTask		*m_pScheduleTask;
-	bool				m_bSpecificDays;
 	unsigned int		m_nAction;
 	unsigned int		m_nDays;
 	CString				m_sDescription;
 	CTime				m_tDateAndTime;
+	bool				m_bSpecificDays;
 	bool				m_bActive;
 	bool				m_bNew;
-	BOOL				m_bToggleBandwidth;
 	BOOL				m_bLimitedNetworks;
-	int					m_nLimit;
 	int					m_nLimitDown;
 	int					m_nLimitUp;
 
-// Overrides
-public:
-	//{{AFX_VIRTUAL(CScheduleTaskDlg)
-
-	protected:
-	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
-	//}}AFX_VIRTUAL
-
-// Implementation
-protected:
-	//{{AFX_MSG(CScheduleTaskDlg)
-	virtual BOOL OnInitDialog();
-	virtual void OnOK();
-	afx_msg void OnBnClickedOnlyonce();
-	afx_msg void OnBnClickedToggleBandwidth();
-	afx_msg void OnDtnDatetimechangeDate(NMHDR *pNMHDR, LRESULT *pResult);
-	afx_msg void OnDtnDatetimechangeTime(NMHDR *pNMHDR, LRESULT *pResult);
-	afx_msg void OnBnClickedEveryday();
-	afx_msg void OnBnClickedActive();
-	afx_msg void OnCbnSelchangeEventtype();
-	afx_msg void OnBnClickedButtonAllDays();
-	//}}AFX_MSG
-	void EnableDaysOfWeek(bool bEnable);
-	DECLARE_MESSAGE_MAP()
-public:
-	CEdit				m_wndLimitedEdit;
 	CComboBox			m_wndTypeSel;
+	CButton				m_wndLimitedCheck;
 	CEdit				m_wndLimitedEditDown;
 	CEdit				m_wndLimitedEditUp;
-	CButton				m_wndLimitedCheck;
-	CButton				m_wndLimitedCheckTgl;
-	CStatic				m_wndLimitedStatic;
 	CStatic				m_wndLimitedStaticDown;
 	CStatic				m_wndLimitedStaticUp;
-	CButton				m_wndActiveCheck;
-	CDateTimeCtrl		m_wndDate;
-	CDateTimeCtrl		m_wndTime;
-	CSpinButtonCtrl		m_wndSpin;
 	CSpinButtonCtrl		m_wndSpinDown;
 	CSpinButtonCtrl		m_wndSpinUp;
+	CDateTimeCtrl		m_wndDate;
+	CDateTimeCtrl		m_wndTime;
+	CButton				m_wndActiveCheck;
 	CButton				m_wndRadioOnce;
 	CButton				m_wndRadioEveryDay;
-	CButton				m_wndChkDaySun;
 	CButton				m_wndChkDayMon;
 	CButton				m_wndChkDayTues;
 	CButton				m_wndChkDayWed;
 	CButton				m_wndChkDayThu;
 	CButton				m_wndChkDayFri;
 	CButton				m_wndChkDaySat;
-	CStatic				m_wndGrpBoxDayOfWeek;
+	CButton				m_wndChkDaySun;
 	CButton				m_wndBtnAllDays;
-};
 
-//{{AFX_INSERT_LOCATION}}
+protected:
+	void EnableDaysOfWeek(bool bEnable);
+
+	virtual void DoDataExchange(CDataExchange* pDX);
+	virtual BOOL OnInitDialog();
+	virtual void OnOK();
+
+	afx_msg void OnBnClickedOnlyonce();
+	afx_msg void OnDtnDatetimechangeDate(NMHDR *pNMHDR, LRESULT *pResult);
+	afx_msg void OnDtnDatetimechangeTime(NMHDR *pNMHDR, LRESULT *pResult);
+	afx_msg void OnBnClickedEveryday();
+	afx_msg void OnCbnSelchangeEventType();
+	afx_msg void OnBnClickedButtonAllDays();
+
+	DECLARE_MESSAGE_MAP()
+};

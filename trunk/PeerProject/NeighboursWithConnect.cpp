@@ -35,6 +35,7 @@
 #include "ShakeNeighbour.h"
 #include "EDNeighbour.h"
 #include "Neighbours.h"
+//#include "Scheduler.h"
 
 // Constant "THIS_FILE" is the filename, in Debug mode only
 #ifdef _DEBUG
@@ -53,9 +54,9 @@ CNeighboursWithConnect::CNeighboursWithConnect()
 	ZeroMemory( m_tPresent, sizeof(m_tPresent) );
 
 	// We're not acting as a hub or leaf on Gnutella or Gnutella2 yet
-	m_bG2Leaf	= FALSE;
-	m_bG2Hub	= FALSE;
-	m_bG1Leaf	= FALSE;
+	m_bG2Leaf		= FALSE;
+	m_bG2Hub		= FALSE;
+	m_bG1Leaf		= FALSE;
 	m_bG1Ultrapeer	= FALSE;
 
 	m_tHubG2Promotion	= 0;
@@ -384,7 +385,7 @@ DWORD CNeighboursWithConnect::IsG2HubCapable(BOOL bIgnoreTime, BOOL bDebug)
 	}
 
 	// If we've made it this far, change the rating number from 0 to 1
-	nRating = 1 + CalculateSystemPerformanceScore(bDebug); // The higher it is, the better a hub we can be
+	nRating = 1 + CalculateSystemPerformanceScore( bDebug );	// The higher it is, the better a hub we can be
 
 	// The program is not connected to the Gnutella network
 	if ( ! Settings.Gnutella1.EnableToday )
@@ -486,9 +487,8 @@ DWORD CNeighboursWithConnect::IsG1UltrapeerCapable(BOOL bIgnoreTime, BOOL bDebug
 			// Not enough memory to become a Gnutella ultrapeer
 			if ( bDebug ) theApp.Message( MSG_DEBUG, _T("NO: less than 250 MB RAM") );
 			return FALSE;
-
-		} // This computer has 256 MB of memory or more
-		else
+		}
+		else // This computer has 256 MB of memory or more
 		{
 			// Make a note we passed this test, and keep going
 			if ( bDebug ) theApp.Message( MSG_DEBUG, _T("OK: more than 250 MB RAM") );
@@ -1112,7 +1112,7 @@ void CNeighboursWithConnect::Maintain()
 			}
 
 			// Disconnect from one hub
-			if ( pNewest != NULL ) pNewest->Close(); // Close the connection
+			if ( pNewest ) pNewest->Close();	// Close the connection
 		}
 
 		// If we're over our leaf connection limit for this network
@@ -1135,8 +1135,7 @@ void CNeighboursWithConnect::Maintain()
 			}
 
 			// Disconnect from one leaf
-			if ( pNewest != NULL )
-				pNewest->Close(); // Close the connection
+			if ( pNewest ) pNewest->Close();	// Close the connection
 		}
 	}
 }
@@ -1149,42 +1148,42 @@ DWORD CNeighboursWithConnect::CalculateSystemPerformanceScore(BOOL bDebug)
 {
 	DWORD nRating = 0;
 
-	if ( theApp.m_nPhysicalMemory > 600 * 1024 * 1024 ) // The computer here has more than 600 MB of memory
+	if ( theApp.m_nPhysicalMemory > 640 * 1024 * 1024 )	// The computer here has more than 640 MB of memory
 	{
 		nRating++;
-		if ( bDebug ) theApp.Message( MSG_DEBUG, _T("More than 600 MB RAM") );
+		if ( bDebug ) theApp.Message( MSG_DEBUG, _T("More than 640 MB RAM") );
 	}
 
 	// Our Internet connection allows fast downloads
-	if ( Settings.Connection.InSpeed > 1000 ) // More than 1 Mbps inbound (do)
+	if ( Settings.Connection.InSpeed > 1000 )	// More than 1 Mbps inbound (do)
 	{
 		nRating++;
 		if ( bDebug ) theApp.Message( MSG_DEBUG, _T("More than 1 Mb/s in") );
 	}
 
 	// Our Internet connection allows fast uploads
-	if ( Settings.Connection.OutSpeed > 1000 ) // More than 1 Mbps outbound (do)
+	if ( Settings.Connection.OutSpeed > 1000 )	// More than 1 Mbps outbound (do)
 	{
 		nRating++;
 		if ( bDebug ) theApp.Message( MSG_DEBUG, _T("More than 1 Mb/s out") );
 	}
 
 	// If the program has been connected (do) for more than 8 hours, give it another point
-	if ( Network.GetStableTime() > 28800 ) // 28800 seconds is 8 hours
+	if ( Network.GetStableTime() > 28800 )		// 8 hours uptime in seconds
 	{
 		nRating++;
 		if ( bDebug ) theApp.Message( MSG_DEBUG, _T("Stable for 8 hours") );
 	}
 
 	// If the scheduler isn't enabled, award another point
-	if ( ! Settings.Scheduler.Enable || Settings.Scheduler.AllowHub )
+	if ( ! Settings.Scheduler.Enable )
 	{
 		nRating++;
 	}
-	//else if( Scheduler.GetHoursTo(BANDWIDTH_STOP|SYSTEM_DISCONNECT|SYSTEM_EXIT|SYSTEM_SHUTDOWN ) > 4)
+	//else if( Scheduler.GetHoursTo( BANDWIDTH_STOP|SYSTEM_DISCONNECT|SYSTEM_EXIT|SYSTEM_SHUTDOWN ) > 6 )
 	//{
 	//	nRating++;
-	//	if ( bDebug ) theApp.Message( MSG_DEBUG, _T("Scheduler won't shutdown or disconnect in the next 4 hours") );
+	//	if ( bDebug ) theApp.Message( MSG_DEBUG, _T("Scheduler won't disconnect in the next 6 hours") );
 	//}
 
 	// The user has disabled BitTorrent, so that won't be taking up any bandwidth
@@ -1194,7 +1193,7 @@ DWORD CNeighboursWithConnect::CalculateSystemPerformanceScore(BOOL bDebug)
 		if ( bDebug ) theApp.Message( MSG_DEBUG, _T("BT is not in use") );
 	}
 
-	//Having more CPUs has significant effect on performance
+	// Having more CPUs has significant effect on performance
 	nRating += theApp.m_SysInfo.dwNumberOfProcessors - 1;
 	if ( bDebug && theApp.m_SysInfo.dwNumberOfProcessors > 0 )
 		theApp.Message( MSG_DEBUG, _T("Multi-processor") );

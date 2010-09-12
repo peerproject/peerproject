@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Lithuanian Skin File -->
 
-<!-- Translation based on default-en.xml r56 -->
+<!-- Translation based on default-en.xml r58 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1719,7 +1719,7 @@
 			<newline gap="20" indent="0"/>
 		</group>
 		<group id="3">
-			<icon res="128" width="32" height="32"/><gap size="8"/>
+			<icon res="120" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">PASIRODĖ ATNAUJINIMAS</heading>
 			<newline gap="8" indent="42"/>
 			<text id="Upgrade"/>
@@ -1760,7 +1760,7 @@
 			<link target="command:ID_HELP_ROUTER">Paspauskite čia, jei norite sužinoti, kaip suderinti savo maršrutizatorių ar užkardą</link>
 			<newline gap="18" indent="0"/>
 		</group>
-		<icon res="128" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
+		<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">PRISITAIKYKITE SAU „PEERPROJECT“</heading>
 		<newline gap="12" indent="42"/>
 		<icon res="182" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
@@ -1791,7 +1791,7 @@
 		<text align="middle">Čia rasite taisyklingą „MS Trebuchet“ ir kitus šriftus.</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
-			<icon res="128" width="32" height="32"/><gap size="8"/>
+			<icon res="120" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">NUOTOLINĖ PRIEIGA YRA ĮGALINTA</heading>
 			<newline gap="8" indent="42"/>
 			<text>„PeerProject“ nuotolinė prieiga yra įgalinta. Valdykite „PeerProject“ naudodamiesi naršykle:</text>
@@ -1972,9 +1972,6 @@
 		<newline gap="10"/>
 		<link target="page:CUploadsSettingsPage" format="b">Išsiuntimai:</link>
 		<text>&#160;Išsiuntimo pajėgumo, eilių, prieigos užkirtimo, uždelsties ir specialiųjų užklausų valdymas.</text>
-		<newline gap="10"/>
-		<link target="page:CSchedulerSettingsPage" format="b">Planuotojas:</link>
-		<text>&#160;Ribokite atsisiuntimų ryšį pagal tvarkaraštį.</text>
 	</document>
 	<!-- Browse User Profile -->
 	<document name="CBrowseHostProfile.1">
@@ -2771,6 +2768,8 @@
 	<string id="8239" value="Baigta"/>
 	<string id="8240" value="Šaltinių skaičius:"/>
 	<string id="8241" value="Apžvalgų skaičius:"/>
+	<string id="8244" value="Riba atsisiuntimo greitis"/>
+	<string id="8245" value="Apriboti išsiuntimo greitį"/>
 	<string id="8288" value="Naršoma Jūsų „PeerProject“ kolekcija"/>
 	<string id="8289" value="Naršomas"/>
 	<string id="8290" value="Naršomas %i aplankų turinys"/>
@@ -3326,24 +3325,22 @@
 	<string id="20125" value="Nepatikrinta"/>
 	<string id="20126" value="Nedomina"/>
 	<string id="20127" value="Nedomina"/>
-	<string id="20128" value="šaltinis"/>
-	<string id="20129" value="šaltinis"/>  <!-- numbers 21, 31, ... -->
-	<string id="20130" value="šaltinių"/>  <!-- tens -->
-	<string id="20131" value="šaltinių"/>  <!-- from 11 to 19 -->
-	<string id="20132" value="šaltiniai"/> <!-- from 2 to 4 -->
-	<string id="20133" value="šaltiniai"/> <!-- from 5 to 9 -->
-	<string id="20134" value="šaltinių"/> <!-- "1/10 sources" -->
+	<string id="20130" value="šaltinis"/>
+	<string id="20131" value="šaltinis"/>  <!-- ones 21,31,... -->
+	<string id="20132" value="šaltiniai"/> <!-- few  2-4 -->
+	<string id="20134" value="šaltinių"/>  <!-- others -->
 	<string id="20135" value="(Nėra šaltinių)"/>
 	<string id="20136" value="Apkrautas"/>
 	<string id="20137" value="Sekantis"/>
 	<string id="20138" value="Eil."/>
-	<string id="20200" value="Sekmadienis"/>
+	<string id="20200" value="Dienių"/>
 	<string id="20201" value="Pirmadienis"/>
 	<string id="20202" value="Antradienis"/>
 	<string id="20203" value="Trečiadienis"/>
 	<string id="20204" value="Ketvirtadienis"/>
 	<string id="20205" value="Penktadienis"/>
 	<string id="20206" value="Šeštadienis"/>
+	<string id="20207" value="Sekmadienis"/>
 	<string id="20210" value="(Be įvertinimo)"/>
 	<string id="20211" value="Klastotė / Sugadinta"/>
 	<string id="20212" value="Prasta"/>
@@ -3608,28 +3605,6 @@
 		<control/>
 		<control caption="Pagalba:"/>
 		<control caption="„PeerProject“ nuotolinės prieigos funkcija leidžia jums, naudojantis naršykle, kontroliuoti nuotoliniu būdu „PeerProject“ programą, paliktą veikiančią savo kompiuteryje. Šios funkcijos naudojimuisi reikia, kad kompiuteris priimtų įeinančius susijungimus (t.y. teisingai suderintas maršrutizatorius ir t.t.)."/>
-	</dialog>
-	<dialog name="CSchedulerSettingsPage" cookie="EdStStStStStStStBuStStStBuBuBuStEdmsBuSt" caption="Planuotojas">
-		<control/>
-		<control caption="Sek"/>
-		<control caption="Pir"/>
-		<control caption="Ant"/>
-		<control caption="Tre"/>
-		<control caption="Ket"/>
-		<control caption="Pen"/>
-		<control caption="Šeš"/>
-		<control caption="Raktai:"/>
-		<control caption="Nesijungti"/>
-		<control caption="Apribotas susijungimas"/>
-		<control caption="Jungtis pilna sparta"/>
-		<control caption="_Parinktys:"/>
-		<control caption="Į_galinti planuotoją"/>
-		<control caption="_Jungtis tik prie G2, kai ribojama"/>
-		<control caption="% greitaveikos, kai ribojama"/>
-		<control/>
-		<control/>
-		<control caption="Pagalba:"/>
-		<control caption="Planuotojas yra sukurtas tam, kad leistų Jums nustatyti, kada „PeerProject“ prisijungs ir siųsis failus.{n}{n}{n}Pastaba: Jei esate atvėrę „PeerProject“ tuo metu, kai planuotojas veikia, Jūs galite pastebėti, jog nuostatos keičiasi — tai normalu!"/>
 	</dialog>
 	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuSt" caption="Tinklai">
 		<control caption="„PeerProject“ - tai bendros paskirties failų apsikeitimo programa, kuri gali prisijungti prie kelių lygiaverčio tarptinklinio susijungimo (P2P) tinklų vienu metu. Čia Jūs galite pasirinkti, prie kurių P2P tinklų norite jungtis, o po to - derinti kiekvieną tinklą atskirai."/>
@@ -4195,13 +4170,6 @@
 		<control/>
 		<control caption="Š_alinti"/>
 	</dialog>
-	<dialog name="CSchemaColumnsDlg" cookie="CoSyBuBuSt" caption="Pasirinkite stulpelius iš schemos">
-		<control/>
-		<control/>
-		<control caption="Gerai"/>
-		<control caption="Atšaukti"/>
-		<control caption="Pasirinkite schemą iš sąrašo, o po to pažymėkite laukus, kuriuos rodyti kaip stulpelius."/>
-	</dialog>
 	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuStCoStCoEdStEdStEdStBuBu" caption="Saugos taisyklė">
 		<control caption="_Taisyklė:"/>
 		<control caption="Tipas:"/>
@@ -4237,6 +4205,42 @@
 		<control caption="m"/>
 		<control caption="Gerai"/>
 		<control caption="Atšaukti"/>
+	</dialog>
+	<dialog name="CScheduleTaskDlg" cookie="BuBuBuCoEdmsEdmsStStBuBuBuBuBuSySyBuBuBuBuBuBuBuBuBuEd" caption="Atlikti Užduotį">
+		<control caption="Gerai"/>
+		<control caption="Atšaukti"/>
+		<control caption="Select Task Type"/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="% under Download limit"/>
+		<control caption="% under Upload limit"/>
+		<control caption="Active Task"/>
+		<control caption="Enable G2 Only"/>
+		<control caption="Set Event Time"/>
+		<control caption="Specified days"/>
+		<control caption="One day only"/>
+		<control/>
+		<control/>
+		<control caption="Pir"/>
+		<control caption="Ant"/>
+		<control caption="Tre"/>
+		<control caption="Ket"/>
+		<control caption="Pen"/>
+		<control caption="Šeš"/>
+		<control caption="Sek"/>
+		<control caption="Visi"/>
+		<control caption="Komentarai"/>
+		<control/>
+	</dialog>
+	<dialog name="CSchemaColumnsDlg" cookie="CoSyBuBuSt" caption="Pasirinkite stulpelius iš schemos">
+		<control/>
+		<control/>
+		<control caption="Gerai"/>
+		<control caption="Atšaukti"/>
+		<control caption="Pasirinkite schemą iš sąrašo, o po to pažymėkite laukus, kuriuos rodyti kaip stulpelius."/>
 	</dialog>
 	<dialog name="CShareManagerDlg" cookie="StSyBuBuBuBu" caption="Bendrintų aplankų tvarkytuvė">
 		<control caption="Čia yra Jūsų kolekcijos aplankų sąrašas. Jūs galite pridėti ar pašalinti aplankus naudodamiesi mygtukais apačioje. Kai Jūs pridėsite naują aplanką, jis iš pradžių taps bendrintas, tačiau Jūs galėsite atjungti bendrinimą iš PeerProject kolekcijos lango."/>
@@ -4574,6 +4578,14 @@
 		<column from="Expires" to="Nustoja galioti"/>
 		<column from="#" to="#"/>
 		<column from="Comment" to="Komentaras"/>
+	</list>
+	<list name="CSchedulerWnd">
+		<column from="Task" to="Veiksmas"/>
+		<column from="Date" to="Data"/>
+		<column from="Time" to="Laikas"/>
+		<column from="Status" to="Būklė"/>
+		<column from="Activity" to="Aktyvus"/>
+		<column from="Description" to="Komentaras"/>
 	</list>
 	<list name="CHostCacheWnd">
 		<column from="Address" to="Adresas"/>

@@ -8,7 +8,7 @@
  description="PeerProject's Windows 7 Theme"
  link="http://PeerProject.org"
  email="Contact(at)PeerProject.org"
- license="PPD (Persistent Public Domain)"
+ license="Persistent Public Domain (PPD)"
  platform="PeerProject 1.0"
  path="SkinVista"
  version="1.0"
@@ -29,7 +29,7 @@
   <option name="DropMenu" value="true"/>
   <option name="MenuBorders" value="false"/>
   <option name="MenuGripper" value="false"/>
-  <option name="MonitorBar"  value="114"/>
+  <!--option name="MonitorBar"  value="120"-->
   <!--option name="Taskbar" value="26" width="140"-->
   <!--option name="Toolbar" value="28"-->
   <!--option name="Titlebar" value="64"-->
@@ -194,7 +194,8 @@
   <!--watermark target="CDiscoveryWnd.Toolbar"  	path="Toolbar.png"-->
   <!--watermark target="CHostCacheWnd.Toolbar"  	path="Toolbar.png"-->
   <!--watermark target="CHitMonitorWnd.Toolbar"  	path="Toolbar.png"-->
-  <!--watermark target="CSecurityWnd.Toolbar"  		path="Toolbar.png"-->
+  <!--watermark target="CSchedulerWnd.Toolbar"		path="Toolbar.png"-->
+  <!--watermark target="CSecurityWnd.Toolbar"		path="Toolbar.png"-->
   <watermark target="ImageViewerWnd.Toolbar"		path="Toolbar.png"/>
   <watermark target="CNeighboursWnd.Toolbar"		path="ToolbarLt.png"/>
   <watermark target="CSearchWnd.Panel.Toolbar"		path="Toolbar.png"/>
@@ -548,11 +549,12 @@
 <caption align="left" rect="20,1,500,21" fontFace="Segoe UI" fontSize="13" fontWeight="Normal" color="0666CC" outlinecolor="FFFFFF" inactivecolor="A0BACC"/>
 </windowSkin>
 
-<!-- SECURITY HEADER -->
+<!-- SECURITY/SCHEDULER HEADER -->
 
 <windowSkin>
 <image path="Seven\Header.png"/>
 <target window="CSecurityWnd.Panel"/>
+<target window="CSchedulerWnd.Panel"/>
 <parts>
  <part name="TopLeft"		rect="0,1,70,25"/>
  <part name="Top"		rect="140,1,20,25"/>
@@ -606,8 +608,8 @@
  <button id="ID_MEDIA_PAUSE" visible="false"/>
  <button id="ID_MEDIA_NEXT"/>
    <rightAlign/>
- <control id="IDC_MEDIA_VOLUME" width="70" height="24"/>
  <!--control id="IDC_MEDIA_SPEED" width="70" height="24"-->
+ <control id="IDC_MEDIA_VOLUME" width="70" height="24"/>
  <separator/>
  <button id="ID_MEDIA_ZOOM"/>
  <button id="ID_MEDIA_VIS"/>
@@ -618,14 +620,15 @@
 </toolbar>
 
 <toolbar name="CMediaFrame.Basic">
- <control id="117" width="308" height="24"/>
+ <control id="114" width="308" height="24"/>
  <button id="ID_MEDIA_STOP"/>
  <button id="ID_MEDIA_PREVIOUS"/>
  <button id="ID_MEDIA_PLAY"/>
  <button id="ID_MEDIA_PAUSE" visible="false"/>
  <button id="ID_MEDIA_NEXT"/>
    <rightAlign/>
- <control id="119" width="70" height="24"/>
+ <!--control id="115" width="70" height="24"-->
+ <control id="116" width="70" height="24"/>
  <separator/>
  <button id="ID_MEDIA_ZOOM"/>
  <button id="ID_MEDIA_VIS"/>
@@ -650,8 +653,10 @@
 
 <icons>
  <!--icon id="IDI_UPDOWN_ARROW" path="UpDownArrow.ico" types="16" rtf="0"-->
+ <!--icon id="IDI_POINTER_ARROW_IN" path="PointerArrowIn.ico" types="16" rtf="0"-->
+ <!--icon id="IDI_POINTER_ARROW_OUT" path="PointerArrowOut.ico" types="16" rtf="0"-->
+ <!--icon id="IDI_WIZARD_DOT" path="WizardDot.ico" types="16" rtf="0"-->
  <icon id="WINDOW_NEIGHBOURS" path="IconConnection.ico" types="16" rtf="0"/>
- <icon id="IDI_WIZARD_DOT" path="WizardDot.ico" types="16" rtf="0"/>
 </icons>
 
 <commandImages>
@@ -720,14 +725,14 @@
  <part name="_ID_TAB_SEARCH.Down"	rect="426,72,66,24"/>
 </parts>
 <anchors>
- <anchor name="Background"		rect="0,0,502,28"/>
- <anchor name="_ID_TAB_HOME"		rect="8,2,68,24"/>
- <anchor name="_ID_TAB_TRANSFERS"	rect="76,2,78,24"/>
- <anchor name="_ID_TAB_NETWORK"		rect="154,2,74,24"/>
- <anchor name="_ID_TAB_LIBRARY"		rect="228,2,70,24"/>
- <anchor name="_ID_TAB_MEDIA"		rect="298,2,70,24"/>
- <anchor name="_ID_TAB_IRC"		rect="368,2,66,24"/>
- <anchor name="_ID_TAB_SEARCH"		rect="434,2,66,24"/>
+ <anchor name="Background"		rect="0,0,500,28"/>
+ <anchor name="_ID_TAB_HOME"		rect="6,2,68,24"/>
+ <anchor name="_ID_TAB_TRANSFERS"	rect="74,2,78,24"/>
+ <anchor name="_ID_TAB_NETWORK"		rect="152,2,74,24"/>
+ <anchor name="_ID_TAB_LIBRARY"		rect="226,2,70,24"/>
+ <anchor name="_ID_TAB_MEDIA"		rect="296,2,70,24"/>
+ <anchor name="_ID_TAB_IRC"		rect="366,2,66,24"/>
+ <anchor name="_ID_TAB_SEARCH"		rect="432,2,66,24"/>
 </anchors>
 </windowSkin>
 
@@ -781,6 +786,7 @@
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
+<target window="CMainTabBarCtrl.Tabbed"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <parts>
  <part name="_ID_TAB_HOME.Up"		rect="0,0,74,24"/>
@@ -826,6 +832,7 @@
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
+<target window="CMainTabBarCtrl.Tabbed"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <parts>
  <part name="_ID_TAB_HOME.Up"		rect="0,0,66,24"/>
@@ -870,8 +877,9 @@
 <image type="image" language="cz" path="Seven\RibbonTabs_cz.png"/>
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
-<target window="CMainTabBarCtrl.Windowed"/>
 <target window="CMainTabBarCtrl.Basic"/>
+<target window="CMainTabBarCtrl.Tabbed"/>
+<target window="CMainTabBarCtrl.Windowed"/>
 <parts>
  <part name="_ID_TAB_HOME.Up"		rect="0,0,70,24"/>
  <part name="_ID_TAB_HOME.Checked"	rect="0,24,70,24"/>
@@ -916,6 +924,7 @@
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
+<target window="CMainTabBarCtrl.Tabbed"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <parts>
  <part name="_ID_TAB_HOME.Up"		rect="0,0,70,24"/>
@@ -961,6 +970,7 @@
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
+<target window="CMainTabBarCtrl.Tabbed"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <parts>
  <part name="_ID_TAB_HOME.Up"		rect="0,0,68,24"/>
@@ -1006,6 +1016,7 @@
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
+<target window="CMainTabBarCtrl.Tabbed"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <parts>
  <part name="_ID_TAB_HOME.Up"		rect="0,0,66,24"/>
@@ -1051,6 +1062,7 @@
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
+<target window="CMainTabBarCtrl.Tabbed"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <parts>
  <part name="_ID_TAB_HOME.Up"		rect="0,0,66,24"/>
@@ -1096,6 +1108,7 @@
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
+<target window="CMainTabBarCtrl.Tabbed"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <parts>
  <part name="_ID_TAB_HOME.Up"		rect="0,0,64,24"/>
@@ -1141,6 +1154,7 @@
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
+<target window="CMainTabBarCtrl.Tabbed"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <parts>
  <part name="_ID_TAB_HOME.Up"		rect="0,0,72,24"/>
@@ -1186,6 +1200,7 @@
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
+<target window="CMainTabBarCtrl.Tabbed"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <parts>
  <part name="_ID_TAB_HOME.Up"		rect="0,0,70,24"/>
@@ -1231,6 +1246,7 @@
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
+<target window="CMainTabBarCtrl.Tabbed"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <parts>
  <part name="_ID_TAB_HOME.Up"		rect="0,0,74,24"/>
@@ -1276,6 +1292,7 @@
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
+<target window="CMainTabBarCtrl.Tabbed"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <parts>
  <part name="_ID_TAB_HOME.Up"		rect="0,0,76,24"/>
@@ -1321,6 +1338,7 @@
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
+<target window="CMainTabBarCtrl.Tabbed"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <parts>
  <part name="_ID_TAB_HOME.Up"		rect="0,0,70,24"/>
@@ -1366,6 +1384,7 @@
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
+<target window="CMainTabBarCtrl.Tabbed"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <parts>
  <part name="_ID_TAB_HOME.Up"		rect="0,0,70,24"/>
@@ -1411,6 +1430,7 @@
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
+<target window="CMainTabBarCtrl.Tabbed"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <parts>
  <part name="_ID_TAB_HOME.Up"		rect="0,0,88,24"/>
@@ -1456,6 +1476,7 @@
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
+<target window="CMainTabBarCtrl.Tabbed"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <parts>
  <part name="_ID_TAB_HOME.Up"		rect="0,0,68,24"/>
@@ -1501,6 +1522,7 @@
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
+<target window="CMainTabBarCtrl.Tabbed"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <parts>
  <part name="_ID_TAB_HOME.Up"		rect="0,0,70,24"/>
@@ -1546,6 +1568,7 @@
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
+<target window="CMainTabBarCtrl.Tabbed"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <parts>
  <part name="_ID_TAB_HOME.Up"		rect="0,0,60,24"/>
@@ -1591,6 +1614,7 @@
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
+<target window="CMainTabBarCtrl.Tabbed"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <parts>
  <part name="_ID_TAB_HOME.Up"		rect="0,0,74,24"/>
@@ -1636,6 +1660,7 @@
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
+<target window="CMainTabBarCtrl.Tabbed"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <parts>
  <part name="_ID_TAB_HOME.Up"		rect="0,0,70,24"/>
@@ -1681,6 +1706,7 @@
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
+<target window="CMainTabBarCtrl.Tabbed"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <parts>
  <part name="_ID_TAB_HOME.Up"		rect="0,0,74,24"/>
@@ -1726,6 +1752,7 @@
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
+<target window="CMainTabBarCtrl.Tabbed"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <parts>
  <part name="_ID_TAB_HOME.Up"		rect="0,0,78,24"/>
@@ -1771,6 +1798,7 @@
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
+<target window="CMainTabBarCtrl.Tabbed"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <parts>
  <part name="_ID_TAB_HOME.Up"		rect="0,0,80,24"/>
@@ -1816,6 +1844,7 @@
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
+<target window="CMainTabBarCtrl.Tabbed"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <parts>
  <part name="_ID_TAB_HOME.Up"		rect="0,0,70,24"/>
@@ -1861,6 +1890,7 @@
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
+<target window="CMainTabBarCtrl.Tabbed"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <parts>
  <part name="_ID_TAB_HOME.Up"		rect="0,0,68,24"/>
@@ -1906,6 +1936,7 @@
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
+<target window="CMainTabBarCtrl.Tabbed"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <parts>
  <part name="_ID_TAB_HOME.Up"		rect="0,0,68,24"/>
@@ -1951,6 +1982,7 @@
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
+<target window="CMainTabBarCtrl.Tabbed"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <parts>
  <part name="_ID_TAB_HOME.Up"		rect="0,0,68,24"/>

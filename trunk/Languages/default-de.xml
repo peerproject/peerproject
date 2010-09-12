@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default German Skin File -->
 
-<!-- Translation based on default-en.xml r56 -->
+<!-- Translation based on default-en.xml r58 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1758,7 +1758,7 @@
 			<newline gap="20" indent="0"/>
 		</group>
 		<group id="3">
-			<icon res="128" width="32" height="32"/><gap size="8"/>
+			<icon res="120" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">Update - Hinweis</heading>
 			<newline gap="8" indent="42"/>
 			<text id="Upgrade"/>
@@ -1805,7 +1805,7 @@
 			<link target="command:ID_HELP_ROUTER">sie ihren Router konfigurieren müssen</link>
 			<newline gap="18" indent="0"/>
 		</group>
-		<icon res="128" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
+		<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">PeerProjekt Anpassen</heading>
 		<newline gap="12" indent="42"/>
 		<icon res="182" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
@@ -1830,7 +1830,7 @@
 		<text align="middle">&#160;- Gehen Sie zu Ihrem deutschen Sprache Diskussionsforum</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
-			<icon res="128" width="32" height="32"/><gap size="8"/>
+			<icon res="120" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">Remote Access Ist Aktiviert</heading>
 			<newline gap="8" indent="42"/>
 			<text>PeerProjekt-Remote-Access ist aktiviert.  Sie können PeerProjekt über ihren Webbrowser steuern:</text>
@@ -2011,9 +2011,6 @@
 		<newline gap="10"/>
 		<link target="page:CUploadsSettingsPage" format="b">Uploads:</link>
 		<text>&#160;Uploadkapazität, Warteschlange, Bannen, Timeouts und spezielle Freigaben.</text>
-		<newline gap="10"/>
-		<link target="page:CSchedulerSettingsPage" format="b">Zeitsteuerung:</link>
-		<text>&#160;Downloadgeschwindigkeiten zeitweise automatisch drosseln.</text>
 	</document>
 	<!-- Browse User Profile -->
 	<document name="CBrowseHostProfile.1">
@@ -2820,6 +2817,8 @@
 	<string id="8239" value="Beendet"/>
 	<string id="8240" value="Anzahl Quellen:"/>
 	<string id="8241" value="Anzahl der Rezensionen:"/>
+	<string id="8244" value="Limit Download-Bandbreite"/>
+	<string id="8245" value="Limit Upload-Bandbreite"/>
 	<string id="8288" value="Bibliothek durchsuchen"/>
 	<string id="8289" value="Durchsuchen "/>
 	<string id="8290" value="Inhalt von %i Ordnern anzeigen"/>
@@ -3378,24 +3377,22 @@
 	<string id="20125" value="Nicht verifiziert"/>
 	<string id="20126" value="Nicht unterstützt"/>
 	<string id="20127" value="Uninteressiert"/>
-	<string id="20128" value="Quelle"/>
-	<string id="20129" value="Quellen"/> <!-- numbers 21, 31, ... -->
-	<string id="20130" value="Quellen"/> <!-- tens -->
-	<string id="20131" value="Quellen"/> <!-- from 11 to 19 -->
-	<string id="20132" value="Quellen"/> <!-- from 2 to 4 -->
-	<string id="20133" value="Quellen"/> <!-- from 5 to 9 -->
-	<string id="20134" value="Quellen"/> <!-- "3/10 sources" -->
+	<string id="20130" value="Quelle"/>
+	<string id="20131" value="Quellen"/>
+	<string id="20132" value="Quellen"/>
+	<string id="20134" value="Quellen"/>
 	<string id="20135" value="(Keine Quellen)"/>
 	<string id="20136" value="Choked"/>
 	<string id="20137" value="Next"/>
 	<string id="20138" value="Q"/>
-	<string id="20200" value="Sonntag"/>
+	<string id="20200" value="Every Day"/>
 	<string id="20201" value="Montag"/>
 	<string id="20202" value="Dienstag"/>
 	<string id="20203" value="Mittwoch"/>
 	<string id="20204" value="Donnerstag"/>
 	<string id="20205" value="Freitag"/>
 	<string id="20206" value="Samstag"/>
+	<string id="20207" value="Sonntag"/>
 	<string id="20210" value="(Keine Bewertung)"/>
 	<string id="20211" value="Fälschung/Beschädigt/Irreführend"/>
 	<string id="20212" value="Schlecht"/>
@@ -3660,28 +3657,6 @@
 		<control/>
 		<control caption="Hilfe:"/>
 		<control caption="PeerProjekt's Remote-Access erlaubt es Ihnen, PeerProjekt auf ihrem PC laufen zu lassen und es über einen Webbrowser zu bedienen. Sie müssen eingehende Verbindungen akzeptieren können, um diese Funktion zu benutzen. (Korrekt konfigurierter Router, usw.)"/>
-	</dialog>
-	<dialog name="CSchedulerSettingsPage" cookie="EdStStStStStStStBuStStStBuBuBuStEdmsBuSt" caption="Zeitsteuerung">
-		<control/>
-		<control caption="So"/>
-		<control caption="Mo"/>
-		<control caption="Di"/>
-		<control caption="Mi"/>
-		<control caption="Do"/>
-		<control caption="Fr"/>
-		<control caption="Sa"/>
-		<control caption="Legende:"/>
-		<control caption="Nicht verbinden"/>
-		<control caption="Zeitsteuerung aktiviert"/>
-		<control caption="Volle Geschwindigkeit benutzen"/>
-		<control caption="_Optionen:"/>
-		<control caption="Zeitsteuerung _aktivieren"/>
-		<control caption="_Nur G2, wenn Zeitsteuerung aktiv"/>
-		<control caption="% der _Bandbreite benutzen"/>
-		<control/>
-		<control/>
-		<control caption="Hilfe:"/>
-		<control caption="Bei geöffnetem PeerProjekt und aktivierter Zeitsteuerung sehen Sie, wie sich die Einstellungen ändern - Das ist normal!"/>
 	</dialog>
 	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuSt" caption="Netzwerke">
 		<control caption="PeerProjekt ist ein Allround-File-Sharing-Programm, das auf mehrere P2P-Netzwerke gleichzeitig zugreifen kann. Hier können Sie einstellen, welche Netzwerke Sie verwenden möchten und können netzwerkspezifische Einstellungen vornehmen."/>
@@ -4247,13 +4222,6 @@
 		<control/>
 		<control caption="_Entfernen"/>
 	</dialog>
-	<dialog name="CSchemaColumnsDlg" cookie="CoSyBuBuSt" caption="Spalten- / Schema-Einstellungen">
-		<control/>
-		<control/>
-		<control caption="OK"/>
-		<control caption="Abbrechen"/>
-		<control caption="Wählen Sie ein Schema aus der Liste und anschließend die gewünschten Felder."/>
-	</dialog>
 	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuStCoStCoEdStEdStEdStBuBu" caption="Regel">
 		<control caption="_Regel:"/>
 		<control caption="Typ:"/>
@@ -4289,6 +4257,42 @@
 		<control caption="M"/>
 		<control caption="OK"/>
 		<control caption="Abbrechen"/>
+	</dialog>
+	<dialog name="CScheduleTaskDlg" cookie="BuBuBuCoEdmsEdmsStStBuBuBuBuBuSySyBuBuBuBuBuBuBuBuBuEd" caption="Planen Aufgabe">
+		<control caption="OK"/>
+		<control caption="Abbrechen"/>
+		<control caption="Select Task Type"/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="% under Download limit"/>
+		<control caption="% under Upload limit"/>
+		<control caption="Active Task"/>
+		<control caption="Enable G2 Only"/>
+		<control caption="Set Event Time"/>
+		<control caption="Specified days"/>
+		<control caption="One day only"/>
+		<control/>
+		<control/>
+		<control caption="Mo"/>
+		<control caption="Di"/>
+		<control caption="Mi"/>
+		<control caption="Do"/>
+		<control caption="Fr"/>
+		<control caption="Sa"/>
+		<control caption="So"/>
+		<control caption="Alle"/>
+		<control caption="Kommentare"/>
+		<control/>
+	</dialog>
+	<dialog name="CSchemaColumnsDlg" cookie="CoSyBuBuSt" caption="Spalten- / Schema-Einstellungen">
+		<control/>
+		<control/>
+		<control caption="OK"/>
+		<control caption="Abbrechen"/>
+		<control caption="Wählen Sie ein Schema aus der Liste und anschließend die gewünschten Felder."/>
 	</dialog>
 	<dialog name="CShareManagerDlg" cookie="StSyBuBuBuBu" caption="Ordner verwalten">
 		<control caption="Das ist eine Liste der Ordner Ihrer Bibliothek. Sie können mit den Buttons links Ordner hinzufügen oder entfernen. Wenn Sie einen neuen Ordner hinzufügen, wird er standardmäßig freigegeben. Sie können die Freigabe in der Bibliothek jedoch auch aufheben."/>
@@ -4626,6 +4630,14 @@
 		<column from="Expires" to="Läuft ab"/>
 		<column from="#" to="Priorität"/>
 		<column from="Comment" to="Kommentar"/>
+	</list>
+	<list name="CSchedulerWnd">
+		<column from="Task" to="Aktion"/>
+		<column from="Date" to="Datum"/>
+		<column from="Time" to="Zeit"/>
+		<column from="Status" to="Status"/>
+		<column from="Activity" to="Aktiv"/>
+		<column from="Description" to="Kommentar"/>
 	</list>
 	<list name="CHostCacheWnd">
 		<column from="Address" to="Adresse"/>

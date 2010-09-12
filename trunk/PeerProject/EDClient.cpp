@@ -94,18 +94,16 @@ CEDClient::CEDClient()
 	, m_bEmLargeFile	( FALSE )	// LargeFile support
 
 	// Misc stuff
+	, m_pDownloadTransfer ( NULL )
+	, m_pUploadTransfer	( NULL )
+	, m_nRunExCookie	( 0 )
 	, m_bLogin			( FALSE )
-
-	, m_pDownload		( NULL )
-	, m_pUpload			( NULL )
 	, m_bSeeking		( FALSE )
 	, m_bCallbackRequested ( false )
-	, m_nRunExCookie	( 0 )
-
 	, m_bOpenChat		( FALSE )
 	, m_bCommentSent	( FALSE )
 
-,	m_nDirsWaiting			( 0ul )
+	, m_nDirsWaiting	( 0ul )
 {
 	m_mInput.pLimit		= &Settings.Bandwidth.Request;
 	m_mOutput.pLimit	= &Settings.Bandwidth.Request;
@@ -116,8 +114,8 @@ CEDClient::CEDClient()
 CEDClient::~CEDClient()
 {
 	ASSERT( ! IsValid() );
-	ASSERT( m_pUpload == NULL );
-	ASSERT( m_pDownload == NULL );
+	ASSERT( m_pUploadTransfer == NULL );
+	ASSERT( m_pDownloadTransfer == NULL );
 
 	EDClients.Remove( this );
 }
@@ -187,7 +185,7 @@ BOOL CEDClient::Connect()
 	if ( EDClients.IsFull( this ) )
 	{
 		// If this download isn't queued, don't try to start it.
-		if ( ! m_pDownload || m_pDownload->m_nState != dtsQueued )
+		if ( ! m_pDownloadTransfer || m_pDownloadTransfer->m_nState != dtsQueued )
 			return FALSE;
 
 		// If we're really overloaded, we may have to drop some queued downloads
@@ -243,23 +241,23 @@ void CEDClient::Merge(CEDClient* pClient)
 {
 	ASSERT( pClient != NULL );
 
-	if ( pClient->m_pDownload != NULL )
+	if ( pClient->m_pDownloadTransfer )
 	{
 		DetachDownload();
-		m_pDownload = pClient->m_pDownload;
-		m_pDownload->m_pClient = this;
+		m_pDownloadTransfer = pClient->m_pDownloadTransfer;
+		m_pDownloadTransfer->m_pClient = this;
 
-		m_mInput.pLimit = &m_pDownload->m_nBandwidth;
-		pClient->m_pDownload = NULL;
+		m_mInput.pLimit = &m_pDownloadTransfer->m_nBandwidth;
+		pClient->m_pDownloadTransfer = NULL;
 	}
 
-	if ( pClient->m_pUpload != NULL )
+	if ( pClient->m_pUploadTransfer )
 	{
 		DetachUpload();
-		m_pUpload = pClient->m_pUpload;
-		m_pUpload->m_pClient = this;
-		m_mOutput.pLimit = &m_pUpload->m_nBandwidth;
-		pClient->m_pUpload = NULL;
+		m_pUploadTransfer = pClient->m_pUploadTransfer;
+		m_pUploadTransfer->m_pClient = this;
+		m_mOutput.pLimit = &m_pUploadTransfer->m_nBandwidth;
+		pClient->m_pUploadTransfer = NULL;
 	}
 
 	// Make sure chat/comments values are carried over
@@ -309,7 +307,8 @@ void CEDClient::Send(CEDPacket* pPacket, BOOL bRelease)
 			OnWrite();
 		}
 
-		if ( bRelease ) pPacket->Release();
+		if ( bRelease )
+			pPacket->Release();
 	}
 	else if ( IsValid() )
 	{
@@ -336,10 +335,10 @@ void CEDClient::Close()
 	CTransfer::Close();
 	m_bConnected = m_bLogin = FALSE;
 
-	if ( ( m_pDownload ) && ( m_pDownload->m_nState == dtsDownloading ) )
+	if ( ( m_pDownloadTransfer ) && ( m_pDownloadTransfer->m_nState == dtsDownloading ) )
 	{
 		theApp.Message( MSG_ERROR, _T("Warning: CEDClient::Close() called for downloading client %s"), m_sAddress );
-		m_pDownload->SetState( dtsNull );
+		m_pDownloadTransfer->SetState( dtsNull );
 	}
 	// if ( ! m_bGUID ) Remove();
 }
@@ -349,11 +348,11 @@ void CEDClient::Close()
 
 BOOL CEDClient::AttachDownload(CDownloadTransferED2K* pDownload)
 {
-	if ( m_pDownload != NULL ) return FALSE;
-	m_pDownload = pDownload;
+	if ( m_pDownloadTransfer ) return FALSE;
+	m_pDownloadTransfer = pDownload;
 
 	if ( m_bLogin )
-		return m_pDownload->OnConnected();
+		return m_pDownloadTransfer->OnConnected();
 	else if ( ! IsValid() )
 		Connect();
 
@@ -363,7 +362,7 @@ BOOL CEDClient::AttachDownload(CDownloadTransferED2K* pDownload)
 void CEDClient::OnDownloadClose()
 {
 	CDownloadSource* pExcept = GetSource();
-	m_pDownload = NULL;
+	m_pDownloadTransfer = NULL;
 	m_mInput.pLimit = &Settings.Bandwidth.Request;
 	SeekNewDownload( pExcept );
 }
@@ -373,7 +372,7 @@ BOOL CEDClient::SeekNewDownload(CDownloadSource* /*pExcept*/)
 	// Removed for a while	ToDo: Restore?
 	return FALSE;
 
-//	if ( m_pDownload != NULL ) return FALSE;
+//	if ( m_pDownloadTransfer ) return FALSE;
 //	if ( m_bSeeking ) return FALSE;
 //	m_bSeeking = TRUE;
 //	BOOL bSeek = Downloads.OnDonkeyCallback( this, pExcept );
@@ -384,21 +383,21 @@ BOOL CEDClient::SeekNewDownload(CDownloadSource* /*pExcept*/)
 void CEDClient::DetachDownload()
 {
 	m_bSeeking = TRUE;
-	if ( m_pDownload != NULL ) m_pDownload->Close( TRI_UNKNOWN );
-	ASSERT( m_pDownload == NULL );
+	if ( m_pDownloadTransfer ) m_pDownloadTransfer->Close( TRI_UNKNOWN );
+	ASSERT( m_pDownloadTransfer == NULL );
 	m_bSeeking = FALSE;
 }
 
 void CEDClient::OnUploadClose()
 {
-	m_pUpload = NULL;
+	m_pUploadTransfer = NULL;
 	m_mOutput.pLimit = &Settings.Bandwidth.Request;
 }
 
 void CEDClient::DetachUpload()
 {
-	if ( m_pUpload != NULL ) m_pUpload->Close();
-	ASSERT( m_pUpload == NULL );
+	if ( m_pUploadTransfer ) m_pUploadTransfer->Close();
+	ASSERT( m_pUploadTransfer == NULL );
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -445,7 +444,7 @@ BOOL CEDClient::OnRun()
 			 tNow - m_mOutput.tLast > Settings.Connection.TimeoutTraffic )
 		{
 			// Don't time out downloading clients.
-			if ( ( m_pDownload ) && ( m_pDownload->m_nState == dtsDownloading ) )
+			if ( ( m_pDownloadTransfer ) && ( m_pDownloadTransfer->m_nState == dtsDownloading ) )
 				return TRUE;
 			// Connection closed (Inactive)
 			theApp.Message( MSG_INFO, IDS_ED2K_CLIENT_CLOSED, (LPCTSTR)m_sAddress );
@@ -460,16 +459,16 @@ BOOL CEDClient::OnRun()
 void CEDClient::OnRunEx(DWORD tNow)
 {
 	// Already downloading or uploading
-	if ( m_pDownload || m_pUpload )
+	if ( m_pDownloadTransfer || m_pUploadTransfer )
 	{
-		if ( m_pDownload )
-			m_pDownload->OnRunEx( tNow );
-		if ( m_pUpload )
-			m_pUpload->OnRunEx( tNow );
+		if ( m_pDownloadTransfer )
+			m_pDownloadTransfer->OnRunEx( tNow );
+		if ( m_pUploadTransfer )
+			m_pUploadTransfer->OnRunEx( tNow );
 	}
 
 	// No connections to this client
-	else if ( !IsValid() )
+	else if ( ! IsValid() )
 	{
 		// A callback was requested
 		if ( m_bCallbackRequested )
@@ -520,8 +519,8 @@ void CEDClient::NotifyDropped()
 	ASSUME_LOCK( Transfers.m_pSection );
 
 	m_bSeeking = TRUE;
-	if ( m_pDownload ) m_pDownload->OnDropped();
-	if ( m_pUpload ) m_pUpload->OnDropped();
+	if ( m_pDownloadTransfer ) m_pDownloadTransfer->OnDropped();
+	if ( m_pUploadTransfer ) m_pUploadTransfer->OnDropped();
 	if ( CHostBrowser* pBrowser = GetBrowser() ) pBrowser->OnDropped();
 	m_bSeeking = FALSE;
 }
@@ -574,12 +573,13 @@ BOOL CEDClient::OnLoggedIn()
 
 	EDClients.Merge( this );
 
-	if ( m_pDownload )
-		m_pDownload->OnConnected();
+	if ( m_pDownloadTransfer )
+		m_pDownloadTransfer->OnConnected();
 	else
 		SeekNewDownload();
 
-	if ( m_pUpload ) m_pUpload->OnConnected();
+	if ( m_pUploadTransfer )
+		m_pUploadTransfer->OnConnected();
 
 	if ( CHostBrowser* pBrowser = GetBrowser() )
 	{
@@ -624,7 +624,7 @@ CHostBrowser* CEDClient::GetBrowser() const
 
 CDownloadSource* CEDClient::GetSource() const
 {
-	return m_pDownload ? m_pDownload->GetSource() : NULL;
+	return m_pDownloadTransfer ? m_pDownloadTransfer->GetSource() : NULL;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -655,36 +655,36 @@ BOOL CEDClient::OnPacket(CEDPacket* pPacket)
 		case ED2K_C2C_QUEUEREQUEST:
 			return OnQueueRequest( pPacket );
 		case ED2K_C2C_QUEUERELEASE:
-			if ( m_pUpload ) m_pUpload->OnQueueRelease( pPacket );
+			if ( m_pUploadTransfer ) m_pUploadTransfer->OnQueueRelease( pPacket );
 			return TRUE;
 		case ED2K_C2C_REQUESTPARTS:
-			if ( m_pUpload ) m_pUpload->OnRequestParts( pPacket );
+			if ( m_pUploadTransfer ) m_pUploadTransfer->OnRequestParts( pPacket );
 			return TRUE;
 
 		// Download
 		case ED2K_C2C_FILEREQANSWER:
-			if ( m_pDownload ) m_pDownload->OnFileReqAnswer( pPacket );
+			if ( m_pDownloadTransfer ) m_pDownloadTransfer->OnFileReqAnswer( pPacket );
 			return TRUE;
 		case ED2K_C2C_FILENOTFOUND:
-			if ( m_pDownload ) m_pDownload->OnFileNotFound( pPacket );
+			if ( m_pDownloadTransfer ) m_pDownloadTransfer->OnFileNotFound( pPacket );
 			return TRUE;
 		case ED2K_C2C_FILESTATUS:
-			if ( m_pDownload ) m_pDownload->OnFileStatus( pPacket );
+			if ( m_pDownloadTransfer ) m_pDownloadTransfer->OnFileStatus( pPacket );
 			return TRUE;
 		case ED2K_C2C_HASHSETANSWER:
-			if ( m_pDownload ) m_pDownload->OnHashsetAnswer( pPacket );
+			if ( m_pDownloadTransfer ) m_pDownloadTransfer->OnHashsetAnswer( pPacket );
 			return TRUE;
 		case ED2K_C2C_QUEUERANK:
-			if ( m_pDownload ) m_pDownload->OnQueueRank( pPacket );
+			if ( m_pDownloadTransfer ) m_pDownloadTransfer->OnQueueRank( pPacket );
 			return TRUE;
 		case ED2K_C2C_STARTUPLOAD:
-			if ( m_pDownload ) m_pDownload->OnStartUpload( pPacket );
+			if ( m_pDownloadTransfer ) m_pDownloadTransfer->OnStartUpload( pPacket );
 			return TRUE;
 		case ED2K_C2C_FINISHUPLOAD:
-			if ( m_pDownload ) m_pDownload->OnFinishUpload( pPacket );
+			if ( m_pDownloadTransfer ) m_pDownloadTransfer->OnFinishUpload( pPacket );
 			return TRUE;
 		case ED2K_C2C_SENDINGPART:
-			if ( m_pDownload ) m_pDownload->OnSendingPart( pPacket );
+			if ( m_pDownloadTransfer ) m_pDownloadTransfer->OnSendingPart( pPacket );
 			return TRUE;
 
 		// Chat
@@ -716,13 +716,13 @@ BOOL CEDClient::OnPacket(CEDPacket* pPacket)
 			return OnEmuleInfo( pPacket );
 
 		case ED2K_C2C_COMPRESSEDPART:
-			if ( m_pDownload ) m_pDownload->OnCompressedPart( pPacket );
+			if ( m_pDownloadTransfer ) m_pDownloadTransfer->OnCompressedPart( pPacket );
 			return TRUE;
 		case ED2K_C2C_QUEUERANKING:
-			if ( m_pDownload ) m_pDownload->OnRankingInfo( pPacket );
+			if ( m_pDownloadTransfer ) m_pDownloadTransfer->OnRankingInfo( pPacket );
 			return TRUE;
 		case ED2K_C2C_FILEDESC:
-			if ( m_pDownload ) m_pDownload->OnFileComment( pPacket );
+			if ( m_pDownloadTransfer ) m_pDownloadTransfer->OnFileComment( pPacket );
 			return TRUE;
 
 		case ED2K_C2C_REQUESTSOURCES:
@@ -736,15 +736,15 @@ BOOL CEDClient::OnPacket(CEDPacket* pPacket)
 
 		// Extented Upload (64Bit LargeFile support)
 		case ED2K_C2C_REQUESTPARTS_I64:
-			if ( m_pUpload ) m_pUpload->OnRequestParts64( pPacket );
+			if ( m_pUploadTransfer ) m_pUploadTransfer->OnRequestParts64( pPacket );
 			return TRUE;
 
 		// Extented Download (64Bit LargeFile support)
 		case ED2K_C2C_SENDINGPART_I64:
-			if ( m_pDownload ) m_pDownload->OnSendingPart64( pPacket );
+			if ( m_pDownloadTransfer ) m_pDownloadTransfer->OnSendingPart64( pPacket );
 			return TRUE;
 		case ED2K_C2C_COMPRESSEDPART_I64:
-			if ( m_pDownload ) m_pDownload->OnCompressedPart64( pPacket );
+			if ( m_pDownloadTransfer ) m_pDownloadTransfer->OnCompressedPart64( pPacket );
 			return TRUE;
 		}
 	}
@@ -1373,8 +1373,8 @@ void CEDClient::DetermineUserAgent()
 
 	// Client allows G2 browse, etc.
 	m_bClientExtended = VendorCache.IsExtended( m_sUserAgent );
-	if ( m_pUpload )
-		m_pUpload->m_bClientExtended = m_bClientExtended;
+	if ( m_pUploadTransfer )
+		m_pUploadTransfer->m_bClientExtended = m_bClientExtended;
 	if ( CDownloadSource* pSource = GetSource() )
 		pSource->m_bClientExtended = m_bClientExtended;
 }
@@ -1556,7 +1556,8 @@ BOOL CEDClient::OnHashsetRequest(CEDPacket* pPacket)
 			}
 		}
 	}
-	if ( pHashset != NULL )
+
+	if ( pHashset )
 	{
 		CEDPacket* pReply = CEDPacket::New( ED2K_C2C_HASHSETANSWER );
 		pReply->Write( oHash );
@@ -1571,7 +1572,7 @@ BOOL CEDClient::OnHashsetRequest(CEDPacket* pPacket)
 		theApp.Message( MSG_INFO, IDS_ED2K_CLIENT_SENT_HASHSET,
 			(LPCTSTR)strName, (LPCTSTR)m_sAddress );
 	}
-	else
+	else // pHashset == NULL
 	{
 		CEDPacket* pReply = CEDPacket::New( ED2K_C2C_FILENOTFOUND );
 		pReply->Write( oHash );
@@ -1593,13 +1594,13 @@ BOOL CEDClient::OnQueueRequest(CEDPacket* /*pPacket*/)
 		return TRUE;
 		// MESSAGE: File not requested yet
 
-	if ( m_pUpload != NULL && validAndUnequal( m_pUpload->m_oED2K, m_oUpED2K ) )
+	if ( ( m_pUploadTransfer ) && validAndUnequal( m_pUploadTransfer->m_oED2K, m_oUpED2K ) )
 		DetachUpload();
 
-	if ( m_pUpload == NULL )
-		m_pUpload = new CUploadTransferED2K( this );
+	if ( m_pUploadTransfer == NULL )
+		m_pUploadTransfer = new CUploadTransferED2K( this );
 
-	m_pUpload->Request( m_oUpED2K );
+	m_pUploadTransfer->Request( m_oUpED2K );
 
 	return TRUE;
 }
@@ -1640,7 +1641,7 @@ BOOL CEDClient::OnMessage(CEDPacket* pPacket)
 	if ( MessageFilter.IsED2KSpam( sMessage ) )
 	{
 		// Block L33cher mods
-		if ( m_pDownload == NULL )
+		if ( m_pDownloadTransfer == NULL )
 			Security.Ban( &m_pHost.sin_addr, banSession, FALSE );
 		// Don't display message
 		return TRUE;
@@ -2366,33 +2367,33 @@ void CEDClient::WritePartStatus(CEDPacket* pPacket, CDownload* pDownload)
 BOOL CEDClient::OnUdpReask(CEDPacket* pPacket)
 {
 	if ( pPacket->GetRemaining() < Hashes::Ed2kHash::byteCount ) return FALSE;
-	if ( ! m_oUpED2K || m_pUpload == NULL ) return FALSE;
+	if ( ! m_oUpED2K || m_pUploadTransfer == NULL ) return FALSE;
 
 	Hashes::Ed2kHash oED2K;
 	pPacket->Read( oED2K );
 	if ( validAndUnequal( oED2K, m_oUpED2K ) ) return FALSE;
 
-	return m_pUpload->OnReask();
+	return m_pUploadTransfer->OnReask();
 }
 
 BOOL CEDClient::OnUdpReaskAck(CEDPacket* pPacket)
 {
 	if ( pPacket->GetRemaining() < 2 ) return FALSE;
-	if ( m_pDownload == NULL ) return FALSE;
+	if ( m_pDownloadTransfer == NULL ) return FALSE;
 
 	int nRank = pPacket->ReadShortLE();
-	m_pDownload->SetQueueRank( nRank );
+	m_pDownloadTransfer->SetQueueRank( nRank );
 
 	return TRUE;
 }
 
 BOOL CEDClient::OnUdpQueueFull(CEDPacket* /*pPacket*/)
 {
-	if ( m_pDownload )
+	if ( m_pDownloadTransfer )
 	{
 		if ( CDownloadSource* pSource = GetSource() )
 			pSource->m_tAttempt = GetTickCount() + Settings.eDonkey.ReAskTime * 1000;
-		m_pDownload->Close( TRI_UNKNOWN );
+		m_pDownloadTransfer->Close( TRI_UNKNOWN );
 	}
 
 	return TRUE;
@@ -2400,6 +2401,7 @@ BOOL CEDClient::OnUdpQueueFull(CEDPacket* /*pPacket*/)
 
 BOOL CEDClient::OnUdpFileNotFound(CEDPacket* /*pPacket*/)
 {
-	if ( m_pDownload ) m_pDownload->Close( TRI_FALSE );
+	if ( m_pDownloadTransfer )
+		m_pDownloadTransfer->Close( TRI_FALSE );
 	return TRUE;
 }

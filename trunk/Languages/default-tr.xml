@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Turkish Skin File -->
 
-<!-- Translation based on default-en.xml r56 -->
+<!-- Translation based on default-en.xml r58 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1709,7 +1709,7 @@
 			<newline gap="20" indent="0"/>
 		</group>
 		<group id="3">
-			<icon res="128" width="32" height="32"/><gap size="8"/>
+			<icon res="120" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">GÜNCELLEMEYİ BİLDİR</heading>
 			<newline gap="8" indent="42"/>
 			<text id="Upgrade"/>
@@ -1749,7 +1749,7 @@
 			<link target="command:ID_HELP_ROUTER">Yönlendirici ya da güvenlik duvarı ayarları için tıklayınız.</link>
 			<newline gap="18" indent="0"/>
 		</group>
-		<icon res="128" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
+		<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">PEERPROJECT İstemcisine</heading>
 		<newline gap="12" indent="42"/>
 		<icon res="182" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
@@ -1781,7 +1781,7 @@
 		<link target="command:shell:downloads">Tıklayın</link>
 		<newline gap="18" indent="0"/>
 		<group id="5">
-			<icon res="128" width="32" height="32"/><gap size="8"/>
+			<icon res="120" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">UZAKTAN ERİŞİM ETKİN</heading>
 			<newline gap="8" indent="42"/>
 			<text>PeerProject uzaktan erişim etkindir. PeerProject kontrolü web tarayıcınızda kullanır:</text>
@@ -1959,9 +1959,6 @@
 		<newline gap="10"/>
 		<link target="page:CUploadsSettingsPage" format="b">Aktarımlar:</link>
 		<text>&#160;Aktarım kapasitesi, sıralaması, kısıtlamaları, zamanı ve özel sorgular.</text>
-		<newline gap="10"/>
-		<link target="page:CSchedulerSettingsPage" format="b">Scheduler:</link>
-		<text>&#160;İndirme bağlantılarını periyodik planlamaya göre sınırlar.</text>
 	</document>
 	<!-- Browse User Profile -->
 	<document name="CBrowseHostProfile.1">
@@ -2736,6 +2733,8 @@
 	<string id="8239" value="Tamamlandı"/>
 	<string id="8240" value="Kaynak numarası:"/>
 	<string id="8241" value="Yorum sayısı:"/>
+	<string id="8244" value="Indirebilirsiniz hız sınırı"/>
+	<string id="8245" value="Upload hız sınırı"/>
 	<string id="8288" value="PeerProject kütüphanesi araştırılıyor"/>
 	<string id="8289" value="Araştırılıyor"/>
 	<string id="8290" value="%i Klasörden içerikler araştırılıyor"/>
@@ -3295,24 +3294,22 @@
 	<string id="20125" value="Doğrulanmadı"/>
 	<string id="20126" value="İlgisiz"/>
 	<string id="20127" value="İlgisiz"/>
-	<string id="20128" value="Kaynak"/>
-	<string id="20129" value="Kaynak"/> <!-- numbers 21, 31, ... -->
-	<string id="20120" value="Kaynak"/> <!-- tens -->
-	<string id="20131" value="Kaynak"/> <!-- from 11 to 19 -->
-	<string id="20132" value="Kaynak"/> <!-- from 2 to 4 -->
-	<string id="20133" value="Kaynak"/> <!-- from 5 to 9 -->
-	<string id="20134" value="Kaynak"/> <!-- "3/10 sources" -->
+	<string id="20130" value="Kaynak"/>
+	<string id="20131" value="Kaynak"/>
+	<string id="20132" value="Kaynak"/>
+	<string id="20134" value="Kaynak"/>
 	<string id="20135" value="(Kaynak Yok)"/>
 	<string id="20136" value="Tıkandı"/>
 	<string id="20137" value="Sonraki"/>
 	<string id="20138" value="Q"/>
-	<string id="20200" value="Pazar"/>
+	<string id="20200" value="Every Day"/>
 	<string id="20201" value="Pazartesi"/>
 	<string id="20202" value="Salı"/>
 	<string id="20203" value="Çarşamba"/>
 	<string id="20204" value="Perşembe"/>
 	<string id="20205" value="Cuma"/>
 	<string id="20206" value="Cumartesi"/>
+	<string id="20207" value="Pazar"/>
 	<string id="20210" value="(Beğenilmeyen)"/>
 	<string id="20211" value="Taklit / Bozuk"/>
 	<string id="20212" value="Kalitesiz"/>
@@ -3577,28 +3574,6 @@
 		<control/>
 		<control caption="Yardım:"/>
 		<control caption="PeerProject Uzaktan Erişim PC'nizde çalışan PeerProject'dan ayrılmanıza ve uzaktaki web tarayıcısını kontrol etmenize izin verir. Gelen bağlantıları kabul etmek için bu özellikleri kullanmaya ihtiyaç duyacaksınız(i.e. düzgün yönlendirme yapılandırması, vb) ."/>
-	</dialog>
-	<dialog name="CSchedulerSettingsPage" cookie="EdStStStStStStStBuStStStBuBuBuStEdmsBuSt" caption="Planlayıcı">
-		<control/>
-		<control caption="Pzr"/>
-		<control caption="Pzrt"/>
-		<control caption="Salı"/>
-		<control caption="Çrş"/>
-		<control caption="Prş"/>
-		<control caption="Cuma"/>
-		<control caption="Cmrt"/>
-		<control caption="Anahtar:"/>
-		<control caption="Bağlanma"/>
-		<control caption="Bağlantı kısıtlandı"/>
-		<control caption="Tam hızla bağlan"/>
-		<control caption="_Seçenekler:"/>
-		<control caption="_Planlayıcı Etkin"/>
-		<control caption="_Kısıtladığında sadece G2'ye bağlan"/>
-		<control caption="_Limitin altında % bantgenişliği"/>
-		<control/>
-		<control/>
-		<control caption="Yardım:"/>
-		<control caption="PeerProject bağlandığında ve dosyaları indireceğinde size izin verilen süre planlanır. {n}{n}{n}Not: PeerProject açık iken planlayıcı aktif ise, ayarlarınızın değiştiğini görebilirsiniz -Bu normaldir!-"/>
 	</dialog>
 	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuSt" caption="Ağlar">
 		<control caption="PeerProject aynı zamanda birçok P2P ağa erişebilen genel bir amaç dosya paylaşımı uygulamasıdır. Bu sayfada bağlamayı istediğiniz P2P ağları seçebilirsiniz, ve sonra her ağ için belirli ayarları ayarlayabilirsiniz."/>
@@ -4164,13 +4139,6 @@
 		<control/>
 		<control caption="Kaldır"/>
 	</dialog>
-	<dialog name="CSchemaColumnsDlg" cookie="CoSyBuBuSt" caption="Şemadan Sütun Seç">
-		<control/>
-		<control/>
-		<control caption="Tamam"/>
-		<control caption="İptal"/>
-		<control caption="Listeden bir şema seçip, sonra sütun olarak görünmesi için alanlar seçiniz."/>
-	</dialog>
 	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuStCoStCoEdStEdStEdStBuBu" caption="Güvenlik Kuralı">
 		<control caption="Kural:"/>
 		<control caption="Tür:"/>
@@ -4206,6 +4174,42 @@
 		<control caption="d"/>
 		<control caption="Tamam"/>
 		<control caption="İptal"/>
+	</dialog>
+	<dialog name="CScheduleTaskDlg" cookie="BuBuBuCoEdmsEdmsStStBuBuBuBuBuSySyBuBuBuBuBuBuBuBuBuEd" caption="Program Görev">
+		<control caption="Tamam"/>
+		<control caption="İptal"/>
+		<control caption="Select Task Type"/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="% under Download limit"/>
+		<control caption="% under Upload limit"/>
+		<control caption="Active Task"/>
+		<control caption="Enable G2 Only"/>
+		<control caption="Set Event Time"/>
+		<control caption="Specified days"/>
+		<control caption="One day only"/>
+		<control/>
+		<control/>
+		<control caption="Pzrt"/>
+		<control caption="Salı"/>
+		<control caption="Çrş"/>
+		<control caption="Prş"/>
+		<control caption="Cuma"/>
+		<control caption="Cmrt"/>
+		<control caption="Pzr"/>
+		<control caption="Tüm"/>
+		<control caption="Yorumlar"/>
+		<control/>
+	</dialog>
+	<dialog name="CSchemaColumnsDlg" cookie="CoSyBuBuSt" caption="Şemadan Sütun Seç">
+		<control/>
+		<control/>
+		<control caption="Tamam"/>
+		<control caption="İptal"/>
+		<control caption="Listeden bir şema seçip, sonra sütun olarak görünmesi için alanlar seçiniz."/>
 	</dialog>
 	<dialog name="CShareManagerDlg" cookie="StSyBuBuBuBu" caption="Paylaşılan Klasör Yönetimi">
 		<control caption="Bu kütüphanenizdeki klasörlerin listesidir. Soldaki düğmeyi kullanarak klasör ekleyip kaldırabilirsiniz . Daha önce diğer kullanıcılar ile paylaşılan yeni bir klasör eklediğinizde, bununla birlikte isterseniz PeerProject kütüphanesinden bunu paylaşmayabilirsiniz."/>
@@ -4541,6 +4545,14 @@
 		<column from="Expires" to="Sonlananlar"/>
 		<column from="#" to="Öncelik"/>
 		<column from="Comment" to="Yorum"/>
+	</list>
+	<list name="CSchedulerWnd">
+		<column from="Task" to="Faaliyet"/>
+		<column from="Date" to="Tarih"/>
+		<column from="Time" to="Zaman"/>
+		<column from="Status" to="Durum"/>
+		<column from="Activity" to="Aktif"/>
+		<column from="Description" to="Yorum"/>
 	</list>
 	<list name="CHostCacheWnd">
 		<column from="Address" to="Adres"/>

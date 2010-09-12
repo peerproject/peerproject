@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default English Skin File -->
 
-<!-- Translation based on default-en.xml r57 -->
+<!-- Translation based on default-en.xml r58 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -16,7 +16,7 @@
 <manifest
 	name="English (Default)"
 	author="PeerProject Development Team"
-	updatedBy=""
+	updatedBy="SkinVista"
 	description="PeerProject Default English Skin File"
 	link="http://PeerProject.org"
 	email="Contact(at)PeerProject.org"
@@ -90,7 +90,7 @@
 		<button id="ID_SECURITY_BAN" text="Ban"/>
 			<rightAlign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Filter :"/>
-		<control id="107" width="80"/>
+		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
 		<button id="ID_SEARCH_DETAILS" text="Show/Hide Details"/>
 	</toolbar>
@@ -101,7 +101,7 @@
 		<button id="ID_SECURITY_BAN" text="Ban"/>
 			<rightAlign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Filter :"/>
-		<control id="107" width="80"/>
+		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
 		<button id="ID_SEARCH_DETAILS" text="Hide Details"/>
 		<button id="ID_SEARCH_PANEL" text="Hide Sidebar"/>
@@ -115,7 +115,7 @@
 		<button id="ID_SECURITY_BAN" text="Ban"/>
 			<rightAlign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Filter :"/>
-		<control id="107" width="75"/>
+		<control id="IDC_FILTER_BOX" width="75"/>
 		<separator/>
 		<button id="ID_SEARCH_DETAILS" text="Hide Details"/>
 		<button id="ID_SEARCH_PANEL" text="Show Sidebar"/>
@@ -135,7 +135,7 @@
 		<button id="ID_SEARCH_CHAT" text="Chat to User"/>
 			<rightAlign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Filter :"/>
-		<control id="107" width="90"/>
+		<control id="IDC_FILTER_BOX" width="90"/>
 		<separator/>
 		<button id="ID_SEARCH_DETAILS" text="Show/Hide Details"/>
 	</toolbar>
@@ -147,7 +147,7 @@
 		<button id="ID_SEARCH_CHAT" text="Chat User"/>
 			<rightAlign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Filter :"/>
-		<control id="107" width="90"/>
+		<control id="IDC_FILTER_BOX" width="90"/>
 		<separator/>
 		<button id="ID_SEARCH_DETAILS" text="Show/Hide Details"/>
 	</toolbar>
@@ -169,7 +169,7 @@
 	</toolbar>
 	<toolbar name="CDownloadsWnd">
 		<button id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="Open File"/>
-		<button id="ID_DOWNLOADS_LAUNCH_COPY" text="Preview :"/>
+		<button id="ID_DOWNLOADS_LAUNCH_COPY" text="Preview "/>
 		<separator/>
 		<button id="ID_DOWNLOADS_FILE_DELETE" text="Delete File"/>
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Cancel File"/>
@@ -397,6 +397,21 @@
 		<button id="ID_SECURITY_IMPORT" text="Import List"/>
 		<button id="ID_SECURITY_EXPORT" text="Export List"/>
 	</toolbar>
+	<!-- SCHEDULER WINDOW -->
+	<toolbar name="CSchedulerWnd">
+		<button id="ID_SCHEDULER_ADD" text="Add Task"/>
+		<separator/>
+		<button id="ID_SCHEDULER_EDIT" text="Edit Task"/>
+		<button id="ID_SCHEDULER_REMOVE" text="Remove Task"/>
+		<separator/>
+		<button id="ID_SCHEDULER_ACTIVATE" text="Activate"/>
+		<button id="ID_SCHEDULER_DEACTIVATE" text="Deactivate"/>
+		<rightAlign/>
+		<button id="ID_SCHEDULER_REMOVE_ALL" text="Remove All"/>
+		<separator/>
+		<button id="ID_SCHEDULER_IMPORT" text="Import List"/>
+		<button id="ID_SCHEDULER_EXPORT" text="Export List"/>
+	</toolbar>
 	<!-- HIT MONITOR WINDOW -->
 	<toolbar name="CHitMonitorWnd">
 		<button id="ID_SEARCH_DOWNLOAD" text="Download"/>
@@ -406,7 +421,7 @@
 		<button id="ID_SEARCH_CLEAR" text="Clear"/>
 			<rightAlign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Filter :"/>
-		<control id="107" width="100"/>
+		<control id="IDC_FILTER_BOX" width="100"/>
 	</toolbar>
 	<!-- DISCOVERY SERVICES WINDOW -->
 	<toolbar name="CDiscoveryWnd">
@@ -582,13 +597,14 @@
 			</menu>
 			<menu text="Advanced _View">
 				<item id="ID_TAB_HOME" text="_Home" shortcut="Alt-Home/Ctrl-H"/>
-				<item id="ID_TAB_SEARCH" text="_Search" shortcut="Ctrl-S"/>
-				<item id="ID_VIEW_DOWNLOADS" text="_Downloads" shortcut="F3"/>
-				<item id="ID_VIEW_UPLOADS" text="_Uploads" shortcut="F4"/>
+				<item id="ID_TAB_SEARCH" text="_Search" shortcut="Ctrl-S/F3"/>
+				<item id="ID_VIEW_DOWNLOADS" text="_Downloads" shortcut="F4"/>
+				<item id="ID_VIEW_UPLOADS" text="_Uploads" shortcut="Ctrl-F4"/>
 				<item id="ID_VIEW_LIBRARY" text="_Library" shortcut="F5"/>
 				<item id="ID_VIEW_MEDIA" text="_Media" shortcut="F6"/>
 				<item id="ID_TAB_IRC" text="_IRC Chat" shortcut="F12"/>
 				<separator/>
+				<item id="ID_VIEW_SCHEDULER" text="Schedule_r" shortcut="Ctrl+F7"/>
 				<item id="ID_VIEW_SECURITY" text="Se_curity" shortcut="F7"/>
 				<item id="ID_VIEW_HOSTS" text="H_ost Cache" shortcut="F8"/>
 				<item id="ID_VIEW_DISCOVERY" text="Disco_very" shortcut="F9"/>
@@ -657,6 +673,7 @@
 			<item id="ID_TAB_IRC" text="IRC _Chat"/>
 			<separator/>
 			<item id="ID_VIEW_SECURITY" text="Se_curity"/>
+			<item id="ID_VIEW_SCHEDULER" text="Schedule_r"/>
 			<item id="ID_VIEW_HOSTS" text="H_ost Cache"/>
 			<separator/>
 			<menu text="A_dvanced">
@@ -667,6 +684,7 @@
 				<item id="ID_VIEW_LIBRARY" text="_Library" shortcut="F5"/>
 				<item id="ID_VIEW_MEDIA" text="_Mediaplayer" shortcut="F6"/>
 				<separator/>
+				<item id="ID_VIEW_SCHEDULER" text="Schedule_r" shortcut="Ctrl+F7"/>
 				<item id="ID_VIEW_SECURITY" text="Se_curity" shortcut="F7"/>
 				<item id="ID_VIEW_HOSTS" text="H_ost Cache" shortcut="F8"/>
 				<item id="ID_VIEW_DISCOVERY" text="Disco_very" shortcut="F9"/>
@@ -765,6 +783,7 @@
 				<item id="ID_VIEW_UPLOADS" text="_Uploads"/>
 				<separator/>
 				<item id="ID_VIEW_SECURITY" text="Se_curity"/>
+				<item id="ID_VIEW_SHEDULER" text="Schedue_r"/>
 				<item id="ID_VIEW_HOSTS" text="H_ost Cache"/>
 				<item id="ID_VIEW_DISCOVERY" text="Disco_very"/>
 			</menu>
@@ -839,6 +858,7 @@
 			<item id="ID_VIEW_MEDIA" text="_Mediaplayer" shortcut="F6"/>
 			<item id="ID_TAB_IRC" text="IRC _Chat" shortcut="F12"/>
 			<separator/>
+				<item id="ID_VIEW_SCHEDULER" text="Schedule_r" shortcut="Ctrl+F7"/>
 			<item id="ID_VIEW_SECURITY" text="Se_curity" shortcut="F7"/>
 			<item id="ID_VIEW_HOSTS" text="H_ost Cache" shortcut="F8"/>
 			<item id="ID_VIEW_DISCOVERY" text="Disco_very" shortcut="F9"/>
@@ -937,6 +957,7 @@
 		<item id="ID_TAB_IRC" text="IRC _Chat"/>
 		<separator/>
 		<item id="ID_VIEW_SECURITY" text="Se_curity"/>
+		<item id="ID_VIEW_SCHEDULER" text="Schedule_r"/>
 		<item id="ID_VIEW_HOSTS" text="_Host Cache"/>
 		<item id="ID_VIEW_DISCOVERY" text="Disco_very"/>
 		<item id="ID_VIEW_TRAFFIC" text="_Graph"/>
@@ -956,6 +977,7 @@
 		<item id="ID_VIEW_MEDIA" text="_Media Player"/>
 		<separator/>
 		<item id="ID_VIEW_SECURITY" text="Se_curity"/>
+		<item id="ID_VIEW_SCHEDULER" text="Schedule_r"/>
 		<item id="ID_VIEW_HOSTS" text="_Host Cache"/>
 		<item id="ID_VIEW_DISCOVERY" text="Disco_very"/>
 		<item id="ID_VIEW_TRAFFIC" text="_Graph"/>
@@ -976,6 +998,7 @@
 			<item id="ID_VIEW_NEIGHBOURS" text="_Neighbors"/>
 			<item id="ID_VIEW_UPLOADS" text="_Uploads"/>
 			<item id="ID_VIEW_SECURITY" text="_Security"/>
+			<item id="ID_VIEW_SCHEDULER" text="Schedule_r"/>
 			<item id="ID_VIEW_HOSTS" text="_Host Cache"/>
 		</menu>
 	</menu>
@@ -989,6 +1012,7 @@
 		<item id="ID_TAB_IRC" text="IRC _Chat"/>
 		<separator/>
 		<item id="ID_VIEW_SECURITY" text="Se_curity"/>
+		<item id="ID_VIEW_SCHEDULER" text="Schedule_r"/>
 		<item id="ID_VIEW_HOSTS" text="_Host Cache"/>
 		<item id="ID_VIEW_DISCOVERY" text="Disco_very"/>
 		<item id="ID_VIEW_TRAFFIC" text="_Graph"/>
@@ -1679,6 +1703,21 @@
 		<separator/>
 		<item id="ID_SECURITY_EDIT" text="_Properties"/>
 	</menu>
+	<!-- SCHEDULER WINDOW -->
+	<menu name="CSchedulerWnd">
+		<item id="ID_SCHEDULER_ADD" text="_Add Scheduled Task"/>
+		<separator/>
+		<item id="ID_SCHEDULER_EDIT" text="_Edit"/>
+		<item id="ID_SCHEDULER_REMOVE" text="Re_move"/>
+		<separator/>
+		<item id="ID_SCHEDULER_ACTIVATE" text="A_ctivate"/>
+		<item id="ID_SCHEDULER_DEACTIVATE" text="_Deactivate"/>
+		<separator/>
+		<item id="ID_SCHEDULER_REMOVE_ALL" text="Remove Al_l"/>
+		<separator/>
+		<item id="ID_SCHEDULER_IMPORT" text="_Import..."/>
+		<item id="ID_SCHEDULER_EXPORT" text="E_xport..."/>
+	</menu>
 	<!-- DISCOVERY SERVICES WINDOW -->
 	<menu name="CDiscoveryWnd">
 		<item id="ID_DISCOVERY_QUERY" text="_Query Now"/>
@@ -1802,7 +1841,7 @@
 			<newline gap="20" indent="0"/>
 		</group>
 		<group id="3">
-			<icon res="128" width="32" height="32" target="command:upgrade"/><gap size="8"/>
+			<icon res="120" width="32" height="32" target="command:upgrade"/><gap size="8"/>
 			<heading align="middle">Upgrade Notice</heading>
 			<newline gap="8" indent="42"/>
 			<text id="Upgrade"/>
@@ -1849,7 +1888,7 @@
 			<link target="command:ID_HELP_ROUTER">learn how to configure your router.</link>
 			<newline gap="20" indent="0"/>
 		</group>
-		<icon res="128" width="30" height="30" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
+		<icon res="120" width="30" height="30" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">Customize PeerProject</heading>
 		<newline gap="12" indent="42"/>
 		<icon res="182" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
@@ -1977,7 +2016,7 @@
 				<text format="b">No active downloads</text>
 				<newline gap="4"/>
 			</group>
-			<link id="DownloadsNone" target="command:ID_VIEW_DOWNLOADS">Go to Downloads View</link>
+			<link id="DownloadsNone" target="command:ID_VIEW_DOWNLOADS">View Downloads</link>
 			<link id="DownloadsOne"  target="command:ID_VIEW_DOWNLOADS" format="bu">1 active download</link>
 			<link id="DownloadsMany" target="command:ID_VIEW_DOWNLOADS" format="bu">%i active downloads</link>
 			<newline gap="4"/>
@@ -2053,9 +2092,9 @@
 		<newline gap="10"/>
 		<link target="page:CUploadsSettingsPage" format="b">Uploads: </link>
 		<text>Manage bandwidth-out, limits, and queues.</text>
+		<newline />
 		<newline gap="10"/>
-		<link target="page:CSchedulerSettingsPage" format="b">Scheduler: </link>
-		<text>Limit download connections based on a periodic schedule.</text>
+		<text>Find Task Scheduler, Security Filters, Traffic Graphs, and more from the Advanced View menu.</text>
 	</document>
 	<!-- Browse User Profile -->
 	<document name="CBrowseHostProfile.1">
@@ -2733,26 +2772,27 @@
 <!-- Localized Strings -->
 <strings>
 	<string id="WINDOW_MAIN" value="PeerProject"/>
+	<string id="WINDOW_HOME" value="PeerProject Home"/>
 	<string id="WINDOW_SYSTEM" value="System"/>
 	<string id="WINDOW_NEIGHBOURS" value="Neighbors"/>
 	<string id="WINDOW_PACKET" value="Packet Dump"/>
 	<string id="WINDOW_HOSTCACHE" value="Host Cache"/>
-	<string id="WINDOW_SEARCHMONITOR" value="Search Monitor"/>
 	<string id="WINDOW_SEARCH" value="Search"/>
+	<string id="WINDOW_SEARCHPAD" value="Search"/>
+	<string id="WINDOW_SEARCHMONITOR" value="Search Monitor"/>
 	<string id="WINDOW_HITMONITOR" value="Hit Monitor"/>
 	<string id="WINDOW_DOWNLOADS" value="Downloads"/>
 	<string id="WINDOW_LIBRARY" value="Library"/>
 	<string id="WINDOW_UPLOADS" value="Uploads"/>
 	<string id="WINDOW_TRAFFIC" value="Graph"/>
-	<string id="WINDOW_CHAT" value="Chat"/>
 	<string id="WINDOW_SECURITY" value="Security"/>
+	<string id="WINDOW_SCHEDULER" value="Scheduler"/>
 	<string id="WINDOW_DISCOVERY" value="Discovery Services"/>
 	<string id="WINDOW_BROWSEHOST" value="Browse"/>
-	<string id="WINDOW_HOME" value="PeerProject Home"/>
 	<string id="WINDOW_MEDIA" value="Media Player"/>
-	<string id="WINDOW_SEARCHPAD" value="Search"/>
-	<string id="WINDOW_HELP" value="PeerProject Help"/>
 	<string id="WINDOW_IRC" value="IRC Chatrooms"/>
+	<string id="WINDOW_CHAT" value="Chat"/>
+	<string id="WINDOW_HELP" value="PeerProject Help"/>
 	<string id="7000" value="Are you sure you want to delete this filter ?"/>
 	<string id="7001" value="&amp;Schemas"/>
 	<string id="7002" value="Multiple Values"/>
@@ -2866,6 +2906,8 @@
 	<string id="8239" value="Completed"/>
 	<string id="8240" value="Number of sources:"/>
 	<string id="8241" value="Number of reviews:"/>
+	<string id="8244" value="Limit Download Bandwidth"/>
+	<string id="8245" value="Limit Upload Bandwidth"/>
 	<string id="8288" value="Exploring Your PeerProject Library"/>
 	<string id="8289" value="Exploring"/>
 	<string id="8290" value="Exploring the contents of %i folders"/>
@@ -3013,7 +3055,7 @@
 	<string id="16285" value="Received an unnecessary push connection from %s."/>
 	<string id="16286" value="Host %s is pushing download &quot;%s&quot;, accepting."/>
 	<string id="16287" value="Can't fetch more sources for download &quot;%s&quot; because there is no network connection."/>
-	<string id="16288" value="Querying for more sources for download &quot;%s&quot; on %i connection(s)..."/>
+	<string id="16288" value="Querying for more sources for download &quot;%s&quot; on %i connections..."/>
 	<string id="16289" value="Sending push request for download &quot;%s&quot;..."/>
 	<string id="16290" value="Download host %s responded with a different, but useful range (%I64i-%I64i) of &quot;%s&quot;."/>
 	<string id="16291" value="Moved &quot;%s&quot; to &quot;%s&quot;, download complete."/>
@@ -3108,8 +3150,8 @@
 	<string id="16385" value="You are about to modify the metadata of %i files, are you sure you want to continue?"/>
 	<string id="16386" value="Editing metadata of %i files."/>
 	<string id="16387" value="The file &quot;%s&quot; has not yet been hashed. Please wait for the file to be hashed, and then try again."/>
-	<string id="16388" value="This option uses services provided by Bitzi.com for recognising and sharing information about selected files.\n\nPeerProject will transmit the SHA1 hash code for the selected file(s) in order to query the Bitzi database. If you are concerned about privacy, you may wish to consult the Bitzi.com privacy policy.\n\nWould you like to proceed?"/>
-	<string id="16389" value="Are you sure you want to permanently delete the %i selected file(s) ?\n\nThe files will be moved to your &quot;recycle bin&quot; if it is enabled."/>
+	<string id="16388" value="This option uses services provided by Bitzi.com for recognising and sharing information about selected files.\n\nPeerProject will transmit the SHA1 hash code for the selected files in order to query the Bitzi database. If you are concerned about privacy, you may wish to consult the Bitzi.com privacy policy.\n\nWould you like to proceed?"/>
+	<string id="16389" value="Are you sure you want to permanently delete the %i selected files ?\n\nThe files will be moved to your &quot;recycle bin&quot; if it is enabled."/>
 	<string id="16390" value="You have not yet selected a media player to enqueue files with, such as Nullsoft Winamp. Would you like to select one now?\n\nPeerProject will pass the name of the file to your selected program with the &quot;/ADD&quot; argument."/>
 	<string id="16391" value="You're not connected to the network."/>
 	<string id="16392" value="Click the Connect button to get started."/>
@@ -3117,7 +3159,7 @@
 	<string id="16394" value="Would you like to remove the &quot;potentially unsafe&quot; attribute from this file?"/>
 	<string id="16395" value="Your downloaded files folder &quot;%s&quot; is not yet in your library.\n\nIncluding your downloaded files folder in your library makes it easier to view and organize new downloads, and lets you take advantage of advanced PeerProject features such as download verification and automatic upgrading. Placing downloaded files in your library does not necessarily require you to share them: you can choose whether or not to share files independently.\n\nWould you like to add your downloaded files folder to your library now?"/>
 	<string id="16396" value="Your downloads folder has been added to your library. Would you like to share it too?"/>
-	<string id="16397" value="Are you sure you want to delete the %i selected album folder(s) ?\n\nNote that this action does not delete the files within the album folders, only the folders themselves."/>
+	<string id="16397" value="Are you sure you want to delete the %i selected album folders ?\n\nNote that this action does not delete the files within the album folders, only the folders themselves."/>
 	<string id="16398" value="PeerProject could not rename:\n\n%s\nto\n%s"/>
 	<string id="16399" value="PeerProject could not delete the file:\n\n%s"/>
 	<string id="16400" value="Target file exists:\n\n%s\n\nWould you like to overwrite it?"/>
@@ -3430,24 +3472,22 @@
 	<string id="20125" value="Unverified"/>
 	<string id="20126" value="Unsupported"/>
 	<string id="20127" value="Uninterested"/>
-	<string id="20128" value="source"/>  <!-- one -->
-	<string id="20129" value="sources"/> <!-- numbers 21,22,31,... -->
-	<string id="20130" value="sources"/> <!-- tens -->
-	<string id="20131" value="sources"/> <!-- from 11 to 19 -->
-	<string id="20132" value="sources"/> <!-- from 2 to 4 -->
-	<string id="20133" value="sources"/> <!-- from 5 to 9 -->
-	<string id="20134" value="sources"/> <!-- "3/10 sources" -->
+	<string id="20130" value="source"/>  <!-- one -->
+	<string id="20131" value="sources"/> <!-- ones 21,31,... -->
+	<string id="20132" value="sources"/> <!-- few  2,3,4 -->
+	<string id="20134" value="sources"/> <!-- others -->
 	<string id="20135" value="(No Sources)"/>
 	<string id="20136" value="Choked"/>
 	<string id="20137" value="Next"/>
 	<string id="20138" value="Q"/>
-	<string id="20200" value="Sunday"/>
+	<string id="20200" value="Every Day"/>
 	<string id="20201" value="Monday"/>
 	<string id="20202" value="Tuesday"/>
 	<string id="20203" value="Wednesday"/>
 	<string id="20204" value="Thursday"/>
 	<string id="20205" value="Friday"/>
 	<string id="20206" value="Saturday"/>
+	<string id="20207" value="Sunday"/>
 	<string id="20210" value="(No Rating)"/>
 	<string id="20211" value="Fake / Corrupt"/>
 	<string id="20212" value="Poor"/>
@@ -3473,6 +3513,24 @@
 	<string id="20243" value="Continue"/>
 	<string id="20244" value="&amp;Remember my selection next time"/>
 	<string id="20245" value="New Folder"/>
+	<string id="20250" value="Bandwidth: Full"/>
+	<string id="20251" value="Bandwidth: Limited"/>
+	<string id="20252" value="Bandwidth: Stop"/>
+	<string id="20253" value="System: Exit PeerProject"/>
+	<string id="20254" value="System: Shut-down Computer"/>
+	<string id="20255" value="System: Disconnect Dial-Up"/>
+	<string id="20256" value="System: Reminder Notice"/>
+	<string id="20257" value="Scheduled Reminder Notice."/>
+	<string id="20258" value="Are you sure you wish to remove all scheduled tasks? This cannot be undone."/>
+	<string id="20259" value="Scheduled time has passed. Please select a new time."/>
+	<string id="20260" value="No scheduled event. Please select a task."/>
+	<string id="20261" value="No scheduled day. Select one or more days or date."/>
+	<string id="20262" value="Active"/>
+	<string id="20263" value="Inactive"/>
+	<string id="20264" value="Waiting"/>
+	<string id="20265" value="Done"/>
+	<string id="20266" value="Done Today"/>
+	<string id="20268" value="No tasks scheduled."/>
 </strings>
 <!-- Localized Dialog Text, "cookie" verifies that the skin matches current dialog -->
 <!-- DialogScan: Write Dialogs.xml -HKEY_CURRENT_USER\Software\PeerProject\PeerProject DWORD DialogScan = 1 -->
@@ -3719,28 +3777,6 @@
 		<control caption="_Edit..."/>
 		<control caption="_Delete"/>
 		<control caption="(Drag'n'drop priority)"/>
-	</dialog>
-	<dialog name="CSchedulerSettingsPage" cookie="EdStStStStStStStBuStStStBuBuBuStEdmsBuSt" caption="Scheduler">
-		<control/>
-		<control caption="Sun"/>
-		<control caption="Mon"/>
-		<control caption="Tue"/>
-		<control caption="Wed"/>
-		<control caption="Thu"/>
-		<control caption="Fri"/>
-		<control caption="Sat"/>
-		<control caption="Key:"/>
-		<control caption="Do not connect"/>
-		<control caption="Limited connection"/>
-		<control caption="Connect full speed"/>
-		<control caption="_Options:"/>
-		<control caption=" _Enable scheduler"/>
-		<control caption=" _Connect only G2 when limited"/>
-		<control caption="% _Bandwidth when limited"/>
-		<control/>
-		<control/>
-		<control caption="Help:"/>
-		<control caption="This scheduler enables you to set times when PeerProject will connect and download files. {n}{n}{n}Note, it is normal to see PeerProject change settings when scheduling is active."/>
 	</dialog>
 	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuSt" caption="Networks">
 		<control caption="PeerProject is a general-purpose file-sharing application that can utilize several P2P networks simultaneously. On this page you can select which P2P networks you want to connect to, and then adjust specific settings for each network."/>
@@ -4306,13 +4342,6 @@
 		<control/>
 		<control caption="_Remove"/>
 	</dialog>
-	<dialog name="CSchemaColumnsDlg" cookie="CoSyBuBuSt" caption="Select Columns from Schema">
-		<control/>
-		<control/>
-		<control caption="OK"/>
-		<control caption="Cancel"/>
-		<control caption="Select a schema from the list, then select the fields to display as columns."/>
-	</dialog>
 	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuStCoStCoEdStEdStEdStBuBu" caption="Security Rule">
 		<control caption="_Rule:"/>
 		<control caption="Type:"/>
@@ -4348,6 +4377,42 @@
 		<control caption="m"/>
 		<control caption="OK"/>
 		<control caption="Cancel"/>
+	</dialog>
+	<dialog name="CScheduleTaskDlg" cookie="BuBuBuCoEdmsEdmsStStBuBuBuBuBuSySyBuBuBuBuBuBuBuBuBuEd" caption="Schedule Event">
+		<control caption="OK"/>
+		<control caption="Cancel"/>
+		<control caption="Select Task Type"/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="% under Download limit"/>
+		<control caption="% under Upload limit"/>
+		<control caption="Active Task"/>
+		<control caption="Enable G2 Only"/>
+		<control caption="Set Event Time"/>
+		<control caption="Specified days"/>
+		<control caption="One-time only"/>
+		<control/>
+		<control/>
+		<control caption="Monday"/>
+		<control caption="Tuesday"/>
+		<control caption="Wednesday"/>
+		<control caption="Thursday"/>
+		<control caption="Friday"/>
+		<control caption="Saturday"/>
+		<control caption="Sunday"/>
+		<control caption="All"/>
+		<control caption="Notes"/>
+		<control/>
+	</dialog>
+	<dialog name="CSchemaColumnsDlg" cookie="CoSyBuBuSt" caption="Select Columns from Schema">
+		<control/>
+		<control/>
+		<control caption="OK"/>
+		<control caption="Cancel"/>
+		<control caption="Select a schema from the list, then select the fields to display as columns."/>
 	</dialog>
 	<dialog name="CShareManagerDlg" cookie="StSyBuBuBuBu" caption="Shared Folders Manager">
 		<control caption="This is a list of folders in your personal library. {n}First add folders, then click the checkboxes to publicly share or hide them. Specific files and subfolders can be shared/unshared from the Library."/>
@@ -4705,6 +4770,14 @@
 		<column from="Expires" to=""/>
 		<column from="#" to=""/>
 		<column from="Comment" to=""/>
+	</list>
+	<list name="CSchedulerWnd">
+		<column from="Task" to=""/>
+		<column from="Date" to=""/>
+		<column from="Time" to=""/>
+		<column from="Status" to=""/>
+		<column from="Activity" to=""/>
+		<column from="Description" to=""/>
 	</list>
 	<list name="CHostCacheWnd">
 		<column from="Address" to=""/>

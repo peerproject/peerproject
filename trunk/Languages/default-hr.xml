@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Croatian Skin File -->
 
-<!-- Translation based on default-en.xml r56 (Shareaza 2.2.0.2) -->
+<!-- Translation based on default-en.xml r58 (Shareaza 2.2.0.2) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1587,7 +1587,7 @@
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="3">
-			<icon res="128" width="32" height="32"/><gap size="8"/>
+			<icon res="120" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">OBAVJEST O NADOOGRADNJI</heading>
 			<newline gap="8" indent="42"/>
 			<text id="Nadogradi"/>
@@ -1606,7 +1606,7 @@
 			<link target="command:ID_HELP_ROUTER">Kliknite ovdje za uputstva kako podesiti Vaš router ili vatrozid</link>
 			<newline gap="18" indent="0"/>
 		</group>
-		<icon res="128" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
+		<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">PODESITE PEERPROJECT</heading>
 		<newline gap="12" indent="42"/>
 		<icon res="182" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
@@ -1631,7 +1631,7 @@
 		<text align="middle">&#160;- Idi na hrvatski jezik tribini</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
-			<icon res="128" width="32" height="32"/><gap size="8"/>
+			<icon res="120" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">PRISTUP NA DALJINU - UKLUČEN</heading>
 			<newline gap="8" indent="42"/>
 			<text>PeerProject pristup na daljinu je omogučen. Kontroliraj PeerProject koristeći web preglednik na:</text>
@@ -1809,9 +1809,6 @@
 		<newline gap="10"/>
 		<link target="page:CUploadsSettingsPage" format="b">Djeljenje:</link>
 		<text>&#160;Mogučnosti, ograničenja i ostale postavke vezane uz djeljenje i davanje datoteka.</text>
-		<newline gap="10"/>
-		<link target="page:CSchedulerSettingsPage" format="b">Scheduler:</link>
-		<text>&#160;Limit download connections based on a periodic schedule.</text>
 	</document>
 	<!-- Browse User Profile -->
 	<document name="CBrowseHostProfile.1">
@@ -2584,6 +2581,9 @@
 	<string id="8238" value="Dano:"/>
 	<string id="8239" value="Skinuto"/>
 	<string id="8240" value="Broj izvora:"/>
+	<string id="8241" value="Broj recenzija:"/>
+	<string id="8244" value="Granica skidati podatke brzina"/>
+	<string id="8245" value="Granica upload brzina"/>
 	<string id="8288" value="Pregledavam vašu kolekciju"/>
 	<string id="8289" value="Pregledavam"/>
 	<string id="8290" value="Pregledavam sadržaj %i mapa"/>
@@ -3108,24 +3108,22 @@
 	<string id="20125" value="Nepotvrđeno"/>
 	<string id="20126" value="Nezainteresiran"/>
 	<string id="20127" value="Nezainteresiran"/>
-	<string id="20128" value="izvor"/>
-	<string id="20129" value="izvor"/>  <!-- numbers 21, 31, ... -->
-	<string id="20130" value="izvora"/> <!-- tens -->
-	<string id="20131" value="izvora"/> <!-- from 11 to 19 -->
-	<string id="20132" value="izvora"/> <!-- from 2 to 4 -->
-	<string id="20133" value="izvora"/> <!-- from 5 to 9 -->
-	<string id="20134" value="izvora"/> <!-- /numbers -->
+	<string id="20130" value="izvor"/>
+	<string id="20131" value="izvor"/>  <!-- ones 21,31,... -->
+	<string id="20132" value="izvora"/> <!-- few  2,3,4 -->
+	<string id="20134" value="izvora"/> <!-- others -->
 	<string id="20135" value="(Nema Izvora)"/>
 	<string id="20136" value="Zagušen"/>
 	<string id="20137" value="Slijedeći"/>
 	<string id="20138" value="Q"/>
-	<string id="20200" value="Nedjelja"/>
+	<string id="20200" value="Every Day"/>
 	<string id="20201" value="Ponedjeljek"/>
 	<string id="20202" value="Utorak"/>
 	<string id="20203" value="Srijeda"/>
 	<string id="20204" value="Četvrtak"/>
 	<string id="20205" value="Petak"/>
 	<string id="20206" value="Subota"/>
+	<string id="20207" value="Nedjelja"/>
 	<string id="20210" value="(Nema Ocjene)"/>
 	<string id="20211" value="Lažnjak / Greška"/>
 	<string id="20212" value="Loše"/>
@@ -3337,28 +3335,6 @@
 		<control/>
 		<control caption="Pomoć:"/>
 		<control caption="PeerProject pristup na daljinu vam omogučava da ostavite upaljen PC sa pokrenutom PeerProjectom, i njome upravljate sa druge lokacije. Da bi ste koristili ovu opciju morate biti u mogučnosti primati dolazeće veze(npr. podešen ruter, itd)."/>
-	</dialog>
-	<dialog name="CSchedulerSettingsPage" cookie="EdStStStStStStStBuStStStBuBuBuStEdmsBuSt" caption="Plan Skidanja">
-		<control/>
-		<control caption="Ned"/>
-		<control caption="Pon"/>
-		<control caption="Uto"/>
-		<control caption="Sri"/>
-		<control caption="Čet"/>
-		<control caption="Pet"/>
-		<control caption="Sub"/>
-		<control caption="Legenda:"/>
-		<control caption="Nemoj se spajati"/>
-		<control caption="Ograničenom brzinom"/>
-		<control caption="Spoji se punom brzinom"/>
-		<control caption="_Opcije:"/>
-		<control caption="Uključi Plan"/>
-		<control caption="Spoji se na G2 samo pod ograničenjem"/>
-		<control caption="% _brzine je ograničenje"/>
-		<control/>
-		<control/>
-		<control caption="Pomoć:"/>
-		<control caption="Planer skidanja je osmišljen da omoguči PeerProject spajanje i skidanje u određeno doba dana. {n}{n}{n}Napomena: Ako je PeerProject pokrenuta i plan uključen, možete vidjeti promjene postavka- to je normalno!-"/>
 	</dialog>
 	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuSt" caption="Mreže">
 		<control caption="PeerProject je program za djeljenje i skidanje datoteka opčenitog sadržaja, i može se istovremeno spojiti na više P2P mreža.Ovdje možete odabrati kojim mrežama želite pristupiti, te podesiti svaku posebno."/>
@@ -3920,13 +3896,6 @@
 		<control/>
 		<control caption="Makni"/>
 	</dialog>
-	<dialog name="CSchemaColumnsDlg" cookie="CoSyBuBuSt" caption="Odaberite Stupac iz Šeme">
-		<control/>
-		<control/>
-		<control caption="OK"/>
-		<control caption="Odustani"/>
-		<control caption="Select a schema from the list, then select the fields to display as columns."/>
-	</dialog>
 	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuStCoStCoEdStEdStEdStBuBu" caption="Sigurnosna Pravila">
 		<control caption="P_ravilo:"/>
 		<control caption="Tip:"/>
@@ -3961,6 +3930,42 @@
 		<control caption="m"/>
 		<control caption="OK"/>
 		<control caption="Odustani"/>
+	</dialog>
+	<dialog name="CScheduleTaskDlg" cookie="BuBuBuCoEdmsEdmsStStBuBuBuBuBuSySyBuBuBuBuBuBuBuBuBuEd" caption="Raspored Zadataka">
+		<control caption="OK"/>
+		<control caption="Odustani"/>
+		<control caption="Select Task Type"/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="% under Download limit"/>
+		<control caption="% under Upload limit"/>
+		<control caption="Active Task"/>
+		<control caption="Enable G2 Only"/>
+		<control caption="Set Event Time"/>
+		<control caption="Specified days"/>
+		<control caption="One day only"/>
+		<control/>
+		<control/>
+		<control caption="Pon"/>
+		<control caption="Uto"/>
+		<control caption="Sri"/>
+		<control caption="Čet"/>
+		<control caption="Pet"/>
+		<control caption="Sub"/>
+		<control caption="Ned"/>
+		<control caption="Sve"/>
+		<control caption="Komentari"/>
+		<control/>
+	</dialog>
+	<dialog name="CSchemaColumnsDlg" cookie="CoSyBuBuSt" caption="Odaberite Stupac iz Šeme">
+		<control/>
+		<control/>
+		<control caption="OK"/>
+		<control caption="Odustani"/>
+		<control caption="Select a schema from the list, then select the fields to display as columns."/>
 	</dialog>
 	<dialog name="CShareManagerDlg" cookie="StSyBuBuBuBu" caption="Pomoćnik oko Djeljenih Mapa">
 		<control caption="Ovdje je lista mapa u vašoj kolekciji.Možete maknuti ili dodati mape koristeći butune na lijevoj strani.When you add a new folder it is initially shared with other users, however you can unshare it from the PeerProject library if you wish."/>
@@ -4298,6 +4303,14 @@
 		<column from="Expires" to="Ističe"/>
 		<column from="#" to=""/>
 		<column from="Comment" to="Komentar"/>
+	</list>
+	<list name="CSchedulerWnd">
+		<column from="Task" to="Akcija"/>
+		<column from="Date" to="Datum"/>
+		<column from="Time" to="Vrijeme"/>
+		<column from="Status" to="Status"/>
+		<column from="Activity" to="Aktivan"/>
+		<column from="Description" to="Komentar"/>
 	</list>
 	<list name="CHostCacheWnd">
 		<column from="Address" to="Adresa"/>

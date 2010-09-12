@@ -131,7 +131,7 @@ cscript.exe //nologo Revision.js
       <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>winmm.lib;version.lib;ws2_32.lib;wininet.lib;Iphlpapi.lib;msi.lib;powrprof.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>rasapi32.lib;winmm.lib;version.lib;ws2_32.lib;wininet.lib;Iphlpapi.lib;msi.lib;powrprof.lib;..\Services\BugTrap\BugTrapLib\BugTrapU.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -181,7 +181,7 @@ cscript.exe //nologo Revision.js
       <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>winmm.lib;version.lib;ws2_32.lib;wininet.lib;Iphlpapi.lib;msi.lib;powrprof.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>rasapi32.lib;winmm.lib;version.lib;ws2_32.lib;wininet.lib;Iphlpapi.lib;msi.lib;powrprof.lib;..\Services\BugTrap\BugTrapLib\BugTrapU-x64.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -237,7 +237,7 @@ cscript.exe //nologo Revision.js
       <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>winmm.lib;version.lib;ws2_32.lib;wininet.lib;Iphlpapi.lib;msi.lib;powrprof.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>rasapi32.lib;winmm.lib;version.lib;ws2_32.lib;wininet.lib;Iphlpapi.lib;msi.lib;powrprof.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
@@ -296,7 +296,7 @@ cscript.exe //nologo Revision.js
       <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>winmm.lib;version.lib;ws2_32.lib;wininet.lib;Iphlpapi.lib;msi.lib;powrprof.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>rasapi32.lib;winmm.lib;version.lib;ws2_32.lib;wininet.lib;Iphlpapi.lib;msi.lib;powrprof.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
@@ -945,6 +945,7 @@ cscript.exe //nologo Revision.js
     <ClCompile Include="DlgPromote.cpp" />
     <ClCompile Include="DlgQueueProperties.cpp" />
     <ClCompile Include="DlgSaveFilterAs.cpp" />
+    <ClCompile Include="DlgScheduleTask.cpp" />
     <ClCompile Include="DlgSecureRule.cpp" />
     <ClCompile Include="DlgSelect.cpp" />
     <ClCompile Include="DlgSettingsManager.cpp" />
@@ -976,6 +977,7 @@ cscript.exe //nologo Revision.js
     <ClCompile Include="WndPacket.cpp" />
     <ClCompile Include="WndPanel.cpp" />
     <ClCompile Include="WndPlugin.cpp" />
+    <ClCompile Include="WndScheduler.cpp" />
     <ClCompile Include="WndSearch.cpp" />
     <ClCompile Include="WndSearchMonitor.cpp" />
     <ClCompile Include="WndSecurity.cpp" />
@@ -1045,7 +1047,6 @@ cscript.exe //nologo Revision.js
     <ClCompile Include="PageSettingsProtocols.cpp" />
     <ClCompile Include="PageSettingsRemote.cpp" />
     <ClCompile Include="PageSettingsRich.cpp" />
-    <ClCompile Include="PageSettingsScheduler.cpp" />
     <ClCompile Include="PageSettingsSkins.cpp" />
     <ClCompile Include="PageSettingsUploads.cpp" />
     <ClCompile Include="PageSettingsWeb.cpp" />
@@ -1202,7 +1203,8 @@ cscript.exe //nologo Revision.js
     <None Include="Res\Partial.ico" />
     <None Include="Res\PeerProject.ico" />
     <None Include="Res\PeerProject.rc2" />
-    <None Include="Res\PointerArrow.ico" />
+    <None Include="Res\PointerArrowIn.ico" />
+    <None Include="Res\PointerArrowOut.ico" />
     <None Include="Res\Preview.ico" />
     <None Include="Res\Properties.ico" />
     <None Include="Res\Protocols.bmp" />
@@ -1210,10 +1212,6 @@ cscript.exe //nologo Revision.js
     <None Include="Res\RatingFake.ico" />
     <None Include="Res\RatingGood.ico" />
     <None Include="Res\RemoteWnd.bmp" />
-    <None Include="Res\Scheduler.bmp" />
-    <None Include="Res\SchedulerDown.cur" />
-    <None Include="Res\SchedulerLeft.cur" />
-    <None Include="Res\SchedulerRight.cur" />
     <None Include="Res\Search.ico" />
     <None Include="Res\SearchArtist.ico" />
     <None Include="Res\SearchFolder.ico" />
@@ -1232,7 +1230,6 @@ cscript.exe //nologo Revision.js
     <None Include="Res\TickClosedHover.ico" />
     <None Include="Res\TickOpened.ico" />
     <None Include="Res\TickOpenedHover.ico" />
-    <None Include="Res\TimeSlices.bmp" />
     <None Include="Res\Traffic.ico" />
     <None Include="Res\Unstable.ico" />
     <None Include="Res\UpDownArrow.ico" />
@@ -1531,6 +1528,7 @@ cscript.exe //nologo Revision.js
     <ClInclude Include="WndPacket.h" />
     <ClInclude Include="WndPanel.h" />
     <ClInclude Include="WndPlugin.h" />
+    <ClInclude Include="WndScheduler.h" />
     <ClInclude Include="WndSearch.h" />
     <ClInclude Include="WndSearchMonitor.h" />
     <ClInclude Include="WndSecurity.h" />
@@ -1578,6 +1576,7 @@ cscript.exe //nologo Revision.js
     <ClInclude Include="DlgPromote.h" />
     <ClInclude Include="DlgQueueProperties.h" />
     <ClInclude Include="DlgSaveFilterAs.h" />
+    <ClInclude Include="DlgScheduleTask.h" />
     <ClInclude Include="DlgSecureRule.h" />
     <ClInclude Include="DlgSelect.h" />
     <ClInclude Include="DlgSettingsManager.h" />
@@ -1631,7 +1630,6 @@ cscript.exe //nologo Revision.js
     <ClInclude Include="PageSettingsProtocols.h" />
     <ClInclude Include="PageSettingsRemote.h" />
     <ClInclude Include="PageSettingsRich.h" />
-    <ClInclude Include="PageSettingsScheduler.h" />
     <ClInclude Include="PageSettingsSkins.h" />
     <ClInclude Include="PageSettingsUploads.h" />
     <ClInclude Include="PageSettingsWeb.h" />
@@ -1663,13 +1661,13 @@ cscript.exe //nologo Revision.js
     <ClInclude Include="..\Services\RegExp\Syntax2.h" />
   </ItemGroup>
   <ItemGroup>
-    <CustomBuildStep Include="..\Services\BugTrap\BugTrapU-x64.lib">
+    <CustomBuildStep Include="..\Services\BugTrap\BugTrapLib\BugTrapU-x64.lib">
       <FileType>Document</FileType>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </CustomBuildStep>
-    <CustomBuildStep Include="..\Services\BugTrap\BugTrapU.lib">
+    <CustomBuildStep Include="..\Services\BugTrap\BugTrapLib\BugTrapU.lib">
       <FileType>Document</FileType>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>

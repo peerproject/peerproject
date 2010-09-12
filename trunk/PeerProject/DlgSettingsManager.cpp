@@ -36,7 +36,6 @@
 #include "PageSettingsDownloads.h"
 #include "PageSettingsUploads.h"
 #include "PageSettingsRemote.h"
-#include "PageSettingsScheduler.h"
 #include "PageSettingsNetworks.h"
 #include "PageSettingsGnutella.h"
 #include "PageSettingsDonkey.h"
@@ -126,7 +125,6 @@ INT_PTR CSettingsManagerDlg::DoModal(LPCTSTR pszWindow)
 	CConnectionSettingsPage	pConnection;
 	CDownloadsSettingsPage	pDownloads;
 	CUploadsSettingsPage	pUploads;
-	CSchedulerSettingsPage	pScheduler;
 	CNetworksSettingsPage	gNetworks;
 	CGnutellaSettingsPage	pGnutella;
 	CDonkeySettingsPage		pDonkey;
@@ -151,7 +149,6 @@ INT_PTR CSettingsManagerDlg::DoModal(LPCTSTR pszWindow)
 	AddPage( &pUploads );			// IDD_SETTINGS_UPLOADS
 	if ( bAdvanced )
 	{
-		AddPage( &pScheduler ); 	// IDD_SETTINGS_SCHEDULER
 		AddGroup( &gNetworks ); 	// IDD_SETTINGS_NETWORKS
 		AddPage( &pGnutella );		// IDD_SETTINGS_GNUTELLA
 #ifndef LAN_MODE
@@ -212,6 +209,20 @@ BOOL CSettingsManagerDlg::OnInitDialog()
 	return TRUE;
 }
 
+void CSettingsManagerDlg::OnOK()
+{
+	CSettingsSheet::OnOK();
+	Settings.Save();
+	AfxGetMainWnd()->Invalidate();
+}
+
+void CSettingsManagerDlg::OnApply()
+{
+	CSettingsSheet::OnApply();
+	AfxGetMainWnd()->Invalidate();
+}
+
+
 // Obsolete:
 //void CSettingsManagerDlg::DoPaint(CDC& dc)
 //{
@@ -234,16 +245,3 @@ BOOL CSettingsManagerDlg::OnInitDialog()
 //
 //	CSettingsSheet::DoPaint( dc );
 //}
-
-void CSettingsManagerDlg::OnOK()
-{
-	CSettingsSheet::OnOK();
-	Settings.Save();
-	AfxGetMainWnd()->Invalidate();
-}
-
-void CSettingsManagerDlg::OnApply()
-{
-	CSettingsSheet::OnApply();
-	AfxGetMainWnd()->Invalidate();
-}

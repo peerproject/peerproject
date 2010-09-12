@@ -732,7 +732,7 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 		else
 			crWnd = crBack = CColors::CalculateColor( crBack, RGB( 254, 120, 10 ), 25 );
 	}
-	else if ( pFile->m_bTorrent && Settings.BitTorrent.AdvancedInterface )
+	else if ( pFile->m_bTorrent && Settings.General.GUIMode != GUI_BASIC )
 	{
 		// Pale grey background for torrents, if extra torrent option is enabled
 		if ( Colors.m_crSearchTorrent )
@@ -983,7 +983,7 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 						CString strSource, strText;
 						LoadSourcesString( strSource,  pFile->m_nFiltered );
 						if ( pFile->m_nFiltered < 5 && pFile->m_nSources > 2300 )
-							strText.Format( _T("%u fakes"), pFile->m_nFiltered );		//ToDo: Translate "fakes"
+							strText.Format( _T("%u fakes"), pFile->m_nFiltered );		// ToDo: Translate "fakes"
 						else if ( pFile->m_nFiltered > 99 && pFile->m_nSources > pFile->m_nFiltered )
 							strText.Format( _T("%u %s +%u"), pFile->m_nFiltered, (LPCTSTR)strSource, pFile->m_nSources - pFile->m_nFiltered );
 						else if ( pFile->m_nSources > pFile->m_nFiltered )
@@ -1009,7 +1009,7 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 				CString strSource, strText;
 				LoadSourcesString( strSource, pFile->m_nFiltered );
 				if ( pFile->m_nFiltered < 5 && pFile->m_nSources > 2300 )
-					strText.Format( _T("%u fakes"), pFile->m_nFiltered );		//ToDo: Translate "fakes"
+					strText.Format( _T("%u fakes"), pFile->m_nFiltered );		// ToDo: Translate "fakes"
 				else if ( pFile->m_nFiltered > 99 && pFile->m_nSources > pFile->m_nFiltered )
 					strText.Format( _T("%u %s +%u"), pFile->m_nFiltered, (LPCTSTR)strSource, pFile->m_nSources - pFile->m_nFiltered );
 				else if ( pFile->m_nSources > pFile->m_nFiltered )

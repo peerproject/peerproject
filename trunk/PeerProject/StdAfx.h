@@ -110,12 +110,13 @@
 #include <afxwin.h>			// MFC core and standard components
 #include <afxext.h>			// MFC extensions
 #include <afxcmn.h>			// MFC support for Windows Common Controls
+//#include <afxdtctl.h>		// MFC date & time controls (scheduler)
 #include <afxtempl.h>		// MFC templates
 #include <afxmt.h>			// MFC threads
 #include <afxole.h>			// MFC OLE
-#include <afxocc.h>			// MDC OCC
+#include <afxocc.h>			// MFC OCC
 #include <afxhtml.h>		// MFC HTML
-#include <afxpriv.h>
+#include <afxpriv.h>		// MFC UI
 #include <../src/mfc/afximpl.h>
 
 //
@@ -256,7 +257,7 @@ using augment::IUnknownImplementation;
 
 // BugTrap (intellesoft.net)
 #ifdef _DEBUG
-	#include <BugTrap/BugTrap.h>
+	#include <BugTrap/BugTrapLib/BugTrap.h>
 #endif
 
 

@@ -40,12 +40,12 @@ BEGIN_MESSAGE_MAP(CMediaSettingsPage, CSettingsPage)
 	//{{AFX_MSG_MAP(CMediaSettingsPage)
 	ON_BN_CLICKED(IDC_MEDIA_PLAY, OnMediaPlay)
 	ON_BN_CLICKED(IDC_MEDIA_ENQUEUE, OnMediaEnqueue)
-	ON_CBN_SELCHANGE(IDC_MEDIA_TYPES, OnSelChangeMediaTypes)
-	ON_CBN_EDITCHANGE(IDC_MEDIA_TYPES, OnEditChangeMediaTypes)
-	ON_CBN_SELCHANGE(IDC_MEDIA_SERVICE, OnSelChangeMediaService)
 	ON_BN_CLICKED(IDC_MEDIA_ADD, OnMediaAdd)
 	ON_BN_CLICKED(IDC_MEDIA_REMOVE, OnMediaRemove)
 	ON_BN_CLICKED(IDC_MEDIA_VIS, OnMediaVis)
+	ON_CBN_EDITCHANGE(IDC_MEDIA_TYPES, OnEditChangeMediaTypes)
+	ON_CBN_SELCHANGE(IDC_MEDIA_TYPES, OnSelChangeMediaTypes)
+	ON_CBN_SELCHANGE(IDC_MEDIA_SERVICE, OnSelChangeMediaService)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -70,13 +70,13 @@ void CMediaSettingsPage::DoDataExchange(CDataExchange* pDX)
 {
 	CSettingsPage::DoDataExchange(pDX);
 	//{{AFX_DATA_MAP(CMediaSettingsPage)
+	DDX_Control(pDX, IDC_MEDIA_SERVICE, m_wndServices);
 	DDX_Control(pDX, IDC_MEDIA_REMOVE, m_wndRemove);
 	DDX_Control(pDX, IDC_MEDIA_ADD, m_wndAdd);
 	DDX_Control(pDX, IDC_MEDIA_TYPES, m_wndList);
 	DDX_CBString(pDX, IDC_MEDIA_TYPES, m_sType);
 	DDX_Check(pDX, IDC_MEDIA_PLAY, m_bEnablePlay);
 	DDX_Check(pDX, IDC_MEDIA_ENQUEUE, m_bEnableEnqueue);
-	DDX_Control(pDX, IDC_MEDIA_SERVICE, m_wndServices);
 	//}}AFX_DATA_MAP
 
 }
@@ -99,6 +99,7 @@ BOOL CMediaSettingsPage::OnInitDialog()
 
 	m_bEnablePlay		= Settings.MediaPlayer.EnablePlay;
 	m_bEnableEnqueue	= Settings.MediaPlayer.EnableEnqueue;
+	m_nSelected			= 3;	// Default PeerProject Media Player
 
 	for ( string_set::const_iterator i = Settings.MediaPlayer.FileTypes.begin() ;
 		i != Settings.MediaPlayer.FileTypes.end(); i++ )
@@ -107,22 +108,39 @@ BOOL CMediaSettingsPage::OnInitDialog()
 	}
 
 	CString str;
-	LoadString( str, IDS_MEDIA_SMPLAYER );
-	m_wndServices.AddString( str );
 	LoadString( str, IDS_GENERAL_CUSTOM );
 	str.Insert( 0, '(' );
 	str.Append( _T("\x2026)") );
 	m_wndServices.AddString( str );
+	LoadString( str, IDS_MEDIA_SMPLAYER );
+	m_wndServices.AddString( str );
 
-	if ( Settings.MediaPlayer.ServicePath.IsEmpty() )
-		m_wndServices.SetCurSel( 0 );
-	else
+	int nCount = 0;
+	for( string_set::const_reverse_iterator i = Settings.MediaPlayer.ServicePath.rbegin() ; i != Settings.MediaPlayer.ServicePath.rend() ; ++i )
 	{
-		m_sServicePath = Settings.MediaPlayer.ServicePath;
-		int nBackSlash = m_sServicePath.ReverseFind( '\\' );
-		str = m_sServicePath.Mid( nBackSlash + 1 );
-		m_wndServices.InsertString( 0, str );
-		m_wndServices.SetCurSel( 0 );
+		m_sServicePath[nCount] = *i;
+		int nBackSlash = m_sServicePath[nCount].ReverseFind( '\\' );
+		str = m_sServicePath[nCount].Mid( nBackSlash + 1 );
+		int nAstrix= str.ReverseFind( '*' );
+
+		if( nAstrix != -1 )	// Selected player
+		{
+			m_nSelected	= nCount;
+			str.Remove('*');
+		}
+
+		m_wndServices.InsertString( 2+nCount, str );
+		m_sServicePath[nCount].Remove('*');
+		nCount++;
+	}
+
+	if ( m_nSelected == 3 ) // Default
+	{
+		m_wndServices.SetCurSel( 1 );
+	}
+	else // Custom player
+	{
+		m_wndServices.SetCurSel( m_nSelected + 2 );
 		GetDlgItem( IDC_MEDIA_PLAY )->EnableWindow( FALSE );
 		GetDlgItem( IDC_MEDIA_ENQUEUE )->EnableWindow( FALSE );
 		GetDlgItem( IDC_MEDIA_VIS )->EnableWindow( FALSE );
@@ -173,7 +191,9 @@ void CMediaSettingsPage::OnMediaAdd()
 void CMediaSettingsPage::OnMediaRemove()
 {
 	int nItem = m_wndList.GetCurSel();
-	if ( nItem >= 0 ) m_wndList.DeleteString( nItem );
+	if ( nItem >= 0 )
+		m_wndList.DeleteString( nItem );
+
 	m_wndRemove.EnableWindow( FALSE );
 }
 
@@ -189,22 +209,28 @@ void CMediaSettingsPage::OnOK()
 
 	Settings.MediaPlayer.EnablePlay		= m_bEnablePlay != FALSE;
 	Settings.MediaPlayer.EnableEnqueue	= m_bEnableEnqueue != FALSE;
-	Settings.MediaPlayer.ServicePath	= m_sServicePath;
+	Settings.MediaPlayer.ServicePath.clear();
+
+	CString str = _T("*");
+	for( int i = 0 ; i < 3 && ! m_sServicePath[i].IsEmpty() ; ++i )
+	{
+		if( i == m_nSelected )
+			m_sServicePath[i] += _T("*");
+		Settings.MediaPlayer.ServicePath.insert( str + m_sServicePath[i] );
+		str += _T("*");
+	}
 
 	CString strRegData;
 
-	if ( m_sServicePath.IsEmpty() )
+	if ( m_nSelected == 3 )		// PeerProject Media Player is selected
 		Settings.MediaPlayer.ShortPaths = FALSE;
 	else
-	{
 		strRegData = _T("-");
-		/*
+
 		// Starting from v.0.8.5 VLC player reads unicode paths
-		CString strExecutable;
-		m_wndServices.GetWindowText( strExecutable );
-		Settings.MediaPlayer.ShortPaths = ToLower( strExecutable ) == _T("vlc.exe");
-		*/
-	}
+		//CString strExecutable;
+		//m_wndServices.GetWindowText( strExecutable );
+		//Settings.MediaPlayer.ShortPaths = ToLower( strExecutable ) == _T("vlc.exe");
 
 	theApp.WriteProfileString( _T("Plugins"), Settings.MediaPlayer.AviPreviewCLSID, strRegData );
 	theApp.WriteProfileString( _T("Plugins"), Settings.MediaPlayer.MediaServicesCLSID, strRegData );
@@ -245,10 +271,10 @@ void CMediaSettingsPage::OnOK()
 
 void CMediaSettingsPage::OnSelChangeMediaService()
 {
-	int nCustomIndex = ( m_wndServices.GetCount() == 2 ) ? 1 : 2;
+	const int nCustomIndex = 0;
 	int nSelected = m_wndServices.GetCurSel();
 
-	if ( nSelected == nCustomIndex )
+	if ( nSelected == nCustomIndex ) // Not default (1)
 	{
 		CFileDialog dlg( TRUE, _T("exe"), _T("") , OFN_HIDEREADONLY|OFN_FILEMUSTEXIST,
 			_T("Executable Files|*.exe;*.com|All Files|*.*||"), this );
@@ -259,11 +285,43 @@ void CMediaSettingsPage::OnSelChangeMediaService()
 			return;
 		}
 
-		// Delete old file name first
-		if ( nCustomIndex == 2 ) m_wndServices.DeleteString( 0 );
-		m_wndServices.InsertString( 0, dlg.GetFileName() );
-		m_wndServices.SetCurSel( 0 );
-		m_sServicePath = dlg.GetPathName();
+		// List only keeps 5 items
+		if ( m_wndServices.GetCount() == 5 )
+		{
+			m_wndServices.DeleteString( 4 );	//FIFO
+			m_wndServices.InsertString( 2, dlg.GetFileName() );
+			m_wndServices.SetCurSel( 2 );
+
+			m_sServicePath[2] = m_sServicePath[1];
+			m_sServicePath[1] = m_sServicePath[0];
+			m_sServicePath[0] = dlg.GetPathName();
+			m_nSelected = 0;
+		}
+		else
+		{
+			m_wndServices.InsertString( 2, dlg.GetFileName() );
+			m_wndServices.SetCurSel( 2 );
+
+			int i = 0 ;
+			//while( ! m_sServicePath[i].IsEmpty() ) ++i;
+			if ( m_sServicePath[0].IsEmpty() )
+			{
+				m_sServicePath[0] = dlg.GetPathName();
+			}
+			else if ( m_sServicePath[1].IsEmpty() )
+			{
+				m_sServicePath[1] = m_sServicePath[0];
+				m_sServicePath[0] = dlg.GetPathName();
+			}
+			else
+			{
+				m_sServicePath[2] = m_sServicePath[1];
+				m_sServicePath[1] = m_sServicePath[0];
+				m_sServicePath[0] = dlg.GetPathName();
+			}
+
+			m_nSelected = i;
+		}
 
 		m_bEnablePlay = m_bEnableEnqueue = FALSE;
 		UpdateData( FALSE );
@@ -272,16 +330,24 @@ void CMediaSettingsPage::OnSelChangeMediaService()
 		GetDlgItem( IDC_MEDIA_ENQUEUE )->EnableWindow( FALSE );
 		GetDlgItem( IDC_MEDIA_VIS )->EnableWindow( FALSE );
 	}
-	else if ( nSelected == 1 )
+	else if ( nSelected == 1 ) // PeerProject Media Player selected
 	{
-		if ( nCustomIndex == 2 ) m_wndServices.DeleteString( 0 );
-		m_sServicePath.Empty();
-
+		m_nSelected = 3;
 		m_bEnablePlay = m_bEnableEnqueue = TRUE;
 		UpdateData( FALSE );
 
 		GetDlgItem( IDC_MEDIA_PLAY )->EnableWindow( TRUE );
 		GetDlgItem( IDC_MEDIA_ENQUEUE )->EnableWindow( TRUE );
 		GetDlgItem( IDC_MEDIA_VIS )->EnableWindow( TRUE );
+	}
+	else // Not PeerProject default, not custom
+	{
+		m_nSelected = nSelected - 2;
+		m_bEnablePlay = m_bEnableEnqueue = FALSE;
+		UpdateData( FALSE );
+
+		GetDlgItem( IDC_MEDIA_PLAY )->EnableWindow( FALSE );
+		GetDlgItem( IDC_MEDIA_ENQUEUE )->EnableWindow( FALSE );
+		GetDlgItem( IDC_MEDIA_VIS )->EnableWindow( FALSE );
 	}
 }

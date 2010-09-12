@@ -1,22 +1,24 @@
-// RegExp.h : main header file for the PROJECT_NAME application
+//
+// RegExp.h : Main header file
 //
 
 #pragma once
 
-#ifndef __AFXWIN_H__
-	#error "include 'stdafx.h' before including this file for PCH"
+#ifdef REGEXP_EXPORTS
+#define REGEXP_API __declspec(dllexport)
+#else
+#define REGEXP_API __declspec(dllimport)
 #endif
 
-#include "Resource.h"
-
-class CRegExpApp : public CWinApp
+namespace RegExp
 {
-public:
-	CRegExpApp();
 
-	virtual BOOL InitInstance();
+// Returns TRUE if szContent matches szRegExp regular expression (case insensitive)
+REGEXP_API BOOL Match(LPCTSTR szRegExp, LPCTSTR szContent);
 
-	DECLARE_MESSAGE_MAP()
+// Splits szContent according szRegExp regular expression (case insensitive)
+// Returns number of string in function allocated pszResult (array of strings)
+// pszResult must be freed by GlobalFree() function
+REGEXP_API size_t Split(LPCTSTR szRegExp, LPCTSTR szContent, LPTSTR* pszResult);
+
 };
-
-extern CRegExpApp theApp;

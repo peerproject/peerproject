@@ -31,23 +31,23 @@
 #include "FileExecutor.h"
 #include "CoolInterface.h"
 #include "Skin.h"
+#include "Shell.h"
 #include "CtrlLibraryFrame.h"
 #include "CtrlLibraryFileView.h"
 #include "CtrlLibraryTip.h"
-#include "Shell.h"
 #include "DlgFilePropertiesSheet.h"
 #include "DlgFileCopy.h"
-#include "DlgBitziDownload.h"
 #include "DlgURLCopy.h"
 #include "DlgURLExport.h"
 #include "DlgDeleteFile.h"
 #include "DlgDecodeMetadata.h"
+#include "DlgBitziDownload.h"
+#include "ShareMonkeyData.h"
 #include "RelatedSearch.h"
+#include "Transfers.h"
 #include "Security.h"
 #include "Schema.h"
 #include "XML.h"
-#include "ShareMonkeyData.h"
-#include "Transfers.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -76,10 +76,6 @@ BEGIN_MESSAGE_MAP(CLibraryFileView, CLibraryView)
 	ON_COMMAND(ID_LIBRARY_COPY, OnLibraryCopy)
 	ON_UPDATE_COMMAND_UI(ID_LIBRARY_DELETE, OnUpdateLibraryDelete)
 	ON_COMMAND(ID_LIBRARY_DELETE, OnLibraryDelete)
-	ON_UPDATE_COMMAND_UI(ID_LIBRARY_BITZI_WEB, OnUpdateLibraryBitziWeb)
-	ON_COMMAND(ID_LIBRARY_BITZI_WEB, OnLibraryBitziWeb)
-	ON_UPDATE_COMMAND_UI(ID_LIBRARY_BITZI_DOWNLOAD, OnUpdateLibraryBitziDownload)
-	ON_COMMAND(ID_LIBRARY_BITZI_DOWNLOAD, OnLibraryBitziDownload)
 	ON_UPDATE_COMMAND_UI(ID_LIBRARY_REFRESH_METADATA, OnUpdateLibraryRefreshMetadata)
 	ON_COMMAND(ID_LIBRARY_REFRESH_METADATA, OnLibraryRefreshMetadata)
 	ON_UPDATE_COMMAND_UI(ID_LIBRARY_SHARED_FILE, OnUpdateLibraryShared)
@@ -103,7 +99,12 @@ BEGIN_MESSAGE_MAP(CLibraryFileView, CLibraryView)
 	ON_UPDATE_COMMAND_UI(ID_LIBRARY_REBUILD_ANSI, OnUpdateLibraryRebuildAnsi)
 	ON_COMMAND(ID_LIBRARY_REBUILD_ANSI, OnLibraryRebuildAnsi)
 	ON_MESSAGE(WM_METADATA, OnServiceDone)
-	// ToDo: Move ShareMonkey/MusicBrainz Services out ?
+
+	// Web Services 	ToDo: Move Bitzi/MusicBrainz/ShareMonkey out?
+	ON_UPDATE_COMMAND_UI(ID_LIBRARY_BITZI_WEB, OnUpdateLibraryBitziWeb)
+	ON_COMMAND(ID_LIBRARY_BITZI_WEB, OnLibraryBitziWeb)
+	ON_UPDATE_COMMAND_UI(ID_LIBRARY_BITZI_DOWNLOAD, OnUpdateLibraryBitziDownload)
+	ON_COMMAND(ID_LIBRARY_BITZI_DOWNLOAD, OnLibraryBitziDownload)
 	ON_UPDATE_COMMAND_UI(ID_WEBSERVICES_MUSICBRAINZ, OnUpdateMusicBrainzLookup)
 	ON_COMMAND(ID_WEBSERVICES_MUSICBRAINZ, OnMusicBrainzLookup)
 	ON_UPDATE_COMMAND_UI(ID_MUSICBRAINZ_MATCHES, OnUpdateMusicBrainzMatches)
@@ -893,6 +894,7 @@ void CLibraryFileView::OnSearchForSeries()
 	pSearch.RunSearchForSeries();
 }
 
+
 /////////////////////////////////////////////////////////////////////
 // Web Services Handling
 
@@ -911,16 +913,6 @@ void CLibraryFileView::ClearServicePages()
 	m_bServiceFailed = FALSE;
 
 	GetFrame()->SetPanelData( NULL );
-}
-
-void CLibraryFileView::OnUpdateShareMonkeyLookup(CCmdUI* pCmdUI)
-{
-	pCmdUI->Enable( GetSelectedCount() == 1 && ! m_bRequestingService );
-}
-
-void CLibraryFileView::OnShareMonkeyLookup()
-{
-	GetFrame()->SetDynamicBar( L"WebServices.ShareMonkey.WithSave" );
 }
 
 /////////////////////////////////////////////////////////////////////
@@ -1063,6 +1055,16 @@ void CLibraryFileView::OnMusicBrainzAlbums()
 
 /////////////////////////////////////////////////////////////////////
 // ShareMonkey Services
+
+void CLibraryFileView::OnUpdateShareMonkeyLookup(CCmdUI* pCmdUI)
+{
+	pCmdUI->Enable( GetSelectedCount() == 1 && ! m_bRequestingService );
+}
+
+void CLibraryFileView::OnShareMonkeyLookup()
+{
+	GetFrame()->SetDynamicBar( L"WebServices.ShareMonkey.WithSave" );
+}
 
 void CLibraryFileView::OnUpdateShareMonkeyDownload(CCmdUI* pCmdUI)
 {
@@ -1347,19 +1349,16 @@ LRESULT CLibraryFileView::OnServiceDone(WPARAM wParam, LPARAM lParam)
 		m_bRequestingService = FALSE;
 		ClearServicePages();
 	}
+	else if ( pszMessage == NULL )
+	{
+		pPanelData->Remove( strStatus );
+	}
 	else
 	{
-		if ( pszMessage == NULL )
-		{
-			pPanelData->Remove( strStatus );
-		}
-		else
-		{
-			CMetaItem* pItem = pPanelData->Find( strStatus );
-			if ( pItem != NULL )
-				pItem->m_sValue = pszMessage;
-			m_bServiceFailed = TRUE;
-		}
+		CMetaItem* pItem = pPanelData->Find( strStatus );
+		if ( pItem ) pItem->m_sValue = pszMessage;
+
+		m_bServiceFailed = TRUE;
 	}
 
 	CLibraryFrame* pFrame = GetFrame();

@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Greek Skin File -->
 
-<!-- Translation based on default-en.xml r56 -->
+<!-- Translation based on default-en.xml r58 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1746,7 +1746,7 @@
 			<newline gap="20" indent="0"/>
 		</group>
 		<group id="3">
-			<icon res="128" width="32" height="32"/><gap size="8"/>
+			<icon res="120" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">ΕΙΔΟΠΟΙΗΣΗ ΑΝΑΒΑΘΜΙΣΗΣ</heading>
 			<newline gap="8" indent="42"/>
 			<text id="Upgrade"/>
@@ -1787,7 +1787,7 @@
 			<link target="command:ID_HELP_ROUTER">Κλικ εδώ για να μάθετε πώς να ρυθμίσετε τον router ή firewall σας</link>
 			<newline gap="18" indent="0"/>
 		</group>
-		<icon res="128" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
+		<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">ΠΡΟΣΑΡΜΟΓΗ  TOΥ PEERPROJECT</heading>
 		<newline gap="12" indent="42"/>
 		<icon res="182" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
@@ -1812,7 +1812,7 @@
 		<text align="middle">&#160;- GΜετάβαση στο ελληνικό φόρουμ συζήτησης σας γλώσσα</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
-			<icon res="128" width="32" height="32"/><gap size="8"/>
+			<icon res="120" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">Η ΑΠΟΜΑΚΡΥΣΜΕΝΗ ΠΡΟΣΒΑΣΗ ΕΙΝΑΙ ΕΝΕΡΓΗ</heading>
 			<newline gap="8" indent="42"/>
 			<text>Η Απομακρυσμένη Πρόσβαση του PeerProject είναι ενεργή. Τηλεχειριστείτε το PeerProject, δείνοντας σε ένα πρόγραμμα περιήγησης τη διεύθυνση:</text>
@@ -1996,9 +1996,6 @@
 		<newline gap="10"/>
 		<link target="page:CUploadsSettingsPage" format="b">Αποστολές Αρχείων:</link>
 		<text>&#160;Χωρητικότητα αποστολών, ουρές, αποκλεισμοί, προθεσμίες και ειδικές αιτήσεις.</text>
-		<newline gap="10"/>
-		<link target="page:CSchedulerSettingsPage" format="b">Προγραμματιστής:</link>
-		<text>&#160;Περιορίστε τις συνδέσεις λήψης με βάσει ένα περιοδικό πρόγραμμα.</text>
 	</document>
 	<!-- Browse User Profile -->
 	<document name="CBrowseHostProfile.1">
@@ -2806,6 +2803,8 @@
 	<string id="8239" value="Ολοκληρωμένο"/>
 	<string id="8240" value="Αριθμός πηγών:"/>
 	<string id="8241" value="Αριθμός κριτικών:"/>
+	<string id="8244" value="Όριο ταχύτητας Μεταφορτώνει"/>
+	<string id="8245" value="Όριο Ταχύτητα αποστολής"/>
 	<string id="8288" value="Εξερεύνηση της Βιβλιοθήκης"/>
 	<string id="8289" value="Θέση:"/>
 	<string id="8290" value="Εξερεύνηση των περιεχομένων %i φακέλων"/>
@@ -3356,24 +3355,22 @@
 	<string id="20125" value="Μη Επαληθευμένο"/>
 	<string id="20126" value="Αδιάφορο"/>
 	<string id="20127" value="Αδιάφορο"/>
-	<string id="20128" value="πηγή"/>
-	<string id="20129" value="πηγές"/> <!-- numbers 21, 31, ... -->
-	<string id="20130" value="πηγές"/> <!-- tens -->
-	<string id="20131" value="πηγές"/> <!-- from 11 to 19 -->
-	<string id="20132" value="πηγές"/> <!-- from 2 to 4 -->
-	<string id="20133" value="πηγές"/> <!-- from 5 to 9 -->
-	<string id="20134" value="πηγές"/> <!-- "3/10 sources" -->
+	<string id="20130" value="πηγή"/>
+	<string id="20131" value="πηγές"/>
+	<string id="20132" value="πηγές"/>
+	<string id="20134" value="πηγές"/>
 	<string id="20135" value="(Καμία Πηγή)"/>
 	<string id="20136" value="Πλήρες"/>
 	<string id="20137" value="Επόμενο"/>
 	<string id="20138" value="Q"/>
-	<string id="20200" value="Κυριακή"/>
+	<string id="20200" value="Every Day"/>
 	<string id="20201" value="Δευτέρα"/>
 	<string id="20202" value="Τρίτη"/>
 	<string id="20203" value="Τετάρτη"/>
 	<string id="20204" value="Πέμπτη"/>
 	<string id="20205" value="Παρασκευή"/>
 	<string id="20206" value="Σάββατο"/>
+	<string id="20207" value="Κυριακή"/>
 	<string id="20210" value="(Χωρίς Βαθμολόγηση)"/>
 	<string id="20211" value="Ψεύτικο/Φθαρμένο/Παραπλαν."/>
 	<string id="20212" value="Φτωχό"/>
@@ -3638,28 +3635,6 @@
 		<control/>
 		<control caption="Περιγραφή:"/>
 		<control caption="Η Απομακρυσμένη Πρόσβαση επιτρέπει, κατά την εκτέλεση του PeerProject στον υπολογιστή σας, τον χειρισμό του από απομακρυσμένα προγράμματα περιήγησης. Για να χρησιμοποιήσετε αυτήν τη δυνατότητα, πρέπει να δέχεστε εισερχόμενες συνδέσεις (π.χ. κατάλληλα ρυθμισμένο router κτλ)."/>
-	</dialog>
-	<dialog name="CSchedulerSettingsPage" cookie="EdStStStStStStStBuStStStBuBuBuStEdmsBuSt" caption="Χρονοδιάγραμμα">
-		<control/>
-		<control caption="Κυρ"/>
-		<control caption="Δευ"/>
-		<control caption="Τρί"/>
-		<control caption="Τετ"/>
-		<control caption="Πέμ"/>
-		<control caption="Παρ"/>
-		<control caption="Σάβ"/>
-		<control caption="Υπόμνημα:"/>
-		<control caption="Μη σύνδεση"/>
-		<control caption="Διακριτική Λειτουργία (ΔΛ)"/>
-		<control caption="Πλήρης Λειτουργία"/>
-		<control caption="_Επιλογές:"/>
-		<control caption="_Ενεργοποίηση Χρονοδιαγράμματος"/>
-		<control caption="Σε ώρα ΔΛ, σύνδεση μόνο στο G2"/>
-		<control caption="% εύρους ζώνης, σε ώρα ΔΛ"/>
-		<control/>
-		<control/>
-		<control caption="Περιγραφή:"/>
-		<control caption="Το Χρονοδιάγραμμα σχεδιάστηκε για να σας επιτρέπει να ορίζεται τις ώρες που το PeerProject θα συνδέεται και θα λαμβάνει αρχεία.{n}Σημείωση: Όταν είναι ενεργό και κατά την είσοδο σε/έξοδο από ώρες ΔΛ, ίσως το δείτε να αλλάζει τις ρυθμίσεις (σύμφωνα με τις Επιλογές ΔΛ). Αυτό είναι φυσιολογικό!"/>
 	</dialog>
 	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuSt" caption="Δίκτυα">
 		<control caption="Το PeerProject είναι ένα γενικού σκοπού πρόγραμμα ανταλλαγής αρχείων που συνδέεται σε πολλά P2P δίκτυα ταυτόχρονα. Σε αυτήν τη σελίδα μπορείτε να επιλέξετε σε ποια δίκτυα θέλετε να συνδέεστε και με τι ρυθμίσεις στο καθένα."/>
@@ -4225,13 +4200,6 @@
 		<control/>
 		<control caption="_Αφαίρεση"/>
 	</dialog>
-	<dialog name="CSchemaColumnsDlg" cookie="CoSyBuBuSt" caption="Επιλογή Στηλών από Schema">
-		<control/>
-		<control/>
-		<control caption="OK"/>
-		<control caption="Άκυρο"/>
-		<control caption="Επιλογή ενός schema και των πεδίων που θα εμφανίζονται ως στήλες."/>
-	</dialog>
 	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuStCoStCoEdStEdStEdStBuBu" caption="Κανόνας">
 		<control caption="_Κανόνας:"/>
 		<control caption="Τύπος:"/>
@@ -4267,6 +4235,42 @@
 		<control caption="λ"/>
 		<control caption="OK"/>
 		<control caption="Άκυρο"/>
+	</dialog>
+	<dialog name="CScheduleTaskDlg" cookie="BuBuBuCoEdmsEdmsStStBuBuBuBuBuSySyBuBuBuBuBuBuBuBuBuEd" caption="Πρόγραμμα εργασιών">
+		<control caption="OK"/>
+		<control caption="Άκυρο"/>
+		<control caption="Select Task Type"/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="% under Download limit"/>
+		<control caption="% under Upload limit"/>
+		<control caption="Active Task"/>
+		<control caption="Enable G2 Only"/>
+		<control caption="Set Event Time"/>
+		<control caption="Specified days"/>
+		<control caption="One day only"/>
+		<control/>
+		<control/>
+		<control caption="Δευ"/>
+		<control caption="Τρί"/>
+		<control caption="Τετ"/>
+		<control caption="Πέμ"/>
+		<control caption="Παρ"/>
+		<control caption="Σάβ"/>
+		<control caption="Κυρ"/>
+		<control caption="Όλα"/>
+		<control caption="Σχόλια"/>
+		<control/>
+	</dialog>
+	<dialog name="CSchemaColumnsDlg" cookie="CoSyBuBuSt" caption="Επιλογή Στηλών από Schema">
+		<control/>
+		<control/>
+		<control caption="OK"/>
+		<control caption="Άκυρο"/>
+		<control caption="Επιλογή ενός schema και των πεδίων που θα εμφανίζονται ως στήλες."/>
 	</dialog>
 	<dialog name="CShareManagerDlg" cookie="StSyBuBuBuBu" caption="Διαχειριστής Κοινοποίησης Φακέλων">
 		<control caption="Αυτή η λίστα περιέχει τους φακέλους της Βιβλιοθήκης. Μπορείτε να προσθαφαιρέσετε φακέλους χρησιμοποιώντας τα κουμπιά. Κάθε νέος φάκελος αρχικά κοινοποιείται, όμως μπορείτε αν θέλετε να τον αποκοινοποιήσετε στις επιλογές της Βιβλιοθήκης."/>
@@ -4603,6 +4607,14 @@
 		<column from="Expires" to="Λήξη"/>
 		<column from="#" to="#"/>
 		<column from="Comment" to="Σχόλια"/>
+	</list>
+	<list name="CSchedulerWnd">
+		<column from="Task" to="Ενέργεια"/>
+		<column from="Date" to="Ημερομηνία"/>
+		<column from="Time" to="Διάρκεια"/>
+		<column from="Status" to="Κατάσταση"/>
+		<column from="Activity" to="Ενεργός"/>
+		<column from="Description" to="Σχόλια"/>
 	</list>
 	<list name="CHostCacheWnd">
 		<column from="Address" to="Διεύθυνση"/>

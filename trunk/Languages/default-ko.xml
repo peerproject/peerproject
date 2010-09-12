@@ -3,7 +3,7 @@
 
 <!-- PeerProject Korean Language Skin File -->
 
-<!-- Translation based on default-en.xml r56 --> <!--Machine Translated!-->
+<!-- Translation based on default-en.xml r58 --> <!--Machine Translated!-->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -85,7 +85,7 @@
 		<button id="ID_BROWSE_LAUNCH" text="찾아보기 사용자"/>
 			<rightAlign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="필터 :"/>
-		<control id="107" width="80"/>
+		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
 		<button id="ID_SEARCH_DETAILS" text="보기 / 숨기기 세부 사항"/>
 	</toolbar>
@@ -96,7 +96,7 @@
 		<button id="ID_SECURITY_BAN" text="반 장관은 사용자"/>
 			<rightAlign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="필터 :"/>
-		<control id="107" width="80"/>
+		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
 		<button id="ID_SEARCH_DETAILS" text="세부 정보 숨기"/>
 		<button id="ID_SEARCH_PANEL" text="숨기기 사이드바"/>
@@ -110,7 +110,7 @@
 		<button id="ID_SECURITY_BAN" text="반 장관은 사용자"/>
 			<rightAlign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="필터 :"/>
-		<control id="107" width="75"/>
+		<control id="IDC_FILTER_BOX" width="75"/>
 		<separator/>
 		<button id="ID_SEARCH_DETAILS" text="세부 정보 숨기기"/>
 		<button id="ID_SEARCH_PANEL" text="사이드바보기"/>
@@ -130,7 +130,7 @@
 		<button id="ID_SEARCH_CHAT" text="채팅 사용자에게"/>
 			<rightAlign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="필 :"/>
-		<control id="107" width="90"/>
+		<control id="IDC_FILTER_BOX" width="90"/>
 		<separator/>
 		<button id="ID_SEARCH_DETAILS" text="보기/숨기기 세부 사항"/>
 	</toolbar>
@@ -142,7 +142,7 @@
 		<button id="ID_SEARCH_CHAT" text="사용자"/>
 			<rightAlign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="필터 :"/>
-		<control id="107" width="90"/>
+		<control id="IDC_FILTER_BOX" width="90"/>
 		<separator/>
 		<button id="ID_SEARCH_DETAILS" text="보기/숨기기 세부 사항"/>
 	</toolbar>
@@ -401,7 +401,7 @@
 		<button id="ID_SEARCH_CLEAR" text="맑은"/>
 			<rightAlign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="필터 :"/>
-		<control id="107" width="100"/>
+		<control id="IDC_FILTER_BOX" width="100"/>
 	</toolbar>
 	<!-- HOST CACHE WINDOW -->
 	<toolbar name="CHostCacheWnd.Basic">
@@ -1834,9 +1834,6 @@
 		<newline gap="10"/>
 		<link target="page:CUploadsSettingsPage" format="b">Uploads:</link>
 		<text>&#160;Upload capacity, queuing, banning, timeouts and special requests.</text>
-		<newline gap="10"/>
-		<link target="page:CSchedulerSettingsPage" format="b">Scheduler:</link>
-		<text>&#160;Limit download connections based on a periodic schedule.</text>
 	</document> -->
 	<!-- Browse User Profile -->
 	<document name="CBrowseHostProfile.1">
@@ -1954,7 +1951,7 @@
 	<string id="WINDOW_UPLOADS" value="업로드"/>
 	<string id="WINDOW_TRAFFIC" value="그래프"/>
 	<string id="WINDOW_CHAT" value="채팅"/>
-	<string id="WINDOW_SECURITY" value="Security"/>
+	<string id="WINDOW_SECURITY" value="보안"/>
 	<string id="WINDOW_DISCOVERY" value="디스커버리 서비스"/>
 	<string id="WINDOW_BROWSEHOST" value="찾아보기"/>
 	<string id="WINDOW_HOME" value="PeerProject 홈"/>
@@ -1984,21 +1981,21 @@
 	<string id="8010" value="This is a pre-release version of PeerProject, and the beta testing period has ended. Please download the full, official release from http://PeerProject.org/."/>
 	<string id="8011" value="Changing view will close any windows you have open. Would you like to change now?"/>
 	<string id="8012" value="Torrent 정보"/>
-	<string id="8013" value="No new PeerProject version detected."/>
+	<string id="8013" value="새로 PeerProject 버전 감지."/>
 	<string id="8014" value="다운로드 등록"/>
-	<string id="8060" value="Hub/Ultrapeer mode with %lu neighbour(s). %s in local library."/>
-	<string id="8061" value="Ultrapeer mode with %lu neighbour(s). %s in local library."/>
-	<string id="8062" value="Hub mode with %lu neighbour(s). %s in local library."/>
-	<string id="8063" value="Connected. %s in local library."/>
+	<string id="8060" value="Hub/Ultrapeer mode with %lu neighbours. %s 개 지역 도서관에."/>
+	<string id="8061" value="Ultrapeer mode with %lu neighbours. %s 개 지역 도서관에."/>
+	<string id="8062" value="Hub mode with %lu neighbours. %s 개 지역 도서관에."/>
+	<string id="8063" value="연결. %s 개 지역 도서관에."/>
 	<string id="8064" value="&#160; %lu 이웃에 연결됨. &#160; %s 지방 컬렉션."/>
-	<string id="8065" value="Connecting to the network..."/>
-	<string id="8066" value="Not connected to the network."/>
+	<string id="8065" value="네트워크에 연결하기..."/>
+	<string id="8066" value="아니라 네트워크에 연결."/>
 	<string id="8067" value="%s in : %s out (d:%I64i/u:%I64i)"/>
 	<string id="8068" value="%s in : %s out (d:%I64i/u:%I64i/peers:%I64i)"/>
-	<string id="8069" value="Connect"/>
-	<string id="8070" value="Connecting..."/>
-	<string id="8071" value="Connected"/>
-	<string id="8072" value="Disconnect"/>
+	<string id="8069" value="연결"/>
+	<string id="8070" value="연결 중..."/>
+	<string id="8071" value="연결"/>
+	<string id="8072" value="연결 끊기"/>
 	<string id="8096" value="이 영역은 선택한 파일에 대한 자세한 정보를 보여줍니다."/>
 	<string id="8097" value="One source is available. (%s/s)"/>
 	<string id="8098" value="%i sources are available. (%s/s)"/>
@@ -2046,27 +2043,29 @@
 	<string id="8165" value="Unable to download file listing. This host may not support browsing."/>
 	<string id="8166" value="네트워크:"/>
 	<string id="8167" value="All 네트워크"/>
-	<string id="8176" value="Search PeerProject"/>
-	<string id="8177" value="Type some keywords to search for:"/>
-	<string id="8178" value="What type of file is it?"/>
+	<string id="8176" value="수색 PeerProject"/>
+	<string id="8177" value="입력 일부 키워드가 검색:"/>
+	<string id="8178" value="어떤 형식의 파일은 무엇입니까?"/>
 	<string id="8179" value="(Clear Search History)"/>
 	<string id="8180" value="최소 파일 크기:"/>
 	<string id="8181" value="최대 파일 크기:"/>
 	<string id="8208" value="PeerProject is creating hashes for %Iu files:"/>
-	<string id="8227" value="%i days %i hours"/>
-	<string id="8228" value="%i hours %i minutes"/>
-	<string id="8229" value="%i minutes %i seconds"/>
-	<string id="8230" value="%i seconds"/>
-	<string id="8231" value="No sources"/>
-	<string id="8232" value="Open"/>
+	<string id="8227" value="%i 일 %i 시간"/>
+	<string id="8228" value="%i 시간 %i 분"/>
+	<string id="8229" value="%i 분 %i 초"/>
+	<string id="8230" value="%i 초"/>
+	<string id="8231" value="아니 소스"/>
+	<string id="8232" value="열린"/>
 	<string id="8233" value="취소"/>
-	<string id="8235" value="Total transfer speed:"/>
-	<string id="8236" value="Estimated time remaining:"/>
-	<string id="8237" value="Volume downloaded:"/>
-	<string id="8238" value="Volume uploaded:"/>
+	<string id="8235" value="총 전송 속도:"/>
+	<string id="8236" value="예상 남은 시간:"/>
+	<string id="8237" value="볼륨 다운로드:"/>
+	<string id="8238" value="볼륨 업로드:"/>
 	<string id="8239" value="수료"/>
-	<string id="8240" value="Number of sources:"/>
-	<string id="8241" value="Number of reviews:"/>
+	<string id="8240" value="번호 소스의:"/>
+	<string id="8241" value="번호 리뷰:"/>
+	<string id="8244" value="다운로드 속도 제한"/>
+	<string id="8245" value="업로드 속도 제한"/>
 	<string id="8288" value="Exploring Your PeerProject Library"/>
 	<string id="8289" value="탐방"/>
 	<string id="8290" value="Exploring the contents of %i folders"/>
@@ -2625,24 +2624,22 @@
 	<string id="20125" value="Unverified"/>
 	<string id="20126" value="지원되지 않는"/>
 	<string id="20127" value="관심"/>
-	<string id="20128" value="소스"/> <!-- one -->
-	<string id="20129" value="소스"/> <!-- numbers 21, 31, ... -->
-	<string id="20130" value="소스"/> <!-- tens -->
-	<string id="20131" value="소스"/> <!-- from 11 to 19 -->
-	<string id="20132" value="소스"/> <!-- from 2 to 4 -->
-	<string id="20133" value="소스"/> <!-- from 5 to 9 -->
-	<string id="20134" value="소스"/> <!-- "3/10 sources" -->
-	<string id="20125" value="(아니 소스)"/>
+	<string id="20130" value="소스"/>
+	<string id="20131" value="소스"/>
+	<string id="20132" value="소스"/>
+	<string id="20134" value="소스"/>
+	<string id="20135" value="(아니 소스)"/>
 	<string id="20136" value="숨막혀"/>
 	<string id="20137" value="다음"/>
 	<string id="20138" value="Q"/>
-	<string id="20200" value="일요일"/>
+	<string id="20200" value="매일"/>
 	<string id="20201" value="월요일"/>
 	<string id="20202" value="화요일"/>
 	<string id="20203" value="수요일"/>
 	<string id="20204" value="목요일"/>
 	<string id="20205" value="금요일"/>
 	<string id="20206" value="토요일"/>
+	<string id="20207" value="일요일"/>
 	<string id="20210" value="(상세 평가)"/>
 	<string id="20211" value="가짜 / 부패해"/>
 	<string id="20212" value="불쌍한"/>
@@ -2690,7 +2687,7 @@
 		<control caption="Expand new downloads by default"/>
 		<control caption="Display simple progress bar"/>
 		<control caption="Show rates in:"/>
-		<control caption="bits/second|bytes/second|b/s|B/s|Kb/s|KB/s|Mb/s|MB/s"/>
+		<control caption="Auto bits/sec|Auto bytes/sec|b/s|B/s|Kb/s|KB/s|Mb/s|MB/s"/>
 		<control caption="Search:"/>
 		<control caption="Expand multi-source files by default"/>
 		<control caption="Switch to Transfers view on download"/>
@@ -2913,28 +2910,6 @@
 		<control/>
 		<control caption="도움:"/>
 		<control caption="PeerProject Remote Access allows you to leave PeerProject running on your PC, and control it remotely using a web browser.  You will need to be able to accept incoming connections to use this feature.  (Ensure port-forwarding.)"/>
-	</dialog>
-	<dialog name="CSchedulerSettingsPage" cookie="EdStStStStStStStBuStStStBuBuBuStEdmsBuSt" caption="스케줄러">
-		<control/>
-		<control caption="Sun"/>
-		<control caption="Mon"/>
-		<control caption="Tue"/>
-		<control caption="Wed"/>
-		<control caption="Thu"/>
-		<control caption="Fri"/>
-		<control caption="Sat"/>
-		<control caption="Key:"/>
-		<control caption="Do not connect"/>
-		<control caption="Limited connection"/>
-		<control caption="Connect full speed"/>
-		<control caption="Options:"/>
-		<control caption=" Enable scheduler"/>
-		<control caption=" Connect only G2 when limited"/>
-		<control caption="% Bandwidth when limited"/>
-		<control/>
-		<control/>
-		<control caption="도움:"/>
-		<control caption="This scheduler enables you to set times when PeerProject will connect and download files. {n}{n}{n}Note, it is normal to see PeerProject change settings when scheduling is active."/>
 	</dialog>
 <!--	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuSt" caption="네트워크">
 		<control caption="PeerProject is a general-purpose file-sharing application that can access many P2P networks at the same time. On this page you can select which P2P networks you want to connect to, and then adjust specific settings for each network."/>
@@ -3500,13 +3475,6 @@
 		<control/>
 		<control caption="Remove"/>
 	</dialog>
-	<dialog name="CSchemaColumnsDlg" cookie="CoSyBuBuSt" caption="Select Columns from Schema">
-		<control/>
-		<control/>
-		<control caption="OK"/>
-		<control caption="취소"/>
-		<control caption="Select a schema from the list, then select the fields to display as columns."/>
-	</dialog>
 	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuStCoStCoEdStEdStEdStBuBu" caption="Security Rule">
 		<control caption="Rule:"/>
 		<control caption="Type:"/>
@@ -3542,6 +3510,42 @@
 		<control caption="m"/>
 		<control caption="OK"/>
 		<control caption="취소"/>
+	</dialog>
+	<dialog name="CScheduleTaskDlg" cookie="BuBuBuCoEdmsEdmsStStBuBuBuBuBuSySyBuBuBuBuBuBuBuBuBuEd" caption="일정 작업">
+		<control caption="OK"/>
+		<control caption="취소"/>
+		<control caption="Select Task Type"/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="% under Download limit"/>
+		<control caption="% under Upload limit"/>
+		<control caption="Active Task"/>
+		<control caption="Enable G2 Only"/>
+		<control caption="Set Event Time"/>
+		<control caption="Specified days"/>
+		<control caption="One day only"/>
+		<control/>
+		<control/>
+		<control caption="월요일"/>
+		<control caption="화요일"/>
+		<control caption="수요일"/>
+		<control caption="목요일"/>
+		<control caption="금요일"/>
+		<control caption="토요일"/>
+		<control caption="일요일"/>
+		<control caption="모든"/>
+		<control caption="설명"/>
+		<control/>
+	</dialog>
+	<dialog name="CSchemaColumnsDlg" cookie="CoSyBuBuSt" caption="Select Columns from Schema">
+		<control/>
+		<control/>
+		<control caption="OK"/>
+		<control caption="취소"/>
+		<control caption="Select a schema from the list, then select the fields to display as columns."/>
 	</dialog>
 	<dialog name="CShareManagerDlg" cookie="StSyBuBuBuBu" caption="Shared Folder Manager">
 		<control caption="This is a list of folders in your library. You can add and remove folders using the buttons on the left. When you add a new folder it is initially shared with other users, however you can unshare it from the PeerProject library if you wish."/>
@@ -3870,6 +3874,14 @@
 		<column from="Expires" to="만료"/>
 		<column from="#" to="우선순"/>
 		<column from="Comment" to="코멘트"/>
+	</list>
+	<list name="CSchedulerWnd">
+		<column from="Task" to="액션"/>
+		<column from="Date" to="날짜"/>
+		<column from="Time" to="타임"/>
+		<column from="Status" to="상태"/>
+		<column from="Activity" to="활동적인"/>
+		<column from="Description" to="코멘트"/>
 	</list>
 	<list name="CHostCacheWnd">
 		<column from="Address" to="주소"/>
