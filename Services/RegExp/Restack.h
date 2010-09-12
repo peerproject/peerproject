@@ -37,12 +37,12 @@
 #endif
 
 #define COMMA ,
-#ifdef _MSC_VER
- #define REGEX_VC6(x) x
- #define REGEX_NVC6(x)
-#else !defined(_MSC_VER)
- #define REGEX_VC6(x)
- #define REGEX_NVC6(x) x
+#if !defined(_MSC_VER) | 1200 < _MSC_VER
+# define REGEX_VC6(x)
+# define REGEX_NVC6(x) x
+#else
+# define REGEX_VC6(x) x
+# define REGEX_NVC6(x)
 #endif
 
 namespace regex
@@ -790,8 +790,8 @@ public:
 
     // Use scoped_push for automatically pushing/popping
     // things to and from the stack. This is especially useful
-    // if you want to push a bunch of things "atomically".  For
-    // instance:
+    // if you want to push a bunch of things "atomically".
+    // For instance:
     //
     // typedef hetero_stack<>::scoped_pop scoped_pop;
     // scoped_pop p1 = stack.scoped_push( int(1) ); // could throw

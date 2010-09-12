@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Serbian Skin File -->
 
-<!-- Translation based on default-en.xml r56 -->
+<!-- Translation based on default-en.xml r58 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1616,7 +1616,7 @@
 			<newline gap="20" indent="0"/>
 		</group>
 		<group id="3">
-			<icon res="128" width="32" height="32"/><gap size="8"/>
+			<icon res="120" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">OBAVESTENJE O NADOOGRADNJI</heading>
 			<newline gap="8" indent="42"/>
 			<text id="Nadogradi"/>
@@ -1635,7 +1635,7 @@
 			<link target="command:ID_HELP_ROUTER">Kliknite ovde za uputstva kako podesiti Vaš router ili vatrozid</link>
 			<newline gap="18" indent="0"/>
 		</group>
-		<icon res="128" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
+		<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">PODESITE PEERPROJECT</heading>
 		<newline gap="12" indent="42"/>
 		<icon res="182" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
@@ -1660,7 +1660,7 @@
 		<text align="middle">&#160;- Идите на српском језику Дисцуссион Форум</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
-			<icon res="128" width="32" height="32"/><gap size="8"/>
+			<icon res="120" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">PRISTUPNA  DALJINU - UKLUČEN</heading>
 			<newline gap="8" indent="42"/>
 			<text>PeerProject pristup na daljinu je omogućen. Kontroliši PeerProject koristeći web preglednik na:</text>
@@ -1839,9 +1839,6 @@
 		<newline gap="10"/>
 		<link target="page:CUploadsSettingsPage" format="b">Deljenje:</link>
 		<text>&#160;Mogućnosti, ograničenja i ostale podešavanja vezana uz deljenje i davanje datoteka.</text>
-		<newline gap="10"/>
-		<link target="page:CSchedulerSettingsPage" format="b">Scheduler:</link>
-		<text>&#160;Limit download connections based on a periodic schedule.</text>
 	</document>
 	<!-- Browse User Profile -->
 	<document name="CBrowseHostProfile.1">
@@ -2617,6 +2614,8 @@
 	<string id="8239" value="Skinuto"/>
 	<string id="8240" value="Broj izvora:"/>
 	<string id="8241" value="Nažalost nema reviews"/>
+	<string id="8244" value="Ограничење скидати податке брзина"/>
+	<string id="8245" value="Лимит уплоад брзину"/>
 	<string id="8288" value="Pregledavam vašu kolekciju"/>
 	<string id="8289" value="Pregledavam"/>
 	<string id="8290" value="Pregledavam sadržaj %i fascikla"/>
@@ -3114,24 +3113,22 @@
 	<string id="20125" value="Nepotvrđeno"/>
 	<string id="20126" value="Nezainteresiran"/>
 	<string id="20127" value="Nezainteresiran"/>
-	<string id="20128" value="izvor"/>
-	<string id="20129" value="izvor"/>  <!-- numbers 21,31,... -->
-	<string id="20120" value="izvora"/> <!-- tens -->
-	<string id="20131" value="izvora"/> <!-- from 11 to 19 -->
-	<string id="20132" value="izvora"/> <!-- from 2 to 4 -->
-	<string id="20133" value="izvora"/> <!-- from 5 to 9 -->
-	<string id="20134" value="izvora"/> <!-- 3/10 sources -->
+	<string id="20130" value="izvor"/>
+	<string id="20131" value="izvor"/>  <!-- ones 21,31,... -->
+	<string id="20132" value="izvora"/> <!-- few  2,3,4 -->
+	<string id="20134" value="izvora"/> <!-- others -->
 	<string id="20135" value="(Nema Izvora)"/>
 	<string id="20136" value="Zagušen"/>
 	<string id="20137" value="Sledeći"/>
 	<string id="20138" value="Q"/>
-	<string id="20200" value="Nedjelja"/>
+	<string id="20200" value="Every Day"/>
 	<string id="20201" value="Ponedjeljek"/>
 	<string id="20202" value="Utorak"/>
 	<string id="20203" value="Sreda"/>
 	<string id="20204" value="Četvrtak"/>
 	<string id="20205" value="Petak"/>
 	<string id="20206" value="Subota"/>
+	<string id="20207" value="Nedjelja"/>
 	<string id="20210" value="(Nema Ocene)"/>
 	<string id="20211" value="Lažnjak / Greška"/>
 	<string id="20212" value="Loše"/>
@@ -3343,28 +3340,6 @@
 		<control/>
 		<control caption="Pomoć:"/>
 		<control caption="PeerProject pristup na daljinu vam omogućava da ostavite upaljen PC sa pokrenutom PeerProject, i njome upravljate sa druge lokacije. Da bi ste koristili ovu opciju morate biti u mogućnosti primati dolazeće veze(npr. podešen ruter, itd)."/>
-	</dialog>
-	<dialog name="CSchedulerSettingsPage" cookie="EdStStStStStStStBuStStStBuBuBuStEdmsBuSt" caption="Plan Skidanja">
-		<control/>
-		<control caption="Ned"/>
-		<control caption="Pon"/>
-		<control caption="Uto"/>
-		<control caption="Sre"/>
-		<control caption="Čet"/>
-		<control caption="Pet"/>
-		<control caption="Sub"/>
-		<control caption="Legenda:"/>
-		<control caption="Nemoj se spajati"/>
-		<control caption="Ograničenom brzinom"/>
-		<control caption="Spoji se punom brzinom"/>
-		<control caption="_Opcije:"/>
-		<control caption="Uključi Plan"/>
-		<control caption="Spoji se na G2 samo pod ograničenjem"/>
-		<control caption="% _brzine je ograničenje"/>
-		<control/>
-		<control/>
-		<control caption="Pomoć:"/>
-		<control caption="Planer skidanja je osmišljen da omoguči PeerProject spajanje i skidanje u određeno doba dana. {n}{n}{n}Napomena: Ako je PeerProject pokrenuta i plan uključen, možete videti promene podešavanja- to je normalno!-"/>
 	</dialog>
 	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuSt" caption="Mreže">
 		<control caption="PeerProject je program za deljenje i skidanje datoteka opšteg sadržaja, i može se istovremeno spojiti na više P2P mreža.Ovde možete odabrati kojim mrežama želite pristupiti, te podesiti svaku posebno."/>
@@ -3927,13 +3902,6 @@
 		<control/>
 		<control caption="Ukloni"/>
 	</dialog>
-	<dialog name="CSchemaColumnsDlg" cookie="CoSyBuBuSt" caption="Odaberite Kolonu iz Šeme">
-		<control/>
-		<control/>
-		<control caption="OK"/>
-		<control caption="Odustani"/>
-		<control caption="Izaberite šemu sa liste, zatim odaberite detalje koje želite da prikažete uz datoteke u fasckli, kao kolone ."/>
-	</dialog>
 	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuStCoStCoEdStEdStEdStBuBu" caption="Sigurnosna Pravila">
 		<control caption="P_ravilo:"/>
 		<control caption="Tip:"/>
@@ -3969,6 +3937,42 @@
 		<control caption="m"/>
 		<control caption="OK"/>
 		<control caption="Odustani"/>
+	</dialog>
+	<dialog name="CScheduleTaskDlg" cookie="BuBuBuCoEdmsEdmsStStBuBuBuBuBuSySyBuBuBuBuBuBuBuBuBuEd" caption="Распоред задатака">
+		<control caption="OK"/>
+		<control caption="Odustani"/>
+		<control caption="Select Task Type"/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="% under Download limit"/>
+		<control caption="% under Upload limit"/>
+		<control caption="Active Task"/>
+		<control caption="Enable G2 Only"/>
+		<control caption="Set Event Time"/>
+		<control caption="Specified days"/>
+		<control caption="One day only"/>
+		<control/>
+		<control/>
+		<control caption="Pon"/>
+		<control caption="Uto"/>
+		<control caption="Sre"/>
+		<control caption="Čet"/>
+		<control caption="Pet"/>
+		<control caption="Sub"/>
+		<control caption="Ned"/>
+		<control caption="Све"/>
+		<control caption="Коментари"/>
+		<control/>
+	</dialog>
+	<dialog name="CSchemaColumnsDlg" cookie="CoSyBuBuSt" caption="Odaberite Kolonu iz Šeme">
+		<control/>
+		<control/>
+		<control caption="OK"/>
+		<control caption="Odustani"/>
+		<control caption="Izaberite šemu sa liste, zatim odaberite detalje koje želite da prikažete uz datoteke u fasckli, kao kolone ."/>
 	</dialog>
 	<dialog name="CShareManagerDlg" cookie="StSyBuBuBuBu" caption="Pomoćnik oko Deljenih Fascikala">
 		<control caption="Ovde je lista fascikala u vašoj kolekciji.Možete ukloniti ili dodati fascikle koristeći dugmad na levoj strani.Kada dodate novu fasciklu ona je inicijalno deljena sa ostalim korisnicima, ipak Vi kasnije možete da je isključite iz deljenja ukoliko to želite(iz kolekcije-library)."/>
@@ -4306,6 +4310,14 @@
 		<column from="Expires" to="Ističe"/>
 		<column from="#" to=""/>
 		<column from="Comment" to="Komentar"/>
+	</list>
+	<list name="CSchedulerWnd">
+		<column from="Task" to="Akcija"/>
+		<column from="Date" to="Датум"/>
+		<column from="Time" to="Vreme"/>
+		<column from="Status" to=""/>
+		<column from="Activity" to="Активан"/>
+		<column from="Description" to="Komentar"/>
 	</list>
 	<list name="CHostCacheWnd">
 		<column from="Address" to="Adresa"/>

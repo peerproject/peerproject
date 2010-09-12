@@ -31,44 +31,49 @@ public:
 	CMonitorBarCtrl();
 	virtual ~CMonitorBarCtrl();
 
-// Operations
-public:
-	BOOL	Create(CWnd* pParentWnd, DWORD dwStyle, UINT nID);
-	void	OnSkinChange();
-
 // Attributes
 public:
 	CControlBar*	m_pSnapBar[2];
 	CGraphItem*		m_pTxItem;
 	CGraphItem*		m_pRxItem;
-	DWORD			m_nMaximum;
+	DWORD			m_nMaximumIn;
+	DWORD			m_nMaximumOut;
 	DWORD			m_nCount;
 protected:
 	CBitmap			m_bmWatermark;
-	CRect			m_rcTrack;
-	CRect			m_rcTab;
-	BOOL			m_bTab;
-	HICON			m_hTab;
+	CRect			m_rcTrackIn;
+	CRect			m_rcTrackOut;
+	CRect			m_rcTabIn;
+	CRect			m_rcTabOut;
+	BOOL			m_bTabIn;
+	BOOL			m_bTabOut;
+	HICON			m_hTabIn;
+	HICON			m_hTabOut;
 	HICON			m_hUpDown;
+
+// Operations
+public:
+	BOOL			Create(CWnd* pParentWnd, DWORD dwStyle, UINT nID);
+	void			OnSkinChange();
 
 // Overrides
 protected:
+	void			PaintHistory(CDC* pDC, CRect* prc);
+	void			PaintCurrent(CDC* pDC, CRect* prc, CGraphItem* pItem, DWORD nMaximum);
+	void			PaintTabs(CDC* pDC);
+
+	virtual void	DoPaint(CDC* pDC);
 	virtual CSize	CalcFixedLayout(BOOL bStretch, BOOL bHorz);
 	virtual void	OnUpdateCmdUI(CFrameWnd* /*pTarget*/, BOOL /*bDisableIfNoHandler*/) {};
-	virtual INT_PTR	OnToolHitTest(CPoint /*point*/, TOOLINFO* /*pTI*/) const { return -1; }
-	virtual void	DoPaint(CDC* pDC);
-protected:
-	void			PaintHistory(CDC* pDC, CRect* prc);
-	void			PaintCurrent(CDC* pDC, CRect* prc, CGraphItem* pItem);
-	void			PaintTab(CDC* pDC);
+	virtual INT_PTR OnToolHitTest(CPoint point, TOOLINFO* pTI) const;
 
 // Message Map
 protected:
 	DECLARE_MESSAGE_MAP()
-	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
-	afx_msg void OnDestroy();
-	afx_msg void OnSize(UINT nType, int cx, int cy);
-	afx_msg void OnTimer(UINT_PTR nIDEvent);
-	afx_msg BOOL OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message);
-	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
+	afx_msg int 	OnCreate(LPCREATESTRUCT lpCreateStruct);
+	afx_msg void	OnDestroy();
+	afx_msg void	OnSize(UINT nType, int cx, int cy);
+	afx_msg void	OnTimer(UINT_PTR nIDEvent);
+	afx_msg BOOL	OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message);
+	afx_msg void	OnLButtonDown(UINT nFlags, CPoint point);
 };

@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Hebrew Skin File -->
 
-<!-- Translation based on default-en.xml r56 -->
+<!-- Translation based on default-en.xml r58 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1731,7 +1731,7 @@ gap i newline
 			<newline gap="20" indent="0"/>
 		</group>
 		<group id="3">
-			<icon res="128" width="32" height="32"/><gap size="8"/>
+			<icon res="120" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">הודעת ש ד ר וג</heading>
 			<newline gap="8" indent="42"/>
 			<text id="שדרוג"/>
@@ -1772,7 +1772,7 @@ gap i newline
 			<link target="command:ID_HELP_ROUTER">לחץ כאן כדי ללמוד איך להגדיר את הראוטר וחומת האש</link>
 			<newline gap="18" indent="0"/>
 		</group>
-		<icon res="128" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
+		<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">ה ת א מ ת &#160; ש ר ז ה&#160;&#160;&#160;</heading>
 		<newline gap="12" indent="42"/>
 		<icon res="182" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
@@ -1796,7 +1796,7 @@ gap i newline
 		<text align="middle">&#160;- עברית עבור השפה שלך לדיון בפורום</text>
 		<newline gap="18" indent="16"/>
 		<group id="5">
-			<icon res="128" width="32" height="32"/><gap size="8"/>
+			<icon res="120" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">ג י ש ה &#160; מ ר ח ו ק &#160; ב מ צ ב &#160; מ א ו פ ש ר</heading>
 			<newline gap="8" indent="42"/>
 			<text>שליטה מרחוק בשרזה במצב מאופשר, שלוט בשרזה עם הדפדפן שלך דרך:</text>
@@ -1976,9 +1976,6 @@ gap i newline
 		<newline gap="10"/>
 		<link target="page:CUploadsSettingsPage" format="b">העלאות:</link>
 		<text>&#160;הגדרות העלאה לגבי יכולות אכסון, תורות, חסימות, זמני המתנה לתגובה, ובקשות מיוחדות</text>
-		<newline gap="10"/>
-		<link target="page:CSchedulerSettingsPage" format="b">תזמונים:</link>
-		<text>&#160;הגבלת ההורדות בהתאם ללוח זמנים</text>
 	</document>
 	<!-- Browse User Profile -->
 	<document name="CBrowseHostProfile.1">
@@ -2620,7 +2617,9 @@ gap i newline
 	<string id="8238" value="‪:העותק התעדכן"/>
 	<string id="8239" value="‪הושלם"/>
 	<string id="8240" value="‪:מספר מקורות"/>
-	<string id="8241" value="Number of reviews:"/>
+	<string id="8241" value="מספר ביקורות:"/>
+	<string id="8244" value="מגבלת מהירות ההורדה"/>
+	<string id="8245" value="מגבלת מהירות ההעלאה"/>
 	<string id="8288" value="‪סייר בספריית השיתוף שלך בשרזה"/>
 	<string id="8289" value="‪סיור"/>
 	<string id="8290" value="תיקיות ‪%i סייר בתכנים של"/>
@@ -2904,24 +2903,22 @@ gap i newline
 	<string id="20125" value="‪לא מאומת"/>
 	<string id="20126" value="‪לא מעוניין"/>
 	<string id="20127" value="‪לא מעוניין"/>
-	<string id="20128" value=" :מקורות"/>
-	<string id="20129" value=" :מקורות"/> <!-- numbers 21, 31, ... -->
-	<string id="20130" value="‪:מקורות"/> <!-- tens -->
-	<string id="20131" value="‪:מקורות"/> <!-- from 11 to 19 -->
-	<string id="20132" value="‪:מקורות"/> <!-- from 2 to 4 -->
-	<string id="20133" value="‪:מקורות"/> <!-- from 5 to 9 -->
-	<string id="20134" value="‪:מקורות"/> <!-- "3/10 sources" -->
+	<string id="20130" value=":מקורות"/>
+	<string id="20131" value=":מקורות"/>
+	<string id="20132" value="‪:מקורות"/>
+	<string id="20134" value="מקורות"/>
 	<string id="20135" value="‪(ללא מקורות)"/>
 	<string id="20136" value="‪Choked"/>
 	<string id="20137" value="‪הבא"/>
 	<string id="20138" value="בתור"/>
-	<string id="20200" value="‪ראשון"/>
+	<string id="20200" value="‪ששש"/>
 	<string id="20201" value="‪שני"/>
 	<string id="20202" value="‪שלישי"/>
 	<string id="20203" value="‪רביעי"/>
 	<string id="20204" value="‪חמישי"/>
 	<string id="20205" value="‪שישי"/>
 	<string id="20206" value="‪שבת"/>
+	<string id="20207" value="‪ראשון"/>
 	<string id="20210" value="‪(ללא דירוג)"/>
 	<string id="20211" value="‪מזוייף / מקולקל"/>
 	<string id="20212" value="‪גרוע"/>
@@ -2963,7 +2960,7 @@ gap i newline
 		<control caption="‪הרחב הורדות חדשות כברירת מחדל"/>
 		<control caption="‪הצג מד התקדמות פשוט"/>
 		<control caption="‪:הצגת מהירות"/>
-		<control caption="‪bits/second|bytes/second|b/s|B/s|Kb/s|KB/s|Mb/s|MB/s"/>
+		<control caption="Auto bits/sec|Auto bytes/sec|b/s|B/s|Kb/s|KB/s|Mb/s|MB/s"/>
 		<control caption="‪:חיפוש"/>
 		<control caption="‪הרחב קבצים עם כמה מקורות אוטמטית"/>
 		<control caption="‪עבור לחלון ההעברות בתחילת הורדה"/>
@@ -3143,28 +3140,6 @@ gap i newline
 		<control/>
 		<control caption=":מדריך"/>
 		<control caption="אפשרות השליטה מרחוק של שרזה מאפשרת לך להשאיר את שרזה פועלת על המחשב, ולשלוט בה מרחוק בעזרת דפדפן האינטרנט, יהיה עלייך לדאוג שתוכל לקבל התקשרויות נכנסות - ראוטר מוגדר וכדומה"/>
-	</dialog>
-	<dialog name="CSchedulerSettingsPage" cookie="EdStStStStStStStBuStStStBuBuBuStEdmsBuSt" caption="תזמונים">
-		<control/>
-		<control caption="ראשון"/>
-		<control caption="שני"/>
-		<control caption="שלישי"/>
-		<control caption="רביעי"/>
-		<control caption="חמישי"/>
-		<control caption="שישי"/>
-		<control caption="שבת"/>
-		<control caption=":מפתח"/>
-		<control caption="אל תתחבר"/>
-		<control caption="חיבור מוגבל"/>
-		<control caption="התחבר במהירות מלאה"/>
-		<control caption=":אפשרויות"/>
-		<control caption="אפשר לוח תזמונים"/>
-		<control caption="התחבר לגונטלה2 רק כאשר בהגבלות"/>
-		<control caption="של רוחב פס תחת הגבלה %"/>
-		<control/>
-		<control/>
-		<control caption="עזרה"/>
-		<control caption="אשף התזמונים מאפשר לך לקבוע את הזמנים בהם שרזה יתנתק ויוריד קבצים {n}{n}{n} הערה: אם תפתח את שרזה בזמן שהאשף פעיל אתה עלול לראות אותו משנה הגדרות אך זה מצב רגיל"/>
 	</dialog>
 	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuSt" caption="רשתות">
 		<control caption="שרזה היא תוכנת שיתוף לשימוש כללי שמסוגלת לגשת למספר רשתות שיתוף קבצים בו זמנית. כאן אתה יכול לבחור לאילו רשתות תרצה לגשת ולקבוע הגדרות ספציפיות לכל רשת"/>
@@ -3730,13 +3705,6 @@ gap i newline
 		<control/>
 		<control caption="הסר"/>
 	</dialog>
-	<dialog name="CSchemaColumnsDlg" cookie="CoSyBuBuSt" caption="בחר עמודות מהסכמה">
-		<control/>
-		<control/>
-		<control caption="אישור"/>
-		<control caption="ביטול"/>
-		<control caption="‏כעמודות‎ ‏להצגה‎ ‏השדות‎ ‏את‎ ‏ובחר‎ ‏מהרשימה‎, ‏סכמה‎ ‏בחר"/>
-	</dialog>
 	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuStCoStCoEdStEdStEdStBuBu" caption="חוק אבטחה">
 		<control caption=":חוק"/>
 		<control caption=":סוג"/>
@@ -3772,6 +3740,42 @@ gap i newline
 		<control caption="ח"/>
 		<control caption="אישור"/>
 		<control caption="ביטול"/>
+	</dialog>
+	<dialog name="CScheduleTaskDlg" cookie="BuBuBuCoEdmsEdmsStStBuBuBuBuBuSySyBuBuBuBuBuBuBuBuBuEd" caption="לוח זמנים לפעילות">
+		<control caption="אישור"/>
+		<control caption="ביטול"/>
+		<control caption="Select Task Type"/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="% under Download limit"/>
+		<control caption="% under Upload limit"/>
+		<control caption="Active Task"/>
+		<control caption="Enable G2 Only"/>
+		<control caption="Set Event Time"/>
+		<control caption="Specified days"/>
+		<control caption="One day only"/>
+		<control/>
+		<control/>
+		<control caption="שני"/>
+		<control caption="שלישי"/>
+		<control caption="רביעי"/>
+		<control caption="חמישי"/>
+		<control caption="שישי"/>
+		<control caption="שבת"/>
+		<control caption="ראשון"/>
+		<control caption="כל"/>
+		<control caption="תגובות"/>
+		<control/>
+	</dialog>
+	<dialog name="CSchemaColumnsDlg" cookie="CoSyBuBuSt" caption="בחר עמודות מהסכמה">
+		<control/>
+		<control/>
+		<control caption="אישור"/>
+		<control caption="ביטול"/>
+		<control caption="‏כעמודות‎ ‏להצגה‎ ‏השדות‎ ‏את‎ ‏ובחר‎ ‏מהרשימה‎, ‏סכמה‎ ‏בחר"/>
 	</dialog>
 	<dialog name="CShareManagerDlg" cookie="StSyBuBuBuBu" caption="מנהל תיקיית שיתוף">
 		<control caption="זוהי רשימת התיקיות שבספריה שלך. אתה יכול להוסיף ולהסיר תיקיות בעזרת הכפתורים משמאל. כשאתה מוסיף תיקייה חדשה היא באופן אוטומטי מתחילה להיות משותפת עם המשתמשים, תוכל לבחור לא לשתף אותה מתוך הספריה"/>
@@ -4109,6 +4113,14 @@ gap i newline
 		<column from="Expires" to="בתוקף עד"/>
 		<column from="#" to=""/>
 		<column from="Comment" to="הערה"/>
+	</list>
+	<list name="CSchedulerWnd">
+		<column from="Task" to="פעולה"/>
+		<column from="Date" to="תאריך"/>
+		<column from="Time" to="זמן"/>
+		<column from="Status" to="מצב"/>
+		<column from="Activity" to="פעיל"/>
+		<column from="Description" to="הערה"/>
 	</list>
 	<list name="CHostCacheWnd">
 		<column from="Address" to="כתובת"/>

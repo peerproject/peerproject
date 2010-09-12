@@ -36,13 +36,15 @@ class CEDClient : public CTransfer
 // Construction
 public:
 	CEDClient();
+protected:
 	virtual ~CEDClient();
 
 // Attributes
 public:
 	CEDClient*	m_pEdPrev;
 	CEDClient*	m_pEdNext;
-public:
+
+// ClientID/Version
 	Hashes::Guid m_oGUID;
 	SOCKADDR_IN	m_pServer;
 	DWORD		m_nClientID;
@@ -55,7 +57,7 @@ public:
 	int			m_nEmCompatible;
 	DWORD		m_nSoftwareVersion;
 
-public:	//Client capabilities
+// Client capabilities
 	BOOL		m_bEmAICH;			// Not supported
 	BOOL		m_bEmUnicode;
 	BOOL		m_bEmUDPVersion;
@@ -69,21 +71,20 @@ public:	//Client capabilities
 	BOOL		m_bEmMultiPacket;	// Not supported
 	BOOL		m_bEmPreview;		// Preview support
 	BOOL		m_bEmLargeFile;		// Large file support
-public:
+
+// Other
+	CDownloadTransferED2K*	m_pDownloadTransfer;
+	CUploadTransferED2K*	m_pUploadTransfer;
+	Hashes::Ed2kHash		m_oUpED2K;
+	bool		m_bCallbackRequested;
+	BOOL		m_bSeeking;
 	BOOL		m_bLogin;
 	QWORD		m_nUpSize;
-	Hashes::Ed2kHash m_oUpED2K;
-public:
-	CDownloadTransferED2K*	m_pDownload;
-	CUploadTransferED2K*	m_pUpload;
-	bool					m_bCallbackRequested;
-	BOOL					m_bSeeking;
-	DWORD					m_nRunExCookie;
+	DWORD		m_nRunExCookie;
+	DWORD		m_nDirsWaiting;
 
 	BOOL		m_bOpenChat;
 	BOOL		m_bCommentSent;
-
-	DWORD		m_nDirsWaiting;
 
 // Operations
 public:
@@ -95,22 +96,23 @@ public:
 	void	CopyCapabilities(CEDClient* pClient);
 	void	Send(CEDPacket* pPacket, BOOL bRelease = TRUE);
 	void	OnRunEx(DWORD tNow);
-public:
+
 	BOOL	AttachDownload(CDownloadTransferED2K* pDownload);
 	void	OnDownloadClose();
 	void	OnUploadClose();
 	CString	GetSourceURL();
 	void	WritePartStatus(CEDPacket* pPacket, CDownload* pDownload);
 	BOOL	SeekNewDownload(CDownloadSource* pExcept = NULL);
-	inline  void OpenChat() { m_bOpenChat = TRUE; }
 	BOOL	SendCommentsPacket(int nRating, LPCTSTR pszComments);
 	void	SendPreviewRequest(CDownload* pDownload);
+	inline  void OpenChat() { m_bOpenChat = TRUE; }
+
 protected:
 	void	DetermineUserAgent();
-	BOOL	OnLoggedIn();
 	void	DetachDownload();
 	void	DetachUpload();
 	void	NotifyDropped();
+	BOOL	OnLoggedIn();
 
 	CHostBrowser*	GetBrowser() const;
 	CDownloadSource* GetSource() const;			// Get download transfer source
@@ -118,12 +120,14 @@ protected:
 public:
 	virtual void	AttachTo(CConnection* pConnection);
 	virtual void	Close();
+
 protected:
 	virtual BOOL	OnRun();
 	virtual BOOL	OnConnected();
 	virtual void	OnDropped();
 	virtual BOOL	OnWrite();
 	virtual BOOL	OnRead();
+
 protected:
 	BOOL	OnPacket(CEDPacket* pPacket);
 	void	SendHello(BYTE nType);
@@ -138,12 +142,12 @@ protected:
 	BOOL	OnSourceAnswer(CEDPacket* pPacket);
 	BOOL	OnRequestPreview(CEDPacket* pPacket);
 	BOOL	OnPreviewAnswer(CEDPacket* pPacket);
-// Chat
+// Chat:
 	BOOL	OnMessage(CEDPacket* pPacket);
-// Browse us
+// Browse us:
 	BOOL	OnAskSharedDirs(CEDPacket* pPacket);
 	BOOL	OnViewSharedDir(CEDPacket* pPacket);
-// Browse remote host
+// Browse remote host:
 	BOOL	OnAskSharedDirsAnswer(CEDPacket* pPacket);
 	BOOL	OnViewSharedDirAnswer(CEDPacket* pPacket);
 	BOOL	OnAskSharedDirsDenied(CEDPacket* pPacket);

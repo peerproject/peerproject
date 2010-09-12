@@ -283,16 +283,24 @@ bool CSecurity::Complain(const IN_ADDR* pAddress, int nBanLength, int nExpire, i
 	CQuickLock oLock( m_pSection );
 
 	DWORD nNow = static_cast< DWORD >( time( NULL ) );
+
 	CComplain* pComplain = NULL;
 	if ( m_Complains.Lookup( pAddress->s_addr, pComplain ) )
 	{
-		pComplain->m_nScore ++;
-		if ( pComplain->m_nScore > nCount )
+		if ( pComplain->m_nExpire < nNow )
 		{
-			m_Complains.RemoveKey( pAddress->s_addr );
-			delete pComplain;
-			Ban( pAddress, nBanLength );
-			return true;
+			pComplain->m_nScore = 1;
+		}
+		else
+		{
+			pComplain->m_nScore ++;
+			if ( pComplain->m_nScore > nCount )
+			{
+				m_Complains.RemoveKey( pAddress->s_addr );
+				delete pComplain;
+				Ban( pAddress, nBanLength );
+				return true;
+			}
 		}
 	}
 	else
@@ -301,7 +309,9 @@ bool CSecurity::Complain(const IN_ADDR* pAddress, int nBanLength, int nExpire, i
 		pComplain->m_nScore = 1;
 		m_Complains.SetAt( pAddress->s_addr, pComplain );
 	}
+
 	pComplain->m_nExpire = nNow + nExpire;
+
 	return false;
 }
 

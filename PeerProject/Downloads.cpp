@@ -155,7 +155,7 @@ CDownload* CDownloads::Add(CQueryHit* pHit, BOOL bAddToHead)
 	if ( pDownload == NULL && pHit->m_oMD5 )
 		pDownload = FindByMD5( pHit->m_oMD5 );
 
-	if ( pDownload != NULL )
+	if ( pDownload )
 	{
 		theApp.Message( MSG_NOTICE, IDS_DOWNLOAD_ALREADY, (LPCTSTR)pHit->m_sName );
 
@@ -164,13 +164,15 @@ CDownload* CDownloads::Add(CQueryHit* pHit, BOOL bAddToHead)
 		//if ( pDownload->IsPaused() )
 			pDownload->Resume();
 	}
-	else
+	else // pDownload == NULL
 	{
 		pDownload = new CDownload();
 		pDownload->AddSourceHit( pHit, TRUE );
 
-		if ( bAddToHead ) m_pList.AddHead( pDownload );
-		else m_pList.AddTail( pDownload );
+		if ( bAddToHead )
+			m_pList.AddHead( pDownload );
+		else
+			m_pList.AddTail( pDownload );
 
 		theApp.Message( MSG_NOTICE, IDS_DOWNLOAD_ADDED,
 			(LPCTSTR)pDownload->GetDisplayName(), pDownload->GetSourceCount() );
@@ -209,7 +211,7 @@ CDownload* CDownloads::Add(CMatchFile* pFile, BOOL bAddToHead)
 	if ( pDownload == NULL && pFile->m_oMD5 )
 		pDownload = FindByMD5( pFile->m_oMD5 );
 
-	if ( pDownload != NULL )
+	if ( pDownload )
 	{
 		theApp.Message( MSG_NOTICE, IDS_DOWNLOAD_ALREADY, (LPCTSTR)pFile->m_sName );
 
@@ -218,11 +220,13 @@ CDownload* CDownloads::Add(CMatchFile* pFile, BOOL bAddToHead)
 		if ( pDownload->IsPaused() )
 			pDownload->Resume();
 	}
-	else
+	else // pDownload == NULL
 	{
 		pDownload = new CDownload();
-		if ( bAddToHead ) m_pList.AddHead( pDownload );
-		else m_pList.AddTail( pDownload );
+		if ( bAddToHead )
+			m_pList.AddHead( pDownload );
+		else
+			m_pList.AddTail( pDownload );
 
 		pFile->AddHitsToDownload( pDownload, TRUE );
 
@@ -448,7 +452,8 @@ int CDownloads::GetSeedCount() const
 	{
 		CDownload* pDownload = GetNext( pos );
 
-		if ( pDownload->IsSeeding() ) nCount++;
+		if ( pDownload->IsSeeding() )
+			nCount++;
 	}
 
 	return nCount;
@@ -467,7 +472,9 @@ int CDownloads::GetActiveTorrentCount() const
 		if ( pDownload->IsDownloading() && pDownload->IsTorrent() &&
 			! pDownload->IsSeeding()	&& ! pDownload->IsCompleted() &&
 			! pDownload->IsMoving()		&& ! pDownload->IsPaused() )
-				nCount++;
+		{
+			nCount++;
+		}
 	}
 
 	return nCount;
@@ -488,7 +495,9 @@ INT_PTR CDownloads::GetCount(BOOL bActiveOnly) const
 
 		if ( ! pDownload->IsMoving() && ! pDownload->IsPaused() &&
 			 pDownload->GetEffectiveSourceCount() > 0 )
-				nCount++;
+		{
+			nCount++;
+		}
 	}
 
 	return nCount;
@@ -512,8 +521,8 @@ DWORD CDownloads::GetTryingCount(bool bTorrentsOnly) const
 {
 	if ( bTorrentsOnly )
 		return m_nBTTryingCount;
-	else
-		return m_nTryingCount;
+
+	return m_nTryingCount;
 }
 
 DWORD CDownloads::GetConnectingTransferCount() const
@@ -536,8 +545,7 @@ void CDownloads::Remove(CDownload* pDownload)
 {
 	//ASSUME_LOCK( Transfers.m_pSection );
 
-	POSITION pos = m_pList.Find( pDownload );
-	if ( pos != NULL )
+	if ( POSITION pos = m_pList.Find( pDownload ) )
 		m_pList.RemoveAt( pos );
 
 	delete pDownload;
@@ -711,7 +719,8 @@ CDownload* CDownloads::FindBySID(DWORD nSerID) const
 	for ( POSITION pos = GetIterator() ; pos ; )
 	{
 		CDownload* pDownload = GetNext( pos );
-		if ( pDownload->m_nSerID == nSerID ) return pDownload;
+		if ( pDownload->m_nSerID == nSerID )
+			return pDownload;
 	}
 
 	return NULL;
@@ -727,7 +736,11 @@ DWORD CDownloads::GetFreeSID()
 		for ( POSITION pos = GetIterator() ; pos ; )
 		{
 			CDownload* pDownload = GetNext( pos );
-			if ( pDownload->m_nSerID == nSerID ) { nSerID = 0; break; }
+			if ( pDownload->m_nSerID == nSerID )
+			{
+				nSerID = 0;
+				break;
+			}
 		}
 
 		if ( nSerID ) return nSerID;
@@ -775,10 +788,10 @@ BOOL CDownloads::Swap(CDownload* p1, CDownload*p2)
 	CQuickLock pLock( Transfers.m_pSection );
 
 	POSITION pos1 = m_pList.Find( p1 );
-	if (pos1 == NULL) return FALSE;
+	if ( pos1 == NULL ) return FALSE;
 
 	POSITION pos2 = m_pList.Find( p2 );
-	if (pos2 == NULL) return FALSE;
+	if ( pos2 == NULL ) return FALSE;
 
 	m_pList.InsertAfter(pos2, p1 );
 	m_pList.RemoveAt( pos2);
@@ -887,8 +900,8 @@ bool CDownloads::AllowMoreTransfers(IN_ADDR* pAddress) const
 
 	if ( m_pHostLimits.Lookup( pAddress->S_un.S_addr, nLimit ) )
 		return ( nCount < nLimit );
-	else
-		return ( nCount == 0 );
+
+	return ( nCount == 0 );
 }
 
 void CDownloads::SetPerHostLimit(IN_ADDR* pAddress, DWORD nLimit)
@@ -906,16 +919,14 @@ BOOL CDownloads::IsSpaceAvailable(QWORD nVolume, int nPath)
 	ULARGE_INTEGER nFree, nNull;
 
 	if ( ( ! nPath || nPath == dlPathIncomplete )
-		&& GetDiskFreeSpaceEx( Settings.Downloads.IncompletePath, &nFree,
-			&nNull, &nNull ) )
+		&& GetDiskFreeSpaceEx( Settings.Downloads.IncompletePath, &nFree, &nNull, &nNull ) )
 	{
 		if ( nFree.QuadPart < nVolume + nMargin )
 			return FALSE;
 	}
 
 	if ( ( ! nPath || nPath == dlPathComplete )
-		&& GetDiskFreeSpaceEx( Settings.Downloads.CompletePath, &nFree,
-			&nNull, &nNull ) )
+		&& GetDiskFreeSpaceEx( Settings.Downloads.CompletePath, &nFree, &nNull, &nNull ) )
 	{
 		if ( nFree.QuadPart < nVolume + nMargin )
 			return FALSE;
@@ -978,6 +989,9 @@ void CDownloads::OnRun()
 				CDownload* pDownload = GetNext( pos );
 				pDownload->m_nRunCookie = m_nRunCookie;
 				pDownload->OnRun();
+
+				if ( pDownload->IsCompleted() ) 	// BitTorrent seeds
+					continue;
 
 				int nTemp = 0;
 

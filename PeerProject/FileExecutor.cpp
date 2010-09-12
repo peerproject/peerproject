@@ -25,10 +25,10 @@
 #include "FileExecutor.h"
 #include "Plugins.h"
 #include "Skin.h"
-#include "ShellIcons.h"
 #include "XML.h"
 #include "Schema.h"
 #include "SchemaCache.h"
+#include "ShellIcons.h"
 #include "Library.h"
 #include "SharedFile.h"
 #include "Connection.h"
@@ -52,10 +52,16 @@ static const struct
 }
 KnownPlayers[] =
 {
-	// MediaPlayer Classic
-	{ _T("mplayerc.exe"),	_T("\"%s\" /add") },
 	// Windows Media Player
 	{ _T("wmplayer.exe"),	_T("/SHELLHLP_V9 Enqueue \"%s\"") },
+	// Media Player Classic
+	{ _T("mplayerc.exe"),	_T("\"%s\" /add") },
+	// MediaPlayerClassic HomeCinema
+	{ _T("mpc-hc.exe"), 	_T("\"%s\" /add") },
+	// MediaPlayerClassic HomeCinema 64
+	{ _T("mpc-hc64.exe"),	_T("\"%s\" /add") },
+	// MPlayer
+	{ _T("mplayer.exe"),	_T("-enqueue %s") },
 	// VideoLAN
 	{ _T("vlc.exe"),		_T("--one-instance --playlist-enqueue \"%s\"") },
 	// WinAmp
@@ -77,8 +83,7 @@ int PathGetArgsIndex(const CString& str)
 		// "command"args
 		int quote = str.Find( _T('\"'), 1 );
 		if ( quote == -1 )
-			// No closing quote
-			return -1;
+			return -1;	// No closing quote
 		else
 			return quote + 1;
 	}
@@ -161,6 +166,27 @@ void CFileExecutor::DetectFileType(LPCTSTR pszFile, LPCTSTR szType, bool& bVideo
 	}
 }
 
+int CFileExecutor::FillServices(CString strServicePaths[])
+{
+	int nCount = 0;
+	int nSelected = 3;
+
+	for( string_set::const_reverse_iterator i = Settings.MediaPlayer.ServicePath.rbegin() ; i != Settings.MediaPlayer.ServicePath.rend() ; ++i )
+	{
+		strServicePaths[nCount] = *i;
+
+		int nAstrix= strServicePaths[nCount].ReverseFind( '*' );
+
+		if( nAstrix == strServicePaths[nCount].GetLength() - 1 )	// Has * at the end so is Selected player
+			nSelected = nCount;
+
+		strServicePaths[nCount].Remove( '*' );
+		nCount++;
+	}
+
+	return nSelected;
+}
+
 TRISTATE CFileExecutor::IsSafeExecute(LPCTSTR szExt, LPCTSTR szFile)
 {
 	BOOL bSafe = ! szExt || IsIn( Settings.Library.SafeExecute, szExt + 1 ) ||
@@ -188,6 +214,9 @@ TRISTATE CFileExecutor::IsSafeExecute(LPCTSTR szExt, LPCTSTR szFile)
 
 BOOL CFileExecutor::Execute(LPCTSTR pszFile, BOOL bSkipSecurityCheck, LPCTSTR pszExt)
 {
+	CString strServicePaths[3];
+	int nSelServiceIndex = FillServices(strServicePaths);
+
 	CWaitCursor pCursor;
 
 	CString strType;
@@ -256,11 +285,10 @@ BOOL CFileExecutor::Execute(LPCTSTR pszFile, BOOL bSkipSecurityCheck, LPCTSTR ps
 	}
 
 	// Handle video and audio files by external player
-	if ( ! bShiftKey && ( bVideo || bAudio ) &&
-		! Settings.MediaPlayer.ServicePath.IsEmpty() )
+	if ( ! bShiftKey && ( bVideo || bAudio ) && nSelServiceIndex < 3 )
 	{
 		if ( ShellExecute( AfxGetMainWnd()->GetSafeHwnd(), _T("open"),
-			Settings.MediaPlayer.ServicePath, strFile, NULL,
+			strServicePaths[nSelServiceIndex], strFile, NULL,
 			SW_SHOWNORMAL ) > (HINSTANCE)SE_ERR_DLLNOTFOUND )
 			return TRUE;
 	}
@@ -285,6 +313,9 @@ BOOL CFileExecutor::Execute(LPCTSTR pszFile, BOOL bSkipSecurityCheck, LPCTSTR ps
 
 BOOL CFileExecutor::Enqueue(LPCTSTR pszFile, BOOL /*bSkipSecurityCheck*/, LPCTSTR pszExt)
 {
+	CString strServicePaths[3];
+	int nSelServiceIndex = FillServices(strServicePaths);
+
 	CWaitCursor pCursor;
 
 	// Handle all by plugins
@@ -340,14 +371,13 @@ BOOL CFileExecutor::Enqueue(LPCTSTR pszFile, BOOL /*bSkipSecurityCheck*/, LPCTST
 	}
 
 	// Handle video and audio files by external player
-	if ( ! bShiftKey && ( bVideo || bAudio ) &&
-		 ! Settings.MediaPlayer.ServicePath.IsEmpty() )
+	if ( ! bShiftKey && ( bVideo || bAudio ) && nSelServiceIndex < 3 )
 	{
 		// Try Shell "enqueue" verb
 		CString strCommand, strParam;
 		DWORD nBufferSize = MAX_PATH;
 		HRESULT hr = AssocQueryString( ASSOCF_OPEN_BYEXENAME, ASSOCSTR_COMMAND,
-			Settings.MediaPlayer.ServicePath, _T("enqueue"),
+			strServicePaths[nSelServiceIndex], _T("enqueue"),
 			strCommand.GetBuffer( MAX_PATH ), &nBufferSize );
 		strCommand.ReleaseBuffer();
 		int nPos = PathGetArgsIndex( strCommand );
@@ -371,7 +401,7 @@ BOOL CFileExecutor::Enqueue(LPCTSTR pszFile, BOOL /*bSkipSecurityCheck*/, LPCTST
 		}
 
 		// Try to create "enqueue" verb from default verb for known players
-		CString strExecutable = PathFindFileName( Settings.MediaPlayer.ServicePath );
+		CString strExecutable = PathFindFileName( strServicePaths[nSelServiceIndex] );
 		for ( int i = 0; KnownPlayers[ i ].szPlayer; ++i )
 		{
 			if ( strExecutable.CompareNoCase( KnownPlayers[ i ].szPlayer ) == 0 )
@@ -383,7 +413,7 @@ BOOL CFileExecutor::Enqueue(LPCTSTR pszFile, BOOL /*bSkipSecurityCheck*/, LPCTST
 		if ( ! strParam.IsEmpty() )
 		{
 			HINSTANCE hResult = ShellExecute( AfxGetMainWnd()->GetSafeHwnd(), NULL,
-				Settings.MediaPlayer.ServicePath, strParam, NULL, SW_SHOWNORMAL );
+				strServicePaths[nSelServiceIndex], strParam, NULL, SW_SHOWNORMAL );
 			if ( hResult > (HINSTANCE)32 )
 				return TRUE;
 		}
@@ -530,7 +560,9 @@ BOOL CFileExecutor::ShowBitziTicket(DWORD nIndex)
 			strReplace = pNode->GetValue();
 
 			if ( str == "link" )
+			{
 				strINFO += _T("&tag.url.url=") + URLEncode( strReplace );
+			}
 			else if ( pFile->m_pSchema->CheckURI( CSchema::uriAudio ) )
 			{
 				if ( str == "description" )

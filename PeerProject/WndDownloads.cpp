@@ -215,8 +215,8 @@ int CDownloadsWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	m_pDragList		= NULL;
 	m_pDragImage	= NULL;
-	m_hCursMove		= AfxGetApp()->LoadCursor( theApp.m_bIsVistaOrNewer ? IDC_MOVE_VISTA : IDC_MOVE );
-	m_hCursCopy		= AfxGetApp()->LoadCursor( theApp.m_bIsVistaOrNewer ? IDC_COPY_VISTA : IDC_COPY );
+	m_hCursMove		= AfxGetApp()->LoadCursor( theApp.m_bIsVistaOrNewer ? IDR_MOVE : IDR_MOVE_XP );
+	m_hCursCopy		= AfxGetApp()->LoadCursor( theApp.m_bIsVistaOrNewer ? IDR_COPY : IDR_COPY_XP );
 	m_tSel			= 0;
 
 	m_nMoreSourcesLimiter	= 8;

@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Catalan Skin File -->
 
-<!-- Translation based on default-en.xml r56 -->
+<!-- Translation based on default-en.xml r58 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1683,7 +1683,7 @@
 			<newline gap="20" indent="0"/>
 		</group>
 		<group id="3">
-			<icon res="128" width="32" height="32"/><gap size="8"/>
+			<icon res="120" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">ADVERTIMENT D'ACTUALITZACIÓ</heading>
 			<newline gap="8" indent="42"/>
 			<text id="Upgrade"/>
@@ -1724,7 +1724,7 @@
 			<link target="command:ID_HELP_ROUTER">Clica aquí per a aprendre com configurar el teu router o tallafocs</link>
 			<newline gap="18" indent="0"/>
 		</group>
-		<icon res="128" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
+		<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">PERSONALITZA PEERPROJECT</heading>
 		<newline gap="12" indent="42"/>
 		<icon res="182" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
@@ -1749,7 +1749,7 @@
 		<text align="middle">&#160;- Vés a la teva llengua català fòrum de discussió</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
-			<icon res="128" width="32" height="32"/><gap size="8"/>
+			<icon res="120" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">ACCÈS REMOT HABILITAT</heading>
 			<newline gap="8" indent="42"/>
 			<text>Accès remot de PeerProject habilitat. Controla PeerProject usant el teu navegador en:</text>
@@ -1928,9 +1928,6 @@
 		<newline gap="10"/>
 		<link target="page:CUploadsSettingsPage" format="b">Pujades:</link>
 		<text>&#160;Capacitat de pujar, encuar, blocar, temps d'expiracions i peticions especials.</text>
-		<newline gap="10"/>
-		<link target="page:CSchedulerSettingsPage" format="b">Scheduler:</link>
-		<text>&#160;Limit download connections based on a periodic schedule.</text>
 	</document>
 	<!-- Browse User Profile -->
 	<document name="CBrowseHostProfile.1">
@@ -2713,6 +2710,8 @@
 	<string id="8239" value="Completat"/>
 	<string id="8240" value="Nombre de fonts:"/>
 	<string id="8241" value="Nombre de comentaris:"/>
+	<string id="8244" value="Limitar la velocitat de Descàrrega"/>
+	<string id="8245" value="Límitar la velocitat de Pujada"/>
 	<string id="8288" value="Explorant La meva col·lecció de PeerProject"/>
 	<string id="8289" value="Explorant"/>
 	<string id="8290" value="Explorant els continguts de les carpetes %i "/>
@@ -3263,24 +3262,22 @@
 	<string id="20125" value="No verificat"/>
 	<string id="20126" value="Desaparegut"/>
 	<string id="20127" value="Desaparegut"/>
-	<string id="20128" value="font"/>
-	<string id="20129" value="fonts"/> <!-- numbers 21, 31, ... -->
-	<string id="20130" value="fonts"/> <!-- tens -->
-	<string id="20131" value="fonts"/> <!-- from 11 to 19 -->
-	<string id="20132" value="fonts"/> <!-- from 2 to 4 -->
-	<string id="20133" value="fonts"/> <!-- from 5 to 9 -->
-	<string id="20134" value="fonts"/> <!-- 3/10 sources -->
+	<string id="20130" value="font"/>
+	<string id="20131" value="fonts"/>
+	<string id="20132" value="fonts"/>
+	<string id="20134" value="fonts"/>
 	<string id="20135" value="(No hi ha fonts)"/>
 	<string id="20136" value="Tallat"/>
 	<string id="20137" value="Següent"/>
 	<string id="20138" value="C"/>
-	<string id="20200" value="Diumenge"/>
+	<string id="20200" value="Todos Dis"/>
 	<string id="20201" value="Dilluns"/>
 	<string id="20202" value="Dimarts"/>
 	<string id="20203" value="Dimecres"/>
 	<string id="20204" value="Dijous"/>
 	<string id="20205" value="Divendres"/>
 	<string id="20206" value="Dissabte"/>
+	<string id="20207" value="Diumenge"/>
 	<string id="20210" value="(Sense valoració)"/>
 	<string id="20211" value="Fals / Corrupte"/>
 	<string id="20212" value="Malmès"/>
@@ -3502,28 +3499,6 @@
 		<control/>
 		<control caption="Ajuda:"/>
 		<control caption="L'accès remot de PeerProject et permet deixar PeerProject executant-se al teu PC, i controlar-lo usant un navegador. Necessitaràs acceptar connexions entrants per a usar aquesta característica (ex: Configurar el teu router, etc)."/>
-	</dialog>
-	<dialog name="CSchedulerSettingsPage" cookie="EdStStStStStStStBuStStStBuBuBuStEdmsBuSt" caption="Programador">
-		<control/>
-		<control caption="Diu"/>
-		<control caption="Dil"/>
-		<control caption="Dim"/>
-		<control caption="Dix"/>
-		<control caption="Dij"/>
-		<control caption="Div"/>
-		<control caption="Dis"/>
-		<control caption="Clau:"/>
-		<control caption="No permetis connectar"/>
-		<control caption="Connexió limitada"/>
-		<control caption="Connecta a alta velocitat"/>
-		<control caption="_Opcions:"/>
-		<control caption="_Habilita el calendari"/>
-		<control caption="_Connecta a G2 únicament quan s'està limitat"/>
-		<control caption="% de _banda ampla sota el límit"/>
-		<control/>
-		<control/>
-		<control caption="Ajuda:"/>
-		<control caption="El calendari està dissenyat per a que puguis asignar temps de quant PeerProject s'ha de connectar i descarregar arxius. {n}{n}{n}Nota: Si tens PeerProject obert quan el calendari està actiu, pot ser que vegis que aquest canvia configuracions - això és normal."/>
 	</dialog>
 	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuSt" caption="Xarxes">
 		<control caption="PeerProject té l'habilitat d'accedir a vàries xarxes de compartició d'arxius. En aquesta pàgina es poden seleccionar les xarxes que seràn usadas i ajustar les configuracions de les mateixes."/>
@@ -4089,13 +4064,6 @@
 		<control/>
 		<control caption="_Esborra"/>
 	</dialog>
-	<dialog name="CSchemaColumnsDlg" cookie="CoSyBuBuSt" caption="Selecciona columnes de l'esquema">
-		<control/>
-		<control/>
-		<control caption="Acceptar"/>
-		<control caption="Cancel·lar"/>
-		<control caption="Selecciona un esquema de la llista i, després, selecciona els camps a mostrar."/>
-	</dialog>
 	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuStCoStCoEdStEdStEdStBuBu" caption="Normes de seguretat">
 		<control caption="_Norma:"/>
 		<control caption="Tipus:"/>
@@ -4131,6 +4099,42 @@
 		<control caption="m"/>
 		<control caption="Accepta"/>
 		<control caption="Cancel·la"/>
+	</dialog>
+	<dialog name="CScheduleTaskDlg" cookie="BuBuBuCoEdmsEdmsStStBuBuBuBuBuSySyBuBuBuBuBuBuBuBuBuEd" caption="Calendari d'tasca">
+		<control caption="Accepta"/>
+		<control caption="Cancel·la"/>
+		<control caption="Selecta Tasca Type"/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="% under Download limit"/>
+		<control caption="% under Upload limit"/>
+		<control caption="Tasca Activo"/>
+		<control caption="Enable G2 Only"/>
+		<control caption="Set Event Time"/>
+		<control caption="Dias Specificos"/>
+		<control caption="Solo Un Dia"/>
+		<control/>
+		<control/>
+		<control caption="Dil"/>
+		<control caption="Dim"/>
+		<control caption="Dix"/>
+		<control caption="Dij"/>
+		<control caption="Div"/>
+		<control caption="Dis"/>
+		<control caption="Diu"/>
+		<control caption="Tots"/>
+		<control caption="Comentaris"/>
+		<control/>
+	</dialog>
+	<dialog name="CSchemaColumnsDlg" cookie="CoSyBuBuSt" caption="Selecciona columnes de l'esquema">
+		<control/>
+		<control/>
+		<control caption="Acceptar"/>
+		<control caption="Cancel·lar"/>
+		<control caption="Selecciona un esquema de la llista i, després, selecciona els camps a mostrar."/>
 	</dialog>
 	<dialog name="CShareManagerDlg" cookie="StSyBuBuBuBu" caption="Controlador de carpetes de la col·lecció">
 		<control caption="Aquesta és la llista de carpetes en la col·lecció. Pots afegir o treure carpetes amb els botons de baix a l'esquerra. Quan afegeixes una nova carpeta inicialment es comparteix amb altres usuaris; no obstant, pots deixar de compartir-la des de la llista de carpetes de la col·lecció."/>
@@ -4468,6 +4472,14 @@
 		<column from="Expires" to="Expiració"/>
 		<column from="#" to="#"/>
 		<column from="Comment" to="Comentari"/>
+	</list>
+	<list name="CSchedulerWnd">
+		<column from="Task" to="Acció"/>
+		<column from="Date" to="Data"/>
+		<column from="Time" to="Temps"/>
+		<column from="Status" to="Estat"/>
+		<column from="Activity" to="Actiu"/>
+		<column from="Description" to="Comentari"/>
 	</list>
 	<list name="CHostCacheWnd">
 		<column from="Address" to="IP"/>

@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Czech Skin File -->
 
-<!-- Translation based on default-en.xml r56 (Shareaza 2.2.5.7) -->
+<!-- Translation based on default-en.xml r58 (Shareaza 2.2.5.7) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1637,7 +1637,7 @@
 			<newline gap="20" indent="0"/>
 		</group>
 		<group id="3">
-			<icon res="128" width="32" height="32"/><gap size="8"/>
+			<icon res="120" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">OZNÁMENÍ AKTUALIZACE</heading>
 			<newline gap="8" indent="42"/>
 			<text id="Upgrade"/>
@@ -1678,7 +1678,7 @@
 			<link target="command:ID_HELP_ROUTER">Klikněte zde pro radu jak nastavit váš router nebo firewall</link>
 			<newline gap="18" indent="0"/>
 		</group>
-		<icon res="128" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
+		<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">UPRAVTE SI PEERPROJECT</heading>
 		<newline gap="12" indent="42"/>
 		<icon res="182" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
@@ -1703,7 +1703,7 @@
 		<text align="middle">&#160;- Přejít na české diskusní fórum jazyk</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
-			<icon res="128" width="32" height="32"/><gap size="8"/>
+			<icon res="120" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">VZDÁLENÝ PŘÍSTUP JE ZAPNUTÝ</heading>
 			<newline gap="8" indent="42"/>
 			<text>Je umožněn vzdálený přístup PeerProject. Pro ovládání PeerProject používejte vašeho internetového prohlížeče:</text>
@@ -1881,10 +1881,7 @@
 		<text>&#160;Výkon, plánování, ověření, časový limit a správa stahování.</text>
 		<newline gap="10"/>
 		<link target="page:CUploadsSettingsPage" format="b">Odesílání:</link>
-		<text>&#160;>Kapacita ,fronta ,zákazy ,časový limit a zvláštní žádosti pro odesílání.</text>
-		<newline gap="10"/>
-		<link target="page:CSchedulerSettingsPage" format="b">Scheduler:</link>
-		<text>&#160;Limit download connections based on a periodic schedule.</text>
+		<text>&#160;>Kapacita, fronta, zákazy, časový limit a zvláštní žádosti pro odesílání.</text>
 	</document>
 	<!-- Browse User Profile -->
 	<document name="CBrowseHostProfile.1">
@@ -2679,6 +2676,8 @@
 	<string id="8239" value="Dokončeno"/>
 	<string id="8240" value="Počet zdrojů:"/>
 	<string id="8241" value="Počet hodnocení:"/>
+	<string id="8244" value="Limit rychlosti stahování."/>
+	<string id="8245" value="Limit rychlost uploadu."/>
 	<string id="8288" value="Prozkoumávám vaši knihovnu PeerProject"/>
 	<string id="8289" value="Prozkoumávám "/>
 	<string id="8290" value="Prozkoumávám obsah složek %i"/>
@@ -3227,24 +3226,22 @@
 	<string id="20125" value="Neověřeno"/>
 	<string id="20126" value="Nezajímavé"/>
 	<string id="20127" value="Nezajímavé"/>
-	<string id="20128" value="zdroj"/>
-	<string id="20129" value="zdrojů"/> <!-- numbers 21, 31, ... -->
-	<string id="20130" value="zdrojů"/> <!-- tens -->
-	<string id="20131" value="zdrojů"/> <!-- from 11 to 19 -->
-	<string id="20132" value="zdroje"/> <!-- from 2 to 4 -->
-	<string id="20133" value="zdrojů"/> <!-- from 5 to 9 -->
-	<string id="20134" value="zdrojů"/> <!-- "3/10 sources" -->
+	<string id="20130" value="zdroj"/>
+	<string id="20131" value="zdrojů"/> <!-- ones 21,31,... -->
+	<string id="20132" value="zdroje"/> <!-- few  2,3,4 -->
+	<string id="20134" value="zdrojů"/> <!-- others -->
 	<string id="20135" value="(Nejsou zdroje)"/>
 	<string id="20136" value="Přetížený"/>
 	<string id="20137" value="Další"/>
 	<string id="20138" value="ve frontě"/>
-	<string id="20200" value="Neděle"/>
+	<string id="20200" value="Every Day"/>
 	<string id="20201" value="Pondělí"/>
 	<string id="20202" value="Úterý"/>
 	<string id="20203" value="Středa"/>
 	<string id="20204" value="Čtvrtek"/>
 	<string id="20205" value="Pátek"/>
 	<string id="20206" value="Sobota"/>
+	<string id="20207" value="Neděle"/>
 	<string id="20210" value="(Není žádné hodnocení)"/>
 	<string id="20211" value="Falešný / Poškozený"/>
 	<string id="20212" value="Mizerná"/>
@@ -3286,7 +3283,7 @@
 		<control caption="Vždy rozbalit nová stahování"/>
 		<control caption="Zobrazit jednoduchou lištu přenosu"/>
 		<control caption="Ukaž rychlost v:"/>
-		<control caption="bits/second|bytes/second|b/s|B/s|Kb/s|KB/s|Mb/s|MB/s"/>
+		<control caption="Auto bits/sec|Auto bytes/sec|b/s|B/s|Kb/s|KB/s|Mb/s|MB/s"/>
 		<control caption="_Hledat:"/>
 		<control caption="Rozbalit nalezené soubory s více zdroji"/>
 		<control caption="Přejít do okna Přenos a stahování"/>
@@ -3466,28 +3463,6 @@
 		<control/>
 		<control caption="Nápověda:"/>
 		<control caption="Pokud zrovna nejste u svého počítače, mužete PeerProject ovládat vzdáleně po internetu. Abyste mohli používat tuto možnost a přijímat příchozí spojení, musíte především správně nastavit router (směrovač), dále musíte nastavit heslo a povolit vzdálený přístup."/>
-	</dialog>
-	<dialog name="CSchedulerSettingsPage" cookie="EdStStStStStStStBuStStStBuBuBuStEdmsBuSt" caption="Plánovač">
-		<control/>
-		<control caption="Ne"/>
-		<control caption="Po"/>
-		<control caption="Út"/>
-		<control caption="St"/>
-		<control caption="Čt"/>
-		<control caption="Pá"/>
-		<control caption="So"/>
-		<control caption="Legenda:"/>
-		<control caption="Zakázat připojeni"/>
-		<control caption="Omezené připojení"/>
-		<control caption="Připojit se plnou rychlostí"/>
-		<control caption="M_ožnosti:"/>
-		<control caption="_Zapnout plánovač"/>
-		<control caption="_Připojit ke G2 jen když je limitována"/>
-		<control caption="% _šířky pásma pod limitem"/>
-		<control/>
-		<control/>
-		<control caption="Nápověda:"/>
-		<control caption="Plánovač umožňuje nastavit období, kdy PeerProject smí stahovat soubory. Plán nastavíte kliknutím na rozvrh nahoře. {n}{n}{n}Poznámka: pokud máte PeerProject otevřenou a je plánovač aktivní, může se měnit nastavení rychlosti - to je normální."/>
 	</dialog>
 	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuSt" caption="Sítě">
 		<control caption="PeerProject je aplikace pro víceúčelové sdílení souborů, která může zároveň zpřístupnit více P2P sítí. Na této kartě si můžete vybrat kterou síť P2P chcete připojit, a pak nastavit specifické nastavení pro každou síť."/>
@@ -4053,13 +4028,6 @@
 		<control/>
 		<control caption="Odst_ranit"/>
 	</dialog>
-	<dialog name="CSchemaColumnsDlg" cookie="CoSyBuBuSt" caption="Vyberte možnosti ze seznamu">
-		<control/>
-		<control/>
-		<control caption="OK"/>
-		<control caption="Zrušit"/>
-		<control caption="Vyberte možnosti ze seznamu, pak vyberte pole k zobrazení jako sloupce."/>
-	</dialog>
 	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuStCoStCoEdStEdStEdStBuBu" caption="Bezpeč.pravidla">
 		<control caption="P_ravidlo:"/>
 		<control caption="Typ:"/>
@@ -4095,6 +4063,42 @@
 		<control caption="m"/>
 		<control caption="OK"/>
 		<control caption="Zrušit"/>
+	</dialog>
+	<dialog name="CScheduleTaskDlg" cookie="BuBuBuCoEdmsEdmsStStBuBuBuBuBuSySyBuBuBuBuBuBuBuBuBuEd" caption="Plán úkolů">
+		<control caption="OK"/>
+		<control caption="Zrušit"/>
+		<control caption="Select Task Type"/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="% under Download limit"/>
+		<control caption="% under Upload limit"/>
+		<control caption="Active Task"/>
+		<control caption="Enable G2 Only"/>
+		<control caption="Set Event Time"/>
+		<control caption="Specified days"/>
+		<control caption="One day only"/>
+		<control/>
+		<control/>
+		<control caption="Po"/>
+		<control caption="Út"/>
+		<control caption="St"/>
+		<control caption="Čt"/>
+		<control caption="Pá"/>
+		<control caption="So"/>
+		<control caption="Ne"/>
+		<control caption="Vše"/>
+		<control caption="Komentáře"/>
+		<control/>
+	</dialog>
+	<dialog name="CSchemaColumnsDlg" cookie="CoSyBuBuSt" caption="Vyberte možnosti ze seznamu">
+		<control/>
+		<control/>
+		<control caption="OK"/>
+		<control caption="Zrušit"/>
+		<control caption="Vyberte možnosti ze seznamu, pak vyberte pole k zobrazení jako sloupce."/>
 	</dialog>
 	<dialog name="CShareManagerDlg" cookie="StSyBuBuBuBu" caption="Správce sdílených složek">
 		<control caption="Toto je seznam složek ve vaší knihovně. Můžete přidat a odstranit složky pomocí tlačítek dole. Pokud přidáte novou složku ta je ihned sdílena dalšími uživateli, ovšem můžete naopak tuto složku také nesdílet v knihovně PeerProject."/>
@@ -4431,6 +4435,14 @@
 		<column from="Expires" to="Vyprší"/>
 		<column from="#" to="Přednost"/>
 		<column from="Comment" to="Poznámka"/>
+	</list>
+	<list name="CSchedulerWnd">
+		<column from="Task" to="Akce"/>
+		<column from="Date" to="Datum"/>
+		<column from="Time" to="Čas"/>
+		<column from="Status" to="Stav"/>
+		<column from="Activity" to="Aktivní"/>
+		<column from="Description" to="Poznámka"/>
 	</list>
 	<list name="CHostCacheWnd">
 		<column from="Address" to="Adresa"/>

@@ -64,7 +64,8 @@ CSettings::CSettings()
 	Live.DonkeyServerWarning		= false;
 	Live.DefaultED2KServersLoaded	= false;
 	Live.LoadWindowState			= false;
-	Live.BandwidthScale				= 100;
+	Live.BandwidthScaleIn			= 101;
+	Live.BandwidthScaleOut			= 101;
 	Live.LastDuplicateHash			= L"";
 }
 
@@ -107,7 +108,7 @@ void CSettings::Load()
 	Add( _T("Settings"), _T("LastSettingsPage"), &General.LastSettingsPage );
 	Add( _T("Settings"), _T("LastSettingsIndex"), &General.LastSettingsIndex, 0 );
 	Add( _T("Settings"), _T("RatesInBytes"), &General.RatesInBytes, true );
-	Add( _T("Settings"), _T("RatesUnit"), &General.RatesUnit, 2, 1, 0, 3 );
+	Add( _T("Settings"), _T("RatesUnit"), &General.RatesUnit, 0, 1, 0, 3 );
 	Add( _T("Settings"), _T("Running"), &General.Running, false, true );
 	Add( _T("Settings"), _T("ShowTimestamp"), &General.ShowTimestamp, true );
 	Add( _T("Settings"), _T("SizeLists"), &General.SizeLists, false );
@@ -246,7 +247,7 @@ void CSettings::Load()
 	Add( _T("MediaPlayer"), _T("Mpeg1PreviewCLSID"), &MediaPlayer.Mpeg1PreviewCLSID, _T("{9AA8DF47-B8FE-47da-AB1A-2DAA0DA0B646}") );
 	Add( _T("MediaPlayer"), _T("Random"), &MediaPlayer.Random, false );
 	Add( _T("MediaPlayer"), _T("Repeat"), &MediaPlayer.Repeat, false );
-	Add( _T("MediaPlayer"), _T("ServicePath"), &MediaPlayer.ServicePath );
+	Add( _T("MediaPlayer"), _T("ServicePath"), &MediaPlayer.ServicePath, _T(""));
 	Add( _T("MediaPlayer"), _T("ShortPaths"), &MediaPlayer.ShortPaths, false );
 	Add( _T("MediaPlayer"), _T("StatusVisible"), &MediaPlayer.StatusVisible, true );
 	Add( _T("MediaPlayer"), _T("VisPath"), &MediaPlayer.VisPath );
@@ -360,7 +361,7 @@ void CSettings::Load()
 	Add( _T("Gnutella1"), _T("PongCount"), &Gnutella1.PongCount, 10, 1, 1, 64 );
 	Add( _T("Gnutella1"), _T("QueryHitUTF8"), &Gnutella1.QueryHitUTF8, true );
 	Add( _T("Gnutella1"), _T("QuerySearchUTF8"), &Gnutella1.QuerySearchUTF8, true );
-	Add( _T("Gnutella1"), _T("QueryThrottle"), &Gnutella1.QueryThrottle, 30, 1, 10, 10*60, _T(" s") );
+	Add( _T("Gnutella1"), _T("QueryThrottle"), &Gnutella1.QueryThrottle, 60, 1, 20, 30*60, _T(" s") );
 //	Add( _T("Gnutella1"), _T("QueueLimiter"), &Gnutella1.HitQueueLimit, 100 );	// Unused
 	Add( _T("Gnutella1"), _T("RequeryDelay"), &Gnutella1.RequeryDelay, 30, 1, 5, 60, _T(" s") );
 	Add( _T("Gnutella1"), _T("SearchTTL"), &Gnutella1.SearchTTL, 3, 1, 1, 3 );
@@ -383,16 +384,15 @@ void CSettings::Load()
 	Add( _T("Gnutella2"), _T("NumHubs"), &Gnutella2.NumHubs, 1, 1, 1, 3 );
 	Add( _T("Gnutella2"), _T("NumLeafs"), &Gnutella2.NumLeafs, 1024, 1, 50, 1024 );
 	Add( _T("Gnutella2"), _T("NumPeers"), &Gnutella2.NumPeers, 1, 1, 0, 64 );
-	Add( _T("Gnutella2"), _T("QueryHostThrottle"), &Gnutella2.QueryHostThrottle, 0, 1, 0, 10*60, _T(" s") );
-#else // LAN_MODE
+#else // No LAN Mod
 	Add( _T("Gnutella2"), _T("NumHubs"), &Gnutella2.NumHubs, 2, 1, 1, 3 );
 	Add( _T("Gnutella2"), _T("NumLeafs"), &Gnutella2.NumLeafs, 300, 1, 50, 1024 );
 	Add( _T("Gnutella2"), _T("NumPeers"), &Gnutella2.NumPeers, 6, 1, 4, 64 );
-	Add( _T("Gnutella2"), _T("QueryHostThrottle"), &Gnutella2.QueryHostThrottle, 120, 1, 10, 10*60, _T(" s") );
 #endif // LAN_MODE
 	Add( _T("Gnutella2"), _T("PingRate"), &Gnutella2.PingRate, 15000, 1000, 5, 180, _T(" s") );
 	Add( _T("Gnutella2"), _T("PingRelayLimit"), &Gnutella2.PingRelayLimit, 10, 1, 10, 30 );
 	Add( _T("Gnutella2"), _T("QueryGlobalThrottle"), &Gnutella2.QueryGlobalThrottle, 125, 1, 1, 60*1000, _T(" ms") );
+	Add( _T("Gnutella2"), _T("QueryHostThrottle"), &Gnutella2.QueryHostThrottle, 120, 1, 20, 30*60, _T(" s") );
 	Add( _T("Gnutella2"), _T("QueryHostDeadline"), &Gnutella2.QueryHostDeadline, 10*60, 1, 1, 120*60, _T(" s") );
 	Add( _T("Gnutella2"), _T("QueryLimit"), &Gnutella2.QueryLimit, 2400, 1, 0, 10000 );
 	Add( _T("Gnutella2"), _T("RequeryDelay"), &Gnutella2.RequeryDelay, 4*60*60, 60*60, 1, 24, _T(" h") );
@@ -400,10 +400,10 @@ void CSettings::Load()
 	Add( _T("Gnutella2"), _T("UdpGlobalThrottle"), &Gnutella2.UdpGlobalThrottle, 1, 1, 0, 10000 );
 	Add( _T("Gnutella2"), _T("UdpInExpire"), &Gnutella2.UdpInExpire, 30000, 1000, 1, 300, _T(" s") );
 	Add( _T("Gnutella2"), _T("UdpInFrames"), &Gnutella2.UdpInFrames, 256, 1, 16, 2048 );
-	Add( _T("Gnutella2"), _T("UdpMTU"), &Gnutella2.UdpMTU, 500, 1, 16, 10*KiloByte );
 	Add( _T("Gnutella2"), _T("UdpOutExpire"), &Gnutella2.UdpOutExpire, 26000, 1000, 1, 300, _T(" s") );
 	Add( _T("Gnutella2"), _T("UdpOutFrames"), &Gnutella2.UdpOutFrames, 256, 1, 16, 2048 );
 	Add( _T("Gnutella2"), _T("UdpOutResend"), &Gnutella2.UdpOutResend, 6000, 1000, 1, 300, _T(" s") );
+	Add( _T("Gnutella2"), _T("UdpMTU"), &Gnutella2.UdpMTU, 500, 1, 16, 10*KiloByte );
 
 	Add( _T("eDonkey"), _T("DefaultServerFlags"), &eDonkey.DefaultServerFlags, 0xFFFFFFFF );
 	Add( _T("eDonkey"), _T("DequeueTime"), &eDonkey.DequeueTime, 3600, 60, 2, 512, _T(" m") );
@@ -440,13 +440,12 @@ void CSettings::Load()
 	Add( _T("eDonkey"), _T("StatsServerThrottle"), &eDonkey.StatsServerThrottle, 7*24*60*60, 24*60*60, 7, 28, _T(" d") );
 
 #ifndef LAN_MODE
-	Add( _T("BitTorrent"), _T("AdvancedInterface"), &BitTorrent.AdvancedInterface, true );
 	Add( _T("BitTorrent"), _T("EnableAlways"), &BitTorrent.EnableAlways, true );
-//	Add( _T("BitTorrent"), _T("EnableToday"), &BitTorrent.EnableToday, true );
+	Add( _T("BitTorrent"), _T("EnableToday"), &BitTorrent.EnableToday, true );
 #else
-	Add( _T("BitTorrent"), _T("AdvancedInterface"), &BitTorrent.AdvancedInterface, false );
 	Add( _T("BitTorrent"), _T("EnableAlways"), &BitTorrent.EnableAlways, false );
-#endif
+	Add( _T("BitTorrent"), _T("EnableToday"), &BitTorrent.EnableToday, false );
+#endif // LAN
 	Add( _T("BitTorrent"), _T("AutoClear"), &BitTorrent.AutoClear, false );
 	Add( _T("BitTorrent"), _T("AutoSeed"), &BitTorrent.AutoSeed, true );
 	Add( _T("BitTorrent"), _T("BandwidthPercentage"), &BitTorrent.BandwidthPercentage, 80, 1, 50, 95, _T(" %") );
@@ -457,9 +456,9 @@ void CSettings::Load()
 	Add( _T("BitTorrent"), _T("DownloadConnections"), &BitTorrent.DownloadConnections, 40, 1, 1, 800 );
 	Add( _T("BitTorrent"), _T("DownloadTorrents"), &BitTorrent.DownloadTorrents, 3, 1, 1, 12 );
 	Add( _T("BitTorrent"), _T("Endgame"), &BitTorrent.Endgame, true );
+	Add( _T("BitTorrent"), _T("PreferenceBTSources"), &BitTorrent.PreferenceBTSources, true );
 	Add( _T("BitTorrent"), _T("LinkPing"), &BitTorrent.LinkPing, 120*1000, 1000, 10, 60*10, _T(" s") );
 	Add( _T("BitTorrent"), _T("LinkTimeout"), &BitTorrent.LinkTimeout, 180*1000, 1000, 10, 60*10, _T(" s") );
-	Add( _T("BitTorrent"), _T("PreferenceBTSources"), &BitTorrent.PreferenceBTSources, true );
 	Add( _T("BitTorrent"), _T("RandomPeriod"), &BitTorrent.RandomPeriod, 30*1000, 1000, 1, 60*5, _T(" s") );
 	Add( _T("BitTorrent"), _T("RequestLimit"), &BitTorrent.RequestLimit, 128*KiloByte, KiloByte, 1, KiloByte, _T(" KB") );
 	Add( _T("BitTorrent"), _T("RequestPipe"), &BitTorrent.RequestPipe, 4, 1, 1, 10 );
@@ -578,17 +577,14 @@ void CSettings::Load()
 	Add( _T("Remote"), _T("Password"), &Remote.Password );
 	Add( _T("Remote"), _T("Username"), &Remote.Username );
 
-	Add( _T("Scheduler"), _T("AllowHub"), &Scheduler.AllowHub, true );
-	Add( _T("Scheduler"), _T("Enable"), &Scheduler.Enable, false );
-	Add( _T("Scheduler"), _T("LimitedBandwidth"), &Scheduler.LimitedBandwidth, 50, 1, 0, 100, _T(" %") );
-	Add( _T("Scheduler"), _T("LimitedNetworks"), &Scheduler.LimitedNetworks, true );
+	Add( _T("Live"), _T("BandwidthScaleIn"), &Live.BandwidthScaleIn, 101, 1, 0, 101, _T(" %") );
+	Add( _T("Live"), _T("BandwidthScaleOut"), &Live.BandwidthScaleOut, 101, 1, 0, 101, _T(" %") );
 
 	Add( _T("Security"), _T("DefaultBan"), &Security.DefaultBan, 100*24*3600, 24*3600, 1, 1000, _T(" d") );
+	Add( _T("Scheduler"), _T("ValidityPeriod"), &Scheduler.ValidityPeriod, 60, 1, 1, 1400, _T(" m") );
 
 	Add( _T("Experimental"), _T("EnableDIPPSupport"), &Experimental.EnableDIPPSupport, false );
 	Add( _T("Experimental"), _T("TestBTPartials"), &Experimental.TestBTPartials, false );
-
-	Add( _T("WINE"), _T("MenuFix"), &WINE.MenuFix, true );
 
 
 	// Load settings
@@ -1420,7 +1416,7 @@ const CString CSettings::SmartSpeed(QWORD nVolume, int nVolumeUnits, bool bTrunc
 
 	// Kilobits - KiloBytes
 	case 2:
-		strVolume.Format( _T("%.2lf K%s"), nVolume / KiloFloat, strUnit );
+		strVolume.Format( _T("%.1lf K%s"), nVolume / KiloFloat, strUnit );
 		break;
 
 	// Megabits - MegaBytes

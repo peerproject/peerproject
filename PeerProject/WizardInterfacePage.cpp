@@ -146,7 +146,6 @@ LRESULT CWizardInterfacePage::OnWizardNext()
 		CMainWnd* pMainWnd = (CMainWnd*)AfxGetMainWnd();
 
 		Settings.General.GUIMode = GUI_TABBED;
-		Settings.BitTorrent.AdvancedInterface = TRUE;
 		pMainWnd->SetGUIMode( Settings.General.GUIMode, FALSE );
 	}
 	else if ( ! m_bExpert && Settings.General.GUIMode != GUI_BASIC )
@@ -155,7 +154,6 @@ LRESULT CWizardInterfacePage::OnWizardNext()
 		CMainWnd* pMainWnd = (CMainWnd*)AfxGetMainWnd();
 
 		Settings.General.GUIMode = GUI_BASIC;
-		Settings.BitTorrent.AdvancedInterface = FALSE;
 		pMainWnd->SetGUIMode( Settings.General.GUIMode, FALSE );
 	}
 

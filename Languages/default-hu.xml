@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Hungarian Skin File -->
 
-<!-- Translation based on default-en.xml r56 -->
+<!-- Translation based on default-en.xml r58 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1709,7 +1709,7 @@
 			<newline gap="20" indent="0"/>
 		</group>
 		<group id="3">
-			<icon res="128" width="32" height="32"/><gap size="8"/>
+			<icon res="120" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">FRISSÍTÉSI FIGYELMEZTETÉS</heading>
 			<newline gap="8" indent="42"/>
 			<text id="Upgrade"/>
@@ -1750,7 +1750,7 @@
 			<link target="command:ID_HELP_ROUTER">Kattintson ide a router vagy tűzfal helyes beállításához.</link>
 			<newline gap="18" indent="0"/>
 		</group>
-		<icon res="128" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
+		<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">TESTRESZABÁS</heading>
 		<newline gap="12" indent="42"/>
 		<icon res="182" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
@@ -1775,7 +1775,7 @@
 		<text align="middle">&#160;- Menj el a magyar nyelv vitafórum</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
-			<icon res="128" width="32" height="32"/><gap size="8"/>
+			<icon res="120" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">TÁVOLI ELÉRÉS BEKAPCSOLVA</heading>
 			<newline gap="8" indent="42"/>
 			<text>A távoli használat be van kapcsolva. Használja a PeerProject a böngészőjén keresztül. Címek:</text>
@@ -1951,9 +1951,6 @@
 		<newline gap="10"/>
 		<link target="page:CUploadsSettingsPage" format="b">Feltöltések:</link>
 		<text>&#160;Feltöltési sebesség, korlátozások, letiltások.</text>
-		<newline gap="10"/>
-		<link target="page:CSchedulerSettingsPage" format="b">Ütemező:</link>
-		<text>&#160;Letöltések előreprogramozása, sávszélesség beállítása. Csak az Összetett módban elérhető!</text>
 	</document>
 	<!-- Browse User Profile -->
 	<document name="CBrowseHostProfile.1">
@@ -2728,6 +2725,8 @@
 	<string id="8239" value="Kész"/>
 	<string id="8240" value="Források:"/>
 	<string id="8241" value="Megjegyzések száma:"/>
+	<string id="8244" value="Limit letöltési sávszélességgel"/>
+	<string id="8245" value="Limit feltöltési sávszélességet"/>
 	<string id="8288" value="Tallózás a könyvtárban"/>
 	<string id="8289" value="Tallózás"/>
 	<string id="8290" value="%i mappa tartalmának a tallózása"/>
@@ -3278,24 +3277,22 @@
 	<string id="20125" value="Ellenőrizetlen"/>
 	<string id="20126" value="Érdektelen"/>
 	<string id="20127" value="Érdektelen"/>
-	<string id="20128" value="forrás"/>
-	<string id="20129" value="forrás"/> <!-- numbers 21, 31, ...  -->
-	<string id="20130" value="forrás"/> <!-- tens -->
-	<string id="20131" value="forrás"/> <!-- from 11 to 19 -->
-	<string id="20132" value="forrás"/> <!-- from 2 to 4 -->
-	<string id="20133" value="forrás"/> <!-- from 5 to 9 -->
-	<string id="20134" value="forrás"/> <!-- "3/10 sources" -->
+	<string id="20130" value="forrás"/>
+	<string id="20131" value="forrás"/>
+	<string id="20132" value="forrás"/>
+	<string id="20134" value="forrás"/>
 	<string id="20135" value="(Nincs forrás)"/>
 	<string id="20136" value="Elakadva"/>
 	<string id="20137" value="Következő"/>
 	<string id="20138" value="S"/>
-	<string id="20200" value="Vasárnap"/>
+	<string id="20200" value="Every Day"/>
 	<string id="20201" value="Hétfő"/>
 	<string id="20202" value="Kedd"/>
 	<string id="20203" value="Szerda"/>
 	<string id="20204" value="Csütörtök"/>
 	<string id="20205" value="Péntek"/>
 	<string id="20206" value="Szombat"/>
+	<string id="20207" value="Vasárnap"/>
 	<string id="20210" value="(Nincs értékelve)"/>
 	<string id="20211" value="Hamis / Hibás / Félrevezető"/>
 	<string id="20212" value="Gyenge"/>
@@ -3560,28 +3557,6 @@
 		<control/>
 		<control caption="Súgó:"/>
 		<control caption="Ezzel a szolgáltatással egy webböngészőn keresztül távolról is irányíthatja a PeerProject. Ehhez azonban a PeerProject futtató gépnek tudnia kell fogadni a bejövő kapcsolatokat."/>
-	</dialog>
-	<dialog name="CSchedulerSettingsPage" cookie="EdStStStStStStStBuStStStBuBuBuStEdmsBuSt" caption="Ütemező">
-		<control/>
-		<control caption="V"/>
-		<control caption="H"/>
-		<control caption="K"/>
-		<control caption="Sz"/>
-		<control caption="Cs"/>
-		<control caption="P"/>
-		<control caption="Szo"/>
-		<control caption="Jelmagyarázat"/>
-		<control caption="Ne kapcsolódjon"/>
-		<control caption="Csökkentett sebességgel"/>
-		<control caption="Teljes sebességgel"/>
-		<control caption="_Beállítások"/>
-		<control caption="Ü_temező bekapcsolása"/>
-		<control caption="_Korlátozáskor csak a G2-höz kapcsolódik"/>
-		<control caption="% sávszél korlátozott módban"/>
-		<control/>
-		<control/>
-		<control caption="Súgó:"/>
-		<control caption="Az ütemezővel beállíthatja, hogy a PeerProject mikor kapcsolódjon és&#13;&#10;mikor töltse le a fájlokat. &#13;&#10;&#13;&#10;Megjegyzés: Ha a PeerProject éppen nyitva van és az ütemező is be van kapcsolva, láthatja, hogy megváltoztatja a beállításokat.&#13;&#10;Ez teljesen normális!"/>
 	</dialog>
 	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuSt" caption="Hálózatok">
 		<control caption="A PeerProject egy fájlmegosztó program, amely egyszerre több p2p hálózathoz is tud csatlakozni. Ezen az oldalon beállíthatja, hogy melyik hálózathoz akar kapcsolódni."/>
@@ -4147,13 +4122,6 @@
 		<control/>
 		<control caption="_Eltávolít"/>
 	</dialog>
-	<dialog name="CSchemaColumnsDlg" cookie="CoSyBuBuSt" caption="Oszlopok kiválasztása">
-		<control/>
-		<control/>
-		<control caption="OK"/>
-		<control caption="Mégse"/>
-		<control caption="Válasszon ki egy típust, majd a listából az önnek tetsző oszlopokat."/>
-	</dialog>
 	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuStCoStCoEdStEdStEdStBuBu" caption="Biztonsági szabály">
 		<control caption="_Szabály"/>
 		<control caption="Típus:"/>
@@ -4189,6 +4157,42 @@
 		<control caption="P"/>
 		<control caption="OK"/>
 		<control caption="Mégse"/>
+	</dialog>
+	<dialog name="CScheduleTaskDlg" cookie="BuBuBuCoEdmsEdmsStStBuBuBuBuBuSySyBuBuBuBuBuBuBuBuBuEd" caption="Menetrend Feladat">
+		<control caption="OK"/>
+		<control caption="Mégse"/>
+		<control caption="Select Task Type"/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="% under Download limit"/>
+		<control caption="% under Upload limit"/>
+		<control caption="Active Task"/>
+		<control caption="Enable G2 Only"/>
+		<control caption="Set Event Time"/>
+		<control caption="Specified days"/>
+		<control caption="One day only"/>
+		<control/>
+		<control/>
+		<control caption="H"/>
+		<control caption="K"/>
+		<control caption="Sz"/>
+		<control caption="Cs"/>
+		<control caption="P"/>
+		<control caption="Szo"/>
+		<control caption="V"/>
+		<control caption="Minden"/>
+		<control caption="Hozzászólások"/>
+		<control/>
+	</dialog>
+	<dialog name="CSchemaColumnsDlg" cookie="CoSyBuBuSt" caption="Oszlopok kiválasztása">
+		<control/>
+		<control/>
+		<control caption="OK"/>
+		<control caption="Mégse"/>
+		<control caption="Válasszon ki egy típust, majd a listából az önnek tetsző oszlopokat."/>
 	</dialog>
 	<dialog name="CShareManagerDlg" cookie="StSyBuBuBuBu" caption="Megosztott mappák">
 		<control caption="Az itt felvett mappák automatikusan megosztásra kerülnek, de később letilthatja a megoszásukat a Könyvtárban."/>
@@ -4526,6 +4530,14 @@
 		<column from="Expires" to="Lejárat"/>
 		<column from="#" to="#"/>
 		<column from="Comment" to="Megjegyzés"/>
+	</list>
+	<list name="CSchedulerWnd">
+		<column from="Task" to="Feladat"/>
+		<column from="Date" to="Dátum"/>
+		<column from="Time" to="Idő"/>
+		<column from="Status" to="Helyzet"/>
+		<column from="Activity" to="Aktív"/>
+		<column from="Description" to="Megjegyzés"/>
 	</list>
 	<list name="CHostCacheWnd">
 		<column from="Address" to="Cím"/>

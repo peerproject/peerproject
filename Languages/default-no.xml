@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Norwegian Skin File -->
 
-<!-- Translation based on default-en.xml r56 (Shareaza 2.2.0.2) -->
+<!-- Translation based on default-en.xml r58 (Shareaza 2.2.0.2) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1495,7 +1495,7 @@
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="3">
-			<icon res="128" width="32" height="32"/><gap size="8"/>
+			<icon res="120" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">OPPDATERINGSVARSEL</heading>
 			<newline gap="8" indent="42"/>
 			<text id="Oppdater"/>
@@ -1514,7 +1514,7 @@
 			<link target="command:ID_HELP_ROUTER">Klikk her for å lære hvordan du skal sette opp routeren eller brannmuren din</link>
 			<newline gap="18" indent="0"/>
 		</group>
-		<icon res="128" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
+		<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">MODIFISER PEERPROJECT</heading>
 		<newline gap="12" indent="42"/>
 		<icon res="182" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
@@ -1539,7 +1539,7 @@
 		<text align="middle">&#160;- Gå til din norske språket diskusjonsforum</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
-			<icon res="128" width="32" height="32"/><gap size="8"/>
+			<icon res="120" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">FJERNKONSOLLEN ER PÅ</heading>
 			<newline gap="8" indent="42"/>
 			<text>PeerProject Fjernkonsoll er skrudd på. Kjør og kontroller PeerProject med internettleseren din her:</text>
@@ -1718,9 +1718,6 @@
 		<newline gap="10"/>
 		<link target="page:CUploadsSettingsPage" format="b">Opplastinger:</link>
 		<text>&#160;Endre opplastingskapasiteten, køer, blokkeringer og andre innstillinger.</text>
-		<newline gap="10"/>
-		<link target="page:CSchedulerSettingsPage" format="b">Scheduler:</link>
-		<text>&#160;Limit download connections based on a periodic schedule.</text>
 	</document>
 	<!-- Browse User Profile -->
 	<document name="CBrowseHostProfile.1">
@@ -2497,6 +2494,8 @@
 	<string id="8239" value="Ferdig"/>
 	<string id="8240" value="Antall kilder:"/>
 	<string id="8241" value="Antall reviews:"/>
+	<string id="8244" value="Begrens nedlastingshastighet"/>
+	<string id="8245" value="Begrens opplastingshastigheten"/>
 	<string id="8288" value="Utforsker mine filer."/>
 	<string id="8289" value="Utforsker"/>
 	<string id="8290" value="Utforske innholdet i %i mapper"/>
@@ -3018,24 +3017,22 @@
 	<string id="20125" value="Ikke godkjent"/>
 	<string id="20126" value="Uinteressert"/>
 	<string id="20127" value="Uinteressert"/>
-	<string id="20128" value="kilde"/>
-	<string id="20129" value="kilder"/> <!-- numbers 21, 31, etc. -->
-	<string id="20120" value="kilder"/> <!-- tens -->
-	<string id="20131" value="kilder"/> <!-- from 11 to 19 -->
-	<string id="20132" value="kilder"/> <!-- from 2 to 4 -->
-	<string id="20133" value="kilder"/> <!-- from 5 to 9 -->
-	<string id="20134" value="kilder"/> <!-- 3/10 sources -->
+	<string id="20130" value="kilde"/>
+	<string id="20131" value="kilder"/>
+	<string id="20132" value="kilder"/>
+	<string id="20134" value="kilder"/>
 	<string id="20135" value="(Ingen kilder)"/>
 	<string id="20136" value="Kvalt"/>
 	<string id="20137" value="Neste"/>
 	<string id="20138" value="K"/>
-	<string id="20200" value="Søndag"/>
+	<string id="20200" value="Every Dag"/>
 	<string id="20201" value="Mandag"/>
 	<string id="20202" value="Tirsdag"/>
 	<string id="20203" value="Onsdag"/>
 	<string id="20204" value="Tordsag"/>
 	<string id="20205" value="Fredag"/>
 	<string id="20206" value="Lørdag"/>
+	<string id="20207" value="Søndag"/>
 	<string id="20210" value="(Ingen karakter)"/>
 	<string id="20211" value="Falsk / Korrupt"/>
 	<string id="20212" value="Dårlig"/>
@@ -3248,28 +3245,6 @@
 		<control/>
 		<control caption="Hjelp:"/>
 		<control caption="PeerProject fjernkonsoll gir deg muligheten til å kjøre og kontrollere PeerProject gjennom internettleseren din. Du må kunne motta innkommende tilkoblinger for å bruke konsollen (sjekk oppsettet på routeren/brannmuren)."/>
-	</dialog>
-	<dialog name="CSchedulerSettingsPage" cookie="EdStStStStStStStBuStStStBuBuBuStEdmsBuSt" caption="Planlegger">
-		<control/>
-		<control caption="Søn"/>
-		<control caption="Man"/>
-		<control caption="Tir"/>
-		<control caption="Ons"/>
-		<control caption="Tor"/>
-		<control caption="Fre"/>
-		<control caption="Lør"/>
-		<control caption="Valg:"/>
-		<control caption="Ikke koble til"/>
-		<control caption="Begrenset tilkobling"/>
-		<control caption="Koble til i full hastighet"/>
-		<control caption="_Innstillinger:"/>
-		<control caption="_Aktiver planlegger"/>
-		<control caption="Koble kun til G2 når begrenset"/>
-		<control caption="% av _båndbredde ved begrensing"/>
-		<control/>
-		<control/>
-		<control caption="Hjelp:"/>
-		<control caption="Planlegger lar deg velge når PeerProject skal koble til og laste ned filer.{n}{n}{n}Obs: Hvis du har PeerProject åpent når planleggeren er aktiv, kan det hende du ser at innstillingene forandres - dette er normalt!"/>
 	</dialog>
 	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuSt" caption="Nettverk">
 		<control caption="PeerProject er et fildelingsprogram som kan koble seg opp mot mange P2P-nettverk på en gang. På denne siden kan du velge hvilke P2P-nettverk du vil koble deg til, og justere innstillingene for hvert nettverk."/>
@@ -3835,13 +3810,6 @@
 		<control/>
 		<control caption="_Fjern"/>
 	</dialog>
-	<dialog name="CSchemaColumnsDlg" cookie="CoSyBuBuSt" caption="Velg kolonner fra skjema">
-		<control/>
-		<control/>
-		<control caption="OK"/>
-		<control caption="Avbryt"/>
-		<control caption="Velgt et skjema fra listen, deretter velg felt som skal vises som kolonner."/>
-	</dialog>
 	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuStCoStCoEdStEdStEdStBuBu" caption="Sikkerhetsregel">
 		<control caption="_Regel:"/>
 		<control caption="Type:"/>
@@ -3877,6 +3845,42 @@
 		<control caption="m"/>
 		<control caption="OK"/>
 		<control caption="Avbryt"/>
+	</dialog>
+	<dialog name="CScheduleTaskDlg" cookie="BuBuBuCoEdmsEdmsStStBuBuBuBuBuSySyBuBuBuBuBuBuBuBuBuEd" caption="Planlegg Oppgave">
+		<control caption="OK"/>
+		<control caption="Avbryt"/>
+		<control caption="Select Task Type"/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="% under Download limit"/>
+		<control caption="% under Upload limit"/>
+		<control caption="Active Task"/>
+		<control caption="Enable G2 Only"/>
+		<control caption="Set Event Time"/>
+		<control caption="Specified days"/>
+		<control caption="One day only"/>
+		<control/>
+		<control/>
+		<control caption="Man"/>
+		<control caption="Tir"/>
+		<control caption="Ons"/>
+		<control caption="Tor"/>
+		<control caption="Fre"/>
+		<control caption="Lør"/>
+		<control caption="Søn"/>
+		<control caption="Alle"/>
+		<control caption="Kommentarer"/>
+		<control/>
+	</dialog>
+	<dialog name="CSchemaColumnsDlg" cookie="CoSyBuBuSt" caption="Velg kolonner fra skjema">
+		<control/>
+		<control/>
+		<control caption="OK"/>
+		<control caption="Avbryt"/>
+		<control caption="Velgt et skjema fra listen, deretter velg felt som skal vises som kolonner."/>
 	</dialog>
 	<dialog name="CShareManagerDlg" cookie="StSyBuBuBuBu" caption="Delte mapper">
 		<control caption="Dette er en liste over mapper i mine filer. Du kan legge til og fjerne mapper med knappene til høyre. Når du legger til en mappe blir den automatisk delt med andre brukere, men du kan skru av delingen hvis du vil."/>
@@ -4214,6 +4218,14 @@
 		<column from="Expires" to="Går ut"/>
 		<column from="#" to="Prioritet"/>
 		<column from="Comment" to="Kommentar"/>
+	</list>
+	<list name="CSchedulerWnd">
+		<column from="Task" to="Tiltak"/>
+		<column from="Date" to="Dato"/>
+		<column from="Time" to="Tid"/>
+		<column from="Status" to="Status"/>
+		<column from="Activity" to="Aktiv"/>
+		<column from="Description" to="Kommentar"/>
 	</list>
 	<list name="CHostCacheWnd">
 		<column from="Address" to="Adresse"/>

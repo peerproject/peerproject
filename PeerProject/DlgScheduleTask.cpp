@@ -21,9 +21,10 @@
 
 #include "StdAfx.h"
 #include "PeerProject.h"
-#include "Settings.h"
 #include "DlgScheduleTask.h"
+#include "DlgSkinDialog.h"
 #include "Scheduler.h"
+#include "Settings.h"
 #include "Network.h"
 #include "Skin.h"
 
@@ -34,16 +35,12 @@ static char THIS_FILE[] = __FILE__;
 #endif
 
 BEGIN_MESSAGE_MAP(CScheduleTaskDlg, CSkinDialog)
-	//{{AFX_MSG_MAP(CScheduleTaskDlg)
 	ON_BN_CLICKED(IDC_ONLYONCE, OnBnClickedOnlyonce)
-	ON_BN_CLICKED(IDC_SCHEDULER_TOGGLE_BANDWIDTH, OnBnClickedToggleBandwidth)
+	ON_BN_CLICKED(IDC_EVERYDAY, OnBnClickedEveryday)
+	ON_BN_CLICKED(IDC_BUTTON_ALLDAYS, &CScheduleTaskDlg::OnBnClickedButtonAllDays)
+	ON_CBN_SELCHANGE(IDC_EVENTTYPE, OnCbnSelchangeEventType)
 	ON_NOTIFY(DTN_DATETIMECHANGE, IDC_DATE, OnDtnDatetimechangeDate)
 	ON_NOTIFY(DTN_DATETIMECHANGE, IDC_TIME, OnDtnDatetimechangeTime)
-	ON_BN_CLICKED(IDC_EVERYDAY, OnBnClickedEveryday)
-	ON_BN_CLICKED(IDC_ACTIVE, OnBnClickedActive)
-	ON_CBN_SELCHANGE(IDC_EVENTTYPE, OnCbnSelchangeEventtype)
-	ON_BN_CLICKED(IDC_BUTTON_ALLDAYS, &CScheduleTaskDlg::OnBnClickedButtonAllDays)
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 
@@ -61,49 +58,41 @@ CScheduleTaskDlg::CScheduleTaskDlg(CWnd* pParent, CScheduleTask* pSchTask) : CSk
 
 CScheduleTaskDlg::~CScheduleTaskDlg()
 {
-	// If we are creating a new schedule item and it is created, it should be already
-	// added to scheduler list so we delete dialog's object
-	if (  m_bNew && m_pScheduleTask )
+	// If we are creating a new schedule item and it is created,
+	// it should be already be added to scheduler list so we delete dialog's object
+	if ( m_bNew && m_pScheduleTask )
 		delete m_pScheduleTask;
 }
 
 void CScheduleTaskDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CSkinDialog::DoDataExchange(pDX);
-	//{{AFX_DATA_MAP(CScheduleTaskDlg)
-	DDX_Control(pDX, IDC_DATE, m_wndDate);
+
 	DDX_Control(pDX, IDC_TIME, m_wndTime);
-	DDX_Text(pDX, IDC_DESCRIPTION, m_sDescription);
-	DDX_Control(pDX, IDC_SCHEDULER_LIMITED_SPIN, m_wndSpin);
+	DDX_Control(pDX, IDC_DATE, m_wndDate);
+	DDX_Control(pDX, IDC_ACTIVE, m_wndActiveCheck);
+	DDX_Control(pDX, IDC_EVENTTYPE, m_wndTypeSel);
+	DDX_Control(pDX, IDC_SCHEDULER_LIMITED_NETWORKS, m_wndLimitedCheck);
 	DDX_Control(pDX, IDC_SCHEDULER_LIMITED_SPIN_DOWN, m_wndSpinDown);
 	DDX_Control(pDX, IDC_SCHEDULER_LIMITED_SPIN_UP, m_wndSpinUp);
-	DDX_Check(pDX, IDC_SCHEDULER_TOGGLE_BANDWIDTH, m_bToggleBandwidth);
-	DDX_Check(pDX, IDC_SCHEDULER_LIMITED_NETWORKS, m_bLimitedNetworks);
-	DDX_Text(pDX, IDC_SCHEDULER_LIMITED, m_nLimit);
-	DDX_Text(pDX, IDC_SCHEDULER_LIMITED_DOWN, m_nLimitDown);
-	DDX_Text(pDX, IDC_SCHEDULER_LIMITED_UP, m_nLimitUp);
-	DDX_Control(pDX, IDC_ACTIVE, m_wndActiveCheck);
-	DDX_Control(pDX, IDC_SCHEDULER_LIMITED, m_wndLimitedEdit);
-	DDX_Control(pDX, IDC_EVENTTYPE, m_wndTypeSel);
 	DDX_Control(pDX, IDC_SCHEDULER_LIMITED_DOWN, m_wndLimitedEditDown);
 	DDX_Control(pDX, IDC_SCHEDULER_LIMITED_UP, m_wndLimitedEditUp);
-	DDX_Control(pDX, IDC_SCHEDULER_LIMITED_NETWORKS, m_wndLimitedCheck);
-	DDX_Control(pDX, IDC_SCHEDULER_TOGGLE_BANDWIDTH, m_wndLimitedCheckTgl);
-	DDX_Control(pDX, IDC_STATIC_LIMITED, m_wndLimitedStatic);
 	DDX_Control(pDX, IDC_STATIC_LIMITED_DOWN, m_wndLimitedStaticDown);
 	DDX_Control(pDX, IDC_STATIC_LIMITED_UP, m_wndLimitedStaticUp);
 	DDX_Control(pDX, IDC_EVERYDAY, m_wndRadioEveryDay);
 	DDX_Control(pDX, IDC_ONLYONCE, m_wndRadioOnce);
-	DDX_Control(pDX, IDC_CHECK_SUN, m_wndChkDaySun);
 	DDX_Control(pDX, IDC_CHECK_MON, m_wndChkDayMon);
 	DDX_Control(pDX, IDC_CHECK_TUES, m_wndChkDayTues);
 	DDX_Control(pDX, IDC_CHECK_WED, m_wndChkDayWed);
 	DDX_Control(pDX, IDC_CHECK_THU, m_wndChkDayThu);
 	DDX_Control(pDX, IDC_CHECK_FRI, m_wndChkDayFri);
 	DDX_Control(pDX, IDC_CHECK_SAT, m_wndChkDaySat);
-	DDX_Control(pDX, IDC_DAYOFWEEK_GBOX, m_wndGrpBoxDayOfWeek);
+	DDX_Control(pDX, IDC_CHECK_SUN, m_wndChkDaySun);
 	DDX_Control(pDX, IDC_BUTTON_ALLDAYS, m_wndBtnAllDays);
-	//}}AFX_DATA_MAP
+	DDX_Check(pDX, IDC_SCHEDULER_LIMITED_NETWORKS, m_bLimitedNetworks);
+	DDX_Text(pDX, IDC_SCHEDULER_LIMITED_DOWN, m_nLimitDown);
+	DDX_Text(pDX, IDC_SCHEDULER_LIMITED_UP, m_nLimitUp);
+	DDX_Text(pDX, IDC_DESCRIPTION, m_sDescription);
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -115,45 +104,42 @@ BOOL CScheduleTaskDlg::OnInitDialog()
 
 	SkinMe( _T("CScheduleTaskDlg"), IDR_SCHEDULERFRAME );
 
-	m_wndSpin.SetRange( 5, 95 );
-	m_wndSpinDown.SetRange( 5, 95 );
-	m_wndSpinUp.SetRange( 5, 95 );
+	m_wndSpinDown.SetRange( 1, 99 );
+	m_wndSpinUp.SetRange( 1, 99 );
 
-	// ToDo: New tasks should be added to the buttom of the list in the same order it is added to scheduler enum
-	m_wndTypeSel.AddString( LoadString( IDS_SCHEDULER_BANDWIDTH_FULLSPEED ) );
-	m_wndTypeSel.AddString( LoadString( IDS_SCHEDULER_BANDWIDTH_REDUCEDSPEED ) );
+	// New tasks must be added to the list in the same order as Scheduler.h enum
+	m_wndTypeSel.AddString( LoadString( IDS_SCHEDULER_BANDWIDTH_FULL ) );
+	m_wndTypeSel.AddString( LoadString( IDS_SCHEDULER_BANDWIDTH_LIMITED ) );
 	m_wndTypeSel.AddString( LoadString( IDS_SCHEDULER_BANDWIDTH_STOP ) );
-	m_wndTypeSel.AddString( LoadString( IDS_SCHEDULER_SYSTEM_DIALUP_DC ) );
 	m_wndTypeSel.AddString( LoadString( IDS_SCHEDULER_SYSTEM_EXIT ) );
-	m_wndTypeSel.AddString( LoadString( IDS_SCHEDULER_SYSTEM_TURNOFF ) );
+	m_wndTypeSel.AddString( LoadString( IDS_SCHEDULER_SYSTEM_SHUTDOWN ) );
+	m_wndTypeSel.AddString( LoadString( IDS_SCHEDULER_SYSTEM_DIALUP_OFF ) );
+	m_wndTypeSel.AddString( LoadString( IDS_SCHEDULER_SYSTEM_NOTICE ) );
 
 	if ( m_bNew )	// We are creating new schedule task, setting default values
 	{
 		m_pScheduleTask		= new CScheduleTask ();
-		m_bSpecificDays		= false;
-		m_nAction			= BANDWIDTH_FULL_SPEED;
+		m_nAction			= BANDWIDTH_FULL;
 		m_bActive			= true;
+		m_bLimitedNetworks	= FALSE;
+		m_bSpecificDays		= true;
 		m_nDays				= 0x7F;
-		m_nLimit			= 50;
 		m_nLimitDown		= 50;
-		m_nLimitUp			= 25;
-		m_bToggleBandwidth	= false;
-		m_bLimitedNetworks	= false;
-		m_wndActiveCheck.SetCheck(1);
-		m_wndDate.GetTime(m_tDateAndTime);	//Sets mtDateTime to now
-		m_wndRadioOnce.SetCheck(1);
-		m_wndRadioEveryDay.SetCheck(0);
-		m_wndLimitedEdit.EnableWindow( false );
-		m_wndLimitedEditDown.EnableWindow( false );
-		m_wndLimitedEditUp.EnableWindow( false );
-		m_wndSpin.EnableWindow( false );
-		m_wndSpinDown.EnableWindow( false );
-		m_wndSpinUp.EnableWindow( false );
-		m_wndLimitedCheckTgl.EnableWindow( false );
+		m_nLimitUp			= 30;
+
+		m_wndDate.GetTime( m_tDateAndTime );	// Sets mtDateTime to now
+		m_wndActiveCheck.SetCheck( 1 );
+		m_wndRadioEveryDay.SetCheck( 1 );
+		m_wndRadioOnce.SetCheck( 0 );
+
 		m_wndLimitedCheck.EnableWindow( false );
-		m_wndLimitedStatic.EnableWindow( false );
 		m_wndLimitedStaticDown.EnableWindow( false );
 		m_wndLimitedStaticUp.EnableWindow( false );
+		m_wndLimitedEditDown.EnableWindow( false );
+		m_wndLimitedEditUp.EnableWindow( false );
+		m_wndSpinDown.EnableWindow( false );
+		m_wndSpinUp.EnableWindow( false );
+		m_wndDate.EnableWindow( false );
 	}
 	else	// We are editing an existing schedule task, getting values from it
 	{
@@ -162,11 +148,9 @@ BOOL CScheduleTaskDlg::OnInitDialog()
 		m_sDescription	= m_pScheduleTask->m_sDescription;
 		m_tDateAndTime	= m_pScheduleTask->m_tScheduleDateTime;
 		m_bActive		= m_pScheduleTask->m_bActive;
-		m_nLimit		= m_pScheduleTask->m_nLimit;
+		m_nDays			= m_pScheduleTask->m_nDays;
 		m_nLimitDown	= m_pScheduleTask->m_nLimitDown;
 		m_nLimitUp		= m_pScheduleTask->m_nLimitUp;
-		m_nDays			= m_pScheduleTask->m_nDays;
-		m_bToggleBandwidth	= m_pScheduleTask->m_bToggleBandwidth;
 		m_bLimitedNetworks	= m_pScheduleTask->m_bLimitedNetworks;
 
 		if ( m_pScheduleTask->m_bExecuted && ! m_pScheduleTask->m_bSpecificDays )
@@ -179,99 +163,71 @@ BOOL CScheduleTaskDlg::OnInitDialog()
 		case 0:	// Should never happen
 			m_wndTypeSel.SetCurSel(-1);
 			break;
-		case BANDWIDTH_FULL_SPEED:
+		case BANDWIDTH_FULL:
 			m_wndTypeSel.SetCurSel(0);
 			break;
-		case BANDWIDTH_REDUCED_SPEED:
+		case BANDWIDTH_LIMITED:
 			m_wndTypeSel.SetCurSel(1);
 			break;
 		case BANDWIDTH_STOP:
 			m_wndTypeSel.SetCurSel(2);
 			break;
-		case SYSTEM_DISCONNECT:
+		case SYSTEM_EXIT:
 			m_wndTypeSel.SetCurSel(3);
 			break;
-		case SYSTEM_EXIT:
+		case SYSTEM_SHUTDOWN:
 			m_wndTypeSel.SetCurSel(4);
 			break;
-		case SYSTEM_SHUTDOWN:
+		case SYSTEM_DISCONNECT:
 			m_wndTypeSel.SetCurSel(5);
+			break;
+		case SYSTEM_NOTICE:
+			m_wndTypeSel.SetCurSel(6);
 			break;
 		}
 
 		m_wndRadioOnce.SetCheck( ! m_bSpecificDays );
 		m_wndRadioEveryDay.SetCheck( m_bSpecificDays );
-		m_wndDate.SetTime(&m_tDateAndTime);
-		m_wndTime.SetTime(&m_tDateAndTime);
+		m_wndDate.SetTime( &m_tDateAndTime );
+		m_wndTime.SetTime( &m_tDateAndTime );
 
-		// If task is scheduled for everyday disable date window
+		// If task is set for specifs days disable date window
 		if ( m_wndRadioEveryDay.GetCheck() )
 			m_wndDate.EnableWindow( false );
 
-		if ( m_wndTypeSel.GetCurSel() + 1 == BANDWIDTH_REDUCED_SPEED )
+		if ( m_wndTypeSel.GetCurSel() + 1 == BANDWIDTH_LIMITED )
 		{
-			if ( m_bToggleBandwidth )
-			{
-				m_wndLimitedEdit.EnableWindow( false );
-				m_wndLimitedEditDown.EnableWindow( true );
-				m_wndLimitedEditUp.EnableWindow( true );
-
-				m_wndSpin.EnableWindow( false );
-				m_wndSpinDown.EnableWindow( true );
-				m_wndSpinUp.EnableWindow( true );
-
-				m_wndLimitedStatic.EnableWindow( false );
-				m_wndLimitedStaticDown.EnableWindow( true );
-				m_wndLimitedStaticUp.EnableWindow( true );
-			}
-			else
-			{
-				m_wndLimitedEdit.EnableWindow( true );
-				m_wndLimitedEditDown.EnableWindow( false );
-				m_wndLimitedEditUp.EnableWindow( false );
-
-				m_wndSpin.EnableWindow( true );
-				m_wndSpinDown.EnableWindow( false );
-				m_wndSpinUp.EnableWindow( false );
-
-				m_wndLimitedStatic.EnableWindow( true );
-				m_wndLimitedStaticDown.EnableWindow( false );
-				m_wndLimitedStaticUp.EnableWindow( false );
-			}
-			//m_wndLimitedCheckTgl.EnableWindow(m_bToggleBandwidth);
-			//m_wndLimitedCheck.EnableWindow(m_bLimitedNetworks);
+			m_wndLimitedEditDown.EnableWindow( true );
+			m_wndLimitedEditUp.EnableWindow( true );
+			m_wndLimitedStaticDown.EnableWindow( true );
+			m_wndLimitedStaticUp.EnableWindow( true );
+			m_wndSpinDown.EnableWindow( true );
+			m_wndSpinUp.EnableWindow( true );
 		}
 		else
 		{
-			m_wndLimitedEdit.EnableWindow( false );
+			m_wndLimitedCheck.EnableWindow( false );
 			m_wndLimitedEditDown.EnableWindow( false );
 			m_wndLimitedEditUp.EnableWindow( false );
-			m_wndSpin.EnableWindow( false );
 			m_wndSpinDown.EnableWindow( false );
 			m_wndSpinUp.EnableWindow( false );
-			m_wndLimitedCheckTgl.EnableWindow( false );
-			m_wndLimitedCheck.EnableWindow( false );
-
 		}
 	}
 
-	m_wndChkDaySun.SetCheck( m_nDays & SUNDAY );
 	m_wndChkDayMon.SetCheck( m_nDays & MONDAY );
 	m_wndChkDayTues.SetCheck( m_nDays & TUESDAY );
 	m_wndChkDayWed.SetCheck( m_nDays & WEDNESDAY );
 	m_wndChkDayThu.SetCheck( m_nDays & THURSDAY );
 	m_wndChkDayFri.SetCheck( m_nDays & FRIDAY );
 	m_wndChkDaySat.SetCheck( m_nDays & SATURDAY );
+	m_wndChkDaySun.SetCheck( m_nDays & SUNDAY );
 
-	m_wndSpin.SetPos( m_nLimit );
 	m_wndSpinDown.SetPos( m_nLimitDown );
 	m_wndSpinUp.SetPos( m_nLimitUp );
 
 	EnableDaysOfWeek( m_bSpecificDays );
 
 	UpdateData( FALSE );
-
-	//if (m_wndTypeSel.GetCurSel()+1 == BANDWIDTH_REDUCED_SPEED) OnBnClickedToggleBandwidth();
 
 	return FALSE;
 }
@@ -280,43 +236,46 @@ void CScheduleTaskDlg::OnOK()
 {
 	UpdateData( TRUE );
 
+	// New tasks added here in same list order as Scheduler.h enum
 	switch ( m_wndTypeSel.GetCurSel() )
 	{
 	case -1:
 		AfxMessageBox( IDS_SCHEDULER_SELECTTASK );
 		return;
 	case 0:
-		m_nAction = BANDWIDTH_FULL_SPEED;
+		m_nAction = BANDWIDTH_FULL;
 		break;
 	case 1:
-		m_nAction = BANDWIDTH_REDUCED_SPEED;
+		m_nAction = BANDWIDTH_LIMITED;
 		break;
 	case 2:
 		m_nAction = BANDWIDTH_STOP;
 		break;
 	case 3:
-		m_nAction = SYSTEM_DISCONNECT;
-		break;
-	case 4:
 		m_nAction = SYSTEM_EXIT;
 		break;
-	case 5:
+	case 4:
 		m_nAction = SYSTEM_SHUTDOWN;
+		break;
+	case 5:
+		m_nAction = SYSTEM_DISCONNECT;
+		break;
+	case 6:
+		m_nAction = SYSTEM_NOTICE;
 		break;
 	}
 
 	if ( m_wndRadioOnce.GetCheck() )
 	{
+		m_bSpecificDays = false;
+
 		if ( CTime::GetCurrentTime() >= m_tDateAndTime )
 		{
 			AfxMessageBox( IDS_SCHEDULER_TIME_PASSED );
 			return;
 		}
 	}
-
-	if ( m_wndRadioOnce.GetCheck() )
-		m_bSpecificDays = false;
-	else
+	else // Specified days selected
 	{
 		m_nDays = 0;
 		if( m_wndChkDaySun.GetCheck() ) m_nDays |= SUNDAY;
@@ -335,15 +294,10 @@ void CScheduleTaskDlg::OnOK()
 		m_bSpecificDays = true;
 	}
 
-	if ( m_wndActiveCheck.GetCheck() )
-		m_bActive = true;
-	else
-		m_bActive = false;
+	m_bActive = m_wndActiveCheck.GetCheck() ? true : false;
 
-	m_pScheduleTask->m_nLimit			= m_nLimit;
 	m_pScheduleTask->m_nLimitDown		= m_nLimitDown;
 	m_pScheduleTask->m_nLimitUp			= m_nLimitUp;
-	m_pScheduleTask->m_bToggleBandwidth	= m_bToggleBandwidth != 0;
 	m_pScheduleTask->m_bLimitedNetworks	= m_bLimitedNetworks != 0;
 	m_pScheduleTask->m_tScheduleDateTime = m_tDateAndTime;
 	m_pScheduleTask->m_bSpecificDays	= m_bSpecificDays;
@@ -357,16 +311,6 @@ void CScheduleTaskDlg::OnOK()
 	m_pScheduleTask = NULL;
 
 	CSkinDialog::OnOK();
-}
-
-void CScheduleTaskDlg::OnBnClickedOnlyonce()
-{
-	m_wndRadioEveryDay.SetCheck(0);
-	m_bSpecificDays = false;
-
-	m_wndDate.EnableWindow( true );
-
-	EnableDaysOfWeek( false );
 }
 
 void CScheduleTaskDlg::OnDtnDatetimechangeDate(NMHDR* /*pNMHDR*/, LRESULT *pResult)
@@ -384,7 +328,6 @@ void CScheduleTaskDlg::OnDtnDatetimechangeDate(NMHDR* /*pNMHDR*/, LRESULT *pResu
 void CScheduleTaskDlg::OnDtnDatetimechangeTime(NMHDR* /*pNMHDR*/, LRESULT *pResult)
 {
 	//LPNMDATETIMECHANGE pDTChange = reinterpret_cast<LPNMDATETIMECHANGE>(pNMHDR);
-
 	SYSTEMTIME tDate;
 	SYSTEMTIME tTime;
 	m_wndDate.GetTime( &tDate );
@@ -395,92 +338,20 @@ void CScheduleTaskDlg::OnDtnDatetimechangeTime(NMHDR* /*pNMHDR*/, LRESULT *pResu
 	*pResult = 0;
 }
 
+void CScheduleTaskDlg::OnBnClickedOnlyonce()
+{
+	m_wndRadioEveryDay.SetCheck( 0 );
+	m_wndDate.EnableWindow( true );
+	EnableDaysOfWeek( false );
+
+	m_bSpecificDays = false;
+}
+
 void CScheduleTaskDlg::OnBnClickedEveryday()
 {
-	m_wndRadioOnce.SetCheck(0);
-
+	m_wndRadioOnce.SetCheck( 0 );
 	m_wndDate.EnableWindow( false );
-
 	EnableDaysOfWeek( true );
-}
-
-void CScheduleTaskDlg::OnBnClickedToggleBandwidth()
-{
-	if ( m_wndLimitedCheckTgl.GetCheck() )
-	{
-		m_wndLimitedEdit.EnableWindow( false );
-		m_wndLimitedEditDown.EnableWindow( true );
-		m_wndLimitedEditUp.EnableWindow( true );
-
-		m_wndSpin.EnableWindow( false );
-		m_wndSpinDown.EnableWindow( true );
-		m_wndSpinUp.EnableWindow( true );
-
-		m_wndLimitedStatic.EnableWindow( false );
-		m_wndLimitedStaticDown.EnableWindow( true );
-		m_wndLimitedStaticUp.EnableWindow( true );
-	}
-	else
-	{
-		m_wndLimitedEdit.EnableWindow( true );
-		m_wndLimitedEditDown.EnableWindow( false );
-		m_wndLimitedEditUp.EnableWindow( false );
-
-		m_wndSpin.EnableWindow( true );
-		m_wndSpinDown.EnableWindow( false );
-		m_wndSpinUp.EnableWindow( false );
-
-		m_wndLimitedStatic.EnableWindow( true );
-		m_wndLimitedStaticDown.EnableWindow( false );
-		m_wndLimitedStaticUp.EnableWindow( false );
-	}
-}
-
-void CScheduleTaskDlg::OnBnClickedActive()
-{
-	if ( ! m_wndActiveCheck.GetCheck() )
-		m_wndActiveCheck.SetCheck(0);
-	else
-		m_wndActiveCheck.SetCheck(1);
-}
-
-void CScheduleTaskDlg::OnCbnSelchangeEventtype()
-{
-	if ( m_wndTypeSel.GetCurSel() + 1 == BANDWIDTH_REDUCED_SPEED )
-	{
-		if ( ! m_wndLimitedCheckTgl.GetCheck() )
-		{
-			m_wndLimitedEdit.EnableWindow( true );
-			m_wndSpin.EnableWindow( true );
-		}
-		else
-		{
-			m_wndLimitedEditDown.EnableWindow( true );
-			m_wndLimitedEditUp.EnableWindow( true );
-			m_wndSpinDown.EnableWindow( true );
-			m_wndSpinUp.EnableWindow( true );
-		}
-		m_wndLimitedCheckTgl.EnableWindow( true );
-		m_wndLimitedCheck.EnableWindow( true );
-		m_wndLimitedStatic.EnableWindow( true );
-		m_wndLimitedStaticDown.EnableWindow( true );
-		m_wndLimitedStaticUp.EnableWindow( true );
-	}
-	else
-	{
-		m_wndLimitedEdit.EnableWindow( false );
-		m_wndLimitedEditDown.EnableWindow( false );
-		m_wndLimitedEditUp.EnableWindow( false );
-		m_wndSpin.EnableWindow( false );
-		m_wndSpinDown.EnableWindow( false );
-		m_wndSpinUp.EnableWindow( false );
-		m_wndLimitedCheckTgl.EnableWindow( false );
-		m_wndLimitedCheck.EnableWindow( false );
-		m_wndLimitedStatic.EnableWindow( false );
-		m_wndLimitedStaticDown.EnableWindow( false );
-		m_wndLimitedStaticUp.EnableWindow( false );
-	}
-
 }
 
 void CScheduleTaskDlg::EnableDaysOfWeek(bool bEnable)
@@ -494,13 +365,57 @@ void CScheduleTaskDlg::EnableDaysOfWeek(bool bEnable)
 	m_wndChkDaySat.EnableWindow( bEnable );
 	m_wndBtnAllDays.EnableWindow( bEnable );
 }
+
+void CScheduleTaskDlg::OnCbnSelchangeEventType()
+{
+	if ( m_wndTypeSel.GetCurSel() + 1 == BANDWIDTH_LIMITED )
+	{
+		m_wndLimitedEditDown.EnableWindow( true );
+		m_wndLimitedEditUp.EnableWindow( true );
+		m_wndSpinDown.EnableWindow( true );
+		m_wndSpinUp.EnableWindow( true );
+
+		m_wndLimitedCheck.EnableWindow( true );
+		m_wndLimitedStaticDown.EnableWindow( true );
+		m_wndLimitedStaticUp.EnableWindow( true );
+	}
+	else
+	{
+		m_wndLimitedCheck.EnableWindow( false );
+		m_wndLimitedStaticDown.EnableWindow( false );
+		m_wndLimitedStaticUp.EnableWindow( false );
+		m_wndLimitedEditDown.EnableWindow( false );
+		m_wndLimitedEditUp.EnableWindow( false );
+		m_wndSpinDown.EnableWindow( false );
+		m_wndSpinUp.EnableWindow( false );
+	}
+}
+
 void CScheduleTaskDlg::OnBnClickedButtonAllDays()
 {
-	m_wndChkDaySun.SetCheck( true );
+	if ( m_wndChkDayMon.GetCheck() &&
+		m_wndChkDayTues.GetCheck() &&
+		m_wndChkDayWed.GetCheck() &&
+		m_wndChkDayThu.GetCheck() &&
+		m_wndChkDayFri.GetCheck() &&
+		m_wndChkDaySat.GetCheck() &&
+		m_wndChkDaySun.GetCheck() )
+	{
+		m_wndChkDayMon.SetCheck( false );
+		m_wndChkDayTues.SetCheck( false );
+		m_wndChkDayWed.SetCheck( false );
+		m_wndChkDayThu.SetCheck( false );
+		m_wndChkDayFri.SetCheck( false );
+		m_wndChkDaySat.SetCheck( false );
+		m_wndChkDaySun.SetCheck( false );
+		return;
+	}
+
 	m_wndChkDayMon.SetCheck( true );
 	m_wndChkDayTues.SetCheck( true );
 	m_wndChkDayWed.SetCheck( true );
 	m_wndChkDayThu.SetCheck( true );
 	m_wndChkDayFri.SetCheck( true );
 	m_wndChkDaySat.SetCheck( true );
+	m_wndChkDaySun.SetCheck( true );
 }

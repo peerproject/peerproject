@@ -5,17 +5,12 @@
  *
  * Description: This class provides better error handling for MFC windows.
  * Author: Maksim Pyatkovskiy.
- *
- * This source code is only intended as a supplement to the
- * BugTrap package reference and related electronic documentation
- * provided with the product. See these sources for detailed
- * information regarding the BugTrap package.
  */
+
+#pragma once
 
 #ifndef _BTMFCWINDOW_H_
 #define _BTMFCWINDOW_H_
-
-#pragma once
 
 #ifndef _BUGTRAP_H_
  #error Include BugTrap.h first

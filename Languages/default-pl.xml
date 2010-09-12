@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Polish Skin File -->
 
-<!-- Translation based on default-en.xml r56 (Shareaza 2.1.2.7) -->
+<!-- Translation based on default-en.xml r58 (Shareaza 2.1.2.7) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1498,7 +1498,7 @@
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="3">
-			<icon res="128" width="32" height="32"/><gap size="8"/>
+			<icon res="120" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">INFORMACJA O AKTUALIZACJI</heading>
 			<newline gap="8" indent="42"/>
 			<text id="Upgrade"/>
@@ -1517,7 +1517,7 @@
 			<link target="command:ID_HELP_ROUTER">Kliknij tutaj, aby dowiedzieć się jak skonfigurować Twój router lub firewall</link>
 			<newline gap="18" indent="0"/>
 		</group>
-		<icon res="128" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
+		<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">DOSTOSUJ PEERPROJECT</heading>
 		<newline gap="12" indent="42"/>
 		<icon res="182" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
@@ -1542,7 +1542,7 @@
 		<text align="middle">&#160;- Przejdź do forum języka polskiego</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
-			<icon res="128" width="32" height="32"/><gap size="8"/>
+			<icon res="120" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">ZDALNY DOSTĘP JEST WŁĄCZONY</heading>
 			<newline gap="8" indent="42"/>
 			<text>Zdalny dostęp do PeerProject jest włączony. Steruj PeerProject używając przeglądarki stron www:</text>
@@ -1721,9 +1721,6 @@
 		<newline gap="10"/>
 		<link target="page:CUploadsSettingsPage" format="b">Wysyłanie:</link>
 		<text>&#160;Kolejki, zakazy, limity czasu i specjalne żądania.</text>
-		<newline gap="10"/>
-		<link target="page:CSchedulerSettingsPage" format="b">Scheduler:</link>
-		<text>&#160;Limit download connections based on a periodic schedule.</text>
 	</document>
 	<!-- Browse User Profile -->
 	<document name="CBrowseHostProfile.1">
@@ -2510,6 +2507,8 @@
 	<string id="8239" value="Zakończono"/>
 	<string id="8240" value="Liczba źródeł:"/>
 	<string id="8241" value="Liczba recenzji:"/>
+	<string id="8244" value="Ograniczyć prędkości pobierania"/>
+	<string id="8245" value="Ograniczyć prędkość wysyłania"/>
 	<string id="8288" value="Przeglądanie Twojej biblioteki PeerProject"/>
 	<string id="8289" value="Przeglądanie"/>
 	<string id="8290" value="Przeglądanie zawartości %i folderów"/>
@@ -2899,24 +2898,22 @@
 	<string id="20125" value="Nie zweryfikowano"/>
 	<string id="20126" value="Niezainteresowany"/>
 	<string id="20127" value="Niezainteresowany"/>
-	<string id="20128" value="źródło"/>
-	<string id="20129" value="źródeł"/> <!-- numbers 21,31,... -->
-	<string id="20120" value="źródeł"/> <!-- tens -->
-	<string id="20131" value="źródeł"/> <!-- from 11 to 19 -->
-	<string id="20132" value="źródła"/> <!-- from 2 to 4 -->
-	<string id="20133" value="źródeł"/> <!-- from 5 to 9 -->
-	<string id="20134" value="źródeł"/> <!-- 3/10 sources -->
+	<string id="20130" value="źródło"/>
+	<string id="20131" value="źródeł"/> <!-- ones 21,31,... -->
+	<string id="20132" value="źródła"/> <!-- few  2,3,4 -->
+	<string id="20134" value="źródeł"/> <!-- others -->
 	<string id="20135" value="(Brak źródeł)"/>
 	<string id="20136" value="Zdławiony"/>
 	<string id="20137" value="Następny"/>
-	<string id="20138" value="Kolejka"/><!-- ?? "Q" to kolejka? -->
-	<string id="20200" value="Niedziela"/>
+	<string id="20138" value="Kolejka"/> <!-- ?? "Q" to kolejka? -->
+	<string id="20200" value="Every Day"/>
 	<string id="20201" value="Poniedziałek"/>
 	<string id="20202" value="Wtorek"/>
 	<string id="20203" value="Sroda"/>
 	<string id="20204" value="Czwartek"/>
 	<string id="20205" value="Piątek"/>
 	<string id="20206" value="Sobota"/>
+	<string id="20207" value="Niedziela"/>
 	<string id="20210" value="(Brak oceny)"/>
 	<string id="20211" value="Fake / Uszkodzony"/>
 	<string id="20212" value="Słaby"/>
@@ -3181,28 +3178,6 @@
 		<control/>
 		<control caption="Pomoc:"/>
 		<control caption="Zdalny dostęp do PeerProjecty pozwala ci na zostawienie włączonej PeerProjecty na Twoim komputerze i zdalne sterowanie nią za pomocą przeglądarki internetowej. Aby używać tej funkcji musisz być w stanie przyjmować połączenia przychodzące (np. właściwie skonfigurowany router, itp.)."/>
-	</dialog>
-	<dialog name="CSchedulerSettingsPage" cookie="EdStStStStStStStBuStStStBuBuBuStEdmsBuSt" caption="Kalendarz">
-		<control/>
-		<control caption="Ndz"/>
-		<control caption="Pon"/>
-		<control caption="Wto"/>
-		<control caption="Śro"/>
-		<control caption="Czw"/>
-		<control caption="Pią"/>
-		<control caption="Sob"/>
-		<control caption="Legenda:"/>
-		<control caption="Nie podłączaj"/>
-		<control caption="Limitowane połączenie"/>
-		<control caption="Połączenie z pełną prędkością"/>
-		<control caption="_Opcje:"/>
-		<control caption="Włącz kalendarz"/>
-		<control caption="Połącz tylko do G2 w czasie z limitem"/>
-		<control caption="% szerokości pasma łącza gdy jest limitowana"/>
-		<control/>
-		<control/>
-		<control caption="Pomoc:"/>
-		<control caption="Kalendarz został zaprojektowany, abyś mógł ustawić pory, kiedy PeerProject się połączy i będzie pobierać pliki. {n}{n}{n}Zauważ: Jeżeli masz PeerProject otwartą gdy kalendarz jest aktywny, możesz zobaczyć, jak zmieniają się ustawienia - TO JEST NORMALNE!"/>
 	</dialog>
 	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuSt" caption="Sieci">
 		<control caption="PeerProject jest aplikacją współdzielącą (udostępniajacą) pliki do ogólnego użytku, która może się połączyć jednocześnie z wieloma sieciami P2P. W tej sekcji wybierasz, do jakich sieci chcesz się włączyć i dostosujesz ustawienia charakterystyczne dla każdej z nich."/>
@@ -3768,13 +3743,6 @@
 		<control/>
 		<control caption="Usuń"/>
 	</dialog>
-	<dialog name="CSchemaColumnsDlg" cookie="CoSyBuBuSt" caption="Wybierz kolumny ze Schemy (schematu wzorca)">
-		<control/>
-		<control/>
-		<control caption="OK"/>
-		<control caption="Anuluj"/>
-		<control caption="Wybierz scheme (schemat wzorca) z listy, potem wybierz pola do wyświetlenia jako kolumny."/>
-	</dialog>
 	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuStCoStCoEdStEdStEdStBuBu" caption="Reguła bezpieczeństwa">
 		<control caption="Reguła:"/>
 		<control caption="Typ:"/>
@@ -3810,6 +3778,42 @@
 		<control caption="m"/>
 		<control caption="OK"/>
 		<control caption="Anuluj"/>
+	</dialog>
+	<dialog name="CScheduleTaskDlg" cookie="BuBuBuCoEdmsEdmsStStBuBuBuBuBuSySyBuBuBuBuBuBuBuBuBuEd" caption="Harmonogram Zadań">
+		<control caption="OK"/>
+		<control caption="Anuluj"/>
+		<control caption="Select Task Type"/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="% under Download limit"/>
+		<control caption="% under Upload limit"/>
+		<control caption="Active Task"/>
+		<control caption="Enable G2 Only"/>
+		<control caption="Set Event Time"/>
+		<control caption="Specified days"/>
+		<control caption="One day only"/>
+		<control/>
+		<control/>
+		<control caption="Pon"/>
+		<control caption="Wto"/>
+		<control caption="Śro"/>
+		<control caption="Czw"/>
+		<control caption="Pią"/>
+		<control caption="Sob"/>
+		<control caption="Ndz"/>
+		<control caption="Wszystko"/>
+		<control caption="Komentarze"/>
+		<control/>
+	</dialog>
+	<dialog name="CSchemaColumnsDlg" cookie="CoSyBuBuSt" caption="Wybierz kolumny ze Schemy (schematu wzorca)">
+		<control/>
+		<control/>
+		<control caption="OK"/>
+		<control caption="Anuluj"/>
+		<control caption="Wybierz scheme (schemat wzorca) z listy, potem wybierz pola do wyświetlenia jako kolumny."/>
 	</dialog>
 	<dialog name="CShareManagerDlg" cookie="StSyBuBuBuBu" caption="Menadżer udostępnionych folderów">
 		<control caption="To jest lista folderów w Twojej bibliotece (zasobach). Możesz dodawać i usuwać foldery używając przycisków po lewej. Gdy dodasz nowy folder początkowo jest on udostępniany innym użytkownikom, jednak możesz przestać go udostępniać z biblioteki zasobów PeerProjecty jeśli zechcesz."/>
@@ -4147,6 +4151,14 @@
 		<column from="Expires" to="Wygasa"/>
 		<column from="#" to="#"/>
 		<column from="Comment" to="Komentarz"/>
+	</list>
+	<list name="CSchedulerWnd">
+		<column from="Task" to="Akcja"/>
+		<column from="Date" to="Data"/>
+		<column from="Time" to="Czas"/>
+		<column from="Status" to="Status"/>
+		<column from="Activity" to="Aktywny"/>
+		<column from="Description" to="Komentarz"/>
 	</list>
 	<list name="CHostCacheWnd">
 		<column from="Address" to="Adres"/>

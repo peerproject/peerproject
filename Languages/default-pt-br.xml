@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Brazilian Portuguese Skin File -->
 
-<!-- Translation based on default-en.xml r56 -->
+<!-- Translation based on default-en.xml r58 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1734,7 +1734,7 @@
 		<newline gap="20" indent="0"/>
 	  </group>
 	  <group id="3">
-		<icon res="128" width="32" height="32"/><gap size="8"/>
+		<icon res="120" width="32" height="32"/><gap size="8"/>
 		<heading align="middle">Notificação de Atualização</heading>
 		<newline gap="8" indent="42"/>
 		<text id="Atualizar"/>
@@ -1781,7 +1781,7 @@
 		<link target="command:ID_HELP_ROUTER">aprender como configurar o seu roteador.</link>
 		<newline gap="18" indent="0"/>
 	  </group>
-	  <icon res="128" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/> <gap size="8"/>
+	  <icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/> <gap size="8"/>
 	  <heading align="middle">Modifique O PeerProject</heading>
 	  <newline gap="12" indent="42"/>
 	  <icon res="182" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
@@ -1806,7 +1806,7 @@
 	  <text align="middle">&#160;- Vá para o Fórum Português Língua discussão</text>
 	  <newline gap="18" indent="0"/>
 	  <group id="5">
-		<icon res="128" width="32" height="32"/><gap size="8"/>
+		<icon res="120" width="32" height="32"/><gap size="8"/>
 		<heading align="middle">O Acesso Remoto Está Ativado</heading>
 		<newline gap="8" indent="42"/>
 		<text>O Acesso Remoto do PeerProject está ativo. Controle o PeerProject usando o seu navegador em:</text>
@@ -1987,9 +1987,6 @@
 		<newline gap="10"/>
 		<link target="page:CUploadsSettingsPage" format="b">Uploads:</link>
 		<text>&#160;Capacidade de upload, filas de espera, banimento(s), intervalos e pedidos especiais.</text>
-		<newline gap="10"/>
-		<link target="page:CSchedulerSettingsPage" format="b">Agendador:</link>
-		<text>&#160;Limitar as conexões de download baseado numa agenda periódica.</text>
 	</document>
 	<!-- Browse User Profile -->
 	<document name="CBrowseHostProfile.1">
@@ -2795,6 +2792,8 @@
 	<string id="8239" value="Completado"/>
 	<string id="8240" value="Número de fontes:"/>
 	<string id="8241" value="Número de comentários:"/>
+	<string id="8244" value="Limite de velocidade de Download"/>
+	<string id="8245" value="Limite de velocidade de Upload"/>
 	<string id="8288" value="Explorando a sua Biblioteca no PeerProject"/>
 	<string id="8289" value="Explorando"/>
 	<string id="8290" value="Explorando os conteúdos de %i pastas"/>
@@ -3352,24 +3351,22 @@
 	<string id="20125" value="Não Verificado"/>
 	<string id="20126" value="Não-suportado"/>
 	<string id="20127" value="Não-Interessado"/>
-	<string id="20128" value="Fonte"/>
-	<string id="20129" value="fontes"/> <!-- numbers 21, 31, etc. -->
-	<string id="20130" value="fontes"/> <!-- tens -->
-	<string id="20131" value="fontes"/> <!-- from 11 to 19 -->
-	<string id="20132" value="fontes"/> <!-- from 2 to 4 -->
-	<string id="20133" value="fontes"/> <!-- from 5 to 9 -->
-	<string id="20134" value="fontes"/> <!-- "1/10 sources" -->
+	<string id="20130" value="Fonte"/>
+	<string id="20131" value="fontes"/>
+	<string id="20132" value="fontes"/>
+	<string id="20134" value="fontes"/>
 	<string id="20135" value="(Sem Fontes)"/>
 	<string id="20136" value="Ocupado"/>
 	<string id="20137" value="Próximo"/>
 	<string id="20138" value="F"/>
-	<string id="20200" value="Domingo"/>
+	<string id="20200" value="Todos los Dias"/>
 	<string id="20201" value="Segunda"/>
 	<string id="20202" value="Terça"/>
 	<string id="20203" value="Quarta"/>
 	<string id="20204" value="Quinta"/>
 	<string id="20205" value="Sexta"/>
 	<string id="20206" value="Sábado"/>
+	<string id="20207" value="Domingo"/>
 	<string id="20210" value="(Sem Classificação)"/>
 	<string id="20211" value="Falso / Corrompido"/>
 	<string id="20212" value="Pobre"/>
@@ -3640,28 +3637,6 @@
 		<control/>
 		<control caption="Ajuda:"/>
 		<control caption="O Acesso Remoto do PeerProject permite a você deixar o PeerProject rodando no seu PC, e controlá-lo remotamente usando um navegador da rede. Você precisará ser capaz de aceitar conexões de entrada para usar esta função. (Roteador apropriadamente configurado, etc.)"/>
-	</dialog>
-	<dialog name="CSchedulerSettingsPage" cookie="EdStStStStStStStBuStStStBuBuBuStEdmsBuSt" caption="Agendador">
-		<control/>
-		<control caption="Dom"/>
-		<control caption="Seg"/>
-		<control caption="Ter"/>
-		<control caption="Qua"/>
-		<control caption="Qui"/>
-		<control caption="Sex"/>
-		<control caption="Sab"/>
-		<control caption="Chave:"/>
-		<control caption="Não conectar"/>
-		<control caption="Conexão limitada"/>
-		<control caption="Conectar na velocidade máxima"/>
-		<control caption="_Opções:"/>
-		<control caption=" _Ativar o Agendador"/>
-		<control caption="_Conectar na G2 só quando limitado"/>
-		<control caption="% da _banda sob o limite"/>
-		<control/>
-		<control/>
-		<control caption="Ajuda:"/>
-		<control caption="A agenda é designada para permitir a você definir os horários quando o PeerProject conectará e baixará arquivos. {n}{n}{n}Nota: Se você tem o PeerProject aberto enquanto o agendador está ativo, você pode vê-lo mudando as configurações- Isto é normal!"/>
 	</dialog>
 	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuSt" caption="Redes">
 		<control caption="PeerProject é uma aplicação de compartilhamento de arquivos de propósito geral que pode acessar várias redes P2P ao mesmo tempo. Nesta página você seleciona quais redes P2P você quer conectar, e ajustar opções específicas pra cada rede."/>
@@ -4227,13 +4202,6 @@
 		<control/>
 		<control caption="_Remover"/>
 	</dialog>
-	<dialog name="CSchemaColumnsDlg" cookie="CoSyBuBuSt" caption="Selecionar Colunas do Schema">
-		<control/>
-		<control/>
-		<control caption="OK"/>
-		<control caption="Cancelar"/>
-		<control caption="Selecione um Schema da lista, então selecione os campos para exibir como colunas."/>
-	</dialog>
 	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuStCoStCoEdStEdStEdStBuBu" caption="Regra de Segurança">
 		<control caption="_Regra:"/>
 		<control caption="Tipo:"/>
@@ -4269,6 +4237,42 @@
 		<control caption="m"/>
 		<control caption="OK"/>
 		<control caption="Cancelar"/>
+	</dialog>
+	<dialog name="CScheduleTaskDlg" cookie="BuBuBuCoEdmsEdmsStStBuBuBuBuBuSySyBuBuBuBuBuBuBuBuBuEd" caption="Agendar Tarefa">
+		<control caption="OK"/>
+		<control caption="Cancelar"/>
+		<control caption="Select Task Type"/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="% under Download limit"/>
+		<control caption="% under Upload limit"/>
+		<control caption="Active Task"/>
+		<control caption="Enable G2 Only"/>
+		<control caption="Set Event Time"/>
+		<control caption="Specified days"/>
+		<control caption="One day only"/>
+		<control/>
+		<control/>
+		<control caption="Seg"/>
+		<control caption="Ter"/>
+		<control caption="Qua"/>
+		<control caption="Qui"/>
+		<control caption="Sex"/>
+		<control caption="Sab"/>
+		<control caption="Dom"/>
+		<control caption="Todos"/>
+		<control caption="Comentários"/>
+		<control/>
+	</dialog>
+	<dialog name="CSchemaColumnsDlg" cookie="CoSyBuBuSt" caption="Selecionar Colunas do Schema">
+		<control/>
+		<control/>
+		<control caption="OK"/>
+		<control caption="Cancelar"/>
+		<control caption="Selecione um Schema da lista, então selecione os campos para exibir como colunas."/>
 	</dialog>
 	<dialog name="CShareManagerDlg" cookie="StSyBuBuBuBu" caption="Gerenciador de Pasta Compartilhada">
 		<control caption="Esta é uma lista de pastas na sua biblioteca. Você pode adicionar e remover pastas usando os botões a esquerda. Qdo você adiciona uma nova pasta ela é compartilhada com outros usuários, mas você pode descompartilhá-la se você desejar."/>
@@ -4606,6 +4610,14 @@
 		<column from="Expires" to="Expira"/>
 		<column from="#" to="Prioridade"/>
 		<column from="Comment" to="Comentário"/>
+	</list>
+	<list name="CSchedulerWnd">
+		<column from="Task" to="Ação"/>
+		<column from="Date" to="Data"/>
+		<column from="Time" to="Tempo"/>
+		<column from="Status" to="Status"/>
+		<column from="Activity" to="Ativo"/>
+		<column from="Description" to="Comentários"/>
 	</list>
 	<list name="CHostCacheWnd">
 		<column from="Address" to="Endereço"/>

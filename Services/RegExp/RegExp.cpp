@@ -1,6 +1,7 @@
-// RegExp.cpp : Defines the class behaviors for the application.
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// RegExp.cpp
+//
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -20,35 +21,69 @@
 
 #include "stdafx.h"
 #include "RegExp.h"
-#include "RegExpDlg.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
+#undef THIS_FILE
+static char THIS_FILE[] = __FILE__;
 #endif
 
-BEGIN_MESSAGE_MAP(CRegExpApp, CWinApp)
-END_MESSAGE_MAP()
-
-CRegExpApp::CRegExpApp()
+extern "C" BOOL WINAPI DllMain(HINSTANCE /*hInstance*/, DWORD /*dwReason*/, LPVOID /*lpReserved*/)
 {
+    return TRUE;
 }
 
-CRegExpApp theApp;
-
-BOOL CRegExpApp::InitInstance()
+namespace RegExp
 {
-	INITCOMMONCONTROLSEX InitCtrls;
-	InitCtrls.dwSize = sizeof(InitCtrls);
-	InitCtrls.dwICC = ICC_WIN95_CLASSES;
-	InitCommonControlsEx(&InitCtrls);
 
-	CWinApp::InitInstance();
-
-	SetRegistryKey( _T("PeerProject") );
-
-	CRegExpDlg dlg;
-	m_pMainWnd = &dlg;
-	dlg.DoModal();
-
+REGEXP_API BOOL Match(LPCTSTR szRegExp, LPCTSTR szContent)
+{
+	try
+	{
+		regex::rpattern regExpPattern( (LPCWSTR)CT2CW( szRegExp ),
+			regex::NOCASE, regex::MODE_SAFE );
+		regex::match_results results;
+		regex::rpattern::backref_type matches = regExpPattern.match(
+			std::wstring( (LPCWSTR)CT2CW( szContent ) ), results );
+		if ( matches.matched )
+			return TRUE;
+	}
+	catch (...)
+	{
+	}
 	return FALSE;
 }
+
+REGEXP_API size_t Split(LPCTSTR szRegExp, LPCTSTR szContent, LPTSTR* pszResult)
+{
+	try
+	{
+		regex::rpattern regExpPattern( (LPCWSTR)CT2CW( szRegExp ),
+			regex::NOCASE, regex::MODE_SAFE );
+		regex::split_results results;
+		size_t nCount = regExpPattern.split(
+			std::wstring( (LPCWSTR)CT2CW( szContent ) ), results, 0 );
+
+		size_t len = 0;
+		for ( size_t i = 0; i < nCount; ++i )
+		{
+			len += results.strings()[ i ].size() + 1;
+		}
+		LPTSTR p = (LPTSTR)GlobalAlloc( GPTR, len * sizeof( TCHAR ) );
+
+		*pszResult = p;
+		for ( size_t i = 0; i < nCount; ++i )
+		{
+			_tcscpy_s( p, len - ( p - *pszResult ), results.strings()[ i ].c_str() );
+			p += results.strings()[ i ].size() + 1;
+		}
+		return nCount;
+	}
+	catch (...)
+	{
+	}
+	*pszResult = NULL;
+	return 0;
+}
+
+};

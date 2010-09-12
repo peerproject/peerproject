@@ -1,31 +1,15 @@
-// RegExpDlg.cpp : implementation file
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2008.
-//
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
-//
-// PeerProject is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// RegExpDlg.cpp : Implementation file
 //
 
 #include "stdafx.h"
-#include "RegExp.h"
-#include "RegExpDlg.h"
-
-#include "RegExpr2.h"
+#include "RegExpTest.h"
+#include "RegExpTestDlg.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
+#undef THIS_FILE
+static char THIS_FILE[] = __FILE__;
 #endif
 
 CRegExpDlg::CRegExpDlg(CWnd* pParent /*=NULL*/)
@@ -56,10 +40,10 @@ BOOL CRegExpDlg::OnInitDialog()
 {
 	CDialog::OnInitDialog();
 
-	SetIcon(m_hIcon, TRUE);		// Set big icon
-	SetIcon(m_hIcon, FALSE);	// Set small icon
+	SetIcon(m_hIcon, TRUE);			// Set big icon
+	SetIcon(m_hIcon, FALSE);		// Set small icon
 
-	DoIt();
+	DoItSafe();
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
@@ -96,54 +80,63 @@ HCURSOR CRegExpDlg::OnQueryDragIcon()
 
 void CRegExpDlg::OnEnChangeRegexp()
 {
-	DoIt();
+	DoItSafe();
 }
 
 void CRegExpDlg::OnEnChangeInput()
 {
-	DoIt();
+	DoItSafe();
 }
 
 void CRegExpDlg::DoIt()
+{
+	try
+	{
+		CString msg;
+
+		if ( RegExp::Match( m_strRegExp, m_strInput ) )
+			m_oResult.AddString( _T("Matches.") );
+		else
+			m_oResult.AddString( _T("No matches.") );
+
+		LPTSTR szResult = NULL;
+		size_t nCount = RegExp::Split( m_strRegExp, m_strInput, &szResult );
+		if ( nCount )
+		{
+			msg.Format( _T("Splitted on %u strings:"), nCount );
+			m_oResult.AddString( msg );
+
+			LPCTSTR p = szResult;
+			for ( size_t i = 0; i < nCount; ++i, p += lstrlen( p ) + 1 )
+			{
+				msg.Format( _T("%u. \"%s\""), i, p );
+				m_oResult.AddString( msg );
+			}
+
+			GlobalFree( szResult );
+		}
+		else
+			m_oResult.AddString( _T("No splitted strings.") );
+	}
+	catch(...)
+	{
+		m_oResult.AddString( _T("C++ exception. Bad regular expression.") );
+	}
+}
+
+void CRegExpDlg::DoItSafe()
 {
 	UpdateData();
 
 	m_oResult.ResetContent();
 
-	try
+	__try
 	{
-		const std::wstring exp( (LPCTSTR)m_strRegExp );
-		const std::wstring input( (LPCTSTR)m_strInput );
-		const regex::rpattern pat( exp, regex::NOCASE, regex::MODE_SAFE );
-
-		regex::match_results res1;
-		regex::rpattern::backref_type matches = pat.match( input, res1 );
-		if ( matches.matched )
-			m_oResult.AddString( _T("Matches.") );
-		else
-			m_oResult.AddString( _T("No matches.") );
-
-		regex::split_results res2;
-		size_t nCount = pat.split( input, res2, 0 );
-
-		if ( nCount )
-		{
-			m_oResult.AddString( _T("Split strings:") );
-			int n = 1;
-			const std::vector< std::wstring > str = res2.strings();
-			for ( std::vector< std::wstring >::const_iterator i = str.begin(); i != str.end(); ++i, ++n )
-			{
-				CString msg;
-				msg.Format( _T("%d. %s"), n, (*i).c_str() );
-				m_oResult.AddString( msg );
-			}
-		}
-		else
-			m_oResult.AddString( _T("No split strings.") );
+		DoIt();
 	}
-	catch(...)
+	__except( EXCEPTION_EXECUTE_HANDLER )
 	{
-		m_oResult.AddString( _T("Bad regular expression.") );
+		m_oResult.AddString( _T("Unhandled exception!") );
 	}
 
 	AfxGetApp()->WriteProfileString( _T("RegExp"), _T("Input"), m_strInput );

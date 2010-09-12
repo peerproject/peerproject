@@ -48,9 +48,11 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CFileSharingPage property page
 
-CFileSharingPage::CFileSharingPage() :
-	CFilePropertiesPage(CFileSharingPage::IDD), m_bOverride( -1 ),
-	m_bShare( FALSE ), m_sTags()
+CFileSharingPage::CFileSharingPage()
+	: CFilePropertiesPage(CFileSharingPage::IDD)
+	, m_bOverride	( -1 )
+	, m_bShare		( FALSE )
+	, m_sTags		()
 {
 }
 
@@ -61,14 +63,12 @@ CFileSharingPage::~CFileSharingPage()
 void CFileSharingPage::DoDataExchange(CDataExchange* pDX)
 {
 	CFilePropertiesPage::DoDataExchange(pDX);
-	//{{AFX_DATA_MAP(CFileSharingPage)
+	//DDX_Control(pDX, IDC_FILE_NETWORKS, m_wndNetworks);
 	DDX_Control(pDX, IDC_FILE_TAGS, m_wndTags);
 	DDX_Control(pDX, IDC_FILE_SHARE, m_wndShare);
-	//DDX_Control(pDX, IDC_FILE_NETWORKS, m_wndNetworks);
 	DDX_Radio(pDX, IDC_SHARE_OVERRIDE_0, m_bOverride);
 	DDX_Check(pDX, IDC_FILE_SHARE, m_bShare);
 	DDX_CBString(pDX, IDC_FILE_TAGS, m_sTags);
-	//}}AFX_DATA_MAP
 }
 
 /////////////////////////////////////////////////////////////////////////////

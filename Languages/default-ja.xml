@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Japanese Skin File -->
 
-<!-- Translation based on default-en.xml r56 (Shareaza 2.2.0.2) -->
+<!-- Translation based on default-en.xml r58 (Shareaza 2.2.0.2) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1620,7 +1620,7 @@
 			<newline gap="24" indent="0"/>
 		</group>
 		<group id="3">
-			<icon res="128" width="32" height="32"/><gap size="8"/>
+			<icon res="120" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">UPGRADE 通 知</heading>
 			<newline gap="8" indent="42"/>
 			<text id="Upgrade"/>
@@ -1661,7 +1661,7 @@
 			<link target="command:ID_HELP_ROUTER">ここをクリックすればルータやファイアーウォールの設定法について知ることができます</link>
 			<newline gap="18" indent="0"/>
 		</group>
-		<icon res="128" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
+		<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">PEERPROJECT  カ ス タ マ イ ズ</heading>
 		<newline gap="12" indent="42"/>
 		<icon res="182" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
@@ -1686,7 +1686,7 @@
 		<text align="middle">&#160;- あなたの日本語のディスカッションフォーラムへ</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
-			<icon res="128" width="32" height="32"/><gap size="8"/>
+			<icon res="120" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">リ モ ー ト ア ク セ ス 有 効</heading>
 			<newline gap="8" indent="42"/>
 			<text>PeerProjectリモートアクセスが有効になっています。 次のアドレスでブラウザからPeerProjectをコントロールできます:</text>
@@ -1845,9 +1845,6 @@
 		<newline gap="10"/>
 		<link target="page:CUploadsSettingsPage" format="b">アップロード:</link>
 		<text>&#160;アップロード容量、キュー、BAN(禁止)処理、タイムアウトや特別な要求等の 管理を行います。</text>
-		<newline gap="10"/>
-		<link target="page:CSchedulerSettingsPage" format="b">Scheduler:</link>
-		<text>&#160;Limit download connections based on a periodic schedule.</text>
 	</document>
 	<!-- Browse User Profile -->
 	<document name="CBrowseHostProfile.1">
@@ -2634,6 +2631,8 @@
 	<string id="8239" value="完了"/>
 	<string id="8240" value="ソース数:"/>
 	<string id="8241" value="レビュー数:"/>
+	<string id="8244" value="制限のダウンロード速度"/>
+	<string id="8245" value="制限アップロード速度"/>
 	<string id="8288" value="PeerProjectライブラリを閲覧中です"/>
 	<string id="8289" value="閲覧:"/>
 	<string id="8290" value="%i フォルダの内容を閲覧しています"/>
@@ -3175,24 +3174,22 @@
 	<string id="20125" value="未検証"/>
 	<string id="20126" value="非インタレスト"/>
 	<string id="20127" value="非インタレスト"/>
-	<string id="20128" value="ソース"/>
-	<string id="20129" value="ソース"/> <!-- numbers 21, 31, etc. -->
-	<string id="20130" value="ソース"/> <!-- tens -->
-	<string id="20131" value="ソース"/> <!-- from 11 to 19 -->
-	<string id="20132" value="ソース"/> <!-- from 2 to 4 -->
-	<string id="20133" value="ソース"/> <!-- from 5 to 9 -->
-	<string id="20134" value="ソース"/> <!-- "1/10 sources" -->
+	<string id="20130" value="ソース"/>
+	<string id="20131" value="ソース"/>
+	<string id="20132" value="ソース"/>
+	<string id="20134" value="ソース"/>
 	<string id="20135" value="(ソース無し)"/>
 	<string id="20136" value="チョーク済"/>
 	<string id="20137" value="次へ"/>
 	<string id="20138" value="Q"/>
-	<string id="20200" value="日曜"/>
+	<string id="20200" value="曜曜曜"/>
 	<string id="20201" value="月曜"/>
 	<string id="20202" value="火曜"/>
 	<string id="20203" value="水曜"/>
 	<string id="20204" value="木曜"/>
 	<string id="20205" value="金曜"/>
 	<string id="20206" value="土曜"/>
+	<string id="20207" value="日曜"/>
 	<string id="20210" value="(評価無し)"/>
 	<string id="20211" value="偽物 / 破損"/>
 	<string id="20212" value="悪い"/>
@@ -3405,28 +3402,6 @@
 		<control/>
 		<control caption="ガイド:"/>
 		<control caption="PeerProjectリモートアクセスはあなたがPCの前を離れていても、ウェブブラウザを使用してPeerProjectを遠隔操作することができるようにします。この機能を利用するには(ルータを適切に設定する等して)入力接続を受け付けることができるようにする必要があります"/>
-	</dialog>
-	<dialog name="CSchedulerSettingsPage" cookie="EdStStStStStStStBuStStStBuBuBuStEdmsBuStt" caption="スケジューラ">
-		<control/>
-		<control caption="日"/>
-		<control caption="月"/>
-		<control caption="火"/>
-		<control caption="水"/>
-		<control caption="木"/>
-		<control caption="金"/>
-		<control caption="土"/>
-		<control caption="キー:"/>
-		<control caption="接続しない"/>
-		<control caption="帯域制限を行う"/>
-		<control caption="帯域制限無し"/>
-		<control caption="オプション:"/>
-		<control caption="スケジューラを有効にする(_E)"/>
-		<control caption="制限時にだけG2に接続する(_C)"/>
-		<control caption="% 帯域制限(_B)"/>
-		<control/>
-		<control/>
-		<control caption="ヘルプ:"/>
-		<control caption="スケジューラはPeerProjectがネットワークに接続し、ファイルをダウンロードする時間を設定することが出来るように設計されています。 {n}{n}{n}注意: スケジューラ有効時にPeerProjectを開いた場合、設定が変更されている可能性がありますが、これは正常な動作ですので心配する必要はありません。"/>
 	</dialog>
 	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuSt" caption="ネットワーク">
 		<control caption="PeerProjectは複数のP2Pネットワークへ同時にアクセスできる汎用ファイル共有アプリケーションです。このページではあなたがどのP2Pネットワークに接続するかを選択し、それぞれのネットワーク固有の設定を行います。"/>
@@ -3992,13 +3967,6 @@
 		<control/>
 		<control caption="削除(_R)"/>
 	</dialog>
-	<dialog name="CSchemaColumnsDlg" cookie="CoSyBuBuSt" caption="スキーマからカラムを選択">
-		<control/>
-		<control/>
-		<control caption="OK"/>
-		<control caption="キャンセル"/>
-		<control caption="リストからスキーマを選択し、その後カラムとして表示するフィールドを選択して下さい"/>
-	</dialog>
 	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuStCoStCoEdStEdStEdStBuBu" caption="セキュリティ規則">
 		<control caption="規則:"/>
 		<control caption="種類:"/>
@@ -4034,6 +4002,42 @@
 		<control caption="分"/>
 		<control caption="OK"/>
 		<control caption="キャンセル"/>
+	</dialog>
+	<dialog name="CScheduleTaskDlg" cookie="BuBuBuCoEdmsEdmsStStBuBuBuBuBuSySyBuBuBuBuBuBuBuBuBuEd" caption="タスクのスケジュール">
+		<control caption="OK"/>
+		<control caption="キャンセル"/>
+		<control caption="Select Task Type"/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="% under Download limit"/>
+		<control caption="% under Upload limit"/>
+		<control caption="Active Task"/>
+		<control caption="Enable G2 Only"/>
+		<control caption="Set Event Time"/>
+		<control caption="Specified days"/>
+		<control caption="One day only"/>
+		<control/>
+		<control/>
+		<control caption="月"/>
+		<control caption="火"/>
+		<control caption="水"/>
+		<control caption="木"/>
+		<control caption="金"/>
+		<control caption="土"/>
+		<control caption="日"/>
+		<control caption="すべて"/>
+		<control caption="コメント"/>
+		<control/>
+	</dialog>
+	<dialog name="CSchemaColumnsDlg" cookie="CoSyBuBuSt" caption="スキーマからカラムを選択">
+		<control/>
+		<control/>
+		<control caption="OK"/>
+		<control caption="キャンセル"/>
+		<control caption="リストからスキーマを選択し、その後カラムとして表示するフィールドを選択して下さい"/>
 	</dialog>
 	<dialog name="CShareManagerDlg" cookie="StSyBuBuBuBu" caption="共有フォルダ管理">
 		<control caption="これはライブラリ内のフォルダリストです。 左側のボタンを使用することでフォルダの追加・削除ができます。 新規フォルダ追加時にはデフォルトで共有する設定になりますが、必要であればPeerProjectライブラリでそれを非共有にすることも出来ます。"/>
@@ -4373,6 +4377,14 @@
 		<column from="Expires" to="期間"/>
 		<column from="#" to="優先順位"/>
 		<column from="Comment" to="コメント"/>
+	</list>
+	<list name="CSchedulerWnd">
+		<column from="Task" to="動作"/>
+		<column from="Date" to="日付"/>
+		<column from="Time" to="時間"/>
+		<column from="Status" to="状態"/>
+		<column from="Activity" to="アクティブ"/>
+		<column from="Description" to="コメント"/>
 	</list>
 	<list name="CHostCacheWnd">
 		<column from="Address" to="アドレス"/>

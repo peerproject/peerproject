@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Dutch Skin File -->
 
-<!-- Translation based on default-en.xml r56 -->
+<!-- Translation based on default-en.xml r58 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1733,7 +1733,7 @@
 			<newline gap="20" indent="0"/>
 		</group>
 		<group id="3">
-			<icon res="128" width="32" height="32"/><gap size="8"/>
+			<icon res="120" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">UPGRADE MEDEDELING</heading>
 			<newline gap="8" indent="42"/>
 			<text id="Upgrade"/>
@@ -1774,7 +1774,7 @@
 			<link target="command:ID_HELP_ROUTER">lik hier om te leren hoe je je router of firewall moet instellen</link>
 			<newline gap="18" indent="0"/>
 		</group>
-		<icon res="128" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
+		<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">PEERPROJECT AANPASSEN</heading>
 		<newline gap="12" indent="42"/>
 		<icon res="182" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
@@ -1799,7 +1799,7 @@
 		<text align="middle">&#160;- Ga naar je Nederlandse taal discussieforum</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
-			<icon res="128" width="32" height="32"/><gap size="8"/>
+			<icon res="120" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">BESTURING VIA INTERNET IS INGESCHAKELD</heading>
 			<newline gap="8" indent="42"/>
 			<text>PeerProject's Web Interface is ingeschakeld. Bedien PeerProject met je browser via:</text>
@@ -1978,9 +1978,6 @@
 		<newline gap="10"/>
 		<link target="page:CUploadsSettingsPage" format="b">Uploads:</link>
 		<text>&#160;Uploadproductiviteit, wachtrijen, verbannen, pauzes en speciale verzoeken.</text>
-		<newline gap="10"/>
-		<link target="page:CSchedulerSettingsPage" format="b">Scheduler:</link>
-		<text>&#160;Limit download connections based on a periodic schedule.</text>
 	</document>
 	<!-- Browse User Profile -->
 	<document name="CBrowseHostProfile.1">
@@ -2801,6 +2798,8 @@
 	<string id="8239" value="Voltooid"/>
 	<string id="8240" value="Aantal bronnen:"/>
 	<string id="8241" value="Aantal commentaren:"/>
+	<string id="8244" value="Beperk Download snelheid"/>
+	<string id="8245" value="Beperk Upload snelheid"/>
 	<string id="8288" value="Bezig met verkennen van je PeerProject bibliotheek"/>
 	<string id="8289" value="Bezig met verkennen van"/>
 	<string id="8290" value="Bezig met verkennen van de inhoud van %i mappen"/>
@@ -3350,24 +3349,22 @@
 	<string id="20125" value="Niet decontroleerd"/>
 	<string id="20126" value="Ongeïnteresseerd"/>
 	<string id="20127" value="Ongeïnteresseerd"/>
-	<string id="20128" value="bron"/>
-	<string id="20129" value="bronnen"/> <!-- numbers 21, 31, etc. -->
-	<string id="20130" value="bronnen"/> <!-- tens -->
-	<string id="20131" value="bronnen"/> <!-- from 11 to 19 -->
-	<string id="20132" value="bronnen"/> <!-- from 2 to 4 -->
-	<string id="20133" value="bronnen"/> <!-- from 5 to 9 -->
-	<string id="20134" value="bronnen"/> <!-- "1/10 sources" -->
+	<string id="20130" value="bron"/>
+	<string id="20131" value="bronnen"/>
+	<string id="20132" value="bronnen"/>
+	<string id="20134" value="bronnen"/>
 	<string id="20135" value="(Geen bronnen)"/>
 	<string id="20136" value="Versperd"/>
 	<string id="20137" value="Volgende"/>
 	<string id="20138" value="Q"/>
-	<string id="20200" value="Zondag"/>
+	<string id="20200" value="Every Dag"/>
 	<string id="20201" value="Maandag"/>
 	<string id="20202" value="Dinsdag"/>
 	<string id="20203" value="Woensdag"/>
 	<string id="20204" value="Donderdag"/>
 	<string id="20205" value="Vrijdag"/>
 	<string id="20206" value="Zaterdag"/>
+	<string id="20207" value="Zondag"/>
 	<string id="20210" value="(Geen waarde)"/>
 	<string id="20211" value="Nep/corrupt"/>
 	<string id="20212" value="Slecht"/>
@@ -3635,28 +3632,6 @@
 		<control/>
 		<control caption="Handleiding:"/>
 		<control caption="PeerProject's Web Interface maakt het mogelijk om PeerProject op je PC te laten draaien, en het op afstand te bedienen via een browser. Je moet wel binnenkomende verbindingen kunnen ontvangen om gebruik te kunnen maken van deze functie zoals een goed ingestelde router."/>
-	</dialog>
-	<dialog name="CSchedulerSettingsPage" cookie="EdStStStStStStStBuStStStBuBuBuStEdmsBuSt" caption="Planner">
-		<control/>
-		<control caption="Zon "/>
-		<control caption="Maa "/>
-		<control caption="Din "/>
-		<control caption="Woe "/>
-		<control caption="Don "/>
-		<control caption="Vri "/>
-		<control caption="Zat "/>
-		<control caption="Legenda:"/>
-		<control caption="Niet verbinden"/>
-		<control caption="Beperk verbinding"/>
-		<control caption="Verbinding op volle snelheid"/>
-		<control caption="_Opties:"/>
-		<control caption="_Activeer planner"/>
-		<control caption="_Verbind alleen met G2 indien gelimiteerd."/>
-		<control caption="% van _bandbreedte indien beperkt"/>
-		<control/>
-		<control/>
-		<control caption="Help:"/>
-		<control caption="De planner is ontworpen om in te kunnen stellen wanneer PeerProject verbindt en bestanden downloadt.{n}{n}{n}Opmerking: Als PeerProject geopend is terwijl de planner ingesteld is, kan je instellingen zien veranderen. Dit is normaal!-"/>
 	</dialog>
 	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuSt" caption="Netwerken">
 		<control caption="PeerProject kan met meerdere P2P netwerken tegelijkertijd verbinden. Je kunt hier selecteren met welke P2P netwerken je verbinding wilt maken en vervolgens voor elk netwerk de specifieke instellingen aanpassen."/>
@@ -4222,13 +4197,6 @@
 		<control/>
 		<control caption="_Verwijderen"/>
 	</dialog>
-	<dialog name="CSchemaColumnsDlg" cookie="CoSyBuBuSt" caption="Selecteer kolommen">
-		<control/>
-		<control/>
-		<control caption="OK"/>
-		<control caption="Annuleren"/>
-		<control caption="Selecteer een schema uit de lijst, selecteer vervolgens de gewenste kolommen."/>
-	</dialog>
 	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuStCoStCoEdStEdStEdStBuBu" caption="Beveiligingsregel">
 		<control caption="_Regel:"/>
 		<control caption="Type:"/>
@@ -4264,6 +4232,42 @@
 		<control caption="m"/>
 		<control caption="OK"/>
 		<control caption="Annuleren"/>
+	</dialog>
+	<dialog name="CScheduleTaskDlg" cookie="BuBuBuCoEdmsEdmsStStBuBuBuBuBuSySyBuBuBuBuBuBuBuBuBuEd" caption="Taak Plannen">
+		<control caption="OK"/>
+		<control caption="Annuleren"/>
+		<control caption="Select Taak Type"/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="% under Download limit"/>
+		<control caption="% under Upload limit"/>
+		<control caption="Active Taak"/>
+		<control caption="Enable G2 Only"/>
+		<control caption="Set Event Time"/>
+		<control caption="Specified days"/>
+		<control caption="One day only"/>
+		<control/>
+		<control/>
+		<control caption="Maa"/>
+		<control caption="Din"/>
+		<control caption="Woe"/>
+		<control caption="Don"/>
+		<control caption="Vri"/>
+		<control caption="Zat"/>
+		<control caption="Zon"/>
+		<control caption="Alle"/>
+		<control caption="Reacties"/>
+		<control/>
+	</dialog>
+	<dialog name="CSchemaColumnsDlg" cookie="CoSyBuBuSt" caption="Selecteer kolommen">
+		<control/>
+		<control/>
+		<control caption="OK"/>
+		<control caption="Annuleren"/>
+		<control caption="Selecteer een schema uit de lijst, selecteer vervolgens de gewenste kolommen."/>
 	</dialog>
 	<dialog name="CShareManagerDlg" cookie="StSyBuBuBuBu" caption="Vrijgegeven mappen beheerder">
 		<control caption="Dit is een lijst met mappen uit je bibliotheek. Je kunt mappen toevoegen en verwijderen met de knoppen linksonder. Een nieuw toegevoegde map wordt automatisch gedeeld met andere gebruikers. In de bibliotheek kun je de vrijgave echter altijd uitschakelen."/>
@@ -4601,6 +4605,14 @@
 		<column from="Expires" to="Verloopt op"/>
 		<column from="#" to="#"/>
 		<column from="Comment" to="Commentaar"/>
+	</list>
+	<list name="CSchedulerWnd">
+		<column from="Task" to="Actie"/>
+		<column from="Date" to="Datum"/>
+		<column from="Time" to="Tijd"/>
+		<column from="Status" to="Status"/>
+		<column from="Activity" to="Actief"/>
+		<column from="Description" to="Commentaar"/>
 	</list>
 	<list name="CHostCacheWnd">
 		<column from="Address" to="Adres"/>

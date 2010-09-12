@@ -51,17 +51,21 @@ END_MESSAGE_MAP()
 // CMonitorBarCtrl construction
 
 CMonitorBarCtrl::CMonitorBarCtrl()
+	: m_nCount		( 0 )
+	, m_nMaximumIn	( 0 )
+	, m_nMaximumOut	( 0 )
+	, m_bTabIn		( FALSE )
+	, m_bTabOut		( FALSE )
+	, m_hTabIn		( NULL )
+	, m_hTabOut		( NULL )
+	, m_hUpDown		( NULL )
+	, m_rcTrackIn	( 0, 0, 0, 0 )
+	, m_rcTrackOut	( 0, 0, 0, 0 )
 {
 	m_pRxItem		= new CGraphItem( GRC_TOTAL_BANDWIDTH_IN, 1.0f, Colors.m_crMonitorDownloadBar );
-	m_pTxItem		= new CGraphItem( GRC_TOTAL_BANDWIDTH_OUT, 2.0f, Colors.m_crMonitorUploadBar );	//ToDo: Adjust Multiplier
+	m_pTxItem		= new CGraphItem( GRC_TOTAL_BANDWIDTH_OUT, 1.0f, Colors.m_crMonitorUploadBar );
 	m_pSnapBar[0]	= NULL;
 	m_pSnapBar[1]	= NULL;
-	m_nMaximum		= 0;
-	m_nCount		= 0;
-	m_bTab			= FALSE;
-	m_hTab			= NULL;
-	m_hUpDown		= NULL;
-	m_rcTrack.SetRectEmpty();
 }
 
 CMonitorBarCtrl::~CMonitorBarCtrl()
@@ -85,7 +89,7 @@ int CMonitorBarCtrl::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	if ( CControlBar::OnCreate( lpCreateStruct ) == -1 ) return -1;
 
 //	if ( Skin.m_bMenuBorders )
-		m_dwStyle |= CBRS_BORDER_3D;
+		m_dwStyle |= CBRS_BORDER_3D;	// CBRS_TOOLTIPS in WndMain
 
 	if ( lpCreateStruct->dwExStyle & WS_EX_LAYOUTRTL )
 	{
@@ -104,10 +108,40 @@ void CMonitorBarCtrl::OnDestroy()
 {
 	KillTimer( 1 );
 
-	if ( m_hTab ) DestroyIcon( m_hTab );
+	if ( m_hTabIn ) DestroyIcon( m_hTabIn );
+	if ( m_hTabOut ) DestroyIcon( m_hTabOut );
 	if ( m_hUpDown ) DestroyIcon( m_hUpDown );
 
 	CControlBar::OnDestroy();
+}
+
+INT_PTR CMonitorBarCtrl::OnToolHitTest(CPoint point, TOOLINFO* pTI) const
+{
+	if ( ! pTI )
+		return CWnd::OnToolHitTest( point, pTI );
+
+	CString strTip;
+	if ( m_rcTrackIn.PtInRect( point ) )
+	{
+		LoadString( strTip, IDS_MONITORBAR_LIMIT_IN );
+		pTI->rect = m_rcTrackIn;
+	}
+	else if ( m_rcTrackOut.PtInRect( point ) )
+	{
+		LoadString( strTip, IDS_MONITORBAR_LIMIT_OUT );
+		pTI->rect = m_rcTrackOut;
+	}
+	else
+	{
+		return -1;
+	}
+
+	pTI->lpszText	= _tcsdup( strTip );
+	pTI->uFlags		= TTF_NOTBUTTON;
+	pTI->hwnd		= GetSafeHwnd();
+	pTI->uId		= NULL;
+
+	return pTI->uId;
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -146,16 +180,12 @@ void CMonitorBarCtrl::OnTimer(UINT_PTR /*nIDEvent*/)
 		m_pTxItem->Update();
 		m_pRxItem->Update();
 
-		m_nMaximum		= m_pTxItem->GetMaximum();
-		DWORD nSecond	= m_pRxItem->GetMaximum();
-		m_nMaximum = max( m_nMaximum, nSecond );
+		m_nMaximumIn  = max( m_pRxItem->GetMaximum(), Settings.Connection.InSpeed * 1000 );
+		m_nMaximumOut = max( m_pTxItem->GetMaximum(), Settings.Connection.OutSpeed * 1000 );
 	}
 
-	// ToDo: Adjust This?
-	// m_nMaximum = max( m_nMaximum, Settings.Connection.OutSpeed * 1024 );
-	m_nMaximum = max( m_nMaximum, Settings.Connection.InSpeed  * 1000 );
-
-	if ( IsWindowVisible() ) Invalidate();
+	if ( IsWindowVisible() )
+		Invalidate();
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -163,12 +193,14 @@ void CMonitorBarCtrl::OnTimer(UINT_PTR /*nIDEvent*/)
 
 void CMonitorBarCtrl::OnSkinChange()
 {
-	HBITMAP hWatermark = Skin.GetWatermark( _T("CMonitorBar") );
-	if ( m_bmWatermark.m_hObject != NULL ) m_bmWatermark.DeleteObject();
-	if ( hWatermark != NULL ) m_bmWatermark.Attach( hWatermark );
+	if ( m_bmWatermark.m_hObject ) m_bmWatermark.DeleteObject();
+	if ( HBITMAP hWatermark = Skin.GetWatermark( _T("CMonitorBar") ) )
+		m_bmWatermark.Attach( hWatermark );
 
-	if ( m_hTab ) DestroyIcon( m_hTab );
-	m_hTab    = CoolInterface.ExtractIcon( IDI_POINTER_ARROW, Settings.General.LanguageRTL );
+	if ( m_hTabIn ) DestroyIcon( m_hTabIn );
+	m_hTabIn  = CoolInterface.ExtractIcon( IDI_POINTER_ARROW_IN, Settings.General.LanguageRTL );
+	if ( m_hTabOut ) DestroyIcon( m_hTabOut );
+	m_hTabOut = CoolInterface.ExtractIcon( IDI_POINTER_ARROW_OUT, Settings.General.LanguageRTL );
 	if ( m_hUpDown ) DestroyIcon( m_hUpDown );
 	m_hUpDown = CoolInterface.ExtractIcon( IDI_UPDOWN_ARROW, Settings.General.LanguageRTL );
 
@@ -209,22 +241,22 @@ void CMonitorBarCtrl::DoPaint(CDC* pDC)
 	m_pTxItem->SetHistory( rcClient.Width(), TRUE );
 	m_pRxItem->SetHistory( rcClient.Width(), TRUE );
 
-	CRect rcHistory( rcClient.left + 10, rcClient.top + 2, rcClient.right - 15, rcClient.bottom - 6 );
+	CRect rcHistory( rcClient.left + 10, rcClient.top + 2, rcClient.right - 25, rcClient.bottom - 5 );
 	PaintHistory( pMemDC, &rcHistory );
 
-	CRect rcCurrent( rcClient.right - 7, rcClient.top + 2, rcClient.right - 2, rcClient.bottom - 6 );
-	PaintCurrent( pMemDC, &rcCurrent, m_pTxItem );	//Upload Graph Right
-	rcCurrent.OffsetRect( -6, 0 );
-	PaintCurrent( pMemDC, &rcCurrent, m_pRxItem );	//Download Graph Left
+	CRect rcCurrent( rcClient.right - 13, rcClient.top + 2, rcClient.right - 7, rcClient.bottom - 5 );
+	PaintCurrent( pMemDC, &rcCurrent, m_pTxItem, m_nMaximumOut );	// Upload Graph Right
+	rcCurrent.OffsetRect( -7, 0 );
+	PaintCurrent( pMemDC, &rcCurrent, m_pRxItem, m_nMaximumIn );	// Download Graph Left
 
-	DrawIconEx( pMemDC->GetSafeHdc(), rcClient.right - 16, rcClient.bottom - 16, m_hUpDown, 16, 16, 0, NULL, DI_NORMAL );
+	DrawIconEx( pMemDC->GetSafeHdc(), rcClient.right - 21, rcClient.bottom - 15, m_hUpDown, 16, 16, 0, NULL, DI_NORMAL );
 
-	m_rcTrack.SetRect( rcClient.left + 6, rcClient.bottom - 8, rcClient.right, rcClient.bottom - 2 );
-	PaintTab( pMemDC );
+	m_rcTrackIn.SetRect( rcClient.right - 25, rcClient.top + 1, rcClient.right - 15, rcClient.bottom - 5 );
+	m_rcTrackOut.SetRect( rcClient.right - 12, rcClient.top + 1, rcClient.right - 2, rcClient.bottom - 5 );
+	PaintTabs( pMemDC );
 
 	GetClientRect( &rcClient );
-	pDC->BitBlt( rcClient.left, rcClient.top, rcClient.Width(), rcClient.Height(),
-		pMemDC, 0, 0, SRCCOPY );
+	pDC->BitBlt( rcClient.left, rcClient.top, rcClient.Width(), rcClient.Height(), pMemDC, 0, 0, SRCCOPY );
 	if ( Settings.General.LanguageRTL )
 		SetLayout( pMemDC->m_hDC, LAYOUT_RTL );
 }
@@ -238,34 +270,42 @@ void CMonitorBarCtrl::PaintHistory(CDC* pDC, CRect* prc)
 
 	pDC->Draw3dRect( &rc, Colors.m_crSys3DShadow, Colors.m_crSys3DHighlight );
 	rc.DeflateRect( 1, 1 );
-	pDC->FillSolidRect( &rc, Settings.Live.BandwidthScale > 100 ? Colors.m_crMonitorHistoryBackMax : Colors.m_crMonitorHistoryBack );
+	pDC->FillSolidRect( &rc, ( ( m_bTabIn && Settings.Live.BandwidthScaleIn > 100 ) || ( m_bTabOut && Settings.Live.BandwidthScaleOut > 100 ) ) ?
+		Colors.m_crMonitorHistoryBackMax : Colors.m_crMonitorHistoryBack );
 
-	if ( m_bTab )
+	if ( m_bTabIn || m_bTabOut )
 	{
 		CString str;
-
-		if ( Settings.Live.BandwidthScale > 100 )
-		{
-			str = _T("MAX");
-		}
-		else
-		{
-			DWORD nRate = max( Settings.Connection.InSpeed, Settings.Connection.OutSpeed );
-			nRate = nRate * Settings.Live.BandwidthScale / 100;
-			str.Format( _T("%s (%i%%)"),
-				(LPCTSTR)Settings.SmartSpeed( nRate, Kilobits ),
-				Settings.Live.BandwidthScale );
-		}
 
 		CFont* pfOld = (CFont*)pDC->SelectObject( &CoolInterface.m_fntNormal );
 		pDC->SetBkMode( TRANSPARENT );
 		pDC->SetTextColor( Colors.m_crMonitorHistoryText );
-		pDC->DrawText( str, &rc, DT_CENTER|DT_VCENTER|DT_SINGLELINE );
+
+		if ( ( m_bTabIn && Settings.Live.BandwidthScaleIn > 100 ) ||
+			( m_bTabOut && Settings.Live.BandwidthScaleOut > 100 ) )
+		{
+			str = _T("MAX");
+			pDC->DrawText( str, &rc, DT_SINGLELINE|DT_VCENTER|DT_CENTER );
+		}
+		else
+		{
+			DWORD nRate = m_bTabOut ? Settings.Connection.OutSpeed : Settings.Connection.InSpeed;
+			nRate = nRate * ( m_bTabOut ? Settings.Live.BandwidthScaleOut : Settings.Live.BandwidthScaleIn ) / 100;
+			str.Format( _T(" %i%%  %s"),
+				m_bTabOut ? Settings.Live.BandwidthScaleOut : Settings.Live.BandwidthScaleIn,
+				(LPCTSTR)Settings.SmartSpeed( nRate, Kilobits ) );
+
+			// Center text if possible
+			CRect rcText( 0, 0, 0, 0 );
+			pDC->DrawText( str, &rcText, DT_CALCRECT|DT_VCENTER );
+			pDC->DrawText( str, &rc, DT_SINGLELINE|DT_VCENTER|(rcText.Width() < rc.Width() ? DT_CENTER : DT_LEFT) );
+		}
+
 		pDC->SelectObject( pfOld );
 		return;
 	}
 
-	if ( m_nMaximum == 0 ) return;
+	if ( m_nMaximumIn < 1000 && m_nMaximumOut < 1000 ) return;	// initial 0
 
 	DWORD nMax = min( m_pTxItem->m_nLength, (DWORD)rc.Width() );
 	int nX = rc.right - 1;
@@ -275,8 +315,8 @@ void CMonitorBarCtrl::PaintHistory(CDC* pDC, CRect* prc)
 		DWORD nTxValue = m_pTxItem->GetValueAt( nPos );
 		DWORD nRxValue = m_pRxItem->GetValueAt( nPos );
 
-		nTxValue = rc.bottom - nTxValue * rc.Height() / m_nMaximum;
-		nRxValue = rc.bottom - nRxValue * rc.Height() / m_nMaximum;
+		nTxValue = rc.bottom - nTxValue * rc.Height() / m_nMaximumOut;
+		nRxValue = rc.bottom - nRxValue * rc.Height() / m_nMaximumIn;
 
 		if ( nTxValue < nRxValue )
 		{
@@ -307,39 +347,57 @@ void CMonitorBarCtrl::PaintHistory(CDC* pDC, CRect* prc)
 	}
 }
 
-void CMonitorBarCtrl::PaintCurrent(CDC* pDC, CRect* prc, CGraphItem* pItem)
+void CMonitorBarCtrl::PaintCurrent(CDC* pDC, CRect* prc, CGraphItem* pItem, DWORD nMaximum)
 {
 	CRect rc( prc );
 
 	pDC->Draw3dRect( &rc, Colors.m_crSys3DShadow, Colors.m_crSys3DHighlight );
 	rc.DeflateRect( 1, 1 );
-	pDC->FillSolidRect( &rc, Settings.Live.BandwidthScale > 100 ? Colors.m_crMonitorHistoryBackMax : Colors.m_crMonitorHistoryBack );
+	pDC->FillSolidRect( &rc, ( Settings.Live.BandwidthScaleIn > 100 && Settings.Live.BandwidthScaleOut > 100 ) ?
+		Colors.m_crMonitorHistoryBackMax : Colors.m_crMonitorHistoryBack );
 
-	if ( m_nMaximum == 0 || pItem->m_nLength < 1 ) return;
+	if ( nMaximum == 0 || pItem->m_nLength < 1 ) return;
 
 	DWORD nValue = (DWORD)pItem->GetValue( pItem->m_nCode );
-	nValue = nValue * rc.Height() / m_nMaximum ;
+	nValue = nValue * rc.Height() / nMaximum ;
 	pDC->FillSolidRect( rc.left, rc.bottom - nValue, rc.Width(), nValue, pItem->m_nColor );
 
-	//Icon Hover Bug Workaround  (ToDo: Also Fix in Proper Place)
+	// Menu Icon Hover Bug Workaround  (ToDo: Also Fix in Proper Place)
 	pDC->SetBkColor( Colors.m_crMidtone );
 }
 
-void CMonitorBarCtrl::PaintTab(CDC* pDC)
+void CMonitorBarCtrl::PaintTabs(CDC* pDC)
 {
-	float nPosition = 0;
+// Obsolete:
+//	float nPosition = Settings.Live.BandwidthScale > 100 ? 1.0f : (float)Settings.Live.BandwidthScale / 110.0f;
 
-	if ( Settings.Live.BandwidthScale > 100 )
-		nPosition = 1.0f;
+	if ( Settings.Live.BandwidthScaleIn > 100 )
+		m_rcTabIn.top	= m_rcTrackIn.top - 8;
+	else if ( Settings.Live.BandwidthScaleIn > 98 )
+		m_rcTabIn.top	= m_rcTrackIn.top - 6;
+	else if ( Settings.Live.BandwidthScaleIn < 2 )
+		m_rcTabIn.top	= m_rcTrackIn.bottom - 7;
 	else
-		nPosition = (float)Settings.Live.BandwidthScale / 110.0f;
+		m_rcTabIn.top	= m_rcTrackIn.bottom - (int)( (float)Settings.Live.BandwidthScaleIn / 100.00f * (float)m_rcTrackIn.Height() ) - 7;
+	m_rcTabIn.bottom	= m_rcTabIn.top + 16;
+	m_rcTabIn.left		= m_rcTrackIn.right - 14;
+	m_rcTabIn.right		= m_rcTabIn.left + 16;
 
-	m_rcTab.left	= m_rcTrack.left + (int)( nPosition * ( m_rcTrack.Width() - 16 ) );
-	m_rcTab.right	= m_rcTab.left + 16;
-	m_rcTab.top		= m_rcTrack.top;
-	m_rcTab.bottom	= m_rcTrack.bottom;
+	DrawIconEx( pDC->GetSafeHdc(), m_rcTabIn.left, m_rcTabIn.top, m_hTabIn, 16, 16, 0, NULL, DI_NORMAL );
 
-	DrawIconEx( pDC->GetSafeHdc(), m_rcTab.left, m_rcTab.top, m_hTab, 16, 16, 0, NULL, DI_NORMAL );
+	if ( Settings.Live.BandwidthScaleOut > 100 )
+		m_rcTabOut.top	= m_rcTrackOut.top - 8;
+	else if ( Settings.Live.BandwidthScaleOut > 98 )
+		m_rcTabOut.top	= m_rcTrackOut.top - 6;
+	else if ( Settings.Live.BandwidthScaleOut < 2 )
+		m_rcTabOut.top	= m_rcTrackOut.bottom - 7;
+	else
+		m_rcTabOut.top	= m_rcTrackOut.bottom - (int)( (float)Settings.Live.BandwidthScaleOut / 100.00f * (float)m_rcTrackOut.Height() ) - 7;
+	m_rcTabOut.bottom	= m_rcTabOut.top + 16;
+	m_rcTabOut.left 	= m_rcTrackOut.left - 2;
+	m_rcTabOut.right	= m_rcTabOut.left + 16;
+
+	DrawIconEx( pDC->GetSafeHdc(), m_rcTabOut.left, m_rcTabOut.top, m_hTabOut, 16, 16, 0, NULL, DI_NORMAL );
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -351,7 +409,7 @@ BOOL CMonitorBarCtrl::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 	GetCursorPos( &point );
 	ScreenToClient( &point );
 
-	if ( m_rcTrack.PtInRect( point ) )
+	if ( m_rcTrackIn.PtInRect( point ) || m_rcTrackOut.PtInRect( point ) )
 	{
 		SetCursor( AfxGetApp()->LoadCursor( IDC_HAND ) );
 		return TRUE;
@@ -364,53 +422,76 @@ BOOL CMonitorBarCtrl::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 
 void CMonitorBarCtrl::OnLButtonDown(UINT nFlags, CPoint point)
 {
-	if ( m_rcTrack.PtInRect( point ) )
+	CRect rcTrack;
+
+	if ( m_rcTrackIn.PtInRect( point ) )
 	{
-		MSG* pMsg = &AfxGetThreadState()->m_msgCur;
-		CRect rcTrack( &m_rcTrack );
-
-		ClientToScreen( &rcTrack );
-		ClipCursor( &rcTrack );
-		ScreenToClient( &rcTrack );
-
-		rcTrack.DeflateRect( m_rcTab.Width() / 2, 0 );
-
-		m_bTab = TRUE;
-		Invalidate();
-
-		while ( GetAsyncKeyState( VK_LBUTTON ) & 0x8000 )
-		{
-			while ( ::PeekMessage( pMsg, NULL, WM_MOUSEFIRST, WM_MOUSELAST, PM_REMOVE ) );
-
-			if ( ! AfxGetThread()->PumpMessage() )
-			{
-				AfxPostQuitMessage( 0 );
-				break;
-			}
-
-			CPoint pt;
-			GetCursorPos( &pt );
-			ScreenToClient( &pt );
-
-			int nPosition = (DWORD)( 110.0f * (float)( pt.x - rcTrack.left ) / (float)rcTrack.Width() );
-			if ( nPosition < 0 ) nPosition = 0;
-			else if ( nPosition >= 105 ) nPosition = 101;
-			else if ( nPosition >= 100 ) nPosition = 100;
-
-			if ( nPosition != (int)Settings.Live.BandwidthScale )
-			{
-				Settings.Live.BandwidthScale = (DWORD)nPosition;
-				Invalidate();
-			}
-		}
-
-		m_bTab = FALSE;
-		ReleaseCapture();
-		ClipCursor( NULL );
-		Invalidate();
+		m_bTabIn = TRUE;
+		rcTrack = m_rcTrackIn;
+	}
+	else if ( m_rcTrackOut.PtInRect( point ) )
+	{
+		m_bTabOut = TRUE;
+		rcTrack = m_rcTrackOut;
 	}
 	else
 	{
 		CControlBar::OnLButtonDown( nFlags, point );
+		return;
 	}
+
+	MSG* pMsg = &AfxGetThreadState()->m_msgCur;
+
+	ClientToScreen( &rcTrack );
+	ClipCursor( &rcTrack );
+	ScreenToClient( &rcTrack );
+
+	Invalidate();
+
+	while ( GetAsyncKeyState( VK_LBUTTON ) & 0x8000 )
+	{
+		while ( ::PeekMessage( pMsg, NULL, WM_MOUSEFIRST, WM_MOUSELAST, PM_REMOVE ) );
+
+		if ( ! AfxGetThread()->PumpMessage() )
+		{
+			AfxPostQuitMessage( 0 );
+			break;
+		}
+
+		if ( GetAsyncKeyState( VK_RBUTTON ) & 0x8000 )
+			break;	// Simultaneous Right-click trap
+
+		if ( GetAsyncKeyState( VK_ESCAPE ) & 0x8000 )
+			break;	// Escape other traps?
+
+		CPoint pt;
+		GetCursorPos( &pt );
+		ScreenToClient( &pt );
+
+		DWORD nScale;
+		if ( pt.y <= rcTrack.top )
+			nScale = 101;
+		else if  ( pt.y <= rcTrack.top + 2 )
+			nScale = 100;
+		//else if ( pt.y >= rcTrack.bottom - 1 )
+		//	nScale = 0; 	// Disable?
+		else
+			nScale = (DWORD)( 100.0f * (float)( rcTrack.bottom - pt.y ) / (float)( rcTrack.Height() - 2 ) );
+
+		if ( m_bTabIn && nScale != Settings.Live.BandwidthScaleIn )
+			Settings.Live.BandwidthScaleIn = nScale;
+		else if ( m_bTabOut && nScale != Settings.Live.BandwidthScaleOut )
+			Settings.Live.BandwidthScaleOut = nScale;
+		else
+			continue;
+
+		Invalidate();
+	}
+
+	m_bTabIn = m_bTabOut = FALSE;
+
+	ReleaseCapture();
+	ClipCursor( NULL );
+
+	Invalidate();
 }

@@ -213,12 +213,13 @@ CPeerProjectApp::CPeerProjectApp()
 #ifdef _DEBUG // ToDo: Enable release builds?
 	BT_InstallSehFilter();
 	BT_SetTerminate();
-//	BT_SetAppName( CLIENT_NAME );
+//	BT_SetAppName( CLIENT_NAME );		// Below
+//	BT_SetAppVersion( m_sVersionLong );	// Below
 	BT_SetFlags( BTF_INTERCEPTSUEF | BTF_SHOWADVANCEDUI | BTF_DESCRIBEERROR |
 		BTF_DETAILEDMODE | BTF_ATTACHREPORT | BTF_EDITMAIL );
-	BT_SetSupportEMail( _T("peerprojectbugs@lists.sourceforge.net") );
-//	BT_SetSupportServer( _T("http://bugtrap.peerproject.org/RequestHandler.aspx"), 80 );
 	BT_SetSupportURL( _T("http://peerproject.org/") );
+//	BT_SetSupportServer( _T("http://bugtrap.peerproject.org/RequestHandler.aspx"), 80 );
+	BT_SetSupportEMail( _T("peerprojectbugs@lists.sourceforge.net") );
 	BT_AddRegFile( _T("Settings.reg"), _T("HKEY_CURRENT_USER\\") REGISTRY_KEY );
 #endif
 }
@@ -431,7 +432,7 @@ BOOL CPeerProjectApp::InitInstance()
 	SplashStep( L"Discovery Services" );
 		DiscoveryServices.Load();
 	SplashStep( L"Scheduler" );
-		Schedule.Load();
+		Scheduler.Load();
 	SplashStep( L"Rich Documents" );
 		Emoticons.Load();
 		Flags.Load();
@@ -818,7 +819,7 @@ void CPeerProjectApp::GetVersionNumber()
 	_T("");
 #endif
 
-#ifdef _DEBUG	// BugTrack
+#ifdef _DEBUG	// BugTrap
 	BT_SetAppName( CLIENT_NAME );
 	BT_SetAppVersion( m_sVersionLong );
 #endif
@@ -1498,26 +1499,29 @@ CString LoadString(UINT nID)
 BOOL LoadSourcesString(CString& str, DWORD num, bool bFraction)
 {
 	if ( bFraction )
-		return Skin.LoadString( str, IDS_STATUS_SOURCESOF );
-	else if ( num == 0 )
+		return Skin.LoadString( str, IDS_STATUS_SOURCES );
+
+	if ( num == 0 )
 		return Skin.LoadString( str, IDS_STATUS_NOSOURCES );
-	else if ( num == 1 )
+
+	if ( num == 1 )
 		return Skin.LoadString( str, IDS_STATUS_SOURCE );
-	else if ( ( num % 100 ) > 10 && ( num % 100 ) < 20 )
-		return Skin.LoadString( str, IDS_STATUS_SOURCES11TO19 );
+
+	if ( ( num % 100 ) > 10 && ( num % 100 ) < 20 )	// 11-19 exempt
+		return Skin.LoadString( str, IDS_STATUS_SOURCES );
 
 	switch ( num % 10 )
 	{
-		case 0:
-			return Skin.LoadString( str, IDS_STATUS_SOURCESTENS );
-		case 1:
-			return Skin.LoadString( str, IDS_STATUS_SOURCES );
-		case 2:
-		case 3:
-		case 4:
-			return Skin.LoadString( str, IDS_STATUS_SOURCES2TO4 );
-		default:
-			return Skin.LoadString( str, IDS_STATUS_SOURCES5TO9 );
+	case 0:
+		return Skin.LoadString( str, IDS_STATUS_SOURCES );
+	case 1:
+		return Skin.LoadString( str, IDS_STATUS_SOURCES_ONES );
+	case 2:
+	case 3:
+	case 4:
+		return Skin.LoadString( str, IDS_STATUS_SOURCES_FEW );
+	default:
+		return Skin.LoadString( str, IDS_STATUS_SOURCES );
 	}
 }
 
@@ -2480,99 +2484,93 @@ const struct
 	LPCTSTR	szContentType;
 } WebResources [] =
 {
-	{ _T("/remote/header_1.png"),	IDR_HOME_HEADER_1,	RT_PNG,			_T("image/png") },
-	{ _T("/remote/header_2.png"),	IDR_HOME_HEADER_2,	RT_PNG,			_T("image/png") },
-	{ _T("/favicon.ico"),			IDR_MAINFRAME,		RT_GROUP_ICON,	_T("image/x-icon") },
+	{ _T("/remote/header_1.png"),	IDR_HOME_HEADER,		RT_PNG,			_T("image/png") },
+	{ _T("/remote/header_2.png"),	IDR_HOME_HEADER_REPEAT,	RT_PNG,			_T("image/png") },
+	{ _T("/favicon.ico"),			IDR_MAINFRAME,			RT_GROUP_ICON,	_T("image/x-icon") },
 	{ NULL, NULL, NULL, NULL }
 };
 
 bool ResourceRequest(const CString& strPath, CBuffer& pResponse, CString& sHeader)
 {
 	bool ret = false;
-	for ( int i = 0; WebResources[ i ].szPath; i++ )
+
+	for ( int i = 0 ; WebResources[ i ].szPath ; i++ )
 	{
-		if ( strPath.Compare( WebResources[ i ].szPath ) == 0 )
+		if ( strPath.Compare( WebResources[ i ].szPath ) != 0 )
+			continue;
+
+		HMODULE hModule = AfxGetResourceHandle();
+		if ( HRSRC hRes = FindResource( hModule,
+			MAKEINTRESOURCE( WebResources[ i ].nID ), WebResources[ i ].szType ) )
 		{
-			HMODULE hModule = AfxGetResourceHandle();
-			if ( HRSRC hRes = FindResource( hModule,
-				MAKEINTRESOURCE( WebResources[ i ].nID ), WebResources[ i ].szType ) )
+			if ( HGLOBAL hMemory = LoadResource( hModule, hRes ) )
 			{
-				DWORD nSize			= SizeofResource( hModule, hRes );
-				HGLOBAL hMemory		= LoadResource( hModule, hRes );
-				if ( hMemory )
+				DWORD nSize = SizeofResource( hModule, hRes );
+				if ( BYTE* pSource = (BYTE*)LockResource( hMemory ) )
 				{
-					BYTE* pSource	= (BYTE*)LockResource( hMemory );
-					if ( pSource )
+					if ( WebResources[ i ].szType == RT_GROUP_ICON )
 					{
-						if ( WebResources[ i ].szType == RT_GROUP_ICON )
+						// Save main header
+						ICONDIR* piDir = (ICONDIR*)pSource;
+						DWORD dwTotalSize = sizeof( ICONDIR ) + sizeof( ICONDIRENTRY ) * piDir->idCount;
+						pResponse.EnsureBuffer( dwTotalSize );
+						CopyMemory( pResponse.m_pBuffer, piDir, sizeof( ICONDIR ) );
+
+						GRPICONDIRENTRY* piDirEntry = (GRPICONDIRENTRY*)( pSource + sizeof( ICONDIR ) );
+
+						// Find all subicons
+						for ( WORD j = 0 ; j < piDir->idCount ; j++ )
 						{
-							// Save main header
-							ICONDIR* piDir = (ICONDIR*)pSource;
-							DWORD dwTotalSize = sizeof( ICONDIR ) +
-								sizeof( ICONDIRENTRY ) * piDir->idCount;
-							pResponse.EnsureBuffer( dwTotalSize );
-							CopyMemory( pResponse.m_pBuffer, piDir, sizeof( ICONDIR ) );
+							// pResponse.m_pBuffer may be changed
+							ICONDIRENTRY* piEntry = (ICONDIRENTRY*)( pResponse.m_pBuffer + sizeof( ICONDIR ) );
 
-							GRPICONDIRENTRY* piDirEntry = (GRPICONDIRENTRY*)
-								( pSource + sizeof( ICONDIR ) );
-
-							// Find all subicons
-							for ( WORD j = 0; j < piDir->idCount; j++ )
+							// Load subicon
+							if ( HRSRC hResIcon = FindResource( hModule, MAKEINTRESOURCE( piDirEntry[ j ].nID ), RT_ICON ) )
 							{
-								// pResponse.m_pBuffer may be changed
-								ICONDIRENTRY* piEntry = (ICONDIRENTRY*)
-									( pResponse.m_pBuffer + sizeof( ICONDIR ) );
-
-								// Load subicon
-								HRSRC hResIcon = FindResource( hModule, MAKEINTRESOURCE(
-									piDirEntry[ j ].nID ), RT_ICON );
-								if ( hResIcon )
+								if ( HGLOBAL hMemoryIcon = LoadResource( hModule, hResIcon ) )
 								{
 									DWORD nSizeIcon = SizeofResource( hModule, hResIcon );
-									HGLOBAL hMemoryIcon = LoadResource( hModule, hResIcon );
-									if ( hMemoryIcon )
-									{
-										BITMAPINFOHEADER* piImage = (BITMAPINFOHEADER*)LockResource( hMemoryIcon );
 
-										// Fill subicon header
-										piEntry[ j ].bWidth = piDirEntry[ j ].bWidth;
-										piEntry[ j ].bHeight = piDirEntry[ j ].bHeight;
-										piEntry[ j ].wPlanes = piDirEntry[ j ].wPlanes;
-										piEntry[ j ].bColorCount = piDirEntry[ j ].bColorCount;
-										piEntry[ j ].bReserved = 0;
-										piEntry[ j ].wBitCount = piDirEntry[ j ].wBitCount;
-										piEntry[ j ].dwBytesInRes = nSizeIcon;
-										piEntry[ j ].dwImageOffset = dwTotalSize;
+									BITMAPINFOHEADER* piImage = (BITMAPINFOHEADER*)LockResource( hMemoryIcon );
 
-										// Save subicon
-										pResponse.EnsureBuffer( dwTotalSize + nSizeIcon );
-										CopyMemory( pResponse.m_pBuffer + dwTotalSize,
-											piImage, nSizeIcon );
-										dwTotalSize += nSizeIcon;
+									// Fill subicon header
+									piEntry[ j ].bWidth = piDirEntry[ j ].bWidth;
+									piEntry[ j ].bHeight = piDirEntry[ j ].bHeight;
+									piEntry[ j ].wPlanes = piDirEntry[ j ].wPlanes;
+									piEntry[ j ].bColorCount = piDirEntry[ j ].bColorCount;
+									piEntry[ j ].bReserved = 0;
+									piEntry[ j ].wBitCount = piDirEntry[ j ].wBitCount;
+									piEntry[ j ].dwBytesInRes = nSizeIcon;
+									piEntry[ j ].dwImageOffset = dwTotalSize;
 
-										FreeResource( hMemoryIcon );
-									}
+									// Save subicon
+									pResponse.EnsureBuffer( dwTotalSize + nSizeIcon );
+									CopyMemory( pResponse.m_pBuffer + dwTotalSize, piImage, nSizeIcon );
+									dwTotalSize += nSizeIcon;
+
+									FreeResource( hMemoryIcon );
 								}
 							}
-							pResponse.m_nLength = dwTotalSize;
 						}
-						else
-						{
-							pResponse.EnsureBuffer( nSize );
-							CopyMemory( pResponse.m_pBuffer, pSource, nSize );
-							pResponse.m_nLength = nSize;
-						}
-						sHeader.Format(
-							_T("Content-Type: %s\r\n"),
-							WebResources[ i ].szContentType);
-						ret = true;
+						pResponse.m_nLength = dwTotalSize;
 					}
-					FreeResource( hMemory );
+					else
+					{
+						pResponse.EnsureBuffer( nSize );
+						CopyMemory( pResponse.m_pBuffer, pSource, nSize );
+						pResponse.m_nLength = nSize;
+					}
+
+					sHeader.Format(	_T("Content-Type: %s\r\n"),
+						WebResources[ i ].szContentType);
+					ret = true;
 				}
+				FreeResource( hMemory );
 			}
-			break;
 		}
+		break;
 	}
+
 	return ret;
 }
 

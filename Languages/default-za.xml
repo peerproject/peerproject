@@ -4,7 +4,7 @@
 <!-- PeerProject Default Afrikaans Skin File -->
 <!-- Weergawe: 27 Oktober 2005 vir Shareaza 2.2.0.2 -->
 
-<!-- Translation based on default-en.xml r56 -->
+<!-- Translation based on default-en.xml r58 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1715,7 +1715,7 @@
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="3">
-			<icon res="128" width="32" height="32"/><gap size="8"/>
+			<icon res="120" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">OPGRADEER NOTA</heading>
 			<newline gap="8" indent="42"/>
 			<text id="Upgrade"/>
@@ -1756,7 +1756,7 @@
 			<link target="command:ID_HELP_ROUTER">Kliek hier om uit te vind hoe om jou roeteerder of netskans reg in te stel</link>
 			<newline gap="18" indent="0"/>
 		</group>
-		<icon res="128" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
+		<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">VERANDER PEERPROJECT</heading>
 		<newline gap="12" indent="42"/>
 		<icon res="182" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
@@ -1781,7 +1781,7 @@
 		<text align="middle">&#160;- Go to your Afrikaans language forum</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
-			<icon res="128" width="32" height="32"/><gap size="8"/>
+			<icon res="120" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">WEB TOEGANG IS AANGESKAKEL</heading>
 			<newline gap="8" indent="42"/>
 			<text>PeerProject Web Toegang is aangeskakel.  Beheer PeerProject deur jou web blaaier by:</text>
@@ -1960,9 +1960,6 @@
 		<newline gap="10"/>
 		<link target="page:CUploadsSettingsPage" format="b">Oplaaie:</link>
 		<text>&#160;Oplaai kapasiteit, waglyste, verbanning, tydsopskorting en spesiale navrae.</text>
-		<newline gap="10"/>
-		<link target="page:CSchedulerSettingsPage" format="b">Scheduler:</link>
-		<text>&#160;Limit download connections based on a periodic schedule.</text>
 	</document>
 	<!-- Browse User Profile -->
 	<document name="CBrowseHostProfile.1">
@@ -2768,6 +2765,8 @@
 	<string id="8239" value="Voltooi"/>
 	<string id="8240" value="Bronne:"/>
 	<string id="8241" value="Geen reviews"/>
+	<string id="8244" value="Perk aflaai spoed"/>
+	<string id="8245" value="Perk oplaai spoed"/>
 	<string id="8288" value="Blaai deur jou PeerProject Biblioteek"/>
 	<string id="8289" value="Blaai deur&#160;"/>
 	<string id="8290" value="Blaai deur die inhoud van %i gidse"/>
@@ -3313,25 +3312,23 @@
 	<string id="20124" value="Gekontroleer"/>
 	<string id="20125" value="Nie Gekontroleer"/>
 	<string id="20126" value="Nie Geïntreseerd"/>
-	<string id="20126" value="Nie Geïntreseerd"/>
-	<string id="20127" value="bron"/>
-	<string id="20128" value="bronne"/> <!-- numbers 21, 31, ... -->
-	<string id="20129" value="bronne"/> <!-- tens -->
-	<string id="20131" value="bronne"/> <!-- from 11 to 19 -->
-	<string id="20132" value="bronne"/> <!-- from 2 to 4 -->
-	<string id="20133" value="bronne"/> <!-- from 5 to 9 -->
-	<string id="20134" value="bronne"/> <!--"3/10 sources"-->
+	<string id="20127" value="Nie Geïntreseerd"/>
+	<string id="20130" value="bron"/>
+	<string id="20131" value="bronne"/>
+	<string id="20132" value="bronne"/>
+	<string id="20134" value="bronne"/>
 	<string id="20135" value="(Geen Bronne)"/>
 	<string id="20136" value="Beset"/>
 	<string id="20137" value="Volgende"/>
 	<string id="20138" value="Q"/>
-	<string id="20200" value="Sondag"/>
+	<string id="20200" value="Every Dag"/>
 	<string id="20201" value="Maandag"/>
 	<string id="20202" value="Dinsdag"/>
 	<string id="20203" value="Woensdag"/>
 	<string id="20204" value="Donderdag"/>
 	<string id="20205" value="Vrydag"/>
 	<string id="20206" value="Saterdag"/>
+	<string id="20207" value="Sondag"/>
 	<string id="20210" value="(Geen Gradering)"/>
 	<string id="20211" value="Vals / Korrup"/>
 	<string id="20212" value="Swak"/>
@@ -3553,28 +3550,6 @@
 		<control/>
 		<control caption="Hulp:"/>
 		<control caption="PeerProject Web Toegang laat jou toe om PeerProject op jou rekenaar aan te los en dit vanaf 'n afgeleë plek te beheer deur middel van 'n web blaaier. Jy sal inkomende konneksies moet kan ontvang om hierdie funksie te gebruik ('n korrek opgestelde roeteerder, ens)."/>
-	</dialog>
-	<dialog name="CSchedulerSettingsPage" cookie="EdStStStStStStStBuStStStBuBuBuStEdmsBuSt" caption="Tydsbeplanner">
-		<control/>
-		<control caption="Son"/>
-		<control caption="Ma"/>
-		<control caption="Di"/>
-		<control caption="Wo"/>
-		<control caption="Don"/>
-		<control caption="Vry"/>
-		<control caption="Sat"/>
-		<control caption="Sleutel:"/>
-		<control caption="Moet nie konnekteer"/>
-		<control caption="Beperkte konneksie"/>
-		<control caption="Konnekteer teen vol spoed"/>
-		<control caption="_Verstellings:"/>
-		<control caption="_Skakel Tydsbeplanner Aan"/>
-		<control caption="_Konnekteer slegs aan G2 as beperk"/>
-		<control caption="% van _bandwydte onder maksimum"/>
-		<control/>
-		<control/>
-		<control caption="Hulp:"/>
-		<control caption="Die Tydsbeplanner is ontwerp om jou toe te laat om tye te spesifiseer wanneer PeerProject moet konnekteer en lêers aflaai. {n}{n}{n}Nota: As jy PeerProject oop het terwyl die tydsbeplanner aktief is, mag jy die instellings sien verander - Dit is normaal!-"/>
 	</dialog>
 	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuSt" caption="Netwerke">
 		<control caption="PeerProject is 'n algemeendoelige lêerdelingsprogram wat toegang tot verskeie P2P netwerke gelyktydig bied.  Op hierdie bladsy kan jy kies aan watter P2P netwerke jy wil konnekteer en daarna spesifieke verstellings maak vir elke netwerk."/>
@@ -4140,13 +4115,6 @@
 		<control/>
 		<control caption="_Verwyder"/>
 	</dialog>
-	<dialog name="CSchemaColumnsDlg" cookie="CoSyBuBuSt" caption="Selekteer Kolomme van Skema">
-		<control/>
-		<control/>
-		<control caption="OK"/>
-		<control caption="Kanselleer"/>
-		<control caption="Selekteer 'n skema van die lys en selekteer dan die velde wat as kolomme vertoon moet word."/>
-	</dialog>
 	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuStCoStCoEdStEdStEdStBuBu" caption="Sekuriteitsreëls">
 		<control caption="_Reël:"/>
 		<control caption="Tipe:"/>
@@ -4182,6 +4150,42 @@
 		<control caption="m"/>
 		<control caption="OK"/>
 		<control caption="Kanselleer"/>
+	</dialog>
+	<dialog name="CScheduleTaskDlg" cookie="BuBuBuCoEdmsEdmsStStBuBuBuBuBuSySyBuBuBuBuBuBuBuBuBuEd" caption="Bylae Geval">
+		<control caption="OK"/>
+		<control caption="Kanselleer"/>
+		<control caption="Select Task Type"/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="% under Download limit"/>
+		<control caption="% under Upload limit"/>
+		<control caption="Active Task"/>
+		<control caption="Enable G2 Only"/>
+		<control caption="Set Event Time"/>
+		<control caption="Specified days"/>
+		<control caption="One day only"/>
+		<control/>
+		<control/>
+		<control caption="Ma"/>
+		<control caption="Di"/>
+		<control caption="Wo"/>
+		<control caption="Don"/>
+		<control caption="Vry"/>
+		<control caption="Sat"/>
+		<control caption="Son"/>
+		<control caption="Alle"/>
+		<control caption="Kommentaar"/>
+		<control/>
+	</dialog>
+	<dialog name="CSchemaColumnsDlg" cookie="CoSyBuBuSt" caption="Selekteer Kolomme van Skema">
+		<control/>
+		<control/>
+		<control caption="OK"/>
+		<control caption="Kanselleer"/>
+		<control caption="Selekteer 'n skema van die lys en selekteer dan die velde wat as kolomme vertoon moet word."/>
 	</dialog>
 	<dialog name="CShareManagerDlg" cookie="StSyBuBuBuBu" caption="Gedeelde Lêers Beheerder">
 		<control caption="Hierdie is 'n lys van gidse in jou biblioteek.  Jy kan gidse byvoeg of verwyder deur die knoppies aan die linkerkant te gebruik.  Wanneer jy 'n nuwe gids byvoeg word dit outomaties gedeel met ander gebruikers, maar jy kan dit afskakel vanuit die PeerProject biblioteek as jy wil."/>
@@ -4519,6 +4523,14 @@
 		<column from="Expires" to="Verval"/>
 		<column from="#" to="Volgorde"/>
 		<column from="Comment" to="Kommentaar"/>
+	</list>
+	<list name="CSchedulerWnd">
+		<column from="Task" to="Aksie"/>
+		<column from="Date" to="Datum"/>
+		<column from="Time" to="Tyd"/>
+		<column from="Status" to=""/>
+		<column from="Activity" to="Aktiewe"/>
+		<column from="Description" to="Kommentaar"/>
 	</list>
 	<list name="CHostCacheWnd">
 		<column from="Address" to="Adres"/>

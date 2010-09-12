@@ -259,8 +259,8 @@ void CUploadTransfer::LongTermAverage(DWORD tNow)
 	DWORD nSpeed = GetMeasuredSpeed();
 	m_nMaxRate = max( m_nMaxRate, nSpeed );
 
-	if ( Settings.Live.BandwidthScale < 100 )
-		nSpeed = nSpeed * 100 / max( 1ul, Settings.Live.BandwidthScale );
+	if ( Settings.Live.BandwidthScaleOut < 100 )
+		nSpeed = nSpeed * 100 / max( 1ul, Settings.Live.BandwidthScaleOut );
 
 	m_nAverageRate[ m_nAveragePos ] = max( m_nAverageRate[ m_nAveragePos ], nSpeed );
 

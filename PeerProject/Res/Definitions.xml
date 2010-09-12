@@ -7,15 +7,16 @@
 <resourceMap>
 	<resource code="105" id="IDC_SEARCH_START"/>
 	<resource code="106" id="IDC_SEARCH_STOP"/>
-	<resource code="107" id="IDC_FILTER_BOX"/>
-	<resource code="108" id="IDC_SEARCH_BOX"/>
-	<resource code="112" id="IDC_SEARCH_ADVANCED"/>
-	<resource code="113" id="IDC_SEARCH_TEXT"/>
-	<resource code="117" id="IDC_MEDIA_POSITION"/>
-	<resource code="118" id="IDC_MEDIA_SPEED"/>
-	<resource code="119" id="IDC_MEDIA_VOLUME"/>
-	<resource code="127" id="IDB_MENUBAR"/>
-	<resource code="128" id="WINDOW_MAIN"/>
+	<resource code="107" id="IDC_SEARCH_ADVANCED"/>
+	<resource code="108" id="IDC_SEARCH_TEXT"/>
+	<resource code="110" id="IDC_SEARCH_BOX"/>
+	<resource code="112" id="IDC_FILTER_BOX"/>
+	<resource code="114" id="IDC_MEDIA_POSITION"/>
+	<resource code="115" id="IDC_MEDIA_SPEED"/>
+	<resource code="116" id="IDC_MEDIA_VOLUME"/>
+	<resource code="118" id="IDB_MENUBAR"/>
+	<resource code="120" id="WINDOW_MAIN"/>
+	<resource code="128" id="WINDOW_HOME"/>
 	<resource code="129" id="WINDOW_SYSTEM"/>
 	<resource code="130" id="WINDOW_NEIGHBOURS"/>
 	<resource code="131" id="WINDOW_PACKET"/>
@@ -31,24 +32,27 @@
 	<resource code="141" id="WINDOW_SECURITY"/>
 	<resource code="142" id="WINDOW_DISCOVERY"/>
 	<resource code="143" id="WINDOW_BROWSEHOST"/>
-	<resource code="144" id="WINDOW_HOME"/>
+	<resource code="144" id="WINDOW_SCHEDULER"/>
 	<resource code="145" id="WINDOW_MEDIA"/>
 	<resource code="146" id="WINDOW_SEARCHPAD"/>
 	<resource code="147" id="WINDOW_HELP"/>
+	<resource code="994" id="WINDOW_IRC"/>
 	<resource code="159" id="WINDOW_CHILD"/>
 	<resource code="159" id="IDB_CHILDFRAME"/>
 	<resource code="160" id="IDI_BROWSE"/>
 	<resource code="181" id="IDI_EXECUTABLE"/>
-	<resource code="183" id="IDI_POINTER_ARROW"/>
 	<resource code="191" id="IDI_FILE"/>
 	<resource code="203" id="IDI_DOWNLOAD_MONITOR"/>
 	<resource code="222" id="IDB_MEDIA_STATES"/>
 	<resource code="227" id="IDB_PROTOCOLS"/>
+	<resource code="999" id="IDB_IRCICONS"/>
 	<resource code="243" id="IDI_COLLECTION_MASK"/>
 	<resource code="252" id="IDI_FIREWALLED"/>
 	<resource code="263" id="IDR_BITTORRENT_ICON"/>
 	<resource code="264" id="IDI_MULTIFILE"/>
-	<resource code="281" id="IDI_UPDOWN_ARROW"/>
+	<resource code="290" id="IDI_UPDOWN_ARROW"/>
+	<resource code="291" id="IDI_POINTER_ARROW_IN"/>
+	<resource code="292" id="IDI_POINTER_ARROW_OUT"/>
 	<resource code="301" id="IDI_OPENTICK"/>
 	<resource code="302" id="IDI_CLOSETICK"/>
 	<resource code="303" id="IDI_TICK"/>
@@ -69,10 +73,9 @@
 	<resource code="323" id="IDI_RATING_AVERAGE"/>
 	<resource code="324" id="IDI_RATING_GOOD"/>
 	<resource code="325" id="IDI_WIZARD_DOT"/>
-	<resource code="994" id="WINDOW_IRC"/>
-	<resource code="999" id="IDB_IRCICONS"/>
 	<resource code="1006" id="IDI_COMPUTER"/>
 	<resource code="1293" id="IDC_IMPORT_DOWNLOADS"/>
+	<!-- Commands -->
 	<resource code="32772" id="ID_HELP_ABOUT"/>
 	<resource code="32773" id="ID_HELP_VERSION_CHECK"/>
 	<resource code="32774" id="ID_CHECKMARK"/>
@@ -90,8 +93,8 @@
 	<resource code="32787" id="ID_VIEW_UPLOADS"/>
 	<resource code="32788" id="ID_VIEW_HOSTS"/>
 	<resource code="32789" id="ID_VIEW_PACKETS"/>
-	<resource code="32790" id="ID_SYSTEM_COPY"/>
-	<resource code="32791" id="ID_SYSTEM_CLEAR"/>
+	<resource code="32790" id="ID_VIEW_SECURITY"/>
+	<resource code="32791" id="ID_VIEW_SCHEDULER"/>
 	<resource code="32792" id="ID_NEIGHBOURS_DISCONNECT"/>
 	<resource code="32793" id="ID_NEIGHBOURS_VIEW_ALL"/>
 	<resource code="32794" id="ID_NEIGHBOURS_VIEW_INCOMING"/>
@@ -155,30 +158,31 @@
 	<resource code="32859" id="ID_HELP_GUIDE"/>
 	<resource code="32860" id="ID_SEARCH_CHAT"/>
 	<resource code="32861" id="ID_HOSTCACHE_KAD_CACHE"/>
-	<resource code="32862" id="ID_TRAFFIC_GRID"/>
-	<resource code="32863" id="ID_TRAFFIC_AXIS"/>
-	<resource code="32864" id="ID_TRAFFIC_LEGEND"/>
-	<resource code="32865" id="ID_TRAFFIC_SETUP"/>
-	<resource code="32866" id="ID_TRAFFIC_CLEAR"/>
-	<resource code="32867" id="ID_TOOLS_WIZARD"/>
-	<resource code="32868" id="ID_HOSTCACHE_BT_CACHE"/>
-	<resource code="32869" id="ID_CHILD_RESTORE"/>
+	<resource code="32862" id="ID_HOSTCACHE_BT_CACHE"/>
+	<resource code="32864" id="ID_TRAFFIC_GRID"/>
+	<resource code="32865" id="ID_TRAFFIC_AXIS"/>
+	<resource code="32866" id="ID_TRAFFIC_LEGEND"/>
+	<resource code="32867" id="ID_TRAFFIC_SETUP"/>
+	<resource code="32868" id="ID_TRAFFIC_CLEAR"/>
+	<resource code="32869" id="ID_TOOLS_WIZARD"/>
 	<resource code="32870" id="ID_CHILD_CLOSE"/>
-	<resource code="32871" id="ID_CHILD_MAXIMISE"/>
-	<resource code="32872" id="ID_CHILD_MINIMISE"/>
-	<resource code="32873" id="ID_MOVETAB_LEFT"/>
-	<resource code="32874" id="ID_MOVETAB_RIGHT"/>
-	<resource code="32875" id="ID_MOVETAB_FIRST"/>
-	<resource code="32876" id="ID_MOVETAB_LAST"/>
-	<resource code="32877" id="ID_UPLOADS_CHAT"/>
-	<resource code="32878" id="ID_TRANSFERS_CHAT"/>
+	<resource code="32871" id="ID_CHILD_RESTORE"/>
+	<resource code="32872" id="ID_CHILD_MAXIMISE"/>
+	<resource code="32873" id="ID_CHILD_MINIMISE"/>
+	<resource code="32874" id="ID_MOVETAB_LEFT"/>
+	<resource code="32875" id="ID_MOVETAB_RIGHT"/>
+	<resource code="32876" id="ID_MOVETAB_FIRST"/>
+	<resource code="32877" id="ID_MOVETAB_LAST"/>
+	<resource code="32878" id="ID_UPLOADS_CHAT"/>
+	<resource code="32879" id="ID_TRANSFERS_CHAT"/>
 	<resource code="32880" id="ID_TRAY_OPEN"/>
 	<resource code="32881" id="ID_NETWORK_AUTO_CLOSE"/>
 	<resource code="32882" id="ID_UPLOADS_AUTO_CLEAR"/>
 	<resource code="32883" id="ID_LIBRARY_SEARCH"/>
 	<resource code="32884" id="ID_TRAFFIC_WINDOW"/>
 	<resource code="32885" id="ID_NEIGHBOURS_CHAT"/>
-	<resource code="32888" id="ID_VIEW_SECURITY"/>
+	<resource code="32886" id="ID_SYSTEM_COPY"/>
+	<resource code="32887" id="ID_SYSTEM_CLEAR"/>
 	<resource code="32890" id="ID_SECURITY_EDIT"/>
 	<resource code="32891" id="ID_SECURITY_REMOVE"/>
 	<resource code="32892" id="ID_SECURITY_RESET"/>
@@ -385,8 +389,9 @@
 	<resource code="33103" id="ID_LIBRARY_SEARCH_QUICK"/>
 	<resource code="33104" id="ID_WINDOW_NAVBAR"/>
 	<resource code="33105" id="ID_DOWNLOADS_RATE"/>
-	<resource code="33106" id="ID_LIBRARY_VIEW_COLLECTION"/>
+	<resource code="33106" id="ID_NETWORK_DC"/>
 	<resource code="33107" id="ID_LIBRARY_FOLDER_DOWNLOAD"/>
+	<resource code="33108" id="ID_LIBRARY_VIEW_COLLECTION"/>
 	<resource code="33109" id="ID_LIBRARY_EXPORT_COLLECTION"/>
 	<resource code="33110" id="ID_LIBRARY_SEED_TORRENT"/>
 	<resource code="33111" id="ID_LIBRARY_REBUILD_ANSI"/>
@@ -400,7 +405,8 @@
 	<resource code="33120" id="ID_HELP_FORUMS"/>
 	<resource code="33121" id="ID_HELP_FORUMS_LOCAL"/>
 	<resource code="33122" id="ID_HELP_UPDATE"/>
-	<resource code="33124" id="ID_HELP_ROUTER"/>
+	<resource code="33123" id="ID_HELP_ROUTER"/>
+	<resource code="33124" id="ID_HELP_SCHEDULER"/>
 	<resource code="33125" id="ID_HELP_SECURITY"/>
 	<resource code="33126" id="ID_HELP_CODEC"/>
 	<resource code="33127" id="ID_HELP_TEST"/>
@@ -462,11 +468,19 @@
 	<resource code="33316" id="ID_SYSTEM_VERBOSE_NOTICE"/>
 	<resource code="33317" id="ID_SYSTEM_VERBOSE_INFO"/>
 	<resource code="33318" id="ID_SYSTEM_VERBOSE_DEBUG"/>
-	<resource code="33320" id="PluginID_Custom"/>
-	<resource code="33321" id="PluginID_ImageViewer_FullSize"/>
-	<resource code="33322" id="PluginID_ImageViewer_BestFit"/>
-	<resource code="33323" id="PluginID_ImageViewer_Refresh"/>
-	<resource code="33324" id="PluginID_ImageViewer_Close"/>
+	<resource code="33320" id="ID_SCHEDULER_ADD"/>
+	<resource code="33321" id="ID_SCHEDULER_EDIT"/>
+	<resource code="33322" id="ID_SCHEDULER_REMOVE"/>
+	<resource code="33323" id="ID_SCHEDULER_ACTIVATE"/>
+	<resource code="33324" id="ID_SCHEDULER_DEACTIVATE"/>
+	<resource code="33325" id="ID_SCHEDULER_REMOVE_ALL"/>
+	<resource code="33326" id="ID_SCHEDULER_IMPORT"/>
+	<resource code="33327" id="ID_SCHEDULER_EXPORT"/>
+	<resource code="33330" id="PluginID_Custom"/>
+	<resource code="33331" id="PluginID_ImageViewer_FullSize"/>
+	<resource code="33332" id="PluginID_ImageViewer_BestFit"/>
+	<resource code="33333" id="PluginID_ImageViewer_Refresh"/>
+	<resource code="33334" id="PluginID_ImageViewer_Close"/>
 	<resource code="57650" id="ID_WINDOW_CASCADE"/>
 	<resource code="57651" id="ID_WINDOW_TILE_HORZ"/>
 	<resource code="57652" id="ID_WINDOW_TILE_VERT"/>

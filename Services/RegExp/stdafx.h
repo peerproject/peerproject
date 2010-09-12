@@ -13,38 +13,19 @@
 #define VC_EXTRALEAN            // Exclude rarely-used stuff from Windows headers
 #endif
 
-#ifndef _SECURE_ATL
-#define _SECURE_ATL 1
-#endif
+#pragma warning(disable:4820)	// X bytes padding added after data member 'Y'
+#pragma warning(disable:4365)	// Conversion from '' to '', signed/unsigned mismatch
+#pragma warning(disable:4548)	// Expression before comma has no effect; expected expression with side-effect
+#pragma warning(disable:4555)	// Expression has no effect; expected expression with side-effect
+#pragma warning(disable:4571)	// Catch(...) semantics changed since Visual C++ 7.1; structured exceptions (SEH) are no longer caught
+#pragma warning(disable:4619)	// #pragma warning : there is no warning number
+#pragma warning(disable:4625)	// Copy constructor could not be generated because a base class copy constructor is inaccessible
+#pragma warning(disable:4668)	// Is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+#pragma warning(disable:4686)	// Possible change in behavior, change in UDT return calling convention
 
-#ifndef _SCL_SECURE_NO_WARNINGS
-#define _SCL_SECURE_NO_WARNINGS
-#endif
+#include <atlconv.h>
+#include <tchar.h>
 
-#define _ATL_CSTRING_EXPLICIT_CONSTRUCTORS      // some CString constructors will be explicit
+#include "RegExpr2.h"
 
-// turns off MFC's hiding of some common and often safely ignored warning messages
-#define _AFX_ALL_WARNINGS
-
-#include <afxwin.h>         // MFC core and standard components
-#include <afxext.h>         // MFC extensions
-#ifndef _AFX_NO_OLE_SUPPORT
-#include <afxdtctl.h>           // MFC support for Internet Explorer 4 Common Controls
-#endif
-#ifndef _AFX_NO_AFXCMN_SUPPORT
-#include <afxcmn.h>             // MFC support for Windows Common Controls
-#endif // _AFX_NO_AFXCMN_SUPPORT
-
-#ifdef _UNICODE
-#if defined _M_IX86
-#pragma comment(linker,"/manifestdependency:\"type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' processorArchitecture='x86' publicKeyToken='6595b64144ccf1df' language='*'\"")
-#elif defined _M_IA64
-#pragma comment(linker,"/manifestdependency:\"type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' processorArchitecture='ia64' publicKeyToken='6595b64144ccf1df' language='*'\"")
-#elif defined _M_X64
-#pragma comment(linker,"/manifestdependency:\"type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' processorArchitecture='amd64' publicKeyToken='6595b64144ccf1df' language='*'\"")
-#else
-#pragma comment(linker,"/manifestdependency:\"type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' processorArchitecture='*' publicKeyToken='6595b64144ccf1df' language='*'\"")
-#endif
-#endif
-
-#include <algorithm>
+using namespace ATL;

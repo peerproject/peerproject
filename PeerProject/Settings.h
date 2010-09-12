@@ -241,7 +241,7 @@ public:
 		CString		VisCLSID;
 		CString		VisPath;
 		DWORD		VisSize;
-		CString		ServicePath;
+		string_set	ServicePath;			// Keeps track of 3 different players:	"*kmplayer.exe|**wmplayer.exe*|***vlc.exe" begining astrix shows the order and tailing shows selected
 		bool		ShortPaths;				// Some players differently handle unicode paths but they can launch files using 8.3 paths
 	} MediaPlayer;
 
@@ -330,7 +330,7 @@ public:
 
 	struct sGnutella
 	{
-		DWORD		ConnectFactor;			// Number of hosts we simultaneously tries when connecting to single hub
+		DWORD		ConnectFactor;			// Number of hosts simultaneously tried when connecting to single hub
 		bool		DeflateHub2Hub;
 		bool		DeflateLeaf2Hub;
 		bool		DeflateHub2Leaf;
@@ -454,7 +454,6 @@ public:
 	{
 		bool		EnableToday;
 		bool		EnableAlways;
-		bool		AdvancedInterface;		// Display BT 'extras' (Obsolete Torrent box)
 		CString		TorrentCreatorPath;		// Location of the program used to create .torrent files
 		CString		DefaultTracker;
 		DWORD		DefaultTrackerPeriod;	// Delay between tracker contact attempts if one is not specified by tracker
@@ -591,12 +590,13 @@ public:
 		bool		DonkeyServerWarning;	// Has the user been warned about having an empty server list?
 		bool		UploadLimitWarning;		// Has the user been warned about the ed2k/BT ratio?
 		bool		DiskSpaceStop;			// Has PeerProject paused all downloads due to critical disk space?
-		DWORD		BandwidthScale;			// Monitor slider settings
+		DWORD		BandwidthScaleIn;		// MonitorBar Download slider setting
+		DWORD		BandwidthScaleOut;		// MonitorBar Upload slider setting
 		bool		LoadWindowState;
 		bool		AutoClose;
 		bool		FirstRun;				// Is this the first time PeerProject is being run?
-		CString		LastDuplicateHash;		// Stores the hash of the file about which the warning was shown
 		bool		MaliciousWarning;		// Is the warning dialog opened?
+		CString		LastDuplicateHash;		// Stores the hash of the file about which the warning was shown
 	} Live;
 
 	struct sRemote
@@ -609,9 +609,8 @@ public:
 	struct sScheduler
 	{
 		bool		Enable;					// Enable the scheduler
-		DWORD		LimitedBandwidth;		// % of bandwidth to use in limited mode
-		bool		LimitedNetworks;		// Only connect to G2/BT when limited
-		bool		AllowHub;				// Allow hub mode while scheduler is active
+		bool		ForceShutdown;
+		DWORD		ValidityPeriod;			// Active trigger window in minutes
 	} Scheduler;
 
 	struct sSecurity
@@ -625,10 +624,6 @@ public:
 		bool		TestBTPartials;
 	} Experimental;
 
-	struct sWINE
-	{
-		bool		MenuFix;
-	} WINE;
 
 // Attributes : Item List
 public:

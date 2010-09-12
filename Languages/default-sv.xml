@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Swedish Skin File -->
 
-<!-- Translation based on default-en.xml r56 -->
+<!-- Translation based on default-en.xml r58 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1675,7 +1675,7 @@
 			<newline gap="20" indent="0"/>
 		</group>
 		<group id="3">
-			<icon res="128" width="32" height="32"/><gap size="8"/>
+			<icon res="120" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">UPPGRADERINGSNOTIS</heading>
 			<newline gap="8" indent="42"/>
 			<text id="Uppgradera"/>
@@ -1716,7 +1716,7 @@
 			<link target="command:ID_HELP_ROUTER">Klicka här för att lära dig hur du anpassar din router eller brandvägg</link>
 			<newline gap="18" indent="0"/>
 		</group>
-		<icon res="128" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
+		<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">ANPASSA PEERPROJECT</heading>
 		<newline gap="12" indent="42"/>
 		<icon res="182" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
@@ -1741,7 +1741,7 @@
 		<text align="middle">&#160;- Gå till din svenska språket diskussionsforum</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
-			<icon res="128" width="32" height="32"/><gap size="8"/>
+			<icon res="120" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">FJÄRRÅTKOMST ÄR AKTIVERAD</heading>
 			<newline gap="8" indent="42"/>
 			<text>PeerProjects fjärråtkomst är aktiverad. Kontrollera PeerProject via din webbläsare här:</text>
@@ -1920,9 +1920,6 @@
 		<newline gap="10"/>
 		<link target="page:CUploadsSettingsPage" format="b">Uppladdningar:</link>
 		<text>&#160;Uppladdningskapacitet, köläggning, utestängning, tidsavbrott och specialförfrågningar.</text>
-		<newline gap="10"/>
-		<link target="page:CSchedulerSettingsPage" format="b">Scheduler:</link>
-		<text>&#160;Limit download connections based on a periodic schedule.</text>
 	</document>
 	<!-- Browse User Profile -->
 	<document name="CBrowseHostProfile.1">
@@ -2715,6 +2712,8 @@
 	<string id="8239" value="Färdig"/>
 	<string id="8240" value="Antal källor:"/>
 	<string id="8241" value="Antal recensioner:"/>
+	<string id="8244" value="Begränsa nedladdningshastighet"/>
+	<string id="8245" value="Begränsa uppladdningshastighet"/>
 	<string id="8288" value="Utforska ditt PeerProjectbibliotek"/>
 	<string id="8289" value="Utforskar"/>
 	<string id="8290" value="Utforskar innehåller av %i mappar"/>
@@ -3264,24 +3263,22 @@
 	<string id="20125" value="Overifierad"/>
 	<string id="20126" value="Ointresserad"/>
 	<string id="20127" value="Ointresserad"/>
-	<string id="20128" value="källa"/>
-	<string id="20129" value="källor"/> <!-- numbers 21,31,… -->
-	<string id="20120" value="källor"/> <!-- tens -->
-	<string id="20131" value="källor"/> <!-- from 11 to 19 -->
-	<string id="20132" value="källor"/> <!-- from 2 to 4 -->
-	<string id="20133" value="källor"/> <!-- from 5 to 9 -->
-	<string id="20134" value="kllor"/> <!-- "1/10 sources" -->
+	<string id="20130" value="källa"/>
+	<string id="20131" value="källor"/>
+	<string id="20132" value="källor"/>
+	<string id="20134" value="källor"/>
 	<string id="20135" value="(Ingen framgång)"/>
 	<string id="20136" value="Kvävd"/>
 	<string id="20137" value="Nästa"/>
 	<string id="20138" value="K"/> <!-- Was: Q -->
-	<string id="20200" value="Söndag"/>
+	<string id="20200" value="Every Dag"/>
 	<string id="20201" value="Måndag"/>
 	<string id="20202" value="Tisdag"/>
 	<string id="20203" value="Onsdag"/>
 	<string id="20204" value="Torsdag"/>
 	<string id="20205" value="Fredag"/>
 	<string id="20206" value="Lördag"/>
+	<string id="20207" value="Söndag"/>
 	<string id="20210" value="(Inget betyg)"/>
 	<string id="20211" value="Falsk / Skadad"/>
 	<string id="20212" value="Dlig"/>
@@ -3546,28 +3543,6 @@
 		<control/>
 		<control caption="Hjälp:"/>
 		<control caption="PeerProjects fjärråtkomst tillåter dig att lämna PeerProject igång på din PC och kontrollera det med en webbläsare. Du måste kunna acceptera inkommande anslutningar för att använda denna funktion (d.v.s. en ordentligt anpassad router eller dylikt)."/>
-	</dialog>
-	<dialog name="CSchedulerSettingsPage" cookie="EdStStStStStStStBuStStStBuBuBuStEdmsBuStt" caption="Schemaläggare">
-		<control/>
-		<control caption="Sö"/>
-		<control caption="Må"/>
-		<control caption="Ti"/>
-		<control caption="On"/>
-		<control caption="To"/>
-		<control caption="Fr"/>
-		<control caption="Lö"/>
-		<control caption="Förklaring:"/>
-		<control caption="Anslut inte"/>
-		<control caption="Begränsad anslutning"/>
-		<control caption="Anslut till högsta hastighet"/>
-		<control caption="_Alternativ:"/>
-		<control caption="_Aktivera schemaläggare"/>
-		<control caption="_Inskränk nätverken vid begränsningar"/>
-		<control caption="% av _bandbredden vid begränsning"/>
-		<control/>
-		<control/>
-		<control caption="Hjälp:"/>
-		<control caption="Denna schemaläggare är gjord för att låta dig välja de tider du vill att PeerProject ska ansluta och ladda ned filer. &#13;&#10;&#13;&#10;&#13;&#10;Notera: Om du har PeerProject öppnad medan schemaläggaren är aktiverad kan du se den ändra inställningar. Detta är normalt!"/>
 	</dialog>
 	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuSt" caption="Nätverk">
 		<control caption="PeerProject är ett en mångsidig fildelningsapplikation som kan komma åt många fildelningsnätverk på samma gång. På denna sida kan du välja vilka nätverk du vill ansluta till och justera specifika inställningar för varje nätverk."/>
@@ -4133,13 +4108,6 @@
 		<control/>
 		<control caption="_Radera"/>
 	</dialog>
-	<dialog name="CSchemaColumnsDlg" cookie="CoSyBuBuSt" caption="Välj kolumner för schema">
-		<control/>
-		<control/>
-		<control caption="OK"/>
-		<control caption="Avbryt"/>
-		<control caption="Välj ett schema från listan. Välj sedan fälten att visa som kolumner."/>
-	</dialog>
 	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuStCoStCoEdStEdStEdStBuBu" caption="Säkerhetsregel">
 		<control caption="_Regel:"/>
 		<control caption="Typ:"/>
@@ -4175,6 +4143,42 @@
 		<control caption="m"/>
 		<control caption="OK"/>
 		<control caption="Avbryt"/>
+	</dialog>
+	<dialog name="CScheduleTaskDlg" cookie="BuBuBuCoEdmsEdmsStStBuBuBuBuBuSySyBuBuBuBuBuBuBuBuBuEd" caption="Schema Uppgift">
+		<control caption="OK"/>
+		<control caption="Avbryt"/>
+		<control caption="Select Task Type"/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="% under Download limit"/>
+		<control caption="% under Upload limit"/>
+		<control caption="Active Task"/>
+		<control caption="Enable G2 Only"/>
+		<control caption="Set Event Time"/>
+		<control caption="Specified days"/>
+		<control caption="One day only"/>
+		<control/>
+		<control/>
+		<control caption="Må"/>
+		<control caption="Ti"/>
+		<control caption="On"/>
+		<control caption="To"/>
+		<control caption="Fr"/>
+		<control caption="Lö"/>
+		<control caption="Sö"/>
+		<control caption="Alla"/>
+		<control caption="Kommentarer"/>
+		<control/>
+	</dialog>
+	<dialog name="CSchemaColumnsDlg" cookie="CoSyBuBuSt" caption="Välj kolumner för schema">
+		<control/>
+		<control/>
+		<control caption="OK"/>
+		<control caption="Avbryt"/>
+		<control caption="Välj ett schema från listan. Välj sedan fälten att visa som kolumner."/>
 	</dialog>
 	<dialog name="CShareManagerDlg" cookie="StSyBuBuBuBu" caption="Hanterare för utdelade filer">
 		<control caption="Detta är en lista över mappar i ditt bibliotek. Du kan lägga till och ta bort mappar med knapparna till vänster. När du lägger till en ny mapp delas den initialt ut till andra användare. Du kan dock sluta dela ut den från biblioteket om du vill."/>
@@ -4512,6 +4516,14 @@
 		<column from="Expires" to="Utgångsdatum"/>
 		<column from="#" to="Företräde"/>
 		<column from="Comment" to="Kommentar"/>
+	</list>
+	<list name="CSchedulerWnd">
+		<column from="Task" to="Händelse"/>
+		<column from="Date" to="Datum"/>
+		<column from="Time" to="Tid"/>
+		<column from="Status" to=""/>
+		<column from="Activity" to="Aktiv"/>
+		<column from="Description" to="Kommentar"/>
 	</list>
 	<list name="CHostCacheWnd">
 		<column from="Address" to="Adress"/>

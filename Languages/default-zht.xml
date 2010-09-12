@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Chinese (Traditional) Skin File -->
 
-<!-- Translation based on default-en.xml r56 (Shareaza 2.2.2.12) -->
+<!-- Translation based on default-en.xml r58 (Shareaza 2.2.2.12) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1597,7 +1597,7 @@
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="3">
-			<icon res="128" width="32" height="32"/><gap size="8"/>
+			<icon res="120" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">升級通知</heading>
 			<newline gap="8" indent="42"/>
 			<text id="Upgrade"/>
@@ -1616,7 +1616,7 @@
 			<link target="command:ID_HELP_ROUTER">點選這裡學習如何設定您的路由器或是防火牆</link>
 			<newline gap="18" indent="0"/>
 		</group>
-		<icon res="128" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
+		<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">自訂 PeerProject</heading>
 		<newline gap="12" indent="42"/>
 		<icon res="182" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
@@ -1641,7 +1641,7 @@
 		<text align="middle">&#160;- 轉到您的中文論壇</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
-			<icon res="128" width="32" height="32"/><gap size="8"/>
+			<icon res="120" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">遠端   監控   已啟用</heading>
 			<newline gap="8" indent="42"/>
 			<text>PeerProject 遠端監控已啟用. 在這裡使用您的瀏覽器操控 PeerProject:</text>
@@ -1799,9 +1799,6 @@
 		<newline gap="10"/>
 		<link target="page:CUploadsSettingsPage" format="b">上傳:</link>
 		<text>&#160;上傳性能 , 排隊等候, 封鎖, 逾時與特別要求.</text>
-		<newline gap="10"/>
-		<link target="page:CSchedulerSettingsPage" format="b">Scheduler:</link>
-		<text>&#160;Limit download connections based on a periodic schedule.</text>
 	</document>
 	<!-- Browse User Profile -->
 	<document name="CBrowseHostProfile.1">
@@ -2501,7 +2498,7 @@
 	<string id="8179" value="(清除搜尋記錄)"/>
 	<string id="8180" value="檔案大小必須是"/>
 	<string id="8181" value="檔案大小必須是"/>
-	<string id="8208" value="PeerProject 正在為這個檔案切細: %Iu files:"/>
+	<string id="8208" value="PeerProject 正在為這個檔案切細: %Iu 檔:"/>
 <!--	<string id="8221" value="PeerProject 正在尋找這個檔案的來源:"/>
 	<string id="8222" value="PeerProject 正在下載:"/>
 	<string id="8223" value="這個下載已暫停:"/>
@@ -2522,6 +2519,8 @@
 	<string id="8239" value="完成"/>
 	<string id="8240" value="來源數"/>
 	<string id="8241" value="評論的數量:"/>
+	<string id="8244" value="限制下載速度"/>
+	<string id="8245" value="限制上傳速度"/>
 	<string id="8288" value="探勘你的 PeerProject 收藏中?"/>
 	<string id="8289" value="探勘中"/>
 	<string id="8290" value="正在探勘 %i 個資料夾的內容"/>
@@ -3056,24 +3055,22 @@
 	<string id="20125" value="未驗證"/>
 	<string id="20126" value="沒有需要的部分"/>
 	<string id="20127" value="沒有需要的部分"/>
-	<string id="20128" value="來源"/>
-	<string id="20129" value="來源"/> <!-- numbers 21, 31, etc. -->
-	<string id="20120" value="來源"/> <!-- tens -->
-	<string id="20131" value="來源"/> <!-- from 11 to 19 -->
-	<string id="20132" value="來源"/> <!-- from 2 to 4 -->
-	<string id="20133" value="來源"/> <!-- from 5 to 9 -->
-	<string id="20134" value="來源"/> <!-- 3/10 -->
+	<string id="20130" value="來源"/>
+	<string id="20131" value="來源"/>
+	<string id="20132" value="來源"/>
+	<string id="20134" value="來源"/>
 	<string id="20135" value="(沒有來源)"/>
 	<string id="20136" value="組塞"/>
 	<string id="20137" value="下一個"/>
 	<string id="20138" value="Q"/>
-	<string id="20200" value="星期日"/>
+	<string id="20200" value="星期"/>
 	<string id="20201" value="星期一"/>
 	<string id="20202" value="星期二"/>
 	<string id="20203" value="星期三"/>
 	<string id="20204" value="星期四"/>
 	<string id="20205" value="星期五"/>
 	<string id="20206" value="星期六"/>
+	<string id="20207" value="星期日"/>
 	<string id="20210" value="(沒有評分)"/>
 	<string id="20211" value="冒牌貨 / 毀損"/>
 	<string id="20212" value="差勁(1)"/>
@@ -3286,28 +3283,6 @@
 		<control/>
 		<control caption="說明:"/>
 		<control caption="PeerProject 在您的電腦上運作時, 您可以從遠端使用瀏覽器操控它. 您的電腦必須能夠啟用輸入連線以使用這個功能(例: 正確設定的路由器...等等)."/>
-	</dialog>
-	<dialog name="CSchedulerSettingsPage" cookie="EdStStStStStStStBuStStStBuBuBuStEdmsBuSt" caption="預定表">
-		<control/>
-		<control caption="日"/>
-		<control caption="一"/>
-		<control caption="二"/>
-		<control caption="三"/>
-		<control caption="四"/>
-		<control caption="五"/>
-		<control caption="六"/>
-		<control caption="Key:"/>
-		<control caption="不要連線"/>
-		<control caption="限制的連線"/>
-		<control caption="以全速連線"/>
-		<control caption="選項:"/>
-		<control caption="啟用預定表"/>
-		<control caption="只要在受到限制時才連線至 G2"/>
-		<control caption="% 在限制之下 幾 的頻寬"/>
-		<control/>
-		<control/>
-		<control caption="說明:"/>
-		<control caption="您可以使用預定表設定PeerProject什麼時候應該連線下載檔案. {n}{n}{n}注意: 在 PeerProject 運作時, 如果預定表正在執行它的工作, 您會發覺設定被更改. 此為正常現象!"/>
 	</dialog>
 	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuSt" caption="網路">
 		<control caption="PeerProject 為萬用檔案分享軟體, 可同時連線到多個 P2P 網路.  本頁可以選擇您要連線的 P2P 網路, 以及每個網路的專用設定."/>
@@ -3873,13 +3848,6 @@
 		<control/>
 		<control caption="移除"/>
 	</dialog>
-	<dialog name="CSchemaColumnsDlg" cookie="CoSyBuBuSt" caption="Select Columns from Schema">
-		<control/>
-		<control/>
-		<control caption="確定"/>
-		<control caption="取消"/>
-		<control caption="Select a schema from the list, then select the fields to display as columns."/>
-	</dialog>
 	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuStCoStCoEdStEdStEdStBuBu" caption="安全性規則">
 		<control caption="規則:"/>
 		<control caption="類型:"/>
@@ -3915,6 +3883,42 @@
 		<control caption="分"/>
 		<control caption="確定"/>
 		<control caption="取消"/>
+	</dialog>
+	<dialog name="CScheduleTaskDlg" cookie="BuBuBuCoEdmsEdmsStStBuBuBuBuBuSySyBuBuBuBuBuBuBuBuBuEd" caption="Schedule Event">
+		<control caption="確定"/>
+		<control caption="取消"/>
+		<control caption="Select Task Type"/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="% under Download limit"/>
+		<control caption="% under Upload limit"/>
+		<control caption="Active Task"/>
+		<control caption="Enable G2 Only"/>
+		<control caption="Set Event Time"/>
+		<control caption="Specified days"/>
+		<control caption="One day only"/>
+		<control/>
+		<control/>
+		<control caption="一"/>
+		<control caption="二"/>
+		<control caption="三"/>
+		<control caption="四"/>
+		<control caption="五"/>
+		<control caption="六"/>
+		<control caption="日"/>
+		<control caption="所有"/>
+		<control caption="筆記"/>
+		<control/>
+	</dialog>
+	<dialog name="CSchemaColumnsDlg" cookie="CoSyBuBuSt" caption="Select Columns from Schema">
+		<control/>
+		<control/>
+		<control caption="確定"/>
+		<control caption="取消"/>
+		<control caption="Select a schema from the list, then select the fields to display as columns."/>
 	</dialog>
 	<dialog name="CShareManagerDlg" cookie="StSyBuBuBuBu" caption="分享的資料夾管理員">
 		<control caption="這是您的收藏的資料夾清單. 您可以使用左方按鈕新增或移除資料夾 .  任何一個新增的資料夾將預設為開放給其他使用者分享, 不過您可以在 PeerProject 收藏停止分享."/>
@@ -4252,6 +4256,14 @@
 		<column from="Expires" to="有效期限" />
 		<column from="#" to="優先順序" />
 		<column from="Comment" to="備註" />
+	</list>
+	<list name="CSchedulerWnd">
+		<column from="Task" to="動作"/>
+		<column from="Date" to="日期"/>
+		<column from="Time" to="时间"/>
+		<column from="Status" to="狀態"/>
+		<column from="Activity" to="活躍"/>
+		<column from="Description" to="備註"/>
 	</list>
 	<list name="CHostCacheWnd">
 		<column from="Address" to="位址" />
