@@ -375,12 +375,12 @@ CreateDesktopIconWizard=Show TorrentWizard &desktop icon
 PathNotExist=Error, the path of the %1 folder doesn't exist
 dialog_shutdown=%1 is currently running. Would you like %1 to be shutdown so the installation can continue?
 dialog_firewall=Setup failed to add PeerProject to the Windows Firewall.%nPlease add PeerProject to the exception list manually.
-dialog_malwaredetected=Malware has been detected on your system at %1, please remove it with a virus/malware scanner before installing PeerProject. Do you want to exit now?
+dialog_malwaredetected=Malware has been detected on your system at %1, please remove it with a virus/malware scanner before installing PeerProject.  Do you wish to exit now?
 page_safetywarning_title=Safety Awareness
 page_safetywarning_subtitle=Do you have an AntiVirus program running?
-page_safetywarning_text=Filesharing is a home server with browser to find others like you.%n%nWhen downloading, always have an updated virus scanner to protect yourself from malicious files.  Be aware that anti-p2p companies will return fake results to searches, but can easily be banned.%n%nWhen uploading, recognize Permissive and Restrictive material.%nSharing unlicensed copyright works may be liable in some countries.%nThe best policy is to boycott big corporate copyright-abusers entirely:%nDo not promote those who don't appreciate it, plenty of others do.%n%nRemember, you are ultimately responsible for your own actions.
+page_safetywarning_text=Filesharing is a home server with browser to find others like you.%n%nWhen downloading, always have an updated virus scanner to protect yourself from malicious files.  Be aware that anti-p2p companies will return fake results to searches, but can easily be banned.%n%nWhen uploading, recognize Permissive and Restrictive material.%nSharing unlicensed copyright work may be liable in some countries.%nThe best policy is to boycott big corporate copyright-abusers entirely:%nSimply don't promote those who won't appreciate it, many others do.%n%nRemember, you are ultimately responsible for your own actions.
 ; Don't copy these last 2 messages, they are just links.
-page_safetywarning_link=http://security.peerproject.org/
+page_safetywarning_link=http://security.peerproject.org
 page_safetywarning_destination=http://security.peerproject.org
 
 ; English Alt Spellings

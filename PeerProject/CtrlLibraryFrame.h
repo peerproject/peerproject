@@ -100,6 +100,14 @@ public:
 		return m_nFolderCookie;
 	}
 
+	inline void Switch()
+	{
+		if ( Settings.Library.ShowVirtual )
+			OnLibraryTreePhysical();
+		else
+			OnLibraryTreeVirtual();
+	}
+
 protected:
 	CLibraryTreeView	m_wndTree;
 	CLibraryHeaderPanel	m_wndHeader;
@@ -117,16 +125,16 @@ protected:
 	CLibraryMetaPanel	m_pMetaPanel;
 	CLibraryHistoryPanel m_pHistoryPanel;
 	CPanelCtrl* 		m_pPanel;
-	int					m_nTreeSize;
-	int					m_nPanelSize;
 	BOOL				m_bPanelShow;
+	int					m_nPanelSize;
 	int					m_nHeaderSize;
+	int					m_nTreeSize;
 	int					m_nTreeTypesHeight;
 	BOOL				m_bUpdating;
 	DWORD				m_nLibraryCookie;
 	DWORD				m_nFolderCookie;
-	const CLibraryList*	m_pViewSelection;
 	BOOL				m_bViewSelection;
+	const CLibraryList*	m_pViewSelection;
 	CLibraryList		m_pViewEmpty;
 
 	CString				m_sDynamicBarName;

@@ -26,10 +26,11 @@
 struct __declspec(uuid("000214f4-0000-0000-c000-000000000046")) IContextMenu2;
 struct __declspec(uuid("bcfce0a0-ec17-11d0-8d10-00a0c90f2719")) IContextMenu3;
 
+// Unallocated Resource.h Ranges
 #define ID_SCHEMA_MENU_MIN	35000
 #define ID_SCHEMA_MENU_MAX	35100
-#define ID_SHELL_MENU_MIN	40000
-#define ID_SHELL_MENU_MAX	41000
+#define ID_SHELL_MENU_MIN	50000
+#define ID_SHELL_MENU_MAX	51000
 
 class CCoolMenu
 {
@@ -63,12 +64,12 @@ protected:
 
 // Attributes
 protected:
-	// Note: CMap< DWORD_PTR, DWORD_PTR, ... causes a conversion to DWORD within CMap
-	// DWORD_PTR& seems to solve the problem - should be investigated (TODO)
-	// my guess: the compiler cannot distinguish between T and __w64 T with respect to overload resolution
-	//   or template instantiation - in that case it's a false warning and should be supressed
+	// Note: CMap< DWORD_PTR, DWORD_PTR, ...> causes a conversion to DWORD warning within CMap.
+	// DWORD_PTR& seems to solve the problem.  ToDo: this should be reinvestigated.
+	// A guess: the compiler cannot distinguish between T and __w64 T with respect to overload resolution
+	// or template instantiation - in that case a false warning and should be supressed.
 	CMap< DWORD_PTR, DWORD_PTR&, CString, CString& >	m_pStrings;
-protected:
+
 	BOOL		m_bSelectTest;
 	CBitmap		m_bmSelectmark;
 	CBitmap		m_bmWatermark;

@@ -180,10 +180,10 @@ BOOL CSearchManager::OnQueryAck(CG2Packet* pPacket, const SOCKADDR_IN* pAddress,
 				WORD nPort = pPacket->ReadShortBE();
 
 				HostCache.Gnutella2.Add( (IN_ADDR*)&nAddress, nPort, tNow );
-			}
 
-			if ( nLength >= 8 )
-				nLeaves += pPacket->ReadShortBE();
+				if ( nLength >= 8 )
+					nLeaves += pPacket->ReadShortBE();
+			}
 			nHubs ++;
 		}
 		else if ( nType == G2_PACKET_QUERY_SEARCH && nLength >= 6 )
@@ -210,7 +210,7 @@ BOOL CSearchManager::OnQueryAck(CG2Packet* pPacket, const SOCKADDR_IN* pAddress,
 
 			CQuickLock oLock( HostCache.Gnutella2.m_pSection );
 
-			if ( CHostCacheHost* pHost = HostCache.Gnutella2.Find( (IN_ADDR*)&nFromIP ) )
+			if ( CHostCacheHostPtr pHost = HostCache.Gnutella2.Find( (IN_ADDR*)&nFromIP ) )
 				pHost->m_tRetryAfter = tNow + nRetryAfter;
 		}
 		else if ( nType == G2_PACKET_FROM_ADDRESS && nLength >= 4 )

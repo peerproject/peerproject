@@ -947,6 +947,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\PeerProject\RegExp.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\PeerProject\Registry.cpp"
 				>
 			</File>
@@ -2015,18 +2019,6 @@
 					>
 				</File>
 			</Filter>
-			<Filter
-				Name="RegExp"
-				>
-				<File
-					RelativePath="..\Services\RegExp\RegExpr2.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\Services\RegExp\Syntax2.cpp"
-					>
-				</File>
-			</Filter>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -2535,6 +2527,10 @@
 			</File>
 			<File
 				RelativePath="..\PeerProject\QuerySearch.h"
+				>
+			</File>
+			<File
+				RelativePath="..\PeerProject\RegExp.h"
 				>
 			</File>
 			<File
@@ -3592,26 +3588,6 @@
 						>
 					</File>
 				</Filter>
-			</Filter>
-			<Filter
-				Name="RegExp"
-				>
-				<File
-					RelativePath="..\Services\RegExp\Regexpr2.h"
-					>
-				</File>
-				<File
-					RelativePath="..\Services\RegExp\Reimpl2.h"
-					>
-				</File>
-				<File
-					RelativePath="..\Services\RegExp\Restack.h"
-					>
-				</File>
-				<File
-					RelativePath="..\Services\RegExp\Syntax2.h"
-					>
-				</File>
 			</Filter>
 			<Filter
 				Name="augment"

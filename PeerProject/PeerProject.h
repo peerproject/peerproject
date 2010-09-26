@@ -25,10 +25,13 @@
 #include "ComObject.h"
 #include "Buffer.h"
 
-class CUPnPFinder;
+
 class CMainWnd;
+class CDatabase;
 class CSplashDlg;
 class CFontManager;
+class CUPnPFinder;
+
 
 class CPeerProjectCommandLineInfo : public CCommandLineInfo
 {
@@ -48,6 +51,7 @@ private:
 	CPeerProjectCommandLineInfo& operator=(const CPeerProjectCommandLineInfo&);
 };
 
+
 class __declspec(novtable) CLogMessage
 {
 public:
@@ -61,6 +65,7 @@ public:
 };
 
 typedef CList< CLogMessage* > CLogMessageList;
+
 
 class CPeerProjectApp : public CWinApp
 {
@@ -186,6 +191,8 @@ public:
 	CString				GetDownloadsFolder() const;
 	CString				GetAppDataFolder() const;
 	CString				GetLocalAppDataFolder() const;
+
+	CDatabase*			GetDatabase(bool bGeneral = false) const;	// Get SQLite thumbnail database handler, must be freed by "delete" operator.
 
 	// pszTarget: 0 = delete file, 1 = release file.
 	void				OnRename(LPCTSTR strSource, LPCTSTR pszTarget = (LPCTSTR)1);
@@ -362,7 +369,7 @@ __int64 GetRandomNum<__int64>(const __int64& min, const __int64& max);
 #define MSG_NOTICE				0x0002
 #define MSG_INFO				0x0003
 #define MSG_DEBUG				0x0004
-#define MSG_TRAY				0x0010			// Show message in system tray
+#define MSG_TRAY				0x0010			// Show message in system tray popup
 
 // Log facility
 #define MSG_FACILITY_MASK		0xff00
@@ -398,7 +405,7 @@ __int64 GetRandomNum<__int64>(const __int64& min, const __int64& max);
 // Drag-n-drop stuff
 #define MAX_DRAG_SIZE			256
 #define MAX_DRAG_SIZE_2			(MAX_DRAG_SIZE/2)
-#define DRAG_COLOR_KEY			(RGB(245,248,252)) // Light-blue
+#define DRAG_COLOR_KEY			(RGB(245,248,252)) // Light-blue	ToDo: Skinning?
 #define DRAG_HOVER_TIME			900 			// Dragging mouse button press after X ms
 
 // Set Default Sizes in Pixels					// Skinnable Options:
@@ -421,7 +428,7 @@ __int64 GetRandomNum<__int64>(const __int64& min, const __int64& max);
 // 0 = eMule, 1 = cDonkey, 4 = old Shareaza, 40 (0x28) = Shareaza
 #define ED2K_CLIENT_ID			80
 
-// 2 Character BT peer-id code
+// 2 Character BT peer-id code: -PE1000-
 // PE = PeerProject, SZ = Shareaza, S~ = old Shareaza
 #define BT_ID1					'P'
 #define BT_ID2					'E'

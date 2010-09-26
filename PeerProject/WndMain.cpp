@@ -2108,15 +2108,11 @@ void CMainWnd::OnUpdateTabHome(CCmdUI* pCmdUI)
 void CMainWnd::OnTabHome()
 {
 	if ( Settings.General.GUIMode != GUI_WINDOWED )
-	{
 		m_pWindows.Open( RUNTIME_CLASS(CHomeWnd) );
-		OpenFromTray();
-	}
 	else
-	{
 		m_pWindows.Open( RUNTIME_CLASS(CHomeWnd), TRUE );
-		OpenFromTray();
-	}
+
+	OpenFromTray();	// ?
 }
 
 void CMainWnd::OnUpdateTabLibrary(CCmdUI* pCmdUI)
@@ -2127,8 +2123,10 @@ void CMainWnd::OnUpdateTabLibrary(CCmdUI* pCmdUI)
 
 void CMainWnd::OnTabLibrary()
 {
-	m_pWindows.Open( RUNTIME_CLASS(CLibraryWnd) );
-	OpenFromTray();
+	if ( m_pWindows.GetActive() == m_pWindows.Open( RUNTIME_CLASS(CLibraryWnd) ) )
+		( (CLibraryWnd*)m_pWindows.GetActive() )->m_wndFrame.Switch();
+
+	OpenFromTray();	// ?
 }
 
 void CMainWnd::OnUpdateTabMedia(CCmdUI* pCmdUI)
@@ -2311,7 +2309,7 @@ void CMainWnd::OnToolsLanguage()
 	if ( dlg.DoModal() == IDOK )
 	{
 		bool bRestart = Settings.General.LanguageRTL != dlg.m_bLanguageRTL &&
-			AfxMessageBox( IDS_GENERAL_RTL_WARNING, MB_ICONQUESTION | MB_YESNO ) == IDYES;
+			AfxMessageBox( IDS_WARNING_RTL, MB_ICONQUESTION | MB_YESNO ) == IDYES;
 
 		CWaitCursor pCursor;
 

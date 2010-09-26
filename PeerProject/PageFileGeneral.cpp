@@ -97,7 +97,7 @@ BOOL CFileGeneralPage::OnInitDialog()
 		m_sMD5  = pFile->m_oMD5.toShortUrn();
 
 		if ( m_sSHA1.IsEmpty() && m_sED2K.IsEmpty() && m_sTiger.IsEmpty() && m_sMD5.IsEmpty() )
-			LoadString(m_sSHA1, IDS_GENERAL_NOURNAVAILABLE );
+			LoadString(m_sSHA1, IDS_NOURNAVAILABLE );
 
 		CString strDate, strTime;
 		SYSTEMTIME pTime;

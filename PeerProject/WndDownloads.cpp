@@ -1273,7 +1273,7 @@ void CDownloadsWnd::OnDownloadsMergeLocal()
 
 void CDownloadsWnd::OnUpdateDownloadsBoost(CCmdUI* pCmdUI)
 {
-	if ( Settings.Bandwidth.Downloads == 0 )
+	if ( Settings.Bandwidth.Downloads == 0 || Settings.Live.BandwidthScaleIn > 100 )
 	{
 		pCmdUI->Enable( FALSE );
 		return;

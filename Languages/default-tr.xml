@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Turkish Skin File -->
 
-<!-- Translation based on default-en.xml r58 -->
+<!-- Translation based on default-en.xml r59 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -374,6 +374,8 @@
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Ayarlar"/>
 	</toolbar>
+	<!-- SECURITY WINDOW Missing -->
+	<!-- SCHEDULER WINDOW Missing -->
 	<!-- HIT MONITOR WINDOW -->
 	<toolbar name="CHitMonitorWnd">
 		<button id="ID_SEARCH_DOWNLOAD" text="İndirme"/>
@@ -1686,7 +1688,7 @@
 		<anchor id="Header" width="32" height="152"/>
 		<newline gap="0"/>
 		<group id="1">
-			<icon res="130" width="32" height="32"/><gap size="8"/>
+			<icon res="136" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">BAĞLANTI AL</heading>
 			<newline gap="8" indent="42"/>
 			<text>PeerProject'ya hoşgeldiniz! &#160;Şimdilik ağa bağlı değilsiniz. &#160;</text>
@@ -1694,12 +1696,12 @@
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="2">
-			<icon res="134" width="32" height="32"/><gap size="8"/>
+			<icon res="130" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">PEERPROJECT ARAMA</heading>
 			<newline gap="8" indent="42"/>
 			<anchor id="SearchBox" width="256" height="80"/>
 			<newline gap="14" indent="0"/>
-			<icon res="136" width="32" height="32" target="command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
+			<icon res="124" width="32" height="32" target="command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
 			<heading align="middle">İNDİRMEYE BAŞLA</heading>
 			<newline gap="8" indent="42"/>
 			<link target="command:ID_TOOLS_DOWNLOAD" format="bu">Buraya tıklayıp</link>
@@ -1718,7 +1720,7 @@
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="4">
-			<icon res="252" width="32" height="32" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
+			<icon res="180" width="32" height="32" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 			<heading align="middle">UYARI - GÜVENLİK DUVARI AÇIK</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">PeerProject sizin bir güvenlik duvarının ya da NAT yönlendiricinin arkasında olduğunuzu tespit etti ve internetten gelecek olan bağlantıları alamazsınız. &#160;</text>
@@ -1728,7 +1730,7 @@
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="6">
-			<icon res="252" width="32" height="32"/><gap size="8"/>
+			<icon res="180" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">UYARI - TCP PORTUNUZ GÜVENLİK DUVARI ARKASINDA</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">PeerProject sizin bir güvenlik duvarının ya da NAT yönlendiricinin arkasında olduğunuzu ve İnternet'ten
@@ -1739,7 +1741,7 @@
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="7">
-			<icon res="252" width="32" height="32"/><gap size="8"/>
+			<icon res="180" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">UYARI - UDP PORTUNUZ GÜVENLİK DUVARI ARKASINDA</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">PeerProject sizin bir güvenlik duvarının ya da NAT yönlendiricinin arkasında olduğunuzu ve İnternet'ten
@@ -1752,28 +1754,28 @@
 		<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">PEERPROJECT İstemcisine</heading>
 		<newline gap="12" indent="42"/>
-		<icon res="182" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
+		<icon res="196"width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
 		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">Arayüzler</link>
 		<text align="middle">&#160;- PeerProject'nın görüntüsünü değiştir.</text>
 		<newline gap="8"/>
-		<icon res="141" width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
+		<icon res="138"width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
 		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
 		<text align="middle">&#160;- Update blocklist to avoid bad search results</text>
 		<newline gap="8"/>
-		<icon res="317" width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
+		<icon res="197"width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 		<link target="command:ID_TOOLS_WIZARD" align="middle">Ayarlar Sihirbazı</link>
 		<text align="middle">&#160;- PeerProject Ayarlarını Düzenle</text>
 		<newline gap="8"/>
-		<icon res="147" width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
+		<icon res="182"width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
 		<link target="command:ID_HELP_FAQ" align="middle">Hızlı Yardım</link>
 		<text align="middle">&#160;- PeerProject'nın temel kullanımı ile ilgili yardım, or </text>
 		<link target="command:ID_TAB_IRC" align="middle">IRC.</link>
 		<newline gap="8"/>
-		<icon res="175" width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
+		<icon res="201"width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
 		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">Yerel Forum</link>
 		<text align="middle">&#160;- Sizin türk dil tartışma forumu git</text>
 		<newline gap="18" indent="0"/>
-		<icon res="136" width="32" height="32" target="command:shell:downloads"/>
+		<icon res="124" width="32" height="32" target="command:shell:downloads"/>
 		<gap size="8"/>
 		<heading align="middle">İNDİRMELERİM</heading>
 		<newline gap="8" indent="42"/>
@@ -1993,32 +1995,32 @@
 		</group>
 		<group id="40">
 			<newline gap="1"/>
-			<icon res="265"/><gap size="5"/>
+			<icon res="203"/><gap size="5"/>
 			<link id="ContactEmail" align="middle"/>
 		</group>
 		<group id="44">
 			<newline gap="1"/>
-			<icon res="1008"/><gap size="5"/>
+			<icon res="206"/><gap size="5"/>
 			<link id="ContactMSN"/>
 		</group>
 		<group id="41">
 			<newline gap="1"/>
-			<icon res="206"/><gap size="5"/>
+			<icon res="208"/><gap size="5"/>
 			<link id="ContactYahoo"/>
 		</group>
 		<group id="42">
 			<newline gap="1"/>
-			<icon res="208"/><gap size="5"/>
+			<icon res="205"/><gap size="5"/>
 			<link id="ContactICQ"/>
 		</group>
 		<group id="43">
 			<newline gap="1"/>
-			<icon res="207"/><gap size="5"/>
+			<icon res="204"/><gap size="5"/>
 			<link id="ContactAOL"/>
 		</group>
 		<group id="45">
 			<newline gap="1"/>
-			<icon res="207"/><gap size="5"/>
+			<icon res="204"/><gap size="5"/>
 			<link id="ContactJabber"/>
 		</group>
 		<group id="5">
@@ -2044,7 +2046,7 @@
 			<newline gap="16" indent="0"/>
 			<text format="b">İletişim</text>
 			<newline gap="4" indent="8"/>
-			<icon res="140" target="command:ID_SEARCH_CHAT"/>
+			<icon res="127"target="command:ID_SEARCH_CHAT"/>
 			<gap size="5"/>
 			<link target="command:ID_SEARCH_CHAT" align="middle">Sohbet</link>
 		</group>
@@ -2603,732 +2605,732 @@
 <!-- Localized Strings -->
 <strings>
 	<string id="WINDOW_MAIN" value="PeerProject"/>
+	<string id="WINDOW_HOME" value="PeerProject Ana Sayfa"/>
 	<string id="WINDOW_SYSTEM" value="Sistem"/>
 	<string id="WINDOW_NEIGHBOURS" value="Komşular"/>
 	<string id="WINDOW_PACKET" value="Çöp Kutusu"/>
 	<string id="WINDOW_HOSTCACHE" value="Host Bellek"/>
-	<string id="WINDOW_SEARCHMONITOR" value="Arama Monitörü"/>
 	<string id="WINDOW_SEARCH" value="Ara"/>
+	<string id="WINDOW_SEARCHPAD" value="Ara"/>
+	<string id="WINDOW_SEARCHMONITOR" value="Arama Monitörü"/>
 	<string id="WINDOW_HITMONITOR" value="Ulaşımlar Monitörü"/>
 	<string id="WINDOW_DOWNLOADS" value="İndirmeler"/>
-	<string id="WINDOW_LIBRARY" value="Kütüphane"/>
 	<string id="WINDOW_UPLOADS" value="Güncellemeler"/>
+	<string id="WINDOW_LIBRARY" value="Kütüphane"/>
 	<string id="WINDOW_TRAFFIC" value="Grafik"/>
 	<string id="WINDOW_CHAT" value="Sohbet"/>
 	<string id="WINDOW_SECURITY" value="Güvenlik"/>
+	<string id="WINDOW_SCHEDULER" value="Programlamak"/>
 	<string id="WINDOW_DISCOVERY" value="Keşif Servisleri"/>
 	<string id="WINDOW_BROWSEHOST" value="Gözat"/>
-	<string id="WINDOW_HOME" value="PeerProject Ana Sayfa"/>
 	<string id="WINDOW_MEDIA" value="Ortam Oynatıcısı"/>
-	<string id="WINDOW_SEARCHPAD" value="Ara"/>
 	<string id="WINDOW_HELP" value="PeerProject Yardım"/>
 	<string id="WINDOW_IRC" value="PeerProject Sohbet"/>
-	<string id="7000" value="Bu filtreyi silmek istediğinize emin misiniz?"/>
-	<string id="7001" value="&amp;Şemalar"/>
-	<string id="7002" value="Çeşitli Değerler"/>
-	<string id="7003" value="Çeşit"/>
-	<string id="7004" value="Filtrenin &quot;%s&quot; kadarı çağrılmıştı,  bunu değiştirmek istiyor musunuz?"/>
-	<string id="7005" value="Lütfen filtreye bir isim veriniz."/>
-	<string id="7100" value="Bu template geçersizdir."/>
-	<string id="7101" value="Bu template'in herhangi bir kişiselleştirilmesi bulunmamaktadır."/>
-	<string id="7102" value="&quot;%s&quot; template'i silmek istediğinizden emin misiniz?\nGeri dönüş mümkün olmayacaktır."/>
-	<string id="8000" value="PeerProject Ayarları"/>
-	<string id="8001" value="PeerProject'ya Hoşgeldiniz"/>
-	<string id="8002" value="Dosya Özellikleri"/>
-	<string id="8003" value="Profilimi Düzenle"/>
-	<string id="8004" value="!PeerProject'ya Hoşgeldiniz (version) !\n.\nPeerProject tamamen özgür bir yazılımdır.\nLütfen bu programı edinim yasalarına uyarak ve güvenilir olarak kullanın.\n."/>
-	<string id="8005" value="(Transferden sonra kapat)"/>
-	<string id="8006" value="Bağlı değilsiniz. Başlamak için Bağlan butonunu tıklayınız."/>
-	<string id="8007" value="Etkin bir arama yok. Dosya aramak için tıklayınız."/>
-	<string id="8008" value="PeerProject bi sonraki PeerProject versiyonunun (%s) İndirilmesi tamamlandı. Şimdi güncelemek ister misiniz?\n\nEvet ise, PeerProject güncelleme kurulana kadar geçici olarak kapatılacaktır."/>
-	<string id="8009" value=" &quot;%s&quot; arayüzünü silmek istediğinizden emin misiniz? Bu yapılamaz."/>
-	<string id="8010" value="Bu PeerProject'nın değiştirme öncesi programıdır ve bu beta deneme aşaması sonlanmıştır. Lütfen http://PeerProject.sourceforge.net/ adresinden programın tamamını yükleyiniz."/>
-	<string id="8011" value="Görüntü Değiştirme açıldığında pencereler kapanacaktır. Şimdi değiştirmek ister misin?"/>
-	<string id="8012" value="Torrent Bilgisi"/>
-	<string id="8014" value="İndirme Özellikleri"/>
-	<string id="8060" value="%lu komşusu ile Hub/Ultrapeer mod.  %s yerel kütüphanede."/>
-	<string id="8061" value="%lu komşusu ile Ultrapeer mod.  %s yerel kütüphanede."/>
-	<string id="8062" value="%lu komşu(lar)la Hub modu.  %s yerel kütüphane."/>
-	<string id="8063" value="Bağlandı. %s yerel kütüphane."/>
-	<string id="8064" value="Komşu(lar)ya %lu bağlandı.  %s yerel kütüphane."/>
-	<string id="8065" value="Ağa bağlanıyor..."/>
-	<string id="8066" value="Ağa bağlanmadı."/>
-	<string id="8067" value="%s içeride : %s dışarıda (d:%I64i/u:%I64i)"/>
-	<string id="8068" value="%s içeride : %s dışarıda (d:%I64i/u:%I64i/s:%I64i)"/>
-	<string id="8069" value="Bağlan"/>
-	<string id="8070" value="Bağlanıyor..."/>
-	<string id="8071" value="Bağlandı"/>
-	<string id="8072" value="Bağlantı Kes"/>
-	<string id="8096" value="Bu alan seçtiğiniz dosya hakkında detaylı bilgi gösterir."/>
-	<string id="8097" value="Tek kaynak bulundu. (%s/s)"/>
-	<string id="8098" value="%i kaynak bulundu. (%s/s)"/>
-	<string id="8099" value="Bir eleştiri var."/>
-	<string id="8100" value="%i eleştiri var."/>
-	<string id="8101" value="%s yazılır:"/>
-	<string id="8102" value="%s bu dosya çeşitleri:"/>
-	<string id="8103" value="Önizleme için tıklayınız"/>
-	<string id="8104" value="Önizlemede..."/>
-	<string id="8105" value="&quot;%s&quot;'dan indirme içerik önizlemesi yapılamaz ."/>
-	<string id="8128" value="Tekrar aramak için tıklayınız"/>
-	<string id="8129" value="Pencerede henüz arama başlatılmadı."/>
-	<string id="8130" value="PeerProject ağ arıyor..."/>
-	<string id="8131" value="Ağ henüz uygun hale gelmedi."/>
-	<string id="8132" value="Filtrenin dışında bazı sonuçlar bulundu."/>
-	<string id="8133" value="PeerProject etkin ağ arıyor..."/>
-	<string id="8134" value="Yeni bir arama başlatmak üzeresiniz. Arama sonucunu temizlemek ister misiniz?"/>
-	<string id="8135" value="Veri Yok"/>
-	<string id="8136" value="Metin Ara"/>
-	<string id="8137" value="Şema sütunu yok"/>
-	<string id="8141" value="Arama panelini göster"/>
-	<string id="8142" value="Arama panelini gizle"/>
-	<string id="8143" value="Aranıyor..."/>
-	<string id="8144" value="Aramaya başla"/>
-	<string id="8145" value="Daha fazla arama"/>
-	<string id="8146" value="Durdur"/>
-	<string id="8147" value="Her tür dosya"/>
-	<string id="8148" value="Aramalarınız burada:"/>
-	<string id="8149" value="Bu türdeki dosyalara bak:"/>
-	<string id="8150" value="Aranıyor:"/>
-	<string id="8151" value="Bulundu:"/>
-	<string id="8152" value="%lu hub, %lu eşler"/>
-	<string id="8153" value="Geçerli arama değil"/>
-	<string id="8154" value="Dosya bulunamadı"/>
-	<string id="8155" value="%lu dosya %lu başarılı|%lu dosya %lu başarılı|%lu dosyalar in %lu başarılı"/>
-	<string id="8156" value="Ara"/>
-	<string id="8157" value="Sonuçlar"/>
-	<string id="8158" value="Temizle"/>
-	<string id="8159" value="Uygulandı"/>
-	<string id="8160" value="Hosta bir bağlantı kuruluyor..."/>
-	<string id="8161" value="İstek gönder, bağlantı için bekleniyor..."/>
-	<string id="8162" value="Bağlandı, isteğe gözatılıyor..."/>
-	<string id="8163" value="Gözatılan istek indiriliyor (%2.f%%)..."/>
-	<string id="8164" value="Kullanıcı hosta bağlantı yapamaz."/>
-	<string id="8165" value="Dosya listeleme indirilemedi. Host bunu desteklemiyor olabilir."/>
-	<string id="8166" value="Ağda Ara:"/>
-	<string id="8167" value="Tüm Ağlar"/>
-	<string id="8176" value="PeerProject'da Ara"/>
-	<string id="8177" value="Aranan anahtar kelimeleri yaz:"/>
-	<string id="8178" value="Dosyanın türü nedir?"/>
-	<string id="8179" value="(Arama geçmişini temizle)"/>
-	<string id="8180" value="Dosya uzunluğu:"/>
-	<string id="8181" value="Olmalı:"/>
-	<string id="8208" value="PeerProject %Iu dosyası için hash yaratıyor:"/>
-<!--	<string id="8221" value="PeerProject kaynak arıyor:"/>
-	<string id="8222" value="PeerProject indiriliyor:"/>
-	<string id="8223" value="İndirme duraklatıldı:"/>
-	<string id="8224" value="PeerProject indirmeyi bırakıyor:"/>
-	<string id="8225" value="PeerProject hatalar için İndirmeyi konrol ediyor:"/>
-	<string id="8226" value="PeerProject tamamıyla indirildi:"/>
--->	<string id="8227" value="%i gün ve %i saat"/>
-	<string id="8228" value="%i saat ve %i dakika"/>
-	<string id="8229" value="%i dakika %i saniye"/>
-	<string id="8230" value="%i saniye"/>
-	<string id="8231" value="Kaynak yok"/>
-	<string id="8232" value="Aç"/>
-	<string id="8233" value="İptal"/>
-	<string id="8235" value="Toplam transfer hızı:"/>
-	<string id="8236" value="Kalan zaman değerlendirildi:"/>
-	<string id="8237" value="İndirme miktarı:"/>
-	<string id="8238" value="Aktarım miktarı:"/>
-	<string id="8239" value="Tamamlandı"/>
-	<string id="8240" value="Kaynak numarası:"/>
-	<string id="8241" value="Yorum sayısı:"/>
-	<string id="8244" value="Indirebilirsiniz hız sınırı"/>
-	<string id="8245" value="Upload hız sınırı"/>
-	<string id="8288" value="PeerProject kütüphanesi araştırılıyor"/>
-	<string id="8289" value="Araştırılıyor"/>
-	<string id="8290" value="%i Klasörden içerikler araştırılıyor"/>
-	<string id="8291" value="Çoklu klasörler"/>
-	<string id="8292" value="%i dosya seçildi"/>
-	<string id="8293" value="Seçili dosya yok"/>
-	<string id="8294" value="Yeni eklemeler"/>
-	<string id="8295" value="Dosya çeşidi"/>
-	<string id="8304" value="N/A"/>
-	<string id="8306" value="Konum"/>
-	<string id="8307" value="Tür"/>
-	<string id="8308" value="Boyut"/>
-	<string id="8309" value="Kısmi kaynak (%.2f%% mevcut)"/>
-	<string id="8310" value="%i aktarım programları, %i sıra bekliyor"/>
-	<string id="8311" value="Bu dosya kütüphanenizde zaten var."/>
-	<string id="8312" value="Bu dosya İndirme listenizde zaten var."/>
-	<string id="8313" value="Bu dosya spam gibi görünüyor."/>
-	<string id="8314" value="Bu dosyayı daha önce indirdiniz ve sildiniz."/>
-	<string id="8315" value="Karalisteye alındı:"/>
-	<string id="8316" value="Ulaşılanlar"/>
-	<string id="8317" value="Aktarılanlar"/>
-	<string id="8318" value="%lu bugün, %lu toplam"/>
-	<string id="8319" value="Aktarılanlar:"/>
-	<string id="8320" value="Durum:"/>
-	<string id="8321" value="Hız:"/>
-	<string id="8322" value="URL:"/>
-	<string id="8323" value="İstemci:"/>
-	<string id="8324" value="Pasif"/>
-	<string id="8325" value="Aktif"/>
-	<string id="8326" value="Diğer bağlantı"/>
-	<string id="8327" value="Toplam dosya:"/>
-	<string id="8328" value="Toplam miktar:"/>
-	<string id="8329" value="Kütüphanenizden"/>
-	<string id="8330" value="Klasör"/>
-	<string id="8331" value="Kaynak şimdilik meşgul"/>
-	<string id="8332" value="Kaynak güvenlik duvarı arkasında"/>
-	<string id="8333" value="Bu kaynak değişken olabilir"/>
-	<string id="8334" value="Bu dosya için kaynaklar şimdilik meşgul"/>
-	<string id="8335" value="Bu dosya için kaynaklar güvenlik duvarı arkasında"/>
-	<string id="8336" value="Bu dosya için kaynaklar değişken olabilir"/>
-	<string id="8337" value="Güvenliği garanti olmayan"/>
-	<string id="8338" value="&#160;(Hashset yok)"/>
-	<string id="13000" value="İnternet üzerinden paylaşılan dosyalar"/>
-	<string id="13001" value="Seçilen güvenlik kuralını silmek istediğinizden emin misiniz? Geri dönüş mümkün olmayacaktır."/>
-	<string id="16063" value="UPnP port açılışı 10 denemeye rağmen başarısız olmuştur."/>
-	<string id="16064" value="PeerProject ağ merkezi başlıyor..."/>
-	<string id="16065" value="Gelen bağlantılar için %s  port %i'den bağlanamaz. Gelen bağlantılar desteklenmeyecektir."/>
-	<string id="16066" value="PeerProject ağ merkezi kapatılıyor..."/>
-	<string id="16067" value="Ağdan bağlantı kesiliyor."/>
-	<string id="16068" value="%s porttan %i gelmekte olan TCP bağlantıları kabul ediliyor ."/>
-	<string id="16069" value="Giden bağlantılar %s portdan %i."/>
-	<string id="16070" value="Giden bağlantılar için karar verilemez %s. Giden bağlantılar varsayılan arayüzde kullanılır."/>
-	<string id="16071" value="Güvenlik duvarı, gelen bağlantıları kabul etmiyor."/>
-	<string id="16072" value="UDP veriler %s portdan %i kabul ediliyor."/>
-	<string id="16073" value="&quot;%s&quot; host çözülüyor..."/>
-	<string id="16074" value="&quot;%s&quot; host çözülemez."/>
-	<string id="16075" value="Güvenlik yöneticisi %s'den bağlantıyı kabul etmiyor."/>
-	<string id="16076" value="Güvenlik yöneticisi %s bağlantısını engelledi."/>
-	<string id="16077" value="Güvenlik kuralları tarafından %s adresi engellendi."/>
-	<string id="16078" value="%s engelini güvenlik kuralı olarak ekle."/>
-	<string id="16079" value="Bağlantıyı kesmek istediğinize emin misiniz?"/>
-	<string id="16080" value="Planlayıcıyı 'sadece G2' modunda işletmektesiniz. Tüm etkin ağların bağlı kalması için bu modu devre dışı bırakmak ister misiniz?"/>
-	<string id="16081" value="&quot;%s&quot; için %s 'ye sorgu gönderiliyor."/>
-	<string id="16083" value="Hub modundaki PC'niz performans ve P2P ağında karşıt efektler bulunduğu için zorlanıyor. PeerProject'nın karar vermesine izin vermek genellikle daha iyidir ya da hub modunu kullanmayınız.\n\n	Hub modu daha iyi arama sonuçları üretmez, sizin için üstünlük sağlamaz.\n\nDezavantajlarına rağmen bunu gerçekten yapmak istiyor musunuz?"/>
-	<string id="16085" value="Gnutella2 PeerProject'nın ana ağıdır. Bunun desteği kaldırılırsa arama sonuçlarının kalitesi ve sayısı kısıtlanır. Bunu yapmak istediğinize emin misiniz?"/>
-	<string id="16087" value="Ağı etkinleştirmek için ayrılan bantgenişliği çok az."/>
-	<string id="16128" value="%s portdan gelmekte olan %i bağlantısı kabul edildi."/>
-	<string id="16129" value="%s portdan gelmekte olan %i komşu bağlantısı kabul edildi."/>
-	<string id="16130" value="%s'nin komşu bağlantısı kabul edilemez."/>
-	<string id="16131" value="%s bağlantısı için zaman bitti."/>
-	<string id="16132" value="Trafik yoğunluğundan dolayı %s komşu bağlantısı kapatılıyor."/>
-	<string id="16133" value="%s komşu ile bağlantı kuruluyor..."/>
-	<string id="16134" value="%s komşu ile bağlantı kapatıldı."/>
-	<string id="16135" value="%s'nin komşu bağlantısı kabul edilemez.(reddedildi)."/>
-	<string id="16136" value="%s komşusu ağdan düştü."/>
-	<string id="16137" value="%s'den ikinci bağlantı reddedildi."/>
-	<string id="16138" value="%s zaten bağlı ,ikinci bir bağlantı kuramazsınız."/>
-	<string id="16139" value="Komşu %s bağlantıyı kapattı (%i : %s)."/>
-	<string id="16140" value="Komşu %s ile bağlantılar yavaş."/>
-	<string id="16141" value="Komşu %s ile bağlantı kapatıldı çünkü hub değil."/>
-	<string id="16144" value="%s ile anlaşmanızın zamanı doldu."/>
-	<string id="16145" value="Komşu %s ile Gnutella bağlantısı başarı ile kuruldu(G%i.%i : %s)."/>
-	<string id="16146" value="Geçersiz veri gönderiminde %s'ile uygun anlaşılama yapılamadı."/>
-	<string id="16147" value="%s ile Host arasındaki aşırı bağlantı kapatılıyor."/>
-	<string id="16148" value="%s bağlantısı reddedildi(%s)."/>
-	<string id="16150" value="%s'de aşırı bağlantı kapatıldı."/>
-	<string id="16151" value="%s den bağlantı kabul edilmedi, çünkü bu düğüm korunmaktadır ."/>
-	<string id="16152" value="Hub %s komşu bizi hub olarak kabul etmeyecek, bağlantı kapatılıyor."/>
-	<string id="16153" value="%s komşunun koruma düğümü olduğundan bağlantı geri alınıyor."/>
-	<string id="16154" value="Hub bağlantısı kuruldu, eşli bağlantılar kapatılıyor."/>
-	<string id="16155" value="Komşu %s hub yerine kullanıyor."/>
-	<string id="16156" value="Komşu %s hub olmak istiyor, bağlantı kapatılıyor."/>
-	<string id="16157" value="Komşu %s hub değil, bağlantı kapatılıyor."/>
-	<string id="16158" value="Komşu %s ile Gnutella2 bağlantısı başarıyla kuruldu (%s)."/>
-	<string id="16159" value="Komşu %s Gnutella2 bağlantısı kapatılıyor."/>
-	<string id="16192" value="Komşu %s büyük boyutlu bir paket gönderdi, bağlantı kesiliyor."/>
-	<string id="16193" value="Komşu %s sıfır TTL ile bir paket gönderdi, görmezlikten geliniyor."/>
-	<string id="16194" value="Komşu %s aşırı TTL ile bir paket gönderdi, paket durduruluyor (TTL=%i, Sekme=%i)."/>
-	<string id="16195" value="Komşu %s geçersiz uzunlukta bir ping paketi gönderdi, görmezlikten geliniyor."/>
-	<string id="16196" value="Komşu %s geçersiz uzunlukta bir pong paketi gönderdi, görmezlikten geliniyor."/>
-	<string id="16197" value="%s -> %s [%i/%i] %s %s"/>
-	<string id="16198" value="Yeni %s komşusu sorgular gönderiyor, bağlantı kesiliyor."/>
-	<string id="16199" value="Komşu %s onaylanmayan bir paket gönderdi(0x%.2x), görmezlikten geliniyor."/>
-	<string id="16200" value="Komşu %s geçersiz adres verisiyle bir pong gönderdi, görmezlikten geliniyor."/>
-	<string id="16201" value="%s:  %s'den bozuk bir sorgu paketi alındı, görmezlikten geliniyor."/>
-	<string id="16202" value="%s'den bozuk bir başarı sorgu paketi alındı, görmezlikten geliniyor."/>
-	<string id="16203" value="Komşu %s geçersiz uzunlukta bir sıkıştırma paketi gönderdi, görmezlikten geliniyor."/>
-	<string id="16208" value="Komşu %s'den beklenmedik bir sorgu yönlendirme tablo güncelleştirmesi alınıyor."/>
-	<string id="16209" value="Komşu %s geçersiz bir sorgu yönlendirme tablo güncelleştirmesi gönderdi, bağlantı kesiliyor."/>
-	<string id="16210" value="Komşu %s sorgu yönlendirme tablosunu güncelleştirdi (%i bit = %lu[%i], %i%% tam)."/>
-	<string id="16211" value="Komşu %s güvenlik duvarına sıkıştırılmış bir istek gönderdi, görmezlikten geliniyor."/>
-	<string id="16212" value="Komşu %s GGEP kodunda olmayan bir erişim paketi gönderdi."/>
-	<string id="16213" value="Komşu %s'e sorgu yönlendirme tablosu gönderiliyor (%i bit = %lu[%i], %i%% tam)"/>
-	<string id="16254" value="Varsayılan grup indirebilirsiniz. (Tüm dosyaları)"/>
-	<string id="16255" value="Drag'n'drop %s grubuna dosyaları"/>
-	<string id="16256" value="&quot;%s&quot; %i kaynak(lar) ile indirme sırasına eklendi."/>
-	<string id="16257" value="&quot;%s&quot; indirme tamamlandı."/>
-	<string id="16258" value="&quot;%s&quot; indirme duraklatılıyor."/>
-	<string id="16259" value="&quot;%s&quot; indirme sürdürülüyor."/>
-	<string id="16260" value="&quot;%s&quot; indirme temizlendi."/>
-	<string id="16261" value="İndirme için &quot;%s&quot; dosyası yaratılıyor."/>
-	<string id="16262" value="İndirme için &quot;%s&quot; yerel dosyası yaratılamaz, başarısızlıkla sonuçlandı."/>
-	<string id="16263" value="İndirme için &quot;%s&quot; yerel dosyası açılamaz, başarısızlıkla sonuçlandı."/>
-	<string id="16264" value="%s'e baglantı %i portundan &quot;%s&quot; indirme için başlatılıyor ..."/>
-	<string id="16265" value="%s Hosta indirme için bağlanılamaz."/>
-	<string id="16266" value="%s indirme bağlantısı kuruldu."/>
-	<string id="16267" value="(%I64u-%I64u) indirme parçaları &quot;%s&quot; için %s' den isteniyor."/>
-	<string id="16268" value="Daha fazla indirme parçası bulunamadı,%s bağlantısı kapatılıyor ."/>
-	<string id="16269" value="İndirme parçaları kısaldı, %s bağlantısı kapatılıyor."/>
-	<string id="16270" value="%s indirme isteği zaman aşımına uğradı, bağlantı kapatılıyor."/>
-	<string id="16271" value="Trafik yoğunluğundan dolayı %s indirme bağlantısı kapatılıyor."/>
-	<string id="16272" value="%s indirme hostu &quot;%s&quot; dosyasına sahip değil."/>
-	<string id="16273" value="%s indirme hostu geçersiz bir HTTP yanıtıyla karşılandı."/>
-	<string id="16274" value="%s indirme hostu %s (%s) ile karşılandı."/>
-	<string id="16275" value="%s indirme hostunun &quot;%s&quot; versiyonu farklı URN'ye sahip, başarısızlıkla sonuçlandı."/>
-	<string id="16276" value="%s indirme hostunun &quot;%s&quot; versiyonu farklı uzunluğa sahip, başarısızlıkla sonuçlandı."/>
-	<string id="16277" value="%s indirme hostu &quot;%s&quot; 'den faydasız byte dizisi ile karşılaştı, askıda."/>
-	<string id="16278" value="%s indirme bağlantısı değerlendirilemedi."/>
-	<string id="16279" value="%s (%s) hostundan indirme içeriği alınıyor."/>
-	<string id="16280" value="Host %s indirmesi meşgul, %i saniye içerisinde tekrar edilir."/>
-	<string id="16281" value="&quot;%s&quot;'i temizlemek istediğinize emin misiniz?\n\nBir indirme, indirme penceresinden temizlendi, sonra geri alınamaz."/>
-	<string id="16282" value="%s (%s) 'dan &quot;%s&quot;'in indirme başarısızlıkla sonuçlanıyor, ağda sorun oluştu."/>
-	<string id="16283" value="&quot;%s&quot; dosyası indirme edilmeye hazırlanıyor, kaynaklar ekleniyor."/>
-	<string id="16284" value="%s'den hatalı sıkıştırılmış bir bağlantı alınıyor, bağlantı kapatılıyor."/>
-	<string id="16285" value="%s'den gereksiz sıkıştırılmış bir bağlantı alınıyor."/>
-	<string id="16286" value="Host %s &quot;%s&quot; indirmesini gönderiyor, kabul ediliyor."/>
-	<string id="16287" value="&quot;%s&quot; indirmesi için kaynak edinemezsin çünkü ağ bağlantısı yok."/>
-	<string id="16288" value="&quot;%s&quot; indirmesi için %i bağlantısında kaynak sorgulanıyor..."/>
-	<string id="16289" value="&quot;%s&quot; indirmesi için istek gönderiliyor..."/>
-	<string id="16290" value="%s download Hostu farklı fakat yararlı bir (%I64i-%I64i) dağılım yanıtı verdi, &quot;%s&quot;'den."/>
-	<string id="16291" value="&quot;%s&quot; dan &quot;%s&quot;'a taşındı, indirme tamamlandı."/>
-	<string id="16292" value="&quot;%s&quot; dan &quot;%s&quot;'a taşınamadı. Dosyanın kullanımda olup olmadığını, indirme klasörünüzün mevcut ve yazılabilir olduğunu kontrol edin."/>
-	<string id="16293" value="&quot;%s&quot; 'dan &quot;%s&quot; 'a indirmeye karar veriliyor..."/>
-	<string id="16294" value="&quot;%s&quot; karar veremez."/>
-	<string id="16295" value="Ayrılan genişletilmiş bant genişliği &quot;%s&quot; indirimini destekliyor."/>
-	<string id="16296" value="&quot;%s&quot; indirmenin başarıyla doğruluğu kanıtlandı."/>
-	<string id="16297" value="UYARI: indirme &quot;%s&quot; doğrulaması başarılamadı, bu indirmeyi planladığın dosya olmayabilir!"/>
-	<string id="16298" value="%s indirme hostu meşgul, #%i %i den durum sırasında bekliyor(&quot;%s&quot;)."/>
-	<string id="16299" value="Duraklatılmış tüm indirmeleri temizlemek istediğinizden emin misiniz? Bir indirme, indirme penceresinden temizlendi, geri alınamaz."/>
-	<string id="16300" value="&quot;%s&quot; indirmeyi silmek istediğinizden emin misiniz?"/>
-	<string id="16301" value="%s'den &quot;%s&quot; için tiger-tree bölümü isteniyor..."/>
-	<string id="16302" value="%s indirme hostu tiger-tree isteğini karşılayamadı."/>
-	<string id="16303" value="%s(%s)'den tiger-tree bölümü alınıyor..."/>
-	<string id="16304" value="İndirme hostunun tiger-tree verisi tutarsız ya da bozuktur, görmezlikten geliniyor."/>
-	<string id="16305" value="İndirme hostunun tiger-tree verisi beklenilen sonuca uygun değildir."/>
-	<string id="16306" value="&quot;%s&quot; için tiger-tree bölümü taşındı, %i düzeyinde, en az %s parça doğrulanabilir."/>
-	<string id="16307" value="%s'e indirme bağlantısı kapatılıyor, gerekli değil."/>
-	<string id="16308" value="%s indirme hostu istenmeyen veri gönderdi, bağlantı kapatılıyor."/>
-	<string id="16309" value="%s'den &quot;%s&quot; için veri isteniyor..."/>
-	<string id="16310" value="%s (%s)'den tiger-tree verisi alınıyor ..."/>
-	<string id="16311" value="%s'den &quot;%s&quot; için eDonkey2000 hashset isteniyor..."/>
-	<string id="16312" value="%s'den geçersiz bir eDonkey2000 hashset alındı, kaynak kapatılıyor."/>
-	<string id="16313" value="&quot;%s&quot; için eDonkey2000 hashset alındı,en az %s parça doğrulanabilir.."/>
-	<string id="16314" value="İndirme hostunun eDonkey2000 hashset'i tutarsız ya da bozuktur, kaynak kapatılıyor."/>
-	<string id="16315" value="İndirme &quot;%s&quot; için başlangıç durumuna getirilemez."/>
-	<string id="16316" value="&quot;%s&quot; dosyası için %s eDonkey2000 indirme hostundan güncelleme sırası zaman aşımına uğradı."/>
-	<string id="16317" value="&quot;%s&quot; için sıra bekleniyor."/>
-	<string id="16318" value="&quot;%s&quot; (%s) indirmesi için yetersiz disk alanı."/>
-	<string id="16319" value="%s (%s) kaynağı &quot;%s&quot; (%I64i-%I64i)'in bozulan parçalarının gönderimi için  kapatılıyor."/>
-	<string id="16320" value="%s aktarım hostu geçersiz bir HTTP isteği gönderdi."/>
-	<string id="16321" value="%s. %s 'e sıkıştırılmış bağlantı başlatılıyor"/>
-	<string id="16322" value="%s hostuna sıkıştırma için bağlantı kurulamaz."/>
-	<string id="16323" value="%s 'e aktarım bağlantısı kapatıldı."/>
-	<string id="16324" value="%s aktarım hostundan istek bekleme zaman aşımına uğradı."/>
-	<string id="16325" value="%s aktarım hostu bilinmeyen ya da ulaşılamayan &quot;%s&quot; nesnesini istedi."/>
-	<string id="16326" value="%s aktarım hostu farklı SHA1 ile &quot;%s&quot; 'i istedi."/>
-	<string id="16327" value="&quot;%s&quot; 'dan %s (%s) 'e aktarım kabul edilmiyor, meşgul ve istemci sırasını desteklemiyor."/>
-	<string id="16328" value="%s 'e sıkıştırılmış bağlantı kurmak için anlaşma bekleniyor..."/>
-	<string id="16329" value="%s hostunda aktarım için &quot;%s&quot; açılamıyor, disk/dosya hatası."/>
-	<string id="16330" value="%I64i-%I64i oranında aktarım içeriği &quot;%s&quot;'dan, %s (%s) hostu için gönderiliyor."/>
-	<string id="16331" value="&quot;%s&quot; 'nun %s' e aktarılan parçaları tamamlandı."/>
-	<string id="16332" value="%s 'den gelen bağlantı, bir HTTP aktarım isteğidir."/>
-	<string id="16333" value="&quot;%s&quot;'in %s'a aktarımı fazla yoğun, #%i 'den %i 'ye (&quot;%s&quot;) sıralandı."/>
-	<string id="16334" value="%s 'den kalan sıkıştırma isteği bilinmeyen bir dosya istedi, yine de bağlanıyor..."/>
-	<string id="16335" value="&quot;%s&quot; 'dan %s 'e aktarım kaldırıldı."/>
-	<string id="16336" value="%s aktarım hostu kullanıcının engel listesinde, istek yok sayılıyor."/>
-	<string id="16337" value="&quot;%s&quot; 'den %s (%s) hostuna aktarım başlıkları gönderiliyor."/>
-	<string id="16338" value="%s aktarım hostu &quot;%s&quot; dosyasını uygun olmayan sırada istedi."/>
-	<string id="16339" value="%s (%s) aktarım hostuna varsayılan HTML yanıtı gönderiliyor."/>
-	<string id="16340" value="%s 'den kullanıcı isteği reddedildi."/>
-	<string id="16341" value="%s (%s) aktarım hostu bir kullanıcı isteği gönderdi, yanıtlanıyor..."/>
-	<string id="16342" value="Trafik yoğunluğundan dolayı %s aktarım bağlantısı kapanıyor."/>
-	<string id="16343" value="%s 'deki eski aktarımlar kapatılıyor çünkü yeni bağlantı yapıldı."/>
-	<string id="16344" value="%s'ye yeni aktarım reddediliyor çünkü önceki bağlantı hala askıda."/>
-	<string id="16345" value="%s'ye &quot;%s&quot; aktarımı durdu çünkü dosya silindi."/>
-	<string id="16346" value="%I64i-%I64i oranında aktarım içeriği &quot;%s&quot; dosya parçasından, %s (%s) hostu için gönderiliyor."/>
-	<string id="16347" value="Sıradaki %s altarımı isteğini çok hızlı yineliyor, bağlantı kapatılıyor."/>
-	<string id="16348" value="%s'de istek reddediliyor çünkü çok fazla aktarım bağlantısı var."/>
-	<string id="16349" value="%s'e &quot;%s&quot; için tiger-tree veri aktarılıyor."/>
-	<string id="16350" value="%s'e &quot;%s&quot; için veri aktarılıyor."/>
-	<string id="16351" value="Koşutzamanlı hostdan %s (%s)'ye  &quot;%s&quot; aktarımı reddediliyor."/>
-	<string id="16352" value="%s'e &quot;%s&quot; önizlemesi aktarılıyor."/>
-	<string id="16353" value="%s'e &quot;%s&quot; önizleme aktarımı reddediliyor, önizleme bağlantısı çok fazla."/>
-	<string id="16354" value="%s aktarım hostu &quot;%s&quot; önizlemesini istedi, ama önizleme bulunamadı."/>
-	<string id="16355" value="%s'e aktarım için &quot;%s&quot; dinamik önizlemesi tasarlanıyor."/>
-	<string id="16356" value="%s'den kullanıcı isteği reddediliyor, gözat bağlantısı çok fazla."/>
-	<string id="16357" value="%s hostuna &quot;%s&quot; dosyası aktarılıyor..."/>
-	<string id="16358" value="%s'e aktarım bağlantısı kesildi, pozisyon sırası hazırlanıyor."/>
-	<string id="16359" value="%s aktarım hostu çevrimdışı sıraları sona erdirdi, kaldırılıyor."/>
-	<string id="16360" value="&quot;%s&quot;'den %s (%s)'ye aktarım reddedildi, tüm sıralar doludur."/>
-	<string id="16361" value="%s (%s)'ye aktarım reddediliyor, ağ engellendi."/>
-	<string id="16362" value="eDonkey2000 aktarımlarının iptal edilmemeleri önerilir. Bu aktarımı iptal etmek istediğinizden emin misiniz?"/>
-	<string id="16363" value="Torrent Aktarımları"/>
-	<string id="16364" value="Tamamlanan Aktarımlar"/>
-	<string id="16365" value="Bu gruptaki tüm indirmeleri iptal etmek/durdurmak istediğinize emin misiniz?"/>
-	<string id="16366" value="Sıra"/>
-	<string id="16367" value="eDonkey Çekirdeği"/>
-	<string id="16368" value="eDonkey Bölümleri"/>
-	<string id="16369" value="eDonkey Koruma"/>
-	<string id="16370" value="Küçük Dosyalar"/>
-	<string id="16371" value="Orta Dosyalar"/>
-	<string id="16372" value="Geniş Dosyalar"/>
-	<string id="16373" value="Bölüm Dosyaları"/>
-	<string id="16374" value="Yeni Sıra"/>
-	<string id="16375" value="Bölüm"/>
-	<string id="16376" value="Tüm Dosyalar"/>
-	<string id="16377" value="HTTP Koruma"/>
-	<string id="16379" value="Kütüphane Dosyaları"/>
-	<string id="16384" value="&quot;%s&quot; dosyasını atmak istediğinize emin misiniz?\n\nBazı dosyalar bilgisayarınıza zarar verebilir. Dosyayı atmadan önce ne dosyası olduğundan emin olun."/>
-	<string id="16385" value="%i dosyada veri değiştirmek üzeresiniz, devam etmek istediğinize emin misiniz?"/>
-	<string id="16386" value="%i dosyada veri yayınlanıyor."/>
-	<string id="16387" value="&quot;%s&quot; dosyası henüz taranmadı. Lütfen dosyanın taranması için bekleyin ve sonra tekrar deneyin."/>
-	<string id="16388" value="Bu seçeneklerle seçilen dosyada onaylanan ve paylaşılan bilgi için Bitzi.com tarafından sağlanan servisler kullanılır.\n\nPeerProject Bitzi veritabanı sorgu düzeninde seçilen dosyalar için SHA1 hash kod gönderecek.Eğer gizlilikle ilgileniyorsan Bitzi.com gizlilik politikasını danışmak isteyebilirsin.\n\nİlerlemek istiyor musun?"/>
-	<string id="16389" value="Seçilen %i dosyasını silmek istediğinize emin misiniz? \n\n Eğer bunu seçerseniz, bu dosyalar &quot;geri dönüşüm kutusu&quot; taşınacaktır."/>
-	<string id="16390" value="Sıralı dosyalar için henüz Nullsoft WinAmp gibi bir ortam oynatıcısı seçmediniz. Şimdi bir tane seçmek ister misiniz? \n\nPeerProject &quot;/EKLE&quot; butonuyla seçtiğiniz programın dosya adını kabul edecektir."/>
-	<string id="16391" value="Ağa bağlanamadınız."/>
-	<string id="16392" value="Başlamak için Başla butonunu tıklayınız."/>
-	<string id="16393" value="&quot;%s&quot; dosyası bir hash test doğrulamasını başaramadı ve indirmeyi tasarladığın dosya olmayabilir. Bunu açmak istediğinden emin misin?"/>
-	<string id="16394" value="Bu dosyadan  &quot;gizlilik ve tehlikeli&quot; özniteliklerini kaldırmak istiyor musunuz?"/>
-	<string id="16395" value="Henüz kütüphanenizde olmayan &quot;%s&quot; dosyalar klasörü indirildi.\n\nİndirme dosyalarınızın kütüphanenizdeki klasör içinde yer alması yeni indirmelerin gösteriminde ve yönetiminde kolaylık sağlar ve indirme gerçekleme ve otomatik güncelleme gibi PeerProject'nın ileri özelliklerine sahip olmanıza izin verir. İndirme dosyalarınızın kütüphane içine yerleştirimi ille de onları paylaştırmanı istemez: bağımsızca dosyaları paylaştıp paylaştırmayacağını seçebilirsin.\n\nKütüphanenize şimdi indirme dosyalarınızın klasörünü eklemek ister misiniz?"/>
-	<string id="16396" value="İndirme klasörleriniz kütüphanenize eklendi. Daha paylaşmak ister misiniz?"/>
-	<string id="16397" value="%i seçili albüm klasörlerini(s) silmek istediğinizden emin misiniz?\n\nNot: Bu işlem album klasörü içindeki dosyaları silmez, sadece klasörlerin kendisini siler."/>
-	<string id="16398" value="PeerProject adını değiştiremiyor:\n\n\n%s den %s\n"/>
-	<string id="16399" value="PeerProject bu dosyayı silemiyor:\n\n%s"/>
-	<string id="16400" value="Hedef dosya mevcut:\n\n%s\n\n Üzerine yazmak ister misiniz?"/>
-	<string id="16401" value="Tüm dosya türlerini göster"/>
-	<string id="16402" value="PeerProject bir kolleksiyon dosyası aldı:\n\n&quot;%s&quot;\n\nBu dosya geçerli bir kolleksiyon dosyası gibi görünmüyor"/>
-	<string id="16403" value="PeerProject kütüphanenizdeki &quot;%s&quot; dosyasını kolleksiyona ekledi."/>
-	<string id="16404" value="PeerProject &quot;%s&quot; kolleksiyon dosyasını, &quot;%s&quot; klasörüne kopyalayarak yükleyemedi."/>
-	<string id="16406" value="Bu kolleksiyondaki tüm dosyaları indirmek istiyor musunuz?\n\nHer yeni istemi durdurmak istiyorsanız İptal'i seçmelisiniz."/>
-	<string id="16407" value="Birşeyler indirmeye yönlendiren bu kolleksiyonları önlemek istiyor musunuz?"/>
-	<string id="16408" value="&amp;URI Kopyala"/>
-	<string id="16409" value="&amp;URI'leri Gönder..."/>
-	<string id="16410" value="Seçilen klasör &quot;%s&quot; klasörünün alt klasörü, zaten kütüphanenizin parçasıdır.\nEklenen bu klasör bazı dosyaların bozulmasına neden olacaktır.\n\nDevam etmek istiyor musunuz ?"/>
-	<string id="16411" value="%s dosyası taşınamaz. Dosya diğer bir uygulama tarafından kullanılıyor olabilir.\n\nBu dosyanın yerine kopyasını almayı denemek ister misiniz?"/>
-	<string id="16412" value="Hayalet Dosya"/>
-	<string id="16413" value="Yeni Grup"/>
-	<string id="16448" value="%s'e bağlanılıyor, anlaşılıyor..."/>
-	<string id="16449" value="%s (%s) ile sohbet ediyor."/>
-	<string id="16450" value="%s bağlantısı kapandı."/>
-	<string id="16451" value="%s bağlantısı kesildi."/>
-	<string id="16452" value="&quot;%s&quot; tanınmayan komut."/>
-	<string id="16453" value="Sohbet için %s'e bağlanıyor..."/>
-	<string id="16454" value="%s'den gelen sohbet istek kabul edildi, anlaşılıyor..."/>
-	<string id="16455" value="%s %s gibi biliniyor."/>
-	<string id="16456" value="%s hostuna bağlanamaz."/>
-	<string id="16457" value="Bağlantı geçersiz veri nedeniyle kurulamadı."/>
-	<string id="16458" value="Bilinmeyen yanıt alındı: %s"/>
-	<string id="16459" value="Bağlı Değildiniz."/>
-	<string id="16512" value="Toplam Alım Bantgenişliği"/>
-	<string id="16513" value="Toplam Gönderim Bantgenişliği"/>
-	<string id="16514" value="Gnutella Bağlantılar (Toplam)"/>
-	<string id="16515" value="Gnutella Bağlantılar (Etkin)"/>
-	<string id="16516" value="Gnutella Alım Bantgenişliği"/>
-	<string id="16517" value="Gnutella Gönderim Bantgenişliği"/>
-	<string id="16518" value="İndirme Dosya Sayısı"/>
-	<string id="16519" value="İndirme Transfer Sayısı"/>
-	<string id="16520" value="İndirme Bantgenişliği"/>
-	<string id="16521" value="Aktarım Transfer Sayısı"/>
-	<string id="16522" value="Aktarım Bantgenişliği"/>
-	<string id="16523" value="Gnutella Paketler Alındı"/>
-	<string id="16524" value="Gnutella Paketler Gönderildi"/>
-	<string id="16525" value="Gnutella Paketler Yönlendirildi"/>
-	<string id="16526" value="Gnutella Paketler Durduruldu"/>
-	<string id="16527" value="Gnutella Paketler Kaybedildi"/>
-	<string id="16528" value="Gnutella Yerel Sorguları"/>
-	<string id="16532" value="Toplam TCP Alım Bantgenişliği"/>
-	<string id="16533" value="Toplam TCP Gönderim Bantgenişliği"/>
-	<string id="16534" value="Toplam UDP Alım Bantgenişliği"/>
-	<string id="16535" value="Toplam UDP Gönderim Bantgenişliği"/>
-	<string id="16536" value="Alınan ve gönderilen Gnutella ping oranı"/>
-	<string id="16537" value="Alınan ve gönderilen Gnutella pong oranı"/>
-	<string id="16538" value="Bağlanım hataları (%)"/>
-	<string id="16768" value="&quot;%s&quot; URL alındı"/>
-	<string id="16769" value="URL ayrıştırılamaz : PeerProject bu URL'yi anlamıyor."/>
-	<string id="16770" value="URL faaliyet diyalogu gösterilemez çünkü PeerProject meşgul."/>
-	<string id="16771" value="Kütüphanenizde zaten &quot;%s&quot; dosyası bulunmaktadır. Bu dosyayı yine de indirmek istiyor musunuz?"/>
-	<string id="16772" value="Host:"/>
-	<string id="16773" value="Port:"/>
-	<string id="16774" value="&amp;Bağlan"/>
-	<string id="16775" value="&amp;Gözat"/>
-	<string id="16776" value="Ekle"/>
-	<string id="16777" value="Dosya Adı:"/>
-	<string id="16778" value="URL:"/>
-	<string id="16779" value="Tür:"/>
-	<string id="16780" value="Açıklanmayan"/>
-	<string id="16781" value="İsteniyor..."/>
-	<string id="16782" value="Başarılı!"/>
-	<string id="16783" value="Bitti, Kapat'ı tıklayın"/>
-	<string id="16784" value="&amp;Kapat"/>
-	<string id="16785" value="(Görüntü Yok)"/>
-	<string id="16800" value="Henüz bir bağlantı hızı belirlemediniz. Devam etmeden önce lütfen internet bağlantı hızını ya da internet bağlantı tipini seçiniz."/>
-	<string id="16801" value="Lütfen devam etmeden önce kullanacağınız internet bağlantı tipini seçiniz."/>
-	<string id="16802" value="Paylaşım için açıkça bir klasör belirtmediniz. Bundan emin misiniz?"/>
-	<string id="16803" value="Paylaştığınız klasör başka bir paylaşım klasörünün parçasıdır:\n\n%s"/>
-	<string id="16804" value="Profilinizde takma ad girmediniz."/>
-	<string id="16805" value="Kullanıcı profilinize konumunuzu girmediniz.\n\nDiğer kullanıcıların hangi ülkeden oldugunuzu görebilmesi için konumunuzu girmeniz iyi bir fikir. Not: konumunuzu belirtmezseniz, uzlaşmış bilgi edinemezsiniz.\n\nYer belirtmeden devam etmek istediğinize emin misiniz?"/>
-	<string id="16806" value="Güvenlik duvarı ya da NAT yönlendiricide port-forwarding kurmak istediğinizi belirttiniz.\n\nLütfen yerel PC'nizden TCP ve UDP %i portlara gidecek ağı yapılandırın."/>
-	<string id="16807" value="Lütfen &quot;123 kb/s&quot; kilobits saniye ya da &quot;123 KB/s&quot; kilobayt saniye olarak belirlediğiniz bantgenişliği limitinizi yazınız."/>
-	<string id="16808" value="Yaş ve cinsiyetinizi belirlemediniz. Bunları yapmadan devam etmek istediğinize emin misiniz?"/>
-	<string id="16809" value="&amp;Çıkış"/>
-	<string id="16810" value="Yıl"/>
-	<string id="16811" value="Otomatik"/>
-	<string id="16812" value="Lütfen bekleyiniz: PeerProject UPnP cihazları bulmakta ve onları kurmaktatadır..."/>
-	<string id="16813" value="Lütfen bekleyiniz: Keşif servisleri güncellenmektedir..."/>
-	<string id="16814" value="Lütfen bekleyiniz: eDonkey sunucu listesi güncellenmektedir..."/>
-	<string id="16815" value="UPnP Cihazları Host Servisi etkin değildir. Bu hizmet cihazların kurulumu için gereklidir.\nHizmetin başlama biçimini automatiğe ayarlamanız gerekmektedir.utomatic."/>
-	<string id="16816" value="eDonkey ağı uzun zamanla uzun sıra kullanılır. Maksimum sıra pozisyonu limitini kabul ederken dikkatli olmalısınız, indirmelere başlamak zor olabilir.\nKabul edeceğin sıra pozisyonunu kısıtlamak istediğinden emin misin?"/>
-	<string id="16817" value="Windows 256 karakterden uzun dosya isimlerini desteklemez.\nLütfen kısa isim belirleyiniz."/>
-	<string id="16818" value="Tamamlanmış ve tamamlanmamış klasörler aynı olmamalıdır"/>
-	<string id="16819" value="Tamamlanmamış dosyalar klasörü kütüphanede bulunmamalı, performansı düşürecektir. Tamamlanmamış dosyalar direkt transfer penceresinden paylaşılabilir."/>
-	<string id="16864" value="Keşif servisleri hostu sorgulanıyor..."/>
-	<string id="16865" value="&quot;%s&quot; keşif servisi sorgulanıyor..."/>
-	<string id="16866" value="(&quot;%s&quot;) GWebCache başarı ile iş görüyor."/>
-	<string id="16867" value="&quot;%s&quot; keşif servisi başarısızdı, başarısızlık sayısı %i."/>
-	<string id="16868" value="&quot;%s&quot; keşif servisi %i süre başarısızdı, kaldırılıyor."/>
-	<string id="16870" value="&quot;%s&quot; servisi GWebCache güncellemesi gönderiliyor..."/>
-	<string id="16871" value="Rasgele GWebCache'e GWebCache &quot;%s&quot; öneriliyor..."/>
-	<string id="16928" value="Gözatan kullanıcı %s'ye bağlantı başlatılıyor..."/>
-	<string id="16929" value="Gözatan kullanıcı %s'ye bağlantı başlatamaz."/>
-	<string id="16930" value="Gözatan kullanıcı %s'ye istek gönderdi."/>
-	<string id="16931" value="Gözatan kullanıcı %s'ye istek gönderemez."/>
-	<string id="16932" value="Gözatan kullanıcı %s'ye istek gönderdi..."/>
-	<string id="16933" value="%s gözatan hostu geçersiz bir HTTP yanıtıyla cevap veriyor."/>
-	<string id="16934" value="%s gözatan hostu %s (%s) kod ile cevap veriyor."/>
-	<string id="16935" value="%s gözatan hostu anlaşılamayan bir yanıt verdi, kullanıcı ya da host taramalarını desteklemiyor olabilir."/>
-	<string id="16936" value="%s (%s) hostdan içerik alınıyor"/>
-	<string id="16938" value="%s hostdan Gnutella paketlerinde şifre çözme hatası."/>
-	<string id="16939" value="%s kullanıcı bağlantısı bitti, %i dosya bulundu."/>
-	<string id="16940" value="%s'ye gözatan kullanıcı bağlantısı durduruldu."/>
-	<string id="16941" value="Trafik yoğunluğundan dolayı %s kullanıcı bağlantısı kapatılıyor."/>
-	<string id="16942" value="%s'ye gözatan kullanıcı bağlantısı kapatılıyor."/>
-	<string id="16943" value="Göz atılıyor %s"/>
-	<string id="16944" value="%i paylaşılan dosya %s'nin kütüphanesinde  bulundu."/>
-	<string id="16991" value="PeerProject Ortam Sistema"/>
-	<string id="16992" value="PeerProject MedyaServisleri plugin'ini desteklenemedi. Lütfen PeerProjectyı tekrar yükleyin ve zorunlu ortam codeclerinin ve çıkış sürücülerinin yüklendiğini doğrulayın."/>
-	<string id="16993" value="Tüm ortam dosyaları|*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Oynatma Listeleri|*.asx;*.wax;*.m3u;*.wvx;*.wmx|Ses Dosyaları|*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm|Video Dosyaları|*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|CD Ses Trackleri|*.cda|MIDI Dosyalar|*.mid;*.rmi;*.midi|Tüm Dosyalar|*.*||"/>
-	<string id="16994" value="&quot;%s&quot; ortam dosyası yüklenemez"/>
-	<string id="16995" value="Bu dosya zarar görmüş olabilir ya da bunu oynatmak için gerekli codec'e sahip olmayabilirsiniz."/>
-	<string id="16996" value="Dosyanın bir parçası oynatılamadı, indirim için ek codec'e ihtiyacınız olabilir."/>
-	<string id="16997" value="Oynayacak dosya yok. Kütüphanenizdeki bir ortam dosyasını oynatmak için çift-tıklın."/>
-	<string id="16998" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; O &#160;&#160; R &#160;&#160; T &#160;&#160; A &#160;&#160; M &#160;&#160; &#160;&#160; S &#160;&#160; İ &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M &#160;&#160; İ"/>
-	<string id="16999" value="Oynatma Listesi:"/>
-	<string id="17015" value="PeerProject Sohbetine Hoşgeldiniz."/>
-	<string id="17016" value="Bu servisi kullanırken diğer kullanıcılara saygı göstermeniz gerektiğini unutmayın"/>
-	<string id="17017" value="Sohbet:"/>
-	<string id="17018" value="Kullanıcılar"/>
-	<string id="17019" value="Kanallar"/>
-	<string id="17020" value="Ekle..."/>
-	<string id="17021" value="Kaldır"/>
-	<string id="17024" value="%s ile bağlantı başlıyor..."/>
-	<string id="17025" value="%s ile bağlantı yaratılamadı."/>
-	<string id="17026" value="%s'den güvenlik duvarlı sıkıştırılmış bağlantı isteniyor..."/>
-	<string id="17027" value="%s'den sıkıştırılmış bağlantı istendi, anlaşılıyor..."/>
-	<string id="17028" value="Bağlantı kuruldu, anlaşılıyor..."/>
-	<string id="17029" value="Anlaşma sona erdirildi, host sohbeti desteklemiyor olabilir."/>
-	<string id="17030" value="Anlaşma tamamlandı, sohbet protokol versiyonu %s."/>
-	<string id="17031" value="Bilgi profili değiştiriliyor..."/>
-	<string id="17032" value="Kullanıcı doğrulandı"/>
-	<string id="17033" value="Kullanıcıyla özel konuşma isteniyor..."/>
-	<string id="17034" value="Özel konuşma onaylandı, şimdi %s ile sohbet edebilirsiniz."/>
-	<string id="17035" value="%s özel konuşmaları kabul etmiyor, üzgünüz."/>
-	<string id="17036" value="%s uzak: %s"/>
-	<string id="17037" value="Sohbete bağlantı kaybedildi."/>
-	<string id="17038" value="Bağlantı kapandı."/>
-	<string id="17039" value="%s 'den sıkıştırılmış bağlantı istenemez, kullanılabilir yol yok."/>
-	<string id="17040" value="Bağlanmadınız, mesaj gönderemezsiniz.  PeerProject bağlanmayı deniyor..."/>
-	<string id="17041" value="Henüz bir bağlantı kurulmadı, mesaj gönderemezsiniz."/>
-	<string id="17042" value="Kullanıcı profilinizi henüz doldurmadınız.  Diğer kullanıcılarla sohbet etmeden önce bir profil sağlamalısınız.\n\nProfilinizi şimdi doldurmak ister misiniz?"/>
-	<string id="17043" value="%s hosta aktarım önceliği verdi."/>
-	<string id="17100" value="Gnutella: Peer-to-Peer Bağlantısı"/>
-	<string id="17101" value="Gnutella: Leaf-to-Ultrapeer Bağlantısı"/>
-	<string id="17102" value="Gnutella: Ultrapeer-to-Leaf Bağlantısı"/>
-	<string id="17103" value="Gnutella II: Hub-to-Hub Bağlantısı"/>
-	<string id="17104" value="Gnutella II: Leaf-to-Hub Bağlantısı"/>
-	<string id="17105" value="Gnutella II: Hub-to-Leaf Bağlantısı"/>
-	<string id="17106" value="eDonkey Sunucu Bağlantısı (LOWID: %lu)"/>
-	<string id="17107" value="eDonkey2000 Sunucu Bağlantısı"/>
-	<string id="17108" value="Anlaşma"/>
-	<string id="17109" value="Gelen"/>
-	<string id="17110" value="Giden"/>
-	<string id="17111" value="Güncel:"/>
-	<string id="17112" value="Toplam:"/>
-	<string id="17113" value="Özet:"/>
-	<string id="17114" value="Oranı:"/>
-	<string id="17115" value="Azalt"/>
-	<string id="17116" value="Hiçbiri"/>
-	<string id="17117" value="Bağlanıyor"/>
-	<string id="17118" value="Anlaşılıyor"/>
-	<string id="17119" value="Reddedildi"/>
-	<string id="17120" value="Kapanıyor"/>
-	<string id="17121" value="Bilinmeyen"/>
-	<string id="17122" value="G1 Eş"/>
-	<string id="17123" value="G1 Ultrapeer"/>
-	<string id="17124" value="G1 Leaf"/>
-	<string id="17125" value="G2 Eş"/>
-	<string id="17126" value="G2 Hub"/>
-	<string id="17127" value="G2 Leaf"/>
-	<string id="17128" value="eDonkey2000 Sunucu"/>
-	<string id="17129" value="eDonkey2000 (LowID)"/>
-	<string id="17130" value="eDonkey2000 (HighID)"/>
-	<string id="17216" value="%s deki eDonkey2000 sunucusuna bağlantı başlatılıyor..."/>
-	<string id="17217" value="%s eDonkey2000 sunucusna bağlanıldı, anlaşılıyor..."/>
-	<string id="17218" value="ED2K[%s] %s"/>
-	<string id="17219" value="%s eDonkey2000 sunucusu bağlantıyı reddetti."/>
-	<string id="17220" value="%s eDonkey2000 sunucusu çevrimiçi, istemci ID %lu."/>
-	<string id="17221" value="%s eDonkey2000 sunucusu istemci IDlerini %lu den %lu e değiştirdi."/>
-	<string id="17222" value="%s eDonkey2000 suncusu kendisini &quot;%s&quot; olarak tanıdı."/>
-	<string id="17223" value="%s eDonkey2000 sunucusu  bağlantıyı reddetti."/>
-	<string id="17224" value="%s eDonkey2000 istemcisi ile anlaşma değişiminde hata."/>
-	<string id="17225" value="%s eDonkey2000 istemci bağlantısı kapatıldı."/>
-	<string id="17226" value="%s (id=%x) 'den bozuk bir eDonkey2000 paketi alındı."/>
-	<string id="17227" value="%s 'den gelen bağlantı bir eDonkey2000 istemci bağlantısıdır."/>
-	<string id="17228" value="&quot;%s&quot; için %s 'e eDonkey2000 hashset gönderiliyor..."/>
-	<string id="17229" value="eDonkey2000 istemcisinin %s bağlantısı sonuçsuz, kapatıldı."/>
-	<string id="17230" value="eDonkey2000 istemcisinin %s bağlantısı başlıyor..."/>
-	<string id="17231" value="%s eDonkey2000 istemcisi  yanlış GUIDa sahip, anlaşma durduruluyor."/>
-	<string id="17232" value="%s eDonkey2000 istemcisi ile bağlantı zaman aşımına uğradı."/>
-	<string id="17233" value="%s eDonkey2000 istemcisi ile anlaşma zaman aşımına uğradı."/>
-	<string id="17234" value="%s 'den bağlanan eDonkey2000 istemcisi reddediliyor çünkü eDonkey2000 engellendi."/>
-	<string id="17248" value="eDonkey2000 bölümsel indirme aktarım süreci başlıyor..."/>
-	<string id="17249" value="Süreç tamamlandı, %i bölümsel indirme başarıyla aktarıldı."/>
-	<string id="17250" value="Klasör taranıyor : &quot;%s&quot;..."/>
-	<string id="17251" value="Dosya aktarılamaz."/>
-	<string id="17252" value="&quot;%s&quot; bölümsel dosyası bulundu, aktarılıyor..."/>
-	<string id="17253" value="&quot;%s&quot; parça dosyası açılamaz."/>
-	<string id="17254" value="%s boyutta &quot;%s&quot; indirme bulundu."/>
-	<string id="17255" value="İndirme veri dosyası .part dosyasından yeni, durduruluyor."/>
-	<string id="17256" value="&quot;%s&quot; , &quot;%s&quot; 'e kopyalanıyor..."/>
-	<string id="17257" value="Dosya kopyalaması bitti."/>
-	<string id="17258" value="PeerProject indirme bölümü yaratıldı, kalan %s."/>
-	<string id="17259" value="Bu dosya zaten PeerProject indirme listesinde."/>
-	<string id="17260" value="İndirme dosyası kopyalamak için yetersiz disk alanı."/>
-	<string id="17472" value="%s 'den gelen bağlantı bir BitTorrent birleşmesi, görüşülüyor..."/>
-	<string id="17473" value="%s BitTorrent istemcisi ile bağlantı zaman aşımına uğradı."/>
-	<string id="17474" value="%s BitTorrent istemcisi ile anlaşma zaman aşımına uğradı."/>
-	<string id="17475" value="BitTorrent ile %s birleştirilmesi trafik yoğunluğundan dolayı kapanıyor."/>
-	<string id="17476" value="BitTorrent ile %s birleştirilmesi başarılamadı çünkü uzaktaki istemci farklı bir ID ile eşleşiyor."/>
-	<string id="17477" value="BitTorrent ile %s birleştirilmesi yanlış dosyayla karşılık verdi."/>
-	<string id="17478" value="BitTorrent ile %s birleştirilmesi bilinmeyen bir dosya istedi."/>
-	<string id="17479" value="BitTorrent ile %s birleştirilmesi &quot;%s&quot; için doğrulandı."/>
-	<string id="17481" value="BitTorrent tanımlama dosyası alındı : &quot;%s&quot;"/>
-	<string id="17482" value="&quot;%s&quot; BitTorrent dosyası almadan ayrıştırılamaz."/>
-	<string id="17483" value="BitTorrent trackerdan &quot;%s&quot; için hata : &quot;%s&quot;."/>
-	<string id="17484" value="BitTorrent tracker yanıtında ayrıştırılan hata."/>
-	<string id="17485" value="BitTorrent tracker &quot;%s&quot; için yanıt aldı, %i yeni kaynak."/>
-	<string id="17486" value="BitTorrent istemcisi ile %s birleştirilmesi başlıyor..."/>
-	<string id="17487" value="BitTorrent %s birleştirilmesi doğrulandı, anlaşma sağlanıyor..."/>
-	<string id="17488" value="Bu torrent için URL tracker'ını değiştirdiniz. Bu değişikliği kaydetmek istediğinize emin misiniz?\n\nGeçersiz bir URL tracker'ı daha fazla indirimi engelleyebilir."/>
-	<string id="17489" value="BitTorrent ile %s birleştirilmesi yaygın bir protokoldür, &quot;%s&quot; tanındı."/>
-	<string id="17490" value="%i yeni BitTorrent kaynağı %s'den alındı."/>
-	<string id="17491" value="&quot;%s&quot; torrent insirme listenizde ve oluşturulamıyor."/>
-	<string id="17492" value="&quot;%s&quot; torrent dosyasında yükleme hatası. Bu geçerli bir torrent olmayabilir."/>
-	<string id="17493" value="&quot;%s&quot; BitTorrent paylaşım dosyası yaratılamaz."/>
-	<string id="17494" value="Bu torrent &quot;%s&quot; dosyasını içerir ama PeerProject bu dosyayı kütüphanenizde bulamıyor. Mümkünse, bu dosyayı bir torrent gibi benzer klasöre taşıyın ve tekrar deneyin."/>
-	<string id="17495" value="Bu torrent %s olabilecek &quot;%s&quot; dosyasını içerir yine de versiyonunuz %s 'dir."/>
-	<string id="17496" value="&quot;%s&quot;'dan bir BitTorrent paylaşım dosyasına kopyalanırken bilinmeyen bir hata meydana geldi."/>
-	<string id="17497" value="&quot;%s&quot; oluşturması denenirken bilinmeyen bir hata meydana geldi."/>
-	<string id="17498" value="&quot;%s&quot; dosyasında bir hata bulundu."/>
-	<string id="17500" value="Tracker yanıtlayamadı- Bildirim tekrar deneniyor(%i de %i)"/>
-	<string id="17501" value="Tracker ile iletişim kurulamaz"/>
-	<string id="17503" value="Tracker'da sorun var- Sonraki tracker deneniyor (%i toplam: %i)"/>
-	<string id="17505" value="%s ile BitTorrent bağlantısı kapatıldı."/>
-	<string id="17506" value="%s ile BitTorrent görüşmesi %s kapatıldı."/>
-	<string id="17507" value="%s ile BitTorrent birleşmesi kapatıldı."/>
-	<string id="17510" value="%s ile BitTorrent birleşmesi kabul edilmedi, bu istemciyle halihazırda bir bağlantı mevcuttur."/>
-	<string id="17511" value="%s ile BitTorrent birleşmesi kabul edilmedi, maksimum bağlantı sayısına erişilinmiştir."/>
-	<string id="17512" value="Özel (private) torrent"/>
-	<string id="17513" value="Kodlama hatası"/>
-	<string id="18496" value="İsim alanında değişiklikler yaptınız. Bu indirme ismini değiştirmek istediğinize emin misiniz?"/>
-	<string id="18497" value="Geçersiz bir SHA1 değeri yazdınız. Lütfen kontrol edin ve tekrar deneyin."/>
-	<string id="18498" value="Geçersiz bir tiger-tree kök değeri yazdınız. Lütfen kontrol edin ve tekrar deneyin."/>
-	<string id="18499" value="Geçersiz bir eDonkey2000 hash değeri yazdınız. Lütfen kontrol edin ve tekrar deneyin."/>
-	<string id="18500" value="Bu indirme ile güncel olarak birleşmiş farklı SHA1 hash  değeri sağlanır. Şimdi SHA1 hash'i değiştirmek istediğinizden amin misiniz?"/>
-	<string id="18501" value="Bu indirme ile güncel olarak birleşmiş farklı tiger-tree hash kök değeri sağlanır.  Şimdi tiger-tree kök hash'i değiştirmek istediğinizden emin misiniz?"/>
-	<string id="18502" value="Bu indirme ile güncel olarak birleşmiş farklı eDonkey2000 hash değeri sağlanır. Şimdi eDonkey2000 hash'i değiştirmek istediğinizden emin misiniz?"/>
-	<string id="18503" value="Güncel doğrulama durumlarını kaybetmek istediğinize emin misiniz? Tüm İndirme verilerine güvenilmeyecektir ve hashtrees-hashsets zulaları temizlenecektir."/>
-	<string id="18504" value="Seçilen indirme için bütün kaynakları kaybetmek istediğinize emin misiniz?"/>
-	<string id="18505" value="Geçerli alanı silmek için enter'a basın. &quot;from&quot; alanı ilk silinecek bayt, &quot;last&quot; alanı son silinecek bayttır."/>
-	<string id="18506" value="İndirmeden seçilen alan silinemez çünkü alanın hiçbir parçası tanınmadı."/>
-	<string id="18507" value="%I64i byte indirmeden silindi."/>
-	<string id="18508" value="&quot;%s&quot; için %s indirme kaynağı durduruluyor çünkü %i sıra durumu çok fazla."/>
-	<string id="18509" value="Bu indirmenin tamamlanmasını kabul edemezsiniz çünkü tiger-tree bölümü, eDonkey hashset ya da BitTorrent hashset gibi bazı veri doğrulama parçalarına sahip değilsiniz. Doğrulama bilgileri olmadan indirme gerçekleştirilemez."/>
-	<string id="18510" value="Bu indirmeyi tamamlanmış kabul etmek istediğine emin misiniz?  Bütün dosya hesaba katılacak ve PeerProject doğrulanan parçaları kabul edecek, doğrulanmayan parçalar kabul edilmeyecek."/>
-	<string id="18511" value="Dosya boyutunda değişiklikler yaptınız. Bu indirme için dosya boyutunu değiştirmek istediğinize emin misiniz?"/>
-	<string id="19000" value="Uzaktan erişim engellendi."/>
-	<string id="19001" value="http://%s:%i/remote - Bir kullanıcı adı ve şifresi seçmelisiniz."/>
-	<string id="19002" value="Bağlantı onaylanılamaz, URL kullanılamaz."/>
-	<string id="20000" value="URN kullanılamaz"/>
-	<string id="20001" value="Kapat"/>
-	<string id="20002" value="den"/> <!-- "1 of 10" -->
-	<string id="20003" value="Arayüz yönetimi değiştirildiğinde yeniden başlama gerekir. \n PeerProject elle başlatmanız gerekecek. Şimdi çık?"/>
-	<string id="20005" value="Hayır"/>
-	<string id="20006" value="Evet"/>
-	<string id="20007" value="Otomatik"/>
-	<string id="20008" value="Temel"/>
-	<string id="20009" value="Kişisel"/>
-	<string id="20010" value="&amp;Önceki"/>
-	<string id="20011" value="&amp;Sonraki"/>
-	<string id="20012" value="Sona erdir"/>
-	<string id="20013" value="Tümü"/>
-	<string id="20100" value="Bağlanıyor"/>
-	<string id="20101" value="İstekte Bulunuluyor"/>
-	<string id="20102" value="Yanıt"/>
-	<string id="20103" value="İndiriliyor"/>
-	<string id="20104" value="TigerTree"/>
-	<string id="20105" value="Hashset"/>
-	<string id="20106" value="Veri"/>
-	<string id="20107" value="Meşgul"/>
-	<string id="20108" value="Sırada"/>
-	<string id="20109" value="Sıralı"/>
-	<string id="20110" value="Tanınmayan"/>
-	<string id="20111" value="Tamamlandı"/>
-	<string id="20112" value="Kökeni"/>
-	<string id="20113" value="Oynatılıyor"/>
-	<string id="20114" value="Duraklatıldı"/>
-	<string id="20115" value="Dosya Hatası"/>
-	<string id="20116" value="Oynatılamaz"/>
-	<string id="20117" value="Doğrulandı"/>
-	<string id="20118" value="Aktif"/>
-	<string id="20119" value="Bekliyor"/>
-	<string id="20120" value="Aranıyor"/>
-	<string id="20121" value="Yaratılıyor"/>
-	<string id="20122" value="Torrent"/>
-	<string id="20123" value="Tracker Servis Dışı"/>
-	<string id="20124" value="Doğrulandı"/>
-	<string id="20125" value="Doğrulanmadı"/>
-	<string id="20126" value="İlgisiz"/>
-	<string id="20127" value="İlgisiz"/>
-	<string id="20130" value="Kaynak"/>
-	<string id="20131" value="Kaynak"/>
-	<string id="20132" value="Kaynak"/>
-	<string id="20134" value="Kaynak"/>
-	<string id="20135" value="(Kaynak Yok)"/>
-	<string id="20136" value="Tıkandı"/>
-	<string id="20137" value="Sonraki"/>
-	<string id="20138" value="Q"/>
-	<string id="20200" value="Every Day"/>
-	<string id="20201" value="Pazartesi"/>
-	<string id="20202" value="Salı"/>
-	<string id="20203" value="Çarşamba"/>
-	<string id="20204" value="Perşembe"/>
-	<string id="20205" value="Cuma"/>
-	<string id="20206" value="Cumartesi"/>
-	<string id="20207" value="Pazar"/>
-	<string id="20210" value="(Beğenilmeyen)"/>
-	<string id="20211" value="Taklit / Bozuk"/>
-	<string id="20212" value="Kalitesiz"/>
-	<string id="20213" value="Ortalama"/>
-	<string id="20214" value="İyi"/>
-	<string id="20215" value="Çok İyi"/>
-	<string id="20216" value="Mükemmel"/>
-	<string id="20217" value="Geçici (temp) eDonkey/eMule dosyasını seçiniz:"/>
-	<!-- Column headers in Library Album View -->
-	<string id="20230" value="#"/> <!-- Track number -->
-	<string id="20231" value="Başlık"/>
-	<string id="20232" value="Süre"/>
-	<string id="20233" value="Bitrate"/>
-	<string id="20234" value="Albüm"/>
-	<string id="20235" value="Sanatçı"/>
-	<string id="20236" value="Reyting"/>
-	<string id="20237" value="Tamam"/>
-	<string id="20238" value="İptal"/>
-	<string id="20245" value="Yeni Klasör"/>
+	<string id="20001" value="Evet"/>
+	<string id="20002" value="Hayır"/>
+	<string id="20003" value="Tamam"/>
+	<string id="20004" value="İptal"/>
+	<string id="20005" value="&amp;Önceki"/>
+	<string id="20006" value="&amp;Sonraki"/>
+	<string id="20008" value="Kapat"/>
+	<string id="20009" value="den"/> <!-- "1 of 10" -->
+	<string id="20010" value="Tümü"/>
+	<string id="20011" value="Otomatik"/>
+	<string id="20012" value="Kişisel"/>
+	<string id="20013" value="Temel"/>
+	<string id="20014" value="Sona erdir"/>
+	<string id="20050" value="Every Day"/>
+	<string id="20051" value="Pazartesi"/>
+	<string id="20052" value="Salı"/>
+	<string id="20053" value="Çarşamba"/>
+	<string id="20054" value="Perşembe"/>
+	<string id="20055" value="Cuma"/>
+	<string id="20056" value="Cumartesi"/>
+	<string id="20057" value="Pazar"/>
+	<string id="20060" value="(Beğenilmeyen)"/>
+	<string id="20061" value="Taklit / Bozuk"/>
+	<string id="20062" value="Kalitesiz"/>
+	<string id="20063" value="Ortalama"/>
+	<string id="20064" value="İyi"/>
+	<string id="20065" value="Çok İyi"/>
+	<string id="20066" value="Mükemmel"/>
+	<string id="20080" value="Bu PeerProject'nın değiştirme öncesi programıdır ve bu beta deneme aşaması sonlanmıştır. Lütfen http://PeerProject.sourceforge.net/ adresinden programın tamamını yükleyiniz."/>
+	<string id="20081" value="&amp;Kapat"/>
+	<string id="20082" value="Bitti, Kapat'ı tıklayın"/>
+	<string id="20083" value="İsteniyor..."/>
+	<string id="20084" value="Başarılı!"/>
+	<string id="20100" value="%s'ye gözatan kullanıcı bağlantısı kapatılıyor."/>
+	<string id="20101" value="%s gözatan hostu anlaşılamayan bir yanıt verdi, kullanıcı ya da host taramalarını desteklemiyor olabilir."/>
+	<string id="20102" value="Kullanıcı hosta bağlantı yapamaz."/>
+	<string id="20103" value="Gözatan kullanıcı %s'ye bağlantı başlatamaz."/>
+	<string id="20104" value="Gözatan kullanıcı %s'ye istek gönderemez."/>
+	<string id="20105" value="Hosta bir bağlantı kuruluyor..."/>
+	<string id="20106" value="Gözatan kullanıcı %s'ye bağlantı başlatılıyor..."/>
+	<string id="20107" value="Gözatılan istek indiriliyor (%2.f%%)..."/>
+	<string id="20108" value="%s (%s) hostdan içerik alınıyor"/>
+	<string id="20109" value="%s'ye gözatan kullanıcı bağlantısı durduruldu."/>
+	<string id="20110" value="%s kullanıcı bağlantısı bitti, %i dosya bulundu."/>
+	<string id="20111" value="%i paylaşılan dosya %s'nin kütüphanesinde  bulundu."/>
+	<string id="20112" value="%s gözatan hostu %s (%s) kod ile cevap veriyor."/>
+	<string id="20113" value="%s gözatan hostu geçersiz bir HTTP yanıtıyla cevap veriyor."/>
+	<string id="20114" value="Dosya listeleme indirilemedi. Host bunu desteklemiyor olabilir."/>
+	<string id="20115" value="%s hostdan Gnutella paketlerinde şifre çözme hatası."/>
+	<string id="20116" value="İstek gönder, bağlantı için bekleniyor..."/>
+	<string id="20117" value="Gözatan kullanıcı %s'ye istek gönderdi."/>
+	<string id="20118" value="Bağlandı, isteğe gözatılıyor..."/>
+	<string id="20119" value="Gözatan kullanıcı %s'ye istek gönderdi..."/>
+	<string id="20120" value="Trafik yoğunluğundan dolayı %s kullanıcı bağlantısı kapatılıyor."/>
+	<string id="20121" value="Göz atılıyor %s"/>
+	<string id="20122" value="BitTorrent ile %s birleştirilmesi &quot;%s&quot; için doğrulandı."/>
+	<string id="20123" value="%s 'den gelen bağlantı bir BitTorrent birleşmesi, görüşülüyor..."/>
+	<string id="20124" value="BitTorrent istemcisi ile %s birleştirilmesi başlıyor..."/>
+	<string id="20125" value="%s BitTorrent istemcisi ile bağlantı zaman aşımına uğradı."/>
+	<string id="20126" value="%s ile BitTorrent birleşmesi kapatıldı."/>
+	<string id="20127" value="%s ile BitTorrent bağlantısı kapatıldı."/>
+	<string id="20128" value="%s ile BitTorrent görüşmesi %s kapatıldı."/>
+	<string id="20129" value="%s ile BitTorrent birleşmesi kabul edilmedi, bu istemciyle halihazırda bir bağlantı mevcuttur."/>
+	<string id="20130" value="%i yeni BitTorrent kaynağı %s'den alındı."/>
+	<string id="20131" value="BitTorrent ile %s birleştirilmesi yaygın bir protokoldür, &quot;%s&quot; tanındı."/>
+	<string id="20132" value="%s BitTorrent istemcisi ile anlaşma zaman aşımına uğradı."/>
+	<string id="20133" value="BitTorrent %s birleştirilmesi doğrulandı, anlaşma sağlanıyor..."/>
+	<string id="20134" value="%s ile BitTorrent birleşmesi kabul edilmedi, maksimum bağlantı sayısına erişilinmiştir."/>
+	<string id="20136" value="BitTorrent ile %s birleştirilmesi bilinmeyen bir dosya istedi."/>
+	<string id="20137" value="BitTorrent ile %s birleştirilmesi yanlış dosyayla karşılık verdi."/>
+	<string id="20138" value="BitTorrent ile %s birleştirilmesi başarılamadı çünkü uzaktaki istemci farklı bir ID ile eşleşiyor."/>
+	<string id="20139" value="BitTorrent ile %s birleştirilmesi trafik yoğunluğundan dolayı kapanıyor."/>
+	<string id="20140" value="Kodlama hatası"/>
+	<string id="20141" value="Özel (private) torrent"/>
+	<string id="20142" value="&quot;%s&quot; torrent insirme listenizde ve oluşturulamıyor."/>
+	<string id="20143" value="&quot;%s&quot;.dan bir BitTorrent paylaşım dosyasına kopyalanırken bilinmeyen bir hata meydana geldi."/>
+	<string id="20144" value="&quot;%s&quot; BitTorrent paylaşım dosyası yaratılamaz."/>
+	<string id="20145" value="&quot;%s&quot; oluşturması denenirken bilinmeyen bir hata meydana geldi."/>
+	<string id="20146" value="&quot;%s&quot; torrent dosyasında yükleme hatası. Bu geçerli bir torrent olmayabilir."/>
+	<string id="20147" value="Bu torrent &quot;%s&quot; dosyasını içerir ama PeerProject bu dosyayı kütüphanenizde bulamıyor. Mümkünse, bu dosyayı bir torrent gibi benzer klasöre taşıyın ve tekrar deneyin."/>
+	<string id="20148" value="Bu torrent %s olabilecek &quot;%s&quot; dosyasını içerir yine de versiyonunuz %s 'dir."/>
+	<string id="20149" value="&quot;%s&quot; dosyasında bir hata bulundu."/>
+	<string id="20150" value="Tracker ile iletişim kurulamaz"/>
+	<string id="20151" value="Tracker'da sorun var- Sonraki tracker deneniyor (%i toplam: %i)"/>
+	<string id="20152" value="Bu torrent için URL tracker'ını değiştirdiniz. Bu değişikliği kaydetmek istediğinize emin misiniz?\n\nGeçersiz bir URL tracker'ı daha fazla indirimi engelleyebilir."/>
+	<string id="20153" value="BitTorrent trackerdan &quot;%s&quot; için hata : &quot;%s&quot;."/>
+	<string id="20154" value="BitTorrent tracker yanıtında ayrıştırılan hata."/>
+	<string id="20155" value="BitTorrent tracker &quot;%s&quot; için yanıt aldı, %i yeni kaynak."/>
+	<string id="20158" value="&quot;%s&quot; BitTorrent dosyası almadan ayrıştırılamaz."/>
+	<string id="20159" value="BitTorrent tanımlama dosyası alındı : &quot;%s&quot;"/>
+	<string id="20160" value="%s'den gelen sohbet istek kabul edildi, anlaşılıyor..."/>
+	<string id="20161" value="%s ile bağlantı yaratılamadı."/>
+	<string id="20162" value="%s 'den sıkıştırılmış bağlantı istenemez, kullanılabilir yol yok."/>
+	<string id="20163" value="Bağlantı kapandı."/>
+	<string id="20164" value="%s bağlantısı kapandı."/>
+	<string id="20165" value="Bağlantı kuruldu, anlaşılıyor..."/>
+	<string id="20166" value="%s'e bağlanılıyor, anlaşılıyor..."/>
+	<string id="20167" value="%s ile bağlantı başlıyor..."/>
+	<string id="20168" value="Sohbet için %s'e bağlanıyor..."/>
+	<string id="20169" value="%s hostuna bağlanamaz."/>
+	<string id="20170" value="Sohbete bağlantı kaybedildi."/>
+	<string id="20171" value="%s bağlantısı kesildi."/>
+	<string id="20172" value="Anlaşma sona erdirildi, host sohbeti desteklemiyor olabilir."/>
+	<string id="20173" value="Anlaşma tamamlandı, sohbet protokol versiyonu %s."/>
+	<string id="20174" value="Bilgi profili değiştiriliyor..."/>
+	<string id="20175" value="Kullanıcı profilinizi henüz doldurmadınız.  Diğer kullanıcılarla sohbet etmeden önce bir profil sağlamalısınız.\n\nProfilinizi şimdi doldurmak ister misiniz?"/>
+	<string id="20176" value="Bağlanmadınız, mesaj gönderemezsiniz.  PeerProject bağlanmayı deniyor..."/>
+	<string id="20177" value="Henüz bir bağlantı kurulmadı, mesaj gönderemezsiniz."/>
+	<string id="20178" value="%s %s gibi biliniyor."/>
+	<string id="20179" value="%s (%s) ile sohbet ediyor."/>
+	<string id="20180" value="%s hosta aktarım önceliği verdi."/>
+	<string id="20181" value="%s uzak: %s"/>
+	<string id="20182" value="Özel konuşma onaylandı, şimdi %s ile sohbet edebilirsiniz."/>
+	<string id="20183" value="%s özel konuşmaları kabul etmiyor, üzgünüz."/>
+	<string id="20184" value="Kullanıcıyla özel konuşma isteniyor..."/>
+	<string id="20185" value="Kullanıcı doğrulandı"/>
+	<string id="20186" value="%s'den sıkıştırılmış bağlantı istendi, anlaşılıyor..."/>
+	<string id="20188" value="%s'den güvenlik duvarlı sıkıştırılmış bağlantı isteniyor..."/>
+	<string id="20190" value="Bağlantı geçersiz veri nedeniyle kurulamadı."/>
+	<string id="20191" value="Bilinmeyen yanıt alındı: %s"/>
+	<string id="20192" value="Bağlı Değildiniz."/>
+	<string id="20193" value="&quot;%s&quot; tanınmayan komut."/>
+	<string id="20194" value="Bu template'in herhangi bir kişiselleştirilmesi bulunmamaktadır."/>
+	<string id="20195" value="Bu template geçersizdir."/>
+	<string id="20199" value="(Transferden sonra kapat)"/>
+	<string id="20200" value="&quot;%s&quot; %i kaynak(lar) ile indirme sırasına eklendi."/>
+	<string id="20201" value="&quot;%s&quot; dosyası indirme edilmeye hazırlanıyor, kaynaklar ekleniyor."/>
+	<string id="20202" value="%s'den hatalı sıkıştırılmış bir bağlantı alınıyor, bağlantı kapatılıyor."/>
+	<string id="20203" value="Ayrılan genişletilmiş bant genişliği &quot;%s&quot; indirimini destekliyor."/>
+	<string id="20204" value="Host %s indirmesi meşgul, %i saniye içerisinde tekrar edilir."/>
+	<string id="20205" value="&quot;%s&quot; dan &quot;%s&quot;.a taşınamadı. Dosyanın kullanımda olup olmadığını, indirme klasörünüzün mevcut ve yazılabilir olduğunu kontrol edin."/>
+	<string id="20206" value="&quot;%s&quot; karar veremez."/>
+	<string id="20207" value="Bu gruptaki tüm indirmeleri iptal etmek/durdurmak istediğinize emin misiniz?"/>
+	<string id="20208" value="%s'e indirme bağlantısı kapatılıyor, gerekli değil."/>
+	<string id="20209" value="%s indirme hostu istenmeyen veri gönderdi, bağlantı kapatılıyor."/>
+	<string id="20210" value="&quot;%s&quot; indirme tamamlandı."/>
+	<string id="20211" value="&quot;%s&quot;.i temizlemek istediğinize emin misiniz?\n\nBir indirme, indirme penceresinden temizlendi, sonra geri alınamaz."/>
+	<string id="20212" value="Duraklatılmış tüm indirmeleri temizlemek istediğinizden emin misiniz? Bir indirme, indirme penceresinden temizlendi, geri alınamaz."/>
+	<string id="20213" value="&quot;%s&quot; indirmeyi silmek istediğinizden emin misiniz?"/>
+	<string id="20214" value="%s indirme bağlantısı kuruldu."/>
+	<string id="20215" value="%s'e baglantı %i portundan &quot;%s&quot; indirme için başlatılıyor ..."/>
+	<string id="20216" value="%s Hosta indirme için bağlanılamaz."/>
+	<string id="20217" value="%s (%s) hostundan indirme içeriği alınıyor."/>
+	<string id="20218" value="%s (%s) 'dan &quot;%s&quot;.in indirme başarısızlıkla sonuçlanıyor, ağda sorun oluştu."/>
+	<string id="20219" value="&quot;%s&quot; (%s) indirmesi için yetersiz disk alanı."/>
+	<string id="20220" value="%s indirme bağlantısı değerlendirilemedi."/>
+	<string id="20222" value="Geçersiz bir eDonkey2000 hash değeri yazdınız. Lütfen kontrol edin ve tekrar deneyin."/>
+	<string id="20224" value="Geçerli alanı silmek için enter'a basın. &quot;from&quot; alanı ilk silinecek bayt, &quot;last&quot; alanı son silinecek bayttır."/>
+	<string id="20225" value="Geçersiz bir SHA1 değeri yazdınız. Lütfen kontrol edin ve tekrar deneyin."/>
+	<string id="20226" value="Geçersiz bir tiger-tree kök değeri yazdınız. Lütfen kontrol edin ve tekrar deneyin."/>
+	<string id="20227" value="Dosya boyutunda değişiklikler yaptınız. Bu indirme için dosya boyutunu değiştirmek istediğinize emin misiniz?"/>
+	<string id="20228" value="İndirmeden seçilen alan silinemez çünkü alanın hiçbir parçası tanınmadı."/>
+	<string id="20231" value="Bu indirme ile güncel olarak birleşmiş farklı SHA1 hash  değeri sağlanır. Şimdi SHA1 hash'i değiştirmek istediğinizden amin misiniz?"/>
+	<string id="20232" value="Bu indirme ile güncel olarak birleşmiş farklı eDonkey2000 hash değeri sağlanır. Şimdi eDonkey2000 hash'i değiştirmek istediğinizden emin misiniz?"/>
+	<string id="20233" value="Bu indirme ile güncel olarak birleşmiş farklı tiger-tree hash kök değeri sağlanır.  Şimdi tiger-tree kök hash'i değiştirmek istediğinizden emin misiniz?"/>
+	<string id="20235" value="Bu indirmenin tamamlanmasını kabul edemezsiniz çünkü tiger-tree bölümü, eDonkey hashset ya da BitTorrent hashset gibi bazı veri doğrulama parçalarına sahip değilsiniz. Doğrulama bilgileri olmadan indirme gerçekleştirilemez."/>
+	<string id="20236" value="Bu indirmeyi tamamlanmış kabul etmek istediğine emin misiniz?  Bütün dosya hesaba katılacak ve PeerProject doğrulanan parçaları kabul edecek, doğrulanmayan parçalar kabul edilmeyecek."/>
+	<string id="20237" value="Seçilen indirme için bütün kaynakları kaybetmek istediğinize emin misiniz?"/>
+	<string id="20238" value="Güncel doğrulama durumlarını kaybetmek istediğinize emin misiniz? Tüm İndirme verilerine güvenilmeyecektir ve hashtrees-hashsets zulaları temizlenecektir."/>
+	<string id="20240" value="%I64i byte indirmeden silindi."/>
+	<string id="20241" value="İsim alanında değişiklikler yaptınız. Bu indirme ismini değiştirmek istediğinize emin misiniz?"/>
+	<string id="20242" value="%s indirme hostu &quot;%s&quot; dosyasına sahip değil."/>
+	<string id="20243" value="İndirme için &quot;%s&quot; dosyası yaratılıyor."/>
+	<string id="20244" value="İndirme için &quot;%s&quot; yerel dosyası yaratılamaz, başarısızlıkla sonuçlandı."/>
+	<string id="20245" value="İndirme için &quot;%s&quot; yerel dosyası açılamaz, başarısızlıkla sonuçlandı."/>
+	<string id="20246" value="Daha fazla indirme parçası bulunamadı,%s bağlantısı kapatılıyor ."/>
+	<string id="20247" value="İndirme parçaları kısaldı, %s bağlantısı kapatılıyor."/>
+	<string id="20248" value="(%I64u-%I64u) indirme parçaları &quot;%s&quot; için %s' den isteniyor."/>
+	<string id="20250" value="Drag'n'drop %s grubuna dosyaları"/>
+	<string id="20251" value="Varsayılan grup indirebilirsiniz. (Tüm dosyaları)"/>
+	<string id="20252" value="Yeni Grup"/>
+	<string id="20253" value="İndirme hostunun eDonkey2000 hashset'i tutarsız ya da bozuktur, kaynak kapatılıyor."/>
+	<string id="20254" value="%s'den geçersiz bir eDonkey2000 hashset alındı, kaynak kapatılıyor."/>
+	<string id="20255" value="&quot;%s&quot; için eDonkey2000 hashset alındı,en az %s parça doğrulanabilir.."/>
+	<string id="20256" value="%s'den &quot;%s&quot; için eDonkey2000 hashset isteniyor..."/>
+	<string id="20257" value="İndirme &quot;%s&quot; için başlangıç durumuna getirilemez."/>
+	<string id="20258" value="%s (%s)'den tiger-tree verisi alınıyor ..."/>
+	<string id="20259" value="%s'den &quot;%s&quot; için veri isteniyor..."/>
+	<string id="20260" value="İndirme Özellikleri"/>
+	<string id="20261" value="%s indirme hostu %s (%s) ile karşılandı."/>
+	<string id="20262" value="%s indirme hostu geçersiz bir HTTP yanıtıyla karşılandı."/>
+	<string id="20263" value="Host %s &quot;%s&quot; indirmesini gönderiyor, kabul ediliyor."/>
+	<string id="20264" value="&quot;%s&quot; indirmesi için istek gönderiliyor..."/>
+	<string id="20265" value="%s indirme hostu meşgul, #%i %i den durum sırasında bekliyor(&quot;%s&quot;.."/>
+	<string id="20266" value="&quot;%s&quot; için sıra bekleniyor."/>
+	<string id="20267" value="&quot;%s&quot; için %s indirme kaynağı durduruluyor çünkü %i sıra durumu çok fazla."/>
+	<string id="20268" value="&quot;%s&quot; dosyası için %s eDonkey2000 indirme hostundan güncelleme sırası zaman aşımına uğradı."/>
+	<string id="20269" value="%s indirme isteği zaman aşımına uğradı, bağlantı kapatılıyor."/>
+	<string id="20270" value="&quot;%s&quot; indirme temizlendi."/>
+	<string id="20271" value="&quot;%s&quot; dan &quot;%s&quot;.a taşındı, indirme tamamlandı."/>
+	<string id="20272" value="&quot;%s&quot; indirme duraklatılıyor."/>
+	<string id="20273" value="&quot;%s&quot; indirme sürdürülüyor."/>
+	<string id="20274" value="&quot;%s&quot; 'dan &quot;%s&quot; 'a indirmeye karar veriliyor..."/>
+	<string id="20275" value="&quot;%s&quot; indirmesi için %i bağlantısında kaynak sorgulanıyor..."/>
+	<string id="20276" value="&quot;%s&quot; indirmesi için kaynak edinemezsin çünkü ağ bağlantısı yok."/>
+	<string id="20280" value="İndirme hostunun tiger-tree verisi tutarsız ya da bozuktur, görmezlikten geliniyor."/>
+	<string id="20281" value="İndirme hostunun tiger-tree verisi beklenilen sonuca uygun değildir."/>
+	<string id="20282" value="%s indirme hostu tiger-tree isteğini karşılayamadı."/>
+	<string id="20283" value="&quot;%s&quot; için tiger-tree bölümü taşındı, %i düzeyinde, en az %s parça doğrulanabilir."/>
+	<string id="20284" value="%s(%s)'den tiger-tree bölümü alınıyor..."/>
+	<string id="20285" value="%s'den &quot;%s&quot; için tiger-tree bölümü isteniyor..."/>
+	<string id="20286" value="Trafik yoğunluğundan dolayı %s indirme bağlantısı kapatılıyor."/>
+	<string id="20290" value="%s download Hostu farklı fakat yararlı bir (%I64i-%I64i) dağılım yanıtı verdi, &quot;%s&quot;.den."/>
+	<string id="20291" value="%s'den gereksiz sıkıştırılmış bir bağlantı alınıyor."/>
+	<string id="20292" value="%s (%s) kaynağı &quot;%s&quot; (%I64i-%I64i)'in bozulan parçalarının gönderimi için  kapatılıyor."/>
+	<string id="20293" value="UYARI: indirme &quot;%s&quot; doğrulaması başarılamadı, bu indirmeyi planladığın dosya olmayabilir!"/>
+	<string id="20294" value="&quot;%s&quot; indirmenin başarıyla doğruluğu kanıtlandı."/>
+	<string id="20295" value="%s indirme hostunun &quot;%s&quot; versiyonu farklı URN'ye sahip, başarısızlıkla sonuçlandı."/>
+	<string id="20296" value="%s indirme hostu &quot;%s&quot; 'den faydasız byte dizisi ile karşılaştı, askıda."/>
+	<string id="20297" value="%s indirme hostunun &quot;%s&quot; versiyonu farklı uzunluğa sahip, başarısızlıkla sonuçlandı."/>
+	<string id="20300" value="%s portdan gelmekte olan %i bağlantısı kabul edildi."/>
+	<string id="20301" value="%s zaten bağlı ,ikinci bir bağlantı kuramazsınız."/>
+	<string id="20302" value="%s'den ikinci bağlantı reddedildi."/>
+	<string id="20303" value="%s portdan gelmekte olan %i komşu bağlantısı kabul edildi."/>
+	<string id="20304" value="Komşu %s bağlantıyı kapattı (%i : %s)."/>
+	<string id="20305" value="%s komşu ile bağlantı kapatıldı."/>
+	<string id="20306" value="%s komşu ile bağlantı kuruluyor..."/>
+	<string id="20307" value="%s'nin komşu bağlantısı kabul edilemez."/>
+	<string id="20308" value="%s komşusu ağdan düştü."/>
+	<string id="20309" value="Komşu %s ile bağlantı kapatıldı çünkü hub değil."/>
+	<string id="20310" value="%s'nin komşu bağlantısı kabul edilemez.(reddedildi)."/>
+	<string id="20311" value="%s bağlantısı için zaman bitti."/>
+	<string id="20312" value="Trafik yoğunluğundan dolayı %s komşu bağlantısı kapatılıyor."/>
+	<string id="20313" value="Keşif servisleri hostu sorgulanıyor..."/>
+	<string id="20314" value="&quot;%s&quot; keşif servisi başarısızdı, başarısızlık sayısı %i."/>
+	<string id="20315" value="&quot;%s&quot; keşif servisi %i süre başarısızdı, kaldırılıyor."/>
+	<string id="20316" value="&quot;%s&quot; keşif servisi sorgulanıyor..."/>
+	<string id="20317" value="Rasgele GWebCache'e GWebCache &quot;%s&quot; öneriliyor..."/>
+	<string id="20318" value="&quot;%s&quot; servisi GWebCache güncellemesi gönderiliyor..."/>
+	<string id="20319" value="(&quot;%s&quot;. GWebCache başarı ile iş görüyor."/>
+	<string id="20320" value="%s 'den gelen bağlantı bir eDonkey2000 istemci bağlantısıdır."/>
+	<string id="20321" value="%s (id=%x) 'den bozuk bir eDonkey2000 paketi alındı."/>
+	<string id="20322" value="eDonkey2000 istemcisinin %s bağlantısı sonuçsuz, kapatıldı."/>
+	<string id="20323" value="eDonkey2000 istemcisinin %s bağlantısı başlıyor..."/>
+	<string id="20324" value="%s eDonkey2000 istemcisi ile bağlantı zaman aşımına uğradı."/>
+	<string id="20325" value="%s 'den bağlanan eDonkey2000 istemcisi reddediliyor çünkü eDonkey2000 engellendi."/>
+	<string id="20326" value="%s eDonkey2000 istemci bağlantısı kapatıldı."/>
+	<string id="20327" value="%s eDonkey2000 istemcisi ile anlaşma değişiminde hata."/>
+	<string id="20328" value="%s eDonkey2000 istemcisi ile anlaşma zaman aşımına uğradı."/>
+	<string id="20329" value="&quot;%s&quot; için %s 'e eDonkey2000 hashset gönderiliyor..."/>
+	<string id="20330" value="%s eDonkey2000 istemcisi  yanlış GUIDa sahip, anlaşma durduruluyor."/>
+	<string id="20331" value="Bu dosya zaten PeerProject indirme listesinde."/>
+	<string id="20332" value="&quot;%s&quot; parça dosyası açılamaz."/>
+	<string id="20333" value="Dosya kopyalaması bitti."/>
+	<string id="20334" value="&quot;%s&quot; , &quot;%s&quot; 'e kopyalanıyor..."/>
+	<string id="20335" value="İndirme dosyası kopyalamak için yetersiz disk alanı."/>
+	<string id="20336" value="PeerProject indirme bölümü yaratıldı, kalan %s."/>
+	<string id="20337" value="Dosya aktarılamaz."/>
+	<string id="20338" value="İndirme veri dosyası .part dosyasından yeni, durduruluyor."/>
+	<string id="20339" value="&quot;%s&quot; bölümsel dosyası bulundu, aktarılıyor..."/>
+	<string id="20340" value="Süreç tamamlandı, %i bölümsel indirme başarıyla aktarıldı."/>
+	<string id="20341" value="Klasör taranıyor : &quot;%s&quot;..."/>
+	<string id="20342" value="eDonkey2000 bölümsel indirme aktarım süreci başlıyor..."/>
+	<string id="20344" value="%s boyutta &quot;%s&quot; indirme bulundu."/>
+	<string id="20345" value="%s eDonkey2000 sunucusna bağlanıldı, anlaşılıyor..."/>
+	<string id="20346" value="%s deki eDonkey2000 sunucusuna bağlantı başlatılıyor..."/>
+	<string id="20347" value="%s eDonkey2000 sunucusu istemci IDlerini %lu den %lu e değiştirdi."/>
+	<string id="20348" value="%s eDonkey2000 suncusu kendisini &quot;%s&quot; olarak tanıdı."/>
+	<string id="20349" value="ED2K[%s] %s"/>
+	<string id="20350" value="%s eDonkey2000 sunucusu çevrimiçi, istemci ID %lu."/>
+	<string id="20351" value="%s eDonkey2000 sunucusu bağlantıyı reddetti."/>
+	<string id="20352" value="%s eDonkey2000 sunucusu  bağlantıyı reddetti."/>
+	<string id="20354" value="Dosya Özellikleri"/>
+	<string id="20355" value="Bu filtreyi silmek istediğinize emin misiniz?"/>
+	<string id="20356" value="Filtrenin &quot;%s&quot; kadarı çağrılmıştı,  bunu değiştirmek istiyor musunuz?"/>
+	<string id="20358" value="Lütfen filtreye bir isim veriniz."/>
+	<string id="20360" value="Bağlanım hataları (%)"/>
+	<string id="20361" value="İndirme Bantgenişliği"/>
+	<string id="20362" value="İndirme Dosya Sayısı"/>
+	<string id="20363" value="İndirme Transfer Sayısı"/>
+	<string id="20364" value="Gnutella Alım Bantgenişliği"/>
+	<string id="20365" value="Gnutella Gönderim Bantgenişliği"/>
+	<string id="20366" value="Gnutella Bağlantılar (Toplam)"/>
+	<string id="20367" value="Gnutella Bağlantılar (Etkin)"/>
+	<string id="20368" value="Gnutella Paketler Durduruldu"/>
+	<string id="20369" value="Gnutella Paketler Kaybedildi"/>
+	<string id="20370" value="Gnutella Paketler Alındı"/>
+	<string id="20371" value="Gnutella Paketler Gönderildi"/>
+	<string id="20372" value="Alınan ve gönderilen Gnutella ping oranı"/>
+	<string id="20373" value="Alınan ve gönderilen Gnutella pong oranı"/>
+	<string id="20374" value="Gnutella Yerel Sorguları"/>
+	<string id="20375" value="Gnutella Paketler Yönlendirildi"/>
+	<string id="20376" value="Toplam Alım Bantgenişliği"/>
+	<string id="20377" value="Toplam Gönderim Bantgenişliği"/>
+	<string id="20378" value="Toplam TCP Alım Bantgenişliği"/>
+	<string id="20379" value="Toplam TCP Gönderim Bantgenişliği"/>
+	<string id="20380" value="Toplam UDP Alım Bantgenişliği"/>
+	<string id="20381" value="Toplam UDP Gönderim Bantgenişliği"/>
+	<string id="20382" value="Aktarım Bantgenişliği"/>
+	<string id="20384" value="Aktarım Transfer Sayısı"/>
+	<string id="20385" value="%s komşunun koruma düğümü olduğundan bağlantı geri alınıyor."/>
+	<string id="20386" value="%s ile Host arasındaki aşırı bağlantı kapatılıyor."/>
+	<string id="20387" value="Hub %s komşu bizi hub olarak kabul etmeyecek, bağlantı kapatılıyor."/>
+	<string id="20388" value="Geçersiz veri gönderiminde %s'ile uygun anlaşılama yapılamadı."/>
+	<string id="20389" value="Komşu %s hub yerine kullanıyor."/>
+	<string id="20390" value="Hub bağlantısı kuruldu, eşli bağlantılar kapatılıyor."/>
+	<string id="20391" value="%s den bağlantı kabul edilmedi, çünkü bu düğüm korunmaktadır ."/>
+	<string id="20392" value="Komşu %s hub değil, bağlantı kapatılıyor."/>
+	<string id="20393" value="Komşu %s Gnutella2 bağlantısı kapatılıyor."/>
+	<string id="20394" value="Komşu %s hub olmak istiyor, bağlantı kapatılıyor."/>
+	<string id="20395" value="Komşu %s ile Gnutella bağlantısı başarı ile kuruldu(G%i.%i : %s)."/>
+	<string id="20396" value="Komşu %s ile Gnutella2 bağlantısı başarıyla kuruldu (%s)."/>
+	<string id="20397" value="%s bağlantısı reddedildi(%s)."/>
+	<string id="20398" value="%s'de aşırı bağlantı kapatıldı."/>
+	<string id="20399" value="%s ile anlaşmanızın zamanı doldu."/>
+	<string id="20400" value="PeerProject %Iu dosyası için hash yaratıyor:"/>
+	<string id="20402" value="Ekle..."/>
+	<string id="20403" value="Kanallar"/>
+	<string id="20404" value="Sohbet:"/>
+	<string id="20405" value="Bu servisi kullanırken diğer kullanıcılara saygı göstermeniz gerektiğini unutmayın"/>
+	<string id="20406" value="PeerProject Sohbetine Hoşgeldiniz."/>
+	<string id="20407" value="Kaldır"/>
+	<string id="20408" value="Kullanıcılar"/>
+	<string id="20410" value="PeerProject kütüphanesi araştırılıyor"/>
+	<string id="20411" value="Araştırılıyor"/>
+	<string id="20412" value="%i Klasörden içerikler araştırılıyor"/>
+	<string id="20413" value="%i dosya seçildi"/>
+	<string id="20414" value="Çoklu klasörler"/>
+	<string id="20415" value="Seçili dosya yok"/>
+	<string id="20416" value="Dosya çeşidi"/>
+	<string id="20417" value="Yeni eklemeler"/>
+	<string id="20418" value="Albüm"/>
+	<string id="20419" value="Sanatçı"/>
+	<string id="20420" value="Bitrate"/>
+	<string id="20421" value="Süre"/>
+	<string id="20422" value="Reyting"/>
+	<string id="20423" value="Başlık"/>
+	<string id="20424" value="#"/> <!-- Track number -->
+	<string id="20425" value="PeerProject &quot;%s&quot; kolleksiyon dosyasını, &quot;%s&quot; klasörüne kopyalayarak yükleyemedi."/>
+	<string id="20426" value="Bu kolleksiyondaki tüm dosyaları indirmek istiyor musunuz?\n\nHer yeni istemi durdurmak istiyorsanız İptal'i seçmelisiniz."/>
+	<string id="20427" value="PeerProject kütüphanenizdeki &quot;%s&quot; dosyasını kolleksiyona ekledi."/>
+	<string id="20428" value="PeerProject bir kolleksiyon dosyası aldı:\n\n&quot;%s&quot;.\n\nBu dosya geçerli bir kolleksiyon dosyası gibi görünmüyor"/>
+	<string id="20429" value="Birşeyler indirmeye yönlendiren bu kolleksiyonları önlemek istiyor musunuz?"/>
+	<string id="20430" value="&quot;%s&quot; dosyasını atmak istediğinize emin misiniz?\n\nBazı dosyalar bilgisayarınıza zarar verebilir. Dosyayı atmadan önce ne dosyası olduğundan emin olun."/>
+	<string id="20431" value="Seçilen %i dosyasını silmek istediğinize emin misiniz? \n\n Eğer bunu seçerseniz, bu dosyalar &quot;geri dönüşüm kutusu&quot; taşınacaktır."/>
+	<string id="20432" value="PeerProject bu dosyayı silemiyor:\n\n%s"/>
+	<string id="20433" value="Henüz kütüphanenizde olmayan &quot;%s&quot; dosyalar klasörü indirildi.\n\nİndirme dosyalarınızın kütüphanenizdeki klasör içinde yer alması yeni indirmelerin gösteriminde ve yönetiminde kolaylık sağlar ve indirme gerçekleme ve otomatik güncelleme gibi PeerProject'nın ileri özelliklerine sahip olmanıza izin verir. İndirme dosyalarınızın kütüphane içine yerleştirimi ille de onları paylaştırmanı istemez: bağımsızca dosyaları paylaştıp paylaştırmayacağını seçebilirsin.\n\nKütüphanenize şimdi indirme dosyalarınızın klasörünü eklemek ister misiniz?"/>
+	<string id="20434" value="İndirme klasörleriniz kütüphanenize eklendi. Daha paylaşmak ister misiniz?"/>
+	<string id="20435" value="Sıralı dosyalar için henüz Nullsoft WinAmp gibi bir ortam oynatıcısı seçmediniz. Şimdi bir tane seçmek ister misiniz? \n\nPeerProject &quot;/EKLE&quot; butonuyla seçtiğiniz programın dosya adını kabul edecektir."/>
+	<string id="20436" value="%i seçili albüm klasörlerini(s) silmek istediğinizden emin misiniz?\n\nNot: Bu işlem album klasörü içindeki dosyaları silmez, sadece klasörlerin kendisini siler."/>
+	<string id="20437" value="Hayalet Dosya"/>
+	<string id="20438" value="%i dosyada veri yayınlanıyor."/>
+	<string id="20439" value="%i dosyada veri değiştirmek üzeresiniz, devam etmek istediğinize emin misiniz?"/>
+	<string id="20440" value="%s dosyası taşınamaz. Dosya diğer bir uygulama tarafından kullanılıyor olabilir.\n\nBu dosyanın yerine kopyasını almayı denemek ister misiniz?"/>
+	<string id="20441" value="PeerProject adını değiştiremiyor:\n\n\n%s den %s\n"/>
+	<string id="20442" value="Hedef dosya mevcut:\n\n%s\n\n Üzerine yazmak ister misiniz?"/>
+	<string id="20443" value="Tüm dosya türlerini göster"/>
+	<string id="20444" value="&amp;URI Kopyala"/>
+	<string id="20445" value="&amp;URI'leri Gönder..."/>
+	<string id="20446" value="&quot;%s&quot; dosyası bir hash test doğrulamasını başaramadı ve indirmeyi tasarladığın dosya olmayabilir. Bunu açmak istediğinden emin misin?"/>
+	<string id="20447" value="Bu dosyadan &quot;gizlilik ve tehlikeli&quot; özniteliklerini kaldırmak istiyor musunuz?"/>
+	<string id="20448" value="&quot;%s&quot; dosyası henüz taranmadı. Lütfen dosyanın taranması için bekleyin ve sonra tekrar deneyin."/>
+	<string id="20449" value="Bu seçeneklerle seçilen dosyada onaylanan ve paylaşılan bilgi için Bitzi.com tarafından sağlanan servisler kullanılır.\n\nPeerProject Bitzi veritabanı sorgu düzeninde seçilen dosyalar için SHA1 hash kod gönderecek.Eğer gizlilikle ilgileniyorsan Bitzi.com gizlilik politikasını danışmak isteyebilirsin.\n\nİlerlemek istiyor musun?"/>
+	<string id="20450" value="Seçilen klasör &quot;%s&quot; klasörünün alt klasörü, zaten kütüphanenizin parçasıdır.\nEklenen bu klasör bazı dosyaların bozulmasına neden olacaktır.\n\nDevam etmek istiyor musunuz ?"/>
+	<string id="20451" value="Oynayacak dosya yok. Kütüphanenizdeki bir ortam dosyasını oynatmak için çift-tıklın."/>
+	<string id="20452" value="Tüm ortam dosyaları|*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Oynatma Listeleri|*.asx;*.wax;*.m3u;*.wvx;*.wmx|Ses Dosyaları|*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm|Video Dosyaları|*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|CD Ses Trackleri|*.cda|MIDI Dosyalar|*.mid;*.rmi;*.midi|Tüm Dosyalar|*.*||"/>
+	<string id="20453" value="&quot;%s&quot; ortam dosyası yüklenemez"/>
+	<string id="20454" value="Bu dosya zarar görmüş olabilir ya da bunu oynatmak için gerekli codec'e sahip olmayabilirsiniz."/>
+	<string id="20455" value="Dosyanın bir parçası oynatılamadı, indirim için ek codec'e ihtiyacınız olabilir."/>
+	<string id="20456" value="Oynatma Listesi:"/>
+	<string id="20457" value="PeerProject MedyaServisleri plugin'ini desteklenemedi. Lütfen PeerProjectyı tekrar yükleyin ve zorunlu ortam codeclerinin ve çıkış sürücülerinin yüklendiğini doğrulayın."/>
+	<string id="20458" value="PeerProject Ortam Sistema"/>
+	<string id="20460" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; O &#160;&#160; R &#160;&#160; T &#160;&#160; A &#160;&#160; M &#160;&#160; &#160;&#160; S &#160;&#160; İ &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M &#160;&#160; İ"/>
+	<string id="20461" value="(Görüntü Yok)"/>
+	<!--string id="20462" value="PeerProject tamamıyla indirildi:"-->
+	<!--string id="20463" value="PeerProject indiriliyor:"-->
+	<!--string id="20464" value="PeerProject indirmeyi bırakıyor:"-->
+	<!--string id="20465" value="İndirme duraklatıldı:"-->
+	<!--string id="20466" value="PeerProject kaynak arıyor:"-->
+	<!--string id="20467" value="PeerProject hatalar için İndirmeyi konrol ediyor:"-->
+	<string id="20470" value="İptal"/>
+	<string id="20471" value="Aç"/>
+	<string id="20472" value="Tamamlandı"/>
+	<string id="20473" value="Kalan zaman değerlendirildi:"/>
+	<string id="20474" value="Yorum sayısı:"/>
+	<string id="20475" value="Kaynak numarası:"/>
+	<string id="20476" value="Kaynak yok"/>
+	<string id="20477" value="%i gün ve %i saat"/>
+	<string id="20478" value="%i saat ve %i dakika"/>
+	<string id="20479" value="%i dakika %i saniye"/>
+	<string id="20480" value="%i saniye"/>
+	<string id="20481" value="Toplam transfer hızı:"/>
+	<string id="20482" value="İndirme miktarı:"/>
+	<string id="20483" value="Aktarım miktarı:"/>
+	<string id="20484" value="Indirebilirsiniz hız sınırı"/>
+	<string id="20485" value="Upload hız sınırı"/>
+	<string id="20490" value="Çeşit"/>
+	<string id="20491" value="Çeşitli Değerler"/>
+	<string id="20494" value="Kullanıcı profilinize konumunuzu girmediniz.\n\nDiğer kullanıcıların hangi ülkeden oldugunuzu görebilmesi için konumunuzu girmeniz iyi bir fikir. Not: konumunuzu belirtmezseniz, uzlaşmış bilgi edinemezsiniz.\n\nYer belirtmeden devam etmek istediğinize emin misiniz?"/>
+	<string id="20495" value="Profilinizde takma ad girmediniz."/>
+	<string id="20496" value="Yaş ve cinsiyetinizi belirlemediniz. Bunları yapmadan devam etmek istediğinize emin misiniz?"/>
+	<string id="20499" value="Yeni Klasör"/>
+	<string id="20500" value="Başlamak için Başla butonunu tıklayınız."/>
+	<string id="20501" value="Ağa bağlanamadınız."/>
+	<string id="20502" value="Kapanıyor"/>
+	<string id="20503" value="Özet:"/>
+	<string id="20504" value="Azalt"/>
+	<string id="20505" value="Hiçbiri"/>
+	<string id="20506" value="Bağlanıyor"/>
+	<string id="20507" value="Güncel:"/>
+	<string id="20510" value="eDonkey2000 Sunucu Bağlantısı"/>
+	<string id="20511" value="eDonkey2000 (HighID)"/>
+	<string id="20512" value="eDonkey Sunucu Bağlantısı (LOWID: %lu)"/>
+	<string id="20513" value="eDonkey2000 (LowID)"/>
+	<string id="20514" value="eDonkey2000 Sunucu"/>
+	<string id="20515" value="G1 Leaf"/>
+	<string id="20516" value="G1 Eş"/>
+	<string id="20517" value="Gnutella: Peer-to-Peer Bağlantısı"/>
+	<string id="20518" value="Gnutella: Leaf-to-Ultrapeer Bağlantısı"/>
+	<string id="20519" value="Gnutella: Ultrapeer-to-Leaf Bağlantısı"/>
+	<string id="20520" value="G1 Ultrapeer"/>
+	<string id="20521" value="G2 Hub"/>
+	<string id="20522" value="G2 Leaf"/>
+	<string id="20524" value="G2 Eş"/>
+	<string id="20525" value="Gnutella2: Leaf-to-Hub Bağlantısı"/>
+	<string id="20526" value="Gnutella2: Hub-to-Hub Bağlantısı"/>
+	<string id="20527" value="Gnutella2: Hub-to-Leaf Bağlantısı"/>
+	<string id="20530" value="Anlaşma"/>
+	<string id="20531" value="Anlaşılıyor"/>
+	<string id="20532" value="Gelen"/>
+	<string id="20533" value="Giden"/>
+	<string id="20534" value="Toplam:"/>
+	<string id="20535" value="Oranı:"/>
+	<string id="20536" value="Reddedildi"/>
+	<string id="20538" value="Bilinmeyen"/>
+	<string id="20540" value="Bağlan"/>
+	<string id="20541" value="Bağlanıyor..."/>
+	<string id="20542" value="Bağlandı"/>
+	<string id="20543" value="Bağlantı Kes"/>
+	<string id="20544" value="PeerProject ağ merkezi kapatılıyor..."/>
+	<string id="20545" value="Ağdan bağlantı kesiliyor."/>
+	<string id="20546" value="Bağlantıyı kesmek istediğinize emin misiniz?"/>
+	<string id="20547" value="Gnutella2 PeerProject'nın ana ağıdır. Bunun desteği kaldırılırsa arama sonuçlarının kalitesi ve sayısı kısıtlanır. Bunu yapmak istediğinize emin misiniz?"/>
+	<string id="20548" value="Gelen bağlantılar için %s  port %i'den bağlanamaz. Gelen bağlantılar desteklenmeyecektir."/>
+	<string id="20549" value="Giden bağlantılar için karar verilemez %s. Giden bağlantılar varsayılan arayüzde kullanılır."/>
+	<string id="20550" value="Ağı etkinleştirmek için ayrılan bantgenişliği çok az."/>
+	<string id="20551" value="Güvenlik duvarı, gelen bağlantıları kabul etmiyor."/>
+	<string id="20552" value="Hub modundaki PC'niz performans ve P2P ağında karşıt efektler bulunduğu için zorlanıyor. PeerProject'nın karar vermesine izin vermek genellikle daha iyidir ya da hub modunu kullanmayınız.\n\nHub modu daha iyi arama sonuçları üretmez, sizin için üstünlük sağlamaz.\n\nDezavantajlarına rağmen bunu gerçekten yapmak istiyor musunuz?"/>
+	<string id="20553" value="%s porttan %i gelmekte olan TCP bağlantıları kabul ediliyor ."/>
+	<string id="20554" value="UDP veriler %s portdan %i kabul ediliyor."/>
+	<string id="20555" value="Giden bağlantılar %s portdan %i."/>
+	<string id="20556" value="&quot;%s&quot; host çözülemez."/>
+	<string id="20557" value="&quot;%s&quot; host çözülüyor..."/>
+	<string id="20558" value="&quot;%s&quot; için %s 'ye sorgu gönderiliyor."/>
+	<string id="20560" value="Güvenlik kuralları tarafından %s adresi engellendi."/>
+	<string id="20561" value="%s engelini güvenlik kuralı olarak ekle."/>
+	<string id="20562" value="Güvenlik yöneticisi %s'den bağlantıyı kabul etmiyor."/>
+	<string id="20563" value="Güvenlik yöneticisi %s bağlantısını engelledi."/>
+	<string id="20564" value="PeerProject ağ merkezi başlıyor..."/>
+	<string id="20565" value="Planlayıcıyı 'sadece G2' modunda işletmektesiniz. Tüm etkin ağların bağlı kalması için bu modu devre dışı bırakmak ister misiniz?"/>
+	<string id="20566" value="UPnP port açılışı 10 denemeye rağmen başarısız olmuştur."/>
+	<string id="20570" value="%s'den bozuk bir başarı sorgu paketi alındı, görmezlikten geliniyor."/>
+	<string id="20571" value="%s:  %s'den bozuk bir sorgu paketi alındı, görmezlikten geliniyor."/>
+	<string id="20572" value="Komşu %s aşırı TTL ile bir paket gönderdi, paket durduruluyor (TTL=%i, Sekme=%i)."/>
+	<string id="20573" value="Komşu %s sıfır TTL ile bir paket gönderdi, görmezlikten geliniyor."/>
+	<string id="20574" value="Komşu %s GGEP kodunda olmayan bir erişim paketi gönderdi."/>
+	<string id="20575" value="Komşu %s geçersiz bir sorgu yönlendirme tablo güncelleştirmesi gönderdi, bağlantı kesiliyor."/>
+	<string id="20576" value="Komşu %s'e sorgu yönlendirme tablosu gönderiliyor (%i bit = %lu[%i], %i%% tam)"/>
+	<string id="20577" value="Komşu %s'den beklenmedik bir sorgu yönlendirme tablo güncelleştirmesi alınıyor."/>
+	<string id="20578" value="Komşu %s sorgu yönlendirme tablosunu güncelleştirdi (%i bit = %lu[%i], %i%% tam)."/>
+	<string id="20579" value="%s -> %s [%i/%i] %s %s"/>
+	<string id="20580" value="Yeni %s komşusu sorgular gönderiyor, bağlantı kesiliyor."/>
+	<string id="20581" value="Komşu %s geçersiz uzunlukta bir ping paketi gönderdi, görmezlikten geliniyor."/>
+	<string id="20582" value="Komşu %s geçersiz uzunlukta bir pong paketi gönderdi, görmezlikten geliniyor."/>
+	<string id="20583" value="Komşu %s geçersiz uzunlukta bir sıkıştırma paketi gönderdi, görmezlikten geliniyor."/>
+	<string id="20584" value="Komşu %s büyük boyutlu bir paket gönderdi, bağlantı kesiliyor."/>
+	<string id="20585" value="Komşu %s onaylanmayan bir paket gönderdi(0x%.2x), görmezlikten geliniyor."/>
+	<string id="20586" value="Komşu %s geçersiz adres verisiyle bir pong gönderdi, görmezlikten geliniyor."/>
+	<string id="20588" value="Komşu %s güvenlik duvarına sıkıştırılmış bir istek gönderdi, görmezlikten geliniyor."/>
+	<string id="20590" value="Uzaktan erişim engellendi."/>
+	<string id="20591" value="http://%s:%i/remote - Bir kullanıcı adı ve şifresi seçmelisiniz."/>
+	<string id="20592" value="Bağlantı onaylanılamaz, URL kullanılamaz."/>
+	<string id="20595" value="&Şemalar"/>
+	<string id="20620" value="PeerProject etkin ağ arıyor..."/>
+	<string id="20621" value="Tekrar aramak için tıklayınız"/>
+	<string id="20622" value="Tüm Ağlar"/>
+	<string id="20623" value="Yeni bir arama başlatmak üzeresiniz. Arama sonucunu temizlemek ister misiniz?"/>
+	<string id="20624" value="Bu alan seçtiğiniz dosya hakkında detaylı bilgi gösterir."/>
+	<string id="20625" value="%s yazılır:"/>
+	<string id="20626" value="%s bu dosya çeşitleri:"/>
+	<string id="20627" value="Önizleme için tıklayınız"/>
+	<string id="20628" value="Önizlemede..."/>
+	<string id="20629" value="&quot;%s&quot;.dan indirme içerik önizlemesi yapılamaz ."/>
+	<string id="20630" value="%i eleştiri var."/>
+	<string id="20631" value="Bir eleştiri var."/>
+	<string id="20632" value="%i kaynak bulundu. (%s/s)"/>
+	<string id="20633" value="Tek kaynak bulundu. (%s/s)"/>
+	<string id="20634" value="Ağ henüz uygun hale gelmedi."/>
+	<string id="20635" value="Filtrenin dışında bazı sonuçlar bulundu."/>
+	<string id="20636" value="Pencerede henüz arama başlatılmadı."/>
+	<string id="20637" value="Veri Yok"/>
+	<string id="20638" value="Şema sütunu yok"/>
+	<string id="20640" value="(Arama geçmişini temizle)"/>
+	<string id="20641" value="PeerProject'da Ara"/>
+	<string id="20642" value="Dosyanın türü nedir?"/>
+	<string id="20643" value="Aranan anahtar kelimeleri yaz:"/>
+	<string id="20644" value="Uygulandı"/>
+	<string id="20645" value="Her tür dosya"/>
+	<string id="20646" value="Temizle"/>
+	<string id="20648" value="Arama panelini gizle"/>
+	<string id="20650" value="Ara"/>
+	<string id="20651" value="Aramalarınız burada:"/>
+	<string id="20652" value="Bu türdeki dosyalara bak:"/>
+	<string id="20653" value="Ağda Ara:"/>
+	<string id="20654" value="Dosya uzunluğu:"/>
+	<string id="20655" value="Olmalı:"/>
+	<string id="20656" value="Daha fazla arama"/>
+	<string id="20657" value="Arama panelini göster"/>
+	<string id="20658" value="Aramaya başla"/>
+	<string id="20659" value="Durdur"/>
+	<string id="20660" value="Dosya bulunamadı"/>
+	<string id="20661" value="%lu hub, %lu eşler"/>
+	<string id="20662" value="Geçerli arama değil"/>
+	<string id="20663" value="Sonuçlar"/>
+	<string id="20664" value="%lu dosya %lu başarılı|%lu dosya %lu başarılı|%lu dosyalar in %lu başarılı"/>
+	<string id="20665" value="Bulundu:"/>
+	<string id="20666" value="Aranıyor:"/>
+	<string id="20668" value="Aranıyor..."/>
+	<string id="20669" value="Metin Ara"/>
+	<string id="20670" value="PeerProject ağ arıyor..."/>
+	<string id="20671" value="Seçilen güvenlik kuralını silmek istediğinizden emin misiniz? Geri dönüş mümkün olmayacaktır."/>
+	<string id="20672" value="Geçici (temp) eDonkey/eMule dosyasını seçiniz:"/>
+	<string id="20673" value="Otomatik"/>
+	<string id="20674" value="Tamamlanmış ve tamamlanmamış klasörler aynı olmamalıdır"/>
+	<string id="20675" value="Windows 256 karakterden uzun dosya isimlerini desteklemez.\nLütfen kısa isim belirleyiniz."/>
+	<string id="20676" value="Tamamlanmamış dosyalar klasörü kütüphanede bulunmamalı, performansı düşürecektir. Tamamlanmamış dosyalar direkt transfer penceresinden paylaşılabilir."/>
+	<string id="20677" value="Lütfen &quot;123 kb/s&quot; kilobits saniye ya da &quot;123 KB/s&quot; kilobayt saniye olarak belirlediğiniz bantgenişliği limitinizi yazınız."/>
+	<string id="20678" value="eDonkey ağı uzun zamanla uzun sıra kullanılır. Maksimum sıra pozisyonu limitini kabul ederken dikkatli olmalısınız, indirmelere başlamak zor olabilir.\nKabul edeceğin sıra pozisyonunu kısıtlamak istediğinden emin misin?"/>
+	<string id="20680" value="PeerProject Ayarları"/>
+	<string id="20684" value=" &quot;%s&quot; arayüzünü silmek istediğinizden emin misiniz? Bu yapılamaz."/>
+	<string id="20700" value="Aktif"/>
+	<string id="20701" value="%s içeride : %s dışarıda (d:%I64i/u:%I64i)"/>
+	<string id="20702" value="Komşu(lar)ya %lu bağlandı.  %s yerel kütüphane."/>
+	<string id="20703" value="%lu komşu(lar)la Hub modu.  %s yerel kütüphane."/>
+	<string id="20704" value="%lu komşusu ile Hub/Ultrapeer mod.  %s yerel kütüphanede."/>
+	<string id="20705" value="Bağlandı. %s yerel kütüphane."/>
+	<string id="20706" value="%lu komşusu ile Ultrapeer mod. %s yerel kütüphanede."/>
+	<string id="20707" value="Ağa bağlanıyor..."/>
+	<string id="20708" value="Ağa bağlanmadı."/>
+	<string id="20710" value="(Kaynak Yok)"/>
+	<string id="20711" value="Oynatılamaz"/>
+	<string id="20712" value="Tıkandı"/>
+	<string id="20713" value="Sırada"/>
+	<string id="20714" value="Dosya Hatası"/>
+	<string id="20715" value="Hashset"/>
+	<string id="20716" value="Veri"/>
+	<string id="20717" value="Yanıt"/>
+	<string id="20718" value="Oynatılıyor"/>
+	<string id="20719" value="Yaratılıyor"/>
+	<string id="20720" value="Tamamlandı"/>
+	<string id="20721" value="Bağlanıyor"/>
+	<string id="20722" value="İndiriliyor"/>
+	<string id="20723" value="Meşgul"/>
+	<string id="20724" value="Sonraki"/>
+	<string id="20725" value="Q"/>
+	<string id="20726" value="Sıralı"/>
+	<string id="20727" value="Duraklatıldı"/>
+	<string id="20728" value="Bekliyor"/>
+	<string id="20729" value="İstekte Bulunuluyor"/>
+	<string id="20730" value="Aranıyor"/>
+	<string id="20731" value="Kökeni"/>
+	<string id="20732" value="Kaynak"/>
+	<string id="20733" value="Kaynak"/>
+	<string id="20734" value="Kaynak"/>
+	<string id="20735" value="Kaynak"/>
+	<string id="20740" value="TigerTree"/>
+	<string id="20741" value="Torrent"/>
+	<string id="20742" value="Tracker Servis Dışı"/>
+	<string id="20743" value="İlgisiz"/>
+	<string id="20744" value="Tanınmayan"/>
+	<string id="20745" value="İlgisiz"/>
+	<string id="20746" value="Doğrulanmadı"/>
+	<string id="20747" value="Doğrulandı"/>
+	<string id="20748" value="Doğrulandı"/>
+	<string id="20750" value="!PeerProject'ya Hoşgeldiniz (version) !\n.\nPeerProject tamamen özgür bir yazılımdır.\nLütfen bu programı edinim yasalarına uyarak ve güvenilir olarak kullanın.\n."/>
+	<string id="20751" value="Etkin bir arama yok. Dosya aramak için tıklayınız."/>
+	<string id="20752" value="Bağlı değilsiniz. Başlamak için Bağlan butonunu tıklayınız."/>
+	<string id="20755" value="&quot;%s&quot; template'i silmek istediğinizden emin misiniz?\nGeri dönüş mümkün olmayacaktır."/>
+	<string id="20760" value="Aktif"/>
+	<string id="20761" value="Pasif"/>
+	<string id="20762" value="Bu dosya spam gibi görünüyor."/>
+	<string id="20763" value="Karalisteye alındı:"/>
+	<string id="20764" value="Bu dosyayı daha önce indirdiniz ve sildiniz."/>
+	<string id="20765" value="Bu dosya İndirme listenizde zaten var."/>
+	<string id="20766" value="Bu dosya kütüphanenizde zaten var."/>
+	<string id="20767" value="Bu dosya için kaynaklar şimdilik meşgul"/>
+	<string id="20768" value="Bu dosya için kaynaklar güvenlik duvarı arkasında"/>
+	<string id="20769" value="Bu dosya için kaynaklar değişken olabilir"/>
+	<string id="20770" value="Klasör"/>
+	<string id="20771" value="Ulaşılanlar"/>
+	<string id="20772" value="Konum"/>
+	<string id="20773" value="Kütüphanenizden"/>
+	<string id="20774" value="N/A"/>
+	<string id="20775" value="Diğer bağlantı"/>
+	<string id="20776" value=" (Hashset yok)"/>
+	<string id="20777" value="Kısmi kaynak (%.2f%% mevcut)"/>
+	<string id="20778" value="%i aktarım programları, %i sıra bekliyor"/>
+	<string id="20780" value="Boyut"/>
+	<string id="20781" value="Kaynak şimdilik meşgul"/>
+	<string id="20782" value="Kaynak güvenlik duvarı arkasında"/>
+	<string id="20783" value="Bu kaynak değişken olabilir"/>
+	<string id="20784" value="Hız:"/>
+	<string id="20785" value="Durum:"/>
+	<string id="20786" value="%lu bugün, %lu toplam"/>
+	<string id="20787" value="Toplam dosya:"/>
+	<string id="20788" value="Toplam miktar:"/>
+	<string id="20789" value="Aktarılanlar:"/>
+	<string id="20790" value="Tür"/>
+	<string id="20791" value="Güvenliği garanti olmayan"/>
+	<string id="20792" value="Aktarılanlar"/>
+	<string id="20793" value="URL:"/>
+	<string id="20794" value="İstemci:"/>
+	<string id="20795" value="%s içeride : %s dışarıda (d:%I64i/u:%I64i/s:%I64i)"/>
+	<string id="20796" value="İnternet üzerinden paylaşılan dosyalar"/>
+	<string id="20798" value="PeerProject bi sonraki PeerProject versiyonunun (%s) İndirilmesi tamamlandı. Şimdi güncelemek ister misiniz?\n\nEvet ise, PeerProject güncelleme kurulana kadar geçici olarak kapatılacaktır."/>
+	<string id="20800" value="%s (%s) aktarım hostuna varsayılan HTML yanıtı gönderiliyor."/>
+	<string id="20801" value="%s 'den gelen bağlantı, bir HTTP aktarım isteğidir."/>
+	<string id="20802" value="%s (%s) aktarım hostu bir kullanıcı isteği gönderdi, yanıtlanıyor..."/>
+	<string id="20803" value="%s aktarım hostu kullanıcının engel listesinde, istek yok sayılıyor."/>
+	<string id="20804" value="%s'den kullanıcı isteği reddediliyor, gözat bağlantısı çok fazla."/>
+	<string id="20805" value="%s 'den kullanıcı isteği reddedildi."/>
+	<string id="20806" value="Sıradaki %s altarımı isteğini çok hızlı yineliyor, bağlantı kapatılıyor."/>
+	<string id="20807" value="Koşutzamanlı hostdan %s (%s)'ye  &quot;%s&quot; aktarımı reddediliyor."/>
+	<string id="20808" value="&quot;%s&quot; 'dan %s (%s) 'e aktarım kabul edilmiyor, meşgul ve istemci sırasını desteklemiyor."/>
+	<string id="20809" value="&quot;%s&quot;.den %s (%s)'ye aktarım reddedildi, tüm sıralar doludur."/>
+	<string id="20810" value="%s aktarım hostu &quot;%s&quot; dosyasını uygun olmayan sırada istedi."/>
+	<string id="20811" value="eDonkey2000 aktarımlarının iptal edilmemeleri önerilir. Bu aktarımı iptal etmek istediğinizden emin misiniz?"/>
+	<string id="20812" value="%s hostunda aktarım için &quot;%s&quot; açılamıyor, disk/dosya hatası."/>
+	<string id="20813" value="%s. %s 'e sıkıştırılmış bağlantı başlatılıyor"/>
+	<string id="20814" value="%s hostuna sıkıştırma için bağlantı kurulamaz."/>
+	<string id="20815" value="%I64i-%I64i oranında aktarım içeriği &quot;%s&quot;.dan, %s (%s) hostu için gönderiliyor."/>
+	<string id="20816" value="%s 'e aktarım bağlantısı kapatıldı."/>
+	<string id="20817" value="%s'ye yeni aktarım reddediliyor çünkü önceki bağlantı hala askıda."/>
+	<string id="20818" value="%s 'deki eski aktarımlar kapatılıyor çünkü yeni bağlantı yapıldı."/>
+	<string id="20819" value="%s (%s)'ye aktarım reddediliyor, ağ engellendi."/>
+	<string id="20820" value="%s'ye &quot;%s&quot; aktarımı durdu çünkü dosya silindi."/>
+	<string id="20821" value="%s hostuna &quot;%s&quot; dosyası aktarılıyor..."/>
+	<string id="20822" value="%s aktarım hostu bilinmeyen ya da ulaşılamayan &quot;%s&quot; nesnesini istedi."/>
+	<string id="20823" value="&quot;%s&quot; 'nun %s' e aktarılan parçaları tamamlandı."/>
+	<string id="20824" value="%s 'e sıkıştırılmış bağlantı kurmak için anlaşma bekleniyor..."/>
+	<string id="20825" value="%s aktarım hostu farklı SHA1 ile &quot;%s&quot; 'i istedi."/>
+	<string id="20826" value="&quot;%s&quot; 'den %s (%s) hostuna aktarım başlıkları gönderiliyor."/>
+	<string id="20827" value="%s'e &quot;%s&quot; için veri aktarılıyor."/>
+	<string id="20828" value="%s aktarım hostu geçersiz bir HTTP isteği gönderdi."/>
+	<string id="20830" value="%I64i-%I64i oranında aktarım içeriği &quot;%s&quot; dosya parçasından, %s (%s) hostu için gönderiliyor."/>
+	<string id="20832" value="%s'e &quot;%s&quot; önizleme aktarımı reddediliyor, önizleme bağlantısı çok fazla."/>
+	<string id="20833" value="%s'e aktarım için &quot;%s&quot; dinamik önizlemesi tasarlanıyor."/>
+	<string id="20834" value="%s aktarım hostu &quot;%s&quot; önizlemesini istedi, ama önizleme bulunamadı."/>
+	<string id="20835" value="%s'e &quot;%s&quot; önizlemesi aktarılıyor."/>
+	<string id="20836" value="%s'de istek reddediliyor çünkü çok fazla aktarım bağlantısı var."/>
+	<string id="20837" value="%s 'den kalan sıkıştırma isteği bilinmeyen bir dosya istedi, yine de bağlanıyor..."/>
+	<string id="20838" value="&quot;%s&quot;'in %s'a aktarımı fazla yoğun, #%i 'den %i 'ye (&quot;%s&quot;. sıralandı."/>
+	<string id="20840" value="Yeni Sıra"/>
+	<string id="20841" value="Tüm Dosyalar"/>
+	<string id="20842" value="%s'e aktarım bağlantısı kesildi, pozisyon sırası hazırlanıyor."/>
+	<string id="20844" value="eDonkey Çekirdeği"/>
+	<string id="20845" value="eDonkey Koruma"/>
+	<string id="20846" value="eDonkey Bölümleri"/>
+	<string id="20847" value="Tamamlanan Aktarımlar"/>
+	<string id="20848" value="HTTP Koruma"/>
+	<string id="20849" value="Kütüphane Dosyaları"/>
+	<string id="20850" value="Geniş Dosyalar"/>
+	<string id="20851" value="Orta Dosyalar"/>
+	<string id="20852" value="Küçük Dosyalar"/>
+	<string id="20853" value="Bölüm Dosyaları"/>
+	<string id="20854" value="Bölüm"/>
+	<string id="20855" value="Sıra"/>
+	<string id="20856" value="Torrent Aktarımları"/>
+	<string id="20857" value="%s aktarım hostu çevrimdışı sıraları sona erdirdi, kaldırılıyor."/>
+	<string id="20858" value="%s aktarım hostundan istek bekleme zaman aşımına uğradı."/>
+	<string id="20859" value="Trafik yoğunluğundan dolayı %s aktarım bağlantısı kapanıyor."/>
+	<string id="20860" value="%s'e &quot;%s&quot; için tiger-tree veri aktarılıyor."/>
+	<string id="20861" value="&quot;%s&quot; 'dan %s 'e aktarım kaldırıldı."/>
+	<string id="20862" value="Ekle"/>
+	<string id="20864" value="&amp;Gözat"/>
+	<string id="20865" value="&amp;Bağlan"/>
+	<string id="20866" value="Dosya Adı:"/>
+	<string id="20867" value="Host:"/>
+	<string id="20868" value="Port:"/>
+	<string id="20869" value="URL faaliyet diyalogu gösterilemez çünkü PeerProject meşgul."/>
+	<string id="20870" value="URL ayrıştırılamaz : PeerProject bu URL'yi anlamıyor."/>
+	<string id="20871" value="&quot;%s&quot; URL alındı"/>
+	<string id="20872" value="Tür:"/>
+	<string id="20874" value="Açıklanmayan"/>
+	<string id="20875" value="URL:"/>
+	<string id="20880" value="Profilimi Düzenle"/>
+	<string id="20881" value="Görüntü Değiştirme açıldığında pencereler kapanacaktır. Şimdi değiştirmek ister misin?"/>
+	<string id="20882" value="UPnP Cihazları Host Servisi etkin değildir. Bu hizmet cihazların kurulumu için gereklidir.\nHizmetin başlama biçimini automatiğe ayarlamanız gerekmektedir.utomatic."/>
+	<string id="20884" value="URN kullanılamaz"/>
+	<string id="20885" value="Arayüz yönetimi değiştirildiğinde yeniden başlama gerekir. \nPeerProject elle başlatmanız gerekecek. Şimdi çık?"/>
+	<string id="20890" value="PeerProject'ya Hoşgeldiniz"/>
+	<string id="20891" value="&Çıkış"/>
+	<string id="20892" value="Lütfen bekleyiniz: eDonkey sunucu listesi güncellenmektedir..."/>
+	<string id="20893" value="Lütfen bekleyiniz: Keşif servisleri güncellenmektedir..."/>
+	<string id="20894" value="Lütfen bekleyiniz: PeerProject UPnP cihazları bulmakta ve onları kurmaktatadır..."/>
+	<string id="20895" value="Henüz bir bağlantı hızı belirlemediniz. Devam etmeden önce lütfen internet bağlantı hızını ya da internet bağlantı tipini seçiniz."/>
+	<string id="20896" value="Güvenlik duvarı ya da NAT yönlendiricide port-forwarding kurmak istediğinizi belirttiniz.\n\nLütfen yerel PC'nizden TCP ve UDP %i portlara gidecek ağı yapılandırın."/>
+	<string id="20897" value="Paylaştığınız klasör başka bir paylaşım klasörünün parçasıdır:\n\n%s"/>
+	<string id="20898" value="Paylaşım için açıkça bir klasör belirtmediniz. Bundan emin misiniz?"/>
+	<string id="20899" value="Yıl"/>
+	<!--string value="Torrent Bilgisi"-->
+	<!--string value="Tracker yanıtlayamadı- Bildirim tekrar deneniyor(%i de %i)"-->
+	<!--string id="X16140" value="Komşu %s ile bağlantılar yavaş."-->
+	<!--string id="X16771" value="Kütüphanenizde zaten &quot;%s&quot; dosyası bulunmaktadır. Bu dosyayı yine de indirmek istiyor musunuz?"-->
+	<!--string id="X16801" value="Lütfen devam etmeden önce kullanacağınız internet bağlantı tipini seçiniz."-->
 </strings>
 <!-- Localized Dialog Text, "cookie" verifies that the skin matches current dialog -->
 <dialogs>
@@ -4184,8 +4186,8 @@
 		<control/>
 		<control/>
 		<control/>
-		<control caption="% under Download limit"/>
-		<control caption="% under Upload limit"/>
+		<control caption="% of Download limit"/>
+		<control caption="% of Upload limit"/>
 		<control caption="Active Task"/>
 		<control caption="Enable G2 Only"/>
 		<control caption="Set Event Time"/>

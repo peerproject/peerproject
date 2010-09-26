@@ -22,9 +22,9 @@
 #include "StdAfx.h"
 #include "PeerProject.h"
 #include "Settings.h"
+#include "Registry.h"
 #include "Schema.h"
 #include "Skin.h"
-#include "Registry.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -272,7 +272,7 @@ void CSettings::Load()
 	Add( _T("Connection"), _T("DetectConnectionLoss"), &Connection.DetectConnectionLoss, true );
 	Add( _T("Connection"), _T("DetectConnectionReset"), &Connection.DetectConnectionReset, false );
 	Add( _T("Connection"), _T("EnableFirewallException"), &Connection.EnableFirewallException, true );
-	Add( _T("Connection"), _T("EnableUPnP"), &Connection.EnableUPnP, false );
+	Add( _T("Connection"), _T("EnableUPnP"), &Connection.EnableUPnP, true );
 	Add( _T("Connection"), _T("FailureLimit"), &Connection.FailureLimit, 3, 1, 1, 512 );
 	Add( _T("Connection"), _T("FailurePenalty"), &Connection.FailurePenalty, 300, 1, 30, 3600, _T(" s") );
 	Add( _T("Connection"), _T("FirewallState"), &Connection.FirewallState, CONNECTION_AUTO, 1, CONNECTION_AUTO, CONNECTION_OPEN_UDPONLY );
@@ -281,7 +281,7 @@ void CSettings::Load()
 	Add( _T("Connection"), _T("IgnoreOwnIP"), &Connection.IgnoreOwnIP, true );
 	Add( _T("Connection"), _T("InBind"), &Connection.InBind, false );
 	Add( _T("Connection"), _T("InHost"), &Connection.InHost );
-	Add( _T("Connection"), _T("InPort"), &Connection.InPort, GNUTELLA_DEFAULT_PORT, 1, 1, 65535 );
+	Add( _T("Connection"), _T("InPort"), &Connection.InPort, GNUTELLA_ALTERNATE_PORT, 1, 1, 65535 );	// 6480... or GNUTELLA_DEFAULT_PORT 6346?
 	Add( _T("Connection"), _T("InSpeed"), &Connection.InSpeed, 2048, 25000 );
 	Add( _T("Connection"), _T("OutHost"), &Connection.OutHost );
 	Add( _T("Connection"), _T("OutSpeed"), &Connection.OutSpeed, 768, 15000 );
@@ -291,8 +291,8 @@ void CSettings::Load()
 	Add( _T("Connection"), _T("SkipWANIPSetup"), &Connection.SkipWANIPSetup, false );
 	Add( _T("Connection"), _T("SkipWANPPPSetup"), &Connection.SkipWANPPPSetup, false );
 	Add( _T("Connection"), _T("SlowConnect"), &Connection.SlowConnect, false );
-	Add( _T("Connection"), _T("TimeoutConnect"), &Connection.TimeoutConnect, 16*1000, 1000, 1, 2*60, _T(" s") );
-	Add( _T("Connection"), _T("TimeoutHandshake"), &Connection.TimeoutHandshake, 45*1000, 1000, 1, 5*60, _T(" s") );
+	Add( _T("Connection"), _T("TimeoutConnect"), &Connection.TimeoutConnect, 15*1000, 1000, 1, 2*60, _T(" s") );
+	Add( _T("Connection"), _T("TimeoutHandshake"), &Connection.TimeoutHandshake, 40*1000, 1000, 1, 5*60, _T(" s") );
 	Add( _T("Connection"), _T("TimeoutTraffic"), &Connection.TimeoutTraffic, 140*1000, 1000, 10, 60*60, _T(" s") );
 
 	Add( _T("Bandwidth"), _T("Downloads"), &Bandwidth.Downloads, 0 );
@@ -340,7 +340,7 @@ void CSettings::Load()
 	Add( _T("Gnutella"), _T("RouteCache"), &Gnutella.RouteCache, 600, 60, 1, 120, _T(" m") );
 	Add( _T("Gnutella"), _T("SpecifyProtocol"), &Gnutella.SpecifyProtocol, true );
 
-	Add( _T("Gnutella1"), _T("ClientMode"), &Gnutella1.ClientMode, MODE_LEAF, 1, MODE_AUTO, MODE_HUB );	// ToDo: MODE_LEAF only until Ultrapeer updated/validated
+	Add( _T("Gnutella1"), _T("ClientMode"), &Gnutella1.ClientMode, MODE_LEAF, 1, MODE_AUTO, MODE_HUB );	// ToDo: MODE_LEAF until Ultrapeer updated/validated
 	Add( _T("Gnutella1"), _T("DefaultTTL"), &Gnutella1.DefaultTTL, 3, 1, 1, 3 );
 	Add( _T("Gnutella1"), _T("EnableAlways"), &Gnutella1.EnableAlways, true );
 	Add( _T("Gnutella1"), _T("EnableGGEP"), &Gnutella1.EnableGGEP, true );
@@ -352,7 +352,7 @@ void CSettings::Load()
 	Add( _T("Gnutella1"), _T("MaximumTTL"), &Gnutella1.MaximumTTL, 10, 1, 1, 10 );
 	Add( _T("Gnutella1"), _T("NumHubs"), &Gnutella1.NumHubs, 3, 1, 1, 5 );
 	Add( _T("Gnutella1"), _T("NumLeafs"), &Gnutella1.NumLeafs, 50, 1, 5, 1024 );
-	Add( _T("Gnutella1"), _T("NumPeers"), &Gnutella1.NumPeers, 32, 1, 15, 64 ); // For X-Degree
+	Add( _T("Gnutella1"), _T("NumPeers"), &Gnutella1.NumPeers, 32, 1, 15, 64 );	// For X-Degree
 	Add( _T("Gnutella1"), _T("PacketBufferSize"), &Gnutella1.PacketBufferSize, 64, 1, 1, 1024, _T(" packets") );
 	Add( _T("Gnutella1"), _T("PacketBufferTime"), &Gnutella1.PacketBufferTime, 60000, 1000, 10, 180, _T(" s") );
 	Add( _T("Gnutella1"), _T("PingFlood"), &Gnutella1.PingFlood, 3000, 1000, 0, 30, _T(" s") );
@@ -362,7 +362,7 @@ void CSettings::Load()
 	Add( _T("Gnutella1"), _T("QueryHitUTF8"), &Gnutella1.QueryHitUTF8, true );
 	Add( _T("Gnutella1"), _T("QuerySearchUTF8"), &Gnutella1.QuerySearchUTF8, true );
 	Add( _T("Gnutella1"), _T("QueryThrottle"), &Gnutella1.QueryThrottle, 60, 1, 20, 30*60, _T(" s") );
-//	Add( _T("Gnutella1"), _T("QueueLimiter"), &Gnutella1.HitQueueLimit, 100 );	// Unused
+//	Add( _T("Gnutella1"), _T("QueueLimiter"), &Gnutella1.HitQueueLimit, 100 );	// Currently unused
 	Add( _T("Gnutella1"), _T("RequeryDelay"), &Gnutella1.RequeryDelay, 30, 1, 5, 60, _T(" s") );
 	Add( _T("Gnutella1"), _T("SearchTTL"), &Gnutella1.SearchTTL, 3, 1, 1, 3 );
 	Add( _T("Gnutella1"), _T("StrictPackets"), &Gnutella1.StrictPackets, false );
@@ -459,6 +459,7 @@ void CSettings::Load()
 	Add( _T("BitTorrent"), _T("PreferenceBTSources"), &BitTorrent.PreferenceBTSources, true );
 	Add( _T("BitTorrent"), _T("LinkPing"), &BitTorrent.LinkPing, 120*1000, 1000, 10, 60*10, _T(" s") );
 	Add( _T("BitTorrent"), _T("LinkTimeout"), &BitTorrent.LinkTimeout, 180*1000, 1000, 10, 60*10, _T(" s") );
+	Add( _T("BitTorrent"), _T("UtPexPeriod"), &BitTorrent.UtPexPeriod, 60*1000, 1000, 10, 60*10, _T(" s") );
 	Add( _T("BitTorrent"), _T("RandomPeriod"), &BitTorrent.RandomPeriod, 30*1000, 1000, 1, 60*5, _T(" s") );
 	Add( _T("BitTorrent"), _T("RequestLimit"), &BitTorrent.RequestLimit, 128*KiloByte, KiloByte, 1, KiloByte, _T(" KB") );
 	Add( _T("BitTorrent"), _T("RequestPipe"), &BitTorrent.RequestPipe, 4, 1, 1, 10 );
@@ -517,7 +518,7 @@ void CSettings::Load()
 	Add( _T("Downloads"), _T("VerifyED2K"), &Downloads.VerifyED2K, true );
 	Add( _T("Downloads"), _T("VerifyFiles"), &Downloads.VerifyFiles, true );
 	Add( _T("Downloads"), _T("VerifyTiger"), &Downloads.VerifyTiger, true );
-	Add( _T("Downloads"), _T("NoRandomFragments"), &Downloads.NoRandomFragments, false ); //ToDo: Streaming Download and Rarest Piece Selection
+	Add( _T("Downloads"), _T("NoRandomFragments"), &Downloads.NoRandomFragments, false );	// ToDo: Streaming Download and Rarest Piece Selection
 	Add( _T("Downloads"), _T("WebHookEnable"), &Downloads.WebHookEnable, true );
 	Add( _T("Downloads"), _T("WebHookExtensions"), &Downloads.WebHookExtensions, _T("|zip|7z|gz|rar|r0|tgz|ace|z|tar|arj|lzh|sit|hqx|fml|grs|mp3|iso|msi|exe|bin|") );
 
@@ -528,9 +529,9 @@ void CSettings::Load()
 	Add( _T("Uploads"), _T("ClampdownFloor"), &Uploads.ClampdownFloor, 8*128, 128, 0, 4096, _T(" Kb/s") );
 	Add( _T("Uploads"), _T("ClearDelay"), &Uploads.ClearDelay, 60*1000, 1000, 1, 1800, _T(" s") );
 	Add( _T("Uploads"), _T("DynamicPreviews"), &Uploads.DynamicPreviews, true );
-	Add( _T("Uploads"), _T("FairUseMode"), &Uploads.FairUseMode, false );
+	Add( _T("Uploads"), _T("FairUseMode"), &Uploads.FairUseMode, false );	// ToDo: Implement this
 	Add( _T("Uploads"), _T("FilterMask"), &Uploads.FilterMask, 0xFFFFFFFD );
-	Add( _T("Uploads"), _T("FreeBandwidthFactor"), &Uploads.FreeBandwidthFactor, 10, 1, 0, 100, _T("%") );
+	Add( _T("Uploads"), _T("FreeBandwidthFactor"), &Uploads.FreeBandwidthFactor, 8, 1, 0, 99, _T("%") );
 	Add( _T("Uploads"), _T("FreeBandwidthValue"), &Uploads.FreeBandwidthValue, 20*128, 128, 0, 4096, _T(" Kb/s") );
 	Add( _T("Uploads"), _T("HubUnshare"), &Uploads.HubUnshare, true );
 	Add( _T("Uploads"), _T("MaxPerHost"), &Uploads.MaxPerHost, 2, 1, 1, 64 );
@@ -1457,7 +1458,7 @@ const CString CSettings::SmartVolume(QWORD nVolume, int nVolumeUnits, bool bTrun
 			strVolume.Format( _T("%I64i %s"), nVolume, strUnit );
 			break;
 		}
-		else if ( nVolume < 10*KiloByte )				// 10 Kilobits - KiloBytes
+		else if ( nVolume < 10*KiloByte )			// 10 Kilobits - KiloBytes
 		{
 			if ( ! bTruncate )
 				strTruncate = _T("%.2f");

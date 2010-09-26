@@ -1198,9 +1198,11 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<type extension="flv"/>
 		<type extension="gvi"/>
 		<type extension="ivf"/>
+		<type extension="hdmov"/>
 		<type extension="m2p"/>
 		<type extension="m2ts"/>
 		<type extension="m2v"/>
+		<type extension="m4v"/>
 		<type extension="mkv"/>
 		<type extension="mov"/>
 		<type extension="mp4"/>
@@ -1209,15 +1211,17 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<type extension="mpg"/>
 		<type extension="nsv"/>
 		<type extension="ogm"/>
+		<type extension="ogv"/>
 		<type extension="qt"/>
-		<type extension="ram"/>
 		<type extension="ratdvd"/>
+		<type extension="ram"/>
 		<type extension="rm"/>
 		<type extension="rmvb"/>
 		<type extension="swf"/>
 		<type extension="vob"/>
 		<type extension="wm"/>
 		<type extension="wmv"/>
+		<type extension="webm"/>
 		<type extension="xvid"/>
 	</typeFilter>
 

@@ -65,7 +65,7 @@ WizardSmallImageFile=Installer\Res\CornerLogo.bmp
 ShowComponentSizes=no
 ChangesAssociations=yes
 ChangesEnvironment=yes
-OutputManifestFile=Manifest_{#ConfigurationName}{#PlatformName}.txt
+OutputManifestFile=Manifest ({#ConfigurationName} {#PlatformName}).txt
 MinVersion=0,5.0
 #if PlatformName == "x64"
   ArchitecturesAllowed=x64
@@ -78,7 +78,7 @@ SourceDir=..\..
 VersionInfoVersion={#version}
 VersionInfoDescription={#Description}
 AppPublisher={#Publisher}
-AppCopyright=Copyright © {#Publisher}. All rights reserved.
+AppCopyright=© PeerProject Development Team
 
 ; Links to website for software panel
 AppPublisherURL=http://PeerProject.org
@@ -122,9 +122,6 @@ Source: "Services\zlibwapi-x64.dll"; DestDir: "{app}\Plugins"; DestName: "zlibwa
 
 ; HashLib
 Source: "HashLib\{#ConfigurationName} {#PlatformName}\HashLib.dll"; DestDir: "{app}"; DestName: "HashLib.dll"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
-
-; RegExp
-;Source: "Services\RegExp\{#ConfigurationName} {#PlatformName}\RegExp.dll"; DestDir: "{app}"; DestName: "RegExp.dll"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
 
 ; SQLite
 Source: "Services\SQLite\{#ConfigurationName} {#PlatformName}\SQLite.dll"; DestDir: "{app}"; DestName: "SQLite.dll"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
@@ -198,7 +195,7 @@ Source: "Services\BugTrap\dbghelp.dll"; DestDir: "{sys}"; DestName: "dbghelp.dll
 ; == Include Files ==
 
 ; Main Data Files
-Source: "Data\*"; DestDir: "{app}\Data"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Excludes: ".svn,*.bak,*.url,GPL*,WorldGPS.xml"
+Source: "Data\*"; DestDir: "{app}\Data"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Excludes: ".svn,*.bak,*.bak.*,GPL*,WorldGPS.xml"
 
 ; Schemas
 Source: "Schemas\*"; DestDir: "{app}\Schemas"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Excludes: ".svn,*.bak,ReadMe.txt,PeerTags.*,SchemaDescriptor.*"

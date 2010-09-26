@@ -32,6 +32,7 @@
 #include "DlgDonkeyServers.h"
 #include "DlgURLCopy.h"
 #include "LiveList.h"
+//#include "Flags.h"
 #include "Skin.h"
 #include "Colors.h"
 #include "CoolInterface.h"
@@ -106,13 +107,12 @@ int CHostCacheWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_wndToolBar.SetBarStyle( m_wndToolBar.GetBarStyle() | CBRS_TOOLTIPS | CBRS_BORDER_TOP );
 
 	m_wndList.Create( WS_VISIBLE|LVS_ICON|LVS_AUTOARRANGE|LVS_REPORT|LVS_SHOWSELALWAYS,
-		rectDefault, this, IDC_HOSTS,
+		rectDefault, this, IDC_HOSTS, 11
 #ifdef _DEBUG
-		14
-#else
-		11
+		+ 3	// Additional debug columns
 #endif
 		);
+
 	m_pSizer.Attach( &m_wndList );
 
 	CBitmap bmImages;
@@ -124,9 +124,24 @@ int CHostCacheWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_gdiImageList.Create( 16, 16, ILC_COLOR24|ILC_MASK, 7, 1 ) ||
 	m_gdiImageList.Create( 16, 16, ILC_COLOR16|ILC_MASK, 7, 1 );
 	m_gdiImageList.Add( &bmImages, RGB( 0, 255, 0 ) );
-	m_wndList.SetImageList( &m_gdiImageList, LVSIL_SMALL );
 
-	m_wndList.SetExtendedStyle( LVS_EX_DOUBLEBUFFER|LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP|LVS_EX_LABELTIP );
+//	// Merge protocols and flags in one image list
+//	const int nImages = m_gdiImageList.GetImageCount();
+//	const int nFlags  = Flags.m_pImage.GetImageCount();
+//	VERIFY( m_gdiImageList.SetImageCount( nImages + nFlags ) );
+//	for ( int nFlag = 0 ; nFlag < nFlags ; nFlag++ )
+//	{
+//		if ( HICON hIcon = Flags.m_pImage.ExtractIcon( nFlag ) )
+//		{
+//			VERIFY( m_gdiImageList.Replace( nImages + nFlag, hIcon ) != -1 );
+//			VERIFY( DestroyIcon( hIcon ) );
+//		}
+//	}
+
+	m_wndList.SetImageList( &m_gdiImageList, LVSIL_SMALL );
+	bmImages.DeleteObject();
+
+	m_wndList.SetExtendedStyle( LVS_EX_DOUBLEBUFFER|LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP|LVS_EX_LABELTIP );	//LVS_EX_SUBITEMIMAGES
 	m_wndList.InsertColumn( 0, _T("Address"), LVCFMT_LEFT, 140, -1 );
 	m_wndList.InsertColumn( 1, _T("Port"), LVCFMT_CENTER, 60, 0 );
 	m_wndList.InsertColumn( 2, _T("Client"), LVCFMT_CENTER, 100, 1 );
@@ -136,12 +151,12 @@ int CHostCacheWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_wndList.InsertColumn( 6, _T("Description"), LVCFMT_LEFT, 130, 5 );
 	m_wndList.InsertColumn( 7, _T("CurUsers"), LVCFMT_CENTER, 60, 6 );
 	m_wndList.InsertColumn( 8, _T("MaxUsers"), LVCFMT_CENTER, 60, 7 );
-	m_wndList.InsertColumn( 9, _T("Failures"), LVCFMT_CENTER, 60, 7 );
-	m_wndList.InsertColumn( 10, _T("Country"), LVCFMT_LEFT, 40, 10 );
+	m_wndList.InsertColumn( 9, _T("Failures"), LVCFMT_CENTER, 60, 8 );
+	m_wndList.InsertColumn( 10, _T("Country"), LVCFMT_LEFT, 40, 12 );
 #ifdef _DEBUG
-	m_wndList.InsertColumn( 11, _T("Key"), LVCFMT_RIGHT, 0, 7 );
-	m_wndList.InsertColumn( 12, _T("Query"), LVCFMT_RIGHT, 0, 8 );
-	m_wndList.InsertColumn( 13, _T("Ack"), LVCFMT_RIGHT, 0, 9 );
+	m_wndList.InsertColumn( 11, _T("Key"), LVCFMT_RIGHT, 0, 9 );
+	m_wndList.InsertColumn( 12, _T("Query"), LVCFMT_RIGHT, 0, 10 );
+	m_wndList.InsertColumn( 13, _T("Ack"), LVCFMT_RIGHT, 0, 11 );
 #endif
 	m_wndList.SetFont( &theApp.m_gdiFont );
 
@@ -177,11 +192,10 @@ void CHostCacheWnd::Update(BOOL bForce)
 	if ( ! oLock.Lock( 100 ) ) return;
 
 	m_nCookie = pCache->m_nCookie;
-	int nProtocolRev = m_gdiImageList.GetImageCount() - 1;
 
 	for ( CHostCacheIterator i = pCache->Begin() ; i != pCache->End() ; ++i )
 	{
-		CHostCacheHost* pHost = (*i);
+		CHostCacheHostPtr pHost = (*i);
 
 		if ( m_nMode == PROTOCOL_NULL )
 		{
@@ -190,8 +204,8 @@ void CHostCacheWnd::Update(BOOL bForce)
 
 		CLiveItem* pItem = m_wndList.Add( pHost );
 
-		pItem->SetImage( Settings.General.LanguageRTL ?
-			nProtocolRev - pHost->m_nProtocol : pHost->m_nProtocol );
+		pItem->m_nImage = pHost->m_nProtocol;
+		//pItem->SetImage( &m_wndList, (int)pHost, 0, ( Settings.General.LanguageRTL ? PROTOCOL_LAST - pHost->m_nProtocol - 1 : pHost->m_nProtocol ) );
 		pItem->SetMaskOverlay( pHost->m_bPriority );
 
 		pItem->Set( 0, CString( inet_ntoa( pHost->m_pAddress ) ) );
@@ -217,15 +231,20 @@ void CHostCacheWnd::Update(BOOL bForce)
 		{
 			pTime = (time_t)pHost->m_nDailyUptime;
 			pItem->Set( 4, pTime.Format( _T("%H:%M:%S") ) );
-
 		}
 		pItem->Set( 5, pHost->m_sName );
 		pItem->Set( 6, pHost->m_sDescription );
 
 		if ( pHost->m_nUserCount ) pItem->Format( 7, _T("%u"), pHost->m_nUserCount );
 		if ( pHost->m_nUserLimit ) pItem->Format( 8, _T("%u"), pHost->m_nUserLimit );
-		if ( pHost->m_nFailures ) pItem->Format( 9, _T("%u"), pHost->m_nFailures );
-		if ( pHost->m_sCountry ) pItem->Set( 10, pHost->m_sCountry );
+		if ( pHost->m_nFailures )  pItem->Format( 9, _T("%u"), pHost->m_nFailures );
+		if ( pHost->m_sCountry )
+		{
+			pItem->Set( 10, pHost->m_sCountry );
+		//	int nFlagIndex = Flags.GetFlagIndex( pHost->m_sCountry );
+		//	if ( nFlagIndex >= 0 )
+		//		pItem->SetImage( &m_wndList, (int)pHost, 10, PROTOCOL_LAST + nFlagIndex );
+		}
 #ifdef _DEBUG
 		if ( pHost->m_nKeyValue ) pItem->Format( 11, _T("%u"), pHost->m_nKeyValue);
 		if ( pHost->m_tQuery ) pItem->Format( 12, _T("%u"), pHost->m_tQuery );
@@ -238,11 +257,11 @@ void CHostCacheWnd::Update(BOOL bForce)
 	tLastUpdate = GetTickCount();				// Update timer
 }
 
-CHostCacheHost* CHostCacheWnd::GetItem(int nItem)
+CHostCacheHostPtr CHostCacheWnd::GetItem(int nItem)
 {
 	if ( m_wndList.GetItemState( nItem, LVIS_SELECTED ) )
 	{
-		CHostCacheHost* pHost = (CHostCacheHost*)m_wndList.GetItemData( nItem );
+		CHostCacheHostPtr pHost = (CHostCacheHostPtr)m_wndList.GetItemData( nItem );
 		if ( HostCache.Check( pHost ) ) return pHost;
 	}
 
@@ -260,13 +279,25 @@ void CHostCacheWnd::OnSkinChange()
 
 	for ( int nImage = 1 ; nImage < 6 ; nImage++ )
 	{
-		HICON hIcon = CoolInterface.ExtractIcon( (UINT)protocolCmdMap[ nImage ].commandID, FALSE );
-		if ( hIcon )
+		if ( HICON hIcon = CoolInterface.ExtractIcon( (UINT)protocolCmdMap[ nImage ].commandID, FALSE ) )
 		{
 			m_gdiImageList.Replace( nImage, hIcon );
 			DestroyIcon( hIcon );
 		}
 	}
+
+//	const int nImages = m_gdiImageList.GetImageCount();
+//	const int nFlags  = Flags.m_pImage.GetImageCount();
+//	for ( int nFlag = 0 ; nFlag < nFlags ; nFlag++ )
+//	{
+//		if ( HICON hIcon = Flags.m_pImage.ExtractIcon( nFlag ) )
+//		{
+//			VERIFY( m_gdiImageList.Replace( nImages + nFlag, hIcon ) != -1 );
+//			VERIFY( DestroyIcon( hIcon ) );
+//		}
+//	}
+
+	m_wndList.SetImageList( &m_gdiImageList, LVSIL_SMALL );
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -285,16 +316,15 @@ void CHostCacheWnd::OnTimer(UINT_PTR nIDEvent)
 	{
 		PROTOCOLID nEffective = m_nMode ? m_nMode : PROTOCOL_G2;
 
-		if ( ( nEffective != PROTOCOL_G1 ) && ( nEffective != PROTOCOL_G2 ) &&
-			( nEffective != PROTOCOL_ED2K ) && ( nEffective != PROTOCOL_BT) &&
-			( nEffective != PROTOCOL_KAD ) )
+		if ( nEffective != PROTOCOL_G1 && nEffective != PROTOCOL_G2 &&
+			nEffective != PROTOCOL_ED2K && nEffective != PROTOCOL_BT &&	nEffective != PROTOCOL_KAD )
 			nEffective = PROTOCOL_G2;
 
 		CHostCacheList* pCache = HostCache.ForProtocol( nEffective );
 		DWORD tTicks = GetTickCount();
 
 		// Wait 10 seconds before refreshing; do not force updates
-		if ( ( pCache->m_nCookie != m_nCookie ) && ( ( tTicks - tLastUpdate ) > 10000 ) )
+		if ( pCache->m_nCookie != m_nCookie && ( tTicks - tLastUpdate ) > 10000 )
 			Update();
 	}
 }
@@ -344,7 +374,7 @@ void CHostCacheWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 
 void CHostCacheWnd::OnNcMouseMove(UINT /*nHitTest*/, CPoint /*point*/)
 {
-	// do not update for at least 5 sec while mouse is moving ouside host cache window
+	// Do not update for at least 5 sec while mouse is moving ouside host cache window
 	m_bAllowUpdates = FALSE;
 }
 
@@ -370,7 +400,7 @@ void CHostCacheWnd::OnHostCacheConnect()
 		while ( pos )
 		{
 			int nItem = m_wndList.GetNextSelectedItem( pos );
-			if ( CHostCacheHost* pHost = GetItem( nItem ) )
+			if ( CHostCacheHostPtr pHost = GetItem( nItem ) )
 				pHost->ConnectTo();
 		}
 	}
@@ -394,7 +424,7 @@ void CHostCacheWnd::OnUpdateHostCacheDisconnect(CCmdUI* pCmdUI)
 		while ( pos )
 		{
 			int nItem = m_wndList.GetNextSelectedItem( pos );
-			if ( CHostCacheHost* pHost = GetItem( nItem ) )
+			if ( CHostCacheHostPtr pHost = GetItem( nItem ) )
 			{
 				CNeighbour* pNeighbour = Neighbours.Get( pHost->m_pAddress );
 				if ( pNeighbour )
@@ -426,7 +456,7 @@ void CHostCacheWnd::OnHostCacheDisconnect()
 		while ( pos )
 		{
 			int nItem = m_wndList.GetNextSelectedItem( pos );
-			if ( CHostCacheHost* pHost = GetItem( nItem ) )
+			if ( CHostCacheHostPtr pHost = GetItem( nItem ) )
 			{
 				CNeighbour* pNeighbour = Neighbours.Get( pHost->m_pAddress );
 				if ( pNeighbour )
@@ -453,7 +483,7 @@ void CHostCacheWnd::OnUpdateHostcachePriority(CCmdUI* pCmdUI)
 	while ( pos )
 	{
 		int nItem = m_wndList.GetNextSelectedItem( pos );
-		if ( CHostCacheHost* pHost = GetItem( nItem ) )
+		if ( CHostCacheHostPtr pHost = GetItem( nItem ) )
 		{
 			if ( pHost->m_bPriority )
 			{
@@ -477,7 +507,7 @@ void CHostCacheWnd::OnHostcachePriority()
 	while ( pos )
 	{
 		int nItem = m_wndList.GetNextSelectedItem( pos );
-		if ( CHostCacheHost* pHost = GetItem( nItem ) )
+		if ( CHostCacheHostPtr pHost = GetItem( nItem ) )
 			pHost->m_bPriority = ! pHost->m_bPriority;
 	}
 
@@ -498,7 +528,7 @@ void CHostCacheWnd::OnNeighboursCopy()
 
 	CString strURL;
 
-	CHostCacheHost* pHost = GetItem( m_wndList.GetNextItem( -1, LVNI_SELECTED ) );
+	CHostCacheHostPtr pHost = GetItem( m_wndList.GetNextItem( -1, LVNI_SELECTED ) );
 	if ( ! pHost ) return;
 
 	if ( pHost->m_nProtocol == PROTOCOL_G1 || pHost->m_nProtocol == PROTOCOL_G2 )
@@ -533,7 +563,7 @@ void CHostCacheWnd::OnHostCacheRemove()
 	while ( pos )
 	{
 		int nItem = m_wndList.GetNextSelectedItem( pos );
-		if ( CHostCacheHost* pHost = GetItem( nItem ) )
+		if ( CHostCacheHostPtr pHost = GetItem( nItem ) )
 			HostCache.Remove( pHost );
 	}
 
@@ -641,7 +671,7 @@ BOOL CHostCacheWnd::PreTranslateMessage(MSG* pMsg)
 {
 	if ( pMsg->message == WM_TIMER )
 	{
-		// switch updates when window is inactive
+		// Switch updates when window is inactive
 		m_bAllowUpdates = IsActive();
 	}
 	else if ( pMsg->message == WM_KEYDOWN )
@@ -666,6 +696,7 @@ BOOL CHostCacheWnd::PreTranslateMessage(MSG* pMsg)
 	{
 		m_bAllowUpdates = FALSE;
 	}
+
 	return CPanelWnd::PreTranslateMessage( pMsg );
 }
 

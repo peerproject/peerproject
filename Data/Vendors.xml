@@ -125,6 +125,11 @@
 		<capability name="ed2k"/>
 	</vendor>
 
+	<vendor code="FSCP">
+		<title>Filescope</title>
+		<link>http://www.Filescope.com/</link>
+	</vendor>
+
 	<vendor code="FOXY">
 		<title>Foxy</title>
 		<link>http://www.gofoxy.net/</link>
@@ -208,10 +213,6 @@
 		<capability name="chatFlag"/>
 	</vendor>
 
-	<vendor code="JOET">
-		<title>Joetella</title>
-	</vendor>
-
 	<vendor code="LIME">
 		<title>LimeWire</title>
 		<link>http://www.limewire.com/</link>
@@ -293,6 +294,16 @@
 	<vendor code="QTEL">
 		<title>Qtella</title>
 		<link>http://qtella.sourceforge.net/</link>
+	</vendor>
+
+	<vendor code="QAZA">
+		<title>Quazaa</title>
+		<link>http://quazaa.sourceforge.net/</link>
+	</vendor>
+
+	<vendor code="QAZB">
+		<title>Quazaa Beta</title>
+		<link>http://quazaa.sourceforge.net/</link>
 	</vendor>
 
 	<vendor code="SHLN">

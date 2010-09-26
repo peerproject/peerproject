@@ -48,6 +48,7 @@ private:
 	CLibraryTreeItem*	m_pSelFirst;
 	CLibraryTreeItem*	m_pSelLast;
 	CLibraryTreeItem*	m_pFocus;
+	void*				m_pFocusObject[ 2 ];	// Last focused object in each view
 	BOOL				m_bDrag;
 	CPoint				m_ptDrag;
 	CLibraryTreeItem*	m_pDropItem;
@@ -70,7 +71,7 @@ public:
 	CLibraryTreeItem*	HitTest(const POINT& point, RECT* pRect = NULL) const;
 	BOOL				GetRect(CLibraryTreeItem* pItem, RECT* pRect);
 	void				SetVirtual(BOOL bVirtual);
-	void				Update(DWORD nSelectCookie);
+	BOOL				Update(DWORD nSelectCookie);
 	BOOL				SelectFolder(LPVOID pSearch);
 
 protected:
@@ -87,8 +88,8 @@ protected:
 	void				StartDragging(CPoint& ptMouse);
 	void				NotifySelection();
 	void				PostUpdate();
-	void				UpdatePhysical(DWORD nSelectCookie);
-	void				UpdateVirtual(DWORD nSelectCookie);
+	BOOL				UpdatePhysical(DWORD nSelectCookie);
+	BOOL				UpdateVirtual(DWORD nSelectCookie);
 	BOOL				Update(CLibraryFolder* pFolder, CLibraryTreeItem* pItem, CLibraryTreeItem* pParent, BOOL bVisible, BOOL bShared, DWORD nCleanCookie, DWORD nSelectCookie, BOOL bRecurse);
 	BOOL				Update(CAlbumFolder* pFolder, CLibraryTreeItem* pItem, CLibraryTreeItem* pParent, BOOL bVisible, DWORD nCleanCookie, DWORD nSelectCookie);
 

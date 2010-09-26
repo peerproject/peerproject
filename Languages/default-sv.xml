@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Swedish Skin File -->
 
-<!-- Translation based on default-en.xml r58 -->
+<!-- Translation based on default-en.xml r59 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -373,6 +373,8 @@
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Inställningar"/>
 	</toolbar>
+	<!-- SECURITY WINDOW Missing -->
+	<!-- SCHEDULER WINDOW Missing -->
 	<!-- HIT MONITOR WINDOW -->
 	<toolbar name="CHitMonitorWnd">
 		<button id="ID_SEARCH_DOWNLOAD" text="Ladda ned"/>
@@ -1649,7 +1651,7 @@
 		<anchor id="Header" width="32" height="152"/>
 		<newline gap="0"/>
 		<group id="1">
-			<icon res="130" width="32" height="32" target="command:ID_NETWORK_CONNECT"/><gap size="8"/>
+			<icon res="136" width="32" height="32" target="command:ID_NETWORK_CONNECT"/><gap size="8"/>
 			<heading align="middle">BLI ANSLUTEN</heading>
 			<newline gap="8" indent="42"/>
 			<text>Welcome to PeerProject!</text>
@@ -1659,12 +1661,12 @@
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="2">
-			<icon res="134" width="32" height="32" target="command:ID_TAB_SEARCH"/><gap size="8"/>
+			<icon res="130" width="32" height="32" target="command:ID_TAB_SEARCH"/><gap size="8"/>
 			<heading align="middle">SÖK HÄR</heading>
 			<newline gap="8" indent="42"/>
 			<anchor id="SearchBox" width="256" height="80"/>
 			<newline gap="14" indent="0"/>
-			<icon res="136" width="32" height="32" target="command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
+			<icon res="124" width="32" height="32" target="command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
 			<heading align="middle">START NEDLADDAD</heading>
 			<newline gap="8" indent="42"/>
 			<link target="command:ID_TOOLS_DOWNLOAD" format="bu">Klicka här för att starta</link>
@@ -1684,7 +1686,7 @@
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="4">
-			<icon res="252" width="32" height="32" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
+			<icon res="180" width="32" height="32" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 			<heading align="middle">VARNING: DU ÄR BAKOM BRANDVÄGG</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">PeerProject har detekterat att du är bakom en NAT-router eller en brandvägg,
@@ -1695,7 +1697,7 @@
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="6">
-			<icon res="252" width="32" height="32"/><gap size="8"/>
+			<icon res="180" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">VARNING: DIN TCP PORT ÄR BLOCKERAD</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">PeerProject har upptäckt att du sitter bakom en NAT router eller brandvägg,
@@ -1706,7 +1708,7 @@
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="7">
-			<icon res="252" width="32" height="32"/><gap size="8"/>
+			<icon res="180" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">VARNING: DIN UDP PORT ÄR BLOCKERAD</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">PeerProject har upptäckt att du sitter bakom en NAT router eller brandvägg,
@@ -1719,24 +1721,24 @@
 		<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">ANPASSA PEERPROJECT</heading>
 		<newline gap="12" indent="42"/>
-		<icon res="182" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
+		<icon res="196"width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
 		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">Skinn</link>
 		<text align="middle">&#160;- Ändra PeerProjects utseende &amp; känsla</text>
 		<newline gap="8"/>
-		<icon res="141" width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
+		<icon res="138"width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
 		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
 		<text align="middle">&#160;- Update blocklist to avoid bad search results</text>
 		<newline gap="8"/>
-		<icon res="317" width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
+		<icon res="197"width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 		<link target="command:ID_TOOLS_WIZARD" align="middle">Inställningsguide</link>
 		<text align="middle">&#160;- Ändra PeerProjectinställningar</text>
 		<newline gap="8"/>
-		<icon res="147" width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
+		<icon res="182"width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
 		<link target="command:ID_HELP_FAQ" align="middle">Snabbhjälp</link>
 		<text align="middle">&#160;- Få grundläggande hjälp om PeerProject, or </text>
 		<link target="command:ID_TAB_IRC" align="middle">IRC.</link>
 		<newline gap="8"/>
-		<icon res="175" width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
+		<icon res="201"width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
 		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">Local Forums</link>
 		<text align="middle">&#160;- Gå till din svenska språket diskussionsforum</text>
 		<newline gap="18" indent="0"/>
@@ -1954,32 +1956,32 @@
 		</group>
 		<group id="40">
 			<newline gap="1"/>
-			<icon res="265"/><gap size="5"/>
+			<icon res="203"/><gap size="5"/>
 			<link id="ContactEmail" align="middle"/>
 		</group>
 		<group id="44">
 			<newline gap="1"/>
-			<icon res="1008"/><gap size="5"/>
+			<icon res="206"/><gap size="5"/>
 			<link id="ContactMSN"/>
 		</group>
 		<group id="41">
 			<newline gap="1"/>
-			<icon res="206"/><gap size="5"/>
+			<icon res="208"/><gap size="5"/>
 			<link id="ContactYahoo"/>
 		</group>
 		<group id="42">
 			<newline gap="1"/>
-			<icon res="208"/><gap size="5"/>
+			<icon res="205"/><gap size="5"/>
 			<link id="ContactICQ"/>
 		</group>
 		<group id="43">
 			<newline gap="1"/>
-			<icon res="207"/><gap size="5"/>
+			<icon res="204"/><gap size="5"/>
 			<link id="ContactAOL"/>
 		</group>
 		<group id="45">
 			<newline gap="1"/>
-			<icon res="207"/><gap size="5"/>
+			<icon res="204"/><gap size="5"/>
 			<link id="ContactJabber"/>
 		</group>
 		<group id="5">
@@ -2005,7 +2007,7 @@
 			<newline gap="16" indent="0"/>
 			<text format="b">Gemenskap</text>
 			<newline gap="4" indent="8"/>
-			<icon res="140" target="command:ID_SEARCH_CHAT"/>
+			<icon res="127"target="command:ID_SEARCH_CHAT"/>
 			<gap size="5"/>
 			<link target="command:ID_SEARCH_CHAT" align="middle">Chatta med användaren</link>
 		</group>
@@ -2584,720 +2586,720 @@
 <!-- Localized Strings -->
 <strings>
 	<string id="WINDOW_MAIN" value="PeerProject"/>
+	<string id="WINDOW_HOME" value="PeerProjects hem"/>
 	<string id="WINDOW_SYSTEM" value="System"/>
 	<string id="WINDOW_NEIGHBOURS" value="Grannar"/>
 	<string id="WINDOW_PACKET" value="Paketdump"/>
 	<string id="WINDOW_HOSTCACHE" value="Värdcache"/>
-	<string id="WINDOW_SEARCHMONITOR" value="Sökmonitor"/>
 	<string id="WINDOW_SEARCH" value="Sök"/>
+	<string id="WINDOW_SEARCHPAD" value="Sök"/>
+	<string id="WINDOW_SEARCHMONITOR" value="Sökmonitor"/>
 	<string id="WINDOW_HITMONITOR" value="Träffmonitor"/>
 	<string id="WINDOW_DOWNLOADS" value="Nedladdningar"/>
-	<string id="WINDOW_LIBRARY" value="Bibliotek"/>
 	<string id="WINDOW_UPLOADS" value="Uppladdningar"/>
+	<string id="WINDOW_LIBRARY" value="Bibliotek"/>
 	<string id="WINDOW_TRAFFIC" value="Diagram"/>
 	<string id="WINDOW_CHAT" value="Chatt"/>
 	<string id="WINDOW_SECURITY" value="Säkerhet"/>
+	<string id="WINDOW_SCHEDULER" value="Schemaläggaren"/>
 	<string id="WINDOW_DISCOVERY" value="Upptäckstjänster"/>
 	<string id="WINDOW_BROWSEHOST" value="Visa värdens filer"/>
-	<string id="WINDOW_HOME" value="PeerProjects hem"/>
 	<string id="WINDOW_MEDIA" value="Mediaspelare"/>
-	<string id="WINDOW_SEARCHPAD" value="Sök"/>
 	<string id="WINDOW_HELP" value="Hjälp för PeerProject"/>
-	<string id="7000" value="Är du säker på att du vill radera detta filter ?"/>
-	<string id="7001" value="&amp;Scheman"/>
-	<string id="7002" value="Flera värden"/>
-	<string id="7003" value="Flera"/>
-	<string id="7004" value="Det finns redan ett filter som heter &quot;%s&quot;, vill du ersätta det?"/>
-	<string id="7005" value="Ge ditt filter ett namn."/>
-	<string id="7100" value="Denna mall är ogiltig."/>
-	<string id="7101" value="Denna mall är inte anpassad."/>
-	<string id="7102" value="Är du säker på att du vill radera &quot;%s&quot; mallen?\n Du kan inte ångra det senare."/>
-	<string id="8000" value="Inställningar"/>
-	<string id="8001" value="Välkommen till PeerProject"/>
-	<string id="8002" value="Filegenskaper"/>
-	<string id="8003" value="Redigera min profil"/>
-	<string id="8004" value="!Välkommen till PeerProject (version) !\n.\nPeerProject är fullständigt fri mjukvara.\nAnvänd den med förstånd och respektera upphovsrätten.\n."/>
-	<string id="8005" value="(stänger efter överföringar)"/>
-	<string id="8006" value="Du är inte ansluten. Klicka på Anslut för att börja."/>
-	<string id="8007" value="Det finns inga aktiva sökningar. Klicka här för att söka efter filer."/>
-	<string id="8008" value="PeerProject har fullständigt laddad ned PeerProject version (%s). Vill du uppgradera nu?\n\nOm du väljer Ja kommer PeerProject stängas tillfälligt och uppgraderingen kommer att installeras.."/>
-	<string id="8009" value="Är du säker på att du vill radera skinnet &quot;%s&quot;? Detta kan inte ångras."/>
-	<string id="8010" value="Detta är en förhandsversion av PeerProject och förhandstestningen har avslutats. Ladda ned en fullständig officiell version från www.shareaza.com."/>
-	<string id="8011" value="Vid vyändring stängs alla öppna fönster. Vill du ändra vy nu?"/>
-	<string id="8012" value="Torrentinformation"/>
-	<string id="8060" value="Nav/Ultralikeläge med %lu grannar. %s i ditt lokala bibliotek."/>
-	<string id="8061" value="Ultralikeläge med %lu grannar. %s i ditt lokala bibliotek."/>
-	<string id="8062" value="Navläge med %lu grannar. %s i ditt lokala bibliotek."/>
-	<string id="8063" value="Ansluten. %s i ditt lokala bibliotek."/>
-	<string id="8064" value="Ansluten till %lu grannar. %s i ditt lokala bibliotek."/>
-	<string id="8065" value="Ansluter till nätverket…"/>
-	<string id="8066" value="Ej ansluten till nätverket."/>
-	<string id="8067" value="%s in : %s ut (d:%I64i/u:%I64i)"/>
-	<string id="8068" value="%s in : %s ut (d:%I64i/u:%I64i/s:%I64i)"/>
-	<string id="8069" value="Anslut"/>
-	<string id="8070" value="Ansluter…"/>
-	<string id="8071" value="Ansluten"/>
-	<string id="8072" value="Ej ansluten"/>
-	<string id="8096" value="Dessa ytor visar mer information om filer du har valt."/>
-	<string id="8097" value="En källa är tillgänglig. (%s/s)"/>
-	<string id="8098" value="%i källor är tillgängliga. (%s/s)"/>
-	<string id="8099" value="Det finns en recension."/>
-	<string id="8100" value="Det finns %i recensioner."/>
-	<string id="8101" value="%s skriver:"/>
-	<string id="8102" value="%s betygsätter denna fil:"/>
-	<string id="8103" value="Klicka för att förhandsvisa"/>
-	<string id="8104" value="Förhandsvisar…"/>
-	<string id="8105" value="Kan inte ladda ned förhandsvisningsinnehåll från &quot;%s&quot;."/>
-	<string id="8128" value="Klicka här för att söka igen."/>
-	<string id="8129" value="Inga sökningar har blivit startade i detta fönster ännu."/>
-	<string id="8130" value="PeerProject söker på nätverket…"/>
-	<string id="8131" value="Nätverket har inte returnerat några träffar ännu."/>
-	<string id="8132" value="Resultat finns tillgängligt men är bortfiltrerat."/>
-	<string id="8133" value="PeerProject söker aktivt på nätverket…"/>
-	<string id="8134" value="Du är på väg att starta en ny sökning. Vill du rensa resultatet från den föregående sökningen?"/>
-	<string id="8135" value="Ingen metadata"/>
-	<string id="8136" value="Ren textsökning"/>
-	<string id="8137" value="Ingen schemakolumn"/>
-	<string id="8141" value="Visa sökpanelen"/>
-	<string id="8142" value="Dölj sökpanelen"/>
-	<string id="8143" value="Söker…"/>
-	<string id="8144" value="Starta sökning"/>
-	<string id="8145" value="Sök mer"/>
-	<string id="8146" value="Stopp"/>
-	<string id="8147" value="Valfri filtyp"/>
-	<string id="8148" value="Skriv din sökning här:"/>
-	<string id="8149" value="Sök efter filer av denna typ:"/>
-	<string id="8150" value="Söker:"/>
-	<string id="8151" value="Hittat:"/>
-	<string id="8152" value="%lu nav, %lu löv"/>
-	<string id="8153" value="Ingen sökning för närvarande"/>
-	<string id="8154" value="Inga filer funna"/>
-	<string id="8155" value="%lu fil i %lu träff|%lu fil i %lu träffar|%lu filer i %lu träffar"/>
-	<string id="8156" value="Sök"/>
-	<string id="8157" value="Resultat"/>
-	<string id="8158" value="Rensa"/>
-	<string id="8159" value="Avancerat…"/>
-	<string id="8160" value="Upprättar en anslutning till värd…"/>
-	<string id="8161" value="En anslutningsbegäran är skickad, väntar på anslutning…"/>
-	<string id="8162" value="Ansluten, begär filbläddring…"/>
-	<string id="8163" value="Laddar ned bläddringssvar (%2.f%%)…"/>
-	<string id="8164" value="Kan inte ansluta till värden för att visa användarens filer."/>
-	<string id="8165" value="Kan inte ladda ned fillista. Värden kanske inte stödjer funktionen."/>
-	<string id="8166" value="Nätverk:"/>
-	<string id="8167" value="Alla nätverk"/>
-	<string id="8176" value="Sök PeerProject"/>
-	<string id="8177" value="Skriv några nyckelord att söka efter:"/>
-	<string id="8178" value="Vad är det för filtyp?"/>
-	<string id="8179" value="(Rensa sökhistorik)"/>
-	<string id="8180" value="Storleken Min:"/>
-	<string id="8181" value="Storleken Max:"/>
-	<string id="8208" value="PeerProject granskar %Iu filer:"/>
-<!--	<string id="8221" value="PeerProject söker efter källor för:"/>
-	<string id="8222" value="PeerProject laddar ned:"/>
-	<string id="8223" value="Denna nedladdning är pausad:"/>
-	<string id="8224" value="PeerProject flyttar nedladdningen:"/>
-	<string id="8225" value="PeerProject kontrollerar nedladdningen efter fil:"/>
-	<string id="8226" value="PeerProject har fullständigt laddat ned:"/>
--->	<string id="8227" value="%i dagar och %i timmar"/>
-	<string id="8228" value="%i timmar och %i minuter"/>
-	<string id="8229" value="%i minuter och %i sekunder"/>
-	<string id="8230" value="%i sekunder"/>
-	<string id="8231" value="Inga källor"/>
-	<string id="8232" value="Öppna"/>
-	<string id="8233" value="Avbryt"/>
-	<string id="8235" value="Total överföringsfart:"/>
-	<string id="8236" value="Beräknad återstående tid:"/>
-	<string id="8237" value="Nedladdad volym:"/>
-	<string id="8238" value="Uppladdad volym:"/>
-	<string id="8239" value="Färdig"/>
-	<string id="8240" value="Antal källor:"/>
-	<string id="8241" value="Antal recensioner:"/>
-	<string id="8244" value="Begränsa nedladdningshastighet"/>
-	<string id="8245" value="Begränsa uppladdningshastighet"/>
-	<string id="8288" value="Utforska ditt PeerProjectbibliotek"/>
-	<string id="8289" value="Utforskar"/>
-	<string id="8290" value="Utforskar innehåller av %i mappar"/>
-	<string id="8291" value="Flera mappar"/>
-	<string id="8292" value="%i filer valda"/>
-	<string id="8293" value="Inga filer valda"/>
-	<string id="8294" value="Färska tillägg"/>
-	<string id="8295" value="Betygsätt denna fil"/>
-	<string id="8304" value="Ej tillgänglig"/>
-	<string id="8306" value="Plats"/>
-	<string id="8307" value="Typ"/>
-	<string id="8308" value="Storlek"/>
-	<string id="8309" value="Ofullständig källa (%.2f%% tillgängligt)"/>
-	<string id="8310" value="%i uppladdningsöppningar, %i kölagda"/>
-	<string id="8311" value="Du har redan denna fil i ditt bibliotek."/>
-	<string id="8312" value="Du har redan denna fil i din nedladdningslista."/>
-	<string id="8313" value="Denna fil verkar vara spam."/>
-	<string id="8314" value="Du har laddat ned och raderat denna fil förut."/>
-	<string id="8315" value="Svartlistad:"/>
-	<string id="8316" value="Träffar"/>
-	<string id="8317" value="Uppladdningar"/>
-	<string id="8318" value="%lu idag, %lu totalt"/>
-	<string id="8319" value="Uppladdningar:"/>
-	<string id="8320" value="Status:"/>
-	<string id="8321" value="Hastighet:"/>
-	<string id="8322" value="URL:"/>
-	<string id="8323" value="Användarprogram:"/>
-	<string id="8324" value="Inaktiv"/>
-	<string id="8325" value="Aktiv"/>
-	<string id="8326" value="Nästa i rad"/>
-	<string id="8327" value="Totalt antal filer:"/>
-	<string id="8328" value="Total volym:"/>
-	<string id="8329" value="av ditt bibliotek"/>
-	<string id="8330" value="Mapp"/>
-	<string id="8331" value="Den hr källan är upptagen"/>
-	<string id="8332" value="Den här källan sitter bakom en brandvägg"/>
-	<string id="8333" value="Den här källan är instabil"/>
-	<string id="8334" value="Källor för den här filen är upptagna"/>
-	<string id="8335" value="Källor för den här filen sitter bakom brandvägg"/>
-	<string id="8336" value="Källor för den här filen är instabila"/>
-	<string id="8337" value="Opålitlig"/>
-	<string id="8338" value="Ingen hashset"/>
-	<string id="13000" value="Filer delade över Internet"/>
-	<string id="13001" value="Är du säker p å att du vill radera de valda säkerhetsreglerna? Detta kan inte ångras."/>
-	<string id="16063" value="UPnP portmapping misslyckades efter 10 försök."/>
-	<string id="16064" value="Startar PeerProjects nätverkskärna…"/>
-	<string id="16065" value="Kan inte binda till %s port %i för inkommande anslutningar. Inkommande anslutningar kommer inte att stödjas."/>
-	<string id="16066" value="Stänger ned PeerProjects nätverkskärna…"/>
-	<string id="16067" value="Ej ansluten till nätverket."/>
-	<string id="16068" value="Accepterar inkommande TCP-anslutningar på %s port %i."/>
-	<string id="16069" value="Utgående anslutningar kommer att göras från %s port %i."/>
-	<string id="16070" value="Kan inte hämta %s för utgående anslutningar. Utgående anslutningar kommer att använda det förvalda gränsnittet."/>
-	<string id="16071" value="Bakom brandvägg, kan inte acceptera inkommande anslutningar."/>
-	<string id="16072" value="Lyssnar efter UDP-datagram på %s port %i."/>
-	<string id="16073" value="Hämtar värd &quot;%s&quot;…"/>
-	<string id="16074" value="Kan inte hämta värd &quot;%s&quot;."/>
-	<string id="16075" value="Säkerhetshanteraren nekade åtkomst från %s."/>
-	<string id="16076" value="Säkerhetshanteraren stängde av åtkomst från %s."/>
-	<string id="16077" value="Adressen %s är redan blockerad av dina säkerhetsregler."/>
-	<string id="16078" value="Lade till säkerhetsregel för att blockera %s."/>
-	<string id="16079" value="Är du säker på att du vill koppla ifrån?"/>
-	<string id="16081" value="Skickar begäran om &quot;%s&quot; till %s."/>
-	<string id="16083" value="Att tvinga din PC till navläge kan skada prestandan på fildelningsnätverket. Det är vanligtvis bättre att låta PeerProject bestämma om navläge ska användas eller inte.\n\nNavläge ger INTE bättre sökresultat eller några andra föredelar för dig.\n\nVill du verkligen göra detta trots dessa nackdelar?"/>
-	<string id="16085" value="Gnutella2 är PeerProjects primära nätverk. Avstängning av stöd för det kan drastiskt minska både mängden och kvaliteten på sökresultat. Är du SÄKER på att du vill göra detta?"/>
-	<string id="16087" value="Din utgående bandbredd är för låg för att använda detta nätverk"/>
-	<string id="16128" value="Accepterade en inkommande anslutning från %s port %i."/>
-	<string id="16129" value="Initierar en grannanslutning till %s port %i…"/>
-	<string id="16130" value="Kan inte initiera grannanslutning till %s."/>
-	<string id="16131" value="Tidsavbrott vid anslutning till %s."/>
-	<string id="16132" value="Stänger anslutning till grannen %s p.g.a. bristande trafik."/>
-	<string id="16133" value="Upprättade en anslutning till grannen %s, skakar hand…"/>
-	<string id="16134" value="Stängde anslutningen till grannen %s."/>
-	<string id="16135" value="Kan inte initiera en grannanslutning till %s (nekad)."/>
-	<string id="16136" value="Grannen %s släppte oväntat anslutningen."/>
-	<string id="16137" value="Vägrar dubbel anslutning från %s."/>
-	<string id="16138" value="Redan ansluten till %s, kommer inte upprätta en andra anslutning."/>
-	<string id="16139" value="Grannen %s stängde anslutningen (%i : %s)."/>
-	<string id="16141" value="Stängde anslutningen till grannen %s eftersom den inte är ett nav."/>
-	<string id="16144" value="Tidsavbrott vid handskakning med %s."/>
-	<string id="16145" value="Gnutellaanslutning med grannen %s upprättad framgångsrikt (G%i.%i : %s)."/>
-	<string id="16146" value="Handskaking med %s misslyckades p.g.a. felaktig data på linjen."/>
-	<string id="16147" value="Stänger överflödig anslutning från %s med värdtips (%s port %i)."/>
-	<string id="16148" value="Anslutning till %s nekad (%s)."/>
-	<string id="16150" value="Stänger överflöding anslutning från %s."/>
-	<string id="16151" value="Nekar anslutning från %s eftersom det är en avskärmad lövnod."/>
-	<string id="16152" value="Navgranne %s vill inte acceptera oss som nav, stänger anslutning."/>
-	<string id="16153" value="Anslutande granne %s byter till skyddat lövläge."/>
-	<string id="16154" value="Navanslutning upprättad, stänger klientanslutningar."/>
-	<string id="16155" value="Beter sig som ett nav för lövgranne %s."/>
-	<string id="16156" value="Grannen %s vill vara ett nav, stänger anslutning."/>
-	<string id="16157" value="Grannen %s är inte ett nav, stänger anslutning."/>
-	<string id="16158" value="Gnutella2-anslutning med grannen %s upprättad fullständigt (%s)."/>
-	<string id="16159" value="Stänger anslutning till ej-Gnutella2-granne %s."/>
-	<string id="16192" value="Grannen %s skickade ett paket med för stor storlek, släpper anslutning."/>
-	<string id="16193" value="Grannen %s skickade ett paket med noll TTL, ignorerar."/>
-	<string id="16194" value="Grannen %s skickade ett paket med för stor TTL, släpper paket (TTL=%i, Hops=%i)."/>
-	<string id="16195" value="Grannen %s skickade ett pingpaket med en felaktig längd, ignorerar."/>
-	<string id="16196" value="Grannen %s skickade ett pongpaket med felaktig längd, ignorerar."/>
-	<string id="16197" value="%s -> %s [%i/%i] %s %s"/>
-	<string id="16198" value="Lövgranne %s skickar vidare förfrågor, släpper anslutning."/>
-	<string id="16199" value="Grannen %s skickade vidare ett felaktigt paket (0x%.2x), ignorerar."/>
-	<string id="16200" value="Grannen %s skickade ett pongpaket med en felaktig adress, ignorerar."/>
-	<string id="16201" value="%s:  Tog emot en felformaterad frågepaket från %s, ignorerar."/>
-	<string id="16202" value="Tog emot ett felformaterat frågeträffpaket från %s, ignorerar."/>
-	<string id="16203" value="Grannen %s skickade ett paket för anslutningsbegämed felaktig längd, ignorerar."/>
-	<string id="16208" value="Tog emot en oväntad uppdatering för frågerotuingtabell från grannen %s."/>
-	<string id="16209" value="Grannen %s skickade en felaktig uppdatering för frågeroutingtabell, släpper anslutning."/>
-	<string id="16210" value="Grannen %s uppdaterade sin frågerotuingtabell (%i bitar = %lu[%i], %i%% full)."/>
-	<string id="16211" value="Grannen %s skickade vidare en anslutningsbegäran till en adress bakom brandvägg, ignorerar."/>
-	<string id="16212" value="Grannen %s skickade vidare ett utökat paket som inte är GGEP-kodat."/>
-	<string id="16213" value="Skickar frågeroutingtabell till grannen %s (%i bitar = %lu[%i], %i%% full)"/>
-	<string id="16254" value="Standard nedladdning grupp. (Visa alla filer)"/>
-	<string id="16255" value="Dra och släpp filer till %s gruppen"/>
-	<string id="16256" value="Lade till &quot;%s&quot; till nedladdningslistan med %i källor."/>
-	<string id="16257" value="Fullständig nedladdning av &quot;%s&quot;."/>
-	<string id="16258" value="Gör paus i nedladdning av &quot;%s&quot;."/>
-	<string id="16259" value="Återupptar nedladdning av &quot;%s&quot;."/>
-	<string id="16260" value="Rensade nedladdning &quot;%s&quot;."/>
-	<string id="16261" value="Skapade fil &quot;%s&quot; för nedladdning."/>
-	<string id="16262" value="Kan inte skapa lokal fil &quot;%s&quot; för nedladdning, avbryter."/>
-	<string id="16263" value="Kan inte öppna lokal fil &quot;%s&quot; för nedladdning, avbryter."/>
-	<string id="16264" value="Initierar en anslutning till %s port %i för nedladdning av &quot;%s&quot;…"/>
-	<string id="16265" value="Kan inte ansluta till nedladdningsvärd %s."/>
-	<string id="16266" value="Nedladdningsanslutning till %s upprättad."/>
-	<string id="16267" value="Begär nedladdningsframent (%I64u-%I64u) av &quot;%s&quot; från %s."/>
-	<string id="16268" value="Inga fler nedladdningsfragment, stänger anslutning till %s."/>
-	<string id="16269" value="Fragment förkortad, stänger anslutning till %s."/>
-	<string id="16270" value="Tidsavbrott vid nedladdningsbegäran till %s, stänger anslutning."/>
-	<string id="16271" value="Stänger nedladdningsanslutning %s p.g.a. bristande trafik."/>
-	<string id="16272" value="Nedladdningsvärd %s har inte filen &quot;%s&quot;."/>
-	<string id="16273" value="Nedladdningsvärd %s svarade med ett felaktigt HTTP-svar."/>
-	<string id="16274" value="Nedladdningsvärd %s svarade med %s (%s)"/>
-	<string id="16275" value="Nedladdningsvärd %ss version av &quot;%s&quot; har en annan URN, avbryter."/>
-	<string id="16276" value="Nedladdningsvärd %ss version av &quot;%s&quot; har en annan längd, avbryter."/>
-	<string id="16277" value="Nedladdningsvärd %s svarade med ett oanvändbart byteområde &quot;%s&quot; avvaktar"/>
-	<string id="16278" value="Nedladdningsanslutning till %s förlorades."/>
-	<string id="16279" value="Mottar nedladdningsinnehåll från värd %s (%s)."/>
-	<string id="16280" value="Nedladdningsvärd %s är upptagen, försöker igen om %i sekunder."/>
-	<string id="16281" value="Är du säker på att du vill rensa &quot;%s&quot;?\n\nNär en nedladdning blivit rensad från nedladdningsfönstret kan den inte återupptas senare."/>
-	<string id="16282" value="Avbryter nedladdning av &quot;%s&quot; från %s (%s), nätverk avstängt."/>
-	<string id="16283" value="Filen &quot;%s&quot; laddas redan ned, lägger till källor."/>
-	<string id="16284" value="Mottog en felaktig anslutningsbegäran från %s, stänger anslutning."/>
-	<string id="16285" value="Mottog en ofullständig anslutningsbegäran från %s."/>
-	<string id="16286" value="Värd %s begär anslutningsbegäran för nedladdning av &quot;%s&quot;, accepterar."/>
-	<string id="16287" value="Kan inte hämta fler källor för nedladdning av &quot;%s&quot; eftersom det inte finns någon nätverksanslutning."/>
-	<string id="16288" value="Efterfrågar fler källor för nedladdning av &quot;%s&quot; på %i anslutningar.."/>
-	<string id="16289" value="Skickar anslutningsbegäran för nedladdning av &quot;%s&quot;…"/>
-	<string id="16290" value="Nedladdningsvärd %s svarade med ett annat, men användbart omfång (%I64i-%I64i) av &quot;%s&quot;."/>
-	<string id="16291" value="Flyttade &quot;%s&quot; till &quot;%s&quot;, nedladdning klar."/>
-	<string id="16292" value="Kan inte flytta nedladdning &quot;%s&quot; till &quot;%s&quot;. Kontrollera att filen inte används och att nedladdningsmappen existerar och är skrivbar."/>
-	<string id="16293" value="Hämtar &quot;%s&quot; för nedladdning av &quot;%s&quot;…"/>
-	<string id="16294" value="Kan inte hämta &quot;%s&quot;."/>
-	<string id="16295" value="Ökar bandbredden för nedladdning av &quot;%s&quot; genom att ta bort bandbreddsbegränsning."/>
-	<string id="16296" value="Framgångsrik verifiering av nedladdning &quot;%s&quot;."/>
-	<string id="16297" value="VARNING: Verifiering av nedladdning &quot;%s&quot; misslyckades, det kanske inte är den fil du ville ha!"/>
-	<string id="16298" value="Nedladdningsvärd %s är upptagen, väntar i kö som nummer #%i av %i (&quot;%s&quot;)."/>
-	<string id="16299" value="Är du säker på att du vill rensa alla pausade nedladdningar? När en nedladdning har blivit rensad från nedladdningsfönstret kan den inte återupptas senare."/>
-	<string id="16300" value="Är du säker på att du vill radera nedladdningen av &quot;%s&quot;?"/>
-	<string id="16301" value="Efterfrågar tiger-tree-volym för &quot;%s&quot; från %s…"/>
-	<string id="16302" value="Nedladdningsvärd %s kan inte tillfredsställa din tiger-tree-begäran."/>
-	<string id="16303" value="Tar emot tiger-tree-volym från %s (%s)…"/>
-	<string id="16304" value="Nedladdning av värdens tiger-tree-data är felaktig, ignorerar den."/>
-	<string id="16305" value="Nedladdning av värdens tiger-tree matchar inte det väntade rotvärdet."/>
-	<string id="16306" value="Mottog tiger-tree-volym för &quot;%s&quot;, %i nivåer, minsta verifierbara stycke %s."/>
-	<string id="16307" value="Stänger nedladdningsanslutning till %s, inge längre behövd."/>
-	<string id="16308" value="Nedladdningsvärd %s skickade oombedd data, stänger anslutning."/>
-	<string id="16309" value="Efterfrågar metadata för &quot;%s&quot; från %s…"/>
-	<string id="16310" value="Mottar tiger-tree-data från %s (%s)…"/>
-	<string id="16311" value="Efterfrågar Donkey2000 hashset för &quot;%s&quot; från %s…"/>
-	<string id="16312" value="Mottog en felaktig eDonkey hashset från %s, släpper källa."/>
-	<string id="16313" value="Mottog eDonkey hashset för &quot;%s&quot;, minsta verifierbara stycke %s."/>
-	<string id="16314" value="Nedladdningsvärdens Donkey2000 hashset är felaktig, släpper källa."/>
-	<string id="16315" value="Kan inte initera uppblåsning för nedladdning av &quot;%s&quot;."/>
-	<string id="16316" value="Tidsavbrott vid väntar på köuppdatering från eDonkey nedladdningsvärd %s för fil &quot;%s&quot;."/>
-	<string id="16317" value="Stannar i kö &quot;%s&quot;."/>
-	<string id="16318" value="Otillräckligt diskutrymme för nedladdning &quot;%s&quot; (%s)."/>
-	<string id="16319" value="Släpper källa %s (%s) för sändning av felaktiga delar av &quot;%s&quot; (%I64i-%I64i)."/>
-	<string id="16320" value="Uppladdningsvärd %s skickade en felaktig HTTP-fråga."/>
-	<string id="16321" value="Initierar en anslutningsbegäran till %s. %s"/>
-	<string id="16322" value="Kan inte ansluta till värd %s för anslutningsbegäran."/>
-	<string id="16323" value="Uppladdningsanslutning till %s stängdes."/>
-	<string id="16324" value="Tidsavbrott vid väntan på begäran från uppladdningsvärd %s."/>
-	<string id="16325" value="Uppladdningsvärd %s begärde ett okänt eller otillgängligt objekt &quot;%s&quot;."/>
-	<string id="16326" value="Uppladdningsvärd %s begärde &quot;%s&quot; med ett annat SHA1."/>
-	<string id="16327" value="Vägrar uppladdning av &quot;%s&quot; till %s (%s), upptagen och klienten stödjer inte köläggning."/>
-	<string id="16328" value="Anslutningsbegäran till %s upprättad, väntar på handskakning…"/>
-	<string id="16329" value="Kan inte öppna &quot;%s&quot; för uppladdning till värd %s, disk- eller filfel."/>
-	<string id="16330" value="Skickar uppladdningsinnehåll med omfånget %I64i-%I64i från &quot;%s&quot; till värd %s (%s)."/>
-	<string id="16331" value="Slutförde uppladdning av del av &quot;%s&quot; till %s."/>
-	<string id="16332" value="Inkommande anslutning från %s är en HTTP-uppladdningsbegäran."/>
-	<string id="16333" value="För upptagen med att ladda upp &quot;%s&quot; till %s, kölagd som #%i av %i (&quot;%s&quot;)."/>
-	<string id="16334" value="Nedärvd anslutningsbegäran från %s begärde en okänd fil, ansluter ändå…"/>
-	<string id="16335" value="Raderade uppladdning av &quot;%s&quot; till %s."/>
-	<string id="16336" value="Uppladdningsvärd %s använder ett blockerat användarprogram, nekar begäran."/>
-	<string id="16337" value="Skickar uppladdningshuvuden från &quot;%s&quot; till värd %s (%s)."/>
-	<string id="16338" value="Uppladdningsvärd %s begärde ett otillfredställbart omfång från fil &quot;%s&quot;."/>
-	<string id="16339" value="Skickar förvalt HTML-svar till uppladdningsvärd %s (%s)."/>
-	<string id="16340" value="Nekade begäran om fillistning från %s."/>
-	<string id="16341" value="Uppladdningsvärd %s (%s) begärde fillistning, svarar…"/>
-	<string id="16342" value="Stänger uppladdningsanslutning från %s p.g.a. bristande trafik."/>
-	<string id="16343" value="Stänger äldre uppladdning av %s eftersom den har skapat en ny anslutning."/>
-	<string id="16344" value="Vägrar en ny uppladdning till %s eftersom en tidigare anslutning är i avvaktan."/>
-	<string id="16345" value="Stoppade uppladdning av &quot;%s&quot; till %s eftersom filen raderades."/>
-	<string id="16346" value="Skickar uppladdningsinnehåll med om fånget %I64i-%I64i från ofullständig fil &quot;%s&quot; till värd %s (%s)."/>
-	<string id="16347" value="Kölagd uppladdning %s begär för ofta, stänger anslutning."/>
-	<string id="16348" value="Vägrar anslutningsbegäran till %s eftersom den har för många uppladdningsanslutningar."/>
-	<string id="16349" value="Uppladdar tiger-tree-data för &quot;%s&quot; till %s."/>
-	<string id="16350" value="Uppladdar metadata för &quot;%s&quot; till %s."/>
-	<string id="16351" value="Vägrar uppladdning av &quot;%s&quot; till %s (%s), för många samtidiga anslutningar från värd."/>
-	<string id="16352" value="Uppladdar en förhandsvisning av &quot;%s&quot; till %s."/>
-	<string id="16353" value="Vägrar uppladdning av en förhandsvisning av &quot;%s&quot; till %s, för många förhandsvisningsanslutningar."/>
-	<string id="16354" value="Uppladdningsvärd %s begärde en förhandsvisning av &quot;%s&quot;, men ingen förhandsvisning finns tillgänglig."/>
-	<string id="16355" value="Schemalägger en dynamisk förhandsvisning av &quot;%s&quot; för uppladdning till %s."/>
-	<string id="16356" value="Vägrar fillistningbegäran från %s, för många fillistningsanslutningar."/>
-	<string id="16357" value="Uppladdar fil &quot;%s&quot; till värd %s…"/>
-	<string id="16358" value="Uppladdningsanslutning .till %s förlorades, bevarar kölagd position."/>
-	<string id="16359" value="Ej ansluten kölagd uppladdningsvärd %s upphörde, raderar."/>
-	<string id="16360" value="Vägrar uppladdning av &quot;%s&quot; till %s (%s), alla matchande köer är fulla"/>
-	<string id="16361" value="Vägrar uppladdning till %s (%s), nätverk avstängt."/>
-	<string id="16362" value="eDonkey-uppladdningar ska inte avbrytas. Är du säker på att du vill avbryta denna uppladdning?"/>
-	<string id="16363" value="Torrentuppladdningar"/>
-	<string id="16364" value="Fullständiga uppladdningar"/>
-	<string id="16365" value="Är du säker på att du vill avbryta alla nedladdningar i denna grupp?"/>
-	<string id="16366" value="Fråga"/>
-	<string id="16367" value="eDonkey-kärna"/>
-	<string id="16368" value="eDonkey-ofullständig"/>
-	<string id="16369" value="eDonkey-vakt"/>
-	<string id="16370" value="Små filer"/>
-	<string id="16371" value="Medelstora filer"/>
-	<string id="16372" value="Stora filer"/>
-	<string id="16373" value="Ofullständiga filer"/>
-	<string id="16374" value="Ny kö"/>
-	<string id="16375" value="Ofullständig"/>
-	<string id="16376" value="Fullständiga filer"/>
-	<string id="16377" value="HTTP Guard"/>
-	<string id="16379" value="Biblioteksfiler"/>
-	<string id="16384" value="Är du säker på att du vill köra filen &quot;%s&quot;?\n\nVissa filer kan skada din dator. Försäkra dig om vad det är för fil innan du kör den."/>
-	<string id="16385" value="Du är på väg att förändra metadatan för %i filer. Är du säker på att du vill fortsätta?"/>
-	<string id="16386" value="Ändrar metadata för %i filer."/>
-	<string id="16387" value="Filen &quot;%s&quot; har inte blivit granskad ännu. Vänta tills filen har blivit granskad och försök sedan igen."/>
-	<string id="16388" value="Detta val använder tjänster tillhandahållna av Bitzi.com för igenkänning och utdelning av information om valda filer.\n\nPeerProject kommer att överföra SHA1-granskningskoden för de valda filerna för att begära information från Bitzidatabasen. Om du är rädd om din integritet kan du välja att läsa integritetspolicyn för Bitzi.com.\n\nVill du fortsätta?"/>
-	<string id="16389" value="Är du säker på att du vill radera de %i valda filerna?\n\nFilerna kommer att flyttas till din papperskorg om den är aktiverad, annars raderas de för alltid."/>
-	<string id="16390" value="Du har inte valt en mediaspelare att kölägga filerna med, som t.ex. Nullsoft WinAmp. Vill du välja en nu?\n\nPeerProject kommer att skicka namnet på filen till ditt valda program med &quot;/ADD&quot;-argumentet."/>
-	<string id="16391" value="Du är inte ansluten till nätverket."/>
-	<string id="16392" value="Klicka på Anslut för att börja."/>
-	<string id="16393" value="Filen &quot;%s&quot; misslyckades med en granskningsverifikation och kanske inte är filen du ville ladda ned. Är du säker på att du vill öppna den?"/>
-	<string id="16394" value="Vill du radera det &quot;eventuellt osäkra&quot; attributet från denna fil?"/>
-	<string id="16395" value="Din nedladdningsmapp &quot;%s&quot; är ännu inte i ditt bibliotek.\n\nInkludering av din nedladdningsmapp i ditt bibliotek gör det enklare att visa och organisera nya nedladdningar och låter dig använda avancerade PeerProjectfunktioner som t.ex. neladdningsverifikation och automatisk uppgradering. Placering av nedladdade filer i ditt bibliotek innebär inte nödvändigtvis att du måste dela ut dem. Du kan välja vilka filer du vill dela ut var för sig.\n\nVill du lägga till nedladdningsmappen till ditt bibliotek nu?"/>
-	<string id="16396" value="Din nedladdningsmapp har lagts till ditt bibliotek. Vill du dela ut den också?"/>
-	<string id="16397" value="Är du säker på att du vill radera de %i valda albummapparna?\n\nRadering av albummappar raderar inte filerna som tillhör dem, utan endast mapparna."/>
-	<string id="16398" value="PeerProject kan inte byta namn på:\n\n%s\ntill\n%s"/>
-	<string id="16399" value="PeerProject kan inte radera filen:\n\n%s"/>
-	<string id="16400" value="Målfilen finns redan:\n\n%s\n\nVill du ersätta den?"/>
-	<string id="16401" value="Visa alla filtyper"/>
-	<string id="16402" value="PeerProject mottog en samlingsfil:\n\n&quot;%s&quot;\n\nDenna fil verkar inte vara en giltig samlingsfil."/>
-	<string id="16403" value="PeerProject har lagt till samlingsfilen &quot;%s&quot; till ditt bibliotek."/>
-	<string id="16404" value="PeerProject kan inte installera samlingsfilen &quot;%s&quot; genom att kopiera den till mappen &quot;%s&quot;."/>
-	<string id="16406" value="Vill du ladda ned alla filer i denna samling?\n\nVälj Avbryt om du inte vill få denna fråga igen."/>
-	<string id="16407" value="Vill du hindra denna samling från att fråga dig om nedladdning av något annat?"/>
-	<string id="16408" value="Kopiera &amp;URI"/>
-	<string id="16409" value="Exportera &amp;URIs…"/>
-	<string id="16410" value="En undermapp till mappen &quot;%s&quot; finns redan i ditt bibliotek.\nOm du lgger till den här mappen måste hashen beråknas om för vissa filer.\n\nVill du fortsätta?"/>
-	<string id="16411" value="Kan inte flytta filen %s. Filen kanske används av ett annat program.\n\nVill du försöka kopiera filen istället?"/>
-	<string id="16412" value="Skuggfil"/>
-	<string id="16413" value="Ny grupp"/>
-	<string id="16448" value="Ansluten till %s, skakar hand…"/>
-	<string id="16449" value="Chattar nu med %s (%s)."/>
-	<string id="16450" value="Anslutning till %s stängd."/>
-	<string id="16451" value="Anslutningen till %s förlorades."/>
-	<string id="16452" value="Okänt kommando från &quot;%s&quot;."/>
-	<string id="16453" value="Ansluter till %s för chatt…"/>
-	<string id="16454" value="Accapterade inkommande chattbegäran från %s, skakar hand…"/>
-	<string id="16455" value="%s är nu känd som %s."/>
-	<string id="16456" value="Kan inte ansluta till värd %s."/>
-	<string id="16457" value="Anslutning misslyckades p.g.a. felaktig data på linjen."/>
-	<string id="16458" value="Mottog okänt svar: %s"/>
-	<string id="16459" value="Du är inte ansluten."/>
-	<string id="16512" value="Total allmän mottagningsbandbredd"/>
-	<string id="16513" value="Total allmän sändningsbandbredd"/>
-	<string id="16514" value="Gnutellaanslutningar (totalt)"/>
-	<string id="16515" value="Gnutellaanslutningar (aktiva)"/>
-	<string id="16516" value="Gnutella mottagningsbandbredd"/>
-	<string id="16517" value="Gnutella sändningsbandbredd"/>
-	<string id="16518" value="Nedladdat filantal"/>
-	<string id="16519" value="Nedladdningsöverföringar"/>
-	<string id="16520" value="Nedladdningsbandbredd"/>
-	<string id="16521" value="Uppladdningsöverföringar"/>
-	<string id="16522" value="Uppladdningsbandbredd"/>
-	<string id="16523" value="Gnutellapaket mottagna"/>
-	<string id="16524" value="Gnutellapaket skickade"/>
-	<string id="16525" value="Gnutellapaket routade"/>
-	<string id="16526" value="Gnutellapaket släppta"/>
-	<string id="16527" value="Gnutellapaket förlorade"/>
-	<string id="16528" value="Gnutella lokala frågor"/>
-	<string id="16532" value="Total TCP-mottagningsbandbredd"/>
-	<string id="16533" value="Total TCP-sändningsbandbredd"/>
-	<string id="16534" value="Total UDP-mottagningsbandbredd"/>
-	<string id="16535" value="Total UDP-sändningsbandbredd"/>
-	<string id="16536" value="Gnutella - proportion av mottagna/skickade pings"/>
-	<string id="16537" value="Gnutella - proportion av mottagna/skickade pongs"/>
-	<string id="16538" value="Anslutningsfel (%)"/>
-	<string id="16768" value="Mottog URL &quot;%s&quot;"/>
-	<string id="16769" value="Kan inte tolka URL: PeerProject förstår inte denna URL."/>
-	<string id="16770" value="Kan inte visa URL-åtgärdsdialogrutan eftersom PeerProject är upptagen."/>
-	<string id="16771" value="Du har redan filen &quot;%s&quot; i ditt bibliotek. Vill du ladda ned den ändå?"/>
-	<string id="16772" value="Värd:"/>
-	<string id="16773" value="Port:"/>
-	<string id="16774" value="&amp;Anslut"/>
-	<string id="16775" value="&amp;Bläddra"/>
-	<string id="16776" value="Lägg till"/>
-	<string id="16777" value="Filnamn:"/>
-	<string id="16778" value="URL:"/>
-	<string id="16779" value="Typ:"/>
-	<string id="16780" value="Ospecifierad"/>
-	<string id="16781" value="Efterfrågar…"/>
-	<string id="16782" value="Framgång!"/>
-	<string id="16783" value="Avslutad, klicka Stäng"/>
-	<string id="16784" value="&amp;Stäng"/>
-	<string id="16785" value="(Ingen visualisering)"/>
-	<string id="16800" value="Du har ännu inte valt en anslutningshastighet. Innan du kan fortsätta ska du välja den typ av Internetanslutning du använder eller din anslutningshastighet."/>
-	<string id="16802" value="Du har inte valt någon mapp att dela ut. Vill du fortsätta?"/>
-	<string id="16803" value="Mappen du försöker dela ut ingår redan i denna utdelade mapp:\n\n%s"/>
-	<string id="16804" value="Du har inte skrivit ett visningsnamn i din användarprofil.\n\nDet är en bra idé att välja ett visningsnamn så att andra användare kan se vem de är ansluten till.\n\nÄr du säker på att du vill fortsätta utan ett visningsnamn?"/>
-	<string id="16805" value="Du har ännu inte skrivit en geografisk plats i din användarprofil\n\nDet är en bra idé att ange en plats så att andra användare kan ser var du kommer från.\n\nÄr du säker på att du vill fortsätta utan att ange en plats?"/>
-	<string id="16806" value="Du har angett att du vill sätta upp porteftersändning i din NAT-router eller brandvägg.\n\nAnpassa ditt nätverk för att eftersända TCP-port %i till din lokala dator."/>
-	<string id="16807" value="Skriv bandbreddsbegräsningen du vill använda på formen &quot;123 kb/s&quot; för kbit/s eller &quot;123 KB/s&quot; för kbyte/s."/>
-	<string id="16808" value="Du har inte angett ålder och kön. Är du säker på att du vill fortsätta utan att göra detta?"/>
-	<string id="16809" value="&amp;Avsluta"/>
-	<string id="16810" value="år gammal"/>
-	<string id="16811" value="Automatisk"/>
-	<string id="16812" value="Var god vänta: Hittar och installerar UPnP-enheter..."/>
-	<string id="16813" value="Var god vänta: Uppdaterar upptäckstjänster..."/>
-	<string id="16814" value="Var god vänta: Uppdaterar eDonkey serverlista..."/>
-	<string id="16815" value="Värdtjänsten för UPnP-enheter körs inte. Tjänsten är nödvöndig för installationen.\nDu behöver ställa in automatisk uppstart för tjänsten."/>
-	<string id="16816" value="Nätverket eDonkey använder långa köer med långa väntetider. Om du begränsar den maximala köpositionen kan du få problem med att ladda ner filer.\nÄr du säker på att du vill begränsa köpositioner?"/>
-	<string id="16817" value="Windows stödjer inte sökvägar längre än 256 tecken.\nVälj en mapp med kortare sökväg."/>
-	<string id="16818" value="Mappen för avslutade nedladdningar bör inte vara samma som mappen för ofullständiga nedladdningar"/>
-	<string id="16819" value="Mappen för ofullständiga nedladdningar ska inte finnas i biblioteket eftersom det försämrar prestanda. Ofullständiga nedladdningar kan delas direkt från överföringsfönstret."/>
-	<string id="16864" value="Frågar upptäckstjänster…"/>
-	<string id="16865" value="Frågar upptäckstjänsten &quot;%s&quot;…"/>
-	<string id="16866" value="GWebCache-överföring fullständig (&quot;%s&quot;)."/>
-	<string id="16867" value="Upptäckstjänsten &quot;%s&quot; misslyckades %i gånger."/>
-	<string id="16868" value="Upptäckstjänsten &quot;%s&quot; misslyckades %i gånger, raderar."/>
-	<string id="16870" value="Skickar GWebCache-uppdatering till tjänsten &quot;%s&quot;…"/>
-	<string id="16871" value="Skickar GWebCache &quot;%s&quot; till en slumpvald GWebCache…"/>
-	<string id="16928" value="Initierar en anslutning till %s för fillistning…"/>
-	<string id="16929" value="Kan inte initiera en anslutning till %s för fillistning."/>
-	<string id="16930" value="Skickade en anslutningsbegäran till %s för fillistning."/>
-	<string id="16931" value="Kan inte skicka en anslutningsbegäran till %s för fillistning."/>
-	<string id="16932" value="Skickade en begäran om fillistning till %s…"/>
-	<string id="16933" value="Listningsvärd %s svarade med ett felaktigt HTTP-svar."/>
-	<string id="16934" value="Listningsvärd %s svarade med kod %s (%s)."/>
-	<string id="16935" value="Listningsvärd %s svarade med ett okänt svar och kanske inte stödjer fillistning."/>
-	<string id="16936" value="Mottog innehåll från listningsvärd %s (%s)"/>
-	<string id="16938" value="Fel vid avkodning av Gnutellapaket från listningsvärd %s."/>
-	<string id="16939" value="Slutförde listning av användare %s, %i filer funna."/>
-	<string id="16940" value="Listningsanslutningen för %s släpptes."/>
-	<string id="16941" value="Stänger listningsanslutning till %s p.g.a. bristande trafik."/>
-	<string id="16942" value="Stänger listningsanslutning till %s."/>
-	<string id="16943" value="Listar filer från %s"/>
-	<string id="16944" value="Hittade %i utdelade filer i %ss bibliotek."/>
-	<string id="16991" value="PeerProject mediaspelare"/>
-	<string id="16992" value="PeerProject kan inte initiera sitt insticksprogram för MediaServices. Installera om PeerProject och kontrollera att alla mediacodecs och utmatningsenheter är installerade."/>
-	<string id="16993" value="Alla mediafiler|*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Spellistor|*.asx;*.wax;*.m3u;*.wvx;*.wmx|Ljudfiler|*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm|Videofiler|*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Ljudspår på CD|*.cda|MIDI-filer|*.mid;*.rmi;*.midi|Alla filer|*.*||"/>
-	<string id="16994" value="Kan inte ladda mediafilen &quot;%s&quot;"/>
-	<string id="16995" value="Filen kan vara skadad eller du kanske inte har nödvändig codec för att spela upp den."/>
-	<string id="16996" value="Delar av filen kan inte spelas upp. Du kanske måste ladda ned ytterligare codecs."/>
-	<string id="16997" value="Ingen fil spelas. Dubbelklicka på en mediafil i ditt bibliotek för att spela den."/>
-	<string id="16998" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
-	<string id="16999" value="Spellista:"/>
-	<string id="17024" value="Initierar en anslutning till %s…"/>
-	<string id="17025" value="Kan inte skapa en anslutning till %s."/>
-	<string id="17026" value="Begär en anslutningsbegäran från %s…"/>
-	<string id="17027" value="Accapterade anslutningsbegäran från %s, skakar hand…"/>
-	<string id="17028" value="Anslutning upprättad, skakar hand…"/>
-	<string id="17029" value="Handskakning misslyckades, värden kanske inte stödjer chatt."/>
-	<string id="17030" value="Handskakning klar, chattprotokoll version %s."/>
-	<string id="17031" value="Utbyter profilinformation…"/>
-	<string id="17032" value="Bestyrkad användare"/>
-	<string id="17033" value="Begär privat konversation med användaren…"/>
-	<string id="17034" value="Privat konversation beviljad. Du chattar nu med %s."/>
-	<string id="17035" value="%s accepterar tyvärr inte privata konversationer."/>
-	<string id="17036" value="%s är inte närvarande: %s"/>
-	<string id="17037" value="Chattanslutningen förlorades."/>
-	<string id="17038" value="Anslutningen stängdes."/>
-	<string id="17039" value="Kan inte skicka en anslutningsbegäran från %s. Ingen väg finns tillgänglig."/>
-	<string id="17040" value="Kan inte skicka meddelande eftersom du inte är ansluten. PeerProject försöker ansluta…"/>
-	<string id="17041" value="Kan inte skicka meddelande eftersom en anslutning inte har upprättats ännu."/>
-	<string id="17042" value="Du har inte fyllt i din användarprofil. Du måste göra detta innan du kan chatta med andra.\n\nVill du fylla i din profil nu?"/>
-	<string id="17043" value="Beviljade uppladdningsprioritet till värd %s."/>
-	<string id="17100" value="Gnutella: Like-till-like-anslutning"/>
-	<string id="17101" value="Gnutella: Löv-till-ultralike-anslutning"/>
-	<string id="17102" value="Gnutella: Ultralike-till-löv-anslutning"/>
-	<string id="17103" value="Gnutella2: Nav-till-nav-anslutning"/>
-	<string id="17104" value="Gnutella2: Löv-till-nav-anslutning"/>
-	<string id="17105" value="Gnutella2: Nav-till-löv-anslutning"/>
-	<string id="17106" value="eDonkey-serveranslutning (LOWID: %lu)"/>
-	<string id="17107" value="eDonkey-serveranslutning"/>
-	<string id="17108" value="Handskakning"/>
-	<string id="17109" value="Ingående"/>
-	<string id="17110" value="Utgående"/>
-	<string id="17111" value="Nuvarande:"/>
-	<string id="17112" value="Totalt:"/>
-	<string id="17113" value="Komprimering:"/>
-	<string id="17114" value="Förhållande:"/>
-	<string id="17115" value="Minskad"/>
-	<string id="17116" value="Ingen"/>
-	<string id="17117" value="ANsluter"/>
-	<string id="17118" value="Handskakning"/>
-	<string id="17119" value="Nekad"/>
-	<string id="17120" value="Stänger"/>
-	<string id="17121" value="Okänd"/>
-	<string id="17122" value="G1-like"/>
-	<string id="17123" value="G1-ultralike"/>
-	<string id="17124" value="G1-löv"/>
-	<string id="17125" value="G2-like"/>
-	<string id="17126" value="G2-nav"/>
-	<string id="17127" value="G2-löv"/>
-	<string id="17128" value="eDonkey-server"/>
-	<string id="17129" value="eDonkey (LowID)"/>
-	<string id="17130" value="eDonkey (HighID)"/>
-	<string id="17216" value="Initierar en anslutning till eDonkey-server vid %s…"/>
-	<string id="17217" value="Ansluten till eDonkey-server %s, skakar hand…"/>
-	<string id="17218" value="ED2K[%s] %s"/>
-	<string id="17219" value="eDonkey-server %s vägrade anslutning."/>
-	<string id="17220" value="eDonkey-server %s är online, klient-ID är %lu."/>
-	<string id="17221" value="eDonkey-server %s har ändrat vår klient-ID från %lu till %lu."/>
-	<string id="17222" value="eDonkey-server %s identifierade sig själv som &quot;%s&quot;."/>
-	<string id="17223" value="eDonkey-server %s nekade anslutningen."/>
-	<string id="17224" value="Fel vid handskakning med eDonkey-klienten %s."/>
-	<string id="17225" value="eDonkey-klientens anslutning %s stängdes."/>
-	<string id="17226" value="Mottog ett felformaterad eDonkey-paket från %s (id=%x)."/>
-	<string id="17227" value="Inkommande anslutning från %s är en eDonkey-klientlänk."/>
-	<string id="17228" value="Skickar eDonkey-hashset för &quot;%s&quot; till %s…"/>
-	<string id="17229" value="eDonkey-anslutning till %s var overksam, stängdes."/>
-	<string id="17230" value="Initierar eDonkey-anslutning till %s…"/>
-	<string id="17231" value="eDonkey-klienten %s har ett felaktigt GUID, avbryter handskakning."/>
-	<string id="17232" value="Tidsavbrott vid anslutning till eDonkey-klienten %s."/>
-	<string id="17233" value="Tidsavbrott vid anslutning till eDonkey-klienten %s."/>
-	<string id="17234" value="Vägrar eDonkey-klientlänk från %s eftersom eDonkey är avstängt."/>
-	<string id="17248" value="Startar import av ofullständiga nedladdningar från eDonkey…"/>
-	<string id="17249" value="Importering slutförd, %i ofullständiga nedladdningar importerades."/>
-	<string id="17250" value="Granskar mapp: &quot;%s&quot;…"/>
-	<string id="17251" value=" Kan inte importera fil."/>
-	<string id="17252" value=" Fann ofullständig fil &quot;%s&quot;, importerar…"/>
-	<string id="17253" value=" Kan inte öppna ofullständig fil &quot;%s&quot;."/>
-	<string id="17254" value=" Fann nedladdning &quot;%s&quot;, storlek %s."/>
-	<string id="17255" value=" Nedladdad data är nyare än .part-filen, avbryter."/>
-	<string id="17256" value=" Kopierar &quot;%s&quot; till &quot;%s&quot;…"/>
-	<string id="17257" value=" Slutförde kopiering av fil."/>
-	<string id="17258" value=" Skapar ofullständig nedladdningsfil för PeerProject, %s återstår."/>
-	<string id="17259" value=" Filen är redan i PeerProjects nedladdningslista."/>
-	<string id="17260" value=" Otillräckligt med diskutrymme för kopiering av nedladdningsfilen."/>
-	<string id="17472" value="Inkommande anslutning från %s är en BitTorrent-koppling, förhandlar…"/>
-	<string id="17473" value="Tidsavbrott vid anslutning till BitTorrentklienten %s."/>
-	<string id="17474" value="Tidsavbrott vid handskakning med BitTorrentklienten %s."/>
-	<string id="17475" value="Stänger BitTorrentkopplingen med %s p.g.a. bristande trafik."/>
-	<string id="17476" value="BitTorrentkopplingen med %s misslyckades eftersom fjärrklienten har ett annat GUID."/>
-	<string id="17477" value="BitTorrentkopplingen med %s svarade med fel fil."/>
-	<string id="17478" value="BitTorrentkopplingen med %s begärde en okänd fil."/>
-	<string id="17479" value="BitTorrentkopplingen med %s upprättades för &quot;%s&quot;."/>
-	<string id="17481" value="Mottog BitTorrent beskrivningsfil: &quot;%s&quot;"/>
-	<string id="17482" value="Kan inte analysera förhämtad BitTorrentfil &quot;%s&quot;."/>
-	<string id="17483" value="Fel från BitTorrentspåraren för &quot;%s&quot; : &quot;%s&quot;."/>
-	<string id="17484" value="Fel vid analys av BitTorrentspårarens svar."/>
-	<string id="17485" value="Mottog BitTorrentspårarsvar för &quot;%s&quot;, %i nya källor."/>
-	<string id="17486" value="Initierar BitTorrentkoppling med %s…"/>
-	<string id="17487" value="Upprättade BitTorrentkoppling med %s, skakar hand…"/>
-	<string id="17488" value="Du har ändrat spår-URL för denna torrent. Är du säker på att du vill spara ändringen?\n\nEn felaktig spår-URL kan hindra fortsatt nedladdning."/>
-	<string id="17489" value="BitTorrentkopplingen med %s använder ett utökat protokoll, identifierat som &quot;%s&quot;."/>
-	<string id="17490" value="Mottog %i nya BitTorrentkällor från %s."/>
-	<string id="17491" value="Torrenten &quot;%s&quot; är redan på din nedladdningslista och kan inte sås."/>
-	<string id="17492" value="Fel vid laddning av torrentfil &quot;%s&quot;. Detta kanske inte är en giltig torrent."/>
-	<string id="17493" value="Kan inte skapa BitTorrentutdelningsfil &quot;%s&quot;."/>
-	<string id="17494" value="Denna torrent inkluderar filen &quot;%s&quot;, men PeerProject kan inte hitta den i ditt bibliotek. Om möjligt, flytta filen till samma mapp som torrenten och försök igen."/>
-	<string id="17495" value="Denna torrent inkluderar filen &quot;%s&quot; som ska vara %s, men din version av filen är %s."/>
-	<string id="17496" value="Ett fel inträffade vid kopiering från &quot;%s&quot; till en BitTorrentutdelningsfil."/>
-	<string id="17497" value="Ett okänt fel uppstod vid försöka att så &quot;%s&quot;."/>
-	<string id="17498" value="Ett fel hittades i filen &quot;%s&quot;."/>
-	<string id="17500" value="Trackern svarade inte - försöker igen (%i av %i)"/>
-	<string id="17501" value="Kan inte kommunicera med trackern"/>
-	<string id="17503" value="Trackern misslyckades - försöker med nästa tracker (%i av %i)"/>
-	<string id="17505" value="BitTorrentanslutningen till %s avbröts."/>
-	<string id="17506" value="BitTorrent handskakning med %s avbröts."/>
-	<string id="17507" value="BitTorrentkopplingen med %s avbröts."/>
-	<string id="17510" value="BitTorrentkopplingen med %s accepterades inte, en anslutning till den här klienten existerar redan."/>
-	<string id="17511" value="BitTorrentkopplingen med %s accepterades inte, anslutningsmaximum är nådd."/>
-	<string id="17512" value="Privat torrent"/>
-	<string id="17513" value="Kodningsfel"/>
-	<string id="18496" value="Du har ändrat filnamnet. Är du säker på att du vill ändra namn på denna nedladdning?"/>
-	<string id="18497" value="Du har skrivit ett felaktigt SHA1-värde. Kontrollera det och försök igen."/>
-	<string id="18498" value="Du har skrivit ett felaktigt tiger-tree-värde. Kontrollera det och försök igen."/>
-	<string id="18499" value="Du har skrivit ett felaktigt eDonkey hashset-värde. Kontrollera det och försök igen."/>
-	<string id="18500" value="Du har anget ett annat SHA1-värde än det som för tillfället är associerat med denna nedladdning. Är du säker på att du vill ändra det?"/>
-	<string id="18501" value="Du har anget ett annat tiger-tree hash-värde än det som för tillfället är associerat med denna nedladdning. Är du säker på att du vill ändra det?"/>
-	<string id="18502" value="Du har anget ett annat eDonkey hash-värde än det som för tillfället är associerat med denna nedladdning. Är du säker på att du vill ändra det?"/>
-	<string id="18503" value="Är du säker på att du vill glömma aktuell verifikationsstatus? All nedladdad data kommer att behandlas som opålitlig och cachade hashtrees och hashsets kommer att bli spolade."/>
-	<string id="18504" value="Är du säker på att du vill glömma alla källor för den valda nedladdningen?"/>
-	<string id="18505" value="Ange ett giltigt omfång av bytes att radera. Från-fältet är anger den första byten att radera och till-fältet anger den sista."/>
-	<string id="18506" value="Kan inte radera det valda omfånget från nedladdningen eftersom ingen del av det är tillgängligt."/>
-	<string id="18507" value="Raderade %I64i bytes från nedladdningen."/>
-	<string id="18508" value="Släpper nedladdningskällan %s för &quot;%s&quot; eftersom den kölagda positionen %i är för hög."/>
-	<string id="18509" value="Du kan inte anta att denna nedladdning är färdig och återverifiera den eftersom du inte har någon verifikationsdata, t.ex. tiger-tree-volym, eDonkey hashset eller BitTorrent hashset. Utan verifikationsinformation kan inte nedladdningen verifieras."/>
-	<string id="18510" value="Är du säker på att du vill anta att nedladdningen är färdig och återverifiera den? Hela filen kommer att granskas och PeerProject kommer att acceptera godkänta delar och ladda ned ej godkända delar igen."/>
-	<string id="18511" value="Du har ndrat filstorleken. Är du säker på att du vill ändra filstorleken för den här nedladdningen?"/>
-	<string id="19000" value="Fjärråtkomst är avstängd."/>
-	<string id="19001" value="http://%s:%i/remote - välja ett användarnamn och lösenord."/>
-	<string id="19002" value="Kan inte acceptera anslutningar. URL otillgänlig."/>
-	<string id="20000" value="Ingen URN tillgänglig"/>
-	<string id="20001" value="Stng"/>
-	<string id="20002" value="av"/> <!-- "1 of 10" -->
-	<string id="20003" value="Att ändra gränssnittets riktning kräver omstart. \nDu måste starta om PeerProject manuellt. Avsluta nu?"/>
-	<string id="20005" value="Nej"/>
-	<string id="20006" value="Ja"/>
-	<string id="20007" value="Auto"/>
-	<string id="20008" value="Standard"/>
-	<string id="20009" value="Anpassat"/>
-	<string id="20010" value="&amp;Tillbaka"/>
-	<string id="20011" value="&amp;Framåt"/>
-	<string id="20012" value="Avsluta"/>
-	<string id="20013" value="Alla"/>
-	<string id="20100" value="Ansluter"/>
-	<string id="20101" value="Efterfrågar"/>
-	<string id="20102" value="Svar"/>
-	<string id="20103" value="Laddar ned"/>
-	<string id="20104" value="TigerTree"/>
-	<string id="20105" value="Hashset"/>
-	<string id="20106" value="Metadata"/>
-	<string id="20107" value="Upptagen"/>
-	<string id="20108" value="Lägg i kö"/>
-	<string id="20109" value="Kölagd"/>
-	<string id="20110" value="Okänd"/>
-	<string id="20111" value="Fullständig"/>
-	<string id="20112" value="Sår"/>
-	<string id="20113" value="Flyttar"/>
-	<string id="20114" value="Pausad"/>
-	<string id="20115" value="Filfel"/>
-	<string id="20116" value="Kan inte flytta"/>
-	<string id="20117" value="Verifierar"/>
-	<string id="20118" value="Aktiv"/>
-	<string id="20119" value="Avvaktande"/>
-	<string id="20120" value="Söker"/>
-	<string id="20121" value="Skapar"/>
-	<string id="20122" value="Torrent"/>
-	<string id="20123" value="Spårare nere"/>
-	<string id="20124" value="Verifierad"/>
-	<string id="20125" value="Overifierad"/>
-	<string id="20126" value="Ointresserad"/>
-	<string id="20127" value="Ointresserad"/>
-	<string id="20130" value="källa"/>
-	<string id="20131" value="källor"/>
-	<string id="20132" value="källor"/>
-	<string id="20134" value="källor"/>
-	<string id="20135" value="(Ingen framgång)"/>
-	<string id="20136" value="Kvävd"/>
-	<string id="20137" value="Nästa"/>
-	<string id="20138" value="K"/> <!-- Was: Q -->
-	<string id="20200" value="Every Dag"/>
-	<string id="20201" value="Måndag"/>
-	<string id="20202" value="Tisdag"/>
-	<string id="20203" value="Onsdag"/>
-	<string id="20204" value="Torsdag"/>
-	<string id="20205" value="Fredag"/>
-	<string id="20206" value="Lördag"/>
-	<string id="20207" value="Söndag"/>
-	<string id="20210" value="(Inget betyg)"/>
-	<string id="20211" value="Falsk / Skadad"/>
-	<string id="20212" value="Dlig"/>
-	<string id="20213" value="Medel"/>
-	<string id="20214" value="Bra"/>
-	<string id="20215" value="Mycket bra"/>
-	<string id="20216" value="Utmärkt"/>
-	<string id="20217" value="Välj temporär filmapp för eDonkey/eMule:"/>
-	<!-- Column headers in Library Album View -->
-	<string id="20230" value="#"/> <!-- Track number -->
-	<string id="20231" value="Titel"/>
-	<string id="20232" value="Längd"/>
-	<string id="20233" value="Bithastighet"/>
-	<string id="20234" value="Album"/>
-	<string id="20235" value="Artist"/>
-	<string id="20236" value="Betyg"/>
-	<string id="20237" value="OK"/>
-	<string id="20238" value="Avbryt"/>
-	<string id="20245" value="Ny Mapp"/>
+	<string id="20001" value="Ja"/>
+	<string id="20002" value="Nej"/>
+	<string id="20003" value="OK"/>
+	<string id="20004" value="Avbryt"/>
+	<string id="20005" value="&amp;Tillbaka"/>
+	<string id="20006" value="&amp;Framåt"/>
+	<string id="20008" value="Stng"/>
+	<string id="20009" value="av"/> <!-- "1 of 10" -->
+	<string id="20010" value="Alla"/>
+	<string id="20011" value="Auto"/>
+	<string id="20012" value="Anpassat"/>
+	<string id="20013" value="Standard"/>
+	<string id="20014" value="Avsluta"/>
+	<string id="20050" value="Every Dag"/>
+	<string id="20051" value="Måndag"/>
+	<string id="20052" value="Tisdag"/>
+	<string id="20053" value="Onsdag"/>
+	<string id="20054" value="Torsdag"/>
+	<string id="20055" value="Fredag"/>
+	<string id="20056" value="Lördag"/>
+	<string id="20057" value="Söndag"/>
+	<string id="20060" value="(Inget betyg)"/>
+	<string id="20061" value="Falsk / Skadad"/>
+	<string id="20062" value="Dlig"/>
+	<string id="20063" value="Medel"/>
+	<string id="20064" value="Bra"/>
+	<string id="20065" value="Mycket bra"/>
+	<string id="20066" value="Utmärkt"/>
+	<string id="20080" value="Detta är en förhandsversion av PeerProject och förhandstestningen har avslutats. Ladda ned en fullständig officiell version från www.shareaza.com."/>
+	<string id="20081" value="&amp;Stäng"/>
+	<string id="20082" value="Avslutad, klicka Stäng"/>
+	<string id="20083" value="Efterfrågar…"/>
+	<string id="20084" value="Framgång!"/>
+	<string id="20100" value="Stänger listningsanslutning till %s."/>
+	<string id="20101" value="Listningsvärd %s svarade med ett okänt svar och kanske inte stödjer fillistning."/>
+	<string id="20102" value="Kan inte ansluta till värden för att visa användarens filer."/>
+	<string id="20103" value="Kan inte initiera en anslutning till %s för fillistning."/>
+	<string id="20104" value="Kan inte skicka en anslutningsbegäran till %s för fillistning."/>
+	<string id="20105" value="Upprättar en anslutning till värd…"/>
+	<string id="20106" value="Initierar en anslutning till %s för fillistning…"/>
+	<string id="20107" value="Laddar ned bläddringssvar (%2.f%%)…"/>
+	<string id="20108" value="Mottog innehåll från listningsvärd %s (%s)"/>
+	<string id="20109" value="Listningsanslutningen för %s släpptes."/>
+	<string id="20110" value="Slutförde listning av användare %s, %i filer funna."/>
+	<string id="20111" value="Hittade %i utdelade filer i %ss bibliotek."/>
+	<string id="20112" value="Listningsvärd %s svarade med kod %s (%s)."/>
+	<string id="20113" value="Listningsvärd %s svarade med ett felaktigt HTTP-svar."/>
+	<string id="20114" value="Kan inte ladda ned fillista. Värden kanske inte stödjer funktionen."/>
+	<string id="20115" value="Fel vid avkodning av Gnutellapaket från listningsvärd %s."/>
+	<string id="20116" value="En anslutningsbegäran är skickad, väntar på anslutning…"/>
+	<string id="20117" value="Skickade en anslutningsbegäran till %s för fillistning."/>
+	<string id="20118" value="Ansluten, begär filbläddring…"/>
+	<string id="20119" value="Skickade en begäran om fillistning till %s…"/>
+	<string id="20120" value="Stänger listningsanslutning till %s p.g.a. bristande trafik."/>
+	<string id="20121" value="Listar filer från %s"/>
+	<string id="20122" value="BitTorrentkopplingen med %s upprättades för &quot;%s&quot;."/>
+	<string id="20123" value="Inkommande anslutning från %s är en BitTorrent-koppling, förhandlar…"/>
+	<string id="20124" value="Initierar BitTorrentkoppling med %s…"/>
+	<string id="20125" value="Tidsavbrott vid anslutning till BitTorrentklienten %s."/>
+	<string id="20126" value="BitTorrentkopplingen med %s avbröts."/>
+	<string id="20127" value="BitTorrentanslutningen till %s avbröts."/>
+	<string id="20128" value="BitTorrent handskakning med %s avbröts."/>
+	<string id="20129" value="BitTorrentkopplingen med %s accepterades inte, en anslutning till den här klienten existerar redan."/>
+	<string id="20130" value="Mottog %i nya BitTorrentkällor från %s."/>
+	<string id="20131" value="BitTorrentkopplingen med %s använder ett utökat protokoll, identifierat som &quot;%s&quot;."/>
+	<string id="20132" value="Tidsavbrott vid handskakning med BitTorrentklienten %s."/>
+	<string id="20133" value="Upprättade BitTorrentkoppling med %s, skakar hand…"/>
+	<string id="20134" value="BitTorrentkopplingen med %s accepterades inte, anslutningsmaximum är nådd."/>
+	<string id="20136" value="BitTorrentkopplingen med %s begärde en okänd fil."/>
+	<string id="20137" value="BitTorrentkopplingen med %s svarade med fel fil."/>
+	<string id="20138" value="BitTorrentkopplingen med %s misslyckades eftersom fjärrklienten har ett annat GUID."/>
+	<string id="20139" value="Stänger BitTorrentkopplingen med %s p.g.a. bristande trafik."/>
+	<string id="20140" value="Kodningsfel"/>
+	<string id="20141" value="Privat torrent"/>
+	<string id="20142" value="Torrenten &quot;%s&quot; är redan på din nedladdningslista och kan inte sås."/>
+	<string id="20143" value="Ett fel inträffade vid kopiering från &quot;%s&quot; till en BitTorrentutdelningsfil."/>
+	<string id="20144" value="Kan inte skapa BitTorrentutdelningsfil &quot;%s&quot;."/>
+	<string id="20145" value="Ett okänt fel uppstod vid försöka att så &quot;%s&quot;."/>
+	<string id="20146" value="Fel vid laddning av torrentfil &quot;%s&quot;. Detta kanske inte är en giltig torrent."/>
+	<string id="20147" value="Denna torrent inkluderar filen &quot;%s&quot;, men PeerProject kan inte hitta den i ditt bibliotek. Om möjligt, flytta filen till samma mapp som torrenten och försök igen."/>
+	<string id="20148" value="Denna torrent inkluderar filen &quot;%s&quot; som ska vara %s, men din version av filen är %s."/>
+	<string id="20149" value="Ett fel hittades i filen &quot;%s&quot;."/>
+	<string id="20150" value="Kan inte kommunicera med trackern"/>
+	<string id="20151" value="Trackern misslyckades - försöker med nästa tracker (%i av %i)"/>
+	<string id="20152" value="Du har ändrat spår-URL för denna torrent. Är du säker på att du vill spara ändringen?\n\nEn felaktig spår-URL kan hindra fortsatt nedladdning."/>
+	<string id="20153" value="Fel från BitTorrentspåraren för &quot;%s&quot; : &quot;%s&quot;."/>
+	<string id="20154" value="Fel vid analys av BitTorrentspårarens svar."/>
+	<string id="20155" value="Mottog BitTorrentspårarsvar för &quot;%s&quot;, %i nya källor."/>
+	<string id="20158" value="Kan inte analysera förhämtad BitTorrentfil &quot;%s&quot;."/>
+	<string id="20159" value="Mottog BitTorrent beskrivningsfil: &quot;%s&quot;"/>
+	<string id="20160" value="Accapterade inkommande chattbegäran från %s, skakar hand…"/>
+	<string id="20161" value="Kan inte skapa en anslutning till %s."/>
+	<string id="20162" value="Kan inte skicka en anslutningsbegäran från %s. Ingen väg finns tillgänglig."/>
+	<string id="20163" value="Anslutningen stängdes."/>
+	<string id="20164" value="Anslutning till %s stängd."/>
+	<string id="20165" value="Anslutning upprättad, skakar hand…"/>
+	<string id="20166" value="Ansluten till %s, skakar hand…"/>
+	<string id="20167" value="Initierar en anslutning till %s…"/>
+	<string id="20168" value="Ansluter till %s för chatt…"/>
+	<string id="20169" value="Kan inte ansluta till värd %s."/>
+	<string id="20170" value="Chattanslutningen förlorades."/>
+	<string id="20171" value="Anslutningen till %s förlorades."/>
+	<string id="20172" value="Handskakning misslyckades, värden kanske inte stödjer chatt."/>
+	<string id="20173" value="Handskakning klar, chattprotokoll version %s."/>
+	<string id="20174" value="Utbyter profilinformation…"/>
+	<string id="20175" value="Du har inte fyllt i din användarprofil. Du måste göra detta innan du kan chatta med andra.\n\nVill du fylla i din profil nu?"/>
+	<string id="20176" value="Kan inte skicka meddelande eftersom du inte är ansluten. PeerProject försöker ansluta…"/>
+	<string id="20177" value="Kan inte skicka meddelande eftersom en anslutning inte har upprättats ännu."/>
+	<string id="20178" value="%s är nu känd som %s."/>
+	<string id="20179" value="Chattar nu med %s (%s)."/>
+	<string id="20180" value="Beviljade uppladdningsprioritet till värd %s."/>
+	<string id="20181" value="%s är inte närvarande: %s"/>
+	<string id="20182" value="Privat konversation beviljad. Du chattar nu med %s."/>
+	<string id="20183" value="%s accepterar tyvärr inte privata konversationer."/>
+	<string id="20184" value="Begär privat konversation med användaren…"/>
+	<string id="20185" value="Bestyrkad användare"/>
+	<string id="20186" value="Accapterade anslutningsbegäran från %s, skakar hand…"/>
+	<string id="20188" value="Begär en anslutningsbegäran från %s…"/>
+	<string id="20190" value="Anslutning misslyckades p.g.a. felaktig data på linjen."/>
+	<string id="20191" value="Mottog okänt svar: %s"/>
+	<string id="20192" value="Du är inte ansluten."/>
+	<string id="20193" value="Okänt kommando från &quot;%s&quot;."/>
+	<string id="20194" value="Denna mall är inte anpassad."/>
+	<string id="20195" value="Denna mall är ogiltig."/>
+	<string id="20199" value="(stänger efter överföringar)"/>
+	<string id="20200" value="Lade till &quot;%s&quot; till nedladdningslistan med %i källor."/>
+	<string id="20201" value="Filen &quot;%s&quot; laddas redan ned, lägger till källor."/>
+	<string id="20202" value="Mottog en felaktig anslutningsbegäran från %s, stänger anslutning."/>
+	<string id="20203" value="Ökar bandbredden för nedladdning av &quot;%s&quot; genom att ta bort bandbreddsbegränsning."/>
+	<string id="20204" value="Nedladdningsvärd %s är upptagen, försöker igen om %i sekunder."/>
+	<string id="20205" value="Kan inte flytta nedladdning &quot;%s&quot; till &quot;%s&quot;. Kontrollera att filen inte används och att nedladdningsmappen existerar och är skrivbar."/>
+	<string id="20206" value="Kan inte hämta &quot;%s&quot;."/>
+	<string id="20207" value="Är du säker på att du vill avbryta alla nedladdningar i denna grupp?"/>
+	<string id="20208" value="Stänger nedladdningsanslutning till %s, inge längre behövd."/>
+	<string id="20209" value="Nedladdningsvärd %s skickade oombedd data, stänger anslutning."/>
+	<string id="20210" value="Fullständig nedladdning av &quot;%s&quot;."/>
+	<string id="20211" value="Är du säker på att du vill rensa &quot;%s&quot;.\n\nNär en nedladdning blivit rensad från nedladdningsfönstret kan den inte återupptas senare."/>
+	<string id="20212" value="Är du säker på att du vill rensa alla pausade nedladdningar? När en nedladdning har blivit rensad från nedladdningsfönstret kan den inte återupptas senare."/>
+	<string id="20213" value="Är du säker på att du vill radera nedladdningen av &quot;%s&quot;."/>
+	<string id="20214" value="Nedladdningsanslutning till %s upprättad."/>
+	<string id="20215" value="Initierar en anslutning till %s port %i för nedladdning av &quot;%s&quot;."/>
+	<string id="20216" value="Kan inte ansluta till nedladdningsvärd %s."/>
+	<string id="20217" value="Mottar nedladdningsinnehåll från värd %s (%s)."/>
+	<string id="20218" value="Avbryter nedladdning av &quot;%s&quot; från %s (%s), nätverk avstängt."/>
+	<string id="20219" value="Otillräckligt diskutrymme för nedladdning &quot;%s&quot; (%s)."/>
+	<string id="20220" value="Nedladdningsanslutning till %s förlorades."/>
+	<string id="20222" value="Du har skrivit ett felaktigt eDonkey hashset-värde. Kontrollera det och försök igen."/>
+	<string id="20224" value="Ange ett giltigt omfång av bytes att radera. Från-fältet är anger den första byten att radera och till-fältet anger den sista."/>
+	<string id="20225" value="Du har skrivit ett felaktigt SHA1-värde. Kontrollera det och försök igen."/>
+	<string id="20226" value="Du har skrivit ett felaktigt tiger-tree-värde. Kontrollera det och försök igen."/>
+	<string id="20227" value="Du har ndrat filstorleken. Är du säker på att du vill ändra filstorleken för den här nedladdningen?"/>
+	<string id="20228" value="Kan inte radera det valda omfånget från nedladdningen eftersom ingen del av det är tillgängligt."/>
+	<string id="20231" value="Du har anget ett annat SHA1-värde än det som för tillfället är associerat med denna nedladdning. Är du säker på att du vill ändra det?"/>
+	<string id="20232" value="Du har anget ett annat eDonkey hash-värde än det som för tillfället är associerat med denna nedladdning. Är du säker på att du vill ändra det?"/>
+	<string id="20233" value="Du har anget ett annat tiger-tree hash-värde än det som för tillfället är associerat med denna nedladdning. Är du säker på att du vill ändra det?"/>
+	<string id="20235" value="Du kan inte anta att denna nedladdning är färdig och återverifiera den eftersom du inte har någon verifikationsdata, t.ex. tiger-tree-volym, eDonkey hashset eller BitTorrent hashset. Utan verifikationsinformation kan inte nedladdningen verifieras."/>
+	<string id="20236" value="Är du säker på att du vill anta att nedladdningen är färdig och återverifiera den? Hela filen kommer att granskas och PeerProject kommer att acceptera godkänta delar och ladda ned ej godkända delar igen."/>
+	<string id="20237" value="Är du säker på att du vill glömma alla källor för den valda nedladdningen?"/>
+	<string id="20238" value="Är du säker på att du vill glömma aktuell verifikationsstatus? All nedladdad data kommer att behandlas som opålitlig och cachade hashtrees och hashsets kommer att bli spolade."/>
+	<string id="20240" value="Raderade %I64i bytes från nedladdningen."/>
+	<string id="20241" value="Du har ändrat filnamnet. Är du säker på att du vill ändra namn på denna nedladdning?"/>
+	<string id="20242" value="Nedladdningsvärd %s har inte filen &quot;%s&quot;."/>
+	<string id="20243" value="Skapade fil &quot;%s&quot; för nedladdning."/>
+	<string id="20244" value="Kan inte skapa lokal fil &quot;%s&quot; för nedladdning, avbryter."/>
+	<string id="20245" value="Kan inte öppna lokal fil &quot;%s&quot; för nedladdning, avbryter."/>
+	<string id="20246" value="Inga fler nedladdningsfragment, stänger anslutning till %s."/>
+	<string id="20247" value="Fragment förkortad, stänger anslutning till %s."/>
+	<string id="20248" value="Begär nedladdningsframent (%I64u-%I64u) av &quot;%s&quot; från %s."/>
+	<string id="20250" value="Dra och släpp filer till %s gruppen"/>
+	<string id="20251" value="Standard nedladdning grupp. (Visa alla filer)"/>
+	<string id="20252" value="Ny grupp"/>
+	<string id="20253" value="Nedladdningsvärdens Donkey2000 hashset är felaktig, släpper källa."/>
+	<string id="20254" value="Mottog en felaktig eDonkey hashset från %s, släpper källa."/>
+	<string id="20255" value="Mottog eDonkey hashset för &quot;%s&quot;, minsta verifierbara stycke %s."/>
+	<string id="20256" value="Efterfrågar Donkey2000 hashset för &quot;%s&quot; från %s…"/>
+	<string id="20257" value="Kan inte initera uppblåsning för nedladdning av &quot;%s&quot;."/>
+	<string id="20258" value="Mottar tiger-tree-data från %s (%s)…"/>
+	<string id="20259" value="Efterfrågar metadata för &quot;%s&quot; från %s…"/>
+	<string id="20261" value="Nedladdningsvärd %s svarade med %s (%s)"/>
+	<string id="20262" value="Nedladdningsvärd %s svarade med ett felaktigt HTTP-svar."/>
+	<string id="20263" value="Värd %s begär anslutningsbegäran för nedladdning av &quot;%s&quot;, accepterar."/>
+	<string id="20264" value="Skickar anslutningsbegäran för nedladdning av &quot;%s&quot;."/>
+	<string id="20265" value="Nedladdningsvärd %s är upptagen, väntar i kö som nummer #%i av %i (&quot;%s&quot;.."/>
+	<string id="20266" value="Stannar i kö &quot;%s&quot;."/>
+	<string id="20267" value="Släpper nedladdningskällan %s för &quot;%s&quot; eftersom den kölagda positionen %i är för hög."/>
+	<string id="20268" value="Tidsavbrott vid väntar på köuppdatering från eDonkey nedladdningsvärd %s för fil &quot;%s&quot;."/>
+	<string id="20269" value="Tidsavbrott vid nedladdningsbegäran till %s, stänger anslutning."/>
+	<string id="20270" value="Rensade nedladdning &quot;%s&quot;."/>
+	<string id="20271" value="Flyttade &quot;%s&quot; till &quot;%s&quot;, nedladdning klar."/>
+	<string id="20272" value="Gör paus i nedladdning av &quot;%s&quot;."/>
+	<string id="20273" value="Återupptar nedladdning av &quot;%s&quot;."/>
+	<string id="20274" value="Hämtar &quot;%s&quot; för nedladdning av &quot;%s&quot;."/>
+	<string id="20275" value="Efterfrågar fler källor för nedladdning av &quot;%s&quot; på %i anslutningar.."/>
+	<string id="20276" value="Kan inte hämta fler källor för nedladdning av &quot;%s&quot; eftersom det inte finns någon nätverksanslutning."/>
+	<string id="20280" value="Nedladdning av värdens tiger-tree-data är felaktig, ignorerar den."/>
+	<string id="20281" value="Nedladdning av värdens tiger-tree matchar inte det väntade rotvärdet."/>
+	<string id="20282" value="Nedladdningsvärd %s kan inte tillfredsställa din tiger-tree-begäran."/>
+	<string id="20283" value="Mottog tiger-tree-volym för &quot;%s&quot;, %i nivåer, minsta verifierbara stycke %s."/>
+	<string id="20284" value="Tar emot tiger-tree-volym från %s (%s)…"/>
+	<string id="20285" value="Efterfrågar tiger-tree-volym för &quot;%s&quot; från %s…"/>
+	<string id="20286" value="Stänger nedladdningsanslutning %s p.g.a. bristande trafik."/>
+	<string id="20290" value="Nedladdningsvärd %s svarade med ett annat, men användbart omfång (%I64i-%I64i) av &quot;%s&quot;."/>
+	<string id="20291" value="Mottog en ofullständig anslutningsbegäran från %s."/>
+	<string id="20292" value="Släpper källa %s (%s) för sändning av felaktiga delar av &quot;%s&quot; (%I64i-%I64i)."/>
+	<string id="20293" value="VARNING: Verifiering av nedladdning &quot;%s&quot; misslyckades, det kanske inte är den fil du ville ha!"/>
+	<string id="20294" value="Framgångsrik verifiering av nedladdning &quot;%s&quot;."/>
+	<string id="20295" value="Nedladdningsvärd %ss version av &quot;%s&quot; har en annan URN, avbryter."/>
+	<string id="20296" value="Nedladdningsvärd %s svarade med ett oanvändbart byteområde &quot;%s&quot; avvaktar"/>
+	<string id="20297" value="Nedladdningsvärd %ss version av &quot;%s&quot; har en annan längd, avbryter."/>
+	<string id="20300" value="Accepterade en inkommande anslutning från %s port %i."/>
+	<string id="20301" value="Redan ansluten till %s, kommer inte upprätta en andra anslutning."/>
+	<string id="20302" value="Vägrar dubbel anslutning från %s."/>
+	<string id="20303" value="Initierar en grannanslutning till %s port %i…"/>
+	<string id="20304" value="Grannen %s stängde anslutningen (%i : %s)."/>
+	<string id="20305" value="Stängde anslutningen till grannen %s."/>
+	<string id="20306" value="Upprättade en anslutning till grannen %s, skakar hand…"/>
+	<string id="20307" value="Kan inte initiera grannanslutning till %s."/>
+	<string id="20308" value="Grannen %s släppte oväntat anslutningen."/>
+	<string id="20309" value="Stängde anslutningen till grannen %s eftersom den inte är ett nav."/>
+	<string id="20310" value="Kan inte initiera en grannanslutning till %s (nekad)."/>
+	<string id="20311" value="Tidsavbrott vid anslutning till %s."/>
+	<string id="20312" value="Stänger anslutning till grannen %s p.g.a. bristande trafik."/>
+	<string id="20313" value="Frågar upptäckstjänster…"/>
+	<string id="20314" value="Upptäckstjänsten &quot;%s&quot; misslyckades %i gånger."/>
+	<string id="20315" value="Upptäckstjänsten &quot;%s&quot; misslyckades %i gånger, raderar."/>
+	<string id="20316" value="Frågar upptäckstjänsten &quot;%s&quot;."/>
+	<string id="20317" value="Skickar GWebCache &quot;%s&quot; till en slumpvald GWebCache…"/>
+	<string id="20318" value="Skickar GWebCache-uppdatering till tjänsten &quot;%s&quot;."/>
+	<string id="20319" value="GWebCache-överföring fullständig (&quot;%s&quot;.."/>
+	<string id="20320" value="Inkommande anslutning från %s är en eDonkey-klientlänk."/>
+	<string id="20321" value="Mottog ett felformaterad eDonkey-paket från %s (id=%x)."/>
+	<string id="20322" value="eDonkey-anslutning till %s var overksam, stängdes."/>
+	<string id="20323" value="Initierar eDonkey-anslutning till %s…"/>
+	<string id="20324" value="Tidsavbrott vid anslutning till eDonkey-klienten %s."/>
+	<string id="20325" value="Vägrar eDonkey-klientlänk från %s eftersom eDonkey är avstängt."/>
+	<string id="20326" value="eDonkey-klientens anslutning %s stängdes."/>
+	<string id="20327" value="Fel vid handskakning med eDonkey-klienten %s."/>
+	<string id="20328" value="Tidsavbrott vid anslutning till eDonkey-klienten %s."/>
+	<string id="20329" value="Skickar eDonkey-hashset för &quot;%s&quot; till %s…"/>
+	<string id="20330" value="eDonkey-klienten %s har ett felaktigt GUID, avbryter handskakning."/>
+	<string id="20331" value=" Filen är redan i PeerProjects nedladdningslista."/>
+	<string id="20332" value=" Kan inte öppna ofullständig fil &quot;%s&quot;."/>
+	<string id="20333" value=" Slutförde kopiering av fil."/>
+	<string id="20334" value=" Kopierar &quot;%s&quot; till &quot;%s&quot;."/>
+	<string id="20335" value=" Otillräckligt med diskutrymme för kopiering av nedladdningsfilen."/>
+	<string id="20336" value=" Skapar ofullständig nedladdningsfil för PeerProject, %s återstår."/>
+	<string id="20337" value=" Kan inte importera fil."/>
+	<string id="20338" value=" Nedladdad data är nyare än .part-filen, avbryter."/>
+	<string id="20339" value=" Fann ofullständig fil &quot;%s&quot;, importerar…"/>
+	<string id="20340" value="Importering slutförd, %i ofullständiga nedladdningar importerades."/>
+	<string id="20341" value="Granskar mapp: &quot;%s&quot;."/>
+	<string id="20342" value="Startar import av ofullständiga nedladdningar från eDonkey…"/>
+	<string id="20344" value=" Fann nedladdning &quot;%s&quot;, storlek %s."/>
+	<string id="20345" value="Ansluten till eDonkey-server %s, skakar hand…"/>
+	<string id="20346" value="Initierar en anslutning till eDonkey-server vid %s…"/>
+	<string id="20347" value="eDonkey-server %s har ändrat vår klient-ID från %lu till %lu."/>
+	<string id="20348" value="eDonkey-server %s identifierade sig själv som &quot;%s&quot;."/>
+	<string id="20349" value="ED2K[%s] %s"/>
+	<string id="20350" value="eDonkey-server %s är online, klient-ID är %lu."/>
+	<string id="20351" value="eDonkey-server %s vägrade anslutning."/>
+	<string id="20352" value="eDonkey-server %s nekade anslutningen."/>
+	<string id="20354" value="Filegenskaper"/>
+	<string id="20355" value="Är du säker på att du vill radera detta filter ?"/>
+	<string id="20356" value="Det finns redan ett filter som heter &quot;%s&quot;, vill du ersätta det?"/>
+	<string id="20358" value="Ge ditt filter ett namn."/>
+	<string id="20360" value="Anslutningsfel (%)"/>
+	<string id="20361" value="Nedladdningsbandbredd"/>
+	<string id="20362" value="Nedladdat filantal"/>
+	<string id="20363" value="Nedladdningsöverföringar"/>
+	<string id="20364" value="Gnutella mottagningsbandbredd"/>
+	<string id="20365" value="Gnutella sändningsbandbredd"/>
+	<string id="20366" value="Gnutellaanslutningar (totalt)"/>
+	<string id="20367" value="Gnutellaanslutningar (aktiva)"/>
+	<string id="20368" value="Gnutellapaket släppta"/>
+	<string id="20369" value="Gnutellapaket förlorade"/>
+	<string id="20370" value="Gnutellapaket mottagna"/>
+	<string id="20371" value="Gnutellapaket skickade"/>
+	<string id="20372" value="Gnutella - proportion av mottagna/skickade pings"/>
+	<string id="20373" value="Gnutella - proportion av mottagna/skickade pongs"/>
+	<string id="20374" value="Gnutella lokala frågor"/>
+	<string id="20375" value="Gnutellapaket routade"/>
+	<string id="20376" value="Total allmän mottagningsbandbredd"/>
+	<string id="20377" value="Total allmän sändningsbandbredd"/>
+	<string id="20378" value="Total TCP-mottagningsbandbredd"/>
+	<string id="20379" value="Total TCP-sändningsbandbredd"/>
+	<string id="20380" value="Total UDP-mottagningsbandbredd"/>
+	<string id="20381" value="Total UDP-sändningsbandbredd"/>
+	<string id="20382" value="Uppladdningsbandbredd"/>
+	<string id="20384" value="Uppladdningsöverföringar"/>
+	<string id="20385" value="Anslutande granne %s byter till skyddat lövläge."/>
+	<string id="20386" value="Stänger överflödig anslutning från %s med värdtips (%s port %i)."/>
+	<string id="20387" value="Navgranne %s vill inte acceptera oss som nav, stänger anslutning."/>
+	<string id="20388" value="Handskaking med %s misslyckades p.g.a. felaktig data på linjen."/>
+	<string id="20389" value="Beter sig som ett nav för lövgranne %s."/>
+	<string id="20390" value="Navanslutning upprättad, stänger klientanslutningar."/>
+	<string id="20391" value="Nekar anslutning från %s eftersom det är en avskärmad lövnod."/>
+	<string id="20392" value="Grannen %s är inte ett nav, stänger anslutning."/>
+	<string id="20393" value="Stänger anslutning till ej-Gnutella2-granne %s."/>
+	<string id="20394" value="Grannen %s vill vara ett nav, stänger anslutning."/>
+	<string id="20395" value="Gnutellaanslutning med grannen %s upprättad framgångsrikt (G%i.%i : %s)."/>
+	<string id="20396" value="Gnutella2-anslutning med grannen %s upprättad fullständigt (%s)."/>
+	<string id="20397" value="Anslutning till %s nekad (%s)."/>
+	<string id="20398" value="Stänger överflöding anslutning från %s."/>
+	<string id="20399" value="Tidsavbrott vid handskakning med %s."/>
+	<string id="20400" value="PeerProject granskar %Iu filer:"/>
+	<string id="20410" value="Utforska ditt PeerProjectbibliotek"/>
+	<string id="20411" value="Utforskar"/>
+	<string id="20412" value="Utforskar innehåller av %i mappar"/>
+	<string id="20413" value="%i filer valda"/>
+	<string id="20414" value="Flera mappar"/>
+	<string id="20415" value="Inga filer valda"/>
+	<string id="20416" value="Betygsätt denna fil"/>
+	<string id="20417" value="Färska tillägg"/>
+	<string id="20418" value="Album"/>
+	<string id="20419" value="Artist"/>
+	<string id="20420" value="Bithastighet"/>
+	<string id="20421" value="Längd"/>
+	<string id="20422" value="Betyg"/>
+	<string id="20423" value="Titel"/>
+	<string id="20424" value="#"/> <!-- Track number -->
+	<string id="20425" value="PeerProject kan inte installera samlingsfilen &quot;%s&quot; genom att kopiera den till mappen &quot;%s&quot;."/>
+	<string id="20426" value="Vill du ladda ned alla filer i denna samling?\n\nVälj Avbryt om du inte vill få denna fråga igen."/>
+	<string id="20427" value="PeerProject har lagt till samlingsfilen &quot;%s&quot; till ditt bibliotek."/>
+	<string id="20428" value="PeerProject mottog en samlingsfil:\n\n&quot;%s&quot;.\n\nDenna fil verkar inte vara en giltig samlingsfil."/>
+	<string id="20429" value="Vill du hindra denna samling från att fråga dig om nedladdning av något annat?"/>
+	<string id="20430" value="Är du säker på att du vill köra filen &quot;%s&quot;.\n\nVissa filer kan skada din dator. Försäkra dig om vad det är för fil innan du kör den."/>
+	<string id="20431" value="Är du säker på att du vill radera de %i valda filerna?\n\nFilerna kommer att flyttas till din papperskorg om den är aktiverad, annars raderas de för alltid."/>
+	<string id="20432" value="PeerProject kan inte radera filen:\n\n%s"/>
+	<string id="20433" value="Din nedladdningsmapp &quot;%s&quot; är ännu inte i ditt bibliotek.\n\nInkludering av din nedladdningsmapp i ditt bibliotek gör det enklare att visa och organisera nya nedladdningar och låter dig använda avancerade PeerProjectfunktioner som t.ex. neladdningsverifikation och automatisk uppgradering. Placering av nedladdade filer i ditt bibliotek innebär inte nödvändigtvis att du måste dela ut dem. Du kan välja vilka filer du vill dela ut var för sig.\n\nVill du lägga till nedladdningsmappen till ditt bibliotek nu?"/>
+	<string id="20434" value="Din nedladdningsmapp har lagts till ditt bibliotek. Vill du dela ut den också?"/>
+	<string id="20435" value="Du har inte valt en mediaspelare att kölägga filerna med, som t.ex. Nullsoft WinAmp. Vill du välja en nu?\n\nPeerProject kommer att skicka namnet på filen till ditt valda program med &quot;/ADD&quot;-argumentet."/>
+	<string id="20436" value="Är du säker på att du vill radera de %i valda albummapparna?\n\nRadering av albummappar raderar inte filerna som tillhör dem, utan endast mapparna."/>
+	<string id="20437" value="Skuggfil"/>
+	<string id="20438" value="Ändrar metadata för %i filer."/>
+	<string id="20439" value="Du är på väg att förändra metadatan för %i filer. Är du säker på att du vill fortsätta?"/>
+	<string id="20440" value="Kan inte flytta filen %s. Filen kanske används av ett annat program.\n\nVill du försöka kopiera filen istället?"/>
+	<string id="20441" value="PeerProject kan inte byta namn på:\n\n%s\ntill\n%s"/>
+	<string id="20442" value="Målfilen finns redan:\n\n%s\n\nVill du ersätta den?"/>
+	<string id="20443" value="Visa alla filtyper"/>
+	<string id="20444" value="Kopiera &URI"/>
+	<string id="20445" value="Exportera &URIs…"/>
+	<string id="20446" value="Filen &quot;%s&quot; misslyckades med en granskningsverifikation och kanske inte är filen du ville ladda ned. Är du säker på att du vill öppna den?"/>
+	<string id="20447" value="Vill du radera det &quot;eventuellt osäkra&quot; attributet från denna fil?"/>
+	<string id="20448" value="Filen &quot;%s&quot; har inte blivit granskad ännu. Vänta tills filen har blivit granskad och försök sedan igen."/>
+	<string id="20449" value="Detta val använder tjänster tillhandahållna av Bitzi.com för igenkänning och utdelning av information om valda filer.\n\nPeerProject kommer att överföra SHA1-granskningskoden för de valda filerna för att begära information från Bitzidatabasen. Om du är rädd om din integritet kan du välja att läsa integritetspolicyn för Bitzi.com.\n\nVill du fortsätta?"/>
+	<string id="20450" value="En undermapp till mappen &quot;%s&quot; finns redan i ditt bibliotek.\nOm du lgger till den här mappen måste hashen beråknas om för vissa filer.\n\nVill du fortsätta?"/>
+	<string id="20451" value="Ingen fil spelas. Dubbelklicka på en mediafil i ditt bibliotek för att spela den."/>
+	<string id="20452" value="Alla mediafiler|*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Spellistor|*.asx;*.wax;*.m3u;*.wvx;*.wmx|Ljudfiler|*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm|Videofiler|*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Ljudspår på CD|*.cda|MIDI-filer|*.mid;*.rmi;*.midi|Alla filer|*.*||"/>
+	<string id="20453" value="Kan inte ladda mediafilen &quot;%s&quot;"/>
+	<string id="20454" value="Filen kan vara skadad eller du kanske inte har nödvändig codec för att spela upp den."/>
+	<string id="20455" value="Delar av filen kan inte spelas upp. Du kanske måste ladda ned ytterligare codecs."/>
+	<string id="20456" value="Spellista:"/>
+	<string id="20457" value="PeerProject kan inte initiera sitt insticksprogram för MediaServices. Installera om PeerProject och kontrollera att alla mediacodecs och utmatningsenheter är installerade."/>
+	<string id="20458" value="PeerProject mediaspelare"/>
+	<string id="20460" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
+	<string id="20461" value="(Ingen visualisering)"/>
+	<!--string id="20462" value="PeerProject har fullständigt laddat ned:"-->
+	<!--string id="20463" value="PeerProject laddar ned:"-->
+	<!--string id="20464" value="PeerProject flyttar nedladdningen:"-->
+	<!--string id="20465" value="Denna nedladdning är pausad:"-->
+	<!--string id="20466" value="PeerProject söker efter källor för:"-->
+	<!--string id="20467" value="PeerProject kontrollerar nedladdningen efter fil:"-->
+	<string id="20470" value="Avbryt"/>
+	<string id="20471" value="Öppna"/>
+	<string id="20472" value="Färdig"/>
+	<string id="20473" value="Beräknad återstående tid:"/>
+	<string id="20474" value="Antal recensioner:"/>
+	<string id="20475" value="Antal källor:"/>
+	<string id="20476" value="Inga källor"/>
+	<string id="20477" value="%i dagar och %i timmar"/>
+	<string id="20478" value="%i timmar och %i minuter"/>
+	<string id="20479" value="%i minuter och %i sekunder"/>
+	<string id="20480" value="%i sekunder"/>
+	<string id="20481" value="Total överföringsfart:"/>
+	<string id="20482" value="Nedladdad volym:"/>
+	<string id="20483" value="Uppladdad volym:"/>
+	<string id="20484" value="Begränsa nedladdningshastighet"/>
+	<string id="20485" value="Begränsa uppladdningshastighet"/>
+	<string id="20490" value="Flera"/>
+	<string id="20491" value="Flera värden"/>
+	<string id="20494" value="Du har ännu inte skrivit en geografisk plats i din användarprofil\n\nDet är en bra idé att ange en plats så att andra användare kan ser var du kommer från.\n\nÄr du säker på att du vill fortsätta utan att ange en plats?"/>
+	<string id="20495" value="Du har inte skrivit ett visningsnamn i din användarprofil.\n\nDet är en bra idé att välja ett visningsnamn så att andra användare kan se vem de är ansluten till.\n\nÄr du säker på att du vill fortsätta utan ett visningsnamn?"/>
+	<string id="20496" value="Du har inte angett ålder och kön. Är du säker på att du vill fortsätta utan att göra detta?"/>
+	<string id="20499" value="Ny Mapp"/>
+	<string id="20500" value="Klicka på Anslut för att börja."/>
+	<string id="20501" value="Du är inte ansluten till nätverket."/>
+	<string id="20502" value="Stänger"/>
+	<string id="20503" value="Komprimering:"/>
+	<string id="20504" value="Minskad"/>
+	<string id="20505" value="Ingen"/>
+	<string id="20506" value="ANsluter"/>
+	<string id="20507" value="Nuvarande:"/>
+	<string id="20510" value="eDonkey-serveranslutning"/>
+	<string id="20511" value="eDonkey (HighID)"/>
+	<string id="20512" value="eDonkey-serveranslutning (LOWID: %lu)"/>
+	<string id="20513" value="eDonkey (LowID)"/>
+	<string id="20514" value="eDonkey-server"/>
+	<string id="20515" value="G1-löv"/>
+	<string id="20516" value="G1-like"/>
+	<string id="20517" value="Gnutella: Like-till-like-anslutning"/>
+	<string id="20518" value="Gnutella: Löv-till-ultralike-anslutning"/>
+	<string id="20519" value="Gnutella: Ultralike-till-löv-anslutning"/>
+	<string id="20520" value="G1-ultralike"/>
+	<string id="20521" value="G2-nav"/>
+	<string id="20522" value="G2-löv"/>
+	<string id="20524" value="G2-like"/>
+	<string id="20525" value="Gnutella2: Löv-till-nav-anslutning"/>
+	<string id="20526" value="Gnutella2: Nav-till-nav-anslutning"/>
+	<string id="20527" value="Gnutella2: Nav-till-löv-anslutning"/>
+	<string id="20530" value="Handskakning"/>
+	<string id="20531" value="Handskakning"/>
+	<string id="20532" value="Ingående"/>
+	<string id="20533" value="Utgående"/>
+	<string id="20534" value="Totalt:"/>
+	<string id="20535" value="Förhållande:"/>
+	<string id="20536" value="Nekad"/>
+	<string id="20538" value="Okänd"/>
+	<string id="20540" value="Anslut"/>
+	<string id="20541" value="Ansluter…"/>
+	<string id="20542" value="Ansluten"/>
+	<string id="20543" value="Ej ansluten"/>
+	<string id="20544" value="Stänger ned PeerProjects nätverkskärna…"/>
+	<string id="20545" value="Ej ansluten till nätverket."/>
+	<string id="20546" value="Är du säker på att du vill koppla ifrån?"/>
+	<string id="20547" value="Gnutella2 är PeerProjects primära nätverk. Avstängning av stöd för det kan drastiskt minska både mängden och kvaliteten på sökresultat. Är du SÄKER på att du vill göra detta?"/>
+	<string id="20548" value="Kan inte binda till %s port %i för inkommande anslutningar. Inkommande anslutningar kommer inte att stödjas."/>
+	<string id="20549" value="Kan inte hämta %s för utgående anslutningar. Utgående anslutningar kommer att använda det förvalda gränsnittet."/>
+	<string id="20550" value="Din utgående bandbredd är för låg för att använda detta nätverk"/>
+	<string id="20551" value="Bakom brandvägg, kan inte acceptera inkommande anslutningar."/>
+	<string id="20552" value="Att tvinga din PC till navläge kan skada prestandan på fildelningsnätverket. Det är vanligtvis bättre att låta PeerProject bestämma om navläge ska användas eller inte.\n\nNavläge ger INTE bättre sökresultat eller några andra föredelar för dig.\n\nVill du verkligen göra detta trots dessa nackdelar?"/>
+	<string id="20553" value="Accepterar inkommande TCP-anslutningar på %s port %i."/>
+	<string id="20554" value="Lyssnar efter UDP-datagram på %s port %i."/>
+	<string id="20555" value="Utgående anslutningar kommer att göras från %s port %i."/>
+	<string id="20556" value="Kan inte hämta värd &quot;%s&quot;."/>
+	<string id="20557" value="Hämtar värd &quot;%s&quot;."/>
+	<string id="20558" value="Skickar begäran om &quot;%s&quot; till %s."/>
+	<string id="20560" value="Adressen %s är redan blockerad av dina säkerhetsregler."/>
+	<string id="20561" value="Lade till säkerhetsregel för att blockera %s."/>
+	<string id="20562" value="Säkerhetshanteraren nekade åtkomst från %s."/>
+	<string id="20563" value="Säkerhetshanteraren stängde av åtkomst från %s."/>
+	<string id="20564" value="Startar PeerProjects nätverkskärna…"/>
+	<string id="20566" value="UPnP portmapping misslyckades efter 10 försök."/>
+	<string id="20570" value="Tog emot ett felformaterat frågeträffpaket från %s, ignorerar."/>
+	<string id="20571" value="%s:  Tog emot en felformaterad frågepaket från %s, ignorerar."/>
+	<string id="20572" value="Grannen %s skickade ett paket med för stor TTL, släpper paket (TTL=%i, Hops=%i)."/>
+	<string id="20573" value="Grannen %s skickade ett paket med noll TTL, ignorerar."/>
+	<string id="20574" value="Grannen %s skickade vidare ett utökat paket som inte är GGEP-kodat."/>
+	<string id="20575" value="Grannen %s skickade en felaktig uppdatering för frågeroutingtabell, släpper anslutning."/>
+	<string id="20576" value="Skickar frågeroutingtabell till grannen %s (%i bitar = %lu[%i], %i%% full)"/>
+	<string id="20577" value="Tog emot en oväntad uppdatering för frågerotuingtabell från grannen %s."/>
+	<string id="20578" value="Grannen %s uppdaterade sin frågerotuingtabell (%i bitar = %lu[%i], %i%% full)."/>
+	<string id="20579" value="%s -> %s [%i/%i] %s %s"/>
+	<string id="20580" value="Lövgranne %s skickar vidare förfrågor, släpper anslutning."/>
+	<string id="20581" value="Grannen %s skickade ett pingpaket med en felaktig längd, ignorerar."/>
+	<string id="20582" value="Grannen %s skickade ett pongpaket med felaktig längd, ignorerar."/>
+	<string id="20583" value="Grannen %s skickade ett paket för anslutningsbegämed felaktig längd, ignorerar."/>
+	<string id="20584" value="Grannen %s skickade ett paket med för stor storlek, släpper anslutning."/>
+	<string id="20585" value="Grannen %s skickade vidare ett felaktigt paket (0x%.2x), ignorerar."/>
+	<string id="20586" value="Grannen %s skickade ett pongpaket med en felaktig adress, ignorerar."/>
+	<string id="20588" value="Grannen %s skickade vidare en anslutningsbegäran till en adress bakom brandvägg, ignorerar."/>
+	<string id="20590" value="Fjärråtkomst är avstängd."/>
+	<string id="20591" value="http://%s:%i/remote - välja ett användarnamn och lösenord."/>
+	<string id="20592" value="Kan inte acceptera anslutningar. URL otillgänlig."/>
+	<string id="20595" value="&amp;Scheman"/>
+	<string id="20620" value="PeerProject söker aktivt på nätverket…"/>
+	<string id="20621" value="Klicka här för att söka igen."/>
+	<string id="20622" value="Alla nätverk"/>
+	<string id="20623" value="Du är på väg att starta en ny sökning. Vill du rensa resultatet från den föregående sökningen?"/>
+	<string id="20624" value="Dessa ytor visar mer information om filer du har valt."/>
+	<string id="20625" value="%s skriver:"/>
+	<string id="20626" value="%s betygsätter denna fil:"/>
+	<string id="20627" value="Klicka för att förhandsvisa"/>
+	<string id="20628" value="Förhandsvisar…"/>
+	<string id="20629" value="Kan inte ladda ned förhandsvisningsinnehåll från &quot;%s&quot;."/>
+	<string id="20630" value="Det finns %i recensioner."/>
+	<string id="20631" value="Det finns en recension."/>
+	<string id="20632" value="%i källor är tillgängliga. (%s/s)"/>
+	<string id="20633" value="En källa är tillgänglig. (%s/s)"/>
+	<string id="20634" value="Nätverket har inte returnerat några träffar ännu."/>
+	<string id="20635" value="Resultat finns tillgängligt men är bortfiltrerat."/>
+	<string id="20636" value="Inga sökningar har blivit startade i detta fönster ännu."/>
+	<string id="20637" value="Ingen metadata"/>
+	<string id="20638" value="Ingen schemakolumn"/>
+	<string id="20640" value="(Rensa sökhistorik)"/>
+	<string id="20641" value="Sök PeerProject"/>
+	<string id="20642" value="Vad är det för filtyp?"/>
+	<string id="20643" value="Skriv några nyckelord att söka efter:"/>
+	<string id="20644" value="Avancerat…"/>
+	<string id="20645" value="Valfri filtyp"/>
+	<string id="20646" value="Rensa"/>
+	<string id="20648" value="Dölj sökpanelen"/>
+	<string id="20650" value="Sök"/>
+	<string id="20651" value="Skriv din sökning här:"/>
+	<string id="20652" value="Sök efter filer av denna typ:"/>
+	<string id="20653" value="Nätverk:"/>
+	<string id="20654" value="Storleken Min:"/>
+	<string id="20655" value="Storleken Max:"/>
+	<string id="20656" value="Sök mer"/>
+	<string id="20657" value="Visa sökpanelen"/>
+	<string id="20658" value="Starta sökning"/>
+	<string id="20659" value="Stopp"/>
+	<string id="20660" value="Inga filer funna"/>
+	<string id="20661" value="%lu nav, %lu löv"/>
+	<string id="20662" value="Ingen sökning för närvarande"/>
+	<string id="20663" value="Resultat"/>
+	<string id="20664" value="%lu fil i %lu träff|%lu fil i %lu träffar|%lu filer i %lu träffar"/>
+	<string id="20665" value="Hittat:"/>
+	<string id="20666" value="Söker:"/>
+	<string id="20668" value="Söker…"/>
+	<string id="20669" value="Ren textsökning"/>
+	<string id="20670" value="PeerProject söker på nätverket…"/>
+	<string id="20671" value="Är du säker p å att du vill radera de valda säkerhetsreglerna? Detta kan inte ångras."/>
+	<string id="20672" value="Välj temporär filmapp för eDonkey/eMule:"/>
+	<string id="20673" value="Automatisk"/>
+	<string id="20674" value="Mappen för avslutade nedladdningar bör inte vara samma som mappen för ofullständiga nedladdningar"/>
+	<string id="20675" value="Windows stödjer inte sökvägar längre än 256 tecken.\nVälj en mapp med kortare sökväg."/>
+	<string id="20676" value="Mappen för ofullständiga nedladdningar ska inte finnas i biblioteket eftersom det försämrar prestanda. Ofullständiga nedladdningar kan delas direkt från överföringsfönstret."/>
+	<string id="20677" value="Skriv bandbreddsbegräsningen du vill använda på formen &quot;123 kb/s&quot; för kbit/s eller &quot;123 KB/s&quot; för kbyte/s."/>
+	<string id="20678" value="Nätverket eDonkey använder långa köer med långa väntetider. Om du begränsar den maximala köpositionen kan du få problem med att ladda ner filer.\nÄr du säker på att du vill begränsa köpositioner?"/>
+	<string id="20680" value="Inställningar"/>
+	<string id="20684" value="Är du säker på att du vill radera skinnet &quot;%s&quot;. Detta kan inte ångras."/>
+	<string id="20700" value="Aktiv"/>
+	<string id="20701" value="%s in : %s ut (d:%I64i/u:%I64i)"/>
+	<string id="20702" value="Ansluten till %lu grannar. %s i ditt lokala bibliotek."/>
+	<string id="20703" value="Navläge med %lu grannar. %s i ditt lokala bibliotek."/>
+	<string id="20704" value="Nav/Ultralikeläge med %lu grannar. %s i ditt lokala bibliotek."/>
+	<string id="20705" value="Ansluten. %s i ditt lokala bibliotek."/>
+	<string id="20706" value="Ultralikeläge med %lu grannar. %s i ditt lokala bibliotek."/>
+	<string id="20707" value="Ansluter till nätverket…"/>
+	<string id="20708" value="Ej ansluten till nätverket."/>
+	<string id="20710" value="(Ingen framgång)"/>
+	<string id="20711" value="Kan inte flytta"/>
+	<string id="20712" value="Kvävd"/>
+	<string id="20713" value="Lägg i kö"/>
+	<string id="20714" value="Filfel"/>
+	<string id="20715" value="Hashset"/>
+	<string id="20716" value="Metadata"/>
+	<string id="20717" value="Svar"/>
+	<string id="20718" value="Flyttar"/>
+	<string id="20719" value="Skapar"/>
+	<string id="20720" value="Fullständig"/>
+	<string id="20721" value="Ansluter"/>
+	<string id="20722" value="Laddar ned"/>
+	<string id="20723" value="Upptagen"/>
+	<string id="20724" value="Nästa"/>
+	<string id="20725" value="K"/> <!-- Was: Q -->
+	<string id="20726" value="Kölagd"/>
+	<string id="20727" value="Pausad"/>
+	<string id="20728" value="Avvaktande"/>
+	<string id="20729" value="Efterfrågar"/>
+	<string id="20730" value="Söker"/>
+	<string id="20731" value="Sår"/>
+	<string id="20732" value="källa"/>
+	<string id="20733" value="källor"/>
+	<string id="20734" value="källor"/>
+	<string id="20735" value="källor"/>
+	<string id="20740" value="TigerTree"/>
+	<string id="20741" value="Torrent"/>
+	<string id="20742" value="Spårare nere"/>
+	<string id="20743" value="Ointresserad"/>
+	<string id="20744" value="Okänd"/>
+	<string id="20745" value="Ointresserad"/>
+	<string id="20746" value="Overifierad"/>
+	<string id="20747" value="Verifierad"/>
+	<string id="20748" value="Verifierar"/>
+	<string id="20750" value="!Välkommen till PeerProject (version) !\n.\nPeerProject är fullständigt fri mjukvara.\nAnvänd den med förstånd och respektera upphovsrätten.\n."/>
+	<string id="20751" value="Det finns inga aktiva sökningar. Klicka här för att söka efter filer."/>
+	<string id="20752" value="Du är inte ansluten. Klicka på Anslut för att börja."/>
+	<string id="20755" value="Är du säker på att du vill radera &quot;%s&quot; mallen?\n Du kan inte ångra det senare."/>
+	<string id="20760" value="Aktiv"/>
+	<string id="20761" value="Inaktiv"/>
+	<string id="20762" value="Denna fil verkar vara spam."/>
+	<string id="20763" value="Svartlistad:"/>
+	<string id="20764" value="Du har laddat ned och raderat denna fil förut."/>
+	<string id="20765" value="Du har redan denna fil i din nedladdningslista."/>
+	<string id="20766" value="Du har redan denna fil i ditt bibliotek."/>
+	<string id="20767" value="Källor för den här filen är upptagna"/>
+	<string id="20768" value="Källor för den här filen sitter bakom brandvägg"/>
+	<string id="20769" value="Källor för den här filen är instabila"/>
+	<string id="20770" value="Mapp"/>
+	<string id="20771" value="Träffar"/>
+	<string id="20772" value="Plats"/>
+	<string id="20773" value="av ditt bibliotek"/>
+	<string id="20774" value="Ej tillgänglig"/>
+	<string id="20775" value="Nästa i rad"/>
+	<string id="20776" value="Ingen hashset"/>
+	<string id="20777" value="Ofullständig källa (%.2f%% tillgängligt)"/>
+	<string id="20778" value="%i uppladdningsöppningar, %i kölagda"/>
+	<string id="20780" value="Storlek"/>
+	<string id="20781" value="Den hr källan är upptagen"/>
+	<string id="20782" value="Den här källan sitter bakom en brandvägg"/>
+	<string id="20783" value="Den här källan är instabil"/>
+	<string id="20784" value="Hastighet:"/>
+	<string id="20785" value="Status:"/>
+	<string id="20786" value="%lu idag, %lu totalt"/>
+	<string id="20787" value="Totalt antal filer:"/>
+	<string id="20788" value="Total volym:"/>
+	<string id="20789" value="Uppladdningar:"/>
+	<string id="20790" value="Typ"/>
+	<string id="20791" value="Opålitlig"/>
+	<string id="20792" value="Uppladdningar"/>
+	<string id="20793" value="URL:"/>
+	<string id="20794" value="Användarprogram:"/>
+	<string id="20795" value="%s in : %s ut (d:%I64i/u:%I64i/s:%I64i)"/>
+	<string id="20796" value="Filer delade över Internet"/>
+	<string id="20798" value="PeerProject har fullständigt laddad ned PeerProject version (%s). Vill du uppgradera nu?\n\nOm du väljer Ja kommer PeerProject stängas tillfälligt och uppgraderingen kommer att installeras.."/>
+	<string id="20800" value="Skickar förvalt HTML-svar till uppladdningsvärd %s (%s)."/>
+	<string id="20801" value="Inkommande anslutning från %s är en HTTP-uppladdningsbegäran."/>
+	<string id="20802" value="Uppladdningsvärd %s (%s) begärde fillistning, svarar…"/>
+	<string id="20803" value="Uppladdningsvärd %s använder ett blockerat användarprogram, nekar begäran."/>
+	<string id="20804" value="Vägrar fillistningbegäran från %s, för många fillistningsanslutningar."/>
+	<string id="20805" value="Nekade begäran om fillistning från %s."/>
+	<string id="20806" value="Kölagd uppladdning %s begär för ofta, stänger anslutning."/>
+	<string id="20807" value="Vägrar uppladdning av &quot;%s&quot; till %s (%s), för många samtidiga anslutningar från värd."/>
+	<string id="20808" value="Vägrar uppladdning av &quot;%s&quot; till %s (%s), upptagen och klienten stödjer inte köläggning."/>
+	<string id="20809" value="Vägrar uppladdning av &quot;%s&quot; till %s (%s), alla matchande köer är fulla"/>
+	<string id="20810" value="Uppladdningsvärd %s begärde ett otillfredställbart omfång från fil &quot;%s&quot;."/>
+	<string id="20811" value="eDonkey-uppladdningar ska inte avbrytas. Är du säker på att du vill avbryta denna uppladdning?"/>
+	<string id="20812" value="Kan inte öppna &quot;%s&quot; för uppladdning till värd %s, disk- eller filfel."/>
+	<string id="20813" value="Initierar en anslutningsbegäran till %s. %s"/>
+	<string id="20814" value="Kan inte ansluta till värd %s för anslutningsbegäran."/>
+	<string id="20815" value="Skickar uppladdningsinnehåll med omfånget %I64i-%I64i från &quot;%s&quot; till värd %s (%s)."/>
+	<string id="20816" value="Uppladdningsanslutning till %s stängdes."/>
+	<string id="20817" value="Vägrar en ny uppladdning till %s eftersom en tidigare anslutning är i avvaktan."/>
+	<string id="20818" value="Stänger äldre uppladdning av %s eftersom den har skapat en ny anslutning."/>
+	<string id="20819" value="Vägrar uppladdning till %s (%s), nätverk avstängt."/>
+	<string id="20820" value="Stoppade uppladdning av &quot;%s&quot; till %s eftersom filen raderades."/>
+	<string id="20821" value="Uppladdar fil &quot;%s&quot; till värd %s…"/>
+	<string id="20822" value="Uppladdningsvärd %s begärde ett okänt eller otillgängligt objekt &quot;%s&quot;."/>
+	<string id="20823" value="Slutförde uppladdning av del av &quot;%s&quot; till %s."/>
+	<string id="20824" value="Anslutningsbegäran till %s upprättad, väntar på handskakning…"/>
+	<string id="20825" value="Uppladdningsvärd %s begärde &quot;%s&quot; med ett annat SHA1."/>
+	<string id="20826" value="Skickar uppladdningshuvuden från &quot;%s&quot; till värd %s (%s)."/>
+	<string id="20827" value="Uppladdar metadata för &quot;%s&quot; till %s."/>
+	<string id="20828" value="Uppladdningsvärd %s skickade en felaktig HTTP-fråga."/>
+	<string id="20830" value="Skickar uppladdningsinnehåll med om fånget %I64i-%I64i från ofullständig fil &quot;%s&quot; till värd %s (%s)."/>
+	<string id="20832" value="Vägrar uppladdning av en förhandsvisning av &quot;%s&quot; till %s, för många förhandsvisningsanslutningar."/>
+	<string id="20833" value="Schemalägger en dynamisk förhandsvisning av &quot;%s&quot; för uppladdning till %s."/>
+	<string id="20834" value="Uppladdningsvärd %s begärde en förhandsvisning av &quot;%s&quot;, men ingen förhandsvisning finns tillgänglig."/>
+	<string id="20835" value="Uppladdar en förhandsvisning av &quot;%s&quot; till %s."/>
+	<string id="20836" value="Vägrar anslutningsbegäran till %s eftersom den har för många uppladdningsanslutningar."/>
+	<string id="20837" value="Nedärvd anslutningsbegäran från %s begärde en okänd fil, ansluter ändå…"/>
+	<string id="20838" value="För upptagen med att ladda upp &quot;%s&quot; till %s, kölagd som #%i av %i (&quot;%s&quot;.."/>
+	<string id="20840" value="Ny kö"/>
+	<string id="20841" value="Fullständiga filer"/>
+	<string id="20842" value="Uppladdningsanslutning. till %s förlorades, bevarar kölagd position."/>
+	<string id="20844" value="eDonkey-kärna"/>
+	<string id="20845" value="eDonkey-vakt"/>
+	<string id="20846" value="eDonkey-ofullständig"/>
+	<string id="20847" value="Fullständiga uppladdningar"/>
+	<string id="20848" value="HTTP Guard"/>
+	<string id="20849" value="Biblioteksfiler"/>
+	<string id="20850" value="Stora filer"/>
+	<string id="20851" value="Medelstora filer"/>
+	<string id="20852" value="Små filer"/>
+	<string id="20853" value="Ofullständiga filer"/>
+	<string id="20854" value="Ofullständig"/>
+	<string id="20855" value="Fråga"/>
+	<string id="20856" value="Torrentuppladdningar"/>
+	<string id="20857" value="Ej ansluten kölagd uppladdningsvärd %s upphörde, raderar."/>
+	<string id="20858" value="Tidsavbrott vid väntan på begäran från uppladdningsvärd %s."/>
+	<string id="20859" value="Stänger uppladdningsanslutning från %s p.g.a. bristande trafik."/>
+	<string id="20860" value="Uppladdar tiger-tree-data för &quot;%s&quot; till %s."/>
+	<string id="20861" value="Raderade uppladdning av &quot;%s&quot; till %s."/>
+	<string id="20862" value="Lägg till"/>
+	<string id="20864" value="&amp;Bläddra"/>
+	<string id="20865" value="&amp;Anslut"/>
+	<string id="20866" value="Filnamn:"/>
+	<string id="20867" value="Värd:"/>
+	<string id="20868" value="Port:"/>
+	<string id="20869" value="Kan inte visa URL-åtgärdsdialogrutan eftersom PeerProject är upptagen."/>
+	<string id="20870" value="Kan inte tolka URL: PeerProject förstår inte denna URL."/>
+	<string id="20871" value="Mottog URL &quot;%s&quot;"/>
+	<string id="20872" value="Typ:"/>
+	<string id="20874" value="Ospecifierad"/>
+	<string id="20875" value="URL:"/>
+	<string id="20880" value="Redigera min profil"/>
+	<string id="20881" value="Vid vyändring stängs alla öppna fönster. Vill du ändra vy nu?"/>
+	<string id="20882" value="Värdtjänsten för UPnP-enheter körs inte. Tjänsten är nödvöndig för installationen.\nDu behöver ställa in automatisk uppstart för tjänsten."/>
+	<string id="20884" value="Ingen URN tillgänglig"/>
+	<string id="20885" value="Att ändra gränssnittets riktning kräver omstart. \nDu måste starta om PeerProject manuellt. Avsluta nu?"/>
+	<string id="20890" value="Välkommen till PeerProject"/>
+	<string id="20891" value="&Avsluta"/>
+	<string id="20892" value="Var god vänta: Uppdaterar eDonkey serverlista..."/>
+	<string id="20893" value="Var god vänta: Uppdaterar upptäckstjänster..."/>
+	<string id="20894" value="Var god vänta: Hittar och installerar UPnP-enheter..."/>
+	<string id="20895" value="Du har ännu inte valt en anslutningshastighet. Innan du kan fortsätta ska du välja den typ av Internetanslutning du använder eller din anslutningshastighet."/>
+	<string id="20896" value="Du har angett att du vill sätta upp porteftersändning i din NAT-router eller brandvägg.\n\nAnpassa ditt nätverk för att eftersända TCP-port %i till din lokala dator."/>
+	<string id="20897" value="Mappen du försöker dela ut ingår redan i denna utdelade mapp:\n\n%s"/>
+	<string id="20898" value="Du har inte valt någon mapp att dela ut. Vill du fortsätta?"/>
+	<string id="20899" value="år gammal"/>
+	<!--string value="Torrentinformation"-->
+	<!--string value="Trackern svarade inte - försöker igen (%i av %i)"-->
+	<!--string value="Du har redan filen &quot;%s&quot; i ditt bibliotek. Vill du ladda ned den ändå?"-->
 </strings>
 <!-- Localized Dialog Text, "cookie" verifies that the skin matches current dialog -->
 <dialogs>
@@ -4153,8 +4155,8 @@
 		<control/>
 		<control/>
 		<control/>
-		<control caption="% under Download limit"/>
-		<control caption="% under Upload limit"/>
+		<control caption="% of Download limit"/>
+		<control caption="% of Upload limit"/>
 		<control caption="Active Task"/>
 		<control caption="Enable G2 Only"/>
 		<control caption="Set Event Time"/>

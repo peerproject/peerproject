@@ -60,7 +60,7 @@ CEDNeighbour::CEDNeighbour() : CNeighbour( PROTOCOL_ED2K )
 	m_nClientID		= 0;
 	m_nUserCount	= 0;
 	m_nUserLimit	= 0;
-	m_nFileLimit	= 1000;
+	m_nFileLimit	= 2000;
 	m_nTCPFlags		= 0;
 	m_nUDPFlags		= 0;
 	m_nFilesSent	= 0;
@@ -297,7 +297,6 @@ BOOL CEDNeighbour::OnPacket(CEDPacket* pPacket)
 		return OnFoundSources( pPacket );
 	default:
 		pPacket->Debug( _T("Unknown") );
-		break;
 	}
 
 	return TRUE;
@@ -448,7 +447,7 @@ BOOL CEDNeighbour::OnServerStatus(CEDPacket* pPacket)
 
 	CQuickLock oLock( HostCache.eDonkey.m_pSection );
 
-	if ( CHostCacheHost* pHost = HostCache.eDonkey.Add( &m_pHost.sin_addr, htons( m_pHost.sin_port ) ) )
+	if ( CHostCacheHostPtr pHost = HostCache.eDonkey.Add( &m_pHost.sin_addr, htons( m_pHost.sin_port ) ) )
 	{
 		// pHost->m_nUserCount = max( pHost->m_nUserCount, m_nUserCount );
 		pHost->m_nUserCount = m_nUserCount;
@@ -509,7 +508,7 @@ BOOL CEDNeighbour::OnServerIdent(CEDPacket* pPacket)
 
 	CQuickLock oLock( HostCache.eDonkey.m_pSection );
 
-	if ( CHostCacheHost* pHost = HostCache.eDonkey.Add( &m_pHost.sin_addr, htons( m_pHost.sin_port ) ) )
+	if ( CHostCacheHostPtr pHost = HostCache.eDonkey.Add( &m_pHost.sin_addr, htons( m_pHost.sin_port ) ) )
 	{
 		pHost->m_sName			= m_sServerName;
 		pHost->m_sDescription	= strDescription;
@@ -559,7 +558,7 @@ bool CEDNeighbour::OnCallbackRequested(CEDPacket* pPacket)
 	}
 
 	// Check that remote client has a port number, isn't firewalled, or using reserved address
-	if ( !nPort
+	if ( ! nPort
 		|| Network.IsFirewalledAddress( (IN_ADDR*)&nAddress )
 		|| Network.IsReserved( (IN_ADDR*)&nAddress ) )
 	{
@@ -620,11 +619,10 @@ BOOL CEDNeighbour::OnSearchResults(CEDPacket* pPacket)
 
 BOOL CEDNeighbour::OnFoundSources(CEDPacket* pPacket)
 {
-	CQueryHit* pHits	= CQueryHit::FromEDPacket( pPacket, &m_pHost, m_nTCPFlags & ED2K_SERVER_TCP_UNICODE );
+	CQueryHit* pHits = CQueryHit::FromEDPacket( pPacket, &m_pHost, m_nTCPFlags & ED2K_SERVER_TCP_UNICODE );
 
-	if ( pHits == NULL )
+	if ( ! pHits )
 	{
-
 		if ( pPacket->m_nLength != 17 && pPacket->m_nLength != 5 )
 		{
 			pPacket->Debug( _T("BadSearchResult") );
@@ -694,7 +692,6 @@ void CEDNeighbour::SendSharedFiles()
 		{
 			pPacket->WriteFile( pDownload, nSize, NULL, this, TRUE );
 
-			//Increment count of files sent
 			m_nFilesSent++;
 		}
 	}
@@ -716,7 +713,6 @@ void CEDNeighbour::SendSharedFiles()
 			// Send the file to the ed2k server
 			pPacket->WriteFile( pFile, nSize, NULL, this, FALSE );
 
-			//Increment count of files sent
 			m_nFilesSent++;
 		}
 	}
@@ -727,7 +723,7 @@ void CEDNeighbour::SendSharedFiles()
 	if ( bDeflate )
 		pPacket->Deflate();	// ZLIB compress if available
 
-	Send( pPacket );	// Send the packet
+	Send( pPacket );
 }
 
 // This function adds a download to the ed2k server file list.
@@ -735,8 +731,7 @@ BOOL CEDNeighbour::SendSharedDownload(CDownload* pDownload)
 {
 	bool bDeflate = ( m_nTCPFlags & ED2K_SERVER_TCP_DEFLATE ) != 0;
 
-	// Don't send this file if we aren't properly connected yet, don't have an ed2k hash/hashset,
-	// or have already sent too many files.
+	// Don't send this file if we aren't properly connected yet, don't have an ed2k hash/hashset, or have already sent too many files.
 	if ( m_nState < nrsConnected ) return FALSE;
 	if ( ! pDownload->m_oED2K || pDownload->NeedHashset() ) return FALSE;
 	if ( ! IsGoodSize( pDownload->m_nSize ) ) return FALSE;

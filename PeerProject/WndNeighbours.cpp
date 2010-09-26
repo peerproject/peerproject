@@ -114,8 +114,7 @@ int CNeighboursWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_wndTip.Create( &m_wndList, &Settings.Interface.TipNeighbours );
 	m_wndList.SetTip( &m_wndTip );
 
-	m_wndList.SetExtendedStyle(
-		LVS_EX_DOUBLEBUFFER|LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP|LVS_EX_LABELTIP|LVS_EX_SUBITEMIMAGES );
+	m_wndList.SetExtendedStyle( LVS_EX_DOUBLEBUFFER|LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP|LVS_EX_LABELTIP|LVS_EX_SUBITEMIMAGES );
 
 	CBitmap bmImages;
 	bmImages.LoadBitmap( IDB_PROTOCOLS );
@@ -135,8 +134,7 @@ int CNeighboursWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_gdiImageList.SetImageCount( nImages + nFlags );
 	for ( int nFlag = 0 ; nFlag < nFlags ; nFlag++ )
 	{
-		HICON hIcon = Flags.m_pImage.ExtractIcon( nFlag );
-		if ( hIcon )
+		if ( HICON hIcon = Flags.m_pImage.ExtractIcon( nFlag ) )
 		{
 			m_gdiImageList.Replace( nImages + nFlag, hIcon );
 			VERIFY( DestroyIcon( hIcon ) );
@@ -337,9 +335,9 @@ void CNeighboursWnd::Update()
 			pItem->Set( 10, pNeighbour->m_pProfile->GetNick() );
 
 		pItem->Set( 11, pNeighbour->m_sCountry );
-		int nFlag = Flags.GetFlagIndex( pNeighbour->m_sCountry );
-		if ( nFlag >= 0 )
-			pItem->SetImage( &m_wndList, (int)(size_t)pNeighbour, 11, m_nProtocolRev + nFlag + 1 );
+		const int nFlagIndex = Flags.GetFlagIndex( pNeighbour->m_sCountry );
+		if ( nFlagIndex >= 0 )
+			pItem->SetImage( &m_wndList, (int)(size_t)pNeighbour, 11, m_nProtocolRev + nFlagIndex + 1 );
 	}
 
 	pLiveList.Apply( &m_wndList, TRUE );

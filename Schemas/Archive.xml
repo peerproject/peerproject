@@ -10,7 +10,7 @@ PeerProject German Schemas File translated by Spooky; jlh
 PeerProject Estonian Schemas File translated by Janza
 PeerProject Spanish Schemas File translated by Unknown
 PeerProject Spanish (Mexico) Schemas File translated by Help
-PeerProject French Schemas File translated by Antoine Martin-Lalande (Sensi)
+PeerProject French Schemas File translated by Antoine Martin-Lalande (Sensi), zigotozor
 PeerProject Greek Schemas File translated by erimitis
 PeerProject Hebrew Schemas File translated by _peer_ (H.L)
 PeerProject Croatian Schemas File translated by Biza
@@ -26,7 +26,7 @@ PeerProject Slovenian Schemas File translated by Martin McDowell
 PeerProject Albanian Schemas File translated by Besmir Godole
 PeerProject Serbian Schemas File translated by Woodstoock
 PeerProject Swedish Schemas File translated by Marcus Ehrenlans; Printz; DanielB
-PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
+PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları, zigotozor
 -->
 
 <schemaDescriptor location="http://www.shareaza.com/schemas/archive.xsd" xmlns="http://www.shareaza.com/schemas/SchemaDescriptor.xsd">
@@ -42,8 +42,8 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<title language="cz">Archive</title>
 		<title language="de">Archive</title>
 		<title language="ee">Archive</title>
-		<title language="es">Archive</title>
-		<title language="es-mx">Archive</title>
+		<title language="es">Archivo</title>
+		<title language="es-mx">Archivo</title>
 		<title language="fr">Archive</title>
 		<title language="gr">Συμπίεση</title>
 		<title language="heb">Archive</title>
@@ -60,7 +60,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<title language="sq">Archive</title>
 		<title language="sr">Archive</title>
 		<title language="sv">Arkiv</title>
-		<title language="tr">Archive</title>
+		<title language="tr">Arşiv</title>
 		<title language="zhs">档案</title>
 		<title language="zht">Archive</title>
 	</titles>
@@ -105,7 +105,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="ee">Folders</title>
 			<title language="es">Folders</title>
 			<title language="es-mx">Folders</title>
-			<title language="fr">Folders</title>
+			<title language="fr">Dossiers</title>
 			<title language="gr">Φάκελοι</title>
 			<title language="heb">Folders</title>
 			<title language="hr">Folders</title>
@@ -121,7 +121,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="sq">Folders</title>
 			<title language="sr">Folders</title>
 			<title language="sv">Mappar</title>
-			<title language="tr">Folders</title>
+			<title language="tr">Klasörler</title>
 			<title language="zhs">文件夹</title>
 			<title language="zht">文件夹</title>
 		</member>
@@ -152,7 +152,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="sq">Skedat</title>
 			<title language="sr">Files</title>
 			<title language="sv">Filer</title>
-			<title language="tr">Files</title>
+			<title language="tr">Dosyalar</title>
 			<title language="zhs">文件</title>
 			<title language="zht">文件</title>
 		</member>
@@ -223,7 +223,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="ee">Võtmesõnad</title>
 			<title language="es">Palabras Clave</title>
 			<title language="es-mx">Palabras Clave</title>
-			<title language="fr">Mots clés</title>
+			<title language="fr">Mots-clés</title>
 			<title language="gr">Λέξεις Κλειδιά</title>
 			<title language="heb">מילים לזיהוי</title>
 			<title language="hr">Ključne Riječi</title>
@@ -251,9 +251,9 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="cz">Encrypted</title>
 			<title language="de">Encrypted</title>
 			<title language="ee">Encrypted</title>
-			<title language="es">Encrypted</title>
-			<title language="es-mx">Encrypted</title>
-			<title language="fr">Encrypted</title>
+			<title language="es">Cifrados</title>
+			<title language="es-mx">Cifrados</title>
+			<title language="fr">Cryptée</title>
 			<title language="gr">Κρυπτογραφημένο</title>
 			<title language="heb">Encrypted</title>
 			<title language="hr">Encrypted</title>
@@ -269,7 +269,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="sq">Encrypted</title>
 			<title language="sr">Encrypted</title>
 			<title language="sv">Krypterad</title>
-			<title language="tr">Encrypted</title>
+			<title language="tr">Şifrelenmiş</title>
 			<title language="zhs">加密</title>
 			<title language="zht">加密</title>
 		</member>
@@ -281,9 +281,9 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="cz">Unpacked Size</title>
 			<title language="de">Unpacked Size</title>
 			<title language="ee">Unpacked Size</title>
-			<title language="es">Unpacked Size</title>
-			<title language="es-mx">Unpacked Size</title>
-			<title language="fr">Unpacked Size</title>
+			<title language="es">Tamaño descomprimido</title>
+			<title language="es-mx">Tamaño descomprimido</title>
+			<title language="fr">Taille décompressée</title>
 			<title language="gr">Αποσυμπιεσμένο Μέγεθος</title>
 			<title language="heb">Unpacked Size</title>
 			<title language="hr">Unpacked Size</title>
@@ -299,7 +299,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="sq">Unpacked Size</title>
 			<title language="sr">Unpacked Size</title>
 			<title language="sv">Okomprimerad storlek</title>
-			<title language="tr">Unpacked Size</title>
+			<title language="tr">Sıkıştırılmamış boyut</title>
 			<title language="zhs">解包大小</title>
 			<title language="zht">解包大小</title>
 		</member>
@@ -344,22 +344,24 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<type extension="cab"/>
 		<type extension="cbr"/>
 		<type extension="cbz"/>
+		<type extension="dat"/>
+		<type extension="dll"/>
 		<type extension="exe"/>
 		<type extension="iso"/>
 		<type extension="jar"/>
-		<type extension="gz"/>
-		<type extension="gzip"/>
 		<type extension="msi"/>
 		<type extension="psk"/>
 		<type extension="sks"/>
+		<type extension="gz"/>
+		<type extension="gzip"/>
+		<type extension="lzma"/>
 		<type extension="r00"/>
 		<type extension="rar"/>
 		<type extension="tar"/>
-		<type extension="tar.gz"/>
-		<type extension="tar.gzip"/>
-		<type extension="tar.z"/>
 		<type extension="tgz"/>
+		<type extension="z"/>
 		<type extension="zip"/>
+		<type extension="zipx"/>
 	</typeFilter>
 
 </schemaDescriptor>

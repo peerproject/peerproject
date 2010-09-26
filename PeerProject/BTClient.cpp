@@ -53,13 +53,16 @@ static char THIS_FILE[]=__FILE__;
 CBTClient::CBTClient()
 	: m_bExchange			( FALSE )
 	, m_bExtended			( FALSE )
-	, m_pUpload				( NULL )
-	, m_pDownload			( NULL )
+	, m_pUploadTransfer		( NULL )
 	, m_pDownloadTransfer	( NULL )
+	, m_pDownload			( NULL )
 	, m_bShake				( FALSE )
 	, m_bOnline				( FALSE )
 	, m_bClosing			( FALSE )
+	, m_bSeeder				( FALSE )
+	, m_bPrefersEncryption	( FALSE )
 	, m_tLastKeepAlive		( GetTickCount() )
+	, m_tLastUtPex			( 0 )
 	, m_nUtMetadataID		( 0 )
 	, m_nUtMetadataSize		( 0 )
 	, m_nUtPexID			( 0 )
@@ -76,9 +79,9 @@ CBTClient::CBTClient()
 CBTClient::~CBTClient()
 {
 	ASSERT( ! IsValid() );
-	ASSERT( m_pDownloadTransfer == NULL );
 	ASSERT( m_pDownload == NULL );
-	ASSERT( m_pUpload == NULL );
+	ASSERT( m_pDownloadTransfer == NULL );
+	ASSERT( m_pUploadTransfer == NULL );
 
 	if ( Settings.General.DebugBTSources )
 		theApp.Message( MSG_DEBUG, L"Removing BT client from collection: %s", m_sAddress );
@@ -147,12 +150,13 @@ void CBTClient::Close()
 	if ( Settings.General.DebugBTSources )
 		theApp.Message( MSG_DEBUG, L"Deleting BT client: %s", m_sAddress );
 
-	if ( m_pUpload != NULL ) m_pUpload->Close();
-	ASSERT( m_pUpload == NULL );
+	if ( m_pUploadTransfer )
+		m_pUploadTransfer->Close();
+	ASSERT( m_pUploadTransfer == NULL );
 
-	if ( m_pDownloadTransfer != NULL )
+	if ( m_pDownloadTransfer )
 	{
-		if ( ( m_pDownload == NULL ) || ( m_pDownload->IsCompleted() ) )
+		if ( ! m_pDownload || m_pDownload->IsCompleted() )
 			m_pDownloadTransfer->Close( TRI_FALSE );
 		else
 			m_pDownloadTransfer->Close( TRI_UNKNOWN );
@@ -223,7 +227,7 @@ BOOL CBTClient::OnRun()
 		//else if ( tNow - m_mOutput.tLast > Settings.BitTorrent.LinkPing / 2 && m_pOutput->m_nLength == 0 )
 		//{
 		//	DWORD dwZero = 0;
-		//	Write( &dwZero, 4 );	// wtf?
+		//	Write( &dwZero, 4 );	// ToDo: wtf?
 		//	OnWrite();
 		//}
 		else if ( tNow - m_tLastKeepAlive > Settings.BitTorrent.LinkPing )
@@ -232,10 +236,15 @@ BOOL CBTClient::OnRun()
 			m_tLastKeepAlive = tNow;
 		}
 
-		ASSERT ( m_pUpload != NULL );
+		ASSERT ( m_pUploadTransfer != NULL );
+		if ( tNow - m_tLastUtPex > Settings.BitTorrent.UtPexPeriod )
+		{
+			SendUtPex( m_tLastUtPex );
+			m_tLastUtPex = tNow;
+		}
 
-		if ( m_pDownloadTransfer != NULL && ! m_pDownloadTransfer->OnRun() ) return FALSE;
-		if ( m_pUpload == NULL || ! m_pUpload->OnRun() ) return FALSE;
+		if ( m_pDownloadTransfer && ! m_pDownloadTransfer->OnRun() ) return FALSE;
+		if ( ! m_pUploadTransfer || ! m_pUploadTransfer->OnRun() ) return FALSE;
 	}
 
 	return TRUE;
@@ -387,13 +396,15 @@ BOOL CBTClient::OnHandshake1()
 		ASSERT( m_pDownloadTransfer != NULL );
 
 		if ( validAndUnequal( oFileHash, m_pDownload->m_oBTH ) )
-		{	//Display an error and exit
+		{
+			// Display an error and exit
 			theApp.Message( MSG_ERROR, IDS_BT_CLIENT_WRONG_FILE, (LPCTSTR)m_sAddress );
 			Close();
 			return FALSE;
 		}
 		else if ( ! m_pDownload->IsTrying() && ! m_pDownload->IsSeeding() )
-		{	//Display an error and exit
+		{
+			// Display an error and exit
 			theApp.Message( MSG_ERROR, IDS_BT_CLIENT_INACTIVE_FILE, (LPCTSTR)m_sAddress );
 			Close();
 			return FALSE;
@@ -407,13 +418,15 @@ BOOL CBTClient::OnHandshake1()
 		m_pDownload = Downloads.FindByBTH( oFileHash, TRUE );
 
 		if ( m_pDownload == NULL )				// If we can't find the file
-		{	//Display an error and exit
+		{
+			// Display an error and exit
 			theApp.Message( MSG_ERROR, IDS_BT_CLIENT_UNKNOWN_FILE, (LPCTSTR)m_sAddress );
 			Close();
 			return FALSE;
 		}
 		else if ( ! m_pDownload->IsTrying() && ! m_pDownload->IsSeeding() )	// If the file isn't active
-		{	//Display an error and exit
+		{
+			// Display an error and exit
 			m_pDownload = NULL;
 			theApp.Message( MSG_ERROR, IDS_BT_CLIENT_INACTIVE_FILE, (LPCTSTR)m_sAddress );
 			Close();
@@ -427,10 +440,10 @@ BOOL CBTClient::OnHandshake1()
 			Close();
 			return FALSE;
 		}
-		// The file isn't verified yet, close the connection
 		else if ( m_pDownload->m_bVerify != TRI_TRUE
 			&& ( m_pDownload->IsMoving() ||  m_pDownload->IsCompleted() ) )
 		{
+			// The file isn't verified yet, close the connection
 			theApp.Message( MSG_ERROR, IDS_BT_CLIENT_INACTIVE_FILE, (LPCTSTR)m_sAddress );
 			Close();
 			return FALSE;
@@ -470,11 +483,11 @@ BOOL CBTClient::OnHandshake2()
 
 	ASSERT( m_pDownload != NULL );
 
-	if ( CDownloadSource* pSource = GetSource() )	// Transfer exist, so must be initiated from this side
+	if ( CDownloadSource* pSource = GetSource() )	// Transfer exists, so must be initiated from this side
 	{
 		pSource->m_oGUID = transformGuid( m_oGUID );
 
-		//ToDo: This seems to trip when it shouldn't. Should be investigated...
+		// ToDo: This seems to trip when it shouldn't. Should be investigated...
 		//if ( memcmp( &m_pGUID, &pSource->m_pGUID, 16 ) != 0 )
 		//{
 		//	theApp.Message( MSG_ERROR, IDS_BT_CLIENT_WRONG_GUID, (LPCTSTR)m_sAddress );
@@ -482,7 +495,7 @@ BOOL CBTClient::OnHandshake2()
 		//	return FALSE;
 		//}
 	}
-	else	// no transfer exist, so must be initiated from other side.
+	else	// No transfer exists, so must be initiated from other side.
 	{
 		if ( m_pDownload->UploadExists( m_oGUID ) )
 		{
@@ -513,10 +526,10 @@ BOOL CBTClient::OnHandshake2()
 		}
 	}
 
-	ASSERT( m_pUpload == NULL );
+	ASSERT( m_pUploadTransfer == NULL );
 	if ( Settings.General.DebugBTSources )
 		theApp.Message( MSG_DEBUG, L"Creating new BT upload: %s", m_sAddress );
-	m_pUpload = new CUploadTransferBT( this, m_pDownload );
+	m_pUploadTransfer = new CUploadTransferBT( this, m_pDownload );
 
 	m_bOnline = TRUE;
 
@@ -527,23 +540,31 @@ BOOL CBTClient::OnHandshake2()
 
 //////////////////////////////////////////////////////////////////////
 // CBTClient online handler
+//
+// See http://bittorrent.org/beps/bep_0020.html
+// ToDo: Update/Optimize/Abstract these BT Vendor lists
 
-CString CBTClient::GetAzureusStyleUserAgent(LPBYTE pVendor, size_t nVendor)
+CString CBTClient::GetUserAgentAzureusStyle(LPBYTE pVendor, size_t nVendor)
 {
-	// Azureus style "-SSVVVV-" http://bittorrent.org/beps/bep_0020.html
+	CString sUserAgent;
+	if ( ! pVendor ) return sUserAgent;
+
+	// Azureus style "-SSVVVV-"
+
 	struct azureusStyleEntry
 	{
 		uchar signature[ 2 ];
 		LPCTSTR client;
 	};
+
 	static const azureusStyleEntry azureusStyleClients[] =
 	{
+		{ 'A', '~', L"Ares" },
 		{ 'A', 'G', L"Ares" },
 		{ 'A', 'R', L"Arctic" },
 		{ 'A', 'V', L"Avicora" },
 		{ 'A', 'X', L"BitPump" },
-		{ 'A', 'Z', L"Azureus" },
-		{ 'A', '~', L"Ares" },
+		{ 'A', 'Z', L"Azureus" },	// +Frostwire/etc.
 		{ 'B', 'B', L"BitBuddy" },
 		{ 'B', 'C', L"BitComet" },
 		{ 'B', 'F', L"Bitflu" },
@@ -560,6 +581,7 @@ CString CBTClient::GetAzureusStyleUserAgent(LPBYTE pVendor, size_t nVendor)
 		{ 'E', 'B', L"EBit" },
 		{ 'E', 'S', L"Electric Sheep" },
 		{ 'F', 'C', L"FileCroc" },
+		{ 'F', 'G', L"FlashGet" },	// vXX.XX
 		{ 'G', 'R', L"GetRight" },
 		{ 'H', 'L', L"Halite" },
 		{ 'H', 'N', L"Hydranode" },
@@ -601,28 +623,201 @@ CString CBTClient::GetAzureusStyleUserAgent(LPBYTE pVendor, size_t nVendor)
 	static const size_t azureusClients =
 		sizeof azureusStyleClients / sizeof azureusStyleEntry;
 
-	CString sUserAgent;
-	if ( pVendor )
+	for ( size_t i = 0; i < azureusClients; ++i )
 	{
-		for ( size_t i = 0; i < azureusClients; ++i )
+		if ( pVendor[ 0 ] == azureusStyleClients[ i ].signature[ 0 ] &&
+				pVendor[ 1 ] == azureusStyleClients[ i ].signature[ 1 ] )
 		{
-			if ( pVendor[ 0 ] == azureusStyleClients[ i ].signature[ 0 ] &&
-				 pVendor[ 1 ] == azureusStyleClients[ i ].signature[ 1 ] )
+			if ( nVendor == 6 )
 			{
-				if ( nVendor == 4 )
-					sUserAgent.Format( _T( "%s %i.%i" ),
-						azureusStyleClients[ i ].client, pVendor[ 2 ], pVendor[ 3 ] );
-				else if ( nVendor == 6 )
-					sUserAgent.Format( _T( "%s %i.%i.%i.%i" ),
-						azureusStyleClients[ i ].client,
-						( pVendor[ 2 ] - '0' ), ( pVendor[ 3 ] - '0' ),
-						( pVendor[ 4 ] - '0' ), ( pVendor[ 5 ] - '0' ) );
-				break;
+				sUserAgent.Format( _T( "%s %i.%i.%i.%i" ),
+					azureusStyleClients[ i ].client,
+					( pVendor[ 2 ] - '0' ), ( pVendor[ 3 ] - '0' ),
+					( pVendor[ 4 ] - '0' ), ( pVendor[ 5 ] - '0' ) );
 			}
+			else if ( nVendor == 4 )
+			{
+				sUserAgent.Format( _T( "%s %i.%i" ),
+					azureusStyleClients[ i ].client, pVendor[ 2 ], pVendor[ 3 ] );
+			}
+			break;
 		}
-		if ( sUserAgent.IsEmpty() )	// If we don't want the version, etc.
-			sUserAgent.Format( _T("BitTorrent (%c%c)"), pVendor[ 0 ], pVendor[ 1 ] );
 	}
+
+	if ( sUserAgent.IsEmpty() ) 	// If we don't want the version, etc.
+		sUserAgent.Format( _T("BitTorrent (%c%c)"), pVendor[ 0 ], pVendor[ 1 ] );
+
+	return sUserAgent;
+}
+
+CString CBTClient::GetUserAgentOtherStyle(LPBYTE pVendor, CString* strNick)
+{
+	CString sUserAgent, strVer;
+	int nNickStart = 0, nNickEnd = 13;
+
+	if ( ! pVendor ) return sUserAgent;
+
+	if ( m_oGUID[4] == '-' && m_oGUID[5] == '-' && m_oGUID[6] == '-' && m_oGUID[7] == '-' )
+	{
+		// Shadow style
+		switch ( m_oGUID[0] )
+		{
+		case 'A':
+			sUserAgent = L"ABC";
+			break;
+		case 'O':
+			sUserAgent = L"Osprey";
+			break;
+		case 'Q':
+			sUserAgent = L"BTQueue";
+			break;
+		case 'R':
+			sUserAgent = L"Tribler";
+			break;
+		case 'S':
+			sUserAgent = L"Shadow";
+			break;
+		case 'T':
+			sUserAgent = L"BitTornado";
+			break;
+		case 'U':
+			sUserAgent = L"UPnP NAT BT";
+			break;
+		default:	// Unknown client using this naming.
+			sUserAgent.Format(_T("%c"), m_oGUID[0]);
+		}
+
+		strVer.Format( _T(" %i.%i.%i"),
+			( m_oGUID[1] - '0' ), ( m_oGUID[2] - '0' ), ( m_oGUID[3] - '0' ) );
+		sUserAgent += strVer;
+
+		return sUserAgent;
+	}
+
+	if ( m_oGUID[0] == 'M' && m_oGUID[2] == '-' && m_oGUID[4] == '-' && m_oGUID[6] == '-' )
+	{
+		// BitTorrent (Mainline standard client, newer version)
+		sUserAgent.Format( _T("BitTorrent %i.%i.%i"), m_oGUID[1] - '0' , m_oGUID[3] - '0' , m_oGUID[5]- '0' );
+	}
+	else if ( m_oGUID[0] == 'P' && m_oGUID[1] == 'l' && m_oGUID[2] == 'u' && m_oGUID[3] == 's' )
+	{
+		// BitTorrent Plus
+		sUserAgent.Format( _T("BitTorrent Plus %i.%i%i%c"), m_oGUID[4] - '0', m_oGUID[5] - '0', m_oGUID[6] - '0', m_oGUID[7] );
+	}
+	else if ( m_oGUID[0] == 'e' && m_oGUID[1] == 'x' && m_oGUID[2] == 'b' && m_oGUID[3] == 'c' )
+	{
+		// BitLord
+		if  ( m_oGUID[6] == 'L' && m_oGUID[7] == 'O' && m_oGUID[8] == 'R' && m_oGUID[9] == 'D' )
+			sUserAgent.Format( _T("BitLord %i.%02i"), m_oGUID[4], m_oGUID[5] );
+		else // Old BitComet
+			sUserAgent.Format( _T("BitComet %i.%02i"), m_oGUID[4], m_oGUID[5] );
+	}
+	else if ( ( m_oGUID[0] == 'B' && m_oGUID[1] == 'S' ) || ( m_oGUID[2] == 'B' && m_oGUID[3] == 'S' ) )
+	{
+		// BitSpirit
+		sUserAgent.Format( _T("BitSpirit") );
+	}
+	else if ( m_oGUID[0] == 'B' && m_oGUID[1] == 'T' && m_oGUID[2] == 'M' )
+	{
+		// BTuga Revolution
+		sUserAgent.Format( _T("BTuga Rv %i.%i"), m_oGUID[3] - '0', m_oGUID[4] - '0' );
+		nNickStart = 5;
+	}
+	else if ( ( m_oGUID[0] == 'b' && m_oGUID[1] == 't' && m_oGUID[2] == 'u' && m_oGUID[3] == 'g' && m_oGUID[4] == 'a' ) || ( m_oGUID[0] == 'o' && m_oGUID[1] == 'e' && m_oGUID[2] == 'r' && m_oGUID[3] == 'n' && m_oGUID[4] == 'u' ) )
+	{
+		// BTugaXP
+		sUserAgent.Format( _T("BTugaXP") );
+	}
+	else if ( m_oGUID[0] == 'M' && m_oGUID[1] == 'b' && m_oGUID[2] == 'r' && m_oGUID[3] == 's' && m_oGUID[4] == 't' )
+	{
+		// Burst
+		sUserAgent.Format( _T("Burst %i.%i.%i"), m_oGUID[5] - '0', m_oGUID[7] - '0', m_oGUID[9] - '0' );
+	}
+	else if ( m_oGUID[0] == 'L' && m_oGUID[1] == 'I' && m_oGUID[2] == 'M' && m_oGUID[3] == 'E' )
+	{
+		// LimeWire
+		sUserAgent = _T("Limewire");
+	}
+	else if ( m_oGUID[0] == '-' && m_oGUID[1] == 'M' && m_oGUID[2] == 'L' )
+	{
+		// MLdonkey
+		sUserAgent.Format( _T("MLdonkey %i.%i.%i"), m_oGUID[3] - '0' , m_oGUID[5] - '0' , m_oGUID[7] - '0' );
+	}
+	else if ( m_oGUID[0] == '-' && m_oGUID[1] == 'F' && m_oGUID[2] == 'G' )
+	{
+		// FlashGet 	// Is this never reached? (Azureus-style but vXX.XX)
+		sUserAgent.Format( _T("FlashGet %i.%i%i"), ( ( m_oGUID[3] - '0' ) * 10 + ( m_oGUID[4] - '0' ) ), m_oGUID[5] - '0', m_oGUID[6] - '0' );
+	}
+	else if ( m_oGUID[0] == '-' && m_oGUID[1] == 'G' && m_oGUID[2] == '3' )
+	{
+		// G3 Torrent
+		sUserAgent.Format( _T("G3 Torrent") );
+		nNickStart = 3;
+		nNickEnd = 11;
+	}
+	else if ( m_oGUID[0] == '1' && m_oGUID[1] == '0' && m_oGUID[2] == '-' && m_oGUID[3] == '-' && m_oGUID[4] == '-' && m_oGUID[5] == '-' && m_oGUID[6] == '-' && m_oGUID[7] == '-' && m_oGUID[8] == '-' )
+	{
+		sUserAgent = _T("JVTorrent");
+	}
+	else if ( m_oGUID[2] == 'B' && m_oGUID[3] == 'M' )
+	{
+		// BitMagnet, former Rufus
+		sUserAgent.Format( _T("BitMagnet") );
+		nNickStart = 4;
+		nNickEnd = 12;
+	}
+	else if ( m_oGUID[2] == 'R' && m_oGUID[3] == 'S' )
+	{
+		// Rufus (and BitMagnet) Obsolete. First two bits are version numbers: 0.6.5 = (0)(6+5) = char(0)char(11)
+		sUserAgent.Format( _T("Rufus") );
+		nNickStart = 4;
+		nNickEnd = 12;
+	}
+	else if ( m_oGUID[0] == 'O' && m_oGUID[1] == 'P' )
+	{
+		// Opera
+		sUserAgent.Format( _T("Opera %i%i%i%i"), m_oGUID[2] - '0', m_oGUID[3] - '0', m_oGUID[4] - '0', m_oGUID[5] - '0' );
+	}
+	else if ( m_oGUID[0] == 'a' && m_oGUID[1] == '0' && ( m_oGUID[2] == '0' || m_oGUID[2] == '2' ) && m_oGUID[3] == '-' && m_oGUID[4] == '-' && m_oGUID[5] == '-' && m_oGUID[6] == '0' )
+	{
+		// Swarmy
+		sUserAgent.Format( _T("Swarmy") );
+	}
+	else if ( m_oGUID[0] == '3' && m_oGUID[1] == '4' && m_oGUID[2] == '6' && m_oGUID[3] == '-' )
+	{
+		// TorrentTopia
+		sUserAgent = _T("TorrentTopia");
+	}
+	else if ( m_oGUID[0] == 'e' && m_oGUID[1] == 'X' )
+	{
+		// eXeem
+		sUserAgent.Format( _T("eXeem") );
+		nNickStart = 2;
+	}
+	else if ( m_oGUID[0] == 'X' && m_oGUID[1] == 'B' && m_oGUID[2] == 'T' )
+	{
+		// XBT
+		sUserAgent.Format( _T("XBT %i.%i.%i"), m_oGUID[3] - '0', m_oGUID[4] - '0', m_oGUID[5] - '0' );
+	}
+	else if ( ! m_oGUID[0] && ! m_oGUID[1] && ! m_oGUID[2] && ! m_oGUID[3] && ! m_oGUID[4] && ! m_oGUID[5] && ! m_oGUID[6] && ! m_oGUID[7]
+			&& m_oGUID[8] && m_oGUID[9] && m_oGUID[10] && m_oGUID[11] && m_oGUID[12] && m_oGUID[13] && m_oGUID[14] && m_oGUID[15]
+			&& m_oGUID[16] == 'U' && m_oGUID[17] == 'D' && m_oGUID[18] == 'P' && m_oGUID[19] == '0' )
+	{
+		// BitSpirit (Spoofed Client ID)
+		// GUID 0-7: 0	GUID 8-15: !0 	GUID 16-19: UDP0	// ToDo: Check that other clients don't use this method
+		sUserAgent.Format( _T("BitSpirit Spoof") );
+	}
+
+	if ( nNickStart > 0 )
+	{
+		for ( int i = nNickStart; i <= nNickEnd; i++ )	// Extract nick from m_oGUID
+		{
+			if ( m_oGUID[i] == NULL ) break;
+
+			(*strNick).AppendFormat( _T("%c"), m_oGUID[i] );
+		}
+	}
+
 	return sUserAgent;
 }
 
@@ -630,178 +825,44 @@ void CBTClient::DetermineUserAgent()
 {
 	ASSUME_LOCK( Transfers.m_pSection );
 
-	int nNickStart = 0, nNickEnd = 13;
-	CString strVer, strNick;
-
+	CString strNick;
 	m_sUserAgent.Empty();
 	m_bClientExtended = isExtendedBtGuid( m_oGUID );
 
-	if ( m_oGUID[ 0 ] == '-' && m_oGUID[ 7 ] == '-' )
-	{
-		m_sUserAgent = GetAzureusStyleUserAgent( &(m_oGUID[ 1 ]), 6 );
-	}
-	else if ( m_oGUID[4] == '-' && m_oGUID[5] == '-' && m_oGUID[6] == '-' && m_oGUID[7] == '-' )
-	{	// Shadow style
-		switch ( m_oGUID[0] )
-		{
-		case 'A':
-			m_sUserAgent = L"ABC";
-			break;
-		case 'O':
-			m_sUserAgent = L"Osprey";
-			break;
-		case 'R':
-			m_sUserAgent = L"Tribler";
-			break;
-		case 'S':
-			m_sUserAgent = L"Shadow";
-			break;
-		case 'T':
-			m_sUserAgent = L"BitTornado";
-			break;
-		case 'U':
-			m_sUserAgent = L"UPnP NAT BT";
-			break;
-		default: // Unknown client using this naming.
-			m_sUserAgent.Format(_T("%c"), m_oGUID[0]);
-		}
-
-		strVer.Format( _T(" %i.%i.%i"),
-			( m_oGUID[1] - '0' ), ( m_oGUID[2] - '0' ),
-			( m_oGUID[3] - '0' ) );
-		m_sUserAgent += strVer;
-	}
-	else if ( m_oGUID[0] == 'M' && m_oGUID[2] == '-' && m_oGUID[4] == '-' && m_oGUID[6] == '-' )
-	{	// BitTorrent (Standard client, newer version)
-		m_sUserAgent.Format( _T("BitTorrent %i.%i.%i"), m_oGUID[1] - '0' , m_oGUID[3] - '0' , m_oGUID[5]- '0' );
-	}
-	else if ( m_oGUID[0] == 'P' && m_oGUID[1] == 'l' && m_oGUID[2] == 'u' && m_oGUID[3] == 's' )
-	{	// BitTorrent Plus
-		m_sUserAgent.Format( _T("BitTorrent Plus %i.%i%i%c"), m_oGUID[4] - '0', m_oGUID[5] - '0', m_oGUID[6] - '0', m_oGUID[7] );
-	}
-	else if ( m_oGUID[0] == 'e' && m_oGUID[1] == 'x' && m_oGUID[2] == 'b' && m_oGUID[3] == 'c' )
-	{
-		// BitLord
-		if  ( m_oGUID[6] == 'L' && m_oGUID[7] == 'O' && m_oGUID[8] == 'R' && m_oGUID[9] == 'D' )
-			m_sUserAgent.Format( _T("BitLord %i.%02i"), m_oGUID[4], m_oGUID[5] );
-		else // Old BitComet
-			m_sUserAgent.Format( _T("BitComet %i.%02i"), m_oGUID[4], m_oGUID[5] );
-	}
-	else if ( ( m_oGUID[0] == 'B' && m_oGUID[1] == 'S' ) || ( m_oGUID[2] == 'B' && m_oGUID[3] == 'S' ) )
-	{	// BitSpirit
-		m_sUserAgent.Format( _T("BitSpirit") );
-	}
-	else if ( m_oGUID[0] == 'B' && m_oGUID[1] == 'T' && m_oGUID[2] == 'M' )
-	{	// BTuga Revolution
-		m_sUserAgent.Format( _T("BTuga Rv %i.%i"), m_oGUID[3] - '0', m_oGUID[4] - '0' );
-		nNickStart = 5;
-	}
-	else if ( ( m_oGUID[0] == 'b' && m_oGUID[1] == 't' && m_oGUID[2] == 'u' && m_oGUID[3] == 'g' && m_oGUID[4] == 'a' ) || ( m_oGUID[0] == 'o' && m_oGUID[1] == 'e' && m_oGUID[2] == 'r' && m_oGUID[3] == 'n' && m_oGUID[4] == 'u' ) )
-	{	// BTugaXP
-		m_sUserAgent.Format( _T("BTugaXP") );
-	}
-	else if ( m_oGUID[0] == 'M' && m_oGUID[1] == 'b' && m_oGUID[2] == 'r' && m_oGUID[3] == 's' && m_oGUID[4] == 't' )
-	{	// Burst
-		m_sUserAgent.Format( _T("Burst %i.%i.%i"), m_oGUID[5] - '0', m_oGUID[7] - '0', m_oGUID[9] - '0' );
-	}
-	else if ( m_oGUID[0] == 'e' && m_oGUID[1] == 'X' )
-	{	// eXeem
-		m_sUserAgent.Format( _T("eXeem") );
-		nNickStart = 2;
-	}
-	else if ( m_oGUID[0] == '-' && m_oGUID[1] == 'F' && m_oGUID[2] == 'G' )
-	{
-		m_sUserAgent.Format( _T("FlashGet %i.%i%i"), ( ( m_oGUID[3] - '0' ) * 10 + ( m_oGUID[4] - '0' ) ), m_oGUID[5] - '0', m_oGUID[6] - '0' );
-	}
-	else if ( m_oGUID[0] == '-' && m_oGUID[1] == 'G' && m_oGUID[2] == '3' )
-	{	// G3 Torrent
-		m_sUserAgent.Format( _T("G3 Torrent") );
-		nNickStart = 3;
-		nNickEnd = 11;
-	}
-	else if ( m_oGUID[0] == '1' && m_oGUID[1] == '0' && m_oGUID[2] == '-' && m_oGUID[3] == '-' && m_oGUID[4] == '-' && m_oGUID[5] == '-' && m_oGUID[6] == '-' && m_oGUID[7] == '-' && m_oGUID[8] == '-' )
-	{
-		m_sUserAgent = _T("JVTorrent");
-	}
-	else if ( m_oGUID[0] == 'L' && m_oGUID[1] == 'I' && m_oGUID[2] == 'M' && m_oGUID[3] == 'E' )
-	{
-		m_sUserAgent = _T("Limewire");
-	}
-	else if ( m_oGUID[2] == 'R' && m_oGUID[3] == 'S' )
-	{	// Rufus (and BitMagnet) first two bits are version numbers. e.g. 0.6.5 = (0)(6+5) = char(0)char(11)
-		m_sUserAgent.Format( _T("Rufus") );
-		nNickStart = 4;
-		nNickEnd = 12;
-	}
-	else if ( m_oGUID[2] == 'B' && m_oGUID[3] == 'M' )
-	{	// BitMagnet, the former Rufus
-		m_sUserAgent.Format( _T("BitMagnet") );
-		nNickStart = 4;
-		nNickEnd = 12;
-	}
-	else if ( m_oGUID[0] == '-' && m_oGUID[1] == 'M' && m_oGUID[2] == 'L' )
-	{	// MLdonkey
-		m_sUserAgent.Format( _T("MLdonkey %i.%i.%i"), m_oGUID[3] - '0' , m_oGUID[5] - '0' , m_oGUID[7] - '0' );
-	}
-	else if ( m_oGUID[0] == 'O' && m_oGUID[1] == 'P' )
-	{	// Opera
-		m_sUserAgent.Format( _T("Opera %i%i%i%i"), m_oGUID[2] - '0', m_oGUID[3] - '0', m_oGUID[4] - '0', m_oGUID[5] - '0' );
-	}
-	else if ( ( m_oGUID[0] == 'a' && m_oGUID[1] == '0' && m_oGUID[2] == '0' && m_oGUID[3] == '-' && m_oGUID[4] == '-' && m_oGUID[5] == '-' && m_oGUID[6] == '0' ) || ( m_oGUID[0] == 'a' && m_oGUID[1] == '0' && m_oGUID[2] == '2' && m_oGUID[3] == '-' && m_oGUID[4] == '-' && m_oGUID[5] == '-' && m_oGUID[6] == '0' ) )
-	{	// Swarmy
-		m_sUserAgent.Format( _T("Swarmy") );
-	}
-	else if ( m_oGUID[0] == '3' && m_oGUID[1] == '4' && m_oGUID[2] == '6' && m_oGUID[3] == '-' )
-	{
-		m_sUserAgent = _T("TorrentTopia");
-	}
-	else if ( m_oGUID[0] == 'X' && m_oGUID[1] == 'B' && m_oGUID[2] == 'T' )
-	{	// XBT
-		m_sUserAgent.Format( _T("XBT %i.%i.%i"), m_oGUID[3] - '0', m_oGUID[4] - '0', m_oGUID[5] - '0' );
-	}
-	else if ( ! m_oGUID[0] && ! m_oGUID[1] && ! m_oGUID[2] && ! m_oGUID[3] && ! m_oGUID[4] && ! m_oGUID[5] && ! m_oGUID[6] && ! m_oGUID[7]
-			&& m_oGUID[8] && m_oGUID[9] && m_oGUID[10] && m_oGUID[11] && m_oGUID[12] && m_oGUID[13] && m_oGUID[14] && m_oGUID[15]
-			&& m_oGUID[16] == 'U' && m_oGUID[17] == 'D' && m_oGUID[18] == 'P' && m_oGUID[19] == '0' )
-	{	// BitSpirit	(Spoofed Client ID)	// GUID 0 - 7: 0	GUID 8 - 15: !0	GUID 16 -19: UDP0	// ToDO: Check that other clients don't use this method
-		m_sUserAgent.Format( _T("BitSpirit") );
-	}
+	if ( m_oGUID[ 0 ] == '-' && m_oGUID[ 7 ] == '-' )	// -PE1000-
+		m_sUserAgent = GetUserAgentAzureusStyle( &m_oGUID[1], 6 );
+	else
+		m_sUserAgent = GetUserAgentOtherStyle( &m_oGUID[0], &strNick );
 
 	if ( ! m_bClientExtended )
-	{
 		m_bClientExtended = VendorCache.IsExtended( m_sUserAgent );
-	}
 
 	if ( m_sUserAgent.IsEmpty() )
-	{	// Unknown peer ID string
-		m_sUserAgent = m_bClientExtended ? _T("PeerProject") : _T("BitTorrent");
+	{
+		// Unknown peer ID string
+		m_sUserAgent = m_bClientExtended ? _T("PeerProject?") : _T("BitTorrent?");
 		theApp.Message( MSG_DEBUG, _T("[BT] Unknown client: %.20hs"), (LPCSTR)&m_oGUID[0] );
 	}
 
-	if ( nNickStart > 0 )
-		for ( int i = nNickStart; i <= nNickEnd; i++ )	// Extract nick from m_oGUID
-		{
-			if ( m_oGUID[i] == NULL ) break;
-
-			strNick.AppendFormat( _T("%c"), m_oGUID[i] );
-		}
-
-	if ( m_pDownloadTransfer != NULL )
+	if ( m_pDownloadTransfer )
 	{
 		m_pDownloadTransfer->m_sUserAgent = m_sUserAgent;
 		m_pDownloadTransfer->m_bClientExtended = m_bClientExtended;
 		if ( CDownloadSource* pSource = GetSource() )
 		{
 			pSource->m_sServer = m_sUserAgent;
-			if ( strNick.GetLength() ) pSource->m_sNick = strNick;
+			if ( ! strNick.IsEmpty() )
+				pSource->m_sNick = strNick;
 			pSource->m_bClientExtended = ( m_bClientExtended && ! pSource->m_bPushOnly);
 		}
 	}
 
-	if ( m_pUpload != NULL )
+	if ( m_pUploadTransfer )
 	{
-		m_pUpload->m_sUserAgent = m_sUserAgent;
-		if ( strNick.GetLength() ) m_pUpload->m_sNick = strNick;
-		m_pUpload->m_bClientExtended = m_bClientExtended;
+		m_pUploadTransfer->m_sUserAgent = m_sUserAgent;
+		if ( ! strNick.IsEmpty() )
+			m_pUploadTransfer->m_sNick = strNick;
+		m_pUploadTransfer->m_bClientExtended = m_bClientExtended;
 	}
 }
 
@@ -834,10 +895,10 @@ BOOL CBTClient::OnOnline()
 		Send( pBitfield );
 
 	if ( m_pDownloadTransfer != NULL && ! m_pDownloadTransfer->OnConnected() ) return FALSE;
-	if ( ! m_pUpload->OnConnected() ) return FALSE;
+	if ( ! m_pUploadTransfer->OnConnected() ) return FALSE;
 	if ( Uploads.GetTorrentUploadCount() < Settings.BitTorrent.UploadCount )
 	{
-		m_pUpload->m_bChoked = FALSE;
+		m_pUploadTransfer->m_bChoked = FALSE;
 		Send( CBTPacket::New( BT_PACKET_UNCHOKE ) );
 	}
 
@@ -864,11 +925,11 @@ BOOL CBTClient::OnPacket(CBTPacket* pPacket)
 		m_pDownload->ChokeTorrent();
 		break;
 	case BT_PACKET_INTERESTED:
-		if ( ! m_pUpload->OnInterested( pPacket ) ) return FALSE;
+		if ( ! m_pUploadTransfer->OnInterested( pPacket ) ) return FALSE;
 		m_pDownload->ChokeTorrent();
 		break;
 	case BT_PACKET_NOT_INTERESTED:
-		if ( ! m_pUpload->OnUninterested( pPacket ) ) return FALSE;
+		if ( ! m_pUploadTransfer->OnUninterested( pPacket ) ) return FALSE;
 		m_pDownload->ChokeTorrent();
 		break;
 	case BT_PACKET_HAVE:
@@ -876,11 +937,11 @@ BOOL CBTClient::OnPacket(CBTPacket* pPacket)
 	case BT_PACKET_BITFIELD:
 		return m_pDownloadTransfer == NULL || m_pDownloadTransfer->OnBitfield( pPacket );
 	case BT_PACKET_REQUEST:
-		return m_pUpload->OnRequest( pPacket );
+		return m_pUploadTransfer->OnRequest( pPacket );
 	case BT_PACKET_PIECE:
 		return m_pDownloadTransfer == NULL || m_pDownloadTransfer->OnPiece( pPacket );
 	case BT_PACKET_CANCEL:
-		return m_pUpload->OnCancel( pPacket );
+		return m_pUploadTransfer->OnCancel( pPacket );
 	case BT_PACKET_DHT_PORT:
 		return OnDHTPort( pPacket );
 	case BT_PACKET_EXTENSION:
@@ -913,7 +974,8 @@ void CBTClient::SendBeHandshake()
 	CBENode pRoot;
 
 	CString strNick = MyProfile.GetNick().Left( 255 ); // Truncate to 255 characters
-	if ( strNick.GetLength() ) pRoot.Add( "nickname" )->SetString( strNick );
+	if ( ! strNick.IsEmpty() )
+		pRoot.Add( "nickname" )->SetString( strNick );
 
 	if ( ( m_pDownload ) && ( m_pDownload->m_pTorrent.m_bPrivate ) )
 		pRoot.Add( "source-exchange" )->SetInt( 0 );
@@ -960,10 +1022,10 @@ BOOL CBTClient::OnBeHandshake(CBTPacket* pPacket)
 			}
 		}
 
-		if ( m_pUpload != NULL )
+		if ( m_pUploadTransfer != NULL )
 		{
-			m_pUpload->m_sUserAgent = m_sUserAgent;
-			m_pUpload->m_bClientExtended = TRUE;
+			m_pUploadTransfer->m_sUserAgent = m_sUserAgent;
+			m_pUploadTransfer->m_bClientExtended = TRUE;
 		}
 	}
 
@@ -1151,11 +1213,15 @@ BOOL CBTClient::OnExtended(CBTPacket* pPacket)
 			if ( CBENode* pUtMetadataSize = pRoot->GetNode( "metadata_size" ) )
 				m_nUtMetadataSize = pUtMetadataSize->GetInt();
 
-			if ( CBENode* pUtPex = pMetadata->GetNode( "ut_pex" ) )		// peer-exchange
+			if ( CBENode* pUtPex = pMetadata->GetNode( "ut_pex" ) )		// Peer-exchange
 			{
 				BOOL bSendUtPex = m_nUtPexID != pUtPex->GetInt();
 				m_nUtPexID = pUtPex->GetInt();
-				if ( bSendUtPex ) SendUtPex();
+				if ( bSendUtPex )
+				{
+					SendUtPex();
+					m_tLastUtPex = GetTickCount();
+				}
 			}
 		}
 	}
@@ -1219,63 +1285,47 @@ BOOL CBTClient::OnExtended(CBTPacket* pPacket)
 			}
 		}
 	}
-	else if ( nPacketID == EXTENDED_PACKET_UT_PEX )
+	else if ( nPacketID == EXTENDED_PACKET_UT_PEX )	// Peer-exchange
 	{
 		theApp.Message( MSG_DEBUG,
-		_T("[BT] EXTENDED PACKET PEX: %s"), (LPCTSTR)pRoot->Encode() );
-		if ( CBENode* pPeersAdd = pRoot->GetNode( "added" ) )
+			_T("[BT] EXTENDED PACKET PEX: %s"), (LPCTSTR)pRoot->Encode() );
+
+		CBENode* pPeersAdd = pRoot->GetNode( "added" );
+
+		if ( pPeersAdd && ( pPeersAdd->m_nValue % 6 ) == 0 )
 		{
-			if ( 0 == ( pPeersAdd->m_nValue % 6 ) )
+			const BYTE* pPointer = (const BYTE*)pPeersAdd->m_pValue;
+
+			for ( int nPeer = (int)pPeersAdd->m_nValue / 6 ; nPeer > 0 ; nPeer --, pPointer += 6 )
 			{
-				{
-					const BYTE* pPointer = (const BYTE*)pPeersAdd->m_pValue;
+				const IN_ADDR* pAddress = (const IN_ADDR*)pPointer;
+				WORD nPort = *(const WORD*)( pPointer + 4 );
 
-					for ( int nPeer = (int)pPeersAdd->m_nValue / 6 ; nPeer > 0 ; nPeer --, pPointer += 6 )
-					{
-						const IN_ADDR* pAddress = (const IN_ADDR*)pPointer;
-						WORD nPort = *(const WORD*)( pPointer + 4 );
-
-						m_pDownload->AddSourceBT( Hashes::BtGuid(), pAddress, ntohs( nPort ) );
-					}
-				}
+				m_pDownload->AddSourceBT( Hashes::BtGuid(), pAddress, ntohs( nPort ) );
 			}
 		}
 
-		if ( CBENode* pPeersDrop = pRoot->GetNode( "dropped" ) )
+		CBENode* pPeersDrop = pRoot->GetNode( "dropped" );
+
+		if ( pPeersDrop && ( pPeersDrop->m_nValue % 6 ) == 0 )
 		{
-			if ( 0 == ( pPeersDrop->m_nValue % 6 ) )
+			for ( POSITION posSource = m_pDownload->GetIterator(); posSource ; )
 			{
+				CDownloadSource* pSource = m_pDownload->GetNext( posSource );
+
+				if ( pSource->IsConnected() || pSource->m_nProtocol != PROTOCOL_BT )
+					continue;
+
+				WORD nPort = htons( pSource->m_nPort );
+				const BYTE* pPointer = (const BYTE*)pPeersDrop->m_pValue;
+
+				for ( int nPeer = (int)pPeersDrop->m_nValue / 6 ; nPeer > 0 ; nPeer --, pPointer += 6 )
 				{
-					QWORD nValue = pPeersDrop->m_nValue;
-					BYTE* pValue =  (BYTE*) malloc( nValue );
-					memcpy( pValue, pPeersDrop->m_pValue, nValue );
-
-					BYTE* pCompact = (BYTE*) malloc( 6 );
-					WORD* pPort = (WORD*) (pCompact + 4);
-
-					for ( POSITION posSource = m_pDownload->GetIterator(); posSource ; )
+					if ( memcmp( &pSource->m_pAddress, pPointer, 4 ) == 0
+						&& memcmp( &nPort, (pPointer + 4), 2 ) == 0 )
 					{
-						CDownloadSource* pSource = m_pDownload->GetNext( posSource );
-
-						if ( pSource->IsConnected() ) continue;
-
-						if ( pSource->m_nProtocol == PROTOCOL_BT )
-						{
-							memcpy(pCompact, &pSource->m_pAddress, 4);
-							*pPort = htons( pSource->m_nPort );
-
-							BYTE* pPointer = pValue;
-
-							for ( int nPeer = (int) nValue / 6 ; nPeer > 0 ; nPeer --, pPointer += 6 )
-							{
-								if ( memcmp( pCompact, pPointer, 6 ) == 0 )
-									pSource->m_tAttempt = pSource->CalcFailureDelay();
-							}
-						}
+						pSource->m_tAttempt = pSource->CalcFailureDelay();
 					}
-
-					delete [] pValue;
-					delete [] pCompact;
 				}
 			}
 		}
@@ -1295,8 +1345,8 @@ void CBTClient::SendInfoRequest(QWORD nPiece)
 	ASSERT( m_nUtMetadataID );
 
 	CBENode pRoot;
-	pRoot.Add( "msg_type" )->SetInt(UT_METADATA_REQUEST); //Request
-	pRoot.Add( "piece" )->SetInt(nPiece);
+	pRoot.Add( "msg_type" )->SetInt( UT_METADATA_REQUEST );	// Request
+	pRoot.Add( "piece" )->SetInt( nPiece );
 
 	CBuffer pOutput;
 	pRoot.Encode( &pOutput );
@@ -1304,35 +1354,67 @@ void CBTClient::SendInfoRequest(QWORD nPiece)
 	SendExtendedPacket( m_nUtMetadataID, &pOutput );
 }
 
-void CBTClient::SendUtPex()	// Peer Exchange
-{
-	if ( m_pDownload->m_pTorrent.m_bPrivate ) return;
-	if ( m_nUtPexID == 0 ) return;
+// uTorrent Peer-Exchange
+// The PEX message payload is a bencoded dict with three keys:
+//
+// 'added':   The set of peers met since the last PEX
+// 'added.f': A flag for every peer, apparently with following values:
+//		\x00: unknown, assuming default
+//		\x01: Prefers encryption
+//		\x02: Is seeder
+//		(OR-ing them together is allowed)
+// 'dropped': The set of peers dropped since last PEX
 
-	CBuffer AddedBuffer;
-	BYTE* pCompact = (BYTE*)malloc( 6 );
-	WORD* pPort = (WORD*)(pCompact + 4);
+void CBTClient::SendUtPex(DWORD tConnectedAfter)
+{
+	if ( m_nUtPexID == 0 || m_pDownload->m_pTorrent.m_bPrivate )
+		return;
+
+	CBuffer pAddedBuffer;
+	CBuffer pAddedFlagsBuffer;
+	BYTE* pnFlagsByte = NULL;
+	DWORD nPeersCount = 0;
 
 	for ( POSITION posSource = m_pDownload->GetIterator(); posSource ; )
 	{
 		CDownloadSource* pSource = m_pDownload->GetNext( posSource );
 
-		if ( ! pSource->IsConnected() ) continue;
+		if ( ! pSource->IsConnected()
+			|| pSource->GetTransfer()->m_tConnected < tConnectedAfter
+			|| pSource->m_nProtocol != PROTOCOL_BT )
+			continue;
 
-		if ( pSource->m_nProtocol == PROTOCOL_BT )
+		WORD nPort = htons( pSource->m_nPort );
+		pAddedBuffer.Add( &pSource->m_pAddress, 4 );
+		pAddedBuffer.Add( &nPort, 2 );
+
+		nPeersCount++;
+
+		const CDownloadTransferBT* pBTDownload =
+			static_cast< const CDownloadTransferBT* >( pSource->GetTransfer() );
+
+		BYTE nFlag = ( pBTDownload->m_pClient->m_bPrefersEncryption ? 1 : 0 ) |
+					 ( pBTDownload->m_pClient->m_bSeeder ? 2 : 0 );
+
+		DWORD nFlagInBytePos = ( nPeersCount - 1 ) % 4;
+
+		if ( nFlagInBytePos == 0 )
 		{
-			memcpy( pCompact, &pSource->m_pAddress, 4 );
-			*pPort = htons( pSource->m_nPort );
-			AddedBuffer.Add( pCompact, 6 );
+			DWORD nLength = nPeersCount / 4 + 1;
+			pAddedFlagsBuffer.EnsureBuffer( nLength );
+			pAddedFlagsBuffer.m_nLength = nLength;
+			pnFlagsByte = &pAddedFlagsBuffer.m_pBuffer[nLength - 1];
+			*pnFlagsByte = 0;
 		}
+
+		*pnFlagsByte |= ( nFlag & 3 ) << ( 6 - nFlagInBytePos * 2 );
 	}
 
-	delete [] pCompact;
-
-	if ( AddedBuffer.m_nLength > 0 )
+	if ( pAddedBuffer.m_nLength )
 	{
 		CBENode pRoot;
-		pRoot.Add("Added")->SetString( AddedBuffer.m_pBuffer, AddedBuffer.m_nLength );
+		pRoot.Add("added")->SetString( pAddedBuffer.m_pBuffer, pAddedBuffer.m_nLength );
+		pRoot.Add("added.f")->SetString( pAddedFlagsBuffer.m_pBuffer, pAddedFlagsBuffer.m_nLength );
 
 		CBuffer pOutput;
 		pRoot.Encode( &pOutput );

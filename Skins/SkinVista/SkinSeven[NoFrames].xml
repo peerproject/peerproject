@@ -64,7 +64,7 @@
   <color name="TaskBox.Caption.Hover" value="3388CC"/>
   <color name="TaskBox.Back" value="FDFDFD"/>
   <color name="ToolTip.Back" value="FCFBFA"/>
-  <color name="ToolTip.Text" value="A0A0A0"/>
+  <color name="ToolTip.Text" value="808080"/>
   <color name="ToolTip.Graph" value="F8F6F2"/>
   <color name="ToolTip.Grid" value="E2E0DD"/>
   <color name="Dialog.Back" value="F8F7F6"/>
@@ -200,6 +200,7 @@
   <watermark target="CCoolbar.Hover" path="ToolbarButtonHover.png"/>
   <watermark target="CCoolbar.Checked" path="ToolbarButtonDown.png"/>
   <watermark target="CCoolbar.Separator" path="ToolbarSeparator.png"/>
+  <watermark target="CCoolbar.Control" path="MediaSlider.png"/>
 
   <watermark target="RichButton" path="Buttons\RichButton.png"/>
   <watermark target="RichButtonPart" path="Buttons\RichButtonPart.png"/>

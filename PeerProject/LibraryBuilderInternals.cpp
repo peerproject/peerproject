@@ -64,8 +64,8 @@ bool CLibraryBuilderInternals::ExtractMetadata(DWORD nIndex, const CString& strP
 	CString strType = PathFindExtension( strPath );
 	strType.MakeLower();
 
-	// ToDo: Verify, is this Switch any faster than typical ElseIf chain ?
-	std::map< const CString, char > FileType;
+	// ToDo: Verify, is this Switch any better than typical ElseIf chain ?
+	static std::map< const CString, char > FileType;
 
 	FileType[ _T(".mp3") ]	= '3';
 	FileType[ _T(".aac") ]	= '3';
@@ -122,7 +122,7 @@ bool CLibraryBuilderInternals::ExtractMetadata(DWORD nIndex, const CString& strP
 			if ( ReadID3v2( nIndex, hFile ) )		return true;
 			if ( ReadAPE( nIndex, hFile, true ) )	return true;
 		}
-		if ( ReadID3v1( nIndex, hFile ) )		return true;
+		if ( ReadID3v1( nIndex, hFile ) )			return true;
 		if ( ReadMP3Frames( nIndex, hFile ) )		return true;
 		return LibraryBuilder.SubmitCorrupted( nIndex );
 

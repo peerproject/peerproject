@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Hungarian Skin File -->
 
-<!-- Translation based on default-en.xml r58 -->
+<!-- Translation based on default-en.xml r59 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -376,6 +376,8 @@
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Beállítások"/>
 	</toolbar>
+	<!-- SECURITY WINDOW Missing -->
+	<!-- SCHEDULER WINDOW Missing -->
 	<!-- HIT MONITOR WINDOW -->
 	<toolbar name="CHitMonitorWnd">
 		<button id="ID_SEARCH_DOWNLOAD" text="Letöltés"/>
@@ -1684,7 +1686,7 @@
 		<anchor id="Header" width="32" height="152"/>
 		<newline gap="0"/>
 		<group id="1">
-			<icon res="130" width="32" height="32"/><gap size="8"/>
+			<icon res="136" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">KAPCSOLÓDJON!</heading>
 			<newline gap="8" indent="42"/>
 			<text>Üdvözlöm a PeerProject!</text>
@@ -1694,12 +1696,12 @@
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="2">
-			<icon res="134" width="32" height="32" target="command:ID_TAB_SEARCH"/><gap size="8"/>
+			<icon res="130" width="32" height="32" target="command:ID_TAB_SEARCH"/><gap size="8"/>
 			<heading align="middle">KERESÉS</heading>
 			<newline gap="8" indent="42"/>
 			<anchor id="SearchBox" width="256" height="80"/>
 			<newline gap="12" indent="0"/>
-			<icon res="136" width="32" height="32" target="command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
+			<icon res="124" width="32" height="32" target="command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
 			<heading align="middle">LETÖLTÉS INDÍTÁSA</heading>
 			<newline gap="8" indent="42"/>
 			<link target="command:ID_TOOLS_DOWNLOAD" format="bu">Kattintson ide</link>
@@ -1718,7 +1720,7 @@
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="4">
-			<icon res="252" width="32" height="32" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
+			<icon res="180" width="32" height="32" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 			<heading align="middle">FIGYELEM: TŰZFAL MÖGÖTT VAN!</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">A PeerProject észlelte, hogy egy NAT router vagy tűzfal mögött van
@@ -1729,7 +1731,7 @@
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="6">
-			<icon res="252" width="32" height="32"/><gap size="8"/>
+			<icon res="180" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">FIGYELEM: A TCP PORT TŰZFAL MÖGÖTT VAN!</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">A PeerProject észlelte, hogy egy NAT router vagy tűzfal mögött van
@@ -1740,7 +1742,7 @@
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="7">
-			<icon res="252" width="32" height="32"/><gap size="8"/>
+			<icon res="180" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">FIGYELEM: A UDP PORT TŰZFAL MÖGÖTT VAN!</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">A PeerProject észlelte, hogy egy NAT router vagy tűzfal mögött van
@@ -1753,24 +1755,24 @@
 		<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">TESTRESZABÁS</heading>
 		<newline gap="12" indent="42"/>
-		<icon res="182" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
+		<icon res="196"width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
 		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">Kinézetek</link>
 		<text align="middle">&#160;- Változtassa meg a PeerProject kinézetét.</text>
 		<newline gap="8"/>
-		<icon res="141" width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
+		<icon res="138"width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
 		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
 		<text align="middle">&#160;- Update blocklist to avoid bad search results</text>
 		<newline gap="8"/>
-		<icon res="317" width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
+		<icon res="197"width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 		<link target="command:ID_TOOLS_WIZARD" align="middle">Gyors beállítás</link>
 		<text align="middle">&#160;- PeerProject beállítások egyszerűen.</text>
 		<newline gap="8"/>
-		<icon res="147" width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
+		<icon res="182"width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
 		<link target="command:ID_HELP_FAQ" align="middle">Súgó</link>
 		<text align="middle">&#160;- Segítség a program használatához, or </text>
 		<link target="command:ID_TAB_IRC" align="middle">IRC.</link>
 		<newline gap="8"/>
-		<icon res="175" width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
+		<icon res="201"width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
 		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">Helyi Fórum</link>
 		<text align="middle">&#160;- Menj el a magyar nyelv vitafórum</text>
 		<newline gap="18" indent="0"/>
@@ -1985,32 +1987,32 @@
 		</group>
 		<group id="40">
 			<newline gap="1"/>
-			<icon res="265"/><gap size="5"/>
+			<icon res="203"/><gap size="5"/>
 			<link id="ContactEmail" align="middle"/>
 		</group>
 		<group id="44">
 			<newline gap="1"/>
-			<icon res="1008"/><gap size="5"/>
+			<icon res="206"/><gap size="5"/>
 			<link id="ContactMSN"/>
 		</group>
 		<group id="41">
 			<newline gap="1"/>
-			<icon res="206"/><gap size="5"/>
+			<icon res="208"/><gap size="5"/>
 			<link id="ContactYahoo"/>
 		</group>
 		<group id="42">
 			<newline gap="1"/>
-			<icon res="208"/><gap size="5"/>
+			<icon res="205"/><gap size="5"/>
 			<link id="ContactICQ"/>
 		</group>
 		<group id="43">
 			<newline gap="1"/>
-			<icon res="207"/><gap size="5"/>
+			<icon res="204"/><gap size="5"/>
 			<link id="ContactAOL"/>
 		</group>
 		<group id="45">
 			<newline gap="1"/>
-			<icon res="207"/><gap size="5"/>
+			<icon res="204"/><gap size="5"/>
 			<link id="ContactJabber"/>
 		</group>
 		<group id="5">
@@ -2036,7 +2038,7 @@
 			<newline gap="16" indent="0"/>
 			<text format="b">Közösség</text>
 			<newline gap="4" indent="8"/>
-			<icon res="140" target="command:ID_SEARCH_CHAT"/>
+			<icon res="127"target="command:ID_SEARCH_CHAT"/>
 			<gap size="5"/>
 			<link target="command:ID_SEARCH_CHAT" align="middle">Chat</link>
 		</group>
@@ -2596,722 +2598,722 @@
 <!-- Localized Strings -->
 <strings>
 	<string id="WINDOW_MAIN" value="PeerProject"/>
+	<string id="WINDOW_HOME" value="PeerProject kezdőlap"/>
 	<string id="WINDOW_SYSTEM" value="Rendszer"/>
 	<string id="WINDOW_NEIGHBOURS" value="Hálózat"/>
 	<string id="WINDOW_PACKET" value="Csomagforgalom"/>
 	<string id="WINDOW_HOSTCACHE" value="Kiszolgálók listája"/>
-	<string id="WINDOW_SEARCHMONITOR" value="Keresések figyelése"/>
 	<string id="WINDOW_SEARCH" value="Keresés"/>
+	<string id="WINDOW_SEARCHPAD" value="Keresés"/>
+	<string id="WINDOW_SEARCHMONITOR" value="Keresések figyelése"/>
 	<string id="WINDOW_HITMONITOR" value="Találatok figyelése"/>
 	<string id="WINDOW_DOWNLOADS" value="Letöltések"/>
-	<string id="WINDOW_LIBRARY" value="Könyvtár"/>
 	<string id="WINDOW_UPLOADS" value="Feltöltések"/>
+	<string id="WINDOW_LIBRARY" value="Könyvtár"/>
 	<string id="WINDOW_TRAFFIC" value="Grafikon"/>
 	<string id="WINDOW_CHAT" value="Csevegés"/>
 	<string id="WINDOW_SECURITY" value="Biztonság"/>
+	<string id="WINDOW_SCHEDULER" value="Ütemező"/>
 	<string id="WINDOW_DISCOVERY" value="Szerverkereső szolgáltatás"/>
 	<string id="WINDOW_BROWSEHOST" value="Böngészés"/>
-	<string id="WINDOW_HOME" value="PeerProject kezdőlap"/>
 	<string id="WINDOW_MEDIA" value="Médialejátszó"/>
-	<string id="WINDOW_SEARCHPAD" value="Keresés"/>
 	<string id="WINDOW_HELP" value="Súgó"/>
-	<string id="7000" value="Biztos, hogy törölni akarja ezt a szűrőt?"/>
-	<string id="7001" value="&amp;Sémák"/>
-	<string id="7002" value="Több érték"/>
-	<string id="7003" value="Több"/>
-	<string id="7004" value="Már van ilyen nevű szűrő: &quot;%s&quot; Ki akarja ezzel cserélni?"/>
-	<string id="7005" value="Adj a szűrőnek egy nevet."/>
-	<string id="7100" value="Ez a sablon érvénytelen."/>
-	<string id="7101" value="Ez a sablon semmi egyedi beállítást nem tartalmaz."/>
-	<string id="7102" value="Biztos törölni akarja a(z) &quot;%s&quot; sablont?\nKésőbb már nem lehet visszavonni."/>
-	<string id="8000" value="Beállítások"/>
-	<string id="8001" value="Üdvözlöm a PeerProject"/>
-	<string id="8002" value="Fájl tulajdonságai"/>
-	<string id="8003" value="Saját adatlap szerkesztése"/>
-	<string id="8004" value="!Üdvözlöm a PeerProject! Verziószám: (version) \n.\nA PeerProject teljesen ingyenes.\nKérem, használja felelősséggel és tisztelje mások jogait.\n."/>
-	<string id="8005" value="(forgalom után bezárás)"/>
-	<string id="8006" value="Nincs kapcsolat. Kattintson a Kapcsolódás gombra a kezdéshez."/>
-	<string id="8007" value="Nincsen aktív keresés. Kattintson ide a fájlok kereséséhez."/>
-	<string id="8008" value="A PeerProject letöltötte a legújabb, PeerProject (%s) verziót. Szeretné most frissíteni a proramot?\n\nHa igen, a PeerProject a telepítés idejére bezárja magát."/>
-	<string id="8009" value="Biztos, hogy törölni akarja a(z) &quot;%s&quot; kinézetet? Ezt már nem lehet később visszavonni."/>
-	<string id="8010" value="Ez a PeerProject tesztverziója és a tesztelési időszak lejárt. Töltse le a legújabb stabil verziót a http://peerproject.sourceforge.net -ről."/>
-	<string id="8011" value="A kinézet megváltoztatása bezár minden megnyitott ablakot. Most akarja megvátoztatni?"/>
-	<string id="8012" value="Torrent adatok"/>
-	<string id="8014" value="Letöltés tulajdonságai"/>
-	<string id="8060" value="Hub/Ultrapeer mód %lu szomszéddal.  %s a helyi könyvtárban."/>
-	<string id="8061" value="Ultrapeer mód %lu szomszéddal.  %s a helyi könyvtárban."/>
-	<string id="8062" value="Hub mód %lu szomszéddal.  %s a helyi könyvtárban."/>
-	<string id="8063" value="Kapcsolódva. %s a helyi könyvtárban."/>
-	<string id="8064" value="Kapcsolódva %lu szomszéddal.  %s a megosztás mérete."/>
-	<string id="8065" value="Kapcsolódás..."/>
-	<string id="8066" value="Nincs kapcsolat."/>
-	<string id="8067" value="Le: %s | Fel: %s  (d:%I64i/u:%I64i)"/>
-	<string id="8068" value="Le: %s | Fel: %s  (d:%I64i/u:%I64i/s:%I64i)"/>
-	<string id="8069" value="Kapcsolódás"/>
-	<string id="8070" value="Kapcsolódás..."/>
-	<string id="8071" value="Kapcsolódva"/>
-	<string id="8072" value="Lekapcsolódás"/>
-	<string id="8096" value="Több információt tudhat meg a kiválasztott fájlról."/>
-	<string id="8097" value="Egy forrás elérhető. (%s/s)"/>
-	<string id="8098" value="%i forrás elérhető. (%s/s)"/>
-	<string id="8099" value="Egy megjegyzés."/>
-	<string id="8100" value="%i megjegyzés."/>
-	<string id="8101" value="%s írja:"/>
-	<string id="8102" value="%s osztályzata:"/>
-	<string id="8103" value="Előnézet"/>
-	<string id="8104" value="Előnézet..."/>
-	<string id="8105" value="&quot;%s&quot;: Nem lehet letölteni az előnézeti adatokat."/>
-	<string id="8128" value="Kattintson ide az újrakereséshez"/>
-	<string id="8129" value="Ebben az ablakban még nem futtattak le keresést."/>
-	<string id="8130" value="Keresés folyamatban..."/>
-	<string id="8131" value="Még nincs eredmény."/>
-	<string id="8132" value="Van néhány találat, de ki lettek szűrve."/>
-	<string id="8133" value="Aktív keresés folyamatban..."/>
-	<string id="8134" value="Új keresést indított. Ki akarja törölni az előző keresés eredményeit?"/>
-	<string id="8135" value="Nincs metaadat"/>
-	<string id="8136" value="Csak szöveg keresése"/>
-	<string id="8137" value="Nincs séma oszlop"/>
-	<string id="8141" value="Keresési ablak megjelenítése"/>
-	<string id="8142" value="Keresési ablak elrejtése"/>
-	<string id="8143" value="Keresés..."/>
-	<string id="8144" value="Keresést indít"/>
-	<string id="8145" value="Keresés újra"/>
-	<string id="8146" value="Stop"/>
-	<string id="8147" value="Bármilyen"/>
-	<string id="8148" value="Keresendő kifejezések:"/>
-	<string id="8149" value="Fájltípus:"/>
-	<string id="8150" value="Keresés:"/>
-	<string id="8151" value="Találat:"/>
-	<string id="8152" value="%lu hub, %lu leaf"/>
-	<string id="8153" value="Jelenleg nincs keresés."/>
-	<string id="8154" value="Nem találtam semmit."/>
-	<string id="8155" value="%lu fájl %lu találat|%lu fájl %lu találat|%lu fájl %lu találat"/>
-	<string id="8156" value="Keresés"/>
-	<string id="8157" value="Eredmények"/>
-	<string id="8158" value="Töröl"/>
-	<string id="8159" value="Fejlett"/>
-	<string id="8160" value="Kapcsolat létrehozása..."/>
-	<string id="8161" value="Viszontválaszra várok..."/>
-	<string id="8162" value="Kapcsolódva, fájllista lekérése..."/>
-	<string id="8163" value="Fájllista letöltése (%2.f%%)..."/>
-	<string id="8164" value="Nem lehetett kapcsolatot létesíteni a fájllista letöltéséhez."/>
-	<string id="8165" value="Hiba a fájllista letöltésekor. A kiszolgáló lehet, nem támogatja a listaletöltést."/>
-	<string id="8166" value="Hálózatok:"/>
-	<string id="8167" value="Minden hálózat"/>
-	<string id="8176" value="PeerProject keresés"/>
-	<string id="8177" value="Írja ide a keresendő szót vagy szavakat:"/>
-	<string id="8178" value="Fájltípus:"/>
-	<string id="8179" value="(előzmények törlése)"/>
-	<string id="8180" value="Fájlméret Min:"/>
-	<string id="8181" value="Fájlméret Max:"/>
-	<string id="8208" value="%Iu fájl hashelése:"/>
-<!--	<string id="8221" value="Források keresése ennek:"/>
-	<string id="8222" value="Letöltés folyamatban:"/>
-	<string id="8223" value="Letöltés szüneteltetve:"/>
-	<string id="8224" value="Letöltés áthelyezése:"/>
-	<string id="8225" value="Hibaellenőrzés:"/>
-	<string id="8226" value="Letöltés befejezve:"/>
--->	<string id="8227" value="%i nap %i óra"/>
-	<string id="8228" value="%i óra %i perc"/>
-	<string id="8229" value="%i perc %i másodperc"/>
-	<string id="8230" value="%i másodperc"/>
-	<string id="8231" value="Nincs forrás"/>
-	<string id="8232" value="Megnyitás"/>
-	<string id="8233" value="Mégse"/>
-	<string id="8235" value="Sebesség:"/>
-	<string id="8236" value="Hátralévő idő:"/>
-	<string id="8237" value="Letöltve:"/>
-	<string id="8238" value="Feltöltve:"/>
-	<string id="8239" value="Kész"/>
-	<string id="8240" value="Források:"/>
-	<string id="8241" value="Megjegyzések száma:"/>
-	<string id="8244" value="Limit letöltési sávszélességgel"/>
-	<string id="8245" value="Limit feltöltési sávszélességet"/>
-	<string id="8288" value="Tallózás a könyvtárban"/>
-	<string id="8289" value="Tallózás"/>
-	<string id="8290" value="%i mappa tartalmának a tallózása"/>
-	<string id="8291" value="Több mappa"/>
-	<string id="8292" value="%i fájl kiválasztva"/>
-	<string id="8293" value="Nincs kiválasztott fájl"/>
-	<string id="8294" value="Mostanában hozzáadva"/>
-	<string id="8295" value="Osztályozza"/>
-	<string id="8304" value="Nincs adat"/>
-	<string id="8306" value="Hely"/>
-	<string id="8307" value="Típus"/>
-	<string id="8308" value="Méret"/>
-	<string id="8309" value="Részforrás (%.2f%% található)"/>
-	<string id="8310" value="%i feltöltés, %i várnak a sorukra"/>
-	<string id="8311" value="Ez a fájl már a könyvtárban van."/>
-	<string id="8312" value="Ez a fájl már a letöltési sorban van."/>
-	<string id="8313" value="Ez a fájl spamnek néz ki."/>
-	<string id="8314" value="Egyszer már letöltötte és utána törölte ezt a fájlt."/>
-	<string id="8315" value="Feketelistán van:"/>
-	<string id="8316" value="Találatok"/>
-	<string id="8317" value="Feltöltések"/>
-	<string id="8318" value="%lu ma, %lu teljes"/>
-	<string id="8319" value="Feltöltések:"/>
-	<string id="8320" value="Státusz:"/>
-	<string id="8321" value="Sebesség:"/>
-	<string id="8322" value="URL:"/>
-	<string id="8323" value="Kliens:"/>
-	<string id="8324" value="Inaktív"/>
-	<string id="8325" value="Aktív"/>
-	<string id="8326" value="Következő a sorban"/>
-	<string id="8327" value="Összes fájl:"/>
-	<string id="8328" value="Teljes méret:"/>
-	<string id="8329" value="a könyvtár mérete"/>
-	<string id="8330" value="Mappa"/>
-	<string id="8331" value="Ez a forrás elfoglalt"/>
-	<string id="8332" value="Ez a forrás passzív"/>
-	<string id="8333" value="Ez a forrás bizonytalan"/>
-	<string id="8334" value="A források ehhez a fájlhoz elfoglaltak"/>
-	<string id="8335" value="A források ehhez a fájlhoz passzívak"/>
-	<string id="8336" value="A források ehhez a fájlhoz bizonytalanok"/>
-	<string id="8337" value="Megbízhatatlan"/>
-	<string id="8338" value="&#160;(Nincs Hash)"/>
-	<string id="13000" value="Az interneten megosztott fájlok"/>
-	<string id="13001" value="Biztosan törölni akarja a kiválasztott biztonsági szabályokat? Később már nem lehet visszavonni."/>
-	<string id="16063" value="Az UPnP port hozzárendelés a 10 próbálkozás után sem sikerült."/>
-	<string id="16064" value="PeerProject hálózati mag indítása..."/>
-	<string id="16065" value="Nem tudok kacsolódni: %s port %i A bejövő kapcsolatok nem támogatottak."/>
-	<string id="16066" value="PeerProject hálózati mag leállítása..."/>
-	<string id="16067" value="Lekapcsolódtam a hálózatról."/>
-	<string id="16068" value="Bejövő TCP kapcsolat elfogadása: %s port %i."/>
-	<string id="16069" value="Kimenő kapcsolatok innen: %s port %i."/>
-	<string id="16070" value="Nem tudom feloldani a kimenő kapcsolatokhoz: %s. A kimenő kapcsolatok az alapértelmezett interfészt fogják használni."/>
-	<string id="16071" value="Tűzfallal védve. Nem fogad bejövő kapcsolatokat."/>
-	<string id="16072" value="UDP csomagokra várok: %s port %i."/>
-	<string id="16073" value="Feloldás: &quot;%s&quot;..."/>
-	<string id="16074" value="Nem tudom feloldani: &quot;%s&quot;."/>
-	<string id="16075" value="Biztonsági okok miatt a kapcsolat meg lett tagva: %s."/>
-	<string id="16076" value="Biztonsági okok miatt a kapcsolat el lett hárítva: %s."/>
-	<string id="16077" value="A %s már blokkolva van a biztonsági beállításokban."/>
-	<string id="16078" value="Biztonsági szabály hozzáadása, hogy blokkolja: %s."/>
-	<string id="16079" value="Biztos le akarsz kapcsolódni?"/>
-	<string id="16080" value="Az Ütemező jelenleg kizárólagos G2 módban fut. Ki akarja ezt kapcsolni, hogy a többi hálózathoz is kapcsolódva maradhasson?"/>
-	<string id="16081" value="Keresési kérvény elküldése: &quot;%s&quot; ide: %s."/>
-	<string id="16083" value="A PC hub módba való kényszerítése negatívan befolyásolhatja a hálózati teljesítményt. Általában a legjobb, ha a PeerProject dönti el, hogy érdemes-e átkapcsolni vagy nem.\n\nHub módban nem kapsz jobb keresési eredményt, nem teszel szert előnyre.\n\nBiztos, hogy ezt akarja tenni?"/>
-	<string id="16085" value="A Gnutella2 a PeerProject fő hálózata. Kikapcsolásával lecsökkenhet a találatok száma és minősége kereséskor. Biztos, hogy ezt akarja tenni?"/>
-	<string id="16087" value="A feltöltési sebesség túl alacsony a hálózat bekapcsolásához"/>
-	<string id="16128" value="Bejövő kapcsolat elfogadva: %s port %i."/>
-	<string id="16129" value="Kapcsolódás: %s port %i..."/>
-	<string id="16130" value="Nem lehetett kapcsolatot létrehozni: %s."/>
-	<string id="16131" value="Időtúllépés: %s."/>
-	<string id="16132" value="Kapcsolat bezárva a kevés forgalom miatt: %s."/>
-	<string id="16133" value="Kapcsolat létrehozva: %s, viszontválaszra várok..."/>
-	<string id="16134" value="Kapcsolat bezárva: %s."/>
-	<string id="16135" value="Nem tudok kapcsolatot letrehozni: %s (megtagadva)."/>
-	<string id="16136" value="%s váratlanul bontotta a kapcsolatot."/>
-	<string id="16137" value="Dupla kapcsolódás megtagadása: %s."/>
-	<string id="16138" value="Már kapcsolódva van: %s, nincs újabb kapcsolódás."/>
-	<string id="16139" value="%s bezárta a kapcsolatot (%i : %s)."/>
-	<string id="16141" value="Kapcsolat bezárása: %s, mert nem hub."/>
-	<string id="16144" value="Viszontválasz nem érkezett időben: %s."/>
-	<string id="16145" value="Gnutella kapcsolódás sikeres: %s  (G%i.%i : %s)."/>
-	<string id="16146" value="Viszontválasz hiba: %s, érvénytelen adatok."/>
-	<string id="16147" value="Felesleges kapcsolat bezárása: %s  (%s port %i)."/>
-	<string id="16148" value="Kapcsolódás elutasítva: %s  (%s)."/>
-	<string id="16150" value="Felesleges kapcsolat bezárása: %s."/>
-	<string id="16151" value="Kapcsolat megtagadása: %s, mert ez egy álcázott(shielded) leaf."/>
-	<string id="16152" value="A %s hub nem fogad el minket, mint hub. Kapcsolat megszakítása."/>
-	<string id="16153" value="Kapcsolódás: %s, visszatérés álcázott(shielded) leaf módba."/>
-	<string id="16154" value="Hub kapcsolat létrehozva, peer kapcsolatok bezárása."/>
-	<string id="16155" value="Hubnak adja ki magát a leafnek: %s."/>
-	<string id="16156" value="%s hub akar lenni, kapcsolat bezárása."/>
-	<string id="16157" value="%s nem hub, kapcsolat bezárása."/>
-	<string id="16158" value="Gnutella2 kapcsolódás eredményes: %s.  (%s)."/>
-	<string id="16159" value="Nem Gnutella2 kapcsolatok bezárása: %s."/>
-	<string id="16192" value="%s túl nagy csomagot küldött tovább, kapcsolat megszakítása."/>
-	<string id="16193" value="%s TTL=0 csomagot küldött tovább, ignorálás."/>
-	<string id="16194" value="%s túl nagy TTL-el rendelkező csomagot küldött tovább, csomag ejtése (TTL=%i, Hops=%i)."/>
-	<string id="16195" value="%s érvénytelen hosszúságú ping csomagot küldött tovább, ignorálás."/>
-	<string id="16196" value="%s érvénytelen hosszúságú pong csomagot küldött tovább, ignorálás."/>
-	<string id="16197" value="%s -> %s [%i/%i] %s %s"/>
-	<string id="16198" value="Leaf %s kereséseket küldözget, kapcsolat megszakítása."/>
-	<string id="16199" value="%s ismeretlen csomagot küldött tovább (0x%.2x), ignorálás."/>
-	<string id="16200" value="%s érvénytelen címmel rendelkező pong csomagot küldött tovább, ignorálás."/>
-	<string id="16201" value="%s:  Hibásan formázott lekérdezéscsomag: %s, ignorálás."/>
-	<string id="16202" value="Hibásan formázott találati csomag: %s, ignorálás."/>
-	<string id="16203" value="%s egy érvénytelen hosszúságú csomagot küldött tovább, ignorálás."/>
-	<string id="16208" value="Nem várt query routing: %s."/>
-	<string id="16209" value="%s érvénytelen query routing table-t küldött, kapcsolat megszakítása."/>
-	<string id="16210" value="%s query routing table frissítve (%i bit = %lu[%i], %i%% full)."/>
-	<string id="16211" value="%s továbbküldött egy push request-et egy tűzfallal védett címre, ignorálás."/>
-	<string id="16212" value="%s egy kiterjesztett csomagot küldött tovább, ami GGEP kódolású."/>
-	<string id="16213" value="Query routing table elküldése %s (%i bit = %lu[%i], %i%% full)"/>
-	<string id="16254" value="Alapértelmezett letöltési csoport. (Minden fájl megjelenítése)"/>
-	<string id="16255" value="Drag'n'drop fájlokat a %s csoporthoz"/>
-	<string id="16256" value="&quot;%s&quot; a letöltési sorhoz lett hozzáadva %i forrással."/>
-	<string id="16257" value="Letöltés kész: &quot;%s&quot;."/>
-	<string id="16258" value="Letöltés szüneteltetése: &quot;%s&quot;."/>
-	<string id="16259" value="Letöltés folytatása: &quot;%s&quot;."/>
-	<string id="16260" value="Letöltés törölve: &quot;%s&quot;."/>
-	<string id="16261" value="Fájl készítése a letöltéshez: &quot;%s&quot;."/>
-	<string id="16262" value="Nem tudok fájlt készíteni a letöltéshez: &quot;%s&quot;, megszakítás ."/>
-	<string id="16263" value="Fájl megnyitása nem lehetséges a letöltéshez &quot;%s&quot;, megszakítás."/>
-	<string id="16264" value="Kapcsolódás letöltéshez: %s port %i, hogy letöltse: &quot;%s&quot;..."/>
-	<string id="16265" value="Nem lehet a letöltési kiszolgálóhoz kapcsolódni: %s."/>
-	<string id="16266" value="Letöltési kapcsolat létrehozva: %s."/>
-	<string id="16267" value="Letöltési töredék kérése (%I64u-%I64u) a(z) &quot;%s&quot; fájlban: %s."/>
-	<string id="16268" value="Nincs több letöltési töredék, kapcsolat bezárása: %s."/>
-	<string id="16269" value="Töredék rövidítve, Kapcsolat bezázása %s."/>
-	<string id="16270" value="Letöltési kérelem időtúllépés, kapcsolat bezárása: %s."/>
-	<string id="16271" value="Letöltési kapcsolat bezárása a forgalom hiánya miatt: %s."/>
-	<string id="16272" value="%s nincs meg neki ez a fájl: &quot;%s&quot;."/>
-	<string id="16273" value="%s egy érvénytelen HTTP választ adott."/>
-	<string id="16274" value="%s ezzel válaszolt: %s (%s)."/>
-	<string id="16275" value="%s szerint a(z) &quot;%s&quot; fájlnak más URN címe van, megszakítás."/>
-	<string id="16276" value="%s szerint a(z) &quot;%s&quot; fájlnak más a mérete, megszakítás."/>
-	<string id="16277" value="%s egy használhatatlan részét küldte el a(z) &quot;%s&quot; fájlnak, várakozás."/>
-	<string id="16278" value="A letöltési kapcsolat megszakadt: %s."/>
-	<string id="16279" value="Letöltési tartalom vétele: %s (%s)."/>
-	<string id="16280" value="%s túl elfoglalt, %i másodperc múlva újra próbálkozom."/>
-	<string id="16281" value="Biztos törölni akarja: &quot;%s&quot;?\n\nHa egyszer kitörölted, már nem lehet folytatni a letöltését."/>
-	<string id="16282" value="A(z) &quot;%s&quot; letöltésének leállítása: %s (%s), hálózat kikapcsolva."/>
-	<string id="16283" value="A(z) &quot;%s&quot; már a letöltési listában van, forrás hozzáadása."/>
-	<string id="16284" value="Hibás push kapcsolat: %s, kapcsolat bezárása."/>
-	<string id="16285" value="Felesleges push kapcsolatot kaptam: %s."/>
-	<string id="16286" value="%s nyomatja a letöltést: &quot;%s&quot;, elfogad."/>
-	<string id="16287" value="Nem lehet több forrást találni: &quot;%s&quot; mert nincs hálózati kapcsolat."/>
-	<string id="16288" value="Több forrás keresése: &quot;%s&quot; itt: %i..."/>
-	<string id="16289" value="Push request elüldése a(z) &quot;%s&quot; letöltésére..."/>
-	<string id="16290" value="%s egy másik, de használható részt küldött (%I64i-%I64i) a(z) &quot;%s&quot; fájlból."/>
-	<string id="16291" value="Áthelyezve: &quot;%s&quot; ide: &quot;%s&quot;, letöltés kész."/>
-	<string id="16292" value="Nem tudtam áthelyezni: &quot;%s&quot; ide: &quot;%s&quot;. Ellenőrizd, hogy a fékész fájl nincs-e használatban és/vagy a kész letöltések mappába lehet-e írni."/>
-	<string id="16293" value="&quot;%s&quot; használata &quot;%s&quot; letöltéséhez..."/>
-	<string id="16294" value="Nem tudom felhasználni: &quot;%s&quot;."/>
-	<string id="16295" value="Letöltés gyorsítása a korlátozások elvételével: &quot;%s&quot;."/>
-	<string id="16296" value="Sikeresen ellenőriztem: &quot;%s&quot;."/>
-	<string id="16297" value="FIGYELEM: A(z) &quot;%s&quot; fájlt nem elhetett elenőrizni. Lehet, hogy ez nem az a fájl, amit ön szeretne!"/>
-	<string id="16298" value="Letöltési kiszolgáló %s elfoglalt, beállok a sorba: #%i / %i (&quot;%s&quot;)."/>
-	<string id="16299" value="Biztos törölni akarja a szüneteltetett letöltéseket? Ha egyszer kitörölted, már nem tudot folytatni később."/>
-	<string id="16300" value="Biztos törölni akarja ezt a letöltést: &quot;%s&quot;?"/>
-	<string id="16301" value="TTH adatok kérése: &quot;%s&quot; from %s..."/>
-	<string id="16302" value="%s nem tudta elküldeni a TTH-t."/>
-	<string id="16303" value="TTH adatok fogadása: %s (%s)..."/>
-	<string id="16304" value="A TTH adatok hamisak vagy inkonzisztensek, ignorálás."/>
-	<string id="16305" value="A TTH adatok nem egyeznek a gyökérértékekkel."/>
-	<string id="16306" value="TTH értéket megszereztem ennek: &quot;%s&quot;, %i szint, legkisebb ellenőrizhető rész: %s."/>
-	<string id="16307" value="Letöltési kapcsolat bezárása: %s, már nincs rá szükség."/>
-	<string id="16308" value="%s nem kért adatokat küldött, kapcsolat bezárása."/>
-	<string id="16309" value="Metaadat kérése: &quot;%s&quot; innen: %s..."/>
-	<string id="16310" value="TTH adatok fogadása: %s (%s)..."/>
-	<string id="16311" value="eDonkey hash kérése ennek: &quot;%s&quot; innen: %s..."/>
-	<string id="16312" value="Érvénytelen eDonkey hash: %s, forrás ejtése."/>
-	<string id="16313" value="eDonkey hash megkaptam: &quot;%s&quot;, egy kisebb ellenőrizhető rész: %s."/>
-	<string id="16314" value="eDonkey hamis hash vagy inkonzisztens, forrás ejtése."/>
-	<string id="16315" value="Nem lehet a tümörítést (inflate) bekapcsolni: &quot;%s&quot;."/>
-	<string id="16316" value="Időtúllépés az eDonkey kiszolgáló sorbanállás-frissítése közben: %s. Fájl: &quot;%s&quot;."/>
-	<string id="16317" value="Sorbanállás: &quot;%s&quot;."/>
-	<string id="16318" value="Nincs elég hely a letöltéshez: &quot;%s&quot; (%s)."/>
-	<string id="16319" value="%s (%s) forrás ejtése hibás adatok közlése miatt. Érintett fájl: &quot;%s&quot; (%I64i-%I64i)."/>
-	<string id="16320" value="%s feltöltési kiszolgáló érvénytelen HTTP kérvényt küldött."/>
-	<string id="16321" value="Push kapcsolat létrehozása: %s. %s"/>
-	<string id="16322" value="Nem tudtam kapcsolódni pusholáshoz: %s."/>
-	<string id="16323" value="Feltöltési kapcsolat bezárva: %s."/>
-	<string id="16324" value="A feltöltési kiszolgáló túllépte az időt: %s."/>
-	<string id="16325" value="%s a feltöltési kiszolgáló egy nem létező vagy nem található objektumot kért: &quot;%s&quot;."/>
-	<string id="16326" value=" %s a feltöltési kiszolgáló a(z) &quot;%s&quot; fájlt kéte más SHA1 értékkel."/>
-	<string id="16327" value="A(z) &quot;%s&quot; feltöltésének megtagadása ide: %s (%s), a kliens nem támogatja a sorbanállást."/>
-	<string id="16328" value="Push kapcsolat létrehozva: %s, viszontválaszra várok..."/>
-	<string id="16329" value="Nem tudom megnyitni a feltöltéshez: &quot;%s&quot; ide: %s, lemez/fájlhiba."/>
-	<string id="16330" value="Az adatrész %I64i-%I64i a(z) &quot;%s&quot; fájlból a %s (%s) címre való átküldése."/>
-	<string id="16331" value="A(z) &quot;%s&quot; egy része átküldve ide: %s."/>
-	<string id="16332" value="%s bejövő kapcsolat egy HTTP feltöltési kérelem."/>
-	<string id="16333" value="Nem tudom még feltölteni: &quot;%s&quot; ide: %s, sorbanáll: #%i / %i (&quot;%s&quot;)."/>
-	<string id="16334" value="%s egy push requestet kért egy ismeretlem fájlhhozhoz, azért kapcsolódok..."/>
-	<string id="16335" value="Feltöltés eltávolítva: &quot;%s&quot;, %s."/>
-	<string id="16336" value="A feltöltési kiszolgáló %s a kliensprogram blokkolólistáján van, kérés megtagadása."/>
-	<string id="16337" value="A(z) &quot;%s&quot; upload headerjének elküldése a: %s (%s) címre."/>
-	<string id="16338" value="%s  egy nem megfelelő részt küldött a fájlból: &quot;%s&quot;."/>
-	<string id="16339" value="Alapértelmezett HTML válasz küldése a feltöltési kiszolgálónak %s (%s)."/>
-	<string id="16340" value="Fájllista letöltésének megakadályozása: %s."/>
-	<string id="16341" value="%s (%s) egy fájllista lekérdezést küldött, válaszolás..."/>
-	<string id="16342" value="Feltöltési kapcsolat bezárása a kevés forgalom miatt: %s."/>
-	<string id="16343" value="Régi feltöltés bezárása, mert már van helyette újabb: %s."/>
-	<string id="16344" value="Új feltöltés megtagadása, mert a régi még tart: %s."/>
-	<string id="16345" value="Feltöltés megszakítása, mert a fájl törölve lett: &quot;%s&quot; ide: %s."/>
-	<string id="16346" value="Félkész fájl részének feltöltése %I64i-%I64i fájl: &quot;%s&quot; ide: %s (%s)."/>
-	<string id="16347" value="A sorbanálló feltöltés túl sokszor kérdezget, kapcsolat bezárása: %s."/>
-	<string id="16348" value="Push request megtagadása, mert túl sok feltöltési kapcsolata van %s."/>
-	<string id="16349" value="TTH adat feltöltése &quot;%s&quot; ide: %s."/>
-	<string id="16350" value="Metaadat feltöltése &quot;%s&quot; ide: %s."/>
-	<string id="16351" value="Feltöltés megtagadása: &quot;%s&quot; ide: %s (%s), túl sok egyidejű feltöltés."/>
-	<string id="16352" value="Előnézet feltöltése: &quot;%s&quot; ide: %s."/>
-	<string id="16353" value="Előnézet feltöltésének megtagadása: &quot;%s&quot; ide: %s, túl sok előnézet-feltöltés."/>
-	<string id="16354" value="%s előnézetet kért a(z) &quot;%s&quot; fájlból, de nem elérhető."/>
-	<string id="16355" value="Dinamikus előnézet előkészítése a feltöltéshez: &quot;%s&quot; ide: %s."/>
-	<string id="16356" value="Fájllista lekérdezés megtagadása %s, túl sok fájllista-lekérdezés."/>
-	<string id="16357" value="Fájl feltöltése: &quot;%s&quot; ide: %s..."/>
-	<string id="16358" value="Feltöltési kapcsolat megszakadt, megtartom a régi helyet a sorban: %s."/>
-	<string id="16359" value="Offline várakozási sor lejárt %s, eltávolít."/>
-	<string id="16360" value="Feltöltés megtagadása: &quot;%s&quot; ide: %s (%s), az egész feltöltési sor tele van."/>
-	<string id="16361" value="Feltöltés megtagadása %s (%s), hálózat kikapcsolva."/>
-	<string id="16362" value="Az eDonkey feltöltéseket nem tanácsos megszakítani. Biztos megszakítja?"/>
-	<string id="16363" value="Torrent feltöltések"/>
-	<string id="16364" value="Kész feltöltések"/>
-	<string id="16365" value="Biztos, hogy minden letöltést törölni akar a csoportból?"/>
-	<string id="16366" value="Sor"/>
-	<string id="16367" value="eDonkey mag"/>
-	<string id="16368" value="eDonkey félkész"/>
-	<string id="16369" value="eDonkey őr"/>
-	<string id="16370" value="Kis fájlok"/>
-	<string id="16371" value="Közepes fájlok"/>
-	<string id="16372" value="Nagy fájlok"/>
-	<string id="16373" value="Félkész fájlok"/>
-	<string id="16374" value="Új sor"/>
-	<string id="16375" value="Félkész"/>
-	<string id="16376" value="Minden fájl"/>
-	<string id="16377" value="HTTP őr"/>
-	<string id="16379" value="Könyvtári fájlok"/>
-	<string id="16384" value="Biztos, hogy futtatni akarja: &quot;%s&quot; ?\n\nNéhány fájl káros a számítógépnek. Ha nem bízik meg a fájlban, inkább futtasson le egy vírusellenőrzét."/>
-	<string id="16385" value="%i fájl metaadat részét akarja módosítani. Biztos ezt akarja?"/>
-	<string id="16386" value="Fájl metaadatának a szerkesztése: %i"/>
-	<string id="16387" value="A(z) &quot;%s&quot; még nem volt hashelve. Várja meg a hashelést és próbálja újra."/>
-	<string id="16388" value="Ez az opció a Bitzi.com fájlinformációs szolgáltatásait használja.\n\nA PeerProject a fájl SHA1 hash kódját elküldi a Bitzi adatbázisába. Ha nem bízik meg a Bitziben, akkor olvassa el a Bitzi.com adatvédelmi nyilatkozatát.\n\nTovább akar menni?"/>
-	<string id="16389" value="Biztos, hogy törölni akarja a %i fájlt?\n\nA fájl(ok) a &quot;Lomtárba&quot; kerülnek, ha be van kapcsolva."/>
-	<string id="16390" value="Nincs médialejátszó kiválasztva(pl. Nullsoft Winamp), ami fel tudná venni a fájlokat egy lejátszólistába. Most akarja kiválasztani?\n\nA PeerProject a(z) &quot;/ADD&quot; paranccsal küldi át a fájlokat a listába."/>
-	<string id="16391" value="Nincs kapcsolat a hálózatokkal."/>
-	<string id="16392" value="A kezdéshez kattintson a Kapcsolódás gombra."/>
-	<string id="16393" value="A(z) ;%s&quot; fájl megbukott a hash ellenőrzésen és valószínűleg ez nem az a fájl, amit ön szeretne. Biztos meg akarja nyitni?"/>
-	<string id="16394" value="El akarja távolítani a fájl &quot;potenciálisan veszélyes&quot; attribútumát?"/>
-	<string id="16395" value="A letöltési mappa &quot;%s&quot;, nincs a könyvtárban.\n\nHa belerakja, könnyebb lesz rendezni a letöltéseit és kihasználhatja a PeerProject lehetőségeit, mint: a letöltés-ellenőrzés és az automata frissítés. A Könyvtárban lévő letöltött fájlok nem feltétlenül megosztottak: kiválaszthatja, hogy melyiket akarja megosztani vagy sem.\n\nHozzá akarja adni a letöltési mappát a Könyvtárhoz?"/>
-	<string id="16396" value="A letöltési mappa hozzá lett adva a könyvárhoz. Meg is akarja osztani?"/>
-	<string id="16397" value="Biztos akarja törölni akarja az albummappá(k)at (%i db)?\n\nEz nem fogja törölni az albumban lévő fájlokat csak magát az albumot."/>
-	<string id="16398" value="Nem lehet átnevezni: \n\n%s\ erre: \n%s"/>
-	<string id="16399" value="Nem lehet törölni:\n\n%s"/>
-	<string id="16400" value="Ez a fájl már létezik:\n\n%s\n\nFelülírod?"/>
-	<string id="16401" value="Minden fájltípus megjelenítése"/>
-	<string id="16402" value="A PeerProject egy gyűjteményfájlt kapott:\n\n&quot;%s&quot;\n\nEz nem tűnik valós gyűjteményfájlnak."/>
-	<string id="16403" value="&quot;%s&quot; gyűjteményfájl hozzáadva."/>
-	<string id="16404" value="Nem lehetett telepíteni a(z) &quot;%s&quot; gyűjteményfájlt a &quot;%s&quot; mappába való másolássa."/>
-	<string id="16406" value="Minden fájlt le akarsz tölteni a gyűjteményből?\n\nKattintson a Mégse gombra a további kérdések elkerülésére."/>
-	<string id="16407" value="Meg akarja-e akadályozni, hogy minden fájl előtt kérdezzen?"/>
-	<string id="16408" value="URI másolása"/>
-	<string id="16409" value="URI exportálása..."/>
-	<string id="16410" value="A kész és a félkész fájlok ne legyenek azonos mappában!"/>
-	<string id="16411" value="Nem tudom mozgatni: %s. Talán egy másik program használja.\n\nInkább másolni akarja?"/>
-	<string id="16412" value="Szellemfájl"/>
-	<string id="16413" value="Új csoport"/>
-	<string id="16448" value="Kapcsolódva: %s, viszontválaszra várva..."/>
-	<string id="16449" value="Jelenleg vele beszélget: %s (%s)."/>
-	<string id="16450" value="Kapcsolat bezárva: %s."/>
-	<string id="16451" value="A kapcsolat elveszett: %s."/>
-	<string id="16452" value="Ismeretlen parancs &quot;%s&quot;."/>
-	<string id="16453" value="Kapcsolódás a csevegőhöz: %s..."/>
-	<string id="16454" value="Csevegő kérelem elfogadása: %s, viszontválasz..."/>
-	<string id="16455" value="%s már %s címen ismert."/>
-	<string id="16456" value="Nem lehet kapcsolódni: %s."/>
-	<string id="16457" value="Kapcsolódás nem sikerült az érvénytelen adat miatt."/>
-	<string id="16458" value="Ismeretlen választ kaptam: %s"/>
-	<string id="16459" value="Nincs kapcsolat."/>
-	<string id="16512" value="Teljes letöltési sávszél"/>
-	<string id="16513" value="Teljes feltöltési sávszél"/>
-	<string id="16514" value="Gnutella kapcsolatok (minden)"/>
-	<string id="16515" value="Gnutella kapcsolatok (aktív)"/>
-	<string id="16516" value="Gnutella letöltési sávszél"/>
-	<string id="16517" value="Gnutella feltöltési sávszél"/>
-	<string id="16518" value="Letöltések száma"/>
-	<string id="16519" value="Letöltési forgalom száma"/>
-	<string id="16520" value="Letöltési sávszél"/>
-	<string id="16521" value="Feltöltési forgalom száma"/>
-	<string id="16522" value="Feltöltési sávszél"/>
-	<string id="16523" value="Gnutella csomagok letöltve"/>
-	<string id="16524" value="Gnutella csomagok feltöltve"/>
-	<string id="16525" value="Gnutella csomagok irányítva"/>
-	<string id="16526" value="Gnutella csomagok ejtve"/>
-	<string id="16527" value="Gnutella csomagok elveszítve"/>
-	<string id="16528" value="Gnutella helyi kérvények"/>
-	<string id="16532" value="Teljes TCP letöltési sávszél"/>
-	<string id="16533" value="Teljes TCP feltöltési sávszél"/>
-	<string id="16534" value="Teljes UDP letöltési sávszél"/>
-	<string id="16535" value="Teljes UDP feltöltési sávszél"/>
-	<string id="16536" value="Gnutella elküldött/fogadott pingek aránya"/>
-	<string id="16537" value="Gnutella elküldött/fogadott pongok aránya"/>
-	<string id="16538" value="Kapcsolódási hibák (%)"/>
-	<string id="16768" value="URL fogadva: &quot;%s&quot;"/>
-	<string id="16769" value="A PeerProject nem ismeri ezt a fajta URL-t."/>
-	<string id="16770" value="Az URL ablakot nem lehet megnyitni, mert a PeerProject elfoglalt."/>
-	<string id="16771" value="A fájl már a könyvtárban van: &quot;%s&quot;. Mégis le akarja tölteni?"/>
-	<string id="16772" value="Kiszolgáló:"/>
-	<string id="16773" value="Port:"/>
-	<string id="16774" value="Kapcsolódás"/>
-	<string id="16775" value="Böngészés"/>
-	<string id="16776" value="Hozzáad"/>
-	<string id="16777" value="Fájlnév:"/>
-	<string id="16778" value="URL:"/>
-	<string id="16779" value="Típus:"/>
-	<string id="16780" value="Nincs meghatározva"/>
-	<string id="16781" value="Kérés..."/>
-	<string id="16782" value="Siker!"/>
-	<string id="16783" value="Kész, zárd be"/>
-	<string id="16784" value="Bezárás"/>
-	<string id="16785" value="(Nincs képi megjelenítés)"/>
-	<string id="16800" value="Nem választott ki kapcsolatot. Válasszon egy kapcsolattípust vagy írja be a kapcsolata sebességét."/>
-	<string id="16802" value="Nem választott ki megosztani való mappákat. Biztos, hogy ezt akarja?"/>
-	<string id="16803" value="A mappa, amit meg akar osztani egy másik mappában már meg van osztva:\n\n%s"/>
-	<string id="16804" value="Nem adott meg becenevet az adatlapjában."/>
-	<string id="16805" value="Nem adott meg lakhelyet az adatlapjában.\n\nEz egy jó ötlet, hiszen így mások is tudni fogják, hogy ön melyik országban lakik. Ezzel semmilyen bizalmas információt nem árul el!\n\nBiztos, hogy nem akarja megadni?"/>
-	<string id="16806" value="A PeerProject nem tudta forwardolni a portokat a NAT router vagy a tűzfal felé.\n\nÁllítsa be a hálózatát, hogy a TCP és UDP %i számú portot forwardolja."/>
-	<string id="16807" value="Írja be a sávszél-korlátozást: &quot;123 kb/s&quot; kilobit per másodperc vagy &quot;123 KB/s&quot; kilobájt per másodperc formában."/>
-	<string id="16808" value="Nem adta meg a korát és a nemét. Tovább akar így menni?"/>
-	<string id="16809" value="Kilépés"/>
-	<string id="16810" value="éves"/>
-	<string id="16811" value="Automatikus"/>
-	<string id="16812" value="Várakozás: UPnP eszközök keresése és beállítása..."/>
-	<string id="16813" value="Várakozás: Szerverkereső szolgáltatás frissítése..."/>
-	<string id="16814" value="Várakozás: eDonkey szerverlista frissítése..."/>
-	<string id="16815" value="Az UPnP szolgáltatás nem fut. Ez a szolgáltatás szükséges a beállításokhoz.\nÁllítsa be, hogy automatikusan el tudjon indulni."/>
-	<string id="16816" value="Az eDonkey hálózaton sokáig kell sorbanállni és várakozni egy fájlért. Ha csökkenti a sorok maximális számát, valószínűleg nem fognak elidulni a letöltések. \nBiztos csökkenteni akarja a számodra kirendelt sorszámot?"/>
-	<string id="16817" value="A Windows nem kezeli a 256 karakternél hosszabb elérési utakat.\nVálasszon egy rövidebb elérési utat."/>
-	<string id="16818" value="A félkész fájlok ne kerüljenek be a Könyvtárba, mert esetleg csökkenthetik a teljesítményt. A félkész fájlokat a Forgalom ablakban lehet megosztani."/>
-	<string id="16819" value="A kiválasztott mappa &quot;%s&quot; egy másik mappa almappájaként már meg van osztva.\nEz újbóli hashelést okozhat.\n\nBiztos folytatni akarja?"/>
-	<string id="16864" value="Szerverkereső szolgáltatás keresése..."/>
-	<string id="16865" value="Szerverkereső szolgáltatás keresése &quot;%s&quot;..."/>
-	<string id="16866" value="GWebCache tranzakció sikeres (&quot;%s&quot;)."/>
-	<string id="16867" value="Szerverkereső szolgáltatás &quot;%s&quot; hibázott, hibák száma: %i."/>
-	<string id="16868" value="Szerverkereső szolgáltatás &quot;%s&quot; %i alkalommal hibázott, eltávolítás."/>
-	<string id="16870" value="GWebCache frissítés elküldése &quot;%s&quot;..."/>
-	<string id="16871" value="GWebCache &quot;%s&quot; elküldése egy másik GWebCache-re..."/>
-	<string id="16928" value="Kapcsolódás fájllista miatt: %s..."/>
-	<string id="16929" value="Nem tudom a fájllistát letölteni: %s."/>
-	<string id="16930" value="Push request elküldése a fájllista megszerzésére: %s."/>
-	<string id="16931" value="Nem tudok push requestet küldeni és így a fájllistát sem letölteni: %s."/>
-	<string id="16932" value="Fájllista letöltési kérelem elküldése: %s..."/>
-	<string id="16933" value="%s egy érvénytelen HTTP válasszal válaszolt."/>
-	<string id="16934" value="%s egy kóddal válaszolt: %s (%s)."/>
-	<string id="16935" value="%s egy ismeretlen válasszal válaszolt és nem támogatja a fájllista letöltését."/>
-	<string id="16936" value="Fájllista adatok fogadása: %s (%s)"/>
-	<string id="16938" value="Fájllistás Gnutella csomagok dekódolása nem sikerült: %s."/>
-	<string id="16939" value="Fájllista letöltve: %s, %i fájl nem található."/>
-	<string id="16940" value="Fájllista lekérés ejtve: %s."/>
-	<string id="16941" value="Fájllista kapcsolat bezárása forgalomhiány miatt: %s."/>
-	<string id="16942" value="Fájllista kapcsolat bezárása %s."/>
-	<string id="16943" value="Tallózás %s"/>
-	<string id="16944" value="%i megosztott fájlt találtam %s könyvtárában."/>
-	<string id="16991" value="PeerProject Médialejátszó"/>
-	<string id="16992" value="A PeerProject nem tudta betölteni a MediaServices plugint. Telepítsd újra a PeerProject és győződj meg róla, hogy minden fontos kodeket is föltelepítettél."/>
-	<string id="16993" value="Minden médiafájl|*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Lejátszólisták|*.asx;*.wax;*.m3u;*.wvx;*.wmx|Audiófájlok|*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm|Videófájlok|*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|AudióCD hangsávok|*.cda|MIDI fájlok|*.mid;*.rmi;*.midi|Minden fájl|*.*||"/>
-	<string id="16994" value="Médiafájl betöltése sikertelen: &quot;%s&quot;"/>
-	<string id="16995" value="A fájl vagy hibás vagy nincsenek feltelepítve a megfelelő kodekek."/>
-	<string id="16996" value="A fájl részletét nem lehet lejátszani, nincsenek feltelepítve a megfelelő kodekek."/>
-	<string id="16997" value="Nincs semmilyen lejátszás folyamatban. Kattintson duplán egy médiafájlra a lejátszáshoz."/>
-	<string id="16998" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; É &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; L &#160;&#160; E &#160;&#160; J &#160;&#160; Á &#160;&#160; T &#160;&#160; S &#160;&#160; Z &#160;&#160; Ó"/>
-	<string id="16999" value="LEJÁTSZÓLISTA:"/>
-	<string id="17024" value="Kapcsolódás inicializálása: %s..."/>
-	<string id="17025" value="Nem lehet kapcsolatot létrehozni: %s."/>
-	<string id="17026" value="Tűzfalas push kapcsolat kérése: %s..."/>
-	<string id="17027" value="Push kapcsolódás elfogadása: %s, viszontválsz..."/>
-	<string id="17028" value="Kapcsolat létrehozva, viszontválasz..."/>
-	<string id="17029" value="Viszontválasz nem volt, lehet nem támogatja a csevegést."/>
-	<string id="17030" value="Viszontválasz megkapva, csevegő protokoll verzió: %s."/>
-	<string id="17031" value="Adatlap információk kicserélése..."/>
-	<string id="17032" value="Hitelesített felhasználó"/>
-	<string id="17033" value="Privát beszélgetés kezdeményezése..."/>
-	<string id="17034" value="Privát beszélgetés engedélyezve, jelenleg vele beszél: %s."/>
-	<string id="17035" value="%s nem fogad privát beszélgetést."/>
-	<string id="17036" value="%s elment: %s"/>
-	<string id="17037" value="A csevegő kapcsolata megszakadt."/>
-	<string id="17038" value="Kapcsolat bezárva."/>
-	<string id="17039" value="Nem lehet push kapcsolatot kérni, nem érhető el útvonal: %s."/>
-	<string id="17040" value="Nem tudok üzenetet küldeni, akihez kapcsolódva vagyok. Kapcsolódás..."/>
-	<string id="17041" value="Nem tudok üzenetet küldeni, még nem jött létre a kapcsolat."/>
-	<string id="17042" value="Nem töltötte ki az adatlapját. Csevegés előtt ki kell töltenie.\n\nMost akarja kitölteni?"/>
-	<string id="17043" value="Feltöltési elsőbbség megadva: %s."/>
-	<string id="17100" value="Gnutella: Peer-to-Peer kapcsolat"/>
-	<string id="17101" value="Gnutella: Leaf-to-Ultrapeer kapcsolat"/>
-	<string id="17102" value="Gnutella: Ultrapeer-to-Leaf kapcsolat"/>
-	<string id="17103" value="Gnutella 2: Hub-to-Hub kapcsolat"/>
-	<string id="17104" value="Gnutella 2: Leaf-to-Hub kapcsolat"/>
-	<string id="17105" value="Gnutella 2: Hub-to-Leaf kapcsolat"/>
-	<string id="17106" value="eDonkey kapcsolat (LOWID: %lu)"/>
-	<string id="17107" value="eDonkey kapcsolat"/>
-	<string id="17108" value="Viszontválasz"/>
-	<string id="17109" value="Bejövő"/>
-	<string id="17110" value="Kimenő"/>
-	<string id="17111" value="Jelenleg:"/>
-	<string id="17112" value="Teljes:"/>
-	<string id="17113" value="Tömörítés:"/>
-	<string id="17114" value="Arány:"/>
-	<string id="17115" value="Van"/>
-	<string id="17116" value="Nincs"/>
-	<string id="17117" value="Kapcsolódás"/>
-	<string id="17118" value="Viszontválasz"/>
-	<string id="17119" value="Megtagadva"/>
-	<string id="17120" value="Bezárás"/>
-	<string id="17121" value="Ismeretlen"/>
-	<string id="17122" value="G1 Peer"/>
-	<string id="17123" value="G1 Ultrapeer"/>
-	<string id="17124" value="G1 Leaf"/>
-	<string id="17125" value="G2 Peer"/>
-	<string id="17126" value="G2 Hub"/>
-	<string id="17127" value="G2 Leaf"/>
-	<string id="17128" value="eDonkey szerver"/>
-	<string id="17129" value="eDonkey (LowID)"/>
-	<string id="17130" value="eDonkey (HighID)"/>
-	<string id="17216" value="eDonkey szerverhez való kapcsolódás: %s..."/>
-	<string id="17217" value="eDonkey szerverhez kapcsolódva: %s, viszontválasz..."/>
-	<string id="17218" value="ED2K[%s] %s"/>
-	<string id="17219" value="eDonkey szerver, %s megtagadta a kapcsolódást."/>
-	<string id="17220" value="eDonkey szerver, %s online, kliens ID: %lu."/>
-	<string id="17221" value="eDonkey szerver, %s kliens ID megvátoztatása erről: %lu erre: %lu."/>
-	<string id="17222" value="eDonkey szerver, %s azonosította magát, mint: &quot;%s&quot;."/>
-	<string id="17223" value="eDonkey szerver, %s megtagadta a kapcsolódást."/>
-	<string id="17224" value="Viszontválasz közbeni hiba az eDonkey klienssel: %s."/>
-	<string id="17225" value="eDonkey kapcsolat vége: %s."/>
-	<string id="17226" value="Hibásan formázott eDonkey csomagot kaptam: %s (id=%x)."/>
-	<string id="17227" value="%s a bejövő kapcsolat egy eDonkey kliens link."/>
-	<string id="17228" value="eDonkey hash elküldése: &quot;%s&quot; ide: %s..."/>
-	<string id="17229" value="eDonkey klienskapcsolat bezárása tétlenség miatt: %s."/>
-	<string id="17230" value="eDonkey kliens kapcsolódás: %s..."/>
-	<string id="17231" value="Az eDonkey kliensnek rossz GUID-je van, viszontválasz kérésének leállítása: %s."/>
-	<string id="17232" value="Időtúllépés az eDonkey klines kapcsolódásánál: %s."/>
-	<string id="17233" value="Időtúllépés az eDonkey klines viszontválaszánál: %s."/>
-	<string id="17234" value="eDonkey klines link megtagadása, mert az eDonkey ki van kapcsolva: %s."/>
-	<string id="17248" value="Félkész eDonkey letöltések importálása..."/>
-	<string id="17249" value="Feladat kész, %i félkész letöltés importálva."/>
-	<string id="17250" value="Mappa beolvasása: &quot;%s&quot;..."/>
-	<string id="17251" value="Nem lehetett a fájlt importálni."/>
-	<string id="17252" value="Félkész fájlt találtam: &quot;%s&quot;, importálás..."/>
-	<string id="17253" value="Nem lehetett importálni: &quot;%s&quot;."/>
-	<string id="17254" value="Letöltést találtam &quot;%s&quot;, méret: %s."/>
-	<string id="17255" value="A letöltési fájl újabb, mint a .part fájl, folyamat megszakítása."/>
-	<string id="17256" value="Másolás: &quot;%s&quot; ide: &quot;%s&quot;..."/>
-	<string id="17257" value="Fájl másolása kész."/>
-	<string id="17258" value="PeerProject félkész letöltés készítése, %s maradt."/>
-	<string id="17259" value="Ez a fájl már a letöltési listában van."/>
-	<string id="17260" value="Nincs elég hely a letöltés másolásához."/>
-	<string id="17472" value="%s a bejövő kapcsolat egy BitTorrent kapcsolódás, egyeztetés..."/>
-	<string id="17473" value="Időtúllépés a BitTorrent klienssel való kapcsolódásakor %s."/>
-	<string id="17474" value="Viszontválasz közbeni időtúllépés a BitTorrent kliens által: %s."/>
-	<string id="17475" value="BitTorrent kapcsolat bezárása a forgalom hiánya miatt: %s."/>
-	<string id="17476" value="BitTorrent kapcsolódás nem sikerült, mert a kliensnek más GUID-je van: %s."/>
-	<string id="17477" value="BitTorrent kapcsolódáskor rossz fájllal válaszolt: %s ."/>
-	<string id="17478" value="BitTorrent kapcsolódáskor ismeretlen fájllal válaszolt: %s ."/>
-	<string id="17479" value="BitTorrent kapcsolódás létrehozva: %s, a fájl: &quot;%s&quot;."/>
-	<string id="17481" value="BitTorrent leírófájlt kaptam: &quot;%s&quot;"/>
-	<string id="17482" value="Nem tudom a BitTorrent fájlt  kielemezni: &quot;%s&quot;."/>
-	<string id="17483" value="Hiba a BitTorrent tracker válaszánál erre a fájlra: &quot;%s&quot; : &quot;%s&quot;."/>
-	<string id="17484" value="Elemzési hiba a BitTorrent tracker fogadásakor."/>
-	<string id="17485" value="BitTorrent tracker válasz a fájlra: &quot;%s&quot;, %i új forrás."/>
-	<string id="17486" value="BitTorrent kliens kapcsolódás: %s..."/>
-	<string id="17487" value="BitTorrent kapcsolat létrehozva: %s, viszontválasz..."/>
-	<string id="17488" value="Megváltoztatta a torrent tracker URL-ét. Biztos meg akarja változtatni?\n\nEgy érvénytelen tracker URL megakadályozhatja a további letöltést."/>
-	<string id="17489" value="A %s a kiterjesztett BitTorrent protokollt használja, azonosítva: &quot;%s&quot;."/>
-	<string id="17490" value=" %i új BitTorrent forrást kaptam: %s."/>
-	<string id="17491" value="A(z) &quot;%s&quot; torrent már a letöltési listában van nem lehet már seedelni."/>
-	<string id="17492" value="Hiba a torrent betöltésekor: &quot;%s&quot;. Ez nem egy érvényes torrent."/>
-	<string id="17493" value="Nem lehet BitTorrent megosztást létrehozni: &quot;%s&quot;."/>
-	<string id="17494" value="A torrent tartalmazza ezt a fájlt: &quot;%s&quot;, de nem található a könyvtárban. Ha lehet, mozgassa át ezt a fájlt a torrentfájl mellé."/>
-	<string id="17495" value="A torrent tartalmazza ezt a fájlt: &quot;%s&quot; aminek %s a verziója, ellenben az ön verziója: %s."/>
-	<string id="17496" value="A &quot;%s&quot; fájl BitTorrent fájlba való másolása közben hiba keletkezett."/>
-	<string id="17497" value="Ismeretlen hiba a fájl seedelésekor &quot;%s&quot;."/>
-	<string id="17498" value="Hibát találtam a következő fájlban: &quot;%s&quot;."/>
-	<string id="17500" value="A tracker nem válaszolt, újrapróbálkozás (%i / %i)"/>
-	<string id="17501" value="A tracker nem elérhető"/>
-	<string id="17503" value="Tracker nem működik, másikat próbálok. (%i / %i)"/>
-	<string id="17505" value="BitTorrent kapcsolat ejtve: %s"/>
-	<string id="17506" value="BitTorrent viszontválasz ejtve: %s"/>
-	<string id="17507" value="BitTorrent összekapcsolódás ejtve: %s"/>
-	<string id="17510" value="BitTorrent összekapcsolódás nincs elfogadva, már létezik ez a kapcsolat: %s"/>
-	<string id="17511" value="BitTorrent összekapcsolódás nincs elfogadva, kapcsolatok maximális száma elérve: %s"/>
-	<string id="17512" value="Privát torrent"/>
-	<string id="17513" value="Karakterkódolási hiba"/>
-	<string id="18496" value="Megváltoztatta a letöltés nevét. Biztos át akarja nevezni?"/>
-	<string id="18497" value="A beírt SHA1 érték érvénytelen. Ellenőrizze és próbálja meg újra."/>
-	<string id="18498" value="A beírt TTH érték érvénytelen. Ellenőrizze és próbálja meg újra."/>
-	<string id="18499" value="A beírt eDonkey érték érvénytelen. Ellenőrizze és próbálja meg újra."/>
-	<string id="18500" value="Egy más SHA1 hash értéket adott meg, ami különbözik a jelenlegitől.  Biztos ki akarja cserélni?"/>
-	<string id="18501" value="Egy más TTH hash értéket adott meg, ami különbözik a jelenlegitől.  Biztos ki akarja cserélni?"/>
-	<string id="18502" value="Egy más eDonkey hash értéket adott meg, ami különbözik a jelenlegitől.  Biztos ki akarja cserélni?"/>
-	<string id="18503" value="Biztos, hogy törölni akarja a jelenlegi azonosítási állapotot? Minden letöltés megbízhatatlan lesz és a hash értékek pedig törölve lesznek."/>
-	<string id="18504" value="Biztos, hogy a letöltés minden forrását törölni akarja?"/>
-	<string id="18505" value="Adjon meg egy érvényes törlendő részt. A(z) &quot;from&quot; mező az első bájt, a(z) &quot;last&quot; mező az utolsó bájt, amit törölni kell."/>
-	<string id="18506" value="Nem lehet a megadott részt törölni, mert az nem létezik."/>
-	<string id="18507" value="%I64i bájt törölve a letöltésből."/>
-	<string id="18508" value="Forrás %s a(z) &quot;%s&quot;, mert a %i. hely a sorban túl magas."/>
-	<string id="18509" value="Nem tudja a letöltést késznek tekinteni és ellenőrizni, mert nincs hozzá megfelelő hash érték."/>
-	<string id="18510" value="Késznek veszis a letöltést és úgy ellenőrzi? A fájl újra lesz hashelve, jó és rossz részek is elfogadásra kerülnek."/>
-	<string id="18511" value="BitTorrent kapcsolódás visszautasítva: %s, több kapcsolat már nem hozható létre."/>
-	<string id="19000" value="Távoli használat kikapcsolva."/>
-	<string id="19001" value="http://%s:%i/remote - Egy felhasználónevet és egy jelszót kell választania."/>
-	<string id="19002" value="Nem tudom fogadni a kapcsolatokat, URL érvénytelen."/>
-	<string id="20000" value="Nincs elérhető URN"/>
-	<string id="20001" value="Bezárás"/>
-	<string id="20002" value="/"/> <!-- "1 of 10" -->
-	<string id="20003" value="A szövegirány megváltoztatásához újra kell indítani a programot. \nEzt kézzel kell megtennie. Be akarja most zárni a PeerProject?"/>
-	<string id="20005" value="Nem"/>
-	<string id="20006" value="Igen"/>
-	<string id="20007" value="Auto"/>
-	<string id="20008" value="Alapértelmezett"/>
-	<string id="20009" value="Saját"/>
-	<string id="20010" value="&amp;Vissza"/>
-	<string id="20011" value="&amp;Tovább"/>
-	<string id="20012" value="Befejezve"/>
-	<string id="20013" value="Minden"/>
-	<string id="20100" value="Kapcsolódás"/>
-	<string id="20101" value="Kérés"/>
-	<string id="20102" value="Válasz"/>
-	<string id="20103" value="Letöltés"/>
-	<string id="20104" value="TigerTree"/>
-	<string id="20105" value="Hash érték"/>
-	<string id="20106" value="Metaadat"/>
-	<string id="20107" value="Elfoglalt"/>
-	<string id="20108" value="Sorbanállás"/>
-	<string id="20109" value="Sorbanáll"/>
-	<string id="20110" value="Ismeretlen"/>
-	<string id="20111" value="Kész"/>
-	<string id="20112" value="Seedelés"/>
-	<string id="20113" value="Mozgatás"/>
-	<string id="20114" value="Szünet"/>
-	<string id="20115" value="Hiba"/>
-	<string id="20116" value="Nem mozgatható"/>
-	<string id="20117" value="Ellenőrzés"/>
-	<string id="20118" value="Aktív"/>
-	<string id="20119" value="Várakozás"/>
-	<string id="20120" value="Keresés"/>
-	<string id="20121" value="Létrehozás"/>
-	<string id="20122" value="Torrent"/>
-	<string id="20123" value="Tracker üzemen kívül"/>
-	<string id="20124" value="Ellenőrizve"/>
-	<string id="20125" value="Ellenőrizetlen"/>
-	<string id="20126" value="Érdektelen"/>
-	<string id="20127" value="Érdektelen"/>
-	<string id="20130" value="forrás"/>
-	<string id="20131" value="forrás"/>
-	<string id="20132" value="forrás"/>
-	<string id="20134" value="forrás"/>
-	<string id="20135" value="(Nincs forrás)"/>
-	<string id="20136" value="Elakadva"/>
-	<string id="20137" value="Következő"/>
-	<string id="20138" value="S"/>
-	<string id="20200" value="Every Day"/>
-	<string id="20201" value="Hétfő"/>
-	<string id="20202" value="Kedd"/>
-	<string id="20203" value="Szerda"/>
-	<string id="20204" value="Csütörtök"/>
-	<string id="20205" value="Péntek"/>
-	<string id="20206" value="Szombat"/>
-	<string id="20207" value="Vasárnap"/>
-	<string id="20210" value="(Nincs értékelve)"/>
-	<string id="20211" value="Hamis / Hibás / Félrevezető"/>
-	<string id="20212" value="Gyenge"/>
-	<string id="20213" value="Átlagos"/>
-	<string id="20214" value="Jó"/>
-	<string id="20215" value="Remek"/>
-	<string id="20216" value="Kiváló"/>
-	<string id="20217" value="Válassza ki az eDonkey/eMule ideiglenes letöltési mappáját:"/>
-	<!-- Column headers in Library Album View -->
-	<string id="20230" value="#"/> <!-- Track number -->
-	<string id="20231" value="Cím"/>
-	<string id="20232" value="Hossz"/>
-	<string id="20233" value="Bitráta"/>
-	<string id="20234" value="Album"/>
-	<string id="20235" value="Előadó"/>
-	<string id="20236" value="Osztályzat"/>
-	<string id="20237" value="OK"/>
-	<string id="20238" value="Mégse"/>
-	<string id="20245" value="Új Mappa"/>
+	<string id="20001" value="Igen"/>
+	<string id="20002" value="Nem"/>
+	<string id="20003" value="OK"/>
+	<string id="20004" value="Mégse"/>
+	<string id="20005" value="&amp;Vissza"/>
+	<string id="20006" value="&amp;Tovább"/>
+	<string id="20008" value="Bezárás"/>
+	<string id="20009" value="/"/> <!-- "1 of 10" -->
+	<string id="20010" value="Minden"/>
+	<string id="20011" value="Auto"/>
+	<string id="20012" value="Saját"/>
+	<string id="20013" value="Alapértelmezett"/>
+	<string id="20014" value="Befejezve"/>
+	<string id="20050" value="Every Day"/>
+	<string id="20051" value="Hétfő"/>
+	<string id="20052" value="Kedd"/>
+	<string id="20053" value="Szerda"/>
+	<string id="20054" value="Csütörtök"/>
+	<string id="20055" value="Péntek"/>
+	<string id="20056" value="Szombat"/>
+	<string id="20057" value="Vasárnap"/>
+	<string id="20060" value="(Nincs értékelve)"/>
+	<string id="20061" value="Hamis / Hibás / Félrevezető"/>
+	<string id="20062" value="Gyenge"/>
+	<string id="20063" value="Átlagos"/>
+	<string id="20064" value="Jó"/>
+	<string id="20065" value="Remek"/>
+	<string id="20066" value="Kiváló"/>
+	<string id="20080" value="Ez a PeerProject tesztverziója és a tesztelési időszak lejárt. Töltse le a legújabb stabil verziót a http://peerproject.sourceforge.net -ről."/>
+	<string id="20081" value="Bezárás"/>
+	<string id="20082" value="Kész, zárd be"/>
+	<string id="20083" value="Kérés..."/>
+	<string id="20084" value="Siker!"/>
+	<string id="20100" value="Fájllista kapcsolat bezárása %s."/>
+	<string id="20101" value="%s egy ismeretlen válasszal válaszolt és nem támogatja a fájllista letöltését."/>
+	<string id="20102" value="Nem lehetett kapcsolatot létesíteni a fájllista letöltéséhez."/>
+	<string id="20103" value="Nem tudom a fájllistát letölteni: %s."/>
+	<string id="20104" value="Nem tudok push requestet küldeni és így a fájllistát sem letölteni: %s."/>
+	<string id="20105" value="Kapcsolat létrehozása..."/>
+	<string id="20106" value="Kapcsolódás fájllista miatt: %s..."/>
+	<string id="20107" value="Fájllista letöltése (%2.f%%)..."/>
+	<string id="20108" value="Fájllista adatok fogadása: %s (%s)"/>
+	<string id="20109" value="Fájllista lekérés ejtve: %s."/>
+	<string id="20110" value="Fájllista letöltve: %s, %i fájl nem található."/>
+	<string id="20111" value="%i megosztott fájlt találtam %s könyvtárában."/>
+	<string id="20112" value="%s egy kóddal válaszolt: %s (%s)."/>
+	<string id="20113" value="%s egy érvénytelen HTTP válasszal válaszolt."/>
+	<string id="20114" value="Hiba a fájllista letöltésekor. A kiszolgáló lehet, nem támogatja a listaletöltést."/>
+	<string id="20115" value="Fájllistás Gnutella csomagok dekódolása nem sikerült: %s."/>
+	<string id="20116" value="Viszontválaszra várok..."/>
+	<string id="20117" value="Push request elküldése a fájllista megszerzésére: %s."/>
+	<string id="20118" value="Kapcsolódva, fájllista lekérése..."/>
+	<string id="20119" value="Fájllista letöltési kérelem elküldése: %s..."/>
+	<string id="20120" value="Fájllista kapcsolat bezárása forgalomhiány miatt: %s."/>
+	<string id="20121" value="Tallózás %s"/>
+	<string id="20122" value="BitTorrent kapcsolódás létrehozva: %s, a fájl: &quot;%s&quot;."/>
+	<string id="20123" value="%s a bejövő kapcsolat egy BitTorrent kapcsolódás, egyeztetés..."/>
+	<string id="20124" value="BitTorrent kliens kapcsolódás: %s..."/>
+	<string id="20125" value="Időtúllépés a BitTorrent klienssel való kapcsolódásakor %s."/>
+	<string id="20126" value="BitTorrent összekapcsolódás ejtve: %s"/>
+	<string id="20127" value="BitTorrent kapcsolat ejtve: %s"/>
+	<string id="20128" value="BitTorrent viszontválasz ejtve: %s"/>
+	<string id="20129" value="BitTorrent összekapcsolódás nincs elfogadva, már létezik ez a kapcsolat: %s"/>
+	<string id="20130" value=" %i új BitTorrent forrást kaptam: %s."/>
+	<string id="20131" value="A %s a kiterjesztett BitTorrent protokollt használja, azonosítva: &quot;%s&quot;."/>
+	<string id="20132" value="Viszontválasz közbeni időtúllépés a BitTorrent kliens által: %s."/>
+	<string id="20133" value="BitTorrent kapcsolat létrehozva: %s, viszontválasz..."/>
+	<string id="20134" value="BitTorrent összekapcsolódás nincs elfogadva, kapcsolatok maximális száma elérve: %s"/>
+	<string id="20136" value="BitTorrent kapcsolódáskor ismeretlen fájllal válaszolt: %s ."/>
+	<string id="20137" value="BitTorrent kapcsolódáskor rossz fájllal válaszolt: %s ."/>
+	<string id="20138" value="BitTorrent kapcsolódás nem sikerült, mert a kliensnek más GUID-je van: %s."/>
+	<string id="20139" value="BitTorrent kapcsolat bezárása a forgalom hiánya miatt: %s."/>
+	<string id="20140" value="Karakterkódolási hiba"/>
+	<string id="20141" value="Privát torrent"/>
+	<string id="20142" value="A(z) &quot;%s&quot; torrent már a letöltési listában van nem lehet már seedelni."/>
+	<string id="20143" value="A &quot;%s&quot; fájl BitTorrent fájlba való másolása közben hiba keletkezett."/>
+	<string id="20144" value="Nem lehet BitTorrent megosztást létrehozni: &quot;%s&quot;."/>
+	<string id="20145" value="Ismeretlen hiba a fájl seedelésekor &quot;%s&quot;."/>
+	<string id="20146" value="Hiba a torrent betöltésekor: &quot;%s&quot;. Ez nem egy érvényes torrent."/>
+	<string id="20147" value="A torrent tartalmazza ezt a fájlt: &quot;%s&quot;, de nem található a könyvtárban. Ha lehet, mozgassa át ezt a fájlt a torrentfájl mellé."/>
+	<string id="20148" value="A torrent tartalmazza ezt a fájlt: &quot;%s&quot; aminek %s a verziója, ellenben az ön verziója: %s."/>
+	<string id="20149" value="Hibát találtam a következő fájlban: &quot;%s&quot;."/>
+	<string id="20150" value="A tracker nem elérhető"/>
+	<string id="20151" value="Tracker nem működik, másikat próbálok. (%i / %i)"/>
+	<string id="20152" value="Megváltoztatta a torrent tracker URL-ét. Biztos meg akarja változtatni?\n\nEgy érvénytelen tracker URL megakadályozhatja a további letöltést."/>
+	<string id="20153" value="Hiba a BitTorrent tracker válaszánál erre a fájlra: &quot;%s&quot; : &quot;%s&quot;."/>
+	<string id="20154" value="Elemzési hiba a BitTorrent tracker fogadásakor."/>
+	<string id="20155" value="BitTorrent tracker válasz a fájlra: &quot;%s&quot;, %i új forrás."/>
+	<string id="20158" value="Nem tudom a BitTorrent fájlt  kielemezni: &quot;%s&quot;."/>
+	<string id="20159" value="BitTorrent leírófájlt kaptam: &quot;%s&quot;"/>
+	<string id="20160" value="Csevegő kérelem elfogadása: %s, viszontválasz..."/>
+	<string id="20161" value="Nem lehet kapcsolatot létrehozni: %s."/>
+	<string id="20162" value="Nem lehet push kapcsolatot kérni, nem érhető el útvonal: %s."/>
+	<string id="20163" value="Kapcsolat bezárva."/>
+	<string id="20164" value="Kapcsolat bezárva: %s."/>
+	<string id="20165" value="Kapcsolat létrehozva, viszontválasz..."/>
+	<string id="20166" value="Kapcsolódva: %s, viszontválaszra várva..."/>
+	<string id="20167" value="Kapcsolódás inicializálása: %s..."/>
+	<string id="20168" value="Kapcsolódás a csevegőhöz: %s..."/>
+	<string id="20169" value="Nem lehet kapcsolódni: %s."/>
+	<string id="20170" value="A csevegő kapcsolata megszakadt."/>
+	<string id="20171" value="A kapcsolat elveszett: %s."/>
+	<string id="20172" value="Viszontválasz nem volt, lehet nem támogatja a csevegést."/>
+	<string id="20173" value="Viszontválasz megkapva, csevegő protokoll verzió: %s."/>
+	<string id="20174" value="Adatlap információk kicserélése..."/>
+	<string id="20175" value="Nem töltötte ki az adatlapját. Csevegés előtt ki kell töltenie.\n\nMost akarja kitölteni?"/>
+	<string id="20176" value="Nem tudok üzenetet küldeni, akihez kapcsolódva vagyok. Kapcsolódás..."/>
+	<string id="20177" value="Nem tudok üzenetet küldeni, még nem jött létre a kapcsolat."/>
+	<string id="20178" value="%s már %s címen ismert."/>
+	<string id="20179" value="Jelenleg vele beszélget: %s (%s)."/>
+	<string id="20180" value="Feltöltési elsőbbség megadva: %s."/>
+	<string id="20181" value="%s elment: %s"/>
+	<string id="20182" value="Privát beszélgetés engedélyezve, jelenleg vele beszél: %s."/>
+	<string id="20183" value="%s nem fogad privát beszélgetést."/>
+	<string id="20184" value="Privát beszélgetés kezdeményezése..."/>
+	<string id="20185" value="Hitelesített felhasználó"/>
+	<string id="20186" value="Push kapcsolódás elfogadása: %s, viszontválsz..."/>
+	<string id="20188" value="Tűzfalas push kapcsolat kérése: %s..."/>
+	<string id="20190" value="Kapcsolódás nem sikerült az érvénytelen adat miatt."/>
+	<string id="20191" value="Ismeretlen választ kaptam: %s"/>
+	<string id="20192" value="Nincs kapcsolat."/>
+	<string id="20193" value="Ismeretlen parancs &quot;%s&quot;."/>
+	<string id="20194" value="Ez a sablon semmi egyedi beállítást nem tartalmaz."/>
+	<string id="20195" value="Ez a sablon érvénytelen."/>
+	<string id="20199" value="(forgalom után bezárás)"/>
+	<string id="20200" value="&quot;%s&quot; a letöltési sorhoz lett hozzáadva %i forrással."/>
+	<string id="20201" value="A(z) &quot;%s&quot; már a letöltési listában van, forrás hozzáadása."/>
+	<string id="20202" value="Hibás push kapcsolat: %s, kapcsolat bezárása."/>
+	<string id="20203" value="Letöltés gyorsítása a korlátozások elvételével: &quot;%s&quot;."/>
+	<string id="20204" value="%s túl elfoglalt, %i másodperc múlva újra próbálkozom."/>
+	<string id="20205" value="Nem tudtam áthelyezni: &quot;%s&quot; ide: &quot;%s&quot;. Ellenőrizd, hogy a fékész fájl nincs-e használatban és/vagy a kész letöltések mappába lehet-e írni."/>
+	<string id="20206" value="Nem tudom felhasználni: &quot;%s&quot;."/>
+	<string id="20207" value="Biztos, hogy minden letöltést törölni akar a csoportból?"/>
+	<string id="20208" value="Letöltési kapcsolat bezárása: %s, már nincs rá szükség."/>
+	<string id="20209" value="%s nem kért adatokat küldött, kapcsolat bezárása."/>
+	<string id="20210" value="Letöltés kész: &quot;%s&quot;."/>
+	<string id="20211" value="Biztos törölni akarja: &quot;%s&quot;.\n\nHa egyszer kitörölted, már nem lehet folytatni a letöltését."/>
+	<string id="20212" value="Biztos törölni akarja a szüneteltetett letöltéseket? Ha egyszer kitörölted, már nem tudot folytatni később."/>
+	<string id="20213" value="Biztos törölni akarja ezt a letöltést: &quot;%s&quot;."/>
+	<string id="20214" value="Letöltési kapcsolat létrehozva: %s."/>
+	<string id="20215" value="Kapcsolódás letöltéshez: %s port %i, hogy letöltse: &quot;%s&quot;..."/>
+	<string id="20216" value="Nem lehet a letöltési kiszolgálóhoz kapcsolódni: %s."/>
+	<string id="20217" value="Letöltési tartalom vétele: %s (%s)."/>
+	<string id="20218" value="A(z) &quot;%s&quot; letöltésének leállítása: %s (%s), hálózat kikapcsolva."/>
+	<string id="20219" value="Nincs elég hely a letöltéshez: &quot;%s&quot; (%s)."/>
+	<string id="20220" value="A letöltési kapcsolat megszakadt: %s."/>
+	<string id="20222" value="A beírt eDonkey érték érvénytelen. Ellenőrizze és próbálja meg újra."/>
+	<string id="20224" value="Adjon meg egy érvényes törlendő részt. A(z) &quot;from&quot; mező az első bájt, a(z) &quot;last&quot; mező az utolsó bájt, amit törölni kell."/>
+	<string id="20225" value="A beírt SHA1 érték érvénytelen. Ellenőrizze és próbálja meg újra."/>
+	<string id="20226" value="A beírt TTH érték érvénytelen. Ellenőrizze és próbálja meg újra."/>
+	<string id="20227" value="BitTorrent kapcsolódás visszautasítva: %s, több kapcsolat már nem hozható létre."/>
+	<string id="20228" value="Nem lehet a megadott részt törölni, mert az nem létezik."/>
+	<string id="20231" value="Egy más SHA1 hash értéket adott meg, ami különbözik a jelenlegitől.  Biztos ki akarja cserélni?"/>
+	<string id="20232" value="Egy más eDonkey hash értéket adott meg, ami különbözik a jelenlegitől.  Biztos ki akarja cserélni?"/>
+	<string id="20233" value="Egy más TTH hash értéket adott meg, ami különbözik a jelenlegitől.  Biztos ki akarja cserélni?"/>
+	<string id="20235" value="Nem tudja a letöltést késznek tekinteni és ellenőrizni, mert nincs hozzá megfelelő hash érték."/>
+	<string id="20236" value="Késznek veszis a letöltést és úgy ellenőrzi? A fájl újra lesz hashelve, jó és rossz részek is elfogadásra kerülnek."/>
+	<string id="20237" value="Biztos, hogy a letöltés minden forrását törölni akarja?"/>
+	<string id="20238" value="Biztos, hogy törölni akarja a jelenlegi azonosítási állapotot? Minden letöltés megbízhatatlan lesz és a hash értékek pedig törölve lesznek."/>
+	<string id="20240" value="%I64i bájt törölve a letöltésből."/>
+	<string id="20241" value="Megváltoztatta a letöltés nevét. Biztos át akarja nevezni?"/>
+	<string id="20242" value="%s nincs meg neki ez a fájl: &quot;%s&quot;."/>
+	<string id="20243" value="Fájl készítése a letöltéshez: &quot;%s&quot;."/>
+	<string id="20244" value="Nem tudok fájlt készíteni a letöltéshez: &quot;%s&quot;, megszakítás ."/>
+	<string id="20245" value="Fájl megnyitása nem lehetséges a letöltéshez &quot;%s&quot;, megszakítás."/>
+	<string id="20246" value="Nincs több letöltési töredék, kapcsolat bezárása: %s."/>
+	<string id="20247" value="Töredék rövidítve, Kapcsolat bezázása %s."/>
+	<string id="20248" value="Letöltési töredék kérése (%I64u-%I64u) a(z) &quot;%s&quot; fájlban: %s."/>
+	<string id="20250" value="Drag'n'drop fájlokat a %s csoporthoz"/>
+	<string id="20251" value="Alapértelmezett letöltési csoport. (Minden fájl megjelenítése)"/>
+	<string id="20252" value="Új csoport"/>
+	<string id="20253" value="eDonkey hamis hash vagy inkonzisztens, forrás ejtése."/>
+	<string id="20254" value="Érvénytelen eDonkey hash: %s, forrás ejtése."/>
+	<string id="20255" value="eDonkey hash megkaptam: &quot;%s&quot;, egy kisebb ellenőrizhető rész: %s."/>
+	<string id="20256" value="eDonkey hash kérése ennek: &quot;%s&quot; innen: %s..."/>
+	<string id="20257" value="Nem lehet a tümörítést (inflate) bekapcsolni: &quot;%s&quot;."/>
+	<string id="20258" value="TTH adatok fogadása: %s (%s)..."/>
+	<string id="20259" value="Metaadat kérése: &quot;%s&quot; innen: %s..."/>
+	<string id="20260" value="Letöltés tulajdonságai"/>
+	<string id="20261" value="%s ezzel válaszolt: %s (%s)."/>
+	<string id="20262" value="%s egy érvénytelen HTTP választ adott."/>
+	<string id="20263" value="%s nyomatja a letöltést: &quot;%s&quot;, elfogad."/>
+	<string id="20264" value="Push request elüldése a(z) &quot;%s&quot; letöltésére..."/>
+	<string id="20265" value="Letöltési kiszolgáló %s elfoglalt, beállok a sorba: #%i / %i (&quot;%s&quot;.."/>
+	<string id="20266" value="Sorbanállás: &quot;%s&quot;."/>
+	<string id="20267" value="Forrás %s a(z) &quot;%s&quot;, mert a %i. hely a sorban túl magas."/>
+	<string id="20268" value="Időtúllépés az eDonkey kiszolgáló sorbanállás-frissítése közben: %s. Fájl: &quot;%s&quot;."/>
+	<string id="20269" value="Letöltési kérelem időtúllépés, kapcsolat bezárása: %s."/>
+	<string id="20270" value="Letöltés törölve: &quot;%s&quot;."/>
+	<string id="20271" value="Áthelyezve: &quot;%s&quot; ide: &quot;%s&quot;, letöltés kész."/>
+	<string id="20272" value="Letöltés szüneteltetése: &quot;%s&quot;."/>
+	<string id="20273" value="Letöltés folytatása: &quot;%s&quot;."/>
+	<string id="20274" value="&quot;%s&quot; használata &quot;%s&quot; letöltéséhez..."/>
+	<string id="20275" value="Több forrás keresése: &quot;%s&quot; itt: %i..."/>
+	<string id="20276" value="Nem lehet több forrást találni: &quot;%s&quot; mert nincs hálózati kapcsolat."/>
+	<string id="20280" value="A TTH adatok hamisak vagy inkonzisztensek, ignorálás."/>
+	<string id="20281" value="A TTH adatok nem egyeznek a gyökérértékekkel."/>
+	<string id="20282" value="%s nem tudta elküldeni a TTH-t."/>
+	<string id="20283" value="TTH értéket megszereztem ennek: &quot;%s&quot;, %i szint, legkisebb ellenőrizhető rész: %s."/>
+	<string id="20284" value="TTH adatok fogadása: %s (%s)..."/>
+	<string id="20285" value="TTH adatok kérése: &quot;%s&quot; from %s..."/>
+	<string id="20286" value="Letöltési kapcsolat bezárása a forgalom hiánya miatt: %s."/>
+	<string id="20290" value="%s egy másik, de használható részt küldött (%I64i-%I64i) a(z) &quot;%s&quot; fájlból."/>
+	<string id="20291" value="Felesleges push kapcsolatot kaptam: %s."/>
+	<string id="20292" value="%s (%s) forrás ejtése hibás adatok közlése miatt. Érintett fájl: &quot;%s&quot; (%I64i-%I64i)."/>
+	<string id="20293" value="FIGYELEM: A(z) &quot;%s&quot; fájlt nem elhetett elenőrizni. Lehet, hogy ez nem az a fájl, amit ön szeretne!"/>
+	<string id="20294" value="Sikeresen ellenőriztem: &quot;%s&quot;."/>
+	<string id="20295" value="%s szerint a(z) &quot;%s&quot; fájlnak más URN címe van, megszakítás."/>
+	<string id="20296" value="%s egy használhatatlan részét küldte el a(z) &quot;%s&quot; fájlnak, várakozás."/>
+	<string id="20297" value="%s szerint a(z) &quot;%s&quot; fájlnak más a mérete, megszakítás."/>
+	<string id="20300" value="Bejövő kapcsolat elfogadva: %s port %i."/>
+	<string id="20301" value="Már kapcsolódva van: %s, nincs újabb kapcsolódás."/>
+	<string id="20302" value="Dupla kapcsolódás megtagadása: %s."/>
+	<string id="20303" value="Kapcsolódás: %s port %i..."/>
+	<string id="20304" value="%s bezárta a kapcsolatot (%i : %s)."/>
+	<string id="20305" value="Kapcsolat bezárva: %s."/>
+	<string id="20306" value="Kapcsolat létrehozva: %s, viszontválaszra várok..."/>
+	<string id="20307" value="Nem lehetett kapcsolatot létrehozni: %s."/>
+	<string id="20308" value="%s váratlanul bontotta a kapcsolatot."/>
+	<string id="20309" value="Kapcsolat bezárása: %s, mert nem hub."/>
+	<string id="20310" value="Nem tudok kapcsolatot letrehozni: %s (megtagadva)."/>
+	<string id="20311" value="Időtúllépés: %s."/>
+	<string id="20312" value="Kapcsolat bezárva a kevés forgalom miatt: %s."/>
+	<string id="20313" value="Szerverkereső szolgáltatás keresése..."/>
+	<string id="20314" value="Szerverkereső szolgáltatás &quot;%s&quot; hibázott, hibák száma: %i."/>
+	<string id="20315" value="Szerverkereső szolgáltatás &quot;%s&quot; %i alkalommal hibázott, eltávolítás."/>
+	<string id="20316" value="Szerverkereső szolgáltatás keresése &quot;%s&quot;..."/>
+	<string id="20317" value="GWebCache &quot;%s&quot; elküldése egy másik GWebCache-re..."/>
+	<string id="20318" value="GWebCache frissítés elküldése &quot;%s&quot;..."/>
+	<string id="20319" value="GWebCache tranzakció sikeres (&quot;%s&quot;.."/>
+	<string id="20320" value="%s a bejövő kapcsolat egy eDonkey kliens link."/>
+	<string id="20321" value="Hibásan formázott eDonkey csomagot kaptam: %s (id=%x)."/>
+	<string id="20322" value="eDonkey klienskapcsolat bezárása tétlenség miatt: %s."/>
+	<string id="20323" value="eDonkey kliens kapcsolódás: %s..."/>
+	<string id="20324" value="Időtúllépés az eDonkey klines kapcsolódásánál: %s."/>
+	<string id="20325" value="eDonkey klines link megtagadása, mert az eDonkey ki van kapcsolva: %s."/>
+	<string id="20326" value="eDonkey kapcsolat vége: %s."/>
+	<string id="20327" value="Viszontválasz közbeni hiba az eDonkey klienssel: %s."/>
+	<string id="20328" value="Időtúllépés az eDonkey klines viszontválaszánál: %s."/>
+	<string id="20329" value="eDonkey hash elküldése: &quot;%s&quot; ide: %s..."/>
+	<string id="20330" value="Az eDonkey kliensnek rossz GUID-je van, viszontválasz kérésének leállítása: %s."/>
+	<string id="20331" value="Ez a fájl már a letöltési listában van."/>
+	<string id="20332" value="Nem lehetett importálni: &quot;%s&quot;."/>
+	<string id="20333" value="Fájl másolása kész."/>
+	<string id="20334" value="Másolás: &quot;%s&quot; ide: &quot;%s&quot;..."/>
+	<string id="20335" value="Nincs elég hely a letöltés másolásához."/>
+	<string id="20336" value="PeerProject félkész letöltés készítése, %s maradt."/>
+	<string id="20337" value="Nem lehetett a fájlt importálni."/>
+	<string id="20338" value="A letöltési fájl újabb, mint a .part fájl, folyamat megszakítása."/>
+	<string id="20339" value="Félkész fájlt találtam: &quot;%s&quot;, importálás..."/>
+	<string id="20340" value="Feladat kész, %i félkész letöltés importálva."/>
+	<string id="20341" value="Mappa beolvasása: &quot;%s&quot;..."/>
+	<string id="20342" value="Félkész eDonkey letöltések importálása..."/>
+	<string id="20344" value="Letöltést találtam &quot;%s&quot;, méret: %s."/>
+	<string id="20345" value="eDonkey szerverhez kapcsolódva: %s, viszontválasz..."/>
+	<string id="20346" value="eDonkey szerverhez való kapcsolódás: %s..."/>
+	<string id="20347" value="eDonkey szerver, %s kliens ID megvátoztatása erről: %lu erre: %lu."/>
+	<string id="20348" value="eDonkey szerver, %s azonosította magát, mint: &quot;%s&quot;."/>
+	<string id="20349" value="ED2K[%s] %s"/>
+	<string id="20350" value="eDonkey szerver, %s online, kliens ID: %lu."/>
+	<string id="20351" value="eDonkey szerver, %s megtagadta a kapcsolódást."/>
+	<string id="20352" value="eDonkey szerver, %s megtagadta a kapcsolódást."/>
+	<string id="20354" value="Fájl tulajdonságai"/>
+	<string id="20355" value="Biztos, hogy törölni akarja ezt a szűrőt?"/>
+	<string id="20356" value="Már van ilyen nevű szűrő: &quot;%s&quot; Ki akarja ezzel cserélni?"/>
+	<string id="20358" value="Adj a szűrőnek egy nevet."/>
+	<string id="20360" value="Kapcsolódási hibák (%)"/>
+	<string id="20361" value="Letöltési sávszél"/>
+	<string id="20362" value="Letöltések száma"/>
+	<string id="20363" value="Letöltési forgalom száma"/>
+	<string id="20364" value="Gnutella letöltési sávszél"/>
+	<string id="20365" value="Gnutella feltöltési sávszél"/>
+	<string id="20366" value="Gnutella kapcsolatok (minden)"/>
+	<string id="20367" value="Gnutella kapcsolatok (aktív)"/>
+	<string id="20368" value="Gnutella csomagok ejtve"/>
+	<string id="20369" value="Gnutella csomagok elveszítve"/>
+	<string id="20370" value="Gnutella csomagok letöltve"/>
+	<string id="20371" value="Gnutella csomagok feltöltve"/>
+	<string id="20372" value="Gnutella elküldött/fogadott pingek aránya"/>
+	<string id="20373" value="Gnutella elküldött/fogadott pongok aránya"/>
+	<string id="20374" value="Gnutella helyi kérvények"/>
+	<string id="20375" value="Gnutella csomagok irányítva"/>
+	<string id="20376" value="Teljes letöltési sávszél"/>
+	<string id="20377" value="Teljes feltöltési sávszél"/>
+	<string id="20378" value="Teljes TCP letöltési sávszél"/>
+	<string id="20379" value="Teljes TCP feltöltési sávszél"/>
+	<string id="20380" value="Teljes UDP letöltési sávszél"/>
+	<string id="20381" value="Teljes UDP feltöltési sávszél"/>
+	<string id="20382" value="Feltöltési sávszél"/>
+	<string id="20384" value="Feltöltési forgalom száma"/>
+	<string id="20385" value="Kapcsolódás: %s, visszatérés álcázott(shielded) leaf módba."/>
+	<string id="20386" value="Felesleges kapcsolat bezárása: %s  (%s port %i)."/>
+	<string id="20387" value="A %s hub nem fogad el minket, mint hub. Kapcsolat megszakítása."/>
+	<string id="20388" value="Viszontválasz hiba: %s, érvénytelen adatok."/>
+	<string id="20389" value="Hubnak adja ki magát a leafnek: %s."/>
+	<string id="20390" value="Hub kapcsolat létrehozva, peer kapcsolatok bezárása."/>
+	<string id="20391" value="Kapcsolat megtagadása: %s, mert ez egy álcázott(shielded) leaf."/>
+	<string id="20392" value="%s nem hub, kapcsolat bezárása."/>
+	<string id="20393" value="Nem Gnutella2 kapcsolatok bezárása: %s."/>
+	<string id="20394" value="%s hub akar lenni, kapcsolat bezárása."/>
+	<string id="20395" value="Gnutella kapcsolódás sikeres: %s  (G%i.%i : %s)."/>
+	<string id="20396" value="Gnutella2 kapcsolódás eredményes: %s.  (%s)."/>
+	<string id="20397" value="Kapcsolódás elutasítva: %s  (%s)."/>
+	<string id="20398" value="Felesleges kapcsolat bezárása: %s."/>
+	<string id="20399" value="Viszontválasz nem érkezett időben: %s."/>
+	<string id="20400" value="%Iu fájl hashelése:"/>
+	<string id="20410" value="Tallózás a könyvtárban"/>
+	<string id="20411" value="Tallózás"/>
+	<string id="20412" value="%i mappa tartalmának a tallózása"/>
+	<string id="20413" value="%i fájl kiválasztva"/>
+	<string id="20414" value="Több mappa"/>
+	<string id="20415" value="Nincs kiválasztott fájl"/>
+	<string id="20416" value="Osztályozza"/>
+	<string id="20417" value="Mostanában hozzáadva"/>
+	<string id="20418" value="Album"/>
+	<string id="20419" value="Előadó"/>
+	<string id="20420" value="Bitráta"/>
+	<string id="20421" value="Hossz"/>
+	<string id="20422" value="Osztályzat"/>
+	<string id="20423" value="Cím"/>
+	<string id="20424" value="#"/> <!-- Track number -->
+	<string id="20425" value="Nem lehetett telepíteni a(z) &quot;%s&quot; gyűjteményfájlt a &quot;%s&quot; mappába való másolássa."/>
+	<string id="20426" value="Minden fájlt le akarsz tölteni a gyűjteményből?\n\nKattintson a Mégse gombra a további kérdések elkerülésére."/>
+	<string id="20427" value="&quot;%s&quot; gyűjteményfájl hozzáadva."/>
+	<string id="20428" value="A PeerProject egy gyűjteményfájlt kapott:\n\n&quot;%s&quot;\n\nEz nem tűnik valós gyűjteményfájlnak."/>
+	<string id="20429" value="Meg akarja-e akadályozni, hogy minden fájl előtt kérdezzen?"/>
+	<string id="20430" value="Biztos, hogy futtatni akarja: &quot;%s&quot; ?\n\nNéhány fájl káros a számítógépnek. Ha nem bízik meg a fájlban, inkább futtasson le egy vírusellenőrzét."/>
+	<string id="20431" value="Biztos, hogy törölni akarja a %i fájlt?\n\nA fájl(ok) a &quot;Lomtárba&quot; kerülnek, ha be van kapcsolva."/>
+	<string id="20432" value="Nem lehet törölni:\n\n%s"/>
+	<string id="20433" value="A letöltési mappa &quot;%s&quot;, nincs a könyvtárban.\n\nHa belerakja, könnyebb lesz rendezni a letöltéseit és kihasználhatja a PeerProject lehetőségeit, mint: a letöltés-ellenőrzés és az automata frissítés. A Könyvtárban lévő letöltött fájlok nem feltétlenül megosztottak: kiválaszthatja, hogy melyiket akarja megosztani vagy sem.\n\nHozzá akarja adni a letöltési mappát a Könyvtárhoz?"/>
+	<string id="20434" value="A letöltési mappa hozzá lett adva a könyvárhoz. Meg is akarja osztani?"/>
+	<string id="20435" value="Nincs médialejátszó kiválasztva(pl. Nullsoft Winamp), ami fel tudná venni a fájlokat egy lejátszólistába. Most akarja kiválasztani?\n\nA PeerProject a(z) &quot;/ADD&quot; paranccsal küldi át a fájlokat a listába."/>
+	<string id="20436" value="Biztos akarja törölni akarja az albummappá(k)at (%i db)?\n\nEz nem fogja törölni az albumban lévő fájlokat csak magát az albumot."/>
+	<string id="20437" value="Szellemfájl"/>
+	<string id="20438" value="Fájl metaadatának a szerkesztése: %i"/>
+	<string id="20439" value="%i fájl metaadat részét akarja módosítani. Biztos ezt akarja?"/>
+	<string id="20440" value="Nem tudom mozgatni: %s. Talán egy másik program használja.\n\nInkább másolni akarja?"/>
+	<string id="20441" value="Nem lehet átnevezni:\n\n%s erre: \n%s"/>
+	<string id="20442" value="Ez a fájl már létezik:\n\n%s\n\nFelülírod?"/>
+	<string id="20443" value="Minden fájltípus megjelenítése"/>
+	<string id="20444" value="URI másolása"/>
+	<string id="20445" value="URI exportálása..."/>
+	<string id="20446" value="A(z) &quot;%s&quot; fájl megbukott a hash ellenőrzésen és valószínűleg ez nem az a fájl, amit ön szeretne. Biztos meg akarja nyitni?"/>
+	<string id="20447" value="El akarja távolítani a fájl &quot;potenciálisan veszélyes&quot; attribútumát?"/>
+	<string id="20448" value="A(z) &quot;%s&quot; még nem volt hashelve. Várja meg a hashelést és próbálja újra."/>
+	<string id="20449" value="Ez az opció a Bitzi.com fájlinformációs szolgáltatásait használja.\n\nA PeerProject a fájl SHA1 hash kódját elküldi a Bitzi adatbázisába. Ha nem bízik meg a Bitziben, akkor olvassa el a Bitzi.com adatvédelmi nyilatkozatát.\n\nTovább akar menni?"/>
+	<string id="20450" value="A kész és a félkész fájlok ne legyenek azonos mappában!"/>
+	<string id="20451" value="Nincs semmilyen lejátszás folyamatban. Kattintson duplán egy médiafájlra a lejátszáshoz."/>
+	<string id="20452" value="Minden médiafájl|*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Lejátszólisták|*.asx;*.wax;*.m3u;*.wvx;*.wmx|Audiófájlok|*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm|Videófájlok|*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|AudióCD hangsávok|*.cda|MIDI fájlok|*.mid;*.rmi;*.midi|Minden fájl|*.*||"/>
+	<string id="20453" value="Médiafájl betöltése sikertelen: &quot;%s&quot;"/>
+	<string id="20454" value="A fájl vagy hibás vagy nincsenek feltelepítve a megfelelő kodekek."/>
+	<string id="20455" value="A fájl részletét nem lehet lejátszani, nincsenek feltelepítve a megfelelő kodekek."/>
+	<string id="20456" value="LEJÁTSZÓLISTA:"/>
+	<string id="20457" value="A PeerProject nem tudta betölteni a MediaServices plugint. Telepítsd újra a PeerProject és győződj meg róla, hogy minden fontos kodeket is föltelepítettél."/>
+	<string id="20458" value="PeerProject Médialejátszó"/>
+	<string id="20460" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; L &#160;&#160; E &#160;&#160; J &#160;&#160; Á &#160;&#160; T &#160;&#160; S &#160;&#160; Z &#160;&#160; Ó"/>
+	<string id="20461" value="(Nincs képi megjelenítés)"/>
+	<!--string id="20462" value="Letöltés befejezve:"-->
+	<!--string id="20463" value="Letöltés folyamatban:"-->
+	<!--string id="20464" value="Letöltés áthelyezése:"-->
+	<!--string id="20465" value="Letöltés szüneteltetve:"-->
+	<!--string id="20466" value="Források keresése ennek:"-->
+	<!--string id="20467" value="Hibaellenőrzés:"-->
+	<string id="20470" value="Mégse"/>
+	<string id="20471" value="Megnyitás"/>
+	<string id="20472" value="Kész"/>
+	<string id="20473" value="Hátralévő idő:"/>
+	<string id="20474" value="Megjegyzések száma:"/>
+	<string id="20475" value="Források:"/>
+	<string id="20476" value="Nincs forrás"/>
+	<string id="20477" value="%i nap %i óra"/>
+	<string id="20478" value="%i óra %i perc"/>
+	<string id="20479" value="%i perc %i másodperc"/>
+	<string id="20480" value="%i másodperc"/>
+	<string id="20481" value="Sebesség:"/>
+	<string id="20482" value="Letöltve:"/>
+	<string id="20483" value="Feltöltve:"/>
+	<string id="20484" value="Limit letöltési sávszélességgel"/>
+	<string id="20485" value="Limit feltöltési sávszélességet"/>
+	<string id="20490" value="Több"/>
+	<string id="20491" value="Több érték"/>
+	<string id="20494" value="Nem adott meg lakhelyet az adatlapjában.\n\nEz egy jó ötlet, hiszen így mások is tudni fogják, hogy ön melyik országban lakik. Ezzel semmilyen bizalmas információt nem árul el!\n\nBiztos, hogy nem akarja megadni?"/>
+	<string id="20495" value="Nem adott meg becenevet az adatlapjában."/>
+	<string id="20496" value="Nem adta meg a korát és a nemét. Tovább akar így menni?"/>
+	<string id="20499" value="Új Mappa"/>
+	<string id="20500" value="A kezdéshez kattintson a Kapcsolódás gombra."/>
+	<string id="20501" value="Nincs kapcsolat a hálózatokkal."/>
+	<string id="20502" value="Bezárás"/>
+	<string id="20503" value="Tömörítés:"/>
+	<string id="20504" value="Van"/>
+	<string id="20505" value="Nincs"/>
+	<string id="20506" value="Kapcsolódás"/>
+	<string id="20507" value="Jelenleg:"/>
+	<string id="20510" value="eDonkey kapcsolat"/>
+	<string id="20511" value="eDonkey (HighID)"/>
+	<string id="20512" value="eDonkey kapcsolat (LOWID: %lu)"/>
+	<string id="20513" value="eDonkey (LowID)"/>
+	<string id="20514" value="eDonkey szerver"/>
+	<string id="20515" value="G1 Leaf"/>
+	<string id="20516" value="G1 Peer"/>
+	<string id="20517" value="Gnutella: Peer-to-Peer kapcsolat"/>
+	<string id="20518" value="Gnutella: Leaf-to-Ultrapeer kapcsolat"/>
+	<string id="20519" value="Gnutella: Ultrapeer-to-Leaf kapcsolat"/>
+	<string id="20520" value="G1 Ultrapeer"/>
+	<string id="20521" value="G2 Hub"/>
+	<string id="20522" value="G2 Leaf"/>
+	<string id="20524" value="G2 Peer"/>
+	<string id="20525" value="Gnutella 2: Leaf-to-Hub kapcsolat"/>
+	<string id="20526" value="Gnutella 2: Hub-to-Hub kapcsolat"/>
+	<string id="20527" value="Gnutella 2: Hub-to-Leaf kapcsolat"/>
+	<string id="20530" value="Viszontválasz"/>
+	<string id="20531" value="Viszontválasz"/>
+	<string id="20532" value="Bejövő"/>
+	<string id="20533" value="Kimenő"/>
+	<string id="20534" value="Teljes:"/>
+	<string id="20535" value="Arány:"/>
+	<string id="20536" value="Megtagadva"/>
+	<string id="20538" value="Ismeretlen"/>
+	<string id="20540" value="Kapcsolódás"/>
+	<string id="20541" value="Kapcsolódás..."/>
+	<string id="20542" value="Kapcsolódva"/>
+	<string id="20543" value="Lekapcsolódás"/>
+	<string id="20544" value="PeerProject hálózati mag leállítása..."/>
+	<string id="20545" value="Lekapcsolódtam a hálózatról."/>
+	<string id="20546" value="Biztos le akarsz kapcsolódni?"/>
+	<string id="20547" value="A Gnutella2 a PeerProject fő hálózata. Kikapcsolásával lecsökkenhet a találatok száma és minősége kereséskor. Biztos, hogy ezt akarja tenni?"/>
+	<string id="20548" value="Nem tudok kacsolódni: %s port %i A bejövő kapcsolatok nem támogatottak."/>
+	<string id="20549" value="Nem tudom feloldani a kimenő kapcsolatokhoz: %s. A kimenő kapcsolatok az alapértelmezett interfészt fogják használni."/>
+	<string id="20550" value="A feltöltési sebesség túl alacsony a hálózat bekapcsolásához"/>
+	<string id="20551" value="Tűzfallal védve. Nem fogad bejövő kapcsolatokat."/>
+	<string id="20552" value="A PC hub módba való kényszerítése negatívan befolyásolhatja a hálózati teljesítményt. Általában a legjobb, ha a PeerProject dönti el, hogy érdemes-e átkapcsolni vagy nem.\n\nHub módban nem kapsz jobb keresési eredményt, nem teszel szert előnyre.\n\nBiztos, hogy ezt akarja tenni?"/>
+	<string id="20553" value="Bejövő TCP kapcsolat elfogadása: %s port %i."/>
+	<string id="20554" value="UDP csomagokra várok: %s port %i."/>
+	<string id="20555" value="Kimenő kapcsolatok innen: %s port %i."/>
+	<string id="20556" value="Nem tudom feloldani: &quot;%s&quot;."/>
+	<string id="20557" value="Feloldás: &quot;%s&quot;..."/>
+	<string id="20558" value="Keresési kérvény elküldése: &quot;%s&quot; ide: %s."/>
+	<string id="20560" value="A %s már blokkolva van a biztonsági beállításokban."/>
+	<string id="20561" value="Biztonsági szabály hozzáadása, hogy blokkolja: %s."/>
+	<string id="20562" value="Biztonsági okok miatt a kapcsolat meg lett tagva: %s."/>
+	<string id="20563" value="Biztonsági okok miatt a kapcsolat el lett hárítva: %s."/>
+	<string id="20564" value="PeerProject hálózati mag indítása..."/>
+	<string id="20565" value="Az Ütemező jelenleg kizárólagos G2 módban fut. Ki akarja ezt kapcsolni, hogy a többi hálózathoz is kapcsolódva maradhasson?"/>
+	<string id="20566" value="Az UPnP port hozzárendelés a 10 próbálkozás után sem sikerült."/>
+	<string id="20570" value="Hibásan formázott találati csomag: %s, ignorálás."/>
+	<string id="20571" value="%s:  Hibásan formázott lekérdezéscsomag: %s, ignorálás."/>
+	<string id="20572" value="%s túl nagy TTL-el rendelkező csomagot küldött tovább, csomag ejtése (TTL=%i, Hops=%i)."/>
+	<string id="20573" value="%s TTL=0 csomagot küldött tovább, ignorálás."/>
+	<string id="20574" value="%s egy kiterjesztett csomagot küldött tovább, ami GGEP kódolású."/>
+	<string id="20575" value="%s érvénytelen query routing table-t küldött, kapcsolat megszakítása."/>
+	<string id="20576" value="Query routing table elküldése %s (%i bit = %lu[%i], %i%% full)"/>
+	<string id="20577" value="Nem várt query routing: %s."/>
+	<string id="20578" value="%s query routing table frissítve (%i bit = %lu[%i], %i%% full)."/>
+	<string id="20579" value="%s -> %s [%i/%i] %s %s"/>
+	<string id="20580" value="Leaf %s kereséseket küldözget, kapcsolat megszakítása."/>
+	<string id="20581" value="%s érvénytelen hosszúságú ping csomagot küldött tovább, ignorálás."/>
+	<string id="20582" value="%s érvénytelen hosszúságú pong csomagot küldött tovább, ignorálás."/>
+	<string id="20583" value="%s egy érvénytelen hosszúságú csomagot küldött tovább, ignorálás."/>
+	<string id="20584" value="%s túl nagy csomagot küldött tovább, kapcsolat megszakítása."/>
+	<string id="20585" value="%s ismeretlen csomagot küldött tovább (0x%.2x), ignorálás."/>
+	<string id="20586" value="%s érvénytelen címmel rendelkező pong csomagot küldött tovább, ignorálás."/>
+	<string id="20588" value="%s továbbküldött egy push request-et egy tűzfallal védett címre, ignorálás."/>
+	<string id="20590" value="Távoli használat kikapcsolva."/>
+	<string id="20591" value="http://%s:%i/remote - Egy felhasználónevet és egy jelszót kell választania."/>
+	<string id="20592" value="Nem tudom fogadni a kapcsolatokat, URL érvénytelen."/>
+	<string id="20595" value="&amp;Sémák"/>
+	<string id="20620" value="Aktív keresés folyamatban..."/>
+	<string id="20621" value="Kattintson ide az újrakereséshez"/>
+	<string id="20622" value="Minden hálózat"/>
+	<string id="20623" value="Új keresést indított. Ki akarja törölni az előző keresés eredményeit?"/>
+	<string id="20624" value="Több információt tudhat meg a kiválasztott fájlról."/>
+	<string id="20625" value="%s írja:"/>
+	<string id="20626" value="%s osztályzata:"/>
+	<string id="20627" value="Előnézet"/>
+	<string id="20628" value="Előnézet..."/>
+	<string id="20629" value="&quot;%s&quot;. Nem lehet letölteni az előnézeti adatokat."/>
+	<string id="20630" value="%i megjegyzés."/>
+	<string id="20631" value="Egy megjegyzés."/>
+	<string id="20632" value="%i forrás elérhető. (%s/s)"/>
+	<string id="20633" value="Egy forrás elérhető. (%s/s)"/>
+	<string id="20634" value="Még nincs eredmény."/>
+	<string id="20635" value="Van néhány találat, de ki lettek szűrve."/>
+	<string id="20636" value="Ebben az ablakban még nem futtattak le keresést."/>
+	<string id="20637" value="Nincs metaadat"/>
+	<string id="20638" value="Nincs séma oszlop"/>
+	<string id="20640" value="(előzmények törlése)"/>
+	<string id="20641" value="PeerProject keresés"/>
+	<string id="20642" value="Fájltípus:"/>
+	<string id="20643" value="Írja ide a keresendő szót vagy szavakat:"/>
+	<string id="20644" value="Fejlett"/>
+	<string id="20645" value="Bármilyen"/>
+	<string id="20646" value="Töröl"/>
+	<string id="20648" value="Keresési ablak elrejtése"/>
+	<string id="20650" value="Keresés"/>
+	<string id="20651" value="Keresendő kifejezések:"/>
+	<string id="20652" value="Fájltípus:"/>
+	<string id="20653" value="Hálózatok:"/>
+	<string id="20654" value="Fájlméret Min:"/>
+	<string id="20655" value="Fájlméret Max:"/>
+	<string id="20656" value="Keresés újra"/>
+	<string id="20657" value="Keresési ablak megjelenítése"/>
+	<string id="20658" value="Keresést indít"/>
+	<string id="20659" value="Stop"/>
+	<string id="20660" value="Nem találtam semmit."/>
+	<string id="20661" value="%lu hub, %lu leaf"/>
+	<string id="20662" value="Jelenleg nincs keresés."/>
+	<string id="20663" value="Eredmények"/>
+	<string id="20664" value="%lu fájl %lu találat|%lu fájl %lu találat|%lu fájl %lu találat"/>
+	<string id="20665" value="Találat:"/>
+	<string id="20666" value="Keresés:"/>
+	<string id="20668" value="Keresés..."/>
+	<string id="20669" value="Csak szöveg keresése"/>
+	<string id="20670" value="Keresés folyamatban..."/>
+	<string id="20671" value="Biztosan törölni akarja a kiválasztott biztonsági szabályokat? Később már nem lehet visszavonni."/>
+	<string id="20672" value="Válassza ki az eDonkey/eMule ideiglenes letöltési mappáját:"/>
+	<string id="20673" value="Automatikus"/>
+	<string id="20674" value="A félkész fájlok ne kerüljenek be a Könyvtárba, mert esetleg csökkenthetik a teljesítményt. A félkész fájlokat a Forgalom ablakban lehet megosztani."/>
+	<string id="20675" value="A Windows nem kezeli a 256 karakternél hosszabb elérési utakat.nVálasszon egy rövidebb elérési utat."/>
+	<string id="20676" value="A kiválasztott mappa &quot;%s&quot; egy másik mappa almappájaként már meg van osztva.nEz újbóli hashelést okozhat.\n\nBiztos folytatni akarja?"/>
+	<string id="20677" value="Írja be a sávszél-korlátozást: &quot;123 kb/s&quot; kilobit per másodperc vagy &quot;123 KB/s&quot; kilobájt per másodperc formában."/>
+	<string id="20678" value="Az eDonkey hálózaton sokáig kell sorbanállni és várakozni egy fájlért. Ha csökkenti a sorok maximális számát, valószínűleg nem fognak elidulni a letöltések.\nBiztos csökkenteni akarja a számodra kirendelt sorszámot?"/>
+	<string id="20680" value="Beállítások"/>
+	<string id="20684" value="Biztos, hogy törölni akarja a(z) &quot;%s&quot; kinézetet? Ezt már nem lehet később visszavonni."/>
+	<string id="20700" value="Aktív"/>
+	<string id="20701" value="Le: %s | Fel: %s  (d:%I64i/u:%I64i)"/>
+	<string id="20702" value="Kapcsolódva %lu szomszéddal.  %s a megosztás mérete."/>
+	<string id="20703" value="Hub mód %lu szomszéddal.  %s a helyi könyvtárban."/>
+	<string id="20704" value="Hub/Ultrapeer mód %lu szomszéddal.  %s a helyi könyvtárban."/>
+	<string id="20705" value="Kapcsolódva. %s a helyi könyvtárban."/>
+	<string id="20706" value="Ultrapeer mód %lu szomszéddal.  %s a helyi könyvtárban."/>
+	<string id="20707" value="Kapcsolódás..."/>
+	<string id="20708" value="Nincs kapcsolat."/>
+	<string id="20710" value="(Nincs forrás)"/>
+	<string id="20711" value="Nem mozgatható"/>
+	<string id="20712" value="Elakadva"/>
+	<string id="20713" value="Sorbanállás"/>
+	<string id="20714" value="Hiba"/>
+	<string id="20715" value="Hash érték"/>
+	<string id="20716" value="Metaadat"/>
+	<string id="20717" value="Válasz"/>
+	<string id="20718" value="Mozgatás"/>
+	<string id="20719" value="Létrehozás"/>
+	<string id="20720" value="Kész"/>
+	<string id="20721" value="Kapcsolódás"/>
+	<string id="20722" value="Letöltés"/>
+	<string id="20723" value="Elfoglalt"/>
+	<string id="20724" value="Következő"/>
+	<string id="20725" value="S"/>
+	<string id="20726" value="Sorbanáll"/>
+	<string id="20727" value="Szünet"/>
+	<string id="20728" value="Várakozás"/>
+	<string id="20729" value="Kérés"/>
+	<string id="20730" value="Keresés"/>
+	<string id="20731" value="Seedelés"/>
+	<string id="20732" value="forrás"/>
+	<string id="20733" value="forrás"/>
+	<string id="20734" value="forrás"/>
+	<string id="20735" value="forrás"/>
+	<string id="20740" value="TigerTree"/>
+	<string id="20741" value="Torrent"/>
+	<string id="20742" value="Tracker üzemen kívül"/>
+	<string id="20743" value="Érdektelen"/>
+	<string id="20744" value="Ismeretlen"/>
+	<string id="20745" value="Érdektelen"/>
+	<string id="20746" value="Ellenőrizetlen"/>
+	<string id="20747" value="Ellenőrizve"/>
+	<string id="20748" value="Ellenőrzés"/>
+	<string id="20750" value="!Üdvözlöm a PeerProject! Verziószám: (version) n.nA PeerProject teljesen ingyenes.nKérem, használja felelősséggel és tisztelje mások jogait.n."/>
+	<string id="20751" value="Nincsen aktív keresés. Kattintson ide a fájlok kereséséhez."/>
+	<string id="20752" value="Nincs kapcsolat. Kattintson a Kapcsolódás gombra a kezdéshez."/>
+	<string id="20755" value="Biztos törölni akarja a(z) &quot;%s&quot; sablont?nKésőbb már nem lehet visszavonni."/>
+	<string id="20760" value="Aktív"/>
+	<string id="20761" value="Inaktív"/>
+	<string id="20762" value="Ez a fájl spamnek néz ki."/>
+	<string id="20763" value="Feketelistán van:"/>
+	<string id="20764" value="Egyszer már letöltötte és utána törölte ezt a fájlt."/>
+	<string id="20765" value="Ez a fájl már a letöltési sorban van."/>
+	<string id="20766" value="Ez a fájl már a könyvtárban van."/>
+	<string id="20767" value="A források ehhez a fájlhoz elfoglaltak"/>
+	<string id="20768" value="A források ehhez a fájlhoz passzívak"/>
+	<string id="20769" value="A források ehhez a fájlhoz bizonytalanok"/>
+	<string id="20770" value="Mappa"/>
+	<string id="20771" value="Találatok"/>
+	<string id="20772" value="Hely"/>
+	<string id="20773" value="a könyvtár mérete"/>
+	<string id="20774" value="Nincs adat"/>
+	<string id="20775" value="Következő a sorban"/>
+	<string id="20776" value=" (Nincs Hash)"/>
+	<string id="20777" value="Részforrás (%.2f%% található)"/>
+	<string id="20778" value="%i feltöltés, %i várnak a sorukra"/>
+	<string id="20780" value="Méret"/>
+	<string id="20781" value="Ez a forrás elfoglalt"/>
+	<string id="20782" value="Ez a forrás passzív"/>
+	<string id="20783" value="Ez a forrás bizonytalan"/>
+	<string id="20784" value="Sebesség:"/>
+	<string id="20785" value="Státusz:"/>
+	<string id="20786" value="%lu ma, %lu teljes"/>
+	<string id="20787" value="Összes fájl:"/>
+	<string id="20788" value="Teljes méret:"/>
+	<string id="20789" value="Feltöltések:"/>
+	<string id="20790" value="Típus"/>
+	<string id="20791" value="Megbízhatatlan"/>
+	<string id="20792" value="Feltöltések"/>
+	<string id="20793" value="URL:"/>
+	<string id="20794" value="Kliens:"/>
+	<string id="20795" value="Le: %s | Fel: %s  (d:%I64i/u:%I64i/s:%I64i)"/>
+	<string id="20796" value="Az interneten megosztott fájlok"/>
+	<string id="20798" value="A PeerProject letöltötte a legújabb, PeerProject (%s) verziót. Szeretné most frissíteni a proramot?\n\nHa igen, a PeerProject a telepítés idejére bezárja magát."/>
+	<string id="20800" value="Alapértelmezett HTML válasz küldése a feltöltési kiszolgálónak %s (%s)."/>
+	<string id="20801" value="%s bejövő kapcsolat egy HTTP feltöltési kérelem."/>
+	<string id="20802" value="%s (%s) egy fájllista lekérdezést küldött, válaszolás..."/>
+	<string id="20803" value="A feltöltési kiszolgáló %s a kliensprogram blokkolólistáján van, kérés megtagadása."/>
+	<string id="20804" value="Fájllista lekérdezés megtagadása %s, túl sok fájllista-lekérdezés."/>
+	<string id="20805" value="Fájllista letöltésének megakadályozása: %s."/>
+	<string id="20806" value="A sorbanálló feltöltés túl sokszor kérdezget, kapcsolat bezárása: %s."/>
+	<string id="20807" value="Feltöltés megtagadása: &quot;%s&quot; ide: %s (%s), túl sok egyidejű feltöltés."/>
+	<string id="20808" value="A(z) &quot;%s&quot; feltöltésének megtagadása ide: %s (%s), a kliens nem támogatja a sorbanállást."/>
+	<string id="20809" value="Feltöltés megtagadása: &quot;%s&quot; ide: %s (%s), az egész feltöltési sor tele van."/>
+	<string id="20810" value="%s  egy nem megfelelő részt küldött a fájlból: &quot;%s&quot;."/>
+	<string id="20811" value="Az eDonkey feltöltéseket nem tanácsos megszakítani. Biztos megszakítja?"/>
+	<string id="20812" value="Nem tudom megnyitni a feltöltéshez: &quot;%s&quot; ide: %s, lemez/fájlhiba."/>
+	<string id="20813" value="Push kapcsolat létrehozása: %s. %s"/>
+	<string id="20814" value="Nem tudtam kapcsolódni pusholáshoz: %s."/>
+	<string id="20815" value="Az adatrész %I64i-%I64i a(z) &quot;%s&quot; fájlból a %s (%s) címre való átküldése."/>
+	<string id="20816" value="Feltöltési kapcsolat bezárva: %s."/>
+	<string id="20817" value="Új feltöltés megtagadása, mert a régi még tart: %s."/>
+	<string id="20818" value="Régi feltöltés bezárása, mert már van helyette újabb: %s."/>
+	<string id="20819" value="Feltöltés megtagadása %s (%s), hálózat kikapcsolva."/>
+	<string id="20820" value="Feltöltés megszakítása, mert a fájl törölve lett: &quot;%s&quot; ide: %s."/>
+	<string id="20821" value="Fájl feltöltése: &quot;%s&quot; ide: %s..."/>
+	<string id="20822" value="%s a feltöltési kiszolgáló egy nem létező vagy nem található objektumot kért: &quot;%s&quot;."/>
+	<string id="20823" value="A(z) &quot;%s&quot; egy része átküldve ide: %s."/>
+	<string id="20824" value="Push kapcsolat létrehozva: %s, viszontválaszra várok..."/>
+	<string id="20825" value=" %s a feltöltési kiszolgáló a(z) &quot;%s&quot; fájlt kéte más SHA1 értékkel."/>
+	<string id="20826" value="A(z) &quot;%s&quot; upload headerjének elküldése a: %s (%s) címre."/>
+	<string id="20827" value="Metaadat feltöltése &quot;%s&quot; ide: %s."/>
+	<string id="20828" value="%s feltöltési kiszolgáló érvénytelen HTTP kérvényt küldött."/>
+	<string id="20830" value="Félkész fájl részének feltöltése %I64i-%I64i fájl: &quot;%s&quot; ide: %s (%s)."/>
+	<string id="20832" value="Előnézet feltöltésének megtagadása: &quot;%s&quot; ide: %s, túl sok előnézet-feltöltés."/>
+	<string id="20833" value="Dinamikus előnézet előkészítése a feltöltéshez: &quot;%s&quot; ide: %s."/>
+	<string id="20834" value="%s előnézetet kért a(z) &quot;%s&quot; fájlból, de nem elérhető."/>
+	<string id="20835" value="Előnézet feltöltése: &quot;%s&quot; ide: %s."/>
+	<string id="20836" value="Push request megtagadása, mert túl sok feltöltési kapcsolata van %s."/>
+	<string id="20837" value="%s egy push requestet kért egy ismeretlem fájlhhozhoz, azért kapcsolódok..."/>
+	<string id="20838" value="Nem tudom még feltölteni: &quot;%s&quot; ide: %s, sorbanáll: #%i / %i (&quot;%s&quot;.."/>
+	<string id="20840" value="Új sor"/>
+	<string id="20841" value="Minden fájl"/>
+	<string id="20842" value="Feltöltési kapcsolat megszakadt, megtartom a régi helyet a sorban: %s."/>
+	<string id="20844" value="eDonkey mag"/>
+	<string id="20845" value="eDonkey őr"/>
+	<string id="20846" value="eDonkey félkész"/>
+	<string id="20847" value="Kész feltöltések"/>
+	<string id="20848" value="HTTP őr"/>
+	<string id="20849" value="Könyvtári fájlok"/>
+	<string id="20850" value="Nagy fájlok"/>
+	<string id="20851" value="Közepes fájlok"/>
+	<string id="20852" value="Kis fájlok"/>
+	<string id="20853" value="Félkész fájlok"/>
+	<string id="20854" value="Félkész"/>
+	<string id="20855" value="Sor"/>
+	<string id="20856" value="Torrent feltöltések"/>
+	<string id="20857" value="Offline várakozási sor lejárt %s, eltávolít."/>
+	<string id="20858" value="A feltöltési kiszolgáló túllépte az időt: %s."/>
+	<string id="20859" value="Feltöltési kapcsolat bezárása a kevés forgalom miatt: %s."/>
+	<string id="20860" value="TTH adat feltöltése &quot;%s&quot; ide: %s."/>
+	<string id="20861" value="Feltöltés eltávolítva: &quot;%s&quot;, %s."/>
+	<string id="20862" value="Hozzáad"/>
+	<string id="20864" value="Böngészés"/>
+	<string id="20865" value="Kapcsolódás"/>
+	<string id="20866" value="Fájlnév:"/>
+	<string id="20867" value="Kiszolgáló:"/>
+	<string id="20868" value="Port:"/>
+	<string id="20869" value="Az URL ablakot nem lehet megnyitni, mert a PeerProject elfoglalt."/>
+	<string id="20870" value="A PeerProject nem ismeri ezt a fajta URL-t."/>
+	<string id="20871" value="URL fogadva: &quot;%s&quot;"/>
+	<string id="20872" value="Típus:"/>
+	<string id="20874" value="Nincs meghatározva"/>
+	<string id="20875" value="URL:"/>
+	<string id="20880" value="Saját adatlap szerkesztése"/>
+	<string id="20881" value="A kinézet megváltoztatása bezár minden megnyitott ablakot. Most akarja megvátoztatni?"/>
+	<string id="20882" value="Az UPnP szolgáltatás nem fut. Ez a szolgáltatás szükséges a beállításokhoz.nÁllítsa be, hogy automatikusan el tudjon indulni."/>
+	<string id="20884" value="Nincs elérhető URN"/>
+	<string id="20885" value="A szövegirány megváltoztatásához újra kell indítani a programot. \nEzt kézzel kell megtennie. Be akarja most zárni a PeerProject?"/>
+	<string id="20890" value="Üdvözlöm a PeerProject"/>
+	<string id="20891" value="Kilépés"/>
+	<string id="20892" value="Várakozás: eDonkey szerverlista frissítése..."/>
+	<string id="20893" value="Várakozás: Szerverkereső szolgáltatás frissítése..."/>
+	<string id="20894" value="Várakozás: UPnP eszközök keresése és beállítása..."/>
+	<string id="20895" value="Nem választott ki kapcsolatot. Válasszon egy kapcsolattípust vagy írja be a kapcsolata sebességét."/>
+	<string id="20896" value="A PeerProject nem tudta forwardolni a portokat a NAT router vagy a tűzfal felé.\n\nÁllítsa be a hálózatát, hogy a TCP és UDP %i számú portot forwardolja."/>
+	<string id="20897" value="A mappa, amit meg akar osztani egy másik mappában már meg van osztva:\n\n%s"/>
+	<string id="20898" value="Nem választott ki megosztani való mappákat. Biztos, hogy ezt akarja?"/>
+	<string id="20899" value="éves"/>
+	<!--string value="Torrent adatok"-->
+	<!--string value="A tracker nem válaszolt, újrapróbálkozás (%i / %i)"-->
+	<!--string value="A fájl már a könyvtárban van: &quot;%s&quot;. Mégis le akarja tölteni?"-->
 </strings>
 <!-- Localized Dialog Text, "cookie" verifies that the skin matches current dialog -->
 <dialogs>
@@ -4167,8 +4169,8 @@
 		<control/>
 		<control/>
 		<control/>
-		<control caption="% under Download limit"/>
-		<control caption="% under Upload limit"/>
+		<control caption="% of Download limit"/>
+		<control caption="% of Upload limit"/>
 		<control caption="Active Task"/>
 		<control caption="Enable G2 Only"/>
 		<control caption="Set Event Time"/>

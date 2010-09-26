@@ -463,6 +463,7 @@ cscript.exe //nologo Revision.js
     <ClCompile Include="QueryHit.cpp" />
     <ClCompile Include="QueryKeys.cpp" />
     <ClCompile Include="QuerySearch.cpp" />
+    <ClCompile Include="RegExp.cpp" />
     <ClCompile Include="Registry.cpp" />
     <ClCompile Include="RelatedSearch.cpp" />
     <ClCompile Include="Remote.cpp" />
@@ -1053,8 +1054,6 @@ cscript.exe //nologo Revision.js
     <ClCompile Include="PageTorrentFiles.cpp" />
     <ClCompile Include="PageTorrentGeneral.cpp" />
     <ClCompile Include="PageTorrentTrackers.cpp" />
-    <ClCompile Include="..\Services\RegExp\RegExpr2.cpp" />
-    <ClCompile Include="..\Services\RegExp\Syntax2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="PeerProject.idl" />
@@ -1121,7 +1120,7 @@ cscript.exe //nologo Revision.js
     <None Include="Res\ContactICQ.ico" />
     <None Include="Res\ContactMSN.ico" />
     <None Include="Res\ContactYahoo.ico" />
-    <None Include="Res\CopyVista.cur" />
+    <None Include="Res\Copy.cur" />
     <None Include="Res\CopyXP.cur" />
     <None Include="Res\Default.xml" />
     <None Include="Res\Definitions.xml" />
@@ -1189,7 +1188,7 @@ cscript.exe //nologo Revision.js
     <None Include="Res\Mail.ico" />
     <None Include="Res\Media.ico" />
     <None Include="Res\MediaStates.bmp" />
-    <None Include="Res\MoveVista.cur" />
+    <None Include="Res\Move.cur" />
     <None Include="Res\MoveXP.cur" />
     <None Include="Res\MusicBrainz.bmp" />
     <None Include="Res\Navbar.bmp" />
@@ -1386,6 +1385,7 @@ cscript.exe //nologo Revision.js
     <ClInclude Include="QueryHit.h" />
     <ClInclude Include="QueryKeys.h" />
     <ClInclude Include="QuerySearch.h" />
+    <ClInclude Include="RegExp.h" />
     <ClInclude Include="Registry.h" />
     <ClInclude Include="RelatedSearch.h" />
     <ClInclude Include="Remote.h" />
@@ -1655,10 +1655,6 @@ cscript.exe //nologo Revision.js
     <ClInclude Include="..\Services\Augment\auto_array.hpp" />
     <ClInclude Include="..\Services\Augment\auto_ptr.hpp" />
     <ClInclude Include="..\Services\Augment\IUnknownImplementation.hpp" />
-    <ClInclude Include="..\Services\RegExp\RegExpr2.h" />
-    <ClInclude Include="..\Services\RegExp\Reimpl2.h" />
-    <ClInclude Include="..\Services\RegExp\Restack.h" />
-    <ClInclude Include="..\Services\RegExp\Syntax2.h" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuildStep Include="..\Services\BugTrap\BugTrapLib\BugTrapU-x64.lib">

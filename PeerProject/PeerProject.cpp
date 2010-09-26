@@ -55,6 +55,7 @@
 #include "SharedFile.h"
 #include "ShellIcons.h"
 #include "Skin.h"
+#include "SQLite.h"
 #include "ThumbCache.h"
 #include "Transfers.h"
 #include "UPnPFinder.h"
@@ -2222,6 +2223,12 @@ void CPeerProjectApp::OnRename(LPCTSTR pszSource, LPCTSTR pszTarget)
 				pMediaWnd->OnFileDelete( pszSource );
 		}
 	}
+}
+
+CDatabase* CPeerProjectApp::GetDatabase(bool bGeneral) const
+{
+	return new CDatabase( Settings.General.UserPath +
+		( bGeneral ? _T("\\Data\\PeerProject.db3") : _T("\\Data\\Thumbnails.db3") ) );
 }
 
 CString SafeFilename(CString strName, bool bPath)

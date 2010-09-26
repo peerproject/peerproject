@@ -34,8 +34,6 @@
 #include "Transfer.h"
 #include "CtrlWizard.h"
 
-//#include "..\Services\RegExp\RegExpr2.h"	// Obsolete
-
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #undef THIS_FILE
@@ -783,16 +781,6 @@ BOOL CWizardCtrl::PrepareDoc(CLibraryFile* pFile, LPCTSTR pszTemplate)
 		else
 			break;
 	}
-
-	// Obsolete RegExp Alternative
-	//using namespace regex;
-	//const rpattern regExpPattern( _T("\\$meta:.*\\$"), _T("N/A"),
-	//	NOCASE|GLOBAL|MULTILINE|NOBACKREFS, MODE_SAFE );
-	//subst_results results;
-	//std::wstring strTemp( strDoc, strDoc.GetLength() );
-	//
-	//regExpPattern.substitute( strTemp, results );
-	//strDoc.SetString( strTemp.c_str(), static_cast< int >( strTemp.size() ) );
 
 	m_pFileDocs.Add( strDoc );
 	return TRUE;

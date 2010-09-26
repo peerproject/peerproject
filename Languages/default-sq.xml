@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Albanian Skin File -->
 
-<!-- Translation based on default-en.xml r58 -->
+<!-- Translation based on default-en.xml r59 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -373,9 +373,9 @@
 	</toolbar>
 	<!-- SECURITY WINDOW -->
 	<toolbar name="CSecurityWnd">
-		<button id="ID_SECURITY_EDIT" text="Edito Rregullin"/>
-		<separator/>
 		<button id="ID_SECURITY_ADD" text="Shto Rregull"/>
+		<separator/>
+		<button id="ID_SECURITY_EDIT" text="Edito Rregullin"/>
 		<button id="ID_SECURITY_REMOVE" text="Hiqe Rregullin"/>
 		<separator/>
 		<button id="ID_SECURITY_MOVE_UP" text="Lëvize Sipër"/>
@@ -384,6 +384,21 @@
 		<button id="ID_SECURITY_RESET" text="Rivendose Hite"/>
 		<button id="ID_SECURITY_IMPORT" text="Importo Listën"/>
 		<button id="ID_SECURITY_EXPORT" text="Eksporto Listën"/>
+	</toolbar>
+	<!-- SCHEDULER WINDOW -->
+	<toolbar name="CSchedulerWnd">
+		<button id="ID_SCHEDULER_ADD" text="Shto Task"/>
+		<separator/>
+		<button id="ID_SCHEDULER_EDIT" text="Edito Task"/>
+		<button id="ID_SCHEDULER_REMOVE" text="Hiqe Task"/>
+		<separator/>
+		<button id="ID_SCHEDULER_ACTIVATE" text="Activate"/>
+		<button id="ID_SCHEDULER_DEACTIVATE" text="Deactivate"/>
+		<rightAlign/>
+		<button id="ID_SCHEDULER_REMOVE_ALL" text="Rivendose"/>
+		<separator/>
+		<button id="ID_SCHEDULER_IMPORT" text="Importo Listën"/>
+		<button id="ID_SCHEDULER_EXPORT" text="Eksporto Listën"/>
 	</toolbar>
 	<!-- HIT MONITOR WINDOW -->
 	<toolbar name="CHitMonitorWnd">
@@ -1695,7 +1710,7 @@
 		<anchor id="Header" width="32" height="152"/>
 		<newline gap="0"/>
 		<group id="1">
-			<icon res="130" width="32" height="32" target="command:ID_NETWORK_CONNECT"/><gap size="8"/>
+			<icon res="136" width="32" height="32" target="command:ID_NETWORK_CONNECT"/><gap size="8"/>
 			<heading align="middle">LIDHUNI</heading>
 			<newline gap="8" indent="42"/>
 			<text>Mirë se erdhët në PeerProject!</text>
@@ -1705,12 +1720,12 @@
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="2">
-			<icon res="134" width="32" height="32" target="command:ID_TAB_SEARCH"/><gap size="8"/>
+			<icon res="130" width="32" height="32" target="command:ID_TAB_SEARCH"/><gap size="8"/>
 			<heading align="middle">KËRKONI NJË SKEDË</heading>
 			<newline gap="8" indent="42"/>
 			<anchor id="SearchBox" width="256" height="80"/>
 			<newline gap="14" indent="0"/>
-			<icon res="136" width="32" height="32" target="command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
+			<icon res="124" width="32" height="32" target="command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
 			<heading align="middle">NISNI TË SHKARKONI</heading>
 			<newline gap="8" indent="42"/>
 			<link target="command:ID_TOOLS_DOWNLOAD" format="bu">Klikoni që të nisni</link>
@@ -1729,7 +1744,7 @@
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="4">
-			<icon res="252" width="32" height="32" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
+			<icon res="180" width="32" height="32" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 			<heading align="middle">KUJDES: KENI NJË FAJRUOLL</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">PeerProject diktoi se ndodheni pas një routeri NAT ose fajruolli,
@@ -1740,7 +1755,7 @@
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="6">
-			<icon res="252" width="32" height="32"/><gap size="8"/>
+			<icon res="180" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">KUJDES: PORTI TCP BLLOKOHET NGA FAJRUOLLI</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">PeerProject diktoi se ndodheni pas një routeri NAT ose fajruolli,
@@ -1751,7 +1766,7 @@
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="7">
-			<icon res="252" width="32" height="32"/><gap size="8"/>
+			<icon res="180" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">KUJDES: PORTI UDP BLLOKOHET NGA FAJRUOLLI</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">PeerProject diktoi se ndodheni pas një routeri NAT ose fajruolli,
@@ -1764,28 +1779,28 @@
 		<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">POROSITENI PEERPROJECT - n</heading>
 		<newline gap="12" indent="42"/>
-		<icon res="182" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
+		<icon res="196"width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
 		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">Lëvoret</link>
 		<text align="middle">&#160;- Ndryshoni pamjen &amp; ndjesinë e PeerProject-s</text>
 		<newline gap="8"/>
-		<icon res="141" width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
+		<icon res="138"width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
 		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
 		<text align="middle">&#160;- Update blocklist to avoid bad search results</text>
 		<newline gap="8"/>
-		<icon res="317" width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
+		<icon res="197"width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 		<link target="command:ID_TOOLS_WIZARD" align="middle">Uizardi i Shpejtë</link>
 		<text align="middle">&#160;- Editoni kuadrot e PeerProject-s</text>
 		<newline gap="8"/>
-		<icon res="141" width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
+		<icon res="138"width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
 		<link target="command:ID_VIEW_SECURITY" align="middle">Filtrat e Sigurisë</link>
 		<text align="middle">&#160;- Shto/Fshiji filtrat që të përmirësosh rezultatet e kërkimit</text>
 		<newline gap="8"/>
-		<icon res="147" width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
+		<icon res="182"width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
 		<link target="command:ID_HELP_FAQ" align="middle">Ndihmë e Shpejtë</link>
 		<text align="middle">&#160;- Merrni ndihmën kryesore mbi përdorimin e PeerProject-s, or </text>
 		<link target="command:ID_TAB_IRC" align="middle">IRC.</link>
 		<newline gap="8"/>
-		<icon res="175" width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
+		<icon res="201"width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
 		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">Local Forum</link>
 		<text align="middle">&#160;- Shko tek forumi shqiptar tuaj diskutim gjuhën</text>
 		<newline gap="18" indent="0"/>
@@ -2002,32 +2017,32 @@
 		</group>
 		<group id="40">
 			<newline gap="1"/>
-			<icon res="265"/><gap size="5"/>
+			<icon res="203"/><gap size="5"/>
 			<link id="ContactEmail" align="middle"/>
 		</group>
 		<group id="44">
 			<newline gap="1"/>
-			<icon res="1008"/><gap size="5"/>
+			<icon res="206"/><gap size="5"/>
 			<link id="ContactMSN"/>
 		</group>
 		<group id="41">
 			<newline gap="1"/>
-			<icon res="206"/><gap size="5"/>
+			<icon res="208"/><gap size="5"/>
 			<link id="ContactYahoo"/>
 		</group>
 		<group id="42">
 			<newline gap="1"/>
-			<icon res="208"/><gap size="5"/>
+			<icon res="205"/><gap size="5"/>
 			<link id="ContactICQ"/>
 		</group>
 		<group id="43">
 			<newline gap="1"/>
-			<icon res="207"/><gap size="5"/>
+			<icon res="204"/><gap size="5"/>
 			<link id="ContactAOL"/>
 		</group>
 		<group id="45">
 			<newline gap="1"/>
-			<icon res="207"/><gap size="5"/>
+			<icon res="204"/><gap size="5"/>
 			<link id="ContactJabber"/>
 		</group>
 		<group id="5">
@@ -2053,7 +2068,7 @@
 			<newline gap="16" indent="0"/>
 			<text format="b">Komuniteti</text>
 			<newline gap="4" indent="8"/>
-			<icon res="140" target="command:ID_SEARCH_CHAT"/>
+			<icon res="127"target="command:ID_SEARCH_CHAT"/>
 			<gap size="5"/>
 			<link target="command:ID_SEARCH_CHAT" align="middle">Bisedo</link>
 		</group>
@@ -2647,460 +2662,456 @@
 <!-- Localized Strings -->
 <strings>
 	<string id="WINDOW_MAIN" value="PeerProject"/>
+	<string id="WINDOW_HOME" value="Shtëpia PeerProject"/>
 	<string id="WINDOW_SYSTEM" value="Sistemi"/>
 	<string id="WINDOW_NEIGHBOURS" value="Fqinj"/>
 	<string id="WINDOW_PACKET" value="Paketa"/>
 	<string id="WINDOW_HOSTCACHE" value="Depo Hosti"/>
-	<string id="WINDOW_SEARCHMONITOR" value="Monitori i Kërkimit"/>
 	<string id="WINDOW_SEARCH" value="Kërkoni"/>
+	<string id="WINDOW_SEARCHPAD" value="Kërko"/>
+	<string id="WINDOW_SEARCHMONITOR" value="Monitori i Kërkimit"/>
 	<string id="WINDOW_HITMONITOR" value="Monitori i Hiteve"/>
 	<string id="WINDOW_DOWNLOADS" value="Shkarkime"/>
-	<string id="WINDOW_LIBRARY" value="Librari"/>
 	<string id="WINDOW_UPLOADS" value="Ngarkime"/>
+	<string id="WINDOW_LIBRARY" value="Librari"/>
 	<string id="WINDOW_TRAFFIC" value="Grafikë"/>
 	<string id="WINDOW_CHAT" value="Chat"/>
 	<string id="WINDOW_SECURITY" value="Siguri"/>
+	<string id="WINDOW_SCHEDULER" value="Programoj"/>
 	<string id="WINDOW_DISCOVERY" value="Shërbime Zbulimi"/>
 	<string id="WINDOW_BROWSEHOST" value="Shfleto"/>
-	<string id="WINDOW_HOME" value="Shtëpia PeerProject"/>
 	<string id="WINDOW_MEDIA" value="MediaLuajtësi"/>
-	<string id="WINDOW_SEARCHPAD" value="Kërko"/>
 	<string id="WINDOW_HELP" value="Ndihmë në PeerProject"/>
 	<string id="WINDOW_IRC" value="Chat në PeerProject"/>
-	<string id="7000" value="A jeni i sigurt që ky filtër të fshihet?"/>
-	<string id="7001" value="&amp;Skema"/>
-	<string id="7002" value="Vlera Shumëfishe"/>
-	<string id="7003" value="Shumëfishe"/>
-	<string id="7004" value="Filtri i quajtur &quot;%s&quot; ekziston që më parë, a doni të zëvendësohet?"/>
-	<string id="7005" value="Ju lutemi emërtoni filtrin tuaj."/>
-	<string id="7100" value="Kjo tempujkë është jokorrekte."/>
-	<string id="7101" value="Kjo tempujkë nuk të jep mundësi zgjedhjeje."/>
-	<string id="7102" value="A jeni i sigurt se doni të fshini tempujkën &quot;%s&quot;?\nKjo nuk mund të kthehet!"/>
-	<string id="8000" value="Vendosjet e PeerProject-s"/>
-	<string id="8001" value="Mirë se erdhe te PeerProject"/>
-	<string id="8002" value="Vetitë e Skedës"/>
-	<string id="8003" value="Edito Profilin Tim"/>
-	<string id="8004" value="Mirë se erdhe te PeerProject (version) !\n.\nPeerProject është softuer tërësisht falas.\nJu lutemi përdoreni me përgjegjësi dhe respektoni ligjin për pronën intelektuale.\n."/>
-	<string id="8005" value="(mbylle pas transferimit)"/>
-	<string id="8006" value="Nuk jeni i lidhur. Që të nisni, shtypni butonin Lidhu."/>
-	<string id="8007" value="Nuk ka asnjë kërkim aktiv. Klikoni që të kërkoni për një skedë."/>
-	<string id="8008" value="PeerProject mbaroi shkarkimin e versionit të ri (%s). A doni të përmirësoni tani?\n\nNëse zgjidhni Po, PeerProject do të mbyllet përkohësisht deri në instalimin e përmirësimit."/>
-	<string id="8009" value="A jeni i sigurt se doni të fshini lëvoren &quot;%s&quot;? Këtë nuk mund ta ktheni."/>
-	<string id="8010" value="Ky është një version i paralëshuar i PeerProject dhe periudha beta e testimit ka përfunduar. Ju lutemi shkarkoni lëshimin e plotë, zyrtar, në http://PeerProject.sourceforge.net/."/>
-	<string id="8011" value="Ndryshimi i pamjes do i mbyllë gjithë dritaret e hapura. A jeni i sigurt për këtë?"/>
-	<string id="8012" value="Informacioni i Torrentit"/>
-	<string id="8013" value="Nuk diktohet asnjë verion i ri i PeerProject-s."/>
-	<string id="8014" value="Vetitë e Shkarkimit"/>
-	<string id="8060" value="Mënyrë Nyje/Ultrapikë me %lu hoste.  %s në librarinë lokale."/>
-	<string id="8061" value="Mënyrë Ultrapikë me %lu hoste.  %s në librarinë lokale."/>
-	<string id="8062" value="Mënyrë Nyje me %lu hoste.  %s në librarinë lokale."/>
-	<string id="8063" value="I lidhur. %s në librarinë lokale."/>
-	<string id="8064" value="I lidhur te %lu fqinjë.  %s në librarinë lokale."/>
-	<string id="8065" value="Lidhje në rrjet..."/>
-	<string id="8066" value="Nuk jeni i Lidhur në Rrjet."/>
-	<string id="8067" value="%s brenda : %s jashtë (s:%I64i/n:%I64i)"/>
-	<string id="8068" value="%s brenda : %s jashtë (s:%I64i/n:%I64i/c:%I64i)"/>
-	<string id="8069" value="Lidhu"/>
-	<string id="8070" value="Lidhje..."/>
-	<string id="8071" value="I lidhur"/>
-	<string id="8072" value="Shkëputu"/>
-	<string id="8096" value="Kjo zonë tregon më tepër informacion rreth skedës që zgjidhet."/>
-	<string id="8097" value="Ka një burim të vlefshëm. (%s/s)"/>
-	<string id="8098" value="Ka %i burime të vlefshme. (%s/s)"/>
-	<string id="8099" value="Ka një pasqyrë."/>
-	<string id="8100" value="Ka %i pasqyra."/>
-	<string id="8101" value="%s shkruan:"/>
-	<string id="8102" value="%s vlerëson:"/>
-	<string id="8103" value="Klikoni të Parashikoni"/>
-	<string id="8104" value="Parashikim..."/>
-	<string id="8105" value="E Pamundur të shkarkoj përmbajtjen e parashikimit nga &quot;%s&quot;."/>
-	<string id="8128" value="Klikoni që të kërkoni përsëri"/>
-	<string id="8129" value="Në këtë dritare nuk kryhen kërkime."/>
-	<string id="8130" value="PeerProject po kërkon në rrjet..."/>
-	<string id="8131" value="Rrjeti ende nuk kthen përgjigje."/>
-	<string id="8132" value="Disa rezultate u gjetën, por u filtruan."/>
-	<string id="8133" value="PeerProject kërkon me ngulm në rrjet..."/>
-	<string id="8134" value="Ju po nisni një kërkim të ri. A doni t'i pastroni rezultatet e kërkimit më parë?"/>
-	<string id="8135" value="Pa Metadata"/>
-	<string id="8136" value="Kërkim Teksti të Thjeshtë"/>
-	<string id="8137" value="Pa Kolona Skeme"/>
-	<string id="8141" value="Shfaq panelin e kërkimeve"/>
-	<string id="8142" value="Fsheh panelin e kërkimeve"/>
-	<string id="8143" value="Kërkim..."/>
-	<string id="8144" value="Kërko"/>
-	<string id="8145" value="Më Shumë"/>
-	<string id="8146" value="Ndalo"/>
-	<string id="8147" value="Çdolloj Skede"/>
-	<string id="8148" value="Shkruani kërkimin:"/>
-	<string id="8149" value="Për këtë lloj skede:"/>
-	<string id="8150" value="Kërkim:"/>
-	<string id="8151" value="Gjetur:"/>
-	<string id="8152" value="%lu nyje, %lu gjethe"/>
-	<string id="8153" value="Aktualisht nuk kërkohet"/>
-	<string id="8154" value="Nuk gjendet asnjë skedë"/>
-	<string id="8155" value="%lu skedë në %lu hit|%lu skedë në %lu hite|%lu skeda %lu hite"/>
-	<string id="8156" value="Kërko"/>
-	<string id="8157" value="Rezultate"/>
-	<string id="8158" value="Pastro"/>
-	<string id="8159" value="Avancuar"/>
-	<string id="8160" value="Po vendos lidhje me hostin..."/>
-	<string id="8161" value="Dërgova një kërkesë shtytëse, po pres lidhjen..."/>
-	<string id="8162" value="I lidhur, kërkohet shfletimi..."/>
-	<string id="8163" value="Po shkarkoj përgjigjen e shfletimit (%2.f%%)..."/>
-	<string id="8164" value="E Pamundur të lidhem te hosti për shfletim përdoruesi."/>
-	<string id="8165" value="E Pamundur të shkarkoj listën e skedave. Ky host mbase nuk e përkrah shfletimin."/>
-	<string id="8166" value="Kërko në këtë rrjet:"/>
-	<string id="8167" value="Gjithë Rrjetin"/>
-	<string id="8176" value="Kërko te PeerProject"/>
-	<string id="8177" value="Shkruani fjalët kyçe që doni të kërkoni:"/>
-	<string id="8178" value="Çfarë lloj skede është?"/>
-	<string id="8179" value="(Pastro Historinë Kërkimore)"/>
-	<string id="8180" value="Masa Min:"/>
-	<string id="8181" value="Masa Maks:"/>
-	<string id="8208" value="PeerProject po krijon hashe për %Iu skeda:"/>
-<!--	<string id="8221" value="PeerProject po gjen burime për:"/>
-	<string id="8222" value="PeerProject po shkarkon:"/>
-	<string id="8223" value="Kjo shkarkesë po pushon:"/>
-	<string id="8224" value="PeerProject po lëviz shkarkesën:"/>
-	<string id="8225" value="PeerProject po verifikon shkarkesën për gabime:"/>
-	<string id="8226" value="PeerProject përfundoi shkarkimin:"/>
--->	<string id="8227" value="%i ditë %i orë"/>
-	<string id="8228" value="%i orë e %i minuta"/>
-	<string id="8229" value="%i minuta e %i sekonda"/>
-	<string id="8230" value="%i sekonda"/>
-	<string id="8231" value="Asnjë burim"/>
-	<string id="8232" value="Hape"/>
-	<string id="8233" value="Anulo"/>
-	<string id="8235" value="Shpejtësi:"/>
-	<string id="8236" value="Kohë e mbetur:"/>
-	<string id="8237" value="Në shkarkim:"/>
-	<string id="8238" value="Në ngarkim:"/>
-	<string id="8239" value="Përfundon"/>
-	<string id="8240" value="Burime:"/>
-	<string id="8241" value="Pasqyra:"/>
-	<string id="8244" value="Limit shkarko shpejtësi"/>
-	<string id="8245" value="Limit upload shpejtësi"/>
-	<string id="8288" value="Eksploroni Librarinë Tuaj në PeerProject"/>
-	<string id="8289" value="Po eksploroni"/>
-	<string id="8290" value="Eksploroni përmbajtjet e %i dosjeve"/>
-	<string id="8291" value="Dosje Shumëfishe"/>
-	<string id="8292" value="Zgjodhët %i skeda"/>
-	<string id="8293" value="Nuk zgjodhët asnjë skedë"/>
-	<string id="8294" value="Shtesat e Fundit"/>
-	<string id="8295" value="Vlerëso Skedën"/>
-	<string id="8304" value="N/A"/>
-	<string id="8306" value="Pozicioni"/>
-	<string id="8307" value="Lloji"/>
-	<string id="8308" value="Masa"/>
-	<string id="8309" value="Burime të Pjesshme (%.2f%% me vlerë)"/>
-	<string id="8310" value="%i vrima ngarkimi, %i po presin në radhë"/>
-	<string id="8311" value="Kjo skedë ekziston që më parë në librari."/>
-	<string id="8312" value="Kjo skedë ekziston që më parë në listën e shkarkimit."/>
-	<string id="8313" value="Kjo skedë duket si spam."/>
-	<string id="8314" value="Këtë skedë e keni shkarkuar e fshirë më parë."/>
-	<string id="8315" value="Në Listën e Zezë:"/>
-	<string id="8316" value="Hite"/>
-	<string id="8317" value="Ngarkime"/>
-	<string id="8318" value="%lu sot, %lu në total"/>
-	<string id="8319" value="Ngarkime:"/>
-	<string id="8320" value="Statusi:"/>
-	<string id="8321" value="Shpejtësi:"/>
-	<string id="8322" value="URLi:"/>
-	<string id="8323" value="Agjenti Përd.:"/>
-	<string id="8324" value="Joaktiv"/>
-	<string id="8325" value="Aktiv"/>
-	<string id="8326" value="Tjetri në Rresht"/>
-	<string id="8327" value="Skedat:"/>
-	<string id="8328" value="Vëllimi Total:"/>
-	<string id="8329" value="i librarisë tuaj"/>
-	<string id="8330" value="Dosja"/>
-	<string id="8331" value="Ky server është aktualisht i zënë"/>
-	<string id="8332" value="Ky burim ka fajruoll"/>
-	<string id="8333" value="Ky burim mund të jetë i paqëndrueshëm"/>
-	<string id="8334" value="Aktualisht burimet për këtë skedë janë të zëna"/>
-	<string id="8335" value="Burimet për këtë skedë kanë fajruoll"/>
-	<string id="8336" value="Burimet për këtë skedë mund të jenë të paqëndrueshme"/>
-	<string id="8337" value="I pasigurt"/>
-	<string id="8338" value="Pa Hashset"/>
-	<string id="13000" value="Skedat që shpërndahen në Internet"/>
-	<string id="13001" value="A jeni i sigurt se doni të fshini rregullat e zgjedhur të sigurisë?  Kjo nuk mund të çbëhet."/>
-	<string id="16063" value="Përparimi UPnP i portit dështoi pas 10 orvatjesh."/>
-	<string id="16064" value="Po niset bërthama e rrjetit PeerProject..."/>
-	<string id="16065" value="Nuk mund të varem tek %s porti %i për lidhje të hyra. Lidhjet e hyra nuk do të përkrahen."/>
-	<string id="16066" value="Po mbyllet bërthama e rrjetit PeerProject..."/>
-	<string id="16067" value="U shkëputët nga rrjeti."/>
-	<string id="16068" value="Po i pranoj lidhjet e hyra TCP në %s porti %i."/>
-	<string id="16069" value="Lidhjet e dala do të jenë nga %s porti %i."/>
-	<string id="16070" value="Nuk mund të zgjidh %s për lidhje të dala. Lidhjet e dala do të përdorin ndërfaqen tipike."/>
-	<string id="16071" value="Me fajruoll, nuk po dëgjoj lidhjet e hyra."/>
-	<string id="16072" value="Po dëgjoj për diagrama UDP në %s porti %i."/>
-	<string id="16073" value="Po zgjidh hostin &quot;%s&quot;..."/>
-	<string id="16074" value="E Pamundur të zgjidh hostin &quot;%s&quot;."/>
-	<string id="16075" value="Manaxheri i sigurisë mohoi lidhjen nga %s."/>
-	<string id="16076" value="Menaxheri i sigurisë ndau një lidhje tek %s."/>
-	<string id="16077" value="Adresa %s po bllokohet që më parë për rregulla sigurie."/>
-	<string id="16078" value="Shtova një rregull sigurie për bllokimin e %s."/>
-	<string id="16079" value="A jeni i sigurt se doni të shkëputeni?"/>
-	<string id="16080" value="Planifikuesi vepron sipas mënyrës 'Vetëm G2'. Do e fikësh këtë mënyrë që tërë rrjetet aktive të mbeten të lidhura?"/>
-	<string id="16081" value="Po dërgoj hetim për &quot;%s&quot; tek %s."/>
-	<string id="16083" value="Detyrimi i PC-së tuaj drejt mënyrës Nyje mund të ketë pasoja të kundërta në efektshmërinë dhe rrjetin P2P. Është më e sigurt nëse PeerProject vendos a duhet përdorur mënyra Nyje.\n\nMënyra Nyje NUK jep rezultate kërkimi më të mira, ose nuk ka ndonjë avantazh tjetër.\n\nVërtet doni ta bëni këtë, pavarësisht dizavantazheve?"/>
-	<string id="16085" value="Gnutella2 është rrjeti parësor i PeerProject-s. Nëse nuk e lejoni përkrahjen e tij, numri dhe cilësia e rezultateve të kërkimit mund të kufizohet mjaft. A jeni i SIGURT se doni ta bëni këtë?"/>
-	<string id="16087" value="Shtrirja dalëse e bandës tuaj është tepër e vogël për lejimin e këtij rrjeti"/>
-	<string id="16128" value="Pranova një lidhje hyrëse nga %s porti %i."/>
-	<string id="16129" value="Po nis një lidhje fqinje tek %s porti %i..."/>
-	<string id="16130" value="E Pamundur të nis një lidhje fqinje me %s."/>
-	<string id="16131" value="Jashtë kohe gjatë lidhjes tek %s."/>
-	<string id="16132" value="Lidhja tek fqinji %s po mbyllet për shkak të mungesës së trafikut."/>
-	<string id="16133" value="Vendosa një lidhje me fqinjin %s, po takojmë duart..."/>
-	<string id="16134" value="Mbylla lidhjen me fqinjin %s."/>
-	<string id="16135" value="E Pamundur të nis një lidhje fqinje me %s (refuzim)."/>
-	<string id="16136" value="Fqinji %s ndërpreu lidhjen papritur."/>
-	<string id="16137" value="Po refuzoj lidhje dyfishe nga %s."/>
-	<string id="16138" value="I Lidhur që më parë tek %s, nuk do të kryej lidhje të dytë."/>
-	<string id="16139" value="Fqinji %s mbylli lidhjen (%i : %s)."/>
-	<string id="16141" value="Mbylla lidhjen me fqinjin %s sepse nuk është nyje."/>
-	<string id="16144" value="Jashtë kohe gjatë takimit të duarve me %s."/>
-	<string id="16145" value="Lidhja Gnutella me fqinjin %s u krye me sukses (G%i.%i : %s)."/>
-	<string id="16146" value="Takimi i duarve me %s dështoi për shkak të të dhënave invalide në fill."/>
-	<string id="16147" value="Po mbyll lidhjen tepricë nga %s me këshillë hosti (%s porti %i)."/>
-	<string id="16148" value="Lidhja te %s mohohet (%s)."/>
-	<string id="16150" value="Mbyllet lidhja tepricë nga %s."/>
-	<string id="16151" value="Refuzohet lidhja nga %s sepse është një gjethe nyje me mburojë."/>
-	<string id="16152" value="Fqinji nyjë %s nuk na pranon si nyje, po mbyll lidhjen."/>
-	<string id="16153" value="Fqinji në lidhje %s po kthehet pas në gjethe nyje me mburojë."/>
-	<string id="16154" value="Vendosa lidhjen nyje, po mbyll lidhjet e pikës."/>
-	<string id="16155" value="Veprim si nyjë për fqinjin gjethe %s."/>
-	<string id="16156" value="Fqinji %s do të jetë nyjë, mbyllje e lidhjes."/>
-	<string id="16157" value="Fqinji %s nuk është nyjë, mbyllje e lidhjes."/>
-	<string id="16158" value="Lidhja Gnutella2 me fqinjin %s u vendos me sukses (%s)."/>
-	<string id="16159" value="Po mbyll lidhjen me fqinjin jo-Gnutella2 %s."/>
-	<string id="16192" value="Fqinji %s përcolli një paketë me masë të tepërt, lëshim i lidhjes."/>
-	<string id="16193" value="Fqinji %s përcolli një paketë TTL zero, përbuzje."/>
-	<string id="16194" value="Fqinji %s përcolli një paketë me TTL të tepërt, lëshim i paketës (TTL=%i, Hops=%i)."/>
-	<string id="16195" value="Fqinji %s përcolli një paketë ping me gjatësi invalide, përbuzje."/>
-	<string id="16196" value="Fqinji %s përcolli një paketë pong me gjatësi invalide, përbuzje."/>
-	<string id="16197" value="%s -> %s [%i/%i] %s %s"/>
-	<string id="16198" value="Fqinji gjethe %s po përparon hetime, lëshim i lidhjes."/>
-	<string id="16199" value="Fqinji %s përcolli një paketë të panjohur (0x%.2x), përbuzje."/>
-	<string id="16200" value="Fqinji %s përcolli një pong me të dhëna adrese invalide, përbuzje."/>
-	<string id="16201" value="%s:  Fqinji %s përcolli një invalide, përbuzje."/>
-	<string id="16202" value="Fqinji %s përcolli një invalide, përbuzje."/>
-	<string id="16254" value="Default shkarko grup. (Trego të gjitha dosjet)"/>
-	<string id="16255" value="Drag'n'drop dosjet grupit %s"/>
-	<!--MISSING STRINGS-->
-	<string id="16391" value="Ju nuk jeni i lidhur në rrjet."/>
-	<string id="16392" value="Shtype butonin Lidhu që të fillosh."/>
-	<string id="16391" value="Nuk je i lidhur në rrjet."/>
-	<string id="16392" value="Shtype butonin Lidhu që të nisësh."/>
-	<string id="16393" value="The file &quot;%s&quot; failed a hash verification test, and might not be the file you intended to download.  Are you sure you want to open it?"/>
-	<string id="16394" value="Would you like to remove the &quot;potentially unsafe&quot; attribute from this file?"/>
-	<string id="16395" value="Your downloaded files folder &quot;%s&quot; is not yet in your library.\n\nIncluding your downloaded files folder in your library makes it easier to view and organise new downloads, and lets you take advantage of advanced PeerProject features such as download verification and automatic upgrading.  Placing downloaded files in your library does not necessarily require you to share them: you can choose whether or not to share files independently.\n\nWould you like to add your downloaded files folder to your library now?"/>
-	<string id="16396" value="Your downloads folder has been added to your library.  Would you like to share it too?"/>
-	<string id="16397" value="Are you sure you want to delete the %i selected album folder(s) ?\n\nNote that this action does not delete the files within the album folders, only the folders themselves."/>
-	<string id="16398" value="PeerProject could not rename:\n\n%s\nto\n%s"/>
-	<string id="16399" value="PeerProject could not delete the file:\n\n%s"/>
-	<string id="16400" value="Target file exists:\n\n%s\n\nWould you like to overwrite it?"/>
-	<string id="16401" value="Shfaqi Gjithë Llojet"/>
-	<string id="16402" value="PeerProject received a collection file:\n\n&quot;%s&quot;\n\nThis file does not appear to be a valid collection file."/>
-	<string id="16403" value="PeerProject has added the collection file &quot;%s&quot; to your library."/>
-	<string id="16404" value="PeerProject was unable to install the collection file &quot;%s&quot; by copying it to the folder &quot;%s&quot;."/>
-	<string id="16406" value="Would you like to download all files in this collection?\n\nChoose Cancel to stop any further prompts."/>
-	<string id="16407" value="Would you like to prevent this collection from prompting you to download anything else?"/>
-	<string id="16408" value="Kopjo &amp;URI-n"/>
-	<string id="16409" value="Eksporto &amp;URI-t..."/>
-	<string id="16410" value="A subfolder of the selected folder &quot;%s&quot; is already part of your library.\nAdding this folder will cause re-hashing of some files.\n\nDo you want to continue ?"/>
-	<string id="16411" value="Unable to move the file %s. The file may be in use by another application.\n\nDo you wish to try to copy this file instead?"/>
-	<string id="16412" value="Skeda Fantazmë"/>
-	<string id="16413" value="Grup i Ri"/>
-	<!--MISSING STRINGS-->
-	<string id="16772" value="Hosti:"/>
-	<string id="16773" value="Porti:"/>
-	<string id="16774" value="&amp;Lidhu"/>
-	<string id="16775" value="&amp;Shfleto"/>
-	<string id="16776" value="Shto"/>
-	<string id="16777" value="Emri i skedës:"/>
-	<string id="16778" value="URLi:"/>
-	<string id="16779" value="Lloji:"/>
-	<string id="16780" value="I pacaktuar"/>
-	<string id="16781" value="Kërkim..."/>
-	<string id="16782" value="Sukses!"/>
-	<string id="16783" value="Përfundon, klikoni Mbylle"/>
-	<string id="16784" value="&amp;Mbylle"/>
-	<string id="16785" value="(Asnjë vegim)"/>
-	<string id="16800" value="Ju nuk e keni përcaktuar shpejtësinë e lidhjes. Përpara se të vijoni, ju lutemi zgjidheni llojin e lidhjes tuaj me Internetin, ose shkruani shpejtësinë e lidhjes."/>
-	<string id="16802" value="Ju nuk keni përcaktuar asnjë dosje për shpërndarje. A jeni i sigurt?"/>
-	<string id="16803" value="Dosja që po shpërndani shpërndahet që më parë si pjesë e një tjetër dosje të shpërndarë:\n\n%s"/>
-	<string id="16804" value="Në profilin e përdoruesit nuk keni shkruar asnjë emër."/>
-	<string id="16805" value="Në profilin e përdoruesit nuk keni shkruar vendin tuaj.\n\nËshtë mirë që ta shkruani atë që përdoruesit e tjerë ta shohin se nga cili vend jeni.  Vëreni se hyrja e vendit nuk zbulon ndonjë informacion me rrezik.\n\nA jeni i sigurt se doni të vijoni pa shkruar vendin nga jeni?"/>
-	<string id="16806" value="You have indicated that you want to set up port-forwarding on your NAT router or firewall.\n\nPlease configure your network to forward TCP and UDP ports %i to your local PC."/>
-	<string id="16807" value="Please type the bandwidth limit you wish to set in the form &quot;123 kb/s&quot; for kilobits per second, or &quot;123 KB/s&quot; for kilobytes per second."/>
-	<string id="16808" value="You have not selected your age and gender.  Are you sure you want to continue without doing this?"/>
-	<string id="16809" value="D&amp;alje"/>
-	<string id="16810" value="vjeç"/>
-	<string id="16811" value="Automatike"/>
-	<string id="16812" value="Please wait: Finding UPnP devices and setting them up..."/>
-	<string id="16813" value="Please wait: Updating discovery services..."/>
-	<string id="16814" value="Please wait: Updating eDonkey server list..."/>
-	<string id="16815" value="UPnP Device Host Service is not running. This service is required to perform the setup.\nYou need to set the startup type of the service to automatic."/>
-	<string id="16816" value="The eDonkey network uses large queues with long wait times. By limiting the maximum queue position you will accept so strictly, you may have trouble getting downloads to begin.\nAre you sure you want to limit what queue positions you will accept?"/>
-	<string id="16817" value="Windows doesn't support paths longer than 256 characters.\nPlease select a folder with a shorter path."/>
-	<string id="16818" value="The complete and incomplete folders should not be the same"/>
-	<string id="16819" value="The incomplete files folder should not be in the library, as it would reduce performance. Incomplete files may be shared directly from the transfers window."/>
-	<string id="16864" value="Hetohen shërbimet zbuluese të hostit..."/>
-	<string id="16865" value="Hetohet shërbimi zbulues &quot;%s&quot;..."/>
-	<string id="16866" value="GWebCache transaction successful (&quot;%s&quot;)."/>
-	<string id="16867" value="Discovery service &quot;%s&quot; failed, fail count %i."/>
-	<string id="16868" value="Discovery service &quot;%s&quot; has failed %i times, removing."/>
-	<string id="16870" value="Sending GWebCache update to service &quot;%s&quot;..."/>
-	<string id="16871" value="Submitting GWebCache &quot;%s&quot; to a random GWebCache..."/>
-	<string id="16928" value="Initiating a connection to %s to browse user..."/>
-	<string id="16929" value="Unable to initiate a connection to %s to browse user."/>
-	<string id="16930" value="Sent a push request to %s to browse user."/>
-	<string id="16931" value="Unable to send a push request to %s to browse user."/>
-	<string id="16932" value="Sent browse user request to %s..."/>
-	<string id="16933" value="Browse host %s responded with an invalid HTTP response."/>
-	<string id="16934" value="Browse host %s responded with code %s (%s)."/>
-	<string id="16935" value="Browse host %s responded with an unrecognised response, and may not support user/host browsing."/>
-	<string id="16936" value="Receiving content from browse host %s (%s)"/>
-	<string id="16938" value="Error decoding Gnutella packets from browse host %s."/>
-	<string id="16939" value="Finished browsing user %s, %i files found."/>
-	<string id="16940" value="Browse user connection to %s was dropped."/>
-	<string id="16941" value="Closing browse user connection %s due to lack of traffic."/>
-	<string id="16942" value="Closing browse user connection to %s."/>
-	<string id="16943" value="Shfletim %s"/>
-	<string id="16944" value="U gjetën %i skeda të shpërndara në librarinë e %s."/>
-	<string id="16991" value="MediaLuajtësi i PeerProject-s"/>
-	<string id="16992" value="PeerProject could not instantiate its MediaServices plugin.  Please reinstall PeerProject, and confirm that you have the necessary media codecs and output drivers installed."/>
-	<string id="16993" value="Tërë Skedat Mediatike|*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Lista|*.asx;*.wax;*.m3u;*.wvx;*.wmx|Skeda Zanore|*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm|Skeda Filmike|*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Kolona CD Audio|*.cda|Skeda MIDI|*.mid;*.rmi;*.midi|Tërë Skedat|*.*||"/>
-	<string id="16994" value="Nuk mund të ngarkohet kjo skedë mediatike &quot;%s&quot;"/>
-	<string id="16995" value="The file may be damaged, or you may not have the necessary codecs to play it."/>
-	<string id="16996" value="Part of this file could not be played, you may need to download additional codecs."/>
-	<string id="16997" value="There is no file playing.  Double-click a media file in your library to play it."/>
-	<string id="16998" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
-	<string id="16999" value="Lista:"/>
-	<string id="17015" value="Mirë se erdhe te Chat-i i PeerProject-s."/>
-	<string id="17016" value="Të lutem respekto të tjerët kur e përdor këtë shërbim"/>
-	<string id="17017" value="Dërgo:"/>
-	<string id="17018" value="Përdorues"/>
-	<string id="17019" value="Kanale"/>
-	<string id="17020" value="Shto..."/>
-	<string id="17021" value="Fshije"/>
-	<string id="17024" value="Nis një lidhje te %s..."/>
-	<string id="17025" value="E pamundur të krijohet një lidhje te %s."/>
-	<!--MISSING STRINGS-->
-	<string id="17038" value="Lidhja u mbyll."/>
-	<string id="17494" value="Ky torrent përfshin skedën &quot;%s&quot;, të cilën PeerProject nuk e gjen dot në librarinë tuaj.  Nëse mundeni, lëvizeni skedën në të njëjtën dosje me torrentin dhe provoni përsëri."/>
-	<!--MISSING STRINGS-->
-	<string id="17505" value="Lidhja BitTorrent me %s u këput."/>
-	<string id="17506" value="Takimi i dorës BitTorrent me %s u këput."/>
-	<string id="17507" value="BitTorrent coupling with %s u këput."/>
-	<string id="17510" value="Çiftëzimi BitTorrent me %s nuk u pranua, lidhja me këtë klient ekziston që më parë."/>
-	<string id="17511" value="Çiftëzimi BitTorrent me %s nuk u pranua, u arritën lidhjet maksimale."/>
-	<string id="17512" value="Torrent privat"/>
-	<string id="17513" value="Gabim kodimi"/>
-	<string id="17514" value="Ridatim i Shkarkesave Bittorrent..."/>
-	<string id="17515" value="Konvertim i Torrentit:"/>
-	<string id="18496" value="Ju kryet ndryshime te fusha e emrit.  A jeni i sigurt se doni të riemërtoni shkarkesën?"/>
-	<string id="18497" value="Ju shkruat një vlerë SHA1, gjithsesi nuk ka vlerë.  Ju lutemi rishikoni dhe provoni përsëri."/>
-	<string id="18498" value="Ju shkruat një vlerë-rrënjë tiger-tree, gjithsesi nuk ka vlerë.  Ju lutemi rishikoni dhe provoni përsëri."/>
-	<string id="18499" value="Ju shkruat një vlerë hashi për eDonkey, gjithsesi nuk ka vlerë.  Ju lutemi rishikoni dhe provoni përsëri."/>
-	<string id="18500" value="Ju dhatë një vlerë hashi SHA1 që ndryshon nga ajo që aktualisht shoqërohet me këtë shkarkesë.  A jeni i sigurt se tani doni të ndryshoni hashin SHA1?"/>
-	<string id="18501" value="Ju dhatë një vlerë-rrënjë hashi tiger-tree që ndryshon nga ajo që aktualisht shoqërohet me këtë shkarkesë.  A jeni i sigurt se tani doni të ndryshoni hash-rrënjën tiger-tree?"/>
-	<string id="18502" value="Ju dhatë një vlerë hashi eDonkey që ndryshon nga ajo që aktualisht shoqërohet me këtë shkarkesë.  A jeni i sigurt se tani doni të ndryshoni hashin eDonkey?"/>
-	<string id="18503" value="A jeni i sigurt se doni të harroni statusin aktual të verifikimit?  Gjithë të dhënat e shkarkuara do të trajtohen si të pabesueshme, dhe hash-pemët e depozituara do të shpërbëhen."/>
-	<string id="18504" value="A jeni i sigurt se doni të harroni gjithë burimet për shkarkesën e zgjedhur?"/>
-	<string id="18505" value="Ju lutemi shkruani një kufi të vlefshëm për të fshirë.  Fusha &quot;nga&quot; është bajti i parë për t'u fshirë, fusha &quot;fundit&quot; është bajti i fundit për t'u fshirë."/>
-	<string id="18506" value="Nuk mund të fshij nga shkarkesa kufirin e zgjedhur sepse asnjë pjesë e kufirit nuk është e pranishme."/>
-	<string id="18507" value="Fshiva %I64i bajte nga shkarkesa."/>
-	<string id="18508" value="Po këpus burimin e shkarkesës %s për &quot;%s&quot; sepse pozicioni në radhë %i është mjaft i lartë."/>
-	<string id="18509" value="Nuk mund të supozoni se kjo shkarkesë ka përfunduar dhe ta riverifikoni atë, pasi nuk keni akoma ndonjë të dhënë të pjesshme verifikuese, si vëllimin tiger-tree, hashsetin eDonkey ose atë BitTorrent.  Pa informacion verifikues shkarkesa nuk mund të riverifikohet."/>
-	<string id="18510" value="A jeni i sigurt se doni të supozoni se kjo shkarkesë ka përfunduar dhe do e riverifikoni atë?  E tërë skeda do të merret parasysh dhe PeerProject do të pranojë pjesë të cilat e kalojnë verifikimin dhe do të rishkarkojë pjesët që nuk e kalojnë atë."/>
-	<string id="18511" value="Ju kryet ndryshime në masën e skedës. A jeni i sigurt se doni të ndryshoni masën për këtë shkarkesë?"/>
-	<string id="19000" value="Hyrja në largësi është çaktivizuar."/>
-	<string id="19001" value="http://%s:%i/remote - një emër përdoruesi dhe fjalëkalimi."/>
-	<string id="19002" value="Nuk mund të pranoj lidhjet, URLi pa vlerë."/>
-	<string id="20000" value="Asnjë URN me vlerë"/>
-	<string id="20001" value="Mbylle"/>
-	<string id="20002" value="nga"/> <!-- "1 of 10" -->
-	<string id="20003" value="Ndryshimi i drejtimit të ndërfaqes kërkon rinisje. \nPeerProject-n duhet ta nisni vetë. A doni të dilni?"/>
-	<string id="20005" value="Jo"/>
-	<string id="20006" value="Po"/>
-	<string id="20007" value="Auto"/>
-	<string id="20008" value="Tipik"/>
-	<string id="20009" value="Me porosi"/>
-	<string id="20010" value="&amp;Pas"/>
-	<string id="20011" value="&amp;Tjetër"/>
-	<string id="20012" value="Përfundo"/>
-	<string id="20013" value="Gjithçka"/>
-	<string id="20100" value="Lidhje"/>
-	<string id="20101" value="Kërkesë"/>
-	<string id="20102" value="Përgjigje"/>
-	<string id="20103" value="Shkarkim"/>
-	<string id="20104" value="TigerTree"/>
-	<string id="20105" value="Hashset"/>
-	<string id="20106" value="Metadata"/>
-	<string id="20107" value="I Zënë"/>
-	<string id="20108" value="Në radhë"/>
-	<string id="20109" value="Në pritje"/>
-	<string id="20110" value="E panjohur"/>
-	<string id="20111" value="Përfundon"/>
-	<string id="20112" value="Mbjellje"/>
-	<string id="20113" value="Lëviz"/>
-	<string id="20114" value="Pushon"/>
-	<string id="20115" value="Gabim Skede"/>
-	<string id="20116" value="Nuk Lëviz"/>
-	<string id="20117" value="Verifikim"/>
-	<string id="20118" value="Aktiv"/>
-	<string id="20119" value="Varje"/>
-	<string id="20120" value="Kërkim"/>
-	<string id="20121" value="Krijim"/>
-	<string id="20122" value="Torrenti"/>
-	<string id="20123" value="Gjurmuesi Poshtë"/>
-	<string id="20124" value="I verifikuar"/>
-	<string id="20125" value="I paverifikuar"/>
-	<string id="20126" value="I painteresuar"/>
-	<string id="20127" value="I Painteresuar"/>
-	<string id="20130" value="burim"/>
-	<string id="20131" value="burime"/>
-	<string id="20132" value="burime"/>
-	<string id="20134" value="burime"/>
-	<string id="20135" value="(Asnjë Burim)"/>
-	<string id="20136" value="I Mbytur"/>
-	<string id="20137" value="Tjetër"/>
-	<string id="20138" value="Q"/>
-	<string id="20200" value="Every Day"/>
-	<string id="20201" value="e Hënë"/>
-	<string id="20202" value="e Martë"/>
-	<string id="20203" value="e Mërkurë"/>
-	<string id="20204" value="e Enjte"/>
-	<string id="20205" value="e Premte"/>
-	<string id="20206" value="e Shtunë"/>
-	<string id="20207" value="e Diel"/>
-	<string id="20210" value="(Pa Vlerësim)"/>
-	<string id="20211" value="Fals / i Korruptuar"/>
-	<string id="20212" value="I dobët"/>
-	<string id="20213" value="Mesatar"/>
-	<string id="20214" value="I mirë"/>
-	<string id="20215" value="Shumë i mirë"/>
-	<string id="20216" value="I shkëlqyer"/>
-	<string id="20217" value="Zgjidheni dosjen temp të eDonkey/eMule:"/>
-	<!-- Column headers in Library Album View -->
-	<string id="20230" value="#"/> <!-- Track number -->
-	<string id="20231" value="Titulli"/>
-	<string id="20232" value="Kohëzgjatje"/>
-	<string id="20233" value="Bitrate"/>
-	<string id="20234" value="Albumi"/>
-	<string id="20235" value="Artisti"/>
-	<string id="20236" value="Vlerësimi"/>
-	<string id="20237" value="OK"/>
-	<string id="20238" value="Anulo"/>
-	<string id="20239" value="Ndërprite"/>
-	<string id="20240" value="Riprovo"/>
-	<string id="20241" value="Përbuze"/>
-	<string id="20242" value="Provo Përsëri"/>
-	<string id="20243" value="Vijo"/>
-	<string id="20244" value="&amp;Mbaj mend zgjedhjen time herën tjetër"/>
-	<string id="20245" value="Re Dosja"/>
+	<string id="20001" value="Po"/>
+	<string id="20002" value="Jo"/>
+	<string id="20003" value="OK"/>
+	<string id="20004" value="Anulo"/>
+	<string id="20005" value="&amp;Pas"/>
+	<string id="20006" value="&amp;Tjetër"/>
+	<string id="20007" value="Vijo"/>
+	<string id="20008" value="Mbylle"/>
+	<string id="20009" value="nga"/> <!-- "1 of 10" -->
+	<string id="20010" value="Gjithçka"/>
+	<string id="20011" value="Auto"/>
+	<string id="20012" value="Me porosi"/>
+	<string id="20013" value="Tipik"/>
+	<string id="20014" value="Përfundo"/>
+	<string id="20015" value="Përbuze"/>
+	<string id="20016" value="Riprovo"/>
+	<string id="20017" value="Ndërprite"/>
+	<string id="20018" value="Provo Përsëri"/>
+	<string id="20050" value="Every Day"/>
+	<string id="20051" value="e Hënë"/>
+	<string id="20052" value="e Martë"/>
+	<string id="20053" value="e Mërkurë"/>
+	<string id="20054" value="e Enjte"/>
+	<string id="20055" value="e Premte"/>
+	<string id="20056" value="e Shtunë"/>
+	<string id="20057" value="e Diel"/>
+	<string id="20060" value="(Pa Vlerësim)"/>
+	<string id="20061" value="Fals / i Korruptuar"/>
+	<string id="20062" value="I dobët"/>
+	<string id="20063" value="Mesatar"/>
+	<string id="20064" value="I mirë"/>
+	<string id="20065" value="Shumë i mirë"/>
+	<string id="20066" value="I shkëlqyer"/>
+	<string id="20080" value="Ky është një version i paralëshuar i PeerProject dhe periudha beta e testimit ka përfunduar. Ju lutemi shkarkoni lëshimin e plotë, zyrtar, në http://PeerProject.sourceforge.net/."/>
+	<string id="20081" value="&amp;Mbylle"/>
+	<string id="20082" value="Përfundon, klikoni Mbylle"/>
+	<string id="20083" value="Kërkim..."/>
+	<string id="20084" value="Sukses!"/>
+	<string id="20100" value="Closing browse user connection to %s."/>
+	<string id="20101" value="Browse host %s responded with an unrecognised response, and may not support user/host browsing."/>
+	<string id="20102" value="E Pamundur të lidhem te hosti për shfletim përdoruesi."/>
+	<string id="20103" value="Unable to initiate a connection to %s to browse user."/>
+	<string id="20104" value="Unable to send a push request to %s to browse user."/>
+	<string id="20105" value="Po vendos lidhje me hostin..."/>
+	<string id="20106" value="Initiating a connection to %s to browse user..."/>
+	<string id="20107" value="Po shkarkoj përgjigjen e shfletimit (%2.f%%)..."/>
+	<string id="20108" value="Receiving content from browse host %s (%s)"/>
+	<string id="20109" value="Browse user connection to %s was dropped."/>
+	<string id="20110" value="Finished browsing user %s, %i files found."/>
+	<string id="20111" value="U gjetën %i skeda të shpërndara në librarinë e %s."/>
+	<string id="20112" value="Browse host %s responded with code %s (%s)."/>
+	<string id="20113" value="Browse host %s responded with an invalid HTTP response."/>
+	<string id="20114" value="E Pamundur të shkarkoj listën e skedave. Ky host mbase nuk e përkrah shfletimin."/>
+	<string id="20115" value="Error decoding Gnutella packets from browse host %s."/>
+	<string id="20116" value="Dërgova një kërkesë shtytëse, po pres lidhjen..."/>
+	<string id="20117" value="Sent a push request to %s to browse user."/>
+	<string id="20118" value="I lidhur, kërkohet shfletimi..."/>
+	<string id="20119" value="Sent browse user request to %s..."/>
+	<string id="20120" value="Closing browse user connection %s due to lack of traffic."/>
+	<string id="20121" value="Shfletim %s"/>
+	<string id="20126" value="BitTorrent coupling with %s u këput."/>
+	<string id="20127" value="Lidhja BitTorrent me %s u këput."/>
+	<string id="20128" value="Takimi i dorës BitTorrent me %s u këput."/>
+	<string id="20129" value="Çiftëzimi BitTorrent me %s nuk u pranua, lidhja me këtë klient ekziston që më parë."/>
+	<string id="20134" value="Çiftëzimi BitTorrent me %s nuk u pranua, u arritën lidhjet maksimale."/>
+	<string id="20140" value="Gabim kodimi"/>
+	<string id="20141" value="Torrent privat"/>
+	<string id="20147" value="Ky torrent përfshin skedën &quot;%s&quot;, të cilën PeerProject nuk e gjen dot në librarinë tuaj. Nëse mundeni, lëvizeni skedën në të njëjtën dosje me torrentin dhe provoni përsëri."/>
+	<string id="20156" value="Konvertim i Torrentit:"/>
+	<string id="20157" value="Ridatim i Shkarkesave Bittorrent..."/>
+	<string id="20161" value="E pamundur të krijohet një lidhje te %s."/>
+	<string id="20163" value="Lidhja u mbyll."/>
+	<string id="20167" value="Nis një lidhje te %s..."/>
+	<string id="20194" value="Kjo tempujkë nuk të jep mundësi zgjedhjeje."/>
+	<string id="20195" value="Kjo tempujkë është jokorrekte."/>
+	<string id="20199" value="(mbylle pas transferimit)"/>
+	<string id="20222" value="Ju shkruat një vlerë hashi për eDonkey, gjithsesi nuk ka vlerë. Ju lutemi rishikoni dhe provoni përsëri."/>
+	<string id="20224" value="Ju lutemi shkruani një kufi të vlefshëm për të fshirë.  Fusha &quot;nga&quot; është bajti i parë për t'u fshirë, fusha &quot;fundit&quot; është bajti i fundit për t'u fshirë."/>
+	<string id="20225" value="Ju shkruat një vlerë SHA1, gjithsesi nuk ka vlerë.  Ju lutemi rishikoni dhe provoni përsëri."/>
+	<string id="20226" value="Ju shkruat një vlerë-rrënjë tiger-tree, gjithsesi nuk ka vlerë.  Ju lutemi rishikoni dhe provoni përsëri."/>
+	<string id="20227" value="Ju kryet ndryshime në masën e skedës. A jeni i sigurt se doni të ndryshoni masën për këtë shkarkesë?"/>
+	<string id="20228" value="Nuk mund të fshij nga shkarkesa kufirin e zgjedhur sepse asnjë pjesë e kufirit nuk është e pranishme."/>
+	<string id="20231" value="Ju dhatë një vlerë hashi SHA1 që ndryshon nga ajo që aktualisht shoqërohet me këtë shkarkesë.  A jeni i sigurt se tani doni të ndryshoni hashin SHA1?"/>
+	<string id="20232" value="Ju dhatë një vlerë hashi eDonkey që ndryshon nga ajo që aktualisht shoqërohet me këtë shkarkesë.  A jeni i sigurt se tani doni të ndryshoni hashin eDonkey?"/>
+	<string id="20233" value="Ju dhatë një vlerë-rrënjë hashi tiger-tree që ndryshon nga ajo që aktualisht shoqërohet me këtë shkarkesë.  A jeni i sigurt se tani doni të ndryshoni hash-rrënjën tiger-tree?"/>
+	<string id="20235" value="Nuk mund të supozoni se kjo shkarkesë ka përfunduar dhe ta riverifikoni atë, pasi nuk keni akoma ndonjë të dhënë të pjesshme verifikuese, si vëllimin tiger-tree, hashsetin eDonkey ose atë BitTorrent.  Pa informacion verifikues shkarkesa nuk mund të riverifikohet."/>
+	<string id="20236" value="A jeni i sigurt se doni të supozoni se kjo shkarkesë ka përfunduar dhe do e riverifikoni atë?  E tërë skeda do të merret parasysh dhe PeerProject do të pranojë pjesë të cilat e kalojnë verifikimin dhe do të rishkarkojë pjesët që nuk e kalojnë atë."/>
+	<string id="20237" value="A jeni i sigurt se doni të harroni gjithë burimet për shkarkesën e zgjedhur?"/>
+	<string id="20238" value="A jeni i sigurt se doni të harroni statusin aktual të verifikimit?  Gjithë të dhënat e shkarkuara do të trajtohen si të pabesueshme, dhe hash-pemët e depozituara do të shpërbëhen."/>
+	<string id="20240" value="Fshiva %I64i bajte nga shkarkesa."/>
+	<string id="20241" value="Ju kryet ndryshime te fusha e emrit.  A jeni i sigurt se doni të riemërtoni shkarkesën?"/>
+	<string id="20250" value="Drag'n'drop dosjet grupit %s"/>
+	<string id="20251" value="Default shkarko grup. (Trego të gjitha dosjet)"/>
+	<string id="20252" value="Grup i Ri"/>
+	<string id="20260" value="Vetitë e Shkarkimit"/>
+	<string id="20267" value="Po këpus burimin e shkarkesës %s për &quot;%s&quot; sepse pozicioni në radhë %i është mjaft i lartë."/>
+	<string id="20300" value="Pranova një lidhje hyrëse nga %s porti %i."/>
+	<string id="20301" value="I Lidhur që më parë tek %s, nuk do të kryej lidhje të dytë."/>
+	<string id="20302" value="Po refuzoj lidhje dyfishe nga %s."/>
+	<string id="20303" value="Po nis një lidhje fqinje tek %s porti %i..."/>
+	<string id="20304" value="Fqinji %s mbylli lidhjen (%i : %s)."/>
+	<string id="20305" value="Mbylla lidhjen me fqinjin %s."/>
+	<string id="20306" value="Vendosa një lidhje me fqinjin %s, po takojmë duart..."/>
+	<string id="20307" value="E Pamundur të nis një lidhje fqinje me %s."/>
+	<string id="20308" value="Fqinji %s ndërpreu lidhjen papritur."/>
+	<string id="20309" value="Mbylla lidhjen me fqinjin %s sepse nuk është nyje."/>
+	<string id="20310" value="E Pamundur të nis një lidhje fqinje me %s (refuzim)."/>
+	<string id="20311" value="Jashtë kohe gjatë lidhjes tek %s."/>
+	<string id="20312" value="Lidhja tek fqinji %s po mbyllet për shkak të mungesës së trafikut."/>
+	<string id="20313" value="Hetohen shërbimet zbuluese të hostit..."/>
+	<string id="20314" value="Discovery service &quot;%s&quot; failed, fail count %i."/>
+	<string id="20315" value="Discovery service &quot;%s&quot; has failed %i times, removing."/>
+	<string id="20316" value="Hetohet shërbimi zbulues &quot;%s&quot;..."/>
+	<string id="20317" value="Submitting GWebCache &quot;%s&quot; to a random GWebCache..."/>
+	<string id="20318" value="Sending GWebCache update to service &quot;%s&quot;..."/>
+	<string id="20319" value="GWebCache transaction successful (&quot;%s&quot;.."/>
+	<string id="20354" value="Vetitë e Skedës"/>
+	<string id="20355" value="A jeni i sigurt që ky filtër të fshihet?"/>
+	<string id="20356" value="Filtri i quajtur &quot;%s&quot; ekziston që më parë, a doni të zëvendësohet?"/>
+	<string id="20358" value="Ju lutemi emërtoni filtrin tuaj."/>
+	<string id="20385" value="Fqinji në lidhje %s po kthehet pas në gjethe nyje me mburojë."/>
+	<string id="20386" value="Po mbyll lidhjen tepricë nga %s me këshillë hosti (%s porti %i)."/>
+	<string id="20387" value="Fqinji nyjë %s nuk na pranon si nyje, po mbyll lidhjen."/>
+	<string id="20388" value="Takimi i duarve me %s dështoi për shkak të të dhënave invalide në fill."/>
+	<string id="20389" value="Veprim si nyjë për fqinjin gjethe %s."/>
+	<string id="20390" value="Vendosa lidhjen nyje, po mbyll lidhjet e pikës."/>
+	<string id="20391" value="Refuzohet lidhja nga %s sepse është një gjethe nyje me mburojë."/>
+	<string id="20392" value="Fqinji %s nuk është nyjë, mbyllje e lidhjes."/>
+	<string id="20393" value="Po mbyll lidhjen me fqinjin jo-Gnutella2 %s."/>
+	<string id="20394" value="Fqinji %s do të jetë nyjë, mbyllje e lidhjes."/>
+	<string id="20395" value="Lidhja Gnutella me fqinjin %s u krye me sukses (G%i.%i : %s)."/>
+	<string id="20396" value="Lidhja Gnutella2 me fqinjin %s u vendos me sukses (%s)."/>
+	<string id="20397" value="Lidhja te %s mohohet (%s)."/>
+	<string id="20398" value="Mbyllet lidhja tepricë nga %s."/>
+	<string id="20399" value="Jashtë kohe gjatë takimit të duarve me %s."/>
+	<string id="20400" value="PeerProject po krijon hashe për %Iu skeda:"/>
+	<string id="20401" value="&amp;Mbaj mend zgjedhjen time herën tjetër"/>
+	<string id="20402" value="Shto..."/>
+	<string id="20403" value="Kanale"/>
+	<string id="20404" value="Dërgo:"/>
+	<string id="20405" value="Të lutem respekto të tjerët kur e përdor këtë shërbim"/>
+	<string id="20406" value="Mirë se erdhe te Chat-i i PeerProject-s."/>
+	<string id="20407" value="Fshije"/>
+	<string id="20408" value="Përdorues"/>
+	<string id="20410" value="Eksploroni Librarinë Tuaj në PeerProject"/>
+	<string id="20411" value="Po eksploroni"/>
+	<string id="20412" value="Eksploroni përmbajtjet e %i dosjeve"/>
+	<string id="20413" value="Zgjodhët %i skeda"/>
+	<string id="20414" value="Dosje Shumëfishe"/>
+	<string id="20415" value="Nuk zgjodhët asnjë skedë"/>
+	<string id="20416" value="Vlerëso Skedën"/>
+	<string id="20417" value="Shtesat e Fundit"/>
+	<string id="20418" value="Albumi"/>
+	<string id="20419" value="Artisti"/>
+	<string id="20420" value="Bitrate"/>
+	<string id="20421" value="Kohëzgjatje"/>
+	<string id="20422" value="Vlerësimi"/>
+	<string id="20423" value="Titulli"/>
+	<string id="20424" value="#"/> <!-- Track number -->
+	<string id="20425" value="PeerProject was unable to install the collection file &quot;%s&quot; by copying it to the folder &quot;%s&quot;."/>
+	<string id="20426" value="Would you like to download all files in this collection?\n\nChoose Cancel to stop any further prompts."/>
+	<string id="20427" value="PeerProject has added the collection file &quot;%s&quot; to your library."/>
+	<string id="20428" value="PeerProject received a collection file:\n\n&quot;%s&quot;.\n\nThis file does not appear to be a valid collection file."/>
+	<string id="20429" value="Would you like to prevent this collection from prompting you to download anything else?"/>
+	<string id="20432" value="PeerProject could not delete the file:\n\n%s"/>
+	<string id="20433" value="Your downloaded files folder &quot;%s&quot; is not yet in your library.\n\nIncluding your downloaded files folder in your library makes it easier to view and organise new downloads, and lets you take advantage of advanced PeerProject features such as download verification and automatic upgrading.  Placing downloaded files in your library does not necessarily require you to share them: you can choose whether or not to share files independently.\n\nWould you like to add your downloaded files folder to your library now?"/>
+	<string id="20434" value="Your downloads folder has been added to your library.  Would you like to share it too?"/>
+	<string id="20436" value="Are you sure you want to delete the %i selected album folders ?\n\nNote that this action does not delete the files within the album folders, only the folders themselves."/>
+	<string id="20437" value="Skeda Fantazmë"/>
+	<string id="20440" value="Unable to move the file %s. The file may be in use by another application.\n\nDo you wish to try to copy this file instead?"/>
+	<string id="20441" value="PeerProject could not rename:\n\n%s\nto\n%s"/>
+	<string id="20442" value="Target file exists:\n\n%s\n\nWould you like to overwrite it?"/>
+	<string id="20443" value="Shfaqi Gjithë Llojet"/>
+	<string id="20444" value="Kopjo &URI-n"/>
+	<string id="20445" value="Eksporto &URI-t..."/>
+	<string id="20446" value="The file &quot;%s&quot; failed a hash verification test, and might not be the file you intended to download.  Are you sure you want to open it?"/>
+	<string id="20447" value="Would you like to remove the &quot;potentially unsafe&quot; attribute from this file?"/>
+	<string id="20450" value="A subfolder of the selected folder &quot;%s&quot; is already part of your library.\nAdding this folder will cause re-hashing of some files.\n\nDo you want to continue ?"/>
+	<string id="20451" value="There is no file playing.  Double-click a media file in your library to play it."/>
+	<string id="20452" value="Tërë Skedat Mediatike|*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Lista|*.asx;*.wax;*.m3u;*.wvx;*.wmx|Skeda Zanore|*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm|Skeda Filmike|*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Kolona CD Audio|*.cda|Skeda MIDI|*.mid;*.rmi;*.midi|Tërë Skedat|*.*||"/>
+	<string id="20453" value="Nuk mund të ngarkohet kjo skedë mediatike &quot;%s&quot;"/>
+	<string id="20454" value="The file may be damaged, or you may not have the necessary codecs to play it."/>
+	<string id="20455" value="Part of this file could not be played, you may need to download additional codecs."/>
+	<string id="20456" value="Lista:"/>
+	<string id="20457" value="PeerProject could not instantiate its MediaServices plugin.  Please reinstall PeerProject, and confirm that you have the necessary media codecs and output drivers installed."/>
+	<string id="20458" value="MediaLuajtësi i PeerProject-s"/>
+	<string id="20460" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
+	<string id="20461" value="(Asnjë vegim)"/>
+	<!--string id="20462" value="PeerProject përfundoi shkarkimin:"-->
+	<!--string id="20463" value="PeerProject po shkarkon:"-->
+	<!--string id="20464" value="PeerProject po lëviz shkarkesën:"-->
+	<!--string id="20465" value="Kjo shkarkesë po pushon:"-->
+	<!--string id="20466" value="PeerProject po gjen burime për:"-->
+	<!--string id="20467" value="PeerProject po verifikon shkarkesën për gabime:"-->
+	<string id="20470" value="Anulo"/>
+	<string id="20471" value="Hape"/>
+	<string id="20472" value="Përfundon"/>
+	<string id="20473" value="Kohë e mbetur:"/>
+	<string id="20474" value="Pasqyra:"/>
+	<string id="20475" value="Burime:"/>
+	<string id="20476" value="Asnjë burim"/>
+	<string id="20477" value="%i ditë %i orë"/>
+	<string id="20478" value="%i orë e %i minuta"/>
+	<string id="20479" value="%i minuta e %i sekonda"/>
+	<string id="20480" value="%i sekonda"/>
+	<string id="20481" value="Shpejtësi:"/>
+	<string id="20482" value="Në shkarkim:"/>
+	<string id="20483" value="Në ngarkim:"/>
+	<string id="20484" value="Limit shkarko shpejtësi"/>
+	<string id="20485" value="Limit upload shpejtësi"/>
+	<string id="20490" value="Shumëfishe"/>
+	<string id="20491" value="Vlera Shumëfishe"/>
+	<string id="20494" value="Në profilin e përdoruesit nuk keni shkruar vendin tuaj.\n\nËshtë mirë që ta shkruani atë që përdoruesit e tjerë ta shohin se nga cili vend jeni. Vëreni se hyrja e vendit nuk zbulon ndonjë informacion me rrezik.\n\nA jeni i sigurt se doni të vijoni pa shkruar vendin nga jeni?"/>
+	<string id="20495" value="Në profilin e përdoruesit nuk keni shkruar asnjë emër."/>
+	<string id="20496" value="You have not selected your age and gender.  Are you sure you want to continue without doing this?"/>
+	<string id="20499" value="Re Dosja"/>
+	<string id="20500" value="Shtype butonin Lidhu që të fillosh."/>
+	<string id="20500" value="Shtype butonin Lidhu që të nisësh."/>
+	<string id="20501" value="Ju nuk jeni i lidhur në rrjet."/>
+	<string id="20501" value="Nuk je i lidhur në rrjet."/>
+	<string id="20540" value="Lidhu"/>
+	<string id="20541" value="Lidhje..."/>
+	<string id="20542" value="I lidhur"/>
+	<string id="20543" value="Shkëputu"/>
+	<string id="20544" value="Po mbyllet bërthama e rrjetit PeerProject..."/>
+	<string id="20545" value="U shkëputët nga rrjeti."/>
+	<string id="20546" value="A jeni i sigurt se doni të shkëputeni?"/>
+	<string id="20547" value="Gnutella2 është rrjeti parësor i PeerProject-s. Nëse nuk e lejoni përkrahjen e tij, numri dhe cilësia e rezultateve të kërkimit mund të kufizohet mjaft. A jeni i SIGURT se doni ta bëni këtë?"/>
+	<string id="20548" value="Nuk mund të varem tek %s porti %i për lidhje të hyra. Lidhjet e hyra nuk do të përkrahen."/>
+	<string id="20549" value="Nuk mund të zgjidh %s për lidhje të dala. Lidhjet e dala do të përdorin ndërfaqen tipike."/>
+	<string id="20550" value="Shtrirja dalëse e bandës tuaj është tepër e vogël për lejimin e këtij rrjeti"/>
+	<string id="20551" value="Me fajruoll, nuk po dëgjoj lidhjet e hyra."/>
+	<string id="20552" value="Detyrimi i PC-së tuaj drejt mënyrës Nyje mund të ketë pasoja të kundërta në efektshmërinë dhe rrjetin P2P. Është më e sigurt nëse PeerProject vendos a duhet përdorur mënyra Nyje.\n\nMënyra Nyje NUK jep rezultate kërkimi më të mira, ose nuk ka ndonjë avantazh tjetër.\n\nVërtet doni ta bëni këtë, pavarësisht dizavantazheve?"/>
+	<string id="20553" value="Po i pranoj lidhjet e hyra TCP në %s porti %i."/>
+	<string id="20554" value="Po dëgjoj për diagrama UDP në %s porti %i."/>
+	<string id="20555" value="Lidhjet e dala do të jenë nga %s porti %i."/>
+	<string id="20556" value="E Pamundur të zgjidh hostin &quot;%s&quot;."/>
+	<string id="20557" value="Po zgjidh hostin &quot;%s&quot;..."/>
+	<string id="20558" value="Po dërgoj hetim për &quot;%s&quot; tek %s."/>
+	<string id="20560" value="Adresa %s po bllokohet që më parë për rregulla sigurie."/>
+	<string id="20561" value="Shtova një rregull sigurie për bllokimin e %s."/>
+	<string id="20562" value="Manaxheri i sigurisë mohoi lidhjen nga %s."/>
+	<string id="20563" value="Menaxheri i sigurisë ndau një lidhje tek %s."/>
+	<string id="20564" value="Po niset bërthama e rrjetit PeerProject..."/>
+	<string id="20565" value="Planifikuesi vepron sipas mënyrës 'Vetëm G2'. Do e fikësh këtë mënyrë që tërë rrjetet aktive të mbeten të lidhura?"/>
+	<string id="20566" value="Përparimi UPnP i portit dështoi pas 10 orvatjesh."/>
+	<string id="20570" value="Fqinji %s përcolli një invalide, përbuzje."/>
+	<string id="20571" value="%s:  Fqinji %s përcolli një invalide, përbuzje."/>
+	<string id="20572" value="Fqinji %s përcolli një paketë me TTL të tepërt, lëshim i paketës (TTL=%i, Hops=%i)."/>
+	<string id="20573" value="Fqinji %s përcolli një paketë TTL zero, përbuzje."/>
+	<string id="20579" value="%s -> %s [%i/%i] %s %s"/>
+	<string id="20580" value="Fqinji gjethe %s po përparon hetime, lëshim i lidhjes."/>
+	<string id="20581" value="Fqinji %s përcolli një paketë ping me gjatësi invalide, përbuzje."/>
+	<string id="20582" value="Fqinji %s përcolli një paketë pong me gjatësi invalide, përbuzje."/>
+	<string id="20584" value="Fqinji %s përcolli një paketë me masë të tepërt, lëshim i lidhjes."/>
+	<string id="20585" value="Fqinji %s përcolli një paketë të panjohur (0x%.2x), përbuzje."/>
+	<string id="20586" value="Fqinji %s përcolli një pong me të dhëna adrese invalide, përbuzje."/>
+	<string id="20590" value="Hyrja në largësi është çaktivizuar."/>
+	<string id="20591" value="http://%s:%i/remote - një emër përdoruesi dhe fjalëkalimi."/>
+	<string id="20592" value="Nuk mund të pranoj lidhjet, URLi pa vlerë."/>
+	<string id="20595" value="&amp;Skema"/>
+	<string id="20620" value="PeerProject kërkon me ngulm në rrjet..."/>
+	<string id="20621" value="Klikoni që të kërkoni përsëri"/>
+	<string id="20622" value="Gjithë Rrjetin"/>
+	<string id="20623" value="Ju po nisni një kërkim të ri. A doni t'i pastroni rezultatet e kërkimit më parë?"/>
+	<string id="20624" value="Kjo zonë tregon më tepër informacion rreth skedës që zgjidhet."/>
+	<string id="20625" value="%s shkruan:"/>
+	<string id="20626" value="%s vlerëson:"/>
+	<string id="20627" value="Klikoni të Parashikoni"/>
+	<string id="20628" value="Parashikim..."/>
+	<string id="20629" value="E Pamundur të shkarkoj përmbajtjen e parashikimit nga &quot;%s&quot;."/>
+	<string id="20630" value="Ka %i pasqyra."/>
+	<string id="20631" value="Ka një pasqyrë."/>
+	<string id="20632" value="Ka %i burime të vlefshme. (%s/s)"/>
+	<string id="20633" value="Ka një burim të vlefshëm. (%s/s)"/>
+	<string id="20634" value="Rrjeti ende nuk kthen përgjigje."/>
+	<string id="20635" value="Disa rezultate u gjetën, por u filtruan."/>
+	<string id="20636" value="Në këtë dritare nuk kryhen kërkime."/>
+	<string id="20637" value="Pa Metadata"/>
+	<string id="20638" value="Pa Kolona Skeme"/>
+	<string id="20640" value="(Pastro Historinë Kërkimore)"/>
+	<string id="20641" value="Kërko te PeerProject"/>
+	<string id="20642" value="Çfarë lloj skede është?"/>
+	<string id="20643" value="Shkruani fjalët kyçe që doni të kërkoni:"/>
+	<string id="20644" value="Avancuar"/>
+	<string id="20645" value="Çdolloj Skede"/>
+	<string id="20646" value="Pastro"/>
+	<string id="20648" value="Fsheh panelin e kërkimeve"/>
+	<string id="20650" value="Kërko"/>
+	<string id="20651" value="Shkruani kërkimin:"/>
+	<string id="20652" value="Për këtë lloj skede:"/>
+	<string id="20653" value="Kërko në këtë rrjet:"/>
+	<string id="20654" value="Masa Min:"/>
+	<string id="20655" value="Masa Maks:"/>
+	<string id="20656" value="Më Shumë"/>
+	<string id="20657" value="Shfaq panelin e kërkimeve"/>
+	<string id="20658" value="Kërko"/>
+	<string id="20659" value="Ndalo"/>
+	<string id="20660" value="Nuk gjendet asnjë skedë"/>
+	<string id="20661" value="%lu nyje, %lu gjethe"/>
+	<string id="20662" value="Aktualisht nuk kërkohet"/>
+	<string id="20663" value="Rezultate"/>
+	<string id="20664" value="%lu skedë në %lu hit|%lu skedë në %lu hite|%lu skeda %lu hite"/>
+	<string id="20665" value="Gjetur:"/>
+	<string id="20666" value="Kërkim:"/>
+	<string id="20668" value="Kërkim..."/>
+	<string id="20669" value="Kërkim Teksti të Thjeshtë"/>
+	<string id="20670" value="PeerProject po kërkon në rrjet..."/>
+	<string id="20671" value="A jeni i sigurt se doni të fshini rregullat e zgjedhur të sigurisë?  Kjo nuk mund të çbëhet."/>
+	<string id="20672" value="Zgjidheni dosjen temp të eDonkey/eMule:"/>
+	<string id="20673" value="Automatike"/>
+	<string id="20674" value="The complete and incomplete folders should not be the same"/>
+	<string id="20675" value="Windows doesn't support paths longer than 256 characters.\nPlease select a folder with a shorter path."/>
+	<string id="20676" value="The incomplete files folder should not be in the library, as it would reduce performance. Incomplete files may be shared directly from the transfers window."/>
+	<string id="20677" value="Please type the bandwidth limit you wish to set in the form &quot;123 kb/s&quot; for kilobits per second, or &quot;123 KB/s&quot; for kilobytes per second."/>
+	<string id="20678" value="The eDonkey network uses large queues with long wait times. By limiting the maximum queue position you will accept so strictly, you may have trouble getting downloads to begin.\nAre you sure you want to limit what queue positions you will accept?"/>
+	<string id="20680" value="Vendosjet e PeerProject-s"/>
+	<string id="20684" value="A jeni i sigurt se doni të fshini lëvoren &quot;%s&quot;. Këtë nuk mund ta ktheni."/>
+	<string id="20700" value="Aktiv"/>
+	<string id="20701" value="%s brenda : %s jashtë (s:%I64i/n:%I64i)"/>
+	<string id="20702" value="I lidhur te %lu fqinjë.  %s në librarinë lokale."/>
+	<string id="20703" value="Mënyrë Nyje me %lu hoste.  %s në librarinë lokale."/>
+	<string id="20704" value="Mënyrë Nyje/Ultrapikë me %lu hoste.  %s në librarinë lokale."/>
+	<string id="20705" value="I lidhur. %s në librarinë lokale."/>
+	<string id="20706" value="Mënyrë Ultrapikë me %lu hoste.  %s në librarinë lokale."/>
+	<string id="20707" value="Lidhje në rrjet..."/>
+	<string id="20708" value="Nuk jeni i Lidhur në Rrjet."/>
+	<string id="20710" value="(Asnjë Burim)"/>
+	<string id="20711" value="Nuk Lëviz"/>
+	<string id="20712" value="I Mbytur"/>
+	<string id="20713" value="Në radhë"/>
+	<string id="20714" value="Gabim Skede"/>
+	<string id="20715" value="Hashset"/>
+	<string id="20716" value="Metadata"/>
+	<string id="20717" value="Përgjigje"/>
+	<string id="20718" value="Lëviz"/>
+	<string id="20719" value="Krijim"/>
+	<string id="20720" value="Përfundon"/>
+	<string id="20721" value="Lidhje"/>
+	<string id="20722" value="Shkarkim"/>
+	<string id="20723" value="I Zënë"/>
+	<string id="20724" value="Tjetër"/>
+	<string id="20725" value="Q"/>
+	<string id="20726" value="Në pritje"/>
+	<string id="20727" value="Pushon"/>
+	<string id="20728" value="Varje"/>
+	<string id="20729" value="Kërkesë"/>
+	<string id="20730" value="Kërkim"/>
+	<string id="20731" value="Mbjellje"/>
+	<string id="20732" value="burim"/>
+	<string id="20733" value="burime"/>
+	<string id="20734" value="burime"/>
+	<string id="20735" value="burime"/>
+	<string id="20740" value="TigerTree"/>
+	<string id="20741" value="Torrenti"/>
+	<string id="20742" value="Gjurmuesi Poshtë"/>
+	<string id="20743" value="I Painteresuar"/>
+	<string id="20744" value="E panjohur"/>
+	<string id="20745" value="I painteresuar"/>
+	<string id="20746" value="I paverifikuar"/>
+	<string id="20747" value="I verifikuar"/>
+	<string id="20748" value="Verifikim"/>
+	<string id="20750" value="Mirë se erdhe te PeerProject (version) !\n.\nPeerProject është softuer tërësisht falas.\nJu lutemi përdoreni me përgjegjësi dhe respektoni ligjin për pronën intelektuale.\n."/>
+	<string id="20751" value="Nuk ka asnjë kërkim aktiv. Klikoni që të kërkoni për një skedë."/>
+	<string id="20752" value="Nuk jeni i lidhur. Që të nisni, shtypni butonin Lidhu."/>
+	<string id="20755" value="A jeni i sigurt se doni të fshini tempujkën &quot;%s&quot;.\nKjo nuk mund të kthehet!"/>
+	<string id="20760" value="Aktiv"/>
+	<string id="20761" value="Joaktiv"/>
+	<string id="20762" value="Kjo skedë duket si spam."/>
+	<string id="20763" value="Në Listën e Zezë:"/>
+	<string id="20764" value="Këtë skedë e keni shkarkuar e fshirë më parë."/>
+	<string id="20765" value="Kjo skedë ekziston që më parë në listën e shkarkimit."/>
+	<string id="20766" value="Kjo skedë ekziston që më parë në librari."/>
+	<string id="20767" value="Aktualisht burimet për këtë skedë janë të zëna"/>
+	<string id="20768" value="Burimet për këtë skedë kanë fajruoll"/>
+	<string id="20769" value="Burimet për këtë skedë mund të jenë të paqëndrueshme"/>
+	<string id="20770" value="Dosja"/>
+	<string id="20771" value="Hite"/>
+	<string id="20772" value="Pozicioni"/>
+	<string id="20773" value="i librarisë tuaj"/>
+	<string id="20774" value="N/A"/>
+	<string id="20775" value="Tjetri në Rresht"/>
+	<string id="20776" value="Pa Hashset"/>
+	<string id="20777" value="Burime të Pjesshme (%.2f%% me vlerë)"/>
+	<string id="20778" value="%i vrima ngarkimi, %i po presin në radhë"/>
+	<string id="20780" value="Masa"/>
+	<string id="20781" value="Ky server është aktualisht i zënë"/>
+	<string id="20782" value="Ky burim ka fajruoll"/>
+	<string id="20783" value="Ky burim mund të jetë i paqëndrueshëm"/>
+	<string id="20784" value="Shpejtësi:"/>
+	<string id="20785" value="Statusi:"/>
+	<string id="20786" value="%lu sot, %lu në total"/>
+	<string id="20787" value="Skedat:"/>
+	<string id="20788" value="Vëllimi Total:"/>
+	<string id="20789" value="Ngarkime:"/>
+	<string id="20790" value="Lloji"/>
+	<string id="20791" value="I pasigurt"/>
+	<string id="20792" value="Ngarkime"/>
+	<string id="20793" value="URLi:"/>
+	<string id="20794" value="Agjenti Përd.:"/>
+	<string id="20795" value="%s brenda : %s jashtë (s:%I64i/n:%I64i/c:%I64i)"/>
+	<string id="20796" value="Skedat që shpërndahen në Internet"/>
+	<string id="20798" value="PeerProject mbaroi shkarkimin e versionit të ri (%s). A doni të përmirësoni tani?\n\nNëse zgjidhni Po, PeerProject do të mbyllet përkohësisht deri në instalimin e përmirësimit."/>
+	<string id="20799" value="Nuk diktohet asnjë verion i ri i PeerProject-s."/>
+	<string id="20862" value="Shto"/>
+	<string id="20864" value="&amp;Shfleto"/>
+	<string id="20865" value="&amp;Lidhu"/>
+	<string id="20866" value="Emri i skedës:"/>
+	<string id="20867" value="Hosti:"/>
+	<string id="20868" value="Porti:"/>
+	<string id="20872" value="Lloji:"/>
+	<string id="20874" value="I pacaktuar"/>
+	<string id="20875" value="URLi:"/>
+	<string id="20880" value="Edito Profilin Tim"/>
+	<string id="20881" value="Ndryshimi i pamjes do i mbyllë gjithë dritaret e hapura. A jeni i sigurt për këtë?"/>
+	<string id="20882" value="UPnP Device Host Service is not running. This service is required to perform the setup.\nYou need to set the startup type of the service to automatic."/>
+	<string id="20884" value="Asnjë URN me vlerë"/>
+	<string id="20885" value="Ndryshimi i drejtimit të ndërfaqes kërkon rinisje. \nPeerProject-n duhet ta nisni vetë. A doni të dilni?"/>
+	<string id="20890" value="Mirë se erdhe te PeerProject"/>
+	<string id="20891" value="Dalje"/>
+	<string id="20892" value="Palun oodake: Updating eDonkey server list..."/>
+	<string id="20893" value="Palun oodake: Updating discovery services..."/>
+	<string id="20894" value="Palun oodake: Finding UPnP devices and setting them up..."/>
+	<string id="20895" value="Ju nuk e keni përcaktuar shpejtësinë e lidhjes. Përpara se të vijoni, ju lutemi zgjidheni llojin e lidhjes tuaj me Internetin, ose shkruani shpejtësinë e lidhjes."/>
+	<string id="20896" value="You have indicated that you want to set up port-forwarding on your NAT router or firewall.\n\nPlease configure your network to forward TCP and UDP ports %i to your local PC."/>
+	<string id="20897" value="Dosja që po shpërndani shpërndahet që më parë si pjesë e një tjetër dosje të shpërndarë:\n\n%s"/>
+	<string id="20898" value="Ju nuk keni përcaktuar asnjë dosje për shpërndarje. A jeni i sigurt?"/>
+	<string id="20899" value="vjeç"/>
+	<!--string value="Informacioni i Torrentit"-->
 </strings>
 <!-- Localized Dialog Text, "cookie" verifies that the skin matches current dialog -->
 <dialogs>
@@ -3945,7 +3956,6 @@
 		<control caption="OK"/>
 		<control caption="Anulo"/>
 	</dialog>
-	<dialog nam
 	<dialog name="CScheduleTaskDlg" cookie="BuBuBuCoEdmsEdmsStStBuBuBuBuBuSySyBuBuBuBuBuBuBuBuBuEd" caption="Detyrë Kalendari">
 		<control caption="OK"/>
 		<control caption="Anulo"/>
@@ -3955,8 +3965,8 @@
 		<control/>
 		<control/>
 		<control/>
-		<control caption="% under Download limit"/>
-		<control caption="% under Upload limit"/>
+		<control caption="% of Download limit"/>
+		<control caption="% of Upload limit"/>
 		<control caption="Active Task"/>
 		<control caption="Enable G2 Only"/>
 		<control caption="Set Event Time"/>
@@ -3974,7 +3984,8 @@
 		<control caption="Të gjithë"/>
 		<control caption="Komente"/>
 		<control/>
-	</dialog>e="CSchemaColumnsDlg" cookie="CoSyBuBuSt" caption="Zgjidhni Kolonat nga Skema">
+	</dialog>
+	<dialog name="CSchemaColumnsDlg" cookie="CoSyBuBuSt" caption="Zgjidhni Kolonat nga Skema">
 		<control/>
 		<control/>
 		<control caption="OK"/>

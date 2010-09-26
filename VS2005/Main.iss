@@ -19,7 +19,7 @@
 #endif
 
 ; Project definitions
-#define peerproject      "..\" + root + "\PeerProject.exe"
+#define peerproject   "..\" + root + "\PeerProject.exe"
 #define internal_name GetStringFileInfo(peerproject, INTERNAL_NAME);
 #if ConfigurationName == "Debug"
   #define name internal_name + " Debug Build"

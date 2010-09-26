@@ -119,6 +119,7 @@ IDB_SORT_DESC			BITMAP		"Res\\SortDesc.bmp"
 IDB_COLORDOT			BITMAP		"Res\\ColorDot.bmp"
 IDB_BANNER				BITMAP		"Res\\Banner.bmp"
 IDB_BANNER_MARK 		BITMAP		"Res\\BannerMark.bmp"
+IDB_BOX_MARK			BITMAP		"Res\\BoxMark.bmp"
 IDB_TASKPANEL_FOOTER    BITMAP		"Res\\TaskPanelFooter.bmp"
 IDB_TASKBOX_CAPTION     BITMAP		"Res\\TaskBoxCaption.bmp"
 IDB_NAVBAR_IMAGE		BITMAP		"Res\\Navbar.bmp"
@@ -128,7 +129,6 @@ IDB_NAVBAR_ALPHA_RTL    BITMAP		"Res\\NavbarAlphaRTL.bmp"
 IDB_PANEL_MARK  		BITMAP		"Res\\PanelMark.bmp"
 IDB_MUSICBRAINZ_LOGO    BITMAP		"Res\\MusicBrainz.bmp"
 IDB_FONT_SYMBOLS		BITMAP		"Res\\FontSymbols.bmp"
-IDB_BOX_MARK			BITMAP		"Res\\BoxMark.bmp"
 IDB_REMOTE_SKIN 		BITMAP		"Res\\RemoteWnd.bmp"
 
 /////////////////////////////////////////////////////////////////////////////
@@ -150,47 +150,46 @@ IDR_DOWNLOADSFRAME		ICON		"Res\\Downloads.ico"
 IDR_UPLOADSFRAME		ICON		"Res\\Uploads.ico"
 IDR_LIBRARYFRAME		ICON		"Res\\Library.ico"
 IDR_BROWSEHOSTFRAME		ICON		"Res\\Browse.ico"
-IDI_BROWSE				ICON		"Res\\Browse.ico"
 IDR_HOMEFRAME			ICON		"Res\\Home.ico"
 IDR_TRAFFICFRAME		ICON		"Res\\Traffic.ico"
 IDR_CHATFRAME			ICON		"Res\\Chat.ico"
-IDI_PROPERTIES			ICON		"Res\\Properties.ico"
+IDR_MEDIAFRAME			ICON		"Res\\Media.ico"
+IDR_IRCFRAME			ICON		"Res\\IRC.ico"
+IDR_USERSFRAME			ICON		"Res\\Users.ico"
+IDR_CHANSFRAME			ICON		"Res\\Channel.ico"
 IDR_SECURITYFRAME		ICON		"Res\\Security.ico"
 IDR_SCHEDULERFRAME		ICON		"Res\\Scheduler.ico"
+IDR_SEARCHPADFRAME		ICON		"Res\\Search.ico"
 IDR_DISCOVERYFRAME		ICON		"Res\\Discovery.ico"
 IDI_DISCOVERY_GRAY		ICON		"Res\\DiscoveryGray.ico"
 IDI_DISCOVERY_BLUE		ICON		"Res\\DiscoveryBlue.ico"
 IDI_DOWNLOAD_MONITOR	ICON		"Res\\DownloadMonitor.ico"
-IDR_SEARCHPADFRAME		ICON		"Res\\Search.ico"
-IDR_MEDIAFRAME			ICON		"Res\\Media.ico"
+IDI_PROPERTIES			ICON		"Res\\Properties.ico"
+IDI_BROWSE				ICON		"Res\\Browse.ico"
 IDI_WEB_URL				ICON		"Res\\WebURL.ico"
+IDI_WORLD				ICON		"Res\\World.ico"
 IDI_SKIN				ICON		"Res\\Skin.ico"
 IDI_POINTER_ARROW_IN	ICON		"Res\\PointerArrowIn.ico"
 IDI_POINTER_ARROW_OUT	ICON		"Res\\PointerArrowOut.ico"
 IDI_UPDOWN_ARROW		ICON		"Res\\UpDownArrow.ico"
-IDI_COMPUTER			ICON		"Res\\Computer.ico"
-IDI_WORLD				ICON		"Res\\World.ico"
 IDI_FLAG_ENGLISH		ICON		"Res\\FlagEnglish.ico"
+IDI_COMPUTER			ICON		"Res\\Computer.ico"
 IDI_CHECKMARK			ICON		"Res\\Checkmark.ico"
 IDI_EXECUTABLE			ICON		"Res\\Executable.ico"
 IDI_FILE				ICON		"Res\\File.ico"
+IDI_HELP				ICON		"Res\\Help.ico"
 IDI_MAIL				ICON		"Res\\Mail.ico"
 IDI_CONTACT_YAHOO		ICON		"Res\\ContactYahoo.ico"
 IDI_CONTACT_AOL			ICON		"Res\\ContactAOL.ico"
 IDI_CONTACT_ICQ			ICON		"Res\\ContactICQ.ico"
 IDI_CONTACT_MSN			ICON		"Res\\ContactMSN.ico"
-IDR_HELPFRAME			ICON		"Res\\Help.ico"
 IDI_SEARCH_FOLDER		ICON		"Res\\SearchFolder.ico"
 IDI_COLLECTION			ICON		"Res\\Collection.ico"
 IDI_COLLECTION_MASK		ICON		"Res\\CollectionMask.ico"
 IDI_FIREWALLED			ICON		"Res\\Firewalled.ico"
-IDR_BITTORRENT_ICON		ICON		"Res\\BitTorrent.ico"
 IDI_MULTIFILE			ICON		"Res\\PeerProject.ico"
 IDI_COLORS				ICON		"Res\\Colors.ico"
 IDI_HASH				ICON		"Res\\Hash.ico"
-IDR_IRCFRAME			ICON		"Res\\IRC.ico"
-IDR_USERSFRAME			ICON		"Res\\Users.ico"
-IDR_CHANSFRAME			ICON		"Res\\Channel.ico"
 IDI_OPENTICK			ICON		"Res\\TickClosed.ico"
 IDI_CLOSETICK			ICON		"Res\\TickOpened.ico"
 IDI_OPENTICK_HOVER		ICON		"Res\\TickClosedHover.ico"
@@ -353,21 +352,21 @@ STYLE DS_SETFONT | WS_CHILD | WS_DISABLED | WS_CAPTION
 CAPTION "Connection"
 FONT 8, "Tahoma", 0, 0, 0x1
 BEGIN
-	GROUPBOX		"&Inbound Address:",IDC_STATIC,6,5,270,59,WS_GROUP
+	GROUPBOX		"&Inbound Address:",IDC_STATIC,6,5,270,58,WS_GROUP
 	LTEXT			"Address:",IDC_STATIC,15,22,35,12,SS_CENTERIMAGE
-	COMBOBOX		IDC_INBOUND_HOST,55,22,99,70,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
-	LTEXT			"Speed:",IDC_STATIC,165,22,35,12,SS_CENTERIMAGE
+	COMBOBOX		IDC_INBOUND_HOST,55,22,96,70,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+	CTEXT			"Speed:",IDC_STATIC,158,22,44,12,SS_CENTERIMAGE
 	COMBOBOX		IDC_INBOUND_SPEED,205,22,60,80,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
 	LTEXT			"Port:",IDC_STATIC,15,42,35,12,SS_CENTERIMAGE
 	EDITTEXT		IDC_INBOUND_PORT,55,42,35,12,ES_AUTOHSCROLL | ES_NUMBER
 	CONTROL			"Random",IDC_INBOUND_RANDOM,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,100,42,50,12
 	CONTROL			"Force binding to this IP",IDC_INBOUND_BIND,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,160,42,105,12
-	GROUPBOX		"&Outbound Address:",IDC_STATIC,6,67,270,44,WS_GROUP
-	LTEXT			"Address:",IDC_STATIC,14,87,30,12,SS_CENTERIMAGE
-	COMBOBOX		IDC_OUTBOUND_HOST,56,87,99,70,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
-	LTEXT			"Speed:",IDC_STATIC,166,87,35,12,SS_CENTERIMAGE
-	COMBOBOX		IDC_OUTBOUND_SPEED,206,87,60,80,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
-	GROUPBOX		"O&ptions:",IDC_STATIC,6,114,270,62,WS_GROUP
+	GROUPBOX		"&Outbound Address:",IDC_STATIC,6,66,270,42,WS_GROUP
+	LTEXT			"Address:",IDC_STATIC,14,84,30,12,SS_CENTERIMAGE
+	COMBOBOX		IDC_OUTBOUND_HOST,56,84,96,70,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+	CTEXT			"Speed:",IDC_STATIC,158,84,44,12,SS_CENTERIMAGE
+	COMBOBOX		IDC_OUTBOUND_SPEED,206,84,60,80,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
+	GROUPBOX		"O&ptions:",IDC_STATIC,6,112,270,64,WS_GROUP
 	RTEXT			"Can accept incoming connections",IDC_STATIC,14,125,147,12
 	COMBOBOX		IDC_CAN_ACCEPT,166,123,47,52,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
 	CONTROL			"Ignore private/local IP addresses ",IDC_IGNORE_LOCAL,"Button",BS_AUTOCHECKBOX | BS_RIGHT | WS_TABSTOP,14,140,161,12,WS_EX_RIGHT
@@ -934,8 +933,8 @@ BEGIN
 	CONTROL 		"",IDC_SCHEDULER_LIMITED_SPIN_DOWN,"msctls_updown32",UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_AUTOBUDDY | UDS_ARROWKEYS | UDS_NOTHOUSANDS,46,42,11,12
 	EDITTEXT		IDC_SCHEDULER_LIMITED_UP,14,59,36,12,ES_AUTOHSCROLL | ES_NUMBER
 	CONTROL 		"",IDC_SCHEDULER_LIMITED_SPIN_UP,"msctls_updown32",UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_AUTOBUDDY | UDS_ARROWKEYS | UDS_NOTHOUSANDS,46,59,11,12
-	LTEXT			"% under Download limit",IDC_STATIC_LIMITED_DOWN,56,45,116,8
-	LTEXT			"% under Upload limit",IDC_STATIC_LIMITED_UP,56,61,116,8
+	LTEXT			"% of Download limit",IDC_STATIC_LIMITED_DOWN,56,45,116,8
+	LTEXT			"% of Upload limit",IDC_STATIC_LIMITED_UP,56,61,116,8
 	CONTROL 		"&Active Task",IDC_ACTIVE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,175,25,80,10
 	CONTROL 		"Enable &G2 Only",IDC_SCHEDULER_LIMITED_NETWORKS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,175,61,80,10
 	GROUPBOX		"Set Event Time",IDC_STATIC,5,86,252,92
@@ -1394,7 +1393,7 @@ BEGIN
 	GROUPBOX		"Select an audio visualization from the list:",IDC_STATIC,5,5,280,140,WS_GROUP
 	CONTROL			"List1",IDC_PLUGINS,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_SHOWSELALWAYS | LVS_SORTASCENDING | LVS_SHAREIMAGELISTS | LVS_ALIGNLEFT | LVS_NOCOLUMNHEADER | WS_BORDER | WS_TABSTOP,15,20,260,95
 	COMBOBOX		IDC_VIS_SIZE,15,120,100,105,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
-	PUSHBUTTON		"&Setup...",IDC_SETUP,220,120,55,15
+	PUSHBUTTON		"&Setup...",IDC_VIS_SETUP,220,120,55,15
 	DEFPUSHBUTTON	"OK",IDOK,189,150,45,15,WS_GROUP
 	PUSHBUTTON		"Cancel",IDCANCEL,239,150,45,15
 END
@@ -2809,7 +2808,7 @@ END
 IDD_SETTINGS_GENERAL DLGINIT
 BEGIN
 	IDC_RATES_IN_BYTES, 0x403, 14, 0
-0x7541, 0x6f74, 0x6220, 0x7469, 0x2f73, 0x6573, 0x0063, 
+0x7541, 0x6f74, 0x6220, 0x7469, 0x2f73, 0x6573, 0x0063,
 	IDC_RATES_IN_BYTES, 0x403, 15, 0
 0x7541, 0x6f74, 0x6220, 0x7479, 0x7365, 0x732f, 0x6365, "\000"
 	IDC_RATES_IN_BYTES, 0x403, 4, 0
@@ -3111,1489 +3110,32 @@ END
 STRINGTABLE
 BEGIN
 	IDR_MAINFRAME				"PeerProject"
+	IDR_HOMEFRAME				"PeerProject Home"
 	IDR_SYSTEMFRAME				"System"
 	IDR_NEIGHBOURSFRAME			"Neighbors"
-	IDR_PACKETFRAME				"Packet Dump"
-	IDR_HOSTCACHEFRAME			"Host Cache"
-	IDR_SEARCHMONITORFRAME		"Search Monitor"
-	IDR_SEARCHFRAME				"Search"
-	IDR_HITMONITORFRAME			"Hit Monitor"
 	IDR_DOWNLOADSFRAME			"Downloads"
-	IDR_LIBRARYFRAME			"Library"
 	IDR_UPLOADSFRAME			"Uploads"
+	IDR_LIBRARYFRAME			"Library"
+	IDR_MEDIAFRAME				"Media Player"
+	IDR_SEARCHFRAME				"Search"
+	IDR_SEARCHPADFRAME			"Search"
+	IDR_SEARCHMONITORFRAME		"Search Monitor"
+	IDR_HITMONITORFRAME			"Hit Monitor"
 	IDR_TRAFFICFRAME			"Graph"
-	IDR_CHATFRAME				"Chat"
 	IDR_SECURITYFRAME			"Security"
 	IDR_SCHEDULERFRAME			"Scheduler"
 	IDR_DISCOVERYFRAME			"Discovery Services"
 	IDR_BROWSEHOSTFRAME			"Browse"
-END
-
-STRINGTABLE
-BEGIN
-	IDR_HOMEFRAME				"PeerProject Home"
-	IDR_MEDIAFRAME				"Media Player"
-	IDR_SEARCHPADFRAME			"Search"
-	IDR_HELPFRAME				"PeerProject Help"
+	IDR_CHATFRAME				"Chat"
 	IDR_IRCFRAME				"PeerProject Chat"
-	IDS_SKIN_ERROR				"Skin load error: %s.  Element: %s"
-	IDS_SKIN_LOAD				"Loading skin: %s"
-	IDS_GENERAL_OK				"OK"
-	IDS_GENERAL_CANCEL			"Cancel"
-	IDS_GENERAL_ABORT			"Abort"
-	IDS_GENERAL_RETRY			"Retry"
-	IDS_GENERAL_IGNORE			"Ignore"
-	IDS_GENERAL_TRYAGAIN		"Try Again"
-	IDS_GENERAL_CONTINUE		"Continue"
-	IDS_INFO_REMEMBER			"&Remember my selection next time"
-	IDS_NEW_FOLDER				"New Folder"
+	IDR_PACKETFRAME				"Packet Dump"
+	IDR_HOSTCACHEFRAME			"Host Cache"
 END
 
-STRINGTABLE
-BEGIN
-	IDS_PRIORITY_HIGH			"High"
-	IDS_PRIORITY_NORMAL			"Normal"
-	IDS_PRIORITY_LOW			"Low"
-	IDS_PRIORITY_OFF			"Skip"
-END
-
-STRINGTABLE
-BEGIN
-	IDS_FOLDER_TIP				"Files shared over the Internet"
-	IDS_SECURITY_REMOVE_CONFIRM	"Are you sure you want to delete the selected security rules?  This cannot be undone."
-END
-
-STRINGTABLE
-BEGIN
-	IDS_SCHEMAS					"&Schemas"
-	IDS_MULTIPLE				"Multiple"
-	IDS_MULTIPLE_VALUES			"Multiple Values"
-	IDS_FILTER_REPLACE			"There already is a filter called ""%s"", do you want to replace it?"
-	IDS_FILTER_NO_NAME			"Please give your filter a name."
-	IDS_FILTER_DELETE_CONFIRM	"Are you sure you wish to delete this filter ?"
-	IDS_SCHEMA_LOAD_ERROR		"Failed to load Library metadata schemas.  Please reinstall application.\n\nContinue loading?"
-END
-
-STRINGTABLE
-BEGIN
-	IDS_COLLECTION_WIZARD_NOTVALID "This template is invalid."
-	IDS_COLLECTION_WIZARD_NOCUSTOM "This template does not have any customizations."
-	IDS_TEMPLATE_DELETE			"Are you sure you want to delete the ""%s"" template?\nThis cannot be undone."
-END
-
-STRINGTABLE
-BEGIN
-	IDS_SETTINGS				"PeerProject Settings"
-	IDS_WIZARD					"Welcome to PeerProject"
-	IDS_FILE_PROPERTIES			"File Properties"
-	IDS_USER_PROFILE			"Edit My Profile"
-	IDS_SYSTEM_MESSAGE			"!Welcome to PeerProject (version) !\n.\nPeerProject is completely free software.\nPlease use it responsibly and respect local laws.\n."
-	IDS_CLOSING_AFTER			"(closing after transfers)"
-	IDS_TABBAR_NOT_CONNECTED	"You're not connected.  Click the Connect button to get started."
-	IDS_TABBAR_CONNECTED		"There are no active searches.  Click here to search for files."
-	IDS_UPGRADE_LAUNCH			"PeerProject has finished downloading the next PeerProject version (%s).  Would you like to upgrade now?\n\nIf you select Yes, PeerProject will close temporarily while the upgrade is installed."
-	IDS_SKIN_DELETE				"Are you sure you want to delete the ""%s"" skin?  This cannot be undone."
-	IDS_BETA_EXPIRED			"This is a pre-release version of PeerProject, and the beta testing period has ended.  Please download the full, official release from http://peerproject.org/."
-	IDS_VIEW_MODE_CONFIRM		"Changing views may close some windows. \nWould you like to proceed now?"
-	IDS_UPGRADE_NO_NEW			"Update: No new version detected."
-	IDS_DOWNLOAD_PROPERTIES 	"Download Properties"
-END
-
-STRINGTABLE
-BEGIN
-	IDS_STATUS_BAR_CONNECTED	"Connected to %lu neighbors.  %s in local library."
-	IDS_STATUS_BAR_CONNECTING	"Connecting to the network..."
-	IDS_STATUS_BAR_DISCONNECTED	"Not connected to the network."
-	IDS_STATUS_BAR_BANDWIDTH	"%s in : %s out  (d:%I64i/u:%I64i)"
-	IDS_TRAY_TIP				"%s in : %s out  (d:%I64i/u:%I64i/peers:%I64i)"
-	IDS_NETWORK_CONNECT			"Connect"
-	IDS_NETWORK_CONNECTING		"Connecting..."
-	IDS_NETWORK_CONNECTED		"Connected"
-	IDS_NETWORK_DISCONNECT		"Disconnect"
-END
-
-STRINGTABLE
-BEGIN
-	IDS_SEARCH_DETAILS_EMPTY	"This area shows more information about files you select."
-	IDS_SEARCH_DETAILS_SOURCES_ONE "One source is available.  (%s/s)"
-	IDS_SEARCH_DETAILS_SOURCES_MANY "%i sources are available.  (%s/s)"
-	IDS_SEARCH_DETAILS_REVIEWS_ONE "There is one review."
-	IDS_SEARCH_DETAILS_REVIEWS_MANY "There are %i reviews."
-	IDS_SEARCH_DETAILS_WRITES	"%s writes:"
-	IDS_SEARCH_DETAILS_RATES	"%s rates this file:"
-	IDS_SEARCH_DETAILS_PREVIEW	"Click to Preview"
-	IDS_SEARCH_DETAILS_PREVIEWING "Previewing..."
-	IDS_SEARCH_DETAILS_PREVIEW_FAILED "Unable to download preview content from ""%s""."
-END
-
-STRINGTABLE
-BEGIN
-	IDS_SEARCH_AGAIN			"Click here to search again"
-	IDS_SEARCH_NONE				"No searches have been started in this window yet."
-	IDS_SEARCH_WORKING			"PeerProject is searching the network..."
-	IDS_SEARCH_EMPTY			"The network has not returned any matches yet."
-	IDS_SEARCH_FILTERED			"Some results are available, but were filtered out."
-	IDS_SEARCH_ACTIVE			"PeerProject is actively searching the network..."
-	IDS_SEARCH_CLEAR_PREVIOUS	"You are about to start a new search.  Would you like to clear the results of your previous search?"
-	IDS_SEARCH_NO_METADATA		"No Metadata"
-	IDS_SEARCH_PLAIN_TEXT		"Plain Text Search"
-	IDS_SEARCH_NO_SCHEMA		"No Schema Columns"
-	IDS_SEARCH_PANEL_SHOW		"Show the Search Panel"
-	IDS_SEARCH_PANEL_HIDE		"Hide the Search Panel"
-	IDS_SEARCH_PANEL_SEARCHING	"Searching"
-END
-
-STRINGTABLE
-BEGIN
-	IDS_SEARCH_PANEL_START		"Search"
-	IDS_SEARCH_PANEL_MORE		"More"
-	IDS_SEARCH_PANEL_STOP		"Stop"
-	IDS_SEARCH_PANEL_AFT		"Any File Type"
-	IDS_SEARCH_PANEL_INPUT_1	"Type your search here:"
-	IDS_SEARCH_PANEL_INPUT_2	"Look for this type of file:"
-	IDS_SEARCH_PANEL_RESULTS_STATUS "Searching:"
-	IDS_SEARCH_PANEL_RESULTS_FOUND "Found:"
-	IDS_SEARCH_PANEL_RESULTS_ACTIVE "%lu hubs, %lu leaves"
-	IDS_SEARCH_PANEL_RESULTS_INACTIVE "No active search"
-	IDS_SEARCH_PANEL_RESULTS_NONE "No files found"
-	IDS_SEARCH_PANEL_RESULTS_FORMAT "%lu file in %lu hit|%lu file in %lu hits|%lu files in %lu hits"
-	IDS_SEARCH_PANEL_FILTERED	"%lu filtered"
-	IDS_SEARCH_PANEL_INPUT_CAPTION "Search"
-	IDS_SEARCH_PANEL_RESULTS_CAPTION "Results"
-	IDS_SEARCH_PANEL_CLEAR		"Clear"
-	IDS_SEARCH_PANEL_ADVANCED	"Advanced"
-END
-
-STRINGTABLE
-BEGIN
-	IDS_BROWSE_CONNECTING		"Establishing a connection to host..."
-	IDS_BROWSE_PUSHED			"Sent a push request, waiting for connection..."
-	IDS_BROWSE_REQUESTING		"Connected, requesting browse..."
-	IDS_BROWSE_DOWNLOADING		"Downloading browse response (%2.f%%)..."
-	IDS_BROWSE_CANT_CONNECT		"Unable to connect to host to browse user."
-	IDS_BROWSE_NOT_SUPPORTED	"Unable to download file listing.  This host may not support browsing."
-	IDS_SEARCH_ALL_NETWORKS		"All Networks"
-	IDS_SEARCH_PANEL_INPUT_3	"Network:"
-END
-
-STRINGTABLE
-BEGIN
-	IDS_SEARCH_PAD_HEADER		"Search PeerProject"
-	IDS_SEARCH_PAD_WORDS		"Type some keywords or a link to search for:"
-	IDS_SEARCH_PAD_TYPE			"What kind of files?"
-	IDS_SEARCH_PAD_CLEAR_HISTORY "(Clear Search History)"
-	IDS_SEARCH_PANEL_INPUT_4	"Min Filesize:"
-	IDS_SEARCH_PANEL_INPUT_5	"Max Filesize:"
-END
-
-STRINGTABLE
-BEGIN
-	IDS_HASH_MESSAGE			"PeerProject is hashing %Iu files:"
-	IDS_MONITOR_TIME_DH			"%i days %i hours"
-	IDS_MONITOR_TIME_HM			"%i hours %i minutes"
-	IDS_MONITOR_TIME_MS			"%i minutes %i seconds"
-	IDS_MONITOR_TIME_S			"%i seconds"
-END
-
-STRINGTABLE
-BEGIN
-//	IDS_MONITOR_COMPLETED		"PeerProject has completed downloading:"
-//	IDS_MONITOR_DOWNLOADING		"PeerProject is downloading:"
-//	IDS_MONITOR_PAUSED			"This download is paused:"
-//	IDS_MONITOR_MOVING			"PeerProject is moving the download:"
-//	IDS_MONITOR_VERIFY			"Checking file for errors:"
-//	IDS_MONITOR_SOURCING		"PeerProject is looking for sources for:"
-	IDS_MONITOR_NO_SOURCES		"No sources"
-	IDS_MONITOR_ACTION_OPEN		"Open"
-	IDS_MONITOR_ACTION_CANCEL	"Cancel"
-	IDS_MONITOR_TOTAL_SPEED		"Total transfer speed:"
-	IDS_MONITOR_ESTIMATED_TIME	"Estimated time:"
-	IDS_MONITOR_VOLUME_DOWNLOADED "Total downloaded:"
-	IDS_MONITOR_VOLUME_UPLOADED	"Upload ratio:"
-	IDS_MONITOR_COMPLETED_WORD	"Completed"
-	IDS_MONITOR_NUMBER_SOURCES	"Number of sources:"
-	IDS_MONITOR_NUMBER_REVIEWS	"Number of reviews:"
-	IDS_MONITORBAR_LIMIT_IN 	"Limit Download Bandwidth"
-	IDS_MONITORBAR_LIMIT_OUT	"Limit Upload Bandwidth"
-END
-
-STRINGTABLE
-BEGIN
-	IDS_LIBHEAD_HOME			"Exploring Your PeerProject Library"
-	IDS_LIBHEAD_EXPLORE_FOLDER	"Exploring"
-	IDS_LIBHEAD_EXPLORE_MANY	"Exploring the contents of %i folders"
-	IDS_LIBPANEL_MULTIPLE_FOLDERS "Multiple folders"
-	IDS_LIBPANEL_MULTIPLE_FILES	"%i files selected"
-	IDS_LIBPANEL_NO_SELECTION	"No files are selected"
-	IDS_LIBPANEL_RECENT_ADDITIONS "Recent Additions"
-	IDS_LIBPANEL_RATE_FILE		"Rate this file"
-END
-
-STRINGTABLE
-BEGIN
-	IDS_TIP_NA					"N/A"
-	IDS_TIP_LOCATION			"Location"
-	IDS_TIP_TYPE				"Type"
-	IDS_TIP_SIZE				"Size"
-	IDS_TIP_PARTIAL				"Partial Source (%.2f%% available)"
-	IDS_TIP_QUEUE				"%i upload slots, %i waiting in queue"
-	IDS_TIP_EXISTS_LIBRARY		"You already have this file in your library."
-	IDS_TIP_EXISTS_DOWNLOAD		"You already have this file on your download list."
-	IDS_TIP_BOGUS				"This file appears to be spam."
-	IDS_TIP_EXISTS_DELETED		"You have downloaded and deleted this file before."
-	IDS_TIP_EXISTS_BLACKLISTED	"Blacklisted: "
-	IDS_TIP_HITS				"Hits"
-	IDS_TIP_UPLOADS				"Uploads"
-	IDS_TIP_TODAYTOTAL			"%lu today, %lu total"
-	IDS_TIP_NOHASHSET			"No Hashset"
-END
-
-STRINGTABLE
-BEGIN
-	IDS_TIP_STATUS				"Status:"
-	IDS_TIP_SPEED				"Speed:"
-	IDS_TIP_URL					"URL:"
-	IDS_TIP_USERAGENT			"Client:"
-	IDS_TIP_INACTIVE			"Inactive"
-	IDS_TIP_ACTIVE				"Active"
-	IDS_TIP_NEXT				"Next in Line"
-	IDS_TIP_TOTAL_FILES			"Total Files:"
-	IDS_TIP_TOTAL_VOLUME		"Total Volume:"
-	IDS_TIP_LIBRARY_PERCENT		"of your library"
-	IDS_TIP_FOLDER				"Folder"
-	IDS_TIP_SOURCE_BUSY			"This source is currently busy"
-	IDS_TIP_SOURCE_FIREWALLED	"This source is firewalled"
-	IDS_TIP_SOURCE_UNSTABLE		"This source may be unstable"
-	IDS_TIP_FILE_BUSY			"Sources for this file are currently busy"
-	IDS_TIP_FILE_FIREWALLED		"Sources for this file are firewalled"
-END
-
-STRINGTABLE
-BEGIN
-	IDS_TIP_FILE_UNSTABLE		"Sources for this file may be unstable"
-	IDS_TIP_UNTRUSTED			"Untrusted"
-	IDS_TIP_TRANSFER			"Transfer:"
-END
-
-STRINGTABLE
-BEGIN
-	IDS_STATUS_BAR_CONNECTED_HUB_UP "Hub/Peer modes with %lu neighbors.  %s in local library."
-	IDS_STATUS_BAR_CONNECTED_UP "Ultrapeer mode with %lu neighbors.  %s in local library."
-	IDS_STATUS_BAR_CONNECTED_HUB "Hub mode with %lu neighbors.  %s in local library."
-	IDS_STATUS_BAR_CONNECTED_SIMPLE "Connected.  %s in local library."
-END
-
-STRINGTABLE
-BEGIN
-	IDS_NETWORK_STARTUP			"Starting PeerProject network core..."
-	IDS_NETWORK_CANT_LISTEN		"Can't bind to %s port %i for incoming connections.  Incoming connections will not be supported."
-	IDS_NETWORK_DISCONNECTING	"Shutting down PeerProject network core..."
-	IDS_NETWORK_DISCONNECTED	"Disconnected."
-	IDS_NETWORK_LISTENING_TCP	"Accepting incoming TCP connections on %s port %i."
-	IDS_NETWORK_OUTGOING		"Outgoing connections will be from %s port %i."
-	IDS_NETWORK_CANT_OUTGOING	"Can't resolve %s for outgoing connections.  Outgoing connections will use the default interface."
-	IDS_NETWORK_FIREWALLED		"Firewalled, not listening for incoming connections."
-	IDS_NETWORK_LISTENING_UDP	"Listening for UDP datagrams on %s port %i."
-	IDS_NETWORK_RESOLVING		"Resolving host ""%s""..."
-	IDS_NETWORK_RESOLVE_FAIL	"Unable to resolve host ""%s""."
-	IDS_NETWORK_SECURITY_DENIED "Security manager denied connection from %s."
-	IDS_NETWORK_SECURITY_OUTGOING "Security manager barred a connection to %s."
-	IDS_NETWORK_SECURITY_ALREADY_BLOCKED "The address %s is already blocked by your security rules."
-	IDS_NETWORK_SECURITY_BLOCKED "Added a security rule to block %s."
-	IDS_NETWORK_DISCONNECT_CONFIRM "Are you sure you wish to disconnect?"
-END
-
-STRINGTABLE
-BEGIN
-	IDS_NETWORK_UNLIMIT			"You are running the Scheduler in 'G2 only' mode. Would you like to turn this mode off, so that all active networks remain connected?"
-	IDS_NETWORK_SEARCH_SENT		"Sending query for ""%s"" to %s."
-	IDS_NETWORK_FORCE_HUB		"Forcing your PC into hub mode may have adverse effects on performance and the P2P network. It is generally better to allow PeerProject to decide whether or not hub mode should be used.\n\nHub mode does not produce better search results, or have any other advantages for you.\n\nAre you certain you wish to do this, despite the disadvantages?"
-	IDS_NETWORK_DISABLE_G2		"G2 (Gnutella2) is PeerProject's premiere network.  Disabling support for it may limit features and the quality of your search results.\nAre you sure you wish to do this?"
-	IDS_NETWORK_BANDWIDTH_LOW	"Your outgoing bandwidth is too low to enable this network"
-	IDS_NETWORK_UPNP_FAILED		"UPnP port mapping failed after 10 attempts."
-END
-
-STRINGTABLE
-BEGIN
-	IDS_CONNECTION_ACCEPTED		"Accepted an incoming connection from %s port %i."
-	IDS_CONNECTION_ATTEMPTING	"Initiating a neighbor connection to %s port %i..."
-	IDS_CONNECTION_CONNECT_FAIL	"Unable to initiate a neighbor connection with %s."
-	IDS_CONNECTION_TIMEOUT_CONNECT "Timed out connecting to %s."
-	IDS_CONNECTION_TIMEOUT_TRAFFIC "Closing connection to neighbor %s due to lack of traffic."
-	IDS_CONNECTION_CONNECTED	"Established a connection with neighbor %s, handshaking..."
-	IDS_CONNECTION_CLOSED		"Closed connection with neighbor %s."
-	IDS_CONNECTION_REFUSED		"Unable to initiate a neighbor connection with %s (refused)."
-	IDS_CONNECTION_DROPPED		"Neighbor %s dropped the connection unexpectedly."
-	IDS_CONNECTION_ALREADY_REFUSE "Refusing duplicate connection from %s."
-	IDS_CONNECTION_ALREADY_ABORT "Already connected to %s, will not establish a second connection."
-	IDS_CONNECTION_BYE			"Neighbor %s closed connection (%i : %s)."
-	IDS_CONNECTION_PEERPRUNE	"Closed connection with neighbor %s because it is not a hub."
-END
-
-STRINGTABLE
-BEGIN
-	IDS_HANDSHAKE_TIMEOUT		"Timed out handshaking with %s."
-	IDS_HANDSHAKE_ONLINE		"Gnutella connection with neighbor %s established successfully (G%i.%i : %s)."
-	IDS_HANDSHAKE_FAIL			"Handshake with %s failed due to invalid data on the wire."
-	IDS_HANDSHAKE_BOOTSTRAP		"Closing surplus connection from %s with host hint (%s port %i)."
-	IDS_HANDSHAKE_REJECTED		"Connection to %s rejected (%s)."
-	IDS_HANDSHAKE_SURPLUS		"Closing surplus connection from %s."
-	IDS_HANDSHAKE_IAMLEAF		"Refusing connection from %s because this is a shielded leaf node."
-	IDS_HANDSHAKE_CANTBEPEER	"Hub neighbor %s won't accept us as a hub, closing connection."
-	IDS_HANDSHAKE_BACK2LEAF		"Connecting neighbor %s falling back to shielded leaf mode."
-	IDS_HANDSHAKE_GOTPEER		"Hub connection established, closing peer connections."
-	IDS_HANDSHAKE_GOTLEAF		"Acting as a hub for leaf neighbor %s."
-	IDS_HANDSHAKE_NOULTRAPEER	"Neighbor %s wants to be a hub, closing connection."
-	IDS_HANDSHAKE_NEEDAPEER		"Neighbor %s is not a hub, closing connection."
-	IDS_HANDSHAKE_ONLINE_G2		"Gnutella2 connection with neighbor %s established successfully (%s)."
-	IDS_HANDSHAKE_NOTG2			"Closing connection to non-Gnutella2 neighbor %s."
-END
-
-STRINGTABLE
-BEGIN
-	IDS_PROTOCOL_TOO_LARGE		"Neighbor %s forwarded a packet of excessive size, dropping connection."
-	IDS_PROTOCOL_NO_TTL			"Neighbor %s forwarded a packet with zero TTL, ignoring."
-	IDS_PROTOCOL_HIGH_TTL		"Neighbor %s forwarded a packet with excessive TTL, dropping packet (TTL=%i, Hops=%i)."
-	IDS_PROTOCOL_SIZE_PING		"Neighbor %s forwarded a ping packet with invalid length, ignoring."
-	IDS_PROTOCOL_SIZE_PONG		"Neighbor %s forwarded a pong packet with invalid length, ignoring."
-	IDS_PROTOCOL_PACKET_DUMP	"%s -> %s [%i/%i] %s %s"
-	IDS_PROTOCOL_LEAF_FORWARD	"Leaf neighbor %s is forwarding queries, dropping connection."
-	IDS_PROTOCOL_UNKNOWN		"Neighbor %s forwarded an unrecognised packet (0x%.2x), ignoring."
-	IDS_PROTOCOL_ZERO_PONG		"Neighbor %s forwarded a pong with invalid address data, ignoring."
-	IDS_PROTOCOL_BAD_QUERY		"Ignoring malformatted %s search query packet from %s."
-	IDS_PROTOCOL_BAD_HIT		"Ignoring malformatted query hit packet from %s."
-	IDS_PROTOCOL_SIZE_PUSH		"Neighbor %s forwarded a push packet with invalid length, ignoring."
-END
-
-STRINGTABLE
-BEGIN
-	IDS_DOWNLOAD_GROUP_DEFAULT	"Default download group.  (Show all files)"
-	IDS_DOWNLOAD_GROUP			"Drag'n'drop files to the %s group"
-	IDS_DOWNLOAD_ADDED			"Added ""%s"" to download queue with %i sources."
-	IDS_DOWNLOAD_COMPLETED		"Completed download of ""%s."""
-	IDS_DOWNLOAD_PAUSED			"Pausing download of ""%s."""
-	IDS_DOWNLOAD_RESUMED		"Resuming download of ""%s."""
-	IDS_DOWNLOAD_REMOVE			"Cleared download ""%s."""
-	IDS_DOWNLOAD_FILE_CREATE	"Creating file ""%s"" for download."
-	IDS_DOWNLOAD_FILE_CREATE_ERROR "Unable to create local file ""%s"" for download, aborting."
-	IDS_DOWNLOAD_FILE_OPEN_ERROR "Unable to open local file ""%s"" for download, aborting."
-	IDS_DOWNLOAD_CONNECTING		"Initiating a connection to %s port %i to download ""%s""..."
-	IDS_DOWNLOAD_CONNECT_ERROR	"Unable to connect to download host %s."
-	IDS_DOWNLOAD_CONNECTED		"Download connection to %s established."
-	IDS_DOWNLOAD_FRAGMENT_REQUEST "Requesting download fragment (%I64u-%I64u) of ""%s"" from %s."
-	IDS_DOWNLOAD_FRAGMENT_END	"No more download fragments, closing connection to %s."
-	IDS_DOWNLOAD_FRAGMENT_OVERLAP "Fragment shortened, closing connection to %s."
-	IDS_DOWNLOAD_REQUEST_TIMEOUT "Download request to %s timed out, closing connection."
-	IDS_DOWNLOAD_TRAFFIC_TIMEOUT "Closing download connection %s due to lack of traffic."
-END
-
-STRINGTABLE
-BEGIN
-	IDS_DOWNLOAD_FILENOTFOUND	"Download host %s does not have the file ""%s""."
-	IDS_DOWNLOAD_NOHTTP			"Download host %s responded with an invalid HTTP response."
-	IDS_DOWNLOAD_HTTPCODE		"Download host %s responded with %s (%s)."
-	IDS_DOWNLOAD_WRONG_HASH		"Download host %s's version of ""%s"" has a different URN, aborting."
-	IDS_DOWNLOAD_WRONG_SIZE		"Download host %s's version of ""%s"" has a different length, aborting."
-	IDS_DOWNLOAD_WRONG_RANGE	"Download host %s responded with a useless byte range of ""%s"", pending."
-	IDS_DOWNLOAD_DROPPED		"Download connection to %s was lost."
-	IDS_DOWNLOAD_CONTENT		"Receiving download content from host %s (%s)."
-	IDS_DOWNLOAD_BUSY			"Download host %s is busy, retrying in %i seconds."
-	IDS_DOWNLOAD_CONFIRM_CLEAR	"Are you sure you want to clear ""%s""?\n\nOnce a download has been cleared from the Downloads window, it cannot be resumed later."
-	IDS_DOWNLOAD_DISABLED		"Aborting download of ""%s"" from %s (%s), network disabled."
-	IDS_DOWNLOAD_ALREADY		"The file ""%s"" is already being downloaded, adding sources."
-	IDS_DOWNLOAD_BAD_PUSH		"Received a faulty push connection from %s, closing connection."
-	IDS_DOWNLOAD_UNKNOWN_PUSH	"Received an unnecessary push connection from %s."
-	IDS_DOWNLOAD_PUSHED			"Host %s is pushing download ""%s"", accepting."
-	IDS_DOWNLOAD_SOURCES_CONNECTED "Can't fetch more sources for download ""%s"" because there is no network connection."
-END
-
-STRINGTABLE
-BEGIN
-	IDS_DOWNLOAD_SOURCES		"Querying for more sources for download ""%s"" on %i connections..."
-	IDS_DOWNLOAD_PUSH_SENT		"Sending push request for download ""%s""..."
-	IDS_DOWNLOAD_USEFUL_RANGE	"Download host %s responded with a different, but useful range (%I64i-%I64i) of ""%s""."
-	IDS_DOWNLOAD_MOVED			"Moved ""%s"" to ""%s"", download complete."
-	IDS_DOWNLOAD_CANT_MOVE		"Couldn't move download ""%s"" to ""%s"".  Check that the incomplete file is not in use, and that your downloads folder exists and is writable."
-	IDS_DOWNLOAD_RESOLVING		"Resolving ""%s"" to download ""%s""..."
-	IDS_DOWNLOAD_CANT_RESOLVE	"Unable to resolve ""%s""."
-	IDS_DOWNLOAD_BOOST			"Boosting download ""%s"" by removing bandwidth caps."
-	IDS_DOWNLOAD_VERIFY_SUCCESS "Successfully verified download ""%s""."
-	IDS_DOWNLOAD_VERIFY_FAIL	"WARNING: Download ""%s"" failed verification, it may not be the file you intended to download!"
-	IDS_DOWNLOAD_QUEUED			"Download host %s is busy, waiting in queue at position #%i of %i (""%s"")."
-	IDS_DOWNLOAD_CONFIRM_CLEAR_PAUSED "Are you sure you want to clear all paused downloads?  Once a download has been cleared from the Downloads window, it cannot be resumed."
-	IDS_DOWNLOAD_CONFIRM_DELETE "Are you sure you want to delete the download ""%s""?"
-	IDS_DOWNLOAD_TIGER_REQUEST	"Requesting tiger-tree volume for ""%s"" from %s..."
-	IDS_DOWNLOAD_TIGER_RANGE	"Download host %s could not satisfy the tiger-tree request."
-	IDS_DOWNLOAD_TIGER_RECV		"Receiving tiger-tree volume from %s (%s)..."
-END
-
-STRINGTABLE
-BEGIN
-	IDS_PROTOCOL_QRP_UNEXPECTED "Receiving an unexpected query routing table update from neighbor %s."
-	IDS_PROTOCOL_QRP_FAILED		"Neighbor %s sent an invalid query routing table update, dropping connection."
-	IDS_PROTOCOL_QRP_UPDATED	"Neighbor %s updated its query routing table (%i bit = %lu[%i], %i%% full)."
-	IDS_PROTOCOL_ZERO_PUSH		"Neighbor %s forwarded a push request to a firewalled address, ignoring."
-	IDS_PROTOCOL_GGEP_REQUIRED	"Neighbor %s forwarded an extended packet that is not GGEP encoded."
-	IDS_PROTOCOL_QRP_SENT		"Sending query routing table to neighbor %s (%i bit = %lu[%i], %i%% full)"
-END
-
-STRINGTABLE
-BEGIN
-	IDS_LIBRARY_CONFIRM_EXECUTE "Are you sure you want to launch the file ""%s"" ?\n\nSome files can be harmful to your computer.  Ensure you know what the file is before launching it."
-	IDS_LIBRARY_METADATA_MANY	"You are about to modify the metadata of %i files, are you sure you want to continue?"
-	IDS_LIBRARY_METADATA_EDIT	"Editing metadata of %i files."
-	IDS_LIBRARY_BITZI_HASHED	"The file ""%s"" has not yet been hashed.  Please wait for the file to be hashed, and then try again."
-	IDS_LIBRARY_BITZI_MESSAGE	"This option uses services provided by Bitzi.com for recognising and sharing information about selected files.\n\nPeerProject will transmit the SHA1 hash code for the selected file(s) in order to query the Bitzi database.  If you are concerned about privacy, you may wish to consult the Bitzi.com privacy policy.\n\nWould you like to proceed?"
-	IDS_LIBRARY_DELETE			"Are you sure you want to permanently delete the %i selected files ?\n\nThe files will be moved to your ""recycle bin"" if it is enabled."
-	IDS_LIBRARY_ENQUEUE			"You have not yet selected a media player to enqueue files with, such as Nullsoft Winamp.  Would you like to select one now?\n\nPeerProject will pass the name of the file to your selected program with the ""/ADD"" argument."
-	IDS_NEIGHBOURS_NOT_CONNECTED "You're not connected to the network."
-	IDS_NEIGHBOURS_CONNECT		"Click the Connect button to get started."
-	IDS_LIBRARY_VERIFY_FAIL		"The file ""%s"" failed a hash verification test, and might not be the file you intended to download.  Are you sure you want to open it?"
-	IDS_LIBRARY_VERIFY_FIX		"Would you like to remove the ""potentially unsafe"" attribute from this file?"
-	IDS_LIBRARY_DOWNLOADS_ADD	"Your downloaded files folder ""%s"" is not yet in your library.\n\nIncluding your downloaded files folder in your library makes it easier to view and organise new downloads, and lets you take advantage of advanced PeerProject features such as download verification and automatic upgrading.  Placing downloaded files in your library does not necessarily require you to share them: you can choose whether or not to share files independently.\n\nWould you like to add your downloaded files folder to your library now?"
-	IDS_LIBRARY_DOWNLOADS_SHARE "Your downloads folder has been added to your local library. \nWould you like to publicly share it too?"
-	IDS_LIBRARY_FOLDER_DELETE	"Are you sure you want to delete the %i selected album folders ?\n\nNote that this action does not delete the files within the album folders, only the folders themselves."
-	IDS_LIBRARY_RENAME_FAIL		"PeerProject could not rename:\n\n%s\nto\n%s"
-	IDS_LIBRARY_DELETE_FAIL		"PeerProject could not delete the file:\n\n%s"
-END
-
-STRINGTABLE
-BEGIN
-	IDS_DOWNLOAD_TIGER_CORRUPT	"Download host's tiger-tree data is corrupt or internally inconsistent, ignoring it."
-	IDS_DOWNLOAD_TIGER_MISMATCH	"Download host's tiger-tree does not match expected root value."
-	IDS_DOWNLOAD_TIGER_READY	"Received tiger-tree volume for ""%s"", %i levels, minimum verifiable chunk %s."
-	IDS_DOWNLOAD_CLOSING_EXTRA	"Closing download connection to %s, no longer required."
-	IDS_DOWNLOAD_CLOSING_OVERFLOW "Download host %s sent unsolicited data, closing connection."
-	IDS_DOWNLOAD_METADATA_REQUEST "Requesting metadata for ""%s"" from %s..."
-	IDS_DOWNLOAD_METADATA_RECV	"Receiving tiger-tree data from %s (%s)..."
-	IDS_DOWNLOAD_HASHSET_REQUEST "Requesting eDonkey hashset for ""%s"" from %s..."
-	IDS_DOWNLOAD_HASHSET_ERROR	"Received an invalid eDonkey hashset from %s, dropping source."
-	IDS_DOWNLOAD_HASHSET_READY	"Received eDonkey hashset for ""%s"", minimum verifiable chunk %s."
-	IDS_DOWNLOAD_HASHSET_CORRUPT "Download host's eDonkey hashset is corrupt or internally inconsistent, dropping source."
-	IDS_DOWNLOAD_INFLATE_ERROR	"Unable to initialize inflate for download ""%s""."
-	IDS_DOWNLOAD_QUEUE_TIMEOUT	"Timed out waiting for queue update from eDonkey download host %s for file ""%s""."
-	IDS_DOWNLOAD_QUEUE_DROP		"Staying in queue for ""%s""."
-	IDS_DOWNLOAD_DISK_SPACE		"Insufficient disk space to download ""%s"" (%s)."
-	IDS_DOWNLOAD_VERIFY_DROP	"Dropping source %s (%s) for sending corrupted parts of ""%s"" (%I64i-%I64i)."
-END
-
-STRINGTABLE
-BEGIN
-	IDS_UPLOAD_NOHTTP			"Upload host %s sent an invalid HTTP request."
-	IDS_UPLOAD_CONNECT			"Initiating a push connection to %s. %s"
-	IDS_UPLOAD_CONNECT_ERROR	"Unable to connect to host %s for push."
-	IDS_UPLOAD_DROPPED			"Upload connection to %s was closed."
-	IDS_UPLOAD_REQUEST_TIMEOUT	"Timed out waiting for request from upload host %s."
-	IDS_UPLOAD_FILENOTFOUND		"Upload host %s requested unknown or unavailable object ""%s""."
-	IDS_UPLOAD_HASH_MISMATCH	"Upload host %s requested ""%s"" with different SHA1."
-	IDS_UPLOAD_BUSY_OLD			"Refusing upload of ""%s"" to %s (%s), busy and client does not support queues."
-	IDS_UPLOAD_GIV				"Push connection to %s established, waiting for handshake..."
-	IDS_UPLOAD_CANTOPEN			"Can't open ""%s"" to upload to host %s due to disk or file error."
-	IDS_UPLOAD_CONTENT			"Sending upload content range %I64i-%I64i from ""%s"" to host %s (%s)."
-	IDS_UPLOAD_FINISHED			"Finished uploading part of ""%s"" to %s."
-	IDS_UPLOAD_ACCEPTED			"Incoming connection from %s is a HTTP upload request."
-	IDS_UPLOAD_QUEUED			"Too busy to upload ""%s"" to %s, queued at #%i of %i (""%s"")."
-	IDS_UPLOAD_PUSH_FILENOTFOUND "Legacy push request from %s requested an unknown file, connecting anyway..."
-	IDS_UPLOAD_REMOVE			"Removed upload of ""%s"" to %s."
-END
-
-STRINGTABLE
-BEGIN
-	IDS_UPLOAD_BROWSER			"Upload host %s is on the user-agent block list, denying request."
-	IDS_UPLOAD_HEADERS			"Sending upload headers from ""%s"" to host %s (%s)."
-	IDS_UPLOAD_BAD_RANGE		"Upload host %s requested an unsatisfiable range of file ""%s""."
-	IDS_UPLOAD_ABOUT			"Sending default HTML response to upload host %s (%s)."
-	IDS_UPLOAD_BROWSE_DENIED	"Denied browse user request from %s."
-	IDS_UPLOAD_BROWSE			"Upload host %s (%s) sent a browse user request, responding..."
-	IDS_UPLOAD_TRAFFIC_TIMEOUT	"Closing upload connection %s due to lack of traffic."
-	IDS_UPLOAD_DROPPED_OLDER	"Closing older upload to %s because it has made a fresh connection."
-	IDS_UPLOAD_DROPPED_NEWER	"Refusing new upload to %s because an earlier connection is still pending."
-	IDS_UPLOAD_DELETED			"Stopped uploading ""%s"" to %s because the file was deleted."
-	IDS_UPLOAD_PARTIAL_CONTENT	"Sending upload content range %I64i-%I64i from partial file ""%s"" to host %s (%s)."
-	IDS_UPLOAD_BUSY_FAST		"Queued upload %s is re-requesting too fast, closing connection."
-	IDS_UPLOAD_PUSH_BUSY		"Refusing push request to %s because it has too many upload connections."
-	IDS_UPLOAD_TIGER_SEND 		"Uploading tiger-tree data for ""%s"" to %s."
-	IDS_UPLOAD_METADATA_SEND	"Uploading metadata for ""%s"" to %s."
-	IDS_UPLOAD_BUSY_HOST 		"Refusing upload of ""%s"" to %s (%s), too many concurrent from host."
-END
-
-STRINGTABLE
-BEGIN
-	IDS_UPLOAD_PREVIEW_SEND		"Uploading a preview of ""%s"" to %s."
-	IDS_UPLOAD_PREVIEW_BUSY		"Refusing to upload a preview of ""%s"" to %s, too many preview connections."
-	IDS_UPLOAD_PREVIEW_EMPTY	"Upload host %s requested a preview of ""%s"", but no preview is available."
-	IDS_UPLOAD_PREVIEW_DYNAMIC	"Scheduling a dynamic preview of ""%s"" for upload to %s."
-	IDS_UPLOAD_BROWSE_BUSY		"Refusing browse user request from %s, too many browse connections."
-	IDS_UPLOAD_FILE				"Uploading file ""%s"" to host %s..."
-	IDS_UPLOAD_QUEUE_DROP		"Upload connection to %s was lost, preserving queue position."
-	IDS_UPLOAD_QUEUE_TIMEOUT	"Offline queued upload host %s expired, removing."
-	IDS_UPLOAD_BUSY_QUEUE		"Refusing upload of ""%s"" to %s (%s), all matching queues are full."
-	IDS_UPLOAD_DISABLED 		"Refusing upload to %s (%s), network disabled."
-	IDS_UPLOAD_CANCEL_ED2K		"eDonkey uploads should not be cancelled.\nAre you sure you want to cancel this upload?"
-	IDS_UPLOAD_QUEUE_TORRENT	"Torrent Uploads"
-	IDS_UPLOAD_QUEUE_HISTORY	"Completed Uploads"
-	IDS_DOWNLOAD_CLEAR_GROUP	"Are you sure you want to cancel/abort every download in this group?"
-	IDS_UPLOAD_QUEUE_QUEUE		"Queue"
-	IDS_UPLOAD_QUEUE_ED2K_CORE	"eDonkey Core"
-END
-
-STRINGTABLE
-BEGIN
-	IDS_UPLOAD_QUEUE_ED2K_PARTIALS "eDonkey Partials"
-	IDS_UPLOAD_QUEUE_ED2K_GUARD "eDonkey Guard"
-	IDS_UPLOAD_QUEUE_SMALL_FILES "Small Files"
-	IDS_UPLOAD_QUEUE_MEDIUM_FILES "Medium Files"
-	IDS_UPLOAD_QUEUE_LARGE_FILES "Large Files"
-	IDS_UPLOAD_QUEUE_PARTIAL_FILES "Partial Files"
-	IDS_UPLOAD_QUEUE_NEW		"New Queue"
-	IDS_UPLOAD_QUEUE_PARTIAL	"Partial"
-	IDS_UPLOAD_QUEUE_COMPLETE	"All Files"
-	IDS_UPLOAD_QUEUE_HTTP_GUARD "HTTP Guard"
-	IDS_UPLOAD_QUEUE_LIBRARY	"Library Files"
-	IDS_DOWNLOAD_416_WITHOUT_RANGE "Host ""%s"" sent a 416, without providing available ranges. Closing connection."
-END
-
-STRINGTABLE
-BEGIN
-	IDS_LIBRARY_TARGET_EXISTS	"Target file exists:\n\n%s\n\nWould you like to overwrite it?"
-	IDS_LIBRARY_TYPE_FILTER_ALL	"Show All File Types"
-	IDS_LIBRARY_COLLECTION_INVALID "PeerProject received a collection file:\r\n\r\n""%s""\r\n\r\nThis file does not appear to be a valid collection file."
-	IDS_LIBRARY_COLLECTION_INSTALLED "PeerProject has added the collection file ""%s"" to your library."
-	IDS_LIBRARY_COLLECTION_CANT_INSTALL "PeerProject was unable to install the collection file ""%s"" by copying it to the folder ""%s""."
-	IDS_LIBRARY_COLLECTION_DOWNLOAD_ALL "Would you like to download all files in this collection?\r\n\r\nChoose Cancel to stop any further prompts."
-	IDS_LIBRARY_COLLECTION_LOCKDOWN "Would you like to prevent this collection from prompting you to download anything else?"
-	IDS_LIBRARY_SUBFOLDER_IN_LIBRARY "A subfolder of the selected folder ""%s"" is already part of your library.\nAdding this folder will cause re-hashing of some files.\n\nDo you want to continue ?"
-	IDS_LIBRARY_URI_COPY		"&Get P2P Link"
-	IDS_LIBRARY_URI_EXPORT		"Export &P2P Links..."
-	IDS_LIBRARY_MOVE_FAIL		"Unable to move the file %s. The file may be in use by another application.\n\nDo you wish to try to copy this file instead?"
-	IDS_LIBRARY_GHOST_FILE		"Ghost File"
-	IDS_DOWNLOAD_NEW_GROUP		"New Group"
-END
-
-STRINGTABLE
-BEGIN
-	IDS_CHAT_CONNECTED_X		"Connected to %s, handshaking..."
-	IDS_CHAT_ONLINE_X			"Now chatting with %s (%s)."
-	IDS_CHAT_CLOSED_X			"Connection to %s closed."
-	IDS_CHAT_DROPPED_X			"The connection to %s was lost."
-	IDS_CHAT_UNRECOGNISED_X		"Unrecognised command ""%s""."
-	IDS_CHAT_CONNECTING_X		"Connecting to %s for chat..."
-	IDS_CHAT_ACCEPTED_X 		"Accepted incoming chat request from %s, handshaking..."
-	IDS_CHAT_NICK_X				"%s is now known as %s."
-	IDS_CHAT_CONNECT_FAIL_X		"Unable to connect to host %s."
-	IDS_CHAT_PROTOCOL_X 		"Connection failed due to invalid data on the wire."
-	IDS_CHAT_RESPONSE_X 		"Received an unknown response: %s"
-	IDS_CHAT_UNCONNECTED_X		"You're not connected."
-END
-
-STRINGTABLE
-BEGIN
-	IDS_GRAPH_TOTAL_BANDWIDTH_IN "Total Generic Receive Bandwidth"
-	IDS_GRAPH_TOTAL_BANDWIDTH_OUT "Total Generic Transmit Bandwidth"
-	IDS_GRAPH_GNUTELLA_CONNECTIONS "Gnutella Connections (Total)"
-	IDS_GRAPH_GNUTELLA_CONNECTIONS_ALL "Gnutella Connections (Active)"
-	IDS_GRAPH_GNUTELLA_BANDWIDTH_IN "Gnutella Receive Bandwidth"
-	IDS_GRAPH_GNUTELLA_BANDWIDTH_OUT "Gnutella Transmit Bandwidth"
-	IDS_GRAPH_DOWNLOADS_FILES	"Download File Count"
-	IDS_GRAPH_DOWNLOADS_TRANSFERS "Download Transfer Count"
-	IDS_GRAPH_DOWNLOADS_BANDWIDTH "Download Bandwidth"
-	IDS_GRAPH_UPLOADS_TRANSFERS "Upload Transfer Count"
-	IDS_GRAPH_UPLOADS_BANDWIDTH "Upload Bandwidth"
-	IDS_GRAPH_GNUTELLA_PACKETS_IN "Gnutella Packets Received"
-	IDS_GRAPH_GNUTELLA_PACKETS_OUT "Gnutella Packets Transmitted"
-	IDS_GRAPH_GNUTELLA_ROUTED	"Gnutella Packets Routed"
-	IDS_GRAPH_GNUTELLA_DROPPED	"Gnutella Packets Dropped"
-	IDS_GRAPH_GNUTELLA_LOST		"Gnutella Packets Lost"
-END
-
-STRINGTABLE
-BEGIN
-	IDS_GRAPH_GNUTELLA_QUERIES	"Gnutella Local Queries"
-	IDS_GRAPH_TOTAL_BANDWIDTH_TCP_IN "Total TCP Receive Bandwidth"
-	IDS_GRAPH_TOTAL_BANDWIDTH_TCP_OUT "Total TCP Transmit Bandwidth"
-	IDS_GRAPH_TOTAL_BANDWIDTH_UDP_IN "Total UDP Receive Bandwidth"
-	IDS_GRAPH_TOTAL_BANDWIDTH_UDP_OUT "Total UDP Transmit Bandwidth"
-	IDS_GRAPH_GNUTELLA_PINGS	"Gnutella Ratio of Received/Sent Pings"
-	IDS_GRAPH_GNUTELLA_PONGS	"Gnutella Ratio of Received/Sent Pongs"
-	IDS_GRAPH_CONNECTION_ERRORS "Connection Errors (%)"
-END
-
-STRINGTABLE
-BEGIN
-	IDS_URL_RECEIVED			"Received URL ""%s"""
-	IDS_URL_PARSE_ERROR			"Unable to parse URL: PeerProject does not understand this URL."
-	IDS_URL_BUSY				"Unable to display URL action dialog because PeerProject is busy."
-	IDS_URL_HOST				"Host:"
-	IDS_URL_PORT				"Port:"
-	IDS_URL_CONNECT				"&Connect"
-	IDS_URL_BROWSE				"&Browse"
-	IDS_URL_ADD					"Add"
-	IDS_URL_FILENAME			"Filename:"
-	IDS_URL_URL					"URL:"
-	IDS_URL_TYPE				"Type:"
-	IDS_URL_UNSPECIFIED			"Unspecified"
-	IDS_BITZI_REQUESTING		"Requesting..."
-	IDS_BITZI_SUCCESS			"Success!"
-	IDS_BITZI_FINISHED			"Finished, click Close"
-END
-
-STRINGTABLE
-BEGIN
-	IDS_BITZI_CLOSE				"&Close"
-	IDS_MEDIAVIS_NOVIS			"(No Visualisation)"
-END
-
-STRINGTABLE
-BEGIN
-	IDS_WIZARD_NEED_SPEED		"You have not yet specified a connection speed.  Before continuing, please either choose your Internet connection type, or type in a connection speed."
-	IDS_WIZARD_SHARE_CONFIRM	"You have not specified any folders to share.  Are you sure?"
-	IDS_WIZARD_SHARE_ALREADY	"The folder you are sharing is already shared as part of another shared folder:\n\n%s"
-	IDS_PROFILE_NO_NICK			"You haven't entered a screen name in your user profile."
-	IDS_PROFILE_NO_LOCATION 	"You haven't entered your location in your user profile.\n\nIt's a good idea to enter your location so that other users can see which country you are from.  Note that entering a location does not reveal any compromising information.\n\nAre you sure you want to continue without entering your location?"
-	IDS_WIZARD_PORT_FORWARD		"PeerProject was unable to set up port-forwarding on your NAT router or firewall.\n\nPlease configure your network to forward TCP and UDP ports %i to your local PC."
-	IDS_SETTINGS_NEED_BANDWIDTH "Please type the bandwidth limit you wish to set in the form ""123 kb/s"" for kilobits per second, or ""123 KB/s"" for kilobytes per second."
-	IDS_PROFILE_NO_VITALS		"You have not selected your age and gender.  Are you sure you want to continue without doing this?"
-	IDS_WIZARD_EXIT				"E&xit"
-	IDS_WIZARD_YEARS_OLD		"year old"
-	IDS_SETTINGS_AUTOMATIC_IP	"Automatic"
-	IDS_WIZARD_UPNP_SETUP		"Please wait: Finding UPnP devices and setting them up..."
-	IDS_WIZARD_DISCOVERY		"Please wait: Updating discovery services..."
-	IDS_WIZARD_ED2K				"Please wait: Updating eDonkey server list..."
-	IDS_UPNP_SERVICES_ERROR		"UPnP Device Host Service is not running. This service is required to perform the setup.\nYou need to set the startup type of the service to automatic."
-END
-
-STRINGTABLE
-BEGIN
-	IDS_SETTINGS_WARN_QUEUELIMIT	"The eDonkey network uses large queues with long wait times. By limiting the maximum queue position you will accept so strictly, you may have trouble getting downloads to begin.\nAre you sure you want to limit what queue positions you will accept?"
-	IDS_SETTINGS_FILEPATH_TOO_LONG	"Windows doesn't support file paths longer than 256 characters.\nPlease select a folder with a shorter path."
-	IDS_SETTINGS_FILEPATH_NOT_SAME	"The complete and incomplete folders should not be the same"
-	IDS_SETTINGS_INCOMPLETE_LIBRARY "The incomplete files folder should not be in the library, as it would reduce performance. Incomplete files may be shared directly from the transfers window."
-END
-
-STRINGTABLE
-BEGIN
-	IDS_DISCOVERY_BOOTSTRAP		"Querying host discovery services..."
-	IDS_DISCOVERY_QUERY			"Querying discovery service ""%s""..."
-	IDS_DISCOVERY_WEB_SUCCESS	"GWebCache transaction successful (""%s"")."
-	IDS_DISCOVERY_FAILED		"Discovery service ""%s"" failed, fail count %i."
-	IDS_DISCOVERY_FAIL_REMOVE	"Discovery service ""%s"" has failed %i times, removing."
-	IDS_DISCOVERY_UPDATING		"Sending GWebCache update to service ""%s""..."
-	IDS_DISCOVERY_SUBMIT		"Submitting GWebCache ""%s"" to a random GWebCache..."
-END
-
-STRINGTABLE
-BEGIN
-	IDS_BROWSE_CONNECTING_TO	"Initiating a connection to %s to browse user..."
-	IDS_BROWSE_CANT_CONNECT_TO	"Unable to initiate a connection to %s to browse user."
-	IDS_BROWSE_PUSHED_TO		"Sent a push request to %s to browse user."
-	IDS_BROWSE_CANT_PUSH_TO		"Unable to send a push request to %s to browse user."
-	IDS_BROWSE_SENT_REQUEST		"Sent browse user request to %s..."
-	IDS_BROWSE_NOT_HTTP			"Browse host %s responded with an invalid HTTP response."
-	IDS_BROWSE_HTTPCODE			"Browse host %s responded with code %s (%s)."
-	IDS_BROWSE_BAD_RESPONSE		"Browse host %s responded with an unrecognised response, and may not support user/host browsing."
-	IDS_BROWSE_DOWNLOADING_FROM "Receiving content from browse host %s (%s)"
-	IDS_BROWSE_PACKET_ERROR 	"Error decoding Gnutella packets from browse host %s."
-	IDS_BROWSE_FINISHED			"Finished browsing user %s, %i files found."
-	IDS_BROWSE_DROPPED			"Browse user connection to %s was dropped."
-	IDS_BROWSE_TIMEOUT			"Closing browse user connection %s due to lack of traffic."
-	IDS_BROWSE_CLOSED			"Closing browse user connection to %s."
-	IDS_BROWSE_INTRO_FORMAT		"Found %i shared files in %s's library."
-	IDS_BROWSE_TITLE_FORMAT		"Browsing %s"
-END
-
-STRINGTABLE
-BEGIN
-	IDS_MEDIA_TIMESPLIT			" / "
-	IDS_MEDIA_SMPLAYER			"PeerProject Media Player"
-	IDS_MEDIA_PLUGIN_CREATE		"PeerProject could not instantiate its MediaServices plugin.  Please reinstall PeerProject, and confirm that you have the necessary media codecs and output drivers installed."
-	IDS_MEDIA_FILTER			"All Media Files|*.aac;*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.flac;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.flv;*.mkv;*.mpeg;*.mpg;*.m1v;*.mp2;*.mp4;*.mpa;*.mpe;*.wmv|Video Files|*.avi;*.asf;*.flv;*.ogm;*.mkv;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Audio Files|*.aac;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.flac;*.wma;*.rm;*.mp3;*.ogg;*.ogm|MIDI Files|*.mid;*.rmi;*.midi|CD Audio Tracks|*.cda|Image Files|*.bmp;*.gif;*.jpeg;*.jpg;*.png;|Playlists|*.asx;*.wax;*.m3u;*.wvx;*.wmx|All Files|*.*||"
-	IDS_MEDIA_LOAD_FAIL			"Unable to load media file ""%s"""
-	IDS_MEDIA_LOAD_FAIL_HELP	"The file may be damaged, or you may not have the necessary codecs to play it."
-	IDS_MEDIA_PARTIAL_RENDER	"Part of the file could not be played, you may need to install additional codecs.\n(Try a codec pack from www.codecs.com)"
-	IDS_MEDIA_EMPTY				"There is no file playing.  Double-click a media file in your library to play it."
-	IDS_MEDIA_TITLE				"P    E    E    R    P    R    O    J    E    C    T         M    E    D    I    A         S    Y    S    T    E    M"
-	IDS_MEDIA_PLAYLIST			"Playlist:"
-END
-
-STRINGTABLE
-BEGIN
-	IDS_NEIGHBOUR_G1PP			"Gnutella: Peer-to-Peer Connection"
-	IDS_NEIGHBOUR_G1LU			"Gnutella: Leaf-to-Ultrapeer Connection"
-	IDS_NEIGHBOUR_G1UL			"Gnutella: Ultrapeer-to-Leaf Connection"
-	IDS_NEIGHBOUR_G2HH			"Gnutella II: Hub-to-Hub Connection"
-END
-
-STRINGTABLE
-BEGIN
-	IDS_NEIGHBOUR_G2LH			"Gnutella II: Leaf-to-Hub Connection"
-	IDS_NEIGHBOUR_G2HL			"Gnutella II: Hub-to-Leaf Connection"
-	IDS_NEIGHBOUR_ED2K_LOW		"eDonkey Server Connection (LOWID: %lu)"
-	IDS_NEIGHBOUR_ED2K_HIGH		"eDonkey Server Connection"
-	IDS_NEIGHBOUR_HANDSHAKE		"Handshake"
-	IDS_NEIGHBOUR_INBOUND		"Inbound"
-	IDS_NEIGHBOUR_OUTBOUND		"Outbound"
-	IDS_NEIGHBOUR_CURRENT		"Current:"
-	IDS_NEIGHBOUR_TOTAL			"Total:"
-	IDS_NEIGHBOUR_COMPRESSION	"Compression:"
-	IDS_NEIGHBOUR_RATIO			"Ratio:"
-	IDS_NEIGHBOUR_COMPRESSION_DF "Deflate"
-	IDS_NEIGHBOUR_COMPRESSION_NONE "None"
-	IDS_NEIGHBOUR_CONNECTING	"Connecting"
-	IDS_NEIGHBOUR_HANDSHAKING	"Handshaking"
-	IDS_NEIGHBOUR_REJECTED		"Rejected"
-END
-
-STRINGTABLE
-BEGIN
-	IDS_NEIGHBOUR_CLOSING		"Closing"
-	IDS_NEIGHBOUR_UNKNOWN		"Unknown"
-	IDS_NEIGHBOUR_G1PEER		"G1 Peer"
-	IDS_NEIGHBOUR_G1ULTRA		"G1 Ultrapeer"
-	IDS_NEIGHBOUR_G1LEAF		"G1 Leaf"
-	IDS_NEIGHBOUR_G2PEER		"G2 Peer"
-	IDS_NEIGHBOUR_G2HUB			"G2 Hub"
-	IDS_NEIGHBOUR_G2LEAF		"G2 Leaf"
-	IDS_NEIGHBOUR_ED2K_SERVER	"eDonkey Server"
-	IDS_NEIGHBOUR_ED2K_LOWID	"eDonkey (LowID)"
-	IDS_NEIGHBOUR_ED2K_HIGHID	"eDonkey (HighID)"
-END
-
-STRINGTABLE
-BEGIN
-	IDS_IRC_HEADERTITLE			"Welcome to the PeerProject IRC Chatrooms"
-	IDS_IRC_HEADERSUBTITLE		"Please respect others while using this service.  Press Connect below to start."
-	IDS_IRC_HEADERINPUT			"Chat:"
-	IDS_IRC_USERLIST			"Users"
-	IDS_IRC_CHANLIST			"Channels"
-	IDS_IRC_ADDCHANNEL			"Add..."
-	IDS_IRC_REMOVECHANNEL		"Remove"
-END
-
-STRINGTABLE
-BEGIN
-	IDS_CHAT_CONNECTING_TO		"Initiating a connection to %s..."
-	IDS_CHAT_CANT_CONNECT		"Unable to create a connection to %s."
-	IDS_CHAT_PUSH_SENT			"Requesting a firewalled push connection from %s..."
-	IDS_CHAT_PUSH_DONE			"Accepted push connection from %s, handshaking..."
-	IDS_CHAT_CONNECTED			"Connection established, handshaking..."
-	IDS_CHAT_HANDSHAKE_FAIL		"Handshake failed, host may not support chatting."
-	IDS_CHAT_HANDSHAKE_G1		"Handshake complete, chat protocol version %s."
-	IDS_CHAT_HANDSHAKE_G2		"Exchanging profile information..."
-	IDS_CHAT_PROFILE_ACCEPTED	"Authenticated user "
-	IDS_CHAT_PRIVATE_START		"Requesting private conversation with user..."
-	IDS_CHAT_PRIVATE_ONLINE		"Private conversation granted, you are now chatting with %s."
-	IDS_CHAT_PRIVATE_REFUSED	"%s is not accepting private conversations, sorry."
-	IDS_CHAT_PRIVATE_AWAY		"%s is away: %s"
-	IDS_CHAT_DROPPED			"The chat connection was lost."
-	IDS_CHAT_CLOSED				"Connection closed."
-	IDS_CHAT_CANT_PUSH			"Unable to request a push connection from %s, no route available."
-END
-
-STRINGTABLE
-BEGIN
-	IDS_CHAT_NOT_CONNECTED_1	"Cannot send message, you are not connected.  PeerProject is trying to connect..."
-	IDS_CHAT_NOT_CONNECTED_2	"Cannot send message, a connection has not been established yet."
-	IDS_CHAT_NEED_PROFILE		"You have not yet filled in your user profile.  You must provide a profile before you can chat with other users.\n\nWould you like to fill in your profile now?"
-	IDS_CHAT_PRIORITY_GRANTED	"Granted upload priority to host %s."
-END
-
-STRINGTABLE
-BEGIN
-	IDS_ED2K_SERVER_CONNECTING	"Initiating connection to eDonkey server at %s..."
-	IDS_ED2K_SERVER_CONNECTED	"Connected to eDonkey server %s, handshaking..."
-	IDS_ED2K_SERVER_MESSAGE		"ED2K[%s] %s"
-	IDS_ED2K_SERVER_REFUSED		"eDonkey server %s refused connection."
-	IDS_ED2K_SERVER_ONLINE		"eDonkey server %s online, client ID is %lu."
-	IDS_ED2K_SERVER_IDCHANGE	"eDonkey server %s changed our client ID from %lu to %lu."
-	IDS_ED2K_SERVER_IDENT		"eDonkey server %s identified itself as ""%s""."
-	IDS_ED2K_SERVER_REJECTED 	"eDonkey server %s rejected the connection."
-	IDS_ED2K_CLIENT_HANDSHAKE_FAIL "Error exchanging handshake with eDonkey client %s."
-	IDS_ED2K_CLIENT_DROPPED 	"eDonkey client connection to %s was closed."
-	IDS_ED2K_CLIENT_BAD_PACKET	"Received a malformatted eDonkey packet from %s (id=%x)."
-	IDS_ED2K_CLIENT_ACCEPTED	"Incoming connection from %s is an eDonkey client link."
-	IDS_ED2K_CLIENT_SENT_HASHSET "Sending eDonkey hashset for ""%s"" to %s..."
-	IDS_ED2K_CLIENT_CLOSED		"eDonkey client connection to %s was idle, closed."
-	IDS_ED2K_CLIENT_CONNECTING	"Initiating eDonkey client connection to %s..."
-	IDS_ED2K_CLIENT_WRONG_GUID	"eDonkey client %s has the wrong GUID, aborting handshake."
-END
-
-STRINGTABLE
-BEGIN
-	IDS_ED2K_CLIENT_CONNECT_TIMEOUT "Timed out connecting to eDonkey client %s."
-	IDS_ED2K_CLIENT_HANDSHAKE_TIMEOUT "Timed out handshaking with eDonkey client %s."
-	IDS_ED2K_CLIENT_DISABLED	"Refusing eDonkey client link from %s because eDonkey is disabled."
-END
-
-STRINGTABLE
-BEGIN
-	IDS_ED2K_EPI_START			"Starting eDonkey partial download import process..."
-	IDS_ED2K_EPI_FINISHED		"Process complete, %i partial downloads imported successfully."
-	IDS_ED2K_EPI_FOLDER			"Scanning folder: ""%s""..."
-	IDS_ED2K_EPI_FILE_FAILED	"  Unable to import file."
-	IDS_ED2K_EPI_FILE_START		" Found partial file ""%s"", importing..."
-	IDS_ED2K_EPI_CANT_OPEN_PART "  Unable to open part file ""%s""."
-	IDS_ED2K_EPI_DETECTED		"  Found download ""%s"", size %s."
-	IDS_ED2K_EPI_FILE_OLD		"  Download data file is newer than .part file, aborting."
-	IDS_ED2K_EPI_COPY_START		"  Copying ""%s"" to ""%s""..."
-	IDS_ED2K_EPI_COPY_FINISHED	"  Finished copying file."
-	IDS_ED2K_EPI_FILE_CREATED	"  Created PeerProject partial download, %s remaining."
-	IDS_ED2K_EPI_ALREADY		"  This file is already in the PeerProject download list."
-	IDS_ED2K_EPI_DISK_SPACE		"  Insufficient disk space to copy download file."
-END
-
-STRINGTABLE
-BEGIN
-	IDS_BT_CLIENT_ACCEPTED		"Incoming connection from %s is a BitTorrent coupling, negotiating..."
-	IDS_BT_CLIENT_CONNECT_TIMEOUT "Timed out connecting to BitTorrent client %s."
-	IDS_BT_CLIENT_HANDSHAKE_TIMEOUT "Timed out handshaking with BitTorrent client %s."
-	IDS_BT_CLIENT_LOST			"Closing BitTorrent coupling with %s due to lack of traffic."
-	IDS_BT_CLIENT_WRONG_GUID	"BitTorrent coupling with %s failed because the remote client has a different Peer ID."
-	IDS_BT_CLIENT_WRONG_FILE	"BitTorrent coupling with %s responded with the wrong file."
-	IDS_BT_CLIENT_UNKNOWN_FILE	"BitTorrent coupling with %s requested an unknown file."
-	IDS_BT_CLIENT_ONLINE		"BitTorrent coupling with %s established for ""%s""."
-	IDS_BT_CLIENT_INACTIVE_FILE "BitTorrent coupling with %s requested an inactive file."
-	IDS_BT_PREFETCH_FILE		"Received BitTorrent descriptor file: ""%s"""
-	IDS_BT_PREFETCH_ERROR		"Unable to parse prefetched BitTorrent file ""%s""."
-	IDS_BT_TRACK_ERROR			"Error from BitTorrent tracker for ""%s"" : ""%s""."
-	IDS_BT_TRACK_PARSE_ERROR	"Error parsing BitTorrent tracker response."
-	IDS_BT_TRACK_SUCCESS		"Received BitTorrent tracker response for ""%s"", %i new sources."
-	IDS_BT_CLIENT_CONNECTING	"Initiating BitTorrent client coupling with %s..."
-	IDS_BT_CLIENT_HANDSHAKING	"Established BitTorrent coupling with %s, handshaking..."
-END
-
-STRINGTABLE
-BEGIN
-	IDS_BT_TRACK_CHANGE			"You have changed the tracker URL for this torrent.  Are you sure you want to save this change?\n\nAn invalid tracker URL may prevent further downloading."
-	IDS_BT_CLIENT_EXTENDED		"BitTorrent coupling with %s is extended protocol, identified ""%s""."
-	IDS_BT_CLIENT_EXCHANGE		"Received %i new BitTorrent sources from %s."
-	IDS_BT_SEED_ALREADY			"The torrent ""%s"" is already on your download list, and cannot be seeded."
-	IDS_BT_SEED_PARSE_ERROR		"Error loading the torrent file ""%s"".  This may not be a valid torrent."
-	IDS_BT_SEED_CREATE_FAIL 	"Unable to create BitTorrent share file ""%s""."
-	IDS_BT_SEED_SOURCE_LOST 	"This torrent includes the file ""%s"", but PeerProject cannot find this file in your library.  If possible, move the file to a shared folder and try again."
-	IDS_BT_SEED_SOURCE_SIZE 	"This torrent includes the file ""%s"" which should be %s, however your version of the file is %s."
-	IDS_BT_SEED_COPY_FAIL		"An error occurred while copying from ""%s"" to a BitTorrent share file."
-	IDS_BT_SEED_ERROR			"Unknown error occurred while trying to seed ""%s""."
-	IDS_BT_SEED_VERIFY_FAIL 	"An error was detected in the file ""%s""."
-	IDS_BT_TRACKER_DOWN			"Unable to communicate with tracker"
-	IDS_BT_TRACKER_MULTI		"Tracker failed- Trying next tracker (%i of %i)"
-END
-
-STRINGTABLE
-BEGIN
-	IDS_BT_CLIENT_DROP_CONNECTING "BitTorrent connection to %s was dropped."
-	IDS_BT_CLIENT_DROP_HANDSHAKE "BitTorrent handshake with %s was dropped."
-	IDS_BT_CLIENT_DROP_CONNECTED "BitTorrent coupling with %s was dropped."
-	IDS_BT_CLIENT_DUPLICATE		"BitTorrent coupling with %s not accepted, a connection to this client already exists."
-	IDS_BT_CLIENT_MAX_CONNECTIONS "BitTorrent coupling with %s not accepted, maximum connections reached."
-	IDS_BT_PRIVATE				"Private torrent"
-	IDS_BT_ENCODING				"Encoding error"
-	IDS_BT_UPDATE_TITLE			"Updating Bittorrent Downloads..."
-	IDS_BT_UPDATE_CONVERTING	"Converting Torrent:"
-END
-
-STRINGTABLE
-BEGIN
-	IDS_DOWNLOAD_EDIT_RENAME	"You have made changes to the name field.  Are you sure you want to rename this download?"
-	IDS_DOWNLOAD_EDIT_FORGET_VERIFY "Are you sure you want to forget the current verification status?  All downloaded data will be treated as untrusted, and cached hashtrees and hashsets will be flushed."
-	IDS_DOWNLOAD_EDIT_FORGET_SOURCES "Are you sure you want to forget all sources for the selected download?"
-	IDS_DOWNLOAD_EDIT_BAD_RANGE "Please enter a valid range to erase.  The ""from"" field is the first byte to erase, the ""last"" field is the last byte to erase."
-	IDS_DOWNLOAD_EDIT_CANT_ERASE "Unable to erase the selected range from the download because no part of the range is present."
-	IDS_DOWNLOAD_EDIT_ERASED	"Erased %I64i bytes from the download."
-	IDS_DOWNLOAD_EDIT_COMPLETE_NOHASH "You cannot assume this download is complete and reverify it because you do not yet have any partial verification data, such as tiger-tree volume, eDonkey hashset or BitTorrent hashset.  Without verification information the download cannot be reverified."
-	IDS_DOWNLOAD_EDIT_COMPLETE_VERIFY "Are you sure you want to assume this download is complete and reverify it?  The whole file will be considered, and PeerProject will accept parts which pass verification and redownload parts which fail verification."
-	IDS_DOWNLOAD_EDIT_CANCEL_DOWNLOAD "Do you wish to cancel this download but save the incomplete files?"
-	IDS_DOWNLOAD_EDIT_CHANGE_SIZE "You have made changes to the file size.  Are you sure you want to change the file size for this download?"
-	IDS_DOWNLOAD_EDIT_BAD_HASH	"You have typed an %s hash value, however it is invalid.  Please check it and try again."
-	IDS_DOWNLOAD_EDIT_CHANGE_HASH "You have provided an %s hash value that is different from the one currently associated with this download.  Are you sure you want to change the %s hash now?"
-	IDS_DOWNLOAD_EDIT_ACTIVE_TASK "\nThe selected download already has an active Task, please wait."
-	IDS_DOWNLOAD_QUEUE_HUGE		"Dropping download source %s for ""%s"" because queue position %i is too high."
-END
-
-STRINGTABLE
-BEGIN
-	IDS_SCHEDULER_BANDWIDTH_FULL "Bandwidth: Full"
-	IDS_SCHEDULER_BANDWIDTH_LIMITED "Bandwidth: Limited"
-	IDS_SCHEDULER_BANDWIDTH_STOP "Bandwidth: Stop"
-	IDS_SCHEDULER_SYSTEM_EXIT	"System: Exit PeerProject"
-	IDS_SCHEDULER_SYSTEM_SHUTDOWN "System: Shut-down Computer"
-	IDS_SCHEDULER_SYSTEM_DIALUP_OFF "System: Disconnect Dial-Up"
-	IDS_SCHEDULER_SYSTEM_NOTICE "System: Reminder Notice"
-	IDS_SCHEDULER_REMINDER_NOTICE "Scheduled Reminder Notice."
-	IDS_SCHEDULER_REMOVEALL_CONFIRM	"Are you sure you wish to remove all scheduled tasks?\n\nThis cannot be undone."
-	IDS_SCHEDULER_TIME_PASSED	"Scheduled time has passed.\n\nPlease select a new time."
-	IDS_SCHEDULER_SELECTTASK	"No scheduled event. Please select a task."
-	IDS_SCHEDULER_SELECTADAY	"No scheduled day. Select one or more days or date."
-	IDS_SCHEDULER_TASK_ACTIVE	"Active"
-	IDS_SCHEDULER_TASK_INACTIVE	"Inactive"
-	IDS_SCHEDULER_TASK_WAITING	"Waiting"
-	IDS_SCHEDULER_TASK_DONE		"Done"
-	IDS_SCHEDULER_TASK_DONETODAY "Done Today"
-	IDS_SCHEDULER_NOTASK		"No Tasks scheduled."
-END
-
-STRINGTABLE
-BEGIN
-	IDS_REMOTE_DISABLED			"Remote access is disabled."
-	IDS_REMOTE_ENABLED			"http://%s:%i/remote  -  Username/password required."
-	IDS_REMOTE_UNAVAILABLE		"Unable to accept connections, URL unavailable."
-END
-
-STRINGTABLE
-BEGIN
-	IDS_GENERAL_NOURNAVAILABLE	"No URN available"
-	IDS_GENERAL_CLOSE			"Close"
-	IDS_GENERAL_OF				"of"
-	IDS_GENERAL_NO				"No"
-	IDS_GENERAL_YES				"Yes"
-	IDS_GENERAL_AUTO			"Auto"
-	IDS_GENERAL_DEFAULT			"Default"
-	IDS_GENERAL_CUSTOM			"Custom"
-	IDS_GENERAL_BACK			"&Back"
-	IDS_GENERAL_NEXT			"&Next"
-	IDS_GENERAL_FINISH			"Finish"
-	IDS_GENERAL_ALL				"All"
-	IDS_GENERAL_RTL_WARNING		"Changing interface direction requires restart. \nYou will need to start PeerProject manually. Exit now?"
-	IDS_SHAREMONKEY_MESSAGE		"This option uses services provided by ShareMonkey.com for recognising information about selected files.\n\nPeerProject will transmit file details and your location in order to query the ShareMonkey database.  If you are concerned about privacy, you may wish to consult the ShareMonkey.com privacy policy.\n\nWould you like to proceed?"
-END
-
-STRINGTABLE
-BEGIN
-	IDS_DAY_EVERYDAY			"Every Day"
-	IDS_DAY_MONDAY				"Monday"
-	IDS_DAY_TUESDAY				"Tuesday"
-	IDS_DAY_WEDNESDAY			"Wednesday"
-	IDS_DAY_THURSDAY			"Thursday"
-	IDS_DAY_FRIDAY				"Friday"
-	IDS_DAY_SATURDAY			"Saturday"
-	IDS_DAY_SUNDAY				"Sunday"
-END
-
-STRINGTABLE
-BEGIN
-	IDS_STATUS_CONNECTING		"Connecting"
-	IDS_STATUS_REQUESTING		"Requesting"
-	IDS_STATUS_RESPONSE			"Response"
-	IDS_STATUS_DOWNLOADING		"Downloading"
-	IDS_STATUS_TIGERTREE		"TigerTree"
-	IDS_STATUS_HASHSET			"Hashset"
-	IDS_STATUS_METADATA			"Metadata"
-	IDS_STATUS_BUSY				"Busy"
-	IDS_STATUS_ENQUEUE			"Enqueue"
-	IDS_STATUS_QUEUED			"Queued"
-	IDS_STATUS_UNKNOWN			"Unknown"
-	IDS_STATUS_COMPLETED		"Completed"
-END
-
-STRINGTABLE
-BEGIN
-	IDS_STATUS_SEEDING			"Seeding"
-	IDS_STATUS_MOVING			"Moving"
-	IDS_STATUS_PAUSED			"Paused"
-	IDS_STATUS_FILEERROR		"File Error"
-	IDS_STATUS_CANTMOVE			"Can't Move"
-	IDS_STATUS_VERIFYING		"Verifying"
-	IDS_STATUS_ACTIVE			"Active"
-	IDS_STATUS_PENDING			"Pending"
-	IDS_STATUS_SEARCHING		"Searching"
-	IDS_STATUS_CREATING			"Creating"
-	IDS_STATUS_TORRENT			"Torrent"
-	IDS_STATUS_TRACKERDOWN		"Tracker Down"
-	IDS_STATUS_VERIFIED			"Verified"
-	IDS_STATUS_UNVERIFIED		"Unverified"
-	IDS_STATUS_UNSUPPORTED		"Unsupported"
-	IDS_STATUS_UNINTERESTED		"Uninterested"
-END
-
-STRINGTABLE
-BEGIN
-	IDS_STATUS_SOURCE			"source"
-	IDS_STATUS_SOURCES_ONES 	"sources"
-	IDS_STATUS_SOURCES_FEW		"sources"
-	IDS_STATUS_SOURCES			"sources"
-	IDS_STATUS_NOSOURCES		"(No Sources)"
-	IDS_STATUS_CHOKED			"Choked"
-	IDS_STATUS_NEXT				"Next"
-	IDS_STATUS_Q				"Q"
-END
-
-STRINGTABLE
-BEGIN
-	IDS_RATING_NORATING			"(No Rating)"
-	IDS_RATING_1				"Fake / Corrupt"
-	IDS_RATING_2				"Poor"
-	IDS_RATING_3				"Average"
-	IDS_RATING_4				"Good"
-	IDS_RATING_5				"Very Good"
-	IDS_RATING_6				"Excellent"
-	IDS_SELECT_ED2K_TEMP_FOLDER	"Select the eDonkey/eMule temp folder:"
-END
-
-STRINGTABLE
-BEGIN
-	IDS_LIBRARY_ALBUM_TRACK		"#"
-	IDS_LIBRARY_ALBUM_TITLE		"Title"
-	IDS_LIBRARY_ALBUM_LENGTH	"Length"
-	IDS_LIBRARY_ALBUM_BITRATE	"Bitrate"
-	IDS_LIBRARY_ALBUM_ALBUM		"Album"
-	IDS_LIBRARY_ALBUM_ARTIST	"Artist"
-	IDS_LIBRARY_ALBUM_RATING	"Rating"
-END
-
-STRINGTABLE
-BEGIN
-    ID_HELP_ABOUT				"Display the PeerProject about dialog..."
-    ID_HELP_VERSION_CHECK		"Check for new version"
-    ID_NETWORK_EXIT				"Exit PeerProject"
-    ID_NETWORK_CONNECT			"Connect to selected networks."
-    ID_NETWORK_DISCONNECT		"Disconnect from all networks, this will also stop all downloads and uploads."
-    ID_TOOLS_SETTINGS			"Configure PeerProject settings..."
-    ID_VIEW_SYSTEM				"Show or hide the SYSTEM window."
-    ID_VIEW_NEIGHBOURS			"Show or hide the NEIGHBORS window."
-END
-
-STRINGTABLE
-BEGIN
-    ID_VIEW_TRAFFIC				"Show or hide a GRAPH window."
-    ID_VIEW_LIBRARY				"Show or hide the LIBRARY window."
-    ID_VIEW_DOWNLOADS			"Show or hide the DOWNLOADS window."
-    ID_VIEW_UPLOADS				"Show or hide the UPLOADS window."
-    ID_VIEW_HOSTS				"Show or hide the HOST CACHE window."
-    ID_VIEW_PACKETS				"Show or hide the PACKET DUMP window."
-    ID_NEIGHBOURS_DISCONNECT	"Disconnect selected neighbors."
-    ID_SYSTEM_CLEAR				"Clear the status log."
-    ID_SYSTEM_COPY				"Copy selected lines of status log."
-    ID_NEIGHBOURS_VIEW_ALL		"Open a new Packet Dump window monitoring this neighbor."
-    ID_NEIGHBOURS_VIEW_INCOMING	"Open a new Packet Dump window monitoring incoming traffic from this neighbor."
-    ID_NEIGHBOURS_VIEW_OUTGOING	"Open a new Packet Dump window monitoring outgoing traffic to this neighbor."
-    ID_VIEW_SEARCH_MONITOR		"Show or hide the SEARCH MONITOR window."
-    ID_VIEW_RESULTS_MONITOR		"Show or hide the HIT MONITOR window."
-    ID_HOSTCACHE_CONNECT		"Connect to the selected host."
-    ID_HOSTCACHE_DISCONNECT		"Disconnect from selected neighbors."
-END
-
-STRINGTABLE
-BEGIN
-    ID_HOSTCACHE_REMOVE			"Remove the selected hosts from the host cache."
-    ID_NETWORK_CONNECT_TO		"Manually connect to a host..."
-    ID_NETWORK_SEARCH			"Start a new search of the network..."
-    ID_SEARCH_DOWNLOAD			"Download the selected file."
-    ID_SEARCH_SEARCH			"Search the network again..."
-    ID_SEARCH_FILTER			"Filter the search results by certain words and conditions..."
-    ID_SEARCH_FILTER_REMOVE		"Remove filtering from the results."
-    ID_HITMONITOR_CLEAR			"Clear the hit monitor buffer."
-    ID_SEARCHMONITOR_PAUSE		"Pause search monitoring."
-    ID_HITMONITOR_PAUSE			"Pause hit monitoring."
-END
-
-STRINGTABLE
-BEGIN
-    ID_TRANSFERS_DISCONNECT		"Disconnect the selected download transfers."
-    ID_TRANSFERS_FORGET			"Disconnect and forget the selected download sources."
-    ID_HELP_HOMEPAGE			"Visit the PeerProject web site."
-    ID_HELP_WEB_1				"Visit this website"
-    ID_HELP_WEB_2				"Visit this website"
-    ID_HELP_WEB_3				"Visit this website"
-    ID_HELP_WEB_4				"Visit this website"
-    ID_HELP_WEB_5				"Visit this website"
-    ID_HELP_WEB_6				"Visit this website"
-    ID_HELP_FAQ					"View the PeerProject FAQ."
-    ID_HELP_GUIDE				"Visit the PeerProject Users Guide."
-    ID_SEARCH_CHAT				"Open a chat session with the selected user."
-    ID_TRAFFIC_GRID				"Display grid lines."
-    ID_TRAFFIC_AXIS				"Display Vertical Axis"
-END
-
-STRINGTABLE
-BEGIN
-    ID_SEARCHMONITOR_CLEAR		"Clear the search monitor buffer."
-    ID_SEARCH_URI				"Copy the P2P Link of the selected file. (URI)"
-    ID_HITMONITOR_SEARCH		"Search the network for the selected term."
-    ID_HOSTCACHE_G2_HORIZON		"Show Gnutella2 horizon hubs."
-    ID_HOSTCACHE_G2_CACHE		"Show Gnutella2 cached hosts."
-    ID_HOSTCACHE_G1_CACHE		"Show Gnutella1 cached hosts."
-    ID_SEARCH_COLUMNS			"Select metadata columns to be displayed..."
-    ID_SEARCH_DOWNLOADNOW		"Download selected files with priority."
-    ID_DOWNLOADS_RESUME			"Resume selected downloads."
-    ID_HOSTCACHE_BT_CACHE		"Show BitTorrent cached hosts."
-    ID_HOSTCACHE_KAD_CACHE		"Show Kademlia cached hosts."
-    ID_DOWNLOADS_CLEAR_COMPLETED "Clear downloads which have been completed."
-    ID_DOWNLOADS_SOURCES		"Search for more sources for selected downloads."
-    ID_DOWNLOADS_LAUNCH			"Preview selected files in place."
-    ID_DOWNLOADS_CLEAR			"Clear/remove the selected downloads."
-END
-
-STRINGTABLE
-BEGIN
-    ID_DOWNLOADS_PAUSE			"Pause selected downloads."
-    ID_DOWNLOADS_VIEW_REVIEWS	"View reviews for the selected download."
-    ID_LIBRARY_EXPLORE			"Open selected folders."
-    ID_LIBRARY_SCAN				"Scan the selected folders or files for changes."
-    ID_LIBRARY_SHARED_FILE		"Share or unshare the selected files."
-    ID_LIBRARY_REMOVE			"Remove selected folders from the Libary."
-    ID_LIBRARY_ADD				"Add a new folder to your library..."
-    ID_LIBRARY_PROPERTIES		"View and edit the properties of the selected files..."
-    ID_LIBRARY_COLUMNS			"Select metadata columns to be displayed..."
-    ID_DOWNLOADS_REMOTE_PREVIEW	"Download preview image for the selected download."
-    ID_DOWNLOADS_CLEAR_PAUSED	"Clear downloads which have been paused."
-    ID_UPLOADS_LAUNCH			"Launch the selected shared file."
-    ID_UPLOADS_DISCONNECT		"Disconnect selected upload transfers."
-    ID_UPLOADS_CLEAR_COMPLETED	"Clear uploads which have been completed."
-    ID_UPLOADS_CLEAR			"Clear selected uploads from the list."
-END
-
-STRINGTABLE
-BEGIN
-    ID_TRAFFIC_LEGEND			"Display legend."
-    ID_TRAFFIC_SETUP			"Select and configure items to graph..."
-    ID_TRAFFIC_CLEAR			"Clear the traffic graph."
-    ID_TOOLS_WIZARD				"Open the PeerProject QuickStart wizard..."
-    ID_CHILD_RESTORE			"Open the selected window."
-    ID_CHILD_CLOSE				"Close the active window."
-    ID_CHILD_MAXIMISE			"Enlarge the active window to fill the window."
-    ID_CHILD_MINIMISE			"Minimise the selected window to the tab bar."
-    ID_TRANSFERS_CHAT			"Open a chat session with the selected user."
-    ID_UPLOADS_CHAT				"Open a chat session with the selected user."
-    ID_SEARCH_CLEAR				"Clear the search results."
-    ID_TRAY_OPEN				"Open the PeerProject window."
-END
-
-STRINGTABLE
-BEGIN
-    ID_NETWORK_AUTO_CLOSE		"Automatically close PeerProject when transfers have completed."
-    ID_UPLOADS_AUTO_CLEAR		"Automatically clear uploads which have been completed."
-    ID_LIBRARY_SEARCH			"Search your file library..."
-    ID_TRAFFIC_WINDOW			"Open a new graph window..."
-    ID_NEIGHBOURS_CHAT			"Open a chat session with the selected user."
-    ID_SEARCH_STOP				"Stop receiving results in this window."
-    ID_TOOLS_DOWNLOAD			"Start downloading a new file or BitTorrent torrent..."
-    ID_DOWNLOADS_MERGE			"Add a file-part you may already have, and verify."
-    ID_DOWNLOADS_ADD_SOURCE		"Add a source URL to the selected download..."
-    ID_LIBRARY_BITZI_WEB		"View the Bitzi™ ticket for the selected file on the web."
-    ID_LIBRARY_BITZI_DOWNLOAD	"Download metadata for the selected files from Bitzi..."
-    ID_VIEW_SECURITY			"Show or hide the SECURITY window."
-END
-
-STRINGTABLE
-BEGIN
-	ID_VIEW_SCHEDULER			"Show or hide SCHEDULER window."
-	ID_SCHEDULER_ADD			"Add a new task to scheduler list."
-	ID_SCHEDULER_EDIT			"Edit the selected task..."
-	ID_SCHEDULER_REMOVE			"Remove selected tasks from the list."
-	ID_SCHEDULER_ACTIVATE		"Activates selected tasks."
-	ID_SCHEDULER_DEACTIVATE 	"Deactivates selected tasks."
-	ID_SCHEDULER_REMOVE_ALL 	"Removes all scheduled tasks."
-	ID_SCHEDULER_IMPORT			"Imports scheduled tasks from a file..."
-	ID_SCHEDULER_EXPORT			"Exports scheduled tasks to a file..."
-	ID_HELP_SCHEDULER			"Schedule tasks to be done in the future."
-END
-
-STRINGTABLE
-BEGIN
-    ID_SECURITY_EDIT			"Edit the selected security rule..."
-    ID_SECURITY_REMOVE			"Remove the selected security rules."
-    ID_SECURITY_RESET			"Reset the hit counts on the selected rules."
-    ID_SECURITY_ADD				"Add a new rule to the security chain..."
-    ID_SECURITY_POLICY_ACCEPT	"Set the default security policy to allow all hosts."
-    ID_SECURITY_POLICY_DENY		"Set the default security policy to deny all hosts."
-    ID_LIBRARY_REFRESH			"Refresh the library view."
-    ID_LIBRARY_MOVE				"Move selected files to another library folder..."
-    ID_LIBRARY_COPY				"Copy selected files to another library folder..."
-    ID_LIBRARY_DELETE			"Delete the selected files permanently."
-    ID_LIBRARY_ENQUEUE			"Add selected files to your media playlist."
-    ID_LIBRARY_URI				"Copy the P2P Link of the selected file. (URI)"
-END
-
-STRINGTABLE
-BEGIN
-    ID_SECURITY_MOVE_UP			"Move the selected security rules up the precedence list."
-    ID_SECURITY_MOVE_DOWN		"Move the selected security rules down the precedence list."
-    ID_SECURITY_BAN				"Filter out the selected host for an extended period."
-    ID_TAB_NETWORK				"Manage your Network connections."
-    ID_TAB_LIBRARY				"View your locally catalogued files."
-	ID_TAB_TRANSFERS			"Manage all active downloads and uploads."
-    ID_TAB_CONNECT				"Connect or disconnect from the network."
-	ID_TAB_IRC					"Show the IRC chatrooms window."
-    ID_VIEW_TABBED				"Use PeerProject in standard Tabbed mode. (Home, Transfers, Network, Library, Media, IRC, Search)"
-    ID_VIEW_WINDOWED			"Use PeerProject in Windowed power mode."
-    ID_VIEW_DISCOVERY			"Show or hide the network DISCOVERY SERVICES window."
-    ID_DISCOVERY_EDIT			"View the properties for the selected discovery service."
-    ID_DOWNLOADS_ENQUEUE		"Add selected downloads to your media playlist."
-END
-
-STRINGTABLE
-BEGIN
-    ID_DISCOVERY_QUERY			"Query the selected discovery services now."
-    ID_DISCOVERY_REMOVE			"Remove the selected discovery services."
-    ID_DISCOVERY_ADD			"Add a new discovery service..."
-    ID_DISCOVERY_BLOCKED		"Show blocked services in the Discovery window."
-    ID_DISCOVERY_GNUTELLA		"Show bootstrap services in the Discovery window."
-    ID_DISCOVERY_WEBCACHE		"Show GWebCache services in the Discovery window."
-    ID_DOWNLOADS_AUTO_CLEAR		"Automatically clear downloads which have been completed."
-    ID_DOWNLOADS_SHOW_SOURCES	"Display sources which are not currently being used."
-    ID_TRANSFERS_CONNECT		"Access the selected download sources and attempt to download."
-    ID_SYSTEM_VERBOSE			"Display a detailed system activity log."
-    ID_DISCOVERY_ADVERTISE		"Advertise the selected GWebCache service to a random existing GWebCache."
-    ID_DISCOVERY_BROWSE			"Browse statistics for the selected GWebCache service on the Web."
-    ID_BROWSE_STOP				"Stop browsing files on this host."
-    ID_BROWSE_REFRESH			"Refresh the list of files available on this host."
-    ID_BROWSE_LAUNCH			"Browse the selected user's profile and shared files."
-END
-
-STRINGTABLE
-BEGIN
-    ID_SYSTEM_VERBOSE_ERROR		"Display errors only."
-    ID_SYSTEM_VERBOSE_WARNING	"Display warnings and above."
-    ID_SYSTEM_VERBOSE_NOTICE	"Display notices and above."
-    ID_SYSTEM_VERBOSE_INFO		"Display info and above."
-    ID_SYSTEM_VERBOSE_DEBUG		"Display all."
-END
-
-STRINGTABLE
-BEGIN
-    ID_TAB_HOME					"Return to the PeerProject start page. (home view)"
-    ID_DOWNLOADS_BOOST			"Boost the performance of the selected download by removing bandwidth limits."
-    ID_DOWNLOADS_LAUNCH_COPY	"SmartPreview the selected downloads."
-    ID_DOWNLOADS_MONITOR		"Open a download monitor window for this download..."
-    ID_LIBRARY_SELECT_ALL		"Select and view all folders in your library."
-    ID_SECURITY_EXPORT			"Export selected security rules to a file..."
-    ID_SECURITY_IMPORT			"Import security rules from a file..."
-    ID_SEARCH_FILTER_RAW		"Filter the search results by certain words and conditions..."
-    ID_SEARCH_PANEL				"Display the quick search panel on the left of the Search window."
-    ID_SYSTEM_TIMESTAMP			"Record a timestamp for each line."
-    ID_LIBRARY_LAUNCH			"Open or play the selected files."
-    ID_NEIGHBOURS_URI			"Copy a URI Link to access the selected host."
-    ID_TOOLS_RESKIN				"Reload and apply your current skin selection."
-END
-
-STRINGTABLE
-BEGIN
-    ID_MONITOR_CLOSE			"Close the monitor window."
-    ID_WINDOW_TOOLBAR			"Show or hide the toolbar."
-    ID_WINDOW_TABBAR			"Show or hide the window tab bar."
-    ID_WINDOW_MONITOR			"Show or hide the bandwidth monitor."
-    ID_NETWORK_BROWSE_TO		"Browse a user, showing their profile and shared files..."
-    ID_TOOLS_SKIN				"Choose a different skin for PeerProject to use..."
-    ID_TOOLS_LANGUAGE			"Select the language you wish to use PeerProject in..."
-    ID_LIBRARY_HASH_PRIORITY	"Boost the speed of file scanning and hashing."
-    ID_DOWNLOADS_FILE_DELETE	"Delete selected completed files."
-    ID_LIBRARY_RENAME			"Rename the selected file in-place."
-    ID_UPLOADS_START			"Start selected queued uploads."
-    ID_DOWNLOADS_MOVE_UP		"Move selected downloads one step up the priority list."
-    ID_DOWNLOADS_MOVE_DOWN		"Move selected downloads one step down the priority list."
-    ID_DOWNLOADS_MOVE_TOP		"Move selected downloads to the top of the priority list."
-    ID_DOWNLOADS_MOVE_BOTTOM	"Move selected downloads to the end of the priority list."
-END
-
-STRINGTABLE
-BEGIN
-    ID_DOWNLOADS_SETTINGS		"Configure download settings..."
-    ID_UPLOADS_SETTINGS			"Configure upload settings..."
-    ID_DOWNLOADS_FILTER_ALL		"Show all downloads."
-    ID_DOWNLOADS_FILTER_ACTIVE	"Show downloads that are active."
-    ID_DOWNLOADS_FILTER_PAUSED	"Show downloads that are paused."
-    ID_DOWNLOADS_FILTER_QUEUED	"Show downloads that are waiting in queues."
-    ID_DOWNLOADS_FILTER_SOURCES	"Show downloads that are waiting for sources."
-    ID_DOWNLOADS_FILTER_SEEDS	"Show completed torrents that are seeding for others."
-    ID_NEIGHBOURS_SETTINGS		"Configure network settings..."
-    ID_LIBRARY_TREE_PHYSICAL	"View the physical folders in your library."
-    ID_LIBRARY_TREE_VIRTUAL		"Organize your library."
-    ID_LIBRARY_SHARED_FOLDER	"Share or unshare selected folders."
-    ID_LIBRARY_VIEW				"Select a library view..."
-    ID_LIBRARY_VIEW_DETAIL		"Show file name, details and metadata \nDetail View"
-    ID_LIBRARY_VIEW_LIST		"Show files in a horizontal list \nList View"
-    ID_LIBRARY_VIEW_ICON		"Show files as icons \nIcon View"
-    ID_LIBRARY_VIEW_THUMBNAIL	"Show thumbnails for files \nThumbnail View"
-    ID_LIBRARY_VIEW_ALBUM		"Show an album view \nAlbum View"
-    ID_LIBRARY_VIEW_HOME		"Library home page view \nHome View"
-END
-
-STRINGTABLE
-BEGIN
-    ID_LIBRARY_PARENT			"Go back to the parent folder."
-    ID_LIBRARY_PANEL			"Show or hide the library detail panel."
-    ID_LIBRARY_FOLDER_PROPERTIES "View and edit the properties of the selected album folder..."
-    ID_LIBRARY_FOLDER_NEW		"Create a new album folder here..."
-    ID_LIBRARY_UNLINK			"Remove selected files from current Library folder."
-    ID_LIBRARY_FOLDER_METADATA	"Apply common metadata from the album folder to all of its files."
-    ID_VIEW_MEDIA				"Show or hide the MEDIA PLAYER window."
-    ID_TAB_MEDIA				"Play audio/video files from your Library."
-    ID_MEDIA_OPEN				"Open and play a media file or playlist..."
-    ID_MEDIA_CLOSE				"Close the current media file, freeing up memory."
-    ID_MEDIA_PLAY				"Start playing the current media file.\nPlay"
-    ID_MEDIA_STOP				"Stop playing the media file.\nStop"
-    ID_MEDIA_PREVIOUS			"Skip back to the previous file in the current playlist.\nPrevious File"
-    ID_MEDIA_NEXT				"Skip ahead to the next file in the current playlist.\nNext File"
-    ID_MEDIA_FULLSCREEN			"Toggle full-screen video mode."
-END
-
-STRINGTABLE
-BEGIN
-    ID_MEDIA_SIZE_DISTORT		"Stretch the video to fill the window, potentially distorting it."
-    ID_MEDIA_SIZE_FILL			"Choose the best size for the video based on its aspect ratio."
-    ID_MEDIA_SIZE_ONE			"Show the video at its original default size."
-    ID_MEDIA_SIZE_TWO			"Show the video at double its original default size."
-    ID_MEDIA_SIZE_HALF			"Show the video at half of its original default size."
-    ID_MEDIA_RANDOM				"Toggle random (shuffle) mode in the current playlist."
-    ID_MEDIA_REPEAT				"Repeat the current media file."
-    ID_MEDIA_SETTINGS			"Display the media settings page..."
-    ID_MEDIA_PAUSE				"Pause playback of the media file.\nPause"
-    ID_MEDIA_ZOOM				"Adjust video zoom and aspect ratio settings."
-    ID_MEDIA_ASPECT_DEFAULT		"Use the video's default aspect ratio."
-    ID_MEDIA_ASPECT_4_3			"Lock video to 4:3 aspect ratio, suitable for TV."
-    ID_MEDIA_ASPECT_16_9		"Lock video to 16:9 aspect ratio, suitable for film."
-    ID_MEDIA_SELECT				"Select and play this file."
-    ID_MEDIA_ADD				"Add a media file to the playlist..."
-    ID_MEDIA_REMOVE				"Remove the selected media file from the playlist."
-END
-
-STRINGTABLE
-BEGIN
-    ID_MEDIA_CLEAR				"Clear (empty) the playlist."
-    ID_MEDIA_SAVE				"Save the current playlist to a file..."
-    ID_MEDIA_EXPORT_COLLECTION	"Save the playlist as a collection file..."
-    ID_MEDIA_PLAYLIST			"Show or hide the playlist editor."
-    ID_LIBRARY_VIEW_TILE		"Show a list of album folders.\nTile View"
-    ID_LIBRARY_LAUNCH_FOLDER	"Show in Windows folder."
-	ID_LIBRARY_FOLDER_ENQUEUE	"Add every file in selected album folders to your playlist."
-    ID_LIBRARY_ALBUM_DELETE		"Delete the selected album folder."
-    ID_LIBRARY_ALBUM_PROPERTIES	"View and edit the properties of the selected album folder..."
-    ID_LIBRARY_ALBUM_OPEN		"Open the selected album folder."
-    ID_LIBRARY_FOLDERS			"Manage the physical folders in your library..."
-    ID_TOOLS_PROFILE			"Edit your user profile..."
-    ID_BROWSE_PROFILE			"Browse the user's profile."
-    ID_BROWSE_FILES				"View the user's shared files"
-    ID_TAB_SEARCH				"Start new network search for files to download"
-END
-
-STRINGTABLE
-BEGIN
-    ID_MEDIA_VIS				"Select an audio visualisation plugin..."
-    ID_DOWNLOADS_LAUNCH_COMPLETE "Open or play the selected file."
-    ID_CHAT_CONNECT				"Connect to the chat session."
-    ID_CHAT_DISCONNECT			"Disconnect the chat session."
-    ID_CHAT_BROWSE				"Browse the user's profile and shared files."
-    ID_CHAT_COLOR				"Select a text color (Ctrl+K)"
-    ID_CHAT_BOLD				"Apply bold formatting (Ctrl+B)"
-    ID_CHAT_ITALIC				"Apply italic formatting (Ctrl+I)"
-    ID_CHAT_UNDERLINE			"Apply underline formatting (Ctrl+U)"
-    ID_CHAT_SEND_FILE			"Send a file to the user..."
-    ID_CHAT_PRIORITY			"Grant upload priority to this user."
-    ID_CHAT_CLEAR				"Clear the message text in this window."
-    ID_CHAT_EMOTICONS			"Insert an emoticon."
-    ID_DOWNLOADS_SHARE			"Share this partially downloaded file with other users."
-    ID_MEDIA_ADD_FOLDER			"Add a folder of media files to the playlist..."
-END
-
-STRINGTABLE
-BEGIN
-    ID_LIBRARY_FOLDER_FILE_PROPERTIES "View and edit the properties of all files in selected folders..."
-    ID_LIBRARY_REBUILD			"Rebuild metadata and hashes for the selected folders or files."
-    ID_DOWNLOADS_URI			"Copy the P2P Link of the selected file. (URI)"
-    ID_SEARCH_DETAILS			"Display detailed information on the selected file."
-    ID_UPLOADS_FILTER_ALL		"Show all uploads."
-    ID_UPLOADS_FILTER_ACTIVE	"Show all uploads which are actively sending."
-    ID_UPLOADS_FILTER_QUEUED	"Show uploads which are waiting in your queues."
-    ID_UPLOADS_FILTER_HISTORY	"Show uploads which are no longer connected."
-    ID_SEARCH_FOR_THIS			"Search for other copies of the selected file."
-    ID_SEARCH_FOR_SIMILAR		"Search for files which are similar to the selected file."
-    ID_SEARCH_FOR_ARTIST		"Search for music files by the same artist as the selected file."
-END
-
-STRINGTABLE
-BEGIN
-    ID_SEARCH_FOR_ALBUM			"Search for music files in the same album as the selected file."
-    ID_SEARCH_FOR_SERIES		"Search for video files in the same series as the selected file."
-    ID_CHAT_TIMESTAMP			"Show the time when each message was received."
-    ID_MEDIA_STATUS				"Show or hide the media status line."
-    ID_HOSTCACHE_ED2K_CACHE		"Show eDonkey servers."
-    ID_HOSTCACHE_IMPORT			"Import a list of known hosts, such as a ""server.met"" file..."
-    ID_HOSTCACHE_ED2K_DOWNLOAD	"Download an eDonkey ""server.met"" file..."
-    ID_DISCOVERY_SERVERMET		"Show eDonkey Server.met services in the Discovery window."
-    ID_NETWORK_G2				"Connect to the Gnutella2 network (highly recommended)."
-    ID_NETWORK_G1				"Connect to the original Gnutella network."
-    ID_NETWORK_ED2K				"Connect to the eDonkey network."
-    ID_HOSTCACHE_PRIORITY		"Try to connect to this server before other servers."
-    ID_VIEW_BASIC				"Use PeerProject in easier Basic mode."
-END
-
-STRINGTABLE
-BEGIN
-    ID_LIBRARY_SEARCH_QUICK		"Search your file library..."
-    ID_DOWNLOAD_GROUP_MOVELEFT	"Shift tab to the left.  (More filter priority)"
-    ID_DOWNLOAD_GROUP_MOVERIGHT	"Shift tab to the right.  (Less filter priority)"
-    ID_DOWNLOAD_GROUP_NEW		"Create a new download group..."
-    ID_DOWNLOAD_GROUP_REMOVE	"Remove the selected download group."
-    ID_DOWNLOAD_GROUP_PROPERTIES "Edit the properties of the selected download group."
-    ID_DOWNLOAD_GROUP_PAUSE		"Pause all downloads in this group."
-    ID_DOWNLOAD_GROUP_RESUME	"Resume all downloads in this group."
-    ID_DOWNLOAD_GROUP_CLEAR		"Cancel and remove all downloads in this group."
-    ID_DOWNLOAD_GROUP_OPEN		"Show the completed downloads folder for this group."
-    ID_DOWNLOAD_GROUP_SHOW		"Show or hide the download group bar."
-    ID_DOWNLOADS_HELP			"View help information on this download..."
-    ID_DOWNLOADS_FILTER_MENU	"Choose which types of downloads to show and which types to hide in this view."
-    ID_UPLOADS_FILTER_MENU		"Choose which types of uploads to show and which types to hide in this view."
-    ID_DOWNLOADS_CLEAR_INCOMPLETE "Cancel and delete selected incomplete downloads."
-    ID_DOWNLOADS_CLEAR_COMPLETE "Remove selected downloads from the list."
-END
-
-STRINGTABLE
-BEGIN
-    ID_WINDOW_NAVBAR			"Show or hide the navigation bar."
-    ID_DOWNLOADS_RATE			"Rate the selected download."
-    ID_LIBRARY_VIEW_COLLECTION	"Show the rich collection view\nCollection View"
-    ID_LIBRARY_FOLDER_DOWNLOAD	"Download all files in the selected collection."
-    ID_LIBRARY_EXPORT_COLLECTION "Export the selected album folder to collection files..."
-    ID_LIBRARY_CREATETORRENT	"Create a .torrent for this file to upload to a website."
-    ID_LIBRARY_SEED_TORRENT		"Seed the selected Torrent on BitTorrent."
-    ID_LIBRARY_REBUILD_ANSI		"Rebuild metadata using other language."
-    ID_DOWNLOADS_EDIT			"Show advanced download/torrent properties..."
-    ID_MEDIA_MUTE				"Mute audio playback"
-    ID_WINDOW_REMOTE			"Show or hide the PeerProject Remote Control"
-    ID_UPLOADS_FILTER_TORRENT	"Show BitTorrent uploads."
-    ID_TOOLS_SEEDTORRENT		"Seed the selected Torrent on BitTorrent."
-END
-
-STRINGTABLE
-BEGIN
-    ID_HELP_FORUMS				"Visit the PeerProject Discussion Forums."
-    ID_HELP_FORUMS_LOCAL		"Visit the Local Language Forum."
-    ID_HELP_UPDATE				"Check for news and updates."
-    ID_HELP_ROUTER				"Get help configuring your router or firewall."
-    ID_HELP_SECURITY			"Help protecting your system from hostile programs."
-    ID_HELP_CODEC				"All about codecs and video problems."
-    ID_HELP_TEST				"Run the connection test."
-    ID_HELP_DONATE				"You can donate to our legal fund and show your appreciation."
-    ID_HELP_FAKESHAREAZA		"Visit FakeShareaza.com to learn more."
-END
-
-STRINGTABLE
-BEGIN
-    ID_WINDOW_ARRANGE			"Arrange icons at the bottom of the window\nArrange Icons"
-    ID_WINDOW_CASCADE			"Expand all open windows to fill the screen."
-    ID_WINDOW_TILE_HORZ			"Arrange open windows as horizontal, non-overlapping tiles."
-    ID_WINDOW_TILE_VERT			"Arrange open windows as vertical, non-overlapping tiles."
-END
-
-STRINGTABLE
-BEGIN
-    ID_WEBSERVICES_LIST			"Choose a web service to get more information about the selected file."
-    ID_WEBSERVICES_SHAREMONKEY	"Search for the file infomation using ShareMonkey service."
-    ID_SHAREMONKEY_DOWNLOAD		"Search for matches"
-    ID_SHAREMONKEY_SAVE			"Save the match in your Library"
-    ID_SHAREMONKEY_PREVIOUS		"Go to the previous match"
-    ID_SHAREMONKEY_NEXT			"Go to the next match"
-    ID_SHAREMONKEY_PRICES		"Look at the prices for the current match"
-    ID_SHAREMONKEY_COMPARE		"Compare prices in different stores"
-    ID_SHAREMONKEY_BUY			"Buy it and support the author"
-    ID_WEBSERVICES_MUSICBRAINZ	"Search for the same artist songs using MusicBrainz service."
-    ID_MUSICBRAINZ_MATCHES		"Search for albums matching the selected file."
-    ID_MUSICBRAINZ_ALBUMS		"Look at all albums for this artist."
-END
+// Command Tips:
 
 STRINGTABLE
 BEGIN
-    ID_MEDIA_PROPERTIES			"View and edit the properties of the selected files..."
-    ID_MEDIA_RATE				"Rate the selected files."
 	IDC_MEDIA_POSITION			"Seek to a position in the media file.\nSeek"
 	IDC_MEDIA_SPEED 			"Adjust the speed of the media file.\nSpeed"
 	IDC_MEDIA_VOLUME			"Adjust the audio volume.\nVolume"
@@ -4601,37 +3143,1418 @@ END
 
 STRINGTABLE
 BEGIN
-    AFX_IDS_APP_TITLE			"PeerProject"
-    AFX_IDS_IDLEMESSAGE			"Ready"
+	ID_BROWSE_FILES				"View the user's shared files"
+	ID_BROWSE_LAUNCH			"Browse the selected user's profile and shared files."
+	ID_BROWSE_PROFILE			"Browse the user's profile."
+	ID_BROWSE_REFRESH			"Refresh the list of files available on this host."
+	ID_BROWSE_STOP				"Stop browsing files on this host."
+	ID_CHILD_CLOSE				"Close the active window."
+	ID_CHILD_MAXIMISE			"Enlarge the active window to fill the window."
+	ID_CHILD_MINIMISE			"Minimise the selected window to the tab bar."
+	ID_CHILD_RESTORE			"Open the selected window."
 END
 
 STRINGTABLE
 BEGIN
-    AFX_IDS_SCSIZE				"Change the window size"
-    AFX_IDS_SCMOVE				"Change the window position"
-    AFX_IDS_SCMINIMIZE			"Reduce the window to an icon"
-    AFX_IDS_SCMAXIMIZE			"Enlarge the window to full size"
-    AFX_IDS_SCNEXTWINDOW		"Switch to the next document window"
-    AFX_IDS_SCPREVWINDOW		"Switch to the previous document window"
-    AFX_IDS_SCCLOSE				"Close the active window and prompts to save the documents"
+	ID_CHAT_BOLD				"Apply bold formatting (Ctrl+B)"
+	ID_CHAT_ITALIC				"Apply italic formatting (Ctrl+I)"
+	ID_CHAT_UNDERLINE			"Apply underline formatting (Ctrl+U)"
+	ID_CHAT_COLOR				"Select a text color (Ctrl+K)"
+	ID_CHAT_EMOTICONS			"Insert an emoticon."
+	ID_CHAT_BROWSE				"Browse the user's profile and shared files."
+	ID_CHAT_CLEAR				"Clear the message text in this window."
+	ID_CHAT_CONNECT				"Connect to the chat session."
+	ID_CHAT_DISCONNECT			"Disconnect the chat session."
+	ID_CHAT_PRIORITY			"Grant upload priority to this user."
+	ID_CHAT_SEND_FILE			"Send a file to the user..."
+	ID_CHAT_TIMESTAMP			"Show the time when each message was received."
 END
 
 STRINGTABLE
 BEGIN
-    AFX_IDS_SCRESTORE			"Restore the window to normal size"
-    AFX_IDS_SCTASKLIST			"Activate Task List"
-    AFX_IDS_MDICHILD			"Activate this window"
+	ID_DISCOVERY_ADD			"Add a new discovery service..."
+	ID_DISCOVERY_ADVERTISE		"Advertise the selected GWebCache service to a random existing GWebCache."
+	ID_DISCOVERY_BLOCKED		"Show blocked services in the Discovery window."
+	ID_DISCOVERY_BROWSE			"Browse statistics for the selected GWebCache service on the Web."
+	ID_DISCOVERY_EDIT			"View the properties for the selected discovery service."
+	ID_DISCOVERY_GNUTELLA		"Show bootstrap services in the Discovery window."
+	ID_DISCOVERY_QUERY			"Query the selected discovery services now."
+	ID_DISCOVERY_REMOVE			"Remove the selected discovery services."
+	ID_DISCOVERY_SERVERMET		"Show eDonkey Server.met services in the Discovery window."
+	ID_DISCOVERY_WEBCACHE		"Show GWebCache services in the Discovery window."
 END
 
 STRINGTABLE
 BEGIN
-    AFX_IDS_PREVIEW_CLOSE		"Close print preview mode\nCancel Preview"
+	ID_DOWNLOADS_ADD_SOURCE		"Add a source URL to the selected download..."
+	ID_DOWNLOADS_AUTO_CLEAR		"Automatically clear downloads which have been completed."
+	ID_DOWNLOADS_BOOST			"Boost the performance of the selected download by removing bandwidth limits."
+	ID_DOWNLOADS_CLEAR			"Clear/remove the selected downloads."
+	ID_DOWNLOADS_CLEAR_COMPLETED "Clear downloads that have been completed."
+	ID_DOWNLOADS_CLEAR_COMPLETE "Remove selected downloads from the list."
+	ID_DOWNLOADS_CLEAR_INCOMPLETE "Cancel and delete selected incomplete downloads."
+	ID_DOWNLOADS_CLEAR_PAUSED	"Clear downloads which have been paused."
+	ID_DOWNLOADS_FILE_DELETE	"Delete selected completed files."
+	ID_DOWNLOADS_FILTER_ACTIVE	"Show downloads that are active."
+	ID_DOWNLOADS_FILTER_ALL		"Show all downloads."
+	ID_DOWNLOADS_FILTER_MENU	"Choose which types of downloads to show and which types to hide in this view."
+	ID_DOWNLOADS_FILTER_PAUSED	"Show downloads that are paused."
+	ID_DOWNLOADS_FILTER_QUEUED	"Show downloads that are waiting in queues."
+	ID_DOWNLOADS_FILTER_SEEDS	"Show completed torrents that are seeding for others."
+	ID_DOWNLOADS_FILTER_SOURCES	"Show downloads that are waiting for sources."
 END
 
 STRINGTABLE
 BEGIN
-    ID_NEXT_PANE				"Switch to the next window pane\nNext Pane"
-    ID_PREV_PANE				"Switch back to the previous window pane\nPrevious Pane"
+	ID_DOWNLOADS_EDIT			"Show advanced download/torrent properties..."
+	ID_DOWNLOADS_ENQUEUE		"Add selected downloads to your media playlist."
+	ID_DOWNLOADS_HELP			"View help information on this download..."
+	ID_DOWNLOADS_LAUNCH			"Preview selected files in place."
+	ID_DOWNLOADS_LAUNCH_COMPLETE "Open or play the selected file."
+	ID_DOWNLOADS_LAUNCH_COPY	"SmartPreview the selected downloads."
+	ID_DOWNLOADS_MERGE			"Add a file-part you may already have, and verify."
+	ID_DOWNLOADS_MONITOR		"Open a download monitor window for this download..."
+	ID_DOWNLOADS_PAUSE			"Pause selected downloads."
+	ID_DOWNLOADS_RATE			"Rate the selected download."
+	ID_DOWNLOADS_REMOTE_PREVIEW	"Download preview image for the selected download."
+	ID_DOWNLOADS_RESUME			"Resume selected downloads."
+	ID_DOWNLOADS_SETTINGS		"Configure download settings..."
+	ID_DOWNLOADS_SHARE			"Share this partially downloaded file with other users."
+	ID_DOWNLOADS_SHOW_SOURCES	"Display sources which are not currently being used."
+	ID_DOWNLOADS_SOURCES		"Search for more sources for selected downloads."
+	ID_DOWNLOADS_URI			"Copy the P2P Link of the selected file. (URI)"
+	ID_DOWNLOADS_VIEW_REVIEWS	"View reviews for the selected download."
+END
+
+STRINGTABLE
+BEGIN
+	ID_DOWNLOADS_MOVE_UP		"Move selected downloads one step up the priority list."
+	ID_DOWNLOADS_MOVE_DOWN		"Move selected downloads one step down the priority list."
+	ID_DOWNLOADS_MOVE_TOP		"Move selected downloads to the top of the priority list."
+	ID_DOWNLOADS_MOVE_BOTTOM	"Move selected downloads to the end of the priority list."
+	ID_DOWNLOAD_GROUP_CLEAR		"Cancel and remove all downloads in this group."
+	ID_DOWNLOAD_GROUP_MOVELEFT	"Shift tab to the left.  (More filter priority)"
+	ID_DOWNLOAD_GROUP_MOVERIGHT	"Shift tab to the right.  (Less filter priority)"
+	ID_DOWNLOAD_GROUP_NEW		"Create a new download group..."
+	ID_DOWNLOAD_GROUP_OPEN		"Show the completed downloads folder for this group."
+	ID_DOWNLOAD_GROUP_PAUSE		"Pause all downloads in this group."
+	ID_DOWNLOAD_GROUP_PROPERTIES "Edit the properties of the selected download group."
+	ID_DOWNLOAD_GROUP_REMOVE	"Remove the selected download group."
+	ID_DOWNLOAD_GROUP_RESUME	"Resume all downloads in this group."
+	ID_DOWNLOAD_GROUP_SHOW		"Show or hide the download group bar."
+END
+
+STRINGTABLE
+BEGIN
+	ID_HELP_ABOUT				"Display the PeerProject about dialog..."
+	ID_HELP_CODEC				"All about codecs and video problems."
+	ID_HELP_DONATE				"You can donate to our legal fund and show your appreciation."
+	ID_HELP_FAKESHAREAZA		"Visit FakeShareaza.com to learn more."
+	ID_HELP_FAQ					"View the PeerProject FAQ."
+	ID_HELP_FORUMS				"Visit the PeerProject Discussion Forums."
+	ID_HELP_FORUMS_LOCAL		"Visit the Local Language Forum."
+	ID_HELP_GUIDE				"Visit the PeerProject Users Guide."
+	ID_HELP_HOMEPAGE			"Visit the PeerProject web site."
+	ID_HELP_ROUTER				"Get help configuring your router or firewall."
+	ID_HELP_SCHEDULER			"Schedule tasks to be done in the future."
+	ID_HELP_SECURITY			"Help protecting your system from hostile programs."
+	ID_HELP_TEST				"Run the connection test."
+	ID_HELP_UPDATE				"Check for news and updates."
+	ID_HELP_VERSION_CHECK		"Check for new version"
+	ID_HELP_WEB_1				"Visit this website"
+	ID_HELP_WEB_2				"Visit this website"
+	ID_HELP_WEB_3				"Visit this website"
+	ID_HELP_WEB_4				"Visit this website"
+	ID_HELP_WEB_5				"Visit this website"
+	ID_HELP_WEB_6				"Visit this website"
+END
+
+STRINGTABLE
+BEGIN
+	ID_HITMONITOR_CLEAR			"Clear the hit monitor buffer."
+	ID_HITMONITOR_PAUSE			"Pause hit monitoring."
+	ID_HITMONITOR_SEARCH		"Search the network for the selected term."
+	ID_HOSTCACHE_BT_CACHE		"Show BitTorrent cached hosts."
+	ID_HOSTCACHE_CONNECT		"Connect to the selected host."
+	ID_HOSTCACHE_DISCONNECT		"Disconnect from selected neighbors."
+	ID_HOSTCACHE_ED2K_CACHE		"Show eDonkey servers."
+	ID_HOSTCACHE_ED2K_DOWNLOAD	"Download an eDonkey ""server.met"" file..."
+	ID_HOSTCACHE_G1_CACHE		"Show Gnutella1 cached hosts."
+	ID_HOSTCACHE_G2_CACHE		"Show Gnutella2 cached hosts."
+	ID_HOSTCACHE_G2_HORIZON		"Show Gnutella2 horizon hubs."
+	ID_HOSTCACHE_IMPORT			"Import a list of known hosts, such as a ""server.met"" file..."
+	ID_HOSTCACHE_KAD_CACHE		"Show Kademlia cached hosts."
+	ID_HOSTCACHE_PRIORITY		"Try to connect to this server before other servers."
+	ID_HOSTCACHE_REMOVE			"Remove the selected hosts from the host cache."
+END
+
+STRINGTABLE
+BEGIN
+	ID_LIBRARY_ADD				"Add a new folder to your library..."
+	ID_LIBRARY_ALBUM_DELETE		"Delete the selected album folder."
+	ID_LIBRARY_ALBUM_OPEN		"Open the selected album folder."
+	ID_LIBRARY_ALBUM_PROPERTIES	"View and edit the properties of the selected album folder..."
+	ID_LIBRARY_BITZI_DOWNLOAD	"Download metadata for the selected files from Bitzi..."
+	ID_LIBRARY_BITZI_WEB		"View the Bitzi™ ticket for the selected file on the web."
+	ID_LIBRARY_COLUMNS			"Select metadata columns to be displayed..."
+	ID_LIBRARY_COPY				"Copy selected files to another library folder..."
+	ID_LIBRARY_CREATETORRENT	"Create a .torrent for this file to upload to a website."
+	ID_LIBRARY_DELETE			"Delete the selected files permanently."
+	ID_LIBRARY_ENQUEUE			"Add selected files to your media playlist."
+	ID_LIBRARY_EXPLORE			"Open selected folders."
+	ID_LIBRARY_EXPORT_COLLECTION "Export the selected album folder to collection files..."
+	ID_LIBRARY_FOLDERS			"Manage the physical folders in your library..."
+	ID_LIBRARY_FOLDER_DOWNLOAD	"Download all files in the selected collection."
+	ID_LIBRARY_FOLDER_ENQUEUE	"Add every file in selected album folders to your playlist."
+	ID_LIBRARY_FOLDER_FILE_PROPERTIES "View and edit the properties of all files in selected folders..."
+	ID_LIBRARY_FOLDER_METADATA	"Apply common metadata from the album folder to all of its files."
+	ID_LIBRARY_FOLDER_NEW		"Create a new album folder here..."
+	ID_LIBRARY_FOLDER_PROPERTIES "View and edit the properties of the selected album folder..."
+	ID_LIBRARY_HASH_PRIORITY	"Boost the speed of file scanning and hashing."
+	ID_LIBRARY_LAUNCH			"Open or play the selected files."
+	ID_LIBRARY_LAUNCH_FOLDER	"Show in Windows folder."
+END
+
+STRINGTABLE
+BEGIN
+	ID_LIBRARY_MOVE				"Move selected files to another library folder..."
+	ID_LIBRARY_PANEL			"Show or hide the library detail panel."
+	ID_LIBRARY_PARENT			"Go back to the parent folder."
+	ID_LIBRARY_PROPERTIES		"View and edit the properties of the selected files..."
+	ID_LIBRARY_REBUILD			"Rebuild metadata and hashes for the selected folders or files."
+	ID_LIBRARY_REBUILD_ANSI		"Rebuild metadata using other language."
+	ID_LIBRARY_REFRESH			"Refresh the library view."
+	ID_LIBRARY_REMOVE			"Remove selected folders from the Libary."
+	ID_LIBRARY_RENAME			"Rename the selected file in-place."
+	ID_LIBRARY_SCAN				"Scan the selected folders or files for changes."
+	ID_LIBRARY_SEARCH			"Search your file library..."
+	ID_LIBRARY_SEARCH_QUICK		"Search your file library..."
+	ID_LIBRARY_SEED_TORRENT		"Seed the selected Torrent on BitTorrent."
+	ID_LIBRARY_SELECT_ALL		"Select and view all folders in your library."
+	ID_LIBRARY_SHARED_FILE		"Share or unshare the selected files."
+	ID_LIBRARY_SHARED_FOLDER	"Share or unshare selected folders."
+	ID_LIBRARY_TREE_PHYSICAL	"View the physical folders in your library."
+	ID_LIBRARY_TREE_VIRTUAL		"Organize your library."
+	ID_LIBRARY_UNLINK			"Remove selected files from current Library folder."
+	ID_LIBRARY_URI				"Copy the P2P Link of the selected file. (URI)"
+END
+
+STRINGTABLE
+BEGIN
+	ID_LIBRARY_VIEW				"Select a library view..."
+	ID_LIBRARY_VIEW_ALBUM		"Show an album view \nAlbum View"
+	ID_LIBRARY_VIEW_COLLECTION	"Show the rich collection view\nCollection View"
+	ID_LIBRARY_VIEW_DETAIL		"Show file name, details and metadata \nDetail View"
+	ID_LIBRARY_VIEW_HOME		"Library home page view \nHome View"
+	ID_LIBRARY_VIEW_ICON		"Show files as icons \nIcon View"
+	ID_LIBRARY_VIEW_LIST		"Show files in a horizontal list \nList View"
+	ID_LIBRARY_VIEW_THUMBNAIL	"Show thumbnails for files \nThumbnail View"
+	ID_LIBRARY_VIEW_TILE		"Show a list of album folders.\nTile View"
+END
+
+STRINGTABLE
+BEGIN
+	ID_MEDIA_ASPECT_4_3			"Lock video to 4:3 aspect ratio, suitable for TV."
+	ID_MEDIA_ASPECT_16_9		"Lock video to 16:9 aspect ratio, suitable for film."
+	ID_MEDIA_ASPECT_DEFAULT		"Use the video's default aspect ratio."
+	ID_MEDIA_CLEAR				"Clear (empty) the playlist."
+	ID_MEDIA_CLOSE				"Close the current media file, freeing up memory."
+	ID_MEDIA_EXPORT_COLLECTION	"Save the playlist as a collection file..."
+	ID_MEDIA_FULLSCREEN			"Toggle full-screen video mode."
+	ID_MEDIA_MUTE				"Mute audio playback"
+	ID_MEDIA_NEXT				"Skip ahead to the next file in the current playlist.\nNext File"
+	ID_MEDIA_OPEN				"Open and play a media file or playlist..."
+	ID_MEDIA_PAUSE				"Pause playback of the media file.\nPause"
+	ID_MEDIA_PLAY				"Start playing the current media file.\nPlay"
+	ID_MEDIA_PLAYLIST			"Show or hide the playlist editor."
+	ID_MEDIA_PROPERTIES			"View and edit the properties of the selected files..."
+	ID_MEDIA_PREVIOUS			"Skip back to the previous file in the current playlist.\nPrevious File"
+	ID_MEDIA_RANDOM				"Toggle random (shuffle) mode in the current playlist."
+	ID_MEDIA_REPEAT				"Repeat the current media file."
+	ID_MEDIA_RATE				"Rate the selected files."
+END
+
+STRINGTABLE
+BEGIN
+	ID_MEDIA_ADD				"Add a media file to the playlist..."
+	ID_MEDIA_ADD_FOLDER			"Add a folder of media files to the playlist..."
+	ID_MEDIA_REMOVE				"Remove the selected media file from the playlist."
+	ID_MEDIA_SAVE				"Save the current playlist to a file..."
+	ID_MEDIA_SELECT				"Select and play this file."
+	ID_MEDIA_SETTINGS			"Display the media settings page..."
+	ID_MEDIA_SIZE_DISTORT		"Stretch the video to fill the window, potentially distorting it."
+	ID_MEDIA_SIZE_FILL			"Choose the best size for the video based on its aspect ratio."
+	ID_MEDIA_SIZE_HALF			"Show the video at half of its original default size."
+	ID_MEDIA_SIZE_ONE			"Show the video at its original default size."
+	ID_MEDIA_SIZE_TWO			"Show the video at double its original default size."
+	ID_MEDIA_STATUS				"Show or hide the media status line."
+	ID_MEDIA_STOP				"Stop playing the media file.\nStop"
+	ID_MEDIA_VIS				"Select an audio visualisation plugin..."
+	ID_MEDIA_ZOOM				"Adjust video zoom and aspect ratio settings."
+END
+
+STRINGTABLE
+BEGIN
+	ID_MONITOR_CLOSE			"Close the monitor window."
+	ID_NEIGHBOURS_CHAT			"Open a chat session with the selected user."
+	ID_NEIGHBOURS_DISCONNECT	"Disconnect selected neighbors."
+	ID_NEIGHBOURS_SETTINGS		"Configure network settings..."
+	ID_NEIGHBOURS_URI			"Copy a URI Link to access the selected host."
+	ID_NEIGHBOURS_VIEW_ALL		"Open a new Packet Dump window monitoring this neighbor."
+	ID_NEIGHBOURS_VIEW_INCOMING	"Open a new Packet Dump window monitoring incoming traffic from this neighbor."
+	ID_NEIGHBOURS_VIEW_OUTGOING	"Open a new Packet Dump window monitoring outgoing traffic to this neighbor."
+	ID_NETWORK_AUTO_CLOSE		"Automatically close PeerProject when transfers have completed."
+	ID_NETWORK_BROWSE_TO		"Browse a user, showing their profile and shared files..."
+	ID_NETWORK_CONNECT			"Connect to selected networks."
+	ID_NETWORK_CONNECT_TO		"Manually connect to a host..."
+	ID_NETWORK_DISCONNECT		"Disconnect from all networks, this will also stop all downloads and uploads."
+	ID_NETWORK_ED2K				"Connect to the eDonkey network."
+	ID_NETWORK_EXIT				"Exit PeerProject"
+	ID_NETWORK_G1				"Connect to the original Gnutella network."
+	ID_NETWORK_G2				"Connect to the Gnutella2 network (highly recommended)."
+	ID_NETWORK_SEARCH			"Start a new search of the network..."
+END
+
+STRINGTABLE
+BEGIN
+	ID_SCHEDULER_ACTIVATE		"Activates selected tasks."
+	ID_SCHEDULER_ADD			"Add a new task to scheduler list."
+	ID_SCHEDULER_DEACTIVATE 	"Deactivates selected tasks."
+	ID_SCHEDULER_EDIT			"Edit the selected task..."
+	ID_SCHEDULER_EXPORT			"Exports scheduled tasks to a file..."
+	ID_SCHEDULER_IMPORT			"Imports scheduled tasks from a file..."
+	ID_SCHEDULER_REMOVE			"Remove selected tasks from the list."
+	ID_SCHEDULER_REMOVE_ALL 	"Removes all scheduled tasks."
+	ID_SEARCHMONITOR_CLEAR		"Clear the search monitor buffer."
+	ID_SEARCHMONITOR_PAUSE		"Pause search monitoring."
+END
+
+STRINGTABLE
+BEGIN
+	ID_SEARCH_CHAT				"Open a chat session with the selected user."
+	ID_SEARCH_CLEAR				"Clear the search results."
+	ID_SEARCH_COLUMNS			"Select metadata columns to be displayed..."
+	ID_SEARCH_DETAILS			"Display detailed information on the selected file."
+	ID_SEARCH_DOWNLOAD			"Download the selected file."
+	ID_SEARCH_DOWNLOADNOW		"Download selected files with priority."
+	ID_SEARCH_FILTER			"Filter the search results by certain words and conditions..."
+	ID_SEARCH_FILTER_RAW		"Filter the search results by certain words and conditions..."
+	ID_SEARCH_FILTER_REMOVE		"Remove filtering from the results."
+	ID_SEARCH_FOR_ALBUM			"Search for music files in the same album as the selected file."
+	ID_SEARCH_FOR_ARTIST		"Search for music files by the same artist as the selected file."
+	ID_SEARCH_FOR_SERIES		"Search for video files in the same series as the selected file."
+	ID_SEARCH_FOR_SIMILAR		"Search for files which are similar to the selected file."
+	ID_SEARCH_FOR_THIS			"Search for other copies of the selected file."
+	ID_SEARCH_PANEL				"Display the quick search panel on the left of the Search window."
+	ID_SEARCH_SEARCH			"Search the network again..."
+	ID_SEARCH_STOP				"Stop receiving results in this window."
+	ID_SEARCH_URI				"Copy the P2P Link of the selected file. (URI)"
+END
+
+STRINGTABLE
+BEGIN
+	ID_SECURITY_ADD				"Add a new rule to the security chain..."
+	ID_SECURITY_BAN				"Filter out the selected host for an extended period."
+	ID_SECURITY_EDIT			"Edit the selected security rule..."
+	ID_SECURITY_EXPORT			"Export selected security rules to a file..."
+	ID_SECURITY_IMPORT			"Import security rules from a file..."
+	ID_SECURITY_MOVE_DOWN		"Move the selected security rules down the precedence list."
+	ID_SECURITY_MOVE_UP			"Move the selected security rules up the precedence list."
+	ID_SECURITY_POLICY_ACCEPT	"Set the default security policy to allow all hosts."
+	ID_SECURITY_POLICY_DENY		"Set the default security policy to deny all hosts."
+	ID_SECURITY_REMOVE			"Remove the selected security rules."
+	ID_SECURITY_RESET			"Reset the hit counts on the selected rules."
+END
+
+STRINGTABLE
+BEGIN
+	ID_SYSTEM_CLEAR				"Clear the status log."
+	ID_SYSTEM_COPY				"Copy selected lines of status log."
+	ID_SYSTEM_TIMESTAMP			"Record a timestamp for each line."
+	ID_SYSTEM_VERBOSE			"Display a detailed system activity log."
+	ID_SYSTEM_VERBOSE_DEBUG		"Display all."
+	ID_SYSTEM_VERBOSE_ERROR		"Display errors only."
+	ID_SYSTEM_VERBOSE_INFO		"Display info and above."
+	ID_SYSTEM_VERBOSE_NOTICE	"Display notices and above."
+	ID_SYSTEM_VERBOSE_WARNING	"Display warnings and above."
+END
+
+STRINGTABLE
+BEGIN
+	ID_TAB_CONNECT				"Connect or disconnect from the network."
+	ID_TAB_HOME					"Return to the PeerProject start page. (home view)"
+	ID_TAB_IRC					"Show the IRC chatrooms window."
+	ID_TAB_LIBRARY				"View your locally catalogued files."
+	ID_TAB_MEDIA				"Play audio/video files from your Library."
+	ID_TAB_NETWORK				"Manage your Network connections."
+	ID_TAB_SEARCH				"Start new network search for files to download"
+	ID_TAB_TRANSFERS			"Manage all active downloads and uploads."
+	ID_TOOLS_DOWNLOAD			"Start downloading a new file or BitTorrent torrent..."
+	ID_TOOLS_LANGUAGE			"Select the language you wish to use PeerProject in..."
+	ID_TOOLS_PROFILE			"Edit your user profile..."
+	ID_TOOLS_RESKIN				"Reload and apply your current skin selection."
+	ID_TOOLS_SEEDTORRENT		"Seed the selected Torrent on BitTorrent."
+	ID_TOOLS_SETTINGS			"Configure PeerProject settings..."
+	ID_TOOLS_SKIN				"Choose a different skin for PeerProject to use..."
+	ID_TOOLS_WIZARD				"Open the PeerProject QuickStart wizard..."
+END
+
+STRINGTABLE
+BEGIN
+	ID_TRAFFIC_AXIS				"Display Vertical Axis"
+	ID_TRAFFIC_CLEAR			"Clear the traffic graph."
+	ID_TRAFFIC_GRID				"Display grid lines."
+	ID_TRAFFIC_LEGEND			"Display legend."
+	ID_TRAFFIC_SETUP			"Select and configure items to graph..."
+	ID_TRAFFIC_WINDOW			"Open a new graph window..."
+	ID_TRANSFERS_CHAT			"Open a chat session with the selected user."
+	ID_TRANSFERS_CONNECT		"Access the selected download sources and attempt to download."
+	ID_TRANSFERS_DISCONNECT		"Disconnect the selected download transfers."
+	ID_TRANSFERS_FORGET			"Disconnect and forget the selected download sources."
+	ID_TRAY_OPEN				"Open the PeerProject window."
+END
+
+STRINGTABLE
+BEGIN
+	ID_UPLOADS_AUTO_CLEAR		"Automatically clear uploads which have been completed."
+	ID_UPLOADS_CHAT				"Open a chat session with the selected user."
+	ID_UPLOADS_CLEAR			"Clear selected uploads from the list."
+	ID_UPLOADS_CLEAR_COMPLETED	"Clear uploads which have been completed."
+	ID_UPLOADS_DISCONNECT		"Disconnect selected upload transfers."
+	ID_UPLOADS_FILTER_ACTIVE	"Show all uploads which are actively sending."
+	ID_UPLOADS_FILTER_ALL		"Show all uploads."
+	ID_UPLOADS_FILTER_HISTORY	"Show uploads which are no longer connected."
+	ID_UPLOADS_FILTER_MENU		"Choose which types of uploads to show and which types to hide in this view."
+	ID_UPLOADS_FILTER_QUEUED	"Show uploads which are waiting in your queues."
+	ID_UPLOADS_FILTER_TORRENT	"Show BitTorrent uploads."
+	ID_UPLOADS_LAUNCH			"Launch the selected shared file."
+	ID_UPLOADS_SETTINGS			"Configure upload settings..."
+	ID_UPLOADS_START			"Start selected queued uploads."
+END
+
+STRINGTABLE
+BEGIN
+	ID_VIEW_DOWNLOADS			"Show or hide the DOWNLOADS window."
+	ID_VIEW_UPLOADS				"Show or hide the UPLOADS window."
+	ID_VIEW_LIBRARY				"Show or hide the LIBRARY window."
+	ID_VIEW_MEDIA				"Show or hide the MEDIA PLAYER window."
+	ID_VIEW_NEIGHBOURS			"Show or hide the NEIGHBORS window."
+	ID_VIEW_DISCOVERY			"Show or hide the network DISCOVERY SERVICES window."
+	ID_VIEW_PACKETS				"Show or hide the PACKET DUMP window."
+	ID_VIEW_RESULTS_MONITOR		"Show or hide the HIT MONITOR window."
+	ID_VIEW_SEARCH_MONITOR		"Show or hide the SEARCH MONITOR window."
+	ID_VIEW_SCHEDULER			"Show or hide SCHEDULER window."
+	ID_VIEW_SECURITY			"Show or hide the SECURITY window."
+	ID_VIEW_SYSTEM				"Show or hide the SYSTEM window."
+	ID_VIEW_HOSTS				"Show or hide the HOST CACHE window."
+	ID_VIEW_TRAFFIC				"Show or hide a GRAPH window."
+	ID_VIEW_BASIC				"Use PeerProject in easier Basic mode."
+	ID_VIEW_TABBED				"Use PeerProject in standard Tabbed mode. (Home, Transfers, Network, Library, Media, IRC, Search)"
+	ID_VIEW_WINDOWED			"Use PeerProject in Windowed power mode."
+END
+
+STRINGTABLE
+BEGIN
+	ID_WINDOW_ARRANGE			"Arrange icons at the bottom of the window\nArrange Icons"
+	ID_WINDOW_CASCADE			"Expand all open windows to fill the screen."
+	ID_WINDOW_MONITOR			"Show or hide the bandwidth monitor."
+	ID_WINDOW_NAVBAR			"Show or hide the navigation bar."
+	ID_WINDOW_REMOTE			"Show or hide the PeerProject Remote Control"
+	ID_WINDOW_TABBAR			"Show or hide the window tab bar."
+	ID_WINDOW_TILE_HORZ			"Arrange open windows as horizontal, non-overlapping tiles."
+	ID_WINDOW_TILE_VERT			"Arrange open windows as vertical, non-overlapping tiles."
+	ID_WINDOW_TOOLBAR			"Show or hide the toolbar."
+END
+
+STRINGTABLE
+BEGIN
+	ID_WEBSERVICES_LIST			"Choose a web service to get more information about the selected file."
+	ID_WEBSERVICES_SHAREMONKEY	"Search for the file infomation using ShareMonkey service."
+	ID_WEBSERVICES_MUSICBRAINZ	"Search for the same artist songs using MusicBrainz service."
+	ID_SHAREMONKEY_DOWNLOAD		"Search for matches"
+	ID_SHAREMONKEY_SAVE			"Save the match in your Library"
+	ID_SHAREMONKEY_PREVIOUS		"Go to the previous match"
+	ID_SHAREMONKEY_NEXT			"Go to the next match"
+	ID_SHAREMONKEY_PRICES		"Look at the prices for the current match"
+	ID_SHAREMONKEY_COMPARE		"Compare prices in different stores"
+	ID_SHAREMONKEY_BUY			"Buy it and support the author"
+	ID_MUSICBRAINZ_MATCHES		"Search for albums matching the selected file."
+	ID_MUSICBRAINZ_ALBUMS		"Look at all albums for this artist."
+END
+
+// String Resources:
+
+STRINGTABLE
+BEGIN
+	IDS_GENERAL_YES				"Yes"
+	IDS_GENERAL_NO				"No"
+	IDS_GENERAL_OK				"OK"
+	IDS_GENERAL_CANCEL			"Cancel"
+	IDS_GENERAL_BACK			"&Back"
+	IDS_GENERAL_NEXT			"&Next"
+	IDS_GENERAL_CONTINUE		"Continue"
+	IDS_GENERAL_OF				"of"
+	IDS_GENERAL_ALL				"All"
+	IDS_GENERAL_AUTO			"Auto"
+	IDS_GENERAL_CLOSE			"Close"
+	IDS_GENERAL_CUSTOM			"Custom"
+	IDS_GENERAL_DEFAULT			"Default"
+	IDS_GENERAL_FINISH			"Finish"
+	IDS_GENERAL_ABORT			"Abort"
+	IDS_GENERAL_IGNORE			"Ignore"
+	IDS_GENERAL_RETRY			"Retry"
+	IDS_GENERAL_TRYAGAIN		"Try Again"
+END
+
+STRINGTABLE
+BEGIN
+	IDS_DAY_EVERYDAY			"Every Day"
+	IDS_DAY_FRIDAY				"Friday"
+	IDS_DAY_MONDAY				"Monday"
+	IDS_DAY_SATURDAY			"Saturday"
+	IDS_DAY_SUNDAY				"Sunday"
+	IDS_DAY_THURSDAY			"Thursday"
+	IDS_DAY_TUESDAY				"Tuesday"
+	IDS_DAY_WEDNESDAY			"Wednesday"
+	IDS_RATING_NORATING			"(No Rating)"
+	IDS_RATING_1				"Fake / Corrupt"
+	IDS_RATING_2				"Poor"
+	IDS_RATING_3				"Average"
+	IDS_RATING_4				"Good"
+	IDS_RATING_5				"Very Good"
+	IDS_RATING_6				"Excellent"
+END
+
+STRINGTABLE
+BEGIN
+	IDS_PEERPROJECT				"PeerProject"
+	IDS_PRIORITY_OFF			"Skip"
+	IDS_PRIORITY_LOW			"Low"
+	IDS_PRIORITY_NORMAL			"Normal"
+	IDS_PRIORITY_HIGH			"High"
+	IDS_BITZI_CLOSE				"&Close"
+	IDS_BITZI_FINISHED			"Finished, click Close"
+	IDS_BITZI_REQUESTING		"Requesting..."
+	IDS_BITZI_SUCCESS			"Success!"
+	IDS_BETA_EXPIRED			"This is a pre-release version of PeerProject, and the beta testing period has ended.  Please download the full, official release from http://peerproject.org/."
+END
+
+STRINGTABLE
+BEGIN
+	IDS_BROWSE_BAD_RESPONSE		"Browse host %s responded with an unrecognised response, and may not support user/host browsing."
+	IDS_BROWSE_CANT_CONNECT		"Unable to connect to host to browse user."
+	IDS_BROWSE_CANT_CONNECT_TO	"Unable to initiate a connection to %s to browse user."
+	IDS_BROWSE_CANT_PUSH_TO		"Unable to send a push request to %s to browse user."
+	IDS_BROWSE_CLOSED			"Closing browse user connection to %s."
+	IDS_BROWSE_CONNECTING		"Establishing a connection to host..."
+	IDS_BROWSE_CONNECTING_TO	"Initiating a connection to %s to browse user..."
+	IDS_BROWSE_DOWNLOADING		"Downloading browse response (%2.f%%)..."
+	IDS_BROWSE_DOWNLOADING_FROM "Receiving content from browse host %s (%s)"
+	IDS_BROWSE_DROPPED			"Browse user connection to %s was dropped."
+	IDS_BROWSE_FINISHED			"Finished browsing user %s, %i files found."
+	IDS_BROWSE_HTTPCODE			"Browse host %s responded with code %s (%s)."
+	IDS_BROWSE_INTRO_FORMAT		"Found %i shared files in %s's library."
+	IDS_BROWSE_NOT_HTTP			"Browse host %s responded with an invalid HTTP response."
+	IDS_BROWSE_NOT_SUPPORTED	"Unable to download file listing.  This host may not support browsing."
+	IDS_BROWSE_PACKET_ERROR 	"Error decoding Gnutella packets from browse host %s."
+	IDS_BROWSE_PUSHED			"Sent a push request, waiting for connection..."
+	IDS_BROWSE_PUSHED_TO		"Sent a push request to %s to browse user."
+	IDS_BROWSE_REQUESTING		"Connected, requesting browse..."
+	IDS_BROWSE_SENT_REQUEST		"Sent browse user request to %s..."
+	IDS_BROWSE_TIMEOUT			"Closing browse user connection %s due to lack of traffic."
+	IDS_BROWSE_TITLE_FORMAT		"Browsing %s"
+END
+
+STRINGTABLE
+BEGIN
+	IDS_BT_CLIENT_ACCEPTED		"Incoming connection from %s is a BitTorrent coupling, negotiating..."
+	IDS_BT_CLIENT_CONNECTING	"Initiating BitTorrent client coupling with %s..."
+	IDS_BT_CLIENT_CONNECT_TIMEOUT "Timed out connecting to BitTorrent client %s."
+	IDS_BT_CLIENT_DROP_CONNECTED "BitTorrent coupling with %s was dropped."
+	IDS_BT_CLIENT_DROP_CONNECTING "BitTorrent connection to %s was dropped."
+	IDS_BT_CLIENT_DROP_HANDSHAKE "BitTorrent handshake with %s was dropped."
+	IDS_BT_CLIENT_DUPLICATE		"BitTorrent coupling with %s not accepted, a connection to this client already exists."
+	IDS_BT_CLIENT_EXCHANGE		"Received %i new BitTorrent sources from %s."
+	IDS_BT_CLIENT_EXTENDED		"BitTorrent coupling with %s is extended protocol, identified ""%s""."
+	IDS_BT_CLIENT_HANDSHAKE_TIMEOUT "Timed out handshaking with BitTorrent client %s."
+	IDS_BT_CLIENT_HANDSHAKING	"Established BitTorrent coupling with %s, handshaking..."
+	IDS_BT_CLIENT_INACTIVE_FILE "BitTorrent coupling with %s requested an inactive file."
+	IDS_BT_CLIENT_LOST			"Closing BitTorrent coupling with %s due to lack of traffic."
+	IDS_BT_CLIENT_MAX_CONNECTIONS "BitTorrent coupling with %s not accepted, maximum connections reached."
+	IDS_BT_CLIENT_ONLINE		"BitTorrent coupling with %s established for ""%s""."
+	IDS_BT_CLIENT_UNKNOWN_FILE	"BitTorrent coupling with %s requested an unknown file."
+	IDS_BT_CLIENT_WRONG_FILE	"BitTorrent coupling with %s responded with the wrong file."
+	IDS_BT_CLIENT_WRONG_GUID	"BitTorrent coupling with %s failed because the remote client has a different Peer ID."
+END
+
+STRINGTABLE
+BEGIN
+	IDS_BT_ENCODING				"Encoding error"
+	IDS_BT_PREFETCH_ERROR		"Unable to parse prefetched BitTorrent file ""%s""."
+	IDS_BT_PREFETCH_FILE		"Received BitTorrent descriptor file: ""%s"""
+	IDS_BT_PRIVATE				"Private torrent"
+	IDS_BT_SEED_ALREADY			"The torrent ""%s"" is already on your download list, and cannot be seeded."
+	IDS_BT_SEED_COPY_FAIL		"An error occurred while copying from ""%s"" to a BitTorrent share file."
+	IDS_BT_SEED_CREATE_FAIL 	"Unable to create BitTorrent share file ""%s""."
+	IDS_BT_SEED_ERROR			"Unknown error occurred while trying to seed ""%s""."
+	IDS_BT_SEED_PARSE_ERROR		"Error loading the torrent file ""%s"".  This may not be a valid torrent."
+	IDS_BT_SEED_SOURCE_LOST 	"This torrent includes the file ""%s"", but PeerProject cannot find this file in your library.  If possible, move the file to a shared folder and try again."
+	IDS_BT_SEED_SOURCE_SIZE 	"This torrent includes the file ""%s"" which should be %s, however your version of the file is %s."
+	IDS_BT_SEED_VERIFY_FAIL 	"An error was detected in the file ""%s""."
+	IDS_BT_TRACKER_DOWN			"Unable to communicate with tracker"
+	IDS_BT_TRACKER_MULTI		"Tracker failed- Trying next tracker (%i of %i)"
+	IDS_BT_TRACK_CHANGE			"You have changed the tracker URL for this torrent.  Are you sure you want to save this change?\n\nAn invalid tracker URL may prevent further downloading."
+	IDS_BT_TRACK_ERROR			"Error from BitTorrent tracker for ""%s"" : ""%s""."
+	IDS_BT_TRACK_PARSE_ERROR	"Error parsing BitTorrent tracker response."
+	IDS_BT_TRACK_SUCCESS		"Received BitTorrent tracker response for ""%s"", %i new sources."
+	IDS_BT_UPDATE_CONVERTING	"Converting Torrent:"
+	IDS_BT_UPDATE_TITLE			"Updating Bittorrent Downloads..."
+END
+
+STRINGTABLE
+BEGIN
+	IDS_CHAT_ACCEPTED_X 		"Accepted incoming chat request from %s, handshaking..."
+	IDS_CHAT_CANT_CONNECT		"Unable to create a connection to %s."
+	IDS_CHAT_CANT_PUSH			"Unable to request a push connection from %s, no route available."
+	IDS_CHAT_CLOSED				"Connection closed."
+	IDS_CHAT_CLOSED_X			"Connection to %s closed."
+	IDS_CHAT_CONNECTED			"Connection established, handshaking..."
+	IDS_CHAT_CONNECTED_X		"Connected to %s, handshaking..."
+	IDS_CHAT_CONNECTING_TO		"Initiating a connection to %s..."
+	IDS_CHAT_CONNECTING_X		"Connecting to %s for chat..."
+	IDS_CHAT_CONNECT_FAIL_X		"Unable to connect to host %s."
+	IDS_CHAT_DROPPED			"The chat connection was lost."
+	IDS_CHAT_DROPPED_X			"The connection to %s was lost."
+	IDS_CHAT_HANDSHAKE_FAIL		"Handshake failed, host may not support chatting."
+	IDS_CHAT_HANDSHAKE_G1		"Handshake complete, chat protocol version %s."
+	IDS_CHAT_HANDSHAKE_G2		"Exchanging profile information..."
+	IDS_CHAT_NEED_PROFILE		"You have not yet filled in your user profile.  You must provide a profile before you can chat with other users.\n\nWould you like to fill in your profile now?"
+END
+
+STRINGTABLE
+BEGIN
+	IDS_CHAT_ONLINE_X			"Now chatting with %s (%s)."
+	IDS_CHAT_NICK_X				"%s is now known as %s."
+	IDS_CHAT_NOT_CONNECTED_1	"Cannot send message, you are not connected.  PeerProject is trying to connect..."
+	IDS_CHAT_NOT_CONNECTED_2	"Cannot send message, a connection has not been established yet."
+	IDS_CHAT_PRIORITY_GRANTED	"Granted upload priority to host %s."
+	IDS_CHAT_PRIVATE_AWAY		"%s is away: %s"
+	IDS_CHAT_PRIVATE_ONLINE		"Private conversation granted, you are now chatting with %s."
+	IDS_CHAT_PRIVATE_REFUSED	"%s is not accepting private conversations, sorry."
+	IDS_CHAT_PRIVATE_START		"Requesting private conversation with user..."
+	IDS_CHAT_PROFILE_ACCEPTED	"Authenticated user "
+	IDS_CHAT_PROTOCOL_X 		"Connection failed due to invalid data on the wire."
+	IDS_CHAT_PUSH_DONE			"Accepted push connection from %s, handshaking..."
+	IDS_CHAT_PUSH_SENT			"Requesting a firewalled push connection from %s..."
+	IDS_CHAT_RESPONSE_X 		"Received an unknown response: %s"
+	IDS_CHAT_UNCONNECTED_X		"You're not connected."
+	IDS_CHAT_UNRECOGNISED_X		"Unrecognised command ""%s""."
+END
+
+STRINGTABLE
+BEGIN
+	IDS_CLOSING_AFTER			"(closing after transfers)"
+	IDS_CONNECTION_ACCEPTED		"Accepted an incoming connection from %s port %i."
+	IDS_CONNECTION_ALREADY_ABORT "Already connected to %s, will not establish a second connection."
+	IDS_CONNECTION_ALREADY_REFUSE "Refusing duplicate connection from %s."
+	IDS_CONNECTION_ATTEMPTING	"Initiating a neighbor connection to %s port %i..."
+	IDS_CONNECTION_BYE			"Neighbor %s closed connection (%i : %s)."
+	IDS_CONNECTION_CLOSED		"Closed connection with neighbor %s."
+	IDS_CONNECTION_CONNECTED	"Established a connection with neighbor %s, handshaking..."
+	IDS_CONNECTION_CONNECT_FAIL	"Unable to initiate a neighbor connection with %s."
+	IDS_CONNECTION_DROPPED		"Neighbor %s dropped the connection unexpectedly."
+	IDS_CONNECTION_PEERPRUNE	"Closed connection with neighbor %s because it is not a hub."
+	IDS_CONNECTION_REFUSED		"Unable to initiate a neighbor connection with %s (refused)."
+	IDS_CONNECTION_TIMEOUT_CONNECT "Timed out connecting to %s."
+	IDS_CONNECTION_TIMEOUT_TRAFFIC "Closing connection to neighbor %s due to lack of traffic."
+END
+
+STRINGTABLE
+BEGIN
+	IDS_COLLECTION_WIZARD_NOCUSTOM "This template does not have any customizations."
+	IDS_COLLECTION_WIZARD_NOTVALID "This template is invalid."
+	IDS_DISCOVERY_BOOTSTRAP		"Querying host discovery services..."
+	IDS_DISCOVERY_FAILED		"Discovery service ""%s"" failed, fail count %i."
+	IDS_DISCOVERY_FAIL_REMOVE	"Discovery service ""%s"" has failed %i times, removing."
+	IDS_DISCOVERY_QUERY			"Querying discovery service ""%s""..."
+	IDS_DISCOVERY_SUBMIT		"Submitting GWebCache ""%s"" to a random GWebCache..."
+	IDS_DISCOVERY_UPDATING		"Sending GWebCache update to service ""%s""..."
+	IDS_DISCOVERY_WEB_SUCCESS	"GWebCache transaction successful (""%s"")."
+END
+
+STRINGTABLE
+BEGIN
+	IDS_DOWNLOAD_ADDED			"Added ""%s"" to download queue with %i sources."
+	IDS_DOWNLOAD_ALREADY		"The file ""%s"" is already being downloaded, adding sources."
+	IDS_DOWNLOAD_BAD_PUSH		"Received a faulty push connection from %s, closing connection."
+	IDS_DOWNLOAD_BOOST			"Boosting download ""%s"" by removing bandwidth caps."
+	IDS_DOWNLOAD_BUSY			"Download host %s is busy, retrying in %i seconds."
+	IDS_DOWNLOAD_CANT_MOVE		"Couldn't move download ""%s"" to ""%s"".  Check that the incomplete file is not in use, and that your downloads folder exists and is writable."
+	IDS_DOWNLOAD_CANT_RESOLVE	"Unable to resolve ""%s""."
+	IDS_DOWNLOAD_CLEAR_GROUP	"Are you sure you want to cancel/abort every download in this group?"
+	IDS_DOWNLOAD_CLOSING_EXTRA	"Closing download connection to %s, no longer required."
+	IDS_DOWNLOAD_CLOSING_OVERFLOW "Download host %s sent unsolicited data, closing connection."
+	IDS_DOWNLOAD_COMPLETED		"Completed download of ""%s."""
+	IDS_DOWNLOAD_CONFIRM_CLEAR	"Are you sure you want to clear ""%s""?\n\nOnce a download has been cleared from the Downloads window, it cannot be resumed later."
+	IDS_DOWNLOAD_CONFIRM_CLEAR_PAUSED "Are you sure you want to clear all paused downloads?  Once a download has been cleared from the Downloads window, it cannot be resumed."
+	IDS_DOWNLOAD_CONFIRM_DELETE "Are you sure you want to delete the download ""%s""?"
+	IDS_DOWNLOAD_CONNECTED		"Download connection to %s established."
+	IDS_DOWNLOAD_CONNECTING		"Initiating a connection to %s port %i to download ""%s""..."
+	IDS_DOWNLOAD_CONNECT_ERROR	"Unable to connect to download host %s."
+	IDS_DOWNLOAD_CONTENT		"Receiving download content from host %s (%s)."
+	IDS_DOWNLOAD_DISABLED		"Aborting download of ""%s"" from %s (%s), network disabled."
+	IDS_DOWNLOAD_DISK_SPACE		"Insufficient disk space to download ""%s"" (%s)."
+	IDS_DOWNLOAD_DROPPED		"Download connection to %s was lost."
+END
+
+STRINGTABLE
+BEGIN
+	IDS_DOWNLOAD_EDIT_ACTIVE_TASK "\nThe selected download already has an active Task, please wait."
+	IDS_DOWNLOAD_EDIT_BAD_HASH	"You have typed an %s hash value, however it is invalid.  Please check it and try again."
+	IDS_DOWNLOAD_EDIT_BAD_RANGE "Please enter a valid range to erase.  The ""from"" field is the first byte to erase, the ""last"" field is the last byte to erase."
+	IDS_DOWNLOAD_EDIT_CANCEL_DOWNLOAD "Do you wish to cancel this download but save the incomplete files?"
+	IDS_DOWNLOAD_EDIT_CANT_ERASE "Unable to erase the selected range from the download because no part of the range is present."
+	IDS_DOWNLOAD_EDIT_CHANGE_HASH "You have provided an %s hash value that is different from the one currently associated with this download.  Are you sure you want to change the %s hash now?"
+	IDS_DOWNLOAD_EDIT_CHANGE_SIZE "You have made changes to the file size.  Are you sure you want to change the file size for this download?"
+	IDS_DOWNLOAD_EDIT_COMPLETE_NOHASH "You cannot assume this download is complete and reverify it because you do not yet have any partial verification data, such as tiger-tree volume, eDonkey hashset or BitTorrent hashset.  Without verification information the download cannot be reverified."
+	IDS_DOWNLOAD_EDIT_COMPLETE_VERIFY "Are you sure you want to assume this download is complete and reverify it?  The whole file will be considered, and PeerProject will accept parts which pass verification and redownload parts which fail verification."
+	IDS_DOWNLOAD_EDIT_ERASED	"Erased %I64i bytes from the download."
+	IDS_DOWNLOAD_EDIT_FORGET_SOURCES "Are you sure you want to forget all sources for the selected download?"
+	IDS_DOWNLOAD_EDIT_FORGET_VERIFY "Are you sure you want to forget the current verification status?  All downloaded data will be treated as untrusted, and cached hashtrees and hashsets will be flushed."
+	IDS_DOWNLOAD_EDIT_RENAME	"You have made changes to the name field.  Are you sure you want to rename this download?"
+END
+
+STRINGTABLE
+BEGIN
+	IDS_DOWNLOAD_GROUP			"Drag'n'drop files to the %s group"
+	IDS_DOWNLOAD_GROUP_DEFAULT	"Default download group.  (Show all files)"
+	IDS_DOWNLOAD_FILENOTFOUND	"Download host %s does not have the file ""%s""."
+	IDS_DOWNLOAD_FILE_CREATE	"Creating file ""%s"" for download."
+	IDS_DOWNLOAD_FILE_CREATE_ERROR "Unable to create local file ""%s"" for download, aborting."
+	IDS_DOWNLOAD_FILE_OPEN_ERROR "Unable to open local file ""%s"" for download, aborting."
+	IDS_DOWNLOAD_FRAGMENT_END	"No more download fragments, closing connection to %s."
+	IDS_DOWNLOAD_FRAGMENT_OVERLAP "Fragment shortened, closing connection to %s."
+	IDS_DOWNLOAD_FRAGMENT_REQUEST "Requesting download fragment (%I64u-%I64u) of ""%s"" from %s."
+	IDS_DOWNLOAD_HASHSET_CORRUPT "Download host's eDonkey hashset is corrupt or internally inconsistent, dropping source."
+	IDS_DOWNLOAD_HASHSET_ERROR	"Received an invalid eDonkey hashset from %s, dropping source."
+	IDS_DOWNLOAD_HASHSET_READY	"Received eDonkey hashset for ""%s"", minimum verifiable chunk %s."
+	IDS_DOWNLOAD_HASHSET_REQUEST "Requesting eDonkey hashset for ""%s"" from %s..."
+	IDS_DOWNLOAD_HTTPCODE		"Download host %s responded with %s (%s)."
+END
+
+STRINGTABLE
+BEGIN
+	IDS_DOWNLOAD_INFLATE_ERROR	"Unable to initialize inflate for download ""%s""."
+	IDS_DOWNLOAD_METADATA_RECV	"Receiving tiger-tree data from %s (%s)..."
+	IDS_DOWNLOAD_METADATA_REQUEST "Requesting metadata for ""%s"" from %s..."
+	IDS_DOWNLOAD_MOVED			"Moved ""%s"" to ""%s"", download complete."
+	IDS_DOWNLOAD_NEW_GROUP		"New Group"
+	IDS_DOWNLOAD_NOHTTP			"Download host %s responded with an invalid HTTP response."
+	IDS_DOWNLOAD_PAUSED			"Pausing download of ""%s."""
+	IDS_DOWNLOAD_PROPERTIES 	"Download Properties"
+	IDS_DOWNLOAD_PUSHED			"Host %s is pushing download ""%s"", accepting."
+	IDS_DOWNLOAD_PUSH_SENT		"Sending push request for download ""%s""..."
+	IDS_DOWNLOAD_QUEUED			"Download host %s is busy, waiting in queue at position #%i of %i (""%s"")."
+	IDS_DOWNLOAD_QUEUE_DROP		"Staying in queue for ""%s""."
+	IDS_DOWNLOAD_QUEUE_HUGE		"Dropping download source %s for ""%s"" because queue position %i is too high."
+	IDS_DOWNLOAD_QUEUE_TIMEOUT	"Timed out waiting for queue update from eDonkey download host %s for file ""%s""."
+	IDS_DOWNLOAD_REMOVE			"Cleared download ""%s."""
+	IDS_DOWNLOAD_REQUEST_TIMEOUT "Download request to %s timed out, closing connection."
+	IDS_DOWNLOAD_RESOLVING		"Resolving ""%s"" to download ""%s""..."
+	IDS_DOWNLOAD_RESUMED		"Resuming download of ""%s."""
+	IDS_DOWNLOAD_SOURCES		"Querying for more sources for download ""%s"" on %i connections..."
+	IDS_DOWNLOAD_SOURCES_CONNECTED "Can't fetch more sources for download ""%s"" because there is no network connection."
+END
+
+STRINGTABLE
+BEGIN
+	IDS_DOWNLOAD_TIGER_CORRUPT	"Download host's tiger-tree data is corrupt or internally inconsistent, ignoring it."
+	IDS_DOWNLOAD_TIGER_MISMATCH	"Download host's tiger-tree does not match expected root value."
+	IDS_DOWNLOAD_TIGER_RANGE	"Download host %s could not satisfy the tiger-tree request."
+	IDS_DOWNLOAD_TIGER_READY	"Received tiger-tree volume for ""%s"", %i levels, minimum verifiable chunk %s."
+	IDS_DOWNLOAD_TIGER_RECV		"Receiving tiger-tree volume from %s (%s)..."
+	IDS_DOWNLOAD_TIGER_REQUEST	"Requesting tiger-tree volume for ""%s"" from %s..."
+	IDS_DOWNLOAD_TRAFFIC_TIMEOUT "Closing download connection %s due to lack of traffic."
+	IDS_DOWNLOAD_UNKNOWN_PUSH	"Received an unnecessary push connection from %s."
+	IDS_DOWNLOAD_USEFUL_RANGE	"Download host %s responded with a different, but useful range (%I64i-%I64i) of ""%s""."
+	IDS_DOWNLOAD_VERIFY_DROP	"Dropping source %s (%s) for sending corrupted parts of ""%s"" (%I64i-%I64i)."
+	IDS_DOWNLOAD_VERIFY_FAIL	"WARNING: Download ""%s"" failed verification, it may not be the file you intended to download!"
+	IDS_DOWNLOAD_VERIFY_SUCCESS "Successfully verified download ""%s""."
+	IDS_DOWNLOAD_WRONG_HASH		"Download host %s's version of ""%s"" has a different URN, aborting."
+	IDS_DOWNLOAD_WRONG_RANGE	"Download host %s responded with a useless byte range of ""%s"", pending."
+	IDS_DOWNLOAD_WRONG_SIZE		"Download host %s's version of ""%s"" has a different length, aborting."
+	IDS_DOWNLOAD_416_WITHOUT_RANGE "Host ""%s"" sent code 416, without providing available ranges. Closing connection."
+END
+
+STRINGTABLE
+BEGIN
+	IDS_ED2K_EPI_ALREADY		"  This file is already in the PeerProject download list."
+	IDS_ED2K_EPI_CANT_OPEN_PART "  Unable to open part file ""%s""."
+	IDS_ED2K_EPI_COPY_FINISHED	"  Finished copying file."
+	IDS_ED2K_EPI_COPY_START		"  Copying ""%s"" to ""%s""..."
+	IDS_ED2K_EPI_DETECTED		"  Found download ""%s"", size %s."
+	IDS_ED2K_EPI_DISK_SPACE		"  Insufficient disk space to copy download file."
+	IDS_ED2K_EPI_FILE_CREATED	"  Created PeerProject partial download, %s remaining."
+	IDS_ED2K_EPI_FILE_FAILED	"  Unable to import file."
+	IDS_ED2K_EPI_FILE_OLD		"  Download data file is newer than .part file, aborting."
+	IDS_ED2K_EPI_FILE_START		" Found partial file ""%s"", importing..."
+	IDS_ED2K_EPI_FINISHED		"Process complete, %i partial downloads imported successfully."
+	IDS_ED2K_EPI_FOLDER			"Scanning folder: ""%s""..."
+	IDS_ED2K_EPI_START			"Starting eDonkey partial download import process..."
+END
+
+STRINGTABLE
+BEGIN
+	IDS_ED2K_CLIENT_ACCEPTED	"Incoming connection from %s is an eDonkey client link."
+	IDS_ED2K_CLIENT_BAD_PACKET	"Received a malformatted eDonkey packet from %s (id=%x)."
+	IDS_ED2K_CLIENT_CLOSED		"eDonkey client connection to %s was idle, closed."
+	IDS_ED2K_CLIENT_CONNECTING	"Initiating eDonkey client connection to %s..."
+	IDS_ED2K_CLIENT_CONNECT_TIMEOUT "Timed out connecting to eDonkey client %s."
+	IDS_ED2K_CLIENT_DISABLED	"Refusing eDonkey client link from %s because eDonkey is disabled."
+	IDS_ED2K_CLIENT_DROPPED 	"eDonkey client connection to %s was closed."
+	IDS_ED2K_CLIENT_HANDSHAKE_FAIL "Error exchanging handshake with eDonkey client %s."
+	IDS_ED2K_CLIENT_HANDSHAKE_TIMEOUT "Timed out handshaking with eDonkey client %s."
+	IDS_ED2K_CLIENT_SENT_HASHSET "Sending eDonkey hashset for ""%s"" to %s..."
+	IDS_ED2K_CLIENT_WRONG_GUID	"eDonkey client %s has the wrong GUID, aborting handshake."
+	IDS_ED2K_SERVER_CONNECTED	"Connected to eDonkey server %s, handshaking..."
+	IDS_ED2K_SERVER_CONNECTING	"Initiating connection to eDonkey server at %s..."
+	IDS_ED2K_SERVER_IDCHANGE	"eDonkey server %s changed our client ID from %lu to %lu."
+	IDS_ED2K_SERVER_IDENT		"eDonkey server %s identified itself as ""%s""."
+	IDS_ED2K_SERVER_MESSAGE		"ED2K[%s] %s"
+	IDS_ED2K_SERVER_ONLINE		"eDonkey server %s online, client ID is %lu."
+	IDS_ED2K_SERVER_REFUSED		"eDonkey server %s refused connection."
+	IDS_ED2K_SERVER_REJECTED 	"eDonkey server %s rejected the connection."
+END
+
+STRINGTABLE
+BEGIN
+	IDS_FILE_PROPERTIES			"File Properties"
+	IDS_FILTER_DELETE_CONFIRM	"Are you sure you wish to delete this filter ?"
+	IDS_FILTER_NO_NAME			"Please give your filter a name."
+	IDS_FILTER_REPLACE			"There already is a filter called ""%s"", do you want to replace it?"
+	IDS_FOLDER_TIP				"Files shared over the Internet"
+	IDS_GRAPH_CONNECTION_ERRORS "Connection Errors (%)"
+	IDS_GRAPH_DOWNLOADS_BANDWIDTH "Download Bandwidth"
+	IDS_GRAPH_DOWNLOADS_FILES	"Download File Count"
+	IDS_GRAPH_DOWNLOADS_TRANSFERS "Download Transfer Count"
+	IDS_GRAPH_UPLOADS_BANDWIDTH "Upload Bandwidth"
+	IDS_GRAPH_UPLOADS_TRANSFERS "Upload Transfer Count"
+	IDS_GRAPH_TOTAL_BANDWIDTH_IN "Total Generic Receive Bandwidth"
+	IDS_GRAPH_TOTAL_BANDWIDTH_OUT "Total Generic Transmit Bandwidth"
+	IDS_GRAPH_TOTAL_BANDWIDTH_TCP_IN "Total TCP Receive Bandwidth"
+	IDS_GRAPH_TOTAL_BANDWIDTH_TCP_OUT "Total TCP Transmit Bandwidth"
+	IDS_GRAPH_TOTAL_BANDWIDTH_UDP_IN "Total UDP Receive Bandwidth"
+	IDS_GRAPH_TOTAL_BANDWIDTH_UDP_OUT "Total UDP Transmit Bandwidth"
+END
+
+STRINGTABLE
+BEGIN
+	IDS_GRAPH_GNUTELLA_BANDWIDTH_IN "Gnutella Receive Bandwidth"
+	IDS_GRAPH_GNUTELLA_BANDWIDTH_OUT "Gnutella Transmit Bandwidth"
+	IDS_GRAPH_GNUTELLA_CONNECTIONS "Gnutella Connections (Total)"
+	IDS_GRAPH_GNUTELLA_CONNECTIONS_ALL "Gnutella Connections (Active)"
+	IDS_GRAPH_GNUTELLA_PACKETS_IN "Gnutella Packets Received"
+	IDS_GRAPH_GNUTELLA_PACKETS_OUT "Gnutella Packets Transmitted"
+	IDS_GRAPH_GNUTELLA_PINGS	"Gnutella Ratio of Received/Sent Pings"
+	IDS_GRAPH_GNUTELLA_PONGS	"Gnutella Ratio of Received/Sent Pongs"
+	IDS_GRAPH_GNUTELLA_DROPPED	"Gnutella Packets Dropped"
+	IDS_GRAPH_GNUTELLA_LOST		"Gnutella Packets Lost"
+	IDS_GRAPH_GNUTELLA_QUERIES	"Gnutella Local Queries"
+	IDS_GRAPH_GNUTELLA_ROUTED	"Gnutella Packets Routed"
+END
+
+STRINGTABLE
+BEGIN
+	IDS_HANDSHAKE_BACK2LEAF		"Connecting neighbor %s falling back to shielded leaf mode."
+	IDS_HANDSHAKE_BOOTSTRAP		"Closing surplus connection from %s with host hint (%s port %i)."
+	IDS_HANDSHAKE_CANTBEPEER	"Hub neighbor %s won't accept us as a hub, closing connection."
+	IDS_HANDSHAKE_FAIL			"Handshake with %s failed due to invalid data on the wire."
+	IDS_HANDSHAKE_GOTLEAF		"Acting as a hub for leaf neighbor %s."
+	IDS_HANDSHAKE_GOTPEER		"Hub connection established, closing peer connections."
+	IDS_HANDSHAKE_IAMLEAF		"Refusing connection from %s because this is a shielded leaf node."
+	IDS_HANDSHAKE_NEEDAPEER		"Neighbor %s is not a hub, closing connection."
+	IDS_HANDSHAKE_NOTG2			"Closing connection to non-Gnutella2 neighbor %s."
+	IDS_HANDSHAKE_NOULTRAPEER	"Neighbor %s wants to be a hub, closing connection."
+	IDS_HANDSHAKE_ONLINE		"Gnutella connection with neighbor %s established successfully (G%i.%i : %s)."
+	IDS_HANDSHAKE_ONLINE_G2		"Gnutella2 connection with neighbor %s established successfully (%s)."
+	IDS_HANDSHAKE_REJECTED		"Connection to %s rejected (%s)."
+	IDS_HANDSHAKE_SURPLUS		"Closing surplus connection from %s."
+	IDS_HANDSHAKE_TIMEOUT		"Timed out handshaking with %s."
+END
+
+STRINGTABLE
+BEGIN
+	IDS_HASH_MESSAGE			"PeerProject is hashing %Iu files:"
+	IDS_INFO_REMEMBER			"&Remember my selection next time"
+	IDS_IRC_ADDCHANNEL			"Add..."
+	IDS_IRC_CHANLIST			"Channels"
+	IDS_IRC_HEADERINPUT			"Chat:"
+	IDS_IRC_HEADERSUBTITLE		"Please respect others while using this service.  Press Connect below to start."
+	IDS_IRC_HEADERTITLE			"Welcome to the PeerProject IRC Chatrooms"
+	IDS_IRC_REMOVECHANNEL		"Remove"
+	IDS_IRC_USERLIST			"Users"
+END
+
+STRINGTABLE
+BEGIN
+	IDS_LIBHEAD_EXPLORE_FOLDER	"Exploring"
+	IDS_LIBHEAD_EXPLORE_MANY	"Exploring the contents of %i folders"
+	IDS_LIBHEAD_HOME			"Exploring Your PeerProject Library"
+	IDS_LIBPANEL_MULTIPLE_FILES	"%i files selected"
+	IDS_LIBPANEL_MULTIPLE_FOLDERS "Multiple folders"
+	IDS_LIBPANEL_NO_SELECTION	"No files are selected"
+	IDS_LIBPANEL_RATE_FILE		"Rate this file"
+	IDS_LIBPANEL_RECENT_ADDITIONS "Recent Additions"
+	IDS_LIBRARY_ALBUM_ALBUM		"Album"
+	IDS_LIBRARY_ALBUM_ARTIST	"Artist"
+	IDS_LIBRARY_ALBUM_BITRATE	"Bitrate"
+	IDS_LIBRARY_ALBUM_LENGTH	"Length"
+	IDS_LIBRARY_ALBUM_RATING	"Rating"
+	IDS_LIBRARY_ALBUM_TITLE		"Title"
+	IDS_LIBRARY_ALBUM_TRACK		"#"
+END
+
+STRINGTABLE
+BEGIN
+	IDS_LIBRARY_BITZI_HASHED	"The file ""%s"" has not yet been hashed.  Please wait for the file to be hashed, and then try again."
+	IDS_LIBRARY_BITZI_MESSAGE	"This option uses services provided by Bitzi.com for recognising and sharing information about selected files.\n\nPeerProject will transmit the SHA1 hash code for the selected file(s) in order to query the Bitzi database.  If you are concerned about privacy, you may wish to consult the Bitzi.com privacy policy.\n\nWould you like to proceed?"
+	IDS_LIBRARY_COLLECTION_CANT_INSTALL "PeerProject was unable to install the collection file ""%s"" by copying it to the folder ""%s""."
+	IDS_LIBRARY_COLLECTION_DOWNLOAD_ALL "Would you like to download all files in this collection?\r\n\r\nChoose Cancel to stop any further prompts."
+	IDS_LIBRARY_COLLECTION_INSTALLED "PeerProject has added the collection file ""%s"" to your library."
+	IDS_LIBRARY_COLLECTION_INVALID "PeerProject received a collection file:\r\n\r\n""%s""\r\n\r\nThis file does not appear to be a valid collection file."
+	IDS_LIBRARY_COLLECTION_LOCKDOWN "Would you like to prevent this collection from prompting you to download anything else?"
+	IDS_LIBRARY_CONFIRM_EXECUTE "Are you sure you want to launch the file ""%s"" ?\n\nSome files can be harmful to your computer.  Ensure you know what the file is before launching it."
+	IDS_LIBRARY_DELETE			"Are you sure you want to permanently delete the %i selected files ?\n\nThe files will be moved to your ""recycle bin"" if it is enabled."
+	IDS_LIBRARY_DELETE_FAIL		"PeerProject could not delete the file:\n\n%s"
+	IDS_LIBRARY_DOWNLOADS_ADD	"Your downloaded files folder ""%s"" is not yet in your library.\n\nIncluding your downloaded files folder in your library makes it easier to view and organise new downloads, and lets you take advantage of advanced PeerProject features such as download verification and automatic upgrading.  Placing downloaded files in your library does not necessarily require you to share them: you can choose whether or not to share files independently.\n\nWould you like to add your downloaded files folder to your library now?"
+	IDS_LIBRARY_DOWNLOADS_SHARE "Your downloads folder has been added to your local library. \nWould you like to publicly share it too?"
+	IDS_LIBRARY_ENQUEUE			"You have not yet selected a media player to enqueue files with, such as Nullsoft Winamp.  Would you like to select one now?\n\nPeerProject will pass the name of the file to your selected program with the ""/ADD"" argument."
+	IDS_LIBRARY_FOLDER_DELETE	"Are you sure you want to delete the %i selected album folders ?\n\nNote that this action does not delete the files within the album folders, only the folders themselves."
+END
+
+STRINGTABLE
+BEGIN
+	IDS_LIBRARY_GHOST_FILE		"Ghost File"
+	IDS_LIBRARY_METADATA_EDIT	"Editing metadata of %i files."
+	IDS_LIBRARY_METADATA_MANY	"You are about to modify the metadata of %i files, are you sure you want to continue?"
+	IDS_LIBRARY_MOVE_FAIL		"Unable to move the file %s. The file may be in use by another application.\n\nDo you wish to try to copy this file instead?"
+	IDS_LIBRARY_RENAME_FAIL		"PeerProject could not rename:\n\n%s\nto\n%s"
+	IDS_LIBRARY_SUBFOLDER_IN_LIBRARY "A subfolder of the selected folder ""%s"" is already part of your library.\nAdding this folder will cause re-hashing of some files.\n\nDo you want to continue ?"
+	IDS_LIBRARY_TARGET_EXISTS	"Target file exists:\n\n%s\n\nWould you like to overwrite it?"
+	IDS_LIBRARY_TYPE_FILTER_ALL	"Show All File Types"
+	IDS_LIBRARY_URI_COPY		"&Get P2P Link"
+	IDS_LIBRARY_URI_EXPORT		"Export &P2P Links..."
+	IDS_LIBRARY_VERIFY_FAIL		"The file ""%s"" failed a hash verification test, and might not be the file you intended to download.  Are you sure you want to open it?"
+	IDS_LIBRARY_VERIFY_FIX		"Would you like to remove the ""potentially unsafe"" attribute from this file?"
+END
+
+STRINGTABLE
+BEGIN
+	IDS_MEDIAVIS_NOVIS			"(No Visualisation)"
+	IDS_MEDIA_EMPTY				"There is no file playing.  Double-click a media file in your library to play it."
+	IDS_MEDIA_FILTER			"All Media Files|*.3gp;*.aac;*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.flac;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.flv;*.mkv;*.mpeg;*.mpg;*.m1v;*.mp2;*.mp4;*.mpa;*.mpe;*.wmv|Video Files|*.avi;*.asf;*.flv;*.ogm;*.mkv;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv;*.3gp|Audio Files|*.aac;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.flac;*.wma;*.rm;*.mp3;*.ogg;*.ogm|MIDI Files|*.mid;*.rmi;*.midi|CD Audio Tracks|*.cda|Image Files|*.bmp;*.gif;*.jpeg;*.jpg;*.png;|Playlists|*.asx;*.wax;*.m3u;*.wvx;*.wmx|All Files|*.*||"
+	IDS_MEDIA_LOAD_FAIL			"Unable to load media file ""%s"""
+	IDS_MEDIA_LOAD_FAIL_HELP	"The file may be damaged, or you may not have the necessary codecs to play it."
+	IDS_MEDIA_PARTIAL_RENDER	"Part of the file could not be played, you may need to install additional codecs.\n(Try a codec pack from www.codecs.com)"
+	IDS_MEDIA_PLUGIN_CREATE		"PeerProject could not instantiate its MediaServices plugin.  Please reinstall PeerProject, and confirm that you have the necessary media codecs and output drivers installed."
+	IDS_MEDIA_PLAYLIST			"Playlist:"
+	IDS_MEDIA_SMPLAYER			"PeerProject Media Player"
+	IDS_MEDIA_TITLE				"P    E    E    R    P    R    O    J    E    C    T         M    E    D    I    A         S    Y    S    T    E    M"
+	IDS_MEDIA_TIMESPLIT			" / "
+END
+
+STRINGTABLE
+BEGIN
+	IDS_MONITORBAR_LIMIT_IN 	"Limit Download Bandwidth"
+	IDS_MONITORBAR_LIMIT_OUT	"Limit Upload Bandwidth"
+//	IDS_MONITOR_COMPLETED		"PeerProject has completed downloading:"
+//	IDS_MONITOR_DOWNLOADING		"PeerProject is downloading:"
+//	IDS_MONITOR_MOVING			"PeerProject is moving the download:"
+//	IDS_MONITOR_PAUSED			"This download is paused:"
+//	IDS_MONITOR_SOURCING		"PeerProject is looking for sources for:"
+//	IDS_MONITOR_VERIFY			"Checking file for errors:"
+END
+
+STRINGTABLE
+BEGIN
+	IDS_MONITOR_ACTION_CANCEL	"Cancel"
+	IDS_MONITOR_ACTION_OPEN		"Open"
+	IDS_MONITOR_COMPLETED_WORD	"Completed"
+	IDS_MONITOR_ESTIMATED_TIME	"Estimated time:"
+	IDS_MONITOR_NO_SOURCES		"No sources"
+	IDS_MONITOR_NUMBER_REVIEWS	"Number of reviews:"
+	IDS_MONITOR_NUMBER_SOURCES	"Number of sources:"
+	IDS_MONITOR_TIME_DH			"%i days %i hours"
+	IDS_MONITOR_TIME_HM			"%i hours %i minutes"
+	IDS_MONITOR_TIME_MS			"%i minutes %i seconds"
+	IDS_MONITOR_TIME_S			"%i seconds"
+	IDS_MONITOR_TOTAL_SPEED		"Total transfer speed:"
+	IDS_MONITOR_VOLUME_DOWNLOADED "Total downloaded:"
+	IDS_MONITOR_VOLUME_UPLOADED	"Upload ratio:"
+END
+
+STRINGTABLE
+BEGIN
+	IDS_MULTIPLE				"Multiple"
+	IDS_MULTIPLE_VALUES			"Multiple Values"
+	IDS_NEIGHBOURS_CONNECT		"Click the Connect button to get started."
+	IDS_NEIGHBOURS_NOT_CONNECTED "You're not connected to the network."
+	IDS_NEIGHBOUR_CLOSING		"Closing"
+	IDS_NEIGHBOUR_COMPRESSION	"Compression:"
+	IDS_NEIGHBOUR_COMPRESSION_DF "Deflate"
+	IDS_NEIGHBOUR_COMPRESSION_NONE "None"
+	IDS_NEIGHBOUR_CONNECTING	"Connecting"
+	IDS_NEIGHBOUR_CURRENT		"Current:"
+	IDS_NEIGHBOUR_HANDSHAKE		"Handshake"
+	IDS_NEIGHBOUR_HANDSHAKING	"Handshaking"
+	IDS_NEIGHBOUR_INBOUND		"Inbound"
+	IDS_NEIGHBOUR_OUTBOUND		"Outbound"
+	IDS_NEIGHBOUR_RATIO			"Ratio:"
+	IDS_NEIGHBOUR_REJECTED		"Rejected"
+	IDS_NEIGHBOUR_TOTAL			"Total:"
+	IDS_NEIGHBOUR_UNKNOWN		"Unknown"
+END
+
+STRINGTABLE
+BEGIN
+	IDS_NEIGHBOUR_ED2K_HIGH		"eDonkey Server Connection"
+	IDS_NEIGHBOUR_ED2K_LOW		"eDonkey Server Connection (LOWID: %lu)"
+	IDS_NEIGHBOUR_ED2K_HIGHID	"eDonkey (HighID)"
+	IDS_NEIGHBOUR_ED2K_LOWID	"eDonkey (LowID)"
+	IDS_NEIGHBOUR_ED2K_SERVER	"eDonkey Server"
+	IDS_NEIGHBOUR_G1LEAF		"G1 Leaf"
+	IDS_NEIGHBOUR_G1PEER		"G1 Peer"
+	IDS_NEIGHBOUR_G1ULTRA		"G1 Ultrapeer"
+	IDS_NEIGHBOUR_G1LU			"Gnutella: Leaf-to-Ultrapeer Connection"
+	IDS_NEIGHBOUR_G1PP			"Gnutella: Peer-to-Peer Connection"
+	IDS_NEIGHBOUR_G1UL			"Gnutella: Ultrapeer-to-Leaf Connection"
+	IDS_NEIGHBOUR_G2HH			"Gnutella2: Hub-to-Hub Connection"
+	IDS_NEIGHBOUR_G2HL			"Gnutella2: Hub-to-Leaf Connection"
+	IDS_NEIGHBOUR_G2LH			"Gnutella2: Leaf-to-Hub Connection"
+	IDS_NEIGHBOUR_G2HUB			"G2 Hub"
+	IDS_NEIGHBOUR_G2LEAF		"G2 Leaf"
+	IDS_NEIGHBOUR_G2PEER		"G2 Peer"
+END
+
+STRINGTABLE
+BEGIN
+	IDS_NETWORK_CONNECT			"Connect"
+	IDS_NETWORK_CONNECTING		"Connecting..."
+	IDS_NETWORK_CONNECTED		"Connected"
+	IDS_NETWORK_DISCONNECT		"Disconnect"
+	IDS_NETWORK_DISCONNECTED	"Disconnected."
+	IDS_NETWORK_DISCONNECTING	"Shutting down PeerProject network core..."
+	IDS_NETWORK_DISCONNECT_CONFIRM "Are you sure you wish to disconnect?"
+	IDS_NETWORK_DISABLE_G2		"G2 (Gnutella2) is PeerProject's premiere network.  Disabling support for it may limit features and the quality of your search results.\nAre you sure you wish to do this?"
+	IDS_NETWORK_BANDWIDTH_LOW	"Your outgoing bandwidth is too low to enable this network"
+	IDS_NETWORK_CANT_LISTEN		"Can't bind to %s port %i for incoming connections.  Incoming connections will not be supported."
+	IDS_NETWORK_CANT_OUTGOING	"Can't resolve %s for outgoing connections.  Outgoing connections will use the default interface."
+	IDS_NETWORK_FIREWALLED		"Firewalled, not listening for incoming connections."
+	IDS_NETWORK_FORCE_HUB		"Forcing your PC into hub mode may have adverse effects on performance and the P2P network. It is generally better to allow PeerProject to decide whether or not hub mode should be used.\n\nHub mode does not produce better search results, or have any other advantages for you.\n\nAre you certain you wish to do this, despite the disadvantages?"
+END
+
+STRINGTABLE
+BEGIN
+	IDS_NETWORK_LISTENING_TCP	"Accepting incoming TCP connections on %s port %i."
+	IDS_NETWORK_LISTENING_UDP	"Listening for UDP datagrams on %s port %i."
+	IDS_NETWORK_OUTGOING		"Outgoing connections will be from %s port %i."
+	IDS_NETWORK_RESOLVE_FAIL	"Unable to resolve host ""%s""."
+	IDS_NETWORK_RESOLVING		"Resolving host ""%s""..."
+	IDS_NETWORK_SEARCH_SENT		"Sending query for ""%s"" to %s."
+	IDS_NETWORK_SECURITY_ALREADY_BLOCKED "The address %s is already blocked by your security rules."
+	IDS_NETWORK_SECURITY_BLOCKED "Added a security rule to block %s."
+	IDS_NETWORK_SECURITY_DENIED "Security manager denied connection from %s."
+	IDS_NETWORK_SECURITY_OUTGOING "Security manager barred a connection to %s."
+	IDS_NETWORK_STARTUP			"Starting PeerProject network core..."
+	IDS_NETWORK_UNLIMIT			"You are running the Scheduler in 'G2 only' mode. Would you like to turn this mode off, so that all active networks remain connected?"
+	IDS_NETWORK_UPNP_FAILED		"UPnP port mapping failed after 10 attempts."
+END
+
+STRINGTABLE
+BEGIN
+	IDS_PROTOCOL_BAD_HIT		"Ignoring malformatted query hit packet from %s."
+	IDS_PROTOCOL_BAD_QUERY		"Ignoring malformatted %s search query packet from %s."
+	IDS_PROTOCOL_GGEP_REQUIRED	"Neighbor %s forwarded an extended packet that is not GGEP encoded."
+	IDS_PROTOCOL_HIGH_TTL		"Neighbor %s forwarded a packet with excessive TTL, dropping packet (TTL=%i, Hops=%i)."
+	IDS_PROTOCOL_LEAF_FORWARD	"Leaf neighbor %s is forwarding queries, dropping connection."
+	IDS_PROTOCOL_NO_TTL			"Neighbor %s forwarded a packet with zero TTL, ignoring."
+	IDS_PROTOCOL_PACKET_DUMP	"%s -> %s [%i/%i] %s %s"
+	IDS_PROTOCOL_QRP_FAILED		"Neighbor %s sent an invalid query routing table update, dropping connection."
+	IDS_PROTOCOL_QRP_SENT		"Sending query routing table to neighbor %s (%i bit = %lu[%i], %i%% full)"
+	IDS_PROTOCOL_QRP_UNEXPECTED "Receiving an unexpected query routing table update from neighbor %s."
+	IDS_PROTOCOL_QRP_UPDATED	"Neighbor %s updated its query routing table (%i bit = %lu[%i], %i%% full)."
+	IDS_PROTOCOL_SIZE_PING		"Neighbor %s forwarded a ping packet with invalid length, ignoring."
+	IDS_PROTOCOL_SIZE_PONG		"Neighbor %s forwarded a pong packet with invalid length, ignoring."
+	IDS_PROTOCOL_SIZE_PUSH		"Neighbor %s forwarded a push packet with invalid length, ignoring."
+	IDS_PROTOCOL_TOO_LARGE		"Neighbor %s forwarded a packet of excessive size, dropping connection."
+	IDS_PROTOCOL_UNKNOWN		"Neighbor %s forwarded an unrecognised packet (0x%.2x), ignoring."
+	IDS_PROTOCOL_ZERO_PONG		"Neighbor %s forwarded a pong with invalid address data, ignoring."
+	IDS_PROTOCOL_ZERO_PUSH		"Neighbor %s forwarded a push request to a firewalled address, ignoring."
+END
+
+STRINGTABLE
+BEGIN
+	IDS_NEW_FOLDER				"New Folder"
+	IDS_NOURNAVAILABLE			"No URN available"
+	IDS_PROFILE_NO_LOCATION 	"You haven't entered your location in your user profile.\n\nIt's a good idea to enter your location so that other users can see which country you are from.  Note that entering a location does not reveal any compromising information.\n\nAre you sure you want to continue without entering your location?"
+	IDS_PROFILE_NO_NICK			"You haven't entered a screen name in your user profile."
+	IDS_PROFILE_NO_VITALS		"You have not selected your age and gender.  Are you sure you want to continue without doing this?"
+	IDS_REMOTE_DISABLED			"Remote access is disabled."
+	IDS_REMOTE_ENABLED			"http://%s:%i/remote  -  Username/password required."
+	IDS_REMOTE_UNAVAILABLE		"Unable to accept connections, URL unavailable."
+	IDS_SCHEMAS					"&Schemas"
+	IDS_SCHEMA_LOAD_ERROR		"Failed to load Library metadata schemas.  Please reinstall application.\n\nContinue loading?"
+END
+
+STRINGTABLE
+BEGIN
+	IDS_SCHEDULER_BANDWIDTH_FULL "Bandwidth: Full"
+	IDS_SCHEDULER_BANDWIDTH_LIMITED "Bandwidth: Limited"
+	IDS_SCHEDULER_BANDWIDTH_STOP "Bandwidth: Stop"
+	IDS_SCHEDULER_REMINDER_NOTICE "Scheduled Reminder Notice."
+	IDS_SCHEDULER_REMOVEALL_CONFIRM	"Are you sure you wish to remove all scheduled tasks?\n\nThis cannot be undone."
+	IDS_SCHEDULER_SELECTADAY	"No scheduled day. Select one or more days or date."
+	IDS_SCHEDULER_SELECTTASK	"No scheduled event. Please select a task."
+	IDS_SCHEDULER_SYSTEM_DIALUP_OFF "System: Disconnect Dial-Up"
+	IDS_SCHEDULER_SYSTEM_EXIT	"System: Exit PeerProject"
+	IDS_SCHEDULER_SYSTEM_NOTICE "System: Reminder Notice"
+	IDS_SCHEDULER_SYSTEM_SHUTDOWN "System: Shut-down Computer"
+	IDS_SCHEDULER_TASK_ACTIVE	"Active"
+	IDS_SCHEDULER_TASK_DONETODAY "Done Today"
+	IDS_SCHEDULER_TASK_DONE		"Done"
+	IDS_SCHEDULER_TASK_INACTIVE	"Inactive"
+	IDS_SCHEDULER_TASK_NONE		"No Tasks scheduled."
+	IDS_SCHEDULER_TASK_WAITING	"Waiting"
+	IDS_SCHEDULER_TIME_PASSED	"Scheduled time has passed.\n\nPlease select a new time."
+END
+
+STRINGTABLE
+BEGIN
+	IDS_SEARCH_ACTIVE			"PeerProject is actively searching the network..."
+	IDS_SEARCH_AGAIN			"Click here to search again"
+	IDS_SEARCH_ALL_NETWORKS		"All Networks"
+	IDS_SEARCH_CLEAR_PREVIOUS	"You are about to start a new search.  Would you like to clear the results of your previous search?"
+	IDS_SEARCH_EMPTY			"The network has not returned any matches yet."
+	IDS_SEARCH_FILTERED			"Some results are available, but were filtered out."
+	IDS_SEARCH_NONE				"No searches have been started in this window yet."
+	IDS_SEARCH_NO_METADATA		"No Metadata"
+	IDS_SEARCH_NO_SCHEMA		"No Schema Columns"
+	IDS_SEARCH_PAD_CLEAR_HISTORY "(Clear Search History)"
+	IDS_SEARCH_PAD_HEADER		"Search PeerProject"
+	IDS_SEARCH_PAD_TYPE			"What kind of files?"
+	IDS_SEARCH_PAD_WORDS		"Type some keywords or a link to search for:"
+	IDS_SEARCH_PLAIN_TEXT		"Plain Text Search"
+	IDS_SEARCH_WORKING			"PeerProject is searching the network..."
+END
+
+STRINGTABLE
+BEGIN
+	IDS_SEARCH_DETAILS_EMPTY	"This area shows more information about files you select."
+	IDS_SEARCH_DETAILS_PREVIEW	"Click to Preview"
+	IDS_SEARCH_DETAILS_PREVIEWING "Previewing..."
+	IDS_SEARCH_DETAILS_PREVIEW_FAILED "Unable to download preview content from ""%s""."
+	IDS_SEARCH_DETAILS_RATES	"%s rates this file:"
+	IDS_SEARCH_DETAILS_REVIEWS_MANY "There are %i reviews."
+	IDS_SEARCH_DETAILS_REVIEWS_ONE "There is one review."
+	IDS_SEARCH_DETAILS_SOURCES_MANY "%i sources are available.  (%s/s)"
+	IDS_SEARCH_DETAILS_SOURCES_ONE "One source is available.  (%s/s)"
+	IDS_SEARCH_DETAILS_WRITES	"%s writes:"
+END
+
+STRINGTABLE
+BEGIN
+	IDS_SEARCH_PANEL_ADVANCED	"Advanced"
+	IDS_SEARCH_PANEL_AFT		"Any File Type"
+	IDS_SEARCH_PANEL_CLEAR		"Clear"
+	IDS_SEARCH_PANEL_FILTERED	"%lu filtered"
+	IDS_SEARCH_PANEL_HIDE		"Hide the Search Panel"
+	IDS_SEARCH_PANEL_MORE		"More"
+	IDS_SEARCH_PANEL_INPUT_1	"Type your search here:"
+	IDS_SEARCH_PANEL_INPUT_2	"Look for this type of file:"
+	IDS_SEARCH_PANEL_INPUT_3	"Network:"
+	IDS_SEARCH_PANEL_INPUT_4	"Min Filesize:"
+	IDS_SEARCH_PANEL_INPUT_5	"Max Filesize:"
+	IDS_SEARCH_PANEL_INPUT_CAPTION "Search"
+END
+
+STRINGTABLE
+BEGIN
+	IDS_SEARCH_PANEL_RESULTS_ACTIVE "%lu hubs, %lu leaves"
+	IDS_SEARCH_PANEL_RESULTS_CAPTION "Results"
+	IDS_SEARCH_PANEL_RESULTS_FORMAT "%lu file in %lu hit|%lu file in %lu hits|%lu files in %lu hits"
+	IDS_SEARCH_PANEL_RESULTS_FOUND "Found:"
+	IDS_SEARCH_PANEL_RESULTS_INACTIVE "No active search"
+	IDS_SEARCH_PANEL_RESULTS_NONE "No files found"
+	IDS_SEARCH_PANEL_RESULTS_STATUS "Searching:"
+	IDS_SEARCH_PANEL_SEARCHING	"Searching"
+	IDS_SEARCH_PANEL_SHOW		"Show the Search Panel"
+	IDS_SEARCH_PANEL_START		"Search"
+	IDS_SEARCH_PANEL_STOP		"Stop"
+END
+
+STRINGTABLE
+BEGIN
+	IDS_SETTINGS				"PeerProject Settings"
+	IDS_SETTINGS_AUTOMATIC_IP	"Automatic"
+	IDS_SETTINGS_FILEPATH_NOT_SAME	"The complete and incomplete folders should not be the same"
+	IDS_SETTINGS_FILEPATH_TOO_LONG	"Windows doesn't support file paths longer than 256 characters.\nPlease select a folder with a shorter path."
+	IDS_SETTINGS_INCOMPLETE_LIBRARY "The incomplete files folder should not be in the library, as it would reduce performance. Incomplete files may be shared directly from the transfers window."
+	IDS_SETTINGS_NEED_BANDWIDTH "Please type the bandwidth limit you wish to set in the form ""123 kb/s"" for kilobits per second, or ""123 KB/s"" for kilobytes per second."
+	IDS_SETTINGS_WARN_QUEUELIMIT	"The eDonkey network uses large queues with long wait times. By limiting the maximum queue position you will accept so strictly, you may have trouble getting downloads to begin.\nAre you sure you want to limit what queue positions you will accept?"
+	IDS_SECURITY_REMOVE_CONFIRM	"Are you sure you want to delete the selected security rules?  This cannot be undone."
+	IDS_SHAREMONKEY_MESSAGE		"This option uses services provided by ShareMonkey.com for recognizing information about selected files.\n\nPeerProject will transmit file details and your location in order to query the ShareMonkey database.\nIf you are concerned about privacy, you may wish to consult ShareMonkey.com policies.\n\nWould you like to proceed?"
+	IDS_SELECT_ED2K_TEMP_FOLDER	"Select the eDonkey/eMule temp folder:"
+	IDS_SKIN_DELETE				"Are you sure you want to delete the ""%s"" skin?  This cannot be undone."
+	IDS_SKIN_ERROR				"Skin load error: %s.  Element: %s"
+	IDS_SKIN_LOAD				"Loading skin: %s"
+END
+
+STRINGTABLE
+BEGIN
+	IDS_STATUS_ACTIVE			"Active"
+	IDS_STATUS_BUSY				"Busy"
+	IDS_STATUS_CANTMOVE			"Can't Move"
+	IDS_STATUS_CHOKED			"Choked"
+	IDS_STATUS_COMPLETED		"Completed"
+	IDS_STATUS_CONNECTING		"Connecting"
+	IDS_STATUS_CREATING			"Creating"
+	IDS_STATUS_DOWNLOADING		"Downloading"
+	IDS_STATUS_ENQUEUE			"Enqueue"
+	IDS_STATUS_FILEERROR		"File Error"
+	IDS_STATUS_HASHSET			"Hashset"
+	IDS_STATUS_METADATA			"Metadata"
+	IDS_STATUS_MOVING			"Moving"
+	IDS_STATUS_NEXT				"Next"
+	IDS_STATUS_NOSOURCES		"(No Sources)"
+	IDS_STATUS_PAUSED			"Paused"
+	IDS_STATUS_PENDING			"Pending"
+	IDS_STATUS_QUEUED			"Queued"
+	IDS_STATUS_Q				"Q"
+END
+
+STRINGTABLE
+BEGIN
+	IDS_STATUS_REQUESTING		"Requesting"
+	IDS_STATUS_RESPONSE			"Response"
+	IDS_STATUS_SEARCHING		"Searching"
+	IDS_STATUS_SEEDING			"Seeding"
+	IDS_STATUS_SOURCE			"source"
+	IDS_STATUS_SOURCES			"sources"
+	IDS_STATUS_SOURCES_FEW		"sources"
+	IDS_STATUS_SOURCES_ONES 	"sources"
+	IDS_STATUS_TIGERTREE		"TigerTree"
+	IDS_STATUS_TORRENT			"Torrent"
+	IDS_STATUS_TRACKERDOWN		"Tracker Down"
+	IDS_STATUS_UNINTERESTED		"Uninterested"
+	IDS_STATUS_UNKNOWN			"Unknown"
+	IDS_STATUS_UNSUPPORTED		"Unsupported"
+	IDS_STATUS_UNVERIFIED		"Unverified"
+	IDS_STATUS_VERIFIED			"Verified"
+	IDS_STATUS_VERIFYING		"Verifying"
+END
+
+STRINGTABLE
+BEGIN
+	IDS_STATUS_BAR_BANDWIDTH	"%s in : %s out  (d:%I64i/u:%I64i)"
+	IDS_STATUS_BAR_CONNECTED	"Connected to %lu neighbors.  %s in local library."
+	IDS_STATUS_BAR_CONNECTED_HUB "Hub mode with %lu neighbors.  %s in local library."
+	IDS_STATUS_BAR_CONNECTED_HUB_UP "Hub/Peer modes with %lu neighbors.  %s in local library."
+	IDS_STATUS_BAR_CONNECTED_SIMPLE "Connected.  %s in local library."
+	IDS_STATUS_BAR_CONNECTED_UP "Ultrapeer mode with %lu neighbors.  %s in local library."
+	IDS_STATUS_BAR_CONNECTING	"Connecting to the network..."
+	IDS_STATUS_BAR_DISCONNECTED	"Not connected to the network."
+	IDS_SYSTEM_MESSAGE			"!Welcome to PeerProject (version) !\n.\nPeerProject is completely free software.\nPlease use it responsibly and respect local laws.\n."
+	IDS_TABBAR_CONNECTED		"There are no active searches.  Click here to search for files."
+	IDS_TABBAR_NOT_CONNECTED	"You're not connected.  Click the Connect button to get started."
+	IDS_TEMPLATE_DELETE			"Are you sure you want to delete the ""%s"" template?\nThis cannot be undone."
+END
+
+STRINGTABLE
+BEGIN
+	IDS_TIP_ACTIVE				"Active"
+	IDS_TIP_BOGUS				"This file appears to be spam."
+	IDS_TIP_EXISTS_BLACKLISTED	"Blacklisted: "
+	IDS_TIP_EXISTS_DELETED		"You have downloaded and deleted this file before."
+	IDS_TIP_EXISTS_DOWNLOAD		"You already have this file on your download list."
+	IDS_TIP_EXISTS_LIBRARY		"You already have this file in your library."
+	IDS_TIP_FILE_BUSY			"Sources for this file are currently busy"
+	IDS_TIP_FILE_FIREWALLED		"Sources for this file are firewalled"
+	IDS_TIP_FILE_UNSTABLE		"Sources for this file may be unstable"
+	IDS_TIP_FOLDER				"Folder"
+	IDS_TIP_HITS				"Hits"
+	IDS_TIP_INACTIVE			"Inactive"
+	IDS_TIP_LIBRARY_PERCENT		"of your library"
+	IDS_TIP_LOCATION			"Location"
+	IDS_TIP_NA					"N/A"
+END
+
+STRINGTABLE
+BEGIN
+	IDS_TIP_NEXT				"Next in Line"
+	IDS_TIP_NOHASHSET			"No Hashset"
+	IDS_TIP_PARTIAL				"Partial Source (%.2f%% available)"
+	IDS_TIP_QUEUE				"%i upload slots, %i waiting in queue"
+	IDS_TIP_SIZE				"Size"
+	IDS_TIP_SOURCE_BUSY			"This source is currently busy"
+	IDS_TIP_SOURCE_FIREWALLED	"This source is firewalled"
+	IDS_TIP_SOURCE_UNSTABLE		"This source may be unstable"
+	IDS_TIP_SPEED				"Speed:"
+	IDS_TIP_STATUS				"Status:"
+	IDS_TIP_TODAYTOTAL			"%lu today, %lu total"
+	IDS_TIP_TOTAL_FILES			"Total Files:"
+	IDS_TIP_TOTAL_VOLUME		"Total Volume:"
+	IDS_TIP_TRANSFER			"Transfer:"
+	IDS_TIP_TYPE				"Type"
+	IDS_TIP_UNTRUSTED			"Untrusted"
+	IDS_TIP_UPLOADS				"Uploads"
+	IDS_TIP_URL					"URL:"
+	IDS_TIP_USERAGENT			"Client:"
+	IDS_TRAY_TIP				"%s in : %s out  (d:%I64i/u:%I64i/peers:%I64i)"
+END
+
+STRINGTABLE
+BEGIN
+	IDS_UPLOAD_ABOUT			"Sending default HTML response to upload host %s (%s)."
+	IDS_UPLOAD_ACCEPTED			"Incoming connection from %s is a HTTP upload request."
+	IDS_UPLOAD_BAD_RANGE		"Upload host %s requested an unsatisfiable range of file ""%s""."
+	IDS_UPLOAD_BROWSER			"Upload host %s is on the user-agent block list, denying request."
+	IDS_UPLOAD_BROWSE			"Upload host %s (%s) sent a browse user request, responding..."
+	IDS_UPLOAD_BROWSE_BUSY		"Refusing browse user request from %s, too many browse connections."
+	IDS_UPLOAD_BROWSE_DENIED	"Denied browse user request from %s."
+	IDS_UPLOAD_BUSY_FAST		"Queued upload %s is re-requesting too fast, closing connection."
+	IDS_UPLOAD_BUSY_HOST 		"Refusing upload of ""%s"" to %s (%s), too many concurrent from host."
+	IDS_UPLOAD_BUSY_OLD			"Refusing upload of ""%s"" to %s (%s), busy and client does not support queues."
+	IDS_UPLOAD_BUSY_QUEUE		"Refusing upload of ""%s"" to %s (%s), all matching queues are full."
+	IDS_UPLOAD_CANCEL_ED2K		"eDonkey uploads should not be cancelled.\nAre you sure you want to cancel this upload?"
+	IDS_UPLOAD_CANTOPEN			"Can't open ""%s"" to upload to host %s due to disk or file error."
+	IDS_UPLOAD_CONNECT			"Initiating a push connection to %s. %s"
+	IDS_UPLOAD_CONNECT_ERROR	"Unable to connect to host %s for push."
+	IDS_UPLOAD_CONTENT			"Sending upload content range %I64i-%I64i from ""%s"" to host %s (%s)."
+	IDS_UPLOAD_DELETED			"Stopped uploading ""%s"" to %s because the file was deleted."
+	IDS_UPLOAD_DISABLED 		"Refusing upload to %s (%s), network disabled."
+	IDS_UPLOAD_DROPPED			"Upload connection to %s was closed."
+	IDS_UPLOAD_DROPPED_NEWER	"Refusing new upload to %s because an earlier connection is still pending."
+	IDS_UPLOAD_DROPPED_OLDER	"Closing older upload to %s because it has made a fresh connection."
+END
+
+STRINGTABLE
+BEGIN
+	IDS_UPLOAD_FILE				"Uploading file ""%s"" to host %s..."
+	IDS_UPLOAD_FILENOTFOUND		"Upload host %s requested unknown or unavailable object ""%s""."
+	IDS_UPLOAD_FINISHED			"Finished uploading part of ""%s"" to %s."
+	IDS_UPLOAD_GIV				"Push connection to %s established, waiting for handshake..."
+	IDS_UPLOAD_HASH_MISMATCH	"Upload host %s requested ""%s"" with different SHA1."
+	IDS_UPLOAD_HEADERS			"Sending upload headers from ""%s"" to host %s (%s)."
+	IDS_UPLOAD_METADATA_SEND	"Uploading metadata for ""%s"" to %s."
+	IDS_UPLOAD_NOHTTP			"Upload host %s sent an invalid HTTP request."
+	IDS_UPLOAD_PARTIAL_CONTENT	"Sending upload content range %I64i-%I64i from partial file ""%s"" to host %s (%s)."
+	IDS_UPLOAD_PREVIEW_BUSY		"Refusing to upload a preview of ""%s"" to %s, too many preview connections."
+	IDS_UPLOAD_PREVIEW_DYNAMIC	"Scheduling a dynamic preview of ""%s"" for upload to %s."
+	IDS_UPLOAD_PREVIEW_EMPTY	"Upload host %s requested a preview of ""%s"", but no preview is available."
+	IDS_UPLOAD_PREVIEW_SEND		"Uploading a preview of ""%s"" to %s."
+	IDS_UPLOAD_PUSH_BUSY		"Refusing push request to %s because it has too many upload connections."
+	IDS_UPLOAD_PUSH_FILENOTFOUND "Legacy push request from %s requested an unknown file, connecting anyway..."
+	IDS_UPLOAD_REMOVE			"Removed upload of ""%s"" to %s."
+	IDS_UPLOAD_REQUEST_TIMEOUT	"Timed out waiting for request from upload host %s."
+	IDS_UPLOAD_TRAFFIC_TIMEOUT	"Closing upload connection %s due to lack of traffic."
+	IDS_UPLOAD_TIGER_SEND 		"Uploading tiger-tree data for ""%s"" to %s."
+END
+
+STRINGTABLE
+BEGIN
+	IDS_UPLOAD_QUEUED			"Too busy to upload ""%s"" to %s, queued at #%i of %i (""%s"")."
+	IDS_UPLOAD_QUEUE_COMPLETE	"All Files"
+	IDS_UPLOAD_QUEUE_DROP		"Upload connection to %s was lost, preserving queue position."
+	IDS_UPLOAD_QUEUE_ED2K_CORE	"eDonkey Core"
+	IDS_UPLOAD_QUEUE_ED2K_GUARD "eDonkey Guard"
+	IDS_UPLOAD_QUEUE_ED2K_PARTIALS "eDonkey Partials"
+	IDS_UPLOAD_QUEUE_HISTORY	"Completed Uploads"
+	IDS_UPLOAD_QUEUE_HTTP_GUARD "HTTP Guard"
+	IDS_UPLOAD_QUEUE_LARGE_FILES "Large Files"
+	IDS_UPLOAD_QUEUE_LIBRARY	"Library Files"
+	IDS_UPLOAD_QUEUE_MEDIUM_FILES "Medium Files"
+	IDS_UPLOAD_QUEUE_NEW		"New Queue"
+	IDS_UPLOAD_QUEUE_PARTIAL	"Partial"
+	IDS_UPLOAD_QUEUE_PARTIAL_FILES "Partial Files"
+	IDS_UPLOAD_QUEUE_QUEUE		"Queue"
+	IDS_UPLOAD_QUEUE_SMALL_FILES "Small Files"
+	IDS_UPLOAD_QUEUE_TIMEOUT	"Offline queued upload host %s expired, removing."
+	IDS_UPLOAD_QUEUE_TORRENT	"Torrent Uploads"
+END
+
+STRINGTABLE
+BEGIN
+	IDS_URL_ADD					"Add"
+	IDS_URL_BROWSE				"&Browse"
+	IDS_URL_BUSY				"Unable to display URL action dialog because PeerProject is busy."
+	IDS_URL_CONNECT				"&Connect"
+	IDS_URL_FILENAME			"Filename:"
+	IDS_URL_HOST				"Host:"
+	IDS_URL_PARSE_ERROR			"Unable to parse URL: PeerProject does not understand this URL."
+	IDS_URL_PORT				"Port:"
+	IDS_URL_RECEIVED			"Received URL ""%s"""
+	IDS_URL_TYPE				"Type:"
+	IDS_URL_UNSPECIFIED			"Unspecified"
+	IDS_URL_URL					"URL:"
+END
+
+STRINGTABLE
+BEGIN
+	IDS_UPNP_SERVICES_ERROR		"UPnP Device Host Service is not running. This service is required to perform the setup.\nYou need to set the startup type of the service to automatic."
+	IDS_UPGRADE_LAUNCH			"PeerProject has finished downloading the next PeerProject version (%s).  Would you like to upgrade now?\n\nIf you select Yes, PeerProject will close temporarily while the upgrade is installed."
+	IDS_UPGRADE_NO_NEW			"Update: No new version detected."
+	IDS_USER_PROFILE			"Edit My Profile"
+	IDS_VIEW_MODE_CONFIRM		"Changing views may close some windows. \nWould you like to proceed now?"
+	IDS_WARNING_RTL				"Changing interface direction requires restart. \nYou will need to start PeerProject manually.  Exit now?"
+END
+
+STRINGTABLE
+BEGIN
+	IDS_WIZARD					"Welcome to PeerProject"
+	IDS_WIZARD_EXIT				"E&xit"
+	IDS_WIZARD_DISCOVERY		"Please wait: Updating discovery services..."
+	IDS_WIZARD_ED2K				"Please wait: Updating eDonkey server list..."
+	IDS_WIZARD_UPNP_SETUP		"Please wait: Finding UPnP devices and setting them up..."
+	IDS_WIZARD_NEED_SPEED		"You have not yet specified a connection speed.  Before continuing, please either choose your Internet connection type, or type in a connection speed."
+	IDS_WIZARD_PORT_FORWARD		"PeerProject was unable to set up port-forwarding on your NAT router or firewall.\n\nPlease configure your network to forward TCP and UDP ports %i to your local PC."
+	IDS_WIZARD_SHARE_ALREADY	"The folder you are sharing is already shared as part of another shared folder:\n\n%s"
+	IDS_WIZARD_SHARE_CONFIRM	"You have not specified any folders to share.  Are you sure?"
+	IDS_WIZARD_YEARS_OLD		"year old"
+END
+
+STRINGTABLE
+BEGIN
+	AFX_IDS_APP_TITLE			"PeerProject"
+	AFX_IDS_IDLEMESSAGE			"Ready"
+END
+
+STRINGTABLE
+BEGIN
+	AFX_IDS_SCSIZE				"Change the window size"
+	AFX_IDS_SCMOVE				"Change the window position"
+	AFX_IDS_SCMINIMIZE			"Reduce the window to an icon"
+	AFX_IDS_SCMAXIMIZE			"Enlarge the window to full size"
+	AFX_IDS_SCNEXTWINDOW		"Switch to the next document window"
+	AFX_IDS_SCPREVWINDOW		"Switch to the previous document window"
+	AFX_IDS_SCCLOSE				"Close the active window and prompts to save the documents"
+END
+
+STRINGTABLE
+BEGIN
+	AFX_IDS_SCRESTORE			"Restore the window to normal size"
+	AFX_IDS_SCTASKLIST			"Activate Task List"
+	AFX_IDS_MDICHILD			"Activate this window"
+END
+
+STRINGTABLE
+BEGIN
+	AFX_IDS_PREVIEW_CLOSE		"Close print preview mode\nCancel Preview"
+END
+
+STRINGTABLE
+BEGIN
+	ID_NEXT_PANE				"Switch to the next window pane\nNext Pane"
+	ID_PREV_PANE				"Switch back to the previous window pane\nPrevious Pane"
 END
 
 STRINGTABLE

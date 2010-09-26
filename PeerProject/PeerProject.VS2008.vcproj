@@ -961,6 +961,10 @@
 				>
 			</File>
 			<File
+				RelativePath="RegExp.cpp"
+				>
+			</File>
+			<File
 				RelativePath="Registry.cpp"
 				>
 			</File>
@@ -2664,18 +2668,6 @@
 					>
 				</File>
 			</Filter>
-			<Filter
-				Name="RegExp"
-				>
-				<File
-					RelativePath="..\Services\RegExp\Regexpr2.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\Services\RegExp\Syntax2.cpp"
-					>
-				</File>
-			</Filter>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -3183,6 +3175,10 @@
 			</File>
 			<File
 				RelativePath="QuerySearch.h"
+				>
+			</File>
+			<File
+				RelativePath="RegExp.h"
 				>
 			</File>
 			<File
@@ -4309,26 +4305,6 @@
 					</File>
 				</Filter>
 			</Filter>
-			<Filter
-				Name="RegExp"
-				>
-				<File
-					RelativePath="..\Services\RegExp\RegExpr2.h"
-					>
-				</File>
-				<File
-					RelativePath="..\Services\RegExp\Reimpl2.h"
-					>
-				</File>
-				<File
-					RelativePath="..\Services\RegExp\Restack.h"
-					>
-				</File>
-				<File
-					RelativePath="..\Services\RegExp\Syntax2.h"
-					>
-				</File>
-			</Filter>
 		</Filter>
 		<Filter
 			Name="Resource Files"
@@ -4527,7 +4503,7 @@
 				>
 			</File>
 			<File
-				RelativePath="Res\CopyVista.cur"
+				RelativePath="Res\Copy.cur"
 				>
 			</File>
 			<File
@@ -4755,7 +4731,7 @@
 				>
 			</File>
 			<File
-				RelativePath="Res\MoveVista.cur"
+				RelativePath="Res\Move.cur"
 				>
 			</File>
 			<File

@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Finnish Skin File -->
 
-<!-- Translation based on default-en.xml r58 (Shareaza 2.1.3.7) -->
+<!-- Translation based on default-en.xml r59 (Shareaza 2.1.3.7) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1564,7 +1564,7 @@
 		<anchor id="Header" width="32" height="152"/>
 		<newline gap="0"/>
 		<group id="1">
-			<icon res="130" width="32" height="32"/><gap size="8"/>
+			<icon res="136" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">YHDISTÄ NYT</heading>
 			<newline gap="8" indent="42"/>
 			<text>Tervetuloa PeerProjectan! &#160;Sinä et ole tällä hetkellä yhteydessä mihinkään p2p verkkoon. &#160;</text>
@@ -1572,12 +1572,12 @@
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="2">
-			<icon res="134" width="32" height="32"/><gap size="8"/>
+			<icon res="130" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">ETSI LLA</heading>
 			<newline gap="8" indent="42"/>
 			<anchor id="SearchBox" width="256" height="80"/>
 			<newline gap="12" indent="0"/>
-			<icon res="136" width="32" height="32" target="command:shell:downloads"/><gap size="8"/>
+			<icon res="124" width="32" height="32" target="command:shell:downloads"/><gap size="8"/>
 			<heading align="middle">OMAT LATAUKSET</heading>
 			<newline gap="8" indent="42"/>
 			<text>Or open your completed </text>
@@ -1594,7 +1594,7 @@
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="4">
-			<icon res="252" width="32" height="32" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
+			<icon res="180" width="32" height="32" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 			<heading align="middle">VAROITUS: SINUT ON PALOMUURTETTU</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">PeerProject on huomannut että olet NAT reitittimen tai palomuurin takana,
@@ -1607,24 +1607,24 @@
 		<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">KUSTOMOI PEERPROJECT A</heading>
 		<newline gap="12" indent="42"/>
-		<icon res="182" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
+		<icon res="196"width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
 		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">Ulkoasut</link>
 		<text align="middle">&#160;- Muuta PeerProjectn ulkonäköä</text>
 		<newline gap="8"/>
-		<icon res="141" width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
+		<icon res="138"width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
 		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
 		<text align="middle">&#160;- Update blocklist to avoid bad search results</text>
 		<newline gap="8"/>
-		<icon res="317" width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
+		<icon res="197"width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 		<link target="command:ID_TOOLS_WIZARD" align="middle">Asetus Velho</link>
 		<text align="middle">&#160;- Editoi PeerProject:n Asetuksia</text>
 		<newline gap="8"/>
-		<icon res="147" width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
+		<icon res="182"width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
 		<link target="command:ID_HELP_FAQ" align="middle">Pika Apu</link>
 		<text align="middle">&#160;- Hanki joitain perus ohjeita PeerProjectn käyttämiseen, or </text>
 		<link target="command:ID_TAB_IRC" align="middle">IRC.</link>
 		<newline gap="8"/>
-		<icon res="175" width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
+		<icon res="201"width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
 		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">Paikallinen Forum</link>
 		<text align="middle">&#160;- Mene Suomen kielen keskustelufoorumi</text>
 		<newline gap="18" indent="0"/>
@@ -1847,32 +1847,32 @@
 		</group>
 		<group id="40">
 			<newline gap="1"/>
-			<icon res="265"/><gap size="5"/>
+			<icon res="203"/><gap size="5"/>
 			<link id="ContactEmail" align="middle"/>
 		</group>
 		<group id="44">
 			<newline gap="1"/>
-			<icon res="1008"/><gap size="5"/>
+			<icon res="206"/><gap size="5"/>
 			<link id="ContactMSN"/>
 		</group>
 		<group id="41">
 			<newline gap="1"/>
-			<icon res="206"/><gap size="5"/>
+			<icon res="208"/><gap size="5"/>
 			<link id="ContactYahoo"/>
 		</group>
 		<group id="42">
 			<newline gap="1"/>
-			<icon res="208"/><gap size="5"/>
+			<icon res="205"/><gap size="5"/>
 			<link id="ContactICQ"/>
 		</group>
 		<group id="43">
 			<newline gap="1"/>
-			<icon res="207"/><gap size="5"/>
+			<icon res="204"/><gap size="5"/>
 			<link id="ContactAOL"/>
 		</group>
 		<group id="45">
 			<newline gap="1"/>
-			<icon res="207"/><gap size="5"/>
+			<icon res="204"/><gap size="5"/>
 			<link id="ContactJabber"/>
 		</group>
 		<group id="5">
@@ -1898,7 +1898,7 @@
 			<newline gap="16" indent="0"/>
 			<text format="b">Yhteisö</text>
 			<newline gap="4" indent="8"/>
-			<icon res="140" target="command:ID_SEARCH_CHAT"/>
+			<icon res="127"target="command:ID_SEARCH_CHAT"/>
 			<gap size="5"/>
 			<link target="command:ID_SEARCH_CHAT" align="middle">Keskustele Käyttäjän Kanssa</link>
 		</group>

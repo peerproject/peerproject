@@ -65,7 +65,7 @@
 #define _CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES 1
 #define _CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES_COUNT 1
 #ifndef _SCL_SECURE_NO_WARNINGS
-#define _SCL_SECURE_NO_WARNINGS 	// For RegExp only?
+#define _SCL_SECURE_NO_WARNINGS
 #endif
 
 // For detecting Memory Leaks
@@ -234,8 +234,6 @@
 
 #include <zlib/zlib.h>
 
-#include <RegExp/RegExpr2.h>
-
 #include "MinMax.hpp"
 
 #if _MSC_VER >= 1500 && _MSC_VER < 1600		// Work-around for VC9 (VS2008) where
@@ -281,11 +279,9 @@ template<> AFX_INLINE BOOL AFXAPI CompareElements(const IN_ADDR* pElement1, cons
 
 #include "Hashes.hpp"
 
-#undef IDC_HAND		// Defined in Windows.h->WinUser.h, and Resource.h
-
 #include "Resource.h"
 
-#include "PeerProjectOM.h"
+#include "PeerProjectOM.h"	// Generated file
 
 
 //

@@ -56,42 +56,42 @@ static char THIS_FILE[]=__FILE__;
 //////////////////////////////////////////////////////////////////////
 // CG2Neighbour construction
 
-CG2Neighbour::CG2Neighbour(CNeighbour* pBase) :
-	CNeighbour( PROTOCOL_G2, pBase ),
-	m_nLeafCount			( 0 ),
-	m_nLeafLimit			( 0 ),
-	m_bCachedKeys			( FALSE ),
-	m_pGUIDCache			( new CRouteCache() ),
-	m_pHubGroup				( new CHubHorizonGroup() ),
-	m_tLastRun				( 0 ),
-	m_tAdjust				( 0 ),
-	m_tLastPingIn			( 0 ),
-	m_tLastPingOut			( 0 ),
-	m_nCountPingIn			( 0 ),
-	m_nCountPingOut			( 0 ),
-	m_tLastRelayPingIn		( 0 ),
-	m_tLastRelayPingOut		( 0 ),
-	m_nCountRelayPingIn		( 0 ),
-	m_nCountRelayPingOut	( 0 ),
-	m_tLastRelayedPingIn	( 0 ),
-	m_tLastRelayedPingOut	( 0 ),
-	m_nCountRelayedPingIn	( 0 ),
-	m_nCountRelayedPingOut	( 0 ),
-	m_tLastKHLIn			( 0 ),
-	m_tLastKHLOut			( 0 ),
-	m_nCountKHLIn			( 0 ),
-	m_nCountKHLOut			( 0 ),
-	m_tLastLNIIn			( 0 ),
-	m_tLastLNIOut			( 0 ),
-	m_nCountLNIIn			( 0 ),
-	m_nCountLNIOut			( 0 ),
-	m_tLastHAWIn			( 0 ),
-	m_tLastHAWOut			( 0 ),
-	m_nCountHAWIn			( 0 ),
-	m_nCountHAWOut			( 0 ),
-	m_nQueryLimiter			( 40 ),
-	m_tQueryTimer			( 0 ),
-	m_bBlacklisted			( FALSE )
+CG2Neighbour::CG2Neighbour(CNeighbour* pBase)
+	: CNeighbour( PROTOCOL_G2, pBase )
+	, m_bCachedKeys			( FALSE )
+	, m_pGUIDCache			( new CRouteCache() )
+	, m_pHubGroup			( new CHubHorizonGroup() )
+	, m_nLeafCount			( 0 )
+	, m_nLeafLimit			( 0 )
+	, m_tLastRun			( 0 )
+	, m_tAdjust				( 0 )
+	, m_tLastPingIn			( 0 )
+	, m_tLastPingOut		( 0 )
+	, m_nCountPingIn		( 0 )
+	, m_nCountPingOut		( 0 )
+	, m_tLastRelayPingIn	( 0 )
+	, m_tLastRelayPingOut	( 0 )
+	, m_nCountRelayPingIn	( 0 )
+	, m_nCountRelayPingOut	( 0 )
+	, m_tLastRelayedPingIn	( 0 )
+	, m_tLastRelayedPingOut	( 0 )
+	, m_nCountRelayedPingIn	( 0 )
+	, m_nCountRelayedPingOut ( 0 )
+	, m_tLastKHLIn			( 0 )
+	, m_tLastKHLOut			( 0 )
+	, m_nCountKHLIn			( 0 )
+	, m_nCountKHLOut		( 0 )
+	, m_tLastLNIIn			( 0 )
+	, m_tLastLNIOut			( 0 )
+	, m_nCountLNIIn			( 0 )
+	, m_nCountLNIOut		( 0 )
+	, m_tLastHAWIn			( 0 )
+	, m_tLastHAWOut			( 0 )
+	, m_nCountHAWIn			( 0 )
+	, m_nCountHAWOut		( 0 )
+	, m_nQueryLimiter		( 40 )
+	, m_tQueryTimer			( 0 )
+	, m_bBlacklisted		( FALSE )
 {
 	theApp.Message( MSG_INFO, IDS_HANDSHAKE_ONLINE_G2, (LPCTSTR)m_sAddress,
 		m_sUserAgent.IsEmpty() ? _T("Unknown") : (LPCTSTR)m_sUserAgent );
@@ -791,7 +791,7 @@ CG2Packet* CG2Neighbour::CreateKHLPacket(CG2Neighbour* pOwner)
 	for ( CHostCacheIterator i = HostCache.Gnutella2.Begin() ;
 		i != HostCache.Gnutella2.End() && nCount > 0; ++i )
 	{
-		CHostCacheHost* pHost = (*i);
+		CHostCacheHostPtr pHost = (*i);
 
 		if (	pHost->CanQuote( tNow ) &&
 				Neighbours.Get( pHost->m_pAddress ) == NULL &&
@@ -940,7 +940,7 @@ BOOL CG2Neighbour::ParseKHLPacket(CG2Packet* pPacket, SOCKADDR_IN* pHost)
 				{
 					CQuickLock oLock( HostCache.Gnutella2.m_pSection );
 
-					CHostCacheHost* pCached = HostCache.Gnutella2.Add(
+					CHostCacheHostPtr pCached = HostCache.Gnutella2.Add(
 						(IN_ADDR*)&nAddress, nPort, tSeen, strVendor );
 					if ( pCached != NULL )
 					{
@@ -1284,7 +1284,7 @@ BOOL CG2Neighbour::OnQueryKeyReq(CG2Packet* pPacket)
 	{
 		CQuickLock oLock( HostCache.Gnutella2.m_pSection );
 
-		CHostCacheHost* pCached = HostCache.Gnutella2.Find( (IN_ADDR*)&nAddress );
+		CHostCacheHostPtr pCached = HostCache.Gnutella2.Find( (IN_ADDR*)&nAddress );
 		if ( pCached != NULL && pCached->m_nKeyValue != 0 &&
 			pCached->m_nKeyHost == Network.m_pHost.sin_addr.S_un.S_addr )
 		{
@@ -1345,7 +1345,7 @@ BOOL CG2Neighbour::OnQueryKeyAns(CG2Packet* pPacket)
 
 	CQuickLock oLock( HostCache.Gnutella2.m_pSection );
 
-	CHostCacheHost* pCache = HostCache.Gnutella2.Add( (IN_ADDR*)&nAddress, nPort );
+	CHostCacheHostPtr pCache = HostCache.Gnutella2.Add( (IN_ADDR*)&nAddress, nPort );
 	if ( pCache != NULL )
 	{
 		theApp.Message( MSG_DEBUG, _T("Got a query key for %s:%i via neighbour %s: 0x%x"),
@@ -1391,7 +1391,7 @@ bool CG2Neighbour::OnPush(CG2Packet* pPacket)
 	}
 
 	// Check that remote client has a port number, isn't firewalled or using reserved address
-	if ( !nPort
+	if ( ! nPort
 		|| Network.IsFirewalledAddress( (IN_ADDR*)&nAddress )
 		|| Network.IsReserved( (IN_ADDR*)&nAddress ) )
 	{
@@ -1460,7 +1460,7 @@ BOOL CG2Neighbour::OnProfileDelivery(CG2Packet* pPacket)
 	{
 		CQuickLock oLock( HostCache.Gnutella2.m_pSection );
 
-		CHostCacheHost* pHost = HostCache.Gnutella2.Find( &m_pHost.sin_addr );
+		CHostCacheHostPtr pHost = HostCache.Gnutella2.Find( &m_pHost.sin_addr );
 		if ( pHost )
 		{
 			pHost->m_sName = m_pProfile->GetNick();

@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Hebrew Skin File -->
 
-<!-- Translation based on default-en.xml r58 -->
+<!-- Translation based on default-en.xml r59 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -33,439 +33,7 @@ gap i newline
 />
 
 <!-- Toolbar Definitions -->
-<toolbars>
-	<!-- MAIN WINDOW -->
-	<toolbar name="CMainWnd.Basic">
-		<button id="ID_NETWORK_CONNECT" text="‪‪התחבר"/>
-		<separator/>
-		<button id="ID_TAB_HOME" text="ראשי"/>
-		<button id="ID_TAB_SEARCH" text="‪חיפוש"/>
-		<button id="ID_TAB_TRANSFERS" text="‪הורדות"/>
-		<button id="ID_TAB_LIBRARY" text="‪‪ספרייה"/>
-		<button id="ID_TAB_MEDIA" text="‪‪נגן מדיה"/>
-	</toolbar>
-	<toolbar name="CMainWnd.Tabbed">
-		<button id="ID_TAB_CONNECT" text="‪התחבר"/>
-		<separator/>
-		<button id="ID_TAB_HOME" text="‪ראשי"/>
-		<button id="ID_TAB_SEARCH" text="‪חיפוש"/>
-		<button id="ID_TAB_TRANSFERS" text="‪העברות"/>
-		<button id="ID_TAB_NETWORK" text="‪רשת"/>
-		<button id="ID_TAB_LIBRARY" text="‪ספרייה"/>
-		<button id="ID_TAB_MEDIA" text="‪נגן מדיה"/>
-		<button id="ID_TAB_IRC" text="חדר שיחה"/>
-	</toolbar>
-	<toolbar name="CMainWnd.Windowed">
-		<button id="ID_NETWORK_CONNECT" text="‪התחבר"/>
-		<button id="ID_NETWORK_DISCONNECT"/>
-		<separator/>
-		<button id="ID_TAB_HOME"/>
-		<button id="ID_VIEW_SYSTEM"/>
-		<button id="ID_VIEW_NEIGHBOURS"/>
-		<button id="ID_VIEW_DOWNLOADS"/>
-		<button id="ID_VIEW_UPLOADS"/>
-		<button id="ID_VIEW_LIBRARY"/>
-		<button id="ID_VIEW_MEDIA"/>
-		<button id="ID_TAB_IRC"/>
-		<separator/>
-		<button id="ID_VIEW_SECURITY"/>
-		<button id="ID_VIEW_HOSTS"/>
-		<button id="ID_VIEW_DISCOVERY"/>
-		<button id="ID_VIEW_TRAFFIC"/>
-		<button id="ID_VIEW_PACKETS"/>
-		<button id="ID_VIEW_SEARCH_MONITOR"/>
-		<button id="ID_VIEW_RESULTS_MONITOR"/>
-		<separator/>
-		<button id="ID_WINDOW_CASCADE"/>
-		<button id="ID_WINDOW_TILE_HORZ"/>
-		<button id="ID_WINDOW_TILE_VERT"/>
-		<separator/>
-		<button id="ID_TOOLS_SETTINGS"/>
-		<button id="ID_TOOLS_DOWNLOAD"/>
-		<button id="ID_NETWORK_SEARCH" text="‪חיפוש חדש"/>
-	</toolbar>
-	<!-- SEARCH WINDOW -->
-	<toolbar name="CSearchWnd.Panel.Basic">
-		<button id="ID_SEARCH_DOWNLOAD" text="‪הורד"/>
-		<button id="ID_BROWSE_LAUNCH" text="‪עיין במשתמש"/>
-		<rightAlign/>
-		<button id="ID_SEARCH_FILTER_RAW"  text="‪:מסנן" tip="הקלד מספר מילים לסינון תוצאות החיפוש"/>
-		<control id="IDC_FILTER_BOX" width="80"/>
-		<separator/>
-		<button id="ID_SEARCH_DETAILS" text="‪הצג פרטי חיפוש"/>
-	</toolbar>
-	<toolbar name="CSearchWnd.Panel">
-		<button id="ID_SEARCH_DOWNLOAD" text="‪הורד"/>
-		<separator/>
-		<button id="ID_BROWSE_LAUNCH" text="‪עיין במשתמש"/>
-		<button id="ID_SECURITY_BAN" text="Ban"/>
-		<rightAlign/>
-		<button id="ID_SEARCH_FILTER_RAW"  text="‪:מסנן" tip="הקלד מספר מילים לסינון תוצאות החיפוש"/>
-		<control id="IDC_FILTER_BOX" width="80"/>
-		<separator/>
-		<button id="ID_SEARCH_DETAILS" text="‪הצג פרטי חיפוש"/>
-		<button id="ID_SEARCH_PANEL" text="‪הצג לוח חיפוש"/>
-	</toolbar>
-	<toolbar name="CSearchWnd.Full">
-		<button id="ID_SEARCH_SEARCH" text="‪חפש שוב..."/>
-		<button id="ID_SEARCH_STOP" text="‪הפסק חיפוש"/>
-		<separator/>
-		<button id="ID_SEARCH_DOWNLOAD" text="‪הורד"/>
-		<button id="ID_BROWSE_LAUNCH" text="‪עיין במשתמש"/>
-		<button id="ID_SECURITY_BAN" text="Ban"/>
-		<rightAlign/>
-		<button id="ID_SEARCH_FILTER_RAW"  text="‪:מסנן" tip="הקלד מספר מילים לסינון תוצאות החיפוש"/>
-		<control id="IDC_FILTER_BOX" width="80"/>
-		<separator/>
-		<button id="ID_SEARCH_DETAILS" text="‪הצג פרטי חיפוש"/>
-		<button id="ID_SEARCH_PANEL" text="‪הצג לוח חיפוש"/>
-	</toolbar>
-	<!-- BROWSE HOST WINDOW -->
-	<toolbar name="CBrowseHeaderCtrl">
-		<button id="ID_BROWSE_PROFILE" text="‪פרופיל"/>
-		<button id="ID_BROWSE_FILES" text="‪קבצים משותפים"/>
-	</toolbar>
-	<toolbar name="CBrowseTree.Top">
-		<button id="ID_LIBRARY_TREE_PHYSICAL" text="‪תקיות"/>
-		<button id="ID_LIBRARY_TREE_VIRTUAL" text="‪ארגונית"/>
-	</toolbar>
-	<toolbar name="CBrowseHostWnd.Basic">
-		<button id="ID_SEARCH_DOWNLOAD" text="‪הורד קובץ"/>
-		<button id="ID_SEARCH_CHAT" text="‪שוחח עם משתמש"/>
-		<rightAlign/>
-		<button id="ID_SEARCH_FILTER_RAW" text="‪‪:מסנן" tip="הקלד מספר מילים לסינון תוצאות החיפוש"/>
-		<control id="IDC_FILTER_BOX" width="80"/>
-		<separator/>
-		<button id="ID_SEARCH_DETAILS" text="‪הצג פרטים"/>
-	</toolbar>
-	<toolbar name="CBrowseHostWnd">
-		<button id="ID_SEARCH_DOWNLOAD" text="‪הורד קובץ"/>
-		<button id="ID_BROWSE_STOP" text="‪הפסק"/>
-		<button id="ID_BROWSE_REFRESH" text="‪רענן"/>
-		<separator/>
-		<button id="ID_SEARCH_CHAT" text="‪שוחח עם משתמש"/>
-		<rightAlign/>
-		<button id="ID_SEARCH_FILTER_RAW" text="‪‪:מסנן" tip="הקלד מספר מילים לסינון תוצאות החיפוש"/>
-		<control id="IDC_FILTER_BOX" width="80"/>
-		<separator/>
-		<button id="ID_SEARCH_DETAILS" text="‪הצג פרטים"/>
-	</toolbar>
-	<!-- DOWNLOADS WINDOW -->
-	<toolbar name="CDownloadsWnd.Basic">
-		<button id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="‪פתח או הפעל"/>
-		<button id="ID_DOWNLOADS_LAUNCH_COPY" text="‪תצוגה מקדימה"/>
-		<separator/>
-		<button id="ID_DOWNLOADS_FILE_DELETE" text="‪מחק קובץ"/>
-		<button id="ID_DOWNLOADS_RESUME" text="‪המשך הורדה"/>
-		<button id="ID_DOWNLOADS_PAUSE" text="‪השהה הורדה"/>
-		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="‪בטל הורדה"/>
-		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="‪נקה הורדה"/>
-		<separator/>
-		<button id="ID_DOWNLOADS_EDIT" text="‪מידע הטורנט"/>
-		<button id="ID_DOWNLOADS_MONITOR" text="‪(הצג משגוח (מוניטור"/>
-		<rightAlign/>
-		<button id="ID_DOWNLOADS_CLEAR_COMPLETED" text="‪נקה הורדות שהסתיימו"/>
-	</toolbar>
-	<toolbar name="CDownloadsWnd">
-		<button id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="‪פתח או הפעל"/>
-		<button id="ID_DOWNLOADS_LAUNCH" text="‪תצוגה מקדימה"/>
-		<separator/>
-		<button id="ID_DOWNLOADS_FILE_DELETE" text="‪מחק קובץ"/>
-		<button id="ID_DOWNLOADS_RESUME" text="‪המשך הורדה"/>
-		<button id="ID_DOWNLOADS_PAUSE" text="‪השהה הורדה"/>
-		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="‪בטל הורדה"/>
-		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="‪נקה הורדה"/>
-		<separator/>
-		<button id="ID_DOWNLOADS_EDIT" text="‪מידע הטורנט"/>
-		<button id="ID_DOWNLOADS_MONITOR" text="‪(הצג משגוח (מוניטור"/>
-		<rightAlign/>
-		<button id="ID_TOOLS_DOWNLOAD" text="‪הוסף הורדה/טורנט"/>
-		<button id="ID_DOWNLOADS_CLEAR_COMPLETED" text="‪נקה הורדות שהסתיימו"/>
-		<separator/>
-		<button id="ID_DOWNLOADS_FILTER_MENU" text="‪מסנן"/>
-	</toolbar>
-	<!-- UPLOADS WINDOW -->
-	<toolbar name="CUploadsWnd.Basic">
-		<button id="ID_BROWSE_LAUNCH" text="‪עיין במשתמש"/>
-		<button id="ID_UPLOADS_CHAT" text="‪שוחח עם משתמש"/>
-		<rightAlign/>
-		<button id="ID_UPLOADS_CLEAR_COMPLETED" text="נקה העלאות שהסתיימו"/>
-	</toolbar>
-	<toolbar name="CUploadsWnd">
-		<button id="ID_UPLOADS_LAUNCH" text="‪פתח או הפעל"/>
-		<separator/>
-		<button id="ID_UPLOADS_START" text="‪התחל כעת"/>
-		<button id="ID_UPLOADS_CLEAR" text="‪נקה העלאה"/>
-		<separator/>
-		<button id="ID_BROWSE_LAUNCH" text="‪עיין במשתמש"/>
-		<button id="ID_UPLOADS_CHAT" text="‪שוחח עם משתמש"/>
-		<button id="ID_SECURITY_" text="‪חסום משתמש"/>
-		<rightAlign/>
-		<button id="ID_UPLOADS_CLEAR_COMPLETED" text="‪נקה העלאות שהסתיימו"/>
-		<separator/>
-		<button id="ID_UPLOADS_FILTER_MENU" text="‪מסנן"/>
-	</toolbar>
-	<!-- LIBRARY FRAME -->
-	<toolbar name="CLibraryTree.Top">
-		<button id="ID_LIBRARY_TREE_PHYSICAL" text="‪תקיות"/>
-		<button id="ID_LIBRARY_TREE_VIRTUAL" text="‪ארגונית"/>
-	</toolbar>
-	<toolbar name="CLibraryTree.Virtual">
-		<button id="ID_LIBRARY_FOLDERS" text="‪...שתף קבצים"/>
-	</toolbar>
-	<toolbar name="CLibraryHeaderBar.Physical">
-		<button id="ID_LIBRARY_PARENT" text="‪תיקיה מכילה"/>
-		<button id="ID_LIBRARY_VIEW" text="‪תצוגה"/>
-	</toolbar>
-	<toolbar name="CLibraryHeaderBar.Virtual">
-		<button id="ID_LIBRARY_PARENT" text="‪תיקיה מכילה"/>
-		<button id="ID_LIBRARY_VIEW" text="‪תצוגה"/>
-	</toolbar>
-	<!-- LIBRARY VIEWS -->
-	<toolbar name="CLibraryTileView.Physical">
-		<button id="ID_LIBRARY_FOLDERS" text="‪...שתף קבצים"/>
-		<rightAlign/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="‪חפש"/>
-		<control id="IDC_SEARCH_BOX" width="90"/>
-		<separator/>
-		<button id="ID_LIBRARY_PANEL" text="‪הצג פרטים"/>
-	</toolbar>
-	<toolbar name="CLibraryTileView.Virtual">
-		<button id="ID_LIBRARY_FOLDER_NEW" text="‪...צור אלבום"/>
-		<button id="ID_LIBRARY_ALBUM_DELETE" text="‪מחק אלבום"/>
-		<rightAlign/>
-		<separator/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="‪חפש"/>
-		<control id="IDC_SEARCH_BOX" width="90"/>
-		<separator/>
-		<button id="ID_LIBRARY_PANEL" text="‪הצג פרטים"/>
-	</toolbar>
-	<toolbar name="CLibraryFileView.Physical.Basic">
-		<button id="ID_LIBRARY_LAUNCH" text="‪פתח או הפעל"/>
-		<button id="ID_LIBRARY_ENQUEUE" text="‪הוסף לרשימת השמעה"/>
-		<separator/>
-		<button id="ID_WEBSERVICES_LIST" text="שרותי רשת"/>
-		<rightAlign/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="‪חפש"/>
-		<control id="IDC_SEARCH_BOX" width="90"/>
-		<separator/>
-		<button id="ID_LIBRARY_PANEL" text="‪הצג פרטים"/>
-	</toolbar>
-	<toolbar name="CLibraryFileView.Physical">
-		<button id="ID_LIBRARY_LAUNCH" text="‪פתח או הפעל"/>
-		<button id="ID_LIBRARY_ENQUEUE" text="‪הוסף לרשימת השמעה"/>
-		<separator/>
-		<button id="ID_LIBRARY_PROPERTIES" text="Properties"/>
-		<separator/>
-		<button id="ID_LIBRARY_PROPERTIES" text="‪מאפיינים"/>
-		<separator/>
-		<button id="ID_LIBRARY_MOVE" text="‪העבר"/>
-		<button id="ID_LIBRARY_COPY" text="‪העתק"/>
-		<button id="ID_LIBRARY_DELETE" text="‪מחק"/>
-		<rightAlign/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="‪חפש"/>
-		<control id="IDC_SEARCH_BOX" width="90"/>
-		<separator/>
-		<button id="ID_LIBRARY_PANEL" text="‪הצג פרטים"/>
-	</toolbar>
-	<toolbar name="CLibraryFileView.Virtual.Basic">
-		<button id="ID_LIBRARY_LAUNCH" text="‪פתח או הפעל"/>
-		<button id="ID_LIBRARY_ENQUEUE" text="‪הוסף לרשימת השמעה"/>
-		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="‪נגן אלבום"/>
-		<separator/>
-		<button id="ID_WEBSERVICES_LIST" text="שרותי רשת"/>
-		<rightAlign/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="‪חפש"/>
-		<control id="IDC_SEARCH_BOX" width="90"/>
-		<separator/>
-		<button id="ID_LIBRARY_PANEL" text="‪הצג פרטים"/>
-	</toolbar>
-	<toolbar name="CLibraryFileView.Virtual">
-		<button id="ID_LIBRARY_LAUNCH" text="‪פתח או הפעל"/>
-		<button id="ID_LIBRARY_ENQUEUE" text="‪הוסף לרשימת השמעה"/>
-		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="‪נגן אלבום"/>
-		<separator/>
-		<button id="ID_LIBRARY_PROPERTIES" text="מאפייניפ"/>
-		<rightAlign/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="‪חפש"/>
-		<control id="IDC_SEARCH_BOX" width="90"/>
-		<separator/>
-		<button id="ID_LIBRARY_PANEL" text="‪הצג פרטים"/>
-	</toolbar>
-	<toolbar name="CLibraryCollectionView.Virtual">
-		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="‪נגן אלבום מלא"/>
-		<separator/>
-		<button id="ID_LIBRARY_FOLDER_DOWNLOAD" text="‪הורד את כל הקבצים"/>
-		<rightAlign/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="‪חפש"/>
-		<control id="IDC_SEARCH_BOX" width="90"/>
-		<separator/>
-		<button id="ID_LIBRARY_PANEL" text="‪הצג פרטים"/>
-	</toolbar>
-	<!-- MEDIA WINDOW -->
-	<toolbar name="CMediaFrame.Basic">
-		<button id="ID_MEDIA_PLAY" text="‪נגן"/>
-		<button id="ID_MEDIA_PAUSE" text="‪השהה" visible="false"/>
-		<button id="ID_MEDIA_STOP" text="‪עצור"/>
-		<separator/>
-		<label text="‪:מיקום" tip="עבור למיקום אחר בקובץ המדיה"/>
-		<control id="IDC_MEDIA_POSITION" width="190" height="22"/>
-		<label text="‪:עוצמה" tip="כוונן את עוצמת הקול"/>
-		<control id="IDC_MEDIA_VOLUME" width="50" height="22"/>
-		<separator/>
-		<button id="ID_MEDIA_OPEN" text="‪פתח קובץ"/>
-		<rightAlign/>
-		<button id="ID_MEDIA_NEXT" text="‪הבא"/>
-		<button id="ID_MEDIA_PREVIOUS" text="‪הקודם"/>
-		<separator/>
-		<button id="ID_MEDIA_PLAYLIST" text="‪רשימת השמעה"/>
-	</toolbar>
-	<toolbar name="CMediaFrame">
-		<button id="ID_MEDIA_PLAY" text="‪נגן"/>
-		<button id="ID_MEDIA_PAUSE" text="‪השהה" visible="false"/>
-		<button id="ID_MEDIA_STOP" text="‪עצור"/>
-		<separator/>
-		<label text="‪:מיקום" tip="עבור למיקום אחר בקובץ המדיה"/>
-		<control id="IDC_MEDIA_POSITION" width="190" height="22"/>
-		<label text="‪:מהירות" tip="כוונן את מהירות השמעת קובץ המדיה"/>
-		<control id="IDC_MEDIA_SPEED" width="40" height="22"/>
-		<label text="‪:עוצמה" tip="כוונן את עוצמת הקול"/>
-		<control id="IDC_MEDIA_VOLUME" width="50" height="22"/>
-		<separator/>
-		<button id="ID_MEDIA_OPEN" text="‪פתח"/>
-		<separator/>
-		<button id="ID_MEDIA_FULLSCREEN"/>
-		<button id="ID_MEDIA_ZOOM"/>
-		<button id="ID_MEDIA_VIS"/>
-		<rightAlign/>
-		<button id="ID_MEDIA_NEXT"/>
-		<button id="ID_MEDIA_PREVIOUS"/>
-		<separator/>
-		<button id="ID_MEDIA_PLAYLIST" text="‪רשימת השמעה"/>
-	</toolbar>
-	<toolbar name="CMediaList">
-		<button id="ID_MEDIA_ADD"/>
-		<button id="ID_MEDIA_REMOVE"/>
-		<rightAlign/>
-		<button id="ID_MEDIA_CLEAR" text="‪נקה"/>
-		<button id="ID_MEDIA_SAVE" text="‪שמור"/>
-	</toolbar>
-	<!-- IRC WINDOW -->
-	<toolbar name="CIRCFrame">
-		<button id="ID_IRC_SENDTEXT" text="Send" tip="Post Your Comments"/>
-		<separator/>
-		<button id="ID_IRC_CLOSETAB" text="Close" tip="Exit Current Channel Window"/>
-		<rightAlign/>
-		<button id="ID_IRC_CONNECT" text="התחבר" tip="התחבר לחדר שיחה"/>
-		<button id="ID_IRC_DISCONNECT" text="התנתק" tip="התנתק מחדר שיחה"/>
-		<separator/>
-		<button id="ID_IRC_SETTINGS" text="הגדרות" tip="כוון הגדרות חדר השיחה"/>
-	</toolbar>
-	<!-- NEIGHBOURS WINDOW -->
-	<toolbar name="CNeighboursWnd.Basic">
-		<button id="ID_BROWSE_LAUNCH" text="‪עיין במשתמש"/>
-		<button id="ID_NEIGHBOURS_CHAT" text="‪שוחח עם משתמש"/>
-		<rightAlign/>
-		<button id="ID_NETWORK_G2" text="‪גנוטלה 2"/>
-		<button id="ID_NETWORK_ED2K" text="‪אי-דונקי 2000"/>
-		<button id="ID_NETWORK_G1" text="‪גנוטלה 1"/>
-		<separator/>
-		<button id="ID_NEIGHBOURS_SETTINGS" text="‪הגדרות"/>
-	</toolbar>
-	<toolbar name="CNeighboursWnd">
-		<button id="ID_NETWORK_CONNECT_TO" text="‪התחבר אל"/>
-		<button id="ID_NEIGHBOURS_DISCONNECT" text="‪התנתק"/>
-		<separator/>
-		<button id="ID_SECURITY_BAN" text="חסום מארח (הוסט)"/>
-		<rightAlign/>
-		<button id="ID_NETWORK_G2" text="‪גנוטלה 2"/>
-		<button id="ID_NETWORK_ED2K" text="‪אי-דונקי"/>
-		<button id="ID_NETWORK_G1" text="‪גנוטלה 1"/>
-		<separator/>
-		<button id="ID_NEIGHBOURS_SETTINGS" text="‪הגדרות"/>
-	</toolbar>
-	<!-- HIT MONITOR WINDOW -->
-	<toolbar name="CHitMonitorWnd">
-		<button id="ID_SEARCH_DOWNLOAD" text="‪הורד"/>
-		<button id="ID_HITMONITOR_SEARCH" text="‪שלח בקשת חיפוש חוזרת"/>
-		<separator/>
-		<button id="ID_HITMONITOR_PAUSE" text="‪השהה"/>
-		<button id="ID_HITMONITOR_CLEAR" text="‪נקה"/>
-		<rightAlign/>
-		<label text="‪:מסנן" tip="הקלד מספר מילים לסינון התוצאות"/>
-		<control id="IDC_FILTER_BOX" width="80"/>
-		<button id="ID_SEARCH_FILTER_RAW" text="‪...עוד"/>
-	</toolbar>
-	<!-- HOST CACHE WINDOW -->
-	<toolbar name="CHostCacheWnd.Basic">
-		<button id="ID_HOSTCACHE_CONNECT" text="‪התחבר אל"/>
-		<button id="ID_HOSTCACHE_DISCONNECT" text="‪התנתק"/>
-		<button id="ID_HOSTCACHE_REMOVE" text="‪הסר"/>
-	</toolbar>
-	<toolbar name="CHostCacheWnd">
-		<button id="ID_HOSTCACHE_CONNECT" text="‪התחבר אל"/>
-		<button id="ID_HOSTCACHE_DISCONNECT" text="‪התנתק"/>
-		<button id="ID_HOSTCACHE_REMOVE" text="‪הסר"/>
-		<rightAlign/>
-		<button id="ID_HOSTCACHE_G2_HORIZON" text="‪אשכול גנוטלה 2"/>
-		<button id="ID_HOSTCACHE_G2_CACHE" text="‪מטמון גנוטלה 2"/>
-		<button id="ID_HOSTCACHE_G1_CACHE" text="‪מטמון גנוטלה 1"/>
-		<button id="ID_HOSTCACHE_ED2K_CACHE" text="‪מטמון אי-דונקי"/>
-		<button id="ID_HOSTCACHE_BT_CACHE" text="מטמון ביטורנט"/>
-		<button id="ID_HOSTCACHE_KAD_CACHE" text="מטמון קדמילה"/>
-	</toolbar>
-	<!-- PRIVATE CHAT WINDOW -->
-	<toolbar name="CPrivateChatFrame">
-		<button id="ID_CHAT_BOLD"/>
-		<button id="ID_CHAT_ITALIC"/>
-		<button id="ID_CHAT_UNDERLINE"/>
-		<button id="ID_CHAT_COLOR"/>
-		<button id="ID_CHAT_EMOTICONS" text=" &#160; "/>
-		<separator/>
-		<button id="ID_CHAT_BROWSE" text="עיין במשתמש"/>
-		<button id="ID_CHAT_PRIORITY" text="הענק עדיפות"/>
-		<!-- <button id="ID_CHAT_SEND_FILE" text="Send File"/> -->
-		<separator/>
-		<button id="ID_CHAT_CONNECT" text="התחבר" visible="false"/>
-		<button id="ID_CHAT_DISCONNECT" text="התנתק"/>
-	</toolbar>
-	<!-- WEBSERVICES -->
-	<toolbar name="WebServices.ShareMonkey">
-		<button id="ID_SHAREMONKEY_DOWNLOAD" text="השג מידע"/>
-		<separator/>
-		<button id="ID_SHAREMONKEY_PREVIOUS" text="הקודם"/>
-		<button id="ID_SHAREMONKEY_NEXT" text="הבא"/>
-		<separator/>
-		<button id="ID_SHAREMONKEY_PRICES" text="השג מחירים"/>
-		<button id="ID_SHAREMONKEY_COMPARE" text="השווה"/>
-		<button id="ID_SHAREMONKEY_BUY" text="קנה"/>
-	</toolbar>
-	<toolbar name="WebServices.ShareMonkey.WithSave">
-		<button id="ID_SHAREMONKEY_DOWNLOAD" text="השג מידע"/>
-		<button id="ID_SHAREMONKEY_SAVE" text="שמור"/>
-		<separator/>
-		<button id="ID_SHAREMONKEY_PREVIOUS" text="הקודם"/>
-		<button id="ID_SHAREMONKEY_NEXT" text="הבה"/>
-		<separator/>
-		<button id="ID_SHAREMONKEY_PRICES" text="השג מחירים"/>
-		<button id="ID_SHAREMONKEY_COMPARE" text="השווה"/>
-		<button id="ID_SHAREMONKEY_BUY" text="קנה"/>
-	</toolbar>
-	<toolbar name="WebServices.MusicBrainz">
-		<button id="ID_MUSICBRAINZ_MATCHES" text="הצג "/>
-		<button id="ID_MUSICBRAINZ_ALBUMS" text="הצג את כל האלבומים"/>
-		<separator/>
-	</toolbar>
-	<!-- IMAGE VIEWER PLUGIN WINDOW -->
-	<toolbar name="ImageViewerWnd">
-		<button id="PluginID_ImageViewer_BestFit" text="התאמה מיטבית"/>
-		<button id="PluginID_ImageViewer_FullSize" text="גודל מקורי"/>
-		<separator/>
-		<button id="PluginID_ImageViewer_Refresh" text="רענן"/>
-		<rightAlign/>
-		<button id="PluginID_ImageViewer_Close" text="סגור"/>
-	</toolbar>
-</toolbars>
+
 <!-- Menu Definitions -->
 <menus>
 	<!-- TAB BAR POPUP MENUS -->
@@ -1706,7 +1274,7 @@ gap i newline
 		<anchor id="Header" width="32" height="152"/>
 		<newline gap="0"/>
 		<group id="1">
-			<gap size="16"/><icon res="130" width="32" height="32" target="command:ID_NETWORK_CONNECT"/>
+			<gap size="16"/><icon res="136" width="32" height="32" target="command:ID_NETWORK_CONNECT"/>
 			<heading align="middle">&#160; ה ת ח ב ר</heading>
 			<newline gap="8" indent="42"/>
 			<text> ברוך הבא לשרזה! &#160;</text>
@@ -1716,12 +1284,12 @@ gap i newline
 			<newline gap="18" indent="16"/>
 		</group>
 		<group id="2">
-			<gap size="16"/><icon res="134" width="32" height="32" target="command:ID_TAB_SEARCH"/>
+			<gap size="16"/><icon res="130" width="32" height="32" target="command:ID_TAB_SEARCH"/>
 			<heading align="middle">חפש  בשרזה</heading>
 			<newline gap="8" indent="42"/>
 			<anchor id="SearchBox" width="256" height="80"/>
 			<newline gap="14" indent="16"/>
-			<gap size="16"/><icon res="134" width="32" height="32" target="command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
+			<gap size="16"/><icon res="130" width="32" height="32" target="command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
 			<heading align="middle">התחל &#160; הורדה</heading>
 			<newline gap="8" indent="42"/>
 			<link target="command:ID_TOOLS_DOWNLOAD" format="bu">לחץ כאן כדי להתחיל </link>
@@ -1740,7 +1308,7 @@ gap i newline
 			<newline gap="18" indent="16"/>
 		</group>
 		<group id="4">
-			<icon res="252" width="32" height="32" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
+			<icon res="180" width="32" height="32" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 			<heading align="middle">א ז ה ר ה &#160; - &#160; א ת ה &#160; ח ס ו ם &#160; ב ח ו מ ת  א ש</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000"> (NAT) שרזה זיהה שאתה מאחורי חומת-אש או ראוטר,
@@ -1762,7 +1330,7 @@ gap i newline
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="7">
-			<icon res="252" width="32" height="32"/><gap size="8"/>
+			<icon res="180" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">א ז ה ר ה &#160; - &#160; א ת ה &#160; ח ס ו ם &#160; ב ח ו מ ת  א ש</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000"> (NAT) שרזה זיהה שאתה מאחורי חומת-אש או ראוטר,
@@ -1775,23 +1343,23 @@ gap i newline
 		<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">ה ת א מ ת &#160; ש ר ז ה&#160;&#160;&#160;</heading>
 		<newline gap="12" indent="42"/>
-		<icon res="182" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
+		<icon res="196"width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
 		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">מעטפות</link>
 		<text align="middle">&#160;- שנה לשרזה את המראה וההרגשה</text>
 		<newline gap="8"/>
-		<icon res="141" width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
+		<icon res="138"width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
 		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
 		<text align="middle">&#160;- Update blocklist</text>
 		<newline gap="8"/>
-		<icon res="317" width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
+		<icon res="197"width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 		<link target="command:ID_TOOLS_WIZARD" align="middle">אשף ההגדרות</link>
 		<text align="middle">&#160;- ערוך את הגדרות שרזה</text>
 		<newline gap="8"/>
-		<icon res="147" width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
+		<icon res="182"width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
 		<link target="command:ID_HELP_FAQ" align="middle">עזרה מהירה</link>
 		<text align="middle">&#160;- קבל עזרה בסיסית בהפעלת שרזה</text>
 		<newline gap="8"/>
-		<icon res="175" width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
+		<icon res="201"width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
 		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">מקומי פורום</link>
 		<text align="middle">&#160;- עברית עבור השפה שלך לדיון בפורום</text>
 		<newline gap="18" indent="16"/>
@@ -2010,32 +1578,32 @@ gap i newline
 		</group>
 		<group id="40">
 			<newline gap="1"/>
-			<icon res="265"/><gap size="5"/>
+			<icon res="203"/><gap size="5"/>
 			<link id="ContactEmail" align="middle"/>
 		</group>
 		<group id="44">
 			<newline gap="1"/>
-			<icon res="1008"/><gap size="5"/>
+			<icon res="206"/><gap size="5"/>
 			<link id="ContactMSN"/>
 		</group>
 		<group id="41">
 			<newline gap="1"/>
-			<icon res="206"/><gap size="5"/>
+			<icon res="208"/><gap size="5"/>
 			<link id="ContactYahoo"/>
 		</group>
 		<group id="42">
 			<newline gap="1"/>
-			<icon res="208"/><gap size="5"/>
+			<icon res="205"/><gap size="5"/>
 			<link id="ContactICQ"/>
 		</group>
 		<group id="43">
 			<newline gap="1"/>
-			<icon res="207"/><gap size="5"/>
+			<icon res="204"/><gap size="5"/>
 			<link id="ContactAOL"/>
 		</group>
 		<group id="45">
 			<newline gap="1"/>
-			<icon res="207"/><gap size="5"/>
+			<icon res="204"/><gap size="5"/>
 			<link id="ContactJabber"/>
 		</group>
 		<group id="5">
@@ -2061,7 +1629,7 @@ gap i newline
 			<newline gap="16" indent="0"/>
 			<text format="b">קהילה:</text>
 			<newline gap="4" indent="8"/>
-			<icon res="140" target="command:ID_SEARCH_CHAT"/>
+			<icon res="127"target="command:ID_SEARCH_CHAT"/>
 			<gap size="5"/>
 			<link target="command:ID_SEARCH_CHAT" align="middle">שוחח עם משתמש</link>
 		</group>
@@ -2494,450 +2062,431 @@ gap i newline
 <!-- Localized Strings -->
 <strings>
 	<string id="WINDOW_MAIN" value="‪‪שרזה"/>
+	<string id="WINDOW_HOME" value="‪‪עמוד ראשי של שרזה"/>
 	<string id="WINDOW_SYSTEM" value="‪‪מערכת"/>
 	<string id="WINDOW_NEIGHBOURS" value="‪‪שכנים"/>
 	<string id="WINDOW_PACKET" value="‪‪תפוקת הפקט"/>
 	<string id="WINDOW_HOSTCACHE" value="‪‪זיכרון מטמון של כתובות משתמשים"/>
-	<string id="WINDOW_SEARCHMONITOR" value="‪‪מוניטור חיפוש"/>
 	<string id="WINDOW_SEARCH" value="‪‪חיפוש"/>
+	<string id="WINDOW_SEARCHPAD" value="‪‪חיפוש"/>
+	<string id="WINDOW_SEARCHMONITOR" value="‪‪מוניטור חיפוש"/>
 	<string id="WINDOW_HITMONITOR" value="‪‪מוניטור תוצאות"/>
 	<string id="WINDOW_DOWNLOADS" value="‪‪הורדות"/>
-	<string id="WINDOW_LIBRARY" value="‪‪ספריה"/>
 	<string id="WINDOW_UPLOADS" value="‪‪העלאות"/>
+	<string id="WINDOW_LIBRARY" value="‪‪ספריה"/>
 	<string id="WINDOW_TRAFFIC" value="‪‪גרף"/>
 	<string id="WINDOW_CHAT" value="‪‪צ'אט"/>
 	<string id="WINDOW_SECURITY" value="‪‪אבטחה"/>
+	<string id="WINDOW_SCHEDULER" value="מתזמן"/>
 	<string id="WINDOW_DISCOVERY" value="‪‪שירותי משאבי חיבור"/>
 	<string id="WINDOW_BROWSEHOST" value="‪‪סייר"/>
-	<string id="WINDOW_HOME" value="‪‪עמוד ראשי של שרזה"/>
 	<string id="WINDOW_MEDIA" value="‪‪נגן המדיה"/>
-	<string id="WINDOW_SEARCHPAD" value="‪‪חיפוש"/>
 	<string id="WINDOW_HELP" value="‪‪עזרה של שרזה"/>
-	<string id="7000" value="‪‪?האם הינך בטוח שברצונך למחוק את המסנן"/>
-	<string id="7001" value="‪‪&amp;סכמות"/>
-	<string id="7002" value="‪‪ערכים כפולים"/>
-	<string id="7003" value="‪‪כפול"/>
-	<!-- Missing Strings -->
-	<string id="8000" value="‪‪הגדרות שרזה"/>
-	<string id="8001" value="‪ברוכים הבאים לשרזה"/>
-	<string id="8002" value="‪מאפייני קובץ"/>
-	<string id="8003" value="‪ערוך את הפרופיל שלי"/>
-	<string id="8004" value="‪!(version) ברוכים הבאים לשרזה !\n.\nשרזה היא תוכנה חופשית.\nאנא השתמש בה בצורה אחראית, כבד את חוקי הרכוש וזכויות היוצרים.\n."/>
-	<string id="8005" value="‪(סוגר בסיום ההעברות)"/>
-	<string id="8006" value="‪.אינך מחובר, אנא לחץ על כפתור התחבר בכדי להתחיל"/>
-	<string id="8007" value="‪.אין חיפושים פעילים, אנא לחץ כאן בכדי לחפש"/>
-	<string id="8008" value="‪?האם אתה מעוניין לשדרג כעת .(%s) שרזה סיים להוריד את הגרסא החדשה\n\nאם תבחר כן, שרזה תסגר באופן זמני, למהלך ההתקנה"/>
-	<string id="8009" value="‪.המעטפת תימחק לקיבעון &quot;%s&quot; האם אתה בטוח שברצונך למחוק את המעטפת"/>
-	<string id="8010" value="‪&#8234;‏הסתיימה‎ ‏הנסיון‎ תקופת‎ ‏שרזה‎ ‏של‎ ‏נסיונית‎ ‏גרסה‎ ‏&#13;&#10;זוהי http://PeerProject.sourceforge.net/ ‏מהאתר‎ ‏והרשמית‎ ‏המלאה‎ ‏הגרסא‎ ‏את‎ ‏הורד‎ ‏אנא‎"/>
-	<string id="8011" value="‪שינוי התצוגה יסגור את כל החלונות הפתוחים, אתה רוצה לשנות את התצוגה כעת?"/>
-	<string id="8012" value="Torrent Information"/>
-	<string id="8060" value="‪‏&#8234;‏מצב‎ ULTRAPEER/‏מוקד‎ ‏עם‎ %lu ‏שכנים‎: , %s ‏מקומית‎ ‏בספריה"/>
-	<string id="8061" value="‪‏&#8234;ULTRAPEER ‏עם‎ %lu ‏שכנים‎: , %s ‏מקומית‎ ‏בספריה"/>
-	<string id="8062" value="‪&#8234;%lu ‏מצב‎: ‏מוקד‎ ‏עם‎ ‏שכנים‎ , %s ‏מקומית‎ ‏בספריה"/>
-	<string id="8063" value="‪&#8234;‏מחובר‎ , %s ‏מקומית‎ ‏בספריה"/>
-	<string id="8064" value="‪‏&#8234;‏שכנים‎ %lu ‏אל‎ ‏מחובר‎ , %s ‏מקומית‎ ‏בספריה"/>
-	<string id="8065" value="‪...מתחבר לרשת"/>
-	<string id="8066" value="‪.לא מחובר לרשת"/>
-	<string id="8067" value="‪‪%s :‏נכנס‎ %s :‏יוצא‎ (D:%I64i/U:%I64i)"/>
-	<string id="8068" value="‪‪%s :‏נכנס‎ %s :‏יוצא‎ (D:%I64i/U:%I64i/H:%I64i)"/>
-	<string id="8069" value="‪התחבר"/>
-	<string id="8070" value="‪...מתחבר"/>
-	<string id="8071" value="‪מחובר"/>
-	<string id="8072" value="‪התנתק"/>
-	<string id="8096" value="‪.אזור זה מראה מידע נוסף על הקבצים שבחרת"/>
-	<string id="8097" value=" ‪.(%s) מקור אחד זמין"/>
-	<string id="8098" value="%i מקורות זמינים. (%s)"/>
-	<string id="8099" value="‪.יש ביקורת אחת "/>
-	<string id="8100" value="‪.ביקורות %i ישנם"/>
-	<string id="8101" value="‪:%s לפי דעתו של"/>
-	<string id="8102" value="‪:%s דירג"/>
-	<string id="8103" value="‪לחץ כאן לתצוגה מקדימה"/>
-	<string id="8104" value="‪...מציג תצוגה מקדימה"/>
-	<string id="8105" value="‪&quot;%s&quot; לא מצליח להוריד תכני תצוגה מקדימה מהמיקום"/>
-	<string id="8128" value="‪.לחץ כאן בכדי לחפש שנית"/>
-	<string id="8129" value="‪.אף חיפוש לא החל בחלון זה עדיין"/>
-	<string id="8130" value="‪...שרזה מבצעת חיפוש ברשת"/>
-	<string id="8131" value="‪.הרשת לא החזירה אף תוצאה עדיין"/>
-	<string id="8132" value="‪.מספר תוצאות נמצאו, אך סוננו"/>
-	<string id="8133" value="‪...שרזה מחפשת ברשת באופן פעיל"/>
-	<string id="8134" value="‪?הינך עומד/ת להתחיל חיפוש חדש, האם הינך מעוניינ/ת למחוק את התוצאות של החיפוש הקודם"/>
-	<string id="8135" value="‪Metadata ללא"/>
-	<string id="8136" value="‪חיפוש טקסט פשוט"/>
-	<string id="8137" value="No Schema Columns"/>
-	<string id="8141" value="‪הצג את לוח החיפוש"/>
-	<string id="8142" value="‪הסתר את לוח החיפוש"/>
-	<string id="8143" value="‪...מחפש"/>
-	<string id="8144" value="‪החל חיפוש"/>
-	<string id="8145" value="‪חפש עוד"/>
-	<string id="8146" value="‪עצור"/>
-	<string id="8147" value="‪כל סוג קובץ"/>
-	<string id="8148" value="‪:הקלד את החיפוש כאן"/>
-	<string id="8149" value="‪:חפש קבצים מסוג זה"/>
-	<string id="8150" value="‪:‪מחפש"/>
-	<string id="8151" value="‪:נמצא"/>
-	<string id="8152" value="‪&#8234;‏מוקדים‎ %lu ,‏ענפי קו‎ %lu"/>
-	<string id="8153" value="‪.כרגע לא מחפש"/>
-	<string id="8154" value="‪.לא נמצאו קבצים"/>
-	<string id="8155" value="‪‏&#8234;‏קבצים‎ %lu ‏ובהם‎ ‏תוצאות‎ %lu|&#8234;‏קבצים‎ %lu ‏ובהם‎ ‏תוצאות‎ %lu|&#8234;‏קבצים‎ %lu ‏ובהם‎ ‏תוצאות‎ %lu"/>
-	<string id="8156" value="‪חיפוש"/>
-	<string id="8157" value="‪תוצאות"/>
-	<string id="8158" value="‪נקה"/>
-	<string id="8159" value="מתקדם"/>
-	<string id="8160" value="‪...יוצר חיבור עם כתובת המשתמש"/>
-	<string id="8161" value="‪.ממתין להתחברות push נשלחה בקשת"/>
-	<string id="8162" value="‪מחובר, מבקש לסייר בקבצים"/>
-	<string id="8163" value="‪...(%2.f%%) מוריד בקשת סיור בתיקייה"/>
-	<string id="8164" value=".‪‏ההתחברות אל המשתמש נכשלה"/>
-	<string id="8165" value=".הורדת רשימת הקבצים נכשלה, המשתמש חסם אפשרות זו"/>
-	<string id="8166" value="‪:חפש ברשת זו"/>
-	<string id="8167" value="‪כל הרשתות"/>
-	<string id="8176" value="‪חפש בשרזה"/>
-	<string id="8177" value="‪:הקלד מספר מילים לחיפוש"/>
-	<string id="8178" value="‪?איזה סוג קובץ זה"/>
-	<string id="8179" value="‪(נקה את היסטוריית החיפוש)"/>
-	<string id="8180" value="‪:גודל הקובץ"/>
-	<string id="8181" value="‪:גודל הקובץ"/>
-	<string id="8208" value="‪PeerProject is creating hashes for %Iu files:" />
-<!--	<string id="8221" value="‪:שרזה מחפשת מקורות עבור"/>
-	<string id="8222" value="‪:שרזה מוריד"/>
-	<string id="8223" value="‪:הורדה זו מושהת"/>
-	<string id="8224" value="‪:שרזה מעביר את ההורדה"/>
-	<string id="8225" value="‪:שרזה בודקת אם יש שגיאות בהורדה"/>
-	<string id="8226" value="‪:שרזה סיים להוריד"/>
--->	<string id="8227" value="&#8235;%i ימים %i שעות"/>
-	<string id="8228" value="‪&#8235;%i שעות %i דקות"/>
-	<string id="8229" value="‪&#8235;%i דקות %i שניות"/>
-	<string id="8230" value="‪%i שניות"/>
-	<string id="8231" value="‪אין מקורות"/>
-	<string id="8232" value="‪פתח"/>
-	<string id="8233" value="ביטול"/>
-	<string id="8235" value="‪:מהירות הורדה"/>
-	<string id="8236" value="‪:זמן מוערך שנותר"/>
-	<string id="8237" value="‪:גודל שהורד"/>
-	<string id="8238" value="‪:העותק התעדכן"/>
-	<string id="8239" value="‪הושלם"/>
-	<string id="8240" value="‪:מספר מקורות"/>
-	<string id="8241" value="מספר ביקורות:"/>
-	<string id="8244" value="מגבלת מהירות ההורדה"/>
-	<string id="8245" value="מגבלת מהירות ההעלאה"/>
-	<string id="8288" value="‪סייר בספריית השיתוף שלך בשרזה"/>
-	<string id="8289" value="‪סיור"/>
-	<string id="8290" value="תיקיות ‪%i סייר בתכנים של"/>
-	<string id="8291" value="‪מספר ספריות"/>
-	<string id="8292" value="‪קבצים נבחרו %i"/>
-	<string id="8293" value="‪אף קובץ לא נבחר"/>
-	<string id="8294" value="‪תוספות אחרונות"/>
-	<string id="8295" value="‪דרג את הקובץ"/>
-	<string id="8304" value="‪לא ידוע"/>
-	<string id="8306" value="‪‫מיקום"/>
-	<string id="8307" value="‪‫סוג"/>
-	<string id="8308" value="‪‫גודל"/>
-	<string id="8309" value="‪‪:(%.2f%%) חלקי מקור זמינים"/>
-	<string id="8310" value="‪‫‪קווים פנויים: %i, בתור: %i"/>
-	<string id="8311" value="‪כבר יש לך את קובץ זה בספריה"/>
-	<string id="8312" value="‪הקובץ כבר קיים אצלך ברשימת ההורדות"/>
-	<string id="8313" value="‪קובץ זה נראה כקובץ זדוני להצפה"/>
-	<string id="8314" value="‪אתה הורדת ומחקת את קובץ זה בעבר"/>
-	<string id="8315" value="‪‪:ברשימה שחורה"/>
-	<string id="8316" value="תוצאות"/>
-	<string id="8317" value="העלאות"/>
-	<string id="8318" value="‪.היום %lu , בסך הכל %lu"/>
-	<string id="8319" value=":העלאות"/>
-	<string id="8320" value="‪:מצב"/>
-	<string id="8321" value="‪:מהירות"/>
-	<string id="8322" value="‪:URL כתובת"/>
-	<string id="8323" value="‪:‪סוכן משתמש"/>
-	<string id="8324" value="‪לא פעיל"/>
-	<string id="8325" value="‪פעיל"/>
-	<string id="8326" value="‪הבא בתור"/>
-	<string id="8327" value="‪:מספר הקבצים"/>
-	<string id="8328" value="‪:גודל כולל"/>
-	<string id="8329" value="‪:מהווה מהספריה"/>
-	<string id="8330" value="‪מחיצת"/>
-	<string id="8331" value="‪המקור כרגע עסוק"/>
-	<string id="8332" value="‪המקור מוגן בחומת אש"/>
-	<string id="8333" value="‪המקור עלול להיות לא יציב"/>
-	<string id="8334" value="‪ה‪מקורות לקובץ כרגע עסוקים"/>
-	<string id="8335" value="‪המקורות לקובץ כרגע מוגנים בחומת אש"/>
-	<string id="8336" value="‪המקורות לקובץ כרגע במצב לא יציב"/>
-	<string id="8337" value="לא מהימן"/>
-	<string id="8338" value="לא חשיש"/>
-	<string id="13000" value="הקבצים המשותפים באמצעות האינטרנט"/>
-	<string id="13001" value="האם אתה בטוח שאתה רוצה למחוק את כללי הביטחון שנבחרו? זה לא ניתן לבטל."/>
-	<string id="16063" value="UPnP port mapping failed after 10 attempts."/>
-	<string id="16064" value="‪מאתחל את בסיס הרשת של שרזה..."/>
-	<string id="16065" value="‪&#8234;‏נכנסים‎ ‏לחיבורים‎ ‏תמיכה‎ ‏תיהיה‎ ‏לא‎ ‏לכן‎ ‏נכנסים‎. ‏לחיבורים‎ %s ‏של‎ %i ‏פורט‎ ‏את‎ ‏לקבוע‎ ‏ניתן‎ ‏לא"/>
-	<string id="16066" value="‪‪...סוגר את בסיס הרשת של שרזה"/>
-	<string id="16067" value="‪‪‪.מנותק מהרשת"/>
-	<string id="16068" value="‪&#8234;%s ‏של‎ %i  ‏מפורט‎ ‏נכנסים‎ TCP ‏חיבורי‎ ‏מקבל"/>
-	<string id="16069" value="‪&#8234;%s ‏של‎ %i  ‏מפורט‎ ‏חיבורים יוצאים יהיו"/>
-	<string id="16070" value="‪Can't resolve %s for outgoing connections.  Outgoing connections will use the default interface."/>
-	<string id="16071" value="חומת האש, לא מקשיב לחיבורים נכנסים."/>
-	<string id="16072" value="‪Listening for UDP datagrams on %s port %i."/>
-	<string id="16073" value="‪‪...&quot;%s&quot; מפענח כתובת משתמש"/>
-	<string id="16074" value="‪‪‪...&quot;%s&quot; לא מצליח לפענח כתובת משתמש"/>
-	<string id="16075" value="‪%s מנהל האבטחה מנע חיבור של"/>
-	<string id="16076" value="‪%s מנהל האבטחה בלם חיבור של"/>
-	<string id="16077" value="‪‪.כבר חסומה על ידי חוקי האבטחה שלך %s הכתובת"/>
-	<string id="16078" value="‪‪‪.%s הוסף חוק אבטחה לחסימת"/>
-	<string id="16079" value="‪?האם אתה בטוח שברצונך להתנתק"/>
-	<!-- Missing Strings -->
-	<string id="16213" value="‪&#8234;%s  ‏משכן‎ ‏ניווט‎ ‏בקשת‎ (‏ &#8234;%i bit = %lu[%i], %i%% full)"/>
-	<string id="16254" value="ברירת המחדל של הורדת הקבוצה. (הצג את כל הקבצים)"/>
-	<string id="16255" value="Drag'n'drop קבצים לקבוצה %s"/>
-	<string id="16260" value="‪&quot;%s&quot; :הורדה הוסרה"/>
-	<string id="16283" value="‪כבר בהורדה, מוסיף מקורות &quot;%s&quot; הקובץ"/>
-	<!-- Missing Strings -->
-	<string id="16362" value="?העלאות של אידונקי2000 לא אמורות להיות מבוטלות. האם הינך בטוח/ה שברצונך לבטל את העלאות"/>
-	<string id="16363" value="‪העלאות טורנטים"/>
-	<string id="16364" value="‪העלאות שהסתיימו"/>
-	<string id="16365" value="‪?האם אתה בטוח שברצונך לבטל או להפסיק את כל ההורדות בקבוצה"/>
-	<string id="16366" value="‪הכנס לתור"/>
-	<string id="16367" value="‪מרכז אידונקי"/>
-	<string id="16368" value="‪קבצים חלקיים של אידונקי"/>
-	<string id="16369" value="‪השומר של אידונקי"/>
-	<string id="16370" value="‪קבצים קטנים"/>
-	<string id="16371" value="‪קבצים בינוניים"/>
-	<string id="16372" value="‪קבצים גדולים"/>
-	<string id="16373" value="‪קבצים חלקיים"/>
-	<string id="16374" value="‪תור חדש"/>
-	<string id="16375" value="‪חלקי"/>
-	<string id="16376" value="‪כל הקבצים"/>
-	<string id="16377" value="‪HTTP שומר"/>
-	<string id="16379" value="ספריית קבצים"/>
-	<string id="16384" value="‪? &quot;%s&quot; הם הינך בטוח/ה שברצונך להפעיל את הקובץ\n\n.קבצים מסויימים יכולים לפגוע במחשב שלך, אנא וודא איזה קובץ אתה מפעיל"/>
-	<string id="16385" value="‪?קבצים, האם הינך מעוניינ/ת להמשיך %i-ל Meta את/ה עומד/ת לשנות את המידע"/>
-	<string id="16386" value="‪.ל- %i קבצים Meta עורך מידע "/>
-	<!-- Missing Strings -->
-	<string id="16391" value="‪אתה לא מחובר לרשת"/>
-	<string id="16392" value="‪לחץ על כפתור התחבר כדי להתחיל"/>
-	<!-- Missing Strings -->
-	<string id="16398" value="‪:שרזה נכשל לשנות את השם \n\n%s\nto\n%s"/>
-	<string id="16399" value="‪:שרזה נכשל למחוק את הקובץ file:\n\n%s"/>
-	<string id="16400" value="‪Target file exists:\n\n%s\n\nWould you like to overwrite it?"/>
-	<string id="16401" value="‪הצג את כל סוגי הקבצים"/>
-	<!-- Missing Strings -->
-	<string id="16408" value="‪העתק &amp;URI"/>
-	<string id="16409" value="‪ייצא &amp;URI..."/>
-	<!-- Missing Strings -->
-	<string id="16448" value="‪...לוחץ ידיים ,%s מחובר אל"/>
-	<string id="16449" value="‪Now chatting with %s (%s)."/>
-	<string id="16450" value="‪נסגר %s החיבור אל"/>
-	<string id="16451" value="‪אבד %s החיבור אל"/>
-	<string id="16452" value="‪&quot;%s&quot; פקודה בלתי מזוהה"/>
-	<string id="16453" value="...%s מתחבר לצ'אט עם משתמש"/>
-	<string id="16454" value="‪Accepted incoming chat request from %s, handshaking..."/>
-	<string id="16455" value="‪%s לאחר שינוי השם ,%s שמך כעת"/>
-	<string id="16456" value="‪.%s נכשל להתחבר לכתובת"/>
-	<string id="16457" value="‪.ההתחברות נכשלה בעקבות מידע שגוי בכבל התקשורת"/>
-	<string id="16458" value="‪%s :התקבלה תגובה לא מוכרת"/>
-	<string id="16459" value="‪.אתה אינך מחובר"/>
-	<string id="16512" value="‪סך רוחב פס קבלה ג'נרית"/>
-	<string id="16513" value="‪סך רוחב פס שידור ג'נרי"/>
-	<string id="16514" value="‪סך כל החיבורים לגנוטלה"/>
-	<string id="16515" value="‪חיבורים אקטיביים של גנוטלה"/>
-	<string id="16516" value="‪רוחב פס קבלה של גנוטלה"/>
-	<string id="16517" value="‪רוחב פס שידור של גנוטלה"/>
-	<string id="16518" value="‪כמות קבצים בהורדה"/>
-	<string id="16519" value="‪כמות העברות של הורדות"/>
-	<string id="16520" value="‪רוחב פס להורדות"/>
-	<string id="16521" value="‪סכום העלאות שהועברו"/>
-	<string id="16522" value="‪רוחב-פס להעברות"/>
-	<string id="16523" value="‪פקטים של גנוטלה התקבלו"/>
-	<string id="16524" value="‪פקטים של גנוטלה נשלחו"/>
-	<string id="16525" value="‪פקטים של גנוטלה הועברו בראוטר"/>
-	<string id="16526" value="‪פקטים של גנוטלה נפלו"/>
-	<string id="16527" value="‪פקטים של גנוטלה אבדו"/>
-	<string id="16528" value="‪Gnutella Local Queries"/>
-	<string id="16532" value="‪כולל לקבלה TCP רוחב פס"/>
-	<string id="16533" value="‪כולל לשליחה TCP רוחב פס"/>
-	<string id="16534" value="‪כולל לקבלה UDP רוחב פס"/>
-	<string id="16535" value="‪כולל לשליחה UDP רוחב פס"/>
-	<string id="16536" value="Gnutella Ratio of Received/Sent Pings"/>
-	<string id="16537" value="Gnutella Ratio of Received/Sent Pongs"/>
-	<string id="16538" value="Connection Errors (%)"/>
-	<string id="16768" value="‪&quot;%s&quot; URL קבלת כתובת"/>
-	<string id="16769" value="‪.שרזה לא מבין את כתובת אינטרנט זו ,URL נכשל לפענח את הכתובת"/>
-	<string id="16770" value="‪.כיוון ששרזה עסוק URL נכשל להציג את חלון הדו-שיח לפעולות"/>
-	<string id="16771" value="‪&#8234;.‏בספרייתך‎ %s ‏הקובץ‎ ‏את‎ ‏לך‎ ‏יש‎ ‏כבר &#13;&#10; ?‏מקרה‎ ‏בכל‎ ‏מחדש‎ ‏להורידו‎ ‏רוצה‎ ‏אתה‎ ‏האם‎ "/>
-	<string id="16772" value="‪:כתובת"/>
-	<string id="16773" value="‪:יציאה"/>
-	<string id="16774" value="‪&amp;התחבר"/>
-	<string id="16775" value="‪&amp;סייר"/>
-	<string id="16776" value="‪הוסף"/>
-	<string id="16777" value=":‪קובץ"/>
-	<string id="16778" value="‪URL&#160;כתובת:"/>
-	<string id="16779" value="‪:סוג"/>
-	<string id="16780" value="‪לא מוגדר"/>
-	<string id="16781" value="‪...מבקש"/>
-	<string id="16782" value="‪!הצלחה"/>
-	<string id="16783" value="‪הסתיים, לחץ על סגירה"/>
-	<string id="16784" value="‪&amp;סגור"/>
-	<string id="16785" value="‪(ללא אפקטים ויזואליים)"/>
-	<string id="16800" value="‪You have not yet specified a connection speed.  Before continuing, please either choose your Internet connection type, or type in a connection speed."/>
-	<string id="16802" value="‪?לא בחרת אף תיקייה לשיתוף, האם הינך מעוניין להמשיך"/>
-	<string id="16803" value="‪The folder you are sharing is already shared as part of another shared folder:\n\n%s"/>
-	<string id="16804" value="You haven't entered a screen name in your user profile."/>
-	<string id="16805" value="You haven't entered your location in your user profile.\n\nIt's a good idea to enter your location so that other users can see which country you are from.  Note that entering a location does not reveal any compromising information.\n\nAre you sure you want to continue without entering your location?"/>
-	<string id="16806" value="You have indicated that you want to set up port-forwarding on your NAT router or firewall.\n\nPlease configure your network to forward TCP and UDP ports %i to your local PC."/>
-	<string id="16807" value="‪Please type the bandwidth limit you wish to set in the form &quot;123 kb/s&quot; for kilobits per second, or &quot;123 KB/s&quot; for kilobytes per second."/>
-	<string id="16808" value="‪?לא בחרת גיל ומין, אתה בטוח שאתה רוצה להמשיך"/>
-	<string id="16809" value="‪י&amp;ציאה"/>
-	<string id="16810" value="‪בגיל"/>
-	<string id="16811" value="‪אוטומטי"/>
-	<!-- Missing Strings -->
-	<string id="16818" value="שמות ספריית הקבצים השלמים והחלקיים חייבים להיות שונים"/>
-	<!-- Missing Strings -->
-	<string id="16939" value="‪.%s קבצים לאחר סיום הסיור אצל המשתמש %i נמצאו"/>
-	<string id="16940" value="‪נפל %s החיבור לסיור אצל המשתמש"/>
-	<string id="16941" value="‪Closing browse user connection %s due to lack of traffic."/>
-	<string id="16942" value="‪.%s סוגר את החיבור לסיור אצל המשתמש"/>
-	<string id="16943" value="‪מסייר אצל %s"/>
-	<string id="16944" value=".קבצים משותפים %i נמצאו %s בספרייה של"/>
-	<string id="16991" value="PeerProject Media Player"/>
-	<string id="16992" value="‪PeerProject could not instantiate its MediaServices plugin.  Please reinstall PeerProject, and confirm that you have the necessary media codecs and output drivers installed."/>
-	<string id="16993" value="‪All Media Files|*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Playlists|*.asx;*.wax;*.m3u;*.wvx;*.wmx|Audio Files|*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm|Video Files|*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|CD Audio Tracks|*.cda|MIDI Files|*.mid;*.rmi;*.midi|All Files|*.*||"/>
-	<string id="16994" value="‪Unable to load media file &quot;%s&quot;"/>
-	<string id="16995" value="‪The file may be damaged, or you may not have the necessary codecs to play it."/>
-	<string id="16996" value="‪Part of this file could not be played, you may need to download additional codecs."/>
-	<string id="16997" value="‪אף קובץ לא מנוגן כעת, לחץ לחיצה כפולה על קובץ בספריה שלך להשמעתו"/>
-	<string id="16998" value="‪ נ &#160; ג &#160; ן&#160;  &#160; ה &#160; מ &#160; ד &#160; י &#160; ה &#160;   &#160; ש &#160; ר &#160; ז &#160; ה"/><!-- on one line -->
-	<string id="16999" value="‪ר ש י מ ת &#160; ה ש מ ע ה"/>
-	<string id="17024" value="‪%s יוצר חיבור אל"/>
-	<string id="17025" value="‪%s לא מצליח ליצור חיבור אל"/>
-	<string id="17026" value="‪%s -מוגן חומת אש מ push מבקש חיבור"/>
-	<string id="17027" value="‪לוחץ יד %s -מ push אושר חיבור"/>
-	<string id="17028" value="‪‪‪...חיבור הושלם, מבצע לחיצת יד"/>
-	<string id="17029" value="‪.לחיצת היד הושלמה, כתובת המשתמש כנראה לא מאפשרת שיחות צ'אט"/>
-	<string id="17030" value="‪%s לחיצת היד הושלמה, גרסאת פרוטוקול הצ'אט היא "/>
-	<string id="17031" value="‪‪...מחליף מידע פרופילים"/>
-	<string id="17032" value="‪משתמש מאומת"/>
-	<string id="17033" value="‪‪...מבקש שיחה פרטית עם המשתמש"/>
-	<string id="17034" value="‪‪.%s שיחה פרטית אושרה, אתה כרגע משוחח עם"/>
-	<string id="17035" value="‪‪.לא מקבל שיחות פרטיות, סליחה %s המשתמש"/>
-	<string id="17036" value="‪לא זמין כעת %s המשתמש: %s"/>
-	<string id="17037" value="‪נכשל החיבור לצ'אט"/>
-	<string id="17038" value="‪‪.החיבור נסגר"/>
-	<!-- Missing Strings -->
-	<string id="17043" value=".%s הוענקה עדיפות העלאה למשתמש בכתובת"/>
-	<!-- Missing Strings -->
-	<string id="17107" value="‪חיבור של שרת אידונקי2000"/>
-	<string id="17108" value="‪לחיצת יד"/>
-	<string id="17109" value="‪נכנס"/>
-	<string id="17110" value="‪יוצא"/>
-	<string id="17111" value="‪:נוכחי"/>
-	<string id="17112" value="‪:סכום כולל"/>
-	<string id="17113" value="‪:כיווץ"/>
-	<string id="17114" value=":‪יחס"/>
-	<string id="17115" value="‪Deflate"/>
-	<string id="17116" value="‪אין"/>
-	<string id="17117" value="‪מתחבר"/>
-	<string id="17118" value="‪לוחץ יד"/>
-	<string id="17119" value="‪דחוי"/>
-	<string id="17120" value="‪סוגר"/>
-	<string id="17121" value="‪לא ידוע"/>
-	<string id="17122" value="‪גנוטלה1 Peer"/>
-	<string id="17123" value="‪גנוטלה1 Ultrapeer"/>
-	<string id="17124" value="‪קו ענף גנוטלה1"/>
-	<string id="17125" value="‪גנוטלה2 Peer"/>
-	<string id="17126" value="‪מוקד גנוטלה2"/>
-	<string id="17127" value="‪קו ענף גנוטלה2"/>
-	<string id="17128" value="‪אי-דונקי Server"/>
-	<string id="17129" value="‪אי-דונקי (LowID)"/>
-	<string id="17130" value="‪אי-דונקי (HighID)"/>
-	<!-- Missing Strings -->
-	<string id="17250" value="‪...&quot;%s&quot; :סורק ספריה"/>
-	<string id="17251" value="‪.נכשל לייבא קובץ"/>
-	<string id="17252" value="‪Found partial file &quot;%s&quot;, importing..."/>
-	<string id="17253" value="‪Unable to open part file &quot;%s&quot;."/>
-	<string id="17254" value="‪Found download &quot;%s&quot;, size %s."/>
-	<string id="17255" value="‪Download data file is newer than .part file, aborting."/>
-	<string id="17256" value="...&quot;%s&quot; את &quot;%s&quot; מעתיק אל"/>
-	<string id="17257" value="‪.סיים להעתיק קובץ"/>
-	<!-- Missing Strings -->
-	<string id="17485" value="‪&#8234;&quot;%s&quot; ‏עבור‎ ‏ביט‎-‏טורנט‎ ‏עוקב‎ ‏של‎ ‏תגובה‎ ‏התקבלה‎ ‏חדשים‎, ‏מקורות‎ %i"/>
-	<!-- Missing Strings -->
-	<string id="18510" value="‪.האם אתה בטוח שברצונך ששרזה תניח שההורדה הושלמה,  ולאמת את ההורדה מחדש? כל הקובץ ייחשב, ושרזה תאשר את החלקים שיעברו את האימות בהצלחה ותוריד מחדש את החלקים שיכשלו בשלב האימות"/>
-	<string id="18511" value="You have made changes to the file size. Are you sure you want to change the file size for this download?"/>
-	<string id="19000" value="‪גישה מרחוק לא מאופשרת"/>
-	<string id="19001" value="‪.אתה חייב לבחור שם משתמש וסיסמא http://%s:%i/remote"/>
-	<string id="19002" value="‪לא מצליח לקבל התקשרויות, כתובת האינטרנט לא זמינה"/>
-	<string id="20000" value="‪זמין URN אין"/>
-	<string id="20001" value="Close"/>
-	<string id="20002" value="מתוך"/><!-- e.g. 1 of 10 -->
-	<string id="20003" value="Changing interface direction requires restart. \nYou will need to start PeerProject manually. Exit now?"/>
-	<string id="20005" value="לא"/>
-	<string id="20006" value="כן"/>
-	<string id="20007" value="אוטומטי"/>
-	<string id="20008" value="Default"/>
-	<string id="20009" value="Custom"/>
-	<string id="20010" value="&amp;Back"/>
-	<string id="20011" value="&amp;Next"/>
-	<string id="20012" value="Finish"/>
-	<string id="20013" value="All"/>
-	<string id="20100" value="‪מתחבר"/>
-	<string id="20101" value="‪מבקש"/>
-	<string id="20102" value="‪תגובה"/>
-	<string id="20103" value="‪מוריד"/>
-	<string id="20104" value="‪TigerTree"/>
-	<string id="20105" value="‪Hashset"/>
-	<string id="20106" value="‪Metadata"/>
-	<string id="20107" value="‪עסוק"/>
-	<string id="20108" value="‪נכנס לתור"/>
-	<string id="20109" value="בתור"/>
-	<string id="20110" value="‪לא ידוע"/>
-	<string id="20111" value="‪הסתיים"/>
-	<string id="20112" value="‪מפיץ"/>
-	<string id="20113" value="‪מעביר"/>
-	<string id="20114" value="‪מושהה"/>
-	<string id="20115" value="‪שגיאה בקובץ"/>
-	<string id="20116" value="‪לא ניתן להעביר"/>
-	<string id="20117" value="‪מאמת"/>
-	<string id="20118" value="‪פעיל"/>
-	<string id="20119" value="‪ממתין לתשובה"/>
-	<string id="20120" value="‪מחפש"/>
-	<string id="20121" value="‪יוצר"/>
-	<string id="20122" value="‪טורנט"/>
-	<string id="20123" value="‪תקלה בגשש"/>
-	<string id="20124" value="‪מאומת"/>
-	<string id="20125" value="‪לא מאומת"/>
-	<string id="20126" value="‪לא מעוניין"/>
-	<string id="20127" value="‪לא מעוניין"/>
-	<string id="20130" value=":מקורות"/>
-	<string id="20131" value=":מקורות"/>
-	<string id="20132" value="‪:מקורות"/>
-	<string id="20134" value="מקורות"/>
-	<string id="20135" value="‪(ללא מקורות)"/>
-	<string id="20136" value="‪Choked"/>
-	<string id="20137" value="‪הבא"/>
-	<string id="20138" value="בתור"/>
-	<string id="20200" value="‪ששש"/>
-	<string id="20201" value="‪שני"/>
-	<string id="20202" value="‪שלישי"/>
-	<string id="20203" value="‪רביעי"/>
-	<string id="20204" value="‪חמישי"/>
-	<string id="20205" value="‪שישי"/>
-	<string id="20206" value="‪שבת"/>
-	<string id="20207" value="‪ראשון"/>
-	<string id="20210" value="‪(ללא דירוג)"/>
-	<string id="20211" value="‪מזוייף / מקולקל"/>
-	<string id="20212" value="‪גרוע"/>
-	<string id="20213" value="‪ממוצע"/>
-	<string id="20214" value="‪טוב"/>
-	<string id="20215" value="‪טוב מאוד"/>
-	<string id="20216" value="‪מעולה"/>
+	<string id="20001" value="כן"/>
+	<string id="20002" value="לא"/>
+	<string id="20003" value="אישור"/>
+	<string id="20004" value="ביטול"/>
+	<string id="20005" value="לחזור"/>
+	<string id="20006" value="הבא"/>
+	<string id="20008" value="קרוב"/>
+	<string id="20009" value="מתוך"/> <!-- ex: 1 of 10 -->
+	<string id="20010" value="כל"/>
+	<string id="20011" value="אוטומטי"/>
+	<string id="20012" value="מנהג"/>
+	<string id="20013" value="ברירת מחדל"/>
+	<string id="20014" value="לגמור"/>
+	<string id="20050" value="‪ששש"/>
+	<string id="20051" value="‪שני"/>
+	<string id="20052" value="‪שלישי"/>
+	<string id="20053" value="‪רביעי"/>
+	<string id="20054" value="‪חמישי"/>
+	<string id="20055" value="‪שישי"/>
+	<string id="20056" value="‪שבת"/>
+	<string id="20057" value="‪ראשון"/>
+	<string id="20060" value="‪(ללא דירוג)"/>
+	<string id="20061" value="‪מזוייף / מקולקל"/>
+	<string id="20062" value="‪גרוע"/>
+	<string id="20063" value="‪ממוצע"/>
+	<string id="20064" value="‪טוב"/>
+	<string id="20065" value="‪טוב מאוד"/>
+	<string id="20066" value="‪מעולה"/>
+	<string id="20080" value="‪‪‏הסתיימה‎ ‏הנסיון‎ תקופת‎ ‏שרזה‎ ‏של‎ ‏נסיונית‎ ‏גרסה‎ ‏זוהי http://PeerProject.org ‏מהאתר‎ ‏והרשמית‎ ‏המלאה‎ ‏הגרסא‎ ‏את‎ ‏הורד‎ ‏אנא‎"/>
+	<string id="20081" value="‪סגור"/>
+	<string id="20082" value="‪הסתיים, לחץ על סגירה"/>
+	<string id="20083" value="‪...מבקש"/>
+	<string id="20084" value="‪!הצלחה"/>
+	<string id="20100" value="‪.%s סוגר את החיבור לסיור אצל המשתמש"/>
+	<string id="20102" value=".‪‏ההתחברות אל המשתמש נכשלה"/>
+	<string id="20105" value="‪...יוצר חיבור עם כתובת המשתמש"/>
+	<string id="20107" value="‪...(%2.f%%) מוריד בקשת סיור בתיקייה"/>
+	<string id="20109" value="‪נפל %s החיבור לסיור אצל המשתמש"/>
+	<string id="20110" value="‪.%s קבצים לאחר סיום הסיור אצל המשתמש %i נמצאו"/>
+	<string id="20111" value=".קבצים משותפים %i נמצאו %s בספרייה של"/>
+	<string id="20114" value=".הורדת רשימת הקבצים נכשלה, המשתמש חסם אפשרות זו"/>
+	<string id="20116" value="‪.ממתין להתחברות push נשלחה בקשת"/>
+	<string id="20118" value="‪מחובר, מבקש לסייר בקבצים"/>
+	<string id="20120" value="‪Closing browse user connection %s due to lack of traffic."/>
+	<string id="20121" value="‪מסייר אצל %s"/>
+	<string id="20155" value="‪‪&quot;%s&quot;.‏עבור‎ ‏ביט‎-‏טורנט‎ ‏עוקב‎ ‏של‎ ‏תגובה‎ ‏התקבלה‎ ‏חדשים‎, ‏מקורות‎ %i"/>
+	<string id="20160" value="‪Accepted incoming chat request from %s, handshaking..."/>
+	<string id="20161" value="‪%s לא מצליח ליצור חיבור אל"/>
+	<string id="20163" value="‪‪.החיבור נסגר"/>
+	<string id="20164" value="‪נסגר %s החיבור אל"/>
+	<string id="20165" value="‪‪‪...חיבור הושלם, מבצע לחיצת יד"/>
+	<string id="20166" value="‪...לוחץ ידיים ,%s מחובר אל"/>
+	<string id="20167" value="‪%s יוצר חיבור אל"/>
+	<string id="20168" value="...%s מתחבר לצ'אט עם משתמש"/>
+	<string id="20169" value="‪.%s נכשל להתחבר לכתובת"/>
+	<string id="20170" value="‪נכשל החיבור לצ'אט"/>
+	<string id="20171" value="‪אבד %s החיבור אל"/>
+	<string id="20172" value="‪.לחיצת היד הושלמה, כתובת המשתמש כנראה לא מאפשרת שיחות צ'אט"/>
+	<string id="20173" value="‪%s לחיצת היד הושלמה, גרסאת פרוטוקול הצ'אט היא "/>
+	<string id="20174" value="‪‪...מחליף מידע פרופילים"/>
+	<string id="20178" value="‪%s לאחר שינוי השם ,%s שמך כעת"/>
+	<string id="20179" value="‪Now chatting with %s (%s)."/>
+	<string id="20180" value=".%s הוענקה עדיפות העלאה למשתמש בכתובת"/>
+	<string id="20181" value="‪לא זמין כעת %s המשתמש: %s"/>
+	<string id="20182" value="‪‪.%s שיחה פרטית אושרה, אתה כרגע משוחח עם"/>
+	<string id="20183" value="‪‪.לא מקבל שיחות פרטיות, סליחה %s המשתמש"/>
+	<string id="20184" value="‪‪...מבקש שיחה פרטית עם המשתמש"/>
+	<string id="20185" value="‪משתמש מאומת"/>
+	<string id="20186" value="‪לוחץ יד %s -מ push אושר חיבור"/>
+	<string id="20188" value="‪%s -מוגן חומת אש מ push מבקש חיבור"/>
+	<string id="20190" value="‪.ההתחברות נכשלה בעקבות מידע שגוי בכבל התקשורת"/>
+	<string id="20191" value="‪%s :התקבלה תגובה לא מוכרת"/>
+	<string id="20192" value="‪.אתה אינך מחובר"/>
+	<string id="20193" value="‪&quot;%s&quot;.פקודה בלתי מזוהה"/>
+	<string id="20199" value="‪(סוגר בסיום ההעברות)"/>
+	<string id="20201" value="‪כבר בהורדה, מוסיף מקורות &quot;%s&quot; הקובץ"/>
+	<string id="20207" value="‪?האם אתה בטוח שברצונך לבטל או להפסיק את כל ההורדות בקבוצה"/>
 	<string id="20217" value="בחר את התקייה הזמנית של אי-דונקי/אי-מיול:"/>
-	<!-- Column headers in Library Album View -->
-	<string id="20230" value="#"/> <!-- Track number -->
-	<string id="20231" value="כותרת"/>
-	<string id="20232" value="אורך"/>
-	<string id="20233" value="קצב דגימה"/>
-	<string id="20234" value="אלבום"/>
-	<string id="20235" value="אמן"/>
-	<string id="20236" value="דרוג"/>
-	<string id="20237" value="אישור"/>
-	<string id="20238" value="ביטול"/>
-	<string id="20245" value="תיקיה חדשה"/>
+	<string id="20227" value="You have made changes to the file size. Are you sure you want to change the file size for this download?"/>
+	<string id="20236" value="‪.האם אתה בטוח שברצונך ששרזה תניח שההורדה הושלמה,  ולאמת את ההורדה מחדש? כל הקובץ ייחשב, ושרזה תאשר את החלקים שיעברו את האימות בהצלחה ותוריד מחדש את החלקים שיכשלו בשלב האימות"/>
+	<string id="20250" value="Drag'n'drop קבצים לקבוצה %s"/>
+	<string id="20251" value="ברירת המחדל של הורדת הקבוצה. (הצג את כל הקבצים)"/>
+	<string id="20270" value="‪&quot;%s&quot;.:הורדה הוסרה"/>
+	<string id="20332" value="‪Unable to open part file &quot;%s&quot;."/>
+	<string id="20333" value="‪.סיים להעתיק קובץ"/>
+	<string id="20334" value="...&quot;%s&quot;.את &quot;%s&quot; מעתיק אל"/>
+	<string id="20337" value="‪.נכשל לייבא קובץ"/>
+	<string id="20338" value="‪Download data file is newer than .part file, aborting."/>
+	<string id="20339" value="‪Found partial file &quot;%s&quot;, importing..."/>
+	<string id="20341" value="‪...&quot;%s&quot;.:סורק ספריה"/>
+	<string id="20344" value="‪Found download &quot;%s&quot;, size %s."/>
+	<string id="20354" value="‪מאפייני קובץ"/>
+	<string id="20355" value="‪‪?האם הינך בטוח שברצונך למחוק את המסנן"/>
+	<string id="20360" value="Connection Errors (%)"/>
+	<string id="20361" value="‪רוחב פס להורדות"/>
+	<string id="20362" value="‪כמות קבצים בהורדה"/>
+	<string id="20363" value="‪כמות העברות של הורדות"/>
+	<string id="20364" value="‪רוחב פס קבלה של גנוטלה"/>
+	<string id="20365" value="‪רוחב פס שידור של גנוטלה"/>
+	<string id="20366" value="‪סך כל החיבורים לגנוטלה"/>
+	<string id="20367" value="‪חיבורים אקטיביים של גנוטלה"/>
+	<string id="20368" value="‪פקטים של גנוטלה נפלו"/>
+	<string id="20369" value="‪פקטים של גנוטלה אבדו"/>
+	<string id="20370" value="‪פקטים של גנוטלה התקבלו"/>
+	<string id="20371" value="‪פקטים של גנוטלה נשלחו"/>
+	<string id="20374" value="‪Gnutella Local Queries"/>
+	<string id="20375" value="‪פקטים של גנוטלה הועברו בראוטר"/>
+	<string id="20376" value="‪סך רוחב פס קבלה ג'נרית"/>
+	<string id="20377" value="‪סך רוחב פס שידור ג'נרי"/>
+	<string id="20378" value="‪כולל לקבלה TCP רוחב פס"/>
+	<string id="20379" value="‪כולל לשליחה TCP רוחב פס"/>
+	<string id="20380" value="‪כולל לקבלה UDP רוחב פס"/>
+	<string id="20381" value="‪כולל לשליחה UDP רוחב פס"/>
+	<string id="20382" value="‪רוחב-פס להעברות"/>
+	<string id="20384" value="‪סכום העלאות שהועברו"/>
+	<string id="20400" value="‪PeerProject is creating hashes for %Iu files:" />
+	<string id="20410" value="‪סייר בספריית השיתוף שלך בשרזה"/>
+	<string id="20411" value="‪סיור"/>
+	<string id="20412" value="תיקיות ‪%i סייר בתכנים של"/>
+	<string id="20413" value="‪קבצים נבחרו %i"/>
+	<string id="20414" value="‪מספר ספריות"/>
+	<string id="20415" value="‪אף קובץ לא נבחר"/>
+	<string id="20416" value="‪דרג את הקובץ"/>
+	<string id="20417" value="‪תוספות אחרונות"/>
+	<string id="20418" value="אלבום"/>
+	<string id="20419" value="אמן"/>
+	<string id="20420" value="קצב דגימה"/>
+	<string id="20421" value="אורך"/>
+	<string id="20422" value="דרוג"/>
+	<string id="20423" value="כותרת"/>
+	<string id="20424" value="#"/> <!-- Track number -->
+	<string id="20430" value="‪? &quot;%s&quot; הם הינך בטוח/ה שברצונך להפעיל את הקובץnn.קבצים מסויימים יכולים לפגוע במחשב שלך, אנא וודא איזה קובץ אתה מפעיל"/>
+	<string id="20432" value="‪:שרזה נכשל למחוק את הקובץ file:\n\n%s"/>
+	<string id="20438" value="‪.ל- %i קבצים Meta עורך מידע "/>
+	<string id="20439" value="‪?קבצים, האם הינך מעוניינ/ת להמשיך %i-ל Meta את/ה עומד/ת לשנות את המידע"/>
+	<string id="20441" value="‪:שרזה נכשל לשנות את השם\n\n%snto\n%s"/>
+	<string id="20442" value="‪Target file exists:\n\n%s\n\nWould you like to overwrite it?"/>
+	<string id="20443" value="‪הצג את כל סוגי הקבצים"/>
+	<string id="20444" value="‪העתק &URI"/>
+	<string id="20445" value="‪ייצא &URI..."/>
+	<string id="20451" value="‪אף קובץ לא מנוגן כעת, לחץ לחיצה כפולה על קובץ בספריה שלך להשמעתו"/>
+	<string id="20452" value="‪All Media Files|*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Playlists|*.asx;*.wax;*.m3u;*.wvx;*.wmx|Audio Files|*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm|Video Files|*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|CD Audio Tracks|*.cda|MIDI Files|*.mid;*.rmi;*.midi|All Files|*.*||"/>
+	<string id="20453" value="‪Unable to load media file &quot;%s&quot;"/>
+	<string id="20454" value="‪The file may be damaged, or you may not have the necessary codecs to play it."/>
+	<string id="20455" value="‪Part of this file could not be played, you may need to download additional codecs."/>
+	<string id="20456" value="‪ר ש י מ ת   ה ש מ ע ה"/>
+	<string id="20457" value="‪PeerProject could not instantiate its MediaServices plugin. Please reinstall PeerProject, and confirm that you have the necessary media codecs and output drivers installed."/>
+	<string id="20458" value="PeerProject Media Player"/>
+	<string id="20460" value="‪ נ   ג   ן     ה   מ   ד   י   ה       ש   ר   ז   ה"/>
+	<string id="20461" value="‪(ללא אפקטים ויזואליים)"/>
+	<!--string id="20462" value="‪:שרזה סיים להוריד"-->
+	<!--string id="20463" value="‪:שרזה מוריד"-->
+	<!--string id="20464" value="‪:שרזה מעביר את ההורדה"-->
+	<!--string id="20465" value="‪:הורדה זו מושהת"-->
+	<!--string id="20466" value="‪:שרזה מחפשת מקורות עבור"-->
+	<!--string id="20467" value="‪:שרזה בודקת אם יש שגיאות בהורדה"-->
+	<string id="20470" value="ביטול"/>
+	<string id="20471" value="‪פתח"/>
+	<string id="20472" value="‪הושלם"/>
+	<string id="20473" value="‪:זמן מוערך שנותר"/>
+	<string id="20474" value="מספר ביקורות:"/>
+	<string id="20475" value="‪:מספר מקורות"/>
+	<string id="20476" value="‪אין מקורות"/>
+	<string id="20477" value="‫%i ימים %i שעות"/>
+	<string id="20478" value="‪‫%i שעות %i דקות"/>
+	<string id="20479" value="‪‫%i דקות %i שניות"/>
+	<string id="20480" value="‪%i שניות"/>
+	<string id="20481" value="‪:מהירות הורדה"/>
+	<string id="20482" value="‪:גודל שהורד"/>
+	<string id="20483" value="‪:העותק התעדכן"/>
+	<string id="20484" value="מגבלת מהירות ההורדה"/>
+	<string id="20485" value="מגבלת מהירות ההעלאה"/>
+	<string id="20490" value="‪‪כפול"/>
+	<string id="20491" value="‪‪ערכים כפולים"/>
+	<string id="20494" value="You haven't entered your location in your user profile.\n\nIt's a good idea to enter your location so that other users can see which country you are from.  Note that entering a location does not reveal any compromising information.\n\nAre you sure you want to continue without entering your location?"/>
+	<string id="20495" value="You haven't entered a screen name in your user profile."/>
+	<string id="20496" value="‪?לא בחרת גיל ומין, אתה בטוח שאתה רוצה להמשיך"/>
+	<string id="20499" value="תיקיה חדשה"/>
+	<string id="20500" value="‪לחץ על כפתור התחבר כדי להתחיל"/>
+	<string id="20501" value="‪אתה לא מחובר לרשת"/>
+	<string id="20502" value="‪סוגר"/>
+	<string id="20503" value="‪:כיווץ"/>
+	<string id="20504" value="‪Deflate"/>
+	<string id="20505" value="‪אין"/>
+	<string id="20506" value="‪מתחבר"/>
+	<string id="20507" value="‪:נוכחי"/>
+	<string id="20510" value="‪חיבור של שרת אידונקי2000"/>
+	<string id="20511" value="‪אי-דונקי (HighID)"/>
+	<string id="20513" value="‪אי-דונקי (LowID)"/>
+	<string id="20514" value="‪אי-דונקי Server"/>
+	<string id="20515" value="‪קו ענף גנוטלה1"/>
+	<string id="20516" value="‪גנוטלה1 Peer"/>
+	<string id="20520" value="‪גנוטלה1 Ultrapeer"/>
+	<string id="20521" value="‪מוקד גנוטלה2"/>
+	<string id="20522" value="‪קו ענף גנוטלה2"/>
+	<string id="20524" value="‪גנוטלה2 Peer"/>
+	<string id="20530" value="‪לחיצת יד"/>
+	<string id="20531" value="‪לוחץ יד"/>
+	<string id="20532" value="‪נכנס"/>
+	<string id="20533" value="‪יוצא"/>
+	<string id="20534" value="‪:סכום כולל"/>
+	<string id="20535" value=":‪יחס"/>
+	<string id="20536" value="‪דחוי"/>
+	<string id="20538" value="‪לא ידוע"/>
+	<string id="20540" value="‪התחבר"/>
+	<string id="20541" value="‪...מתחבר"/>
+	<string id="20542" value="‪מחובר"/>
+	<string id="20543" value="‪התנתק"/>
+	<string id="20544" value="‪‪...סוגר את בסיס הרשת של שרזה"/>
+	<string id="20545" value="‪‪‪.מנותק מהרשת"/>
+	<string id="20546" value="‪?האם אתה בטוח שברצונך להתנתק"/>
+	<string id="20548" value="‪‪‏נכנסים‎ ‏לחיבורים‎ ‏תמיכה‎ ‏תיהיה‎ ‏לא‎ ‏לכן‎ ‏נכנסים‎. ‏לחיבורים‎ %s ‏של‎ %i ‏פורט‎ ‏את‎ ‏לקבוע‎ ‏ניתן‎ ‏לא"/>
+	<string id="20549" value="‪Can't resolve %s for outgoing connections.  Outgoing connections will use the default interface."/>
+	<string id="20551" value="חומת האש, לא מקשיב לחיבורים נכנסים."/>
+	<string id="20553" value="‪‪%s ‏של‎ %i  ‏מפורט‎ ‏נכנסים‎ TCP ‏חיבורי‎ ‏מקבל"/>
+	<string id="20554" value="‪Listening for UDP datagrams on %s port %i."/>
+	<string id="20555" value="‪‪%s ‏של‎ %i  ‏מפורט‎ ‏חיבורים יוצאים יהיו"/>
+	<string id="20556" value="‪‪‪...&quot;%s&quot;.לא מצליח לפענח כתובת משתמש"/>
+	<string id="20557" value="‪‪...&quot;%s&quot;.מפענח כתובת משתמש"/>
+	<string id="20560" value="‪‪.כבר חסומה על ידי חוקי האבטחה שלך %s הכתובת"/>
+	<string id="20561" value="‪‪‪.%s הוסף חוק אבטחה לחסימת"/>
+	<string id="20562" value="‪%s מנהל האבטחה מנע חיבור של"/>
+	<string id="20563" value="‪%s מנהל האבטחה בלם חיבור של"/>
+	<string id="20564" value="‪מאתחל את בסיס הרשת של שרזה..."/>
+	<string id="20566" value="UPnP port mapping failed after 10 attempts."/>
+	<string id="20576" value="‪‪%s  ‏משכן‎ ‏ניווט‎ ‏בקשת‎ (‏ ‪%i bit = %lu[%i], %i%% full)"/>
+	<string id="20590" value="‪גישה מרחוק לא מאופשרת"/>
+	<string id="20591" value="‪.אתה חייב לבחור שם משתמש וסיסמא http://%s:%i/remote"/>
+	<string id="20592" value="‪לא מצליח לקבל התקשרויות, כתובת האינטרנט לא זמינה"/>
+	<string id="20595" value="‪‪&סכמות"/>
+	<string id="20620" value="‪...שרזה מחפשת ברשת באופן פעיל"/>
+	<string id="20621" value="‪.לחץ כאן בכדי לחפש שנית"/>
+	<string id="20622" value="‪כל הרשתות"/>
+	<string id="20623" value="‪?הינך עומד/ת להתחיל חיפוש חדש, האם הינך מעוניינ/ת למחוק את התוצאות של החיפוש הקודם"/>
+	<string id="20624" value="‪.אזור זה מראה מידע נוסף על הקבצים שבחרת"/>
+	<string id="20625" value="‪:%s לפי דעתו של"/>
+	<string id="20626" value="‪:%s דירג"/>
+	<string id="20627" value="‪לחץ כאן לתצוגה מקדימה"/>
+	<string id="20628" value="‪...מציג תצוגה מקדימה"/>
+	<string id="20629" value="‪&quot;%s&quot;.לא מצליח להוריד תכני תצוגה מקדימה מהמיקום"/>
+	<string id="20630" value="‪.ביקורות %i ישנם"/>
+	<string id="20631" value="‪.יש ביקורת אחת "/>
+	<string id="20632" value="%i מקורות זמינים. (%s)"/>
+	<string id="20633" value=" ‪.(%s) מקור אחד זמין"/>
+	<string id="20634" value="‪.הרשת לא החזירה אף תוצאה עדיין"/>
+	<string id="20635" value="‪.מספר תוצאות נמצאו, אך סוננו"/>
+	<string id="20636" value="‪.אף חיפוש לא החל בחלון זה עדיין"/>
+	<string id="20637" value="‪Metadata ללא"/>
+	<string id="20638" value="No Schema Columns"/>
+	<string id="20640" value="‪(נקה את היסטוריית החיפוש)"/>
+	<string id="20641" value="‪חפש בשרזה"/>
+	<string id="20642" value="‪?איזה סוג קובץ זה"/>
+	<string id="20643" value="‪:הקלד מספר מילים לחיפוש"/>
+	<string id="20644" value="מתקדם"/>
+	<string id="20645" value="‪כל סוג קובץ"/>
+	<string id="20646" value="‪נקה"/>
+	<string id="20648" value="‪הסתר את לוח החיפוש"/>
+	<string id="20650" value="‪חיפוש"/>
+	<string id="20651" value="‪:הקלד את החיפוש כאן"/>
+	<string id="20652" value="‪:חפש קבצים מסוג זה"/>
+	<string id="20653" value="‪:חפש ברשת זו"/>
+	<string id="20654" value="‪:גודל הקובץ"/>
+	<string id="20655" value="‪:גודל הקובץ"/>
+	<string id="20656" value="‪חפש עוד"/>
+	<string id="20657" value="‪הצג את לוח החיפוש"/>
+	<string id="20658" value="‪החל חיפוש"/>
+	<string id="20659" value="‪עצור"/>
+	<string id="20660" value="‪.לא נמצאו קבצים"/>
+	<string id="20661" value="‪‪‏מוקדים‎ %lu ,‏ענפי קו‎ %lu"/>
+	<string id="20662" value="‪.כרגע לא מחפש"/>
+	<string id="20663" value="‪תוצאות"/>
+	<string id="20664" value="‪‏‪‏קבצים‎ %lu ‏ובהם‎ ‏תוצאות‎ %lu|‪‏קבצים‎ %lu ‏ובהם‎ ‏תוצאות‎ %lu|‪‏קבצים‎ %lu ‏ובהם‎ ‏תוצאות‎ %lu"/>
+	<string id="20665" value="‪:נמצא"/>
+	<string id="20666" value="‪:‪מחפש"/>
+	<string id="20668" value="‪...מחפש"/>
+	<string id="20669" value="‪חיפוש טקסט פשוט"/>
+	<string id="20670" value="‪...שרזה מבצעת חיפוש ברשת"/>
+	<string id="20671" value="האם אתה בטוח שאתה רוצה למחוק את כללי הביטחון שנבחרו? זה לא ניתן לבטל."/>
+	<string id="20673" value="‪אוטומטי"/>
+	<string id="20674" value="שמות ספריית הקבצים השלמים והחלקיים חייבים להיות שונים"/>
+	<string id="20677" value="‪Please type the bandwidth limit you wish to set in the form &quot;123 kb/s&quot; for kilobits per second, or &quot;123 KB/s&quot; for kilobytes per second."/>
+	<string id="20680" value="‪‪הגדרות שרזה"/>
+	<string id="20684" value="‪.המעטפת תימחק לקיבעון &quot;%s&quot; האם אתה בטוח שברצונך למחוק את המעטפת"/>
+	<string id="20700" value="‪פעיל"/>
+	<string id="20701" value="‪‪%s :‏נכנס‎ %s :‏יוצא‎ (D:%I64i/U:%I64i)"/>
+	<string id="20702" value="‪‏‪‏שכנים‎ %lu ‏אל‎ ‏מחובר‎ , %s ‏מקומית‎ ‏בספריה"/>
+	<string id="20703" value="‪‪%lu ‏מצב‎: ‏מוקד‎ ‏עם‎ ‏שכנים‎ , %s ‏מקומית‎ ‏בספריה"/>
+	<string id="20704" value="‪‏‪‏מצב‎ ULTRAPEER/‏מוקד‎ ‏עם‎ %lu ‏שכנים‎: , %s ‏מקומית‎ ‏בספריה"/>
+	<string id="20705" value="‪‪‏מחובר‎ , %s ‏מקומית‎ ‏בספריה"/>
+	<string id="20706" value="‪‏‪ULTRAPEER ‏עם‎ %lu ‏שכנים‎: , %s ‏מקומית‎ ‏בספריה"/>
+	<string id="20707" value="‪...מתחבר לרשת"/>
+	<string id="20708" value="‪.לא מחובר לרשת"/>
+	<string id="20710" value="‪(ללא מקורות)"/>
+	<string id="20711" value="‪לא ניתן להעביר"/>
+	<string id="20712" value="‪Choked"/>
+	<string id="20713" value="‪נכנס לתור"/>
+	<string id="20714" value="‪שגיאה בקובץ"/>
+	<string id="20715" value="‪Hashset"/>
+	<string id="20716" value="‪Metadata"/>
+	<string id="20717" value="‪תגובה"/>
+	<string id="20718" value="‪מעביר"/>
+	<string id="20719" value="‪יוצר"/>
+	<string id="20720" value="‪הסתיים"/>
+	<string id="20721" value="‪מתחבר"/>
+	<string id="20722" value="‪מוריד"/>
+	<string id="20723" value="‪עסוק"/>
+	<string id="20724" value="‪הבא"/>
+	<string id="20725" value="בתור"/>
+	<string id="20726" value="בתור"/>
+	<string id="20727" value="‪מושהה"/>
+	<string id="20728" value="‪ממתין לתשובה"/>
+	<string id="20729" value="‪מבקש"/>
+	<string id="20730" value="‪מחפש"/>
+	<string id="20731" value="‪מפיץ"/>
+	<string id="20732" value=":מקורות"/>
+	<string id="20733" value="מקורות"/>
+	<string id="20734" value="‪:מקורות"/>
+	<string id="20735" value=":מקורות"/>
+	<string id="20740" value="‪TigerTree"/>
+	<string id="20741" value="‪טורנט"/>
+	<string id="20742" value="‪תקלה בגשש"/>
+	<string id="20743" value="‪לא מעוניין"/>
+	<string id="20744" value="‪לא ידוע"/>
+	<string id="20745" value="‪לא מעוניין"/>
+	<string id="20746" value="‪לא מאומת"/>
+	<string id="20747" value="‪מאומת"/>
+	<string id="20748" value="‪מאמת"/>
+	<string id="20750" value="‪!(version) ברוכים הבאים לשרזה !n.nשרזה היא תוכנה חופשית.nאנא השתמש בה בצורה אחראית, כבד את חוקי הרכוש וזכויות היוצרים.n."/>
+	<string id="20751" value="‪.אין חיפושים פעילים, אנא לחץ כאן בכדי לחפש"/>
+	<string id="20752" value="‪.אינך מחובר, אנא לחץ על כפתור התחבר בכדי להתחיל"/>
+	<string id="20760" value="‪פעיל"/>
+	<string id="20761" value="‪לא פעיל"/>
+	<string id="20762" value="‪קובץ זה נראה כקובץ זדוני להצפה"/>
+	<string id="20763" value="‪‪:ברשימה שחורה"/>
+	<string id="20764" value="‪אתה הורדת ומחקת את קובץ זה בעבר"/>
+	<string id="20765" value="‪הקובץ כבר קיים אצלך ברשימת ההורדות"/>
+	<string id="20766" value="‪כבר יש לך את קובץ זה בספריה"/>
+	<string id="20767" value="‪ה‪מקורות לקובץ כרגע עסוקים"/>
+	<string id="20768" value="‪המקורות לקובץ כרגע מוגנים בחומת אש"/>
+	<string id="20769" value="‪המקורות לקובץ כרגע במצב לא יציב"/>
+	<string id="20770" value="‪מחיצת"/>
+	<string id="20771" value="תוצאות"/>
+	<string id="20772" value="‪‫מיקום"/>
+	<string id="20773" value="‪:מהווה מהספריה"/>
+	<string id="20774" value="‪לא ידוע"/>
+	<string id="20775" value="‪הבא בתור"/>
+	<string id="20776" value="לא חשיש"/>
+	<string id="20777" value="‪‪:(%.2f%%) חלקי מקור זמינים"/>
+	<string id="20778" value="‪‫‪קווים פנויים: %i, בתור: %i"/>
+	<string id="20780" value="‪‫גודל"/>
+	<string id="20781" value="‪המקור כרגע עסוק"/>
+	<string id="20782" value="‪המקור מוגן בחומת אש"/>
+	<string id="20783" value="‪המקור עלול להיות לא יציב"/>
+	<string id="20784" value="‪:מהירות"/>
+	<string id="20785" value="‪:מצב"/>
+	<string id="20786" value="‪.היום %lu , בסך הכל %lu"/>
+	<string id="20787" value="‪:מספר הקבצים"/>
+	<string id="20788" value="‪:גודל כולל"/>
+	<string id="20789" value=":העלאות"/>
+	<string id="20790" value="‪‫סוג"/>
+	<string id="20791" value="לא מהימן"/>
+	<string id="20792" value="העלאות"/>
+	<string id="20793" value="‪:URL כתובת"/>
+	<string id="20794" value="‪:‪סוכן משתמש"/>
+	<string id="20795" value="‪‪%s :‏נכנס‎ %s :‏יוצא‎ (D:%I64i/U:%I64i/H:%I64i)"/>
+	<string id="20796" value="הקבצים המשותפים באמצעות האינטרנט"/>
+	<string id="20798" value="‪?האם אתה מעוניין לשדרג כעת .(%s) שרזה סיים להוריד את הגרסא החדשהnnאם תבחר כן, שרזה תסגר באופן זמני, למהלך ההתקנה"/>
+	<string id="20811" value="?העלאות של אידונקי2000 לא אמורות להיות מבוטלות. האם הינך בטוח/ה שברצונך לבטל את העלאות"/>
+	<string id="20834" value="‪מרכז אידונקי"/>
+	<string id="20840" value="‪תור חדש"/>
+	<string id="20841" value="‪כל הקבצים"/>
+	<string id="20845" value="‪השומר של אידונקי"/>
+	<string id="20846" value="‪קבצים חלקיים של אידונקי"/>
+	<string id="20847" value="‪העלאות שהסתיימו"/>
+	<string id="20848" value="‪HTTP שומר"/>
+	<string id="20849" value="ספריית קבצים"/>
+	<string id="20850" value="‪קבצים גדולים"/>
+	<string id="20851" value="‪קבצים בינוניים"/>
+	<string id="20852" value="‪קבצים קטנים"/>
+	<string id="20853" value="‪קבצים חלקיים"/>
+	<string id="20854" value="‪חלקי"/>
+	<string id="20855" value="‪הכנס לתור"/>
+	<string id="20856" value="‪העלאות טורנטים"/>
+	<string id="20862" value="‪הוסף"/>
+	<string id="20864" value="‪סייר"/>
+	<string id="20865" value="‪התחבר"/>
+	<string id="20866" value=":‪קובץ"/>
+	<string id="20867" value="‪:כתובת"/>
+	<string id="20868" value="‪:יציאה"/>
+	<string id="20869" value="‪.כיוון ששרזה עסוק URL נכשל להציג את חלון הדו-שיח לפעולות"/>
+	<string id="20870" value="‪.שרזה לא מבין את כתובת אינטרנט זו ,URL נכשל לפענח את הכתובת"/>
+	<string id="20871" value="‪&quot;%s&quot;.URL קבלת כתובת"/>
+	<string id="20872" value="‪:סוג"/>
+	<string id="20874" value="‪לא מוגדר"/>
+	<string id="20875" value="‪URL כתובת:"/>
+	<string id="20880" value="‪ערוך את הפרופיל שלי"/>
+	<string id="20881" value="‪שינוי התצוגה יסגור את כל החלונות הפתוחים, אתה רוצה לשנות את התצוגה כעת?"/>
+	<string id="20884" value="‪זמין URN אין"/>
+	<string id="20885" value=".Changing interface direction requires restart\n.You will need to start PeerProject manually\n\n? Exit now"/>
+	<string id="20890" value="‪ברוכים הבאים לשרזה"/>
+	<string id="20891" value="‪י&ציאה"/>	
+	<string id="20898" value="‪?לא בחרת אף תיקייה לשיתוף, האם הינך מעוניין להמשיך"/>
+	<string id="20899" value="‪בגיל"/>
+	<!--Missing Wizard Strings-->
+	<!--string id="16771" value="‪‪.‏בספרייתך‎ %s ‏הקובץ‎ ‏את‎ ‏לך‎ ‏יש‎ ‏כבר  ?‏מקרה‎ ‏בכל‎ ‏מחדש‎ ‏להורידו‎ ‏רוצה‎ ‏אתה‎ ‏האם‎ "-->
 </strings>
 <!-- Localized Dialog Text, "cookie" verifies that the skin matches current dialog -->
 <dialogs>
@@ -3750,8 +3299,8 @@ gap i newline
 		<control/>
 		<control/>
 		<control/>
-		<control caption="% under Download limit"/>
-		<control caption="% under Upload limit"/>
+		<control caption="% of Download limit"/>
+		<control caption="% of Upload limit"/>
 		<control caption="Active Task"/>
 		<control caption="Enable G2 Only"/>
 		<control caption="Set Event Time"/>
@@ -3839,7 +3388,7 @@ gap i newline
 	</dialog>
 	<dialog name="CWarningsDlg" cookie="StStStStStStBu" caption="שרזה מכבדת את משתמשיה">
 		<control caption="?הידעת ששרזה היא תוכנה חינמית לחלוטין"/>
-		<control caption="שרזה לא מכילה רוגלות, תוספי פרסומות או תוכנה כלשהי נוספת בתוכה. שרזה לא מציגה פרסומות קופצות אף פעם {n}{n} אם אי פעם תראי פרסומות &quot;פרסומות קופצות&quot; בעת שאתה משתמש בשרזה, .הינך יכול להיות בטוח שהם אינם מגיעים משרזה"/>
+		<control caption="שרזה לא מכילה רוגלות, תוספי פרסומות או תוכנה כלשהי נוספת בתוכה. שרזה לא מציגה פרסומות קופצות אף פעם \n\n אם אי פעם תראי פרסומות &quot;פרסומות קופצות&quot; בעת שאתה משתמש בשרזה, .הינך יכול להיות בטוח שהם אינם מגיעים משרזה"/>
 		<control caption="לצערנו הרבה תוכנות אחרות כן מגיעות עם תוספי פרסומות ורוגלות, לכן אם הינך רואה משהו חשוד כדאי שתבדוק את המחשב עם תוכנה לניקוי רוגלות ותוספי פרסומות"/>
 		<control caption="אינך אמור לשלם כלל כדי לקבל את שרזה. שרזה ניתנת להורדה בחינם על ידי כל אחד מהאתר  http://PeerProject.sourceforge.net/.  אם נדרשת לשלם למישהו תמורת שרזה.עלייך לבקש החזר מלא לכספך באופן מיידי."/>
 		<control caption="!שרזה מכבדת את משתמשיה"/>

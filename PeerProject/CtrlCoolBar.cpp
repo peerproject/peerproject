@@ -715,8 +715,11 @@ void CCoolBarCtrl::OnUpdateCmdUI(CFrameWnd* pTarget, BOOL bDisableIfNoHndler)
 	BOOL bDirty		= FALSE;
 	BOOL bLocked	= FALSE;
 
-	if ( m_pSyncObject != NULL )
+	if ( m_pSyncObject )
+	{
 		bLocked = m_pSyncObject->Lock( 200 );
+		if ( ! bLocked ) return;
+	}
 
 	for ( POSITION pos = m_pItems.GetHeadPosition() ; pos ; )
 	{

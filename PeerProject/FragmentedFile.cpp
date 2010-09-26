@@ -920,7 +920,9 @@ BOOL CFragmentedFile::VirtualWrite(QWORD nOffset, const char* pBuffer, QWORD nBu
 			return FALSE;	// EOF
 
 		QWORD nPartOffset = ( nOffset - (*i).m_nOffset );
-		ASSERT( (*i).m_nSize >= nPartOffset );
+		if ( (*i).m_nSize < nPartOffset )
+			return FALSE;	// EOF
+
 		QWORD nPartLength = min( nBuffer, (*i).m_nSize - nPartOffset );
 		if ( ! nPartLength )
 			continue;	// Skip zero length files

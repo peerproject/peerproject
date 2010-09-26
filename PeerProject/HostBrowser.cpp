@@ -349,10 +349,8 @@ BOOL CHostBrowser::SendPush(BOOL bMessage)
 
 		return TRUE;
 	}
-	else
-	{
-		return FALSE;
-	}
+
+	return FALSE;
 }
 
 BOOL CHostBrowser::OnPush(const Hashes::Guid& oClientID, CConnection* pConnection)
@@ -398,9 +396,9 @@ void CHostBrowser::SendRequest()
 		}
 
 		Write( _P("Accept: text/html") );
-		if ( m_nProtocol == PROTOCOL_G1 || m_nProtocol == PROTOCOL_G2 )
+		if ( m_nProtocol == PROTOCOL_G2 || m_nProtocol == PROTOCOL_G1 || m_nProtocol == PROTOCOL_HTTP )
 			Write( _P(", application/x-gnutella-packets") );
-		if ( m_nProtocol == PROTOCOL_G2 )
+		if ( m_nProtocol == PROTOCOL_G2 || m_nProtocol == PROTOCOL_HTTP )
 			Write( _P(", application/x-gnutella2") );
 		Write( _P("\r\n") );
 
@@ -477,7 +475,8 @@ BOOL CHostBrowser::ReadResponseLine()
 	else
 	{
 		strMessage.TrimLeft();
-		if ( strMessage.GetLength() > 256 ) strMessage = _T("No Message");	// Should it be truncated?
+		if ( strMessage.GetLength() > 256 )
+			strMessage = _T("No Message");	// Should it be truncated?
 
 		theApp.Message( MSG_ERROR, IDS_BROWSE_HTTPCODE, m_sAddress, strCode, strMessage );
 
@@ -675,7 +674,8 @@ BOOL CHostBrowser::StreamPacketsG1()
 		m_pBuffer->Remove( nLength );
 	}
 
-	if ( ! bSuccess ) Stop();
+	if ( ! bSuccess )
+		Stop();
 
 	return bSuccess;
 }
@@ -803,8 +803,10 @@ void CHostBrowser::OnProfilePacket(CG2Packet* pPacket)
 
 			if ( pXML != NULL )
 			{
-				if ( m_pProfile == NULL ) m_pProfile = new CGProfile();
-				if ( ! m_pProfile->FromXML( pXML ) ) delete pXML;
+				if ( m_pProfile == NULL )
+					m_pProfile = new CGProfile();
+				if ( ! m_pProfile->FromXML( pXML ) )
+					delete pXML;
 				if ( m_pProfile != NULL && ! m_pProfile->IsValid() )
 				{
 					delete m_pProfile;

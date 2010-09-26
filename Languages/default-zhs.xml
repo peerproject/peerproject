@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Chinese (Simplified) Skin File -->
 
-<!-- Translation based on default-en.xml r58 (Shareaza r6092) -->
+<!-- Translation based on default-en.xml r59 (Shareaza r6092) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -342,7 +342,7 @@
 	<toolbar name="CIRCFrame">
 		<button id="ID_IRC_SENDTEXT" text="Send" tip="Post Your Comments"/>
 		<separator/>
-		<button id="ID_IRC_CLOSETAB" text="Close" tip="Exit Current Channel Window"/>
+		<button id="ID_IRC_CLOSETAB" text="关闭" tip="Exit Current Channel Window"/>
 		<rightAlign/>
 		<button id="ID_IRC_CONNECT" text="连接到" tip="Connect to IRC"/>
 		<button id="ID_IRC_DISCONNECT" text="断开" tip="Disconnect from IRC"/>
@@ -371,6 +371,37 @@
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="设置"/>
+	</toolbar>
+	<!-- SECURITY WINDOW -->
+	<toolbar name="CSecurityWnd">
+		<button id="ID_SECURITY_ADD" text="添加规则"/>
+		<separator/>
+		<button id="ID_SECURITY_EDIT" text="编辑规则"/>
+		<button id="ID_SECURITY_REMOVE" text="删除规则"/>
+		<separator/>
+		<button id="ID_SECURITY_MOVE_UP" text="上移"/>
+		<button id="ID_SECURITY_MOVE_DOWN" text="下移"/>
+		<separator/>
+		<rightAlign/>
+		<button id="ID_SECURITY_RESET" text="重置列表"/>
+		<separator/>
+		<button id="ID_SECURITY_IMPORT" text="导入列表"/>
+		<button id="ID_SECURITY_EXPORT" text="导出列表"/>
+	</toolbar>
+	<!-- SCHEDULER WINDOW -->
+	<toolbar name="CSchedulerWnd">
+		<button id="ID_SCHEDULER_ADD" text="添加规则"/>
+		<separator/>
+		<button id="ID_SCHEDULER_EDIT" text="编辑规则"/>
+		<button id="ID_SCHEDULER_REMOVE" text="删除规则"/>
+		<separator/>
+		<button id="ID_SCHEDULER_ACTIVATE" text="Activate"/>
+		<button id="ID_SCHEDULER_DEACTIVATE" text="Deactivate"/>
+		<rightAlign/>
+		<button id="ID_SCHEDULER_REMOVE_ALL" text="重置列表"/>
+		<separator/>
+		<button id="ID_SCHEDULER_IMPORT" text="导入列表"/>
+		<button id="ID_SCHEDULER_EXPORT" text="导出列表"/>
 	</toolbar>
 	<!-- HIT MONITOR WINDOW -->
 	<toolbar name="CHitMonitorWnd">
@@ -415,6 +446,35 @@
 		<button id="ID_CHAT_CONNECT" text="连接" visible="false"/>
 		<button id="ID_CHAT_DISCONNECT" text="断开"/>
 	</toolbar>
+	<!-- IRC WINDOW -->
+	<menu name="CIRCTabRClick">
+		<item id="ID_IRC_CLOSETAB" text="关闭(_C)"/>
+	</menu>
+	<menu name="CIRCUserList">
+		<item id="ID_IRC_WHOIS" text="是谁"/>
+		<item id="ID_IRC_QUERY" text="查询"/>
+		<separator/>
+		<menu text="Actions">
+			<item id="ID_IRC_TIME" text="时间"/>
+			<item id="ID_IRC_VERSION" text="版本"/>
+			<item id="ID_IRC_BROWSE" text="_Browse (G2)"/>
+		</menu>
+		<separator/>
+		<menu text="Control">
+			<item id="ID_IRC_IGNORE" text="忽略(_I)"/>
+			<item id="ID_IRC_UNIGNORE" text="取消忽略(_U)"/>
+			<item id="ID_IRC_OP" text="带帽(_O)"/>
+			<item id="ID_IRC_DEOP" text="摘帽(_D)"/>
+			<item id="ID_IRC_VOICE" text="私聊(_V)"/>
+			<item id="ID_IRC_DEVOICE" text="关闭私聊(_E)"/>
+			<item id="ID_IRC_KICK" text="踢出(_K)"/>
+			<item id="ID_IRC_KICKWHY" text="踢出 (为什么？)"/>
+			<item id="ID_IRC_BAN" text="屏蔽(_B)"/>
+			<item id="ID_IRC_UNBAN" text="取消屏蔽(_U)"/>
+			<item id="ID_IRC_BANKICK" text="踢出并屏蔽"/>
+			<item id="ID_IRC_BANKICKWHY" text="踢出并屏蔽 (为什么？)"/>
+		</menu>
+	</menu>
 	<!-- WEBSERVICES -->
 	<!-- IMAGE VIEWER PLUGIN WINDOW -->
 	<toolbar name="ImageViewerWnd">
@@ -719,9 +779,9 @@
 			<item id="ID_NETWORK_BROWSE_TO" text="浏览主机(_B)..."/>
 			<separator/>
 			<menu text="选择网络(_N)">
-				<item id="ID_NETWORK_G2" text="连接到 Gnutella2(_G)"/>
-				<item id="ID_NETWORK_G1" text="连接到 Gnutella1(_1)"/>
-				<item id="ID_NETWORK_ED2K" text="连接到 edonkey(_E)"/>
+				<item id="ID_NETWORK_G2" text="连接到 Gnutella_2"/>
+				<item id="ID_NETWORK_G1" text="连接到 _Gnutella"/>
+				<item id="ID_NETWORK_ED2K" text="连接到 _eDonkey"/>
 			</menu>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="传送后关闭(_A)"/>
@@ -1525,6 +1585,21 @@
 		<separator/>
 		<item id="ID_SECURITY_EDIT" text="属性(_P)"/>
 	</menu>
+	<!-- SCHEDULER WINDOW -->
+	<menu name="CSchedulerWnd">
+		<item id="ID_SCHEDULER_ADD" text="添加规则(_A)..."/>
+		<separator/>
+		<item id="ID_SCHEDULER_EDIT" text="属性"/>
+		<item id="ID_SCHEDULER_REMOVE" text="移除"/>
+		<separator/>
+		<item id="ID_SCHEDULER_ACTIVATE" text="接受"/>
+		<item id="ID_SCHEDULER_DEACTIVATE" text="拒绝"/>
+		<separator/>
+		<item id="ID_SCHEDULER_IMPORT" text="导入(_I)..."/>
+		<item id="ID_SCHEDULER_EXPORT" text="导出(_E)..."/>
+		<separator/>
+		<item id="ID_SCHEDULER_REMOVE_ALL" text="Remove Al_l"/>
+	</menu>
 	<!-- DISCOVERY SERVICES WINDOW -->
 	<menu name="CDiscoveryWnd">
 		<item id="ID_DISCOVERY_QUERY" text="查询(_Q)"/>
@@ -1577,7 +1652,7 @@
 		<anchor id="Header" width="32" height="152"/>
 		<newline gap="0"/>
 		<group id="1">
-			<icon res="130" width="32" height="32"/><gap size="8"/>
+			<icon res="136" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">准 备   连 接</heading>
 			<newline gap="8" indent="42"/>
 			<text>欢迎来到 PeerProject ！&#160;您现在没有连接到任何 P2P 网络。 &#160;</text>
@@ -1585,12 +1660,12 @@
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="2">
-			<icon res="134" width="32" height="32"/><gap size="8"/>
+			<icon res="130" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">搜 索</heading>
 			<newline gap="8" indent="42"/>
 			<anchor id="SearchBox" width="256" height="80"/>
 			<newline gap="14" indent="0"/>
-			<icon res="136" width="32" height="32" target="command:shell:downloads"/><gap size="8"/>
+			<icon res="124" width="32" height="32" target="command:shell:downloads"/><gap size="8"/>
 			<heading align="middle">我 的   下 载</heading>
 			<newline gap="8" indent="42"/>
 			<text>打开您的下载文件夹</text>
@@ -1607,7 +1682,7 @@
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="4">
-			<icon res="252" width="32" height="32" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
+			<icon res="180" width="32" height="32" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 			<heading align="middle">警 告   -   您 位 于 防 火 墙 后</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">PeerProject 发现您位于 NAT 路由器或防火墙之后，
@@ -1620,24 +1695,24 @@
 		<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">定 制 &#160;PEERPROJECT</heading>
 		<newline gap="12" indent="42"/>
-		<icon res="182" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
+		<icon res="196"width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
 		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">皮肤外观</link>
 		<text align="middle">&#160;- 更改 PeerProject 的外观</text>
 		<newline gap="8"/>
-		<icon res="141" width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
+		<icon res="138"width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
 		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
 		<text align="middle">&#160;- Update blocklist</text>
 		<newline gap="8"/>
-		<icon res="317" width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
+		<icon res="197"width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 		<link target="command:ID_TOOLS_WIZARD" align="middle">设置向导</link>
 		<text align="middle">&#160;- 编辑 PeerProject 的设置</text>
 		<newline gap="8"/>
-		<icon res="147" width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
+		<icon res="182"width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
 		<link target="command:ID_HELP_FAQ" align="middle">快速帮助</link>
 		<text align="middle">&#160;- 获取使用 PeerProject 的基本帮助, or </text>
 		<link target="command:ID_TAB_IRC" align="middle">IRC.</link>
 		<newline gap="8"/>
-		<icon res="175" width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
+		<icon res="201"width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
 		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">本地论坛</link>
 		<text align="middle">&#160;- 转到您的中文论坛</text>
 		<newline gap="18" indent="0"/>
@@ -1855,32 +1930,32 @@
 		</group>
 		<group id="40">
 			<newline gap="1"/>
-			<icon res="265"/><gap size="5"/>
+			<icon res="203"/><gap size="5"/>
 			<link id="ContactEmail" align="middle"/>
 		</group>
 		<group id="44">
 			<newline gap="1"/>
-			<icon res="1008"/><gap size="5"/>
+			<icon res="206"/><gap size="5"/>
 			<link id="ContactMSN"/>
 		</group>
 		<group id="41">
 			<newline gap="1"/>
-			<icon res="206"/><gap size="5"/>
+			<icon res="208"/><gap size="5"/>
 			<link id="ContactYahoo"/>
 		</group>
 		<group id="42">
 			<newline gap="1"/>
-			<icon res="208"/><gap size="5"/>
+			<icon res="205"/><gap size="5"/>
 			<link id="ContactICQ"/>
 		</group>
 		<group id="43">
 			<newline gap="1"/>
-			<icon res="207"/><gap size="5"/>
+			<icon res="204"/><gap size="5"/>
 			<link id="ContactAOL"/>
 		</group>
 		<group id="45">
 			<newline gap="1"/>
-			<icon res="207"/><gap size="5"/>
+			<icon res="204"/><gap size="5"/>
 			<link id="ContactJabber"/>
 		</group>
 		<group id="5">
@@ -1906,7 +1981,7 @@
 			<newline gap="16" indent="0"/>
 			<text format="b">社区</text>
 			<newline gap="4" indent="8"/>
-			<icon res="140" target="command:ID_SEARCH_CHAT"/>
+			<icon res="127"target="command:ID_SEARCH_CHAT"/>
 			<gap size="5"/>
 			<link target="command:ID_SEARCH_CHAT" align="middle">与用户聊天</link>
 		</group>
@@ -2456,702 +2531,703 @@
 <!-- Localized Strings -->
 <strings>
 	<string id="WINDOW_MAIN" value="PeerProject"/>
+	<string id="WINDOW_HOME" value="PeerProject 首页"/>
 	<string id="WINDOW_SYSTEM" value="系统"/>
 	<string id="WINDOW_NEIGHBOURS" value="邻居"/>
 	<string id="WINDOW_PACKET" value="数据包转储"/>
 	<string id="WINDOW_HOSTCACHE" value="主机缓存"/>
-	<string id="WINDOW_SEARCHMONITOR" value="搜索监视器"/>
 	<string id="WINDOW_SEARCH" value="搜索"/>
+	<string id="WINDOW_SEARCHPAD" value="搜索"/>
+	<string id="WINDOW_SEARCHMONITOR" value="搜索监视器"/>
 	<string id="WINDOW_HITMONITOR" value="命中监视器"/>
 	<string id="WINDOW_DOWNLOADS" value="下载"/>
-	<string id="WINDOW_LIBRARY" value="收藏"/>
 	<string id="WINDOW_UPLOADS" value="上传"/>
+	<string id="WINDOW_LIBRARY" value="收藏"/>
 	<string id="WINDOW_TRAFFIC" value="图表"/>
 	<string id="WINDOW_CHAT" value="聊天"/>
 	<string id="WINDOW_SECURITY" value="安全"/>
+	<string id="WINDOW_SCHEDULER" value="调度"/>
 	<string id="WINDOW_DISCOVERY" value="探索服务"/>
 	<string id="WINDOW_BROWSEHOST" value="浏览"/>
-	<string id="WINDOW_HOME" value="PeerProject 首页"/>
 	<string id="WINDOW_MEDIA" value="媒体播放器"/>
-	<string id="WINDOW_SEARCHPAD" value="搜索"/>
 	<string id="WINDOW_HELP" value="PeerProject 帮助"/>
-	<string id="7000" value="您确定要删除此过滤吗？"/>
-	<string id="7001" value="构架(&amp;S)"/>
-	<string id="7002" value="多重数值"/>
-	<string id="7003" value="多重"/>
-	<string id="7004" value="已经存在一个名为 &quot;%s&quot; 的过滤，您希望替换吗？"/>
-	<string id="7005" value="请命名您设置的过滤。"/>
-	<string id="7100" value="此模板无效。"/>
-	<string id="7101" value="此模板无任何自定义设置。"/>
-	<string id="7102" value="您确定要删除 &quot;%s&quot; 模板？\n此操作无法恢复。"/>
-	<string id="8000" value="PeerProject 设置"/>
-	<string id="8001" value="欢迎来到 PeerProject"/>
-	<string id="8002" value="文件属性"/>
-	<string id="8003" value="编辑个人资料"/>
-	<string id="8004" value="!欢迎使用 PeerProject (version) !\n.\nPeerProject 是完全免费的软件。\n请遵照知识产权法负责使用。\n."/>
-	<string id="8005" value="(传送后关闭)"/>
-	<string id="8006" value="您还未连接。请单击连接按钮开始。"/>
-	<string id="8007" value="没有活动的搜索。请单击搜索开始。"/>
-	<string id="8008" value="PeerProject 已经完成下载新的 PeerProject 版本 (%s)。您要立即升级吗？\n\n如果您选择是，PeerProject 将暂时关闭并安装升级程序。"/>
-	<string id="8009" value="您确定要删除 &quot;%s&quot; 皮肤吗？ 此操作不可逆。"/>
-	<string id="8010" value="这是 PeerProject 的内部测试版本， beta 测试期已经结束。请下载 http://peerproject.org/ 完整的官方版本。"/>
-	<string id="8011" value="更改显示模式将关闭您已经打开的窗口。您要立即更改吗？"/>
-	<string id="8012" value="Torrent 信息"/>
-	<string id="8060" value="集端/超对等模式有 %lu 个邻居。%s 处于本地收藏中。"/>
-	<string id="8061" value="超对等模式有 %lu 个邻居。%s 处于本地收藏中。"/>
-	<string id="8062" value="集端模式有 %lu 个邻居。%s 处于本地收藏中。"/>
-	<string id="8063" value="已连接。%s 于本地收藏夹。"/>
-	<string id="8064" value="连接到 %lu 个邻居。%s 处于本地收藏中。"/>
-	<string id="8065" value="连接网络..."/>
-	<string id="8066" value="尚未连接网络。"/>
-	<string id="8067" value="%s传入:%s传出 (下载:%I64i/上传:%I64i)"/>
-	<string id="8068" value="%s传入:%s传出 (下载:%I64i/上传:%I64i/活动:%I64i)"/>
-	<string id="8069" value="连接"/>
-	<string id="8070" value="连接中..."/>
-	<string id="8071" value="连接完毕"/>
-	<string id="8072" value="断开连接"/>
-	<string id="8096" value="此区域显示选定文件的更多信息。"/>
-	<string id="8097" value="1 个资源可用。 (%s/s)"/>
-	<string id="8098" value="%i 个资源可用。 (%s/s)"/>
-	<string id="8099" value="这里有 1 个评价。"/>
-	<string id="8100" value="这里有 %i 个评价。"/>
-	<string id="8101" value="%s 写入:"/>
-	<string id="8102" value="%s 对此文件评级:"/>
-	<string id="8103" value="点击进行预览"/>
-	<string id="8104" value="正在产生预览..."/>
-	<string id="8105" value="未能从 &quot;%s&quot; 下载预览内容。"/>
-	<string id="8128" value="单击这里重新搜索"/>
-	<string id="8129" value="此窗口中尚未开始搜索。"/>
-	<string id="8130" value="PeerProject 正在搜索网络..."/>
-	<string id="8131" value="网络没有返回任何符合的内容。"/>
-	<string id="8132" value="某些结果可用，但已被过滤。"/>
-	<string id="8133" value="PeerProject 正积极地搜索网络..."/>
-	<string id="8134" value="立即开始新的搜索。确定要清除之前的搜索吗？"/>
-	<string id="8135" value="无元数据"/>
-	<string id="8136" value="纯文字搜索"/>
-	<string id="8141" value="显示搜索面板"/>
-	<string id="8142" value="隐藏搜索面板"/>
-	<string id="8143" value="搜索中..."/>
-	<string id="8144" value="开始搜索"/>
-	<string id="8145" value="重新搜索"/>
-	<string id="8146" value="停止"/>
-	<string id="8147" value="所有文件类型"/>
-	<string id="8148" value="在此输入您的搜索:"/>
-	<string id="8149" value="查找此类型的文件:"/>
-	<string id="8150" value="正在搜索:"/>
-	<string id="8151" value="成功找到:"/>
-	<string id="8152" value="%lu 个集端，%lu 个子端"/>
-	<string id="8153" value="当前未进行搜索"/>
-	<string id="8154" value="没有找到文件"/>
-	<string id="8155" value="%lu 个文件共 %lu 次命中|%lu 个文件共 %lu 次命中|%lu 个文件共 %lu 次命中"/>
-	<string id="8156" value="搜索"/>
-	<string id="8157" value="结果"/>
-	<string id="8158" value="清除"/>
-	<string id="8159" value="高级"/>
-	<string id="8160" value="正在建立到主机的连接..."/>
-	<string id="8161" value="发送获取请求，等待连接..."/>
-	<string id="8162" value="连接完毕，请求浏览..."/>
-	<string id="8163" value="正在下载浏览回应 (%2.f%%)..."/>
-	<string id="8164" value="未能连接到主机以浏览用户。"/>
-	<string id="8165" value="未能下载下载文件列表。此主机可能不支持浏览功能。"/>
-	<string id="8166" value="在此网络中搜索:"/>
-	<string id="8167" value="所有网络"/>
-	<string id="8176" value="搜索 PeerProject"/>
-	<string id="8177" value="输入要搜索的关键词:"/>
-	<string id="8178" value="要搜索什么类型的文件？"/>
-	<string id="8179" value="(清除搜索历史记录)"/>
-	<string id="8180" value="文件大小必须为"/>
-	<string id="8181" value="到"/>
-	<string id="8208" value="PeerProject 正在为 %Iu 个文件创建 Hash 值:"/>
-<!--	<string id="8221" value="PeerProject 正在查找资源:"/>
-	<string id="8222" value="PeerProject 正在下载:"/>
-	<string id="8223" value="此下载已暂停:"/>
-	<string id="8224" value="PeerProject 正在移动下载:"/>
-	<string id="8225" value="PeerProject 正在检测下载的错误:"/>
-	<string id="8226" value="PeerProject 已经完成下载:"/>
--->	<string id="8227" value="%i 天 %i 小时"/>
-	<string id="8228" value="%i 小时 %i 分钟"/>
-	<string id="8229" value="%i 分钟 %i 秒"/>
-	<string id="8230" value="%i 秒"/>
-	<string id="8231" value="没有资源"/>
-	<string id="8232" value="打开"/>
-	<string id="8233" value="取消"/>
-	<string id="8235" value="总体传送速度:"/>
-	<string id="8236" value="估计剩余时间:"/>
-	<string id="8237" value="完成下载数量:"/>
-	<string id="8238" value="已经上传数量:"/>
-	<string id="8239" value="完成"/>
-	<string id="8240" value="已知资源数量:"/>
-	<string id="8241" value="评价数目:"/>
-	<string id="8244" value="限制下载速度"/>
-	<string id="8245" value="限制上传速度"/>
-	<string id="8288" value="正在浏览您的 PeerProject 收藏"/>
-	<string id="8289" value="浏览"/>
-	<string id="8290" value="正在浏览 %i 个文件夹的内容"/>
-	<string id="8291" value="多重文件夹"/>
-	<string id="8292" value="已选定 %i 个文件"/>
-	<string id="8293" value="没有文件被选定"/>
-	<string id="8294" value="最近添加文件"/>
-	<string id="8295" value="为此文件评级"/>
-	<string id="8304" value="不可用"/>
-	<string id="8306" value="地址"/>
-	<string id="8307" value="类型"/>
-	<string id="8308" value="大小"/>
-	<string id="8309" value="部分资源 (%.2f%% 可用)"/>
-	<string id="8310" value="%i 个上传通道，%i 个在队列中等待"/>
-	<string id="8311" value="您的收藏中已经存在此文件。"/>
-	<string id="8312" value="您的下载列表中已经存在此文件。"/>
-	<string id="8313" value="此文件可能是广告。"/>
-	<string id="8314" value="您以前已经下载过并删除了此文件。"/>
-	<string id="8315" value="黑名单:"/>
-	<string id="8316" value="命中"/>
-	<string id="8317" value="上传"/>
-	<string id="8318" value="%lu 今天，%lu 总计"/>
-	<string id="8319" value="上传:"/>
-	<string id="8320" value="状态:"/>
-	<string id="8321" value="速度:"/>
-	<string id="8322" value="链接:"/>
-	<string id="8323" value="代理:"/>
-	<string id="8324" value="停止"/>
-	<string id="8325" value="活动"/>
-	<string id="8326" value="下一个"/>
-	<string id="8327" value="文件总计:"/>
-	<string id="8328" value="大小总计:"/>
-	<string id="8329" value="于您的收藏"/>
-	<string id="8330" value="文件夹"/>
-	<string id="8331" value="此来源正忙"/>
-	<string id="8332" value="此来源有防火墙"/>
-	<string id="8333" value="此来源可能不稳定"/>
-	<string id="8334" value="此文件来源正忙"/>
-	<string id="8335" value="此文件来源有防火墙"/>
-	<string id="8336" value="此文件来源可能不稳定"/>
-	<string id="8337" value="未受信任"/>
-	<string id="8338" value="无 Hashset"/>
-	<string id="16064" value="启动 PeerProject 网络内核..."/>
-	<string id="16065" value="不能绑定正进入连接的主机 %s 的 %i 端口。不支持进入的连接。"/>
-	<string id="16066" value="关闭 PeerProject 网络内核..."/>
-	<string id="16067" value="从网络断开。"/>
-	<string id="16068" value="接受进入连接的 %s 主机的 %i 端口。"/>
-	<string id="16069" value="外出连接使用 %s 主机的 %i 端口。"/>
-	<string id="16070" value="不能完成 %s 主机的外出连接。外出连接将使用默认方式。"/>
-	<string id="16071" value="防火墙阻隔，不能侦听进入连接。"/>
-	<string id="16072" value="正在侦听 %s 主机 %i 端口的UDP数据。"/>
-	<string id="16073" value="正在解析 &quot;%s&quot; 主机..."/>
-	<string id="16074" value="不能解析 &quot;%s&quot; 主机。"/>
-	<string id="16075" value="安全管理器拒绝来自 %s 主机的连接。"/>
-	<string id="16076" value="安全管理器禁止连接 %s 主机。"/>
-	<string id="16077" value="您的安全策略已经屏蔽了该地址。"/>
-	<string id="16078" value="添加安全策略屏蔽 %s 主机。"/>
-	<string id="16079" value="您确定要断开连接吗？"/>
-	<string id="16081" value="为 &quot;%s&quot; 发送查询到 %s。"/>
-	<string id="16083" value="强制您的电脑进入集端模式可能会对机器性能以及 P2P 网络产生负面效用。总体来说更好的方法是让 PeerProject 决定是否使用结端模式。\n\nHub 模式并不会对您产生更好的搜索效果，或是任何其他的优越性。\n\n尽管存在这些缺点，您还是想这样做吗？"/>
-	<string id="16085" value="Gnutella2 是 PeerProject 的首要网络。停止支持它可能会严重影响您搜索结果的数量和质量。您确定要这样做吗？"/>
-	<string id="16087" value="您的传出带宽太低而无法启用此网络"/>
-	<string id="16128" value="接受来自 %s 主机 %i 端口的进入连接。"/>
-	<string id="16129" value="初始化一个邻居连接到 %s 主机 %i 端口..."/>
-	<string id="16130" value="不能初始化到 %s 主机的邻居连接。"/>
-	<string id="16131" value="连接到 %s 主机超时。"/>
-	<string id="16132" value="因缺少通讯正关闭到邻居中 %s 主机的连接。"/>
-	<string id="16133" value="正建立到邻居中 %s 主机的连接，握手中..."/>
-	<string id="16134" value="已关闭的到邻居中 %s 主机的连接。"/>
-	<string id="16135" value="不能初始化到邻居中 %s 主机的连接(被拒绝)。"/>
-	<string id="16136" value="邻居中 %s 主机已经意外断开。"/>
-	<string id="16137" value="拒绝双重连接 %s 主机。"/>
-	<string id="16138" value="已经连接到 %s 主机，因此不会再建立第二个连接。"/>
-	<string id="16139" value="邻居 %s 主机关闭了连接。(%i : %s)"/>
-	<string id="16141" value="关闭到邻居 %s 主机的连接，因为它不是集端。"/>
-	<string id="16144" value="和 %s 主机的握手超时。"/>
-	<string id="16145" value="已和 Gnutella 中的 %s 主机成功建立连接 (G%i.%i : %s)。"/>
-	<string id="16146" value="因为传输中的错误数据导致和 %s 主机的握手失败。"/>
-	<string id="16147" value="按照主机意图，关闭到 %s 主机的剩余连接 (%s 主机的 %i 端口)。"/>
-	<string id="16148" value="到 %s 主机的连接被拒绝。"/>
-	<string id="16150" value="关闭到 %s 主机的剩余连接。"/>
-	<string id="16151" value="拒绝来自 %s 主机的连接，因为这是一个屏蔽的子端节点。"/>
-	<string id="16152" value="集端网络的 %s 主机不认可我们为集端，正在关闭连接。"/>
-	<string id="16153" value="到邻居 %s 主机的连接失败使得退回到屏蔽子端模式。"/>
-	<string id="16154" value="集端连接建立完毕，关闭对等连接。"/>
-	<string id="16155" value="作为集端为子端 %s 主机提供服务。"/>
-	<string id="16156" value="邻居 %s 主机将成为集端，正在关闭连接。"/>
-	<string id="16157" value="邻居 %s 主机不是集端，正在关闭连接。"/>
-	<string id="16158" value="和 Gnutella2 的邻居 %s 主机成功的建立连接 (%s)。"/>
-	<string id="16159" value="正在关闭到非 Gnutella2 邻居 %s 主机的连接。"/>
-	<string id="16192" value="邻居 %s 主机发来的数据包超过尺寸，断开连接。"/>
-	<string id="16193" value="邻居 %s 主机发来的数据包 TTL 恒为 0，忽略数据包。"/>
-	<string id="16194" value="邻居 %s 主机发来的数据包 TTL 过大，抛弃数据包(TTL=%i，Hops=%i)。"/>
-	<string id="16195" value="邻居 %s 主机发来的 ping 数据包尺寸不匹配，忽略数据包。"/>
-	<string id="16196" value="邻居 %s 主机发来的 pong 数据包尺寸不匹配，忽略数据包。"/>
-	<string id="16197" value="%s -> %s [%i/%i] %s %s"/>
-	<string id="16198" value="子端邻居 %s 主机发来质询，断开连接。"/>
-	<string id="16199" value="邻居 %s 主机发来未被识别的数据包 (0x%.2x)，忽略数据包。"/>
-	<string id="16200" value="邻居 %s 主机发来非法的 pong 地址，忽略数据包。"/>
-	<string id="16201" value="%s: 接收到来自 %s 主机的混乱格式的质询，忽略数据包。"/>
-	<string id="16202" value="接收到来自 %s 主机混乱格式的命中数据包，忽略数据包。"/>
-	<string id="16203" value="邻居 %s 主机发来非法的获取数据包，忽略数据包。"/>
-	<string id="16208" value="从邻居 %s 主机接收到非正常的查询路由表。"/>
-	<string id="16209" value="邻居 %s 主机发送了非法查询路由表，正在断开连接。"/>
-	<string id="16210" value="邻居主机 %s 更新了它的查询路由表 (%i bit = %lu[%i]， %i%% 满额)。"/>
-	<string id="16211" value="邻居主机 %s 前送了请求到防火墙阻隔的地址，正被忽略。"/>
-	<string id="16212" value="邻居主机 %s 前送了非 GGEP 编码得扩展数据包。"/>
-	<string id="16213" value="发送查询路由表到邻居主机 %s (%i bit = %lu[%i]， %i%% 满额)。"/>
-	<string id="16254" value="默认下载组。 （显示所有文件）"/>
-	<string id="16255" value="Drag'n'drop文件复制到%s组。"/>
-	<string id="16256" value="添加 &quot;%s&quot; 的 %i 个资源到下载队列。"/>
-	<string id="16257" value="&quot;%s&quot;已经完成的下载。"/>
-	<string id="16258" value="暂停下载 &quot;%s&quot;。"/>
-	<string id="16259" value="续传下载 &quot;%s&quot;。"/>
-	<string id="16260" value="清除下载 &quot;%s&quot;。"/>
-	<string id="16261" value="为下载 &quot;%s&quot; 创建文件。"/>
-	<string id="16262" value="不能为下载创建文件 &quot;%s&quot;，正在终止。"/>
-	<string id="16263" value="不能为下载打开文件 &quot;%s&quot;，正在终止。"/>
-	<string id="16264" value="初始化一个连接到 %s 主机的 %i端口，下载 &quot;%s&quot;..."/>
-	<string id="16265" value="不能连接到 %s 的主机下载。"/>
-	<string id="16266" value="到 %s 主机的下载连接已经建立。"/>
-	<string id="16267" value="请求下载区块 (%I64u-%I64u)，属于 &quot;%s&quot;，来自于 %s 。 %s"/>
-	<string id="16268" value="没有更多的区块可供下载，正在关闭到 %s 主机的连接。"/>
-	<string id="16269" value="区块被变短，正在关闭到 %s 主机的连接。"/>
-	<string id="16270" value="发送到 %s 主机的下载请求超时，正在关闭连接。"/>
-	<string id="16271" value="正在关闭到 %s 主机的下载连接，因为缺少通讯。"/>
-	<string id="16272" value="目标下载主机 %s 没有要下载的 &quot;%s&quot; 文件。"/>
-	<string id="16273" value="目标下载主机 %s 的 HTTP 响应是非法的。"/>
-	<string id="16274" value="下载主机 %s 响应时伴随 %s (%s)。"/>
-	<string id="16275" value="下载主机的 &quot;%s&quot; 版本有不同的 URN，正在终止。"/>
-	<string id="16276" value="下载主机的 &quot;%s&quot; 版本有着不同的长度，正在终止。"/>
-	<string id="16277" value="下载主机 %s 响应了 &quot;%s&quot; 无用的数据范围，待定。"/>
-	<string id="16278" value="到 %s 的下载连接已经丢失。"/>
-	<string id="16279" value="接收到 %s 的下载内容 (%s)。"/>
-	<string id="16280" value="下载主机 %s 过于繁忙，请等待 %i 秒后再试。"/>
-	<string id="16281" value="您确定要清除 &quot;%s&quot; 吗？一旦从下载窗口中清除后，以后将不能重新开始。"/>
-	<string id="16282" value="终止从 %s 下载 &quot;%s&quot; (%s)，网络禁止。"/>
-	<string id="16283" value="&quot;%s&quot; 文件正被下载，仅作为资源被添加。"/>
-	<string id="16284" value="接收到来自 %s 的进入连接，关闭连接。"/>
-	<string id="16285" value="接收到来自 %s 不必要的进入连接。"/>
-	<string id="16286" value="%s 主机正发送下载 &quot;%s&quot;，接受。"/>
-	<string id="16287" value="不能获取到 &quot;%s&quot; 更多的下载资源，因为现在没有网络连接。"/>
-	<string id="16288" value="在 %i 个连接中为下载 &quot;%s&quot; 查询更多资源..."/>
-	<string id="16289" value="发送请求下载 &quot;%s&quot;..."/>
-	<string id="16290" value="下载主机 %s 相应了不同的，但是有用的范围 (%I64i-%I64i)，属于 &quot;%s&quot;。"/>
-	<string id="16291" value="移动 &quot;%s&quot; 到 &quot;%s&quot;，下载完毕。"/>
-	<string id="16292" value="不能移动下载 &quot;%s&quot; 到 &quot;%s&quot;。检查未完成文件是否正被使用，并且您的下载文件夹存在且可写入。"/>
-	<string id="16293" value="解析 &quot;%s&quot; 到下载 &quot;%s&quot;..."/>
-	<string id="16294" value="不能解析 &quot;%s&quot;。"/>
-	<string id="16295" value="移除带宽限制加速 &quot;%s&quot; 下载。"/>
-	<string id="16296" value="成功确认下载 &quot;%s&quot;。"/>
-	<string id="16297" value="警告: 下载 &quot;%s&quot; 未被确认，有可能不是您计划要下载的文件！"/>
-	<string id="16298" value="下载主机 %s 繁忙，正在队列中的 #%i 总 %i 个等待 (&quot;%s&quot;)。"/>
-	<string id="16299" value="您确定要清除所有暂停的下载吗？一旦下载被清除将被不能重新续传。"/>
-	<string id="16300" value="您确定要删除下载 &quot;%s&quot;吗？"/>
-	<string id="16301" value="向 %s 主机请求 tiger-tree 卷查询 &quot;%s&quot;..."/>
-	<string id="16302" value="下载主机 %s 不能满足 tiger-tree 的请求。"/>
-	<string id="16303" value="正在接收 tiger-tree 卷，来自于 %s (%s)..."/>
-	<string id="16304" value="下载主机的 tiger-tree 数据已损坏或是不匹配，忽略。"/>
-	<string id="16305" value="下载主机的 tiger-tree 与期望 root 值不匹配。"/>
-	<string id="16306" value="已经为 &quot;%s&quot;接收 tiger-tree 卷，%i 等级，最小可验证区块 %s。"/>
-	<string id="16307" value="正在关闭到 %s 的下载连接，不再请求。"/>
-	<string id="16308" value="下载主机 %s 发送未经同意的数据，关闭连接。"/>
-	<string id="16309" value="为 &quot;%s&quot; 从 %s 请求元数据..."/>
-	<string id="16310" value="正在从 %s (%s) 接收 tiger-tree 数据..."/>
-	<string id="16311" value="为 &quot;%s&quot; 从 %s 请求 edonkey Hashset..."/>
-	<string id="16312" value="已经从 %s 接收了一个无效的 edonkey Hashset，丢失资源。"/>
-	<string id="16313" value="已经为 &quot;%s&quot;接收了 edonkey Hashset，最小可验证区块 %s。"/>
-	<string id="16314" value="下载主机的 edonkey Hashset 已损坏的或不符合，丢失资源。"/>
-	<string id="16315" value="未能为下载 &quot;%s&quot; 初始化 inflate。"/>
-	<string id="16316" value="队列中等待从 edonkey 主机 %s 下载 &quot;%s&quot; 超时。"/>
-	<string id="16317" value="正在队列中等待 &quot;%s&quot;。"/>
-	<string id="16318" value="磁盘空间不够，无法下载 &quot;%s&quot; (%s)。"/>
-	<string id="16319" value="丢失资源 %s (%s)，因为发送 &quot;%s&quot; 损坏的部分(%I64i-%I64i)。"/>
-	<string id="16320" value="上传主机 %s 发送了非法的 HTTP 请求。"/>
-	<string id="16321" value="初始化外送连接到 %s。 %s"/>
-	<string id="16322" value="不能连接到  %s 主机进行外传。"/>
-	<string id="16323" value="到 %s 主机的上传连接被关闭。"/>
-	<string id="16324" value="到上传主机 %s 的请求超时。"/>
-	<string id="16325" value="上传主机 %s 请求了未知的或是不可行的目标 &quot;%s&quot;。"/>
-	<string id="16326" value="上传主机 %s 使用不同的 SHA1 请求了 &quot;%s&quot;。"/>
-	<string id="16327" value="拒绝上传 &quot;%s&quot; 到 %s 主机 (%s)，繁忙并且对方不支持队列。"/>
-	<string id="16328" value="到 %s 主机的外送连接已经建立，握手中..."/>
-	<string id="16329" value="不能打开 &quot;%s&quot; 以便上传到 %s 主机，磁盘/文件错误。"/>
-	<string id="16330" value="正在上传范围 %I64i-%I64i，其属于 &quot;%s&quot;，至 %s 主机 (%s)。"/>
-	<string id="16331" value="完成对 %s 主机的 &quot;%s&quot; 的部分上传。"/>
-	<string id="16332" value="来自 %s 主机的进入连接是 HTTP 请求。"/>
-	<string id="16333" value="过于繁忙不能上传 &quot;%s&quot; 到 %s ，队列中的位置 #%i 总 %i (&quot;%s&quot;)。"/>
-	<string id="16334" value="继承来自 %s 主机查询未知文件的外送连接，无条件连接..."/>
-	<string id="16335" value="移除对 %s 主机的上传 &quot;%s&quot;。"/>
-	<string id="16336" value="上传主机 %s 在用户代理的屏蔽列表中，禁止连接。"/>
-	<string id="16337" value="发送上传标头从 &quot;%s&quot; 到主机 %s (%s)。"/>
-	<string id="16338" value="上传主机 %s 请求了 &quot;%s&quot; 文件不被满足的范围。"/>
-	<string id="16339" value="发送默认 HTML 回应到上传主机 %s (%s)。"/>
-	<string id="16340" value="拒绝来自 %s 的浏览用户请求。"/>
-	<string id="16341" value="上传主机 %s (%s) 发送一个浏览用户请求，回应中..."/>
-	<string id="16342" value="缺少通讯导致关闭上传连接 %s。"/>
-	<string id="16343" value="关闭到 %s 的陈旧连接，因为已经有了更新的连接。"/>
-	<string id="16344" value="拒绝到 %s 的新的上传因为之前的连接仍然待定。"/>
-	<string id="16345" value="停止上传 &quot;%s&quot; 到 %s ，因为文件已被删除。"/>
-	<string id="16346" value="上传文件范围 %I64i-%I64i，其属于未完成文件 &quot;%s&quot;，至 %s 主机 (%s)。"/>
-	<string id="16347" value="队列上传 %s 被频繁请求，关闭连接。"/>
-	<string id="16348" value="拒绝到 %s 的获取请求，因为已经有太多上传连接。"/>
-	<string id="16349" value="上传 &quot;%s&quot; 的 tiger-tree 到 %s。"/>
-	<string id="16350" value="上传 &quot;%s&quot; 的元数据到 %s。"/>
-	<string id="16351" value="拒绝上传 &quot;%s&quot; 到 %s (%s)，存在过多的并发用户连接。"/>
-	<string id="16352" value="正在上传 &quot;%s&quot; 的预览到 %s。"/>
-	<string id="16353" value="拒绝上传 &quot;%s&quot; 文件的预览到 %s，因为已经存在过多预览连接。"/>
-	<string id="16354" value="上传主机 %s 请求 &quot;%s&quot; 的预览，但没有可用预览。"/>
-	<string id="16355" value="正在调度 &quot;%s&quot; 的动态预览为上传到 %s。"/>
-	<string id="16356" value="正拒绝来自于 %s 的浏览用户请求，太多浏览连接。"/>
-	<string id="16357" value="正在上传文件 &quot;%s&quot; 到主机 %s..."/>
-	<string id="16358" value="连接到 %s 的上传已丢失，保存队列位置。"/>
-	<string id="16359" value="离线排队上传主机 %s 过期，移除中。"/>
-	<string id="16360" value="拒绝上传 &quot;%s&quot; 到 %s (%s)，所有匹配队列已满。"/>
-	<string id="16361" value="刷新上传到 %s (%s)，网络失效。"/>
-	<string id="16362" value="edonkey 的上传不能被取消。您确定您要取消此上传吗？"/>
-	<string id="16363" value="Torrent 上传"/>
-	<string id="16364" value="已完成上传"/>
-	<string id="16365" value="您确定要取消/放弃此组中的每个下载项吗？"/>
-	<string id="16366" value="队列"/>
-	<string id="16367" value="eDonkey 内核"/>
-	<string id="16368" value="eDonkey 部分"/>
-	<string id="16369" value="eDonkey 保护"/>
-	<string id="16370" value="小型文件"/>
-	<string id="16371" value="中型文件"/>
-	<string id="16372" value="大型文件"/>
-	<string id="16373" value="部分文件"/>
-	<string id="16374" value="新建队列"/>
-	<string id="16375" value="部分"/>
-	<string id="16376" value="所有文件"/>
-	<string id="16377" value="HTTP 保护"/>
-	<string id="16384" value="确定要载入 &quot;%s&quot; 此文件吗？\n\n某些文件可能对您的电脑有害。载入文件前最好能确定文件的用途。"/>
-	<string id="16385" value="您将修改 %i 文件的元数据，确定要继续吗？"/>
-	<string id="16386" value="正在修改 %i 的元数据。"/>
-	<string id="16387" value="文件 &quot;%s&quot; 未被 Hash。请等待文件被 Hash，稍后再试。"/>
-	<string id="16388" value="识别和共享选定文件的功能由 Bitzi.com 提供。\n\n为了到 Bitzi 数据库进行查询，PeerProject 自动转换成 SHA1 Hash。如果涉及隐私，您可能需要查看 Bitzi.com 的隐私申明。\n\n您确定继续吗？"/>
-	<string id="16389" value="确定要永久删除选定的 %i 文件吗？ \n\n如果您确定，文件将会被移动到 &quot;回收站&quot;。"/>
-	<string id="16390" value="您还没有选定文件将被加入的媒体播放器，比如 winamp。您要选择一个吗？\n\nPeerProject 会用 &quot;/ADD&quot; 把文件名传值过去。"/>
-	<string id="16391" value="您还未连接到网络。"/>
-	<string id="16392" value="点击连接按钮开始。"/>
-	<string id="16393" value="此文件 &quot;%s&quot; 未通过 Hash 确认测试，有可能不是您计划要下载的文件。确定要打开吗？"/>
-	<string id="16394" value="确定要移除 &quot;可能不安全&quot; 的文件吗？"/>
-	<string id="16395" value="您的下载完成文件夹不在收藏中。\n\n将下载完成文件夹包括在收藏中，查看和管理将更加容易，还可以使用 PeerProject 的验证功能和自动更新。共享放在收藏中下载文件是不必要的。您可以单独选择是否共享文件。\n\n确定马上把下载文件加入收藏中吗？"/>
-	<string id="16396" value="下载文件夹已经被添加到收藏中。您想要共享吗？"/>
-	<string id="16397" value="您确定要删除 %i 个选定的专辑文件夹吗？\n\n注意: 仅仅是删除文件夹本身，并不包括专辑文件夹。"/>
-	<string id="16398" value="PeerProject 不能把 \n\n%s\n 更名为 \n%s"/>
-	<string id="16399" value="PeerProject 不能删除 \n\n%s"/>
-	<string id="16400" value="目标文件已存在:\n\n%s\n\n您要覆盖吗？"/>
-	<string id="16401" value="显示所有文件类型"/>
-	<string id="16402" value="PeerProject 已经收到一个收集文件:\r\n\r\n&quot;%s&quot;\r\n\r\n此文件可能不是一个有效的收集文件。"/>
-	<string id="16403" value="PeerProject 已经将收集文件 &quot;%s&quot; 添加到您的收藏中。"/>
-	<string id="16404" value="PeerProject 不能安装收集文件 &quot;%s&quot; 通过复制它到文件夹 &quot;%s&quot;。"/>
-	<string id="16406" value="您要下载此收集中的所有文件吗？\r\n\r\n选择取消以停止任何进一步的提示。"/>
-	<string id="16407" value="您要防止此收集提示您下载的任何文件吗？"/>
-	<string id="16408" value="复制 URI(_U)"/>
-	<string id="16409" value="导出 URI(_U)..."/>
-	<string id="16410" value="选定文件夹的子目录 &quot;%s&quot; 已经是您收藏的一部分。\n添加此文件夹将导致重新 Hash 某些文件。\n\n您希望继续吗？"/>
-	<string id="16411" value="不能移动文件 %s。此文件可能正在被其他程序使用。\n\n您希望以复制方式来替代移动吗？"/>
-	<string id="16448" value="连接到 %s，握手..."/>
-	<string id="16449" value="正在与 %s (%s) 聊天。"/>
-	<string id="16450" value="到 %s 的连接已关闭。"/>
-	<string id="16451" value="到 %s 的连接丢失。"/>
-	<string id="16452" value="不能识别命令 &quot;%s&quot;。"/>
-	<string id="16453" value="连接到 %s 进行聊天..."/>
-	<string id="16454" value="已接受传入聊天请求于 %s，握手..."/>
-	<string id="16455" value="%s 已更名为 %s。"/>
-	<string id="16456" value="未能连接到主机 %s。"/>
-	<string id="16457" value="因为网络传输中的错误数据导致连接失败。"/>
-	<string id="16458" value="接收到未知回应: %s"/>
-	<string id="16459" value="您还未连接。"/>
-	<string id="16512" value="全部接收带宽"/>
-	<string id="16513" value="全部传送带宽"/>
-	<string id="16514" value="Gnutella 连接(全部)"/>
-	<string id="16515" value="Gnutella 连接(活动)"/>
-	<string id="16516" value="Gnutella 接收带宽"/>
-	<string id="16517" value="Gnutella 传送带宽"/>
-	<string id="16518" value="下载文件计数"/>
-	<string id="16519" value="下载传送计数"/>
-	<string id="16520" value="下载带宽"/>
-	<string id="16521" value="上传传送计数"/>
-	<string id="16522" value="上传带宽"/>
-	<string id="16523" value="接收的 Gnutella 数据包"/>
-	<string id="16524" value="传送的 Gnutella 数据包"/>
-	<string id="16525" value="路由的 Gnutella 数据包"/>
-	<string id="16526" value="抛弃的 Gnutella 数据包"/>
-	<string id="16527" value="丢失的 Gnutella 数据包"/>
-	<string id="16528" value="Gnutella 本地查询"/>
-	<string id="16532" value="全部 TCP 接收带宽"/>
-	<string id="16533" value="全部 TCP 传送带宽"/>
-	<string id="16534" value="全部 UDP 接收带宽"/>
-	<string id="16535" value="全部 UDP 传送带宽"/>
-	<string id="16536" value="发送/接受 Ping 的 Gnutella 频率"/>
-	<string id="16537" value="发送/接受 Pong 的 Gnutella 频率"/>
-	<string id="16768" value="已接收链接 &quot;%s&quot;"/>
-	<string id="16769" value="未能粘贴链接: PeerProject 不能识别此链接。"/>
-	<string id="16770" value="未能显示链接操作对话框因为 PeerProject 正忙。"/>
-	<string id="16771" value="您的收藏中已经存在文件 &quot;%s&quot;。您还希望下载吗？"/>
-	<string id="16772" value="主机:"/>
-	<string id="16773" value="端口:"/>
-	<string id="16774" value="连接(_C)"/>
-	<string id="16775" value="浏览(_B)"/>
-	<string id="16776" value="添加"/>
-	<string id="16777" value="文件名:"/>
-	<string id="16778" value="链接:"/>
-	<string id="16779" value="类型:"/>
-	<string id="16780" value="未指定"/>
-	<string id="16781" value="请求中..."/>
-	<string id="16782" value="成功！"/>
-	<string id="16783" value="已完成，单击关闭"/>
-	<string id="16784" value="关闭(_C)"/>
-	<string id="16785" value="(无可视化效果)"/>
-	<string id="16800" value="您还未指定一个连接速度。在连接前，请选择您的 Internet 连接类型，或者输入连接速度。"/>
-	<string id="16801" value="请在连接前选择您使用的 Internet 连接类型。"/>
-	<string id="16802" value="您还未指定任何共享文件夹。您确定吗？"/>
-	<string id="16803" value="您共享的文件夹是后面已共享文件夹的一部分:\n\n%s"/>
-	<string id="16804" value="您尚未在您的配置文件中输入屏幕名称。"/>
-	<string id="16805" value="您尚未在您的配置文件中输入您的地址。\n\n输入您的地址是非常有益的，它可以使其他用户看见您来自于何处。注意，输入您的地址并不会暴露任何对您的安全有害的信息。\n\n您确定要继续而不输入您的地址吗？"/>
-	<string id="16806" value="您已表明您希望在您的 NAT 路由或防火墙上设立端口映射。\n\n请配置您的网络将 TCP 和 UDP 端口 %i 映射到您的本地计算机。"/>
-	<string id="16807" value="请输入您希望设置的带宽限制，以格式 &quot;123 kb/s&quot; 千比特每秒，或 &quot;123 KB/s&quot; 千字节每秒。"/>
-	<string id="16808" value="您没有选择您的年龄和性别。您确定要继续而不加理会吗？"/>
-	<string id="16809" value="退出(_X)"/>
-	<string id="16810" value="岁"/>
-	<string id="16811" value="自动"/>
-	<string id="16812" value="请稍候: 查找 UPnP 驱动器并进行设置..."/>
-	<string id="16813" value="请稍候: 更新发现服务器..."/>
-	<string id="16814" value="请稍候: 更新 edonkey 服务器列表..."/>
-	<string id="16815" value="UPnP Device Host 服务未运行。请重新设置该服务。\n您需要将该服务的启动类型设置为&quot;自动&quot;。"/>
-	<string id="16816" value="eDonkey 网络使用需要等待很长时间的队列。限制最大可接受的队列位置如果非常严格的话，您可能难以开始下载。\n您确定要限制您能接受的队列位置吗？"/>
-	<string id="16817" value="Windows 系统不支持超过 256 个字符的文件路径。\n请选择一个较短路径的文件夹。"/>
-	<string id="16818" value="完成文件的文件夹与未完成文件的文件夹不能为同一文件夹。"/>
-	<string id="16819" value="未完成文件的文件夹不能添加到收藏中，因为它将降低程序的性能。未完成文件可以在传送窗口中直接共享。"/>
-	<string id="16864" value="正在查询主机探索服务..."/>
-	<string id="16865" value="正在查询探索服务 &quot;%s&quot;..."/>
-	<string id="16866" value="G网缓存处理成功 (&quot;%s&quot;)。"/>
-	<string id="16867" value="探索服务 &quot;%s&quot; 失败，失败计数 %i。"/>
-	<string id="16868" value="探索服务 &quot;%s&quot; 已经失败 %i 次，正在移除。"/>
-	<string id="16870" value="正在发送G网缓存升级到 &quot;%s&quot; 服务..."/>
-	<string id="16871" value="正在提交G网缓存 &quot;%s&quot; 到随机的G网缓存..."/>
-	<string id="16928" value="初始化连接到 %s 以浏览用户..."/>
-	<string id="16929" value="未能初始化连接到 %s 以浏览用户。"/>
-	<string id="16930" value="发送获取请求到 %s 以浏览用户。"/>
-	<string id="16931" value="未能发送获取请求到 %s 以浏览用户。"/>
-	<string id="16932" value="发送浏览用户请求到 %s..."/>
-	<string id="16933" value="浏览主机 %s 回应以无效的 HTTP 应答。"/>
-	<string id="16934" value="浏览主机 %s 回应以代码 %s (%s)。"/>
-	<string id="16935" value="浏览主机 %s 回应以无法辨识的应答，并且可能不支持 用户/主机 浏览。"/>
-	<string id="16936" value="接收内容来自于浏览主机 %s (%s)"/>
-	<string id="16938" value="来自 %s 主机的 Gnutella 数据包被错误解码。"/>
-	<string id="16939" value="完成浏览用户 %s，%i 个文件被找到。"/>
-	<string id="16940" value="连接到 %s 的浏览用户已丢失。"/>
-	<string id="16941" value="正在关闭浏览用户连接 %s 因为缺少通讯。"/>
-	<string id="16942" value="关闭连接到 %s 的浏览用户。"/>
-	<string id="16943" value="浏览 %s"/>
-	<string id="16944" value="查找到 %i 个共享的文件，在 %s 的收藏中。"/>
-	<string id="16991" value="PeerProject 媒体播放器"/>
-	<string id="16992" value="PeerProject 无法初始化它的媒体服务插件。请重新安装，并确定您已经安装必要的媒体编码解码器和输出驱动程序。"/>
-	<string id="16993" value="所有媒体文件|*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|播放列表文件|*.asx;*.wax;*.m3u;*.wvx;*.wmx|音频文件|*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm|视频文件|*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|CD 音轨|*.cda|MIDI 文件|*.mid;*.rmi;*.midi|所有文件|*.*||"/>
-	<string id="16994" value="未能载入媒体文件 &quot;%s&quot;"/>
-	<string id="16995" value="此文件可能已损坏，或者您可能没有安装合适的编码解码器。"/>
-	<string id="16996" value="此文件的某一部分不能播放，您可能需要下载额外的编码解码器。"/>
-	<string id="16997" value="没有文件被播放。请在您的收藏中双击媒体文件进行播放。"/>
-	<string id="16998" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160;  媒&#160;&#160;&#160;&#160;系&#160;&#160;统"/>
-	<string id="16999" value="播放列表"/>
-	<string id="17024" value="初始化连接到 %s..."/>
-	<string id="17025" value="未能创建到 %s 的连接。"/>
-	<string id="17026" value="向  %s 请求获取连接..."/>
-	<string id="17027" value="接受来自 %s 的获取连接，握手中..."/>
-	<string id="17028" value="连接已建立，握手中..."/>
-	<string id="17029" value="握手失败，主机可能不支持聊天。"/>
-	<string id="17030" value="握手完成，聊天协议版本 %s。"/>
-	<string id="17031" value="正在交换个人资料..."/>
-	<string id="17032" value="已认证的用户"/>
-	<string id="17033" value="请求与用户进行私人会话..."/>
-	<string id="17034" value="私人会话被允许，您现在正与 %s 聊天。"/>
-	<string id="17035" value="%s 不接收私人会话，抱歉。"/>
-	<string id="17036" value="%s 已离开: %s"/>
-	<string id="17037" value="聊天连接已丢失。"/>
-	<string id="17038" value="连接关闭。"/>
-	<string id="17039" value="未能从 %s 请求一个获取连接，无可用路由。"/>
-	<string id="17040" value="不能发送消息，您还未建立连接。PeerProject 正在试图连接..."/>
-	<string id="17041" value="不能发送消息，尚未建立连接。"/>
-	<string id="17042" value="您还未填写个人资料。在与其他用户聊天之前您必须提供个人资料。\n\n您要立即填写个人资料吗？"/>
-	<string id="17043" value="确定 %s 主机的上传优先级。"/>
-	<string id="17100" value="Gnutella:对等连接"/>
-	<string id="17101" value="Gnutella:子端到超对等连接"/>
-	<string id="17102" value="Gnutella:超对等到子端连接"/>
-	<string id="17103" value="Gnutella 2:集端对集端连接"/>
-	<string id="17104" value="Gnutella 2:子端到集端连接"/>
-	<string id="17105" value="Gnutella 2:集端到子端连接"/>
-	<string id="17106" value="eDonkey 服务器连接(LOWID: %lu)"/>
-	<string id="17107" value="edonkey 服务器连接"/>
-	<string id="17108" value="握手"/>
-	<string id="17109" value="传入"/>
-	<string id="17110" value="传出"/>
-	<string id="17111" value="当前:"/>
-	<string id="17112" value="总计:"/>
-	<string id="17113" value="压缩:"/>
-	<string id="17114" value="比率:"/>
-	<string id="17115" value="紧缩"/>
-	<string id="17116" value="无"/>
-	<string id="17117" value="连接中"/>
-	<string id="17118" value="握手中"/>
-	<string id="17119" value="已拒绝"/>
-	<string id="17120" value="关闭中"/>
-	<string id="17121" value="未知"/>
-	<string id="17122" value="G1 对等"/>
-	<string id="17123" value="G1 超对等"/>
-	<string id="17124" value="G1 子端"/>
-	<string id="17125" value="G2 对等"/>
-	<string id="17126" value="G2 集端"/>
-	<string id="17127" value="G2 子端"/>
-	<string id="17128" value="edonkey 服务器"/>
-	<string id="17129" value="edonkey (LowID)"/>
-	<string id="17130" value="edonkey (HighID)"/>
-	<string id="17216" value="初始化连接到 edonkey 服务器 %s..."/>
-	<string id="17217" value="连接到 edonkey 服务器 %s，握手中..."/>
-	<string id="17218" value="ED2K[%s] %s"/>
-	<string id="17219" value="edonkey 服务器 %s 拒绝连接。"/>
-	<string id="17220" value="edonkey 服务器 %s 在线，客户端 ID 为 %lu。"/>
-	<string id="17221" value="edonkey 服务器 %s 将客户端 ID %lu 改为 %lu。"/>
-	<string id="17222" value="edonkey 服务器 %s 将其更名为 &quot;%s&quot;。"/>
-	<string id="17223" value="edonkey 服务器 %s 已拒绝此连接。"/>
-	<string id="17224" value="和 edonkey 客户 %s 的握手发生错误。"/>
-	<string id="17225" value="连接到 %s 的 edonkey 客户端已关闭。"/>
-	<string id="17226" value="从 %s (id=%x) 接收到畸形的 edonkey 数据包"/>
-	<string id="17227" value="从 %s 的传入连接是一个 edonkey 客户端链接。"/>
-	<string id="17228" value="为 &quot;%s&quot; 发送 edonkey Hashset 到 %s..."/>
-	<string id="17229" value="连接到 %s 的 edonkey 客户端处于空闲状态，已关闭。"/>
-	<string id="17230" value="初始化 edonkey 客户端连接到 %s..."/>
-	<string id="17231" value="edonkey 客户 %s 使用了错误的 GUID，中断握手。"/>
-	<string id="17232" value="连接到 edonkey 客户端 %s 超时。"/>
-	<string id="17233" value="与 edonkey 客户端 %s 握手超时。"/>
-	<string id="17234" value="拒绝来自 %s 的 edonkey 客户端链接，因为 edonkey 被禁用。"/>
-	<string id="17248" value="开始 edonkey 局部下载导入进程..."/>
-	<string id="17249" value="处理完毕，%i 个局部下载导入成功。"/>
-	<string id="17250" value="扫描文件夹: &quot;%s&quot;..."/>
-	<string id="17251" value="未能导入文件。"/>
-	<string id="17252" value="找到局部文件 &quot;%s&quot;，正在导入..."/>
-	<string id="17253" value="未能打开 part 文件 &quot;%s&quot;。"/>
-	<string id="17254" value="找到下载 &quot;%s&quot;，大小 %s。"/>
-	<string id="17255" value="下载数据文件比 .part 文件更新，正在中断。"/>
-	<string id="17256" value="复制 &quot;%s&quot; 到 &quot;%s&quot;..."/>
-	<string id="17257" value="完成复制文件。"/>
-	<string id="17258" value="已创建 PeerProject 局部下载，%s 剩余。"/>
-	<string id="17259" value="此文件已经处于 PeerProject 下载列表中。"/>
-	<string id="17260" value="磁盘空间不足无法复制下载文件。"/>
-	<string id="17472" value="来自 %s 的传入连接是一个 BitTorrent 联结，正在协商..."/>
-	<string id="17473" value="连接到 BitTorrent 客户端 %s 超时。"/>
-	<string id="17474" value="与 BitTorrent 客户端 %s 握手超时。"/>
-	<string id="17475" value="关闭与 %s 的 BitTorrent 联结因为缺少通讯。"/>
-	<string id="17476" value="BitTorrent 与 %s 的联结失败，因为远程客户端具有不同的对等标识。"/>
-	<string id="17477" value="与 %s 的 BitTorrent 联结回应以错误的文件。"/>
-	<string id="17478" value="与 %s 的 BitTorrent 联结请求了错误的文件。"/>
-	<string id="17479" value="与 %s 的 BitTorrent 联结已为 &quot;%s&quot; 建立。"/>
-	<string id="17481" value="已接收 BitTorrent 描述符文件: &quot;%s&quot;"/>
-	<string id="17482" value="未能分析 BitTorrent 预取文件 &quot;%s&quot;。"/>
-	<string id="17483" value="BitTorrent Tracker 回应错误 &quot;%s&quot; : &quot;%s&quot;。"/>
-	<string id="17484" value="错误分析 BitTorrent Tracker 回应。"/>
-	<string id="17485" value="为 &quot;%s&quot; 接收 BitTorrent Tracker 回应，%i 个新资源。"/>
-	<string id="17486" value="与 %s 开始 BitTorrent 客户端联结..."/>
-	<string id="17487" value="与 %s 建立 BitTorrent 联结，握手中..."/>
-	<string id="17488" value="您已经更改此 Torrent 的 Tracker 的链接。您确定您希望保存此更改吗？\n\n一个无效的 Tracker 链接可能会妨碍进一步下载。"/>
-	<string id="17489" value="BitTorrent 与 %s 的联结是扩展的协议，识别为 &quot;%s&quot;。"/>
-	<string id="17490" value="接收到 %i 个新的 BitTorrent 资源从 %s。"/>
-	<string id="17491" value="此 Torrent &quot;%s&quot; 已经存在于您的下载列表中，并且不能被做成种子。"/>
-	<string id="17492" value="载入 Torrent 文件 &quot;%s&quot; 错误。这可能不是一个有效的 Torrent。"/>
-	<string id="17493" value="不能创建 BitTorrent 共享文件 &quot;%s&quot;。"/>
-	<string id="17494" value="此 Torrent 包含文件 &quot;%s&quot;，但 PeerProject 不能在您的收藏夹中找到这个文件。如果可能，移动此文件到与 Torrent 相同的文件中并重试。"/>
-	<string id="17495" value="此 Torrent 包含文件 &quot;%s&quot; 应该是 %s，但您的文件版本是 %s。"/>
-	<string id="17496" value="在从 &quot;%s&quot; 复制文件到 BitTorrent 共享文件时发生错误。"/>
-	<string id="17497" value="在尝试做种 &quot;%s&quot; 时发生未知错误。"/>
-	<string id="17498" value="在文件 &quot;%s&quot; 中检测到错误。"/>
-	<string id="17500" value="Tracker 未回应 - 重试宣告 (%i 于 %i)"/>
-	<string id="17501" value="未能与 Tracker 进行通讯"/>
-	<string id="17503" value="Tracker 通讯失败 - 尝试下一个 Tracker (%i 于 %i)"/>
-	<string id="17505" value="BitTorrent 连接到 %s 已丢失。"/>
-	<string id="17506" value="BitTorrent 与 %s 的握手已丢失。"/>
-	<string id="17507" value="BitTorrent 与 %s 的连合已丢失。"/>
-	<string id="17510" value="BitTorrent 与 %s 的连合未被接受，与此客户端的连接已存在。"/>
-	<string id="17511" value="BitTorrent 与 %s 的连合未被接受，已达到最大连接数。"/>
-	<string id="17512" value="私用 Torrent"/>
-	<string id="17513" value="编码错误"/>
-	<string id="18496" value="您在名称区域进行了变动。您确定要重命名下载吗？"/>
-	<string id="18497" value="您已经输入了一个 SHA1 值，但它是无效的。请检查并重试。"/>
-	<string id="18498" value="您已经输入了一个根 tiger-tree 值，但它是无效的。请检查并重试。"/>
-	<string id="18499" value="您已经输入了一个 edonkey Hash 值，但它是无效的。请检查并重试。"/>
-	<string id="18500" value="您已经提供了一个 SHA1 Hash 值，但它与当前关联与此下载的值不同。您确定要立即变更此 SHA1 Hash 吗？"/>
-	<string id="18501" value="您已经提供了一个 根 tiger-tree 值，但它与当前关联与此下载的值不同。您确定要立即变更此 tiger-tree Hash 吗？"/>
-	<string id="18502" value="您已经提供了一个 edonkey Hash 值，但它与当前关联与此下载的值不同。您确定要立即变更此 edonkey Hash 吗？"/>
-	<string id="18503" value="您确定要忽略当前的验证状态吗？所有的已下载数据都将被认为未被信任的，并且缓存的 Hash 树和 Hash 设置都将被刷新。"/>
-	<string id="18504" value="您确定要忽略选定下载的所有资源吗？"/>
-	<string id="18505" value="请输入一个擦除的有效范围。&quot;从&quot; 区域是要擦除的第一个 byte，&quot;到&quot; 区域是要擦除的最后一个 byte。"/>
-	<string id="18506" value="未能擦除下载中的选定区域，因为此部分不存在。"/>
-	<string id="18507" value="从下载中擦除 %I64i B。"/>
-	<string id="18508" value="丢失下载资源 %s 为 &quot;%s&quot;，因为队列位置 %i 太高。"/>
-	<string id="18509" value="您不能假设此下载已完成并验证，因为您还未拥有任何部分验证数据，例如 tiger-tree 卷，eDonkey Hashset 或 BitTorrent Hashset。没有验证信息，此下载不能被验证。"/>
-	<string id="18510" value="您确定要假设此下载已完成并验证？ 整个文件将会被考虑，并且 PeerProject 将会接受已通过验证的部分并重新下载未通过验证的部分。"/>
-	<string id="18511" value="BitTorrent 与 %s 的连合未被接受，达到最大连接数。"/>
-	<string id="19000" value="远程访问已禁用。"/>
-	<string id="19001" value="http://%s:%i/remote - 您必须选择一个用户名和密码。"/>
-	<string id="19002" value="未能接受连接，链接不可用。"/>
-	<string id="20000" value="无 URN 可用"/>
-	<string id="20001" value="关闭"/>
-	<string id="20002" value="于"/><!-- 例如: 1 于 10 -->
-	<string id="20003" value="变更界面方向需要重新启动。\n您需要手动启动 PeerProject。立即退出？"/>
-	<string id="20005" value="否"/>
-	<string id="20006" value="是"/>
-	<string id="20007" value="自动"/>
-	<string id="20008" value="默认"/>
-	<string id="20009" value="自定义"/>
-	<string id="20010" value="&amp;后退"/>
-	<string id="20011" value="&amp;前进"/>
-	<string id="20100" value="连接中"/>
-	<string id="20101" value="请求中"/>
-	<string id="20102" value="回应"/>
-	<string id="20103" value="下载中"/>
-	<string id="20104" value="TigerTree"/>
-	<string id="20105" value="Hashset"/>
-	<string id="20106" value="元数据"/>
-	<string id="20107" value="繁忙"/>
-	<string id="20108" value="排队"/>
-	<string id="20109" value="已排队"/>
-	<string id="20110" value="未知"/>
-	<string id="20111" value="已完成"/>
-	<string id="20112" value="做种中"/>
-	<string id="20113" value="移动中"/>
-	<string id="20114" value="暂停"/>
-	<string id="20115" value="文件错误"/>
-	<string id="20116" value="不能移动"/>
-	<string id="20117" value="校验中"/>
-	<string id="20118" value="活动"/>
-	<string id="20119" value="等待"/>
-	<string id="20120" value="搜索中"/>
-	<string id="20121" value="创建中"/>
-	<string id="20122" value="Torrent"/>
-	<string id="20123" value="Tracker 未响应"/>
-	<string id="20124" value="已校验"/>
-	<string id="20125" value="未校验"/>
-	<string id="20126" value="无所需部分"/>
-	<string id="20127" value="无所需部分"/>
-	<string id="20130" value="个资源"/>
-	<string id="20131" value="个资源"/>
-	<string id="20132" value="个资源"/>
-	<string id="20134" value="个资源"/>
-	<string id="20135" value="(无资源)"/>
-	<string id="20136" value="通道已满"/>
-	<string id="20137" value="下一个"/>
-	<string id="20138" value="队列"/>
-	<string id="20200" value="星期"/>
-	<string id="20201" value="星期一"/>
-	<string id="20202" value="星期二"/>
-	<string id="20203" value="星期三"/>
-	<string id="20204" value="星期四"/>
-	<string id="20205" value="星期五"/>
-	<string id="20206" value="星期六"/>
-	<string id="20207" value="星期天"/>
-	<string id="20210" value="(无评价)"/>
-	<string id="20211" value="虚假/损坏"/>
-	<string id="20212" value="较差"/>
-	<string id="20213" value="一般"/>
-	<string id="20214" value="较好"/>
-	<string id="20215" value="很好"/>
-	<string id="20216" value="极棒"/>
-	<string id="20237" value="确定"/>
-	<string id="20238" value="取消"/>
-	<string id="20245" value="新建文件夹"/>
+	<string id="20001" value="是"/>
+	<string id="20002" value="否"/>
+	<string id="20003" value="确定"/>
+	<string id="20004" value="取消"/>
+	<string id="20005" value="&后退"/>
+	<string id="20006" value="&前进"/>
+	<string id="20008" value="关闭"/>
+	<string id="20009" value="于"/><!-- 例如: 1 于 10 -->
+	<string id="20011" value="自动"/>
+	<string id="20012" value="自定义"/>
+	<string id="20013" value="默认"/>
+	<string id="20050" value="星期"/>
+	<string id="20051" value="星期一"/>
+	<string id="20052" value="星期二"/>
+	<string id="20053" value="星期三"/>
+	<string id="20054" value="星期四"/>
+	<string id="20055" value="星期五"/>
+	<string id="20056" value="星期六"/>
+	<string id="20057" value="星期天"/>
+	<string id="20060" value="(无评价)"/>
+	<string id="20061" value="虚假/损坏"/>
+	<string id="20062" value="较差"/>
+	<string id="20063" value="一般"/>
+	<string id="20064" value="较好"/>
+	<string id="20065" value="很好"/>
+	<string id="20066" value="极棒"/>
+	<string id="20080" value="这是 PeerProject 的内部测试版本， beta 测试期已经结束。请下载 http://peerproject.org/ 完整的官方版本。"/>
+	<string id="20081" value="关闭(_C)"/>
+	<string id="20082" value="已完成，单击关闭"/>
+	<string id="20083" value="请求中..."/>
+	<string id="20084" value="成功！"/>
+	<string id="20100" value="关闭连接到 %s 的浏览用户。"/>
+	<string id="20101" value="浏览主机 %s 回应以无法辨识的应答，并且可能不支持 用户/主机 浏览。"/>
+	<string id="20102" value="未能连接到主机以浏览用户。"/>
+	<string id="20103" value="未能初始化连接到 %s 以浏览用户。"/>
+	<string id="20104" value="未能发送获取请求到 %s 以浏览用户。"/>
+	<string id="20105" value="正在建立到主机的连接..."/>
+	<string id="20106" value="初始化连接到 %s 以浏览用户..."/>
+	<string id="20107" value="正在下载浏览回应 (%2.f%%)..."/>
+	<string id="20108" value="接收内容来自于浏览主机 %s (%s)"/>
+	<string id="20109" value="连接到 %s 的浏览用户已丢失。"/>
+	<string id="20110" value="完成浏览用户 %s，%i 个文件被找到。"/>
+	<string id="20111" value="查找到 %i 个共享的文件，在 %s 的收藏中。"/>
+	<string id="20112" value="浏览主机 %s 回应以代码 %s (%s)。"/>
+	<string id="20113" value="浏览主机 %s 回应以无效的 HTTP 应答。"/>
+	<string id="20114" value="未能下载下载文件列表。此主机可能不支持浏览功能。"/>
+	<string id="20115" value="来自 %s 主机的 Gnutella 数据包被错误解码。"/>
+	<string id="20116" value="发送获取请求，等待连接..."/>
+	<string id="20117" value="发送获取请求到 %s 以浏览用户。"/>
+	<string id="20118" value="连接完毕，请求浏览..."/>
+	<string id="20119" value="发送浏览用户请求到 %s..."/>
+	<string id="20120" value="正在关闭浏览用户连接 %s 因为缺少通讯。"/>
+	<string id="20121" value="浏览 %s"/>
+	<string id="20122" value="与 %s 的 BitTorrent 联结已为 &quot;%s&quot; 建立。"/>
+	<string id="20123" value="来自 %s 的传入连接是一个 BitTorrent 联结，正在协商..."/>
+	<string id="20124" value="与 %s 开始 BitTorrent 客户端联结..."/>
+	<string id="20125" value="连接到 BitTorrent 客户端 %s 超时。"/>
+	<string id="20126" value="BitTorrent 与 %s 的连合已丢失。"/>
+	<string id="20127" value="BitTorrent 连接到 %s 已丢失。"/>
+	<string id="20128" value="BitTorrent 与 %s 的握手已丢失。"/>
+	<string id="20129" value="BitTorrent 与 %s 的连合未被接受，与此客户端的连接已存在。"/>
+	<string id="20130" value="接收到 %i 个新的 BitTorrent 资源从 %s。"/>
+	<string id="20131" value="BitTorrent 与 %s 的联结是扩展的协议，识别为 &quot;%s&quot;."/>
+	<string id="20132" value="与 BitTorrent 客户端 %s 握手超时。"/>
+	<string id="20133" value="与 %s 建立 BitTorrent 联结，握手中..."/>
+	<string id="20134" value="BitTorrent 与 %s 的连合未被接受，已达到最大连接数。"/>
+	<string id="20136" value="与 %s 的 BitTorrent 联结请求了错误的文件。"/>
+	<string id="20137" value="与 %s 的 BitTorrent 联结回应以错误的文件。"/>
+	<string id="20138" value="BitTorrent 与 %s 的联结失败，因为远程客户端具有不同的对等标识。"/>
+	<string id="20139" value="关闭与 %s 的 BitTorrent 联结因为缺少通讯。"/>
+	<string id="20140" value="编码错误"/>
+	<string id="20141" value="私用 Torrent"/>
+	<string id="20142" value="此 Torrent &quot;%s&quot; 已经存在于您的下载列表中，并且不能被做成种子。"/>
+	<string id="20143" value="在从 &quot;%s&quot; 复制文件到 BitTorrent 共享文件时发生错误。"/>
+	<string id="20144" value="不能创建 BitTorrent 共享文件 &quot;%s&quot;."/>
+	<string id="20145" value="在尝试做种 &quot;%s&quot; 时发生未知错误。"/>
+	<string id="20146" value="载入 Torrent 文件 &quot;%s&quot; 错误。这可能不是一个有效的 Torrent。"/>
+	<string id="20147" value="此 Torrent 包含文件 &quot;%s&quot;.但 PeerProject 不能在您的收藏夹中找到这个文件。如果可能，移动此文件到与 Torrent 相同的文件中并重试。"/>
+	<string id="20148" value="此 Torrent 包含文件 &quot;%s&quot; 应该是 %s，但您的文件版本是 %s。"/>
+	<string id="20149" value="在文件 &quot;%s&quot; 中检测到错误。"/>
+	<string id="20150" value="未能与 Tracker 进行通讯"/>
+	<string id="20151" value="Tracker 通讯失败 - 尝试下一个 Tracker (%i 于 %i)"/>
+	<string id="20152" value="您已经更改此 Torrent 的 Tracker 的链接。您确定您希望保存此更改吗？\n\n一个无效的 Tracker 链接可能会妨碍进一步下载。"/>
+	<string id="20153" value="BitTorrent Tracker 回应错误 &quot;%s&quot; : &quot;%s&quot;."/>
+	<string id="20154" value="错误分析 BitTorrent Tracker 回应。"/>
+	<string id="20155" value="为 &quot;%s&quot; 接收 BitTorrent Tracker 回应，%i 个新资源。"/>
+	<string id="20158" value="未能分析 BitTorrent 预取文件 &quot;%s&quot;."/>
+	<string id="20159" value="已接收 BitTorrent 描述符文件: &quot;%s&quot;"/>
+	<string id="20160" value="已接受传入聊天请求于 %s，握手..."/>
+	<string id="20161" value="未能创建到 %s 的连接。"/>
+	<string id="20162" value="未能从 %s 请求一个获取连接，无可用路由。"/>
+	<string id="20163" value="连接关闭。"/>
+	<string id="20164" value="到 %s 的连接已关闭。"/>
+	<string id="20165" value="连接已建立，握手中..."/>
+	<string id="20166" value="连接到 %s，握手..."/>
+	<string id="20167" value="初始化连接到 %s..."/>
+	<string id="20168" value="连接到 %s 进行聊天..."/>
+	<string id="20169" value="未能连接到主机 %s。"/>
+	<string id="20170" value="聊天连接已丢失。"/>
+	<string id="20171" value="到 %s 的连接丢失。"/>
+	<string id="20172" value="握手失败，主机可能不支持聊天。"/>
+	<string id="20173" value="握手完成，聊天协议版本 %s。"/>
+	<string id="20174" value="正在交换个人资料..."/>
+	<string id="20175" value="您还未填写个人资料。在与其他用户聊天之前您必须提供个人资料。\n\n您要立即填写个人资料吗？"/>
+	<string id="20176" value="不能发送消息，您还未建立连接。PeerProject 正在试图连接..."/>
+	<string id="20177" value="不能发送消息，尚未建立连接。"/>
+	<string id="20178" value="%s 已更名为 %s。"/>
+	<string id="20179" value="正在与 %s (%s) 聊天。"/>
+	<string id="20180" value="确定 %s 主机的上传优先级。"/>
+	<string id="20181" value="%s 已离开: %s"/>
+	<string id="20182" value="私人会话被允许，您现在正与 %s 聊天。"/>
+	<string id="20183" value="%s 不接收私人会话，抱歉。"/>
+	<string id="20184" value="请求与用户进行私人会话..."/>
+	<string id="20185" value="已认证的用户"/>
+	<string id="20186" value="接受来自 %s 的获取连接，握手中..."/>
+	<string id="20188" value="向  %s 请求获取连接..."/>
+	<string id="20190" value="因为网络传输中的错误数据导致连接失败。"/>
+	<string id="20191" value="接收到未知回应: %s"/>
+	<string id="20192" value="您还未连接。"/>
+	<string id="20193" value="不能识别命令 &quot;%s&quot;."/>
+	<string id="20194" value="此模板无任何自定义设置。"/>
+	<string id="20195" value="此模板无效。"/>
+	<string id="20199" value="(传送后关闭)"/>
+	<string id="20200" value="添加 &quot;%s&quot; 的 %i 个资源到下载队列。"/>
+	<string id="20201" value="&quot;%s&quot; 文件正被下载，仅作为资源被添加。"/>
+	<string id="20202" value="接收到来自 %s 的进入连接，关闭连接。"/>
+	<string id="20203" value="移除带宽限制加速 &quot;%s&quot; 下载。"/>
+	<string id="20204" value="下载主机 %s 过于繁忙，请等待 %i 秒后再试。"/>
+	<string id="20205" value="不能移动下载 &quot;%s&quot; 到 &quot;%s&quot;.检查未完成文件是否正被使用，并且您的下载文件夹存在且可写入。"/>
+	<string id="20206" value="不能解析 &quot;%s&quot;."/>
+	<string id="20207" value="您确定要取消/放弃此组中的每个下载项吗？"/>
+	<string id="20208" value="正在关闭到 %s 的下载连接，不再请求。"/>
+	<string id="20209" value="下载主机 %s 发送未经同意的数据，关闭连接。"/>
+	<string id="20210" value="&quot;%s&quot;.经完成的下载。"/>
+	<string id="20211" value="您确定要清除 &quot;%s&quot; 吗？一旦从下载窗口中清除后，以后将不能重新开始。"/>
+	<string id="20212" value="您确定要清除所有暂停的下载吗？一旦下载被清除将被不能重新续传。"/>
+	<string id="20213" value="您确定要删除下载 &quot;%s&quot;.？"/>
+	<string id="20214" value="到 %s 主机的下载连接已经建立。"/>
+	<string id="20215" value="初始化一个连接到 %s 主机的 %i端口，下载 &quot;%s&quot;..."/>
+	<string id="20216" value="不能连接到 %s 的主机下载。"/>
+	<string id="20217" value="接收到 %s 的下载内容 (%s)。"/>
+	<string id="20218" value="终止从 %s 下载 &quot;%s&quot; (%s)，网络禁止。"/>
+	<string id="20219" value="磁盘空间不够，无法下载 &quot;%s&quot; (%s)。"/>
+	<string id="20220" value="到 %s 的下载连接已经丢失。"/>
+	<string id="20222" value="您已经输入了一个 edonkey Hash 值，但它是无效的。请检查并重试。"/>
+	<string id="20224" value="请输入一个擦除的有效范围。&quot;从&quot; 区域是要擦除的第一个 byte，&quot;到&quot; 区域是要擦除的最后一个 byte。"/>
+	<string id="20225" value="您已经输入了一个 SHA1 值，但它是无效的。请检查并重试。"/>
+	<string id="20226" value="您已经输入了一个根 tiger-tree 值，但它是无效的。请检查并重试。"/>
+	<string id="20227" value="BitTorrent 与 %s 的连合未被接受，达到最大连接数。"/>
+	<string id="20228" value="未能擦除下载中的选定区域，因为此部分不存在。"/>
+	<string id="20231" value="您已经提供了一个 SHA1 Hash 值，但它与当前关联与此下载的值不同。您确定要立即变更此 SHA1 Hash 吗？"/>
+	<string id="20232" value="您已经提供了一个 edonkey Hash 值，但它与当前关联与此下载的值不同。您确定要立即变更此 edonkey Hash 吗？"/>
+	<string id="20233" value="您已经提供了一个 根 tiger-tree 值，但它与当前关联与此下载的值不同。您确定要立即变更此 tiger-tree Hash 吗？"/>
+	<string id="20235" value="您不能假设此下载已完成并验证，因为您还未拥有任何部分验证数据，例如 tiger-tree 卷，eDonkey Hashset 或 BitTorrent Hashset。没有验证信息，此下载不能被验证。"/>
+	<string id="20236" value="您确定要假设此下载已完成并验证？ 整个文件将会被考虑，并且 PeerProject 将会接受已通过验证的部分并重新下载未通过验证的部分。"/>
+	<string id="20237" value="您确定要忽略选定下载的所有资源吗？"/>
+	<string id="20238" value="您确定要忽略当前的验证状态吗？所有的已下载数据都将被认为未被信任的，并且缓存的 Hash 树和 Hash 设置都将被刷新。"/>
+	<string id="20240" value="从下载中擦除 %I64i B。"/>
+	<string id="20241" value="您在名称区域进行了变动。您确定要重命名下载吗？"/>
+	<string id="20242" value="目标下载主机 %s 没有要下载的 &quot;%s&quot; 文件。"/>
+	<string id="20243" value="为下载 &quot;%s&quot; 创建文件。"/>
+	<string id="20244" value="不能为下载创建文件 &quot;%s&quot;.正在终止。"/>
+	<string id="20245" value="不能为下载打开文件 &quot;%s&quot;.正在终止。"/>
+	<string id="20246" value="没有更多的区块可供下载，正在关闭到 %s 主机的连接。"/>
+	<string id="20247" value="区块被变短，正在关闭到 %s 主机的连接。"/>
+	<string id="20248" value="请求下载区块 (%I64u-%I64u)，属于 &quot;%s&quot;.来自于 %s 。 %s"/>
+	<string id="20250" value="Drag'n'drop文件复制到%s组。"/>
+	<string id="20251" value="默认下载组。 （显示所有文件）"/>
+	<string id="20253" value="下载主机的 edonkey Hashset 已损坏的或不符合，丢失资源。"/>
+	<string id="20254" value="已经从 %s 接收了一个无效的 edonkey Hashset，丢失资源。"/>
+	<string id="20255" value="已经为 &quot;%s&quot;.收了 edonkey Hashset，最小可验证区块 %s。"/>
+	<string id="20256" value="为 &quot;%s&quot; 从 %s 请求 edonkey Hashset..."/>
+	<string id="20257" value="未能为下载 &quot;%s&quot; 初始化 inflate。"/>
+	<string id="20258" value="正在从 %s (%s) 接收 tiger-tree 数据..."/>
+	<string id="20259" value="为 &quot;%s&quot; 从 %s 请求元数据..."/>
+	<string id="20261" value="下载主机 %s 响应时伴随 %s (%s)。"/>
+	<string id="20262" value="目标下载主机 %s 的 HTTP 响应是非法的。"/>
+	<string id="20263" value="%s 主机正发送下载 &quot;%s&quot;.接受。"/>
+	<string id="20264" value="发送请求下载 &quot;%s&quot;..."/>
+	<string id="20265" value="下载主机 %s 繁忙，正在队列中的 #%i 总 %i 个等待 (&quot;%s&quot;.。"/>
+	<string id="20266" value="正在队列中等待 &quot;%s&quot;."/>
+	<string id="20267" value="丢失下载资源 %s 为 &quot;%s&quot;.因为队列位置 %i 太高。"/>
+	<string id="20268" value="队列中等待从 edonkey 主机 %s 下载 &quot;%s&quot; 超时。"/>
+	<string id="20269" value="发送到 %s 主机的下载请求超时，正在关闭连接。"/>
+	<string id="20270" value="清除下载 &quot;%s&quot;."/>
+	<string id="20271" value="移动 &quot;%s&quot; 到 &quot;%s&quot;.下载完毕。"/>
+	<string id="20272" value="暂停下载 &quot;%s&quot;."/>
+	<string id="20273" value="续传下载 &quot;%s&quot;."/>
+	<string id="20274" value="解析 &quot;%s&quot; 到下载 &quot;%s&quot;..."/>
+	<string id="20275" value="在 %i 个连接中为下载 &quot;%s&quot; 查询更多资源..."/>
+	<string id="20276" value="不能获取到 &quot;%s&quot; 更多的下载资源，因为现在没有网络连接。"/>
+	<string id="20280" value="下载主机的 tiger-tree 数据已损坏或是不匹配，忽略。"/>
+	<string id="20281" value="下载主机的 tiger-tree 与期望 root 值不匹配。"/>
+	<string id="20282" value="下载主机 %s 不能满足 tiger-tree 的请求。"/>
+	<string id="20283" value="已经为 &quot;%s&quot;.收 tiger-tree 卷，%i 等级，最小可验证区块 %s。"/>
+	<string id="20284" value="正在接收 tiger-tree 卷，来自于 %s (%s)..."/>
+	<string id="20285" value="向 %s 主机请求 tiger-tree 卷查询 &quot;%s&quot;..."/>
+	<string id="20286" value="正在关闭到 %s 主机的下载连接，因为缺少通讯。"/>
+	<string id="20290" value="下载主机 %s 相应了不同的，但是有用的范围 (%I64i-%I64i)，属于 &quot;%s&quot;."/>
+	<string id="20291" value="接收到来自 %s 不必要的进入连接。"/>
+	<string id="20292" value="丢失资源 %s (%s)，因为发送 &quot;%s&quot; 损坏的部分(%I64i-%I64i)。"/>
+	<string id="20293" value="警告: 下载 &quot;%s&quot; 未被确认，有可能不是您计划要下载的文件！"/>
+	<string id="20294" value="成功确认下载 &quot;%s&quot;."/>
+	<string id="20295" value="下载主机的 &quot;%s&quot; 版本有不同的 URN，正在终止。"/>
+	<string id="20296" value="下载主机 %s 响应了 &quot;%s&quot; 无用的数据范围，待定。"/>
+	<string id="20297" value="下载主机的 &quot;%s&quot; 版本有着不同的长度，正在终止。"/>
+	<string id="20300" value="接受来自 %s 主机 %i 端口的进入连接。"/>
+	<string id="20301" value="已经连接到 %s 主机，因此不会再建立第二个连接。"/>
+	<string id="20302" value="拒绝双重连接 %s 主机。"/>
+	<string id="20303" value="初始化一个邻居连接到 %s 主机 %i 端口..."/>
+	<string id="20304" value="邻居 %s 主机关闭了连接。(%i : %s)"/>
+	<string id="20305" value="已关闭的到邻居中 %s 主机的连接。"/>
+	<string id="20306" value="正建立到邻居中 %s 主机的连接，握手中..."/>
+	<string id="20307" value="不能初始化到 %s 主机的邻居连接。"/>
+	<string id="20308" value="邻居中 %s 主机已经意外断开。"/>
+	<string id="20309" value="关闭到邻居 %s 主机的连接，因为它不是集端。"/>
+	<string id="20310" value="不能初始化到邻居中 %s 主机的连接(被拒绝)。"/>
+	<string id="20311" value="连接到 %s 主机超时。"/>
+	<string id="20312" value="因缺少通讯正关闭到邻居中 %s 主机的连接。"/>
+	<string id="20313" value="正在查询主机探索服务..."/>
+	<string id="20314" value="探索服务 &quot;%s&quot; 失败，失败计数 %i。"/>
+	<string id="20315" value="探索服务 &quot;%s&quot; 已经失败 %i 次，正在移除。"/>
+	<string id="20316" value="正在查询探索服务 &quot;%s&quot;..."/>
+	<string id="20317" value="正在提交G网缓存 &quot;%s&quot; 到随机的G网缓存..."/>
+	<string id="20318" value="正在发送G网缓存升级到 &quot;%s&quot; 服务..."/>
+	<string id="20319" value="G网缓存处理成功 (&quot;%s&quot;.。"/>
+	<string id="20320" value="从 %s 的传入连接是一个 edonkey 客户端链接。"/>
+	<string id="20321" value="从 %s (id=%x) 接收到畸形的 edonkey 数据包"/>
+	<string id="20322" value="连接到 %s 的 edonkey 客户端处于空闲状态，已关闭。"/>
+	<string id="20323" value="初始化 edonkey 客户端连接到 %s..."/>
+	<string id="20324" value="连接到 edonkey 客户端 %s 超时。"/>
+	<string id="20325" value="拒绝来自 %s 的 edonkey 客户端链接，因为 edonkey 被禁用。"/>
+	<string id="20326" value="连接到 %s 的 edonkey 客户端已关闭。"/>
+	<string id="20327" value="和 edonkey 客户 %s 的握手发生错误。"/>
+	<string id="20328" value="与 edonkey 客户端 %s 握手超时。"/>
+	<string id="20329" value="为 &quot;%s&quot; 发送 edonkey Hashset 到 %s..."/>
+	<string id="20330" value="edonkey 客户 %s 使用了错误的 GUID，中断握手。"/>
+	<string id="20331" value="此文件已经处于 PeerProject 下载列表中。"/>
+	<string id="20332" value="未能打开 part 文件 &quot;%s&quot;."/>
+	<string id="20333" value="完成复制文件。"/>
+	<string id="20334" value="复制 &quot;%s&quot; 到 &quot;%s&quot;..."/>
+	<string id="20335" value="磁盘空间不足无法复制下载文件。"/>
+	<string id="20336" value="已创建 PeerProject 局部下载，%s 剩余。"/>
+	<string id="20337" value="未能导入文件。"/>
+	<string id="20338" value="下载数据文件比 .part 文件更新，正在中断。"/>
+	<string id="20339" value="找到局部文件 &quot;%s&quot;.正在导入..."/>
+	<string id="20340" value="处理完毕，%i 个局部下载导入成功。"/>
+	<string id="20341" value="扫描文件夹: &quot;%s&quot;..."/>
+	<string id="20342" value="开始 edonkey 局部下载导入进程..."/>
+	<string id="20344" value="找到下载 &quot;%s&quot;.大小 %s。"/>
+	<string id="20345" value="连接到 edonkey 服务器 %s，握手中..."/>
+	<string id="20346" value="初始化连接到 edonkey 服务器 %s..."/>
+	<string id="20347" value="edonkey 服务器 %s 将客户端 ID %lu 改为 %lu。"/>
+	<string id="20348" value="edonkey 服务器 %s 将其更名为 &quot;%s&quot;."/>
+	<string id="20349" value="ED2K[%s] %s"/>
+	<string id="20350" value="edonkey 服务器 %s 在线，客户端 ID 为 %lu。"/>
+	<string id="20351" value="edonkey 服务器 %s 拒绝连接。"/>
+	<string id="20352" value="edonkey 服务器 %s 已拒绝此连接。"/>
+	<string id="20354" value="文件属性"/>
+	<string id="20355" value="您确定要删除此过滤吗？"/>
+	<string id="20356" value="已经存在一个名为 &quot;%s&quot; 的过滤，您希望替换吗？"/>
+	<string id="20358" value="请命名您设置的过滤。"/>
+	<string id="20361" value="下载带宽"/>
+	<string id="20362" value="下载文件计数"/>
+	<string id="20363" value="下载传送计数"/>
+	<string id="20364" value="Gnutella 接收带宽"/>
+	<string id="20365" value="Gnutella 传送带宽"/>
+	<string id="20366" value="Gnutella 连接(全部)"/>
+	<string id="20367" value="Gnutella 连接(活动)"/>
+	<string id="20368" value="抛弃的 Gnutella 数据包"/>
+	<string id="20369" value="丢失的 Gnutella 数据包"/>
+	<string id="20370" value="接收的 Gnutella 数据包"/>
+	<string id="20371" value="传送的 Gnutella 数据包"/>
+	<string id="20372" value="发送/接受 Ping 的 Gnutella 频率"/>
+	<string id="20373" value="发送/接受 Pong 的 Gnutella 频率"/>
+	<string id="20374" value="Gnutella 本地查询"/>
+	<string id="20375" value="路由的 Gnutella 数据包"/>
+	<string id="20376" value="全部接收带宽"/>
+	<string id="20377" value="全部传送带宽"/>
+	<string id="20378" value="全部 TCP 接收带宽"/>
+	<string id="20379" value="全部 TCP 传送带宽"/>
+	<string id="20380" value="全部 UDP 接收带宽"/>
+	<string id="20381" value="全部 UDP 传送带宽"/>
+	<string id="20382" value="上传带宽"/>
+	<string id="20384" value="上传传送计数"/>
+	<string id="20385" value="到邻居 %s 主机的连接失败使得退回到屏蔽子端模式。"/>
+	<string id="20386" value="按照主机意图，关闭到 %s 主机的剩余连接 (%s 主机的 %i 端口)。"/>
+	<string id="20387" value="集端网络的 %s 主机不认可我们为集端，正在关闭连接。"/>
+	<string id="20388" value="因为传输中的错误数据导致和 %s 主机的握手失败。"/>
+	<string id="20389" value="作为集端为子端 %s 主机提供服务。"/>
+	<string id="20390" value="集端连接建立完毕，关闭对等连接。"/>
+	<string id="20391" value="拒绝来自 %s 主机的连接，因为这是一个屏蔽的子端节点。"/>
+	<string id="20392" value="邻居 %s 主机不是集端，正在关闭连接。"/>
+	<string id="20393" value="正在关闭到非 Gnutella2 邻居 %s 主机的连接。"/>
+	<string id="20394" value="邻居 %s 主机将成为集端，正在关闭连接。"/>
+	<string id="20395" value="已和 Gnutella 中的 %s 主机成功建立连接 (G%i.%i : %s)。"/>
+	<string id="20396" value="和 Gnutella2 的邻居 %s 主机成功的建立连接 (%s)。"/>
+	<string id="20397" value="到 %s 主机的连接被拒绝。"/>
+	<string id="20398" value="关闭到 %s 主机的剩余连接。"/>
+	<string id="20399" value="和 %s 主机的握手超时。"/>
+	<string id="20400" value="PeerProject 正在为 %Iu 个文件创建 Hash 值:"/>
+	<string id="20410" value="正在浏览您的 PeerProject 收藏"/>
+	<string id="20411" value="浏览"/>
+	<string id="20412" value="正在浏览 %i 个文件夹的内容"/>
+	<string id="20413" value="已选定 %i 个文件"/>
+	<string id="20414" value="多重文件夹"/>
+	<string id="20415" value="没有文件被选定"/>
+	<string id="20416" value="为此文件评级"/>
+	<string id="20417" value="最近添加文件"/>
+	<string id="20425" value="PeerProject 不能安装收集文件 &quot;%s&quot; 通过复制它到文件夹 &quot;%s&quot;."/>
+	<string id="20426" value="您要下载此收集中的所有文件吗？\n\n选择取消以停止任何进一步的提示。"/>
+	<string id="20427" value="PeerProject 已经将收集文件 &quot;%s&quot; 添加到您的收藏中。"/>
+	<string id="20428" value="PeerProject 已经收到一个收集文件:\n\n&quot;%s&quot;.\n\n此文件可能不是一个有效的收集文件。"/>
+	<string id="20429" value="您要防止此收集提示您下载的任何文件吗？"/>
+	<string id="20430" value="确定要载入 &quot;%s&quot; 此文件吗？\n\n某些文件可能对您的电脑有害。载入文件前最好能确定文件的用途。"/>
+	<string id="20431" value="确定要永久删除选定的 %i 文件吗？ \n\n如果您确定，文件将会被移动到 &quot;回收站&quot;。"/>
+	<string id="20432" value="PeerProject 不能删除 \n\n%s"/>
+	<string id="20433" value="您的下载完成文件夹不在收藏中。\n\n将下载完成文件夹包括在收藏中，查看和管理将更加容易，还可以使用 PeerProject 的验证功能和自动更新。共享放在收藏中下载文件是不必要的。您可以单独选择是否共享文件。\n\n确定马上把下载文件加入收藏中吗？"/>
+	<string id="20434" value="下载文件夹已经被添加到收藏中。您想要共享吗？"/>
+	<string id="20435" value="您还没有选定文件将被加入的媒体播放器，比如 winamp。您要选择一个吗？\n\nPeerProject 会用 &quot;/ADD&quot; 把文件名传值过去。"/>
+	<string id="20436" value="您确定要删除 %i 个选定的专辑文件夹吗？\n\n注意: 仅仅是删除文件夹本身，并不包括专辑文件夹。"/>
+	<string id="20438" value="正在修改 %i 的元数据。"/>
+	<string id="20439" value="您将修改 %i 文件的元数据，确定要继续吗？"/>
+	<string id="20440" value="不能移动文件 %s。此文件可能正在被其他程序使用。\n\n您希望以复制方式来替代移动吗？"/>
+	<string id="20441" value="PeerProject 不能把 \n\n%s\n 更名为 \n%s"/>
+	<string id="20442" value="目标文件已存在:\n\n%s\n\n您要覆盖吗？"/>
+	<string id="20443" value="显示所有文件类型"/>
+	<string id="20444" value="复制 URI(_U)"/>
+	<string id="20445" value="导出 URI(_U)..."/>
+	<string id="20446" value="此文件 &quot;%s&quot; 未通过 Hash 确认测试，有可能不是您计划要下载的文件。确定要打开吗？"/>
+	<string id="20447" value="确定要移除 &quot;可能不安全&quot; 的文件吗？"/>
+	<string id="20448" value="文件 &quot;%s&quot; 未被 Hash。请等待文件被 Hash，稍后再试。"/>
+	<string id="20449" value="识别和共享选定文件的功能由 Bitzi.com 提供。\n\n为了到 Bitzi 数据库进行查询，PeerProject 自动转换成 SHA1 Hash。如果涉及隐私，您可能需要查看 Bitzi.com 的隐私申明。\n\n您确定继续吗？"/>
+	<string id="20450" value="选定文件夹的子目录 &quot;%s&quot; 已经是您收藏的一部分。\n添加此文件夹将导致重新 Hash 某些文件。\n\n您希望继续吗？"/>
+	<string id="20451" value="没有文件被播放。请在您的收藏中双击媒体文件进行播放。"/>
+	<string id="20452" value="所有媒体文件|*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|播放列表文件|*.asx;*.wax;*.m3u;*.wvx;*.wmx|音频文件|*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm|视频文件|*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|CD 音轨|*.cda|MIDI 文件|*.mid;*.rmi;*.midi|所有文件|*.*||"/>
+	<string id="20453" value="未能载入媒体文件 &quot;%s&quot;"/>
+	<string id="20454" value="此文件可能已损坏，或者您可能没有安装合适的编码解码器。"/>
+	<string id="20455" value="此文件的某一部分不能播放，您可能需要下载额外的编码解码器。"/>
+	<string id="20456" value="播放列表"/>
+	<string id="20457" value="PeerProject 无法初始化它的媒体服务插件。请重新安装，并确定您已经安装必要的媒体编码解码器和输出驱动程序。"/>
+	<string id="20458" value="PeerProject 媒体播放器"/>
+	<string id="20460" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; 媒 &#160;&#160; 系  统"/>
+	<string id="20461" value="(无可视化效果)"/>
+	<!--string id="20462" value="PeerProject 已经完成下载:"-->
+	<!--string id="20463" value="PeerProject 正在下载:"-->
+	<!--string id="20464" value="PeerProject 正在移动下载:"-->
+	<!--string id="20465" value="此下载已暂停:"-->
+	<!--string id="20466" value="PeerProject 正在查找资源:"-->
+	<!--string id="20467" value="PeerProject 正在检测下载的错误:"-->
+	<string id="20470" value="取消"/>
+	<string id="20471" value="打开"/>
+	<string id="20472" value="完成"/>
+	<string id="20473" value="估计剩余时间:"/>
+	<string id="20474" value="评价数目:"/>
+	<string id="20475" value="已知资源数量:"/>
+	<string id="20476" value="没有资源"/>
+	<string id="20477" value="%i 天 %i 小时"/>
+	<string id="20478" value="%i 小时 %i 分钟"/>
+	<string id="20479" value="%i 分钟 %i 秒"/>
+	<string id="20480" value="%i 秒"/>
+	<string id="20481" value="总体传送速度:"/>
+	<string id="20482" value="完成下载数量:"/>
+	<string id="20483" value="已经上传数量:"/>
+	<string id="20484" value="限制下载速度"/>
+	<string id="20485" value="限制上传速度"/>
+	<string id="20490" value="多重"/>
+	<string id="20491" value="多重数值"/>
+	<string id="20494" value="您尚未在您的配置文件中输入您的地址。\n\n输入您的地址是非常有益的，它可以使其他用户看见您来自于何处。注意，输入您的地址并不会暴露任何对您的安全有害的信息。\n\n您确定要继续而不输入您的地址吗？"/>
+	<string id="20495" value="您尚未在您的配置文件中输入屏幕名称。"/>
+	<string id="20496" value="您没有选择您的年龄和性别。您确定要继续而不加理会吗？"/>
+	<string id="20499" value="新建文件夹"/>
+	<string id="20500" value="点击连接按钮开始。"/>
+	<string id="20501" value="您还未连接到网络。"/>
+	<string id="20502" value="关闭中"/>
+	<string id="20503" value="压缩:"/>
+	<string id="20504" value="紧缩"/>
+	<string id="20505" value="无"/>
+	<string id="20506" value="连接中"/>
+	<string id="20507" value="当前:"/>
+	<string id="20510" value="edonkey 服务器连接"/>
+	<string id="20511" value="edonkey (HighID)"/>
+	<string id="20512" value="eDonkey 服务器连接(LOWID: %lu)"/>
+	<string id="20513" value="edonkey (LowID)"/>
+	<string id="20514" value="edonkey 服务器"/>
+	<string id="20515" value="G1 子端"/>
+	<string id="20516" value="G1 对等"/>
+	<string id="20517" value="Gnutella:对等连接"/>
+	<string id="20518" value="Gnutella:子端到超对等连接"/>
+	<string id="20519" value="Gnutella:超对等到子端连接"/>
+	<string id="20520" value="G1 超对等"/>
+	<string id="20521" value="G2 集端"/>
+	<string id="20522" value="G2 子端"/>
+	<string id="20524" value="G2 对等"/>
+	<string id="20525" value="Gnutella 2:子端到集端连接"/>
+	<string id="20526" value="Gnutella 2:集端对集端连接"/>
+	<string id="20527" value="Gnutella 2:集端到子端连接"/>
+	<string id="20530" value="握手"/>
+	<string id="20531" value="握手中"/>
+	<string id="20532" value="传入"/>
+	<string id="20533" value="传出"/>
+	<string id="20534" value="总计:"/>
+	<string id="20535" value="比率:"/>
+	<string id="20536" value="已拒绝"/>
+	<string id="20538" value="未知"/>
+	<string id="20540" value="连接"/>
+	<string id="20541" value="连接中..."/>
+	<string id="20542" value="连接完毕"/>
+	<string id="20543" value="断开连接"/>
+	<string id="20544" value="关闭 PeerProject 网络内核..."/>
+	<string id="20545" value="从网络断开。"/>
+	<string id="20546" value="您确定要断开连接吗？"/>
+	<string id="20547" value="Gnutella2 是 PeerProject 的首要网络。停止支持它可能会严重影响您搜索结果的数量和质量。您确定要这样做吗？"/>
+	<string id="20548" value="不能绑定正进入连接的主机 %s 的 %i 端口。不支持进入的连接。"/>
+	<string id="20549" value="不能完成 %s 主机的外出连接。外出连接将使用默认方式。"/>
+	<string id="20550" value="您的传出带宽太低而无法启用此网络"/>
+	<string id="20551" value="防火墙阻隔，不能侦听进入连接。"/>
+	<string id="20552" value="强制您的电脑进入集端模式可能会对机器性能以及 P2P 网络产生负面效用。总体来说更好的方法是让 PeerProject 决定是否使用结端模式。\n\nHub 模式并不会对您产生更好的搜索效果，或是任何其他的优越性。\n\n尽管存在这些缺点，您还是想这样做吗？"/>
+	<string id="20553" value="接受进入连接的 %s 主机的 %i 端口。"/>
+	<string id="20554" value="正在侦听 %s 主机 %i 端口的UDP数据。"/>
+	<string id="20555" value="外出连接使用 %s 主机的 %i 端口。"/>
+	<string id="20556" value="不能解析 &quot;%s&quot; 主机。"/>
+	<string id="20557" value="正在解析 &quot;%s&quot; 主机..."/>
+	<string id="20558" value="为 &quot;%s&quot; 发送查询到 %s。"/>
+	<string id="20560" value="您的安全策略已经屏蔽了该地址。"/>
+	<string id="20561" value="添加安全策略屏蔽 %s 主机。"/>
+	<string id="20562" value="安全管理器拒绝来自 %s 主机的连接。"/>
+	<string id="20563" value="安全管理器禁止连接 %s 主机。"/>
+	<string id="20564" value="启动 PeerProject 网络内核..."/>
+	<string id="20570" value="接收到来自 %s 主机混乱格式的命中数据包，忽略数据包。"/>
+	<string id="20571" value="%s: 接收到来自 %s 主机的混乱格式的质询，忽略数据包。"/>
+	<string id="20572" value="邻居 %s 主机发来的数据包 TTL 过大，抛弃数据包(TTL=%i，Hops=%i)。"/>
+	<string id="20573" value="邻居 %s 主机发来的数据包 TTL 恒为 0，忽略数据包。"/>
+	<string id="20574" value="邻居主机 %s 前送了非 GGEP 编码得扩展数据包。"/>
+	<string id="20575" value="邻居 %s 主机发送了非法查询路由表，正在断开连接。"/>
+	<string id="20576" value="发送查询路由表到邻居主机 %s (%i bit = %lu[%i]， %i%% 满额)。"/>
+	<string id="20577" value="从邻居 %s 主机接收到非正常的查询路由表。"/>
+	<string id="20578" value="邻居主机 %s 更新了它的查询路由表 (%i bit = %lu[%i]， %i%% 满额)。"/>
+	<string id="20579" value="%s -> %s [%i/%i] %s %s"/>
+	<string id="20580" value="子端邻居 %s 主机发来质询，断开连接。"/>
+	<string id="20581" value="邻居 %s 主机发来的 ping 数据包尺寸不匹配，忽略数据包。"/>
+	<string id="20582" value="邻居 %s 主机发来的 pong 数据包尺寸不匹配，忽略数据包。"/>
+	<string id="20583" value="邻居 %s 主机发来非法的获取数据包，忽略数据包。"/>
+	<string id="20584" value="邻居 %s 主机发来的数据包超过尺寸，断开连接。"/>
+	<string id="20585" value="邻居 %s 主机发来未被识别的数据包 (0x%.2x)，忽略数据包。"/>
+	<string id="20586" value="邻居 %s 主机发来非法的 pong 地址，忽略数据包。"/>
+	<string id="20588" value="邻居主机 %s 前送了请求到防火墙阻隔的地址，正被忽略。"/>
+	<string id="20590" value="远程访问已禁用。"/>
+	<string id="20591" value="http://%s:%i/remote - 您必须选择一个用户名和密码。"/>
+	<string id="20592" value="未能接受连接，链接不可用。"/>
+	<string id="20595" value="构架"/>
+	<string id="20620" value="PeerProject 正积极地搜索网络..."/>
+	<string id="20621" value="单击这里重新搜索"/>
+	<string id="20622" value="所有网络"/>
+	<string id="20623" value="立即开始新的搜索。确定要清除之前的搜索吗？"/>
+	<string id="20624" value="此区域显示选定文件的更多信息。"/>
+	<string id="20625" value="%s 写入:"/>
+	<string id="20626" value="%s 对此文件评级:"/>
+	<string id="20627" value="点击进行预览"/>
+	<string id="20628" value="正在产生预览..."/>
+	<string id="20629" value="未能从 &quot;%s&quot; 下载预览内容。"/>
+	<string id="20630" value="这里有 %i 个评价。"/>
+	<string id="20631" value="这里有 1 个评价。"/>
+	<string id="20632" value="%i 个资源可用。 (%s/s)"/>
+	<string id="20633" value="1 个资源可用。 (%s/s)"/>
+	<string id="20634" value="网络没有返回任何符合的内容。"/>
+	<string id="20635" value="某些结果可用，但已被过滤。"/>
+	<string id="20636" value="此窗口中尚未开始搜索。"/>
+	<string id="20637" value="无元数据"/>
+	<string id="20640" value="(清除搜索历史记录)"/>
+	<string id="20641" value="搜索 PeerProject"/>
+	<string id="20642" value="要搜索什么类型的文件？"/>
+	<string id="20643" value="输入要搜索的关键词:"/>
+	<string id="20644" value="高级"/>
+	<string id="20645" value="所有文件类型"/>
+	<string id="20646" value="清除"/>
+	<string id="20648" value="隐藏搜索面板"/>
+	<string id="20650" value="搜索"/>
+	<string id="20651" value="在此输入您的搜索:"/>
+	<string id="20652" value="查找此类型的文件:"/>
+	<string id="20653" value="在此网络中搜索:"/>
+	<string id="20654" value="文件大小必须为"/>
+	<string id="20655" value="到"/>
+	<string id="20656" value="重新搜索"/>
+	<string id="20657" value="显示搜索面板"/>
+	<string id="20658" value="开始搜索"/>
+	<string id="20659" value="停止"/>
+	<string id="20660" value="没有找到文件"/>
+	<string id="20661" value="%lu 个集端，%lu 个子端"/>
+	<string id="20662" value="当前未进行搜索"/>
+	<string id="20663" value="结果"/>
+	<string id="20664" value="%lu 个文件共 %lu 次命中|%lu 个文件共 %lu 次命中|%lu 个文件共 %lu 次命中"/>
+	<string id="20665" value="成功找到:"/>
+	<string id="20666" value="正在搜索:"/>
+	<string id="20668" value="搜索中..."/>
+	<string id="20669" value="纯文字搜索"/>
+	<string id="20670" value="PeerProject 正在搜索网络..."/>
+	<string id="20673" value="自动"/>
+	<string id="20674" value="完成文件的文件夹与未完成文件的文件夹不能为同一文件夹。"/>
+	<string id="20675" value="Windows 系统不支持超过 256 个字符的文件路径。\n请选择一个较短路径的文件夹。"/>
+	<string id="20676" value="未完成文件的文件夹不能添加到收藏中，因为它将降低程序的性能。未完成文件可以在传送窗口中直接共享。"/>
+	<string id="20677" value="请输入您希望设置的带宽限制，以格式 &quot;123 kb/s&quot; 千比特每秒，或 &quot;123 KB/s&quot; 千字节每秒。"/>
+	<string id="20678" value="eDonkey 网络使用需要等待很长时间的队列。限制最大可接受的队列位置如果非常严格的话，您可能难以开始下载。\n您确定要限制您能接受的队列位置吗？"/>
+	<string id="20680" value="PeerProject 设置"/>
+	<string id="20684" value="您确定要删除 &quot;%s&quot; 皮肤吗？ 此操作不可逆。"/>
+	<string id="20700" value="活动"/>
+	<string id="20701" value="%s传入:%s传出 (下载:%I64i/上传:%I64i)"/>
+	<string id="20702" value="连接到 %lu 个邻居。%s 处于本地收藏中。"/>
+	<string id="20703" value="集端模式有 %lu 个邻居。%s 处于本地收藏中。"/>
+	<string id="20704" value="集端/超对等模式有 %lu 个邻居。%s 处于本地收藏中。"/>
+	<string id="20705" value="已连接。%s 于本地收藏夹。"/>
+	<string id="20706" value="超对等模式有 %lu 个邻居。%s 处于本地收藏中。"/>
+	<string id="20707" value="连接网络..."/>
+	<string id="20708" value="尚未连接网络。"/>
+	<string id="20710" value="(无资源)"/>
+	<string id="20711" value="不能移动"/>
+	<string id="20712" value="通道已满"/>
+	<string id="20713" value="排队"/>
+	<string id="20714" value="文件错误"/>
+	<string id="20715" value="Hashset"/>
+	<string id="20716" value="元数据"/>
+	<string id="20717" value="回应"/>
+	<string id="20718" value="移动中"/>
+	<string id="20719" value="创建中"/>
+	<string id="20720" value="已完成"/>
+	<string id="20721" value="连接中"/>
+	<string id="20722" value="下载中"/>
+	<string id="20723" value="繁忙"/>
+	<string id="20724" value="下一个"/>
+	<string id="20725" value="队列"/>
+	<string id="20726" value="已排队"/>
+	<string id="20727" value="暂停"/>
+	<string id="20728" value="等待"/>
+	<string id="20729" value="请求中"/>
+	<string id="20730" value="搜索中"/>
+	<string id="20731" value="做种中"/>
+	<string id="20732" value="个资源"/>
+	<string id="20733" value="个资源"/>
+	<string id="20734" value="个资源"/>
+	<string id="20735" value="个资源"/>
+	<string id="20740" value="TigerTree"/>
+	<string id="20741" value="Torrent"/>
+	<string id="20742" value="Tracker 未响应"/>
+	<string id="20743" value="无所需部分"/>
+	<string id="20744" value="未知"/>
+	<string id="20745" value="无所需部分"/>
+	<string id="20746" value="未校验"/>
+	<string id="20747" value="已校验"/>
+	<string id="20748" value="校验中"/>
+	<string id="20750" value="!欢迎使用 PeerProject (version) !\n.\nPeerProject 是完全免费的软件。\n请遵照知识产权法负责使用。\n."/>
+	<string id="20751" value="没有活动的搜索。请单击搜索开始。"/>
+	<string id="20752" value="您还未连接。请单击连接按钮开始。"/>
+	<string id="20755" value="您确定要删除 &quot;%s&quot; 模板？\n此操作无法恢复。"/>
+	<string id="20760" value="活动"/>
+	<string id="20761" value="停止"/>
+	<string id="20762" value="此文件可能是广告。"/>
+	<string id="20763" value="黑名单:"/>
+	<string id="20764" value="您以前已经下载过并删除了此文件。"/>
+	<string id="20765" value="您的下载列表中已经存在此文件。"/>
+	<string id="20766" value="您的收藏中已经存在此文件。"/>
+	<string id="20767" value="此文件来源正忙"/>
+	<string id="20768" value="此文件来源有防火墙"/>
+	<string id="20769" value="此文件来源可能不稳定"/>
+	<string id="20770" value="文件夹"/>
+	<string id="20771" value="命中"/>
+	<string id="20772" value="地址"/>
+	<string id="20773" value="于您的收藏"/>
+	<string id="20774" value="不可用"/>
+	<string id="20775" value="下一个"/>
+	<string id="20776" value="无 Hashset"/>
+	<string id="20777" value="部分资源 (%.2f%% 可用)"/>
+	<string id="20778" value="%i 个上传通道，%i 个在队列中等待"/>
+	<string id="20780" value="大小"/>
+	<string id="20781" value="此来源正忙"/>
+	<string id="20782" value="此来源有防火墙"/>
+	<string id="20783" value="此来源可能不稳定"/>
+	<string id="20784" value="速度:"/>
+	<string id="20785" value="状态:"/>
+	<string id="20786" value="%lu 今天，%lu 总计"/>
+	<string id="20787" value="文件总计:"/>
+	<string id="20788" value="大小总计:"/>
+	<string id="20789" value="上传:"/>
+	<string id="20790" value="类型"/>
+	<string id="20791" value="未受信任"/>
+	<string id="20792" value="上传"/>
+	<string id="20793" value="链接:"/>
+	<string id="20794" value="代理:"/>
+	<string id="20795" value="%s传入:%s传出 (下载:%I64i/上传:%I64i/活动:%I64i)"/>
+	<string id="20798" value="PeerProject 已经完成下载新的 PeerProject 版本 (%s)。您要立即升级吗？\n\n如果您选择是，PeerProject 将暂时关闭并安装升级程序。"/>
+	<string id="20800" value="发送默认 HTML 回应到上传主机 %s (%s)。"/>
+	<string id="20801" value="来自 %s 主机的进入连接是 HTTP 请求。"/>
+	<string id="20802" value="上传主机 %s (%s) 发送一个浏览用户请求，回应中..."/>
+	<string id="20803" value="上传主机 %s 在用户代理的屏蔽列表中，禁止连接。"/>
+	<string id="20804" value="正拒绝来自于 %s 的浏览用户请求，太多浏览连接。"/>
+	<string id="20805" value="拒绝来自 %s 的浏览用户请求。"/>
+	<string id="20806" value="队列上传 %s 被频繁请求，关闭连接。"/>
+	<string id="20807" value="拒绝上传 &quot;%s&quot; 到 %s (%s)，存在过多的并发用户连接。"/>
+	<string id="20808" value="拒绝上传 &quot;%s&quot; 到 %s 主机 (%s)，繁忙并且对方不支持队列。"/>
+	<string id="20809" value="拒绝上传 &quot;%s&quot; 到 %s (%s)，所有匹配队列已满。"/>
+	<string id="20810" value="上传主机 %s 请求了 &quot;%s&quot; 文件不被满足的范围。"/>
+	<string id="20811" value="edonkey 的上传不能被取消。您确定您要取消此上传吗？"/>
+	<string id="20812" value="不能打开 &quot;%s&quot; 以便上传到 %s 主机，磁盘/文件错误。"/>
+	<string id="20813" value="初始化外送连接到 %s。 %s"/>
+	<string id="20814" value="不能连接到  %s 主机进行外传。"/>
+	<string id="20815" value="正在上传范围 %I64i-%I64i，其属于 &quot;%s&quot;.至 %s 主机 (%s)。"/>
+	<string id="20816" value="到 %s 主机的上传连接被关闭。"/>
+	<string id="20817" value="拒绝到 %s 的新的上传因为之前的连接仍然待定。"/>
+	<string id="20818" value="关闭到 %s 的陈旧连接，因为已经有了更新的连接。"/>
+	<string id="20819" value="刷新上传到 %s (%s)，网络失效。"/>
+	<string id="20820" value="停止上传 &quot;%s&quot; 到 %s ，因为文件已被删除。"/>
+	<string id="20821" value="正在上传文件 &quot;%s&quot; 到主机 %s..."/>
+	<string id="20822" value="上传主机 %s 请求了未知的或是不可行的目标 &quot;%s&quot;."/>
+	<string id="20823" value="完成对 %s 主机的 &quot;%s&quot; 的部分上传。"/>
+	<string id="20824" value="到 %s 主机的外送连接已经建立，握手中..."/>
+	<string id="20825" value="上传主机 %s 使用不同的 SHA1 请求了 &quot;%s&quot;."/>
+	<string id="20826" value="发送上传标头从 &quot;%s&quot; 到主机 %s (%s)。"/>
+	<string id="20827" value="上传 &quot;%s&quot; 的元数据到 %s。"/>
+	<string id="20828" value="上传主机 %s 发送了非法的 HTTP 请求。"/>
+	<string id="20830" value="上传文件范围 %I64i-%I64i，其属于未完成文件 &quot;%s&quot;.至 %s 主机 (%s)。"/>
+	<string id="20832" value="拒绝上传 &quot;%s&quot; 文件的预览到 %s，因为已经存在过多预览连接。"/>
+	<string id="20833" value="正在调度 &quot;%s&quot; 的动态预览为上传到 %s。"/>
+	<string id="20834" value="上传主机 %s 请求 &quot;%s&quot; 的预览，但没有可用预览。"/>
+	<string id="20835" value="正在上传 &quot;%s&quot; 的预览到 %s。"/>
+	<string id="20836" value="拒绝到 %s 的获取请求，因为已经有太多上传连接。"/>
+	<string id="20837" value="继承来自 %s 主机查询未知文件的外送连接，无条件连接..."/>
+	<string id="20838" value="过于繁忙不能上传 &quot;%s&quot; 到 %s ，队列中的位置 #%i 总 %i (&quot;%s&quot;.。"/>
+	<string id="20840" value="新建队列"/>
+	<string id="20841" value="所有文件"/>
+	<string id="20842" value="连接到 %s 的上传已丢失，保存队列位置。"/>
+	<string id="20844" value="eDonkey 内核"/>
+	<string id="20845" value="eDonkey 保护"/>
+	<string id="20846" value="eDonkey 部分"/>
+	<string id="20847" value="已完成上传"/>
+	<string id="20848" value="HTTP 保护"/>
+	<string id="20850" value="大型文件"/>
+	<string id="20851" value="中型文件"/>
+	<string id="20852" value="小型文件"/>
+	<string id="20853" value="部分文件"/>
+	<string id="20854" value="部分"/>
+	<string id="20855" value="队列"/>
+	<string id="20856" value="Torrent 上传"/>
+	<string id="20857" value="离线排队上传主机 %s 过期，移除中。"/>
+	<string id="20858" value="到上传主机 %s 的请求超时。"/>
+	<string id="20859" value="缺少通讯导致关闭上传连接 %s。"/>
+	<string id="20860" value="上传 &quot;%s&quot; 的 tiger-tree 到 %s。"/>
+	<string id="20861" value="移除对 %s 主机的上传 &quot;%s&quot;."/>
+	<string id="20862" value="添加"/>
+	<string id="20864" value="浏览"/>
+	<string id="20865" value="连接(_C)"/>
+	<string id="20866" value="文件名:"/>
+	<string id="20867" value="主机:"/>
+	<string id="20868" value="端口:"/>
+	<string id="20869" value="未能显示链接操作对话框因为 PeerProject 正忙。"/>
+	<string id="20870" value="未能粘贴链接: PeerProject 不能识别此链接。"/>
+	<string id="20871" value="已接收链接 &quot;%s&quot;"/>
+	<string id="20872" value="类型:"/>
+	<string id="20874" value="未指定"/>
+	<string id="20875" value="链接:"/>
+	<string id="20880" value="编辑个人资料"/>
+	<string id="20881" value="更改显示模式将关闭您已经打开的窗口。您要立即更改吗？"/>
+	<string id="20882" value="UPnP Device Host 服务未运行。请重新设置该服务。\n您需要将该服务的启动类型设置为&quot;自动&quot;。"/>
+	<string id="20884" value="无 URN 可用"/>
+	<string id="20885" value="变更界面方向需要重新启动。\n您需要手动启动 PeerProject。立即退出？"/>
+	<string id="20890" value="欢迎来到 PeerProject"/>
+	<string id="20891" value="退出(_X)"/>
+	<string id="20892" value="请稍候: 更新 edonkey 服务器列表..."/>
+	<string id="20893" value="请稍候: 更新发现服务器..."/>
+	<string id="20894" value="请稍候: 查找 UPnP 驱动器并进行设置..."/>
+	<string id="20895" value="您还未指定一个连接速度。在连接前，请选择您的 Internet 连接类型，或者输入连接速度。"/>
+	<string id="20896" value="您已表明您希望在您的 NAT 路由或防火墙上设立端口映射。\n\n请配置您的网络将 TCP 和 UDP 端口 %i 映射到您的本地计算机。"/>
+	<string id="20897" value="您共享的文件夹是后面已共享文件夹的一部分:\n\n%s"/>
+	<string id="20898" value="您还未指定任何共享文件夹。您确定吗？"/>
+	<string id="20899" value="岁"/>
+	<!--string value="Torrent 信息"-->
+	<!--string value="Tracker 未回应 - 重试宣告 (%i 于 %i)"-->
+	<!--string id="X16771" value="您的收藏中已经存在文件 &quot;%s&quot;.您还希望下载吗？"-->
+	<!--string id="X16801" value="请在连接前选择您使用的 Internet 连接类型。"-->
 </strings>
 <!-- Localized Dialog Text, "cookie" verifies that the skin matches current dialog -->
 <dialogs>
@@ -3169,12 +3245,12 @@
 		<control caption="系统启动后运行 PeerProject"/>
 		<control caption="PeerProject 启动后自动连接"/>
 		<control caption="打开 URI 前弹出提示窗口"/>
-		<control caption="Check for updates"/>
+		<control caption="检查更新"/>
 		<control caption="下载:"/>
 		<control caption="默认展开新的下载"/>
 		<control caption="显示简易的进度栏"/>
 		<control caption="速率显示单位:"/>
-		<control caption="bits/s|bytes/s|b/s|B/s|Kb/s|KB/s|Mb/s|MB/s"/>
+		<control caption="自动 bits/每秒|自动 bytes/每秒|b/s|B/s|Kb/s|KB/s|Mb/s|MB/s"/>
 		<control caption="搜索:"/>
 		<control caption="默认展开多个资源文件"/>
 		<control caption="下载时切换到传输视图"/>
@@ -3958,15 +4034,15 @@
 	<dialog name="CScheduleTaskDlg" cookie="BuBuBuCoEdmsEdmsStStBuBuBuBuBuSySyBuBuBuBuBuBuBuBuBuEd" caption="Schedule Event">
 		<control caption="确定"/>
 		<control caption="取消"/>
-		<control caption="Select Task Type"/>
+		<control caption="选择任务类型"/>
 		<control/>
 		<control/>
 		<control/>
 		<control/>
 		<control/>
-		<control caption="% under Download limit"/>
-		<control caption="% under Upload limit"/>
-		<control caption="Active Task"/>
+		<control caption="% 的下载限制"/>
+		<control caption="% 的上传限制"/>
+		<control caption="活动任务"/>
 		<control caption="Enable G2 Only"/>
 		<control caption="Set Event Time"/>
 		<control caption="Specified days"/>

@@ -20,112 +20,73 @@
 //
 
 // Example:
-//
-//	SQLite::CDatabase db( _T("C:\\Database.db3") );
-//	SQLite::CStatement st( db, _T("SELECT Number FROM Table;") );
-//	while( st.Step() || st.IsBusy() )
+//	auto_ptr< CDatabase* > db( theApp.GetDatabase( true ) );	// /Data/PeerProject.db3
+//	if ( db->Prepare( _T("SELECT Number FROM Table;") ) )
 //	{
-//		if ( st.IsBusy() )
+//		while( db->Step() || db->IsBusy() )
 //		{
-//			Sleep( 1000 );
-//			continue;
+//			if ( db->IsBusy() )
+//			{
+//				Sleep( 1000 );
+//				continue;
+//			}
+//			int n = db->GetInt32( _T("Number") );
 //		}
-//		int n = st.GetInt( _T("Number") );
 //	}
 
 #pragma once
 
-namespace SQLite {
-
-#include <SQLite/sqlite3.h>	//Services
-
-class CStatement;
-class CDatabase;
+struct sqlite3;
+struct sqlite3_stmt;
 
 
-class CDatabase //: boost::noncopyable
+class CDatabase
 {
 public:
-	CDatabase(LPCWSTR szDatabasePath = NULL);
-	virtual ~CDatabase();
+	CDatabase(LPCWSTR szDatabase);
+	~CDatabase();
 
-	operator bool() const throw();
+	operator bool() const throw();					// Return true if database successfully opened
 
-	class CSQLitePtr //: boost::noncopyable
-	{
-	public:
-		CSQLitePtr(LPCWSTR szDatabasePath);
-		virtual ~CSQLitePtr();
+	bool			Exec(LPCTSTR szQuery);			// Execute multiple queries without parameters
+	bool			Prepare(LPCTSTR szQuery);		// Prep single query
+	bool			Step(); 						// Run one query iteration
+	void			Finalize(); 					// Finalize query
+	bool			IsBusy() const throw(); 		// Return true if latest SQL call failed for a locked table state
+	int				GetCount() const throw();		// Return the number of values in the current row of the result set
+	int				GetType(LPCWSTR pszName) const;	// Return column type in the current row of the result set
+	CString			GetLastErrorMessage() const;	// Return database error
 
-		sqlite3*	m_db;
+	__int32			GetInt32(LPCTSTR pszName) const;
+	__int64			GetInt64(LPCTSTR pszName) const;
+	double			GetDouble(LPCTSTR pszName) const;
+	CString			GetString(LPCTSTR pszName) const;
+	LPCVOID			GetBlob(LPCTSTR pszName, int* pnLength) const;
 
-	private:
-		CSQLitePtr(const CSQLitePtr&);
-		CSQLitePtr& operator=(const CSQLitePtr&);
-	};
-	typedef std::tr1::shared_ptr< CSQLitePtr > CSQLiteSharedPtr;	// tr1 fix:  was boost::
-
-	CSQLiteSharedPtr	GetHandle() const throw();
-	LPCWSTR				GetLastErrorMessage() const;
-	bool				Open(LPCWSTR szDatabasePath);
-	bool				Exec(LPCWSTR szQuery);
+	// Note: First parameter has an index of 1
+	bool			Bind(int nIndex, __int32 nData);
+	bool			Bind(int nIndex, __int64 nData);
+	bool			Bind(int nIndex, double dData);
+	bool			Bind(int nIndex, LPCTSTR sData);
+	bool			Bind(int nIndex, LPCVOID pData, int nLength);
 
 protected:
-	CSQLiteSharedPtr	m_db;
+	typedef CMap< CString, const CString&, int, int > CRaw;		// std::map< std::wstring, int >
+
+	sqlite3*		m_db;							// Handle to SQL database
+	sqlite3_stmt*	m_st;							// SQL statement handle
+	CRaw			m_raw;							// Column name to column number map
+	CString			m_sQuery;						// SQL query
+	bool			m_bBusy;						// Last SQL call returned with busy error
+
+#ifdef _DEBUG
+	DWORD			m_nThread;						// Thread ID (debug only)
+#endif
+
+	bool			PrepareHelper();				// Prepare single query
+	int				GetColumn(LPCTSTR pszName) const; // Return column index by column name
 
 private:
 	CDatabase(const CDatabase&);
 	CDatabase& operator=(const CDatabase&);
 };
-
-
-class CStatement //: boost::noncopyable
-{
-public:
-	CStatement(const CDatabase& db, LPCWSTR szQuery);
-	virtual ~CStatement();
-
-	operator bool() const throw();
-
-	bool			Step();
-	bool			Prepare();
-	void			Finalize();
-	void			Reset();
-
-	bool			IsPending() const throw();
-	bool			IsBusy() const throw(); 		// Return true if latest SQL call failed because of a locked table state
-	int				GetCount() const throw();		// Return the number of values in the current row of the result set
-	int				GetType(LPCWSTR pszName) const;	// Return column type in the current row of the result set
-
-
-	int				GetInt(LPCWSTR pszName) const;
-	__int64			GetInt64(LPCWSTR pszName) const;
-	double			GetDouble(LPCWSTR pszName) const;
-	LPCWSTR			GetString(LPCWSTR pszName) const;
-	LPCVOID			GetBlob(LPCWSTR pszName, int* pnLength) const;
-
-	bool			Bind(int nNumber, int nData);
-	bool			Bind(int nNumber, __int64 nData);
-	bool			Bind(int nNumber, double dData);
-	bool			Bind(int nNumber, LPCWSTR sData);
-	bool			Bind(int nNumber, LPCVOID pData, int nLength);
-
-protected:
-	typedef std::map< std::wstring, int > CRaw;
-
-	CDatabase::CSQLiteSharedPtr  m_db;	// Handle to database
-	std::wstring	m_query;			// SQL query (UTF16)
-	sqlite3_stmt*	m_st;				// SQL statement handle
-	bool			m_prepared;			// Prepare was called successfully
-	bool			m_busy;				// Last SQL call returned with busy error
-	CRaw			m_raw;				// Column name to column number map
-
-	int				GetColumn(LPCWSTR pszName) const;	// Return column index by column name
-	bool			IsValidIndex(int nIndex) const; 	// Check column index for validity
-
-private:
-	CStatement(const CStatement&);
-	CStatement& operator=(const CStatement&);
-};
-
-}	// namespace SQLite
