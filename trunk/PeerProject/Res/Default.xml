@@ -322,19 +322,7 @@
 			<rightAlign/>
 		<button id="ID_MEDIA_CLEAR" text="Clear"/>
 		<button id="ID_MEDIA_SAVE" text="Save"/>
-	</toolbar>
-	<!-- IRC WINDOW -->
-	<toolbar name="CIRCFrame">
-		<button id="ID_IRC_SENDTEXT" text="Send" tip="Post Your Comments"/>
-		<separator/>
-		<button id="ID_IRC_CLOSETAB" text="Close" tip="Leave Current Channel Window"/>
-			<rightAlign/>
-		<button id="ID_IRC_CONNECT" text="Connect" tip="Connect to IRC"/>
-		<button id="ID_IRC_DISCONNECT" text="Disconnect" tip="Disconnect from IRC"/>
-		<separator/>
-		<button id="ID_IRC_SETTINGS" text="Settings" tip="Configure IRC Settings"/>
-	</toolbar>
-	<!-- NEIGHBORS WINDOW -->
+	</toolbar>	<!-- NEIGHBORS WINDOW -->
 	<toolbar name="CNeighboursWnd.Basic">
 		<button id="ID_BROWSE_LAUNCH" text="Browse User"/>
 		<button id="ID_NEIGHBOURS_CHAT" text="Chat to User"/>
@@ -368,6 +356,7 @@
 		<button id="ID_SECURITY_MOVE_DOWN" text="Move Down"/>
 			<rightAlign/>
 		<button id="ID_SECURITY_RESET" text="Reset Hits"/>
+		<separator/>
 		<button id="ID_SECURITY_IMPORT" text="Import List"/>
 		<button id="ID_SECURITY_EXPORT" text="Export List"/>
 	</toolbar>
@@ -432,8 +421,20 @@
 		<button id="ID_HOSTCACHE_G2_CACHE" text="Cache"/>
 		<button id="ID_HOSTCACHE_G1_CACHE" text="Cache"/>
 		<button id="ID_HOSTCACHE_ED2K_CACHE" text="Servers"/>
-	<!--<button id="ID_HOSTCACHE_BT_CACHE" text="Cache"/>-->
-	<!--<button id="ID_HOSTCACHE_KAD_CACHE" text="Kademlia"/>-->
+		<!--button id="ID_HOSTCACHE_DC_CACHE" text="Servers"-->
+		<!--button id="ID_HOSTCACHE_BT_CACHE" text="Cache"-->
+		<!--button id="ID_HOSTCACHE_KAD_CACHE" text="Kademlia"-->
+	</toolbar>
+	<!-- IRC WINDOW -->
+	<toolbar name="CIRCFrame">
+		<button id="ID_IRC_SENDTEXT" text="Send" tip="Post Your Comments"/>
+		<separator/>
+		<button id="ID_IRC_CLOSETAB" text="Close" tip="Leave Current Channel Window"/>
+			<rightAlign/>
+		<button id="ID_IRC_CONNECT" text="Connect" tip="Connect to IRC"/>
+		<button id="ID_IRC_DISCONNECT" text="Disconnect" tip="Disconnect from IRC"/>
+		<separator/>
+		<button id="ID_IRC_SETTINGS" text="Settings" tip="Configure IRC Settings"/>
 	</toolbar>
 	<!-- PRIVATE CHAT WINDOW -->
 	<toolbar name="CPrivateChatFrame">
@@ -446,7 +447,7 @@
 		<button id="ID_CHAT_BROWSE" text="Browse User"/>
 		<button id="ID_CHAT_PRIORITY" text="Grant Priority"/>
 		<!-- <button id="ID_CHAT_SEND_FILE" text="Send File"/> -->
-		<separator/>
+			<rightAlign/>
 		<button id="ID_CHAT_CONNECT" text="Connect" visible="false"/>
 		<button id="ID_CHAT_DISCONNECT" text="Disconnect"/>
 	</toolbar>
@@ -912,7 +913,7 @@
 			<item id="ID_VIEW_NEIGHBOURS" text="_Neighbors"/>
 			<item id="ID_VIEW_UPLOADS" text="_Uploads"/>
 			<item id="ID_VIEW_SECURITY" text="_Security"/>
-			<item id="ID_VIEW_SECURITY" text="Schedule_r"/>
+			<item id="ID_VIEW_SCHEDULER" text="Schedule_r"/>
 			<item id="ID_VIEW_HOSTS" text="_Host Cache"/>
 		</menu>
 	</menu>
@@ -1682,10 +1683,10 @@
 		<item id="ID_SCHEDULER_ACTIVATE" text="A_ctivate"/>
 		<item id="ID_SCHEDULER_DEACTIVATE" text="_Deactivate"/>
 		<separator/>
-		<item id="ID_SCHEDULER_REMOVE_ALL" text="Remove Al_l"/>
-		<separator/>
 		<item id="ID_SCHEDULER_IMPORT" text="_Import..."/>
 		<item id="ID_SCHEDULER_EXPORT" text="E_xport..."/>
+		<separator/>
+		<item id="ID_SCHEDULER_REMOVE_ALL" text="Remove Al_l"/>
 	</menu>
 	<!-- DISCOVERY SERVICES WINDOW -->
 	<menu name="CDiscoveryWnd">
@@ -1775,7 +1776,7 @@
 		<anchor id="Header" width="32" height="152"/>
 		<newline gap="0"/>
 		<group id="1">
-			<icon res="130" width="32" height="32" target="command:ID_NETWORK_CONNECT"/><gap size="8"/>
+			<icon res="136" width="32" height="32" target="command:ID_NETWORK_CONNECT"/><gap size="8"/>
 			<heading align="middle">Get Connected</heading>
 			<newline gap="8" indent="42"/>
 			<text>Welcome to PeerProject.</text>
@@ -1786,12 +1787,12 @@
 			<newline gap="20" indent="0"/>
 		</group>
 		<group id="2">
-			<icon res="134" width="32" height="32" target="command:ID_TAB_SEARCH"/><gap size="8"/>
+			<icon res="130" width="32" height="32" target="command:ID_TAB_SEARCH"/><gap size="8"/>
 			<heading align="middle">Search for Files</heading>
 			<newline gap="4" indent="42"/>
 			<anchor id="SearchBox" width="256" height="80"/>
 			<newline gap="20" indent="0"/>
-			<icon res="136" width="32" height="32" target="command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
+			<icon res="124" width="32" height="32" target="command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
 			<heading align="middle">Start a Download</heading>
 			<newline gap="8" indent="42"/>
 			<link target="command:ID_TOOLS_DOWNLOAD" format="bu">Click here to start</link>
@@ -1811,7 +1812,7 @@
 			<newline gap="20" indent="0"/>
 		</group>
 		<group id="4">
-			<icon res="252" width="32" height="32" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
+			<icon res="180" width="32" height="32" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 			<heading align="middle">Warning: You Are Firewalled!</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">PeerProject has detected that you are hidden behind a router or firewall,
@@ -1824,7 +1825,7 @@
 			<newline gap="20" indent="0"/>
 		</group>
 		<group id="6">
-			<icon res="252" width="32" height="32"/><gap size="8"/>
+			<icon res="180" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">Warning: Your TCP Port Is Firewalled</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">PeerProject has detected that you are behind a NAT router or firewall,
@@ -1837,7 +1838,7 @@
 			<newline gap="20" indent="0"/>
 		</group>
 		<group id="7">
-			<icon res="252" width="32" height="32"/><gap size="8"/>
+			<icon res="180" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">Warning: Your UDP Port Is Firewalled</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">PeerProject has detected that you are behind a NAT router or firewall,
@@ -1852,27 +1853,27 @@
 		<icon res="120" width="30" height="30" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">Customize PeerProject</heading>
 		<newline gap="12" indent="42"/>
-		<icon res="182" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
+		<icon res="196" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
 		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">Skins</link>
 		<text align="middle">&#160;- Mix&apos;n&apos;match changes to visual appearances</text>
 		<newline gap="8"/>
-		<icon res="141" width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
+		<icon res="138" width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
 		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
 		<text align="middle">&#160;- Update blocklist to avoid bad search results</text>
 		<newline gap="8"/>
-		<icon res="317" width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
+		<icon res="197" width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 		<link target="command:ID_TOOLS_WIZARD" align="middle">Settings Wizard</link>
 		<text align="middle">&#160;- Quick-edit PeerProject's basic settings</text>
 		<newline gap="8"/>
-		<icon res="147" width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
+		<icon res="182" width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
 		<link target="command:ID_HELP_FAQ" align="middle">Quick Help</link>
 		<text align="middle">&#160;- Get online support using PeerProject, or </text>
 		<link target="command:ID_TAB_IRC" align="middle">live chat.</link>
-	<!--	<newline gap="8"/>
-		<icon res="175" width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
+<!--	<newline gap="8"/>
+		<icon res="201" width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
 		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">Local Forum</link>
 		<text align="middle">&#160;- Go to the English local forum</text>
-	-->	<newline gap="18" indent="0"/>
+--> 	<newline gap="18" indent="0"/>
 		<group id="5">
 			<icon res="120" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">Remote Access Enabled</heading>
@@ -2094,32 +2095,32 @@
 		</group>
 		<group id="40">
 			<newline gap="1"/>
-			<icon res="265"/><gap size="5"/>
+			<icon res="203"/><gap size="5"/>
 			<link id="ContactEmail" align="middle"/>
 		</group>
 		<group id="44">
 			<newline gap="1"/>
-			<icon res="1008"/><gap size="5"/>
+			<icon res="206"/><gap size="5"/>
 			<link id="ContactMSN"/>
 		</group>
 		<group id="41">
 			<newline gap="1"/>
-			<icon res="206"/><gap size="5"/>
+			<icon res="208"/><gap size="5"/>
 			<link id="ContactYahoo"/>
 		</group>
 		<group id="42">
 			<newline gap="1"/>
-			<icon res="208"/><gap size="5"/>
+			<icon res="205"/><gap size="5"/>
 			<link id="ContactICQ"/>
 		</group>
 		<group id="43">
 			<newline gap="1"/>
-			<icon res="207"/><gap size="5"/>
+			<icon res="204"/><gap size="5"/>
 			<link id="ContactAOL"/>
 		</group>
 		<group id="45">
 			<newline gap="1"/>
-			<icon res="207"/><gap size="5"/>
+			<icon res="205"/><gap size="5"/>
 			<link id="ContactJabber"/>
 		</group>
 		<group id="5">
@@ -2145,7 +2146,7 @@
 			<newline gap="16" indent="0"/>
 			<text format="b">Community</text>
 			<newline gap="4" indent="8"/>
-			<icon res="140" target="command:ID_SEARCH_CHAT"/><gap size="5"/>
+			<icon res="127" target="command:ID_SEARCH_CHAT"/><gap size="5"/>
 			<link target="command:ID_SEARCH_CHAT" align="middle">Chat With User</link>
 		</group>
 		<!-- ToDo: Add Client/Flag to Profile -->
@@ -2425,17 +2426,17 @@
 
 <!-- Watermarks -->
 <watermarks>
-	<watermark target="CHomeViewCtrl.Header1" path="257.PNG"/>
-	<watermark target="CHomeViewCtrl.Header2" path="258.PNG"/>
-	<watermark target="LargeLogo" path="196"/>
-	<watermark target="Banner" path="154"/>
+	<watermark target="Banner" path="310"/>
+	<watermark target="LargeLogo" path="330"/>
+	<watermark target="CHomeViewCtrl.Header1" path="332.PNG"/>
+	<watermark target="CHomeViewCtrl.Header2" path="333.PNG"/>
 </watermarks>
 
 <!-- Navigation Bar -->
 <windowSkins>
 	<windowSkin>
-		<image type="image" language="en" res="241"/>
-		<image type="alpha" language="en" res="246"/>
+		<image type="image" language="en" res="302"/>
+		<image type="alpha" language="en" res="304"/>
 		<target window="CMainTabBarCtrl.Basic"/>
 		<anchors>
 			<anchor name="Background" 			  	rect="0,0,576,44"/>
@@ -2474,8 +2475,8 @@
 		</parts>
 	</windowSkin>
 	<windowSkin>
-		<image type="image" language="en" res="241"/>
-		<image type="alpha" language="en" res="246"/>
+		<image type="image" language="en" res="302"/>
+		<image type="alpha" language="en" res="304"/>
 		<target window="CMainTabBarCtrl"/>
 		<anchors>
 			<anchor name="Background"				rect="0,0,684,44"/>
@@ -2523,7 +2524,7 @@
 <!-- Media Remote -->
 <windowSkins>
 	<windowSkin>
-	<image type="source" res="248"/>
+	<image type="source" res="301"/>
 	<target window="CRemoteWnd"/>
 	<caption fontFace="Segoe UI" fontSize="11" fontWeight="Normal" color="EDF2F6" outlineColor="5A5856" />
 	<region>
@@ -2752,7 +2753,7 @@
 		<image id="ID_NETWORK_ED2K" id1="ID_HOSTCACHE_ED2K_CACHE" id2="IDC_IMPORT_DOWNLOADS"/>
 		<image id="ID_NETWORK_HTTP"/>
 		<image id="ID_NETWORK_FTP"/>
-		<image id="ID_NETWORK_BT" id1="ID_LIBRARY_CREATETORRENT" id2="ID_TOOLS_CREATETORRENT" id3="ID_TOOLS_RESEEDTORRENT"/>
+		<image id="ID_NETWORK_BT" id1="ID_LIBRARY_CREATETORRENT" id2="ID_TOOLS_CREATETORRENT" id3="ID_TOOLS_SEEDTORRENT" id4="ID_TOOLS_RESEEDTORRENT"/>
 		<image id="ID_NETWORK_KAD"/>
 	</bitmap>
 	<icon res="WINDOW_MAIN" id="WINDOW_MAIN" types="16,32,48" rtl="0"/>
@@ -2771,7 +2772,6 @@
 	<icon res="IDI_UNSTABLE" id="IDI_UNSTABLE" types="16" rtl="0"/>
 	<icon res="IDI_COMPUTER" id="IDI_COMPUTER" types="16,32,48" rtl="0"/>
 	<icon res="IDI_EXECUTABLE" id="IDI_EXECUTABLE" types="16,32,48" rtl="0"/>
-	<icon res="IDR_BITTORRENT_ICON" id="ID_TOOLS_SEEDTORRENT" types="16" rtl="0"/>
 	<icon res="IDI_MULTIFILE" id="IDI_MULTIFILE" types="16,32,48" rtl="0"/>
 	<icon res="IDI_BROWSE" id="IDI_BROWSE" types="16,32,48" rtl="0"/>
 	<icon res="IDI_FOLDER_CLOSED" id="IDI_FOLDER_CLOSED" types="16,32,48" rtl="0"/>

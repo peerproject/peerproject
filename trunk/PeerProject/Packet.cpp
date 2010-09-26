@@ -92,7 +92,7 @@ void CPacket::Reset()
 void CPacket::Seek(DWORD nPosition, int nRelative)
 {
 	// Set the position forwards from the start
-	if ( nRelative == seekStart )	
+	if ( nRelative == seekStart )
 		m_nPosition = min( m_nLength, nPosition );	// Move position in the object to the given position, making sure it's in the data
 	else // Set the position backwards from the end
 		m_nPosition = min( m_nLength, m_nLength - nPosition );	// Move position in the object to nPosition from the end (Length - Position from start)

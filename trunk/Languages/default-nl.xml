@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Dutch Skin File -->
 
-<!-- Translation based on default-en.xml r58 -->
+<!-- Translation based on default-en.xml r59 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -388,6 +388,21 @@
 		<button id="ID_SECURITY_RESET" text="Hits Herinitialiseren"/>
 		<button id="ID_SECURITY_IMPORT" text="Lijst Importeren"/>
 		<button id="ID_SECURITY_EXPORT" text="Lijst Exporteren"/>
+	</toolbar>
+	<!-- SCHEDULER WINDOW -->
+	<toolbar name="CSchedulerWnd">
+		<button id="ID_SCHEDULER_ADD" text="Task Toevoegen"/>
+		<separator/>
+		<button id="ID_SCHEDULER_EDIT" text="Task Wijzig"/>
+		<button id="ID_SCHEDULER_REMOVE" text="Task Verwijderen"/>
+		<separator/>
+		<button id="ID_SCHEDULER_ACTIVATE" text="Activate"/>
+		<button id="ID_SCHEDULER_DEACTIVATE" text="Deactivate"/>
+		<rightAlign/>
+		<button id="ID_SCHEDULER_REMOVE_ALL" text="Herinitialiseren"/>
+		<separator/>
+		<button id="ID_SCHEDULER_IMPORT" text="Importeren"/>
+		<button id="ID_SCHEDULER_EXPORT" text="Exporteren"/>
 	</toolbar>
 	<!-- HIT MONITOR WINDOW -->
 	<toolbar name="CHitMonitorWnd">
@@ -1708,7 +1723,7 @@
 		<anchor id="Header" width="32" height="152"/>
 		<newline gap="0"/>
 		<group id="1">
-			<icon res="130" width="32" height="32" target="command:ID_NETWORK_CONNECT"/><gap size="8"/>
+			<icon res="136" width="32" height="32" target="command:ID_NETWORK_CONNECT"/><gap size="8"/>
 			<heading align="middle">VERBINDING MAKEN</heading>
 			<newline gap="8" indent="42"/>
 			<text>Welcome bij PeerProject!</text>
@@ -1718,12 +1733,12 @@
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="2">
-			<icon res="134" width="32" height="32" target="command:ID_TAB_SEARCH"/><gap size="8"/>
+			<icon res="130" width="32" height="32" target="command:ID_TAB_SEARCH"/><gap size="8"/>
 			<heading align="middle">ZOEK VOOR EEN BESTAND</heading>
 			<newline gap="8" indent="42"/>
 			<anchor id="SearchBox" width="256" height="80"/>
 			<newline gap="12" indent="0"/>
-			<icon res="136" width="32" height="32" target="command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
+			<icon res="124" width="32" height="32" target="command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
 			<heading align="middle">START DOWNLOAD</heading>
 			<newline gap="8" indent="42"/>
 			<link target="command:ID_TOOLS_DOWNLOAD" format="bu">Klik hier om te starten</link>
@@ -1742,7 +1757,7 @@
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="4">
-			<icon res="252" width="32" height="32" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
+			<icon res="180" width="32" height="32" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 			<heading align="middle">WAARSCHUWING: JE HEBT EEN SLECHT INGESTELDE ROUTER OF FIREWALL</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">PeerProject heeft gemerkt dat je achter een NAT router of firewall zit,
@@ -1753,7 +1768,7 @@
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="6">
-			<icon res="252" width="32" height="32"/><gap size="8"/>
+			<icon res="180" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">WAARSCHUWING: JE TCP POORT IS GEBLOKKEERD DOOR JE ROUTER OF FIREWALL</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">PeerProject heeft gemerkt dat je achter een NAT router of firewall zit,
@@ -1764,7 +1779,7 @@
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="7">
-			<icon res="252" width="32" height="32"/><gap size="8"/>
+			<icon res="180" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">WAARSCHUWING: JE UDP POORT IS GEBLOKKEERD DOOR JE ROUTER OF FIREWALL</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">PeerProject heeft gemerkt dat je achter een NAT router of firewall zit,
@@ -1777,24 +1792,24 @@
 		<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">PEERPROJECT AANPASSEN</heading>
 		<newline gap="12" indent="42"/>
-		<icon res="182" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
+		<icon res="196"width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
 		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">Skins</link>
 		<text align="middle">&#160;- PeerProject's uiterlijk veranderen</text>
 		<newline gap="8"/>
-		<icon res="141" width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
+		<icon res="138"width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
 		<link target="command:ID_VIEW_SECURITY" align="middle">Beveiligingsfilters</link>
 		<text align="middle">&#160;- Voeg toe/Verwijder filters om je zoekresultaten te verbeteren</text>
 		<newline gap="8"/>
-		<icon res="317" width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
+		<icon res="197"width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 		<link target="command:ID_TOOLS_WIZARD" align="middle">SnelStart wizard</link>
 		<text align="middle">&#160;- Instellingen van PeerProject aanpassen</text>
 		<newline gap="8"/>
-		<icon res="147" width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
+		<icon res="182"width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
 		<link target="command:ID_HELP_FAQ" align="middle">Help</link>
 		<text align="middle">&#160;- PeerProject's gebruikerhandleiding en FAQ, o </text>
 		<link target="command:ID_TAB_IRC" align="middle">IRC.</link>
 		<newline gap="8"/>
-		<icon res="175" width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
+		<icon res="201"width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
 		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">Local Forum</link>
 		<text align="middle">&#160;- Ga naar je Nederlandse taal discussieforum</text>
 		<newline gap="18" indent="0"/>
@@ -2012,32 +2027,32 @@
 		</group>
 		<group id="40">
 			<newline gap="1"/>
-			<icon res="265"/><gap size="5"/>
+			<icon res="203"/><gap size="5"/>
 			<link id="ContactEmail" align="middle"/>
 		</group>
 		<group id="44">
 			<newline gap="1"/>
-			<icon res="1008"/><gap size="5"/>
+			<icon res="206"/><gap size="5"/>
 			<link id="ContactMSN"/>
 		</group>
 		<group id="41">
 			<newline gap="1"/>
-			<icon res="206"/><gap size="5"/>
+			<icon res="208"/><gap size="5"/>
 			<link id="ContactYahoo"/>
 		</group>
 		<group id="42">
 			<newline gap="1"/>
-			<icon res="208"/><gap size="5"/>
+			<icon res="205"/><gap size="5"/>
 			<link id="ContactICQ"/>
 		</group>
 		<group id="43">
 			<newline gap="1"/>
-			<icon res="207"/><gap size="5"/>
+			<icon res="204"/><gap size="5"/>
 			<link id="ContactAOL"/>
 		</group>
 		<group id="45">
 			<newline gap="1"/>
-			<icon res="207"/><gap size="5"/>
+			<icon res="204"/><gap size="5"/>
 			<link id="ContactJabber"/>
 		</group>
 		<group id="5">
@@ -2063,7 +2078,7 @@
 			<newline gap="16" indent="0"/>
 			<text format="b">Gemeenschap</text>
 			<newline gap="4" indent="8"/>
-			<icon res="140" target="command:ID_SEARCH_CHAT"/>
+			<icon res="127"target="command:ID_SEARCH_CHAT"/>
 			<gap size="5"/>
 			<link target="command:ID_SEARCH_CHAT" align="middle">Chatten met gebruiker</link>
 		</group>
@@ -2649,744 +2664,743 @@
 <!-- Localized Strings -->
 <strings>
 	<string id="WINDOW_MAIN" value="PeerProject"/>
+	<string id="WINDOW_HOME" value="PeerProject startpagina"/>
 	<string id="WINDOW_SYSTEM" value="Systeem"/>
 	<string id="WINDOW_NEIGHBOURS" value="Gastheren"/>
 	<string id="WINDOW_PACKET" value="Pakket dump"/>
 	<string id="WINDOW_HOSTCACHE" value="Gastheer cache"/>
-	<string id="WINDOW_SEARCHMONITOR" value="Zoekmonitor"/>
 	<string id="WINDOW_SEARCH" value="Zoeken"/>
+	<string id="WINDOW_SEARCHPAD" value="Zoeken"/>
+	<string id="WINDOW_SEARCHMONITOR" value="Zoekmonitor"/>
 	<string id="WINDOW_HITMONITOR" value="Hitmonitor"/>
 	<string id="WINDOW_DOWNLOADS" value="Downloads"/>
-	<string id="WINDOW_LIBRARY" value="Bibliotheek"/>
 	<string id="WINDOW_UPLOADS" value="Uploads"/>
+	<string id="WINDOW_LIBRARY" value="Bibliotheek"/>
 	<string id="WINDOW_TRAFFIC" value="Grafiek"/>
 	<string id="WINDOW_CHAT" value="Chatten"/>
 	<string id="WINDOW_SECURITY" value="Beveiliging"/>
+	<string id="WINDOW_SCHEDULER" value="Planner"/>
 	<string id="WINDOW_DISCOVERY" value="Discovery services"/>
 	<string id="WINDOW_BROWSEHOST" value="Bekijken"/>
-	<string id="WINDOW_HOME" value="PeerProject startpagina"/>
 	<string id="WINDOW_MEDIA" value="Media"/>
-	<string id="WINDOW_SEARCHPAD" value="Zoeken"/>
 	<string id="WINDOW_HELP" value="PeerProject help"/>
 	<string id="WINDOW_IRC" value="PeerProject chat"/>
 <!--
-	<string id="WINDOW_SCHEDULER" value="Planner"/>
-	<string id="154" value="Weet je zeker dat je alle geplande taken wilt verwijderen? Dit kan niet ongedaan worden gemaakt."/>
-	<string id="156" value="Geplande tijd is voorbij.\n\nSelecteer alstublieft een tijd in de toekomst."/>
-	<string id="157" value="Bandbreedte: Volledige Snelheid"/>
-	<string id="158" value="Bandbreedte: Gereduceerde Snelheid"/>
-	<string id="159" value="Bandbreedte: Stop"/>
-	<string id="160" value="Systeem: Shareaza Afsluiten"/>
-	<string id="161" value="Systeem: Verbreek Dial-up Verbinding"/>
-	<string id="162" value="Systeem: De Computer Uitzetten"/>
-	<string id="163" value="Selecteer alsjeblieft een taak."/>
-	<string id="164" value="Specifieke dag(en) van de week"/>
-	<string id="165" value="Actief"/>
-	<string id="166" value="Werkeloos"/>
-	<string id="167" value="Gedaan"/>
-	<string id="168" value="Wachten..."/>
-	<string id="169" value="Er Zijn Momenteel Geen Taken Gepland"/>
-	<string id="172" value="Vandaag Gedaan"/>
-	<string id="173" value="Je moet ten minste een dag van de week selecteren."/>
+	<string id="X154" value="Weet je zeker dat je alle geplande taken wilt verwijderen? Dit kan niet ongedaan worden gemaakt."/>
+	<string id="X156" value="Geplande tijd is voorbij.\n\nSelecteer alstublieft een tijd in de toekomst."/>
+	<string id="X157" value="Bandbreedte: Volledige Snelheid"/>
+	<string id="X158" value="Bandbreedte: Gereduceerde Snelheid"/>
+	<string id="X159" value="Bandbreedte: Stop"/>
+	<string id="X160" value="Systeem: Shareaza Afsluiten"/>
+	<string id="X161" value="Systeem: Verbreek Dial-up Verbinding"/>
+	<string id="X162" value="Systeem: De Computer Uitzetten"/>
+	<string id="X163" value="Selecteer alsjeblieft een taak."/>
+	<string id="X164" value="Specifieke dag(en) van de week"/>
+	<string id="X165" value="Actief"/>
+	<string id="X166" value="Werkeloos"/>
+	<string id="X167" value="Gedaan"/>
+	<string id="X168" value="Wachten..."/>
+	<string id="X169" value="Er Zijn Momenteel Geen Taken Gepland"/>
+	<string id="X172" value="Vandaag Gedaan"/>
+	<string id="X173" value="Je moet ten minste een dag van de week selecteren."/>
 -->
-	<string id="7000" value="weet je zeker dat je dit filter wilt verwijderen?"/>
-	<string id="7001" value="&amp;Schemas"/>
-	<string id="7002" value="Meerdere Waardes"/>
-	<string id="7003" value="Meerdere"/>
-	<string id="7004" value="Er is al een filter met de bestandsnaam &quot;%s&quot;, wil je deze vervangen?"/>
-	<string id="7005" value="Geef je filter een naam."/>
-	<string id="7100" value="Deze sjabloon is ongeldig."/>
-	<string id="7101" value="Deze sjabloon is niet aanpasbaar."/>
-	<string id="7102" value="Ben je zeker dat je de &quot;%s&quot; sjabloon wil verwijderen?\nDit kan niet ongedaan gemaakt worden.."/>
-	<string id="8000" value="PeerProject instellingen"/>
-	<string id="8001" value="Welkom bij PeerProject"/>
-	<string id="8002" value="Bestandseigenschappen"/>
-	<string id="8003" value="Mijn profiel aanpassen"/>
-	<string id="8004" value="!Welkom bij PeerProject (version)!\n.\nPeerProject is volledig gratis software.\nGebruik het alsjeblieft verantwoord en respecteer intellectuele eigendomsrechten.\n."/>
-	<string id="8005" value="(bezig met afsluiten na verkeer)"/>
-	<string id="8006" value="Je bent niet verbonden. Klik op &quot;verbinden&quot; om te starten."/>
-	<string id="8007" value="Er zijn geen actieve zoekopdrachten. Klik hier om naar bestanden te zoeken."/>
-	<string id="8008" value="PeerProject is klaar met het downloaden van versie (%s). Wil je nu upgraden?\n\nAls je Ja kiest, zal PeerProject tijdelijk worden afgesloten terwijl de upgrade wordt geïnstalleerd."/>
-	<string id="8009" value="Weet je zeker dat je de skin &quot;%s&quot; wilt verwijderen? Dit kan niet ongedaan worden gemaakt."/>
-	<string id="8010" value="Dit is een voor-distributie versie van PeerProject en de beta periode is afgelopen. Download alsjeblieft de volledige, officiële distributie vanaf http://peerproject.org/."/>
-	<string id="8011" value="Als je van stijl verandert, worden alle geopende vensters gesloten. Wil je nu veranderen?"/>
-	<string id="8012" value="Torrent Informatie"/>
-	<string id="8060" value="Hub/Ultrapeer Modus met %lu buurman(nen).  %s in lokale bibliotheek."/>
-	<string id="8061" value="Ultrapeer Modus met %lu buurman(nen). %s in lokale bibliotheek."/>
-	<string id="8062" value="Hub Modus met %lu buurmannen. %s in lokale bibliotheek."/>
-	<string id="8063" value="Verbonden. %s in lokale bibliotheek."/>
-	<string id="8064" value="Verbonden met %lu gastheren. %s in lokale bibliotheek."/>
-	<string id="8065" value="Bezig te verbinden met het netwerk..."/>
-	<string id="8066" value="Niet verbonden met het netwerk."/>
-	<string id="8067" value="%s in: %s uit (d:%I64i/u:%I64i)"/>
-	<string id="8068" value="%s in: %s uit (d:%I64i/u:%I64i/s:%I64i)"/>
-	<string id="8069" value="Verbinden"/>
-	<string id="8070" value="Verbindt..."/>
-	<string id="8071" value="Verbonden"/>
-	<string id="8072" value="Verbreek Verbinding"/>
-	<string id="8096" value="Dit gedeelte laat meer informatie zien over de geselecteerde bestanden."/>
-	<string id="8097" value="Er is één bron beschikbaar. (%s/s)"/>
-	<string id="8098" value="Er zijn %i bronnen beschikbaar. (%s/s)"/>
-	<string id="8099" value="Er is één recensie."/>
-	<string id="8100" value="Er zijn %i recensies."/>
-	<string id="8101" value="%s schrijft:"/>
-	<string id="8102" value="%s beoordeelt dit bestand met:"/>
-	<string id="8103" value="Klik om de voorvertoning te starten"/>
-	<string id="8104" value="Bezig met voorvertonen..."/>
-	<string id="8105" value="Niet mogelijk om voorvertoningsinhoud te downloaden van &quot;%s&quot;."/>
-	<string id="8128" value="Klik hier om opnieuw te zoeken"/>
-	<string id="8129" value="Er zijn nog geen zoekopdrachten uitgevoerd in dit venster."/>
-	<string id="8130" value="PeerProject is het netwerk aan het afzoeken..."/>
-	<string id="8131" value="Het netwerk heeft nog geen resultaten teruggestuurd."/>
-	<string id="8132" value="Er zijn resultaten beschikbaar, maar ze zijn uitgefilterd."/>
-	<string id="8133" value="PeerProject is actief aan het zoeken op het netwerk..."/>
-	<string id="8134" value="Je staat op het punt om een nieuwe zoekopdracht uit te voeren. Wil je de resultaten van je vorige zoekopdracht wissen?"/>
-	<string id="8135" value="Geen metadata"/>
-	<string id="8136" value="Platte tekst zoeken"/>
-	<string id="8137" value="Geen Schema Kolommen"/>
-	<string id="8141" value="Toon het zoekpaneel"/>
-	<string id="8142" value="Verberg het zoekpaneel"/>
-	<string id="8143" value="Zoekend..."/>
-	<string id="8144" value="Start zoeken"/>
-	<string id="8145" value="Zoek opnieuw"/>
-	<string id="8146" value="Stop"/>
-	<string id="8147" value="Elk bestandstype"/>
-	<string id="8148" value="Geef hier je zoekopdracht in:"/>
-	<string id="8149" value="Zoek naar dit bestandstype:"/>
-	<string id="8150" value="Bezig met zoeken:"/>
-	<string id="8151" value="Gevonden:"/>
-	<string id="8152" value="%lu hubs, %lu leaves"/>
-	<string id="8153" value="Momenteel niet aan het zoeken"/>
-	<string id="8154" value="Geen bestanden gevonden"/>
-	<string id="8155" value="%lu bestand in %lu hit|%lu bestand in %lu hits|%lu bestanden in %lu hits"/>
-	<string id="8156" value="Zoeken"/>
-	<string id="8157" value="Resultaten"/>
-	<string id="8158" value="Wis"/>
-	<string id="8159" value="Geadvanceerd"/>
-	<string id="8160" value="Een verbinding wordt aangemaakt met gastheer..."/>
-	<string id="8161" value="Een pushaanvraag is verstuurd, aan het wachten op verbinding..."/>
-	<string id="8162" value="Verbonden, het bekijken is aangevraagd..."/>
-	<string id="8163" value="Antwoord om te bekijken wordt gedownload (%2.f%%)..."/>
-	<string id="8164" value="Niet mogelijk om te verbinden met gastheer voor het bekijken van de gebruiker."/>
-	<string id="8165" value="Niet mogelijk om de bestandenlijst te downloaden. Deze gastheer ondersteund misschien het bekijken niet."/>
-	<string id="8166" value="Netwerk:"/>
-	<string id="8167" value="Alle netwerken"/>
-	<string id="8176" value="Doorzoek het PeerProject netwerk"/>
-	<string id="8177" value="Geef wat trefwoorden op om naar te zoeken:"/>
-	<string id="8178" value="Het soort bestand:"/>
-	<string id="8179" value="(zoekgeschiedenis wissen)"/>
-	<string id="8180" value="Bestandsgrootte Min:"/>
-	<string id="8181" value="Bestandsgrootte Max:"/>
-	<string id="8208" value="PeerProject creëert hashes voor %Iu bestanden:"/>
-<!--	<string id="8221" value="PeerProject is bronnen aan het zoeken voor:"/>
-	<string id="8222" value="PeerProject is aan het downloaden:"/>
-	<string id="8223" value="Deze download is gepauzeerd:"/>
-	<string id="8224" value="PeerProject verplaatst de download:"/>
-	<string id="8225" value="PeerProject is de download aan het controleren op fouten:"/>
-	<string id="8226" value="PeerProject heeft het downloaden voltooid van:"/>
--->	<string id="8227" value="%i dagen and %i uren"/>
-	<string id="8228" value="%i uur en %i minuten"/>
-	<string id="8229" value="%i minuten en %i seconden"/>
-	<string id="8230" value="%i seconden"/>
-	<string id="8231" value="Geen bronnen"/>
-	<string id="8232" value="Openen"/>
-	<string id="8233" value="Annuleren"/>
-	<string id="8235" value="Totale downloadsnelheid:"/>
-	<string id="8236" value="Geschatte resterende tijd:"/>
-	<string id="8237" value="Hoeveelheid gedownload:"/>
-	<string id="8238" value="Hoeveelheid geüpload:"/>
-	<string id="8239" value="Voltooid"/>
-	<string id="8240" value="Aantal bronnen:"/>
-	<string id="8241" value="Aantal commentaren:"/>
-	<string id="8244" value="Beperk Download snelheid"/>
-	<string id="8245" value="Beperk Upload snelheid"/>
-	<string id="8288" value="Bezig met verkennen van je PeerProject bibliotheek"/>
-	<string id="8289" value="Bezig met verkennen van"/>
-	<string id="8290" value="Bezig met verkennen van de inhoud van %i mappen"/>
-	<string id="8291" value="Meerdere mappen"/>
-	<string id="8292" value="%i bestanden geselecteerd"/>
-	<string id="8293" value="Er zijn geen bestanden geselecteerd"/>
-	<string id="8294" value="Recente toevoegingen"/>
-	<string id="8295" value="Beoordeel dit bestand"/>
-	<string id="8304" value="Niet van toepassing"/>
-	<string id="8306" value="Locatie"/>
-	<string id="8307" value="Type"/>
-	<string id="8308" value="Groot"/>
-	<string id="8309" value="Gedeeltelijke bron (%.2f%% voorhanden)"/>
-	<string id="8310" value="%i upload plaatsen, %i wachtenden voor u"/>
-	<string id="8311" value="Je hebt dit bestand al in je bibliotheek."/>
-	<string id="8312" value="Je hebt dit bestand al in je downloadlijst."/>
-	<string id="8313" value="Dit bestand is spam."/>
-	<string id="8314" value="Je hebt dit bestand al eens gedownload en verwijderd."/>
-	<string id="8315" value="Op de zwarte lijst:"/>
-	<string id="8316" value="Hits"/>
-	<string id="8317" value="Totale volume:"/>
-	<string id="8318" value="%lu nu, %lu totaal"/>
-	<string id="8319" value="Geen hashset"/>
-	<string id="8320" value="Status:"/>
-	<string id="8321" value="Snelheid:"/>
-	<string id="8322" value="URL:"/>
-	<string id="8323" value="Programma:"/>
-	<string id="8324" value="Werkeloos"/>
-	<string id="8325" value="Actief"/>
-	<string id="8326" value="Volgende in wachtrij"/>
-	<string id="8327" value="Totale bestanden:"/>
-	<string id="8328" value="Totale volume:"/>
-	<string id="8329" value="van je bibliotheek"/>
-	<string id="8330" value="Map"/>
-	<string id="8331" value="Deze bron is bezig"/>
-	<string id="8332" value="Deze bron zit achter een firewall"/>
-	<string id="8333" value="Deze bron kan instabiel zijn"/>
-	<string id="8334" value="Bronnen voor dit bestand zijn op dit moment bezig"/>
-	<string id="8335" value="Bronnen voor dit bestand zitten achter een firewall"/>
-	<string id="8336" value="Bronnen voor dit bestand kunnen instabiel zijn"/>
-	<string id="8337" value="Niet betrouwbaar"/>
-	<string id="8338" value="Geen hashset"/>
-	<string id="13000" value="Bestanden gedeeld over het internet"/>
-	<string id="13001" value="Ben je zeker dat je deze veiligheidsregels wilt verwijderen? Dit kan niet ongedaan worden gemaakt."/>
-	<string id="16063" value="Je router automatisch instellen mislukte na 10 pogingen."/>
-	<string id="16064" value="Opstarten van het netwerkcentrum van PeerProject..."/>
-	<string id="16065" value="Kan geen contact maken met %s poort %i voor binnenkomende verbindingen. Binnenkomende verbindingen zijn niet mogelijk."/>
-	<string id="16066" value="Afsluiten van PeerProject's netwerkcentrum..."/>
-	<string id="16067" value="De verbinding met het netwerk is verbroken."/>
-	<string id="16068" value="Binnenkomende TCP verbindingen worden geaccepteerd op %s poort %i."/>
-	<string id="16069" value="Uitgaande verbindingen worden verstuurd vanaf %s poort %i."/>
-	<string id="16070" value="Kan de uitgaande verbindingen niet oplossen voor %s. Uitgaande verbindingen gebruiken de standaard interface."/>
-	<string id="16071" value="Er is een firewall ontdekt, er wordt niet naar binnenkomende verbindingen geluisterd."/>
-	<string id="16072" value="Luisteren naar UDP datagrammen op %s poort %i."/>
-	<string id="16073" value="Gastheer &quot;%s&quot; oplossen..."/>
-	<string id="16074" value="Niet mogelijk om de gastheer &quot;%s&quot; op te lossen."/>
-	<string id="16075" value="De beveiligingscontrole heeft de verbinding vanaf %s niet erkend."/>
-	<string id="16076" value="De beveiligingscontrole heeft een verbinding met %s gesloten."/>
-	<string id="16077" value="Het adres %s wordt al door je beveiligingsregels geblokkeerd."/>
-	<string id="16078" value="Een beveiligingsregel is toegevoegd voor het blokkeren van %s."/>
-	<string id="16079" value="Weet je zeker dat je de verbinding wilt verbreken?"/>
-	<string id="16081" value="Zoekaanvraag voor &quot;%s&quot; is verzonden naar %s."/>
-	<string id="16083" value="Het forceren van je PC naar Hubmodus kan nadelige gevolgen hebben op de prestatie en het P2P netwerk. Het is over het algemeen beter om PeerProject te laten beslissen of al dan niet Hubmodus gebruikt zou moeten worden.\n\nHubmodus produceert GEEN betere zoekresultaten, of enige andere voordelen voor jou.\n\nWil je dit echt doen, ondanks deze nadelen?"/>
-	<string id="16085" value="Gnutella2 is PeerProject's voornaamste netwerk. Het uitschakelen van de ondersteuning hiervoor kan zowel het aantal als de kwaliteit van je zoekresultaten zwaar begrenzen. Weet je zeker dat je dit wilt doen?"/>
-	<string id="16087" value="Je uitgaande bandbreedte is te laag om dit netwerk aan te kunnen zetten."/>
-	<string id="16128" value="Een binnenkomende verbinding vanaf %s poort %i is geaccepteerd."/>
-	<string id="16129" value="Een verbinding aangaan met %s poort %i..."/>
-	<string id="16130" value="Het is niet mogelijk om een verbinding op te starten met bron %s."/>
-	<string id="16131" value="De poging om te verbinden met bron %s heeft de wachttijd overschreden."/>
-	<string id="16132" value="Wegens gebrek aan verkeer wordt de verbinding met bron %s verbroken."/>
-	<string id="16133" value="Een verbinding met bron %s is aangegaan, handen schudden..."/>
-	<string id="16134" value="De verbinding met bron %s is afgesloten."/>
-	<string id="16135" value="Niet mogelijk om een verbinding aan te gaan met bron %s (geweigerd)."/>
-	<string id="16136" value="Bron %s heeft de verbinding onverwacht verbroken."/>
-	<string id="16137" value="Een dubbele verbinding vanaf %s is geweigerd."/>
-	<string id="16138" value="Al verbonden met %s, ga niet nog een tweede verbinding aanmaken."/>
-	<string id="16139" value="Bron %s heeft de verbinding verbroken (%i : %s)."/>
-	<string id="16141" value="Verbinding met bron %s is verbroken, omdat het geen hub is."/>
-	<string id="16144" value="De wachttijd voor het handen schudden met %s is verstreken."/>
-	<string id="16145" value="De Gnutella-verbinding met bron %s is succesvol tot stand gebracht (G%i.%i : %s)."/>
-	<string id="16146" value="Het handen schudden met %s is mislukt vanwege ongeldige data op het netwerk."/>
-	<string id="16147" value="Overbodige verbinding vanaf %s wordt gesloten met een bron hint (%s port %i)."/>
-	<string id="16148" value="De verbinding met %s is geweigerd (%s)."/>
-	<string id="16150" value="Overbodige verbinding vanaf %s wordt gesloten."/>
-	<string id="16151" value="De verbinding met %s wordt geweigerd omdat het een beschermde leaf node is."/>
-	<string id="16152" value="Hub bron %s accepteert ons niet als hub, de verbinding wordt gesloten."/>
-	<string id="16153" value="Verbinden met bron %s terugvallen op shielded leaf modus."/>
-	<string id="16154" value="Verbinding met hub is aangemaakt, peer-verbindingen worden gesloten."/>
-	<string id="16155" value="Treed op als hub voor leaf bron %s."/>
-	<string id="16156" value="Bron %s wil een hub zijn, de verbinding wordt gesloten."/>
-	<string id="16157" value="Bron %s is geen hub, de verbinding wordt gesloten."/>
-	<string id="16158" value="Gnutella2 verbinding met bron %s is succesvol tot stand gekomen (%s)."/>
-	<string id="16159" value="Verbinding gesloten met %s, het is geen Gnutella2 bron."/>
-	<string id="16192" value="Bron %s heeft een te groot pakket doorgestuurd, de verbinding wordt verbroken."/>
-	<string id="16193" value="Bron %s heeft een pakket doorgestuurd zonder TTL, het wordt genegeerd."/>
-	<string id="16194" value="Bron %s heeft een pakket doorgestuurd met een te grote TTL, het pakket wordt weggegooid (TTL=%i, Hops=%i)."/>
-	<string id="16195" value="Bron %s heeft een ping pakket doorgestuurd met een ongeldige lengte, het wordt genegeerd."/>
-	<string id="16196" value="Bron %s heeft een pong pakket doorgestuurd met een ongeldige lengte, het wordt genegeerd."/>
-	<string id="16197" value="%s -> %s [%i/%i] %s %s"/>
-	<string id="16198" value="Leaf %s stuurt zoekopdrachten door, de verbinding wordt verbroken."/>
-	<string id="16199" value="Bron %s heeft een onherkenbaar pakket doorgestuurd (0x%.2x), het wordt genegeerd."/>
-	<string id="16200" value="Bron %s heeft een pong pakket met een ongeldig data adres doorgestuurd, het wordt genegeerd."/>
-	<string id="16201" value="%s:  Er is een slecht geformatteerd query pakket ontvangen van %s, het wordt genegeerd."/>
-	<string id="16202" value="Er is een slecht geformatteerd query hit pakket ontvangen van %s, het wordt genegeerd."/>
-	<string id="16203" value="Bron %s heeft een pushpakket met een ongeldige lengte doorgestuurd, het wordt genegeerd."/>
-	<string id="16208" value="Een onverwachte update van de query routing tabel is ontvangen van bron %s."/>
-	<string id="16209" value="Bron %s heeft een ongeldige update gestuurd van de query routing tabel, verbinding verbroken."/>
-	<string id="16210" value="Bron %s heeft zijn query routing tabel geüpdate (%i bit = %lu[%i], %i%% vol)."/>
-	<string id="16211" value="Bron %s heeft een pushaanvraag doorgestuurd naar een adres met een firewall, het wordt genegeerd."/>
-	<string id="16212" value="Bron %s heeft een uitgebreid pakket doorgestuurd dat niet GGEP gecodeerd is."/>
-	<string id="16213" value="Query routing tabel wordt gestuurd naar bron %s (%i bit = %lu[%i], %i%% vol)"/>
-	<string id="16254" value="Standaard download-groep. (Toon alle bestanden)"/>
-	<string id="16255" value="Drag'n'drop bestanden naar de %s groep"/>
-	<string id="16256" value="&quot;%s&quot; toegevoegd aan downloadwachtrij met %i bron(nen)."/>
-	<string id="16257" value="Het downloaden van &quot;%s&quot; is voltooid."/>
-	<string id="16258" value="Het downloaden van &quot;%s&quot; is gepauzeerd."/>
-	<string id="16259" value="Het downloaden van &quot;%s&quot; is hervat."/>
-	<string id="16260" value="De download &quot;%s&quot; is gewist."/>
-	<string id="16261" value="Bestand &quot;%s&quot; aanmaken om te downloaden."/>
-	<string id="16262" value="Niet mogelijk lokaal bestand &quot;%s&quot; aan te maken voor het downloaden, geannuleerd."/>
-	<string id="16263" value="Niet mogelijk lokaal bestand &quot;%s&quot; te openen voor het downloaden, geannuleerd."/>
-	<string id="16264" value="Verbinding zoeken met %s poort %i om &quot;%s&quot; te downloaden..."/>
-	<string id="16265" value="Niet mogelijk te verbinden met %s voor het downloaden."/>
-	<string id="16266" value="Downloadverbinding met %s is aangemaakt."/>
-	<string id="16267" value="Aanvraag voor downloadfragment (%I64u-%I64u) van &quot;%s&quot; vanaf %s."/>
-	<string id="16268" value="Geen downloadfragmenten meer, verbinding met %s wordt gesloten."/>
-	<string id="16269" value="Fragment verkleind, verbinding met %s wordt gesloten."/>
-	<string id="16270" value="Downloadaanvraag naar %s is uitgeteld, de verbinding wordt gesloten."/>
-	<string id="16271" value="Downloadverbinding met %s wordt gesloten vanwege gebrek aan verkeer."/>
-	<string id="16272" value="Downloadgastheer %s heeft het bestand &quot;%s&quot; niet."/>
-	<string id="16273" value="Downloadgastheer %s heeft geantwoord met een ongeldig HTTP antwoord."/>
-	<string id="16274" value="Downloadgastheer %s heeft geantwoord met %s (%s)."/>
-	<string id="16275" value="Downloadgastheer %s's versie van &quot;%s&quot; heeft een andere URN, geannuleerd."/>
-	<string id="16276" value="Downloadgastheer %s's versie van &quot;%s&quot; heeft een andere lengte, geannuleerd."/>
-	<string id="16277" value="Downloadgastheer %s heeft geantwoord met een onbruikbare byte-bereik van &quot;%s&quot;, in afwachting."/>
-	<string id="16278" value="Downloadverbinding met %s is verloren gegaan."/>
-	<string id="16279" value="Ontvangen van downloadinhoud van gastheer %s (%s)."/>
-	<string id="16280" value="Downloadgastheer %s is bezet, opnieuw proberen over %i seconden."/>
-	<string id="16281" value="Weet je zeker dat je &quot;%s&quot; wilt verwijderen?\n\nAls een download gewist wordt vanaf het downloadsvenster, kan het later niet meer worden hervat."/>
-	<string id="16282" value="Het downloaden van &quot;%s&quot; vanaf %s (%s) wordt geannuleerd, het netwerk is buiten gebruik."/>
-	<string id="16283" value="Het bestand &quot;%s&quot; wordt al gedownload, bronnen toegevoegd."/>
-	<string id="16284" value="Een onvolledige pushverbinding is ontvangen van %s, de verbinding wordt gesloten."/>
-	<string id="16285" value="Een onnodige pushverbinding is ontvangen van %s."/>
-	<string id="16286" value="Gastheer %s stuurt download &quot;%s&quot; door via een pushverbinding, geaccepteerd."/>
-	<string id="16287" value="Kan geen bronnen meer binnenhalen voor download &quot;%s&quot; omdat er geen netwerkverbinding is."/>
-	<string id="16288" value="Meer bronnen worden opgevraagd voor download &quot;%s&quot; op %i verbinding(en)..."/>
-	<string id="16289" value="Een pushaanvraag wordt gestuurd voor download &quot;%s&quot;..."/>
-	<string id="16290" value="Downloadgastheer %s heeft geantwoord met een ander, maar bruikbaar bereik (%I64i-%I64i) van &quot;%s&quot;."/>
-	<string id="16291" value="&quot;%s&quot; is verplaatst naar &quot;%s&quot;, download voltooid."/>
-	<string id="16292" value="Kon de download &quot;%s&quot; niet verplaatsen naar &quot;%s&quot;. Kijk na of het incomplete bestand niet in gebruik is en dat je downloads map bestaat en beschrijfbaar is."/>
-	<string id="16293" value="Oplossen van &quot;%s&quot; voor het downloaden van &quot;%s&quot;..."/>
-	<string id="16294" value="Niet mogelijk om &quot;%s&quot; op te lossen."/>
-	<string id="16295" value="Het downloaden van &quot;%s&quot; wordt versneld door de bandbreedtebegrenzing te verwijderen."/>
-	<string id="16296" value="De download &quot;%s&quot; is succesvol gecontroleerd."/>
-	<string id="16297" value="WAARSCHUWING: Het controleren van download &quot;%s&quot; is mislukt, het is mogelijk niet het bestand dat je van plan was om te downloaden!"/>
-	<string id="16298" value="Downloadgastheer %s is bezet, dus we wachten in de wachtrij op plaats #%i van %i (&quot;%s&quot;)."/>
-	<string id="16299" value="Weet je zeker dat je alle gepauzeerde downloads wilt wissen? Als een download eenmaal van het downwloadsvenster is gewist, kan het niet meer worden hervat."/>
-	<string id="16300" value="Weet je zeker dat je de download &quot;%s&quot; wilt verwijderen?"/>
-	<string id="16301" value="Aanvragen van tiger-tree volume voor &quot;%s&quot; aan %s..."/>
-	<string id="16302" value="Downloadgastheer %s kon niet voldoen aan het tiger-tree verzoek."/>
-	<string id="16303" value="Tiger-tree volume ontvangen van %s (%s)..."/>
-	<string id="16304" value="De tiger-tree data van deze downloadgastheer is corrupt of inwendig inconsequent, het wordt genegeerd."/>
-	<string id="16305" value="De tiger-tree data van deze downloadgastheer komt niet overeen met de verwachte oorspronkelijke waarde."/>
-	<string id="16306" value="Tiger-tree volume wordt ontvangen voor &quot;%s&quot;, %i niveau's, minimum controleerbare chunk %s."/>
-	<string id="16307" value="Downloadverbinding met %s wordt verbroken, niet maar nodig."/>
-	<string id="16308" value="Downloadgastheer %s heeft ongevraagde data gestuurd, verbinding wordt verbroken."/>
-	<string id="16309" value="Metadata voor &quot;%s&quot; is aangevraagd aan %s..."/>
-	<string id="16310" value="Tiger-tree data wordt ontvangen van %s (%s)..."/>
-	<string id="16311" value="eDonkey hashset voor &quot;%s&quot; is aangevraagd aan %s..."/>
-	<string id="16312" value="Een ongeldige eDonkey hashset is ontvangen van %s, bron is geweigerd."/>
-	<string id="16313" value="eDonkey hashset is ontvangen voor &quot;%s&quot;, minimum controleerbare chunk %s."/>
-	<string id="16314" value="De eDonkey hashset van de downloadgastheer is corrupt of inwendig inconsequent, bron is geweigerd."/>
-	<string id="16315" value="Niet mogelijk om de vergroting te initialiseren voor download &quot;%s&quot;."/>
-	<string id="16316" value="Het wachten op de wachtrij update van eDonkey downloadgastheer %s is uitgeteld voor bestand &quot;%s&quot;."/>
-	<string id="16317" value="In wachtrij blijven voor &quot;%s&quot;."/>
-	<string id="16318" value="Niet genoeg schijfruimte om &quot;%s&quot; te downloaden (%s)."/>
-	<string id="16319" value="Bron %s (%s) is geweigerd voor het sturen van corrupte delen van &quot;%s&quot; (%I64i-%I64i)."/>
-	<string id="16320" value="Uploadgastheer %s heeft een ongeldige HTTP aanvraag gestuurd."/>
-	<string id="16321" value="Een pushverbinding met %s wordt geïnitieerd voor het downloaden van &quot;%s&quot;"/>
-	<string id="16322" value="Onmogelijk om te verbinden met gastheer %s voor het sturen van een pushaanvraag."/>
-	<string id="16323" value="Uploadverbinding met %s werd onderbroken."/>
-	<string id="16324" value="Wachttijd is overschreden voor de aanvraag aan uploadgastheer %s."/>
-	<string id="16325" value="Uploadgastheer %s heeft een onbekend of een niet voorhanden object &quot;%s&quot; aangevraagd."/>
-	<string id="16326" value="Uploadgastheer %s heeft &quot;%s&quot; aangevraagd met een andere SHA1."/>
-	<string id="16327" value="Uploaden van &quot;%s&quot; naar %s is geweigerd (%s), te druk en de cliënt ondersteunt geen wachtrijen."/>
-	<string id="16328" value="Pushverbinding met %s is aangemaakt, wachten op handdruk..."/>
-	<string id="16329" value="Kan &quot;%s&quot; niet openen voor het uploaden naar gastheer %s, schijf- of bestandsfout."/>
-	<string id="16330" value="Uploadbereik %I64i-%I64i van &quot;%s&quot; wordt gestuurd naar gastheer %s (%s)."/>
-	<string id="16331" value="Het uploaden van het gedeelte van &quot;%s&quot; naar %s is afgerond."/>
-	<string id="16332" value="Inkomende verbinding vanaf %s is een HTTP uploadaanvraag."/>
-	<string id="16333" value="Te druk om &quot;%s&quot; te uploaden naar %s, het is in de wachtrij geplaatst op #%i van %i (&quot;%s&quot;)."/>
-	<string id="16334" value="Verouderde pushaanvraag van %s heeft een onbekend bestand aangevraagd, wordt toch verbonden..."/>
-	<string id="16335" value="Upload van &quot;%s&quot; naar %s is verwijderd."/>
-	<string id="16336" value="Uploadgastheer %s staat op de verbanlijst van de gebruikersagent, aanvraag wordt afgewezen."/>
-	<string id="16337" value="Uploadheaders van &quot;%s&quot; worden verzonden naar gastheer %s (%s)."/>
-	<string id="16338" value="Uploadgastheer %s heeft een onbeschikbaar bereik aangevraagd van bestand &quot;%s&quot;."/>
-	<string id="16339" value="Standaard HTML antwoord wordt verzonden naar uploadbron %s (%s)."/>
-	<string id="16340" value="Aanvraag van %s om de gebruiker te bekijken is afgewezen."/>
-	<string id="16341" value="Uploadgastheer %s (%s) stuurt een aanvraag om de gebruiker te bekijken, bezig met anwoorden..."/>
-	<string id="16342" value="Uploadverbinding %s is verbroken wegens een gebrek aan verkeer."/>
-	<string id="16343" value="Oudere upload naar %s is verbroken omdat er een verse verbinding is aangemaakt."/>
-	<string id="16344" value="Nieuwe upload naar %s is geweigerd omdat een eerdere verbinding nog steeds aan het wachten is."/>
-	<string id="16345" value="Upload van &quot;%s&quot; naar %s is gestopt omdat het bestand is verwijderd."/>
-	<string id="16346" value="Uploadbereik %I64i-%I64i van onvolledig bestand &quot;%s&quot; wordt verzonden naar bron %s (%s)."/>
-	<string id="16347" value="Upload %s uit de wachtrij vraagt te snel opnieuw aan, verbinding wordt gesloten."/>
-	<string id="16348" value="Pushaanvraag door %s is geweigerd omdat er te veel uploadverbindingen zijn."/>
-	<string id="16349" value="Tiger-tree data voor &quot;%s&quot; wordt geüpload naar %s."/>
-	<string id="16350" value="Metadata voor &quot;%s&quot; wordt geüpload naar %s."/>
-	<string id="16351" value="Upload van &quot;%s&quot; naar %s is geweigerd (%s), te veel gelijktijdige verbindingen van deze gastheer."/>
-	<string id="16352" value="Een voorvertoning van &quot;%s&quot; wordt geüpload naar %s."/>
-	<string id="16353" value="Het uploaden van een voorvertoning van &quot;%s&quot; naar %s is geweigerd, er zijn teveel voorvertoningsverbindingen."/>
-	<string id="16354" value="Uploadgastheer %s heeft een voorvertoning aangevraagd van &quot;%s&quot;, maar er is geen voorvertoning beschikbaar."/>
-	<string id="16355" value="Een dynamische voorvertoning is gepland van &quot;%s&quot; om up te loaden naar %s."/>
-	<string id="16356" value="De aanvraag van %s om de gebruiker te bekijken is geweigerd, te veel soortgelijke verbindingen."/>
-	<string id="16357" value="Bestand &quot;%s&quot; wordt geüpload naar gastheer %s..."/>
-	<string id="16358" value="Upload verbinding met %s is verloren gegaan, wachtrij positie wordt behouden."/>
-	<string id="16359" value="Offline wachtrijpositie van uploadgastheer %s is verstreken, wordt verwijderd."/>
-	<string id="16360" value="Uploaden van &quot;%s&quot; naar %s (%s) wordt geweigerd, alle passende wachtrijen zijn vol."/>
-	<string id="16361" value="Uploaden naar %s (%s) wordt geweigerd, netwerk is buiten gebruik."/>
-	<string id="16362" value="eDonkey uploads zouden niet moeten worden afgebroken. Weet je zeker dat je deze upload wilt beëindigen?"/>
-	<string id="16363" value="Torrent uploads"/>
-	<string id="16364" value="Volledige uploads"/>
-	<string id="16365" value="Weet je zeker dat je iedere download uit deze groep wilt annuleren/afbreken?"/>
-	<string id="16366" value="Wachtrij"/>
-	<string id="16367" value="eDonkey kern"/>
-	<string id="16368" value="eDonkey gedeelte"/>
-	<string id="16369" value="eDonkey bescherming"/>
-	<string id="16370" value="Kleine bestanden"/>
-	<string id="16371" value="Middelgrote bestanden"/>
-	<string id="16372" value="Grote bestanden"/>
-	<string id="16373" value="Gedeeltelijke bestanden"/>
-	<string id="16374" value="Nieuwe wachtrij"/>
-	<string id="16375" value="Gedeeltelijke"/>
-	<string id="16376" value="Alle bestanden"/>
-	<string id="16377" value="HTTP bescherming"/>
-	<string id="16379" value="Bibliotheek bestanden"/>
-	<string id="16384" value="Weet je zeker dat je het bestand &quot;%s&quot; wilt openen?\n\nSommige bestanden kunnen kunnen je computer beschadigen. Ga eerst na wat voor soort bestand het is voordat je het opent."/>
-	<string id="16385" value="Je staat op het punt om de metadata van %i bestanden te wijzigen, weet je zeker dat je door wilt gaan?"/>
-	<string id="16386" value="Metadata van %i bestanden worden gewijzigd."/>
-	<string id="16387" value="Het bestand &quot;%s&quot; is nog niet gehasht. Wacht alsjeblieft even totdat het bestand gehasht is en probeer het dan nog een keer."/>
-	<string id="16388" value="Deze optie gebruikt diensten die zijn verstrekt door Bitzi.com voor het herkennen en delen van informatie over de geselecteerde bestanden.\n\nPeerProject geeft de SHA1 hash-code door voor de geselecteerde bestand(en) om de Bitzi gegevensbank op te vragen. Als je je zorgen maakt over privacy, kun je de privacypolis van Bitzi.com raadplegen.\n\nWil je verdergaan?"/>
-	<string id="16389" value="Weet je zeker dat je de %i geselecteeerde bestand(en) voorgoed wilt verwijderen ?\n\nDe bestanden zullen worden verplaatst naar je Windows &quot;prullenbak&quot; als dit mogelijk is."/>
-	<string id="16390" value="Je hebt nog geen mediaspeler geselecteerd voor het in de wachtrij plaatsen van bestanden, zoals Nullsoft Winamp. Wil je er nu één uitkiezen?\n\nPeerProject zal de naam van het bestand doorgeven aan het geselecteerde programma met de parameter &quot;/ADD&quot;."/>
-	<string id="16391" value="Je bent niet verbonden met het netwerk."/>
-	<string id="16392" value="Druk op &quot;Verbinden&quot; om te starten."/>
-	<string id="16393" value="De hashcontroletest voor het bestand &quot;%s&quot; is mislukt. Het is mogelijk niet het bestand dat je eigenlijk wilde downloaden. Weet je zeker dat je het wilt openen?"/>
-	<string id="16394" value="Wil je de eigenschap &quot;mogelijk onveilig&quot; van dit bestand verwijderen?"/>
-	<string id="16395" value="De map &quot;%s&quot; met je gedownloade bestanden zit nog niet in je bibliotheek.\n\nAls deze map is toegevoegd aan je bibliotheek, wordt het gemakkelijker om nieuwe downloads te bekijken en te beheren. Ook kun je dan gebruik maken van extra PeerProject eigenschappen zoals downloadcontrole en automatische upgrades. Het plaatsen van gedownloade bestanden in je bibliotheek wil niet meteen zeggen dat ze moeten worden gedeeld: je kunt voor elk bestand bepalen of je het al dan niet wilt delen.\n\nWil je de map met gedownloade bestanden nu aan je bibbliotheek toevoegen?"/>
-	<string id="16396" value="Je map met downloads is toegevoegd aan je bibliotheek. Wil je het ook delen?"/>
-	<string id="16397" value="Weet je zeker dat je de %i geselecteerde albummappen wilt verwijderen?\n\nMet deze actie worden niet de bestanden uit deze albums verwijderd, maar alleen de mappen zelf."/>
-	<string id="16398" value="PeerProject kon\n\n%s\nniet hernoemen naar\n%s."/>
-	<string id="16399" value="PeerProject kon het bestand\n\n%s niet verwijderen."/>
-	<string id="16400" value="Doelbestand bestaat al:\n\n%s\n\nWil je het overschrijven?"/>
-	<string id="16401" value="Alle bestandstypen tonen"/>
-	<string id="16402" value="PeerProject heeft een collectiebestand ontvangen:\r\n\r\n&quot;%s&quot;\r\n\r\nDit bestand is waarschijnlijk geen geldig collectiebestand."/>
-	<string id="16403" value="PeerProject heeft het collectiebestand &quot;%s&quot; toegevoegd aan je bibliotheek."/>
-	<string id="16404" value="PeerProject heeft het collectiebestand &quot;%s&quot; niet kunnen installeren door het te kopi#235;ren naar de map &quot;%s&quot;."/>
-	<string id="16406" value="Wil je alle bestanden in deze collectie downloaden?\r\n\r\nKies Annuleren om andere meldingen te voorkomen."/>
-	<string id="16407" value="Wil je voorkomen dat je nog een keer wordt gevraagd om iets van deze collectie te downloaden?"/>
-	<string id="16408" value="Kopieër &amp;URI"/>
-	<string id="16409" value="Exporteer &amp;URIs..."/>
-	<string id="16410" value="De complete en incomplete mappen mogen niet dezelfde zijn"/>
-	<string id="16411" value="Niet in staat om bestand %s te verplaatsen. Het bestand is mogelijk in gebruik door een andere toepassing.\n\nWil je proberen om het bestand te kopiëren in plaats van te verplaatsen?"/>
-	<string id="16412" value="Spookbestand"/>
-	<string id="16413" value="Nieuwe groep"/>
-	<string id="16448" value="Verbonden met %s, bezig met handschudden..."/>
-	<string id="16449" value="Nu aan het chatten met %s (%s)."/>
-	<string id="16450" value="Verbinding met %s is afgebroken."/>
-	<string id="16451" value="De verbinding met %s is verloren gegaan."/>
-	<string id="16452" value="Onbekend commando &quot;%s&quot;."/>
-	<string id="16453" value="Bezig met verbinden met %s om te chatten..."/>
-	<string id="16454" value="Inkomende chataanvraag van %s is geaccepteerd, bezig met handschudden..."/>
-	<string id="16455" value="%s is nu bekend als %s."/>
-	<string id="16456" value="Niet mogelijk om te verbinden met gastheer %s."/>
-	<string id="16457" value="Verbinding is mislukt vanwege ongeldige data op de kabel."/>
-	<string id="16458" value="Er is een onbekend antwoord ontvangen: %s"/>
-	<string id="16459" value="Je bent niet verbonden."/>
-	<string id="16512" value="Totale generieke ontvangstbandbreedte"/>
-	<string id="16513" value="Totale generieke verzendbandbreedte"/>
-	<string id="16514" value="Gnutella verbindingen (totaal)"/>
-	<string id="16515" value="Gnutella verbindingen (actief)"/>
-	<string id="16516" value="Gnutella ontvangstbandbreedte"/>
-	<string id="16517" value="Gnutella verzendbandbreedte"/>
-	<string id="16518" value="Aantal downloadbestanden"/>
-	<string id="16519" value="Aantal downloadoverdrachten"/>
-	<string id="16520" value="Downloadbandbreedte"/>
-	<string id="16521" value="Aantal uploadoverdrachten"/>
-	<string id="16522" value="Uploadbandbreedte"/>
-	<string id="16523" value="Ontvangen Gnutella pakketten"/>
-	<string id="16524" value="Verzonden Gnutella pakketten"/>
-	<string id="16525" value="Doorgestuurde Gnutella pakketten (gerouted)"/>
-	<string id="16526" value="Gevallen Gnutella pakketten"/>
-	<string id="16527" value="Verloren Gnutella pakketten"/>
-	<string id="16528" value="Lokale Gnutella zoekopdrachten"/>
-	<string id="16532" value="Totale TCP ontvangstbandbreedte"/>
-	<string id="16533" value="Totale TCP verzendbandbreedte"/>
-	<string id="16534" value="Totale UDP ontvangstbandbreedte"/>
-	<string id="16535" value="Totale UDP verzendbandbreedte"/>
-	<string id="16536" value="Gnutella Ratio van Ontvangen/Verzonden Pings"/>
-	<string id="16537" value="Gnutella Ratio van Ontvangen/Verzonden Pongs"/>
-	<string id="16538" value="Connectie Problemen (%)"/>
-	<string id="16768" value="Ontvangen URL &quot;%s&quot;"/>
-	<string id="16769" value="Niet mogelijk om URL te ontleden omdat PeerProject deze URL niet begrijpt."/>
-	<string id="16770" value="Niet mogelijk het URL actiescherm weer te geven omdat PeerProject het druk heeft."/>
-	<string id="16771" value="Je hebt het bestand &quot;%s&quot; al in je bibliotheek. Wil je het toch downloaden?"/>
-	<string id="16772" value="Gastheer:"/>
-	<string id="16773" value="Poort:"/>
-	<string id="16774" value="&amp;Verbinden"/>
-	<string id="16775" value="&amp;Bekijken"/>
-	<string id="16776" value="Toevoegen"/>
-	<string id="16777" value="Bestandsnaam:"/>
-	<string id="16778" value="URL:"/>
-	<string id="16779" value="Type:"/>
-	<string id="16780" value="Niet gespecificeerd"/>
-	<string id="16781" value="Wordt aangevraagd..."/>
-	<string id="16782" value="Gelukt!"/>
-	<string id="16783" value="Klaar, klik op sluiten"/>
-	<string id="16784" value="&amp;Sluiten"/>
-	<string id="16785" value="(Geen visualisatie)"/>
-	<string id="16800" value="Je hebt geen verbindingssnelheid aangegeven. Kies voordat je verdergaat alsjeblieft ofwel je soort internetverbinding, of vul een verbindingssnelheid in."/>
-	<string id="16802" value="Je hebt geen mappen aangegeven om vrij te geven. Weet je het zeker?"/>
-	<string id="16803" value="De map die je wilt delen is al vrijgegeven als deel van een andere vrijgegeven map:\n\n%s"/>
-	<string id="16804" value="Je hebt geen schuilnaam ingevuld in je gebruikersprofiel."/>
-	<string id="16805" value="Je hebt je locatie niet ingevoerd in je gebruikersprofiel.\n\nHet is aan te raden om je locatie in te voeren zodat andere gebruikers kunnen zien uit welk land je komt. Merk op dat het invoeren van je locatie geen andere gevoelige informatie bekend maakt.\n\nWil je echt verder gaan zonder je locatie in te voeren?"/>
-	<string id="16806" value="Je hebt aangegeven dat je je poorten wilt delen (port-forwarding) op je NAT-router of firewall.\n\nConfigureer alsjeblieft je netwerk zo, dat TCP poort %i wordt doorgestuurd naar je lokale PC."/>
-	<string id="16807" value="Geef alsjeblieft de bandbreedtelimiet die je wilt invoeren in de vorm van &quot;123 kb/s&quot; voor kilobits per seconde, of &quot;123 KB/s&quot; voor kilobytes per seconde."/>
-	<string id="16808" value="Je hebt je leeftijd en geslacht niet aangegeven. Weet je zeker dat je verder wilt gaan zonder dit te doen?"/>
-	<string id="16809" value="&amp;Sluiten"/>
-	<string id="16810" value="jaar oude"/>
-	<string id="16811" value="Automatisch"/>
-	<string id="16812" value="Even wachten: Aan het proberen om je router automatisch in te stellen ..."/>
-	<string id="16813" value="Even wachten: Discovery services aan het vernieuwen..."/>
-	<string id="16814" value="Even wachten: De eDonkey server lijst aan het vernieuwen..."/>
-	<string id="16815" value="UPnP Device Host Service is not running. This service is required to perform the setup.\nYou need to set the startup type of the service to automatic."/>
-	<string id="16816" value="Het eDonkey netwerk gebruikt grote wachtrijen met grote wachttijden. Door de maximum rijpositie te beperken zal u zo strikt goedkeuren, dat u problemen kunt ondervinden bij downloads om te beginnen.\nWeet u zeker dat u de maximale rijpositie die u wilt goedkeuren, beperken?"/>
-	<string id="16817" value="Windows ondersteund geen locaties met meer dan 256 karakters.\nSelecteer een map met een kortere locatie."/>
-	<string id="16818" value="De incomplete map mag niet in de bibliotheek omdat dit de prestaties nadelig beïnvloed. Incomplete bestanden deel je rechtstreeks in het downloadvenster."/>
-	<string id="16819" value="Een submap van de geselecteerde map &quot;%s&quot; is al een onderdeel van de bibliotheek.\nToevoegen van deze map resulteert in opnieuw hashen van sommige bestanden.\n\nWil je hiermee doorgaan ?"/>
-	<string id="16864" value="Bezig met het opvragen van gastheer discovery services..."/>
-	<string id="16865" value="Bezig met het opvragen van discovery service &quot;%s&quot;..."/>
-	<string id="16866" value="GWebCache transactie successvol (&quot;%s&quot;)."/>
-	<string id="16867" value="Discovery service &quot;%s&quot; is mislukt, aantal mislukt: %i."/>
-	<string id="16868" value="Discovery service &quot;%s&quot; is %i keer mislukt, wordt verwijderd."/>
-	<string id="16870" value="GWebCache update wordt verzonden naar service &quot;%s&quot;..."/>
-	<string id="16871" value="GWebCache &quot;%s&quot; wordt vóórgelegd aan een willekeurige GWebCache..."/>
-	<string id="16928" value="Een verbinding naar %s wordt aangemaakt voor het bekijken van de gebruiker..."/>
-	<string id="16929" value="Niet mogelijk om een verbinding aan te maken met %s voor het bekijken van de gebruiker."/>
-	<string id="16930" value="Een pushaanvraag is verzonden naar %s voor het bekijken van de gebruiker."/>
-	<string id="16931" value="Niet mogelijk om een pushaanvraag te versturen naar %s voor het bekijken van de gebruiker."/>
-	<string id="16932" value="Een aanvraag is verzonden naar %s voor het bekijken van de gebruiker..."/>
-	<string id="16933" value="&quot;Bekijken&quot; gastheer %s heeft geantwoord met een ongeldig HTTP antwoord."/>
-	<string id="16934" value="&quot;Bekijken&quot; gastheer %s heeft geantwoord met code %s (%s)."/>
-	<string id="16935" value="&quot;Bekijken&quot; gastheer %s heeft geantwoord met een niet herkend antwoord en ondersteunt misschien niet het bekijken van gebruiker/bron."/>
-	<string id="16936" value="Inhoud is ontvangen van &quot;Bekijken&quot; gastheer %s (%s)"/>
-	<string id="16938" value="Fout opgetreden tijdens het ontcijferen van Gnutella paketten van &quot;Bekijken&quot; gastheer %s."/>
-	<string id="16939" value="Het bekijken van gebruiker %s is afgerond, %i bestanden gevonden."/>
-	<string id="16940" value="De verbinding met %s voor het bekijken van de gebruiker werd onderbroken."/>
-	<string id="16941" value="De verbinding met %s voor het bekijken van de gebruiker is gesloten wegens een gebrek aan verkeer."/>
-	<string id="16942" value="De verbinding met %s voor het bekijken van de gebruiker is gesloten."/>
-	<string id="16943" value="Bezig met het bekijken van %s"/>
-	<string id="16944" value="%i gedeelde bestanden gevonden in %s's bibliotheek."/>
-	<string id="16991" value="PeerProject Media Speler"/>
-	<string id="16992" value="PeerProject kon de MediaServices plugin niet opstarten. Installeer PeerProject alsjeblieft opnieuw en kijk na of je de benodigde mediacodecs en outputdrivers hebt geïnstalleerd."/>
-	<string id="16993" value="Alle mediabestanden|*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Afspeellijsten|*.asx;*.wax;*.m3u;*.wvx;*.wmx|Audiobestanden|*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm|Videobestanden|*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|CD audiobestanden|*.cda|MIDI bestanden|*.mid;*.rmi;*.midi|Alle bestanden|*.*||"/>
-	<string id="16994" value="Niet mogelijk om mediabestand &quot;%s&quot; te laden"/>
-	<string id="16995" value="Het bestand is misschien beschadigd, of je hebt de noodzakelijke codecs niet om het af te spelen."/>
-	<string id="16996" value="Een deel van dit bestand kon niet worden afgespeeld, je moet misschien extra codecs downloaden."/>
-	<string id="16997" value="Er is geen bestand aan het afspelen. Dubbelklik op een mediabestand uit je bibliotheek om het af te spelen."/>
-	<string id="16998" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
-	<string id="16999" value="AFSPEELLIJST:"/>
-	<string id="17024" value="Verbinding met %s wordt aangemaakt..."/>
-	<string id="17025" value="Niet mogelijk om verbinding te maken met %s."/>
-	<string id="17026" value="Een gefirewallde pushverbinding is aangevraagd aan %s..."/>
-	<string id="17027" value="Pushverbinding vanaf %s is geaccepteerd, bezig met handschudden..."/>
-	<string id="17028" value="Verbinding aangemaakt, bezig met handschudden..."/>
-	<string id="17029" value="Handdruk mislukt, de gastheer ondersteunt het chatten misschien niet."/>
-	<string id="17030" value="Handdruk is volbracht, chatprotocol versie %s."/>
-	<string id="17031" value="Profielinformatie wordt uitgewisseld..."/>
-	<string id="17032" value="Bevestigde gebruiker"/>
-	<string id="17033" value="Privé gesprek met gebruiker wordt aangevraagd..."/>
-	<string id="17034" value="Privé gesprek is geregeld, je bent nu aan het chatten met %s."/>
-	<string id="17035" value="%s accepteert geen privé gesprekken, sorry."/>
-	<string id="17036" value="%s is weg: %s"/>
-	<string id="17037" value="De chatverbinding is verloren gegaan."/>
-	<string id="17038" value="Verbinding gesloten."/>
-	<string id="17039" value="Niet mogelijk een pushverbinding aan te vragen aan %s, geen route beschikbaar."/>
-	<string id="17040" value="Kan geen boodschap sturen, je bent niet verbonden. PeerProject probeert te verbinden..."/>
-	<string id="17041" value="Kan geen boodschap sturen, er is nog geen verbinding aangemaakt."/>
-	<string id="17042" value="Je hebt je gebruikersprofiel nog niet ingevuld. Je moet zorgen voor een profiel voordat je kunt chatten met andere gebruikers.\n\nWil je nu je profiel invullen?"/>
-	<string id="17043" value="Uploadvoorrang is verleend aan gastheer %s."/>
-	<string id="17100" value="Gnutella: Peer-naar-peer verbinding"/>
-	<string id="17101" value="Gnutella: Leaf-naar-ultrapeer verbinding"/>
-	<string id="17102" value="Gnutella: Ultrapeer-naar-leaf verbinding"/>
-	<string id="17103" value="Gnutella2: Hub-naar-hub verbinding"/>
-	<string id="17104" value="Gnutella2: Leaf-naar-hub verbinding"/>
-	<string id="17105" value="Gnutella2: Hub-naar-leaf verbinding"/>
-	<string id="17106" value="eDonkey Server verbinding (LOWID: %lu)"/>
-	<string id="17107" value="eDonkey Server verbinding"/>
-	<string id="17108" value="Handschudden"/>
-	<string id="17109" value="Inkomend"/>
-	<string id="17110" value="Uitgaand"/>
-	<string id="17111" value="Actueel:"/>
-	<string id="17112" value="Totaal:"/>
-	<string id="17113" value="Compressie:"/>
-	<string id="17114" value="Ratio:"/>
-	<string id="17115" value="Uitpakken"/>
-	<string id="17116" value="Geen"/>
-	<string id="17117" value="Verbinden"/>
-	<string id="17118" value="Handschudden"/>
-	<string id="17119" value="Afgewezen"/>
-	<string id="17120" value="Sluiten"/>
-	<string id="17121" value="Onbekend"/>
-	<string id="17122" value="G1 Peer"/>
-	<string id="17123" value="G1 UltraPeer"/>
-	<string id="17124" value="G1 Leaf"/>
-	<string id="17125" value="G2 Peer"/>
-	<string id="17126" value="G2 Hub"/>
-	<string id="17127" value="G2 Leaf"/>
-	<string id="17128" value="eDonkey Server"/>
-	<string id="17129" value="eDonkey (LowID)"/>
-	<string id="17130" value="eDonkey (HighID)"/>
-	<string id="17216" value="Verbinding met eDonkey Server &quot;%s&quot; wordt aangemaakt..."/>
-	<string id="17217" value="Verbonden met eDonkey Server %s, bezig met handschudden..."/>
-	<string id="17218" value="ED2K [%s] %s"/>
-	<string id="17219" value="eDonkey Server %s weigerde de verbinding."/>
-	<string id="17220" value="eDonkey Server %s online, cliënt ID is %lu."/>
-	<string id="17221" value="eDonkey Server %s veranderde onze cliënt ID van %lu naar %lu."/>
-	<string id="17222" value="eDonkey Server %s identificeerde zichzelf als &quot;%s&quot;."/>
-	<string id="17223" value="eDonkey Server %s keurde de verbinding af."/>
-	<string id="17224" value="Fout opgetreden bij handschudden met eDonkey cliënt %s."/>
-	<string id="17225" value="eDonkey cliënt verbinding met %s is verloren gegaan."/>
-	<string id="17226" value="Een verkeerd geformatteerd eDonkey pakket is ontvangen van %s (id=%x)."/>
-	<string id="17227" value="Binnenkomende verbinding van %s is een eDonkey cliëntlink."/>
-	<string id="17228" value="eDonkey hashset voor &quot;%s&quot; wordt gestuurd naar %s..."/>
-	<string id="17229" value="eDonkey cliënt verbinding met %s was inactief, gesloten."/>
-	<string id="17230" value="eDonkey cliënt verbinding wordt aangemaakt met %s..."/>
-	<string id="17231" value="eDonkey cliënt %s heeft de verkeerde GUID, handschudden wordt geannuleerd."/>
-	<string id="17232" value="Verbinden met eDonkey cliënt %s is uitgeteld."/>
-	<string id="17233" value="Handschudden met eDonkey cliënt %s is uitgeteld."/>
-	<string id="17234" value="eDonkey cliënt link van %s is geweigerd omdat eDonkey is uitgeschakeld."/>
-	<string id="17248" value="Starten met het proces om gedeeltelijke eDonkey downloads te importeren..."/>
-	<string id="17249" value="Proces afgerond, %i gedeeltelijke downloads succesvol geïmporteerd."/>
-	<string id="17250" value="Bezig met scannen van map: &quot;%s&quot;..."/>
-	<string id="17251" value="Onmogelijk om bestand te importeren."/>
-	<string id="17252" value="Gedeeltelijk bestand &quot;%s&quot; gevonden, bezig met importeren..."/>
-	<string id="17253" value="Niet mogelijk om gedeeltelijk bestand &quot;%s&quot; te openen."/>
-	<string id="17254" value="Download &quot;%s&quot; gevonden, grootte %s."/>
-	<string id="17255" value="Download data bestand is nieuwer dan .part bestand, afgebroken."/>
-	<string id="17256" value="Bezig met kopiëren van &quot;%s&quot; naar &quot;%s&quot;..."/>
-	<string id="17257" value="Klaar met kopiëren van bestand."/>
-	<string id="17258" value="PeerProject gedeeltelijke download aangemaakt, %s overgebleven."/>
-	<string id="17259" value="Dit bestand staat al in de PeerProject downloadlijst."/>
-	<string id="17260" value="Onvoldoende schijfruimte om het downloadbestand te kopiëren."/>
-	<string id="17472" value="Binnenkomende verbinding van %s is een BitTorrent koppeling, in onderhandeling..."/>
-	<string id="17473" value="Verbinden met BitTorrent cliënt %s is uitgeteld."/>
-	<string id="17474" value="Handschudden met BitTorrent cliënt %s is uitgeteld."/>
-	<string id="17475" value="BitTorrent verbinding met %s wordt gesloten vanwege een gebrek aan verkeer."/>
-	<string id="17476" value="BitTorrent verbinding met %s is mislukt omdat de andere cliënt een andere Peer ID heeft."/>
-	<string id="17477" value="BitTorrent verbinding met %s antwoordde met het verkeerde bestand."/>
-	<string id="17478" value="BitTorrent verbinding met %s vroeg een onbekend bestand aan."/>
-	<string id="17479" value="BitTorrent verbinding met %s tot stand gekomen voor &quot;%s&quot;."/>
-	<string id="17481" value="BitTorrent beschrijvend bestand (descriptor) ontvangen: &quot;%s&quot;"/>
-	<string id="17482" value="Niet mogelijk om het geprefetched BitTorrent bestand &quot;%s&quot; te ontleden."/>
-	<string id="17483" value="Fout van BitTorrent tracker voor &quot;%s&quot; : &quot;%s&quot;."/>
-	<string id="17484" value="Fout bij het ontleden van het antwoord van de BitTorrent tracker."/>
-	<string id="17485" value="Antwoord BitTorrent tracker ontvangen voor &quot;%s&quot;, %i nieuwe bronnen."/>
-	<string id="17486" value="BitTorrent cliënt koppeling met %s wordt aangemaakt..."/>
-	<string id="17487" value="BitTorrent koppeling met %s vastgelegd, bezig met handschudden..."/>
-	<string id="17488" value="Je hebt de tracker URL van deze torrent veranderd. Weet je zeker dat je deze aanpassing wilt bewaren?\n\nEen foutieve tracker URL zou de vooruitgang van het downloaden kunnen verhinderen."/>
-	<string id="17489" value="BitTorrent verbinding met %s is uitgebreid protocol, geïdentificeerd als &quot;%s&quot;."/>
-	<string id="17490" value="%i nieuwe BitTorrent bronnen ontvangen van %s."/>
-	<string id="17491" value="De torrent &quot;%s&quot; is al in je downloadlijst, en kan niet worden uitgezaaid."/>
-	<string id="17492" value="Er is een fout opgetreden bij het laden van het torrentbestand &quot;%s&quot;. Waarschijnlijk is dit een ongeldige torrent."/>
-	<string id="17493" value="Niet mogelijk om het BitTorrent deelbestand &quot;%s&quot; aan te maken."/>
-	<string id="17494" value="Deze torrent bevat het bestand &quot;%s&quot;, maar PeerProject kan dit bestand niet in je bibliotheek vinden. Indien mogelijk, verplaats het bestand naar dezelfde map als de torrent en probeer het opnieuw."/>
-	<string id="17495" value="Deze torrent bevat het bestand &quot;%s&quot; wat %s zou moeten zijn, maar jouw versie van het bestand is %s."/>
-	<string id="17496" value="Er is een fout opgetreden tijdens het kopiëren van &quot;%s&quot; naar een BitTorrent deelbestand."/>
-	<string id="17497" value="Er is een onbekende fout opgetreden tijdens het uitzaaien van &quot;%s&quot;."/>
-	<string id="17498" value="Er is een fout ontdekt in het bestand &quot;%s&quot;."/>
-	<string id="17500" value="Tracker reageerde niet - Aankondiging opnieuw proberen (%i van %i)"/>
-	<string id="17501" value="Communicatie met tracker is onmogelijk"/>
-	<string id="17503" value="Tracker mislukte- Volgende tracker aan het proberen (%i van %i)"/>
-	<string id="17505" value="BitTorrent verbinding met %s is verbroken."/>
-	<string id="17506" value="BitTorrent handdruk met %s is verbroken."/>
-	<string id="17507" value="BitTorrent paren met %s is verbroken."/>
-	<string id="17510" value="BitTorrent paren met %s is niet geaccepteerd want een verbinding met deze cliënt ."/>
-	<string id="17511" value="BitTorrent paren met %s is niet geaccepteerd want de maximum verbindingen zijn bereikt."/>
-	<string id="17512" value="Privé torrent"/>
-	<string id="17513" value="Encodeerings fout"/>
-	<string id="18496" value="Je hebt de bestandsnaam aangepast. Weet je zeker dat je deze download wilt hernoemen?"/>
-	<string id="18497" value="Je hebt een SHA1 waarde ingevoerd, maar het is ongeldig. Controleer het en probeer het nog een keer."/>
-	<string id="18498" value="Je hebt een root tiger-tree waarde ingevoerd, maar het is ongeldig. Controleer het en probeer het nog een keer."/>
-	<string id="18499" value="Je hebt een eDonkey hash waarde ingevoerd, maar het is ongeldig. Controleer het en probeer het nog een keer."/>
-	<string id="18500" value="Je hebt een SHA1 hash waarde ingegeven die anders is als degene die momenteel met deze download is geassocieerd. Weet je zeker dat je de SHA1 hash nu wilt veranderen?"/>
-	<string id="18501" value="Je hebt een root tiger-tree hash waarde ingegeven die anders is als degene die momenteel met deze download is geassocieerd. Weet je zeker dat je de tiger-tree root hash nu wilt veranderen?"/>
-	<string id="18502" value="Je hebt een eDonkey hash waarde ingegeven die anders is als degene die momenteel met deze download is geassocieerd. Weet je zeker dat je de eDonkey hash nu wilt veranderen?"/>
-	<string id="18503" value="Weet je zeker dat je de huidige verificatie status wilt vergeten? Alle gedownloade data zal als onbetrouwbaar worden beschouwd, en opgeslagen hashtrees en hashsets zullen worden verwijderd."/>
-	<string id="18504" value="Weet je zeker dat je alle bronnen wilt vergeten voor de geselecteerde download?"/>
-	<string id="18505" value="Geef alsjebleift een geldig bereik voor het wissen. Het &quot;van&quot; veld is de eerste byte die moet worden gewist, het &quot;tot&quot; veld is de laatste byte die moet worden gewist."/>
-	<string id="18506" value="Het is niet mogelijk om het geselecteerde bereik van de download te wissen omdat geen deel van het bereik aanwezig is."/>
-	<string id="18507" value="%I64i bytes van de download zijn gewist."/>
-	<string id="18508" value="De downloadbron %s voor &quot;%s&quot; is genegeerd, omdat de wachtrijpositie %i te hoog is."/>
-	<string id="18509" value="Je kunt deze download niet als volledig beschouwen en opnieuw controleren want je hebt nog geen gedeeltelijke verificatie data, zoals het tiger-tree volume, de eDonkey hashset of de BitTorrent hashset.  Zonder deze verificatiegegevens kan de download niet opnieuw worden gecontroleerd."/>
-	<string id="18510" value="Weet je zeker dat je deze download als volledig wilt beschouwen en het opnieuw controleren?  Het gehele bestand zal worden beschouwd, en PeerProject zal delen accepteren die de controle zullen doorstaan.  Delen die de controle niet doorstaan zullen opnieuw worden gedownload."/>
-	<string id="18510" value="Ben je zeker dat dit bestand compleet is en je het wilt laten hercontroleren? Het hele bestand zal worden overwogen, en PeerProject zal de succesvol gecontroleerde delen behouden en de mislukte delen opnieuw downloaden."/>
-	<string id="19000" value="Web Interface is uitgeschakeld."/>
-	<string id="19001" value="http://%s:%i/remote - Gebruikersnaam en wachtwoord kiezen."/>
-	<string id="19002" value="Niet mogelijk om verbindingen te accepteren, de URL is niet beschikbaar."/>
-	<string id="20000" value="Geen URN beschikbaar"/>
-	<string id="20001" value="Sluiten"/>
-	<string id="20002" value="van"/> <!-- "1 of 10" -->
-	<string id="20003" value="Veranderen van leesrichting vereist het heropstarten van PeerProject.\nJe zal PeerProject zelf opnieuw moeten starten. Nu afsluiten?"/>
-	<string id="20005" value="Nee"/>
-	<string id="20006" value="Ja"/>
-	<string id="20007" value="Auto"/>
-	<string id="20008" value="Standaard"/>
-	<string id="20009" value="Aangepast"/>
-	<string id="20010" value="&amp;Terug"/>
-	<string id="20011" value="&amp;Volgende"/>
-	<string id="20012" value="Beëindig"/>
-	<string id="20013" value="Alles"/>
-	<string id="20100" value="Verbindt..."/>
-	<string id="20101" value="Toelating vragen..."/>
-	<string id="20102" value="Antwoordt..."/>
-	<string id="20103" value="Downloadt..."/>
-	<string id="20104" value="TigerTree"/>
-	<string id="20105" value="Hashset"/>
-	<string id="20106" value="Metadata"/>
-	<string id="20107" value="Bezet"/>
-	<string id="20108" value="In wachtrij"/>
-	<string id="20109" value="Wachtrij"/>
-	<string id="20110" value="Onbekend"/>
-	<string id="20111" value="Voltooid"/>
-	<string id="20112" value="Zaait..."/>
-	<string id="20113" value="Verplaatst..."/>
-	<string id="20114" value="Gepauzeerd"/>
-	<string id="20115" value="Bestandsfout"/>
-	<string id="20116" value="Kan niet verplaatsen"/>
-	<string id="20117" value="Controleert..."/>
-	<string id="20118" value="Actief"/>
-	<string id="20119" value="In afwachting"/>
-	<string id="20120" value="Zoekt..."/>
-	<string id="20121" value="Maakt..."/>
-	<string id="20122" value="Torrent"/>
-	<string id="20123" value="Tracker plat"/>
-	<string id="20124" value="Gecontroleerd"/>
-	<string id="20125" value="Niet decontroleerd"/>
-	<string id="20126" value="Ongeïnteresseerd"/>
-	<string id="20127" value="Ongeïnteresseerd"/>
-	<string id="20130" value="bron"/>
-	<string id="20131" value="bronnen"/>
-	<string id="20132" value="bronnen"/>
-	<string id="20134" value="bronnen"/>
-	<string id="20135" value="(Geen bronnen)"/>
-	<string id="20136" value="Versperd"/>
-	<string id="20137" value="Volgende"/>
-	<string id="20138" value="Q"/>
-	<string id="20200" value="Every Dag"/>
-	<string id="20201" value="Maandag"/>
-	<string id="20202" value="Dinsdag"/>
-	<string id="20203" value="Woensdag"/>
-	<string id="20204" value="Donderdag"/>
-	<string id="20205" value="Vrijdag"/>
-	<string id="20206" value="Zaterdag"/>
-	<string id="20207" value="Zondag"/>
-	<string id="20210" value="(Geen waarde)"/>
-	<string id="20211" value="Nep/corrupt"/>
-	<string id="20212" value="Slecht"/>
-	<string id="20213" value="Redelijk"/>
-	<string id="20214" value="Goed"/>
-	<string id="20215" value="Erg goed"/>
-	<string id="20216" value="Perfect"/>
-	<string id="20217" value="Kies de eMule gedeeltelijke(.part) map:"/>
-	<!-- Column headers in Library Album View -->
-	<string id="20230" value="#"/> <!-- Track number -->
-	<string id="20231" value="Titel"/>
-	<string id="20232" value="Duur"/>
-	<string id="20233" value="Bitrate"/>
-	<string id="20234" value="Album"/>
-	<string id="20235" value="Artiest"/>
-	<string id="20236" value="Beoordeling"/>
-	<string id="20237" value="OK"/>
-	<string id="20238" value="Annuleren"/>
-	<string id="20245" value="Nieuwe Map"/>
-	<string id="32825" value="Open mijn map met complete downloads"/>
-	<string id="32773" value="Controleer op een nieuwe versie"/>
-	<string id="61215" value="Activeer dit venster"/>
+	<string id="20001" value="Ja"/>
+	<string id="20002" value="Nee"/>
+	<string id="20003" value="OK"/>
+	<string id="20004" value="Annuleren"/>
+	<string id="20005" value="&amp;Terug"/>
+	<string id="20006" value="&amp;Volgende"/>
+	<string id="20008" value="Sluiten"/>
+	<string id="20009" value="van"/> <!-- "1 of 10" -->
+	<string id="20010" value="Alles"/>
+	<string id="20011" value="Auto"/>
+	<string id="20012" value="Aangepast"/>
+	<string id="20013" value="Standaard"/>
+	<string id="20014" value="Beëindig"/>
+	<string id="20050" value="Every Dag"/>
+	<string id="20051" value="Maandag"/>
+	<string id="20052" value="Dinsdag"/>
+	<string id="20053" value="Woensdag"/>
+	<string id="20054" value="Donderdag"/>
+	<string id="20055" value="Vrijdag"/>
+	<string id="20056" value="Zaterdag"/>
+	<string id="20057" value="Zondag"/>
+	<string id="20060" value="(Geen waarde)"/>
+	<string id="20061" value="Nep/corrupt"/>
+	<string id="20062" value="Slecht"/>
+	<string id="20063" value="Redelijk"/>
+	<string id="20064" value="Goed"/>
+	<string id="20065" value="Erg goed"/>
+	<string id="20066" value="Perfect"/>
+	<string id="20080" value="Dit is een voor-distributie versie van PeerProject en de beta periode is afgelopen. Download alsjeblieft de volledige, officiële distributie vanaf http://peerproject.org/."/>
+	<string id="20081" value="&amp;Sluiten"/>
+	<string id="20082" value="Klaar, klik op sluiten"/>
+	<string id="20083" value="Wordt aangevraagd..."/>
+	<string id="20084" value="Gelukt!"/>
+	<string id="20100" value="De verbinding met %s voor het bekijken van de gebruiker is gesloten."/>
+	<string id="20101" value="&quot;Bekijken&quot; gastheer %s heeft geantwoord met een niet herkend antwoord en ondersteunt misschien niet het bekijken van gebruiker/bron."/>
+	<string id="20102" value="Niet mogelijk om te verbinden met gastheer voor het bekijken van de gebruiker."/>
+	<string id="20103" value="Niet mogelijk om een verbinding aan te maken met %s voor het bekijken van de gebruiker."/>
+	<string id="20104" value="Niet mogelijk om een pushaanvraag te versturen naar %s voor het bekijken van de gebruiker."/>
+	<string id="20105" value="Een verbinding wordt aangemaakt met gastheer..."/>
+	<string id="20106" value="Een verbinding naar %s wordt aangemaakt voor het bekijken van de gebruiker..."/>
+	<string id="20107" value="Antwoord om te bekijken wordt gedownload (%2.f%%)..."/>
+	<string id="20108" value="Inhoud is ontvangen van &quot;Bekijken&quot; gastheer %s (%s)"/>
+	<string id="20109" value="De verbinding met %s voor het bekijken van de gebruiker werd onderbroken."/>
+	<string id="20110" value="Het bekijken van gebruiker %s is afgerond, %i bestanden gevonden."/>
+	<string id="20111" value="%i gedeelde bestanden gevonden in %s's bibliotheek."/>
+	<string id="20112" value="&quot;Bekijken&quot; gastheer %s heeft geantwoord met code %s (%s)."/>
+	<string id="20113" value="&quot;Bekijken&quot; gastheer %s heeft geantwoord met een ongeldig HTTP antwoord."/>
+	<string id="20114" value="Niet mogelijk om de bestandenlijst te downloaden. Deze gastheer ondersteund misschien het bekijken niet."/>
+	<string id="20115" value="Fout opgetreden tijdens het ontcijferen van Gnutella paketten van &quot;Bekijken&quot; gastheer %s."/>
+	<string id="20116" value="Een pushaanvraag is verstuurd, aan het wachten op verbinding..."/>
+	<string id="20117" value="Een pushaanvraag is verzonden naar %s voor het bekijken van de gebruiker."/>
+	<string id="20118" value="Verbonden, het bekijken is aangevraagd..."/>
+	<string id="20119" value="Een aanvraag is verzonden naar %s voor het bekijken van de gebruiker..."/>
+	<string id="20120" value="De verbinding met %s voor het bekijken van de gebruiker is gesloten wegens een gebrek aan verkeer."/>
+	<string id="20121" value="Bezig met het bekijken van %s"/>
+	<string id="20122" value="BitTorrent verbinding met %s tot stand gekomen voor &quot;%s&quot;."/>
+	<string id="20123" value="Binnenkomende verbinding van %s is een BitTorrent koppeling, in onderhandeling..."/>
+	<string id="20124" value="BitTorrent cliënt koppeling met %s wordt aangemaakt..."/>
+	<string id="20125" value="Verbinden met BitTorrent cliënt %s is uitgeteld."/>
+	<string id="20126" value="BitTorrent paren met %s is verbroken."/>
+	<string id="20127" value="BitTorrent verbinding met %s is verbroken."/>
+	<string id="20128" value="BitTorrent handdruk met %s is verbroken."/>
+	<string id="20129" value="BitTorrent paren met %s is niet geaccepteerd want een verbinding met deze cliënt ."/>
+	<string id="20130" value="%i nieuwe BitTorrent bronnen ontvangen van %s."/>
+	<string id="20131" value="BitTorrent verbinding met %s is uitgebreid protocol, geïdentificeerd als &quot;%s&quot;."/>
+	<string id="20132" value="Handschudden met BitTorrent cliënt %s is uitgeteld."/>
+	<string id="20133" value="BitTorrent koppeling met %s vastgelegd, bezig met handschudden..."/>
+	<string id="20134" value="BitTorrent paren met %s is niet geaccepteerd want de maximum verbindingen zijn bereikt."/>
+	<string id="20136" value="BitTorrent verbinding met %s vroeg een onbekend bestand aan."/>
+	<string id="20137" value="BitTorrent verbinding met %s antwoordde met het verkeerde bestand."/>
+	<string id="20138" value="BitTorrent verbinding met %s is mislukt omdat de andere cliënt een andere Peer ID heeft."/>
+	<string id="20139" value="BitTorrent verbinding met %s wordt gesloten vanwege een gebrek aan verkeer."/>
+	<string id="20140" value="Encodeerings fout"/>
+	<string id="20141" value="Privé torrent"/>
+	<string id="20142" value="De torrent &quot;%s&quot; is al in je downloadlijst, en kan niet worden uitgezaaid."/>
+	<string id="20143" value="Er is een fout opgetreden tijdens het kopiëren van &quot;%s&quot; naar een BitTorrent deelbestand."/>
+	<string id="20144" value="Niet mogelijk om het BitTorrent deelbestand &quot;%s&quot; aan te maken."/>
+	<string id="20145" value="Er is een onbekende fout opgetreden tijdens het uitzaaien van &quot;%s&quot;."/>
+	<string id="20146" value="Er is een fout opgetreden bij het laden van het torrentbestand &quot;%s&quot;. Waarschijnlijk is dit een ongeldige torrent."/>
+	<string id="20147" value="Deze torrent bevat het bestand &quot;%s&quot;, maar PeerProject kan dit bestand niet in je bibliotheek vinden. Indien mogelijk, verplaats het bestand naar dezelfde map als de torrent en probeer het opnieuw."/>
+	<string id="20148" value="Deze torrent bevat het bestand &quot;%s&quot; wat %s zou moeten zijn, maar jouw versie van het bestand is %s."/>
+	<string id="20149" value="Er is een fout ontdekt in het bestand &quot;%s&quot;."/>
+	<string id="20150" value="Communicatie met tracker is onmogelijk"/>
+	<string id="20151" value="Tracker mislukte- Volgende tracker aan het proberen (%i van %i)"/>
+	<string id="20152" value="Je hebt de tracker URL van deze torrent veranderd. Weet je zeker dat je deze aanpassing wilt bewaren?\n\nEen foutieve tracker URL zou de vooruitgang van het downloaden kunnen verhinderen."/>
+	<string id="20153" value="Fout van BitTorrent tracker voor &quot;%s&quot; : &quot;%s&quot;."/>
+	<string id="20154" value="Fout bij het ontleden van het antwoord van de BitTorrent tracker."/>
+	<string id="20155" value="Antwoord BitTorrent tracker ontvangen voor &quot;%s&quot;, %i nieuwe bronnen."/>
+	<string id="20158" value="Niet mogelijk om het geprefetched BitTorrent bestand &quot;%s&quot; te ontleden."/>
+	<string id="20159" value="BitTorrent beschrijvend bestand (descriptor) ontvangen: &quot;%s&quot;"/>
+	<string id="20160" value="Inkomende chataanvraag van %s is geaccepteerd, bezig met handschudden..."/>
+	<string id="20161" value="Niet mogelijk om verbinding te maken met %s."/>
+	<string id="20162" value="Niet mogelijk een pushverbinding aan te vragen aan %s, geen route beschikbaar."/>
+	<string id="20163" value="Verbinding gesloten."/>
+	<string id="20164" value="Verbinding met %s is afgebroken."/>
+	<string id="20165" value="Verbinding aangemaakt, bezig met handschudden..."/>
+	<string id="20166" value="Verbonden met %s, bezig met handschudden..."/>
+	<string id="20167" value="Verbinding met %s wordt aangemaakt..."/>
+	<string id="20168" value="Bezig met verbinden met %s om te chatten..."/>
+	<string id="20169" value="Niet mogelijk om te verbinden met gastheer %s."/>
+	<string id="20170" value="De chatverbinding is verloren gegaan."/>
+	<string id="20171" value="De verbinding met %s is verloren gegaan."/>
+	<string id="20172" value="Handdruk mislukt, de gastheer ondersteunt het chatten misschien niet."/>
+	<string id="20173" value="Handdruk is volbracht, chatprotocol versie %s."/>
+	<string id="20174" value="Profielinformatie wordt uitgewisseld..."/>
+	<string id="20175" value="Je hebt je gebruikersprofiel nog niet ingevuld. Je moet zorgen voor een profiel voordat je kunt chatten met andere gebruikers.\n\nWil je nu je profiel invullen?"/>
+	<string id="20176" value="Kan geen boodschap sturen, je bent niet verbonden. PeerProject probeert te verbinden..."/>
+	<string id="20177" value="Kan geen boodschap sturen, er is nog geen verbinding aangemaakt."/>
+	<string id="20178" value="%s is nu bekend als %s."/>
+	<string id="20179" value="Nu aan het chatten met %s (%s)."/>
+	<string id="20180" value="Uploadvoorrang is verleend aan gastheer %s."/>
+	<string id="20181" value="%s is weg: %s"/>
+	<string id="20182" value="Privé gesprek is geregeld, je bent nu aan het chatten met %s."/>
+	<string id="20183" value="%s accepteert geen privé gesprekken, sorry."/>
+	<string id="20184" value="Privé gesprek met gebruiker wordt aangevraagd..."/>
+	<string id="20185" value="Bevestigde gebruiker"/>
+	<string id="20186" value="Pushverbinding vanaf %s is geaccepteerd, bezig met handschudden..."/>
+	<string id="20188" value="Een gefirewallde pushverbinding is aangevraagd aan %s..."/>
+	<string id="20190" value="Verbinding is mislukt vanwege ongeldige data op de kabel."/>
+	<string id="20191" value="Er is een onbekend antwoord ontvangen: %s"/>
+	<string id="20192" value="Je bent niet verbonden."/>
+	<string id="20193" value="Onbekend commando &quot;%s&quot;."/>
+	<string id="20194" value="Deze sjabloon is niet aanpasbaar."/>
+	<string id="20195" value="Deze sjabloon is ongeldig."/>
+	<string id="20199" value="(bezig met afsluiten na verkeer)"/>
+	<string id="20200" value="&quot;%s&quot; toegevoegd aan downloadwachtrij met %i bron(nen)."/>
+	<string id="20201" value="Het bestand &quot;%s&quot; wordt al gedownload, bronnen toegevoegd."/>
+	<string id="20202" value="Een onvolledige pushverbinding is ontvangen van %s, de verbinding wordt gesloten."/>
+	<string id="20203" value="Het downloaden van &quot;%s&quot; wordt versneld door de bandbreedtebegrenzing te verwijderen."/>
+	<string id="20204" value="Downloadgastheer %s is bezet, opnieuw proberen over %i seconden."/>
+	<string id="20205" value="Kon de download &quot;%s&quot; niet verplaatsen naar &quot;%s&quot;. Kijk na of het incomplete bestand niet in gebruik is en dat je downloads map bestaat en beschrijfbaar is."/>
+	<string id="20206" value="Niet mogelijk om &quot;%s&quot; op te lossen."/>
+	<string id="20207" value="Weet je zeker dat je iedere download uit deze groep wilt annuleren/afbreken?"/>
+	<string id="20208" value="Downloadverbinding met %s wordt verbroken, niet maar nodig."/>
+	<string id="20209" value="Downloadgastheer %s heeft ongevraagde data gestuurd, verbinding wordt verbroken."/>
+	<string id="20210" value="Het downloaden van &quot;%s&quot; is voltooid."/>
+	<string id="20211" value="Weet je zeker dat je &quot;%s&quot; wilt verwijderen?\n\nAls een download gewist wordt vanaf het downloadsvenster, kan het later niet meer worden hervat."/>
+	<string id="20212" value="Weet je zeker dat je alle gepauzeerde downloads wilt wissen? Als een download eenmaal van het downwloadsvenster is gewist, kan het niet meer worden hervat."/>
+	<string id="20213" value="Weet je zeker dat je de download &quot;%s&quot; wilt verwijderen?"/>
+	<string id="20214" value="Downloadverbinding met %s is aangemaakt."/>
+	<string id="20215" value="Verbinding zoeken met %s poort %i om &quot;%s&quot; te downloaden..."/>
+	<string id="20216" value="Niet mogelijk te verbinden met %s voor het downloaden."/>
+	<string id="20217" value="Ontvangen van downloadinhoud van gastheer %s (%s)."/>
+	<string id="20218" value="Het downloaden van &quot;%s&quot; vanaf %s (%s) wordt geannuleerd, het netwerk is buiten gebruik."/>
+	<string id="20219" value="Niet genoeg schijfruimte om &quot;%s&quot; te downloaden (%s)."/>
+	<string id="20220" value="Downloadverbinding met %s is verloren gegaan."/>
+	<string id="20222" value="Je hebt een eDonkey hash waarde ingevoerd, maar het is ongeldig. Controleer het en probeer het nog een keer."/>
+	<string id="20224" value="Geef alsjebleift een geldig bereik voor het wissen. Het &quot;van&quot; veld is de eerste byte die moet worden gewist, het &quot;tot&quot; veld is de laatste byte die moet worden gewist."/>
+	<string id="20225" value="Je hebt een SHA1 waarde ingevoerd, maar het is ongeldig. Controleer het en probeer het nog een keer."/>
+	<string id="20226" value="Je hebt een root tiger-tree waarde ingevoerd, maar het is ongeldig. Controleer het en probeer het nog een keer."/>
+	<string id="20228" value="Het is niet mogelijk om het geselecteerde bereik van de download te wissen omdat geen deel van het bereik aanwezig is."/>
+	<string id="20231" value="Je hebt een SHA1 hash waarde ingegeven die anders is als degene die momenteel met deze download is geassocieerd. Weet je zeker dat je de SHA1 hash nu wilt veranderen?"/>
+	<string id="20232" value="Je hebt een eDonkey hash waarde ingegeven die anders is als degene die momenteel met deze download is geassocieerd. Weet je zeker dat je de eDonkey hash nu wilt veranderen?"/>
+	<string id="20233" value="Je hebt een root tiger-tree hash waarde ingegeven die anders is als degene die momenteel met deze download is geassocieerd. Weet je zeker dat je de tiger-tree root hash nu wilt veranderen?"/>
+	<string id="20235" value="Je kunt deze download niet als volledig beschouwen en opnieuw controleren want je hebt nog geen gedeeltelijke verificatie data, zoals het tiger-tree volume, de eDonkey hashset of de BitTorrent hashset.  Zonder deze verificatiegegevens kan de download niet opnieuw worden gecontroleerd."/>
+	<string id="20236" value="Ben je zeker dat dit bestand compleet is en je het wilt laten hercontroleren? Het hele bestand zal worden overwogen, en PeerProject zal de succesvol gecontroleerde delen behouden en de mislukte delen opnieuw downloaden."/>
+	<string id="20236" value="Weet je zeker dat je deze download als volledig wilt beschouwen en het opnieuw controleren?  Het gehele bestand zal worden beschouwd, en PeerProject zal delen accepteren die de controle zullen doorstaan.  Delen die de controle niet doorstaan zullen opnieuw worden gedownload."/>
+	<string id="20237" value="Weet je zeker dat je alle bronnen wilt vergeten voor de geselecteerde download?"/>
+	<string id="20238" value="Weet je zeker dat je de huidige verificatie status wilt vergeten? Alle gedownloade data zal als onbetrouwbaar worden beschouwd, en opgeslagen hashtrees en hashsets zullen worden verwijderd."/>
+	<string id="20240" value="%I64i bytes van de download zijn gewist."/>
+	<string id="20241" value="Je hebt de bestandsnaam aangepast. Weet je zeker dat je deze download wilt hernoemen?"/>
+	<string id="20242" value="Downloadgastheer %s heeft het bestand &quot;%s&quot; niet."/>
+	<string id="20243" value="Bestand &quot;%s&quot; aanmaken om te downloaden."/>
+	<string id="20244" value="Niet mogelijk lokaal bestand &quot;%s&quot; aan te maken voor het downloaden, geannuleerd."/>
+	<string id="20245" value="Niet mogelijk lokaal bestand &quot;%s&quot; te openen voor het downloaden, geannuleerd."/>
+	<string id="20246" value="Geen downloadfragmenten meer, verbinding met %s wordt gesloten."/>
+	<string id="20247" value="Fragment verkleind, verbinding met %s wordt gesloten."/>
+	<string id="20248" value="Aanvraag voor downloadfragment (%I64u-%I64u) van &quot;%s&quot; vanaf %s."/>
+	<string id="20250" value="Drag'n'drop bestanden naar de %s groep"/>
+	<string id="20251" value="Standaard download-groep. (Toon alle bestanden)"/>
+	<string id="20252" value="Nieuwe groep"/>
+	<string id="20253" value="De eDonkey hashset van de downloadgastheer is corrupt of inwendig inconsequent, bron is geweigerd."/>
+	<string id="20254" value="Een ongeldige eDonkey hashset is ontvangen van %s, bron is geweigerd."/>
+	<string id="20255" value="eDonkey hashset is ontvangen voor &quot;%s&quot;, minimum controleerbare chunk %s."/>
+	<string id="20256" value="eDonkey hashset voor &quot;%s&quot; is aangevraagd aan %s..."/>
+	<string id="20257" value="Niet mogelijk om de vergroting te initialiseren voor download &quot;%s&quot;."/>
+	<string id="20258" value="Tiger-tree data wordt ontvangen van %s (%s)..."/>
+	<string id="20259" value="Metadata voor &quot;%s&quot; is aangevraagd aan %s..."/>
+	<string id="20261" value="Downloadgastheer %s heeft geantwoord met %s (%s)."/>
+	<string id="20262" value="Downloadgastheer %s heeft geantwoord met een ongeldig HTTP antwoord."/>
+	<string id="20263" value="Gastheer %s stuurt download &quot;%s&quot; door via een pushverbinding, geaccepteerd."/>
+	<string id="20264" value="Een pushaanvraag wordt gestuurd voor download &quot;%s&quot;..."/>
+	<string id="20265" value="Downloadgastheer %s is bezet, dus we wachten in de wachtrij op plaats #%i van %i (&quot;%s&quot;.."/>
+	<string id="20266" value="In wachtrij blijven voor &quot;%s&quot;."/>
+	<string id="20267" value="De downloadbron %s voor &quot;%s&quot; is genegeerd, omdat de wachtrijpositie %i te hoog is."/>
+	<string id="20268" value="Het wachten op de wachtrij update van eDonkey downloadgastheer %s is uitgeteld voor bestand &quot;%s&quot;."/>
+	<string id="20269" value="Downloadaanvraag naar %s is uitgeteld, de verbinding wordt gesloten."/>
+	<string id="20270" value="De download &quot;%s&quot; is gewist."/>
+	<string id="20271" value="&quot;%s&quot; is verplaatst naar &quot;%s&quot;, download voltooid."/>
+	<string id="20272" value="Het downloaden van &quot;%s&quot; is gepauzeerd."/>
+	<string id="20273" value="Het downloaden van &quot;%s&quot; is hervat."/>
+	<string id="20274" value="Oplossen van &quot;%s&quot; voor het downloaden van &quot;%s&quot;..."/>
+	<string id="20275" value="Meer bronnen worden opgevraagd voor download &quot;%s&quot; op %i verbinding(en)..."/>
+	<string id="20276" value="Kan geen bronnen meer binnenhalen voor download &quot;%s&quot; omdat er geen netwerkverbinding is."/>
+	<string id="20280" value="De tiger-tree data van deze downloadgastheer is corrupt of inwendig inconsequent, het wordt genegeerd."/>
+	<string id="20281" value="De tiger-tree data van deze downloadgastheer komt niet overeen met de verwachte oorspronkelijke waarde."/>
+	<string id="20282" value="Downloadgastheer %s kon niet voldoen aan het tiger-tree verzoek."/>
+	<string id="20283" value="Tiger-tree volume wordt ontvangen voor &quot;%s&quot;, %i niveau's, minimum controleerbare chunk %s."/>
+	<string id="20284" value="Tiger-tree volume ontvangen van %s (%s)..."/>
+	<string id="20285" value="Aanvragen van tiger-tree volume voor &quot;%s&quot; aan %s..."/>
+	<string id="20286" value="Downloadverbinding met %s wordt gesloten vanwege gebrek aan verkeer."/>
+	<string id="20290" value="Downloadgastheer %s heeft geantwoord met een ander, maar bruikbaar bereik (%I64i-%I64i) van &quot;%s&quot;."/>
+	<string id="20291" value="Een onnodige pushverbinding is ontvangen van %s."/>
+	<string id="20292" value="Bron %s (%s) is geweigerd voor het sturen van corrupte delen van &quot;%s&quot; (%I64i-%I64i)."/>
+	<string id="20293" value="WAARSCHUWING: Het controleren van download &quot;%s&quot; is mislukt, het is mogelijk niet het bestand dat je van plan was om te downloaden!"/>
+	<string id="20294" value="De download &quot;%s&quot; is succesvol gecontroleerd."/>
+	<string id="20295" value="Downloadgastheer %s's versie van &quot;%s&quot; heeft een andere URN, geannuleerd."/>
+	<string id="20296" value="Downloadgastheer %s heeft geantwoord met een onbruikbare byte-bereik van &quot;%s&quot;, in afwachting."/>
+	<string id="20297" value="Downloadgastheer %s's versie van &quot;%s&quot; heeft een andere lengte, geannuleerd."/>
+	<string id="20300" value="Een binnenkomende verbinding vanaf %s poort %i is geaccepteerd."/>
+	<string id="20301" value="Al verbonden met %s, ga niet nog een tweede verbinding aanmaken."/>
+	<string id="20302" value="Een dubbele verbinding vanaf %s is geweigerd."/>
+	<string id="20303" value="Een verbinding aangaan met %s poort %i..."/>
+	<string id="20304" value="Bron %s heeft de verbinding verbroken (%i : %s)."/>
+	<string id="20305" value="De verbinding met bron %s is afgesloten."/>
+	<string id="20306" value="Een verbinding met bron %s is aangegaan, handen schudden..."/>
+	<string id="20307" value="Het is niet mogelijk om een verbinding op te starten met bron %s."/>
+	<string id="20308" value="Bron %s heeft de verbinding onverwacht verbroken."/>
+	<string id="20309" value="Verbinding met bron %s is verbroken, omdat het geen hub is."/>
+	<string id="20310" value="Niet mogelijk om een verbinding aan te gaan met bron %s (geweigerd)."/>
+	<string id="20311" value="De poging om te verbinden met bron %s heeft de wachttijd overschreden."/>
+	<string id="20312" value="Wegens gebrek aan verkeer wordt de verbinding met bron %s verbroken."/>
+	<string id="20313" value="Bezig met het opvragen van gastheer discovery services..."/>
+	<string id="20314" value="Discovery service &quot;%s&quot; is mislukt, aantal mislukt: %i."/>
+	<string id="20315" value="Discovery service &quot;%s&quot; is %i keer mislukt, wordt verwijderd."/>
+	<string id="20316" value="Bezig met het opvragen van discovery service &quot;%s&quot;..."/>
+	<string id="20317" value="GWebCache &quot;%s&quot; wordt vóórgelegd aan een willekeurige GWebCache..."/>
+	<string id="20318" value="GWebCache update wordt verzonden naar service &quot;%s&quot;..."/>
+	<string id="20319" value="GWebCache transactie successvol (&quot;%s&quot;.."/>
+	<string id="20320" value="Binnenkomende verbinding van %s is een eDonkey cliëntlink."/>
+	<string id="20321" value="Een verkeerd geformatteerd eDonkey pakket is ontvangen van %s (id=%x)."/>
+	<string id="20322" value="eDonkey cliënt verbinding met %s was inactief, gesloten."/>
+	<string id="20323" value="eDonkey cliënt verbinding wordt aangemaakt met %s..."/>
+	<string id="20324" value="Verbinden met eDonkey cliënt %s is uitgeteld."/>
+	<string id="20325" value="eDonkey cliënt link van %s is geweigerd omdat eDonkey is uitgeschakeld."/>
+	<string id="20326" value="eDonkey cliënt verbinding met %s is verloren gegaan."/>
+	<string id="20327" value="Fout opgetreden bij handschudden met eDonkey cliënt %s."/>
+	<string id="20328" value="Handschudden met eDonkey cliënt %s is uitgeteld."/>
+	<string id="20329" value="eDonkey hashset voor &quot;%s&quot; wordt gestuurd naar %s..."/>
+	<string id="20330" value="eDonkey cliënt %s heeft de verkeerde GUID, handschudden wordt geannuleerd."/>
+	<string id="20331" value="Dit bestand staat al in de PeerProject downloadlijst."/>
+	<string id="20332" value="Niet mogelijk om gedeeltelijk bestand &quot;%s&quot; te openen."/>
+	<string id="20333" value="Klaar met kopiëren van bestand."/>
+	<string id="20334" value="Bezig met kopiëren van &quot;%s&quot; naar &quot;%s&quot;..."/>
+	<string id="20335" value="Onvoldoende schijfruimte om het downloadbestand te kopiëren."/>
+	<string id="20336" value="PeerProject gedeeltelijke download aangemaakt, %s overgebleven."/>
+	<string id="20337" value="Onmogelijk om bestand te importeren."/>
+	<string id="20338" value="Download data bestand is nieuwer dan .part bestand, afgebroken."/>
+	<string id="20339" value="Gedeeltelijk bestand &quot;%s&quot; gevonden, bezig met importeren..."/>
+	<string id="20340" value="Proces afgerond, %i gedeeltelijke downloads succesvol geïmporteerd."/>
+	<string id="20341" value="Bezig met scannen van map: &quot;%s&quot;..."/>
+	<string id="20342" value="Starten met het proces om gedeeltelijke eDonkey downloads te importeren..."/>
+	<string id="20344" value="Download &quot;%s&quot; gevonden, grootte %s."/>
+	<string id="20345" value="Verbonden met eDonkey Server %s, bezig met handschudden..."/>
+	<string id="20346" value="Verbinding met eDonkey Server &quot;%s&quot; wordt aangemaakt..."/>
+	<string id="20347" value="eDonkey Server %s veranderde onze cliënt ID van %lu naar %lu."/>
+	<string id="20348" value="eDonkey Server %s identificeerde zichzelf als &quot;%s&quot;."/>
+	<string id="20349" value="ED2K [%s] %s"/>
+	<string id="20350" value="eDonkey Server %s online, cliënt ID is %lu."/>
+	<string id="20351" value="eDonkey Server %s weigerde de verbinding."/>
+	<string id="20352" value="eDonkey Server %s keurde de verbinding af."/>
+	<string id="20354" value="Bestandseigenschappen"/>
+	<string id="20355" value="weet je zeker dat je dit filter wilt verwijderen?"/>
+	<string id="20356" value="Er is al een filter met de bestandsnaam &quot;%s&quot;, wil je deze vervangen?"/>
+	<string id="20358" value="Geef je filter een naam."/>
+	<string id="20360" value="Connectie Problemen (%)"/>
+	<string id="20361" value="Downloadbandbreedte"/>
+	<string id="20362" value="Aantal downloadbestanden"/>
+	<string id="20363" value="Aantal downloadoverdrachten"/>
+	<string id="20364" value="Gnutella ontvangstbandbreedte"/>
+	<string id="20365" value="Gnutella verzendbandbreedte"/>
+	<string id="20366" value="Gnutella verbindingen (totaal)"/>
+	<string id="20367" value="Gnutella verbindingen (actief)"/>
+	<string id="20368" value="Gevallen Gnutella pakketten"/>
+	<string id="20369" value="Verloren Gnutella pakketten"/>
+	<string id="20370" value="Ontvangen Gnutella pakketten"/>
+	<string id="20371" value="Verzonden Gnutella pakketten"/>
+	<string id="20372" value="Gnutella Ratio van Ontvangen/Verzonden Pings"/>
+	<string id="20373" value="Gnutella Ratio van Ontvangen/Verzonden Pongs"/>
+	<string id="20374" value="Lokale Gnutella zoekopdrachten"/>
+	<string id="20375" value="Doorgestuurde Gnutella pakketten (gerouted)"/>
+	<string id="20376" value="Totale generieke ontvangstbandbreedte"/>
+	<string id="20377" value="Totale generieke verzendbandbreedte"/>
+	<string id="20378" value="Totale TCP ontvangstbandbreedte"/>
+	<string id="20379" value="Totale TCP verzendbandbreedte"/>
+	<string id="20380" value="Totale UDP ontvangstbandbreedte"/>
+	<string id="20381" value="Totale UDP verzendbandbreedte"/>
+	<string id="20382" value="Uploadbandbreedte"/>
+	<string id="20384" value="Aantal uploadoverdrachten"/>
+	<string id="20385" value="Verbinden met bron %s terugvallen op shielded leaf modus."/>
+	<string id="20386" value="Overbodige verbinding vanaf %s wordt gesloten met een bron hint (%s port %i)."/>
+	<string id="20387" value="Hub bron %s accepteert ons niet als hub, de verbinding wordt gesloten."/>
+	<string id="20388" value="Het handen schudden met %s is mislukt vanwege ongeldige data op het netwerk."/>
+	<string id="20389" value="Treed op als hub voor leaf bron %s."/>
+	<string id="20390" value="Verbinding met hub is aangemaakt, peer-verbindingen worden gesloten."/>
+	<string id="20391" value="De verbinding met %s wordt geweigerd omdat het een beschermde leaf node is."/>
+	<string id="20392" value="Bron %s is geen hub, de verbinding wordt gesloten."/>
+	<string id="20393" value="Verbinding gesloten met %s, het is geen Gnutella2 bron."/>
+	<string id="20394" value="Bron %s wil een hub zijn, de verbinding wordt gesloten."/>
+	<string id="20395" value="De Gnutella-verbinding met bron %s is succesvol tot stand gebracht (G%i.%i : %s)."/>
+	<string id="20396" value="Gnutella2 verbinding met bron %s is succesvol tot stand gekomen (%s)."/>
+	<string id="20397" value="De verbinding met %s is geweigerd (%s)."/>
+	<string id="20398" value="Overbodige verbinding vanaf %s wordt gesloten."/>
+	<string id="20399" value="De wachttijd voor het handen schudden met %s is verstreken."/>
+	<string id="20400" value="PeerProject creëert hashes voor %Iu bestanden:"/>
+	<string id="20410" value="Bezig met verkennen van je PeerProject bibliotheek"/>
+	<string id="20411" value="Bezig met verkennen van"/>
+	<string id="20412" value="Bezig met verkennen van de inhoud van %i mappen"/>
+	<string id="20413" value="%i bestanden geselecteerd"/>
+	<string id="20414" value="Meerdere mappen"/>
+	<string id="20415" value="Er zijn geen bestanden geselecteerd"/>
+	<string id="20416" value="Beoordeel dit bestand"/>
+	<string id="20417" value="Recente toevoegingen"/>
+	<string id="20418" value="Album"/>
+	<string id="20419" value="Artiest"/>
+	<string id="20420" value="Bitrate"/>
+	<string id="20421" value="Duur"/>
+	<string id="20422" value="Beoordeling"/>
+	<string id="20423" value="Titel"/>
+	<string id="20424" value="#"/> <!-- Track number -->
+	<string id="20425" value="PeerProject heeft het collectiebestand &quot;%s&quot; niet kunnen installeren door het te kopi&#235;ren naar de map &quot;%s&quot;."/>
+	<string id="20426" value="Wil je alle bestanden in deze collectie downloaden?\n\nKies Annuleren om andere meldingen te voorkomen."/>
+	<string id="20427" value="PeerProject heeft het collectiebestand &quot;%s&quot; toegevoegd aan je bibliotheek."/>
+	<string id="20428" value="PeerProject heeft een collectiebestand ontvangen:\n\n&quot;%s&quot;.\n\nDit bestand is waarschijnlijk geen geldig collectiebestand."/>
+	<string id="20429" value="Wil je voorkomen dat je nog een keer wordt gevraagd om iets van deze collectie te downloaden?"/>
+	<string id="20430" value="Weet je zeker dat je het bestand &quot;%s&quot; wilt openen?\n\nSommige bestanden kunnen kunnen je computer beschadigen. Ga eerst na wat voor soort bestand het is voordat je het opent."/>
+	<string id="20431" value="Weet je zeker dat je de %i geselecteeerde bestand(en) voorgoed wilt verwijderen ?\n\nDe bestanden zullen worden verplaatst naar je Windows &quot;prullenbak&quot; als dit mogelijk is."/>
+	<string id="20432" value="PeerProject kon het bestand\n\n%s niet verwijderen."/>
+	<string id="20433" value="De map &quot;%s&quot; met je gedownloade bestanden zit nog niet in je bibliotheek.\n\nAls deze map is toegevoegd aan je bibliotheek, wordt het gemakkelijker om nieuwe downloads te bekijken en te beheren. Ook kun je dan gebruik maken van extra PeerProject eigenschappen zoals downloadcontrole en automatische upgrades. Het plaatsen van gedownloade bestanden in je bibliotheek wil niet meteen zeggen dat ze moeten worden gedeeld: je kunt voor elk bestand bepalen of je het al dan niet wilt delen.\n\nWil je de map met gedownloade bestanden nu aan je bibbliotheek toevoegen?"/>
+	<string id="20434" value="Je map met downloads is toegevoegd aan je bibliotheek. Wil je het ook delen?"/>
+	<string id="20435" value="Je hebt nog geen mediaspeler geselecteerd voor het in de wachtrij plaatsen van bestanden, zoals Nullsoft Winamp. Wil je er nu één uitkiezen?\n\nPeerProject zal de naam van het bestand doorgeven aan het geselecteerde programma met de parameter &quot;/ADD&quot;."/>
+	<string id="20436" value="Weet je zeker dat je de %i geselecteerde albummappen wilt verwijderen?\n\nMet deze actie worden niet de bestanden uit deze albums verwijderd, maar alleen de mappen zelf."/>
+	<string id="20437" value="Spookbestand"/>
+	<string id="20438" value="Metadata van %i bestanden worden gewijzigd."/>
+	<string id="20439" value="Je staat op het punt om de metadata van %i bestanden te wijzigen, weet je zeker dat je door wilt gaan?"/>
+	<string id="20440" value="Niet in staat om bestand %s te verplaatsen. Het bestand is mogelijk in gebruik door een andere toepassing.\n\nWil je proberen om het bestand te kopiëren in plaats van te verplaatsen?"/>
+	<string id="20441" value="PeerProject ko\n\n%s\nniet hernoemen naar\n%s."/>
+	<string id="20442" value="Doelbestand bestaat al:\n\n%s\n\nWil je het overschrijven?"/>
+	<string id="20443" value="Alle bestandstypen tonen"/>
+	<string id="20444" value="Kopieër &URI"/>
+	<string id="20445" value="Exporteer &URIs..."/>
+	<string id="20446" value="De hashcontroletest voor het bestand &quot;%s&quot; is mislukt. Het is mogelijk niet het bestand dat je eigenlijk wilde downloaden. Weet je zeker dat je het wilt openen?"/>
+	<string id="20447" value="Wil je de eigenschap &quot;mogelijk onveilig&quot; van dit bestand verwijderen?"/>
+	<string id="20448" value="Het bestand &quot;%s&quot; is nog niet gehasht. Wacht alsjeblieft even totdat het bestand gehasht is en probeer het dan nog een keer."/>
+	<string id="20449" value="Deze optie gebruikt diensten die zijn verstrekt door Bitzi.com voor het herkennen en delen van informatie over de geselecteerde bestanden.\n\nPeerProject geeft de SHA1 hash-code door voor de geselecteerde bestand(en) om de Bitzi gegevensbank op te vragen. Als je je zorgen maakt over privacy, kun je de privacypolis van Bitzi.com raadplegen.\n\nWil je verdergaan?"/>
+	<string id="20450" value="De complete en incomplete mappen mogen niet dezelfde zijn"/>
+	<string id="20451" value="Er is geen bestand aan het afspelen. Dubbelklik op een mediabestand uit je bibliotheek om het af te spelen."/>
+	<string id="20452" value="Alle mediabestanden|*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Afspeellijsten|*.asx;*.wax;*.m3u;*.wvx;*.wmx|Audiobestanden|*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm|Videobestanden|*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|CD audiobestanden|*.cda|MIDI bestanden|*.mid;*.rmi;*.midi|Alle bestanden|*.*||"/>
+	<string id="20453" value="Niet mogelijk om mediabestand &quot;%s&quot; te laden"/>
+	<string id="20454" value="Het bestand is misschien beschadigd, of je hebt de noodzakelijke codecs niet om het af te spelen."/>
+	<string id="20455" value="Een deel van dit bestand kon niet worden afgespeeld, je moet misschien extra codecs downloaden."/>
+	<string id="20456" value="AFSPEELLIJST:"/>
+	<string id="20457" value="PeerProject kon de MediaServices plugin niet opstarten. Installeer PeerProject alsjeblieft opnieuw en kijk na of je de benodigde mediacodecs en outputdrivers hebt geïnstalleerd."/>
+	<string id="20458" value="PeerProject Media Speler"/>
+	<string id="20460" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
+	<string id="20461" value="(Geen visualisatie)"/>
+	<!--string id="20462" value="PeerProject heeft het downloaden voltooid van:"-->
+	<!--string id="20463" value="PeerProject is aan het downloaden:"-->
+	<!--string id="20464" value="PeerProject verplaatst de download:"-->
+	<!--string id="20465" value="Deze download is gepauzeerd:"-->
+	<!--string id="20466" value="PeerProject is bronnen aan het zoeken voor:"-->
+	<!--string id="20467" value="PeerProject is de download aan het controleren op fouten:"-->
+	<string id="20470" value="Annuleren"/>
+	<string id="20471" value="Openen"/>
+	<string id="20472" value="Voltooid"/>
+	<string id="20473" value="Geschatte resterende tijd:"/>
+	<string id="20474" value="Aantal commentaren:"/>
+	<string id="20475" value="Aantal bronnen:"/>
+	<string id="20476" value="Geen bronnen"/>
+	<string id="20477" value="%i dagen and %i uren"/>
+	<string id="20478" value="%i uur en %i minuten"/>
+	<string id="20479" value="%i minuten en %i seconden"/>
+	<string id="20480" value="%i seconden"/>
+	<string id="20481" value="Totale downloadsnelheid:"/>
+	<string id="20482" value="Hoeveelheid gedownload:"/>
+	<string id="20483" value="Hoeveelheid geüpload:"/>
+	<string id="20484" value="Beperk Download snelheid"/>
+	<string id="20485" value="Beperk Upload snelheid"/>
+	<string id="20490" value="Meerdere"/>
+	<string id="20491" value="Meerdere Waardes"/>
+	<string id="20494" value="Je hebt je locatie niet ingevoerd in je gebruikersprofiel.\n\nHet is aan te raden om je locatie in te voeren zodat andere gebruikers kunnen zien uit welk land je komt. Merk op dat het invoeren van je locatie geen andere gevoelige informatie bekend maakt.\n\nWil je echt verder gaan zonder je locatie in te voeren?"/>
+	<string id="20495" value="Je hebt geen schuilnaam ingevuld in je gebruikersprofiel."/>
+	<string id="20496" value="Je hebt je leeftijd en geslacht niet aangegeven. Weet je zeker dat je verder wilt gaan zonder dit te doen?"/>
+	<string id="20499" value="Nieuwe Map"/>
+	<string id="20500" value="Druk op &quot;Verbinden&quot; om te starten."/>
+	<string id="20501" value="Je bent niet verbonden met het netwerk."/>
+	<string id="20502" value="Sluiten"/>
+	<string id="20503" value="Compressie:"/>
+	<string id="20504" value="Uitpakken"/>
+	<string id="20505" value="Geen"/>
+	<string id="20506" value="Verbinden"/>
+	<string id="20507" value="Actueel:"/>
+	<string id="20510" value="eDonkey Server verbinding"/>
+	<string id="20511" value="eDonkey (HighID)"/>
+	<string id="20512" value="eDonkey Server verbinding (LOWID: %lu)"/>
+	<string id="20513" value="eDonkey (LowID)"/>
+	<string id="20514" value="eDonkey Server"/>
+	<string id="20515" value="G1 Leaf"/>
+	<string id="20516" value="G1 Peer"/>
+	<string id="20517" value="Gnutella: Peer-naar-peer verbinding"/>
+	<string id="20518" value="Gnutella: Leaf-naar-ultrapeer verbinding"/>
+	<string id="20519" value="Gnutella: Ultrapeer-naar-leaf verbinding"/>
+	<string id="20520" value="G1 UltraPeer"/>
+	<string id="20521" value="G2 Hub"/>
+	<string id="20522" value="G2 Leaf"/>
+	<string id="20524" value="G2 Peer"/>
+	<string id="20525" value="Gnutella2: Leaf-naar-hub verbinding"/>
+	<string id="20526" value="Gnutella2: Hub-naar-hub verbinding"/>
+	<string id="20527" value="Gnutella2: Hub-naar-leaf verbinding"/>
+	<string id="20530" value="Handschudden"/>
+	<string id="20531" value="Handschudden"/>
+	<string id="20532" value="Inkomend"/>
+	<string id="20533" value="Uitgaand"/>
+	<string id="20534" value="Totaal:"/>
+	<string id="20535" value="Ratio:"/>
+	<string id="20536" value="Afgewezen"/>
+	<string id="20538" value="Onbekend"/>
+	<string id="20540" value="Verbinden"/>
+	<string id="20541" value="Verbindt..."/>
+	<string id="20542" value="Verbonden"/>
+	<string id="20543" value="Verbreek Verbinding"/>
+	<string id="20544" value="Afsluiten van PeerProject's netwerkcentrum..."/>
+	<string id="20545" value="De verbinding met het netwerk is verbroken."/>
+	<string id="20546" value="Weet je zeker dat je de verbinding wilt verbreken?"/>
+	<string id="20547" value="Gnutella2 is PeerProject's voornaamste netwerk. Het uitschakelen van de ondersteuning hiervoor kan zowel het aantal als de kwaliteit van je zoekresultaten zwaar begrenzen. Weet je zeker dat je dit wilt doen?"/>
+	<string id="20548" value="Kan geen contact maken met %s poort %i voor binnenkomende verbindingen. Binnenkomende verbindingen zijn niet mogelijk."/>
+	<string id="20549" value="Kan de uitgaande verbindingen niet oplossen voor %s. Uitgaande verbindingen gebruiken de standaard interface."/>
+	<string id="20550" value="Je uitgaande bandbreedte is te laag om dit netwerk aan te kunnen zetten."/>
+	<string id="20551" value="Er is een firewall ontdekt, er wordt niet naar binnenkomende verbindingen geluisterd."/>
+	<string id="20552" value="Het forceren van je PC naar Hubmodus kan nadelige gevolgen hebben op de prestatie en het P2P netwerk. Het is over het algemeen beter om PeerProject te laten beslissen of al dan niet Hubmodus gebruikt zou moeten worden.\n\nHubmodus produceert GEEN betere zoekresultaten, of enige andere voordelen voor jou.\n\nWil je dit echt doen, ondanks deze nadelen?"/>
+	<string id="20553" value="Binnenkomende TCP verbindingen worden geaccepteerd op %s poort %i."/>
+	<string id="20554" value="Luisteren naar UDP datagrammen op %s poort %i."/>
+	<string id="20555" value="Uitgaande verbindingen worden verstuurd vanaf %s poort %i."/>
+	<string id="20556" value="Niet mogelijk om de gastheer &quot;%s&quot; op te lossen."/>
+	<string id="20557" value="Gastheer &quot;%s&quot; oplossen..."/>
+	<string id="20558" value="Zoekaanvraag voor &quot;%s&quot; is verzonden naar %s."/>
+	<string id="20560" value="Het adres %s wordt al door je beveiligingsregels geblokkeerd."/>
+	<string id="20561" value="Een beveiligingsregel is toegevoegd voor het blokkeren van %s."/>
+	<string id="20562" value="De beveiligingscontrole heeft de verbinding vanaf %s niet erkend."/>
+	<string id="20563" value="De beveiligingscontrole heeft een verbinding met %s gesloten."/>
+	<string id="20564" value="Opstarten van het netwerkcentrum van PeerProject..."/>
+	<string id="20566" value="Je router automatisch instellen mislukte na 10 pogingen."/>
+	<string id="20570" value="Er is een slecht geformatteerd query hit pakket ontvangen van %s, het wordt genegeerd."/>
+	<string id="20571" value="%s:  Er is een slecht geformatteerd query pakket ontvangen van %s, het wordt genegeerd."/>
+	<string id="20572" value="Bron %s heeft een pakket doorgestuurd met een te grote TTL, het pakket wordt weggegooid (TTL=%i, Hops=%i)."/>
+	<string id="20573" value="Bron %s heeft een pakket doorgestuurd zonder TTL, het wordt genegeerd."/>
+	<string id="20574" value="Bron %s heeft een uitgebreid pakket doorgestuurd dat niet GGEP gecodeerd is."/>
+	<string id="20575" value="Bron %s heeft een ongeldige update gestuurd van de query routing tabel, verbinding verbroken."/>
+	<string id="20576" value="Query routing tabel wordt gestuurd naar bron %s (%i bit = %lu[%i], %i%% vol)"/>
+	<string id="20577" value="Een onverwachte update van de query routing tabel is ontvangen van bron %s."/>
+	<string id="20578" value="Bron %s heeft zijn query routing tabel geüpdate (%i bit = %lu[%i], %i%% vol)."/>
+	<string id="20579" value="%s -> %s [%i/%i] %s %s"/>
+	<string id="20580" value="Leaf %s stuurt zoekopdrachten door, de verbinding wordt verbroken."/>
+	<string id="20581" value="Bron %s heeft een ping pakket doorgestuurd met een ongeldige lengte, het wordt genegeerd."/>
+	<string id="20582" value="Bron %s heeft een pong pakket doorgestuurd met een ongeldige lengte, het wordt genegeerd."/>
+	<string id="20583" value="Bron %s heeft een pushpakket met een ongeldige lengte doorgestuurd, het wordt genegeerd."/>
+	<string id="20584" value="Bron %s heeft een te groot pakket doorgestuurd, de verbinding wordt verbroken."/>
+	<string id="20585" value="Bron %s heeft een onherkenbaar pakket doorgestuurd (0x%.2x), het wordt genegeerd."/>
+	<string id="20586" value="Bron %s heeft een pong pakket met een ongeldig data adres doorgestuurd, het wordt genegeerd."/>
+	<string id="20588" value="Bron %s heeft een pushaanvraag doorgestuurd naar een adres met een firewall, het wordt genegeerd."/>
+	<string id="20590" value="Web Interface is uitgeschakeld."/>
+	<string id="20591" value="http://%s:%i/remote - Gebruikersnaam en wachtwoord kiezen."/>
+	<string id="20592" value="Niet mogelijk om verbindingen te accepteren, de URL is niet beschikbaar."/>
+	<string id="20595" value="&amp;Schemas"/>
+	<string id="20620" value="PeerProject is actief aan het zoeken op het netwerk..."/>
+	<string id="20621" value="Klik hier om opnieuw te zoeken"/>
+	<string id="20622" value="Alle netwerken"/>
+	<string id="20623" value="Je staat op het punt om een nieuwe zoekopdracht uit te voeren. Wil je de resultaten van je vorige zoekopdracht wissen?"/>
+	<string id="20624" value="Dit gedeelte laat meer informatie zien over de geselecteerde bestanden."/>
+	<string id="20625" value="%s schrijft:"/>
+	<string id="20626" value="%s beoordeelt dit bestand met:"/>
+	<string id="20627" value="Klik om de voorvertoning te starten"/>
+	<string id="20628" value="Bezig met voorvertonen..."/>
+	<string id="20629" value="Niet mogelijk om voorvertoningsinhoud te downloaden van &quot;%s&quot;."/>
+	<string id="20630" value="Er zijn %i recensies."/>
+	<string id="20631" value="Er is één recensie."/>
+	<string id="20632" value="Er zijn %i bronnen beschikbaar. (%s/s)"/>
+	<string id="20633" value="Er is één bron beschikbaar. (%s/s)"/>
+	<string id="20634" value="Het netwerk heeft nog geen resultaten teruggestuurd."/>
+	<string id="20635" value="Er zijn resultaten beschikbaar, maar ze zijn uitgefilterd."/>
+	<string id="20636" value="Er zijn nog geen zoekopdrachten uitgevoerd in dit venster."/>
+	<string id="20637" value="Geen metadata"/>
+	<string id="20638" value="Geen Schema Kolommen"/>
+	<string id="20640" value="(zoekgeschiedenis wissen)"/>
+	<string id="20641" value="Doorzoek het PeerProject netwerk"/>
+	<string id="20642" value="Het soort bestand:"/>
+	<string id="20643" value="Geef wat trefwoorden op om naar te zoeken:"/>
+	<string id="20644" value="Geadvanceerd"/>
+	<string id="20645" value="Elk bestandstype"/>
+	<string id="20646" value="Wis"/>
+	<string id="20648" value="Verberg het zoekpaneel"/>
+	<string id="20650" value="Zoeken"/>
+	<string id="20651" value="Geef hier je zoekopdracht in:"/>
+	<string id="20652" value="Zoek naar dit bestandstype:"/>
+	<string id="20653" value="Netwerk:"/>
+	<string id="20654" value="Bestandsgrootte Min:"/>
+	<string id="20655" value="Bestandsgrootte Max:"/>
+	<string id="20656" value="Zoek opnieuw"/>
+	<string id="20657" value="Toon het zoekpaneel"/>
+	<string id="20658" value="Start zoeken"/>
+	<string id="20659" value="Stop"/>
+	<string id="20660" value="Geen bestanden gevonden"/>
+	<string id="20661" value="%lu hubs, %lu leaves"/>
+	<string id="20662" value="Momenteel niet aan het zoeken"/>
+	<string id="20663" value="Resultaten"/>
+	<string id="20664" value="%lu bestand in %lu hit|%lu bestand in %lu hits|%lu bestanden in %lu hits"/>
+	<string id="20665" value="Gevonden:"/>
+	<string id="20666" value="Bezig met zoeken:"/>
+	<string id="20668" value="Zoekend..."/>
+	<string id="20669" value="Platte tekst zoeken"/>
+	<string id="20670" value="PeerProject is het netwerk aan het afzoeken..."/>
+	<string id="20671" value="Ben je zeker dat je deze veiligheidsregels wilt verwijderen? Dit kan niet ongedaan worden gemaakt."/>
+	<string id="20672" value="Kies de eMule gedeeltelijke(.part) map:"/>
+	<string id="20673" value="Automatisch"/>
+	<string id="20674" value="De incomplete map mag niet in de bibliotheek omdat dit de prestaties nadelig beïnvloed. Incomplete bestanden deel je rechtstreeks in het downloadvenster."/>
+	<string id="20675" value="Windows ondersteund geen locaties met meer dan 256 karakters.\nSelecteer een map met een kortere locatie."/>
+	<string id="20676" value="Een submap van de geselecteerde map &quot;%s&quot; is al een onderdeel van de bibliotheek.\nToevoegen van deze map resulteert in opnieuw hashen van sommige bestanden.\n\nWil je hiermee doorgaan ?"/>
+	<string id="20677" value="Geef alsjeblieft de bandbreedtelimiet die je wilt invoeren in de vorm van &quot;123 kb/s&quot; voor kilobits per seconde, of &quot;123 KB/s&quot; voor kilobytes per seconde."/>
+	<string id="20678" value="Het eDonkey netwerk gebruikt grote wachtrijen met grote wachttijden. Door de maximum rijpositie te beperken zal u zo strikt goedkeuren, dat u problemen kunt ondervinden bij downloads om te beginnen.\nWeet u zeker dat u de maximale rijpositie die u wilt goedkeuren, beperken?"/>
+	<string id="20680" value="PeerProject instellingen"/>
+	<string id="20684" value="Weet je zeker dat je de skin &quot;%s&quot; wilt verwijderen? Dit kan niet ongedaan worden gemaakt."/>
+	<string id="20700" value="Actief"/>
+	<string id="20701" value="%s in: %s uit (d:%I64i/u:%I64i)"/>
+	<string id="20702" value="Verbonden met %lu gastheren. %s in lokale bibliotheek."/>
+	<string id="20703" value="Hub Modus met %lu buurmannen. %s in lokale bibliotheek."/>
+	<string id="20704" value="Hub/Ultrapeer Modus met %lu buurman(nen).  %s in lokale bibliotheek."/>
+	<string id="20705" value="Verbonden. %s in lokale bibliotheek."/>
+	<string id="20706" value="Ultrapeer Modus met %lu buurman(nen). %s in lokale bibliotheek."/>
+	<string id="20707" value="Bezig te verbinden met het netwerk..."/>
+	<string id="20708" value="Niet verbonden met het netwerk."/>
+	<string id="20710" value="(Geen bronnen)"/>
+	<string id="20711" value="Kan niet verplaatsen"/>
+	<string id="20712" value="Versperd"/>
+	<string id="20713" value="In wachtrij"/>
+	<string id="20714" value="Bestandsfout"/>
+	<string id="20715" value="Hashset"/>
+	<string id="20716" value="Metadata"/>
+	<string id="20717" value="Antwoordt..."/>
+	<string id="20718" value="Verplaatst..."/>
+	<string id="20719" value="Maakt..."/>
+	<string id="20720" value="Voltooid"/>
+	<string id="20721" value="Verbindt..."/>
+	<string id="20722" value="Downloadt..."/>
+	<string id="20723" value="Bezet"/>
+	<string id="20724" value="Volgende"/>
+	<string id="20725" value="Q"/>
+	<string id="20726" value="Wachtrij"/>
+	<string id="20727" value="Gepauzeerd"/>
+	<string id="20728" value="In afwachting"/>
+	<string id="20729" value="Toelating vragen..."/>
+	<string id="20730" value="Zoekt..."/>
+	<string id="20731" value="Zaait..."/>
+	<string id="20732" value="bron"/>
+	<string id="20733" value="bronnen"/>
+	<string id="20734" value="bronnen"/>
+	<string id="20735" value="bronnen"/>
+	<string id="20740" value="TigerTree"/>
+	<string id="20741" value="Torrent"/>
+	<string id="20742" value="Tracker plat"/>
+	<string id="20743" value="Ongeïnteresseerd"/>
+	<string id="20744" value="Onbekend"/>
+	<string id="20745" value="Ongeïnteresseerd"/>
+	<string id="20746" value="Niet decontroleerd"/>
+	<string id="20747" value="Gecontroleerd"/>
+	<string id="20748" value="Controleert..."/>
+	<string id="20750" value="!Welkom bij PeerProject (version)!\n.\nPeerProject is volledig gratis software.\nGebruik het alsjeblieft verantwoord en respecteer intellectuele eigendomsrechten.\n."/>
+	<string id="20751" value="Er zijn geen actieve zoekopdrachten. Klik hier om naar bestanden te zoeken."/>
+	<string id="20752" value="Je bent niet verbonden. Klik op &quot;verbinden&quot; om te starten."/>
+	<string id="20755" value="Ben je zeker dat je de &quot;%s&quot; sjabloon wil verwijderen?\nDit kan niet ongedaan gemaakt worden.."/>
+	<string id="20760" value="Actief"/>
+	<string id="20761" value="Werkeloos"/>
+	<string id="20762" value="Dit bestand is spam."/>
+	<string id="20763" value="Op de zwarte lijst:"/>
+	<string id="20764" value="Je hebt dit bestand al eens gedownload en verwijderd."/>
+	<string id="20765" value="Je hebt dit bestand al in je downloadlijst."/>
+	<string id="20766" value="Je hebt dit bestand al in je bibliotheek."/>
+	<string id="20767" value="Bronnen voor dit bestand zijn op dit moment bezig"/>
+	<string id="20768" value="Bronnen voor dit bestand zitten achter een firewall"/>
+	<string id="20769" value="Bronnen voor dit bestand kunnen instabiel zijn"/>
+	<string id="20770" value="Map"/>
+	<string id="20771" value="Hits"/>
+	<string id="20772" value="Locatie"/>
+	<string id="20773" value="van je bibliotheek"/>
+	<string id="20774" value="Niet van toepassing"/>
+	<string id="20775" value="Volgende in wachtrij"/>
+	<string id="20776" value="Geen hashset"/>
+	<string id="20777" value="Gedeeltelijke bron (%.2f%% voorhanden)"/>
+	<string id="20778" value="%i upload plaatsen, %i wachtenden voor u"/>
+	<string id="20780" value="Groot"/>
+	<string id="20781" value="Deze bron is bezig"/>
+	<string id="20782" value="Deze bron zit achter een firewall"/>
+	<string id="20783" value="Deze bron kan instabiel zijn"/>
+	<string id="20784" value="Snelheid:"/>
+	<string id="20785" value="Status:"/>
+	<string id="20786" value="%lu nu, %lu totaal"/>
+	<string id="20787" value="Totale bestanden:"/>
+	<string id="20788" value="Totale volume:"/>
+	<string id="20789" value="Geen hashset"/>
+	<string id="20790" value="Type"/>
+	<string id="20791" value="Niet betrouwbaar"/>
+	<string id="20792" value="Totale volume:"/>
+	<string id="20793" value="URL:"/>
+	<string id="20794" value="Programma:"/>
+	<string id="20795" value="%s in: %s uit (d:%I64i/u:%I64i/s:%I64i)"/>
+	<string id="20796" value="Bestanden gedeeld over het internet"/>
+	<string id="20798" value="PeerProject is klaar met het downloaden van versie (%s). Wil je nu upgraden?\n\nAls je Ja kiest, zal PeerProject tijdelijk worden afgesloten terwijl de upgrade wordt geïnstalleerd."/>
+	<string id="20800" value="Standaard HTML antwoord wordt verzonden naar uploadbron %s (%s)."/>
+	<string id="20801" value="Inkomende verbinding vanaf %s is een HTTP uploadaanvraag."/>
+	<string id="20802" value="Uploadgastheer %s (%s) stuurt een aanvraag om de gebruiker te bekijken, bezig met anwoorden..."/>
+	<string id="20803" value="Uploadgastheer %s staat op de verbanlijst van de gebruikersagent, aanvraag wordt afgewezen."/>
+	<string id="20804" value="De aanvraag van %s om de gebruiker te bekijken is geweigerd, te veel soortgelijke verbindingen."/>
+	<string id="20805" value="Aanvraag van %s om de gebruiker te bekijken is afgewezen."/>
+	<string id="20806" value="Upload %s uit de wachtrij vraagt te snel opnieuw aan, verbinding wordt gesloten."/>
+	<string id="20807" value="Upload van &quot;%s&quot; naar %s is geweigerd (%s), te veel gelijktijdige verbindingen van deze gastheer."/>
+	<string id="20808" value="Uploaden van &quot;%s&quot; naar %s is geweigerd (%s), te druk en de cliënt ondersteunt geen wachtrijen."/>
+	<string id="20809" value="Uploaden van &quot;%s&quot; naar %s (%s) wordt geweigerd, alle passende wachtrijen zijn vol."/>
+	<string id="20810" value="Uploadgastheer %s heeft een onbeschikbaar bereik aangevraagd van bestand &quot;%s&quot;."/>
+	<string id="20811" value="eDonkey uploads zouden niet moeten worden afgebroken. Weet je zeker dat je deze upload wilt beëindigen?"/>
+	<string id="20812" value="Kan &quot;%s&quot; niet openen voor het uploaden naar gastheer %s, schijf- of bestandsfout."/>
+	<string id="20813" value="Een pushverbinding met %s wordt geïnitieerd voor het downloaden van &quot;%s&quot;"/>
+	<string id="20814" value="Onmogelijk om te verbinden met gastheer %s voor het sturen van een pushaanvraag."/>
+	<string id="20815" value="Uploadbereik %I64i-%I64i van &quot;%s&quot; wordt gestuurd naar gastheer %s (%s)."/>
+	<string id="20816" value="Uploadverbinding met %s werd onderbroken."/>
+	<string id="20817" value="Nieuwe upload naar %s is geweigerd omdat een eerdere verbinding nog steeds aan het wachten is."/>
+	<string id="20818" value="Oudere upload naar %s is verbroken omdat er een verse verbinding is aangemaakt."/>
+	<string id="20819" value="Uploaden naar %s (%s) wordt geweigerd, netwerk is buiten gebruik."/>
+	<string id="20820" value="Upload van &quot;%s&quot; naar %s is gestopt omdat het bestand is verwijderd."/>
+	<string id="20821" value="Bestand &quot;%s&quot; wordt geüpload naar gastheer %s..."/>
+	<string id="20822" value="Uploadgastheer %s heeft een onbekend of een niet voorhanden object &quot;%s&quot; aangevraagd."/>
+	<string id="20823" value="Het uploaden van het gedeelte van &quot;%s&quot; naar %s is afgerond."/>
+	<string id="20824" value="Pushverbinding met %s is aangemaakt, wachten op handdruk..."/>
+	<string id="20825" value="Uploadgastheer %s heeft &quot;%s&quot; aangevraagd met een andere SHA1."/>
+	<string id="20826" value="Uploadheaders van &quot;%s&quot; worden verzonden naar gastheer %s (%s)."/>
+	<string id="20827" value="Metadata voor &quot;%s&quot; wordt geüpload naar %s."/>
+	<string id="20828" value="Uploadgastheer %s heeft een ongeldige HTTP aanvraag gestuurd."/>
+	<string id="20830" value="Uploadbereik %I64i-%I64i van onvolledig bestand &quot;%s&quot; wordt verzonden naar bron %s (%s)."/>
+	<string id="20832" value="Het uploaden van een voorvertoning van &quot;%s&quot; naar %s is geweigerd, er zijn teveel voorvertoningsverbindingen."/>
+	<string id="20833" value="Een dynamische voorvertoning is gepland van &quot;%s&quot; om up te loaden naar %s."/>
+	<string id="20834" value="Uploadgastheer %s heeft een voorvertoning aangevraagd van &quot;%s&quot;, maar er is geen voorvertoning beschikbaar."/>
+	<string id="20835" value="Een voorvertoning van &quot;%s&quot; wordt geüpload naar %s."/>
+	<string id="20836" value="Pushaanvraag door %s is geweigerd omdat er te veel uploadverbindingen zijn."/>
+	<string id="20837" value="Verouderde pushaanvraag van %s heeft een onbekend bestand aangevraagd, wordt toch verbonden..."/>
+	<string id="20838" value="Te druk om &quot;%s&quot; te uploaden naar %s, het is in de wachtrij geplaatst op #%i van %i (&quot;%s&quot;.."/>
+	<string id="20840" value="Nieuwe wachtrij"/>
+	<string id="20841" value="Alle bestanden"/>
+	<string id="20842" value="Upload verbinding met %s is verloren gegaan, wachtrij positie wordt behouden."/>
+	<string id="20844" value="eDonkey kern"/>
+	<string id="20845" value="eDonkey bescherming"/>
+	<string id="20846" value="eDonkey gedeelte"/>
+	<string id="20847" value="Volledige uploads"/>
+	<string id="20848" value="HTTP bescherming"/>
+	<string id="20849" value="Bibliotheek bestanden"/>
+	<string id="20850" value="Grote bestanden"/>
+	<string id="20851" value="Middelgrote bestanden"/>
+	<string id="20852" value="Kleine bestanden"/>
+	<string id="20853" value="Gedeeltelijke bestanden"/>
+	<string id="20854" value="Gedeeltelijke"/>
+	<string id="20855" value="Wachtrij"/>
+	<string id="20856" value="Torrent uploads"/>
+	<string id="20857" value="Offline wachtrijpositie van uploadgastheer %s is verstreken, wordt verwijderd."/>
+	<string id="20858" value="Wachttijd is overschreden voor de aanvraag aan uploadgastheer %s."/>
+	<string id="20859" value="Uploadverbinding %s is verbroken wegens een gebrek aan verkeer."/>
+	<string id="20860" value="Tiger-tree data voor &quot;%s&quot; wordt geüpload naar %s."/>
+	<string id="20861" value="Upload van &quot;%s&quot; naar %s is verwijderd."/>
+	<string id="20862" value="Toevoegen"/>
+	<string id="20864" value="&amp;Bekijken"/>
+	<string id="20865" value="&amp;Verbinden"/>
+	<string id="20866" value="Bestandsnaam:"/>
+	<string id="20867" value="Gastheer:"/>
+	<string id="20868" value="Poort:"/>
+	<string id="20869" value="Niet mogelijk het URL actiescherm weer te geven omdat PeerProject het druk heeft."/>
+	<string id="20870" value="Niet mogelijk om URL te ontleden omdat PeerProject deze URL niet begrijpt."/>
+	<string id="20871" value="Ontvangen URL &quot;%s&quot;"/>
+	<string id="20872" value="Type:"/>
+	<string id="20874" value="Niet gespecificeerd"/>
+	<string id="20875" value="URL:"/>
+	<string id="20880" value="Mijn profiel aanpassen"/>
+	<string id="20881" value="Als je van stijl verandert, worden alle geopende vensters gesloten. Wil je nu veranderen?"/>
+	<string id="20882" value="UPnP Device Host Service is not running. This service is required to perform the setup.\nYou need to set the startup type of the service to automatic."/>
+	<string id="20884" value="Geen URN beschikbaar"/>
+	<string id="20885" value="Veranderen van leesrichting vereist het heropstarten van PeerProject.\nJe zal PeerProject zelf opnieuw moeten starten. Nu afsluiten?"/>
+	<string id="20890" value="Welkom bij PeerProject"/>
+	<string id="20891" value="&amp;Sluiten"/>
+	<string id="20892" value="Even wachten: De eDonkey server lijst aan het vernieuwen..."/>
+	<string id="20893" value="Even wachten: Discovery services aan het vernieuwen..."/>
+	<string id="20894" value="Even wachten: Aan het proberen om je router automatisch in te stellen ..."/>
+	<string id="20895" value="Je hebt geen verbindingssnelheid aangegeven. Kies voordat je verdergaat alsjeblieft ofwel je soort internetverbinding, of vul een verbindingssnelheid in."/>
+	<string id="20896" value="Je hebt aangegeven dat je je poorten wilt delen (port-forwarding) op je NAT-router of firewall.\n\nConfigureer alsjeblieft je netwerk zo, dat TCP poort %i wordt doorgestuurd naar je lokale PC."/>
+	<string id="20897" value="De map die je wilt delen is al vrijgegeven als deel van een andere vrijgegeven map:\n\n%s"/>
+	<string id="20898" value="Je hebt geen mappen aangegeven om vrij te geven. Weet je het zeker?"/>
+	<string id="20899" value="jaar oude"/>
+	<!--string value="Torrent Informatie"-->
+	<!--string value="Tracker reageerde niet - Aankondiging opnieuw proberen (%i van %i)"-->
+	<!--string value="Je hebt het bestand &quot;%s&quot; al in je bibliotheek. Wil je het toch downloaden?"-->
+	<!--string id="32773" value="Controleer op een nieuwe versie"-->
+	<!--string id="32825" value="Open mijn map met complete downloads"-->
+	<!--string id="61215" value="Activeer dit venster"-->
 </strings>
 <!-- Localized Dialog Text, "cookie" verifies that the skin matches current dialog -->
 <dialogs>
@@ -4236,28 +4250,28 @@
 	<dialog name="CScheduleTaskDlg" cookie="BuBuBuCoEdmsEdmsStStBuBuBuBuBuSySyBuBuBuBuBuBuBuBuBuEd" caption="Taak Plannen">
 		<control caption="OK"/>
 		<control caption="Annuleren"/>
-		<control caption="Select Taak Type"/>
+		<control caption="Selecteer Taak Type"/>
 		<control/>
 		<control/>
 		<control/>
 		<control/>
 		<control/>
-		<control caption="% under Download limit"/>
-		<control caption="% under Upload limit"/>
-		<control caption="Active Taak"/>
+		<control caption="% van Download indien beperkt"/>
+		<control caption="% van Upload indien beperkt"/>
+		<control caption="Taak actief"/>
 		<control caption="Enable G2 Only"/>
 		<control caption="Set Event Time"/>
-		<control caption="Specified days"/>
-		<control caption="One day only"/>
+		<control caption="Specifieke dagen"/>
+		<control caption="Alleen één keer"/>
 		<control/>
 		<control/>
-		<control caption="Maa"/>
-		<control caption="Din"/>
-		<control caption="Woe"/>
-		<control caption="Don"/>
-		<control caption="Vri"/>
-		<control caption="Zat"/>
-		<control caption="Zon"/>
+		<control caption="Maadag"/>
+		<control caption="Dindag"/>
+		<control caption="Woedag"/>
+		<control caption="Dondag"/>
+		<control caption="Vridag"/>
+		<control caption="Zatdag"/>
+		<control caption="Zondag"/>
 		<control caption="Alle"/>
 		<control caption="Reacties"/>
 		<control/>

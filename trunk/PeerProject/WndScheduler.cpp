@@ -226,7 +226,7 @@ void CSchedulerWnd::Update(int nColumn, BOOL bSort)
 	if ( nCount == 1 )
 	{
 		CLiveItem* pDefault = pLiveList.Add( (LPVOID)0 );
-		pDefault->Set( 0, LoadString( IDS_SCHEDULER_NOTASK ) );
+		pDefault->Set( 0, LoadString( IDS_SCHEDULER_TASK_NONE ) );
 		pDefault->m_nImage = SCHEDULE_NO_ITEM;
 	}
 

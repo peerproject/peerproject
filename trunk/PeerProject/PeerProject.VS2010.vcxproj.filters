@@ -29,9 +29,6 @@
     <Filter Include="Source Files\Pages">
       <UniqueIdentifier>{b52f8b6e-b3fe-4b07-bd5b-ec132e1d4f79}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\RegExp">
-      <UniqueIdentifier>{05e028cd-1df2-49d7-bbf7-af3120cb4b07}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files">
       <UniqueIdentifier>{3be38028-c882-4142-b5a0-466082144b17}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl</Extensions>
@@ -68,9 +65,6 @@
     </Filter>
     <Filter Include="Header Files\Hash Algorithms\Policies">
       <UniqueIdentifier>{ebba3ea0-53ab-40d3-b5a9-3ed6ff1a3a01}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\RegExp">
-      <UniqueIdentifier>{7460365d-32e7-400c-8605-d88e378587b2}</UniqueIdentifier>
     </Filter>
     <Filter Include="Resource Files">
       <UniqueIdentifier>{366ae396-7e23-452c-bca1-66803aa247d5}</UniqueIdentifier>
@@ -448,6 +442,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="QuerySearch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RegExp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Registry.cpp">
@@ -1194,12 +1191,6 @@
     <ClCompile Include="PageTorrentTrackers.cpp">
       <Filter>Source Files\Pages</Filter>
     </ClCompile>
-    <ClCompile Include="..\Services\RegExp\Regexpr2.cpp">
-      <Filter>Source Files\RegExp</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Services\RegExp\Syntax2.cpp">
-      <Filter>Source Files\RegExp</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="PeerProject.idl">
@@ -1302,7 +1293,7 @@
     <None Include="Res\ContactYahoo.ico">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="Res\CopyVista.cur">
+    <None Include="Res\Copy.cur">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="Res\CopyXP.cur">
@@ -1410,7 +1401,7 @@
     <None Include="Res\MediaStates.bmp">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="Res\MoveVista.cur">
+    <None Include="Res\Move.cur">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="Res\MoveXP.cur">
@@ -1944,6 +1935,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="QuerySearch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RegExp.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Registry.h">
@@ -2752,18 +2746,6 @@
     </ClInclude>
     <ClInclude Include="..\Services\Augment\IUnknownImplementation.hpp">
       <Filter>Header Files\Augment</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Services\RegExp\RegExpr2.h">
-      <Filter>Header Files\RegExp</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Services\RegExp\Reimpl2.h">
-      <Filter>Header Files\RegExp</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Services\RegExp\Restack.h">
-      <Filter>Header Files\RegExp</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Services\RegExp\Syntax2.h">
-      <Filter>Header Files\RegExp</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

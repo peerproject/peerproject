@@ -692,7 +692,7 @@ void CLanguageDlg::Execute(int nSelected)
 	//if ( Settings.General.LanguageRTL != ( bRTL != FALSE ) )
 	//{
 	//	CString str;
-	//	LoadString( str, IDS_GENERAL_RTL_WARNING );
+	//	LoadString( str, IDS_WARNING_RTL );
 	//
 	//	Settings.General.LanguageRTL = bRTL != FALSE;
 	//

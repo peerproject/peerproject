@@ -465,6 +465,7 @@ public:
 		DWORD		RequestLimit;
 		DWORD		RandomPeriod;
 		DWORD		SourceExchangePeriod;
+		DWORD		UtPexPeriod;			// uTorrent Peer Exchange in Seconds
 		DWORD		UploadCount;			// Number of active torrent uploads allowed
 		DWORD		DownloadConnections;	// Number of active torrent connections allowed
 		DWORD		DownloadTorrents;		// Number of torrents to download at once

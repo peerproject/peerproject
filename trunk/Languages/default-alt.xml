@@ -3,7 +3,7 @@
 
 <!-- PeerProject UK English Skin File -->
 
-<!-- Translation based on default-en.xml r58 -->
+<!-- Translation based on default-en.xml r59 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -499,7 +499,7 @@
 		<anchor id="Header" width="32" height="152"/>
 		<newline gap="0"/>
 		<group id="1">
-			<icon res="130" width="32" height="32" target="command:ID_NETWORK_CONNECT"/><gap size="8"/>
+			<icon res="136" width="32" height="32" target="command:ID_NETWORK_CONNECT"/><gap size="8"/>
 			<heading align="middle">Get Connected</heading>
 			<newline gap="8" indent="42"/>
 			<text>Welcome to PeerProject.</text>
@@ -510,12 +510,12 @@
 			<newline gap="20" indent="0"/>
 		</group>
 		<group id="2">
-			<icon res="134" width="32" height="32" target="command:ID_TAB_SEARCH"/><gap size="8"/>
+			<icon res="130" width="32" height="32" target="command:ID_TAB_SEARCH"/><gap size="8"/>
 			<heading align="middle">Search for Files</heading>
 			<newline gap="4" indent="42"/>
 			<anchor id="SearchBox" width="256" height="80"/>
 			<newline gap="20" indent="0"/>
-			<icon res="136" width="32" height="32" target="command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
+			<icon res="124" width="32" height="32" target="command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
 			<heading align="middle">Start a Download</heading>
 			<newline gap="8" indent="42"/>
 			<link target="command:ID_TOOLS_DOWNLOAD" format="bu">Click here to start</link>
@@ -535,7 +535,7 @@
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="4">
-			<icon res="252" width="32" height="32" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
+			<icon res="180" width="32" height="32" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 			<heading align="middle">Warning: You Are Firewalled</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">PeerProject has detected that you are hidden behind a router or firewall,
@@ -548,7 +548,7 @@
 			<newline gap="20" indent="0"/>
 		</group>
 		<group id="6">
-			<icon res="252" width="32" height="32"/><gap size="8"/>
+			<icon res="180" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">Warning: Your TCP Port Is Firewalled</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">PeerProject has detected that you are behind a NAT router or firewall,
@@ -561,7 +561,7 @@
 			<newline gap="20" indent="0"/>
 		</group>
 		<group id="7">
-			<icon res="252" width="32" height="32"/><gap size="8"/>
+			<icon res="180" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">Warning: Your UDP Port Is Firewalled</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">PeerProject has detected that you are behind a NAT router or firewall,
@@ -576,23 +576,23 @@
 		<icon res="120" width="30" height="30" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">Customise PeerProject</heading>
 		<newline gap="12" indent="42"/>
-		<icon res="182" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
+		<icon res="196"width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
 		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">Skins</link>
 		<text align="middle">&#160;- Change PeerProject's visual appearance</text>
 		<newline gap="8"/>
-		<icon res="141" width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
+		<icon res="138"width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
 		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
 		<text align="middle">&#160;- Update blocklist to avoid bad search results</text>
 		<newline gap="8"/>
-		<icon res="317" width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
+		<icon res="197"width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 		<link target="command:ID_TOOLS_WIZARD" align="middle">Settings Wizard</link>
 		<text align="middle">&#160;- Quick-edit PeerProject's basic settings</text>
 		<newline gap="8"/>
-		<icon res="147" width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
+		<icon res="182"width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
 		<link target="command:ID_HELP_FAQ" align="middle">Quick Help</link>
 		<text align="middle">&#160;- Get online support using PeerProject</text>
 		<newline gap="8"/>
-		<icon res="175" width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
+		<icon res="201"width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
 		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">Local Forums</link>
 		<text align="middle">&#160;- Go to the local English language forum</text>
 		<newline gap="18" indent="0"/>
@@ -669,7 +669,7 @@
 			<newline gap="16" indent="0"/>
 			<text format="b">Community</text>
 			<newline gap="4" indent="8"/>
-			<icon res="140" target="command:ID_SEARCH_CHAT"/>
+			<icon res="127"target="command:ID_SEARCH_CHAT"/>
 			<gap size="5"/>
 			<link target="command:ID_SEARCH_CHAT" align="middle">Chat With User</link>
 		</group>
@@ -696,42 +696,42 @@
 <!-- Localised Strings -->
 <strings>
 	<string id="WINDOW_NEIGHBOURS" value="Neighbours"/>
-	<string id="8060" value="Hub/Ultrapeer mode with %lu neighbour(s). %s in local library."/>
-	<string id="8061" value="Ultrapeer mode with %lu neighbour(s). %s in local library."/>
-	<string id="8062" value="Hub mode with %lu neighbour(s). %s in local library."/>
-	<string id="8064" value="Connected to %lu neighbour(s). %s in local library."/>
-	<string id="16129" value="Initiating a neighbour connection to %s port %i..."/>
-	<string id="16130" value="Unable to initiate a neighbour connection with %s."/>
-	<string id="16132" value="Closing connection to neighbour %s due to lack of traffic."/>
-	<string id="16133" value="Established a connection with neighbour %s, handshaking..."/>
-	<string id="16134" value="Closed connection with neighbour %s."/>
-	<string id="16135" value="Unable to initiate a neighbour connection with %s (refused)."/>
-	<string id="16136" value="Neighbour %s dropped the connection unexpectedly."/>
-	<string id="16139" value="Neighbour %s closed connection (%i : %s)."/>
-	<string id="16141" value="Closed connection with neighbour %s because it is not a hub."/>
-	<string id="16145" value="Gnutella connection with neighbour %s established successfully (G%i.%i : %s)."/>
-	<string id="16152" value="Hub neighbour %s won't accept us as a hub, closing connection."/>
-	<string id="16153" value="Connecting neighbour %s falling back to shielded leaf mode."/>
-	<string id="16155" value="Acting as a hub for leaf neighbour %s."/>
-	<string id="16156" value="Neighbour %s wants to be a hub, closing connection."/>
-	<string id="16157" value="Neighbour %s is not a hub, closing connection."/>
-	<string id="16158" value="Gnutella2 connection with neighbour %s established successfully (%s)."/>
-	<string id="16159" value="Closing connection to non-Gnutella2 neighbour %s."/>
-	<string id="16192" value="Neighbour %s forwarded a packet of excessive size, dropping connection."/>
-	<string id="16193" value="Neighbour %s forwarded a packet with zero TTL, ignoring."/>
-	<string id="16194" value="Neighbour %s forwarded a packet with excessive TTL, dropping packet (TTL=%i, Hops=%i)."/>
-	<string id="16195" value="Neighbour %s forwarded a ping packet with invalid length, ignoring."/>
-	<string id="16196" value="Neighbour %s forwarded a pong packet with invalid length, ignoring."/>
-	<string id="16198" value="Leaf neighbour %s is forwarding queries, dropping connection."/>
-	<string id="16199" value="Neighbour %s forwarded an unrecognised packet (0x%.2x), ignoring."/>
-	<string id="16200" value="Neighbour %s forwarded a pong with invalid address data, ignoring."/>
-	<string id="16203" value="Neighbour %s forwarded a push packet with invalid length, ignoring."/>
-	<string id="16208" value="Receiving an unexpected query routing table update from neighbour %s."/>
-	<string id="16209" value="Neighbour %s sent an invalid query routing table update, dropping connection."/>
-	<string id="16210" value="Neighbour %s updated its query routing table (%i bit = %lu[%i], %i%% full)."/>
-	<string id="16211" value="Neighbour %s forwarded a push request to a firewalled address, ignoring."/>
-	<string id="16212" value="Neighbour %s forwarded an extended packet that is not GGEP encoded."/>
-	<string id="16213" value="Sending query routing table to neighbour %s (%i bit = %lu[%i], %i%% full)"/>
+	<string id="20303" value="Initiating a neighbour connection to %s port %i..."/>
+	<string id="20304" value="Neighbour %s closed connection (%i : %s)."/>
+	<string id="20305" value="Closed connection with neighbour %s."/>
+	<string id="20306" value="Established a connection with neighbour %s, handshaking..."/>
+	<string id="20307" value="Unable to initiate a neighbour connection with %s."/>
+	<string id="20308" value="Neighbour %s dropped the connection unexpectedly."/>
+	<string id="20309" value="Closed connection with neighbour %s because it is not a hub."/>
+	<string id="20310" value="Unable to initiate a neighbour connection with %s (refused)."/>
+	<string id="20312" value="Closing connection to neighbour %s due to lack of traffic."/>
+	<string id="20385" value="Connecting neighbour %s falling back to shielded leaf mode."/>
+	<string id="20387" value="Hub neighbour %s won't accept us as a hub, closing connection."/>
+	<string id="20389" value="Acting as a hub for leaf neighbour %s."/>
+	<string id="20392" value="Neighbour %s is not a hub, closing connection."/>
+	<string id="20393" value="Closing connection to non-Gnutella2 neighbour %s."/>
+	<string id="20394" value="Neighbour %s wants to be a hub, closing connection."/>
+	<string id="20395" value="Gnutella connection with neighbour %s established successfully (G%i.%i : %s)."/>
+	<string id="20396" value="Gnutella2 connection with neighbour %s established successfully (%s)."/>
+	<string id="20572" value="Neighbour %s forwarded a packet with excessive TTL, dropping packet (TTL=%i, Hops=%i)."/>
+	<string id="20573" value="Neighbour %s forwarded a packet with zero TTL, ignoring."/>
+	<string id="20574" value="Neighbour %s forwarded an extended packet that is not GGEP encoded."/>
+	<string id="20575" value="Neighbour %s sent an invalid query routing table update, dropping connection."/>
+	<string id="20576" value="Sending query routing table to neighbour %s (%i bit = %lu[%i], %i%% full)"/>
+	<string id="20577" value="Receiving an unexpected query routing table update from neighbour %s."/>
+	<string id="20578" value="Neighbour %s updated its query routing table (%i bit = %lu[%i], %i%% full)."/>
+	<string id="20580" value="Leaf neighbour %s is forwarding queries, dropping connection."/>
+	<string id="20581" value="Neighbour %s forwarded a ping packet with invalid length, ignoring."/>
+	<string id="20582" value="Neighbour %s forwarded a pong packet with invalid length, ignoring."/>
+	<string id="20583" value="Neighbour %s forwarded a push packet with invalid length, ignoring."/>
+	<string id="20584" value="Neighbour %s forwarded a packet of excessive size, dropping connection."/>
+	<string id="20585" value="Neighbour %s forwarded an unrecognised packet (0x%.2x), ignoring."/>
+	<string id="20586" value="Neighbour %s forwarded a pong with invalid address data, ignoring."/>
+	<string id="20588" value="Neighbour %s forwarded a push request to a firewalled address, ignoring."/>
+	<string id="20702" value="Connected to %lu neighbours. %s in local library."/>
+	<string id="20703" value="Hub mode with %lu neighbours. %s in local library."/>
+	<string id="20704" value="Hub/Ultrapeer mode with %lu neighbours. %s in local library."/>
+	<string id="20706" value="Ultrapeer mode with %lu neighbours. %s in local library."/>
 </strings>
 <!-- Localised Dialog Text, "cookie" verifies that the skin matches current dialog -->
 <dialogs>

@@ -42,17 +42,20 @@ public:
 	Hashes::BtGuid			m_oGUID;
 	BOOL					m_bExchange;		// Exchange sources/other info (with extended client)
 	BOOL					m_bExtended;		// Extension Protocol support
-	CUploadTransferBT*		m_pUpload;
-	CDownload*				m_pDownload;
+	CUploadTransferBT*		m_pUploadTransfer;
 	CDownloadTransferBT*	m_pDownloadTransfer;
+	CDownload*				m_pDownload;
+	BOOL					m_bSeeder;
+	BOOL					m_bPrefersEncryption;
 
 protected:
 	BOOL					m_bShake;
 	BOOL					m_bOnline;
 	BOOL					m_bClosing;
 	DWORD					m_tLastKeepAlive;
-	DWORD					m_nUtMetadataSize;
+	DWORD					m_tLastUtPex;
 	DWORD					m_nUtMetadataID;
+	DWORD					m_nUtMetadataSize;
 	QWORD					m_nUtPexID;
 
 // Operations
@@ -62,7 +65,8 @@ public:
 	virtual void	Close();
 	void			Send(CBTPacket* pPacket, BOOL bRelease = TRUE);
 	inline BOOL		IsOnline() const throw() { return m_bOnline; }
-	static CString	GetAzureusStyleUserAgent(LPBYTE pVendor, size_t nVendor);
+	static CString	GetUserAgentAzureusStyle(LPBYTE pVendor, size_t nVendor);
+	CString			GetUserAgentOtherStyle(LPBYTE pVendor, CString* strNick);
 
 protected:
 	virtual BOOL	OnRun();
@@ -75,7 +79,7 @@ protected:
 	void			SendExtendedHandshake();
 	void			SendExtendedPacket(BYTE Type, CBuffer *pOutput);
 	void			SendInfoRequest(QWORD nPiece);
-	void			SendUtPex();
+	void			SendUtPex(DWORD tConnectedAfter = 0);
 	BOOL			OnHandshake1();						// First part of handshake
 	BOOL			OnHandshake2();						// Second part- Peer ID
 	//BOOL			OnNoHandshake2();					// If no peer ID is received

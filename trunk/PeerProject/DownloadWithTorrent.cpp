@@ -396,7 +396,7 @@ bool CDownloadWithTorrent::RunTorrent(DWORD tNow)
 		return false;
 
 	// Generate a peerid if there isn't one
-	if ( !m_pPeerID )
+	if ( ! m_pPeerID )
 		GenerateTorrentDownloadID();
 
 	// Store some values for later
@@ -405,18 +405,16 @@ bool CDownloadWithTorrent::RunTorrent(DWORD tNow)
 	DWORD nSourcesWanted = 0ul;
 
 	// Check if a tracker has already been locked onto
-	if ( !m_bTorrentStarted )
+	if ( ! m_bTorrentStarted )
 	{
-		// Check if download is active, isn't already waiting for a request
-		// reply and is allowed to try and contact this tracker
+		// Check if download is active, isn't already waiting for a request reply, and is allowed to try and contact this tracker
 		if ( ! IsPaused() && ( IsTrying() || IsSeeding() )
 			&& ! m_bTorrentRequested && tNow > m_tTorrentTracker )
 		{
 			// Get the # of sources that can be connected to
 			nSourcesCount = GetBTSourceCount( TRUE );
 
-			// Calculate how many new sources are wanted,
-			// expect a high failure rate
+			// Calculate how many new sources are wanted, expect a high failure rate
 			nSourcesMax = Settings.BitTorrent.DownloadConnections * 4ul;
 			if ( nSourcesCount < nSourcesMax )
 				nSourcesWanted = nSourcesMax - nSourcesCount;
@@ -433,10 +431,8 @@ bool CDownloadWithTorrent::RunTorrent(DWORD tNow)
 	bool bRegularUpdate = tNow > m_tTorrentTracker;
 
 	// Check if an update needs to be sent to the tracker.
-	// This can be either a regular update or a request for more sources
-	// if the number of known sources is getting too low.
-	if ( bRegularUpdate
-		|| tNow - m_tTorrentSources > Settings.BitTorrent.DefaultTrackerPeriod )
+	// This can be a regular update, or a request for more sources if the number of known sources is getting too low.
+	if ( bRegularUpdate || tNow - m_tTorrentSources > Settings.BitTorrent.DefaultTrackerPeriod )
 	{
 		// Check if the torrent is seeding
 		if ( IsSeeding() )
@@ -475,13 +471,14 @@ bool CDownloadWithTorrent::RunTorrent(DWORD tNow)
 // CDownloadWithTorrent Create Peer ID
 
 // The 'Peer ID' is different for each download and is not retained between sessions.
+// -PE1000-############
 
 BOOL CDownloadWithTorrent::GenerateTorrentDownloadID()
 {
 	theApp.Message( MSG_DEBUG, _T("Creating BitTorrent Peer ID") );
 
-	//Check ID is not in use
-	ASSERT( !m_pPeerID );
+	// Check ID is not in use
+	ASSERT( ! m_pPeerID );
 	if ( m_pPeerID )
 	{
 		theApp.Message( MSG_ERROR, _T("Attempted to re-create an in-use Peer ID") );
@@ -522,8 +519,7 @@ void CDownloadWithTorrent::SendStarted(DWORD nNumWant)
 
 	// Log the 'start' event
 	theApp.Message( MSG_INFO,
-		_T("[BT] Sending initial tracker announce for %s"),
-		m_pTorrent.m_sName );
+		_T("[BT] Sending initial tracker announce for %s"), m_pTorrent.m_sName );
 
 	// Record that the start request has been sent
 	m_bTorrentRequested = TRUE;
@@ -546,8 +542,7 @@ void CDownloadWithTorrent::SendUpdate(DWORD nNumWant)
 
 	// Log the 'update' event
 	theApp.Message( MSG_INFO,
-		_T("[BT] Sending update tracker announce for %s"),
-		m_pTorrent.m_sName );
+		_T("[BT] Sending update tracker announce for %s"), m_pTorrent.m_sName );
 
 	// Record that an update has been sent
 	m_tTorrentTracker = m_tTorrentSources = GetTickCount();
@@ -568,8 +563,7 @@ void CDownloadWithTorrent::SendCompleted()
 
 	// Log the 'complete' event
 	theApp.Message( MSG_INFO,
-		_T("[BT] Sending completed tracker announce for %s"),
-		m_pTorrent.m_sName );
+		_T("[BT] Sending completed tracker announce for %s"), m_pTorrent.m_sName );
 
 	// Create and run tracker request
 	new CBTTrackerRequest( this, _T("completed"), 0ul, TRUE );
@@ -586,8 +580,7 @@ void CDownloadWithTorrent::SendStopped()
 
 	// Log the 'stop' event
 	theApp.Message( MSG_INFO,
-		_T("[BT] Sending final tracker announce for %s"),
-		m_pTorrent.m_sName );
+		_T("[BT] Sending final tracker announce for %s"), m_pTorrent.m_sName );
 
 	// Update download to indicate it has been stopped
 	m_bTorrentStarted = m_bTorrentRequested = FALSE;
@@ -615,8 +608,8 @@ void CDownloadWithTorrent::OnTrackerEvent(bool bSuccess, LPCTSTR pszReason, LPCT
 		// Lock on this tracker if we were searching for one
 		if ( m_pTorrent.GetTrackerMode() == CBTInfo::tMultiFinding )
 		{
-			theApp.Message( MSG_DEBUG , _T("[BT] Locked onto tracker %s"),
-				m_pTorrent.GetTrackerAddress() );
+			theApp.Message( MSG_DEBUG,
+				_T("[BT] Locked onto tracker %s"), m_pTorrent.GetTrackerAddress() );
 			m_pTorrent.SetTrackerMode( CBTInfo::tMultiFound );
 		}
 	}
@@ -784,8 +777,8 @@ void CDownloadWithTorrent::ChokeTorrent(DWORD tNow)
 			(DWORD)m_pTorrentUploads.GetCount() != GetBTSourceCount() &&
 			CanStartTransfers( tNow ) )
 		{
-			theApp.Message( MSG_DEBUG, _T("Attempting to push-start a BitTorrent upload for %s"),
-				m_pTorrent.m_sName );
+			theApp.Message( MSG_DEBUG,
+				_T("Attempting to push-start a BitTorrent upload for %s"), m_pTorrent.m_sName );
 			StartNewTransfer( tNow );
 		}
 	}
@@ -868,7 +861,7 @@ void CDownloadWithTorrent::ChokeTorrent(DWORD tNow)
 			if (	pTransfer->m_nProtocol == PROTOCOL_BT &&
 					pSelected.Find( pTransfer->m_pClient ) == NULL &&
 					pTransfer->m_nState == dtsDownloading &&
-					pTransfer->m_pClient->m_pUpload->m_bInterested &&
+					pTransfer->m_pClient->m_pUploadTransfer->m_bInterested &&
 					pTransfer->GetAverageSpeed() >= nBest )
 			{
 				pBest = pTransfer;

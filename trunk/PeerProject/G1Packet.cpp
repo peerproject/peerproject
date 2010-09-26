@@ -1,7 +1,7 @@
 //
 // G1Packet.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -31,7 +31,7 @@
 #include "HostCache.h"
 #include "VendorCache.h"
 
-// If we are compiling in debug mode, replace the text "THIS_FILE" in the code with the name of this file
+// When compiling in debug mode, replace the text "THIS_FILE" in code with the name of this file
 #ifdef _DEBUG
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
@@ -81,23 +81,16 @@ CG1Packet* CG1Packet::New(int nType, DWORD nTTL, const Hashes::Guid& oGUID)
 
 	// Set the TTL and hops counts
 	pPacket->m_nTTL  = (BYTE)( nTTL > 0 ? nTTL : Settings.Gnutella1.DefaultTTL ); // If the given TTL is 0, use the default instead
-	pPacket->m_nHops = 0; // This packet hasn't travelled across the Internet at all yet
+	pPacket->m_nHops = 0;	// This packet hasn't travelled across the Internet at all yet
 
 	// No hash yet
 	pPacket->m_nHash = 0;
 
-	// If the caller has given us a GUID to use in the packet
-	if ( oGUID )
-	{
-		// Copy the GUID into the packet
-		pPacket->m_oGUID = oGUID;
 
-	} // If the caller didn't give us a GUID to use
-	else
-	{
-		// Create a GUID for this packet
-		Network.CreateID( pPacket->m_oGUID );
-	}
+	if ( oGUID )			// If the caller has given us a GUID to use in the packet
+		pPacket->m_oGUID = oGUID;				// Copy the GUID into the packet
+	else					// If the caller didn't give us a GUID to use
+		Network.CreateID( pPacket->m_oGUID );	// Create a GUID for this packet
 
 	// Return a pointer to the packet
 	return pPacket;
@@ -197,16 +190,14 @@ LPCTSTR CG1Packet::m_pszPackets[ G1_PACKTYPE_MAX ] = // There are 9 packet types
 	_T("Unknown"), _T("Ping"), _T("Pong"), _T("Bye"), _T("QRP"), _T("Vendor"), _T("Push"), _T("Query"), _T("Hit")
 };
 
-// Uses the packet type index in this packet to look up text that describes that type
-// Returns text like "Ping" or "Pong"
+// Uses the packet type index in this packet to look up text that describes that type, Returns text like "Ping" or "Pong"
 CString CG1Packet::GetType() const
 {
 	// Return the pointer to the text literal defined above this method
 	return m_pszPackets[ m_nTypeIndex ];
 }
 
-// Describes the GUID of this packet as text using base 16 notation
-// Returns a string
+// Describes the GUID of this packet as text using base 16 notation, Returns a string
 CString CG1Packet::GetGUID() const
 {
 	// Compose a string like "0001020304050607080910111213141516" with two characters to describe each of the 16 bytes of the GUID
@@ -243,19 +234,15 @@ void CG1Packet::ToBuffer(CBuffer* pBuffer) const
 // Writes it into a line at the bottom of the file PeerProject.log
 void CG1Packet::Debug(LPCTSTR pszReason) const
 {
-
 // Only include these lines in the program if it is being compiled in debug mode
 #ifdef _DEBUG
-
 	// Local objects
-	CString strOutput; // We'll compose text that describes what happened here
+	CString strOutput;	// We'll compose text that describes what happened here
 	strOutput.Format( L"[G1] %s Type: %s [%i/%i]", pszReason, GetType(), m_nTTL, m_nHops );
 	CPacket::Debug( strOutput );
 #else
 	UNUSED_ALWAYS(pszReason);
-// Go back to including all the lines in the program
 #endif
-
 }
 
 int CG1Packet::GGEPReadCachedHosts(const CGGEPBlock& pGGEP)
@@ -283,8 +270,7 @@ int CG1Packet::GGEPReadCachedHosts(const CGGEPBlock& pGGEP)
 	if ( Settings.Experimental.EnableDIPPSupport )
 	{
 		CGGEPItem* pGDNAs = pGGEP.Find( GGEP_HEADER_GDNA_PACKED_IPPORTS, 6 );
-		if ( ! pGDNAs )
-			// GDNA has a bug in their code; they send DIP but receive DIPP (fixed in the latest versions)
+		if ( ! pGDNAs ) 	// Older GDNA has a bug: they send DIP but receive DIPP (fixed in latest versions)
 			pGDNAs = pGGEP.Find( GGEP_HEADER_GDNA_PACKED_IPPORTS_x, 6 );
 		if ( pGDNAs && ( pGDNAs->m_nLength - pGDNAs->m_nPosition ) % 6 == 0 )
 		{
@@ -310,13 +296,13 @@ int CG1Packet::GGEPReadCachedHosts(const CGGEPBlock& pGGEP)
 
 int CG1Packet::GGEPWriteRandomCache(CGGEPItem* pItem)
 {
-	if ( !pItem ) return 0;
+	if ( ! pItem ) return 0;
 
 	bool bIPP = false;
 	if ( pItem->IsNamed( GGEP_HEADER_PACKED_IPPORTS ) )
 		bIPP = true;
-	else if ( !pItem->IsNamed( GGEP_HEADER_GDNA_PACKED_IPPORTS ) &&
-		!pItem->IsNamed( GGEP_HEADER_GDNA_PACKED_IPPORTS_x ) )
+	else if ( ! pItem->IsNamed( GGEP_HEADER_GDNA_PACKED_IPPORTS ) &&
+		! pItem->IsNamed( GGEP_HEADER_GDNA_PACKED_IPPORTS_x ) )
 	return 0;
 
 	DWORD nCount = min( 50ul,
@@ -341,7 +327,7 @@ int CG1Packet::GGEPWriteRandomCache(CGGEPItem* pItem)
 		for ( CHostCacheIterator i = HostCache.Gnutella1.Begin() ;
 			i != HostCache.Gnutella1.End() && nCount && ! pList.empty() ; ++i )
 		{
-			CHostCacheHost* pHost = (*i);
+			CHostCacheHostPtr pHost = (*i);
 
 			nPos = pList.back();	// take the smallest value;
 			pList.pop_back();		// remove it
@@ -371,7 +357,7 @@ int CG1Packet::GGEPWriteRandomCache(CGGEPItem* pItem)
 		for ( CHostCacheIterator i = HostCache.G1DNA.Begin() ;
 			i != HostCache.G1DNA.End() && nCount && ! pList.empty() ; ++i )
 		{
-			CHostCacheHost* pHost = (*i);
+			CHostCacheHostPtr pHost = (*i);
 
 			nPos = pList.back();	// take the smallest value;
 			pList.pop_back();		// remove it

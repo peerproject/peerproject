@@ -435,8 +435,7 @@ void CHostCacheList::Update(CHostCacheHostPtr pHost, WORD nPort, DWORD tSeen, LP
 	if ( pHost->Update( nPort, tSeen, pszVendor, nUptime, nCurrentLeaves, nLeafLimit ) )
 	{
 		// Remove host from old and now invalid position
-		m_HostsTime.erase(
-			std::find( m_HostsTime.begin(), m_HostsTime.end(), pHost ) );
+		m_HostsTime.erase( std::find( m_HostsTime.begin(), m_HostsTime.end(), pHost ) );
 
 		// Add host to new sorted position
 		m_HostsTime.insert( pHost );
@@ -560,32 +559,25 @@ void CHostCacheList::OnSuccess(const IN_ADDR* pAddress, WORD nPort, bool bUpdate
 //void CHostCacheList::PruneByQueryAck()
 //{
 //	CQuickLock oLock( m_pSection );
-//
 //	DWORD tNow = static_cast< DWORD >( time( NULL ) );
-//
 //	for( CHostCacheMap::iterator i = m_Hosts.begin(); i != m_Hosts.end(); )
 //	{
 //		bool bRemoved = false;
 //		CHostCacheHostPtr pHost = (*i).second;
-//		if ( pHost->m_tAck )
+//		if ( pHost->m_tAck && tNow - pHost->m_tAck > Settings.Gnutella2.QueryHostDeadline )
 //		{
-//			if ( tNow - pHost->m_tAck > Settings.Gnutella2.QueryHostDeadline )
+//			pHost->m_tAck = 0;
+//			if ( pHost->m_nFailures++ > Settings.Connection.FailureLimit )
 //			{
-//				pHost->m_tAck = 0;
-//				if ( pHost->m_nFailures++ > Settings.Connection.FailureLimit )
-//				{
-//					m_HostsTime.erase(
-//						std::find( m_HostsTime.begin(), m_HostsTime.end(), pHost ) );
-//					i = m_Hosts.erase( i );
-//					delete pHost;
-//					bRemoved = true;
-//					m_nCookie++;
-//				}
+//				m_HostsTime.erase( std::find( m_HostsTime.begin(), m_HostsTime.end(), pHost ) );
+//				i = m_Hosts.erase( i );
+//				delete pHost;
+//				bRemoved = true;
+//				m_nCookie++;
 //			}
 //		}
 //		// Don't increment if host was removed
-//		if ( ! bRemoved )
-//			++i;
+//		if ( ! bRemoved ) i++;
 //	}
 //}
 
@@ -644,7 +636,7 @@ void CHostCacheList::PruneHosts()
 		m_Hosts.size() > Settings.Gnutella.HostCacheSize && i != m_HostsTime.begin(); )
 	{
 		--i;
-		CHostCacheHost* pHost = (*i);
+		CHostCacheHostPtr pHost = (*i);
 		if ( ! pHost->m_bPriority )
 		{
 			i = m_HostsTime.erase( i );
@@ -658,7 +650,7 @@ void CHostCacheList::PruneHosts()
 		m_Hosts.size() > Settings.Gnutella.HostCacheSize && i != m_HostsTime.begin(); )
 	{
 		--i;
-		CHostCacheHost* pHost = (*i);
+		CHostCacheHostPtr pHost = (*i);
 		i = m_HostsTime.erase( i );
 		m_Hosts.erase( pHost->m_pAddress );
 		delete pHost;

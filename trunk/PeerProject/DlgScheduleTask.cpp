@@ -39,8 +39,8 @@ BEGIN_MESSAGE_MAP(CScheduleTaskDlg, CSkinDialog)
 	ON_BN_CLICKED(IDC_EVERYDAY, OnBnClickedEveryday)
 	ON_BN_CLICKED(IDC_BUTTON_ALLDAYS, &CScheduleTaskDlg::OnBnClickedButtonAllDays)
 	ON_CBN_SELCHANGE(IDC_EVENTTYPE, OnCbnSelchangeEventType)
-	ON_NOTIFY(DTN_DATETIMECHANGE, IDC_DATE, OnDtnDatetimechangeDate)
-	ON_NOTIFY(DTN_DATETIMECHANGE, IDC_TIME, OnDtnDatetimechangeTime)
+	ON_NOTIFY(DTN_DATETIMECHANGE, IDC_DATE, OnDtnDateTimeChange)
+	ON_NOTIFY(DTN_DATETIMECHANGE, IDC_TIME, OnDtnDateTimeChange)
 END_MESSAGE_MAP()
 
 
@@ -105,7 +105,7 @@ BOOL CScheduleTaskDlg::OnInitDialog()
 	SkinMe( _T("CScheduleTaskDlg"), IDR_SCHEDULERFRAME );
 
 	m_wndSpinDown.SetRange( 1, 99 );
-	m_wndSpinUp.SetRange( 1, 99 );
+	m_wndSpinUp.SetRange( 1, 101 );
 
 	// New tasks must be added to the list in the same order as Scheduler.h enum
 	m_wndTypeSel.AddString( LoadString( IDS_SCHEDULER_BANDWIDTH_FULL ) );
@@ -125,9 +125,12 @@ BOOL CScheduleTaskDlg::OnInitDialog()
 		m_bSpecificDays		= true;
 		m_nDays				= 0x7F;
 		m_nLimitDown		= 50;
-		m_nLimitUp			= 30;
+		m_nLimitUp			= 70;
 
-		m_wndDate.GetTime( m_tDateAndTime );	// Sets mtDateTime to now
+		m_wndDate.GetTime( m_tDateAndTime );	// Simply set m_tDateTime to now
+		m_tDateAndTime -= m_tDateAndTime.GetSecond();
+		m_wndTime.SetTime( &m_tDateAndTime );	// Discard seconds for convenience
+
 		m_wndActiveCheck.SetCheck( 1 );
 		m_wndRadioEveryDay.SetCheck( 1 );
 		m_wndRadioOnce.SetCheck( 0 );
@@ -313,7 +316,7 @@ void CScheduleTaskDlg::OnOK()
 	CSkinDialog::OnOK();
 }
 
-void CScheduleTaskDlg::OnDtnDatetimechangeDate(NMHDR* /*pNMHDR*/, LRESULT *pResult)
+void CScheduleTaskDlg::OnDtnDateTimeChange(NMHDR* /*pNMHDR*/, LRESULT *pResult)
 {
 	//LPNMDATETIMECHANGE pDTChange = reinterpret_cast<LPNMDATETIMECHANGE>(pNMHDR);
 	SYSTEMTIME tDate;
@@ -322,19 +325,6 @@ void CScheduleTaskDlg::OnDtnDatetimechangeDate(NMHDR* /*pNMHDR*/, LRESULT *pResu
 	m_wndTime.GetTime( &tTime );
 	CTime tTemp( tDate.wYear, tDate.wMonth, tDate.wDay, tTime.wHour, tTime.wMinute, tTime.wSecond );
 	m_tDateAndTime = tTemp;
-	*pResult = 0;
-}
-
-void CScheduleTaskDlg::OnDtnDatetimechangeTime(NMHDR* /*pNMHDR*/, LRESULT *pResult)
-{
-	//LPNMDATETIMECHANGE pDTChange = reinterpret_cast<LPNMDATETIMECHANGE>(pNMHDR);
-	SYSTEMTIME tDate;
-	SYSTEMTIME tTime;
-	m_wndDate.GetTime( &tDate );
-	m_wndTime.GetTime( &tTime );
-	CTime tTemp( tDate.wYear, tDate.wMonth, tDate.wDay, tTime.wHour, tTime.wMinute, tTime.wSecond );
-	m_tDateAndTime = tTemp;
-
 	*pResult = 0;
 }
 

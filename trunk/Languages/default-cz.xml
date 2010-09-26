@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Czech Skin File -->
 
-<!-- Translation based on default-en.xml r58 (Shareaza 2.2.5.7) -->
+<!-- Translation based on default-en.xml r59 (Shareaza 2.2.5.7) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -372,6 +372,8 @@
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Nastavení"/>
 	</toolbar>
+	<!-- SECURITY WINDOW Missing -->
+	<!-- SCHEDULER WINDOW Missing -->
 	<!-- HIT MONITOR WINDOW -->
 	<toolbar name="CHitMonitorWnd">
 		<button id="ID_SEARCH_DOWNLOAD" text="Stáhnout"/>
@@ -1611,7 +1613,7 @@
 		<anchor id="Header" width="32" height="152"/>
 		<newline gap="0"/>
 		<group id="1">
-			<icon res="130" width="32" height="32"/><gap size="8"/>
+			<icon res="136" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">PŘIPOJTE SE</heading>
 			<newline gap="8" indent="42"/>
 			<text>Vítejte v PeerProject</text>
@@ -1621,12 +1623,12 @@
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="2">
-			<icon res="134" width="32" height="32" target="command:ID_TAB_SEARCH"/><gap size="8"/>
+			<icon res="130" width="32" height="32" target="command:ID_TAB_SEARCH"/><gap size="8"/>
 			<heading align="middle">HLEDÁNÍ V PEERPROJECT</heading>
 			<newline gap="8" indent="42"/>
 			<anchor id="SearchBox" width="256" height="80"/>
 			<newline gap="14" indent="0"/>
-			<icon res="136" width="32" height="32" target="command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
+			<icon res="124" width="32" height="32" target="command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
 			<heading align="middle">ZAČNĚTE STAHOVAT</heading>
 			<newline gap="8" indent="42"/>
 			<link target="command:ID_TOOLS_DOWNLOAD" format="bu">Klikněte sem pro</link>
@@ -1646,7 +1648,7 @@
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="4">
-			<icon res="252" width="32" height="32" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
+			<icon res="180" width="32" height="32" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 			<heading align="middle">POZOR - MÁTE ZAPNUTÝ FIREWALL</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">PeerProject zjistila ten jste za firewallem nebo NAT routerem,
@@ -1657,7 +1659,7 @@
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="6">
-			<icon res="252" width="32" height="32"/><gap size="8"/>
+			<icon res="180" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">POZOR - NASTAVENÝ TCP PORT JE BLOKOVÁN</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">PeerProject zjistila ten jste za firewallem nebo NAT routerem,
@@ -1668,7 +1670,7 @@
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="7">
-			<icon res="252" width="32" height="32"/><gap size="8"/>
+			<icon res="180" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">POZOR - NASTAVENÝ UDP PORT JE BLOKOVÁN</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">PeerProject zjistila ten jste za firewallem nebo NAT routerem,
@@ -1681,24 +1683,24 @@
 		<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">UPRAVTE SI PEERPROJECT</heading>
 		<newline gap="12" indent="42"/>
-		<icon res="182" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
+		<icon res="196"width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
 		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">Skiny</link>
 		<text align="middle">&#160;- Změní vzhled &amp; prostředí PeerProject</text>
 		<newline gap="8"/>
-		<icon res="141" width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
+		<icon res="138"width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
 		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
 		<text align="middle">&#160;- Update blocklist</text>
 		<newline gap="8"/>
-		<icon res="317" width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
+		<icon res="197"width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 		<link target="command:ID_TOOLS_WIZARD" align="middle">Průvodce nastavením</link>
 		<text align="middle">&#160;- Upraví nastavení PeerProject</text>
 		<newline gap="8"/>
-		<icon res="147" width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
+		<icon res="182"width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
 		<link target="command:ID_HELP_FAQ" align="middle">Rychlá Nápověda</link>
 		<text align="middle">&#160;- Otevře Nápovědu jak používat PeerProject, o </text>
 		<link target="command:ID_TAB_IRC" align="middle">IRC.</link>
 		<newline gap="8"/>
-		<icon res="175" width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
+		<icon res="201"width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
 		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">Místní Fórum</link>
 		<text align="middle">&#160;- Přejít na české diskusní fórum jazyk</text>
 		<newline gap="18" indent="0"/>
@@ -1916,32 +1918,32 @@
 		</group>
 		<group id="40">
 			<newline gap="1"/>
-			<icon res="265"/><gap size="5"/>
+			<icon res="203"/><gap size="5"/>
 			<link id="ContactEmail" align="middle"/>
 		</group>
 		<group id="44">
 			<newline gap="1"/>
-			<icon res="1008"/><gap size="5"/>
+			<icon res="206"/><gap size="5"/>
 			<link id="ContactMSN"/>
 		</group>
 		<group id="41">
 			<newline gap="1"/>
-			<icon res="206"/><gap size="5"/>
+			<icon res="208"/><gap size="5"/>
 			<link id="ContactYahoo"/>
 		</group>
 		<group id="42">
 			<newline gap="1"/>
-			<icon res="208"/><gap size="5"/>
+			<icon res="205"/><gap size="5"/>
 			<link id="ContactICQ"/>
 		</group>
 		<group id="43">
 			<newline gap="1"/>
-			<icon res="207"/><gap size="5"/>
+			<icon res="204"/><gap size="5"/>
 			<link id="ContactAOL"/>
 		</group>
 		<group id="45">
 			<newline gap="1"/>
-			<icon res="207"/><gap size="5"/>
+			<icon res="204"/><gap size="5"/>
 			<link id="ContactJabber"/>
 		</group>
 		<group id="5">
@@ -1967,7 +1969,7 @@
 			<newline gap="16" indent="0"/>
 			<text format="b">Společenství</text>
 			<newline gap="4" indent="8"/>
-			<icon res="140" target="command:ID_SEARCH_CHAT"/>
+			<icon res="127"target="command:ID_SEARCH_CHAT"/>
 			<gap size="5"/>
 			<link target="command:ID_SEARCH_CHAT" align="middle">Pokec s uživatelem</link>
 		</group>
@@ -2543,724 +2545,724 @@
 <!-- Tips displayed when mouse is moved over controls in the dialogs -->
 <controlTips>
 	<tip id="IDC_THROTTLE_MODE" message="Pokud je nastaveno maxium, pak rychlost stahování nepřekročí zadanou rychlost. Pokud je nastaven průměr, pak rychlost stahování může být mírně vyšší nebo nižší než rychlost zadaná."/>
-	<tip id="IDC_SHARE_PARTIALS" message="Toto nastavení nemá vliv na již započatá stahování, stejně tak nemá toto stahování vliv na soubory s eDonkey hashem pokud je eDonkey síť povoelená ani na torrenty.{n}Toto nastavení ale ovlivňuje stahování, která jsou zastavená.{n}{n}POZOR: Používejte toto nastavení jen v případě nutnosti, při zneužívání můžete dostat ban."/>
+	<tip id="IDC_SHARE_PARTIALS" message="Toto nastavení nemá vliv na již započatá stahování, stejně tak nemá toto stahování vliv na soubory s eDonkey hashem pokud je eDonkey síť povoelená ani na torrenty.\nToto nastavení ale ovlivňuje stahování, která jsou zastavená.\n\nPOZOR: Používejte toto nastavení jen v případě nutnosti, při zneužívání můžete dostat ban."/>
 </controlTips>
 <!-- Localized Strings -->
 <strings>
 	<string id="WINDOW_MAIN" value="PeerProject"/>
+	<string id="WINDOW_HOME" value="Úvodní okno"/>
 	<string id="WINDOW_SYSTEM" value="Systém"/>
 	<string id="WINDOW_NEIGHBOURS" value="Okolní počítače"/>
 	<string id="WINDOW_PACKET" value="Výpis paketů"/>
 	<string id="WINDOW_HOSTCACHE" value="Cache hosta"/>
-	<string id="WINDOW_SEARCHMONITOR" value="Monitor hledání"/>
 	<string id="WINDOW_SEARCH" value="Vyhledávání"/>
+	<string id="WINDOW_SEARCHPAD" value="Vyhledávání"/>
+	<string id="WINDOW_SEARCHMONITOR" value="Monitor hledání"/>
 	<string id="WINDOW_HITMONITOR" value="Monitorování výsledků"/>
 	<string id="WINDOW_DOWNLOADS" value="Stahování"/>
-	<string id="WINDOW_LIBRARY" value="Knihovna"/>
 	<string id="WINDOW_UPLOADS" value="Odesílání"/>
+	<string id="WINDOW_LIBRARY" value="Knihovna"/>
 	<string id="WINDOW_TRAFFIC" value="Graf"/>
 	<string id="WINDOW_CHAT" value="Pokec"/>
 	<string id="WINDOW_SECURITY" value="Zabezpečení"/>
+	<string id="WINDOW_SCHEDULER" value="Plánovač"/>
 	<string id="WINDOW_DISCOVERY" value="Vyhledávací služba"/>
 	<string id="WINDOW_BROWSEHOST" value="Prohlížení uživatele"/>
-	<string id="WINDOW_HOME" value="Úvodní okno"/>
 	<string id="WINDOW_MEDIA" value="Media Player"/>
-	<string id="WINDOW_SEARCHPAD" value="Vyhledávání"/>
 	<string id="WINDOW_HELP" value="Nápověda PeerProject"/>
-	<string id="7000" value="Opravdu chcete vymazat tento filtr ?"/>
-	<string id="7001" value="&amp;schéma"/>
-	<string id="7002" value="Rozmanité hodnoty"/>
-	<string id="7003" value="Vícenásobné"/>
-	<string id="7004" value="Filtr je již nazvaný &quot;%s&quot;, chcete to změnit?"/>
-	<string id="7005" value="Prosím zadejte jméno vašeho filtru."/>
-	<string id="7100" value="Tato šablona je neplatná."/>
-	<string id="7101" value="Tato šablona neobsahuje žádné přizpůsobení."/>
-	<string id="7102" value="Smazat šablonu &quot;%s&quot; ?\nTato operace je nevratná."/>
-	<string id="8000" value="Nastavení PeerProject"/>
-	<string id="8001" value="Vítejte v PeerProject"/>
-	<string id="8002" value="Vlastnosti souboru"/>
-	<string id="8003" value="Upravit vlastní profil"/>
-	<string id="8004" value="!Vítejte v PeerProject (version) !\n.\nPeerProject je naprosto volný software.\nProsím používejte jej zodpovědně a respektujte právo duševního vlastnictví. Krást se nemá.\n."/>
-	<string id="8005" value="(zavřít po dokončení přenosu)"/>
-	<string id="8006" value="Nejste připojení. Pro spuštění klikněte na tlačítko Připojit se."/>
-	<string id="8007" value="Nejsou spuštěna žádná aktivní hledání. Klikněte zde pro vyhledání souborů."/>
-	<string id="8008" value="PeerProject dokončila stahování novější verze (%s). Chcete ji hned aktualizovat?\n\nPokud zvolíte Ano, PeerProject se dočasně ukončí aby se mohla nainstalovat aktualizace."/>
-	<string id="8009" value="Opravdu chcete vymazat skin &quot;%s&quot;? Tento skin nemůže být odstraněný."/>
-	<string id="8010" value="Toto je předběžně uvolněná verze PeerProject, beta testovací doba skončila. Prosím stáhněte si plnou oficiální verzi z http://peerproject.org/."/>
-	<string id="8011" value="Změna prohlížeče musí zavřít všechna okna které máte otevřená. Chcete pokračovat"/>
-	<string id="8012" value="Informace o torrentu"/>
-	<string id="8060" value="Režim Hub/Ultrapeer s uživatelem %lu. %s v místní knihovně."/>
-	<string id="8061" value="Režim Ultrapeer s uživatelem %lu. %s v místní knihovně."/>
-	<string id="8062" value="Režim uzle se sousedem(y) %lu. %s v místní knihovně."/>
-	<string id="8063" value="Připojeno. %s v místní knihovně."/>
-	<string id="8064" value="Připojeno ke %lu uzlům. %s v místní knihovně."/>
-	<string id="8065" value="Připojuji se do sítě..."/>
-	<string id="8066" value="Nejste připojeni do sítě."/>
-	<string id="8067" value="%s přích : %s odch (St:%I64i/Od:%I64i)"/>
-	<string id="8068" value="%s přích : %s odch (St:%I64i/Od:%I64i/H:%I64i)"/>
-	<string id="8069" value="Připojit"/>
-	<string id="8070" value="Připojuji..."/>
-	<string id="8071" value="Připojit"/>
-	<string id="8072" value="Odpojit"/>
-	<string id="8096" value="Tato oblast zobrazuje více informací o vybraných souborech ."/>
-	<string id="8097" value="Je dostupný jeden zdroj. (%s/s)"/>
-	<string id="8098" value="Je dostupných %i zdrojů. (%s/s)"/>
-	<string id="8099" value="Je zde jedno hodnocení."/>
-	<string id="8100" value="Jsou zde %i hodnocení."/>
-	<string id="8101" value="%s &gt;&gt;&gt; upozorňuje &lt;&lt;&lt;:"/>
-	<string id="8102" value="%s rychlosti tohoto souboru:"/>
-	<string id="8103" value="Klikni pro náhled"/>
-	<string id="8104" value="Prohlížím..."/>
-	<string id="8105" value="Nelze stáhnout náhled z &quot;%s&quot;."/>
-	<string id="8128" value="Kliknutím zde hledáte znovu"/>
-	<string id="8129" value="V tomto okně ještě nebylo spuštěno žádné vyhledávání."/>
-	<string id="8130" value="PeerProject vyhledává v síti..."/>
-	<string id="8131" value="Zatím nebyl nalezen žádný výsledek."/>
-	<string id="8132" value="Byly nalezeny nějaké výsledky, ale nevyhovují filtrům."/>
-	<string id="8133" value="PeerProject aktivně prohledává síť..."/>
-	<string id="8134" value="Chystáte se začít nové hledání. Chcete vymazat výsledky předchozího hledání?"/>
-	<string id="8135" value="Žádné popisky"/>
-	<string id="8136" value="Hledání jednoduchého textu"/>
-	<string id="8137" value="Žádné sloupce"/>
-	<string id="8141" value="Zobrazit panel hledání"/>
-	<string id="8142" value="Skrýt panel hledání"/>
-	<string id="8143" value="Vyhledávám..."/>
-	<string id="8144" value="Vyhledat"/>
-	<string id="8145" value="Hledat znovu"/>
-	<string id="8146" value="Stop"/>
-	<string id="8147" value="Jakýkoliv soubor"/>
-	<string id="8148" value="Hledat:"/>
-	<string id="8149" value="Hledat typ souboru:"/>
-	<string id="8150" value="Stav hledání:"/>
-	<string id="8151" value="Nalezeno:"/>
-	<string id="8152" value="%lu uzlů, %lu ukončení"/>
-	<string id="8153" value="Neprobíhá žádné vyhledávání"/>
-	<string id="8154" value="Nebyly nalezeny žádné soubory"/>
-	<string id="8155" value="%lu soubor ze %lu nalezených|%lu soubor ze %lu nalezených|%lu souborů ze %lu nalezených"/>
-	<string id="8156" value="Hledat"/>
-	<string id="8157" value="Výsledky"/>
-	<string id="8158" value="Smazat"/>
-	<string id="8159" value="Pokročilé..."/>
-	<string id="8160" value="Připojuji se k uživateli..."/>
-	<string id="8161" value="Odesílám žádost, čekám na spojení..."/>
-	<string id="8162" value="Připojeno, žádám o prohlížení..."/>
-	<string id="8163" value="Přijímám odezvu prohlížeče (%2.f%%)..."/>
-	<string id="8164" value="Nelze se připojit k uživateli a prohlížet profil nebo soubory."/>
-	<string id="8165" value="Nelze stáhnout seznam souborů. Uživatel neumožňuje zobrazení sdílených souborů."/>
-	<string id="8166" value="Prohledávat sítě:"/>
-	<string id="8167" value="Všechny sítě"/>
-	<string id="8176" value="Hledat v PeerProject"/>
-	<string id="8177" value="Zadejte klíčová slova pro hledání:"/>
-	<string id="8178" value="Jaký typ souboru hledáte?"/>
-	<string id="8179" value="(Vymazat historii hledání)"/>
-	<string id="8180" value="Velikost souboru:"/>
-	<string id="8181" value="Velikost souboru:"/>
-	<string id="8208" value="PeerProject vytvoří rozdělený soubor pro %Iu soubory:"/>
-<!--	<string id="8221" value="PeerProject hledá zdroje pro:"/>
-	<string id="8222" value="PeerProject stahuje soubor:"/>
-	<string id="8223" value="Toto stahování je pozastaveno:"/>
-	<string id="8224" value="PeerProject přesunuje stahování:"/>
-	<string id="8225" value="PeerProject kontroluje stahování na chyby:"/>
-	<string id="8226" value="PeerProject dokončila stahování:"/>
--->	<string id="8227" value="%i dní a %i hodin"/>
-	<string id="8228" value="%i hodin a %i minut"/>
-	<string id="8229" value="%i minut a %i vteřin"/>
-	<string id="8230" value="%i vteřin"/>
-	<string id="8231" value="Nenalezeny žádné zdroje"/>
-	<string id="8232" value="Otevřít"/>
-	<string id="8233" value="Zrušit"/>
-	<string id="8235" value="Celková rychlost přenosu:"/>
-	<string id="8236" value="Odhadovaný čas pro stažení:"/>
-	<string id="8237" value="Stažená velikost:"/>
-	<string id="8238" value="Velikost odesílání:"/>
-	<string id="8239" value="Dokončeno"/>
-	<string id="8240" value="Počet zdrojů:"/>
-	<string id="8241" value="Počet hodnocení:"/>
-	<string id="8244" value="Limit rychlosti stahování."/>
-	<string id="8245" value="Limit rychlost uploadu."/>
-	<string id="8288" value="Prozkoumávám vaši knihovnu PeerProject"/>
-	<string id="8289" value="Prozkoumávám "/>
-	<string id="8290" value="Prozkoumávám obsah složek %i"/>
-	<string id="8291" value="Vícenásobné složky"/>
-	<string id="8292" value="%i vybrané soubory"/>
-	<string id="8293" value="Nejsou vybrané žádné soubory"/>
-	<string id="8294" value="Naposledy přidané"/>
-	<string id="8295" value="Ohodnocení tohoto souboru"/>
-	<string id="8304" value="Neznámo"/>
-	<string id="8306" value="Umístění"/>
-	<string id="8307" value="Typ"/>
-	<string id="8308" value="Velké"/>
-	<string id="8309" value="Částečný zdroj (%.2f%% je dostupný)"/>
-	<string id="8310" value="%i slot pro odesílání, %i čeká ve frontě"/>
-	<string id="8311" value="Tento soubor již máte ve vaší knihovně."/>
-	<string id="8312" value="Tento soubor již máte na vašem seznamu stahování."/>
-	<string id="8313" value="Tento soubor se zdá být spamem."/>
-	<string id="8314" value="Tento soubor jste již jednou stáhli a vymazali."/>
-	<string id="8315" value="Černá listina: "/>
-	<string id="8316" value="Výsledky"/>
-	<string id="8317" value="Odesílání"/>
-	<string id="8318" value="%lu dnes, %lu celkem"/>
-	<string id="8319" value="Odesílání:"/>
-	<string id="8320" value="Stav:"/>
-	<string id="8321" value="Rychlost:"/>
-	<string id="8322" value="URL:"/>
-	<string id="8323" value="Agent:"/>
-	<string id="8324" value="Neaktivní"/>
-	<string id="8325" value="Aktivní"/>
-	<string id="8326" value="Další v pořadí"/>
-	<string id="8327" value="Celkem souborů:"/>
-	<string id="8328" value="Celková velikost:"/>
-	<string id="8329" value="ve vaší knihovně"/>
-	<string id="8330" value="Složka"/>
-	<string id="8331" value="Tento zdroj je právě přetížen"/>
-	<string id="8332" value="Tento zdroj je za firewallem"/>
-	<string id="8333" value="Tento zdroj může být nestabilní"/>
-	<string id="8334" value="Zdroje pro tento soubor jsou právě přetíženy"/>
-	<string id="8335" value="Zdroje pro tento soubor jsou za firewallem"/>
-	<string id="8336" value="Zdroje pro tento soubor mohou být nestabilní"/>
-	<string id="8337" value="Nedůvěryhodný"/>
-	<string id="8338" value="&#160;(Žádný Hashset)"/>
-	<string id="13000" value="Soubory sdílené v Internetu"/>
-	<string id="13001" value="Checte smazat vybraná bezpoečnostní pravidla? Tato operace je nevratná."/>
-	<string id="16063" value="Mapování UPnP portu selhalo po 10 pokusech."/>
-	<string id="16064" value="Spouštím síťové jádro PeerProject..."/>
-	<string id="16065" value="Nelze otevřít %s port %i pro příchozí spojení. Příchozí připojení není podporováno."/>
-	<string id="16066" value="Odpojit PeerProject od internetu..."/>
-	<string id="16067" value="Odpojuji."/>
-	<string id="16068" value="Přijímám příchozí spojení TCP na portu %s %i."/>
-	<string id="16069" value="Odchozí spojení z portu %s budou procházet %i."/>
-	<string id="16070" value="Nelze přeložit adresu %s pro odchozí spojení. Odchozí spojení bude používat standardní rozhraní."/>
-	<string id="16071" value="Blokováno Firewallem, nečeká se na příchozí spojení."/>
-	<string id="16072" value="Čeká se na UDP paket s adresou příjemce na %s port %i."/>
-	<string id="16073" value="Překládám adresu &quot;%s&quot;..."/>
-	<string id="16074" value="Nemůžu přeložit adresu &quot;%s&quot;."/>
-	<string id="16075" value="Manažer zabezpečení odepřel připojení od %s."/>
-	<string id="16076" value="Manažer zabezpečení vyloučil připojení k %s."/>
-	<string id="16077" value="Adresa %s je již blokovaná vašimi směrnicemi pro zabezpeční."/>
-	<string id="16078" value="Přidat pravidlo zabezpečení pro blokování %s."/>
-	<string id="16079" value="Opravdu se chcete odpojit?"/>
-	<string id="16081" value="Posílám dotaz na &quot;%s&quot; do %s."/>
-	<string id="16083" value="Přepnutí vašeho PC do režimu uzle může mít nepříznivé účinky na výkon. Pro síť P2P je většinou lepší umožnit PeerProject rozhodnout zda by měl být režim uzle používán.\n\nRežim uzle pro vás NEVYTVOŘÍ lepší vyhledání výsledků, nebo žádné další jiné výhody.\n\nOpravdu chcete udělat tyto změny navzdory uvedeným nevýhodám?"/>
-	<string id="16085" value="Gnutella2 je hlavní síť pro PeerProject. Vyřazení této podpory může hodně omezit počet a kvalitu vašich výsledků při vyhledávání. OPRAVDU to chcete udělat?"/>
-	<string id="16087" value="Vaše odchozí šířka pásma pro tuto síť je příliš malá."/>
-	<string id="16128" value="Přijato příchozí spojení od %s port %i."/>
-	<string id="16129" value="Začíná připojení k počítači %s port %i..."/>
-	<string id="16130" value="Nelze zavést připojení k počítači %s."/>
-	<string id="16131" value="Vypršel čas pro připojení ke %s."/>
-	<string id="16132" value="Ukončeno spojení počítače %s pro nedostatek provozu."/>
-	<string id="16133" value="Ustanoveno připojení s počítačem %s, komunikuji..."/>
-	<string id="16134" value="Ukončeno spojení s počítačem %s."/>
-	<string id="16135" value="Nelze aktivovat připojení počítače s %s (odmítnuto)."/>
-	<string id="16136" value="Sousední připojení %s neočekávaně vypadlo."/>
-	<string id="16137" value="Odmítnuto dvojité připojení z %s."/>
-	<string id="16138" value="Již jste připojeni k %s, nezavádějte druhé připojení."/>
-	<string id="16139" value="Soused %s uzavřel připojení (%i : %s)."/>
-	<string id="16141" value="Ukončeno spojení s počítačem %s protože to není uzel."/>
-	<string id="16144" value="Pro připojení %s již čas vypršel."/>
-	<string id="16145" value="Spojení se počítačem Gnutelly %s bylo úspěšně zavedeno (G%i.%i : %s)."/>
-	<string id="16146" value="Spojení se %s selhalo kvůli nesprávným datům na lince."/>
-	<string id="16147" value="Zůstávající spojení z %s bylo pokynem hosta ukonečno (%s port %i)."/>
-	<string id="16148" value="Připojení k %s odmítnuto (%s)."/>
-	<string id="16150" value="Zůstávající spojení s %s bylo ukončeno."/>
-	<string id="16151" value="Odmítuto spojení ze %s protože toto je chráněný koncový uzel."/>
-	<string id="16152" value="Sousední uzel %s nás nebude akceptovat jako uzel, spojení ukonečno."/>
-	<string id="16153" value="Sousední spojení %s vypadlo zpět do chráněného režimu."/>
-	<string id="16154" value="Uzel navázal spojení, uzavřeno druhé připojení."/>
-	<string id="16155" value="Aktivní jako uzel pro sousedy %s."/>
-	<string id="16156" value="Soused %s se chce stát uzlem, ukončuji spojení."/>
-	<string id="16157" value="Soused %s není uzel, ukončuji spojení."/>
-	<string id="16158" value="Spojení se sousedem Gnutelly ][ %s bylo úspěšně zavedeno (%s)."/>
-	<string id="16159" value="Ukončení připojení k počítači který nepodporuje Gnutella2 %s."/>
-	<string id="16192" value="Soused %s odeslal paket nadměrné velikosti, spadlo spojení."/>
-	<string id="16193" value="Soused %s poslal paket s nulovou TTL, ignoruji."/>
-	<string id="16194" value="Soused %s poslal paket s extrémní TTL, paket odmítám (TTL=%i, Hops=%i)."/>
-	<string id="16195" value="Soused %s poslal ping na paket s nesprávnou délkou, ignoruji."/>
-	<string id="16196" value="Soused %s poslal pong na paket s nesprávnou délkou, ignoruji."/>
-	<string id="16197" value="%s -> %s [%i/%i] %s %s"/>
-	<string id="16198" value="Seznam se předá počítači %s s dotazem na výpadky spojení."/>
-	<string id="16199" value="Soused %s poslal neznámý paket (0x%.2x), ignoruji."/>
-	<string id="16200" value="Soused %s poslal pong s nesprávnými adresnými daty, ignoruji."/>
-	<string id="16201" value="%s:  Na dotaz přijat vadný paket ze %s, proto jej ignorujuji."/>
-	<string id="16202" value="Přijat dotaz na poškozený paket od %s, ignoruji."/>
-	<string id="16203" value="Soused %s poslal paket s nesprávnou délkou, ignoruji."/>
-	<string id="16208" value="Přijímán nečekaný dotaz na aktualizaci směrovací tabulky od souseda %s."/>
-	<string id="16209" value="Soused %s poslal nesprávný dotaz aktualizace směrovací tabulky, vypadlo spojení."/>
-	<string id="16210" value="Soused %s aktualizoval jeho otázku na směrovací tabulku (%i bit = %lu[%i], %i%% full)."/>
-	<string id="16211" value="Soused %s násilím prosadil žádost na adresu firewallu, ignoruji."/>
-	<string id="16212" value="Soused %s násilím prosadil rozšířený balíček který není zakódovaný GGEP."/>
-	<string id="16213" value="Poslán dotaz propojovací tabulky na počítač %s (%i bit = %lu[%i], %i%% full)"/>
-	<string id="16254" value="Výchozí stahování skupiny. (Zobrazit všechny soubory)"/>
-	<string id="16255" value="Drag'n'drop soubory do skupiny %s"/>
-	<string id="16256" value="Přidávám &quot;%s&quot; pro stahování z fronty od zdroje %i."/>
-	<string id="16257" value="Dokončeno stahování od &quot;%s&quot;."/>
-	<string id="16258" value="Pozastaveno stahování od &quot;%s&quot;."/>
-	<string id="16259" value="Pokračuji ve stahování souboru &quot;%s&quot;."/>
-	<string id="16260" value="Vymazat stahování &quot;%s&quot;."/>
-	<string id="16261" value="Vytvoření souboru &quot;%s&quot; pro stahování."/>
-	<string id="16262" value="Nelze vytvořit místní soubor &quot;%s&quot; pro stahování, zrušeno."/>
-	<string id="16263" value="Nelze otevřít místní soubor &quot;%s&quot; pro stahování, zrušeno."/>
-	<string id="16264" value="Zavádím připojení k %s port %i a stahuji &quot;%s&quot;..."/>
-	<string id="16265" value="Nemohu se připojit a stahovat od hosta %s."/>
-	<string id="16266" value="Připojení pro stahování %s ustanoveno."/>
-	<string id="16267" value="Žádost o stahování části (%I64u-%I64u) od &quot;%s&quot; ze %s."/>
-	<string id="16268" value="Nejsou žádné části ke stažení, ukončuji a připojuji k %s."/>
-	<string id="16269" value="Části souboru jsou zkrácené, ukončuji a připojuji k %s."/>
-	<string id="16270" value="Žádost ke stahování %s vypršela, ukončuji připojení."/>
-	<string id="16271" value="Ukonečno spojení pro stahování %s pro nedostatek provozu."/>
-	<string id="16272" value="Stahování od hosta %s soubor &quot;%s&quot; nenalezen."/>
-	<string id="16273" value="Stahování od hosta %s odpovědělo nesprávnou odezvou HTTP."/>
-	<string id="16274" value="Stahování od hosta %s odpovědělo %s (%s)."/>
-	<string id="16275" value="Stažení verze od hosta %s z &quot;%s&quot; má rozdílnou URN, přerušuji."/>
-	<string id="16276" value="Stažení verze od hosta %s z &quot;%s&quot; má rozdílnou délku, přerušuji."/>
-	<string id="16277" value="Stahování od hosta %s odpovědělo nepoužitelným rozsahem bajtů z &quot;%s&quot;, nevyřízeno."/>
-	<string id="16278" value="Připojení pro stahování %s bylo ztraceno."/>
-	<string id="16279" value="Přijímám obsah stahování od hosta %s (%s)."/>
-	<string id="16280" value="Stahuji od hosta %s ale ten je příliš přetížen , opakuji za %i sekund."/>
-	<string id="16281" value="Opravdu chcete vymazat &quot;%s&quot;?\n\nPokud jednou soubor stáhnete a vymažete jej z okna stahování, nemůže později pokračovat."/>
-	<string id="16282" value="Ruším stahování od &quot;%s&quot; ze %s (%s), síť nenalezena."/>
-	<string id="16283" value="Tento soubor &quot;%s&quot; se již stahuje, přidávám další zdroje."/>
-	<string id="16284" value="Přijato chybné vynucené spojení z %s, ukončuji spojení."/>
-	<string id="16285" value="Přijato nadbytečné vynucené spojení od %s."/>
-	<string id="16286" value="Hostitel %s se snaží stahovat &quot;%s&quot;, akceptuji."/>
-	<string id="16287" value="Nemohu najít více zdrojů pro stahování &quot;%s&quot; protože není síťové spojení."/>
-	<string id="16288" value="Dotazuji se na více zdrojů pro stahování &quot;%s&quot; na %i a připojuji se..."/>
-	<string id="16289" value="Posílám naléhavou žádost o stahování &quot;%s&quot;..."/>
-	<string id="16290" value="Stahování od hosta %s odpovědělo odlišně, ale v platném rozsahu (%I64i-%I64i) na &quot;%s&quot;."/>
-	<string id="16291" value="Přesunuji &quot;%s&quot; do &quot;%s&quot;, stahování je dokončeno."/>
-	<string id="16292" value="Nemohu přesunout stažený soubor &quot;%s&quot; to &quot;%s&quot;. Zkontrolujte zda se neúplný soubor nepoužívá, a že vaše složka pro stahování existuje a lze do ní zapisovat."/>
-	<string id="16293" value="Řeší se &quot;%s&quot; ke stahování &quot;%s&quot;..."/>
-	<string id="16294" value="Nemohu vyřešit &quot;%s&quot;."/>
-	<string id="16295" value="Posíleno stahování &quot;%s&quot; odstraněním šířky pásma."/>
-	<string id="16296" value="Úspěšně ověřené stahování &quot;%s&quot;."/>
-	<string id="16297" value="VAROVÁNÍ: Stažený &quot;%s&quot; Ověření souboru selhalo, to nemůže být soubor který jste chtěli stáhnout!"/>
-	<string id="16298" value="Stahování od hosta %s je zatím nemožné, čekám ve frontě u pozice #%i ze %i (&quot;%s&quot;)."/>
-	<string id="16299" value="Opravdu chcete vymazat všechna pozastavená stahování? Pokud vymažete stahování z okna stahování, pak nemůžete později pokračovat."/>
-	<string id="16300" value="Opravdu chcete vymazat stahování &quot;%s&quot;?"/>
-	<string id="16301" value="Žádám o zadání rozsahu &quot;%s&quot; od %s..."/>
-	<string id="16302" value="Stahování od hosta %s nevyhovělo žádosti o zadání velikosti."/>
-	<string id="16303" value="Přijímání dat o obsahu stromu z %s (%s)..."/>
-	<string id="16304" value="Stahování hostitelova datového stromu je poškozeno nebo interně neslučitelné, ignoruji jej."/>
-	<string id="16305" value="Stahování hostitelova datového stromu neodpovídá očekávané hodnotě."/>
-	<string id="16306" value="Přijat datový strom pro &quot;%s&quot;, %i úrovně, minimálně ověřené části %s."/>
-	<string id="16307" value="Ukončené stahování připojené k %s, již není dále nutné."/>
-	<string id="16308" value="Stahování od hosta %s nenabízí data, ukončuji spojení."/>
-	<string id="16309" value="Žádám popisky pro &quot;%s&quot; od %s..."/>
-	<string id="16310" value="Přijímá datový strom od %s (%s)..."/>
-	<string id="16311" value="Žádám eDonkey o rozdělení pro &quot;%s&quot; od %s..."/>
-	<string id="16312" value="Přijat poškozený rozdělený soubor eDonkey od %s, ruším zdroj."/>
-	<string id="16313" value="Přijat rozdělený soubor pro &quot;%s&quot;, minimálně ověřené části %s."/>
-	<string id="16314" value="Stahované části od hosta eDonkey jsou poškozené nebo interně neslučitelné, ruším zdroj."/>
-	<string id="16315" value="Nelze spustit kompresi pro stahování &quot;%s&quot;."/>
-	<string id="16316" value="Čekám ve frontě na aktualizaci z eDonkey pro stahování od %s pro soubor &quot;%s&quot;."/>
-	<string id="16317" value="Zůstává ve frontě pro &quot;%s&quot;."/>
-	<string id="16318" value="Nedostatek místa na disku pro stahování &quot;%s&quot; (%s)."/>
-	<string id="16319" value="Zrušen zdroj %s (%s) kvůli poslání poškozených částí &quot;%s&quot; (%I64i-%I64i)."/>
-	<string id="16320" value="Hostitel odesílání %s poslal nesprávnou HTTP žádost."/>
-	<string id="16321" value="Zavádím násilím spojení k %s. %s"/>
-	<string id="16322" value="Nelze se násilím připojit k hostit %s."/>
-	<string id="16323" value="Připojení pro odesílání %s bylo ukončeno."/>
-	<string id="16324" value="Při čekání na žádost o odesílání od hosta čas vypršel %s."/>
-	<string id="16325" value="Hostitel odesílání %s požaduje neznámý nebo momentálně nedosažitelný soubor &quot;%s&quot;."/>
-	<string id="16326" value="Hostitel odesílání %s požaduje &quot;%s&quot; s rozdílným SHA1."/>
-	<string id="16327" value="Odmítnuto odeslání &quot;%s&quot; do %s (%s), je zaneprázdněn a klient nepodporuje fronty."/>
-	<string id="16328" value="Nucené připojení k %s bylo zavedeno, čeká se na odezvu..."/>
-	<string id="16329" value="Nelze otevřít &quot;%s&quot; pro odeslání pro hosta %s, chyba na disku/souboru."/>
-	<string id="16330" value="Obsah probíhajícího odesílání v rozsahu %I64i-%I64i pro &quot;%s&quot; do hosta %s (%s)."/>
-	<string id="16331" value="Dokončená část odesílání &quot;%s&quot; do %s."/>
-	<string id="16332" value="Příchozí spojení z %s je žádost HTTP o odeslání."/>
-	<string id="16333" value="Zaneprázdněné odesílání &quot;%s&quot; do %s, ve frontě #%i ze %i (&quot;%s&quot;)."/>
-	<string id="16334" value="Odkaz vynucené žádost od %s požaduje neznámý soubor, i tak se připojuji..."/>
-	<string id="16335" value="Odstraněné odesílání od &quot;%s&quot; do %s."/>
-	<string id="16336" value="Hostitel pro odesílání %s je na mém seznamu blokovaných uživatelů, odepírám mu žádost."/>
-	<string id="16337" value="Posláno záhlaví odesílání z &quot;%s&quot; k hostiteli %s (%s)."/>
-	<string id="16338" value="Odesílání pro hosta %s požaduje nesprávný rozsah souboru &quot;%s&quot;."/>
-	<string id="16339" value="Posílám standardní odpověď HTML pro odesílání hostiteli %s (%s)."/>
-	<string id="16340" value="Odepřen požadavek uživatele na prohlížení od %s."/>
-	<string id="16341" value="Odesílání pro hosta %s (%s), uživatel poslal žádost o prohlížení, odpovídám..."/>
-	<string id="16342" value="Pro nedostatek přenosu bylo ukonečno spojení pro odesílání %s."/>
-	<string id="16343" value="Protože se vytvořilo nové spojení bylo ukončeno starší odesílání %s."/>
-	<string id="16344" value="Odmítám nové odesílání %s protože dřívější připojení ještě nebylo vyřízeno."/>
-	<string id="16345" value="Zastavuji odesílání &quot;%s&quot; do %s protože soubor byl vymazán."/>
-	<string id="16346" value="Začínám odesílání které je v rozsahu %I64i-%I64i z neúplného souboru &quot;%s&quot; k hostiteli %s (%s)."/>
-	<string id="16347" value="Ve frontě pro odesílání %s se znovu žádá příliš rychle, ukončuji spojení."/>
-	<string id="16348" value="Odmítám urgentní žádost %s protože již je příliš spojení pro odesílání."/>
-	<string id="16349" value="Načítám data stromu pro &quot;%s&quot; do %s."/>
-	<string id="16350" value="Poskytuji popisky pro &quot;%s&quot; do %s."/>
-	<string id="16351" value="Odmítnuto odesílání z &quot;%s&quot; do %s (%s), příliš mnoho souběžných hostitelů."/>
-	<string id="16352" value="Odesílání náhledu z &quot;%s&quot; do %s."/>
-	<string id="16353" value="Odmítnuto odeslání náhledu &quot;%s&quot; do %s, je příliš mnoho žádostí pro náhled."/>
-	<string id="16354" value="Odesílání pro hosta %s požaduje náhled z &quot;%s&quot;, ale žádný náhled není dostupný."/>
-	<string id="16355" value="Plánovaný dynamický náhled z &quot;%s&quot; pro odesíání do %s."/>
-	<string id="16356" value="Odmítám žádost uživatele na prohlížení z %s, je příliš mnoho spojení na prohlížení."/>
-	<string id="16357" value="Odesílám soubor &quot;%s&quot; pro hosta %s..."/>
-	<string id="16358" value="Spojení pro odesílání %s bylo ztraceno, zajišťuji pozici ve frontě."/>
-	<string id="16359" value="Fronta odesílání bez připojení hosta %s skončila, odstraňuji."/>
-	<string id="16360" value="Odmítnuto odesílání z &quot;%s&quot; do %s (%s), všechny odpovídající fronty jsou vytížené."/>
-	<string id="16361" value="Odmítnuto odesílání %s (%s), síť není aktivní."/>
-	<string id="16362" value="Odesílání pro eDonkey nemůže být zrušeno. Opravdu chcete zrušit toto odesílání?"/>
-	<string id="16363" value="Odesílání Torrent"/>
-	<string id="16364" value="Dokončená odesílání"/>
-	<string id="16365" value="Opravdu chcete zrušit/přerušit všechna stahování v této skupině?"/>
-	<string id="16366" value="Fronta"/>
-	<string id="16367" value="Střední eDonkey"/>
-	<string id="16368" value="Částečné eDonkey"/>
-	<string id="16369" value="eDonkey Guard"/>
-	<string id="16370" value="Malé soubory"/>
-	<string id="16371" value="Střední soubory"/>
-	<string id="16372" value="Velké soubory"/>
-	<string id="16373" value="Částečné soubory"/>
-	<string id="16374" value="Nová fronta"/>
-	<string id="16375" value="Částečné"/>
-	<string id="16376" value="Všechny soubory"/>
-	<string id="16377" value="Hlídač HTTP"/>
-	<string id="16379" value="Soubory v knihovně"/>
-	<string id="16384" value="Opravdu chcete spustit soubor &quot;%s&quot; ?\n\nNěkteré soubory mohou poškodit váš počítač. Ujistěte se, že víte jaký soubor spouštíte."/>
-	<string id="16385" value="Chystáte se upravit popisky pro %i souborů, opravdu chcete pokračovat?"/>
-	<string id="16386" value="Upravuji popisky %i souborů."/>
-	<string id="16387" value="Soubor &quot;%s&quot; ještě nemá hash. Prosím čekejte než bude pro soubor vypočítán hash, a potom to zkuste znovu."/>
-	<string id="16388" value="Tuto možnost využívá služba poskytovaná Bitzi.com která zjišťuje a sdílí informace o vybraných souborech.\n\nPeerProject bude přenášet SHA1 hash pro označený soubor(y) v rámci dotazu poslaného databázi Bitzi. Pokud máte obavy o soukromí přečtěte si prohlášení Bitzi.com o ochraně osobních údajů.\n\nChcete pokračovat?"/>
-	<string id="16389" value="Opravdu chcete trvale vymazat vybraný soubor(y) %i ?\n\nPokud to povolíte, soubory budou přesunuty do &quot;koše&quot; (pokud je povolený)."/>
-	<string id="16390" value="Ještě jste nevybrali přehrávač pro multimédiální soubory, jako např. Nullsoft WinAmp. Chcete přehrávač vybrat nyní?\n\nPeerProject předá programu název souboru s parametrem &quot;/ADD&quot;."/>
-	<string id="16391" value="Nejste připojeni do sítě."/>
-	<string id="16392" value="Klikněte na tlačítko &quot;Připojit se&quot;."/>
-	<string id="16393" value="U souboru &quot;%s&quot; se nepodařilo ověřit hash. Je možné, že soubor není ten, který jste chtěli stáhnout. Opravdu jej chcete otevřít?"/>
-	<string id="16394" value="Chcete odstranit &quot;potenciálně nebezpečnou&quot; vlastnist z tohoto souboru?"/>
-	<string id="16395" value="Adresář se staženými soubory &quot;%s&quot; ještě není zařazen ve vaší knihovně.\n\nStažené soubory ve knihovně můžete snadněji prohlížet a třídit, a umožňuje využívat pokročilé funkce PeerProject: například ověření stahování a automatické aktualizace. Umístění stažených souborů v knihovně nevyžaduje nutně jejich sdílení: můžete si zvolit, zda budete nebo nebudete sdílet tyto soubory.\n\nChcete přidat stažené soubory do knihovny?"/>
-	<string id="16396" value="Adresář se staženými soubory byl přidaný do složky v knihovně. Chcete jej také sdílet?"/>
-	<string id="16397" value="Opravdu chcete vymazat %i označených složek s albem ?\n\nTato akce nevymaže samotné soubory uvnitř složek alba, ale jen složky."/>
-	<string id="16398" value="PeerProject nemohla přejmenovat:\n\n%s\nna\n%s"/>
-	<string id="16399" value="PeerProject nemohla smazat soubor:\n\n%s"/>
-	<string id="16400" value="Cílový soubor již existuje:\n\n%s\n\nChcete jej přepsat?"/>
-	<string id="16401" value="Zobrazit všecny typy souborů"/>
-	<string id="16402" value="PeerProject stáhla nový soubor se sbírkou:\n\n&quot;%s&quot;\n\nSoubor však nelze přečíst, pravděpodovně je poškozený."/>
-	<string id="16403" value="PeerProject přidala soubor do sbírky &quot;%s&quot; v knihovně."/>
-	<string id="16404" value="PeerProject nemůže instalovat soubor sbírky &quot;%s&quot; zkopírováním do složky &quot;%s&quot;."/>
-	<string id="16406" value="Chcete stáhnout všechny soubory v této sbírce?\n\nKliknutím na Zrušit zrušíte i všechny další výzvy."/>
-	<string id="16407" value="Chcete zabránit této sbírce v dalším upozorňování na jiné stahování?"/>
-	<string id="16408" value="Kopírovat &amp;URI"/>
-	<string id="16409" value="Export &amp;URIs..."/>
-	<string id="16410" value="Kompletní a neúplné složky by neměly být stejné"/>
-	<string id="16411" value="Nelze přesunout soubor %s. Soubor možná používá jiná aplikace..\n\Chcete zkusit tento soubor zkopírovat?"/>
-	<string id="16412" value="Soubor s popisem"/>
-	<string id="16448" value="Připojeno k %s, přihlašuji se..."/>
-	<string id="16449" value="Nyní pokecat %s (%s)."/>
-	<string id="16450" value="Připojení %s bylo ukončeno."/>
-	<string id="16451" value="Připojení k %s bylo ztraceno."/>
-	<string id="16452" value="Nepřípustný příkaz &quot;%s&quot;."/>
-	<string id="16453" value="Připojit ke %s a pokecat..."/>
-	<string id="16454" value="Přijata příchozí žádost o pokec od %s, vyřizuji..."/>
-	<string id="16455" value="%s je nyní známý jako %s."/>
-	<string id="16456" value="Nelze se připojit k hostiteli %s."/>
-	<string id="16457" value="Spojení selhalo kvůli nesprávným datům na lince."/>
-	<string id="16458" value="Přijata nesrozumitelná odpověď: %s"/>
-	<string id="16459" value="Nejste připojeni."/>
-	<string id="16512" value="Celková šířka pásma pro příjem"/>
-	<string id="16513" value="Celková šířka pásma pro přenos"/>
-	<string id="16514" value="Připojení Gnutella (Celkem)"/>
-	<string id="16515" value="Připojení Gnutella (Aktivní)"/>
-	<string id="16516" value="Šířka pásma pro příjem Gnutelly"/>
-	<string id="16517" value="Šířka pásma pro přenos Gnutelly"/>
-	<string id="16518" value="Počet stahovaných souborů"/>
-	<string id="16519" value="Počet spojení pro stahování"/>
-	<string id="16520" value="Šířka pásma pro stahování"/>
-	<string id="16521" value="Počet spojení pro odesílání"/>
-	<string id="16522" value="Šířka pásma pro odesílání"/>
-	<string id="16523" value="Přijaté pakety Gnutelly"/>
-	<string id="16524" value="Přenesené pakety Gnutelly"/>
-	<string id="16525" value="Přesměrované pakety Gnutelly"/>
-	<string id="16526" value="Shozené pakety Gnutelly"/>
-	<string id="16527" value="Ztracené pakety Gnutelly"/>
-	<string id="16528" value="Místní dotazy Gnutelly"/>
-	<string id="16532" value="Celková šířka pásma TCP pro příjem"/>
-	<string id="16533" value="Celková šířka pásma TCP pro přenos"/>
-	<string id="16534" value="Celková šířka pásma UDP pro příjem"/>
-	<string id="16535" value="Celková šířka pásma UDP pro přenos"/>
-	<string id="16536" value="Poměr Gnutella přijatých/odeslaných Pings"/>
-	<string id="16537" value="Poměr Gnutella přijatých/odeslaných Pongs"/>
-	<string id="16538" value="Chyby spojení (%)"/>
-	<string id="16768" value="Přijato URL &quot;%s&quot;"/>
-	<string id="16769" value="Nelze analyzovat URL: PeerProject nerozumí tomuto URL."/>
-	<string id="16770" value="Nelze zobrazit URL protože PeerProject je přetížená."/>
-	<string id="16771" value="Soubor &quot;%s&quot; již máte ve vaší knihovně. Chcete ho znovu stahovat?"/>
-	<string id="16772" value="Adresa:"/>
-	<string id="16773" value="Port:"/>
-	<string id="16774" value="&amp;Připojit"/>
-	<string id="16775" value="&amp;Procházet"/>
-	<string id="16776" value="Přidat"/>
-	<string id="16777" value="Soubor:"/>
-	<string id="16778" value="URL:"/>
-	<string id="16779" value="Typ:"/>
-	<string id="16780" value="Nespecifikované"/>
-	<string id="16781" value="Žádám..."/>
-	<string id="16782" value="Úspěšně!"/>
-	<string id="16783" value="Po dokončení klikněte na Zavřít"/>
-	<string id="16784" value="&amp;Zavřít"/>
-	<string id="16785" value="(Nezobrazovat)"/>
-	<string id="16800" value="Ještě jste nezadali vaši rychlost připojení. Aby jste mohli pokračovat, buď vyberte vaše připojení k Internetu, nebo zadejte rychlost připojení."/>
-	<string id="16802" value="Nezadali jste žádné složky ke sdílení. Opravdu nechcete nic sdílet?"/>
-	<string id="16803" value="Část složky je již sdílená jako další sdílený podadresář\n\n%s"/>
-	<string id="16804" value="Nezadali jste přezdívku ve vašem profilu uživatele.\n\nJe dobré zadat alespoň přezdívku, aby ostatí uživatelé mohli vidět kdo se k nim připojil.\n\nOpravdu chcete pokračovat bez zadání jména?"/>
-	<string id="16805" value="Zadejte ve vašem uživatelském profilu umístění vašeho počítače.\n\nJe dobře zadat vaše umístění tak, aby ostatní uživatelé mohli vidět odkud pocházíte.\n\nOpravdu chcete pokračovat bez zadání vašeho umístění?"/>
-	<string id="16806" value="Zadali jste že chcete nastavit přenosový port na vašem firewallu nebo routeru.\n\nProsím nastavte si přenos vaší sítě na port TCP %i ve vašem počítači."/>
-	<string id="16807" value="Prosím zadejte omezení šířky pásma které si přejete nastavit ve tvaru &quot;123 kb/s&quot; pro kilobajty za vteřinu, nebo &quot;123 KB/s&quot; pro kilobajty za vteřinu."/>
-	<string id="16808" value="Nezadali jste váš věk a pohlaví. Opravdu chcete pokračovat bez těchto údajů?"/>
-	<string id="16809" value="K&amp;onec"/>
-	<string id="16810" value="rok starý"/>
-	<string id="16811" value="Automaticky"/>
-	<string id="16812" value="Prosím čekejte, hledám UPnP zařízení a nastavuji je..."/>
-	<string id="16813" value="Prosím čekejte, aktualizuji vyhledávací služby..."/>
-	<string id="16814" value="Prosím čekejte, aktualizuji seznam eDonkey serverů..."/>
-	<string id="16815" value="Služba UPnP zařízení není spuštěna. Tato služba je nutná pro nastavení zařízení.\nNastavte typ spouštění této služby na automatický."/>
-	<string id="16816" value="Síť eDonkey používá velké fronty a dlouhé čekání. Striktní omezení délky fronty může způsobit problém se stahováním souborů.\nOpravdu chcete omezit délku fronty?"/>
-	<string id="16817" value="Windows nepodporuje cesty pro soubory delší než 256 znaků.\nProsím vyberte složku s kratší cestou."/>
-	<string id="16818" value="Adresář se neúplnými soubory by neměl být stejný jako adresář se staženými soubory."/>
-	<string id="16819" value="Adresář s neúplnými soubory by neměl být v knihovně, dochází pak ke snižování výkonu. Neúplné soubory mohou být sdílené přímo z okna přenosu."/>
-	<string id="16864" value="Zasílám dotaz vyhledávací službě..."/>
-	<string id="16865" value="Zasílam dotaz vyhledávací službě na &quot;%s&quot;..."/>
-	<string id="16866" value="GWebCache transakce úspěšná (&quot;%s&quot;)."/>
-	<string id="16867" value="Transakce &quot;%s&quot; selhala, chybný součet %i."/>
-	<string id="16868" value="Vyhledávací služba &quot;%s&quot; selhala %i čase, odstraňuji."/>
-	<string id="16870" value="Posílám GWebCache aktualizaci službě &quot;%s&quot;..."/>
-	<string id="16871" value="Zařazuji GWebCache &quot;%s&quot; do náhodné GWebCache..."/>
-	<string id="16928" value="Připojuji se k %s k prohlížení uživatele..."/>
-	<string id="16929" value="Nelze se připojit k %s a prohlížet uživatele."/>
-	<string id="16930" value="Posílám žádost %s o prohlížení uživatele."/>
-	<string id="16931" value="Nelze odeslat žádost %s o prohlížení uživatele."/>
-	<string id="16932" value="Odesílám žádost o prohlížení uživatele %s..."/>
-	<string id="16933" value="Prohlížeč hosta %s odpověděl nesprávnou odezvou HTTPe."/>
-	<string id="16934" value="Prohlížeč hosta %s odpověděl kódem %s (%s)."/>
-	<string id="16935" value="Prohlížeč hosta %s odpověděl zamítavou odezvou, neumožňuje podporu prohledávání uživatele/hosta."/>
-	<string id="16936" value="Přijímání obsah z prohlížení hosta %s (%s)"/>
-	<string id="16938" value="Chyba dekódování paketů Gnutella při prohlížení hosta %s."/>
-	<string id="16939" value="Dokončeno prohledávání uživatele %s, nalezeno %i souborů."/>
-	<string id="16940" value="Při prohlížení uživatele %s připojení vypadlo."/>
-	<string id="16941" value="Končím spojení a prohlížení uživatele %s pro nedostek provozu."/>
-	<string id="16942" value="Ukončuji připojení prohlížení uživatele %s."/>
-	<string id="16943" value="Prohlížím %s"/>
-	<string id="16944" value="Nalezeno %i sdílených souborů v knihovně."/>
-	<string id="16991" value="PeerProject Media Player"/>
-	<string id="16992" value="PeerProject nemůže použít plugin pro MediaServices. Prosím nainstalujte znovu PeerProject, a zkontrolujte že máte také nainstalované potřebné kodetky a ovladače."/>
-	<string id="16993" value="Všechny multimediální soubory|*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Playlisty|*.asx;*.wax;*.m3u;*.wvx;*.wmx|Audio soubory|*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm|Video soubory|*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|CD stopy|*.cda|MIDI soubory|*.mid;*.rmi;*.midi|Všechny soubory|*.*||"/>
-	<string id="16994" value="Nelze načíst multimediální soubor &quot;%s&quot;"/>
-	<string id="16995" value="Soubor může být poškozený, nebo nemáte potřebný kodetek pro přehrávání."/>
-	<string id="16996" value="Část tohoto souboru nemohla být přehraná, možná bude třeba stáhnout další kodetek."/>
-	<string id="16997" value="Nepřehrává se žádný soubor. Dvojitým kliknutím soubor ve vaší knihovně přehrajete."/>
-	<string id="16998" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
-	<string id="16999" value="Playlist:"/>
-	<string id="17024" value="Připojuji se k %s..."/>
-	<string id="17025" value="Nemohu navázat spojení do %s."/>
-	<string id="17026" value="Žádám firewall o povolení k připojení do %s..."/>
-	<string id="17027" value="Přijato připojení od %s, komunikuji..."/>
-	<string id="17028" value="Navázáno spojení, komunikuji..."/>
-	<string id="17029" value="Přihlášení selhalo, hostitel nepodporuje pokec."/>
-	<string id="17030" value="Přihlášení dokončeno, protokol chatu verze %s."/>
-	<string id="17031" value="Informace o profilu uživatele..."/>
-	<string id="17032" value="Ověření uživatele "/>
-	<string id="17033" value="Žádám o soukromou konverzaci s uživatelem..."/>
-	<string id="17034" value="Soukromá konverzace povolena, nyní můžete pokecat s %s."/>
-	<string id="17035" value="%s nepřijímá soukromou konverzaci, lituji."/>
-	<string id="17036" value="%s jsem pryč: %s"/>
-	<string id="17037" value="Spojení chatu bylo ztraceno."/>
-	<string id="17038" value="Připojení bylo zrušeno."/>
-	<string id="17039" value="Nelze získat připojení z %s, není dostupné spojení."/>
-	<string id="17040" value="Nelze poslat zprávu, nejste připojeni. PeerProject se pokouší spojit..."/>
-	<string id="17041" value="Nelze poslat zprávu, spojení ještě nebylo navázáno."/>
-	<string id="17042" value="Ještě jste nevyplnili váš profil uživatele. Nejprve musíte poskytnout váš profil, teprve potom si můžete povídat s dalšími uživateli.\n\nChcete hned vyplnit váš profil?"/>
-	<string id="17043" value="Udělení přednosti odesílání pro hosta %s."/>
-	<string id="17100" value="Gnutella: Připojení Peer-to-Peer"/>
-	<string id="17101" value="Gnutella: Připojení Leaf-to-Ultrapeer"/>
-	<string id="17102" value="Gnutella: Připojení Ultrapeer-to-Leaf"/>
-	<string id="17103" value="Gnutella II: Připojení Hub-to-Hub"/>
-	<string id="17104" value="Gnutella II: Připojení Leaf-to-Hub"/>
-	<string id="17105" value="Gnutella II: Připojení Hub-to-Leaf"/>
-	<string id="17106" value="Připojení serveru eDonkey (LOWID: %lu)"/>
-	<string id="17107" value="Připojení serveru eDonkey"/>
-	<string id="17108" value="Přihlášení"/>
-	<string id="17109" value="Příchozí"/>
-	<string id="17110" value="Odchozí"/>
-	<string id="17111" value="Aktuální:"/>
-	<string id="17112" value="Celkem:"/>
-	<string id="17113" value="Komprese:"/>
-	<string id="17114" value="Poměr:"/>
-	<string id="17115" value="Omezit"/>
-	<string id="17116" value="Žádný"/>
-	<string id="17117" value="Připojuji"/>
-	<string id="17118" value="Pozdravení"/>
-	<string id="17119" value="Odmítnout"/>
-	<string id="17120" value="Zavřít"/>
-	<string id="17121" value="Neznámý"/>
-	<string id="17122" value="G1 Peer"/>
-	<string id="17123" value="G1 Ultrapeer"/>
-	<string id="17124" value="G1 Leaf"/>
-	<string id="17125" value="G2 Peer"/>
-	<string id="17126" value="G2 Hub"/>
-	<string id="17127" value="G2 Leaf"/>
-	<string id="17128" value="Server eDonkey"/>
-	<string id="17129" value="eDonkey (LowID)"/>
-	<string id="17130" value="eDonkey (HighID)"/>
-	<string id="17216" value="Zavádí se spojení se serverem eDonkey u %s..."/>
-	<string id="17217" value="Připojuji k serveru eDonkey server %s, komunikuji..."/>
-	<string id="17218" value="ED2K[%s] %s"/>
-	<string id="17219" value="Server eDonkey %s odmítnul spojení."/>
-	<string id="17220" value="Server eDonkey %s je online, klient ID je %lu."/>
-	<string id="17221" value="Server eDonkey %s změnil svého klienta ID z %lu do %lu."/>
-	<string id="17222" value="Server eDonkey %s identifikoval sama sebe jako &quot;%s&quot;."/>
-	<string id="17223" value="Server eDonkey %s odmítnutnul spojení."/>
-	<string id="17224" value="Chyba změny přihlášení klienta eDonkey %s."/>
-	<string id="17225" value="Klient eDonkey připojen k %s byl ukončen."/>
-	<string id="17226" value="Přijat vadný paket eDonkey z %s (id=%x)."/>
-	<string id="17227" value="Příchozí spojení z %s je klient eDonkey."/>
-	<string id="17228" value="Odeslání částí souboru eDonkey pro &quot;%s&quot; do %s..."/>
-	<string id="17229" value="Klient eDonkey připojený k %s byl nečinný, zavírám."/>
-	<string id="17230" value="Zavádím připojení klienta eDonkey ke %s..."/>
-	<string id="17231" value="Klient eDonkey %s má nesprávné GUID, ruším komunikaci."/>
-	<string id="17232" value="Čas pro připojení ke klientovi eDonkey %s již vypršel."/>
-	<string id="17233" value="Časová prodleva připojení ke klientovi eDonkey %s."/>
-	<string id="17234" value="Odmítnuto spojení klienta eDonkey z %s protože eDonkey je dezaktivován."/>
-	<string id="17248" value="Začínám částečné stahování eDonkey importuji proces..."/>
-	<string id="17249" value="Proces je kompletní, částečné stahování %i bylo úspěšně importováno."/>
-	<string id="17250" value="Prohledávám složku: &quot;%s&quot;..."/>
-	<string id="17251" value="Nelze importovat soubor."/>
-	<string id="17252" value="Nalezený dílčí soubor &quot;%s&quot;, importuji..."/>
-	<string id="17253" value="Nelze otevřít část souboru &quot;%s&quot;."/>
-	<string id="17254" value="Nalezené stahování &quot;%s&quot;, velikost %s."/>
-	<string id="17255" value="Stažený datový soubor je novější než soubor .part, ruším."/>
-	<string id="17256" value="Kopíruji &quot;%s&quot; to &quot;%s&quot;..."/>
-	<string id="17257" value="Dokončeno kopírování souboru."/>
-	<string id="17258" value="PeerProject vytvořila dílčí stahování, zbývá %s."/>
-	<string id="17259" value="Tento soubor je již na seznamu stahování PeerProject."/>
-	<string id="17260" value="Ke kopírování staženého soubor není dostatek místa na disku."/>
-	<string id="17472" value="Příchozí spojení z %s je propojení BitTorrent, ruším..."/>
-	<string id="17473" value="Čeká se na připojení ke klientovi BitTorrent %s."/>
-	<string id="17474" value="Čeká se na přihlášení s klientem BitTorrent %s."/>
-	<string id="17475" value="Pro nedostatek provozu ukončuji propojení BitTorrent s %s."/>
-	<string id="17476" value="Připojení BitTorrent se %s selhalo, protože vzdálený klient má rozdílné GUID."/>
-	<string id="17477" value="Připojení BitTorrent se %s odpovědělo špatným souborem."/>
-	<string id="17478" value="Připojení BitTorrent se %s požaduje neznámý soubor."/>
-	<string id="17479" value="BitTorrent je připojen s %s ustanovený pro &quot;%s&quot;."/>
-	<string id="17481" value="BitTorrent přijal klíčový soubor: &quot;%s&quot;"/>
-	<string id="17482" value="Nelze analyzovat soubor BitTorrent &quot;%s&quot;."/>
-	<string id="17483" value="Chyba BitTorrent trackeru pro &quot;%s&quot; : &quot;%s&quot;."/>
-	<string id="17484" value="Chyba parsování odezvy BitTorrent trackeru."/>
-	<string id="17485" value="Přijata odezva BitTorrent trackeru pro &quot;%s&quot;, %i nové zdroje."/>
-	<string id="17486" value="Začíná připojení klienta BitTorrent s %s..."/>
-	<string id="17487" value="Založení BitTorrent spojení s %s, přihlašuji se..."/>
-	<string id="17488" value="Změnili jste adresu URL pro tento torrent. Opravdu chcete uložit tuto změnu?\n\nNesprávná adresa URL může zabránit dalšímu stahování."/>
-	<string id="17489" value="BitTorrent je propojen s %s rozšířený protokol, &quot;%s&quot;."/>
-	<string id="17490" value="Přijímám %i nové zdroje BitTorrent od %s."/>
-	<string id="17491" value="Torrent &quot;%s&quot; je již na vašem seznamu stahování, a nemůže být zadán."/>
-	<string id="17492" value="Chyba načtení torrent souboru &quot;%s&quot;. Toto nemůže být platný torrent."/>
-	<string id="17493" value="Nelze vytvořit sdílení BitTorrent souboru &quot;%s&quot;."/>
-	<string id="17494" value="Tento torrent obsahuje soubor &quot;%s&quot;, ale PeerProject nemůže tento soubor najít ve vaší knihovně. Pokud možno, přesuňte soubor do stejné složky jako torrent a zkuste to znovu."/>
-	<string id="17495" value="Tento torrent obsahuje soubor &quot;%s&quot; který má být %s, ale vaše verze souboru je %s."/>
-	<string id="17496" value="Vyskytla se chyba během kopírování &quot;%s&quot; do sdíleného souboru BitTorrent."/>
-	<string id="17497" value="Vyskytla se neznámá chyba během pokusu o sdílení &quot;%s&quot;."/>
-	<string id="17498" value="Byla objevena chyba v souboru &quot;%s&quot;."/>
-	<string id="17500" value="Tracker neodpovídá- Opakuji spojení (%i z %i)"/>
-	<string id="17501" value="Není možné komunikovat s trackerem"/>
-	<string id="17503" value="Tracker failed- Zkouším další tracker (%i z %i)"/>
-	<string id="17505" value="BitTorrent spojení s %s bylo přerušeno."/>
-	<string id="17506" value="Počátek BitTorrent spojení byl %s byl přerušen."/>
-	<string id="17507" value="BitTorrent spojení s %s bylo přerušeno."/>
-	<string id="17510" value="BitTorrent spojení s %s bylo domítnuto, již existuje spojení s tímto klientem."/>
-	<string id="17511" value="BitTorrent spojení s %s bylo odmítnuto, bylo dosaženo maximálního počtu spojení."/>
-	<string id="17512" value="Soukromý torrent"/>
-	<string id="17513" value="Chyba kódování"/>
-	<string id="18496" value="Provedli jste změny v názvu. Opravdu chcete přejmenovat toto stahování?"/>
-	<string id="18497" value="Zadali jste hodnotu SHA1, ale je nesprávná. Prosím zkontrolujte to a zkuste znovu."/>
-	<string id="18498" value="Zadali jste v kořenovém stromu hodnotu, ale ta je nesprávná. Prosím překontrolujte to a zkuste znovu."/>
-	<string id="18499" value="Zadali jste eDonkey hash, který je nesprávný. Prosím překontrolujte to a zkuste znovu."/>
-	<string id="18500" value="Zadali jste hodnotu SHA1 hash která je odlišná od aktuální hodnoty. Opravdu teď chcete změnit SHA1 hash?"/>
-	<string id="18501" value="Zadali jste hodnotu tiger-tree hash která je odlišná od aktuální hodnoty. Opravdu teď chcete změnit tiger-tree hash?"/>
-	<string id="18502" value="Zadali jste hodnotu eDonkey hash která je odlišná od aktuální hodnoty. Opravdu teď chcete změnit eDonkey hash?"/>
-	<string id="18503" value="Opravdu chcete zapomenout aktuální stav ověření? Všechna stažená data budou považována za nedůvěryhodná, a všechny dočasné ověřovací hash budou vymazány."/>
-	<string id="18504" value="Opravdu chcete zapomenout všechny zdroje pro označené stahování?"/>
-	<string id="18505" value="Prosím zadejte platný rozsah pro vymazání. Pole &quot;Od&quot; je první bajt rozsahu, a pole &quot;do&quot; je poslední bajt rozsahu."/>
-	<string id="18506" value="Nelze vymazat vybraný rozsah ze stahování, protože v daném rozsahu nejsou přítomna žádná data."/>
-	<string id="18507" value="Mažu %I64i bajtů ze stahování."/>
-	<string id="18508" value="Ztracený zdroj stahování %s pro &quot;%s&quot; protože pozice ve frontě %i je příliš vysoká."/>
-	<string id="18509" value="Nemůžete označit tento souboru jako kompletní, protože ještě nemáte žádný prostředek k ověření částí souboru, jako je tiger-tree soubor, eDonkey hashset nebo BitTorrent hashset. Bez těchto ověřovacích informací není možné stažený soubor zkontrolovat."/>
-	<string id="18510" value="Checete označit tento soubor jako kompletní a ověřit jej? Celý soubor bude překontrolován a PeerProject přijme části které projdou ověřením a znovu stáhne části které neprojdou ověřením."/>
-	<string id="18511" value="Změnili jste velikost souboru. Opravdu chcete změnit velikost tohoto souboru?"/>
-	<string id="19000" value="Vzdálený přístup je vypnutý."/>
-	<string id="19001" value="http://%s:%i/remote - Musíte zadat uživatelské jméno a heslo."/>
-	<string id="19002" value="Nelze přijmout spojení, URL je nedostupné."/>
-	<string id="20000" value="Žadné URN není dostupné"/>
-	<string id="20001" value="Zavřít"/>
-	<string id="20002" value="z"/> <!-- "1 of 10" -->
-	<string id="20003" value="Změna směru vyžaduje restart. \nBudete muset spustit PeerProject ručně. Ukončit?"/>
-	<string id="20005" value="Ne"/>
-	<string id="20006" value="Ano"/>
-	<string id="20007" value="Auto"/>
-	<string id="20008" value="Výchozí"/>
-	<string id="20009" value="Vlastní"/>
-	<string id="20010" value="&amp;Zpět"/>
-	<string id="20011" value="&amp;Vpřed"/>
-	<string id="20012" value="Ukončit"/>
-	<string id="20013" value="All"/>
-	<string id="20100" value="Připojuji"/>
-	<string id="20101" value="Žádám"/>
-	<string id="20102" value="Odezva"/>
-	<string id="20103" value="Stahuji"/>
-	<string id="20104" value="TigerTree"/>
-	<string id="20105" value="Hashset"/>
-	<string id="20106" value="Popisky"/>
-	<string id="20107" value="Obsazený"/>
-	<string id="20108" value="Řadím se"/>
-	<string id="20109" value="Ve frontě"/>
-	<string id="20110" value="Neznámý"/>
-	<string id="20111" value="Dokončeno"/>
-	<string id="20112" value="Seeding"/>
-	<string id="20113" value="Přesouvám"/>
-	<string id="20114" value="Pozastaveno"/>
-	<string id="20115" value="Chyba souboru"/>
-	<string id="20116" value="Nelze přesunout"/>
-	<string id="20117" value="Ověřuji"/>
-	<string id="20118" value="Aktivní"/>
-	<string id="20119" value="Čekám"/>
-	<string id="20120" value="Vyhledávám"/>
-	<string id="20121" value="Vytvářím"/>
-	<string id="20122" value="Torrent"/>
-	<string id="20123" value="Tracker Down"/>
-	<string id="20124" value="Ověřeno"/>
-	<string id="20125" value="Neověřeno"/>
-	<string id="20126" value="Nezajímavé"/>
-	<string id="20127" value="Nezajímavé"/>
-	<string id="20130" value="zdroj"/>
-	<string id="20131" value="zdrojů"/> <!-- ones 21,31,... -->
-	<string id="20132" value="zdroje"/> <!-- few  2,3,4 -->
-	<string id="20134" value="zdrojů"/> <!-- others -->
-	<string id="20135" value="(Nejsou zdroje)"/>
-	<string id="20136" value="Přetížený"/>
-	<string id="20137" value="Další"/>
-	<string id="20138" value="ve frontě"/>
-	<string id="20200" value="Every Day"/>
-	<string id="20201" value="Pondělí"/>
-	<string id="20202" value="Úterý"/>
-	<string id="20203" value="Středa"/>
-	<string id="20204" value="Čtvrtek"/>
-	<string id="20205" value="Pátek"/>
-	<string id="20206" value="Sobota"/>
-	<string id="20207" value="Neděle"/>
-	<string id="20210" value="(Není žádné hodnocení)"/>
-	<string id="20211" value="Falešný / Poškozený"/>
-	<string id="20212" value="Mizerná"/>
-	<string id="20213" value="Průměr"/>
-	<string id="20214" value="Dobrá"/>
-	<string id="20215" value="Velmi dobrá"/>
-	<string id="20216" value="Vynikající"/>
-	<string id="20217" value="Vyberte dočasný adresář eDonkey/eMule :"/>
-	<!-- Column headers in Library Album View -->
-	<string id="20230" value="č."/> <!-- Track number -->
-	<string id="20231" value="Název"/>
-	<string id="20232" value="Délka"/>
-	<string id="20233" value="Kvalita"/>
-	<string id="20234" value="Album"/>
-	<string id="20235" value="Autor"/>
-	<string id="20236" value="Hodnocení"/>
-	<string id="20237" value="OK"/>
-	<string id="20238" value="Zrušit"/>
-	<string id="20245" value="Nová složka"/>
+	<string id="20001" value="Ano"/>
+	<string id="20002" value="Ne"/>
+	<string id="20003" value="OK"/>
+	<string id="20004" value="Zrušit"/>
+	<string id="20005" value="&amp;Zpět"/>
+	<string id="20006" value="&amp;Vpřed"/>
+	<string id="20008" value="Zavřít"/>
+	<string id="20009" value="z"/> <!-- "1 of 10" -->
+	<string id="20010" value="All"/>
+	<string id="20011" value="Auto"/>
+	<string id="20012" value="Vlastní"/>
+	<string id="20013" value="Výchozí"/>
+	<string id="20014" value="Ukončit"/>
+	<string id="20050" value="Every Day"/>
+	<string id="20051" value="Pondělí"/>
+	<string id="20052" value="Úterý"/>
+	<string id="20053" value="Středa"/>
+	<string id="20054" value="Čtvrtek"/>
+	<string id="20055" value="Pátek"/>
+	<string id="20056" value="Sobota"/>
+	<string id="20057" value="Neděle"/>
+	<string id="20060" value="(Není žádné hodnocení)"/>
+	<string id="20061" value="Falešný / Poškozený"/>
+	<string id="20062" value="Mizerná"/>
+	<string id="20063" value="Průměr"/>
+	<string id="20064" value="Dobrá"/>
+	<string id="20065" value="Velmi dobrá"/>
+	<string id="20066" value="Vynikající"/>
+	<string id="20080" value="Toto je předběžně uvolněná verze PeerProject, beta testovací doba skončila. Prosím stáhněte si plnou oficiální verzi z http://peerproject.org/."/>
+	<string id="20081" value="&amp;Zavřít"/>
+	<string id="20082" value="Po dokončení klikněte na Zavřít"/>
+	<string id="20083" value="Žádám..."/>
+	<string id="20084" value="Úspěšně!"/>
+	<string id="20100" value="Ukončuji připojení prohlížení uživatele %s."/>
+	<string id="20101" value="Prohlížeč hosta %s odpověděl zamítavou odezvou, neumožňuje podporu prohledávání uživatele/hosta."/>
+	<string id="20102" value="Nelze se připojit k uživateli a prohlížet profil nebo soubory."/>
+	<string id="20103" value="Nelze se připojit k %s a prohlížet uživatele."/>
+	<string id="20104" value="Nelze odeslat žádost %s o prohlížení uživatele."/>
+	<string id="20105" value="Připojuji se k uživateli..."/>
+	<string id="20106" value="Připojuji se k %s k prohlížení uživatele..."/>
+	<string id="20107" value="Přijímám odezvu prohlížeče (%2.f%%)..."/>
+	<string id="20108" value="Přijímání obsah z prohlížení hosta %s (%s)"/>
+	<string id="20109" value="Při prohlížení uživatele %s připojení vypadlo."/>
+	<string id="20110" value="Dokončeno prohledávání uživatele %s, nalezeno %i souborů."/>
+	<string id="20111" value="Nalezeno %i sdílených souborů v knihovně."/>
+	<string id="20112" value="Prohlížeč hosta %s odpověděl kódem %s (%s)."/>
+	<string id="20113" value="Prohlížeč hosta %s odpověděl nesprávnou odezvou HTTPe."/>
+	<string id="20114" value="Nelze stáhnout seznam souborů. Uživatel neumožňuje zobrazení sdílených souborů."/>
+	<string id="20115" value="Chyba dekódování paketů Gnutella při prohlížení hosta %s."/>
+	<string id="20116" value="Odesílám žádost, čekám na spojení..."/>
+	<string id="20117" value="Posílám žádost %s o prohlížení uživatele."/>
+	<string id="20118" value="Připojeno, žádám o prohlížení..."/>
+	<string id="20119" value="Odesílám žádost o prohlížení uživatele %s..."/>
+	<string id="20120" value="Končím spojení a prohlížení uživatele %s pro nedostek provozu."/>
+	<string id="20121" value="Prohlížím %s"/>
+	<string id="20122" value="BitTorrent je připojen s %s ustanovený pro &quot;%s&quot;."/>
+	<string id="20123" value="Příchozí spojení z %s je propojení BitTorrent, ruším..."/>
+	<string id="20124" value="Začíná připojení klienta BitTorrent s %s..."/>
+	<string id="20125" value="Čeká se na připojení ke klientovi BitTorrent %s."/>
+	<string id="20126" value="BitTorrent spojení s %s bylo přerušeno."/>
+	<string id="20127" value="BitTorrent spojení s %s bylo přerušeno."/>
+	<string id="20128" value="Počátek BitTorrent spojení byl %s byl přerušen."/>
+	<string id="20129" value="BitTorrent spojení s %s bylo domítnuto, již existuje spojení s tímto klientem."/>
+	<string id="20130" value="Přijímám %i nové zdroje BitTorrent od %s."/>
+	<string id="20131" value="BitTorrent je propojen s %s rozšířený protokol, &quot;%s&quot;."/>
+	<string id="20132" value="Čeká se na přihlášení s klientem BitTorrent %s."/>
+	<string id="20133" value="Založení BitTorrent spojení s %s, přihlašuji se..."/>
+	<string id="20134" value="BitTorrent spojení s %s bylo odmítnuto, bylo dosaženo maximálního počtu spojení."/>
+	<string id="20136" value="Připojení BitTorrent se %s požaduje neznámý soubor."/>
+	<string id="20137" value="Připojení BitTorrent se %s odpovědělo špatným souborem."/>
+	<string id="20138" value="Připojení BitTorrent se %s selhalo, protože vzdálený klient má rozdílné GUID."/>
+	<string id="20139" value="Pro nedostatek provozu ukončuji propojení BitTorrent s %s."/>
+	<string id="20140" value="Chyba kódování"/>
+	<string id="20141" value="Soukromý torrent"/>
+	<string id="20142" value="Torrent &quot;%s&quot; je již na vašem seznamu stahování, a nemůže být zadán."/>
+	<string id="20143" value="Vyskytla se chyba během kopírování &quot;%s&quot; do sdíleného souboru BitTorrent."/>
+	<string id="20144" value="Nelze vytvořit sdílení BitTorrent souboru &quot;%s&quot;."/>
+	<string id="20145" value="Vyskytla se neznámá chyba během pokusu o sdílení &quot;%s&quot;."/>
+	<string id="20146" value="Chyba načtení torrent souboru &quot;%s&quot;. Toto nemůže být platný torrent."/>
+	<string id="20147" value="Tento torrent obsahuje soubor &quot;%s&quot;, ale PeerProject nemůže tento soubor najít ve vaší knihovně. Pokud možno, přesuňte soubor do stejné složky jako torrent a zkuste to znovu."/>
+	<string id="20148" value="Tento torrent obsahuje soubor &quot;%s&quot; který má být %s, ale vaše verze souboru je %s."/>
+	<string id="20149" value="Byla objevena chyba v souboru &quot;%s&quot;."/>
+	<string id="20150" value="Není možné komunikovat s trackerem"/>
+	<string id="20151" value="Tracker failed- Zkouším další tracker (%i z %i)"/>
+	<string id="20152" value="Změnili jste adresu URL pro tento torrent. Opravdu chcete uložit tuto změnu?\n\nNesprávná adresa URL může zabránit dalšímu stahování."/>
+	<string id="20153" value="Chyba BitTorrent trackeru pro &quot;%s&quot; : &quot;%s&quot;."/>
+	<string id="20154" value="Chyba parsování odezvy BitTorrent trackeru."/>
+	<string id="20155" value="Přijata odezva BitTorrent trackeru pro &quot;%s&quot;, %i nové zdroje."/>
+	<string id="20158" value="Nelze analyzovat soubor BitTorrent &quot;%s&quot;."/>
+	<string id="20159" value="BitTorrent přijal klíčový soubor: &quot;%s&quot;"/>
+	<string id="20160" value="Přijata příchozí žádost o pokec od %s, vyřizuji..."/>
+	<string id="20161" value="Nemohu navázat spojení do %s."/>
+	<string id="20162" value="Nelze získat připojení z %s, není dostupné spojení."/>
+	<string id="20163" value="Připojení bylo zrušeno."/>
+	<string id="20164" value="Připojení %s bylo ukončeno."/>
+	<string id="20165" value="Navázáno spojení, komunikuji..."/>
+	<string id="20166" value="Připojeno k %s, přihlašuji se..."/>
+	<string id="20167" value="Připojuji se k %s..."/>
+	<string id="20168" value="Připojit ke %s a pokecat..."/>
+	<string id="20169" value="Nelze se připojit k hostiteli %s."/>
+	<string id="20170" value="Spojení chatu bylo ztraceno."/>
+	<string id="20171" value="Připojení k %s bylo ztraceno."/>
+	<string id="20172" value="Přihlášení selhalo, hostitel nepodporuje pokec."/>
+	<string id="20173" value="Přihlášení dokončeno, protokol chatu verze %s."/>
+	<string id="20174" value="Informace o profilu uživatele..."/>
+	<string id="20175" value="Ještě jste nevyplnili váš profil uživatele. Nejprve musíte poskytnout váš profil, teprve potom si můžete povídat s dalšími uživateli.\n\nChcete hned vyplnit váš profil?"/>
+	<string id="20176" value="Nelze poslat zprávu, nejste připojeni. PeerProject se pokouší spojit..."/>
+	<string id="20177" value="Nelze poslat zprávu, spojení ještě nebylo navázáno."/>
+	<string id="20178" value="%s je nyní známý jako %s."/>
+	<string id="20179" value="Nyní pokecat %s (%s)."/>
+	<string id="20180" value="Udělení přednosti odesílání pro hosta %s."/>
+	<string id="20181" value="%s jsem pryč: %s"/>
+	<string id="20182" value="Soukromá konverzace povolena, nyní můžete pokecat s %s."/>
+	<string id="20183" value="%s nepřijímá soukromou konverzaci, lituji."/>
+	<string id="20184" value="Žádám o soukromou konverzaci s uživatelem..."/>
+	<string id="20185" value="Ověření uživatele "/>
+	<string id="20186" value="Přijato připojení od %s, komunikuji..."/>
+	<string id="20188" value="Žádám firewall o povolení k připojení do %s..."/>
+	<string id="20190" value="Spojení selhalo kvůli nesprávným datům na lince."/>
+	<string id="20191" value="Přijata nesrozumitelná odpověď: %s"/>
+	<string id="20192" value="Nejste připojeni."/>
+	<string id="20193" value="Nepřípustný příkaz &quot;%s&quot;."/>
+	<string id="20194" value="Tato šablona neobsahuje žádné přizpůsobení."/>
+	<string id="20195" value="Tato šablona je neplatná."/>
+	<string id="20199" value="(zavřít po dokončení přenosu)"/>
+	<string id="20200" value="Přidávám &quot;%s&quot; pro stahování z fronty od zdroje %i."/>
+	<string id="20201" value="Tento soubor &quot;%s&quot; se již stahuje, přidávám další zdroje."/>
+	<string id="20202" value="Přijato chybné vynucené spojení z %s, ukončuji spojení."/>
+	<string id="20203" value="Posíleno stahování &quot;%s&quot; odstraněním šířky pásma."/>
+	<string id="20204" value="Stahuji od hosta %s ale ten je příliš přetížen , opakuji za %i sekund."/>
+	<string id="20205" value="Nemohu přesunout stažený soubor &quot;%s&quot; to &quot;%s&quot;. Zkontrolujte zda se neúplný soubor nepoužívá, a že vaše složka pro stahování existuje a lze do ní zapisovat."/>
+	<string id="20206" value="Nemohu vyřešit &quot;%s&quot;."/>
+	<string id="20207" value="Opravdu chcete zrušit/přerušit všechna stahování v této skupině?"/>
+	<string id="20208" value="Ukončené stahování připojené k %s, již není dále nutné."/>
+	<string id="20209" value="Stahování od hosta %s nenabízí data, ukončuji spojení."/>
+	<string id="20210" value="Dokončeno stahování od &quot;%s&quot;."/>
+	<string id="20211" value="Opravdu chcete vymazat &quot;%s&quot;.\n\nPokud jednou soubor stáhnete a vymažete jej z okna stahování, nemůže později pokračovat."/>
+	<string id="20212" value="Opravdu chcete vymazat všechna pozastavená stahování? Pokud vymažete stahování z okna stahování, pak nemůžete později pokračovat."/>
+	<string id="20213" value="Opravdu chcete vymazat stahování &quot;%s&quot;."/>
+	<string id="20214" value="Připojení pro stahování %s ustanoveno."/>
+	<string id="20215" value="Zavádím připojení k %s port %i a stahuji &quot;%s&quot;..."/>
+	<string id="20216" value="Nemohu se připojit a stahovat od hosta %s."/>
+	<string id="20217" value="Přijímám obsah stahování od hosta %s (%s)."/>
+	<string id="20218" value="Ruším stahování od &quot;%s&quot; ze %s (%s), síť nenalezena."/>
+	<string id="20219" value="Nedostatek místa na disku pro stahování &quot;%s&quot; (%s)."/>
+	<string id="20220" value="Připojení pro stahování %s bylo ztraceno."/>
+	<string id="20222" value="Zadali jste eDonkey hash, který je nesprávný. Prosím překontrolujte to a zkuste znovu."/>
+	<string id="20224" value="Prosím zadejte platný rozsah pro vymazání. Pole &quot;Od&quot; je první bajt rozsahu, a pole &quot;do&quot; je poslední bajt rozsahu."/>
+	<string id="20225" value="Zadali jste hodnotu SHA1, ale je nesprávná. Prosím zkontrolujte to a zkuste znovu."/>
+	<string id="20226" value="Zadali jste v kořenovém stromu hodnotu, ale ta je nesprávná. Prosím překontrolujte to a zkuste znovu."/>
+	<string id="20227" value="Změnili jste velikost souboru. Opravdu chcete změnit velikost tohoto souboru?"/>
+	<string id="20228" value="Nelze vymazat vybraný rozsah ze stahování, protože v daném rozsahu nejsou přítomna žádná data."/>
+	<string id="20231" value="Zadali jste hodnotu SHA1 hash která je odlišná od aktuální hodnoty. Opravdu teď chcete změnit SHA1 hash?"/>
+	<string id="20232" value="Zadali jste hodnotu eDonkey hash která je odlišná od aktuální hodnoty. Opravdu teď chcete změnit eDonkey hash?"/>
+	<string id="20233" value="Zadali jste hodnotu tiger-tree hash která je odlišná od aktuální hodnoty. Opravdu teď chcete změnit tiger-tree hash?"/>
+	<string id="20235" value="Nemůžete označit tento souboru jako kompletní, protože ještě nemáte žádný prostředek k ověření částí souboru, jako je tiger-tree soubor, eDonkey hashset nebo BitTorrent hashset. Bez těchto ověřovacích informací není možné stažený soubor zkontrolovat."/>
+	<string id="20236" value="Checete označit tento soubor jako kompletní a ověřit jej? Celý soubor bude překontrolován a PeerProject přijme části které projdou ověřením a znovu stáhne části které neprojdou ověřením."/>
+	<string id="20237" value="Opravdu chcete zapomenout všechny zdroje pro označené stahování?"/>
+	<string id="20238" value="Opravdu chcete zapomenout aktuální stav ověření? Všechna stažená data budou považována za nedůvěryhodná, a všechny dočasné ověřovací hash budou vymazány."/>
+	<string id="20240" value="Mažu %I64i bajtů ze stahování."/>
+	<string id="20241" value="Provedli jste změny v názvu. Opravdu chcete přejmenovat toto stahování?"/>
+	<string id="20242" value="Stahování od hosta %s soubor &quot;%s&quot; nenalezen."/>
+	<string id="20243" value="Vytvoření souboru &quot;%s&quot; pro stahování."/>
+	<string id="20244" value="Nelze vytvořit místní soubor &quot;%s&quot; pro stahování, zrušeno."/>
+	<string id="20245" value="Nelze otevřít místní soubor &quot;%s&quot; pro stahování, zrušeno."/>
+	<string id="20246" value="Nejsou žádné části ke stažení, ukončuji a připojuji k %s."/>
+	<string id="20247" value="Části souboru jsou zkrácené, ukončuji a připojuji k %s."/>
+	<string id="20248" value="Žádost o stahování části (%I64u-%I64u) od &quot;%s&quot; ze %s."/>
+	<string id="20250" value="Drag'n'drop soubory do skupiny %s"/>
+	<string id="20251" value="Výchozí stahování skupiny. (Zobrazit všechny soubory)"/>
+	<string id="20253" value="Stahované části od hosta eDonkey jsou poškozené nebo interně neslučitelné, ruším zdroj."/>
+	<string id="20254" value="Přijat poškozený rozdělený soubor eDonkey od %s, ruším zdroj."/>
+	<string id="20255" value="Přijat rozdělený soubor pro &quot;%s&quot;, minimálně ověřené části %s."/>
+	<string id="20256" value="Žádám eDonkey o rozdělení pro &quot;%s&quot; od %s..."/>
+	<string id="20257" value="Nelze spustit kompresi pro stahování &quot;%s&quot;."/>
+	<string id="20258" value="Přijímá datový strom od %s (%s)..."/>
+	<string id="20259" value="Žádám popisky pro &quot;%s&quot; od %s..."/>
+	<string id="20261" value="Stahování od hosta %s odpovědělo %s (%s)."/>
+	<string id="20262" value="Stahování od hosta %s odpovědělo nesprávnou odezvou HTTP."/>
+	<string id="20263" value="Hostitel %s se snaží stahovat &quot;%s&quot;, akceptuji."/>
+	<string id="20264" value="Posílám naléhavou žádost o stahování &quot;%s&quot;..."/>
+	<string id="20265" value="Stahování od hosta %s je zatím nemožné, čekám ve frontě u pozice #%i ze %i (&quot;%s&quot;.."/>
+	<string id="20266" value="Zůstává ve frontě pro &quot;%s&quot;."/>
+	<string id="20267" value="Ztracený zdroj stahování %s pro &quot;%s&quot; protože pozice ve frontě %i je příliš vysoká."/>
+	<string id="20268" value="Čekám ve frontě na aktualizaci z eDonkey pro stahování od %s pro soubor &quot;%s&quot;."/>
+	<string id="20269" value="Žádost ke stahování %s vypršela, ukončuji připojení."/>
+	<string id="20270" value="Vymazat stahování &quot;%s&quot;."/>
+	<string id="20271" value="Přesunuji &quot;%s&quot; do &quot;%s&quot;, stahování je dokončeno."/>
+	<string id="20272" value="Pozastaveno stahování od &quot;%s&quot;."/>
+	<string id="20273" value="Pokračuji ve stahování souboru &quot;%s&quot;."/>
+	<string id="20274" value="Řeší se &quot;%s&quot; ke stahování &quot;%s&quot;..."/>
+	<string id="20275" value="Dotazuji se na více zdrojů pro stahování &quot;%s&quot; na %i a připojuji se..."/>
+	<string id="20276" value="Nemohu najít více zdrojů pro stahování &quot;%s&quot; protože není síťové spojení."/>
+	<string id="20280" value="Stahování hostitelova datového stromu je poškozeno nebo interně neslučitelné, ignoruji jej."/>
+	<string id="20281" value="Stahování hostitelova datového stromu neodpovídá očekávané hodnotě."/>
+	<string id="20282" value="Stahování od hosta %s nevyhovělo žádosti o zadání velikosti."/>
+	<string id="20283" value="Přijat datový strom pro &quot;%s&quot;, %i úrovně, minimálně ověřené části %s."/>
+	<string id="20284" value="Přijímání dat o obsahu stromu z %s (%s)..."/>
+	<string id="20285" value="Žádám o zadání rozsahu &quot;%s&quot; od %s..."/>
+	<string id="20286" value="Ukonečno spojení pro stahování %s pro nedostatek provozu."/>
+	<string id="20290" value="Stahování od hosta %s odpovědělo odlišně, ale v platném rozsahu (%I64i-%I64i) na &quot;%s&quot;."/>
+	<string id="20291" value="Přijato nadbytečné vynucené spojení od %s."/>
+	<string id="20292" value="Zrušen zdroj %s (%s) kvůli poslání poškozených částí &quot;%s&quot; (%I64i-%I64i)."/>
+	<string id="20293" value="VAROVÁNÍ: Stažený &quot;%s&quot; Ověření souboru selhalo, to nemůže být soubor který jste chtěli stáhnout!"/>
+	<string id="20294" value="Úspěšně ověřené stahování &quot;%s&quot;."/>
+	<string id="20295" value="Stažení verze od hosta %s z &quot;%s&quot; má rozdílnou URN, přerušuji."/>
+	<string id="20296" value="Stahování od hosta %s odpovědělo nepoužitelným rozsahem bajtů z &quot;%s&quot;, nevyřízeno."/>
+	<string id="20297" value="Stažení verze od hosta %s z &quot;%s&quot; má rozdílnou délku, přerušuji."/>
+	<string id="20300" value="Přijato příchozí spojení od %s port %i."/>
+	<string id="20301" value="Již jste připojeni k %s, nezavádějte druhé připojení."/>
+	<string id="20302" value="Odmítnuto dvojité připojení z %s."/>
+	<string id="20303" value="Začíná připojení k počítači %s port %i..."/>
+	<string id="20304" value="Soused %s uzavřel připojení (%i : %s)."/>
+	<string id="20305" value="Ukončeno spojení s počítačem %s."/>
+	<string id="20306" value="Ustanoveno připojení s počítačem %s, komunikuji..."/>
+	<string id="20307" value="Nelze zavést připojení k počítači %s."/>
+	<string id="20308" value="Sousední připojení %s neočekávaně vypadlo."/>
+	<string id="20309" value="Ukončeno spojení s počítačem %s protože to není uzel."/>
+	<string id="20310" value="Nelze aktivovat připojení počítače s %s (odmítnuto)."/>
+	<string id="20311" value="Vypršel čas pro připojení ke %s."/>
+	<string id="20312" value="Ukončeno spojení počítače %s pro nedostatek provozu."/>
+	<string id="20313" value="Zasílám dotaz vyhledávací službě..."/>
+	<string id="20314" value="Transakce &quot;%s&quot; selhala, chybný součet %i."/>
+	<string id="20315" value="Vyhledávací služba &quot;%s&quot; selhala %i čase, odstraňuji."/>
+	<string id="20316" value="Zasílam dotaz vyhledávací službě na &quot;%s&quot;..."/>
+	<string id="20317" value="Zařazuji GWebCache &quot;%s&quot; do náhodné GWebCache..."/>
+	<string id="20318" value="Posílám GWebCache aktualizaci službě &quot;%s&quot;..."/>
+	<string id="20319" value="GWebCache transakce úspěšná (&quot;%s&quot;.."/>
+	<string id="20320" value="Příchozí spojení z %s je klient eDonkey."/>
+	<string id="20321" value="Přijat vadný paket eDonkey z %s (id=%x)."/>
+	<string id="20322" value="Klient eDonkey připojený k %s byl nečinný, zavírám."/>
+	<string id="20323" value="Zavádím připojení klienta eDonkey ke %s..."/>
+	<string id="20324" value="Čas pro připojení ke klientovi eDonkey %s již vypršel."/>
+	<string id="20325" value="Odmítnuto spojení klienta eDonkey z %s protože eDonkey je dezaktivován."/>
+	<string id="20326" value="Klient eDonkey připojen k %s byl ukončen."/>
+	<string id="20327" value="Chyba změny přihlášení klienta eDonkey %s."/>
+	<string id="20328" value="Časová prodleva připojení ke klientovi eDonkey %s."/>
+	<string id="20329" value="Odeslání částí souboru eDonkey pro &quot;%s&quot; do %s..."/>
+	<string id="20330" value="Klient eDonkey %s má nesprávné GUID, ruším komunikaci."/>
+	<string id="20331" value="Tento soubor je již na seznamu stahování PeerProject."/>
+	<string id="20332" value="Nelze otevřít část souboru &quot;%s&quot;."/>
+	<string id="20333" value="Dokončeno kopírování souboru."/>
+	<string id="20334" value="Kopíruji &quot;%s&quot; to &quot;%s&quot;..."/>
+	<string id="20335" value="Ke kopírování staženého soubor není dostatek místa na disku."/>
+	<string id="20336" value="PeerProject vytvořila dílčí stahování, zbývá %s."/>
+	<string id="20337" value="Nelze importovat soubor."/>
+	<string id="20338" value="Stažený datový soubor je novější než soubor .part, ruším."/>
+	<string id="20339" value="Nalezený dílčí soubor &quot;%s&quot;, importuji..."/>
+	<string id="20340" value="Proces je kompletní, částečné stahování %i bylo úspěšně importováno."/>
+	<string id="20341" value="Prohledávám složku: &quot;%s&quot;..."/>
+	<string id="20342" value="Začínám částečné stahování eDonkey importuji proces..."/>
+	<string id="20344" value="Nalezené stahování &quot;%s&quot;, velikost %s."/>
+	<string id="20345" value="Připojuji k serveru eDonkey server %s, komunikuji..."/>
+	<string id="20346" value="Zavádí se spojení se serverem eDonkey u %s..."/>
+	<string id="20347" value="Server eDonkey %s změnil svého klienta ID z %lu do %lu."/>
+	<string id="20348" value="Server eDonkey %s identifikoval sama sebe jako &quot;%s&quot;."/>
+	<string id="20349" value="ED2K[%s] %s"/>
+	<string id="20350" value="Server eDonkey %s je online, klient ID je %lu."/>
+	<string id="20351" value="Server eDonkey %s odmítnul spojení."/>
+	<string id="20352" value="Server eDonkey %s odmítnutnul spojení."/>
+	<string id="20354" value="Vlastnosti souboru"/>
+	<string id="20355" value="Opravdu chcete vymazat tento filtr ?"/>
+	<string id="20356" value="Filtr je již nazvaný &quot;%s&quot;, chcete to změnit?"/>
+	<string id="20358" value="Prosím zadejte jméno vašeho filtru."/>
+	<string id="20360" value="Chyby spojení (%)"/>
+	<string id="20361" value="Šířka pásma pro stahování"/>
+	<string id="20362" value="Počet stahovaných souborů"/>
+	<string id="20363" value="Počet spojení pro stahování"/>
+	<string id="20364" value="Šířka pásma pro příjem Gnutelly"/>
+	<string id="20365" value="Šířka pásma pro přenos Gnutelly"/>
+	<string id="20366" value="Připojení Gnutella (Celkem)"/>
+	<string id="20367" value="Připojení Gnutella (Aktivní)"/>
+	<string id="20368" value="Shozené pakety Gnutelly"/>
+	<string id="20369" value="Ztracené pakety Gnutelly"/>
+	<string id="20370" value="Přijaté pakety Gnutelly"/>
+	<string id="20371" value="Přenesené pakety Gnutelly"/>
+	<string id="20372" value="Poměr Gnutella přijatých/odeslaných Pings"/>
+	<string id="20373" value="Poměr Gnutella přijatých/odeslaných Pongs"/>
+	<string id="20374" value="Místní dotazy Gnutelly"/>
+	<string id="20375" value="Přesměrované pakety Gnutelly"/>
+	<string id="20376" value="Celková šířka pásma pro příjem"/>
+	<string id="20377" value="Celková šířka pásma pro přenos"/>
+	<string id="20378" value="Celková šířka pásma TCP pro příjem"/>
+	<string id="20379" value="Celková šířka pásma TCP pro přenos"/>
+	<string id="20380" value="Celková šířka pásma UDP pro příjem"/>
+	<string id="20381" value="Celková šířka pásma UDP pro přenos"/>
+	<string id="20382" value="Šířka pásma pro odesílání"/>
+	<string id="20384" value="Počet spojení pro odesílání"/>
+	<string id="20385" value="Sousední spojení %s vypadlo zpět do chráněného režimu."/>
+	<string id="20386" value="Zůstávající spojení z %s bylo pokynem hosta ukonečno (%s port %i)."/>
+	<string id="20387" value="Sousední uzel %s nás nebude akceptovat jako uzel, spojení ukonečno."/>
+	<string id="20388" value="Spojení se %s selhalo kvůli nesprávným datům na lince."/>
+	<string id="20389" value="Aktivní jako uzel pro sousedy %s."/>
+	<string id="20390" value="Uzel navázal spojení, uzavřeno druhé připojení."/>
+	<string id="20391" value="Odmítuto spojení ze %s protože toto je chráněný koncový uzel."/>
+	<string id="20392" value="Soused %s není uzel, ukončuji spojení."/>
+	<string id="20393" value="Ukončení připojení k počítači který nepodporuje Gnutella2 %s."/>
+	<string id="20394" value="Soused %s se chce stát uzlem, ukončuji spojení."/>
+	<string id="20395" value="Spojení se počítačem Gnutelly %s bylo úspěšně zavedeno (G%i.%i : %s)."/>
+	<string id="20396" value="Spojení se sousedem Gnutelly ][ %s bylo úspěšně zavedeno (%s)."/>
+	<string id="20397" value="Připojení k %s odmítnuto (%s)."/>
+	<string id="20398" value="Zůstávající spojení s %s bylo ukončeno."/>
+	<string id="20399" value="Pro připojení %s již čas vypršel."/>
+	<string id="20400" value="PeerProject vytvoří rozdělený soubor pro %Iu soubory:"/>
+	<string id="20410" value="Prozkoumávám vaši knihovnu PeerProject"/>
+	<string id="20411" value="Prozkoumávám "/>
+	<string id="20412" value="Prozkoumávám obsah složek %i"/>
+	<string id="20413" value="%i vybrané soubory"/>
+	<string id="20414" value="Vícenásobné složky"/>
+	<string id="20415" value="Nejsou vybrané žádné soubory"/>
+	<string id="20416" value="Ohodnocení tohoto souboru"/>
+	<string id="20417" value="Naposledy přidané"/>
+	<string id="20418" value="Album"/>
+	<string id="20419" value="Autor"/>
+	<string id="20420" value="Kvalita"/>
+	<string id="20421" value="Délka"/>
+	<string id="20422" value="Hodnocení"/>
+	<string id="20423" value="Název"/>
+	<string id="20424" value="č."/> <!-- Track number -->
+	<string id="20425" value="PeerProject nemůže instalovat soubor sbírky &quot;%s&quot; zkopírováním do složky &quot;%s&quot;."/>
+	<string id="20426" value="Chcete stáhnout všechny soubory v této sbírce?\n\nKliknutím na Zrušit zrušíte i všechny další výzvy."/>
+	<string id="20427" value="PeerProject přidala soubor do sbírky &quot;%s&quot; v knihovně."/>
+	<string id="20428" value="PeerProject stáhla nový soubor se sbírkou:\n\n&quot;%s&quot;\n\nSoubor však nelze přečíst, pravděpodovně je poškozený."/>
+	<string id="20429" value="Chcete zabránit této sbírce v dalším upozorňování na jiné stahování?"/>
+	<string id="20430" value="Opravdu chcete spustit soubor &quot;%s&quot; ?\n\nNěkteré soubory mohou poškodit váš počítač. Ujistěte se, že víte jaký soubor spouštíte."/>
+	<string id="20431" value="Opravdu chcete trvale vymazat vybraný soubor(y) %i ?\n\nPokud to povolíte, soubory budou přesunuty do &quot;koše&quot; (pokud je povolený)."/>
+	<string id="20432" value="PeerProject nemohla smazat soubor:\n\n%s"/>
+	<string id="20433" value="Adresář se staženými soubory &quot;%s&quot; ještě není zařazen ve vaší knihovně.\n\nStažené soubory ve knihovně můžete snadněji prohlížet a třídit, a umožňuje využívat pokročilé funkce PeerProject: například ověření stahování a automatické aktualizace. Umístění stažených souborů v knihovně nevyžaduje nutně jejich sdílení: můžete si zvolit, zda budete nebo nebudete sdílet tyto soubory.\n\nChcete přidat stažené soubory do knihovny?"/>
+	<string id="20434" value="Adresář se staženými soubory byl přidaný do složky v knihovně. Chcete jej také sdílet?"/>
+	<string id="20435" value="Ještě jste nevybrali přehrávač pro multimédiální soubory, jako např. Nullsoft WinAmp. Chcete přehrávač vybrat nyní?\n\nPeerProject předá programu název souboru s parametrem &quot;/ADD&quot;."/>
+	<string id="20436" value="Opravdu chcete vymazat %i označených složek s albem ?\n\nTato akce nevymaže samotné soubory uvnitř složek alba, ale jen složky."/>
+	<string id="20437" value="Soubor s popisem"/>
+	<string id="20438" value="Upravuji popisky %i souborů."/>
+	<string id="20439" value="Chystáte se upravit popisky pro %i souborů, opravdu chcete pokračovat?"/>
+	<string id="20440" value="Nelze přesunout soubor %s. Soubor možná používá jiná aplikace..nChcete zkusit tento soubor zkopírovat?"/>
+	<string id="20441" value="PeerProject nemohla přejmenovat:\n\n%sn\na\n%s"/>
+	<string id="20442" value="Cílový soubor již existuje:\n\n%s\n\nChcete jej přepsat?"/>
+	<string id="20443" value="Zobrazit všecny typy souborů"/>
+	<string id="20444" value="Kopírovat &URI"/>
+	<string id="20445" value="Export &URIs..."/>
+	<string id="20446" value="U souboru &quot;%s&quot; se nepodařilo ověřit hash. Je možné, že soubor není ten, který jste chtěli stáhnout. Opravdu jej chcete otevřít?"/>
+	<string id="20447" value="Chcete odstranit &quot;potenciálně nebezpečnou&quot; vlastnist z tohoto souboru?"/>
+	<string id="20448" value="Soubor &quot;%s&quot; ještě nemá hash. Prosím čekejte než bude pro soubor vypočítán hash, a potom to zkuste znovu."/>
+	<string id="20449" value="Tuto možnost využívá služba poskytovaná Bitzi.com která zjišťuje a sdílí informace o vybraných souborech.\n\nPeerProject bude přenášet SHA1 hash pro označený soubor(y) v rámci dotazu poslaného databázi Bitzi. Pokud máte obavy o soukromí přečtěte si prohlášení Bitzi.com o ochraně osobních údajů.\n\nChcete pokračovat?"/>
+	<string id="20450" value="Kompletní a neúplné složky by neměly být stejné"/>
+	<string id="20451" value="Nepřehrává se žádný soubor. Dvojitým kliknutím soubor ve vaší knihovně přehrajete."/>
+	<string id="20452" value="Všechny multimediální soubory|*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Playlisty|*.asx;*.wax;*.m3u;*.wvx;*.wmx|Audio soubory|*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm|Video soubory|*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|CD stopy|*.cda|MIDI soubory|*.mid;*.rmi;*.midi|Všechny soubory|*.*||"/>
+	<string id="20453" value="Nelze načíst multimediální soubor &quot;%s&quot;"/>
+	<string id="20454" value="Soubor může být poškozený, nebo nemáte potřebný kodetek pro přehrávání."/>
+	<string id="20455" value="Část tohoto souboru nemohla být přehraná, možná bude třeba stáhnout další kodetek."/>
+	<string id="20456" value="Playlist:"/>
+	<string id="20457" value="PeerProject nemůže použít plugin pro MediaServices. Prosím nainstalujte znovu PeerProject, a zkontrolujte že máte také nainstalované potřebné kodetky a ovladače."/>
+	<string id="20458" value="PeerProject Media Player"/>
+	<string id="20460" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
+	<string id="20461" value="(Nezobrazovat)"/>
+	<!--string id="20462" value="PeerProject dokončila stahování:"-->
+	<!--string id="20463" value="PeerProject stahuje soubor:"-->
+	<!--string id="20464" value="PeerProject přesunuje stahování:"-->
+	<!--string id="20465" value="Toto stahování je pozastaveno:"-->
+	<!--string id="20466" value="PeerProject hledá zdroje pro:"-->
+	<!--string id="20467" value="PeerProject kontroluje stahování na chyby:"-->
+	<string id="20470" value="Zrušit"/>
+	<string id="20471" value="Otevřít"/>
+	<string id="20472" value="Dokončeno"/>
+	<string id="20473" value="Odhadovaný čas pro stažení:"/>
+	<string id="20474" value="Počet hodnocení:"/>
+	<string id="20475" value="Počet zdrojů:"/>
+	<string id="20476" value="Nenalezeny žádné zdroje"/>
+	<string id="20477" value="%i dní a %i hodin"/>
+	<string id="20478" value="%i hodin a %i minut"/>
+	<string id="20479" value="%i minut a %i vteřin"/>
+	<string id="20480" value="%i vteřin"/>
+	<string id="20481" value="Celková rychlost přenosu:"/>
+	<string id="20482" value="Stažená velikost:"/>
+	<string id="20483" value="Velikost odesílání:"/>
+	<string id="20484" value="Limit rychlosti stahování."/>
+	<string id="20485" value="Limit rychlost uploadu."/>
+	<string id="20490" value="Vícenásobné"/>
+	<string id="20491" value="Rozmanité hodnoty"/>
+	<string id="20494" value="Zadejte ve vašem uživatelském profilu umístění vašeho počítače.\n\nJe dobře zadat vaše umístění tak, aby ostatní uživatelé mohli vidět odkud pocházíte.\n\nOpravdu chcete pokračovat bez zadání vašeho umístění?"/>
+	<string id="20495" value="Nezadali jste přezdívku ve vašem profilu uživatele.\n\nJe dobré zadat alespoň přezdívku, aby ostatí uživatelé mohli vidět kdo se k nim připojil.\n\nOpravdu chcete pokračovat bez zadání jména?"/>
+	<string id="20496" value="Nezadali jste váš věk a pohlaví. Opravdu chcete pokračovat bez těchto údajů?"/>
+	<string id="20499" value="Nová složka"/>
+	<string id="20500" value="Klikněte na tlačítko &quot;Připojit se&quot;."/>
+	<string id="20501" value="Nejste připojeni do sítě."/>
+	<string id="20502" value="Zavřít"/>
+	<string id="20503" value="Komprese:"/>
+	<string id="20504" value="Omezit"/>
+	<string id="20505" value="Žádný"/>
+	<string id="20506" value="Připojuji"/>
+	<string id="20507" value="Aktuální:"/>
+	<string id="20510" value="Připojení serveru eDonkey"/>
+	<string id="20511" value="eDonkey (HighID)"/>
+	<string id="20512" value="Připojení serveru eDonkey (LOWID: %lu)"/>
+	<string id="20513" value="eDonkey (LowID)"/>
+	<string id="20514" value="Server eDonkey"/>
+	<string id="20515" value="G1 Leaf"/>
+	<string id="20516" value="G1 Peer"/>
+	<string id="20517" value="Gnutella: Připojení Peer-to-Peer"/>
+	<string id="20518" value="Gnutella: Připojení Leaf-to-Ultrapeer"/>
+	<string id="20519" value="Gnutella: Připojení Ultrapeer-to-Leaf"/>
+	<string id="20520" value="G1 Ultrapeer"/>
+	<string id="20521" value="G2 Hub"/>
+	<string id="20522" value="G2 Leaf"/>
+	<string id="20524" value="G2 Peer"/>
+	<string id="20525" value="Gnutella2: Připojení Leaf-to-Hub"/>
+	<string id="20526" value="Gnutella2: Připojení Hub-to-Hub"/>
+	<string id="20527" value="Gnutella2: Připojení Hub-to-Leaf"/>
+	<string id="20530" value="Přihlášení"/>
+	<string id="20531" value="Pozdravení"/>
+	<string id="20532" value="Příchozí"/>
+	<string id="20533" value="Odchozí"/>
+	<string id="20534" value="Celkem:"/>
+	<string id="20535" value="Poměr:"/>
+	<string id="20536" value="Odmítnout"/>
+	<string id="20538" value="Neznámý"/>
+	<string id="20540" value="Připojit"/>
+	<string id="20541" value="Připojuji..."/>
+	<string id="20542" value="Připojit"/>
+	<string id="20543" value="Odpojit"/>
+	<string id="20544" value="Odpojit PeerProject od internetu..."/>
+	<string id="20545" value="Odpojuji."/>
+	<string id="20546" value="Opravdu se chcete odpojit?"/>
+	<string id="20547" value="Gnutella2 je hlavní síť pro PeerProject. Vyřazení této podpory může hodně omezit počet a kvalitu vašich výsledků při vyhledávání. OPRAVDU to chcete udělat?"/>
+	<string id="20548" value="Nelze otevřít %s port %i pro příchozí spojení. Příchozí připojení není podporováno."/>
+	<string id="20549" value="Nelze přeložit adresu %s pro odchozí spojení. Odchozí spojení bude používat standardní rozhraní."/>
+	<string id="20550" value="Vaše odchozí šířka pásma pro tuto síť je příliš malá."/>
+	<string id="20551" value="Blokováno Firewallem, nečeká se na příchozí spojení."/>
+	<string id="20552" value="Přepnutí vašeho PC do režimu uzle může mít nepříznivé účinky na výkon. Pro síť P2P je většinou lepší umožnit PeerProject rozhodnout zda by měl být režim uzle používán.\n\nRežim uzle pro vás NEVYTVOŘÍ lepší vyhledání výsledků, nebo žádné další jiné výhody.\n\nOpravdu chcete udělat tyto změny navzdory uvedeným nevýhodám?"/>
+	<string id="20553" value="Přijímám příchozí spojení TCP na portu %s %i."/>
+	<string id="20554" value="Čeká se na UDP paket s adresou příjemce na %s port %i."/>
+	<string id="20555" value="Odchozí spojení z portu %s budou procházet %i."/>
+	<string id="20556" value="Nemůžu přeložit adresu &quot;%s&quot;."/>
+	<string id="20557" value="Překládám adresu &quot;%s&quot;..."/>
+	<string id="20558" value="Posílám dotaz na &quot;%s&quot; do %s."/>
+	<string id="20560" value="Adresa %s je již blokovaná vašimi směrnicemi pro zabezpeční."/>
+	<string id="20561" value="Přidat pravidlo zabezpečení pro blokování %s."/>
+	<string id="20562" value="Manažer zabezpečení odepřel připojení od %s."/>
+	<string id="20563" value="Manažer zabezpečení vyloučil připojení k %s."/>
+	<string id="20564" value="Spouštím síťové jádro PeerProject..."/>
+	<string id="20566" value="Mapování UPnP portu selhalo po 10 pokusech."/>
+	<string id="20570" value="Přijat dotaz na poškozený paket od %s, ignoruji."/>
+	<string id="20571" value="%s:  Na dotaz přijat vadný paket ze %s, proto jej ignorujuji."/>
+	<string id="20572" value="Soused %s poslal paket s extrémní TTL, paket odmítám (TTL=%i, Hops=%i)."/>
+	<string id="20573" value="Soused %s poslal paket s nulovou TTL, ignoruji."/>
+	<string id="20574" value="Soused %s násilím prosadil rozšířený balíček který není zakódovaný GGEP."/>
+	<string id="20575" value="Soused %s poslal nesprávný dotaz aktualizace směrovací tabulky, vypadlo spojení."/>
+	<string id="20576" value="Poslán dotaz propojovací tabulky na počítač %s (%i bit = %lu[%i], %i%% full)"/>
+	<string id="20577" value="Přijímán nečekaný dotaz na aktualizaci směrovací tabulky od souseda %s."/>
+	<string id="20578" value="Soused %s aktualizoval jeho otázku na směrovací tabulku (%i bit = %lu[%i], %i%% full)."/>
+	<string id="20579" value="%s -> %s [%i/%i] %s %s"/>
+	<string id="20580" value="Seznam se předá počítači %s s dotazem na výpadky spojení."/>
+	<string id="20581" value="Soused %s poslal ping na paket s nesprávnou délkou, ignoruji."/>
+	<string id="20582" value="Soused %s poslal pong na paket s nesprávnou délkou, ignoruji."/>
+	<string id="20583" value="Soused %s poslal paket s nesprávnou délkou, ignoruji."/>
+	<string id="20584" value="Soused %s odeslal paket nadměrné velikosti, spadlo spojení."/>
+	<string id="20585" value="Soused %s poslal neznámý paket (0x%.2x), ignoruji."/>
+	<string id="20586" value="Soused %s poslal pong s nesprávnými adresnými daty, ignoruji."/>
+	<string id="20588" value="Soused %s násilím prosadil žádost na adresu firewallu, ignoruji."/>
+	<string id="20590" value="Vzdálený přístup je vypnutý."/>
+	<string id="20591" value="http://%s:%i/remote - Musíte zadat uživatelské jméno a heslo."/>
+	<string id="20592" value="Nelze přijmout spojení, URL je nedostupné."/>
+	<string id="20595" value="&schéma"/>
+	<string id="20620" value="PeerProject aktivně prohledává síť..."/>
+	<string id="20621" value="Kliknutím zde hledáte znovu"/>
+	<string id="20622" value="Všechny sítě"/>
+	<string id="20623" value="Chystáte se začít nové hledání. Chcete vymazat výsledky předchozího hledání?"/>
+	<string id="20624" value="Tato oblast zobrazuje více informací o vybraných souborech ."/>
+	<string id="20625" value="%s >>> upozorňuje <<<:"/>
+	<string id="20626" value="%s rychlosti tohoto souboru:"/>
+	<string id="20627" value="Klikni pro náhled"/>
+	<string id="20628" value="Prohlížím..."/>
+	<string id="20629" value="Nelze stáhnout náhled z &quot;%s&quot;."/>
+	<string id="20630" value="Jsou zde %i hodnocení."/>
+	<string id="20631" value="Je zde jedno hodnocení."/>
+	<string id="20632" value="Je dostupných %i zdrojů. (%s/s)"/>
+	<string id="20633" value="Je dostupný jeden zdroj. (%s/s)"/>
+	<string id="20634" value="Zatím nebyl nalezen žádný výsledek."/>
+	<string id="20635" value="Byly nalezeny nějaké výsledky, ale nevyhovují filtrům."/>
+	<string id="20636" value="V tomto okně ještě nebylo spuštěno žádné vyhledávání."/>
+	<string id="20637" value="Žádné popisky"/>
+	<string id="20638" value="Žádné sloupce"/>
+	<string id="20640" value="(Vymazat historii hledání)"/>
+	<string id="20641" value="Hledat v PeerProject"/>
+	<string id="20642" value="Jaký typ souboru hledáte?"/>
+	<string id="20643" value="Zadejte klíčová slova pro hledání:"/>
+	<string id="20644" value="Pokročilé..."/>
+	<string id="20645" value="Jakýkoliv soubor"/>
+	<string id="20646" value="Smazat"/>
+	<string id="20648" value="Skrýt panel hledání"/>
+	<string id="20650" value="Hledat"/>
+	<string id="20651" value="Hledat:"/>
+	<string id="20652" value="Hledat typ souboru:"/>
+	<string id="20653" value="Prohledávat sítě:"/>
+	<string id="20654" value="Velikost souboru:"/>
+	<string id="20655" value="Velikost souboru:"/>
+	<string id="20656" value="Hledat znovu"/>
+	<string id="20657" value="Zobrazit panel hledání"/>
+	<string id="20658" value="Vyhledat"/>
+	<string id="20659" value="Stop"/>
+	<string id="20660" value="Nebyly nalezeny žádné soubory"/>
+	<string id="20661" value="%lu uzlů, %lu ukončení"/>
+	<string id="20662" value="Neprobíhá žádné vyhledávání"/>
+	<string id="20663" value="Výsledky"/>
+	<string id="20664" value="%lu soubor ze %lu nalezených|%lu soubor ze %lu nalezených|%lu souborů ze %lu nalezených"/>
+	<string id="20665" value="Nalezeno:"/>
+	<string id="20666" value="Stav hledání:"/>
+	<string id="20668" value="Vyhledávám..."/>
+	<string id="20669" value="Hledání jednoduchého textu"/>
+	<string id="20670" value="PeerProject vyhledává v síti..."/>
+	<string id="20671" value="Checte smazat vybraná bezpoečnostní pravidla? Tato operace je nevratná."/>
+	<string id="20672" value="Vyberte dočasný adresář eDonkey/eMule :"/>
+	<string id="20673" value="Automaticky"/>
+	<string id="20674" value="Adresář se neúplnými soubory by neměl být stejný jako adresář se staženými soubory."/>
+	<string id="20675" value="Windows nepodporuje cesty pro soubory delší než 256 znaků.nProsím vyberte složku s kratší cestou."/>
+	<string id="20676" value="Adresář s neúplnými soubory by neměl být v knihovně, dochází pak ke snižování výkonu. Neúplné soubory mohou být sdílené přímo z okna přenosu."/>
+	<string id="20677" value="Prosím zadejte omezení šířky pásma které si přejete nastavit ve tvaru &quot;123 kb/s&quot; pro kilobajty za vteřinu, nebo &quot;123 KB/s&quot; pro kilobajty za vteřinu."/>
+	<string id="20678" value="Síť eDonkey používá velké fronty a dlouhé čekání. Striktní omezení délky fronty může způsobit problém se stahováním souborů.nOpravdu chcete omezit délku fronty?"/>
+	<string id="20680" value="Nastavení PeerProject"/>
+	<string id="20684" value="Opravdu chcete vymazat skin &quot;%s&quot;. Tento skin nemůže být odstraněný."/>
+	<string id="20700" value="Aktivní"/>
+	<string id="20701" value="%s přích : %s odch (St:%I64i/Od:%I64i)"/>
+	<string id="20702" value="Připojeno ke %lu uzlům. %s v místní knihovně."/>
+	<string id="20703" value="Režim uzle se sousedem(y) %lu. %s v místní knihovně."/>
+	<string id="20704" value="Režim Hub/Ultrapeer s uživatelem %lu. %s v místní knihovně."/>
+	<string id="20705" value="Připojeno. %s v místní knihovně."/>
+	<string id="20706" value="Režim Ultrapeer s uživatelem %lu. %s v místní knihovně."/>
+	<string id="20707" value="Připojuji se do sítě..."/>
+	<string id="20708" value="Nejste připojeni do sítě."/>
+	<string id="20710" value="(Nejsou zdroje)"/>
+	<string id="20711" value="Nelze přesunout"/>
+	<string id="20712" value="Přetížený"/>
+	<string id="20713" value="Řadím se"/>
+	<string id="20714" value="Chyba souboru"/>
+	<string id="20715" value="Hashset"/>
+	<string id="20716" value="Popisky"/>
+	<string id="20717" value="Odezva"/>
+	<string id="20718" value="Přesouvám"/>
+	<string id="20719" value="Vytvářím"/>
+	<string id="20720" value="Dokončeno"/>
+	<string id="20721" value="Připojuji"/>
+	<string id="20722" value="Stahuji"/>
+	<string id="20723" value="Obsazený"/>
+	<string id="20724" value="Další"/>
+	<string id="20725" value="ve frontě"/>
+	<string id="20726" value="Ve frontě"/>
+	<string id="20727" value="Pozastaveno"/>
+	<string id="20728" value="Čekám"/>
+	<string id="20729" value="Žádám"/>
+	<string id="20730" value="Vyhledávám"/>
+	<string id="20731" value="Seeding"/>
+	<string id="20732" value="zdroj"/>
+	<string id="20733" value="zdrojů"/> <!-- many -->
+	<string id="20734" value="zdroje"/> <!-- few  2,3,4 -->
+	<string id="20735" value="zdrojů"/> <!-- ones 21,31,... -->
+	<string id="20740" value="TigerTree"/>
+	<string id="20741" value="Torrent"/>
+	<string id="20742" value="Tracker Down"/>
+	<string id="20743" value="Nezajímavé"/>
+	<string id="20744" value="Neznámý"/>
+	<string id="20745" value="Nezajímavé"/>
+	<string id="20746" value="Neověřeno"/>
+	<string id="20747" value="Ověřeno"/>
+	<string id="20748" value="Ověřuji"/>
+	<string id="20750" value="!Vítejte v PeerProject (version) !n.nPeerProject je naprosto volný software.nProsím používejte jej zodpovědně a respektujte právo duševního vlastnictví. Krást se nemá.n."/>
+	<string id="20751" value="Nejsou spuštěna žádná aktivní hledání. Klikněte zde pro vyhledání souborů."/>
+	<string id="20752" value="Nejste připojení. Pro spuštění klikněte na tlačítko Připojit se."/>
+	<string id="20755" value="Smazat šablonu &quot;%s&quot; ?nTato operace je nevratná."/>
+	<string id="20760" value="Aktivní"/>
+	<string id="20761" value="Neaktivní"/>
+	<string id="20762" value="Tento soubor se zdá být spamem."/>
+	<string id="20763" value="Černá listina: "/>
+	<string id="20764" value="Tento soubor jste již jednou stáhli a vymazali."/>
+	<string id="20765" value="Tento soubor již máte na vašem seznamu stahování."/>
+	<string id="20766" value="Tento soubor již máte ve vaší knihovně."/>
+	<string id="20767" value="Zdroje pro tento soubor jsou právě přetíženy"/>
+	<string id="20768" value="Zdroje pro tento soubor jsou za firewallem"/>
+	<string id="20769" value="Zdroje pro tento soubor mohou být nestabilní"/>
+	<string id="20770" value="Složka"/>
+	<string id="20771" value="Výsledky"/>
+	<string id="20772" value="Umístění"/>
+	<string id="20773" value="ve vaší knihovně"/>
+	<string id="20774" value="Neznámo"/>
+	<string id="20775" value="Další v pořadí"/>
+	<string id="20776" value=" (Žádný Hashset)"/>
+	<string id="20777" value="Částečný zdroj (%.2f%% je dostupný)"/>
+	<string id="20778" value="%i slot pro odesílání, %i čeká ve frontě"/>
+	<string id="20780" value="Velké"/>
+	<string id="20781" value="Tento zdroj je právě přetížen"/>
+	<string id="20782" value="Tento zdroj je za firewallem"/>
+	<string id="20783" value="Tento zdroj může být nestabilní"/>
+	<string id="20784" value="Rychlost:"/>
+	<string id="20785" value="Stav:"/>
+	<string id="20786" value="%lu dnes, %lu celkem"/>
+	<string id="20787" value="Celkem souborů:"/>
+	<string id="20788" value="Celková velikost:"/>
+	<string id="20789" value="Odesílání:"/>
+	<string id="20790" value="Typ"/>
+	<string id="20791" value="Nedůvěryhodný"/>
+	<string id="20792" value="Odesílání"/>
+	<string id="20793" value="URL:"/>
+	<string id="20794" value="Agent:"/>
+	<string id="20795" value="%s přích : %s odch (St:%I64i/Od:%I64i/H:%I64i)"/>
+	<string id="20796" value="Soubory sdílené v Internetu"/>
+	<string id="20798" value="PeerProject dokončila stahování novější verze (%s). Chcete ji hned aktualizovat?\n\nPokud zvolíte Ano, PeerProject se dočasně ukončí aby se mohla nainstalovat aktualizace."/>
+	<string id="20800" value="Posílám standardní odpověď HTML pro odesílání hostiteli %s (%s)."/>
+	<string id="20801" value="Příchozí spojení z %s je žádost HTTP o odeslání."/>
+	<string id="20802" value="Odesílání pro hosta %s (%s), uživatel poslal žádost o prohlížení, odpovídám..."/>
+	<string id="20803" value="Hostitel pro odesílání %s je na mém seznamu blokovaných uživatelů, odepírám mu žádost."/>
+	<string id="20804" value="Odmítám žádost uživatele na prohlížení z %s, je příliš mnoho spojení na prohlížení."/>
+	<string id="20805" value="Odepřen požadavek uživatele na prohlížení od %s."/>
+	<string id="20806" value="Ve frontě pro odesílání %s se znovu žádá příliš rychle, ukončuji spojení."/>
+	<string id="20807" value="Odmítnuto odesílání z &quot;%s&quot; do %s (%s), příliš mnoho souběžných hostitelů."/>
+	<string id="20808" value="Odmítnuto odeslání &quot;%s&quot; do %s (%s), je zaneprázdněn a klient nepodporuje fronty."/>
+	<string id="20809" value="Odmítnuto odesílání z &quot;%s&quot; do %s (%s), všechny odpovídající fronty jsou vytížené."/>
+	<string id="20810" value="Odesílání pro hosta %s požaduje nesprávný rozsah souboru &quot;%s&quot;."/>
+	<string id="20811" value="Odesílání pro eDonkey nemůže být zrušeno. Opravdu chcete zrušit toto odesílání?"/>
+	<string id="20812" value="Nelze otevřít &quot;%s&quot; pro odeslání pro hosta %s, chyba na disku/souboru."/>
+	<string id="20813" value="Zavádím násilím spojení k %s. %s"/>
+	<string id="20814" value="Nelze se násilím připojit k hostit %s."/>
+	<string id="20815" value="Obsah probíhajícího odesílání v rozsahu %I64i-%I64i pro &quot;%s&quot; do hosta %s (%s)."/>
+	<string id="20816" value="Připojení pro odesílání %s bylo ukončeno."/>
+	<string id="20817" value="Odmítám nové odesílání %s protože dřívější připojení ještě nebylo vyřízeno."/>
+	<string id="20818" value="Protože se vytvořilo nové spojení bylo ukončeno starší odesílání %s."/>
+	<string id="20819" value="Odmítnuto odesílání %s (%s), síť není aktivní."/>
+	<string id="20820" value="Zastavuji odesílání &quot;%s&quot; do %s protože soubor byl vymazán."/>
+	<string id="20821" value="Odesílám soubor &quot;%s&quot; pro hosta %s..."/>
+	<string id="20822" value="Hostitel odesílání %s požaduje neznámý nebo momentálně nedosažitelný soubor &quot;%s&quot;."/>
+	<string id="20823" value="Dokončená část odesílání &quot;%s&quot; do %s."/>
+	<string id="20824" value="Nucené připojení k %s bylo zavedeno, čeká se na odezvu..."/>
+	<string id="20825" value="Hostitel odesílání %s požaduje &quot;%s&quot; s rozdílným SHA1."/>
+	<string id="20826" value="Posláno záhlaví odesílání z &quot;%s&quot; k hostiteli %s (%s)."/>
+	<string id="20827" value="Poskytuji popisky pro &quot;%s&quot; do %s."/>
+	<string id="20828" value="Hostitel odesílání %s poslal nesprávnou HTTP žádost."/>
+	<string id="20830" value="Začínám odesílání které je v rozsahu %I64i-%I64i z neúplného souboru &quot;%s&quot; k hostiteli %s (%s)."/>
+	<string id="20832" value="Odmítnuto odeslání náhledu &quot;%s&quot; do %s, je příliš mnoho žádostí pro náhled."/>
+	<string id="20833" value="Plánovaný dynamický náhled z &quot;%s&quot; pro odesíání do %s."/>
+	<string id="20834" value="Odesílání pro hosta %s požaduje náhled z &quot;%s&quot;, ale žádný náhled není dostupný."/>
+	<string id="20835" value="Odesílání náhledu z &quot;%s&quot; do %s."/>
+	<string id="20836" value="Odmítám urgentní žádost %s protože již je příliš spojení pro odesílání."/>
+	<string id="20837" value="Odkaz vynucené žádost od %s požaduje neznámý soubor, i tak se připojuji..."/>
+	<string id="20838" value="Zaneprázdněné odesílání &quot;%s&quot; do %s, ve frontě #%i ze %i (&quot;%s&quot;.."/>
+	<string id="20840" value="Nová fronta"/>
+	<string id="20841" value="Všechny soubory"/>
+	<string id="20842" value="Spojení pro odesílání %s bylo ztraceno, zajišťuji pozici ve frontě."/>
+	<string id="20844" value="Střední eDonkey"/>
+	<string id="20845" value="eDonkey Guard"/>
+	<string id="20846" value="Částečné eDonkey"/>
+	<string id="20847" value="Dokončená odesílání"/>
+	<string id="20848" value="Hlídač HTTP"/>
+	<string id="20849" value="Soubory v knihovně"/>
+	<string id="20850" value="Velké soubory"/>
+	<string id="20851" value="Střední soubory"/>
+	<string id="20852" value="Malé soubory"/>
+	<string id="20853" value="Částečné soubory"/>
+	<string id="20854" value="Částečné"/>
+	<string id="20855" value="Fronta"/>
+	<string id="20856" value="Odesílání Torrent"/>
+	<string id="20857" value="Fronta odesílání bez připojení hosta %s skončila, odstraňuji."/>
+	<string id="20858" value="Při čekání na žádost o odesílání od hosta čas vypršel %s."/>
+	<string id="20859" value="Pro nedostatek přenosu bylo ukonečno spojení pro odesílání %s."/>
+	<string id="20860" value="Načítám data stromu pro &quot;%s&quot; do %s."/>
+	<string id="20861" value="Odstraněné odesílání od &quot;%s&quot; do %s."/>
+	<string id="20862" value="Přidat"/>
+	<string id="20864" value="&amp;Procházet"/>
+	<string id="20865" value="&amp;Připojit"/>
+	<string id="20866" value="Soubor:"/>
+	<string id="20867" value="Adresa:"/>
+	<string id="20868" value="Port:"/>
+	<string id="20869" value="Nelze zobrazit URL protože PeerProject je přetížená."/>
+	<string id="20870" value="Nelze analyzovat URL: PeerProject nerozumí tomuto URL."/>
+	<string id="20871" value="Přijato URL &quot;%s&quot;"/>
+	<string id="20872" value="Typ:"/>
+	<string id="20874" value="Nespecifikované"/>
+	<string id="20875" value="URL:"/>
+	<string id="20880" value="Upravit vlastní profil"/>
+	<string id="20881" value="Změna prohlížeče musí zavřít všechna okna které máte otevřená. Chcete pokračovat"/>
+	<string id="20882" value="Služba UPnP zařízení není spuštěna. Tato služba je nutná pro nastavení zařízení.\nNastavte typ spouštění této služby na automatický."/>
+	<string id="20884" value="Žadné URN není dostupné"/>
+	<string id="20885" value="Změna směru vyžaduje restart.\nBudete muset spustit PeerProject ručně. Ukončit?"/>
+	<string id="20890" value="Vítejte v PeerProject"/>
+	<string id="20891" value="K&onec"/>
+	<string id="20892" value="Prosím čekejte, aktualizuji seznam eDonkey serverů..."/>
+	<string id="20893" value="Prosím čekejte, aktualizuji vyhledávací služby..."/>
+	<string id="20894" value="Prosím čekejte, hledám UPnP zařízení a nastavuji je..."/>
+	<string id="20895" value="Ještě jste nezadali vaši rychlost připojení. Aby jste mohli pokračovat, buď vyberte vaše připojení k Internetu, nebo zadejte rychlost připojení."/>
+	<string id="20896" value="Zadali jste že chcete nastavit přenosový port na vašem firewallu nebo routeru.\n\nProsím nastavte si přenos vaší sítě na port TCP %i ve vašem počítači."/>
+	<string id="20897" value="Část složky je již sdílená jako další sdílený podadresář\n\n%s"/>
+	<string id="20898" value="Nezadali jste žádné složky ke sdílení. Opravdu nechcete nic sdílet?"/>
+	<string id="20899" value="rok starý"/>
+	<!-- string value="Informace o torrentu"-->
+	<!-- string value="Tracker neodpovídá- Opakuji spojení (%i z %i)"-->
+	<!-- string value="Soubor &quot;%s&quot; již máte ve vaší knihovně. Chcete ho znovu stahovat?"-->
 </strings>
 <!-- Localized Dialog Text, "cookie" verifies that the skin matches current dialog -->
 <dialogs>
@@ -4073,8 +4075,8 @@
 		<control/>
 		<control/>
 		<control/>
-		<control caption="% under Download limit"/>
-		<control caption="% under Upload limit"/>
+		<control caption="% of Download limit"/>
+		<control caption="% of Upload limit"/>
 		<control caption="Active Task"/>
 		<control caption="Enable G2 Only"/>
 		<control caption="Set Event Time"/>

@@ -30,8 +30,8 @@
 #include "GProfile.h"
 #include "BENode.h"
 #include "BTClient.h"
-#include "DHT.h"
 #include "HostCache.h"
+#include "DHT.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -53,7 +53,7 @@ BOOL CDHT::OnPacket(SOCKADDR_IN* pHost, const CBENode* pRoot)
 	BOOL bHandled = FALSE;
 
 	CQuickLock oLock2( HostCache.BitTorrent.m_pSection );
-	CHostCacheHost* pCache = HostCache.BitTorrent.Add(
+	CHostCacheHostPtr pCache = HostCache.BitTorrent.Add(
 		&pHost->sin_addr, htons( pHost->sin_port ) );
 	if ( ! pCache )
 		return FALSE;
@@ -69,7 +69,7 @@ BOOL CDHT::OnPacket(SOCKADDR_IN* pHost, const CBENode* pRoot)
 		CBENode* pVersion = pRoot->GetNode( "v" );
 		if ( pVersion && pVersion->IsType( CBENode::beString ) )
 		{
-			pCache->m_sName = CBTClient::GetAzureusStyleUserAgent(
+			pCache->m_sName = CBTClient::GetUserAgentAzureusStyle(
 				(LPBYTE)pVersion->m_pValue, 4 );
 		}
 
@@ -105,20 +105,24 @@ BOOL CDHT::OnPacket(SOCKADDR_IN* pHost, const CBENode* pRoot)
 							bHandled = TRUE;
 						}
 					}
-					else if ( pQueryMethod->GetString() == "find_node" )
-					{
-						// ToDo: Find node
-					}
-					else if ( pQueryMethod->GetString() == "get_peers" )
-					{
-						// ToDo: Get peers
-					}
-					else if ( pQueryMethod->GetString() == "announce_peer" )
-					{
-						// ToDo: Announce peer
-					}
-					// else if ( pQueryMethod->GetString() == "error" ) - ???
-					// else Reply: "204 Method Unknown"
+				//	else if ( pQueryMethod->GetString() == "find_node" )
+				//	{
+				//		// ToDo: Find node
+				//	}
+				//	else if ( pQueryMethod->GetString() == "get_peers" )
+				//	{
+				//		// ToDo: Get peers
+				//	}
+				//	else if ( pQueryMethod->GetString() == "announce_peer" )
+				//	{
+				//		// ToDo: Announce peer
+				//	}
+				//	else if ( pQueryMethod->GetString() == "error" ) - ???
+				//	{
+				//		// Error?
+				//	}
+				//	else
+				//		// Reply: "204 Method Unknown"
 				}
 			}
 			else if ( pType->GetString() == "r" )

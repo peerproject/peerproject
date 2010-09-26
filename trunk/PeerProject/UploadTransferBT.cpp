@@ -1,7 +1,7 @@
 //
 // UploadTransferBT.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -110,19 +110,22 @@ void CUploadTransferBT::SetChoke(BOOL bChoke)
 
 void CUploadTransferBT::Close(BOOL bMessage)
 {
-	if ( m_pClient != NULL )
+	if ( m_pClient )
 	{
 		if ( Settings.General.DebugBTSources )
 			theApp.Message( MSG_DEBUG, L"Closing BT upload connection: %s", m_pClient->m_sAddress );
-		m_pClient->m_pUpload = NULL;
+		m_pClient->m_pUploadTransfer = NULL;
 		m_pClient->Close();
 		m_pClient = NULL;
 	}
 
 	CloseFile();
 
-	if ( m_pDownload != NULL ) m_pDownload->RemoveUpload( this );
-	m_pDownload = NULL;
+	if ( m_pDownload )
+	{
+		m_pDownload->RemoveUpload( this );
+		m_pDownload = NULL;
+	}
 
 	m_oRequested.clear();
 	m_oServed.clear();
@@ -136,7 +139,7 @@ void CUploadTransferBT::Close(BOOL bMessage)
 DWORD CUploadTransferBT::GetMeasuredSpeed()
 {
 	// Return if there is no client
-	if ( m_pClient == NULL ) return 0;
+	if ( ! m_pClient ) return 0;
 
 	// Calculate Output
 	m_pClient->MeasureOut();
@@ -159,7 +162,8 @@ BOOL CUploadTransferBT::OnConnected()
 
 BOOL CUploadTransferBT::OnRun()
 {
-	if ( m_nState >= upsRequest && ! m_bChoked ) return ServeRequests();
+	if ( m_nState >= upsRequest && ! m_bChoked )
+		return ServeRequests();
 	return TRUE;
 }
 
@@ -168,7 +172,7 @@ BOOL CUploadTransferBT::OnRun()
 
 BOOL CUploadTransferBT::OnInterested(CBTPacket* /*pPacket*/)
 {
-	if ( m_bInterested ) return TRUE;
+//	if ( m_bInterested ) return TRUE;
 	m_bInterested = TRUE;
 	return TRUE;
 }
@@ -202,7 +206,7 @@ BOOL CUploadTransferBT::OnRequest(CBTPacket* pPacket)
 
 	if ( nLength > Settings.BitTorrent.RequestLimit )
 	{
-		// error
+		// Error
 		theApp.Message( MSG_DEBUG, _T("CUploadTransferBT::OnRequest(): Request size %I64i is too large"), nLength );
 		Close();
 		return FALSE;
@@ -210,7 +214,7 @@ BOOL CUploadTransferBT::OnRequest(CBTPacket* pPacket)
 
 	if ( nOffset + nLength > m_nSize )
 	{
-		// error
+		// Error
 		theApp.Message( MSG_DEBUG, _T("CUploadTransferBT::OnRequest(): Request through %I64i > %I64i"), nLength, m_nSize );
 		Close();
 		return FALSE;
@@ -271,7 +275,7 @@ BOOL CUploadTransferBT::OpenFile()
 			return TRUE;
 		}
 
-		// HACK: Open from disk (replace this with SeedTorrent in OnDownloadComplete)
+		// HACK: Open from disk (ToDo: Replace this with SeedTorrent in OnDownloadComplete)
 		if ( m_pClient->m_pDownload->IsSeeding() )
 		{
 			CString sFoo;

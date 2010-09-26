@@ -43,10 +43,10 @@ public:
 	DWORD		m_nFileLimit;		// ED2K-server file limit
 	CString		m_sName;			// Host name
 	CString		m_sDescription;		// Host description
+	CString		m_sCountry; 		// Country code
 	DWORD		m_nTCPFlags;		// ED2K TCP flags (ED2K_SERVER_TCP_*)
 	DWORD		m_nUDPFlags;		// ED2K UDP flags (ED2K_SERVER_UDP_*)
 	BOOL		m_bCheckedLocally;	// Host was successfully accessed via TCP or UDP
-	CString		m_sCountry; 		// Country code
 
 	// Attributes: Contact Times
 	DWORD		m_tAdded;			// Time when host was constructed (in ticks)
@@ -158,8 +158,7 @@ public:
 	mutable CMutex		m_pSection;
 
 	CHostCacheHostPtr	Add(IN_ADDR* pAddress, WORD nPort, DWORD tSeen = 0, LPCTSTR pszVendor = NULL, DWORD nUptime = 0, DWORD nCurrentLeaves = 0, DWORD nLeafLimit = 0);
-	// Add host in form "IP:Port SeenTime"
-	BOOL				Add(LPCTSTR pszHost, DWORD tSeen = 0, LPCTSTR pszVendor = NULL, DWORD nUptime = 0, DWORD nCurrentLeaves = 0, DWORD nLeafLimit = 0);
+	BOOL				Add(LPCTSTR pszHost, DWORD tSeen = 0, LPCTSTR pszVendor = NULL, DWORD nUptime = 0, DWORD nCurrentLeaves = 0, DWORD nLeafLimit = 0); 	// Add host in form "IP:Port SeenTime"
 	void				Update(CHostCacheHostPtr pHost, WORD nPort = 0, DWORD tSeen = 0, LPCTSTR pszVendor = NULL, DWORD nUptime = 0, DWORD nCurrentLeaves = 0, DWORD nLeafLimit = 0);
 	bool				Remove(CHostCacheHostPtr pHost);
 	bool				Remove(const IN_ADDR* pAddress);
@@ -237,7 +236,7 @@ public:
 		for ( CHostCacheIterator it = m_HostsTime.begin();
 			it != m_HostsTime.end(); ++it )
 		{
-			CHostCacheHost* pHost = (*it);
+			CHostCacheHostPtr pHost = (*it);
 			if ( pHost->CanQuery( tNow ) && pHost->m_bDHT && pHost->m_oBtGUID )
 				return pHost;
 		}
@@ -250,7 +249,7 @@ public:
 		for ( CHostCacheRIterator it = m_HostsTime.rbegin();
 			it != m_HostsTime.rend(); ++it )
 		{
-			CHostCacheHost* pHost = (*it);
+			CHostCacheHostPtr pHost = (*it);
 			if ( pHost->CanQuery( tNow ) )
 				return pHost;
 		}
@@ -284,15 +283,13 @@ public:
 	int					ImportMET(CFile* pFile);
 	int					ImportNodes(CFile* pFile);
 	bool				CheckMinimumED2KServers();
-	CHostCacheHostPtr	Find(const IN_ADDR* pAddress) const;
 	BOOL				Check(const CHostCacheHostPtr pHost) const;
+	CHostCacheHostPtr	Find(const IN_ADDR* pAddress) const;
 	void				Remove(CHostCacheHostPtr pHost);
 	void				SanityCheck();
-	void				OnFailure(const IN_ADDR* pAddress, WORD nPort,
-							  PROTOCOLID nProtocol=PROTOCOL_NULL, bool bRemove=true);
-	void				OnSuccess(const IN_ADDR* pAddress, WORD nPort,
-							  PROTOCOLID nProtocol=PROTOCOL_NULL, bool bUpdate=true);
 	void				PruneOldHosts();
+	void				OnFailure(const IN_ADDR* pAddress, WORD nPort, PROTOCOLID nProtocol = PROTOCOL_NULL, bool bRemove = true);
+	void				OnSuccess(const IN_ADDR* pAddress, WORD nPort, PROTOCOLID nProtocol = PROTOCOL_NULL, bool bUpdate = true);
 
 	inline bool EnoughED2KServers() const throw()
 	{

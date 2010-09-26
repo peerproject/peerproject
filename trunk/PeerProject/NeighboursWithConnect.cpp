@@ -49,17 +49,14 @@ static char THIS_FILE[]=__FILE__;
 
 // CNeighboursWithConnect adds an array that needs to be filled with 0s when the program creates its CNeighbours object
 CNeighboursWithConnect::CNeighboursWithConnect()
+	: m_tHubG2Promotion	( 0 )
+	, m_bG2Leaf			( FALSE )
+	, m_bG2Hub			( FALSE )
+	, m_bG1Leaf			( FALSE )
+	, m_bG1Ultrapeer	( FALSE )
 {
 	// Zero the tick counts in m_tPresent, we haven't connected to a hub for any network yet
 	ZeroMemory( m_tPresent, sizeof(m_tPresent) );
-
-	// We're not acting as a hub or leaf on Gnutella or Gnutella2 yet
-	m_bG2Leaf		= FALSE;
-	m_bG2Hub		= FALSE;
-	m_bG1Leaf		= FALSE;
-	m_bG1Ultrapeer	= FALSE;
-
-	m_tHubG2Promotion	= 0;
 }
 
 // CNeighboursWithConnect doesn't add anything to the CNeighbours inheritance column that needs to be cleaned up
@@ -233,10 +230,10 @@ void CNeighboursWithConnect::PeerPrune(PROTOCOLID nProtocol)
 				if ( ! bNeedMore || pNeighbour->m_nState == nrsConnected )
 					pNeighbour->Close( IDS_CONNECTION_PEERPRUNE );	// Drop this connection
 			}
-
-		} // This must be a Gnutella or Gnutella2 computer in the middle of the handshake
+		}
 		else if ( pNeighbour->m_nProtocol == PROTOCOL_NULL )
 		{
+			// This must be a Gnutella or Gnutella2 computer in the middle of the handshake
 			// If we initiated the connection, we know it's not a leaf trying to contact us, it's probably a hub
 			if ( pNeighbour->m_bInitiated )
 			{
@@ -249,7 +246,6 @@ void CNeighboursWithConnect::PeerPrune(PROTOCOLID nProtocol)
 }
 
 // Determines if we are a leaf on the Gnutella2 network right now
-// Returns true or false
 BOOL CNeighboursWithConnect::IsG2Leaf()
 {
 	// If the network is enabled (do) and we have at least 1 connection up to a hub, then we're a leaf
@@ -257,7 +253,6 @@ BOOL CNeighboursWithConnect::IsG2Leaf()
 }
 
 // Determines if we are a hub on the Gnutella2 network right now
-// Returns true or false
 BOOL CNeighboursWithConnect::IsG2Hub()
 {
 	// If the network is enabled (do) and we have at least 1 connection down to a leaf, then we're a hub
@@ -406,7 +401,6 @@ DWORD CNeighboursWithConnect::IsG2HubCapable(BOOL bIgnoreTime, BOOL bDebug)
 }
 
 // Determines if we are a leaf on the Gnutella network right now
-// Returns true or false
 BOOL CNeighboursWithConnect::IsG1Leaf()
 {
 	// If the network is enabled (do) and we have at least 1 connection up to an ultrapeer, then we're a leaf
@@ -414,7 +408,6 @@ BOOL CNeighboursWithConnect::IsG1Leaf()
 }
 
 // Determines if we are an ultrapeer on the Gnutella network right now
-// Returns true or false
 BOOL CNeighboursWithConnect::IsG1Ultrapeer()
 {
 	// If the network is enabled (do) and we have at least 1 connection down to a leaf, then we're an ultrapeer
@@ -791,7 +784,8 @@ void CNeighboursWithConnect::Maintain()
 	if ( ( Settings.Connection.ConnectThrottle != 0 ) && ( tTimer >= Network.m_tLastConnect ) )
 	{
 		// If we've started a new connection recently, wait a little before starting another
-		if ( tTimer - Network.m_tLastConnect < Settings.Connection.ConnectThrottle ) return;
+		if ( tTimer - Network.m_tLastConnect < Settings.Connection.ConnectThrottle )
+			return;
 	}
 
 	// Set all the integers in both arrays to 0s
@@ -995,7 +989,7 @@ void CNeighboursWithConnect::Maintain()
 					i != pCache->End() && nCount[ nProtocol ][0] < nAttempt;
 					++i )
 				{
-					CHostCacheHost* pHost = (*i);
+					CHostCacheHostPtr pHost = (*i);
 
 					// If we can connect to this host, try it, if it works, move into this if block
 					if ( pHost->m_bPriority       && // This host in the host cache is marked as priority (do)
@@ -1030,7 +1024,7 @@ void CNeighboursWithConnect::Maintain()
 				i != pCache->End() && nCount[ nProtocol ][0] < nAttempt;
 				++i )
 			{
-				CHostCacheHost* pHost = (*i);
+				CHostCacheHostPtr pHost = (*i);
 
 				// If we can connect to this IP address from the host cache, try to make the connection
 				if ( pHost->CanConnect( tNow ) && pHost->ConnectTo( TRUE ) ) // Enter the if statement if the connection worked

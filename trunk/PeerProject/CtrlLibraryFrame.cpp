@@ -893,8 +893,8 @@ BOOL CLibraryFrame::Select(DWORD nObject)
 
 void CLibraryFrame::OnTreeSelection(NMHDR* /*pNotify*/, LRESULT* pResult)
 {
-	if ( ! m_bUpdating )
-		Update( TRUE, TRUE );
+	Update( TRUE, TRUE );
+
 	*pResult = 0;
 }
 

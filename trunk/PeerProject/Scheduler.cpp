@@ -189,7 +189,6 @@ void CScheduleTask::Serialize(CArchive& ar, int nVersion)
 		ar << m_tScheduleDateTime;
 		ar << m_bActive;
 		ar << m_bExecuted;
-		ar << m_nLimit;
 		ar << m_nLimitDown;
 		ar << m_nLimitUp;
 		ar << m_bLimitedNetworks;
@@ -198,7 +197,7 @@ void CScheduleTask::Serialize(CArchive& ar, int nVersion)
 	}
 	else // Loading
 	{
-		if ( nVersion == 1000 || nVersion == 1 ) // Initial relase or Shareaza import
+		if ( nVersion == 1000 ) // Initial release
 		{
 			// Load all task variables
 			ar >> m_bSpecificDays;
@@ -207,11 +206,24 @@ void CScheduleTask::Serialize(CArchive& ar, int nVersion)
 			ar >> m_tScheduleDateTime;
 			ar >> m_bActive;
 			ar >> m_bExecuted;
-			ar >> m_nLimit;
 			ar >> m_nLimitDown;
 			ar >> m_nLimitUp;
-			//if ( nVersion < 1000 )	// Shareaza
-			//	ar >> m_bToggleBandwidth;
+			ar >> m_bLimitedNetworks;
+			ar >> m_nDays;
+			ReadArchive( ar, &m_pGUID, sizeof( GUID ) );
+		}
+		else if ( nVersion < 100 ) // Shareaza import ?
+		{
+			// Load all task variables
+			ar >> m_bSpecificDays;
+			ar >> m_nAction;
+			ar >> m_sDescription;
+			ar >> m_tScheduleDateTime;
+			ar >> m_bActive;
+			ar >> m_bExecuted;
+			ar >> m_nLimitDown;
+			m_nLimitUp = m_nLimitDown;
+			ar >> m_bLimitedNetworks;	//ar >> m_bToggleBandwidth;
 			ar >> m_bLimitedNetworks;
 			ar >> m_nDays;
 			ReadArchive( ar, &m_pGUID, sizeof( GUID ) );
@@ -278,9 +290,6 @@ CXMLElement* CScheduleTask::ToXML()
 	pXML->AddAttribute( _T("executed"), m_bExecuted ? _T("Yes") : _T("No") );
 	pXML->AddAttribute( _T("specificdays"), m_bSpecificDays ? _T("Yes") : _T("No") );
 	pXML->AddAttribute( _T("limitednet"), m_bLimitedNetworks ? _T("Yes") : _T("No") );
-
-	strValue.Format( _T("%i") , m_nLimit);
-	pXML->AddAttribute( _T("limit"), strValue );
 
 	strValue.Format( _T("%i") , m_nLimitDown );
 	pXML->AddAttribute( _T("limitdown"), strValue );
@@ -383,9 +392,6 @@ BOOL CScheduleTask::FromXML(CXMLElement* pXML)
 		m_bLimitedNetworks = FALSE;
 	else
 		return FALSE;
-
-	strValue = pXML->GetAttributeValue( _T("limit") );
-	if ( _stscanf( strValue, _T("%i"), &m_nLimit) == EOF ) return FALSE;
 
 	strValue = pXML->GetAttributeValue( _T("limitdown") );
 	if ( _stscanf( strValue, _T("%i"), &m_nLimitDown) == EOF ) return FALSE;
@@ -563,30 +569,31 @@ void CScheduler::ExecuteScheduledTask(CScheduleTask *pSchTask)
 
 	switch ( pSchTask->m_nAction )
 	{
-	case BANDWIDTH_FULL:		// Set the bandwidth to full speed
+	case BANDWIDTH_FULL:			// Set the bandwidth to full speed
 		theApp.Message( MSG_NOTICE, _T("Scheduler| Bandwidth: Full") );
 		Settings.Live.BandwidthScaleIn	= 101;
 		Settings.Live.BandwidthScaleOut	= 101;
-		Settings.Bandwidth.Downloads = 0;
-		Settings.Bandwidth.Uploads = ( ( ( Settings.Connection.OutSpeed *
-			( 100 - Settings.Uploads.FreeBandwidthFactor ) ) / 100 ) / 8 ) * 1024;
+		Settings.Bandwidth.Downloads	= 0;
+		Settings.Bandwidth.Uploads		= ( ( ( Settings.Connection.OutSpeed * ( 100 - Settings.Uploads.FreeBandwidthFactor ) ) / 100 ) / 8 ) * 1024;
 		Settings.Gnutella2.EnableToday	= TRUE;
 		Settings.Gnutella1.EnableToday	= Settings.Gnutella1.EnableAlways;
 		Settings.eDonkey.EnableToday	= Settings.eDonkey.EnableAlways;
-		if ( ! Network.IsConnected() ) Network.Connect( TRUE );
+		if ( ! Network.IsConnected() )
+			Network.Connect( TRUE );
 		break;
 
-	case BANDWIDTH_LIMITED:	// Set the bandwidth to limited speed
+	case BANDWIDTH_LIMITED:			// Set the bandwidth to limited speeds
 		theApp.Message( MSG_NOTICE, _T("Scheduler| Bandwidth: Limited") );
-		Settings.Live.BandwidthScaleIn	= 100;
-		Settings.Live.BandwidthScaleOut	= 100;
-		Settings.Bandwidth.Downloads = ( ( ( Settings.Connection.InSpeed * 1024) / 8) * pSchTask->m_nLimitDown ) / 100;
-		Settings.Bandwidth.Uploads = ( ( ( Settings.Connection.OutSpeed * 1024) / 8) * pSchTask->m_nLimitUp ) / 100;
+		Settings.Live.BandwidthScaleIn	= pSchTask->m_nLimitDown;
+		Settings.Live.BandwidthScaleOut	= pSchTask->m_nLimitUp;
+		Settings.Bandwidth.Downloads	= ( Settings.Connection.InSpeed * 1024) / 8;
+		Settings.Bandwidth.Uploads		= ( ( ( Settings.Connection.OutSpeed * ( 100 - Settings.Uploads.FreeBandwidthFactor ) ) / 100 ) / 8 ) * 1024;
 
 		Settings.Gnutella2.EnableToday	= TRUE;
-		Settings.Gnutella1.EnableToday	= pSchTask->m_bLimitedNetworks ? FALSE :Settings.Gnutella1.EnableAlways;
-		Settings.eDonkey.EnableToday	= pSchTask->m_bLimitedNetworks ? FALSE :Settings.eDonkey.EnableAlways;
-		if ( ! Network.IsConnected() ) Network.Connect( TRUE );
+		Settings.Gnutella1.EnableToday	= pSchTask->m_bLimitedNetworks ? FALSE : Settings.Gnutella1.EnableAlways;
+		Settings.eDonkey.EnableToday	= pSchTask->m_bLimitedNetworks ? FALSE : Settings.eDonkey.EnableAlways;
+		if ( ! Network.IsConnected() )
+			Network.Connect( TRUE );
 		break;
 
 	case BANDWIDTH_STOP:			// Set the bandwidth to 0 and disconnect all networks
@@ -596,7 +603,8 @@ void CScheduler::ExecuteScheduledTask(CScheduleTask *pSchTask)
 		Settings.Gnutella2.EnableToday	= FALSE;
 		Settings.Gnutella1.EnableToday	= FALSE;
 		Settings.eDonkey.EnableToday	= FALSE;
-		if ( Network.IsConnected() ) Network.Disconnect();
+		if ( Network.IsConnected() )
+			Network.Disconnect();
 		break;
 
 	case SYSTEM_EXIT:				// Exit PeerProject
@@ -639,6 +647,8 @@ void CScheduler::ExecuteScheduledTask(CScheduleTask *pSchTask)
 		LoadString( IDS_SCHEDULER_REMINDER_NOTICE );
 		theApp.Message( MSG_NOTICE, _T("Scheduler| System: Reminder Notice") );
 		theApp.Message( MSG_TRAY, LoadString( IDS_SCHEDULER_REMINDER_NOTICE ) );
+
+		PostMainWndMessage( WM_COMMAND, ID_TRAY_OPEN );
 
 		pSchTask->m_bActive = false; // Repeat AfxMsgBox workaround
 		AfxMessageBox( LoadString( IDS_SCHEDULER_REMINDER_NOTICE ) + _T("\n\n") + pSchTask->m_sDescription, MB_OK );

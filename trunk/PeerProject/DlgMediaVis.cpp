@@ -22,10 +22,10 @@
 #include "StdAfx.h"
 #include "PeerProject.h"
 #include "Settings.h"
-#include "Plugins.h"
-#include "CoolInterface.h"
 #include "DlgMediaVis.h"
 #include "CtrlMediaFrame.h"
+#include "CoolInterface.h"
+#include "Plugins.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -39,7 +39,7 @@ BEGIN_MESSAGE_MAP(CMediaVisDlg, CSkinDialog)
 	//{{AFX_MSG_MAP(CMediaVisDlg)
 	ON_NOTIFY(NM_DBLCLK, IDC_PLUGINS, OnDblClkPlugins)
 	ON_NOTIFY(LVN_ITEMCHANGED, IDC_PLUGINS, OnItemChangedPlugins)
-	ON_BN_CLICKED(IDC_SETUP, OnSetup)
+	ON_BN_CLICKED(IDC_VIS_SETUP, OnSetup)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -65,8 +65,8 @@ void CMediaVisDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CSkinDialog::DoDataExchange(pDX);
 	//{{AFX_DATA_MAP(CMediaVisDlg)
-	DDX_Control(pDX, IDC_SETUP, m_wndSetup);
 	DDX_Control(pDX, IDC_PLUGINS, m_wndList);
+	DDX_Control(pDX, IDC_VIS_SETUP, m_wndSetup);
 	DDX_CBIndex(pDX, IDC_VIS_SIZE, m_nSize);
 	//}}AFX_DATA_MAP
 }

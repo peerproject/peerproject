@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default German Skin File -->
 
-<!-- Translation based on default-en.xml r58 -->
+<!-- Translation based on default-en.xml r59 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -381,9 +381,9 @@
 	</toolbar>
 	<!-- SECURITY WINDOW -->
 	<toolbar name="CSecurityWnd">
-		<button id="ID_SECURITY_EDIT" text="Regel bearbeiten"/>
-		<separator/>
 		<button id="ID_SECURITY_ADD" text="Regel hinzufügen"/>
+		<separator/>
+		<button id="ID_SECURITY_EDIT" text="Regel bearbeiten"/>
 		<button id="ID_SECURITY_REMOVE" text="Regel löschen"/>
 		<separator/>
 		<button id="ID_SECURITY_MOVE_UP" text="Nach oben"/>
@@ -392,6 +392,21 @@
 		<button id="ID_SECURITY_RESET" text="Zähler zurücksetzen"/>
 		<button id="ID_SECURITY_IMPORT" text="Importieren"/>
 		<button id="ID_SECURITY_EXPORT" text="Exportieren"/>
+	</toolbar>
+	<!-- SCHEDULER WINDOW -->
+	<toolbar name="CSchedulerWnd">
+		<button id="ID_SCHEDULER_ADD" text="Task hinzufügen"/>
+		<separator/>
+		<button id="ID_SCHEDULER_EDIT" text="Task bearbeiten"/>
+		<button id="ID_SCHEDULER_REMOVE" text="Task löschen"/>
+		<separator/>
+		<button id="ID_SCHEDULER_ACTIVATE" text="Activate"/>
+		<button id="ID_SCHEDULER_DEACTIVATE" text="Deactivate"/>
+		<rightAlign/>
+		<button id="ID_SCHEDULER_REMOVE_ALL" text="Zähler zurücksetzen"/>
+		<separator/>
+		<button id="ID_SCHEDULER_IMPORT" text="Importieren"/>
+		<button id="ID_SCHEDULER_EXPORT" text="Exportieren"/>
 	</toolbar>
 	<!-- HIT MONITOR WINDOW -->
 	<toolbar name="CHitMonitorWnd">
@@ -1731,7 +1746,7 @@
 		<anchor id="Header" width="32" height="152"/>
 		<newline gap="0"/>
 		<group id="1">
-			<icon res="130" width="32" height="32" target="command:ID_NETWORK_CONNECT"/><gap size="8"/>
+			<icon res="136" width="32" height="32" target="command:ID_NETWORK_CONNECT"/><gap size="8"/>
 			<heading align="middle">Verbinden</heading>
 			<newline gap="8" indent="42"/>
 			<text>Willkommen bei PeerProjekt!</text>
@@ -1742,12 +1757,12 @@
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="2">
-			<icon res="134" width="32" height="32" target="command:ID_TAB_SEARCH"/><gap size="8"/>
+			<icon res="130" width="32" height="32" target="command:ID_TAB_SEARCH"/><gap size="8"/>
 			<heading align="middle">Nach Einer Datei Suchen</heading>
 			<newline gap="4" indent="42"/>
 			<anchor id="SearchBox" width="256" height="80"/>
 			<newline gap="18" indent="0"/>
-			<icon res="136" width="32" height="32" target="command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
+			<icon res="124" width="32" height="32" target="command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
 			<heading align="middle">Download Starten</heading>
 			<newline gap="8" indent="42"/>
 			<link target="command:ID_TOOLS_DOWNLOAD" format="bu">Klicken Sie hier</link>
@@ -1767,7 +1782,7 @@
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="4">
-			<icon res="252" width="32" height="32" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
+			<icon res="180" width="32" height="32" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 			<heading align="middle">Warnung: Keine Eingehenden Verbindungen Möglich</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">PeerProjekt hat festgestellt, dass sich Ihr PC hinter einem NAT-Router und/oder einer Firewall befindet
@@ -1780,7 +1795,7 @@
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="6">
-			<icon res="252" width="32" height="32"/><gap size="8"/>
+			<icon res="180" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">Warnung: Ihr TCP-port Ist Nicht Erreichbar</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">PeerProjekt hat festgestellt, dass sich Ihr PC hinter einem NAT-Router und/oder einer Firewall befindet
@@ -1793,7 +1808,7 @@
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="7">
-			<icon res="252" width="32" height="32"/><gap size="8"/>
+			<icon res="180" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">Warnung: Ihr UDP-port Ist Nicht Erreichbar</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">PeerProjekt hat festgestellt, dass sich Ihr PC hinter einem NAT-Router und/oder einer Firewall befindet
@@ -1808,24 +1823,24 @@
 		<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">PeerProjekt Anpassen</heading>
 		<newline gap="12" indent="42"/>
-		<icon res="182" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
+		<icon res="196"width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
 		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">Skins</link>
 		<text align="middle"> - Das Aussehen von PeerProjekt verändern</text>
 		<newline gap="8"/>
-		<icon res="141" width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
+		<icon res="138"width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
 		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
 		<text align="middle">&#160;- Update blocklist to avoid bad search results</text>
 		<newline gap="8"/>
-		<icon res="317" width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
+		<icon res="197"width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 		<link target="command:ID_TOOLS_WIZARD" align="middle">Einstellungsassistent</link>
 		<text align="middle"> - Einstellungen anpassen</text>
 		<newline gap="8"/>
-		<icon res="147" width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
+		<icon res="182"width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
 		<link target="command:ID_HELP_FAQ" align="middle">Hilfe</link>
 		<text align="middle"> - PeerProjekt-Anleitung und FAQ, oder </text>
 		<link target="command:ID_TAB_IRC" align="middle">IRC.</link>
 		<newline gap="8"/>
-		<icon res="175" width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
+		<icon res="201"width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
 		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">Lokale Foren</link>
 		<text align="middle">&#160;- Gehen Sie zu Ihrem deutschen Sprache Diskussionsforum</text>
 		<newline gap="18" indent="0"/>
@@ -2045,32 +2060,32 @@
 		</group>
 		<group id="40">
 			<newline gap="1"/>
-			<icon res="265"/><gap size="5"/>
+			<icon res="203"/><gap size="5"/>
 			<link id="ContactEmail" align="middle"/>
 		</group>
 		<group id="44">
 			<newline gap="1"/>
-			<icon res="1008"/><gap size="5"/>
+			<icon res="206"/><gap size="5"/>
 			<link id="ContactMSN"/>
 		</group>
 		<group id="41">
 			<newline gap="1"/>
-			<icon res="206"/><gap size="5"/>
+			<icon res="208"/><gap size="5"/>
 			<link id="ContactYahoo"/>
 		</group>
 		<group id="42">
 			<newline gap="1"/>
-			<icon res="208"/><gap size="5"/>
+			<icon res="205"/><gap size="5"/>
 			<link id="ContactICQ"/>
 		</group>
 		<group id="43">
 			<newline gap="1"/>
-			<icon res="207"/><gap size="5"/>
+			<icon res="204"/><gap size="5"/>
 			<link id="ContactAOL"/>
 		</group>
 		<group id="45">
 			<newline gap="1"/>
-			<icon res="207"/><gap size="5"/>
+			<icon res="204"/><gap size="5"/>
 			<link id="ContactJabber"/>
 		</group>
 		<group id="5">
@@ -2096,7 +2111,7 @@
 			<newline gap="16" indent="0"/>
 			<text format="b">Community</text>
 			<newline gap="4" indent="8"/>
-			<icon res="140" target="command:ID_SEARCH_CHAT"/>
+			<icon res="127"target="command:ID_SEARCH_CHAT"/>
 			<gap size="5"/>
 			<link target="command:ID_SEARCH_CHAT" align="middle">Chat</link>
 		</group>
@@ -2689,729 +2704,730 @@
 <!-- Localized Strings -->
 <strings>
 	<string id="WINDOW_MAIN" value="PeerProjekt"/>
+	<string id="WINDOW_HOME" value="Home"/>
 	<string id="WINDOW_SYSTEM" value="Konsole"/>
 	<string id="WINDOW_NEIGHBOURS" value="Hosts"/>
 	<string id="WINDOW_PACKET" value="Packet-Dump"/>
 	<string id="WINDOW_HOSTCACHE" value="Host-Cache"/>
-	<string id="WINDOW_SEARCHMONITOR" value="Suchmonitor"/>
 	<string id="WINDOW_SEARCH" value="Suchen"/>
+	<string id="WINDOW_SEARCHPAD" value="Suchen"/>
+	<string id="WINDOW_SEARCHMONITOR" value="Suchmonitor"/>
 	<string id="WINDOW_HITMONITOR" value="Treffermonitor"/>
 	<string id="WINDOW_DOWNLOADS" value="Downloads"/>
-	<string id="WINDOW_LIBRARY" value="Bibliothek"/>
 	<string id="WINDOW_UPLOADS" value="Uploads"/>
+	<string id="WINDOW_LIBRARY" value="Bibliothek"/>
 	<string id="WINDOW_TRAFFIC" value="Diagramm"/>
 	<string id="WINDOW_CHAT" value="Chat"/>
 	<string id="WINDOW_SECURITY" value="Sicherheit"/>
+	<string id="WINDOW_SCHEDULER" value="Zeitplanen"/>
 	<string id="WINDOW_DISCOVERY" value="Service-Provider"/>
 	<string id="WINDOW_BROWSEHOST" value="Durchsuchen"/>
-	<string id="WINDOW_HOME" value="Home"/>
 	<string id="WINDOW_MEDIA" value="Medienwiedergabe"/>
-	<string id="WINDOW_SEARCHPAD" value="Suchen"/>
 	<string id="WINDOW_HELP" value="PeerProjekt Hilfe"/>
-	<string id="7000" value="Sind Sie sicher, dass Sie diesen Filter löschen möchten ?"/>
-	<string id="7001" value="&amp;Schemas"/>
-	<string id="7002" value="Mehrfache Einträge"/>
-	<string id="7003" value="Mehrfach"/>
-	<string id="7004" value="Es existiert bereits ein Filter mit dem Namen &quot;%s&quot;. Möchten Sie ihn ersetzen?"/>
-	<string id="7005" value="Bitte geben Sie dem Filter einen Namen."/>
-	<string id="7100" value="Diese Vorlage ist ungültig."/>
-	<string id="7101" value="Diese Vorlage kann nicht angepasst werden."/>
-	<string id="7102" value="Sind Sie sicher, dass Sie die &quot;%s&quot;-Vorlage löschen wollen?\nDieser Schritt kann nicht rückgängig gemacht werden."/>
-	<string id="8000" value="Einstellungen"/>
-	<string id="8001" value="Willkommen bei PeerProjekt"/>
-	<string id="8002" value="Dateieigenschaften"/>
-	<string id="8003" value="Mein Profil bearbeiten"/>
-	<string id="8004" value="! Willkommen bei PeerProjekt (version) !\n.\nPeerProjekt ist völlig kostenlose Software.\nBitte benutzen Sie PeerProjekt verantwortungsbewusst und respektieren Sie geistiges Eigentum.\n."/>
-	<string id="8005" value="(Nach Transfer schließen)"/>
-	<string id="8006" value="Sie sind nicht verbunden.  Klicken Sie auf &quot;Verbinden&quot; um Verbindungen zu den gewählten Netzwerken herzustellen."/>
-	<string id="8007" value="Es läuft kein Suche. Klicken Sie auf &quot;Suchen&quot; um nach Dateien zu suchen."/>
-	<string id="8008" value="Die neuste PeerProjekt-Version wurde heruntergeladen (%s).  Wollen Sie das Update jetzt installieren?\n\nWenn Sie auf Ja klicken wird PeerProjekt kurzzeitig beendet, um das Update zu installieren."/>
-	<string id="8009" value="Wollen Sie den Skin &quot;%s&quot; wirklich löschen?  Dies kann nicht rückgängig gemacht werden."/>
-	<string id="8010" value="Das ist eine Vorabversion von PeerProjekt. Die Betatest-Periode ist abgelaufen. Bitte laden Sie die offizielle Version von http://PeerProject.org/ herunter."/>
-	<string id="8011" value="Das Wechseln der Ansicht schließt alle offenen Fenster.  Wollen Sie die Ansicht jetzt wechseln?"/>
-	<string id="8012" value="Torrent-Informationen"/>
-	<string id="8060" value="Hub/Ultrapeer-Modus mit %lu Leaves.  %s in ihrer Bibliothek."/>
-	<string id="8061" value="Ultrapeer-Modus mit %lu Leaves.  %s in ihrer Bibliothek."/>
-	<string id="8062" value="Hub-Modus mit %lu Leaves.  %s in ihrer Bibliothek."/>
-	<string id="8063" value="Verbunden. %s in lokaler Bibliothek."/>
-	<string id="8064" value="Verbunden mit %lu Host(s), %s in der lokalen Bibliothek."/>
-	<string id="8065" value="Verbindung mit Netzwerken herstellen..."/>
-	<string id="8066" value="Mit keinem Netzwerk verbunden."/>
-	<string id="8067" value="%s ein : %s aus (d:%I64i/u:%I64i)"/>
-	<string id="8068" value="%s ein : %s aus (d:%I64i/u:%I64i/h:%I64i)"/>
-	<string id="8069" value="Verbinden"/>
-	<string id="8070" value="Verbinden..."/>
-	<string id="8071" value="Verbunden"/>
-	<string id="8072" value="Verbindung trennen"/>
-	<string id="8096" value="Keine Datei markiert"/>
-	<string id="8097" value="Eine Quelle verfügbar. (%s/s)"/>
-	<string id="8098" value="%i Quellen verfügbar. (%s/s)"/>
-	<string id="8099" value="Eine Bewertung verfügbar."/>
-	<string id="8100" value="%i Bewertungen verfügbar."/>
-	<string id="8101" value="%s schreibt:"/>
-	<string id="8102" value="%s bewertet diese Datei:"/>
-	<string id="8103" value="Vorschau anzeigen"/>
-	<string id="8104" value="laden..."/>
-	<string id="8105" value="Download der Vorschau von &quot;%s&quot; fehlgeschlagen."/>
-	<string id="8128" value="Klicken Sie hier, um erneut zu suchen"/>
-	<string id="8129" value="In diesem Fenster wurde noch keine Suche gestartet."/>
-	<string id="8130" value="Suche läuft..."/>
-	<string id="8131" value="Es sind noch keine Ergebnisse verfügbar."/>
-	<string id="8132" value="Es sind Ergebnisse verfügbar, die jedoch herausgefiltert wurden."/>
-	<string id="8133" value="Suche läuft..."/>
-	<string id="8134" value="Sie sind dabei eine neue Suche zu starten. Möchten Sie die Ergebnisse ihrer vorherigen Suche entfernen?"/>
-	<string id="8135" value="Keine Metadaten"/>
-	<string id="8136" value="Textsuche"/>
-	<string id="8137" value="Keine Schema-Spalten"/>
-	<string id="8141" value="Suchleiste einblenden"/>
-	<string id="8142" value="Suchleiste ausblenden"/>
-	<string id="8143" value="Suchen..."/>
-	<string id="8144" value="Jetzt suchen"/>
-	<string id="8145" value="Weitersuchen"/>
-	<string id="8146" value="Stopp"/>
-	<string id="8147" value="Jeder Dateityp"/>
-	<string id="8148" value="Geben Sie hier ihre Suche ein:"/>
-	<string id="8149" value="Nach diesem Dateityp suchen:"/>
-	<string id="8150" value="Status:"/>
-	<string id="8151" value="Gefunden:"/>
-	<string id="8152" value="%lu nodes, %lu leaves"/>
-	<string id="8153" value="Suche inaktiv"/>
-	<string id="8154" value="Keine Dateien gefunden"/>
-	<string id="8155" value="%lu Datei in %lu Treffer|%lu Datei in %lu Treffern|%lu Dateien in %lu Treffern"/>
-	<string id="8156" value="Suchen"/>
-	<string id="8157" value="Ergebnisse"/>
-	<string id="8158" value="Aufräumen"/>
-	<string id="8159" value="Erweitert"/>
-	<string id="8160" value="Verbindung herstellen..."/>
-	<string id="8161" value="Push request gesendet, auf Verbindung warten..."/>
-	<string id="8162" value="Verbunden, Dateiliste wird angefordert..."/>
-	<string id="8163" value="Dateiliste wird heruntergeladen (%2.f%%)..."/>
-	<string id="8164" value="Kann keine Verbindung zum Durchsuchen herstellen."/>
-	<string id="8165" value="Fehler beim Herunterladen der Dateiliste. Dieser Host unterstützt &quot;Durchsuchen&quot; möglicherweise nicht."/>
-	<string id="8166" value="Netzwerke:"/>
-	<string id="8167" value="Alle Netzwerke"/>
-	<string id="8176" value="In den P2P-Netzwerken suchen"/>
-	<string id="8177" value="Geben Sie einige Suchbegriffe ein:"/>
-	<string id="8178" value="Dateityp:"/>
-	<string id="8179" value="(Verlauf löschen)"/>
-	<string id="8180" value="Dateigröße Min:"/>
-	<string id="8181" value="Dateigröße Max:"/>
-	<string id="8208" value="PeerProjekt hasht %Iu Daten:"/>
-<!--	<string id="8221" value="PeerProjekt sucht nach Quellen für:"/>
-	<string id="8222" value="PeerProjekt lädt herunter:"/>
-	<string id="8223" value="Dieser Download wurde angehalten:"/>
-	<string id="8224" value="PeerProjekt verschiebt den Download:"/>
-	<string id="8225" value="PeerProjekt überprüft den Download auf Fehler:"/>
-	<string id="8226" value="PeerProjekt hat den Download abgeschlossen:"/>
--->	<string id="8227" value="%i Tage und %i Stunden"/>
-	<string id="8228" value="%i Stunden und %i Minuten"/>
-	<string id="8229" value="%i Minuten und %i Sekunden"/>
-	<string id="8230" value="%i Sekunden"/>
-	<string id="8231" value="Keine Quellen"/>
-	<string id="8232" value="Öffnen"/>
-	<string id="8233" value="Abbrechen"/>
-	<string id="8235" value="Geschwindigkeit:"/>
-	<string id="8236" value="Geschätzte Dauer:"/>
-	<string id="8237" value="Heruntergeladen:"/>
-	<string id="8238" value="Hochgeladen: "/>
-	<string id="8239" value="Beendet"/>
-	<string id="8240" value="Anzahl Quellen:"/>
-	<string id="8241" value="Anzahl der Rezensionen:"/>
-	<string id="8244" value="Limit Download-Bandbreite"/>
-	<string id="8245" value="Limit Upload-Bandbreite"/>
-	<string id="8288" value="Bibliothek durchsuchen"/>
-	<string id="8289" value="Durchsuchen "/>
-	<string id="8290" value="Inhalt von %i Ordnern anzeigen"/>
-	<string id="8291" value="Mehrere Ordner"/>
-	<string id="8292" value="%i Dateien markiert"/>
-	<string id="8293" value="Keine Datei markiert"/>
-	<string id="8294" value="Neue Dateien"/>
-	<string id="8295" value="Diese Datei bewerten"/>
-	<string id="8304" value="N/A"/>
-	<string id="8306" value="Im Ordner"/>
-	<string id="8307" value="Typ"/>
-	<string id="8308" value="Größe"/>
-	<string id="8309" value="Unvollständige Quelle (%.2f%% verfügbar)"/>
-	<string id="8310" value="%i Upload-Slots, %i in Warteschlange"/>
-	<string id="8311" value="Diese Datei befindet sich bereits in Ihrer Bibliothek."/>
-	<string id="8312" value="Diese Datei befindet sich bereits in Ihrer Downloadliste."/>
-	<string id="8313" value="Diese Datei scheint SPAM zu sein."/>
-	<string id="8314" value="Sie haben diese Datei schon einmal heruntergeladen und gelöscht."/>
-	<string id="8315" value="Gesperrte Liste: "/>
-	<string id="8316" value="Hits"/>
-	<string id="8317" value="Uploads"/>
-	<string id="8318" value="Seit Programmstart: %lu , Gesamt: %lu "/>
-	<string id="8319" value="Transfer:"/>
-	<string id="8320" value="Status:"/>
-	<string id="8321" value="Geschw.:"/>
-	<string id="8322" value="URL:"/>
-	<string id="8323" value="User-Agent:"/>
-	<string id="8324" value="Inaktiv"/>
-	<string id="8325" value="Aktiv"/>
-	<string id="8326" value="Next in Line"/>
-	<string id="8327" value="Dateien gesamt:"/>
-	<string id="8328" value="Größe:"/>
-	<string id="8329" value="Ihrer Bibliothek"/>
-	<string id="8330" value="Ordner"/>
-	<string id="8331" value="Diese Quelle hat zur Zeit keine freien Upload-Slots"/>
-	<string id="8332" value="Diese Quelle ist hinter einer Firewall"/>
-	<string id="8333" value="Diese Quelle kann instabil sein"/>
-	<string id="8334" value="Quellen für diese Datei haben zur Zeit keine freien Upload-Slots"/>
-	<string id="8335" value="Quellen für diese Datei sind hinter einer Firewall"/>
-	<string id="8336" value="Quellen für diese Datei können instabil sein"/>
-	<string id="8337" value="nicht vertraut"/>
-	<string id="8338" value="(Kein Hashset)"/>
-	<string id="13000" value="Über das Internet freigegebene Dateien"/>
-	<string id="13001" value="Sind Sie sicher, dass Sie die ausgewählten Sicherheitsregeln löschen möchten? Dieser Schritt kann nicht rückgängig gemacht werden."/>
-	<string id="16063" value="UPnP-Portfreigabe nach 10 Versuchen fehlgeschlagen."/>
-	<string id="16064" value="Der PeerProjekt-Netzwerkkern wird gestartet..."/>
-	<string id="16065" value="Kann nicht an %s Port %i für eingehende Verbindungen binden. Eingehende Verbindungen nicht möglich."/>
-	<string id="16066" value="Der PeerProjekt-Netzwerkkern wird heruntergefahren..."/>
-	<string id="16067" value="Mit keinem Netzwerk verbunden."/>
-	<string id="16068" value="Eingehende Verbindungen werden an %s Port %i akzeptiert."/>
-	<string id="16069" value="Ausgehende Verbindungen gehen von %s Port %i aus."/>
-	<string id="16070" value="Kann %s für ausgehende Verbindungen nicht auflösen. Ausgehende Verbindungen benutzen das Standardinterface."/>
-	<string id="16071" value="Firewall erkannt. Es wird nicht auf eingehende Verbindungen gewartet."/>
-	<string id="16072" value="An %s Port %i auf UDP-Pakete warten."/>
-	<string id="16073" value="Host &quot;%s&quot; auflösen..."/>
-	<string id="16074" value="Kann Host &quot;%s&quot; nicht auflösen."/>
-	<string id="16075" value="Der Sicherheitsmanager hat die Verbindung von %s verweigert."/>
-	<string id="16076" value="Der Sicherheitsmanager hat eine Verbindung zu %s verhindert."/>
-	<string id="16077" value="Die Adresse %s wird von ihren Sicherheitsregeln bereits blockiert."/>
-	<string id="16078" value="Eine Regel, um %s zu blockieren, wurde hinzugefügt."/>
-	<string id="16079" value="Sind Sie sicher, dass Sie die Verbindung trennen möchten?"/>
-	<string id="16080" value="Sie benutzen die Zeitsteuerung nur mit dem G2-Netzwerk. Möchten Sie dies ausschalten und zu allen aktivierten Netzwerken verbinden ?"/>
-	<string id="16081" value="Suchanfrage für &quot;%s&quot; an %s senden."/>
-	<string id="16083" value="Das Erzwingen des HUB-Modus kann negative Auswirkungen auf das Netzwerk und die Ausführgeschwindigkeit von PeerProjekt haben. Es ist generell besser PeerProjekt diese Entscheidung selbst treffen zu lassen.\n\nDer Hub Modus führt NICHT zu besseren Suchergebnissen, und hat auch keine anderen Vorteile für Sie.\n\nSind Sie SICHER, dass Sie das wollen?"/>
-	<string id="16085" value="Gnutella2 ist PeerProjekts Hauptnetzwerk.  Wenn sie die Unterstützung für Gnutella2 deaktivieren, könnten sich die Anzahl und die Qualität Ihrer Suchergebnisse stark verschlechtern.  Sind Sie SICHER, dass Sie das wollen?"/>
-	<string id="16087" value="Ihre Uploadbandbreite reicht nicht aus, um dieses Netzwerk zu aktivieren"/>
-	<string id="16128" value="Eingehende Verbindung von %s Port %i akzeptiert."/>
-	<string id="16129" value="Verbindung herstellen zu %s Port %i..."/>
-	<string id="16130" value="Kann keine Verbindung zu %s herstellen."/>
-	<string id="16131" value="Der Verbindungsversuch zu %s hat die Wartezeit überschritten."/>
-	<string id="16132" value="Die Verbindung zu %s wurde mangels Aktivität geschlossen."/>
-	<string id="16133" value="Verbindung zu Host %s hergestellt, handshaking..."/>
-	<string id="16134" value="Verbindung zu Host %s beendet."/>
-	<string id="16135" value="Kann keine Verbindung zu %s herstellen (verweigert)."/>
-	<string id="16136" value="Host %s hat die Verbindung unerwartet beendet."/>
-	<string id="16137" value="Doppelte Verbindung von %s verweigert."/>
-	<string id="16138" value="Bereits mit %s verbunden, es wird keine zusätzliche Verbindung hergestellt."/>
-	<string id="16139" value="Host %s hat die Verbindung beendet (%i : %s)."/>
-	<string id="16141" value="Verbindung mit Host %s beendet, weil er kein Hub ist."/>
-	<string id="16144" value="Der Handshake mit %s hat die Wartezeit überschritten."/>
-	<string id="16145" value="Gnutella-Verbindung mit Host %s erfolgreich hergestellt (G%i.%i : %s)."/>
-	<string id="16146" value="Handshake mit %s fehlgeschlagen (ungültige Daten in der Leitung)."/>
-	<string id="16147" value="Überflüssige Verbindung mit %s geschlossen, Host-Liste übertragen (%s Port %i)."/>
-	<string id="16148" value="Verbindung zu %s zurückgewiesen (%s)."/>
-	<string id="16150" value="Überflüssige Verbindung mit %s geschlossen."/>
-	<string id="16151" value="Verbindung von %s verweigert, weil PeerProjekt im shielded-leaf-Modus läuft."/>
-	<string id="16152" value="Hub %s akzeptiert uns nicht als Hub, Verbindung getrennt."/>
-	<string id="16153" value="Verbindung mit %s herstellen. Rückkehr in den shielded-leaf Modus."/>
-	<string id="16154" value="Hub-Verbindung hergestellt. Peer-Verbindungen werden getrennt."/>
-	<string id="16155" value="Hubmodus für Host %s."/>
-	<string id="16156" value="Host %s möchte ein Hub sein, Verbindung wird getrennt."/>
-	<string id="16157" value="Host %s ist kein Hub, Verbindung wird getrennt."/>
-	<string id="16158" value="Gnutella2-Verbindung mit Host %s erfolgreich hergestellt (%s)."/>
-	<string id="16159" value="Verbindung zu nicht-G2 Host %s wird geschlossen."/>
-	<string id="16192" value="Host %s hat ein zu großes Paket weitergeleitet, Verbindung getrennt."/>
-	<string id="16193" value="Host %s hat ein Paket mit TTL=0 weitergeleitet, ignoriert."/>
-	<string id="16194" value="Host %s hat ein Paket mit zu hoher TTL weitergeleitet, Paket verworfen (TTL=%i, Hops=%i)."/>
-	<string id="16195" value="Host %s hat ein Ping-Paket mit ungültiger Länge weitergeleitet, ignoriert."/>
-	<string id="16196" value="Host %s hat ein Pong-Paket mit ungültiger Länge weitergeleitet, ignoriert."/>
-	<string id="16197" value="%s -&gt; %s [%i/%i] %s %s"/>
-	<string id="16198" value="Leaf %s leitet Suchanfragen weiter, Verbindung getrennt."/>
-	<string id="16199" value="Host %s hat ein unbekanntes Paket weitergeleitet (0x%.2x), ignoriert."/>
-	<string id="16200" value="Host %s hat einen Pong mit ungültigen Adressdaten weitergeleitet, ignoriert."/>
-	<string id="16201" value="%s:  Host %s hat ein falsch formatiertes query-Paket weitergeleitet, ignoriert."/>
-	<string id="16202" value="Host %s hat ein falsch formatiertes queryhit-Paket weitergeleitet, ignoriert."/>
-	<string id="16203" value="Host %s hat ein push-Paket mit ungültiger Länge weitergeleitet, ignoriert."/>
-	<string id="16208" value="Unerwartetes QRT-Update von Host %s empfangen."/>
-	<string id="16209" value="Host %s hat ein ungültiges QRT-Update gesendet, Verbindung getrennt."/>
-	<string id="16210" value="Host %s hat seine query-routing-Tabelle aktualisiert (%i bit = %lu[%i], %i%% voll)."/>
-	<string id="16211" value="Host %s hat einen push-request an eine Adresse mit geschlossener Firewall weitergeleitet, ignoriert."/>
-	<string id="16212" value="Host %s hat ein erweitertes Paket weitergeleitet, das nicht GGEP-kodiert ist."/>
-	<string id="16213" value="QRT an Host %s senden (%i bit = %lu[%i], %i%% voll)"/>
-	<string id="16254" value="Standard-Download-Gruppe. (Alle Dateien anzeigen)"/>
-	<string id="16255" value="Drag & Drop Dateien auf den %s Gruppe"/>
-	<string id="16256" value="&quot;%s&quot; zur Downloadliste mit %i Quelle(n) hinzugefügt."/>
-	<string id="16257" value="Download von &quot;%s&quot; abgeschlossen."/>
-	<string id="16258" value="Download &quot;%s&quot; angehalten."/>
-	<string id="16259" value="Download &quot;%s&quot; wiederaufgenommen."/>
-	<string id="16260" value="Download &quot;%s&quot; entfernt."/>
-	<string id="16261" value="Datei &quot;%s&quot; für Download erstellt."/>
-	<string id="16262" value="Fehler beim Erstellen der lokalen Datei &quot;%s&quot; für Download, abgebrochen."/>
-	<string id="16263" value="Fehler beim Öffnen der lokalen Datei &quot;%s&quot; für Download, abgebrochen ."/>
-	<string id="16264" value="Verbindung zu %s Port %i wird hergestellt um &quot;%s&quot; herunterzuladen..."/>
-	<string id="16265" value="Verbindung zum Herunterladen von %s kann nicht hergestellt werden."/>
-	<string id="16266" value="Verbindung zum Herunterladen von %s hergestellt."/>
-	<string id="16267" value="Fragment (%I64u-%I64u) von &quot;%s&quot; von %s angefordert."/>
-	<string id="16268" value="Keine weiteren Fragmente, Verbindung zu %s wird getrennt."/>
-	<string id="16269" value="Fragment gekürzt, Verbindung zu %s wird getrennt."/>
-	<string id="16270" value="Die Downloadanforderung an %s hat die Wartezeit überschritten, Verbindung getrennt."/>
-	<string id="16271" value="Die Downloadverbindung mit %s wird mangels Aktivität geschlossen."/>
-	<string id="16272" value="Download-Host %s hat die Datei &quot;%s&quot; nicht."/>
-	<string id="16273" value="Download-Host %s hat eine ungültige HTTP-Antwort gesendet."/>
-	<string id="16274" value="Download-Host %s hat mit %s geantwortet (%s)."/>
-	<string id="16275" value="Download-Host %s hat eine andere Version der Datei &quot;%s&quot; (Hash verschieden), abgebrochen."/>
-	<string id="16276" value="Download-Host %s hat eine andere Version der Datei &quot;%s&quot; (Dateigröße verschieden), abgebrochen."/>
-	<string id="16277" value="Download-Host %s hat einen unnützes Fragment von &quot;%s&quot; gesendet, ausstehend."/>
-	<string id="16278" value="Download-Verbindung mit %s unterbrochen."/>
-	<string id="16279" value="Herunterladen einer Datei von Host %s (%s)."/>
-	<string id="16280" value="Download Host %s hat keine freien Slots, erneut versuchen in %i Sekunden."/>
-	<string id="16281" value="Wollen Sie &quot;%s&quot; wirklich entfernen?\n\nWenn ein Download von der Downloadliste entfernt wurde, kann er nicht wieder aufgenommen werden."/>
-	<string id="16282" value="Herunterladen von &quot;%s&quot; von %s (%s) abgebrochen, Netzwerk deaktiviert."/>
-	<string id="16283" value="Die Datei &quot;%s&quot; wird schon heruntergeladen, Quellen hinzugefügt."/>
-	<string id="16284" value="Fehlerhafte Push-Verbindung von %s empfangen, Verbindung wird geschlossen."/>
-	<string id="16285" value="Unnötige Push-Verbindung von %s empfangen, Verbindung wird geschlossen."/>
-	<string id="16286" value="Host %s sendet Rückantwort für Download &quot;%s&quot;, akzeptiert."/>
-	<string id="16287" value="Kann nicht nach weiteren Quellen für Download &quot;%s&quot; suchen, weil keine Netzwerkverbindung besteht."/>
-	<string id="16288" value="Nach zusätzlichen Quellen für Download &quot;%s&quot; auf %i Verbindung(en) suchen..."/>
-	<string id="16289" value="Push-request für Download &quot;%s&quot; senden..."/>
-	<string id="16290" value="Download-Host %s hat mit einem anderem, aber nützlichen Dateibereich (%I64i-%I64i) von &quot;%s&quot; geantwortet."/>
-	<string id="16291" value="&quot;%s&quot; nach &quot;%s&quot; verschoben, Download komplett."/>
-	<string id="16292" value="Der Download &quot;%s&quot; konnte nicht verschoben werden.  Überprüfen Sie ob die unvollständige Datei nicht in Gebrauch ist, und ob ihr Downloadverzeichnis existiert bzw. beschreibbar ist."/>
-	<string id="16293" value="&quot;%s&quot; zum Download von &quot;%s&quot; benutzen..."/>
-	<string id="16294" value="Kann &quot;%s&quot; nicht auflösen."/>
-	<string id="16295" value="Der Download &quot;%s&quot; wird beschleunigt, indem die Zeitsteuerung deaktiviert wird."/>
-	<string id="16296" value="Heruntergeladene Datei &quot;%s&quot; erfolgreich überpüft."/>
-	<string id="16297" value="WARNUNG: Die heruntergeladene Datei &quot;%s&quot; hat die Überprüfung nicht bestanden, möglicherweise ist dies nicht die Datei, die Sie herunterladen wollten!"/>
-	<string id="16298" value="Download Host %s hat keine freien Slots: Warteschlange auf Position #%i von %i (&quot;%s&quot;)."/>
-	<string id="16299" value="Wollen Sie wirklich alle angehaltenen Downloads entfernen?  Wenn ein Download von der Downloadliste entfernt wurde, kann er nicht wieder aufgenommen werden."/>
-	<string id="16300" value="Sind Sie sicher, dass Sie die heruntergeladene Datei &quot;%s&quot; löschen möchten?"/>
-	<string id="16301" value="TTH-Daten für &quot;%s&quot; von %s anfordern..."/>
-	<string id="16302" value="Download-Host %s konnte die TTH-Anforderung nicht erfülllen."/>
-	<string id="16303" value="TTH-Daten von %s empfangen (%s)..."/>
-	<string id="16304" value="Die TTH-Daten des Hosts sind verfälscht oder inkonsistent, ignoriert."/>
-	<string id="16305" value="Die TTH-Daten des Hosts entsprechen nicht dem erwarteten Root-Wert."/>
-	<string id="16306" value="TTH-Daten für &quot;%s&quot; empfangen, %i Level, kleinster verifizierbarer Teil ist %s."/>
-	<string id="16307" value="Nicht mehr benötigte Verbindung zu %s geschlossen."/>
-	<string id="16308" value="Host %s hat unverlangte Daten gesendet, Verbindung geschlossen."/>
-	<string id="16309" value="Metadaten für &quot;%s&quot; von %s anfordern..."/>
-	<string id="16310" value="TTH-Daten von %s empfangen (%s)..."/>
-	<string id="16311" value="eDonkey-Hash für &quot;%s&quot; von %s anfordern..."/>
-	<string id="16312" value="Ungültiger eDonkey-Hash von %s empfangen, Quelle entfernt."/>
-	<string id="16313" value="eDonkey-Hash für &quot;%s&quot; empfangen, kleinster verifizierbarer Teil ist %s."/>
-	<string id="16314" value="eDonkey-Hash ist verfälscht oder inkonsistent, Quelle entfernt."/>
-	<string id="16315" value="Kann Kompression (inflate) für Download &quot;%s&quot; nicht aktivieren."/>
-	<string id="16316" value="Zeitüberschreitung für Warteschlangenaktualisierung von eDonkey0-Host %s für Datei &quot;%s&quot;."/>
-	<string id="16317" value="Warten in Warteschlange für &quot;%s&quot;."/>
-	<string id="16318" value="Nicht genügend Speicherplatz um &quot;%s&quot; herunterzuladen (%s)."/>
-	<string id="16319" value="Quelle %s (%s) entfernt, weil sie beschädigte Teile der Datei &quot;%s&quot; übertragen hat (%I64i-%I64i)."/>
-	<string id="16320" value="Upload-Host %s hat eine ungültige HTTP-Anforderung gesendet."/>
-	<string id="16321" value="Push-Verbindung mit %s wird hergestellt um &quot;%s&quot; hochzuladen."/>
-	<string id="16322" value="Konnte keine Upload-Verbindung zu %s herstellen um einen Push request zu senden."/>
-	<string id="16323" value="Upload-Verbindung mit %s wurde unterbrochen."/>
-	<string id="16324" value="Die Wartezeit für Upload-Host %s wurde überschritten."/>
-	<string id="16325" value="Upload-Host %s hat eine unbekannte oder nicht verfügbare Datei angefordert: %s."/>
-	<string id="16326" value="Upload-Host %s hat &quot;%s&quot; mit einem anderen SHA1-Hash angefordert."/>
-	<string id="16327" value="Kein freier Slot um &quot;%s&quot; an %s (%s) hochzuladen, Client unterstützt keine Warteschlange."/>
-	<string id="16328" value="Push-Verbindung mit %s hergestellt, auf Handshake warten..."/>
-	<string id="16329" value="Die Datei &quot;%s&quot; konnte nicht geöffnet werden um an Host %s hochzuladen, Festplatten/Dateifehler ."/>
-	<string id="16330" value="Dateibereich %I64i-%I64i aus Datei &quot;%s&quot; wird an Host %s übertragen (%s)."/>
-	<string id="16331" value="Upload von &quot;%s&quot; an %s abgeschlossen."/>
-	<string id="16332" value="Eingehende Verbindung von %s ist eine HTTP-Uploadanforderung."/>
-	<string id="16333" value="Kein freier Uploadslot um &quot;%s&quot; an %s hochzuladen, Warteschlange auf Position #%i von %i (&quot;%s&quot;)."/>
-	<string id="16334" value="Push-Request(alt) von %s hat eine unbekannte Datei angefordert, trotzdem verbinden..."/>
-	<string id="16335" value="Upload von &quot;%s&quot; an %s entfernt."/>
-	<string id="16336" value="Upload-Host %s ist auf der User-Agent-Blockliste, Zugriff verweigert."/>
-	<string id="16337" value="Upload-Header von &quot;%s&quot; an Host %s senden(%s)."/>
-	<string id="16338" value="Upload-Host %s hat einen nicht verfügbaren Bereich der Datei &quot;%s&quot; angefordert."/>
-	<string id="16339" value="Standard-HTML-Antwort an Upload Host %s senden (%s)."/>
-	<string id="16340" value="Durchsuchen von Host %s verweigert."/>
-	<string id="16341" value="Upload-Host %s (%s) hat eine Dateiliste angefordert, antworten..."/>
-	<string id="16342" value="Upload an %s mangels Aktivität geschlossen."/>
-	<string id="16343" value="Upload an %s wird geschlossen, weil neue Verbindung aufgebaut wurde."/>
-	<string id="16344" value="Neuer Upload an %s verweigert, weil eine frühere Verbindung noch aussteht."/>
-	<string id="16345" value="Upload von &quot;%s&quot; an %s abgebrochen, weil die Datei gelöscht wurde."/>
-	<string id="16346" value="Dateibereich %I64i-%I64i aus unvollständiger Datei &quot;%s&quot; wird an Host %s übertragen (%s)."/>
-	<string id="16347" value="Der Upload %s in der Warteschlange fragt zu häufig an. Verbindung wird geschlossen."/>
-	<string id="16348" value="Push-request zu %s verweigert, weil kein Upload-Slot frei ist."/>
-	<string id="16349" value="TTH-Daten für &quot;%s&quot; an &quot;%s&quot; senden."/>
-	<string id="16350" value="Metadaten für &quot;%s&quot; an %s hochladen."/>
-	<string id="16351" value="Hochladen von &quot;%s&quot; an %s (%s) verweigert. Zu viele Verbindungen mit Host."/>
-	<string id="16352" value="Vorschau von &quot;%s&quot; an %s hochladen."/>
-	<string id="16353" value="Hochladen der Vorschau von &quot;%s&quot; an %s verweigert. Zu viele Vorschau-Verbindungen."/>
-	<string id="16354" value="Upload-Host %s hat eine Vorschau von &quot;%s&quot; angefordert. Es ist jedoch keine Vorschau vorhanden."/>
-	<string id="16355" value="Dynamische Vorschau von &quot;%s&quot; zum Hochladen an %s geplant."/>
-	<string id="16356" value="Durchsuchen-Anforderung von %s verweigert, zu viele Durchsuchen-Verbindungen."/>
-	<string id="16357" value="Datei &quot;%s&quot; an Host %s hochladen..."/>
-	<string id="16358" value="Upload-Verbindung mit %s unterbrochen, Warteschlangenposition wird erhalten."/>
-	<string id="16359" value="Offline-Warteschlangenposition für %s abgelaufen, entfernt."/>
-	<string id="16360" value="Upload von &quot;%s&quot; an %s (%s) verweigert, alle entsprechenden Warteschlangen sind voll."/>
-	<string id="16361" value="Uploadanforderung von %s (%s) verweigert, Netwzerk deaktiviert."/>
-	<string id="16362" value="eDonkey-Uploads sollten nicht abgebrochen werden. Sind Sie sicher, dass Sie diesen Upload abbrechen wollen?"/>
-	<string id="16363" value="Torrent-Uploads"/>
-	<string id="16364" value="Fertige Uploads"/>
-	<string id="16365" value="Sind Sie sicher, dass Sie alle Downloads dieser Gruppe abbrechen möchten?"/>
-	<string id="16366" value="Warteschlange"/>
-	<string id="16367" value="eDonkey"/>
-	<string id="16368" value="eDonkey (unvollständige Dateien)"/>
-	<string id="16369" value="eDonkey-Guard"/>
-	<string id="16370" value="Kleine Dateien"/>
-	<string id="16371" value="Mittelgroße Dateien"/>
-	<string id="16372" value="Große Dateien"/>
-	<string id="16373" value="Unvollständige Dateien"/>
-	<string id="16374" value="Neue Warteschlange"/>
-	<string id="16375" value="Unvollständig"/>
-	<string id="16376" value="Alle Dateien"/>
-	<string id="16377" value="HTTP-Guard"/>
-	<string id="16379" value="Dateien in der Bibliothek"/>
-	<string id="16384" value="Sind Sie sicher, dass Sie die Datei &quot;%s&quot; ausführen möchten?\n\nManche Dateien können ihren Computer beschädigen. Stellen Sie die Echtheit der Datei sicher, bevor Sie sie ausführen (Virenscan)."/>
-	<string id="16385" value="Sie sind dabei die Metadaten von %i Dateien zu ändern. Wollen Sie fortfahren?"/>
-	<string id="16386" value="Metadaten von %i bearbeiten."/>
-	<string id="16387" value="Die Datei &quot;%s&quot; wurde noch nicht gehasht. Bitte warten Sie bis die Datei gehasht wurde und versuchen Sie es später erneut."/>
-	<string id="16388" value="Diese Option benutzt Dienste, die von Bitzi.com zur Verfügung gestellt werden, um Information über Dateien zu sammeln und zugänglich zu machen.\n\nPeerProjekt wird den SHA1-Hashwert für die ausgewählte(n) Datei(en) übertragen, um die Bitzi-Datenbank abzufragen.\nWenn Sie sich Sorgen um ihre Privatsphäre machen, können Sie die &quot;Bitzi.com privacy policy&quot; lesen.\n\nWollen Sie fortfahren?"/>
-	<string id="16389" value="Sind Sie sicher, dass Sie die %i ausgewählten Datei(en) löschen möchten?\n\nDie Dateien werden in den Windows Papierkorb verschoben."/>
-	<string id="16390" value="Sie haben keinen Mediaplayer wie z.B. Winamp gewählt, um Dateien in die Wiedergabeliste aufzunehmen. Wollen Sie jetzt einen auswählen?\n\nPeerProjekt wird dem gewählten Programm den Dateinamen mit der &quot;/ADD&quot; Option übergeben."/>
-	<string id="16391" value="Sie sind mit keinem Netzwerk verbunden."/>
-	<string id="16392" value="Klicken Sie auf  &quot;Verbinden&quot; um zu beginnen."/>
-	<string id="16393" value="Die Datei &quot;%s&quot; hat die Hash-Überprüfung nicht bestanden und ist möglicherweise nicht die Datei, die Sie herunterladen wollten. Sind Sie sicher, dass Sie die Datei öffnen möchten?"/>
-	<string id="16394" value="Wollen sie das &quot;potenziell unsicher&quot;-Atribut von dieser Datei entfernen?"/>
-	<string id="16395" value="Ihr Downloadverzeichnis &quot;%s&quot; ist nicht in ihrer Bibliothek.\n\nWenn Sie ihr Downloadverzeichnis zur Bibliothek hinzufügen, können Sie neue Downloads viel einfacher anzeigen und verwalten. Außerdem können Sie dann die Funktionen Downloadüberprüfung und Automatische Updates benutzen.\nDas hinzufügen ihres Downloadverzeichnis zur Bibliothek erfordert es nicht, es freizugeben: Sie können bestimmen, ob Sie einzelne Dateien freigeben.\n\nWollen Sie ihr Downloadverzeichnis jetzt zur Bibliothek hinzufügen?"/>
-	<string id="16396" value="Ihr Downloadverzeichnis wurde zu ihrer Bibliothek hinzugefügt.  Wollen Sie es auch freigeben?"/>
-	<string id="16397" value="Wollen Sie die markierten %i Alben wirklich löschen ?\n\nHierbei werden nicht die Dateien gelöscht, sondern nur die Kollektionen."/>
-	<string id="16398" value="PeerProjekt konnte\n\n%s\nnicht in\n%s umbenennen"/>
-	<string id="16399" value="PeerProjekt konnte die Datei\n\n%s\n\n nicht löschen"/>
-	<string id="16400" value="Zieldatei existiert:\n\n%s\n\nMöchten Sie sie überschreiben?"/>
-	<string id="16401" value="Alle Dateitypen anzeigen"/>
-	<string id="16402" value="PeerProjekt hat folgende Kollektion empfangen:\n\n&quot;%s&quot;\n\nDiese Datei scheint keine gültige Kollektion zu sein."/>
-	<string id="16403" value="PeerProjekt hat die Kollektion &quot;%s&quot; zu ihrer Bibliothek hinzugefügt."/>
-	<string id="16404" value="PeerProjekt konnte die Kollektion &quot;%s&quot; nicht installieren. Fehler beim Kopieren in den Ordner &quot;%s&quot;."/>
-	<string id="16405" value="Möchten Sie diese Datei herunterladen?\n\n&quot;%s&quot;\n\nKlicken Sie auf Abbrechen, um nicht mehr gefragt zu werden."/>
-	<string id="16406" value="Möchten Sie alle Dateien dieser Kollektion herunterladen?\n\nKlicken Sie auf Abbrechen, um nicht mehr gefragt zu werden."/>
-	<string id="16407" value="Keine weiteren Downloads von dieser Kollektion."/>
-	<string id="16408" value="&amp;URI kopieren"/>
-	<string id="16409" value="&amp;URIs exportieren..."/>
-	<string id="16410" value="Ein Unterordner des ausgewählten Ordners &quot;%s&quot; befindet sich schon in ihrer Bibliothek.\nDas Hinzufügen dieses Ordners hat zur Folge, dass einige Dateien neu verifiziert werden müssen.\n\nMöchten Sie fortfahren?"/>
-	<string id="16411" value="Kann Datei %s nicht verschieben. Es ist möglich, dass eine andere Anwendung die Datei gerade verwendet.\n\nMöchten Sie stattdessen versuchen, die Datei zu kopieren?"/>
-	<string id="16412" value="Ghost-Datei"/>
-	<string id="16413" value="Neue Gruppe"/>
-	<string id="16448" value="Verbunden mit %s, handshaking..."/>
-	<string id="16449" value="Chatten mit %s (%s)."/>
-	<string id="16450" value="Verbindung mit %s getrennt."/>
-	<string id="16451" value="Verbindung mit %s wurde unterbrochen."/>
-	<string id="16452" value="Unbekanntes Kommando &quot;%s&quot;."/>
-	<string id="16453" value="Verbinden mit %s für Chat..."/>
-	<string id="16454" value="Eingehende Chatanfrage von %s akzeptiert, handshaking..."/>
-	<string id="16455" value="%s heißt jetzt %s."/>
-	<string id="16456" value="Kann keine Verbindung zu %s herstellen."/>
-	<string id="16457" value="Verbindung wegen ungültiger Daten in der Leitung fehlgeschlagen"/>
-	<string id="16458" value="Unbekannte Antwort empfangen: %s"/>
-	<string id="16459" value="Sie sind nicht verbunden."/>
-	<string id="16512" value="Gesamte Empfangsgeschwindigkeit"/>
-	<string id="16513" value="Gesamte Sendegeschwindigkeit"/>
-	<string id="16514" value="Gnutella-Verbindungen (Gesamt)"/>
-	<string id="16515" value="Gnutella-Verbindungen (Aktiv)"/>
-	<string id="16516" value="Gnutella-Empfangsgeschwindigkeit"/>
-	<string id="16517" value="Gnutella-Sendegeschwindigkeit"/>
-	<string id="16518" value="Anzahl Downloads"/>
-	<string id="16519" value="Anzahl Downloadtransfers"/>
-	<string id="16520" value="Downloadgeschwindigkeit"/>
-	<string id="16521" value="Anzahl Uploadtransfers"/>
-	<string id="16522" value="Uploadgeschwindigkeit"/>
-	<string id="16523" value="Empfangene Gnutella-Pakete"/>
-	<string id="16524" value="Gesendete Gnutella-Pakete"/>
-	<string id="16525" value="Geroutete Gnutella-Pakete"/>
-	<string id="16526" value="Verworfene Gnutella-Pakete"/>
-	<string id="16527" value="Verlorene Gnutella-Pakete"/>
-	<string id="16528" value="Lokale Gnutella-Anfragen"/>
-	<string id="16532" value="Gesamte TCP-Empfangsgeschwindigkeit"/>
-	<string id="16533" value="Gesamte TCP-Sendegeschwindigkeit"/>
-	<string id="16534" value="Gesamte UDP-Empfangsgeschwindigkeit"/>
-	<string id="16535" value="Gesamte UDP-Sendegeschwindigkeit"/>
-	<string id="16536" value="Gnutella-Ratio empfangener / gesendeter Pings"/>
-	<string id="16537" value="Gnutella-Ratio empfangener / gesendeter Pongs"/>
-	<string id="16538" value="Verbindungsfehler (%)"/>
-	<string id="16768" value="URL &quot;%s&quot; empfangen"/>
-	<string id="16769" value="Auswertung der URL nicht möglich: PeerProjekt versteht die URL nicht."/>
-	<string id="16770" value="Der URL-Aktionsdialog kann nicht angezeigt werden, weil PeerProjekt beschäftigt ist."/>
-	<string id="16771" value="Die Datei &quot;%s&quot; befindet sich bereits in ihrer Bibliothek. Möchten Sie sie dennoch herunterladen?"/>
-	<string id="16772" value="Host:"/>
-	<string id="16773" value="Port:"/>
-	<string id="16774" value="&amp;Verbinden"/>
-	<string id="16775" value="&amp;Durchsuchen"/>
-	<string id="16776" value="Hinzu"/>
-	<string id="16777" value="Dateiname:"/>
-	<string id="16778" value="URL:"/>
-	<string id="16779" value="Typ:"/>
-	<string id="16780" value="Undefiniert"/>
-	<string id="16781" value="Anfordern..."/>
-	<string id="16782" value="Erfolg!"/>
-	<string id="16783" value="Fertig, Schließen klicken"/>
-	<string id="16784" value="&amp;Schließen"/>
-	<string id="16785" value="(Keine Visualisierung)"/>
-	<string id="16800" value="Sie haben Ihre Verbindungsgeschwindigkeit noch nicht angegeben. Bevor Sie fortfahren stellen Sie bitte ihre Verbindungsart oder Geschwindigkeit ein."/>
-	<string id="16802" value="Sie haben keine Ordner freigegeben.  Sind Sie sicher?"/>
-	<string id="16803" value="Der Ordner, den Sie freigegeben möchten, ist bereits als Teil eines anderen Ordners freigegeben:\n\n%s"/>
-	<string id="16804" value="Sie haben in ihrem Benutzerprofil keinen Nicknamen angegeben."/>
-	<string id="16805" value="Sie haben in ihrem Profil keinen Standort angegeben.\n\nEs wird empfohlen einen Standort anzugeben, damit andere Benutzer sehen können aus welchem Land Sie kommen. Das Angeben eines Standorts gibt keine wichtigen Informationen preis.\n\nSind Sie sicher, dass Sie ohne einen Standort anzugeben fortfahren möchten?"/>
-	<string id="16806" value="Sie haben angegeben, dass Sie in Ihrem NAT-Router oder Firewall die Port-Freigabe benutzen möchten.\n\nBitte konfigurieren Sie ihr Netzwerk um Port %i (TCP und UDP)an ihren PC weiterzuleiten."/>
-	<string id="16807" value="Bitte geben sie das gewünschte Bandbreitenlimit ein. &quot;123 kb/s&quot; für Kilobits pro Sekunde, oder &quot;123 KB/s&quot; für Kilobytes pro Sekunde."/>
-	<string id="16808" value="Sie haben ihr Alter und Geschlecht nicht angegeben. Sind Sie sicher, dass sie fortfahren möchten?"/>
-	<string id="16809" value="&amp;Schließen"/>
-	<string id="16810" value="Jahre alt"/>
-	<string id="16811" value="Automatisch"/>
-	<string id="16812" value="Bitte warten: UPnP-Geräte werden erkannt und konfiguriert..."/>
-	<string id="16813" value="Bitte warten: Service Provider werden aktualisiert..."/>
-	<string id="16814" value="Bitte warten: eDonkey-Server-Liste wird aktualisiert..."/>
-	<string id="16815" value="SSDP-Host-Service ist nicht gestartet. Dieser Dienst wird benötigt, um die Installation durchzuführen.\nEs ist erforderlich, dass das Merkmal dieses Dienstes auf Automatisch eingestellt ist."/>
-	<string id="16816" value="Das eDonkey-Netzwerk benutzt lange Warteschlangen mit langen Wartezeiten. Wenn Sie die Maximale Warteschlangenlänge zu strikt einstellen, könnten Sie Probleme bekommen, Dateien herunterzuladen.\nSind Sie sicher, dass Sie die Maximale Warteschlangenposition auf diesen Wert setzen wollen?"/>
-	<string id="16817" value="Windows unterstützt keine Dateipfade länger als 256 Zeichen.\nBitte wählen Sie einen Ordner mit einem kürzeren Pfad."/>
-	<string id="16818" value="Das Verzeichnis für unvollständige Dateien darf sich nicht im Downloadverzeichnis befinden."/>
-	<string id="16819" value="Ein Unterordner des gewählten Ordners &quot;%s&quot; ist schon in ihrer Bibliothek.\nBeim Hinzufügen des Ordners müssen einige Dateien neu verifiziert werden.\n\nWollen Sie fortfahren ?"/>
-	<string id="16864" value="Service-Provider abfragen..."/>
-	<string id="16865" value="Service-Provider &quot;%s&quot; abfragen..."/>
-	<string id="16866" value="GWebCache-Übertragung erfolgreich (&quot;%s&quot;)."/>
-	<string id="16867" value="Service-Provider &quot;%s&quot; hat nicht geantwortet (%i-tes Mal)"/>
-	<string id="16868" value="Service-Provider &quot;%s&quot; hat %i mal nicht geantwortet, entfernt."/>
-	<string id="16870" value="GWebCache-Update an Service &quot;%s&quot; senden..."/>
-	<string id="16871" value="GWebCache &quot;%s&quot; an einen zufälligen GWebCache übertragen..."/>
-	<string id="16928" value="Herstellen einer Verbindung zu %s für Durchsuchen  ..."/>
-	<string id="16929" value="Kann keine Verbindung zu %s zum Durchsuchen herstellen."/>
-	<string id="16930" value="Anfrage an %s zum Durchsuchen gesendet..."/>
-	<string id="16931" value="Fehler beim Senden der Anfrage an %s zum Durchsuchen."/>
-	<string id="16932" value="Dateilistenanforderung an %s gesendet..."/>
-	<string id="16933" value="&quot;Durchsuchen&quot; Host %s hat mit einer ungültigen HTTP-Meldung geantwortet."/>
-	<string id="16934" value="&quot;Durchsuchen&quot; Host %s hat mit Code %s geantwortet (%s)."/>
-	<string id="16935" value="&quot;Durchsuchen&quot; Host %s hat eine unbekannte Nachricht übertragen, &quot;Durchsuchen&quot; wird möglicherweise nicht unterstützt."/>
-	<string id="16936" value="Herunterladen von &quot;Durchsuchen&quot; Host %s (%s)."/>
-	<string id="16938" value="Ein Fehler ist bei der Dekodierung der Gnutella-Pakete von &quot;Durchsuchen&quot; bei Host %s aufgetreten."/>
-	<string id="16939" value="Dateiliste heruntergeladen %s, %i Dateien gefunden."/>
-	<string id="16940" value="&quot;Durchsuchen&quot; Verbindung zu %s wurde unterbrochen."/>
-	<string id="16941" value="&quot;Durchsuchen&quot; Verbindung zu %s mangels Aktivität beendet."/>
-	<string id="16942" value="&quot;Durchsuchen&quot; Verbindung zu %s wird beendet."/>
-	<string id="16943" value="%s durchsuchen"/>
-	<string id="16944" value="%i freigegebene Dateien in %s's Bibliothek gefunden."/>
-	<string id="16991" value="PeerProjekt-Medienwiedergabe"/>
-	<string id="16992" value="PeerProjekt konnte das MediaServices-Plugin nicht laden. Bitte installieren Sie PeerProjekt erneut und stellen Sie sicher, dass Sie die nötigen Codecs und Ausgabetreiber installiert haben."/>
-	<string id="16993" value="Alle Multimedia Dateien|*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Wiedergabelisten|*.asx;*.wax;*.m3u;*.wvx;*.wmx|Audio Dateien|*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;|Video Dateien|*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.ogm;*.wmv|CD Audio Tracks|*.cda|MIDI Dateien|*.mid;*.rmi;*.midi|Alle Dateien|*.*||"/>
-	<string id="16994" value="Fehler beim Laden von &quot;%s&quot;"/>
-	<string id="16995" value="Die Datei ist möglicherweise beschädigt, oder die Datei benutzt einen Codec, den Sie nicht installiert haben."/>
-	<string id="16996" value="Ein Teil dieser Datei kann nicht abgespielt werden. Möglicherweise mûssen Sie zusätzliche Decoder herunterladen."/>
-	<string id="16997" value="Es wird keine Datei wiedergegeben. Doppelklicken Sie eine Datei in Ihrer Bibliothek an, um sie abzuspielen."/>
-	<string id="16998" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; K &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
-	<string id="16999" value="Playlist:"/>
-	<string id="17015" value="Wilkommen beim PeerProjekt-Chat IRC"/>
-	<string id="17016" value="Bitte gehen Sie respektvoll mit anderen um und drücken sich in einer angemessenen Sprache aus."/>
-	<string id="17017" value="Nachricht:"/>
-	<string id="17018" value="Benutzer"/>
-	<string id="17019" value="Channels"/>
-	<string id="17020" value="Neu..."/>
-	<string id="17021" value="Entfernen"/>
-	<string id="17024" value="Verbindung herstellen mit %s..."/>
-	<string id="17025" value="Verbindungsversuch mit %s fehlgeschlagen."/>
-	<string id="17026" value="Push-Verbindung von %s anfordern..."/>
-	<string id="17027" value="Push-Verbindung von %s akzeptiert, handshaking..."/>
-	<string id="17028" value="Verbindung hergestellt, handshaking..."/>
-	<string id="17029" value="Handshake fehlgeschlagen, der Host unterstützt das Chat-Protokoll möglicherweise nicht."/>
-	<string id="17030" value="Handshake vollständig, Chat-Protokoll Version: %s."/>
-	<string id="17031" value="Profilinformationen austauschen..."/>
-	<string id="17032" value="Authentifizierter Benutzer "/>
-	<string id="17033" value="Private Unterhaltung mit Benutzer anfordern..."/>
-	<string id="17034" value="Private Unterhaltung genehmigt. Sie chatten mit %s."/>
-	<string id="17035" value="%s akzeptiert keine privaten Unterhaltungen."/>
-	<string id="17036" value="%s ist nicht da: %s"/>
-	<string id="17037" value="Die Chatverbindung wurde unterbrochen."/>
-	<string id="17038" value="Verbindung getrennt."/>
-	<string id="17039" value="Kann keine Push-Verbindung von %s anfordern, keine Route verfügbar."/>
-	<string id="17040" value="Nachricht konnte nicht gesendet werden. Sie sind nicht verbunden.  Verbinden..."/>
-	<string id="17041" value="Nachricht konnte nicht gesendet werden. Es wurde noch keine Verbindung hergestellt."/>
-	<string id="17042" value="Sie haben Ihr Benutzerprofil nicht ausgefüllt. Sie müssen ein Profil anlegen, bevor Sie mit anderen Benutzern chatten können.\n\nMöchten Sie Ihr Profil jetzt ausfüllen?"/>
-	<string id="17043" value="Upload-Priorität für Host %s erhöht."/>
-	<string id="17100" value="Gnutella: Peer-to-Peer-Verbindung"/>
-	<string id="17101" value="Gnutella: Leaf-to-Ultrapeer-Verbindung"/>
-	<string id="17102" value="Gnutella: Ultrapeer-to-Leaf-Verbindung"/>
-	<string id="17103" value="Gnutella II: Hub-to-Hub-Verbindung"/>
-	<string id="17104" value="Gnutella II: Leaf-to-Hub-Verbindung"/>
-	<string id="17105" value="Gnutella II: Hub-to-Leaf-Verbindung"/>
-	<string id="17106" value="eDonkey-Server-Verbindung (LowID: %lu)"/>
-	<string id="17107" value="eDonkey-Serververbindung"/>
-	<string id="17108" value="Handshake"/>
-	<string id="17109" value="Eingehend"/>
-	<string id="17110" value="Ausgehend"/>
-	<string id="17111" value="Bandbreite:"/>
-	<string id="17112" value="Gesamt:"/>
-	<string id="17113" value="Kompression:"/>
-	<string id="17114" value="Ratio:"/>
-	<string id="17115" value="Fertig"/>
-	<string id="17116" value="Keine"/>
-	<string id="17117" value="Verbinden..."/>
-	<string id="17118" value="Handshake..."/>
-	<string id="17119" value="Abgelehnt"/>
-	<string id="17120" value="Schließen..."/>
-	<string id="17121" value="Unbekannt"/>
-	<string id="17122" value="G1-Peer"/>
-	<string id="17123" value="G1-Ultrapeer"/>
-	<string id="17124" value="G1-Leaf"/>
-	<string id="17125" value="G2-Peer"/>
-	<string id="17126" value="G2-Hub"/>
-	<string id="17127" value="G2-Leaf"/>
-	<string id="17128" value="eDonkey-Server"/>
-	<string id="17129" value="eDonkey (LowID)"/>
-	<string id="17130" value="eDonkey (HighID)"/>
-	<string id="17216" value="Verbindung zu eDonkey-Server &quot;%s&quot; herstellen..."/>
-	<string id="17217" value="Mit eDoneky2000-Server %s verbunden, handshaking..."/>
-	<string id="17218" value="eD2k[%s] %s"/>
-	<string id="17219" value="eDonkey-Server %s hat die Verbindung abgelehnt (refuse)."/>
-	<string id="17220" value="eDonkey-Server %s online, ClientID ist %lu."/>
-	<string id="17221" value="eDonkey-Server %s hat ihre ClientID %lu in %lu geändert."/>
-	<string id="17222" value="eDonkey-Server %s hat sich als &quot;%s&quot; identifiziert."/>
-	<string id="17223" value="eDonkey-Server %s hat die Verbindung zurückgewiesen (reject)."/>
-	<string id="17224" value="Fehler beim Handshake mit eDonkey-Client %s."/>
-	<string id="17225" value="eDonkey-Clientverbindung zu %s geschlossen."/>
-	<string id="17226" value="Falsch formatiertes eDonkey-Paket von %s empfangen (id=%x)."/>
-	<string id="17227" value="Eingehende Verbindung von %s ist eine eDonkey-Clientverbindung."/>
-	<string id="17228" value="eDonkey-Hashset für &quot;%s&quot; an %s senden..."/>
-	<string id="17229" value="eDonkey-Client Verbindung mit %s war inaktiv, geschlossen."/>
-	<string id="17230" value="eDonkey-Client Verbindung zu %s herstellen..."/>
-	<string id="17231" value="eDonkey-Client %s hat die falsche GUID, Handshake abgebrochen."/>
-	<string id="17232" value="Zeitüberschreitung beim Verbinden zu eDonkey-Client %s."/>
-	<string id="17233" value="Zeitüberschreitung beim Handshake mit eDonkey-Client %s."/>
-	<string id="17234" value="eDonkey-Clientverbindung von %s verweigert, weil die eDonkey-Unterstützung deaktiviert ist."/>
-	<string id="17248" value="Unvollständige eDonkey-Downloads werden importiert..."/>
-	<string id="17249" value="Fertig, %i unvollständige Downloads erfolgreich importiert."/>
-	<string id="17250" value="Scanne Ordner: &quot;%s&quot;..."/>
-	<string id="17251" value="Fehler beim Importieren."/>
-	<string id="17252" value="Unvollständige Datei gefunden: &quot;%s&quot;, importieren..."/>
-	<string id="17253" value="Fehler beim Öffnen der unvollständigen Datei &quot;%s&quot;."/>
-	<string id="17254" value="Download gefunden: &quot;%s&quot;, Größe: %s."/>
-	<string id="17255" value="Geladene Daten-Datei ist neuer als die .part Datei, abgebrochen."/>
-	<string id="17256" value="Kopiere &quot;%s&quot; nach &quot;%s&quot;..."/>
-	<string id="17257" value="Kopiervorgang abgeschlossen."/>
-	<string id="17258" value="Download erstellt, %s verbleibend."/>
-	<string id="17259" value="Diese Datei befindet sich bereits in Ihrer Downloadliste."/>
-	<string id="17260" value="Nicht genügend Speicherplatz, um den Download zu kopieren."/>
-	<string id="17472" value="Einkommende Verbindung von %s ist eine BitTorrent-Kopplung, Protokollverhandlung..."/>
-	<string id="17473" value="Zeitüberschreitung beim Verbinden zu BitTorrent-Client %s."/>
-	<string id="17474" value="Zeitüberschreitung beim Handshake mit BitTorrent-Client %s."/>
-	<string id="17475" value="BitTorrent-Kopplung mit %s mangels Aktivität geschlossen."/>
-	<string id="17476" value="BitTorrent-Kopplung mit %s fehlgeschlagen. Remote-Client hat andere PeerID."/>
-	<string id="17477" value="BitTorrent-Kopplung mit %s hat mit der falschen Datei geantwortet."/>
-	<string id="17478" value="BitTorrent-Kopplung mit %s hat eine unbekannte Datei angefordert."/>
-	<string id="17479" value="BitTorrent-Kopplung %s hergestellt für &quot;%s&quot;."/>
-	<string id="17481" value="BitTorrent-Datei (Descriptor): &quot;%s&quot; empfangen"/>
-	<string id="17482" value="Auswertung der vorgeladenen BitTorrent-Datei &quot;%s&quot; nicht möglich."/>
-	<string id="17483" value="Fehler von BitTorrent-Tracker für &quot;%s&quot; : &quot;%s&quot;."/>
-	<string id="17484" value="Fehler beim Auswerten der Antort des BitTorrent-Trackers."/>
-	<string id="17485" value="Antwort vom BitTorrent-Tracker für &quot;%s&quot; erhalten, %i neue Quellen."/>
-	<string id="17486" value="BitTorrent-Client-Kopplung mit %s herstellen..."/>
-	<string id="17487" value="BitTorrent-Kopplung mit %s hergestellt, anfragen..."/>
-	<string id="17488" value="Sie haben die Tracker-URL für diesen Torrent geändert. Sind Sie sicher, dass Sie diese Änderung speichern wollen?\n\nEine ungültige Tracker-URL kann ein weiteres Herunterladen verhindern."/>
-	<string id="17489" value="BitTorrent-Kopplung mit %s benutzt das erweiterte Protokoll, &quot;%s&quot; identifiziert."/>
-	<string id="17490" value="%i neue BitTorrent-Quellen von %s empfangen."/>
-	<string id="17491" value="Der Torrent &quot;%s&quot; ist breits auf ihrer Downloadliste und kann nicht &quot;geseedet&quot; werden."/>
-	<string id="17492" value="Fehler beim Laden der Torrent-Datei &quot;%s&quot;.  Das ist möglicherweise kein gültiger Torrent."/>
-	<string id="17493" value="Kann BitTorrent-Freigabedatei für &quot;%s&quot; nicht erstellen."/>
-	<string id="17494" value="Dieser Torrent enthält die Datei &quot;%s&quot;. PeerProjekt kann die Datei in ihrer Bibliothek aber nicht finden.  Verschieben Sie die Datei in den selben Ordner wie das Torrent und versuchen Sie es erneut."/>
-	<string id="17495" value="Dieser Torrent enthält die Datei &quot;%s&quot; die %s groß sein sollte, die Größe ihrer Datei ist %s."/>
-	<string id="17496" value="Beim Kopieren von &quot;%s&quot; in eine BitTorrent-Freigabedatei ist ein Fehler aufgetreten."/>
-	<string id="17497" value="Beim Senden von &quot;%s&quot; trat ein unbekannter Fehler auf."/>
-	<string id="17498" value="In der Datei &quot;%s&quot; wurde ein Fehler gefunden."/>
-	<string id="17500" value="Tracker hat nicht geantwortet - Anfrage erneut versuchen (%i von %i)"/>
-	<string id="17501" value="Kommunikation mit dem Tracker nicht möglich"/>
-	<string id="17503" value="Verbindung mit Tracker fehlgeschlagen- Verbinde mit nächstem Tracker (%i of %i)"/>
-	<string id="17505" value="BitTorrent-Verbindung mit %s wurde unterbrochen."/>
-	<string id="17506" value="BitTorrent-Handshake mit %s wurde unterbrochen."/>
-	<string id="17507" value="BitTorrent-Kopplung mit %s wurde unterbrochen."/>
-	<string id="17510" value="BitTorrent-Kopplung mit %s wurde nicht akzeptiert, da bereits eine Verbindung mit diesem Client besteht."/>
-	<string id="17511" value="BitTorrent-Kopplung mit %s wurde nicht akzeptiert, da die maximale Anzahl an Verbindungen erreicht ist."/>
-	<string id="17512" value="Privater Torrent"/>
-	<string id="17513" value="Kodierungsfehler"/>
-	<string id="18496" value="Sie haben das Namensfeld geändert. Sind Sie sicher, dass Sie diesen Download umbenennen wollen?"/>
-	<string id="18497" value="Sie haben einen ungültigen SHA1-Hash angegeben. Bitte überprüfen Sie Ihre Eingabe und versuchen Sie es erneut."/>
-	<string id="18498" value="Sie haben einen ungültigen TT-Root-Hash angegeben. Bitte überprüfen Sie Ihre Eingabe und versuchen Sie es erneut."/>
-	<string id="18499" value="Sie haben einen ungültigen eD2k-Hash angegeben. Bitte überprüfen Sie Ihre Eingabe und versuchen Sie es erneut."/>
-	<string id="18500" value="Sie haben einen SHA1-Hash eingegeben, der sich von dem unterscheidet, der zur Zeit mit diesem Download verknüpft ist. Sind Sie sicher, dass Sie den SHA1-Hash jetzt ändern wollen?"/>
-	<string id="18501" value="Sie haben einen TT-Root-Has eingegeben, der sich von dem unterscheidet, der zur Zeit mit diesem Download verknüpft ist.  Sind Sie sicher, dass Sie den tiger-tree root-Hash jetzt ändern wollen?"/>
-	<string id="18502" value="Sie haben einen eD2k-Hash eingegeben, der sich von dem unterscheidet, der zur Zeit mit diesem Download verknüpft ist. Sind Sie sicher, dass Sie den ed2k-Hash jetzt ändern wollen?"/>
-	<string id="18503" value="Sind Sie sicher, dass Sie den aktuellen Verifizierungsstatus vergessen wollen? Alle heruntergeladenen Daten werden als nicht verifiziert betrachtet und gepufferte Hashtrees und Hashsets werden gelöscht."/>
-	<string id="18504" value="Sind Sie sicher, dass Sie alle Quellen für den markierten Download vergessen wollen?"/>
-	<string id="18505" value="Bitte geben Sie einen gültigen Bereich zum Entfernen ein. Das &quot;von&quot;-Feld ist das erste zu löschende Byte, das &quot;bis&quot;-Feld ist das letzte zu löschende Byte."/>
-	<string id="18506" value="Kann den gewählten Bereich nicht von dem Downlaod entfernen, weil keine Teile aus diesem Bereich vorhanden sind."/>
-	<string id="18507" value="%I64i Bytes vom Download entfernt."/>
-	<string id="18508" value="Downloadquelle %s für &quot;%s&quot; entfernt, weil die Warteschlangenposition %i zu hoch ist."/>
-	<string id="18509" value="Sie können diesen Download nicht als komplett annehemen und verifizieren, weil Sie keine Verifizierungsdaten (tiger-tree-Volumen, eD2k-Hashset oder BitTorrent-Hashset) haben. Ohne Verifizierungsinformationen kann der Download nicht erneut verifiziert werden."/>
-	<string id="18510" value="Sind Sie sicher, dass Sie diesen Download als komplett annehmen und neu verifizieren wollen?  Die ganze Datei wird untersucht und PeerProjekt wird die Teile akzeptieren, die die Verifizierung bestehen und die, die sie nicht bestehen neu herunterladen."/>
-	<string id="18511" value="Sie wollen Änderungen an der Dateigröße vornehmen. Sind Sie sicher, dass Sie die Dateigröße dieses Downloads ändern wollen?"/>
-	<string id="19000" value="Remote-Zugriff ist deaktiviert."/>
-	<string id="19001" value="http://%s:%i/remote - Benutzername und Passwort angeben."/>
-	<string id="19002" value="Kann keine eingehenden Verbindungen akzeptieren, URL nicht verfügbar."/>
-	<string id="20000" value="Keine URN verfügbar."/>
-	<string id="20001" value="Schließen"/>
-	<string id="20002" value="von"/> <!--"1 of 10"-->
-	<string id="20003" value="Der Wechsel der Schreibrichtung erfordert einen Neustart. \nJetzt beenden?"/>
-	<string id="20005" value="Nein"/>
-	<string id="20006" value="Ja"/>
-	<string id="20007" value="Auto"/>
-	<string id="20008" value="Vorgabe"/>
-	<string id="20009" value="Benutzerdefiniert"/>
-	<string id="20010" value="&amp;Zurück"/>
-	<string id="20011" value="&amp;Weiter"/>
-	<string id="20012" value="Abschließen"/>
-	<string id="20013" value="Alle"/>
-	<string id="20100" value="Verbinden"/>
-	<string id="20101" value="Anfordern"/>
-	<string id="20102" value="Antwort"/>
-	<string id="20103" value="Herunterladen"/>
-	<string id="20104" value="TigerTree"/>
-	<string id="20105" value="Hashset"/>
-	<string id="20106" value="Metadaten"/>
-	<string id="20107" value="Beschäftigt"/>
-	<string id="20108" value="Einreihen"/>
-	<string id="20109" value="In Warteschlange"/>
-	<string id="20110" value="Unbekannt"/>
-	<string id="20111" value="Fertig"/>
-	<string id="20112" value="Seeden"/>
-	<string id="20113" value="Verschieben"/>
-	<string id="20114" value="Pause"/>
-	<string id="20115" value="Dateifehler"/>
-	<string id="20116" value="Verschieben nicht möglich"/>
-	<string id="20117" value="Verifizieren"/>
-	<string id="20118" value="Aktiv"/>
-	<string id="20119" value="Warten"/>
-	<string id="20120" value="Suchen"/>
-	<string id="20121" value="Erstellen"/>
-	<string id="20122" value="Torrent"/>
-	<string id="20123" value="Kein Seeder"/>
-	<string id="20124" value="Verifiziert"/>
-	<string id="20125" value="Nicht verifiziert"/>
-	<string id="20126" value="Nicht unterstützt"/>
-	<string id="20127" value="Uninteressiert"/>
-	<string id="20130" value="Quelle"/>
-	<string id="20131" value="Quellen"/>
-	<string id="20132" value="Quellen"/>
-	<string id="20134" value="Quellen"/>
-	<string id="20135" value="(Keine Quellen)"/>
-	<string id="20136" value="Choked"/>
-	<string id="20137" value="Next"/>
-	<string id="20138" value="Q"/>
-	<string id="20200" value="Every Day"/>
-	<string id="20201" value="Montag"/>
-	<string id="20202" value="Dienstag"/>
-	<string id="20203" value="Mittwoch"/>
-	<string id="20204" value="Donnerstag"/>
-	<string id="20205" value="Freitag"/>
-	<string id="20206" value="Samstag"/>
-	<string id="20207" value="Sonntag"/>
-	<string id="20210" value="(Keine Bewertung)"/>
-	<string id="20211" value="Fälschung/Beschädigt/Irreführend"/>
-	<string id="20212" value="Schlecht"/>
-	<string id="20213" value="Durchschnittlich"/>
-	<string id="20214" value="Gut"/>
-	<string id="20215" value="Sehr Gut"/>
-	<string id="20216" value="Exzellent"/>
-	<string id="20217" value="Wählen sie den temporären Ordner von eDonkey/eMule:"/>
-	<!-- Column headers in Library Album View -->
-	<string id="20230" value="#"/> <!-- Track number -->
-	<string id="20231" value="Titel"/>
-	<string id="20232" value="Dauer"/>
-	<string id="20233" value="Bitrate"/>
-	<string id="20234" value="Album"/>
-	<string id="20235" value="Interpret"/>
-	<string id="20236" value="Bewertung"/>
-	<string id="20237" value="OK"/>
-	<string id="20238" value="Abbrechen"/>
-	<string id="20245" value="Neuer Ordner"/>
+	<string id="20000" value="PeerProjekt"/>
+	<string id="20001" value="Ja"/>
+	<string id="20002" value="Nein"/>
+	<string id="20003" value="OK"/>
+	<string id="20004" value="Abbrechen"/>
+	<string id="20005" value="&amp;Zurück"/>
+	<string id="20006" value="&amp;Weiter"/>
+	<string id="20008" value="Schließen"/>
+	<string id="20009" value="von"/> <!--"1 of 10"-->
+	<string id="20010" value="Alle"/>
+	<string id="20011" value="Auto"/>
+	<string id="20012" value="Benutzerdefiniert"/>
+	<string id="20013" value="Vorgabe"/>
+	<string id="20014" value="Abschließen"/>
+	<string id="20050" value="Every Day"/>
+	<string id="20051" value="Montag"/>
+	<string id="20052" value="Dienstag"/>
+	<string id="20053" value="Mittwoch"/>
+	<string id="20054" value="Donnerstag"/>
+	<string id="20055" value="Freitag"/>
+	<string id="20056" value="Samstag"/>
+	<string id="20057" value="Sonntag"/>
+	<string id="20060" value="(Keine Bewertung)"/>
+	<string id="20061" value="Fälschung/Beschädigt/Irreführend"/>
+	<string id="20062" value="Schlecht"/>
+	<string id="20063" value="Durchschnittlich"/>
+	<string id="20064" value="Gut"/>
+	<string id="20065" value="Sehr Gut"/>
+	<string id="20066" value="Exzellent"/>
+	<string id="20080" value="Das ist eine Vorabversion von PeerProjekt. Die Betatest-Periode ist abgelaufen. Bitte laden Sie die offizielle Version von http://PeerProject.org/ herunter."/>
+	<string id="20081" value="&amp;Schließen"/>
+	<string id="20082" value="Fertig, Schließen klicken"/>
+	<string id="20083" value="Anfordern..."/>
+	<string id="20084" value="Erfolg!"/>
+	<string id="20100" value="&quot;Durchsuchen&quot; Verbindung zu %s wird beendet."/>
+	<string id="20101" value="&quot;Durchsuchen&quot; Host %s hat eine unbekannte Nachricht übertragen, &quot;Durchsuchen&quot; wird möglicherweise nicht unterstützt."/>
+	<string id="20102" value="Kann keine Verbindung zum Durchsuchen herstellen."/>
+	<string id="20103" value="Kann keine Verbindung zu %s zum Durchsuchen herstellen."/>
+	<string id="20104" value="Fehler beim Senden der Anfrage an %s zum Durchsuchen."/>
+	<string id="20105" value="Verbindung herstellen..."/>
+	<string id="20106" value="Herstellen einer Verbindung zu %s für Durchsuchen  ..."/>
+	<string id="20107" value="Dateiliste wird heruntergeladen (%2.f%%)..."/>
+	<string id="20108" value="Herunterladen von &quot;Durchsuchen&quot; Host %s (%s)."/>
+	<string id="20109" value="&quot;Durchsuchen&quot; Verbindung zu %s wurde unterbrochen."/>
+	<string id="20110" value="Dateiliste heruntergeladen %s, %i Dateien gefunden."/>
+	<string id="20111" value="%i freigegebene Dateien in %s's Bibliothek gefunden."/>
+	<string id="20112" value="&quot;Durchsuchen&quot; Host %s hat mit Code %s geantwortet (%s)."/>
+	<string id="20113" value="&quot;Durchsuchen&quot; Host %s hat mit einer ungültigen HTTP-Meldung geantwortet."/>
+	<string id="20114" value="Fehler beim Herunterladen der Dateiliste. Dieser Host unterstützt &quot;Durchsuchen&quot; möglicherweise nicht."/>
+	<string id="20115" value="Ein Fehler ist bei der Dekodierung der Gnutella-Pakete von &quot;Durchsuchen&quot; bei Host %s aufgetreten."/>
+	<string id="20116" value="Push request gesendet, auf Verbindung warten..."/>
+	<string id="20117" value="Anfrage an %s zum Durchsuchen gesendet..."/>
+	<string id="20118" value="Verbunden, Dateiliste wird angefordert..."/>
+	<string id="20119" value="Dateilistenanforderung an %s gesendet..."/>
+	<string id="20120" value="&quot;Durchsuchen&quot; Verbindung zu %s mangels Aktivität beendet."/>
+	<string id="20121" value="%s durchsuchen"/>
+	<string id="20122" value="BitTorrent-Kopplung %s hergestellt für &quot;%s&quot;."/>
+	<string id="20123" value="Einkommende Verbindung von %s ist eine BitTorrent-Kopplung, Protokollverhandlung..."/>
+	<string id="20124" value="BitTorrent-Client-Kopplung mit %s herstellen..."/>
+	<string id="20125" value="Zeitüberschreitung beim Verbinden zu BitTorrent-Client %s."/>
+	<string id="20126" value="BitTorrent-Kopplung mit %s wurde unterbrochen."/>
+	<string id="20127" value="BitTorrent-Verbindung mit %s wurde unterbrochen."/>
+	<string id="20128" value="BitTorrent-Handshake mit %s wurde unterbrochen."/>
+	<string id="20129" value="BitTorrent-Kopplung mit %s wurde nicht akzeptiert, da bereits eine Verbindung mit diesem Client besteht."/>
+	<string id="20130" value="%i neue BitTorrent-Quellen von %s empfangen."/>
+	<string id="20131" value="BitTorrent-Kopplung mit %s benutzt das erweiterte Protokoll, &quot;%s&quot; identifiziert."/>
+	<string id="20132" value="Zeitüberschreitung beim Handshake mit BitTorrent-Client %s."/>
+	<string id="20133" value="BitTorrent-Kopplung mit %s hergestellt, anfragen..."/>
+	<string id="20134" value="BitTorrent-Kopplung mit %s wurde nicht akzeptiert, da die maximale Anzahl an Verbindungen erreicht ist."/>
+	<string id="20136" value="BitTorrent-Kopplung mit %s hat eine unbekannte Datei angefordert."/>
+	<string id="20137" value="BitTorrent-Kopplung mit %s hat mit der falschen Datei geantwortet."/>
+	<string id="20138" value="BitTorrent-Kopplung mit %s fehlgeschlagen. Remote-Client hat andere PeerID."/>
+	<string id="20139" value="BitTorrent-Kopplung mit %s mangels Aktivität geschlossen."/>
+	<string id="20140" value="Kodierungsfehler"/>
+	<string id="20141" value="Privater Torrent"/>
+	<string id="20142" value="Der Torrent &quot;%s&quot; ist breits auf ihrer Downloadliste und kann nicht &quot;geseedet&quot; werden."/>
+	<string id="20143" value="Beim Kopieren von &quot;%s&quot; in eine BitTorrent-Freigabedatei ist ein Fehler aufgetreten."/>
+	<string id="20144" value="Kann BitTorrent-Freigabedatei für &quot;%s&quot; nicht erstellen."/>
+	<string id="20145" value="Beim Senden von &quot;%s&quot; trat ein unbekannter Fehler auf."/>
+	<string id="20146" value="Fehler beim Laden der Torrent-Datei &quot;%s&quot;.  Das ist möglicherweise kein gültiger Torrent."/>
+	<string id="20147" value="Dieser Torrent enthält die Datei &quot;%s&quot;. PeerProjekt kann die Datei in ihrer Bibliothek aber nicht finden. Verschieben Sie die Datei in den selben Ordner wie das Torrent und versuchen Sie es erneut."/>
+	<string id="20148" value="Dieser Torrent enthält die Datei &quot;%s&quot; die %s groß sein sollte, die Größe ihrer Datei ist %s."/>
+	<string id="20149" value="In der Datei &quot;%s&quot; wurde ein Fehler gefunden."/>
+	<string id="20150" value="Kommunikation mit dem Tracker nicht möglich"/>
+	<string id="20151" value="Verbindung mit Tracker fehlgeschlagen- Verbinde mit nächstem Tracker (%i of %i)"/>
+	<string id="20152" value="Sie haben die Tracker-URL für diesen Torrent geändert. Sind Sie sicher, dass Sie diese Änderung speichern wollen?\n\nEine ungültige Tracker-URL kann ein weiteres Herunterladen verhindern."/>
+	<string id="20153" value="Fehler von BitTorrent-Tracker für &quot;%s&quot; : &quot;%s&quot;."/>
+	<string id="20154" value="Fehler beim Auswerten der Antort des BitTorrent-Trackers."/>
+	<string id="20155" value="Antwort vom BitTorrent-Tracker für &quot;%s&quot; erhalten, %i neue Quellen."/>
+	<string id="20158" value="Auswertung der vorgeladenen BitTorrent-Datei &quot;%s&quot; nicht möglich."/>
+	<string id="20159" value="BitTorrent-Datei (Descriptor): &quot;%s&quot; empfangen"/>
+	<string id="20160" value="Eingehende Chatanfrage von %s akzeptiert, handshaking..."/>
+	<string id="20161" value="Verbindungsversuch mit %s fehlgeschlagen."/>
+	<string id="20162" value="Kann keine Push-Verbindung von %s anfordern, keine Route verfügbar."/>
+	<string id="20163" value="Verbindung getrennt."/>
+	<string id="20164" value="Verbindung mit %s getrennt."/>
+	<string id="20165" value="Verbindung hergestellt, handshaking..."/>
+	<string id="20166" value="Verbunden mit %s, handshaking..."/>
+	<string id="20167" value="Verbindung herstellen mit %s..."/>
+	<string id="20168" value="Verbinden mit %s für Chat..."/>
+	<string id="20169" value="Kann keine Verbindung zu %s herstellen."/>
+	<string id="20170" value="Die Chatverbindung wurde unterbrochen."/>
+	<string id="20171" value="Verbindung mit %s wurde unterbrochen."/>
+	<string id="20172" value="Handshake fehlgeschlagen, der Host unterstützt das Chat-Protokoll möglicherweise nicht."/>
+	<string id="20173" value="Handshake vollständig, Chat-Protokoll Version: %s."/>
+	<string id="20174" value="Profilinformationen austauschen..."/>
+	<string id="20175" value="Sie haben Ihr Benutzerprofil nicht ausgefüllt. Sie müssen ein Profil anlegen, bevor Sie mit anderen Benutzern chatten können.\n\nMöchten Sie Ihr Profil jetzt ausfüllen?"/>
+	<string id="20176" value="Nachricht konnte nicht gesendet werden. Sie sind nicht verbunden.  Verbinden..."/>
+	<string id="20177" value="Nachricht konnte nicht gesendet werden. Es wurde noch keine Verbindung hergestellt."/>
+	<string id="20178" value="%s heißt jetzt %s."/>
+	<string id="20179" value="Chatten mit %s (%s)."/>
+	<string id="20180" value="Upload-Priorität für Host %s erhöht."/>
+	<string id="20181" value="%s ist nicht da: %s"/>
+	<string id="20182" value="Private Unterhaltung genehmigt. Sie chatten mit %s."/>
+	<string id="20183" value="%s akzeptiert keine privaten Unterhaltungen."/>
+	<string id="20184" value="Private Unterhaltung mit Benutzer anfordern..."/>
+	<string id="20185" value="Authentifizierter Benutzer "/>
+	<string id="20186" value="Push-Verbindung von %s akzeptiert, handshaking..."/>
+	<string id="20188" value="Push-Verbindung von %s anfordern..."/>
+	<string id="20190" value="Verbindung wegen ungültiger Daten in der Leitung fehlgeschlagen"/>
+	<string id="20191" value="Unbekannte Antwort empfangen: %s"/>
+	<string id="20192" value="Sie sind nicht verbunden."/>
+	<string id="20193" value="Unbekanntes Kommando &quot;%s&quot;."/>
+	<string id="20194" value="Diese Vorlage kann nicht angepasst werden."/>
+	<string id="20195" value="Diese Vorlage ist ungültig."/>
+	<string id="20199" value="(Nach Transfer schließen)"/>
+	<string id="20200" value="&quot;%s&quot; zur Downloadliste mit %i Quelle(n) hinzugefügt."/>
+	<string id="20201" value="Die Datei &quot;%s&quot; wird schon heruntergeladen, Quellen hinzugefügt."/>
+	<string id="20202" value="Fehlerhafte Push-Verbindung von %s empfangen, Verbindung wird geschlossen."/>
+	<string id="20203" value="Der Download &quot;%s&quot; wird beschleunigt, indem die Zeitsteuerung deaktiviert wird."/>
+	<string id="20204" value="Download Host %s hat keine freien Slots, erneut versuchen in %i Sekunden."/>
+	<string id="20205" value="Der Download &quot;%s&quot; konnte nicht verschoben werden.  Überprüfen Sie ob die unvollständige Datei nicht in Gebrauch ist, und ob ihr Downloadverzeichnis existiert bzw. beschreibbar ist."/>
+	<string id="20206" value="Kann &quot;%s&quot; nicht auflösen."/>
+	<string id="20207" value="Sind Sie sicher, dass Sie alle Downloads dieser Gruppe abbrechen möchten?"/>
+	<string id="20208" value="Nicht mehr benötigte Verbindung zu %s geschlossen."/>
+	<string id="20209" value="Host %s hat unverlangte Daten gesendet, Verbindung geschlossen."/>
+	<string id="20210" value="Download von &quot;%s&quot; abgeschlossen."/>
+	<string id="20211" value="Wollen Sie &quot;%s&quot; wirklich entfernen?\n\nWenn ein Download von der Downloadliste entfernt wurde, kann er nicht wieder aufgenommen werden."/>
+	<string id="20212" value="Wollen Sie wirklich alle angehaltenen Downloads entfernen?  Wenn ein Download von der Downloadliste entfernt wurde, kann er nicht wieder aufgenommen werden."/>
+	<string id="20213" value="Sind Sie sicher, dass Sie die heruntergeladene Datei &quot;%s&quot; löschen möchten?"/>
+	<string id="20214" value="Verbindung zum Herunterladen von %s hergestellt."/>
+	<string id="20215" value="Verbindung zu %s Port %i wird hergestellt um &quot;%s&quot; herunterzuladen..."/>
+	<string id="20216" value="Verbindung zum Herunterladen von %s kann nicht hergestellt werden."/>
+	<string id="20217" value="Herunterladen einer Datei von Host %s (%s)."/>
+	<string id="20218" value="Herunterladen von &quot;%s&quot; von %s (%s) abgebrochen, Netzwerk deaktiviert."/>
+	<string id="20219" value="Nicht genügend Speicherplatz um &quot;%s&quot; herunterzuladen (%s)."/>
+	<string id="20220" value="Download-Verbindung mit %s unterbrochen."/>
+	<string id="20222" value="Sie haben einen ungültigen eD2k-Hash angegeben. Bitte überprüfen Sie Ihre Eingabe und versuchen Sie es erneut."/>
+	<string id="20224" value="Bitte geben Sie einen gültigen Bereich zum Entfernen ein. Das &quot;von&quot;-Feld ist das erste zu löschende Byte, das &quot;bis&quot;-Feld ist das letzte zu löschende Byte."/>
+	<string id="20225" value="Sie haben einen ungültigen SHA1-Hash angegeben. Bitte überprüfen Sie Ihre Eingabe und versuchen Sie es erneut."/>
+	<string id="20226" value="Sie haben einen ungültigen TT-Root-Hash angegeben. Bitte überprüfen Sie Ihre Eingabe und versuchen Sie es erneut."/>
+	<string id="20227" value="Sie wollen Änderungen an der Dateigröße vornehmen. Sind Sie sicher, dass Sie die Dateigröße dieses Downloads ändern wollen?"/>
+	<string id="20228" value="Kann den gewählten Bereich nicht von dem Downlaod entfernen, weil keine Teile aus diesem Bereich vorhanden sind."/>
+	<string id="20231" value="Sie haben einen SHA1-Hash eingegeben, der sich von dem unterscheidet, der zur Zeit mit diesem Download verknüpft ist. Sind Sie sicher, dass Sie den SHA1-Hash jetzt ändern wollen?"/>
+	<string id="20232" value="Sie haben einen eD2k-Hash eingegeben, der sich von dem unterscheidet, der zur Zeit mit diesem Download verknüpft ist. Sind Sie sicher, dass Sie den ed2k-Hash jetzt ändern wollen?"/>
+	<string id="20233" value="Sie haben einen TT-Root-Has eingegeben, der sich von dem unterscheidet, der zur Zeit mit diesem Download verknüpft ist.  Sind Sie sicher, dass Sie den tiger-tree root-Hash jetzt ändern wollen?"/>
+	<string id="20235" value="Sie können diesen Download nicht als komplett annehemen und verifizieren, weil Sie keine Verifizierungsdaten (tiger-tree-Volumen, eD2k-Hashset oder BitTorrent-Hashset) haben. Ohne Verifizierungsinformationen kann der Download nicht erneut verifiziert werden."/>
+	<string id="20236" value="Sind Sie sicher, dass Sie diesen Download als komplett annehmen und neu verifizieren wollen?  Die ganze Datei wird untersucht und PeerProjekt wird die Teile akzeptieren, die die Verifizierung bestehen und die, die sie nicht bestehen neu herunterladen."/>
+	<string id="20237" value="Sind Sie sicher, dass Sie alle Quellen für den markierten Download vergessen wollen?"/>
+	<string id="20238" value="Sind Sie sicher, dass Sie den aktuellen Verifizierungsstatus vergessen wollen? Alle heruntergeladenen Daten werden als nicht verifiziert betrachtet und gepufferte Hashtrees und Hashsets werden gelöscht."/>
+	<string id="20240" value="%I64i Bytes vom Download entfernt."/>
+	<string id="20241" value="Sie haben das Namensfeld geändert. Sind Sie sicher, dass Sie diesen Download umbenennen wollen?"/>
+	<string id="20242" value="Download-Host %s hat die Datei &quot;%s&quot; nicht."/>
+	<string id="20243" value="Datei &quot;%s&quot; für Download erstellt."/>
+	<string id="20244" value="Fehler beim Erstellen der lokalen Datei &quot;%s&quot; für Download, abgebrochen."/>
+	<string id="20245" value="Fehler beim Öffnen der lokalen Datei &quot;%s&quot; für Download, abgebrochen ."/>
+	<string id="20246" value="Keine weiteren Fragmente, Verbindung zu %s wird getrennt."/>
+	<string id="20247" value="Fragment gekürzt, Verbindung zu %s wird getrennt."/>
+	<string id="20248" value="Fragment (%I64u-%I64u) von &quot;%s&quot; von %s angefordert."/>
+	<string id="20250" value="Drag & Drop Dateien auf den %s Gruppe"/>
+	<string id="20251" value="Standard-Download-Gruppe. (Alle Dateien anzeigen)"/>
+	<string id="20252" value="Neue Gruppe"/>
+	<string id="20253" value="eDonkey-Hash ist verfälscht oder inkonsistent, Quelle entfernt."/>
+	<string id="20254" value="Ungültiger eDonkey-Hash von %s empfangen, Quelle entfernt."/>
+	<string id="20255" value="eDonkey-Hash für &quot;%s&quot; empfangen, kleinster verifizierbarer Teil ist %s."/>
+	<string id="20256" value="eDonkey-Hash für &quot;%s&quot; von %s anfordern..."/>
+	<string id="20257" value="Kann Kompression (inflate) für Download &quot;%s&quot; nicht aktivieren."/>
+	<string id="20258" value="TTH-Daten von %s empfangen (%s)..."/>
+	<string id="20259" value="Metadaten für &quot;%s&quot; von %s anfordern..."/>
+	<string id="20261" value="Download-Host %s hat mit %s geantwortet (%s)."/>
+	<string id="20262" value="Download-Host %s hat eine ungültige HTTP-Antwort gesendet."/>
+	<string id="20263" value="Host %s sendet Rückantwort für Download &quot;%s&quot;, akzeptiert."/>
+	<string id="20264" value="Push-request für Download &quot;%s&quot; senden..."/>
+	<string id="20265" value="Download Host %s hat keine freien Slots: Warteschlange auf Position #%i von %i (&quot;%s&quot;.."/>
+	<string id="20266" value="Warten in Warteschlange für &quot;%s&quot;."/>
+	<string id="20267" value="Downloadquelle %s für &quot;%s&quot; entfernt, weil die Warteschlangenposition %i zu hoch ist."/>
+	<string id="20268" value="Zeitüberschreitung für Warteschlangenaktualisierung von eDonkey0-Host %s für Datei &quot;%s&quot;."/>
+	<string id="20269" value="Die Downloadanforderung an %s hat die Wartezeit überschritten, Verbindung getrennt."/>
+	<string id="20270" value="Download &quot;%s&quot; entfernt."/>
+	<string id="20271" value="&quot;%s&quot; nach &quot;%s&quot; verschoben, Download komplett."/>
+	<string id="20272" value="Download &quot;%s&quot; angehalten."/>
+	<string id="20273" value="Download &quot;%s&quot; wiederaufgenommen."/>
+	<string id="20274" value="&quot;%s&quot; zum Download von &quot;%s&quot; benutzen..."/>
+	<string id="20275" value="Nach zusätzlichen Quellen für Download &quot;%s&quot; auf %i Verbindung(en) suchen..."/>
+	<string id="20276" value="Kann nicht nach weiteren Quellen für Download &quot;%s&quot; suchen, weil keine Netzwerkverbindung besteht."/>
+	<string id="20280" value="Die TTH-Daten des Hosts sind verfälscht oder inkonsistent, ignoriert."/>
+	<string id="20281" value="Die TTH-Daten des Hosts entsprechen nicht dem erwarteten Root-Wert."/>
+	<string id="20282" value="Download-Host %s konnte die TTH-Anforderung nicht erfülllen."/>
+	<string id="20283" value="TTH-Daten für &quot;%s&quot; empfangen, %i Level, kleinster verifizierbarer Teil ist %s."/>
+	<string id="20284" value="TTH-Daten von %s empfangen (%s)..."/>
+	<string id="20285" value="TTH-Daten für &quot;%s&quot; von %s anfordern..."/>
+	<string id="20286" value="Die Downloadverbindung mit %s wird mangels Aktivität geschlossen."/>
+	<string id="20290" value="Download-Host %s hat mit einem anderem, aber nützlichen Dateibereich (%I64i-%I64i) von &quot;%s&quot; geantwortet."/>
+	<string id="20291" value="Unnötige Push-Verbindung von %s empfangen, Verbindung wird geschlossen."/>
+	<string id="20292" value="Quelle %s (%s) entfernt, weil sie beschädigte Teile der Datei &quot;%s&quot; übertragen hat (%I64i-%I64i)."/>
+	<string id="20293" value="WARNUNG: Die heruntergeladene Datei &quot;%s&quot; hat die Überprüfung nicht bestanden, möglicherweise ist dies nicht die Datei, die Sie herunterladen wollten!"/>
+	<string id="20294" value="Heruntergeladene Datei &quot;%s&quot; erfolgreich überpüft."/>
+	<string id="20295" value="Download-Host %s hat eine andere Version der Datei &quot;%s&quot; (Hash verschieden), abgebrochen."/>
+	<string id="20296" value="Download-Host %s hat einen unnützes Fragment von &quot;%s&quot; gesendet, ausstehend."/>
+	<string id="20297" value="Download-Host %s hat eine andere Version der Datei &quot;%s&quot; (Dateigröße verschieden), abgebrochen."/>
+	<string id="20300" value="Eingehende Verbindung von %s Port %i akzeptiert."/>
+	<string id="20301" value="Bereits mit %s verbunden, es wird keine zusätzliche Verbindung hergestellt."/>
+	<string id="20302" value="Doppelte Verbindung von %s verweigert."/>
+	<string id="20303" value="Verbindung herstellen zu %s Port %i..."/>
+	<string id="20304" value="Host %s hat die Verbindung beendet (%i : %s)."/>
+	<string id="20305" value="Verbindung zu Host %s beendet."/>
+	<string id="20306" value="Verbindung zu Host %s hergestellt, handshaking..."/>
+	<string id="20307" value="Kann keine Verbindung zu %s herstellen."/>
+	<string id="20308" value="Host %s hat die Verbindung unerwartet beendet."/>
+	<string id="20309" value="Verbindung mit Host %s beendet, weil er kein Hub ist."/>
+	<string id="20310" value="Kann keine Verbindung zu %s herstellen (verweigert)."/>
+	<string id="20311" value="Der Verbindungsversuch zu %s hat die Wartezeit überschritten."/>
+	<string id="20312" value="Die Verbindung zu %s wurde mangels Aktivität geschlossen."/>
+	<string id="20313" value="Service-Provider abfragen..."/>
+	<string id="20314" value="Service-Provider &quot;%s&quot; hat nicht geantwortet (%i-tes Mal)"/>
+	<string id="20315" value="Service-Provider &quot;%s&quot; hat %i mal nicht geantwortet, entfernt."/>
+	<string id="20316" value="Service-Provider &quot;%s&quot; abfragen..."/>
+	<string id="20317" value="GWebCache &quot;%s&quot; an einen zufälligen GWebCache übertragen..."/>
+	<string id="20318" value="GWebCache-Update an Service &quot;%s&quot; senden..."/>
+	<string id="20319" value="GWebCache-Übertragung erfolgreich (&quot;%s&quot;.."/>
+	<string id="20320" value="Eingehende Verbindung von %s ist eine eDonkey-Clientverbindung."/>
+	<string id="20321" value="Falsch formatiertes eDonkey-Paket von %s empfangen (id=%x)."/>
+	<string id="20322" value="eDonkey-Client Verbindung mit %s war inaktiv, geschlossen."/>
+	<string id="20323" value="eDonkey-Client Verbindung zu %s herstellen..."/>
+	<string id="20324" value="Zeitüberschreitung beim Verbinden zu eDonkey-Client %s."/>
+	<string id="20325" value="eDonkey-Clientverbindung von %s verweigert, weil die eDonkey-Unterstützung deaktiviert ist."/>
+	<string id="20326" value="eDonkey-Clientverbindung zu %s geschlossen."/>
+	<string id="20327" value="Fehler beim Handshake mit eDonkey-Client %s."/>
+	<string id="20328" value="Zeitüberschreitung beim Handshake mit eDonkey-Client %s."/>
+	<string id="20329" value="eDonkey-Hashset für &quot;%s&quot; an %s senden..."/>
+	<string id="20330" value="eDonkey-Client %s hat die falsche GUID, Handshake abgebrochen."/>
+	<string id="20331" value="Diese Datei befindet sich bereits in Ihrer Downloadliste."/>
+	<string id="20332" value="Fehler beim Öffnen der unvollständigen Datei &quot;%s&quot;."/>
+	<string id="20333" value="Kopiervorgang abgeschlossen."/>
+	<string id="20334" value="Kopiere &quot;%s&quot; nach &quot;%s&quot;..."/>
+	<string id="20335" value="Nicht genügend Speicherplatz, um den Download zu kopieren."/>
+	<string id="20336" value="Download erstellt, %s verbleibend."/>
+	<string id="20337" value="Fehler beim Importieren."/>
+	<string id="20338" value="Geladene Daten-Datei ist neuer als die .part Datei, abgebrochen."/>
+	<string id="20339" value="Unvollständige Datei gefunden: &quot;%s&quot;, importieren..."/>
+	<string id="20340" value="Fertig, %i unvollständige Downloads erfolgreich importiert."/>
+	<string id="20341" value="Scanne Ordner: &quot;%s&quot;..."/>
+	<string id="20342" value="Unvollständige eDonkey-Downloads werden importiert..."/>
+	<string id="20344" value="Download gefunden: &quot;%s&quot;, Größe: %s."/>
+	<string id="20345" value="Mit eDoneky2000-Server %s verbunden, handshaking..."/>
+	<string id="20346" value="Verbindung zu eDonkey-Server &quot;%s&quot; herstellen..."/>
+	<string id="20347" value="eDonkey-Server %s hat ihre ClientID %lu in %lu geändert."/>
+	<string id="20348" value="eDonkey-Server %s hat sich als &quot;%s&quot; identifiziert."/>
+	<string id="20349" value="eD2k[%s] %s"/>
+	<string id="20350" value="eDonkey-Server %s online, ClientID ist %lu."/>
+	<string id="20351" value="eDonkey-Server %s hat die Verbindung abgelehnt (refuse)."/>
+	<string id="20352" value="eDonkey-Server %s hat die Verbindung zurückgewiesen (reject)."/>
+	<string id="20354" value="Dateieigenschaften"/>
+	<string id="20355" value="Sind Sie sicher, dass Sie diesen Filter löschen möchten ?"/>
+	<string id="20356" value="Es existiert bereits ein Filter mit dem Namen &quot;%s&quot;. Möchten Sie ihn ersetzen?"/>
+	<string id="20358" value="Bitte geben Sie dem Filter einen Namen."/>
+	<string id="20360" value="Verbindungsfehler (%)"/>
+	<string id="20361" value="Downloadgeschwindigkeit"/>
+	<string id="20362" value="Anzahl Downloads"/>
+	<string id="20363" value="Anzahl Downloadtransfers"/>
+	<string id="20364" value="Gnutella-Empfangsgeschwindigkeit"/>
+	<string id="20365" value="Gnutella-Sendegeschwindigkeit"/>
+	<string id="20366" value="Gnutella-Verbindungen (Gesamt)"/>
+	<string id="20367" value="Gnutella-Verbindungen (Aktiv)"/>
+	<string id="20368" value="Verworfene Gnutella-Pakete"/>
+	<string id="20369" value="Verlorene Gnutella-Pakete"/>
+	<string id="20370" value="Empfangene Gnutella-Pakete"/>
+	<string id="20371" value="Gesendete Gnutella-Pakete"/>
+	<string id="20372" value="Gnutella-Ratio empfangener / gesendeter Pings"/>
+	<string id="20373" value="Gnutella-Ratio empfangener / gesendeter Pongs"/>
+	<string id="20374" value="Lokale Gnutella-Anfragen"/>
+	<string id="20375" value="Geroutete Gnutella-Pakete"/>
+	<string id="20376" value="Gesamte Empfangsgeschwindigkeit"/>
+	<string id="20377" value="Gesamte Sendegeschwindigkeit"/>
+	<string id="20378" value="Gesamte TCP-Empfangsgeschwindigkeit"/>
+	<string id="20379" value="Gesamte TCP-Sendegeschwindigkeit"/>
+	<string id="20380" value="Gesamte UDP-Empfangsgeschwindigkeit"/>
+	<string id="20381" value="Gesamte UDP-Sendegeschwindigkeit"/>
+	<string id="20382" value="Uploadgeschwindigkeit"/>
+	<string id="20384" value="Anzahl Uploadtransfers"/>
+	<string id="20385" value="Verbindung mit %s herstellen. Rückkehr in den shielded-leaf Modus."/>
+	<string id="20386" value="Überflüssige Verbindung mit %s geschlossen, Host-Liste übertragen (%s Port %i)."/>
+	<string id="20387" value="Hub %s akzeptiert uns nicht als Hub, Verbindung getrennt."/>
+	<string id="20388" value="Handshake mit %s fehlgeschlagen (ungültige Daten in der Leitung)."/>
+	<string id="20389" value="Hubmodus für Host %s."/>
+	<string id="20390" value="Hub-Verbindung hergestellt. Peer-Verbindungen werden getrennt."/>
+	<string id="20391" value="Verbindung von %s verweigert, weil PeerProjekt im shielded-leaf-Modus läuft."/>
+	<string id="20392" value="Host %s ist kein Hub, Verbindung wird getrennt."/>
+	<string id="20393" value="Verbindung zu nicht-G2 Host %s wird geschlossen."/>
+	<string id="20394" value="Host %s möchte ein Hub sein, Verbindung wird getrennt."/>
+	<string id="20395" value="Gnutella-Verbindung mit Host %s erfolgreich hergestellt (G%i.%i : %s)."/>
+	<string id="20396" value="Gnutella2-Verbindung mit Host %s erfolgreich hergestellt (%s)."/>
+	<string id="20397" value="Verbindung zu %s zurückgewiesen (%s)."/>
+	<string id="20398" value="Überflüssige Verbindung mit %s geschlossen."/>
+	<string id="20399" value="Der Handshake mit %s hat die Wartezeit überschritten."/>
+	<string id="20400" value="PeerProjekt hasht %Iu Daten:"/>
+	<string id="20402" value="Neu..."/>
+	<string id="20403" value="Channels"/>
+	<string id="20404" value="Nachricht:"/>
+	<string id="20405" value="Bitte gehen Sie respektvoll mit anderen um und drücken sich in einer angemessenen Sprache aus."/>
+	<string id="20406" value="Wilkommen beim PeerProjekt-Chat IRC"/>
+	<string id="20407" value="Entfernen"/>
+	<string id="20408" value="Benutzer"/>
+	<string id="20410" value="Bibliothek durchsuchen"/>
+	<string id="20411" value="Durchsuchen "/>
+	<string id="20412" value="Inhalt von %i Ordnern anzeigen"/>
+	<string id="20413" value="%i Dateien markiert"/>
+	<string id="20414" value="Mehrere Ordner"/>
+	<string id="20415" value="Keine Datei markiert"/>
+	<string id="20416" value="Diese Datei bewerten"/>
+	<string id="20417" value="Neue Dateien"/>
+	<string id="20418" value="Album"/>
+	<string id="20419" value="Interpret"/>
+	<string id="20420" value="Bitrate"/>
+	<string id="20421" value="Dauer"/>
+	<string id="20422" value="Bewertung"/>
+	<string id="20423" value="Titel"/>
+	<string id="20424" value="#"/> <!-- Track number -->
+	<string id="20425" value="PeerProjekt konnte die Kollektion &quot;%s&quot; nicht installieren. Fehler beim Kopieren in den Ordner &quot;%s&quot;."/>
+	<string id="20426" value="Möchten Sie alle Dateien dieser Kollektion herunterladen?\n\nKlicken Sie auf Abbrechen, um nicht mehr gefragt zu werden."/>
+	<string id="20427" value="PeerProjekt hat die Kollektion &quot;%s&quot; zu ihrer Bibliothek hinzugefügt."/>
+	<string id="20428" value="PeerProjekt hat folgende Kollektion empfangen:\n\n&quot;%s&quot;\n\nDiese Datei scheint keine gültige Kollektion zu sein."/>
+	<string id="20429" value="Keine weiteren Downloads von dieser Kollektion."/>
+	<string id="20430" value="Sind Sie sicher, dass Sie die Datei &quot;%s&quot; ausführen möchten?\n\nManche Dateien können ihren Computer beschädigen. Stellen Sie die Echtheit der Datei sicher, bevor Sie sie ausführen (Virenscan)."/>
+	<string id="20431" value="Sind Sie sicher, dass Sie die %i ausgewählten Datei(en) löschen möchten?\n\nDie Dateien werden in den Windows Papierkorb verschoben."/>
+	<string id="20432" value="PeerProjekt konnte die Datei\n\n%s\n\n nicht löschen"/>
+	<string id="20433" value="Ihr Downloadverzeichnis &quot;%s&quot; ist nicht in ihrer Bibliothek.\n\nWenn Sie ihr Downloadverzeichnis zur Bibliothek hinzufügen, können Sie neue Downloads viel einfacher anzeigen und verwalten. Außerdem können Sie dann die Funktionen Downloadüberprüfung und Automatische Updates benutzen.nDas hinzufügen ihres Downloadverzeichnis zur Bibliothek erfordert es nicht, es freizugeben: Sie können bestimmen, ob Sie einzelne Dateien freigeben.\n\nWollen Sie ihr Downloadverzeichnis jetzt zur Bibliothek hinzufügen?"/>
+	<string id="20434" value="Ihr Downloadverzeichnis wurde zu ihrer Bibliothek hinzugefügt.  Wollen Sie es auch freigeben?"/>
+	<string id="20435" value="Sie haben keinen Mediaplayer wie z.B. Winamp gewählt, um Dateien in die Wiedergabeliste aufzunehmen. Wollen Sie jetzt einen auswählen?\n\nPeerProjekt wird dem gewählten Programm den Dateinamen mit der &quot;/ADD&quot; Option übergeben."/>
+	<string id="20436" value="Wollen Sie die markierten %i Alben wirklich löschen ?\n\nHierbei werden nicht die Dateien gelöscht, sondern nur die Kollektionen."/>
+	<string id="20437" value="Ghost-Datei"/>
+	<string id="20438" value="Metadaten von %i bearbeiten."/>
+	<string id="20439" value="Sie sind dabei die Metadaten von %i Dateien zu ändern. Wollen Sie fortfahren?"/>
+	<string id="20440" value="Kann Datei %s nicht verschieben. Es ist möglich, dass eine andere Anwendung die Datei gerade verwendet.\n\nMöchten Sie stattdessen versuchen, die Datei zu kopieren?"/>
+	<string id="20441" value="PeerProjekt konnte\n\n%s\nnicht i\n\n%s umbenennen"/>
+	<string id="20442" value="Zieldatei existiert:\n\n%s\n\nMöchtensie überschreiben?"/>
+	<string id="20443" value="Alle Dateitypen anzeigen"/>
+	<string id="20444" value="&amp;RI kopieren"/>
+	<string id="20445" value="&amp;RIs exportieren..."/>
+	<string id="20446" value="Die Datei &quot;%s&quot; hat die Hash-Überprüfung nicht bestanden und ist möglicherweise nicht die Datei, die Sie herunterladen wollten. Sind Sie sicher, dass Sie die Datei öffnen möchten?"/>
+	<string id="20447" value="Wollen sie das &quot;potenziell unsicher&quot;-Atribut von dieser Datei entfernen?"/>
+	<string id="20448" value="Die Datei &quot;%s&quot; wurde noch nicht gehasht. Bitte warten Sie bis die Datei gehasht wurde und versuchen Sie es später erneut."/>
+	<string id="20449" value="Diese Option benutzt Dienste, die von Bitzi.com zur Verfügung gestellt werden, um Information über Dateien zu sammeln und zugänglich zu machen.\n\nPeerProjekt wird den SHA1-Hashwert für die ausgewählte(n) Datei(en) übertragen, um die Bitzi-Datenbank abzufragen.nWenn Sie sich Sorgen um ihre Privatsphäre machen, können Sie die &quot;Bitzi.com privacy policy&quot; lesen.\n\nWollen Sie fortfahren?"/>
+	<string id="20450" value="Ein Unterordner des ausgewählten Ordners &quot;%s&quot; befindet sich schon in ihrer Bibliothek.nDas Hinzufügen dieses Ordners hat zur Folge, dass einige Dateien neu verifiziert werden müssen.\n\nMöchten Sie fortfahren?"/>
+	<string id="20451" value="Es wird keine Datei wiedergegeben. Doppelklicken Sie eine Datei in Ihrer Bibliothek an, um sie abzuspielen."/>
+	<string id="20452" value="Alle Multimedia Dateien|*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Wiedergabelisten|*.asx;*.wax;*.m3u;*.wvx;*.wmx|Audio Dateien|*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;|Video Dateien|*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.ogm;*.wmv|CD Audio Tracks|*.cda|MIDI Dateien|*.mid;*.rmi;*.midi|Alle Dateien|*.*||"/>
+	<string id="20453" value="Fehler beim Laden von &quot;%s&quot;"/>
+	<string id="20454" value="Die Datei ist möglicherweise beschädigt, oder die Datei benutzt einen Codec, den Sie nicht installiert haben."/>
+	<string id="20455" value="Ein Teil dieser Datei kann nicht abgespielt werden. Möglicherweise mûssen Sie zusätzliche Decoder herunterladen."/>
+	<string id="20456" value="Playlist:"/>
+	<string id="20457" value="PeerProjekt konnte das MediaServices-Plugin nicht laden. Bitte installieren Sie PeerProjekt erneut und stellen Sie sicher, dass Sie die nötigen Codecs und Ausgabetreiber installiert haben."/>
+	<string id="20458" value="PeerProjekt-Medienwiedergabe"/>
+	<string id="20460" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; K &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
+	<string id="20461" value="(Keine Visualisierung)"/>
+	<!--string id="20462" value="PeerProjekt hat den Download abgeschlossen:"-->
+	<!--string id="20463" value="PeerProjekt lädt herunter:"-->
+	<!--string id="20464" value="PeerProjekt verschiebt den Download:"-->
+	<!--string id="20465" value="Dieser Download wurde angehalten:"-->
+	<!--string id="20466" value="PeerProjekt sucht nach Quellen für:"-->
+	<!--string id="20467" value="PeerProjekt überprüft den Download auf Fehler:"-->
+	<string id="20470" value="Abbrechen"/>
+	<string id="20471" value="Öffnen"/>
+	<string id="20472" value="Beendet"/>
+	<string id="20473" value="Geschätzte Dauer:"/>
+	<string id="20474" value="Anzahl der Rezensionen:"/>
+	<string id="20475" value="Anzahl Quellen:"/>
+	<string id="20476" value="Keine Quellen"/>
+	<string id="20477" value="%i Tage und %i Stunden"/>
+	<string id="20478" value="%i Stunden und %i Minuten"/>
+	<string id="20479" value="%i Minuten und %i Sekunden"/>
+	<string id="20480" value="%i Sekunden"/>
+	<string id="20481" value="Geschwindigkeit:"/>
+	<string id="20482" value="Heruntergeladen:"/>
+	<string id="20483" value="Hochgeladen: "/>
+	<string id="20484" value="Limit Download-Bandbreite"/>
+	<string id="20485" value="Limit Upload-Bandbreite"/>
+	<string id="20490" value="Mehrfach"/>
+	<string id="20491" value="Mehrfache Einträge"/>
+	<string id="20494" value="Sie haben in ihrem Profil keinen Standort angegeben.\n\nEs wird empfohlen einen Standort anzugeben, damit andere Benutzer sehen können aus welchem Land Sie kommen. Das Angeben eines Standorts gibt keine wichtigen Informationen preis.\n\nSind Sie sicher, dass Sie ohne einen Standort anzugeben fortfahren möchten?"/>
+	<string id="20495" value="Sie haben in ihrem Benutzerprofil keinen Nicknamen angegeben."/>
+	<string id="20496" value="Sie haben ihr Alter und Geschlecht nicht angegeben. Sind Sie sicher, dass sie fortfahren möchten?"/>
+	<string id="20499" value="Neuer Ordner"/>
+	<string id="20500" value="Klicken Sie auf &quot;Verbinden&quot; um zu beginnen."/>
+	<string id="20501" value="Sie sind mit keinem Netzwerk verbunden."/>
+	<string id="20502" value="Schließen..."/>
+	<string id="20503" value="Kompression:"/>
+	<string id="20504" value="Fertig"/>
+	<string id="20505" value="Keine"/>
+	<string id="20506" value="Verbinden..."/>
+	<string id="20507" value="Bandbreite:"/>
+	<string id="20510" value="eDonkey-Serververbindung"/>
+	<string id="20511" value="eDonkey (HighID)"/>
+	<string id="20512" value="eDonkey-Server-Verbindung (LowID: %lu)"/>
+	<string id="20513" value="eDonkey (LowID)"/>
+	<string id="20514" value="eDonkey-Server"/>
+	<string id="20515" value="G1-Leaf"/>
+	<string id="20516" value="G1-Peer"/>
+	<string id="20517" value="Gnutella: Peer-to-Peer-Verbindung"/>
+	<string id="20518" value="Gnutella: Leaf-to-Ultrapeer-Verbindung"/>
+	<string id="20519" value="Gnutella: Ultrapeer-to-Leaf-Verbindung"/>
+	<string id="20520" value="G1-Ultrapeer"/>
+	<string id="20521" value="G2-Hub"/>
+	<string id="20522" value="G2-Leaf"/>
+	<string id="20524" value="G2-Peer"/>
+	<string id="20525" value="Gnutella2: Leaf-to-Hub-Verbindung"/>
+	<string id="20526" value="Gnutella2: Hub-to-Hub-Verbindung"/>
+	<string id="20527" value="Gnutella2: Hub-to-Leaf-Verbindung"/>
+	<string id="20530" value="Handshake"/>
+	<string id="20531" value="Handshake..."/>
+	<string id="20532" value="Eingehend"/>
+	<string id="20533" value="Ausgehend"/>
+	<string id="20534" value="Gesamt:"/>
+	<string id="20535" value="Ratio:"/>
+	<string id="20536" value="Abgelehnt"/>
+	<string id="20538" value="Unbekannt"/>
+	<string id="20540" value="Verbinden"/>
+	<string id="20541" value="Verbinden..."/>
+	<string id="20542" value="Verbunden"/>
+	<string id="20543" value="Verbindung trennen"/>
+	<string id="20544" value="Der PeerProjekt-Netzwerkkern wird heruntergefahren..."/>
+	<string id="20545" value="Mit keinem Netzwerk verbunden."/>
+	<string id="20546" value="Sind Sie sicher, dass Sie die Verbindung trennen möchten?"/>
+	<string id="20547" value="Gnutella2 ist PeerProjekts Hauptnetzwerk.  Wenn sie die Unterstützung für Gnutella2 deaktivieren, könnten sich die Anzahl und die Qualität Ihrer Suchergebnisse stark verschlechtern.  Sind Sie SICHER, dass Sie das wollen?"/>
+	<string id="20548" value="Kann nicht an %s Port %i für eingehende Verbindungen binden. Eingehende Verbindungen nicht möglich."/>
+	<string id="20549" value="Kann %s für ausgehende Verbindungen nicht auflösen. Ausgehende Verbindungen benutzen das Standardinterface."/>
+	<string id="20550" value="Ihre Uploadbandbreite reicht nicht aus, um dieses Netzwerk zu aktivieren"/>
+	<string id="20551" value="Firewall erkannt. Es wird nicht auf eingehende Verbindungen gewartet."/>
+	<string id="20552" value="Das Erzwingen des HUB-Modus kann negative Auswirkungen auf das Netzwerk und die Ausführgeschwindigkeit von PeerProjekt haben. Es ist generell besser PeerProjekt diese Entscheidung selbst treffen zu lassen.\n\nDer Hub Modus führt NICHT zu besseren Suchergebnissen, und hat auch keine anderen Vorteile für Sie.\n\nSind Sie SICHER, dass Sie das wollen?"/>
+	<string id="20553" value="Eingehende Verbindungen werden an %s Port %i akzeptiert."/>
+	<string id="20554" value="An %s Port %i auf UDP-Pakete warten."/>
+	<string id="20555" value="Ausgehende Verbindungen gehen von %s Port %i aus."/>
+	<string id="20556" value="Kann Host &quot;%s&quot; nicht auflösen."/>
+	<string id="20557" value="Host &quot;%s&quot; auflösen..."/>
+	<string id="20558" value="Suchanfrage für &quot;%s&quot; an %s senden."/>
+	<string id="20560" value="Die Adresse %s wird von ihren Sicherheitsregeln bereits blockiert."/>
+	<string id="20561" value="Eine Regel, um %s zu blockieren, wurde hinzugefügt."/>
+	<string id="20562" value="Der Sicherheitsmanager hat die Verbindung von %s verweigert."/>
+	<string id="20563" value="Der Sicherheitsmanager hat eine Verbindung zu %s verhindert."/>
+	<string id="20564" value="Der PeerProjekt-Netzwerkkern wird gestartet..."/>
+	<string id="20565" value="Sie benutzen die Zeitsteuerung nur mit dem G2-Netzwerk. Möchten Sie dies ausschalten und zu allen aktivierten Netzwerken verbinden ?"/>
+	<string id="20566" value="UPnP-Portfreigabe nach 10 Versuchen fehlgeschlagen."/>
+	<string id="20570" value="Host %s hat ein falsch formatiertes queryhit-Paket weitergeleitet, ignoriert."/>
+	<string id="20571" value="%s:  Host %s hat ein falsch formatiertes query-Paket weitergeleitet, ignoriert."/>
+	<string id="20572" value="Host %s hat ein Paket mit zu hoher TTL weitergeleitet, Paket verworfen (TTL=%i, Hops=%i)."/>
+	<string id="20573" value="Host %s hat ein Paket mit TTL=0 weitergeleitet, ignoriert."/>
+	<string id="20574" value="Host %s hat ein erweitertes Paket weitergeleitet, das nicht GGEP-kodiert ist."/>
+	<string id="20575" value="Host %s hat ein ungültiges QRT-Update gesendet, Verbindung getrennt."/>
+	<string id="20576" value="QRT an Host %s senden (%i bit = %lu[%i], %i%% voll)"/>
+	<string id="20577" value="Unerwartetes QRT-Update von Host %s empfangen."/>
+	<string id="20578" value="Host %s hat seine query-routing-Tabelle aktualisiert (%i bit = %lu[%i], %i%% voll)."/>
+	<string id="20579" value="%s -> %s [%i/%i] %s %s"/>
+	<string id="20580" value="Leaf %s leitet Suchanfragen weiter, Verbindung getrennt."/>
+	<string id="20581" value="Host %s hat ein Ping-Paket mit ungültiger Länge weitergeleitet, ignoriert."/>
+	<string id="20582" value="Host %s hat ein Pong-Paket mit ungültiger Länge weitergeleitet, ignoriert."/>
+	<string id="20583" value="Host %s hat ein push-Paket mit ungültiger Länge weitergeleitet, ignoriert."/>
+	<string id="20584" value="Host %s hat ein zu großes Paket weitergeleitet, Verbindung getrennt."/>
+	<string id="20585" value="Host %s hat ein unbekanntes Paket weitergeleitet (0x%.2x), ignoriert."/>
+	<string id="20586" value="Host %s hat einen Pong mit ungültigen Adressdaten weitergeleitet, ignoriert."/>
+	<string id="20588" value="Host %s hat einen push-request an eine Adresse mit geschlossener Firewall weitergeleitet, ignoriert."/>
+	<string id="20590" value="Remote-Zugriff ist deaktiviert."/>
+	<string id="20591" value="http://%s:%i/remote - Benutzername und Passwort angeben."/>
+	<string id="20592" value="Kann keine eingehenden Verbindungen akzeptieren, URL nicht verfügbar."/>
+	<string id="20595" value="&amp;Schemas"/>
+	<string id="20620" value="Suche läuft..."/>
+	<string id="20621" value="Klicken Sie hier, um erneut zu suchen"/>
+	<string id="20622" value="Alle Netzwerke"/>
+	<string id="20623" value="Sie sind dabei eine neue Suche zu starten. Möchten Sie die Ergebnisse ihrer vorherigen Suche entfernen?"/>
+	<string id="20624" value="Keine Datei markiert"/>
+	<string id="20625" value="%s schreibt:"/>
+	<string id="20626" value="%s bewertet diese Datei:"/>
+	<string id="20627" value="Vorschau anzeigen"/>
+	<string id="20628" value="laden..."/>
+	<string id="20629" value="Download der Vorschau von &quot;%s&quot; fehlgeschlagen."/>
+	<string id="20630" value="%i Bewertungen verfügbar."/>
+	<string id="20631" value="Eine Bewertung verfügbar."/>
+	<string id="20632" value="%i Quellen verfügbar. (%s/s)"/>
+	<string id="20633" value="Eine Quelle verfügbar. (%s/s)"/>
+	<string id="20634" value="Es sind noch keine Ergebnisse verfügbar."/>
+	<string id="20635" value="Es sind Ergebnisse verfügbar, die jedoch herausgefiltert wurden."/>
+	<string id="20636" value="In diesem Fenster wurde noch keine Suche gestartet."/>
+	<string id="20637" value="Keine Metadaten"/>
+	<string id="20638" value="Keine Schema-Spalten"/>
+	<string id="20640" value="(Verlauf löschen)"/>
+	<string id="20641" value="In den P2P-Netzwerken suchen"/>
+	<string id="20642" value="Dateityp:"/>
+	<string id="20643" value="Geben Sie einige Suchbegriffe ein:"/>
+	<string id="20644" value="Erweitert"/>
+	<string id="20645" value="Jeder Dateityp"/>
+	<string id="20646" value="Aufräumen"/>
+	<string id="20648" value="Suchleiste ausblenden"/>
+	<string id="20650" value="Suchen"/>
+	<string id="20651" value="Geben Sie hier ihre Suche ein:"/>
+	<string id="20652" value="Nach diesem Dateityp suchen:"/>
+	<string id="20653" value="Netzwerke:"/>
+	<string id="20654" value="Dateigröße Min:"/>
+	<string id="20655" value="Dateigröße Max:"/>
+	<string id="20656" value="Weitersuchen"/>
+	<string id="20657" value="Suchleiste einblenden"/>
+	<string id="20658" value="Jetzt suchen"/>
+	<string id="20659" value="Stopp"/>
+	<string id="20660" value="Keine Dateien gefunden"/>
+	<string id="20661" value="%lu nodes, %lu leaves"/>
+	<string id="20662" value="Suche inaktiv"/>
+	<string id="20663" value="Ergebnisse"/>
+	<string id="20664" value="%lu Datei in %lu Treffer|%lu Datei in %lu Treffern|%lu Dateien in %lu Treffern"/>
+	<string id="20665" value="Gefunden:"/>
+	<string id="20666" value="Status:"/>
+	<string id="20668" value="Suchen..."/>
+	<string id="20669" value="Textsuche"/>
+	<string id="20670" value="Suche läuft..."/>
+	<string id="20671" value="Sind Sie sicher, dass Sie die ausgewählten Sicherheitsregeln löschen möchten? Dieser Schritt kann nicht rückgängig gemacht werden."/>
+	<string id="20672" value="Wählen sie den temporären Ordner von eDonkey/eMule:"/>
+	<string id="20673" value="Automatisch"/>
+	<string id="20674" value="Das Verzeichnis für unvollständige Dateien darf sich nicht im Downloadverzeichnis befinden."/>
+	<string id="20675" value="Windows unterstützt keine Dateipfade länger als 256 Zeichen.nBitte wählen Sie einen Ordner mit einem kürzeren Pfad."/>
+	<string id="20676" value="Ein Unterordner des gewählten Ordners &quot;%s&quot; ist schon in ihrer Bibliothek.nBeim Hinzufügen des Ordners müssen einige Dateien neu verifiziert werden.\n\nWollen Sie fortfahren ?"/>
+	<string id="20677" value="Bitte geben sie das gewünschte Bandbreitenlimit ein. &quot;123 kb/s&quot; für Kilobits pro Sekunde, oder &quot;123 KB/s&quot; für Kilobytes pro Sekunde."/>
+	<string id="20678" value="Das eDonkey-Netzwerk benutzt lange Warteschlangen mit langen Wartezeiten. Wenn Sie die Maximale Warteschlangenlänge zu strikt einstellen, könnten Sie Probleme bekommen, Dateien herunterzuladen.nSind Sie sicher, dass Sie die Maximale Warteschlangenposition auf diesen Wert setzen wollen?"/>
+	<string id="20680" value="Einstellungen"/>
+	<string id="20684" value="Wollen Sie den Skin &quot;%s&quot; wirklich löschen?  Dies kann nicht rückgängig gemacht werden."/>
+	<string id="20700" value="Aktiv"/>
+	<string id="20701" value="%s ein : %s aus (d:%I64i/u:%I64i)"/>
+	<string id="20702" value="Verbunden mit %lu Host(s), %s in der lokalen Bibliothek."/>
+	<string id="20703" value="Hub-Modus mit %lu Leaves.  %s in ihrer Bibliothek."/>
+	<string id="20704" value="Hub/Ultrapeer-Modus mit %lu Leaves.  %s in ihrer Bibliothek."/>
+	<string id="20705" value="Verbunden. %s in lokaler Bibliothek."/>
+	<string id="20706" value="Ultrapeer-Modus mit %lu Leaves.  %s in ihrer Bibliothek."/>
+	<string id="20707" value="Verbindung mit Netzwerken herstellen..."/>
+	<string id="20708" value="Mit keinem Netzwerk verbunden."/>
+	<string id="20710" value="(Keine Quellen)"/>
+	<string id="20711" value="Verschieben nicht möglich"/>
+	<string id="20712" value="Choked"/>
+	<string id="20713" value="Einreihen"/>
+	<string id="20714" value="Dateifehler"/>
+	<string id="20715" value="Hashset"/>
+	<string id="20716" value="Metadaten"/>
+	<string id="20717" value="Antwort"/>
+	<string id="20718" value="Verschieben"/>
+	<string id="20719" value="Erstellen"/>
+	<string id="20720" value="Fertig"/>
+	<string id="20721" value="Verbinden"/>
+	<string id="20722" value="Herunterladen"/>
+	<string id="20723" value="Beschäftigt"/>
+	<string id="20724" value="Next"/>
+	<string id="20725" value="Q"/>
+	<string id="20726" value="In Warteschlange"/>
+	<string id="20727" value="Pause"/>
+	<string id="20728" value="Warten"/>
+	<string id="20729" value="Anfordern"/>
+	<string id="20730" value="Suchen"/>
+	<string id="20731" value="Seeden"/>
+	<string id="20732" value="Quelle"/>
+	<string id="20733" value="Quellen"/>
+	<string id="20734" value="Quellen"/>
+	<string id="20735" value="Quellen"/>
+	<string id="20740" value="TigerTree"/>
+	<string id="20741" value="Torrent"/>
+	<string id="20742" value="Kein Seeder"/>
+	<string id="20743" value="Uninteressiert"/>
+	<string id="20744" value="Unbekannt"/>
+	<string id="20745" value="Nicht unterstützt"/>
+	<string id="20746" value="Nicht verifiziert"/>
+	<string id="20747" value="Verifiziert"/>
+	<string id="20748" value="Verifizieren"/>
+	<string id="20750" value="! Willkommen bei PeerProjekt (version) !n.nPeerProjekt ist völlig kostenlose Software.nBitte benutzen Sie PeerProjekt verantwortungsbewusst und respektieren Sie geistiges Eigentum.n."/>
+	<string id="20751" value="Es läuft kein Suche. Klicken Sie auf &quot;Suchen&quot; um nach Dateien zu suchen."/>
+	<string id="20752" value="Sie sind nicht verbunden. Klicken Sie auf &quot;Verbinden&quot; um Verbindungen zu den gewählten Netzwerken herzustellen."/>
+	<string id="20755" value="Sind Sie sicher, dass Sie die &quot;%s&quot;.Vorlage löschen wollen?nDieser Schritt kann nicht rückgängig gemacht werden."/>
+	<string id="20760" value="Aktiv"/>
+	<string id="20761" value="Inaktiv"/>
+	<string id="20762" value="Diese Datei scheint SPAM zu sein."/>
+	<string id="20763" value="Gesperrte Liste: "/>
+	<string id="20764" value="Sie haben diese Datei schon einmal heruntergeladen und gelöscht."/>
+	<string id="20765" value="Diese Datei befindet sich bereits in Ihrer Downloadliste."/>
+	<string id="20766" value="Diese Datei befindet sich bereits in Ihrer Bibliothek."/>
+	<string id="20767" value="Quellen für diese Datei haben zur Zeit keine freien Upload-Slots"/>
+	<string id="20768" value="Quellen für diese Datei sind hinter einer Firewall"/>
+	<string id="20769" value="Quellen für diese Datei können instabil sein"/>
+	<string id="20770" value="Ordner"/>
+	<string id="20771" value="Hits"/>
+	<string id="20772" value="Im Ordner"/>
+	<string id="20773" value="Ihrer Bibliothek"/>
+	<string id="20774" value="N/A"/>
+	<string id="20775" value="Next in Line"/>
+	<string id="20776" value="(Kein Hashset)"/>
+	<string id="20777" value="Unvollständige Quelle (%.2f%% verfügbar)"/>
+	<string id="20778" value="%i Upload-Slots, %i in Warteschlange"/>
+	<string id="20780" value="Größe"/>
+	<string id="20781" value="Diese Quelle hat zur Zeit keine freien Upload-Slots"/>
+	<string id="20782" value="Diese Quelle ist hinter einer Firewall"/>
+	<string id="20783" value="Diese Quelle kann instabil sein"/>
+	<string id="20784" value="Geschw.:"/>
+	<string id="20785" value="Status:"/>
+	<string id="20786" value="Seit Programmstart: %lu , Gesamt: %lu "/>
+	<string id="20787" value="Dateien gesamt:"/>
+	<string id="20788" value="Größe:"/>
+	<string id="20789" value="Transfer:"/>
+	<string id="20790" value="Typ"/>
+	<string id="20791" value="nicht vertraut"/>
+	<string id="20792" value="Uploads"/>
+	<string id="20793" value="URL:"/>
+	<string id="20794" value="User-Agent:"/>
+	<string id="20795" value="%s ein : %s aus (d:%I64i/u:%I64i/h:%I64i)"/>
+	<string id="20796" value="Über das Internet freigegebene Dateien"/>
+	<string id="20798" value="Die neuste PeerProjekt-Version wurde heruntergeladen (%s).  Wollen Sie das Update jetzt installieren?\n\nWenn Sie auf Ja klicken wird PeerProjekt kurzzeitig beendet, um das Update zu installieren."/>
+	<string id="20800" value="Standard-HTML-Antwort an Upload Host %s senden (%s)."/>
+	<string id="20801" value="Eingehende Verbindung von %s ist eine HTTP-Uploadanforderung."/>
+	<string id="20802" value="Upload-Host %s (%s) hat eine Dateiliste angefordert, antworten..."/>
+	<string id="20803" value="Upload-Host %s ist auf der User-Agent-Blockliste, Zugriff verweigert."/>
+	<string id="20804" value="Durchsuchen-Anforderung von %s verweigert, zu viele Durchsuchen-Verbindungen."/>
+	<string id="20805" value="Durchsuchen von Host %s verweigert."/>
+	<string id="20806" value="Der Upload %s in der Warteschlange fragt zu häufig an. Verbindung wird geschlossen."/>
+	<string id="20807" value="Hochladen von &quot;%s&quot; an %s (%s) verweigert. Zu viele Verbindungen mit Host."/>
+	<string id="20808" value="Kein freier Slot um &quot;%s&quot; an %s (%s) hochzuladen, Client unterstützt keine Warteschlange."/>
+	<string id="20809" value="Upload von &quot;%s&quot; an %s (%s) verweigert, alle entsprechenden Warteschlangen sind voll."/>
+	<string id="20810" value="Upload-Host %s hat einen nicht verfügbaren Bereich der Datei &quot;%s&quot; angefordert."/>
+	<string id="20811" value="eDonkey-Uploads sollten nicht abgebrochen werden. Sind Sie sicher, dass Sie diesen Upload abbrechen wollen?"/>
+	<string id="20812" value="Die Datei &quot;%s&quot; konnte nicht geöffnet werden um an Host %s hochzuladen, Festplatten/Dateifehler ."/>
+	<string id="20813" value="Push-Verbindung mit %s wird hergestellt um &quot;%s&quot; hochzuladen."/>
+	<string id="20814" value="Konnte keine Upload-Verbindung zu %s herstellen um einen Push request zu senden."/>
+	<string id="20815" value="Dateibereich %I64i-%I64i aus Datei &quot;%s&quot; wird an Host %s übertragen (%s)."/>
+	<string id="20816" value="Upload-Verbindung mit %s wurde unterbrochen."/>
+	<string id="20817" value="Neuer Upload an %s verweigert, weil eine frühere Verbindung noch aussteht."/>
+	<string id="20818" value="Upload an %s wird geschlossen, weil neue Verbindung aufgebaut wurde."/>
+	<string id="20819" value="Uploadanforderung von %s (%s) verweigert, Netwzerk deaktiviert."/>
+	<string id="20820" value="Upload von &quot;%s&quot; an %s abgebrochen, weil die Datei gelöscht wurde."/>
+	<string id="20821" value="Datei &quot;%s&quot; an Host %s hochladen..."/>
+	<string id="20822" value="Upload-Host %s hat eine unbekannte oder nicht verfügbare Datei angefordert: %s."/>
+	<string id="20823" value="Upload von &quot;%s&quot; an %s abgeschlossen."/>
+	<string id="20824" value="Push-Verbindung mit %s hergestellt, auf Handshake warten..."/>
+	<string id="20825" value="Upload-Host %s hat &quot;%s&quot; mit einem anderen SHA1-Hash angefordert."/>
+	<string id="20826" value="Upload-Header von &quot;%s&quot; an Host %s senden(%s)."/>
+	<string id="20827" value="Metadaten für &quot;%s&quot; an %s hochladen."/>
+	<string id="20828" value="Upload-Host %s hat eine ungültige HTTP-Anforderung gesendet."/>
+	<string id="20830" value="Dateibereich %I64i-%I64i aus unvollständiger Datei &quot;%s&quot; wird an Host %s übertragen (%s)."/>
+	<string id="20832" value="Hochladen der Vorschau von &quot;%s&quot; an %s verweigert. Zu viele Vorschau-Verbindungen."/>
+	<string id="20833" value="Dynamische Vorschau von &quot;%s&quot; zum Hochladen an %s geplant."/>
+	<string id="20834" value="Upload-Host %s hat eine Vorschau von &quot;%s&quot; angefordert. Es ist jedoch keine Vorschau vorhanden."/>
+	<string id="20835" value="Vorschau von &quot;%s&quot; an %s hochladen."/>
+	<string id="20836" value="Push-request zu %s verweigert, weil kein Upload-Slot frei ist."/>
+	<string id="20837" value="Push-Request(alt) von %s hat eine unbekannte Datei angefordert, trotzdem verbinden..."/>
+	<string id="20838" value="Kein freier Uploadslot um &quot;%s&quot; an %s hochzuladen, Warteschlange auf Position #%i von %i (&quot;%s&quot;.."/>
+	<string id="20840" value="Neue Warteschlange"/>
+	<string id="20841" value="Alle Dateien"/>
+	<string id="20842" value="Upload-Verbindung mit %s unterbrochen, Warteschlangenposition wird erhalten."/>
+	<string id="20844" value="eDonkey-Core"/>
+	<string id="20845" value="eDonkey-Guard"/>
+	<string id="20846" value="eDonkey (unvollständige Dateien)"/>
+	<string id="20847" value="Fertige Uploads"/>
+	<string id="20848" value="HTTP-Guard"/>
+	<string id="20849" value="Dateien in der Bibliothek"/>
+	<string id="20850" value="Große Dateien"/>
+	<string id="20851" value="Mittelgroße Dateien"/>
+	<string id="20852" value="Kleine Dateien"/>
+	<string id="20853" value="Unvollständige Dateien"/>
+	<string id="20854" value="Unvollständig"/>
+	<string id="20855" value="Warteschlange"/>
+	<string id="20856" value="Torrent-Uploads"/>
+	<string id="20857" value="Offline-Warteschlangenposition für %s abgelaufen, entfernt."/>
+	<string id="20858" value="Die Wartezeit für Upload-Host %s wurde überschritten."/>
+	<string id="20859" value="Upload an %s mangels Aktivität geschlossen."/>
+	<string id="20860" value="TTH-Daten für &quot;%s&quot; an &quot;%s&quot; senden."/>
+	<string id="20861" value="Upload von &quot;%s&quot; an %s entfernt."/>
+	<string id="20862" value="Hinzu"/>
+	<string id="20864" value="&amp;Durchsuchen"/>
+	<string id="20865" value="&amp;Verbinden"/>
+	<string id="20866" value="Dateiname:"/>
+	<string id="20867" value="Host:"/>
+	<string id="20868" value="Port:"/>
+	<string id="20869" value="Der URL-Aktionsdialog kann nicht angezeigt werden, weil PeerProjekt beschäftigt ist."/>
+	<string id="20870" value="Auswertung der URL nicht möglich: PeerProjekt versteht die URL nicht."/>
+	<string id="20871" value="URL &quot;%s&quot; empfangen"/>
+	<string id="20872" value="Typ:"/>
+	<string id="20874" value="Undefiniert"/>
+	<string id="20875" value="URL:"/>
+	<string id="20880" value="Mein Profil bearbeiten"/>
+	<string id="20881" value="Das Wechseln der Ansicht schließt alle offenen Fenster. Wollen Sie die Ansicht jetzt wechseln?"/>
+	<string id="20882" value="SSDP-Host-Service ist nicht gestartet. Dieser Dienst wird benötigt, um die Installation durchzuführen.\nEs ist erforderlich, dass das Merkmal dieses Dienstes auf Automatisch eingestellt ist."/>
+	<string id="20884" value="Keine URN verfügbar."/>
+	<string id="20885" value="Der Wechsel der Schreibrichtung erfordert einen Neustart.\nJetzt beenden?"/>
+	<string id="20890" value="Willkommen bei PeerProjekt"/>
+	<string id="20891" value="&amp;Schließen"/>
+	<string id="20892" value="Bitte warten: eDonkey-Server-Liste wird aktualisiert..."/>
+	<string id="20893" value="Bitte warten: Service Provider werden aktualisiert..."/>
+	<string id="20894" value="Bitte warten: UPnP-Geräte werden erkannt und konfiguriert..."/>
+	<string id="20895" value="Sie haben Ihre Verbindungsgeschwindigkeit noch nicht angegeben. Bevor Sie fortfahren stellen Sie bitte ihre Verbindungsart oder Geschwindigkeit ein."/>
+	<string id="20896" value="Sie haben angegeben, dass Sie in Ihrem NAT-Router oder Firewall die Port-Freigabe benutzen möchten.\n\nBitte konfigurieren Sie ihr Netzwerk um Port %i (TCP und UDP)an ihren PC weiterzuleiten."/>
+	<string id="20897" value="Der Ordner, den Sie freigegeben möchten, ist bereits als Teil eines anderen Ordners freigegeben:\n\n%s"/>
+	<string id="20898" value="Sie haben keine Ordner freigegeben. Sind Sie sicher?"/>
+	<string id="20899" value="Jahre alt"/>
+	<!-- string value="Torrent-Informationen"-->
+	<!-- string value="Tracker hat nicht geantwortet - Anfrage erneut versuchen (%i von %i)"-->
+	<!-- string value="Die Datei &quot;%s&quot; befindet sich bereits in ihrer Bibliothek. Möchten Sie sie dennoch herunterladen?"-->
+	<!-- string id="16405" value="Möchten Sie diese Datei herunterladen?\n\n&quot;%s&quot;\n\nKlicken Sie auf Abbrechen, um nicht mehr gefragt zu werden."-->
 </strings>
 <!-- Localized Dialog Text, "cookie" verifies that the skin matches current dialog -->
 <dialogs>
@@ -4261,15 +4277,15 @@
 	<dialog name="CScheduleTaskDlg" cookie="BuBuBuCoEdmsEdmsStStBuBuBuBuBuSySyBuBuBuBuBuBuBuBuBuEd" caption="Planen Aufgabe">
 		<control caption="OK"/>
 		<control caption="Abbrechen"/>
-		<control caption="Select Task Type"/>
+		<control caption="Wählen Sie Task-Typ"/>
 		<control/>
 		<control/>
 		<control/>
 		<control/>
 		<control/>
-		<control caption="% under Download limit"/>
-		<control caption="% under Upload limit"/>
-		<control caption="Active Task"/>
+		<control caption="% der Download limit"/>
+		<control caption="% der Upload limit"/>
+		<control caption="Aktive Aufgabe"/>
 		<control caption="Enable G2 Only"/>
 		<control caption="Set Event Time"/>
 		<control caption="Specified days"/>

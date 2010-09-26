@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Greek Skin File -->
 
-<!-- Translation based on default-en.xml r58 -->
+<!-- Translation based on default-en.xml r59 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -381,6 +381,8 @@
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Ρυθμίσεις"/>
 	</toolbar>
+	<!-- SECURITY WINDOW Missing -->
+	<!-- SCHEDULER WINDOW Missing -->
 	<!-- HIT MONITOR WINDOW -->
 	<toolbar name="CHitMonitorWnd">
 		<button id="ID_SEARCH_DOWNLOAD" text="Λήψη"/>
@@ -1721,7 +1723,7 @@
 		<anchor id="Header" width="32" height="152"/>
 		<newline gap="0"/>
 		<group id="1">
-			<icon res="130" width="32" height="32" target="command:ID_NETWORK_CONNECT"/><gap size="8"/>
+			<icon res="136" width="32" height="32" target="command:ID_NETWORK_CONNECT"/><gap size="8"/>
 			<heading align="middle">ΣΥΝΔΕΘΕΙΤΕ</heading>
 			<newline gap="8" indent="42"/>
 			<text>Καλώς ήρθατε στο PeerProject!</text>
@@ -1731,12 +1733,12 @@
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="2">
-			<icon res="134" width="32" height="32" target="command:ID_TAB_SEARCH"/><gap size="8"/>
+			<icon res="130" width="32" height="32" target="command:ID_TAB_SEARCH"/><gap size="8"/>
 			<heading align="middle">ΑΝΑΖΗΤΕΙΣΤΕ ΕΝΑ ΑΡΧΕΙΟ</heading>
 			<newline gap="8" indent="42"/>
 			<anchor id="SearchBox" width="256" height="80"/>
 			<newline gap="14" indent="0"/>
-			<icon res="136" width="32" height="32" target="command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
+			<icon res="124" width="32" height="32" target="command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
 			<heading align="middle">ΑΡΧΗ ΛΗΨΗΣ</heading>
 			<newline gap="8" indent="42"/>
 			<link target="command:ID_TOOLS_DOWNLOAD" format="bu">Κλικ εδώ για να αρχίσετε</link>
@@ -1755,7 +1757,7 @@
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="4">
-			<icon res="252" width="32" height="32" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
+			<icon res="180" width="32" height="32" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 			<heading align="middle">ΠΡΟΕΙΔΟΠΟΙΗΣΗ: ΕΝΟΧΛΗΤΙΚΟ FIREWALL</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">Το PeerProject εντόπισε ότι είστε πίσω από NAT router ή firewall,
@@ -1766,7 +1768,7 @@
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="6">
-			<icon res="252" width="32" height="32"/><gap size="8"/>
+			<icon res="180" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">ΠΡΟΕΙΔΟΠΟΙΗΣΗ: Η TCP ΘΥΡΑ ΣΑΣ ΚΟΒΕΤΑΙ ΑΠΟ FIREWALL</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">Το PeerProject εντόπισε ότι είστε πίσω από NAT router ή firewall,
@@ -1777,7 +1779,7 @@
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="7">
-			<icon res="252" width="32" height="32"/><gap size="8"/>
+			<icon res="180" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">ΠΡΟΕΙΔΟΠΟΙΗΣΗ: Η UDP ΘΥΡΑ ΣΑΣ ΚΟΒΕΤΑΙ ΑΠΟ FIREWAL</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">Το PeerProject εντόπισε ότι είστε πίσω από NAT router ή firewall,
@@ -1790,24 +1792,24 @@
 		<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">ΠΡΟΣΑΡΜΟΓΗ  TOΥ PEERPROJECT</heading>
 		<newline gap="12" indent="42"/>
-		<icon res="182" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
+		<icon res="196"width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
 		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">Φλοιοί</link>
 		<text align="middle">&#160;- Αλλαγή της όψης και της αισθητικής του PeerProject</text>
 		<newline gap="8"/>
-		<icon res="141" width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
+		<icon res="138"width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
 		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
 		<text align="middle">&#160;- Update blocklist to avoid bad search results</text>
 		<newline gap="8"/>
-		<icon res="317" width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
+		<icon res="197"width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 		<link target="command:ID_TOOLS_WIZARD" align="middle">Οδηγός Σύντομης Εκκίνησης</link>
 		<text align="middle">&#160;- Βασική ρύθμιση του PeerProject</text>
 		<newline gap="8"/>
-		<icon res="147" width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
+		<icon res="182"width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
 		<link target="command:ID_HELP_FAQ" align="middle">Βοήθεια</link>
 		<text align="middle">&#160;- Ιστοσελίδα βοήθειας στη χρήση του PeerProject, or </text>
 		<link target="command:ID_TAB_IRC" align="middle">IRC.</link>
 		<newline gap="8"/>
-		<icon res="175" width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
+		<icon res="201"width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
 		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">Τοπική Forum</link>
 		<text align="middle">&#160;- GΜετάβαση στο ελληνικό φόρουμ συζήτησης σας γλώσσα</text>
 		<newline gap="18" indent="0"/>
@@ -2030,32 +2032,32 @@
 		</group>
 		<group id="40">
 			<newline gap="1"/>
-			<icon res="265"/><gap size="5"/>
+			<icon res="203"/><gap size="5"/>
 			<link id="ContactEmail" align="middle"/>
 		</group>
 		<group id="44">
 			<newline gap="1"/>
-			<icon res="1008"/><gap size="5"/>
+			<icon res="206"/><gap size="5"/>
 			<link id="ContactMSN"/>
 		</group>
 		<group id="41">
 			<newline gap="1"/>
-			<icon res="206"/><gap size="5"/>
+			<icon res="208"/><gap size="5"/>
 			<link id="ContactYahoo"/>
 		</group>
 		<group id="42">
 			<newline gap="1"/>
-			<icon res="208"/><gap size="5"/>
+			<icon res="205"/><gap size="5"/>
 			<link id="ContactICQ"/>
 		</group>
 		<group id="43">
 			<newline gap="1"/>
-			<icon res="207"/><gap size="5"/>
+			<icon res="204"/><gap size="5"/>
 			<link id="ContactAOL"/>
 		</group>
 		<group id="45">
 			<newline gap="1"/>
-			<icon res="207"/><gap size="5"/>
+			<icon res="204"/><gap size="5"/>
 			<link id="ContactJabber"/>
 		</group>
 		<group id="5">
@@ -2081,7 +2083,7 @@
 			<newline gap="16" indent="0"/>
 			<text format="b">Κοινότητα</text>
 			<newline gap="4" indent="8"/>
-			<icon res="140" target="command:ID_SEARCH_CHAT"/>
+			<icon res="127"target="command:ID_SEARCH_CHAT"/>
 			<gap size="5"/>
 			<link target="command:ID_SEARCH_CHAT" align="middle">Συνομιλία με Χρήστη</link>
 		</group>
@@ -2674,722 +2676,722 @@
 <!-- Localized Strings -->
 <strings>
 	<string id="WINDOW_MAIN" value="PeerProject"/>
+	<string id="WINDOW_HOME" value="Αρχική οθόνη PeerProject"/>
 	<string id="WINDOW_SYSTEM" value="Σύστημα"/>
 	<string id="WINDOW_NEIGHBOURS" value="Γείτονες"/>
 	<string id="WINDOW_PACKET" value="Εποπτεία Πακέτων"/>
 	<string id="WINDOW_HOSTCACHE" value="Host Cache"/>
-	<string id="WINDOW_SEARCHMONITOR" value="Εποπτεία Αναζητήσεων"/>
 	<string id="WINDOW_SEARCH" value="Αναζήτηση"/>
+	<string id="WINDOW_SEARCHPAD" value="Αναζήτηση"/>
+	<string id="WINDOW_SEARCHMONITOR" value="Εποπτεία Αναζητήσεων"/>
 	<string id="WINDOW_HITMONITOR" value="Εποπτεία Ευρέσεων"/>
 	<string id="WINDOW_DOWNLOADS" value="Λήψεις"/>
-	<string id="WINDOW_LIBRARY" value="Βιβλιοθήκη"/>
 	<string id="WINDOW_UPLOADS" value="Αποστολές"/>
+	<string id="WINDOW_LIBRARY" value="Βιβλιοθήκη"/>
 	<string id="WINDOW_TRAFFIC" value="Γραφήματα"/>
 	<string id="WINDOW_CHAT" value="Συνομιλία"/>
 	<string id="WINDOW_SECURITY" value="Ασφάλεια"/>
+	<string id="WINDOW_SCHEDULER" value="Χρονοδιάγραμμα"/>
 	<string id="WINDOW_DISCOVERY" value="Υπηρεσίες Ανακάλυψης"/>
 	<string id="WINDOW_BROWSEHOST" value="Περιήγηση"/>
-	<string id="WINDOW_HOME" value="Αρχική οθόνη PeerProject"/>
 	<string id="WINDOW_MEDIA" value="Πολυμέσα"/>
-	<string id="WINDOW_SEARCHPAD" value="Αναζήτηση"/>
 	<string id="WINDOW_HELP" value="Βοήθεια PeerProject"/>
 	<string id="WINDOW_IRC" value="Συνομιλία με Χρήστη"/>
-	<string id="7000" value="Θέλετε σίγουρα να διαγράψετε αυτό το φίλτρο;"/>
-	<string id="7001" value="&amp;Schemas"/>
-	<string id="7002" value="Multiple Values"/>
-	<string id="7003" value="Multiple"/>
-	<string id="7004" value="Υπάρχει ήδη ένα φίλτρο με όνομα &quot;%s&quot;. Θέλετε να το αντικαταστήσετε;"/>
-	<string id="7005" value="ΠΑρακαλώ ονομάστε το φίλτρο."/>
-	<string id="7100" value="Αυτό το πρότυπο δεν είναι έγκυρο."/>
-	<string id="7101" value="Αυτό το πρότυπο δεν έχει επιλογές προσαρμογής."/>
-	<string id="7102" value="Θέλετε σίγουρα να διαγράψετε το πρότυπο &quot;%s&quot;;\nΑυτό δεν μπορεί να αναιρεθεί!"/>
-	<string id="8000" value="Οι ρυθμίσεις του PeerProject"/>
-	<string id="8001" value="Καλώς ήρθατε στο PeerProject"/>
-	<string id="8002" value="Ιδιότητες Αρχείου"/>
-	<string id="8003" value="Επεξεργασία Προφίλ"/>
-	<string id="8004" value="Καλώς ήρθατε στο PeerProject!\n\nΤο PeerProject είναι ένα εντελώς ελεύθερο λογισμικό.\nΠαρακαλώ χρησιμοποιήστε το υπεύθυνα, έχοντας υπόψη τους νόμους πνευματικής ιδιοκτησίας.\n"/>
-	<string id="8005" value="(κλείσιμο μετά τις μεταφορές)"/>
-	<string id="8006" value="Δεν είστε ενωμένοι. Κλικ στο κουμπί Σύνδεση για να αρχίσετε."/>
-	<string id="8007" value="Δεν υπάρχουν ενεργές αναζητήσεις.  Κλικ εδώ για να αναζητήσετε αρχεία."/>
-	<string id="8008" value="Το PeerProject ολοκλήρωσε τη λήψη της επόμενης έκδοσης του PeerProject (%s). Θέλετε να την εγκαταστήσετε τώρα;\n\nΕαν επιλέξετε Ναι, το PeerProject θα κλείσει προσωρινά, καθώς η νέα έκδοση εγκαθίσταται."/>
-	<string id="8009" value="Θέλετε σίγουρα να διαγράψετε τον φλοιό &quot;%s&quot;; Αυτό δεν μπορεί να αναιρεθεί!"/>
-	<string id="8010" value="Αυτή είναι μία έκδοση προδημοσίευσης του PeerProject και η περίοδος δοκιμών έληξε. Παρακαλώ λέβετ την πλήρη επίσημη έκδοση από το http://peerproject.org/."/>
-	<string id="8011" value="Η αλλαγή της προβολής θα κλείσει ό,τι παράθυρα έχετε ανοιχτά. Θέλετε να γίνει τώρα;"/>
-	<string id="8012" value="Πληροφορίες Torrent"/>
-	<string id="8060" value="Λειτουργία Κόμβου/Ultrapeer με %lu γείτονες. %s στην τοπική Βιβλιοθήκη."/>
-	<string id="8061" value="Λειτουργία Ultrapeer με %lu γείτονες. %s στην τοπική Βιβλιοθήκη."/>
-	<string id="8062" value="Λειτουργία Κόμβου με %lu γείτονες. %s στην τοπική Βιβλιοθήκη."/>
-	<string id="8063" value="Ενωμένο. %s στην τοπική Βιβλιοθήκη."/>
-	<string id="8064" value="Ενωμένο σε %lu γείτονες. %s στην τοπική Βιβλιοθήκη."/>
-	<string id="8065" value="Σύνδεση με το δίκτυο..."/>
-	<string id="8066" value="Μη ενωμένο στο δίκτυο."/>
-	<string id="8067" value="%s μέσα : %s έξω (D:%I64i/U:%I64i)"/>
-	<string id="8068" value="%s μέσα : %s έξω (D:%I64i/U:%I64i/H:%I64i)"/>
-	<string id="8069" value="Σύνδεση"/>
-	<string id="8070" value="Σύνδεση..."/>
-	<string id="8071" value="Ενωμένο"/>
-	<string id="8072" value="Αποσύνδεση"/>
-	<string id="8096" value="Αυτό το πεδίο προβάλει περισσότερες πληροφορίες για τα αρχεία που επιλέγετε."/>
-	<string id="8097" value="Μία πηγή είναι διαθέσιμη. (%s/s)"/>
-	<string id="8098" value="%i πηγές είναι διαθέσιμες. (%s/s)"/>
-	<string id="8099" value="Υπάρχει μια κριτική."/>
-	<string id="8100" value="Υπάρχουν %i κριτικές."/>
-	<string id="8101" value="%s γράφει:"/>
-	<string id="8102" value="%s βαθμολογεί αυτό το αρχείο:"/>
-	<string id="8103" value="Κλικ για Προεπισκόπηση"/>
-	<string id="8104" value="Προεπισκόπηση..."/>
-	<string id="8105" value="Αδυναμία λήψης προεπισκόπησης από &quot;%s&quot;."/>
-	<string id="8128" value="Κλικ εδώ για επαναζήτηση."/>
-	<string id="8129" value="Δεν έχετε εκκινήσει ακόμη την αναζήτηση σε αυτό το παράθυρο."/>
-	<string id="8130" value="Αναζήτηση σε εξέλιξη..."/>
-	<string id="8131" value="Το δίκτυο δεν έχει επιστρέψει ακόμη τίποτα σχετικό."/>
-	<string id="8132" value="Κάποια αποτελέσματα είναι διαθέσιμα, αλλά δεν περνούν από το φίλτρο."/>
-	<string id="8133" value="Ενεργή αναζήτηση..."/>
-	<string id="8134" value="Θέλετε να καθαρίσετε τα αποτελέσματα της προηγούμενης αναζήτησης; (Διαφορετικά θα συγχωνευτούν με της νέας.)"/>
-	<string id="8135" value="Κανένα Metadata"/>
-	<string id="8136" value="Αναζήτηση Σκέτου Κειμένου"/>
-	<string id="8137" value="Καμία Στήλη Schema"/>
-	<string id="8141" value="Προβολή Πεδίου Αναζήτησης"/>
-	<string id="8142" value="Απόκρυψη Πεδίου Αναζήτησης"/>
-	<string id="8143" value="Αναζήτηση..."/>
-	<string id="8144" value="Έναρξη Αναζ."/>
-	<string id="8145" value="Αναζήτηση Περισσοτέρων"/>
-	<string id="8146" value="Διακοπή"/>
-	<string id="8147" value="Οτιδήποτε"/>
-	<string id="8148" value="Όροι αναζήτησης:"/>
-	<string id="8149" value="Αναζήτηση αρχείων τύπου:"/>
-	<string id="8150" value="Αναζήτηση:"/>
-	<string id="8151" value="Βρέθηκαν"/>
-	<string id="8152" value="%lu κόμβοι, %lu φύλλα"/>
-	<string id="8153" value="Μη ενεργή αναζήτηση"/>
-	<string id="8154" value="Δεν βρέθηκαν αρχεία"/>
-	<string id="8155" value="%lu αρχείο σε %lu εύρεση|%lu αρχείο σε %lu ευρέσεις|%lu αρχεία σε %lu ευρέσεις"/>
-	<string id="8156" value="Αναζήτηση"/>
-	<string id="8157" value="Αποτελέσματα"/>
-	<string id="8158" value="Καθαρ."/>
-	<string id="8159" value="Προχωρημένα"/>
-	<string id="8160" value="Σύναψη σύνδεσης με host..."/>
-	<string id="8161" value="Στάλθηκε αίτηση προώθησης, αναμονή για σύνδεση..."/>
-	<string id="8162" value="Ενωμένο, αίτηση περιήγησης..."/>
-	<string id="8163" value="Λήψη απάντησης περιήγησης (%2.f%%)..."/>
-	<string id="8164" value="Αδυναμία σύνδεσης στον host για περιήγηση."/>
-	<string id="8165" value="Αδυναμία λήψης λίστας αρχείων. Αυτός ο host ίσως δεν υποστηρίζει περιήγηση."/>
-	<string id="8166" value="Δίκτυα:"/>
-	<string id="8167" value="Όλα τα Δίκτυα"/>
-	<string id="8176" value="Αναζήτηση στο PeerProject"/>
-	<string id="8177" value="Εισάγετε κάποιες λέξεις κλειδιά για αναζήτηση:"/>
-	<string id="8178" value="Τι τύπος αρχείου είναι;"/>
-	<string id="8179" value="(Καθαρισμός Ιστορικού Αναζήτησης)"/>
-	<string id="8180" value="Μέγεθος Min:"/>
-	<string id="8181" value="Μέγεθος Max:"/>
-	<string id="8208" value="Το PeerProject σαρώνει %Iu αρχεία:"/>
-<!--	<string id="8221" value="Το PeerProject αναζητά πηγές για:"/>
-	<string id="8222" value="Το PeerProject λαμβάνει:"/>
-	<string id="8223" value="Αυτή η λήψη είναι σταματημένη:"/>
-	<string id="8224" value="Το PeerProject μετακινεί το αρχείο:"/>
-	<string id="8225" value="Το PeerProject ελέγχει το αρχείο για σφάλματα:"/>
-	<string id="8226" value="Το PeerProject ολοκλήρωσε τη λήψη:"/>
--->	<string id="8227" value="%i μέρες και %i ώρες"/>
-	<string id="8228" value="%i ώρες και %i λεπτά"/>
-	<string id="8229" value="%i λεπτά και %i δευτερόλεπτα"/>
-	<string id="8230" value="%i δευτερόλεπτα"/>
-	<string id="8231" value="Καμία πηγή"/>
-	<string id="8232" value="Άνοιγμα"/>
-	<string id="8233" value="Άκυρο"/>
-	<string id="8235" value="Συνολική ταχύτητα μεταφοράς:"/>
-	<string id="8236" value="Εκτιμώμενος απομένοντας χρόνος:"/>
-	<string id="8237" value="Παραληφθήσα ποσότητα:"/>
-	<string id="8238" value="Αποσταλθήσα ποσότητα:"/>
-	<string id="8239" value="Ολοκληρωμένο"/>
-	<string id="8240" value="Αριθμός πηγών:"/>
-	<string id="8241" value="Αριθμός κριτικών:"/>
-	<string id="8244" value="Όριο ταχύτητας Μεταφορτώνει"/>
-	<string id="8245" value="Όριο Ταχύτητα αποστολής"/>
-	<string id="8288" value="Εξερεύνηση της Βιβλιοθήκης"/>
-	<string id="8289" value="Θέση:"/>
-	<string id="8290" value="Εξερεύνηση των περιεχομένων %i φακέλων"/>
-	<string id="8291" value="Πολλαπλοί φάκελοι"/>
-	<string id="8292" value="%i αρχεία επιλεγμένα"/>
-	<string id="8293" value="Κανένα επιλεγμένο αρχείο"/>
-	<string id="8294" value="Πρόσφατες Προσθήκες"/>
-	<string id="8295" value="Βαθμολόγηση αυτού του αρχείου"/>
-	<string id="8304" value="Μ/Δ"/>
-	<string id="8306" value="Θέση"/>
-	<string id="8307" value="Τύπος"/>
-	<string id="8308" value="Μέγεθος"/>
-	<string id="8309" value="Μερική Πηγή (%.2f%% διαθέσιμο)"/>
-	<string id="8310" value="%i υποδοχές αποστολής, %i σε αναμονή στην ουρά"/>
-	<string id="8311" value="Έχετε ήδη αυτό το αρχείο στη Βιβλιοθήκη."/>
-	<string id="8312" value="Έχετε ήδη αυτό το αρχείο στη λίστα λήψεων."/>
-	<string id="8313" value="Αυτό το αρχείο φαίνετε να είναι βρόμα."/>
-	<string id="8314" value="Έχετε λάβει και διαγράψει αυτό το αρχείο παλαιότερα."/>
-	<string id="8315" value="Μαύρη λίστα:"/>
-	<string id="8316" value="Ευρέσεις"/>
-	<string id="8317" value="Αποστολές"/>
-	<string id="8318" value="%lu σήμερα, %lu συνολικά"/>
-	<string id="8319" value="Αποστολές:"/>
-	<string id="8320" value="Κατάσταση:"/>
-	<string id="8321" value="Ταχύτητα:"/>
-	<string id="8322" value="URL:"/>
-	<string id="8323" value="Πρόγραμμα:"/>
-	<string id="8324" value="Ανεργό"/>
-	<string id="8325" value="Ενεργό"/>
-	<string id="8326" value="Επόμενο στη Σειρά"/>
-	<string id="8327" value="Σύνολο Αρχείων:"/>
-	<string id="8328" value="Συνολική Ποσότητα:"/>
-	<string id="8329" value="της Βιβλιοθήκης"/>
-	<string id="8330" value="Φάκελος"/>
-	<string id="8331" value="Αυτή η πηγή είναι απασχολημένη"/>
-	<string id="8332" value="Αυτή η πηγή είναι πίσω από firewall"/>
-	<string id="8333" value="Αυτή η πηγή δείχνει ασταθής"/>
-	<string id="8334" value="Οι πηγές αυτού του αρχείου είναι απασχολημένες"/>
-	<string id="8335" value="Οι πηγές αυτού του αρχείου είναι πίσω απο firewall"/>
-	<string id="8336" value="Οι πηγές αυτού του αρχείου δείχνουν ασταθείς"/>
-	<string id="8337" value="Αφερέγγυο"/>
-	<string id="8338" value="Κανένα Hashset"/>
-	<string id="13000" value="Αρχεία κοινοποιημένα στο Διαδίκτυο"/>
-	<string id="13001" value="Θέλετε σίγουρα να διαγράψετε τους επιλεγμένους κανόνες ασφαλείας; Αυτό δεν μπορεί να αναιρεθεί!"/>
-	<string id="16063" value="Η αντιστοίχηση θυρών UPnP εγκαταλήφθηκε μετά από 10 προσπάθειες."/>
-	<string id="16064" value="Έναρξη δικτυακού πυρήνα PeerProject..."/>
-	<string id="16065" value="Δεν μπορεί να ενωθεί η %s θύρα %i για εισερχόμενες συνδέσεις, ώστε αυτές θα είναι αδύνατες."/>
-	<string id="16066" value="Τερματισμός δικτυακού πυρήνα PeerProject..."/>
-	<string id="16067" value="Αποσυνδεμένο από το δίκτυο."/>
-	<string id="16068" value="Αποδοχή εισερχομένων TCP συνδέσεων στην %s θύρα %i."/>
-	<string id="16069" value="Οι εξερχόμενες συνδέσεις θα γίνονται από την %s θύρα %i."/>
-	<string id="16070" value="Αδυναμία ανάλυσης %s για τις εξερχόμενες συνδέσεις, ώστε αυτές θα χρησιμοποιούν τον προεπιλεγμένο τρόπο."/>
-	<string id="16071" value="Ενοχλητικό firewall, απώλεια εισερχομένων συνδέσεων."/>
-	<string id="16072" value="Ακρόαση για UDP datagrams στην %s θύρα %i."/>
-	<string id="16073" value="Ανάλυση host &quot;%s&quot;..."/>
-	<string id="16074" value="Αδυναμία ανάλυσης host &quot;%s&quot;."/>
-	<string id="16075" value="Ο διαχειριστής ασφαλείας αρνήθηκε την αίτηση σύνδεσης από %s."/>
-	<string id="16076" value="Ο διαχειριστής ασφαλείας εμπόδισε τη σύνδεση προς %s."/>
-	<string id="16077" value="Η διεύθυνση %s είναι ήδη φραγμένη από τους κανόνες ασφαλείας."/>
-	<string id="16078" value="Προσθήκη κανόνα ασφαλείας για φραγή του %s."/>
-	<string id="16079" value="Θέλετε σίγουρα να αποσυνδεθείτε;"/>
-	<string id="16080" value="Τρέχετε το Scheduler με ‘G2 μόνο’ Θέλετε να κλείσετε τον τρόπο αυτό, έτσι ώστε ολά τα ενεργά δίκτυα να παραμείνουν συνδεδεμένα;"/>
-	<string id="16081" value="Αποστολή αίτησης για &quot;%s&quot; προς %s."/>
-	<string id="16083" value="Η επιβολή στον υπολογιστή σας της λειτουργία κόμβου, ίσως προκαλέσει δυσμενείς επιδράσεις στις επιδόσεις και το δίκτυο P2P. Γενικά είναι καλύτερο να αφήσετε το PeerProject να αποφασίζει το πότε θα χρησιμοποιεί τη λειτουργία κόμβου.\n\nΗ λειτουργία κόμβου ΔΕΝ παράγει καλύτερα αποτελέσματα, ούτε έχει άλλα πλεονεκτήματα για σας!\n\nΘέλετε σίγουρα να το κάνετε, παρά αυτά τα μειονεκτήματα;"/>
-	<string id="16085" value="Το Gnutella2 είναι το πρωτεύον δίκτυο του PeerProject. Η απενεργοποίηση της υποστήριξής του ίσως περιορίσει σοβαρά τόσο τον αριθμό όσο και την ποιότητα των αποτελεσμάτων των αναζητήσεών σας. Είστε ΣΙΓΟΥΡΟΙ ότι θέλετε να το κάνετε;"/>
-	<string id="16087" value="Το εξερχόμενο εύρος ζώνης σας είναι πολύ χαμηλό για την ενεργοποίηση αυτού του δικτύου."/>
-	<string id="16128" value="Αποδοχή εισερχόμενης σύνδεσης από την %s θύρα %i."/>
-	<string id="16129" value="Εγκαινίαση γειτονικής σύνδεσης στην %s θύρα %i..."/>
-	<string id="16130" value="Αδυναμία εγκαινίασης γειτονικής σύνδεσης με %s."/>
-	<string id="16131" value="Λήξη προθεσμίας κατά τη σύνδεση με %s."/>
-	<string id="16132" value="Κλείσιμο σύνδεσης με τον γείτονα %s λόγω έλλειψης δραστηριότητας."/>
-	<string id="16133" value="Σύναψη σύνδεσης με τον γείτονα %s, χειραψία..."/>
-	<string id="16134" value="Κλείσιμο σύνδεσης με τον γείτονα %s."/>
-	<string id="16135" value="Αδυναμία εγκαινίασης γειτονικής σύνδεσης με %s (αρνήθηκε)."/>
-	<string id="16136" value="Απροσδόκητη απόρριψη σύνδεσης από τον γείτονα %s."/>
-	<string id="16137" value="Άρνηση πανομοιότυπης σύνδεσης από %s."/>
-	<string id="16138" value="Προϋπάρχουσα σύνδεση με %s, μη σύναψη δεύτερης."/>
-	<string id="16139" value="Κλείσιμο σύνδεσης με τον γείτονα %s (%i : %s)."/>
-	<string id="16141" value="Κλείσιμο σύνδεσης με τον γείτονα %s, επειδή δεν είναι κόμβος."/>
-	<string id="16144" value="Λήξη προθεσμίας κατά τη χειραψία με %s."/>
-	<string id="16145" value="Επιτυχής σύναψη σύνδεσης Gnutella με τον γείτονα %s (G%i.%i : %s)."/>
-	<string id="16146" value="Αποτυχία χειραψίας με %s λόγω μη έγκυρων δεδομένων στο καλώδιο."/>
-	<string id="16147" value="Κλείσιμο πλεονάζουσας σύνδεσης από %s με host hint (%s θύρα %i)."/>
-	<string id="16148" value="Απόρριψη σύνδεσης προς %s (%s)."/>
-	<string id="16150" value="Κλείσιμο πλεονάζουσας σύνδεσης από %s."/>
-	<string id="16151" value="Απόρριψη σύνδεσης από %s επειδή είναι θωρακισμένο."/>
-	<string id="16152" value="Κλείσιμο σύνδεσης με γειτονικό κόμβο %s, επειδή δεν μας αποδέχεται ως κόμβο."/>
-	<string id="16153" value="Υπαναχώρηση σε θωρακισμένο του συνδεόμενου κόμβου %s."/>
-	<string id="16154" value="Κλείσιμο συνδέσεων peer, λόγω σύναψης σύνδεσης κόμβου."/>
-	<string id="16155" value="Λειτουργία κόμβου προς το γειτονικό φύλλο %s."/>
-	<string id="16156" value="Κλείσιμο σύνδεσης με τον γείτονα %s λόγω πρόθεσής του να γίνει κόμβος."/>
-	<string id="16157" value="Κλείσιμο σύνδεσης με τον γείτονα %s, επειδή δεν είναι κόμβος."/>
-	<string id="16158" value="Επιτυχής σύναψη σύνδεσης Gnutella2 με τον γείτονα %s (%s)."/>
-	<string id="16159" value="Κλείσιμο σύνδεσης με τον μη Gnutella2 γείτονα %s."/>
-	<string id="16192" value="Απόρριψη σύνδεσης με τον γείτονα %s, λόγω προώθησης πακέτου υπερβολικού μεγέθους."/>
-	<string id="16193" value="Αγνόηση πακέτου με μηδενικό TTL, προωθημένο από τον γείτονα %s."/>
-	<string id="16194" value="Απόρριψη πακέτου με υπερβολικό TTL, προωθημένο από τον γείτονα %s (TTL=%i, Hops=%i)."/>
-	<string id="16195" value="Αγνόηση πακέτου ping με μη έγκυρο μήκος, προωθημένο από τον γείτονα %s."/>
-	<string id="16196" value="Αγνόηση πακέτου pong με μη έγκυρο μήκος, προωθημένο από τον γείτονα %s."/>
-	<string id="16197" value="%s -> %s [%i/%i] %s %s"/>
-	<string id="16198" value="Απόρριψη σύνδεσης γειτονικού φύλλου %s, λόγω προώθησης ερωτήσεων."/>
-	<string id="16199" value="Αγνόηση μη αναγνωρίσιμου πακέτου, προωθημένου από τον γείτονα %s (0x%.2x)."/>
-	<string id="16200" value="Αγνόηση πακέτου pong με μη έγκυρα δεδομένα διεύθυνσης, προωθημένο από τον γείτονα %s."/>
-	<string id="16201" value="%s:  Αγνόηση δύσμορφου ερωτηματικού πακέτου από %s."/>
-	<string id="16202" value="Αγνόηση δύσμορφου ερωτηματικού πακέτου εύρεσης από %s."/>
-	<string id="16203" value="Αγνόηση πακέτου push με μη έγκυρο μήκος, προωθημένο από τον γείτονα %s."/>
-	<string id="16208" value="Παραλαβή απροσδόκητης ενημέρωσης πίνακα δρομολόγησης ερωτημάτων από τον γείτονα %s."/>
-	<string id="16209" value="Απόρριψη σύνδεσης με τον γείτονα %s, λόγω αποστολής μη έγκυρης ενημέρωσης πίνακα δρομολόγησης ερωτημάτων."/>
-	<string id="16210" value="Ενημέρωση πίνακα δρομολόγησης ερωτημάτων του γείτονα %s (%i bit = %lu[%i], %i%% πλήρες)."/>
-	<string id="16211" value="Αγνόηση πακέτου αίτησης push προς διεύθυνση πίσω από firewall, προωθημένο από τον γείτονα %s."/>
-	<string id="16212" value="Μη κωδικοποιημένο κατά GGEP εκτεταμένο πακέτο, προωθημένο από τον γείτονα %s."/>
-	<string id="16213" value="Αποστολή πίνακα δρομολόγησης ερωτημάτων προς τον γείτονα %s (%i bit = %lu[%i], %i%% full)"/>
-	<string id="16254" value="Προεπιλεγμένη ομάδα. (Δείτε όλα τα αρχεία)"/>
-	<string id="16255" value="Drag'n'drop αρχεία στην ομάδα %s"/>
-	<string id="16256" value="Προσθήκη του &quot;%s&quot; στην ουρά λήψης με %i πηγές."/>
-	<string id="16257" value="Ολοκλήρωση λήψης &quot;%s&quot;."/>
-	<string id="16258" value="Παύση λήψης &quot;%s&quot;."/>
-	<string id="16259" value="Συνέχιση λήψης &quot;%s&quot;."/>
-	<string id="16260" value="Απόσυρση λήψης &quot;%s&quot;."/>
-	<string id="16261" value="Δημιουργία αρχείου &quot;%s&quot; για λήψη."/>
-	<string id="16262" value="Ματαίωση λήψης, λόγω αδυναμίας δημιουργίας τοπικού αρχείου &quot;%s&quot;."/>
-	<string id="16263" value="Ματαίωση λήψης, λόγω αδυναμίας ανοίγματος τοπικού αρχείου &quot;%s&quot;."/>
-	<string id="16264" value="Εγκαινίαση σύνδεσης προς %s θύρα %i για λήψη &quot;%s&quot;..."/>
-	<string id="16265" value="Αδυναμία σύνδεσης για λήψη από τον host %s."/>
-	<string id="16266" value="Σύναψη σύνδεσης λήψης από %s."/>
-	<string id="16267" value="Αίτηση τεμάχιου προς λήψη (%I64u-%I64u) του &quot;%s&quot; από %s."/>
-	<string id="16268" value="Κλείσιμο σύνδεσης με %s, λόγω εξάντλησης τεμάχιων προς λήψη."/>
-	<string id="16269" value="Κλείσιμο σύνδεσης με %s, λόγω συρρίκνωσης τεμαχίου."/>
-	<string id="16270" value="Κλείσιμο σύνδεσης με %s, λόγω λήξης προθεσμίας για αίτηση λήψης."/>
-	<string id="16271" value="Κλείσιμο σύνδεσης λήψης από %s, λόγω έλλειψης δραστηριότητας."/>
-	<string id="16272" value="Μη κατοχή από τον host %s του αρχείου &quot;%s&quot;."/>
-	<string id="16273" value="Μη έγκυρη HTTP απάντηση από τον host %s."/>
-	<string id="16274" value="Απάντηση από τον host %s: %s (%s)."/>
-	<string id="16275" value="Ματαίωση λήψης από τον host %s, επειδή το δικό του &quot;%s&quot; έχει διαφορετικό URN."/>
-	<string id="16276" value="Ματαίωση λήψης από τον host %s, επειδή το δικό του &quot;%s&quot; έχει διαφορετικό μήκος."/>
-	<string id="16277" value="Εκκρεμότητα με τον host %s, επειδή απάντησε με άχρηστη σειρά bytes του &quot;%s&quot;."/>
-	<string id="16278" value="Απώλεια σύνδεσης λήψης από %s."/>
-	<string id="16279" value="Παραλαβή τεμαχίων από host %s (%s)."/>
-	<string id="16280" value="Ο host %s είναι απασχολημένος, νέα προσπάθεια σε %i δευτερόλεπτα."/>
-	<string id="16281" value="Θέλετε σίγουρα να διαγράψετε το &quot;%s&quot;;\n\nΑν μια λήψη διαγραφεί από το παράθυρο Λήψεων, δεν μπορεί να συνεχιστεί αργότερα!"/>
-	<string id="16282" value="Διακοπή λήψης του &quot;%s&quot; από %s (%s), λόγω απενεργοποιημένου δικτύου."/>
-	<string id="16283" value="Το αρχείο &quot;%s&quot; ήδη λαμβάνεται, συμψηφισμός πηγών."/>
-	<string id="16284" value="Κλείσιμο σύνδεσης με %s, λόγω παραλαβής εσφαλμένης σύνδεσης προώθησης."/>
-	<string id="16285" value="Παραλαβή άχρηστης σύνδεσης προώθησης από %s."/>
-	<string id="16286" value="Αποδοχή από host %s προώθησης λήψης &quot;%s&quot;."/>
-	<string id="16287" value="Αδυναμία αναζήτησης περισσοτέρων πηγών για τη λήψη του &quot;%s&quot;, λόγω μη σύνδεσης στο δίκτυο."/>
-	<string id="16288" value="Εκζήτηση επιπλέον πηγών για τη λήψη &quot;%s&quot; σε %i συνδέσεις..."/>
-	<string id="16289" value="Αποστολή αίτησης προώθησης για τη λήψη &quot;%s&quot;..."/>
-	<string id="16290" value="Απάντηση από τον host %s με διαφορετική αλλά χρήσιμη σειρά (%I64i-%I64i) του &quot;%s&quot;."/>
-	<string id="16291" value="Ολοκλήρωση λήψης &quot;%s&quot; και μετακίνησής του στο &quot;%s&quot;."/>
-	<string id="16292" value="Αδυναμία μετακίνησης αρχείου &quot;%s&quot; στο &quot;%s&quot;. Ελέγξτε ότι δεν χρησιμοποιείται (στον φάκελο ημιτελών) και ότι ο φάκελος ληφθέντων υπάρχει και είναι εγγράψιμος."/>
-	<string id="16293" value="Ανάλυση του &quot;%s&quot; για λήψη του &quot;%s&quot;..."/>
-	<string id="16294" value="Αδυναμία ανάλυσης του &quot;%s&quot;."/>
-	<string id="16295" value="Ενίσχυση λήψης &quot;%s&quot; μέσω αφαίρεσης ορίων ταχύτητας."/>
-	<string id="16296" value="Επιτυχής επαλήθευση λήψης του &quot;%s&quot;."/>
-	<string id="16297" value="ΠΡΟΕΙΔΟΠΟΙΗΣΗ: Η λήψη του &quot;%s&quot; απέτυχε να επαληθευτεί. Ίσως δεν είναι το αρχείο που σκοπεύατε να λάβετε!"/>
-	<string id="16298" value="Ο host %s είναι απασχολημένος, αναμονή στη θέση #%i ουράς των %i (&quot;%s&quot;)."/>
-	<string id="16299" value="Είστε σίγουροι ότι θέλερε να διαγράψετε όλες τις σταματημένες λήψεις;\n\nΑν μια λήψη διαγραφεί από το παράθυρο Λήψεων, δεν μπορεί να συνεχιστεί αργότερα!"/>
-	<string id="16300" value="Είστε σίγουροι ότι θέλερε να διαγράψετε τη λήψη του &quot;%s&quot;;"/>
-	<string id="16301" value="Αίτηση tiger-tree volume για το &quot;%s&quot; από %s..."/>
-	<string id="16302" value="Αδυναμία ικανοποίησης από τον host %s της αίτησης tiger-tree."/>
-	<string id="16303" value="Ανάλυση tiger-tree volume από %s (%s)..."/>
-	<string id="16304" value="Αγνόηση tiger-tree, λόγω φθοράς ή εσωτερικής ασυνέπειάς του."/>
-	<string id="16305" value="Ασυμφωνία tiger-tree και προσδοκόμενης τιμής ρίζας."/>
-	<string id="16306" value="Παραλαβή tiger-tree volume για το &quot;%s&quot;, %i επίπεδα, ελάχιστο επαληθεύσιμο τμήμα %s."/>
-	<string id="16307" value="Κλείσιμο σύνδεσης λήψης από %s, καθώς δεν απαιτείται πλέον."/>
-	<string id="16308" value="Κλείσιμο σύνδεσης με host %s, λόγω αποστολής αυθαίρετων δεδομένων."/>
-	<string id="16309" value="Αίτηση metadata για το &quot;%s&quot; από %s..."/>
-	<string id="16310" value="Παραλαβή δεδομένων tiger-tree από %s (%s)..."/>
-	<string id="16311" value="Αίτηση ED2K hashset για το &quot;%s&quot; από %s..."/>
-	<string id="16312" value="Απόρριψη πηγής %s, λόγω παραλαβής μη έγκυρου ED2K hashset."/>
-	<string id="16313" value="Παραλαβή ED2K hashset από &quot;%s&quot;, ελάχιστο επαληθεύσιμο τμήμα %s."/>
-	<string id="16314" value="Απόρριψη πηγής, λόγω φθοράς ή εσωτερικής ασυνέπειας του ED2K hashset."/>
-	<string id="16315" value="Αδυναμία εγκαινίασης του inflate για τη λήψη &quot;%s&quot;."/>
-	<string id="16316" value="Λήξη προθεσμίας ενημέρωσης της ουράς από τον ED2K host %s για το αρχείο &quot;%s&quot;."/>
-	<string id="16317" value="Αναμονή στην ουρά για το &quot;%s&quot;."/>
-	<string id="16318" value="Ανεπαρκής χώρος στον δίσκο για λήψη του &quot;%s&quot; (%s)."/>
-	<string id="16319" value="Απόρριψη πηγής %s (%s), λόγω αποστολής φθαρμένων τμημάτων του &quot;%s&quot; (%I64i-%I64i)."/>
-	<string id="16320" value="Παραλαβή μη έγκυρης HTTP αίτησης από τον host %s."/>
-	<string id="16321" value="Εγκαινίαση σύνδεσης προώθησης με %s. %s"/>
-	<string id="16322" value="Αδυναμία σύνδεσης με host %s για προώθηση."/>
-	<string id="16323" value="Κλείσιμο σύνδεσης αποστολής προς %s."/>
-	<string id="16324" value="Λήξη προθεσμίας αναμονής αίτησης από τον host %s."/>
-	<string id="16325" value="Αίτηση από τον host %s του άγνωστου ή μη διαθέσιμου αντικειμένου &quot;%s&quot;."/>
-	<string id="16326" value="Αίτηση από τον host %s του &quot;%s&quot; με διαφορετικό SHA1."/>
-	<string id="16327" value="Άρνηση αποστολής του &quot;%s&quot; προς %s (%s), λόγω φόρτου και αφού δεν υποστηρίζει ουρές."/>
-	<string id="16328" value="Σύναψη σύνδεσης προώθησης με %s, αναμονή για χειραψία..."/>
-	<string id="16329" value="Αδυναμία ανοίγματος του &quot;%s&quot; για αποστολή στον host %s, λόγω σφάλματος δίσκου/αρχείου."/>
-	<string id="16330" value="Αποστολή σειράς %I64i-%I64i από το &quot;%s&quot; στον host %s (%s)."/>
-	<string id="16331" value="Ολοκλήρωση αποστολής τμήματος του &quot;%s&quot; προς %s."/>
-	<string id="16332" value="Αναγνώριση εισερχόμενης σύνδεσης από %s ως HTTP αίτηση αποστολής."/>
-	<string id="16333" value="Έλλειψη πόρων για αποστολή του &quot;%s&quot; προς %s, ανάρτηση της αποστολής στο #%i του %i (&quot;%s&quot;)."/>
-	<string id="16334" value="Σύνδεση με %s, παρά την παρωχημένη του αίτηση προώθησης για ένα άγνωστο αρχείο..."/>
-	<string id="16335" value="Αφαίρεση αποστολής του &quot;%s&quot; προς %s."/>
-	<string id="16336" value="Άρνηση αίτησης του host %s, λόγω χρήσης προγράμματος από τη λίστα φραγμένων."/>
-	<string id="16337" value="Αποστολή επικεφαλίδας από το &quot;%s&quot; στον host %s (%s)."/>
-	<string id="16338" value="Αίτηση του host %s μη εικανοποιητικής σειράς από το αρχείο &quot;%s&quot;."/>
-	<string id="16339" value="Αποστολή προεπιλεγμένης απάντησης HTML στον host %s (%s)."/>
-	<string id="16340" value="Άρνηση αίτησης περιήγηση χρήστη από %s."/>
-	<string id="16341" value="Απάντηση αίτησης περιήγησης χρήστη από host %s (%s)..."/>
-	<string id="16342" value="Κλείσιμο της σύνδεσης αποστολής %s, λόγω έλλειψης δραστηριότητας."/>
-	<string id="16343" value="Κλείσιμο παλαιότερης αποστολής προς %s, λόγω σύναψης νέας σύνδεσης."/>
-	<string id="16344" value="Άρνηση νέας αποστολής προς %s, λόγω προϋπάρχουσας εκκρεμούσας σύνδεσης."/>
-	<string id="16345" value="Ματαίωση αποστολής του &quot;%s&quot; προς %s, λόγω διαγραφής του αρχείου."/>
-	<string id="16346" value="Αποστολή σειράς %I64i-%I64i από το ημιτελές αρχείο &quot;%s&quot; στον host %s (%s)."/>
-	<string id="16347" value="Κλείσιμο σύνδεσης προς %s, λόγω πολύ πυκνών επαναιτήσεων."/>
-	<string id="16348" value="Άρνηση αίτησης προώθησης προς %s, επειδή έχει πάρα πολλές συνδέσεις αποστολής."/>
-	<string id="16349" value="Αποστολή δεδομένων tiger-tree για το &quot;%s&quot; προς %s."/>
-	<string id="16350" value="Αποστολή metadata για το &quot;%s&quot; προς %s."/>
-	<string id="16351" value="Άρνηση αποστολής του &quot;%s&quot; προς %s (%s), λόγω πάρα πολλών ταυτόχρονων προς τον ίδιο."/>
-	<string id="16352" value="Αποστολή προεπισκόπησης του &quot;%s&quot; προς %s."/>
-	<string id="16353" value="Άρνηση αποστολής προεπισκόπησης του &quot;%s&quot; προς %s, λόγω πάρα πολλών ταυτόχρονων προς τον ίδιο."/>
-	<string id="16354" value="Μη διαθέσιμη αιτηθήσα προεπισκόπηση από τον host %s του &quot;%s&quot;."/>
-	<string id="16355" value="Προγραμματισμός μιας δυναμικής προεπισκόπησης του &quot;%s&quot; για αποστολή προς %s."/>
-	<string id="16356" value="Άρνηση αίτησης περιήγησης χρήστη από %s, λόγω πάρα πολλών συνδέσεων περιήγησης."/>
-	<string id="16357" value="Αποστολή αρχείου &quot;%s&quot; στον host %s..."/>
-	<string id="16358" value="Απώλεια σύνδεσης αποστολής προς %s, διατήρηση θέσης του στην ουρά."/>
-	<string id="16359" value="Αφαίρεση αποσυνδεμένης αποστολής στον host %s, λόγω λήξης προθεσμίας."/>
-	<string id="16360" value="Άρνηση αποστολής του &quot;%s&quot; προς %s (%s), λόγω πληρότητας όλων των ταιριαχτών ουρών."/>
-	<string id="16361" value="Άρνηση αποστολής προς %s (%s), λόγω απενεργοποιημένου δικτύου."/>
-	<string id="16362" value="Οι αποστολές προς το ED2K δεν πρέπει να ακυρώνονται! Θέλετε σίγουρα να ακυρώσετε αυτήν την αποστολή;"/>
-	<string id="16363" value="Αποστολές Torrent"/>
-	<string id="16364" value="Ολοκληρωμένες Αποστολές"/>
-	<string id="16365" value="Θέλετε σίγουρα να διαγράψετε όλες τις λήψεις σε αυτήν την ομάδα;"/>
-	<string id="16366" value="Ουρά"/>
-	<string id="16367" value="ED2K Κύρια"/>
-	<string id="16368" value="ED2K Ημιτελών"/>
-	<string id="16369" value="ED2K Φρουρός"/>
-	<string id="16370" value="Μικρά Αρχεία"/>
-	<string id="16371" value="Μεσαία Αρχεία"/>
-	<string id="16372" value="Μεγάλα Αρχεία"/>
-	<string id="16373" value="Ημιτελή Αρχεία"/>
-	<string id="16374" value="Νέα Ουρά"/>
-	<string id="16375" value="Ημιτελή"/>
-	<string id="16376" value="Όλα τα Αρχεία"/>
-	<string id="16377" value="HTTP Φρουρός"/>
-	<string id="16379" value="Αρχεία Βιβλιοθήκης"/>
-	<string id="16384" value="Θέλετε σίγουρα να ανοίξετε το αρχείο &quot;%s&quot; ;\n\nΜερικά αρχεία μπορεί να είναι βλαβερά για τον υπολογιστή σας! Βεβαιωθείτε ότι ξέρετε τι είναι το αρχείο πριν το ανοίξετε."/>
-	<string id="16385" value="Θέλετε σίγουρα να τροποποιήσετε τα metadata του αρχείου %i;"/>
-	<string id="16386" value="Επεξεργασία των metadata των αρχείων %i."/>
-	<string id="16387" value="Το αρχείο &quot;%s&quot; ακόμη δεν έχει σαρωθεί. Παρακαλώ περιμένετε να τελειώσει και ξαναπροσπαθείστε."/>
-	<string id="16388" value="Αυτή η επιλογή χρησιμοποιεί υπηρεσίες παρεχόμενες από το Bitzi.com προς αναγνώριση και κοινοποίηση πληροφοριών για τα επιλεγμένα αρχεία.\n\nΤο PeerProject θα αποστείλει το SHA1 hash code για τα επιλεγμένα αρχεία, προκειμένου να ρωτήσει τη βάση δεδομένων του Bitzi. Αν ανησυχείται για την ιδιωτικότητά σας, συμβουλευτείτε την πολιτική ιδιωτικότητας του Bitzi.com.\n\nΘέλετε να συνεχίσετε;"/>
-	<string id="16389" value="Θέλετε σίγουρα να διαγράψετε οριστικά τα %i επιλεγμένα αρχεία ;\n\nΤα αρχεία θα μετακινηθούν στον &quot;κάδο ανακύκλωσης&quot;, εφόσον λειτουργεί και τα χωράει."/>
-	<string id="16390" value="Δεν επιλέξατε ακόμη μια εφαρμογή αναπαραγωγής πολυμέσων, όπως είναι το Nullsoft Winamp. Θέλετε να επιλέξετε μία τώρα;\n\nΤο PeerProject θα περάσει το όνομα του επιλεγμένου αρχείου με την παράμετρο &quot;/ADD&quot;."/>
-	<string id="16391" value="Δεν είστε ενωμένοι στο δίκτυο."/>
-	<string id="16392" value="Κλικ στο κουμπί Σύνδεση για να αρχίσετε."/>
-	<string id="16393" value="Το αρχείο &quot;%s&quot; απέτυχε στη δοκιμή επαλήθευσης με hash και ίσως δεν είναι το αρχείο που σκοπεύατε να λάβετε! Θέλετε σίγουρα να το ανοίξετε;"/>
-	<string id="16394" value="Θέλετε να αφαιρέσετε την &quot;εν δυνάμει επικίνδυνη&quot; ιδιότητα από αυτό το αρχείο;"/>
-	<string id="16395" value="Ο Φάκελος Ληφθέντων &quot;%s&quot; δεν περιλαμβάνεται ακόμη στη Βιβλιοθήκη.\n\nΗ συμπερίληψή του κάνει ευκολότερη την προβολή και οργάνωση νέων αρχείων και σας επιτρέπει να αξιοποιήσετε τις προχωρημένες δυνατότητες του PeerProject, όπως την επαλήθευση αρχείων και την αυτόματη αναβάθμιση. Η τοποθέτηση αρχείων στη Βιβλιοθήκη δεν σας υποχρεώνει να τα κοινοποιείτε: μπορείτε να διαλέξετε αν θα κοινοποιείται ή όχι ένα ή περισσότερα αρχεία, συγκεκριμένα και ανεξάρτητα.\n\nΘέλετε να προσθέσετε τον Φάκελο Ληφθέντων στη Βιβλιοθήκη τώρα;"/>
-	<string id="16396" value="Ο Φάκελος Ληφθέντων προστέθηκε στη Βιβλιοθήκη. Θέλετε επίσης να τον κοινοποιήσετε;"/>
-	<string id="16397" value="Θέλετε σίγουρα να διαγράψετε τα %i επιλεγμένα albums ;\n\nΣημειώστε ότι αυτή η πράξη δεν διαγράφει τα αρχεία μέσα στα albums, παρά μόνο τα ίδια τα albums."/>
-	<string id="16398" value="Αποτυχία μετονομασίας αρχείου:\n\n%s\nto\n%s"/>
-	<string id="16399" value="Αποτυχία διαγραφής αρχείου:\n\n%s"/>
-	<string id="16400" value="Το αρχείο προορισμού προϋπάρχει:\n\n%s\n\nΘέλετε να το αντικαταστήσετε;"/>
-	<string id="16401" value="Προβολή Όλων των Τύπων Αρχείων"/>
-	<string id="16402" value="Το ληφθέν ως αρχείο συλλογής:\n\n&quot;%s&quot;\n\nδεν φαίνεται να είναι ένα έγκυρο αρχείο συλλογής."/>
-	<string id="16403" value="Προσθήκη αρχείου συλλογής &quot;%s&quot; στη Βιβλιοθήκη."/>
-	<string id="16404" value="Αδυναμία εγκατάστασης αρχείου συλλογής &quot;%s&quot;, μέσω αντιγρφής του στον φακελο &quot;%s&quot;."/>
-	<string id="16406" value="Θέλετε να λάβετε όλα τα αρχεία αυτής της συλλογής;\n\nΠατήστε Άκυρο για να σταματήσετε περαιτέρω προτροπές."/>
-	<string id="16407" value="Θέλετε να εμποδίσετε αυτήν τη συλλογή από το να σας προτρέπει να λάβετε οτιδήποτε άλλο;"/>
-	<string id="16408" value="Αντιγραφή &amp;URI"/>
-	<string id="16409" value="Εξαγωγή &amp;URIs..."/>
-	<string id="16410" value="Ένας υποφάκελος του επιλεγμένου φακέλου &quot;%s&quot; είναι ήδη μέρος της Βιβλιοθήκης.\nΠροσθέτοντας αυτόν τον φάκελο θα προκαλέσει επανασάρωση μερικών αρχείων.\n\nΘέλετε να συνεχίσετε;"/>
-	<string id="16411" value="Αδυναμία μετακίνησης του αρχείου %s. Το αρχείο ίσως χρησιμοποιείται απο άλλη εφαρμογή.\n\nΘέλετε εναλλακτικά να δοκιμάσετε να το αντιγράψετε;"/>
-	<string id="16412" value="Αρχείο Φάντασμα"/>
-	<string id="16413" value="Νέο Γκρουπ"/>
-	<string id="16448" value="Ενωμένο στο %s, χειραψία..."/>
-	<string id="16449" value="Τώρα συνομιλείτε με τον/την %s (%s)!"/>
-	<string id="16450" value="Κλείσιμο σύνδεσης με %s."/>
-	<string id="16451" value="Απώλεια σύνδεσης με %s."/>
-	<string id="16452" value="Μη αναγνωρίσιμη εντολή &quot;%s&quot;."/>
-	<string id="16453" value="Σύνδεση με %s για Συνομιλία με Χρήστη..."/>
-	<string id="16454" value="Αποδοχή εισερχόμενης αίτησης Συνομιλία με Χρήστης από %s, χειραψία..."/>
-	<string id="16455" value="%s είναι πλέον γνωστός ως %s."/>
-	<string id="16456" value="Αδυναμία σύνδεσης με τον host %s."/>
-	<string id="16457" value="Αποτυχία σύνδεσης, λόγω μη έγκυρων δεδομένων στο καλώδιο."/>
-	<string id="16458" value="Παραλαβή άγνωστης απάντησης: %s"/>
-	<string id="16459" value="Δεν είστε ενωμένοι."/>
-	<string id="16512" value="Συνολικό εύρος ζώνης Παραλαβής πάσης φύσεως"/>
-	<string id="16513" value="Συνολικό εύρος ζώνης Αποστολής πάσης φύσεως"/>
-	<string id="16514" value="Οι συνδέσεις στο Gnutella (Σύνολο)"/>
-	<string id="16515" value="Οι συνδέσεις στο Gnutella (Ενεργές)"/>
-	<string id="16516" value="Εύρος ζώνης Παραλαβής από Gnutella"/>
-	<string id="16517" value="Εύρος ζώνης Μετάδοσης προς Gnutella"/>
-	<string id="16518" value="Μετρητής Ληφθέντων Αρχείων"/>
-	<string id="16519" value="Μετρητής Παραλαβών"/>
-	<string id="16520" value="Εύρος ζώνης Λήψης"/>
-	<string id="16521" value="Μετρητής Upload Transfer Count"/>
-	<string id="16522" value="Εύρος ζώνης Αποστολής"/>
-	<string id="16523" value="Πακέτα ληφθέντα από Gnutella"/>
-	<string id="16524" value="Πακέτα σταλθέντα προς Gnutella"/>
-	<string id="16525" value="Δρομολογηθέντα Πακέτα Gnutella"/>
-	<string id="16526" value="Απρριφθέντα Πακέτα Gnutella"/>
-	<string id="16527" value="Χαμένα Πακέτα Gnutella"/>
-	<string id="16528" value="Τοπικές Ερωτήσεις Gnutella"/>
-	<string id="16532" value="Συνολικό εύρος ζώνης Παραλαβής TCP"/>
-	<string id="16533" value="Συνολικό εύρος ζώνης Αποστολής TCP"/>
-	<string id="16534" value="Συνολικό εύρος ζώνης Παραλαβής UDP"/>
-	<string id="16535" value="Συνολικό εύρος ζώνης Αποστολής UDP"/>
-	<string id="16536" value="Αναλογία Ληφθέντων/Σταλμένων Pings Gnutella"/>
-	<string id="16537" value="Αναλογία Ληφθέντων/Σταλμένων Pongs Gnutella"/>
-	<string id="16538" value="Σφάλματα Σύνδεσης (%)"/>
-	<string id="16768" value="Ληφθέντες URL &quot;%s&quot;"/>
-	<string id="16769" value="Αδυναμία ανάλυσης URL: Μη κατανοητό URL."/>
-	<string id="16770" value="Αδυναμία εμφάνισης URL action dialog, λόγω φόρτου."/>
-	<string id="16771" value="Έχετε ήδη το αρχείο &quot;%s&quot; στη Βιβλιοθήκη. Επιμένετε να το ξαναλάβετε;"/>
-	<string id="16772" value="Host:"/>
-	<string id="16773" value="Θύρα:"/>
-	<string id="16774" value="&amp;Σύνδεση"/>
-	<string id="16775" value="&amp;Περιήγηση"/>
-	<string id="16776" value="Προσθήκη"/>
-	<string id="16777" value="Όνομα Αρχείου:"/>
-	<string id="16778" value="URL:"/>
-	<string id="16779" value="Τύπος:"/>
-	<string id="16780" value="Απροσδιόριστο"/>
-	<string id="16781" value="Αίτηση..."/>
-	<string id="16782" value="Επιτυχία!"/>
-	<string id="16783" value="Ολοκληρώθηκε, κλικ στο Κλείσιμο"/>
-	<string id="16784" value="&amp;Κλείσιμο"/>
-	<string id="16785" value="(Καμία Απεικόνιση)"/>
-	<string id="16800" value="Δεν καθορίσατε ακόμη μια ταχύτητα σύνδεσης. Πριν συνεχίσετε, παρακαλώ επιλέξτε τον τύπο της σύνδεσής σας στο Διαδίκτυο ή εισάγετε μια ταχύτητα σύνδεσης."/>
-	<string id="16802" value="Δεν καθορίσατε φακέλους για κοινοποίηση. Είστε σίγουροι;"/>
-	<string id="16803" value="Αυτός ο φάκελος είναι ήδη κοινοποιημένος ως τμήμα του κοινοποιημένου φακέλου:\n\n%s"/>
-	<string id="16804" value="Δεν έχετε συμπληρώσει το όνομα στο προφίλ σας. Συνέχεια χωρίς;"/>
-	<string id="16805" value="Δεν έχετε συμπληρώσει την τοποθεσία στο προφίλ σας. Συνέχεια χωρίς;"/>
-	<string id="16806" value="Το PeerProject δεν κατάφερε να ρυθμίσει την προώθηση θύρας στον NAT router ή firewall σας.\n\nΠαρακαλώ ρυθμίστε το δίκτυό σας να προωθεί τις TCP και UDP θύρες %i στον τοπικό υπολογιστή σας."/>
-	<string id="16807" value="Παρακαλώ εισάγετε όριο του εύρους ζώνης που επιθυμείτε &quot;123 kb/s&quot; για kilobits ανά δευτερόλεπτο ή &quot;123 KB/s&quot; για kiloBytes ανά δευτερόλεπτο."/>
-	<string id="16808" value="Δεν έχετε συμπληρώσει την ηλικία ή το φύλο σας. Συνέχεια χωρίς;"/>
-	<string id="16809" value="E&amp;xit"/>
-	<string id="16810" value="ετών"/>
-	<string id="16811" value="Αυτόματα"/>
-	<string id="16812" value="Παρακαλώ περιμένετε: Αναζήτηση συσκευών UPnP και ρύθμισή τους..."/>
-	<string id="16813" value="Παρακαλώ περιμένετε: Ενημέρωση υπηρεσιών ανακάλυψης..."/>
-	<string id="16814" value="Παρακαλώ περιμένετε: Ενημέρωση λίστας ED2K server..."/>
-	<string id="16815" value="Η υπηρεσία Host για συσκευές UPnP δεν τρέχει. Η υπηρεσία απαιτείται για την επίτευξη της ρύθμισης.\nΧρειάζεται να θέσετε τον τύπο εκκίνησης της υπηρεσίας στο αυτόματο."/>
-	<string id="16816" value="Το δίκτυο ED2K χρησιμοποιεί μακριές ουρές με μεγάλους χρόνους αναμονής. Περιορίζοντας τη μέγιστη θέση αναμονής σε ουρά, ίσως δυσκολευτείται να ξεκινήσετε λήψεις!\nΘέλετε σίγουρα να περιορίσετε τη θέση αναμονής σε ουρά που θα ανέχεστε;"/>
-	<string id="16817" value="Τα Windows δεν υποστηρίζουν paths μεγαλύτερα των 256 χαρακτήρων.\nΠαρακαλώ επιλέξτε έναν φάκελο με μικρότερο όνομα."/>
-	<string id="16818" value="Ο φάκελος Ολοκληρωμένων δεν πρέπει να ταυτίζεται με τον φάκελο Ημιτελών."/>
-	<string id="16819" value="Ο φάκελος Ημιτελών δεν πρέπει να βρίσκεται στη Βιβλιοθήκη, επειδή θα μειώσει τις επιδόσεις. Τα ημιτελή αρχεία μπορούν να κοινοποιούνται απευθείας από το παράθυρο μεταφορών."/>
-	<string id="16864" value="Ερώτηση στις υπηρεσίες ανακάλυψης hosts..."/>
-	<string id="16865" value="Ερώτηση στην υπηρεσία ανακάλυψης &quot;%s&quot;..."/>
-	<string id="16866" value="Επιτυχής συναλλαωή με GWebCache (&quot;%s&quot;)."/>
-	<string id="16867" value="Η υπηρεσία ανακάλυψης &quot;%s&quot; απέτυχε, αποτυχία αριθμός %i."/>
-	<string id="16868" value="Διαγράφή υπηρεσίας ανακάλυψης &quot;%s&quot;, λόγω %i αποτυχιών."/>
-	<string id="16870" value="Αποστολή ενημέρωσης GWebCache στην υπηρεσία &quot;%s&quot;..."/>
-	<string id="16871" value="Υποβολή GWebCache &quot;%s&quot; σε μια τυχαία GWebCache..."/>
-	<string id="16928" value="Εγκαινίαση σύνδεσης με %s για περιήγηση χρήστη..."/>
-	<string id="16929" value="Αδυναμία εγκαινίασης σύνδεσης με %s για περιήγηση χρήστη."/>
-	<string id="16930" value="Αποστολή αίτησης προώθησης προς %s για περιήγηση χρήστη."/>
-	<string id="16931" value="Αδυναμία αποστολής αίτησης προώθησης προς %s  για περιήγηση χρήστη."/>
-	<string id="16932" value="Αποστολή αίτησης περιήγησης του %s..."/>
-	<string id="16933" value="Μη έγκυρη HTTP απάντηση του host %s στην αίτηση περιήγησης."/>
-	<string id="16934" value="Απάντηση του host %s στην αίτηση περιήγησης, με κωδικό %s (%s)."/>
-	<string id="16935" value="Μη αναγνωρίσιμη απάντηση του host %s, ίσως δεν υποστηρίζει περιήγηση χρήστη."/>
-	<string id="16936" value="Παραλαβή περιεχομένου περιήγησης από τον host %s (%s)."/>
-	<string id="16938" value="Σφάλμα κατά την αποκωδικοποίηση πακέτων Gnutella από την περιήγηση του host %s."/>
-	<string id="16939" value="Ολοκληρώθηκε η περιήγηση στον χρήστη %s, %i κοινοποιημένα αρχεία."/>
-	<string id="16940" value="Απόρριψη σύνδεσης περιήγησης χρήστη με %s."/>
-	<string id="16941" value="Κλείσιμο σύνδεσης περιήγησης χρήστη με %s, λόγω έλλειψης δραστηριότητας."/>
-	<string id="16942" value="Κλείσιμο σύνδεσης περιήγησης χρήστη με %s."/>
-	<string id="16943" value="Περιήγηση %s"/>
-	<string id="16944" value="%i κοινοποιημένα αρχεία στη Βιβλιοθήκη του %s."/>
-	<string id="16991" value="Αναπαραγωγή Πολυμέσων"/>
-	<string id="16992" value="Αδυναμία εκκίνησης των πρόσθετων Υπηρεσιών Πολυμέσων (MediaServices plugin). Παρακαλώ επανεγκαταστήστε το PeerProject και επιβεβαιώστε ότι έχετε εγκατεστημένους τους αναγκαίους media codecs και output drivers."/>
-	<string id="16993" value="Όλα τα Αρχεία Πολυμέσων|*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Λίστες|*.asx;*.wax;*.m3u;*.wvx;*.wmx|Αρχεία Ήχου|*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm|Αρχεία Video|*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Κομμάτια CD Audio|*.cda|Αρχεία MIDI|*.mid;*.rmi;*.midi|Όλα τα Αρχεία|*.*||"/>
-	<string id="16994" value="Αδυναμία φόρτωσης αρχείου &quot;%s&quot;"/>
-	<string id="16995" value="Το αρχείο ίσως είναι κατεστραμμένο ή ίσως δεν έχετε τους αναγκαίους codecs για την αναπαραγωγή."/>
-	<string id="16996" value="Αδυναμία αναπαραγωγής τμήματος αυτού του αρχείου, ίσως να χρειάζεται να λάβετε επιπλέον codecs."/>
-	<string id="16997" value="Κανένα αρχείο υπό αναπαραγωγή. Για αναπαραγωγή, διπλό κλικ σε ένα αρχείο στη Βιβλιοθήκη."/>
-	<string id="16998" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
-	<string id="16999" value="ΛΙΣΤΑ ΑΝΑΠΑΡΑΓΩΓΗΣ"/>
-	<string id="17024" value="Εγκαινίαση σύνδεσης με %s..."/>
-	<string id="17025" value="Αδυναμία δημιουργίας σύνδεσης με %s."/>
-	<string id="17026" value="Αίτηση προς %s για σύνδεση προώθησης πίσω από firewall..."/>
-	<string id="17027" value="Αποδοχή σύνδεσης προώθησης από %s, χειραψία..."/>
-	<string id="17028" value="Σύναψη σύνδεσης, χειραψία..."/>
-	<string id="17029" value="Αποτυχία χειραψίας, ο host ίσως δεν υποστηρίζει συνομιλίες."/>
-	<string id="17030" value="Ολοκλήρωση χειραψίας, έκδοση πρωτοκόλου Συνομιλία με Χρήστης %s."/>
-	<string id="17031" value="Ανταλλαγή πληροφοριών προφίλ..."/>
-	<string id="17032" value="Πιστοποιημένος χρήστης"/>
-	<string id="17033" value="Αίτηση Συνομιλία με Χρήστης με τον χρήστη..."/>
-	<string id="17034" value="Αποδοχή Συνομιλία με Χρήστης, τώρα συνομιλείτε με τον/την %s!"/>
-	<string id="17035" value="%s δεν δέχεται συνομιλίες."/>
-	<string id="17036" value="%s έχει απομακρυνθεί: %s"/>
-	<string id="17037" value="Απώλεια σύνδεσης Συνομιλία με Χρήστης."/>
-	<string id="17038" value="Κλείσιμο σύνδεσης."/>
-	<string id="17039" value="Αδυναμία αίτησης σύνδεσης προώθησης από %s, μη διαθέσιμη διαδρομή."/>
-	<string id="17040" value="Αδυναμία αποστολής μηνύματος, λόγω διακοπής σύνδεσης. Προσπάθεια επανασύνδεσης..."/>
-	<string id="17041" value="Αδυναμία αποστολής μηνύματος, λόγω έλλειψης σύνδεσης."/>
-	<string id="17042" value="Δεν έχετε συμπληρώσει ακόμη το προφίλ σας. Πρέπει να δώσετε ένα προφίλ για να συνομιλήσετε με άλλους χρήστες.\n\nΘέλετε να συμπληρώσετε το προφίλ σας τώρα;"/>
-	<string id="17043" value="Χορήγηση προτεραιότητας αποστολής στον host %s."/>
-	<string id="17100" value="Gnutella: Σύνδεση Peer-σε-Peer"/>
-	<string id="17101" value="Gnutella: Σύνδεση Φύλλου-σε-Ultrapeer"/>
-	<string id="17102" value="Gnutella: Σύνδεση Ultrapeer-σε-Φύλλο"/>
-	<string id="17103" value="Gnutella II: Σύνδεση Κόμβου-σε-Κόμβο"/>
-	<string id="17104" value="Gnutella II: Σύνδεση Φύλλου-σε-Κόμβο"/>
-	<string id="17105" value="Gnutella II: Σύνδεση Κόμβου-σε-Φύλλο"/>
-	<string id="17106" value="Σύνδεση σε server του ED2K(LOWID: %lu)"/>
-	<string id="17107" value="Σύνδεση σε server του ED2K"/>
-	<string id="17108" value="Χειραψία"/>
-	<string id="17109" value="Inbound"/>
-	<string id="17110" value="Outbound"/>
-	<string id="17111" value="Τρέχον:"/>
-	<string id="17112" value="Σύνολο:"/>
-	<string id="17113" value="Συμπίεση:"/>
-	<string id="17114" value="Αναλογία:"/>
-	<string id="17115" value="Deflate"/>
-	<string id="17116" value="Καμία"/>
-	<string id="17117" value="Σύνδεση..."/>
-	<string id="17118" value="Χειραψία..."/>
-	<string id="17119" value="Απορριμένο"/>
-	<string id="17120" value="Κλείσιμο..."/>
-	<string id="17121" value="Άγνωστο"/>
-	<string id="17122" value="G1 Peer"/>
-	<string id="17123" value="G1 Ultrapeer"/>
-	<string id="17124" value="G1 Φύλλο"/>
-	<string id="17125" value="G2 Peer"/>
-	<string id="17126" value="G2 Κόμβος"/>
-	<string id="17127" value="G2 Φύλλο"/>
-	<string id="17128" value="Server του ED2K"/>
-	<string id="17129" value="ED2K (LowID)"/>
-	<string id="17130" value="ED2K (HighID)"/>
-	<string id="17216" value="Εγκαινίαση σύνδεσης με server του ED2K στο %s..."/>
-	<string id="17217" value="Ενωμένο στον server %s του ED2K, χειραψία..."/>
-	<string id="17218" value="ED2K[%s] %s"/>
-	<string id="17219" value="Άρνηση σύνδεσης από τον server %s του ED2K."/>
-	<string id="17220" value="Ενωμένο στον server %s του ED2K, με client ID %lu."/>
-	<string id="17221" value="Αλλαγή client ID από τον server %s του ED2K, από %lu σε %lu."/>
-	<string id="17222" value="Σύστηση του server %s του ED2K ως &quot;%s&quot;."/>
-	<string id="17223" value="Απόρριψη σύνδεσης από τον server %s του ED2K."/>
-	<string id="17224" value="Σφάλμα ανταλλαγής χειραψίας με τον client %s."/>
-	<string id="17225" value="Κλείσιμο σύνδεσης με τον client %s."/>
-	<string id="17226" value="Παραλαβή δύσμορφου πακέτου ED2K από τον %s (id=%x)."/>
-	<string id="17227" value="Η εισερχόμενη σύνδεση από %s είναι ένας σύνδεσμος ED2K client."/>
-	<string id="17228" value="Αποστολή ED2K hashset για το &quot;%s&quot; προς %s..."/>
-	<string id="17229" value="Κλείσιμο σύνδεσης με τον client %s, λόγω αδράνειας."/>
-	<string id="17230" value="Εγκαινίαση σύνδεσης με τον client %s..."/>
-	<string id="17231" value="Ματαίωση χειραψίας με τον client %s, λόγω λάθους GUID."/>
-	<string id="17232" value="Λήξη προθεσμίας σύνδεσης με τον client %s."/>
-	<string id="17233" value="Λήξη προθεσμίας χειραψίας με τον client %s."/>
-	<string id="17234" value="Άρνηση σύνδεσμου από τον client %s, λόγω απενεργοποιημένου ED2K."/>
-	<string id="17248" value="Έναρξη διαδικασίας εισαγωγής ημιτελών αρχείων του eMule..."/>
-	<string id="17249" value="Ολοκλήρωση διαδικασίας, επιτυχής εισαγωγή %i ημιτελών αρχείων."/>
-	<string id="17250" value="Σάρωση αρχείου: &quot;%s&quot;..."/>
-	<string id="17251" value="Αδυναμία εισαγωγής αρχείου."/>
-	<string id="17252" value="Εισαγωγή ημιτελούς αρχείου &quot;%s&quot;..."/>
-	<string id="17253" value="Αδυναμία ανοίγματος ημιτελούς αρχείου &quot;%s&quot;."/>
-	<string id="17254" value="Εύρεση αρχείου &quot;%s&quot;, μέγεθος %s."/>
-	<string id="17255" value="Ματαίωση, επειδή το data file είναι νεότερο του .part file."/>
-	<string id="17256" value="Αντιγραφή &quot;%s&quot; σε &quot;%s&quot;..."/>
-	<string id="17257" value="Ολοκλήρωση αντιγραφής αρχείου."/>
-	<string id="17258" value="Δημιουργία ημιτελούς αρχείου του PeerProject, απομένει %s."/>
-	<string id="17259" value="Αυτό το αρχείο βρίσκεται ήδη στη λίστα λήψεων του PeerProject."/>
-	<string id="17260" value="Ανεπαρκής χώρος στον δίσκο για αντιγραφή λήψης σε αρχείο."/>
-	<string id="17472" value="Διαπραγμάτευση με εισερχόμενη από %s σύνδεση σύζευξης BitTorrent..."/>
-	<string id="17473" value="Λήξη προθεσμίας σύνδεσης με BitTorrent client %s."/>
-	<string id="17474" value="Λήξη προθεσμίας χειραψίας με BitTorrent client %s."/>
-	<string id="17475" value="Κλείσιμο σύζευξης BitTorrent με %s, λόγω έλλειψης δραστηριότητας."/>
-	<string id="17476" value="Αποτυχία σύζευξης BitTorrent με %s, λόγω διαφορετικού Peer ID."/>
-	<string id="17477" value="Απάντηση με λάθος αρχείο από σύζευξη BitTorrent με %s."/>
-	<string id="17478" value="Αίτηση άγνωστου αρχείου από σύζευξη BitTorrent με %s."/>
-	<string id="17479" value="Σύναψη σύζευξης BitTorrent με %s για &quot;%s&quot;."/>
-	<string id="17481" value="Παραλαβή περιγραφικού αρχείου BitTorrent: &quot;%s&quot;"/>
-	<string id="17482" value="Αδυναμία ανάλυσης prefetched αρχείου BitTorrent &quot;%s&quot;."/>
-	<string id="17483" value="Σφάλμα από BitTorrent tracker για &quot;%s&quot; : &quot;%s&quot;."/>
-	<string id="17484" value="Σφάλμα κατά την ανάλυση απάντησης του BitTorrent tracker."/>
-	<string id="17485" value="Παραλαβή απάντησης BitTorrent tracker για &quot;%s&quot;, %i νέες πηγές."/>
-	<string id="17486" value="Εγκαινίαση σύζευξης BitTorrent με τον client %s..."/>
-	<string id="17487" value="Σύναψη σύζευξης BitTorrent με %s, χειραψία..."/>
-	<string id="17488" value="Αλλάξατε τη URL του tracker για αυτό το torrent. Θέλετε σίγουρα να σώσετε αυτήν την αλλαγή;\n\nΜη έγκυρος tracker ισοδυναμεί με διακοπή περαιτέρω λήψης!"/>
-	<string id="17489" value="BitTorrent coupling with %s is extended protocol, identified &quot;%s&quot;."/>
-	<string id="17490" value="Παραλαβή %i νέων πηγών BitTorrent από %s."/>
-	<string id="17491" value="Το torrent &quot;%s&quot; βρίσκεται ήδη στη λίστα λήψεων και δεν μπορεί να γίνει seed."/>
-	<string id="17492" value="Σφάλμα κατά τη φόρτωση του torrent &quot;%s&quot;. Ίσως δεν είναι έγκυρο."/>
-	<string id="17493" value="Αδυναμία δημιουργίας BitTorrent share αρχείου &quot;%s&quot;."/>
-	<string id="17494" value="Αδυναμία εύρεσης στη Βιβλιοθήκη του αρχείο &quot;%s&quot; που περιλαμβάνεται σε αυτό το torrent. Μετακινήστε το αρχείο στον ίδιο φάκελο με το torrent και ξαναπροσπαθείστε."/>
-	<string id="17495" value="Ασυμφωνία του αρχείου &quot;%s&quot; που αναφέρεται σε αυτό το torrent ως %s, ενώ το ίδιο δηλώνεται ως %s."/>
-	<string id="17496" value="Σφάλμα κατά την αντιγραφή από &quot;%s&quot; σε ένα BitTorrent share αρχείο."/>
-	<string id="17497" value="Άγνωστο σφάλμα κατά την προσπάθεια seeding του &quot;%s&quot;."/>
-	<string id="17498" value="Εντοπισμός σφάλματος στο αρχείο &quot;%s&quot;."/>
-	<string id="17500" value="Ο Tracker δεν απάντησε, επανάληψη αναγγελίας (%i από %i)"/>
-	<string id="17501" value="Αδυναμία επικοινωνίας με τον tracker"/>
-	<string id="17503" value="Αποτυχία tracker, προσπάθεια με τον επόμενο (%i από %i)"/>
-	<string id="17505" value="Απόρριψη σύνδεσης BitTorrent με %s."/>
-	<string id="17506" value="Απόρριψη χειραψίας BitTorrent με %s."/>
-	<string id="17507" value="Απόρριψη σύζευξης BitTorrent με %s."/>
-	<string id="17510" value="Μη αποδοχή σύζευξης BitTorrent με %s, λόγω προϋπαρξης σύνδεσης με αυτόν τον client."/>
-	<string id="17511" value="Μη αποδοχή σύζευξης BitTorrent με %s, λόγω μέγιστου αριθμού συνδέσεων."/>
-	<string id="17512" value="Ιδιωτικό torrent"/>
-	<string id="17513" value="Σφάλμα κωδικοποίησης"/>
-	<string id="18496" value="Αλλάξατε το όνομα του αρχείου. Είστε σίγουροι;"/>
-	<string id="18497" value="Εισάγατε μη έγκυρο SHA1. Παρακαλώ ελέγξτε το και ξαναπροσπαθήστε."/>
-	<string id="18498" value="Εισάγατε μη έγκυρο tiger-tree ρίζας. Παρακαλώ ελέγξτε το και ξαναπροσπαθήστε."/>
-	<string id="18499" value="Εισάγατε μη έγκυρο ED2K hash. Παρακαλώ ελέγξτε το και ξαναπροσπαθήστε."/>
-	<string id="18500" value="Εισάγατε ένα SHA1 διαφορετικό από το τρέχον της λήψης! Θέλετε σίγουρα να το αλλάξετε τώρα;"/>
-	<string id="18501" value="Εισάγατε ένα tiger-tree ρίζας διαφορετικό από το τρέχον της λήψης! Θέλετε σίγουρα να το αλλάξετε τώρα;"/>
-	<string id="18502" value="Εισάγατε ένα ED2K hash διαφορετικό από το τρέχον της λήψης! Θέλετε σίγουρα να το αλλάξετε τώρα;"/>
-	<string id="18503" value="Θέλετε σίγουρα αποΑπολησμόνηση της τρέχουσας κατάστασης επαλήθευσης; Όλα τα ληφθέντα δεδομένα θα αντιμετωπιστούν ως αφερέγγυα και τα cached hashtrees και hashsets θα διαγραφούν!"/>
-	<string id="18504" value="Θέλετε σίγουρα αποΑπολησμόνηση όλων των πηγών των επιλεγμένων λήψεων;"/>
-	<string id="18505" value="Παρακαλώ εισάγεται μια έγκυρη σειρά προς διαγραφή. Το πεδίο &quot;από&quot; είναι το πρώτο byte που θα διαγραφεί και το πεδίο &quot;ως και&quot; είναι το τελευταίο."/>
-	<string id="18506" value="Αδυναμία διαγραφής της καθορισμένης σειράς από τη λήψη, επειδή δεν περιέχει κανένα τεμάχιο."/>
-	<string id="18507" value="Διαγράφηκαν %I64i bytes από τη λήψη."/>
-	<string id="18508" value="Απόρριψη πηγής %s από το &quot;%s&quot;, επειδή η θέση ουράς %i είναι μεγαλύτερη της καθορισμένης ανεκτής."/>
-	<string id="18509" value="Αδυναμία θεώρησης της λήψης ως ολοκληρωμένης και επαναεπαλήθευσής της, λόγω έλλειψης δεδομένων μερικής επαλήθευσης, όπως tiger-tree volume, ED2K hashset ή BitTorrent hashset. Χωρίς πληροφορία επαλήθευσης, η λήψη δεν μπορεί να επαναεπαληθευθεί."/>
-	<string id="18510" value="Θέλετε σίγουρα να θεωρηθεί αυτή η λήψη ως ολοκληρωμένη και να επαναεπαληθευθεί; Το σύνολο του αρχείου θα σαρωθεί, όσα τμήματα επαληθευθούν θα κρατηθούν και τα υπόλοιπα θα ξαναληφθούν."/>
-	<string id="18511" value="Αλλάξατε το μέγεθος του αρχείου. Είστε σίγουροι;"/>
-	<string id="19000" value="Η απομακρυσμένη πρόσβαση είναι απενεργοποιημένη."/>
-	<string id="19001" value="http://%s:%i/remote - Πρέπει να διαλέξετε ένα όνομα και έναν κωδικό."/>
-	<string id="19002" value="Αδυναμία υποδοχής συνδέσεων, μη διαθέσιμο URL."/>
-	<string id="20000" value="Μη διαθέσιμο URN"/>
-	<string id="20001" value="Κλείσιμο"/>
-	<string id="20002" value="από"/> <!-- "1 of 10" -->
-	<string id="20003" value="Η αλλαγή της κατεύθυνσης χρειάζεται επανεκκίνηση.\nΘα χρειαστεί να εκκινήσετε το PeerProject χειροκίνητα. Έξοδος;"/>
-	<string id="20005" value="Όχι"/>
-	<string id="20006" value="Ναι"/>
-	<string id="20007" value="Αυτόματα"/>
-	<string id="20008" value="Προεπιλογή"/>
-	<string id="20009" value="Προσαρμογή"/>
-	<string id="20010" value="&amp;Πίσω"/>
-	<string id="20011" value="&amp;Επόμενο"/>
-	<string id="20012" value="Τέλος"/>
-	<string id="20013" value="Όλα"/>
-	<string id="20100" value="Σύνδεση..."/>
-	<string id="20101" value="Αίτηση..."/>
-	<string id="20102" value="Απάντηση"/>
-	<string id="20103" value="Λήψη..."/>
-	<string id="20104" value="TigerTree"/>
-	<string id="20105" value="Hashset"/>
-	<string id="20106" value="Metadata"/>
-	<string id="20107" value="Αποσχολημένο"/>
-	<string id="20108" value="Ανάρτηση"/>
-	<string id="20109" value="Στην Ουρά"/>
-	<string id="20110" value="Άγνωστο"/>
-	<string id="20111" value="Ολοκληρωμένο"/>
-	<string id="20112" value="Seeding"/>
-	<string id="20113" value="Μετακίνηση..."/>
-	<string id="20114" value="Σταματημένο"/>
-	<string id="20115" value="Σφάλμα Αρχείου"/>
-	<string id="20116" value="Αδυναμία Μετακίνησης"/>
-	<string id="20117" value="Επαλήθευση"/>
-	<string id="20118" value="Ενεργό"/>
-	<string id="20119" value="Σε Αναμονή"/>
-	<string id="20120" value="Αναζήτηση"/>
-	<string id="20121" value="Δημιουργία"/>
-	<string id="20122" value="Torrent"/>
-	<string id="20123" value="Πεσμένος Tracker"/>
-	<string id="20124" value="Επαληθευμένο"/>
-	<string id="20125" value="Μη Επαληθευμένο"/>
-	<string id="20126" value="Αδιάφορο"/>
-	<string id="20127" value="Αδιάφορο"/>
-	<string id="20130" value="πηγή"/>
-	<string id="20131" value="πηγές"/>
-	<string id="20132" value="πηγές"/>
-	<string id="20134" value="πηγές"/>
-	<string id="20135" value="(Καμία Πηγή)"/>
-	<string id="20136" value="Πλήρες"/>
-	<string id="20137" value="Επόμενο"/>
-	<string id="20138" value="Q"/>
-	<string id="20200" value="Every Day"/>
-	<string id="20201" value="Δευτέρα"/>
-	<string id="20202" value="Τρίτη"/>
-	<string id="20203" value="Τετάρτη"/>
-	<string id="20204" value="Πέμπτη"/>
-	<string id="20205" value="Παρασκευή"/>
-	<string id="20206" value="Σάββατο"/>
-	<string id="20207" value="Κυριακή"/>
-	<string id="20210" value="(Χωρίς Βαθμολόγηση)"/>
-	<string id="20211" value="Ψεύτικο/Φθαρμένο/Παραπλαν."/>
-	<string id="20212" value="Φτωχό"/>
-	<string id="20213" value="Μέτριο"/>
-	<string id="20214" value="Καλό"/>
-	<string id="20215" value="Πολύ Καλό"/>
-	<string id="20216" value="Έξοχο"/>
-	<string id="20217" value="Επιλογή προσωρινού φακέλου eDonkey/eMule:"/>
-	<!-- Column headers in Library Album View -->
-	<string id="20230" value="#"/><!-- Track number -->
-	<string id="20231" value="Τίτλος"/>
-	<string id="20232" value="Μήκος"/>
-	<string id="20233" value="Δειγματοληψία"/>
-	<string id="20234" value="Album"/>
-	<string id="20235" value="Καλλιτέχνης"/>
-	<string id="20236" value="Βαθμολογία"/>
-	<string id="20237" value="OK"/>
-	<string id="20238" value="Άκυρο"/>
-	<string id="20245" value="Νέος φάκελος"/>
+	<string id="20001" value="Ναι"/>
+	<string id="20002" value="Όχι"/>
+	<string id="20003" value="OK"/>
+	<string id="20004" value="Άκυρο"/>
+	<string id="20005" value="&Πίσω"/>
+	<string id="20006" value="&Επόμενο"/>
+	<string id="20008" value="Κλείσιμο"/>
+	<string id="20009" value="από"/> <!-- "1 of 10" -->
+	<string id="20010" value="Όλα"/>
+	<string id="20011" value="Αυτόματα"/>
+	<string id="20012" value="Προσαρμογή"/>
+	<string id="20013" value="Προεπιλογή"/>
+	<string id="20014" value="Τέλος"/>
+	<string id="20050" value="Every Day"/>
+	<string id="20051" value="Δευτέρα"/>
+	<string id="20052" value="Τρίτη"/>
+	<string id="20053" value="Τετάρτη"/>
+	<string id="20054" value="Πέμπτη"/>
+	<string id="20055" value="Παρασκευή"/>
+	<string id="20056" value="Σάββατο"/>
+	<string id="20057" value="Κυριακή"/>
+	<string id="20060" value="(Χωρίς Βαθμολόγηση)"/>
+	<string id="20061" value="Ψεύτικο/Φθαρμένο/Παραπλαν."/>
+	<string id="20062" value="Φτωχό"/>
+	<string id="20063" value="Μέτριο"/>
+	<string id="20064" value="Καλό"/>
+	<string id="20065" value="Πολύ Καλό"/>
+	<string id="20066" value="Έξοχο"/>
+	<string id="20080" value="Αυτή είναι μία έκδοση προδημοσίευσης του PeerProject και η περίοδος δοκιμών έληξε. Παρακαλώ λέβετ την πλήρη επίσημη έκδοση από το http://peerproject.org/."/>
+	<string id="20081" value="&Κλείσιμο"/>
+	<string id="20082" value="Ολοκληρώθηκε, κλικ στο Κλείσιμο"/>
+	<string id="20083" value="Αίτηση..."/>
+	<string id="20084" value="Επιτυχία!"/>
+	<string id="20100" value="Κλείσιμο σύνδεσης περιήγησης χρήστη με %s."/>
+	<string id="20101" value="Μη αναγνωρίσιμη απάντηση του host %s, ίσως δεν υποστηρίζει περιήγηση χρήστη."/>
+	<string id="20102" value="Αδυναμία σύνδεσης στον host για περιήγηση."/>
+	<string id="20103" value="Αδυναμία εγκαινίασης σύνδεσης με %s για περιήγηση χρήστη."/>
+	<string id="20104" value="Αδυναμία αποστολής αίτησης προώθησης προς %s  για περιήγηση χρήστη."/>
+	<string id="20105" value="Σύναψη σύνδεσης με host..."/>
+	<string id="20106" value="Εγκαινίαση σύνδεσης με %s για περιήγηση χρήστη..."/>
+	<string id="20107" value="Λήψη απάντησης περιήγησης (%2.f%%)..."/>
+	<string id="20108" value="Παραλαβή περιεχομένου περιήγησης από τον host %s (%s)."/>
+	<string id="20109" value="Απόρριψη σύνδεσης περιήγησης χρήστη με %s."/>
+	<string id="20110" value="Ολοκληρώθηκε η περιήγηση στον χρήστη %s, %i κοινοποιημένα αρχεία."/>
+	<string id="20111" value="%i κοινοποιημένα αρχεία στη Βιβλιοθήκη του %s."/>
+	<string id="20112" value="Απάντηση του host %s στην αίτηση περιήγησης, με κωδικό %s (%s)."/>
+	<string id="20113" value="Μη έγκυρη HTTP απάντηση του host %s στην αίτηση περιήγησης."/>
+	<string id="20114" value="Αδυναμία λήψης λίστας αρχείων. Αυτός ο host ίσως δεν υποστηρίζει περιήγηση."/>
+	<string id="20115" value="Σφάλμα κατά την αποκωδικοποίηση πακέτων Gnutella από την περιήγηση του host %s."/>
+	<string id="20116" value="Στάλθηκε αίτηση προώθησης, αναμονή για σύνδεση..."/>
+	<string id="20117" value="Αποστολή αίτησης προώθησης προς %s για περιήγηση χρήστη."/>
+	<string id="20118" value="Ενωμένο, αίτηση περιήγησης..."/>
+	<string id="20119" value="Αποστολή αίτησης περιήγησης του %s..."/>
+	<string id="20120" value="Κλείσιμο σύνδεσης περιήγησης χρήστη με %s, λόγω έλλειψης δραστηριότητας."/>
+	<string id="20121" value="Περιήγηση %s"/>
+	<string id="20122" value="Σύναψη σύζευξης BitTorrent με %s για &quot;%s&quot;."/>
+	<string id="20123" value="Διαπραγμάτευση με εισερχόμενη από %s σύνδεση σύζευξης BitTorrent..."/>
+	<string id="20124" value="Εγκαινίαση σύζευξης BitTorrent με τον client %s..."/>
+	<string id="20125" value="Λήξη προθεσμίας σύνδεσης με BitTorrent client %s."/>
+	<string id="20126" value="Απόρριψη σύζευξης BitTorrent με %s."/>
+	<string id="20127" value="Απόρριψη σύνδεσης BitTorrent με %s."/>
+	<string id="20128" value="Απόρριψη χειραψίας BitTorrent με %s."/>
+	<string id="20129" value="Μη αποδοχή σύζευξης BitTorrent με %s, λόγω προϋπαρξης σύνδεσης με αυτόν τον client."/>
+	<string id="20130" value="Παραλαβή %i νέων πηγών BitTorrent από %s."/>
+	<string id="20131" value="BitTorrent coupling with %s is extended protocol, identified &quot;%s&quot;."/>
+	<string id="20132" value="Λήξη προθεσμίας χειραψίας με BitTorrent client %s."/>
+	<string id="20133" value="Σύναψη σύζευξης BitTorrent με %s, χειραψία..."/>
+	<string id="20134" value="Μη αποδοχή σύζευξης BitTorrent με %s, λόγω μέγιστου αριθμού συνδέσεων."/>
+	<string id="20136" value="Αίτηση άγνωστου αρχείου από σύζευξη BitTorrent με %s."/>
+	<string id="20137" value="Απάντηση με λάθος αρχείο από σύζευξη BitTorrent με %s."/>
+	<string id="20138" value="Αποτυχία σύζευξης BitTorrent με %s, λόγω διαφορετικού Peer ID."/>
+	<string id="20139" value="Κλείσιμο σύζευξης BitTorrent με %s, λόγω έλλειψης δραστηριότητας."/>
+	<string id="20140" value="Σφάλμα κωδικοποίησης"/>
+	<string id="20141" value="Ιδιωτικό torrent"/>
+	<string id="20142" value="Το torrent &quot;%s&quot; βρίσκεται ήδη στη λίστα λήψεων και δεν μπορεί να γίνει seed."/>
+	<string id="20143" value="Σφάλμα κατά την αντιγραφή από &quot;%s&quot; σε ένα BitTorrent share αρχείο."/>
+	<string id="20144" value="Αδυναμία δημιουργίας BitTorrent share αρχείου &quot;%s&quot;."/>
+	<string id="20145" value="Άγνωστο σφάλμα κατά την προσπάθεια seeding του &quot;%s&quot;."/>
+	<string id="20146" value="Σφάλμα κατά τη φόρτωση του torrent &quot;%s&quot;. Ίσως δεν είναι έγκυρο."/>
+	<string id="20147" value="Αδυναμία εύρεσης στη Βιβλιοθήκη του αρχείο &quot;%s&quot; που περιλαμβάνεται σε αυτό το torrent. Μετακινήστε το αρχείο στον ίδιο φάκελο με το torrent και ξαναπροσπαθείστε."/>
+	<string id="20148" value="Ασυμφωνία του αρχείου &quot;%s&quot; που αναφέρεται σε αυτό το torrent ως %s, ενώ το ίδιο δηλώνεται ως %s."/>
+	<string id="20149" value="Εντοπισμός σφάλματος στο αρχείο &quot;%s&quot;."/>
+	<string id="20150" value="Αδυναμία επικοινωνίας με τον tracker"/>
+	<string id="20151" value="Αποτυχία tracker, προσπάθεια με τον επόμενο (%i από %i)"/>
+	<string id="20152" value="Αλλάξατε τη URL του tracker για αυτό το torrent. Θέλετε σίγουρα να σώσετε αυτήν την αλλαγή;nnΜη έγκυρος tracker ισοδυναμεί με διακοπή περαιτέρω λήψης!"/>
+	<string id="20153" value="Σφάλμα από BitTorrent tracker για &quot;%s&quot; : &quot;%s&quot;."/>
+	<string id="20154" value="Σφάλμα κατά την ανάλυση απάντησης του BitTorrent tracker."/>
+	<string id="20155" value="Παραλαβή απάντησης BitTorrent tracker για &quot;%s&quot;, %i νέες πηγές."/>
+	<string id="20158" value="Αδυναμία ανάλυσης prefetched αρχείου BitTorrent &quot;%s&quot;."/>
+	<string id="20159" value="Παραλαβή περιγραφικού αρχείου BitTorrent: &quot;%s&quot;"/>
+	<string id="20160" value="Αποδοχή εισερχόμενης αίτησης Συνομιλία με Χρήστης από %s, χειραψία..."/>
+	<string id="20161" value="Αδυναμία δημιουργίας σύνδεσης με %s."/>
+	<string id="20162" value="Αδυναμία αίτησης σύνδεσης προώθησης από %s, μη διαθέσιμη διαδρομή."/>
+	<string id="20163" value="Κλείσιμο σύνδεσης."/>
+	<string id="20164" value="Κλείσιμο σύνδεσης με %s."/>
+	<string id="20165" value="Σύναψη σύνδεσης, χειραψία..."/>
+	<string id="20166" value="Ενωμένο στο %s, χειραψία..."/>
+	<string id="20167" value="Εγκαινίαση σύνδεσης με %s..."/>
+	<string id="20168" value="Σύνδεση με %s για Συνομιλία με Χρήστη..."/>
+	<string id="20169" value="Αδυναμία σύνδεσης με τον host %s."/>
+	<string id="20170" value="Απώλεια σύνδεσης Συνομιλία με Χρήστης."/>
+	<string id="20171" value="Απώλεια σύνδεσης με %s."/>
+	<string id="20172" value="Αποτυχία χειραψίας, ο host ίσως δεν υποστηρίζει συνομιλίες."/>
+	<string id="20173" value="Ολοκλήρωση χειραψίας, έκδοση πρωτοκόλου Συνομιλία με Χρήστης %s."/>
+	<string id="20174" value="Ανταλλαγή πληροφοριών προφίλ..."/>
+	<string id="20175" value="Δεν έχετε συμπληρώσει ακόμη το προφίλ σας. Πρέπει να δώσετε ένα προφίλ για να συνομιλήσετε με άλλους χρήστες.nnΘέλετε να συμπληρώσετε το προφίλ σας τώρα;"/>
+	<string id="20176" value="Αδυναμία αποστολής μηνύματος, λόγω διακοπής σύνδεσης. Προσπάθεια επανασύνδεσης..."/>
+	<string id="20177" value="Αδυναμία αποστολής μηνύματος, λόγω έλλειψης σύνδεσης."/>
+	<string id="20178" value="%s είναι πλέον γνωστός ως %s."/>
+	<string id="20179" value="Τώρα συνομιλείτε με τον/την %s (%s)!"/>
+	<string id="20180" value="Χορήγηση προτεραιότητας αποστολής στον host %s."/>
+	<string id="20181" value="%s έχει απομακρυνθεί: %s"/>
+	<string id="20182" value="Αποδοχή Συνομιλία με Χρήστης, τώρα συνομιλείτε με τον/την %s!"/>
+	<string id="20183" value="%s δεν δέχεται συνομιλίες."/>
+	<string id="20184" value="Αίτηση Συνομιλία με Χρήστης με τον χρήστη..."/>
+	<string id="20185" value="Πιστοποιημένος χρήστης"/>
+	<string id="20186" value="Αποδοχή σύνδεσης προώθησης από %s, χειραψία..."/>
+	<string id="20188" value="Αίτηση προς %s για σύνδεση προώθησης πίσω από firewall..."/>
+	<string id="20190" value="Αποτυχία σύνδεσης, λόγω μη έγκυρων δεδομένων στο καλώδιο."/>
+	<string id="20191" value="Παραλαβή άγνωστης απάντησης: %s"/>
+	<string id="20192" value="Δεν είστε ενωμένοι."/>
+	<string id="20193" value="Μη αναγνωρίσιμη εντολή &quot;%s&quot;."/>
+	<string id="20194" value="Αυτό το πρότυπο δεν έχει επιλογές προσαρμογής."/>
+	<string id="20195" value="Αυτό το πρότυπο δεν είναι έγκυρο."/>
+	<string id="20199" value="(κλείσιμο μετά τις μεταφορές)"/>
+	<string id="20200" value="Προσθήκη του &quot;%s&quot; στην ουρά λήψης με %i πηγές."/>
+	<string id="20201" value="Το αρχείο &quot;%s&quot; ήδη λαμβάνεται, συμψηφισμός πηγών."/>
+	<string id="20202" value="Κλείσιμο σύνδεσης με %s, λόγω παραλαβής εσφαλμένης σύνδεσης προώθησης."/>
+	<string id="20203" value="Ενίσχυση λήψης &quot;%s&quot; μέσω αφαίρεσης ορίων ταχύτητας."/>
+	<string id="20204" value="Ο host %s είναι απασχολημένος, νέα προσπάθεια σε %i δευτερόλεπτα."/>
+	<string id="20205" value="Αδυναμία μετακίνησης αρχείου &quot;%s&quot; στο &quot;%s&quot;. Ελέγξτε ότι δεν χρησιμοποιείται (στον φάκελο ημιτελών) και ότι ο φάκελος ληφθέντων υπάρχει και είναι εγγράψιμος."/>
+	<string id="20206" value="Αδυναμία ανάλυσης του &quot;%s&quot;."/>
+	<string id="20207" value="Θέλετε σίγουρα να διαγράψετε όλες τις λήψεις σε αυτήν την ομάδα;"/>
+	<string id="20208" value="Κλείσιμο σύνδεσης λήψης από %s, καθώς δεν απαιτείται πλέον."/>
+	<string id="20209" value="Κλείσιμο σύνδεσης με host %s, λόγω αποστολής αυθαίρετων δεδομένων."/>
+	<string id="20210" value="Ολοκλήρωση λήψης &quot;%s&quot;."/>
+	<string id="20211" value="Θέλετε σίγουρα να διαγράψετε το &quot;%s&quot;.nnΑν μια λήψη διαγραφεί από το παράθυρο Λήψεων, δεν μπορεί να συνεχιστεί αργότερα!"/>
+	<string id="20212" value="Είστε σίγουροι ότι θέλερε να διαγράψετε όλες τις σταματημένες λήψεις;nnΑν μια λήψη διαγραφεί από το παράθυρο Λήψεων, δεν μπορεί να συνεχιστεί αργότερα!"/>
+	<string id="20213" value="Είστε σίγουροι ότι θέλερε να διαγράψετε τη λήψη του &quot;%s&quot;."/>
+	<string id="20214" value="Σύναψη σύνδεσης λήψης από %s."/>
+	<string id="20215" value="Εγκαινίαση σύνδεσης προς %s θύρα %i για λήψη &quot;%s&quot;..."/>
+	<string id="20216" value="Αδυναμία σύνδεσης για λήψη από τον host %s."/>
+	<string id="20217" value="Παραλαβή τεμαχίων από host %s (%s)."/>
+	<string id="20218" value="Διακοπή λήψης του &quot;%s&quot; από %s (%s), λόγω απενεργοποιημένου δικτύου."/>
+	<string id="20219" value="Ανεπαρκής χώρος στον δίσκο για λήψη του &quot;%s&quot; (%s)."/>
+	<string id="20220" value="Απώλεια σύνδεσης λήψης από %s."/>
+	<string id="20222" value="Εισάγατε μη έγκυρο ED2K hash. Παρακαλώ ελέγξτε το και ξαναπροσπαθήστε."/>
+	<string id="20224" value="Παρακαλώ εισάγεται μια έγκυρη σειρά προς διαγραφή. Το πεδίο &quot;από&quot; είναι το πρώτο byte που θα διαγραφεί και το πεδίο &quot;ως και&quot; είναι το τελευταίο."/>
+	<string id="20225" value="Εισάγατε μη έγκυρο SHA1. Παρακαλώ ελέγξτε το και ξαναπροσπαθήστε."/>
+	<string id="20226" value="Εισάγατε μη έγκυρο tiger-tree ρίζας. Παρακαλώ ελέγξτε το και ξαναπροσπαθήστε."/>
+	<string id="20227" value="Αλλάξατε το μέγεθος του αρχείου. Είστε σίγουροι;"/>
+	<string id="20228" value="Αδυναμία διαγραφής της καθορισμένης σειράς από τη λήψη, επειδή δεν περιέχει κανένα τεμάχιο."/>
+	<string id="20231" value="Εισάγατε ένα SHA1 διαφορετικό από το τρέχον της λήψης! Θέλετε σίγουρα να το αλλάξετε τώρα;"/>
+	<string id="20232" value="Εισάγατε ένα ED2K hash διαφορετικό από το τρέχον της λήψης! Θέλετε σίγουρα να το αλλάξετε τώρα;"/>
+	<string id="20233" value="Εισάγατε ένα tiger-tree ρίζας διαφορετικό από το τρέχον της λήψης! Θέλετε σίγουρα να το αλλάξετε τώρα;"/>
+	<string id="20235" value="Αδυναμία θεώρησης της λήψης ως ολοκληρωμένης και επαναεπαλήθευσής της, λόγω έλλειψης δεδομένων μερικής επαλήθευσης, όπως tiger-tree volume, ED2K hashset ή BitTorrent hashset. Χωρίς πληροφορία επαλήθευσης, η λήψη δεν μπορεί να επαναεπαληθευθεί."/>
+	<string id="20236" value="Θέλετε σίγουρα να θεωρηθεί αυτή η λήψη ως ολοκληρωμένη και να επαναεπαληθευθεί; Το σύνολο του αρχείου θα σαρωθεί, όσα τμήματα επαληθευθούν θα κρατηθούν και τα υπόλοιπα θα ξαναληφθούν."/>
+	<string id="20237" value="Θέλετε σίγουρα αποΑπολησμόνηση όλων των πηγών των επιλεγμένων λήψεων;"/>
+	<string id="20238" value="Θέλετε σίγουρα αποΑπολησμόνηση της τρέχουσας κατάστασης επαλήθευσης; Όλα τα ληφθέντα δεδομένα θα αντιμετωπιστούν ως αφερέγγυα και τα cached hashtrees και hashsets θα διαγραφούν!"/>
+	<string id="20240" value="Διαγράφηκαν %I64i bytes από τη λήψη."/>
+	<string id="20241" value="Αλλάξατε το όνομα του αρχείου. Είστε σίγουροι;"/>
+	<string id="20242" value="Μη κατοχή από τον host %s του αρχείου &quot;%s&quot;."/>
+	<string id="20243" value="Δημιουργία αρχείου &quot;%s&quot; για λήψη."/>
+	<string id="20244" value="Ματαίωση λήψης, λόγω αδυναμίας δημιουργίας τοπικού αρχείου &quot;%s&quot;."/>
+	<string id="20245" value="Ματαίωση λήψης, λόγω αδυναμίας ανοίγματος τοπικού αρχείου &quot;%s&quot;."/>
+	<string id="20246" value="Κλείσιμο σύνδεσης με %s, λόγω εξάντλησης τεμάχιων προς λήψη."/>
+	<string id="20247" value="Κλείσιμο σύνδεσης με %s, λόγω συρρίκνωσης τεμαχίου."/>
+	<string id="20248" value="Αίτηση τεμάχιου προς λήψη (%I64u-%I64u) του &quot;%s&quot; από %s."/>
+	<string id="20250" value="Drag'n'drop αρχεία στην ομάδα %s"/>
+	<string id="20251" value="Προεπιλεγμένη ομάδα. (Δείτε όλα τα αρχεία)"/>
+	<string id="20252" value="Νέο Γκρουπ"/>
+	<string id="20253" value="Απόρριψη πηγής, λόγω φθοράς ή εσωτερικής ασυνέπειας του ED2K hashset."/>
+	<string id="20254" value="Απόρριψη πηγής %s, λόγω παραλαβής μη έγκυρου ED2K hashset."/>
+	<string id="20255" value="Παραλαβή ED2K hashset από &quot;%s&quot;, ελάχιστο επαληθεύσιμο τμήμα %s."/>
+	<string id="20256" value="Αίτηση ED2K hashset για το &quot;%s&quot; από %s..."/>
+	<string id="20257" value="Αδυναμία εγκαινίασης του inflate για τη λήψη &quot;%s&quot;."/>
+	<string id="20258" value="Παραλαβή δεδομένων tiger-tree από %s (%s)..."/>
+	<string id="20259" value="Αίτηση metadata για το &quot;%s&quot; από %s..."/>
+	<string id="20261" value="Απάντηση από τον host %s: %s (%s)."/>
+	<string id="20262" value="Μη έγκυρη HTTP απάντηση από τον host %s."/>
+	<string id="20263" value="Αποδοχή από host %s προώθησης λήψης &quot;%s&quot;."/>
+	<string id="20264" value="Αποστολή αίτησης προώθησης για τη λήψη &quot;%s&quot;..."/>
+	<string id="20265" value="Ο host %s είναι απασχολημένος, αναμονή στη θέση #%i ουράς των %i (&quot;%s&quot;.."/>
+	<string id="20266" value="Αναμονή στην ουρά για το &quot;%s&quot;."/>
+	<string id="20267" value="Απόρριψη πηγής %s από το &quot;%s&quot;, επειδή η θέση ουράς %i είναι μεγαλύτερη της καθορισμένης ανεκτής."/>
+	<string id="20268" value="Λήξη προθεσμίας ενημέρωσης της ουράς από τον ED2K host %s για το αρχείο &quot;%s&quot;."/>
+	<string id="20269" value="Κλείσιμο σύνδεσης με %s, λόγω λήξης προθεσμίας για αίτηση λήψης."/>
+	<string id="20270" value="Απόσυρση λήψης &quot;%s&quot;."/>
+	<string id="20271" value="Ολοκλήρωση λήψης &quot;%s&quot; και μετακίνησής του στο &quot;%s&quot;."/>
+	<string id="20272" value="Παύση λήψης &quot;%s&quot;."/>
+	<string id="20273" value="Συνέχιση λήψης &quot;%s&quot;."/>
+	<string id="20274" value="Ανάλυση του &quot;%s&quot; για λήψη του &quot;%s&quot;..."/>
+	<string id="20275" value="Εκζήτηση επιπλέον πηγών για τη λήψη &quot;%s&quot; σε %i συνδέσεις..."/>
+	<string id="20276" value="Αδυναμία αναζήτησης περισσοτέρων πηγών για τη λήψη του &quot;%s&quot;, λόγω μη σύνδεσης στο δίκτυο."/>
+	<string id="20280" value="Αγνόηση tiger-tree, λόγω φθοράς ή εσωτερικής ασυνέπειάς του."/>
+	<string id="20281" value="Ασυμφωνία tiger-tree και προσδοκόμενης τιμής ρίζας."/>
+	<string id="20282" value="Αδυναμία ικανοποίησης από τον host %s της αίτησης tiger-tree."/>
+	<string id="20283" value="Παραλαβή tiger-tree volume για το &quot;%s&quot;, %i επίπεδα, ελάχιστο επαληθεύσιμο τμήμα %s."/>
+	<string id="20284" value="Ανάλυση tiger-tree volume από %s (%s)..."/>
+	<string id="20285" value="Αίτηση tiger-tree volume για το &quot;%s&quot; από %s..."/>
+	<string id="20286" value="Κλείσιμο σύνδεσης λήψης από %s, λόγω έλλειψης δραστηριότητας."/>
+	<string id="20290" value="Απάντηση από τον host %s με διαφορετική αλλά χρήσιμη σειρά (%I64i-%I64i) του &quot;%s&quot;."/>
+	<string id="20291" value="Παραλαβή άχρηστης σύνδεσης προώθησης από %s."/>
+	<string id="20292" value="Απόρριψη πηγής %s (%s), λόγω αποστολής φθαρμένων τμημάτων του &quot;%s&quot; (%I64i-%I64i)."/>
+	<string id="20293" value="ΠΡΟΕΙΔΟΠΟΙΗΣΗ: Η λήψη του &quot;%s&quot; απέτυχε να επαληθευτεί. Ίσως δεν είναι το αρχείο που σκοπεύατε να λάβετε!"/>
+	<string id="20294" value="Επιτυχής επαλήθευση λήψης του &quot;%s&quot;."/>
+	<string id="20295" value="Ματαίωση λήψης από τον host %s, επειδή το δικό του &quot;%s&quot; έχει διαφορετικό URN."/>
+	<string id="20296" value="Εκκρεμότητα με τον host %s, επειδή απάντησε με άχρηστη σειρά bytes του &quot;%s&quot;."/>
+	<string id="20297" value="Ματαίωση λήψης από τον host %s, επειδή το δικό του &quot;%s&quot; έχει διαφορετικό μήκος."/>
+	<string id="20300" value="Αποδοχή εισερχόμενης σύνδεσης από την %s θύρα %i."/>
+	<string id="20301" value="Προϋπάρχουσα σύνδεση με %s, μη σύναψη δεύτερης."/>
+	<string id="20302" value="Άρνηση πανομοιότυπης σύνδεσης από %s."/>
+	<string id="20303" value="Εγκαινίαση γειτονικής σύνδεσης στην %s θύρα %i..."/>
+	<string id="20304" value="Κλείσιμο σύνδεσης με τον γείτονα %s (%i : %s)."/>
+	<string id="20305" value="Κλείσιμο σύνδεσης με τον γείτονα %s."/>
+	<string id="20306" value="Σύναψη σύνδεσης με τον γείτονα %s, χειραψία..."/>
+	<string id="20307" value="Αδυναμία εγκαινίασης γειτονικής σύνδεσης με %s."/>
+	<string id="20308" value="Απροσδόκητη απόρριψη σύνδεσης από τον γείτονα %s."/>
+	<string id="20309" value="Κλείσιμο σύνδεσης με τον γείτονα %s, επειδή δεν είναι κόμβος."/>
+	<string id="20310" value="Αδυναμία εγκαινίασης γειτονικής σύνδεσης με %s (αρνήθηκε)."/>
+	<string id="20311" value="Λήξη προθεσμίας κατά τη σύνδεση με %s."/>
+	<string id="20312" value="Κλείσιμο σύνδεσης με τον γείτονα %s λόγω έλλειψης δραστηριότητας."/>
+	<string id="20313" value="Ερώτηση στις υπηρεσίες ανακάλυψης hosts..."/>
+	<string id="20314" value="Η υπηρεσία ανακάλυψης &quot;%s&quot; απέτυχε, αποτυχία αριθμός %i."/>
+	<string id="20315" value="Διαγράφή υπηρεσίας ανακάλυψης &quot;%s&quot;, λόγω %i αποτυχιών."/>
+	<string id="20316" value="Ερώτηση στην υπηρεσία ανακάλυψης &quot;%s&quot;..."/>
+	<string id="20317" value="Υποβολή GWebCache &quot;%s&quot; σε μια τυχαία GWebCache..."/>
+	<string id="20318" value="Αποστολή ενημέρωσης GWebCache στην υπηρεσία &quot;%s&quot;..."/>
+	<string id="20319" value="Επιτυχής συναλλαωή με GWebCache (&quot;%s&quot;.."/>
+	<string id="20320" value="Η εισερχόμενη σύνδεση από %s είναι ένας σύνδεσμος ED2K client."/>
+	<string id="20321" value="Παραλαβή δύσμορφου πακέτου ED2K από τον %s (id=%x)."/>
+	<string id="20322" value="Κλείσιμο σύνδεσης με τον client %s, λόγω αδράνειας."/>
+	<string id="20323" value="Εγκαινίαση σύνδεσης με τον client %s..."/>
+	<string id="20324" value="Λήξη προθεσμίας σύνδεσης με τον client %s."/>
+	<string id="20325" value="Άρνηση σύνδεσμου από τον client %s, λόγω απενεργοποιημένου ED2K."/>
+	<string id="20326" value="Κλείσιμο σύνδεσης με τον client %s."/>
+	<string id="20327" value="Σφάλμα ανταλλαγής χειραψίας με τον client %s."/>
+	<string id="20328" value="Λήξη προθεσμίας χειραψίας με τον client %s."/>
+	<string id="20329" value="Αποστολή ED2K hashset για το &quot;%s&quot; προς %s..."/>
+	<string id="20330" value="Ματαίωση χειραψίας με τον client %s, λόγω λάθους GUID."/>
+	<string id="20331" value="Αυτό το αρχείο βρίσκεται ήδη στη λίστα λήψεων του PeerProject."/>
+	<string id="20332" value="Αδυναμία ανοίγματος ημιτελούς αρχείου &quot;%s&quot;."/>
+	<string id="20333" value="Ολοκλήρωση αντιγραφής αρχείου."/>
+	<string id="20334" value="Αντιγραφή &quot;%s&quot; σε &quot;%s&quot;..."/>
+	<string id="20335" value="Ανεπαρκής χώρος στον δίσκο για αντιγραφή λήψης σε αρχείο."/>
+	<string id="20336" value="Δημιουργία ημιτελούς αρχείου του PeerProject, απομένει %s."/>
+	<string id="20337" value="Αδυναμία εισαγωγής αρχείου."/>
+	<string id="20338" value="Ματαίωση, επειδή το data file είναι νεότερο του .part file."/>
+	<string id="20339" value="Εισαγωγή ημιτελούς αρχείου &quot;%s&quot;..."/>
+	<string id="20340" value="Ολοκλήρωση διαδικασίας, επιτυχής εισαγωγή %i ημιτελών αρχείων."/>
+	<string id="20341" value="Σάρωση αρχείου: &quot;%s&quot;..."/>
+	<string id="20342" value="Έναρξη διαδικασίας εισαγωγής ημιτελών αρχείων του eMule..."/>
+	<string id="20344" value="Εύρεση αρχείου &quot;%s&quot;, μέγεθος %s."/>
+	<string id="20345" value="Ενωμένο στον server %s του ED2K, χειραψία..."/>
+	<string id="20346" value="Εγκαινίαση σύνδεσης με server του ED2K στο %s..."/>
+	<string id="20347" value="Αλλαγή client ID από τον server %s του ED2K, από %lu σε %lu."/>
+	<string id="20348" value="Σύστηση του server %s του ED2K ως &quot;%s&quot;."/>
+	<string id="20349" value="ED2K[%s] %s"/>
+	<string id="20350" value="Ενωμένο στον server %s του ED2K, με client ID %lu."/>
+	<string id="20351" value="Άρνηση σύνδεσης από τον server %s του ED2K."/>
+	<string id="20352" value="Απόρριψη σύνδεσης από τον server %s του ED2K."/>
+	<string id="20354" value="Ιδιότητες Αρχείου"/>
+	<string id="20355" value="Θέλετε σίγουρα να διαγράψετε αυτό το φίλτρο;"/>
+	<string id="20356" value="Υπάρχει ήδη ένα φίλτρο με όνομα &quot;%s&quot;. Θέλετε να το αντικαταστήσετε;"/>
+	<string id="20358" value="ΠΑρακαλώ ονομάστε το φίλτρο."/>
+	<string id="20360" value="Σφάλματα Σύνδεσης (%)"/>
+	<string id="20361" value="Εύρος ζώνης Λήψης"/>
+	<string id="20362" value="Μετρητής Ληφθέντων Αρχείων"/>
+	<string id="20363" value="Μετρητής Παραλαβών"/>
+	<string id="20364" value="Εύρος ζώνης Παραλαβής από Gnutella"/>
+	<string id="20365" value="Εύρος ζώνης Μετάδοσης προς Gnutella"/>
+	<string id="20366" value="Οι συνδέσεις στο Gnutella (Σύνολο)"/>
+	<string id="20367" value="Οι συνδέσεις στο Gnutella (Ενεργές)"/>
+	<string id="20368" value="Απρριφθέντα Πακέτα Gnutella"/>
+	<string id="20369" value="Χαμένα Πακέτα Gnutella"/>
+	<string id="20370" value="Πακέτα ληφθέντα από Gnutella"/>
+	<string id="20371" value="Πακέτα σταλθέντα προς Gnutella"/>
+	<string id="20372" value="Αναλογία Ληφθέντων/Σταλμένων Pings Gnutella"/>
+	<string id="20373" value="Αναλογία Ληφθέντων/Σταλμένων Pongs Gnutella"/>
+	<string id="20374" value="Τοπικές Ερωτήσεις Gnutella"/>
+	<string id="20375" value="Δρομολογηθέντα Πακέτα Gnutella"/>
+	<string id="20376" value="Συνολικό εύρος ζώνης Παραλαβής πάσης φύσεως"/>
+	<string id="20377" value="Συνολικό εύρος ζώνης Αποστολής πάσης φύσεως"/>
+	<string id="20378" value="Συνολικό εύρος ζώνης Παραλαβής TCP"/>
+	<string id="20379" value="Συνολικό εύρος ζώνης Αποστολής TCP"/>
+	<string id="20380" value="Συνολικό εύρος ζώνης Παραλαβής UDP"/>
+	<string id="20381" value="Συνολικό εύρος ζώνης Αποστολής UDP"/>
+	<string id="20382" value="Εύρος ζώνης Αποστολής"/>
+	<string id="20384" value="Μετρητής Upload Transfer Count"/>
+	<string id="20385" value="Υπαναχώρηση σε θωρακισμένο του συνδεόμενου κόμβου %s."/>
+	<string id="20386" value="Κλείσιμο πλεονάζουσας σύνδεσης από %s με host hint (%s θύρα %i)."/>
+	<string id="20387" value="Κλείσιμο σύνδεσης με γειτονικό κόμβο %s, επειδή δεν μας αποδέχεται ως κόμβο."/>
+	<string id="20388" value="Αποτυχία χειραψίας με %s λόγω μη έγκυρων δεδομένων στο καλώδιο."/>
+	<string id="20389" value="Λειτουργία κόμβου προς το γειτονικό φύλλο %s."/>
+	<string id="20390" value="Κλείσιμο συνδέσεων peer, λόγω σύναψης σύνδεσης κόμβου."/>
+	<string id="20391" value="Απόρριψη σύνδεσης από %s επειδή είναι θωρακισμένο."/>
+	<string id="20392" value="Κλείσιμο σύνδεσης με τον γείτονα %s, επειδή δεν είναι κόμβος."/>
+	<string id="20393" value="Κλείσιμο σύνδεσης με τον μη Gnutella2 γείτονα %s."/>
+	<string id="20394" value="Κλείσιμο σύνδεσης με τον γείτονα %s λόγω πρόθεσής του να γίνει κόμβος."/>
+	<string id="20395" value="Επιτυχής σύναψη σύνδεσης Gnutella με τον γείτονα %s (G%i.%i : %s)."/>
+	<string id="20396" value="Επιτυχής σύναψη σύνδεσης Gnutella2 με τον γείτονα %s (%s)."/>
+	<string id="20397" value="Απόρριψη σύνδεσης προς %s (%s)."/>
+	<string id="20398" value="Κλείσιμο πλεονάζουσας σύνδεσης από %s."/>
+	<string id="20399" value="Λήξη προθεσμίας κατά τη χειραψία με %s."/>
+	<string id="20400" value="Το PeerProject σαρώνει %Iu αρχεία:"/>
+	<string id="20410" value="Εξερεύνηση της Βιβλιοθήκης"/>
+	<string id="20411" value="Θέση:"/>
+	<string id="20412" value="Εξερεύνηση των περιεχομένων %i φακέλων"/>
+	<string id="20413" value="%i αρχεία επιλεγμένα"/>
+	<string id="20414" value="Πολλαπλοί φάκελοι"/>
+	<string id="20415" value="Κανένα επιλεγμένο αρχείο"/>
+	<string id="20416" value="Βαθμολόγηση αυτού του αρχείου"/>
+	<string id="20417" value="Πρόσφατες Προσθήκες"/>
+	<string id="20418" value="Album"/>
+	<string id="20419" value="Καλλιτέχνης"/>
+	<string id="20420" value="Δειγματοληψία"/>
+	<string id="20421" value="Μήκος"/>
+	<string id="20422" value="Βαθμολογία"/>
+	<string id="20423" value="Τίτλος"/>
+	<string id="20424" value="#"/> <!-- Track number -->
+	<string id="20425" value="Αδυναμία εγκατάστασης αρχείου συλλογής &quot;%s&quot;, μέσω αντιγρφής του στον φακελο &quot;%s&quot;."/>
+	<string id="20426" value="Θέλετε να λάβετε όλα τα αρχεία αυτής της συλλογής;nnΠατήστε Άκυρο για να σταματήσετε περαιτέρω προτροπές."/>
+	<string id="20427" value="Προσθήκη αρχείου συλλογής &quot;%s&quot; στη Βιβλιοθήκη."/>
+	<string id="20428" value="Το ληφθέν ως αρχείο συλλογής:\n\n&quot;%s&quot;\n\nδεν φαίνεται να είναι ένα έγκυρο αρχείο συλλογής."/>
+	<string id="20429" value="Θέλετε να εμποδίσετε αυτήν τη συλλογή από το να σας προτρέπει να λάβετε οτιδήποτε άλλο;"/>
+	<string id="20430" value="Θέλετε σίγουρα να ανοίξετε το αρχείο &quot;%s&quot; ;nnΜερικά αρχεία μπορεί να είναι βλαβερά για τον υπολογιστή σας! Βεβαιωθείτε ότι ξέρετε τι είναι το αρχείο πριν το ανοίξετε."/>
+	<string id="20431" value="Θέλετε σίγουρα να διαγράψετε οριστικά τα %i επιλεγμένα αρχεία ;nnΤα αρχεία θα μετακινηθούν στον &quot;κάδο ανακύκλωσης&quot;, εφόσον λειτουργεί και τα χωράει."/>
+	<string id="20432" value="Αποτυχία διαγραφής αρχείου:\n\n%s"/>
+	<string id="20433" value="Ο Φάκελος Ληφθέντων &quot;%s&quot; δεν περιλαμβάνεται ακόμη στη Βιβλιοθήκη.nnΗ συμπερίληψή του κάνει ευκολότερη την προβολή και οργάνωση νέων αρχείων και σας επιτρέπει να αξιοποιήσετε τις προχωρημένες δυνατότητες του PeerProject, όπως την επαλήθευση αρχείων και την αυτόματη αναβάθμιση. Η τοποθέτηση αρχείων στη Βιβλιοθήκη δεν σας υποχρεώνει να τα κοινοποιείτε: μπορείτε να διαλέξετε αν θα κοινοποιείται ή όχι ένα ή περισσότερα αρχεία, συγκεκριμένα και ανεξάρτητα.nnΘέλετε να προσθέσετε τον Φάκελο Ληφθέντων στη Βιβλιοθήκη τώρα;"/>
+	<string id="20434" value="Ο Φάκελος Ληφθέντων προστέθηκε στη Βιβλιοθήκη. Θέλετε επίσης να τον κοινοποιήσετε;"/>
+	<string id="20435" value="Δεν επιλέξατε ακόμη μια εφαρμογή αναπαραγωγής πολυμέσων, όπως είναι το Nullsoft Winamp. Θέλετε να επιλέξετε μία τώρα;nnΤο PeerProject θα περάσει το όνομα του επιλεγμένου αρχείου με την παράμετρο &quot;/ADD&quot;."/>
+	<string id="20436" value="Θέλετε σίγουρα να διαγράψετε τα %i επιλεγμένα albums ;nnΣημειώστε ότι αυτή η πράξη δεν διαγράφει τα αρχεία μέσα στα albums, παρά μόνο τα ίδια τα albums."/>
+	<string id="20437" value="Αρχείο Φάντασμα"/>
+	<string id="20438" value="Επεξεργασία των metadata των αρχείων %i."/>
+	<string id="20439" value="Θέλετε σίγουρα να τροποποιήσετε τα metadata του αρχείου %i;"/>
+	<string id="20440" value="Αδυναμία μετακίνησης του αρχείου %s. Το αρχείο ίσως χρησιμοποιείται απο άλλη εφαρμογή.nnΘέλετε εναλλακτικά να δοκιμάσετε να το αντιγράψετε;"/>
+	<string id="20441" value="Αποτυχία μετονομασίας αρχείου:\n\n%s\nto\n%s"/>
+	<string id="20442" value="Το αρχείο προορισμού προϋπάρχει:\n\n%snnΘέλετε να το αντικαταστήσετε;"/>
+	<string id="20443" value="Προβολή Όλων των Τύπων Αρχείων"/>
+	<string id="20444" value="Αντιγραφή &URI"/>
+	<string id="20445" value="Εξαγωγή &URIs..."/>
+	<string id="20446" value="Το αρχείο &quot;%s&quot; απέτυχε στη δοκιμή επαλήθευσης με hash και ίσως δεν είναι το αρχείο που σκοπεύατε να λάβετε! Θέλετε σίγουρα να το ανοίξετε;"/>
+	<string id="20447" value="Θέλετε να αφαιρέσετε την &quot;εν δυνάμει επικίνδυνη&quot; ιδιότητα από αυτό το αρχείο;"/>
+	<string id="20448" value="Το αρχείο &quot;%s&quot; ακόμη δεν έχει σαρωθεί. Παρακαλώ περιμένετε να τελειώσει και ξαναπροσπαθείστε."/>
+	<string id="20449" value="Αυτή η επιλογή χρησιμοποιεί υπηρεσίες παρεχόμενες από το Bitzi.com προς αναγνώριση και κοινοποίηση πληροφοριών για τα επιλεγμένα αρχεία.nnΤο PeerProject θα αποστείλει το SHA1 hash code για τα επιλεγμένα αρχεία, προκειμένου να ρωτήσει τη βάση δεδομένων του Bitzi. Αν ανησυχείται για την ιδιωτικότητά σας, συμβουλευτείτε την πολιτική ιδιωτικότητας του Bitzi.com.nnΘέλετε να συνεχίσετε;"/>
+	<string id="20450" value="Ένας υποφάκελος του επιλεγμένου φακέλου &quot;%s&quot; είναι ήδη μέρος της Βιβλιοθήκης.nΠροσθέτοντας αυτόν τον φάκελο θα προκαλέσει επανασάρωση μερικών αρχείων.nnΘέλετε να συνεχίσετε;"/>
+	<string id="20451" value="Κανένα αρχείο υπό αναπαραγωγή. Για αναπαραγωγή, διπλό κλικ σε ένα αρχείο στη Βιβλιοθήκη."/>
+	<string id="20452" value="Όλα τα Αρχεία Πολυμέσων|*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Λίστες|*.asx;*.wax;*.m3u;*.wvx;*.wmx|Αρχεία Ήχου|*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm|Αρχεία Video|*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Κομμάτια CD Audio|*.cda|Αρχεία MIDI|*.mid;*.rmi;*.midi|Όλα τα Αρχεία|*.*||"/>
+	<string id="20453" value="Αδυναμία φόρτωσης αρχείου &quot;%s&quot;"/>
+	<string id="20454" value="Το αρχείο ίσως είναι κατεστραμμένο ή ίσως δεν έχετε τους αναγκαίους codecs για την αναπαραγωγή."/>
+	<string id="20455" value="Αδυναμία αναπαραγωγής τμήματος αυτού του αρχείου, ίσως να χρειάζεται να λάβετε επιπλέον codecs."/>
+	<string id="20456" value="ΛΙΣΤΑ ΑΝΑΠΑΡΑΓΩΓΗΣ"/>
+	<string id="20457" value="Αδυναμία εκκίνησης των πρόσθετων Υπηρεσιών Πολυμέσων (MediaServices plugin). Παρακαλώ επανεγκαταστήστε το PeerProject και επιβεβαιώστε ότι έχετε εγκατεστημένους τους αναγκαίους media codecs και output drivers."/>
+	<string id="20458" value="Αναπαραγωγή Πολυμέσων"/>
+	<string id="20460" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
+	<string id="20461" value="(Καμία Απεικόνιση)"/>
+	<!--string id="20462" value="Το PeerProject ολοκλήρωσε τη λήψη:"-->
+	<!--string id="20463" value="Το PeerProject λαμβάνει:"-->
+	<!--string id="20464" value="Το PeerProject μετακινεί το αρχείο:"-->
+	<!--string id="20465" value="Αυτή η λήψη είναι σταματημένη:"-->
+	<!--string id="20466" value="Το PeerProject αναζητά πηγές για:"-->
+	<!--string id="20467" value="Το PeerProject ελέγχει το αρχείο για σφάλματα:"-->
+	<string id="20470" value="Άκυρο"/>
+	<string id="20471" value="Άνοιγμα"/>
+	<string id="20472" value="Ολοκληρωμένο"/>
+	<string id="20473" value="Εκτιμώμενος απομένοντας χρόνος:"/>
+	<string id="20474" value="Αριθμός κριτικών:"/>
+	<string id="20475" value="Αριθμός πηγών:"/>
+	<string id="20476" value="Καμία πηγή"/>
+	<string id="20477" value="%i μέρες και %i ώρες"/>
+	<string id="20478" value="%i ώρες και %i λεπτά"/>
+	<string id="20479" value="%i λεπτά και %i δευτερόλεπτα"/>
+	<string id="20480" value="%i δευτερόλεπτα"/>
+	<string id="20481" value="Συνολική ταχύτητα μεταφοράς:"/>
+	<string id="20482" value="Παραληφθήσα ποσότητα:"/>
+	<string id="20483" value="Αποσταλθήσα ποσότητα:"/>
+	<string id="20484" value="Όριο ταχύτητας Μεταφορτώνει"/>
+	<string id="20485" value="Όριο Ταχύτητα αποστολής"/>
+	<string id="20490" value="Multiple"/>
+	<string id="20491" value="Multiple Values"/>
+	<string id="20494" value="Δεν έχετε συμπληρώσει την τοποθεσία στο προφίλ σας. Συνέχεια χωρίς;"/>
+	<string id="20495" value="Δεν έχετε συμπληρώσει το όνομα στο προφίλ σας. Συνέχεια χωρίς;"/>
+	<string id="20496" value="Δεν έχετε συμπληρώσει την ηλικία ή το φύλο σας. Συνέχεια χωρίς;"/>
+	<string id="20499" value="Νέος φάκελος"/>
+	<string id="20500" value="Κλικ στο κουμπί Σύνδεση για να αρχίσετε."/>
+	<string id="20501" value="Δεν είστε ενωμένοι στο δίκτυο."/>
+	<string id="20502" value="Κλείσιμο..."/>
+	<string id="20503" value="Συμπίεση:"/>
+	<string id="20504" value="Deflate"/>
+	<string id="20505" value="Καμία"/>
+	<string id="20506" value="Σύνδεση..."/>
+	<string id="20507" value="Τρέχον:"/>
+	<string id="20510" value="Σύνδεση σε server του ED2K"/>
+	<string id="20511" value="ED2K (HighID)"/>
+	<string id="20512" value="Σύνδεση σε server του ED2K(LOWID: %lu)"/>
+	<string id="20513" value="ED2K (LowID)"/>
+	<string id="20514" value="Server του ED2K"/>
+	<string id="20515" value="G1 Φύλλο"/>
+	<string id="20516" value="G1 Peer"/>
+	<string id="20517" value="Gnutella: Σύνδεση Peer-σε-Peer"/>
+	<string id="20518" value="Gnutella: Σύνδεση Φύλλου-σε-Ultrapeer"/>
+	<string id="20519" value="Gnutella: Σύνδεση Ultrapeer-σε-Φύλλο"/>
+	<string id="20520" value="G1 Ultrapeer"/>
+	<string id="20521" value="G2 Κόμβος"/>
+	<string id="20522" value="G2 Φύλλο"/>
+	<string id="20524" value="G2 Peer"/>
+	<string id="20525" value="Gnutella2: Σύνδεση Φύλλου-σε-Κόμβο"/>
+	<string id="20526" value="Gnutella2: Σύνδεση Κόμβου-σε-Κόμβο"/>
+	<string id="20527" value="Gnutella2: Σύνδεση Κόμβου-σε-Φύλλο"/>
+	<string id="20530" value="Χειραψία"/>
+	<string id="20531" value="Χειραψία..."/>
+	<string id="20532" value="Inbound"/>
+	<string id="20533" value="Outbound"/>
+	<string id="20534" value="Σύνολο:"/>
+	<string id="20535" value="Αναλογία:"/>
+	<string id="20536" value="Απορριμένο"/>
+	<string id="20538" value="Άγνωστο"/>
+	<string id="20540" value="Σύνδεση"/>
+	<string id="20541" value="Σύνδεση..."/>
+	<string id="20542" value="Ενωμένο"/>
+	<string id="20543" value="Αποσύνδεση"/>
+	<string id="20544" value="Τερματισμός δικτυακού πυρήνα PeerProject..."/>
+	<string id="20545" value="Αποσυνδεμένο από το δίκτυο."/>
+	<string id="20546" value="Θέλετε σίγουρα να αποσυνδεθείτε;"/>
+	<string id="20547" value="Το Gnutella2 είναι το πρωτεύον δίκτυο του PeerProject. Η απενεργοποίηση της υποστήριξής του ίσως περιορίσει σοβαρά τόσο τον αριθμό όσο και την ποιότητα των αποτελεσμάτων των αναζητήσεών σας. Είστε ΣΙΓΟΥΡΟΙ ότι θέλετε να το κάνετε;"/>
+	<string id="20548" value="Δεν μπορεί να ενωθεί η %s θύρα %i για εισερχόμενες συνδέσεις, ώστε αυτές θα είναι αδύνατες."/>
+	<string id="20549" value="Αδυναμία ανάλυσης %s για τις εξερχόμενες συνδέσεις, ώστε αυτές θα χρησιμοποιούν τον προεπιλεγμένο τρόπο."/>
+	<string id="20550" value="Το εξερχόμενο εύρος ζώνης σας είναι πολύ χαμηλό για την ενεργοποίηση αυτού του δικτύου."/>
+	<string id="20551" value="Ενοχλητικό firewall, απώλεια εισερχομένων συνδέσεων."/>
+	<string id="20552" value="Η επιβολή στον υπολογιστή σας της λειτουργία κόμβου, ίσως προκαλέσει δυσμενείς επιδράσεις στις επιδόσεις και το δίκτυο P2P. Γενικά είναι καλύτερο να αφήσετε το PeerProject να αποφασίζει το πότε θα χρησιμοποιεί τη λειτουργία κόμβου.nnΗ λειτουργία κόμβου ΔΕΝ παράγει καλύτερα αποτελέσματα, ούτε έχει άλλα πλεονεκτήματα για σας!nnΘέλετε σίγουρα να το κάνετε, παρά αυτά τα μειονεκτήματα;"/>
+	<string id="20553" value="Αποδοχή εισερχομένων TCP συνδέσεων στην %s θύρα %i."/>
+	<string id="20554" value="Ακρόαση για UDP datagrams στην %s θύρα %i."/>
+	<string id="20555" value="Οι εξερχόμενες συνδέσεις θα γίνονται από την %s θύρα %i."/>
+	<string id="20556" value="Αδυναμία ανάλυσης host &quot;%s&quot;."/>
+	<string id="20557" value="Ανάλυση host &quot;%s&quot;..."/>
+	<string id="20558" value="Αποστολή αίτησης για &quot;%s&quot; προς %s."/>
+	<string id="20560" value="Η διεύθυνση %s είναι ήδη φραγμένη από τους κανόνες ασφαλείας."/>
+	<string id="20561" value="Προσθήκη κανόνα ασφαλείας για φραγή του %s."/>
+	<string id="20562" value="Ο διαχειριστής ασφαλείας αρνήθηκε την αίτηση σύνδεσης από %s."/>
+	<string id="20563" value="Ο διαχειριστής ασφαλείας εμπόδισε τη σύνδεση προς %s."/>
+	<string id="20564" value="Έναρξη δικτυακού πυρήνα PeerProject..."/>
+	<string id="20565" value="Τρέχετε το Scheduler με ‘G2 μόνο’ Θέλετε να κλείσετε τον τρόπο αυτό, έτσι ώστε ολά τα ενεργά δίκτυα να παραμείνουν συνδεδεμένα;"/>
+	<string id="20566" value="Η αντιστοίχηση θυρών UPnP εγκαταλήφθηκε μετά από 10 προσπάθειες."/>
+	<string id="20570" value="Αγνόηση δύσμορφου ερωτηματικού πακέτου εύρεσης από %s."/>
+	<string id="20571" value="%s:  Αγνόηση δύσμορφου ερωτηματικού πακέτου από %s."/>
+	<string id="20572" value="Απόρριψη πακέτου με υπερβολικό TTL, προωθημένο από τον γείτονα %s (TTL=%i, Hops=%i)."/>
+	<string id="20573" value="Αγνόηση πακέτου με μηδενικό TTL, προωθημένο από τον γείτονα %s."/>
+	<string id="20574" value="Μη κωδικοποιημένο κατά GGEP εκτεταμένο πακέτο, προωθημένο από τον γείτονα %s."/>
+	<string id="20575" value="Απόρριψη σύνδεσης με τον γείτονα %s, λόγω αποστολής μη έγκυρης ενημέρωσης πίνακα δρομολόγησης ερωτημάτων."/>
+	<string id="20576" value="Αποστολή πίνακα δρομολόγησης ερωτημάτων προς τον γείτονα %s (%i bit = %lu[%i], %i%% full)"/>
+	<string id="20577" value="Παραλαβή απροσδόκητης ενημέρωσης πίνακα δρομολόγησης ερωτημάτων από τον γείτονα %s."/>
+	<string id="20578" value="Ενημέρωση πίνακα δρομολόγησης ερωτημάτων του γείτονα %s (%i bit = %lu[%i], %i%% πλήρες)."/>
+	<string id="20579" value="%s -> %s [%i/%i] %s %s"/>
+	<string id="20580" value="Απόρριψη σύνδεσης γειτονικού φύλλου %s, λόγω προώθησης ερωτήσεων."/>
+	<string id="20581" value="Αγνόηση πακέτου ping με μη έγκυρο μήκος, προωθημένο από τον γείτονα %s."/>
+	<string id="20582" value="Αγνόηση πακέτου pong με μη έγκυρο μήκος, προωθημένο από τον γείτονα %s."/>
+	<string id="20583" value="Αγνόηση πακέτου push με μη έγκυρο μήκος, προωθημένο από τον γείτονα %s."/>
+	<string id="20584" value="Απόρριψη σύνδεσης με τον γείτονα %s, λόγω προώθησης πακέτου υπερβολικού μεγέθους."/>
+	<string id="20585" value="Αγνόηση μη αναγνωρίσιμου πακέτου, προωθημένου από τον γείτονα %s (0x%.2x)."/>
+	<string id="20586" value="Αγνόηση πακέτου pong με μη έγκυρα δεδομένα διεύθυνσης, προωθημένο από τον γείτονα %s."/>
+	<string id="20588" value="Αγνόηση πακέτου αίτησης push προς διεύθυνση πίσω από firewall, προωθημένο από τον γείτονα %s."/>
+	<string id="20590" value="Η απομακρυσμένη πρόσβαση είναι απενεργοποιημένη."/>
+	<string id="20591" value="http://%s:%i/remote - Πρέπει να διαλέξετε ένα όνομα και έναν κωδικό."/>
+	<string id="20592" value="Αδυναμία υποδοχής συνδέσεων, μη διαθέσιμο URL."/>
+	<string id="20595" value="&amp;Schemas"/>
+	<string id="20620" value="Ενεργή αναζήτηση..."/>
+	<string id="20621" value="Κλικ εδώ για επαναζήτηση."/>
+	<string id="20622" value="Όλα τα Δίκτυα"/>
+	<string id="20623" value="Θέλετε να καθαρίσετε τα αποτελέσματα της προηγούμενης αναζήτησης; (Διαφορετικά θα συγχωνευτούν με της νέας.)"/>
+	<string id="20624" value="Αυτό το πεδίο προβάλει περισσότερες πληροφορίες για τα αρχεία που επιλέγετε."/>
+	<string id="20625" value="%s γράφει:"/>
+	<string id="20626" value="%s βαθμολογεί αυτό το αρχείο:"/>
+	<string id="20627" value="Κλικ για Προεπισκόπηση"/>
+	<string id="20628" value="Προεπισκόπηση..."/>
+	<string id="20629" value="Αδυναμία λήψης προεπισκόπησης από &quot;%s&quot;."/>
+	<string id="20630" value="Υπάρχουν %i κριτικές."/>
+	<string id="20631" value="Υπάρχει μια κριτική."/>
+	<string id="20632" value="%i πηγές είναι διαθέσιμες. (%s/s)"/>
+	<string id="20633" value="Μία πηγή είναι διαθέσιμη. (%s/s)"/>
+	<string id="20634" value="Το δίκτυο δεν έχει επιστρέψει ακόμη τίποτα σχετικό."/>
+	<string id="20635" value="Κάποια αποτελέσματα είναι διαθέσιμα, αλλά δεν περνούν από το φίλτρο."/>
+	<string id="20636" value="Δεν έχετε εκκινήσει ακόμη την αναζήτηση σε αυτό το παράθυρο."/>
+	<string id="20637" value="Κανένα Metadata"/>
+	<string id="20638" value="Καμία Στήλη Schema"/>
+	<string id="20640" value="(Καθαρισμός Ιστορικού Αναζήτησης)"/>
+	<string id="20641" value="Αναζήτηση στο PeerProject"/>
+	<string id="20642" value="Τι τύπος αρχείου είναι;"/>
+	<string id="20643" value="Εισάγετε κάποιες λέξεις κλειδιά για αναζήτηση:"/>
+	<string id="20644" value="Προχωρημένα"/>
+	<string id="20645" value="Οτιδήποτε"/>
+	<string id="20646" value="Καθαρ."/>
+	<string id="20648" value="Απόκρυψη Πεδίου Αναζήτησης"/>
+	<string id="20650" value="Αναζήτηση"/>
+	<string id="20651" value="Όροι αναζήτησης:"/>
+	<string id="20652" value="Αναζήτηση αρχείων τύπου:"/>
+	<string id="20653" value="Δίκτυα:"/>
+	<string id="20654" value="Μέγεθος Min:"/>
+	<string id="20655" value="Μέγεθος Max:"/>
+	<string id="20656" value="Αναζήτηση Περισσοτέρων"/>
+	<string id="20657" value="Προβολή Πεδίου Αναζήτησης"/>
+	<string id="20658" value="Έναρξη Αναζ."/>
+	<string id="20659" value="Διακοπή"/>
+	<string id="20660" value="Δεν βρέθηκαν αρχεία"/>
+	<string id="20661" value="%lu κόμβοι, %lu φύλλα"/>
+	<string id="20662" value="Μη ενεργή αναζήτηση"/>
+	<string id="20663" value="Αποτελέσματα"/>
+	<string id="20664" value="%lu αρχείο σε %lu εύρεση|%lu αρχείο σε %lu ευρέσεις|%lu αρχεία σε %lu ευρέσεις"/>
+	<string id="20665" value="Βρέθηκαν"/>
+	<string id="20666" value="Αναζήτηση:"/>
+	<string id="20668" value="Αναζήτηση..."/>
+	<string id="20669" value="Αναζήτηση Σκέτου Κειμένου"/>
+	<string id="20670" value="Αναζήτηση σε εξέλιξη..."/>
+	<string id="20671" value="Θέλετε σίγουρα να διαγράψετε τους επιλεγμένους κανόνες ασφαλείας; Αυτό δεν μπορεί να αναιρεθεί!"/>
+	<string id="20672" value="Επιλογή προσωρινού φακέλου eDonkey/eMule:"/>
+	<string id="20673" value="Αυτόματα"/>
+	<string id="20674" value="Ο φάκελος Ολοκληρωμένων δεν πρέπει να ταυτίζεται με τον φάκελο Ημιτελών."/>
+	<string id="20675" value="Τα Windows δεν υποστηρίζουν paths μεγαλύτερα των 256 χαρακτήρων.nΠαρακαλώ επιλέξτε έναν φάκελο με μικρότερο όνομα."/>
+	<string id="20676" value="Ο φάκελος Ημιτελών δεν πρέπει να βρίσκεται στη Βιβλιοθήκη, επειδή θα μειώσει τις επιδόσεις. Τα ημιτελή αρχεία μπορούν να κοινοποιούνται απευθείας από το παράθυρο μεταφορών."/>
+	<string id="20677" value="Παρακαλώ εισάγετε όριο του εύρους ζώνης που επιθυμείτε &quot;123 kb/s&quot; για kilobits ανά δευτερόλεπτο ή &quot;123 KB/s&quot; για kiloBytes ανά δευτερόλεπτο."/>
+	<string id="20678" value="Το δίκτυο ED2K χρησιμοποιεί μακριές ουρές με μεγάλους χρόνους αναμονής. Περιορίζοντας τη μέγιστη θέση αναμονής σε ουρά, ίσως δυσκολευτείται να ξεκινήσετε λήψεις!nΘέλετε σίγουρα να περιορίσετε τη θέση αναμονής σε ουρά που θα ανέχεστε;"/>
+	<string id="20680" value="Οι ρυθμίσεις του PeerProject"/>
+	<string id="20684" value="Θέλετε σίγουρα να διαγράψετε τον φλοιό &quot;%s&quot;. Αυτό δεν μπορεί να αναιρεθεί!"/>
+	<string id="20700" value="Ενεργό"/>
+	<string id="20701" value="%s μέσα : %s έξω (D:%I64i/U:%I64i)"/>
+	<string id="20702" value="Ενωμένο σε %lu γείτονες. %s στην τοπική Βιβλιοθήκη."/>
+	<string id="20703" value="Λειτουργία Κόμβου με %lu γείτονες. %s στην τοπική Βιβλιοθήκη."/>
+	<string id="20704" value="Λειτουργία Κόμβου/Ultrapeer με %lu γείτονες. %s στην τοπική Βιβλιοθήκη."/>
+	<string id="20705" value="Ενωμένο. %s στην τοπική Βιβλιοθήκη."/>
+	<string id="20706" value="Λειτουργία Ultrapeer με %lu γείτονες. %s στην τοπική Βιβλιοθήκη."/>
+	<string id="20707" value="Σύνδεση με το δίκτυο..."/>
+	<string id="20708" value="Μη ενωμένο στο δίκτυο."/>
+	<string id="20710" value="(Καμία Πηγή)"/>
+	<string id="20711" value="Αδυναμία Μετακίνησης"/>
+	<string id="20712" value="Πλήρες"/>
+	<string id="20713" value="Ανάρτηση"/>
+	<string id="20714" value="Σφάλμα Αρχείου"/>
+	<string id="20715" value="Hashset"/>
+	<string id="20716" value="Metadata"/>
+	<string id="20717" value="Απάντηση"/>
+	<string id="20718" value="Μετακίνηση..."/>
+	<string id="20719" value="Δημιουργία"/>
+	<string id="20720" value="Ολοκληρωμένο"/>
+	<string id="20721" value="Σύνδεση..."/>
+	<string id="20722" value="Λήψη..."/>
+	<string id="20723" value="Αποσχολημένο"/>
+	<string id="20724" value="Επόμενο"/>
+	<string id="20725" value="Q"/>
+	<string id="20726" value="Στην Ουρά"/>
+	<string id="20727" value="Σταματημένο"/>
+	<string id="20728" value="Σε Αναμονή"/>
+	<string id="20729" value="Αίτηση..."/>
+	<string id="20730" value="Αναζήτηση"/>
+	<string id="20731" value="Seeding"/>
+	<string id="20732" value="πηγή"/>
+	<string id="20733" value="πηγές"/>
+	<string id="20734" value="πηγές"/>
+	<string id="20735" value="πηγές"/>
+	<string id="20740" value="TigerTree"/>
+	<string id="20741" value="Torrent"/>
+	<string id="20742" value="Πεσμένος Tracker"/>
+	<string id="20743" value="Αδιάφορο"/>
+	<string id="20744" value="Άγνωστο"/>
+	<string id="20745" value="Αδιάφορο"/>
+	<string id="20746" value="Μη Επαληθευμένο"/>
+	<string id="20747" value="Επαληθευμένο"/>
+	<string id="20748" value="Επαλήθευση"/>
+	<string id="20750" value="Καλώς ήρθατε στο PeerProject!nnΤο PeerProject είναι ένα εντελώς ελεύθερο λογισμικό.nΠαρακαλώ χρησιμοποιήστε το υπεύθυνα, έχοντας υπόψη τους νόμους πνευματικής ιδιοκτησίας.n"/>
+	<string id="20751" value="Δεν υπάρχουν ενεργές αναζητήσεις.  Κλικ εδώ για να αναζητήσετε αρχεία."/>
+	<string id="20752" value="Δεν είστε ενωμένοι. Κλικ στο κουμπί Σύνδεση για να αρχίσετε."/>
+	<string id="20755" value="Θέλετε σίγουρα να διαγράψετε το πρότυπο &quot;%s&quot;.nΑυτό δεν μπορεί να αναιρεθεί!"/>
+	<string id="20760" value="Ενεργό"/>
+	<string id="20761" value="Ανεργό"/>
+	<string id="20762" value="Αυτό το αρχείο φαίνετε να είναι βρόμα."/>
+	<string id="20763" value="Μαύρη λίστα:"/>
+	<string id="20764" value="Έχετε λάβει και διαγράψει αυτό το αρχείο παλαιότερα."/>
+	<string id="20765" value="Έχετε ήδη αυτό το αρχείο στη λίστα λήψεων."/>
+	<string id="20766" value="Έχετε ήδη αυτό το αρχείο στη Βιβλιοθήκη."/>
+	<string id="20767" value="Οι πηγές αυτού του αρχείου είναι απασχολημένες"/>
+	<string id="20768" value="Οι πηγές αυτού του αρχείου είναι πίσω απο firewall"/>
+	<string id="20769" value="Οι πηγές αυτού του αρχείου δείχνουν ασταθείς"/>
+	<string id="20770" value="Φάκελος"/>
+	<string id="20771" value="Ευρέσεις"/>
+	<string id="20772" value="Θέση"/>
+	<string id="20773" value="της Βιβλιοθήκης"/>
+	<string id="20774" value="Μ/Δ"/>
+	<string id="20775" value="Επόμενο στη Σειρά"/>
+	<string id="20776" value="Κανένα Hashset"/>
+	<string id="20777" value="Μερική Πηγή (%.2f%% διαθέσιμο)"/>
+	<string id="20778" value="%i υποδοχές αποστολής, %i σε αναμονή στην ουρά"/>
+	<string id="20780" value="Μέγεθος"/>
+	<string id="20781" value="Αυτή η πηγή είναι απασχολημένη"/>
+	<string id="20782" value="Αυτή η πηγή είναι πίσω από firewall"/>
+	<string id="20783" value="Αυτή η πηγή δείχνει ασταθής"/>
+	<string id="20784" value="Ταχύτητα:"/>
+	<string id="20785" value="Κατάσταση:"/>
+	<string id="20786" value="%lu σήμερα, %lu συνολικά"/>
+	<string id="20787" value="Σύνολο Αρχείων:"/>
+	<string id="20788" value="Συνολική Ποσότητα:"/>
+	<string id="20789" value="Αποστολές:"/>
+	<string id="20790" value="Τύπος"/>
+	<string id="20791" value="Αφερέγγυο"/>
+	<string id="20792" value="Αποστολές"/>
+	<string id="20793" value="URL:"/>
+	<string id="20794" value="Πρόγραμμα:"/>
+	<string id="20795" value="%s μέσα : %s έξω (D:%I64i/U:%I64i/H:%I64i)"/>
+	<string id="20796" value="Αρχεία κοινοποιημένα στο Διαδίκτυο"/>
+	<string id="20798" value="Το PeerProject ολοκλήρωσε τη λήψη της επόμενης έκδοσης του PeerProject (%s). Θέλετε να την εγκαταστήσετε τώρα;nnΕαν επιλέξετε Ναι, το PeerProject θα κλείσει προσωρινά, καθώς η νέα έκδοση εγκαθίσταται."/>
+	<string id="20800" value="Αποστολή προεπιλεγμένης απάντησης HTML στον host %s (%s)."/>
+	<string id="20801" value="Αναγνώριση εισερχόμενης σύνδεσης από %s ως HTTP αίτηση αποστολής."/>
+	<string id="20802" value="Απάντηση αίτησης περιήγησης χρήστη από host %s (%s)..."/>
+	<string id="20803" value="Άρνηση αίτησης του host %s, λόγω χρήσης προγράμματος από τη λίστα φραγμένων."/>
+	<string id="20804" value="Άρνηση αίτησης περιήγησης χρήστη από %s, λόγω πάρα πολλών συνδέσεων περιήγησης."/>
+	<string id="20805" value="Άρνηση αίτησης περιήγηση χρήστη από %s."/>
+	<string id="20806" value="Κλείσιμο σύνδεσης προς %s, λόγω πολύ πυκνών επαναιτήσεων."/>
+	<string id="20807" value="Άρνηση αποστολής του &quot;%s&quot; προς %s (%s), λόγω πάρα πολλών ταυτόχρονων προς τον ίδιο."/>
+	<string id="20808" value="Άρνηση αποστολής του &quot;%s&quot; προς %s (%s), λόγω φόρτου και αφού δεν υποστηρίζει ουρές."/>
+	<string id="20809" value="Άρνηση αποστολής του &quot;%s&quot; προς %s (%s), λόγω πληρότητας όλων των ταιριαχτών ουρών."/>
+	<string id="20810" value="Αίτηση του host %s μη εικανοποιητικής σειράς από το αρχείο &quot;%s&quot;."/>
+	<string id="20811" value="Οι αποστολές προς το ED2K δεν πρέπει να ακυρώνονται! Θέλετε σίγουρα να ακυρώσετε αυτήν την αποστολή;"/>
+	<string id="20812" value="Αδυναμία ανοίγματος του &quot;%s&quot; για αποστολή στον host %s, λόγω σφάλματος δίσκου/αρχείου."/>
+	<string id="20813" value="Εγκαινίαση σύνδεσης προώθησης με %s. %s"/>
+	<string id="20814" value="Αδυναμία σύνδεσης με host %s για προώθηση."/>
+	<string id="20815" value="Αποστολή σειράς %I64i-%I64i από το &quot;%s&quot; στον host %s (%s)."/>
+	<string id="20816" value="Κλείσιμο σύνδεσης αποστολής προς %s."/>
+	<string id="20817" value="Άρνηση νέας αποστολής προς %s, λόγω προϋπάρχουσας εκκρεμούσας σύνδεσης."/>
+	<string id="20818" value="Κλείσιμο παλαιότερης αποστολής προς %s, λόγω σύναψης νέας σύνδεσης."/>
+	<string id="20819" value="Άρνηση αποστολής προς %s (%s), λόγω απενεργοποιημένου δικτύου."/>
+	<string id="20820" value="Ματαίωση αποστολής του &quot;%s&quot; προς %s, λόγω διαγραφής του αρχείου."/>
+	<string id="20821" value="Αποστολή αρχείου &quot;%s&quot; στον host %s..."/>
+	<string id="20822" value="Αίτηση από τον host %s του άγνωστου ή μη διαθέσιμου αντικειμένου &quot;%s&quot;."/>
+	<string id="20823" value="Ολοκλήρωση αποστολής τμήματος του &quot;%s&quot; προς %s."/>
+	<string id="20824" value="Σύναψη σύνδεσης προώθησης με %s, αναμονή για χειραψία..."/>
+	<string id="20825" value="Αίτηση από τον host %s του &quot;%s&quot; με διαφορετικό SHA1."/>
+	<string id="20826" value="Αποστολή επικεφαλίδας από το &quot;%s&quot; στον host %s (%s)."/>
+	<string id="20827" value="Αποστολή metadata για το &quot;%s&quot; προς %s."/>
+	<string id="20828" value="Παραλαβή μη έγκυρης HTTP αίτησης από τον host %s."/>
+	<string id="20830" value="Αποστολή σειράς %I64i-%I64i από το ημιτελές αρχείο &quot;%s&quot; στον host %s (%s)."/>
+	<string id="20832" value="Άρνηση αποστολής προεπισκόπησης του &quot;%s&quot; προς %s, λόγω πάρα πολλών ταυτόχρονων προς τον ίδιο."/>
+	<string id="20833" value="Προγραμματισμός μιας δυναμικής προεπισκόπησης του &quot;%s&quot; για αποστολή προς %s."/>
+	<string id="20834" value="Μη διαθέσιμη αιτηθήσα προεπισκόπηση από τον host %s του &quot;%s&quot;."/>
+	<string id="20835" value="Αποστολή προεπισκόπησης του &quot;%s&quot; προς %s."/>
+	<string id="20836" value="Άρνηση αίτησης προώθησης προς %s, επειδή έχει πάρα πολλές συνδέσεις αποστολής."/>
+	<string id="20837" value="Σύνδεση με %s, παρά την παρωχημένη του αίτηση προώθησης για ένα άγνωστο αρχείο..."/>
+	<string id="20838" value="Έλλειψη πόρων για αποστολή του &quot;%s&quot; προς %s, ανάρτηση της αποστολής στο #%i του %i (&quot;%s&quot;.."/>
+	<string id="20840" value="Νέα Ουρά"/>
+	<string id="20841" value="Όλα τα Αρχεία"/>
+	<string id="20842" value="Απώλεια σύνδεσης αποστολής προς %s, διατήρηση θέσης του στην ουρά."/>
+	<string id="20844" value="ED2K Κύρια"/>
+	<string id="20845" value="ED2K Φρουρός"/>
+	<string id="20846" value="ED2K Ημιτελών"/>
+	<string id="20847" value="Ολοκληρωμένες Αποστολές"/>
+	<string id="20848" value="HTTP Φρουρός"/>
+	<string id="20849" value="Αρχεία Βιβλιοθήκης"/>
+	<string id="20850" value="Μεγάλα Αρχεία"/>
+	<string id="20851" value="Μεσαία Αρχεία"/>
+	<string id="20852" value="Μικρά Αρχεία"/>
+	<string id="20853" value="Ημιτελή Αρχεία"/>
+	<string id="20854" value="Ημιτελή"/>
+	<string id="20855" value="Ουρά"/>
+	<string id="20856" value="Αποστολές Torrent"/>
+	<string id="20857" value="Αφαίρεση αποσυνδεμένης αποστολής στον host %s, λόγω λήξης προθεσμίας."/>
+	<string id="20858" value="Λήξη προθεσμίας αναμονής αίτησης από τον host %s."/>
+	<string id="20859" value="Κλείσιμο της σύνδεσης αποστολής %s, λόγω έλλειψης δραστηριότητας."/>
+	<string id="20860" value="Αποστολή δεδομένων tiger-tree για το &quot;%s&quot; προς %s."/>
+	<string id="20861" value="Αφαίρεση αποστολής του &quot;%s&quot; προς %s."/>
+	<string id="20862" value="Προσθήκη"/>
+	<string id="20864" value="&Περιήγηση"/>
+	<string id="20865" value="&Σύνδεση"/>
+	<string id="20866" value="Όνομα Αρχείου:"/>
+	<string id="20867" value="Host:"/>
+	<string id="20868" value="Θύρα:"/>
+	<string id="20869" value="Αδυναμία εμφάνισης URL action dialog, λόγω φόρτου."/>
+	<string id="20870" value="Αδυναμία ανάλυσης URL: Μη κατανοητό URL."/>
+	<string id="20871" value="Ληφθέντες URL &quot;%s&quot;"/>
+	<string id="20872" value="Τύπος:"/>
+	<string id="20874" value="Απροσδιόριστο"/>
+	<string id="20875" value="URL:"/>
+	<string id="20880" value="Επεξεργασία Προφίλ"/>
+	<string id="20881" value="Η αλλαγή της προβολής θα κλείσει ό,τι παράθυρα έχετε ανοιχτά. Θέλετε να γίνει τώρα;"/>
+	<string id="20882" value="Η υπηρεσία Host για συσκευές UPnP δεν τρέχει. Η υπηρεσία απαιτείται για την επίτευξη της ρύθμισης.nΧρειάζεται να θέσετε τον τύπο εκκίνησης της υπηρεσίας στο αυτόματο."/>
+	<string id="20884" value="Μη διαθέσιμο URN"/>
+	<string id="20885" value="Η αλλαγή της κατεύθυνσης χρειάζεται επανεκκίνηση.\nΘα χρειαστεί να εκκινήσετε το PeerProject χειροκίνητα. Έξοδος;"/>
+	<string id="20890" value="Καλώς ήρθατε στο PeerProject"/>
+	<string id="20891" value="E&xit"/>
+	<string id="20892" value="Παρακαλώ περιμένετε: Ενημέρωση λίστας ED2K server..."/>
+	<string id="20893" value="Παρακαλώ περιμένετε: Ενημέρωση υπηρεσιών ανακάλυψης..."/>
+	<string id="20894" value="Παρακαλώ περιμένετε: Αναζήτηση συσκευών UPnP και ρύθμισή τους..."/>
+	<string id="20895" value="Δεν καθορίσατε ακόμη μια ταχύτητα σύνδεσης. Πριν συνεχίσετε, παρακαλώ επιλέξτε τον τύπο της σύνδεσής σας στο Διαδίκτυο ή εισάγετε μια ταχύτητα σύνδεσης."/>
+	<string id="20896" value="Το PeerProject δεν κατάφερε να ρυθμίσει την προώθηση θύρας στον NAT router ή firewall σας.\n\nΠαρακαλώ ρυθμίστε το δίκτυό σας να προωθεί τις TCP και UDP θύρες %i στον τοπικό υπολογιστή σας."/>
+	<string id="20897" value="Αυτός ο φάκελος είναι ήδη κοινοποιημένος ως τμήμα του κοινοποιημένου φακέλου:\n\n%s"/>
+	<string id="20898" value="Δεν καθορίσατε φακέλους για κοινοποίηση. Είστε σίγουροι;"/>
+	<string id="20899" value="ετών"/>
+	<!--string value="Πληροφορίες Torrent"-->
+	<!--string value="Ο Tracker δεν απάντησε, επανάληψη αναγγελίας (%i από %i)"-->
+	<!--string value="Έχετε ήδη το αρχείο &quot;%s&quot; στη Βιβλιοθήκη. Επιμένετε να το ξαναλάβετε;"-->
 </strings>
 <!-- Localized Dialog Text, "cookie" verifies that the skin matches current dialog -->
 <dialogs>
@@ -4245,8 +4247,8 @@
 		<control/>
 		<control/>
 		<control/>
-		<control caption="% under Download limit"/>
-		<control caption="% under Upload limit"/>
+		<control caption="% of Download limit"/>
+		<control caption="% of Upload limit"/>
 		<control caption="Active Task"/>
 		<control caption="Enable G2 Only"/>
 		<control caption="Set Event Time"/>

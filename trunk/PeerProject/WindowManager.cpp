@@ -610,25 +610,68 @@ BOOL CWindowManager::SaveBrowseHostWindows() const
 }
 
 //////////////////////////////////////////////////////////////////////
-// CWindowManager new blank search window
-// ToDo: Also Toggle between existing searches
+// CWindowManager new blank search window (or toggle existing tabs)
 
 void CWindowManager::OpenNewSearchWindow()
 {
+	BOOL bEmptySearch = FALSE;
+	POSITION posSearch = NULL;
+	int nCount = 0;
+
 	for ( POSITION pos = GetIterator() ; pos ; )
 	{
 		CSearchWnd* pChild = (CSearchWnd*)GetNext( pos );
 
-		if ( pChild->IsKindOf( RUNTIME_CLASS(CSearchWnd) ) && ! pChild->GetLastSearch() )
+		if ( ! pChild->IsKindOf( RUNTIME_CLASS(CSearchWnd) ) )
+			continue;
+
+		nCount++;
+
+		if ( ! pChild->GetLastSearch() )			// Empty search should always be found last:
 		{
-			pChild->BringWindowToTop();
-			if ( pChild->IsIconic() )
-				pChild->ShowWindow( SW_SHOWNORMAL );
-			return;
+			if ( ! posSearch )
+			{
+				if ( pChild != GetActive() )		// Always show empty search on first press
+				{
+					pChild->BringWindowToTop();
+					if ( pChild->IsIconic() )
+						pChild->ShowWindow( SW_SHOWNORMAL );
+					return;
+				}
+
+				if ( nCount == 1 )					// Only tab already shown, do nothing
+					return;
+
+				posSearch = GetIterator();			// Set toggle loop from beginning
+			}
+
+			bEmptySearch = TRUE;
+			break;
 		}
+
+		if ( ! posSearch && pChild == GetActive() )
+			posSearch = pos;						// Set toggle from current tab
 	}
 
-	new CSearchWnd();
+	if ( bEmptySearch == FALSE )					// Always show empty search if needed
+	{
+		new CSearchWnd();
+		return;
+	}
+
+	// Toggle to next existing search tab
+	for ( posSearch ; posSearch ; )
+	{
+		CSearchWnd* pChild = (CSearchWnd*)GetNext( posSearch );
+
+		if ( ! pChild->IsKindOf( RUNTIME_CLASS(CSearchWnd) ) )	// || pChild == GetActive()
+			continue;
+
+		pChild->BringWindowToTop();
+		if ( pChild->IsIconic() )
+			pChild->ShowWindow( SW_SHOWNORMAL );
+		return;
+	}
 }
 
 //////////////////////////////////////////////////////////////////////

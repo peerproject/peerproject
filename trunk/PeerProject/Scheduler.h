@@ -73,7 +73,6 @@ public:
 	bool			m_bActive;			// Task should be executed or not
 	bool			m_bExecuted;		// Task is executed or not
 	bool			m_bLimitedNetworks;	// Network is limited to G2 or not (in SCHEDULE_LIMITED_SPEED)
-	int				m_nLimit;			// Obsolete Bandwidth limit (ToDo: Remove)
 	int				m_nLimitDown;		// Downstream bandwidth limit
 	int				m_nLimitUp;			// Upstream bandwidth limit
 	GUID			m_pGUID;			// GUID for each scheduled item
@@ -136,7 +135,7 @@ public:
 	// Also sets Settings.Scheduler.Enable to indiate globally if any item is going to be executed
 	void			CheckSchedule();		// Called regularly by timers to check if any scheduled item should be executed, also sets Settings.Scheduler.Enable
 	void			HangUpConnection(); 	// Used to disconnect dial up connection
-	bool			ShutDownComputer(); 	// Used to shut down computer 
+	bool			ShutDownComputer(); 	// Used to shut down computer
 	bool			SetShutdownRights();	// Called by Load() to get shutdown privilege for the process
 	bool			IsScheduledTimePassed(CScheduleTask* pSchTask) const;	// Called by CheckSchedule() to see if Now is grater than Then or not.
 	int				ScheduleFromToday(CScheduleTask* pSchTask) const;		// Checks to see if task should be executed today 0, in the past -1, or later 1.

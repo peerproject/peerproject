@@ -390,7 +390,7 @@ BOOL CSkin::LoadFromXML(CXMLElement* pXML, const CString& strPath)
 	}
 
 	// Confirm if this switch overhead is any better than typical elseif sequence
-	std::map< const CString, char > XMLElement;
+	static std::map< const CString, char > XMLElement;
 	XMLElement[ _T("manifest") ]		= 'm';
 	XMLElement[ _T("windowskins") ]		= 's';
 	XMLElement[ _T("watermarks") ]		= 'w';
@@ -639,7 +639,7 @@ BOOL CSkin::LoadOptions(CXMLElement* pBase)
 		ToLower( strWidth );
 
 		// ToDo: Confirm if this switch is any better than typical elseif sequence
-		std::map< const CString, char > OptionName;
+		static std::map< const CString, char > OptionName;
 
 		OptionName[ _T("navbar") ]		= 'n';
 		OptionName[ _T("dropmenu") ]	= 'd';
@@ -2326,7 +2326,7 @@ BOOL CSkin::LoadFonts(CXMLElement* pBase, const CString& strPath)
 				ToLower( strName );
 
 				// Confirm if this switch overhead is any better than typical elseif sequence
-				std::map< const CString, char > FontName;
+				static std::map< const CString, char > FontName;
 				FontName[ _T("system") ]			= 'd';
 				FontName[ _T("system.default") ]	= 'd';
 				FontName[ _T("system.plain") ]		= 'd';

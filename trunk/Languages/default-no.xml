@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Norwegian Skin File -->
 
-<!-- Translation based on default-en.xml r58 (Shareaza 2.2.0.2) -->
+<!-- Translation based on default-en.xml r59 (Shareaza 2.2.0.2) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -369,6 +369,8 @@
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Innstillinger"/>
 	</toolbar>
+	<!-- SECURITY WINDOW Missing -->
+	<!-- SCHEDULER WINDOW Missing -->
 	<!-- HIT MONITOR WINDOW -->
 	<toolbar name="CHitMonitorWnd">
 		<button id="ID_SEARCH_DOWNLOAD" text="Nedlasting"/>
@@ -1474,7 +1476,7 @@
 		<anchor id="Header" width="32" height="152"/>
 		<newline gap="0"/>
 		<group id="1">
-			<icon res="130" width="32" height="32"/><gap size="8"/>
+			<icon res="136" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">KOBLE TIL</heading>
 			<newline gap="8" indent="42"/>
 			<text>Velkommen til PeerProject! &#160;Du er ikke koblet til P2P-nettverket. &#160;</text>
@@ -1482,12 +1484,12 @@
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="2">
-			<icon res="134" width="32" height="32"/><gap size="8"/>
+			<icon res="130" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">SØK MED</heading>
 			<newline gap="8" indent="42"/>
 			<anchor id="SearchBox" width="256" height="80"/>
 			<newline gap="12" indent="0"/>
-			<icon res="136" width="32" height="32" target="command:shell:downloads"/><gap size="8"/>
+			<icon res="124" width="32" height="32" target="command:shell:downloads"/><gap size="8"/>
 			<heading align="middle">MINE NEDLASTINGER</heading>
 			<newline gap="8" indent="42"/>
 			<text>Or open your completed </text>
@@ -1504,7 +1506,7 @@
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="4">
-			<icon res="252" width="32" height="32" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
+			<icon res="180" width="32" height="32" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 			<heading align="middle">OBS - DU ER BAK EN BRANNMUR</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">PeerProject har oppdaget at du er bak en NAT-router eller brannmur,
@@ -1517,24 +1519,24 @@
 		<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">MODIFISER PEERPROJECT</heading>
 		<newline gap="12" indent="42"/>
-		<icon res="182" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
+		<icon res="196"width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
 		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">Skins</link>
 		<text align="middle">&#160;- Endre PeerProject's utseende</text>
 		<newline gap="8"/>
-		<icon res="141" width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
+		<icon res="138"width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
 		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
 		<text align="middle">&#160;- Update blocklist to avoid bad search results</text>
 		<newline gap="8"/>
-		<icon res="317" width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
+		<icon res="197"width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 		<link target="command:ID_TOOLS_WIZARD" align="middle">Innstillingsveiviser</link>
 		<text align="middle">&#160;- Endre PeerProject's innstillinger</text>
 		<newline gap="8"/>
-		<icon res="147" width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
+		<icon res="182"width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
 		<link target="command:ID_HELP_FAQ" align="middle">Hjelp</link>
 		<text align="middle">&#160;- Få grunnleggende hjelp til å bruke PeerProject, or </text>
 		<link target="command:ID_TAB_IRC" align="middle">IRC.</link>
 		<newline gap="8"/>
-		<icon res="175" width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
+		<icon res="201"width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
 		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">Lokal Forum</link>
 		<text align="middle">&#160;- Gå til din norske språket diskusjonsforum</text>
 		<newline gap="18" indent="0"/>
@@ -1752,32 +1754,32 @@
 		</group>
 		<group id="40">
 			<newline gap="1"/>
-			<icon res="265"/><gap size="5"/>
+			<icon res="203"/><gap size="5"/>
 			<link id="ContactEmail" align="middle"/>
 		</group>
 		<group id="44">
 			<newline gap="1"/>
-			<icon res="1008"/><gap size="5"/>
+			<icon res="206"/><gap size="5"/>
 			<link id="ContactMSN"/>
 		</group>
 		<group id="41">
 			<newline gap="1"/>
-			<icon res="206"/><gap size="5"/>
+			<icon res="208"/><gap size="5"/>
 			<link id="ContactYahoo"/>
 		</group>
 		<group id="42">
 			<newline gap="1"/>
-			<icon res="208"/><gap size="5"/>
+			<icon res="205"/><gap size="5"/>
 			<link id="ContactICQ"/>
 		</group>
 		<group id="43">
 			<newline gap="1"/>
-			<icon res="207"/><gap size="5"/>
+			<icon res="204"/><gap size="5"/>
 			<link id="ContactAOL"/>
 		</group>
 		<group id="45">
 			<newline gap="1"/>
-			<icon res="207"/><gap size="5"/>
+			<icon res="204"/><gap size="5"/>
 			<link id="ContactJabber"/>
 		</group>
 		<group id="5">
@@ -1803,7 +1805,7 @@
 			<newline gap="16" indent="0"/>
 			<text format="b">Online</text>
 			<newline gap="4" indent="8"/>
-			<icon res="140" target="command:ID_SEARCH_CHAT"/>
+			<icon res="127"target="command:ID_SEARCH_CHAT"/>
 			<gap size="5"/>
 			<link target="command:ID_SEARCH_CHAT" align="middle">Snakk med bruker</link>
 		</group>
@@ -2371,678 +2373,679 @@
 <!-- Localized Strings -->
 <strings>
 	<string id="WINDOW_MAIN" value="PeerProject"/>
+	<string id="WINDOW_HOME" value="PeerProject hjem"/>
 	<string id="WINDOW_SYSTEM" value="System"/>
 	<string id="WINDOW_NEIGHBOURS" value="Naboer"/>
 	<string id="WINDOW_PACKET" value="Pakkedump"/>
 	<string id="WINDOW_HOSTCACHE" value="Vert-cache"/>
-	<string id="WINDOW_SEARCHMONITOR" value="Søkemonitor"/>
 	<string id="WINDOW_SEARCH" value="Søk"/>
+	<string id="WINDOW_SEARCHPAD" value="Søk"/>
+	<string id="WINDOW_SEARCHMONITOR" value="Søkemonitor"/>
 	<string id="WINDOW_HITMONITOR" value="Treffmonitor"/>
 	<string id="WINDOW_DOWNLOADS" value="Nedlastinger"/>
-	<string id="WINDOW_LIBRARY" value="Mine filer"/>
 	<string id="WINDOW_UPLOADS" value="Opplastinger"/>
+	<string id="WINDOW_LIBRARY" value="Mine filer"/>
 	<string id="WINDOW_TRAFFIC" value="Graf"/>
 	<string id="WINDOW_CHAT" value="Samtale"/>
 	<string id="WINDOW_SECURITY" value="Sikkerhet"/>
+	<string id="WINDOW_SCHEDULER" value="Tidsplanen"/>
 	<string id="WINDOW_DISCOVERY" value="Oppdagelsestjenester"/>
 	<string id="WINDOW_BROWSEHOST" value="Utforsk"/>
-	<string id="WINDOW_HOME" value="PeerProject hjem"/>
 	<string id="WINDOW_MEDIA" value="Mediaspiller"/>
-	<string id="WINDOW_SEARCHPAD" value="Søk"/>
 	<string id="WINDOW_HELP" value="PeerProject hjelp"/>
-	<string id="7000" value="Er du sikker på at du vil slette dette filteret?"/>
-	<string id="7001" value="&amp;Skjemaer"/>
-	<string id="7002" value="Sammensatte verdier"/>
-	<string id="7003" value="Sammensatt"/>
-	<string id="7004" value="Det er allerede et filter som heter &quot;%s&quot;, ønsker du å overskrive det?"/>
-	<string id="7005" value="Vennligst gi filteret et navn."/>
-	<string id="8000" value="Innstillinger"/>
-	<string id="8001" value="Velkommen til PeerProject"/>
-	<string id="8002" value="Egenskaper"/>
-	<string id="8003" value="Endre min profil"/>
-	<string id="8004" value="!Velkommen til PeerProject (version) !\n.\nPeerProject er helt gratis software.\nVennligst vis ansvar og respekt for materiell opphavsrett.\n."/>
-	<string id="8005" value="(Avslutter etter overføring)"/>
-	<string id="8006" value="Du er ikke koblet til. Trykk på Koble til knappen for å starte."/>
-	<string id="8007" value="Det er ingen aktive søk. Klikk her for å søke etter filer."/>
-	<string id="8008" value="PeerProject er ferdig med å laste ned den nyeste PeerProject versjonen (%s). Vil du oppgradere nå?\n\nHvis du velger JA, vil PeerProject lukkes for å fullføre oppgraderingen."/>
-	<string id="8009" value="Er du sikker på at du vil slette dette &quot;%s&quot; skinnet? Det kan ikke gjenopprettes."/>
-	<string id="8010" value="Dette er en test-versjon av PeerProject, beta test perioden er over. Vennligst last ned den offisielle fullversjonen fra http://peerproject.org/."/>
-	<string id="8011" value="Når du endrer utseende vil alle åpne vinduer lukkes. Vil du endre nå?"/>
-	<string id="8060" value="Hub/Ultrapeer-modus med %lu nabo(er).  %s in local library."/>
-	<string id="8061" value="Ultrapeer-modus med %lu nabo(er).  %s in local library."/>
-	<string id="8062" value="Hub-modus med %lu nabo(er). %s i lokalt bibliotek."/>
-	<string id="8063" value="Tilkoblet. %s i lokalt bibliotek."/>
-	<string id="8064" value="Koblet til %lu nabo(er).  %s lokalt."/>
-	<string id="8065" value="Kobler til nettverket..."/>
-	<string id="8066" value="Ikke koblet til nettverket."/>
-	<string id="8067" value="%s inn : %s ut (d:%I64i/u:%I64i)"/>
-	<string id="8068" value="%s inn : %s ut (d:%I64i/u:%I64i/s:%I64i)"/>
-	<string id="8069" value="Koble til"/>
-	<string id="8070" value="Kobler til..."/>
-	<string id="8071" value="Koblet til"/>
-	<string id="8072" value="Koble fra"/>
-	<string id="8096" value="Dette området viser mer informasjon om filene du velger."/>
-	<string id="8097" value="En kilde er tilgjengelig. (%s/s)"/>
-	<string id="8098" value="%i kilder er tilgjengelige. (%s/s)"/>
-	<string id="8099" value="Det finnes en anmeldelse."/>
-	<string id="8100" value="Det finnes %i anmeldelser."/>
-	<string id="8101" value="%s skriver:"/>
-	<string id="8102" value="%s karaktersetter denne filen:"/>
-	<string id="8103" value="Klikk for å forhåndsvise"/>
-	<string id="8104" value="Forhåndsviser..."/>
-	<string id="8105" value="Klarte ikke å laste ned forhåndsvisning fra &quot;%s&quot;."/>
-	<string id="8128" value="Klikk her for å søke på nytt."/>
-	<string id="8129" value="Det er ingen søk som er startet ennå."/>
-	<string id="8130" value="PeerProject søker på nettverket..."/>
-	<string id="8131" value="Det ble ikke funnet noe på nettverket."/>
-	<string id="8132" value="Det ble funnet noen filer, men de ble filtrert ut."/>
-	<string id="8133" value="PeerProject søker aktivt på nettverket..."/>
-	<string id="8134" value="Du skal til å starte et nytt søk. Vil du fjerne resultatene fra forrige søk?"/>
-	<string id="8135" value="Ingen metadata"/>
-	<string id="8136" value="Ren tekst søk"/>
-	<string id="8141" value="Vis søkevindu"/>
-	<string id="8142" value="Skjul søkevindu"/>
-	<string id="8143" value="Søker..."/>
-	<string id="8144" value="Start søk"/>
-	<string id="8145" value="Søk mer"/>
-	<string id="8146" value="Stopp"/>
-	<string id="8147" value="Alle filtyper"/>
-	<string id="8148" value="Skriv inn søkeord her:"/>
-	<string id="8149" value="Søk etter denne typen fil:"/>
-	<string id="8150" value="Søker:"/>
-	<string id="8151" value="Funnet:"/>
-	<string id="8152" value="%lu hubs, %lu leaves"/>
-	<string id="8153" value="Søker ikke"/>
-	<string id="8154" value="Ingen filer funnet"/>
-	<string id="8155" value="%lu fil i %lu treff|%lu fil i %lu treff|%lu filer i %lu treff"/>
-	<string id="8156" value="Søk"/>
-	<string id="8157" value="Resultat"/>
-	<string id="8158" value="Fjern søk"/>
-	<string id="8159" value="Avansert"/>
-	<string id="8160" value="Starter en kobling til vert..."/>
-	<string id="8161" value="Sendte en push-forespørsel, venter på kobling..."/>
-	<string id="8162" value="Tilkoblet, forespør utforskning..."/>
-	<string id="8163" value="Laster ned utforsknings forespørsel (%2.f%%)..."/>
-	<string id="8164" value="Klarte ikke å koble til vert for å utforske bruker."/>
-	<string id="8165" value="Klarte ikke å laste ned liste over filer. Denne verten støtter kanskje ikke utforskning."/>
-	<string id="8166" value="Nettverket:"/>
-	<string id="8167" value="Alle nettverk"/>
-	<string id="8176" value="Søk med PeerProject"/>
-	<string id="8177" value="Skriv inn hva du ønsker å lete etter:"/>
-	<string id="8178" value="Hva slags filtype er det?"/>
-	<string id="8179" value="(Fjern søkelogg)"/>
-	<string id="8180" value="Filstørrelsen Min:"/>
-	<string id="8181" value="Filstørrelsen Max:"/>
-	<string id="8208" value="PeerProject lager hash for %Iu filer:"/>
-<!--	<string id="8221" value="PeerProject søker etter kilder til:"/>
-	<string id="8222" value="PeerProject laster ned:"/>
-	<string id="8223" value="Denne nedlastingen er pauset:"/>
-	<string id="8224" value="PeerProject flytter filen."/>
-	<string id="8225" value="PeerProject sjekker om det finnes feil på filen:"/>
-	<string id="8226" value="PeerProject er ferdig med å laste ned:"/>
--->	<string id="8227" value="%i dager og %i timer"/>
-	<string id="8228" value="%i timer og %i minutter"/>
-	<string id="8229" value="%i minutter og %i sekunder"/>
-	<string id="8230" value="%i sekunder"/>
-	<string id="8231" value="Ingen kilder"/>
-	<string id="8232" value="Åpne"/>
-	<string id="8233" value="Avbryt"/>
-	<string id="8235" value="Hastighet:"/>
-	<string id="8236" value="Estimert tid igjen:"/>
-	<string id="8237" value="Lastet ned:"/>
-	<string id="8238" value="Lastet opp:"/>
-	<string id="8239" value="Ferdig"/>
-	<string id="8240" value="Antall kilder:"/>
-	<string id="8241" value="Antall reviews:"/>
-	<string id="8244" value="Begrens nedlastingshastighet"/>
-	<string id="8245" value="Begrens opplastingshastigheten"/>
-	<string id="8288" value="Utforsker mine filer."/>
-	<string id="8289" value="Utforsker"/>
-	<string id="8290" value="Utforske innholdet i %i mapper"/>
-	<string id="8291" value="Flere mapper"/>
-	<string id="8292" value="%i filer valgt"/>
-	<string id="8293" value="Ingen filer valgt"/>
-	<string id="8294" value="Nye..."/>
-	<string id="8295" value="Gi filen karakter"/>
-	<string id="8304" value="I/T"/>
-	<string id="8306" value="Sted"/>
-	<string id="8307" value="Type"/>
-	<string id="8308" value="Str"/>
-	<string id="8309" value="Delvis kilde (%.2f%% tilgjengelig)"/>
-	<string id="8310" value="%i opplastings slots, %i venter i kø"/>
-	<string id="8311" value="Du har allerede denne filen."/>
-	<string id="8312" value="Du laster allerede ned denne filen."/>
-	<string id="8313" value="Denne filen ser ut til å være spam."/>
-	<string id="8314" value="Du har lastet ned og slettet denne filen før."/>
-	<string id="8315" value="Svartelistet:"/>
-	<string id="8316" value="Treff"/>
-	<string id="8317" value="opplastinger"/>
-	<string id="8318" value="%lu i dag, %lu totalt"/>
-	<string id="8319" value="Opplastinger:"/>
-	<string id="8320" value="Status:"/>
-	<string id="8321" value="Hastighet:"/>
-	<string id="8322" value="URL:"/>
-	<string id="8323" value="Program:"/>
-	<string id="8324" value="Inaktiv"/>
-	<string id="8325" value="Aktiv"/>
-	<string id="8326" value="Neste..."/>
-	<string id="8327" value="Totalt antall filer:"/>
-	<string id="8328" value="Totalt volum:"/>
-	<string id="8329" value="av ditt bibliotek"/>
-	<string id="8330" value="Mappe"/>
-	<string id="8331" value="Kilden er for tiden opptatt"/>
-	<string id="8332" value="Denne kilden er bak brannmur"/>
-	<string id="8333" value="Denne kilden kan være ustabil"/>
-	<string id="8334" value="Kilder til denne filen er for tiden opptatt"/>
-	<string id="8335" value="Kilder til denne filen er bak brannmurer"/>
-	<string id="8336" value="Kilder til denne filen kan være ustabile"/>
-	<string id="8338" value="&#160;(Intet hashsett)"/>
-	<string id="16064" value="Starter PeerProjects nettverkskjerne..."/>
-	<string id="16065" value="Klarer ikke å binde %s port %i for innkommende koblinger. Innkommende koblinger kan ikke støttes."/>
-	<string id="16066" value="Skrur av PeerProjects nettverkkjerne..."/>
-	<string id="16067" value="Koblet fra nettverket."/>
-	<string id="16068" value="Godtar innkommende TCP koblinger på %s port %i."/>
-	<string id="16069" value="Utgående koblinger vil være fra %s port %i."/>
-	<string id="16070" value="Klarer ikke å avgjøre %s for utgående koblinger. Utgående koblinger vil bruke normal grensesnitt."/>
-	<string id="16071" value="Blokkert av brannmur, lytter ikke etter innkommende koblinger."/>
-	<string id="16072" value="Lytter etter UDP datagram på %s port %i."/>
-	<string id="16073" value="Fastsetter vert &quot;%s&quot;..."/>
-	<string id="16074" value="Klarer ikke å fastsette vert &quot;%s&quot;."/>
-	<string id="16075" value="Sikkerhetsinnstillingene nektet kobling fra %s."/>
-	<string id="16076" value="Sikkerhetsinnstillingene blokkerte kobling til %s."/>
-	<string id="16077" value="Adressen %s er allerede blokert i sikkerhetsreglene."/>
-	<string id="16078" value="La til ny sikkerhetsregel for å blokkere %s."/>
-	<string id="16079" value="Er du sikker på at du vil koble fra?"/>
-	<string id="16081" value="Sender forespørsel for &quot;%s&quot; til %s."/>
-	<string id="16083" value="Å tvinge pc-en til å være hub kan påvirke evnen til å utnytte nettverket. Det er generelt bedre å la PeerProject velge. \n\nHub modus gir IKKE bedre søkeresultat, det hjelper heller ikke på noen annen måte.\n\nEr du helt sikker på at du vil gjøre dette?"/>
-	<string id="16085" value="Gnutella2 er hovednettverket til PeerProject. Hvis du skrur det av kan det være at du får både lavere antall søkeresultat og lavere kvalitet på filene. Er du sikker på at du vil gjøre dette?"/>
-	<string id="16087" value="Din utgende bndbresse er for lav for  kunne bruke dette nettverket"/>
-	<string id="16128" value="Godta innkommende koblinger fra %s port %i."/>
-	<string id="16129" value="Starter en kobling til nabo på %s port %i..."/>
-	<string id="16130" value="Klarte ikke å starte kobling til nabo med %s."/>
-	<string id="16131" value="Mistet kommunikasjon med koblingen på %s."/>
-	<string id="16132" value="Lukker kobling til nabo %s p.g.a. mangel av trafikk ."/>
-	<string id="16133" value="Etablerte kobling med nabo %s starter håndtrykk..."/>
-	<string id="16134" value="Kobling lukket med nabo %s."/>
-	<string id="16135" value="Klarte ikke å starte kobling til nabo med %s (avslått)."/>
-	<string id="16136" value="Nabo %s mistet uventet koblingen."/>
-	<string id="16137" value="Nekter dobbel kobling fra  %s."/>
-	<string id="16138" value="Allerede koblet til %s, vil ikke starte en ny kobling."/>
-	<string id="16139" value="Nabo %s lukket koblingen (%i : %s)."/>
-	<string id="16140" value="Nabo %s indekserer koblingene (krabber)."/>
-	<string id="16141" value="Lukket kobling til nabo %s fordi det er ikke en hub."/>
-	<string id="16144" value="Mistet håndtrykk med %s."/>
-	<string id="16145" value="Gnutella kobling med nabo %s startet (G%i.%i : %s)."/>
-	<string id="16146" value="Håndtrykk med %s feilet p.g.a ugyldige data på nettet."/>
-	<string id="16147" value="Lukker overskuddskobling fra %s med vert-hint (%s port %i)."/>
-	<string id="16148" value="Kobling til %s avvist (%s)."/>
-	<string id="16149" value="Gnutella 0.6 håndtrykk med %s feilet, prøver 0.4."/>
-	<string id="16150" value="Lukker overskuddskobling fra %s."/>
-	<string id="16151" value="Nekter kobling fra %s fordi dette er en vernet leaf node."/>
-	<string id="16152" value="Hub nabo %s vil ikke godta oss som hub, lukker kobling."/>
-	<string id="16153" value="Tilkoblet nabo %s går tilbake til vernet leaf mode."/>
-	<string id="16154" value="Hub-kobling startet, lukker peer kobling."/>
-	<string id="16155" value="kjører som hub for leaf naboer %s."/>
-	<string id="16156" value="Nabo %s vil være hub, lukker kobling."/>
-	<string id="16157" value="Nabo %s er ikke hub, lukker kobling."/>
-	<string id="16158" value="Gnutella2-kobling med nabo %s vellyket opprettet (%s)."/>
-	<string id="16159" value="Lukker kobling til ikke-Gnutella2 nabo %s."/>
-	<string id="16192" value="Nabo %s videresendte en overdreven stor pakke, lukker kobling."/>
-	<string id="16193" value="Nabo %s videresendte en pakke med null TTL, ignorerer."/>
-	<string id="16194" value="Nabo %s videresendte en pakke med overdrevet TTL, dropper pakke (TTL=%i, Hops=%i)."/>
-	<string id="16195" value="Nabo %s videresendte en ping-pakke med ugyldig lengde, ignorerer."/>
-	<string id="16196" value="Nabo %s videresendte en pong-pakke med ugyldig lengde, ignorerer."/>
-	<string id="16197" value="%s -> %s [%i/%i] %s %s"/>
-	<string id="16198" value="Leaf nabo %s videresender spørringer, lukker kobling."/>
-	<string id="16199" value="Nabo %s videresendte en ukjent pakke (0x%.2x), ignorerer."/>
-	<string id="16200" value="Nabo %s videresendte et pong med ugyldig adresse data, ignorerer."/>
-	<string id="16201" value="%s:  Mottok et feil formatert spørrepakke fra %s, ignorerer."/>
-	<string id="16202" value="Mottok et feil formatert spørre-treff-pakke fra %s, ignorerer."/>
-	<string id="16203" value="Nabo %s videresendte en push-pakke med ugyldig lengde, ignorerer."/>
-	<string id="16208" value="Mottar en uventet spørre-routingtabell-oppdatering fra nabo  %s."/>
-	<string id="16209" value="Nabo %s sendte en ugyldig spøøre-routingtabell-oppdatering, dropper kobling."/>
-	<string id="16210" value="Nabo %s oppdaterte sin spøøre-routingtabell (%i bit = %lu[%i], %i%% full)."/>
-	<string id="16211" value="Nabo %s videresendte en push-anmodning til en adresse bak brannmur, ignorerer."/>
-	<string id="16212" value="Nabo %s videresendte en utvidet pakke som ikke er GGEP kodet."/>
-	<string id="16213" value="Sender spørre-routingtabell til nabo %s (%i bit = %lu[%i], %i%% full)"/>
-	<string id="16254" value="Standard nedlasting gruppe. (Vis alle filer)"/>
-	<string id="16255" value="Drag'n'drop filer til %s gruppen."/>
-	<string id="16256" value="La til &quot;%s&quot; til nedlastingskø med %i kilder."/>
-	<string id="16257" value="Ferdig med nedlastingen av &quot;%s&quot;."/>
-	<string id="16258" value="Pauser nedlastingen av &quot;%s&quot;."/>
-	<string id="16259" value="Starter nedlastingen av &quot;%s&quot;."/>
-	<string id="16260" value="Fjernet nedlasting &quot;%s&quot;."/>
-	<string id="16261" value="Lager fil &quot;%s&quot; for nedlasting."/>
-	<string id="16262" value="Klarte ikke å lage fil &quot;%s&quot; for nedlasting, avbryter."/>
-	<string id="16263" value="klarte ikke å åpne fil &quot;%s&quot; for nedlasting, avbryter."/>
-	<string id="16264" value="Starter en kobling til %s port %i for å laste ned &quot;%s&quot;..."/>
-	<string id="16265" value="Klarte ikke å koble til nedlastingsvert %s."/>
-	<string id="16266" value="Nedlastings-kobling til %s startet."/>
-	<string id="16267" value="Forespør nedlastings-fragment (%I64u-%I64u) av &quot;%s&quot; from %s."/>
-	<string id="16268" value="Ingen flere nedlastings-fragmenter, lukker kobling til %s."/>
-	<string id="16269" value="Fragment forkortet, lukker kobling til %s."/>
-	<string id="16270" value="Nedlastingsforespørsel til %s timed out, lukker kobling."/>
-	<string id="16271" value="Lukker nedlastings-kobling %s p.g.a mangel på trafikk."/>
-	<string id="16272" value="Nedlastingsvert %s har ikke filene &quot;%s&quot;."/>
-	<string id="16273" value="Nedlastingsvert %s svarte med et ugyldig HTTP svar."/>
-	<string id="16274" value="Nedlastingsvert %s svarte med %s (%s)."/>
-	<string id="16275" value="Nedlastingsvert %s's versjon av &quot;%s&quot; har forskjellig URN, avbryter."/>
-	<string id="16276" value="Nedlastingsvert %s's versjon av &quot;%s&quot; har forskjellig lengde, avbryter."/>
-	<string id="16277" value="Nedlastingsvert %s svarte med en ubrukelig byte range av &quot;%s&quot;, venter."/>
-	<string id="16278" value="Nedlastings-kobling til %s mistet."/>
-	<string id="16279" value="Mottar nedlastingsinnhold fra vert %s (%s)."/>
-	<string id="16280" value="Nedlastingsvert %s er opptatt, prøver på nytt om %i sekunder."/>
-	<string id="16281" value="Er du sikker på at du vil fjerne &quot;%s&quot;?\n\nNår en nedlasting er fjernet fra nedlastingsvinduet, kan den ikke fortsettes senere."/>
-	<string id="16282" value="Avbryter nedlasting av &quot;%s&quot; fra %s (%s), nettverk skrudd av."/>
-	<string id="16283" value="Filen &quot;%s&quot; blir allerede lastet ned, legger til kilder."/>
-	<string id="16284" value="Mottok en ugyldig push kobling fra %s, lukker kobling."/>
-	<string id="16285" value="Mottok en unødvendig push kobling fra %s."/>
-	<string id="16286" value="Verten %s hjelper aktivt nedlasting &quot;%s&quot;, godtar."/>
-	<string id="16287" value="Kan ikke finne flere kilder til nedlasting &quot;%s&quot; fordi det er ingen nettverkskoblinger."/>
-	<string id="16288" value="Søker etter flere kilder for nedlasting &quot;%s&quot; på %i koblingen(e)..."/>
-	<string id="16289" value="Sender push-forespørsel for nedlasting &quot;%s&quot;..."/>
-	<string id="16290" value="Nedlastingsverten %s svarte med en annen, men med brukende utvalg (%I64i-%I64i) of &quot;%s&quot;."/>
-	<string id="16291" value="Flyttet &quot;%s&quot; til &quot;%s&quot;, nedlasting ferdig."/>
-	<string id="16292" value="Kunne ikke flytte nedlasting &quot;%s&quot; til &quot;%s&quot;.  Sjekk at den uferdige filen ikke er i bruk og at nedlastings mappen finns og ikke er skrivebeskyttet."/>
-	<string id="16293" value="Aksepterer &quot;%s&quot; å laste ned &quot;%s&quot;..."/>
-	<string id="16294" value="Klarte ikke å anerkjenne &quot;%s&quot;."/>
-	<string id="16295" value="Øker hastighet &quot;%s&quot; ved å fjerne hastighetsgrenser.."/>
-	<string id="16296" value="Har verifisert nedlasting &quot;%s&quot;."/>
-	<string id="16297" value="ADVARSEL: Nedlasting &quot;%s&quot; ikke verifisert, det kan være at dette ikke er den filen du ville ha!"/>
-	<string id="16298" value="Nedlastingsvert %s er opptatt, venter i kø, i posisjon #%i of %i (&quot;%s&quot;)."/>
-	<string id="16299" value="Er du sikker på at du vil fjerne alle pausede nedlastinger? Når en nedlasting blir fjernet kan den ikke fortsettes."/>
-	<string id="16300" value="Er du sikker på at du vil slette nedlasting &quot;%s&quot;?"/>
-	<string id="16301" value="Anmoder tiger tree kvantum for &quot;%s&quot; fra %s..."/>
-	<string id="16302" value="Nedlastingsvert %s klarte ikke å tilfredstille tiger-tree anmodning."/>
-	<string id="16303" value="Mottar tiger-tree kvantum fra %s (%s)..."/>
-	<string id="16304" value="Nedlastingsvertens tiger-tree data er ugyldig eller ødelagt, ignorerer det."/>
-	<string id="16305" value="Nedlastingsvertens tiger-tree ligner ikke på ventet rotverdi."/>
-	<string id="16306" value="Mottok tiger-tree innhold til &quot;%s&quot;, %i levels, minimalt akseptert del %s."/>
-	<string id="16307" value="Lukker nedlastings-kobling til %s, den er ikke lenger nødvendig."/>
-	<string id="16308" value="Nedlastingsvert %s sendte ugyldige data, lukker kobling."/>
-	<string id="16309" value="Sender forespørsel etter metadata til &quot;%s&quot; fra %s..."/>
-	<string id="16310" value="Mottar tiger-tree data fra %s (%s)..."/>
-	<string id="16311" value="Sender forespørsel etter eDonkey2000 hashset for &quot;%s&quot; fra %s..."/>
-	<string id="16312" value="Mottok ugyldig eDonkey2000 hashset fra %s, dropper kilden."/>
-	<string id="16313" value="Mottok eDonkey2000 hashset for &quot;%s&quot;, minimalt akseptert del %s."/>
-	<string id="16314" value="Nedlastingsvertens eDonkey2000 hashset er korrupt eller ugyldig, dropper kilden."/>
-	<string id="16315" value="klarte ikke å starte inflate for nedlasting &quot;%s&quot;."/>
-	<string id="16316" value="Mistet kobling i kø for oppdatering fra eDonkey2000 nedlastingsvert %s for fil &quot;%s&quot;."/>
-	<string id="16317" value="Blir i køen for &quot;%s&quot;."/>
-	<string id="16318" value="Det er ikke nok plass på pc-en til å laste ned &quot;%s&quot; (%s)."/>
-	<string id="16319" value="Dropper kilde %s (%s) etter å ha mottat ugyldige deler av &quot;%s&quot; (%I64i-%I64i)."/>
-	<string id="16320" value="Opplastingsvert %s sente en ugyldig HTTP forespørsel."/>
-	<string id="16321" value="Starter en push-kobling til %s. %s"/>
-	<string id="16322" value="Klarte ikke å koble til vert %s med push."/>
-	<string id="16323" value="Opplastings-kobling til %s ble lukket."/>
-	<string id="16324" value="Mistet kontakt med opplastingsvert %s."/>
-	<string id="16325" value="Opplastingsvert %s sendte forespørsel etter et ukjent objekt &quot;%s&quot;."/>
-	<string id="16326" value="Opplastingsvert %s sendte forespørsel etter &quot;%s&quot; med ulik SHA1."/>
-	<string id="16327" value="Avviser opplasting av &quot;%s&quot; til %s (%s), opptatt og klienten støtter ikke kø."/>
-	<string id="16328" value="Push kobling til %s startet, venter på håndtrykk..."/>
-	<string id="16329" value="Kan ikke åpne &quot;%s&quot; for å laste opp til vert %s, disk/fil feil."/>
-	<string id="16330" value="Sender innhold %I64i-%I64fra &quot;%s&quot; til vert %s (%s)."/>
-	<string id="16331" value="Ferdig med å laste opp del av &quot;%s&quot; til %s."/>
-	<string id="16332" value="Innkommende kobling fra %s er en HTTP opplastings forespørsel."/>
-	<string id="16333" value="For opptatt til å laste opp &quot;%s&quot; til %s, satt i kø ved #%i av %i (&quot;%s&quot;)."/>
-	<string id="16334" value="Legacy push forespørsel fra %s forespurte en ukjent fil, kobler til likevel..."/>
-	<string id="16335" value="Fjernet opplasting av &quot;%s&quot; til %s."/>
-	<string id="16336" value="Opplastingsvert %s er i blokkeringslisten, nekter forespørsel."/>
-	<string id="16337" value="Sender opplastingshoder fra &quot;%s&quot; til vert %s (%s)."/>
-	<string id="16338" value="Opplastingsvertens %s spurte etter et ikke godkjent utvalg av filer &quot;%s&quot;."/>
-	<string id="16339" value="Sender normalt HTML svar til opplastingsvert %s (%s)."/>
-	<string id="16340" value="Nektet utforsk bruker-forespørsel fra %s."/>
-	<string id="16341" value="Opplastingsvert %s (%s) sendte en utforsk-forespørsel, svarer..."/>
-	<string id="16342" value="Lukker opplastingskobling %s på grunn av mangel på trafikk."/>
-	<string id="16343" value="Lukker eldre opplasting til %s fordi den har koblet opp på nytt."/>
-	<string id="16344" value="Nekter ny opplasting til %s fordi en tidligere kobling fortsatt venter."/>
-	<string id="16345" value="Stengte opplasting &quot;%s&quot; til %s fordi filen var slettet."/>
-	<string id="16346" value="Sender innhold %I64i-%I64fra partiell fil &quot;%s&quot; til vert %s (%s)."/>
-	<string id="16347" value="Den ventende opplastingen %s sender for raske forespørsler, lukker kobling."/>
-	<string id="16348" value="Nekter push forespørsel til %s fordi den har for mange opplastings koblinger."/>
-	<string id="16349" value="Laster opp tiger-tree data for &quot;%s&quot; til %s."/>
-	<string id="16350" value="Laster opp metadata for &quot;%s&quot; til %s."/>
-	<string id="16351" value="Nekter opplasting av &quot;%s&quot; til %s (%s), for mange samlet fra en vert."/>
-	<string id="16352" value="Laster opp forhåndsvisning av &quot;%s&quot; til %s."/>
-	<string id="16353" value="Nekter å laste opp forhånsvisning av &quot;%s&quot; til %s, for mange forhåndsvisnings koblinger."/>
-	<string id="16354" value="Opplastingsvert %s forespurte forhåndsvisning av &quot;%s&quot;, men filen kan ikke forhånsvises."/>
-	<string id="16355" value="Setter opp dynamisk forhåndsvisning av &quot;%s&quot; for å laste opp til %s."/>
-	<string id="16356" value="Nekter utforsk forespørsel fra %s, for mange utforsk koblinger."/>
-	<string id="16357" value="Laster opp filen &quot;%s&quot; til vert %s..."/>
-	<string id="16358" value="Opplastingskobling til %s mistet, lagrer kø-posisjon."/>
-	<string id="16359" value="Offline opplastingsvert %s mistet koblingen, fjernes."/>
-	<string id="16360" value="Nekter opplasting av &quot;%s&quot; til %s (%s), alle liknende køer er fulle."/>
-	<string id="16361" value="Nekter opplasting til %s (%s), nettverk skrudd av."/>
-	<string id="16362" value="eDonkey2000 opplastinger bør ikke avbrytes. Er du sikker på at du vil avbryte denne opplastingen?"/>
-	<string id="16363" value="Torrent-opplastninger"/>
-	<string id="16364" value="Ferdige opplastninger"/>
-	<string id="16365" value="Er du sikker p at du vil avbryte alle nedlastningene i denne gruppen?"/>
-	<string id="16366" value="Kø"/>
-	<string id="16367" value="eDonkey Core"/>
-	<string id="16368" value="eDonkey Partials"/>
-	<string id="16369" value="eDonkey Guard"/>
-	<string id="16370" value="Små filer"/>
-	<string id="16371" value="Middels filer"/>
-	<string id="16372" value="Store filer"/>
-	<string id="16373" value="Delvise filer"/>
-	<string id="16374" value="Ny kø"/>
-	<string id="16375" value="Delvis"/>
-	<string id="16376" value="Alle filer"/>
-	<string id="16377" value="HTTP Guard"/>
-	<string id="16384" value="Er du sikker på at du vil åpne denne filen &quot;%s&quot; ?\n\nNoen filer kan være skadelige for pc-en. Forsikre deg om at du vet hva filen er før du åpner den."/>
-	<string id="16385" value="Du prøver å endre metadataene til %i filer, er du sikker på at du vil fortsette?"/>
-	<string id="16386" value="Endrer metadata til %i filer."/>
-	<string id="16387" value="Filen &quot;%s&quot; er ikke hashet. Vennligst vent til filen er hashet og prøv på nytt."/>
-	<string id="16388" value="Dette valget bruker Bitzi.com for å finne informasjon om valgte filer.\n\nPeerProject sender SHA1 hash koden til den valgte filen for å søke i Bitzi databasen. Hvis du er redd for å dele slik informasjon, kan du lese Bitzi.com's retningslinjer for personopplysninger.\n\nVil du fortsette?"/>
-	<string id="16389" value="Er du sikker på at du vil slette %i valgte fil(er) ?\n\nFilene vil bli sendt til din &quot;papirkurv&quot; hvis den er skrudd på."/>
-	<string id="16390" value="Du har ikke valgt en mediaspiller å sende filer i kø til. Vil du velge en nå?\n\nPeerProject kan sende navnet til filen ved hjelp av &quot;/Legg til&quot; kommandoen."/>
-	<string id="16391" value="Du er ikke koblet til nettverket."/>
-	<string id="16392" value="Klikk på Koble til-knappen for å starte."/>
-	<string id="16393" value="Filen &quot;%s&quot; klarte ikke hash godkjennings-testen, og det kan være at det ikke er den filen du er ute etter.  Er du sikker på at du vil åpne den?"/>
-	<string id="16394" value="Vil du fjerne den &quot;potensielt usikkre&quot; egenskapen til denne filen?"/>
-	<string id="16395" value="Din nedlastingsmappe &quot;%s&quot; er ikke i mine filer ennå.\n\nÅ inkludere din nedlastings mappe i mine filer gjør det lettere å se og organisere nye filer, dette lar deg også ta i bruk verifisering og automatisk oppdatering. Å lagre filer i mine filer betyr ikke at du må dele dem: du kan selv velge om du vil dele dem eller ikke.\n\nVil du legge til din nedlastingsmappe i mine filer nå?"/>
-	<string id="16396" value="Din nedlastingsmappe er lagt til i mine filer. Vil du dele den også?"/>
-	<string id="16397" value="Er du sikker på at du vil slette %i valgte mappe(r) ?\n\nDette sletter ikke filene, kun mappen(e) filene er i."/>
-	<string id="16398" value="PeerProject klarte ikke å endre navnet:\n\n%s\nto\n%s"/>
-	<string id="16399" value="PeerProject klarte ikke å slette filen:\n\n%s"/>
-	<string id="16400" value="Denne filen finnes allerede:\n\n%s\n\nVil du skrive over den?"/>
-	<string id="16401" value="Vis alle fil-typer"/>
-	<string id="16402" value="PeerProject mottok en samlings-fil:\r\n\r\n&quot;%s&quot;\r\n\r\nDette ser ikke ut som en gyldig samlings-fil."/>
-	<string id="16403" value="PeerProject har lagt samlings-filen &quot;%s&quot; til mine filer."/>
-	<string id="16404" value="PeerProject klarte ikke å legge inn samlings-filen &quot;%s&quot; ved  kopiere den til mappe &quot;%s&quot;."/>
-	<string id="16406" value="Vil du laste ned alle filene i denne samlingen?\r\n\r\nVelg avbryt for å slippe flere spørsmål."/>
-	<string id="16407" value="Vil du sette en stopp på denne samlingen slik at du slipper flere spørsmål om å laste ned mer"/>
-	<string id="16408" value="Kopier &amp;URI"/>
-	<string id="16409" value="Eksporter &amp;URI'er..."/>
-	<string id="16410" value="Mappen for fullstendige filer og mappen for ufullstendige filer bør ikke være den samme"/>
-	<string id="16411" value="Kan ikke flytte filen %s. Filen kan være i bruk av et annet program.\n\nVil du forsøke å kopiere filen i stedet?"/>
-	<string id="16448" value="Koblet til %s, starter håndtrykk..."/>
-	<string id="16449" value="Du chatter med %s (%s)."/>
-	<string id="16450" value="Kobling til %s lukket."/>
-	<string id="16451" value="Koblingen til %s mistet."/>
-	<string id="16452" value="Ukjent kommando &quot;%s&quot;."/>
-	<string id="16453" value="Kobler til %s for chat..."/>
-	<string id="16454" value="Godtok innkommende forespørsel fra %s, starter håndtrykk..."/>
-	<string id="16455" value="%s er kjent som %s."/>
-	<string id="16456" value="Klarte ikke å koble til vert %s."/>
-	<string id="16457" value="Kobling avbrutt på grunn av ugyldig data på nettet."/>
-	<string id="16458" value="Mottok et ukjent svar: %s"/>
-	<string id="16459" value="Du er ikke koblet til."/>
-	<string id="16512" value="Total generisk mottaksbåndbredde"/>
-	<string id="16513" value="Total generisk overføringsbåndbredde"/>
-	<string id="16514" value="Gnutella koblinger (Totalt)"/>
-	<string id="16515" value="Gnutella koblinger (Aktive)"/>
-	<string id="16516" value="Gnutella mottaksbåndbredde"/>
-	<string id="16517" value="Gnutella overføringsbåndbredde"/>
-	<string id="16518" value="Antall nedlastede filer"/>
-	<string id="16519" value="Antall nedlastingsoverføringer"/>
-	<string id="16520" value="Nedlastingsbåndbredde"/>
-	<string id="16521" value="Antall opplastinger"/>
-	<string id="16522" value="Opplastingsbåndbredde"/>
-	<string id="16523" value="Gnutella-pakker mottatt"/>
-	<string id="16524" value="Gnutella-pakker overført"/>
-	<string id="16525" value="Gnutella-pakker routed"/>
-	<string id="16526" value="Gnutella-pakker dropped"/>
-	<string id="16527" value="Gnutella-pakker mistet"/>
-	<string id="16528" value="Gnutella lokale forespørsler"/>
-	<string id="16532" value="Total TCP mottatt båndbredde"/>
-	<string id="16533" value="Total TCP overført bånbredde"/>
-	<string id="16534" value="Total UDP mottatt båndbredde"/>
-	<string id="16535" value="Total UDP overført båndbredde"/>
-	<string id="16768" value="Mottar URL &quot;%s&quot;"/>
-	<string id="16769" value="Kan ikke motta URL: PeerProject gjenkjenner ikke denne URL."/>
-	<string id="16770" value="Kan ikke vise URL-dialogen fordi PeerProject er opptatt."/>
-	<string id="16771" value="Du har allerede filen &quot;%s&quot; i mine filer. Vil du laste den ned likevel?"/>
-	<string id="16772" value="Vert:"/>
-	<string id="16773" value="Port:"/>
-	<string id="16774" value="_Koble til"/>
-	<string id="16775" value="_Utforsk"/>
-	<string id="16776" value="Legg til"/>
-	<string id="16777" value="Filnavn:"/>
-	<string id="16778" value="URL:"/>
-	<string id="16779" value="Type:"/>
-	<string id="16780" value="Ikke spesifisert"/>
-	<string id="16781" value="spør..."/>
-	<string id="16782" value="Suksess!"/>
-	<string id="16783" value="Ferdig, Klikk Lukk"/>
-	<string id="16784" value="&amp;Lukk"/>
-	<string id="16785" value="(Visualisering av)"/>
-	<string id="16800" value="Du har ikke spesifisert tilkoblingshastigheten. Før du fortsetter, vennligst velg din type internett tilkobling eller skriv inn tilkoblingshastigheten."/>
-	<string id="16801" value="Vennligst velg hvilken internettilkobling du bruker før du fortsetter."/>
-	<string id="16802" value="Du har ikke spesifisert hvilke mapper du vil dele. Er du sikker?"/>
-	<string id="16803" value="Mappen du deler er allerede delt gjennom en annen delt mappe:\n\n%s"/>
-	<string id="16804" value="Du har ikke valgt et navn i din bruker profil."/>
-	<string id="16805" value="Du har ikke angitt hvor du er fra i bruker profilen din.\n\nDet er en god idé å angi hvor du er fra slik at andre kan se hvor de er koblet til. Dette vil ikke gjøre noe utslag på din sikkerhet.\n\nEr du sikker på at du vil fortsette uten å angi sted?"/>
-	<string id="16806" value="Du har indikert at du vil sette opp port forwarding på din NAT-router eller brannmur.\n\nVennligst sett opp nettverket til å videresende TCP og UDP port %i til din lokale PC."/>
-	<string id="16807" value="Vennligst velg hvilket format du vil ha på grensen for båndbredden  &quot;123 kb/s&quot; for kilobits per sekund, eller &quot;123 KB/s&quot; for kilobytes per sekund."/>
-	<string id="16808" value="Du har ikke valgt alder og kjønn.  Er du sikker på at du vil fortsette?"/>
-	<string id="16809" value="Avslutt"/>
-	<string id="16810" value="år gammel"/>
-	<string id="16811" value="Automatisk"/>
-	<string id="16816" value="eDonkey-nettverket har lange køer med lange ventetider. Ved å begrense den maksimale akseptable køposisjonen så strengt, kan du få problemer med å få nedlastinger til å begynne.\nEr du sikker på at du vil begrense hvilken køposisjon du vil akseptere?"/>
-	<string id="16817" value="Windows støtter ikke filbaner langre enn 256 tegn.\nVennligst angi en mappe med kortere filbane."/>
-	<string id="16818" value="Mappen for ufullstendige filer bør ikke være i biblioteket, ettersom det vil senkt ytelsen. Ufullstendige filer kan deles direkte fra overføringsvinduet."/>
-	<string id="16819" value="En undermappe av den valgte mappen &quot;%s&quot; er allerede en del av biblioteket ditt.\nÅ legge til denne mapen vil føre til re-hashing av noen filer.\n\nØnsker du å fortsette?"/>
-	<string id="16864" value="Oppdaterer vert-oppdagelsestjeneste..."/>
-	<string id="16865" value="Oppdaterer oppdagelsestjeneste &quot;%s&quot;..."/>
-	<string id="16866" value="GWebCache overføring fullført (&quot;%s&quot;)."/>
-	<string id="16867" value="Oppdagelsestjeneste &quot;%s&quot; feilet, feil count %i."/>
-	<string id="16868" value="Oppdagelsestjeneste &quot;%s&quot; har feilet %i ganger, fjerner."/>
-	<string id="16870" value="Sender GWebCache-oppdatering til tjeneste &quot;%s&quot;..."/>
-	<string id="16871" value="Sender GWebCache &quot;%s&quot; til vilkårlig GWebCache..."/>
-	<string id="16928" value="Starter en kobling til %s for å utforske bruker..."/>
-	<string id="16929" value="Klarte ikke å starte tilkobling til %s for å utforske bruker."/>
-	<string id="16930" value="Sendte en push forespørsel til %s for å utforske bruker."/>
-	<string id="16931" value="Klarte ikke å sende push-forespørsel til %s for å utforske."/>
-	<string id="16932" value="Sendte utforsk bruker forespørsel til %s..."/>
-	<string id="16933" value="Utforsk vert %s svarte med ugyldig HTTP."/>
-	<string id="16934" value="Utforsk vert %s svarte med kode %s (%s)."/>
-	<string id="16935" value="Utforsk vert %s svarte med ukjent respons, det kan være at utforskning ikke støttes."/>
-	<string id="16936" value="Mottar innhold fra utforskning av vert %s (%s)"/>
-	<string id="16938" value="Feil koding i Gnutella-pakker fra utforskning av vert %s."/>
-	<string id="16939" value="Ferdig å utforske bruker %s, %i filer funnet."/>
-	<string id="16940" value="Kobling til bruker %s ble lukket."/>
-	<string id="16941" value="Lukker kobling til bruker %s på grunn av mangel på trafikk."/>
-	<string id="16942" value="Lukker kobling til bruker %s."/>
-	<string id="16943" value="Utforsker %s"/>
-	<string id="16944" value="Fant %i delte filer i %s's mine filer."/>
-	<string id="16992" value="PeerProject klarte ikke å starte pluginfunksjonen for mediafiler. Vennligst installer PeerProject på nytt og kontroller at du har tilstrekkelige codec og drivere installert."/>
-	<string id="16993" value="Alle media filer|*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Playlists|*.asx;*.wax;*.m3u;*.wvx;*.wmx|Audio Files|*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm|Video Filer|*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|CD lyd Tracks|*.cda|MIDI filer|*.mid;*.rmi;*.midi|Alle filer|*.*||"/>
-	<string id="16994" value="Klarte ikke å åpne media fil &quot;%s&quot;"/>
-	<string id="16995" value="Denne filen kan være ødelagt, eller så kan det være at du ikke har rett codec til å spille den av med."/>
-	<string id="16996" value="Deler av denne filen kunne ikke spilles av, du bør kanskje laste ned ekstra codec."/>
-	<string id="16997" value="Det er ingen filer som spilles av. Dobbelt-klikk på en av dine filer for å spille av."/>
-	<string id="16998" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
-	<string id="16999" value="Spilleliste"/>
-	<string id="17024" value="Starter kobling til %s..."/>
-	<string id="17025" value="Klarte ikke å starte kobling til %s."/>
-	<string id="17026" value="Sender forespørsel om brannmur push-kobling fra %s..."/>
-	<string id="17027" value="Godtok push-kobling fra %s, starter håndtrykk..."/>
-	<string id="17028" value="Koblet til, starter håndtrykk..."/>
-	<string id="17029" value="Håndtrykk feilet, det kan være at verten ikke støtter chatting."/>
-	<string id="17030" value="Håndtrykk ferdig, chat protokoll-versjon %s."/>
-	<string id="17031" value="Utveksler profilinformasjon..."/>
-	<string id="17032" value="Bekrefter bruker"/>
-	<string id="17033" value="Sender forespørsel om privat samtale med bruker..."/>
-	<string id="17034" value="Privat samtale godkjent, du snakker nå med %s."/>
-	<string id="17035" value="%s tar ikke imot private samtaler, beklager."/>
-	<string id="17036" value="%s er borte: %s"/>
-	<string id="17037" value="Koblingen til samtalen mistet."/>
-	<string id="17038" value="Kobling lukket."/>
-	<string id="17039" value="Klarte ikke å motta en push-kobling fra %s, ingen rute tilgjengelig."/>
-	<string id="17040" value="Kan ikke sende melding, du er ikke koblet til. PeerProject prøver å koble til..."/>
-	<string id="17041" value="Kan ikke sende melding, har ikke koblet til ennå."/>
-	<string id="17042" value="Du har ikke fylt inn brukerprofilen din ennå. Du må ha en profil for å kunne chatte med andre brukere.\n\nVil du fylle inn profilen din nå?"/>
-	<string id="17043" value="Gir prioritet til vert %s."/>
-	<string id="17100" value="Gnutella: Peer-to-Peer kobling"/>
-	<string id="17101" value="Gnutella: Leaf-to-Ultrapeer kobling"/>
-	<string id="17102" value="Gnutella: Ultrapeer-to-Leaf kobling"/>
-	<string id="17103" value="Gnutella II: Hub-to-Hub kobling"/>
-	<string id="17104" value="Gnutella II: Leaf-to-Hub kobling"/>
-	<string id="17105" value="Gnutella II: Hub-to-Leaf kobling"/>
-	<string id="17106" value="eDonkey Server kobling (LOWID: %lu)"/>
-	<string id="17107" value="eDonkey2000 Server kobling"/>
-	<string id="17108" value="Håndtrykk"/>
-	<string id="17109" value="Inngående"/>
-	<string id="17110" value="Utgående"/>
-	<string id="17111" value="I øyeblikket:"/>
-	<string id="17112" value="Totalt:"/>
-	<string id="17113" value="Kompressjon:"/>
-	<string id="17114" value="Rate:"/>
-	<string id="17115" value="Redusere"/>
-	<string id="17116" value="Ingen"/>
-	<string id="17117" value="Oppretter kobling"/>
-	<string id="17118" value="Foretar håndtrykk"/>
-	<string id="17119" value="Avvist"/>
-	<string id="17120" value="Lukker"/>
-	<string id="17121" value="Ukjent"/>
-	<string id="17122" value="G1 Peer"/>
-	<string id="17123" value="G1 Ultrapeer"/>
-	<string id="17124" value="G1 Leaf"/>
-	<string id="17125" value="G2 Peer"/>
-	<string id="17126" value="G2 Hub"/>
-	<string id="17127" value="G2 Leaf"/>
-	<string id="17128" value="eDonkey2000 Server"/>
-	<string id="17129" value="eDonkey2000 (LowID)"/>
-	<string id="17130" value="eDonkey2000 (HighID)"/>
-	<string id="17216" value="Starter kobling til eDonkey2000-tjener ved %s..."/>
-	<string id="17217" value="Koblet til eDonkey2000 tjener %s, starter håndtrykk..."/>
-	<string id="17218" value="ED2K[%s] %s"/>
-	<string id="17219" value="eDonkey2000 tjener %s nektet tilkobling."/>
-	<string id="17220" value="eDonkey2000 tjener %s online, klient ID er %lu."/>
-	<string id="17221" value="eDonkey2000 tjener %s endret klient ID-en fra %lu til %lu."/>
-	<string id="17222" value="eDonkey2000 tjener %s identifiserte seg som &quot;%s&quot;."/>
-	<string id="17223" value="eDonkey2000 tjener %s nektet tilkobling."/>
-	<string id="17224" value="Feil ved håndtrykk med eDonkey2000 klient %s."/>
-	<string id="17225" value="eDonkey2000 klient koblingen til %s ble lukket."/>
-	<string id="17226" value="Mottok ugyldig formatert eDonkey2000 pakke fra %s (id=%x)."/>
-	<string id="17227" value="Innkommende kobling fra %s er en eDonkey2000 klient link."/>
-	<string id="17228" value="Sender eDonkey2000 hashset for &quot;%s&quot; til %s..."/>
-	<string id="17229" value="eDonkey2000 klient koblingen til %s var passiv, lukket."/>
-	<string id="17230" value="Starter en eDonkey2000 klientkobling til %s..."/>
-	<string id="17231" value="eDonkey2000 klienten %s har feil GUID, Avbryter håndtrykk."/>
-	<string id="17232" value="Mistet kobling til eDonkey2000 klient %s."/>
-	<string id="17233" value="Mistet håndtrykk med eDonkey2000 klient %s."/>
-	<string id="17234" value="Nekter eDonkey2000 klient linken fra %s fordi eDonkey2000 er skrudd av."/>
-	<string id="17248" value="Starter eDonkey2000 partiell nedlastings import prosess..."/>
-	<string id="17249" value="Prosess ferdig, %i partiell nedlasting importert uten feil."/>
-	<string id="17250" value="Scanner mappe: &quot;%s&quot;..."/>
-	<string id="17251" value="Klarte ikke å importere filen."/>
-	<string id="17252" value="Fant partiell fil &quot;%s&quot;, importerer..."/>
-	<string id="17253" value="Klarte ikke å åpne .part fil &quot;%s&quot;."/>
-	<string id="17254" value="Fant nedlasting &quot;%s&quot;, størrelse %s."/>
-	<string id="17255" value="Nedlastings data-filen er nyere enn .part filen, avbryter."/>
-	<string id="17256" value="Kopierer &quot;%s&quot; til &quot;%s&quot;..."/>
-	<string id="17257" value="Ferdig med å kopiere filen."/>
-	<string id="17258" value="PeerProject's partielle nedlasting, %s gjenstår."/>
-	<string id="17259" value="Denne filen finnes allerede i nedlastingslisten."/>
-	<string id="17260" value="Ikke nok plass på pc-en til å kopiere filen."/>
-	<string id="17472" value="Innkommende kobling fra %s er en BitTorrent kobling, forhandler..."/>
-	<string id="17473" value="Mistet kobling til BitTorrent klient %s."/>
-	<string id="17474" value="Mistet håndtrykk med BitTorrent klient %s."/>
-	<string id="17475" value="Lukker BitTorrent kobling med %s på grunn av mangel på trafikk."/>
-	<string id="17476" value="BitTorrent kobling med %s feilet fordi kliente hadde en annen type Peer ID."/>
-	<string id="17477" value="BitTorrent koblingen med %s svarte med feil fil."/>
-	<string id="17478" value="BitTorrent koblingen med %s forespurte en ukjent fil."/>
-	<string id="17479" value="BitTorrent kobling med %s startet for &quot;%s&quot;."/>
-	<string id="17481" value="Mottok BitTorrent beskrivelsesfil: &quot;%s&quot;"/>
-	<string id="17482" value="Klarer ikke å dele prefetched BitTorrent fil &quot;%s&quot;."/>
-	<string id="17483" value="Feil fra BitTorrent trackeren for &quot;%s&quot; : &quot;%s&quot;."/>
-	<string id="17484" value="Feil ved deling av BitTorrent tracker respons."/>
-	<string id="17485" value="Mottok BitTorrent tracker-respons for &quot;%s&quot;, %i nye kilder."/>
-	<string id="17486" value="Starter en BitTorrent klientkobling med %s..."/>
-	<string id="17487" value="Startet BitTorrent-kobling med %s, starter håndtrykk..."/>
-	<string id="17488" value="Du har endret tracker URL-en til denne torrenten.  Er du sikker på at du vil lagre denne endringen?\n\nEn ugyldig tracker URL kan stoppe videre nedlasting."/>
-	<string id="17489" value="BitTorrent-kobling med %s er utvidet protokoll, identifiserte &quot;%s&quot;."/>
-	<string id="17490" value="Mottok %i ny(e) BitTorrent kilde(r) fra %s."/>
-	<string id="17491" value="Denne torrenten &quot;%s&quot; er allerede i din nedlastings-liste, og kan ikke spres."/>
-	<string id="17492" value="Feil ved åpning av torrent-filen &quot;%s&quot;. Dette kan være en ugyldig torrent."/>
-	<string id="17493" value="Klarte ikke å dele BitTorrent-fil &quot;%s&quot;."/>
-	<string id="17494" value="Denne torrenten inneholder filen &quot;%s&quot;, men PeerProject klarer ikke å finne filen i mine filer. Hvis mulig flytt filen til samme mappe som torrenten og prøv på nytt."/>
-	<string id="17495" value="Denne torrenten inneholder filen &quot;%s&quot; som skulle vært %s, men versjonen av din fil er %s."/>
-	<string id="17496" value="Det skjedde en feil ved kopieringen fra &quot;%s&quot; til en BitTorrent delings-fil."/>
-	<string id="17497" value="Det skjedde en feil ved forsøk på å spre &quot;%s&quot;."/>
-	<string id="17498" value="Det ble funnet en feil i filen &quot;%s&quot;."/>
-	<string id="17500" value="Trackeren svarte ikke- Prøver announce om igjen (%i av %i)"/>
-	<string id="17501" value="Klarer ikke å kommunisere med tracker"/>
-	<string id="18496" value="Du har gjort endringer i navnefeltet. Er du sikker på at du vil endre navnet på denne nedlastingen?"/>
-	<string id="18497" value="Du har skrevet inn en ugyldig SHA1 hash-verdi. Vennligst sjekk verdien og prøv på nytt."/>
-	<string id="18498" value="Du har skrevet inn en ugyldig root tiger-tree hash-verdi. Vennligst sjekk verdien og prøv på nytt."/>
-	<string id="18499" value="Du har skrevet inn en ugyldig eDonkey2000 hash-verdi. Vennligst sjekk verdien og prøv på nytt."/>
-	<string id="18500" value="Du har gitt en SHA1 hash-verdi som er forskjellig fra den som er asossiert med denne nedlastingen. Er du sikker på at du vil endre SHA1 hashen nå?"/>
-	<string id="18501" value="Du har gitt en root tiger-tree hash-verdi som er forskjellig fra den som er asossiert med denne nedlastingen. Er du sikker på at du vil endre tiger-tree hashen nå?"/>
-	<string id="18502" value="Du har gitt en eDonkey2000 hash-verdi som er forskjellig fra den som er asossiert med denne nedlastingen. Er du sikker på at du vil endre eDonkey2000 hashen nå?"/>
-	<string id="18503" value="Er du sikker på at du vil glemme nåværende verifiseringsposisjon?  Alle data som blir lastet ned vil bli sett på som usikre og cachede hashtrees og hash-sets vil bli fjernet."/>
-	<string id="18504" value="Er du helt sikker på at du vil glemme alle kildene til denne nedlastingen?"/>
-	<string id="18505" value="Vennligst velg hvilket omfang du vil slette. &quot;Fra&quot; feltet er den første byten som skal slettes, &quot;Siste&quot; feltet er den siste byten som skal slettes."/>
-	<string id="18506" value="Klarte ikke å slette valgte omfang av filen fordi ingen deler av omfanget eksisterer."/>
-	<string id="18507" value="Slettet %I64i byte fra nedlastingen."/>
-	<string id="18508" value="Lukker nedlastingskilde %s for &quot;%s&quot; fordi kø posisjonen %i er for høy."/>
-	<string id="18509" value="Du kan ikke gå ut i fra at denne filen er ferdig og reverifisere den fordi du har ennå ingen partielle verifikasjons data, slik som tiger-tree innhold, eDonkey hashset eller BitTorrent hashset. Uten verifikasjons-data kan ikke filen reverifiseres."/>
-	<string id="18510" value="Er du sikker på at du vil gå ut i fra at denne filen er ferdig og reverifisere den? Hele filen vil betraktes, PeerProject vil godta deler som blit verifiserte og laste ned nye deler for de som feilet verifiseringen."/>
-	<string id="19000" value="Fjern konsoll er AV."/>
-	<string id="19001" value="http://%s:%i/remote - velge et brukernavn og et passord."/>
-	<string id="19002" value="Klarte ikke  motta tilkoblinger, URL ikke tilgjengelig."/>
-	<string id="20000" value="URN ikke tilgjengelig"/>
-	<string id="20002" value="av"/> <!-- "1 of 10" -->
-	<string id="20003" value="Forandring av grensesnittets retning krever omstart. \nDu må starte PeerProject på nytt manuelt. Avslutte nå?"/>
-	<string id="20005" value="Nei"/>
-	<string id="20006" value="Ja"/>
-	<string id="20007" value="Auto"/>
-	<string id="20100" value="Kobler til"/>
-	<string id="20101" value="Anmoder"/>
-	<string id="20102" value="Respons"/>
-	<string id="20103" value="Laster ned"/>
-	<string id="20104" value="TigerTree"/>
-	<string id="20105" value="Hashsett"/>
-	<string id="20106" value="Metadata"/>
-	<string id="20107" value="Opptatt"/>
-	<string id="20108" value="Settes i kø"/>
-	<string id="20109" value="I kø"/>
-	<string id="20110" value="Ukjent"/>
-	<string id="20111" value="Ferdig"/>
-	<string id="20112" value="Sprer"/>
-	<string id="20113" value="Flytter"/>
-	<string id="20114" value="Pause"/>
-	<string id="20115" value="Filfeil"/>
-	<string id="20116" value="Kan ikke flytte"/>
-	<string id="20117" value="Verifiserer"/>
-	<string id="20118" value="Aktiv"/>
-	<string id="20119" value="Venter"/>
-	<string id="20120" value="Søker"/>
-	<string id="20121" value="Lager"/>
-	<string id="20122" value="Torrent"/>
-	<string id="20123" value="Tracker nede"/>
-	<string id="20124" value="Godkjent"/>
-	<string id="20125" value="Ikke godkjent"/>
-	<string id="20126" value="Uinteressert"/>
-	<string id="20127" value="Uinteressert"/>
-	<string id="20130" value="kilde"/>
-	<string id="20131" value="kilder"/>
-	<string id="20132" value="kilder"/>
-	<string id="20134" value="kilder"/>
-	<string id="20135" value="(Ingen kilder)"/>
-	<string id="20136" value="Kvalt"/>
-	<string id="20137" value="Neste"/>
-	<string id="20138" value="K"/>
-	<string id="20200" value="Every Dag"/>
-	<string id="20201" value="Mandag"/>
-	<string id="20202" value="Tirsdag"/>
-	<string id="20203" value="Onsdag"/>
-	<string id="20204" value="Tordsag"/>
-	<string id="20205" value="Fredag"/>
-	<string id="20206" value="Lørdag"/>
-	<string id="20207" value="Søndag"/>
-	<string id="20210" value="(Ingen karakter)"/>
-	<string id="20211" value="Falsk / Korrupt"/>
-	<string id="20212" value="Dårlig"/>
-	<string id="20213" value="Middels"/>
-	<string id="20214" value="God"/>
-	<string id="20215" value="Veldig god"/>
-	<string id="20216" value="Utmerket"/>
-	<string id="20237" value="OK"/>
-	<string id="20238" value="Avbryt"/>
-	<string id="20245" value="Ny Mappe"/>
+	<string id="20001" value="Ja"/>
+	<string id="20002" value="Nei"/>
+	<string id="20003" value="OK"/>
+	<string id="20004" value="Avbryt"/>
+	<string id="20009" value="av"/> <!-- "1 of 10" -->
+	<string id="20011" value="Auto"/>
+	<string id="20050" value="Every Dag"/>
+	<string id="20051" value="Mandag"/>
+	<string id="20052" value="Tirsdag"/>
+	<string id="20053" value="Onsdag"/>
+	<string id="20054" value="Tordsag"/>
+	<string id="20055" value="Fredag"/>
+	<string id="20056" value="Lørdag"/>
+	<string id="20057" value="Søndag"/>
+	<string id="20060" value="(Ingen karakter)"/>
+	<string id="20061" value="Falsk / Korrupt"/>
+	<string id="20062" value="Dårlig"/>
+	<string id="20063" value="Middels"/>
+	<string id="20064" value="God"/>
+	<string id="20065" value="Veldig god"/>
+	<string id="20066" value="Utmerket"/>
+	<string id="20080" value="Dette er en test-versjon av PeerProject, beta test perioden er over. Vennligst last ned den offisielle fullversjonen fra http://peerproject.org/."/>
+	<string id="20081" value="&amp;Lukk"/>
+	<string id="20082" value="Ferdig, Klikk Lukk"/>
+	<string id="20083" value="spør..."/>
+	<string id="20084" value="Suksess!"/>
+	<string id="20100" value="Lukker kobling til bruker %s."/>
+	<string id="20101" value="Utforsk vert %s svarte med ukjent respons, det kan være at utforskning ikke støttes."/>
+	<string id="20102" value="Klarte ikke å koble til vert for å utforske bruker."/>
+	<string id="20103" value="Klarte ikke å starte tilkobling til %s for å utforske bruker."/>
+	<string id="20104" value="Klarte ikke å sende push-forespørsel til %s for å utforske."/>
+	<string id="20105" value="Starter en kobling til vert..."/>
+	<string id="20106" value="Starter en kobling til %s for å utforske bruker..."/>
+	<string id="20107" value="Laster ned utforsknings forespørsel (%2.f%%)..."/>
+	<string id="20108" value="Mottar innhold fra utforskning av vert %s (%s)"/>
+	<string id="20109" value="Kobling til bruker %s ble lukket."/>
+	<string id="20110" value="Ferdig å utforske bruker %s, %i filer funnet."/>
+	<string id="20111" value="Fant %i delte filer i %s's mine filer."/>
+	<string id="20112" value="Utforsk vert %s svarte med kode %s (%s)."/>
+	<string id="20113" value="Utforsk vert %s svarte med ugyldig HTTP."/>
+	<string id="20114" value="Klarte ikke å laste ned liste over filer. Denne verten støtter kanskje ikke utforskning."/>
+	<string id="20115" value="Feil koding i Gnutella-pakker fra utforskning av vert %s."/>
+	<string id="20116" value="Sendte en push-forespørsel, venter på kobling..."/>
+	<string id="20117" value="Sendte en push forespørsel til %s for å utforske bruker."/>
+	<string id="20118" value="Tilkoblet, forespør utforskning..."/>
+	<string id="20119" value="Sendte utforsk bruker forespørsel til %s..."/>
+	<string id="20120" value="Lukker kobling til bruker %s på grunn av mangel på trafikk."/>
+	<string id="20121" value="Utforsker %s"/>
+	<string id="20122" value="BitTorrent kobling med %s startet for &quot;%s&quot;."/>
+	<string id="20123" value="Innkommende kobling fra %s er en BitTorrent kobling, forhandler..."/>
+	<string id="20124" value="Starter en BitTorrent klientkobling med %s..."/>
+	<string id="20125" value="Mistet kobling til BitTorrent klient %s."/>
+	<string id="20130" value="Mottok %i ny(e) BitTorrent kilde(r) fra %s."/>
+	<string id="20131" value="BitTorrent-kobling med %s er utvidet protokoll, identifiserte &quot;%s&quot;."/>
+	<string id="20132" value="Mistet håndtrykk med BitTorrent klient %s."/>
+	<string id="20133" value="Startet BitTorrent-kobling med %s, starter håndtrykk..."/>
+	<string id="20136" value="BitTorrent koblingen med %s forespurte en ukjent fil."/>
+	<string id="20137" value="BitTorrent koblingen med %s svarte med feil fil."/>
+	<string id="20138" value="BitTorrent kobling med %s feilet fordi kliente hadde en annen type Peer ID."/>
+	<string id="20139" value="Lukker BitTorrent kobling med %s på grunn av mangel på trafikk."/>
+	<string id="20142" value="Denne torrenten &quot;%s&quot; er allerede i din nedlastings-liste, og kan ikke spres."/>
+	<string id="20143" value="Det skjedde en feil ved kopieringen fra &quot;%s&quot; til en BitTorrent delings-fil."/>
+	<string id="20144" value="Klarte ikke å dele BitTorrent-fil &quot;%s&quot;."/>
+	<string id="20145" value="Det skjedde en feil ved forsøk på å spre &quot;%s&quot;."/>
+	<string id="20146" value="Feil ved åpning av torrent-filen &quot;%s&quot;. Dette kan være en ugyldig torrent."/>
+	<string id="20147" value="Denne torrenten inneholder filen &quot;%s&quot;, men PeerProject klarer ikke å finne filen i mine filer. Hvis mulig flytt filen til samme mappe som torrenten og prøv på nytt."/>
+	<string id="20148" value="Denne torrenten inneholder filen &quot;%s&quot; som skulle vært %s, men versjonen av din fil er %s."/>
+	<string id="20149" value="Det ble funnet en feil i filen &quot;%s&quot;."/>
+	<string id="20150" value="Klarer ikke å kommunisere med tracker"/>
+	<string id="20152" value="Du har endret tracker URL-en til denne torrenten. Er du sikker på at du vil lagre denne endringen?\n\nEn ugyldig tracker URL kan stoppe videre nedlasting."/>
+	<string id="20153" value="Feil fra BitTorrent trackeren for &quot;%s&quot; : &quot;%s&quot;."/>
+	<string id="20154" value="Feil ved deling av BitTorrent tracker respons."/>
+	<string id="20155" value="Mottok BitTorrent tracker-respons for &quot;%s&quot;, %i nye kilder."/>
+	<string id="20158" value="Klarer ikke å dele prefetched BitTorrent fil &quot;%s&quot;."/>
+	<string id="20159" value="Mottok BitTorrent beskrivelsesfil: &quot;%s&quot;"/>
+	<string id="20160" value="Godtok innkommende forespørsel fra %s, starter håndtrykk..."/>
+	<string id="20161" value="Klarte ikke å starte kobling til %s."/>
+	<string id="20162" value="Klarte ikke å motta en push-kobling fra %s, ingen rute tilgjengelig."/>
+	<string id="20163" value="Kobling lukket."/>
+	<string id="20164" value="Kobling til %s lukket."/>
+	<string id="20165" value="Koblet til, starter håndtrykk..."/>
+	<string id="20166" value="Koblet til %s, starter håndtrykk..."/>
+	<string id="20167" value="Starter kobling til %s..."/>
+	<string id="20168" value="Kobler til %s for chat..."/>
+	<string id="20169" value="Klarte ikke å koble til vert %s."/>
+	<string id="20170" value="Koblingen til samtalen mistet."/>
+	<string id="20171" value="Koblingen til %s mistet."/>
+	<string id="20172" value="Håndtrykk feilet, det kan være at verten ikke støtter chatting."/>
+	<string id="20173" value="Håndtrykk ferdig, chat protokoll-versjon %s."/>
+	<string id="20174" value="Utveksler profilinformasjon..."/>
+	<string id="20175" value="Du har ikke fylt inn brukerprofilen din ennå. Du må ha en profil for å kunne chatte med andre brukere.\n\nVil du fylle inn profilen din nå?"/>
+	<string id="20176" value="Kan ikke sende melding, du er ikke koblet til. PeerProject prøver å koble til..."/>
+	<string id="20177" value="Kan ikke sende melding, har ikke koblet til ennå."/>
+	<string id="20178" value="%s er kjent som %s."/>
+	<string id="20179" value="Du chatter med %s (%s)."/>
+	<string id="20180" value="Gir prioritet til vert %s."/>
+	<string id="20181" value="%s er borte: %s"/>
+	<string id="20182" value="Privat samtale godkjent, du snakker nå med %s."/>
+	<string id="20183" value="%s tar ikke imot private samtaler, beklager."/>
+	<string id="20184" value="Sender forespørsel om privat samtale med bruker..."/>
+	<string id="20185" value="Bekrefter bruker"/>
+	<string id="20186" value="Godtok push-kobling fra %s, starter håndtrykk..."/>
+	<string id="20188" value="Sender forespørsel om brannmur push-kobling fra %s..."/>
+	<string id="20190" value="Kobling avbrutt på grunn av ugyldig data på nettet."/>
+	<string id="20191" value="Mottok et ukjent svar: %s"/>
+	<string id="20192" value="Du er ikke koblet til."/>
+	<string id="20193" value="Ukjent kommando &quot;%s&quot;."/>
+	<string id="20199" value="(Avslutter etter overføring)"/>
+	<string id="20200" value="La til &quot;%s&quot; til nedlastingskø med %i kilder."/>
+	<string id="20201" value="Filen &quot;%s&quot; blir allerede lastet ned, legger til kilder."/>
+	<string id="20202" value="Mottok en ugyldig push kobling fra %s, lukker kobling."/>
+	<string id="20203" value="Øker hastighet &quot;%s&quot; ved å fjerne hastighetsgrenser.."/>
+	<string id="20204" value="Nedlastingsvert %s er opptatt, prøver på nytt om %i sekunder."/>
+	<string id="20205" value="Kunne ikke flytte nedlasting &quot;%s&quot; til &quot;%s&quot;.  Sjekk at den uferdige filen ikke er i bruk og at nedlastings mappen finns og ikke er skrivebeskyttet."/>
+	<string id="20206" value="Klarte ikke å anerkjenne &quot;%s&quot;."/>
+	<string id="20207" value="Er du sikker p at du vil avbryte alle nedlastningene i denne gruppen?"/>
+	<string id="20208" value="Lukker nedlastings-kobling til %s, den er ikke lenger nødvendig."/>
+	<string id="20209" value="Nedlastingsvert %s sendte ugyldige data, lukker kobling."/>
+	<string id="20210" value="Ferdig med nedlastingen av &quot;%s&quot;."/>
+	<string id="20211" value="Er du sikker på at du vil fjerne &quot;%s&quot;.\n\nNår en nedlasting er fjernet fra nedlastingsvinduet, kan den ikke fortsettes senere."/>
+	<string id="20212" value="Er du sikker på at du vil fjerne alle pausede nedlastinger? Når en nedlasting blir fjernet kan den ikke fortsettes."/>
+	<string id="20213" value="Er du sikker på at du vil slette nedlasting &quot;%s&quot;."/>
+	<string id="20214" value="Nedlastings-kobling til %s startet."/>
+	<string id="20215" value="Starter en kobling til %s port %i for å laste ned &quot;%s&quot;..."/>
+	<string id="20216" value="Klarte ikke å koble til nedlastingsvert %s."/>
+	<string id="20217" value="Mottar nedlastingsinnhold fra vert %s (%s)."/>
+	<string id="20218" value="Avbryter nedlasting av &quot;%s&quot; fra %s (%s), nettverk skrudd av."/>
+	<string id="20219" value="Det er ikke nok plass på pc-en til å laste ned &quot;%s&quot; (%s)."/>
+	<string id="20220" value="Nedlastings-kobling til %s mistet."/>
+	<string id="20222" value="Du har skrevet inn en ugyldig eDonkey2000 hash-verdi. Vennligst sjekk verdien og prøv på nytt."/>
+	<string id="20224" value="Vennligst velg hvilket omfang du vil slette. &quot;Fra&quot; feltet er den første byten som skal slettes, &quot;Siste&quot; feltet er den siste byten som skal slettes."/>
+	<string id="20225" value="Du har skrevet inn en ugyldig SHA1 hash-verdi. Vennligst sjekk verdien og prøv på nytt."/>
+	<string id="20226" value="Du har skrevet inn en ugyldig root tiger-tree hash-verdi. Vennligst sjekk verdien og prøv på nytt."/>
+	<string id="20228" value="Klarte ikke å slette valgte omfang av filen fordi ingen deler av omfanget eksisterer."/>
+	<string id="20231" value="Du har gitt en SHA1 hash-verdi som er forskjellig fra den som er asossiert med denne nedlastingen. Er du sikker på at du vil endre SHA1 hashen nå?"/>
+	<string id="20232" value="Du har gitt en eDonkey2000 hash-verdi som er forskjellig fra den som er asossiert med denne nedlastingen. Er du sikker på at du vil endre eDonkey2000 hashen nå?"/>
+	<string id="20233" value="Du har gitt en root tiger-tree hash-verdi som er forskjellig fra den som er asossiert med denne nedlastingen. Er du sikker på at du vil endre tiger-tree hashen nå?"/>
+	<string id="20235" value="Du kan ikke gå ut i fra at denne filen er ferdig og reverifisere den fordi du har ennå ingen partielle verifikasjons data, slik som tiger-tree innhold, eDonkey hashset eller BitTorrent hashset. Uten verifikasjons-data kan ikke filen reverifiseres."/>
+	<string id="20236" value="Er du sikker på at du vil gå ut i fra at denne filen er ferdig og reverifisere den? Hele filen vil betraktes, PeerProject vil godta deler som blit verifiserte og laste ned nye deler for de som feilet verifiseringen."/>
+	<string id="20237" value="Er du helt sikker på at du vil glemme alle kildene til denne nedlastingen?"/>
+	<string id="20238" value="Er du sikker på at du vil glemme nåværende verifiseringsposisjon?  Alle data som blir lastet ned vil bli sett på som usikre og cachede hashtrees og hash-sets vil bli fjernet."/>
+	<string id="20240" value="Slettet %I64i byte fra nedlastingen."/>
+	<string id="20241" value="Du har gjort endringer i navnefeltet. Er du sikker på at du vil endre navnet på denne nedlastingen?"/>
+	<string id="20242" value="Nedlastingsvert %s har ikke filene &quot;%s&quot;."/>
+	<string id="20243" value="Lager fil &quot;%s&quot; for nedlasting."/>
+	<string id="20244" value="Klarte ikke å lage fil &quot;%s&quot; for nedlasting, avbryter."/>
+	<string id="20245" value="klarte ikke å åpne fil &quot;%s&quot; for nedlasting, avbryter."/>
+	<string id="20246" value="Ingen flere nedlastings-fragmenter, lukker kobling til %s."/>
+	<string id="20247" value="Fragment forkortet, lukker kobling til %s."/>
+	<string id="20248" value="Forespør nedlastings-fragment (%I64u-%I64u) av &quot;%s&quot; from %s."/>
+	<string id="20250" value="Drag'n'drop filer til %s gruppen."/>
+	<string id="20251" value="Standard nedlasting gruppe. (Vis alle filer)"/>
+	<string id="20253" value="Nedlastingsvertens eDonkey2000 hashset er korrupt eller ugyldig, dropper kilden."/>
+	<string id="20254" value="Mottok ugyldig eDonkey2000 hashset fra %s, dropper kilden."/>
+	<string id="20255" value="Mottok eDonkey2000 hashset for &quot;%s&quot;, minimalt akseptert del %s."/>
+	<string id="20256" value="Sender forespørsel etter eDonkey2000 hashset for &quot;%s&quot; fra %s..."/>
+	<string id="20257" value="klarte ikke å starte inflate for nedlasting &quot;%s&quot;."/>
+	<string id="20258" value="Mottar tiger-tree data fra %s (%s)..."/>
+	<string id="20259" value="Sender forespørsel etter metadata til &quot;%s&quot; fra %s..."/>
+	<string id="20261" value="Nedlastingsvert %s svarte med %s (%s)."/>
+	<string id="20262" value="Nedlastingsvert %s svarte med et ugyldig HTTP svar."/>
+	<string id="20263" value="Verten %s hjelper aktivt nedlasting &quot;%s&quot;, godtar."/>
+	<string id="20264" value="Sender push-forespørsel for nedlasting &quot;%s&quot;..."/>
+	<string id="20265" value="Nedlastingsvert %s er opptatt, venter i kø, i posisjon #%i of %i (&quot;%s&quot;.."/>
+	<string id="20266" value="Blir i køen for &quot;%s&quot;."/>
+	<string id="20267" value="Lukker nedlastingskilde %s for &quot;%s&quot; fordi kø posisjonen %i er for høy."/>
+	<string id="20268" value="Mistet kobling i kø for oppdatering fra eDonkey2000 nedlastingsvert %s for fil &quot;%s&quot;."/>
+	<string id="20269" value="Nedlastingsforespørsel til %s timed out, lukker kobling."/>
+	<string id="20270" value="Fjernet nedlasting &quot;%s&quot;."/>
+	<string id="20271" value="Flyttet &quot;%s&quot; til &quot;%s&quot;, nedlasting ferdig."/>
+	<string id="20272" value="Pauser nedlastingen av &quot;%s&quot;."/>
+	<string id="20273" value="Starter nedlastingen av &quot;%s&quot;."/>
+	<string id="20274" value="Aksepterer &quot;%s&quot; å laste ned &quot;%s&quot;..."/>
+	<string id="20275" value="Søker etter flere kilder for nedlasting &quot;%s&quot; på %i koblingen(e)..."/>
+	<string id="20276" value="Kan ikke finne flere kilder til nedlasting &quot;%s&quot; fordi det er ingen nettverkskoblinger."/>
+	<string id="20280" value="Nedlastingsvertens tiger-tree data er ugyldig eller ødelagt, ignorerer det."/>
+	<string id="20281" value="Nedlastingsvertens tiger-tree ligner ikke på ventet rotverdi."/>
+	<string id="20282" value="Nedlastingsvert %s klarte ikke å tilfredstille tiger-tree anmodning."/>
+	<string id="20283" value="Mottok tiger-tree innhold til &quot;%s&quot;, %i levels, minimalt akseptert del %s."/>
+	<string id="20284" value="Mottar tiger-tree kvantum fra %s (%s)..."/>
+	<string id="20285" value="Anmoder tiger tree kvantum for &quot;%s&quot; fra %s..."/>
+	<string id="20286" value="Lukker nedlastings-kobling %s p.g.a mangel på trafikk."/>
+	<string id="20290" value="Nedlastingsverten %s svarte med en annen, men med brukende utvalg (%I64i-%I64i) of &quot;%s&quot;."/>
+	<string id="20291" value="Mottok en unødvendig push kobling fra %s."/>
+	<string id="20292" value="Dropper kilde %s (%s) etter å ha mottat ugyldige deler av &quot;%s&quot; (%I64i-%I64i)."/>
+	<string id="20293" value="ADVARSEL: Nedlasting &quot;%s&quot; ikke verifisert, det kan være at dette ikke er den filen du ville ha!"/>
+	<string id="20294" value="Har verifisert nedlasting &quot;%s&quot;."/>
+	<string id="20295" value="Nedlastingsvert %s's versjon av &quot;%s&quot; har forskjellig URN, avbryter."/>
+	<string id="20296" value="Nedlastingsvert %s svarte med en ubrukelig byte range av &quot;%s&quot;, venter."/>
+	<string id="20297" value="Nedlastingsvert %s's versjon av &quot;%s&quot; har forskjellig lengde, avbryter."/>
+	<string id="20300" value="Godta innkommende koblinger fra %s port %i."/>
+	<string id="20301" value="Allerede koblet til %s, vil ikke starte en ny kobling."/>
+	<string id="20302" value="Nekter dobbel kobling fra  %s."/>
+	<string id="20303" value="Starter en kobling til nabo på %s port %i..."/>
+	<string id="20304" value="Nabo %s lukket koblingen (%i : %s)."/>
+	<string id="20305" value="Kobling lukket med nabo %s."/>
+	<string id="20306" value="Etablerte kobling med nabo %s starter håndtrykk..."/>
+	<string id="20307" value="Klarte ikke å starte kobling til nabo med %s."/>
+	<string id="20308" value="Nabo %s mistet uventet koblingen."/>
+	<string id="20309" value="Lukket kobling til nabo %s fordi det er ikke en hub."/>
+	<string id="20310" value="Klarte ikke å starte kobling til nabo med %s (avslått)."/>
+	<string id="20311" value="Mistet kommunikasjon med koblingen på %s."/>
+	<string id="20312" value="Lukker kobling til nabo %s p.g.a. mangel av trafikk ."/>
+	<string id="20313" value="Oppdaterer vert-oppdagelsestjeneste..."/>
+	<string id="20314" value="Oppdagelsestjeneste &quot;%s&quot; feilet, feil count %i."/>
+	<string id="20315" value="Oppdagelsestjeneste &quot;%s&quot; har feilet %i ganger, fjerner."/>
+	<string id="20316" value="Oppdaterer oppdagelsestjeneste &quot;%s&quot;..."/>
+	<string id="20317" value="Sender GWebCache &quot;%s&quot; til vilkårlig GWebCache..."/>
+	<string id="20318" value="Sender GWebCache-oppdatering til tjeneste &quot;%s&quot;..."/>
+	<string id="20319" value="GWebCache overføring fullført (&quot;%s&quot;.."/>
+	<string id="20320" value="Innkommende kobling fra %s er en eDonkey2000 klient link."/>
+	<string id="20321" value="Mottok ugyldig formatert eDonkey2000 pakke fra %s (id=%x)."/>
+	<string id="20322" value="eDonkey2000 klient koblingen til %s var passiv, lukket."/>
+	<string id="20323" value="Starter en eDonkey2000 klientkobling til %s..."/>
+	<string id="20324" value="Mistet kobling til eDonkey2000 klient %s."/>
+	<string id="20325" value="Nekter eDonkey2000 klient linken fra %s fordi eDonkey2000 er skrudd av."/>
+	<string id="20326" value="eDonkey2000 klient koblingen til %s ble lukket."/>
+	<string id="20327" value="Feil ved håndtrykk med eDonkey2000 klient %s."/>
+	<string id="20328" value="Mistet håndtrykk med eDonkey2000 klient %s."/>
+	<string id="20329" value="Sender eDonkey2000 hashset for &quot;%s&quot; til %s..."/>
+	<string id="20330" value="eDonkey2000 klienten %s har feil GUID, Avbryter håndtrykk."/>
+	<string id="20331" value="Denne filen finnes allerede i nedlastingslisten."/>
+	<string id="20332" value="Klarte ikke å åpne .part fil &quot;%s&quot;."/>
+	<string id="20333" value="Ferdig med å kopiere filen."/>
+	<string id="20334" value="Kopierer &quot;%s&quot; til &quot;%s&quot;..."/>
+	<string id="20335" value="Ikke nok plass på pc-en til å kopiere filen."/>
+	<string id="20336" value="PeerProject's partielle nedlasting, %s gjenstår."/>
+	<string id="20337" value="Klarte ikke å importere filen."/>
+	<string id="20338" value="Nedlastings data-filen er nyere enn .part filen, avbryter."/>
+	<string id="20339" value="Fant partiell fil &quot;%s&quot;, importerer..."/>
+	<string id="20340" value="Prosess ferdig, %i partiell nedlasting importert uten feil."/>
+	<string id="20341" value="Scanner mappe: &quot;%s&quot;..."/>
+	<string id="20342" value="Starter eDonkey2000 partiell nedlastings import prosess..."/>
+	<string id="20344" value="Fant nedlasting &quot;%s&quot;, størrelse %s."/>
+	<string id="20345" value="Koblet til eDonkey2000 tjener %s, starter håndtrykk..."/>
+	<string id="20346" value="Starter kobling til eDonkey2000-tjener ved %s..."/>
+	<string id="20347" value="eDonkey2000 tjener %s endret klient ID-en fra %lu til %lu."/>
+	<string id="20348" value="eDonkey2000 tjener %s identifiserte seg som &quot;%s&quot;."/>
+	<string id="20349" value="ED2K[%s] %s"/>
+	<string id="20350" value="eDonkey2000 tjener %s online, klient ID er %lu."/>
+	<string id="20351" value="eDonkey2000 tjener %s nektet tilkobling."/>
+	<string id="20352" value="eDonkey2000 tjener %s nektet tilkobling."/>
+	<string id="20354" value="Egenskaper"/>
+	<string id="20355" value="Er du sikker på at du vil slette dette filteret?"/>
+	<string id="20356" value="Det er allerede et filter som heter &quot;%s&quot;, ønsker du å overskrive det?"/>
+	<string id="20358" value="Vennligst gi filteret et navn."/>
+	<string id="20361" value="Nedlastingsbåndbredde"/>
+	<string id="20362" value="Antall nedlastede filer"/>
+	<string id="20363" value="Antall nedlastingsoverføringer"/>
+	<string id="20364" value="Gnutella mottaksbåndbredde"/>
+	<string id="20365" value="Gnutella overføringsbåndbredde"/>
+	<string id="20366" value="Gnutella koblinger (Totalt)"/>
+	<string id="20367" value="Gnutella koblinger (Aktive)"/>
+	<string id="20368" value="Gnutella-pakker dropped"/>
+	<string id="20369" value="Gnutella-pakker mistet"/>
+	<string id="20370" value="Gnutella-pakker mottatt"/>
+	<string id="20371" value="Gnutella-pakker overført"/>
+	<string id="20374" value="Gnutella lokale forespørsler"/>
+	<string id="20375" value="Gnutella-pakker routed"/>
+	<string id="20376" value="Total generisk mottaksbåndbredde"/>
+	<string id="20377" value="Total generisk overføringsbåndbredde"/>
+	<string id="20378" value="Total TCP mottatt båndbredde"/>
+	<string id="20379" value="Total TCP overført bånbredde"/>
+	<string id="20380" value="Total UDP mottatt båndbredde"/>
+	<string id="20381" value="Total UDP overført båndbredde"/>
+	<string id="20382" value="Opplastingsbåndbredde"/>
+	<string id="20384" value="Antall opplastinger"/>
+	<string id="20385" value="Tilkoblet nabo %s går tilbake til vernet leaf mode."/>
+	<string id="20386" value="Lukker overskuddskobling fra %s med vert-hint (%s port %i)."/>
+	<string id="20387" value="Hub nabo %s vil ikke godta oss som hub, lukker kobling."/>
+	<string id="20388" value="Håndtrykk med %s feilet p.g.a ugyldige data på nettet."/>
+	<string id="20389" value="kjører som hub for leaf naboer %s."/>
+	<string id="20390" value="Hub-kobling startet, lukker peer kobling."/>
+	<string id="20391" value="Nekter kobling fra %s fordi dette er en vernet leaf node."/>
+	<string id="20392" value="Nabo %s er ikke hub, lukker kobling."/>
+	<string id="20393" value="Lukker kobling til ikke-Gnutella2 nabo %s."/>
+	<string id="20394" value="Nabo %s vil være hub, lukker kobling."/>
+	<string id="20395" value="Gnutella kobling med nabo %s startet (G%i.%i : %s)."/>
+	<string id="20396" value="Gnutella2-kobling med nabo %s vellyket opprettet (%s)."/>
+	<string id="20397" value="Kobling til %s avvist (%s)."/>
+	<string id="20398" value="Lukker overskuddskobling fra %s."/>
+	<string id="20399" value="Mistet håndtrykk med %s."/>
+	<string id="20400" value="PeerProject lager hash for %Iu filer:"/>
+	<string id="20410" value="Utforsker mine filer."/>
+	<string id="20411" value="Utforsker"/>
+	<string id="20412" value="Utforske innholdet i %i mapper"/>
+	<string id="20413" value="%i filer valgt"/>
+	<string id="20414" value="Flere mapper"/>
+	<string id="20415" value="Ingen filer valgt"/>
+	<string id="20416" value="Gi filen karakter"/>
+	<string id="20417" value="Nye..."/>
+	<string id="20425" value="PeerProject klarte ikke å legge inn samlings-filen &quot;%s&quot; ved  kopiere den til mappe &quot;%s&quot;."/>
+	<string id="20426" value="Vil du laste ned alle filene i denne samlingen?\n\nVelg avbryt for å slippe flere spørsmål."/>
+	<string id="20427" value="PeerProject har lagt samlings-filen &quot;%s&quot; til mine filer."/>
+	<string id="20428" value="PeerProject mottok en samlings-fil:\n\n&quot;%s&quot;.\n\nDette ser ikke ut som en gyldig samlings-fil."/>
+	<string id="20429" value="Vil du sette en stopp på denne samlingen slik at du slipper flere spørsmål om å laste ned mer"/>
+	<string id="20430" value="Er du sikker på at du vil åpne denne filen &quot;%s&quot; ?\n\nNoen filer kan være skadelige for pc-en. Forsikre deg om at du vet hva filen er før du åpner den."/>
+	<string id="20431" value="Er du sikker på at du vil slette %i valgte fil(er) ?\n\nFilene vil bli sendt til din &quot;papirkurv&quot; hvis den er skrudd på."/>
+	<string id="20432" value="PeerProject klarte ikke å slette filen:\n\n%s"/>
+	<string id="20433" value="Din nedlastingsmappe &quot;%s&quot; er ikke i mine filer ennå.\n\nÅ inkludere din nedlastings mappe i mine filer gjør det lettere å se og organisere nye filer, dette lar deg også ta i bruk verifisering og automatisk oppdatering. Å lagre filer i mine filer betyr ikke at du må dele dem: du kan selv velge om du vil dele dem eller ikke.\n\nVil du legge til din nedlastingsmappe i mine filer nå?"/>
+	<string id="20434" value="Din nedlastingsmappe er lagt til i mine filer. Vil du dele den også?"/>
+	<string id="20435" value="Du har ikke valgt en mediaspiller å sende filer i kø til. Vil du velge en nå?\n\nPeerProject kan sende navnet til filen ved hjelp av &quot;/Legg til&quot; kommandoen."/>
+	<string id="20436" value="Er du sikker på at du vil slette %i valgte mappe(r) ?\n\nDette sletter ikke filene, kun mappen(e) filene er i."/>
+	<string id="20438" value="Endrer metadata til %i filer."/>
+	<string id="20439" value="Du prøver å endre metadataene til %i filer, er du sikker på at du vil fortsette?"/>
+	<string id="20440" value="Kan ikke flytte filen %s. Filen kan være i bruk av et annet program.\n\nVil du forsøke å kopiere filen i stedet?"/>
+	<string id="20441" value="PeerProject klarte ikke å endre navnet:\n\n%s\nto\n%s"/>
+	<string id="20442" value="Denne filen finnes allerede:\n\n%s\n\nVil du skrive over den?"/>
+	<string id="20443" value="Vis alle fil-typer"/>
+	<string id="20444" value="Kopier &URI"/>
+	<string id="20445" value="Eksporter &URI'er..."/>
+	<string id="20446" value="Filen &quot;%s&quot; klarte ikke hash godkjennings-testen, og det kan være at det ikke er den filen du er ute etter.  Er du sikker på at du vil åpne den?"/>
+	<string id="20447" value="Vil du fjerne den &quot;potensielt usikkre&quot; egenskapen til denne filen?"/>
+	<string id="20448" value="Filen &quot;%s&quot; er ikke hashet. Vennligst vent til filen er hashet og prøv på nytt."/>
+	<string id="20449" value="Dette valget bruker Bitzi.com for å finne informasjon om valgte filer.\n\nPeerProject sender SHA1 hash koden til den valgte filen for å søke i Bitzi databasen. Hvis du er redd for å dele slik informasjon, kan du lese Bitzi.com's retningslinjer for personopplysninger.\n\nVil du fortsette?"/>
+	<string id="20450" value="Mappen for fullstendige filer og mappen for ufullstendige filer bør ikke være den samme"/>
+	<string id="20451" value="Det er ingen filer som spilles av. Dobbelt-klikk på en av dine filer for å spille av."/>
+	<string id="20452" value="Alle media filer|*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Playlists|*.asx;*.wax;*.m3u;*.wvx;*.wmx|Audio Files|*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm|Video Filer|*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|CD lyd Tracks|*.cda|MIDI filer|*.mid;*.rmi;*.midi|Alle filer|*.*||"/>
+	<string id="20453" value="Klarte ikke å åpne media fil &quot;%s&quot;"/>
+	<string id="20454" value="Denne filen kan være ødelagt, eller så kan det være at du ikke har rett codec til å spille den av med."/>
+	<string id="20455" value="Deler av denne filen kunne ikke spilles av, du bør kanskje laste ned ekstra codec."/>
+	<string id="20456" value="Spilleliste"/>
+	<string id="20457" value="PeerProject klarte ikke å starte pluginfunksjonen for mediafiler. Vennligst installer PeerProject på nytt og kontroller at du har tilstrekkelige codec og drivere installert."/>
+	<string id="20460" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
+	<string id="20461" value="(Visualisering av)"/>
+	<!--string id="20462" value="PeerProject er ferdig med å laste ned:"-->
+	<!--string id="20463" value="PeerProject laster ned:"-->
+	<!--string id="20464" value="PeerProject flytter filen."-->
+	<!--string id="20465" value="Denne nedlastingen er pauset:"-->
+	<!--string id="20466" value="PeerProject søker etter kilder til:"-->
+	<!--string id="20467" value="PeerProject sjekker om det finnes feil på filen:"-->
+	<string id="20470" value="Avbryt"/>
+	<string id="20471" value="Åpne"/>
+	<string id="20472" value="Ferdig"/>
+	<string id="20473" value="Estimert tid igjen:"/>
+	<string id="20474" value="Antall reviews:"/>
+	<string id="20475" value="Antall kilder:"/>
+	<string id="20476" value="Ingen kilder"/>
+	<string id="20477" value="%i dager og %i timer"/>
+	<string id="20478" value="%i timer og %i minutter"/>
+	<string id="20479" value="%i minutter og %i sekunder"/>
+	<string id="20480" value="%i sekunder"/>
+	<string id="20481" value="Hastighet:"/>
+	<string id="20482" value="Lastet ned:"/>
+	<string id="20483" value="Lastet opp:"/>
+	<string id="20484" value="Begrens nedlastingshastighet"/>
+	<string id="20485" value="Begrens opplastingshastigheten"/>
+	<string id="20490" value="Sammensatt"/>
+	<string id="20491" value="Sammensatte verdier"/>
+	<string id="20494" value="Du har ikke angitt hvor du er fra i bruker profilen din.\n\nDet er en god idé å angi hvor du er fra slik at andre kan se hvor de er koblet til. Dette vil ikke gjøre noe utslag på din sikkerhet.\n\nEr du sikker på at du vil fortsette uten å angi sted?"/>
+	<string id="20495" value="Du har ikke valgt et navn i din bruker profil."/>
+	<string id="20496" value="Du har ikke valgt alder og kjønn.  Er du sikker på at du vil fortsette?"/>
+	<string id="20499" value="Ny Mappe"/>
+	<string id="20500" value="Klikk på Koble til-knappen for å starte."/>
+	<string id="20501" value="Du er ikke koblet til nettverket."/>
+	<string id="20502" value="Lukker"/>
+	<string id="20503" value="Kompressjon:"/>
+	<string id="20504" value="Redusere"/>
+	<string id="20505" value="Ingen"/>
+	<string id="20506" value="Oppretter kobling"/>
+	<string id="20507" value="I øyeblikket:"/>
+	<string id="20510" value="eDonkey2000 Server kobling"/>
+	<string id="20511" value="eDonkey2000 (HighID)"/>
+	<string id="20512" value="eDonkey Server kobling (LOWID: %lu)"/>
+	<string id="20513" value="eDonkey2000 (LowID)"/>
+	<string id="20514" value="eDonkey2000 Server"/>
+	<string id="20515" value="G1 Leaf"/>
+	<string id="20516" value="G1 Peer"/>
+	<string id="20517" value="Gnutella: Peer-to-Peer kobling"/>
+	<string id="20518" value="Gnutella: Leaf-to-Ultrapeer kobling"/>
+	<string id="20519" value="Gnutella: Ultrapeer-to-Leaf kobling"/>
+	<string id="20520" value="G1 Ultrapeer"/>
+	<string id="20521" value="G2 Hub"/>
+	<string id="20522" value="G2 Leaf"/>
+	<string id="20524" value="G2 Peer"/>
+	<string id="20525" value="Gnutella2: Leaf-to-Hub kobling"/>
+	<string id="20526" value="Gnutella2: Hub-to-Hub kobling"/>
+	<string id="20527" value="Gnutella2: Hub-to-Leaf kobling"/>
+	<string id="20530" value="Håndtrykk"/>
+	<string id="20531" value="Foretar håndtrykk"/>
+	<string id="20532" value="Inngående"/>
+	<string id="20533" value="Utgående"/>
+	<string id="20534" value="Totalt:"/>
+	<string id="20535" value="Rate:"/>
+	<string id="20536" value="Avvist"/>
+	<string id="20538" value="Ukjent"/>
+	<string id="20540" value="Koble til"/>
+	<string id="20541" value="Kobler til..."/>
+	<string id="20542" value="Koblet til"/>
+	<string id="20543" value="Koble fra"/>
+	<string id="20544" value="Skrur av PeerProjects nettverkkjerne..."/>
+	<string id="20545" value="Koblet fra nettverket."/>
+	<string id="20546" value="Er du sikker på at du vil koble fra?"/>
+	<string id="20547" value="Gnutella2 er hovednettverket til PeerProject. Hvis du skrur det av kan det være at du får både lavere antall søkeresultat og lavere kvalitet på filene. Er du sikker på at du vil gjøre dette?"/>
+	<string id="20548" value="Klarer ikke å binde %s port %i for innkommende koblinger. Innkommende koblinger kan ikke støttes."/>
+	<string id="20549" value="Klarer ikke å avgjøre %s for utgående koblinger. Utgående koblinger vil bruke normal grensesnitt."/>
+	<string id="20550" value="Din utgende bndbresse er for lav for  kunne bruke dette nettverket"/>
+	<string id="20551" value="Blokkert av brannmur, lytter ikke etter innkommende koblinger."/>
+	<string id="20552" value="Å tvinge pc-en til å være hub kan påvirke evnen til å utnytte nettverket. Det er generelt bedre å la PeerProject velge. \n\nHub modus gir IKKE bedre søkeresultat, det hjelper heller ikke på noen annen måte.\n\nEr du helt sikker på at du vil gjøre dette?"/>
+	<string id="20553" value="Godtar innkommende TCP koblinger på %s port %i."/>
+	<string id="20554" value="Lytter etter UDP datagram på %s port %i."/>
+	<string id="20555" value="Utgående koblinger vil være fra %s port %i."/>
+	<string id="20556" value="Klarer ikke å fastsette vert &quot;%s&quot;."/>
+	<string id="20557" value="Fastsetter vert &quot;%s&quot;..."/>
+	<string id="20558" value="Sender forespørsel for &quot;%s&quot; til %s."/>
+	<string id="20560" value="Adressen %s er allerede blokert i sikkerhetsreglene."/>
+	<string id="20561" value="La til ny sikkerhetsregel for å blokkere %s."/>
+	<string id="20562" value="Sikkerhetsinnstillingene nektet kobling fra %s."/>
+	<string id="20563" value="Sikkerhetsinnstillingene blokkerte kobling til %s."/>
+	<string id="20564" value="Starter PeerProjects nettverkskjerne..."/>
+	<string id="20570" value="Mottok et feil formatert spørre-treff-pakke fra %s, ignorerer."/>
+	<string id="20571" value="%s:  Mottok et feil formatert spørrepakke fra %s, ignorerer."/>
+	<string id="20572" value="Nabo %s videresendte en pakke med overdrevet TTL, dropper pakke (TTL=%i, Hops=%i)."/>
+	<string id="20573" value="Nabo %s videresendte en pakke med null TTL, ignorerer."/>
+	<string id="20574" value="Nabo %s videresendte en utvidet pakke som ikke er GGEP kodet."/>
+	<string id="20575" value="Nabo %s sendte en ugyldig spøøre-routingtabell-oppdatering, dropper kobling."/>
+	<string id="20576" value="Sender spørre-routingtabell til nabo %s (%i bit = %lu[%i], %i%% full)"/>
+	<string id="20577" value="Mottar en uventet spørre-routingtabell-oppdatering fra nabo  %s."/>
+	<string id="20578" value="Nabo %s oppdaterte sin spøøre-routingtabell (%i bit = %lu[%i], %i%% full)."/>
+	<string id="20579" value="%s -> %s [%i/%i] %s %s"/>
+	<string id="20580" value="Leaf nabo %s videresender spørringer, lukker kobling."/>
+	<string id="20581" value="Nabo %s videresendte en ping-pakke med ugyldig lengde, ignorerer."/>
+	<string id="20582" value="Nabo %s videresendte en pong-pakke med ugyldig lengde, ignorerer."/>
+	<string id="20583" value="Nabo %s videresendte en push-pakke med ugyldig lengde, ignorerer."/>
+	<string id="20584" value="Nabo %s videresendte en overdreven stor pakke, lukker kobling."/>
+	<string id="20585" value="Nabo %s videresendte en ukjent pakke (0x%.2x), ignorerer."/>
+	<string id="20586" value="Nabo %s videresendte et pong med ugyldig adresse data, ignorerer."/>
+	<string id="20588" value="Nabo %s videresendte en push-anmodning til en adresse bak brannmur, ignorerer."/>
+	<string id="20590" value="Fjern konsoll er AV."/>
+	<string id="20591" value="http://%s:%i/remote - velge et brukernavn og et passord."/>
+	<string id="20592" value="Klarte ikke  motta tilkoblinger, URL ikke tilgjengelig."/>
+	<string id="20595" value="&amp;Skjemaer"/>
+	<string id="20620" value="PeerProject søker aktivt på nettverket..."/>
+	<string id="20621" value="Klikk her for å søke på nytt."/>
+	<string id="20622" value="Alle nettverk"/>
+	<string id="20623" value="Du skal til å starte et nytt søk. Vil du fjerne resultatene fra forrige søk?"/>
+	<string id="20624" value="Dette området viser mer informasjon om filene du velger."/>
+	<string id="20625" value="%s skriver:"/>
+	<string id="20626" value="%s karaktersetter denne filen:"/>
+	<string id="20627" value="Klikk for å forhåndsvise"/>
+	<string id="20628" value="Forhåndsviser..."/>
+	<string id="20629" value="Klarte ikke å laste ned forhåndsvisning fra &quot;%s&quot;."/>
+	<string id="20630" value="Det finnes %i anmeldelser."/>
+	<string id="20631" value="Det finnes en anmeldelse."/>
+	<string id="20632" value="%i kilder er tilgjengelige. (%s/s)"/>
+	<string id="20633" value="En kilde er tilgjengelig. (%s/s)"/>
+	<string id="20634" value="Det ble ikke funnet noe på nettverket."/>
+	<string id="20635" value="Det ble funnet noen filer, men de ble filtrert ut."/>
+	<string id="20636" value="Det er ingen søk som er startet ennå."/>
+	<string id="20637" value="Ingen metadata"/>
+	<string id="20640" value="(Fjern søkelogg)"/>
+	<string id="20641" value="Søk med PeerProject"/>
+	<string id="20642" value="Hva slags filtype er det?"/>
+	<string id="20643" value="Skriv inn hva du ønsker å lete etter:"/>
+	<string id="20644" value="Avansert"/>
+	<string id="20645" value="Alle filtyper"/>
+	<string id="20646" value="Fjern søk"/>
+	<string id="20648" value="Skjul søkevindu"/>
+	<string id="20650" value="Søk"/>
+	<string id="20651" value="Skriv inn søkeord her:"/>
+	<string id="20652" value="Søk etter denne typen fil:"/>
+	<string id="20653" value="Nettverket:"/>
+	<string id="20654" value="Filstørrelsen Min:"/>
+	<string id="20655" value="Filstørrelsen Max:"/>
+	<string id="20656" value="Søk mer"/>
+	<string id="20657" value="Vis søkevindu"/>
+	<string id="20658" value="Start søk"/>
+	<string id="20659" value="Stopp"/>
+	<string id="20660" value="Ingen filer funnet"/>
+	<string id="20661" value="%lu hubs, %lu leaves"/>
+	<string id="20662" value="Søker ikke"/>
+	<string id="20663" value="Resultat"/>
+	<string id="20664" value="%lu fil i %lu treff|%lu fil i %lu treff|%lu filer i %lu treff"/>
+	<string id="20665" value="Funnet:"/>
+	<string id="20666" value="Søker:"/>
+	<string id="20668" value="Søker..."/>
+	<string id="20669" value="Ren tekst søk"/>
+	<string id="20670" value="PeerProject søker på nettverket..."/>
+	<string id="20673" value="Automatisk"/>
+	<string id="20674" value="Mappen for ufullstendige filer bør ikke være i biblioteket, ettersom det vil senkt ytelsen. Ufullstendige filer kan deles direkte fra overføringsvinduet."/>
+	<string id="20675" value="Windows støtter ikke filbaner langre enn 256 tegn.\nVennligst angi en mappe med kortere filbane."/>
+	<string id="20676" value="En undermappe av den valgte mappen &quot;%s&quot; er allerede en del av biblioteket ditt.\nÅ legge til denne mapen vil føre til re-hashing av noen filer.\n\nØnsker du å fortsette?"/>
+	<string id="20677" value="Vennligst velg hvilket format du vil ha på grensen for båndbredden  &quot;123 kb/s&quot; for kilobits per sekund, eller &quot;123 KB/s&quot; for kilobytes per sekund."/>
+	<string id="20678" value="eDonkey-nettverket har lange køer med lange ventetider. Ved å begrense den maksimale akseptable køposisjonen så strengt, kan du få problemer med å få nedlastinger til å begynne.\nEr du sikker på at du vil begrense hvilken køposisjon du vil akseptere?"/>
+	<string id="20680" value="Innstillinger"/>
+	<string id="20684" value="Er du sikker på at du vil slette dette &quot;%s&quot; skinnet? Det kan ikke gjenopprettes."/>
+	<string id="20700" value="Aktiv"/>
+	<string id="20701" value="%s inn : %s ut (d:%I64i/u:%I64i)"/>
+	<string id="20702" value="Koblet til %lu nabo(er).  %s lokalt."/>
+	<string id="20703" value="Hub-modus med %lu nabo(er). %s i lokalt bibliotek."/>
+	<string id="20704" value="Hub/Ultrapeer-modus med %lu nabo(er).  %s in local library."/>
+	<string id="20705" value="Tilkoblet. %s i lokalt bibliotek."/>
+	<string id="20706" value="Ultrapeer-modus med %lu nabo(er).  %s in local library."/>
+	<string id="20707" value="Kobler til nettverket..."/>
+	<string id="20708" value="Ikke koblet til nettverket."/>
+	<string id="20710" value="(Ingen kilder)"/>
+	<string id="20711" value="Kan ikke flytte"/>
+	<string id="20712" value="Kvalt"/>
+	<string id="20713" value="Settes i kø"/>
+	<string id="20714" value="Filfeil"/>
+	<string id="20715" value="Hashsett"/>
+	<string id="20716" value="Metadata"/>
+	<string id="20717" value="Respons"/>
+	<string id="20718" value="Flytter"/>
+	<string id="20719" value="Lager"/>
+	<string id="20720" value="Ferdig"/>
+	<string id="20721" value="Kobler til"/>
+	<string id="20722" value="Laster ned"/>
+	<string id="20723" value="Opptatt"/>
+	<string id="20724" value="Neste"/>
+	<string id="20725" value="K"/>
+	<string id="20726" value="I kø"/>
+	<string id="20727" value="Pause"/>
+	<string id="20728" value="Venter"/>
+	<string id="20729" value="Anmoder"/>
+	<string id="20730" value="Søker"/>
+	<string id="20731" value="Sprer"/>
+	<string id="20732" value="kilde"/>
+	<string id="20733" value="kilder"/>
+	<string id="20734" value="kilder"/>
+	<string id="20735" value="kilder"/>
+	<string id="20740" value="TigerTree"/>
+	<string id="20741" value="Torrent"/>
+	<string id="20742" value="Tracker nede"/>
+	<string id="20743" value="Uinteressert"/>
+	<string id="20744" value="Ukjent"/>
+	<string id="20745" value="Uinteressert"/>
+	<string id="20746" value="Ikke godkjent"/>
+	<string id="20747" value="Godkjent"/>
+	<string id="20748" value="Verifiserer"/>
+	<string id="20750" value="!Velkommen til PeerProject (version) !\n.\nPeerProject er helt gratis software.\nVennligst vis ansvar og respekt for materiell opphavsrett.\n."/>
+	<string id="20751" value="Det er ingen aktive søk. Klikk her for å søke etter filer."/>
+	<string id="20752" value="Du er ikke koblet til. Trykk på Koble til knappen for å starte."/>
+	<string id="20760" value="Aktiv"/>
+	<string id="20761" value="Inaktiv"/>
+	<string id="20762" value="Denne filen ser ut til å være spam."/>
+	<string id="20763" value="Svartelistet:"/>
+	<string id="20764" value="Du har lastet ned og slettet denne filen før."/>
+	<string id="20765" value="Du laster allerede ned denne filen."/>
+	<string id="20766" value="Du har allerede denne filen."/>
+	<string id="20767" value="Kilder til denne filen er for tiden opptatt"/>
+	<string id="20768" value="Kilder til denne filen er bak brannmurer"/>
+	<string id="20769" value="Kilder til denne filen kan være ustabile"/>
+	<string id="20770" value="Mappe"/>
+	<string id="20771" value="Treff"/>
+	<string id="20772" value="Sted"/>
+	<string id="20773" value="av ditt bibliotek"/>
+	<string id="20774" value="I/T"/>
+	<string id="20775" value="Neste..."/>
+	<string id="20776" value=" (Intet hashsett)"/>
+	<string id="20777" value="Delvis kilde (%.2f%% tilgjengelig)"/>
+	<string id="20778" value="%i opplastings slots, %i venter i kø"/>
+	<string id="20780" value="Str"/>
+	<string id="20781" value="Kilden er for tiden opptatt"/>
+	<string id="20782" value="Denne kilden er bak brannmur"/>
+	<string id="20783" value="Denne kilden kan være ustabil"/>
+	<string id="20784" value="Hastighet:"/>
+	<string id="20785" value="Status:"/>
+	<string id="20786" value="%lu i dag, %lu totalt"/>
+	<string id="20787" value="Totalt antall filer:"/>
+	<string id="20788" value="Totalt volum:"/>
+	<string id="20789" value="Opplastinger:"/>
+	<string id="20790" value="Type"/>
+	<string id="20792" value="opplastinger"/>
+	<string id="20793" value="URL:"/>
+	<string id="20794" value="Program:"/>
+	<string id="20795" value="%s inn : %s ut (d:%I64i/u:%I64i/s:%I64i)"/>
+	<string id="20798" value="PeerProject er ferdig med å laste ned den nyeste PeerProject versjonen (%s). Vil du oppgradere nå?\n\nHvis du velger JA, vil PeerProject lukkes for å fullføre oppgraderingen."/>
+	<string id="20800" value="Sender normalt HTML svar til opplastingsvert %s (%s)."/>
+	<string id="20801" value="Innkommende kobling fra %s er en HTTP opplastings forespørsel."/>
+	<string id="20802" value="Opplastingsvert %s (%s) sendte en utforsk-forespørsel, svarer..."/>
+	<string id="20803" value="Opplastingsvert %s er i blokkeringslisten, nekter forespørsel."/>
+	<string id="20804" value="Nekter utforsk forespørsel fra %s, for mange utforsk koblinger."/>
+	<string id="20805" value="Nektet utforsk bruker-forespørsel fra %s."/>
+	<string id="20806" value="Den ventende opplastingen %s sender for raske forespørsler, lukker kobling."/>
+	<string id="20807" value="Nekter opplasting av &quot;%s&quot; til %s (%s), for mange samlet fra en vert."/>
+	<string id="20808" value="Avviser opplasting av &quot;%s&quot; til %s (%s), opptatt og klienten støtter ikke kø."/>
+	<string id="20809" value="Nekter opplasting av &quot;%s&quot; til %s (%s), alle liknende køer er fulle."/>
+	<string id="20810" value="Opplastingsvertens %s spurte etter et ikke godkjent utvalg av filer &quot;%s&quot;."/>
+	<string id="20811" value="eDonkey2000 opplastinger bør ikke avbrytes. Er du sikker på at du vil avbryte denne opplastingen?"/>
+	<string id="20812" value="Kan ikke åpne &quot;%s&quot; for å laste opp til vert %s, disk/fil feil."/>
+	<string id="20813" value="Starter en push-kobling til %s. %s"/>
+	<string id="20814" value="Klarte ikke å koble til vert %s med push."/>
+	<string id="20815" value="Sender innhold %I64i-%I64fra &quot;%s&quot; til vert %s (%s)."/>
+	<string id="20816" value="Opplastings-kobling til %s ble lukket."/>
+	<string id="20817" value="Nekter ny opplasting til %s fordi en tidligere kobling fortsatt venter."/>
+	<string id="20818" value="Lukker eldre opplasting til %s fordi den har koblet opp på nytt."/>
+	<string id="20819" value="Nekter opplasting til %s (%s), nettverk skrudd av."/>
+	<string id="20820" value="Stengte opplasting &quot;%s&quot; til %s fordi filen var slettet."/>
+	<string id="20821" value="Laster opp filen &quot;%s&quot; til vert %s..."/>
+	<string id="20822" value="Opplastingsvert %s sendte forespørsel etter et ukjent objekt &quot;%s&quot;."/>
+	<string id="20823" value="Ferdig med å laste opp del av &quot;%s&quot; til %s."/>
+	<string id="20824" value="Push kobling til %s startet, venter på håndtrykk..."/>
+	<string id="20825" value="Opplastingsvert %s sendte forespørsel etter &quot;%s&quot; med ulik SHA1."/>
+	<string id="20826" value="Sender opplastingshoder fra &quot;%s&quot; til vert %s (%s)."/>
+	<string id="20827" value="Laster opp metadata for &quot;%s&quot; til %s."/>
+	<string id="20828" value="Opplastingsvert %s sente en ugyldig HTTP forespørsel."/>
+	<string id="20830" value="Sender innhold %I64i-%I64fra partiell fil &quot;%s&quot; til vert %s (%s)."/>
+	<string id="20832" value="Nekter å laste opp forhånsvisning av &quot;%s&quot; til %s, for mange forhåndsvisnings koblinger."/>
+	<string id="20833" value="Setter opp dynamisk forhåndsvisning av &quot;%s&quot; for å laste opp til %s."/>
+	<string id="20834" value="Opplastingsvert %s forespurte forhåndsvisning av &quot;%s&quot;, men filen kan ikke forhånsvises."/>
+	<string id="20835" value="Laster opp forhåndsvisning av &quot;%s&quot; til %s."/>
+	<string id="20836" value="Nekter push forespørsel til %s fordi den har for mange opplastings koblinger."/>
+	<string id="20837" value="Legacy push forespørsel fra %s forespurte en ukjent fil, kobler til likevel..."/>
+	<string id="20838" value="For opptatt til å laste opp &quot;%s&quot; til %s, satt i kø ved #%i av %i (&quot;%s&quot;.."/>
+	<string id="20840" value="Ny kø"/>
+	<string id="20841" value="Alle filer"/>
+	<string id="20842" value="Opplastingskobling til %s mistet, lagrer kø-posisjon."/>
+	<string id="20844" value="eDonkey Core"/>
+	<string id="20845" value="eDonkey Guard"/>
+	<string id="20846" value="eDonkey Partials"/>
+	<string id="20847" value="Ferdige opplastninger"/>
+	<string id="20848" value="HTTP Guard"/>
+	<string id="20850" value="Store filer"/>
+	<string id="20851" value="Middels filer"/>
+	<string id="20852" value="Små filer"/>
+	<string id="20853" value="Delvise filer"/>
+	<string id="20854" value="Delvis"/>
+	<string id="20855" value="Kø"/>
+	<string id="20856" value="Torrent-opplastninger"/>
+	<string id="20857" value="Offline opplastingsvert %s mistet koblingen, fjernes."/>
+	<string id="20858" value="Mistet kontakt med opplastingsvert %s."/>
+	<string id="20859" value="Lukker opplastingskobling %s på grunn av mangel på trafikk."/>
+	<string id="20860" value="Laster opp tiger-tree data for &quot;%s&quot; til %s."/>
+	<string id="20861" value="Fjernet opplasting av &quot;%s&quot; til %s."/>
+	<string id="20862" value="Legg til"/>
+	<string id="20864" value="_Utforsk"/>
+	<string id="20865" value="_Koble til"/>
+	<string id="20866" value="Filnavn:"/>
+	<string id="20867" value="Vert:"/>
+	<string id="20868" value="Port:"/>
+	<string id="20869" value="Kan ikke vise URL-dialogen fordi PeerProject er opptatt."/>
+	<string id="20870" value="Kan ikke motta URL: PeerProject gjenkjenner ikke denne URL."/>
+	<string id="20871" value="Mottar URL &quot;%s&quot;"/>
+	<string id="20872" value="Type:"/>
+	<string id="20874" value="Ikke spesifisert"/>
+	<string id="20875" value="URL:"/>
+	<string id="20880" value="Endre min profil"/>
+	<string id="20881" value="Når du endrer utseende vil alle åpne vinduer lukkes. Vil du endre nå?"/>
+	<string id="20884" value="URN ikke tilgjengelig"/>
+	<string id="20885" value="Forandring av grensesnittets retning krever omstart. \nDu må starte PeerProject på nytt manuelt. Avslutte nå?"/>
+	<string id="20890" value="Velkommen til PeerProject"/>
+	<string id="20891" value="Avslutt"/>
+	<string id="20895" value="Du har ikke spesifisert tilkoblingshastigheten. Før du fortsetter, vennligst velg din type internett tilkobling eller skriv inn tilkoblingshastigheten."/>
+	<string id="20896" value="Du har indikert at du vil sette opp port forwarding på din NAT-router eller brannmur.\n\nVennligst sett opp nettverket til å videresende TCP og UDP port %i til din lokale PC."/>
+	<string id="20897" value="Mappen du deler er allerede delt gjennom en annen delt mappe:\n\n%s"/>
+	<string id="20898" value="Du har ikke spesifisert hvilke mapper du vil dele. Er du sikker?"/>
+	<string id="20899" value="år gammel"/>
+	<!--string id="X16140" value="Nabo %s indekserer koblingene (krabber)."-->
+	<!--string id="X16149" value="Gnutella 0.6 håndtrykk med %s feilet, prøver 0.4."-->
+	<!--string id="X16771" value="Du har allerede filen &quot;%s&quot; i mine filer. Vil du laste den ned likevel?"-->
+	<!--string id="X16801" value="Vennligst velg hvilken internettilkobling du bruker før du fortsetter."-->
+	<!--string id="X17500" value="Trackeren svarte ikke- Prøver announce om igjen (%i av %i)"-->
 </strings>
 <!-- Localized Dialog Text, "cookie" verifies that the skin matches current dialog -->
 <dialogs>
@@ -3855,8 +3858,8 @@
 		<control/>
 		<control/>
 		<control/>
-		<control caption="% under Download limit"/>
-		<control caption="% under Upload limit"/>
+		<control caption="% of Download limit"/>
+		<control caption="% of Upload limit"/>
 		<control caption="Active Task"/>
 		<control caption="Enable G2 Only"/>
 		<control caption="Set Event Time"/>

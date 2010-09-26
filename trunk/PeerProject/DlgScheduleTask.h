@@ -81,11 +81,10 @@ protected:
 	virtual BOOL OnInitDialog();
 	virtual void OnOK();
 
-	afx_msg void OnBnClickedOnlyonce();
-	afx_msg void OnDtnDatetimechangeDate(NMHDR *pNMHDR, LRESULT *pResult);
-	afx_msg void OnDtnDatetimechangeTime(NMHDR *pNMHDR, LRESULT *pResult);
-	afx_msg void OnBnClickedEveryday();
 	afx_msg void OnCbnSelchangeEventType();
+	afx_msg void OnDtnDateTimeChange(NMHDR *pNMHDR, LRESULT *pResult);
+	afx_msg void OnBnClickedOnlyonce();
+	afx_msg void OnBnClickedEveryday();
 	afx_msg void OnBnClickedButtonAllDays();
 
 	DECLARE_MESSAGE_MAP()

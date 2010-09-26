@@ -129,7 +129,7 @@ CG1Neighbour::CG1Neighbour(CNeighbour* pBase)
 		pVendor->WriteShortLE( 0x0003 );
 		pVendor->WriteShortLE( 1 );
 
-		// Send the vendor-specific packet
+		// Send the vendor-specific packet	// ToDo: Is this right?
 		Send( pVendor );
 	}
 }
@@ -365,8 +365,7 @@ BOOL CG1Neighbour::OnPacket(CG1Packet* pPacket)
 // CG1Neighbour PING packet handlers
 
 // Takes the time right before this is called, and the same if this is called in a loop, and a fake GUID from the network object
-// Makes a ping packet and sends it to the remote computer
-// Returns false on error
+// Makes a ping packet and sends it to the remote computer, Returns false on error
 BOOL CG1Neighbour::SendPing(DWORD dwNow, const Hashes::Guid& oGUID)
 {
 	// We are a Gnutella ultrapeer and this connection is to a leaf below us, and we have a Gnutella ID GUID, report error
@@ -921,7 +920,6 @@ BOOL CG1Neighbour::OnVendor(CG1Packet* pPacket)
 			pReply->WriteShortLE( 1 );
 			Send( pReply ); // Send the reply packet to the remote computer
 		}
-
 	}
 	else if ( nVendor == 'RAZA' || nVendor == 'PEER')	// The vendor "RAZA" is Shareaza, and the function isn't 0xFFFF
 	{
@@ -1060,7 +1058,7 @@ void CG1Neighbour::SendClusterAdvisor()
 			i != HostCache.Gnutella1.End() && nCount < 20;
 			++i )
 		{
-			CHostCacheHost* pHost = (*i);
+			CHostCacheHostPtr pHost = (*i);
 
 			// If host is running PeerProject compatible, was added recently, and we can connect to it (do)
 			if ( pHost->m_pVendor && pHost->m_pVendor->m_bExtended &&	// If this host is running PeerProject/Shareaza, and
