@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default English Skin File -->
 
-<!-- Translation based on default-en.xml r59 -->
+<!-- Translation based on default-en.xml r60 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -32,7 +32,6 @@
 	<!-- MAIN WINDOW -->
 	<toolbar name="CMainWnd.Basic">
 		<button id="ID_NETWORK_CONNECT" text="Connect"/>
-		<button id="ID_VIEW_TABBED" text="Leave Basic Mode"/>
 		<separator/>
 		<button id="ID_TAB_HOME" text="Home"/>
 		<button id="ID_TAB_SEARCH" text="Search"/>
@@ -40,6 +39,8 @@
 		<button id="ID_TAB_LIBRARY" text="Library"/>
 		<button id="ID_TAB_MEDIA" text="Media"/>
 		<button id="ID_TAB_IRC" text="Chat"/>
+		<separator/>
+		<button id="ID_VIEW_TABBED" text="Leave Basic Mode"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Tabbed">
 		<button id="ID_TAB_CONNECT" text="Connect"/>
@@ -66,6 +67,7 @@
 		<button id="ID_VIEW_MEDIA"/>
 		<button id="ID_TAB_IRC"/>
 		<separator/>
+		<button id="ID_VIEW_SCHEDULER"/>
 		<button id="ID_VIEW_SECURITY"/>
 		<button id="ID_VIEW_HOSTS"/>
 		<button id="ID_VIEW_DISCOVERY"/>
@@ -534,7 +536,7 @@
 		<!--<item id="ID_MOVETAB_LAST" text="Move Tab L_ast"/>-->
 		<separator/>
 		<item id="ID_CHILD_MAXIMISE" text="_Full Screen"/>
- 		<item id="ID_CHILD_RESTORE" text="_Restore"/>
+		<item id="ID_CHILD_RESTORE" text="_Restore"/>
 		<item id="ID_CHILD_MINIMISE" text="_Minimize"/>
 		<separator/>
 		<item id="ID_CHILD_CLOSE" text="_Close Window"/>
@@ -575,7 +577,8 @@
 				<item id="ID_NETWORK_ED2K" text="Connect to _eDonkey2000"/>
 				<separator/>
 				<item id="ID_NETWORK_CONNECT_TO" text="Connect _To..." shortcut="Ctrl+T"/>
-				<item id="ID_NETWORK_BROWSE_TO" text="_Browse Host..."/>
+				<item id="ID_NETWORK_BROWSE_TO" text="_Browse User..."/>
+				<item id="ID_NETWORK_CHAT_TO" text="Chat with _User..."/>
 				<separator/>
 				<item id="ID_NETWORK_AUTO_CLOSE" text="Exit _After Transfers"/>
 				<item id="ID_NETWORK_EXIT" text="E_xit Immediately"/>
@@ -660,7 +663,8 @@
 			</menu>
 			<separator/>
 			<item id="ID_NETWORK_CONNECT_TO" text="Connect _To..." shortcut="Ctrl+T"/>
-			<item id="ID_NETWORK_BROWSE_TO" text="_Browse Host..."/>
+			<item id="ID_NETWORK_BROWSE_TO" text="_Browse User..."/>
+			<item id="ID_NETWORK_CHAT_TO" text="Chat with _User..."/>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="Exit _After Transfers"/>
 			<item id="ID_NETWORK_EXIT" text="E_xit"/>
@@ -839,7 +843,8 @@
 			<item id="ID_NETWORK_DISCONNECT" text="_Disconnect"/>
 			<separator/>
 			<item id="ID_NETWORK_CONNECT_TO" text="Connect _To..." shortcut="Ctrl+T"/>
-			<item id="ID_NETWORK_BROWSE_TO" text="_Browse Host..."/>
+			<item id="ID_NETWORK_BROWSE_TO" text="_Browse User..."/>
+			<item id="ID_NETWORK_CHAT_TO" text="Chat with _User..."/>
 			<separator/>
 			<menu text="Choose _Networks">
 				<item id="ID_NETWORK_G2" text="Connect to Gnutella_2"/>
@@ -860,7 +865,7 @@
 			<item id="ID_VIEW_MEDIA" text="_Mediaplayer" shortcut="F6"/>
 			<item id="ID_TAB_IRC" text="IRC _Chat" shortcut="F12"/>
 			<separator/>
-				<item id="ID_VIEW_SCHEDULER" text="Schedule_r" shortcut="Ctrl+F7"/>
+			<item id="ID_VIEW_SCHEDULER" text="Schedule_r" shortcut="Ctrl+F7"/>
 			<item id="ID_VIEW_SECURITY" text="Se_curity" shortcut="F7"/>
 			<item id="ID_VIEW_HOSTS" text="H_ost Cache" shortcut="F8"/>
 			<item id="ID_VIEW_DISCOVERY" text="Disco_very" shortcut="F9"/>
@@ -1833,7 +1838,7 @@
 			<newline gap="4" indent="42"/>
 			<anchor id="SearchBox" width="256" height="80"/>
 			<newline gap="20" indent="0"/>
-			<icon res="124" width="32" height="32" target="command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
+			<icon res="122" width="32" height="32" target="command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
 			<heading align="middle">Start a Download</heading>
 			<newline gap="8" indent="42"/>
 			<link target="command:ID_TOOLS_DOWNLOAD" format="bu">Click here to start</link>
@@ -1841,6 +1846,9 @@
 			<newline gap="4" indent="42"/>
 			<text>Or open your default completed </text>
 			<link target="command:shell:downloads">downloads folder.</link>
+			<newline gap="4" indent="42"/>
+			<text>Share your files at </text>
+			<link id="RemoteBrowseURL"/>
 			<newline gap="20" indent="0"/>
 		</group>
 		<group id="3">
@@ -1894,26 +1902,30 @@
 		<icon res="120" width="30" height="30" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">Customize PeerProject</heading>
 		<newline gap="12" indent="42"/>
-		<icon res="196"width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
-		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">Skins</link>
-		<text align="middle">&#160;- Mix&apos;n&apos;match changes to visual appearances</text>
+		<icon res="196" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
+		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">Skins</link><gap size="6"/>
+		<text align="middle">- Mix&apos;n&apos;match changes to visual appearances</text>
 		<newline gap="8"/>
-		<icon res="138"width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
-		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
-		<text align="middle">&#160;- Update blocklist to avoid bad search results</text>
+		<icon res="139" width="16" height="16" target="command:ID_VIEW_SCHEDULER"/><gap size="8"/>
+		<link target="command:ID_VIEW_SCHEDULER" align="middle">Scheduler</link><gap size="6"/>
+		<text align="middle">- Set automated tasks to occur at specific times</text>
 		<newline gap="8"/>
-		<icon res="197"width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
-		<link target="command:ID_TOOLS_WIZARD" align="middle">Settings Wizard</link>
-		<text align="middle">&#160;- Quick-edit PeerProject's basic settings</text>
+		<icon res="138" width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
+		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link><gap size="6"/>
+		<text align="middle">- Update blocklist to avoid bad search results</text>
 		<newline gap="8"/>
-		<icon res="182"width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
-		<link target="command:ID_HELP_FAQ" align="middle">Quick Help</link>
-		<text align="middle">&#160;- Get online support using PeerProject, or </text>
+		<icon res="197" width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
+		<link target="command:ID_TOOLS_WIZARD" align="middle">Settings Wizard</link><gap size="6"/>
+		<text align="middle">- Quick-edit PeerProject's basic settings</text>
+		<newline gap="8"/>
+		<icon res="182" width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
+		<link target="command:ID_HELP_FAQ" align="middle">Quick Help</link><gap size="6"/>
+		<text align="middle">- Get online support using PeerProject, or try </text>
 		<link target="command:ID_TAB_IRC" align="middle">live chat.</link>
 		<newline gap="8"/>
-		<icon res="201"width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
-		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">Local Forum</link>
-		<text align="middle">&#160;- Go to your English language forum</text>
+		<icon res="201" width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
+		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">Local Forum</link><gap size="6"/>
+		<text align="middle">- Go to your English language forum</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
 			<icon res="120" width="32" height="32"/><gap size="8"/>
@@ -2142,23 +2154,42 @@
 		</group>
 		<group id="41">
 			<newline gap="1"/>
-			<icon res="208"/><gap size="5"/>
+			<icon res="207"/><gap size="5"/>
 			<link id="ContactYahoo"/>
+		</group>
+		<group id="43">
+			<newline gap="1"/>
+			<icon res="204"/>
+			<gap size="5"/>
+			<link id="ContactAOL"/>
 		</group>
 		<group id="42">
 			<newline gap="1"/>
 			<icon res="205"/><gap size="5"/>
 			<link id="ContactICQ"/>
 		</group>
-		<group id="43">
-			<newline gap="1"/>
-			<icon res="204"/><gap size="5"/>
-			<link id="ContactAOL"/>
-		</group>
 		<group id="45">
 			<newline gap="1"/>
-			<icon res="204"/><gap size="5"/>
+			<icon res="208"/><gap size="5"/>
 			<link id="ContactJabber"/>
+		</group>
+		<group id="46">
+			<newline gap="1"/>
+			<icon res="209"/>
+			<gap size="5"/>
+			<link id="ContactTwitter"/>
+		</group>
+		<group id="47">
+			<newline gap="1"/>
+			<icon res="210"/>
+			<gap size="5"/>
+			<link id="ContactFacebook"/>
+		</group>
+		<group id="48">
+			<newline gap="1"/>
+			<icon res="212"/>
+			<gap size="5"/>
+			<link id="ContactPeerProjectOrg"/>
 		</group>
 		<group id="5">
 			<newline gap="8" indent="0"/>
@@ -2168,7 +2199,7 @@
 		</group>
 		<group id="6">
 			<newline gap="8" indent="0"/>
-			<text format="b">Bio/Comments</text>
+			<text format="b">Comments</text>
 			<newline gap="2" indent="8"/>
 			<text id="BioText"/>
 		</group>
@@ -2183,7 +2214,7 @@
 			<newline gap="16" indent="0"/>
 			<text format="b">Community</text>
 			<newline gap="4" indent="8"/>
-			<icon res="127"target="command:ID_SEARCH_CHAT"/><gap size="5"/>
+			<icon res="127" target="command:ID_SEARCH_CHAT"/><gap size="5"/>
 			<link target="command:ID_SEARCH_CHAT" align="middle">Chat With User</link>
 		</group>
 		<group id="3">
@@ -2650,7 +2681,8 @@
 	<tip id="ID_NEIGHBOURS_VIEW_OUTGOING" message="Open a new Packet Dump window monitoring outgoing traffic to this neighbor."/>
 	<tip id="ID_NETWORK_AUTO_CLOSE" message="Automatically close PeerProject when transfers have completed."/>
 	<tip id="ID_NETWORK_BROWSE_TO" message="Browse a user, showing their profile and shared files..."/>
-	<tip id="ID_NETWORK_CONNECT" message="Connect to selected networks."/>
+	<tip id="ID_NETWORK_CHAT_TO" message="Browse a user, showing their profile and shared files..."/>
+	<tip id="ID_NETWORK_CONNECT" message="Open a direct chat session with a user..."/>
 	<tip id="ID_NETWORK_CONNECT_TO" message="Manually connect to a host..."/>
 	<tip id="ID_NETWORK_DISCONNECT" message="Disconnect from all networks, this will also stop all downloads and uploads."/>
 	<tip id="ID_NETWORK_ED2K" message="Connect to the eDonkey network."/>
@@ -2785,8 +2817,8 @@
 	<string id="WINDOW_SEARCHMONITOR" value="Search Monitor"/>
 	<string id="WINDOW_HITMONITOR" value="Hit Monitor"/>
 	<string id="WINDOW_DOWNLOADS" value="Downloads"/>
-	<string id="WINDOW_LIBRARY" value="Library"/>
 	<string id="WINDOW_UPLOADS" value="Uploads"/>
+	<string id="WINDOW_LIBRARY" value="Library"/>
 	<string id="WINDOW_TRAFFIC" value="Graph"/>
 	<string id="WINDOW_SECURITY" value="Security"/>
 	<string id="WINDOW_SCHEDULER" value="Scheduler"/>
@@ -2928,6 +2960,7 @@
 	<string id="20193" value="Unrecognised command &quot;%s&quot;."/>
 	<string id="20194" value="This template does not have any customizations."/>
 	<string id="20195" value="This template is invalid."/>
+	<string id="20196" value="Text copied to Clipboard:"/>
 	<string id="20199" value="(closing after transfers)"/>
 	<string id="20200" value="Added &quot;%s&quot; to download queue with %i sources."/>
 	<string id="20201" value="The file &quot;%s&quot; is already being downloaded, adding sources."/>
@@ -3283,8 +3316,13 @@
 	<string id="20590" value="Remote access is disabled."/>
 	<string id="20591" value="http://%s:%i/remote - Username/password required."/>
 	<string id="20592" value="Unable to accept connections, URL unavailable."/>
-	<string id="20595" value="&amp;Schemas"/>
-	<string id="20596" value="Failed to load Library metadata schemas. Please reinstall application. Continue loading?"/>
+	<string id="20593" value="Accept"/>
+	<string id="20594" value="Deny"/>
+	<string id="20595" value="Never"/>
+	<string id="20596" value="Default Policy"/>
+	<string id="20597" value="Are you sure you want to delete the selected security rules?\n\nThis cannot be undone."/>
+	<string id="20598" value="Failed to load Library metadata schemas. Please reinstall application. Continue loading?"/>
+	<string id="20599" value="&amp;Schemas"/>
 	<string id="20600" value="Bandwidth: Full"/>
 	<string id="20601" value="Bandwidth: Limited"/>
 	<string id="20602" value="Bandwidth: Stop"/>
@@ -3293,7 +3331,7 @@
 	<string id="20605" value="System: Disconnect Dial-Up"/>
 	<string id="20606" value="System: Reminder Notice"/>
 	<string id="20607" value="Scheduled Reminder Notice."/>
-	<string id="20608" value="Are you sure you wish to remove all scheduled tasks? This cannot be undone."/>
+	<string id="20608" value="Are you sure you wish to remove all scheduled tasks?\n\nThis cannot be undone."/>
 	<string id="20609" value="Scheduled time has passed. Please select a new time."/>
 	<string id="20610" value="No scheduled day. Select one or more days or date."/>
 	<string id="20611" value="No scheduled event. Please select a task."/>
@@ -3351,7 +3389,6 @@
 	<string id="20668" value="Searching"/>
 	<string id="20669" value="Plain Text Search"/>
 	<string id="20670" value="PeerProject is searching the network..."/>
-	<string id="20671" value="Are you sure you want to delete the selected security rules? This cannot be undone."/>
 	<string id="20672" value="Select the eDonkey/eMule temp folder:"/>
 	<string id="20673" value="Automatic"/>
 	<string id="20674" value="The complete and incomplete folders should not be the same"/>
@@ -4067,52 +4104,39 @@
 		<control/>
 		<control caption="Close"/>
 	</dialog>
-	<dialog name="CProfileManagerDlg" cookie="SyBuBuBu" caption="Edit My Profile">
+	<dialog name="CProfileManagerDlg" cookie="SyBuBuBu" caption="User Profile">
 		<control/>
 		<control caption="OK"/>
 		<control caption="Cancel"/>
 		<control caption="Apply"/>
 		<control/>
 	</dialog>
-	<dialog name="CIdentityProfilePage" cookie="BuStEdStEdEdBuCoStCoStBu" caption="Identity">
+	<dialog name="CIdentityProfilePage" cookie="BuStStEdEdEdBuStStCoCoBuStBuBu" caption="Identity">
 		<control caption="_Name:"/>
-		<control caption="Screen Name:"/>
-		<control/>
+		<control caption="Display Name:"/>
 		<control caption="Real Name:"/>
 		<control/>
 		<control/>
-		<control caption="_Vitals:"/>
-		<control caption="|Male|Female"/>
-		<control caption="Gender:"/>
 		<control/>
+		<control caption="_Vitals:"/>
+		<control caption="Gender:"/>
 		<control caption="Age:"/>
+		<control caption="|Male|Female"/>
+		<control/>
+		<control caption="Note:"/>
+		<control caption="This profile is available to users who browse your files, primarily on the G2 network.{n}(PeerProject or Shareaza)"/>
+		<control caption="_Active:"/>
 		<control caption="Allow others to browse my user profile"/>
 	</dialog>
 	<dialog name="CAvatarProfilePage" cookie="BuStBuStBuBu" caption="Avatar">
 		<control caption="_Preview:"/>
 		<control/>
 		<control caption="_Select:"/>
-		<control caption="Other users browsing your profile and shared files will see your avatar.  Custom avatars should be 128x128 pixels, and can be in any supported image file on your PC."/>
+		<control caption="Other users browsing your profile and shared files will see your avatar. Custom avatars should be 128x128 pixels, and can be in any supported image file on your PC."/>
 		<control caption="_Browse..."/>
 		<control caption="_Remove"/>
 	</dialog>
-	<dialog name="CContactProfilePage" cookie="BuStEdBuStEdStEdStEdStEdStEd" caption="Contact">
-		<control caption="_Email Addresses:"/>
-		<control caption="Primary:"/>
-		<control/>
-		<control caption="_Instant Messaging:"/>
-		<control caption="MSN/.NET Passport:"/>
-		<control/>
-		<control caption="Yahoo ID:"/>
-		<control/>
-		<control caption="ICQ UIN:"/>
-		<control/>
-		<control caption="AOL Screen Name:"/>
-		<control/>
-		<control caption="Jabber ID:"/>
-		<control/>
-	</dialog>
-	<dialog name="CProfileProfilePage" cookie="BuStCoStCoBuStEdStEdBuLiBuBuCo" caption="Profile">
+	<dialog name="CProfileProfilePage" cookie="BuStCoStCoBuStEdStEdBuLiBuBuCo" caption="Location">
 		<control caption="_Location:"/>
 		<control caption="Country:"/>
 		<control/>
@@ -4125,14 +4149,41 @@
 		<control/>
 		<control caption="_Interests:"/>
 		<control/>
-		<control caption="&lt; Add"/>
-		<control caption="Remove &gt;"/>
+		<control caption="Add &gt;"/>
+		<control caption="&lt; Remove "/>
 		<control/>
 	</dialog>
-	<dialog name="CBioProfilePage" cookie="Ed" caption="Bio">
+	<dialog name="CContactProfilePage" cookie="BuStEdBuStEdStEdStEdStEdStEdStEdStEdStEd" caption="Contact">
+		<control caption="_Email Address:"/>
+		<control caption="Public:"/>
+		<control/>
+		<control caption="_Social / Instant Messaging:"/>
+		<control caption="PeerProject.org:"/>
+		<control/>
+		<control caption="Facebook:"/>
+		<control/>
+		<control caption="Twitter:"/>
+		<control/>
+		<control caption="Google:"/>
+		<control/>
+		<control caption="MSN/Live:"/>
+		<control/>
+		<control caption="Yahoo:"/>
+		<control/>
+		<control caption="AOL:"/>
+		<control/>
+		<control caption="ICQ:"/>
 		<control/>
 	</dialog>
-	<dialog name="CFavouritesProfilePage" cookie="SyBuStEdStEdBuBu" caption="Favorites">
+	<dialog name="CBioProfilePage" cookie="Ed" caption="Comments">
+		<control/>
+	</dialog>
+	<dialog name="CFilesProfilePage" cookie="BuStSy" caption="Favorites">
+		<control caption="_Favorite Files:"/>
+		<control caption="Favorite files are recommended to users who browse your profile. Create favorite files by adding them to the &quot;Favorites&quot; library folder."/>
+		<control/>
+	</dialog>
+	<dialog name="CFavouritesProfilePage" cookie="SyBuStEdStEdBuBu" caption="Links">
 		<control/>
 		<control caption="_Edit Link:"/>
 		<control caption="Name:"/>
@@ -4142,28 +4193,24 @@
 		<control caption="Add"/>
 		<control caption="Remove"/>
 	</dialog>
-	<dialog name="CFilesProfilePage" cookie="BuStSy" caption="Files">
-		<control caption="_Favorite Files:"/>
-		<control caption="Favorite files are recommended to users who browse your profile.  You can create favorite files by adding them to the &quot;Favorites&quot; library folder."/>
+	<dialog name="CCertificateProfilePage" cookie="BuStStStStBuBuSt" caption="Certificate">
+		<control caption="_Globally Unique Identification Certificates:"/>
+		<control caption="Gnutella/G2 GUID:"/>
 		<control/>
-	</dialog>
-	<dialog name="CCertificateProfilePage" cookie="StBuStStStStBu" caption="Certificate">
-		<control caption="Users are identified by a globally unique identifier and a corresponding public and private key pair.  Normally there is no need to generate a new ID, however PeerProject provides this option for advanced users."/>
-		<control caption="_Globally Unique Identification Certificate:"/>
-		<control caption="GUID:"/>
-		<control/>
-		<control caption="Created:"/>
+		<control caption="BitTorrent GUID:"/>
 		<control/>
 		<control caption="Generate New"/>
+		<control caption="Help:"/>
+		<control caption="Users are identified by a globally unique identifier and a corresponding public and private key pair.  Normally there is no need to use or generate a new ID, however this option is provided for advanced users."/>
 	</dialog>
 	<dialog name="CLanguageDlg" cookie="" caption="Select Language">
 	</dialog>
-	<dialog name="CConnectToDlg" cookie="BuCoEdBuCoBuBuBu" caption="Connect To|Browse Host">
-		<control caption="Initiate a new connection to host or server:|Browse this host:"/>
+	<dialog name="CConnectToDlg" cookie="BuCoEdBuCoBuBuBu" caption="Connect To|Browse Host|Chat with User">
+		<control caption="Initiate a new connection to host or server:|Browse this host:|Message this user:"/>
 		<control/>
 		<control/>
 		<control caption="Network _Protocol:"/>
-		<control caption="Gnutella (auto)|Gnutella2 (auto)|eDonkey"/>
+		<control/>
 		<control caption="_Suppress Ultrapeer"/>
 		<control caption="Connect"/>
 		<control caption="Cancel"/>
@@ -4610,14 +4657,16 @@
 		<control caption="Total Uploaded:"/>
 		<control caption="Notes:"/>
 	</dialog>
-	<dialog name="CDownloadEditPage" cookie="StBuStStStBuStEdEdEdBuEdBuEdBuEdBuEdBuEd" caption="Download Properties">
-		<control caption="WARNING: This dialog provides advanced download editing features for power users, which will cause corruption when used incorrectly."/>
+	<dialog name="CDownloadEditPage" cookie="StBuStStStStBuStEdEdEdSyBuEdBuEdBuEdBuEdBuEd" caption="Download Properties">
+		<control caption="CAUTION: This dialog provides advanced download editing features for power users, that may cause corruption when used incorrectly."/>
 		<control caption="Details:"/>
 		<control caption="Filename:"/>
 		<control caption="Location:"/>
 		<control caption="Byte Size:"/>
+		<control caption="Date:"/>
 		<control caption="URN Hashes:"/>
 		<control caption="Trusted?"/>
+		<control/>
 		<control/>
 		<control/>
 		<control/>
@@ -4633,7 +4682,7 @@
 		<control/>
 	</dialog>
 	<dialog name="CDownloadActionsPage" cookie="StStStStStStEdEdBuBuStStBu" caption="Actions">
-		<control caption="WARNING: This dialog provides advanced download editing features for power users, which will cause corruption when used incorrectly."/>
+		<control caption="CAUTION: This dialog provides advanced download editing features for power users, that may cause corruption when used incorrectly."/>
 		<control caption="Forget all known sources"/>
 		<control caption="Forget current verification status and reverify"/>
 		<control caption="Assume file is 100% complete and reverify"/>
@@ -4660,8 +4709,7 @@
 		<control caption="_Remove"/>
 		<control caption="_Types of Files:"/>
 		<control/>
-		<control caption="_BitTorrent packages"/>
-		<control caption="*Add any download type later."/>
+		<control caption="*Drag&apos;n&apos;Drop any downloads."/>
 		<control caption="OK"/>
 		<control caption="Cancel"/>
 	</dialog>
@@ -4716,7 +4764,7 @@
 	<dialog name="CAboutDlg" cookie="StStStStStStBu" caption="About PeerProject">
 		<control caption="PeerProject Filesharing Client"/>
 		<control caption="&#169; PeerProject Development Team, 2008-"/>
-		<control caption="PeerProject™ is free software; &#160;you can redistribute and/or modify it {n}under the terms of the GNU General Public License as published by {n}the Free Software Foundation, version 3 or later. &#160;(GPL v3)"/>
+		<control caption="PeerProject™ is free software; &#160;you can redistribute and/or modify it {n}under terms of the GNU Affero General Public License as published {n}by the Free Software Foundation, version 3 or later. &#160;(AGPL v3)"/>
 		<control caption="CreativeCommons BY-NC-SA covers original artwork."/>
 		<control caption="Portions originally copyright Shareaza, 2002-2008."/>
 		<control caption="http://PeerProject.org"/>
@@ -4770,22 +4818,6 @@
 		<column from="Name" to=""/>
 		<column from="Country" to=""/>
 	</list>
-	<list name="CSecurityWnd">
-		<column from="Address / Content" to=""/>
-		<column from="Hits" to=""/>
-		<column from="Action" to=""/>
-		<column from="Expires" to=""/>
-		<column from="#" to=""/>
-		<column from="Comment" to=""/>
-	</list>
-	<list name="CSchedulerWnd">
-		<column from="Task" to=""/>
-		<column from="Date" to=""/>
-		<column from="Time" to=""/>
-		<column from="Status" to=""/>
-		<column from="Activity" to=""/>
-		<column from="Description" to=""/>
-	</list>
 	<list name="CHostCacheWnd">
 		<column from="Address" to=""/>
 		<column from="Port" to=""/>
@@ -4833,6 +4865,23 @@
 		<column from="Client" to=""/>
 		<column from="Country" to=""/>
 		<column from="Time" to=""/>
+	</list>
+	<list name="CSecurityWnd">
+		<column from="Address / Content" to=""/>
+		<column from="Hits" to=""/>
+		<column from="#" to=""/>
+		<column from="Action" to=""/>
+		<column from="Expires" to=""/>
+		<column from="Match" to=""/>
+		<column from="Comment" to=""/>
+	</list>
+	<list name="CSchedulerWnd">
+		<column from="Task" to=""/>
+		<column from="Date" to=""/>
+		<column from="Time" to=""/>
+		<column from="Status" to=""/>
+		<column from="Activity" to=""/>
+		<column from="Comment" to=""/>
 	</list>
 	<list name="CUploadQueueList">
 		<column from="Name" to=""/>

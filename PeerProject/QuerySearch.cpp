@@ -2,21 +2,18 @@
 // QuerySearch.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2008.
+// Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
@@ -46,7 +43,7 @@
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
-#endif
+#endif	// Filename
 
 
 //////////////////////////////////////////////////////////////////////
@@ -155,7 +152,7 @@ CG1Packet* CQuerySearch::ToG1Packet(DWORD nTTL) const
 		nFlags |= G1_QF_FIREWALLED;
 		// ToDo: nFlags |= G1_QF_FWTRANS;
 	}
-	if ( CG1Packet::IsOOBEnabled() )
+	if ( CG1Packet::IsOOBEnabled() )	// Currently disabled by default.  ToDo: Verify and enable Out of Band query hits
 		nFlags |= G1_QF_OOB;
 	if ( m_bWantXML )
 		nFlags |= G1_QF_XML;
@@ -233,7 +230,7 @@ CG1Packet* CQuerySearch::ToG1Packet(DWORD nTTL) const
 
 		// ToDo: GGEP_HEADER_META
 
-		if ( CG1Packet::IsOOBEnabled() )
+		if ( CG1Packet::IsOOBEnabled() )				// Currently disabled by default.  ToDo: Verify and enable Out of Band query hits
 			pBlock.Add( GGEP_HEADER_SECURE_OOB );
 
 		if ( m_bWantPFS )
@@ -478,7 +475,7 @@ CEDPacket* CQuerySearch::ToEDPacket(BOOL bUDP, DWORD nServerFlags) const
 			// Don't need the size- use GETSOURCES
 
 			// For newer servers, send the file size if it's valid (and not over 4GB)
-			if ( ( bGetS2 ) && ( m_nMinSize == m_nMaxSize ) && ( m_nMaxSize < 0xFFFFFFFF ) )
+			if ( bGetS2 && m_nMinSize == m_nMaxSize && m_nMaxSize < 0xFFFFFFFF )
 			{
 				// theApp.Message( MSG_DEBUG, ( _T("Creating multi-hash capable GetSources2 for: ") + m_oED2K.toString() ) );
 
@@ -526,7 +523,7 @@ CEDPacket* CQuerySearch::ToEDPacket(BOOL bUDP, DWORD nServerFlags) const
 			pPacket->WriteByte( ED2K_FT_FILESIZE );
 		}
 
-		if ( ( m_pSchema == NULL ) || ( ! m_pSchema->m_sDonkeyType.GetLength() ) )
+		if ( m_pSchema == NULL || m_pSchema->m_sDonkeyType.IsEmpty() )
 		{
 			// ed2k search without file type
 			// Name / Key Words
@@ -535,7 +532,7 @@ CEDPacket* CQuerySearch::ToEDPacket(BOOL bUDP, DWORD nServerFlags) const
 			if ( ( m_oSimilarED2K ) && ( ! bUDP ) && ( nServerFlags & ED2K_SERVER_TCP_RELATEDSEARCH ) )
 				pPacket->WriteEDString( _T( "related::" ) + m_oSimilarED2K.toString(), bUTF8 );
 			else	// Regular search
-				pPacket->WriteEDString( !m_sSearch.IsEmpty() ? m_sSearch : strWords, bUTF8 );
+				pPacket->WriteEDString( ! m_sSearch.IsEmpty() ? m_sSearch : strWords, bUTF8 );
 		}
 		else
 		{
@@ -545,7 +542,7 @@ CEDPacket* CQuerySearch::ToEDPacket(BOOL bUDP, DWORD nServerFlags) const
 
 			// Name / Key Words
 			pPacket->WriteByte( 1 );
-			pPacket->WriteEDString( !m_sSearch.IsEmpty() ? m_sSearch : strWords, bUTF8 );
+			pPacket->WriteEDString( ! m_sSearch.IsEmpty() ? m_sSearch : strWords, bUTF8 );
 
 			// Metadata (file type)
 			pPacket->WriteByte( 2 );
@@ -593,7 +590,7 @@ BOOL CQuerySearch::WriteHashesToEDPacket(CEDPacket* pPacket, BOOL bUDP) const
 					BOOL bFewSources = nSources < Settings.Downloads.MinSources;
 					BOOL bDataStarve = ( tNow > pDownload->m_tReceived ? tNow - pDownload->m_tReceived : 0 ) > Settings.Downloads.StarveTimeout * 1000;
 
-					if ( ( bFewSources ) || ( bDataStarve ) || ( nFiles < 10 ) )
+					if ( bFewSources || bDataStarve || nFiles < 10 )
 					{
 						// Add the hash/size for this download
 						pPacket->Write( pDownload->m_oED2K );
@@ -603,7 +600,8 @@ BOOL CQuerySearch::WriteHashesToEDPacket(CEDPacket* pPacket, BOOL bUDP) const
 						else
 							pDownload->m_tLastED2KLocal = tNow;
 						nFiles ++;
-						if ( nFiles >= ED2K_MAXFILESINPACKET ) return TRUE;
+						if ( nFiles >= ED2K_MAXFILESINPACKET )
+							return TRUE;
 					}
 				}
 			}
@@ -707,9 +705,11 @@ BOOL CQuerySearch::ReadG1Packet(CG1Packet* pPacket)
 
 			// Must be last ...
 			if ( DWORD nLength = pPacket->GetRemaining() )
+			{
 				// ... but skip one extra null byte
 				if ( nLength != 1 || pPacket->PeekByte() != 0 )
 					theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("[G1] Got query packet with extra bytes after GGEP (%d bytes)"), pPacket->GetRemaining() );
+			}
 
 			break;
 		}
@@ -1139,7 +1139,7 @@ BOOL CQuerySearch::CheckValid(bool bExpression)
 		};
 		static const size_t commonWords = sizeof common / sizeof common[ 0 ];
 
-		bool bExtendChar;	// flag used for extended char
+		bool bExtendChar;	// Flag used for extended char
 		TCHAR szChar;
 		int nLength;
 		DWORD nValidWords = 0;
@@ -1179,12 +1179,12 @@ BOOL CQuerySearch::CheckValid(bool bExpression)
 															// they are counted as 2byte chars to make only 2
 															// or longer chars are accepted on Query.
 				nValidCharacters = nLength * 2;
-				bExtendChar = true;			// Set Extended char flag
+				bExtendChar = true;							// Set Extended char flag
 			}
 			else if ( 0x800 <= szChar && 0xffff >= szChar)  // Check if the char is 3 byte length in UTF8 (non-char will not reach here)
 			{
 				nValidCharacters = nLength * 3;
-				bExtendChar = true;			// set Extended char flag
+				bExtendChar = true;							// set Extended char flag
 			}
 			else if ( nLength > 2 )
 			{
@@ -1271,8 +1271,7 @@ BOOL CQuerySearch::Match(LPCTSTR pszFilename, LPCTSTR pszSchemaURI, CXMLElement*
 				if ( ! IsHashed() && ! m_oSimilarED2K )
 					return TRUE;
 
-				// Otherwise, only return WordMatch when negative terms are used
-				// to filter out filenames from the search window
+				// Otherwise, only return WordMatch when negative terms are used to filter out filenames from the search window
 				BOOL bNegative = FALSE;
 				if ( m_sKeywords.GetLength() > 1 )
 				{
@@ -1323,9 +1322,9 @@ TRISTATE CQuerySearch::MatchMetadata(LPCTSTR pszSchemaURI, CXMLElement* pXML) co
 		CString strSearch = pMember->GetValueFrom( pRoot );
 		CString strTarget = pMember->GetValueFrom( pXML );
 
-		if ( strSearch.GetLength() )
+		if ( ! strSearch.IsEmpty() )
 		{
-			if ( strTarget.GetLength() )
+			if ( ! strTarget.IsEmpty() )
 			{
 				if ( pMember->m_bNumeric )
 				{
@@ -1606,17 +1605,17 @@ void CQuerySearch::BuildWordList(bool bExpression, bool /* bLocal */ )
 
 					if ( pMember->m_bIndexed )
 					{
-						// quick hack for bitrate problem.
+						// Quick hack for bitrate problem.
 						if ( pMember->m_sName.CompareNoCase( _T("bitrate") ) == 0 )
 						{
-							// do nothing.
+							// Do nothing.
 						}
 						else if ( CXMLAttribute* pAttribute = pXML->GetAttribute( pMember->m_sName ) )
 						{
 							ToLower( pAttribute->m_sValue );
 							CString strKeywords = pAttribute->m_sValue;
 							MakeKeywords( strKeywords, bExpression );
-							if ( strKeywords.GetLength() )
+							if ( ! strKeywords.IsEmpty() )
 								m_sKeywords += L" " + strKeywords;
 						}
 					}
@@ -1636,7 +1635,7 @@ void CQuerySearch::BuildWordList(bool bExpression, bool /* bLocal */ )
 					ToLower( pAttribute->m_sValue );
 					CString strKeywords = pAttribute->m_sValue;
 					MakeKeywords( strKeywords, bExpression );
-					if ( strKeywords.GetLength() )
+					if ( ! strKeywords.IsEmpty() )
 						m_sKeywords += L" " + strKeywords;
 				}
 			}
@@ -1720,11 +1719,11 @@ void CQuerySearch::MakeKeywords(CString& strPhrase, bool bExpression)
 
 		int nDistance = !bCharacter ? 1 : 0;
 
-		if ( !bCharacter || boundary[ 0 ] != boundary[ 1 ] && nPos  )
+		if ( ! bCharacter || boundary[ 0 ] != boundary[ 1 ] && nPos  )
 		{
 			if ( nPos > nPrevWord )
 			{
-				ASSERT( str.GetLength() );
+				ASSERT( ! str.IsEmpty() );
 				TCHAR sz = TCHAR( str.Right( 2 ).GetAt( 0 ) );
 				if ( boundary[ 0 ] && _tcschr( L" -\"", sz ) != NULL &&
 					!_istdigit( TCHAR( str.Right( nPos < 3 ? 1 : 3 ).GetAt( 0 ) ) ) )
@@ -1737,7 +1736,7 @@ void CQuerySearch::MakeKeywords(CString& strPhrase, bool bExpression)
 				else if ( str.Right( 1 ) != ' ' && bCharacter )
 				{
 					if ( ( str.Right( 1 ) != '-' || str.Right( 1 ) != '"' || *pszPtr == '"' ) &&
-						( !bNegative || !( boundary[ 0 ] & ( sHiragana | sKatakana | sKanji ) ) ) )
+						( ! bNegative || !( boundary[ 0 ] & ( sHiragana | sKatakana | sKanji ) ) ) )
 						str.Append( L" " );
 				}
 				ASSERT( strPhrase.GetLength() > nPos - 1 );
@@ -1770,7 +1769,7 @@ void CQuerySearch::MakeKeywords(CString& strPhrase, bool bExpression)
 		}
 	}
 
-	ASSERT( !str.IsEmpty() );
+	ASSERT( ! str.IsEmpty() );
 	TCHAR sz = TCHAR( str.Right( 2 ).GetAt( 0 ) );
 	if ( boundary[ 0 ] && _tcschr( L" -\"", sz ) != NULL &&
 		 boundary[ 1 ] )
@@ -1782,7 +1781,7 @@ void CQuerySearch::MakeKeywords(CString& strPhrase, bool bExpression)
 	}
 	else if ( str.Right( 1 ) != ' ' && boundary[ 1 ] )
 	{
-		if ( ( str.Right( 1 ) != '-' || str.Right( 1 ) != '"' ) && !bNegative )
+		if ( ( str.Right( 1 ) != '-' || str.Right( 1 ) != '"' ) && ! bNegative )
 			str.Append( L" " );
 	}
 	str += strPhrase.Mid( nPrevWord, nPos - nPrevWord );
@@ -1791,8 +1790,7 @@ void CQuerySearch::MakeKeywords(CString& strPhrase, bool bExpression)
 	return;
 }
 
-// Function makes a set of keywords separated by space
-// using a sliding window algorithm to match asian words
+// Function makes a set of keywords separated by space using a sliding window algorithm to match asian words
 void CQuerySearch::SlideKeywords(CString& strPhrase)
 {
 	if ( strPhrase.GetLength() < 3 ) return;
@@ -1969,7 +1967,7 @@ void CQuerySearch::Serialize(CArchive& ar)
 
 		ar >> strURI;
 
-		if ( strURI.GetLength() )
+		if ( ! strURI.IsEmpty() )
 		{
 			m_pSchema = SchemaCache.Get( strURI );
 			m_pXML = new CXMLElement();

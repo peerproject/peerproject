@@ -2,21 +2,18 @@
 // QueryHashTable.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2007.
+// Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
@@ -38,7 +35,7 @@
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
-#endif
+#endif	// Filename
 
 
 //////////////////////////////////////////////////////////////////////
@@ -95,7 +92,7 @@ void CQueryHashTable::Create()
 
 void CQueryHashTable::Clear()
 {
-	if ( !m_pHash )
+	if ( ! m_pHash )
 		return;
 
 	const bool bGrouped = ( m_pGroup != NULL );
@@ -116,7 +113,7 @@ void CQueryHashTable::Clear()
 
 bool CQueryHashTable::Merge(const CQueryHashTable* pSource)
 {
-	if ( !m_pHash || !pSource->m_pHash )
+	if ( ! m_pHash || !pSource->m_pHash )
 		return false;
 
 	if ( m_nHash == pSource->m_nHash )
@@ -221,7 +218,7 @@ bool CQueryHashTable::Merge(const CQueryHashTable* pSource)
 
 bool CQueryHashTable::Merge(const CQueryHashGroup* pSource)
 {
-	if ( !m_pHash || !pSource->m_pHash )
+	if ( ! m_pHash || !pSource->m_pHash )
 		return false;
 
 	if ( m_nHash == pSource->m_nHash )
@@ -317,7 +314,7 @@ bool CQueryHashTable::Merge(const CQueryHashGroup* pSource)
 bool CQueryHashTable::PatchTo(const CQueryHashTable* pTarget,
 	CNeighbour* pNeighbour)
 {
-	if ( !pTarget->m_pHash )
+	if ( ! pTarget->m_pHash )
 		return false;
 
 	if ( m_nCookie == pTarget->m_nCookie )
@@ -328,7 +325,7 @@ bool CQueryHashTable::PatchTo(const CQueryHashTable* pTarget,
 
 	bool bChanged = false;
 
-	if ( !m_pHash || m_nHash != pTarget->m_nHash )
+	if ( ! m_pHash || m_nHash != pTarget->m_nHash )
 	{
 		delete [] m_pHash;
 		m_pHash = NULL;
@@ -493,7 +490,7 @@ bool CQueryHashTable::PatchTo(const CQueryHashTable* pTarget,
 			std::memcpy( pHashS, pHashT, ( m_nHash + 31 ) / 8 );
 	}
 
-	if ( !bChanged && m_bLive )
+	if ( ! bChanged && m_bLive )
 	{
 		delete [] pBuffer;
 		return false;
@@ -504,7 +501,7 @@ bool CQueryHashTable::PatchTo(const CQueryHashTable* pTarget,
 
 	delete [] pBuffer;
 
-	if ( !pCompress.get() )
+	if ( ! pCompress.get() )
 		return false;
 
 	DWORD nPacketSize	= 1024;
@@ -630,7 +627,7 @@ bool CQueryHashTable::OnPacket(CPacket* pPacket)
 
 	if ( nVariant == 0 )
 		return OnReset( pPacket );
-	else if ( nVariant == 1 )
+	if ( nVariant == 1 )
 		return OnPatch( pPacket );
 
 	return false;
@@ -665,7 +662,7 @@ bool CQueryHashTable::OnReset(CPacket* pPacket)
 	if ( nHashSize < 64 )
 		return false;
 
-	if ( !m_pHash || nHashSize != m_nHash )
+	if ( ! m_pHash || nHashSize != m_nHash )
 	{
 		delete [] m_pHash;
 		m_pHash = NULL;
@@ -704,10 +701,10 @@ bool CQueryHashTable::OnPatch(CPacket* pPacket)
 	if ( pPacket->m_nLength < 5 )
 		return false;
 
-	if ( !m_pHash )
+	if ( ! m_pHash )
 		return false;
 
-	if ( !m_pBuffer )
+	if ( ! m_pBuffer )
 		return false;
 
 	BYTE nSequence		= pPacket->ReadByte();
@@ -931,7 +928,7 @@ void CQueryHashTable::MakeKeywords(const CString& strPhrase, CStringList& oKeywo
 			|| iswdigit( nChar )
 			|| ( nKanaType[ 1 ] && ( boundary[ 1 ] & C3_DIACRITIC ) );
 
-		if ( !bCharacter
+		if ( ! bCharacter
 			|| ( nKanaType[ 0 ] && boundary[ 0 ] != boundary[ 1 ] ) )
 		{
 			// Join two phrases if the previous was a single character word.
@@ -1168,7 +1165,7 @@ void CQueryHashTable::AddExact(LPCTSTR pszString, int nStart, int nLength)
 
 bool CQueryHashTable::CheckString(const CString& strString) const
 {
-	if ( !m_bLive || !m_pHash || strString.IsEmpty() )
+	if ( ! m_bLive || ! m_pHash || strString.IsEmpty() )
 		return true;
 
 	DWORD nHash	= HashWord( strString, 0, strString.GetLength(), m_nBits );
@@ -1180,7 +1177,7 @@ bool CQueryHashTable::CheckString(const CString& strString) const
 
 bool CQueryHashTable::CheckHash(const DWORD nHash) const
 {
-	if ( !m_bLive || !m_pHash )
+	if ( ! m_bLive || ! m_pHash )
 		return true;
 
 	DWORD lHash	= nHash >> (32 - m_nBits);
@@ -1196,7 +1193,7 @@ bool CQueryHashTable::CheckHash(const DWORD nHash) const
 
 bool CQueryHashTable::Check(const CQuerySearch* pSearch) const
 {
-	if ( !m_bLive || !m_pHash )
+	if ( ! m_bLive || ! m_pHash )
 		return true;
 
 	if ( ! pSearch->m_oURNs.empty() )
@@ -1225,7 +1222,6 @@ bool CQueryHashTable::Check(const CQuerySearch* pSearch) const
 			if ( CheckHash(*iKeyword) )
 				++nWordHits;
 		}
-
 	}
 
 	return ( nWords >= 3 )
@@ -1268,7 +1264,7 @@ DWORD CQueryHashTable::HashNumber(DWORD nNumber, int nBits)
 
 int CQueryHashTable::GetPercent() const
 {
-	if ( !m_pHash || !m_nHash )
+	if ( ! m_pHash || ! m_nHash )
 		return 0;
 
 	return m_nCount * 100 / m_nHash;
@@ -1276,7 +1272,7 @@ int CQueryHashTable::GetPercent() const
 
 void CQueryHashTable::Draw(HDC hDC, const RECT* pRC)
 {
-	if ( !m_pHash )
+	if ( ! m_pHash )
 		return;
 
 	SetStretchBltMode( hDC, HALFTONE );

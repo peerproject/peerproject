@@ -86,6 +86,7 @@
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				BaseAddress="0x1af20000"
+				LargeAddressAware="2"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -178,6 +179,7 @@
 				ModuleDefinitionFile="SWFPlugin.def"
 				GenerateDebugInformation="true"
 				SubSystem="2"
+				LargeAddressAware="2"
 				TargetMachine="17"
 			/>
 			<Tool
@@ -279,6 +281,7 @@
 				EnableCOMDATFolding="2"
 				SetChecksum="true"
 				BaseAddress="0x1af20000"
+				LargeAddressAware="2"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -376,6 +379,7 @@
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
 				SetChecksum="true"
+				LargeAddressAware="2"
 				TargetMachine="17"
 			/>
 			<Tool

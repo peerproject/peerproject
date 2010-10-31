@@ -3,8 +3,8 @@
 
 <!-- PeerProject Default Dutch Skin File -->
 
-<!-- Translation based on default-en.xml r59 -->
-<!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
+<!-- Translation based on default-en.xml r60 -->
+<!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
 <!-- Use this file as a basis for creating new language skins,   -->
@@ -62,6 +62,7 @@
 		<button id="ID_VIEW_MEDIA"/>
 		<button id="ID_TAB_IRC"/>
 		<separator/>
+		<button id="ID_VIEW_SCHEDULER"/>
 		<button id="ID_VIEW_SECURITY"/>
 		<button id="ID_VIEW_HOSTS"/>
 		<button id="ID_VIEW_DISCOVERY"/>
@@ -1674,7 +1675,7 @@
 		<menu text="Actions">
 			<item id="ID_IRC_TIME" text="_Tijd"/>
 			<item id="ID_IRC_VERSION" text="_Versie"/>
-			<item id="ID_IRC_BROWSE" text="_Bekijken"/> 
+			<item id="ID_IRC_BROWSE" text="_Bekijken"/>
 		</menu>
 		<separator/>
 		<menu text="Control">
@@ -1738,13 +1739,16 @@
 			<newline gap="8" indent="42"/>
 			<anchor id="SearchBox" width="256" height="80"/>
 			<newline gap="12" indent="0"/>
-			<icon res="124" width="32" height="32" target="command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
+			<icon res="122" width="32" height="32" target="command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
 			<heading align="middle">START DOWNLOAD</heading>
 			<newline gap="8" indent="42"/>
 			<link target="command:ID_TOOLS_DOWNLOAD" format="bu">Klik hier om te starten</link>
 			<text align="middle">&#160; bezig aan het downloaden.</text>
 			<newline gap="4" indent="42"/>
 			<link target="command:shell:downloads">Open mijn Download map.</link>
+			<newline gap="4" indent="42"/>
+			<text>Deel uw bestanden op </text>
+			<link id="RemoteBrowseURL"/>
 			<newline gap="20" indent="0"/>
 		</group>
 		<group id="3">
@@ -1792,26 +1796,26 @@
 		<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">PEERPROJECT AANPASSEN</heading>
 		<newline gap="12" indent="42"/>
-		<icon res="196"width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
-		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">Skins</link>
-		<text align="middle">&#160;- PeerProject's uiterlijk veranderen</text>
+		<icon res="196" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
+		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">Skins</link><gap size="6"/>
+		<text align="middle">- PeerProject's uiterlijk veranderen</text>
 		<newline gap="8"/>
-		<icon res="138"width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
-		<link target="command:ID_VIEW_SECURITY" align="middle">Beveiligingsfilters</link>
-		<text align="middle">&#160;- Voeg toe/Verwijder filters om je zoekresultaten te verbeteren</text>
+		<icon res="138" width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
+		<link target="command:ID_VIEW_SECURITY" align="middle">Beveiligingsfilters</link><gap size="6"/>
+		<text align="middle">- Voeg toe/Verwijder filters om je zoekresultaten te verbeteren</text>
 		<newline gap="8"/>
-		<icon res="197"width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
-		<link target="command:ID_TOOLS_WIZARD" align="middle">SnelStart wizard</link>
-		<text align="middle">&#160;- Instellingen van PeerProject aanpassen</text>
+		<icon res="197" width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
+		<link target="command:ID_TOOLS_WIZARD" align="middle">SnelStart wizard</link><gap size="6"/>
+		<text align="middle">- Instellingen van PeerProject aanpassen</text>
 		<newline gap="8"/>
-		<icon res="182"width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
-		<link target="command:ID_HELP_FAQ" align="middle">Help</link>
-		<text align="middle">&#160;- PeerProject's gebruikerhandleiding en FAQ, o </text>
+		<icon res="182" width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
+		<link target="command:ID_HELP_FAQ" align="middle">Help</link><gap size="6"/>
+		<text align="middle">- PeerProject's gebruikerhandleiding en FAQ, o </text>
 		<link target="command:ID_TAB_IRC" align="middle">IRC.</link>
 		<newline gap="8"/>
-		<icon res="201"width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
-		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">Local Forum</link>
-		<text align="middle">&#160;- Ga naar je Nederlandse taal discussieforum</text>
+		<icon res="201" width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
+		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">Local Forum</link><gap size="6"/>
+		<text align="middle">- Ga naar je Nederlandse taal discussieforum</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
 			<icon res="120" width="32" height="32"/><gap size="8"/>
@@ -2037,7 +2041,7 @@
 		</group>
 		<group id="41">
 			<newline gap="1"/>
-			<icon res="208"/><gap size="5"/>
+			<icon res="207"/><gap size="5"/>
 			<link id="ContactYahoo"/>
 		</group>
 		<group id="42">
@@ -2078,7 +2082,7 @@
 			<newline gap="16" indent="0"/>
 			<text format="b">Gemeenschap</text>
 			<newline gap="4" indent="8"/>
-			<icon res="127"target="command:ID_SEARCH_CHAT"/>
+			<icon res="127" target="command:ID_SEARCH_CHAT"/>
 			<gap size="5"/>
 			<link target="command:ID_SEARCH_CHAT" align="middle">Chatten met gebruiker</link>
 		</group>
@@ -2103,7 +2107,7 @@
 			<text format="b">Deze Torrent is aan het Seeden</text>
 			<newline gap="8"/>
 			<text>Shareaza heeft deze complete download geverifieerd, en is het actief aan het
- 			verspreiden met andere downloaders via BitTorrent. Verspreid het alstublieft ten miste 100% </text>
+			verspreiden met andere downloaders via BitTorrent. Verspreid het alstublieft ten miste 100% </text>
 	</document>
 	<document name="DownloadHelp.Completed">
 		<text format="b">Download is voltooid</text>
@@ -3043,8 +3047,8 @@
 	<string id="20441" value="PeerProject ko\n\n%s\nniet hernoemen naar\n%s."/>
 	<string id="20442" value="Doelbestand bestaat al:\n\n%s\n\nWil je het overschrijven?"/>
 	<string id="20443" value="Alle bestandstypen tonen"/>
-	<string id="20444" value="Kopieër &URI"/>
-	<string id="20445" value="Exporteer &URIs..."/>
+	<string id="20444" value="Kopieër URI"/>
+	<string id="20445" value="Exporteer URIs..."/>
 	<string id="20446" value="De hashcontroletest voor het bestand &quot;%s&quot; is mislukt. Het is mogelijk niet het bestand dat je eigenlijk wilde downloaden. Weet je zeker dat je het wilt openen?"/>
 	<string id="20447" value="Wil je de eigenschap &quot;mogelijk onveilig&quot; van dit bestand verwijderen?"/>
 	<string id="20448" value="Het bestand &quot;%s&quot; is nog niet gehasht. Wacht alsjeblieft even totdat het bestand gehasht is en probeer het dan nog een keer."/>
@@ -3167,7 +3171,9 @@
 	<string id="20590" value="Web Interface is uitgeschakeld."/>
 	<string id="20591" value="http://%s:%i/remote - Gebruikersnaam en wachtwoord kiezen."/>
 	<string id="20592" value="Niet mogelijk om verbindingen te accepteren, de URL is niet beschikbaar."/>
-	<string id="20595" value="&amp;Schemas"/>
+	<string id="20597" value="Ben je zeker dat je deze veiligheidsregels wilt verwijderen? Dit kan niet ongedaan worden gemaakt."/>
+	<string id="20599" value="&amp;Schemas"/>
+	<!-- Missing Scheduler/Security Strings -->
 	<string id="20620" value="PeerProject is actief aan het zoeken op het netwerk..."/>
 	<string id="20621" value="Klik hier om opnieuw te zoeken"/>
 	<string id="20622" value="Alle netwerken"/>
@@ -3215,7 +3221,6 @@
 	<string id="20668" value="Zoekend..."/>
 	<string id="20669" value="Platte tekst zoeken"/>
 	<string id="20670" value="PeerProject is het netwerk aan het afzoeken..."/>
-	<string id="20671" value="Ben je zeker dat je deze veiligheidsregels wilt verwijderen? Dit kan niet ongedaan worden gemaakt."/>
 	<string id="20672" value="Kies de eMule gedeeltelijke(.part) map:"/>
 	<string id="20673" value="Automatisch"/>
 	<string id="20674" value="De incomplete map mag niet in de bibliotheek omdat dit de prestaties nadelig beïnvloed. Incomplete bestanden deel je rechtstreeks in het downloadvenster."/>
@@ -3936,18 +3941,21 @@
 		<control caption="Toepassen"/>
 		<control/>
 	</dialog>
-	<dialog name="CIdentityProfilePage" cookie="BuStEdStEdEdBuCoStCoStBu" caption="Identiteit">
+	<dialog name="CIdentityProfilePage" cookie="BuStStEdEdEdBuStStCoCoBuStBuBu" caption="Identiteit">
 		<control caption="_Naam:"/>
 		<control caption="Schuilnaam:"/>
-		<control/>
 		<control caption="Echte naam:"/>
 		<control/>
 		<control/>
-		<control caption="_Persoonlijke informatie:"/>
-		<control caption="|Man|Vrouw"/>
-		<control caption="Geslacht:"/>
 		<control/>
+		<control caption="_Persoonlijke informatie:"/>
+		<control caption="Geslacht:"/>
 		<control caption="Leeftijd:"/>
+		<control caption="|Man|Vrouw"/>
+		<control/>
+		<control caption="Info:"/>
+		<control caption="{n}G2 (PeerProject / Shareaza)"/>
+		<control caption="_Toepassen:"/>
 		<control caption="Anderen mogen mijn profiel bekijken"/>
 	</dialog>
 	<dialog name="CAvatarProfilePage" cookie="BuStBuStBuBu" caption="Avatar">
@@ -3958,23 +3966,7 @@
 		<control caption="_Zoeken..."/>
 		<control caption="_Verwijderen"/>
 	</dialog>
-	<dialog name="CContactProfilePage" cookie="BuStEdBuStEdStEdStEdStEdStEd" caption="Contact">
-		<control caption="_E-mailadressen:"/>
-		<control caption="Eerste:"/>
-		<control/>
-		<control caption="_Instant messaging:"/>
-		<control caption="MSN/.NET paspoort:"/>
-		<control/>
-		<control caption="Yahoo ID:"/>
-		<control/>
-		<control caption="ICQ UIN:"/>
-		<control/>
-		<control caption="AOL gebruikersnaam:"/>
-		<control/>
-		<control caption="Jabber ID:"/>
-		<control/>
-	</dialog>
-	<dialog name="CProfileProfilePage" cookie="BuStCoStCoBuStEdStEdBuLiBuBuCo" caption="Profiel">
+	<dialog name="CProfileProfilePage" cookie="BuStCoStCoBuStEdStEdBuLiBuBuCo" caption="Locatie">
 		<control caption="_Locatie:"/>
 		<control caption="Land:"/>
 		<control/>
@@ -3987,11 +3979,38 @@
 		<control/>
 		<control caption="_Interesses:"/>
 		<control/>
-		<control caption="&lt; Toevoegen"/>
-		<control caption="Verwijder &gt;"/>
+		<control caption="Toevoegen &gt;"/>
+		<control caption="&lt; Verwijder"/>
+		<control/>
+	</dialog>
+	<dialog name="CContactProfilePage" cookie="BuStEdBuStEdStEdStEdStEdStEdStEdStEdStEd" caption="Contact">
+		<control caption="_E-mailadressen:"/>
+		<control caption="Eerste:"/>
+		<control/>
+		<control caption="_Instant messaging:"/>
+		<control caption="PeerProject.org:"/>
+		<control/>
+		<control caption="Facebook:"/>
+		<control/>
+		<control caption="Twitter:"/>
+		<control/>
+		<control caption="Google:"/>
+		<control/>
+		<control caption="MSN/Live:"/>
+		<control/>
+		<control caption="Yahoo:"/>
+		<control/>
+		<control caption="AOL:"/>
+		<control/>
+		<control caption="ICQ:"/>
 		<control/>
 	</dialog>
 	<dialog name="CBioProfilePage" cookie="Ed" caption="Biografie">
+		<control/>
+	</dialog>
+	<dialog name="CFilesProfilePage" cookie="BuStSy" caption="Bestanden">
+		<control caption="_Favoriete bestanden:"/>
+		<control caption="Favoriete bestanden worden getoond aan gebruikers die je profiel bekijken. Je kunt bestanden toevoegen aan de &quot;Favorieten&quot;map van de bibliotheek."/>
 		<control/>
 	</dialog>
 	<dialog name="CFavouritesProfilePage" cookie="SyBuStEdStEdBuBu" caption="Favorieten">
@@ -4004,28 +4023,24 @@
 		<control caption="Nieuw"/>
 		<control caption="Verwijderen"/>
 	</dialog>
-	<dialog name="CFilesProfilePage" cookie="BuStSy" caption="Bestanden">
-		<control caption="_Favoriete bestanden:"/>
-		<control caption="Favoriete bestanden worden getoond aan gebruikers die je profiel bekijken. Je kunt bestanden toevoegen aan de &quot;Favorieten&quot;map van de bibliotheek."/>
+	<dialog name="CCertificateProfilePage" cookie="BuStStStStBuBuSt" caption="Certificaat">
+		<control caption="_Globaal unieke identificatiecertificaat:"/>
+		<control caption="Gnutella/G2 GUID:"/>
 		<control/>
-	</dialog>
-	<dialog name="CCertificateProfilePage" cookie="StBuStStStStBu" caption="Certificaat">
-		<control caption="Gnutella gebruikers worden geïdentificeerd aan de hand van een globaal unieke ID en een corresponderend publiek en privaat sleutelpaar. Normaal gesproken is het niet nodig om een nieuwe ID te genereren, PeerProject voorziet echter in deze optie voor gevorderde gebruikers."/>
-		<control caption="_Gnutella's globaal unieke identificatiecertificaat:"/>
-		<control caption="GUID:"/>
-		<control/>
-		<control caption="Gemaakt:"/>
+		<control caption="BitTorrent GUID:"/>
 		<control/>
 		<control caption="Nieuwe genereren"/>
+		<control caption="Info:"/>
+		<control caption="Gnutella gebruikers worden geïdentificeerd aan de hand van een globaal unieke ID en een corresponderend publiek en privaat sleutelpaar. Normaal gesproken is het niet nodig om een nieuwe ID te genereren, PeerProject voorziet echter in deze optie voor gevorderde gebruikers."/>
 	</dialog>
 	<dialog name="CLanguageDlg" cookie="" caption="Een taal kiezen...">
 	</dialog>
-	<dialog name="CConnectToDlg" cookie="BuCoEdBuCoBuBuBu" caption="Verbinden met|Gastheer bekijken">
-		<control caption="Een nieuwe verbinding met deze gastheer of server aanmaken:|Deze gastheer bekijken:"/>
+	<dialog name="CConnectToDlg" cookie="BuCoEdBuCoBuBuBu" caption="Verbinden met|Gastheer bekijken|Chat with User">
+		<control caption="Een nieuwe verbinding met deze gastheer of server aanmaken:|Deze gastheer bekijken:|Message this user:"/>
 		<control/>
 		<control/>
 		<control caption="Netwerk_protocol:"/>
-		<control caption="Gnutella1 (auto)|Gnutella2 (auto)|eDonkey"/>
+		<control/>
 		<control caption="Ultrapeer _Ooderdrukken"/>
 		<control caption="Verbinden"/>
 		<control caption="Annuleren"/>
@@ -4462,14 +4477,16 @@
 		<control caption="Total Uploaded:"/>
 		<control caption="Notes:"/>
 	</dialog>
-	<dialog name="CDownloadEditPage" cookie="StBuStStStBuStEdEdEdBuEdBuEdBuEdBuEdBuEd" caption="Uitgebreid">
+	<dialog name="CDownloadEditPage" cookie="StBuStStStStBuStEdEdEdSyBuEdBuEdBuEdBuEdBuEd" caption="Uitgebreid">
 		<control caption="WAARSCHUWING: De hier weergegeven opties zijn alleen voor gevorderde gebruikers. Bij incorrect gebruik is de kans op datacorruptie zeer groot."/>
 		<control caption="Bestandsnaam en bestandsgrootte:"/>
 		<control caption="Bestandsnaam:"/>
 		<control caption="Bestands:"/>
 		<control caption="Grootte in Bytes:"/>
+		<control caption="Datum:"/>
 		<control caption="URNs:"/>
 		<control caption="Betrouwbaar?"/>
+		<control/>
 		<control/>
 		<control/>
 		<control/>
@@ -4612,22 +4629,6 @@
 		<column from="Name" to="Naam"/>
 		<column from="Country" to="Land"/>
 	</list>
-	<list name="CSecurityWnd">
-		<column from="Address / Content" to="Adres/inhoud"/>
-		<column from="Hits" to="Hits"/>
-		<column from="Action" to="Actie"/>
-		<column from="Expires" to="Verloopt op"/>
-		<column from="#" to="#"/>
-		<column from="Comment" to="Commentaar"/>
-	</list>
-	<list name="CSchedulerWnd">
-		<column from="Task" to="Actie"/>
-		<column from="Date" to="Datum"/>
-		<column from="Time" to="Tijd"/>
-		<column from="Status" to="Status"/>
-		<column from="Activity" to="Actief"/>
-		<column from="Description" to="Commentaar"/>
-	</list>
 	<list name="CHostCacheWnd">
 		<column from="Address" to="Adres"/>
 		<column from="Port" to="Poort"/>
@@ -4675,6 +4676,23 @@
 		<column from="Client" to="Cliënt"/>
 		<column from="Country" to="Land"/>
 		<column from="Time" to="Tijd"/>
+	</list>
+	<list name="CSecurityWnd">
+		<column from="Address / Content" to="Adres/inhoud"/>
+		<column from="Hits" to="Hits"/>
+		<column from="#" to="#"/>
+		<column from="Action" to="Actie"/>
+		<column from="Expires" to="Verloopt op"/>
+		<column from="Match" to=""/>
+		<column from="Comment" to="Commentaar"/>
+	</list>
+	<list name="CSchedulerWnd">
+		<column from="Task" to="Actie"/>
+		<column from="Date" to="Datum"/>
+		<column from="Time" to="Tijd"/>
+		<column from="Status" to="Status"/>
+		<column from="Activity" to="Actief"/>
+		<column from="Comment" to="Commentaar"/>
 	</list>
 	<list name="CUploadQueueList">
 		<column from="Name" to="Naam"/>

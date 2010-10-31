@@ -97,12 +97,8 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <PreBuildEvent>
-      <Message>Copying DLL Services and SVN Revision...</Message>
-      <Command>copy /b /y "..\Services\zlib\$(Configuration) $(Platform)\zlibwapi.dll" "$(TargetDir)"
-copy /b /y "..\HashLib\$(Configuration) $(Platform)\HashLib.dll" "$(TargetDir)"
-copy /b /y "..\Services\SQLite\$(Configuration) $(Platform)\SQLite.dll" "$(TargetDir)"
-cscript.exe //nologo Revision.js
-</Command>
+      <Message>Pre-Build Dependencies...</Message>
+      <Command>PreBuild.cmd $(ConfigurationName) $(PlatformName)</Command>
     </PreBuildEvent>
     <Midl>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -112,7 +108,7 @@ cscript.exe //nologo Revision.js
     <ClCompile>
       <AdditionalOptions>/Wall %(AdditionalOptions)</AdditionalOptions>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\Services;..\zlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Services;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_DEBUG;WIN32;_WINDOWS;_PEERPROJECT;PEERPROJECT_USE_ASM;ZLIB_WINAPI;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -131,10 +127,11 @@ cscript.exe //nologo Revision.js
       <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>rasapi32.lib;winmm.lib;version.lib;ws2_32.lib;wininet.lib;Iphlpapi.lib;msi.lib;powrprof.lib;..\Services\BugTrap\BugTrapLib\BugTrapU.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>rasapi32.lib;winmm.lib;version.lib;ws2_32.lib;wininet.lib;Iphlpapi.lib;msi.lib;powrprof.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
+      <LargeAddressAware>true</LargeAddressAware>
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
     <Manifest>
@@ -147,12 +144,8 @@ cscript.exe //nologo Revision.js
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <PreBuildEvent>
-      <Message>Copying DLL Services and SVN Revision...</Message>
-      <Command>copy /b /y "..\Services\zlib\$(Configuration) $(Platform)\zlibwapi.dll" "$(TargetDir)"
-copy /b /y "..\HashLib\$(Configuration) $(Platform)\HashLib.dll" "$(TargetDir)"
-copy /b /y "..\Services\SQLite\$(Configuration) $(Platform)\SQLite.dll" "$(TargetDir)"
-cscript.exe //nologo Revision.js
-</Command>
+      <Message>Pre-Build Dependencies...</Message>
+      <Command>PreBuild.cmd $(ConfigurationName) $(PlatformName)</Command>
     </PreBuildEvent>
     <Midl>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -163,7 +156,7 @@ cscript.exe //nologo Revision.js
     <ClCompile>
       <AdditionalOptions>/Wall %(AdditionalOptions)</AdditionalOptions>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\Services;..\zlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Services;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_DEBUG;WIN64;_WINDOWS;_PEERPROJECT;ZLIB_WINAPI;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -181,10 +174,11 @@ cscript.exe //nologo Revision.js
       <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>rasapi32.lib;winmm.lib;version.lib;ws2_32.lib;wininet.lib;Iphlpapi.lib;msi.lib;powrprof.lib;..\Services\BugTrap\BugTrapLib\BugTrapU-x64.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>rasapi32.lib;winmm.lib;version.lib;ws2_32.lib;wininet.lib;Iphlpapi.lib;msi.lib;powrprof.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
+      <LargeAddressAware>true</LargeAddressAware>
       <TargetMachine>MachineX64</TargetMachine>
       <KeyFile>
       </KeyFile>
@@ -199,12 +193,8 @@ cscript.exe //nologo Revision.js
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <PreBuildEvent>
-      <Message>Copying DLL Services and SVN Revision...</Message>
-      <Command>copy /b /y "..\Services\zlib\$(Configuration) $(Platform)\zlibwapi.dll" "$(TargetDir)"
-copy /b /y "..\HashLib\$(Configuration) $(Platform)\HashLib.dll" "$(TargetDir)"
-copy /b /y "..\Services\SQLite\$(Configuration) $(Platform)\SQLite.dll" "$(TargetDir)"
-cscript.exe //nologo Revision.js
-</Command>
+      <Message>Pre-Build Dependencies...</Message>
+      <Command>PreBuild.cmd $(ConfigurationName) $(PlatformName)</Command>
     </PreBuildEvent>
     <Midl>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -219,7 +209,7 @@ cscript.exe //nologo Revision.js
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <OmitFramePointers>true</OmitFramePointers>
       <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
-      <AdditionalIncludeDirectories>..\Services;..\zlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Services;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>NDEBUG;WIN32;_WINDOWS;_PEERPROJECT;PEERPROJECT_USE_ASM;ZLIB_WINAPI;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
@@ -243,6 +233,7 @@ cscript.exe //nologo Revision.js
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <SetChecksum>true</SetChecksum>
+      <LargeAddressAware>true</LargeAddressAware>
       <TargetMachine>MachineX86</TargetMachine>
       <KeyFile>
       </KeyFile>
@@ -258,11 +249,8 @@ cscript.exe //nologo Revision.js
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <PreBuildEvent>
       <Message>Copying DLL Services and SVN Revision...</Message>
-      <Command>copy /b /y "..\Services\zlib\$(Configuration) $(Platform)\zlibwapi.dll" "$(TargetDir)"
-copy /b /y "..\HashLib\$(Configuration) $(Platform)\HashLib.dll" "$(TargetDir)"
-copy /b /y "..\Services\SQLite\$(Configuration) $(Platform)\SQLite.dll" "$(TargetDir)"
-cscript.exe //nologo Revision.js
-</Command>
+      <Message>Pre-Build Dependencies...</Message>
+      <Command>PreBuild.cmd $(ConfigurationName) $(PlatformName)</Command>
     </PreBuildEvent>
     <Midl>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -278,7 +266,7 @@ cscript.exe //nologo Revision.js
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <OmitFramePointers>true</OmitFramePointers>
       <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
-      <AdditionalIncludeDirectories>..\Services;..\zlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Services;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>NDEBUG;WIN64;_WINDOWS;_PEERPROJECT;ZLIB_WINAPI;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
@@ -302,6 +290,7 @@ cscript.exe //nologo Revision.js
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <SetChecksum>true</SetChecksum>
+      <LargeAddressAware>true</LargeAddressAware>
       <TargetMachine>MachineX64</TargetMachine>
       <KeyFile>
       </KeyFile>
@@ -395,6 +384,7 @@ cscript.exe //nologo Revision.js
     <ClCompile Include="IEProtocol.cpp" />
     <ClCompile Include="ImageFile.cpp" />
     <ClCompile Include="ImageServices.cpp" />
+    <ClCompile Include="Images.cpp" />
     <ClCompile Include="Kademlia.cpp" />
     <ClCompile Include="Library.cpp" />
     <ClCompile Include="LibraryBuilder.cpp" />
@@ -888,7 +878,6 @@ cscript.exe //nologo Revision.js
     <ClCompile Include="CtrlMediaList.cpp" />
     <ClCompile Include="CtrlMonitorBar.cpp" />
     <ClCompile Include="CtrlNeighbourTip.cpp" />
-    <ClCompile Include="CtrlNetworkCombo.cpp" />
     <ClCompile Include="CtrlPanel.cpp" />
     <ClCompile Include="CtrlPrivateChatFrame.cpp" />
     <ClCompile Include="CtrlRichTaskBox.cpp" />
@@ -1112,19 +1101,19 @@ cscript.exe //nologo Revision.js
     <None Include="Res\CollectionMask.ico" />
     <None Include="Res\ColorDot.bmp" />
     <None Include="Res\Colors.ico" />
-    <None Include="Res\CommandImages.bmp" />
-    <None Include="Res\CommandIRC.bmp" />
+    <None Include="Res\CommandImages.png" />
+    <None Include="Res\CommandIRC.png" />
     <None Include="Res\Commercial.ico" />
     <None Include="Res\Computer.ico" />
-    <None Include="Res\ContactAOL.ico" />
-    <None Include="Res\ContactICQ.ico" />
-    <None Include="Res\ContactMSN.ico" />
-    <None Include="Res\ContactYahoo.ico" />
     <None Include="Res\Copy.cur" />
     <None Include="Res\CopyXP.cur" />
-    <None Include="Res\Default.xml" />
-    <None Include="Res\Definitions.xml" />
-<!--
+    <None Include="Res\Definitions.xml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Res\Default.xml">
+      <SubType>Designer</SubType>
+    </None>
+    <!--
 	<CustomBuild Include="Res\Default.xml">
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(RootDir)%(Directory)gzip.exe -c "%(RootDir)%(Directory)%(Identity)" &gt;"%(RootDir)%(Directory)%(Identity).gz"
 	  </Command>
@@ -1206,7 +1195,7 @@ cscript.exe //nologo Revision.js
     <None Include="Res\PointerArrowOut.ico" />
     <None Include="Res\Preview.ico" />
     <None Include="Res\Properties.ico" />
-    <None Include="Res\Protocols.bmp" />
+    <None Include="Res\Protocols.png" />
     <None Include="Res\RatingAverage.ico" />
     <None Include="Res\RatingFake.ico" />
     <None Include="Res\RatingGood.ico" />
@@ -1219,6 +1208,7 @@ cscript.exe //nologo Revision.js
     <None Include="Res\SecurityImages.bmp" />
     <None Include="Res\Skin.ico" />
     <None Include="Res\SmallStar.bmp" />
+    <None Include="Res\Social.png" />
     <None Include="Res\SortAsc.bmp" />
     <None Include="Res\SortDesc.bmp" />
     <None Include="Res\Star.ico" />
@@ -1237,10 +1227,11 @@ cscript.exe //nologo Revision.js
     <None Include="Res\WebURL.ico" />
     <None Include="Res\WizardDot.ico" />
     <None Include="Res\World.ico" />
+    <None Include="..\ReadMe.txt" />
     <None Include="..\Data\Splash.png" />
     <None Include="..\Data\DefaultServices.dat" />
     <None Include="..\Schemas\SchemaMappings.xml" />
-<!--
+    <!--
     <CustomBuild Include="..\Schemas\SchemaMappings.xml">
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Res\gzip.exe -c "%(RootDir)%(Directory)%(Identity)" &gt;"%(RootDir)%(Directory)%(Identity).gz"
 	  </Command>
@@ -1341,6 +1332,7 @@ cscript.exe //nologo Revision.js
     <ClInclude Include="IEProtocol.h" />
     <ClInclude Include="ImageFile.h" />
     <ClInclude Include="ImageServices.h" />
+    <ClInclude Include="Images.h" />
     <ClInclude Include="Kademlia.h" />
     <ClInclude Include="Library.h" />
     <ClInclude Include="LibraryBuilder.h" />
@@ -1490,7 +1482,6 @@ cscript.exe //nologo Revision.js
     <ClInclude Include="CtrlMediaList.h" />
     <ClInclude Include="CtrlMonitorBar.h" />
     <ClInclude Include="CtrlNeighbourTip.h" />
-    <ClInclude Include="CtrlNetworkCombo.h" />
     <ClInclude Include="CtrlPanel.h" />
     <ClInclude Include="CtrlPrivateChatFrame.h" />
     <ClInclude Include="CtrlRichTaskBox.h" />
@@ -1657,20 +1648,6 @@ cscript.exe //nologo Revision.js
     <ClInclude Include="..\Services\Augment\IUnknownImplementation.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <CustomBuildStep Include="..\Services\BugTrap\BugTrapLib\BugTrapU-x64.lib">
-      <FileType>Document</FileType>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </CustomBuildStep>
-    <CustomBuildStep Include="..\Services\BugTrap\BugTrapLib\BugTrapU.lib">
-      <FileType>Document</FileType>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </CustomBuildStep>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\HashLib\HashLib.VS2010.vcxproj">
       <Project>{196c99fc-9a4e-421f-b44c-8e3fd177122f}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
@@ -1681,6 +1658,14 @@ cscript.exe //nologo Revision.js
     </ProjectReference>
     <ProjectReference Include="..\Services\SQLite\sqlite3.VS2010.vcxproj">
       <Project>{0a0b10c7-cdf6-4a48-8f7b-b66a88154aae}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\Services\Bzlib\Bzlib.VS2010.vcxproj">
+      <Project>{A14F5E46-C04C-4F32-9985-2E15819A722A}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\Services\BugTrap\BugTrap.VS2010.vcxproj">
+      <Project>{e8cf1ada-264a-4127-86c2-fd7057d3792c}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
   </ItemGroup>

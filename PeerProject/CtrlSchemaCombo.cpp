@@ -2,21 +2,18 @@
 // CtrlSchemaCombo.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2007.
+// Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
@@ -31,10 +28,10 @@
 #include "XML.h"
 
 #ifdef _DEBUG
-#define new DEBUG_NEW
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
-#endif
+#define new DEBUG_NEW
+#endif	// Filename
 
 BEGIN_MESSAGE_MAP(CSchemaCombo, CComboBox)
 	//{{AFX_MSG_MAP(CSchemaCombo)
@@ -48,9 +45,9 @@ END_MESSAGE_MAP()
 // CSchemaCombo construction
 
 CSchemaCombo::CSchemaCombo()
+	: m_pWndProc	( NULL )
+	, m_hListBox	( 0 )
 {
-	m_hListBox			= 0;
-	m_pWndProc			= NULL;
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -222,16 +219,15 @@ void CSchemaCombo::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 
 	CSchemaPtr pSchema = (CSchemaPtr)lpDrawItemStruct->itemData;
 
-	if ( pSchema != NULL )
+	if ( pSchema )	// Schema Option Item
 	{
-		//dc.FillSolidRect( &rcItem, GetSysColor( ( lpDrawItemStruct->itemState & ODS_SELECTED )
-		//	? COLOR_HIGHLIGHT : COLOR_WINDOW ) );
+		//dc.FillSolidRect( &rcItem, GetSysColor( ( lpDrawItemStruct->itemState & ODS_SELECTED ) ? COLOR_HIGHLIGHT : COLOR_WINDOW ) );
 		if ( IsWindowEnabled() )
 		{
 			if ( lpDrawItemStruct->itemState & ODS_SELECTED )
 			{
 				if ( Skin.m_bmSelected.m_hObject )
-					CoolInterface.DrawWatermark( &dc, &rcItem, &Skin.m_bmSelected, FALSE );	// No overdraw
+					CoolInterface.DrawWatermark( &dc, &rcItem, &Skin.m_bmSelected, FALSE ); 	// No overdraw
 				else
 					dc.FillSolidRect( &rcItem, Colors.m_crHighlight );
 			}
@@ -247,10 +243,11 @@ void CSchemaCombo::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 
 		dc.SetBkMode( TRANSPARENT );
 
-		ShellIcons.Draw( &dc, pSchema->m_nIcon16, 16, pt.x, pt.y, CLR_NONE,
-			( lpDrawItemStruct->itemState & ODS_SELECTED ) );
+		ShellIcons.Draw( &dc, pSchema->m_nIcon16, 16, pt.x, pt.y,
+			CLR_NONE, ( lpDrawItemStruct->itemState & ODS_SELECTED ) );
 
-		rcItem.left += 20; rcItem.right -= 2;
+		rcItem.left += 20;
+		rcItem.right -= 2;
 
 		CFont* pOldFont = (CFont*)dc.SelectObject( &theApp.m_gdiFont );
 		CString strURI = pSchema->GetURI();
@@ -263,7 +260,7 @@ void CSchemaCombo::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 
 			if ( pszLeft && nRight >= 0 )
 			{
-				int nLeft = static_cast< int >( pszLeft - (LPCTSTR)strURI );  // !!! (TODO)
+				int nLeft = static_cast< int >( pszLeft - (LPCTSTR)strURI );  // !!! (ToDo:?)
 				strURI = strURI.Left( nLeft ) + _T("/\x2026") + strURI.Mid( nRight );
 			}
 		}
@@ -279,10 +276,9 @@ void CSchemaCombo::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 		dc.DrawText( pSchema->m_sTitle, &rcItem, DT_SINGLELINE|DT_LEFT|DT_VCENTER|DT_NOPREFIX );
 		dc.SelectObject( pOldFont );
 	}
-	else if ( lpDrawItemStruct->itemID == 0 )
+	else if ( lpDrawItemStruct->itemID == 0 )	// Default Option Item
 	{
-		//dc.FillSolidRect( &rcItem,
-		//	GetSysColor( ( lpDrawItemStruct->itemState & ODS_SELECTED ) ? COLOR_HIGHLIGHT : COLOR_WINDOW ) );
+		//dc.FillSolidRect( &rcItem, GetSysColor( ( lpDrawItemStruct->itemState & ODS_SELECTED ) ? COLOR_HIGHLIGHT : COLOR_WINDOW ) );
 		if ( IsWindowEnabled() )
 		{
 			if ( lpDrawItemStruct->itemState & ODS_SELECTED )
@@ -303,29 +299,37 @@ void CSchemaCombo::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 		}
 		dc.SetBkMode( TRANSPARENT );
 
-		CoolInterface.Draw( &dc, IDR_SEARCHFRAME, 16,
-			pt.x, pt.y, CLR_NONE, ( lpDrawItemStruct->itemState & ODS_SELECTED ) );
+		CoolInterface.Draw( &dc, IDR_SEARCHFRAME, 16, pt.x, pt.y,
+			CLR_NONE, ( lpDrawItemStruct->itemState & ODS_SELECTED ) );
 
-		rcItem.left += 20; rcItem.right -= 2;
+		rcItem.left += 20;
+		rcItem.right -= 2;
 
 		CFont* pOldFont = (CFont*)dc.SelectObject( &theApp.m_gdiFontBold );
 		dc.DrawText( m_sNoSchemaText, &rcItem, DT_SINGLELINE|DT_LEFT|DT_VCENTER|DT_NOPREFIX );
 		dc.SelectObject( pOldFont );
 	}
-	else
+	else	// Expand View Item
 	{
 		dc.Draw3dRect( &rcItem, Colors.m_crDropdownBox , Colors.m_crDropdownBox );
 		rcItem.DeflateRect( 1, 1 );
 
 		if ( lpDrawItemStruct->itemState & ODS_SELECTED )
 		{
-			dc.Draw3dRect( &rcItem, Colors.m_crBorder, Colors.m_crBorder );
-			rcItem.DeflateRect( 1, 1 );
-			dc.FillSolidRect( &rcItem, Colors.m_crBackSel );
+			if ( Skin.m_bmSelected.m_hObject )
+			{
+				CoolInterface.DrawWatermark( &dc, &rcItem, &Skin.m_bmSelected, FALSE );
+			}
+			else
+			{
+				dc.Draw3dRect( &rcItem, Colors.m_crBorder, Colors.m_crBorder );
+				rcItem.DeflateRect( 1, 1 );
+				dc.FillSolidRect( &rcItem, Colors.m_crBackSel );
+			}
 		}
 		else
 		{
-			dc.FillSolidRect( &rcItem, GetSysColor( COLOR_WINDOW /* COLOR_BTNFACE */ ) );
+			dc.FillSolidRect( &rcItem, Colors.m_crDropdownBox );	// GetSysColor( COLOR_BTNFACE ) ?
 		}
 
 		dc.SetBkMode( TRANSPARENT );

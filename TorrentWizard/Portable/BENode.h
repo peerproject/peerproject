@@ -90,7 +90,7 @@ public:
 	inline void SetString(LPCTSTR psz)
 	{
 		Clear();
-		m_nType		= beString;	
+		m_nType		= beString;
 		m_pValue	= MakeStr( psz, FALSE );
 		m_nValue	= strlen( (LPCSTR)m_pValue );
 	}

@@ -1,26 +1,20 @@
 //
 // DlgMediaVis.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
-// Portions Copyright Shareaza Development Team, 2002-2007.
+// This file is part of PeerProject (peerproject.org) © 2008-2010
+// Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
-//
-
-#if !defined(AFX_DLGMEDIAVIS_H__61DBA242_FBB7_4C1C_815A_470BC14F5ED1__INCLUDED_)
-#define AFX_DLGMEDIAVIS_H__61DBA242_FBB7_4C1C_815A_470BC14F5ED1__INCLUDED_
 
 #pragma once
 
@@ -38,13 +32,14 @@ public:
 
 	DECLARE_DYNAMIC(CMediaVisDlg)
 
+	enum { IDD = IDD_MEDIA_VIS };
+
 // Dialog Data
 public:
 	//{{AFX_DATA(CMediaVisDlg)
-	enum { IDD = IDD_MEDIA_VIS };
-	CButton	m_wndSetup;
+	CButton 	m_wndSetup;
 	CListCtrl	m_wndList;
-	int		m_nSize;
+	int 		m_nSize;
 	//}}AFX_DATA
 
 // Attributes
@@ -59,25 +54,18 @@ protected:
 	void	AddPlugin(LPCTSTR pszName, LPCTSTR pszCLSID, LPCTSTR pszPath);
 	BOOL	EnumerateWrapped(LPCTSTR pszName, REFCLSID pCLSID, LPCTSTR pszCLSID);
 
-// Overrides
-public:
-	//{{AFX_VIRTUAL(CMediaVisDlg)
-	protected:
-	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
-	//}}AFX_VIRTUAL
-
 // Implementation
 protected:
 	//{{AFX_MSG(CMediaVisDlg)
+	virtual void DoDataExchange(CDataExchange* pDX);
 	virtual BOOL OnInitDialog();
 	virtual void OnOK();
 	afx_msg void OnDblClkPlugins(NMHDR* pNMHDR, LRESULT* pResult);
 	afx_msg void OnItemChangedPlugins(NMHDR* pNMHDR, LRESULT* pResult);
 	afx_msg void OnSetup();
 	//}}AFX_MSG
+
 	DECLARE_MESSAGE_MAP()
 };
 
 //{{AFX_INSERT_LOCATION}}
-
-#endif // !defined(AFX_DLGMEDIAVIS_H__61DBA242_FBB7_4C1C_815A_470BC14F5ED1__INCLUDED_)

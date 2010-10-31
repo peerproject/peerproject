@@ -122,6 +122,7 @@ echo regsvr32 exec. time &gt; "$(OutDir)regsvr32.trg"
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <BaseAddress>0x22100000</BaseAddress>
+      <LargeAddressAware>true</LargeAddressAware>
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
     <Bscmake>
@@ -171,6 +172,7 @@ echo regsvr32 exec. time &gt; "$(OutDir)regsvr32.trg"
       <ModuleDefinitionFile>ImageViewer.def</ModuleDefinitionFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
+      <LargeAddressAware>true</LargeAddressAware>
       <TargetMachine>MachineX64</TargetMachine>
     </Link>
     <Bscmake>
@@ -231,6 +233,7 @@ echo regsvr32 exec. time &gt; "$(OutDir)regsvr32.trg"
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <SetChecksum>true</SetChecksum>
       <BaseAddress>0x22100000</BaseAddress>
+      <LargeAddressAware>true</LargeAddressAware>
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
     <Bscmake>
@@ -290,6 +293,7 @@ echo regsvr32 exec. time &gt; "$(OutDir)regsvr32.trg"
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <SetChecksum>true</SetChecksum>
+      <LargeAddressAware>true</LargeAddressAware>
       <TargetMachine>MachineX64</TargetMachine>
     </Link>
     <Bscmake>

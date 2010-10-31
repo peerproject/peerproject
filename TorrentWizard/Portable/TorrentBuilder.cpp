@@ -276,7 +276,7 @@ int CTorrentBuilder::Run()
 		if ( m_pFileED2K ) delete [] m_pFileED2K;
 		if ( m_pFileSHA1 ) delete [] m_pFileSHA1;
 		if ( m_pFileSize ) delete [] m_pFileSize;
-		
+
 		m_sThisFile.Empty();
 		m_bActive = FALSE;
 
@@ -377,12 +377,12 @@ BOOL CTorrentBuilder::ProcessFiles()
 	m_pPieceSHA1	= new CHashSHA1[ m_nPieceCount ];
 	m_pFileSHA1		= new CHashSHA1[ m_pFiles.GetCount() ];
 	m_pFileED2K		= new CHashMD4[ m_pFiles.GetCount() ];
-	
+
 	m_phFullSHA1->Reset();
 	m_phFullED2K->Reset();
-	
+
 	m_phPieceSHA1->Reset();
-	
+
 	int nFile = 0;
 
 	for ( POSITION pos = m_pFiles.GetHeadPosition() ; pos && ! m_bAbort ; nFile++ )
@@ -419,7 +419,7 @@ BOOL CTorrentBuilder::ProcessFiles()
 
 	m_phFullSHA1->Finish();
 	m_pDataSHA1 = *m_phFullSHA1;
-	
+
 	m_phFullED2K->Finish();
 	m_pDataED2K = *m_phFullED2K;
 
@@ -443,7 +443,7 @@ BOOL CTorrentBuilder::ProcessFile(LPCTSTR pszFile)
 
 	HANDLE hFile = CreateFile( pszFile, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, 0, NULL );
 	if ( hFile == INVALID_HANDLE_VALUE ) return FALSE;
-	
+
 	DWORD nLow, nHigh;
 	nLow = GetFileSize( hFile, &nHigh );
 	QWORD nSize = ( (QWORD)nHigh << 32 ) + (QWORD)nLow;
@@ -466,7 +466,7 @@ BOOL CTorrentBuilder::ProcessFile(LPCTSTR pszFile)
 		m_phFileSHA1->Add( m_pBuffer, nRead );
 		m_phFullED2K->Add( m_pBuffer, nRead );
 		m_phFileED2K->Add( m_pBuffer, nRead );
-		
+
 		if ( m_nPieceUsed >= m_nPieceSize )
 		{
 			m_phPieceSHA1->Finish();
@@ -526,16 +526,16 @@ BOOL CTorrentBuilder::WriteOutput()
 		CBENode* pPL = pInfo->Add( "piece length" );
 		pPL->SetInt( m_nPieceSize );
 	}
-	
+
 	CBENode* pPieces = pInfo->Add( "pieces" );
 	pPieces->SetString( m_pPieceSHA1, m_nPieceCount * sizeof CHashSHA1 );
-	
+
 	CBENode* pSHA1 = pInfo->Add( "sha1" );
 	pSHA1->SetString( &m_pDataSHA1, sizeof CHashSHA1 );
-	
+
 	CBENode* pED2K = pInfo->Add( "ed2k" );
 	pED2K->SetString( &m_pDataED2K, sizeof CHashMD4 );
-	
+
 	CString strFirst = m_pFiles.GetHead();
 
 	if ( m_pFiles.GetCount() == 1 )
@@ -604,7 +604,7 @@ BOOL CTorrentBuilder::WriteOutput()
 				if ( strPart.IsEmpty() ) break;
 
 				pPath->Add( NULL, NULL )->SetString( strPart );
-				
+
 				strFile = strFile.Mid( strPart.GetLength() );
 				if ( strFile.GetLength() ) strFile = strFile.Mid( 1 );
 			}

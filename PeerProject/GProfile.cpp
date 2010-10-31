@@ -1,22 +1,19 @@
 //
 // GProfile.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
-// Portions Copyright Shareaza Development Team, 2002-2007.
+// This file is part of PeerProject (peerproject.org) © 2008-2010
+// Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
@@ -30,11 +27,11 @@
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
-#endif
+#endif	// Filename
 
 #define WORDLIM(x)  (WORD)( ( (x) < 0 ) ? 0 : ( ( (x) > 65535 ) ? 65535 : (x) ) )
 
-LPCTSTR CGProfile::xmlns = _T("http://www.shareaza.com/schemas/GProfile.xsd");
+LPCTSTR CGProfile::xmlns = _T("http://schemas.peerproject.org/Profile.xsd");
 
 BEGIN_INTERFACE_MAP(CGProfile, CComObject)
 END_INTERFACE_MAP()
@@ -46,7 +43,7 @@ CGProfile	MyProfile;
 // CGProfile construction
 
 CGProfile::CGProfile() :
-	m_pXML( new CXMLElement( NULL, _T("gProfile") ) )
+	m_pXML( new CXMLElement( NULL, _T("profile") ) )
 {
 	ASSERT( m_pXML );
 	VERIFY( m_pXML->AddAttribute( _T("xmlns"), xmlns ) );
@@ -156,11 +153,33 @@ BOOL CGProfile::Save()
 
 BOOL CGProfile::FromXML(const CXMLElement* pXML)
 {
-	// Checking XML for validness
-	if ( pXML == NULL ||
-		 pXML->GetAttributeValue( _T("xmlns") ).CompareNoCase( xmlns ) ||
-		 pXML->IsNamed( _T("gProfile") ) == FALSE )
+	// Checking XML validity
+	if ( pXML == NULL )
 		 return FALSE;
+
+	if ( ! pXML->GetAttributeValue( _T("xmlns") ).CompareNoCase( xmlns ) )	// http://schemas.peerproject.org/Profile.xsd defined above
+	{
+		if ( ! pXML->IsNamed( _T("profile") ) )
+			return FALSE;
+	}
+	else if ( ! pXML->GetAttributeValue( _T("xmlns") ).CompareNoCase( _T("http://www.shareaza.com/schemas/GProfile.xsd") ) )
+	{
+		if ( ! pXML->IsNamed( _T("gprofile") ) )
+			return FALSE;
+	}
+	//else if ( ! pXML->GetAttributeValue( _T("xmlns") ).CompareNoCase( _T("http://www.limewire.com/schemas/person.xsd" ) ) )
+	//{
+	//	// Never reached from G1.  ToDo: Is this even useful to acquire some Limewire-type xml profile data?
+	//	theApp.Message( MSG_INFO, _T("Limewire Profiles Currently Unsupported.") );
+	//	//if ( ! pXML->IsNamed( _T("person") ) )
+	//		return FALSE;
+	//}
+	else
+	{
+		theApp.Message( MSG_INFO, _T("Unknown Profile Type:  %s"), pXML->GetAttributeValue( _T("xmlns") ) );
+		if ( ! pXML->IsNamed( _T("gprofile") ) && ! pXML->IsNamed( _T("profile") ) )
+			return FALSE;
+	}
 
 	// Loading Gnutella GUID (required)
 	const CXMLElement* pGnutella = pXML->GetElementByName( _T("gnutella") );
@@ -196,9 +215,7 @@ CString CGProfile::GetNick() const
 	if ( const CXMLElement* pIdentity = m_pXML->GetElementByName( _T("identity") ) )
 	{
 		if ( const CXMLElement* pHandle = pIdentity->GetElementByName( _T("handle") ) )
-		{
 			return pHandle->GetAttributeValue( _T("primary") );
-		}
 	}
 	return CString();
 }
@@ -214,14 +231,16 @@ CString CGProfile::GetLocation() const
 			CString strCountry = pPolitical->GetAttributeValue( _T("country") );
 
 			CString str = strCity;
-			if ( strState.GetLength() )
+			if ( ! strState.IsEmpty() )
 			{
-				if ( str.GetLength() ) str += _T(", ");
+				if ( ! str.IsEmpty() )
+					str += _T(", ");
 				str += strState;
 			}
-			if ( strCountry.GetLength() )
+			if ( ! strCountry.IsEmpty() )
 			{
-				if ( str.GetLength() ) str += _T(", ");
+				if ( ! str.IsEmpty() )
+					str += _T(", ");
 				str += strCountry;
 			}
 
@@ -243,9 +262,7 @@ CString CGProfile::GetContact(LPCTSTR pszType) const
 				 pGroup->GetAttributeValue( _T("class") ).CompareNoCase( pszType ) == 0 )
 			{
 				if ( const CXMLElement* pAddress = pGroup->GetElementByName( _T("address") ) )
-				{
 					return pAddress->GetAttributeValue( _T("content") );
-				}
 			}
 		}
 	}
@@ -300,9 +317,7 @@ CG2Packet* CGProfile::CreateAvatar() const
 
 	pPacket->WritePacket( G2_PACKET_BODY, (DWORD)pFile.GetLength() );
 	if ( LPBYTE pBody = pPacket->WriteGetPointer( (DWORD)pFile.GetLength() ) )
-	{
 		pFile.Read( pBody, (DWORD)pFile.GetLength() );
-	}
 
 	return pPacket;
 }
@@ -319,7 +334,7 @@ void CGProfile::Serialize(CArchive& ar)
 		bXMLPresent = ( m_pXML->GetElementCount() != 0 );
 		ar << bXMLPresent;
 	}
-	else
+	else // Loading
 	{
 		ar >> bXMLPresent;
 	}

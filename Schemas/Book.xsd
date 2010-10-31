@@ -62,7 +62,7 @@
 					<enumeration value="Article"/>
 				</simpleType>
 			</attribute>
- 			<attribute name="format">
+			<attribute name="format">
 				<simpleType base="string">
 					<enumeration value="Adobe Reader"/>
 					<enumeration value="Compiled HTML Help"/>

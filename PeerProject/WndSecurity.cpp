@@ -2,21 +2,18 @@
 // WndSecurity.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2007.
+// Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
@@ -30,10 +27,18 @@
 #include "XML.h"
 
 #ifdef _DEBUG
-#define new DEBUG_NEW
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
-#endif
+#define new DEBUG_NEW
+#endif	// Filename
+
+//const static UINT nImageIDs[] =
+//{
+//	IDR_SECURITYFRAME,
+//	IDI_SECURITY_GRANTED,
+//	IDI_SECURITY_DENIED,
+//	NULL
+//};
 
 IMPLEMENT_SERIAL(CSecurityWnd, CPanelWnd, 0)
 
@@ -101,7 +106,8 @@ int CSecurityWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_wndList.InsertColumn( 2, _T("#"), LVCFMT_CENTER, 30, 1 );
 	m_wndList.InsertColumn( 3, _T("Action"), LVCFMT_CENTER, 60, 2 );
 	m_wndList.InsertColumn( 4, _T("Expires"), LVCFMT_CENTER, 60, 3 );
-	m_wndList.InsertColumn( 5, _T("Comment"), LVCFMT_LEFT, 180, 4 );
+	m_wndList.InsertColumn( 5, _T("Match"), LVCFMT_CENTER, 60, 4 );
+	m_wndList.InsertColumn( 6, _T("Comment"), LVCFMT_LEFT, 200, 5 );
 
 	m_pSizer.Attach( &m_wndList );
 
@@ -114,6 +120,8 @@ int CSecurityWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_gdiImageList.Create( 16, 16, ILC_MASK|ILC_COLOR24, 3, 1 ) ||
 	m_gdiImageList.Create( 16, 16, ILC_MASK|ILC_COLOR16, 3, 1 );
 	m_gdiImageList.Add( &bmBase, RGB( 0, 255, 0 ) );
+
+//	CoolInterface.LoadIconsTo( m_gdiImageList, nImageIDs );
 	m_wndList.SetImageList( &m_gdiImageList, LVSIL_SMALL );
 
 	m_wndList.SetFont( &theApp.m_gdiFont );
@@ -142,13 +150,13 @@ void CSecurityWnd::Update(int nColumn, BOOL bSort)
 {
 	CQuickLock oLock( Security.m_pSection );
 
-	CLiveList pLiveList( 6, Security.GetCount() + Security.GetCount() / 4u );
+	CLiveList pLiveList( 7, Security.GetCount() + Security.GetCount() / 4u );
 
 	CLiveItem* pDefault = pLiveList.Add( (LPVOID)0 );
-	pDefault->Set( 0, _T("Default Policy") );
-	pDefault->Set( 3, Security.m_bDenyPolicy ? _T("Deny") : _T("Accept") );
-	pDefault->Set( 2, _T(" X ") );
-	pDefault->m_nImage = Security.m_bDenyPolicy ? Settings.General.LanguageRTL ? 0 : 2 : 1;
+	pDefault->Set( 2, _T(" - ") );							// Need leading space for proper sort priority (until sorting is fixed)
+	pDefault->Set( 0, LoadString( IDS_SECURITY_DEFAULT ) );	// "Default Policy"
+	pDefault->Set( 3, LoadString( Security.m_bDenyPolicy ? IDS_SECURITY_DENY : IDS_SECURITY_ACCEPT ) );
+	pDefault->SetImage( Security.m_bDenyPolicy ? Settings.General.LanguageRTL ? 0 : 2 : 1 );
 
 	Security.Expire();
 
@@ -161,7 +169,7 @@ void CSecurityWnd::Update(int nColumn, BOOL bSort)
 
 		CLiveItem* pItem = pLiveList.Add( pRule );
 
-		pItem->m_nImage = Settings.General.LanguageRTL ? 2 - pRule->m_nAction : pRule->m_nAction;
+		pItem->SetImage( pRule->m_nAction );
 
 		if ( pRule->m_nType == CSecureRule::srAddress )
 		{
@@ -191,16 +199,35 @@ void CSecurityWnd::Update(int nColumn, BOOL bSort)
 			pItem->Set( 3, _T("N/A") );
 			break;
 		case CSecureRule::srAccept:
-			pItem->Set( 3, _T("Accept") );
+			pItem->Set( 3, LoadString( IDS_SECURITY_ACCEPT ) );
 			break;
 		case CSecureRule::srDeny:
-			pItem->Set( 3, _T("Deny") );
+			pItem->Set( 3, LoadString( IDS_SECURITY_DENY ) );
+			break;
+		}
+
+		switch ( (int)pRule->m_nType )
+		{
+		case CSecureRule::srAddress:
+			pItem->Set( 5, _T("IP") );
+			break;
+		case CSecureRule::srContentAny:
+			pItem->Set( 5, _T("Any") );
+			break;
+		case CSecureRule::srContentAll:
+			pItem->Set( 5, _T("All") );
+			break;
+		case CSecureRule::srContentRegExp:
+			pItem->Set( 5, _T("RegExp") );
+			break;
+		case CSecureRule::srSizeType:
+			pItem->Set( 5, _T("Size") );
 			break;
 		}
 
 		if ( pRule->m_nExpire == CSecureRule::srIndefinite )
 		{
-			pItem->Set( 4, _T("Never") );
+			pItem->Set( 4, LoadString( IDS_SECURITY_NOEXPIRE ) );	// "Never"
 		}
 		else if ( pRule->m_nExpire == CSecureRule::srSession )
 		{
@@ -215,7 +242,7 @@ void CSecurityWnd::Update(int nColumn, BOOL bSort)
 
 		pItem->Format( 1, _T("%u (%u)"), pRule->m_nToday, pRule->m_nEver );
 		pItem->Format( 2, _T("%i"), nCount );
-		pItem->Set( 5, pRule->m_sComment );
+		pItem->Set( 6, pRule->m_sComment );
 	}
 
 	if ( nColumn >= 0 )
@@ -251,7 +278,7 @@ void CSecurityWnd::OnSize(UINT nType, int cx, int cy)
 
 void CSecurityWnd::OnTimer(UINT_PTR nIDEvent)
 {
-	if ( ( nIDEvent == 1 ) && ( IsPartiallyVisible() ) )
+	if ( nIDEvent == 1 && IsPartiallyVisible() )
 	{
 		DWORD tTicks = GetTickCount();
 		DWORD tDelay = max( ( 2 * (DWORD)Security.GetCount() ), 1000ul ); // Delay based on size of list
@@ -272,6 +299,9 @@ void CSecurityWnd::OnSkinChange()
 	CPanelWnd::OnSkinChange();
 	Settings.LoadList( _T("CSecurityWnd"), &m_wndList, -3 );
 	Skin.CreateToolBar( _T("CSecurityWnd"), &m_wndToolBar );
+
+//	CoolInterface.LoadIconsTo( m_gdiImageList, nImageIDs );
+//	m_wndList.SetImageList( &m_gdiImageList, LVSIL_SMALL );
 
 	if ( m_wndList.SetBkImage( Skin.GetWatermark( _T("CSecurityWnd") ) ) )
 		m_wndList.SetExtendedStyle( LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP|LVS_EX_LABELTIP|LVS_EX_SUBITEMIMAGES );	// No LVS_EX_DOUBLEBUFFER
@@ -476,8 +506,7 @@ void CSecurityWnd::OnSecurityExport()
 
 	if ( ! pFile.Open( dlg.GetPathName(), CFile::modeWrite|CFile::modeCreate ) )
 	{
-		// ToDo: Error
-		AfxMessageBox( _T("Error") );
+		AfxMessageBox( _T("Error") );	// ToDo: Security Export Error
 		return;
 	}
 
@@ -493,7 +522,7 @@ void CSecurityWnd::OnSecurityExport()
 			{
 				strText = pRule->ToGnucleusString();
 
-				if ( strText.GetLength() )
+				if ( ! strText.IsEmpty() )
 				{
 					strText += _T("\r\n");
 
@@ -543,7 +572,7 @@ void CSecurityWnd::OnSecurityImport()
 	if ( Security.Import( dlg.GetPathName() ) )
 		Security.Save();
 	else
-		AfxMessageBox( _T("Error") );	// ToDo: Error message, unable to import rules
+		AfxMessageBox( _T("Import Failed.") );	// ToDo: Error message, unable to import rules
 }
 
 void CSecurityWnd::OnUpdateSecurityPolicyAccept(CCmdUI* pCmdUI)
@@ -581,9 +610,18 @@ BOOL CSecurityWnd::PreTranslateMessage(MSG* pMsg)
 				OnSecurityMoveUp();
 				return TRUE;
 			}
-			else if ( pMsg->wParam == VK_DOWN )
+			if ( pMsg->wParam == VK_DOWN )
 			{
 				OnSecurityMoveDown();
+				return TRUE;
+			}
+			if ( pMsg->wParam == 'A' )
+			{
+				for ( int nItem = 0 ; nItem < m_wndList.GetItemCount() ; nItem++ )
+				{
+					if ( CSecureRule* pRule = (CSecureRule*)m_wndList.GetItemData( nItem ) )	// Skip Default Policy
+						m_wndList.SetItemState( nItem, LVIS_SELECTED, LVIS_SELECTED );
+				}
 				return TRUE;
 			}
 		}

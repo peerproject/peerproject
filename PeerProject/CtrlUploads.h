@@ -2,26 +2,31 @@
 // CtrlUploads.h
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2007.
+// Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #pragma once
 
 #include "CtrlUploadTip.h"
+
+#define ULF_ACTIVE		0x01
+#define ULF_QUEUED		0x02
+#define ULF_HISTORY		0x04
+#define ULF_TORRENT		0x08
+
+#define ULF_ALL			(ULF_ACTIVE|ULF_QUEUED|ULF_HISTORY|ULF_TORRENT)
+
 
 class CUploadFile;
 class CUploadQueue;
@@ -58,8 +63,8 @@ protected:
 protected:
 	CHeaderCtrl			m_wndHeader;
 	CUploadTipCtrl		m_wndTip;
-	CImageList			m_pProtocols;
 	CUploadFile*		m_pDeselect;
+	CImageList			m_gdiProtocols;
 	int					m_nFocus;
 
 // Queue/File Abstractation Layer
@@ -70,8 +75,6 @@ public:
 	static CUploadFile*		GetNextFile(CUploadQueue* pQueue, POSITION& pos, int* pnPosition = NULL);
 
 // Implementation
-protected:
-	DECLARE_MESSAGE_MAP()
 public:
 	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnDestroy();
@@ -91,11 +94,7 @@ public:
 	afx_msg void OnSetFocus(CWnd* pOldWnd);
 	afx_msg void OnKillFocus(CWnd* pNewWnd);
 	afx_msg UINT OnGetDlgCode();
+
+protected:
+	DECLARE_MESSAGE_MAP()
 };
-
-#define ULF_ACTIVE		0x01
-#define ULF_QUEUED		0x02
-#define ULF_HISTORY		0x04
-#define ULF_TORRENT		0x08
-
-#define ULF_ALL			(ULF_ACTIVE|ULF_QUEUED|ULF_HISTORY|ULF_TORRENT)

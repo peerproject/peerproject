@@ -2,36 +2,33 @@
 // PageProfileIdentity.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2007.
+// Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
-#include "GProfile.h"
-#include "XML.h"
+#include "PeerProject.h"
 #include "PageProfileIdentity.h"
+#include "GProfile.h"
 #include "Skin.h"
+#include "XML.h"
 
 #ifdef _DEBUG
-#define new DEBUG_NEW
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
-#endif
+#define new DEBUG_NEW
+#endif	// Filename
 
 IMPLEMENT_DYNCREATE(CIdentityProfilePage, CSettingsPage)
 
@@ -44,15 +41,16 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CIdentityProfilePage property page
 
-CIdentityProfilePage::CIdentityProfilePage() : CSettingsPage( CIdentityProfilePage::IDD )
+CIdentityProfilePage::CIdentityProfilePage()
+	: CSettingsPage( CIdentityProfilePage::IDD )
+	, m_sNick	( _T("") )
+	, m_sFirst	( _T("") )
+	, m_sLast	( _T("") )
+	, m_sAge	( _T("") )
+	, m_sGender	( _T("") )
+	, m_bBrowseUser	( FALSE )
 {
 	//{{AFX_DATA_INIT(CIdentityProfilePage)
-	m_sAge = _T("");
-	m_sGender = _T("");
-	m_sNick = _T("");
-	m_sFirst = _T("");
-	m_sLast = _T("");
-	m_bBrowseUser = FALSE;
 	//}}AFX_DATA_INIT
 }
 
@@ -84,14 +82,12 @@ BOOL CIdentityProfilePage::OnInitDialog()
 	if ( CXMLElement* pIdentity = MyProfile.GetXML( _T("identity") ) )
 	{
 		if ( CXMLElement* pHandle = pIdentity->GetElementByName( _T("handle") ) )
-		{
-			m_sNick = pHandle->GetAttributeValue( _T("primary") );
-		}
+			m_sNick  = pHandle->GetAttributeValue( _T("primary") );
 
 		if ( CXMLElement* pName = pIdentity->GetElementByName( _T("name") ) )
 		{
-			m_sFirst	= pName->GetAttributeValue( _T("first") );
-			m_sLast		= pName->GetAttributeValue( _T("last") );
+			m_sFirst = pName->GetAttributeValue( _T("first") );
+			m_sLast  = pName->GetAttributeValue( _T("last") );
 		}
 	}
 
@@ -104,7 +100,7 @@ BOOL CIdentityProfilePage::OnInitDialog()
 
 		m_sGender = pVitals->GetAttributeValue( _T("gender") );
 
-		if ( m_sGender.GetLength() )
+		if ( ! m_sGender.IsEmpty() )
 		{
 			CComboBox* pGender = (CComboBox*) GetDlgItem( IDC_PROFILE_GENDER );
 			if ( m_sGender.CompareNoCase( _T("male") ) == 0 )
@@ -133,7 +129,7 @@ BOOL CIdentityProfilePage::OnInitDialog()
 			m_sAge.Empty();
 	}
 
-	for ( int nAge = 1 ; nAge < 110 ; nAge++ )
+	for ( int nAge = 10 ; nAge < 91 ; nAge++ )
 	{
 		CString str;
 		str.Format( _T("%i"), nAge );
@@ -190,7 +186,7 @@ void CIdentityProfilePage::OnOK()
 		else
 			pVitals->DeleteAttribute( _T("gender") );
 
-		if ( m_sAge.GetLength() )
+		if ( ! m_sAge.IsEmpty() )
 			pVitals->AddAttribute( _T("age"), m_sAge );
 		else
 			pVitals->DeleteAttribute( _T("age") );
@@ -213,7 +209,8 @@ void CIdentityProfilePage::GetGenderTranslations(CString& pMale, CString& pFemal
 	{
 		CXMLElement* pGroups = pXML->GetNextElement( posGroup );
 
-		if ( pGroups->IsNamed( _T("group") ) && pGroups->GetAttributeValue( _T("id") ) == "3" ) {
+		if ( pGroups->IsNamed( _T("group") ) && pGroups->GetAttributeValue( _T("id") ) == "3" )
+		{
 			for ( POSITION posText = pGroups->GetElementIterator() ; posText && ! bCollected ; )
 			{
 				CXMLElement* pText = pGroups->GetNextElement( posText );
@@ -227,7 +224,7 @@ void CIdentityProfilePage::GetGenderTranslations(CString& pMale, CString& pFemal
 						pMale = pText->GetValue();
 						bCollected = pFemale.IsEmpty() ? FALSE : TRUE;
 					}
-					if ( strTemp.CompareNoCase( _T("genderfemale") ) == 0 )
+					else if ( strTemp.CompareNoCase( _T("genderfemale") ) == 0 )
 					{
 						pFemale = pText->GetValue();
 						bCollected = pMale.IsEmpty() ? FALSE : TRUE;

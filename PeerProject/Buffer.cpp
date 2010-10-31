@@ -2,21 +2,18 @@
 // Buffer.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2008.
+// Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 // CBuffer holds some memory, and takes care of allocating and freeing it itself
@@ -31,12 +28,11 @@
 #include "ZLib.h"
 #endif
 
-// Constant "THIS_FILE" is the filename in Debug mode only
 #ifdef _DEBUG
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
-#endif
+#endif	// Filename
 
 // Define memory sizes to use in these methods
 #define BLOCK_SIZE	1024		// Change the allocated size of the buffer in 1 KB sized blocks
@@ -161,6 +157,22 @@ DWORD CBuffer::AddBuffer(CBuffer* pBuffer, const size_t nLength)
 	}
 }
 
+void CBuffer::Attach(CBuffer* pBuffer)
+{
+	ASSERT( pBuffer );
+	if ( ! pBuffer ) return;
+
+	if ( m_pBuffer ) free( m_pBuffer );
+	m_pBuffer = pBuffer->m_pBuffer;
+	pBuffer->m_pBuffer = NULL;
+
+	m_nBuffer = pBuffer->m_nBuffer;
+	pBuffer->m_nBuffer = 0;
+
+	m_nLength = pBuffer->m_nLength;
+	pBuffer->m_nLength = 0;
+}
+
 // Takes a pointer to some memory, and the number of bytes we can read there
 // Adds them to this buffer, except in reverse order
 void CBuffer::AddReversed(const void *pData, const size_t nLength)
@@ -260,24 +272,24 @@ CString CBuffer::ReadString(const size_t nBytes, const UINT nCodePage)
 
 	// Find out how many wide characters a buffer must be able to hold to convert this text to Unicode, null terminator not included
 	int nLength = MultiByteToWideChar(	// If the bytes "hello" are in the buffer, and nSource is 5, nLength will be 5 also
-		nCodePage,			// Code page to use, CP_ACP ANSI code page for ASCII text, the default
-		0,				// No special options about difficult to translate characters
-		(LPCSTR)m_pBuffer,		// Use the start of this buffer as the source, where the ASCII text is
-		nSource,			// Convert this number of bytes there
-		NULL,				// No output buffer, we want to find out how long one must be
+		nCodePage,					// Code page to use, CP_ACP ANSI code page for ASCII text, the default
+		0,							// No special options about difficult to translate characters
+		(LPCSTR)m_pBuffer,			// Use the start of this buffer as the source, where the ASCII text is
+		nSource,					// Convert this number of bytes there
+		NULL,						// No output buffer, we want to find out how long one must be
 		0 );
 
 	// Convert the ASCII characters at the start of this buffer to Unicode
 	MultiByteToWideChar(			// Convert ASCII text to Unicode
-		nCodePage,			// Code page to use, CP_ACP ANSI code page for ASCII text, the default
-		0,				// No special options about difficult to translate characters
-		(LPCSTR)m_pBuffer,		// Use the start of this buffer as the source, where the ASCII text is
-		nSource,			// Convert this number of bytes there
+		nCodePage,					// Code page to use, CP_ACP ANSI code page for ASCII text, the default
+		0,							// No special options about difficult to translate characters
+		(LPCSTR)m_pBuffer,			// Use the start of this buffer as the source, where the ASCII text is
+		nSource,					// Convert this number of bytes there
 		str.GetBuffer( nLength ),	// Get direct access to the memory buffer for the CString object, telling it to be able to hold nLength characters
-		nLength );			// Size of the buffer in wide characters
+		nLength );					// Size of the buffer in wide characters
 
 	// Release our direct manipulation of the CString's buffer
-	str.ReleaseBuffer( nLength );		// Tell it how many wide characters we wrote there, null terminator not included
+	str.ReleaseBuffer( nLength );	// Tell it how many wide characters we wrote there, null terminator not included
 
 	// Return the string
 	return str;
@@ -354,7 +366,7 @@ BOOL CBuffer::StartsWith(LPCSTR pszString, const size_t nLength, const BOOL bRem
 	if ( strncmp(			// Returns 0 if all the characters are the same
 		(LPCSTR)m_pBuffer,	// Look at the start of the buffer as ASCII text
 		(LPCSTR)pszString,	// The given text
-		nLength ) )		// Don't look too far into the buffer, we know it's long enough to hold the string
+		nLength ) )			// Don't look too far into the buffer, we know it's long enough to hold the string
 		return FALSE;		// If one string would sort above another, the result is positive or negative
 
 	// If we got the option to remove the string if it matched, do it
@@ -624,8 +636,8 @@ BOOL CBuffer::Ungzip()
 		}
 
 		// Tell the z_stream structure where to work
-		pStream.next_in   = m_pBuffer;						// Decompress the memory here
-		pStream.avail_in  = static_cast< uInt >( m_nLength );			// There is this much of it
+		pStream.next_in   = m_pBuffer;							// Decompress the memory here
+		pStream.avail_in  = static_cast< uInt >( m_nLength );	// There is this much of it
 		pStream.next_out  = pOutput.m_pBuffer;					// Write decompressed data here
 		pStream.avail_out = static_cast< uInt >( pOutput.GetBufferSize() );	// Tell ZLib it has this much space, it makes this smaller to show how much space is left
 
@@ -636,7 +648,7 @@ BOOL CBuffer::Ungzip()
 		if ( Z_STREAM_END == nRes )
 		{
 			// Move the decompressed data from the output buffer into this one
-			Clear();			// Record there are no bytes stored here, doesn't change the allocated block size
+			Clear();					// Record there are no bytes stored here, doesn't change the allocated block size
 			Add(pOutput.m_pBuffer,		// Add the memory at the start of the output buffer
 				pOutput.GetBufferSize()	// The amount of space the buffer had when we gave it to Zlib
 				- pStream.avail_out );	// Minus the amount it said it left, this is the number of bytes it wrote
@@ -645,7 +657,7 @@ BOOL CBuffer::Ungzip()
 			inflateEnd( &pStream );
 			return TRUE;
 		}
-		else if ( Z_BUF_ERROR == nRes ) 	// Buffer too small
+		else if ( Z_BUF_ERROR == nRes ) // Buffer too small
 		{
 			nLength *= 2;
 			inflateEnd( &pStream );
@@ -676,15 +688,15 @@ bool CBuffer::InflateStreamTo( CBuffer& oBuffer, z_streamp& pStream )
 		// Create a new z_stream sructure to store state information
 		pStream = new z_stream;
 
-		// Initialise it to zero
+		// Initialize it to zero
 		ZeroMemory( pStream, sizeof(z_stream) );
 
-		// Initialise ZLib
+		// Initialize ZLib
 		if ( inflateInit( pStream ) != Z_OK )
 		{
-			delete pStream;	// delete the z_stream structure
-			pStream = NULL;	// and null the pointer
-			return false;	// Report failure
+			delete pStream; 	// Delete the z_stream structure
+			pStream = NULL; 	// and null the pointer
+			return false;		// Report failure
 		}
 	}
 
@@ -736,8 +748,7 @@ bool CBuffer::InflateStreamTo( CBuffer& oBuffer, z_streamp& pStream )
 			pStream->total_out = 0ul;
 			pStream->total_in = 0ul;
 		}
-	} while ( pStream->avail_out == 0u );	// Check if everything available
-											// was decompressed
+	} while ( pStream->avail_out == 0u );	// Check if everything available was decompressed
 
 	// If there was not enough data to decompress anything inflate() returns
 	// Z_BUF_ERROR, ignore this error and try again next time.
@@ -762,6 +773,67 @@ void CBuffer::InflateStreamCleanup( z_streamp& pStream ) const
 
 #endif // ZLIB_H
 
+#ifdef _BZLIB_H
+
+BOOL CBuffer::BZip()
+{
+	// Compress to temporary buffer first
+	CBuffer pOutBuf;
+	UINT nOutSize = m_nLength / 2;
+	for (;;)
+	{
+		if ( ! pOutBuf.EnsureBuffer( nOutSize ) )
+			return FALSE;	// Out of memory
+
+		int err = BZ2_bzBuffToBuffCompress( (char*)pOutBuf.m_pBuffer, &nOutSize,
+			(char*)m_pBuffer, m_nLength, 9, 0, 30 );
+
+		if ( err == BZ_OK )
+		{
+			pOutBuf.m_nLength = nOutSize;
+			break;
+		}
+		else if ( err == BZ_OUTBUFF_FULL )
+			nOutSize *= 2;	// Insufficient output buffer
+		else
+			return FALSE;	// Compression error
+	}
+
+	Attach( &pOutBuf );
+
+	return TRUE;
+}
+
+BOOL CBuffer::UnBZip()
+{
+	// Uncompress to temporary buffer first
+	CBuffer pOutBuf;
+	UINT nOutSize = m_nLength * 3;
+	for (;;)
+	{
+		if ( ! pOutBuf.EnsureBuffer( nOutSize ) )
+			return FALSE;	// Out of memory
+
+		int err = BZ2_bzBuffToBuffDecompress( (char*)pOutBuf.m_pBuffer, &nOutSize,
+			(char*)m_pBuffer, m_nLength, 0, 0 );
+
+		if ( err == BZ_OK )
+		{
+			pOutBuf.m_nLength = nOutSize;
+			break;
+		}
+		else if ( err == BZ_OUTBUFF_FULL )
+			nOutSize *= 2;	// Insufficient output buffer
+		else
+			return FALSE;	// Decompression error
+	}
+
+	Attach( &pOutBuf );
+
+	return TRUE;
+}
+
+#endif // _BZLIB_H
 
 //////////////////////////////////////////////////////////////////////
 // CBuffer reverse buffer
@@ -772,7 +844,8 @@ void CBuffer::InflateStreamCleanup( z_streamp& pStream ) const
 void CBuffer::ReverseBuffer(const void* pInput, void* pOutput, size_t nLength)
 {
 	// Point pInputWords at the end of the input memory block
-	const DWORD* pInputWords = (const DWORD*)( (const BYTE*)pInput + nLength ); // This is a DWORD pointer, so it will move in steps of 4
+	// (This is a DWORD pointer, so it will move in steps of 4)
+	const DWORD* pInputWords = (const DWORD*)( (const BYTE*)pInput + nLength );
 
 	// Point pOutputWords at the start of the output buffer
 	DWORD* pOutputWords = (DWORD*)( pOutput );
@@ -797,7 +870,8 @@ void CBuffer::ReverseBuffer(const void* pInput, void* pOutput, size_t nLength)
 	if ( nLength )
 	{
 		// Point pInputBytes and pOutputBytes at the same places
-		const BYTE* pInputBytes	= (const BYTE*)pInputWords; // This is a byte pointer, so it will move in steps of 1
+		// (This is a byte pointer, so it will move in steps of 1)
+		const BYTE* pInputBytes	= (const BYTE*)pInputWords;
 		BYTE* pOutputBytes		= (BYTE*)pOutputWords;
 
 		// Loop until there are no more bytes to copy over
@@ -826,7 +900,7 @@ void CBuffer::WriteDIME(
 	// Format lengths into the bytes of the DIME header
 	if ( ! EnsureBuffer( 12 ) ) return;
 
-	BYTE* pOut = m_pBuffer + m_nLength;					// Point pOut at the end of the memory block in this buffer
+	BYTE* pOut = m_pBuffer + m_nLength;				// Point pOut at the end of the memory block in this buffer
 	*pOut++ = 0x08 | ( nFlags & 1 ? 4 : 0 ) | ( nFlags & 2 ? 2 : 0 );	// *pOut++ = 0x08 sets the byte at pOut and then moves the pointer forward
 	*pOut++ = strchr( pszType, ':' ) ? 0x20 : 0x10;
 	*pOut++ = 0x00;
@@ -839,7 +913,7 @@ void CBuffer::WriteDIME(
 	*pOut++ = (BYTE)( ( nBody & 0x00FF0000 ) >> 16 );
 	*pOut++ = (BYTE)( ( nBody & 0x0000FF00 ) >> 8 );
 	*pOut++ = (BYTE)( nBody & 0x000000FF );
-	m_nLength += 12;							// Record that we wrote 12 bytes
+	m_nLength += 12;								// Record that we wrote 12 bytes
 
 	// Print pszID, which is blank or a GUID in hexadecimal encoding, and bytes of 0 until the total length we added is a multiple of 4
 	Print( pszID, nIDLength );

@@ -1,22 +1,19 @@
 //
 // GGEP.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
-// Portions Copyright Shareaza Development Team, 2002-2007.
+// This file is part of PeerProject (peerproject.org) © 2008-2010
+// Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
@@ -31,7 +28,7 @@
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
-#endif
+#endif	// Filename
 
 
 //////////////////////////////////////////////////////////////////////
@@ -128,8 +125,7 @@ BOOL CGGEPBlock::ReadInternal()
 	// Skip packet data up to GGEP Magic byte
 	while ( m_nInput && ReadByte() != GGEP_MAGIC );
 	if ( ! m_nInput )
-		// Error: GGEP Magic byte was not found
-		return FALSE;
+		return FALSE;	// Error: GGEP Magic byte was not found
 
 	while ( m_nInput >= 3 )
 	{
@@ -148,8 +144,7 @@ BOOL CGGEPBlock::ReadInternal()
 		m_nItemCount++;
 
 		if ( nFlags & GGEP_HDR_LAST )
-			// OK. It was last item
-			return TRUE;
+			return TRUE;	// OK. It was last item
 	}
 
 	// Error: Packet too short
@@ -167,8 +162,7 @@ CGGEPItem* CGGEPBlock::ReadItem(BYTE nFlags)
 {
 	BYTE nIDLen = ( nFlags & GGEP_HDR_IDLEN );
 	if ( m_nInput < nIDLen )
-		// Error: Too short packet
-		return NULL;
+		return NULL;	// Error: Too short packet
 
 	// Get GGEP ID
 	TCHAR szID[ 16 ];
@@ -176,58 +170,48 @@ CGGEPItem* CGGEPBlock::ReadItem(BYTE nFlags)
 	{
 		szID[ i ] = (TCHAR)ReadByte();
 		if ( szID[ i ] == 0 )
-			// Error: Embedded zero byte
-			return NULL;
+			return NULL;	// Error: Embedded zero byte
 	}
 	szID[ nIDLen ] = 0;
 
 	auto_ptr< CGGEPItem > pItem( new CGGEPItem( szID ) );
 	if ( ! pItem.get() )
-		// Error: Out of memory
-		return NULL;
+		return NULL;	// Error: Out of memory
 
 	// Decode GGEP data length
 	for ( BYTE i = 0 ; ; i++ )
 	{
 		if ( ! m_nInput )
-			// Error: Packet too short
-			return NULL;
+			return NULL;	// Error: Packet too short
 
 		BYTE nDataLen = ReadByte();
 		if ( nDataLen == 0 )
-			// Error: Embedded zero byte
-			return NULL;
+			return NULL;	// Error: Embedded zero byte
 
 		pItem->m_nLength = ( pItem->m_nLength << 6 ) | ( nDataLen & GGEP_LEN_MASK );
 
 		if ( nDataLen & GGEP_LEN_LAST )
 		{
 			if ( nDataLen & GGEP_LEN_MORE )
-				// Error: Invalid format
-				return NULL;
-			// Last length byte
-			break;
+				return NULL;	// Error: Invalid format
+
+			break;	// Last length byte
 		}
 		if ( ! ( nDataLen & GGEP_LEN_MORE ) )
-			// Error: Invalid format
-			return NULL;
+			return NULL;	// Error: Invalid format
 		if ( i == 2 )
-			// Error: Too many data length bytes
-			return NULL;
+			return NULL;	// Error: Too many data length bytes
 	}
 
 	if ( pItem->m_nLength == 0 )
-		// OK. Its zero length item
-		return pItem.release();
+		return pItem.release();	// OK. Its zero length item
 
 	if ( m_nInput < pItem->m_nLength )
-		// Error: Packet too short
-		return NULL;
+		return NULL;	// Error: Packet too short
 
 	pItem->m_pBuffer = new BYTE[ pItem->m_nLength + 1 ];
 	if ( pItem->m_pBuffer == NULL )
-		// Error: Out of memory
-		return NULL;
+		return NULL;	// Error: Out of memory
 
 	CopyMemory( pItem->m_pBuffer, m_pInput, pItem->m_nLength );
 	pItem->m_pBuffer[ pItem->m_nLength ] = 0;
@@ -238,16 +222,16 @@ CGGEPItem* CGGEPBlock::ReadItem(BYTE nFlags)
 	{
 		delete [] pItem->m_pBuffer;
 		pItem->m_pBuffer = NULL;
-		// Error: COBS decode error
-		return NULL;
+
+		return NULL;	// Error: COBS decode error
 	}
 
 	if ( ( nFlags & GGEP_HDR_DEFLATE ) && ! pItem->Inflate() )
 	{
 		delete [] pItem->m_pBuffer;
 		pItem->m_pBuffer = NULL;
-		// Error: Decompress error
-		return NULL;
+
+		return NULL;	// Error: Decompress error
 	}
 
 	return pItem.release();
@@ -273,12 +257,12 @@ void CGGEPBlock::Write(CPacket* pPacket)
 //////////////////////////////////////////////////////////////////////
 // CGGEPItem construction
 
-CGGEPItem::CGGEPItem(LPCTSTR pszID) :
-	m_pNext		( NULL ),
-	m_sID		( pszID ? pszID : _T("") ),
-	m_pBuffer	( NULL ),
-	m_nLength	( 0 ),
-	m_nPosition	( 0 )
+CGGEPItem::CGGEPItem(LPCTSTR pszID)
+	: m_pNext		( NULL )
+	, m_pBuffer 	( NULL )
+	, m_sID			( pszID ? pszID : _T("") )
+	, m_nLength 	( 0 )
+	, m_nPosition	( 0 )
 {
 }
 
@@ -346,7 +330,9 @@ CString CGGEPItem::ToString() const
 	LPCSTR pszIn  = (LPCSTR)m_pBuffer;
 
 	for ( DWORD nChar = 0 ; nChar < m_nLength ; nChar++ )
+	{
 		*pszOut++ = (TCHAR)*pszIn++;
+	}
 
 	strValue.ReleaseBuffer( m_nLength );
 	return strValue;
@@ -409,13 +395,11 @@ BOOL CGGEPItem::Encode()
 			break;
 	}
 	if ( ! nLength )
-		// No need
-		return FALSE;
+		return FALSE;	// No need
 
 	auto_array< BYTE > pOutput( new BYTE[ m_nLength * 2 ] );
 	if ( ! pOutput.get() )
-		// Out of memory
-		return FALSE;
+		return FALSE;	// Out of memory
 
 	BYTE* pOut = pOutput.get();
 	BYTE* pRange = NULL;
@@ -486,14 +470,12 @@ BOOL CGGEPItem::Decode()
 	{
 		BYTE nCode = *pIn++;
 		if ( nCode == 0 )
-			// Invalid code
-			return FALSE;
+			return FALSE;	// Invalid code
 		nLength--;
 
 		BYTE nLen = nCode - 1;
 		if ( nLength < nLen )
-			// Too short packet
-			return FALSE;
+			return FALSE;	// Too short packet
 
 		pIn += nLen;
 		nDecodedLength += nLen;
@@ -505,8 +487,7 @@ BOOL CGGEPItem::Decode()
 
 	auto_array< BYTE > pOutput( new BYTE[ nDecodedLength ] );
 	if ( ! pOutput.get() )
-		// Out of memory
-		return FALSE;
+		return FALSE;	// Out of memory
 
 	// Decode
 	pIn = m_pBuffer;
@@ -544,7 +525,7 @@ BOOL CGGEPItem::Deflate()
 	DWORD nCompressed = 0;
 	auto_array< BYTE > pCompressed( CZLib::Compress( m_pBuffer, m_nLength, &nCompressed ) );
 
-	if ( !pCompressed.get() )
+	if ( ! pCompressed.get() )
 		return FALSE;
 
 	if ( nCompressed >= m_nLength )

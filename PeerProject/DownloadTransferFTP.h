@@ -2,21 +2,18 @@
 // DownloadTransferFTP.h
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2007.
+// Portions copyright Shareaza Development Team, 2002-2007.
 
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #pragma once
@@ -25,13 +22,15 @@
 
 // Note: FTP active mode code commented out
 
-#define FTP_RETRY_DELAY		30 //Seconds
+#define FTP_RETRY_DELAY		30 // Seconds
 
 class CDownloadTransferFTP : public CDownloadTransfer
 {
 public:
 	CDownloadTransferFTP(CDownloadSource* pSource);
 	virtual ~CDownloadTransferFTP() {}
+
+public:
 	virtual BOOL	Initiate();
 	virtual void	Close(TRISTATE bKeepSource = TRI_TRUE, DWORD nRetryAfter = FTP_RETRY_DELAY);
 	virtual void	Boost();
@@ -113,7 +112,7 @@ protected:
 		inline bool Split(CString& in, TCHAR token, CString& out) const
 		{
 			in = in.Trim( _T(" \t\r\n") );
-			if ( !in.GetLength() )
+			if ( in.IsEmpty() )
 			{
 				out.Empty();
 				return false;
@@ -182,7 +181,8 @@ protected:
 					m_pOwner->m_nDownloaded += nLength;
 					// Measuring speed
 					DWORD nCurrent = GetTickCount();
-					if ( nCurrent - m_tContent != 0) {
+					if ( nCurrent - m_tContent != 0 )
+					{
 						m_pOwner->GetSource()->m_nSpeed =
 							(DWORD) ( ( ( pInput->m_nLength + m_nTotal ) /
 							( nCurrent - m_tContent ) ) * 1000 );
@@ -194,8 +194,7 @@ protected:
 					pInput->Clear();
 					if ( m_pOwner->m_nPosition >= m_pOwner->m_nLength )
 					{
-						m_pOwner->GetSource()->AddFragment( m_pOwner->m_nOffset,
-							m_pOwner->m_nLength );
+						m_pOwner->GetSource()->AddFragment( m_pOwner->m_nOffset, m_pOwner->m_nLength );
 						Close();
 					}
 				}
@@ -206,38 +205,31 @@ protected:
 		}
 
 	protected:
-		CDownloadTransferFTP*	m_pOwner;	// Owner object
-		DWORD					m_tContent;	// Last Receive time
-		QWORD					m_nTotal;	// Received bytes by m_tContent time
+		CDownloadTransferFTP* m_pOwner;	// Owner object
+		DWORD		m_tContent;			// Last Receive time
+		QWORD		m_nTotal;			// Received bytes by m_tContent time
 	};
 
 	enum FTP_STATES {
-		// Initial state
-		ftpConnecting,
-		// Authenticating
-		ftpUSER, ftpPASS,
-		// File size getting via SIZE: TYPE I -> SIZE
-		ftpSIZE_TYPE, ftpSIZE,
-		// File size getting via LIST: TYPE A -> PASV or PORT -> LIST
-		ftpLIST_TYPE, ftpLIST_PASVPORT, ftpLIST,
-		// Intermediate state
-		ftpDownloading,
-		// Downloading: TYPE I -> PASV or PORT -> REST -> RETR
-		ftpRETR_TYPE, ftpRETR_PASVPORT, ftpRETR_REST, ftpRETR,
-		// Aborting after each transfer (for some strange FTP servers)
-		ftpABOR
+		ftpConnecting,									// Initial state
+		ftpUSER, ftpPASS,								// Authenticating
+		ftpSIZE_TYPE, ftpSIZE,							// File size getting via SIZE: TYPE I -> SIZE
+		ftpLIST_TYPE, ftpLIST_PASVPORT, ftpLIST,		// File size getting via LIST: TYPE A -> PASV or PORT -> LIST
+		ftpDownloading,									// Intermediate state
+		ftpRETR_TYPE, ftpRETR_PASVPORT, ftpRETR_REST, ftpRETR,		// Downloading: TYPE I -> PASV or PORT -> REST -> RETR
+		ftpABOR											// Aborting after each transfer (for some strange FTP servers)
 	};
 
-	FTP_STATES		m_FtpState;		// FTP Control chanell state
-	DWORD			m_tRequest;		// Last request time
-	CFTPLIST		m_LIST;			// FTP "LIST" helper object
-	CFTPRETR		m_RETR;			// FTP "RETR" helper object
-	BOOL			m_bPassive;		// Passive or Active FTP mode
-	BOOL			m_bSizeChecked;	// File size flag
-	BOOL			m_bMultiline;	// Processing multiline reply
-	CString			m_sMultiNumber;	// Multiline number
-	CString			m_sMultiReply;	// Multiline reply
+	FTP_STATES		m_FtpState;			// FTP Control chanell state
+	DWORD			m_tRequest;			// Last request time
+	CFTPLIST		m_LIST;				// FTP "LIST" helper object
+	CFTPRETR		m_RETR;				// FTP "RETR" helper object
+	BOOL			m_bPassive;			// Passive or Active FTP mode
+	BOOL			m_bSizeChecked; 	// File size flag
+	BOOL			m_bMultiline;		// Processing multiline reply
+	CString			m_sMultiNumber; 	// Multiline number
+	CString			m_sMultiReply;		// Multiline reply
 
-	BOOL			StartNextFragment();	// Connecting or file size getting or download starting
+	BOOL			StartNextFragment(); // Connecting or file size getting or download starting
 	BOOL			SendCommand(LPCTSTR args = NULL);	// Sending command to FTP server
 };

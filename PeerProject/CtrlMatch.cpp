@@ -2,21 +2,18 @@
 // CtrlMatch.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2008.
+// Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 // Draw Search and Browse Filelist Windows
@@ -25,23 +22,27 @@
 #include "PeerProject.h"
 #include "Settings.h"
 #include "CtrlMatch.h"
+#include "WndBaseMatch.h"
 #include "MatchObjects.h"
 #include "QueryHit.h"
-#include "ShellIcons.h"
-#include "Colors.h"
-#include "CoolInterface.h"
-#include "VendorCache.h"
 #include "Network.h"
+#include "VendorCache.h"
+#include "CoolInterface.h"
+#include "Colors.h"
+#include "ShellIcons.h"
 #include "Schema.h"
 #include "Skin.h"
-#include "WndBaseMatch.h"
 #include "Flags.h"
 
 #ifdef _DEBUG
-#define new DEBUG_NEW
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
-#endif
+#define new DEBUG_NEW
+#endif	// Filename
+
+#define HEADER_HEIGHT	20
+#define ITEM_HEIGHT		17
+
 
 BEGIN_MESSAGE_MAP(CMatchCtrl, CWnd)
 	ON_WM_CREATE()
@@ -71,30 +72,27 @@ BEGIN_MESSAGE_MAP(CMatchCtrl, CWnd)
 	ON_NOTIFY(HDN_ITEMCLICKA, IDC_MATCH_HEADER, OnClickHeader)
 END_MESSAGE_MAP()
 
-#define HEADER_HEIGHT	20
-#define ITEM_HEIGHT		17
-
 
 /////////////////////////////////////////////////////////////////////////////
 // CMatchCtrl construction
 
 CMatchCtrl::CMatchCtrl()
-{
-	m_pMatches		= NULL;
-	m_sType			= _T("Search");
+	: m_pMatches			( NULL )
+	, m_sType				( _T("Search") )
 
-	m_pSchema		= NULL;
-	m_nTopIndex		= 0;
-	m_nHitIndex		= 0;
-	m_nBottomIndex	= 0xFFFFFFFF;
-	m_nFocus		= 0xFFFFFFFF;
-	m_nPageCount	= 1;
-	m_nCurrentWidth	= 0;
-	m_nMessage		= 0;
-	m_bSearchLink	= FALSE;
-	m_bTips			= TRUE;
-	m_pLastSelectedFile = NULL;
-	m_pLastSelectedHit = NULL;
+	, m_pSchema 			( NULL )
+	, m_nTopIndex			( 0 )
+	, m_nHitIndex			( 0 )
+	, m_nBottomIndex		( 0xFFFFFFFF )
+	, m_nFocus				( 0xFFFFFFFF )
+	, m_nPageCount			( 1 )
+	, m_nCurrentWidth		( 0 )
+	, m_nMessage			( 0 )
+	, m_bTips				( TRUE )
+	, m_bSearchLink 		( FALSE )
+	, m_pLastSelectedFile	( NULL )
+	, m_pLastSelectedHit	( NULL )
+{
 }
 
 CMatchCtrl::~CMatchCtrl()
@@ -268,8 +266,9 @@ void CMatchCtrl::SetSortColumn(int nColumn, BOOL bDirection)
 	m_pMatches->SetSortColumn( nColumn, bDirection );
 	Update();
 
-	if ( m_bmSortAsc.m_hObject == NULL )
+	if ( ! m_bmSortAsc.m_hObject )
 	{
+		// Palette .bmp - 192,192,192 swapped to system color
 		m_bmSortAsc.LoadMappedBitmap( IDB_SORT_ASC );
 		m_bmSortDesc.LoadMappedBitmap( IDB_SORT_DESC );
 	}
@@ -1315,11 +1314,10 @@ void CMatchCtrl::DrawCountry(CDC& dc, CRect& rcCol, CString sCountry, COLORREF c
 {
 	int nFlagIndex = Flags.GetFlagIndex( sCountry );
 	// If the column is very narrow then don't draw the flag.
-	if ( nFlagIndex >= 0 && rcCol.Width() >= 20 )
+	if ( nFlagIndex >= 0 && rcCol.Width() > 18 )
 	{
 		CPoint pt( rcCol.left + 1, rcCol.top );
-		ImageList_DrawEx( Flags.m_pImage, nFlagIndex, dc, pt.x, pt.y, 16, 16,
-			( bSkinned ? -1 : crBack ), crBack, bSelected ? ILD_BLEND50 : ILD_NORMAL );
+		Flags.Draw( nFlagIndex, dc, pt.x, pt.y, ( bSkinned ? -1 : crBack ), crBack, bSelected ? ILD_BLEND50 : ILD_NORMAL );
 		dc.ExcludeClipRect( pt.x, pt.y, pt.x + 16, pt.y + 16 );
 		if ( ! bSkinned )
 			dc.FillSolidRect( &rcCol, crBack );

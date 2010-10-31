@@ -2,21 +2,18 @@
 // CtrlUploads.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2007.
+// Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
@@ -30,9 +27,9 @@
 #include "UploadFile.h"
 #include "UploadTransfer.h"
 #include "UploadTransferBT.h"
+#include "FragmentBar.h"
 #include "CoolInterface.h"
 #include "ShellIcons.h"
-#include "FragmentBar.h"
 #include "Colors.h"
 #include "Skin.h"
 #include "Flags.h"
@@ -41,7 +38,7 @@
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
-#endif
+#endif	// Filename
 
 IMPLEMENT_DYNAMIC(CUploadsCtrl, CWnd)
 
@@ -52,20 +49,20 @@ BEGIN_MESSAGE_MAP(CUploadsCtrl, CWnd)
 	ON_WM_PAINT()
 	ON_WM_VSCROLL()
 	ON_WM_HSCROLL()
-	ON_WM_MOUSEWHEEL()
-	ON_NOTIFY(HDN_ITEMCHANGEDW, AFX_IDW_PANE_FIRST, OnChangeHeader)
-	ON_NOTIFY(HDN_ITEMCHANGEDA, AFX_IDW_PANE_FIRST, OnChangeHeader)
-	ON_NOTIFY(HDN_ENDDRAG, AFX_IDW_PANE_FIRST, OnChangeHeader)
 	ON_WM_KEYDOWN()
+	ON_WM_MOUSEMOVE()
+	ON_WM_MOUSEWHEEL()
 	ON_WM_LBUTTONDOWN()
 	ON_WM_RBUTTONDOWN()
 	ON_WM_LBUTTONDBLCLK()
-	ON_WM_MOUSEMOVE()
 	ON_WM_LBUTTONUP()
 	ON_WM_RBUTTONUP()
 	ON_WM_SETFOCUS()
 	ON_WM_KILLFOCUS()
 	ON_WM_GETDLGCODE()
+	ON_NOTIFY(HDN_ITEMCHANGEDW, AFX_IDW_PANE_FIRST, OnChangeHeader)
+	ON_NOTIFY(HDN_ITEMCHANGEDA, AFX_IDW_PANE_FIRST, OnChangeHeader)
+	ON_NOTIFY(HDN_ENDDRAG, AFX_IDW_PANE_FIRST, OnChangeHeader)
 END_MESSAGE_MAP()
 
 #define HEADER_HEIGHT			20
@@ -133,15 +130,7 @@ int CUploadsCtrl::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	LoadColumnState();
 
-	CBitmap bmImages;
-	bmImages.LoadBitmap( IDB_PROTOCOLS );
-	if ( Settings.General.LanguageRTL )
-		bmImages.m_hObject = CreateMirroredBitmap( (HBITMAP)bmImages.m_hObject );
-
-	m_pProtocols.Create( 16, 16, ILC_COLOR32|ILC_MASK, 7, 1 ) ||
-	m_pProtocols.Create( 16, 16, ILC_COLOR24|ILC_MASK, 7, 1 ) ||
-	m_pProtocols.Create( 16, 16, ILC_COLOR16|ILC_MASK, 7, 1 );
-	m_pProtocols.Add( &bmImages, RGB( 0, 255, 0 ) );
+//	CoolInterface.LoadIconsTo( m_gdiProtocols, protocolIDs );
 
 	m_nFocus	= 0;
 	m_pDeselect	= NULL;
@@ -255,8 +244,8 @@ void CUploadsCtrl::SelectTo(int nIndex)
 			for ( m_nFocus ++ ; m_nFocus <= nIndex ; m_nFocus ++ )
 			{
 				GetAt( m_nFocus, &pQueue, &pFile );
-				if ( pQueue != NULL ) pQueue->m_bSelected = TRUE;
-				if ( pFile != NULL ) pFile->m_bSelected = TRUE;
+				if ( pQueue ) pQueue->m_bSelected = TRUE;
+				if ( pFile )  pFile->m_bSelected = TRUE;
 			}
 		}
 		else if ( m_nFocus > nIndex )
@@ -878,17 +867,17 @@ void CUploadsCtrl::PaintQueue(CDC& dc, const CRect& rcRow, CUploadQueue* pQueue,
 			rcCell.left += 16;
 			if ( pQueue == UploadQueues.m_pTorrentQueue )
 			{
-				ImageList_DrawEx( m_pProtocols, PROTOCOL_BT, dc.GetSafeHdc(),
+				ImageList_DrawEx( m_gdiProtocols, PROTOCOL_BT, dc.GetSafeHdc(),
 						rcCell.left, rcCell.top, 16, 16, crLeftMargin, CLR_DEFAULT, pQueue->m_bSelected ? ILD_SELECTED : ILD_NORMAL );
 			}
 			else if ( pQueue->m_nProtocols == ( 1 << PROTOCOL_HTTP ) )
 			{
-				ImageList_DrawEx( m_pProtocols, PROTOCOL_HTTP, dc.GetSafeHdc(),
+				ImageList_DrawEx( m_gdiProtocols, PROTOCOL_HTTP, dc.GetSafeHdc(),
 						rcCell.left, rcCell.top, 16, 16, crLeftMargin, CLR_DEFAULT, pQueue->m_bSelected ? ILD_SELECTED : ILD_NORMAL );
 			}
 			else if ( pQueue->m_nProtocols == ( 1 << PROTOCOL_ED2K ) )
 			{
-				ImageList_DrawEx( m_pProtocols, PROTOCOL_ED2K, dc.GetSafeHdc(),
+				ImageList_DrawEx( m_gdiProtocols, PROTOCOL_ED2K, dc.GetSafeHdc(),
 						rcCell.left, rcCell.top, 16, 16, crLeftMargin, CLR_DEFAULT, pQueue->m_bSelected ? ILD_SELECTED : ILD_NORMAL );
 			}
 			else
@@ -1132,8 +1121,8 @@ void CUploadsCtrl::PaintFile(CDC& dc, const CRect& rcRow, CUploadQueue* /*pQueue
 				dc.FillSolidRect( rcCell.left, rcCell.top, 20, rcCell.Height(), crBack );
 			rcCell.left += 2;
 			if ( nFlagImage >= 0 )
-				ImageList_DrawEx( Flags.m_pImage, nFlagImage, dc.GetSafeHdc(),
-					rcCell.left, rcCell.top, 16, 16, crBack, CLR_DEFAULT, bSelected ? ILD_SELECTED : ILD_NORMAL );
+				Flags.Draw( nFlagImage, dc.GetSafeHdc(), rcCell.left, rcCell.top,
+					crBack, CLR_DEFAULT, bSelected ? ILD_SELECTED : ILD_NORMAL );
 			rcCell.left += 16;
 
 			strText = pTransfer->m_sCountry;
@@ -1210,15 +1199,7 @@ void CUploadsCtrl::OnSkinChange()
 {
 	m_wndHeader.SetFont( &CoolInterface.m_fntNormal );
 
-	for ( int nImage = 1 ; nImage < 7 ; nImage++ )
-	{
-		HICON hIcon = CoolInterface.ExtractIcon( (UINT)protocolCmdMap[ nImage ].commandID, FALSE );
-		if ( hIcon )
-		{
-			m_pProtocols.Replace( nImage, hIcon );
-			DestroyIcon( hIcon );
-		}
-	}
+	CoolInterface.LoadIconsTo( m_gdiProtocols, protocolIDs );
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -1535,7 +1516,7 @@ void CUploadsCtrl::OnMouseMove(UINT nFlags, CPoint point)
 
 void CUploadsCtrl::OnLButtonUp(UINT nFlags, CPoint point)
 {
-	if ( m_pDeselect != NULL )
+	if ( m_pDeselect )
 	{
 		DeselectAll( m_pDeselect );
 		m_pDeselect = NULL;
@@ -1546,7 +1527,7 @@ void CUploadsCtrl::OnLButtonUp(UINT nFlags, CPoint point)
 
 void CUploadsCtrl::OnRButtonUp(UINT nFlags, CPoint point)
 {
-	if ( m_pDeselect != NULL )
+	if ( m_pDeselect )
 	{
 		DeselectAll( m_pDeselect );
 		m_pDeselect = NULL;
@@ -1576,9 +1557,12 @@ int CUploadsCtrl::GetExpandableColumnX() const
 
 	for ( int nColumn = 0 ; m_wndHeader.GetItem( m_wndHeader.OrderToIndex( nColumn ), &pColumn ) ; nColumn++ )
 	{
-		if ( pColumn.lParam == UPLOAD_COLUMN_TITLE ) break;
-		else nTitleStarts += pColumn.cxy;
+		if ( pColumn.lParam == UPLOAD_COLUMN_TITLE )
+			break;
+		else
+			nTitleStarts += pColumn.cxy;
 	}
+
 	return nTitleStarts;
 }
 

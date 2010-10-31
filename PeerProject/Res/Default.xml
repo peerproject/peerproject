@@ -6,7 +6,6 @@
 	<!-- MAIN WINDOW -->
 	<toolbar name="CMainWnd.Basic">
 		<button id="ID_NETWORK_CONNECT" text="Connect"/>
-		<button id="ID_VIEW_TABBED" text="Leave Basic Mode"/>
 		<separator/>
 		<button id="ID_TAB_HOME" text="Home"/>
 		<button id="ID_TAB_SEARCH" text="Search"/>
@@ -14,6 +13,8 @@
 		<button id="ID_TAB_LIBRARY" text="Library"/>
 		<button id="ID_TAB_MEDIA" text="Media"/>
 		<button id="ID_TAB_IRC" text="Chat"/>
+		<separator/>
+		<button id="ID_VIEW_TABBED" text="Leave Basic Mode"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Tabbed">
 		<button id="ID_TAB_CONNECT" text="Connect"/>
@@ -40,6 +41,7 @@
 		<button id="ID_VIEW_MEDIA"/>
 		<button id="ID_TAB_IRC"/>
 		<separator/>
+		<button id="ID_VIEW_SCHEDULER"/>
 		<button id="ID_VIEW_SECURITY"/>
 		<button id="ID_VIEW_HOSTS"/>
 		<button id="ID_VIEW_DISCOVERY"/>
@@ -322,7 +324,9 @@
 			<rightAlign/>
 		<button id="ID_MEDIA_CLEAR" text="Clear"/>
 		<button id="ID_MEDIA_SAVE" text="Save"/>
-	</toolbar>	<!-- NEIGHBORS WINDOW -->
+		<button id="ID_MEDIA_OPEN" text="Open"/>
+	</toolbar>
+	<!-- NEIGHBORS WINDOW -->
 	<toolbar name="CNeighboursWnd.Basic">
 		<button id="ID_BROWSE_LAUNCH" text="Browse User"/>
 		<button id="ID_NEIGHBOURS_CHAT" text="Chat to User"/>
@@ -499,7 +503,7 @@
 		<!--<item id="ID_MOVETAB_LAST" text="Move Tab L_ast"/>-->
 		<separator/>
 		<item id="ID_CHILD_MAXIMISE" text="_Full Screen"/>
- 		<item id="ID_CHILD_RESTORE" text="_Restore"/>
+		<item id="ID_CHILD_RESTORE" text="_Restore"/>
 		<item id="ID_CHILD_MINIMISE" text="_Minimize"/>
 		<separator/>
 		<item id="ID_CHILD_CLOSE" text="_Close Window"/>
@@ -529,7 +533,7 @@
 	</menu>
 	<!-- MAIN WINDOW MENU BAR -->
 	<menu name="CMainWnd.DropMenu" type="bar">
-		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160;">
+		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160;">
 			<item id="ID_TOOLS_SETTINGS" text="_Settings..."/>
 			<menu text="_Network">
 				<item id="ID_NETWORK_CONNECT" text="_Connect" shortcut="Ctrl+G"/>
@@ -540,7 +544,8 @@
 				<item id="ID_NETWORK_ED2K" text="Connect to _eDonkey2000"/>
 				<separator/>
 				<item id="ID_NETWORK_CONNECT_TO" text="Connect _To..." shortcut="Ctrl+T"/>
-				<item id="ID_NETWORK_BROWSE_TO" text="_Browse Host..."/>
+				<item id="ID_NETWORK_BROWSE_TO" text="_Browse User..."/>
+				<item id="ID_NETWORK_CHAT_TO" text="Chat with _User..."/>
 				<separator/>
 				<item id="ID_NETWORK_AUTO_CLOSE" text="Exit _After Transfers"/>
 				<item id="ID_NETWORK_EXIT" text="E_xit Immediately"/>
@@ -589,7 +594,7 @@
 				<separator/>
 				<item id="ID_WINDOW_NAVBAR" text="Show _Nav Bar" shortcut="default"/>
 				<item id="ID_WINDOW_TABBAR" text="Show Tas_k Bar" shortcut="default"/>
-				<item id="ID_WINDOW_MONITOR" text="Show _Monitor Bar"/>
+				<item id="ID_WINDOW_MONITOR" text="Show _Monitor Bar" shortcut="default"/>
 				<item id="ID_WINDOW_REMOTE" text="Show Media _Remote"/>
 			</menu>
 			<menu text="_Help">
@@ -597,8 +602,6 @@
 				<item id="ID_HELP_GUIDE" text="PeerProject User _Guide"/>
 				<item id="ID_HELP_FORUMS" text="PeerProject _Forums"/>
 				<item id="ID_HELP_FORUMS_LOCAL" text="_English Local Forum"/>
-				<menu text="Skin Help">
-				</menu>
 				<separator/>
 				<menu text="_Websites">
 					<item id="ID_HELP_WEB_3" text="Slyck.com"/>
@@ -625,7 +628,8 @@
 			</menu>
 			<separator/>
 			<item id="ID_NETWORK_CONNECT_TO" text="Connect _To..." shortcut="Ctrl+T"/>
-			<item id="ID_NETWORK_BROWSE_TO" text="_Browse Host..."/>
+			<item id="ID_NETWORK_BROWSE_TO" text="_Browse User..."/>
+			<item id="ID_NETWORK_CHAT_TO" text="Chat with _User..."/>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="Exit _After Transfers"/>
 			<item id="ID_NETWORK_EXIT" text="E_xit"/>
@@ -805,7 +809,8 @@
 			<item id="ID_NETWORK_DISCONNECT" text="_Disconnect"/>
 			<separator/>
 			<item id="ID_NETWORK_CONNECT_TO" text="Connect _To..." shortcut="Ctrl+T"/>
-			<item id="ID_NETWORK_BROWSE_TO" text="_Browse Host..."/>
+			<item id="ID_NETWORK_BROWSE_TO" text="_Browse User..."/>
+			<item id="ID_NETWORK_CHAT_TO" text="Chat with _User..."/>
 			<separator/>
 			<menu text="Choose _Networks">
 				<item id="ID_NETWORK_G2" text="Connect to Gnutella_2"/>
@@ -826,7 +831,7 @@
 			<item id="ID_VIEW_MEDIA" text="_Mediaplayer" shortcut="F6"/>
 			<item id="ID_TAB_IRC" text="IRC _Chat" shortcut="F12"/>
 			<separator/>
-				<item id="ID_VIEW_SCHEDULER" text="Schedule_r" shortcut="Ctrl+F7"/>
+			<item id="ID_VIEW_SCHEDULER" text="Schedule_r" shortcut="Ctrl+F7"/>
 			<item id="ID_VIEW_SECURITY" text="Se_curity" shortcut="F7"/>
 			<item id="ID_VIEW_HOSTS" text="H_ost Cache" shortcut="F8"/>
 			<item id="ID_VIEW_DISCOVERY" text="Disco_very" shortcut="F9"/>
@@ -1792,7 +1797,7 @@
 			<newline gap="4" indent="42"/>
 			<anchor id="SearchBox" width="256" height="80"/>
 			<newline gap="20" indent="0"/>
-			<icon res="124" width="32" height="32" target="command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
+			<icon res="122" width="32" height="32" target="command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
 			<heading align="middle">Start a Download</heading>
 			<newline gap="8" indent="42"/>
 			<link target="command:ID_TOOLS_DOWNLOAD" format="bu">Click here to start</link>
@@ -1800,6 +1805,9 @@
 			<newline gap="4" indent="42"/>
 			<text>Or open your default completed </text>
 			<link target="command:shell:downloads">downloads folder.</link>
+			<newline gap="4" indent="42"/>
+			<text>Share your own files from </text>
+			<link id="RemoteBrowseURL"/>
 			<newline gap="20" indent="0"/>
 		</group>
 		<group id="3">
@@ -1854,25 +1862,29 @@
 		<heading align="middle">Customize PeerProject</heading>
 		<newline gap="12" indent="42"/>
 		<icon res="196" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
-		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">Skins</link>
-		<text align="middle">&#160;- Mix&apos;n&apos;match changes to visual appearances</text>
+		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">Skins</link><gap size="6"/>
+		<text align="middle">- Mix&apos;n&apos;match changes to visual appearances</text>
+		<newline gap="8"/>
+		<icon res="139" width="16" height="16" target="command:ID_VIEW_SCHEDULER"/><gap size="8"/>
+		<link target="command:ID_VIEW_SCHEDULER" align="middle">Scheduler</link><gap size="6"/>
+		<text align="middle">- Set automated tasks to occur at specific times</text>
 		<newline gap="8"/>
 		<icon res="138" width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
-		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
-		<text align="middle">&#160;- Update blocklist to avoid bad search results</text>
+		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link><gap size="6"/>
+		<text align="middle">- Update blocklist to avoid bad search results</text>
 		<newline gap="8"/>
 		<icon res="197" width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
-		<link target="command:ID_TOOLS_WIZARD" align="middle">Settings Wizard</link>
-		<text align="middle">&#160;- Quick-edit PeerProject's basic settings</text>
+		<link target="command:ID_TOOLS_WIZARD" align="middle">Settings Wizard</link><gap size="6"/>
+		<text align="middle">- Quick-edit PeerProject's basic settings</text>
 		<newline gap="8"/>
 		<icon res="182" width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
-		<link target="command:ID_HELP_FAQ" align="middle">Quick Help</link>
-		<text align="middle">&#160;- Get online support using PeerProject, or </text>
+		<link target="command:ID_HELP_FAQ" align="middle">Quick Help</link><gap size="6"/>
+		<text align="middle">- Get online support using PeerProject, or try </text>
 		<link target="command:ID_TAB_IRC" align="middle">live chat.</link>
 <!--	<newline gap="8"/>
 		<icon res="201" width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
-		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">Local Forum</link>
-		<text align="middle">&#160;- Go to the English local forum</text>
+		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">Local Forum</link><gap size="6"/>
+		<text align="middle">- Go to the English local forum</text>
 --> 	<newline gap="18" indent="0"/>
 		<group id="5">
 			<icon res="120" width="32" height="32"/><gap size="8"/>
@@ -1883,10 +1895,6 @@
 			<link id="RemoteAccessURL1"/>
 			<text>&#160; or &#160;</text>
 			<link id="RemoteAccessURL2"/>
-			<newline gap="6"/>
-			<text>Or allow others on Gnutella2 to browse your files at: &#160</text>
-			<newline gap="4"/>
-			<link id="RemoteBrowseURL"/>
 			<newline gap="18" indent="0"/>
 		</group>
 		<newline gap="4" indent="0"/>
@@ -2105,23 +2113,42 @@
 		</group>
 		<group id="41">
 			<newline gap="1"/>
-			<icon res="208"/><gap size="5"/>
+			<icon res="207"/><gap size="5"/>
 			<link id="ContactYahoo"/>
+		</group>
+		<group id="43">
+			<newline gap="1"/>
+			<icon res="204"/>
+			<gap size="5"/>
+			<link id="ContactAOL"/>
 		</group>
 		<group id="42">
 			<newline gap="1"/>
 			<icon res="205"/><gap size="5"/>
 			<link id="ContactICQ"/>
 		</group>
-		<group id="43">
-			<newline gap="1"/>
-			<icon res="204"/><gap size="5"/>
-			<link id="ContactAOL"/>
-		</group>
 		<group id="45">
 			<newline gap="1"/>
-			<icon res="205"/><gap size="5"/>
+			<icon res="208"/><gap size="5"/>
 			<link id="ContactJabber"/>
+		</group>
+		<group id="46">
+			<newline gap="1"/>
+			<icon res="209"/>
+			<gap size="5"/>
+			<link id="ContactTwitter"/>
+		</group>
+		<group id="47">
+			<newline gap="1"/>
+			<icon res="210"/>
+			<gap size="5"/>
+			<link id="ContactFacebook"/>
+		</group>
+		<group id="48">
+			<newline gap="1"/>
+			<icon res="212"/>
+			<gap size="5"/>
+			<link id="ContactPeerProjectOrg"/>
 		</group>
 		<group id="5">
 			<newline gap="8" indent="0"/>
@@ -2131,7 +2158,7 @@
 		</group>
 		<group id="6">
 			<newline gap="8" indent="0"/>
-			<text format="b">Bio/Comments</text>
+			<text format="b">Comments</text>
 			<newline gap="2" indent="8"/>
 			<text id="BioText"/>
 		</group>
@@ -2596,7 +2623,7 @@
 
 <!-- Command Images -->
 <commandImages>
-	<bitmap id="IDB_MENUBAR">
+	<bitmap id="IDB_MENUBAR" mask="CLR_NONE">
 		<image /> <!--Logo-->
 		<image id="ID_MEDIA_PREVIOUS" id1="ID_SHAREMONKEY_PREVIOUS" id2="ID_LIBRARY_PARENT"/>
 		<image id="ID_MEDIA_NEXT" id1="ID_SHAREMONKEY_NEXT" id2="ID_CHAT_PRIORITY"/>
@@ -2680,7 +2707,7 @@
 		<image id="ID_TAB_HOME" id1="ID_LIBRARY_VIEW_HOME"/>
 		<image id="ID_VIEW_SYSTEM" id1="ID_VIEW_NEIGHBOURS"/>
 		<image id="ID_DOWNLOADS_REMOTE_PREVIEW"/>
-		<image id="ID_UPLOADS_CHAT" id1="ID_SEARCH_CHAT" id2="ID_NEIGHBOURS_CHAT" id3="ID_TRANSFERS_CHAT" id4="ID_IRC_SENDTEXT" id5="ID_TAB_IRC"/>
+		<image id="ID_UPLOADS_CHAT" id1="ID_SEARCH_CHAT" id2="ID_NEIGHBOURS_CHAT" id3="ID_TRANSFERS_CHAT" id4="ID_IRC_SENDTEXT" id5="ID_TAB_IRC" id6="ID_NETWORK_CHAT_TO"/>
 		<!--SystemViews-->
 		<image id="ID_WINDOW_CASCADE"/>
 		<image id="ID_WINDOW_TILE_HORZ"/>
@@ -2705,13 +2732,13 @@
 		<image id="ID_CHAT_UNDERLINE"/>
 		<image id="ID_CHAT_COLOR"/>
 		<image id="ID_CHAT_EMOTICONS"/>
-		<!--Arrows-->  	
+		<!--Arrows-->
 		<image id="ID_DOWNLOADS_MOVE_TOP" id1="ID_DOWNLOADS_MOVE_UP" id2="ID_SECURITY_MOVE_UP"/>
 		<image id="ID_DOWNLOADS_MOVE_BOTTOM" id1="ID_DOWNLOADS_MOVE_DOWN" id2="ID_SECURITY_MOVE_DOWN"/>
 		<image id="ID_DOWNLOAD_GROUP_MOVELEFT" id1="ID_MOVETAB_LEFT" id2="ID_MOVETAB_FIRST"/>
 		<image id="ID_DOWNLOAD_GROUP_MOVERIGHT" id1="ID_MOVETAB_RIGHT" id2="ID_MOVETAB_LAST"/>
 	</bitmap>
-	<bitmap id="IDB_IRCICONS">
+	<bitmap id="IDB_IRCICONS" mask="CLR_NONE">
 		<image id="ID_TAB_IRC"/>
 		<image id="ID_IRC_QUERY"/>
 		<image id="ID_IRC_WHOIS"/>
@@ -2746,15 +2773,36 @@
 		<image id="ID_MEDIA_STATE_PAUSE"/>
 		<image id="ID_MEDIA_STATE_PLAY"/>
 	</bitmap>
-	<bitmap id="IDB_PROTOCOLS">
+	<bitmap id="IDB_PROTOCOLS" mask="CLR_NONE">
 		<image id="ID_NETWORK_NULL"/>
-		<image id="ID_NETWORK_G1" id1="ID_HOSTCACHE_G1_CACHE"/>
-		<image id="ID_NETWORK_G2" id1="ID_HOSTCACHE_G2_CACHE" id2="ID_HOSTCACHE_G2_HORIZON"/>
-		<image id="ID_NETWORK_ED2K" id1="ID_HOSTCACHE_ED2K_CACHE" id2="IDC_IMPORT_DOWNLOADS"/>
+		<image />
+		<image />
+		<image />
+		<image />
+		<image />
+		<image />
 		<image id="ID_NETWORK_HTTP"/>
 		<image id="ID_NETWORK_FTP"/>
+		<image id="ID_NETWORK_G2" id1="ID_HOSTCACHE_G2_CACHE" id2="ID_HOSTCACHE_G2_HORIZON"/>
+		<image id="ID_NETWORK_G1" id1="ID_HOSTCACHE_G1_CACHE"/>
+		<image />
+		<image />
+		<image id="ID_NETWORK_DC"/>
+		<image id="ID_NETWORK_ED2K" id1="ID_HOSTCACHE_ED2K_CACHE" id2="IDC_IMPORT_DOWNLOADS"/>
+		<image id="ID_NETWORK_KAD" id1="ID_HOSTCACHE_KAD_CACHE"/>
 		<image id="ID_NETWORK_BT" id1="ID_LIBRARY_CREATETORRENT" id2="ID_TOOLS_CREATETORRENT" id3="ID_TOOLS_SEEDTORRENT" id4="ID_TOOLS_RESEEDTORRENT"/>
-		<image id="ID_NETWORK_KAD"/>
+	</bitmap>
+	<bitmap id="IDB_SOCIAL" mask="CLR_NONE">
+		<image />
+		<image id="IDI_CONTACT_MSN"/>
+		<image id="IDI_CONTACT_YAHOO"/>
+		<image id="IDI_CONTACT_AOL"/>
+		<image id="IDI_CONTACT_ICQ"/>
+		<image id="IDI_CONTACT_GOOGLE"/>
+		<image id="IDI_CONTACT_FACEBOOK"/>
+		<image id="IDI_CONTACT_TWITTER"/>
+		<image />
+		<image id="IDI_MAIL"/>
 	</bitmap>
 	<icon res="WINDOW_MAIN" id="WINDOW_MAIN" types="16,32,48" rtl="0"/>
 	<icon res="WINDOW_MAIN" id="ID_TRAY_OPEN" types="16" rtl="0"/>

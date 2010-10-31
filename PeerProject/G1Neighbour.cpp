@@ -2,21 +2,18 @@
 // G1Neighbour.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2007.
+// Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 // A CG1Neighbour object represents a remote computer running Gnutella software with which we are exchanging Gnutella packets
@@ -54,12 +51,11 @@
 #include "WndSearchMonitor.h"
 #include "GGEP.h"
 
-// Constant "THIS_FILE" is the filename, in Debug mode only
 #ifdef _DEBUG
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
-#endif
+#endif	// Filename
 
 //////////////////////////////////////////////////////////////////////
 // CG1Neighbour construction
@@ -413,27 +409,27 @@ BOOL CG1Neighbour::OnPing(CG1Packet* pPacket)
 
 	Statistics.Current.Gnutella1.PingsReceived++;
 
-	// Add the ping's GUID to the neighbours route cache, and if it returns false
 	if ( ! Neighbours.AddPingRoute( pPacket->m_oGUID, this ) )
 	{
+		// Add the ping's GUID to the neighbours route cache, and if it returns false
 		// Record this as a dropped packet, but don't report error
 		Statistics.Current.Gnutella1.Dropped++;
 		m_nDropCount++;
 		return TRUE;
 	}
 
-	// A ping packet is just a header, and shouldn't have length, if it does, and settings say to worry about stuff like this
 	if ( pPacket->m_nLength != 0 && Settings.Gnutella1.StrictPackets )
 	{
+		// A ping packet is just a header, and shouldn't have length, if it does, and settings say to worry about stuff like this
 		// Record the error, drop the packet, but stay connected
 		theApp.Message( MSG_ERROR, IDS_PROTOCOL_SIZE_PING, (LPCTSTR)m_sAddress );
 		Statistics.Current.Gnutella1.Dropped++;
 		m_nDropCount++;
 		return TRUE;
-
-	} // The ping is just a header, or settings don't care, and the length is bigger than settings allow
+	}
 	else if ( pPacket->m_nLength > Settings.Gnutella1.MaximumQuery )
 	{
+		// The ping is just a header, or settings don't care, and the length is bigger than settings allow
 		// Record the error, drop the packet, but stay connected
 		theApp.Message( MSG_ERROR, IDS_PROTOCOL_TOO_LARGE, (LPCTSTR)m_sAddress );
 		Statistics.Current.Gnutella1.Dropped++;
@@ -747,10 +743,11 @@ BOOL CG1Neighbour::OnPong(CG1Packet* pPacket)
 			if ( bGDNA )
 				HostCache.G1DNA.Add( (IN_ADDR*)&nAddress, nPort, 0,
 				( strVendorCode.IsEmpty() ? NULL : (LPCTSTR)strVendorCode ), nUptime );
-
-		} // This pong packet wasn't made by the remote computer, just sent to us by it
+		}
 		else if ( bUltrapeer )
 		{
+			// This pong packet wasn't made by the remote computer, just sent to us by it
+
 			// Add the IP address and port number to the Gnutella host cache of computers we can try to connect to
 			HostCache.Gnutella1.Add( (IN_ADDR*)&nAddress, nPort, 0,
 				( strVendorCode.IsEmpty() ? NULL : (LPCTSTR)strVendorCode ), nUptime );
@@ -854,7 +851,6 @@ BOOL CG1Neighbour::OnVendor(CG1Packet* pPacket)
 	if ( nVendor == 0 && nFunction == 0 )	// If the packet has 0 for the vendor and function (do)
 	{
 		// Supported vendor messages array (do)
-
 	}
 	else if ( nFunction == 0xFFFF )	// The packet has vendor or function numbers, and the 2 bytes of function are all 1s
 	{
@@ -870,7 +866,6 @@ BOOL CG1Neighbour::OnVendor(CG1Packet* pPacket)
 			pReply->WriteLongBE( 'RAZA' );
 			pReply->WriteLongBE( 'BEAR' );
 			Send( pReply ); // Send the reply packet to the remote computer
-
 		}
 		// Vendor is the ASCII text "RAZA" for Shareaza
 		else if ( nVendor == 'RAZA' || nVendor == 'AZAR' ) // It's backwards because of network byte order (Confirm?)
@@ -1227,8 +1222,8 @@ bool CG1Neighbour::OnPush(CG1Packet* pPacket)
 
 			// Send the push packet to the computer that needs to do it
 			pOrigin->Send( pPacket, FALSE, TRUE );
-
-		} // If instead it's running Gnutella2 software like PeerProject
+		}
+		// Otherwise it's running Gnutella2 software like PeerProject
 		else if ( pOrigin->m_nProtocol == PROTOCOL_G2 )
 		{
 			// Create a new Gnutella2 push packet with the same information as this one, and send it

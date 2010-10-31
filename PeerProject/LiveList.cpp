@@ -2,33 +2,29 @@
 // LiveList.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2007.
+// Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
 #include "PeerProject.h"
-#include "CoolInterface.h"
 #include "LiveList.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
-#endif
+#endif	// Filename
 
 
 //////////////////////////////////////////////////////////////////////
@@ -107,7 +103,8 @@ void CLiveList::Apply(CListCtrl* pCtrl, BOOL bSort)
 		if ( m_pItems.Lookup( nParam, pItem ) )
 		{
 			ASSERT_VALID( pItem );
-			if ( pItem->Update( pCtrl, nItem, m_nColumns ) ) bModified = TRUE;
+			if ( pItem->Update( pCtrl, nItem, m_nColumns ) )
+				bModified = TRUE;
 
 			delete pItem;
 			m_pItems.RemoveKey( nParam );
@@ -140,6 +137,7 @@ void CLiveList::Apply(CListCtrl* pCtrl, BOOL bSort)
 		Sort( pCtrl, -1 );
 }
 
+
 //////////////////////////////////////////////////////////////////////
 // CLiveItem construction
 
@@ -149,16 +147,19 @@ CLiveItem::CLiveItem(int nColumns, DWORD_PTR nParam)
 	: m_bModified	( true )
 	, m_nModified	( 0xffffffff )
 	, m_pColumn		( new CString[ nColumns ] )
+	, m_nImage		( new int[ nColumns ] )
 	, m_nParam		( nParam )
-	, m_nImage		( 0 )
 	, m_nMaskOverlay ( 0 )
 	, m_nMaskState	( 0 )
 	, m_bOld		( false )
 {
+	for ( int i = 0 ; i < nColumns ; ++i )
+		m_nImage[ i ] = -1;
 }
 
 CLiveItem::~CLiveItem()
 {
+	delete [] m_nImage;
 	delete [] m_pColumn;
 }
 
@@ -178,12 +179,12 @@ void CLiveItem::Set(int nColumn, LPCTSTR pszText)
 	m_pColumn[ nColumn ] = pszText;
 }
 
-void CLiveItem::SetImage(int nImage)
+void CLiveItem::SetImage(int nImage, int nColumn)
 {
 	ASSERT_VALID( this );
 
-	m_bModified = ( m_nImage != nImage );
-	m_nImage = nImage;
+	m_bModified = ( m_nImage[ nColumn ] != nImage );
+	m_nImage[ nColumn ] = nImage;
 }
 
 void CLiveItem::SetMaskOverlay(UINT nMaskOverlay)
@@ -228,20 +229,29 @@ int CLiveItem::Add(CListCtrl* pCtrl, int nItem, int nColumns)
 	ASSERT_VALID( pCtrl );
 
 	LV_ITEM pItem = {};
-	pItem.mask		= LVIF_PARAM|LVIF_TEXT|LVIF_IMAGE|LVIF_STATE;
+	pItem.mask		= LVIF_PARAM|LVIF_TEXT|LVIF_STATE;
 	pItem.iItem		= nItem >= 0 ? nItem : pCtrl->GetItemCount();
+	if ( m_nImage[ 0 ] >= 0 )
+	{
+		pItem.mask |= LVIF_IMAGE;
+		pItem.iImage = m_nImage[ 0 ];
+	}
 	pItem.lParam	= (LPARAM)m_nParam;
-	pItem.iImage	= m_nImage;
 	pItem.state		= INDEXTOOVERLAYMASK( m_nMaskOverlay ) | INDEXTOSTATEIMAGEMASK( m_nMaskState );
 	pItem.stateMask	= LVIS_OVERLAYMASK | LVIS_STATEIMAGEMASK;
 	pItem.pszText	= (LPTSTR)(LPCTSTR)m_pColumn[0];
 	pItem.iItem		= pCtrl->InsertItem( &pItem );
 	if( pItem.iItem != -1 )
 	{
-		pItem.mask		= LVIF_TEXT;
 		for ( pItem.iSubItem = 1 ; pItem.iSubItem < nColumns ; pItem.iSubItem++ )
 		{
+			pItem.mask = LVIF_TEXT;
 			pItem.pszText = (LPTSTR)(LPCTSTR)m_pColumn[ pItem.iSubItem ];
+			if ( m_nImage[ pItem.iSubItem ] >= 0 )
+			{
+				pItem.mask |= LVIF_IMAGE;
+				pItem.iImage = m_nImage[ pItem.iSubItem ];
+			}
 			VERIFY( pCtrl->SetItem( &pItem ) );
 		}
 	}
@@ -264,13 +274,8 @@ BOOL CLiveItem::Update(CListCtrl* pCtrl, int nItem, int nColumns)
 	pItem.iItem		= nItem;
 	pItem.stateMask	= LVIS_OVERLAYMASK|LVIS_STATEIMAGEMASK;
 
-	if ( ! pCtrl->GetItem( &pItem ) || pItem.lParam != (LPARAM)m_nParam ) return FALSE;
-
-	if ( m_nImage != pItem.iImage )
-	{
-		pItem.iImage = m_nImage;
-		bModified = TRUE;
-	}
+	if ( ! pCtrl->GetItem( &pItem ) || pItem.lParam != (LPARAM)m_nParam )
+		return FALSE;
 
 	if ( ( pItem.state & (LVIS_OVERLAYMASK|LVIS_STATEIMAGEMASK) ) != ( INDEXTOOVERLAYMASK( m_nMaskOverlay ) | INDEXTOSTATEIMAGEMASK( m_nMaskState ) ) )
 	{
@@ -279,13 +284,32 @@ BOOL CLiveItem::Update(CListCtrl* pCtrl, int nItem, int nColumns)
 		bModified = TRUE;
 	}
 
-	if ( bModified ) VERIFY( pCtrl->SetItem( &pItem ) );
+	if ( bModified )
+		VERIFY( pCtrl->SetItem( &pItem ) );
 
-	for ( int nColumn = 0 ; nColumn < nColumns ; nColumn++ )
+	for ( pItem.iSubItem = 0 ; pItem.iSubItem < nColumns ; pItem.iSubItem++ )
 	{
-		if ( pCtrl->GetItemText( nItem, nColumn ) != m_pColumn[ nColumn ] )
+		pItem.mask = LVIF_IMAGE|LVIF_TEXT;
+		if ( ! pCtrl->GetItem( &pItem ) )
+			return FALSE;
+
+		pItem.mask = 0;
+		if ( ! pItem.pszText || m_pColumn[ pItem.iSubItem ] != pItem.pszText )
 		{
-			VERIFY( pCtrl->SetItemText( nItem, nColumn, m_pColumn[ nColumn ] ) );
+			pItem.mask |= LVIF_TEXT;
+			pItem.pszText = (LPTSTR)(LPCTSTR)m_pColumn[ pItem.iSubItem ];
+		}
+
+		if ( m_nImage[ pItem.iSubItem ] >= 0 &&
+			 m_nImage[ pItem.iSubItem ] != pItem.iImage )
+		{
+			pItem.mask |= LVIF_IMAGE;
+			pItem.iImage = m_nImage[ pItem.iSubItem ];
+		}
+
+		if ( pItem.mask )
+		{
+			VERIFY( pCtrl->SetItem( &pItem ) );
 			bModified = TRUE;
 		}
 	}
@@ -299,12 +323,11 @@ BOOL CLiveItem::SetImage(CListCtrl* pCtrl, int nParam, int nColumn, int nImageIn
 	ASSERT_VALID( pCtrl );
 
 	BOOL bModified = FALSE;
-	LV_FINDINFO pFind;
-	int nItem;
-
-	pFind.flags		= LVFI_PARAM;
-	pFind.lParam	= nParam;
-	nItem = pCtrl->FindItem( &pFind );
+	LV_FINDINFO pFind = {};
+	pFind.flags  = LVFI_PARAM;
+	pFind.lParam = nParam;
+	int nItem = pCtrl->FindItem( &pFind );
+	if ( nItem < 0 ) return FALSE;
 
 	LV_ITEM pItem = {};
 	pItem.mask	= LVIF_IMAGE;
@@ -319,11 +342,12 @@ BOOL CLiveItem::SetImage(CListCtrl* pCtrl, int nParam, int nColumn, int nImageIn
 	if ( bModified )
 	{
 		pItem.iImage = nImageIndex;
-		VERIFY( pCtrl->SetItem( &pItem ) );
+		pCtrl->SetItem( &pItem );
 	}
 
 	return bModified;
 }
+
 
 //////////////////////////////////////////////////////////////////////
 // CLiveList sort method
@@ -361,8 +385,9 @@ void CLiveList::Sort(CListCtrl* pCtrl, int nColumn, BOOL bGraphic)
 #ifdef IDB_SORT_ASC
 	if ( bGraphic )
 	{
-		if ( m_bmSortAsc.m_hObject == NULL )
+		if ( ! m_bmSortAsc.m_hObject )
 		{
+			// Palette .bmp - 192,192,192 swapped to system color
 			m_bmSortAsc.LoadMappedBitmap( IDB_SORT_ASC );
 			m_bmSortDesc.LoadMappedBitmap( IDB_SORT_DESC );
 		}
@@ -396,7 +421,7 @@ void CLiveList::Sort(CListCtrl* pCtrl, int nColumn, BOOL bGraphic)
 			}
 		}
 	}
-#endif
+#endif // IDB_SORT_ASC/DESC
 
 	if ( nColumn )
 		pCtrl->SendMessage( LVM_SORTITEMS, (WPARAM)pCtrl, (LPARAM)SortCallback );
@@ -477,12 +502,12 @@ inline BOOL atoip (LPCTSTR c, DWORD& addr)
 			break;
 	}
 	addr = 0xffffffff;
-	return FALSE;					// invalid symbol
+	return FALSE;					// Invalid symbol
 }
 
 int CLiveList::SortProc(LPCTSTR sB, LPCTSTR sA, BOOL bNumeric)
 {
-	//ToDo: Fix Click-order properly (Revert sB-sA workaround)
+	// ToDo: Fix Click-order properly (Revert above sB-sA workaround!)
 
 	DWORD ipA, ipB;
 	if ( atoip( sA, ipA ) && atoip( sB, ipB ) )
@@ -699,6 +724,7 @@ CImageList* CLiveList::CreateDragImage(CListCtrl* pList, const CPoint& ptMouse)
 	return pAll;
 }
 
+
 //////////////////////////////////////////////////////////////////////
 // CLiveListCtrl
 
@@ -813,8 +839,9 @@ void CLiveListCtrl::Sort(int nColumn)
 	}
 
 #ifdef IDB_SORT_ASC
-	if ( CLiveList::m_bmSortAsc.m_hObject == NULL )
+	if ( ! CLiveList::m_bmSortAsc.m_hObject )
 	{
+		// Palette .bmp - 192,192,192 swapped to system color
 		CLiveList::m_bmSortAsc.LoadMappedBitmap( IDB_SORT_ASC );
 		CLiveList::m_bmSortDesc.LoadMappedBitmap( IDB_SORT_DESC );
 	}
@@ -832,8 +859,7 @@ void CLiveListCtrl::Sort(int nColumn)
 		if ( nCol == abs( nColumn ) - 1 )
 		{
 			fmt = pColumn.fmt | HDF_BITMAP | HDF_BITMAP_ON_RIGHT;
-			hbm = (HBITMAP)( nColumn > 0 ? CLiveList::m_bmSortAsc.GetSafeHandle() :
-			CLiveList::m_bmSortDesc.GetSafeHandle() );
+			hbm = (HBITMAP)( nColumn > 0 ? CLiveList::m_bmSortAsc.GetSafeHandle() : CLiveList::m_bmSortDesc.GetSafeHandle() );
 		}
 		else
 		{
@@ -847,7 +873,7 @@ void CLiveListCtrl::Sort(int nColumn)
 			VERIFY( pHeader->SetItem( nCol, &pColumn ) );
 		}
 	}
-#endif
+#endif // IDB_SORT_ASC/DESC
 
 	if ( nColumn )
 	{
@@ -889,8 +915,11 @@ void CLiveListCtrl::OnLvnGetDispInfo(NMHDR *pNMHDR, LRESULT *pResult)	// OnLvnGe
 		pDispInfo.state = INDEXTOOVERLAYMASK( pItem->m_nMaskOverlay ) |
 			INDEXTOSTATEIMAGEMASK( pItem->m_nMaskState );
 
-	if ( pDispInfo.mask & LVIF_IMAGE )
-		pDispInfo.iImage = pItem->m_nImage;
+	if ( pItem->m_nImage[ pDispInfo.iSubItem ] >= 0 )
+	{
+		pDispInfo.mask |= LVIF_IMAGE;
+		pDispInfo.iImage = pItem->m_nImage[ pDispInfo.iSubItem ];
+	}
 
 	if ( pDispInfo.mask & LVFI_PARAM )
 		pDispInfo.lParam = pItem->m_nParam;

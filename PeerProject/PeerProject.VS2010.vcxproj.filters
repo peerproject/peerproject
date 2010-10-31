@@ -315,6 +315,9 @@
     <ClCompile Include="ImageServices.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Images.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="Kademlia.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -745,9 +748,6 @@
       <Filter>Source Files\Controls</Filter>
     </ClCompile>
     <ClCompile Include="CtrlNeighbourTip.cpp">
-      <Filter>Source Files\Controls</Filter>
-    </ClCompile>
-    <ClCompile Include="CtrlNetworkCombo.cpp">
       <Filter>Source Files\Controls</Filter>
     </ClCompile>
     <ClCompile Include="CtrlPanel.cpp">
@@ -1269,28 +1269,16 @@
     <None Include="Res\Colors.ico">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="Res\CommandImages.bmp">
+    <None Include="Res\CommandImages.png">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="Res\CommandIRC.bmp">
+    <None Include="Res\CommandIRC.png">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="Res\Commercial.ico">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="Res\Computer.ico">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="Res\ContactAOL.ico">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="Res\ContactICQ.ico">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="Res\ContactMSN.ico">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="Res\ContactYahoo.ico">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="Res\Copy.cur">
@@ -1455,7 +1443,7 @@
     <None Include="Res\Properties.ico">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="Res\Protocols.bmp">
+    <None Include="Res\Protocols.png">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="Res\RatingAverage.ico">
@@ -1492,6 +1480,9 @@
       <Filter>Resource Files</Filter>
     </None>
     <None Include="Res\SmallStar.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Res\Social.png">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="Res\SortAsc.bmp">
@@ -1546,6 +1537,9 @@
       <Filter>Resource Files</Filter>
     </None>
     <None Include="Res\World.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\ReadMe.txt">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="..\Data\Splash.png">
@@ -1803,6 +1797,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ImageServices.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Images.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Kademlia.h">
@@ -2250,9 +2247,6 @@
       <Filter>Header Files\Controls</Filter>
     </ClInclude>
     <ClInclude Include="CtrlNeighbourTip.h">
-      <Filter>Header Files\Controls</Filter>
-    </ClInclude>
-    <ClInclude Include="CtrlNetworkCombo.h">
       <Filter>Header Files\Controls</Filter>
     </ClInclude>
     <ClInclude Include="CtrlPanel.h">
@@ -2747,14 +2741,6 @@
     <ClInclude Include="..\Services\Augment\IUnknownImplementation.hpp">
       <Filter>Header Files\Augment</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <CustomBuildStep Include="..\Services\BugTrap\BugTrapLib\BugTrapU-x64.lib">
-      <Filter>Library Files</Filter>
-    </CustomBuildStep>
-    <CustomBuildStep Include="..\Services\BugTrap\BugTrapLib\BugTrapU.lib">
-      <Filter>Library Files</Filter>
-    </CustomBuildStep>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="Res\About.htm">

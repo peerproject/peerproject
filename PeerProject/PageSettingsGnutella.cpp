@@ -1,22 +1,19 @@
 //
 // PageSettingsGnutella.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
-// Portions Copyright Shareaza Development Team, 2002-2008.
+// This file is part of PeerProject (peerproject.org) © 2008-2010
+// Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
@@ -27,10 +24,10 @@
 #include "PageSettingsGnutella.h"
 
 #ifdef _DEBUG
-#define new DEBUG_NEW
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
-#endif
+#define new DEBUG_NEW
+#endif	// Filename
 
 IMPLEMENT_DYNCREATE(CGnutellaSettingsPage, CSettingsPage)
 
@@ -46,22 +43,23 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CGnutellaSettingsPage property page
 
-CGnutellaSettingsPage::CGnutellaSettingsPage() : CSettingsPage( CGnutellaSettingsPage::IDD )
+CGnutellaSettingsPage::CGnutellaSettingsPage()
+	: CSettingsPage( CGnutellaSettingsPage::IDD )
+	, m_bG2Today	( FALSE )
+	, m_bG2Always	( FALSE )
+	, m_bG1Today	( FALSE )
+	, m_bG1Always	( FALSE )
+	, m_nG1Hubs 	( 0 )
+	, m_nG1Leafs	( 0 )
+	, m_nG1Peers	( 0 )
+	, m_nG2Hubs 	( 0 )
+	, m_nG2Leafs	( 0 )
+	, m_nG2Peers	( 0 )
+	, m_bDeflateHub2Hub ( FALSE )
+	, m_bDeflateLeaf2Hub ( FALSE )
+	, m_bDeflateHub2Leaf ( FALSE )
 {
 	//{{AFX_DATA_INIT(CGnutellaSettingsPage)
-	m_bG2Today = FALSE;
-	m_bG2Always = FALSE;
-	m_bG1Today = FALSE;
-	m_bG1Always = FALSE;
-	m_nG1Hubs = 0;
-	m_nG1Leafs = 0;
-	m_nG1Peers = 0;
-	m_nG2Hubs = 0;
-	m_nG2Leafs = 0;
-	m_nG2Peers = 0;
-	m_bDeflateHub2Hub = FALSE;
-	m_bDeflateLeaf2Hub = FALSE;
-	m_bDeflateHub2Leaf = FALSE;
 	//}}AFX_DATA_INIT
 }
 
@@ -257,12 +255,12 @@ void CGnutellaSettingsPage::OnOK()
 {
 	UpdateData();
 
-	//Check if G2 hub mode is forced now, and wasn't forced before.
+	// Check if G2 hub mode is forced now, and wasn't forced before.
 	if ( ( m_wndG2ClientMode.GetCurSel() == MODE_HUB ) && ( Settings.Gnutella2.ClientMode != MODE_HUB ) )
 	{
 		CString strMessage;
 		LoadString( strMessage, IDS_NETWORK_FORCE_HUB );
-		//Warn the user, give them a chance to reset it.
+		// Warn the user, give them a chance to reset it.
 		if ( AfxMessageBox( strMessage, MB_ICONEXCLAMATION|MB_YESNO|MB_DEFBUTTON2 ) != IDYES )
 		{
 			m_wndG2ClientMode.SetCurSel( MODE_AUTO );
@@ -273,9 +271,7 @@ void CGnutellaSettingsPage::OnOK()
 
 	// Limit networks if low bandwidth
 	if ( ( Settings.GetOutgoingBandwidth() < 2 ) )
-	{
 		m_bG1Today = m_bG1Always = FALSE;
-	}
 
 	//Load values into the settings variables
 	Settings.Gnutella2.EnableToday		= m_bG2Today != FALSE;
@@ -292,10 +288,10 @@ void CGnutellaSettingsPage::OnOK()
 	Settings.Gnutella2.NumLeafs			= m_nG2Leafs;
 	Settings.Gnutella2.NumPeers			= m_nG2Peers;
 
-	Settings.Gnutella1.ClientMode = m_wndG1ClientMode.GetCurSel(); // Mode is equal to select position
+	Settings.Gnutella1.ClientMode = m_wndG1ClientMode.GetCurSel();	// Mode is equal to select position
 	if ( Settings.Gnutella1.ClientMode > MODE_ULTRAPEER ) Settings.Gnutella1.ClientMode = MODE_AUTO;
 
-	Settings.Gnutella2.ClientMode = m_wndG2ClientMode.GetCurSel(); // Mode is equal to select position
+	Settings.Gnutella2.ClientMode = m_wndG2ClientMode.GetCurSel();	// Mode is equal to select position
 	if ( Settings.Gnutella2.ClientMode > MODE_HUB ) Settings.Gnutella2.ClientMode = MODE_AUTO;
 
 	Settings.Normalize( &Settings.Gnutella1.NumHubs );

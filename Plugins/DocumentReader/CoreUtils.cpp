@@ -42,19 +42,19 @@ STDAPI OpenPropertyStorage(IPropertySetStorage* pPropSS, REFFMTID fmtid, BOOL fR
 	BOOL fUseANSI = ((dwFlags & dsoOptionUseMBCStringsForNewSets) == dsoOptionUseMBCStringsForNewSets);
 
 	ASSERT(pPropSS); ASSERT(ppPropStg);
-	if ((pPropSS == NULL) || (ppPropStg == NULL))
+	if ( ( pPropSS == NULL ) || ( ppPropStg == NULL ) )
 		return E_UNEXPECTED;
 
 	*ppPropStg = NULL;
 
 	// Set the access mode for read/write access...
-	dwMode = (fReadOnly ? (STGM_READ | STGM_SHARE_EXCLUSIVE)
-						: (STGM_READWRITE | STGM_SHARE_EXCLUSIVE));
+	dwMode = ( fReadOnly ? ( STGM_READ | STGM_SHARE_EXCLUSIVE )
+			: ( STGM_READWRITE | STGM_SHARE_EXCLUSIVE ) );
 
 	// We try to open the property set. If this fails, it may be beacuse
 	// it doesn't exist so we'll try to create the set...
-	hr = pPropSS->Open(fmtid, dwMode, ppPropStg);
-	if ((hr == STG_E_FILENOTFOUND) && !fReadOnly && !fNoCreate)
+	hr = pPropSS->Open( fmtid, dwMode, ppPropStg );
+	if ( ( hr == STG_E_FILENOTFOUND ) && ! fReadOnly && ! fNoCreate )
 	{
 		// FIX -- ADDED BY REQUEST - Feb 1, 2001
 		// Outlook 2000/XP doesn't handle Unicode property sets very well.
@@ -68,7 +68,7 @@ STDAPI OpenPropertyStorage(IPropertySetStorage* pPropSS, REFFMTID fmtid, BOOL fR
 		hr = pPropSS->Create(fmtid, NULL, (fUseANSI ? PROPSETFLAG_ANSI : 0), dwMode, ppPropStg);
 
 		// If we created with ANSI flag, we must set the code page value to match ACP...
-		if (SUCCEEDED(hr) && (fUseANSI) && (*ppPropStg))
+		if ( SUCCEEDED(hr) && (fUseANSI) && (*ppPropStg) )
 		{
 			VARIANT vtT;
 			PROPSPEC spc;
@@ -79,10 +79,10 @@ STDAPI OpenPropertyStorage(IPropertySetStorage* pPropSS, REFFMTID fmtid, BOOL fR
 			// of the code page. This appears to be a change in OLE32 behavior. Workaround is to
 			// check to see if OLE32 has added the code page already during the create, and if so
 			// we can skip out on adding it ourselves...
-			if (FAILED(ReadProperty(*ppPropStg, spc, 0, &vtT)))
+			if ( FAILED( ReadProperty( *ppPropStg, spc, 0, &vtT ) ) )
 			{	// If not, we should add it...
 				vtT.vt = VT_I4; vtT.lVal = GetACP();
-				WriteProperty(*ppPropStg, spc, 0, &vtT);
+				WriteProperty( *ppPropStg, spc, 0, &vtT );
 			}
 		}
 	}
@@ -102,7 +102,7 @@ STDAPI ConvertBinaryToVarVector(PROPVARIANT *pVarBlob, VARIANT *pVarByteArray)
 	SAFEARRAY* pSA;
 	DWORD dwSize;
 
-	if ( ( pVarBlob == NULL ) || (pVarBlob->vt != VT_BLOB) &&
+	if ( ( pVarBlob == NULL ) || ( pVarBlob->vt != VT_BLOB ) &&
 		( pVarBlob->vt != VT_CF ) || ( pVarByteArray == NULL ) )
 		return E_UNEXPECTED;
 
@@ -112,7 +112,7 @@ STDAPI ConvertBinaryToVarVector(PROPVARIANT *pVarBlob, VARIANT *pVarByteArray)
 	else
 		dwSize = pVarBlob->pclipdata->cbSize;
 
-	if ((dwSize) && (dwSize < 0x800000))
+	if ( (dwSize) && ( dwSize < 0x800000 ) )
 	{
 		// Create a vector array the size of the blob or clipdata...
 		pSA = SafeArrayCreateVector(VT_UI1, 0, dwSize);
@@ -135,7 +135,7 @@ STDAPI ConvertBinaryToVarVector(PROPVARIANT *pVarBlob, VARIANT *pVarByteArray)
 
 		if ( (pSA) && SUCCEEDED(hr) && (pVarByteArray) )
 		{
-			pVarByteArray->vt = (VT_ARRAY | VT_UI1);
+			pVarByteArray->vt = ( VT_ARRAY | VT_UI1 );
 			pVarByteArray->parray = pSA;
 		}
 		else if ( pSA )
@@ -149,17 +149,17 @@ STDAPI ConvertBinaryToVarVector(PROPVARIANT *pVarBlob, VARIANT *pVarByteArray)
 // ReadProperty
 //
 //	Reads a single property from a given PropertyStorage. Code page is
-//	used if we have to translate to/from MBCS to Unicode. We handle one special
-//	case for PIDSI_EDITTIME which is a INT64 saved in FILETIME structure. For
-//	compatibility we cut it down to seconds and store in LONG (VT_I4). This is
-//	OK as long as we don't save it back (which we don't allow in this sample).
+//	used if we have to translate to/from MBCS to Unicode. We handle one
+//	special case for PIDSI_EDITTIME which is a INT64 saved in FILETIME structure.
+//	For	compatibility we cut it down to seconds and store in LONG (VT_I4).
+//	This is	OK as long as we don't save it back (which we don't allow in this sample).
 //
 STDAPI ReadProperty(IPropertyStorage* pPropStg, PROPSPEC spc, WORD wCodePage, VARIANT* pvtResult)
 {
 	HRESULT 	hr;
 	PROPVARIANT vtProperty;
 
-	if ((pPropStg == NULL) || (pvtResult == NULL))
+	if ( pPropStg == NULL || pvtResult == NULL )
 		return E_POINTER;
 
 	// Initialize PROPVARIANT...
@@ -169,15 +169,15 @@ STDAPI ReadProperty(IPropertyStorage* pPropStg, PROPSPEC spc, WORD wCodePage, VA
 	SEH_TRY
 
 	pvtResult->vt = VT_EMPTY; pvtResult->lVal = 0;
-	hr = pPropStg->ReadMultiple(1, &spc, &vtProperty);
+	hr = pPropStg->ReadMultiple( 1, &spc, &vtProperty );
 
 	SEH_EXCEPT(hr)
 
 	// If the call succeeded, swap the data into a VARIANT...
-	if (SUCCEEDED(hr))
+	if ( SUCCEEDED(hr) )
 	{
 		// Make a selected copy based on the type...
-		switch (vtProperty.vt)
+		switch ( vtProperty.vt )
 		{
 		case VT_I4:
 		case VT_UI4:
@@ -193,27 +193,26 @@ STDAPI ReadProperty(IPropertyStorage* pPropStg, PROPSPEC spc, WORD wCodePage, VA
 
 		case VT_BSTR:
 			pvtResult->vt = VT_BSTR;
-			pvtResult->bstrVal = ((vtProperty.bstrVal) ? SysAllocString(vtProperty.bstrVal) : NULL);
+			pvtResult->bstrVal = ( (vtProperty.bstrVal) ? SysAllocString(vtProperty.bstrVal) : NULL );
 			break;
 
 		case VT_LPWSTR:
 			pvtResult->vt = VT_BSTR;
-			pvtResult->bstrVal = ((vtProperty.pwszVal) ? SysAllocString(vtProperty.pwszVal) : NULL);
+			pvtResult->bstrVal = ( (vtProperty.pwszVal) ? SysAllocString(vtProperty.pwszVal) : NULL );
 			break;
 
 		case VT_LPSTR:
 			pvtResult->vt = VT_BSTR;
-			pvtResult->bstrVal = ConvertToBSTR(vtProperty.pszVal, wCodePage);
+			pvtResult->bstrVal = ConvertToBSTR( vtProperty.pszVal, wCodePage );
 			break;
 
 		case VT_FILETIME:
 			// Check fo special case of edit time...
-			if ((spc.ulKind == PRSPEC_PROPID) && (spc.propid == PIDSI_EDITTIME))
+			if ( ( spc.ulKind == PRSPEC_PROPID ) && ( spc.propid == PIDSI_EDITTIME ) )
 			{
 				unsigned __int64 ns, secs;
 				// FIX -- 9/27/99 Assign to unsigned __int64 first, then shift...
 				// ns = ft.dwLowDateTime + (ft.dwHighDateTime << 32);
-				//
 				ns = vtProperty.filetime.dwHighDateTime; ns <<= 32;
 				ns += vtProperty.filetime.dwLowDateTime;
 				secs = ns / (10000000);
@@ -228,13 +227,13 @@ STDAPI ReadProperty(IPropertyStorage* pPropStg, PROPSPEC spc, WORD wCodePage, VA
 				SYSTEMTIME	lst;
 				FILETIME*	pft = &(vtProperty.filetime);
 
-				if (!((pft->dwLowDateTime == 0) && (pft->dwHighDateTime == 0)))
+				if ( !( ( pft->dwLowDateTime == 0 ) && ( pft->dwHighDateTime == 0 ) ) )
 				{
-					if (FileTimeToLocalFileTime(pft, &lft))
+					if ( FileTimeToLocalFileTime(pft, &lft) )
 						pft = &lft;
 
-					if (FileTimeToSystemTime(pft, &lst) &&
-						SystemTimeToVariantTime(&lst, &dtDate))
+					if ( FileTimeToSystemTime(pft, &lst) &&
+						SystemTimeToVariantTime(&lst, &dtDate) )
 					{
 						pvtResult->vt = VT_DATE;
 						pvtResult->date = dtDate;
@@ -269,7 +268,7 @@ STDAPI ReadProperty(IPropertyStorage* pPropStg, PROPSPEC spc, WORD wCodePage, VA
 		}
 	}
 
- // Clear PropVariant and return...
+	// Clear PropVariant and return...
 	PropVariantClear(&vtProperty);
 	return hr;
 }
@@ -291,13 +290,13 @@ STDAPI WriteProperty(IPropertyStorage* pPropStg, PROPSPEC spc, WORD wCodePage, V
 	// Check the storage and discover whether it is ANSI only...
 	SEH_TRY
 
-	if (SUCCEEDED(pPropStg->Stat(&statstg)))
-		fUseANSI = ((statstg.grfFlags & PROPSETFLAG_ANSI) == PROPSETFLAG_ANSI);
+	if ( SUCCEEDED( pPropStg->Stat(&statstg) ) )
+		fUseANSI = ( (statstg.grfFlags & PROPSETFLAG_ANSI) == PROPSETFLAG_ANSI );
 
 	SEH_EXCEPT(hr)
 
 	// We only support certain Variant types...
-	switch (pvtValue->vt)
+	switch( pvtValue->vt )
 	{
 	case VT_I4:
 	case VT_UI4:
@@ -314,7 +313,7 @@ STDAPI WriteProperty(IPropertyStorage* pPropStg, PROPSPEC spc, WORD wCodePage, V
 		break;
 
 	case VT_BSTR:
-		if (fUseANSI) // When using ANSI propset, convert to local code page...
+		if ( fUseANSI ) // When using ANSI propset, convert to local code page...
 		{
 			vtProperty.vt = VT_LPSTR;
 			vtProperty.pszVal = ConvertToMBCS(pvtValue->bstrVal, wCodePage);
@@ -334,11 +333,11 @@ STDAPI WriteProperty(IPropertyStorage* pPropStg, PROPSPEC spc, WORD wCodePage, V
 			FILETIME utc = {0,0};
 			FILETIME lft;
 			SYSTEMTIME lst;
-			if ((0 != pvtValue->date) &&
-				(VariantTimeToSystemTime(pvtValue->date, &lst)) &&
-				(SystemTimeToFileTime(&lst, &lft)))
+			if ( ( 0 != pvtValue->date ) &&
+				( VariantTimeToSystemTime(pvtValue->date, &lst) ) &&
+				( SystemTimeToFileTime(&lst, &lft) ) )
 			{
-				if (!LocalFileTimeToFileTime(&lft, &utc))
+				if ( ! LocalFileTimeToFileTime(&lft, &utc) )
 					utc = lft;
 			}
 			vtProperty.vt = VT_FILETIME;
@@ -357,7 +356,7 @@ STDAPI WriteProperty(IPropertyStorage* pPropStg, PROPSPEC spc, WORD wCodePage, V
 		break;
 
 	default:
-		return E_INVALIDARG; //unsupportted type...
+		return E_INVALIDARG;	// Unsupported type...
 	}
 
 	// Do the Write operation to the given IPropertySet...
@@ -425,7 +424,7 @@ STDAPI LoadPropertySetList(IPropertyStorage *pPropStg, WORD *pwCodePage, CDocPro
 	PROPSPEC spc;
 	WORD wCodePage = 0;
 
-	if ((pPropStg == NULL) || (pplist == NULL))
+	if ( pPropStg == NULL || pplist == NULL )
 		return E_UNEXPECTED;
 
 	memset(&sps, 0, sizeof(sps));
@@ -434,8 +433,8 @@ STDAPI LoadPropertySetList(IPropertyStorage *pPropStg, WORD *pwCodePage, CDocPro
 	// Get Code page for this storage...
 	spc.ulKind = PRSPEC_PROPID;
 	spc.propid = PID_CODEPAGE;
-	if (SUCCEEDED(ReadProperty(pPropStg, spc, wCodePage, &vtCodePage)) &&
-		((vtCodePage.vt == VT_I4) || (vtCodePage.vt == VT_I2)))
+	if ( SUCCEEDED( ReadProperty( pPropStg, spc, wCodePage, &vtCodePage ) ) &&
+		( ( vtCodePage.vt == VT_I4 ) || ( vtCodePage.vt == VT_I2 ) ) )
 	{
 		wCodePage = LOWORD(vtCodePage.lVal);
 	}
@@ -470,9 +469,14 @@ STDAPI LoadPropertySetList(IPropertyStorage *pPropStg, WORD *pwCodePage, CDocPro
 					pLastItem = pList;
 
 					pList = CDocProperty::CreateObject(bstrName, spc.propid, &vtItem, FALSE, pLastItem);
-					if (pList == NULL) { hr = E_OUTOFMEMORY; pList = pLastItem;}
+					if ( pList == NULL )
+					{
+						hr = E_OUTOFMEMORY;
+						pList = pLastItem;
+					}
 
-					if (bstrName) SysFreeString(bstrName);
+					if ( bstrName )
+						SysFreeString( bstrName );
 					VariantClear(&vtItem);
 				}
 			}
@@ -482,10 +486,10 @@ STDAPI LoadPropertySetList(IPropertyStorage *pPropStg, WORD *pwCodePage, CDocPro
 				CoTaskMemFree(sps.lpwstrName);
 		}
 
-		if (SUCCEEDED(hr)) // If here, we loaded all items fine
+		if ( SUCCEEDED(hr) ) // If here, we loaded all items fine
 		{
 			*pplist = pList;
-			if (pwCodePage) *pwCodePage = wCodePage;
+			if ( pwCodePage ) *pwCodePage = wCodePage;
 		}
 		else // If not, try to clean up...
 		{
@@ -521,19 +525,19 @@ STDAPI SavePropertySetList(IPropertyStorage *pPropStg, WORD wCodePage, CDocPrope
 	ULONG cItemsChanged = 0;
 	PROPSPEC spc;
 
-	if ( ( pPropStg == NULL ) || ( plist == NULL ) )
+	if ( pPropStg == NULL || plist == NULL )
 		return E_UNEXPECTED;
 
 	// Loop through each item in the list...
 	while ( pitem )
 	{
 		// If the item is removed, remove it from the document...
- 		if ( pitem->IsRemoved() )
+		if ( pitem->IsRemoved() )
 		{
 			// We only need to remove it if it already exists.
 			// If this is an item wehen added then deleted before save,
 			// we don't need to do anything...
-			if (pitem->IsNewItem() == FALSE)
+			if ( pitem->IsNewItem() == FALSE )
 			{
 				// Determine if item is known by name or by id...
 				pitem->get_Name( &bstrName );
@@ -547,8 +551,11 @@ STDAPI SavePropertySetList(IPropertyStorage *pPropStg, WORD wCodePage, CDocPrope
 					spc.ulKind = PRSPEC_PROPID;
 					spc.propid = pitem->GetID();
 
-					if (spc.propid == 0)
-						{ hr = E_UNEXPECTED; break; }
+					if ( spc.propid == 0 )
+					{
+						hr = E_UNEXPECTED;
+						break;
+					}
 				}
 
 				// Now remove the item...
@@ -582,7 +589,10 @@ STDAPI SavePropertySetList(IPropertyStorage *pPropStg, WORD wCodePage, CDocPrope
 					spc.propid = pitem->GetID();
 
 					if ( spc.propid == 0 )
-						{ hr = E_UNEXPECTED; break; }
+					{
+						hr = E_UNEXPECTED;
+						break;
+					}
 				}
 
 				// Write the property to the property set...
@@ -603,7 +613,7 @@ STDAPI SavePropertySetList(IPropertyStorage *pPropStg, WORD wCodePage, CDocPrope
 		pitem = pitem->GetNextProperty();
 	}
 
-	if (pcSavedItems)
+	if ( pcSavedItems )
 		*pcSavedItems = cItemsChanged;
 
 	return hr;
@@ -620,7 +630,7 @@ STDAPI_(LPVOID) MemAlloc(DWORD cbSize)
 
 STDAPI_(void) MemFree(LPVOID ptr)
 {
-	if ((v_hPrivateHeap) && (ptr))
+	if ( (v_hPrivateHeap) && (ptr) )
 		HeapFree(v_hPrivateHeap, 0, ptr);
 }
 
@@ -638,18 +648,19 @@ STDAPI ConvertToUnicodeEx(LPCSTR pszMbcsString, DWORD cbMbcsLen, LPWSTR pwszUnic
 	DWORD cbRet;
 	UINT iCode = CP_ACP;
 
-	if (IsValidCodePage((UINT)wCodePage))
+	if ( IsValidCodePage((UINT)wCodePage) )
 		iCode = (UINT)wCodePage;
 
-	CHECK_NULL_RETURN(pwszUnicode,	E_POINTER);
+	CHECK_NULL_RETURN(pwszUnicode, E_POINTER);
 	pwszUnicode[0] = L'\0';
 
 	CHECK_NULL_RETURN(pszMbcsString, E_POINTER);
-	CHECK_NULL_RETURN(cbMbcsLen,	E_INVALIDARG);
-	CHECK_NULL_RETURN(cbUniLen, 	E_INVALIDARG);
+	CHECK_NULL_RETURN(cbMbcsLen, E_INVALIDARG);
+	CHECK_NULL_RETURN(cbUniLen, E_INVALIDARG);
 
 	cbRet = MultiByteToWideChar(iCode, 0, pszMbcsString, cbMbcsLen, pwszUnicode, cbUniLen);
-	if (cbRet == 0)	return HRESULT_FROM_WIN32(GetLastError());
+	if ( cbRet == 0 )
+		return HRESULT_FROM_WIN32(GetLastError());
 
 	pwszUnicode[cbRet] = L'\0';
 	return S_OK;
@@ -663,18 +674,19 @@ STDAPI ConvertToMBCSEx(LPCWSTR pwszUnicodeString, DWORD cbUniLen, LPSTR pszMbcsS
 	DWORD cbRet;
 	UINT iCode = CP_ACP;
 
-	if (IsValidCodePage((UINT)wCodePage))
+	if ( IsValidCodePage((UINT)wCodePage) )
 		iCode = (UINT)wCodePage;
 
-	CHECK_NULL_RETURN(pszMbcsString,	E_POINTER);
+	CHECK_NULL_RETURN(pszMbcsString, E_POINTER);
 	pszMbcsString[0] = L'\0';
 
 	CHECK_NULL_RETURN(pwszUnicodeString, E_POINTER);
-	CHECK_NULL_RETURN(cbMbcsLen,		E_INVALIDARG);
-	CHECK_NULL_RETURN(cbUniLen, 		E_INVALIDARG);
+	CHECK_NULL_RETURN(cbMbcsLen, E_INVALIDARG);
+	CHECK_NULL_RETURN(cbUniLen, E_INVALIDARG);
 
 	cbRet = WideCharToMultiByte(iCode, 0, pwszUnicodeString, -1, pszMbcsString, cbMbcsLen, NULL, NULL);
-	if (cbRet == 0)	return HRESULT_FROM_WIN32(GetLastError());
+	if ( cbRet == 0 )
+		return HRESULT_FROM_WIN32(GetLastError());
 
 	pszMbcsString[cbRet] = '\0';
 	return S_OK;
@@ -692,7 +704,7 @@ STDAPI_(LPWSTR) ConvertToCoTaskMemStr(BSTR bstrString)
 
 	cbLen = SysStringLen(bstrString);
 	pwsz = (LPWSTR)CoTaskMemAlloc((cbLen * 2) + sizeof(WCHAR));
-	if (pwsz)
+	if ( pwsz )
 	{
 		memcpy(pwsz, bstrString, (cbLen * 2));
 		pwsz[cbLen] = L'\0'; // Make sure it is NULL terminated.
@@ -702,19 +714,19 @@ STDAPI_(LPWSTR) ConvertToCoTaskMemStr(BSTR bstrString)
 }
 
 ////////////////////////////////////////////////////////////////////////
-// ConvertToMBCS -- NOTE: This returns CoTaskMemAlloc string!
+// ConvertToMBCS -- NOTE: This returns CoTaskMemAlloc string
 //
 STDAPI_(LPSTR) ConvertToMBCS(LPCWSTR pwszUnicodeString, WORD wCodePage)
 {
 	LPSTR psz = NULL;
 	UINT cblen, cbnew;
 
-	CHECK_NULL_RETURN(pwszUnicodeString, NULL);
+	CHECK_NULL_RETURN( pwszUnicodeString, NULL );
 
 	cblen = lstrlenW(pwszUnicodeString);
-	cbnew = ((cblen + 1) * sizeof(WCHAR));
+	cbnew = ( (cblen + 1) * sizeof(WCHAR) );
 	psz = (LPSTR)CoTaskMemAlloc(cbnew);
-	if ((psz) && FAILED(ConvertToMBCSEx(pwszUnicodeString, cblen, psz, cbnew, wCodePage)))
+	if ( (psz) && FAILED( ConvertToMBCSEx( pwszUnicodeString, cblen, psz, cbnew, wCodePage ) ) )
 	{
 		CoTaskMemFree(psz);
 		psz = NULL;
@@ -768,30 +780,30 @@ STDAPI_(UINT) CompareStrings(LPCWSTR pwsz1, LPCWSTR pwsz2)
 	static PFN_CMPSTRINGW s_pfnCompareStringW = NULL;
 
 	// Check that valid parameters are passed and then contain somethimg...
-	if ((pwsz1 == NULL) || ((cblen1 = lstrlenW(pwsz1)) == 0))
+	if ( ( pwsz1 == NULL ) || ( (cblen1 = lstrlenW(pwsz1)) == 0 ) )
 		return CSTR_LESS_THAN;
 
-	if ((pwsz2 == NULL) || ((cblen2 = lstrlenW(pwsz2)) == 0))
+	if ( ( pwsz2 == NULL ) || ( (cblen2 = lstrlenW(pwsz2)) == 0 ) )
 		return CSTR_GREATER_THAN;
 
 	// If the string is of the same size, then we do quick compare to test for equality
 	// (Slightly faster than calling the API, only if we expect the calls to find an equal match)
 	if ( cblen1 == cblen2 )
 	{
-		for (iret = 0; iret < cblen1; iret++)
+		for ( iret = 0; iret < cblen1; iret++ )
 		{
-			if (pwsz1[iret] == pwsz2[iret])
+			if ( pwsz1[iret] == pwsz2[iret] )
 				continue;
 
-			if (((pwsz1[iret] >= 'A') && (pwsz1[iret] <= 'Z')) &&
-				((pwsz1[iret] + ('a' - 'A')) == pwsz2[iret]))
+			if ( ((pwsz1[iret] >= 'A') && (pwsz1[iret] <= 'Z')) &&
+				((pwsz1[iret] + ('a' - 'A')) == pwsz2[iret]) )
 				continue;
 
-			if (((pwsz2[iret] >= 'A') && (pwsz2[iret] <= 'Z')) &&
-				((pwsz2[iret] + ('a' - 'A')) == pwsz1[iret]))
+			if ( ((pwsz2[iret] >= 'A') && (pwsz2[iret] <= 'Z')) &&
+				((pwsz2[iret] + ('a' - 'A')) == pwsz1[iret]) )
 				continue;
 
-			break; // don't continue if we can't quickly match...
+			break; // Don't continue if we can't quickly match...
 		}
 
 		// If we made it all the way, then they are equal...
@@ -807,9 +819,9 @@ STDAPI_(UINT) CompareStrings(LPCWSTR pwsz1, LPCWSTR pwsz2)
 		iret = CompareStringW(lcid, NORM_IGNORECASE | NORM_IGNOREWIDTH, pwsz1, cblen1, pwsz2, cblen2);
 	//else  // Win9x, doesn't have much choice (thunk the call)...
 	//{
-	//	LPTSTR psz1 = ConvertToMBCS(pwsz1, CP_ACP);
-	//	LPTSTR psz2 = ConvertToMBCS(pwsz2, CP_ACP);
-	//	iret = CompareString(lcid, NORM_IGNORECASE,	psz1, -1, psz2, -1);
+	//	LPSTR psz1 = ConvertToMBCS(pwsz1, CP_ACP);
+	//	LPSTR psz2 = ConvertToMBCS(pwsz2, CP_ACP);
+	//	iret = CompareStringA(lcid, NORM_IGNORECASE, psz1, -1, psz2, -1);
 	//	CoTaskMemFree(psz2);
 	//	CoTaskMemFree(psz1);
 	//}
@@ -840,7 +852,7 @@ STDAPI_(BOOL) FFindQualifiedFileName(LPCWSTR pwszFile, LPWSTR pwszPath, ULONG *p
 	//}
 	//else	// Win98
 	//{
-	//	TCHAR szBuffer[MAX_PATH];
+	//	CHAR szBuffer[MAX_PATH] = {};
 	//	LPSTR lpszFilePart = NULL;
 	//	LPSTR szFile = ConvertToMBCS(pwszFile, CP_ACP);
 	//	CHECK_NULL_RETURN(szFile, E_OUTOFMEMORY);
@@ -916,7 +928,7 @@ STDAPI_(BOOL) FGetIconForFile(LPCWSTR pwszFile, HICON *pico)
 
 	CHECK_NULL_RETURN(pico, FALSE); *pico = NULL;
 
-	if (s_hShell32 == NULL)
+	if ( s_hShell32 == NULL )
 	{
 		s_hShell32 = GetModuleHandle(_T("shell32.dll"));
 		CHECK_NULL_RETURN(s_hShell32, FALSE);
@@ -926,34 +938,35 @@ STDAPI_(BOOL) FGetIconForFile(LPCWSTR pwszFile, HICON *pico)
 
 	//if (v_fRunningOnNT)
 	//{
-		if (s_pfnExtractAssociatedIconW == NULL)
+		if ( s_pfnExtractAssociatedIconW == NULL )
 		{
 			s_pfnExtractAssociatedIconW = (PFN_ExtractAssociatedIconW)GetProcAddress(s_hShell32, "ExtractAssociatedIconW");
 			CHECK_NULL_RETURN(s_pfnExtractAssociatedIconW, FALSE);
 		}
 
 		idx = (WORD)(lstrlenW(pwszFile) * 2);
-		memcpy((BYTE*)rgBuffer, (BYTE*)pwszFile, idx); idx = 0;
+		memcpy((BYTE*)rgBuffer, (BYTE*)pwszFile, idx);
+		idx = 0;
 		*pico = s_pfnExtractAssociatedIconW(DllModuleHandle(), (LPWSTR)rgBuffer, &idx);
 	//}
 	//else	// Win98
 	//{
-	//	LPTSTR psz;
+	//	LPSTR psz;
 	//	if (s_pfnExtractAssociatedIconA == NULL)
 	//	{
 	//		s_pfnExtractAssociatedIconA = (PFN_ExtractAssociatedIconA)GetProcAddress(s_hShell32, "ExtractAssociatedIconA");
 	//		CHECK_NULL_RETURN(s_pfnExtractAssociatedIconA, FALSE);
 	//	}
-
+	//
 	//	psz = ConvertToMBCS(pwszFile, CP_ACP);
 	//	if (psz)
 	//	{
-	//		idx = (WORD)lstrlen(psz);
+	//		idx = (WORD)lstrlenA(psz);
 	//		memcpy((BYTE*)rgBuffer, (BYTE*)psz, idx); idx = 0;
 	//		*pico = s_pfnExtractAssociatedIconA(DllModuleHandle(), (LPSTR)rgBuffer, &idx);
 	//		CoTaskMemFree(psz);
 	//	}
 	//}
 
-	return (*pico != NULL);
+	return ( *pico != NULL );
 }

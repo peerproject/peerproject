@@ -2,21 +2,18 @@
 // XML.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2008.
+// Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
@@ -146,16 +143,6 @@ CString CXMLNode::StringToValue(LPCTSTR& pszXML, int nLength)
 				*pszOut++ = '&';
 				pszXML += 4;
 			}
-			else if ( _tcsnicmp( pszXML, _T("lt;"), 3 ) == 0 )
-			{
-				*pszOut++ = '<';
-				pszXML += 3;
-			}
-			else if ( _tcsnicmp( pszXML, _T("gt;"), 3 ) == 0 )
-			{
-				*pszOut++ = '>';
-				pszXML += 3;
-			}
 			else if ( _tcsnicmp( pszXML, _T("quot;"), 5 ) == 0 )
 			{
 				*pszOut++ = '\"';
@@ -170,6 +157,16 @@ CString CXMLNode::StringToValue(LPCTSTR& pszXML, int nLength)
 			{
 				*pszOut++ = ' ';
 				pszXML += 5;
+			}
+			else if ( _tcsnicmp( pszXML, _T("lt;"), 3 ) == 0 )
+			{
+				*pszOut++ = '<';
+				pszXML += 3;
+			}
+			else if ( _tcsnicmp( pszXML, _T("gt;"), 3 ) == 0 )
+			{
+				*pszOut++ = '>';
+				pszXML += 3;
 			}
 			else if ( *pszXML == '#' )
 			{
@@ -232,17 +229,17 @@ void CXMLNode::ValueToString(const CString& strValue, CString& strXML)
 		case '&':
 			V2S_APPEND( 5, _T("&amp;") );
 			break;
-		case '<':
-			V2S_APPEND( 4, _T("&lt;") );
-			break;
-		case '>':
-			V2S_APPEND( 4, _T("&gt;") );
-			break;
 		case '\"':
 			V2S_APPEND( 6, _T("&quot;") );
 			break;
 		case '\'':
 			V2S_APPEND( 6, _T("&apos;") );
+			break;
+		case '<':
+			V2S_APPEND( 4, _T("&lt;") );
+			break;
+		case '>':
+			V2S_APPEND( 4, _T("&gt;") );
 			break;
 		default:
 			if ( nChar > 127 )
@@ -821,7 +818,7 @@ void CXMLElement::AddRecursiveWords(CString& strWords) const
 		if ( strText.Find( ':' ) >= 0 ) continue;
 		if ( strText.CompareNoCase( _T("SHA1") ) == 0 ) continue;	// NOTE: PeerProject/Shareaza Specific
 
-		if ( strWords.GetLength() ) strWords += ' ';
+		if ( ! strWords.IsEmpty() ) strWords += ' ';
 		strWords += pAttribute->GetValue();
 	}
 
@@ -830,9 +827,9 @@ void CXMLElement::AddRecursiveWords(CString& strWords) const
 		GetNextElement( pos )->AddRecursiveWords( strWords );
 	}
 
-	if ( m_sValue.GetLength() )
+	if ( ! m_sValue.IsEmpty() )
 	{
-		if ( strWords.GetLength() )
+		if ( ! strWords.IsEmpty() )
 			strWords += ' ';
 		strWords += m_sValue;
 	}

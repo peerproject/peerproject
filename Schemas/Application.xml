@@ -1,33 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 
-<!--
-PeerProject Afrikaans Schemas File translated by Johann van der Walt (Thesage)
-PeerProject Catalan Schemas File translated by Daniel Olivares Giménez; Equip de traduccions de FeshoCAT
-PeerProject Chinese Simplified Schemas File translated by Sanley; John
-PeerProject Chinese Traditional Schemas File translated by James Bond
-PeerProject Czech Schemas File translated by Odin
-PeerProject German Schemas File translated by Spooky; jlh
-PeerProject Estonian Schemas File translated by Janza
-PeerProject Spanish Schemas File translated by Unknown
-PeerProject Spanish (Mexico) Schemas File translated by Help
-PeerProject French Schemas File translated by Antoine Martin-Lalande (Sensi)
-PeerProject Greek Schemas File translated by erimitis
-PeerProject Hebrew Schemas File translated by _peer_ (H.L)
-PeerProject Croatian Schemas File translated by Biza
-PeerProject Hungarian Schemas File translated by Yuri
-PeerProject Italian Schemas File translated by ale5000
-PeerProject Japanese Schemas File translated by DukeDog; CyberBob
-PeerProject Lithuanian Schemas File translated by Rolandas Rudomanskis
-PeerProject Dutch Schemas File translated by Jan-Willem Koornwinder (thurstydog); Jonne; Neglacio
-PeerProject Norwegian Schemas File translated by Tom Seland (seli); vnmartinsen
-PeerProject Portuguese (Brasil) Schemas File translated by Lukas Taves (LightHeaven); Felipe
-PeerProject Russian Schemas File translated by dAbserver; Rolandas Rudomanskis
-PeerProject Slovenian Schemas File translated by Martin McDowell
-PeerProject Albanian Schemas File translated by Besmir Godole
-PeerProject Serbian Schemas File translated by Woodstoock
-PeerProject Swedish Schemas File translated by Marcus Ehrenlans; Printz; DanielB
-PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
--->
+<!-- See ReadMe.txt for translation credits -->
 
 <schemaDescriptor location="http://www.shareaza.com/schemas/application.xsd" xmlns="http://www.shareaza.com/schemas/SchemaDescriptor.xsd">
 
@@ -63,7 +36,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 	</titles>
 	<members>
 		<member name="title" search="generic">
-			<display defaultColumn="true"/>
+			<display defaultColumn="true" prompt="true"/>
 			<title language="en">Title</title>
 			<title language="af">Titel</title>
 			<title language="ca">Títol</title>
@@ -94,7 +67,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="zht">標題</title>
 		</member>
 		<member name="version" search="indexed">
-			<display defaultColumn="true"/>
+			<display defaultColumn="true" prompt="true"/>
 			<title language="en">Version</title>
 			<title language="af">Weergawe</title>
 			<title language="ca">Versió</title>
@@ -210,7 +183,8 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="zhs">文件版本</title>
 			<title language="zht">檔案版本</title>
 		</member>
-		<member name="OriginalFileName" search="none">
+		<member name="OriginalFileName">
+			<display prompt="true"/>
 			<title language="en">Original File Name</title>
 			<title language="af">Oorspr. Lêernaam</title>
 			<title language="ca">Nom original</title>
@@ -240,7 +214,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="zht">原始的檔案名稱</title>
 		</member>
 		<member name="company" search="generic">
-			<display defaultColumn="true"/>
+			<display defaultColumn="true" prompt="true"/>
 			<title language="en">Company</title>
 			<title language="af">Maatskappy</title>
 			<title language="ca">Companyia</title>
@@ -299,7 +273,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="zht">版權</title>
 		</member>
 		<member name="type">
-			<display defaultColumn="true"/>
+			<display defaultColumn="true" prompt="true"/>
 			<title language="en">Type</title>
 			<title language="af">Tipe</title>
 			<title language="ca">Tipus</title>
@@ -329,6 +303,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="zht">類型</title>
 		</member>
 		<member name="archive" search="indexed">
+			<display prompt="true"/>
 			<title language="en">Archive Type</title>
 			<title language="af">Argieftipe</title>
 			<title language="ca">Tipus d'arxiu</title>
@@ -358,7 +333,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="zht">檔案類型</title>
 		</member>
 		<member name="os">
-			<display defaultColumn="true"/>
+			<display defaultColumn="true" prompt="true"/>
 			<title language="en">OS</title>
 			<title language="af">OS</title>
 			<title language="ca">Sistema operatiu</title>
@@ -388,6 +363,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="zht">OS</title>
 		</member>
 		<member name="keywords">
+			<display prompt="true"/>
 			<title language="en">Keywords</title>
 			<title language="af">Sleutelwoorde</title>
 			<title language="ca">Paraules clau</title>
@@ -592,9 +568,6 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		</member>
 	</members>
 	<typeFilter>
-		<type extension="7z"/>
-		<type extension="ace"/>
-		<type extension="arj"/>
 		<type extension="bin"/>
 		<type extension="bz2"/>
 		<type extension="cab"/>
@@ -604,11 +577,10 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<type extension="iso"/>
 		<type extension="jar"/>
 		<type extension="gz"/>
-		<type extension="gzip"/>
 		<type extension="msi"/>
 		<type extension="ppa"/>
 		<type extension="psk"/>
-		<type extension="rar"/>
+		<type extension="sks"/>
 		<type extension="sit"/>
 		<type extension="t"/>
 		<type extension="tar"/>
@@ -617,7 +589,8 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<type extension="tar.z"/>
 		<type extension="tgz"/>
 		<type extension="xla"/>
-		<type extension="zip"/>
+		<type keyword="installer"/>
+		<type keyword="setup"/>
 	</typeFilter>
 
 </schemaDescriptor>

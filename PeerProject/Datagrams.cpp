@@ -2,21 +2,18 @@
 // Datagrams.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2008.
+// Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
@@ -62,7 +59,7 @@
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
-#endif
+#endif	// Filename
 
 #define HASH_SIZE		32
 #define HASH_MASK		31
@@ -79,16 +76,18 @@ CDatagrams Datagrams;
 // CDatagrams construction
 
 CDatagrams::CDatagrams()
+	: m_hSocket 	( INVALID_SOCKET )
+	, m_bStable 	( FALSE )
+	, m_nSequence	( 0 )
+	, m_nInBandwidth ( 0 )
+	, m_nInFrags	( 0 )
+	, m_nInPackets	( 0 )
+	, m_nOutBandwidth ( 0 )
+	, m_nOutFrags	( 0 )
+	, m_nOutPackets	( 0 )
 {
-	m_hSocket	= INVALID_SOCKET;
-	m_nSequence	= 0;
-	m_bStable	= FALSE;
-
 	ZeroMemory( &m_mInput, sizeof(m_mInput) );
 	ZeroMemory( &m_mOutput, sizeof(m_mOutput) );
-
-	m_nInBandwidth	= m_nInFrags	= m_nInPackets	= 0;
-	m_nOutBandwidth	= m_nOutFrags	= m_nOutPackets	= 0;
 }
 
 CDatagrams::~CDatagrams()
@@ -634,6 +633,11 @@ BOOL CDatagrams::TryRead()
 	{
 		OnDatagram( &pFrom, m_pReadBuffer, nLength );
 	}
+	else
+	{
+		theApp.Message( MSG_DEBUG | MSG_FACILITY_INCOMING, _T("UDP: Dropped datagram (%u bytes) from %s."),
+			nLength, (LPCTSTR)CString( inet_ntoa( pFrom.sin_addr ) ) );
+	}
 
 	return TRUE;
 }
@@ -1085,17 +1089,17 @@ BOOL CDatagrams::OnPing(SOCKADDR_IN* pHost, CG1Packet* pPacket)
 
 	CString strAddress( inet_ntoa( pHost->sin_addr ) );
 
-	// A ping packet is just a header, and shouldn't have length, if it does, and settings say to worry about stuff like this
 	if ( pPacket->m_nLength != 0 && Settings.Gnutella1.StrictPackets )
 	{
+		// A ping packet is just a header, and shouldn't have length, if it does, and settings say to worry about stuff like this
 		// Record the error, drop the packet, but stay connected
 		theApp.Message( MSG_ERROR, IDS_PROTOCOL_SIZE_PING, (LPCTSTR)strAddress );
 		Statistics.Current.Gnutella1.Dropped++;
 		return TRUE;
-
-	} // The ping is just a header, or settings don't care, and the length is bigger than settings allow
+	}
 	else if ( pPacket->m_nLength > Settings.Gnutella1.MaximumQuery )
 	{
+		// The ping is just a header, or settings don't care, and the length is bigger than settings allow
 		// Record the error, drop the packet, but stay connected
 		theApp.Message( MSG_ERROR, IDS_PROTOCOL_TOO_LARGE, (LPCTSTR)strAddress );
 		Statistics.Current.Gnutella1.Dropped++;
@@ -1665,9 +1669,9 @@ BOOL CDatagrams::OnCrawlRequest(SOCKADDR_IN* pHost, CG2Packet* pPacket)
 	pPacket = CG2Packet::New( G2_PACKET_CRAWL_ANS, TRUE );
 
 	CString strNick;
-	DWORD nGPS = 0;
 	CString vendorCode;
 	CString currentVersion;
+	DWORD nGPS = 0;
 
 	if ( bWantNames )
 		strNick = MyProfile.GetNick().Left( 255 ); //trim if over 255 characters
@@ -1685,8 +1689,8 @@ BOOL CDatagrams::OnCrawlRequest(SOCKADDR_IN* pHost, CG2Packet* pPacket)
 		G2_PACKET_SELF,
 		16 + ( strNick.GetLength() ? pPacket->GetStringLen( strNick ) + 6 : 0 ) +
 			( nGPS ? 5 + 4 : 0 ) + (vendorCode.GetLength() ? pPacket->GetStringLen( vendorCode ) + 3 : 0 ) +
-		(currentVersion.GetLength() ? pPacket->GetStringLen( currentVersion ) + 4 : 0 ) +
-		(bIsHub ? 5 : 6),
+		( currentVersion.GetLength() ? pPacket->GetStringLen( currentVersion ) + 4 : 0 ) +
+		( bIsHub ? 5 : 6 ),
 		TRUE );
 
 	pPacket->WritePacket( G2_PACKET_NODE_ADDRESS, 6 );
@@ -1696,17 +1700,17 @@ BOOL CDatagrams::OnCrawlRequest(SOCKADDR_IN* pHost, CG2Packet* pPacket)
 	pPacket->WritePacket( G2_PACKET_HUB_STATUS, 2 );
 	pPacket->WriteShortBE( WORD( Neighbours.GetCount( PROTOCOL_G2, -1, ntLeaf ) ) );
 
-	if ( strNick.GetLength() )
+	if ( ! strNick.IsEmpty() )
 	{
 		pPacket->WritePacket( G2_PACKET_NAME, pPacket->GetStringLen( strNick) );
 		pPacket->WriteString( strNick, FALSE );
 	}
-	if ( vendorCode.GetLength() )
+	if ( ! vendorCode.IsEmpty() )
 	{
 		pPacket->WritePacket( G2_PACKET_VENDOR, pPacket->GetStringLen( vendorCode) );
 		pPacket->WriteString( vendorCode, FALSE );
 	}
-	if ( currentVersion.GetLength() )
+	if ( ! currentVersion.IsEmpty() )
 	{
 		pPacket->WritePacket( G2_PACKET_VERSION, pPacket->GetStringLen( currentVersion) );
 		pPacket->WriteString( currentVersion, FALSE );
@@ -2007,7 +2011,6 @@ BOOL CDatagrams::OnKHLR(SOCKADDR_IN* pHost, CG2Packet* pPacket)
 				Neighbours.Get( pCachedHost->m_pAddress ) == NULL &&
 				! Network.IsSelfIP( pCachedHost->m_pAddress ) )
 			{
-
 				BOOL bCompound = ( pCachedHost->m_pVendor && ! pCachedHost->m_pVendor->m_sCode.IsEmpty() );
 				CG2Packet* pCHPacket = CG2Packet::New( G2_PACKET_CACHED_HUB, bCompound );
 

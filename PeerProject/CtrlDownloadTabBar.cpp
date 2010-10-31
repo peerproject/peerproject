@@ -2,29 +2,27 @@
 // CtrlDownloadTabBar.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2007.
+// Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
 #include "PeerProject.h"
 #include "Settings.h"
-#include "Colors.h"
-#include "CoolInterface.h"
 #include "CoolMenu.h"
+#include "CoolInterface.h"
+#include "Colors.h"
+#include "Images.h"
 #include "Transfers.h"
 #include "Downloads.h"
 #include "Download.h"
@@ -36,10 +34,10 @@
 #include "Skin.h"
 
 #ifdef _DEBUG
-#define new DEBUG_NEW
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
-#endif
+#define new DEBUG_NEW
+#endif	// Filename
 
 BEGIN_MESSAGE_MAP(CDownloadTabBar, CControlBar)
 	ON_WM_LBUTTONDOWN()
@@ -102,15 +100,12 @@ BOOL CDownloadTabBar::Create(CWnd* pParentWnd, DWORD dwStyle, UINT nID)
 		dwStyle | WS_CHILD | WS_CLIPSIBLINGS | WS_TABSTOP, rc, pParentWnd, nID, NULL );
 }
 
-void CDownloadTabBar::SetWatermark(HBITMAP hBitmap)
-{
-	if ( m_bmImage.m_hObject != NULL ) m_bmImage.DeleteObject();
-	if ( hBitmap != NULL ) m_bmImage.Attach( hBitmap );
-}
-
 void CDownloadTabBar::OnSkinChange()
 {
-	SetWatermark( Skin.GetWatermark( _T("CDownloadTabBar") ) );
+	// SetWatermark:
+	if ( m_bmImage.m_hObject ) m_bmImage.DeleteObject();
+	if ( HBITMAP hBitmap = Skin.GetWatermark( _T("CDownloadTabBar") ) )
+		m_bmImage.Attach( hBitmap );
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -119,14 +114,14 @@ void CDownloadTabBar::OnSkinChange()
 int CDownloadTabBar::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if ( CControlBar::OnCreate( lpCreateStruct ) == -1 ) return -1;
-//	if ( Skin.m_bMenuBorders )
+	//if ( Skin.m_bMenuBorders )
 		m_dwStyle |= CBRS_BORDER_3D;
 	return 0;
 }
 
 CSize CDownloadTabBar::CalcFixedLayout(BOOL /*bStretch*/, BOOL /*bHorz*/)
 {
-	CSize size( 32767, 26 );
+	CSize size( 32767, Skin.m_nGroupsbarHeight );
 
 	if ( CWnd* pParent = AfxGetMainWnd() )
 	{
@@ -284,7 +279,7 @@ void CDownloadTabBar::DoPaint(CDC* pDC)
 
 	CFont* pOldFont = (CFont*)pDC->SelectObject( &CoolInterface.m_fntNormal );
 
-	if ( !m_pItems.IsEmpty() )
+	if ( ! m_pItems.IsEmpty() )
 	{
 		CRect rcItem( rc.left + 3, rc.top + 1, 0, rc.bottom - 1 );
 		rcItem.right = static_cast< LONG >( rc.Width() / m_pItems.GetCount() );
@@ -300,7 +295,8 @@ void CDownloadTabBar::DoPaint(CDC* pDC)
 			rcItem.OffsetRect( rcItem.Width() + 3, 0 );
 		}
 
-		if ( pDC == pOutDC ) pDC->FillSolidRect( &rc, Colors.m_crMidtone );
+		if ( pDC == pOutDC )
+			pDC->FillSolidRect( &rc, Colors.m_crMidtone );
 	}
 	else
 	{
@@ -421,7 +417,8 @@ void CDownloadTabBar::OnRButtonUp(UINT /*nFlags*/, CPoint point)
 	if ( TabItem* pItem = HitTest( point, &rcItem ) )
 	{
 		m_bMenuGray = TRUE;
-		if ( Select( pItem ) ) NotifySelection();
+		if ( Select( pItem ) )
+			NotifySelection();
 		Invalidate();
 		ClientToScreen( &rcItem );
 		CoolMenu.RegisterEdge( Settings.General.LanguageRTL ? rcItem.right : rcItem.left, rcItem.bottom - 1, rcItem.Width() );
@@ -629,7 +626,8 @@ void CDownloadTabBar::OnDownloadGroupResume()
 	for ( POSITION pos = pDownloads.GetHeadPosition() ; pos ; )
 	{
 		CDownload* pDownload = (CDownload*)pDownloads.GetNext( pos );
-		if ( Downloads.Check( pDownload ) ) pDownload->Resume();
+		if ( Downloads.Check( pDownload ) )
+			pDownload->Resume();
 	}
 }
 
@@ -648,7 +646,8 @@ void CDownloadTabBar::OnDownloadGroupPause()
 	for ( POSITION pos = pDownloads.GetHeadPosition() ; pos ; )
 	{
 		CDownload* pDownload = (CDownload*)pDownloads.GetNext( pos );
-		if ( Downloads.Check( pDownload ) ) pDownload->Pause();
+		if ( Downloads.Check( pDownload ) )
+			pDownload->Pause();
 	}
 }
 
@@ -682,7 +681,9 @@ void CDownloadTabBar::OnDownloadGroupOpen()
 	CString strPath = pGroup->m_sFolder;
 
 	if ( strPath.IsEmpty() )
+	{
 		strPath = Settings.Downloads.CompletePath;
+	}
 	else if ( ! PathIsDirectory( strPath ) )
 	{
 		strPath = Settings.Downloads.CompletePath + _T("\\") + strPath;
@@ -753,6 +754,7 @@ BOOL CDownloadTabBar::DropObjects(CList< CDownload* >* pList, const CPoint& ptSc
 	return TRUE;
 }
 
+
 /////////////////////////////////////////////////////////////////////////////
 // CDownloadTabBar::TabItem construction
 
@@ -767,8 +769,6 @@ CDownloadTabBar::TabItem::TabItem(CDownloadGroup* pGroup, int nCookie)
 
 CDownloadTabBar::TabItem::~TabItem()
 {
-	if ( m_bmTabmark.m_hObject )
-		m_bmTabmark.DeleteObject();
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -781,13 +781,13 @@ BOOL CDownloadTabBar::TabItem::Update(int nCookie)
 
 	BOOL bChanged = FALSE;
 
+	const int nCount = static_cast< int >( m_pGroup->GetCount() );
+
 	if ( m_sName != m_pGroup->m_sName )
 	{
 		m_sName = m_pGroup->m_sName;
 		bChanged = TRUE;
 	}
-
-	int nCount = static_cast< int >( m_pGroup->GetCount() );
 
 	if ( m_nCount != nCount )
 	{
@@ -817,59 +817,58 @@ BOOL CDownloadTabBar::TabItem::Select(BOOL bSelect)
 	return TRUE;
 }
 
-void CDownloadTabBar::TabItem::SetTabmark(HBITMAP hBitmap)
-{
-	if ( m_bmTabmark.m_hObject )
-		m_bmTabmark.DeleteObject();
-	if ( hBitmap != NULL )
-		m_bmTabmark.Attach( hBitmap );
-	if ( hBitmap ) m_bTabTest = TRUE;
-}
-
 /////////////////////////////////////////////////////////////////////////////
 // CDownloadTabBar::TabItem paint
 
 void CDownloadTabBar::TabItem::Paint(CDownloadTabBar* pBar, CDC* pDC, CRect* pRect, BOOL bHot, BOOL bTransparent)
 {
 	CRect rc( pRect );
-	COLORREF crBack;
-	m_bTabTest = FALSE;
+	COLORREF crBack = bTransparent ? CLR_NONE : Colors.m_crMidtone;
 
 	BOOL bPopulated = m_nCount > 0;
+	BOOL bSkinned = FALSE;
 
-	if ( m_bSelected && pBar->m_bMenuGray )
-	{
-		crBack = Colors.m_crBackNormal;
-		pDC->Draw3dRect( &rc, Colors.m_crDisabled, Colors.m_crDisabled );
-	}
-	else if ( bHot && m_bSelected )
-		SetTabmark( Skin.GetWatermark( _T("CDownloadTabBar.Active.Hover") ) );
+	rc.InflateRect( 1, 1 );
+	rc.bottom++;
+
+	if ( bHot && m_bSelected )
+		bSkinned = Images.DrawButtonState( pDC, rc, DOWNLOADGROUP_PRESS );		// Active Hover
 	else if ( m_bSelected )
-		SetTabmark( Skin.GetWatermark( _T("CDownloadTabBar.Active") ) );
+		bSkinned = Images.DrawButtonState( pDC, rc, DOWNLOADGROUP_ACTIVE );		// Active Group
 	else if ( bHot )
-		SetTabmark( Skin.GetWatermark( _T("CDownloadTabBar.Hover") ) );
+		bSkinned = Images.DrawButtonState( pDC, rc, DOWNLOADGROUP_HOVER );		// Hover
+	else if ( m_bSelected && pBar->m_bMenuGray )
+		bSkinned = Images.DrawButtonState( pDC, rc, DOWNLOADGROUP_DISABLED );	// Greyed (Empty)
+	else
+		bSkinned = Images.DrawButtonState( pDC, rc, DOWNLOADGROUP_DEFAULT ); 	// Available (Default)
 
-	if ( m_bTabTest )
+	rc.bottom--;
+	rc.DeflateRect( 1, 1 );
+
+	if ( bSkinned )
 	{
 		crBack = CLR_NONE;
 		pDC->SetBkMode( TRANSPARENT );
-		CoolInterface.DrawWatermark( pDC, &rc, &m_bmTabmark );
 	}
 	else
 	{
-		if ( bHot || m_bSelected )
+		if ( m_bSelected && pBar->m_bMenuGray )
+		{
+			crBack = Colors.m_crBackNormal;
+			pDC->Draw3dRect( &rc, Colors.m_crDisabled, Colors.m_crDisabled );
+		}
+		else if ( bHot || m_bSelected )
 		{
 			crBack = ( bHot && m_bSelected ) ? Colors.m_crBackCheckSel : Colors.m_crBackSel;
 			pDC->Draw3dRect( &rc, Colors.m_crBorder, Colors.m_crBorder );
 		}
-		else
+		else if ( crBack != CLR_NONE )
 		{
-			crBack = bTransparent ? CLR_NONE : Colors.m_crMidtone;
-			if ( crBack != CLR_NONE )
-				pDC->Draw3dRect( &rc, crBack, crBack );
+			pDC->Draw3dRect( &rc, crBack, crBack );
 		}
 
-		if ( crBack != CLR_NONE ) pDC->SetBkColor( crBack );
+		if ( crBack != CLR_NONE )
+			pDC->SetBkColor( crBack );
 	}
 
 	rc.DeflateRect( 1, 1 );
@@ -919,7 +918,7 @@ void CDownloadTabBar::TabItem::Paint(CDownloadTabBar* pBar, CDC* pDC, CRect* pRe
 
 	if ( pDC->GetTextExtent( strText ).cx > rc.Width() )
 	{
-		while ( pDC->GetTextExtent( strText + _T('\x2026') ).cx > rc.Width() && strText.GetLength() )
+		while ( pDC->GetTextExtent( strText + _T('\x2026') ).cx > rc.Width() && ! strText.IsEmpty() )
 		{
 			strText = strText.Left( strText.GetLength() - 1 );
 		}

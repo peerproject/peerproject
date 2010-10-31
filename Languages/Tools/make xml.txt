@@ -1,0 +1,4 @@
+@echo off
+md ..\new_xml
+for %%i in ( ..\Poedit\new_po\*.po ) do SkinTranslate.exe ..\default-en.xml %%i ..\new_xml\#.xml
+@pause

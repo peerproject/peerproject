@@ -1,22 +1,19 @@
 //
 // VendorCache.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
-// Portions Copyright Shareaza Development Team, 2002-2007.
+// This file is part of PeerProject (peerproject.org) © 2008-2010
+// Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
@@ -29,7 +26,7 @@
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
-#endif
+#endif	// Filename
 
 CVendorCache VendorCache;
 
@@ -98,7 +95,7 @@ BOOL CVendorCache::Load()
 	CString strPath = Settings.General.Path + _T("\\Data\\Vendors.xml");
 	CXMLElement* pXML = CXMLElement::FromFile( strPath, TRUE );
 	BOOL bSuccess = FALSE;
-	
+
 	if ( pXML != NULL )
 	{
 		bSuccess = LoadFrom( pXML );
@@ -127,7 +124,7 @@ BOOL CVendorCache::LoadFrom(CXMLElement* pXML)
 		if ( pKey->IsNamed( _T("vendor") ) )
 		{
 			CVendor* pVendor = new CVendor();
-			
+
 			if ( pVendor->LoadFrom( pKey ) )
 			{
 				if ( m_pCodeMap.Lookup( pVendor->m_sCode, pFoo ) )
@@ -149,7 +146,7 @@ BOOL CVendorCache::LoadFrom(CXMLElement* pXML)
 			}
 		}
 	}
-	
+
 	return m_pCodeMap.GetCount() > 0;
 }
 
@@ -160,10 +157,8 @@ bool CVendorCache::IsExtended(LPCTSTR pszCode) const
 	// Find by product name (Server or User-Agent HTTP-headers)
 	CVendor* pVendor = LookupByName( pszCode );
 	if ( ! pVendor )
-	{
-		// Find by vendor code
-		pVendor = Lookup( pszCode );
-	}
+		pVendor = Lookup( pszCode );	// Find by vendor code
+
 	if ( pVendor )
 		return pVendor->m_bExtended;
 
@@ -174,19 +169,19 @@ bool CVendorCache::IsExtended(LPCTSTR pszCode) const
 //////////////////////////////////////////////////////////////////////
 // CVendor construciton
 
-CVendor::CVendor() :
-	m_bChatFlag		( false ),
-	m_bHTMLBrowse	( false ),
-	m_bExtended		( false )
+CVendor::CVendor()
+	: m_bChatFlag	( false )
+	, m_bHTMLBrowse	( false )
+	, m_bExtended	( false )
 {
 }
 
-CVendor::CVendor(LPCTSTR pszCode) :
-	m_sCode			( pszCode ),
-	m_sName			( pszCode ),
-	m_bChatFlag		( false ),
-	m_bHTMLBrowse	( false ),
-	m_bExtended		( false )
+CVendor::CVendor(LPCTSTR pszCode)
+	: m_sCode		( pszCode )
+	, m_sName		( pszCode )
+	, m_bChatFlag	( false )
+	, m_bHTMLBrowse	( false )
+	, m_bExtended	( false )
 {
 	if ( m_sCode.GetLength() > 4 )
 		m_sCode = m_sCode.Left( 4 );
@@ -213,12 +208,12 @@ BOOL CVendor::LoadFrom(CXMLElement* pXML)
 
 		if ( pKey->IsNamed( _T("title") ) )
 		{
-			if ( m_sName.GetLength() ) return FALSE;
+			if ( ! m_sName.IsEmpty() ) return FALSE;
 			m_sName = pKey->GetValue();
 		}
 		else if ( pKey->IsNamed( _T("link") ) )
 		{
-			if ( m_sLink.GetLength() ) return FALSE;
+			if ( ! m_sLink.IsEmpty() ) return FALSE;
 			m_sLink = pKey->GetValue();
 		}
 		else if ( pKey->IsNamed( _T("capability") ) )
@@ -227,17 +222,11 @@ BOOL CVendor::LoadFrom(CXMLElement* pXML)
 			ToLower( strCap );
 
 			if ( strCap == _T("chatflag") )
-			{
 				m_bChatFlag = true;
-			}
 			else if ( strCap == _T("htmlhostbrowse") )
-			{
 				m_bHTMLBrowse = true;
-			}
 			else if ( strCap == _T("extended") )
-			{
 				m_bExtended = true;
-			}			
 		}
 	}
 

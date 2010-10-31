@@ -2,21 +2,18 @@
 // PeerProjectURL.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2008.
+// Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
@@ -35,7 +32,7 @@
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
-#endif
+#endif	// Filename
 
 
 //////////////////////////////////////////////////////////////////////
@@ -197,6 +194,11 @@ BOOL CPeerProjectURL::ParseRoot(LPCTSTR pszURL, BOOL bResolve)
 		pszURL += 8;
 		return ParseMagnet( pszURL );
 	}
+	else if ( _tcsnicmp( pszURL, _T("magnet:"), 7 ) == 0 )
+	{
+		pszURL += 7;
+		return ParsePeerProject( pszURL );
+	}
 	else if ( _tcsnicmp( pszURL, _T("ed2k:"), 5 ) == 0 )
 	{
 		SkipSlashes( pszURL, 5 );
@@ -208,7 +210,7 @@ BOOL CPeerProjectURL::ParseRoot(LPCTSTR pszURL, BOOL bResolve)
 		SkipSlashes( pszURL, 9 );
 		return ParsePeerProject( pszURL );
 	}
-	else if ( _tcsnicmp( pszURL, _T("peerproject:"), 12 ) == 0 )
+	else if ( _tcsnicmp( pszURL, _T("peerproject:"), 12 ) == 0 )	// APP_LENGTH LETTERCOUNT
 	{
 		SkipSlashes( pszURL, 12 );
 		return ParsePeerProject( pszURL );
@@ -270,28 +272,29 @@ BOOL CPeerProjectURL::ParseRoot(LPCTSTR pszURL, BOOL bResolve)
 
 BOOL CPeerProjectURL::ParseHTTP(LPCTSTR pszURL, BOOL bResolve)
 {
-	if ( _tcsncmp( pszURL, _T("http://"), 7 ) != 0 &&
-			_tcsncmp( pszURL, _T("https://"), 8 ) != 0 )
-		 return FALSE;
+	CString strURL;
+	if ( ! _tcsnicmp( pszURL, _T("http://"), 7 ) )
+		strURL = pszURL + 7;
+	else if ( ! _tcsncmp( pszURL, _T("https://"), 8 ) )		// HTTPS unsupported, but such links may work
+		strURL = pszURL + 8;
+	else
+		return FALSE;
 
 	Clear();
 
-	CString strURL = pszURL + 7;
-
-	int nSlash = strURL.Find( _T('/') );
-
+	const int nSlash = strURL.Find( _T('/') );
 	if ( nSlash >= 0 )
 	{
 		m_sAddress	= strURL.Left( nSlash );
-		m_sPath		= strURL.Mid( nSlash );
+		m_sPath 	= strURL.Mid( nSlash );
 	}
 	else
 	{
-		m_sAddress = strURL;
-		m_sPath = _T("/");
+		m_sAddress	= strURL;
+		m_sPath 	= _T("/");
 	}
 
-	int nAt = m_sAddress.Find( _T('@') );
+	const int nAt = m_sAddress.Find( _T('@') );
 	if ( nAt >= 0 ) m_sAddress = m_sAddress.Mid( nAt + 1 );
 
 	if ( m_sAddress.IsEmpty() ) return FALSE;
@@ -313,12 +316,11 @@ BOOL CPeerProjectURL::ParseHTTP(LPCTSTR pszURL, BOOL bResolve)
 	{
 		m_nAction	= uriDownload;
 
-		int nPos = m_sPath.ReverseFind( '/' );
+		const int nPos = m_sPath.ReverseFind( '/' );
 		if ( nPos >= 0 )
 		{
-			CString sName( URLDecode(
-				m_sPath.Mid( nPos + 1 ).SpanExcluding( _T("?") ) ) );
-			if ( sName.GetLength() )
+			const CString sName( URLDecode( m_sPath.Mid( nPos + 1 ).SpanExcluding( _T("?") ) ) );
+			if ( ! sName.IsEmpty() )
 				m_sName = sName;
 		}
 	}
@@ -343,14 +345,14 @@ BOOL CPeerProjectURL::ParseFTP(LPCTSTR pszURL, BOOL bResolve)
 {
 	// URI format:	ftp://[user[:password]@]host[:port][/path]
 
-	if ( _tcsncmp( pszURL, _T("ftp://"), 6 ) != 0 ) return FALSE;
+	if ( _tcsncmp( pszURL, _T("ftp://"), 6 ) != 0 )
+		return FALSE;
 
 	Clear();
 
 	CString strURL ( pszURL + 6 );
 
-	int nSlash = strURL.Find( _T('/') );
-
+	const int nSlash = strURL.Find( _T('/') );
 	if ( nSlash >= 0 )
 	{
 		m_sAddress	= strURL.Left( nSlash );
@@ -362,13 +364,13 @@ BOOL CPeerProjectURL::ParseFTP(LPCTSTR pszURL, BOOL bResolve)
 		m_sPath = _T("/");
 	}
 
-	int nAt = m_sAddress.Find( _T('@') );
+	const int nAt = m_sAddress.Find( _T('@') );
 	if ( nAt >= 0 )
 	{
 		m_sLogin = m_sAddress.Left( nAt );
 		m_sAddress = m_sAddress.Mid( nAt + 1 );
 
-		int nColon = m_sLogin.Find( _T(':') );
+		const int nColon = m_sLogin.Find( _T(':') );
 		if ( nColon >= 0 )
 		{
 			m_sPassword = m_sLogin.Mid( nColon + 1 );
@@ -385,12 +387,11 @@ BOOL CPeerProjectURL::ParseFTP(LPCTSTR pszURL, BOOL bResolve)
 		return FALSE;
 
 	// Add fix set name
-	int nPos = m_sPath.ReverseFind( '/' );
-	if ( ! m_sName.GetLength() && nPos >= 0 )
+	const int nPos = m_sPath.ReverseFind( '/' );
+	if ( m_sName.IsEmpty() && nPos >= 0 )
 	{
-		CString sName( URLDecode(
-			m_sPath.Mid( nPos + 1 ).SpanExcluding( _T("?") ) ) );
-		if ( sName.GetLength() )
+		const CString sName( URLDecode( m_sPath.Mid( nPos + 1 ).SpanExcluding( _T("?") ) ) );
+		if ( ! sName.IsEmpty() )
 			m_sName = sName;
 	}
 
@@ -575,7 +576,7 @@ BOOL CPeerProjectURL::ParseMagnet(LPCTSTR pszURL)
 				{
 					CString strURL = _T("@") + strValue;
 
-					if ( m_sURL.GetLength() )
+					if ( ! m_sURL.IsEmpty() )
 						m_sURL = strURL + _T(", ") + m_sURL;
 					else
 						m_sURL = strURL;
@@ -586,7 +587,7 @@ BOOL CPeerProjectURL::ParseMagnet(LPCTSTR pszURL)
 				}
 				else
 				{
-					if ( m_sURL.GetLength() )
+					if ( ! m_sURL.IsEmpty() )
 						m_sURL += _T(", ");
 					m_sURL += strValue;
 				}
@@ -639,12 +640,12 @@ BOOL CPeerProjectURL::ParseMagnet(LPCTSTR pszURL)
 
 	delete pTorrent;
 
-	if ( IsHashed() || m_sURL.GetLength() )
+	if ( IsHashed() || ! m_sURL.IsEmpty() )
 	{
 		m_nAction = uriDownload;
 		return TRUE;
 	}
-	else if ( m_sName.GetLength() )
+	else if ( ! m_sName.IsEmpty() )
 	{
 		m_nAction = uriSearch;
 		return TRUE;
@@ -665,24 +666,26 @@ BOOL CPeerProjectURL::ParsePeerProject(LPCTSTR pszURL)
 	if ( _stscanf( pszURL, _T("%i.%i.%i.%i"), &nIP[0], &nIP[1], &nIP[2], &nIP[3] ) == 4 )
 		return ParsePeerProjectHost( pszURL, FALSE );
 
-	if ( _tcsnicmp( pszURL, _T("host:"), 5 ) == 0 || _tcsnicmp( pszURL, _T("node:"), 5 ) == 0 )
+	if ( ! _tcsnicmp( pszURL, _T("host:"), 5 ) || ! _tcsnicmp( pszURL, _T("node:"), 5 ) )
 		return ParsePeerProjectHost( pszURL + 5, FALSE );
-	else if ( _tcsnicmp( pszURL, _T("hub:"), 4 ) == 0 )
+	else if ( ! _tcsnicmp( pszURL, _T("hub:"), 4 ) )
 		return ParsePeerProjectHost( pszURL + 4, FALSE );
-	else if ( _tcsnicmp( pszURL, _T("server:"), 7 ) == 0 )
+	else if ( ! _tcsnicmp( pszURL, _T("server:"), 7 ) )
 		return ParsePeerProjectHost( pszURL + 7, FALSE );
-	else if ( _tcsnicmp( pszURL, _T("browse:"), 7 ) == 0 )
+	else if ( ! _tcsnicmp( pszURL, _T("browse:"), 7 ) )
 		return ParsePeerProjectHost( pszURL + 7, TRUE );
-	else if ( _tcsnicmp( pszURL, _T("gwc:"), 4 ) == 0 )
+	else if ( ! _tcsnicmp( pszURL, _T("chat:"), 5 ) )
+		return ParsePeerProjectHost( pszURL + 5, TRUE );
+	else if ( ! _tcsnicmp( pszURL, _T("gwc:"), 4 ) )
 		return ParseDiscovery( pszURL + 4, CDiscoveryService::dsWebCache );
-	else if ( _tcsnicmp( pszURL, _T("meturl:"), 7 ) == 0 )
+	else if ( ! _tcsnicmp( pszURL, _T("meturl:"), 7 ) )
 		return ParseDiscovery( pszURL + 7, CDiscoveryService::dsServerMet );
-	else if ( _tcsnicmp( pszURL, _T("url:"), 4 ) == 0 )
+	else if ( ! _tcsnicmp( pszURL, _T("url:"), 4 ) )
 		return Parse( pszURL + 4 );
-	else if (	_tcsnicmp( pszURL, _T("uhc:"), 4 ) == 0 ||
-				_tcsnicmp( pszURL, _T("ukhl:"), 5 ) == 0 ||
-				_tcsnicmp( pszURL, _T("gnutella1:host:"), 15 ) == 0 ||
-				_tcsnicmp( pszURL, _T("gnutella2:host:"), 15 ) == 0 )
+	else if ( ! _tcsnicmp( pszURL, _T("uhc:"), 4 ) ||
+			! _tcsnicmp( pszURL, _T("ukhl:"), 5 ) ||
+			! _tcsnicmp( pszURL, _T("gnutella1:host:"), 15 ) ||
+			! _tcsnicmp( pszURL, _T("gnutella2:host:"), 15 ) )
 		return ParseDiscovery( pszURL, CDiscoveryService::dsGnutella );
 
 		return ParsePeerProjectFile( pszURL );
@@ -747,7 +750,7 @@ BOOL CPeerProjectURL::ParsePeerProjectFile(LPCTSTR pszURL)
 			CString strSource = URLDecode( strPart.Mid( 7 ) );
 			SafeString( strSource );
 
-			if ( m_sURL.GetLength() ) m_sURL += ',';
+			if ( ! m_sURL.IsEmpty() ) m_sURL += ',';
 			m_sURL += _T("http://");
 			m_sURL += URLEncode( strSource );
 			m_sURL += _T("/(^name^)");
@@ -765,9 +768,9 @@ BOOL CPeerProjectURL::ParsePeerProjectFile(LPCTSTR pszURL)
 		}
 	}
 
-	if ( m_sURL.GetLength() )
+	if ( ! m_sURL.IsEmpty() )
 	{
-		if ( m_sName.GetLength() )
+		if ( ! m_sName.IsEmpty() )
 		{
 			m_sURL.Replace( _T("(^name^)"), URLEncode( m_sName ) );
 			m_sURL.Replace( _T("\\"), _T("/") );
@@ -778,12 +781,12 @@ BOOL CPeerProjectURL::ParsePeerProjectFile(LPCTSTR pszURL)
 		}
 	}
 
-	if ( IsHashed() || m_sURL.GetLength() )
+	if ( IsHashed() || ! m_sURL.IsEmpty() )
 	{
 		m_nAction = uriDownload;
 		return TRUE;
 	}
-	else if ( m_sName.GetLength() )
+	else if ( ! m_sName.IsEmpty() )
 	{
 		m_nAction = uriSearch;
 		return TRUE;
@@ -874,7 +877,6 @@ BOOL CPeerProjectURL::ParseDonkeyFile(LPCTSTR pszURL)
 	strURL	= strURL.Mid( nSep + 1 );
 	while ( strPart != _T("/") )
 	{
-
 		if ( _tcsncmp( strPart, _T("h="), 2 ) == 0 )
 		{
 			// AICH hash
@@ -887,7 +889,7 @@ BOOL CPeerProjectURL::ParseDonkeyFile(LPCTSTR pszURL)
 			// theApp.Message(MSG_INFO, _T("HTTP") );
 			strPart = strPart.Mid( 2 );
 
-			if ( m_sURL.GetLength() ) m_sURL += _T(", ");
+			if ( ! m_sURL.IsEmpty() ) m_sURL += _T(", ");
 			SafeString( strPart );
 			m_sURL += strPart;
 		}
@@ -924,7 +926,7 @@ BOOL CPeerProjectURL::ParseDonkeyFile(LPCTSTR pszURL)
 		CString strEDFTP;
 		strEDFTP.Format( _T("ed2kftp://%s/%s/%I64i/"), strPart, (LPCTSTR)m_oED2K.toString(), m_nSize );
 		SafeString( strEDFTP );
-		if ( m_sURL.GetLength() ) m_sURL += _T(", ");
+		if ( ! m_sURL.IsEmpty() ) m_sURL += _T(", ");
 		m_sURL += strEDFTP;
 	}
 
@@ -1100,7 +1102,7 @@ CQuerySearchPtr CPeerProjectURL::ToQuery() const
 
 	CQuerySearchPtr pSearch = new CQuerySearch();
 
-	if ( m_sName.GetLength() )
+	if ( ! m_sName.IsEmpty() )
 		pSearch->m_sSearch = m_sName;
 
 	if ( m_oSHA1 )

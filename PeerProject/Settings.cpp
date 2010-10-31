@@ -2,21 +2,18 @@
 // Settings.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2008.
+// Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
@@ -30,7 +27,7 @@
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
-#endif
+#endif	// Filename
 
 #define SMART_VERSION	1000	// 1.0.0.0 (60)
 
@@ -231,7 +228,7 @@ void CSettings::Load()
 	Add( _T("Search"), _T("ShowNames"), &Search.ShowNames, true );
 	Add( _T("Search"), _T("SpamFilterThreshold"), &Search.SpamFilterThreshold, 20, 1, 0, 100, _T("%") );
 	Add( _T("Search"), _T("SwitchToTransfers"), &Search.SwitchToTransfers, true );
-	Add( _T("Search"), _T("ShareMonkeyBaseURL"), &Search.ShareMonkeyBaseURL, _T("http://tools.sharemonkey.com/xml/") );
+	Add( _T("Search"), _T("ShareMonkeyBaseURL"), &Search.ShareMonkeyBaseURL, _T("http://tools.sharemonkey.com/xml/") );	// Does not exist!
 	Add( _T("Search"), _T("SanityCheck"), &Search.SanityCheck, true );
 	Add( _T("Search"), _T("ClearPrevious"), &Search.ClearPrevious, 0, 1, 0, 2 );
 
@@ -344,13 +341,13 @@ void CSettings::Load()
 	Add( _T("Gnutella1"), _T("DefaultTTL"), &Gnutella1.DefaultTTL, 3, 1, 1, 3 );
 	Add( _T("Gnutella1"), _T("EnableAlways"), &Gnutella1.EnableAlways, true );
 	Add( _T("Gnutella1"), _T("EnableGGEP"), &Gnutella1.EnableGGEP, true );
-	Add( _T("Gnutella1"), _T("EnableOOB"), &Gnutella1.EnableOOB, false );	// ToDo: Set "true" when OOB fully implemented.
+	Add( _T("Gnutella1"), _T("EnableOOB"), &Gnutella1.EnableOOB, false );	// ToDo: Set true when OOB fully implemented/verified (out of band query hits)
 	Add( _T("Gnutella1"), _T("HostCount"), &Gnutella1.HostCount, 15, 1, 1, 50 );
 	Add( _T("Gnutella1"), _T("HostExpire"), &Gnutella1.HostExpire, 2*24*60*60, 24*60*60, 1, 100, _T(" d") );
 	Add( _T("Gnutella1"), _T("MaxHostsInPongs"), &Gnutella1.MaxHostsInPongs, 10, 1, 5, 30 );
 	Add( _T("Gnutella1"), _T("MaximumQuery"), &Gnutella1.MaximumQuery, 256, 1, 32, 262144 );
 	Add( _T("Gnutella1"), _T("MaximumTTL"), &Gnutella1.MaximumTTL, 10, 1, 1, 10 );
-	Add( _T("Gnutella1"), _T("NumHubs"), &Gnutella1.NumHubs, 3, 1, 1, 5 );
+	Add( _T("Gnutella1"), _T("NumHubs"), &Gnutella1.NumHubs, 3, 1, 1, 6 );
 	Add( _T("Gnutella1"), _T("NumLeafs"), &Gnutella1.NumLeafs, 50, 1, 5, 1024 );
 	Add( _T("Gnutella1"), _T("NumPeers"), &Gnutella1.NumPeers, 32, 1, 15, 64 );	// For X-Degree
 	Add( _T("Gnutella1"), _T("PacketBufferSize"), &Gnutella1.PacketBufferSize, 64, 1, 1, 1024, _T(" packets") );
@@ -482,15 +479,15 @@ void CSettings::Load()
 	Add( _T("Downloads"), _T("CompletePath"), &Downloads.CompletePath );
 	Add( _T("Downloads"), _T("TorrentPath"), &Downloads.TorrentPath );
 	Add( _T("Downloads"), _T("FilterMask"), &Downloads.FilterMask, 0xFFFFFFFF );
-	Add( _T("Downloads"), _T("FlushSD"), &Downloads.FlushSD, true );
+	Add( _T("Downloads"), _T("FlushPD"), &Downloads.FlushPD, true );
 	Add( _T("Downloads"), _T("IncompletePath"), &Downloads.IncompletePath );
 	Add( _T("Downloads"), _T("MaxAllowedFailures"), &Downloads.MaxAllowedFailures, 10, 1, 3, 40 );
 	Add( _T("Downloads"), _T("MaxConnectingSources"), &Downloads.MaxConnectingSources, 28, 1, 5, 99 );
 	Add( _T("Downloads"), _T("MaxFileSearches"), &Downloads.MaxFileSearches, 2, 1, 0, 8 );
-	Add( _T("Downloads"), _T("MaxFileTransfers"), &Downloads.MaxFileTransfers, 10 );
-	Add( _T("Downloads"), _T("MaxFiles"), &Downloads.MaxFiles, 20, 1, 1, 250 );
+	Add( _T("Downloads"), _T("MaxFileTransfers"), &Downloads.MaxFileTransfers, 40, 1, 1, 200 );
+	Add( _T("Downloads"), _T("MaxFiles"), &Downloads.MaxFiles, 200, 1, 1, 400 );
+	Add( _T("Downloads"), _T("MaxTransfers"), &Downloads.MaxTransfers, 100, 1, 1, 400 );
 	Add( _T("Downloads"), _T("MaxReviews"), &Downloads.MaxReviews, 64, 1, 0, 256 );
-	Add( _T("Downloads"), _T("MaxTransfers"), &Downloads.MaxTransfers, 100, 1, 1, 300 );
 	Add( _T("Downloads"), _T("Metadata"), &Downloads.Metadata, true );
 	Add( _T("Downloads"), _T("MinSources"), &Downloads.MinSources, 1, 1, 0, 6 );
 	Add( _T("Downloads"), _T("NeverDrop"), &Downloads.NeverDrop, false );
@@ -1112,9 +1109,9 @@ void CSettings::SmartUpgrade()
 
 void CSettings::OnChangeConnectionSpeed()
 {
-	bool bLimited = theApp.m_bLimitedConnections && !(General.IgnoreXPsp2 || theApp.m_bIsVistaOrNewer);
+	bool bLimited = theApp.m_bLimitedConnections && ! ( General.IgnoreXPsp2 || theApp.m_bIsVistaOrNewer );
 
-	if ( Connection.InSpeed <= 80 ) 			// Dial-up Modem users
+	if ( Connection.InSpeed <= 100 ) 			// Dial-up Modem users
 	{
 		Downloads.MaxFiles				= 8;
 		Downloads.MaxTransfers			= 24;
@@ -1127,7 +1124,7 @@ void CSettings::OnChangeConnectionSpeed()
 		Gnutella2.NumLeafs				= 50;
 		BitTorrent.DownloadTorrents		= 2;	// Best not to try too many torrents
 	}
-	else if ( Connection.InSpeed <= 800 )		// Slow broadband
+	else if ( Connection.InSpeed <= 900 )		// Slow broadband
 	{
 		Downloads.MaxFiles				= 20;
 		Downloads.MaxTransfers			= 64;
@@ -1137,7 +1134,7 @@ void CSettings::OnChangeConnectionSpeed()
 		Downloads.SourcesWanted			= 500;
 		Search.GeneralThrottle			= 250;
 
-		Gnutella2.NumLeafs				= 300;
+		Gnutella2.NumLeafs				= 250;
 		BitTorrent.DownloadTorrents		= 3;
 	}
 	else if ( Connection.InSpeed <= 3000 || bLimited )
@@ -1162,6 +1159,8 @@ void CSettings::OnChangeConnectionSpeed()
 		Downloads.MaxFileSearches		= 5;
 		Downloads.SourcesWanted			= 600;
 		Search.GeneralThrottle			= 150;
+
+		Gnutella1.NumHubs				= 4;
 		Gnutella2.NumLeafs				= 400;	// Can probably support more leaves
 		BitTorrent.DownloadTorrents 	= 8;	// Should be able to handle several torrents
 	}
@@ -1174,6 +1173,8 @@ void CSettings::OnChangeConnectionSpeed()
 		Downloads.MaxFileSearches		= 6;
 		Downloads.SourcesWanted			= 800;
 		Search.GeneralThrottle			= 100;
+
+		Gnutella1.NumHubs				= 4;
 		Gnutella2.NumLeafs				= 500;	// Can probably support more leaves
 		BitTorrent.DownloadTorrents 	= 10;	// Should be able to handle several torrents
 	}

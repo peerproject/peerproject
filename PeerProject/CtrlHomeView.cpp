@@ -2,21 +2,18 @@
 // CtrlHomeView.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2007.
+// Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
@@ -33,10 +30,10 @@
 #include "VersionChecker.h"
 
 #ifdef _DEBUG
-#define new DEBUG_NEW
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
-#endif
+#define new DEBUG_NEW
+#endif	// Filename
 
 IMPLEMENT_DYNCREATE(CHomeViewCtrl, CRichViewCtrl)
 
@@ -57,8 +54,10 @@ END_MESSAGE_MAP()
 // CHomeViewCtrl construction
 
 CHomeViewCtrl::CHomeViewCtrl()
+	: m_peHeader	( NULL )
+	, m_peSearch	( NULL )
+	, m_peUpgrade	( NULL )
 {
-	m_peHeader = m_peSearch = m_peUpgrade = NULL;
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -86,7 +85,7 @@ int CHomeViewCtrl::OnCreate(LPCREATESTRUCT lpCreateStruct)
 void CHomeViewCtrl::OnSkinChange()
 {
 	m_pDocument.Clear();
-	m_peHeader = m_peSearch = m_peUpgrade = m_peRemote1 = m_peRemote2 = NULL;
+	m_peHeader = m_peSearch = m_peUpgrade = m_peRemote1 = m_peRemote2 = m_peRemoteBrowse = NULL;
 
 	if ( ! Skin.GetWatermark( &m_bmHeader1, _T("CHomeViewCtrl.Header") ) )
 		Skin.GetWatermark( &m_bmHeader1, _T("CHomeViewCtrl.Header1") );		// .sks
@@ -152,6 +151,18 @@ void CHomeViewCtrl::Update()
 		m_pDocument.ShowGroup( GROUP_UPGRADE, FALSE );
 	}
 
+	if ( m_peRemoteBrowse )
+	{
+		CString strURL;
+		strURL.Format( _T("gnutella:browse:%s:%i"),
+			(LPCTSTR)CString( inet_ntoa( Network.m_pHost.sin_addr ) ),
+			(int)ntohs( Network.m_pHost.sin_port ) );
+
+		if ( Settings.Community.ServeFiles )
+			m_peRemoteBrowse->m_sLink = _T("command:copy:") + strURL;
+		m_peRemoteBrowse->SetText( Settings.General.LanguageRTL ? _T("\x202A") + strURL : strURL );
+	}
+
 	if ( Settings.Remote.Enable && ! Settings.Remote.Username.IsEmpty() &&
 		 ! Settings.Remote.Password.IsEmpty() && Network.IsListening() )
 	{
@@ -171,22 +182,6 @@ void CHomeViewCtrl::Update()
 				(int)ntohs( Network.m_pHost.sin_port ) );
 			m_peRemote2->SetText( Settings.General.LanguageRTL ? _T("\x202A") + strURL : strURL );
 			m_peRemote2->m_sLink = strURL;
-		}
-		if ( m_peRemoteBrowse )
-		{
-			if ( Settings.Community.ServeFiles )
-			{
-				strURL.Format( _T("g2:browse:%s:%i"),
-					(LPCTSTR)CString( inet_ntoa( Network.m_pHost.sin_addr ) ),
-					(int)ntohs( Network.m_pHost.sin_port ) );
-			}
-			else
-			{
-				LoadString( strURL, IDS_REMOTE_DISABLED );
-				strURL = _T("( ") + strURL + _T(" )");
-			}
-			m_peRemoteBrowse->SetText( Settings.General.LanguageRTL ? _T("\x202A") + strURL : strURL );
-			m_peRemoteBrowse->m_sLink = strURL;
 		}
 
 		m_pDocument.ShowGroup( GROUP_REMOTE, TRUE );

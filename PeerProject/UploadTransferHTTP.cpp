@@ -2,21 +2,18 @@
 // UploadTransferHTTP.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2008.
+// Portions copyright Shareaza Development Team, 2008.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
@@ -58,7 +55,7 @@
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
-#endif
+#endif	// Filename
 
 
 //////////////////////////////////////////////////////////////////////
@@ -757,7 +754,7 @@ BOOL CUploadTransferHTTP::RequestSharedFile(CLibraryFile* pFile, CSingleLock& oL
 		return TRUE;
 	}
 
-	if ( m_sLocations.GetLength() )
+	if ( ! m_sLocations.IsEmpty() )
 	{
 		pFile->AddAlternateSources( m_sLocations );
 		m_sLocations.Empty();
@@ -794,7 +791,7 @@ BOOL CUploadTransferHTTP::RequestPartialFile(CDownload* pDownload)
 	m_bTigerTree	= ( m_oTiger && pDownload->GetTigerTree() != NULL );
 	m_bMetadata		= pDownload->HasMetadata();
 
-	if ( m_sLocations.GetLength() )
+	if ( ! m_sLocations.IsEmpty() )
 	{
 		pDownload->AddSourceURLs( m_sLocations, TRUE );
 		m_sLocations.Empty();
@@ -868,7 +865,6 @@ BOOL CUploadTransferHTTP::QueueRequest()
 
 	if ( m_bStopTransfer )
 	{
-
 		m_tRotateTime = 0;
 		m_bStopTransfer	= FALSE;
 
@@ -989,7 +985,7 @@ void CUploadTransferHTTP::SendDefaultHeaders()
 {
 	CString strLine = Settings.SmartAgent();
 
-	if ( strLine.GetLength() )
+	if ( ! strLine.IsEmpty() )
 	{
 		strLine = _T("Server: ") + strLine + _T("\r\n");
 		Write( strLine );
@@ -1078,14 +1074,14 @@ void CUploadTransferHTTP::SendFileHeaders()
 		Write( _P("\r\n") );
 	}
 
-	if ( m_sRanges.GetLength() )
+	if ( ! m_sRanges.IsEmpty() )
 	{
 		Write( _P("X-Available-Ranges: ") );
 		Write( m_sRanges );
 		Write( _P("\r\n") );
 	}
 
-	if ( m_sLocations.GetLength() )
+	if ( ! m_sLocations.IsEmpty() )
 	{
 		if ( m_sLocations.Find( _T("://") ) < 0 )	// m_nGnutella < 2
 			Write( _P("X-Alt: ") );
@@ -1191,12 +1187,12 @@ BOOL CUploadTransferHTTP::OpenFileSendHeaders()
 			theApp.Message( MSG_NOTICE, IDS_UPLOAD_FILE,
 				(LPCTSTR)m_sName, (LPCTSTR)m_sAddress );
 
-			ASSERT( m_sPath.GetLength() );
+			ASSERT( ! m_pBaseFile->m_sPath.IsEmpty() );
 			PostMainWndMessage( WM_NOWUPLOADING, 0, (LPARAM)new CString( m_sPath ) );
 		}
 
 		theApp.Message( MSG_INFO,
-			m_sRanges.GetLength() ? IDS_UPLOAD_PARTIAL_CONTENT : IDS_UPLOAD_CONTENT,
+			( ! m_sRanges.IsEmpty() ) ? IDS_UPLOAD_PARTIAL_CONTENT : IDS_UPLOAD_CONTENT,
 			m_nOffset, m_nOffset + m_nLength - 1, (LPCTSTR)m_sName,
 			(LPCTSTR)m_sAddress, (LPCTSTR)m_sUserAgent );
 
@@ -1589,13 +1585,13 @@ BOOL CUploadTransferHTTP::RequestPreview(CLibraryFile* pFile, CSingleLock& oLibr
 {
 	ASSERT( pFile != NULL );
 
-	m_sName 		= pFile->m_sName;
-	m_sPath 		= pFile->GetPath();
-	m_oSHA1 		= pFile->m_oSHA1;
-	m_oTiger		= pFile->m_oTiger;
-	m_oED2K 		= pFile->m_oED2K;
-	m_oBTH			= pFile->m_oBTH;
-	m_oMD5			= pFile->m_oMD5;
+	m_sName 	= pFile->m_sName;
+	m_sPath 	= pFile->GetPath();
+	m_oSHA1 	= pFile->m_oSHA1;
+	m_oTiger	= pFile->m_oTiger;
+	m_oED2K 	= pFile->m_oED2K;
+	m_oBTH		= pFile->m_oBTH;
+	m_oMD5		= pFile->m_oMD5;
 
 	oLibraryLock.Unlock();
 
@@ -1644,20 +1640,11 @@ BOOL CUploadTransferHTTP::RequestPreview(CLibraryFile* pFile, CSingleLock& oLibr
 	CString strHeader;
 
 	if ( m_oSHA1 )
-	{
-		strHeader.Format( _T("X-Previewed-URN: %s\r\n"),
-			(LPCTSTR)m_oSHA1.toUrn() );
-	}
+		strHeader.Format( _T("X-Previewed-URN: %s\r\n"), (LPCTSTR)m_oSHA1.toUrn() );
 	else if ( m_oTiger )
-	{
-		strHeader.Format( _T("X-Previewed-URN: %s\r\n"),
-			(LPCTSTR)m_oTiger.toUrn() );
-	}
+		strHeader.Format( _T("X-Previewed-URN: %s\r\n"), (LPCTSTR)m_oTiger.toUrn() );
 	else if ( m_oED2K )
-	{
-		strHeader.Format( _T("X-Previewed-URN: %s\r\n"),
-			(LPCTSTR)m_oED2K.toUrn() );
-	}
+		strHeader.Format( _T("X-Previewed-URN: %s\r\n"), (LPCTSTR)m_oED2K.toUrn() );
 
 	Write( strHeader );
 

@@ -2,21 +2,18 @@
 // RichDocument.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2007.
+// Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
@@ -32,7 +29,7 @@
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
-#endif
+#endif	// Filename
 
 
 //////////////////////////////////////////////////////////////////////
@@ -222,7 +219,7 @@ BOOL CRichDocument::LoadXML(CXMLElement* pBase, CMap< CString, const CString&, C
 	if ( pBase->IsNamed( _T("document") ) )
 	{
 		strTemp = pBase->GetAttributeValue( _T("fontFace") );
-		if ( strTemp.GetLength() )
+		if ( ! strTemp.IsEmpty() )
 		{
 			// Change font face
 			LOGFONT lfDefault = {};
@@ -249,9 +246,9 @@ BOOL CRichDocument::LoadXML(CXMLElement* pBase, CMap< CString, const CString&, C
 		LoadXMLColor( pBase, _T("crHeading"), &m_crHeading );
 
 		strTemp = pBase->GetAttributeValue( _T("leftMargin") );
-		if ( strTemp.GetLength() ) _stscanf( strTemp, _T("%i"), &m_szMargin.cx );
+		if ( ! strTemp.IsEmpty() ) _stscanf( strTemp, _T("%i"), &m_szMargin.cx );
 		strTemp = pBase->GetAttributeValue( _T("topMargin") );
-		if ( strTemp.GetLength() ) _stscanf( strTemp, _T("%i"), &m_szMargin.cy );
+		if ( ! strTemp.IsEmpty() ) _stscanf( strTemp, _T("%i"), &m_szMargin.cy );
 	}
 
 	for ( POSITION pos = pBase->GetElementIterator() ; pos ; )
@@ -277,16 +274,16 @@ BOOL CRichDocument::LoadXML(CXMLElement* pBase, CMap< CString, const CString&, C
 
 			strTemp = pXML->GetAttributeValue( _T("gap") );
 
-			if ( strTemp.GetLength() )
+			if ( ! strTemp.IsEmpty() )
 			{
 				pElement->m_sText = strTemp;
 				strTemp = pXML->GetAttributeValue( _T("indent") );
-				if ( strTemp.GetLength() ) pElement->m_sText += '.' + strTemp;
+				if ( ! strTemp.IsEmpty() ) pElement->m_sText += '.' + strTemp;
 			}
 			else
 			{
 				strTemp = pXML->GetAttributeValue( _T("indent") );
-				if ( strTemp.GetLength() ) pElement->m_sText = _T("0.") + strTemp;
+				if ( ! strTemp.IsEmpty() ) pElement->m_sText = _T("0.") + strTemp;
 			}
 		}
 		else if ( pXML->IsNamed( _T("gap") ) )
@@ -342,11 +339,11 @@ BOOL CRichDocument::LoadXML(CXMLElement* pBase, CMap< CString, const CString&, C
 		if ( pElement == NULL ) continue;
 
 		strTemp = pXML->GetValue();
-		if ( strTemp.GetLength() ) pElement->m_sText = strTemp;
+		if ( ! strTemp.IsEmpty() ) pElement->m_sText = strTemp;
 
 		pElement->m_nGroup = nGroup;
 		strTemp = pXML->GetAttributeValue( _T("group") );
-		if ( strTemp.GetLength() ) _stscanf( strTemp, _T("%i"), &pElement->m_nGroup );
+		if ( ! strTemp.IsEmpty() ) _stscanf( strTemp, _T("%i"), &pElement->m_nGroup );
 
 		strTemp = pXML->GetAttributeValue( _T("format") );
 		ToLower( strTemp );
@@ -379,7 +376,7 @@ BOOL CRichDocument::LoadXML(CXMLElement* pBase, CMap< CString, const CString&, C
 		if ( pElement->m_nType == retIcon )
 		{
 			strTemp = pXML->GetAttributeValue( _T("command") );
-			if ( strTemp.GetLength() )
+			if ( ! strTemp.IsEmpty() )
 			{
 				pElement->m_nType = retCmdIcon;
 				pElement->m_sText = strTemp;
@@ -389,18 +386,18 @@ BOOL CRichDocument::LoadXML(CXMLElement* pBase, CMap< CString, const CString&, C
 		if ( pElement->m_nType == retIcon || pElement->m_nType == retBitmap || pElement->m_nType == retAnchor )
 		{
 			strTemp = pXML->GetAttributeValue( _T("res") );
-			if ( strTemp.GetLength() ) pElement->m_sText = strTemp;
+			if ( ! strTemp.IsEmpty() ) pElement->m_sText = strTemp;
 			strTemp = pXML->GetAttributeValue( _T("path") );
-			if ( strTemp.GetLength() ) pElement->m_sText = strTemp;
+			if ( ! strTemp.IsEmpty() ) pElement->m_sText = strTemp;
 
 			strTemp = pXML->GetAttributeValue( _T("width") );
-			if ( strTemp.GetLength() )
+			if ( ! strTemp.IsEmpty() )
 			{
-				if ( pElement->m_sText.GetLength() )
+				if ( ! pElement->m_sText.IsEmpty() )
 					pElement->m_sText += '.';
 				pElement->m_sText += strTemp;
 				strTemp = pXML->GetAttributeValue( _T("height") );
-				if ( strTemp.GetLength() )
+				if ( ! strTemp.IsEmpty() )
 					pElement->m_sText += '.' + strTemp;
 			}
 		}
@@ -410,7 +407,7 @@ BOOL CRichDocument::LoadXML(CXMLElement* pBase, CMap< CString, const CString&, C
 		if ( pMap )
 		{
 			strTemp = pXML->GetAttributeValue( _T("id") );
-			if ( strTemp.GetLength() )
+			if ( ! strTemp.IsEmpty() )
 				pMap->SetAt( strTemp, pElement );
 		}
 

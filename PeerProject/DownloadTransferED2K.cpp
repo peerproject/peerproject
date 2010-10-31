@@ -2,21 +2,18 @@
 // DownloadTransferED2K.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2008.
+// Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
@@ -39,7 +36,7 @@
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
-#endif
+#endif	// Filename
 
 const DWORD BUFFER_SIZE = 8192;
 
@@ -117,8 +114,8 @@ BOOL CDownloadTransferED2K::Initiate()
 		return FALSE;
 	}
 
-	m_pHost			= m_pClient->m_pHost;
-	m_sAddress		= m_pClient->m_sAddress;
+	m_pHost		= m_pClient->m_pHost;
+	m_sAddress	= m_pClient->m_sAddress;
 	if( m_sAddress.IsEmpty() )
 		m_sAddress	= inet_ntoa( m_pHost.sin_addr );
 	UpdateCountry();
@@ -176,7 +173,7 @@ BOOL CDownloadTransferED2K::OnRun()
 
 BOOL CDownloadTransferED2K::OnRunEx(DWORD tNow)
 {
-	if ( !Network.IsConnected() || ( !Settings.eDonkey.EnableToday && Settings.Connection.RequireForTransfers ) )
+	if ( ! Network.IsConnected() || ( ! Settings.eDonkey.EnableToday && Settings.Connection.RequireForTransfers ) )
 	{
 		Close( TRI_TRUE );
 		return FALSE;
@@ -330,8 +327,7 @@ BOOL CDownloadTransferED2K::OnFileStatus(CEDPacket* pPacket)
 					QWORD nTo = nFrom + ED2K_PART_SIZE;
 					nTo = min( nTo, m_pDownload->m_nSize );
 
-					m_pSource->m_oAvailable.insert( m_pSource->m_oAvailable.end(),
-						Fragments::Fragment( nFrom, nTo ) );
+					m_pSource->m_oAvailable.insert( m_pSource->m_oAvailable.end(), Fragments::Fragment( nFrom, nTo ) );
 					m_pAvailable[ nBlock ] = TRUE;
 				}
 			}
@@ -681,22 +677,22 @@ BOOL CDownloadTransferED2K::SendPrimaryRequest()
 	//	return FALSE;
 	//}
 
-	//This source is current requesting
+	// This source is current requesting
 	SetState( dtsRequesting );
 
-	//Set the 'last requested' time
+	// Set the 'last requested' time
 	m_tRequest	= tNow;
 
 	ClearRequests();
 
-	//Send ed2k file request
+	// Send ed2k file request
 	CEDPacket* pPacket = CEDPacket::New( ED2K_C2C_FILEREQUEST );
 	pPacket->Write( m_pDownload->m_oED2K );
 
 	if ( Settings.eDonkey.ExtendedRequest >= 1 && m_pClient->m_bEmRequest >= 1 )
 		m_pClient->WritePartStatus( pPacket, m_pDownload );
 
-	//It's not very accurate
+	// It's not very accurate
 	if ( Settings.eDonkey.ExtendedRequest >= 2 && m_pClient->m_bEmRequest >= 2 )
 		pPacket->WriteShortLE( (WORD)m_pDownload->GetED2KCompleteSourceCount() );
 
@@ -714,9 +710,9 @@ BOOL CDownloadTransferED2K::SendPrimaryRequest()
 		Send( pPacket );
 	}
 
-	if ( ( m_pDownload->GetSourceCount() < Settings.Downloads.SourcesWanted ) &&// We want more sources
-		 ( tNow > m_tSources ) && ( tNow - m_tSources > 30 * 60 * 1000 ) &&		// We have not asked for at least 30 minutes
-		 ( m_pClient->m_bEmule ) && ( Network.IsListening() ) )					// Remote client is eMule compatible and we are accepting packets
+	if ( ( m_pDownload->GetSourceCount() < Settings.Downloads.SourcesWanted ) &&	// We want more sources
+		 ( tNow > m_tSources ) && ( tNow - m_tSources > 30 * 60 * 1000 ) &&			// We have not asked for at least 30 minutes
+		 ( m_pClient->m_bEmule ) && ( Network.IsListening() ) )						// Remote client is eMule compatible and we are accepting packets
 	{
 		// Set 'last asked for sources' time
 		m_tSources = tNow;
@@ -788,7 +784,7 @@ bool CDownloadTransferED2K::SendFragmentRequests()
 
 	Fragments::List oPossible( m_pDownload->GetEmptyFragmentList() );
 
-	if ( !m_pClient->m_bEmLargeFile && ( m_pDownload->m_nSize & 0xffffffff00000000 ) )
+	if ( ! m_pClient->m_bEmLargeFile && ( m_pDownload->m_nSize & 0xffffffff00000000 ) )
 	{
 		Fragments::Fragment Selected( 0x100000000, m_pDownload->m_nSize - 1 );
 		oPossible.erase( Selected );
@@ -1025,7 +1021,8 @@ void CDownloadTransferED2K::SetQueueRank(int nRank)
 	ClearRequests();
 
 	theApp.Message( MSG_INFO, IDS_DOWNLOAD_QUEUED,
-		(LPCTSTR)m_sAddress, m_nQueuePos, m_nQueueLen, _T("eDonkey2000") );
+		(LPCTSTR)m_sAddress, m_nQueuePos, m_nQueueLen,
+		(LPCTSTR)m_sQueueName );	//_T("eDonkey2000") );
 }
 
 

@@ -3,8 +3,8 @@
 
 <!-- PeerProject Default Lithuanian Skin File -->
 
-<!-- Translation based on default-en.xml r59 -->
-<!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
+<!-- Translation based on default-en.xml r60 -->
+<!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
 <!-- Use this file as a basis for creating new language skins,   -->
@@ -62,6 +62,7 @@
 		<button id="ID_VIEW_MEDIA"/>
 		<button id="ID_TAB_IRC"/>
 		<separator/>
+		<button id="ID_VIEW_SCHEDULER"/>
 		<button id="ID_VIEW_SECURITY"/>
 		<button id="ID_VIEW_HOSTS"/>
 		<button id="ID_VIEW_DISCOVERY"/>
@@ -587,7 +588,7 @@
 			<item id="ID_HELP_FAQ" text="„PeerProject“ DUK" shortcut="F1"/>
 			<item id="ID_HELP_GUIDE" text="„PeerProject“ naudotojo vadovas"/>
 			<item id="ID_HELP_FORUMS" text="„PeerProject“ forumai"/>
- 			<item id="ID_HELP_FORUMS_LOCAL" text="Lietuvių forumai"/>
+			<item id="ID_HELP_FORUMS_LOCAL" text="Lietuvių forumai"/>
 			<menu text="SkinVista žinynas">
 				<menu text="Jei meniu juosta rodoma neteisingai --"/>
 				<menu text="Pasirinkite meniu: Langas: Rodyti naršymo juostą"/>
@@ -697,7 +698,7 @@
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProject site"/>
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="„PeerProject“ _forumai"/>
- 				<item id="ID_HELP_FORUMS_LOCAL" text="Lietuvių forumai"/>
+				<item id="ID_HELP_FORUMS_LOCAL" text="Lietuvių forumai"/>
 				<!-- <item id="ID_HELP_UPDATE" text="Paskutinės naujienos"/>
 				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
 				<item id="ID_HELP_WEB_2" text="P2PForums.com"/>	-->
@@ -770,7 +771,7 @@
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProject site"/>
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="„PeerProject“ _forumai"/>
- 				<item id="ID_HELP_FORUMS_LOCAL" text="Lietuvių forumai"/>
+				<item id="ID_HELP_FORUMS_LOCAL" text="Lietuvių forumai"/>
 				<!-- <item id="ID_HELP_UPDATE" text="Paskutinės naujienos"/>
 				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
 				<item id="ID_HELP_WEB_2" text="P2PForums.com"/>	-->
@@ -863,7 +864,7 @@
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProject site"/>
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="„PeerProject“ _forumai"/>
- 				<item id="ID_HELP_FORUMS_LOCAL" text="Lietuvių forumai"/>
+				<item id="ID_HELP_FORUMS_LOCAL" text="Lietuvių forumai"/>
 				<!-- <item id="ID_HELP_UPDATE" text="Paskutinės naujienos"/>
 				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
 				<item id="ID_HELP_WEB_2" text="P2PForums.com"/>	-->
@@ -1737,13 +1738,16 @@
 			<newline gap="8" indent="42"/>
 			<anchor id="SearchBox" width="256" height="80"/>
 			<newline gap="14" indent="0"/>
-			<icon res="124" width="32" height="32" target="command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
+			<icon res="122" width="32" height="32" target="command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
 			<heading align="middle">PRADĖTI SIŲSTIS</heading>
 			<newline gap="8" indent="42"/>
 			<link target="command:ID_TOOLS_DOWNLOAD" format="bu">Paspauskite čia</link>
 			<text>, jei norite pradėti siųstis failą ar torentą.</text>
 			<newline gap="2" indent="42"/>
 			<link target="command:shell:downloads">Atverti atsisiuntimų katalogą.</link>
+			<newline gap="4" indent="42"/>
+			<text>Pasidalinkite savo failus </text>
+			<link id="RemoteBrowseURL"/>
 			<newline gap="20" indent="0"/>
 		</group>
 		<group id="3">
@@ -1791,30 +1795,30 @@
 		<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">PRISITAIKYKITE SAU „PEERPROJECT“</heading>
 		<newline gap="12" indent="42"/>
-		<icon res="196"width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
-		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">Apvalkalai</link>
-		<text align="middle">&#160;- Pakeiskite „PeerProject“ išvaizdą</text>
+		<icon res="196" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
+		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">Apvalkalai</link><gap size="6"/>
+		<text align="middle">- Pakeiskite „PeerProject“ išvaizdą</text>
 		<newline gap="8"/>
-		<icon res="138"width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
-		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
-		<text align="middle">&#160;- Update blocklist to avoid bad search results</text>
+		<icon res="138" width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
+		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link><gap size="6"/>
+		<text align="middle">- Update blocklist to avoid bad search results</text>
 		<newline gap="8"/>
-		<icon res="197"width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
-		<link target="command:ID_TOOLS_WIZARD" align="middle">Nuostatų vedlys</link>
-		<text align="middle">&#160;- Taisykite „PeerProject“ nuostatas</text>
+		<icon res="197" width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
+		<link target="command:ID_TOOLS_WIZARD" align="middle">Nuostatų vedlys</link><gap size="6"/>
+		<text align="middle">- Taisykite „PeerProject“ nuostatas</text>
 		<newline gap="8"/>
-		<icon res="182"width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
-		<link target="command:ID_HELP_FAQ" align="middle">Trumpas žinynas</link>
-		<text align="middle">&#160;- Sužinokite esminius dalykus apie „PeerProject“ or </text>
+		<icon res="182" width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
+		<link target="command:ID_HELP_FAQ" align="middle">Trumpas žinynas</link><gap size="6"/>
+		<text align="middle">- Sužinokite esminius dalykus apie „PeerProject“ or </text>
 		<link target="command:ID_TAB_IRC" align="middle">IRC.</link>
 		<newline gap="8"/>
-		<icon res="201"width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
-		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">Vietinis Forumai</link>
-		<text align="middle">&#160;- Eikite į Lietuvių kalbą diskusijų forumas</text>
+		<icon res="201" width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
+		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">Vietinis Forumai</link><gap size="6"/>
+		<text align="middle">- Eikite į Lietuvių kalbą diskusijų forumas</text>
 		<newline gap="8"/>
-		<icon res="182"width="16" height="16"/><gap size="8"/>
-		<link target="http://sourceforge.net/projects/corefonts/" align="middle">Šriftų atnaujinimas</link>
-		<text align="middle">&#160;- Nematote lietuviškų raidžių šiame puslapyje?</text>
+		<icon res="182" width="16" height="16"/><gap size="8"/>
+		<link target="http://sourceforge.net/projects/corefonts/" align="middle">Šriftų atnaujinimas</link><gap size="6"/>
+		<text align="middle">- Nematote lietuviškų raidžių šiame puslapyje?</text>
 		<newline indent="42"/>
 		<text align="middle">Čia rasite taisyklingą „MS Trebuchet“ ir kitus šriftus.</text>
 		<newline gap="18" indent="0"/>
@@ -2044,7 +2048,7 @@
 		</group>
 		<group id="41">
 			<newline gap="1"/>
-			<icon res="208"/><gap size="5"/>
+			<icon res="207"/><gap size="5"/>
 			<link id="ContactYahoo"/>
 		</group>
 		<group id="42">
@@ -2085,7 +2089,7 @@
 			<newline gap="16" indent="0"/>
 			<text format="b">Bendrija</text>
 			<newline gap="4" indent="8"/>
-			<icon res="127"target="command:ID_SEARCH_CHAT"/>
+			<icon res="127" target="command:ID_SEARCH_CHAT"/>
 			<gap size="5"/>
 			<link target="command:ID_SEARCH_CHAT" align="middle">Kalbėtis su naudotoju</link>
 		</group>
@@ -3034,8 +3038,8 @@
 	<string id="20441" value="„PeerProject“ negalėjo pervadinti:\n\n%s\nį\n%s"/>
 	<string id="20442" value="Paskirties failas tokiu pavadinimu jau yra:\n\n„%s“\n\nAr norite ją perrašyti?"/>
 	<string id="20443" value="Rodyti visų tipų failus"/>
-	<string id="20444" value="Kopijuoti &nuorodą"/>
-	<string id="20445" value="Eksportuoti &nuorodas..."/>
+	<string id="20444" value="Kopijuoti nuorodą"/>
+	<string id="20445" value="Eksportuoti nuorodas..."/>
 	<string id="20446" value="Failo „%s“ maišos (tapatybės kodo) patikros testas nesėkmingas. Failas gali būti ne tas, kurį Jūs ketinote parsisiųsti. Ar tikrai norite vykdyti šį failą?"/>
 	<string id="20447" value="Ar norėtumėte pašalinti „galimai nesaugus“ požymį nuo šio failo?"/>
 	<string id="20448" value="Failo „%s“ maiša (tapatybės kodas) dar nebuvo apskaičiuota. Palaukite, kol ji bus apskaičiuota, ir po to mėginkite dar kartą."/>
@@ -3158,7 +3162,9 @@
 	<string id="20590" value="Nuotolinė prieiga neįgalinta."/>
 	<string id="20591" value="http://%s:%i/remote - įrašyti naudotojo vardą ir slaptažodį."/>
 	<string id="20592" value="Neįmanoma priimti susijungimų, nuoroda nepasiekiama."/>
-	<string id="20595" value="&amp;Schemos"/>
+	<string id="20597" value="Ar tikrai norite ištrinti pasirinktas saugos taisykles? Šio žingsnio negalėsite atšaukti."/>
+	<string id="20599" value="&amp;Schemos"/>
+	<!-- Missing Scheduler/Security Strings -->
 	<string id="20620" value="„PeerProject“ aktyviai ieško tinkle..."/>
 	<string id="20621" value="Paieškos pakartojimui spauskite čia"/>
 	<string id="20622" value="Visuose tinkluose"/>
@@ -3206,7 +3212,6 @@
 	<string id="20668" value="Ieškoma..."/>
 	<string id="20669" value="Grynojo teksto paieška"/>
 	<string id="20670" value="„PeerProject“ ieško tinkle..."/>
-	<string id="20671" value="Ar tikrai norite ištrinti pasirinktas saugos taisykles? Šio žingsnio negalėsite atšaukti."/>
 	<string id="20673" value="Automatinis"/>
 	<string id="20674" value="Atsisiuntimų aplankas neturi sutapti su laikinųjų failų aplanku"/>
 	<string id="20675" value="Windows nepalaiko kelių, ilgesnių už 256 simbolius.\nPasirinkite aplanką, kurio kelias yra trumpesnis."/>
@@ -3923,18 +3928,21 @@
 		<control caption="Pritaikyti"/>
 		<control/>
 	</dialog>
-	<dialog name="CIdentityProfilePage" cookie="BuStEdStEdEdBuCoStCoStBu" caption="Tapatybė">
+	<dialog name="CIdentityProfilePage" cookie="BuStStEdEdEdBuStStCoCoBuStBuBu" caption="Tapatybė">
 		<control caption="_Vardas:"/>
 		<control caption="Slapyvardis:"/>
-		<control/>
 		<control caption="Vardas, pav.:"/>
 		<control/>
 		<control/>
-		<control caption="_Demografiniai duomenys:"/>
-		<control caption="|Vyras|Moteris"/>
-		<control caption="Lytis:"/>
 		<control/>
+		<control caption="_Demografiniai duomenys:"/>
+		<control caption="Lytis:"/>
 		<control caption="Amžius:"/>
+		<control caption="|Vyras|Moteris"/>
+		<control/>
+		<control caption="Info:"/>
+		<control caption="{n}G2 (PeerProject / Shareaza)"/>
+		<control caption="_Pritaikyti:"/>
 		<control caption="Rodyti kitiems naudotojams mano profilį"/>
 	</dialog>
 	<dialog name="CAvatarProfilePage" cookie="BuStBuStBuBu" caption="Kaukė">
@@ -3945,23 +3953,7 @@
 		<control caption="Perž_velgti..."/>
 		<control caption="Š_alinti"/>
 	</dialog>
-	<dialog name="CContactProfilePage" cookie="BuStEdBuStEdStEdStEdStEdStEd" caption="Adresai kontaktams">
-		<control caption="_El. pašto adresai:"/>
-		<control caption="Pirminis:"/>
-		<control/>
-		<control caption="_Skubiųjų žinučių paštas:"/>
-		<control caption="MSN/.NET pasas:"/>
-		<control/>
-		<control caption="Yahoo ID:"/>
-		<control/>
-		<control caption="ICQ UIN:"/>
-		<control/>
-		<control caption="AOL slapyvardis:"/>
-		<control/>
-		<control caption="Jabber ID:"/>
-		<control/>
-	</dialog>
-	<dialog name="CProfileProfilePage" cookie="BuStCoStCoBuStEdStEdBuLiBuBuCo" caption="Profilis">
+	<dialog name="CProfileProfilePage" cookie="BuStCoStCoBuStEdStEdBuLiBuBuCo" caption="Vietovė">
 		<control caption="_Vietovė"/>
 		<control caption="Šalis:"/>
 		<control/>
@@ -3974,11 +3966,38 @@
 		<control/>
 		<control caption="_Pomėgiai:"/>
 		<control/>
-		<control caption="&lt; Pridėti"/>
-		<control caption="Šalinti &gt;"/>
+		<control caption="Pridėti &gt;"/>
+		<control caption="&lt; alinti"/>
+		<control/>
+	</dialog>
+	<dialog name="CContactProfilePage" cookie="BuStEdBuStEdStEdStEdStEdStEdStEdStEdStEd" caption="Adresai kontaktams">
+		<control caption="_El. pašto adresai:"/>
+		<control caption="Pirminis:"/>
+		<control/>
+		<control caption="_Skubiųjų žinučių paštas:"/>
+		<control caption="PeerProject.org:"/>
+		<control/>
+		<control caption="Facebook:"/>
+		<control/>
+		<control caption="Twitter:"/>
+		<control/>
+		<control caption="Google:"/>
+		<control/>
+		<control caption="MSN/Live:"/>
+		<control/>
+		<control caption="Yahoo:"/>
+		<control/>
+		<control caption="AOL:"/>
+		<control/>
+		<control caption="ICQ:"/>
 		<control/>
 	</dialog>
 	<dialog name="CBioProfilePage" cookie="Ed" caption="Biografija">
+		<control/>
+	</dialog>
+	<dialog name="CFilesProfilePage" cookie="BuStSy" caption="Failai">
+		<control caption="_Pamėgti failai:"/>
+		<control caption="Pamėgti failai - tai tie, kuriuos Jūs siūlote kitiems naudotojams. Jūs galite sukurti mėgiamus failus, juos pridėję į savo kolekcijos „Mėgiamybės“ katalogą."/>
 		<control/>
 	</dialog>
 	<dialog name="CFavouritesProfilePage" cookie="SyBuStEdStEdBuBu" caption="Mėgiamybės">
@@ -3991,28 +4010,24 @@
 		<control caption="Nauja"/>
 		<control caption="Šalinti"/>
 	</dialog>
-	<dialog name="CFilesProfilePage" cookie="BuStSy" caption="Failai">
-		<control caption="_Pamėgti failai:"/>
-		<control caption="Pamėgti failai - tai tie, kuriuos Jūs siūlote kitiems naudotojams. Jūs galite sukurti mėgiamus failus, juos pridėję į savo kolekcijos „Mėgiamybės“ katalogą."/>
+	<dialog name="CCertificateProfilePage" cookie="BuStStStStBuBuSt" caption="Sertifikatas">
+		<control caption="_Globaliai Unikalaus Indentifikavimo Sertifikatas:"/>
+		<control caption="Gnutella/G2 GUID:"/>
 		<control/>
-	</dialog>
-	<dialog name="CCertificateProfilePage" cookie="StBuStStStStBu" caption="Sertifikatas">
-		<control caption="Gnutella naudotojai yra atpažįstami pagal globaliai unikalų identifikatorių ir pagal atitinkamą viešojo ir privataus raktų porą. Paprastai nėra prasmės generuoti naujo ID, tačiau PeerProject suteikia tokią galimybę patyrusiems naudotojams."/>
-		<control caption="_Gnutella Globaliai Unikalaus Indentifikavimo Sertifikatas:"/>
-		<control caption="GUID:"/>
-		<control/>
-		<control caption="Sukurtas:"/>
+		<control caption="BitTorrent GUID:"/>
 		<control/>
 		<control caption="Generuoti naują"/>
+		<control caption="Info:"/>
+		<control caption="Gnutella naudotojai yra atpažįstami pagal globaliai unikalų identifikatorių ir pagal atitinkamą viešojo ir privataus raktų porą. Paprastai nėra prasmės generuoti naujo ID, tačiau PeerProject suteikia tokią galimybę patyrusiems naudotojams."/>
 	</dialog>
 	<dialog name="CLanguageDlg" cookie="" caption="Pasirinkite kalbą">
 	</dialog>
-	<dialog name="CConnectToDlg" cookie="BuCoEdBuCoBuBuBu" caption="Jungtis prie|Naršyti adresatą">
-		<control caption="Užmegzti naują ryšį su kompiuteriu ar serveriu:|Naršyti šį kompiuterį:"/>
+	<dialog name="CConnectToDlg" cookie="BuCoEdBuCoBuBuBu" caption="Jungtis prie|Naršyti adresatą|Chat with User">
+		<control caption="Užmegzti naują ryšį su kompiuteriu ar serveriu:|Naršyti šį kompiuterį:|Message this user:"/>
 		<control/>
 		<control/>
 		<control caption="Tinklo _protokolas:"/>
-		<control caption="Gnutella1 (auto)|Gnutella2 (аuto)|eDonkey"/>
+		<control/>
 		<control caption="_Slopinti vedančiuosius"/>
 		<control caption="Jungtis"/>
 		<control caption="Atšaukti"/>
@@ -4449,14 +4464,16 @@
 		<control caption="Viso išsiųsta:"/>
 		<control caption="Pastabos:"/>
 	</dialog>
-	<dialog name="CDownloadEditPage" cookie="StBuStStStBuStEdEdEdBuEdBuEdBuEdBuEdBuEd" caption="Bendra">
+	<dialog name="CDownloadEditPage" cookie="StBuStStStStBuStEdEdEdSyBuEdBuEdBuEdBuEdBuEd" caption="Bendra">
 		<control caption="DĖMESIO: Šiame dialogo lange patyrę naudotojai gali taisyti failo informaciją, bet neteisingi pakeitimai gali sugadinti failą."/>
 		<control caption="Vardas ir dydis:"/>
 		<control caption="Failo vardas:"/>
 		<control caption="Failo:"/>
 		<control caption="Dydis (baitais):"/>
+		<control caption="Data:"/>
 		<control caption="Universalūs ištekliaus vardai (URNs):"/>
 		<control caption="Patikima?"/>
+		<control/>
 		<control/>
 		<control/>
 		<control/>
@@ -4599,22 +4616,6 @@
 		<column from="Name" to="Pavadinimas"/>
 		<column from="Country" to="Šalis"/>
 	</list>
-	<list name="CSecurityWnd">
-		<column from="Address / Content" to="Adresas ar turinys"/>
-		<column from="Hits" to="Kreipinių"/>
-		<column from="Action" to="Veiksmas"/>
-		<column from="Expires" to="Nustoja galioti"/>
-		<column from="#" to="#"/>
-		<column from="Comment" to="Komentaras"/>
-	</list>
-	<list name="CSchedulerWnd">
-		<column from="Task" to="Veiksmas"/>
-		<column from="Date" to="Data"/>
-		<column from="Time" to="Laikas"/>
-		<column from="Status" to="Būklė"/>
-		<column from="Activity" to="Aktyvus"/>
-		<column from="Description" to="Komentaras"/>
-	</list>
 	<list name="CHostCacheWnd">
 		<column from="Address" to="Adresas"/>
 		<column from="Port" to="Prievadas"/>
@@ -4659,6 +4660,23 @@
 		<column from="Client" to="Klientas"/>
 		<column from="Country" to="Šalis"/>
 		<column from="Time" to="Laikas"/>
+	</list>
+	<list name="CSecurityWnd">
+		<column from="Address / Content" to="Adresas ar turinys"/>
+		<column from="Hits" to="Kreipinių"/>
+		<column from="#" to="#"/>
+		<column from="Action" to="Veiksmas"/>
+		<column from="Expires" to="Nustoja galioti"/>
+		<column from="Match" to=""/>
+		<column from="Comment" to="Komentaras"/>
+	</list>
+	<list name="CSchedulerWnd">
+		<column from="Task" to="Veiksmas"/>
+		<column from="Date" to="Data"/>
+		<column from="Time" to="Laikas"/>
+		<column from="Status" to="Būklė"/>
+		<column from="Activity" to="Aktyvus"/>
+		<column from="Comment" to="Komentaras"/>
 	</list>
 	<list name="CUploadQueueList">
 		<column from="Name" to="Pavadinimas"/>

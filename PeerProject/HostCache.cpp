@@ -2,21 +2,18 @@
 // HostCache.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2008.
+// Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
@@ -36,7 +33,7 @@
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
-#endif
+#endif	// Filename
 
 CHostCache HostCache;
 
@@ -870,65 +867,65 @@ int CHostCache::LoadDefaultED2KServers()
 	int nServers = 0;
 	CString strFile = Settings.General.Path + _T("\\Data\\DefaultServers.dat");
 
-	// Ignore old files (180 days)
-	if ( ! IsFileNewerThan( strFile, 180ull * 24 * 60 * 60 * 1000 ) )
+	// Ignore old files (240 days)
+	//if ( ! IsFileNewerThan( strFile, 240ull * 24 * 60 * 60 * 1000 ) )
+	//	return 0;
+
+	if ( ! pFile.Open( strFile, CFile::modeRead ) )			// Load default list from file if possible
 		return 0;
 
-	if ( pFile.Open( strFile, CFile::modeRead ) )			// Load default list from file if possible
+	theApp.Message( MSG_NOTICE, _T("Loading default ED2K server list") );
+
+	try
 	{
-		theApp.Message( MSG_NOTICE, _T("Loading default ED2K server list") );
+		CString strLine;
+		CBuffer pBuffer;
+		TCHAR cType;
 
-		try
+		pBuffer.EnsureBuffer( (DWORD)pFile.GetLength() );
+		pBuffer.m_nLength = (DWORD)pFile.GetLength();
+		pFile.Read( pBuffer.m_pBuffer, pBuffer.m_nLength );
+		pFile.Close();
+
+		// Format: P 255.255.255.255:1024	# NameForConvenience
+
+		while ( pBuffer.ReadLine( strLine ) )
 		{
-			CString strLine;
-			CBuffer pBuffer;
-			TCHAR cType;
+			if ( strLine.GetLength() < 16 ) continue;		// Blank or invalid line
 
-			pBuffer.EnsureBuffer( (DWORD)pFile.GetLength() );
-			pBuffer.m_nLength = (DWORD)pFile.GetLength();
-			pFile.Read( pBuffer.m_pBuffer, pBuffer.m_nLength );
-			pFile.Close();
+			cType = strLine.GetAt( 0 );
+			if ( cType == '#' || cType == 'X' ) continue;	// Comment line - ToDo: Handle bad IPs
 
-			// Format: P 255.255.255.255:1024	# NameForConvenience
+			CString strServer = strLine.Mid( 2 );			// Remove leading 2 spaces
 
-			while ( pBuffer.ReadLine( strLine ) )
+			if ( strServer.Find( _T("\t"), 14) > 1 )		// Trim at whitespace (remove any comments)
+				strServer.Left( strServer.Find( _T("\t"), 14) );
+			else if ( strServer.Find( _T(" "), 14) > 1 )
+				strServer.Left( strServer.Find( _T(" "), 14) );
+
+			int nIP[4], nPort;
+
+			if ( _stscanf( strServer, _T("%i.%i.%i.%i:%i"), &nIP[0], &nIP[1], &nIP[2], &nIP[3],	&nPort ) == 5 )
 			{
-				if ( strLine.GetLength() < 16 ) continue;		// Blank or invalid line
+				IN_ADDR pAddress;
+				pAddress.S_un.S_un_b.s_b1 = (BYTE)nIP[0];
+				pAddress.S_un.S_un_b.s_b2 = (BYTE)nIP[1];
+				pAddress.S_un.S_un_b.s_b3 = (BYTE)nIP[2];
+				pAddress.S_un.S_un_b.s_b4 = (BYTE)nIP[3];
 
-				cType = strLine.GetAt( 0 );
-				if ( cType == '#' || cType == 'X' ) continue;	// Comment line - ToDo: Handle bad IPs
-
-				CString strServer = strLine.Mid( 2 );			// Remove leading 2 spaces
-
-				if ( strServer.Find( _T("\t"), 14) > 1 )		// Trim at whitespace (remove any comments)
-					strServer.Left( strServer.Find( _T("\t"), 14) );
-				else if ( strServer.Find( _T(" "), 14) > 1 )
-					strServer.Left( strServer.Find( _T(" "), 14) );
-
-				int nIP[4], nPort;
-
-				if ( _stscanf( strServer, _T("%i.%i.%i.%i:%i"), &nIP[0], &nIP[1], &nIP[2], &nIP[3],	&nPort ) == 5 )
+				if ( CHostCacheHostPtr pServer = eDonkey.Add( &pAddress, (WORD)nPort ) )
 				{
-					IN_ADDR pAddress;
-					pAddress.S_un.S_un_b.s_b1 = (BYTE)nIP[0];
-					pAddress.S_un.S_un_b.s_b2 = (BYTE)nIP[1];
-					pAddress.S_un.S_un_b.s_b3 = (BYTE)nIP[2];
-					pAddress.S_un.S_un_b.s_b4 = (BYTE)nIP[3];
-
-					if ( CHostCacheHostPtr pServer = eDonkey.Add( &pAddress, (WORD)nPort ) )
-					{
-						pServer->m_bPriority = ( cType == 'P' );
-						nServers++;
-					}
+					pServer->m_bPriority = ( cType == 'P' );
+					nServers++;
 				}
 			}
 		}
-		catch ( CException* pException )
-		{
-			if ( pFile.m_hFile != CFile::hFileNull )
-				pFile.Close();	// File is still open so close it
-			pException->Delete();
-		}
+	}
+	catch ( CException* pException )
+	{
+		if ( pFile.m_hFile != CFile::hFileNull )
+			pFile.Close();	// File is still open so close it
+		pException->Delete();
 	}
 
 	return nServers;
@@ -939,31 +936,31 @@ int CHostCache::LoadDefaultED2KServers()
 
 CHostCacheHost::CHostCacheHost(PROTOCOLID nProtocol)
 	: m_nProtocol	( nProtocol )
-	, m_nPort		(0)
-	, m_nUDPPort	(0)
+	, m_nPort		( 0 )
+	, m_nUDPPort	( 0 )
 	, m_pVendor 	( NULL )
 	, m_bPriority	( FALSE )
-	, m_nUserCount	(0)
-	, m_nUserLimit	(0)
-	, m_nFileLimit	(0)
-	, m_nTCPFlags	(0)
-	, m_nUDPFlags	(0)
+	, m_nUserCount	( 0 )
+	, m_nUserLimit	( 0 )
+	, m_nFileLimit	( 0 )
+	, m_nTCPFlags	( 0 )
+	, m_nUDPFlags	( 0 )
 	, m_tAdded		( GetTickCount() )
-	, m_tSeen		(0)
-	, m_tRetryAfter	(0)
-	, m_tConnect	(0)
-	, m_tQuery		(0)
-	, m_tAck		(0)
-	, m_tStats		(0)
-	, m_tFailure	(0)
-	, m_nFailures	(0)
-	, m_nDailyUptime(0)
-	, m_tKeyTime	(0)
-	, m_nKeyValue	(0)
-	, m_nKeyHost	(0)
-	, m_bCheckedLocally( FALSE )
+	, m_tSeen		( 0 )
+	, m_tRetryAfter	( 0 )
+	, m_tConnect	( 0 )
+	, m_tQuery		( 0 )
+	, m_tAck		( 0 )
+	, m_tStats		( 0 )
+	, m_tFailure	( 0 )
+	, m_nFailures	( 0 )
+	, m_nDailyUptime( 0 )
+	, m_tKeyTime	( 0 )
+	, m_nKeyValue	( 0 )
+	, m_nKeyHost	( 0 )
+	, m_bCheckedLocally ( FALSE )
 	, m_bDHT		( FALSE )	// Attributes: DHT
-	, m_nKADVersion	(0)			// Attributes: Kademlia
+	, m_nKADVersion	( 0 )		// Attributes: Kademlia
 {
 	m_pAddress.s_addr = 0;
 
@@ -1011,7 +1008,8 @@ void CHostCacheHost::Serialize(CArchive& ar, int /*nVersion*/)
 		}
 
 		ar << m_sName;
-		if ( m_sName.GetLength() ) ar << m_sDescription;
+		if ( ! m_sName.IsEmpty() )
+			ar << m_sDescription;
 
 		ar << m_nUserCount;
 		ar << m_nUserLimit;
@@ -1066,7 +1064,8 @@ void CHostCacheHost::Serialize(CArchive& ar, int /*nVersion*/)
 		//if ( nVersion >= 10 )
 		//{
 			ar >> m_sName;
-			if ( m_sName.GetLength() ) ar >> m_sDescription;
+			if ( ! m_sName.IsEmpty() )
+				ar >> m_sDescription;
 
 			ar >> m_nUserCount;
 			ar >> m_nUserLimit;
@@ -1080,7 +1079,7 @@ void CHostCacheHost::Serialize(CArchive& ar, int /*nVersion*/)
 		//else if ( nVersion >= 7 )
 		//{
 		//	ar >> m_sName;
-		//	if ( m_sName.GetLength() )
+		//	if ( ! m_sName.IsEmpty() )
 		//	{
 		//		ar >> m_sDescription;
 		//		ar >> m_nUserCount;

@@ -4,18 +4,15 @@
 // This file is part of PeerProject (peerproject.org) © 2009-2010
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
@@ -25,7 +22,7 @@
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
-#endif
+#endif	// Filename
 
 CColors Colors;
 
@@ -180,6 +177,7 @@ void CColors::CalculateColors(BOOL bCustom)
 	m_crNetworkG1  				= RGB( 80, 80, 80 );
 	m_crNetworkG2  				= RGB( 100, 100, 255 );
 	m_crNetworkED2K				= RGB( 128, 128, 0 );
+	m_crNetworkDC				= RGB( 128, 192, 20 );
 	m_crNetworkUp				= RGB( 128, 0, 0 );
 	m_crNetworkDown				= RGB( 0, 0, 128 );
 	m_crSecurityAllow			= RGB( 0, 128, 0 );

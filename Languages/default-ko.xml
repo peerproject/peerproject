@@ -3,8 +3,8 @@
 
 <!-- PeerProject Korean Language Skin File -->
 
-<!-- Translation based on default-en.xml r59 --> <!--Machine Translated!-->
-<!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
+<!-- Translation based on default-en.xml r60 --> <!--Machine Translated!-->
+<!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
 <!-- Use this file as a basis for creating new language skins,   -->
@@ -62,6 +62,7 @@
 		<button id="ID_VIEW_MEDIA"/>
 		<button id="ID_TAB_IRC"/>
 		<separator/>
+		<button id="ID_VIEW_SCHEDULER"/>
 		<button id="ID_VIEW_SECURITY"/>
 		<button id="ID_VIEW_HOSTS"/>
 		<button id="ID_VIEW_DISCOVERY"/>
@@ -1893,7 +1894,7 @@
 		</group>
 		<group id="41">
 			<newline gap="1"/>
-			<icon res="208"/><gap size="5"/>
+			<icon res="207"/><gap size="5"/>
 			<link id="ContactYahoo"/>
 		</group>
 		<group id="42">
@@ -1934,7 +1935,7 @@
 			<newline gap="16" indent="0"/>
 			<text format="b">Community</text>
 			<newline gap="4" indent="8"/>
-			<icon res="127"target="command:ID_SEARCH_CHAT"/><gap size="5"/>
+			<icon res="127" target="command:ID_SEARCH_CHAT"/><gap size="5"/>
 			<link target="command:ID_SEARCH_CHAT" align="middle">Chat With User</link>
 		</group>
 		<group id="3">
@@ -1979,8 +1980,8 @@
 	<string id="20002" value="아니오"/>
 	<string id="20003" value="확인"/>
 	<string id="20004" value="취소"/>
-	<string id="20005" value="&위로"/>
-	<string id="20006" value="&다음"/>
+	<string id="20005" value="위로"/>
+	<string id="20006" value="다음"/>
 	<string id="20007" value="계속"/>
 	<string id="20008" value="닫기"/>
 	<string id="20009" value="of"/> <!--"1 of 10"-->
@@ -2009,7 +2010,7 @@
 	<string id="20065" value="아주 좋은"/>
 	<string id="20066" value="아주좋음"/>
 	<string id="20080" value="This is a pre-release version of PeerProject, and the beta testing period has ended. Please download the full, official release from http://PeerProject.org/."/>
-	<string id="20081" value="&닫기"/>
+	<string id="20081" value="닫기"/>
 	<string id="20082" value="Finished, click Close"/>
 	<string id="20083" value="Requesting..."/>
 	<string id="20084" value="Success!"/>
@@ -2286,7 +2287,7 @@
 	<string id="20398" value="Closing surplus connection from %s."/>
 	<string id="20399" value="Timed out handshaking with %s."/>
 	<string id="20400" value="PeerProject is creating hashes for %Iu files:"/>
-	<string id="20401" value="&나의 선택을 다음 번에 기억"/>
+	<string id="20401" value="나의 선택을 다음 번에 기억"/>
 	<string id="20402" value="추가"/>
 	<string id="20403" value="채"/>
 	<string id="20404" value="채팅:"/>
@@ -2328,8 +2329,8 @@
 	<string id="20441" value="PeerProject could not rename:\n\n%s\nto\n%s"/>
 	<string id="20442" value="Target file exists:\n\n%s\n\nWould you like to overwrite it?"/>
 	<string id="20443" value="모두보기 파일 형식"/>
-	<string id="20444" value="Get P2P Link (&URI)"/>
-	<string id="20445" value="E&xport P2P Links..."/>
+	<string id="20444" value="Get P2P Link (URI)"/>
+	<string id="20445" value="Export P2P Links..."/>
 	<string id="20446" value="The file &quot;%s&quot; failed a hash verification test, and might not be the file you intended to download. Are you sure you want to open it?"/>
 	<string id="20447" value="Would you like to remove the &quot;potentially unsafe&quot; attribute from this file?"/>
 	<string id="20448" value="The file &quot;%s&quot; has not yet been hashed. Please wait for the file to be hashed, and then try again."/>
@@ -2447,7 +2448,8 @@
 	<string id="20590" value="Remote access is disabled."/>
 	<string id="20591" value="http://%s:%i/remote - Username/password required."/>
 	<string id="20592" value="Unable to accept connections, URL unavailable."/>
-	<string id="20595" value="&amp;Schemas"/>
+	<string id="20599" value="&amp;Schemas"/>
+	<!-- Missing Scheduler/Security Strings -->
 	<string id="20620" value="PeerProject 적극적으로 네트워크를 찾고있습니다..."/>
 	<string id="20621" value="여기를 클릭하여 다시 검색을"/>
 	<string id="20622" value="All 네트워크"/>
@@ -2495,7 +2497,6 @@
 	<string id="20668" value="검색"/>
 	<string id="20669" value="Plain Text Search"/>
 	<string id="20670" value="PeerProject 네트워크를 찾고있습니다..."/>
-	<string id="20671" value="Are you sure you want to delete the selected security rules? This cannot be undone."/>
 	<string id="20672" value="Select the eDonkey/eMule temp folder:"/>
 	<string id="20673" value="자동"/>
 	<string id="20674" value="The complete and incomplete folders should not be the same"/>
@@ -2794,13 +2795,13 @@
 		<control/>
 		<control caption="Topics"/>
 		<control caption="Connection Settings:"/>
-		<control caption="Screen name:"/>
+		<control caption="Screen 이름:"/>
 		<control/>
-		<control caption="User name:"/>
+		<control caption="User 이름:"/>
 		<control/>
-		<control caption="Alt screen name:"/>
+		<control caption="Alt screen 이름:"/>
 		<control/>
-		<control caption="Real name:"/>
+		<control caption="Real 이름:"/>
 		<control/>
 		<control caption="Server:"/>
 		<control/>
@@ -3046,7 +3047,7 @@
 		<control/>
 	</dialog>
 	<dialog name="CQueuePropertiesDlg" cookie="BuEdBuBuBuBuBuEdBuEdBuCoBuEdBuSyBuBuStEdmsStEdmsStEdmsBuStEdStEdmsBuEdmsBuBuBu" caption="Upload Queue Properties">
-		<control caption="Name:"/>
+		<control caption="이름:"/>
 		<control/>
 		<control caption="Entry Criteria:"/>
 		<control caption="Partially downloaded files only"/>
@@ -3203,11 +3204,11 @@
 		<control caption="적용"/>
 		<control/>
 	</dialog>
-<!--	<dialog name="CIdentityProfilePage" cookie="BuStEdStEdEdBuCoStCoStBu" caption="Identity">
-		<control caption="Name:"/>
-		<control caption="Screen Name:"/>
+<!--	<dialog name="CIdentityProfilePage" cookie="BuStStEdEdEdBuStStCoCoBuStBuBu" caption="Identity">
+		<control caption="이름:"/>
+		<control caption="Screen 이름:"/>
 		<control/>
-		<control caption="Real Name:"/>
+		<control caption="Real 이름:"/>
 		<control/>
 		<control/>
 		<control caption="Vitals:"/>
@@ -3217,82 +3218,15 @@
 		<control caption="Age:"/>
 		<control caption="Allow others to browse my user profile"/>
 	</dialog> -->
-<!--	<dialog name="CAvatarProfilePage" cookie="BuStBuStBuBu" caption="Avatar">
-		<control caption="Preview:"/>
-		<control/>
-		<control caption="Select:"/>
-		<control caption="Other users browsing your profile and shared files will see your avatar.  Custom avatars should be 128x128 pixels, and can be in any supported image file on your PC."/>
-		<control caption="Browse..."/>
-		<control caption="Remove"/>
-	</dialog> -->
-<!--	<dialog name="CContactProfilePage" cookie="BuStEdBuStEdStEdStEdStEdStEd" caption="Contact">
-		<control caption="Email Addresses:"/>
-		<control caption="Primary:"/>
-		<control/>
-		<control caption="Instant Messaging:"/>
-		<control caption="MSN/.NET Passport:"/>
-		<control/>
-		<control caption="Yahoo ID:"/>
-		<control/>
-		<control caption="ICQ UIN:"/>
-		<control/>
-		<control caption="AOL Screen Name:"/>
-		<control/>
-		<control caption="Jabber ID:"/>
-		<control/>
-	</dialog> -->
-<!--	<dialog name="CProfileProfilePage" cookie="BuStCoStCoBuStEdStEdBuLiBuBuCo" caption="Profile">
-		<control caption="Location:"/>
-		<control caption="Country:"/>
-		<control/>
-		<control caption="City:"/>
-		<control/>
-		<control caption="Mapping:"/>
-		<control caption="Latitude:"/>
-		<control/>
-		<control caption="Longitude:"/>
-		<control/>
-		<control caption="Interests:"/>
-		<control/>
-		<control caption="&lt; Add"/>
-		<control caption="Remove &gt;"/>
-		<control/>
-	</dialog> -->
-<!--	<dialog name="CBioProfilePage" cookie="Ed" caption="Bio">
-		<control/>
-	</dialog> -->
-<!--	<dialog name="CFavouritesProfilePage" cookie="SyBuStEdStEdBuBu" caption="Favorites">
-		<control/>
-		<control caption="Edit:"/>
-		<control caption="Title:"/>
-		<control/>
-		<control caption="URL:"/>
-		<control/>
-		<control caption="New"/>
-		<control caption="Remove"/>
-	</dialog> -->
-<!--	<dialog name="CFilesProfilePage" cookie="BuStSy" caption="Files">
-		<control caption="Favourite Files:"/>
-		<control caption="Favourite files are recommended to users who browse your profile. You can create favourite files by adding them to the &quot;Favourites&quot; library folder."/>
-		<control/>
-	</dialog> -->
-<!--	<dialog name="CCertificateProfilePage" cookie="StBuStStStStBu" caption="Certificate">
-		<control caption="Users are identified by a globally unique identifier and a corresponding public and private key pair.  Normally there is no need to generate a new ID, however PeerProject provides this option for advanced users."/>
-		<control caption="Globally Unique Identification Certificate:"/>
-		<control caption="GUID:"/>
-		<control/>
-		<control caption="Created:"/>
-		<control/>
-		<control caption="Generate New"/>
-	</dialog> -->
+	<!-- Mising Profile Dialogs -->
 	<dialog name="CLanguageDlg" cookie="" caption="언어 선택">
 	</dialog>
-	<dialog name="CConnectToDlg" cookie="BuCoEdBuCoBuBuBu" caption="Connect To|Browse Host">
-		<control caption="Initiate a new connection to host or server:|Browse this host:"/>
+	<dialog name="CConnectToDlg" cookie="BuCoEdBuCoBuBuBu" caption="Connect To|Browse Host|Chat with User">
+		<control caption="Initiate a new connection to host or server:|Browse this host:|Message this user:"/>
 		<control/>
 		<control/>
 		<control caption="Network Protocol:"/>
-		<control caption="Gnutella1 (auto)|Gnutella2 (auto)|eDonkey"/>
+		<control/>
 		<control caption="Suppress Ultrapeer"/>
 		<control caption="Connect"/>
 		<control caption="취소"/>
@@ -3421,8 +3355,8 @@
 		<control caption="Add New Source"/>
 		<control/>
 		<control/>
-		<control caption="Add"/>
-		<control caption="Remove"/>
+		<control caption="추가"/>
+		<control caption="제거"/>
 		<control/>
 	</dialog> -->
 	<dialog name="CFileCopyDlg" cookie="StStStmsmsStBuBu" caption="Copy Files|Move Files">
@@ -3447,7 +3381,7 @@
 	</dialog>
 	<dialog name="CGraphListDlg" cookie="SyBuBuBuBuBuBuBuBuStEdmsStBuEdBuBu" caption="Traffic Graphs">
 		<control/>
-		<control caption="Add..."/>
+		<control caption="추가..."/>
 		<control caption="Edit..."/>
 		<control caption="Remove"/>
 		<control caption="Show:"/>
@@ -3459,7 +3393,7 @@
 		<control/>
 		<control/>
 		<control caption="ms"/>
-		<control caption="Name:"/>
+		<control caption="이름:"/>
 		<control/>
 		<control caption="OK"/>
 		<control caption="취소"/>
@@ -3553,8 +3487,8 @@
 	<dialog name="CShareManagerDlg" cookie="StSyBuBuBuBu" caption="Shared Folder Manager">
 		<control caption="This is a list of folders in your library. You can add and remove folders using the buttons on the left. When you add a new folder it is initially shared with other users, however you can unshare it from the PeerProject library if you wish."/>
 		<control/>
-		<control caption="Add..."/>
-		<control caption="Remove"/>
+		<control caption="추가..."/>
+		<control caption="제거"/>
 		<control caption="OK"/>
 		<control caption="취소"/>
 	</dialog>
@@ -3677,7 +3611,7 @@
 		<control caption="This feature is used to export the contents of a folder or playlist as a rich collection file. Please select a template and press Next to continue.|Customize your collection by entering data below."/>
 		<control/>
 		<control caption="Template Information:"/>
-		<control caption="Name:"/>
+		<control caption="이름:"/>
 		<control caption="..."/>
 		<control caption="Author:"/>
 		<control caption="..."/>
@@ -3695,10 +3629,10 @@
 		<control caption="To share complete files using BitTorrent they must first be seeded. Once this process is complete the Torrent will appear as a new item in your download list."/>
 		<control/>
 	</dialog>
-	<dialog name="CTorrentFilesPage" cookie="Sy" caption="Files">
+	<dialog name="CTorrentFilesPage" cookie="Sy" caption="파일">
 		<control/>
 	</dialog>
-	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="Trackers">
+	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="추적자">
 		<control/>
 		<control/>
 		<control/>
@@ -3720,7 +3654,7 @@
 		<control caption=" As needed| When ratio over 100%| Only when requested| Never"/>
 		<control/>
 		<control caption="Torrent Information:"/>
-		<control caption="Name:"/>
+		<control caption="이름:"/>
 		<control caption="Created:"/>
 		<control caption="By:"/>
 		<control caption="Comments:"/>
@@ -3729,14 +3663,16 @@
 		<control caption="Total Uploaded:"/>
 		<control caption="Notes:"/>
 	</dialog>
-	<dialog name="CDownloadEditPage" cookie="StBuStStStBuStEdEdEdBuEdBuEdBuEdBuEdBuEd" caption="General">
-		<control caption="WARNING: This dialog provides advanced download editing features for power users, which will cause corruption if used incorrectly."/>
-		<control caption="Details:"/>
-		<control caption="Filename:"/>
-		<control caption="Location:"/>
-		<control caption="Byte Size:"/>
+	<dialog name="CDownloadEditPage" cookie="StBuStStStStBuStEdEdEdSyBuEdBuEdBuEdBuEdBuEd" caption="일반">
+		<control caption="주의: This dialog provides advanced download editing features for power users, that may cause corruption when used incorrectly."/>
+		<control caption="세부:"/>
+		<control caption="이름:"/>
+		<control caption="위치:"/>
+		<control caption="바이트 크기:"/>
+		<control caption="날짜:"/>
 		<control caption="URN Hashes:"/>
-		<control caption="Trusted?"/>
+		<control caption="신뢰할 수있는?"/>
+		<control/>
 		<control/>
 		<control/>
 		<control/>
@@ -3751,8 +3687,8 @@
 		<control caption="&#160;BitTorrent:"/>
 		<control/>
 	</dialog>
-	<dialog name="CDownloadActionsPage" cookie="StStStStStStEdEdBuBuStStBu" caption="Actions">
-		<control caption="WARNING: This dialog provides advanced download editing features for power users which if used incorrectly can and probably will cause corruption."/>
+	<dialog name="CDownloadActionsPage" cookie="StStStStStStEdEdBuBuStStBu" caption="행위">
+		<control caption="주의: This dialog provides advanced download editing features for power users, that may cause corruption when used incorrectly."/>
 		<control caption="Forget all known sources"/>
 		<control caption="Forget current verification status and reverify"/>
 		<control caption="Assume file is 100% complete and reverify"/>
@@ -3760,7 +3696,7 @@
 		<control caption="Cancel download but save incomplete files"/>
 		<control/>
 		<control/>
-		<control caption="Actions:"/>
+		<control caption="행위:"/>
 		<control caption="Data Eraser:"/>
 		<control caption="Byte range:"/>
 		<control caption="to"/>
@@ -3775,8 +3711,8 @@
 		<control/>
 		<control caption="_Auto-Filters:"/>
 		<control/>
-		<control caption="_Add"/>
-		<control caption="_Remove"/>
+		<control caption="추가하기"/>
+		<control caption="제거"/>
 		<control caption="_Types of Files:"/>
 		<control/>
 		<control caption="*Add any download type later."/>
@@ -3870,22 +3806,6 @@
 		<column from="Name" to="이름"/>
 		<column from="Country" to="국가"/>
 	</list>
-	<list name="CSecurityWnd">
-		<column from="Address / Content" to="주소/콘텐츠"/>
-		<column from="Hits" to="조회수"/>
-		<column from="Action" to="액션"/>
-		<column from="Expires" to="만료"/>
-		<column from="#" to="우선순"/>
-		<column from="Comment" to="코멘트"/>
-	</list>
-	<list name="CSchedulerWnd">
-		<column from="Task" to="액션"/>
-		<column from="Date" to="날짜"/>
-		<column from="Time" to="타임"/>
-		<column from="Status" to="상태"/>
-		<column from="Activity" to="활동적인"/>
-		<column from="Description" to="코멘트"/>
-	</list>
 	<list name="CHostCacheWnd">
 		<column from="Address" to="주소"/>
 		<column from="Port" to="포트"/>
@@ -3933,6 +3853,23 @@
 		<column from="Client" to="클라이언트"/>
 		<column from="Country" to="국가"/>
 		<column from="Time" to="타임"/>
+	</list>
+	<list name="CSecurityWnd">
+		<column from="Address / Content" to="주소/콘텐츠"/>
+		<column from="Hits" to="조회수"/>
+		<column from="#" to="우선순"/>
+		<column from="Action" to="액션"/>
+		<column from="Expires" to="만료"/>
+		<column from="Match" to=""/>
+		<column from="Comment" to="코멘트"/>
+	</list>
+	<list name="CSchedulerWnd">
+		<column from="Task" to="액션"/>
+		<column from="Date" to="날짜"/>
+		<column from="Time" to="타임"/>
+		<column from="Status" to="상태"/>
+		<column from="Activity" to="활동적인"/>
+		<column from="Comment" to="코멘트"/>
 	</list>
 	<list name="CUploadQueueList">
 		<column from="Name" to="이름"/>

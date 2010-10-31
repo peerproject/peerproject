@@ -2,21 +2,18 @@
 // CtrlIRCFrame.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2005-2008.
+// Portions copyright Shareaza Development Team, 2005-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 // Original Author: peer_l_@hotmail.com
 //
@@ -29,7 +26,6 @@
 #include "CtrlIRCFrame.h"
 #include "RichElement.h"
 #include "RichFragment.h"
-//#include "PeerProjectURL.h"
 #include "DlgSettingsManager.h"
 #include "CoolInterface.h"
 #include "Colors.h"
@@ -38,14 +34,15 @@
 #include "WndMain.h"
 #include "DlgIrcInput.h"
 #include "GProfile.h"
-//#include "Emoticons.h"
 #include "Plugins.h"	// IChatPlugin Capture
+//#include "PeerProjectURL.h"
+//#include "Emoticons.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
-#endif
+#endif	// Filename
 
 #define SIZE_INTERNAL	1982
 #define SIZE_BARSLIDE	1983
@@ -80,7 +77,7 @@ BEGIN_MESSAGE_MAP(CIRCFrame, CWnd)
 	ON_UPDATE_COMMAND_UI(ID_IRC_SETTINGS, OnUpdateIrcUserCmd)
 	ON_COMMAND(ID_IRC_QUERY, UserListDblClick)
 	ON_UPDATE_COMMAND_UI(ID_IRC_QUERY, OnUpdateIrcUserCmd)
- 	ON_COMMAND(ID_IRC_TIME, OnIrcUserCmdTime)
+	ON_COMMAND(ID_IRC_TIME, OnIrcUserCmdTime)
 	ON_UPDATE_COMMAND_UI(ID_IRC_TIME, OnUpdateIrcUserCmd)
 	ON_COMMAND(ID_IRC_VERSION, OnIrcUserCmdVersion)
 	ON_UPDATE_COMMAND_UI(ID_IRC_VERSION, OnUpdateIrcUserCmd)
@@ -1573,7 +1570,7 @@ void CIRCFrame::ActivateMessageByID(CIRCNewMessage& oNewMessage, int nMessageTyp
 {
 	switch ( nMessageType )
 	{
-		case NULL:
+	case NULL:
 		{
 			int nTab = GetTabIndex( m_sStatus );
 			if ( nTab != -1 && nTab != m_wndTab.GetCurSel() )
@@ -1581,7 +1578,7 @@ void CIRCFrame::ActivateMessageByID(CIRCNewMessage& oNewMessage, int nMessageTyp
 			oNewMessage.Add( GetStringAfterParsedItem( 0 ), m_sStatus, ID_COLOR_SERVERMSG );
 			return;
 		}
-		case ID_MESSAGE_SERVER_MSG:
+	case ID_MESSAGE_SERVER_MSG:
 		{
 			int nTab = GetTabIndex( m_sStatus );
 			if ( nTab != -1 && nTab != m_wndTab.GetCurSel() )
@@ -1589,7 +1586,7 @@ void CIRCFrame::ActivateMessageByID(CIRCNewMessage& oNewMessage, int nMessageTyp
 			oNewMessage.Add( GetStringAfterParsedItem( 3 ), m_sStatus, ID_COLOR_SERVERMSG );
 			return;
 		}
-		case ID_MESSAGE_SERVER_ERROR:
+	case ID_MESSAGE_SERVER_ERROR:
 		{
 			int nTab = GetTabIndex( m_sStatus );
 			if ( nTab != -1 && nTab != m_wndTab.GetCurSel() )
@@ -1597,12 +1594,12 @@ void CIRCFrame::ActivateMessageByID(CIRCNewMessage& oNewMessage, int nMessageTyp
 			oNewMessage.Add( GetStringAfterParsedItem( 3 ), m_sStatus, ID_COLOR_SERVERERROR );
 			return;
 		}
-		case ID_MESSAGE_IGNORE:
+	case ID_MESSAGE_IGNORE:
 		{
 		//	oNewMessage->m_sTargetName = m_sStatus;
 			return;
 		}
-		case ID_MESSAGE_SERVER_PING:
+	case ID_MESSAGE_SERVER_PING:
 		{
 			SendString( _T("PONG ") + GetStringAfterParsedItem( 1 ) );
 #ifdef _DEBUG
@@ -1610,7 +1607,7 @@ void CIRCFrame::ActivateMessageByID(CIRCNewMessage& oNewMessage, int nMessageTyp
 #endif
 			return;
 		}
-		case ID_MESSAGE_SERVER_CONNECTED:
+	case ID_MESSAGE_SERVER_CONNECTED:
 		{
 			m_sNickname = m_pWords.GetAt( 2 );
 			oNewMessage.Add( _T("Connection Established."), m_sStatus, ID_COLOR_NOTICE );
@@ -1621,7 +1618,7 @@ void CIRCFrame::ActivateMessageByID(CIRCNewMessage& oNewMessage, int nMessageTyp
 			OnLocalText( _T("/list *shareaza*") );
 			return;
 		}
-		case ID_MESSAGE_USER_MESSAGE:
+	case ID_MESSAGE_USER_MESSAGE:
 		{
 			int nTab = AddTab( m_pWords.GetAt( 0 ), ID_KIND_PRIVATEMSG );
 			if ( nTab == -1 )
@@ -1645,13 +1642,13 @@ void CIRCFrame::ActivateMessageByID(CIRCNewMessage& oNewMessage, int nMessageTyp
 
 			return;
 		}
-		case ID_MESSAGE_USER_AWAY:
+	case ID_MESSAGE_USER_AWAY:
 		{
 			CString strSender = _T("*") + m_pWords.GetAt( 3 ) + _T(" is away:  ") + GetStringAfterParsedItem( 4 );
 			oNewMessage.Add( strSender, GetTabText( m_wndTab.GetCurSel() ), ID_COLOR_SERVERMSG );
 			return;
 		}
-		case ID_MESSAGE_USER_KICK:
+	case ID_MESSAGE_USER_KICK:
 		{
 			if ( m_pWords.GetAt( 7 ) != m_sNickname )
 			{
@@ -1686,17 +1683,17 @@ void CIRCFrame::ActivateMessageByID(CIRCNewMessage& oNewMessage, int nMessageTyp
 			}
 			return;
 		}
-		case ID_MESSAGE_SETAWAY:
+	case ID_MESSAGE_SETAWAY:
 		{
 			oNewMessage.Add( _T("*You are now set as away"), GetTabText( m_wndTab.GetCurSel() ), ID_COLOR_SERVERMSG );
 			return;
 		}
-		case ID_MESSAGE_STOPAWAY:
+	case ID_MESSAGE_STOPAWAY:
 		{
 			oNewMessage.Add( _T("*You are back  (no longer set as away)"), GetTabText( m_wndTab.GetCurSel() ), ID_COLOR_SERVERMSG );
 			return;
 		}
-		case ID_MESSAGE_USER_ME:
+	case ID_MESSAGE_USER_ME:
 		{
 			int nTab = AddTab( m_pWords.GetAt( 0 ), ID_KIND_PRIVATEMSG );
 			if ( nTab != m_wndTab.GetCurSel() )
@@ -1705,13 +1702,13 @@ void CIRCFrame::ActivateMessageByID(CIRCNewMessage& oNewMessage, int nMessageTyp
 			oNewMessage.Add( strSender + GetStringAfterParsedItem( 8 ), m_pWords.GetAt( 0 ), ID_COLOR_ME );
 			return;
 		}
-		case ID_MESSAGE_USER_INVITE:
+	case ID_MESSAGE_USER_INVITE:
 		{
 			CString strSender = _T("*You have been invited to channel ") + m_pWords.GetAt( 8 ) + _T(" by ") + m_pWords.GetAt( 6 );
 			oNewMessage.Add( strSender, GetTabText( m_wndTab.GetCurSel() ), ID_COLOR_SERVERMSG );
 			return;
 		}
-		case ID_MESSAGE_CHANNEL_MESSAGE:
+	case ID_MESSAGE_CHANNEL_MESSAGE:
 		{
 			int nTab = GetTabIndex( m_pWords.GetAt( 6 ) );
 			if ( nTab == -1 ) return;
@@ -1723,10 +1720,9 @@ void CIRCFrame::ActivateMessageByID(CIRCNewMessage& oNewMessage, int nMessageTyp
 
 			// Notify chat plugins about new remote message
 			Plugins.OnChatMessage( GetTabText( nTab ), FALSE, m_pWords.GetAt( 0 ), m_sNickname, strText );
-
 			return;
 		}
-		case ID_MESSAGE_CHANNEL_ME:
+	case ID_MESSAGE_CHANNEL_ME:
 		{
 			int nTab = GetTabIndex( m_pWords.GetAt( 6 ) );
 			if ( nTab == -1 ) return;
@@ -1736,31 +1732,30 @@ void CIRCFrame::ActivateMessageByID(CIRCNewMessage& oNewMessage, int nMessageTyp
 			oNewMessage.Add( strSender + GetStringAfterParsedItem( 8 ), m_pWords.GetAt( 6 ), ID_COLOR_ME );
 			return;
 		}
-
-		case ID_MESSAGE_CHANNEL_NOTICE:
+	case ID_MESSAGE_CHANNEL_NOTICE:
 		{
 			oNewMessage.Add( _T("-") + m_pWords.GetAt( 0 ) + _T(" - ") + GetStringAfterParsedItem ( 8 ), m_pWords.GetAt( 6 ), ID_COLOR_NOTICE );
 			return;
 		}
-		case ID_MESSAGE_CLIENT_INVITE:
+	case ID_MESSAGE_CLIENT_INVITE:
 		{
 			CString strSender = _T("*You have invited ") + m_pWords.GetAt( 3 ) + _T(" to channel ") + m_pWords.GetAt( 4 );
 			oNewMessage.Add( strSender, GetTabText( m_wndTab.GetCurSel() ), ID_COLOR_SERVERMSG );
 			return;
 		}
-		case ID_MESSAGE_CLIENT_WHOWAS:
+	case ID_MESSAGE_CLIENT_WHOWAS:
 		{
 			CString strSender = m_pWords.GetAt( 2 ) + _T(" was ") + m_pWords.GetAt( 5 ) + m_pWords.GetAt( 6 ) + GetStringAfterParsedItem( 7 );
 			oNewMessage.Add( strSender, m_sStatus, ID_COLOR_SERVERMSG );
 			return;
 		}
-		case ID_MESSAGE_CLIENT_WHOIS:
+	case ID_MESSAGE_CLIENT_WHOIS:
 		{
 			CString strSender = GetStringAfterParsedItem( 3 );
 			oNewMessage.Add( strSender, m_sStatus, ID_COLOR_SERVERMSG );
 			return;
 		}
-		case ID_MESSAGE_CLIENT_NOTICE:
+	case ID_MESSAGE_CLIENT_NOTICE:
 		{
 			int nTab = m_wndTab.GetCurSel();
 			CString strChannelName;
@@ -1774,7 +1769,7 @@ void CIRCFrame::ActivateMessageByID(CIRCNewMessage& oNewMessage, int nMessageTyp
 			oNewMessage.Add( _T("-") + m_pWords.GetAt( 0 ) + _T("- ") + GetStringAfterParsedItem ( 7 ), strChannelName, ID_COLOR_NOTICE );
 			return;
 		}
-		case ID_MESSAGE_USER_CTCPTIME:
+	case ID_MESSAGE_USER_CTCPTIME:
 		{
 			CTime time = CTime::GetCurrentTime();
 			TIME_ZONE_INFORMATION tzi = {};
@@ -1792,7 +1787,7 @@ void CIRCFrame::ActivateMessageByID(CIRCNewMessage& oNewMessage, int nMessageTyp
 			oNewMessage.Add( _T("*") + m_pWords.GetAt( 0 ) + _T(" TIME'd you."), m_sStatus, ID_COLOR_SERVERMSG );
 			return;
 		}
-		case ID_MESSAGE_USER_CTCPVERSION:
+	case ID_MESSAGE_USER_CTCPVERSION:
 		{
 			CString strReply;
 			strReply.Format( _T("/NOTICE %s :\x01VERSION %s:%s:Microsoft Windows %u.%u\x01"),
@@ -1802,42 +1797,44 @@ void CIRCFrame::ActivateMessageByID(CIRCNewMessage& oNewMessage, int nMessageTyp
 			oNewMessage.Add( _T("*") + m_pWords.GetAt( 0 ) + _T(" VERSIONed you."), m_sStatus, ID_COLOR_SERVERMSG );
 			return;
 		}
-		case ID_MESSAGE_USER_CTCPBROWSE:
+	case ID_MESSAGE_USER_CTCPBROWSE:
 		{
+			CString strReply;
 			if ( Settings.Community.ServeFiles )
-			{
-				CString strReply;
-				strReply.Format( _T("/NOTICE %s :\x01USERINFO :Browse my files by double-clicking this link:  peerproject:browse:%s:%u\x01"),
+				strReply.Format( _T("/NOTICE %s :\x01USERINFO :Browse my files by double-clicking this link:  gnutella:browse:%s:%u\x01"),
 					(LPCTSTR)m_pWords.GetAt( 0 ), (LPCTSTR)CString( inet_ntoa( Network.m_pHost.sin_addr ) ), htons( Network.m_pHost.sin_port ) );
-				OnLocalText( strReply );
-				oNewMessage.Add( _T("* ") + m_pWords.GetAt( 0 ) + _T(" just USERINFOed you."), m_sStatus, ID_COLOR_SERVERMSG );
-			}
+			else
+				strReply = _T("/NOTICE %s :\x01USERINFO :Browse not available.");
+			OnLocalText( strReply );
+			oNewMessage.Add( _T("* ") + m_pWords.GetAt( 0 ) + _T(" just USERINFOed you.  (Browse Files)"), m_sStatus, ID_COLOR_SERVERMSG );
 			return;
 		}
-		case ID_MESSAGE_SERVER_NOTICE:
+	case ID_MESSAGE_SERVER_NOTICE:
 		{
 			oNewMessage.Add( GetStringAfterParsedItem ( FindParsedItem( _T(":"), 2 ) ) + _T(" (") + m_pWords.GetAt( 2 ) + _T(")"), m_sStatus, ID_COLOR_NOTICE );
 			return;
 		}
-		case ID_MESSAGE_CHANNEL_LIST:
+	case ID_MESSAGE_CHANNEL_LIST:
 		{
 			FillChanListCount( m_pWords.GetAt( 4 ), m_pWords.GetAt( 3 ) );
 			return;
 		}
-		case ID_MESSAGE_CHANNEL_LISTEND:
+	case ID_MESSAGE_CHANNEL_LISTEND:
 		{
 			CListCtrl* pChannelList = (CListCtrl*)&(m_wndPanel.m_boxChans.m_wndChanList);
 			for ( int nList = 0 ; nList < pChannelList->GetItemCount() ; nList++ )
+			{
 				if ( pChannelList->GetItemText( nList, 1 ) == _T("0") )
 					pChannelList->DeleteItem( nList );
+			}
 			return;
 		}
-		case ID_MESSAGE_CLIENT_JOIN_ENDNAMES:
+	case ID_MESSAGE_CLIENT_JOIN_ENDNAMES:
 		{
 			m_wndPanel.m_boxUsers.UpdateCaptionCount();
 			return;
 		}
-		case ID_MESSAGE_CLIENT_JOIN_USERLIST:
+	case ID_MESSAGE_CLIENT_JOIN_USERLIST:
 		{
 			CString strChannelName = m_pWords.GetAt( 4 ), strTemp, nModeStr;
 			int nMode, nWord, nModeColumn, nTab = m_wndTab.GetCurSel();
@@ -1856,27 +1853,27 @@ void CIRCFrame::ActivateMessageByID(CIRCNewMessage& oNewMessage, int nMessageTyp
 				if ( nMode != 48 ) strTemp = strTemp.Mid( 1 );
 				AddUser( m_pWords.GetAt( nWord ) );
 				strTemp = char(nMode) + strTemp;
-				//Add new user to userlist
+				// Add new user to userlist
 				m_pIrcUsersBuffer[ nTab ].Add( strTemp );
 			}
 			m_wndPanel.m_boxUsers.UpdateCaptionCount();
 			oNewMessage.Add( _T("*You have joined channel ") + strChannelName, strChannelName, ID_COLOR_CHANNELACTION );
 			return;
 		}
-		case ID_MESSAGE_CHANNEL_TOPICSHOW:
+	case ID_MESSAGE_CHANNEL_TOPICSHOW:
 		{
 			CString strChannelName = m_pWords.GetAt( 3 );
 			m_pContent.Clear();
 			oNewMessage.Add( _T("*Topic is:  ") + GetStringAfterParsedItem ( 4 ), strChannelName, ID_COLOR_TOPIC );
 			return;
 		}
-		case ID_MESSAGE_CHANNEL_TOPICSETBY:
+	case ID_MESSAGE_CHANNEL_TOPICSETBY:
 		{
 			CString strChannelName = m_pWords.GetAt( 3 );
 			oNewMessage.Add( _T("*Topic set by ") + m_pWords.GetAt( 4 ), strChannelName, ID_COLOR_TOPIC );
 			return;
 		}
-		case ID_MESSAGE_CHANNEL_PART:
+	case ID_MESSAGE_CHANNEL_PART:
 		{
 			CString strNick( m_pWords.GetAt( 0 ) ), strChannelName( m_pWords.GetAt( 6 ) );
 			int nTab = GetTabIndex( strChannelName );
@@ -1893,7 +1890,7 @@ void CIRCFrame::ActivateMessageByID(CIRCNewMessage& oNewMessage, int nMessageTyp
 
 				oNewMessage.Add( _T("*") + strNick + _T(" has left ") + strChannelName, strChannelName, ID_COLOR_CHANNELACTION );
 
-				//ToDo: Merge consecutive joined/left lines
+				// ToDo: Merge consecutive joined/left lines
 				//int nLine = m_pIrcBuffer[ nTab ].GetUpperBound();
 				//CString strPrior = m_pIrcBuffer[ nTab ].GetAt( nLine );
 
@@ -1907,7 +1904,7 @@ void CIRCFrame::ActivateMessageByID(CIRCNewMessage& oNewMessage, int nMessageTyp
 			}
 			return;
 		}
-		case ID_MESSAGE_CHANNEL_PART_FORCED:
+	case ID_MESSAGE_CHANNEL_PART_FORCED:
 		{
 			CString strChannelName = m_pWords.GetAt( 6 );	// Get the channel we're being kicked from
 			if ( strChannelName == m_sStatus ) return;		// The status window is not a channel
@@ -1925,7 +1922,7 @@ void CIRCFrame::ActivateMessageByID(CIRCNewMessage& oNewMessage, int nMessageTyp
 			m_pIrcUsersBuffer[ nTab ].RemoveAll();
 
 			int oldTab = nTab;
-			//ToDo: m_pIrcBuffer should be an expandable array.  Seriously.
+			// ToDo: m_pIrcBuffer should be an expandable array.  Seriously.
 			for ( ; nTab < m_nBufferCount - 1 ; nTab++ )
 			{
 				m_pIrcBuffer[ nTab ].Append( m_pIrcBuffer[ nTab + 1 ] );
@@ -1946,7 +1943,7 @@ void CIRCFrame::ActivateMessageByID(CIRCNewMessage& oNewMessage, int nMessageTyp
 
 			return;
 		}
-		case ID_MESSAGE_CHANNEL_QUIT:
+	case ID_MESSAGE_CHANNEL_QUIT:
 		{
 			CString strNick = m_pWords.GetAt( 0 );
 			CString strUserMsg = GetStringAfterParsedItem ( 6 );
@@ -1975,7 +1972,7 @@ void CIRCFrame::ActivateMessageByID(CIRCNewMessage& oNewMessage, int nMessageTyp
 			m_wndPanel.m_boxUsers.UpdateCaptionCount();
 			return;
 		}
-		case ID_MESSAGE_CLIENT_JOIN:
+	case ID_MESSAGE_CLIENT_JOIN:
 		{
 			// Open New Channel Tab
 			CString strChannelName = m_pWords.GetAt( 7 );
@@ -1988,7 +1985,7 @@ void CIRCFrame::ActivateMessageByID(CIRCNewMessage& oNewMessage, int nMessageTyp
 			FillChanListCount( _T("0"), strChannelName );
 			return;
 		}
-		case ID_MESSAGE_CHANNEL_JOIN:
+	case ID_MESSAGE_CHANNEL_JOIN:
 		{
 			CString strNick( m_pWords.GetAt( 0 ) ), strChannelName( m_pWords.GetAt( 7 ) );
 			int nTab = GetTabIndex( strChannelName );
@@ -2001,13 +1998,13 @@ void CIRCFrame::ActivateMessageByID(CIRCNewMessage& oNewMessage, int nMessageTyp
 			oNewMessage.Add( _T("*") + strNick + _T(" has joined ") + strChannelName, strChannelName, ID_COLOR_CHANNELACTION );
 			return;
 		}
-		case ID_MESSAGE_SERVER_DISCONNECT:
+	case ID_MESSAGE_SERVER_DISCONNECT:
 		{
 			OnStatusMessage( GetStringAfterParsedItem( FindParsedItem( _T(":"), 2 ) ), ID_COLOR_SERVERMSG );
 			OnIrcDisconnect();
 			return;
 		}
-		case ID_MESSAGE_CHANNEL_SETMODE:
+	case ID_MESSAGE_CHANNEL_SETMODE:
 		{
 			CString strMode = m_pWords.GetAt( 7 );
 			BOOL bSign = ( strMode.Left( 1 ) == _T("+") );
@@ -2066,12 +2063,11 @@ void CIRCFrame::ActivateMessageByID(CIRCNewMessage& oNewMessage, int nMessageTyp
 			oNewMessage.Add( strMessage, m_pWords.GetAt( 6 ), ID_COLOR_CHANNELACTION );
 			return;
 		}
-		case ID_MESSAGE_NICK:
+	case ID_MESSAGE_NICK:
 		{
 			CString strNick = m_pWords.GetAt( 0 );
 			CString strChannelName = GetTabText();
-			CString strTmp;
-			CString strCurUser;
+			CString strCurUser, strTmp;
 			int nListUser, nTab;
 			for ( nTab = 0 ; nTab < m_wndTab.GetItemCount() ; nTab++ )
 			{
@@ -2269,7 +2265,7 @@ int CIRCFrame::ParseMessageID()
 
 void CIRCFrame::ParseString(const CString& strMessage, CIRCNewMessage& oNewMessage)
 {
- 	CString str, strWord;
+	CString str, strWord;
 	CStringArray incomingWords;
 	m_pWords.RemoveAll();
 

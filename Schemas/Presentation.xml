@@ -1,34 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<!-- Document:Presentation XML Framework; v1.4; Jonathan C. Nilson -->
 
-<!--
-PeerProject Afrikaans Schemas File translated by Johann van der Walt (Thesage)
-PeerProject Catalan Schemas File translated by Daniel Olivares Giménez; Equip de traduccions de FeshoCAT
-PeerProject Chinese Simplified Schemas File translated by Sanley; John
-PeerProject Chinese Traditional Schemas File translated by James Bond
-PeerProject Czech Schemas File translated by Odin
-PeerProject German Schemas File translated by Spooky; jlh
-PeerProject Estonian Schemas File translated by Janza
-PeerProject Spanish Schemas File translated by Unknown
-PeerProject Spanish (Mexico) Schemas File translated by Help
-PeerProject French Schemas File translated by Antoine Martin-Lalande (Sensi)
-PeerProject Greek Schemas File translated by erimitis
-PeerProject Hebrew Schemas File translated by _peer_ (H.L)
-PeerProject Croatian Schemas File translated by Biza
-PeerProject Hungarian Schemas File translated by Yuri
-PeerProject Italian Schemas File translated by ale5000
-PeerProject Japanese Schemas File translated by DukeDog; CyberBob
-PeerProject Lithuanian Schemas File translated by Rolandas Rudomanskis
-PeerProject Dutch Schemas File translated by Jan-Willem Koornwinder (thurstydog); Jonne; Neglacio
-PeerProject Norwegian Schemas File translated by Tom Seland (seli); vnmartinsen
-PeerProject Portuguese (Brasil) Schemas File translated by Lukas Taves (LightHeaven); Felipe
-PeerProject Russian Schemas File translated by dAbserver; Rolandas Rudomanskis
-PeerProject Slovenian Schemas File translated by Martin McDowell
-PeerProject Albanian Schemas File translated by Besmir Godole
-PeerProject Serbian Schemas File translated by Woodstoock
-PeerProject Swedish Schemas File translated by Marcus Ehrenlans; Printz; DanielB
-PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
--->
+<!-- Document:Presentation XML Framework; v1.4; Jonathan C. Nilson -->
+<!-- See ReadMe.txt for translation credits -->
 
 <schemaDescriptor location="http://www.shareaza.com/schemas/presentation.xsd" xmlns="http://www.shareaza.com/schemas/SchemaDescriptor.xsd">
 

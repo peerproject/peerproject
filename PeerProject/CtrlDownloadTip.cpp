@@ -2,21 +2,18 @@
 // CtrlDownloadTip.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2007.
+// Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
@@ -44,10 +41,10 @@
 #include "BENode.h" // Torrent Scrape
 
 #ifdef _DEBUG
-#define new DEBUG_NEW
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
-#endif
+#define new DEBUG_NEW
+#endif	// Filename
 
 IMPLEMENT_DYNAMIC(CDownloadTipCtrl, CCoolTipCtrl)
 
@@ -137,27 +134,27 @@ void CDownloadTipCtrl::OnCalcSize(CDC* pDC, CDownload* pDownload)
 	m_sz.cy = TIP_TEXTHEIGHT;
 	pDC->SelectObject( &CoolInterface.m_fntNormal );
 
-	if ( m_sSHA1.GetLength() )
+	if ( ! m_sSHA1.IsEmpty() )
 	{
 		AddSize( pDC, m_sSHA1 );
 		m_sz.cy += TIP_TEXTHEIGHT;
 	}
-	if ( m_sED2K.GetLength() )
+	if ( ! m_sED2K.IsEmpty() )
 	{
 		AddSize( pDC, m_sED2K );
 		m_sz.cy += TIP_TEXTHEIGHT;
 	}
-	if ( m_sBTH.GetLength() )
+	if ( ! m_sBTH.IsEmpty() )
 	{
 		AddSize( pDC, m_sBTH );
 		m_sz.cy += TIP_TEXTHEIGHT;
 	}
-	if ( m_sMD5.GetLength() )
+	if ( ! m_sMD5.IsEmpty() )
 	{
 		AddSize( pDC, m_sMD5 );
 		m_sz.cy += TIP_TEXTHEIGHT;
 	}
-	if ( m_sTiger.GetLength() )
+	if ( ! m_sTiger.IsEmpty() )
 	{
 		AddSize( pDC, m_sTiger );
 		m_sz.cy += TIP_TEXTHEIGHT;
@@ -170,7 +167,7 @@ void CDownloadTipCtrl::OnCalcSize(CDC* pDC, CDownload* pDownload)
 	m_sz.cy += TIP_RULE;
 
 	// Torrent Tracker error
-	if ( pDownload->m_bTorrentTrackerError && pDownload->m_sTorrentTrackerError.GetLength() )
+	if ( pDownload->m_bTorrentTrackerError && ! pDownload->m_sTorrentTrackerError.IsEmpty() )
 	{
 		AddSize( pDC, pDownload->m_sTorrentTrackerError );
 		m_bDrawError = TRUE;
@@ -195,7 +192,7 @@ void CDownloadTipCtrl::OnCalcSize(CDC* pDC, CDownload* pDownload)
 		m_sz.cy += TIP_TEXTHEIGHT;
 
 	// URL
-	if ( m_sURL.GetLength() )
+	if ( ! m_sURL.IsEmpty() )
 	{
 		m_sz.cy += TIP_RULE;
 		AddSize( pDC, m_sURL );
@@ -487,7 +484,7 @@ void CDownloadTipCtrl::OnPaint(CDC* pDC, CDownload* pDownload)
 	m_rcUpdateText.bottom = pt.y + TIP_TEXTHEIGHT;
 
 	// Draw URL if present
-	if ( m_sURL.GetLength() )
+	if ( ! m_sURL.IsEmpty() )
 	{
 		DrawRule( pDC, &pt );
 		DrawText( pDC, &pt, m_sURL );
@@ -528,11 +525,11 @@ void CDownloadTipCtrl::PrepareDownloadInfo(CDownload* pDownload)
 	LoadString( strUntrusted, IDS_TIP_UNTRUSTED );
 
 	m_sSHA1 = pDownload->m_oSHA1.toShortUrn();
-	if ( m_sSHA1.GetLength() && ! pDownload->m_bSHA1Trusted )
+	if ( ! m_sSHA1.IsEmpty() && ! pDownload->m_bSHA1Trusted )
 		m_sSHA1 += _T(" (") + strUntrusted + _T(")");
 
 	m_sTiger = pDownload->m_oTiger.toShortUrn();
-	if ( m_sTiger.GetLength() )
+	if ( ! m_sTiger.IsEmpty() )
 	{
 		if ( ! pDownload->m_pTigerBlock )
 		{
@@ -548,7 +545,7 @@ void CDownloadTipCtrl::PrepareDownloadInfo(CDownload* pDownload)
 	}
 
 	m_sED2K = pDownload->m_oED2K.toShortUrn();
-	if ( m_sED2K.GetLength() )
+	if ( ! m_sED2K.IsEmpty() )
 	{
 		if ( ! pDownload->m_pHashsetBlock )
 		{
@@ -564,7 +561,7 @@ void CDownloadTipCtrl::PrepareDownloadInfo(CDownload* pDownload)
 	}
 
 	m_sBTH = pDownload->m_oBTH.toShortUrn();
-	if ( m_sBTH.GetLength() )
+	if ( ! m_sBTH.IsEmpty() )
 	{
 		if ( ! pDownload->m_pTorrentBlock )
 		{
@@ -580,7 +577,7 @@ void CDownloadTipCtrl::PrepareDownloadInfo(CDownload* pDownload)
 	}
 
 	m_sMD5 = pDownload->m_oMD5.toShortUrn();
-	if ( m_sMD5.GetLength() )
+	if ( ! m_sMD5.IsEmpty() )
 	{
 		if ( ! pDownload->m_bMD5Trusted )
 			m_sMD5+= _T(" (") + strUntrusted + _T(")");
@@ -704,10 +701,10 @@ void CDownloadTipCtrl::PrepareFileInfo(CDownload* pDownload)	// CPeerProjectFile
 		ShellIcons.Lookup( strType, NULL, NULL, &strName, &strMime );
 		m_nIcon = ShellIcons.Get( strType, 32 );
 
-		if ( strName.GetLength() )
+		if ( ! strName.IsEmpty() )
 		{
 			m_sType = strName;
-			if ( strMime.GetLength() )
+			if ( ! strMime.IsEmpty() )
 				m_sType += _T("  (") + strMime + _T(")");
 		}
 		else
@@ -823,8 +820,7 @@ void CDownloadTipCtrl::OnPaint(CDC* pDC, CDownloadSource* pSource)
 	int nFlagIndex = Flags.GetFlagIndex( pSource->m_sCountry );
 	if ( nFlagIndex >= 0 )
 	{
-		ImageList_DrawEx( Flags.m_pImage, nFlagIndex, pDC->GetSafeHdc(),
-			pt.x, pt.y, 16, 16, Colors.m_crTipBack, CLR_NONE, ILD_NORMAL );
+		Flags.Draw( nFlagIndex, pDC->GetSafeHdc(), pt.x, pt.y, Colors.m_crTipBack );
 		pDC->ExcludeClipRect( pt.x, pt.y, pt.x + 16, pt.y + 16 );
 	}
 

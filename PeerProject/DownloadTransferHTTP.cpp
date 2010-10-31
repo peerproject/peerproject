@@ -2,21 +2,18 @@
 // DownloadTransferHTTP.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2008.
+// Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
@@ -41,7 +38,7 @@
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
-#endif
+#endif	// Filename
 
 
 //////////////////////////////////////////////////////////////////////
@@ -219,7 +216,7 @@ BOOL CDownloadTransferHTTP::StartNextFragment()
 	{
 		return SendRequest();
 	}
-	else if ( m_pDownload->NeedTigerTree() && m_sTigerTree.GetLength() )
+	else if ( m_pDownload->NeedTigerTree() && ! m_sTigerTree.IsEmpty() )
 	{
 		theApp.Message( MSG_INFO, IDS_DOWNLOAD_TIGER_REQUEST,
 			(LPCTSTR)m_pDownload->GetDisplayName(), (LPCTSTR)m_sAddress );
@@ -344,7 +341,7 @@ BOOL CDownloadTransferHTTP::SendRequest()
 
 	strLine = Settings.SmartAgent();
 
-	if ( strLine.GetLength() )
+	if ( ! strLine.IsEmpty() )
 	{
 		Write( _P("User-Agent: ") );
 		Write( strLine );
@@ -409,7 +406,7 @@ BOOL CDownloadTransferHTTP::SendRequest()
 		{
 			strLine = m_pDownload->GetSourceURLs( &m_pSourcesSent, 15,
 				( m_pSource->m_nGnutella < 2 ) ? PROTOCOL_G1 : PROTOCOL_HTTP, m_pSource );
-			if ( strLine.GetLength() )
+			if ( ! strLine.IsEmpty() )
 			{
 				if ( m_pSource->m_nGnutella < 2 )
 					Write( _P("X-Alt: ") );
@@ -441,7 +438,7 @@ BOOL CDownloadTransferHTTP::SendRequest()
 				if ( m_pSource->m_nGnutella < 2 )
 				{
 					strLine = m_pDownload->GetTopFailedSources( 15, PROTOCOL_G1 );
-					if ( strLine.GetLength() )
+					if ( ! strLine.IsEmpty() )
 					{
 						Write( _P("X-NAlt: ") );
 						Write( strLine );
@@ -1047,7 +1044,7 @@ BOOL CDownloadTransferHTTP::OnHeaderLine(CString& strHeader, CString& strValue)
 					}
 				}
 
-				if ( strFilename.GetLength() )
+				if ( ! strFilename.IsEmpty() )
 				{
 					theApp.Message( MSG_DEBUG, _T("Content-Disposition filename: %s"), (LPCTSTR)strFilename);
 					m_pDownload->Rename( strFilename );
@@ -1591,7 +1588,7 @@ BOOL CDownloadTransferHTTP::ReadFlush()
 				m_mInput.pLimit = m_mOutput.pLimit = &Settings.Bandwidth.Request;
 			m_tRequest = GetTickCount() + m_nRetryDelay;
 
-			theApp.Message( MSG_ERROR, IDS_DOWNLOAD_QUEUED,
+			theApp.Message( MSG_INFO, IDS_DOWNLOAD_QUEUED,
 				(LPCTSTR)m_sAddress, m_nQueuePos, m_nQueueLen,
 				(LPCTSTR)m_sQueueName );
 		}

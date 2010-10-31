@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 
-<vendorCache xmlns="http://www.shareaza.com/schemas/VendorCache.xsd">
+<vendorCache xmlns="http://schemas.peerproject.org/VendorCache.xsd">
 
 	<vendor code="PEER">
 		<title>PeerProject</title>
@@ -11,6 +11,7 @@
 		<capability name="g1"/>
 		<capability name="g2"/>
 		<capability name="ed2k"/>
+		<capability name="dc"/>
 		<capability name="bt"/>
 	</vendor>
 
@@ -23,6 +24,7 @@
 		<capability name="g1"/>
 		<capability name="g2"/>
 		<capability name="ed2k"/>
+		<capability name="dc"/>
 		<capability name="bt"/>
 	</vendor>
 
@@ -77,16 +79,19 @@
 	<vendor code="ACQL">
 		<title>Acqlite</title>
 		<link>http://acqlite.sourceforge.net/</link>
+		<capability name="g1"/>
 	</vendor>
 
 	<vendor code="ACQX">
 		<title>Acquisition</title>
 		<link>http://www.acquisitionx.com/</link>
+		<capability name="g1"/>
 	</vendor>
 
 	<vendor code="AGIO">
 		<title>Adagio</title>
 		<link>http://sourceforge.net/projects/agio/</link>
+		<capability name="g2"/>
 	</vendor>
 
 	<vendor code="AGNT">
@@ -111,12 +116,11 @@
 		<capability name="chatFlag"/>
 		<capability name="g1"/>
 	</vendor>
-
+<!--
 	<vendor code="CULT">
 		<title>Cultiv8r</title>
-		<link>http://www.cultiv8r.com/</link>
 	</vendor>
-
+-->
 	<vendor code="ED2K">
 		<title>eMule</title>
 		<link>http://emule-project.net/</link>
@@ -127,7 +131,11 @@
 
 	<vendor code="FSCP">
 		<title>Filescope</title>
-		<link>http://www.Filescope.com/</link>
+		<link>http://filescope.com/</link>
+		<capability name="chatFlag"/>
+		<capability name="g1"/>
+		<capability name="g2"/>
+		<capability name="ed2k"/>
 	</vendor>
 
 	<vendor code="FOXY">
@@ -140,6 +148,7 @@
 	<vendor code="FUST">
 		<title>Fusteeno</title>
 		<link>http://www.fusteeno.com/</link>
+		<capability name="g1"/>
 	</vendor>
 
 	<vendor code="GDNA">
@@ -170,12 +179,12 @@
 		<link>http://gtk-gnutella.sourceforge.net/</link>
 		<capability name="g1"/>
 	</vendor>
-
+<!--
 	<vendor code="GNTG">
 		<title>Gnutelligentsia</title>
 		<link>http://gnutelligentsia.sourceforge.net/</link>
 	</vendor>
-
+-->
 	<vendor code="GNUC">
 		<title>Gnucleus</title>
 		<link>http://www.gnucleus.com/Gnucleus/</link>
@@ -203,14 +212,17 @@
 
 	<vendor code="HSLG">
 		<title>Hagelslag</title>
-		<link>http://freshmeat.net/projects/hagelslag/</link>
+		<link>http://www.freshports.org/net-p2p/hagelslag/</link>
+		<capability name="g1"/>
 	</vendor>
 
 	<vendor code="HYDR">
 		<title>Hydranode</title>
-		<link>http://www.hydranode.com/</link>
+		<link>http://sourceforge.net/projects/hydranode</link>
 		<capability name="htmlHostBrowse"/>
 		<capability name="chatFlag"/>
+		<capability name="ed2k"/>
+		<capability name="bt"/>
 	</vendor>
 
 	<vendor code="LIME">
@@ -237,6 +249,7 @@
 		<capability name="chatFlag"/>
 		<capability name="ed2k"/>
 		<capability name="bt"/>
+		<capability name="dc"/>
 	</vendor>
 
 	<vendor code="MMMM">
@@ -248,12 +261,12 @@
 		<title>MyNapster</title>
 		<link>http://www.mynapster.com/</link>
 	</vendor>
-
+<!--
 	<vendor code="MOOD">
 		<title>MoodAmp</title>
 		<link>http://www.moodamp.com/</link>
 	</vendor>
-
+-->
 	<vendor code="MRPH">
 		<title>Morpheus</title>
 		<link>http://www.morpheus.com/</link>
@@ -274,15 +287,16 @@
 		<title>NapShare</title>
 		<link>http://napshare.sourceforge.net/</link>
 	</vendor>
-
+<!--
 	<vendor code="OCFG">
 		<title>OpenCola</title>
 		<link>http://www.opencola.org/</link>
 	</vendor>
-
+-->
 	<vendor code="OPRA">
 		<title>Opera</title>
 		<link>http://www.opera.com/</link>
+		<capability name="bt"/>
 	</vendor>
 
 	<vendor code="PHEX">
@@ -294,16 +308,23 @@
 	<vendor code="QTEL">
 		<title>Qtella</title>
 		<link>http://qtella.sourceforge.net/</link>
+		<capability name="g1"/>
 	</vendor>
 
 	<vendor code="QAZA">
 		<title>Quazaa</title>
 		<link>http://quazaa.sourceforge.net/</link>
+		<capability name="g2"/>
+		<capability name="ed2k"/>
+		<capability name="bt"/>
 	</vendor>
 
 	<vendor code="QAZB">
 		<title>Quazaa Beta</title>
 		<link>http://quazaa.sourceforge.net/</link>
+		<capability name="g2"/>
+		<capability name="ed2k"/>
+		<capability name="bt"/>
 	</vendor>
 
 	<vendor code="SHLN">
@@ -319,6 +340,7 @@
 		<capability name="htmlHostBrowse"/>
 		<capability name="chatFlag"/>
 		<capability name="g1"/>
+		<capability name="bt"/>
 	</vendor>
 
 	<vendor code="SNUT">
@@ -348,11 +370,12 @@
 
 	<vendor code="XTLA">
 		<title>XTella</title>
+		<link>http://xtella.sourceforge.net/</link>
 	</vendor>
-
+<!--
 	<vendor code="ZIGA">
 		<title>Ziga</title>
 		<link>http://sourceforge.net/projects/ziga/</link>
 	</vendor>
-
+-->
 </vendorCache>

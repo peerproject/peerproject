@@ -2,26 +2,23 @@
 // Download.h
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2007.
+// Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #pragma once
 
-#define DOWNLOAD_SER_VERSION	1000	//42
+#define DOWNLOAD_SER_VERSION	1000	//42+
 // nVersion History:
 // 33 - added m_sSearchKeyword to CDownloadBase (CyberBob)
 // 34 - added m_bSeeding and m_sServingFileName to CDownloadWithTorrent (Rolandas)
@@ -33,7 +30,7 @@
 // 40 - added virtual fragmented file (Ryo-oh-ki)
 // 41 - added m_sName to CFragmentedFile (Ryo-oh-ki)
 // 42 - added m_bMetaIgnore to CDownloadSource (Ry-oh-ki) (Shareaza 2.5.2.0)
-// 1000 - (PeerProject 1.0) (42)
+// 1000 - add m_tDate, remove sSearchKeyword in CDownloadBase	(PeerProject 1.0) (42+)
 
 #include "DownloadWithExtras.h"
 
@@ -96,7 +93,7 @@ private:
 public:
 	virtual bool	IsPaused(bool bRealState = false) const;
 	virtual bool	IsCompleted() const;
-	virtual bool	IsTrying() const;	//Is the download currently trying to download?
+	virtual bool	IsTrying() const;	// Is the download currently trying to download?
 	virtual void	Serialize(CArchive& ar, int nVersion);	// DOWNLOAD_SER_VERSION
 
 	friend class CDownloadTransfer;		// GetVerifyLength

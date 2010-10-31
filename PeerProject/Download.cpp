@@ -2,21 +2,18 @@
 // Download.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2008.
+// Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
@@ -45,7 +42,7 @@
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
-#endif
+#endif	// Filename
 
 
 //////////////////////////////////////////////////////////////////////
@@ -317,22 +314,14 @@ CString CDownload::GetDownloadStatus() const
 	if ( IsCompleted() )
 	{
 		if ( IsSeeding() )
-		{
-			if ( m_bTorrentTrackerError )
-				LoadString( strText, IDS_STATUS_TRACKERDOWN );
-			else
-				LoadString( strText, IDS_STATUS_SEEDING );
-		}
+			LoadString( strText, m_bTorrentTrackerError ? IDS_STATUS_TRACKERDOWN : IDS_STATUS_SEEDING );
 		else
 			LoadString( strText, IDS_STATUS_COMPLETED );
 	}
 	else if ( IsPaused() )
 	{
 		if ( GetFileError() != ERROR_SUCCESS )
-			if ( IsMoving() )
-				LoadString( strText, IDS_STATUS_CANTMOVE );
-			else
-				LoadString( strText, IDS_STATUS_FILEERROR );
+			LoadString( strText, IsMoving() ? IDS_STATUS_CANTMOVE : IDS_STATUS_FILEERROR );
 		else
 			LoadString( strText, IDS_STATUS_PAUSED );
 	}
@@ -444,34 +433,34 @@ void CDownload::OnRun()
 		}
 		else if ( IsTrying() || IsSeeding() )
 		{
-			//Dead Download Check: if download appears dead, give up and allow another to start.
-			//Incomplete, and trying for at least 3 hours:
+			// Dead Download Check: if download appears dead, give up and allow another to start.
+			// Incomplete, and trying for at least 3 hours:
 			if ( ! IsCompleted() && ( tNow - GetStartTimer() ) > ( 3 * 60 * 60 * 1000 )  )
 			{
 				DWORD tHoursToTry = min( ( GetEffectiveSourceCount() + 49u ) / 50u, 9lu ) + Settings.Downloads.StarveGiveUp;
 
-				if (  ( tNow - m_tReceived ) > ( tHoursToTry * 60 * 60 * 1000 ) )
-				{	//And have no new data for 5-14 hours
+				if ( ( tNow - m_tReceived ) > ( tHoursToTry * 60 * 60 * 1000 ) )
+				{	// And have no new data for 5-14 hours
 
 					if ( IsTorrent() )
 					{
 						if ( Downloads.GetTryingCount( TRUE ) >= Settings.BitTorrent.DownloadTorrents )
-						{	//If there are other torrents that could start
-							StopTrying();		//Give up for now, try again later
+						{	// If there are other torrents that could start
+							StopTrying();		// Give up for now, try again later
 							return;
 						}
 					}
-					else	//Regular download
+					else	// Regular download
 					{
 						if ( Downloads.GetTryingCount() >= ( Settings.Downloads.MaxFiles + Settings.Downloads.MaxFileSearches ) )
-						{	//If there are other downloads that could try
-							StopTrying();		//Give up for now, try again later
+						{	// If there are other downloads that could try
+							StopTrying();		// Give up for now, try again later
 							return;
 						}
 					}
 				}
 			}
-			//End Dead Download Check
+			// End Dead Download Check
 
 			// Run the download
 			if ( ! IsTorrent() || RunTorrent( tNow ) )
@@ -751,7 +740,7 @@ BOOL CDownload::Save(BOOL bFlush)
 			return FALSE;
 		}
 
-		if ( Settings.Downloads.FlushSD || bFlush )
+		if ( Settings.Downloads.FlushPD || bFlush ) 	// Always true (Why advanced setting?)
 			pFile.Flush();
 
 		pFile.SeekToBegin();
@@ -766,8 +755,10 @@ BOOL CDownload::Save(BOOL bFlush)
 	}
 
 	BOOL bSuccess = FALSE;
-	// ToDo: .pd files should start with characters PDL, legacy is SDL (Shareaza .sd)
-	if ( szID[0] == 'S' && szID[1] == 'D' && szID[2] == 'L' )
+
+	// .pd files should start with characters PD:, legacy is SDL (Shareaza .sd)
+	if ( ( szID[0] == 'P' && szID[1] == 'D' && szID[2] == ':' ) ||
+		 ( szID[0] == 'S' && szID[1] == 'D' && szID[2] == 'L' ) )
 	{
 		bSuccess = ::MoveFileEx( CString( _T("\\\\?\\") ) + m_sPath + _T(".sav"),
 			CString( _T("\\\\?\\") ) + m_sPath,
@@ -787,7 +778,7 @@ void CDownload::Serialize(CArchive& ar, int nVersion)	// DOWNLOAD_SER_VERSION
 {
 	ASSERT( ! m_bComplete || m_bSeeding );
 
-	if ( ! Settings.BitTorrent.AutoSeed && m_bSeeding )
+	if ( m_bSeeding && ! Settings.BitTorrent.AutoSeed )
 		return;
 
 	if ( nVersion < 2 ) // NULL
@@ -796,19 +787,22 @@ void CDownload::Serialize(CArchive& ar, int nVersion)	// DOWNLOAD_SER_VERSION
 
 		if ( ar.IsStoring() )
 		{
-			ar.Write( "SDL", 3 );
+			ar.Write( "PD:", 3 );
 			ar << nVersion;
 		}
-		else // Loading
+		else // Loading ?
 		{
 			CHAR szID[3];
 			ReadArchive( ar, szID, 3 );
-			if ( strncmp( szID, "SDL", 3 ) ) AfxThrowUserException();
+			if ( strncmp( szID, "PD:", 3 ) )
+				if ( strncmp( szID, "SDL", 3 ) )	// Shareaza import (or pre r60)
+					AfxThrowUserException();
 			ar >> nVersion;
-			if ( nVersion <= 0 || nVersion > DOWNLOAD_SER_VERSION ) AfxThrowUserException();
+			if ( nVersion <= 0 || nVersion > DOWNLOAD_SER_VERSION )
+				AfxThrowUserException();
 		}
 	}
-//	else if ( nVersion < 11 && ar.IsLoading() )	// Very old Shareaza
+//	else if ( nVersion < 11 && ar.IsLoading() ) 	// Very old Shareaza
 //	{
 //		SerializeOld( ar, nVersion );
 //		return;
@@ -836,7 +830,7 @@ void CDownload::Serialize(CArchive& ar, int nVersion)	// DOWNLOAD_SER_VERSION
 
 		DownloadGroups.Link( this );
 
-	//	if ( nVersion == 32 )	//ShareazaPlus = 38?
+	//	if ( nVersion == 32 )	// ShareazaPlus = 38?
 	//	{
 	//		// Compatibility for CB Branch.
 	//		if ( ! ar.IsBufferEmpty() )
@@ -851,35 +845,35 @@ void CDownload::Serialize(CArchive& ar, int nVersion)	// DOWNLOAD_SER_VERSION
 //void CDownload::SerializeOld(CArchive& ar, int nVersion)	// DOWNLOAD_SER_VERSION < 11
 //{
 //	// nVersion < 11 (Very old Shareaza!)
-
+//
 //	ASSERT( ar.IsLoading() );
-
+//
 //	ar >> m_sPath;
-//	m_sPath += _T(".sd");	// .pd?
+//	m_sPath += _T(".sd");
 //	ar >> m_sName;
-
+//
 //	DWORD nSize;
 //	ar >> nSize;
 //	m_nSize = nSize;
-
+//
 //	Hashes::Sha1Hash oSHA1;
 //	SerializeIn( ar, oSHA1, nVersion );
 //	m_oSHA1 = oSHA1;
 //	m_bSHA1Trusted = true;
-
+//
 //	ar >> m_bPaused;
 //	ar >> m_bExpanded;
 //	if ( nVersion >= 6 ) ar >> m_bBoosted;
-
+//
 //	CDownloadWithFile::SerializeFile( ar, nVersion );
-
+//
 //	for ( DWORD_PTR nSources = ar.ReadCount() ; nSources ; nSources-- )
 //	{
 //		CDownloadSource* pSource = new CDownloadSource( this );
 //		pSource->Serialize( ar, nVersion );
 //		AddSourceInternal( pSource );
 //	}
-
+//
 //	if ( nVersion >= 3 && ar.ReadCount() )
 //	{
 //		auto_ptr< CXMLElement > pXML( new CXMLElement() );
@@ -960,7 +954,7 @@ BOOL CDownload::Launch(int nIndex, CSingleLock* pLock, BOOL bForceOriginal)
 
 			if ( bSafe == TRI_UNKNOWN )
 				return FALSE;
-			else if ( bSafe == TRI_FALSE )
+			if ( bSafe == TRI_FALSE )
 				return TRUE;
 
 			if ( ! Downloads.Check( this ) )

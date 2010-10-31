@@ -27,6 +27,8 @@
   <option name="MenuBorders" value="false"/>
   <option name="MenuGripper" value="false"/>
   <option name="RoundedSelect" value="true"/>
+  <option name="ButtonEdge" value="3"/>
+  <option name="Taskbar" value="24" width="203"/>
 </options>
 
 <colorScheme>
@@ -44,10 +46,10 @@
   <color name="System.Back.Checked" value="F8F6F4"/>
   <color name="System.Back.Selected" value="F8F6F4"/>
   <color name="System.Back.Checked.Selected" value="F8F6F4"/>
-  <color name="System.Border" value="F8F6F4"/>
-  <color name="System.Margin" value="F8F6F4"/>
+  <color name="System.Border" value="E4E2E0"/>
   <color name="System.Shadow" value="E4E2E0"/>
-  <color name="System.Disabled" value="DDDEDE"/>
+  <color name="System.Margin" value="F8F6F4"/>
+  <color name="System.Disabled" value="D6D5D4"/>
   <color name="System.Text" value="4A4440"/>
   <color name="System.Text.Selected" value="303030"/>
   <color name="System.TextLink" value="3880E0"/>
@@ -149,8 +151,11 @@
 <watermarks>
   <watermark target="CCoolMenu" path="Seven\MenuBkg.png"/>
   <watermark target="CCoolMenu.Hover" path="Seven\MenuHover.png"/>
+  <watermark target="CCoolMenu.Hover.Edge" path="Seven\MenuHoverEdge.png"/>
+  <watermark target="CCoolMenu.Disabled" path="Seven\MenuDisabled.png"/>
+  <watermark target="CCoolMenu.Disabled.Edge" path="Seven\MenuDisabledEdge.png"/>
   <watermark target="CCoolMenuBar" path="Seven\RibbonMenubar.png"/>
-  <watermark target="CWndTabBar" path="Seven\RibbonBaseline.png"/>
+  <watermark target="CWndTabBar" path="Seven\RibbonTaskbar.png"/>
   <watermark target="CMonitorBar" path="Seven\RibbonMonitorBkg.png"/>
   <watermark target="CHashProgressBar" path="Seven\HashWnd.png"/>
   <watermark target="CMainWnd" path="Seven\RibbonTabsBkg.png"/>
@@ -185,42 +190,31 @@
   <watermark target="CSearchResultsBox.Caption" path="Seven\SidebarCaption.png"/>
   <watermark target="CSearchResultsBox" path="Seven\SideBlock.png"/>
 
-  <watermark target="CWndTabBar.Active" path="Seven\RibbonBaselineTabActive.png"/>
-  <watermark target="CWndTabBar.Hover" path="Seven\RibbonBaselineTabActive.png"/>
-  <watermark target="CWndTabBar.Active.Hover" path="Seven\RibbonBaselineTabAlt.png"/>
-  <watermark target="CDownloadTabBar.Active" path="DownloadgroupsTab.png"/>
-  <watermark target="CDownloadTabBar.Hover" path="DownloadgroupsHover.png"/>
-  <watermark target="CDownloadTabBar.Active.Hover" path="DownloadgroupsHover.png"/>
-  <watermark target="CCoolMenuItem.Hover" path="Seven\MenuButtonTextHover.png"/>
-  <watermark target="CCoolMenuItem.Down" path="Seven\MenuButtonTextDown.png"/>
   <watermark target="CCoolMenuBar.Hover" path="Seven\MenuButtonState.png"/>
   <watermark target="CCoolMenuBar.Down" path="Seven\MenuButtonState.png"/>
-  <watermark target="CCoolMenuBar.Checked" 	path="Seven\MenuButtonState.png"/>
-  <watermark target="CCoolbar.Down" path="ToolbarButtonDown.png"/>
-  <watermark target="CCoolbar.Hover" path="ToolbarButtonHover.png"/>
-  <watermark target="CCoolbar.Checked" path="ToolbarButtonDown.png"/>
+  <watermark target="CCoolMenuBar.Checked" path="Seven\MenuButtonState.png"/>
   <watermark target="CCoolbar.Separator" path="ToolbarSeparator.png"/>
   <watermark target="CCoolbar.Control" path="MediaSlider.png"/>
 
-  <watermark target="RichButton" path="Buttons\RichButton.png"/>
-  <watermark target="RichButtonPart" path="Buttons\RichButtonPart.png"/>
-  <watermark target="RichButton.Focus" path="Buttons\RichButtonFocus.png"/>
-  <watermark target="RichButtonPart.Focus" path="Buttons\RichButtonFocusPart.png"/>
-  <watermark target="RichButton.Hover" path="Buttons\RichButtonHover.png"/>
-  <watermark target="RichButtonPart.Hover" path="Buttons\RichButtonHoverPart.png"/>
-  <watermark target="RichButton.Press" path="Buttons\RichButtonPress.png"/>
-  <watermark target="RichButtonPart.Press" path="Buttons\RichButtonPressPart.png"/>
-  <watermark target="RichButton.Disabled" path="Buttons\RichButtonDisabled.png"/>
-  <watermark target="RichButtonPart.Disabled" path="Buttons\RichButtonDisabledPart.png"/>
-
   <watermark target="IconButton" path="Buttons\IconButton.png"/>
-  <watermark target="IconButton.Focus" path="Buttons\IconButtonFocus.png"/>
+  <watermark target="IconButton.Active" path="Buttons\IconButtonFocus.png"/>
   <watermark target="IconButton.Hover" path="Buttons\IconButtonHover.png"/>
   <watermark target="IconButton.Press" path="Buttons\IconButtonPress.png"/>
   <watermark target="IconButton.Disabled" path="Buttons\IconButtonDisabled.png"/>
 
+  <watermark target="ButtonMap.Iconbox" path="ButtonmapIconbox.png"/>
+  <watermark target="ButtonMap.Richdoc" path="ButtonmapRichdoc.png"/>
+  <watermark target="ButtonMap.Toolbar" path="ButtonmapToolbar.png"/>
+  <watermark target="ButtonMap.Taskbar" path="ButtonmapTaskbar.png"/>
+  <watermark target="ButtonMap.DownloadGroup" path="ButtonmapGroupsbar.png"/>
+  <watermark target="ButtonMap.MenuText" path="ButtonmapMenuText.png"/>
+  <watermark target="ButtonMap.MenuSelect" path="ButtonmapMenuSelect.png"/>
+
   <watermark target="System.Highlight" path="Highlight.png"/>
   <watermark target="System.Progress" path="Progress.png"/>
+  <watermark target="System.Progress.Edge" path="ProgressEdge.png"/>
+  <watermark target="System.Progress.None" path="ProgressNone.png"/>
+  <watermark target="System.Progress.Shaded" path="ProgressNone.png"/>
   <watermark target="System.Tooltips" path="ToolTip.png"/>
   <watermark target="System.Toolbars" path="Toolbar.png"/>
 </watermarks>
@@ -355,6 +349,7 @@
 <windowSkin>
 <image path="Seven\Header.png"/>
 <target window="CSecurityWnd.Panel"/>
+<target window="CSchedulerWnd.Panel"/>
 <parts>
  <part name="TopLeft" rect="0,1,70,25"/>
  <part name="Top" rect="140,1,20,25"/>
@@ -453,7 +448,7 @@
 
  <icon id="WINDOW_NEIGHBOURS" path="IconConnection.ico" types="16" rtf="0"/>
 
-<bitmap path="IconsMedia.png" mask="00FF00">
+<bitmap path="IconsMedia.png" mask="CLR_NONE">
  <image id="ID_MEDIA_PLAY"/>
  <image id="ID_MEDIA_PAUSE"/>
  <image id="ID_MEDIA_STOP"/>
@@ -514,7 +509,7 @@
  <part name="_ID_TAB_SEARCH.Down" rect="60,72,66,24"/>
 </parts>
 <anchors>
- <anchor name="Background" rect="0,0,484,28"/>
+ <anchor name="Background" rect="0,0,484,30"/>
  <anchor name="_ID_TAB_HOME" rect="6,2,66,24"/>
  <anchor name="_ID_TAB_TRANSFERS" rect="72,2,74,24"/>
  <anchor name="_ID_TAB_NETWORK" rect="146,2,74,24"/>
@@ -558,7 +553,7 @@
  <part name="_ID_TAB_SEARCH.Down" rect="60,72,66,24"/>
 </parts>
 <anchors>
- <anchor name="Background" rect="0,0,414,28"/>
+ <anchor name="Background" rect="0,0,414,30"/>
  <anchor name="_ID_TAB_HOME" rect="6,2,66,24"/>
  <anchor name="_ID_TAB_TRANSFERS" rect="72,2,80,24"/>
  <anchor name="_ID_TAB_LIBRARY" rect="152,2,66,24"/>
@@ -608,7 +603,7 @@
  <part name="_ID_TAB_SEARCH.Down" rect="0,72,60,24"/>
 </parts>
 <anchors>
- <anchor name="Background" rect="0,0,492,28"/>
+ <anchor name="Background" rect="0,0,492,30"/>
  <anchor name="_ID_TAB_HOME" rect="6,2,74,24"/>
  <anchor name="_ID_TAB_SEARCH" rect="80,2,60,24"/>
  <anchor name="_ID_TAB_TRANSFERS" rect="140,2,80,24"/>
@@ -659,7 +654,7 @@
  <part name="_ID_TAB_SEARCH.Down" rect="60,72,66,24"/>
 </parts>
 <anchors>
- <anchor name="Background" rect="0,0,528,28"/>
+ <anchor name="Background" rect="0,0,528,30"/>
  <anchor name="_ID_TAB_HOME" rect="6,2,66,24"/>
  <anchor name="_ID_TAB_SEARCH" rect="72,2,66,24"/>
  <anchor name="_ID_TAB_TRANSFERS" rect="138,2,100,24"/>
@@ -710,7 +705,7 @@
  <part name="_ID_TAB_SEARCH.Down" rect="60,72,66,24"/>
 </parts>
 <anchors>
- <anchor name="Background" rect="0,0,478,28"/>
+ <anchor name="Background" rect="0,0,478,30"/>
  <anchor name="_ID_TAB_HOME" rect="6,2,66,24"/>
  <anchor name="_ID_TAB_SEARCH" rect="72,2,66,24"/>
  <anchor name="_ID_TAB_TRANSFERS" rect="138,2,66,24"/>
@@ -761,7 +756,7 @@
  <part name="_ID_TAB_SEARCH.Down" rect="60,72,66,24"/>
 </parts>
 <anchors>
- <anchor name="Background" rect="0,0,510,28"/>
+ <anchor name="Background" rect="0,0,510,30"/>
  <anchor name="_ID_TAB_HOME" rect="6,2,66,24"/>
  <anchor name="_ID_TAB_SEARCH" rect="72,2,66,24"/>
  <anchor name="_ID_TAB_TRANSFERS" rect="138,2,80,24"/>
@@ -812,7 +807,7 @@
  <part name="_ID_TAB_SEARCH.Down" rect="60,72,66,24"/>
 </parts>
 <anchors>
- <anchor name="Background" rect="0,0,484,28"/>
+ <anchor name="Background" rect="0,0,484,30"/>
  <anchor name="_ID_TAB_HOME" rect="6,2,66,24"/>
  <anchor name="_ID_TAB_SEARCH" rect="72,2,66,24"/>
  <anchor name="_ID_TAB_TRANSFERS" rect="138,2,66,24"/>
@@ -863,7 +858,7 @@
  <part name="_ID_TAB_SEARCH.Down" rect="60,72,66,24"/>
 </parts>
 <anchors>
- <anchor name="Background" rect="0,0,534,28"/>
+ <anchor name="Background" rect="0,0,534,30"/>
  <anchor name="_ID_TAB_HOME" rect="6,2,66,24"/>
  <anchor name="_ID_TAB_SEARCH" rect="72,2,66,24"/>
  <anchor name="_ID_TAB_TRANSFERS" rect="138,2,100,24"/>
@@ -914,7 +909,7 @@
  <part name="_ID_TAB_SEARCH.Down" rect="60,72,66,24"/>
 </parts>
 <anchors>
- <anchor name="Background" rect="0,0,534,28"/>
+ <anchor name="Background" rect="0,0,534,30"/>
  <anchor name="_ID_TAB_HOME" rect="6,2,66,24"/>
  <anchor name="_ID_TAB_SEARCH" rect="72,2,66,24"/>
  <anchor name="_ID_TAB_TRANSFERS" rect="138,2,100,24"/>
@@ -965,7 +960,7 @@
  <part name="_ID_TAB_SEARCH.Down" rect="0,72,60,24"/>
 </parts>
 <anchors>
- <anchor name="Background" rect="0,0,456,28"/>
+ <anchor name="Background" rect="0,0,456,30"/>
  <anchor name="_ID_TAB_HOME" rect="6,2,60,24"/>
  <anchor name="_ID_TAB_SEARCH" rect="66,2,60,24"/>
  <anchor name="_ID_TAB_TRANSFERS" rect="126,2,66,24"/>
@@ -1016,7 +1011,7 @@
  <part name="_ID_TAB_SEARCH.Down" rect="200,72,80,24"/>
 </parts>
 <anchors>
- <anchor name="Background" rect="0,0,534,28"/>
+ <anchor name="Background" rect="0,0,534,30"/>
  <anchor name="_ID_TAB_HOME" rect="6,2,66,24"/>
  <anchor name="_ID_TAB_TRANSFERS" rect="72,2,74,24"/>
  <anchor name="_ID_TAB_NETWORK" rect="146,2,66,24"/>
@@ -1067,7 +1062,7 @@
  <part name="_ID_TAB_SEARCH.Down" rect="200,72,80,24"/>
 </parts>
 <anchors>
- <anchor name="Background" rect="0,0,534,28"/>
+ <anchor name="Background" rect="0,0,534,30"/>
  <anchor name="_ID_TAB_HOME" rect="6,2,66,24"/>
  <anchor name="_ID_TAB_SEARCH" rect="72,2,80,24"/>
  <anchor name="_ID_TAB_TRANSFERS" rect="152,2,90,24"/>
@@ -1118,7 +1113,7 @@
  <part name="_ID_TAB_SEARCH.Down" rect="0,72,60,24"/>
 </parts>
 <anchors>
- <anchor name="Background" rect="0,0,478,28"/>
+ <anchor name="Background" rect="0,0,478,30"/>
  <anchor name="_ID_TAB_HOME" rect="6,2,74,24"/>
  <anchor name="_ID_TAB_SEARCH" rect="80,2,60,24"/>
  <anchor name="_ID_TAB_TRANSFERS" rect="140,2,74,24"/>
@@ -1169,7 +1164,7 @@
  <part name="_ID_TAB_SEARCH.Down" rect="60,72,66,24"/>
 </parts>
 <anchors>
- <anchor name="Background" rect="0,0,518,28"/>
+ <anchor name="Background" rect="0,0,518,30"/>
  <anchor name="_ID_TAB_HOME" rect="6,2,74,24"/>
  <anchor name="_ID_TAB_SEARCH" rect="80,2,66,24"/>
  <anchor name="_ID_TAB_TRANSFERS" rect="146,2,74,24"/>
@@ -1220,7 +1215,7 @@
  <part name="_ID_TAB_SEARCH.Down" rect="0,72,60,24"/>
 </parts>
 <anchors>
- <anchor name="Background" rect="0,0,490,28"/>
+ <anchor name="Background" rect="0,0,490,30"/>
  <anchor name="_ID_TAB_HOME" rect="6,2,66,24"/>
  <anchor name="_ID_TAB_SEARCH" rect="72,2,60,24"/>
  <anchor name="_ID_TAB_TRANSFERS" rect="142,2,90,24"/>
@@ -1271,7 +1266,7 @@
  <part name="_ID_TAB_SEARCH.Down" rect="60,72,66,24"/>
 </parts>
 <anchors>
- <anchor name="Background" rect="0,0,492,28"/>
+ <anchor name="Background" rect="0,0,492,30"/>
  <anchor name="_ID_TAB_HOME" rect="6,2,66,24"/>
  <anchor name="_ID_TAB_SEARCH" rect="72,2,66,24"/>
  <anchor name="_ID_TAB_TRANSFERS" rect="138,2,74,24"/>
@@ -1322,7 +1317,7 @@
  <part name="_ID_TAB_SEARCH.Down" rect="60,72,66,24"/>
 </parts>
 <anchors>
- <anchor name="Background" rect="0,0,498,28"/>
+ <anchor name="Background" rect="0,0,498,30"/>
  <anchor name="_ID_TAB_HOME" rect="6,2,80,24"/>
  <anchor name="_ID_TAB_SEARCH" rect="86,2,66,24"/>
  <anchor name="_ID_TAB_TRANSFERS" rect="152,2,66,24"/>
@@ -1373,7 +1368,7 @@
  <part name="_ID_TAB_SEARCH.Down" rect="0,72,60,24"/>
 </parts>
 <anchors>
- <anchor name="Background" rect="0,0,480,28"/>
+ <anchor name="Background" rect="0,0,480,30"/>
  <anchor name="_ID_TAB_HOME" rect="6,2,66,24"/>
  <anchor name="_ID_TAB_SEARCH" rect="72,2,60,24"/>
  <anchor name="_ID_TAB_TRANSFERS" rect="132,2,90,24"/>
@@ -1424,7 +1419,7 @@
  <part name="_ID_TAB_SEARCH.Down" rect="60,72,66,24"/>
 </parts>
 <anchors>
- <anchor name="Background" rect="0,0,470,28"/>
+ <anchor name="Background" rect="0,0,470,30"/>
  <anchor name="_ID_TAB_HOME" rect="6,2,66,24"/>
  <anchor name="_ID_TAB_SEARCH" rect="72,2,66,24"/>
  <anchor name="_ID_TAB_TRANSFERS" rect="138,2,74,24"/>
@@ -1475,7 +1470,7 @@
  <part name="_ID_TAB_SEARCH.Down" rect="60,72,66,24"/>
 </parts>
 <anchors>
- <anchor name="Background" rect="0,0,492,28"/>
+ <anchor name="Background" rect="0,0,492,30"/>
  <anchor name="_ID_TAB_HOME" rect="6,2,60,24"/>
  <anchor name="_ID_TAB_SEARCH" rect="66,2,66,24"/>
  <anchor name="_ID_TAB_TRANSFERS" rect="132,2,100,24"/>
@@ -1526,7 +1521,7 @@
  <part name="_ID_TAB_SEARCH.Down" rect="0,72,60,24"/>
 </parts>
 <anchors>
- <anchor name="Background" rect="0,0,528,28"/>
+ <anchor name="Background" rect="0,0,528,30"/>
  <anchor name="_ID_TAB_HOME" rect="6,2,66,24"/>
  <anchor name="_ID_TAB_SEARCH" rect="72,2,60,24"/>
  <anchor name="_ID_TAB_TRANSFERS" rect="132,2,80,24"/>
@@ -1577,7 +1572,7 @@
  <part name="_ID_TAB_SEARCH.Down" rect="60,72,66,24"/>
 </parts>
 <anchors>
- <anchor name="Background" rect="0,0,476,28"/>
+ <anchor name="Background" rect="0,0,476,30"/>
  <anchor name="_ID_TAB_HOME" rect="6,2,66,24"/>
  <anchor name="_ID_TAB_SEARCH" rect="72,2,66,24"/>
  <anchor name="_ID_TAB_TRANSFERS" rect="138,2,66,24"/>
@@ -1628,7 +1623,7 @@
  <part name="_ID_TAB_SEARCH.Down" rect="0,72,60,24"/>
 </parts>
 <anchors>
- <anchor name="Background" rect="0,0,478,28"/>
+ <anchor name="Background" rect="0,0,478,30"/>
  <anchor name="_ID_TAB_HOME" rect="6,2,74,24"/>
  <anchor name="_ID_TAB_SEARCH" rect="80,2,60,24"/>
  <anchor name="_ID_TAB_TRANSFERS" rect="140,2,74,24"/>
@@ -1679,7 +1674,7 @@
  <part name="_ID_TAB_SEARCH.Down" rect="60,72,66,24"/>
 </parts>
 <anchors>
- <anchor name="Background" rect="0,0,482,28"/>
+ <anchor name="Background" rect="0,0,482,30"/>
  <anchor name="_ID_TAB_HOME" rect="6,2,66,24"/>
  <anchor name="_ID_TAB_SEARCH" rect="72,2,66,24"/>
  <anchor name="_ID_TAB_TRANSFERS" rect="138,2,80,24"/>
@@ -1730,7 +1725,7 @@
  <part name="_ID_TAB_SEARCH.Down" rect="0,72,60,24"/>
 </parts>
 <anchors>
- <anchor name="Background" rect="0,0,502,28"/>
+ <anchor name="Background" rect="0,0,502,30"/>
  <anchor name="_ID_TAB_HOME" rect="6,2,60,24"/>
  <anchor name="_ID_TAB_SEARCH" rect="66,2,60,24"/>
  <anchor name="_ID_TAB_TRANSFERS" rect="126,2,90,24"/>
@@ -1781,7 +1776,7 @@
  <part name="_ID_TAB_SEARCH.Down" rect="0,72,60,24"/>
 </parts>
 <anchors>
- <anchor name="Background" rect="0,0,492,28"/>
+ <anchor name="Background" rect="0,0,492,30"/>
  <anchor name="_ID_TAB_HOME" rect="6,2,80,24"/>
  <anchor name="_ID_TAB_SEARCH" rect="86,2,60,24"/>
  <anchor name="_ID_TAB_TRANSFERS" rect="146,2,80,24"/>
@@ -1832,7 +1827,7 @@
  <part name="_ID_TAB_SEARCH.Down" rect="60,72,66,24"/>
 </parts>
 <anchors>
- <anchor name="Background" rect="0,0,514,28"/>
+ <anchor name="Background" rect="0,0,514,30"/>
  <anchor name="_ID_TAB_HOME" rect="6,2,66,24"/>
  <anchor name="_ID_TAB_SEARCH" rect="72,2,66,24"/>
  <anchor name="_ID_TAB_TRANSFERS" rect="138,2,66,24"/>
@@ -1883,7 +1878,7 @@
  <part name="_ID_TAB_SEARCH.Down" rect="0,72,60,24"/>
 </parts>
 <anchors>
- <anchor name="Background" rect="0,0,452,28"/>
+ <anchor name="Background" rect="0,0,452,30"/>
  <anchor name="_ID_TAB_HOME" rect="6,2,60,24"/>
  <anchor name="_ID_TAB_SEARCH" rect="66,2,60,24"/>
  <anchor name="_ID_TAB_TRANSFERS" rect="126,2,60,24"/>
@@ -1934,7 +1929,7 @@
  <part name="_ID_TAB_SEARCH.Down" rect="0,72,60,24"/>
 </parts>
 <anchors>
- <anchor name="Background" rect="0,0,432,28"/>
+ <anchor name="Background" rect="0,0,432,30"/>
  <anchor name="_ID_TAB_HOME" rect="6,2,60,24"/>
  <anchor name="_ID_TAB_SEARCH" rect="66,2,60,24"/>
  <anchor name="_ID_TAB_TRANSFERS" rect="126,2,60,24"/>
@@ -1985,7 +1980,7 @@
  <part name="_ID_TAB_SEARCH.Down" rect="0,72,60,24"/>
 </parts>
 <anchors>
- <anchor name="Background" rect="0,0,438,28"/>
+ <anchor name="Background" rect="0,0,438,30"/>
  <anchor name="_ID_TAB_HOME" rect="6,2,60,24"/>
  <anchor name="_ID_TAB_SEARCH" rect="66,2,60,24"/>
  <anchor name="_ID_TAB_TRANSFERS" rect="126,2,60,24"/>

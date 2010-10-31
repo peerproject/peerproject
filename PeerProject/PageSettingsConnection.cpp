@@ -1,22 +1,19 @@
 //
 // PageSettingsConnection.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
-// Portions Copyright Shareaza Development Team, 2002-2007.
+// This file is part of PeerProject (peerproject.org) © 2008-2010
+// Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
@@ -27,20 +24,20 @@
 #include "UPnPFinder.h"
 
 #ifdef _DEBUG
-#define new DEBUG_NEW
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
-#endif
+#define new DEBUG_NEW
+#endif	// Filename
 
 IMPLEMENT_DYNCREATE(CConnectionSettingsPage, CSettingsPage)
 
 BEGIN_MESSAGE_MAP(CConnectionSettingsPage, CSettingsPage)
 	//{{AFX_MSG_MAP(CConnectionSettingsPage)
-	ON_CBN_EDITCHANGE(IDC_INBOUND_HOST, OnEditChangeInboundHost)
-	ON_EN_CHANGE(IDC_INBOUND_PORT, OnChangeInboundPort)
-	ON_CBN_SELCHANGE(IDC_INBOUND_HOST, OnChangedInboundHost)
-	ON_BN_CLICKED(IDC_INBOUND_RANDOM, OnInboundRandom)
 	ON_WM_SHOWWINDOW()
+	ON_CBN_EDITCHANGE(IDC_INBOUND_HOST, OnEditChangeInboundHost)
+	ON_CBN_SELCHANGE(IDC_INBOUND_HOST, OnChangedInboundHost)
+	ON_EN_CHANGE(IDC_INBOUND_PORT, OnChangeInboundPort)
+	ON_BN_CLICKED(IDC_INBOUND_RANDOM, OnInboundRandom)
 	ON_BN_CLICKED(IDC_ENABLE_UPNP, OnClickedEnableUpnp)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
@@ -51,13 +48,13 @@ END_MESSAGE_MAP()
 
 CConnectionSettingsPage::CConnectionSettingsPage() : CSettingsPage(CConnectionSettingsPage::IDD)
 	//{{AFX_DATA_INIT(CConnectionSettingsPage)
-,	m_bInBind				( FALSE )
-,	m_nInPort				( 0 )
-,	m_bIgnoreLocalIP		( FALSE )
-,	m_bEnableUPnP			( FALSE )
-,	m_nTimeoutConnection	( 0ul )
-,	m_nTimeoutHandshake		( 0ul )
-,	m_bInRandom				( FALSE )
+	, m_nInPort				( 0 )
+	, m_bInBind				( FALSE )
+	, m_bIgnoreLocalIP		( FALSE )
+	, m_bEnableUPnP			( FALSE )
+	, m_nTimeoutConnection	( 0ul )
+	, m_nTimeoutHandshake	( 0ul )
+	, m_bInRandom			( FALSE )
 	//}}AFX_DATA_INIT
 {
 }
@@ -103,7 +100,7 @@ BOOL CConnectionSettingsPage::OnInitDialog()
 	CString strAutomatic = GetInOutHostTranslation();
 	CComboBox* pOutHost = (CComboBox*) GetDlgItem( IDC_OUTBOUND_HOST );
 
-	// update all dropdowns
+	// Update all dropdowns
 	m_wndInHost.DeleteString( 0 );
 	m_wndInHost.AddString( strAutomatic );
 	pOutHost->DeleteString( 0 );
@@ -118,7 +115,7 @@ BOOL CConnectionSettingsPage::OnInitDialog()
 	LoadString( str, IDS_GENERAL_YES );
 	m_wndCanAccept.AddString( str );
 	/*m_wndCanAccept.AddString( _T("TCP-Only") );
-	m_wndCanAccept.AddString( _T("UDP-Only") );*/ // Temp disabled
+	m_wndCanAccept.AddString( _T("UDP-Only") );*/ // Temp disabled  ToDo:?
 
 	m_wndCanAccept.SetCurSel( Settings.Connection.FirewallState );
 
@@ -146,7 +143,8 @@ BOOL CConnectionSettingsPage::OnInitDialog()
 		for ( DWORD nIf = 0 ; nIf < nCount ; nIf++ )
 		{
 			ip = ipAddr->table[ nIf ].dwAddr;
-			if ( ip == 0x0100007f || ip == 0x0 ) continue; // loopback or 0.0.0.0
+			if ( ip == 0x0100007f || ip == 0x0 )
+				continue; // loopback or 0.0.0.0
 
 			MIB_IFROW ifRow = {};
 			ifRow.dwIndex = ipAddr->table[ nIf ].dwIndex;
@@ -154,8 +152,10 @@ BOOL CConnectionSettingsPage::OnInitDialog()
 			if ( GetIfEntry( &ifRow ) != NO_ERROR || ifRow.dwAdminStatus != MIB_IF_ADMIN_STATUS_UP )
 				continue;
 
-			strIP.Format( L"%d.%d.%d.%d", ( ip & 0x0000ff ),
-				( ( ip & 0x00ff00 ) >> 8 ), ( ( ip & 0xff0000 ) >> 16 ),
+			strIP.Format( L"%d.%d.%d.%d",
+				( ip & 0x0000ff ),
+				( ( ip & 0x00ff00 ) >> 8 ),
+				( ( ip & 0xff0000 ) >> 16 ),
 				( ip >> 24 ) );
 
 			m_wndInHost.InsertString( -1, (LPCTSTR)strIP );
@@ -198,7 +198,9 @@ void CConnectionSettingsPage::OnChangedInboundHost()
 {
 	CString strAutomatic = GetInOutHostTranslation();
 	CString strSelection;
-	m_wndInHost.GetLBText( m_wndInHost.GetCurSel(), strSelection );
+	int nIndex = m_wndInHost.GetCurSel();
+	if ( nIndex != CB_ERR )
+		m_wndInHost.GetLBText( nIndex, strSelection );
 
 	m_wndInBind.EnableWindow( strAutomatic != strSelection );
 }
@@ -230,7 +232,7 @@ BOOL CConnectionSettingsPage::OnKillActive()
 {
 	UpdateData();
 
-	if ( !Settings.ParseVolume( m_sInSpeed, Kilobits ) )
+	if ( ! Settings.ParseVolume( m_sInSpeed, Kilobits ) )
 	{
 		CString strMessage;
 		LoadString( strMessage, IDS_SETTINGS_NEED_BANDWIDTH );
@@ -239,7 +241,7 @@ BOOL CConnectionSettingsPage::OnKillActive()
 		return FALSE;
 	}
 
-	if ( !Settings.ParseVolume( m_sOutSpeed, Kilobits ) )
+	if ( ! Settings.ParseVolume( m_sOutSpeed, Kilobits ) )
 	{
 		CString strMessage;
 		LoadString( strMessage, IDS_SETTINGS_NEED_BANDWIDTH );
@@ -274,14 +276,14 @@ void CConnectionSettingsPage::OnOK()
 	bool bRandomForwarded = ( m_nInPort == 0 &&
 		theApp.m_bUPnPPortsForwarded == TRI_TRUE );
 
-	if ( !bRandomForwarded || m_nInPort != 0 || !m_bInRandom )
+	if ( ! bRandomForwarded || m_nInPort != 0 || ! m_bInRandom )
 	{
 		Settings.Connection.InPort = m_nInPort;
 
 		if ( m_bEnableUPnP && ( (DWORD)m_nInPort != Settings.Connection.InPort ||
 			!Settings.Connection.EnableUPnP ) )
 		{
-			if ( !theApp.m_pUPnPFinder )
+			if ( ! theApp.m_pUPnPFinder )
 				theApp.m_pUPnPFinder.Attach( new CUPnPFinder );
 			if ( theApp.m_pUPnPFinder->AreServicesHealthy() )
 				theApp.m_pUPnPFinder->StartDiscovery();
@@ -310,7 +312,7 @@ void CConnectionSettingsPage::OnOK()
 	UpdateData();
 
 	// Warn the user about upload limiting and ed2k/BT downloads
-	if ( !Settings.Live.UploadLimitWarning &&
+	if ( ! Settings.Live.UploadLimitWarning &&
 		( Settings.eDonkey.EnableToday || Settings.eDonkey.EnableAlways || Settings.BitTorrent.EnableAlways ) )
 	{
 		QWORD nDownload = max( Settings.Bandwidth.Downloads, Settings.Connection.InSpeed * Kilobits / Bytes );
@@ -379,9 +381,9 @@ void CConnectionSettingsPage::OnShowWindow(BOOL bShow, UINT nStatus)
 
 void CConnectionSettingsPage::OnClickedEnableUpnp()
 {
-	if ( !m_bEnableUPnP )
+	if ( ! m_bEnableUPnP )
 	{
-		if ( !theApp.m_pUPnPFinder )
+		if ( ! theApp.m_pUPnPFinder )
 			theApp.m_pUPnPFinder.Attach( new CUPnPFinder );
 
 		// If the UPnP Device Host service is not running ask the user to start it.
@@ -389,7 +391,7 @@ void CConnectionSettingsPage::OnClickedEnableUpnp()
 		// need to wait until this and SSDP service are started.
 		// If the upnphost service can not be started PeerProject will lock up.
 
-		if ( !theApp.m_pUPnPFinder->AreServicesHealthy() )
+		if ( ! theApp.m_pUPnPFinder->AreServicesHealthy() )
 		{
 			CString strMessage;
 			LoadString( strMessage, IDS_UPNP_SERVICES_ERROR );

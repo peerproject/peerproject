@@ -2,21 +2,18 @@
 // CtrlNeighbourTip.cpp : implementation file
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2007.
+// Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "Stdafx.h"
@@ -37,10 +34,10 @@
 #include "EDNeighbour.h"
 
 #ifdef _DEBUG
-#define new DEBUG_NEW
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
-#endif
+#define new DEBUG_NEW
+#endif	// Filename
 
 IMPLEMENT_DYNAMIC(CNeighbourTipCtrl, CCoolTipCtrl)
 
@@ -137,7 +134,7 @@ void CNeighbourTipCtrl::OnCalcSize(CDC* pDC)
 	{
 		str = ((CEDNeighbour*)pNeighbour)->m_sServerName;
 
-		if ( str.GetLength() )
+		if ( ! str.IsEmpty() )
 		{
 			pDC->SelectObject( &CoolInterface.m_fntNormal );
 			AddSize( pDC, str );
@@ -151,13 +148,13 @@ void CNeighbourTipCtrl::OnCalcSize(CDC* pDC)
 	pDC->SelectObject( &CoolInterface.m_fntNormal );
 	m_sz.cy += TIP_TEXTHEIGHT;
 
-	if ( pNeighbour->m_sCountryName.GetLength() )
+	if ( ! pNeighbour->m_sCountryName.IsEmpty() )
 	{
 		AddSize( pDC, pNeighbour->m_sCountryName );
 		m_sz.cy += TIP_TEXTHEIGHT + 4;
 	}
 
-	if ( pNeighbour->m_sUserAgent.GetLength() )
+	if ( ! pNeighbour->m_sUserAgent.IsEmpty() )
 	{
 		AddSize( pDC, pNeighbour->m_sUserAgent );
 		m_sz.cy += TIP_TEXTHEIGHT;
@@ -213,7 +210,7 @@ void CNeighbourTipCtrl::OnPaint(CDC* pDC)
 	{
 		str = ((CEDNeighbour*)pNeighbour)->m_sServerName;
 
-		if ( str.GetLength() )
+		if ( ! str.IsEmpty() )
 		{
 			pDC->SelectObject( &CoolInterface.m_fntBold );
 			DrawText( pDC, &pt, str );
@@ -227,12 +224,12 @@ void CNeighbourTipCtrl::OnPaint(CDC* pDC)
 	pDC->SelectObject( &CoolInterface.m_fntNormal );
 	pt.y += TIP_TEXTHEIGHT;
 
-	if ( pNeighbour->m_sCountryName.GetLength() )
+	if ( ! pNeighbour->m_sCountryName.IsEmpty() )
 	{
 		int nFlagIndex = Flags.GetFlagIndex( pNeighbour->m_sCountry );
 		if ( nFlagIndex >= 0 )
 		{
-			ImageList_DrawEx( Flags.m_pImage, nFlagIndex, pDC->GetSafeHdc(), pt.x, pt.y, 16, 16,
+			Flags.Draw( nFlagIndex, pDC->GetSafeHdc(), pt.x, pt.y,
 				Skin.m_bmToolTip.m_hObject ? CLR_NONE : Colors.m_crTipBack, CLR_NONE, ILD_NORMAL );
 			pDC->ExcludeClipRect( pt.x, pt.y, pt.x + 16, pt.y + 16 );
 
@@ -305,7 +302,7 @@ void CNeighbourTipCtrl::OnPaint(CDC* pDC)
 		}
 	}
 
-	if ( pNeighbour->m_sUserAgent.GetLength() )
+	if ( ! pNeighbour->m_sUserAgent.IsEmpty() )
 	{
 		DrawText( pDC, &pt, pNeighbour->m_sUserAgent );
 		pt.y += TIP_TEXTHEIGHT;

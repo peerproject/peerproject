@@ -22,9 +22,8 @@
 #pragma once
 
 //#include <stdlib.h>
-#include <Boost/cstdint.hpp>
 
-// Intrinsics  (Workaround for Microsoft double declaration in Visual Studio 2005)
+// Intrinsics  (Workaround for Microsoft double declaration in legacy Visual Studio 2005)
 #if defined(_MSC_VER) && (_MSC_VER < 1500)
 	#define _interlockedbittestandset _ms_set
 	#define _interlockedbittestandreset _ms_reset
@@ -39,41 +38,40 @@
 	#include <intrin.h>
 #endif
 
-//! \brief platform independent signed 8 bit integer type.
-typedef boost::int8_t int8;
-//! \brief platform independent signed 16 bit integer type.
-typedef boost::int16_t int16;
-//! \brief platform independent signed 32 bit integer type.
-typedef boost::int32_t int32;
-//! \brief platform independent signed 64 bit integer type.
-typedef boost::int64_t int64;
+// Alternate Boost platform independent integer types:
+// #include <boost/cstdint.hpp>
+// typedef boost::int8_t int8;
+// typedef boost::int16_t int16;
+// typedef boost::int32_t int32;
+// typedef boost::int64_t int64;
+// typedef boost::uint8_t uint8;
+// typedef boost::uint16_t uint16;
+// typedef boost::uint32_t uint32;
+// typedef boost::uint64_t uint64;
 
-//! \brief platform independent unsigned 8 bit integer type.
-typedef boost::uint8_t uint8;
-//! \brief platform independent unsigned 16 bit integer type.
-typedef boost::uint16_t uint16;
-//! \brief platform independent unsigned 32 bit integer type.
-typedef boost::uint32_t uint32;
-//! \brief platform independent unsigned 64 bit integer type.
-typedef boost::uint64_t uint64;
+// Signed/unsigned integer types:
+typedef char int8;
+typedef short int16;
+typedef long int32;
+typedef __int64 int64;
+typedef unsigned char uint8;
+typedef unsigned short uint16;
+typedef unsigned long uint32;
+typedef unsigned __int64 uint64;
 
-//! \brief alias for unsigned char.
+// Alias for signed/unsigned char.
 typedef unsigned char uchar;
-//! \brief alias for signed char.
 typedef signed char schar;
-//! \brief alias for wchar_t.
 typedef wchar_t wchar;
-//! \brief unsigned integer type of the same size as a wchar_t
 typedef uint16 uwchar;
+// Above unsigned integer type of the same size as a wchar_t
 
 //! \brief enumeration to specify the byte ordering of a sequence.
 enum Endianess
 {
-	//! \brief specifies little endian order,
-	//! 	the least significant byte comes first.
+	//! \brief specifies little endian order, the least significant byte comes first.
 	littleEndian,
-	//! \brief specifies big endian order,
-	//! 	the most significant byte comes first.
+	//! \brief specifies big endian order, the most significant byte comes first.
 	bigEndian
 };
 
@@ -224,8 +222,7 @@ inline T swapEndianess(T value)
 	return SwapEndianess< T >()( value );
 }
 
-//! \brief Generic function object to give its char serialization a
-//! 	given specified byte ordering.
+//! \brief Generic function object to give its char serialization a given specified byte ordering.
 //!
 //! The byte ordering of the argument is swapped unless
 //! it matches the byte ordering of the target machine.
@@ -239,8 +236,7 @@ template<typename T > struct TransformTo< T, Machine::endianess >
 	T operator()(T value) const { return value; }
 };
 
-//! \brief Generic function object to reconstruct a value out of its serialized
-//! 	form with a specified byte ordering.
+//! \brief Generic function object to reconstruct a value out of its serialized form with a specified byte ordering.
 //!
 //! This function objects behaves the same as TransformTo does but its purpose
 //! is different. Having both functions allows to make that purpose explicit in code.

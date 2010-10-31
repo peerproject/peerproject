@@ -2,21 +2,18 @@
 // WndNeighbours.h
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2007.
+// Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #pragma once
@@ -43,8 +40,6 @@ protected:
 	CImageList			m_gdiImageList;
 	CLiveListSizer		m_pSizer;
 	DWORD				m_tLastUpdate;
-private:
-	int					m_nProtocolRev; // Reversed index of start image in RTL mode
 
 // Operations
 public:
@@ -52,11 +47,11 @@ public:
 	void			OpenPacketWnd(BOOL bIncoming, BOOL bOutgoing);
 	void			DrawEmptyMessage(CDC* pDC);
 	CNeighbour*		GetItem(int nItem);
-	virtual void	OnSkinChange();
 
 // Overrides
 public:
 	//{{AFX_VIRTUAL(CNeighboursWnd)
+	virtual void OnSkinChange();
 	virtual BOOL OnCmdMsg(UINT nID, int nCode, void* pExtra, AFX_CMDHANDLERINFO* pHandlerInfo);
 	virtual BOOL PreTranslateMessage(MSG* pMsg);
 	//}}AFX_VIRTUAL
@@ -64,7 +59,7 @@ public:
 // Implementation
 protected:
 	//{{AFX_MSG(CNeighboursWnd)
-	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
 	afx_msg void OnSortList(NMHDR* pNotifyStruct, LRESULT *pResult);

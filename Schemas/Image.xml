@@ -1,33 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 
-<!--
-PeerProject Afrikaans Schemas File translated by Johann van der Walt (Thesage)
-PeerProject Catalan Schemas File translated by Daniel Olivares Giménez; Equip de traduccions de FeshoCAT
-PeerProject Chinese Simplified Schemas File translated by Sanley; John
-PeerProject Chinese Traditional Schemas File translated by James Bond
-PeerProject Czech Schemas File translated by Odin
-PeerProject German Schemas File translated by Spooky; jlh
-PeerProject Estonian Schemas File translated by Janza
-PeerProject Spanish Schemas File translated by Unknown
-PeerProject Spanish (Mexico) Schemas File translated by Help
-PeerProject French Schemas File translated by Antoine Martin-Lalande (Sensi)
-PeerProject Greek Schemas File translated by erimitis
-PeerProject Hebrew Schemas File translated by _peer_ (H.L)
-PeerProject Croatian Schemas File translated by Biza
-PeerProject Hungarian Schemas File translated by Yuri
-PeerProject Italian Schemas File translated by ale5000
-PeerProject Japanese Schemas File translated by DukeDog; CyberBob
-PeerProject Lithuanian Schemas File translated by Rolandas Rudomanskis
-PeerProject Dutch Schemas File translated by Jan-Willem Koornwinder (thurstydog); Jonne; Neglacio
-PeerProject Norwegian Schemas File translated by Tom Seland (seli); vnmartinsen
-PeerProject Portuguese (Brasil) Schemas File translated by Lukas Taves (LightHeaven); Felipe
-PeerProject Russian Schemas File translated by dAbserver; Rolandas Rudomanskis
-PeerProject Slovenian Schemas File translated by Martin McDowell
-PeerProject Albanian Schemas File translated by Besmir Godole
-PeerProject Serbian Schemas File translated by Woodstoock
-PeerProject Swedish Schemas File translated by Marcus Ehrenlans; Printz; DanielB
-PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
--->
+<!-- See ReadMe.txt for translation credits -->
 
 <schemaDescriptor location="http://www.shareaza.com/schemas/image.xsd" xmlns="http://www.shareaza.com/schemas/SchemaDescriptor.xsd">
 
@@ -212,7 +185,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="zht">描述</title>
 		</member>
 		<member name="width">
-			<display columnAlign="center" defaultColumn="true"/>
+			<display columnAlign="center" defaultColumn="true" prompt="true"/>
 			<title language="en">Width</title>
 			<title language="af">Breedte</title>
 			<title language="ca">Amplària</title>
@@ -242,7 +215,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="zht">寬度</title>
 		</member>
 		<member name="height">
-			<display columnAlign="center" defaultColumn="true"/>
+			<display defaultColumn="true" columnAlign="center" prompt="true"/>
 			<title language="en">Height</title>
 			<title language="af">Hoogte</title>
 			<title language="ca">Alçària</title>
@@ -301,7 +274,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="zht">顏色</title>
 		</member>
 		<member name="type">
-			<display defaultColumn="true"/>
+			<display defaultColumn="true" prompt="true"/>
 			<title language="en">Type</title>
 			<title language="af">Tipe</title>
 			<title language="ca">Tipus</title>
@@ -475,7 +448,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="zhs">发行组织链接</title>
 			<title language="zht">釋放團體連結</title>
 		</member>
-		<member name="keywords" search="generic">
+		<member name="keywords" search="generic" prompt="true">
 			<title language="en">Keywords</title>
 			<title language="af">Sleutelwoorde</title>
 			<title language="ca">Paraules clau</title>
@@ -535,6 +508,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		</member>
 	</members>
 	<typeFilter>
+		<type extension="3ds"/>
 		<type extension="ai"/>
 		<type extension="bmp"/>
 		<type extension="bw"/>
@@ -543,12 +517,15 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<type extension="ct"/>
 		<type extension="cut"/>
 		<type extension="dib"/>
+		<type extension="dwg"/>
+		<type extension="dxf"/>
 		<type extension="emf"/>
 		<type extension="eps"/>
 		<type extension="fla"/>
 		<type extension="fpx"/>
 		<type extension="gif"/>
 		<type extension="iff"/>
+		<type extension="ico"/>
 		<type extension="img"/>
 		<type extension="lbm"/>
 		<type extension="jif"/>
@@ -573,6 +550,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<type extension="ps"/>
 		<type extension="psd"/>
 		<type extension="psp"/>
+		<type extension="pspimage"/>
 		<type extension="ras"/>
 		<type extension="raw"/>
 		<type extension="rgb"/>
@@ -580,12 +558,13 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<type extension="rle"/>
 		<type extension="sct"/>
 		<type extension="sgi"/>
-		<type extension="sgi"/>
 		<type extension="svg"/>
 		<type extension="tga"/>
 		<type extension="tif"/>
 		<type extension="tiff"/>
+		<type extension="ttf"/>
 		<type extension="tub"/>
+		<type extension="webp"/>
 		<type extension="wpg"/>
 		<type extension="wmf"/>
 		<type extension="xcf"/>

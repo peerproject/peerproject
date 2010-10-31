@@ -3,8 +3,8 @@
 
 <!-- PeerProject Default Swedish Skin File -->
 
-<!-- Translation based on default-en.xml r59 -->
-<!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
+<!-- Translation based on default-en.xml r60 -->
+<!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
 <!-- Use this file as a basis for creating new language skins,   -->
@@ -62,6 +62,7 @@
 		<button id="ID_VIEW_MEDIA"/>
 		<button id="ID_TAB_IRC"/>
 		<separator/>
+		<button id="ID_VIEW_SCHEDULER"/>
 		<button id="ID_VIEW_SECURITY"/>
 		<button id="ID_VIEW_HOSTS"/>
 		<button id="ID_VIEW_DISCOVERY"/>
@@ -1666,7 +1667,7 @@
 			<newline gap="8" indent="42"/>
 			<anchor id="SearchBox" width="256" height="80"/>
 			<newline gap="14" indent="0"/>
-			<icon res="124" width="32" height="32" target="command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
+			<icon res="122" width="32" height="32" target="command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
 			<heading align="middle">START NEDLADDAD</heading>
 			<newline gap="8" indent="42"/>
 			<link target="command:ID_TOOLS_DOWNLOAD" format="bu">Klicka här för att starta</link>
@@ -1674,6 +1675,9 @@
 			<newline gap="2" indent="42"/>
 			<text>Eller öppna min mapp med </text>
 			<link target="command:shell:downloads">nedladdade filer.</link>
+			<newline gap="4" indent="42"/>
+			<text>Dela dina filer på </text>
+			<link id="RemoteBrowseURL"/>
 			<newline gap="20" indent="0"/>
 		</group>
 		<group id="3">
@@ -1721,26 +1725,26 @@
 		<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">ANPASSA PEERPROJECT</heading>
 		<newline gap="12" indent="42"/>
-		<icon res="196"width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
-		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">Skinn</link>
-		<text align="middle">&#160;- Ändra PeerProjects utseende &amp; känsla</text>
+		<icon res="196" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
+		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">Skinn</link><gap size="6"/>
+		<text align="middle">- Ändra PeerProjects utseende &amp; känsla</text>
 		<newline gap="8"/>
-		<icon res="138"width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
-		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
-		<text align="middle">&#160;- Update blocklist to avoid bad search results</text>
+		<icon res="138" width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
+		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link><gap size="6"/>
+		<text align="middle">- Update blocklist to avoid bad search results</text>
 		<newline gap="8"/>
-		<icon res="197"width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
-		<link target="command:ID_TOOLS_WIZARD" align="middle">Inställningsguide</link>
-		<text align="middle">&#160;- Ändra PeerProjectinställningar</text>
+		<icon res="197" width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
+		<link target="command:ID_TOOLS_WIZARD" align="middle">Inställningsguide</link><gap size="6"/>
+		<text align="middle">- Ändra PeerProjectinställningar</text>
 		<newline gap="8"/>
-		<icon res="182"width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
-		<link target="command:ID_HELP_FAQ" align="middle">Snabbhjälp</link>
-		<text align="middle">&#160;- Få grundläggande hjälp om PeerProject, or </text>
+		<icon res="182" width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
+		<link target="command:ID_HELP_FAQ" align="middle">Snabbhjälp</link><gap size="6"/>
+		<text align="middle">- Få grundläggande hjälp om PeerProject, or </text>
 		<link target="command:ID_TAB_IRC" align="middle">IRC.</link>
 		<newline gap="8"/>
-		<icon res="201"width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
-		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">Local Forums</link>
-		<text align="middle">&#160;- Gå till din svenska språket diskussionsforum</text>
+		<icon res="201" width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
+		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">Local Forums</link><gap size="6"/>
+		<text align="middle">- Gå till din svenska språket diskussionsforum</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
 			<icon res="120" width="32" height="32"/><gap size="8"/>
@@ -1966,7 +1970,7 @@
 		</group>
 		<group id="41">
 			<newline gap="1"/>
-			<icon res="208"/><gap size="5"/>
+			<icon res="207"/><gap size="5"/>
 			<link id="ContactYahoo"/>
 		</group>
 		<group id="42">
@@ -2007,7 +2011,7 @@
 			<newline gap="16" indent="0"/>
 			<text format="b">Gemenskap</text>
 			<newline gap="4" indent="8"/>
-			<icon res="127"target="command:ID_SEARCH_CHAT"/>
+			<icon res="127" target="command:ID_SEARCH_CHAT"/>
 			<gap size="5"/>
 			<link target="command:ID_SEARCH_CHAT" align="middle">Chatta med användaren</link>
 		</group>
@@ -2945,8 +2949,8 @@
 	<string id="20441" value="PeerProject kan inte byta namn på:\n\n%s\ntill\n%s"/>
 	<string id="20442" value="Målfilen finns redan:\n\n%s\n\nVill du ersätta den?"/>
 	<string id="20443" value="Visa alla filtyper"/>
-	<string id="20444" value="Kopiera &URI"/>
-	<string id="20445" value="Exportera &URIs…"/>
+	<string id="20444" value="Kopiera URI"/>
+	<string id="20445" value="Exportera URIs…"/>
 	<string id="20446" value="Filen &quot;%s&quot; misslyckades med en granskningsverifikation och kanske inte är filen du ville ladda ned. Är du säker på att du vill öppna den?"/>
 	<string id="20447" value="Vill du radera det &quot;eventuellt osäkra&quot; attributet från denna fil?"/>
 	<string id="20448" value="Filen &quot;%s&quot; har inte blivit granskad ännu. Vänta tills filen har blivit granskad och försök sedan igen."/>
@@ -3069,7 +3073,9 @@
 	<string id="20590" value="Fjärråtkomst är avstängd."/>
 	<string id="20591" value="http://%s:%i/remote - välja ett användarnamn och lösenord."/>
 	<string id="20592" value="Kan inte acceptera anslutningar. URL otillgänlig."/>
-	<string id="20595" value="&amp;Scheman"/>
+	<string id="20597" value="Är du säker p å att du vill radera de valda säkerhetsreglerna? Detta kan inte ångras."/>
+	<string id="20599" value="&amp;Scheman"/>
+	<!-- Missing Scheduler/Security Strings -->
 	<string id="20620" value="PeerProject söker aktivt på nätverket…"/>
 	<string id="20621" value="Klicka här för att söka igen."/>
 	<string id="20622" value="Alla nätverk"/>
@@ -3117,7 +3123,6 @@
 	<string id="20668" value="Söker…"/>
 	<string id="20669" value="Ren textsökning"/>
 	<string id="20670" value="PeerProject söker på nätverket…"/>
-	<string id="20671" value="Är du säker p å att du vill radera de valda säkerhetsreglerna? Detta kan inte ångras."/>
 	<string id="20672" value="Välj temporär filmapp för eDonkey/eMule:"/>
 	<string id="20673" value="Automatisk"/>
 	<string id="20674" value="Mappen för avslutade nedladdningar bör inte vara samma som mappen för ofullständiga nedladdningar"/>
@@ -3288,7 +3293,7 @@
 	<string id="20884" value="Ingen URN tillgänglig"/>
 	<string id="20885" value="Att ändra gränssnittets riktning kräver omstart. \nDu måste starta om PeerProject manuellt. Avsluta nu?"/>
 	<string id="20890" value="Välkommen till PeerProject"/>
-	<string id="20891" value="&Avsluta"/>
+	<string id="20891" value="Avsluta"/>
 	<string id="20892" value="Var god vänta: Uppdaterar eDonkey serverlista..."/>
 	<string id="20893" value="Var god vänta: Uppdaterar upptäckstjänster..."/>
 	<string id="20894" value="Var god vänta: Hittar och installerar UPnP-enheter..."/>
@@ -3835,18 +3840,21 @@
 		<control caption="Verkställ"/>
 		<control/>
 	</dialog>
-	<dialog name="CIdentityProfilePage" cookie="BuStEdStEdEdBuCoStCoStBu" caption="Identitet">
+	<dialog name="CIdentityProfilePage" cookie="BuStStEdEdEdBuStStCoCoBuStBuBu" caption="Identitet">
 		<control caption="_Namn:"/>
 		<control caption="Visningsnamn:"/>
-		<control/>
 		<control caption="Riktigt namn:"/>
 		<control/>
 		<control/>
-		<control caption="_Livuppgifter:"/>
-		<control caption="|Man|Kvinna"/>
-		<control caption="Kön:"/>
 		<control/>
+		<control caption="_Livuppgifter:"/>
+		<control caption="Kön:"/>
 		<control caption="Ålder:"/>
+		<control caption="|Man|Kvinna"/>
+		<control/>
+		<control caption="Info:"/>
+		<control caption="{n}G2 (PeerProject / Shareaza)"/>
+		<control caption="_Verkställ:"/>
 		<control caption="Tillåt andra att visa min profil"/>
 	</dialog>
 	<dialog name="CAvatarProfilePage" cookie="BuStBuStBuBu" caption="Avatar">
@@ -3857,23 +3865,7 @@
 		<control caption="_Bläddra…"/>
 		<control caption="_Radera"/>
 	</dialog>
-	<dialog name="CContactProfilePage" cookie="BuStEdBuStEdStEdStEdStEdStEd" caption="Kontakt">
-		<control caption="_Epostadresser:"/>
-		<control caption="Primär:"/>
-		<control/>
-		<control caption="_Direktmeddelanden:"/>
-		<control caption="MSN/.NET Passport:"/>
-		<control/>
-		<control caption="Yahoo ID:"/>
-		<control/>
-		<control caption="ICQ UIN:"/>
-		<control/>
-		<control caption="AOL Screen Name:"/>
-		<control/>
-		<control caption="Jabber ID:"/>
-		<control/>
-	</dialog>
-	<dialog name="CProfileProfilePage" cookie="BuStCoStCoBuStEdStEdBuLiBuBuCo" caption="Profil">
+	<dialog name="CProfileProfilePage" cookie="BuStCoStCoBuStEdStEdBuLiBuBuCo" caption="Plats">
 		<control caption="_Plats:"/>
 		<control caption="Land:"/>
 		<control/>
@@ -3886,11 +3878,38 @@
 		<control/>
 		<control caption="_Intressen:"/>
 		<control/>
-		<control caption="&lt; Lägg till"/>
-		<control caption="Readera &gt;"/>
+		<control caption="Lägg till &gt;"/>
+		<control caption="&lt; Readera"/>
+		<control/>
+	</dialog>
+	<dialog name="CContactProfilePage" cookie="BuStEdBuStEdStEdStEdStEdStEdStEdStEdStEd" caption="Kontakt">
+		<control caption="_Epostadresser:"/>
+		<control caption="Primär:"/>
+		<control/>
+		<control caption="_Direktmeddelanden:"/>
+		<control caption="PeerProject.org:"/>
+		<control/>
+		<control caption="Facebook:"/>
+		<control/>
+		<control caption="Twitter:"/>
+		<control/>
+		<control caption="Google:"/>
+		<control/>
+		<control caption="MSN/Live:"/>
+		<control/>
+		<control caption="Yahoo:"/>
+		<control/>
+		<control caption="AOL:"/>
+		<control/>
+		<control caption="ICQ:"/>
 		<control/>
 	</dialog>
 	<dialog name="CBioProfilePage" cookie="Ed" caption="Biografi">
+		<control/>
+	</dialog>
+	<dialog name="CFilesProfilePage" cookie="BuStSy" caption="Filer">
+		<control caption="_Favoritfiler:"/>
+		<control caption="Favoritfiler är rekommenderade för användare som läser din profil. Du kan skapa favoritfiler genom att lägga till dem till din favoritmapp i ditt bibliotek."/>
 		<control/>
 	</dialog>
 	<dialog name="CFavouritesProfilePage" cookie="SyBuStEdStEdBuBu" caption="Favoriter">
@@ -3903,28 +3922,25 @@
 		<control caption="Ny"/>
 		<control caption="Radera"/>
 	</dialog>
-	<dialog name="CFilesProfilePage" cookie="BuStSy" caption="Filer">
-		<control caption="_Favoritfiler:"/>
-		<control caption="Favoritfiler är rekommenderade för användare som läser din profil. Du kan skapa favoritfiler genom att lägga till dem till din favoritmapp i ditt bibliotek."/>
+	<dialog name="CCertificateProfilePage" cookie="BuStStStStBuBuSt" caption="Certifikat">
+		<control caption="_Globala unika identifikationscertifikat:"/>
+		<control caption="Gnutella/G2 GUID:"/>
 		<control/>
-	</dialog>
-	<dialog name="CCertificateProfilePage" cookie="StBuStStStStBu" caption="Certifikat">
-		<control caption="Gnutellaanvändare identifieras med en global unik identitet och tillhörande publika och privata nyckelpar. Normalt finns det inget behov av att generera ett nytt ID, men PeerProject ger denna möjlighet för avancerade användare."/>
-		<control caption="_Gnutellas globala unika identifikationscertifikat:"/>
-		<control caption="GUID:"/>
-		<control/>
-		<control caption="Skapad:"/>
+		<control caption="BitTorrent GUID:"/>
 		<control/>
 		<control caption="Skapa nytt"/>
+		<control caption="Info:"/>
+		<control caption="Gnutellaanvändare identifieras med en global unik identitet och tillhörande publika och privata nyckelpar. Normalt finns det inget behov av att generera ett nytt ID, men PeerProject ger denna möjlighet för avancerade användare."/>
 	</dialog>
 	<dialog name="CLanguageDlg" cookie="" caption="Välj språk">
 	</dialog>
-	<dialog name="CConnectToDlg" cookie="BuCoEdBuCoBuBuBu" caption="Anslut till|Visa värdens filer">
-		<control caption="Skapa en ny anslutning till värden eller servern:|Visa värdens filer"/>
+	<dialog name="CConnectToDlg" cookie="BuCoEdBuCoBuBuBu" caption="Anslut till|Visa värdens filer|Chat with User">
+		<control caption="Skapa en ny anslutning till värden eller servern:|Visa värdens filer
+|Message this user:"/>
 		<control/>
 		<control/>
 		<control caption="Nätverks_protokoll:"/>
-		<control caption="Gnutella1 (auto)|Gnutella2 (auto)|eDonkey"/>
+		<control/>
 		<control caption="_Undvik Ultrapeer"/>
 		<control caption="Anslut"/>
 		<control caption="Avbryt"/>
@@ -4361,14 +4377,16 @@
 		<control caption="Totalt uppladdade:"/>
 		<control caption="Anteckningar:"/>
 	</dialog>
-	<dialog name="CDownloadEditPage" cookie="StBuStStStBuStEdEdEdBuEdBuEdBuEdBuEdBuEd" caption="Generellt">
+	<dialog name="CDownloadEditPage" cookie="StBuStStStStBuStEdEdEdSyBuEdBuEdBuEdBuEdBuEd" caption="Generellt">
 		<control caption="VARNING: Denna dialog tillhandahåller avancerade nedladdningsinställningar för avancerade användare. Felaktiga användning kan leda till korrupta filer."/>
 		<control caption="Filnamn och storlek:"/>
 		<control caption="Filnamn:"/>
 		<control caption="Fil:"/>
 		<control caption="Filstorlek Bytes:"/>
+		<control caption="Datum:"/>
 		<control caption="URNs:"/>
 		<control caption="Pålitlig?"/>
+		<control/>
 		<control/>
 		<control/>
 		<control/>
@@ -4511,22 +4529,6 @@
 		<column from="Name" to="Namn"/>
 		<column from="Country" to="Land"/>
 	</list>
-	<list name="CSecurityWnd">
-		<column from="Address / Content" to="Adress / Innehåll"/>
-		<column from="Hits" to="Träffar"/>
-		<column from="Action" to="Händelse"/>
-		<column from="Expires" to="Utgångsdatum"/>
-		<column from="#" to="Företräde"/>
-		<column from="Comment" to="Kommentar"/>
-	</list>
-	<list name="CSchedulerWnd">
-		<column from="Task" to="Händelse"/>
-		<column from="Date" to="Datum"/>
-		<column from="Time" to="Tid"/>
-		<column from="Status" to=""/>
-		<column from="Activity" to="Aktiv"/>
-		<column from="Description" to="Kommentar"/>
-	</list>
 	<list name="CHostCacheWnd">
 		<column from="Address" to="Adress"/>
 		<column from="Port" to="Port"/>
@@ -4574,6 +4576,23 @@
 		<column from="Client" to="Klient"/>
 		<column from="Country" to="Land"/>
 		<column from="Time" to="Tid"/>
+	</list>
+	<list name="CSecurityWnd">
+		<column from="Address / Content" to="Adress / Innehåll"/>
+		<column from="Hits" to="Träffar"/>
+		<column from="#" to="Företräde"/>
+		<column from="Action" to="Händelse"/>
+		<column from="Expires" to="Utgångsdatum"/>
+		<column from="Match" to=""/>
+		<column from="Comment" to="Kommentar"/>
+	</list>
+	<list name="CSchedulerWnd">
+		<column from="Task" to="Händelse"/>
+		<column from="Date" to="Datum"/>
+		<column from="Time" to="Tid"/>
+		<column from="Status" to=""/>
+		<column from="Activity" to="Aktiv"/>
+		<column from="Comment" to="Kommentar"/>
 	</list>
 	<list name="CUploadQueueList">
 		<column from="Name" to="Namn"/>

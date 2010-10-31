@@ -2,21 +2,18 @@
 // Downloads.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2007.
+// Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
@@ -42,7 +39,7 @@
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
-#endif
+#endif	// Filename
 
 CDownloads Downloads;
 
@@ -274,7 +271,7 @@ CDownload* CDownloads::Add(const CPeerProjectURL& oURL)
 	if ( pDownload == NULL && oURL.m_oMD5 )
 		pDownload = FindByMD5( oURL.m_oMD5 );
 
-	if ( pDownload != NULL && ! pDownload->IsSeeding() )
+	if ( pDownload && ! pDownload->IsSeeding() )
 	{
 		theApp.Message( MSG_NOTICE, IDS_DOWNLOAD_ALREADY,
 			(LPCTSTR)pDownload->GetDisplayName() );
@@ -313,13 +310,16 @@ CDownload* CDownloads::Add(const CPeerProjectURL& oURL)
 		pDownload->Share( TRUE );
 	}
 
-	if ( ! pDownload->m_sName.GetLength() && oURL.m_sName.GetLength() )
+	if ( pDownload->m_sName.IsEmpty() && ! oURL.m_sName.IsEmpty() )
 		pDownload->Rename( oURL.m_sName );
 
 	if ( pDownload->m_nSize == SIZE_UNKNOWN && oURL.m_bSize )
 		pDownload->m_nSize = oURL.m_nSize;
 
-	if ( oURL.m_sURL.GetLength() )
+	if ( bNew || pDownload->m_tDate == NULL )
+		pDownload->m_tDate = CTime::GetCurrentTime();
+
+	if ( ! oURL.m_sURL.IsEmpty() )
 	{
 		if ( ! pDownload->AddSourceURLs( oURL.m_sURL, FALSE ) && bNew )
 		{
@@ -807,7 +807,7 @@ BOOL CDownloads::Reorder(CDownload* pDownload, CDownload* pBefore)
 	POSITION pos1 = m_pList.Find( pDownload );
 	if ( pos1 == NULL ) return FALSE;
 
-	if ( pBefore != NULL )
+	if ( pBefore )
 	{
 		POSITION pos2 = m_pList.Find( pBefore );
 		if ( pos2 == NULL || pos1 == pos2 ) return FALSE;
@@ -895,7 +895,7 @@ bool CDownloads::AllowMoreTransfers(IN_ADDR* pAddress) const
 		nCount += GetNext( pos )->GetTransferCount( dtsCountAll, pAddress );
 	}
 
-	if ( pAddress == NULL )
+	if ( ! pAddress )
 		return nCount < Settings.Downloads.MaxTransfers;
 
 	if ( m_pHostLimits.Lookup( pAddress->S_un.S_addr, nLimit ) )
@@ -1099,7 +1099,6 @@ void CDownloads::OnRun()
 
 				pTransfer->m_nBandwidth = nLimit;
 			}
-
 		} 	// End of transfers section lock
 
 		// Update limit assigned to new transfers
@@ -1222,7 +1221,7 @@ void CDownloads::Load()
 	PurgePreviews();
 
 	DownloadGroups.CreateDefault();
-	LoadFromCompoundFiles();
+//	LoadFromCompoundFiles();	// Legacy Shareaza multifile torrents
 
 	WIN32_FIND_DATA pFind = {};
 	HANDLE hSearch = FindFirstFile( Settings.Downloads.IncompletePath + _T("\\*.pd"), &pFind );
@@ -1288,123 +1287,121 @@ void CDownloads::Save(BOOL bForce)
 }
 
 //////////////////////////////////////////////////////////////////////
-// CDownloads load all the old compound file formats
+// CDownloads load old compound file formats (Legacy Shareaza)
 
-void CDownloads::LoadFromCompoundFiles()
-{
-	if ( LoadFromCompoundFile( Settings.Downloads.IncompletePath + _T("\\PeerProject Downloads.dat") ) )
-		; // Good
-	else if ( LoadFromCompoundFile( Settings.Downloads.IncompletePath + _T("\\PeerProject Downloads.bak") ) )
-		; // Good
-	else
-		LoadFromTimePair();
+//void CDownloads::LoadFromCompoundFiles()
+//{
+//	if ( LoadFromCompoundFile( Settings.Downloads.IncompletePath + _T("\\PeerProject Downloads.dat") ) )
+//		; // Good
+//	else if ( LoadFromCompoundFile( Settings.Downloads.IncompletePath + _T("\\PeerProject Downloads.bak") ) )
+//		; // Good
+//	else
+//		LoadFromTimePair();
+//
+//	DeleteFileEx( Settings.Downloads.IncompletePath + _T("\\PeerProject Downloads.dat"), FALSE, TRUE, TRUE );
+//	DeleteFileEx( Settings.Downloads.IncompletePath + _T("\\PeerProject Downloads.bak"), FALSE, TRUE, TRUE );
+//	DeleteFileEx( Settings.Downloads.IncompletePath + _T("\\PeerProject.dat"), FALSE, TRUE, TRUE );
+//	DeleteFileEx( Settings.Downloads.IncompletePath + _T("\\PeerProject1.dat"), FALSE, TRUE, TRUE );
+//	DeleteFileEx( Settings.Downloads.IncompletePath + _T("\\PeerProject2.dat"), FALSE, TRUE, TRUE );
+//}
 
-	DeleteFileEx( Settings.Downloads.IncompletePath + _T("\\PeerProject Downloads.dat"), FALSE, TRUE, TRUE );
-	DeleteFileEx( Settings.Downloads.IncompletePath + _T("\\PeerProject Downloads.bak"), FALSE, TRUE, TRUE );
-	DeleteFileEx( Settings.Downloads.IncompletePath + _T("\\PeerProject.dat"), FALSE, TRUE, TRUE );
-	DeleteFileEx( Settings.Downloads.IncompletePath + _T("\\PeerProject1.dat"), FALSE, TRUE, TRUE );
-	DeleteFileEx( Settings.Downloads.IncompletePath + _T("\\PeerProject2.dat"), FALSE, TRUE, TRUE );
-}
+//BOOL CDownloads::LoadFromCompoundFile(LPCTSTR pszFile)
+//{
+//	CFile pFile;
+//	if ( ! pFile.Open( pszFile, CFile::modeRead ) )
+//		return FALSE;
+//
+//	try
+//	{
+//		CArchive ar( &pFile, CArchive::load );
+//		SerializeCompound( ar );
+//	}
+//	catch ( CException* pException )
+//	{
+//		pException->Delete();
+//		Clear();
+//		return FALSE;
+//	}
+//	return TRUE;
+//}
 
-BOOL CDownloads::LoadFromCompoundFile(LPCTSTR pszFile)
-{
-	CFile pFile;
+//BOOL CDownloads::LoadFromTimePair()
+//{
+//	FILETIME pFileTime1 = { 0, 0 }, pFileTime2 = { 0, 0 };
+//	CFile pFile1, pFile2;
+//	BOOL bFile1, bFile2;
+//	CString strFile;
+//
+//	strFile	= Settings.Downloads.IncompletePath + _T("\\PeerProject");
+//	bFile1	= pFile1.Open( strFile + _T("1.dat"), CFile::modeRead );
+//	bFile2	= pFile2.Open( strFile + _T("2.dat"), CFile::modeRead );
+//
+//	if ( bFile1 || bFile2 )
+//	{
+//		if ( bFile1 ) bFile1 = pFile1.Read( &pFileTime1, sizeof(FILETIME) ) == sizeof(FILETIME);
+//		if ( bFile2 ) bFile2 = pFile2.Read( &pFileTime2, sizeof(FILETIME) ) == sizeof(FILETIME);
+//	}
+//	else
+//	{
+//		if ( ! pFile1.Open( strFile + _T(".dat"), CFile::modeRead ) ) return FALSE;
+//		pFileTime1.dwHighDateTime++;
+//	}
+//
+//	CFile* pNewest = ( CompareFileTime( &pFileTime1, &pFileTime2 ) >= 0 ) ? &pFile1 : &pFile2;
+//
+//	try
+//	{
+//		CArchive ar( pNewest, CArchive::load );	// 4 KB buffer?
+//		SerializeCompound( ar );
+//		ar.Close();
+//	}
+//	catch ( CException* pException )
+//	{
+//		pException->Delete();
+//		Clear();
+//
+//		if ( pNewest == &pFile1 && bFile2 )
+//			pNewest = &pFile2;
+//		else if ( pNewest == &pFile2 && bFile1 )
+//			pNewest = &pFile1;
+//		else
+//			pNewest = NULL;
+//
+//		if ( pNewest )
+//		{
+//			try
+//			{
+//				CArchive ar( pNewest, CArchive::load );	// 4 KB buffer?
+//				SerializeCompound( ar );
+//				ar.Close();
+//			}
+//			catch ( CException* pException )
+//			{
+//				pException->Delete();
+//				Clear();
+//				return FALSE;
+//			}
+//		}
+//	}
+//
+//	return TRUE;
+//}
 
-	if ( ! pFile.Open( pszFile, CFile::modeRead ) )
-		return FALSE;
-
-	try
-	{
-		CArchive ar( &pFile, CArchive::load );
-		SerializeCompound( ar );
-	}
-	catch ( CException* pException )
-	{
-		pException->Delete();
-		Clear();
-		return FALSE;
-	}
-
-	return TRUE;
-}
-
-BOOL CDownloads::LoadFromTimePair()
-{
-	FILETIME pFileTime1 = { 0, 0 }, pFileTime2 = { 0, 0 };
-	CFile pFile1, pFile2;
-	BOOL bFile1, bFile2;
-	CString strFile;
-
-	strFile	= Settings.Downloads.IncompletePath + _T("\\PeerProject");
-	bFile1	= pFile1.Open( strFile + _T("1.dat"), CFile::modeRead );
-	bFile2	= pFile2.Open( strFile + _T("2.dat"), CFile::modeRead );
-
-	if ( bFile1 || bFile2 )
-	{
-		if ( bFile1 ) bFile1 = pFile1.Read( &pFileTime1, sizeof(FILETIME) ) == sizeof(FILETIME);
-		if ( bFile2 ) bFile2 = pFile2.Read( &pFileTime2, sizeof(FILETIME) ) == sizeof(FILETIME);
-	}
-	else
-	{
-		if ( ! pFile1.Open( strFile + _T(".dat"), CFile::modeRead ) ) return FALSE;
-		pFileTime1.dwHighDateTime++;
-	}
-
-	CFile* pNewest = ( CompareFileTime( &pFileTime1, &pFileTime2 ) >= 0 ) ? &pFile1 : &pFile2;
-
-	try
-	{
-		CArchive ar( pNewest, CArchive::load );	// 4 KB buffer?
-		SerializeCompound( ar );
-		ar.Close();
-	}
-	catch ( CException* pException )
-	{
-		pException->Delete();
-		Clear();
-
-		if ( pNewest == &pFile1 && bFile2 )
-			pNewest = &pFile2;
-		else if ( pNewest == &pFile2 && bFile1 )
-			pNewest = &pFile1;
-		else
-			pNewest = NULL;
-
-		if ( pNewest != NULL )
-		{
-			try
-			{
-				CArchive ar( pNewest, CArchive::load );	// 4 KB buffer?
-				SerializeCompound( ar );
-				ar.Close();
-			}
-			catch ( CException* pException )
-			{
-				pException->Delete();
-				Clear();
-				return FALSE;
-			}
-		}
-	}
-
-	return TRUE;
-}
-
-void CDownloads::SerializeCompound(CArchive& ar)
-{
-	ASSERT( ar.IsLoading() );
-
-	int nVersion;
-	ar >> nVersion;
-	if ( nVersion < 4 ) return;
-
-	for ( DWORD_PTR nCount = ar.ReadCount() ; nCount > 0 ; nCount-- )
-	{
-		CDownload* pDownload = new CDownload();
-		m_pList.AddTail( pDownload );
-		pDownload->Serialize( ar, nVersion );
-	}
-}
+//void CDownloads::SerializeCompound(CArchive& ar)
+//{
+//	ASSERT( ar.IsLoading() );
+//
+//	int nVersion;
+//	ar >> nVersion;
+//	if ( nVersion < 4 ) return;
+//
+//	for ( DWORD_PTR nCount = ar.ReadCount() ; nCount > 0 ; nCount-- )
+//	{
+//		CDownload* pDownload = new CDownload();
+//		m_pList.AddTail( pDownload );
+//		pDownload->Serialize( ar, nVersion );
+//	}
+//}
 
 //////////////////////////////////////////////////////////////////////
 // CDownloads left over file purge operations

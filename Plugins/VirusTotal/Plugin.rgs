@@ -34,7 +34,7 @@ HKCU
 			{
 				NoRemove Plugins
 				{
-					NoRemove General
+					General
 					{
 						ForceRemove val 'VirusTotal Plugin' = s '{C0C4B390-C390-414A-A1F0-6EF1A45B5852}'
 					}

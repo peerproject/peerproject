@@ -14,10 +14,10 @@
 	<!-- Window Icons -->
 	<resource code="120" id="WINDOW_MAIN"/>
 	<resource code="121" id="WINDOW_HOME"/>
-	<resource code="122" id="WINDOW_MEDIA"/>
-	<resource code="123" id="WINDOW_LIBRARY"/>
-	<resource code="124" id="WINDOW_DOWNLOADS"/>
-	<resource code="125" id="WINDOW_UPLOADS"/>
+	<resource code="122" id="WINDOW_DOWNLOADS"/>
+	<resource code="123" id="WINDOW_UPLOADS"/>
+	<resource code="124" id="WINDOW_LIBRARY"/>
+	<resource code="125" id="WINDOW_MEDIA"/>
 	<resource code="127" id="WINDOW_CHAT"/>
 	<resource code="126" id="WINDOW_IRC"/>
 	<resource code="128" id="WINDOW_IRC_CHANS"/>
@@ -110,14 +110,20 @@
 	<resource code="204" id="IDI_CONTACT_AOL"/>
 	<resource code="205" id="IDI_CONTACT_ICQ"/>
 	<resource code="206" id="IDI_CONTACT_MSN"/>
-	<resource code="208" id="IDI_CONTACT_YAHOO"/>
+	<resource code="207" id="IDI_CONTACT_YAHOO"/>
+	<resource code="208" id="IDI_CONTACT_GOOGLE"/>
+	<resource code="209" id="IDI_CONTACT_TWITTER"/>
+	<resource code="210" id="IDI_CONTACT_FACEBOOK"/>
 	<!-- Bitmaps -->
 	<resource code="300" id="IDB_MENUBAR"/>
- 	<resource code="322" id="IDB_MEDIA_STATES"/>
 	<resource code="306" id="IDB_PROTOCOLS"/>
 	<resource code="307" id="IDB_IRCICONS"/>
+	<resource code="308" id="IDB_SOCIAL"/>
 	<resource code="309" id="IDB_CHILDFRAME"/>
 	<resource code="309" id="WINDOW_CHILD"/>
+	<resource code="320" id="IDB_MEDIA_STATES"/>
+	<resource code="321" id="IDB_SORT_ASC"/>
+	<resource code="322" id="IDB_SORT_DESC"/>
 	<!-- Controls -->
 	<resource code="1500" id="IDC_SEARCH"/>
 	<resource code="1501" id="IDC_SEARCH_START"/>
@@ -402,9 +408,10 @@
 	<resource code="40331" id="ID_NETWORK_CONNECT_TO"/>
 	<resource code="40332" id="ID_NETWORK_DISCONNECT"/>
 	<resource code="40333" id="ID_NETWORK_BROWSE_TO"/>
-	<resource code="40334" id="ID_NETWORK_AUTO_CLOSE"/>
-	<resource code="40335" id="ID_NETWORK_EXIT"/>
-	<resource code="40336" id="ID_NETWORK_SEARCH"/>
+	<resource code="40334" id="ID_NETWORK_CHAT_TO"/>
+	<resource code="40335" id="ID_NETWORK_SEARCH"/>
+	<resource code="40336" id="ID_NETWORK_EXIT"/>
+	<resource code="40337" id="ID_NETWORK_AUTO_CLOSE"/>
 	<resource code="40338" id="ID_SEARCHMONITOR_CLEAR"/>
 	<resource code="40339" id="ID_SEARCHMONITOR_PAUSE"/>
 	<resource code="40340" id="ID_SEARCH_SEARCH"/>

@@ -2,21 +2,18 @@
 // DlgCollectionExport.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2007.
+// Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
@@ -37,7 +34,7 @@
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
-#endif
+#endif	// Filename
 
 IMPLEMENT_DYNAMIC(CCollectionExportDlg, CSkinDialog)
 
@@ -246,7 +243,7 @@ BOOL CCollectionExportDlg::AddTemplate(LPCTSTR pszPath, LPCTSTR pszName)
 		strAuthor = _T("\x202A") + strAuthor;
 	}
 
-	if ( strIcon.GetLength() )
+	if ( ! strIcon.IsEmpty() )
 	{
 		if ( pszPath != NULL )
 			strIcon = Settings.General.Path + _T("\\Templates\\") + pszPath + strIcon;
@@ -276,9 +273,9 @@ BOOL CCollectionExportDlg::AddTemplate(LPCTSTR pszPath, LPCTSTR pszName)
 	HICON hIcon;
 
 	if ( ExtractIconEx( strIcon, 0, NULL, &hIcon, 1 ) != NULL && hIcon != NULL )
-		pItem.m_nImage = AddIcon( hIcon, m_gdiImageList );
+		pItem.SetImage( AddIcon( hIcon, m_gdiImageList ) );
 	else
-		pItem.m_nImage = 0;
+		pItem.SetImage( 0 );
 
 	pItem.Set( 0, strName );
 	pItem.Set( 1, strAuthor );
@@ -485,7 +482,7 @@ void CCollectionExportDlg::OnOK()
 										strReplace.Replace( '/', '\\' );
 										strTarget = strPath + _T('\\') + strReplace;
 										strSourceFile = DirFromPath( m_wndWizard.m_sXMLPath ) +
-												_T('\\') + strReplace;
+											_T('\\') + strReplace;
 									}
 									else
 									{
@@ -880,7 +877,7 @@ void CCollectionExportDlg::OnLButtonUp(UINT /*nFlags*/, CPoint point)
 	{
 		CString strURL = m_wndList.GetItemText( m_nSelected, 4 );
 
-		if ( strURL.GetLength() )
+		if ( ! strURL.IsEmpty() )
 		{
 			ShellExecute( GetSafeHwnd(), _T("open"), strURL,
 				NULL, NULL, SW_SHOWNORMAL );
@@ -894,7 +891,7 @@ void CCollectionExportDlg::OnLButtonUp(UINT /*nFlags*/, CPoint point)
 	{
 		CString strEmail = m_wndList.GetItemText( m_nSelected, 5 );
 
-		if ( strEmail.GetLength() )
+		if ( ! strEmail.IsEmpty() )
 		{
 			ShellExecute( GetSafeHwnd(), _T("open"), _T("mailto:") + strEmail,
 				NULL, NULL, SW_SHOWNORMAL );

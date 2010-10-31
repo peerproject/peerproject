@@ -105,24 +105,24 @@ CBENode* CBENode::Add(const LPBYTE pKey, size_t nKey)
 	}
 
 	CBENode* pNew = new CBENode();
-	
+
 	if ( m_nType == beList )
 	{
 		CBENode** pList = new CBENode*[ (DWORD)m_nValue + 1 ];
-		
+
 		if ( m_pValue != NULL )
 		{
 			CopyMemory( pList, m_pValue, 4 * (DWORD)m_nValue );
 			delete [] (CBENode**)m_pValue;
 		}
-		
+
 		pList[ m_nValue++ ] = pNew;
 		m_pValue = pList;
 	}
 	else
 	{
 		CBENode** pList = new CBENode*[ (DWORD)m_nValue * 2 + 2 ];
-		
+
 		if ( m_pValue != NULL )
 		{
 			CopyMemory( pList, m_pValue, 8 * (DWORD)m_nValue );

@@ -1,22 +1,19 @@
 //
 // DlgGraphList.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
-// Portions Copyright Shareaza Development Team, 2002-2008.
+// This file is part of PeerProject (peerproject.org) © 2008-2010
+// Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
@@ -29,10 +26,10 @@
 #include "Skin.h"
 
 #ifdef _DEBUG
-#define new DEBUG_NEW
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
-#endif
+#define new DEBUG_NEW
+#endif	// Filename
 
 BEGIN_MESSAGE_MAP(CGraphListDlg, CSkinDialog)
 	ON_NOTIFY(LVN_ITEMCHANGED, IDC_GRAPH_ITEMS, OnItemChangedGraphItems)
@@ -49,12 +46,13 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CGraphListDlg dialog
 
-CGraphListDlg::CGraphListDlg(CWnd* pParent, CLineGraph* pGraph) : CSkinDialog(CGraphListDlg::IDD, pParent)
-, m_nSpeed( SPEED_MINIMUM )
-, m_bShowGrid( FALSE )
-, m_bShowAxis( FALSE )
-, m_bShowLegend( FALSE )
-, m_pGraph( pGraph )
+CGraphListDlg::CGraphListDlg(CWnd* pParent, CLineGraph* pGraph)
+	: CSkinDialog(CGraphListDlg::IDD, pParent)
+	, m_pGraph		( pGraph )
+	, m_nSpeed		( SPEED_MINIMUM )
+	, m_bShowGrid	( FALSE )
+	, m_bShowAxis	( FALSE )
+	, m_bShowLegend	( FALSE )
 {
 }
 
@@ -111,7 +109,7 @@ BOOL CGraphListDlg::OnInitDialog()
 CLiveItem* CGraphListDlg::PrepareItem(CGraphItem* pItem)
 {
 	CLiveItem* pLive = new CLiveItem( LIST_COLUMNS, reinterpret_cast< DWORD_PTR>( pItem ) );
-	pLive->m_nImage = I_IMAGECALLBACK;
+	pLive->SetImage( I_IMAGECALLBACK );
 
 	pLive->Set( 0, pItem->m_sName );
 
@@ -208,23 +206,23 @@ void CGraphListDlg::OnGraphRemove()
 
 void CGraphListDlg::SetModified()
 {
+	if ( ! m_wndCancel.IsWindowEnabled() )
+		return;
+
 	CString sText;
-	if ( m_wndCancel.IsWindowEnabled() )
-	{
-		m_wndCancel.EnableWindow( FALSE );
-		LoadString( sText, IDS_GENERAL_CLOSE );
-		m_wndOK.SetWindowText( sText );
-	}
+	LoadString( sText, IDS_GENERAL_CLOSE );
+	m_wndOK.SetWindowText( sText );
+	m_wndCancel.EnableWindow( FALSE );
 }
 
 void CGraphListDlg::OnOK()
 {
 	UpdateData();
 
-	m_pGraph->m_bShowAxis		= m_bShowAxis;
-	m_pGraph->m_bShowGrid		= m_bShowGrid;
-	m_pGraph->m_bShowLegend		= m_bShowLegend;
-	m_pGraph->m_nSpeed			= max( m_nSpeed, SPEED_MINIMUM );
+	m_pGraph->m_bShowAxis	= m_bShowAxis;
+	m_pGraph->m_bShowGrid	= m_bShowGrid;
+	m_pGraph->m_bShowLegend	= m_bShowLegend;
+	m_pGraph->m_nSpeed		= max( m_nSpeed, SPEED_MINIMUM );
 
 	m_pGraph->ResetMaximum();
 

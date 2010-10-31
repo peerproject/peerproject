@@ -2,21 +2,18 @@
 // CtrlWizard.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2007.
+// Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
@@ -35,18 +32,18 @@
 #include "CtrlWizard.h"
 
 #ifdef _DEBUG
-#define new DEBUG_NEW
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
-#endif
+#define new DEBUG_NEW
+#endif	// Filename
 
 IMPLEMENT_DYNAMIC(CWizardCtrl, CWnd)
 CWizardCtrl::CWizardCtrl()
+	: m_nCaptionWidth	( 160 )
+	, m_nItemHeight 	( 32 )
+	, m_nScroll 		( 0 )
+	, m_bShowBorder		( TRUE )
 {
-	m_nCaptionWidth	= 160;
-	m_nItemHeight	= 32;
-	m_nScroll		= 0;
-	m_bShowBorder	= TRUE;
 }
 
 CWizardCtrl::~CWizardCtrl()
@@ -88,7 +85,7 @@ CString CWizardCtrl::ReadFile(LPCTSTR pszPath)
 	catch ( CException* pException )
 	{
 		if ( pFile.m_hFile != CFile::hFileNull )
-			pFile.Close(); // If file is still open, close it
+			pFile.Close();	// If file is still open close it
 		pException->Delete();
 	}
 
@@ -121,7 +118,10 @@ CString CWizardCtrl::ReadFile(LPCTSTR pszPath)
 	else
 	{
 		if ( nByte >= 3 && pByte[0] == 0xEF && pByte[1] == 0xBB && pByte[2] == 0xBF )
-			pByte += 3; nByte -= 3;
+		{
+			pByte += 3;
+			nByte -= 3;
+		}
 
 		strXML = UTF8Decode( (LPCSTR)pByte, nByte );
 	}
@@ -157,7 +157,7 @@ void CWizardCtrl::OnPaint()
 {
 	CRect rcClient, rcItem;
 	int nOffsetX, nOffsetY;
-	CPaintDC dc( this );  // Device context for painting
+	CPaintDC dc( this );	// Device context for painting
 
 	GetClientRect( &rcClient );
 	rcItem.CopyRect( &rcClient );
@@ -166,7 +166,7 @@ void CWizardCtrl::OnPaint()
 	dc.SetBkMode( OPAQUE );
 
 	if ( m_pControls.GetSize() > 0 && m_bValid )
-		{
+	{
 		rcItem.bottom = rcItem.top + m_nItemHeight + 4;
 		rcItem.OffsetRect( 0, -m_nScroll );
 
@@ -238,7 +238,8 @@ void CWizardCtrl::OnPaint()
 
 int CWizardCtrl::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
-	if (CWnd::OnCreate(lpCreateStruct) == -1) return -1;
+	if ( CWnd::OnCreate(lpCreateStruct) == -1 )
+		return -1;
 	return 0;
 }
 
@@ -392,7 +393,7 @@ BOOL CWizardCtrl::CollectFiles(CXMLElement* pBase)
 			{
 				CString strPath = pItem->GetAttributeValue( _T("path") );
 				CString strType = pItem->GetAttributeValue( _T("type") );
-				if ( strType == "main" && ! m_bValid ) // use only the first file of type "main"
+				if ( strType == "main" && ! m_bValid )	// Use only the first file of type "main"
 				{
 					m_sMainFilePath = strPath;
 					m_bValid = TRUE;
@@ -452,10 +453,10 @@ BOOL CWizardCtrl::MakeControls(CXMLElement* pBase, std::vector< CLibraryFile* > 
 
 			// Collect only english and language specific data
 			if ( pLangGroup->IsNamed( _T("text") ) &&
-					( strLang == Settings.General.Language || ( strLang == "en" && m_pControls.IsEmpty() ) ) )
+				( strLang == Settings.General.Language || ( strLang == "en" && m_pControls.IsEmpty() ) ) )
 			{
-				// If english data loaded but language specific data found later
-				// then empty controls, captions and docs collections
+				// If english data loaded but language specific data found later,
+				// then empty controls, captions, and docs collections
 				if ( strLang != "en" ) Clear();
 
 				int nItemCount = 0;
@@ -465,14 +466,12 @@ BOOL CWizardCtrl::MakeControls(CXMLElement* pBase, std::vector< CLibraryFile* > 
 					if ( pItem->IsNamed( _T("item") ) )
 					{
 						CString strType = pItem->GetAttributeValue( _T("type") );
-						bool bFilePickers = ( strType == "single-filepicker" ||
-												strType == "multi-filepicker" );
+						bool bFilePickers = ( strType == "single-filepicker" || strType == "multi-filepicker" );
 						bool bPickers = ( strType == "colorpicker" || bFilePickers );
 
 						if ( strType == "textbox" || bPickers )
 						{
-							// Do we need to check if the current text id is actually used
-							// in EvenFile.tpl and OddFile.tpl ?
+							// Do we need to check if the current text id is actually used in EvenFile.tpl and OddFile.tpl ?
 							int nFileCount = 0;
 
 							for ( std::size_t pos = 0; pos != pList.size(); ++pos )
@@ -506,7 +505,7 @@ BOOL CWizardCtrl::MakeControls(CXMLElement* pBase, std::vector< CLibraryFile* > 
 								else if ( strType.Find( _T("single-") ) != -1 )
 									strText += 's';
 								m_pItems.SetAt( strUINT, strText );
-								// is it correct?
+								// Is it correct?
 								SetWindowLongPtr( pControl->GetSafeHwnd(), GWLP_USERDATA, (LONG_PTR)pItem );
 								pControl->SetFont( &theApp.m_gdiFont );
 								nItemCount++;
@@ -585,7 +584,7 @@ void CWizardCtrl::Layout()
 
 		if ( pControl->IsKindOf( RUNTIME_CLASS( CIconButtonCtrl ) ) )
 		{
-			// place on previous row
+			// Place on previous row
 			strUINT.Format( _T("%d"), IDC_WIZARD_CONTROL + nControl - 1 );
 			m_pItems.Lookup( strUINT, strValue );
 			if ( strValue.Right( 1 ) == "m" ) nFactor = 2;
@@ -605,7 +604,7 @@ void CWizardCtrl::Layout()
 			{
 				strUINT.Format( _T("%d"), IDC_WIZARD_CONTROL + nControl - 2 );
 				m_pItems.Lookup( strUINT, strValue );
-				if ( strValue.Right( 1 ) == "m" ) // not the first multipicker row
+				if ( strValue.Right( 1 ) == "m" )	// Not the first multipicker row
 					nFactor = 1.5;
 			}
 			rcNew.left		= m_nCaptionWidth;
@@ -632,8 +631,7 @@ void CWizardCtrl::Layout()
 }
 
 // PrepareDoc is used for "multi-filepicker" item processing.
-// Only meta data are replaced from the template file
-// and the doc is added to the collection.
+// Only meta data are replaced from the template file and the doc is added to the collection.
 
 BOOL CWizardCtrl::PrepareDoc(CLibraryFile* pFile, LPCTSTR pszTemplate)
 {
@@ -704,7 +702,7 @@ BOOL CWizardCtrl::PrepareDoc(CLibraryFile* pFile, LPCTSTR pszTemplate)
 
 	if ( pFile->m_nSize )
 	{
-		strSize.Format( _T("%I64u"), pFile->m_nSize ); // bytes
+		strSize.Format( _T("%I64u"), pFile->m_nSize );	// bytes
 		ReplaceNoCase( strDoc, _T("$meta:sizebytes$"), strSize );
 	}
 
@@ -735,24 +733,24 @@ BOOL CWizardCtrl::PrepareDoc(CLibraryFile* pFile, LPCTSTR pszTemplate)
 	if ( pFile->m_oED2K )
 	{
 		strReplace = pFile->m_oED2K.toString();
-		if ( strMagnet.GetLength() ) strMagnet += _T("&amp;");
+		if ( ! strMagnet.IsEmpty() ) strMagnet += _T("&amp;");
 		strMagnet += _T("xt=urn:ed2khash:") + strReplace;
 
 		ReplaceNoCase( strDoc, _T("$meta:ed2khash$"), strReplace );
 
 		strReplace = _T("ed2k://|file|") + strNameURI + '|' + strSize + '|' + strReplace + _T("|/");
-		if ( strSize.GetLength() ) ReplaceNoCase( strDoc, _T("$meta:ed2k$"), strReplace );
+		if ( ! strSize.IsEmpty() ) ReplaceNoCase( strDoc, _T("$meta:ed2k$"), strReplace );
 	}
 	if ( pFile->m_oMD5 )
 	{
 		strReplace = pFile->m_oMD5.toString();
-		if ( strMagnet.GetLength() ) strMagnet += _T("&amp;");
+		if ( ! strMagnet.IsEmpty() ) strMagnet += _T("&amp;");
 		strMagnet += _T("xt=urn:md5:") + strReplace;
 
 		ReplaceNoCase( strDoc, _T("$meta:md5$"), strReplace );
 	}
 
-	if ( strSize.GetLength() ) strMagnet += _T("&amp;xl=") + strSize;
+	if ( ! strSize.IsEmpty() ) strMagnet += _T("&amp;xl=") + strSize;
 	strMagnet = _T("magnet:?") + strMagnet + _T("&amp;dn=") + strNameURI;
 	ReplaceNoCase( strDoc, _T("$meta:magnet$"), strMagnet );
 
@@ -838,7 +836,7 @@ BOOL CWizardCtrl::OnCommand(WPARAM wParam, LPARAM lParam)
 		 ! pEdit->IsKindOf( RUNTIME_CLASS(CEdit) ) )
 		return TRUE;
 
-	if ( pButton->GetWindowTextLength() ) // File picker
+	if ( pButton->GetWindowTextLength() )	// File picker
 	{
 		CFileDialog dlg( TRUE, NULL, NULL, OFN_HIDEREADONLY|OFN_FILEMUSTEXIST,
 			_T("All Files(*.*)|*.*||"), this );
@@ -860,7 +858,7 @@ BOOL CWizardCtrl::OnCommand(WPARAM wParam, LPARAM lParam)
 			crColor = dlg.GetColor();
 			str.Format( _T("#%0.2x%0.2x%0.2x"),
 					GetRValue(crColor), GetGValue(crColor), GetBValue(crColor) );
-			pEdit->SetWindowText( str.MakeUpper() ); // no need to use CharUpper
+			pEdit->SetWindowText( str.MakeUpper() );	// No need to use CharUpper
 		}
 	}
 
@@ -937,7 +935,7 @@ BOOL CWizardCtrl::OnTab()
 void CWizardCtrl::OnSetFocus(CWnd* pOldWnd)
 {
 	CWnd::OnSetFocus(pOldWnd);
-	if ( !m_pControls.IsEmpty() )
+	if ( ! m_pControls.IsEmpty() )
 	{
 		CWnd* pWnd = m_pControls.GetAt( 0 );
 		SetFocusTo( pWnd );

@@ -2,21 +2,18 @@
 // Buffer.h
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2008.
+// Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 // CBuffer holds some memory, and takes care of allocating and freeing it itself
@@ -63,9 +60,10 @@ public:
 	void	Add(const void* pData, const size_t nLength); //throw();				// Add data to the end of the buffer
 	void	Insert(const DWORD nOffset, const void* pData, const size_t nLength);	// Insert the data into the buffer
 	void	Remove(const size_t nLength); //throw();								// Removes data from the start of the buffer
-	DWORD	AddBuffer(CBuffer* pBuffer, const size_t nLength);						// Copy all or part of the data in another CBuffer object into this one
 	bool	EnsureBuffer(const size_t nLength); //throw();							// Tell the buffer to prepare to recieve this number of additional bytes
+	DWORD	AddBuffer(CBuffer* pBuffer, const size_t nLength);						// Copy all or part of the data in another CBuffer object into this one
 	void	AddReversed(const void* pData, const size_t nLength);					// Add data to this buffer, but with the bytes in reverse order
+	void	Attach(CBuffer* pBuffer);												// Get ownership of another CBuffer object data
 
 	// Convert Unicode text to ASCII and add it to the buffer
 	void	Print(const LPCWSTR pszText, const size_t nLength, const UINT nCodePage = CP_ACP);
@@ -95,7 +93,13 @@ public:
 	bool	InflateStreamTo(CBuffer& oBuffer, z_streamp& pStream);	// Decompress the data in this buffer into another buffer
 	void	InflateStreamCleanup(z_streamp& pStream) const;			// Stop stream decompression and cleanup
 	BOOL	Ungzip();												// Delete the gzip header and then remove the compression
-#endif // ZLIB_H
+#endif // ZLIB
+
+	// Use the buffer with the BZLib compression library
+#ifdef _BZLIB_H
+	BOOL	BZip();													// Compress buffer in-place using BZLib
+	BOOL	UnBZip();												// Uncompress buffer in-place using BZLib
+#endif // BZLIB
 
 	// Read and write a DIME message in the buffer
 	void	WriteDIME(DWORD nFlags, LPCSTR pszID, size_t nIDLength, LPCSTR pszType, size_t nTypeLength, LPCVOID pBody, size_t nBody);

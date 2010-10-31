@@ -2,21 +2,18 @@
 // ShakeNeighbour.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2008.
+// Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 // CShakeNeighbour reads and sends handshake headers to negotiate the Gnutella or Gnutella2 handshake
@@ -38,12 +35,12 @@
 #include "Packet.h"
 #include "VendorCache.h"
 
-// Constant "THIS_FILE" is the filename, in Debug mode only
 #ifdef _DEBUG
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
-#endif
+#endif	// Filename
+
 
 //////////////////////////////////////////////////////////////////////
 // CShakeNeighbour construction
@@ -94,9 +91,8 @@ BOOL CShakeNeighbour::ConnectTo(const IN_ADDR* pAddress, WORD nPort, BOOL bAutom
 
 		// Report that we are attempting this connection
 		theApp.Message( MSG_INFO, IDS_CONNECTION_ATTEMPTING, (LPCTSTR)m_sAddress, htons( m_pHost.sin_port ) );
-
-	} // ConnectTo reported that the socket could not be made
-	else
+	}
+	else	// ConnectTo reported that the socket could not be made
 	{
 		// Report the connection failure
 		theApp.Message( MSG_ERROR, IDS_CONNECTION_CONNECT_FAIL, (LPCTSTR)CString( inet_ntoa( m_pHost.sin_addr ) ) );
@@ -152,29 +148,29 @@ void CShakeNeighbour::Close(UINT nError)
 
 	switch ( nError )
 	{
-		case 0:
-			bFail = false;
-		case IDS_HANDSHAKE_TIMEOUT:
-			bRemove = m_nState == nrsRejected && m_bInitiated;
-			break;
-		case IDS_CONNECTION_DROPPED:
-			bRemove = true;
-			break;
-		case IDS_CONNECTION_REFUSED:
-			bRemove = m_nState == nrsConnecting && m_bInitiated;
-			break;
-		case IDS_HANDSHAKE_REJECTED:
-			bRemove = true;
-			break;
-		case IDS_CONNECTION_TIMEOUT_CONNECT:
-			break;
-		case IDS_HANDSHAKE_FAIL:
-			bRemove = true;
-			break;
-		case IDS_CONNECTION_PEERPRUNE:
-			bRemove = true;
-			bFail = false;
-			break;
+	case 0:
+		bFail = false;
+	case IDS_HANDSHAKE_TIMEOUT:
+		bRemove = m_nState == nrsRejected && m_bInitiated;
+		break;
+	case IDS_CONNECTION_DROPPED:
+		bRemove = true;
+		break;
+	case IDS_CONNECTION_REFUSED:
+		bRemove = m_nState == nrsConnecting && m_bInitiated;
+		break;
+	case IDS_HANDSHAKE_REJECTED:
+		bRemove = true;
+		break;
+	case IDS_CONNECTION_TIMEOUT_CONNECT:
+		break;
+	case IDS_HANDSHAKE_FAIL:
+		bRemove = true;
+		break;
+	case IDS_CONNECTION_PEERPRUNE:
+		bRemove = true;
+		bFail = false;
+		break;
 	}
 
 	if ( bFail && m_bInitiated )
@@ -594,14 +590,14 @@ void CShakeNeighbour::SendHostHeaders(LPCSTR pszMessage, size_t nLength)
 
 			if ( pHost->CanQuote( nTime ) )							// If host is still recent enough
 			{
-				if ( strHosts.GetLength() ) strHosts += _T(",");	// Separate each computer's info with a comma
+				if ( ! strHosts.IsEmpty() ) strHosts += _T(",");	// Separate each computer's info with a comma
 				strHosts += pHost->ToString();						// Add this computer's info to the string
 				nCount--;											// Decrement counter
 			}
 		}
 
 		// If we have any G2 hosts to tell the remote computer about
-		if ( strHosts.GetLength() )
+		if ( ! strHosts.IsEmpty() )
 		{
 			Write( _P("X-Try-Hubs: ") );
 			Write( strHosts );
@@ -626,14 +622,14 @@ void CShakeNeighbour::SendHostHeaders(LPCSTR pszMessage, size_t nLength)
 			// This host is still recent enough to tell another computer about
 			if ( pHost->CanQuote( nTime ) )
 			{
-				if ( strHosts.GetLength() ) strHosts += _T(",");			// Separate each computer's info with a comma
+				if ( ! strHosts.IsEmpty() ) strHosts += _T(",");			// Separate each computer's info with a comma
 				strHosts += pHost->ToString( m_bClientExtended != FALSE );	// Add this computer's info to the string
 				nCount--;													// Decrement counter
 			}
 		}
 
 		// If we have any G1 hosts to tell the remote computer about
-		if ( strHosts.GetLength() )
+		if ( ! strHosts.IsEmpty() )
 		{
 			Write( _P("X-Try-Ultrapeers: ") );
 			Write( strHosts );
@@ -687,7 +683,6 @@ BOOL CShakeNeighbour::ReadResponse()
 		{
 			// The remote computer connected to us and sent its headers, we replied with ours, and now it's sending the final group
 			m_nState = nrsHandshake3; // We're reading the final header group from the remote computer
-
 		}
 		else	// It does say "200 OK", and we initiated the connection
 		{
@@ -802,7 +797,6 @@ BOOL CShakeNeighbour::OnHeaderLine(CString& strHeader, CString& strValue)
 		// Remote computer is telling us it supports Gnutella pong caching
 		// Record this ability in the member variable
 		m_bPongCaching = TRUE;
-
 	}
 	else if ( strHeader.CompareNoCase( _T("Vendor-Message") ) == 0 )
 	{

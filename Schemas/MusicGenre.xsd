@@ -6,7 +6,7 @@
 		<complexType>
 			<element name="musicGenre" type="genreType" minOccurs="1" maxOccurs="unbounded"/>
 		</complexType>
- 	</element>
+	</element>
 	<complexType name="genreType">
 		<all>
 			<attribute name="name">
@@ -137,6 +137,7 @@
 					<enumeration value="Trance"/>
 					<enumeration value="Tribal"/>
 					<enumeration value="Trip-Hop"/>
+					<enumeration value="Videogame"/>
 					<enumeration value="Vocal"/>
 					<enumeration value="World"/>
 					<enumeration value="Zydeco"/>

@@ -3,8 +3,8 @@
 
 <!-- PeerProject Default Chinese (Traditional) Skin File -->
 
-<!-- Translation based on default-en.xml r59 (Shareaza 2.2.2.12) -->
-<!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
+<!-- Translation based on default-en.xml r60 (Shareaza 2.2.2.12) -->
+<!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
 <!-- Use this file as a basis for creating new language skins,   -->
@@ -62,6 +62,7 @@
 		<button id="ID_VIEW_MEDIA"/>
 		<button id="ID_TAB_IRC"/>
 		<separator/>
+		<button id="ID_VIEW_SCHEDULER"/>
 		<button id="ID_VIEW_SECURITY"/>
 		<button id="ID_VIEW_HOSTS"/>
 		<button id="ID_VIEW_DISCOVERY"/>
@@ -95,7 +96,7 @@
 		<button id="ID_BROWSE_LAUNCH" text="瀏覽使用者"/>
 		<button id="ID_SECURITY_BAN" text="Ban"/>
 		<rightAlign/>
-		<button id="ID_SEARCH_FILTER_RAW"text="過濾:" tip="請鍵入要過濾的關鍵字"/>
+		<button id="ID_SEARCH_FILTER_RAW" text="過濾:" tip="請鍵入要過濾的關鍵字"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
 		<button id="ID_SEARCH_DETAILS" text="顯示詳細內容"/>
@@ -109,7 +110,7 @@
 		<button id="ID_BROWSE_LAUNCH" text="調閱使用者"/>
 		<button id="ID_SECURITY_BAN" text="Ban"/>
 		<rightAlign/>
-		<button id="ID_SEARCH_FILTER_RAW"text="過濾:" tip="請鍵入要過濾的關鍵字"/>
+		<button id="ID_SEARCH_FILTER_RAW" text="過濾:" tip="請鍵入要過濾的關鍵字"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
 		<button id="ID_SEARCH_DETAILS" text="顯示詳細內容"/>
@@ -128,7 +129,7 @@
 		<button id="ID_SEARCH_DOWNLOAD" text="下載檔案"/>
 		<button id="ID_SEARCH_CHAT" text="與使用者聊天"/>
 		<rightAlign/>
-		<button id="ID_SEARCH_FILTER_RAW"text="過濾:" tip="請鍵入要過濾的關鍵字"/>
+		<button id="ID_SEARCH_FILTER_RAW" text="過濾:" tip="請鍵入要過濾的關鍵字"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
 		<button id="ID_SEARCH_DETAILS" text="顯示詳細內容"/>
@@ -140,7 +141,7 @@
 		<separator/>
 		<button id="ID_SEARCH_CHAT" text="與使用者聊天"/>
 		<rightAlign/>
-		<button id="ID_SEARCH_FILTER_RAW"text="過濾:" tip="請鍵入要過濾的關鍵字"/>
+		<button id="ID_SEARCH_FILTER_RAW" text="過濾:" tip="請鍵入要過濾的關鍵字"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
 		<button id="ID_SEARCH_DETAILS" text="顯示詳細內容"/>
@@ -446,34 +447,6 @@
 		<button id="ID_CHAT_DISCONNECT" text="中斷連線"/>
 	</toolbar>
 	<!-- IRC WINDOW -->
-	<menu name="CIRCTabRClick">
-		<item id="ID_IRC_CLOSETAB" text="关闭"/>
-	</menu>
-	<menu name="CIRCUserList">
-		<item id="ID_IRC_WHOIS" text="是谁"/>
-		<item id="ID_IRC_QUERY" text="查询"/>
-		<separator/>
-		<menu text="Actions">
-			<item id="ID_IRC_TIME" text="时间"/>
-			<item id="ID_IRC_VERSION" text="版本"/>
-			<item id="ID_IRC_BROWSE" text="_Browse (G2)"/>
-		</menu>
-		<separator/>
-		<menu text="Control">
-			<item id="ID_IRC_IGNORE" text="忽略"/>
-			<item id="ID_IRC_UNIGNORE" text="取消忽略"/>
-			<item id="ID_IRC_OP" text="带帽"/>
-			<item id="ID_IRC_DEOP" text="摘帽"/>
-			<item id="ID_IRC_VOICE" text="私聊"/>
-			<item id="ID_IRC_DEVOICE" text="关闭私聊"/>
-			<item id="ID_IRC_KICK" text="踢出"/>
-			<item id="ID_IRC_KICKWHY" text="踢出 (为什么？)"/>
-			<item id="ID_IRC_BAN" text="屏蔽"/>
-			<item id="ID_IRC_UNBAN" text="取消屏蔽"/>
-			<item id="ID_IRC_BANKICK" text="踢出并屏蔽"/>
-			<item id="ID_IRC_BANKICKWHY" text="踢出并屏蔽 (为什么？)"/>
-		</menu>
-	</menu>
 	<!-- WEBSERVICES -->
 	<!-- IMAGE VIEWER PLUGIN WINDOW -->
 	<toolbar name="ImageViewerWnd">
@@ -1635,6 +1608,35 @@
 		<item id="ID_CHAT_TIMESTAMP" text="時間郵戳"/>
 		<item id="ID_CHAT_CLEAR" text="清除視窗"/>
 	</menu>
+	<!-- IRC WINDOW -->
+	<menu name="CIRCTabRClick">
+		<item id="ID_IRC_CLOSETAB" text="关闭"/>
+	</menu>
+	<menu name="CIRCUserList">
+		<item id="ID_IRC_WHOIS" text="是谁"/>
+		<item id="ID_IRC_QUERY" text="查询"/>
+		<separator/>
+		<menu text="Actions">
+			<item id="ID_IRC_TIME" text="时间"/>
+			<item id="ID_IRC_VERSION" text="版本"/>
+			<item id="ID_IRC_BROWSE" text="_Browse (G2)"/>
+		</menu>
+		<separator/>
+		<menu text="Control">
+			<item id="ID_IRC_IGNORE" text="忽略"/>
+			<item id="ID_IRC_UNIGNORE" text="取消忽略"/>
+			<item id="ID_IRC_OP" text="带帽"/>
+			<item id="ID_IRC_DEOP" text="摘帽"/>
+			<item id="ID_IRC_VOICE" text="私聊"/>
+			<item id="ID_IRC_DEVOICE" text="关闭私聊"/>
+			<item id="ID_IRC_KICK" text="踢出"/>
+			<item id="ID_IRC_KICKWHY" text="踢出 (为什么？)"/>
+			<item id="ID_IRC_BAN" text="屏蔽"/>
+			<item id="ID_IRC_UNBAN" text="取消屏蔽"/>
+			<item id="ID_IRC_BANKICK" text="踢出并屏蔽"/>
+			<item id="ID_IRC_BANKICKWHY" text="踢出并屏蔽 (为什么？)"/>
+		</menu>
+	</menu>
 </menus>
 <!-- Documents -->
 <documents>
@@ -1664,11 +1666,14 @@
 			<newline gap="8" indent="42"/>
 			<anchor id="SearchBox" width="256" height="80"/>
 			<newline gap="14" indent="0"/>
-			<icon res="124" width="32" height="32" target="command:shell:downloads"/><gap size="8"/>
+			<icon res="122" width="32" height="32" target="command:shell:downloads"/><gap size="8"/>
 			<heading align="middle">我的下載</heading>
 			<newline gap="8" indent="42"/>
 			<text>查看我的下載資料夾︰</text>
 			<link target="command:shell:downloads">點這裡</link>
+			<newline gap="4" indent="42"/>
+			<text>分享您的文件在 </text>
+			<link id="RemoteBrowseURL"/>
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="3">
@@ -1694,26 +1699,26 @@
 		<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">自訂 PeerProject</heading>
 		<newline gap="12" indent="42"/>
-		<icon res="196"width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
+		<icon res="196" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
 		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">外觀</link>
 		<text align="middle">&#160;︰改變 PeerProject 的外觀</text>
 		<newline gap="8"/>
-		<icon res="138"width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
-		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
-		<text align="middle">&#160;- Update blocklist</text>
+		<icon res="138" width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
+		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link><gap size="6"/>
+		<text align="middle">- Update blocklist</text>
 		<newline gap="8"/>
-		<icon res="197"width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
+		<icon res="197" width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 		<link target="command:ID_TOOLS_WIZARD" align="middle">設定精靈</link>
 		<text align="middle">&#160;︰編輯 PeerProject 的設定</text>
 		<newline gap="8"/>
-		<icon res="182"width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
+		<icon res="182" width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
 		<link target="command:ID_HELP_FAQ" align="middle">快速說明</link>
 		<text align="middle">&#160;︰查看 PeerProject 入門使用說明, or </text>
 		<link target="command:ID_TAB_IRC" align="middle">IRC.</link>
 		<newline gap="8"/>
-		<icon res="201"width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
-		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">本地論壇</link>
-		<text align="middle">&#160;- 轉到您的中文論壇</text>
+		<icon res="201" width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
+		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">本地論壇</link><gap size="6"/>
+		<text align="middle">- 轉到您的中文論壇</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
 			<icon res="120" width="32" height="32"/><gap size="8"/>
@@ -1919,7 +1924,7 @@
 		</group>
 		<group id="41">
 			<newline gap="1"/>
-			<icon res="208"/><gap size="5"/>
+			<icon res="207"/><gap size="5"/>
 			<link id="ContactYahoo"/>
 		</group>
 		<group id="42">
@@ -1960,7 +1965,7 @@
 			<newline gap="16" indent="0"/>
 			<text format="b">社群</text>
 			<newline gap="4" indent="8"/>
-			<icon res="127"target="command:ID_SEARCH_CHAT"/>
+			<icon res="127" target="command:ID_SEARCH_CHAT"/>
 			<gap size="5"/>
 			<link target="command:ID_SEARCH_CHAT" align="middle">與使用者聊天</link>
 		</group>
@@ -2491,8 +2496,8 @@
 	<string id="20002" value="不行"/>
 	<string id="20003" value="確定"/>
 	<string id="20004" value="取消"/>
-	<string id="20005" value="&后退"/>
-	<string id="20006" value="&前进"/>
+	<string id="20005" value="后退"/>
+	<string id="20006" value="前进"/>
 	<string id="20008" value="關閉"/>
 	<string id="20009" value="之"/> <!-- "1 of 10" -->
 	<string id="20011" value="自動"/>
@@ -2514,7 +2519,7 @@
 	<string id="20065" value="很好(4)"/>
 	<string id="20066" value="極佳(5)"/>
 	<string id="20080" value="這是一個 PeerProject 的測試版. 測試期已經結束. 請從 http://peerproject.org/ 下載完整的官方版本."/>
-	<string id="20081" value="&關閉"/>
+	<string id="20081" value="關閉"/>
 	<string id="20082" value="完成, 請點選 關閉"/>
 	<string id="20083" value="要求..."/>
 	<string id="20084" value="成功!"/>
@@ -2812,8 +2817,8 @@
 	<string id="20441" value="PeerProject 無法重新命名檔案 \n\n%s\nto\n%s"/>
 	<string id="20442" value="目標檔案已經存在:\n\n%s\n\n.您要覆寫它嗎?"/>
 	<string id="20443" value="顯示所有的檔案類型"/>
-	<string id="20444" value="複製 &URI"/>
-	<string id="20445" value="匯出 &URIs..."/>
+	<string id="20444" value="複製 URI"/>
+	<string id="20445" value="匯出 URIs..."/>
 	<string id="20446" value="這個檔案 &quot;%s&quot; 無法通過切細驗證測試, 可能不是您想要下載的檔案. 您確定要開啟它嗎?"/>
 	<string id="20447" value="您要將&quot;潛在不安全的&quot;屬性從這個檔案移除嗎?"/>
 	<string id="20448" value="這個檔案 &quot;%s&quot; 尚未切細.  請等到檔案完成切細後,再試一次."/>
@@ -2934,7 +2939,8 @@
 	<string id="20590" value="遠端操控已經停用"/>
 	<string id="20591" value="http://%s:%i/remote - 您必須選擇一個使用者名稱與密碼"/>
 	<string id="20592" value="無法接受連線, 沒有可用的URL."/>
-	<string id="20595" value="构架"/>
+	<string id="20599" value="构架"/>
+	<!-- Missing Scheduler/Security Strings -->
 	<string id="20620" value="PeerProject 正在活躍地搜尋網路..."/>
 	<string id="20621" value="點選這裡再次搜尋"/>
 	<string id="20622" value="所有網路"/>
@@ -3653,18 +3659,21 @@
 		<control caption="套用"/>
 		<control/>
 	</dialog>
-	<dialog name="CIdentityProfilePage" cookie="BuStEdStEdEdBuCoStCoStBu" caption="身份">
-		<control caption="Name:"/>
-		<control caption="Screen Name:"/>
-		<control/>
+	<dialog name="CIdentityProfilePage" cookie="BuStStEdEdEdBuStStCoCoBuStBuBu" caption="身份">
+		<control caption="名称:"/>
+		<control caption="屏显名称:"/>
 		<control caption="真實姓名:"/>
 		<control/>
 		<control/>
-		<control caption="_Vitals:"/>
-		<control caption="|男性|女性"/>
-		<control caption="性別:"/>
 		<control/>
+		<control caption="基本信息:"/>
+		<control caption="性別:"/>
 		<control caption="年齡:"/>
+		<control caption="|男性|女性"/>
+		<control/>
+		<control caption="Info:"/>
+		<control caption="{n}G2 (PeerProject / Shareaza)"/>
+		<control caption="套用:"/>
 		<control caption="允許其他人瀏覽我的個人檔案"/>
 	</dialog>
 	<dialog name="CAvatarProfilePage" cookie="BuStBuStBuBu" caption="我的照片">
@@ -3675,23 +3684,7 @@
 		<control caption="瀏覽..."/>
 		<control caption="移除"/>
 	</dialog>
-	<dialog name="CContactProfilePage" cookie="BuStEdBuStEdStEdStEdStEdStEd" caption="聯絡方式">
-		<control caption="電子郵件帳號:"/>
-		<control caption="主要的:"/>
-		<control/>
-		<control caption="即時通訊:"/>
-		<control caption="MSN/.NET 護照:"/>
-		<control/>
-		<control caption="雅虎 ID:"/>
-		<control/>
-		<control caption="ICQ UIN:"/>
-		<control/>
-		<control caption="AOL 代號:"/>
-		<control/>
-		<control caption="Jabber ID:"/>
-		<control/>
-	</dialog>
-	<dialog name="CProfileProfilePage" cookie="BuStCoStCoBuStEdStEdBuLiBuBuCo" caption="個人檔案">
+	<dialog name="CProfileProfilePage" cookie="BuStCoStCoBuStEdStEdBuLiBuBuCo" caption="地點">
 		<control caption="地點:"/>
 		<control caption="國家:"/>
 		<control/>
@@ -3704,11 +3697,38 @@
 		<control/>
 		<control caption="興趣:"/>
 		<control/>
-		<control caption="&lt; 新增"/>
-		<control caption="移除 &gt;"/>
+		<control caption="新增 &gt;"/>
+		<control caption="&lt; 移除"/>
+		<control/>
+	</dialog>
+	<dialog name="CContactProfilePage" cookie="BuStEdBuStEdStEdStEdStEdStEdStEdStEdStEd" caption="聯絡方式">
+		<control caption="電子郵件帳號:"/>
+		<control caption="主要的:"/>
+		<control/>
+		<control caption="即時通訊:"/>
+		<control caption="PeerProject.org:"/>
+		<control/>
+		<control caption="Facebook:"/>
+		<control/>
+		<control caption="Twitter:"/>
+		<control/>
+		<control caption="Google:"/>
+		<control/>
+		<control caption="MSN/Live:"/>
+		<control/>
+		<control caption="Yahoo:"/>
+		<control/>
+		<control caption="AOL:"/>
+		<control/>
+		<control caption="ICQ:"/>
 		<control/>
 	</dialog>
 	<dialog name="CBioProfilePage" cookie="Ed" caption="自傳">
+		<control/>
+	</dialog>
+	<dialog name="CFilesProfilePage" cookie="BuStSy" caption="檔案">
+		<control caption="我最愛的檔案:"/>
+		<control caption="您可以推薦最愛的檔案給瀏覽您的個人檔案的使用者.  要加入您最愛的檔案, 增加檔案到 &quot;Favourites&quot; 收藏資料夾."/>
 		<control/>
 	</dialog>
 	<dialog name="CFavouritesProfilePage" cookie="SyBuStEdStEdBuBu" caption="我的最愛">
@@ -3721,28 +3741,24 @@
 		<control caption="新增"/>
 		<control caption="移除"/>
 	</dialog>
-	<dialog name="CFilesProfilePage" cookie="BuStSy" caption="檔案">
-		<control caption="我最愛的檔案:"/>
-		<control caption="您可以推薦最愛的檔案給瀏覽您的個人檔案的使用者.  要加入您最愛的檔案, 增加檔案到 &quot;Favourites&quot; 收藏資料夾."/>
+	<dialog name="CCertificateProfilePage" cookie="BuStStStStBuBuSt" caption="憑證">
+		<control caption="全球獨特辨識憑證:"/>
+		<control caption="Gnutella/G2 GUID:"/>
 		<control/>
-	</dialog>
-	<dialog name="CCertificateProfilePage" cookie="StBuStStStStBu" caption="憑證">
-		<control caption="Gnutella 使用全球獨特識別碼與對應的公共+私人鑰匙對用以辨識使用者. 在平常的情況下不需要產生新的 ID, 不過 PeerProject 提供進階使用者這項功能."/>
-		<control caption="Gnutella 全球獨特辨識憑證:"/>
-		<control caption="GUID:"/>
-		<control/>
-		<control caption="Created:"/>
+		<control caption="BitTorrent GUID:"/>
 		<control/>
 		<control caption="亂數產生新的GUID"/>
+		<control caption="Info:"/>
+		<control caption="Gnutella 使用全球獨特識別碼與對應的公共+私人鑰匙對用以辨識使用者. 在平常的情況下不需要產生新的 ID, 不過 PeerProject 提供進階使用者這項功能."/>
 	</dialog>
 	<dialog name="CLanguageDlg" cookie="" caption="選擇語言">
 	</dialog>
-	<dialog name="CConnectToDlg" cookie="BuCoEdBuCoBuBuBu" caption="連線至|瀏覽主機">
-		<control caption="起始新連線至主機或伺服器:|瀏覽這個主機:"/>
+	<dialog name="CConnectToDlg" cookie="BuCoEdBuCoBuBuBu" caption="連線至|瀏覽主機|Chat with User">
+		<control caption="起始新連線至主機或伺服器:|瀏覽這個主機:|Message this user:"/>
 		<control/>
 		<control/>
 		<control caption="網路協定:"/>
-		<control caption="Gnutella (自動)|Gnutella2 (自動)|eDonkey2000"/>
+		<control/>
 		<control caption="封鎖超級用戶"/>
 		<control caption="連線"/>
 		<control caption="取消"/>
@@ -4179,14 +4195,16 @@
 		<control caption="總計上傳了:"/>
 		<control caption="備註:"/>
 	</dialog>
-	<dialog name="CDownloadEditPage" cookie="StBuStStStBuStEdEdEdBuEdBuEdBuEdBuEdBuEd" caption="編輯下載">
+	<dialog name="CDownloadEditPage" cookie="StBuStStStStBuStEdEdEdSyBuEdBuEdBuEdBuEdBuEd" caption="編輯下載">
 		<control caption="警告: 這個對話框提供進階使用者進階的下載編輯功能. 如果錯誤地使用, 可能導致資料毀損."/>
 		<control caption="檔案名稱與大小:"/>
 		<control caption="檔案名稱:"/>
 		<control caption="檔案名稱:"/>
 		<control caption="檔案大小 (位元組):"/>
+		<control caption="日期:"/>
 		<control caption="URNs:"/>
 		<control caption="可靠的"/>
+		<control/>
 		<control/>
 		<control/>
 		<control/>
@@ -4329,22 +4347,6 @@
 		<column from="Name" to="名稱" />
 		<column from="Country" to="地區"/>
 	</list>
-	<list name="CSecurityWnd">
-		<column from="Address / Content" to="位址 / 內容" />
-		<column from="Hits" to="命中" />
-		<column from="Action" to="動作" />
-		<column from="Expires" to="有效期限" />
-		<column from="#" to="優先順序" />
-		<column from="Comment" to="備註" />
-	</list>
-	<list name="CSchedulerWnd">
-		<column from="Task" to="動作"/>
-		<column from="Date" to="日期"/>
-		<column from="Time" to="时间"/>
-		<column from="Status" to="狀態"/>
-		<column from="Activity" to="活躍"/>
-		<column from="Description" to="備註"/>
-	</list>
 	<list name="CHostCacheWnd">
 		<column from="Address" to="位址" />
 		<column from="Port" to="連接埠" />
@@ -4392,6 +4394,23 @@
 		<column from="Client" to="客戶端" />
 		<column from="Country" to="地區"/>
 		<column from="Time" to="时间"/>
+	</list>
+	<list name="CSecurityWnd">
+		<column from="Address / Content" to="位址 / 內容" />
+		<column from="Hits" to="命中" />
+		<column from="#" to="優先順序" />
+		<column from="Action" to="動作" />
+		<column from="Expires" to="有效期限" />
+		<column from="Match" to=""/>
+		<column from="Comment" to="備註" />
+	</list>
+	<list name="CSchedulerWnd">
+		<column from="Task" to="動作"/>
+		<column from="Date" to="日期"/>
+		<column from="Time" to="时间"/>
+		<column from="Status" to="狀態"/>
+		<column from="Activity" to="活躍"/>
+		<column from="Comment" to="備註"/>
 	</list>
 	<list name="CUploadQueueList">
 		<column from="Name" to="名稱" />

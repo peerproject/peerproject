@@ -2,21 +2,18 @@
 // CtrlCoolBar.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2008.
+// Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
@@ -25,13 +22,14 @@
 #include "CtrlCoolBar.h"
 #include "CoolInterface.h"
 #include "Colors.h"
+#include "Images.h"
 #include "Skin.h"
 
 #ifdef _DEBUG
-#define new DEBUG_NEW
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
-#endif
+#define new DEBUG_NEW
+#endif	// Filename
 
 IMPLEMENT_DYNAMIC(CCoolBarCtrl, CControlBar)
 
@@ -141,17 +139,6 @@ void CCoolBarCtrl::SetWatermark(HBITMAP hBitmap, BOOL bDetach)
 	}
 
 	if ( hBitmap ) m_bmImage.Attach( hBitmap );
-}
-
-void CCoolBarItem::SetButtonmark(HBITMAP hBitmap)
-{
-	m_bRegularButton = FALSE;
-	if ( hBitmap != NULL )
-	{
-		if ( m_bmButtonmark.m_hObject ) m_bmButtonmark.DeleteObject();
-		m_bmButtonmark.Attach( hBitmap );
-		m_bRegularButton = TRUE;
-	}
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -352,7 +339,8 @@ int CCoolBarCtrl::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 void CCoolBarCtrl::OnDestroy()
 {
-	if ( m_bDropEnabled ) DISABLE_DROP()
+	if ( m_bDropEnabled )
+		DISABLE_DROP()
 
 	KillTimer( 1 );
 
@@ -369,7 +357,8 @@ CSize CCoolBarCtrl::CalcFixedLayout(BOOL bStretch, BOOL /*bHorz*/)
 		{
 			CRect rc;
 			pParent->GetWindowRect( &rc );
-			if ( rc.Width() > 32 ) size.cx = rc.Width() + 2;
+			if ( rc.Width() > 32 )
+				size.cx = rc.Width() + 2;
 		}
 
 		m_czLast = size;
@@ -643,7 +632,6 @@ void CCoolBarCtrl::DoPaint(CDC* pDC, CRect& rcClient, BOOL bTransparent)
 		}
 		else if ( pItem->m_bVisible )
 		{
-
 			rcItem.right = rcItem.left + pItem->m_nWidth;
 			rcCopy.CopyRect( &rcItem );
 
@@ -696,7 +684,7 @@ HBRUSH CCoolBarCtrl::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 		if ( pWnd->GetDlgCtrlID() == IDC_MEDIA_POSITION || pWnd->GetDlgCtrlID() == IDC_MEDIA_VOLUME || pWnd->GetDlgCtrlID() == IDC_MEDIA_SPEED )
 			return (HBRUSH)Skin.m_brMediaSlider;
 
-		// ToDo: Is this Toolbar brush ever used?  (Verify Obsolete)
+		// ToDo: Is this Toolbar brush member needed?
 		pDC->SetBkColor( Colors.m_crMidtone );
 		if ( m_crBack != Colors.m_crMidtone )
 		{
@@ -712,7 +700,7 @@ HBRUSH CCoolBarCtrl::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 void CCoolBarCtrl::OnUpdateCmdUI(CFrameWnd* pTarget, BOOL bDisableIfNoHndler)
 {
 	UINT nIndex		= 0;
-	BOOL bDirty		= FALSE;
+	BOOL bChanged	= FALSE;
 	BOOL bLocked	= FALSE;
 
 	if ( m_pSyncObject )
@@ -731,19 +719,19 @@ void CCoolBarCtrl::OnUpdateCmdUI(CFrameWnd* pTarget, BOOL bDisableIfNoHndler)
 		pItem->m_pOther		= this;
 		pItem->m_nIndex		= nIndex++;
 		pItem->m_nIndexMax	= static_cast< UINT >( m_pItems.GetCount() );
-		pItem->m_bDirty		= FALSE;
+		pItem->m_bChanged	= FALSE;
 		BOOL bEnabled		= pItem->m_bEnabled;
 
 		if ( ! CWnd::OnCmdMsg( pItem->m_nID, CN_UPDATE_COMMAND_UI, pItem, NULL ) )
 			pItem->DoUpdate( pTarget, bDisableIfNoHndler );
 
-		pItem->m_bDirty |= ( pItem->m_bEnabled != bEnabled );
-		bDirty |= pItem->m_bDirty;
+		pItem->m_bChanged |= ( pItem->m_bEnabled != bEnabled );
+		bChanged |= pItem->m_bChanged;
 	}
 
 	if ( bLocked ) m_pSyncObject->Unlock();
 
-	if ( bDirty ) OnUpdated();
+	if ( bChanged ) OnUpdated();
 }
 
 void CCoolBarCtrl::OnMouseMove(UINT nFlags, CPoint point)
@@ -798,7 +786,8 @@ void CCoolBarCtrl::OnTimer(UINT_PTR nIDEvent)
 		{
 			CCoolBarItem* pItem = HitTest( point );
 
-			if ( m_pDown && m_pDown != pItem ) pItem = NULL;
+			if ( m_pDown && m_pDown != pItem )
+				pItem = NULL;
 
 			if ( pItem != m_pHot )
 			{
@@ -952,7 +941,7 @@ BOOL CCoolBarCtrl::OnDrop(IDataObject* pDataObj, DWORD /* grfKeyState */, POINT 
 				case ID_TAB_SEARCH:
 					break;
 				default:
-				GetOwner()->PostMessage( WM_COMMAND, m_pHot->m_nID );
+					GetOwner()->PostMessage( WM_COMMAND, m_pHot->m_nID );
 				}
 			}
 		}
@@ -964,6 +953,7 @@ BOOL CCoolBarCtrl::OnDrop(IDataObject* pDataObj, DWORD /* grfKeyState */, POINT 
 	}
 	return FALSE;
 }
+
 
 /////////////////////////////////////////////////////////////////////////////
 // CCoolBarItem construction
@@ -1011,14 +1001,13 @@ CCoolBarItem::CCoolBarItem(CCoolBarCtrl* pBar, CCoolBarItem* pCopy)
 	m_nCtrlHeight	= pCopy->m_nCtrlHeight;
 	m_bCheckButton	= pCopy->m_bCheckButton;
 
-	/* if ( m_nImage < 0 ) */ m_nImage = CoolInterface.ImageForID( m_nID );
+	// if ( m_nImage < 0 )
+		m_nImage = CoolInterface.ImageForID( m_nID );
 	SetText( pCopy->m_sText );
 }
 
 CCoolBarItem::~CCoolBarItem()
 {
-	if ( m_bmButtonmark.m_hObject )
-		m_bmButtonmark.DeleteObject();
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -1029,7 +1018,7 @@ void CCoolBarItem::Show(BOOL bOn)
 	if ( this == NULL ) return;
 	if ( m_bVisible == bOn ) return;
 	m_bVisible	= bOn;
-	m_bDirty	= TRUE;
+	m_bChanged	= TRUE;
 }
 
 void CCoolBarItem::Enable(BOOL bOn)
@@ -1044,7 +1033,7 @@ void CCoolBarItem::SetCheck(int nCheck)
 	if ( this == NULL ) return;
 	if ( m_bChecked == ( nCheck == 1 ) ) return;
 	m_bChecked	= ( nCheck == 1 );
-	m_bDirty	= TRUE;
+	m_bChanged	= TRUE;
 }
 
 void CCoolBarItem::SetText(LPCTSTR lpszText)
@@ -1053,7 +1042,7 @@ void CCoolBarItem::SetText(LPCTSTR lpszText)
 	if ( m_sText == lpszText ) return;
 
 	m_sText		= lpszText;
-	m_bDirty	= TRUE;
+	m_bChanged	= TRUE;
 
 	CDC dc;
 	dc.Attach( ::GetDC( 0 ) );
@@ -1071,7 +1060,7 @@ void CCoolBarItem::SetTip(LPCTSTR pszTip)
 	if ( this == NULL ) return;
 	if ( m_sTip == pszTip ) return;
 	m_sTip		= pszTip;
-	m_bDirty	= TRUE;
+	m_bChanged	= TRUE;
 }
 
 void CCoolBarItem::SetTextColor(COLORREF crText)
@@ -1079,7 +1068,7 @@ void CCoolBarItem::SetTextColor(COLORREF crText)
 	if ( this == NULL ) return;
 	if ( m_crText == crText ) return;
 	m_crText	= crText;
-	m_bDirty	= TRUE;
+	m_bChanged	= TRUE;
 }
 
 void CCoolBarItem::SetImage(UINT nCommandID)
@@ -1088,7 +1077,7 @@ void CCoolBarItem::SetImage(UINT nCommandID)
 	int nImage = CoolInterface.ImageForID( nCommandID );
 	if ( nImage == m_nImage ) return;
 	m_nImage = nImage;
-	m_bDirty = TRUE;
+	m_bChanged = TRUE;
 }
 
 CCoolBarItem* CCoolBarItem::FromCmdUI(CCmdUI* pUI)
@@ -1104,21 +1093,21 @@ CCoolBarItem* CCoolBarItem::FromCmdUI(CCmdUI* pUI)
 void CCoolBarItem::Paint(CDC* pDC, CRect& rc, BOOL bDown, BOOL bHot, BOOL bMenuGray, BOOL bTransparent)
 {
 	COLORREF crBackground;
+	BOOL bSkinned = FALSE;
 
 	if ( m_nID == ID_SEPARATOR )
 	{
-		SetButtonmark( Skin.GetWatermark( L"CCoolbar.Separator" ) );
-		if ( m_bRegularButton )
-			CoolInterface.DrawWatermark( pDC, &rc, &m_bmButtonmark );
-		else
-		{
-			if ( ! bTransparent )
-				pDC->FillSolidRect( rc.left, rc.top, 3, rc.Height(), Colors.m_crMidtone );
-			pDC->Draw3dRect( rc.left + 3, rc.top, 1, rc.Height(),
-							 Colors.m_crDisabled, Colors.m_crDisabled );
-			if ( ! bTransparent )
-				pDC->FillSolidRect( rc.left + 4, rc.top, 3, rc.Height(), Colors.m_crMidtone );
-		}
+		rc.InflateRect( 0, 1 );
+		if ( Images.DrawButtonState( pDC, rc, TOOLBAR_SEPARATOR ) )
+			return;
+		rc.DeflateRect( 0, 1 );
+
+		if ( ! bTransparent )
+			pDC->FillSolidRect( rc.left, rc.top, 3, rc.Height(), Colors.m_crMidtone );
+		pDC->Draw3dRect( rc.left + 3, rc.top, 1, rc.Height(), Colors.m_crDisabled, Colors.m_crDisabled );
+		if ( ! bTransparent )
+			pDC->FillSolidRect( rc.left + 4, rc.top, 3, rc.Height(), Colors.m_crMidtone );
+
 		return;
 	}
 
@@ -1131,56 +1120,61 @@ void CCoolBarItem::Paint(CDC* pDC, CRect& rc, BOOL bDown, BOOL bHot, BOOL bMenuG
 			rc.DeflateRect( 0, 1 );
 		}
 		rc.DeflateRect( 1, 0 );
+
 		if ( m_bCheckButton )
 		{
 			DrawText( pDC, rc, bDown, bHot, bMenuGray, bTransparent );
 			return;
 		}
 	}
-	else
+	else	// Command Button
 	{
-		if ( ! bTransparent )
-			pDC->Draw3dRect( &rc, Colors.m_crMidtone, Colors.m_crMidtone );
+		rc.InflateRect( 0, 2 );
+
+		if ( ! m_pBar->m_bGripper )		// Detect Standard Toolbar Button
+		{
+			if ( ! m_bEnabled )
+				bSkinned = Images.DrawButtonState( pDC, rc, TOOLBARBUTTON_DISABLED );	// "CCoolbar.Disabled"
+			else if ( bDown )
+				bSkinned = Images.DrawButtonState( pDC, rc, TOOLBARBUTTON_PRESS );		// "CCoolbar.Down"
+			else if ( bHot )
+				bSkinned = Images.DrawButtonState( pDC, rc, TOOLBARBUTTON_HOVER );		// "CCoolbar.Hover"
+			else if ( m_bChecked )
+				bSkinned = Images.DrawButtonState( pDC, rc, TOOLBARBUTTON_ACTIVE );		// "CCoolbar.Checked"
+			else
+				bSkinned = Images.DrawButtonState( pDC, rc, TOOLBARBUTTON_DEFAULT );	// "CCoolbar.Up"
+		}
+		else if ( m_nImage > 0 ) 		// Windowed Mode Menu Icon
+		{
+			if ( bDown )
+				bSkinned = Images.DrawButtonState( pDC, rc, MENUBARBUTTON_PRESS );		// "CCoolMenuBar.Down"
+			else if ( bHot )
+				bSkinned = Images.DrawButtonState( pDC, rc, MENUBARBUTTON_HOVER );		// "CCoolMenuBar.Hover"
+			else if ( m_bChecked )
+				bSkinned = Images.DrawButtonState( pDC, rc, MENUBARBUTTON_ACTIVE );		// "CCoolMenuBar.Checked"
+			else
+				bSkinned = Images.DrawButtonState( pDC, rc, MENUBARBUTTON_DEFAULT );	// "CCoolMenuBar.Up"
+		}
+		else	// Menu Text
+		{
+			if ( bDown )
+				bSkinned = Images.DrawButtonState( pDC, rc, MENUBARITEM_PRESS );		// "CCoolMenuItem.Down"
+			else if ( bHot )
+				bSkinned = Images.DrawButtonState( pDC, rc, MENUBARITEM_HOVER );		// "CCoolMenuItem.Hover"
+			else
+				bSkinned = Images.DrawButtonState( pDC, rc, MENUBARITEM_DEFAULT );		// "CCoolMenuItem.Up"
+		}
+
+		rc.DeflateRect( 0, 2 );
+
+		if ( ! bTransparent && ! bSkinned )
+			pDC->Draw3dRect( &rc, Colors.m_crMidtone, Colors.m_crMidtone ); 		// Potential hole with transparent button on non-skinned toolbar?
+
 		rc.DeflateRect( 1, 1 );
 	}
 
-	if ( m_pBar->m_bGripper )	// Detect Menubar Items
+	if ( bSkinned ) 	// ! m_nCtrlID
 	{
-		if ( m_nImage > 0 ) 	// Windowed Mode Icons
-		{
-			if ( bDown )
-				SetButtonmark( Skin.GetWatermark( L"CCoolMenuBar.Down" ) );
-			else if ( bHot )
-				SetButtonmark( Skin.GetWatermark( L"CCoolMenuBar.Hover" ) );
-			else if ( m_bChecked )
-				SetButtonmark( Skin.GetWatermark( L"CCoolMenuBar.Checked" ) );
-			else
-				SetButtonmark( Skin.GetWatermark( L"CCoolMenuBar.Up" ) );
-		}
-		else	// Text Menus
-		{
-			if ( bDown )
-				SetButtonmark( Skin.GetWatermark( L"CCoolMenuItem.Down" ) );
-			else if ( bHot )
-				SetButtonmark( Skin.GetWatermark( L"CCoolMenuItem.Hover" ) );
-			else
-				SetButtonmark( Skin.GetWatermark( L"CCoolMenuItem.Up" ) );
-		}
-	}
-	else if ( ! m_bEnabled )
-		SetButtonmark( Skin.GetWatermark( L"CCoolbar.Disabled" ) );
-	else if ( bDown )
-		SetButtonmark( Skin.GetWatermark( L"CCoolbar.Down" ) );
-	else if ( bHot )
-		SetButtonmark( Skin.GetWatermark( L"CCoolbar.Hover" ) );
-	else if ( m_bChecked )
-		SetButtonmark( Skin.GetWatermark( L"CCoolbar.Checked" ) );
-	else // if( m_bEnabled )
-		SetButtonmark( Skin.GetWatermark( L"CCoolbar.Up" ) );
-
-	if ( m_bRegularButton && ! m_nCtrlID )
-	{
-		CoolInterface.DrawWatermark( pDC, &rc, &m_bmButtonmark );
 		// ToDo: Fix mess in function prototype. Why pass "bTransparent" and then ignore it? (Temp Watermark)
 		pDC->SetBkMode( TRANSPARENT );
 		crBackground = CLR_NONE;
@@ -1188,7 +1182,6 @@ void CCoolBarItem::Paint(CDC* pDC, CRect& rc, BOOL bDown, BOOL bHot, BOOL bMenuG
 	}
 	else if ( m_bEnabled && ( bHot || bDown || m_bChecked ) )
 	{
-
 		pDC->SetBkMode( OPAQUE );
 		if ( bMenuGray && bDown )
 			pDC->Draw3dRect( &rc, Colors.m_crDisabled, Colors.m_crDisabled );
@@ -1233,13 +1226,13 @@ void CCoolBarItem::Paint(CDC* pDC, CRect& rc, BOOL bDown, BOOL bHot, BOOL bMenuG
 	{
 		pDC->SetBkMode( TRANSPARENT );
 	}
-	else if ( ! m_bRegularButton )
+	else if ( ! bSkinned )
 	{
 		pDC->SetBkMode( OPAQUE );
 		pDC->SetBkColor( crBackground );
 	}
 
-	DrawText( pDC, rc, bDown, bHot, bMenuGray, crBackground == CLR_NONE );
+	DrawText( pDC, rc, bDown, bHot, bMenuGray, ( crBackground == CLR_NONE || ( bSkinned && ! m_bCheckButton ) ) );
 
 	if ( m_nImage >= 0 )
 	{
@@ -1266,7 +1259,7 @@ void CCoolBarItem::Paint(CDC* pDC, CRect& rc, BOOL bDown, BOOL bHot, BOOL bMenuG
 
 			ptImage.Offset( -2, -2 );
 
-			if ( crBackground != CLR_NONE || ! m_bRegularButton )
+			if ( crBackground != CLR_NONE || ! bSkinned )
 			{
 				pDC->FillSolidRect( ptImage.x, ptImage.y, 18, 2, crBackground );
 				pDC->FillSolidRect( ptImage.x, ptImage.y + 2, 2, 16, crBackground );
@@ -1286,32 +1279,29 @@ void CCoolBarItem::Paint(CDC* pDC, CRect& rc, BOOL bDown, BOOL bHot, BOOL bMenuG
 		}
 	}
 
-	if ( crBackground != CLR_NONE && ! m_bRegularButton )
+	if ( crBackground != CLR_NONE && ! bSkinned )
 		pDC->FillSolidRect( &rc, crBackground );
 }
 
 void CCoolBarItem::DrawText(CDC* pDC, CRect& rc, BOOL bDown, BOOL bHot, BOOL bMenuGray, BOOL bTransparent)
 {
-	if ( m_sText.GetLength() )
-	{
-		if ( m_crText != 0xFFFFFFFF )
-			pDC->SetTextColor( m_crText );
-		else if ( ! m_bEnabled )
-			pDC->SetTextColor( Colors.m_crDisabled );
-		else if ( ( bHot || bDown || m_bChecked ) && ( ! bMenuGray || ! bDown ) )
-			pDC->SetTextColor( Colors.m_crCmdTextSel );
-		else
-			pDC->SetTextColor( Colors.m_crCmdText );
+	if ( m_sText.IsEmpty() )
+		return;
 
-		rc.left += ( m_nImage >= 0 ) ? 20 : 1;
-		int nY = ( rc.top + rc.bottom ) / 2 - pDC->GetTextExtent( m_sText ).cy / 2 - 1;
+	if ( m_crText != 0xFFFFFFFF )
+		pDC->SetTextColor( m_crText );
+	else if ( ! m_bEnabled )
+		pDC->SetTextColor( Colors.m_crDisabled );
+	else if ( ( bHot || bDown || m_bChecked ) && ( ! bMenuGray || ! bDown ) )
+		pDC->SetTextColor( Colors.m_crCmdTextSel );
+	else
+		pDC->SetTextColor( Colors.m_crCmdText );
 
-		if ( bTransparent || m_bRegularButton && ! m_bCheckButton )
-			pDC->ExtTextOut( rc.left + 2, nY, ETO_CLIPPED, &rc, m_sText, NULL );
-		else
-			pDC->ExtTextOut( rc.left + 2, nY, ETO_CLIPPED|ETO_OPAQUE, &rc, m_sText, NULL );
+	rc.left += ( m_nImage >= 0 ) ? 20 : 1;
+	const int nY = ( rc.top + rc.bottom ) / 2 - pDC->GetTextExtent( m_sText ).cy / 2 - 1;
 
-		rc.right = rc.left;
-		rc.left -= ( m_nImage >= 0 ) ? 20 : 1;
-	}
+	pDC->ExtTextOut( rc.left + 2, nY, ETO_CLIPPED|( bTransparent ? 0 : ETO_OPAQUE), &rc, m_sText, NULL );
+
+	rc.right = rc.left;
+	rc.left -= ( m_nImage >= 0 ) ? 20 : 1;
 }

@@ -3,8 +3,8 @@
 
 <!-- PeerProject Default Hungarian Skin File -->
 
-<!-- Translation based on default-en.xml r59 -->
-<!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
+<!-- Translation based on default-en.xml r60 -->
+<!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
 <!-- Use this file as a basis for creating new language skins,   -->
@@ -62,6 +62,7 @@
 		<button id="ID_VIEW_MEDIA"/>
 		<button id="ID_TAB_IRC"/>
 		<separator/>
+		<button id="ID_VIEW_SCHEDULER"/>
 		<button id="ID_VIEW_SECURITY"/>
 		<button id="ID_VIEW_HOSTS"/>
 		<button id="ID_VIEW_DISCOVERY"/>
@@ -565,18 +566,18 @@
 				<item id="ID_HELP_FORUMS" text="PeerProject hivatalos fórum"/>
 				<item id="ID_HELP_FAQ" text="PeerProject GYIK" shortcut="F1"/>
 				<menu text="Skin súgó">
-  					<menu text="Ha a menüsor helytelenül jelenne meg:"></menu>
-  					<menu text="Kattintson a Menü: Ablak: Navigációs gombok megjelenítése parancsra."></menu>
-  					<menu text="Majd válassza le a Navigációs sort és a Menüsort a főablakról."></menu>
-  					<menu text="(Helyezze őket a főablakon kívülre.)"></menu>
-  					<menu text="Frissítse a grafikus felületet: Ctrl+Shift+Z"></menu>
+					<menu text="Ha a menüsor helytelenül jelenne meg:"></menu>
+					<menu text="Kattintson a Menü: Ablak: Navigációs gombok megjelenítése parancsra."></menu>
+					<menu text="Majd válassza le a Navigációs sort és a Menüsort a főablakról."></menu>
+					<menu text="(Helyezze őket a főablakon kívülre.)"></menu>
+					<menu text="Frissítse a grafikus felületet: Ctrl+Shift+Z"></menu>
 				</menu>
 				<separator/>
 				<menu text="_Weboldalak">
-  					<item id="ID_HELP_WEB_3" text="Slyck.com"/>
-  					<item id="ID_HELP_WEB_1" text="ZeroPaid.com"/>
-  					<item id="ID_HELP_WEB_2" text="P2PForums.com"/>
-  					<item id="ID_HELP_WEB_6" text="Hypewise.DeviantArt.com"/>
+					<item id="ID_HELP_WEB_3" text="Slyck.com"/>
+					<item id="ID_HELP_WEB_1" text="ZeroPaid.com"/>
+					<item id="ID_HELP_WEB_2" text="P2PForums.com"/>
+					<item id="ID_HELP_WEB_6" text="Hypewise.DeviantArt.com"/>
 				</menu>
 				<item id="ID_HELP_HOMEPAGE" text="PeerProject.org"/>
 				<separator/>
@@ -1701,13 +1702,16 @@
 			<newline gap="8" indent="42"/>
 			<anchor id="SearchBox" width="256" height="80"/>
 			<newline gap="12" indent="0"/>
-			<icon res="124" width="32" height="32" target="command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
+			<icon res="122" width="32" height="32" target="command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
 			<heading align="middle">LETÖLTÉS INDÍTÁSA</heading>
 			<newline gap="8" indent="42"/>
 			<link target="command:ID_TOOLS_DOWNLOAD" format="bu">Kattintson ide</link>
 			<text>&#160;egy új fájl vagy torrent letöltéséhez.</text>
 			<newline gap="2" indent="42"/>
 			<link target="command:shell:downloads">Letöltések mappa megnyitása.</link>
+			<newline gap="4" indent="42"/>
+			<text>Oszd meg a fájlokat a </text>
+			<link id="RemoteBrowseURL"/>
 			<newline gap="20" indent="0"/>
 		</group>
 		<group id="3">
@@ -1755,26 +1759,26 @@
 		<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">TESTRESZABÁS</heading>
 		<newline gap="12" indent="42"/>
-		<icon res="196"width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
-		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">Kinézetek</link>
-		<text align="middle">&#160;- Változtassa meg a PeerProject kinézetét.</text>
+		<icon res="196" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
+		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">Kinézetek</link><gap size="6"/>
+		<text align="middle">- Változtassa meg a PeerProject kinézetét.</text>
 		<newline gap="8"/>
-		<icon res="138"width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
-		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
-		<text align="middle">&#160;- Update blocklist to avoid bad search results</text>
+		<icon res="138" width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
+		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link><gap size="6"/>
+		<text align="middle">- Update blocklist to avoid bad search results</text>
 		<newline gap="8"/>
-		<icon res="197"width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
-		<link target="command:ID_TOOLS_WIZARD" align="middle">Gyors beállítás</link>
-		<text align="middle">&#160;- PeerProject beállítások egyszerűen.</text>
+		<icon res="197" width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
+		<link target="command:ID_TOOLS_WIZARD" align="middle">Gyors beállítás</link><gap size="6"/>
+		<text align="middle">- PeerProject beállítások egyszerűen.</text>
 		<newline gap="8"/>
-		<icon res="182"width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
-		<link target="command:ID_HELP_FAQ" align="middle">Súgó</link>
-		<text align="middle">&#160;- Segítség a program használatához, or </text>
+		<icon res="182" width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
+		<link target="command:ID_HELP_FAQ" align="middle">Súgó</link><gap size="6"/>
+		<text align="middle">- Segítség a program használatához, or </text>
 		<link target="command:ID_TAB_IRC" align="middle">IRC.</link>
 		<newline gap="8"/>
-		<icon res="201"width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
-		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">Helyi Fórum</link>
-		<text align="middle">&#160;- Menj el a magyar nyelv vitafórum</text>
+		<icon res="201" width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
+		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">Helyi Fórum</link><gap size="6"/>
+		<text align="middle">- Menj el a magyar nyelv vitafórum</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
 			<icon res="120" width="32" height="32"/><gap size="8"/>
@@ -1997,7 +2001,7 @@
 		</group>
 		<group id="41">
 			<newline gap="1"/>
-			<icon res="208"/><gap size="5"/>
+			<icon res="207"/><gap size="5"/>
 			<link id="ContactYahoo"/>
 		</group>
 		<group id="42">
@@ -2038,7 +2042,7 @@
 			<newline gap="16" indent="0"/>
 			<text format="b">Közösség</text>
 			<newline gap="4" indent="8"/>
-			<icon res="127"target="command:ID_SEARCH_CHAT"/>
+			<icon res="127" target="command:ID_SEARCH_CHAT"/>
 			<gap size="5"/>
 			<link target="command:ID_SEARCH_CHAT" align="middle">Chat</link>
 		</group>
@@ -3083,7 +3087,9 @@
 	<string id="20590" value="Távoli használat kikapcsolva."/>
 	<string id="20591" value="http://%s:%i/remote - Egy felhasználónevet és egy jelszót kell választania."/>
 	<string id="20592" value="Nem tudom fogadni a kapcsolatokat, URL érvénytelen."/>
-	<string id="20595" value="&amp;Sémák"/>
+	<string id="20597" value="Biztosan törölni akarja a kiválasztott biztonsági szabályokat? Később már nem lehet visszavonni."/>
+	<string id="20599" value="&amp;Sémák"/>
+	<!-- Missing Scheduler/Security Strings -->
 	<string id="20620" value="Aktív keresés folyamatban..."/>
 	<string id="20621" value="Kattintson ide az újrakereséshez"/>
 	<string id="20622" value="Minden hálózat"/>
@@ -3131,7 +3137,6 @@
 	<string id="20668" value="Keresés..."/>
 	<string id="20669" value="Csak szöveg keresése"/>
 	<string id="20670" value="Keresés folyamatban..."/>
-	<string id="20671" value="Biztosan törölni akarja a kiválasztott biztonsági szabályokat? Később már nem lehet visszavonni."/>
 	<string id="20672" value="Válassza ki az eDonkey/eMule ideiglenes letöltési mappáját:"/>
 	<string id="20673" value="Automatikus"/>
 	<string id="20674" value="A félkész fájlok ne kerüljenek be a Könyvtárba, mert esetleg csökkenthetik a teljesítményt. A félkész fájlokat a Forgalom ablakban lehet megosztani."/>
@@ -3849,18 +3854,21 @@
 		<control caption="Alkalmaz"/>
 		<control/>
 	</dialog>
-	<dialog name="CIdentityProfilePage" cookie="BuStEdStEdEdBuCoStCoStBu" caption="Személyazonosság">
+	<dialog name="CIdentityProfilePage" cookie="BuStStEdEdEdBuStStCoCoBuStBuBu" caption="Személyazonosság">
 		<control caption="_Név"/>
 		<control caption="Becenév:"/>
-		<control/>
 		<control caption="Valódi név:"/>
 		<control/>
 		<control/>
-		<control caption="_Személyes"/>
-		<control caption="|Férfi|Nő"/>
-		<control caption="Nem:"/>
 		<control/>
+		<control caption="_Személyes"/>
+		<control caption="Nem:"/>
 		<control caption="Kor:"/>
+		<control caption="|Férfi|Nő"/>
+		<control/>
+		<control caption="Info:"/>
+		<control caption="{n}G2 (PeerProject / Shareaza)"/>
+		<control caption="_Alkalmaz:"/>
 		<control caption="Mások is megnézhetik az adatlapomat"/>
 	</dialog>
 	<dialog name="CAvatarProfilePage" cookie="BuStBuStBuBu" caption="Avatar">
@@ -3871,23 +3879,7 @@
 		<control caption="_Tallózás..."/>
 		<control caption="E_ltávolít"/>
 	</dialog>
-	<dialog name="CContactProfilePage" cookie="BuStEdBuStEdStEdStEdStEdStEd" caption="Kapcsolat">
-		<control caption="_E-mail cím"/>
-		<control caption="Cím:"/>
-		<control/>
-		<control caption="_Üzenetküldők"/>
-		<control caption="MSN/.NET Passport:"/>
-		<control/>
-		<control caption="Yahoo ID:"/>
-		<control/>
-		<control caption="ICQ UIN:"/>
-		<control/>
-		<control caption="AOL Screen Name:"/>
-		<control/>
-		<control caption="Jabber ID:"/>
-		<control/>
-	</dialog>
-	<dialog name="CProfileProfilePage" cookie="BuStCoStCoBuStEdStEdBuLiBuBuCo" caption="Adatlap">
+	<dialog name="CProfileProfilePage" cookie="BuStCoStCoBuStEdStEdBuLiBuBuCo" caption="Lakhely">
 		<control caption="_Lakhely"/>
 		<control caption="Ország:"/>
 		<control/>
@@ -3900,11 +3892,38 @@
 		<control/>
 		<control caption="É_rdeklődési kör"/>
 		<control/>
-		<control caption="&lt; Hozzáad"/>
-		<control caption="Eltávolít &gt;"/>
+		<control caption="Hozzáad &gt;"/>
+		<control caption="&lt; Eltávolít"/>
+		<control/>
+	</dialog>
+	<dialog name="CContactProfilePage" cookie="BuStEdBuStEdStEdStEdStEdStEdStEdStEdStEd" caption="Kapcsolat">
+		<control caption="_E-mail cím"/>
+		<control caption="Cím:"/>
+		<control/>
+		<control caption="_Üzenetküldők"/>
+		<control caption="PeerProject.org:"/>
+		<control/>
+		<control caption="Facebook:"/>
+		<control/>
+		<control caption="Twitter:"/>
+		<control/>
+		<control caption="Google:"/>
+		<control/>
+		<control caption="MSN/Live:"/>
+		<control/>
+		<control caption="Yahoo:"/>
+		<control/>
+		<control caption="AOL:"/>
+		<control/>
+		<control caption="ICQ:"/>
 		<control/>
 	</dialog>
 	<dialog name="CBioProfilePage" cookie="Ed" caption="Önéletrajz">
+		<control/>
+	</dialog>
+	<dialog name="CFilesProfilePage" cookie="BuStSy" caption="Fájlok">
+		<control caption="_Kedvenc fájlok"/>
+		<control caption="Ezeket a fájlokat azok láthatják, aki éppen az ön adatlapját böngészik. Fájl hozzáadásához a Könyvtárban lévő &quot;Kedvencek&quot; mappába helyezze a fájlokat."/>
 		<control/>
 	</dialog>
 	<dialog name="CFavouritesProfilePage" cookie="SyBuStEdStEdBuBu" caption="Kedvencek">
@@ -3917,28 +3936,24 @@
 		<control caption="Új"/>
 		<control caption="Eltavolít"/>
 	</dialog>
-	<dialog name="CFilesProfilePage" cookie="BuStSy" caption="Fájlok">
-		<control caption="_Kedvenc fájlok"/>
-		<control caption="Ezeket a fájlokat azok láthatják, aki éppen az ön adatlapját böngészik. Fájl hozzáadásához a Könyvtárban lévő &quot;Kedvencek&quot; mappába helyezze a fájlokat."/>
-		<control/>
-	</dialog>
-	<dialog name="CCertificateProfilePage" cookie="StBuStStStStBu" caption="Azonosítás">
-		<control caption="A Gnutella felhasználói egy egyedi kulcsot kapnak egymás azonosítására. Normális esetben ezt nem kell megváltoztatni, de a tapasztalt felhasználók ezt bármikor megtehetik."/>
+	<dialog name="CCertificateProfilePage" cookie="BuStStStStBuBuSt" caption="Azonosítás">
 		<control caption="_Egyedi azonosítókulcs"/>
-		<control caption="GUID:"/>
+		<control caption="Gnutella/G2 GUID:"/>
 		<control/>
-		<control caption="Készült:"/>
+		<control caption="BitTorrent GUID:"/>
 		<control/>
 		<control caption="Új generálása"/>
+		<control caption="Info:"/>
+		<control caption="A Gnutella felhasználói egy egyedi kulcsot kapnak egymás azonosítására. Normális esetben ezt nem kell megváltoztatni, de a tapasztalt felhasználók ezt bármikor megtehetik."/>
 	</dialog>
 	<dialog name="CLanguageDlg" cookie="" caption="Nyelv kiválasztása">
 	</dialog>
-	<dialog name="CConnectToDlg" cookie="BuCoEdBuCoBuBuBu" caption="Manuális kapcsolódás|Fájllista és adatlap">
-		<control caption="Kapcsolódás ehhez|Fájllista és adatlap"/>
+	<dialog name="CConnectToDlg" cookie="BuCoEdBuCoBuBuBu" caption="Manuális kapcsolódás|Fájllista és adatlap|Chat with User">
+		<control caption="Kapcsolódás ehhez:|Fájllista és adatlap:|Message this user:"/>
 		<control/>
 		<control/>
 		<control caption="Protokoll"/>
-		<control caption="Gnutella1 (auto)|Gnutella2 (auto)|eDonkey"/>
+		<control/>
 		<control caption="_Ultrapeer elrejtése"/>
 		<control caption="Kapcsolódás"/>
 		<control caption="Mégse"/>
@@ -4375,14 +4390,16 @@
 		<control caption="Teljes feltöltés:"/>
 		<control caption="Megjegyzés:"/>
 	</dialog>
-	<dialog name="CDownloadEditPage" cookie="StBuStStStBuStEdEdEdBuEdBuEdBuEdBuEdBuEd" caption="Letöltés szerkesztése">
+	<dialog name="CDownloadEditPage" cookie="StBuStStStStBuStEdEdEdSyBuEdBuEdBuEdBuEdBuEd" caption="Letöltés szerkesztése">
 		<control caption="FIGYELEM: Ez az ablak különleges beállításokat tartalmaz. A helytelen beállítások az adatok meghibásodását okozhatják."/>
 		<control caption="Fájlnév és méret"/>
 		<control caption="Fájlnév:"/>
 		<control caption="Fájl:"/>
 		<control caption="Méret (Bájt):"/>
+		<control caption="Date:"/>
 		<control caption="URN-ek"/>
 		<control caption="Bizalom?"/>
+		<control/>
 		<control/>
 		<control/>
 		<control/>
@@ -4525,22 +4542,6 @@
 		<column from="Name" to="Név"/>
 		<column from="Country" to="Ország"/>
 	</list>
-	<list name="CSecurityWnd">
-		<column from="Address / Content" to="Cím"/>
-		<column from="Hits" to="Találatok"/>
-		<column from="Action" to="Feladat"/>
-		<column from="Expires" to="Lejárat"/>
-		<column from="#" to="#"/>
-		<column from="Comment" to="Megjegyzés"/>
-	</list>
-	<list name="CSchedulerWnd">
-		<column from="Task" to="Feladat"/>
-		<column from="Date" to="Dátum"/>
-		<column from="Time" to="Idő"/>
-		<column from="Status" to="Helyzet"/>
-		<column from="Activity" to="Aktív"/>
-		<column from="Description" to="Megjegyzés"/>
-	</list>
 	<list name="CHostCacheWnd">
 		<column from="Address" to="Cím"/>
 		<column from="Port" to=""/>
@@ -4588,6 +4589,23 @@
 		<column from="Client" to="Kliensprogram"/>
 		<column from="Country" to="Ország"/>
 		<column from="Time" to="Idő"/>
+	</list>
+	<list name="CSecurityWnd">
+		<column from="Address / Content" to="Cím"/>
+		<column from="Hits" to="Találatok"/>
+		<column from="#" to="#"/>
+		<column from="Action" to="Feladat"/>
+		<column from="Expires" to="Lejárat"/>
+		<column from="Match" to=""/>
+		<column from="Comment" to="Megjegyzés"/>
+	</list>
+	<list name="CSchedulerWnd">
+		<column from="Task" to="Feladat"/>
+		<column from="Date" to="Dátum"/>
+		<column from="Time" to="Idő"/>
+		<column from="Status" to="Helyzet"/>
+		<column from="Activity" to="Aktív"/>
+		<column from="Comment" to="Megjegyzés"/>
 	</list>
 	<list name="CUploadQueueList">
 		<column from="Name" to="Név"/>

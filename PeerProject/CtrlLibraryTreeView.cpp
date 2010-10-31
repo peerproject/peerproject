@@ -2,21 +2,18 @@
 // CtrlLibraryTreeView.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2007.
+// Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
@@ -45,10 +42,10 @@
 #include "DlgCollectionExport.h"
 
 #ifdef _DEBUG
-#define new DEBUG_NEW
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
-#endif
+#define new DEBUG_NEW
+#endif	// Filename
 
 IMPLEMENT_DYNAMIC(CLibraryTreeView, CWnd)
 
@@ -489,7 +486,7 @@ CLibraryTreeItem* CLibraryTreeView::GetFolderItem(void* pSearch, CLibraryTreeIte
 	{
 		if ( pSearch == pChild->m_pPhysical || pSearch == pChild->m_pVirtual ) return &*pChild;
 
-		if ( !pChild->empty() )
+		if ( ! pChild->empty() )
 		{
 			CLibraryTreeItem* pFound = GetFolderItem( pSearch, &*pChild );
 			if ( pFound ) return pFound;
@@ -564,7 +561,7 @@ void CLibraryTreeView::OnLButtonDblClk(UINT nFlags, CPoint point)
 
 	if ( ! m_bVirtual )
 		OnLibraryExplore();
-	else if ( m_pFocus != NULL && !m_pFocus->empty() && Expand( m_pFocus, TRI_UNKNOWN ) )
+	else if ( m_pFocus != NULL && ! m_pFocus->empty() && Expand( m_pFocus, TRI_UNKNOWN ) )
 		NotifySelection();
 }
 
@@ -675,7 +672,7 @@ void CLibraryTreeView::OnKeyDown(UINT nChar, UINT /*nRepCnt*/, UINT /*nFlags*/)
 	{
 		for (;;)
 		{
-			if ( m_pFocus->m_bExpanded && !m_pFocus->empty() )
+			if ( m_pFocus->m_bExpanded && ! m_pFocus->empty() )
 			{
 				Expand( m_pFocus, TRI_FALSE );
 				break;
@@ -692,7 +689,7 @@ void CLibraryTreeView::OnKeyDown(UINT nChar, UINT /*nRepCnt*/, UINT /*nFlags*/)
 	}
 	else if ( ( nChar == VK_RIGHT || nChar == VK_ADD ) && m_pFocus != NULL )
 	{
-		if ( ! m_pFocus->m_bExpanded && !m_pFocus->empty() )
+		if ( ! m_pFocus->m_bExpanded && ! m_pFocus->empty() )
 			bChanged |= Expand( m_pFocus, TRI_TRUE );
 	}
 	else if ( _istalnum( TCHAR( nChar ) ) )
@@ -886,7 +883,7 @@ void CLibraryTreeView::Paint(CDC& dc, CRect& rcClient, CPoint& pt, CLibraryTreeI
 		if ( pItem->m_bBold ) dc.SelectObject( &CoolInterface.m_fntNormal );
 	}
 
-	if ( pItem->m_bExpanded && !pItem->empty() )
+	if ( pItem->m_bExpanded && ! pItem->empty() )
 	{
 		pt.x += 16;
 
@@ -942,7 +939,7 @@ CLibraryTreeItem* CLibraryTreeView::HitTest(CRect& rcClient, CPoint& pt, CLibrar
 		}
 	}
 
-	if ( pItem->m_bExpanded && !pItem->empty() )
+	if ( pItem->m_bExpanded && ! pItem->empty() )
 	{
 		pt.x += 16;
 
@@ -1000,7 +997,7 @@ BOOL CLibraryTreeView::GetRect(CPoint& pt, CLibraryTreeItem* pItem, CLibraryTree
 		pt.y += ITEM_HEIGHT;
 	}
 
-	if ( pItem->m_bExpanded && !pItem->empty() )
+	if ( pItem->m_bExpanded && ! pItem->empty() )
 	{
 		pt.x += 16;
 
@@ -1226,7 +1223,7 @@ void CLibraryTreeItem::Paint(CDC& dc, CRect& rc, BOOL bTarget, COLORREF crBack) 
 	if ( crBack == CLR_NONE ) crBack = Colors.m_crWindow;
 	dc.FillSolidRect( rc.left, rc.top, 33, 17, crBack );
 
-	if ( !empty() )
+	if ( ! empty() )
 	{
 		if ( m_bExpanded )
 		{

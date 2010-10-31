@@ -2,21 +2,18 @@
 // PageSettingsUploads.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2007.
+// Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
@@ -36,7 +33,7 @@
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
-#endif
+#endif	// Filename
 
 IMPLEMENT_DYNCREATE(CUploadsSettingsPage, CSettingsPage)
 
@@ -117,7 +114,7 @@ BOOL CUploadsSettingsPage::OnInitDialog()
 	m_wndQueues.EnableToolTips();
 
 	CLiveList::Sort( &m_wndQueues, 4, FALSE );
-	//CLiveList::Sort( &m_wndQueues, 4, FALSE );	//Repeat
+	//CLiveList::Sort( &m_wndQueues, 4, FALSE );	// Repeat workaround
 
 	m_nMaxPerHost		= Settings.Uploads.MaxPerHost;
 	m_bHubUnshare		= Settings.Uploads.HubUnshare;
@@ -197,21 +194,20 @@ void CUploadsSettingsPage::UpdateQueues()
 			pItem->Set( 2, Settings.SmartSpeed( nBandwidth ) + '+' );
 			pItem->Format( 3, _T("%u-%u"), pQueue->m_nMinTransfers, pQueue->m_nMaxTransfers );
 
-			pItem->m_nImage = CoolInterface.ImageForID( ID_VIEW_UPLOADS );
+			pItem->SetImage( CoolInterface.ImageForID( ID_VIEW_UPLOADS ) );
 		}
 		else
 		{
 			pItem->Set( 2, _T("- ") );
 			pItem->Format( 3, _T("-"));
 
-			pItem->m_nImage = CoolInterface.ImageForID( ID_SYSTEM_CLEAR );
+			pItem->SetImage( CoolInterface.ImageForID( ID_SYSTEM_CLEAR ) );
 		}
 
 		pItem->Set( 0, pQueue->m_sName );
 		pItem->Set( 1, pQueue->GetCriteriaString() );
 
 		pItem->Format( 4, _T("%i"), nIndex );
-
 	}
 
 	pLock.Unlock();
@@ -385,7 +381,7 @@ void CUploadsSettingsPage::OnOK()
 	{
 		CString str;
 		m_wndAgentList.GetLBText( nItem, str );
-		if ( str.GetLength() )
+		if ( ! str.IsEmpty() )
 			Settings.Uploads.BlockAgents.insert( str );
 	}
 

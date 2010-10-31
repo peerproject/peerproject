@@ -2,21 +2,18 @@
 // QueryHit.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2008.
+// Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
@@ -42,7 +39,7 @@
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
-#endif
+#endif	// Filename
 
 
 //////////////////////////////////////////////////////////////////////
@@ -1755,7 +1752,7 @@ void CQueryHit::ReadEDPacket(CEDPacket* pPacket, SOCKADDR_IN* pServer, BOOL bUni
 	CString strType;
 
 	// Check we have a valid name
-	if ( m_sName.GetLength() )
+	if ( ! m_sName.IsEmpty() )
 	{
 		int nExtPos = m_sName.ReverseFind( '.' );
 		if ( nExtPos != -1 )
@@ -1770,7 +1767,7 @@ void CQueryHit::ReadEDPacket(CEDPacket* pPacket, SOCKADDR_IN* pServer, BOOL bUni
 	}
 
 	// If we can determine type, we can add metadata
-	if ( strType.GetLength() )
+	if ( ! strType.IsEmpty() )
 	{
 		// Determine type
 		CSchemaPtr pSchema = NULL;
@@ -1787,12 +1784,12 @@ void CQueryHit::ReadEDPacket(CEDPacket* pPacket, SOCKADDR_IN* pServer, BOOL bUni
 				if ( m_pXML == NULL ) m_pXML = new CXMLElement( NULL, _T("audio") );
 				m_pXML->AddAttribute( _T("seconds"), strLength );
 			}
-			if ( strBitrate.GetLength() )
+			if ( ! strBitrate.IsEmpty() )
 			{
 				if ( m_pXML == NULL ) m_pXML = new CXMLElement( NULL, _T("audio") );
 				m_pXML->AddAttribute( _T("bitrate"), strBitrate );
 			}
-			//if ( strCodec.GetLength() )
+			//if ( ! strCodec.IsEmpty() )
 			//{
 			//	m_sSchemaURI = CSchema::uriVideo;
 			//	if ( m_pXML == NULL ) m_pXML = new CXMLElement( NULL, _T("audio") );
@@ -1812,12 +1809,12 @@ void CQueryHit::ReadEDPacket(CEDPacket* pPacket, SOCKADDR_IN* pServer, BOOL bUni
 				if ( m_pXML == NULL ) m_pXML = new CXMLElement( NULL, _T("video") );
 				m_pXML->AddAttribute( _T("minutes"), strLength );
 			}
-			//if ( strBitrate.GetLength() )
+			//if ( ! strBitrate.IsEmpty() )
 			//{
 			//	if ( m_pXML == NULL ) m_pXML = new CXMLElement( NULL, _T("video") );
 			//	m_pXML->AddAttribute( _T("bitrate"), strBitrate );
 			//}
-			if ( strCodec.GetLength() )
+			if ( ! strCodec.IsEmpty() )
 			{
 				if ( m_pXML == NULL ) m_pXML = new CXMLElement( NULL, _T("video") );
 				m_pXML->AddAttribute( _T("codec"), strCodec );
@@ -1914,7 +1911,7 @@ void CQueryHit::Resolve()
 			(LPCTSTR)m_oSHA1.toUrn() );
 	}
 
-	if ( m_sURL.GetLength() )
+	if ( ! m_sURL.IsEmpty() )
 	{
 		m_nHitSources ++;
 		return;
@@ -1946,7 +1943,7 @@ void CQueryHit::Resolve()
 	if ( Settings.Downloads.RequestHash || m_nIndex == 0 )
 	{
 		m_sURL = GetURL( m_pAddress, m_nPort );
-		if ( m_sURL.GetLength() )
+		if ( ! m_sURL.IsEmpty() )
 			return;
 	}
 
@@ -2141,7 +2138,7 @@ void CQueryHit::Serialize(CArchive& ar, int nVersion)
 			m_sSchemaURI.Empty();
 		ar << m_sSchemaURI;
 		ar << m_sSchemaPlural;
-		if ( m_sSchemaURI.GetLength() )
+		if ( ! m_sSchemaURI.IsEmpty() )
 			m_pXML->Serialize( ar );
 		ar << m_nRating;
 		ar << m_sComments;
@@ -2216,7 +2213,7 @@ void CQueryHit::Serialize(CArchive& ar, int nVersion)
 		ar >> m_sSchemaURI;
 		ar >> m_sSchemaPlural;
 
-		if ( m_sSchemaURI.GetLength() )
+		if ( ! m_sSchemaURI.IsEmpty() )
 		{
 			m_pXML = new CXMLElement();
 			m_pXML->Serialize( ar );
@@ -2231,7 +2228,7 @@ void CQueryHit::Serialize(CArchive& ar, int nVersion)
 		ar >> m_bBogus;
 		ar >> m_bDownload;
 
-		if ( m_nHitSources == 0 && m_sURL.GetLength() )
+		if ( m_nHitSources == 0 && ! m_sURL.IsEmpty() )
 			m_nHitSources = 1;
 	}
 }

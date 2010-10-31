@@ -2,21 +2,18 @@
 // Security.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2008.
+// Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
@@ -31,7 +28,7 @@
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
-#endif
+#endif	// Filename
 
 CSecurity Security;
 CAdultFilter AdultFilter;
@@ -42,8 +39,8 @@ CMessageFilter MessageFilter;
 // CSecurity construction
 
 CSecurity::CSecurity()
+	: m_bDenyPolicy ( FALSE )
 {
-	m_bDenyPolicy = FALSE;
 }
 
 CSecurity::~CSecurity()
@@ -193,7 +190,7 @@ void CSecurity::BanHelper(const IN_ADDR* pAddress, const CPeerProjectFile* pFile
 		CSecureRule* pRule = GetNext( pos );
 
 		if ( ( pAddress && pRule->Match( pAddress ) ) ||
-			( pFile && pRule->Match( pFile ) ) )
+			( pFile && pRule->Match( pFile ) ) )				// Non-regexp name, hash, or size:ext:0000
 		{
 			if ( pRule->m_nAction == CSecureRule::srDeny )
 			{
@@ -254,8 +251,7 @@ void CSecurity::BanHelper(const IN_ADDR* pAddress, const CPeerProjectFile* pFile
 
 	if ( pAddress )
 		CopyMemory( pRule->m_nIP, pAddress, sizeof pRule->m_nIP );
-	else if ( pFile && ( pFile->m_oSHA1 || pFile->m_oED2K || pFile->m_oTiger ||
-		pFile->m_oMD5 || pFile->m_oBTH ) )
+	else if ( pFile && ( pFile->m_oSHA1 || pFile->m_oTiger || pFile->m_oBTH || pFile->m_oED2K || pFile->m_oMD5 ) )
 	{
 		pRule->m_nType = CSecureRule::srContentAny;
 		pRule->SetContentWords(
@@ -347,7 +343,7 @@ BOOL CSecurity::IsDenied(const IN_ADDR* pAddress)
 
 			if ( pRule->m_nAction == CSecureRule::srAccept )
 				return FALSE;
-			else if ( pRule->m_nAction == CSecureRule::srDeny )
+			if ( pRule->m_nAction == CSecureRule::srDeny )
 				return TRUE;
 		}
 	}
@@ -383,7 +379,7 @@ BOOL CSecurity::IsDenied(LPCTSTR pszContent)
 
 			if ( pRule->m_nAction == CSecureRule::srAccept )
 				return FALSE;
-			else if ( pRule->m_nAction == CSecureRule::srDeny )
+			if ( pRule->m_nAction == CSecureRule::srDeny )
 				return TRUE;
 		}
 	}
@@ -394,7 +390,7 @@ BOOL CSecurity::IsDenied(LPCTSTR pszContent)
 //////////////////////////////////////////////////////////////////////
 // CSecurity check file size, hash
 
-BOOL CSecurity::IsDenied(const CPeerProjectFile* pFile)
+BOOL CSecurity::IsDenied(const CPeerProjectFile* pFile) 	// ToDo: Never called?
 {
 	CQuickLock oLock( m_pSection );
 
@@ -410,7 +406,7 @@ BOOL CSecurity::IsDenied(const CPeerProjectFile* pFile)
 			m_pRules.RemoveAt( posLast );
 			delete pRule;
 		}
-		else if ( pRule->Match( pFile ) )
+		else if ( pRule->Match( pFile ) )	// Non-regexp name, hash, or size:ext:0000
 		{
 			pRule->m_nToday ++;
 			pRule->m_nEver ++;
@@ -422,7 +418,7 @@ BOOL CSecurity::IsDenied(const CPeerProjectFile* pFile)
 
 			if ( pRule->m_nAction == CSecureRule::srAccept )
 				return FALSE;
-			else if ( pRule->m_nAction == CSecureRule::srDeny )
+			if ( pRule->m_nAction == CSecureRule::srDeny )
 				return TRUE;
 		}
 	}
@@ -452,7 +448,7 @@ BOOL CSecurity::IsDenied(CQuerySearch::const_iterator itStart, CQuerySearch::con
 			pRule->m_nEver ++;
 
 			if ( pRule->m_nAction == CSecureRule::srAccept ) return FALSE;
-			else if ( pRule->m_nAction == CSecureRule::srDeny ) return TRUE;
+			if ( pRule->m_nAction == CSecureRule::srDeny ) return TRUE;
 		}
 	}
 
@@ -604,7 +600,7 @@ void CSecurity::Serialize(CArchive& ar)
 //////////////////////////////////////////////////////////////////////
 // CSecurity XML
 
-LPCTSTR CSecurity::xmlns = _T("http://www.shareaza.com/schemas/Security.xsd");
+LPCTSTR CSecurity::xmlns = _T("http://schemas.peerproject.org/Security.xsd");
 
 CXMLElement* CSecurity::ToXML(BOOL bRules)
 {
@@ -835,13 +831,13 @@ BOOL CSecurity::IsAgentBlocked(const CString& sUserAgent)
 {
 	// The remote computer didn't send a "User-Agent", or it sent whitespace
 	if ( sUserAgent.IsEmpty() ||
-		CString( sUserAgent ).Trim().IsEmpty() )					return TRUE; // ?
+		CString( sUserAgent ).Trim().IsEmpty() )				return TRUE; // ?
 
 	// Loop through the user-defined list of programs to block
 	for ( string_set::const_iterator i = Settings.Uploads.BlockAgents.begin() ;
 		i != Settings.Uploads.BlockAgents.end(); i++ )
 	{
-		if ( _tcsistr( sUserAgent, *i ) )							return TRUE;
+		if ( _tcsistr( sUserAgent, *i ) )						return TRUE;
 	}
 
 	// Allow it
@@ -851,7 +847,7 @@ BOOL CSecurity::IsAgentBlocked(const CString& sUserAgent)
 BOOL CSecurity::IsVendorBlocked(const CString& sVendor)
 {
 	// Foxy (Private G2)
-	if ( sVendor.CompareNoCase( _T("foxy") ) == 0 )					return TRUE;
+	if ( sVendor.CompareNoCase( _T("foxy") ) == 0 )				return TRUE;
 
 	// Allow it
 	return FALSE;
@@ -957,7 +953,7 @@ BOOL CSecureRule::Match(const IN_ADDR* pAddress) const
 
 BOOL CSecureRule::Match(LPCTSTR pszContent) const
 {
-	if ( ( m_nType == srContentAny || m_nType == srContentAll ) && pszContent && m_pContent )
+	if ( m_nType != srContentRegExp && pszContent && m_pContent )
 	{
 		if ( IsExpired( (DWORD)time( NULL ) ) )
 			return FALSE;
@@ -966,10 +962,10 @@ BOOL CSecureRule::Match(LPCTSTR pszContent) const
 		{
 			BOOL bFound = _tcsistr( pszContent, pszFilter ) != NULL;
 
-			if ( bFound && m_nType == srContentAny )
-				return TRUE;
-			else if ( ! bFound && m_nType == srContentAll )
+			if ( ! bFound && ( m_nType == srContentAll || m_nType == srSizeType ) )
 				return FALSE;
+			if ( bFound && ( m_nType == srContentAny || m_nType == srSizeType ) )
+				return TRUE;
 
 			pszFilter += _tcslen( pszFilter ) + 1;
 		}
@@ -983,37 +979,39 @@ BOOL CSecureRule::Match(LPCTSTR pszContent) const
 
 BOOL CSecureRule::Match(const CPeerProjectFile* pFile) const
 {
-	if ( ( m_nType == srContentAny || m_nType == srContentAll ) && pFile && m_pContent )
+	if ( m_nType != srContentRegExp && m_nType != srAddress && pFile && m_pContent )
 	{
-		if ( pFile->m_nSize != 0 && pFile->m_nSize != SIZE_UNKNOWN )
+		if ( m_nType == srSizeType )
 		{
+			if ( pFile->m_nSize == 0 || pFile->m_nSize == SIZE_UNKNOWN )
+				return FALSE;
+
 			LPCTSTR pszExt = PathFindExtension( (LPCTSTR)pFile->m_sName );
-			if ( *pszExt == _T('.') )
-			{
-				CString strExtension;
-				pszExt++;
-				strExtension.Format( _T("size:%s:%I64i"), pszExt, pFile->m_nSize );
-				if ( Match( strExtension ) )
-					return TRUE;
-			}
+			if ( *pszExt != '.' )
+				return FALSE;
+
+			pszExt++;
+			CString strCompare;
+			strCompare.Format( _T("size:%s:%u"), pszExt, pFile->m_nSize );	// %I64i
+			return Match( strCompare );
 		}
 
 		if ( Match( pFile->m_sName ) )
 			return TRUE;
 
-		return
-			( pFile->m_oSHA1  && Match( pFile->m_oSHA1.toUrn() ) ) ||
-			( pFile->m_oED2K  && Match( pFile->m_oED2K.toUrn() ) ) ||
-			( pFile->m_oTiger && Match( pFile->m_oTiger.toUrn() ) ) ||
-			( pFile->m_oMD5   && Match( pFile->m_oMD5.toUrn() ) ) ||
-			( pFile->m_oBTH   && Match( pFile->m_oBTH.toUrn() ) );
+		if ( m_nContentLength > 30 )
+			return
+				( pFile->m_oSHA1  && Match( pFile->m_oSHA1.toUrn() ) ) ||
+				( pFile->m_oED2K  && Match( pFile->m_oED2K.toUrn() ) ) ||
+				( pFile->m_oTiger && Match( pFile->m_oTiger.toUrn() ) ) ||
+				( pFile->m_oMD5   && Match( pFile->m_oMD5.toUrn() ) ) ||
+				( pFile->m_oBTH   && Match( pFile->m_oBTH.toUrn() ) );
 	}
 
 	return FALSE;
 }
 
-BOOL CSecureRule::Match(CQuerySearch::const_iterator itStart,
-						CQuerySearch::const_iterator itEnd, LPCTSTR pszContent) const
+BOOL CSecureRule::Match(CQuerySearch::const_iterator itStart, CQuerySearch::const_iterator itEnd, LPCTSTR pszContent) const
 {
 	if ( m_nType == srContentRegExp && pszContent && m_pContent )
 	{
@@ -1069,7 +1067,7 @@ BOOL CSecureRule::Match(CQuerySearch::const_iterator itStart,
 								break;
 							}
 						}
-						pszPattern++; // return to the last position
+						pszPattern++;	// Return to the last position
 					}
 				}
 				else // No closing '>'
@@ -1084,7 +1082,7 @@ BOOL CSecureRule::Match(CQuerySearch::const_iterator itStart,
 			}
 		}
 
-		if ( strFilter.GetLength() )
+		if ( ! strFilter.IsEmpty() )
 			return RegExp::Match( strFilter, pszContent );
 
 		theApp.Message( MSG_DEBUG, L"Invalid RegExp filter: \"%s\". Ignoring.", m_pContent );
@@ -1171,7 +1169,8 @@ CString CSecureRule::GetContentWords()
 	CString strWords;
 	for ( LPCTSTR pszFilter = m_pContent ; *pszFilter ; )
 	{
-		if ( strWords.GetLength() ) strWords += ' ';
+		if ( ! strWords.IsEmpty() )
+			strWords += ' ';
 		strWords += pszFilter;
 
 		pszFilter += _tcslen( pszFilter ) + 1;
@@ -1207,6 +1206,7 @@ void CSecureRule::Serialize(CArchive& ar, int nVersion)
 		case srContentAny:
 		case srContentAll:
 		case srContentRegExp:
+		case srSizeType:
 			strTemp = GetContentWords();
 			ar << strTemp;
 			break;
@@ -1218,13 +1218,13 @@ void CSecureRule::Serialize(CArchive& ar, int nVersion)
 		ar >> nType;
 		ar >> m_nAction;
 
-		if ( nVersion > 2 )
+		//if ( nVersion > 2 )
 			ar >> m_sComment;
 
-		if ( nVersion > 3 )
+		//if ( nVersion > 3 )
 			ReadArchive( ar, &m_pGUID, sizeof(GUID) );
-		else
-			CoCreateGuid( &m_pGUID );
+		//else
+		//	CoCreateGuid( &m_pGUID );
 
 		ar >> m_nExpire;
 		ar >> m_nEver;
@@ -1243,17 +1243,20 @@ void CSecureRule::Serialize(CArchive& ar, int nVersion)
 		case 3:
 			m_nType = srContentRegExp;
 			break;
+		case 4:
+			m_nType = srSizeType;
+			break;
 		}
 
 		if ( m_nType == srAddress )
 		{
 			ReadArchive( ar, m_nIP, 4 );
 			ReadArchive( ar, m_nMask, 4 );
-			MaskFix();				// Make sure old rules are updated to new format
+			MaskFix();				// Make sure old rules are updated to new format (obsolete?)
 		}
 		else
 		{
-			if ( nVersion < 5 )
+			if ( nVersion < 5 )		// Shareaza Import?
 			{
 				ASSERT( m_nType == srContentAny );
 
@@ -1270,21 +1273,20 @@ void CSecureRule::Serialize(CArchive& ar, int nVersion)
 				}
 			}
 
-			if ( nVersion < 3 )
-			{
-				for ( DWORD_PTR nCount = ar.ReadCount() ; nCount > 0 ; nCount-- )
-				{
-					CString strWord;
-					ar >> strWord;
-
-					strTemp += ' ';
-					strTemp += strWord;
-				}
-			}
-			else
-			{
+			//if ( nVersion < 3 )
+			//{
+			//	for ( DWORD_PTR nCount = ar.ReadCount() ; nCount > 0 ; nCount-- )
+			//	{
+			//		CString strWord;
+			//		ar >> strWord;
+			//
+			//		strTemp += ' ';
+			//		strTemp += strWord;
+			//	}
+			//}
+			//else
 				ar >> strTemp;
-			}
+
 			SetContentWords( strTemp );
 		}
 	}
@@ -1298,73 +1300,69 @@ CXMLElement* CSecureRule::ToXML()
 	CXMLElement* pXML = new CXMLElement( NULL, _T("rule") );
 	CString strValue;
 
-	if ( m_sComment.GetLength() )
+	// Order has no influence on output (Indeterminate CMap)
+
+	wchar_t szGUID[39];
+	szGUID[ StringFromGUID2( *(GUID*)&m_pGUID, szGUID, 39 ) - 2 ] = 0;
+	pXML->AddAttribute( _T("guid"), (CString)&szGUID[1] );
+
+	if ( ! m_sComment.IsEmpty() )
 		pXML->AddAttribute( _T("comment"), m_sComment );
 
-	switch ( m_nType )
+	pXML->AddAttribute( _T("action"),
+		( m_nAction == srDeny ? _T("deny") : m_nAction == srAccept ? _T("accept") : _T("null") ) ); 	// srNull
+
+	if ( m_nExpire > srSession )
 	{
-	case srAddress:
-		pXML->AddAttribute( _T("type"), _T("address") );
-		strValue.Format( _T("%lu.%lu.%lu.%lu"),
-			m_nIP[0], m_nIP[1], m_nIP[2], m_nIP[3] );
-		pXML->AddAttribute( _T("address"), strValue );
+		strValue.Format( _T("%lu"), m_nExpire );
+		pXML->AddAttribute( _T("expire"), strValue );
+	}
+	else if ( m_nExpire == srSession )
+	{
+		pXML->AddAttribute( _T("expire"), _T("session") );
+	}
+
+	if ( m_nType == srAddress )
+	{
 		if ( *(DWORD*)m_nMask != 0xFFFFFFFF )
 		{
 			strValue.Format( _T("%lu.%lu.%lu.%lu"),
 				m_nMask[0], m_nMask[1], m_nMask[2], m_nMask[3] );
 			pXML->AddAttribute( _T("mask"), strValue );
 		}
-		break;
-	case srContentAny:
-	case srContentAll:
-	case srContentRegExp:
-		pXML->AddAttribute( _T("type"), _T("content") );
+
+		strValue.Format( _T("%lu.%lu.%lu.%lu"),
+			m_nIP[0], m_nIP[1], m_nIP[2], m_nIP[3] );
+		pXML->AddAttribute( _T("address"), strValue );
+
+		pXML->AddAttribute( _T("type"), _T("address") );
+	}
+	else	// srContentAny srContentAll srContentRegExp srSizeType
+	{
 		CString str;
 		switch ( m_nType )
 		{
-			case srAddress:
-				break;
-			case srContentAny:
-				str = L"any";
-				break;
-			case srContentAll:
-				str = L"all";
-				break;
-			case srContentRegExp:
-				str = L"regexp";
-				break;
+		case srContentAny:
+			str = L"any";
+			break;
+		case srContentAll:
+			str = L"all";
+			break;
+		case srContentRegExp:
+			str = L"regexp";
+			break;
+		case srSizeType:
+			str = L"size";
+			break;
+		//case srAddress:
+		default:
+			str = L"null";
 		}
-		pXML->AddAttribute( _T("content"), GetContentWords() );
+
 		pXML->AddAttribute( _T("match"), str );
-		break;
+		pXML->AddAttribute( _T("content"), GetContentWords() );
+		pXML->AddAttribute( _T("type"), _T("content") );
 	}
-
-	switch ( m_nAction )
-	{
-	case srNull:
-		pXML->AddAttribute( _T("action"), _T("null") );
-		break;
-	case srAccept:
-		pXML->AddAttribute( _T("action"), _T("accept") );
-		break;
-	case srDeny:
-		pXML->AddAttribute( _T("action"), _T("deny") );
-		break;
-	}
-
-	if ( m_nExpire == srSession )
-	{
-		pXML->AddAttribute( _T("expire"), _T("session") );
-	}
-	else if ( m_nExpire > srSession )
-	{
-		strValue.Format( _T("%lu"), m_nExpire );
-		pXML->AddAttribute( _T("expire"), strValue );
-	}
-
-	wchar_t szGUID[39];
-	szGUID[ StringFromGUID2( *(GUID*)&m_pGUID, szGUID, 39 ) - 2 ] = 0;
-	pXML->AddAttribute( _T("guid"), (CString)&szGUID[1] );
 
 	return pXML;
 }
@@ -1403,6 +1401,8 @@ BOOL CSecureRule::FromXML(CXMLElement* pXML)
 			m_nType = srContentAll;
 		else if ( strMatch.CompareNoCase( _T("regexp") ) == 0 )
 			m_nType = srContentRegExp;
+		else if ( strMatch.CompareNoCase( _T("size") ) == 0 )
+			m_nType = srSizeType;
 		SetContentWords( pXML->GetAttributeValue( _T("content") ) );
 		if ( m_pContent == NULL ) return FALSE;
 	}
@@ -1413,7 +1413,7 @@ BOOL CSecureRule::FromXML(CXMLElement* pXML)
 
 	CString strAction = pXML->GetAttributeValue( _T("action") );
 
-	if ( strAction.CompareNoCase( _T("null") ) == 0 )
+	if ( strAction.CompareNoCase( _T("null") ) == 0 || strAction.CompareNoCase( _T("none") ) == 0 )
 		m_nAction = srNull;
 	else if ( strAction.CompareNoCase( _T("accept") ) == 0 )
 		m_nAction = srAccept;
@@ -1517,13 +1517,14 @@ BOOL CSecureRule::FromGnucleusString(CString& str)
 
 	return TRUE;
 }
+
 //////////////////////////////////////////////////////////////////////
 // CSecureRule Netmask Fix
 void  CSecureRule::MaskFix()
 {
 	DWORD nNetwork = 0 , nOldMask  = 0 , nNewMask = 0;
 
-	for ( int nByte = 0 ; nByte < 4 ; nByte++ )		// convert the byte arrays to dwords
+	for ( int nByte = 0 ; nByte < 4 ; nByte++ )		// Convert the byte arrays to dwords
 	{
 		BYTE nMaskByte = 0;
 		BYTE nNetByte = 0;
@@ -1547,29 +1548,29 @@ void  CSecureRule::MaskFix()
 
 	DWORD nTempMask = nOldMask;
 
-	for ( int nBits = 0 ; nBits < 32 ; nBits++ )	// get upper contiguous bits from subnet mask
+	for ( int nBits = 0 ; nBits < 32 ; nBits++ )	// Get upper contiguous bits from subnet mask
 	{
-		if ( nTempMask & 0x80000000 )				// check the high bit
+		if ( nTempMask & 0x80000000 )				// Check the high bit
 		{
-			nNewMask >>= 1;							// shift mask down
-			nNewMask |= 0x80000000;					// put the bit on
+			nNewMask >>= 1;							// Shift mask down
+			nNewMask |= 0x80000000;					// Put the bit on
 		}
 		else
 		{
-			break;									// found a 0 so ignore the rest
+			break;									// Found a 0 so ignore the rest
 		}
 		nTempMask <<= 1;
 	}
 
-	if ( nNewMask != nOldMask )						// set rule to expire if mask is invalid
+	if ( nNewMask != nOldMask )						// Set rule to expire if mask is invalid
 	{
 		m_nExpire = srSession;
 		return;
 	}
 
-	nNetwork &= nNewMask;		// do the & now so we don't have to each time there's a match
+	nNetwork &= nNewMask;			// Do the & now so we don't have to each time there's a match
 
-	for ( int nByte = 0 ; nByte < 4 ; nByte++ )		// convert the dwords back to byte arrays
+	for ( int nByte = 0 ; nByte < 4 ; nByte++ )		// Convert the dwords back to byte arrays
 	{
 		BYTE nNetByte = 0;
 		for ( int nBits = 0 ; nBits < 8 ; nBits++ )
@@ -1584,13 +1585,14 @@ void  CSecureRule::MaskFix()
 	}
 }
 
+
 //////////////////////////////////////////////////////////////////////
 // CAdultFilter construction
 
 CAdultFilter::CAdultFilter()
-	: m_pszBlockedWords	(NULL)
-	, m_pszDubiousWords	(NULL)
-	, m_pszChildWords	(NULL)
+	: m_pszBlockedWords	( NULL )
+	, m_pszDubiousWords	( NULL )
+	, m_pszChildWords	( NULL )
 {
 }
 
@@ -1648,7 +1650,7 @@ void CAdultFilter::Load()
 		}
 		catch ( CException* pException )
 		{
-			if (pFile.m_hFile != CFile::hFileNull) pFile.Close(); //Check if file is still open, if yes close
+			if (pFile.m_hFile != CFile::hFileNull) pFile.Close(); // Check if file is still open, if yes close
 			pException->Delete();
 		}
 	}
@@ -1958,7 +1960,8 @@ void CMessageFilter::Load()
 		}
 		catch ( CException* pException )
 		{
-			if (pFile.m_hFile != CFile::hFileNull) pFile.Close(); // Check if file is still open, if yes close
+			if ( pFile.m_hFile != CFile::hFileNull )
+				pFile.Close();		// If file is still open close it
 			pException->Delete();
 		}
 	}

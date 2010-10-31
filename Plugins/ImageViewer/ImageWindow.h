@@ -2,7 +2,7 @@
 // ImageViewerWindow.h
 //
 // This file is part of PeerProject (peerproject.org) © 2008
-// Original author Michael Stokes released portions into the public domain. 
+// Original author Michael Stokes released portions into the public domain.
 // You are free to redistribute and modify this page without any restrictions.
 //
 
@@ -15,7 +15,7 @@
 class CImageViewerPlugin;
 
 
-class CImageWindow : 
+class CImageWindow :
 	public CComObjectRootEx<CComSingleThreadModel>,
 	public CWindow, public IPluginWindowOwner
 {
@@ -54,7 +54,7 @@ protected:
 protected:
 	void	OnBestFit();
 	void	OnActualSize();
-	
+
 // Interfaces
 public:
 	BEGIN_COM_MAP(CImageWindow)
@@ -67,7 +67,7 @@ protected:
 	virtual HRESULT STDMETHODCALLTYPE OnMessage(UINT nMessage, WPARAM wParam, LPARAM lParam, LRESULT __RPC_FAR *plResult);
     virtual HRESULT STDMETHODCALLTYPE OnUpdate(UINT nCommandID, TRISTATE __RPC_FAR *pbVisible, TRISTATE __RPC_FAR *pbEnabled, TRISTATE __RPC_FAR *pbChecked);
 	virtual HRESULT STDMETHODCALLTYPE OnCommand(UINT nCommandID);
-	
+
 // Message Map
 public:
 	BEGIN_MSG_MAP(CImageViewerWindow)

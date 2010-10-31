@@ -144,6 +144,7 @@
 				GenerateDebugInformation="true"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
+				LargeAddressAware="2"
 				TargetMachine="17"
 			/>
 			<Tool
@@ -286,6 +287,7 @@
 				EnableCOMDATFolding="2"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
+				LargeAddressAware="2"
 				TargetMachine="17"
 			/>
 			<Tool

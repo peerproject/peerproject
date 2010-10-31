@@ -15,10 +15,10 @@
 
 #define IDR_MAINFRAME                       120	// Application Icon
 #define IDR_HOMEFRAME                       121	// richdoc#
-#define IDR_MEDIAFRAME                      122
-#define IDR_LIBRARYFRAME                    123
-#define IDR_DOWNLOADSFRAME                  124	// richdoc#
-#define IDR_UPLOADSFRAME                    125
+#define IDR_DOWNLOADSFRAME                  122	// richdoc#
+#define IDR_UPLOADSFRAME                    123
+#define IDR_LIBRARYFRAME                    124
+#define IDR_MEDIAFRAME                      125
 #define IDR_IRCFRAME                        126
 #define IDR_CHATFRAME                       127	// richdoc#
 #define IDR_CHANSFRAME                      128
@@ -32,7 +32,7 @@
 #define IDR_NEIGHBOURSFRAME                 136	// richdoc#
 #define IDR_DISCOVERYFRAME                  137	// richdoc#
 #define IDR_SECURITYFRAME                   138	// richdoc#
-#define IDR_SCHEDULERFRAME                  139
+#define IDR_SCHEDULERFRAME                  139	// richdoc#
 #define IDR_SYSTEMFRAME                     140
 #define IDR_TRAFFICFRAME                    141
 #define IDR_PACKETFRAME                     142
@@ -90,7 +90,11 @@
 #define IDI_CONTACT_AOL                     204	// richdoc#
 #define IDI_CONTACT_ICQ                     205	// richdoc#
 #define IDI_CONTACT_MSN                     206	// richdoc#
-#define IDI_CONTACT_YAHOO                   208	// richdoc#
+#define IDI_CONTACT_YAHOO                   207	// richdoc#
+#define IDI_CONTACT_GOOGLE                  208	// richdoc#
+#define IDI_CONTACT_TWITTER                 209	// richdoc#
+#define IDI_CONTACT_FACEBOOK                210	// richdoc#
+#define IDI_FAVICON                         212	// richdoc#
 
 // Cursor Resources:
 
@@ -103,7 +107,7 @@
 #define IDR_COPY_XP                         284
 #define IDR_MOVE_XP                         285
 
-// Bitmap Resources:
+// Bitmap/PNG Resources:
 
 #define IDB_MENUBAR                         300	// Command Images
 #define IDB_REMOTE_SKIN                     301	// richdoc#
@@ -113,22 +117,22 @@
 #define IDB_NAVBAR_ALPHA_RTL                305
 #define IDB_PROTOCOLS                       306
 #define IDB_IRCICONS                        307
-#define IDB_SMALL_STAR                      308
+#define IDB_SOCIAL                          308
 #define IDB_CHILDFRAME                      309
 #define IDB_BANNER                          310 // richdoc#
 #define IDB_BANNER_MARK                     312
 #define IDB_BOX_MARK                        313
 #define IDB_PANEL_MARK                      314
 #define IDB_SECURITY                        315
-#define IDB_COLORDOT                        316
-#define IDB_SORT_ASC                        318
-#define IDB_SORT_DESC                       319
-#define IDB_FOLDERS                         320
-#define IDB_FONT_SYMBOLS                    321
-#define IDB_MEDIA_STATES                    322
-#define IDB_MUSICBRAINZ_LOGO                323
+#define IDB_SMALL_STAR                      316
+#define IDB_COLORDOT                        317
+#define IDB_FONT_SYMBOLS                    318
+#define IDB_MEDIA_STATES                    320
+#define IDB_SORT_ASC                        321
+#define IDB_SORT_DESC                       322
 #define IDB_TASKBOX_CAPTION                 324
 #define IDB_TASKPANEL_FOOTER                325
+#define IDB_MUSICBRAINZ_LOGO                328
 #define IDR_LARGE_LOGO                      330	// richdoc#
 #define IDR_HOME_HEADER                     332 // richdoc#
 #define IDR_HOME_HEADER_REPEAT              333 // richdoc#
@@ -419,8 +423,8 @@
 #define IDC_GROUP_CONTENT                   1195
 #define IDC_GROUP_NETWORK                   1196
 #define IDC_GUID                            1200
-#define IDC_GUID_CREATE                     1201
-#define IDC_GUID_TIME                       1202
+#define IDC_GUID_BT                         1201
+#define IDC_GUID_CREATE                     1202
 #define IDC_HASH_INTEGRITY                  1203
 #define IDC_HIDE_SEARCH                     1204
 #define IDC_HIGHLIGHT_NEW                   1205
@@ -579,6 +583,9 @@
 #define IDC_PROFILE_MSN                     1412
 #define IDC_PROFILE_YAHOO                   1414
 #define IDC_PROFILE_JABBER                  1415
+#define IDC_PROFILE_TWITTER                 1416
+#define IDC_PROFILE_FACEBOOK                1417
+#define IDC_PROFILE_PEERPROJECTORG          1418
 #define IDC_PROPERTIES                      1420
 #define IDC_PROGRESS                        1421
 #define IDC_PROGRESS_FILE                   1422
@@ -808,11 +815,17 @@
 #define IDC_CHECK_FRI                       1725
 #define IDC_CHECK_SAT                       1726
 #define IDC_CHECK_SUN                       1727
-// Workarounds:
+// Generic Workarounds:
+#define IDC_STATIC_0                        1800
 #define IDC_STATIC_1                        1801
 #define IDC_STATIC_2                        1802
 #define IDC_STATIC_3                        1803
 #define IDC_STATIC_4                        1804
+#define IDC_STATIC_5                        1805
+#define IDC_STATIC_6                        1806
+#define IDC_STATIC_7                        1807
+#define IDC_STATIC_8                        1808
+#define IDC_STATIC_9                        1809
 
 // String Resources:
 
@@ -953,6 +966,7 @@
 #define IDS_CHAT_UNRECOGNISED_X             20193		// 16452
 #define IDS_COLLECTION_WIZARD_NOCUSTOM      20194		// 7101
 #define IDS_COLLECTION_WIZARD_NOTVALID      20195		// 7100
+#define IDS_COPIED_TO_CLIPBOARD             20196
 #define IDS_CLOSING_AFTER                   20199		// 8005
 #define IDS_DOWNLOAD_ADDED                  20200		// 16256
 #define IDS_DOWNLOAD_ALREADY                20201		// 16283
@@ -1308,8 +1322,13 @@
 #define IDS_REMOTE_DISABLED                 20590		// 19000
 #define IDS_REMOTE_ENABLED                  20591		// 19001
 #define IDS_REMOTE_UNAVAILABLE              20592		// 19002
-#define IDS_SCHEMAS                         20595		// 7001
-#define IDS_SCHEMA_LOAD_ERROR               20596		// 7007
+#define IDS_SECURITY_ACCEPT                 20593
+#define IDS_SECURITY_DENY                   20594
+#define IDS_SECURITY_NOEXPIRE               20595
+#define IDS_SECURITY_DEFAULT                20596
+#define IDS_SECURITY_REMOVE_CONFIRM         20597		// 13001
+#define IDS_SCHEMA_LOAD_ERROR               20598		// 7007
+#define IDS_SCHEMAS                         20599		// 7001
 #define IDS_SCHEDULER_BANDWIDTH_FULL        20600		// 20250
 #define IDS_SCHEDULER_BANDWIDTH_LIMITED	    20601		// 20601
 #define IDS_SCHEDULER_BANDWIDTH_STOP        20602		// 20252
@@ -1376,7 +1395,6 @@
 #define IDS_SEARCH_PANEL_SEARCHING          20668		// 8143
 #define IDS_SEARCH_PLAIN_TEXT               20669		// 8136
 #define IDS_SEARCH_WORKING                  20670		// 8130
-#define IDS_SECURITY_REMOVE_CONFIRM         20671		// 13001
 #define IDS_SELECT_ED2K_TEMP_FOLDER         20672		// 20217
 #define IDS_SETTINGS_AUTOMATIC_IP           20673		// 16811
 #define IDS_SETTINGS_FILEPATH_NOT_SAME      20674		// 16818
@@ -1839,9 +1857,10 @@
 #define ID_NETWORK_CONNECT_TO               40331		// 32798
 #define ID_NETWORK_DISCONNECT               40332		// 32778
 #define ID_NETWORK_BROWSE_TO                40333		// 32964
-#define ID_NETWORK_AUTO_CLOSE               40334		// 32881
-#define ID_NETWORK_EXIT                     40335		// 32776
-#define ID_NETWORK_SEARCH                   40336		// 32799
+#define ID_NETWORK_CHAT_TO                  40334
+#define ID_NETWORK_SEARCH                   40335		// 32799
+#define ID_NETWORK_EXIT                     40336		// 32776
+#define ID_NETWORK_AUTO_CLOSE               40337		// 32881
 #define ID_SEARCHMONITOR_CLEAR              40338		// 32816
 #define ID_SEARCHMONITOR_PAUSE              40339		// 32815
 #define ID_SEARCH_SEARCH                    40340		// 32810

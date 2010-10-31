@@ -2,21 +2,18 @@
 // CtrlMatchTip.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2007.
+// Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
@@ -37,10 +34,10 @@
 #include "Flags.h"
 
 #ifdef _DEBUG
-#define new DEBUG_NEW
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
-#endif
+#define new DEBUG_NEW
+#endif	// Filename
 
 BEGIN_MESSAGE_MAP(CMatchTipCtrl, CWnd)
 	//{{AFX_MSG_MAP(CMatchTipCtrl)
@@ -67,14 +64,13 @@ END_MESSAGE_MAP()
 // CMatchTipCtrl construction
 
 CMatchTipCtrl::CMatchTipCtrl()
+	: m_pOwner		( NULL )
+	, m_bVisible	( FALSE )
+	, m_pFile		( NULL )
+	, m_pHit		( NULL )
+	, m_tOpen		( 0 )
+	, m_nIcon		( 0 )
 {
-	m_pOwner	= NULL;
-	m_bVisible	= FALSE;
-	m_pFile		= NULL;
-	m_pHit		= NULL;
-	m_tOpen		= 0;
-	m_nIcon		= 0;
-
 	if ( ! m_hClass )
 		m_hClass = AfxRegisterWndClass( CS_SAVEBITS |
 			( ! Settings.Interface.TipShadow || theApp.m_bIsWin2000 ? 0 : CS_DROPSHADOW ) );
@@ -110,7 +106,7 @@ void CMatchTipCtrl::Show(CMatchFile* pFile, CQueryHit* pHit)
 //	m_crBack	= Colors.m_crTipBack;
 //	m_crText	= Colors.m_crTipText;
 //	m_crBorder	= Colors.m_crTipBorder;
-//	m_crWarnings = Colors.m_crTipWarnings; // Set color of warning messages
+//	m_crWarnings = Colors.m_crTipWarnings;	// Set color of warning messages
 
 	if ( m_brBack.m_hObject ) m_brBack.DeleteObject();
 	m_brBack.CreateSolidBrush( Colors.m_crTipBack );
@@ -398,7 +394,7 @@ void CMatchTipCtrl::LoadFromHit()
 		LoadString( m_sStatus, IDS_TIP_BOGUS );
 		m_crStatus = Colors.m_crTextAlert ;
 	}
-	else if ( m_pHit->m_sComments.GetLength() )
+	else if ( ! m_pHit->m_sComments.IsEmpty() )
 	{
 		if ( m_pHit->m_nRating == 1 )
 			LoadString( m_sStatus, IDS_TIP_EXISTS_BLACKLISTED );
@@ -465,7 +461,7 @@ BOOL CMatchTipCtrl::LoadTypeInfo()
 		ShellIcons.Lookup( strType, NULL, NULL, &strName, &strMime );
 		m_nIcon = ShellIcons.Get( strType, 32 );
 
-		if ( strName.GetLength() )
+		if ( ! strName.IsEmpty() )
 		{
 			m_sType = strName;
 			if ( strMime.GetLength() )
@@ -477,7 +473,8 @@ BOOL CMatchTipCtrl::LoadTypeInfo()
 		}
 	}
 
-	if ( m_sType.IsEmpty() ) m_sType = _T("Unknown");
+	if ( m_sType.IsEmpty() )
+		m_sType = _T("Unknown");
 
 	return FALSE;
 }
@@ -497,13 +494,13 @@ CSize CMatchTipCtrl::ComputeSize()
 
 	dc.SelectObject( &CoolInterface.m_fntNormal );
 
-	if ( m_sUser.GetLength() )
+	if ( ! m_sUser.IsEmpty() )
 	{
 		ExpandSize( dc, sz, m_sUser );
 		sz.cy += TIP_TEXTHEIGHT;
 	}
 
-	if ( m_sCountry.GetLength() )
+	if ( ! m_sCountry.IsEmpty() )
 	{
 		ExpandSize( dc, sz, m_sCountry, 18 + 2 );
 		sz.cy += TIP_TEXTHEIGHT;
@@ -511,7 +508,7 @@ CSize CMatchTipCtrl::ComputeSize()
 
 	sz.cy += 5 + 6;
 
-	if ( m_sStatus.GetLength() )
+	if ( ! m_sStatus.IsEmpty() )
 	{
 		dc.SelectObject( &CoolInterface.m_fntBold );
 		ExpandSize( dc, sz, m_sStatus );
@@ -529,36 +526,36 @@ CSize CMatchTipCtrl::ComputeSize()
 	strTest.Append( _T(": ") );
 	ExpandSize( dc, sz, strTest + m_sType, 40 );
 
-	if ( m_sSHA1.GetLength() || m_sTiger.GetLength() || m_sED2K.GetLength() ||
-		m_sBTH.GetLength() || m_sMD5.GetLength() )
+	if ( ! m_sSHA1.IsEmpty() || ! m_sTiger.IsEmpty() || ! m_sED2K.IsEmpty() ||
+		! m_sBTH.IsEmpty() || ! m_sMD5.IsEmpty() )
 	{
 		sz.cy += 5 + 6;
 
-		if ( m_sSHA1.GetLength() )
+		if ( ! m_sSHA1.IsEmpty() )
 		{
 			ExpandSize( dc, sz, m_sSHA1 );
 			sz.cy += TIP_TEXTHEIGHT;
 		}
 
-		if ( m_sTiger.GetLength() )
+		if ( ! m_sTiger.IsEmpty() )
 		{
 			ExpandSize( dc, sz, m_sTiger );
 			sz.cy += TIP_TEXTHEIGHT;
 		}
 
-		if ( m_sED2K.GetLength() )
+		if ( ! m_sED2K.IsEmpty() )
 		{
 			ExpandSize( dc, sz, m_sED2K );
 			sz.cy += TIP_TEXTHEIGHT;
 		}
 
-		if ( m_sBTH.GetLength() )
+		if ( ! m_sBTH.IsEmpty() )
 		{
 			ExpandSize( dc, sz, m_sBTH );
 			sz.cy += TIP_TEXTHEIGHT;
 		}
 
-		if ( m_sMD5.GetLength() )
+		if ( ! m_sMD5.IsEmpty() )
 		{
 			ExpandSize( dc, sz, m_sMD5 );
 			sz.cy += TIP_TEXTHEIGHT;
@@ -580,11 +577,11 @@ CSize CMatchTipCtrl::ComputeSize()
 	}
 
 	// Busy/Firewalled/unstable warnings. Queue info.
-	if ( m_sBusy.GetLength() || m_sPush.GetLength() || m_sUnstable.GetLength() || m_sQueue.GetLength() )
+	if ( ! m_sBusy.IsEmpty() || ! m_sPush.IsEmpty() || ! m_sUnstable.IsEmpty() || ! m_sQueue.IsEmpty() )
 	{
 		sz.cy += 11;
 
-		if ( m_sBusy.GetLength() )
+		if ( ! m_sBusy.IsEmpty() )
 		{
 			dc.SelectObject( &CoolInterface.m_fntBold );
 			ExpandSize( dc, sz, m_sBusy, 20 );
@@ -592,16 +589,16 @@ CSize CMatchTipCtrl::ComputeSize()
 			sz.cy += TIP_ICONHEIGHT;
 		}
 
-		if ( m_sQueue.GetLength() )
+		if ( ! m_sQueue.IsEmpty() )
 		{
-			if ( m_sBusy.GetLength() )				//Align queue info with above (if present)
+			if ( ! m_sBusy.IsEmpty() )				// Align queue info with above (if present)
 				ExpandSize( dc, sz, m_sQueue, 20 );
 			else
 				ExpandSize( dc, sz, m_sQueue );
 			sz.cy += TIP_TEXTHEIGHT;
 		}
 
-		if ( m_sPush.GetLength() )
+		if ( ! m_sPush.IsEmpty() )
 		{
 			dc.SelectObject( &CoolInterface.m_fntBold );
 			ExpandSize( dc, sz, m_sPush, 20 );
@@ -609,7 +606,7 @@ CSize CMatchTipCtrl::ComputeSize()
 			sz.cy += TIP_ICONHEIGHT;
 		}
 
-		if ( m_sUnstable.GetLength() )
+		if ( ! m_sUnstable.IsEmpty() )
 		{
 			dc.SelectObject( &CoolInterface.m_fntBold );
 			ExpandSize( dc, sz, m_sUnstable, 20 );
@@ -618,8 +615,8 @@ CSize CMatchTipCtrl::ComputeSize()
 		}
 	}
 
-	//Partial warning
-	if ( m_sPartial.GetLength() )
+	// Partial warning
+	if ( ! m_sPartial.IsEmpty() )
 	{
 		sz.cy += 5 + 6;
 
@@ -680,19 +677,18 @@ void CMatchTipCtrl::OnPaint()
 
 	dc.SelectObject( &CoolInterface.m_fntNormal );
 
-	if ( m_sUser.GetLength() )
+	if ( ! m_sUser.IsEmpty() )
 	{
 		DrawText( dc, pt, m_sUser );
 		pt.y += TIP_TEXTHEIGHT;
 	}
 
-	if ( m_sCountry.GetLength() )
+	if ( ! m_sCountry.IsEmpty() )
 	{
 		int nFlagIndex = Flags.GetFlagIndex( m_sCountryCode );
 		if ( nFlagIndex >= 0 )
 		{
-			ImageList_DrawEx( Flags.m_pImage, nFlagIndex, dc,
-				pt.x, pt.y, 16, 16, crBack, crBack, ILD_NORMAL );
+			Flags.Draw( nFlagIndex, dc, pt.x, pt.y, crBack );
 			dc.ExcludeClipRect( pt.x, pt.y, pt.x + 16, pt.y + 16 );
 			pt.x += 20;
 			pt.y += 2;
@@ -711,7 +707,7 @@ void CMatchTipCtrl::OnPaint()
 	dc.ExcludeClipRect( rc.left + 2, pt.y, rc.right - 2, pt.y + 1 );
 	pt.y += 6;
 
-	if ( m_sStatus.GetLength() )
+	if ( ! m_sStatus.IsEmpty() )
 	{
 		dc.SetTextColor( m_crStatus );
 		dc.SelectObject( &CoolInterface.m_fntBold );
@@ -770,39 +766,39 @@ void CMatchTipCtrl::OnPaint()
 	pt.y += 16;
 
 	// Hashes
-	if ( m_sSHA1.GetLength() || m_sTiger.GetLength() || m_sED2K.GetLength() ||
-		m_sBTH.GetLength() || m_sMD5.GetLength() )
+	if ( ! m_sSHA1.IsEmpty() || ! m_sTiger.IsEmpty() || ! m_sED2K.IsEmpty() ||
+		! m_sBTH.IsEmpty() || ! m_sMD5.IsEmpty() )
 	{
 		pt.y += 5;
 		dc.Draw3dRect( rc.left + 2, pt.y, rc.Width() - 4, 1, Colors.m_crTipBorder, Colors.m_crTipBorder );
 		dc.ExcludeClipRect( rc.left + 2, pt.y, rc.right - 2, pt.y + 1 );
 		pt.y += 6;
 
-		if ( m_sSHA1.GetLength() )
+		if ( ! m_sSHA1.IsEmpty() )
 		{
 			DrawText( dc, pt, m_sSHA1 );
 			pt.y += TIP_TEXTHEIGHT;
 		}
 
-		if ( m_sTiger.GetLength() )
+		if ( ! m_sTiger.IsEmpty() )
 		{
 			DrawText( dc, pt, m_sTiger );
 			pt.y += TIP_TEXTHEIGHT;
 		}
 
-		if ( m_sED2K.GetLength() )
+		if ( ! m_sED2K.IsEmpty() )
 		{
 			DrawText( dc, pt, m_sED2K );
 			pt.y += TIP_TEXTHEIGHT;
 		}
 
-		if ( m_sBTH.GetLength() )
+		if ( ! m_sBTH.IsEmpty() )
 		{
 			DrawText( dc, pt, m_sBTH );
 			pt.y += TIP_TEXTHEIGHT;
 		}
 
-		if ( m_sMD5.GetLength() )
+		if ( ! m_sMD5.IsEmpty() )
 		{
 			DrawText( dc, pt, m_sMD5 );
 			pt.y += TIP_TEXTHEIGHT;
@@ -810,7 +806,7 @@ void CMatchTipCtrl::OnPaint()
 	}
 
 	// Busy, firewalled, unstabled warnings. Queue info
-	if ( m_sBusy.GetLength() || m_sPush.GetLength() || m_sUnstable.GetLength() || m_sQueue.GetLength() )
+	if ( ! m_sBusy.IsEmpty() || ! m_sPush.IsEmpty() || ! m_sUnstable.IsEmpty() || ! m_sQueue.IsEmpty() )
 	{
 		pt.y += 5;
 		dc.Draw3dRect( rc.left + 2, pt.y, rc.Width() - 4, 1, Colors.m_crTipBorder, Colors.m_crTipBorder );
@@ -822,7 +818,7 @@ void CMatchTipCtrl::OnPaint()
 		dc.SelectObject( &CoolInterface.m_fntBold );
 
 		// Source busy warning
-		if ( m_sBusy.GetLength() )
+		if ( ! m_sBusy.IsEmpty() )
 		{
 			CoolInterface.Draw( &dc, IDI_BUSY, 16, pt.x, pt.y, crBack );
 			if ( ! Skin.m_bmToolTip.m_hObject )
@@ -840,12 +836,12 @@ void CMatchTipCtrl::OnPaint()
 		dc.SelectObject( &CoolInterface.m_fntNormal );
 
 		// Queue info
-		if ( m_sQueue.GetLength() )
+		if ( ! m_sQueue.IsEmpty() )
 		{
 			CPoint ptTextWithIcon = pt;
 			ptTextWithIcon.x += 20;
 
-			if ( m_sBusy.GetLength() )			// Align queue info with above (if present)
+			if ( ! m_sBusy.IsEmpty() )			// Align queue info with above (if present)
 				DrawText( dc, ptTextWithIcon, m_sQueue );
 			else
 				DrawText( dc, pt, m_sQueue );
@@ -857,7 +853,7 @@ void CMatchTipCtrl::OnPaint()
 		dc.SelectObject( &CoolInterface.m_fntBold );
 
 		// Source firewalled warning
-		if ( m_sPush.GetLength() )
+		if ( ! m_sPush.IsEmpty() )
 		{
 			CoolInterface.Draw( &dc, IDI_FIREWALLED, 16, pt.x, pt.y, crBack );
 			if ( ! Skin.m_bmToolTip.m_hObject )
@@ -872,7 +868,7 @@ void CMatchTipCtrl::OnPaint()
 		}
 
 		// Source unstable warning
-		if ( m_sUnstable.GetLength() )
+		if ( ! m_sUnstable.IsEmpty() )
 		{
 			CoolInterface.Draw( &dc, IDI_UNSTABLE, 16, pt.x, pt.y, crBack );
 			if ( ! Skin.m_bmToolTip.m_hObject )
@@ -890,7 +886,7 @@ void CMatchTipCtrl::OnPaint()
 	}
 
 	// Partial warning
-	if ( m_sPartial.GetLength() )
+	if ( ! m_sPartial.IsEmpty() )
 	{
 		pt.y += 5;
 		dc.Draw3dRect( rc.left + 2, pt.y, rc.Width() - 4, 1, Colors.m_crTipBorder, Colors.m_crTipBorder );

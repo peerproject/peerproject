@@ -34,7 +34,7 @@ HKCU
 			{
 				NoRemove Plugins
 				{
-					NoRemove General
+					General
 					{
 						ForceRemove val 'Search Export Plugin' = s '{DF7CED9C-198A-4acd-A42F-BB34EAA15C02}'
 					}

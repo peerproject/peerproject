@@ -2,21 +2,18 @@
 // GraphLine.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2007.
+// Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
@@ -30,7 +27,7 @@
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
-#endif
+#endif	// Filename
 
 const DWORD MIN_GRID_SIZE_HORZ = 16u;
 #define TOP_MARGIN			10
@@ -40,19 +37,19 @@ const DWORD MIN_GRID_SIZE_HORZ = 16u;
 // CLineGraph construction
 
 CLineGraph::CLineGraph()
-{
-	m_bShowAxis		= TRUE;
-	m_bShowGrid		= TRUE;
-	m_bShowLegend	= TRUE;
-	m_crBack		= Colors.m_crTrafficWindowBack;
-	m_crGrid		= Colors.m_crTrafficWindowGrid;
-	m_nMinGridVert	= 32;
+	: m_bShowAxis	( TRUE )
+	, m_bShowGrid	( TRUE )
+	, m_bShowLegend	( TRUE )
+	, m_crBack		( Colors.m_crTrafficWindowBack )
+	, m_crGrid		( Colors.m_crTrafficWindowGrid )
+	, m_nMinGridVert ( 32 )
 
-	m_nSpeed		= 100;
-	m_nScale		= 1;	// ToDo: Remove?  Was "2"
-	m_nMaximum		= 0;
-	m_nUpdates		= 0;
-	m_tLastScale	= 0;
+	, m_nSpeed		( 100 )
+	, m_nScale		( 1 )	// ToDo: Remove?  Was "2"
+	, m_nMaximum	( 0 )
+	, m_nUpdates	( 0 )
+	, m_tLastScale	( 0 )
+{
 }
 
 CLineGraph::~CLineGraph()
@@ -124,7 +121,7 @@ BOOL CLineGraph::Update()
 	}
 
 	m_nUpdates++;
-	return !m_pItems.IsEmpty();
+	return ! m_pItems.IsEmpty();
 }
 
 //////////////////////////////////////////////////////////////////////

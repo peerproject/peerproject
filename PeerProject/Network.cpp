@@ -2,21 +2,18 @@
 // Network.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2008.
+// Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
@@ -55,7 +52,7 @@
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
-#endif
+#endif	// Filename
 
 CNetwork Network;
 
@@ -457,6 +454,7 @@ BOOL CNetwork::IsFirewalledAddress(const IN_ADDR* pAddress, BOOL bIncludeSelf) c
 // The code is based on nmap code and updated according to
 // http://www.cymru.com/Documents/bogon-bn-nonagg.txt
 // and http://www.iana.org/assignments/ipv4-address-space
+// ToDo: Review this list for additions as IPv4 space deplated
 
 BOOL CNetwork::IsReserved(const IN_ADDR* pAddress, bool bCheckLocal) const
 {
@@ -465,32 +463,32 @@ BOOL CNetwork::IsReserved(const IN_ADDR* pAddress, bool bCheckLocal) const
 
 	switch ( i1 )
 	{
-		case 0: 	// 000/8 is IANA reserved
-		case 1: 	// 001/8 is IANA reserved
-		case 2: 	// 002/8 is IANA reserved
-		case 5: 	// 005/8 is IANA reserved
-		case 6: 	// USA Army ISC
-		case 7: 	// used for BGP protocol
-		case 14:	// 014/8 is IANA reserved
-		case 23:	// 023/8 is IANA reserved
-		case 27:	// 027/8 is IANA reserved
-		case 31:	// 031/8 is IANA reserved
-		case 36:	// 036/8 is IANA reserved
-		case 37:	// 037/8 is IANA reserved
-		case 39:	// 039/8 is IANA reserved
-		case 42:	// 042/8 is IANA reserved
-		case 46:	// 046/8 is IANA reserved
-		case 49:	// 049/8 is IANA reserved
-		case 50:	// 050/8 is IANA reserved
-		case 55:	// misc. USA Armed forces
-		case 127:	// 127/8 is reserved for loopback
-		case 197:	// 197/8 is IANA reserved
-		case 223:	// 223/8 is IANA reserved
-			return TRUE;
-		case 10:	// Private addresses
-			return bCheckLocal && Settings.Connection.IgnoreLocalIP;
-		default:
-			break;
+	case 0: 	// 000/8 is IANA reserved
+	case 1: 	// 001/8 is IANA reserved
+	case 2: 	// 002/8 is IANA reserved
+	case 5: 	// 005/8 is IANA reserved
+	case 6: 	// USA Army ISC
+	case 7: 	// used for BGP protocol
+	case 14:	// 014/8 is IANA reserved
+	case 23:	// 023/8 is IANA reserved
+	case 27:	// 027/8 is IANA reserved
+	case 31:	// 031/8 is IANA reserved
+	case 36:	// 036/8 is IANA reserved
+	case 37:	// 037/8 is IANA reserved
+	case 39:	// 039/8 is IANA reserved
+	case 42:	// 042/8 is IANA reserved
+	case 46:	// 046/8 is IANA reserved
+	case 49:	// 049/8 is IANA reserved
+	case 50:	// 050/8 is IANA reserved
+	case 55:	// misc. USA Armed forces
+	case 127:	// 127/8 is reserved for loopback
+	case 197:	// 197/8 is IANA reserved
+	case 223:	// 223/8 is IANA reserved
+		return TRUE;
+	case 10:	// Private addresses
+		return bCheckLocal && Settings.Connection.IgnoreLocalIP;
+	default:
+		break;
 	}
 
 	// 100-111/8 is IANA reserved

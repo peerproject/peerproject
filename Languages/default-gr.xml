@@ -3,8 +3,8 @@
 
 <!-- PeerProject Default Greek Skin File -->
 
-<!-- Translation based on default-en.xml r59 -->
-<!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
+<!-- Translation based on default-en.xml r60 -->
+<!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
 <!-- Use this file as a basis for creating new language skins,   -->
@@ -62,6 +62,7 @@
 		<button id="ID_VIEW_MEDIA"/>
 		<button id="ID_TAB_IRC"/>
 		<separator/>
+		<button id="ID_VIEW_SCHEDULER"/>
 		<button id="ID_VIEW_SECURITY"/>
 		<button id="ID_VIEW_HOSTS"/>
 		<button id="ID_VIEW_DISCOVERY"/>
@@ -1738,13 +1739,16 @@
 			<newline gap="8" indent="42"/>
 			<anchor id="SearchBox" width="256" height="80"/>
 			<newline gap="14" indent="0"/>
-			<icon res="124" width="32" height="32" target="command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
+			<icon res="122" width="32" height="32" target="command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
 			<heading align="middle">ΑΡΧΗ ΛΗΨΗΣ</heading>
 			<newline gap="8" indent="42"/>
 			<link target="command:ID_TOOLS_DOWNLOAD" format="bu">Κλικ εδώ για να αρχίσετε</link>
 			<text>&#160; τη λήψη ενός νέου αρχείου ή torrent.</text>
 			<newline gap="2" indent="42"/>
 			<link target="command:shell:downloads">Άνοιγμα φακέλου Ληφθέντων</link>
+			<newline gap="4" indent="42"/>
+			<text>Μοιραστείτε τα αρχεία σας στο </text>
+			<link id="RemoteBrowseURL"/>
 			<newline gap="20" indent="0"/>
 		</group>
 		<group id="3">
@@ -1792,26 +1796,26 @@
 		<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">ΠΡΟΣΑΡΜΟΓΗ  TOΥ PEERPROJECT</heading>
 		<newline gap="12" indent="42"/>
-		<icon res="196"width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
-		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">Φλοιοί</link>
-		<text align="middle">&#160;- Αλλαγή της όψης και της αισθητικής του PeerProject</text>
+		<icon res="196" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
+		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">Φλοιοί</link><gap size="6"/>
+		<text align="middle">- Αλλαγή της όψης και της αισθητικής του PeerProject</text>
 		<newline gap="8"/>
-		<icon res="138"width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
-		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
-		<text align="middle">&#160;- Update blocklist to avoid bad search results</text>
+		<icon res="138" width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
+		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link><gap size="6"/>
+		<text align="middle">- Update blocklist to avoid bad search results</text>
 		<newline gap="8"/>
-		<icon res="197"width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
-		<link target="command:ID_TOOLS_WIZARD" align="middle">Οδηγός Σύντομης Εκκίνησης</link>
-		<text align="middle">&#160;- Βασική ρύθμιση του PeerProject</text>
+		<icon res="197" width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
+		<link target="command:ID_TOOLS_WIZARD" align="middle">Οδηγός Σύντομης Εκκίνησης</link><gap size="6"/>
+		<text align="middle">- Βασική ρύθμιση του PeerProject</text>
 		<newline gap="8"/>
-		<icon res="182"width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
-		<link target="command:ID_HELP_FAQ" align="middle">Βοήθεια</link>
-		<text align="middle">&#160;- Ιστοσελίδα βοήθειας στη χρήση του PeerProject, or </text>
+		<icon res="182" width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
+		<link target="command:ID_HELP_FAQ" align="middle">Βοήθεια</link><gap size="6"/>
+		<text align="middle">- Ιστοσελίδα βοήθειας στη χρήση του PeerProject, or </text>
 		<link target="command:ID_TAB_IRC" align="middle">IRC.</link>
 		<newline gap="8"/>
-		<icon res="201"width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
-		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">Τοπική Forum</link>
-		<text align="middle">&#160;- GΜετάβαση στο ελληνικό φόρουμ συζήτησης σας γλώσσα</text>
+		<icon res="201" width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
+		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">Τοπική Forum</link><gap size="6"/>
+		<text align="middle">- GΜετάβαση στο ελληνικό φόρουμ συζήτησης σας γλώσσα</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
 			<icon res="120" width="32" height="32"/><gap size="8"/>
@@ -2042,7 +2046,7 @@
 		</group>
 		<group id="41">
 			<newline gap="1"/>
-			<icon res="208"/><gap size="5"/>
+			<icon res="207"/><gap size="5"/>
 			<link id="ContactYahoo"/>
 		</group>
 		<group id="42">
@@ -2083,7 +2087,7 @@
 			<newline gap="16" indent="0"/>
 			<text format="b">Κοινότητα</text>
 			<newline gap="4" indent="8"/>
-			<icon res="127"target="command:ID_SEARCH_CHAT"/>
+			<icon res="127" target="command:ID_SEARCH_CHAT"/>
 			<gap size="5"/>
 			<link target="command:ID_SEARCH_CHAT" align="middle">Συνομιλία με Χρήστη</link>
 		</group>
@@ -2701,8 +2705,8 @@
 	<string id="20002" value="Όχι"/>
 	<string id="20003" value="OK"/>
 	<string id="20004" value="Άκυρο"/>
-	<string id="20005" value="&Πίσω"/>
-	<string id="20006" value="&Επόμενο"/>
+	<string id="20005" value="Πίσω"/>
+	<string id="20006" value="Επόμενο"/>
 	<string id="20008" value="Κλείσιμο"/>
 	<string id="20009" value="από"/> <!-- "1 of 10" -->
 	<string id="20010" value="Όλα"/>
@@ -2726,7 +2730,7 @@
 	<string id="20065" value="Πολύ Καλό"/>
 	<string id="20066" value="Έξοχο"/>
 	<string id="20080" value="Αυτή είναι μία έκδοση προδημοσίευσης του PeerProject και η περίοδος δοκιμών έληξε. Παρακαλώ λέβετ την πλήρη επίσημη έκδοση από το http://peerproject.org/."/>
-	<string id="20081" value="&Κλείσιμο"/>
+	<string id="20081" value="Κλείσιμο"/>
 	<string id="20082" value="Ολοκληρώθηκε, κλικ στο Κλείσιμο"/>
 	<string id="20083" value="Αίτηση..."/>
 	<string id="20084" value="Επιτυχία!"/>
@@ -3036,8 +3040,8 @@
 	<string id="20441" value="Αποτυχία μετονομασίας αρχείου:\n\n%s\nto\n%s"/>
 	<string id="20442" value="Το αρχείο προορισμού προϋπάρχει:\n\n%snnΘέλετε να το αντικαταστήσετε;"/>
 	<string id="20443" value="Προβολή Όλων των Τύπων Αρχείων"/>
-	<string id="20444" value="Αντιγραφή &URI"/>
-	<string id="20445" value="Εξαγωγή &URIs..."/>
+	<string id="20444" value="Αντιγραφή URI"/>
+	<string id="20445" value="Εξαγωγή URIs..."/>
 	<string id="20446" value="Το αρχείο &quot;%s&quot; απέτυχε στη δοκιμή επαλήθευσης με hash και ίσως δεν είναι το αρχείο που σκοπεύατε να λάβετε! Θέλετε σίγουρα να το ανοίξετε;"/>
 	<string id="20447" value="Θέλετε να αφαιρέσετε την &quot;εν δυνάμει επικίνδυνη&quot; ιδιότητα από αυτό το αρχείο;"/>
 	<string id="20448" value="Το αρχείο &quot;%s&quot; ακόμη δεν έχει σαρωθεί. Παρακαλώ περιμένετε να τελειώσει και ξαναπροσπαθείστε."/>
@@ -3161,7 +3165,9 @@
 	<string id="20590" value="Η απομακρυσμένη πρόσβαση είναι απενεργοποιημένη."/>
 	<string id="20591" value="http://%s:%i/remote - Πρέπει να διαλέξετε ένα όνομα και έναν κωδικό."/>
 	<string id="20592" value="Αδυναμία υποδοχής συνδέσεων, μη διαθέσιμο URL."/>
-	<string id="20595" value="&amp;Schemas"/>
+	<string id="20597" value="Θέλετε σίγουρα να διαγράψετε τους επιλεγμένους κανόνες ασφαλείας; Αυτό δεν μπορεί να αναιρεθεί!"/>
+	<string id="20599" value="&amp;Schemas"/>
+	<!-- Missing Scheduler/Security Strings -->
 	<string id="20620" value="Ενεργή αναζήτηση..."/>
 	<string id="20621" value="Κλικ εδώ για επαναζήτηση."/>
 	<string id="20622" value="Όλα τα Δίκτυα"/>
@@ -3209,7 +3215,6 @@
 	<string id="20668" value="Αναζήτηση..."/>
 	<string id="20669" value="Αναζήτηση Σκέτου Κειμένου"/>
 	<string id="20670" value="Αναζήτηση σε εξέλιξη..."/>
-	<string id="20671" value="Θέλετε σίγουρα να διαγράψετε τους επιλεγμένους κανόνες ασφαλείας; Αυτό δεν μπορεί να αναιρεθεί!"/>
 	<string id="20672" value="Επιλογή προσωρινού φακέλου eDonkey/eMule:"/>
 	<string id="20673" value="Αυτόματα"/>
 	<string id="20674" value="Ο φάκελος Ολοκληρωμένων δεν πρέπει να ταυτίζεται με τον φάκελο Ημιτελών."/>
@@ -3363,8 +3368,8 @@
 	<string id="20860" value="Αποστολή δεδομένων tiger-tree για το &quot;%s&quot; προς %s."/>
 	<string id="20861" value="Αφαίρεση αποστολής του &quot;%s&quot; προς %s."/>
 	<string id="20862" value="Προσθήκη"/>
-	<string id="20864" value="&Περιήγηση"/>
-	<string id="20865" value="&Σύνδεση"/>
+	<string id="20864" value="Περιήγηση"/>
+	<string id="20865" value="Σύνδεση"/>
 	<string id="20866" value="Όνομα Αρχείου:"/>
 	<string id="20867" value="Host:"/>
 	<string id="20868" value="Θύρα:"/>
@@ -3380,7 +3385,7 @@
 	<string id="20884" value="Μη διαθέσιμο URN"/>
 	<string id="20885" value="Η αλλαγή της κατεύθυνσης χρειάζεται επανεκκίνηση.\nΘα χρειαστεί να εκκινήσετε το PeerProject χειροκίνητα. Έξοδος;"/>
 	<string id="20890" value="Καλώς ήρθατε στο PeerProject"/>
-	<string id="20891" value="E&xit"/>
+	<string id="20891" value="E&amp;xit"/>
 	<string id="20892" value="Παρακαλώ περιμένετε: Ενημέρωση λίστας ED2K server..."/>
 	<string id="20893" value="Παρακαλώ περιμένετε: Ενημέρωση υπηρεσιών ανακάλυψης..."/>
 	<string id="20894" value="Παρακαλώ περιμένετε: Αναζήτηση συσκευών UPnP και ρύθμισή τους..."/>
@@ -3927,18 +3932,21 @@
 		<control caption="Εφαρμογή"/>
 		<control/>
 	</dialog>
-	<dialog name="CIdentityProfilePage" cookie="BuStEdStEdEdBuCoStCoStBu" caption="Ταυτότητα">
+	<dialog name="CIdentityProfilePage" cookie="BuStStEdEdEdBuStStCoCoBuStBuBu" caption="Ταυτότητα">
 		<control caption="_Όνομα:"/>
 		<control caption="Ορατό Όνομα:"/>
-		<control/>
 		<control caption="Ονομ/νυμο:"/>
 		<control/>
 		<control/>
-		<control caption="_Δημογραφικά:"/>
-		<control caption="|Άνδρας|Γυναίκα"/>
-		<control caption="Φύλλο:"/>
 		<control/>
+		<control caption="_Δημογραφικά:"/>
+		<control caption="Φύλλο:"/>
 		<control caption="Ηλικία:"/>
+		<control caption="|Άνδρας|Γυναίκα"/>
+		<control/>
+		<control caption="Info:"/>
+		<control caption="{n}G2 (PeerProject / Shareaza)"/>
+		<control caption="_Εφαρμογή:"/>
 		<control caption="Επίτρεψη περιήγησης στο προφίλ από άλλους"/>
 	</dialog>
 	<dialog name="CAvatarProfilePage" cookie="BuStBuStBuBu" caption="Πορτραίτο">
@@ -3949,23 +3957,7 @@
 		<control caption="_Άνοιγμα..."/>
 		<control caption="_Αφαίρεση"/>
 	</dialog>
-	<dialog name="CContactProfilePage" cookie="BuStEdBuStEdStEdStEdStEdStEd" caption="Επαφή">
-		<control caption="_Ηλεκτρονική Διεύθυνση (email):"/>
-		<control caption="Κύρια:"/>
-		<control/>
-		<control caption="Άμεσα _Μηνύματα:"/>
-		<control caption="Διαβατήριο MSN/.NET:"/>
-		<control/>
-		<control caption="Yahoo ID:"/>
-		<control/>
-		<control caption="ICQ UIN:"/>
-		<control/>
-		<control caption="Ορατό Όνομα στο AOL:"/>
-		<control/>
-		<control caption="Jabber ID:"/>
-		<control/>
-	</dialog>
-	<dialog name="CProfileProfilePage" cookie="BuStCoStCoBuStEdStEdBuLiBuBuCo" caption="Λοιπά Στοιχεία">
+	<dialog name="CProfileProfilePage" cookie="BuStCoStCoBuStEdStEdBuLiBuBuCo" caption="Τοποθεσία">
 		<control caption="_Τοποθεσία:"/>
 		<control caption="Χώρα:"/>
 		<control/>
@@ -3978,11 +3970,38 @@
 		<control/>
 		<control caption="_Ενδιαφέροντα:"/>
 		<control/>
-		<control caption="&lt; Προσθήκη"/>
-		<control caption="Αφαίρεση &gt;"/>
+		<control caption="Προσθήκη &gt;"/>
+		<control caption="&lt; Αφαίρεση"/>
+		<control/>
+	</dialog>
+	<dialog name="CContactProfilePage" cookie="BuStEdBuStEdStEdStEdStEdStEdStEdStEdStEd" caption="Επαφή">
+		<control caption="_Ηλεκτρονική Διεύθυνση (email):"/>
+		<control caption="Κύρια:"/>
+		<control/>
+		<control caption="Άμεσα _Μηνύματα:"/>
+		<control caption="PeerProject.org:"/>
+		<control/>
+		<control caption="Facebook:"/>
+		<control/>
+		<control caption="Twitter:"/>
+		<control/>
+		<control caption="Google:"/>
+		<control/>
+		<control caption="MSN/Live:"/>
+		<control/>
+		<control caption="Yahoo:"/>
+		<control/>
+		<control caption="AOL:"/>
+		<control/>
+		<control caption="ICQ:"/>
 		<control/>
 	</dialog>
 	<dialog name="CBioProfilePage" cookie="Ed" caption="Bio">
+		<control/>
+	</dialog>
+	<dialog name="CFilesProfilePage" cookie="BuStSy" caption="Αρχεία">
+		<control caption="_Αγαπημένα Αρχεία:"/>
+		<control caption="Τα αγαπημένα αρχεία συστείνονται στους περιηγητές του προφίλ σας. Μπορείτε να τα ορίσετε στον φάκελο &quot;Αγαπημένα&quot; της Βιβλιοθήκης."/>
 		<control/>
 	</dialog>
 	<dialog name="CFavouritesProfilePage" cookie="SyBuStEdStEdBuBu" caption="Αγαπημένα">
@@ -3995,28 +4014,24 @@
 		<control caption="Προσθήκη"/>
 		<control caption="Αφαίρεση"/>
 	</dialog>
-	<dialog name="CFilesProfilePage" cookie="BuStSy" caption="Αρχεία">
-		<control caption="_Αγαπημένα Αρχεία:"/>
-		<control caption="Τα αγαπημένα αρχεία συστείνονται στους περιηγητές του προφίλ σας. Μπορείτε να τα ορίσετε στον φάκελο &quot;Αγαπημένα&quot; της Βιβλιοθήκης."/>
+	<dialog name="CCertificateProfilePage" cookie="BuStStStStBuBuSt" caption="Πιστοποιητικό">
+		<control caption="_Παγκόσμια μοναδικό πιστοποιητικό αναγνώρισης:"/>
+		<control caption="Gnutella/G2 GUID:"/>
 		<control/>
-	</dialog>
-	<dialog name="CCertificateProfilePage" cookie="StBuStStStStBu" caption="Πιστοποιητικό">
-		<control caption="Οι χρήστες Gnutella ταυτοποιούνται από ένα παγκόσμια μοναδικό αναγνωριστικό, και το αντίστοιχο ζεύγος δημόσιου και ιδιωτικού κλειδιού. Κανονικά, δεν χρειάζεται να παράγετε ένα νέο αναγνωριστικό, πάντως το PeerProject παρέχει αυτήν την επιλογή για τους προχωρημένους χρήστες."/>
-		<control caption="_Παγκόσμια μοναδικό πιστοποιητικό αναγνώρισης Gnutella:"/>
-		<control caption="GUID:"/>
-		<control/>
-		<control caption="Δημιουργημένο:"/>
+		<control caption="BitTorrent GUID:"/>
 		<control/>
 		<control caption="Παραγωγή Νέου"/>
+		<control caption="Info:"/>
+		<control caption="Οι χρήστες Gnutella ταυτοποιούνται από ένα παγκόσμια μοναδικό αναγνωριστικό, και το αντίστοιχο ζεύγος δημόσιου και ιδιωτικού κλειδιού. Κανονικά, δεν χρειάζεται να παράγετε ένα νέο αναγνωριστικό, πάντως το PeerProject παρέχει αυτήν την επιλογή για τους προχωρημένους χρήστες."/>
 	</dialog>
 	<dialog name="CLanguageDlg" cookie="" caption="Επιλογή Γλώσσας">
 	</dialog>
-	<dialog name="CConnectToDlg" cookie="BuCoEdBuCoBuBuBu" caption="Σύνδεση με|Περιήγηση Host">
-		<control caption="Εγκαινίαση νέας σύνδεσης με host ή server:|Περιήγηση του εξής host:"/>
+	<dialog name="CConnectToDlg" cookie="BuCoEdBuCoBuBuBu" caption="Σύνδεση με|Περιήγηση Host|Chat with User">
+		<control caption="Εγκαινίαση νέας σύνδεσης με host ή server:|Περιήγηση του εξής host:|Message this user:"/>
 		<control/>
 		<control/>
 		<control caption="_Πρωτόκολλο Δικτύου:"/>
-		<control caption="Gnutella (auto)|Gnutella2 (auto)|ED2K"/>
+		<control/>
 		<control caption="_Suppress Ultrapeer"/>
 		<control caption="Σύνδεση"/>
 		<control caption="Άκυρο"/>
@@ -4452,14 +4467,16 @@
 		<control caption="Σύνολο Απεσταλμένων:"/>
 		<control caption="Σημειώσεις:"/>
 	</dialog>
-	<dialog name="CDownloadEditPage" cookie="StBuStStStBuStEdEdEdBuEdBuEdBuEdBuEdBuEd" caption="Προχωρημένη">
+	<dialog name="CDownloadEditPage" cookie="StBuStStStStBuStEdEdEdSyBuEdBuEdBuEdBuEdBuEd" caption="Προχωρημένη">
 		<control caption="ΠΡΟΕΙΔΟΠΟΙΗΣΗ: Αυτός ο διάλογος παρέχει επιλογές προχωρημένης διόρθωσης λήψης για εξειδικευμένους χρήστες και αν χρησιμοποιηθεί λανθασμένα πιθανότατα θα προκαλέσει φθορά."/>
 		<control caption="Όνομα και Μέγεθος Αρχείου:"/>
 		<control caption="Όνομα Αρχείου:"/>
 		<control caption="Αρχείου:"/>
-		<control caption="Μέγεθος Αρχείου (Bytes):"/>
+		<control caption="Μέγεθος (Bytes):"/>
+		<control caption="Ημερομηνία:"/>
 		<control caption="URNs:"/>
 		<control caption="Φερέγγυο?"/>
+		<control/>
 		<control/>
 		<control/>
 		<control/>
@@ -4602,22 +4619,6 @@
 		<column from="Name" to="Όνομα"/>
 		<column from="Country" to="Χώρα"/>
 	</list>
-	<list name="CSecurityWnd">
-		<column from="Address / Content" to="Διεύθυνση / Περιεχόμενο"/>
-		<column from="Hits" to="Περιστατικά"/>
-		<column from="Action" to="Ενέργεια"/>
-		<column from="Expires" to="Λήξη"/>
-		<column from="#" to="#"/>
-		<column from="Comment" to="Σχόλια"/>
-	</list>
-	<list name="CSchedulerWnd">
-		<column from="Task" to="Ενέργεια"/>
-		<column from="Date" to="Ημερομηνία"/>
-		<column from="Time" to="Διάρκεια"/>
-		<column from="Status" to="Κατάσταση"/>
-		<column from="Activity" to="Ενεργός"/>
-		<column from="Description" to="Σχόλια"/>
-	</list>
 	<list name="CHostCacheWnd">
 		<column from="Address" to="Διεύθυνση"/>
 		<column from="Port" to="Θύρα"/>
@@ -4665,6 +4666,23 @@
 		<column from="Client" to="Πρόγραμμα"/>
 		<column from="Country" to="Χώρα"/>
 		<column from="Time" to="Ημερομηνία"/>
+	</list>
+	<list name="CSecurityWnd">
+		<column from="Address / Content" to="Διεύθυνση / Περιεχόμενο"/>
+		<column from="Hits" to="Περιστατικά"/>
+		<column from="#" to="#"/>
+		<column from="Action" to="Ενέργεια"/>
+		<column from="Expires" to="Λήξη"/>
+		<column from="Match" to=""/>
+		<column from="Comment" to="Σχόλια"/>
+	</list>
+	<list name="CSchedulerWnd">
+		<column from="Task" to="Ενέργεια"/>
+		<column from="Date" to="Ημερομηνία"/>
+		<column from="Time" to="Διάρκεια"/>
+		<column from="Status" to="Κατάσταση"/>
+		<column from="Activity" to="Ενεργός"/>
+		<column from="Comment" to="Σχόλια"/>
 	</list>
 	<list name="CUploadQueueList">
 		<column from="Name" to="Όνομα"/>

@@ -2,28 +2,26 @@
 // DownloadSource.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2007.
+// Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
 #include "PeerProject.h"
 #include "Settings.h"
-#include "Colors.h"
 #include "CoolInterface.h"
+#include "Colors.h"
+#include "Images.h"
 #include "Download.h"
 #include "Downloads.h"
 #include "DownloadSource.h"
@@ -47,7 +45,7 @@
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
-#endif
+#endif	// Filename
 
 
 //////////////////////////////////////////////////////////////////////
@@ -344,7 +342,7 @@ void CDownloadSource::Serialize(CArchive& ar, int nVersion)	// DOWNLOAD_SER_VERS
 		ar << m_bClientExtended;
 		ar << m_bMetaIgnore;
 	}
-	else if ( nVersion > 20 ) // Loading
+	else //if ( nVersion > 20 ) // Loading
 	{
 		ar >> m_sURL;
 		ar >> m_nProtocol;
@@ -369,7 +367,6 @@ void CDownloadSource::Serialize(CArchive& ar, int nVersion)	// DOWNLOAD_SER_VERS
 		//}
 
 		ar >> m_sServer;
-		//if ( nVersion >= 24 )
 		ar >> m_sNick;
 
 		//if ( nVersion >= 36 )
@@ -398,7 +395,7 @@ void CDownloadSource::Serialize(CArchive& ar, int nVersion)	// DOWNLOAD_SER_VERS
 		if ( nVersion >= 42 )	// 1000
 			ar >> m_bMetaIgnore;
 	}
-	//else	// nVersion < 21	ToDo: Is this ever useful?
+	//else	// nVersion < 21	Obsolete legacy Shareaza, for reference?
 	//{
 	//	DWORD nIndex;
 	//	ReadArchive( ar, &m_pAddress, sizeof(m_pAddress) );
@@ -424,7 +421,7 @@ void CDownloadSource::Serialize(CArchive& ar, int nVersion)	// DOWNLOAD_SER_VERS
 	//
 	//	ar >> m_bPushOnly;
 	//	ar >> m_bReadContent;
-	//	if ( nVersion >= 7 ) ar >> m_bCloseConn;
+	//	ar >> m_bCloseConn;
 	//	if ( nVersion >= 12 ) ReadArchive( ar, &m_tLastSeen, sizeof(FILETIME) );
 	//
 	//	ReadArchive( ar, &m_oGUID[ 0 ], Hashes::Guid::byteCount );
@@ -1039,23 +1036,17 @@ void CDownloadSource::Draw(CDC* pDC, CRect* prcBar, COLORREF crNatural)
 				pItr->begin(), pItr->size(), crNatural, FALSE );
 		}
 
-		if ( Skin.m_bmProgressNone.m_hObject != NULL )
-			CoolInterface.DrawWatermark( pDC, prcBar, &Skin.m_bmProgressNone, FALSE );
-		else
+		if ( ! Images.DrawButtonState( pDC, prcBar, IMAGE_PROGRESSBAR_NONE ) )
 			pDC->FillSolidRect( prcBar, Colors.m_crWindow );
 	}
 	else if ( IsOnline() && HasUsefulRanges() || ! m_oPastFragments.empty() )
 	{
-		if ( Skin.m_bmProgressShaded.m_hObject != NULL )
-			CoolInterface.DrawWatermark( pDC, prcBar, &Skin.m_bmProgressShaded, FALSE );
-		else
+		if ( ! Images.DrawButtonState( pDC, prcBar, IMAGE_PROGRESSBAR_SHADED ) )
 			pDC->FillSolidRect( prcBar, crNatural );
 	}
 	else
 	{
-		if ( Skin.m_bmProgressNone.m_hObject != NULL )
-			CoolInterface.DrawWatermark( pDC, prcBar, &Skin.m_bmProgressNone, FALSE );
-		else
+		if ( ! Images.DrawButtonState( pDC, prcBar, IMAGE_PROGRESSBAR_NONE ) )
 			pDC->FillSolidRect( prcBar, Colors.m_crWindow );
 	}
 }

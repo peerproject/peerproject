@@ -27,18 +27,18 @@ LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
 // TEXTINCLUDE
 //
 
-1 TEXTINCLUDE 
+1 TEXTINCLUDE
 BEGIN
     "Resource.h\0"
 END
 
-2 TEXTINCLUDE 
+2 TEXTINCLUDE
 BEGIN
     "#include ""winres.h""\r\n"
     "\0"
 END
 
-3 TEXTINCLUDE 
+3 TEXTINCLUDE
 BEGIN
     "1 TYPELIB ""ImageViewer.tlb""\r\n"
     "\0"
@@ -129,7 +129,7 @@ IDR_SKIN		HTML			"Skin.xml"
 // String Table
 //
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_PROJNAME	"ImageViewer"
     IDS_ABOUT		"PeerProject Image Viewer Plugin\n© PeerProject Development Team, 2008\n(Portions © Michael Stokes, 2002) "

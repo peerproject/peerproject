@@ -165,6 +165,7 @@
   <watermark target="CHostCacheWnd.Toolbar" path="Toolbar.png"/>
   <watermark target="CHitMonitorWnd.Toolbar" path="Toolbar.png"/>
   <watermark target="CSecurityWnd.Toolbar" path="Toolbar.png"/>
+  <watermark target="CSchedulerWnd.Toolbar" path="Toolbar.png"/>
   <watermark target="CSearchWnd.Full.Toolbar" path="ToolbarLt.png"/>
   <watermark target="CSearchWnd.Panel.Toolbar" path="Toolbar.png"/>
   <watermark target="CSearchPanel" path="Vista\SidebarHeader.png"/>
@@ -332,6 +333,7 @@
 <windowSkin>
 <image path="Vista\Header.png"/>
 <target window="CSecurityWnd.Panel"/>
+<target window="CSchedulerWnd.Panel"/>
 <target window="CHostCacheWnd.Panel"/>
 <target window="CDiscoveryWnd.Panel"/>
 <target window="CPacketWnd.Panel"/>
@@ -394,7 +396,7 @@
 
  <icon id="WINDOW_NEIGHBOURS" path="IconConnection.ico" types="16" rtf="0"/>
 
-<bitmap path="IconsMedia.png" mask="00FF00">
+<bitmap path="IconsMedia.png" mask="CLR_NONE">
  <image id="ID_MEDIA_PLAY"/>
  <image id="ID_MEDIA_PAUSE"/>
  <image id="ID_MEDIA_STOP"/>

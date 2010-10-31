@@ -1,22 +1,19 @@
 //
 // DlgURLAction.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
-// Portions Copyright Shareaza Development Team, 2002-2007.
+// This file is part of PeerProject (peerproject.org) © 2008-2010
+// Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #pragma once
@@ -31,12 +28,10 @@ class CURLActionDlg : public CSkinDialog
 	DECLARE_DYNAMIC(CURLActionDlg)
 
 public:
-	CURLActionDlg(CWnd* pParent = NULL, CPeerProjectURL* pURL = NULL, BOOL bMultiple = FALSE);
+	CURLActionDlg(CPeerProjectURL* pURL);
 	virtual ~CURLActionDlg();
 
 	enum { IDD = IDD_URL_ACTION };
-
-	void	AddURL(CPeerProjectURL* pURL);
 
 protected:
 	CStatic	m_wndMessage4;
@@ -53,14 +48,13 @@ protected:
 	CString	m_sHashValue;
 	BOOL	m_bNewWindow;
 	BOOL	m_bAlwaysOpen;
-	CList< CPeerProjectURL* >	m_pURLs;
-	BOOL	m_bMultiple;
-
-	void	Update();
+	CPeerProjectURL* m_pURL;
 
 	virtual BOOL PreTranslateMessage(MSG* pMsg);
-	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
+	virtual void DoDataExchange(CDataExchange* pDX);
 	virtual BOOL OnInitDialog();
+	virtual void OnCancel();
+	virtual void PostNcDestroy();
 
 	afx_msg void OnUrlDownload();
 	afx_msg void OnUrlSearch();

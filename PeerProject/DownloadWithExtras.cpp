@@ -2,21 +2,18 @@
 // DownloadWithExtras.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2006.
+// Portions copyright Shareaza Development Team, 2002-2006.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
@@ -35,7 +32,7 @@
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
-#endif
+#endif	// Filename
 
 //////////////////////////////////////////////////////////////////////
 // CDownloadWithExtras construction
@@ -188,7 +185,7 @@ BOOL CDownloadWithExtras::AddReview(CDownloadReview* pReview)
 // Delete a reviews
 void CDownloadWithExtras::DeleteReview(CDownloadReview *pReview)
 {
-	if ( pReview == NULL ) return;
+	if ( ! pReview ) return;
 
 	if ( m_nReviewCount ) m_nReviewCount--;
 
@@ -217,7 +214,6 @@ void CDownloadWithExtras::DeleteReview(CDownloadReview *pReview)
 		m_pReviewFirst = pReview->m_pNext;
 		delete pReview;
 		return;
-
 	}
 	else
 	{
@@ -351,7 +347,7 @@ BOOL CDownloadWithExtras::IsMonitorVisible() const
 //////////////////////////////////////////////////////////////////////
 // CDownloadWithExtras serialize
 
-void CDownloadWithExtras::Serialize(CArchive& ar, int nVersion)
+void CDownloadWithExtras::Serialize(CArchive& ar, int nVersion)		// DOWNLOAD_SER_VERSION
 {
 	CDownloadWithSearch::Serialize( ar, nVersion );
 
@@ -372,8 +368,6 @@ void CDownloadWithExtras::Serialize(CArchive& ar, int nVersion)
 			pReview->Serialize( ar, nVersion );
 			pReview = pReview->m_pNext;
 		}
-
-
 	}
 	else // Loading
 	{
@@ -384,15 +378,15 @@ void CDownloadWithExtras::Serialize(CArchive& ar, int nVersion)
 			m_pPreviews.AddTail( str );
 		}
 
-		if ( nVersion >= 32 )
-		{
+		//if ( nVersion >= 32 )
+		//{
 			for ( DWORD_PTR nCount = ar.ReadCount() ; nCount ; nCount-- )
 			{
 				CDownloadReview *pReview = new CDownloadReview;
 				pReview->Serialize( ar, nVersion );
 				AddReview( pReview );
 			}
-		}
+		//}
 	}
 }
 
@@ -451,12 +445,11 @@ void CDownloadWithExtras::OnPreviewRequestComplete(const CDownloadTask* pTask)
 // CDownloadReview construction
 
 CDownloadReview::CDownloadReview()
+	: m_pNext			( NULL )
+	, m_pPrev			( NULL )
+	, m_nUserPicture	( 0 )
+	, m_nFileRating 	( 0 )
 {
-	m_pNext			= NULL;
-	m_pPrev			= NULL;
-
-	m_nUserPicture	= 0;
-	m_nFileRating	= 0;
 }
 
 CDownloadReview::CDownloadReview(in_addr *pIP, int nUserPicture, int nRating, LPCTSTR pszUserName, LPCTSTR pszComment)
@@ -473,7 +466,8 @@ CDownloadReview::CDownloadReview(in_addr *pIP, int nUserPicture, int nRating, LP
 	if ( pIP != NULL )
 	{
 		m_pUserIP = *pIP;
-		if ( m_sUserName.IsEmpty() ) m_sUserName = inet_ntoa( *pIP );
+		if ( m_sUserName.IsEmpty() )
+			m_sUserName = inet_ntoa( *pIP );
 	}
 	else
 	{
@@ -485,7 +479,6 @@ CDownloadReview::~CDownloadReview()
 {
 	// If a preview pic or any other dynamically added item is ever added to the review,
 	// remember to delete it here.
-
 }
 
 //////////////////////////////////////////////////////////////////////

@@ -2,24 +2,21 @@
 // ImageFile.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2008.
+// Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
-// ToDo: Support Alpha transparency from PNG loading (at least allow for some)
+// ToDo: Support Alpha transparency from PNG loading (or at least allow for some)
 
 #include "StdAfx.h"
 #include "PeerProject.h"
@@ -29,10 +26,10 @@
 #include "Settings.h"
 
 #ifdef _DEBUG
-#define new DEBUG_NEW
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
-#endif
+#define new DEBUG_NEW
+#endif	// Filename
 
 /////////////////////////////////////////////////////////////////////////////
 // CImageFile construction
@@ -179,10 +176,10 @@ BOOL CImageFile::LoadFromBitmap(HBITMAP hBitmap, BOOL bScanOnly)
 	m_bScanned = TRUE;
 	m_nWidth = bmInfo.bmWidth;
 	m_nHeight = bmInfo.bmHeight;
-	//if ( bmInfo.bmBitsPixel == 32 )
-	//	m_nComponents = 4;
-	//else if ( bmInfo.bmBitsPixel == 24 )
-	m_nComponents = 3;
+	if ( bmInfo.bmBitsPixel == 32 && ! theApp.m_bIsWin2000 )
+		m_nComponents = 4;
+	else // if ( bmInfo.bmBitsPixel == 24 )
+		m_nComponents = 3;
 
 	if ( bScanOnly )
 		return TRUE;
@@ -202,24 +199,24 @@ BOOL CImageFile::LoadFromBitmap(HBITMAP hBitmap, BOOL bScanOnly)
 	for ( LONG j = 0; j < bmInfo.bmHeight; ++j, dst += line_size )
 	{
 		BYTE c;
-	//	if ( m_nComponents = 3 )
+	//	if ( m_nComponents = 4 )
 	//	{
-			for ( LONG i = 0; i < bmInfo.bmWidth * 3; i += 3 )
-			{
-				c = dst[i + 0];
-				dst[i + 0] = dst[i + 2];
-				dst[i + 2] = c;
-			}
-	//	}
-	//	else if ( m_nComponents = 4 )
-	//	{
-	//		for ( LONG i = 0; i < bmInfo.bmWidth * 3; i += 3 )
+	//		for ( LONG i = 0; i < bmInfo.bmWidth * 4; i += 3 )
 	//		{
 	//			c = dst[i + 0];
 	//			dst[i + 0] = dst[i + 2];
 	//			dst[i + 2] = dst[i + 3];
 	//			dst[i + 3] = c;
 	//		}
+	//	}
+	//	else // if ( m_nComponents = 3 )
+	//	{
+			for ( LONG i = 0; i < bmInfo.bmWidth * m_nComponents; i += 3 )
+			{
+				c = dst[i + 0];
+				dst[i + 0] = dst[i + 2];
+				dst[i + 2] = c;
+			}
 	//	}
 	}
 
@@ -318,7 +315,9 @@ void CImageFile::Serialize(CArchive& ar)
 HBITMAP CImageFile::CreateBitmap(HDC hUseDC)
 {
 	if ( ! m_bLoaded ) return NULL;
-	if ( m_nComponents != 3 ) return NULL;	// ToDo: Support Alpha transparency
+	if ( m_nComponents == 1 ) MonoToRGB();
+	if ( theApp.m_bIsWin2000 && m_nComponents != 3 )
+		AlphaToRGB( RGB( 255,255,255 ) );	// EnsureRGB for Win2K to otherwise support Alpha transparency
 
 	BITMAPV5HEADER pV5Header = {};
 
@@ -328,13 +327,17 @@ HBITMAP CImageFile::CreateBitmap(HDC hUseDC)
 	pV5Header.bV5Planes			= 1;
 	pV5Header.bV5BitCount		= 24; // Not 32 bit :(
 	pV5Header.bV5Compression	= BI_RGB;
-	pV5Header.bV5SizeImage		= m_nWidth * m_nHeight * 3;
+	pV5Header.bV5SizeImage		= m_nWidth * m_nHeight * m_nComponents;
 
-	// ToDo: The following mask specification specifies a supported 32 BPP alpha format for Windows XP.
-	// pV5Header.bV5AlphaMask =  0xFF000000;
-	// pV5Header.bV5RedMask   =  0x00FF0000;
-	// pV5Header.bV5GreenMask =  0x0000FF00;
-	// pV5Header.bV5BlueMask  =  0x000000FF;
+	// The following mask specification specifies a supported 32 BPP alpha format for Windows XP+
+	if ( m_nComponents == 4 )
+	{
+		pV5Header.bV5BitCount	= 32;
+		pV5Header.bV5AlphaMask	= 0xFF000000;
+		pV5Header.bV5RedMask	= 0x00FF0000;
+		pV5Header.bV5GreenMask	= 0x0000FF00;
+		pV5Header.bV5BlueMask	= 0x000000FF;
+	}
 
 	HDC hDC = hUseDC ? hUseDC : GetDC( 0 );
 	HBITMAP hBitmap;
@@ -350,25 +353,25 @@ HBITMAP CImageFile::CreateBitmap(HDC hUseDC)
 
 	if ( hBitmap )
 	{
-		DWORD nPitch	= ( m_nWidth * 3 + 3 ) & ~3u;
-		BYTE* pLine		= m_pImage;
+		DWORD nPitch = ( m_nWidth * m_nComponents + 3 ) & ~3u;
+		BYTE* pLine  = m_pImage;
+
+		struct SwapRGB
+		{
+			void operator()(BYTE* pBegin, BYTE* pEnd, const int nComponents )
+			{
+				for ( ; pBegin != pEnd; pBegin += nComponents )
+					std::swap( pBegin[ 0 ], pBegin[ 2 ] );
+			}
+		};
 
 		for ( int nY = m_nHeight; nY--; )
 		{
-			struct SwapRGB
-			{
-				void operator()(BYTE* pBegin, BYTE* pEnd)
-				{
-					for ( ; pBegin != pEnd; pBegin += 3 )
-						std::swap( pBegin[ 0 ], pBegin[ 2 ] );
-				}
-			};
-
-			SwapRGB()( pLine, pLine + m_nWidth * 3 );
+			SwapRGB()( pLine, pLine + m_nWidth * m_nComponents, m_nComponents );
 
 			SetDIBits( hDC, hBitmap, nY, 1, pLine, (BITMAPINFO*)&pV5Header, DIB_RGB_COLORS );
 
-			SwapRGB()( pLine, pLine + m_nWidth * 3 );
+			SwapRGB()( pLine, pLine + m_nWidth * m_nComponents, m_nComponents );
 
 			pLine += nPitch;
 		}
@@ -376,7 +379,7 @@ HBITMAP CImageFile::CreateBitmap(HDC hUseDC)
 
 	if ( hDC != hUseDC )
 	{
-		SelectObject( hDC, GetStockObject( ANSI_VAR_FONT ) ); // Font leak fix
+		SelectObject( hDC, GetStockObject( ANSI_VAR_FONT ) );	// Font leak fix
 		ReleaseDC( 0, hDC );
 	}
 
@@ -470,7 +473,6 @@ BOOL CImageFile::Resample(int nNewWidth, int nNewHeight)
 			*pOut++ = (BYTE)( nRed / nPixels );
 			*pOut++ = (BYTE)( nGreen / nPixels );
 			*pOut++ = (BYTE)( nBlue / nPixels );
-
 		}
 		pOut += ( nOutPitch - nNewWidth * 3 );
 	}
@@ -665,8 +667,13 @@ HBITMAP CImageFile::LoadBitmapFromFile(LPCTSTR pszFile)
 		return (HBITMAP)LoadImage( NULL, pszFile, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE );
 
 	CImageFile pFile;
-	return ( pFile.LoadFromFile( pszFile, FALSE, FALSE ) && pFile.EnsureRGB() ) ?	// ToDo: Support Alpha
-		pFile.CreateBitmap() : NULL;
+	if ( pFile.LoadFromFile( pszFile, FALSE, FALSE ) )
+	{
+		if ( theApp.m_bIsWin2000 ) pFile.EnsureRGB();	// Support Alpha?
+		return pFile.CreateBitmap();
+	}
+
+	return NULL;
 }
 
 HBITMAP CImageFile::LoadBitmapFromResource(UINT nResourceID, HINSTANCE hInstance)

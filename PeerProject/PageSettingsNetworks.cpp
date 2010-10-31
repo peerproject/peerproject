@@ -1,22 +1,19 @@
 //
 // PageSettingsNetworks.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
-// Portions Copyright Shareaza Development Team, 2002-2007.
+// This file is part of PeerProject (peerproject.org) © 2008-2010
+// Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
@@ -29,10 +26,10 @@
 #include "Colors.h"
 
 #ifdef _DEBUG
-#define new DEBUG_NEW
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
-#endif
+#define new DEBUG_NEW
+#endif	// Filename
 
 IMPLEMENT_DYNCREATE(CNetworksSettingsPage, CSettingsPage)
 
@@ -51,12 +48,13 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CNetworksSettingsPage property page
 
-CNetworksSettingsPage::CNetworksSettingsPage() : CSettingsPage( CNetworksSettingsPage::IDD )
+CNetworksSettingsPage::CNetworksSettingsPage()
+	: CSettingsPage( CNetworksSettingsPage::IDD )
+	, m_bG2Enable ( FALSE )
+	, m_bG1Enable ( FALSE )
+	, m_bEDEnable ( FALSE )
 {
 	//{{AFX_DATA_INIT(CNetworksSettingsPage)
-	m_bG2Enable = FALSE;
-	m_bG1Enable = FALSE;
-	m_bEDEnable = FALSE;
 	//}}AFX_DATA_INIT
 }
 
@@ -89,7 +87,7 @@ BOOL CNetworksSettingsPage::OnInitDialog()
 	m_bEDEnable		= Settings.eDonkey.EnableToday;
 
 	UpdateData( FALSE );
-	
+
 #ifdef LAN_MODE
 	GetDlgItem( IDC_G2_ENABLE )->EnableWindow( FALSE );
 	GetDlgItem( IDC_G1_ENABLE )->EnableWindow( FALSE );
@@ -148,21 +146,15 @@ void CNetworksSettingsPage::OnLButtonUp(UINT nFlags, CPoint point)
 
 	m_wndG2Setup.GetWindowRect( &rc );
 	if ( m_wndG2Setup.IsWindowEnabled() && rc.PtInRect( point ) )
-	{
 		GetSheet()->SetActivePage( GetSheet()->GetPage( RUNTIME_CLASS(CGnutellaSettingsPage) ) );
-	}
 
 	m_wndG1Setup.GetWindowRect( &rc );
 	if ( m_wndG1Setup.IsWindowEnabled() && rc.PtInRect( point ) )
-	{
 		GetSheet()->SetActivePage( GetSheet()->GetPage( RUNTIME_CLASS(CGnutellaSettingsPage) ) );
-	}
 
 	m_wndEDSetup.GetWindowRect( &rc );
 	if ( m_wndEDSetup.IsWindowEnabled() && rc.PtInRect( point ) )
-	{
 		GetSheet()->SetActivePage( GetSheet()->GetPage( RUNTIME_CLASS(CDonkeySettingsPage) ) );
-	}
 
 	CSettingsPage::OnLButtonUp( nFlags, point );
 }
@@ -287,5 +279,3 @@ void CNetworksSettingsPage::OnOK()
 
 	CSettingsPage::OnOK();
 }
-
-

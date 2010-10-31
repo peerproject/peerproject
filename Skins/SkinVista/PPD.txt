@@ -1,17 +1,19 @@
-_________________________________________________
+___________________________________________________
 
-Persistent Public Domain:
+Persistent Public Domain License:
 
-This material may be treated as Public Domain.
+This as-is material may be freely treated as Public Domain.
 
 Provided the work in all its forms and attendant uses
 shall remain available as persistently "Public Domain"
-until it naturally enters the public domain.
+until such time it naturally enters true public domain.
 
 History remains immutable:
 Authors do not disclaim copyright, but rather
 disclaim all conferred rights beyond asserting
 the reach and duration and spirit of this license.
-_________________________________________________
 
-[PPD]  April 1st 2010  http://ppd.peerproject.org
+In short: Do not threaten, do not lie, do not worry.
+___________________________________________________
+
+[PPD]  http://ppd.peerproject.org

@@ -3,8 +3,8 @@
 
 <!-- PeerProject Default Norwegian Skin File -->
 
-<!-- Translation based on default-en.xml r59 (Shareaza 2.2.0.2) -->
-<!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
+<!-- Translation based on default-en.xml r60 (Shareaza 2.2.0.2) -->
+<!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
 <!-- Use this file as a basis for creating new language skins,   -->
@@ -62,6 +62,7 @@
 		<button id="ID_VIEW_MEDIA"/>
 		<button id="ID_TAB_IRC"/>
 		<separator/>
+		<button id="ID_VIEW_SCHEDULER"/>
 		<button id="ID_VIEW_SECURITY"/>
 		<button id="ID_VIEW_HOSTS"/>
 		<button id="ID_VIEW_DISCOVERY"/>
@@ -125,7 +126,7 @@
 		<button id="ID_SEARCH_DOWNLOAD" text="Last ned fil"/>
 		<button id="ID_SEARCH_CHAT" text="Snakk med bruker"/>
 		<rightAlign/>
-		<button id="ID_SEARCH_FILTER_RAW"text="Filtrer" tip="Skriv inn ord som du vil filtrere ut"/>
+		<button id="ID_SEARCH_FILTER_RAW" text="Filtrer" tip="Skriv inn ord som du vil filtrere ut"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
 		<button id="ID_SEARCH_DETAILS" text="Vis detaljer"/>
@@ -137,7 +138,7 @@
 		<separator/>
 		<button id="ID_SEARCH_CHAT" text="Snakk med bruker"/>
 		<rightAlign/>
-		<button id="ID_SEARCH_FILTER_RAW"text="Filtrer" tip="Skriv inn ord som du vil filtrere ut"/>
+		<button id="ID_SEARCH_FILTER_RAW" text="Filtrer" tip="Skriv inn ord som du vil filtrere ut"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
 		<button id="ID_SEARCH_DETAILS" text="Vis detaljer"/>
@@ -1489,11 +1490,14 @@
 			<newline gap="8" indent="42"/>
 			<anchor id="SearchBox" width="256" height="80"/>
 			<newline gap="12" indent="0"/>
-			<icon res="124" width="32" height="32" target="command:shell:downloads"/><gap size="8"/>
+			<icon res="122" width="32" height="32" target="command:shell:downloads"/><gap size="8"/>
 			<heading align="middle">MINE NEDLASTINGER</heading>
 			<newline gap="8" indent="42"/>
 			<text>Or open your completed </text>
 			<link target="command:shell:downloads">downloads folder.</link>
+			<newline gap="4" indent="42"/>
+			<text>Del dine filer på </text>
+			<link id="RemoteBrowseURL"/>
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="3">
@@ -1519,26 +1523,26 @@
 		<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">MODIFISER PEERPROJECT</heading>
 		<newline gap="12" indent="42"/>
-		<icon res="196"width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
-		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">Skins</link>
-		<text align="middle">&#160;- Endre PeerProject's utseende</text>
+		<icon res="196" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
+		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">Skins</link><gap size="6"/>
+		<text align="middle">- Endre PeerProject's utseende</text>
 		<newline gap="8"/>
-		<icon res="138"width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
-		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
-		<text align="middle">&#160;- Update blocklist to avoid bad search results</text>
+		<icon res="138" width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
+		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link><gap size="6"/>
+		<text align="middle">- Update blocklist to avoid bad search results</text>
 		<newline gap="8"/>
-		<icon res="197"width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
-		<link target="command:ID_TOOLS_WIZARD" align="middle">Innstillingsveiviser</link>
-		<text align="middle">&#160;- Endre PeerProject's innstillinger</text>
+		<icon res="197" width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
+		<link target="command:ID_TOOLS_WIZARD" align="middle">Innstillingsveiviser</link><gap size="6"/>
+		<text align="middle">- Endre PeerProject's innstillinger</text>
 		<newline gap="8"/>
-		<icon res="182"width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
-		<link target="command:ID_HELP_FAQ" align="middle">Hjelp</link>
-		<text align="middle">&#160;- Få grunnleggende hjelp til å bruke PeerProject, or </text>
+		<icon res="182" width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
+		<link target="command:ID_HELP_FAQ" align="middle">Hjelp</link><gap size="6"/>
+		<text align="middle">- Få grunnleggende hjelp til å bruke PeerProject, or </text>
 		<link target="command:ID_TAB_IRC" align="middle">IRC.</link>
 		<newline gap="8"/>
-		<icon res="201"width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
-		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">Lokal Forum</link>
-		<text align="middle">&#160;- Gå til din norske språket diskusjonsforum</text>
+		<icon res="201" width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
+		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">Lokal Forum</link><gap size="6"/>
+		<text align="middle">- Gå til din norske språket diskusjonsforum</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
 			<icon res="120" width="32" height="32"/><gap size="8"/>
@@ -1764,7 +1768,7 @@
 		</group>
 		<group id="41">
 			<newline gap="1"/>
-			<icon res="208"/><gap size="5"/>
+			<icon res="207"/><gap size="5"/>
 			<link id="ContactYahoo"/>
 		</group>
 		<group id="42">
@@ -1805,7 +1809,7 @@
 			<newline gap="16" indent="0"/>
 			<text format="b">Online</text>
 			<newline gap="4" indent="8"/>
-			<icon res="127"target="command:ID_SEARCH_CHAT"/>
+			<icon res="127" target="command:ID_SEARCH_CHAT"/>
 			<gap size="5"/>
 			<link target="command:ID_SEARCH_CHAT" align="middle">Snakk med bruker</link>
 		</group>
@@ -2702,8 +2706,8 @@
 	<string id="20441" value="PeerProject klarte ikke å endre navnet:\n\n%s\nto\n%s"/>
 	<string id="20442" value="Denne filen finnes allerede:\n\n%s\n\nVil du skrive over den?"/>
 	<string id="20443" value="Vis alle fil-typer"/>
-	<string id="20444" value="Kopier &URI"/>
-	<string id="20445" value="Eksporter &URI'er..."/>
+	<string id="20444" value="Kopier URI"/>
+	<string id="20445" value="Eksporter URI'er..."/>
 	<string id="20446" value="Filen &quot;%s&quot; klarte ikke hash godkjennings-testen, og det kan være at det ikke er den filen du er ute etter.  Er du sikker på at du vil åpne den?"/>
 	<string id="20447" value="Vil du fjerne den &quot;potensielt usikkre&quot; egenskapen til denne filen?"/>
 	<string id="20448" value="Filen &quot;%s&quot; er ikke hashet. Vennligst vent til filen er hashet og prøv på nytt."/>
@@ -2824,7 +2828,8 @@
 	<string id="20590" value="Fjern konsoll er AV."/>
 	<string id="20591" value="http://%s:%i/remote - velge et brukernavn og et passord."/>
 	<string id="20592" value="Klarte ikke  motta tilkoblinger, URL ikke tilgjengelig."/>
-	<string id="20595" value="&amp;Skjemaer"/>
+	<string id="20599" value="&amp;Skjemaer"/>
+	<!-- Missing Scheduler/Security Strings -->
 	<string id="20620" value="PeerProject søker aktivt på nettverket..."/>
 	<string id="20621" value="Klikk her for å søke på nytt."/>
 	<string id="20622" value="Alle nettverk"/>
@@ -3538,18 +3543,21 @@
 		<control caption="Angi"/>
 		<control/>
 	</dialog>
-	<dialog name="CIdentityProfilePage" cookie="BuStEdStEdEdBuCoStCoStBu" caption="Identitet">
+	<dialog name="CIdentityProfilePage" cookie="BuStStEdEdEdBuStStCoCoBuStBuBu" caption="Identitet">
 		<control caption="_Navn:"/>
 		<control caption="Kallenavn:"/>
-		<control/>
 		<control caption="Ekte navn:"/>
 		<control/>
 		<control/>
-		<control caption="_Info:"/>
-		<control caption="|Mann|Kvinne"/>
-		<control caption="Kjønn:"/>
 		<control/>
+		<control caption="_Info:"/>
+		<control caption="Kjønn:"/>
 		<control caption="Alder:"/>
+		<control caption="|Mann|Kvinne"/>
+		<control/>
+		<control caption="Info:"/>
+		<control caption="{n}G2 (PeerProject / Shareaza)"/>
+		<control caption="_Angi:"/>
 		<control caption="La andre utforske min profil"/>
 	</dialog>
 	<dialog name="CAvatarProfilePage" cookie="BuStBuStBuBu" caption="Bilde">
@@ -3560,23 +3568,7 @@
 		<control caption="_Utforsk..."/>
 		<control caption="_Fjern"/>
 	</dialog>
-	<dialog name="CContactProfilePage" cookie="BuStEdBuStEdStEdStEdStEdStEd" caption="Kontakt">
-		<control caption="_E-post adresser:"/>
-		<control caption="Hoved:"/>
-		<control/>
-		<control caption="_Messenger:"/>
-		<control caption="MSN/.NET Passport:"/>
-		<control/>
-		<control caption="Yahoo ID:"/>
-		<control/>
-		<control caption="ICQ UIN:"/>
-		<control/>
-		<control caption="AOL kallenavn:"/>
-		<control/>
-		<control caption="Jabber ID:"/>
-		<control/>
-	</dialog>
-	<dialog name="CProfileProfilePage" cookie="BuStCoStCoBuStEdStEdBuLiBuBuCo" caption="Profil">
+	<dialog name="CProfileProfilePage" cookie="BuStCoStCoBuStEdStEdBuLiBuBuCo" caption="Sted">
 		<control caption="_Sted:"/>
 		<control caption="Land:"/>
 		<control/>
@@ -3589,11 +3581,38 @@
 		<control/>
 		<control caption="_Interesser:"/>
 		<control/>
-		<control caption="&lt; Legg til"/>
-		<control caption="Fjern &gt;"/>
+		<control caption="Legg til &gt;"/>
+		<control caption="&lt; jern"/>
+		<control/>
+	</dialog>
+	<dialog name="CContactProfilePage" cookie="BuStEdBuStEdStEdStEdStEdStEdStEdStEdStEd" caption="Kontakt">
+		<control caption="_E-post adresser:"/>
+		<control caption="Hoved:"/>
+		<control/>
+		<control caption="_Messenger:"/>
+		<control caption="PeerProject.org:"/>
+		<control/>
+		<control caption="Facebook:"/>
+		<control/>
+		<control caption="Twitter:"/>
+		<control/>
+		<control caption="Google:"/>
+		<control/>
+		<control caption="MSN/Live:"/>
+		<control/>
+		<control caption="Yahoo:"/>
+		<control/>
+		<control caption="AOL:"/>
+		<control/>
+		<control caption="ICQ:"/>
 		<control/>
 	</dialog>
 	<dialog name="CBioProfilePage" cookie="Ed" caption="Beskrivelse">
+		<control/>
+	</dialog>
+	<dialog name="CFilesProfilePage" cookie="BuStSy" caption="Filer">
+		<control caption="_Favorittfiler:"/>
+		<control caption="Favorittfilene blir anbefalt til brukere som utforsker din profil. Du kan gjøre filer til favoritter ved å legge dem i &quot;Favoritt&quot;-mappen i mine filer."/>
 		<control/>
 	</dialog>
 	<dialog name="CFavouritesProfilePage" cookie="SyBuStEdStEdBuBu" caption="Favoritter">
@@ -3606,28 +3625,24 @@
 		<control caption="Ny"/>
 		<control caption="Fjern"/>
 	</dialog>
-	<dialog name="CFilesProfilePage" cookie="BuStSy" caption="Filer">
-		<control caption="_Favorittfiler:"/>
-		<control caption="Favorittfilene blir anbefalt til brukere som utforsker din profil. Du kan gjøre filer til favoritter ved å legge dem i &quot;Favoritt&quot;-mappen i mine filer."/>
+	<dialog name="CCertificateProfilePage" cookie="BuStStStStBuBuSt" caption="Sertifikat">
+		<control caption="_Unike Identifiserings Sertifikat:"/>
+		<control caption="Gnutella/G2 GUID:"/>
 		<control/>
-	</dialog>
-	<dialog name="CCertificateProfilePage" cookie="StBuStStStStBu" caption="Sertifikat">
-		<control caption="Gnutellabrukerne blir identifisert av et unikt kjennetegn og et tilsvarende offentlig og privat nøkkelpar. Normalt er det ikke nødvendig å lage en ny ID, imidlertid har PeerProjects brukere denne valgmuligheten."/>
-		<control caption="_Gnutellas Unike Identifiserings Sertifikat:"/>
-		<control caption="GUID:"/>
-		<control/>
-		<control caption="Laget:"/>
+		<control caption="BitTorrent GUID:"/>
 		<control/>
 		<control caption="Lag nytt"/>
+		<control caption="Info:"/>
+		<control caption="Gnutellabrukerne blir identifisert av et unikt kjennetegn og et tilsvarende offentlig og privat nøkkelpar. Normalt er det ikke nødvendig å lage en ny ID, imidlertid har PeerProjects brukere denne valgmuligheten."/>
 	</dialog>
 	<dialog name="CLanguageDlg" cookie="" caption="Velg språk">
 	</dialog>
-	<dialog name="CConnectToDlg" cookie="BuCoEdBuCoBuBuBu" caption="Koble Til|Utforsk vert">
-		<control caption="Start en ny kobling til vert eller tjener:|Utforsk denne verten:"/>
+	<dialog name="CConnectToDlg" cookie="BuCoEdBuCoBuBuBu" caption="Koble Til|Utforsk vert|Chat with User">
+		<control caption="Start en ny kobling til vert eller tjener:|Utforsk denne verten:|Message this user:"/>
 		<control/>
 		<control/>
 		<control caption="Nettverks_protokoll:"/>
-		<control caption="Gnutella1 (auto)|Gnutella2 (auto)|eDonkey2000"/>
+		<control/>
 		<control caption="_Reduser ultrapeer"/>
 		<control caption="Koble til"/>
 		<control caption="Avbryt"/>
@@ -4064,14 +4079,16 @@
 		<control caption="Oppdater"/>
 		<control caption="Notes:"/>
 	</dialog>
-	<dialog name="CDownloadEditPage" cookie="StBuStStStBuStEdEdEdBuEdBuEdBuEdBuEdBuEd" caption="Avansert">
+	<dialog name="CDownloadEditPage" cookie="StBuStStStStBuStEdEdEdSyBuEdBuEdBuEdBuEdBuEd" caption="Avansert">
 		<control caption="OBS: Avansert redigering er for erfarne brukere, filene kan bli ødelagt hvis du gjør noe galt."/>
 		<control caption="Informasjon:"/>
 		<control caption="Filnavn:"/>
 		<control caption="Fil:"/>
 		<control caption="Byte Size:"/>
+		<control caption="Date:"/>
 		<control caption="URNs:"/>
 		<control caption="Trusted?"/>
+		<control/>
 		<control/>
 		<control/>
 		<control/>
@@ -4214,22 +4231,6 @@
 		<column from="Name" to="Navn"/>
 		<column from="Country" to="Land"/>
 	</list>
-	<list name="CSecurityWnd">
-		<column from="Address / Content" to="Adresse / Inn"/>
-		<column from="Hits" to="Treff"/>
-		<column from="Action" to="Tiltak"/>
-		<column from="Expires" to="Går ut"/>
-		<column from="#" to="Prioritet"/>
-		<column from="Comment" to="Kommentar"/>
-	</list>
-	<list name="CSchedulerWnd">
-		<column from="Task" to="Tiltak"/>
-		<column from="Date" to="Dato"/>
-		<column from="Time" to="Tid"/>
-		<column from="Status" to="Status"/>
-		<column from="Activity" to="Aktiv"/>
-		<column from="Description" to="Kommentar"/>
-	</list>
 	<list name="CHostCacheWnd">
 		<column from="Address" to="Adresse"/>
 		<column from="Port" to="Port"/>
@@ -4277,6 +4278,23 @@
 		<column from="Client" to="Klient"/>
 		<column from="Country" to="Land"/>
 		<column from="Time" to=""/>
+	</list>
+	<list name="CSecurityWnd">
+		<column from="Address / Content" to="Adresse / Inn"/>
+		<column from="Hits" to="Treff"/>
+		<column from="#" to="Prioritet"/>
+		<column from="Action" to="Tiltak"/>
+		<column from="Expires" to="Går ut"/>
+		<column from="Match" to=""/>
+		<column from="Comment" to="Kommentar"/>
+	</list>
+	<list name="CSchedulerWnd">
+		<column from="Task" to="Tiltak"/>
+		<column from="Date" to="Dato"/>
+		<column from="Time" to="Tid"/>
+		<column from="Status" to="Status"/>
+		<column from="Activity" to="Aktiv"/>
+		<column from="Comment" to="Kommentar"/>
 	</list>
 	<list name="CUploadQueueList">
 		<column from="Name" to="Navn"/>
