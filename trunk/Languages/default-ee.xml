@@ -3,8 +3,8 @@
 
 <!-- PeerProject Default Estonian Skin File -->
 
-<!-- Translation based on default-en.xml r59 (Shareaza 2.2.2.9) -->
-<!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
+<!-- Translation based on default-en.xml r60 (Shareaza 2.2.2.9) -->
+<!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
 <!-- Use this file as a basis for creating new language skins,   -->
@@ -68,6 +68,7 @@
 		<button id="ID_VIEW_MEDIA"/>
 		<button id="ID_TAB_IRC"/>
 		<separator/>
+		<button id="ID_VIEW_SCHEDULER"/>
 		<button id="ID_VIEW_SECURITY"/>
 		<button id="ID_VIEW_HOSTS"/>
 		<button id="ID_VIEW_DISCOVERY"/>
@@ -1592,11 +1593,14 @@
 			<newline gap="8" indent="42"/>
 			<anchor id="SearchBox" width="256" height="80"/>
 			<newline gap="14" indent="0"/>
-			<icon res="124" width="32" height="32" target="command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
+			<icon res="122" width="32" height="32" target="command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
 			<heading align="middle">MINU TÕMBAMISED</heading>
 			<newline gap="8" indent="42"/>
 			<text>Or open your completed </text>
 			<link target="command:shell:downloads">downloads folder.</link>
+			<newline gap="4" indent="42"/>
+			<text>Jaga oma faile </text>
+			<link id="RemoteBrowseURL"/>
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="3">
@@ -1622,26 +1626,26 @@
 		<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">KOHANDA PEERPROJECT</heading>
 		<newline gap="12" indent="42"/>
-		<icon res="196"width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
-		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">Nahad</link>
-		<text align="middle">&#160;- Muuda PeerProject välimust</text>
+		<icon res="196" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
+		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">Nahad</link><gap size="6"/>
+		<text align="middle">- Muuda PeerProject välimust</text>
 		<newline gap="8"/>
-		<icon res="138"width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
-		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
-		<text align="middle">&#160;- Update blocklist to avoid bad search results</text>
+		<icon res="138" width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
+		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link><gap size="6"/>
+		<text align="middle">- Update blocklist to avoid bad search results</text>
 		<newline gap="8"/>
-		<icon res="197"width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
-		<link target="command:ID_TOOLS_WIZARD" align="middle">Seadete Abiline</link>
-		<text align="middle">&#160;- Muuda PeerProject seadeid</text>
+		<icon res="197" width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
+		<link target="command:ID_TOOLS_WIZARD" align="middle">Seadete Abiline</link><gap size="6"/>
+		<text align="middle">- Muuda PeerProject seadeid</text>
 		<newline gap="8"/>
-		<icon res="182"width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
-		<link target="command:ID_HELP_FAQ" align="middle">Kiire Abi</link>
-		<text align="middle">&#160;- PeerProject kasutusõpetused, o </text>
+		<icon res="182" width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
+		<link target="command:ID_HELP_FAQ" align="middle">Kiire Abi</link><gap size="6"/>
+		<text align="middle">- PeerProject kasutusõpetused, o </text>
 		<link target="command:ID_TAB_IRC" align="middle">IRC.</link>
 		<newline gap="8"/>
-		<icon res="201"width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
-		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">Kohalik Foorum</link>
-		<text align="middle">&#160;- Mine oma eesti keele foorum</text>
+		<icon res="201" width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
+		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">Kohalik Foorum</link><gap size="6"/>
+		<text align="middle">- Mine oma eesti keele foorum</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
 			<icon res="120" width="32" height="32"/><gap size="8"/>
@@ -1867,7 +1871,7 @@
 		</group>
 		<group id="41">
 			<newline gap="1"/>
-			<icon res="208"/><gap size="5"/>
+			<icon res="207"/><gap size="5"/>
 			<link id="ContactYahoo"/>
 		</group>
 		<group id="42">
@@ -1908,7 +1912,7 @@
 			<newline gap="16" indent="0"/>
 			<text format="b">Kogukond</text>
 			<newline gap="4" indent="8"/>
-			<icon res="127"target="command:ID_SEARCH_CHAT"/>
+			<icon res="127" target="command:ID_SEARCH_CHAT"/>
 			<gap size="5"/>
 			<link target="command:ID_SEARCH_CHAT" align="middle">Vestle Kasutajaga</link>
 		</group>
@@ -2815,8 +2819,8 @@
 	<string id="20441" value="PeerProject ei suutnud ümber nimetada:\n\n%s\nto\n%s"/>
 	<string id="20442" value="Fail on juba olemas:\n\n%s\n\nKas soovid selle üle kirjutada?"/>
 	<string id="20443" value="Näita kõiki failitüüpe"/>
-	<string id="20444" value="Kopeeri &URI"/>
-	<string id="20445" value="Ekspordi &URI-d..."/>
+	<string id="20444" value="Kopeeri URI"/>
+	<string id="20445" value="Ekspordi URI-d..."/>
 	<string id="20446" value="Fail &quot;%s&quot; ei läbimnud kinnitust ja ei pruugi olla see fail mida, sa tahtsid. Oled kindel, et tahad selle faili avada?"/>
 	<string id="20447" value="Kas tahad eemaldada &quot;ebaturvalisee&quot; osa, sellest failist?"/>
 	<string id="20448" value="Fail &quot;%s&quot; on alles segamini.  Palun oota kuni fail koos on ja proovi siis uuesti."/>
@@ -2937,7 +2941,8 @@
 	<string id="20590" value="Kaugtöö ei ole käivitatud."/>
 	<string id="20591" value="http://%s:%i/remote - Sa pead valima kasutajanime ja salasõna."/>
 	<string id="20592" value="Ei saa ühendust, URL ei ole saadaval."/>
-	<string id="20595" value="&amp;Skeemid"/>
+	<string id="20599" value="&amp;Skeemid"/>
+	<!-- Missing Scheduler/Security Strings -->
 	<string id="20620" value="PeerProject otsib aktiivselt võrgust..."/>
 	<string id="20621" value="Klikka uueks otsinguks siia"/>
 	<string id="20622" value="Kõik võrgud"/>
@@ -3150,7 +3155,7 @@
 	<string id="20884" value="URN-i ei ole saadaval"/>
 	<string id="20885" value="Kasutajaliidese suundade muutmine nõuab taaskäivitust.\na pead PeerProject käsits taaskäivitama. Välju nüüd?"/>
 	<string id="20890" value="Teretulemast PeerProjectsse"/>
-	<string id="20891" value="V&älju"/>
+	<string id="20891" value="Välju"/>
 	<string id="20895" value="Sa ei ole veel oma internetiühenduse kiirust täpsustanud. Enne jätkamist, vali kas Interneti ühenduse tüüp või kiirus."/>
 	<string id="20896" value="Sa oled näidanud, et tahad kasutada Portide suunamist, oma NAT ruuteri või tulemüüriga.\n\nPalun seadista oma võrk läbima TCP ja UDP porte %i oma PCl."/>
 	<string id="20897" value="Kaust mida jagad on juba jagatud, kui osa teisest kaustast:\n\n%s"/>
@@ -3650,18 +3655,21 @@
 		<control caption="Salvesta"/>
 		<control/>
 	</dialog>
-	<dialog name="CIdentityProfilePage" cookie="BuStEdStEdEdBuCoStCoStBu" caption="Isikuandmed">
+	<dialog name="CIdentityProfilePage" cookie="BuStStEdEdEdBuStStCoCoBuStBuBu" caption="Isikuandmed">
 		<control caption="_Nimi:"/>
 		<control caption="Kasutaja nimi:"/>
-		<control/>
 		<control caption="Päris nimi:"/>
 		<control/>
 		<control/>
-		<control caption="_Muud:"/>
-		<control caption="|Mees|Naine"/>
-		<control caption="Sugu:"/>
 		<control/>
+		<control caption="_Muud:"/>
+		<control caption="Sugu:"/>
 		<control caption="Vanus:"/>
+		<control caption="|Mees|Naine"/>
+		<control/>
+		<control caption="Info:"/>
+		<control caption="{n}G2 (PeerProject / Shareaza)"/>
+		<control caption="_Salvesta:"/>
 		<control caption="Luba teistel minu andmeid vaadata"/>
 	</dialog>
 	<dialog name="CAvatarProfilePage" cookie="BuStBuStBuBu" caption="Avatar">
@@ -3672,23 +3680,7 @@
 		<control caption="_Sirvi..."/>
 		<control caption="_Eemalda"/>
 	</dialog>
-	<dialog name="CContactProfilePage" cookie="BuStEdBuStEdStEdStEdStEdStEd" caption="Kontakt">
-		<control caption="_Emaili Addressid:"/>
-		<control caption="Esmane:"/>
-		<control/>
-		<control caption="_Kiirsõnumid:"/>
-		<control caption="MSN/.NET :"/>
-		<control/>
-		<control caption="Yahoo ID:"/>
-		<control/>
-		<control caption="ICQ UIN:"/>
-		<control/>
-		<control caption="AOL:"/>
-		<control/>
-		<control caption="Jabber ID:"/>
-		<control/>
-	</dialog>
-	<dialog name="CProfileProfilePage" cookie="BuStCoStCoBuStEdStEdBuLiBuBuCo" caption="Profiil">
+	<dialog name="CProfileProfilePage" cookie="BuStCoStCoBuStEdStEdBuLiBuBuCo" caption="Asukoht">
 		<control caption="_Asukoht:"/>
 		<control caption="Riik:"/>
 		<control/>
@@ -3701,11 +3693,38 @@
 		<control/>
 		<control caption="_Huvid:"/>
 		<control/>
-		<control caption="&lt; Lisa"/>
-		<control caption="Eemalda &gt;"/>
+		<control caption="Lisa &gt;"/>
+		<control caption="&lt; Eemalda"/>
+		<control/>
+	</dialog>
+	<dialog name="CContactProfilePage" cookie="BuStEdBuStEdStEdStEdStEdStEdStEdStEdStEd" caption="Kontakt">
+		<control caption="_Emaili Addressid:"/>
+		<control caption="Esmane:"/>
+		<control/>
+		<control caption="_Kiirsõnumid:"/>
+		<control caption="PeerProject.org:"/>
+		<control/>
+		<control caption="Facebook:"/>
+		<control/>
+		<control caption="Twitter:"/>
+		<control/>
+		<control caption="Google:"/>
+		<control/>
+		<control caption="MSN/Live:"/>
+		<control/>
+		<control caption="Yahoo:"/>
+		<control/>
+		<control caption="AOL:"/>
+		<control/>
+		<control caption="ICQ:"/>
 		<control/>
 	</dialog>
 	<dialog name="CBioProfilePage" cookie="Ed" caption="Biograafia">
+		<control/>
+	</dialog>
+	<dialog name="CFilesProfilePage" cookie="BuStSy" caption="Failid">
+		<control caption="_Lemmikud:"/>
+		<control caption="Lemmikfailid on soovitused sinu profiili vaatavatele teistele kasutajatele.  Sa saad luua lemmikfaile lisadeas nad &quot;Lemmikud&quot; Raamatukogu kausta."/>
 		<control/>
 	</dialog>
 	<dialog name="CFavouritesProfilePage" cookie="SyBuStEdStEdBuBu" caption="Lemmikud">
@@ -3718,28 +3737,24 @@
 		<control caption="Uus"/>
 		<control caption="Eemalda"/>
 	</dialog>
-	<dialog name="CFilesProfilePage" cookie="BuStSy" caption="Failid">
-		<control caption="_Lemmikud:"/>
-		<control caption="Lemmikfailid on soovitused sinu profiili vaatavatele teistele kasutajatele.  Sa saad luua lemmikfaile lisadeas nad &quot;Lemmikud&quot; Raamatukogu kausta."/>
+	<dialog name="CCertificateProfilePage" cookie="BuStStStStBuBuSt" caption="Certificate">
+		<control caption="_Globally Unique Identification Certificates:"/>
+		<control caption="Gnutella/G2 GUID:"/>
 		<control/>
-	</dialog>
-	<dialog name="CCertificateProfilePage" cookie="StBuStStStStBu" caption="Certificate">
-		<control caption="Gnutella kasutajate (globally unique identifier) unikaalne id number mille abil tuvastatakse võrgus olev arvuti.  Tavaliselt ei ole uut ID vaja luua, aga PeerProject pakub sellist võimalust arenenumatele kasutajatele."/>
-		<control caption="_Gnutella Globally Unique Identification Certificate:"/>
-		<control caption="GUID:"/>
-		<control/>
-		<control caption="Loodud:"/>
+		<control caption="BitTorrent GUID:"/>
 		<control/>
 		<control caption="Genereeri Uus"/>
+		<control caption="Info:"/>
+		<control caption="Gnutella kasutajate (globally unique identifier) unikaalne id number mille abil tuvastatakse võrgus olev arvuti.  Tavaliselt ei ole uut ID vaja luua, aga PeerProject pakub sellist võimalust arenenumatele kasutajatele."/>
 	</dialog>
 	<dialog name="CLanguageDlg" cookie="" caption="Vali keel">
 	</dialog>
-	<dialog name="CConnectToDlg" cookie="BuCoEdBuCoBuBuBu" caption="Ühenda serveriga|Sirvi kasutajat">
-		<control caption="Alusta serveriga uut ühendust:|Sirvi seda serverit:"/>
+	<dialog name="CConnectToDlg" cookie="BuCoEdBuCoBuBuBu" caption="Ühenda serveriga|Sirvi kasutajat|Chat with User">
+		<control caption="Alusta serveriga uut ühendust:|Sirvi seda serverit:|Message this user:"/>
 		<control/>
 		<control/>
 		<control caption="Võrgu_protokoll:"/>
-		<control caption="Gnutella1 (auto)|Gnutella2 (auto)|eDonkey2000"/>
+		<control/>
 		<control caption="_Vaigista Ultrapeer"/>
 		<control caption="Ühenda"/>
 		<control caption="Tühista"/>
@@ -4174,14 +4189,16 @@
 		<control caption="Kokku Üles Laaditud:"/>
 		<control caption="Märkmed:"/>
 	</dialog>
-	<dialog name="CDownloadEditPage" cookie="StBuStStStBuStEdEdEdBuEdBuEdBuEdBuEdBuEd" caption="Üldiselt">
+	<dialog name="CDownloadEditPage" cookie="StBuStStStStBuStEdEdEdSyBuEdBuEdBuEdBuEdBuEd" caption="Üldiselt">
 		<control caption="HOIATUS: See aken pakub täpsemat allalaadimiste andmete muutmise võimalust arenenud kasutajatele, mida valesti kasutades võib faili kasutuks muuta."/>
 		<control caption="Nimi ja Suurus:"/>
 		<control caption="Faili Nimi:"/>
 		<control caption="Faili:"/>
 		<control caption="Suurus (Baitides):"/>
+		<control caption="Date:"/>
 		<control caption="URNs:"/>
 		<control caption="Usaldatud?"/>
+		<control/>
 		<control/>
 		<control/>
 		<control/>
@@ -4324,22 +4341,6 @@
 		<column from="Name" to="Nimi"/>
 		<column from="Country" to="Piirkond"/>
 	</list>
-	<list name="CSecurityWnd">
-		<column from="Address / Content" to="Aadress / Sisu"/>
-		<column from="Hits" to=""/>
-		<column from="Action" to="Tegevus"/>
-		<column from="Expires" to="Aegub"/>
-		<column from="#" to="#"/>
-		<column from="Comment" to="Kommentaar"/>
-	</list>
-	<list name="CSchedulerWnd">
-		<column from="Task" to="Tegevus"/>
-		<column from="Date" to="Kuupäev"/>
-		<column from="Time" to="Aeg"/>
-		<column from="Status" to="Olek"/>
-		<column from="Activity" to="Aktiivne"/>
-		<column from="Description" to="Kommentaar"/>
-	</list>
 	<list name="CHostCacheWnd">
 		<column from="Address" to="Aadress"/>
 		<column from="Port" to="Port"/>
@@ -4387,6 +4388,23 @@
 		<column from="Client" to="Klient"/>
 		<column from="Country" to="Piirkond"/>
 		<column from="Time" to=""/>
+	</list>
+	<list name="CSecurityWnd">
+		<column from="Address / Content" to="Aadress / Sisu"/>
+		<column from="Hits" to=""/>
+		<column from="#" to="#"/>
+		<column from="Action" to="Tegevus"/>
+		<column from="Expires" to="Aegub"/>
+		<column from="Match" to=""/>
+		<column from="Comment" to="Kommentaar"/>
+	</list>
+	<list name="CSchedulerWnd">
+		<column from="Task" to="Tegevus"/>
+		<column from="Date" to="Kuupäev"/>
+		<column from="Time" to="Aeg"/>
+		<column from="Status" to="Olek"/>
+		<column from="Activity" to="Aktiivne"/>
+		<column from="Comment" to="Kommentaar"/>
 	</list>
 	<list name="CUploadQueueList">
 		<column from="Name" to="Nimi"/>

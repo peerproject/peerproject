@@ -2,26 +2,24 @@
 // ColletionFile.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2007.
+// Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
 #include "PeerProject.h"
 #include "CollectionFile.h"
+#include "Settings.h"
 
 #include "ZIPFile.h"
 #include "Buffer.h"
@@ -39,7 +37,7 @@
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
-#endif
+#endif	// Filename
 
 IMPLEMENT_DYNAMIC(CCollectionFile, CComObject)
 
@@ -61,23 +59,31 @@ CCollectionFile::~CCollectionFile()
 /////////////////////////////////////////////////////////////////////////////
 // CCollectionFile open a collection file
 
-BOOL CCollectionFile::Open(LPCTSTR pszFile)
+BOOL CCollectionFile::Open(LPCTSTR lpszFileName)
 {
 	Close();
 
-	CString strType = PathFindExtension( pszFile );
-	strType.MakeLower();
-	if ( strType == _T(".co") || strType == _T(".collection") )
+	int nLength = _tcslen( lpszFileName );
+	if ( nLength < 4 ) return FALSE;
+
+	if (      				  ! _tcsicmp( lpszFileName + nLength - 3,  _T(".co") ) ||
+			  nLength > 11 && ! _tcsicmp( lpszFileName + nLength - 11, _T(".collection") ) )
 	{
-		if ( LoadCollection( pszFile ) )
+		if ( LoadCollection( lpszFileName ) )
 			return TRUE;
 	}
-	else if ( strType == _T(".emulecollection") )
+	else if ( nLength > 16 && ! _tcsicmp( lpszFileName + nLength - 16, _T(".emulecollection") ) )
 	{
-		if ( LoadEMule( pszFile ) )
+		if ( LoadEMule( lpszFileName ) )
 			return TRUE;
 	}
-	return LoadText( pszFile );
+	else if ( nLength > 8  && ! _tcsicmp( lpszFileName + nLength - 8,  _T(".xml.bz2") ) )
+	{
+		if ( LoadDC( lpszFileName ) )
+			return TRUE;
+	}
+
+	return LoadText( lpszFileName );
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -169,7 +175,7 @@ int CCollectionFile::GetMissingCount()
 }
 
 /////////////////////////////////////////////////////////////////////////////
-// Load PeerProject collection
+// Load Shareaza/PeerProject collection (.co/.collection = .zip)
 
 BOOL CCollectionFile::LoadCollection(LPCTSTR pszFile)
 {
@@ -179,7 +185,7 @@ BOOL CCollectionFile::LoadCollection(LPCTSTR pszFile)
 	if ( ! pZIP.Open( pszFile ) ) return FALSE;
 
 	CZIPFile::File* pFile = pZIP.GetFile( _T("Collection.xml"), TRUE );
-	if ( pFile == NULL ) return FALSE;
+	if ( ! pFile ) return FALSE;
 
 	auto_ptr< CBuffer > pBuffer ( pFile->Decompress() );
 	if ( ! pBuffer.get() ) return FALSE;
@@ -189,21 +195,19 @@ BOOL CCollectionFile::LoadCollection(LPCTSTR pszFile)
 	if ( ! pXML->IsNamed( _T("collection") ) ) return FALSE;
 
 	CXMLElement* pProperties = pXML->GetElementByName( _T("properties") );
-	if ( pProperties == NULL ) return FALSE;
+	if ( ! pProperties ) return FALSE;
+
 	CXMLElement* pContents = pXML->GetElementByName( _T("contents") );
-	if ( pContents == NULL ) return FALSE;
+	if ( ! pContents ) return FALSE;
 
 	for ( POSITION pos = pContents->GetElementIterator() ; pos ; )
 	{
-		auto_ptr< File > pNewFile( new File( this ) );
-		if ( pNewFile.get() && pNewFile->Parse( pContents->GetNextElement( pos ) ) )
+		CXMLElement* pElement = pContents->GetNextElement( pos );
+		if ( pElement->IsNamed( _T("file") ) )
 		{
-			m_pFiles.AddTail( pNewFile.release() );
-		}
-		else
-		{
-			Close();
-			return FALSE;
+			auto_ptr< File > pNewFile( new File( this ) );
+			if ( pNewFile.get() && pNewFile->Parse( pElement ) )
+				m_pFiles.AddTail( pNewFile.release() );
 		}
 	}
 
@@ -236,7 +240,7 @@ BOOL CCollectionFile::LoadCollection(LPCTSTR pszFile)
 }
 
 /////////////////////////////////////////////////////////////////////////////
-// Load eMule collection
+// Load eMule collection (.emulecollection)
 
 BOOL CCollectionFile::LoadEMule(LPCTSTR pszFile)
 {
@@ -293,6 +297,74 @@ BOOL CCollectionFile::LoadEMule(LPCTSTR pszFile)
 		}
 	}
 	return nFileCount && ( (DWORD)m_pFiles.GetCount() == nFileCount );
+}
+
+/////////////////////////////////////////////////////////////////////////////
+// Load DC++ style collection (.xml.bz2)
+
+BOOL CCollectionFile::LoadDC(LPCTSTR pszFile)
+{
+	m_nType = SimpleCollection;
+
+	// TODO: Add schema detection
+	m_sThisURI = CSchema::uriFolder;
+	m_sParentURI = CSchema::uriCollectionsFolder;
+
+	CFile pFile;
+	if ( ! pFile.Open( pszFile, CFile::modeRead | CFile::shareDenyWrite ) )
+		return FALSE;	// File open error
+
+	UINT nInSize = (UINT)pFile.GetLength();
+	if ( ! nInSize )
+		return FALSE;	// Empty file
+
+	CBuffer pBuffer;
+	if ( ! pBuffer.EnsureBuffer( nInSize ) )
+		return FALSE;	// Out of memory
+
+	if ( pFile.Read( pBuffer.GetData(), nInSize ) != nInSize )
+		return FALSE;	// File read error
+	pBuffer.m_nLength = nInSize;
+
+	if ( ! pBuffer.UnBZip() )
+		return FALSE;	// Decompression error
+
+	auto_ptr< CXMLElement > pXML ( CXMLElement::FromString( pBuffer.ReadString( pBuffer.m_nLength, CP_UTF8 ), TRUE ) );
+	if ( ! pXML.get() )
+		return FALSE;	// XML decoding error
+
+	// <FileListing Version="1" CID="SKCB4ZF4PZUDF7RKQ5LX6SVAARQER7QEVELZ2TY" Base="/" Generator="DC++ 0.762">
+
+	if ( ! pXML->IsNamed( _T("FileListing") ) )
+		return FALSE;	// Invalid XML file format
+
+	m_sTitle = pXML->GetAttributeValue( _T("CID") );
+
+	LoadDC( pXML.get() );
+
+	return ( m_pFiles.GetCount() != 0 );
+}
+
+void CCollectionFile::LoadDC(CXMLElement* pRoot)
+{
+	for ( POSITION pos = pRoot->GetElementIterator() ; pos ; )
+	{
+		CXMLElement* pElement = pRoot->GetNextElement( pos );
+		if ( pElement->IsNamed( _T("Directory") ) )
+		{
+			// <Directory Name="Downloads">
+
+			LoadDC( pElement );
+		}
+		else if ( pElement->IsNamed( _T("File") ) )
+		{
+			// <File Name="music.mp3" Size="100000" TTH="3A6D6T2NDRLU6BGSTSJNW3R3QWTV6A44M6AGXMA"/>
+
+			auto_ptr< File > pNewFile( new File( this ) );
+			if ( pNewFile.get() && pNewFile->Parse( pElement ) )
+				m_pFiles.AddTail( pNewFile.release() );
+		}
+	}
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -391,15 +463,16 @@ void CCollectionFile::Render(CString& strBuffer) const
 		_T("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"/>\n")
 		_T("<title>%s</title>\n")
 		_T("<style type=\"text/css\">\n")
-		_T("body  { margin: 0px; padding: 0px; background-color: #ffffff; color: #000000; font-family: Tahoma; font-size: 8pt; }\n")
-		_T("h1    { text-align: left; color: #ffffff; height: 64px; margin: 0px; padding: 20px; font-size: 10pt; font-weight: bold; background-image: url(res://peerproject.exe/#2/#221); }\n")
+		_T("body  { margin: 0px; padding: 0px; background-color: #ffffff; color: #000000; font-family: %s; font-size: %upx; }\n")
+		_T("h1    { text-align: left; color: #ffffff; height: 64px; margin: 0px; padding: 20px; font-size: 10pt; font-weight: bold; background-image: url(res://PeerProject.exe/#2/#221); }\n")
 		_T("table { font-size: 8pt; width: 100%%; }\n")
 		_T("td    { background-color: #e0e8f0; padding: 4px; }\n")
-		_T(".num  { width: 40px; text-align: right; }\n")
-		_T(".url  { text-align: left; }\n")
-		_T(".size { width: 100px; text-align: right; }\n")
+		_T(".num  { width: 40px; text-align: center; }\n")
+		_T(".url  { text-align: left; cursor: hand; }\n")
+		_T(".size { width: 100px; text-align: center; }\n")
 		_T("</style>\n</head>\n<body>\n<h1>%s</h1>\n<table>\n"),
 		(LPCTSTR)GetTitle(),
+		Settings.Fonts.DefaultFont, Settings.Fonts.FontSize,
 		(LPCTSTR)GetTitle() );
 
 	DWORD i = 1;
@@ -407,16 +480,24 @@ void CCollectionFile::Render(CString& strBuffer) const
 	{
 		CCollectionFile::File* pFile = GetNextFile( pos );
 
+		CString strURN;
+		if ( pFile->m_oSHA1 )
+			strURN = pFile->m_oSHA1.toUrn();
+		else if ( pFile->m_oTiger )
+			strURN = pFile->m_oTiger.toUrn();
+		else if ( pFile->m_oED2K )
+			strURN = pFile->m_oED2K.toUrn();
+		else if ( pFile->m_oMD5 )
+			strURN = pFile->m_oMD5.toUrn();
+		else if ( pFile->m_oBTH )
+			strURN = pFile->m_oBTH.toUrn();
+
 		CString strTemp;
-		strTemp.Format( _T("<tr><td class=\"num\">%d.</td>")
-			_T("<td class=\"url\"><a href=\"ed2k://|file|%s|%I64i|%s|/\" ")
-			_T("title=\"Link: ed2k://|file|%s|%I64i|%s|/\">%s</a></td>")
-			_T("<td class=\"size\">%I64i</td></tr>\n"),
-			i++,
-			(LPCTSTR)URLEncode( pFile->m_sName ), pFile->m_nSize, (LPCTSTR)pFile->m_oED2K.toString(),
-			(LPCTSTR)URLEncode( pFile->m_sName ), pFile->m_nSize, (LPCTSTR)pFile->m_oED2K.toString(),
-			(LPCTSTR)pFile->m_sName,
-			pFile->m_nSize );
+		strTemp.Format( _T("<tr><td class=\"num\">%d</td>")
+			_T("<td class=\"url\" onclick=\"if ( ! window.external.open('%s') ) window.external.download('%s');\" onmouseover=\"window.external.hover('%s');\" onmouseout=\"window.external.hover('');\">%s</td>")
+			_T("<td class=\"size\">%s</td></tr>\n"),
+			i++, (LPCTSTR)strURN, (LPCTSTR)strURN, (LPCTSTR)strURN, (LPCTSTR)pFile->m_sName,
+			Settings.SmartVolume( pFile->m_nSize ) );
 		strBuffer += strTemp;
 	}
 
@@ -442,7 +523,7 @@ CCollectionFile::File::~File()
 
 BOOL CCollectionFile::File::Parse(CXMLElement* pRoot)
 {
-	if ( ! pRoot->IsNamed( _T("file") ) ) return FALSE;
+	//if ( ! pRoot->IsNamed( _T("file") ) ) return FALSE;	// Discards DC++
 
 	for ( POSITION pos = pRoot->GetElementIterator() ; pos ; )
 	{
@@ -470,14 +551,22 @@ BOOL CCollectionFile::File::Parse(CXMLElement* pRoot)
 		}
 		else if ( pXML->IsNamed( _T("metadata") ) )
 		{
-			if ( m_pMetadata != NULL ) delete m_pMetadata;
+			if ( m_pMetadata ) delete m_pMetadata;
 			m_pMetadata = CCollectionFile::CloneMetadata( pXML );
 		}
-		else if ( pXML->IsNamed( _T("packaged") ) )
-		{
-			if ( CXMLElement* pSource = pXML->GetElementByName( _T("source") ) )
-				/*m_sSource =*/ pSource->GetValue();
-		}
+		//else if ( pXML->IsNamed( _T("packaged") ) )
+		//{
+		//	if ( CXMLElement* pSource = pXML->GetElementByName( _T("source") ) )
+		//		/*m_sSource =*/ pSource->GetValue();	// ToDo: Use Sources?
+		//}
+	}
+
+	// DC++ format
+	if ( m_sName.IsEmpty() && ! m_oTiger && m_nSize == SIZE_UNKNOWN )
+	{
+		m_sName = pRoot->GetAttributeValue( _T("Name") );
+		_stscanf( pRoot->GetAttributeValue( _T("Size") ), _T("%I64i"), &m_nSize );
+		m_oTiger.fromString( pRoot->GetAttributeValue( _T("TTH") ) );
 	}
 
 	return IsHashed();
@@ -585,7 +674,7 @@ BOOL CCollectionFile::File::Download()
 
 BOOL CCollectionFile::File::ApplyMetadata(CLibraryFile* pShared)
 {
-	if ( m_pMetadata == NULL )
+	if ( ! m_pMetadata )
 		return FALSE;
 
 	ASSERT( m_pMetadata->GetFirstElement() != NULL );

@@ -2,21 +2,18 @@
 // G1Packet.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2007.
+// Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 // CG1Packet represents a Gnutella packet, and CG1PacketPool keeps lists of them
@@ -31,12 +28,11 @@
 #include "HostCache.h"
 #include "VendorCache.h"
 
-// When compiling in debug mode, replace the text "THIS_FILE" in code with the name of this file
 #ifdef _DEBUG
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
-#endif
+#endif	// Filename
 
 // When the program runs, create a single, global CG1PacketPool called POOL to hold a bunch of Gnutella packets
 CG1Packet::CG1PacketPool CG1Packet::POOL;

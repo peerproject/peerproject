@@ -2,21 +2,18 @@
 // CtrlLibraryThumbView.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2008.
+// Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
@@ -37,10 +34,10 @@
 #include "PeerProjectDataSource.h"
 
 #ifdef _DEBUG
-#define new DEBUG_NEW
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
-#endif
+#define new DEBUG_NEW
+#endif	// Filename
 
 IMPLEMENT_DYNCREATE(CLibraryThumbView, CLibraryFileView)
 
@@ -162,8 +159,8 @@ void CLibraryThumbView::Update()
 	{
 		CRect rcClient;
 		GetClientRect( &rcClient );
-		int nMax	= ( ( m_nCount + m_nColumns - 1 ) / m_nColumns ) * CY;
-		m_nScroll	= max( 0, min( m_nScroll, nMax - rcClient.Height() + 1 ) );
+		const int nMax  = ( ( m_nCount + m_nColumns - 1 ) / m_nColumns ) * CY;
+		m_nScroll = max( 0, min( m_nScroll, nMax - rcClient.Height() + 1 ) );
 	}
 
 	for ( POSITION pos = LibraryMaps.GetFileIterator() ; pos ; )
@@ -171,7 +168,7 @@ void CLibraryThumbView::Update()
 		CLibraryFile* pFile = LibraryMaps.GetNextFile( pos );
 
 		if ( pFile->m_nSelectCookie == nCookie &&
- 			 pFile->m_nListCookie != nCookie &&
+			 pFile->m_nListCookie != nCookie &&
 			 ( ! pSchema || pSchema->Equals( pFile->m_pSchema ) ||
 			 ( ! pFile->m_pMetadata && pSchema->FilterType( pFile->m_sName ) ) ) )
 		{
@@ -402,8 +399,8 @@ BOOL CLibraryThumbView::SelectTo(CLibraryThumbItem* pThumb)
 		else if ( rcItem.bottom > rcClient.bottom )
 			ScrollBy( rcItem.bottom - rcClient.bottom );
 	}
-	else if (	( GetAsyncKeyState( VK_SHIFT ) & 0x8000 ) == 0 &&
-				( GetAsyncKeyState( VK_CONTROL ) & 0x8000 ) == 0 )
+	else if ( ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 ) == 0 &&
+			  ( GetAsyncKeyState( VK_CONTROL ) & 0x8000 ) == 0 )
 	{
 		bChanged = DeselectAll();
 	}
@@ -586,7 +583,8 @@ CLibraryThumbItem* CLibraryThumbView::HitTest(const CPoint& point) const
 
 		CRect rcBlock( pt.x, pt.y, pt.x + CX, pt.y + CY );
 
-		if ( rcBlock.PtInRect( point ) ) return pThumb;
+		if ( rcBlock.PtInRect( point ) )
+			return pThumb;
 
 		pt.x += CX;
 
@@ -676,7 +674,8 @@ void CLibraryThumbView::OnLButtonUp(UINT nFlags, CPoint /*point*/)
 
 	if ( ( nFlags & (MK_SHIFT|MK_CONTROL) ) == 0 && m_pFocus && m_pFocus->m_bSelected )
 	{
-		if ( DeselectAll( m_pFocus ) ) Invalidate();
+		if ( DeselectAll( m_pFocus ) )
+			Invalidate();
 	}
 }
 

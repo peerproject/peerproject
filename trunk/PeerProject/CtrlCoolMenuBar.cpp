@@ -2,21 +2,18 @@
 // CtrlCoolMenuBar.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2007.
+// Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
@@ -31,10 +28,10 @@
 #endif
 
 #ifdef _DEBUG
-#define new DEBUG_NEW
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
-#endif
+#define new DEBUG_NEW
+#endif	// Filename
 
 #define MENUBAR_HEIGHT 28
 
@@ -86,7 +83,7 @@ void CCoolMenuBarCtrl::SetMenu(HMENU hMenu)
 	CMenu pMenu;
 	pMenu.Attach( m_hMenu );
 
-	for ( UINT nItem = 0 ; nItem < pMenu.GetMenuItemCount() ; nItem++ )
+	for ( UINT nItem = 0 ; nItem < (UINT)pMenu.GetMenuItemCount() ; nItem++ )
 	{
 		CString strMenu;
 		pMenu.GetMenuString( nItem, strMenu, MF_BYPOSITION );
@@ -116,7 +113,7 @@ BOOL CCoolMenuBarCtrl::OpenMenuChar(UINT nChar)
 	CMenu pMenu;
 	pMenu.Attach( m_hMenu );
 
-	for ( UINT nItem = 0 ; nItem < pMenu.GetMenuItemCount() ; nItem++ )
+	for ( UINT nItem = 0 ; nItem < (UINT)pMenu.GetMenuItemCount() ; nItem++ )
 	{
 		CString strMenu;
 		pMenu.GetMenuString( nItem, strMenu, MF_BYPOSITION );
@@ -152,26 +149,22 @@ void CCoolMenuBarCtrl::ShowMenu()
 		return;
 	}
 
-	UINT nFirstID = pMenu->GetMenuItemID( 0 );
-
-	if ( nFirstID == ID_WINDOW_CASCADE ||
-		 nFirstID == ID_WINDOW_NAVBAR )
-	{
+	// ToDo: Is this Menu detection still valid?
+	const UINT nFirstID = pMenu->GetMenuItemID( 0 );
+	if ( nFirstID == ID_WINDOW_NAVBAR || nFirstID == ID_WINDOW_CASCADE )
 		UpdateWindowMenu( pMenu );
-	}
 
 	m_pDown = m_pHot;
 	Invalidate();
 
 	KillTimer( 1 );
 
-	TPMPARAMS tpm;
 	CRect rc;
-
 	GetItemRect( m_pDown, &rc );
 	ClientToScreen( &rc );
 	rc.DeflateRect( 1, 2 );
 
+	TPMPARAMS tpm;
 	tpm.cbSize = sizeof(tpm);
 	tpm.rcExclude = rc;
 
@@ -188,7 +181,6 @@ void CCoolMenuBarCtrl::ShowMenu()
 
 	m_hMsgHook = NULL;
 	m_pMenuBar = NULL;
-
 	m_pDown = NULL;
 	OnTimer( 1 );
 
@@ -206,13 +198,12 @@ void CCoolMenuBarCtrl::ShowMenu()
 
 void CCoolMenuBarCtrl::UpdateWindowMenu(CMenu* pMenu)
 {
-	for ( UINT nItem = 0 ; nItem < pMenu->GetMenuItemCount() ; nItem++ )
+	const UINT nMenuItemCount = (UINT)pMenu->GetMenuItemCount();
+	for ( UINT nItem = 0 ; nItem < nMenuItemCount ; nItem++ )
 	{
-		UINT nID = pMenu->GetMenuItemID( nItem );
-
-		if ( nID >= AFX_IDM_FIRST_MDICHILD )
+		if ( pMenu->GetMenuItemID( nItem ) >= AFX_IDM_FIRST_MDICHILD )
 		{
-			for ( UINT nRemove = nItem ; nRemove < pMenu->GetMenuItemCount() ; )
+			for ( UINT nRemove = nItem ; nRemove < nMenuItemCount ; )
 				pMenu->RemoveMenu( nItem, MF_BYPOSITION );
 			pMenu->RemoveMenu( nItem - 1, MF_BYPOSITION );
 			break;

@@ -1,28 +1,25 @@
 //
 // Firewall.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
-// Portions Copyright Shareaza Development Team, 2002-2007.
+// This file is part of PeerProject (peerproject.org) © 2008-2010
+// Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 // CFirewall wraps Windows COM components to change Windows Firewall settings, and talk UPnP to a NAT router
 // http://sourceforge.net/apps/mediawiki/shareaza/index.php?title=Developers.Code.CFirewall
 
-// Include
+
 #include "StdAfx.h"
 #include "PeerProject.h"
 #include "Settings.h"
@@ -32,7 +29,7 @@
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
-#endif
+#endif	// Filename
 
 // Make a new WindowsFirewall object
 CFirewall::CFirewall() :
@@ -151,9 +148,8 @@ BOOL CFirewall::IsProgramListed( const CString& path, BOOL* listed )
 		// The program is in the list
 		*listed = TRUE;
 		return TRUE;
-
-	} // The ProgramList->Item call failed
-	else
+	}
+	else // ProgramList->Item call failed
 	{
 		// The error is not found
 		if ( result == HRESULT_FROM_WIN32( ERROR_FILE_NOT_FOUND ) )
@@ -161,9 +157,8 @@ BOOL CFirewall::IsProgramListed( const CString& path, BOOL* listed )
 			// The program is not in the list
 			*listed = FALSE;
 			return TRUE;
-
-		} // Some other error occurred
-		else
+		}
+		else // Some other error occurred
 		{
 			// Report it
 			return FALSE;
@@ -232,13 +227,13 @@ BOOL CFirewall::IsProgramEnabled( const CString& path, BOOL* enabled )
 
 BOOL CFirewall::AreExceptionsAllowed()
 {
-    VARIANT_BOOL	vbNotAllowed = VARIANT_FALSE;
-    HRESULT			hr = S_OK;
+	VARIANT_BOOL	vbNotAllowed = VARIANT_FALSE;
+	HRESULT			hr = S_OK;
 
-    hr = Profile->get_ExceptionsNotAllowed( &vbNotAllowed );
-    if ( SUCCEEDED(hr) && vbNotAllowed != VARIANT_FALSE ) return FALSE;
+	hr = Profile->get_ExceptionsNotAllowed( &vbNotAllowed );
+	if ( SUCCEEDED(hr) && vbNotAllowed != VARIANT_FALSE ) return FALSE;
 
-    return TRUE;
+	return TRUE;
 }
 
 // Takes a path and file name like "C:\Folder\Program.exe" and a name like "My Program"
@@ -251,14 +246,14 @@ BOOL CFirewall::AddProgram( const CString& path, const CString& name )
 	HRESULT result = Program.CoCreateInstance( __uuidof( NetFwAuthorizedApplication ) );
 	if ( FAILED( result ) ) return FALSE;
 
-	result = Program->put_ProcessImageFileName( CComBSTR( path ) ); // Set the process image file name
+	result = Program->put_ProcessImageFileName( CComBSTR( path ) );	// Set the process image file name
 	if ( FAILED( result ) ) return FALSE;
 
 	result = Program->put_Name( CComBSTR( name ) );					// Set the program name
 	if ( FAILED( result ) ) return FALSE;
 
 	// Get the program on the Windows Firewall accept list
-	result = ProgramList->Add( Program ); // Add the application to the collection
+	result = ProgramList->Add( Program );	// Add the application to the collection
 	if ( FAILED( result ) ) return FALSE;
 	return TRUE;
 }
@@ -267,7 +262,7 @@ BOOL CFirewall::RemoveProgram( const CString& path )
 {
 	if ( ! ProgramList || ! m_bInitialized ) return FALSE;
 
-	HRESULT result = ProgramList->Remove( CComBSTR( path ) ); // Remove the application to the collection
+	HRESULT result = ProgramList->Remove( CComBSTR( path ) );	// Remove the application to the collection
 	if ( FAILED( result ) ) return FALSE;
 	return TRUE;
 }
@@ -280,7 +275,7 @@ BOOL CFirewall::EnableService( NET_FW_SERVICE_TYPE service )
 	// Look for the service in the list
 	Service.Release();
 	HRESULT result = ServiceList->Item( service, &Service );
-	if ( FAILED( result ) ) return FALSE; // Services can't be removed from the list
+	if ( FAILED( result ) ) return FALSE;	// Services can't be removed from the list
 
 	// Check the box next to the service
 	VARIANT_BOOL v = TRUE;
@@ -296,8 +291,8 @@ BOOL CFirewall::EnableProgram( const CString& path )
 {
 	// First, make sure the program is listed
 	BOOL listed;
-	if ( ! IsProgramListed( path, &listed ) ) return FALSE; // This sets the Program interface we can use here
-	if ( ! listed ) return FALSE; // The program isn't on the list at all
+	if ( ! IsProgramListed( path, &listed ) ) return FALSE;	// This sets the Program interface we can use here
+	if ( ! listed ) return FALSE;	// The program isn't on the list at all
 
 	// Check the box next to the program
 	VARIANT_BOOL v = TRUE;

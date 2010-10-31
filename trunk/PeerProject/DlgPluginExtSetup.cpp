@@ -1,22 +1,19 @@
 //
 // DlgPluginExtSetup.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
-// Portions Copyright Shareaza Development Team, 2002-2007.
+// This file is part of PeerProject (peerproject.org) © 2008-2010
+// Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "stdafx.h"
@@ -24,10 +21,10 @@
 #include "DlgPluginExtSetup.h"
 
 #ifdef _DEBUG
-#define new DEBUG_NEW
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
-#endif
+#define new DEBUG_NEW
+#endif	// Filename
 
 IMPLEMENT_DYNAMIC(CPluginExtSetupDlg, CDialog)
 
@@ -70,7 +67,7 @@ BOOL CPluginExtSetupDlg::OnInitDialog()
 
 	m_wndList.InsertColumn( 0, _T("Extension"), LVCFMT_LEFT, rc.right, 0 );
 	m_wndList.SendMessage( LVM_SETEXTENDEDLISTVIEWSTYLE,
-		LVS_EX_FULLROWSELECT|LVS_EX_CHECKBOXES|LVS_EX_LABELTIP, 
+		LVS_EX_FULLROWSELECT|LVS_EX_CHECKBOXES|LVS_EX_LABELTIP,
 		LVS_EX_FULLROWSELECT|LVS_EX_CHECKBOXES|LVS_EX_LABELTIP );
 
 	CStringArray oTokens;
@@ -89,7 +86,7 @@ BOOL CPluginExtSetupDlg::OnInitDialog()
 		BOOL bChecked = ( strToken.Left( 1 ) != _T("-") );
 		int nItem = m_wndList.InsertItem( LVIF_TEXT, m_wndList.GetItemCount(),
 			! bChecked ? strToken.Mid( 1 ) : strToken, 0, 0, 0, 0 );
-		
+
 		if ( bChecked )
 		{
 			m_wndList.SetItemState( nItem, 2 << 12, LVIS_STATEIMAGEMASK );
@@ -141,11 +138,11 @@ void CPluginExtSetupDlg::OnOK()
 		else
 			strExt = _T("-") + m_wndList.GetItemText( nItem, 0 );
 
-		// invert the order since the extension map becomes inversed
+		// Invert the order since the extension map becomes inversed
 		strCurrExt.Insert( 0, _T("|") );
 		strCurrExt.Insert( 0, strExt );
 	}
-	if ( strCurrExt.GetLength() )
+	if ( ! strCurrExt.IsEmpty() )
 		strCurrExt.Insert( 0, _T("|") );
 
 	if ( nChecked == nTotal ) bCurrState = TRI_TRUE;

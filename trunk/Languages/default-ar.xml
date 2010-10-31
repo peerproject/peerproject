@@ -3,8 +3,8 @@
 
 <!-- PeerProject Arabic Language Skin File -->
 
-<!-- Translation based on default-en.xml r59 -->
-<!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
+<!-- Translation based on default-en.xml r60 -->
+<!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
 <!-- Use this file as a basis for creating new language skins,   -->
@@ -63,6 +63,7 @@
 		<button id="ID_VIEW_MEDIA" />
 		<button id="ID_TAB_IRC" />
 		<separator/>
+		<button id="ID_VIEW_SCHEDULER"/>
 		<button id="ID_VIEW_SECURITY" />
 		<button id="ID_VIEW_HOSTS" />
 		<button id="ID_VIEW_DISCOVERY" />
@@ -676,9 +677,9 @@
 	</menu>
 	<menu name="CMainWnd.Basic" type="شريط">
 		<menu text="_شبكة">
-  		<item id="ID_NETWORK_CONNECT" text="_إتصال" shortcut="Ctrl+G" />
-  		<separator />
-  		<menu text="تحديد _الشبكات">
+		<item id="ID_NETWORK_CONNECT" text="_إتصال" shortcut="Ctrl+G" />
+		<separator />
+		<menu text="تحديد _الشبكات">
 		<item id="ID_NETWORK_G2" text="_الإتصال بـ Gnutella2" />
 		<item id="ID_NETWORK_G1" text="الإتصال بـ Gnutella_1" />
 		<item id="ID_NETWORK_ED2K" text="_الإتصال بـ eDonkey2000" />
@@ -826,8 +827,8 @@
 				<item id="ID_HELP_FORUMS" text="PeerProject _منتديات"/>
 				<item id="ID_HELP_UPDATE" text="آخر الأخبار"/>
 				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
-		</menu>
+				<item id="ID_HELP_WEB_2" text="P2PForums.com"/>
+			</menu>
 		<separator />
 		<item id="ID_HELP_ABOUT" text="_معلومات عن PeerProject..." />
 	</menu>
@@ -1650,13 +1651,16 @@
 			<newline gap="8" indent="42" />
 			<anchor id="SearchBox" width="256" height="80" />
 			<newline gap="12" indent="0" />
-			<icon res="124" width="32" height="32" target="command:ID_TOOLS_DOWNLOAD" />
+			<icon res="122" width="32" height="32" target="command:ID_TOOLS_DOWNLOAD" />
 			<heading align="middle"> ابدأ التحميل </heading>
 			<newline gap="8" indent="42" />
 			<link target="command:ID_TOOLS_DOWNLOAD" format="bu">أنقر هنا لتبدأ</link>
 			<text>   - حمل ملف جديد أو حمل ملف torrent.</text>
 			<newline gap="2" indent="42" />
 			<link target="command:shell:downloads">فتح مجلد تحميلاتي</link>
+			<newline gap="4" indent="42"/>
+			<text>مشاركة الملفات في </text>
+			<link id="RemoteBrowseURL"/>
 			<newline gap="20" indent="0" />
 		</group>
 		<group id="3">
@@ -1706,25 +1710,25 @@
 		<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS" /> <gap size="8" />
 		<heading align="middle">تــخــصــيــص PEERPROJECT</heading>
 		<newline gap="12" indent="42" />
-		<icon res="196"width="16" height="16" target="command:ID_TOOLS_SKIN" /> <gap size="8" />
+		<icon res="196" width="16" height="16" target="command:ID_TOOLS_SKIN" /> <gap size="8" />
 		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">الغلافات</link>
 		<text align="middle"> - تغيير غلاف PeerProject و سمته</text>
 		<newline gap="8" />
-		<icon res="138"width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
-		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
-		<text align="middle">&#160;- Update blocklist</text>
+		<icon res="138" width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
+		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link><gap size="6"/>
+		<text align="middle">- Update blocklist</text>
 		<newline gap="8"/>
-		<icon res="197"width="16" height="16" target="command:ID_TOOLS_WIZARD" /> <gap size="8" />
-		<link target="command:ID_TOOLS_WIZARD" align="middle">معالج الإعدادات</link>
-		<text align="middle">&#160;- تحرير إعدادات PeerProject</text>
+		<icon res="197" width="16" height="16" target="command:ID_TOOLS_WIZARD" /> <gap size="8" />
+		<link target="command:ID_TOOLS_WIZARD" align="middle">معالج الإعدادات</link><gap size="6"/>
+		<text align="middle">- تحرير إعدادات PeerProject</text>
 		<newline gap="8" />
-		<icon res="182"width="16" height="16" target="command:ID_HELP_FAQ" /> <gap size="8" />
-		<link target="command:ID_HELP_FAQ" align="middle">تعليمات سريعة</link>
-		<text align="middle">&#160;- أحصل على بعض التعليمات الأساسية عن PeerProject</text>
+		<icon res="182" width="16" height="16" target="command:ID_HELP_FAQ" /> <gap size="8" />
+		<link target="command:ID_HELP_FAQ" align="middle">تعليمات سريعة</link><gap size="6"/>
+		<text align="middle">- أحصل على بعض التعليمات الأساسية عن PeerProject</text>
 		<newline gap="8"/>
-		<icon res="201"width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
-		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">المحلية المنتدى</link>
-		<text align="middle">&#160;- اذهب الى حسابك في اللغة العربية مناقشة منتدى</text>
+		<icon res="201" width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
+		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">المحلية المنتدى</link><gap size="6"/>
+		<text align="middle">- اذهب الى حسابك في اللغة العربية مناقشة منتدى</text>
 		<newline gap="18" indent="0" />
 		<group id="5">
 			<icon res="120" width="32" height="32" />
@@ -1954,7 +1958,7 @@
 		</group>
 		<group id="41">
 			<newline gap="1" />
-			<icon res="208" />
+			<icon res="207" />
 			<gap size="5" />
 			<link id="ContactYahoo" />
 		</group>
@@ -1999,7 +2003,7 @@
 			<newline gap="16" indent="0" />
 			<text format="b">المنتديات</text>
 			<newline gap="4" indent="8" />
-			<icon res="127"target="command:ID_SEARCH_CHAT" />
+			<icon res="127" target="command:ID_SEARCH_CHAT" />
 			<gap size="5" />
 			<link target="command:ID_SEARCH_CHAT" align="middle">محادثة المستخدم</link>
 		</group>
@@ -3075,7 +3079,8 @@
 	<string id="20590" value="Remote access is disabled." />
 	<string id="20591" value="http://%s:%i/remote - username/password required." />
 	<string id="20592" value="Unable to accept connections, URL unavailable." />
-	<string id="20595" value="ال&amp;مخطط" />
+	<string id="20599" value="ال&amp;مخطط" />
+	<!-- Missing Scheduler/Security Strings -->
 	<string id="20620" value="PeerProject is actively searching the network..." />
 	<string id="20621" value="اضغط هنا للبحث مره اخرى" />
 	<string id="20622" value="All Networks" />
@@ -3123,7 +3128,6 @@
 	<string id="20668" value="Searching..." />
 	<string id="20669" value="Plain Text Search" />
 	<string id="20670" value="PeerProject is searching the network..." />
-	<string id="20671" value="Are you sure you want to delete the selected security rules? This cannot be undone." />
 	<string id="20672" value="Select the eDonkey/eMule temp folder:" />
 	<string id="20673" value="Automatic" />
 	<string id="20674" value="The complete and incomplete folders should not be the same" />
@@ -3830,18 +3834,21 @@
 		<control caption="تطبيق" />
 		<control />
 	</dialog>
-	<dialog name="CIdentityProfilePage" cookie="BuStEdStEdEdBuCoStCoStBu" caption="الهوية">
+	<dialog name="CIdentityProfilePage" cookie="BuStStEdEdEdBuStStCoCoBuStBuBu" caption="الهوية">
 		<control caption=":الإ+سم" />
 		<control caption=":ال_لقب" />
-		<control />
 		<control caption=":الإ_سم الحقيقي" />
 		<control />
 		<control />
-		<control caption=":ت_فاصيل أخرى" />
-		<control caption="|ذكر|أنثى" />
-		<control caption=":الجنس" />
 		<control />
+		<control caption=":ت_فاصيل أخرى" />
+		<control caption=":الجنس" />
 		<control caption=":العمر" />
+		<control caption="|ذكر|أنثى" />
+		<control />
+		<control caption="Info:"/>
+		<control caption="{n}G2 (PeerProject / Shareaza)"/>
+		<control caption="تطبيق:"/>
 		<control caption="السمح للآخرين بتصفح التشكيل الجانبي لمواصفاتي" />
 	</dialog>
 	<dialog name="CAvatarProfilePage" cookie="BuStBuStBuBu" caption="الصور الرمزية">
@@ -3852,23 +3859,7 @@
 		<control caption="_استعرض..." />
 		<control caption="_إزالة" />
 	</dialog>
-	<dialog name="CContactProfilePage" cookie="BuStEdBuStEdStEdStEdStEdStEd" caption="الإتصال">
-		<control caption=":ال_بريد الالكتروني" />
-		<control caption=":ال_أساسي" />
-		<control />
-		<control caption=":_ماسنجر الإتصال" />
-		<control caption=":MSN ماسنجر" />
-		<control />
-		<control caption=":Yahoo ماسنجر" />
-		<control />
-		<control caption=":ICQ رقم" />
-		<control />
-		<control caption=":AOL إسم مستخدم" />
-		<control />
-		<control caption=":Jabber ماسنجر" />
-		<control />
-	</dialog>
-	<dialog name="CProfileProfilePage" cookie="BuStCoStCoBuStEdStEdBuLiBuBuCo" caption="الملف الخاص">
+	<dialog name="CProfileProfilePage" cookie="BuStCoStCoBuStEdStEdBuLiBuBuCo" caption="_الموقع">
 		<control caption=":_الموقع" />
 		<control caption=":ال_دولة" />
 		<control />
@@ -3881,11 +3872,38 @@
 		<control />
 		<control caption="ال_هوايات" />
 		<control />
-		<control caption="&lt; إضافة" />
-		<control caption="إزالة &gt;" />
+		<control caption=" إضافة&gt;" />
+		<control caption="&lt;إزالة "/>
 		<control />
 	</dialog>
+	<dialog name="CContactProfilePage" cookie="BuStEdBuStEdStEdStEdStEdStEdStEdStEdStEd" caption="الإتصال">
+		<control caption=":ال_بريد الالكتروني" />
+		<control caption=":ال_أساسي" />
+		<control />
+		<control caption=":_ماسنجر الإتصال" />
+		<control caption="PeerProject.org:"/>
+		<control/>
+		<control caption="Facebook:"/>
+		<control/>
+		<control caption="Twitter:"/>
+		<control/>
+		<control caption="Google:"/>
+		<control/>
+		<control caption="MSN/Live:"/>
+		<control/>
+		<control caption="Yahoo:"/>
+		<control/>
+		<control caption="AOL:"/>
+		<control/>
+		<control caption="ICQ:"/>
+		<control/>
+	</dialog>
 	<dialog name="CBioProfilePage" cookie="Ed" caption="نبذة عنك">
+		<control />
+	</dialog>
+	<dialog name="CFilesProfilePage" cookie="BuStSy" caption="المفضلة">
+		<control caption=":م_لفات المفضلة" />
+		<control caption="الملفات المفضلة هي الملفات المستحسنة للمستخدمين الذين يتصفحون تشكيلك الجانبي . يمكنك وضع ملفات المفضلة بإضافتها إلى مجلد مكتبة &quot;المفضلة&quot; ـ" />
 		<control />
 	</dialog>
 	<dialog name="CFavouritesProfilePage" cookie="SyBuStEdStEdBuBu" caption="المفضلة">
@@ -3898,19 +3916,15 @@
 		<control caption="جديد" />
 		<control caption="إزالة" />
 	</dialog>
-	<dialog name="CFilesProfilePage" cookie="BuStSy" caption="الملفات">
-		<control caption=":م_لفات المفضلة" />
-		<control caption="الملفات المفضلة هي الملفات المستحسنة للمستخدمين الذين يتصفحون تشكيلك الجانبي . يمكنك وضع ملفات المفضلة بإضافتها إلى مجلد مكتبة &quot;المفضلة&quot; ـ" />
+	<dialog name="CCertificateProfilePage" cookie="BuStStStStBuBuSt" caption="شهادة">
+		<control caption=":_شهادة التعريف الفريدة العالمية من" />
+		<control caption="Gnutella/G2 GUID:" />
 		<control />
-	</dialog>
-	<dialog name="CCertificateProfilePage" cookie="StBuStStStStBu" caption="شهادة">
-		<control caption="يتم تعريف مستخدمي نيتيللا من قبل معرف فريد عالميا و مفتاح عام و آخر خاص . عادة ليس هناك حاجة لتوليد هوية جديدة ، بالرغم من شير-أزا يقدم هذا الخيار للمستخدمين المتقدمين" />
-		<control caption=":Gnutella _شهادة التعريف الفريدة العالمية من" />
-		<control caption=":المعرف العالمي الفريد" />
-		<control />
-		<control caption=":إنشاء" />
+		<control caption="BitTorrent GUID:" />
 		<control />
 		<control caption="توليد الآن" />
+		<control caption="Info:"/>
+		<control caption="يتم تعريف مستخدمي نيتيللا من قبل معرف فريد عالميا و مفتاح عام و آخر خاص . عادة ليس هناك حاجة لتوليد هوية جديدة ، بالرغم من شير-أزا يقدم هذا الخيار للمستخدمين المتقدمين" />
 	</dialog>
 	<dialog name="CLanguageDlg" cookie="" caption="تحديد اللغة">
 	</dialog>
@@ -3919,7 +3933,7 @@
 		<control />
 		<control />
 		<control caption=":بر_وتوكول الشبكة" />
-		<control caption="Gnutella1 (تلقائي)|Gnutella2 (تلقائي)|eDonkey" />
+		<control />
 		<control caption="_منع نظير-فائق" />
 		<control caption="إتصال" />
 		<control caption="إلغاء الأمر" />
@@ -4353,17 +4367,16 @@
 		<control caption="Total Uploaded:" />
 		<control caption="Notes:" />
 	</dialog>
-	<dialog name="CTorrentFilesPage" cookie="Sy" caption="Files">
-		<control/>
-	</dialog>
-	<dialog name="CDownloadEditPage" cookie="StBuStStStBuStEdEdEdBuEdBuEdBuEdBuEdBuEd" caption="General">
-		<control caption="WARNING: This dialog provides advanced download editing features for power users, which will cause corruption if used incorrectly."/>
+	<dialog name="CDownloadEditPage" cookie="StBuStStStStBuStEdEdEdSyBuEdBuEdBuEdBuEdBuEd" caption="General">
+		<control caption="CAUTION: This dialog provides advanced download editing features for power users, that may cause corruption when used incorrectly."/>
 		<control caption="Details:"/>
 		<control caption="Filename:"/>
 		<control caption="Location:"/>
 		<control caption="Byte Size:"/>
+		<control caption="تاريخ:"/>
 		<control caption="URN Hashes:"/>
 		<control caption="Trusted?"/>
+		<control/>
 		<control/>
 		<control/>
 		<control/>
@@ -4379,7 +4392,7 @@
 		<control/>
 	</dialog>
 	<dialog name="CDownloadActionsPage" cookie="StStStStStStEdEdBuBuStStBu" caption="_Actions:">
-		<control caption="WARNING: This dialog provides advanced download editing features for power users which if used incorrectly can and probably will cause corruption." />
+		<control caption="CAUTION: This dialog provides advanced download editing features for power users, that may cause corruption when used incorrectly." />
 		<control caption="Forget all known sources" />
 		<control caption="Forget current verification status and reverify" />
 		<control caption="Assume file is 100% complete and reverify" />
@@ -4506,22 +4519,6 @@
 		<column from="Name" to="الاسم" />
 		<column from="Country" to="البلد" />
 	</list>
-	<list name="CSecurityWnd">
-		<column from="Address / Content" to="العنوان / المحتوى" />
-		<column from="Hits" to="ضربات" />
-		<column from="Action" to="الإجراء" />
-		<column from="Expires" to="الإنتهاء" />
-		<column from="#" to="الأسبقية" />
-		<column from="Comment" to="التعليق" />
-	</list>
-	<list name="CSchedulerWnd">
-		<column from="Task" to="الإجراء"/>
-		<column from="Date" to="تاريخ"/>
-		<column from="Time" to="الوقت"/>
-		<column from="Status" to="الحالة"/>
-		<column from="Activity" to="نشط"/>
-		<column from="Description" to="التعليق"/>
-	</list>
 	<list name="CHostCacheWnd">
 		<column from="Address" to="العنوان" />
 		<column from="Port" to="المنفذ" />
@@ -4569,6 +4566,23 @@
 		<column from="Client" to="التابع" />
 		<column from="Country" to="البلد" />
 		<column from="Time" to="الوقت" />
+	</list>
+	<list name="CSecurityWnd">
+		<column from="Address / Content" to="العنوان / المحتوى" />
+		<column from="Hits" to="ضربات" />
+		<column from="#" to="الأسبقية" />
+		<column from="Action" to="الإجراء" />
+		<column from="Expires" to="الإنتهاء" />
+		<column from="Match" to=""/>
+		<column from="Comment" to="التعليق" />
+	</list>
+	<list name="CSchedulerWnd">
+		<column from="Task" to="الإجراء"/>
+		<column from="Date" to="تاريخ"/>
+		<column from="Time" to="الوقت"/>
+		<column from="Status" to="الحالة"/>
+		<column from="Activity" to="نشط"/>
+		<column from="Comment" to="التعليق"/>
 	</list>
 	<list name="CUploadQueueList">
 		<column from="Name" to="الاسم" />

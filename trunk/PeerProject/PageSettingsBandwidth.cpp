@@ -1,22 +1,19 @@
 //
 // PageSettingsBandwidth.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
-// Portions Copyright Shareaza Development Team, 2002-2007.
+// This file is part of PeerProject (peerproject.org) © 2008-2010
+// Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
@@ -27,10 +24,10 @@
 #include "PageSettingsDownloads.h"
 
 #ifdef _DEBUG
-#define new DEBUG_NEW
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
-#endif
+#define new DEBUG_NEW
+#endif	// Filename
 
 IMPLEMENT_DYNCREATE(CBandwidthSettingsPage, CSettingsPage)
 
@@ -44,31 +41,31 @@ END_MESSAGE_MAP()
 // CBandwidthSettingsPage property page
 
 CBandwidthSettingsPage::CBandwidthSettingsPage() : CSettingsPage(CBandwidthSettingsPage::IDD)
+	: m_sUPInLimit	( _T("") )
+	, m_sUPInMax	( _T("") )
+	, m_sUPInTotal	( _T("") )
+	, m_sUPOutLimit	( _T("") )
+	, m_sUPOutMax	( _T("") )
+	, m_sUPOutTotal	( _T("") )
+	, m_sDLTotal	( _T("") )
+	, m_sInTotal	( _T("") )
+	, m_sOutTotal	( _T("") )
+	, m_sPInTotal	( _T("") )
+	, m_sPOutLimit	( _T("") )
+	, m_sPOutMax	( _T("") )
+	, m_sPOutTotal	( _T("") )
+	, m_sULTotal	( _T("") )
+	, m_sPInLimit	( _T("") )
+	, m_sPInMax 	( _T("") )
+	, m_sLInLimit	( _T("") )
+	, m_sLInMax 	( _T("") )
+	, m_sLInTotal	( _T("") )
+	, m_sLOutLimit	( _T("") )
+	, m_sLOutMax	( _T("") )
+	, m_sLOutTotal	( _T("") )
+	, m_sUDPTotal	( _T("") )
+	, m_bActive 	( FALSE )
 {
-	m_sUPInLimit = _T("");
-	m_sUPInMax = _T("");
-	m_sUPInTotal = _T("");
-	m_sUPOutLimit = _T("");
-	m_sUPOutMax = _T("");
-	m_sUPOutTotal = _T("");
-	m_sDLTotal = _T("");
-	m_sInTotal = _T("");
-	m_sOutTotal = _T("");
-	m_sPInTotal = _T("");
-	m_sPOutLimit = _T("");
-	m_sPOutMax = _T("");
-	m_sPOutTotal = _T("");
-	m_sULTotal = _T("");
-	m_sPInLimit = _T("");
-	m_sPInMax = _T("");
-	m_sLInLimit = _T("");
-	m_sLInMax = _T("");
-	m_sLInTotal = _T("");
-	m_sLOutLimit = _T("");
-	m_sLOutMax = _T("");
-	m_sLOutTotal = _T("");
-	m_sUDPTotal = _T("");
-	m_bActive = FALSE;
 }
 
 CBandwidthSettingsPage::~CBandwidthSettingsPage()
@@ -112,20 +109,18 @@ BOOL CBandwidthSettingsPage::OnInitDialog()
 {
 	CSettingsPage::OnInitDialog();
 
-	/*
-	for ( CWnd* pWnd = GetWindow( GW_CHILD ) ; pWnd ; pWnd = pWnd->GetNextWindow() )
-	{
-		TCHAR szClass[64];
-		GetClassName( *pWnd, szClass, 64 );
-
-		if ( _tcsistr( szClass, _T("UPDOWN") ) )
-		{
-			theApp.Message( MSG_DEBUG, _T("Class : %s"), szClass );
-			CSpinButtonCtrl* pSpin = reinterpret_cast<CSpinButtonCtrl*>(pWnd);
-			pSpin->SetRange( 0, 0x7FFF );
-		}
-	}
-	*/
+	//for ( CWnd* pWnd = GetWindow( GW_CHILD ) ; pWnd ; pWnd = pWnd->GetNextWindow() )
+	//{
+	//	TCHAR szClass[64];
+	//	GetClassName( *pWnd, szClass, 64 );
+	//
+	//	if ( _tcsistr( szClass, _T("UPDOWN") ) )
+	//	{
+	//		theApp.Message( MSG_DEBUG, _T("Class : %s"), szClass );
+	//		CSpinButtonCtrl* pSpin = reinterpret_cast<CSpinButtonCtrl*>(pWnd);
+	//		pSpin->SetRange( 0, 0x7FFF );
+	//	}
+	//}
 
 	m_bBytes		= Settings.General.RatesInBytes;
 	m_sUPInLimit	= ToString( Settings.Bandwidth.HubIn, TRUE, TRUE );
@@ -272,7 +267,7 @@ BOOL CBandwidthSettingsPage::OnCommand(WPARAM wParam, LPARAM lParam)
 		case IDC_UPIN_LIMIT:
 		case IDC_LIN_LIMIT:
 		case IDC_PIN_LIMIT:
-//		case IDC_DL_LIMIT:
+	//	case IDC_DL_LIMIT:
 		case IDC_UPOUT_LIMIT:
 		case IDC_LOUT_LIMIT:
 		case IDC_POUT_LIMIT:
@@ -308,10 +303,7 @@ BOOL CBandwidthSettingsPage::OnNotify(WPARAM wParam, LPARAM lParam, LRESULT* pRe
 		pEdit->GetWindowText( str );
 		DWORD nSpeed = ToSpeed( str );
 
-		if ( m_bBytes )
-			nSpeed -= pNotify->iDelta * 103;
-		else
-			nSpeed -= pNotify->iDelta * 128;
+		nSpeed -= pNotify->iDelta * ( m_bBytes ? 103 : 128 );
 
 		if ( nSpeed > 0xF0000000 ) nSpeed = 0;
 
@@ -335,9 +327,7 @@ HBRUSH CBandwidthSettingsPage::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 	HBRUSH hbr = CSettingsPage::OnCtlColor(pDC, pWnd, nCtlColor);
 
 	if ( pWnd == &m_wndHeadReceive || pWnd == &m_wndHeadTransmit )
-	{
 		pDC->SelectObject( &theApp.m_gdiFontBold );
-	}
 
 	return hbr;
 }
@@ -358,4 +348,3 @@ void CBandwidthSettingsPage::OnOK()
 
 	CSettingsPage::OnOK();
 }
-

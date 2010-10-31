@@ -1,22 +1,19 @@
 //
 // ID3.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
-// Portions Copyright Shareaza Development Team, 2002-2007.
+// This file is part of PeerProject (peerproject.org) © 2008-2010
+// Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #pragma once
@@ -89,17 +86,17 @@ typedef struct
 
 typedef struct
 {
-	char cID[4];							// should equal 'MAC '
-	unsigned __int16 nVersion;				// version number * 1000 (3.81 = 3810)
-	unsigned __int16 nCompressionLevel;		// the compression level
-	unsigned __int16 nFormatFlags;			// any format flags (for future use)
-	unsigned __int16 nChannels;				// the number of channels (1 or 2)
-	unsigned __int32 nSampleRate;			// the sample rate (typically 44100)
-	unsigned __int32 nHeaderBytes;			// the bytes after the MAC header that compose the WAV header
-	unsigned __int32 nTerminatingBytes;		// the bytes after that raw data (for extended info)
-	unsigned __int32 nTotalFrames;			// the number of frames in the file
-	unsigned __int32 nFinalFrameBlocks;		// the number of samples in the final frame
-	
+	char cID[4];							// Should equal 'MAC '
+	unsigned __int16 nVersion;				// Version number * 1000 (3.81 = 3810)
+	unsigned __int16 nCompressionLevel;		// Compression level
+	unsigned __int16 nFormatFlags;			// Any format flags (for future use)
+	unsigned __int16 nChannels;				// Number of channels (1 or 2)
+	unsigned __int32 nSampleRate;			// Sample rate (typically 44100)
+	unsigned __int32 nHeaderBytes;			// Bytes after the MAC header that compose the WAV header
+	unsigned __int32 nTerminatingBytes;		// Bytes after that raw data (for extended info)
+	unsigned __int32 nTotalFrames;			// Number of frames in the file
+	unsigned __int32 nFinalFrameBlocks;		// Number of samples in the final frame
+
 	// That data are optional their availability is stored in the nFormatFlags
 	// Anyway, we suppose that at least 2 __int32's are required for the plain audio :)
 	unsigned __int32 nPeakLevel;
@@ -110,47 +107,47 @@ typedef struct
 
 typedef struct
 {
-	char cID[4];                             // should equal 'MAC '
-	unsigned __int16 nVersion;               // version number * 1000 (3.81 = 3810)
-	unsigned __int16 nPadding;               // padding/reserved (always empty)
-	unsigned __int32 nDescriptorBytes;       // the number of descriptor bytes (allows later expansion of this header)
-	unsigned __int32 nHeaderBytes;           // the number of header APE_HEADER bytes
-	unsigned __int32 nSeekTableBytes;        // the number of bytes of the seek table
-	unsigned __int32 nHeaderDataBytes;       // the number of header data bytes (from original file)
-	unsigned __int32 nAPEFrameDataBytes;     // the number of bytes of APE frame data
-	unsigned __int32 nAPEFrameDataBytesHigh; // the high order number of APE frame data bytes
-	unsigned __int32 nTerminatingDataBytes;  // the terminating data of the file (not including tag data)
-	char cFileMD5[16];                       // the MD5 hash of the file
-	unsigned __int16 nCompressionLevel;      // the compression level
-	unsigned __int16 nFormatFlags;           // any format flags (for future use)
-	unsigned __int32 nBlocksPerFrame;        // the number of audio blocks in one frame
-	unsigned __int32 nFinalFrameBlocks;      // the number of audio blocks in the final frame
-	unsigned __int32 nTotalFrames;           // the number of frames in the file
-	unsigned __int16 nBitsPerSample;         // the bits per sample (typically 16)
-	unsigned __int16 nChannels;              // the number of channels (1 or 2)
-	unsigned __int32 nSampleRate;            // the sample rate (typically 44100)
+	char cID[4];                             // Should equal 'MAC '
+	unsigned __int16 nVersion;               // Version number * 1000 (3.81 = 3810)
+	unsigned __int16 nPadding;               // Padding/reserved (always empty)
+	unsigned __int32 nDescriptorBytes;       // Number of descriptor bytes (allows later expansion of this header)
+	unsigned __int32 nHeaderBytes;           // Number of header APE_HEADER bytes
+	unsigned __int32 nSeekTableBytes;        // Number of bytes of the seek table
+	unsigned __int32 nHeaderDataBytes;       // Number of header data bytes (from original file)
+	unsigned __int32 nAPEFrameDataBytes;     // Number of bytes of APE frame data
+	unsigned __int32 nAPEFrameDataBytesHigh; // High order number of APE frame data bytes
+	unsigned __int32 nTerminatingDataBytes;  // Terminating data of the file (not including tag data)
+	char cFileMD5[16];                       // MD5 hash of the file
+	unsigned __int16 nCompressionLevel;      // Compression level
+	unsigned __int16 nFormatFlags;           // Any format flags (for future use)
+	unsigned __int32 nBlocksPerFrame;        // Number of audio blocks in one frame
+	unsigned __int32 nFinalFrameBlocks;      // Number of audio blocks in the final frame
+	unsigned __int32 nTotalFrames;           // Number of frames in the file
+	unsigned __int16 nChannels;              // Number of channels (1 or 2)
+	unsigned __int16 nBitsPerSample;         // Bits per sample (typically 16)
+	unsigned __int32 nSampleRate;            // Sample rate (typically 44100)
 } APE_HEADER_NEW;
 
 typedef struct
 {
-	char cID[8];			// should equal 'APETAGEX'
-	int nVersion;			// equals CURRENT_APE_TAG_VERSION
-	int nSize;				// the complete size of the tag, including this footer
-	int nFields;			// the number of fields in the tag
-	int nFlags;				// the tag flags (none currently defined)
-	char cReserved[8];		// reserved for later use
+	char	cID[8]; 			// Should equal 'APETAGEX'
+	int 	nVersion;			// Equals CURRENT_APE_TAG_VERSION
+	int 	nSize;				// The complete size of the tag, including this footer
+	int 	nFields;			// The number of fields in the tag
+	int 	nFlags;				// The tag flags (none currently defined)
+	char	cReserved[8];		// Reserved for later use
 } APE_TAG_FOOTER;
 
 // LAME version 3.98
-typedef struct 
+typedef struct
 {
 	DWORD	VbrTag;
 	DWORD	HeaderFlags;
 	DWORD	FrameCount;
-	DWORD	StreamSize;		// Include Xing/LAME Header
+	DWORD	StreamSize; 		// Include Xing/LAME Header
 	BYTE	BitrateTOC[100];
 	DWORD	EncQuality;
-	CHAR	ClassID[9];		// Lame code uses 9 bytes, in comments 20 bytes (?)
+	CHAR	ClassID[9]; 		// Lame code uses 9 bytes, in comments 20 bytes (?)
 	BYTE	VbrMethodRevision;
 	BYTE	LowPass;
 	DWORD	PeakSignalAmplitude;
@@ -169,20 +166,19 @@ typedef struct
 
 typedef struct
 {
-    DWORD		dwMicroSecPerFrame;	// frame display rate (or 0L)
-    DWORD		dwMaxBytesPerSec;	// max. transfer rate
-    DWORD		dwPaddingGranularity;	// pad to multiples of this
-                                                // size; normally 2K.
-    DWORD		dwFlags;		// the ever-present flags
-    DWORD		dwTotalFrames;		// # frames in file
-    DWORD		dwInitialFrames;
-    DWORD		dwStreams;
-    DWORD		dwSuggestedBufferSize;
+	DWORD		dwMicroSecPerFrame;	// Frame display rate (or 0L)
+	DWORD		dwMaxBytesPerSec;	// Max. transfer rate
+	DWORD		dwPaddingGranularity;	// Pad to multiples of this size; normally 2K.
+	DWORD		dwFlags;		// The ever-present flags
+	DWORD		dwTotalFrames;		// # frames in file
+	DWORD		dwInitialFrames;
+	DWORD		dwStreams;
+	DWORD		dwSuggestedBufferSize;
 
-    DWORD		dwWidth;
-    DWORD		dwHeight;
+	DWORD		dwWidth;
+	DWORD		dwHeight;
 
-    DWORD		dwReserved[4];
+	DWORD		dwReserved[4];
 } AVI_HEADER;
 
 #ifdef _ID3_DEFINE_GENRES
@@ -218,7 +214,6 @@ LPCTSTR CLibraryBuilderInternals::pszID3Genre[] =
 	_T("Polsk Punk"), _T("Beat"), _T("Christian Gangsta"), _T("Heavy Metal"), _T("Black Metal"),
 	_T("Crossover"), _T("Contemporary C"), _T("Christian Rock"), _T("Merengue"),
 	_T("Salsa"), _T("Thrash Metal"), _T("Anime"), _T("JPop"), _T("SynthPop")
-
 };
 #endif
 

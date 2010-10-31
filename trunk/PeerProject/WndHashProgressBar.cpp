@@ -2,38 +2,36 @@
 // WndHashProgressBar.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2008.
+// Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
 #include "PeerProject.h"
-#include "WndHashProgressBar.h"
 #include "Settings.h"
+#include "WndHashProgressBar.h"
 #include "Library.h"
 #include "LibraryBuilder.h"
 #include "CoolInterface.h"
+#include "ShellIcons.h"
 #include "Colors.h"
 #include "Skin.h"
 
 #ifdef _DEBUG
-#define new DEBUG_NEW
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
-#endif
+#define new DEBUG_NEW
+#endif	// Filename
 
 IMPLEMENT_DYNCREATE(CHashProgressBar, CWnd)
 
@@ -91,25 +89,21 @@ void CHashProgressBar::Run()
 				pEx->Delete();
 			}
 		}
-		if ( m_hWnd != NULL )
-		{
+
+		if ( m_hWnd )
 			Update();
-		}
 	}
-	else
+	else if ( m_hWnd )
 	{
-		if ( m_hWnd != NULL )
-		{
-			DestroyWindow();
-			m_sCurrent.Empty();
-			m_sPrevious.Empty();
-		}
+		DestroyWindow();
+		m_sCurrent.Empty();
+		m_sPrevious.Empty();
 	}
 }
 
 void CHashProgressBar::Update()
 {
-	if ( m_sCurrent.GetLength() && m_sCurrent != m_sPrevious )
+	if ( ! m_sCurrent.IsEmpty() && m_sCurrent != m_sPrevious )
 	{
 		m_sPrevious = m_sCurrent;
 
@@ -155,16 +149,14 @@ int CHashProgressBar::OnCreate(LPCREATESTRUCT lpCreateStruct)
 void CHashProgressBar::OnDestroy()
 {
 	KillTimer( 1 );
+
+	CWnd::OnDestroy();
 }
 
 void CHashProgressBar::OnSkinChange()
 {
-	m_crFill	= Colors.m_crTipBack;
-	m_crBorder	= Colors.m_crTipBorder;
-	m_crText	= Colors.m_crTipText;
-
 	HBITMAP hBitmap = Skin.GetWatermark( _T("CHashProgressBar") );
-	if ( m_bmImage.m_hObject != NULL ) m_bmImage.DeleteObject();
+	if ( m_bmImage.m_hObject ) m_bmImage.DeleteObject();
 	if ( hBitmap != NULL )	m_bmImage.Attach( hBitmap );
 
 	m_hIcon = (HICON)LoadImage( AfxGetResourceHandle(),
@@ -178,16 +170,18 @@ void CHashProgressBar::OnPaint()
 	CRect rcClient;
 	GetClientRect( &rcClient );
 
-	dc.Draw3dRect( &rcClient, m_crBorder, m_crBorder );
+	dc.Draw3dRect( &rcClient, Colors.m_crTipBorder, Colors.m_crTipBorder );
 	rcClient.DeflateRect( 1, 1 );
 
 	if ( ! CoolInterface.DrawWatermark( &dc, &rcClient, &m_bmImage ) )
-		dc.FillSolidRect( &rcClient, m_crFill );
+		dc.FillSolidRect( &rcClient, Colors.m_crTipBack );
 
 	dc.SetBkMode( TRANSPARENT );
 
 	// Icon
-	DrawIconEx( dc, rcClient.left + 5, rcClient.top + 4, m_hIcon, 32, 32, 0, NULL, DI_NORMAL );
+	if( ! ShellIcons.Draw( &dc, ShellIcons.Get( m_sCurrent, 32 ), 32,
+			rcClient.left + 5, rcClient.top + 4, ( m_bmImage.m_hObject ? CLR_NONE : Colors.m_crTipBack ) ) )
+		DrawIconEx( dc, rcClient.left + 5, rcClient.top + 4, m_hIcon, 32, 32, 0, NULL, DI_NORMAL );
 
 	// Text
 	CFont* pOld = dc.SelectObject( &CoolInterface.m_fntNormal );
@@ -195,7 +189,7 @@ void CHashProgressBar::OnPaint()
 	CString strText = _T("x");
 	CRect rcX( rcClient.right - 20, rcClient.top + 1,
 		rcClient.right - 5, rcClient.top + 20 );
-	dc.SetTextColor( m_crText );
+	dc.SetTextColor( Colors.m_crTipText );
 	dc.DrawText( strText, rcX, DT_RIGHT | DT_SINGLELINE );
 
 	if ( m_nFlash++ % 30 > 15 )
@@ -226,7 +220,7 @@ void CHashProgressBar::OnPaint()
 
 	dc.Draw3dRect( &rcProgress, Colors.m_crFragmentPass, Colors.m_crFragmentPass );
 	rcProgress.top--;
-	dc.Draw3dRect( &rcProgress, Colors.m_crFragmentPass, m_crText );
+	dc.Draw3dRect( &rcProgress, Colors.m_crFragmentPass, Colors.m_crTipText );
 }
 
 BOOL CHashProgressBar::OnEraseBkgnd(CDC* /*pDC*/)

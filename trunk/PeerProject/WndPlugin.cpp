@@ -1,22 +1,19 @@
 //
 // WndPlugin.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
-// Portions Copyright Shareaza Development Team, 2002-2007.
+// This file is part of PeerProject (peerproject.org) © 2008-2010
+// Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
@@ -24,16 +21,16 @@
 #include "Settings.h"
 #include "WndPlugin.h"
 #include "WindowManager.h"
-#include "CoolInterface.h"
-#include "Skin.h"
-#include "SkinWindow.h"
 #include "ComToolbar.h"
+#include "CoolInterface.h"
+#include "SkinWindow.h"
+#include "Skin.h"
 
 #ifdef _DEBUG
-#define new DEBUG_NEW
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
-#endif
+#define new DEBUG_NEW
+#endif	// Filename
 
 IMPLEMENT_DYNAMIC(CPluginWnd, CPanelWnd)
 
@@ -129,13 +126,9 @@ void CPluginWnd::OnSize(UINT nType, int cx, int cy)
 		GetClientRect( &rc );
 
 		if ( m_nToolbar == 1 )
-		{
 			m_pToolbar->SetWindowPos( NULL, 0, 0, rc.right, Skin.m_nToolbarHeight, SWP_NOZORDER );
-		}
 		else if ( m_nToolbar == 2 )
-		{
 			m_pToolbar->SetWindowPos( NULL, 0, rc.bottom - Skin.m_nToolbarHeight, rc.Width(), Skin.m_nToolbarHeight, SWP_NOZORDER );
-		}
 	}
 }
 
@@ -319,14 +312,10 @@ STDMETHODIMP CPluginWnd::XPluginWindow::AddToolbar(BSTR sName, LONG nPosition, H
 	pThis->m_pToolbar->SetOwner( AfxGetMainWnd() );
 
 	if ( pThis->m_nToolbar & 1 )
-	{
 		pThis->m_pToolbar->SetBarStyle( pThis->m_pToolbar->GetBarStyle() | CBRS_BORDER_BOTTOM );
-	}
 
 	if ( pThis->m_nToolbar & 2 )
-	{
 		pThis->m_pToolbar->SetBarStyle( pThis->m_pToolbar->GetBarStyle() | CBRS_BORDER_TOP );
-	}
 
 	Skin.CreateToolBar( CString( sName ), pThis->m_pToolbar );
 
@@ -343,14 +332,9 @@ STDMETHODIMP CPluginWnd::XPluginWindow::AdjustWindowRect(RECT FAR* pRect, VARIAN
 	METHOD_PROLOGUE( CPluginWnd, PluginWindow )
 
 	if ( pThis->m_pSkin != NULL )
-	{
 		pThis->m_pSkin->CalcWindowRect( pRect, bClientToWindow ? FALSE : TRUE );
-	}
 	else
-	{
 		pThis->CalcWindowRect( pRect );
-	}
 
 	return NOERROR;
 }
-

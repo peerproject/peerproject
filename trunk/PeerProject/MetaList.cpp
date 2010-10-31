@@ -2,21 +2,18 @@
 // MetaList.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2008.
+// Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
@@ -32,7 +29,7 @@
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
-#endif
+#endif	// Filename
 
 CString g_strMultiple; // Translation string
 
@@ -154,7 +151,7 @@ void CMetaList::Setup(CSchemaPtr pSchema, BOOL bClear)
 	for ( POSITION pos = GetIterator() ; pos ; )
 	{
 		CMetaItem* pItem = GetNext( pos );
-		if ( pItem->m_sValue.GetLength() )
+		if ( ! pItem->m_sValue.IsEmpty() )
 			pItem->m_bValueDefined = TRUE;
 	}
 }
@@ -173,7 +170,7 @@ void CMetaList::Setup(CMetaList* pMetaList)
 
 		if ( pItem == NULL )
 		{
-			if ( pItemOther->m_sValue.GetLength() )
+			if ( ! pItemOther->m_sValue.IsEmpty() )
 			{
 				pItem = new CMetaItem( pItemOther->m_pMember );
 				pItem->m_sKey	= pItemOther->m_sKey;
@@ -248,7 +245,7 @@ void CMetaList::CreateLinks()
 
 			if ( CMetaItem* pBase = Find( strBase ) )
 			{
-				if ( pBase->m_sValue.GetLength() )
+				if ( ! pBase->m_sValue.IsEmpty() )
 				{
 					pItem->m_sKey	= pBase->m_sKey;
 					pItem->m_sValue = pBase->m_sValue;

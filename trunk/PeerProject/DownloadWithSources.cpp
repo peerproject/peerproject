@@ -2,21 +2,18 @@
 // DownloadWithSources.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2008.
+// Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
@@ -45,7 +42,7 @@
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
-#endif
+#endif	// Filename
 
 
 //////////////////////////////////////////////////////////////////////
@@ -325,7 +322,7 @@ BOOL CDownloadWithSources::AddSourceHit(const CQueryHit* pHit, BOOL bForce)
 		m_nSize = pHit->m_nSize;
 		bUpdated = TRUE;
 	}
-	if ( m_sName.IsEmpty() && pHit->m_sName.GetLength() )
+	if ( m_sName.IsEmpty() && ! pHit->m_sName.IsEmpty() )
 	{
 		Rename( pHit->m_sName );
 		bUpdated = TRUE;
@@ -333,7 +330,7 @@ BOOL CDownloadWithSources::AddSourceHit(const CQueryHit* pHit, BOOL bForce)
 
 	if ( Settings.Downloads.Metadata && m_pXML == NULL )
 	{
-		if ( pHit->m_pXML != NULL && pHit->m_sSchemaPlural.GetLength() )
+		if ( pHit->m_pXML != NULL && ! pHit->m_sSchemaPlural.IsEmpty() )
 		{
 			m_pXML = new CXMLElement( NULL, pHit->m_sSchemaPlural );
 			m_pXML->AddAttribute( _T("xmlns:xsi"), CXMLAttribute::xmlnsInstance );
@@ -495,7 +492,7 @@ BOOL CDownloadWithSources::AddSourceURL(LPCTSTR pszURL, BOOL bURN, FILETIME* pLa
 		m_nSize = pURL.m_nSize;
 
 	// Get name
-	if ( m_sName.IsEmpty() && pURL.m_sName.GetLength() )
+	if ( m_sName.IsEmpty() && ! pURL.m_sName.IsEmpty() )
 		Rename( pURL.m_sName );
 
 
@@ -546,17 +543,17 @@ int CDownloadWithSources::AddSourceURLs(LPCTSTR pszURLs, BOOL bURN, BOOL bFailed
 
 BOOL CDownloadWithSources::AddSourceInternal(CDownloadSource* pSource)
 {
-	//Check/Reject if source is invalid
+	// Check/Reject if source is invalid
 	if ( ! pSource->m_bPushOnly )
 	{
-		//Reject invalid IPs (Sometimes ed2k sends invalid 0.x.x.x sources)
+		// Reject invalid IPs (Sometimes ed2k sends invalid 0.x.x.x sources)
 		if ( pSource->m_pAddress.S_un.S_un_b.s_b1 == 0 || pSource->m_nPort == 0 )
 		{
 			delete pSource;
 			return FALSE;
 		}
 
-		//Reject if source is the local IP/port
+		// Reject if source is the local IP/port
 		if ( Network.IsSelfIP( pSource->m_pAddress ) )
 		{
 			if ( Settings.Connection.IgnoreOwnIP ||
@@ -570,7 +567,7 @@ BOOL CDownloadWithSources::AddSourceInternal(CDownloadSource* pSource)
 	}
 	else if ( pSource->m_nProtocol == PROTOCOL_ED2K )
 	{
-		//Reject invalid server IPs (Sometimes ed2k sends invalid 0.x.x.x sources)
+		// Reject invalid server IPs (Sometimes ed2k sends invalid 0.x.x.x sources)
 		if ( pSource->m_pServerAddress.S_un.S_un_b.s_b1 == 0 )
 		{
 			delete pSource;
@@ -638,7 +635,7 @@ BOOL CDownloadWithSources::AddSourceInternal(CDownloadSource* pSource)
 		if ( bNeedHTTPSource )
 		{
 			CString strURL = GetURL( pSource->m_pAddress, pSource->m_nPort );
-			if ( strURL.GetLength() )
+			if ( ! strURL.IsEmpty() )
 			{
 				if ( CDownloadSource* pG2Source  = new CDownloadSource(
 					(CDownload*)this, strURL ) )
@@ -687,7 +684,7 @@ CString CDownloadWithSources::GetSourceURLs(CList< CString >* pState, int nMaxim
 
 			if ( nProtocol == PROTOCOL_G1 )
 			{
-				if ( strSources.GetLength() )
+				if ( ! strSources.IsEmpty() )
 					strSources += ',';
 				strSources += CString( inet_ntoa( pSource->m_pAddress ) );
 				if ( pSource->m_nPort != GNUTELLA_DEFAULT_PORT )
@@ -708,14 +705,16 @@ CString CDownloadWithSources::GetSourceURLs(CList< CString >* pState, int nMaxim
 				CString strURL = pSource->m_sURL;
 				strURL.Replace( _T(","), _T("%2C") );
 
-				if ( strSources.GetLength() ) strSources += _T(", ");
+				if ( ! strSources.IsEmpty() ) strSources += _T(", ");
 				strSources += strURL;
 				strSources += ' ';
 				strSources += TimeToString( &pSource->m_tLastSeen );
 			}
 
-			if ( nMaximum == 1 ) break;
-			else if ( nMaximum > 1 ) nMaximum --;
+			if ( nMaximum == 1 )
+				break;
+			else if ( nMaximum > 1 )
+				nMaximum --;
 		}
 	}
 
@@ -746,7 +745,7 @@ CString	CDownloadWithSources::GetTopFailedSources(int nMaximum, PROTOCOLID nProt
 				int nPosSlash = pResult->m_sURL.Find( '/', nPos );
 				if ( nPosSlash < 0 ) continue;
 
-				if ( strSources.GetLength() )
+				if ( ! strSources.IsEmpty() )
 					strSources += ',';
 
 				strSources += str;
@@ -757,8 +756,10 @@ CString	CDownloadWithSources::GetTopFailedSources(int nMaximum, PROTOCOLID nProt
 					strSources += str;
 				}
 
-				if ( nMaximum == 1 ) break;
-				else if ( nMaximum > 1 ) nMaximum--;
+				if ( nMaximum == 1 )
+					break;
+				else if ( nMaximum > 1 )
+					nMaximum--;
 			}
 		}
 	}
@@ -772,7 +773,7 @@ BOOL CDownloadWithSources::OnQueryHits(const CQueryHit* pHits)
 {
 	for ( const CQueryHit* pHit = pHits; pHit ; pHit = pHit->m_pNext )
 	{
-		if ( pHit->m_sURL.GetLength() )
+		if ( ! pHit->m_sURL.IsEmpty() )
 			AddSourceHit( pHit );
 	}
 
@@ -938,14 +939,17 @@ void CDownloadWithSources::InternalAdd(const CDownloadSource* pSource)
 	case PROTOCOL_ED2K:
 		m_nEdSourceCount++;
 		break;
-	case PROTOCOL_HTTP:
-		m_nHTTPSourceCount++;
-		break;
 	case PROTOCOL_BT:
 		m_nBTSourceCount++;
 		break;
+	case PROTOCOL_HTTP:
+		m_nHTTPSourceCount++;
+		break;
 	case PROTOCOL_FTP:
 		m_nFTPSourceCount++;
+		break;
+	case PROTOCOL_DC:
+	//	m_nDCSourceCount++;
 		break;
 	default:
 		ASSERT( FALSE );
@@ -971,14 +975,17 @@ void CDownloadWithSources::InternalRemove(const CDownloadSource* pSource)
 	case PROTOCOL_ED2K:
 		m_nEdSourceCount--;
 		break;
-	case PROTOCOL_HTTP:
-		m_nHTTPSourceCount--;
-		break;
 	case PROTOCOL_BT:
 		m_nBTSourceCount--;
 		break;
+	case PROTOCOL_HTTP:
+		m_nHTTPSourceCount--;
+		break;
 	case PROTOCOL_FTP:
 		m_nFTPSourceCount--;
+		break;
+	case PROTOCOL_DC:
+	//	m_nBTSourceCount--;
 		break;
 	default:
 		ASSERT( FALSE );
@@ -995,7 +1002,7 @@ void CDownloadWithSources::RemoveSource(const CDownloadSource* pSource, BOOL bBa
 
 	InternalRemove( pSource );
 
-	if ( bBan && pSource->m_sURL.GetLength() )
+	if ( bBan && ! pSource->m_sURL.IsEmpty() )
 		AddFailedSource( pSource );
 
 	SetModified();
@@ -1126,10 +1133,10 @@ void CDownloadWithSources::Serialize(CArchive& ar, int nVersion)	// DOWNLOAD_SER
 			pSource->Serialize( ar, nVersion );
 
 			// Extract ed2k client ID from url (m_pAddress) because it wasn't saved
-			if ( ! pSource->m_nPort && ( _tcsnicmp( pSource->m_sURL, _T("ed2kftp://"), 10 ) == 0 )  )
+			if ( ! pSource->m_nPort && ! _tcsnicmp( pSource->m_sURL, _T("ed2kftp://"), 10 ) )
 			{
 				CString strURL = pSource->m_sURL.Mid(10);
-				if ( strURL.GetLength() )
+				if ( ! strURL.IsEmpty() )
 					_stscanf( strURL, _T("%lu"), &pSource->m_pAddress.S_un.S_addr );
 			}
 

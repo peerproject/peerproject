@@ -2,21 +2,18 @@
 // DlgQueueProperties.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2007.
+// Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
@@ -29,10 +26,10 @@
 #include "CoolInterface.h"
 
 #ifdef _DEBUG
-#define new DEBUG_NEW
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
-#endif
+#define new DEBUG_NEW
+#endif	// Filename
 
 BEGIN_MESSAGE_MAP(CQueuePropertiesDlg, CSkinDialog)
 	//{{AFX_MSG_MAP(CQueuePropertiesDlg)
@@ -54,31 +51,32 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CQueuePropertiesDlg dialog
 
-CQueuePropertiesDlg::CQueuePropertiesDlg(CUploadQueue* pQueue, BOOL bEnable, CWnd* pParent) : CSkinDialog(CQueuePropertiesDlg::IDD, pParent)
+CQueuePropertiesDlg::CQueuePropertiesDlg(CUploadQueue* pQueue, BOOL bEnable, CWnd* pParent)
+	: CSkinDialog(CQueuePropertiesDlg::IDD, pParent)
+	, m_nCapacity	( 0 )
+	, m_sMaxSize	( _T("") )
+	, m_bMaxSize	( FALSE )
+	, m_sMinSize	( _T("") )
+	, m_bMinSize	( FALSE )
+	, m_sMatch		( _T("") )
+	, m_bMatch		( FALSE )
+	, m_sMarked 	( _T("") )
+	, m_bMarked 	( FALSE )
+	, m_sName		( _T("") )
+	, m_bEnable 	( FALSE )
+	, m_bProtocols	( FALSE )
+	, m_bReward 	( FALSE )
+	, m_bRotate 	( FALSE )
+	, m_nRotateTime	( 0 )
+	, m_nTransfersMin ( 0 )
+	, m_nTransfersMax ( 0 )
 {
 	ASSERT( pQueue != NULL );
 	m_pQueue = pQueue;
 	m_bEnableOverride = bEnable;
 
 	//{{AFX_DATA_INIT(CQueuePropertiesDlg)
-	m_nCapacity = 0;
-	m_bMaxSize = FALSE;
-	m_sMaxSize = _T("");
-	m_bMinSize = FALSE;
-	m_sMinSize = _T("");
-	m_bMarked = FALSE;
-	m_sName = _T("");
 	m_nFileStatusFlag = CUploadQueue::ulqBoth;
-	m_bProtocols = FALSE;
-	m_bRotate = FALSE;
-	m_bReward = FALSE;
-	m_nRotateTime = 0;
-	m_nTransfersMax = 0;
-	m_nTransfersMin = 0;
-	m_bMatch = FALSE;
-	m_sMatch = _T("");
-	m_bEnable = FALSE;
-	m_sMarked = _T("");
 	//}}AFX_DATA_INIT
 }
 
@@ -135,28 +133,10 @@ BOOL CQueuePropertiesDlg::OnInitDialog()
 	m_wndTransfersMax.SetRange( 1, 512 );
 	m_wndRotateTimeSpin.SetRange( 30, 15 * 60 );
 
-	CBitmap bmProtocols;
-	bmProtocols.LoadBitmap( IDB_PROTOCOLS );
-	if ( Settings.General.LanguageRTL )
-		bmProtocols.m_hObject = CreateMirroredBitmap( (HBITMAP)bmProtocols.m_hObject );
-
-	m_gdiProtocols.Create( 16, 16, ILC_COLOR32|ILC_MASK, 7, 1 ) ||
-	m_gdiProtocols.Create( 16, 16, ILC_COLOR24|ILC_MASK, 7, 1 ) ||
-	m_gdiProtocols.Create( 16, 16, ILC_COLOR16|ILC_MASK, 7, 1 );
-	m_gdiProtocols.Add( &bmProtocols, RGB( 0, 255, 0 ) );
-
-	// Replace with the skin images (if fails old images remain)
-	for ( int nImage = 1 ; nImage < 7 ; nImage++ )
-	{
-		if ( HICON hIcon = CoolInterface.ExtractIcon( (UINT)protocolCmdMap[ nImage ].commandID, FALSE ) )
-		{
-			m_gdiProtocols.Replace( nImage, hIcon );
-			DestroyIcon( hIcon );
-		}
-	}
+	CoolInterface.LoadIconsTo( m_gdiProtocols, protocolIDs );
+	m_wndProtocols.SetImageList( &m_gdiProtocols, LVSIL_SMALL );
 
 	m_wndProtocols.SendMessage( LVM_SETEXTENDEDLISTVIEWSTYLE, LVS_EX_CHECKBOXES, LVS_EX_CHECKBOXES );
-	m_wndProtocols.SetImageList( &m_gdiProtocols, LVSIL_SMALL );
 	m_wndProtocols.InsertItem( LVIF_TEXT|LVIF_IMAGE|LVIF_PARAM, 0, _T("HTTP"), 0, 0, PROTOCOL_HTTP, PROTOCOL_HTTP );
 	m_wndProtocols.InsertItem( LVIF_TEXT|LVIF_IMAGE|LVIF_PARAM, 1, _T("ED2K"), 0, 0, PROTOCOL_ED2K, PROTOCOL_ED2K );
 	m_wndProtocols.InsertItem( LVIF_TEXT|LVIF_IMAGE|LVIF_PARAM, 2, _T("BitTorrent"), 0, 0, PROTOCOL_BT, PROTOCOL_BT );
@@ -293,8 +273,8 @@ void CQueuePropertiesDlg::OnMatchCheck()
 
 void CQueuePropertiesDlg::OnProtocolsCheck()
 {
-	if ( Settings.General.GUIMode == GUI_BASIC )
-		if ( !( Settings.eDonkey.EnableAlways | Settings.eDonkey.EnableToday ) )
+	if ( Settings.General.GUIMode == GUI_BASIC &&
+		!( Settings.eDonkey.EnableAlways | Settings.eDonkey.EnableToday ) )
 			return;
 
 	UpdateData();
@@ -357,9 +337,9 @@ void CQueuePropertiesDlg::OnOK()
 
 	m_pQueue->m_sName = m_sName;
 
-	if ( m_wndBoth.GetCheck() ) m_nFileStatusFlag = (CUploadQueue::ulqBoth);
-	if ( m_wndLibraryOnly.GetCheck() ) m_nFileStatusFlag = (CUploadQueue::ulqLibrary);
-	if ( m_wndPartialOnly.GetCheck() ) m_nFileStatusFlag = (CUploadQueue::ulqPartial);
+	if ( m_wndBoth.GetCheck() )			m_nFileStatusFlag = (CUploadQueue::ulqBoth);
+	if ( m_wndLibraryOnly.GetCheck() )	m_nFileStatusFlag = (CUploadQueue::ulqLibrary);
+	if ( m_wndPartialOnly.GetCheck() )	m_nFileStatusFlag = (CUploadQueue::ulqPartial);
 	m_pQueue->m_nFileStateFlag = ( m_nFileStatusFlag != CUploadQueue::ulqNull ) ? m_nFileStatusFlag : (CUploadQueue::ulqBoth);
 
 	if ( m_bMaxSize )
@@ -403,10 +383,7 @@ void CQueuePropertiesDlg::OnOK()
 			m_pQueue->m_nProtocols = 0;
 	}
 
-	if ( ( m_pQueue->m_nProtocols & (1<<PROTOCOL_ED2K) ) )
-		m_pQueue->m_nCapacity	= min( (int)m_nCapacity, 4096 );
-	else
-		m_pQueue->m_nCapacity	= min( (int)m_nCapacity, 64 );
+	m_pQueue->m_nCapacity		= min( (int)m_nCapacity, ( m_pQueue->m_nProtocols & (1<<PROTOCOL_ED2K) ) ? 4096 : 64 );
 
 	m_pQueue->m_bEnable			= m_bEnable;
 	m_pQueue->m_nMinTransfers	= max( 1, (int)m_nTransfersMin );

@@ -2,24 +2,25 @@
 // LiveList.h
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2007.
+// Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #pragma once
+
+class CLiveItem;
+class CLiveList;
+class CLiveListCtrl;
 
 
 class CLiveItem : public CObject
@@ -34,13 +35,13 @@ public:
 	virtual void AssertValid() const
 	{
 		CObject::AssertValid();
-		ASSERT( m_nImage >= I_IMAGECALLBACK && m_nImage < 1000 );
+		ASSERT( m_nImage );
 		ASSERT( m_pColumn );
 	}
 #endif
 
 	void	Set(int nColumn, LPCTSTR pszText);
-	void	SetImage(int nImage);
+	void	SetImage(int nImage, int nColumn = 0);
 	void	SetMaskOverlay(UINT nMaskOverlay);
 	void	Format(int nColumn, LPCTSTR pszFormat, ...);
 	int		Add(CListCtrl* pCtrl, int nItem, int nColumns);
@@ -48,14 +49,17 @@ public:
 	BOOL	SetImage(CListCtrl* pCtrl, int nParam, int nColumn, int nImageIndex);
 
 public:
+	CString*	m_pColumn;
 	DWORD_PTR	m_nParam;
-	int			m_nImage;
+	int*		m_nImage;
 	UINT		m_nMaskOverlay;
 	UINT		m_nMaskState;
-	CString*	m_pColumn;
 	UINT		m_nModified;	// Modified columns (bitmask)
 	bool		m_bModified;	// Is data modified?
 	bool		m_bOld;			// Is item old? (marked for deletion)
+
+	friend class CLiveList;
+	friend class CLiveListCtrl;
 };
 
 typedef CLiveItem* CLiveItemPtr;
@@ -113,27 +117,29 @@ protected:
 };
 
 
-#ifndef CDRF_NOTIFYSUBITEMDRAW	// Prior to Win98/IE4 (Obsolete)
+// Prior to Win98/IE4 (Very Obsolete?):
 
-#define CDRF_NOTIFYSUBITEMDRAW	0x00000020
-#define CDDS_SUBITEM			0x00020000
-
-#define LVS_EX_DOUBLEBUFFER 	0x00010000
-#define LVS_EX_NOHSCROLL		0x10000000
-#define LVS_EX_FLATSB			0x00000100
-#define LVS_EX_REGIONAL			0x00000200
-#define LVS_EX_INFOTIP			0x00000400
-#define LVS_EX_LABELTIP			0x00004000
-#define LVS_EX_UNDERLINEHOT		0x00000800
-#define LVS_EX_UNDERLINECOLD	0x00001000
-#define LVS_EX_MULTIWORKAREAS	0x00002000
-
-#define LVM_GETSUBITEMRECT      (LVM_FIRST + 56)
-#define ListView_GetSubItemRect(hwnd, iItem, iSubItem, code, prc) \
-	(BOOL)SNDMSG((hwnd), LVM_GETSUBITEMRECT, (WPARAM)(int)(iItem), \
-	((prc) ? ((((LPRECT)(prc))->top = iSubItem), (((LPRECT)(prc))->left = code), (LPARAM)(prc)) : (LPARAM)(LPRECT)NULL))
-
-#endif // CDRF_NOTIFYSUBITEMDRAW
+//#ifndef CDRF_NOTIFYSUBITEMDRAW
+//
+//#define CDRF_NOTIFYSUBITEMDRAW 0x00000020
+//#define CDDS_SUBITEM			0x00020000
+//
+//#define LVS_EX_DOUBLEBUFFER 	0x00010000
+//#define LVS_EX_NOHSCROLL		0x10000000
+//#define LVS_EX_FLATSB			0x00000100
+//#define LVS_EX_REGIONAL		0x00000200
+//#define LVS_EX_INFOTIP		0x00000400
+//#define LVS_EX_LABELTIP		0x00004000
+//#define LVS_EX_UNDERLINEHOT	0x00000800
+//#define LVS_EX_UNDERLINECOLD	0x00001000
+//#define LVS_EX_MULTIWORKAREAS	0x00002000
+//
+//#define LVM_GETSUBITEMRECT      (LVM_FIRST + 56)
+//#define ListView_GetSubItemRect(hwnd, iItem, iSubItem, code, prc) \
+//	(BOOL)SNDMSG((hwnd), LVM_GETSUBITEMRECT, (WPARAM)(int)(iItem),  \
+//	((prc) ? ((((LPRECT)(prc))->top = iSubItem), (((LPRECT)(prc))->left = code), (LPARAM)(prc)) : (LPARAM)(LPRECT)NULL))
+//
+//#endif // CDRF_NOTIFYSUBITEMDRAW
 
 
 class CLiveListCtrl : public CListCtrl
@@ -166,9 +172,9 @@ public:
 	UINT GetItemOverlayMask(int nItem) const;
 
 protected:
-	DECLARE_MESSAGE_MAP()
-
 	afx_msg void OnLvnGetDispInfo(NMHDR *pNMHDR, LRESULT *pResult);	// OnLvnGetDispInfoW/OnLvnGetDispInfoA
 	afx_msg void OnLvnOdFindItem(NMHDR *pNMHDR, LRESULT *pResult);	// OnLvnOdFindItemW/OnLvnOdFindItemA
 	afx_msg void OnLvnOdCacheHint(NMHDR *pNMHDR, LRESULT *pResult);
+
+	DECLARE_MESSAGE_MAP()
 };

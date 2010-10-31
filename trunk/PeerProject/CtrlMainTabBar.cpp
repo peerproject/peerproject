@@ -1,22 +1,19 @@
 //
 // CtrlMainTabBar.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
-// Portions Copyright Shareaza Development Team, 2002-2008.
+// This file is part of PeerProject (peerproject.org) © 2008-2010
+// Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
@@ -33,7 +30,7 @@
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
-#endif
+#endif	// Filename
 
 IMPLEMENT_DYNAMIC(CMainTabBarCtrl, CControlBar)
 
@@ -131,7 +128,7 @@ void CMainTabBarCtrl::OnSkinChange()
 
 		m_hOldSkin = NULL;
 
-        for ( POSITION pos = m_pItems.GetHeadPosition() ; pos ; )
+		for ( POSITION pos = m_pItems.GetHeadPosition() ; pos ; )
 		{
 			TabItem* pItem = m_pItems.GetNext( pos );
 			pItem->OnSkinChange( m_pSkin, &m_dcSkin, &m_bmSkin );
@@ -281,7 +278,7 @@ void CMainTabBarCtrl::DoPaint(CDC* pDC)
 	}
 	else if ( m_hOldSkin == NULL )
 	{
-        for ( POSITION pos = m_pItems.GetHeadPosition() ; pos ; )
+		for ( POSITION pos = m_pItems.GetHeadPosition() ; pos ; )
 		{
 			TabItem* pItem = m_pItems.GetNext( pos );
 			pItem->OnSkinChange( m_pSkin, &m_dcSkin, &m_bmSkin );
@@ -366,7 +363,7 @@ void CMainTabBarCtrl::OnLButtonDown(UINT nFlags, CPoint point)
 	if ( m_pHover == NULL )
 		CControlBar::OnLButtonDown( nFlags, point );
 	else
-    	SetCapture();
+		SetCapture();
 
 	Invalidate();
 }
@@ -443,16 +440,16 @@ BOOL CMainTabBarCtrl::OnDrop(IDataObject* pDataObj, DWORD /* grfKeyState */, POI
 				case ID_TAB_SEARCH:
 					break;
 				default:
-				GetOwner()->PostMessage( WM_COMMAND, m_pHover->m_nID );
+					GetOwner()->PostMessage( WM_COMMAND, m_pHover->m_nID );
 				}
 			}
 		}
 	}
-	else
+	else	// DragLeave
 	{
-		// DragLeave
 		m_dwHoverTime = 0;
 	}
+
 	return FALSE;
 }
 

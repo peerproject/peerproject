@@ -1,41 +1,39 @@
 //
 // Flags.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
-// Portions Copyright Shareaza Development Team, 2002-2007.
+// This file is part of PeerProject (peerproject.org) © 2008-2010
+// Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
 #include "PeerProject.h"
 #include "Settings.h"
-#include "Flags.h"
 #include "ImageServices.h"
 #include "ImageFile.h"
+#include "Flags.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
-#endif
+#endif	// Filename
 
-#define REAL_FLAG_WIDTH 16
-#define REAL_FLAG_HEIGHT 12
-#define IMAGELIST_FLAG_WIDTH 16
-#define IMAGELIST_FLAG_HEIGHT 16
+#define SOURCE_FLAG_WIDTH 		16
+#define SOURCE_FLAG_HEIGHT		12
+#define IMAGELIST_FLAG_WIDTH	16
+#define IMAGELIST_FLAG_HEIGHT	16
+
 
 CFlags Flags;
 
@@ -54,36 +52,38 @@ CFlags::~CFlags()
 BOOL CFlags::Load()
 {
 	Clear();
-	m_pImage.Create( IMAGELIST_FLAG_WIDTH, IMAGELIST_FLAG_HEIGHT, ILC_COLOR32|ILC_MASK, 26 * 26, 8 ) || 
+
+	const CString strFile = Settings.General.Path + _T("\\Data\\Flags.png");
+
+	m_pImage.Create( IMAGELIST_FLAG_WIDTH, IMAGELIST_FLAG_HEIGHT, ILC_COLOR32|ILC_MASK, 26 * 26, 8 ) ||
 		m_pImage.Create( IMAGELIST_FLAG_WIDTH, IMAGELIST_FLAG_HEIGHT, ILC_COLOR24|ILC_MASK, 26 * 26, 8 ) ||
 		m_pImage.Create( IMAGELIST_FLAG_WIDTH, IMAGELIST_FLAG_HEIGHT, ILC_COLOR16|ILC_MASK, 26 * 26, 8 );
 
-	CString strFile = Settings.General.Path + _T("\\Data\\Flags.png");
-
 	CImageFile pImage;
 
-	if (	! pImage.LoadFromFile( strFile ) ||
-			! pImage.EnsureRGB( GetSysColor( COLOR_WINDOW ) ) ||
-			! pImage.SwapRGB() || 
-			pImage.m_nWidth != (REAL_FLAG_WIDTH * 26) ||
-			pImage.m_nHeight != (REAL_FLAG_HEIGHT * 26) )
+	if ( ! pImage.LoadFromFile( strFile ) ||
+		 ! pImage.EnsureRGB( GetSysColor( COLOR_WINDOW ) ) ||
+		 ! pImage.SwapRGB() )
 	{
 		return FALSE;
 	}
 
-	COLORREF crBack = RGB( 0, 255, 0 );
-	
-	for ( int i = 0; i < 26; i++ )
-	{
-		for ( int j = 0; j < 26; j++ )
-		{
-			CRect rc( 0, 0, 0, 0 );
-			rc.left		= i * REAL_FLAG_WIDTH;
-			rc.right	= (i + 1) * REAL_FLAG_WIDTH;
-			rc.top		= j * REAL_FLAG_HEIGHT;
-			rc.bottom	= (j + 1) * REAL_FLAG_HEIGHT;
+	ASSERT( pImage.m_nWidth == (SOURCE_FLAG_WIDTH * 26) &&
+			pImage.m_nHeight == (SOURCE_FLAG_HEIGHT * 26) );
 
-			AddFlag( &pImage, &rc, crBack );
+	const COLORREF crMask = RGB( 0, 255, 0 );
+
+	for ( int i = 0 ; i < 26 ; i++ )
+	{
+		for ( int j = 0 ; j < 26 ; j++ )
+		{
+			CRect rc(
+				i * SOURCE_FLAG_WIDTH,
+				j * SOURCE_FLAG_HEIGHT,
+				(i + 1) * SOURCE_FLAG_WIDTH,
+				(j + 1) * SOURCE_FLAG_HEIGHT );
+
+			AddFlag( &pImage, &rc, crMask );
 		}
 	}
 
@@ -95,12 +95,11 @@ BOOL CFlags::Load()
 
 void CFlags::AddFlag(CImageFile* pImage, CRect* pRect, COLORREF crBack)
 {
-	ASSERT( pImage->m_bLoaded && pImage->m_nComponents == 3 );
-
-	if ( pRect->left < 0 || pRect->left + REAL_FLAG_WIDTH > pImage->m_nWidth ) return;
-	if ( pRect->top < 0 || pRect->top > pImage->m_nHeight + REAL_FLAG_HEIGHT ) return;
-	if ( pRect->right != pRect->left + REAL_FLAG_WIDTH ) return;
-	if ( pRect->bottom != pRect->top + REAL_FLAG_HEIGHT ) return;
+	ASSERT( pImage->m_bLoaded && pImage->m_nComponents == 3 );	// Should allow alpha
+	ASSERT( pRect->left >= 0 && pRect->left + SOURCE_FLAG_WIDTH <= pImage->m_nWidth );
+	ASSERT( pRect->top >= 0 && pRect->top <= pImage->m_nHeight + SOURCE_FLAG_HEIGHT );
+	ASSERT( pRect->right == pRect->left + SOURCE_FLAG_WIDTH );
+	ASSERT( pRect->bottom == pRect->top + SOURCE_FLAG_HEIGHT );
 
 	DWORD nPitch = pImage->m_nWidth * pImage->m_nComponents;
 	while ( nPitch & 3 ) nPitch++;
@@ -108,19 +107,20 @@ void CFlags::AddFlag(CImageFile* pImage, CRect* pRect, COLORREF crBack)
 	BYTE* pSource = pImage->m_pImage;
 	pSource += pRect->top * nPitch + pRect->left * pImage->m_nComponents;
 
-	HDC hDCMem1, hDCMem2;
-	if ( HDC hDC = GetDC( NULL ) ) // Get screen DC
+	if ( HDC hDC = GetDC( NULL ) )					// Get screen DC
 	{
-		hDCMem1 = CreateCompatibleDC( hDC ); // Create memory DC for the source
-		if ( !hDCMem1 ) 
+		HDC hDCMem1 = CreateCompatibleDC( hDC );	// Create source memory DC
+		if ( ! hDCMem1 )
 		{
+			ASSERT( hDCMem1 );
 			ReleaseDC( NULL, hDC );
 			return;
 		}
 
-		hDCMem2 = CreateCompatibleDC( hDC ); // Create memory DC for the destination
-		if ( !hDCMem2 )
+		HDC hDCMem2 = CreateCompatibleDC( hDC );	// Create destination memory DC
+		if ( ! hDCMem2 )
 		{
+			ASSERT( hDCMem2 );
 			DeleteDC( hDCMem1 );
 			ReleaseDC( NULL, hDC );
 			return;
@@ -129,16 +129,18 @@ void CFlags::AddFlag(CImageFile* pImage, CRect* pRect, COLORREF crBack)
 		CBitmap bmOriginal, bmMoved;
 		CDC* pDC = CDC::FromHandle( hDC );
 
-		if ( !bmOriginal.CreateCompatibleBitmap( pDC, REAL_FLAG_WIDTH, REAL_FLAG_HEIGHT ) ) // Source bitmap
+		if ( ! bmOriginal.CreateCompatibleBitmap( pDC, SOURCE_FLAG_WIDTH, SOURCE_FLAG_HEIGHT ) ) // Source bitmap
 		{
+			ASSERT( FALSE );
 			ReleaseDC( NULL, hDC );
 			DeleteDC( hDCMem1 );
 			DeleteDC( hDCMem2 );
 			return;
 		}
 
-		if ( !bmMoved.CreateCompatibleBitmap( pDC, IMAGELIST_FLAG_WIDTH, IMAGELIST_FLAG_HEIGHT ) ) // Destination bitmap
+		if ( ! bmMoved.CreateCompatibleBitmap( pDC, IMAGELIST_FLAG_WIDTH, IMAGELIST_FLAG_HEIGHT ) ) // Destination bitmap
 		{
+			ASSERT( FALSE );
 			ReleaseDC( NULL, hDC );
 			DeleteDC( hDCMem1 );
 			DeleteDC( hDCMem2 );
@@ -146,37 +148,36 @@ void CFlags::AddFlag(CImageFile* pImage, CRect* pRect, COLORREF crBack)
 			return;
 		}
 
-		BITMAPINFOHEADER pInfo;
+		BITMAPINFOHEADER pInfo = {};
 		pInfo.biSize		= sizeof(BITMAPINFOHEADER);
-		pInfo.biWidth		= REAL_FLAG_WIDTH;
-		pInfo.biHeight		= REAL_FLAG_HEIGHT;
+		pInfo.biWidth		= SOURCE_FLAG_WIDTH;
+		pInfo.biHeight		= SOURCE_FLAG_HEIGHT;
 		pInfo.biPlanes		= 1;
 		pInfo.biBitCount	= 24;
 		pInfo.biCompression	= BI_RGB;
-		pInfo.biSizeImage	= REAL_FLAG_WIDTH * REAL_FLAG_HEIGHT * 3;
+		pInfo.biSizeImage	= SOURCE_FLAG_WIDTH * SOURCE_FLAG_HEIGHT * 3;
 
-		for ( int nY = REAL_FLAG_HEIGHT - 1 ; nY >= 0 ; nY-- )
+		for ( int nY = SOURCE_FLAG_HEIGHT - 1 ; nY >= 0 ; nY-- )
 		{
 			SetDIBits( hDCMem1, bmOriginal, nY, 1, pSource, (BITMAPINFO*)&pInfo, DIB_RGB_COLORS );
 			pSource += nPitch;
 		}
 
-		HBITMAP hOld_bm1, hOld_bm2;
-		hOld_bm1 = (HBITMAP)SelectObject( hDCMem1, bmOriginal.m_hObject );
-		hOld_bm2 = (HBITMAP)SelectObject( hDCMem2, bmMoved.m_hObject );
+		HBITMAP hOld_bm1 = (HBITMAP)SelectObject( hDCMem1, bmOriginal.m_hObject );
+		HBITMAP hOld_bm2 = (HBITMAP)SelectObject( hDCMem2, bmMoved.m_hObject );
 		CDC* pDC2 = CDC::FromHandle( hDCMem2 );
 		pDC2->SetBkMode( TRANSPARENT );
 		pDC2->FillSolidRect( 0, 0, IMAGELIST_FLAG_WIDTH, IMAGELIST_FLAG_HEIGHT, crBack );
 
 		if ( Settings.General.LanguageRTL )
 			SetLayout( hDCMem2, LAYOUT_RTL );
-		StretchBlt( hDCMem2, 0, 3, REAL_FLAG_WIDTH, REAL_FLAG_HEIGHT, 
-					hDCMem1, 0, 0, REAL_FLAG_WIDTH, REAL_FLAG_HEIGHT, SRCCOPY );
+		StretchBlt( hDCMem2, 0, 3, SOURCE_FLAG_WIDTH, SOURCE_FLAG_HEIGHT,
+					hDCMem1, 0, 0, SOURCE_FLAG_WIDTH, SOURCE_FLAG_HEIGHT, SRCCOPY );
 
 		SelectObject( hDCMem1, hOld_bm1 );
 		SelectObject( hDCMem2, hOld_bm2 );
-		DeleteDC( hDCMem1 );
-		DeleteDC( hDCMem2 );
+		VERIFY( DeleteDC( hDCMem1 ) );
+		VERIFY( DeleteDC( hDCMem2 ) );
 		ReleaseDC( NULL, hDC );
 		m_pImage.Add( &bmMoved, crBack );
 		bmMoved.DeleteObject();
@@ -189,20 +190,36 @@ void CFlags::AddFlag(CImageFile* pImage, CRect* pRect, COLORREF crBack)
 
 void CFlags::Clear()
 {
-	if ( m_pImage.m_hImageList != NULL ) m_pImage.DeleteImageList();
-
+	if ( m_pImage.m_hImageList )
+		m_pImage.DeleteImageList();
 }
 
-int CFlags::GetFlagIndex(CString sCountry)
+int CFlags::GetCount() const
+{
+	return m_pImage.GetImageCount();
+}
+
+int CFlags::GetFlagIndex(const CString& sCountry) const
 {
 	if ( sCountry.GetLength() == 2 )
 	{
 		char nFirstLetter = (char)( sCountry[0] - 'A' );
 		char nSecondLetter = (char)( sCountry[1] - 'A' );
-		// Currently only the letters A-Z are in the flag matrix 
+		// Currently only the letters A-Z are in the flag matrix
 		// but GeoIP can also return some combinations that aren't all letters (A1, A2, etc.)
-		if ( nFirstLetter >= 0 && nFirstLetter <= 25 && nSecondLetter >= 0 && nSecondLetter <= 25 )
+		if ( nFirstLetter >= 0 && nFirstLetter < 26 && nSecondLetter >= 0 && nSecondLetter < 26 )
 			return nFirstLetter * 26 + nSecondLetter;
 	}
 	return -1;
+}
+
+HICON CFlags::ExtractIcon(int i)
+{
+	return m_pImage.ExtractIcon( i );
+}
+
+BOOL CFlags::Draw(int i, HDC hdcDst, int x, int y, COLORREF rgbBk, COLORREF rgbFg, UINT fStyle)
+{
+	return ImageList_DrawEx( m_pImage, i, hdcDst, x, y,
+		IMAGELIST_FLAG_WIDTH, IMAGELIST_FLAG_HEIGHT, rgbBk, rgbFg, fStyle );
 }

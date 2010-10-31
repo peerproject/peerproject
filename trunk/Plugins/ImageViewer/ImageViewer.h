@@ -9,8 +9,8 @@
 /* Compiler settings for .\ImageViewer.idl:
     Oicf, W1, Zp8, env=Win64 (32b run)
     protocol : dce , ms_ext, c_ext, robust
-    error checks: allocation ref bounds_check enum stub_data 
-    VC __declspec() decoration level: 
+    error checks: allocation ref bounds_check enum stub_data
+    VC __declspec() decoration level:
          __declspec(uuid()), __declspec(selectany), __declspec(novtable)
          DECLSPEC_UUID(), MIDL_INTERFACE()
 */
@@ -39,7 +39,7 @@
 #pragma once
 #endif
 
-/* Forward Declarations */ 
+/* Forward Declarations */
 
 #ifndef __ImageViewerPlugin_FWD_DEFINED__
 #define __ImageViewerPlugin_FWD_DEFINED__
@@ -66,7 +66,7 @@ typedef interface IImageServicePlugin IImageServicePlugin;
 
 #ifdef __cplusplus
 extern "C"{
-#endif 
+#endif
 
 
 
@@ -74,7 +74,7 @@ extern "C"{
 #define __ImageViewerLib_LIBRARY_DEFINED__
 
 /* library ImageViewerLib */
-/* [helpstring][version][uuid] */ 
+/* [helpstring][version][uuid] */
 
 
 
@@ -92,85 +92,85 @@ ImageViewerPlugin;
 #define __IImageServicePlugin_INTERFACE_DEFINED__
 
 /* interface IImageServicePlugin */
-/* [object][oleautomation][uuid] */ 
+/* [object][oleautomation][uuid] */
 
 
 EXTERN_C const IID IID_IImageServicePlugin;
 
 #if defined(__cplusplus) && !defined(CINTERFACE)
-    
+
     MIDL_INTERFACE("AB0A7BF2-94C0-4daa-8256-2BB6C3648050")
     IImageServicePlugin : public IUnknown
     {
     public:
-        virtual HRESULT STDMETHODCALLTYPE LoadFromFile( 
+        virtual HRESULT STDMETHODCALLTYPE LoadFromFile(
             /* [in] */ BSTR sFile,
             /* [out][in] */ IMAGESERVICEDATA *pParams,
             /* [out] */ SAFEARRAY * *ppImage) = 0;
-        
-        virtual HRESULT STDMETHODCALLTYPE LoadFromMemory( 
+
+        virtual HRESULT STDMETHODCALLTYPE LoadFromMemory(
             /* [in] */ BSTR sType,
             /* [in] */ SAFEARRAY * pMemory,
             /* [out][in] */ IMAGESERVICEDATA *pParams,
             /* [out] */ SAFEARRAY * *ppImage) = 0;
-        
-        virtual HRESULT STDMETHODCALLTYPE SaveToFile( 
+
+        virtual HRESULT STDMETHODCALLTYPE SaveToFile(
             /* [in] */ BSTR sFile,
             /* [out][in] */ IMAGESERVICEDATA *pParams,
             /* [in] */ SAFEARRAY * pImage) = 0;
-        
-        virtual HRESULT STDMETHODCALLTYPE SaveToMemory( 
+
+        virtual HRESULT STDMETHODCALLTYPE SaveToMemory(
             /* [in] */ BSTR sType,
             /* [out] */ SAFEARRAY * *ppMemory,
             /* [out][in] */ IMAGESERVICEDATA *pParams,
             /* [in] */ SAFEARRAY * pImage) = 0;
-        
+
     };
-    
+
 #else 	/* C style interface */
 
     typedef struct IImageServicePluginVtbl
     {
         BEGIN_INTERFACE
-        
-        HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
+
+        HRESULT ( STDMETHODCALLTYPE *QueryInterface )(
             IImageServicePlugin * This,
             /* [in] */ REFIID riid,
-            /* [iid_is][out] */ 
+            /* [iid_is][out] */
             __RPC__deref_out  void **ppvObject);
-        
-        ULONG ( STDMETHODCALLTYPE *AddRef )( 
+
+        ULONG ( STDMETHODCALLTYPE *AddRef )(
             IImageServicePlugin * This);
-        
-        ULONG ( STDMETHODCALLTYPE *Release )( 
+
+        ULONG ( STDMETHODCALLTYPE *Release )(
             IImageServicePlugin * This);
-        
-        HRESULT ( STDMETHODCALLTYPE *LoadFromFile )( 
+
+        HRESULT ( STDMETHODCALLTYPE *LoadFromFile )(
             IImageServicePlugin * This,
             /* [in] */ BSTR sFile,
             /* [out][in] */ IMAGESERVICEDATA *pParams,
             /* [out] */ SAFEARRAY * *ppImage);
-        
-        HRESULT ( STDMETHODCALLTYPE *LoadFromMemory )( 
+
+        HRESULT ( STDMETHODCALLTYPE *LoadFromMemory )(
             IImageServicePlugin * This,
             /* [in] */ BSTR sType,
             /* [in] */ SAFEARRAY * pMemory,
             /* [out][in] */ IMAGESERVICEDATA *pParams,
             /* [out] */ SAFEARRAY * *ppImage);
-        
-        HRESULT ( STDMETHODCALLTYPE *SaveToFile )( 
+
+        HRESULT ( STDMETHODCALLTYPE *SaveToFile )(
             IImageServicePlugin * This,
             /* [in] */ BSTR sFile,
             /* [out][in] */ IMAGESERVICEDATA *pParams,
             /* [in] */ SAFEARRAY * pImage);
-        
-        HRESULT ( STDMETHODCALLTYPE *SaveToMemory )( 
+
+        HRESULT ( STDMETHODCALLTYPE *SaveToMemory )(
             IImageServicePlugin * This,
             /* [in] */ BSTR sType,
             /* [out] */ SAFEARRAY * *ppMemory,
             /* [out][in] */ IMAGESERVICEDATA *pParams,
             /* [in] */ SAFEARRAY * pImage);
-        
+
         END_INTERFACE
     } IImageServicePluginVtbl;
 
@@ -179,32 +179,32 @@ EXTERN_C const IID IID_IImageServicePlugin;
         CONST_VTBL struct IImageServicePluginVtbl *lpVtbl;
     };
 
-    
+
 
 #ifdef COBJMACROS
 
 
 #define IImageServicePlugin_QueryInterface(This,riid,ppvObject)	\
-    ( (This)->lpVtbl -> QueryInterface(This,riid,ppvObject) ) 
+    ( (This)->lpVtbl -> QueryInterface(This,riid,ppvObject) )
 
 #define IImageServicePlugin_AddRef(This)	\
-    ( (This)->lpVtbl -> AddRef(This) ) 
+    ( (This)->lpVtbl -> AddRef(This) )
 
 #define IImageServicePlugin_Release(This)	\
-    ( (This)->lpVtbl -> Release(This) ) 
+    ( (This)->lpVtbl -> Release(This) )
 
 
 #define IImageServicePlugin_LoadFromFile(This,sFile,pParams,ppImage)	\
-    ( (This)->lpVtbl -> LoadFromFile(This,sFile,pParams,ppImage) ) 
+    ( (This)->lpVtbl -> LoadFromFile(This,sFile,pParams,ppImage) )
 
 #define IImageServicePlugin_LoadFromMemory(This,sType,pMemory,pParams,ppImage)	\
-    ( (This)->lpVtbl -> LoadFromMemory(This,sType,pMemory,pParams,ppImage) ) 
+    ( (This)->lpVtbl -> LoadFromMemory(This,sType,pMemory,pParams,ppImage) )
 
 #define IImageServicePlugin_SaveToFile(This,sFile,pParams,pImage)	\
-    ( (This)->lpVtbl -> SaveToFile(This,sFile,pParams,pImage) ) 
+    ( (This)->lpVtbl -> SaveToFile(This,sFile,pParams,pImage) )
 
 #define IImageServicePlugin_SaveToMemory(This,sType,ppMemory,pParams,pImage)	\
-    ( (This)->lpVtbl -> SaveToMemory(This,sType,ppMemory,pParams,pImage) ) 
+    ( (This)->lpVtbl -> SaveToMemory(This,sType,ppMemory,pParams,pImage) )
 
 #endif /* COBJMACROS */
 
@@ -213,7 +213,7 @@ EXTERN_C const IID IID_IImageServicePlugin;
 
 
 
-HRESULT STDMETHODCALLTYPE IImageServicePlugin_LoadFromFile_Proxy( 
+HRESULT STDMETHODCALLTYPE IImageServicePlugin_LoadFromFile_Proxy(
     IImageServicePlugin * This,
     /* [in] */ BSTR sFile,
     /* [out][in] */ IMAGESERVICEDATA *pParams,
@@ -227,7 +227,7 @@ void __RPC_STUB IImageServicePlugin_LoadFromFile_Stub(
     DWORD *_pdwStubPhase);
 
 
-HRESULT STDMETHODCALLTYPE IImageServicePlugin_LoadFromMemory_Proxy( 
+HRESULT STDMETHODCALLTYPE IImageServicePlugin_LoadFromMemory_Proxy(
     IImageServicePlugin * This,
     /* [in] */ BSTR sType,
     /* [in] */ SAFEARRAY * pMemory,
@@ -242,7 +242,7 @@ void __RPC_STUB IImageServicePlugin_LoadFromMemory_Stub(
     DWORD *_pdwStubPhase);
 
 
-HRESULT STDMETHODCALLTYPE IImageServicePlugin_SaveToFile_Proxy( 
+HRESULT STDMETHODCALLTYPE IImageServicePlugin_SaveToFile_Proxy(
     IImageServicePlugin * This,
     /* [in] */ BSTR sFile,
     /* [out][in] */ IMAGESERVICEDATA *pParams,
@@ -256,7 +256,7 @@ void __RPC_STUB IImageServicePlugin_SaveToFile_Stub(
     DWORD *_pdwStubPhase);
 
 
-HRESULT STDMETHODCALLTYPE IImageServicePlugin_SaveToMemory_Proxy( 
+HRESULT STDMETHODCALLTYPE IImageServicePlugin_SaveToMemory_Proxy(
     IImageServicePlugin * This,
     /* [in] */ BSTR sType,
     /* [out] */ SAFEARRAY * *ppMemory,

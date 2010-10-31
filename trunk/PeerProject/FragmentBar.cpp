@@ -2,21 +2,18 @@
 // FragmentBar.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2007.
+// Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
@@ -25,6 +22,7 @@
 #include "FragmentBar.h"
 #include "CoolInterface.h"
 #include "Colors.h"
+#include "Images.h"
 
 #include "Download.h"
 #include "DownloadSource.h"
@@ -42,7 +40,7 @@
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
-#endif
+#endif	// Filename
 
 
 //////////////////////////////////////////////////////////////////////
@@ -75,9 +73,9 @@ void CFragmentBar::DrawFragment(CDC* pDC, CRect* prcBar, QWORD nTotal, QWORD nOf
 	if ( rcArea.right <= rcArea.left )
 		return;
 
-	if ( crFill == Colors.m_crFragmentComplete && Skin.m_bmProgress.m_hObject != NULL )
+	if ( crFill == Colors.m_crFragmentComplete && Images.DrawButtonState( pDC, prcBar, IMAGE_PROGRESSBAR ) )
 	{
-		CoolInterface.DrawWatermark( pDC, &rcArea, &Skin.m_bmProgress, FALSE ); 	// No overdraw
+		// Done
 	}
 	else if ( b3D && rcArea.Width() > 2 )
 	{
@@ -203,12 +201,16 @@ void CFragmentBar::DrawDownload(CDC* pDC, CRect* prcBar, CDownload* pDownload, C
 		pSource->Draw( pDC, prcBar );
 	}
 
-	if ( pDownload->IsStarted() && Skin.m_bmProgress.m_hObject != NULL )
-		CoolInterface.DrawWatermark( pDC, prcBar, &Skin.m_bmProgress, FALSE );		// Bar  -no overdraw
-	else if ( ! pDownload->IsStarted() && Skin.m_bmProgressNone.m_hObject != NULL )
-		CoolInterface.DrawWatermark( pDC, prcBar, &Skin.m_bmProgressNone, FALSE );	// Empty bar  -no overdraw
+	if ( pDownload->IsStarted() )
+	{
+		if ( ! Images.DrawButtonState( pDC, prcBar, IMAGE_PROGRESSBAR ) )
+			pDC->FillSolidRect( prcBar, Colors.m_crFragmentComplete );
+	}
 	else
-		pDC->FillSolidRect( prcBar, pDownload->IsStarted() ? Colors.m_crFragmentComplete : crNatural );
+	{
+		if ( ! Images.DrawButtonState( pDC, prcBar, IMAGE_PROGRESSBAR_NONE ) )
+			pDC->FillSolidRect( prcBar, crNatural );
+	}
 }
 
 void CFragmentBar::DrawDownloadSimple(CDC* pDC, CRect* prcBar, CDownload* pDownload, COLORREF crNatural)
@@ -380,11 +382,14 @@ void CFragmentBar::DrawUpload(CDC* pDC, CRect* prcBar, CUploadFile* pFile, COLOR
 	}
 
 	// Empty Bar
-	if ( pFile == pUpload->m_pBaseFile && Skin.m_bmProgressShaded.m_hObject != NULL )
-		CoolInterface.DrawWatermark( pDC, prcBar, &Skin.m_bmProgressShaded, FALSE );
-	else if ( pFile != pUpload->m_pBaseFile && Skin.m_bmProgressNone.m_hObject != NULL )
-		CoolInterface.DrawWatermark( pDC, prcBar, &Skin.m_bmProgressNone, FALSE );
-	else
-		pDC->FillSolidRect( prcBar, ( pFile == pUpload->m_pBaseFile )
-			? Colors.m_crFragmentShaded : crNatural );
+	if ( pFile == pUpload->m_pBaseFile )
+	{
+		if ( ! Images.DrawButtonState( pDC, prcBar, IMAGE_PROGRESSBAR_SHADED ) )
+			pDC->FillSolidRect( prcBar, Colors.m_crFragmentShaded );
+	}
+	else // if ( pFile != pUpload->m_pBaseFile )
+	{
+		if ( ! Images.DrawButtonState( pDC, prcBar, IMAGE_PROGRESSBAR_NONE ) )
+			pDC->FillSolidRect( prcBar, crNatural );
+	}
 }

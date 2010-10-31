@@ -2,35 +2,33 @@
 // Skin.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2008.
+// Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
 #include "PeerProject.h"
 #include "Settings.h"
-#include "Buffer.h"
+#include "CtrlCoolBar.h"
 #include "CoolInterface.h"
 #include "CoolMenu.h"
-#include "CtrlCoolBar.h"
 #include "Colors.h"
 #include "Skin.h"
 #include "SkinWindow.h"
 #include "ImageServices.h"
 #include "ImageFile.h"
+#include "Images.h"
+#include "Buffer.h"
 #include "Plugins.h"
 #include "WndChild.h"
 #include "WndSettingsPage.h"
@@ -40,7 +38,7 @@
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
-#endif
+#endif	// Filename
 
 CSkin Skin;
 
@@ -99,22 +97,23 @@ void CSkin::CreateDefault()
 
 	CoolInterface.CreateFonts();
 
-	// Default Options
-	m_nToolbarHeight = 28;
-	m_nTaskbarHeight = 26;
-	m_nTaskbarTabWidth = 140;
-	m_nGroupsbarHeight = 24;
-	m_nHeaderbarHeight = 64;
-	m_nMonitorbarWidth = 120;
-	m_nSidebarWidth = 200;
-	m_nSplitter = 6;
-	m_nLibIconsX = 220;
-	m_nLibIconsY = 56;
-	m_bMenuBorders = TRUE;
-	m_bMenuGripper = TRUE;
-	m_bRoundedSelect = FALSE;
-	m_bDropMenu = FALSE;
-	m_rcNavBarOffset = CRect( 0, 0, 0, 0 );
+	// Default Skin Options:
+	m_nToolbarHeight	= 28;
+	m_nTaskbarHeight	= 26;
+	m_nTaskbarTabWidth	= 0;	// 200/140 set in WndMain
+	m_nGroupsbarHeight	= 24;
+	m_nHeaderbarHeight	= 64;
+	m_nMonitorbarWidth	= 120;
+	m_nSidebarWidth 	= 200;
+	m_nSplitter			= 6;
+	m_nButtonEdge		= 4;
+	m_nLibIconsX		= 220;
+	m_nLibIconsY		= 56;
+	m_bMenuBorders		= TRUE;
+	m_bMenuGripper		= TRUE;
+	m_bRoundedSelect	= FALSE;
+	m_bDropMenu			= FALSE;
+	m_rcNavBarOffset	= CRect( 0, 0, 0, 0 );
 
 	// Command Icons
 	if ( HICON hIcon = theApp.LoadIcon( IDI_CHECKMARK ) )
@@ -222,38 +221,19 @@ void CSkin::Clear()
 	m_pFontPaths.RemoveAll();
 	m_pImages.RemoveAll();
 
-	if ( m_brDialog.m_hObject != NULL ) m_brDialog.DeleteObject();
-	if ( m_brDialogPanel.m_hObject != NULL ) m_brDialogPanel.DeleteObject();
-	if ( m_brMediaSlider.m_hObject != NULL ) m_brMediaSlider.DeleteObject();
+	if ( m_brDialog.m_hObject ) m_brDialog.DeleteObject();
+	if ( m_brDialogPanel.m_hObject ) m_brDialogPanel.DeleteObject();
+	if ( m_brMediaSlider.m_hObject ) m_brMediaSlider.DeleteObject();
 
 	if ( m_bmDialog.m_hObject ) m_bmDialog.DeleteObject();
 	if ( m_bmDialogPanel.m_hObject ) m_bmDialogPanel.DeleteObject();
 	if ( m_bmToolTip.m_hObject ) m_bmToolTip.DeleteObject();
 	if ( m_bmSelected.m_hObject ) m_bmSelected.DeleteObject();
-	if ( m_bmProgress.m_hObject ) m_bmProgress.DeleteObject();
-	if ( m_bmProgressNone.m_hObject ) m_bmProgressNone.DeleteObject();
-	if ( m_bmProgressShaded.m_hObject ) m_bmProgressShaded.DeleteObject();
-
-	if ( m_bmRichButton.m_hObject ) m_bmRichButton.DeleteObject();
-	if ( m_bmRichButtonPart.m_hObject ) m_bmRichButtonPart.DeleteObject();
-	if ( m_bmRichButtonFocus.m_hObject ) m_bmRichButtonFocus.DeleteObject();
-	if ( m_bmRichButtonFocusPart.m_hObject ) m_bmRichButtonFocusPart.DeleteObject();
-	if ( m_bmRichButtonHover.m_hObject ) m_bmRichButtonHover.DeleteObject();
-	if ( m_bmRichButtonHoverPart.m_hObject ) m_bmRichButtonHoverPart.DeleteObject();
-	if ( m_bmRichButton.m_hObject ) m_bmRichButton.DeleteObject();
-	if ( m_bmRichButtonPart.m_hObject ) m_bmRichButtonPart.DeleteObject();
-	if ( m_bmRichButtonPress.m_hObject ) m_bmRichButtonPress.DeleteObject();
-	if ( m_bmRichButtonPressPart.m_hObject ) m_bmRichButtonPressPart.DeleteObject();
-	if ( m_bmRichButtonDisabled.m_hObject ) m_bmRichButtonDisabled.DeleteObject();
-	if ( m_bmRichButtonDisabledPart.m_hObject ) m_bmRichButtonDisabledPart.DeleteObject();
-	if ( m_bmIconButton.m_hObject ) m_bmIconButton.DeleteObject();
-	if ( m_bmIconButtonFocus.m_hObject ) m_bmIconButtonFocus.DeleteObject();
-	if ( m_bmIconButtonHover.m_hObject ) m_bmIconButtonHover.DeleteObject();
-	if ( m_bmIconButtonPress.m_hObject ) m_bmIconButtonPress.DeleteObject();
-	if ( m_bmIconButtonDisabled.m_hObject ) m_bmIconButtonDisabled.DeleteObject();
 
 	if ( m_bmPanelMark.m_hObject ) m_bmPanelMark.DeleteObject();
 	if ( m_bmBanner.m_hObject ) m_bmBanner.DeleteObject();
+
+	Images.DeleteObjects();
 
 	CoolInterface.Clear();
 }
@@ -592,7 +572,7 @@ BOOL CSkin::LoadStrings(CXMLElement* pBase)
 			{
 				CString strMessage = pXML->GetAttributeValue( _T("message") );
 				CString strTip = pXML->GetAttributeValue( _T("tip") );
-				if ( strTip.GetLength() ) strMessage += '\n' + strTip;
+				if ( ! strTip.IsEmpty() ) strMessage += '\n' + strTip;
 				m_pStrings.SetAt( nID, strMessage );
 			}
 			else
@@ -635,10 +615,10 @@ BOOL CSkin::LoadOptions(CXMLElement* pBase)
 
 		ToLower( strName );
 		ToLower( strValue );
-		ToLower( strHeight );
-		ToLower( strWidth );
+		//ToLower( strHeight );
+		//ToLower( strWidth );
 
-		// ToDo: Confirm if this switch is any better than typical elseif sequence
+		// Skin Options:	ToDo: Confirm if this switch is any better than typical elseif sequence
 		static std::map< const CString, char > OptionName;
 
 		OptionName[ _T("navbar") ]		= 'n';
@@ -662,9 +642,11 @@ BOOL CSkin::LoadOptions(CXMLElement* pBase)
 		OptionName[ _T("bandwidthwidget") ]	= 'o';
 		OptionName[ _T("dragbar") ]		= 'r';
 		OptionName[ _T("splitter") ]	= 'r';
-		OptionName[ _T("roundedselect") ] = 'e';
-		OptionName[ _T("highlightchamfer") ] = 'e';
-		OptionName[ _T("icongrid") ]	 = 'l';
+		OptionName[ _T("roundedselect") ] = 'c';
+		OptionName[ _T("highlightchamfer") ] = 'c';
+		OptionName[ _T("buttonedge") ]	= 'e';
+		OptionName[ _T("buttonmap") ]	= 'e';
+		OptionName[ _T("icongrid") ]	 = 'i';
 		OptionName[ _T("librarytiles") ] = 'i';
 
 		switch( OptionName[ strName ] )
@@ -715,7 +697,7 @@ BOOL CSkin::LoadOptions(CXMLElement* pBase)
 			else if ( strValue == _T("0") )
 				m_bMenuGripper = FALSE;
 			break;
-		case 'e':	// "roundedselect" or "highlightchamfer"
+		case 'c':	// "roundedselect" or "highlightchamfer"
 			if ( strValue == _T("true") )
 				m_bRoundedSelect = TRUE;
 			else if ( strValue == _T("false") )
@@ -730,55 +712,61 @@ BOOL CSkin::LoadOptions(CXMLElement* pBase)
 				m_bRoundedSelect = FALSE;
 			break;
 		case 't':	// "toolbar" or "toolbars"
-			if ( strHeight.GetLength() )
+			if ( ! strHeight.IsEmpty() )
 				m_nToolbarHeight = _wtoi(strHeight);
-			else if ( strValue.GetLength() )
+			else if ( ! strValue.IsEmpty() )
 				m_nToolbarHeight = _wtoi(strValue);
 			break;
 		case 'k':	// "taskbar" or "tabbar"
-			if ( strWidth.GetLength() )
+			if ( ! strWidth.IsEmpty() )
 				m_nTaskbarTabWidth = _wtoi(strWidth);
-			if ( strHeight.GetLength() )
+			if ( ! strHeight.IsEmpty() )
 				m_nTaskbarHeight = _wtoi(strHeight);
-			else if ( strValue.GetLength() )
+			else if ( ! strValue.IsEmpty() )
 				m_nTaskbarHeight = _wtoi(strValue);
 			break;
 		case 's':	// "sidebar" or "sidepanel"
-			if ( strWidth.GetLength() )
+			if ( ! strWidth.IsEmpty() )
 				m_nSidebarWidth = _wtoi(strWidth);
-			else if ( strValue.GetLength() )
+			else if ( ! strValue.IsEmpty() )
 				m_nSidebarWidth = _wtoi(strValue);
 			break;
 		case 'h':	// "titlebar" or "headerpanel"
-			if ( strHeight.GetLength() )
+			if ( ! strHeight.IsEmpty() )
 				m_nHeaderbarHeight = _wtoi(strHeight);
-			else if ( strValue.GetLength() )
+			else if ( ! strValue.IsEmpty() )
 				m_nHeaderbarHeight = _wtoi(strValue);
 			break;
 		case 'g':	// "groupsbar" or "downloadgroups"
-			if ( strHeight.GetLength() )
+			if ( ! strHeight.IsEmpty() )
 				m_nGroupsbarHeight = _wtoi(strHeight);
-			else if ( strValue.GetLength() )
+			else if ( ! strValue.IsEmpty() )
 				m_nGroupsbarHeight = _wtoi(strValue);
 			break;
 		case 'o':	// "monitorbar" or "bandwidthwidget"
-			if ( strWidth.GetLength() )
+			if ( ! strWidth.IsEmpty() )
 				m_nMonitorbarWidth = _wtoi(strWidth);
-			else if ( strValue.GetLength() )
+			else if ( ! strValue.IsEmpty() )
 				m_nMonitorbarWidth = _wtoi(strValue);
 			break;
+		case 'e':	// "buttonedge" or "buttonmap"
+			if ( ! strWidth.IsEmpty() )
+				m_nButtonEdge = _wtoi(strWidth);
+			else if ( ! strValue.IsEmpty() )
+				m_nButtonEdge = _wtoi(strValue);
+			break;
 		case 'r':	// "dragbar" or "splitter"
-			if ( strWidth.GetLength() )
+			if ( ! strWidth.IsEmpty() )
 				m_nSplitter = _wtoi(strWidth);
-			else if ( strValue.GetLength() )
+			else if ( ! strValue.IsEmpty() )
 				m_nSplitter = _wtoi(strValue);
 			break;
 		case 'i':	// "icongrid" or "librarytiles"
-			if ( strHeight.GetLength() )
+			if ( ! strHeight.IsEmpty() )
 				m_nLibIconsY = _wtoi(strHeight);
-			if ( strWidth.GetLength() )
+			if ( ! strWidth.IsEmpty() )
 				m_nLibIconsX = _wtoi(strWidth);
-			else if ( strValue.GetLength() )
+			else if ( ! strValue.IsEmpty() )
 				m_nLibIconsX = _wtoi(strValue);
 			break;
 		}
@@ -790,14 +778,14 @@ BOOL CSkin::LoadOptions(CXMLElement* pBase)
 BOOL CSkin::LoadNavBar(CXMLElement* pBase)
 {
 	CString strValue = pBase->GetAttributeValue( _T("offset") );
-	if ( strValue.GetLength() )
+	if ( ! strValue.IsEmpty() )
 	{
 		_stscanf( strValue, _T("%i,%i"),
 			&m_rcNavBarOffset.left, &m_rcNavBarOffset.top );
 	}
 
 	strValue = pBase->GetAttributeValue( _T("mode") );
-	if ( ! strValue.GetLength() )
+	if ( strValue.IsEmpty() )
 		strValue = pBase->GetAttributeValue( _T("case") );
 
 	if ( strValue.CompareNoCase( _T("upper") ) == 0 )
@@ -964,7 +952,7 @@ BOOL CSkin::CreateMenu(CXMLElement* pRoot, HMENU hMenu)
 			{
 				CString strKeys = pXML->GetAttributeValue( _T("shortcut") );
 
-				if ( strKeys.GetLength() ) strText += '\t' + strKeys;
+				if ( ! strKeys.IsEmpty() ) strText += '\t' + strKeys;
 
 				VERIFY( AppendMenu( hMenu, MF_STRING, nID, strText ) );
 			}
@@ -1134,7 +1122,7 @@ BOOL CSkin::CreateToolBar(CXMLElement* pBase)
 				}
 
 				strTemp = pXML->GetAttributeValue( L"tip" );
-				if ( strTemp.GetLength() )
+				if ( ! strTemp.IsEmpty() )
 					pItem->SetTip( strTemp );
 
 				strTemp = pXML->GetAttributeValue( L"visible", L"true" );
@@ -1192,7 +1180,6 @@ BOOL CSkin::CreateToolBar(CXMLElement* pBase)
 				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR,
 					_T("Unknown [id] attribute in [control] element"), pXML->ToString() );
 			}
-
 		}
 		else if ( pXML->IsNamed( _T("label") ) )
 		{
@@ -1295,9 +1282,9 @@ BOOL CSkin::LoadWatermarks(CXMLElement* pSub, const CString& strPath)
 			CString strName	= pMark->GetAttributeValue( _T("target") );
 			CString strFile	= pMark->GetAttributeValue( _T("path") );
 
-			if ( strName.GetLength() )
+			if ( ! strName.IsEmpty() )
 			{
-				if ( strFile.GetLength() )
+				if ( ! strFile.IsEmpty() )
 					strFile = strPath + strFile;
 				m_pWatermarks.SetAt( strName, strFile );
 			}
@@ -1314,25 +1301,16 @@ BOOL CSkin::LoadWatermarks(CXMLElement* pSub, const CString& strPath)
 		}
 	}
 
-	// Common volatile system-wide bitmaps:
+
+	// Common system-wide volatile bitmaps (buttons):
+	Images.Load();
+
 
 	if ( m_bmSelected.m_hObject ) m_bmSelected.DeleteObject();
 	if ( HBITMAP hSelected = GetWatermark( _T("System.Highlight") ) )
 		m_bmSelected.Attach( hSelected );
 	else if ( HBITMAP hSelected = GetWatermark( _T("CTranfers.Selected") ) )
 		m_bmSelected.Attach( hSelected );
-
-	if ( m_bmProgress.m_hObject ) m_bmProgress.DeleteObject();
-	if ( HBITMAP hProgress = GetWatermark( _T("System.Progress") ) )
-		m_bmProgress.Attach( hProgress );
-
-	if ( m_bmProgressNone.m_hObject ) m_bmProgressNone.DeleteObject();
-	if ( HBITMAP hProgress = GetWatermark( _T("System.Progress.None") ) )
-		m_bmProgressNone.Attach( hProgress );
-
-	if ( m_bmProgressShaded.m_hObject ) m_bmProgressShaded.DeleteObject();
-	if ( HBITMAP hProgress = GetWatermark( _T("System.Progress.Shaded") ) )
-		m_bmProgressShaded.Attach( hProgress );
 
 	if ( m_bmToolTip.m_hObject ) m_bmToolTip.DeleteObject();
 	if ( HBITMAP hToolTip = GetWatermark( _T("System.ToolTip") ) )
@@ -1390,13 +1368,13 @@ BOOL CSkin::LoadWatermarks(CXMLElement* pSub, const CString& strPath)
 	// Related brushes:
 
 	// Skinnable Dialogs  (This brush applies to text bg.  Body in DlgSkinDialog, WndSettingPage, etc.)
-	if ( m_brDialog.m_hObject != NULL ) m_brDialog.DeleteObject();
+	if ( m_brDialog.m_hObject ) m_brDialog.DeleteObject();
 	if ( m_bmDialog.m_hObject )
 		m_brDialog.CreatePatternBrush( &m_bmDialog );	//Attach( (HBRUSH)GetStockObject( NULL_BRUSH ) );
 	else
 		m_brDialog.CreateSolidBrush( Colors.m_crDialog );
 
-	if ( m_brDialogPanel.m_hObject != NULL ) m_brDialogPanel.DeleteObject();
+	if ( m_brDialogPanel.m_hObject ) m_brDialogPanel.DeleteObject();
 	if ( m_bmDialogPanel.m_hObject )
 		m_brDialogPanel.CreatePatternBrush( &m_bmDialogPanel );
 	else
@@ -1409,129 +1387,7 @@ BOOL CSkin::LoadWatermarks(CXMLElement* pSub, const CString& strPath)
 		m_bmPanelMark.LoadBitmap( IDB_PANEL_MARK );				// Special-case default resource handling
 
 	// "System.Toolbars" fallback at toolbar creation
-
-	// Button states:
-
-	if ( m_bmRichButton.m_hObject ) m_bmRichButton.DeleteObject();
-	if ( m_bmRichButtonPart.m_hObject ) m_bmRichButtonPart.DeleteObject();
-	if ( HBITMAP hButton = GetWatermark( _T("RichButton") ) )
-	{
-		m_bmRichButton.Attach( hButton );
-		if ( HBITMAP hPart = GetWatermark( _T("RichButtonPart") ) )
-		{
-			BITMAP bmInfo;
-			m_bmRichButtonPart.Attach( hPart );
-			m_bmRichButtonPart.GetObject( sizeof(BITMAP), &bmInfo );
-			m_bmRichButtonPart.SetBitmapDimension( bmInfo.bmWidth, 0 );
-		}
-	}
-	if ( m_bmRichButtonFocus.m_hObject ) m_bmRichButtonFocus.DeleteObject();
-	if ( m_bmRichButtonFocusPart.m_hObject ) m_bmRichButtonFocusPart.DeleteObject();
-	if ( HBITMAP hButton = GetWatermark( _T("RichButton.Focus") ) )
-	{
-		m_bmRichButtonFocus.Attach( hButton );
-		if ( HBITMAP hPart = GetWatermark( _T("RichButtonPart.Focus") ) )
-		{
-			BITMAP bmInfo;
-			m_bmRichButtonFocusPart.Attach( hPart );
-			m_bmRichButtonFocusPart.GetObject( sizeof(BITMAP), &bmInfo );
-			m_bmRichButtonFocusPart.SetBitmapDimension( bmInfo.bmWidth, 0 );
-		}
-	}
-	if ( m_bmRichButtonHover.m_hObject ) m_bmRichButtonHover.DeleteObject();
-	if ( m_bmRichButtonHoverPart.m_hObject ) m_bmRichButtonHoverPart.DeleteObject();
-	if ( HBITMAP hButton = GetWatermark( _T("RichButton.Hover") ) )
-	{
-		m_bmRichButtonHover.Attach( hButton );
-		if ( HBITMAP hPart = GetWatermark( _T("RichButtonPart.Hover") ) )
-		{
-			BITMAP bmInfo;
-			m_bmRichButtonHoverPart.Attach( hPart );
-			m_bmRichButtonHoverPart.GetObject( sizeof(BITMAP), &bmInfo );
-			m_bmRichButtonHoverPart.SetBitmapDimension( bmInfo.bmWidth, 0 );
-		}
-	}
-	if ( m_bmRichButtonPress.m_hObject ) m_bmRichButtonPress.DeleteObject();
-	if ( m_bmRichButtonPressPart.m_hObject ) m_bmRichButtonPressPart.DeleteObject();
-	if ( HBITMAP hButton = GetWatermark( _T("RichButton.Press") ) )
-	{
-		m_bmRichButtonPress.Attach( hButton );
-		if ( HBITMAP hPart = GetWatermark( _T("RichButtonPart.Press") ) )
-		{
-			BITMAP bmInfo;
-			m_bmRichButtonPressPart.Attach( hPart );
-			m_bmRichButtonPressPart.GetObject( sizeof(BITMAP), &bmInfo );
-			m_bmRichButtonPressPart.SetBitmapDimension( bmInfo.bmWidth, 0 );
-		}
-	}
-	if ( m_bmRichButtonDisabled.m_hObject ) m_bmRichButtonDisabled.DeleteObject();
-	if ( m_bmRichButtonDisabledPart.m_hObject ) m_bmRichButtonDisabledPart.DeleteObject();
-	if ( HBITMAP hButton = GetWatermark( _T("RichButton.Disabled") ) )
-	{
-		m_bmRichButtonDisabled.Attach( hButton );
-		if ( HBITMAP hPart = GetWatermark( _T("RichButtonPart.Disabled") ) )
-		{
-			BITMAP bmInfo;
-			m_bmRichButtonDisabledPart.Attach( hPart );
-			m_bmRichButtonDisabledPart.GetObject( sizeof(BITMAP), &bmInfo );
-			m_bmRichButtonDisabledPart.SetBitmapDimension( bmInfo.bmWidth, 0 );
-		}
-	}
-
-	if ( m_bmIconButton.m_hObject ) m_bmIconButton.DeleteObject();
-	if ( HBITMAP hButton = GetWatermark( _T("IconButton") ) )
-	{
-		BITMAP bmInfo;
-		m_bmIconButton.Attach( hButton );
-		m_bmIconButton.GetObject( sizeof(BITMAP), &bmInfo );
-		m_bmIconButton.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
-	}
-	if ( m_bmIconButtonFocus.m_hObject ) m_bmIconButtonFocus.DeleteObject();
-	if ( HBITMAP hButton = GetWatermark( _T("IconButton.Focus") ) )
-	{
-		BITMAP bmInfo;
-		m_bmIconButtonFocus.Attach( hButton );
-		m_bmIconButtonFocus.GetObject( sizeof(BITMAP), &bmInfo );
-		m_bmIconButtonFocus.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
-	}
-	if ( m_bmIconButtonHover.m_hObject ) m_bmIconButtonHover.DeleteObject();
-	if ( HBITMAP hButton = GetWatermark( _T("IconButton.Hover") ) )
-	{
-		BITMAP bmInfo;
-		m_bmIconButtonHover.Attach( hButton );
-		m_bmIconButtonHover.GetObject( sizeof(BITMAP), &bmInfo );
-		m_bmIconButtonHover.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
-	}
-	if ( m_bmIconButtonPress.m_hObject ) m_bmIconButtonPress.DeleteObject();
-	if ( HBITMAP hButton = GetWatermark( _T("IconButton.Press") ) )
-	{
-		BITMAP bmInfo;
-		m_bmIconButtonPress.Attach( hButton );
-		m_bmIconButtonPress.GetObject( sizeof(BITMAP), &bmInfo );
-		m_bmIconButtonPress.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
-	}
-	if ( m_bmIconButtonDisabled.m_hObject ) m_bmIconButtonDisabled.DeleteObject();
-	if ( HBITMAP hButton = GetWatermark( _T("IconButton.Disabled") ) )
-	{
-		BITMAP bmInfo;
-		m_bmIconButtonDisabled.Attach( hButton );
-		m_bmIconButtonDisabled.GetObject( sizeof(BITMAP), &bmInfo );
-		m_bmIconButtonDisabled.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
-	}
-
-	//if ( m_bmToolbarButton.m_hObject ) m_bmToolbarButton.DeleteObject();
-	//if ( m_bmToolbarButtonPart.m_hObject ) m_bmToolbarButtonPart.DeleteObject();
-	//if ( HBITMAP hButton = GetWatermark( _T("ToolbarButton") ) )
-	//{
-	//	m_bmToolbarButton.Attach( hButton );
-	//	if ( HBITMAP hPart = GetWatermark( _T("ToolbarButtonPart") ) )
-	//	{
-	//		BITMAP bmInfo;
-	//		m_bmToolbarButtonPart.Attach( hPart );
-	//		m_bmToolbarButtonPart.GetObject( sizeof(BITMAP), &bmInfo );
-	//		m_bmToolbarButtonPart.SetBitmapDimension( bmInfo.bmWidth, 0 );
-	//	}
-	//}
+	// Button states in CImages
 
 	return TRUE;
 }
@@ -1620,7 +1476,7 @@ BOOL CSkin::LoadListColumns(CXMLElement* pBase)
 
 					if ( strFrom.IsEmpty() || strTo.IsEmpty() ) continue;
 
-					if ( strEdit.GetLength() ) strEdit += '|';
+					if ( ! strEdit.IsEmpty() ) strEdit += '|';
 					strEdit += strFrom;
 					strEdit += '=';
 					strEdit += strTo;
@@ -1668,7 +1524,7 @@ BOOL CSkin::Apply(LPCTSTR pszName, CDialog* pDialog, UINT nIconID, CToolTipCtrl*
 		TCHAR szClass[3] = { 0, 0, 0 };
 		LoadControlTip( strTip, pWnd->GetDlgCtrlID() );
 
-		if ( pWndTooltips && strTip.GetLength() )
+		if ( pWndTooltips && ! strTip.IsEmpty() )
 			pWndTooltips->AddTool( pWnd, strTip );
 
 		GetClassName( pWnd->GetSafeHwnd(), szClass, 3 );
@@ -1768,7 +1624,7 @@ BOOL CSkin::Apply(LPCTSTR pszName, CDialog* pDialog, UINT nIconID, CToolTipCtrl*
 				}
 			}
 
-			if ( strCaption.GetLength() )
+			if ( ! strCaption.IsEmpty() )
 			{
 				strCaption.Replace( _T("\n"), _T("{n}") );
 				strCaption.Replace( _T("\r"), _T("") );
@@ -1810,7 +1666,7 @@ BOOL CSkin::Apply(LPCTSTR pszName, CDialog* pDialog, UINT nIconID, CToolTipCtrl*
 	}
 
 	strCaption = pBase->GetAttributeValue( _T("caption") );
-	if ( strCaption.GetLength() ) pDialog->SetWindowText( strCaption );
+	if ( ! strCaption.IsEmpty() ) pDialog->SetWindowText( strCaption );
 
 	CWnd* pWnd = pDialog->GetWindow( GW_CHILD );
 
@@ -1838,12 +1694,12 @@ BOOL CSkin::Apply(LPCTSTR pszName, CDialog* pDialog, UINT nIconID, CToolTipCtrl*
 		{
 			strCaption = pXML->GetAttributeValue( _T("caption") );
 			strTip = pXML->GetAttributeValue( L"tip" );
-			if ( pWndTooltips && strTip.GetLength() )
+			if ( pWndTooltips && ! strTip.IsEmpty() )
 				pWndTooltips->AddTool( pWnd, strTip );
 
 			strCaption.Replace( _T("{n}"), _T("\r\n") );
 
-			if ( strCaption.GetLength() )
+			if ( ! strCaption.IsEmpty() )
 			{
 				if ( (CString) szClass != "Co" )
 				{
@@ -2146,9 +2002,11 @@ BOOL CSkin::LoadColorScheme(CXMLElement* pBase)
 	pColors.SetAt( _T("system.base.transfer.seeding.selected"), &Colors.m_crTransferVerifyPassSelected );
 	pColors.SetAt( _T("system.base.transfer.failed.selected"), &Colors.m_crTransferVerifyFailSelected );
 	pColors.SetAt( _T("system.base.network.null"), &Colors.m_crNetworkNull );
+	pColors.SetAt( _T("system.base.network.gnutella"), &Colors.m_crNetworkG1 );
 	pColors.SetAt( _T("system.base.network.g1"), &Colors.m_crNetworkG1 );
 	pColors.SetAt( _T("system.base.network.g2"), &Colors.m_crNetworkG2 );
 	pColors.SetAt( _T("system.base.network.ed2k"), &Colors.m_crNetworkED2K );
+	pColors.SetAt( _T("system.base.network.dc"), &Colors.m_crNetworkDC );
 	pColors.SetAt( _T("system.base.network.up"), &Colors.m_crNetworkUp );
 	pColors.SetAt( _T("system.base.network.down"), &Colors.m_crNetworkDown );
 	pColors.SetAt( _T("system.base.security.allow"), &Colors.m_crSecurityAllow );
@@ -2530,7 +2388,7 @@ BOOL CSkin::LoadCommandIcon(CXMLElement* pXML, const CString& strPath)
 	CString strTypes = pXML->GetAttributeValue( _T("types"), _T("16") );
 	int curPos = 0;
 	CString strSize;
-	while ( ( strSize = strTypes.Tokenize( _T(","), curPos ) ).GetLength() )
+	while ( ! ( strSize = strTypes.Tokenize( _T(","), curPos ) ).IsEmpty() )
 	{
 		int cx = _tstoi( strSize );
 		int nType;
@@ -2596,8 +2454,8 @@ BOOL CSkin::LoadCommandBitmap(CXMLElement* pBase, const CString& strPath)
 	else
 		strFile.Format( _T("%s%s"), strPath, pBase->GetAttributeValue( _T("path") ) );
 
-	CString strMask = pBase->GetAttributeValue( _T("mask"), _T("00FF00") );
 	COLORREF crMask;
+	CString strMask = pBase->GetAttributeValue( _T("mask"), _T("00FF00") );
 	int nRed = 0, nGreen = 0, nBlue = 0;
 	if ( strMask.GetLength() == 6 &&
 		_stscanf( strMask.Mid( 0, 2 ), _T("%x"), &nRed ) == 1 &&
@@ -2606,6 +2464,15 @@ BOOL CSkin::LoadCommandBitmap(CXMLElement* pBase, const CString& strPath)
 	{
 		crMask = RGB( nRed, nGreen, nBlue );
 	}
+	else if ( strMask == _T("CLR_NONE") ||
+		! strMask.CompareNoCase( _T("Alpha") ) ||
+		! strMask.CompareNoCase( _T("Transparent") ) ||
+		! strMask.CompareNoCase( _T("None") ) ||
+		! strMask.CompareNoCase( _T("NULL") ) ||
+		! strMask.CompareNoCase( _T("PNG") ) ) 	// ToDo: Auto set mask to CLR_NONE for alpha PNGs, and cull this list
+	{
+		crMask = CLR_NONE; 	// 0 Alpha (or Black)
+	}
 	else
 	{
 		theApp.Message( MSG_ERROR, IDS_SKIN_ERROR,
@@ -2613,8 +2480,21 @@ BOOL CSkin::LoadCommandBitmap(CXMLElement* pBase, const CString& strPath)
 		return FALSE;
 	}
 
-	HBITMAP hBitmap = LoadBitmap( strFile );
-	if ( hBitmap == NULL )
+	HBITMAP hBitmap;
+	if ( crMask == CLR_NONE )
+	{
+		CImageFile pFile;
+		if ( nID > 100 )
+			pFile.LoadFromResource( AfxGetResourceHandle(), nID, RT_PNG );
+		else
+			pFile.LoadFromFile( strFile );
+		if ( theApp.m_bIsWin2000 ) pFile.EnsureRGB();
+		hBitmap = pFile.CreateBitmap();
+	}
+	else
+		hBitmap = LoadBitmap( strFile );
+
+	if ( ! hBitmap )
 	{
 		theApp.Message( MSG_ERROR, IDS_SKIN_ERROR,
 			_T("Failed to load image"), pBase->ToString() );

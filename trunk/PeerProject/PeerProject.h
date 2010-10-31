@@ -2,21 +2,18 @@
 // PeerProject.h
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2008.
+// Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #pragma once
@@ -178,10 +175,10 @@ public:
 	static BOOL			OpenInternetShortcut(LPCTSTR lpszFileName);
 	// Open .torrent file
 	static BOOL			OpenTorrent(LPCTSTR lpszFileName);
-	// Open .co, .collection, or .emulecollection file
+	// Open Shareaza/eMule/DC++ collection file	(.co, .collection, .emulecollection, .files.xml.bz2)
 	static BOOL			OpenCollection(LPCTSTR lpszFileName);
-	// Open .met or .dat file
-	static BOOL			OpenMET(LPCTSTR lpszFileName);
+	// Open eMule/DC++ servers file (.met, .dat, hublist.xml.bz2)
+	static BOOL			OpenImport(LPCTSTR lpszFileName);
 	// Open url
 	static BOOL			OpenURL(LPCTSTR lpszFileName, BOOL bSilent = FALSE);
 
@@ -192,7 +189,7 @@ public:
 	CString				GetAppDataFolder() const;
 	CString				GetLocalAppDataFolder() const;
 
-	CDatabase*			GetDatabase(bool bGeneral = false) const;	// Get SQLite thumbnail database handler, must be freed by "delete" operator.
+	CDatabase*			GetDatabase(bool bGeneral = false) const;	// Get SQLite (thumbs) database handler, must be freed by "delete" operator.
 
 	// pszTarget: 0 = delete file, 1 = release file.
 	void				OnRename(LPCTSTR strSource, LPCTSTR pszTarget = (LPCTSTR)1);
@@ -334,6 +331,11 @@ private:
 
 extern const CLowerCaseTable ToLower;
 
+extern const LPCTSTR RT_BMP;
+extern const LPCTSTR RT_PNG;
+extern const LPCTSTR RT_JPEG;
+extern const LPCTSTR RT_GZIP;
+
 // Use with whole numbers only
 template <typename T>
 inline T GetRandomNum(const T& min, const T& max)
@@ -414,32 +416,34 @@ __int64 GetRandomNum<__int64>(const __int64& min, const __int64& max);
 #define THUMB_STORE_SIZE		128
 
 
+// Saved-State Serialization:
+#define INTERNAL_VERSION		1000
+// Version History:
+// 1000 - PeerProject 1.0 (unused)
+// ToDo: Integrate various _SER_VERs ?  (Upgrade awareness)
+
+
 // Network ID's:
 
 // Client's name
 #define CLIENT_NAME				_T("PeerProject")
 
-// 4 Character vendor code (G1,G2)
+// G1/G2 4 character vendor code
 // PEER, RAZA, RAZB, BEAR, LIME
 #define VENDOR_CODE				"PEER"
 
-// ed2k client ID number.
+// ED2K client ID number.
 // 80 (0x50) = Proposed PeerProject ID
 // 0 = eMule, 1 = cDonkey, 4 = old Shareaza, 40 (0x28) = Shareaza
 #define ED2K_CLIENT_ID			80
 
-// 2 Character BT peer-id code: -PE1000-
-// PE = PeerProject, SZ = Shareaza, S~ = old Shareaza
+// BT 2 character peer-id code: -PE1000-
+// PE = PeerProject, SZ = Shareaza, etc.
 #define BT_ID1					'P'
 #define BT_ID2					'E'
+
 
 // Locations
 #define WEB_SITE				_T("http://PeerProject.org/")
 #define UPDATE_URL				_T("http://peerproject.sourceforge.net/update")
 #define REGISTRY_KEY			_T("Software\\PeerProject\\PeerProject")
-
-
-extern const LPCTSTR RT_BMP;
-extern const LPCTSTR RT_PNG;
-extern const LPCTSTR RT_JPEG;
-extern const LPCTSTR RT_GZIP;

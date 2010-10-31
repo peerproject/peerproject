@@ -2,21 +2,18 @@
 // CtrlSearchPanel.h
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2007.
+// Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #pragma once
@@ -24,7 +21,6 @@
 #include "AutocompleteEdit.h"
 #include "CtrlTaskPanel.h"
 #include "CtrlSchemaCombo.h"
-#include "CtrlNetworkCombo.h"
 #include "CtrlSchema.h"
 #include "CtrlIconButton.h"
 #include "ManagedSearch.h"
@@ -35,6 +31,7 @@ class CSearchInputBox : public CTaskBox
 public:
 	CSearchInputBox();
 	virtual ~CSearchInputBox();
+
 	DECLARE_DYNAMIC(CSearchInputBox)
 
 // Attributes
@@ -48,11 +45,6 @@ public:
 // Operations
 public:
 	void	OnSkinChange();
-
-// Overrides
-public:
-	//{{AFX_VIRTUAL(CSearchInputBox)
-	//}}AFX_VIRTUAL
 
 // Implementation
 protected:
@@ -72,6 +64,7 @@ protected:
 	afx_msg void OnSearchPrefixBTH();
 	afx_msg void OnSearchPrefixMD5();
 	//}}AFX_MSG
+
 	DECLARE_MESSAGE_MAP()
 };
 
@@ -81,28 +74,24 @@ class CSearchAdvancedBox : public CTaskBox
 public:
 	CSearchAdvancedBox();
 	virtual ~CSearchAdvancedBox();
+
 	DECLARE_DYNAMIC(CSearchAdvancedBox)
 
 // Attributes
 public:
-	CStatic			m_wndSizeMinMax;
-	CComboBox		m_wndSizeMin;
-	CComboBox		m_wndSizeMax;
-	CButton			m_wndCheckBoxG1;
-	CButton			m_wndCheckBoxG2;
-	CButton			m_wndCheckBoxED2K;
-	CBrush			m_brBack;
-	COLORREF		m_crBack;
-	CImageList		m_gdiImageList;
+	CStatic		m_wndSizeMinMax;
+	CComboBox	m_wndSizeMin;
+	CComboBox	m_wndSizeMax;
+	CButton		m_wndCheckBoxG1;
+	CButton		m_wndCheckBoxG2;
+	CButton		m_wndCheckBoxED2K;
+	CBrush		m_brBack;
+	COLORREF	m_crBack;
+	CImageList	m_gdiProtocols;
 
 // Operations
 public:
-	void	OnSkinChange();
-
-// Overrides
-public:
-	//{{AFX_VIRTUAL(CSearchAdvancedBox)
-	//}}AFX_VIRTUAL
+	void		OnSkinChange();
 
 // Implementation
 protected:
@@ -115,6 +104,7 @@ protected:
 	afx_msg void OnED2KClicked();
 	afx_msg LRESULT OnCtlColorStatic(WPARAM, LPARAM);
 	//}}AFX_MSG
+
 	DECLARE_MESSAGE_MAP()
 };
 
@@ -124,19 +114,12 @@ class CSearchSchemaBox : public CTaskBox
 public:
 	CSearchSchemaBox();
 	virtual ~CSearchSchemaBox();
+
 	DECLARE_DYNAMIC(CSearchSchemaBox)
 
 // Attributes
 public:
 	CSchemaCtrl		m_wndSchema;
-
-// Operations
-public:
-
-// Overrides
-public:
-	//{{AFX_VIRTUAL(CSearchSchemaBox)
-	//}}AFX_VIRTUAL
 
 // Implementation
 protected:
@@ -144,6 +127,7 @@ protected:
 	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	//}}AFX_MSG
+
 	DECLARE_MESSAGE_MAP()
 };
 
@@ -154,6 +138,7 @@ class CSearchResultsBox : public CTaskBox
 public:
 	CSearchResultsBox();
 	virtual ~CSearchResultsBox();
+
 	DECLARE_DYNAMIC(CSearchResultsBox)
 
 // Attributes
@@ -173,16 +158,12 @@ protected:
 
 	virtual void OnExpanded(BOOL bOpen);
 
-// Overrides
-public:
-	//{{AFX_VIRTUAL(CSearchResultsBox)
-	//}}AFX_VIRTUAL
-
 // Implementation
 protected:
 	//{{AFX_MSG(CSearchResultsBox)
 	afx_msg void OnPaint();
 	//}}AFX_MSG
+
 	DECLARE_MESSAGE_MAP()
 };
 
@@ -211,15 +192,14 @@ public:
 	void			ShowStatus(BOOL bStarted, BOOL bSearching, DWORD nHubs, DWORD nLeaves, DWORD nFiles, DWORD nHits, DWORD nBadHits);
 	void			OnSchemaChange();
 	void			OnSkinChange();
-	void			ExecuteSearch();
 	CSearchPtr		GetSearch();
-	void			Disable();
+	void			ExecuteSearch();
 	void			Enable();
+	void			Disable();
 
 // Overrides
 public:
 	//{{AFX_VIRTUAL(CSearchPanel)
-	public:
 	virtual BOOL Create(CWnd* pParentWnd);
 	virtual BOOL PreTranslateMessage(MSG* pMsg);
 	//}}AFX_VIRTUAL
@@ -229,6 +209,7 @@ protected:
 	//{{AFX_MSG(CSearchPanel)
 	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
 	//}}AFX_MSG
+
 	DECLARE_MESSAGE_MAP()
 };
 

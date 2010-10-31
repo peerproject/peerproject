@@ -2,24 +2,22 @@
 // LibraryBuilderInternals.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2008.
+// Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
-// Library Schema populating (folder inclusion etc. also handled by Builder plugins)
+// Library Schema populating (metadata + folder inclusion)
+// for filetypes not handled by external Builder plugins.
 
 #include "StdAfx.h"
 #include "PeerProject.h"
@@ -43,7 +41,7 @@
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
-#endif
+#endif	// Filename
 
 //////////////////////////////////////////////////////////////////////
 // CLibraryBuilderPlugins construction
@@ -87,30 +85,35 @@ bool CLibraryBuilderInternals::ExtractMetadata(DWORD nIndex, const CString& strP
 	FileType[ _T(".chm") ]	= 'h';
 	FileType[ _T(".exe") ]	= 'e';
 	FileType[ _T(".dll") ]	= 'e';
-	FileType[ _T(".msi") ]	= 'i';
+	FileType[ _T(".msi") ]	= 's';
 	FileType[ _T(".ogg") ]	= 'o';
 	FileType[ _T(".ape") ]	= 'a';
 	FileType[ _T(".apl") ]	= 'a';
 	FileType[ _T(".mac") ]	= 'a';
- 	FileType[ _T(".mpc") ]	= 'u';
+	FileType[ _T(".mpc") ]	= 'u';
 	FileType[ _T(".mpp") ]	= 'u';
 	FileType[ _T(".mp+") ]	= 'u';
+//	FileType[ _T(".wav") ]	= 'i';
+//	FileType[ _T(".webp") ]	= 'i';	// ToDo: RIFF-type Files?
 	FileType[ _T(".psk") ]	= 'k';
 	FileType[ _T(".sks") ]	= 'k';
+	FileType[ _T(".bz2") ]	= 'c';	// .xml.bz2
 	FileType[ _T(".co") ]	= 'c';
 	FileType[ _T(".collection") ] = 'c';
 	FileType[ _T(".emulecollection") ] = 'c';
 	FileType[ _T(".torrent") ] = 't';
-	// ToDo: Generic Fallback
 	FileType[ _T(".txt") ]	= 'x';
 	FileType[ _T(".xml") ]	= 'x';
 	FileType[ _T(".xps") ]	= 'x';
+	FileType[ _T(".rtf") ]	= 'x';
 	FileType[ _T(".nfo") ]	= 'x';
-	// Others by plugins: rar/zip/mkv/etc.
+	FileType[ _T(".html") ]	= 'x';
+	// Others by plugins: zip/rar/mkv/etc.
+	// ToDo: Generic Fallback "Uknown Type"
 
 	switch( FileType[ strType ] )
 	{
-	case '3': // .mp3
+	case '3': // .mp3/.aac/.flac
 		if ( ! Settings.Library.ScanMP3 )			return false;
 		if ( Settings.Library.PreferAPETags )
 		{
@@ -166,7 +169,7 @@ bool CLibraryBuilderInternals::ExtractMetadata(DWORD nIndex, const CString& strP
 		if ( ! Settings.Library.ScanEXE )			return false;
 		return ReadVersion( nIndex, strPath );
 
-	case 'i': // .msi
+	case 's': // .msi
 		if ( ! Settings.Library.ScanMSI )			return false;
 		return ReadMSI( nIndex, strPath );
 
@@ -192,7 +195,10 @@ bool CLibraryBuilderInternals::ExtractMetadata(DWORD nIndex, const CString& strP
 		}
 		return ReadID3v1( nIndex, hFile );
 
-	case 'c': // .co/.collection/.emulecollection
+//	case 'i': // .wav/.webp
+//		return ReadRIFF( nIndex, hFile, strPath );
+
+	case 'c': // .co/.collection/.emulecollection/.xml.bz2
 		return ReadCollection( nIndex, strPath );
 
 	case 't': // .torrent
@@ -205,7 +211,7 @@ bool CLibraryBuilderInternals::ExtractMetadata(DWORD nIndex, const CString& strP
 		return ReadBook( nIndex, strPath );
 
 	case 'x': // .txt/.xml/.nfo/.etc.
-		return ReadOther( nIndex, strPath );
+		return ReadText( nIndex, strPath );
 
 	// ToDo: Default Case (Plugins excluded)
 	}
@@ -699,12 +705,12 @@ bool CLibraryBuilderInternals::CopyID3v2Field(CXMLElement* pXML, LPCTSTR pszAttr
 
 		if ( strResult.IsEmpty() && ( strValue.IsEmpty() || _tcslen( strValue ) == 0 ) )
 			return false;
-		else if ( strResult.GetLength() && strValue.GetLength() )
+		else if ( ! strResult.IsEmpty() && ! strValue.IsEmpty() )
 		{
 			strResult += '/';
 			strResult.Append( strValue );
 		}
-		else if ( strValue.GetLength() )
+		else if ( ! strValue.IsEmpty() )
 		{
 			strResult = strValue;
 		}
@@ -1163,7 +1169,7 @@ bool CLibraryBuilderInternals::ValidateManifest(LPCTSTR pszPath)
 	UnlockResource( hGlobal );
 
 	bool bValid = false;
-	if ( strData.GetLength() )
+	if ( ! strData.IsEmpty() )
 	{
 		//CXMLElement* pElement = CXMLElement::FromString( (LPCTSTR)strData );
 		//// Perform validation here
@@ -1344,7 +1350,7 @@ bool CLibraryBuilderInternals::ReadJPEG(DWORD nIndex, HANDLE hFile)
 	else if ( nComponents == 1 )
 		pXML->AddAttribute( _T("colors"), _T("Greyscale") );
 
-	if ( strComment.GetLength() )
+	if ( ! strComment.IsEmpty() )
 		pXML->AddAttribute( _T("description"), strComment );
 
 	return LibraryBuilder.SubmitMetadata( nIndex, CSchema::uriImage, pXML.release() ) != 0;
@@ -1766,14 +1772,14 @@ bool CLibraryBuilderInternals::ReadASF(DWORD nIndex, HANDLE hFile)
 		SetFilePointer( hFile, dwPosition + (DWORD)nSize, NULL, FILE_BEGIN );
 	}
 
-	auto_ptr< CXMLElement > pXML( new CXMLElement(
-		NULL, bVideo ? _T("video") : _T("audio") ) );
+	auto_ptr< CXMLElement > pXML( new CXMLElement( NULL,
+		bVideo ? _T("video") : _T("audio") ) );
 	CString strItem;
 
-	if ( strTitle.GetLength() )
+	if ( ! strTitle.IsEmpty() )
 		pXML->AddAttribute( _T("title"), strTitle );
 
-	if ( strDescription.GetLength() )
+	if ( ! strDescription.IsEmpty() )
 		pXML->AddAttribute( _T("description"), strDescription );
 
 	if ( bDRM )
@@ -1781,10 +1787,10 @@ bool CLibraryBuilderInternals::ReadASF(DWORD nIndex, HANDLE hFile)
 
 	if ( bVideo )
 	{
-		if ( strAuthor.GetLength() )
+		if ( ! strAuthor.IsEmpty() )
 			pXML->AddAttribute( _T("producer"), strAuthor );
 
-		if ( strRating.GetLength() )
+		if ( ! strRating.IsEmpty() )
 			pXML->AddAttribute( _T("rating"), strRating );
 
 		if ( nContentLength > 0 )
@@ -1804,7 +1810,7 @@ bool CLibraryBuilderInternals::ReadASF(DWORD nIndex, HANDLE hFile)
 	}
 	else
 	{
-		if ( strAuthor.GetLength() )
+		if ( ! strAuthor.IsEmpty() )
 			pXML->AddAttribute( _T("artist"), strAuthor );
 
 		if ( nContentLength > 0 )
@@ -2180,7 +2186,7 @@ bool CLibraryBuilderInternals::ReadAPE(DWORD nIndex, HANDLE hFile, bool bPreferF
 		strValue.Trim();
 		strKey.Trim();
 
-		if ( strKey.GetLength() && strValue.GetLength() )
+		if ( ! strKey.IsEmpty() && ! strValue.IsEmpty() )
 		{
 			ToLower( strKey );
 
@@ -2301,7 +2307,7 @@ bool CLibraryBuilderInternals::ReadAPE(DWORD nIndex, HANDLE hFile, bool bPreferF
 			}
 			else if ( strKey == L"involvedpeople" )
 			{
-				if ( strKeyWords.GetLength() )
+				if ( ! strKeyWords.IsEmpty() )
 					strKeyWords += L"; " + strValue;
 				else
 					strKeyWords = strValue;
@@ -2348,7 +2354,7 @@ bool CLibraryBuilderInternals::ReadAPE(DWORD nIndex, HANDLE hFile, bool bPreferF
 			}
 			else if ( strKey == L"performersortorder" )
 			{
-				if ( strKeyWords.GetLength() )
+				if ( ! strKeyWords.IsEmpty() )
 					strKeyWords += L"; " + strValue;
 				else
 					strKeyWords = strValue;
@@ -3030,8 +3036,8 @@ bool CLibraryBuilderInternals::ReadPDF(DWORD nIndex, HANDLE hFile, LPCTSTR pszPa
 	// Collect author, title if file name contains "book" keyword
 	bool bBook = ( _tcsistr( pszPath, _T("book") ) != NULL );
 
-	auto_ptr< CXMLElement > pXML( new CXMLElement(
-		NULL, bBook ? _T("book") : _T("wordprocessing") ) );
+	auto_ptr< CXMLElement > pXML( new CXMLElement( NULL,
+		bBook ? _T("book") : _T("wordprocessing") ) );
 
 	if ( LPCTSTR pszName = _tcsrchr( pszPath, '\\' ) )
 	{
@@ -3698,8 +3704,8 @@ bool CLibraryBuilderInternals::ReadCHM(DWORD nIndex, HANDLE hFile, LPCTSTR pszPa
 	CString strLine;
 	bool bBook = ( _tcsistr( pszPath, _T("book") ) != NULL );
 
-	auto_ptr< CXMLElement > pXML( new CXMLElement(
-		NULL, bBook ? _T("book") : _T("wordprocessing") ) );
+	auto_ptr< CXMLElement > pXML( new CXMLElement( NULL,
+		bBook ? _T("book") : _T("wordprocessing") ) );
 
 	if ( LPCTSTR pszName = _tcsrchr( pszPath, '\\' ) )
 	{
@@ -3852,6 +3858,15 @@ bool CLibraryBuilderInternals::ReadCHM(DWORD nIndex, HANDLE hFile, LPCTSTR pszPa
 
 bool CLibraryBuilderInternals::ReadCollection(DWORD nIndex, LPCTSTR pszPath)
 {
+	if ( _tcsicmp( pszPath + _tcslen( pszPath ) - 4,  _T (".bz2") ) == 0 )
+	{
+		if ( _tcslen( pszPath ) < 9 || _tcsicmp( pszPath + _tcslen( pszPath ) - 8,  _T (".xml.bz2") ) != 0 )
+		{
+			auto_ptr< CXMLElement > pXML( new CXMLElement( NULL, L"archive" ) );
+			return LibraryBuilder.SubmitMetadata( nIndex, CSchema::uriArchive, pXML.release() ) != 0;
+		}
+	}
+
 	CCollectionFile pCollection;
 	if ( ! pCollection.Open( pszPath ) )
 		return false;
@@ -3901,9 +3916,9 @@ bool CLibraryBuilderInternals::ReadTorrent(DWORD nIndex, HANDLE /*hFile*/, LPCTS
 			CTime oTime( (time_t)oTorrent.m_tCreationDate );
 			pXML->AddAttribute( L"creationdate", oTime.Format( _T("%Y-%m-%d  %H:%M") ) );
 		}
-		if ( oTorrent.m_sCreatedBy.GetLength() )
+		if ( ! oTorrent.m_sCreatedBy.IsEmpty() )
 			pXML->AddAttribute( L"createdby", oTorrent.m_sCreatedBy );
-		if ( oTorrent.m_sComment.GetLength() )
+		if ( ! oTorrent.m_sComment.IsEmpty() )
 			pXML->AddAttribute( L"comments", oTorrent.m_sComment );
 		pXML->AddAttribute( L"privateflag", oTorrent.m_bPrivate ? L"true" : L"false" );
 
@@ -3957,7 +3972,7 @@ bool CLibraryBuilderInternals::ReadBook(DWORD nIndex, CString strPath)
 	return LibraryBuilder.SubmitMetadata( nIndex, CSchema::uriBook, pXML.release() ) != 0;
 }
 
-bool CLibraryBuilderInternals::ReadOther(DWORD nIndex, CString /*strPath*/)
+bool CLibraryBuilderInternals::ReadText(DWORD nIndex, CString /*strPath*/)
 {
 	auto_ptr< CXMLElement > pXML( new CXMLElement( NULL, L"wordprocessing" ) );	// Set Schema
 	//pXML->AddAttribute( L"path", strPath );									// No metadata

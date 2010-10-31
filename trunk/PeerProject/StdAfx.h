@@ -2,21 +2,18 @@
 // StdAfx.h
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2008.
+// Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 //! \file	StdAfx.h
@@ -189,18 +186,19 @@
 //
 // TR1 (std::tr1::)
 //
-// ToDo: See Shareaza r8451 for tr1 implementation
+// ToDo: See Shareaza r8451 for some tr1 implementation
 
-//#if defined(_MSC_VER) && (_MSC_FULL_VER > 150030000)	// VS2008 SP1 for tr1
-//  #include <type_traits>	// In MinMax.hpp
+//#ifdef _HAS_TR1	// defined(_MSC_VER) && (_MSC_FULL_VER > 150030000)	// VS2008 SP1 for tr1
+  //#include <type_traits>				// In MinMax.hpp
   //#include <array>
   //#include <memory>
-  //#include <regex>
+  //#include <regex>					// In RegExp.cpp
 //#else	// Boost fallback
-// #include <Boost/tr1/type_traits.hpp>
+  //#include <Boost/tr1/type_traits.hpp>
   //#include <Boost/tr1/array.hpp>
   //#include <Boost/tr1/memory.hpp>
   //#include <Boost/tr1/utility.hpp>
+  //#include <Boost/tr1/regex.hpp>
 //#endif
 
 
@@ -223,7 +221,6 @@
 //#include <Boost/array.hpp>			// In Hashes/HashDescriptors.hpp
 //#include <Boost/type_traits.hpp>		// In MinMax.hpp
 //#include <Boost/checked_delete.hpp>	// In Augment/auto_ptr.hpp
-//#include <Boost/cstdint.hpp>			// ?
 //#include <Boost/utility.hpp>			// ?
 //#include <Boost/bind/placeholders.hpp>
 
@@ -233,6 +230,8 @@
 //
 
 #include <zlib/zlib.h>
+
+#include <Bzlib/Bzlib.h>
 
 #include "MinMax.hpp"
 
@@ -255,7 +254,7 @@ using augment::IUnknownImplementation;
 
 // BugTrap (intellesoft.net)
 #ifdef _DEBUG
-	#include <BugTrap/BugTrapLib/BugTrap.h>
+	#include <BugTrap/BugTrap.h>
 #endif
 
 
@@ -343,7 +342,8 @@ template<> AFX_INLINE BOOL AFXAPI CompareElements(const IN_ADDR* pElement1, cons
 // 64-bit type
 //
 
-typedef uint64 QWORD;
+typedef unsigned __int64 QWORD;
+
 const QWORD SIZE_UNKNOWN = ~0ull;
 
 #define	MAKEDWORD(a,b)	((DWORD) (((a)) | ((DWORD) ((b))) << 16))
@@ -413,10 +413,38 @@ enum PROTOCOLID
 	PROTOCOL_ED2K = 3,
 	PROTOCOL_HTTP = 4,
 	PROTOCOL_FTP  = 5,
-	PROTOCOL_BT   = 6,
-	PROTOCOL_KAD  = 7
-//	PROTOCOL_DC   = 8,
-//	PROTOCOL_LAST = 9	// Detection workaround
+	PROTOCOL_DC   = 6,
+	PROTOCOL_BT   = 7,
+	PROTOCOL_KAD  = 8,
+	PROTOCOL_LAST = 9	// Detection workaround
+};
+
+// Protocol resource IDs (for icons)
+const UINT protocolIDs[] =
+{
+	ID_NETWORK_NULL,
+	ID_NETWORK_G1,
+	ID_NETWORK_G2,
+	ID_NETWORK_ED2K,
+	ID_NETWORK_HTTP,
+	ID_NETWORK_FTP,
+	ID_NETWORK_DC,
+	ID_NETWORK_BT,
+	ID_NETWORK_KAD,
+	NULL
+};
+
+const LPCTSTR protocolNames[] =
+{
+	_T(""),
+	_T("Gnutella"),
+	_T("Gnutella2"),
+	_T("eDonkey2000"),
+	_T("HTTP"),
+	_T("FTP"),
+	_T("DC++"),
+	_T("BitTorrent"),
+	_T("Kademlia")
 };
 
 struct ProtocolCmdIDMapEntry
@@ -433,13 +461,14 @@ const ProtocolCmdIDMapEntry protocolCmdMap[] =
 	{ PROTOCOL_ED2K, ID_NETWORK_ED2K },
 	{ PROTOCOL_HTTP, ID_NETWORK_HTTP },
 	{ PROTOCOL_FTP, ID_NETWORK_FTP },
+	{ PROTOCOL_DC, ID_NETWORK_DC },
 	{ PROTOCOL_BT, ID_NETWORK_BT },
 	{ PROTOCOL_KAD, ID_NETWORK_KAD }
 };
 
 inline PROTOCOLID& operator++(PROTOCOLID& arg)
 {
-	ASSERT( arg < PROTOCOL_KAD );
+	ASSERT( arg < PROTOCOL_LAST - 1 );
 	arg = PROTOCOLID( arg + 1 );
 	return arg;
 }
@@ -461,11 +490,10 @@ inline CArchive& operator>>(CArchive& ar, PROTOCOLID& rhs)
 {
 	int value;
 	ar >> value;
-	if ( !( value >= PROTOCOL_ANY && value <= PROTOCOL_KAD ) )
+	if ( !( value >= PROTOCOL_ANY && value < PROTOCOL_LAST ) )
 		AfxThrowUserException();
-	rhs = value >= PROTOCOL_ANY && value <= PROTOCOL_KAD
-		? PROTOCOLID( value )
-		: PROTOCOL_NULL;
+	rhs = ( value >= PROTOCOL_ANY && value < PROTOCOL_LAST ) ?
+		PROTOCOLID( value ) : PROTOCOL_NULL;
 	return ar;
 }
 

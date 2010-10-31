@@ -2,21 +2,18 @@
 // CtrlBrowseProfile.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2006.
+// Portions copyright Shareaza Development Team, 2002-2006.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
@@ -34,10 +31,10 @@
 #include "Skin.h"
 
 #ifdef _DEBUG
-#define new DEBUG_NEW
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
-#endif
+#define new DEBUG_NEW
+#endif	// Filename
 
 BEGIN_MESSAGE_MAP(CBrowseProfileCtrl, CWnd)
 	//{{AFX_MSG_MAP(CBrowseProfileCtrl)
@@ -55,9 +52,9 @@ END_MESSAGE_MAP()
 // CBrowseProfileCtrl construction
 
 CBrowseProfileCtrl::CBrowseProfileCtrl()
+	: m_pDocument1 ( NULL )
+	, m_pDocument2 ( NULL )
 {
-	m_pDocument1 = NULL;
-	m_pDocument2 = NULL;
 }
 
 CBrowseProfileCtrl::~CBrowseProfileCtrl()
@@ -93,21 +90,24 @@ void CBrowseProfileCtrl::OnSkinChange()
 		CMap< CString, const CString&, CRichElement*, CRichElement* > pMap;
 		m_pDocument1->LoadXML( pXML, &pMap );
 
-//		pMap.Lookup( _T("Vendor"), m_pdVendor );
+	//	pMap.Lookup( _T("Vendor"), m_pdVendor );
 		pMap.Lookup( _T("Nick"), m_pdNick );
 		pMap.Lookup( _T("FullName"), m_pdFullName );
 		pMap.Lookup( _T("FullLocation"), m_pdFullLocation );
 		pMap.Lookup( _T("GenderMale"), m_pdGenderMale );
 		pMap.Lookup( _T("GenderFemale"), m_pdGenderFemale );
 		pMap.Lookup( _T("Age"), m_pdAge );
+		pMap.Lookup( _T("BioText"), m_pdBioText );
+		pMap.Lookup( _T("Interests"), m_pdInterests );
 		pMap.Lookup( _T("ContactEmail"), m_pdContactEmail );
 		pMap.Lookup( _T("ContactMSN"), m_pdContactMSN );
 		pMap.Lookup( _T("ContactYahoo"), m_pdContactYahoo );
-		pMap.Lookup( _T("ContactICQ"), m_pdContactICQ );
 		pMap.Lookup( _T("ContactAOL"), m_pdContactAOL );
+		pMap.Lookup( _T("ContactICQ"), m_pdContactICQ );
 		pMap.Lookup( _T("ContactJabber"), m_pdContactJabber );
-		pMap.Lookup( _T("Interests"), m_pdInterests );
-		pMap.Lookup( _T("BioText"), m_pdBioText );
+		pMap.Lookup( _T("ContactTwitter"), m_pdContactTwitter );
+		pMap.Lookup( _T("ContactFacebook"), m_pdContactFacebook );
+		pMap.Lookup( _T("ContactPeerProjectOrg"), m_pdContactPeerProjectOrg );
 	}
 
 	if ( m_pDocument2 != NULL )
@@ -160,10 +160,10 @@ void CBrowseProfileCtrl::UpdateDocument1(CGProfile* pProfile)
 	{
 		if ( CXMLElement* pName = pIdentity->GetElementByName( _T("name") ) )
 		{
-			CString strFirst	= pName->GetAttributeValue( _T("first") );
-			CString strLast		= pName->GetAttributeValue( _T("last") );
+			CString strFirst = pName->GetAttributeValue( _T("first") );
+			CString strLast  = pName->GetAttributeValue( _T("last") );
 
-			if ( m_pdFullName != NULL && ( strFirst.GetLength() || strLast.GetLength() ) )
+			if ( m_pdFullName != NULL && ( ! strFirst.IsEmpty() || ! strLast.IsEmpty() ) )
 			{
 				m_pDocument1->ShowGroup( 1, TRUE );
 				m_pdFullName->SetText( strFirst + ' ' + strLast );
@@ -236,15 +236,6 @@ void CBrowseProfileCtrl::UpdateDocument1(CGProfile* pProfile)
 		m_pdContactYahoo->m_sLink = _T("ymsgr:sendim?") + str;
 	}
 
-	str = pProfile->GetContact( _T("ICQ") );
-	bContact |= ( ! str.IsEmpty() );
-	m_pDocument1->ShowGroup( 42, ! str.IsEmpty() );
-	if ( m_pdContactICQ != NULL )
-	{
-		m_pdContactICQ->SetText( str );
-		m_pdContactICQ->m_sLink = _T("http://people.icq.com/people/about_me.php?uin=") + str;
-	}
-
 	str = pProfile->GetContact( _T("AOL") );
 	bContact |= ( ! str.IsEmpty() );
 	m_pDocument1->ShowGroup( 43, ! str.IsEmpty() );
@@ -254,12 +245,50 @@ void CBrowseProfileCtrl::UpdateDocument1(CGProfile* pProfile)
 		m_pdContactAOL->m_sLink = _T("aim:goim?screenname=") + str;
 	}
 
-	str = pProfile->GetContact( _T("Jabber") );
+	str = pProfile->GetContact( _T("ICQ") );
+	bContact |= ( ! str.IsEmpty() );
+	m_pDocument1->ShowGroup( 42, ! str.IsEmpty() );
+	if ( m_pdContactICQ != NULL )
+	{
+		m_pdContactICQ->SetText( str );
+		m_pdContactICQ->m_sLink = _T("http://people.icq.com/people/about_me.php?uin=") + str;
+	}
+
+	str = pProfile->GetContact( _T("Google") );
+	if ( str.IsEmpty() ) str = pProfile->GetContact( _T("Jabber") );
 	bContact |= ( ! str.IsEmpty() );
 	m_pDocument1->ShowGroup( 45, ! str.IsEmpty() );
 	if ( m_pdContactJabber != NULL )
 	{
 		m_pdContactJabber->SetText( str );
+	//	m_pdContactJabber->m_sLink = _T("xmpp:") + str;
+	}
+
+	str = pProfile->GetContact( _T("Twitter") );
+	bContact |= ( ! str.IsEmpty() );
+	m_pDocument1->ShowGroup( 46, ! str.IsEmpty() );
+	if ( m_pdContactJabber != NULL )
+	{
+		m_pdContactTwitter->SetText( str );
+		m_pdContactTwitter->m_sLink = _T("http://twitter.com/") + str;
+	}
+
+	str = pProfile->GetContact( _T("Facebook") );
+	bContact |= ( ! str.IsEmpty() );
+	m_pDocument1->ShowGroup( 47, ! str.IsEmpty() );
+	if ( m_pdContactFacebook != NULL )
+	{
+		m_pdContactFacebook->SetText( str );
+		m_pdContactFacebook->m_sLink = _T("http://facebook.com./") + str;
+	}
+
+	str = pProfile->GetContact( _T("PeerProject.org") );
+	bContact |= ( ! str.IsEmpty() );
+	m_pDocument1->ShowGroup( 48, ! str.IsEmpty() );
+	if ( m_pdContactPeerProjectOrg != NULL )
+	{
+		m_pdContactPeerProjectOrg->SetText( str );
+		m_pdContactPeerProjectOrg->m_sLink = _T("http://peeproject.org/?") + str;	// ToDo: Update user profile link
 	}
 
 	m_pDocument1->ShowGroup( 4, bContact );
@@ -301,7 +330,7 @@ void CBrowseProfileCtrl::UpdateDocument2(CHostBrowser* pBrowser)
 
 	m_pDocument2->ShowGroup( 2, pBrowser->m_bCanChat );
 
-//  TODO: Add Flag/ClientVersion to Profile
+//  ToDo: Add Flag/ClientVersion to Profile
 //	CString str = pBrowser->m_sm_sCountry;
 //	int nFlagImage = Flags.GetFlagIndex( pBrowser->m_sCountry );
 //	if ( int )

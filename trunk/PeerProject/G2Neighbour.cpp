@@ -2,21 +2,18 @@
 // G2Neighbour.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2008.
+// Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
@@ -50,7 +47,7 @@
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
-#endif
+#endif	// Filename
 
 
 //////////////////////////////////////////////////////////////////////
@@ -1139,7 +1136,6 @@ BOOL CG2Neighbour::OnQuery(CG2Packet* pPacket)
 	// Check for excessive source searching
 	if ( pSearch->m_oSHA1 || pSearch->m_oED2K || pSearch->m_oBTH || pSearch->m_oMD5 )
 	{
-
 		// Update allowed query operations, check for bad client
 		if ( m_nQueryLimiter > -60 )
 		{
@@ -1151,7 +1147,6 @@ BOOL CG2Neighbour::OnQuery(CG2Packet* pPacket)
 			m_bBlacklisted = TRUE;
 			theApp.Message( MSG_NOTICE, _T("Blacklisting %s due to excess traffic"), (LPCTSTR)m_sAddress );
 			//Security.Ban( &m_pHost.sin_addr, ban30Mins, FALSE );
-
 		}
 
 		if ( ( m_bBlacklisted ) || ( m_nQueryLimiter < 0 ) )

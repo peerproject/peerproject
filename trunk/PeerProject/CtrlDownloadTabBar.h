@@ -1,22 +1,19 @@
 //
 // CtrlDownloadTabBar.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
-// Portions Copyright Shareaza Development Team, 2002-2007.
+// This file is part of PeerProject (peerproject.org) © 2008-2010
+// Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #pragma once
@@ -44,19 +41,16 @@ public:
 	public:
 		CDownloadGroup*	m_pGroup;
 		CString			m_sCaption;
-		int				m_nImage;
 		CString			m_sName;
+		int				m_nImage;
 		int				m_nCount;
 		BOOL			m_bSelected;
-		BOOL			m_bTabTest;
-		CBitmap			m_bmTabmark;
 
 	// Operations
 	public:
-		BOOL	Update(int nCookie);
-		BOOL	Select(BOOL bSelect);
-		void	Paint(CDownloadTabBar* pBar, CDC* pDC, CRect* pRect, BOOL bHot, BOOL bTransparent);
-		void	SetTabmark(HBITMAP hBitmap);
+		BOOL			Update(int nCookie);
+		BOOL			Select(BOOL bSelect);
+		void			Paint(CDownloadTabBar* pBar, CDC* pDC, CRect* pRect, BOOL bHot, BOOL bTransparent);
 	};
 
 // Attributes
@@ -66,7 +60,7 @@ protected:
 	BOOL			m_bTimer;
 	BOOL			m_bMenuGray;
 	int				m_nCookie;
-protected:
+
 	int				m_nMaximumWidth;
 	UINT			m_nMessage;
 	CString			m_sMessage;
@@ -74,7 +68,6 @@ protected:
 
 // Operations
 public:
-	void			SetWatermark(HBITMAP hBitmap);
 	void			OnSkinChange();
 	void			Update(int nCookie);
 	BOOL			DropShowTarget(CList< CDownload* >* pList, const CPoint& ptScreen);
@@ -100,31 +93,32 @@ public:
 
 // Implementation
 protected:
+	afx_msg int 	OnCreate(LPCREATESTRUCT lpCreateStruct);
+	afx_msg void	OnTimer(UINT_PTR nIDEvent);
+	afx_msg void	OnMouseMove(UINT nFlags, CPoint point);
+	afx_msg void	OnRButtonUp(UINT nFlags, CPoint point);
+	afx_msg void	OnLButtonDown(UINT nFlags, CPoint point);
+	afx_msg void	OnLButtonDblClk(UINT nFlags, CPoint point);
+	afx_msg void	OnMeasureItem(int nIDCtl, LPMEASUREITEMSTRUCT lpMeasureItemStruct);
+	afx_msg void	OnDrawItem(int nIDCtl, LPDRAWITEMSTRUCT lpDrawItemStruct);
+	afx_msg void	OnDownloadGroupNew();
+	afx_msg void	OnUpdateDownloadGroupRemove(CCmdUI* pCmdUI);
+	afx_msg void	OnDownloadGroupRemove();
+	afx_msg void	OnUpdateDownloadGroupMoveRight(CCmdUI* pCmdUI);
+	afx_msg void	OnDownloadGroupMoveRight();
+	afx_msg void	OnUpdateDownloadGroupMoveLeft(CCmdUI* pCmdUI);
+	afx_msg void	OnDownloadGroupMoveLeft();
+	afx_msg void	OnUpdateDownloadGroupProperties(CCmdUI* pCmdUI);
+	afx_msg void	OnDownloadGroupProperties();
+	afx_msg void	OnUpdateDownloadGroupResume(CCmdUI* pCmdUI);
+	afx_msg void	OnDownloadGroupResume();
+	afx_msg void	OnUpdateDownloadGroupPause(CCmdUI* pCmdUI);
+	afx_msg void	OnDownloadGroupPause();
+	afx_msg void	OnUpdateDownloadGroupClear(CCmdUI* pCmdUI);
+	afx_msg void	OnDownloadGroupClear();
+	afx_msg void	OnDownloadGroupOpen();
+
 	DECLARE_MESSAGE_MAP()
-	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
-	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
-	afx_msg void OnRButtonUp(UINT nFlags, CPoint point);
-	afx_msg void OnLButtonDblClk(UINT nFlags, CPoint point);
-	afx_msg void OnMouseMove(UINT nFlags, CPoint point);
-	afx_msg void OnTimer(UINT_PTR nIDEvent);
-	afx_msg void OnMeasureItem(int nIDCtl, LPMEASUREITEMSTRUCT lpMeasureItemStruct);
-	afx_msg void OnDrawItem(int nIDCtl, LPDRAWITEMSTRUCT lpDrawItemStruct);
-	afx_msg void OnDownloadGroupNew();
-	afx_msg void OnUpdateDownloadGroupRemove(CCmdUI* pCmdUI);
-	afx_msg void OnDownloadGroupRemove();
-	afx_msg void OnUpdateDownloadGroupMoveRight(CCmdUI* pCmdUI);
-	afx_msg void OnDownloadGroupMoveRight();
-	afx_msg void OnUpdateDownloadGroupMoveLeft(CCmdUI* pCmdUI);
-	afx_msg void OnDownloadGroupMoveLeft();
-	afx_msg void OnUpdateDownloadGroupProperties(CCmdUI* pCmdUI);
-	afx_msg void OnDownloadGroupProperties();
-	afx_msg void OnUpdateDownloadGroupResume(CCmdUI* pCmdUI);
-	afx_msg void OnDownloadGroupResume();
-	afx_msg void OnUpdateDownloadGroupPause(CCmdUI* pCmdUI);
-	afx_msg void OnDownloadGroupPause();
-	afx_msg void OnUpdateDownloadGroupClear(CCmdUI* pCmdUI);
-	afx_msg void OnDownloadGroupClear();
-	afx_msg void OnDownloadGroupOpen();
 
 	friend class TabItem;
 };

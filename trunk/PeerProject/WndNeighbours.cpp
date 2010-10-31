@@ -2,21 +2,18 @@
 // WndNeighbours.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2007.
+// Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
@@ -35,6 +32,7 @@
 #include "ChatWindows.h"
 #include "CoolInterface.h"
 #include "Colors.h"
+#include "Flags.h"
 #include "Skin.h"
 
 #include "WndMain.h"
@@ -46,13 +44,12 @@
 #include "DlgURLCopy.h"
 #include "DlgSettingsManager.h"
 
-#include "Flags.h"
 
 #ifdef _DEBUG
-#define new DEBUG_NEW
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
-#endif
+#define new DEBUG_NEW
+#endif	// Filename
 
 IMPLEMENT_SERIAL(CNeighboursWnd, CPanelWnd, 0)
 
@@ -91,7 +88,9 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CNeighboursWnd construction
 
-CNeighboursWnd::CNeighboursWnd() : CPanelWnd( TRUE, TRUE ), m_nProtocolRev( 0 )
+CNeighboursWnd::CNeighboursWnd()
+	: CPanelWnd( TRUE, TRUE )
+//	, m_tLastUpdate( 0 )
 {
 	Create( IDR_NEIGHBOURSFRAME );
 }
@@ -116,33 +115,42 @@ int CNeighboursWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	m_wndList.SetExtendedStyle( LVS_EX_DOUBLEBUFFER|LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP|LVS_EX_LABELTIP|LVS_EX_SUBITEMIMAGES );
 
-	CBitmap bmImages;
-	bmImages.LoadBitmap( IDB_PROTOCOLS );
-	if ( Settings.General.LanguageRTL )
-		bmImages.m_hObject = CreateMirroredBitmap( (HBITMAP)bmImages.m_hObject );
+// Obsolete for reference:
+//	CBitmap bmImages;
+//	//bmProtocols.LoadBitmap( IDB_PROTOCOLS );
+//
+//	CImageFile pFile;
+//	HBITMAP hBitmap;
+//	pFile.LoadFromResource( AfxGetResourceHandle(), IDB_PROTOCOLS, RT_PNG );
+//	hBitmap = pFile.CreateBitmap();
+//	bmImages.Attach( hBitmap );
+//
+//	if ( Settings.General.LanguageRTL )
+//		bmImages.m_hObject = CreateMirroredBitmap( (HBITMAP)bmImages.m_hObject );
+//
+//	m_gdiImageList.Create( 16, 16, ILC_COLOR32|ILC_MASK, 7, 1 ) ||
+//	m_gdiImageList.Create( 16, 16, ILC_COLOR24|ILC_MASK, 7, 1 ) ||
+//	m_gdiImageList.Create( 16, 16, ILC_COLOR16|ILC_MASK, 7, 1 );
+//	m_gdiImageList.Add( &bmImages, RGB( 0, 255, 0 ) );
+//	bmImages.DeleteObject();
+//
+//	const int nImages = m_gdiImageList.GetImageCount();
+//	const int nFlags = Flags.m_pImage.GetImageCount();
+//	VERIFY( m_gdiImageList.SetImageCount( nImages + nFlags ) );
+//
+//	for ( int nFlag = 0 ; nFlag < nFlags ; nFlag++ )
+//	{
+//		if ( HICON hIcon = Flags.m_pImage.ExtractIcon( nFlag ) )
+//		{
+//			VERIFY( m_gdiImageList.Replace( nImages + nFlag, hIcon ) != -1 );
+//			VERIFY( DestroyIcon( hIcon ) );
+//		}
+//	}
 
-	m_gdiImageList.Create( 16, 16, ILC_COLOR32|ILC_MASK, 7, 1 ) ||
-	m_gdiImageList.Create( 16, 16, ILC_COLOR24|ILC_MASK, 7, 1 ) ||
-	m_gdiImageList.Create( 16, 16, ILC_COLOR16|ILC_MASK, 7, 1 );
-	m_gdiImageList.Add( &bmImages, RGB( 0, 255, 0 ) );
-
-	// Merge protocols and flags in one image list
-	int nImages = m_gdiImageList.GetImageCount();
-	int nFlags = Flags.m_pImage.GetImageCount();
-	m_nProtocolRev = nImages - 1; // save the max index
-
-	m_gdiImageList.SetImageCount( nImages + nFlags );
-	for ( int nFlag = 0 ; nFlag < nFlags ; nFlag++ )
-	{
-		if ( HICON hIcon = Flags.m_pImage.ExtractIcon( nFlag ) )
-		{
-			m_gdiImageList.Replace( nImages + nFlag, hIcon );
-			VERIFY( DestroyIcon( hIcon ) );
-		}
-	}
-
-	m_wndList.SetImageList( &m_gdiImageList, LVSIL_SMALL );
-	bmImages.DeleteObject();
+	// Merge protocols and flags in one image list (OnSkin)
+//	CoolInterface.LoadIconsTo( m_gdiImageList, protocolIDs );
+//	CoolInterface.LoadFlagsTo( m_gdiImageList );
+//	m_wndList.SetImageList( &m_gdiImageList, LVSIL_SMALL );
 
 	m_wndList.InsertColumn( 0, _T("Address"), LVCFMT_LEFT, 110, -1 );
 	m_wndList.InsertColumn( 1, _T("Port"), LVCFMT_CENTER, 44, 0 );
@@ -263,7 +271,7 @@ void CNeighboursWnd::Update()
 				}
 
 				pItem->Set( 8, str );
-				pItem->m_nImage = Settings.General.LanguageRTL ? m_nProtocolRev - PROTOCOL_G1 : PROTOCOL_G1;
+				pItem->SetImage( PROTOCOL_G1 );
 			}
 			else if ( pNeighbour->m_nProtocol == PROTOCOL_G2 )
 			{
@@ -295,13 +303,13 @@ void CNeighboursWnd::Update()
 					pItem->Set( 7, _T("?") );
 				}
 
-				pItem->m_nImage = Settings.General.LanguageRTL ? m_nProtocolRev - PROTOCOL_G2 : PROTOCOL_G2;
+				pItem->SetImage( PROTOCOL_G2 );
 			}
 			else if ( pNeighbour->m_nProtocol == PROTOCOL_ED2K )
 			{
 				CEDNeighbour* pED2K = static_cast<CEDNeighbour*>(pNeighbour);
 
-				pItem->m_nImage = Settings.General.LanguageRTL ? m_nProtocolRev - PROTOCOL_ED2K : PROTOCOL_ED2K;
+				pItem->SetImage( PROTOCOL_ED2K );
 				pItem->Set( 8, _T("eDonkey") );
 				pItem->Set( 10, pED2K->m_sServerName );
 
@@ -323,12 +331,12 @@ void CNeighboursWnd::Update()
 			}
 			else
 			{
-				pItem->m_nImage = Settings.General.LanguageRTL ? m_nProtocolRev : PROTOCOL_NULL;
+				pItem->SetImage( PROTOCOL_NULL );
 			}
 		}
 		else
 		{
-			pItem->m_nImage = Settings.General.LanguageRTL ? m_nProtocolRev : PROTOCOL_NULL;
+			pItem->SetImage( PROTOCOL_NULL );
 		}
 
 		if ( pNeighbour->m_pProfile != NULL )
@@ -337,7 +345,7 @@ void CNeighboursWnd::Update()
 		pItem->Set( 11, pNeighbour->m_sCountry );
 		const int nFlagIndex = Flags.GetFlagIndex( pNeighbour->m_sCountry );
 		if ( nFlagIndex >= 0 )
-			pItem->SetImage( &m_wndList, (int)(size_t)pNeighbour, 11, m_nProtocolRev + nFlagIndex + 1 );
+			pItem->SetImage( PROTOCOL_LAST + nFlagIndex, 11 );
 	}
 
 	pLiveList.Apply( &m_wndList, TRUE );
@@ -609,20 +617,15 @@ void CNeighboursWnd::OnSkinChange()
 	Settings.LoadList( _T("CNeighboursWnd"), &m_wndList );
 	Skin.CreateToolBar( _T("CNeighboursWnd"), &m_wndToolBar );
 
+	CoolInterface.LoadIconsTo( m_gdiImageList, protocolIDs );
+	CoolInterface.LoadFlagsTo( m_gdiImageList );
+
+	m_wndList.SetImageList( &m_gdiImageList, LVSIL_SMALL );
+
 	if ( m_wndList.SetBkImage( Skin.GetWatermark( _T("CNeighboursWnd") ) ) )
 		m_wndList.SetExtendedStyle( LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP|LVS_EX_LABELTIP|LVS_EX_SUBITEMIMAGES );	// No LVS_EX_DOUBLEBUFFER
 	else
 		m_wndList.SetBkColor( Colors.m_crWindow );
-
-	for ( int nImage = 0 ; nImage < 4 ; nImage++ )
-	{
-		HICON hIcon = CoolInterface.ExtractIcon( (UINT)protocolCmdMap[ nImage ].commandID, FALSE );
-		if ( hIcon )
-		{
-			m_gdiImageList.Replace( Settings.General.LanguageRTL ? m_nProtocolRev - nImage : nImage, hIcon );
-			DestroyIcon( hIcon );
-		}
-	}
 }
 
 void CNeighboursWnd::OnCustomDrawList(NMHDR* pNMHDR, LRESULT* pResult)
@@ -646,7 +649,7 @@ void CNeighboursWnd::OnCustomDrawList(NMHDR* pNMHDR, LRESULT* pResult)
 		if ( m_wndList.GetBkColor() == Colors.m_crWindow )
 			pDraw->clrTextBk = Colors.m_crWindow;
 
-		int nImage = Settings.General.LanguageRTL ? m_nProtocolRev - pItem.iImage : pItem.iImage;
+		int nImage = pItem.iImage;
 		switch ( nImage )
 		{
 		case PROTOCOL_NULL:
@@ -660,6 +663,9 @@ void CNeighboursWnd::OnCustomDrawList(NMHDR* pNMHDR, LRESULT* pResult)
 			break;
 		case PROTOCOL_ED2K:
 			pDraw->clrText = Colors.m_crNetworkED2K;
+			break;
+		case PROTOCOL_DC:
+			pDraw->clrText = Colors.m_crNetworkDC;
 			break;
 		}
 

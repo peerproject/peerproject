@@ -2,46 +2,42 @@
 // CtrlDownloads.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2008.
+// Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
 #include "PeerProject.h"
 #include "Settings.h"
-#include "Transfers.h"
+#include "CtrlDownloads.h"
+#include "WndDownloads.h"
 #include "Downloads.h"
 #include "Download.h"
 #include "DownloadSource.h"
 #include "DownloadTransfer.h"
+#include "Transfers.h"
+#include "FragmentBar.h"
 #include "CoolInterface.h"
 #include "ShellIcons.h"
-#include "FragmentBar.h"
 #include "Skin.h"
 #include "Colors.h"
-#include "CoolInterface.h"
-#include "CtrlDownloads.h"
-#include "WndDownloads.h"
 #include "Flags.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
-#endif
+#endif	// Filename
 
 IMPLEMENT_DYNAMIC(CDownloadsCtrl, CWnd)
 
@@ -152,14 +148,7 @@ int CDownloadsCtrl::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	LoadColumnState();
 
-	CBitmap bmImages;
-	bmImages.LoadBitmap( IDB_PROTOCOLS );
-	if ( Settings.General.LanguageRTL )
-		bmImages.m_hObject = CreateMirroredBitmap( (HBITMAP)bmImages.m_hObject );
-	m_pProtocols.Create( 16, 16, ILC_COLOR32|ILC_MASK, 7, 1 ) ||
-	m_pProtocols.Create( 16, 16, ILC_COLOR24|ILC_MASK, 7, 1 ) ||
-	m_pProtocols.Create( 16, 16, ILC_COLOR16|ILC_MASK, 7, 1 );
-	m_pProtocols.Add( &bmImages, RGB( 0, 255, 0 ) );
+//	CoolInterface.LoadIconsTo( m_pProtocols, protocolIDs );
 
 	m_nGroupCookie		= 0;
 	m_nFocus			= 0;
@@ -1039,7 +1028,7 @@ void CDownloadsCtrl::PaintDownload(CDC& dc, const CRect& rcRow, CDownload* pDown
 		if ( pDownload->m_bVerify == TRI_FALSE )
 			crText = bSelected ? Colors.m_crTransferVerifyFailSelected : Colors.m_crTransferVerifyFail;
 		else if ( pDownload->IsSeeding() && pDownload->m_nTorrentUploaded < pDownload->m_nSize )
- 			crText = bSelected ? Colors.m_crTransferVerifyPassSelected : Colors.m_crTransferVerifyPass;
+			crText = bSelected ? Colors.m_crTransferVerifyPassSelected : Colors.m_crTransferVerifyPass;
 		else
 			crText = bSelected ? Colors.m_crTransferCompletedSelected : Colors.m_crTransferCompleted;
 	}
@@ -1168,7 +1157,7 @@ void CDownloadsCtrl::PaintDownload(CDC& dc, const CRect& rcRow, CDownload* pDown
 			{
 				if ( rcCell.Width() > 50 )
 					strText.Format( _T("%.2f%%"), pDownload->GetProgress() );
-  				else
+				else
 					strText.Format( _T("%i%%"), int( pDownload->GetProgress() ) );
 			}
 			break;
@@ -1205,17 +1194,17 @@ void CDownloadsCtrl::PaintDownload(CDC& dc, const CRect& rcRow, CDownload* pDown
 			{
 				if ( rcCell.Width() > 50 )
 				{
- 					if ( pDownload->IsSeeding() )
- 						strText.Format( _T("%.2f%%"), pDownload->GetRatio() );
- 					else
- 						strText.Format( _T("%.2f%%"), pDownload->GetProgress() );
-  				}
-  				else
-  				{
- 					if ( pDownload->IsSeeding() )
- 						strText.Format( _T("%i%%"), int( pDownload->GetRatio() ) );
- 					else
- 						strText.Format( _T("%i%%"), int( pDownload->GetProgress() ) );
+					if ( pDownload->IsSeeding() )
+						strText.Format( _T("%.2f%%"), pDownload->GetRatio() );
+					else
+						strText.Format( _T("%.2f%%"), pDownload->GetProgress() );
+				}
+				else
+				{
+					if ( pDownload->IsSeeding() )
+						strText.Format( _T("%i%%"), int( pDownload->GetRatio() ) );
+					else
+						strText.Format( _T("%i%%"), int( pDownload->GetProgress() ) );
 				}
 			}
 			else
@@ -1406,7 +1395,7 @@ void CDownloadsCtrl::PaintSource(CDC& dc, const CRect& rcRow, CDownload* pDownlo
 				else if ( rcCell.Width() > 50 )
 					strText.Format( _T("%.2f%%"),
 						float( pSource->m_oAvailable.length_sum() * 10000 / pSource->m_pDownload->m_nSize ) / 100 );
-  				else
+				else
 					strText.Format( _T("%i%%"), int( pSource->m_oAvailable.length_sum() * 100 / pSource->m_pDownload->m_nSize ) );
 			}
 			break;
@@ -1462,8 +1451,8 @@ void CDownloadsCtrl::PaintSource(CDC& dc, const CRect& rcRow, CDownload* pDownlo
 				dc.FillSolidRect( rcCell.left, rcCell.top, 20, rcCell.Height(), crBack );
 			rcCell.left += 3;
 			if ( nFlagImage >= 0 )
-				ImageList_DrawEx( Flags.m_pImage, nFlagImage, dc.GetSafeHdc(),
-					rcCell.left, rcCell.top, 16, 16, crBack, CLR_DEFAULT, pSource->m_bSelected ? ILD_SELECTED : ILD_NORMAL );
+				Flags.Draw( nFlagImage, dc.GetSafeHdc(),
+					rcCell.left, rcCell.top, crBack, CLR_DEFAULT, pSource->m_bSelected ? ILD_SELECTED : ILD_NORMAL );
 			rcCell.left += 16;
 
 			strText = pSource->m_sCountry;
@@ -1494,14 +1483,14 @@ void CDownloadsCtrl::PaintSource(CDC& dc, const CRect& rcRow, CDownload* pDownlo
 
 		switch ( pColumn.fmt & LVCFMT_JUSTIFYMASK )
 		{
-		default:
-			nPosition = ( rcCell.left + 4 );
-			break;
 		case LVCFMT_CENTER:
 			nPosition = ( ( rcCell.left + rcCell.right ) / 2 ) - ( nWidth / 2 );
 			break;
 		case LVCFMT_RIGHT:
 			nPosition = ( rcCell.right - 4 - nWidth );
+			break;
+		default:
+			nPosition = ( rcCell.left + 4 );
 			break;
 		}
 
@@ -1540,16 +1529,17 @@ void CDownloadsCtrl::OnSkinChange()
 {
 	m_wndHeader.SetFont( &CoolInterface.m_fntNormal );
 
-	// int nRevStart = m_pProtocols.GetImageCount() - 1;
-	for ( int nImage = 1 ; nImage < 7 ; nImage++ )
-	{
-		HICON hIcon = CoolInterface.ExtractIcon( (UINT)protocolCmdMap[ nImage ].commandID, FALSE );
-		if ( hIcon )
-		{
-			m_pProtocols.Replace( Settings.General.LanguageRTL ? /*nRevStart -*/ nImage : nImage, hIcon );
-			DestroyIcon( hIcon );
-		}
-	}
+	CoolInterface.LoadIconsTo( m_pProtocols, protocolIDs );
+
+	// Obsolete for reference:
+	//for ( int nImage = 1 ; nImage < PROTOCOL_LAST ; nImage++ )
+	//{
+	//	if ( HICON hIcon = CoolInterface.ExtractIcon( (UINT)protocolCmdMap[ nImage ].commandID, FALSE ) )
+	//	{
+	//		m_pProtocols.Replace( nImage, hIcon );
+	//		DestroyIcon( hIcon );
+	//	}
+	//}
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -1682,54 +1672,54 @@ void CDownloadsCtrl::BubbleSortDownloads(int nColumn)	// BinaryInsertionSortDown
 			{
 				switch ( nColumn )
 				{
-					case DOWNLOAD_COLUMN_TITLE:
-						if ( x->GetDisplayName().CompareNoCase( y->GetDisplayName() ) < 0 )
-							bOK = TRUE;
-						else
-							bRlBk = FALSE;
-						break;
-					case DOWNLOAD_COLUMN_SIZE:
-						if ( x->m_nSize < y->m_nSize )
-							bOK = TRUE;
-						else
-							bRlBk = FALSE;
-						break;
-					case DOWNLOAD_COLUMN_PROGRESS:
-						if ( x->GetProgress() < y->GetProgress() )
-							bOK = TRUE;
-						else
-							bRlBk = FALSE;
-						break;
-					case DOWNLOAD_COLUMN_SPEED:
-						if ( x->GetMeasuredSpeed() < y->GetMeasuredSpeed() )
-							bOK = TRUE;
-						else
-							bRlBk = FALSE;
-						break;
-					case DOWNLOAD_COLUMN_STATUS:
-						if ( x->GetDownloadStatus().CompareNoCase( y->GetDownloadStatus() ) < 0 )
-							bOK = TRUE;
-						else
-							bRlBk = FALSE;
-						break;
-					case DOWNLOAD_COLUMN_CLIENT:
-						if ( x->GetClientStatus() < y->GetClientStatus() )
-							bOK = TRUE;
-						else
-							bRlBk = FALSE;
-						break;
-					case DOWNLOAD_COLUMN_DOWNLOADED:
-						if ( x->GetVolumeComplete() < y->GetVolumeComplete() )
-							bOK = TRUE;
-						else
-							bRlBk = FALSE;
-						break;
-					case DOWNLOAD_COLUMN_PERCENTAGE:
-						if ( ((double)(x->GetVolumeComplete() ) / (double)(x->m_nSize)) < ((double)(y->GetVolumeComplete() ) / (double)(y->m_nSize)) )
-							bOK = TRUE;
-						else
-							bRlBk = FALSE;
-						break;
+				case DOWNLOAD_COLUMN_TITLE:
+					if ( x->GetDisplayName().CompareNoCase( y->GetDisplayName() ) < 0 )
+						bOK = TRUE;
+					else
+						bRlBk = FALSE;
+					break;
+				case DOWNLOAD_COLUMN_SIZE:
+					if ( x->m_nSize < y->m_nSize )
+						bOK = TRUE;
+					else
+						bRlBk = FALSE;
+					break;
+				case DOWNLOAD_COLUMN_PROGRESS:
+					if ( x->GetProgress() < y->GetProgress() )
+						bOK = TRUE;
+					else
+						bRlBk = FALSE;
+					break;
+				case DOWNLOAD_COLUMN_SPEED:
+					if ( x->GetMeasuredSpeed() < y->GetMeasuredSpeed() )
+						bOK = TRUE;
+					else
+						bRlBk = FALSE;
+					break;
+				case DOWNLOAD_COLUMN_STATUS:
+					if ( x->GetDownloadStatus().CompareNoCase( y->GetDownloadStatus() ) < 0 )
+						bOK = TRUE;
+					else
+						bRlBk = FALSE;
+					break;
+				case DOWNLOAD_COLUMN_CLIENT:
+					if ( x->GetClientStatus() < y->GetClientStatus() )
+						bOK = TRUE;
+					else
+						bRlBk = FALSE;
+					break;
+				case DOWNLOAD_COLUMN_DOWNLOADED:
+					if ( x->GetVolumeComplete() < y->GetVolumeComplete() )
+						bOK = TRUE;
+					else
+						bRlBk = FALSE;
+					break;
+				case DOWNLOAD_COLUMN_PERCENTAGE:
+					if ( ((double)(x->GetVolumeComplete() ) / (double)(x->m_nSize)) < ((double)(y->GetVolumeComplete() ) / (double)(y->m_nSize)) )
+						bOK = TRUE;
+					else
+						bRlBk = FALSE;
+					break;
 				} //end switch
 			}
 			else // Sort Ascending

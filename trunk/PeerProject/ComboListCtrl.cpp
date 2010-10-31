@@ -2,21 +2,18 @@
 // ComboListCtrl.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2008.
+// Portions copyright Shareaza Development Team, 2008.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 // ComboBoxes and ToolTips currently Disabled (Using Checkboxes and Labeltips)
@@ -70,36 +67,34 @@ void CComboListCtrl::SetColumnValues(int iColumn, const CIntStringMap& oValues)
 //	ON_NOTIFY_REFLECT(NM_CLICK, &CComboListCtrl::OnNMClick)
 //	ON_WM_MOUSEMOVE()
 //END_MESSAGE_MAP()
-
+//
 // CComboListCtrl message handlers
-
+//
 //void CComboListCtrl::OnNMClick(NMHDR *pNMHDR, LRESULT *pResult)
 //{
 //	LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>( pNMHDR );
 //	*pResult = 0;
-
+//
 //	Hide();
-
+//
 //	int iItem = HitTest( pNMItemActivate->ptAction );
 //	if ( iItem >= 0 && pNMItemActivate->iSubItem > 0 )
-//	{
 //		Show( iItem, pNMItemActivate->iSubItem );
-//	}
 //}
-
+//
 //int CComboListCtrl::HitTest(const CPoint& ptAction)
 //{
 //	CPoint pt( 16, ptAction.y );
 //	UINT flags = 0;
 //	return CListCtrl::HitTest( pt, &flags );
 //}
-
+//
 //void CComboListCtrl::OnMouseMove(UINT nFlags, CPoint point)
 //{
 //	if ( m_pCombo )
 //	{
 //		if ( m_pTip.get() ) m_pTip->Hide();
-
+//
 //		CPoint pt;
 //		GetCursorPos( &pt );
 //		CRect rc;
@@ -117,21 +112,21 @@ void CComboListCtrl::SetColumnValues(int iColumn, const CIntStringMap& oValues)
 //	}
 //	CListCtrl::OnMouseMove(nFlags, point);
 //}
-
+//
 //void CComboListCtrl::Show(int iItem, int iSubItem)
 //{
 //	CIntIntStringMapMap::const_iterator column = m_oColumns.find( iSubItem );
 //	if ( column != m_oColumns.end() )
 //	{
 //		CIntIntMap::const_iterator data = m_oData[ iItem ].find( iSubItem );
-
+//
 //		CRect rc;
 //		if ( GetSubItemRect( iItem, iSubItem, LVIR_BOUNDS, rc ) )
 //		{
 //			m_pCombo = new CComboBox();
 //			m_pCombo->Create( WS_CHILD | WS_VISIBLE | WS_BORDER | CBS_DROPDOWNLIST, rc, this, 100 );
 //			m_pCombo->SetFont( GetFont() );
-
+//
 //			int n = 0, nSelected = 0;
 //			for( CIntStringMap::const_iterator i = (*column).second.begin();
 //				i != (*column).second.end(); ++i, ++n )
@@ -158,13 +153,13 @@ void CComboListCtrl::SetColumnValues(int iColumn, const CIntStringMap& oValues)
 //		CIntStringMap::const_iterator value = (*column).second.begin();
 //		int nSelected = m_pCombo->GetCurSel();
 //		for( int i = 0; i != nSelected; ++value, ++i );
-
+//
 //		m_oData[ m_iSelectedItem ].erase( m_iSelectedSubItem );
 //		m_oData[ m_iSelectedItem ].insert(
 //			CIntIntMap::value_type( m_iSelectedSubItem, (*value).first ) );
 //
 //		SetItemText( m_iSelectedItem, m_iSelectedSubItem, (*value).second );
-
+//
 //		m_pCombo->DestroyWindow();
 //		delete m_pCombo;
 //		m_pCombo = NULL;

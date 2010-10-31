@@ -1,23 +1,22 @@
 //
 // DlgConnectTo.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
-// Portions Copyright Shareaza Development Team, 2002-2007.
+// This file is part of PeerProject (peerproject.org) © 2008-2010
+// Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
-//
+
+// ConnectTo, BrowseTo, ChatTo, multifunction IP control
 
 #include "StdAfx.h"
 #include "PeerProject.h"
@@ -26,10 +25,10 @@
 #include "CoolInterface.h"
 
 #ifdef _DEBUG
-#define new DEBUG_NEW
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
-#endif
+#define new DEBUG_NEW
+#endif	// Filename
 
 typedef struct {
 	CString		sHost;
@@ -38,6 +37,8 @@ typedef struct {
 } CONNECT_HOST_DATA;
 
 const LPCTSTR CONNECT_SECTION = _T("ConnectTo");
+
+IMPLEMENT_DYNAMIC(CConnectToDlg, CSkinDialog)
 
 BEGIN_MESSAGE_MAP(CConnectToDlg, CSkinDialog)
 	ON_WM_MEASUREITEM()
@@ -51,19 +52,19 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CConnectToDlg dialog
 
-CConnectToDlg::CConnectToDlg(CWnd* pParent, BOOL bBrowseHost) :
-	CSkinDialog		( CConnectToDlg::IDD, pParent )
-,	m_bNoUltraPeer	( FALSE )
-,	m_nPort			( GNUTELLA_DEFAULT_PORT )
-,	m_nProtocol		( 1 )							// G2 Protocol
-,	m_bBrowseHost	( bBrowseHost )
+CConnectToDlg::CConnectToDlg(CWnd* pParent, Type nType)
+	: CSkinDialog		( CConnectToDlg::IDD, pParent )
+	, m_nType			( nType )
+	, m_nPort			( GNUTELLA_DEFAULT_PORT )
+	, m_nProtocol		( PROTOCOL_G2 )
+	, m_bNoUltraPeer	( FALSE )
 {
 }
 
 void CConnectToDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CSkinDialog::DoDataExchange(pDX);
-	DDX_Control(pDX, IDC_CONNECT_ADVANCED, m_wndAdvanced);
+//	DDX_Control(pDX, IDC_CONNECT_ADVANCED, m_wndAdvanced);
 	DDX_Control(pDX, IDC_CONNECT_PROTOCOL, m_wndProtocol);
 	DDX_Control(pDX, IDC_CONNECT_ULTRAPEER, m_wndUltrapeer);
 	DDX_Control(pDX, IDC_CONNECT_PROMPT, m_wndPrompt);
@@ -72,7 +73,6 @@ void CConnectToDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_CBString(pDX, IDC_CONNECT_HOST, m_sHost);
 	DDX_Check(pDX, IDC_CONNECT_ULTRAPEER, m_bNoUltraPeer);
 	DDX_Text(pDX, IDC_CONNECT_PORT, m_nPort);
-	DDX_CBIndex(pDX, IDC_CONNECT_PROTOCOL, m_nProtocol);
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -82,36 +82,28 @@ BOOL CConnectToDlg::OnInitDialog()
 {
 	CSkinDialog::OnInitDialog();
 
-	SkinMe( _T("CConnectToDlg"), m_bBrowseHost ? ID_NETWORK_BROWSE_TO : ID_NETWORK_CONNECT_TO );
+	SkinMe( _T("CConnectToDlg"),
+		( ( m_nType == Connect ) ? ID_NETWORK_CONNECT_TO :
+		( ( m_nType == Browse ) ? ID_NETWORK_BROWSE_TO :
+		/*( m_nType == Chat ) ?*/ ID_NETWORK_CHAT_TO ) ) );
 
-	SelectCaption( this, m_bBrowseHost );
-	SelectCaption( &m_wndPrompt, m_bBrowseHost );
+	SelectCaption( this, (int)m_nType );
+	SelectCaption( &m_wndPrompt, (int)m_nType );
 
-	// Load default images
-	CBitmap bmImages;
-	bmImages.LoadBitmap( IDB_PROTOCOLS );
-	if ( Settings.General.LanguageRTL )
-		bmImages.m_hObject = CreateMirroredBitmap( (HBITMAP)bmImages.m_hObject );
+	CoolInterface.LoadIconsTo( m_gdiProtocols, protocolIDs );
 
-	m_pImages.Create( 16, 16, ILC_COLOR32|ILC_MASK, 7, 1 ) ||
-	m_pImages.Create( 16, 16, ILC_COLOR24|ILC_MASK, 7, 1 ) ||
-	m_pImages.Create( 16, 16, ILC_COLOR16|ILC_MASK, 7, 1 );
-	m_pImages.Add( &bmImages, RGB( 0, 255, 0 ) );
+	m_wndProtocol.ResetContent();
+	m_wndProtocol.SetItemData(
+		m_wndProtocol.AddString( protocolNames[ PROTOCOL_G2 ] ), PROTOCOL_G2 );
+	m_wndProtocol.SetItemData(
+		m_wndProtocol.AddString( protocolNames[ PROTOCOL_G1 ] ), PROTOCOL_G1 );
+	m_wndProtocol.SetItemData(
+		m_wndProtocol.AddString( protocolNames[ PROTOCOL_ED2K ] ), PROTOCOL_ED2K );
+	m_wndProtocol.SetItemData(
+		m_wndProtocol.AddString( protocolNames[ PROTOCOL_DC ] ), PROTOCOL_DC );
 
-	// Replace with the skin images (if fails old images remain)
-	for ( int nImage = 1 ; nImage < 4 ; nImage++ )
-	{
-		HICON hIcon = CoolInterface.ExtractIcon( (UINT)protocolCmdMap[ nImage ].commandID, FALSE );
-		if ( hIcon )
-		{
-			m_pImages.Replace( nImage, hIcon );
-			DestroyIcon( hIcon );
-		}
-	}
-
-	m_wndAdvanced.ShowWindow( m_bBrowseHost ? SW_HIDE : SW_SHOW );
-//	m_wndProtocol.ShowWindow( m_bBrowseHost ? SW_HIDE : SW_SHOW );
-	m_wndUltrapeer.ShowWindow( m_bBrowseHost ? SW_HIDE : SW_SHOW );
+	//m_wndAdvanced.ShowWindow( ( m_nType == Connect ) ? SW_SHOW : SW_HIDE );
+	m_wndUltrapeer.ShowWindow( ( m_nType == Connect ) ? SW_SHOW : SW_HIDE );
 	m_wndUltrapeer.EnableWindow( FALSE );
 
 	int nItem, nCount = theApp.GetProfileInt( CONNECT_SECTION, _T("Count"), 0 );
@@ -139,7 +131,8 @@ BOOL CConnectToDlg::OnInitDialog()
 				pData->nPort <= 65535 &&
 				( pData->nProtocol == PROTOCOL_G1 ||
 				  pData->nProtocol == PROTOCOL_G2 ||
-				  pData->nProtocol == PROTOCOL_ED2K ) &&
+				  pData->nProtocol == PROTOCOL_ED2K ||
+				  pData->nProtocol == PROTOCOL_DC ) &&
 				m_wndHost.FindStringExact( -1, pData->sHost ) == CB_ERR )
 			{
 				int nIndex = m_wndHost.AddString( pData->sHost );
@@ -178,9 +171,9 @@ void CConnectToDlg::LoadItem(int nItem)
 	{
 		m_sHost		= pData->sHost;
 		m_nPort		= pData->nPort;
-		m_nProtocol	= pData->nProtocol - 1;
+		m_nProtocol	= pData->nProtocol;
 	}
-	m_wndUltrapeer.EnableWindow( ( m_nProtocol + 1 ) == PROTOCOL_G1 );
+	m_wndUltrapeer.EnableWindow( m_nProtocol == PROTOCOL_G1 );
 	UpdateData( FALSE );
 }
 
@@ -197,7 +190,7 @@ void CConnectToDlg::OnCbnSelchangeConnectProtocol()
 {
 	if ( ! UpdateData () ) return;
 
-	m_wndUltrapeer.EnableWindow( ( m_nProtocol + 1 ) == PROTOCOL_G1 );
+	m_wndUltrapeer.EnableWindow( m_nProtocol == PROTOCOL_G1 );
 }
 
 void CConnectToDlg::OnMeasureItem(int /*nIDCtl*/, LPMEASUREITEMSTRUCT lpMeasureItemStruct)
@@ -230,14 +223,7 @@ void CConnectToDlg::OnDrawItem(int /*nIDCtl*/, LPDRAWITEMSTRUCT lpDrawItemStruct
 		? COLOR_HIGHLIGHT : COLOR_WINDOW ) );
 	dc.SetBkMode( TRANSPARENT );
 
-	int nImage = (int)lpDrawItemStruct->itemID;
-
-	if ( Settings.General.LanguageRTL )
-		nImage = m_pImages.GetImageCount() - nImage - 2;
-	else
-		nImage++;
-
-	m_pImages.Draw( &dc, nImage, pt,
+	m_gdiProtocols.Draw( &dc, lpDrawItemStruct->itemData, pt,
 		( lpDrawItemStruct->itemState & ODS_SELECTED ) ? ILD_SELECTED : ILD_NORMAL );
 
 	m_wndProtocol.GetLBText( lpDrawItemStruct->itemID, str );
@@ -284,7 +270,7 @@ BOOL CConnectToDlg::UpdateItems()
 		CONNECT_HOST_DATA* pData = static_cast< CONNECT_HOST_DATA* >( m_wndHost.GetItemDataPtr( nItem ) );
 		ASSERT( pData != NULL && reinterpret_cast< INT_PTR >( pData ) != -1 );
 		pData->nPort = m_nPort;
-		pData->nProtocol = (PROTOCOLID)( m_nProtocol + 1 );
+		pData->nProtocol = m_nProtocol;
 		if( m_wndHost.GetCurSel() != nItem ) m_wndHost.SetCurSel( nItem );
 	}
 	else
@@ -296,7 +282,7 @@ BOOL CConnectToDlg::UpdateItems()
 		{
 			pData->sHost = m_sHost;
 			pData->nPort = m_nPort;
-			pData->nProtocol = (PROTOCOLID)( m_nProtocol + 1 );
+			pData->nProtocol = m_nProtocol;
 			nItem = m_wndHost.AddString( pData->sHost );
 			ASSERT( nItem != CB_ERR );
 			VERIFY( m_wndHost.SetItemDataPtr( nItem, pData ) != CB_ERR );
@@ -305,6 +291,28 @@ BOOL CConnectToDlg::UpdateItems()
 	}
 
 	return TRUE;
+}
+
+BOOL CConnectToDlg::UpdateData(BOOL bSaveAndValidate)
+{
+	if ( bSaveAndValidate )
+	{
+		m_nProtocol = (PROTOCOLID)m_wndProtocol.GetItemData( m_wndProtocol.GetCurSel() );
+	}
+	else
+	{
+		int nIndex = 0;
+		for ( int i = 0; i < m_wndProtocol.GetCount(); i++ )
+		{
+			if ( (PROTOCOLID)m_wndProtocol.GetItemData( i ) == m_nProtocol )
+			{
+				nIndex = i;
+				break;
+			}
+		}
+		m_wndProtocol.SetCurSel( nIndex );
+	}
+	return CSkinDialog::UpdateData( bSaveAndValidate );
 }
 
 void CConnectToDlg::SaveItems()

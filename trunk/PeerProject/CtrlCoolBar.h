@@ -1,26 +1,20 @@
 //
 // CtrlCoolBar.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
-// Portions Copyright Shareaza Development Team, 2002-2007.
+// This file is part of PeerProject (peerproject.org) © 2008-2010
+// Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
-//
-
-#if !defined(CTRLCOOLBAR_H)
-#define CTRLCOOLBAR_H
 
 #pragma once
 
@@ -129,26 +123,31 @@ public:
 
 // Attributes
 public:
-	BOOL		m_bVisible;
-	BOOL		m_bEnabled;
-	BOOL		m_bChecked;
-public:
-	int			m_nImage;
 	CString		m_sText;
 	CString		m_sTip;
 	COLORREF	m_crText;
+	int			m_nImage;
 	UINT		m_nCtrlID;
 	int			m_nCtrlHeight;
-	BOOL		m_bRegularButton;	// Button with image and text
+
+	BOOL		m_bVisible;
+	BOOL		m_bEnabled;
+	BOOL		m_bChecked;
 	BOOL		m_bCheckButton;		// Button with check mark and text
-	CBitmap		m_bmButtonmark;
+
 protected:
-	CCoolBarCtrl*	m_pBar;
-	BOOL			m_bDirty;
-	int				m_nWidth;
+	CCoolBarCtrl* m_pBar;
+	int			m_nWidth;
+	BOOL		m_bChanged;
+
+protected:
+	void	Paint(CDC* pDC, CRect& rc, BOOL bDown, BOOL bHot, BOOL bMenuGray, BOOL bTransparent);
+	void	DrawText(CDC* pDC, CRect& rc, BOOL bDown, BOOL bHot, BOOL bMenuGray, BOOL bTransparent);
 
 // Operations
 public:
+	static CCoolBarItem* FromCmdUI(CCmdUI* pUI);
+
 	virtual void Show(BOOL bOn);
 	virtual void Enable(BOOL bOn);
 	virtual void SetCheck(int nCheck);
@@ -156,12 +155,6 @@ public:
 	virtual void SetText(LPCTSTR lpszText);
 	virtual void SetTip(LPCTSTR pszTip);
 	virtual void SetTextColor(COLORREF crText = 0xFFFFFFFF);
-protected:
-	void	Paint(CDC* pDC, CRect& rc, BOOL bDown, BOOL bHot, BOOL bMenuGray, BOOL bTransparent);
-	void	DrawText(CDC* pDC, CRect& rc, BOOL bDown, BOOL bHot, BOOL bMenuGray, BOOL bTransparent);
-public:
-	void	SetButtonmark(HBITMAP hBitmap);
-	static CCoolBarItem* FromCmdUI(CCmdUI* pUI);
 
 	friend class CCoolBarCtrl;
 };
@@ -173,6 +166,3 @@ public:
 #ifndef ID_RIGHTALIGN
 #define ID_RIGHTALIGN -1
 #endif
-
-
-#endif // !defined(CTRLCOOLBAR_H)

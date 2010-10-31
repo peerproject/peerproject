@@ -2,21 +2,18 @@
 // EDPacket.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2007.
+// Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
@@ -36,7 +33,7 @@
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
-#endif
+#endif	// Filename
 
 CEDPacket::CEDPacketPool CEDPacket::POOL;
 
@@ -164,7 +161,7 @@ void CEDPacket::WriteFile(const CPeerProjectFile* pPeerProjectFile, QWORD nSize,
 	BYTE nRating = 0;
 	if ( bSmlTags && pFile )
 	{
-		if ( pFile->m_pSchema && pFile->m_pSchema->m_sDonkeyType.GetLength() )
+		if ( pFile->m_pSchema && ! pFile->m_pSchema->m_sDonkeyType.IsEmpty() )
 		{
 			// File type
 			strType = pFile->m_pSchema->m_sDonkeyType;
@@ -219,13 +216,13 @@ void CEDPacket::WriteFile(const CPeerProjectFile* pPeerProjectFile, QWORD nSize,
 	DWORD nTags = 2; // File name and size are always present
 	if ( nSize > MAX_SIZE_32BIT ) nTags++;
 	if ( pClient ) nTags += 2; //3;
-	if ( strType.GetLength() ) nTags++;
-	if ( strTitle.GetLength() ) nTags++;
-	if ( strArtist.GetLength() ) nTags++;
-	if ( strAlbum.GetLength() ) nTags++;
+	if ( ! strType.IsEmpty() ) nTags++;
+	if ( ! strTitle.IsEmpty() ) nTags++;
+	if ( ! strArtist.IsEmpty() ) nTags++;
+	if ( ! strAlbum.IsEmpty() ) nTags++;
+	if ( ! strCodec.IsEmpty() )  nTags++;
 	if ( nBitrate )	 nTags++;
 	if ( nLength ) nTags++;
-	if ( strCodec.GetLength() )  nTags++;
 	if ( nRating )  nTags++;
 	WriteLongLE( nTags );
 
@@ -250,20 +247,24 @@ void CEDPacket::WriteFile(const CPeerProjectFile* pPeerProjectFile, QWORD nSize,
 		CEDTag( ED2K_FT_LASTSEENCOMPLETE, 0ull ).Write( this, bUnicode, bSmlTags );
 
 	// File type
-	if ( strType.GetLength() )
+	if ( ! strType.IsEmpty() )
 		CEDTag( ED2K_FT_FILETYPE, strType ).Write( this, bUnicode, bSmlTags );
 
 	// Title
-	if ( strTitle.GetLength() )
+	if ( ! strTitle.IsEmpty() )
 		CEDTag( ED2K_FT_TITLE, strTitle ).Write( this, bUnicode, bSmlTags );
 
 	// Artist
-	if ( strArtist.GetLength() )
+	if ( ! strArtist.IsEmpty() )
 		CEDTag( ED2K_FT_ARTIST, strArtist ).Write( this, bUnicode, bSmlTags );
 
 	// Album
-	if ( strAlbum.GetLength() )
+	if ( ! strAlbum.IsEmpty() )
 		CEDTag( ED2K_FT_ALBUM, strAlbum ).Write( this, bUnicode, bSmlTags );
+
+	// Codec
+	if ( ! strCodec.IsEmpty() )
+		CEDTag( ED2K_FT_CODEC, strCodec ).Write( this, bUnicode, bSmlTags );
 
 	// Bitrate
 	if ( nBitrate )
@@ -272,10 +273,6 @@ void CEDPacket::WriteFile(const CPeerProjectFile* pPeerProjectFile, QWORD nSize,
 	// Length
 	if ( nLength )
 		CEDTag( ED2K_FT_LENGTH, nLength ).Write( this, bUnicode, bSmlTags );
-
-	// Codec
-	if ( strCodec.GetLength() )
-		CEDTag( ED2K_FT_CODEC, strCodec ).Write( this, bUnicode, bSmlTags );
 
 	// File rating
 	if ( nRating )

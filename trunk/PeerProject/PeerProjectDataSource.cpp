@@ -2,21 +2,18 @@
 // PeerProjectDataSource.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2008.
+// Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
@@ -35,10 +32,10 @@
 #include "StreamArchive.h"
 
 #ifdef _DEBUG
-#define new DEBUG_NEW
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
-#endif
+#define new DEBUG_NEW
+#endif	// Filename
 
 #ifdef _DEBUG
 
@@ -446,7 +443,7 @@ HRESULT CPeerProjectDataSource::ObjectToFiles(IDataObject* pIDataObject, CList <
 						sFile = ResolveShortcut( sFile );
 					}
 
-					if ( sFile.GetLength() )
+					if ( ! sFile.IsEmpty() )
 						oFiles.AddTail( sFile );
 				}
 				hr = ( oFiles.GetCount() > 0 ) ? S_OK : S_FALSE;
@@ -527,7 +524,7 @@ BOOL CPeerProjectDataSource::DropToFolder(IDataObject* pIDataObject, DWORD grfKe
 			if ( len > 4 && ! lstrcmpiA( pFrom + len - 4, ".lnk" ) )
 				sFile = ResolveShortcut( sFile );
 
-			if ( sFile.GetLength() )
+			if ( ! sFile.IsEmpty() )
 			{
 				pAFOP->sFrom.SetSize( pAFOP->sFrom.GetSize() + sFile.GetLength() + 1 );
 				CopyMemory( pAFOP->sFrom.GetData() + offset,
@@ -547,7 +544,7 @@ BOOL CPeerProjectDataSource::DropToFolder(IDataObject* pIDataObject, DWORD grfKe
 			if ( len > 4 && ! lstrcmpiW( pFrom + len - 4, L".lnk" ) )
 			{
 				CStringW sFile = ResolveShortcut( pFrom );
-				if ( sFile.GetLength() )
+				if ( ! sFile.IsEmpty() )
 				{
 					pAFOP->sFrom.SetSize( pAFOP->sFrom.GetSize() + sFile.GetLength() + 1 );
 					CopyMemory( pAFOP->sFrom.GetData() + offset,
@@ -875,14 +872,13 @@ HRESULT CPeerProjectDataSource::AddFiles(IDataObject* pIDataObject, const T* pSe
 		return E_OUTOFMEMORY;
 
 	LPBYTE buf_Files = oFiles;
-
 	CString buf_Text;
 
 	// Fill structures
 	FillBuffer( pSelFirst, buf_HDROP, buf_Archive, buf_Files, buf_Text, TRUE, oGUID );
 
 	// Finalize CF_TEXT
-	if ( buf_Text.GetLength() )
+	if ( ! buf_Text.IsEmpty() )
 	{
 		STGMEDIUM medium_Text = { TYMED_HGLOBAL, NULL, NULL };
 		FORMATETC formatetc_Text = { CF_TEXT, NULL, DVASPECT_CONTENT, -1, TYMED_HGLOBAL };
@@ -1011,7 +1007,8 @@ HRESULT CPeerProjectDataSource::AddRefStgMedium(STGMEDIUM *pstgmIn, STGMEDIUM *p
 	if (  ( pstgmIn->pUnkForRelease == NULL ) &&
 		! ( pstgmIn->tymed & ( TYMED_ISTREAM | TYMED_ISTORAGE ) ) )
 	{
-		if ( fCopyIn ) {
+		if ( fCopyIn )
+		{
 			// Object needs to be cloned
 			if ( pstgmIn->tymed == TYMED_HGLOBAL )
 			{
@@ -1031,13 +1028,13 @@ HRESULT CPeerProjectDataSource::AddRefStgMedium(STGMEDIUM *pstgmIn, STGMEDIUM *p
 	{
 		switch ( stgmOut.tymed )
 		{
-			case TYMED_ISTREAM:
-				stgmOut.pstm->AddRef();
-				break;
+		case TYMED_ISTREAM:
+			stgmOut.pstm->AddRef();
+			break;
 
-			case TYMED_ISTORAGE:
-				stgmOut.pstg->AddRef();
-				break;
+		case TYMED_ISTORAGE:
+			stgmOut.pstg->AddRef();
+			break;
 		}
 		if ( stgmOut.pUnkForRelease )
 			stgmOut.pUnkForRelease->AddRef();
@@ -1417,7 +1414,7 @@ void CPeerProjectDataSource::FillBuffer(const CLibraryList* pList, LPTSTR& buf_H
 							pFile->m_oED2K.toUrn(),
 							pFile->m_nSize,
 							URLEncode( pFile->m_sName ) );
-						if ( buf_Text.GetLength() )
+						if ( ! buf_Text.IsEmpty() )
 							buf_Text += _T("\r\n\r\n");
 						buf_Text += sTemp;
 					}

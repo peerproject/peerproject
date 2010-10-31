@@ -1346,10 +1346,6 @@
 					>
 				</File>
 				<File
-					RelativePath="..\PeerProject\CtrlNetworkCombo.cpp"
-					>
-				</File>
-				<File
 					RelativePath="..\PeerProject\CtrlPanel.cpp"
 					DeploymentContent="true"
 					>
@@ -2917,10 +2913,6 @@
 					>
 				</File>
 				<File
-					RelativePath="..\PeerProject\CtrlNetworkCombo.h"
-					>
-				</File>
-				<File
 					RelativePath="..\PeerProject\CtrlPanel.h"
 					>
 				</File>
@@ -3800,7 +3792,19 @@
 				>
 			</File>
 			<File
-				RelativePath="..\PeerProject\Res\CopyVista.cur"
+				RelativePath="..\PeerProject\Res\ContactGoogle.ico"
+				>
+			</File>
+			<File
+				RelativePath="..\PeerProject\Res\ContactTwitter.ico"
+				>
+			</File>
+			<File
+				RelativePath="..\PeerProject\Res\ContactFacebook.ico"
+				>
+			</File>
+			<File
+				RelativePath="..\PeerProject\Res\Copy.cur"
 				>
 			</File>
 			<File
@@ -4023,7 +4027,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\PeerProject\Res\MoveVista.cur"
+				RelativePath="..\PeerProject\Res\Move.cur"
 				>
 			</File>
 			<File

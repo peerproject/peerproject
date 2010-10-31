@@ -30,8 +30,8 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
-				Description="Copying DLL Services and SVN Revision..."
-				CommandLine="copy /b /y &quot;..\Services\zlib\$(ConfigurationName) $(PlatformName)\zlibwapi.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy /b /y &quot;..\HashLib\$(ConfigurationName) $(PlatformName)\HashLib.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy /b /y &quot;..\Services\SQLite\$(ConfigurationName) $(PlatformName)\SQLite.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;cscript.exe //nologo Revision.js&#x0D;&#x0A;"
+				Description="Pre-Build Dependencies..."
+				CommandLine="PreBuild.cmd $(ConfigurationName) $(PlatformName)"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -52,7 +52,7 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/Wall"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\Services;..\zlib"
+				AdditionalIncludeDirectories="..\Services"
 				PreprocessorDefinitions="_DEBUG;WIN32;_WINDOWS;_PEERPROJECT;PEERPROJECT_USE_ASM;ZLIB_WINAPI;ZLIB_DLL"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -85,6 +85,7 @@
 				IgnoreDefaultLibraryNames=""
 				GenerateDebugInformation="true"
 				SubSystem="2"
+				LargeAddressAware="2"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -122,8 +123,8 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
-				Description="Copying DLL Services and SVN Revision..."
-				CommandLine="copy /b /y &quot;..\Services\zlib\$(ConfigurationName) $(PlatformName)\zlibwapi.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy /b /y &quot;..\HashLib\$(ConfigurationName) $(PlatformName)\HashLib.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy /b /y &quot;..\Services\SQLite\$(ConfigurationName) $(PlatformName)\SQLite.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;cscript.exe //nologo Revision.js&#x0D;&#x0A;"
+				Description="Pre-Build Dependencies..."
+				CommandLine="PreBuild.cmd $(ConfigurationName) $(PlatformName)"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -145,7 +146,7 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/Wall"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\Services;..\zlib"
+				AdditionalIncludeDirectories="..\Services"
 				PreprocessorDefinitions="_DEBUG;WIN64;_WINDOWS;_PEERPROJECT;ZLIB_WINAPI;ZLIB_DLL"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -177,6 +178,7 @@
 				IgnoreDefaultLibraryNames=""
 				GenerateDebugInformation="true"
 				SubSystem="2"
+				LargeAddressAware="2"
 				TargetMachine="17"
 				KeyFile=""
 			/>
@@ -216,8 +218,8 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
-				Description="Copying DLL Services and SVN Revision..."
-				CommandLine="copy /b /y &quot;..\Services\zlib\$(ConfigurationName) $(PlatformName)\zlibwapi.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy /b /y &quot;..\HashLib\$(ConfigurationName) $(PlatformName)\HashLib.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy /b /y &quot;..\Services\SQLite\$(ConfigurationName) $(PlatformName)\SQLite.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;cscript.exe //nologo Revision.js&#x0D;&#x0A;"
+				Description="Pre-Build Dependencies..."
+				CommandLine="PreBuild.cmd $(ConfigurationName) $(PlatformName)"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -243,7 +245,7 @@
 				FavorSizeOrSpeed="1"
 				OmitFramePointers="true"
 				EnableFiberSafeOptimizations="true"
-				AdditionalIncludeDirectories="..\Services;..\zlib"
+				AdditionalIncludeDirectories="..\Services"
 				PreprocessorDefinitions="NDEBUG;WIN32;_WINDOWS;_PEERPROJECT;PEERPROJECT_USE_ASM;ZLIB_WINAPI;ZLIB_DLL"
 				StringPooling="true"
 				RuntimeLibrary="0"
@@ -276,6 +278,7 @@
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
 				SetChecksum="true"
+				LargeAddressAware="2"
 				TargetMachine="1"
 				KeyFile=""
 			/>
@@ -315,8 +318,8 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
-				Description="Copying DLL Services and SVN Revision..."
-				CommandLine="copy /b /y &quot;..\Services\zlib\$(ConfigurationName) $(PlatformName)\zlibwapi.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy /b /y &quot;..\HashLib\$(ConfigurationName) $(PlatformName)\HashLib.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy /b /y &quot;..\Services\SQLite\$(ConfigurationName) $(PlatformName)\SQLite.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;cscript.exe //nologo Revision.js&#x0D;&#x0A;"
+				Description="Pre-Build Dependencies..."
+				CommandLine="PreBuild.cmd $(ConfigurationName) $(PlatformName)"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -343,7 +346,7 @@
 				FavorSizeOrSpeed="1"
 				OmitFramePointers="true"
 				EnableFiberSafeOptimizations="true"
-				AdditionalIncludeDirectories="..\Services;..\zlib"
+				AdditionalIncludeDirectories="..\Services"
 				PreprocessorDefinitions="NDEBUG;WIN64;_WINDOWS;_PEERPROJECT;ZLIB_WINAPI;ZLIB_DLL"
 				StringPooling="true"
 				RuntimeLibrary="0"
@@ -377,6 +380,7 @@
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
 				SetChecksum="true"
+				LargeAddressAware="2"
 				TargetMachine="17"
 				KeyFile=""
 			/>
@@ -730,6 +734,10 @@
 			</File>
 			<File
 				RelativePath="ImageServices.cpp"
+				>
+			</File>
+			<File
+				RelativePath="Images.cpp"
 				>
 			</File>
 			<File
@@ -1980,10 +1988,6 @@
 					>
 				</File>
 				<File
-					RelativePath="CtrlNetworkCombo.cpp"
-					>
-				</File>
-				<File
 					RelativePath="CtrlPanel.cpp"
 					>
 				</File>
@@ -3002,6 +3006,10 @@
 				>
 			</File>
 			<File
+				RelativePath="Images.h"
+				>
+			</File>
+			<File
 				RelativePath="Kademlia.h"
 				>
 			</File>
@@ -3606,10 +3614,6 @@
 				</File>
 				<File
 					RelativePath="CtrlNeighbourTip.h"
-					>
-				</File>
-				<File
-					RelativePath="CtrlNetworkCombo.h"
 					>
 				</File>
 				<File
@@ -4471,11 +4475,11 @@
 				>
 			</File>
 			<File
-				RelativePath="Res\CommandImages.bmp"
+				RelativePath="Res\CommandImages.png"
 				>
 			</File>
 			<File
-				RelativePath="Res\CommandIRC.bmp"
+				RelativePath="Res\CommandIRC.png"
 				>
 			</File>
 			<File
@@ -4484,22 +4488,6 @@
 			</File>
 			<File
 				RelativePath="Res\Computer.ico"
-				>
-			</File>
-			<File
-				RelativePath="Res\ContactAOL.ico"
-				>
-			</File>
-			<File
-				RelativePath="Res\ContactICQ.ico"
-				>
-			</File>
-			<File
-				RelativePath="Res\ContactMSN.ico"
-				>
-			</File>
-			<File
-				RelativePath="Res\ContactYahoo.ico"
 				>
 			</File>
 			<File
@@ -4803,7 +4791,7 @@
 				>
 			</File>
 			<File
-				RelativePath="Res\Protocols.bmp"
+				RelativePath="Res\Protocols.png"
 				>
 			</File>
 			<File
@@ -4852,6 +4840,10 @@
 			</File>
 			<File
 				RelativePath="Res\SmallStar.bmp"
+				>
+			</File>
+			<File
+				RelativePath="Res\Social.png"
 				>
 			</File>
 			<File
@@ -4927,6 +4919,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\ReadMe.txt"
+				>
+			</File>
+			<File
 				RelativePath="..\Data\Splash.png"
 				>
 			</File>
@@ -4979,66 +4975,6 @@
 				RelativePath="..\Schemas\SchemaMappings.xml.gz"
 				>
 			-->
-			</File>
-		</Filter>
-		<Filter
-			Name="Library Files"
-			>
-			<File
-				RelativePath="..\Services\BugTrap\BugTrapLib\BugTrapU-x64.lib"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|x64"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\Services\BugTrap\BugTrapLib\BugTrapU.lib"
-				>
-				<FileConfiguration
-					Name="Debug|x64"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|x64"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-					/>
-				</FileConfiguration>
 			</File>
 		</Filter>
 	</Files>

@@ -11,7 +11,7 @@
     		<attribute from="publisher" to="copyright"/>
     		<attribute from="edition" to="revision"/>
     		<attribute from="description" to="abstract"/>
-   	</target>
+	</target>
     </schemaMapping>
     <schemaMapping sourceURI="http://www.shareaza.com/schemas/wordProcessing.xsd">
     	<target uri="http://www.limewire.com/schemas/book.xsd">

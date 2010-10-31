@@ -3,8 +3,8 @@
 
 <!-- PeerProject Default Czech Skin File -->
 
-<!-- Translation based on default-en.xml r59 (Shareaza 2.2.5.7) -->
-<!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
+<!-- Translation based on default-en.xml r60 (Shareaza 2.2.5.7) -->
+<!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
 <!-- Use this file as a basis for creating new language skins,   -->
@@ -62,6 +62,7 @@
 		<button id="ID_VIEW_MEDIA"/>
 		<button id="ID_TAB_IRC"/>
 		<separator/>
+		<button id="ID_VIEW_SCHEDULER"/>
 		<button id="ID_VIEW_SECURITY"/>
 		<button id="ID_VIEW_HOSTS"/>
 		<button id="ID_VIEW_DISCOVERY"/>
@@ -1628,7 +1629,7 @@
 			<newline gap="8" indent="42"/>
 			<anchor id="SearchBox" width="256" height="80"/>
 			<newline gap="14" indent="0"/>
-			<icon res="124" width="32" height="32" target="command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
+			<icon res="122" width="32" height="32" target="command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
 			<heading align="middle">ZAČNĚTE STAHOVAT</heading>
 			<newline gap="8" indent="42"/>
 			<link target="command:ID_TOOLS_DOWNLOAD" format="bu">Klikněte sem pro</link>
@@ -1636,6 +1637,9 @@
 			<newline gap="2" indent="42"/>
 			<text>Nebo otevřit adresář se </text>
 			<link target="command:shell:downloads">staženými soubory.</link>
+			<newline gap="4" indent="42"/>
+			<text>Podělte se o své soubory na </text>
+			<link id="RemoteBrowseURL"/>
 			<newline gap="20" indent="0"/>
 		</group>
 		<group id="3">
@@ -1683,26 +1687,26 @@
 		<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">UPRAVTE SI PEERPROJECT</heading>
 		<newline gap="12" indent="42"/>
-		<icon res="196"width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
-		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">Skiny</link>
-		<text align="middle">&#160;- Změní vzhled &amp; prostředí PeerProject</text>
+		<icon res="196" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
+		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">Skiny</link><gap size="6"/>
+		<text align="middle">- Změní vzhled &amp; prostředí PeerProject</text>
 		<newline gap="8"/>
-		<icon res="138"width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
-		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
-		<text align="middle">&#160;- Update blocklist</text>
+		<icon res="138" width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
+		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link><gap size="6"/>
+		<text align="middle">- Update blocklist</text>
 		<newline gap="8"/>
-		<icon res="197"width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
-		<link target="command:ID_TOOLS_WIZARD" align="middle">Průvodce nastavením</link>
-		<text align="middle">&#160;- Upraví nastavení PeerProject</text>
+		<icon res="197" width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
+		<link target="command:ID_TOOLS_WIZARD" align="middle">Průvodce nastavením</link><gap size="6"/>
+		<text align="middle">- Upraví nastavení PeerProject</text>
 		<newline gap="8"/>
-		<icon res="182"width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
-		<link target="command:ID_HELP_FAQ" align="middle">Rychlá Nápověda</link>
-		<text align="middle">&#160;- Otevře Nápovědu jak používat PeerProject, o </text>
+		<icon res="182" width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
+		<link target="command:ID_HELP_FAQ" align="middle">Rychlá Nápověda</link><gap size="6"/>
+		<text align="middle">- Otevře Nápovědu jak používat PeerProject, o </text>
 		<link target="command:ID_TAB_IRC" align="middle">IRC.</link>
 		<newline gap="8"/>
-		<icon res="201"width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
-		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">Místní Fórum</link>
-		<text align="middle">&#160;- Přejít na české diskusní fórum jazyk</text>
+		<icon res="201" width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
+		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">Místní Fórum</link><gap size="6"/>
+		<text align="middle">- Přejít na české diskusní fórum jazyk</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
 			<icon res="120" width="32" height="32"/><gap size="8"/>
@@ -1928,7 +1932,7 @@
 		</group>
 		<group id="41">
 			<newline gap="1"/>
-			<icon res="208"/><gap size="5"/>
+			<icon res="207"/><gap size="5"/>
 			<link id="ContactYahoo"/>
 		</group>
 		<group id="42">
@@ -1969,7 +1973,7 @@
 			<newline gap="16" indent="0"/>
 			<text format="b">Společenství</text>
 			<newline gap="4" indent="8"/>
-			<icon res="127"target="command:ID_SEARCH_CHAT"/>
+			<icon res="127" target="command:ID_SEARCH_CHAT"/>
 			<gap size="5"/>
 			<link target="command:ID_SEARCH_CHAT" align="middle">Pokec s uživatelem</link>
 		</group>
@@ -2908,8 +2912,8 @@
 	<string id="20441" value="PeerProject nemohla přejmenovat:\n\n%sn\na\n%s"/>
 	<string id="20442" value="Cílový soubor již existuje:\n\n%s\n\nChcete jej přepsat?"/>
 	<string id="20443" value="Zobrazit všecny typy souborů"/>
-	<string id="20444" value="Kopírovat &URI"/>
-	<string id="20445" value="Export &URIs..."/>
+	<string id="20444" value="Kopírovat URI"/>
+	<string id="20445" value="Export URIs..."/>
 	<string id="20446" value="U souboru &quot;%s&quot; se nepodařilo ověřit hash. Je možné, že soubor není ten, který jste chtěli stáhnout. Opravdu jej chcete otevřít?"/>
 	<string id="20447" value="Chcete odstranit &quot;potenciálně nebezpečnou&quot; vlastnist z tohoto souboru?"/>
 	<string id="20448" value="Soubor &quot;%s&quot; ještě nemá hash. Prosím čekejte než bude pro soubor vypočítán hash, a potom to zkuste znovu."/>
@@ -3032,13 +3036,15 @@
 	<string id="20590" value="Vzdálený přístup je vypnutý."/>
 	<string id="20591" value="http://%s:%i/remote - Musíte zadat uživatelské jméno a heslo."/>
 	<string id="20592" value="Nelze přijmout spojení, URL je nedostupné."/>
-	<string id="20595" value="&schéma"/>
+	<string id="20597" value="Checte smazat vybraná bezpoečnostní pravidla? Tato operace je nevratná."/>
+	<string id="20599" value="schéma"/>
+	<!-- Missing Scheduler/Security Strings -->
 	<string id="20620" value="PeerProject aktivně prohledává síť..."/>
 	<string id="20621" value="Kliknutím zde hledáte znovu"/>
 	<string id="20622" value="Všechny sítě"/>
 	<string id="20623" value="Chystáte se začít nové hledání. Chcete vymazat výsledky předchozího hledání?"/>
 	<string id="20624" value="Tato oblast zobrazuje více informací o vybraných souborech ."/>
-	<string id="20625" value="%s >>> upozorňuje <<<:"/>
+	<string id="20625" value="%s upozorňuje:"/>
 	<string id="20626" value="%s rychlosti tohoto souboru:"/>
 	<string id="20627" value="Klikni pro náhled"/>
 	<string id="20628" value="Prohlížím..."/>
@@ -3080,7 +3086,6 @@
 	<string id="20668" value="Vyhledávám..."/>
 	<string id="20669" value="Hledání jednoduchého textu"/>
 	<string id="20670" value="PeerProject vyhledává v síti..."/>
-	<string id="20671" value="Checte smazat vybraná bezpoečnostní pravidla? Tato operace je nevratná."/>
 	<string id="20672" value="Vyberte dočasný adresář eDonkey/eMule :"/>
 	<string id="20673" value="Automaticky"/>
 	<string id="20674" value="Adresář se neúplnými soubory by neměl být stejný jako adresář se staženými soubory."/>
@@ -3251,7 +3256,7 @@
 	<string id="20884" value="Žadné URN není dostupné"/>
 	<string id="20885" value="Změna směru vyžaduje restart.\nBudete muset spustit PeerProject ručně. Ukončit?"/>
 	<string id="20890" value="Vítejte v PeerProject"/>
-	<string id="20891" value="K&onec"/>
+	<string id="20891" value="K&amp;onec"/>
 	<string id="20892" value="Prosím čekejte, aktualizuji seznam eDonkey serverů..."/>
 	<string id="20893" value="Prosím čekejte, aktualizuji vyhledávací služby..."/>
 	<string id="20894" value="Prosím čekejte, hledám UPnP zařízení a nastavuji je..."/>
@@ -3755,18 +3760,21 @@
 		<control caption="Použít"/>
 		<control/>
 	</dialog>
-	<dialog name="CIdentityProfilePage" cookie="BuStEdStEdEdBuCoStCoStBu" caption="Identita">
+	<dialog name="CIdentityProfilePage" cookie="BuStStEdEdEdBuStStCoCoBuStBuBu" caption="Identita">
 		<control caption="_Jméno:"/>
 		<control caption="Přezdívka:"/>
-		<control/>
 		<control caption="Vlastní jméno:"/>
 		<control/>
 		<control/>
-		<control caption="_Zadejte:"/>
-		<control caption="|Muž|Žena"/>
-		<control caption="Pohlaví:"/>
 		<control/>
+		<control caption="_Zadejte:"/>
+		<control caption="Pohlaví:"/>
 		<control caption="Věk:"/>
+		<control caption="|Muž|Žena"/>
+		<control/>
+		<control caption="Info:"/>
+		<control caption="{n}G2 (PeerProject / Shareaza)"/>
+		<control caption="_Použít:"/>
 		<control caption="Povolit ostatním prohlížet můj profil"/>
 	</dialog>
 	<dialog name="CAvatarProfilePage" cookie="BuStBuStBuBu" caption="Podobenka">
@@ -3777,23 +3785,7 @@
 		<control caption="_Procházet..."/>
 		<control caption="Odst_ranit"/>
 	</dialog>
-	<dialog name="CContactProfilePage" cookie="BuStEdBuStEdStEdStEdStEdStEd" caption="Kontakt">
-		<control caption="_Emailová adresa:"/>
-		<control caption="Hlavní adresa:"/>
-		<control/>
-		<control caption="_Naléhavé zprávy:"/>
-		<control caption="Heslo MSN/.NET:"/>
-		<control/>
-		<control caption="Yahoo ID:"/>
-		<control/>
-		<control caption="ICQ UIN:"/>
-		<control/>
-		<control caption="Přezdívka v AOL:"/>
-		<control/>
-		<control caption="Jabber ID:"/>
-		<control/>
-	</dialog>
-	<dialog name="CProfileProfilePage" cookie="BuStCoStCoBuStEdStEdBuLiBuBuCo" caption="Profil">
+	<dialog name="CProfileProfilePage" cookie="BuStCoStCoBuStEdStEdBuLiBuBuCo" caption="Umístění">
 		<control caption="_Umístění:"/>
 		<control caption="Země:"/>
 		<control/>
@@ -3806,11 +3798,38 @@
 		<control/>
 		<control caption="Zá_jmy:"/>
 		<control/>
-		<control caption="&lt; Přidat"/>
-		<control caption="Odstranit &gt;"/>
+		<control caption="Přidat &gt;"/>
+		<control caption="&lt; Odstranit"/>
+		<control/>
+	</dialog>
+	<dialog name="CContactProfilePage" cookie="BuStEdBuStEdStEdStEdStEdStEdStEdStEdStEd" caption="Kontakt">
+		<control caption="_Emailová adresa:"/>
+		<control caption="Hlavní adresa:"/>
+		<control/>
+		<control caption="_Naléhavé zprávy:"/>
+		<control caption="PeerProject.org:"/>
+		<control/>
+		<control caption="Facebook:"/>
+		<control/>
+		<control caption="Twitter:"/>
+		<control/>
+		<control caption="Google:"/>
+		<control/>
+		<control caption="MSN/Live:"/>
+		<control/>
+		<control caption="Yahoo:"/>
+		<control/>
+		<control caption="AOL:"/>
+		<control/>
+		<control caption="ICQ:"/>
 		<control/>
 	</dialog>
 	<dialog name="CBioProfilePage" cookie="Ed" caption="Bio">
+		<control/>
+	</dialog>
+	<dialog name="CFilesProfilePage" cookie="BuStSy" caption="Oblíbené">
+		<control caption="_Oblíbené soubory:"/>
+		<control caption="Doporučte své oblíbené soubory pro uživatele, kteří vás prohlížejí. Můžete vytvořit oblíbené soubory přidáním do složky &quot;Oblíbené&quot; ve vaší knihovně."/>
 		<control/>
 	</dialog>
 	<dialog name="CFavouritesProfilePage" cookie="SyBuStEdStEdBuBu" caption="Oblíbené">
@@ -3823,28 +3842,24 @@
 		<control caption="Nový"/>
 		<control caption="Odstranit"/>
 	</dialog>
-	<dialog name="CFilesProfilePage" cookie="BuStSy" caption="Soubory">
-		<control caption="_Oblíbené soubory:"/>
-		<control caption="Doporučte své oblíbené soubory pro uživatele, kteří vás prohlížejí. Můžete vytvořit oblíbené soubory přidáním do složky &quot;Oblíbené&quot; ve vaší knihovně."/>
+	<dialog name="CCertificateProfilePage" cookie="BuStStStStBuBuSt" caption="Ověření">
+		<control caption="_Celkově identifikuje jedinečnou certifikací:"/>
+		<control caption="Gnutella/G2 GUID:"/>
 		<control/>
-	</dialog>
-	<dialog name="CCertificateProfilePage" cookie="StBuStStStStBu" caption="Ověření">
-		<control caption="Uživatelé Gnutelly jsou celkově rozlišováni jedinečným identifikátorem a ověřováni veřejným a soukromým klíčem. Normálně není třeba generovat nové ID, nicméně PeerProject tuto možnost pro pokročilé uživatele umožňuje."/>
-		<control caption="_Gnutella celkově identifikuje jedinečnou certifikací:"/>
-		<control caption="GUID:"/>
-		<control/>
-		<control caption="Vytvořit:"/>
+		<control caption="BitTorrent GUID:"/>
 		<control/>
 		<control caption="Generovat nový"/>
+		<control caption="Info:"/>
+		<control caption="Uživatelé Gnutelly jsou celkově rozlišováni jedinečným identifikátorem a ověřováni veřejným a soukromým klíčem. Normálně není třeba generovat nové ID, nicméně PeerProject tuto možnost pro pokročilé uživatele umožňuje."/>
 	</dialog>
 	<dialog name="CLanguageDlg" cookie="" caption="Zvolte si jazyk">
 	</dialog>
-	<dialog name="CConnectToDlg" cookie="BuCoEdBuCoBuBuBu" caption="Připojit k|Prohlížet počítač">
-		<control caption="Otevřít nové připojení k uživateli nebo serveru:|Prohlížet tento počítač:"/>
+	<dialog name="CConnectToDlg" cookie="BuCoEdBuCoBuBuBu" caption="Připojit k|Prohlížet počítač|Chat with User">
+		<control caption="Otevřít nové připojení k uživateli nebo serveru:|Prohlížet tento počítač:|Message this user:"/>
 		<control/>
 		<control/>
 		<control caption="_Protokol sítě:"/>
-		<control caption="Gnutella1 (auto)|Gnutella2 (auto)|eDonkey"/>
+		<control/>
 		<control caption="Po_tlačit Ultrapeer"/>
 		<control caption="Připojit"/>
 		<control caption="Zrušit"/>
@@ -4281,14 +4296,16 @@
 		<control caption="Celkem odesláno:"/>
 		<control caption="Poznámky:"/>
 	</dialog>
-	<dialog name="CDownloadEditPage" cookie="StBuStStStBuStEdEdEdBuEdBuEdBuEdBuEdBuEd" caption="Upravit stahování (Pokročilé)">
+	<dialog name="CDownloadEditPage" cookie="StBuStStStStBuStEdEdEdSyBuEdBuEdBuEdBuEdBuEd" caption="Upravit stahování (Pokročilé)">
 		<control caption="UPOZORNĚNÍ: Pokročilé úpravy stahování jsou pro zkušené uživatele. Pokud je nesprávně použijete mohou a pravděpodobně způsobí poškození souboru."/>
 		<control caption="Jméno a velikost soubrou:"/>
 		<control caption="Jméno souboru:"/>
 		<control caption="Velikost:"/>
-		<control caption="Byte Size:"/>
+		<control caption="Byte Velikost:"/>
+		<control caption="Datum:"/>
 		<control caption="URNs:"/>
 		<control caption="Důvěryhodné?"/>
+		<control/>
 		<control/>
 		<control/>
 		<control/>
@@ -4430,22 +4447,6 @@
 		<column from="Name" to="Název"/>
 		<column from="Country" to="Stát"/>
 	</list>
-	<list name="CSecurityWnd">
-		<column from="Address / Content" to="Adresa / Obsah"/>
-		<column from="Hits" to="Výsledky"/>
-		<column from="Action" to="Akce"/>
-		<column from="Expires" to="Vyprší"/>
-		<column from="#" to="Přednost"/>
-		<column from="Comment" to="Poznámka"/>
-	</list>
-	<list name="CSchedulerWnd">
-		<column from="Task" to="Akce"/>
-		<column from="Date" to="Datum"/>
-		<column from="Time" to="Čas"/>
-		<column from="Status" to="Stav"/>
-		<column from="Activity" to="Aktivní"/>
-		<column from="Description" to="Poznámka"/>
-	</list>
 	<list name="CHostCacheWnd">
 		<column from="Address" to="Adresa"/>
 		<column from="Port" to=""/>
@@ -4493,6 +4494,23 @@
 		<column from="Client" to="Klient"/>
 		<column from="Country" to="Stát"/>
 		<column from="Time" to="Čas"/>
+	</list>
+	<list name="CSecurityWnd">
+		<column from="Address / Content" to="Adresa / Obsah"/>
+		<column from="Hits" to="Výsledky"/>
+		<column from="#" to="Přednost"/>
+		<column from="Action" to="Akce"/>
+		<column from="Expires" to="Vyprší"/>
+		<column from="Match" to=""/>
+		<column from="Comment" to="Poznámka"/>
+	</list>
+	<list name="CSchedulerWnd">
+		<column from="Task" to="Akce"/>
+		<column from="Date" to="Datum"/>
+		<column from="Time" to="Čas"/>
+		<column from="Status" to="Stav"/>
+		<column from="Activity" to="Aktivní"/>
+		<column from="Comment" to="Poznámka"/>
 	</list>
 	<list name="CUploadQueueList">
 		<column from="Name" to="Název"/>

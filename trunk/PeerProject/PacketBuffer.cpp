@@ -1,28 +1,24 @@
 //
 // PacketBuffer.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
-// Portions Copyright Shareaza Development Team, 2002-2007.
+// This file is part of PeerProject (peerproject.org) © 2008-2010
+// Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 // CG1PacketBuffer holds arrays of packets to send, organized by their type
 // http://sourceforge.net/apps/mediawiki/shareaza/index.php?title=Developers.Code.CG1PacketBuffer
 
-// Copy in the contents of these files here before compiling
 #include "StdAfx.h"
 #include "PeerProject.h"
 #include "Settings.h"
@@ -32,12 +28,11 @@
 #include "Buffer.h"
 #include "Statistics.h"
 
-// If we are compiling in debug mode, replace the text "THIS_FILE" in the code with the name of this file
 #ifdef _DEBUG
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
-#endif
+#endif	// Filename
 
 //////////////////////////////////////////////////////////////////////
 // CG1PacketBuffer construction
@@ -94,9 +89,8 @@ void CG1PacketBuffer::Add(CG1Packet* pPacket, BOOL bBuffered)
 	{
 		// Add the added packet to the total
 		m_nTotal++;
-
-	} // Add had to overwrite a packet because there are already 64 of that type there
-	else
+	}
+	else	// Add had to overwrite a packet because there are already 64 of that type there
 	{
 		// Count the packet that was overwritten as dropped and lost
 		m_nDropped++;
@@ -317,4 +311,3 @@ void CG1PacketBufferType::Clear()
 	// Count is 0, reset head to that value also
 	m_nHead = 0;
 }
-

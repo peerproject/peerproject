@@ -2,21 +2,18 @@
 // DDEServer.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2007.
+// Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
@@ -31,7 +28,7 @@
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
-#endif
+#endif	// Filename
 
 CDDEServer DDEServer( _T("PeerProject") );
 
@@ -70,7 +67,7 @@ BOOL CDDEServer::Create()
 
 	m_hszService = DdeCreateStringHandle( m_hInstance, (LPCTSTR)m_sService, CP_WINUNICODE );
 
-    DdeNameService( m_hInstance, m_hszService, NULL, DNS_REGISTER );
+	DdeNameService( m_hInstance, m_hszService, NULL, DNS_REGISTER );
 
 	return TRUE;
 }
@@ -238,25 +235,9 @@ BOOL CDDEServer::Execute(LPCTSTR pszTopic, LPCTSTR pszMessage)
 	ASSERT( pszMessage );
 
 	if ( _tcscmp( pszTopic, _T("URL") ) == 0 )
-	{
 		return CPeerProjectApp::OpenURL( pszMessage );
-	}
 	else if ( _tcscmp( pszTopic, _T("PEERFORMAT") ) == 0 )
-	{
-		LPCTSTR pszType = PathFindExtension( pszMessage );
-		if ( _tcsicmp( pszType, _T(".torrent") ) == 0 ) 
-		{
-			return CPeerProjectApp::OpenTorrent( pszMessage );
-		}
-		else if ( _tcsicmp( pszType, _T(".co") ) == 0 ||
-				  _tcsicmp( pszType, _T(".collection") ) == 0 ||
-				  _tcsicmp( pszType, _T(".emulecollection") ) == 0 )
-		{
-			return CPeerProjectApp::OpenCollection( pszMessage );
-		}
-		else
-			theApp.Message( MSG_ERROR, _T("Received a file with a unknown extension: %s"), pszType );
-	}
+		return CPeerProjectApp::Open( pszMessage );
 
 	return FALSE;
 }

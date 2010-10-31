@@ -2,21 +2,18 @@
 // CtrlIconButton.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2007.
+// Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
@@ -24,12 +21,13 @@
 #include "CtrlIconButton.h"
 #include "CoolInterface.h"
 #include "Colors.h"
+#include "Images.h"
 
 #ifdef _DEBUG
-#define new DEBUG_NEW
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
-#endif
+#define new DEBUG_NEW
+#endif	// Filename
 
 IMPLEMENT_DYNAMIC(CIconButtonCtrl, CWnd)
 
@@ -51,12 +49,11 @@ END_MESSAGE_MAP()
 // CIconButtonCtrl construction
 
 CIconButtonCtrl::CIconButtonCtrl()
+	: m_bCursor 	( FALSE )
+	, m_bCapture	( FALSE )
+	, m_bDown		( FALSE )
 {
 	m_pImageList.Create( 16, 16, ILC_COLOR32|ILC_MASK, 1, 0 );
-
-	m_bCapture	= FALSE;
-	m_bDown		= FALSE;
-	m_bCursor	= FALSE;
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -220,7 +217,7 @@ void CIconButtonCtrl::OnPaint()
 
 	BOOL bTextButton = ( strText.IsEmpty() == false );
 
-	ptIcon.x = bTextButton ? ( rc.left + 5 ) : ( ( rc.left + rc.right ) / 2 - 8 );	// Rich Button (left) or Icon Button (centered)
+	ptIcon.x = bTextButton ? ( rc.left + 5 ) : ( ( rc.left + rc.right ) / 2 - 8 );		// Rich Button (left) or Icon Button (centered)
 	ptIcon.y = ( rc.top + rc.bottom ) / 2 - 8;
 
 	if ( rc.Width() < 20 || rc.Height() < 20 )		// Don't skin special case small buttons
@@ -238,29 +235,12 @@ void CIconButtonCtrl::OnPaint()
 
 	if ( m_bDown && m_bCapture )		// Pressed
 	{
-		if ( ! bTextButton && Skin.m_bmIconButtonPress.m_hObject )	// IconButton.Press
+		if ( ! bTextButton && Images.DrawButtonState( &dc, rc, ICONBUTTON_PRESS ) ) 	// IconButton.Press
 		{
-			CSize szButton( Skin.m_bmIconButtonPress.GetBitmapDimension() );
-			if ( szButton.cx > 18 && szButton.cy > 18 && szButton.cx < rc.Width() + 2 && szButton.cy < rc.Height() + 2 )
-			{
-				if ( ! Skin.m_bmDialog.m_hObject )
-					dc.FillSolidRect( &rc, dc.GetBkColor() );
-
-				// Set button rect to centered image size
-				rc.top += ( rc.Height() - szButton.cy ) / 2;
-				rc.left += ( rc.Width() - szButton.cx ) / 2;
-				rc.right = rc.left + szButton.cx;
-				rc.bottom = rc.top + szButton.cy;
-			}
-			CoolInterface.DrawWatermark( &dc, &rc, &Skin.m_bmIconButtonPress, FALSE );
 			bSkinned = TRUE;
 		}
-		else if ( Skin.m_bmRichButtonPress.m_hObject )	// RichButton.Press
+		else if ( Images.DrawButtonState( &dc, rc, RICHBUTTON_PRESS ) ) 				// RichButton.Press
 		{
-			CoolInterface.DrawWatermark( &dc, &rc, &Skin.m_bmRichButtonPress, FALSE );
-			if ( Skin.m_bmRichButtonPressPart.m_hObject )
-				CoolInterface.DrawWatermark( &dc, &rc, &Skin.m_bmRichButtonPressPart, FALSE,
-					rc.Width() - Skin.m_bmRichButtonPressPart.GetBitmapDimension().cx, 0 );
 			dc.SetBkMode( TRANSPARENT );
 			bSkinned = TRUE;
 			rc.left++;
@@ -277,29 +257,12 @@ void CIconButtonCtrl::OnPaint()
 	}
 	else if ( m_bDown != m_bCapture )	// Hover  (or Unpressed)
 	{
-		if ( ! bTextButton && Skin.m_bmIconButtonHover.m_hObject )	// IconButton.Hover
+		if ( ! bTextButton && Images.DrawButtonState( &dc, rc, ICONBUTTON_HOVER ) ) 	// IconButton.Hover
 		{
-			CSize szButton( Skin.m_bmIconButtonHover.GetBitmapDimension() );
-			if ( szButton.cx > 18 && szButton.cy > 18 && szButton.cx < rc.Width() + 2 && szButton.cy < rc.Height() + 2 )
-			{
-				if ( ! Skin.m_bmDialog.m_hObject )
-					dc.FillSolidRect( &rc, dc.GetBkColor() );
-
-				// Set button rect to centered image size
-				rc.top += ( rc.Height() - szButton.cy ) / 2;
-				rc.left += ( rc.Width() - szButton.cx ) / 2;
-				rc.right = rc.left + szButton.cx;
-				rc.bottom = rc.top + szButton.cy;
-			}
-			CoolInterface.DrawWatermark( &dc, &rc, &Skin.m_bmIconButtonHover, FALSE );
 			bSkinned = TRUE;
 		}
-		else if ( Skin.m_bmRichButtonHover.m_hObject )	// RichButton.Hover
+		else if ( Images.DrawButtonState( &dc, rc, RICHBUTTON_HOVER ) )					// RichButton.Hover
 		{
-			CoolInterface.DrawWatermark( &dc, &rc, &Skin.m_bmRichButtonHover, FALSE );
-			if ( Skin.m_bmRichButtonHoverPart.m_hObject )
-				CoolInterface.DrawWatermark( &dc, &rc, &Skin.m_bmRichButtonHoverPart, FALSE,
-					rc.Width() - Skin.m_bmRichButtonHoverPart.GetBitmapDimension().cx, 0 );
 			dc.SetBkMode( TRANSPARENT );
 			bSkinned = TRUE;
 			rc.left++;
@@ -329,31 +292,14 @@ void CIconButtonCtrl::OnPaint()
 		dc.ExcludeClipRect( ptIcon.x, ptIcon.y, ptIcon.x + 16, ptIcon.y + 16 );
 		ptIcon.Offset( 1, 1 );
 	}
-	else if ( IsWindowEnabled() && GetFocus() == this ) 	// Button w/ Focus
+	else if ( IsWindowEnabled() && GetFocus() == this ) 	// Button w/ Cursor Focus
 	{
-		if ( ! bTextButton && Skin.m_bmIconButtonFocus.m_hObject )	// IconButton.Focus
+		if ( ! bTextButton && Images.DrawButtonState( &dc, rc, ICONBUTTON_ACTIVE ) )	// IconButton.Active
 		{
-			CSize szButton( Skin.m_bmIconButtonFocus.GetBitmapDimension() );
-			if ( szButton.cx > 18 && szButton.cy > 18 && szButton.cx < rc.Width() + 2 && szButton.cy < rc.Height() + 2 )
-			{
-				if ( ! Skin.m_bmDialog.m_hObject )
-					dc.FillSolidRect( &rc, dc.GetBkColor() );
-
-				// Set button rect to centered image size
-				rc.top += ( rc.Height() - szButton.cy ) / 2;
-				rc.left += ( rc.Width() - szButton.cx ) / 2;
-				rc.right = rc.left + szButton.cx;
-				rc.bottom = rc.top + szButton.cy;
-			}
-			CoolInterface.DrawWatermark( &dc, &rc, &Skin.m_bmIconButtonFocus, FALSE );
 			bSkinned = TRUE;
 		}
-		else if ( Skin.m_bmRichButtonFocus.m_hObject )	// RichButton.Focus
+		else if ( Images.DrawButtonState( &dc, rc, RICHBUTTON_ACTIVE ) )				// RichButton.Active
 		{
-			CoolInterface.DrawWatermark( &dc, &rc, &Skin.m_bmRichButtonFocus, FALSE );
-			if ( Skin.m_bmRichButtonFocusPart.m_hObject )
-				CoolInterface.DrawWatermark( &dc, &rc, &Skin.m_bmRichButtonFocusPart, FALSE,
-					rc.Width() - Skin.m_bmRichButtonFocusPart.GetBitmapDimension().cx, 0 );
 			dc.SetBkMode( TRANSPARENT );
 			bSkinned = TRUE;
 			rc.left++;
@@ -370,29 +316,12 @@ void CIconButtonCtrl::OnPaint()
 	}
 	else if ( IsWindowEnabled() )	// Button Default w/o Focus
 	{
-		if ( ! bTextButton && Skin.m_bmIconButton.m_hObject )	// IconButton
+		if ( ! bTextButton && Images.DrawButtonState( &dc, rc, ICONBUTTON_DEFAULT) )	// IconButton
 		{
-			CSize szButton( Skin.m_bmIconButton.GetBitmapDimension() );
-			if ( szButton.cx > 18 && szButton.cy > 18 && szButton.cx < rc.Width() + 2 && szButton.cy < rc.Height() + 2 )
-			{
-				if ( ! Skin.m_bmDialog.m_hObject )
-					dc.FillSolidRect( &rc, dc.GetBkColor() );
-
-				// Set button rect to centered image size
-				rc.top += ( rc.Height() - szButton.cy ) / 2;
-				rc.left += ( rc.Width() - szButton.cx ) / 2;
-				rc.right = rc.left + szButton.cx;
-				rc.bottom = rc.top + szButton.cy;
-			}
-			CoolInterface.DrawWatermark( &dc, &rc, &Skin.m_bmIconButton, FALSE );
 			bSkinned = TRUE;
 		}
-		else if ( Skin.m_bmRichButton.m_hObject )	// RichButton
+		else if ( Images.DrawButtonState( &dc, rc, RICHBUTTON_DEFAULT ) )				// RichButton
 		{
-			CoolInterface.DrawWatermark( &dc, &rc, &Skin.m_bmRichButton, FALSE );
-			if ( Skin.m_bmRichButtonPart.m_hObject )
-				CoolInterface.DrawWatermark( &dc, &rc, &Skin.m_bmRichButtonPart, FALSE,
-					rc.Width() - Skin.m_bmRichButtonPart.GetBitmapDimension().cx, 0 );
 			dc.SetBkMode( TRANSPARENT );
 			bSkinned = TRUE;
 			rc.left++;
@@ -409,29 +338,12 @@ void CIconButtonCtrl::OnPaint()
 	}
 	else	// Disabled
 	{
-		if ( ! bTextButton && Skin.m_bmIconButtonDisabled.m_hObject )	// IconButton.Disabled
+		if ( ! bTextButton && Images.DrawButtonState( &dc, rc, ICONBUTTON_DISABLED ) )	// IconButton.Disabled
 		{
-			CSize szButton( Skin.m_bmIconButtonDisabled.GetBitmapDimension() );
-			if ( szButton.cx > 18 && szButton.cy > 18 && szButton.cx < rc.Width() + 2 && szButton.cy < rc.Height() + 2 )
-			{
-				if ( ! Skin.m_bmDialog.m_hObject )
-					dc.FillSolidRect( &rc, dc.GetBkColor() );
-
-				// Set button rect to centered image size
-				rc.top += ( rc.Height() - szButton.cy ) / 2;
-				rc.left += ( rc.Width() - szButton.cx ) / 2;
-				rc.right = rc.left + szButton.cx;
-				rc.bottom = rc.top + szButton.cy;
-			}
-			CoolInterface.DrawWatermark( &dc, &rc, &Skin.m_bmIconButtonDisabled, FALSE );
 			bSkinned = TRUE;
 		}
-		else if ( Skin.m_bmRichButtonDisabled.m_hObject )	// RichButton.Disabled
+		else if ( Images.DrawButtonState( &dc, rc, RICHBUTTON_DISABLED ) )				// RichButton.Disabled
 		{
-			CoolInterface.DrawWatermark( &dc, &rc, &Skin.m_bmRichButtonDisabled, FALSE );
-			if ( Skin.m_bmRichButtonDisabledPart.m_hObject )
-				CoolInterface.DrawWatermark( &dc, &rc, &Skin.m_bmRichButtonDisabledPart, FALSE,
-					rc.Width() - Skin.m_bmRichButtonDisabledPart.GetBitmapDimension().cx, 0 );
 			dc.SetBkMode( TRANSPARENT );
 			bSkinned = TRUE;
 			rc.left++;
@@ -447,8 +359,7 @@ void CIconButtonCtrl::OnPaint()
 		dc.SetBkColor( crBack );
 
 		ImageList_DrawEx( m_pImageList.m_hImageList, 0, dc.GetSafeHdc(),
-			ptIcon.x, ptIcon.y, 0, 0, crBack, Colors.m_crDisabled, ILD_BLEND50 );
-		//	ptIcon.x, ptIcon.y, 0, 0, crBack, CLR_NONE, ILD_MASK );
+			ptIcon.x, ptIcon.y, 0, 0, crBack, Colors.m_crDisabled, ILD_BLEND50 );	// CLR_NONE, ILD_MASK ?
 	}
 
 	if ( ! bSkinned )

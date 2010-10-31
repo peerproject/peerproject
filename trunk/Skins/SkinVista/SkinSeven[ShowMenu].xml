@@ -19,7 +19,6 @@
 </options>
 
 <watermarks>
- <watermark target="CCoolMenuBar" path="Seven\RibbonMenubarBlank.png"/>
  <watermark target="CCoolMenuItem.Hover" path="Seven\MenuButtonState.png"/>
  <watermark target="CCoolMenuItem.Down"  path="Seven\MenuButtonState.png"/>
 </watermarks>

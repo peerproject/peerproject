@@ -1,22 +1,19 @@
 //
 // PageSettingsUploads.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
-// Portions Copyright Shareaza Development Team, 2002-2007.
+// This file is part of PeerProject (peerproject.org) © 2008-2010
+// Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #pragma once
@@ -34,10 +31,10 @@ public:
 
 	DECLARE_DYNCREATE(CUploadsSettingsPage)
 
-// Dialog Data
-public:
 	enum { IDD = IDD_SETTINGS_UPLOADS };
 
+// Dialog Data
+public:
 	CSpinButtonCtrl	m_wndMaxPerHost;
 	CComboBox		m_wndAgentList;
 	CButton			m_wndAgentAdd;
@@ -58,7 +55,7 @@ public:
 
 //
 public:
-	BOOL			m_bQueuesChanged;		//Have the queues been changed? (Rebuild hash table)
+	BOOL			m_bQueuesChanged;		// Have the queues been changed? (Rebuild hash table)
 	void			UpdateQueues();
 
 // Overrides
@@ -66,7 +63,7 @@ public:
 	virtual void OnOK();
 	virtual BOOL OnSetActive();
 	virtual BOOL OnKillActive();
-	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
+	virtual void DoDataExchange(CDataExchange* pDX);
 
 // Implementation
 protected:

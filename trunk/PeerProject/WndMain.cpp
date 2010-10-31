@@ -2,21 +2,18 @@
 // WndMain.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2008.
+// Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
@@ -42,6 +39,7 @@
 #include "PeerProjectURL.h"
 #include "ChatCore.h"
 #include "ChatSession.h"
+#include "ChatWindows.h"
 #include "Statistics.h"
 #include "BTInfo.h"
 #include "Skin.h"
@@ -95,10 +93,10 @@
 #include "DlgScheduleTask.h"
 
 #ifdef _DEBUG
-#define new DEBUG_NEW
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
-#endif
+#define new DEBUG_NEW
+#endif	// Filename
 
 IMPLEMENT_DYNCREATE(CMainWnd, CMDIFrameWnd)
 
@@ -150,20 +148,22 @@ BEGIN_MESSAGE_MAP(CMainWnd, CMDIFrameWnd)
 	ON_COMMAND(ID_VIEW_SYSTEM, OnViewSystem)
 	ON_UPDATE_COMMAND_UI(ID_VIEW_NEIGHBOURS, OnUpdateViewNeighbours)
 	ON_COMMAND(ID_VIEW_NEIGHBOURS, OnViewNeighbours)
+	ON_UPDATE_COMMAND_UI(ID_VIEW_HOSTS, OnUpdateViewHosts)
+	ON_COMMAND(ID_VIEW_HOSTS, OnViewHosts)
+	ON_UPDATE_COMMAND_UI(ID_VIEW_PACKETS, OnUpdateViewPackets)
+	ON_COMMAND(ID_VIEW_PACKETS, OnViewPackets)
 	ON_UPDATE_COMMAND_UI(ID_NETWORK_CONNECT, OnUpdateNetworkConnect)
 	ON_COMMAND(ID_NETWORK_CONNECT, OnNetworkConnect)
 	ON_UPDATE_COMMAND_UI(ID_NETWORK_DISCONNECT, OnUpdateNetworkDisconnect)
 	ON_COMMAND(ID_NETWORK_DISCONNECT, OnNetworkDisconnect)
-	ON_UPDATE_COMMAND_UI(ID_VIEW_PACKETS, OnUpdateViewPackets)
-	ON_COMMAND(ID_VIEW_PACKETS, OnViewPackets)
-	ON_UPDATE_COMMAND_UI(ID_VIEW_HOSTS, OnUpdateViewHosts)
-	ON_COMMAND(ID_VIEW_HOSTS, OnViewHosts)
 	ON_COMMAND(ID_NETWORK_CONNECT_TO, OnNetworkConnectTo)
-	ON_UPDATE_COMMAND_UI(ID_VIEW_SEARCH_MONITOR, OnUpdateViewSearchMonitor)
-	ON_COMMAND(ID_VIEW_SEARCH_MONITOR, OnViewSearchMonitor)
+	ON_COMMAND(ID_NETWORK_BROWSE_TO, OnNetworkBrowseTo)
+	ON_COMMAND(ID_NETWORK_CHAT_TO, OnNetworkChatTo)
 	ON_COMMAND(ID_NETWORK_EXIT, OnNetworkExit)
 	ON_UPDATE_COMMAND_UI(ID_NETWORK_SEARCH, OnUpdateNetworkSearch)
 	ON_COMMAND(ID_NETWORK_SEARCH, OnNetworkSearch)
+	ON_UPDATE_COMMAND_UI(ID_VIEW_SEARCH_MONITOR, OnUpdateViewSearchMonitor)
+	ON_COMMAND(ID_VIEW_SEARCH_MONITOR, OnViewSearchMonitor)
 	ON_UPDATE_COMMAND_UI(ID_VIEW_RESULTS_MONITOR, OnUpdateViewResultsMonitor)
 	ON_COMMAND(ID_VIEW_RESULTS_MONITOR, OnViewResultsMonitor)
 	ON_UPDATE_COMMAND_UI(ID_NETWORK_CONNECT_TO, OnUpdateNetworkConnectTo)
@@ -209,6 +209,8 @@ BEGIN_MESSAGE_MAP(CMainWnd, CMDIFrameWnd)
 	ON_COMMAND(ID_OPEN_DOWNLOADS_FOLDER, OnOpenDownloadsFolder)
 	ON_UPDATE_COMMAND_UI(ID_VIEW_SECURITY, OnUpdateViewSecurity)
 	ON_COMMAND(ID_VIEW_SECURITY, OnViewSecurity)
+	ON_UPDATE_COMMAND_UI(ID_VIEW_SCHEDULER, OnUpdateViewScheduler)
+	ON_COMMAND(ID_VIEW_SCHEDULER, OnViewScheduler)
 	ON_UPDATE_COMMAND_UI(ID_WINDOW_CASCADE, OnUpdateWindowCascade)
 	ON_UPDATE_COMMAND_UI(ID_WINDOW_TILE_HORZ, OnUpdateWindowTileHorz)
 	ON_UPDATE_COMMAND_UI(ID_WINDOW_TILE_VERT, OnUpdateWindowTileVert)
@@ -237,7 +239,6 @@ BEGIN_MESSAGE_MAP(CMainWnd, CMDIFrameWnd)
 	ON_COMMAND(ID_WINDOW_TOOLBAR, OnWindowToolBar)
 	ON_UPDATE_COMMAND_UI(ID_WINDOW_MONITOR, OnUpdateWindowMonitor)
 	ON_COMMAND(ID_WINDOW_MONITOR, OnWindowMonitor)
-	ON_COMMAND(ID_NETWORK_BROWSE_TO, OnNetworkBrowseTo)
 	ON_COMMAND(ID_TOOLS_SKIN, OnToolsSkin)
 	ON_COMMAND(ID_TOOLS_LANGUAGE, OnToolsLanguage)
 	ON_COMMAND(ID_TOOLS_SEEDTORRENT, OnToolsSeedTorrent)
@@ -279,8 +280,6 @@ BEGIN_MESSAGE_MAP(CMainWnd, CMDIFrameWnd)
 	ON_COMMAND(ID_MEDIA_PLAY, OnMediaCommand)
 	ON_COMMAND(ID_MEDIA_ADD, OnMediaCommand)
 	ON_COMMAND(ID_MEDIA_ADD_FOLDER, OnMediaCommand)
-	ON_UPDATE_COMMAND_UI(ID_VIEW_SCHEDULER, OnUpdateViewScheduler)
-	ON_COMMAND(ID_VIEW_SCHEDULER, OnViewScheduler)
 	ON_COMMAND(ID_HELP, OnHelpFaq)
 	ON_COMMAND(ID_HELP_TEST, OnHelpConnectiontest)
 	ON_UPDATE_COMMAND_UI_RANGE(ID_SHELL_MENU_MIN, ID_SHELL_MENU_MAX, OnUpdateShell)
@@ -296,8 +295,6 @@ CMainWnd::CMainWnd()
 	, m_bTrayUpdate	( TRUE )
 	, m_bTimer		( FALSE )
 	, m_pSkin		( NULL )
-	, m_pURLDialog	( NULL )
-	, m_tURLTime	( 0 )
 	, m_nAlpha		( 255 )
 {
 	ZeroMemory( &m_pTray, sizeof( NOTIFYICONDATA ) );
@@ -1179,34 +1176,29 @@ LRESULT CMainWnd::OnWinsock(WPARAM wParam, LPARAM lParam)
 
 LRESULT CMainWnd::OnHandleURL(WPARAM wParam, LPARAM /*lParam*/)
 {
-	CPeerProjectURL* pURL = (CPeerProjectURL*)wParam;
+	CWaitCursor wc;
 
-	DWORD tNow = GetTickCount();
-	BOOL bSoon = ( tNow - m_tURLTime < 750 );
-	m_tURLTime = tNow;
+	UpdateWindow();
 
-	if ( IsWindowEnabled() )
-	{
-		m_pURLDialog = new CURLActionDlg( this, pURL, bSoon );
-		m_pURLDialog->DoModal();
-		delete m_pURLDialog;
-		m_pURLDialog = NULL;
-	}
-	else
-	{
-		if ( m_pURLDialog != NULL && bSoon )
-		{
-			m_pURLDialog->AddURL( pURL );
-		}
-		else
-		{
-			theApp.Message( MSG_ERROR, IDS_URL_BUSY );
-			delete pURL;
-		}
-	}
+	new CURLActionDlg( (CPeerProjectURL*)wParam );
 
 	return 0;
 }
+
+//LRESULT CMainWnd::OnHandleImport(WPARAM wParam, LPARAM /*lParam*/)
+//{
+//	LPTSTR pszPath = (LPTSTR)wParam;
+//
+//	CWaitCursor wc;
+//	HostCache.Import( pszPath );
+//
+//	delete [] pszPath;
+//
+//	if ( CHostCacheWnd* pCacheWnd = (CHostCacheWnd*)m_pWindows.Open( RUNTIME_CLASS(CHostCacheWnd) ) )
+//		pCacheWnd->Update( TRUE );
+//
+//	return 0;
+//}
 
 LRESULT CMainWnd::OnHandleCollection(WPARAM wParam, LPARAM /*lParam*/)
 {
@@ -1658,20 +1650,30 @@ void CMainWnd::OnUpdateNetworkConnectTo(CCmdUI* pCmdUI)
 
 void CMainWnd::OnNetworkConnectTo()
 {
-	CConnectToDlg dlg;
+	CConnectToDlg dlg( this, CConnectToDlg::Connect );
 	if ( dlg.DoModal() != IDOK ) return;
-	Network.ConnectTo( dlg.m_sHost, dlg.m_nPort, PROTOCOLID( dlg.m_nProtocol + 1 ), dlg.m_bNoUltraPeer );
+
+	Network.ConnectTo( dlg.m_sHost, dlg.m_nPort, dlg.m_nProtocol, dlg.m_bNoUltraPeer );
 }
 
 void CMainWnd::OnNetworkBrowseTo()
 {
-	CConnectToDlg dlg( NULL, TRUE );
+	CConnectToDlg dlg( this, CConnectToDlg::Browse );
 	if ( dlg.DoModal() != IDOK ) return;
 
-	SOCKADDR_IN pAddress;
-
+	SOCKADDR_IN pAddress = {};
 	if ( Network.Resolve( dlg.m_sHost, dlg.m_nPort, &pAddress ) )
-		new CBrowseHostWnd( PROTOCOLID( dlg.m_nProtocol + 1 ), &pAddress );
+		new CBrowseHostWnd( dlg.m_nProtocol, &pAddress );
+}
+
+void CMainWnd::OnNetworkChatTo()
+{
+	CConnectToDlg dlg( this, CConnectToDlg::Chat );
+	if ( dlg.DoModal() != IDOK ) return;
+
+	SOCKADDR_IN pAddress = {};
+	if ( Network.Resolve( dlg.m_sHost, dlg.m_nPort, &pAddress ) )
+		ChatWindows.OpenPrivate( Hashes::Guid(), &pAddress, FALSE, dlg.m_nProtocol );
 }
 
 void CMainWnd::OnUpdateNetworkG2(CCmdUI* pCmdUI)
@@ -2689,7 +2691,7 @@ void CMainWnd::OnHelpRouter()
 {
 	const CString strWebSite( WEB_SITE );
 
-	ShellExecute( GetSafeHwnd(), _T("open"), strWebSite + _T("wiki/userguide/router"),
+	ShellExecute( GetSafeHwnd(), _T("open"), _T("http://portforward.com"),	// ToDo: "wiki/userguide/router"
 		NULL, NULL, SW_SHOWNORMAL );
 }
 

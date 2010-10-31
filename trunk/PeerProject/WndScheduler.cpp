@@ -2,21 +2,18 @@
 // WndScheduler.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2010
-// Portions Copyright Shareaza Development Team, 2010.
+// Portions copyright Shareaza Development Team, 2010.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
@@ -33,19 +30,19 @@
 #include "XML.h"
 
 #ifdef _DEBUG
-#define new DEBUG_NEW
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
-#endif
+#define new DEBUG_NEW
+#endif	// Filename
 
-//const static UINT nImageID[] =
-//{
-//	IDR_SCHEDULERFRAME,
-//	IDI_NOTASK,
-//	ID_SCHEDULER_ACTIVATE,
-//	ID_SCHEDULER_DEACTIVATE,
-//	NULL
-//};
+const static UINT nImageIDs[] =
+{
+	IDR_SCHEDULERFRAME,
+	IDI_NOTASK,
+	ID_SCHEDULER_ACTIVATE,
+	ID_SCHEDULER_DEACTIVATE,
+	NULL
+};
 
 IMPLEMENT_SERIAL(CSchedulerWnd, CPanelWnd, 0)
 
@@ -107,7 +104,10 @@ int CSchedulerWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_wndList.InsertColumn( 2, _T("Time"), LVCFMT_CENTER, 90, -1 );
 	m_wndList.InsertColumn( 3, _T("Status"), LVCFMT_CENTER, 90, -1);
 	m_wndList.InsertColumn( 4, _T("Activity"), LVCFMT_CENTER, 90, -1 );
-	m_wndList.InsertColumn( 5, _T("Description"), LVCFMT_LEFT, 280, -1 );
+	m_wndList.InsertColumn( 5, _T("Comment"), LVCFMT_LEFT, 280, -1 );
+
+//	CoolInterface.LoadIconsTo( m_gdiImageList, nImageIDs );
+//	m_wndList.SetImageList( &m_gdiImageList, LVSIL_SMALL );
 
 	m_wndList.SetFont( &theApp.m_gdiFont );
 
@@ -134,6 +134,7 @@ void CSchedulerWnd::OnDestroy()
 void CSchedulerWnd::Update(int nColumn, BOOL bSort)
 {
 	CQuickLock oLock( Scheduler.m_pSection );
+
 	CLiveList pLiveList( 6, Scheduler.GetCount() + Scheduler.GetCount() / 4u );
 
 	int nCount = 1;
@@ -146,9 +147,9 @@ void CSchedulerWnd::Update(int nColumn, BOOL bSort)
 		CLiveItem* pItem = pLiveList.Add( pSchTask );
 
 		if ( pSchTask->m_bActive )
-			pItem->m_nImage = SCHEDULE_ITEM_ACTIVE;
+			pItem->SetImage( SCHEDULE_ITEM_ACTIVE );
 		else
-			pItem->m_nImage = SCHEDULE_ITEM_INACTIVE;
+			pItem->SetImage( SCHEDULE_ITEM_INACTIVE );
 
 		// Action column
 		switch ( pSchTask->m_nAction )
@@ -227,7 +228,7 @@ void CSchedulerWnd::Update(int nColumn, BOOL bSort)
 	{
 		CLiveItem* pDefault = pLiveList.Add( (LPVOID)0 );
 		pDefault->Set( 0, LoadString( IDS_SCHEDULER_TASK_NONE ) );
-		pDefault->m_nImage = SCHEDULE_NO_ITEM;
+		pDefault->SetImage( SCHEDULE_NO_ITEM );
 	}
 
 	if ( nColumn >= 0 )
@@ -256,10 +257,11 @@ CScheduleTask* CSchedulerWnd::GetItem(int nItem)
 
 void CSchedulerWnd::OnSize(UINT nType, int cx, int cy)
 {
-	CPanelWnd::OnSize( nType, cx, cy );
+	if ( ! m_wndList ) return;
 
+	CPanelWnd::OnSize( nType, cx, cy );
+	m_wndList.SetWindowPos( NULL, 0, 0, cx, cy - Skin.m_nToolbarHeight, SWP_NOZORDER );
 	SizeListAndBar( &m_wndList, &m_wndToolBar );
-	m_wndList.SetWindowPos( NULL, 0, 0, cx, cy - 28, SWP_NOZORDER );
 }
 
 void CSchedulerWnd::OnTimer(UINT_PTR nIDEvent)
@@ -279,8 +281,34 @@ void CSchedulerWnd::OnTimer(UINT_PTR nIDEvent)
 	}
 }
 
+void CSchedulerWnd::OnSkinChange()
+{
+	OnSize( 0, 0, 0 );
+	CPanelWnd::OnSkinChange();
+
+	Settings.LoadList( _T("CSchedulerWnd"), &m_wndList, -3 );
+	Skin.CreateToolBar( _T("CSchedulerWnd"), &m_wndToolBar );
+
+// Obsolete for reference: (Predefined nImageIDs above)
+//	m_gdiImageList.Create( 16, 16, ILC_MASK|ILC_COLOR32, 3, 1 );
+//	m_gdiImageList.Add( CoolInterface.ExtractIcon( IDR_SCHEDULERFRAME, FALSE ) );
+//	m_gdiImageList.Add( CoolInterface.ExtractIcon( IDI_NOTASK, FALSE ) );
+//	m_gdiImageList.Add( CoolInterface.ExtractIcon( ID_SCHEDULER_ACTIVATE, FALSE ) );
+//	m_gdiImageList.Add( CoolInterface.ExtractIcon( ID_SCHEDULER_DEACTIVATE, FALSE ) );
+
+	CoolInterface.LoadIconsTo( m_gdiImageList, nImageIDs );
+	m_wndList.SetImageList( &m_gdiImageList, LVSIL_SMALL );
+
+	if ( m_wndList.SetBkImage( Skin.GetWatermark( _T("CSchedulerWnd") ) ) )
+		m_wndList.SetExtendedStyle( LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP|LVS_EX_LABELTIP|LVS_EX_SUBITEMIMAGES );	// No LVS_EX_DOUBLEBUFFER
+	else
+		m_wndList.SetBkColor( Colors.m_crWindow );
+}
+
 void CSchedulerWnd::OnCustomDrawList(NMHDR* pNMHDR, LRESULT* pResult)
 {
+	if ( ! ::IsWindow( m_wndList.GetSafeHwnd() ) ) return;
+
 	NMLVCUSTOMDRAW* pDraw = (NMLVCUSTOMDRAW*)pNMHDR;
 
 	if ( pDraw->nmcd.dwDrawStage == CDDS_PREPAINT )
@@ -324,6 +352,9 @@ void CSchedulerWnd::OnSortList(NMHDR* pNotifyStruct, LRESULT *pResult)
 
 void CSchedulerWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 {
+	if ( point.x == -1 && point.y == -1 ) 	// Keyboard fix
+		ClientToScreen( &point );
+
 	Skin.TrackPopupMenu( _T("CSchedulerWnd"), point, ID_SCHEDULER_EDIT );
 }
 
@@ -381,50 +412,6 @@ void CSchedulerWnd::OnSchedulerAdd()
 		Scheduler.Save();
 		Update();
 	}
-}
-
-void CSchedulerWnd::OnSkinChange()
-{
-	OnSize( 0, 0, 0 );
-	CPanelWnd::OnSkinChange();
-
-	Settings.LoadList( _T("CSchedulerWnd"), &m_wndList, -3 );
-	Skin.CreateToolBar( _T("CSchedulerWnd"), &m_wndToolBar );
-
-	m_gdiImageList.Create( 16, 16, ILC_MASK|ILC_COLOR32, 3, 1 ) ||
-		m_gdiImageList.Create( 16, 16, ILC_MASK|ILC_COLOR24, 3, 1 ) ||
-		m_gdiImageList.Create( 16, 16, ILC_MASK|ILC_COLOR16, 3, 1 );
-	m_gdiImageList.Add( CoolInterface.ExtractIcon( IDR_SCHEDULERFRAME, FALSE ) );
-	m_gdiImageList.Add( CoolInterface.ExtractIcon( IDI_NOTASK, FALSE ) );
-	m_gdiImageList.Add( CoolInterface.ExtractIcon( ID_SCHEDULER_ACTIVATE, FALSE ) );
-	m_gdiImageList.Add( CoolInterface.ExtractIcon( ID_SCHEDULER_DEACTIVATE, FALSE ) );
-
-	//CoolInterface.LoadIconsTo( m_gdiImageList, nImageID );
-	m_wndList.SetImageList( &m_gdiImageList, LVSIL_SMALL );
-
-	if ( m_wndList.SetBkImage( Skin.GetWatermark( _T("CSchedulerWnd") ) ) )
-		m_wndList.SetExtendedStyle( LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP|LVS_EX_LABELTIP|LVS_EX_SUBITEMIMAGES );	// No LVS_EX_DOUBLEBUFFER
-	else
-		m_wndList.SetBkColor( Colors.m_crWindow );
-}
-
-BOOL CSchedulerWnd::PreTranslateMessage(MSG* pMsg)
-{
-	if ( pMsg->message == WM_KEYDOWN )
-	{
-		if ( pMsg->wParam == VK_DELETE )
-		{
-			OnSchedulerRemove();
-			return TRUE;
-		}
-		else if ( pMsg->wParam == VK_INSERT )
-		{
-			PostMessage( WM_COMMAND, ID_SCHEDULER_ADD );
-			return TRUE;
-		}
-	}
-
-	return CPanelWnd::PreTranslateMessage( pMsg );
 }
 
 void CSchedulerWnd::OnUpdateSchedulerDeactivate(CCmdUI* pCmdUI)
@@ -576,4 +563,29 @@ void CSchedulerWnd::OnSchedulerImport()
 		Scheduler.Save();
 	else
 		AfxMessageBox( _T("Error: Can not import Scheduler list from file."), MB_ICONSTOP|MB_OK );	// ToDo: Translate?
+}
+
+BOOL CSchedulerWnd::PreTranslateMessage(MSG* pMsg)
+{
+	if ( pMsg->message == WM_KEYDOWN )
+	{
+		if ( pMsg->wParam == VK_DELETE )
+		{
+			OnSchedulerRemove();
+			return TRUE;
+		}
+		if ( pMsg->wParam == VK_INSERT )
+		{
+			PostMessage( WM_COMMAND, ID_SCHEDULER_ADD );
+			return TRUE;
+		}
+		if ( pMsg->wParam == 'A' && GetAsyncKeyState( VK_CONTROL ) & 0x8000 )
+		{
+			for ( int nItem = 0 ; nItem < m_wndList.GetItemCount() ; nItem++ )
+				m_wndList.SetItemState( nItem, LVIS_SELECTED, LVIS_SELECTED );
+			return TRUE;
+		}
+	}
+
+	return CPanelWnd::PreTranslateMessage( pMsg );
 }

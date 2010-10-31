@@ -3,8 +3,8 @@
 
 <!-- PeerProject Default German Skin File -->
 
-<!-- Translation based on default-en.xml r59 -->
-<!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
+<!-- Translation based on default-en.xml r60 -->
+<!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
 <!-- Use this file as a basis for creating new language skins,   -->
@@ -62,6 +62,7 @@
 		<button id="ID_VIEW_MEDIA"/>
 		<button id="ID_TAB_IRC"/>
 		<separator/>
+		<button id="ID_VIEW_SCHEDULER"/>
 		<button id="ID_VIEW_SECURITY"/>
 		<button id="ID_VIEW_HOSTS"/>
 		<button id="ID_VIEW_DISCOVERY"/>
@@ -600,18 +601,18 @@
 				<item id="ID_HELP_TEST" text="_Verbindungstest"/>
 				<separator/>
 				<menu text="_Anleitungen">
- 					<item id="ID_HELP_GUIDE" text="PeerProjekt-A_nleitung"/>
- 					<item id="ID_HELP_ROUTER" text="_Routerhilfe"/>
- 					<item id="ID_HELP_SECURITY" text="_Sicherheitshilfe"/>
- 					<item id="ID_HELP_CODEC" text="_Codec-Hilfe"/>
+					<item id="ID_HELP_GUIDE" text="PeerProjekt-A_nleitung"/>
+					<item id="ID_HELP_ROUTER" text="_Routerhilfe"/>
+					<item id="ID_HELP_SECURITY" text="_Sicherheitshilfe"/>
+					<item id="ID_HELP_CODEC" text="_Codec-Hilfe"/>
 				</menu>
 				<separator/>
 				<menu text="_Websites">
- 					<item id="ID_HELP_FORUMS" text="PeerProjekt-_Forums"/>
- 					<item id="ID_HELP_FORUMS_LOCAL" text="_Deutsch Forum"/>
+					<item id="ID_HELP_FORUMS" text="PeerProjekt-_Forums"/>
+					<item id="ID_HELP_FORUMS_LOCAL" text="_Deutsch Forum"/>
 					<separator/>
- 					<item id="ID_HELP_WEB_1" text="File Sharing Portal"/>
- 					<item id="ID_HELP_WEB_2" text="P2PForums.com"/>
+					<item id="ID_HELP_WEB_1" text="File Sharing Portal"/>
+					<item id="ID_HELP_WEB_2" text="P2PForums.com"/>
 		 		</menu>
 				<separator/> <!--
 				<item id="ID_HELP_VERSION_CHECK" text="Nach _Update suchen"/>
@@ -714,7 +715,7 @@
 				<item id="ID_HELP_FORUMS_LOCAL" text="_Deutsch Forum"/>
 				<separator/>
 				<item id="ID_HELP_WEB_1" text="File Sharing Portal"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
+				<item id="ID_HELP_WEB_2" text="P2PForums.com"/>
 			</menu>
 			<separator/> <!--
 			<item id="ID_HELP_VERSION_CHECK" text="Nach _Update suchen"/>
@@ -786,7 +787,7 @@
 				<item id="ID_HELP_FORUMS_LOCAL" text="_Deutsch Forum"/>
 				<separator/>
 				<item id="ID_HELP_WEB_1" text="File Sharing Portal"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
+				<item id="ID_HELP_WEB_2" text="P2PForums.com"/>
 			</menu>
 			<separator/> <!--
 			<item id="ID_HELP_VERSION_CHECK" text="Auf neuere _Version prüfen"/>
@@ -878,7 +879,7 @@
 				<item id="ID_HELP_FORUMS_LOCAL" text="_Deutsch Forum"/>
 				<separator/>
 				<item id="ID_HELP_WEB_1" text="File Sharing Portal"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
+				<item id="ID_HELP_WEB_2" text="P2PForums.com"/>
 			</menu>
 			<separator/> <!--
 			<item id="ID_HELP_VERSION_CHECK" text="Nach _Update suchen"/>
@@ -1762,7 +1763,7 @@
 			<newline gap="4" indent="42"/>
 			<anchor id="SearchBox" width="256" height="80"/>
 			<newline gap="18" indent="0"/>
-			<icon res="124" width="32" height="32" target="command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
+			<icon res="122" width="32" height="32" target="command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
 			<heading align="middle">Download Starten</heading>
 			<newline gap="8" indent="42"/>
 			<link target="command:ID_TOOLS_DOWNLOAD" format="bu">Klicken Sie hier</link>
@@ -1770,6 +1771,9 @@
 			<newline gap="4" indent="42"/>
 			<text>Oder open meinen </text>
 			<link target="command:shell:downloads">downloadordner öffnen.</link>
+			<newline gap="4" indent="42"/>
+			<text>Sagen Sie Ihre Dateien auf </text>
+			<link id="RemoteBrowseURL"/>
 			<newline gap="20" indent="0"/>
 		</group>
 		<group id="3">
@@ -1823,26 +1827,26 @@
 		<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">PeerProjekt Anpassen</heading>
 		<newline gap="12" indent="42"/>
-		<icon res="196"width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
-		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">Skins</link>
+		<icon res="196" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
+		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">Skins</link><gap size="6"/>
 		<text align="middle"> - Das Aussehen von PeerProjekt verändern</text>
 		<newline gap="8"/>
-		<icon res="138"width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
-		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
-		<text align="middle">&#160;- Update blocklist to avoid bad search results</text>
+		<icon res="138" width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
+		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link><gap size="6"/>
+		<text align="middle">- Update blocklist to avoid bad search results</text>
 		<newline gap="8"/>
-		<icon res="197"width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
-		<link target="command:ID_TOOLS_WIZARD" align="middle">Einstellungsassistent</link>
+		<icon res="197" width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
+		<link target="command:ID_TOOLS_WIZARD" align="middle">Einstellungsassistent</link><gap size="6"/>
 		<text align="middle"> - Einstellungen anpassen</text>
 		<newline gap="8"/>
-		<icon res="182"width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
-		<link target="command:ID_HELP_FAQ" align="middle">Hilfe</link>
+		<icon res="182" width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
+		<link target="command:ID_HELP_FAQ" align="middle">Hilfe</link><gap size="6"/>
 		<text align="middle"> - PeerProjekt-Anleitung und FAQ, oder </text>
 		<link target="command:ID_TAB_IRC" align="middle">IRC.</link>
 		<newline gap="8"/>
-		<icon res="201"width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
-		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">Lokale Foren</link>
-		<text align="middle">&#160;- Gehen Sie zu Ihrem deutschen Sprache Diskussionsforum</text>
+		<icon res="201" width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
+		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">Lokale Foren</link><gap size="6"/>
+		<text align="middle">- Gehen Sie zu Ihrem deutschen Sprache Diskussionsforum</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
 			<icon res="120" width="32" height="32"/><gap size="8"/>
@@ -2070,7 +2074,7 @@
 		</group>
 		<group id="41">
 			<newline gap="1"/>
-			<icon res="208"/><gap size="5"/>
+			<icon res="207"/><gap size="5"/>
 			<link id="ContactYahoo"/>
 		</group>
 		<group id="42">
@@ -2111,7 +2115,7 @@
 			<newline gap="16" indent="0"/>
 			<text format="b">Community</text>
 			<newline gap="4" indent="8"/>
-			<icon res="127"target="command:ID_SEARCH_CHAT"/>
+			<icon res="127" target="command:ID_SEARCH_CHAT"/>
 			<gap size="5"/>
 			<link target="command:ID_SEARCH_CHAT" align="middle">Chat</link>
 		</group>
@@ -2893,7 +2897,7 @@
 	<string id="20246" value="Keine weiteren Fragmente, Verbindung zu %s wird getrennt."/>
 	<string id="20247" value="Fragment gekürzt, Verbindung zu %s wird getrennt."/>
 	<string id="20248" value="Fragment (%I64u-%I64u) von &quot;%s&quot; von %s angefordert."/>
-	<string id="20250" value="Drag & Drop Dateien auf den %s Gruppe"/>
+	<string id="20250" value="Drag &amp; Drop Dateien auf den %s Gruppe"/>
 	<string id="20251" value="Standard-Download-Gruppe. (Alle Dateien anzeigen)"/>
 	<string id="20252" value="Neue Gruppe"/>
 	<string id="20253" value="eDonkey-Hash ist verfälscht oder inkonsistent, Quelle entfernt."/>
@@ -3196,7 +3200,9 @@
 	<string id="20590" value="Remote-Zugriff ist deaktiviert."/>
 	<string id="20591" value="http://%s:%i/remote - Benutzername und Passwort angeben."/>
 	<string id="20592" value="Kann keine eingehenden Verbindungen akzeptieren, URL nicht verfügbar."/>
-	<string id="20595" value="&amp;Schemas"/>
+	<string id="20597" value="Sind Sie sicher, dass Sie die ausgewählten Sicherheitsregeln löschen möchten? Dieser Schritt kann nicht rückgängig gemacht werden."/>
+	<string id="20599" value="&amp;Schemas"/>
+	<!-- Missing Scheduler/Security Strings -->
 	<string id="20620" value="Suche läuft..."/>
 	<string id="20621" value="Klicken Sie hier, um erneut zu suchen"/>
 	<string id="20622" value="Alle Netzwerke"/>
@@ -3244,7 +3250,6 @@
 	<string id="20668" value="Suchen..."/>
 	<string id="20669" value="Textsuche"/>
 	<string id="20670" value="Suche läuft..."/>
-	<string id="20671" value="Sind Sie sicher, dass Sie die ausgewählten Sicherheitsregeln löschen möchten? Dieser Schritt kann nicht rückgängig gemacht werden."/>
 	<string id="20672" value="Wählen sie den temporären Ordner von eDonkey/eMule:"/>
 	<string id="20673" value="Automatisch"/>
 	<string id="20674" value="Das Verzeichnis für unvollständige Dateien darf sich nicht im Downloadverzeichnis befinden."/>
@@ -3963,18 +3968,21 @@
 		<control caption="Übernehmen"/>
 		<control/>
 	</dialog>
-	<dialog name="CIdentityProfilePage" cookie="BuStEdStEdEdBuCoStCoStBu" caption="Identität">
+	<dialog name="CIdentityProfilePage" cookie="BuStStEdEdEdBuStStCoCoBuStBuBu" caption="Identität">
 		<control caption="_Name:"/>
 		<control caption="Nickname:"/>
-		<control/>
 		<control caption="Name:"/>
 		<control/>
 		<control/>
-		<control caption="_Persönliche Daten:"/>
-		<control caption="|männlich|weiblich"/>
-		<control caption="Geschlecht:"/>
 		<control/>
+		<control caption="_Persönliche Daten:"/>
+		<control caption="Geschlecht:"/>
 		<control caption="Alter:"/>
+		<control caption="|männlich|weiblich"/>
+		<control/>
+		<control caption="Info:"/>
+		<control caption="{n}G2 (PeerProjekt / Shareaza)"/>
+		<control caption="_Aktiv:"/>
 		<control caption="Anderen Benutzern mein Profil zeigen"/>
 	</dialog>
 	<dialog name="CAvatarProfilePage" cookie="BuStBuStBuBu" caption="Avatar">
@@ -3985,23 +3993,7 @@
 		<control caption="_Durchsuchen..."/>
 		<control caption="_Entfernen"/>
 	</dialog>
-	<dialog name="CContactProfilePage" cookie="BuStEdBuStEdStEdStEdStEdStEd" caption="Kontakt">
-		<control caption="_Email-Adressen:"/>
-		<control caption="Primär:"/>
-		<control/>
-		<control caption="_Instant-Messaging:"/>
-		<control caption="MSN/.NET Passport:"/>
-		<control/>
-		<control caption="Yahoo ID:"/>
-		<control/>
-		<control caption="ICQ UIN:"/>
-		<control/>
-		<control caption="AOL Screen Name:"/>
-		<control/>
-		<control caption="Jabber ID:"/>
-		<control/>
-	</dialog>
-	<dialog name="CProfileProfilePage" cookie="BuStCoStCoBuStEdStEdBuLiBuBuCo" caption="Profil">
+	<dialog name="CProfileProfilePage" cookie="BuStCoStCoBuStEdStEdBuLiBuBuCo" caption="Standort">
 		<control caption="_Standort:"/>
 		<control caption="Land:"/>
 		<control/>
@@ -4014,11 +4006,38 @@
 		<control/>
 		<control caption="_Interessen:"/>
 		<control/>
-		<control caption="&lt; Hinzufügen"/>
-		<control caption="Entfernen &gt;"/>
+		<control caption="Hinzufügen &gt;"/>
+		<control caption="&lt; Entfernen"/>
+		<control/>
+	</dialog>
+	<dialog name="CContactProfilePage" cookie="BuStEdBuStEdStEdStEdStEdStEdStEdStEdStEd" caption="Kontakt">
+		<control caption="_Email-Adressen:"/>
+		<control caption="Primär:"/>
+		<control/>
+		<control caption="_Instant-Messaging:"/>
+		<control caption="PeerProject.org:"/>
+		<control/>
+		<control caption="Facebook:"/>
+		<control/>
+		<control caption="Twitter:"/>
+		<control/>
+		<control caption="Google:"/>
+		<control/>
+		<control caption="MSN/Live:"/>
+		<control/>
+		<control caption="Yahoo:"/>
+		<control/>
+		<control caption="AOL:"/>
+		<control/>
+		<control caption="ICQ:"/>
 		<control/>
 	</dialog>
 	<dialog name="CBioProfilePage" cookie="Ed" caption="Über mich">
+		<control/>
+	</dialog>
+	<dialog name="CFilesProfilePage" cookie="BuStSy" caption="Favoriten">
+		<control caption="_Empfohlene Dateien:"/>
+		<control caption="Diese Dateien werden Benutzern angezeigt, die Ihr Profil ansehen. Dateien im Ordner &quot;Favoriten&quot; Ihrer Bibliothek erscheinen hier."/>
 		<control/>
 	</dialog>
 	<dialog name="CFavouritesProfilePage" cookie="SyBuStEdStEdBuBu" caption="Favoriten">
@@ -4031,28 +4050,24 @@
 		<control caption="Neu"/>
 		<control caption="Entfernen"/>
 	</dialog>
-	<dialog name="CFilesProfilePage" cookie="BuStSy" caption="Dateien">
-		<control caption="_Empfohlene Dateien:"/>
-		<control caption="Diese Dateien werden Benutzern angezeigt, die Ihr Profil ansehen. Dateien im Ordner &quot;Favoriten&quot; Ihrer Bibliothek erscheinen hier."/>
+	<dialog name="CCertificateProfilePage" cookie="BuStStStStBuBuSt" caption="Zertifikat">
+		<control caption="_Eindeutiges globales Identifikationszertifikat:"/>
+		<control caption="Gnutella/G2 GUID:"/>
 		<control/>
-	</dialog>
-	<dialog name="CCertificateProfilePage" cookie="StBuStStStStBu" caption="Zertifikat">
-		<control caption="Gnutella-Benutzer werden anhand einer eindeutigen ID und einem entsprechendem Public/Private-Schlüsselpaar identifiziert. Normalerweise ist es nicht nötig, eine neue ID zu erstellen; PeerProjekt stellt diese Option jedoch für erfahrene Benutzer zur Verfügung."/>
-		<control caption="_Eindeutiges globales Gnutella-Identifikationszertifikat:"/>
-		<control caption="GUID:"/>
-		<control/>
-		<control caption="Erstellt:"/>
+		<control caption="BitTorrent GUID:"/>
 		<control/>
 		<control caption="Neue GUID erstellen"/>
+		<control caption="Info:"/>
+		<control caption="Gnutella-Benutzer werden anhand einer eindeutigen ID und einem entsprechendem Public/Private-Schlüsselpaar identifiziert. Normalerweise ist es nicht nötig, eine neue ID zu erstellen; PeerProjekt stellt diese Option jedoch für erfahrene Benutzer zur Verfügung."/>
 	</dialog>
 	<dialog name="CLanguageDlg" cookie="" caption="Sprache wählen">
 	</dialog>
-	<dialog name="CConnectToDlg" cookie="BuCoEdBuCoBuBuBu" caption="Verbinden mit|Benutzer durchsuchen">
-		<control caption="Verbinden mit:|Benutzer durchsuchen:"/>
+	<dialog name="CConnectToDlg" cookie="BuCoEdBuCoBuBuBu" caption="Verbinden mit|Benutzer durchsuchen|Chat with User">
+		<control caption="Verbinden mit:|Benutzer durchsuchen:|Message this user:"/>
 		<control/>
 		<control/>
 		<control caption="_Netzwerkprotokoll:"/>
-		<control caption="Gnutella1 (auto)|Gnutella2 (auto)|eDonkey"/>
+		<control/>
 		<control caption="_UP unterdrücken"/>
 		<control caption="Verbinden"/>
 		<control caption="Abbrechen"/>
@@ -4489,14 +4504,16 @@
 		<control caption="Gesamt hochgeladen:"/>
 		<control caption="Notizen:"/>
 	</dialog>
-	<dialog name="CDownloadEditPage" cookie="StBuStStStBuStEdEdEdBuEdBuEdBuEdBuEdBuEd" caption="Download bearbeiten (erweitert)">
+	<dialog name="CDownloadEditPage" cookie="StBuStStStStBuStEdEdEdSyBuEdBuEdBuEdBuEdBuEd" caption="Download bearbeiten (erweitert)">
 		<control caption="ACHTUNG: Dieser Dialog stellt erweiterte Funktionen für Poweruser zur Verfügung. Diese Funktionen zerstören bei falscher Anwendung ihre Downloads."/>
 		<control caption="Dateiname und -größe:"/>
 		<control caption="Dateiname:"/>
 		<control caption="Datei:"/>
 		<control caption="Dateigröße (Byte):"/>
+		<control caption="Datum:"/>
 		<control caption="URNs:"/>
 		<control caption="Vertraut?"/>
+		<control/>
 		<control/>
 		<control/>
 		<control/>
@@ -4639,22 +4656,6 @@
 		<column from="Name" to="Name"/>
 		<column from="Country" to="Land"/>
 	</list>
-	<list name="CSecurityWnd">
-		<column from="Address / Content" to="Adresse/Inhalt"/>
-		<column from="Hits" to="Treffer"/>
-		<column from="Action" to="Aktion"/>
-		<column from="Expires" to="Läuft ab"/>
-		<column from="#" to="Priorität"/>
-		<column from="Comment" to="Kommentar"/>
-	</list>
-	<list name="CSchedulerWnd">
-		<column from="Task" to="Aktion"/>
-		<column from="Date" to="Datum"/>
-		<column from="Time" to="Zeit"/>
-		<column from="Status" to="Status"/>
-		<column from="Activity" to="Aktiv"/>
-		<column from="Description" to="Kommentar"/>
-	</list>
 	<list name="CHostCacheWnd">
 		<column from="Address" to="Adresse"/>
 		<column from="Port" to="Port"/>
@@ -4702,6 +4703,23 @@
 		<column from="Client" to="Client"/>
 		<column from="Country" to="Land"/>
 		<column from="Time" to="Zeit"/>
+	</list>
+	<list name="CSecurityWnd">
+		<column from="Address / Content" to="Adresse/Inhalt"/>
+		<column from="Hits" to="Treffer"/>
+		<column from="#" to="Priorität"/>
+		<column from="Action" to="Aktion"/>
+		<column from="Expires" to="Läuft ab"/>
+		<column from="Match" to=""/>
+		<column from="Comment" to="Kommentar"/>
+	</list>
+	<list name="CSchedulerWnd">
+		<column from="Task" to="Aktion"/>
+		<column from="Date" to="Datum"/>
+		<column from="Time" to="Zeit"/>
+		<column from="Status" to="Status"/>
+		<column from="Activity" to="Aktiv"/>
+		<column from="Comment" to="Kommentar"/>
 	</list>
 	<list name="CUploadQueueList">
 		<column from="Name" to="Name"/>

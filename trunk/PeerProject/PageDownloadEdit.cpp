@@ -2,21 +2,18 @@
 // PageDownloadEdit.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2007.
+// Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
-// Shareaza is distributed in the hope that it will be useful,
+// PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
@@ -35,7 +32,7 @@
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
-#endif
+#endif	// Filename
 
 IMPLEMENT_DYNAMIC(CDownloadEditPage, CPropertyPageAdv)
 
@@ -76,6 +73,7 @@ void CDownloadEditPage::DoDataExchange(CDataExchange* pDX)
 	DDX_Check(pDX, IDC_TRUST_MD5, m_bMD5Trusted);
 	DDX_Check(pDX, IDC_TRUST_TIGER, m_bTigerTrusted);
 	DDX_Check(pDX, IDC_TRUST_BTH, m_bBTHTrusted);
+	DDX_Control(pDX, IDC_DATE, m_wndDate);
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -94,6 +92,8 @@ BOOL CDownloadEditPage::OnInitDialog()
 	if ( pDownload->m_nSize != SIZE_UNKNOWN )
 		m_sFileSize.Format( _T("%I64i"), pDownload->m_nSize );
 
+	m_wndDate.SetTime( &pDownload->m_tDate );
+
 	if ( pDownload->m_oSHA1 )
 		m_sSHA1 = pDownload->m_oSHA1.toString();
 	if ( pDownload->m_oTiger )
@@ -105,11 +105,13 @@ BOOL CDownloadEditPage::OnInitDialog()
 	if ( pDownload->m_oBTH )
 		m_sBTH = pDownload->m_oBTH.toString();
 
-	m_bSHA1Trusted	=	pDownload->m_bSHA1Trusted;
-	m_bTigerTrusted	=	pDownload->m_bTigerTrusted;
-	m_bED2KTrusted	=	pDownload->m_bED2KTrusted;
-	m_bMD5Trusted	=	pDownload->m_bMD5Trusted;
-	m_bBTHTrusted	=	pDownload->m_bBTHTrusted;
+	m_bSHA1Trusted	= pDownload->m_bSHA1Trusted;
+	m_bTigerTrusted	= pDownload->m_bTigerTrusted;
+	m_bED2KTrusted	= pDownload->m_bED2KTrusted;
+	m_bMD5Trusted	= pDownload->m_bMD5Trusted;
+	m_bBTHTrusted	= pDownload->m_bBTHTrusted;
+
+	m_wndPath.SubclassDlgItem( IDC_DISKNAME, this );	// For double-click aware Edit box
 
 	UpdateData( FALSE );
 
@@ -213,6 +215,11 @@ BOOL CDownloadEditPage::OnApply()
 		pDownload->ClearVerification();
 		bCriticalChange = true;
 	}
+
+	SYSTEMTIME tDate;
+	m_wndDate.GetTime( &tDate );
+	if ( pDownload->m_tDate != tDate )
+		pDownload->m_tDate = tDate;
 
 	if ( pDownload->m_oSHA1.isValid() != oSHA1.isValid()
 		|| validAndUnequal( pDownload->m_oSHA1, oSHA1 ) )

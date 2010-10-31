@@ -2,21 +2,18 @@
 // DlgDownloadMonitor.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2007.
+// Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
@@ -38,14 +35,14 @@
 #include "Colors.h"
 #include "Skin.h"
 #include "DlgDownloadMonitor.h"
-#include "WndMain.h"
 #include "WndDownloads.h"
+#include "WndMain.h"
 
 #ifdef _DEBUG
-#define new DEBUG_NEW
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
-#endif
+#define new DEBUG_NEW
+#endif	// Filename
 
 
 BEGIN_MESSAGE_MAP(CDownloadMonitorDlg, CSkinDialog)
@@ -72,16 +69,13 @@ CList< CDownloadMonitorDlg* > CDownloadMonitorDlg::m_pWindows;
 /////////////////////////////////////////////////////////////////////////////
 // CDownloadMonitorDlg dialog
 
-CDownloadMonitorDlg::CDownloadMonitorDlg(CDownload* pDownload) : CSkinDialog( CDownloadMonitorDlg::IDD, NULL )
+CDownloadMonitorDlg::CDownloadMonitorDlg(CDownload* pDownload)
+	: CSkinDialog( CDownloadMonitorDlg::IDD, NULL )
+	, m_pDownload	( pDownload )
+	, m_pGraph		( NULL )
+	, m_bTray		( FALSE )
+	, m_bCompleted	( FALSE )
 {
-	//{{AFX_DATA_INIT(CDownloadMonitorDlg)
-	//}}AFX_DATA_INIT
-
-	m_pDownload		= pDownload;
-	m_pGraph		= NULL;
-	m_bTray			= FALSE;
-	m_bCompleted	= FALSE;
-
 	CreateReal( IDD );
 
 	m_pWindows.AddTail( this );
@@ -144,7 +138,13 @@ void CDownloadMonitorDlg::OnSkinChange(BOOL bSet)
 		if ( bSet )
 		{
 			pDlg->SkinMe( _T("CDownloadMonitorDlg"), IDI_DOWNLOAD_MONITOR );
-			pDlg->Invalidate();
+		//	pDlg->Invalidate(); 	// ToDo: Fix Banner Disappearing Here (from above)
+
+			// Quick workaround hack: Don't paint missing banner, but obvious when size changes or moved offscreen  (Not Shareaza bug, ToDo: Fix this properly!)
+			CRect rc;
+			pDlg->GetClientRect( &rc );
+			rc.top += Skin.m_nBanner;
+			pDlg->InvalidateRect( rc );
 		}
 		else
 		{
@@ -184,13 +184,12 @@ BOOL CDownloadMonitorDlg::OnInitDialog()
 		m_sName = m_pDownload->m_sName;
 		CString strType = m_sName;
 
-		int nPeriod = strType.ReverseFind( '.' );
-
+		const int nPeriod = strType.ReverseFind( '.' );
 		if ( nPeriod > 0 )
 		{
 			strType = strType.Mid( nPeriod );
-			HICON hIcon;
 
+			HICON hIcon;
 			if ( ShellIcons.Lookup( strType, NULL, &hIcon, NULL, NULL ) )
 			{
 				if ( Settings.General.LanguageRTL )
@@ -430,32 +429,29 @@ void CDownloadMonitorDlg::OnTimer( UINT_PTR nIDEvent )
 		DWORD nTime = m_pDownload->GetTimeRemaining();
 		strText.Empty();
 
-		if ( nTime != 0xFFFFFFFF )
-		{
-			if ( nTime > 90000 )
-			{
-				LoadString( strFormat, IDS_MONITOR_TIME_DH );
-				strText.Format( strFormat, nTime / 86400, ( nTime / 3600 ) % 24 );
-			}
-			else if ( nTime > 3660 )
-			{
-				LoadString( strFormat, IDS_MONITOR_TIME_HM );
-				strText.Format( strFormat, nTime / 3600, ( nTime % 3600 ) / 60 );
-			}
-			else if ( nTime > 61 )
-			{
-				LoadString( strFormat, IDS_MONITOR_TIME_MS );
-				strText.Format( strFormat, nTime / 60, nTime % 60 );
-			}
-			else
-			{
-				LoadString( strFormat, IDS_MONITOR_TIME_S );
-				strText.Format( strFormat, nTime % 60 );
-			}
-		}
-		else
+		if ( nTime == 0xFFFFFFFF )
 		{
 			LoadString( strText, IDS_TIP_NA );
+		}
+		else if ( nTime > 90000 )
+		{
+			LoadString( strFormat, IDS_MONITOR_TIME_DH );
+			strText.Format( strFormat, nTime / 86400, ( nTime / 3600 ) % 24 );
+		}
+		else if ( nTime > 3660 )
+		{
+			LoadString( strFormat, IDS_MONITOR_TIME_HM );
+			strText.Format( strFormat, nTime / 3600, ( nTime % 3600 ) / 60 );
+		}
+		else if ( nTime > 61 )
+		{
+			LoadString( strFormat, IDS_MONITOR_TIME_MS );
+			strText.Format( strFormat, nTime / 60, nTime % 60 );
+		}
+		else	// ( nTime < 60 )
+		{
+			LoadString( strFormat, IDS_MONITOR_TIME_S );
+			strText.Format( strFormat, nTime % 60 );
 		}
 
 		Update( &m_wndTime, strText );

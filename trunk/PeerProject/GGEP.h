@@ -1,56 +1,54 @@
 //
 // GGEP.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
-// Portions Copyright Shareaza Development Team, 2002-2007.
+// This file is part of PeerProject (peerproject.org) © 2008-2010
+// Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #pragma once
 
-#define GGEP_MAGIC			0xC3 // GGEP extension prefix
+#define GGEP_MAGIC			0xC3	// GGEP extension prefix
 
-#define GGEP_HDR_LAST		0x80 // Last extension in GGEP block
-#define GGEP_HDR_COBS		0x40 // Whether COBS was used on payload
-#define GGEP_HDR_DEFLATE	0x20 // Whether payload was deflated
-#define GGEP_HDR_RESERVE	0x10 // Reserved. Must be set to 0.
-#define GGEP_HDR_IDLEN		0x0F // Where ID length is stored
+#define GGEP_HDR_LAST		0x80	// Last extension in GGEP block
+#define GGEP_HDR_COBS		0x40	// Whether COBS was used on payload
+#define GGEP_HDR_DEFLATE	0x20	// Whether payload was deflated
+#define GGEP_HDR_RESERVE	0x10	// Reserved. Must be set to 0.
+#define GGEP_HDR_IDLEN		0x0F	// Where ID length is stored
 
-#define GGEP_LEN_MORE		0x80 // Continuation present
-#define GGEP_LEN_LAST		0x40 // Last byte
-#define GGEP_LEN_MASK		0x3F // Value
+#define GGEP_LEN_MORE		0x80	// Continuation present
+#define GGEP_LEN_LAST		0x40	// Last byte
+#define GGEP_LEN_MASK		0x3F	// Value
 
-#define GGEP_H_SHA1			0x01 // Binary SHA1
-#define GGEP_H_BITPRINT		0x02 // Bitprint (SHA1 + Tiger tree root)
-#define GGEP_H_MD5			0x03 // Binary MD5
-#define GGEP_H_UUID			0x04 // Binary UUID (GUID-like)
-#define GGEP_H_MD4			0x05 // Binary MD4
+#define GGEP_H_SHA1			0x01	// Binary SHA1
+#define GGEP_H_BITPRINT		0x02	// Bitprint (SHA1 + Tiger tree root)
+#define GGEP_H_MD5			0x03	// Binary MD5
+#define GGEP_H_UUID			0x04	// Binary UUID (GUID-like)
+#define GGEP_H_MD4			0x05	// Binary MD4
 
 // MetaType query support (GGEP_HEADER_META)
 // 0x01 - Reserved
 // 0x02 - Reserved
-#define GGEP_META_AUDIO		0x04 // Audio
-#define GGEP_META_VIDEO		0x08 // Video
-#define GGEP_META_DOCUMENTS	0x10 // Documents
-#define GGEP_META_IMAGES	0x20 // Images
-#define GGEP_META_WINDOWS	0x40 // Windows Programs/Packages
-#define GGEP_META_UNIX		0x80 // Linux/Unix/Mac Programs/Packages
+#define GGEP_META_AUDIO		0x04	// Audio
+#define GGEP_META_VIDEO		0x08	// Video
+#define GGEP_META_DOCUMENTS	0x10	// Documents
+#define GGEP_META_IMAGES	0x20	// Images
+#define GGEP_META_WINDOWS	0x40	// Windows Programs/Packages
+#define GGEP_META_UNIX		0x80	// Linux/Unix/Mac Programs/Packages
 
 // Known GGEP Extension Blocks table:
 // http://gnutella-specs.rakjar.de/index.php/Known_GGEP_Extension_Blocks
+// http://webcache.googleusercontent.com/search?q=cache:tVKpl1WbmDoJ:wiki.limewire.org/index.php%3Ftitle%3DKnown_GGEP_Extension_Blocks+GGEP_Extension_Blocks
 
 // Browse Host
 const LPCTSTR GGEP_HEADER_BROWSE_HOST			= _T("BH");

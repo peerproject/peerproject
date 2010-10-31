@@ -29,7 +29,7 @@ LPCWSTR	CDocReader::uriDocument		= L"http://www.shareaza.com/schemas/wordProcess
 LPCWSTR	CDocReader::uriSpreadsheet	= L"http://www.shareaza.com/schemas/spreadsheet.xsd";
 LPCWSTR CDocReader::uriPresentation	= L"http://www.shareaza.com/schemas/presentation.xsd";
 
-LPCWSTR	CDocReader::msWordExt		= L".doc.dot";
+LPCWSTR	CDocReader::msWordExt		= L".doc.dot.docx";
 LPCWSTR	CDocReader::msExcelExt		= L".xls.xlt.xla";
 LPCWSTR	CDocReader::msPPointExt		= L".ppt.pot.ppa";
 LPCWSTR	CDocReader::msProjectExt	= L".mpp.mpt";
@@ -82,7 +82,7 @@ STDMETHODIMP CDocReader::Process(HANDLE hFile, BSTR sFile, ISXMLElement* pXML)
 		if ( wcslen( pszExt ) == 5 && pszExt[4] == 'x' )
 			hr = ProcessNewMSDocument( sFile, pXML, pszSchema, pszFormat );
 		else
-		hr = ProcessMSDocument( sFile, pXML, pszSchema, pszFormat );
+			hr = ProcessMSDocument( sFile, pXML, pszSchema, pszFormat );
 	}
 	else if ( pszFormat[ 0 ] == 'O' ) // OpenOffice or OpenDocument
 		hr = ProcessOODocument( sFile, pXML, pszSchema, pszFormat );
@@ -234,9 +234,7 @@ STDMETHODIMP CDocReader::ProcessMSDocument(BSTR bsFile, ISXMLElement* pXML, LPCW
 	SysFreeString( bsName );
 
 	if ( pszSchema == CDocReader::uriBook )
-	{
 		pAttributes->Add( L"back", L"Digital" );
-	}
 
 	// Cleanup
 	pAttributes->Release();
@@ -270,7 +268,8 @@ STDMETHODIMP CDocReader::ProcessNewMSDocument(BSTR bsFile, ISXMLElement* pXML, L
 			pFile = unzOpen2( CW2A(pszName), &FileFunc );
 			if ( ! pFile ) return STG_E_INVALIDNAME;
 		}
-		else return E_FAIL; // system doesn't support 8.3 filenames
+		else
+			return E_FAIL; // system doesn't support 8.3 filenames
 	}
 
 	// Read docProps\app.xml from the archive (Properties -> Pages, Company and AppVersion)
@@ -295,8 +294,8 @@ STDMETHODIMP CDocReader::ProcessNewMSDocument(BSTR bsFile, ISXMLElement* pXML, L
 		if ( ! sXML.Length() || FAILED( pXML->FromString( sXML, &pInputXML ) ) || pInputXML == NULL )
 		{
 			unzClose( pFile );
-		return E_FAIL;
-	}
+			return E_FAIL;
+		}
 
 		bSecondFile = true;
 	}
@@ -308,10 +307,10 @@ STDMETHODIMP CDocReader::ProcessNewMSDocument(BSTR bsFile, ISXMLElement* pXML, L
 		if ( bSecondFile )
 		{
 			unzClose( pFile );
-		pInputXML->Delete();
-		pInputXML->Release();
-		return E_FAIL;
-	}
+			pInputXML->Delete();
+			pInputXML->Release();
+			return E_FAIL;
+		}
 
 		sXML = GetMetadataXML( pFile, szSecondFile );
 
@@ -412,7 +411,7 @@ STDMETHODIMP CDocReader::ProcessNewMSDocument(BSTR bsFile, ISXMLElement* pXML, L
 					bsKeywords.Append( L";" );
 					bsKeywords.AppendBSTR( bsValue );
 				}
-				// delete keyword to get the next
+				// Delete keyword to get the next
 				pData->Delete();
 			}
 			pData->Release();
@@ -437,7 +436,7 @@ STDMETHODIMP CDocReader::ProcessNewMSDocument(BSTR bsFile, ISXMLElement* pXML, L
 		pData->Release();
 	}
 
-	if ( !bSecondFile )
+	if ( ! bSecondFile )
 	{
 		sXML = GetMetadataXML( pFile, szSecondFile );
 		if ( sXML.Length() > 0 )
@@ -456,13 +455,9 @@ STDMETHODIMP CDocReader::ProcessNewMSDocument(BSTR bsFile, ISXMLElement* pXML, L
 				pElements = NULL;
 
 				if ( FAILED( pInputXML->get_Elements( &pElements ) ) || pElements == NULL )
-				{
-					// Do nothing, cleanup later
-				}
+					; // Do nothing, cleanup later
 				else
-				{
 					bSecondFile = true;
-				}
 			}
 		}
 	}
@@ -545,7 +540,8 @@ STDMETHODIMP CDocReader::ProcessOODocument(BSTR bsFile, ISXMLElement* pXML, LPCW
 			pFile = unzOpen2( CW2A(pszName), &FileFunc );
 			if ( ! pFile ) return STG_E_INVALIDNAME;
 		}
-		else return E_FAIL; // system doesn't support 8.3 filenames
+		else
+			return E_FAIL; // system doesn't support 8.3 filenames
 	}
 
 	// Read meta.xml from the archive
@@ -555,7 +551,8 @@ STDMETHODIMP CDocReader::ProcessOODocument(BSTR bsFile, ISXMLElement* pXML, LPCW
 	// Close the file
 	unzClose( pFile );
 
-	if ( ! sXML.Length() ) return E_FAIL;
+	if ( ! sXML.Length() )
+		return E_FAIL;
 
 	ISXMLElement* pInputXML = NULL;
 
@@ -691,8 +688,7 @@ STDMETHODIMP CDocReader::ProcessOODocument(BSTR bsFile, ISXMLElement* pXML, LPCW
 	hr = pMetaElements->get_ByName( L"dc:description", &pData );
 	if ( SUCCEEDED(hr) && pData )
 	{
-		// should be abstract by definition but it corresponds to comments
-		// in MS documents
+		// Should be abstract by definition but it corresponds to comments in MS documents
 		if ( SUCCEEDED(pData->get_Value( &bsValue )) )
 			pAttributes->Add( L"comments", bsValue );
 		pData->Release();
@@ -739,9 +735,7 @@ STDMETHODIMP CDocReader::ProcessOODocument(BSTR bsFile, ISXMLElement* pXML, LPCW
 	SysFreeString( bsName );
 
 	if ( pszSchema == CDocReader::uriBook )
-	{
 		pAttributes->Add( L"back", L"Digital" );
-	}
 
 	// Cleanup destination
 	pAttributes->Release();
@@ -922,7 +916,7 @@ STDMETHODIMP CDocReader::GetMSThumbnail(BSTR bsFile, IMAGESERVICEDATA* pParams, 
 			nWidth = pBI->bmiHeader.biWidth;
 			nHeight = pBI->bmiHeader.biHeight;
 
- 			pParams->nWidth = nWidth;
+			pParams->nWidth = nWidth;
 			pParams->nHeight = nHeight;
 			// Component number is required for Image Viewer
 			pParams->nComponents = 3;
@@ -944,7 +938,7 @@ STDMETHODIMP CDocReader::GetMSThumbnail(BSTR bsFile, IMAGESERVICEDATA* pParams, 
 		bm.bmWidth = nWidth = static_cast<int>(pBmH->biWidth);
 		bm.bmHeight = nHeight = static_cast<int>(pBmH->biHeight);
 
- 		pParams->nWidth = nWidth;
+		pParams->nWidth = nWidth;
 		pParams->nHeight = nHeight;
 		pParams->nComponents = 3;
 
@@ -988,7 +982,7 @@ STDMETHODIMP CDocReader::GetMSThumbnail(BSTR bsFile, IMAGESERVICEDATA* pParams, 
 			nWidth = pBI->bmiHeader.biWidth;
 			nHeight = pBI->bmiHeader.biHeight;
 
- 			pParams->nWidth = nWidth;
+			pParams->nWidth = nWidth;
 			pParams->nHeight = nHeight;
 			pParams->nComponents = 3;
 
@@ -1062,7 +1056,7 @@ STDMETHODIMP CDocReader::GetMSThumbnail(BSTR bsFile, IMAGESERVICEDATA* pParams, 
 				pRowOut += 3;
 				pBytes += 3;
 			}
-			// skip junk at the end of scanline
+			// Skip junk at the end of scanline
 			pBytes = pBytes + ( nInPitch - nWidth * 3 );
 		}
 		else
@@ -1077,7 +1071,7 @@ STDMETHODIMP CDocReader::GetMSThumbnail(BSTR bsFile, IMAGESERVICEDATA* pParams, 
 
 				pRowOut += 3;
 			}
-			// skip junk at the end of scanline
+			// Skip junk at the end of scanline
 			pBytes = pBytes + ( nInPitch - nWidth );
 		}
 	}
@@ -1247,7 +1241,7 @@ HBITMAP CDocReader::GetBitmapFromMetaFile(PICTDESC pds, int nResolution, WORD wB
 	long nDotsWidth = CalculateDotsForHimetric( nResolution, nWidth);
 	long nDotsHeight = CalculateDotsForHimetric( nResolution, nHeight);
 
-	// make smaller
+	// Make smaller
 	if ( nDotsHeight > 800 )
 	{
 		double nFactor = static_cast<double>(nDotsHeight) / 800.0;
@@ -1270,7 +1264,7 @@ HBITMAP CDocReader::GetBitmapFromMetaFile(PICTDESC pds, int nResolution, WORD wB
 	unsigned short nAlignSize = sizeof(DWORD) * 8 - 1;
 	DWORD dwEffectiveWidth = ( ( wBitsPerSample * nDotsWidth ) + nAlignSize ) & ~nAlignSize;
 
-	//prepare the bitmap attributes
+	// Prepare the bitmap attributes
 	memset( &bmInfo->bmiHeader, 0, sizeof(BITMAPINFOHEADER) );
 	bmInfo->bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
 	bmInfo->bmiHeader.biWidth = nDotsWidth;
@@ -1280,7 +1274,7 @@ HBITMAP CDocReader::GetBitmapFromMetaFile(PICTDESC pds, int nResolution, WORD wB
 	bmInfo->bmiHeader.biYPelsPerMeter=static_cast<long>(nResolution / 2.54E-2);
 	bmInfo->bmiHeader.biPlanes = 1;
 	bmInfo->bmiHeader.biBitCount = wBitsPerSample;
-	// size in bytes
+	// Size in bytes
 	bmInfo->bmiHeader.biSizeImage = dwEffectiveWidth * nDotsHeight / 8;
 
 	if ( wBitsPerSample <= 8 )
@@ -1296,14 +1290,14 @@ HBITMAP CDocReader::GetBitmapFromMetaFile(PICTDESC pds, int nResolution, WORD wB
 		memcpy( *ppBI, bmInfo, nInfoSize );
 	}
 
-	//create a temporary dc in memory
+	// Create a temporary dc in memory
 	HDC hDC = GetDC(0);
 	ASSERT( hDC != NULL );
 
 	HDC tempDC = CreateCompatibleDC( hDC );
 	ASSERT( tempDC != NULL );
 
-	//create a new bitmap and select it in the memory dc
+	// Create a new bitmap and select it in the memory dc
 	BYTE* pBase;
 
 	HBITMAP hTempBmp = CreateDIBSection( hDC, bmInfo, DIB_RGB_COLORS,(void**)&pBase, 0, 0 );
@@ -1346,7 +1340,7 @@ HBITMAP CDocReader::GetBitmapFromEnhMetaFile(PICTDESC pds, int nResolution, WORD
 	long nDotsWidth = CalculateDotsForHimetric( nResolution, nWidth);
 	long nDotsHeight = CalculateDotsForHimetric( nResolution, nHeight);
 
-	// make smaller
+	// Make smaller
 	if ( nDotsHeight > 800 )
 	{
 		double nFactor = static_cast<double>(nDotsHeight) / 800.0;
@@ -1369,7 +1363,7 @@ HBITMAP CDocReader::GetBitmapFromEnhMetaFile(PICTDESC pds, int nResolution, WORD
 	unsigned short nAlignSize = sizeof(DWORD) * 8 - 1;
 	DWORD dwEffectiveWidth = ( ( wBitsPerSample * nDotsWidth ) + nAlignSize ) & ~nAlignSize;
 
-	//prepare the bitmap attributes
+	// Prepare the bitmap attributes
 	memset( &bmInfo->bmiHeader, 0, sizeof(BITMAPINFOHEADER) );
 	bmInfo->bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
 	bmInfo->bmiHeader.biWidth = nDotsWidth;
@@ -1379,7 +1373,7 @@ HBITMAP CDocReader::GetBitmapFromEnhMetaFile(PICTDESC pds, int nResolution, WORD
 	bmInfo->bmiHeader.biYPelsPerMeter=static_cast<long>(nResolution / 2.54E-2);
 	bmInfo->bmiHeader.biPlanes = 1;
 	bmInfo->bmiHeader.biBitCount = wBitsPerSample;
-	// size in bytes
+	// Size in bytes
 	bmInfo->bmiHeader.biSizeImage = dwEffectiveWidth * nDotsHeight / 8;
 
 	if ( wBitsPerSample <= 8 )
@@ -1391,18 +1385,18 @@ HBITMAP CDocReader::GetBitmapFromEnhMetaFile(PICTDESC pds, int nResolution, WORD
 	if ( ppBI != NULL )
 	{
 		*ppBI = (LPBITMAPINFO) new BYTE[ nInfoSize ];
-		//copy BITMAPINFO
+		// Copy BITMAPINFO
 		memcpy( *ppBI, bmInfo, nInfoSize );
 	}
 
-	//create a temporary dc in memory
+	// Create a temporary dc in memory
 	HDC hDC = GetDC(0);
 	ASSERT( hDC != NULL );
 
 	HDC tempDC = CreateCompatibleDC( hDC );
 	ASSERT( tempDC != NULL );
 
-	//create a new bitmap and select it in the memory dc
+	// Create a new bitmap and select it in the memory dc
 	BYTE* pBase;
 
 	HBITMAP hTempBmp = CreateDIBSection( hDC, bmInfo, DIB_RGB_COLORS,(void**)&pBase, 0, 0 );
@@ -1670,7 +1664,7 @@ HRESULT CDocReader::
 
 	// The rest is just cleanup to restore us back to state where
 	// we can be called again. The Zombie call disconnects sub objects
- 	// and should free them if caller has also released them...
+	// and should free them if caller has also released them...
 	ZOMBIE_OBJECT(m_pSummProps);
 
 	if ( m_pPropSetStg )
@@ -1710,7 +1704,7 @@ HRESULT CDocReader::
 	CDocumentProperties::get_IsDirty(VARIANT_BOOL* pbDirty)
 {
 	BOOL fDirty = FALSE;
- 	ODS(_T("CDocReader::CDocumentProperties::get_IsDirty\n"));
+	ODS(_T("CDocReader::CDocumentProperties::get_IsDirty\n"));
 
 	// Check the status of summary properties...
 	if ((m_pSummProps) && (m_pSummProps->FIsDirty()))
@@ -1735,7 +1729,7 @@ HRESULT CDocReader::
 	CHECK_FLAG_RETURN(m_fReadOnly, E_DOCUMENTREADONLY);
 
 	// Ask SummaryProperties to save its changes...
-	if (m_pSummProps)
+	if ( m_pSummProps )
 	{
 		hr = m_pSummProps->SaveProperties(TRUE);
 		if (FAILED(hr)) return hr;
@@ -1743,7 +1737,7 @@ HRESULT CDocReader::
 	}
 
 	// If save was made, commit the root storage before return...
-	if ((fSaveMade) && (m_pStorage))
+	if ( (fSaveMade) && (m_pStorage) )
         hr = m_pStorage->Commit(STGC_DEFAULT);
 
 	return hr;
@@ -1757,19 +1751,19 @@ HRESULT CDocReader::
 {
 	HRESULT hr = E_FAIL;
 
- 	ODS(_T("CDocReader::CDocumentProperties::get_SummaryProperties\n"));
+	ODS(_T("CDocReader::CDocumentProperties::get_SummaryProperties\n"));
 	CHECK_NULL_RETURN(ppSummaryProperties,  E_POINTER);
 	*ppSummaryProperties = NULL;
 
-	if (m_pSummProps == NULL)
+	if ( m_pSummProps == NULL )
 	{
 		m_pSummProps = new CSummaryProperties(m_bOnlyThumb);
- 		if (m_pSummProps)
+		if ( m_pSummProps )
 			{ hr = m_pSummProps->LoadProperties(m_pPropSetStg, m_fReadOnly, m_dwFlags); }
 		else
 			hr = E_OUTOFMEMORY;
 
-		if (FAILED(hr))
+		if ( FAILED(hr) )
 		{
 			ZOMBIE_OBJECT(m_pSummProps);
 			return hr;
@@ -1917,7 +1911,7 @@ HRESULT CDocReader::
 		TCHAR szName[ MAX_PATH ] = {};
 		int i = GetClipboardFormatName( cf, szName, MAX_PATH );
 		if ( i > 0)
- 			szName[i] = '\0';
+			szName[i] = '\0';
 		else
 			wsprintf(szName, _T("ClipFormat 0x%X (%d)"), cf, cf);
 
@@ -1934,7 +1928,7 @@ HRESULT CDocReader::
 HRESULT CDocReader::
 	CDocumentProperties::get_OleDocumentType(BSTR* pbstrType)
 {
- 	HRESULT hr = S_FALSE;;
+	HRESULT hr = S_FALSE;;
 	LPWSTR lpolestr = NULL;
 
 	ODS(_T("CDocReader::CDocumentProperties::get_OleDocumentType\n"));
@@ -2335,7 +2329,7 @@ HRESULT CDocReader::CDocumentProperties::
 
 	// Get DigSig data as CF_BLOB...
 	pitem = GetPropertyFromList(m_pDocPropList, PID_DIGSIG, FALSE);
-	if (pitem) hr = pitem->get_Value(pvtDigSig);
+	if ( pitem ) hr = pitem->get_Value(pvtDigSig);
 	return hr;
 }
 
@@ -2365,7 +2359,7 @@ HRESULT CDocReader::CDocumentProperties::
 		// Load all the properties into a list set (and save the code page). The list
 		// may return NULL if no properties are found, but that is OK. We just return
 		// blank values for items as if they were set to zero...
- 		hr = LoadPropertySetList( pProps, &m_wCodePageSI, &m_pSummPropList, m_bOnlyThumb );
+		hr = LoadPropertySetList( pProps, &m_wCodePageSI, &m_pSummPropList, m_bOnlyThumb );
 		pProps->Release();
 	}
 	else
@@ -2374,13 +2368,13 @@ HRESULT CDocReader::CDocumentProperties::
 		// or a case where DontAutoCreate flag is used, we just treat as read-only
 		// with no properties. Otherwise we return error that propset is invalid...
 		if (hr == STG_E_FILENOTFOUND)
- 		{ // We allow partial open if NoAutoCreate is set.
+		{ // We allow partial open if NoAutoCreate is set.
 			if ((fIsReadOnly) || (dwFlags & dsoOptionDontAutoCreate))
 			{
-  				fIsReadOnly = TRUE;
+				fIsReadOnly = TRUE;
 				hr = S_FALSE;
 			}
- 			else
+			else
 				hr = E_INVALIDPROPSET;
 		}
 	}
@@ -2410,7 +2404,7 @@ HRESULT CDocReader::CDocumentProperties::
 			}
 			else
 				hr = E_INVALIDPROPSET;
-	}
+		}
 	}
 
 	// If all wen well, store the parameters passed for later use...
@@ -2459,7 +2453,7 @@ HRESULT CDocReader::CDocumentProperties::
 			case VT_BOOL: *((VARIANT_BOOL*)ppv) = vtTmp.boolVal; break;
 			case VT_DATE: VariantCopy( ( (VARIANT*)ppv ), &vtTmp ); break;
 			}
- 			VariantClear( &vtTmp );
+			VariantClear( &vtTmp );
 		}
 	}
 
@@ -2505,8 +2499,8 @@ HRESULT CDocReader::CDocumentProperties::
 	}
 
 	// Find the cached item in the list and update it...
-	pitem = GetPropertyFromList(*ppPropList, pid, TRUE);
-	if (pitem)
+	pitem = GetPropertyFromList( *ppPropList, pid, TRUE );
+	if ( pitem )
 	{
 		hr = pitem->put_Value(&vtItem);
 
@@ -2561,7 +2555,7 @@ HRESULT CDocReader::CDocumentProperties::
 	if ( SUCCEEDED(hr) && ( m_pDocPropList ) )
 	{
 		hr = OpenPropertyStorage( m_pPropSetStg, FMTID_DocSummaryInformation, FALSE, 0, &pProps );
-		if (SUCCEEDED(hr))
+		if ( SUCCEEDED(hr) )
 		{
 			// Save all the changed items in the list...
 			hr = SavePropertySetList(pProps, m_wCodePageDSI, m_pDocPropList, &cSaved);
@@ -2591,7 +2585,7 @@ CDocProperty* CDocReader::CDocumentProperties::
 	ODS(_T("CSummaryProperties::FindPropertyInList\n"));
 
 	// Loop the list until you find the item...
-	while (pitem)
+	while ( pitem )
 	{
 		if ( pitem->GetID() == id ) break;
 
@@ -2608,14 +2602,15 @@ CDocProperty* CDocReader::CDocumentProperties::
 		{
 			VARIANT var; var.vt = VT_EMPTY;
 			if ( FAILED(pitem->InitProperty( NULL, id, &var, TRUE, (plast->AppendLink( pitem )) )) )
-			{	// If we fail, try to reverse the append and kill the new object...
+			{
+				// When we fail, try to reverse the append and kill the new object...
 				plast->AppendLink( ( pitem->GetNextProperty() ) );
 				pitem = NULL;
 			}
 		}
 	}
 
-		return pitem;
+	return pitem;
 }
 
 ////////////////////////////////////////////////////////////////////////

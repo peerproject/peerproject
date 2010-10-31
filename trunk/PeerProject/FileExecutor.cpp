@@ -2,21 +2,18 @@
 // FileExecutor.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2008.
+// Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
@@ -42,7 +39,7 @@
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
-#endif
+#endif	// Filename
 
 // Some known media players
 static const struct
@@ -543,7 +540,7 @@ BOOL CFileExecutor::ShowBitziTicket(DWORD nIndex)
 	CString strINFO = _T("&tag.tiger.tree=") + pFile->m_oTiger.toString();
 	if ( pFile->m_oMD5 )
 		strINFO += _T("&tag.md5.md5=") + pFile->m_oMD5.toString();
-	if ( pFile->m_sComments.Trim().GetLength() )
+	if ( ! pFile->m_sComments.Trim().IsEmpty() )
 		strINFO += _T("&tag.subjective.comment=") + URLEncode( pFile->m_sComments );
 
 	if ( pFile->m_pMetadata != NULL && pFile->m_pSchema != NULL )
@@ -612,7 +609,7 @@ BOOL CFileExecutor::ShowBitziTicket(DWORD nIndex)
 						else
 							strReplace.Empty();
 
-						if ( strReplace.GetLength() )
+						if ( ! strReplace.IsEmpty() )
 						{
 							strMP3orOGGorWAVTag += strReplace;
 							nMP3orOGGorWAVTag++;
@@ -644,7 +641,7 @@ BOOL CFileExecutor::ShowBitziTicket(DWORD nIndex)
 						else
 							strReplace.Empty();
 
-						if ( strReplace.GetLength() )
+						if ( ! strReplace.IsEmpty() )
 						{
 							strMP3orOGGorWAVTag += strReplace;
 							nMP3orOGGorWAVTag++;
@@ -664,7 +661,7 @@ BOOL CFileExecutor::ShowBitziTicket(DWORD nIndex)
 						else
 							strReplace.Empty();
 
-						if ( strReplace.GetLength() )
+						if ( ! strReplace.IsEmpty() )
 						{
 							strMP3orOGGorWAVTag += strReplace;
 							nMP3orOGGorWAVTag++;
@@ -682,7 +679,7 @@ BOOL CFileExecutor::ShowBitziTicket(DWORD nIndex)
 						else
 							strReplace.Empty();
 
-						if ( strReplace.GetLength() )
+						if ( ! strReplace.IsEmpty() )
 						{
 							strMP3orOGGorWAVTag += strReplace;
 							nMP3orOGGorWAVTag++;
@@ -698,7 +695,7 @@ BOOL CFileExecutor::ShowBitziTicket(DWORD nIndex)
 							else
 								strReplace.Empty();
 
-						if ( strReplace.GetLength() )
+						if ( ! strReplace.IsEmpty() )
 							nMP3orOGGorWAVTag++;
 					}
 					else if ( str == "encoder" )
@@ -710,7 +707,7 @@ BOOL CFileExecutor::ShowBitziTicket(DWORD nIndex)
 						else
 							strReplace.Empty();
 
-						if ( strReplace.GetLength() )
+						if ( ! strReplace.IsEmpty() )
 							strMP3orOGGorWAVTag += URLEncode( strReplace );
 					}
 				}
@@ -744,7 +741,7 @@ BOOL CFileExecutor::ShowBitziTicket(DWORD nIndex)
 					else if ( strReplace == "16.7M" ) strReplace = "24";
 					else strReplace = "";
 
-					if ( strReplace.GetLength() )
+					if ( ! strReplace.IsEmpty() )
 					{
 						strImageTag += _T("&tag.image.bpp=") + strReplace;
 						nImageTag++;
@@ -824,9 +821,9 @@ BOOL CFileExecutor::ShowBitziTicket(DWORD nIndex)
 				strINFO += _T("&tag.image.format=JPEG");
 		}
 
-		if ( strDescription.GetLength() )
+		if ( ! strDescription.IsEmpty() )
 			strINFO += _T("&tag.objective.description=") + strDescription;
-		else if ( strTitle.GetLength() )
+		else if ( ! strTitle.IsEmpty() )
 			strINFO += _T("&tag.objective.description=") + strTitle;
 	}
 
@@ -860,7 +857,7 @@ BOOL CFileExecutor::ShowBitziTicket(DWORD nIndex)
 		strINFO += _T("&tag.video.format=DVD");
 	else if ( strExt == "IVF" )
 		strINFO += _T("&tag.video.format=Indeo Video");
-	else if ( pFile->m_pSchema != NULL && pFile->m_pSchema->CheckURI( CSchema::uriVideo ) && strExt.GetLength() )
+	else if ( pFile->m_pSchema != NULL && pFile->m_pSchema->CheckURI( CSchema::uriVideo ) && ! strExt.IsEmpty() )
 		strINFO += _T("&tag.video.format=") + URLEncode( strExt );
 
 	strURL.Replace( _T("&(INFO)"), strINFO );

@@ -2,21 +2,18 @@
 // CoolInterface.h
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2007.
+// Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #pragma once
@@ -51,13 +48,18 @@ public:
 	int			ImageForID(UINT nID, int nImageListType = LVSIL_SMALL) const;
 	void		AddIcon(UINT nID, HICON hIcon, int nImageListType = LVSIL_SMALL);
 	void		CopyIcon(UINT nFromID, UINT nToID, int nImageListType = LVSIL_SMALL);
-	HICON		ExtractIcon(UINT nID, BOOL bMirrored, int nImageListType = LVSIL_SMALL);
-	int			ExtractIconID(UINT nID, BOOL bMirrored, int nImageListType = LVSIL_SMALL);
+	HICON		ExtractIcon(UINT nID, BOOL bMirrored = FALSE, int nImageListType = LVSIL_SMALL);
+	int			ExtractIconID(UINT nID, BOOL bMirrored = FALSE, int nImageListType = LVSIL_SMALL);
 	// Set skinned icon to window: pWnd->SetIcon( hIcon, bBigIcon )
 	void		SetIcon(UINT nID, BOOL bMirrored, BOOL bBigIcon, CWnd* pWnd);
 	void		SetIcon(HICON hIcon, BOOL bMirrored, BOOL bBigIcon, CWnd* pWnd);
 	int			GetImageCount(int nImageListType = LVSIL_SMALL);
+	// Assign image list to CListCtrl object. Returns old image list of CListCtrl object.
 	CImageList*	SetImageListTo(CListCtrl& pWnd, int nImageListType = LVSIL_SMALL);
+	// Loads skinable icons specified by ID array to CImageList object
+	void		LoadIconsTo(CImageList& pImageList, const UINT nID[], BOOL bMirror = FALSE, int nImageListType = LVSIL_SMALL);
+	void		LoadFlagsTo(CImageList& pImageList);
+	// No void	LoadProtocolIconsTo(), use LoadIconsTo( pImageList, protocolIDs );
 	//BOOL		AddImagesFromToolbar(UINT nIDToolBar, COLORREF crBack = RGB(0,255,0));
 	BOOL		Add(CSkin* pSkin, CXMLElement* pBase, HBITMAP hbmImage, COLORREF crMask, int nImageListType = LVSIL_SMALL);
 	BOOL		Draw(CDC* pDC, int nImage, POINT pt, UINT nStyle = ILD_NORMAL, int nImageListType = LVSIL_SMALL) const;

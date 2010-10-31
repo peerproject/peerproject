@@ -1,40 +1,37 @@
 //
 // DlgDownloadReviews.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
-// Portions Copyright Shareaza Development Team, 2002-2007.
+// This file is part of PeerProject (peerproject.org) © 2008-2010
+// Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
 #include "PeerProject.h"
-#include "LiveList.h"
 #include "DlgDownloadReviews.h"
 #include "Settings.h"
+#include "LiveList.h"
 #include "Download.h"
-#include "CoolInterface.h"
-#include "Skin.h"
 #include "Downloads.h"
 #include "Transfers.h"
+#include "CoolInterface.h"
+#include "Skin.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
-#endif
+#endif	// Filename
 
 IMPLEMENT_DYNAMIC(CDownloadReviewDlg, CSkinDialog)
 
@@ -60,13 +57,12 @@ void CDownloadReviewDlg::DoDataExchange(CDataExchange* pDX)
 	CSkinDialog::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_REVIEWS, m_wndReviews);
 	DDX_Text(pDX, IDC_REVIEW_FILENAME, m_sReviewFileName);
-
 }
 
 /////////////////////////////////////////////////////////////////////////////
 // CDownloadReviewDlg message handlers
 
-BOOL CDownloadReviewDlg::OnInitDialog() 
+BOOL CDownloadReviewDlg::OnInitDialog()
 {
 	CSkinDialog::OnInitDialog();
 
@@ -87,13 +83,13 @@ BOOL CDownloadReviewDlg::OnInitDialog()
 
 	// Sort by order added- first at the top
 	CLiveList::Sort( &m_wndReviews, 3, FALSE );
-	//CLiveList::Sort( &m_wndReviews, 3, FALSE );	//Repeat
+	//CLiveList::Sort( &m_wndReviews, 3, FALSE );	// Repeat
 
 	CLiveList pReviews( 4 );
 	int nIndex = 1;
 	// Lock while we're loading the list. (In case the download is destroyed)
 	CSingleLock pLock( &Transfers.m_pSection, TRUE );
-	
+
 	if ( ! m_pDownload ) return FALSE;
 
 	m_sReviewFileName = m_pDownload->m_sName;
@@ -110,21 +106,21 @@ BOOL CDownloadReviewDlg::OnInitDialog()
 		switch ( pReview->m_nUserPicture )
 		{
 		case 0:
-			pItem->m_nImage = CoolInterface.ImageForID( ID_TOOLS_WIZARD );
+			pItem->SetImage( CoolInterface.ImageForID( ID_TOOLS_WIZARD ) );
 			break;
 		case 1:
-			pItem->m_nImage = CoolInterface.ImageForID( ID_TOOLS_PROFILE );
+			pItem->SetImage( CoolInterface.ImageForID( ID_TOOLS_PROFILE ) );
 			break;
 		case 2:
-			pItem->m_nImage = CoolInterface.ImageForID( ID_TOOLS_WIZARD );
+			pItem->SetImage( CoolInterface.ImageForID( ID_TOOLS_WIZARD ) );
 			break;
 		case 3:
-			pItem->m_nImage = CoolInterface.ImageForID( ID_TOOLS_PROFILE );
+			pItem->SetImage( CoolInterface.ImageForID( ID_TOOLS_PROFILE ) );
 			break;
 		default:
-			pItem->m_nImage = CoolInterface.ImageForID( ID_TOOLS_PROFILE );
+			pItem->SetImage( CoolInterface.ImageForID( ID_TOOLS_PROFILE ) );
 		}
-		
+
 		pItem->Set( 0, pReview->m_sUserName );
 
 		int nRating = min( pReview->m_nFileRating, 6 );
@@ -133,10 +129,8 @@ BOOL CDownloadReviewDlg::OnInitDialog()
 		LoadString( strRating, IDS_RATING_NORATING + nRating );
 		pItem->Set( 1, strRating );
 
-		
 		pItem->Set( 2, pReview->m_sFileComments );
 		pItem->Format( 3, _T("%i"), nIndex );
-		
 
 		nIndex++;
 		pReview = pReview->m_pNext;
@@ -152,13 +146,13 @@ BOOL CDownloadReviewDlg::OnInitDialog()
 	SkinMe( NULL, IDR_MEDIAFRAME );
 
 	UpdateData( FALSE );
-	
+
 	return TRUE;
 }
 
-void CDownloadReviewDlg::OnOK() 
+void CDownloadReviewDlg::OnOK()
 {
 	UpdateData( TRUE );
-	
+
 	CSkinDialog::OnOK();
 }

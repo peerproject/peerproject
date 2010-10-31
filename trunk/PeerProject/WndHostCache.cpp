@@ -2,21 +2,18 @@
 // WndHostCache.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2008.
+// Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
@@ -32,16 +29,16 @@
 #include "DlgDonkeyServers.h"
 #include "DlgURLCopy.h"
 #include "LiveList.h"
-//#include "Flags.h"
-#include "Skin.h"
-#include "Colors.h"
 #include "CoolInterface.h"
+#include "Colors.h"
+#include "Skin.h"
+#include "Flags.h"
 
 #ifdef _DEBUG
-#define new DEBUG_NEW
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
-#endif
+#define new DEBUG_NEW
+#endif	// Filename
 
 IMPLEMENT_SERIAL(CHostCacheWnd, CPanelWnd, 0)
 
@@ -115,33 +112,12 @@ int CHostCacheWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	m_pSizer.Attach( &m_wndList );
 
-	CBitmap bmImages;
-	bmImages.LoadBitmap( IDB_PROTOCOLS );
-	if ( Settings.General.LanguageRTL )
-		bmImages.m_hObject = CreateMirroredBitmap( (HBITMAP)bmImages.m_hObject );
+	// Merge protocols and flags in one image list (OnSkin)
+//	CoolInterface.LoadIconsTo( m_gdiImageList, protocolIDs );
+//	CoolInterface.LoadFlagsTo( m_gdiImageList );
+//	m_wndList.SetImageList( &m_gdiImageList, LVSIL_SMALL );
 
-	m_gdiImageList.Create( 16, 16, ILC_COLOR32|ILC_MASK, 7, 1 ) ||
-	m_gdiImageList.Create( 16, 16, ILC_COLOR24|ILC_MASK, 7, 1 ) ||
-	m_gdiImageList.Create( 16, 16, ILC_COLOR16|ILC_MASK, 7, 1 );
-	m_gdiImageList.Add( &bmImages, RGB( 0, 255, 0 ) );
-
-//	// Merge protocols and flags in one image list
-//	const int nImages = m_gdiImageList.GetImageCount();
-//	const int nFlags  = Flags.m_pImage.GetImageCount();
-//	VERIFY( m_gdiImageList.SetImageCount( nImages + nFlags ) );
-//	for ( int nFlag = 0 ; nFlag < nFlags ; nFlag++ )
-//	{
-//		if ( HICON hIcon = Flags.m_pImage.ExtractIcon( nFlag ) )
-//		{
-//			VERIFY( m_gdiImageList.Replace( nImages + nFlag, hIcon ) != -1 );
-//			VERIFY( DestroyIcon( hIcon ) );
-//		}
-//	}
-
-	m_wndList.SetImageList( &m_gdiImageList, LVSIL_SMALL );
-	bmImages.DeleteObject();
-
-	m_wndList.SetExtendedStyle( LVS_EX_DOUBLEBUFFER|LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP|LVS_EX_LABELTIP );	//LVS_EX_SUBITEMIMAGES
+	m_wndList.SetExtendedStyle( LVS_EX_DOUBLEBUFFER|LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP|LVS_EX_LABELTIP );	// No LVS_EX_SUBITEMIMAGES
 	m_wndList.InsertColumn( 0, _T("Address"), LVCFMT_LEFT, 140, -1 );
 	m_wndList.InsertColumn( 1, _T("Port"), LVCFMT_CENTER, 60, 0 );
 	m_wndList.InsertColumn( 2, _T("Client"), LVCFMT_CENTER, 100, 1 );
@@ -152,7 +128,7 @@ int CHostCacheWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_wndList.InsertColumn( 7, _T("CurUsers"), LVCFMT_CENTER, 60, 6 );
 	m_wndList.InsertColumn( 8, _T("MaxUsers"), LVCFMT_CENTER, 60, 7 );
 	m_wndList.InsertColumn( 9, _T("Failures"), LVCFMT_CENTER, 60, 8 );
-	m_wndList.InsertColumn( 10, _T("Country"), LVCFMT_LEFT, 40, 12 );
+	m_wndList.InsertColumn( 10, _T("Country"), LVCFMT_LEFT, 60, 12 );
 #ifdef _DEBUG
 	m_wndList.InsertColumn( 11, _T("Key"), LVCFMT_RIGHT, 0, 9 );
 	m_wndList.InsertColumn( 12, _T("Query"), LVCFMT_RIGHT, 0, 10 );
@@ -204,8 +180,7 @@ void CHostCacheWnd::Update(BOOL bForce)
 
 		CLiveItem* pItem = m_wndList.Add( pHost );
 
-		pItem->m_nImage = pHost->m_nProtocol;
-		//pItem->SetImage( &m_wndList, (int)pHost, 0, ( Settings.General.LanguageRTL ? PROTOCOL_LAST - pHost->m_nProtocol - 1 : pHost->m_nProtocol ) );
+		pItem->SetImage( pHost->m_nProtocol );
 		pItem->SetMaskOverlay( pHost->m_bPriority );
 
 		pItem->Set( 0, CString( inet_ntoa( pHost->m_pAddress ) ) );
@@ -213,16 +188,18 @@ void CHostCacheWnd::Update(BOOL bForce)
 
 		if ( pHost->m_pVendor )
 			pItem->Set( 2, pHost->m_pVendor->m_sName );
-		else if ( pHost->m_nProtocol == PROTOCOL_G1 )
-			pItem->Set( 2, _T("(Gnutella)") );
-		else if ( pHost->m_nProtocol == PROTOCOL_G2 )
-			pItem->Set( 2, _T("(Gnutella 2)") );
-		else if ( pHost->m_nProtocol == PROTOCOL_ED2K )
-			pItem->Set( 2, _T("(eDonkey Server)") );
-		else if ( pHost->m_nProtocol == PROTOCOL_BT )
-			pItem->Set( 2, _T("(BitTorrent)") );
-		else if ( pHost->m_nProtocol == PROTOCOL_KAD )
-			pItem->Set( 2, _T("(Kademlia)") );
+		else
+			pItem->Set( 2, CString( _T("(") ) + protocolNames[ pHost->m_nProtocol ] + _T(")") );
+
+		// Obsolete:
+		//else if ( pHost->m_nProtocol == PROTOCOL_G1 )
+		//	pItem->Set( 2, _T("(Gnutella)") );
+		//else if ( pHost->m_nProtocol == PROTOCOL_G2 )
+		//	pItem->Set( 2, _T("(Gnutella 2)") );
+		//else if ( pHost->m_nProtocol == PROTOCOL_ED2K )
+		//	pItem->Set( 2, _T("(eDonkey Server)") );
+		//else if ( pHost->m_nProtocol == PROTOCOL_BT )
+		//	pItem->Set( 2, _T("(BitTorrent)") );
 
 		CTime pTime( (time_t)pHost->Seen() );
 		pItem->Set( 3, pTime.Format( _T("%Y-%m-%d %H:%M:%S") ) );
@@ -241,9 +218,9 @@ void CHostCacheWnd::Update(BOOL bForce)
 		if ( pHost->m_sCountry )
 		{
 			pItem->Set( 10, pHost->m_sCountry );
-		//	int nFlagIndex = Flags.GetFlagIndex( pHost->m_sCountry );
-		//	if ( nFlagIndex >= 0 )
-		//		pItem->SetImage( &m_wndList, (int)pHost, 10, PROTOCOL_LAST + nFlagIndex );
+			const int nFlagIndex = Flags.GetFlagIndex( pHost->m_sCountry );
+			if ( nFlagIndex >= 0 )
+				pItem->SetImage( PROTOCOL_LAST + nFlagIndex, 10 );
 		}
 #ifdef _DEBUG
 		if ( pHost->m_nKeyValue ) pItem->Format( 11, _T("%u"), pHost->m_nKeyValue);
@@ -254,7 +231,7 @@ void CHostCacheWnd::Update(BOOL bForce)
 
 	m_wndList.Apply();
 
-	tLastUpdate = GetTickCount();				// Update timer
+	m_tLastUpdate = GetTickCount();				// Update timer
 }
 
 CHostCacheHostPtr CHostCacheWnd::GetItem(int nItem)
@@ -274,30 +251,14 @@ void CHostCacheWnd::OnSkinChange()
 	CPanelWnd::OnSkinChange();
 	Settings.LoadList( _T("CHostCacheWnd"), &m_wndList );
 	Skin.CreateToolBar( _T("CHostCacheWnd"), &m_wndToolBar );
-	if ( Settings.General.GUIMode == GUI_BASIC)
-		Settings.Gnutella.HostCacheView = m_nMode = PROTOCOL_G2;
 
-	for ( int nImage = 1 ; nImage < 6 ; nImage++ )
-	{
-		if ( HICON hIcon = CoolInterface.ExtractIcon( (UINT)protocolCmdMap[ nImage ].commandID, FALSE ) )
-		{
-			m_gdiImageList.Replace( nImage, hIcon );
-			DestroyIcon( hIcon );
-		}
-	}
-
-//	const int nImages = m_gdiImageList.GetImageCount();
-//	const int nFlags  = Flags.m_pImage.GetImageCount();
-//	for ( int nFlag = 0 ; nFlag < nFlags ; nFlag++ )
-//	{
-//		if ( HICON hIcon = Flags.m_pImage.ExtractIcon( nFlag ) )
-//		{
-//			VERIFY( m_gdiImageList.Replace( nImages + nFlag, hIcon ) != -1 );
-//			VERIFY( DestroyIcon( hIcon ) );
-//		}
-//	}
+	CoolInterface.LoadIconsTo( m_gdiImageList, protocolIDs );
+	CoolInterface.LoadFlagsTo( m_gdiImageList );
 
 	m_wndList.SetImageList( &m_gdiImageList, LVSIL_SMALL );
+
+	//if ( Settings.General.GUIMode == GUI_BASIC )
+	//	Settings.Gnutella.HostCacheView = m_nMode = PROTOCOL_G2;
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -324,7 +285,7 @@ void CHostCacheWnd::OnTimer(UINT_PTR nIDEvent)
 		DWORD tTicks = GetTickCount();
 
 		// Wait 10 seconds before refreshing; do not force updates
-		if ( pCache->m_nCookie != m_nCookie && ( tTicks - tLastUpdate ) > 10000 )
+		if ( pCache->m_nCookie != m_nCookie && ( tTicks - m_tLastUpdate ) > 10000 )
 			Update();
 	}
 }
@@ -335,7 +296,7 @@ void CHostCacheWnd::OnCustomDrawList(NMHDR* pNMHDR, LRESULT* pResult)
 
 	if ( pDraw->nmcd.dwDrawStage == CDDS_PREPAINT )
 	{
-		*pResult = ( m_nMode == PROTOCOL_ED2K ) ? CDRF_NOTIFYITEMDRAW : CDRF_DODEFAULT;
+		*pResult = CDRF_NOTIFYITEMDRAW;
 	}
 	else if ( pDraw->nmcd.dwDrawStage == CDDS_ITEMPREPAINT )
 	{

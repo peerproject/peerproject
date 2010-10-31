@@ -3,8 +3,8 @@
 
 <!-- PeerProject Default Albanian Skin File -->
 
-<!-- Translation based on default-en.xml r59 -->
-<!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
+<!-- Translation based on default-en.xml r60 -->
+<!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
 <!-- Use this file as a basis for creating new language skins,   -->
@@ -62,6 +62,7 @@
 		<button id="ID_VIEW_MEDIA"/>
 		<button id="ID_TAB_IRC"/>
 		<separator/>
+		<button id="ID_VIEW_SCHEDULER"/>
 		<button id="ID_VIEW_SECURITY"/>
 		<button id="ID_VIEW_HOSTS"/>
 		<button id="ID_VIEW_DISCOVERY"/>
@@ -1725,13 +1726,16 @@
 			<newline gap="8" indent="42"/>
 			<anchor id="SearchBox" width="256" height="80"/>
 			<newline gap="14" indent="0"/>
-			<icon res="124" width="32" height="32" target="command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
+			<icon res="122" width="32" height="32" target="command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
 			<heading align="middle">NISNI TË SHKARKONI</heading>
 			<newline gap="8" indent="42"/>
 			<link target="command:ID_TOOLS_DOWNLOAD" format="bu">Klikoni që të nisni</link>
 			<text align="middle">&#160; të shkarkoni një skedë ose torrent të ri.</text>
 			<newline gap="2" indent="42"/>
 			<link target="command:shell:downloads">Shko te Shkarkesat e Mia.</link>
+			<newline gap="4" indent="42"/>
+			<text>Ndarë mbledhjen tuaj në </text>
+			<link id="RemoteBrowseURL"/>
 			<newline gap="20" indent="0"/>
 		</group>
 		<group id="3">
@@ -1779,30 +1783,30 @@
 		<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">POROSITENI PEERPROJECT - n</heading>
 		<newline gap="12" indent="42"/>
-		<icon res="196"width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
-		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">Lëvoret</link>
-		<text align="middle">&#160;- Ndryshoni pamjen &amp; ndjesinë e PeerProject-s</text>
+		<icon res="196" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
+		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">Lëvoret</link><gap size="6"/>
+		<text align="middle">- Ndryshoni pamjen &amp; ndjesinë e PeerProject-s</text>
 		<newline gap="8"/>
-		<icon res="138"width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
-		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
-		<text align="middle">&#160;- Update blocklist to avoid bad search results</text>
+		<icon res="138" width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
+		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link><gap size="6"/>
+		<text align="middle">- Update blocklist to avoid bad search results</text>
 		<newline gap="8"/>
-		<icon res="197"width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
-		<link target="command:ID_TOOLS_WIZARD" align="middle">Uizardi i Shpejtë</link>
-		<text align="middle">&#160;- Editoni kuadrot e PeerProject-s</text>
+		<icon res="197" width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
+		<link target="command:ID_TOOLS_WIZARD" align="middle">Uizardi i Shpejtë</link><gap size="6"/>
+		<text align="middle">- Editoni kuadrot e PeerProject-s</text>
 		<newline gap="8"/>
-		<icon res="138"width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
-		<link target="command:ID_VIEW_SECURITY" align="middle">Filtrat e Sigurisë</link>
-		<text align="middle">&#160;- Shto/Fshiji filtrat që të përmirësosh rezultatet e kërkimit</text>
+		<icon res="138" width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
+		<link target="command:ID_VIEW_SECURITY" align="middle">Filtrat e Sigurisë</link><gap size="6"/>
+		<text align="middle">- Shto/Fshiji filtrat që të përmirësosh rezultatet e kërkimit</text>
 		<newline gap="8"/>
-		<icon res="182"width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
-		<link target="command:ID_HELP_FAQ" align="middle">Ndihmë e Shpejtë</link>
-		<text align="middle">&#160;- Merrni ndihmën kryesore mbi përdorimin e PeerProject-s, or </text>
+		<icon res="182" width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
+		<link target="command:ID_HELP_FAQ" align="middle">Ndihmë e Shpejtë</link><gap size="6"/>
+		<text align="middle">- Merrni ndihmën kryesore mbi përdorimin e PeerProject-s, or </text>
 		<link target="command:ID_TAB_IRC" align="middle">IRC.</link>
 		<newline gap="8"/>
-		<icon res="201"width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
-		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">Local Forum</link>
-		<text align="middle">&#160;- Shko tek forumi shqiptar tuaj diskutim gjuhën</text>
+		<icon res="201" width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
+		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">Local Forum</link><gap size="6"/>
+		<text align="middle">- Shko tek forumi shqiptar tuaj diskutim gjuhën</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
 			<icon res="120" width="32" height="32"/><gap size="8"/>
@@ -2027,7 +2031,7 @@
 		</group>
 		<group id="41">
 			<newline gap="1"/>
-			<icon res="208"/><gap size="5"/>
+			<icon res="207"/><gap size="5"/>
 			<link id="ContactYahoo"/>
 		</group>
 		<group id="42">
@@ -2068,7 +2072,7 @@
 			<newline gap="16" indent="0"/>
 			<text format="b">Komuniteti</text>
 			<newline gap="4" indent="8"/>
-			<icon res="127"target="command:ID_SEARCH_CHAT"/>
+			<icon res="127" target="command:ID_SEARCH_CHAT"/>
 			<gap size="5"/>
 			<link target="command:ID_SEARCH_CHAT" align="middle">Bisedo</link>
 		</group>
@@ -2856,8 +2860,8 @@
 	<string id="20441" value="PeerProject could not rename:\n\n%s\nto\n%s"/>
 	<string id="20442" value="Target file exists:\n\n%s\n\nWould you like to overwrite it?"/>
 	<string id="20443" value="Shfaqi Gjithë Llojet"/>
-	<string id="20444" value="Kopjo &URI-n"/>
-	<string id="20445" value="Eksporto &URI-t..."/>
+	<string id="20444" value="Kopjo URI-n"/>
+	<string id="20445" value="Eksporto URI-t..."/>
 	<string id="20446" value="The file &quot;%s&quot; failed a hash verification test, and might not be the file you intended to download.  Are you sure you want to open it?"/>
 	<string id="20447" value="Would you like to remove the &quot;potentially unsafe&quot; attribute from this file?"/>
 	<string id="20450" value="A subfolder of the selected folder &quot;%s&quot; is already part of your library.\nAdding this folder will cause re-hashing of some files.\n\nDo you want to continue ?"/>
@@ -2943,7 +2947,9 @@
 	<string id="20590" value="Hyrja në largësi është çaktivizuar."/>
 	<string id="20591" value="http://%s:%i/remote - një emër përdoruesi dhe fjalëkalimi."/>
 	<string id="20592" value="Nuk mund të pranoj lidhjet, URLi pa vlerë."/>
-	<string id="20595" value="&amp;Skema"/>
+	<string id="20597" value="A jeni i sigurt se doni të fshini rregullat e zgjedhur të sigurisë?  Kjo nuk mund të çbëhet."/>
+	<string id="20599" value="&amp;Skema"/>
+	<!-- Missing Scheduler/Security Strings -->
 	<string id="20620" value="PeerProject kërkon me ngulm në rrjet..."/>
 	<string id="20621" value="Klikoni që të kërkoni përsëri"/>
 	<string id="20622" value="Gjithë Rrjetin"/>
@@ -2991,7 +2997,6 @@
 	<string id="20668" value="Kërkim..."/>
 	<string id="20669" value="Kërkim Teksti të Thjeshtë"/>
 	<string id="20670" value="PeerProject po kërkon në rrjet..."/>
-	<string id="20671" value="A jeni i sigurt se doni të fshini rregullat e zgjedhur të sigurisë?  Kjo nuk mund të çbëhet."/>
 	<string id="20672" value="Zgjidheni dosjen temp të eDonkey/eMule:"/>
 	<string id="20673" value="Automatike"/>
 	<string id="20674" value="The complete and incomplete folders should not be the same"/>
@@ -3645,18 +3650,21 @@
 		<control caption="Zbato"/>
 		<control/>
 	</dialog>
-	<dialog name="CIdentityProfilePage" cookie="BuStEdStEdEdBuCoStCoStBu" caption="Identiteti">
+	<dialog name="CIdentityProfilePage" cookie="BuStStEdEdEdBuStStCoCoBuStBuBu" caption="Identiteti">
 		<control caption="_Emri:"/>
 		<control caption="Emri në ekran:"/>
-		<control/>
 		<control caption="Emri i vërtetë:"/>
 		<control/>
 		<control/>
-		<control caption="_Jetësore:"/>
-		<control caption="|Mashkull|Femër"/>
-		<control caption="Gjinia:"/>
 		<control/>
+		<control caption="_Jetësore:"/>
+		<control caption="Gjinia:"/>
 		<control caption="Mosha:"/>
+		<control caption="|Mashkull|Femër"/>
+		<control/>
+		<control caption="Info:"/>
+		<control caption="{n}G2 (PeerProject / Shareaza)"/>
+		<control caption="_Zbato:"/>
 		<control caption="Lejo përdoruesit e tjerë që të shfletojnë profilin tim si përdorues"/>
 	</dialog>
 	<dialog name="CAvatarProfilePage" cookie="BuStBuStBuBu" caption="Foto">
@@ -3667,23 +3675,7 @@
 		<control caption="_Shfleto..."/>
 		<control caption="_Fshije"/>
 	</dialog>
-	<dialog name="CContactProfilePage" cookie="BuStEdBuStEdStEdStEdStEdStEd" caption="Kontakti">
-		<control caption="_Adresa e e-mailit:"/>
-		<control caption="Parësore:"/>
-		<control/>
-		<control caption="Lajmëtar _Çasti:"/>
-		<control caption="Pasaporta MSN/.NET:"/>
-		<control/>
-		<control caption="ID në Yahoo:"/>
-		<control/>
-		<control caption="ICQ UIN:"/>
-		<control/>
-		<control caption="Emri në AOL:"/>
-		<control/>
-		<control caption="ID në Jabber:"/>
-		<control/>
-	</dialog>
-	<dialog name="CProfileProfilePage" cookie="BuStCoStCoBuStEdStEdBuLiBuBuCo" caption="Profili">
+	<dialog name="CProfileProfilePage" cookie="BuStCoStCoBuStEdStEdBuLiBuBuCo" caption="Vendndodhje">
 		<control caption="_Vendndodhje:"/>
 		<control caption="Shteti:"/>
 		<control/>
@@ -3696,11 +3688,38 @@
 		<control/>
 		<control caption="_Interesi:"/>
 		<control/>
-		<control caption="&lt; Shto"/>
-		<control caption="Fshije &gt;"/>
+		<control caption="Shto &gt;"/>
+		<control caption="&lt; Fshije"/>
+		<control/>
+	</dialog>
+	<dialog name="CContactProfilePage" cookie="BuStEdBuStEdStEdStEdStEdStEdStEdStEdStEd" caption="Kontakti">
+		<control caption="_Adresa e e-mailit:"/>
+		<control caption="Parësore:"/>
+		<control/>
+		<control caption="Lajmëtar _Çasti:"/>
+		<control caption="PeerProject.org:"/>
+		<control/>
+		<control caption="Facebook:"/>
+		<control/>
+		<control caption="Twitter:"/>
+		<control/>
+		<control caption="Google:"/>
+		<control/>
+		<control caption="MSN/Live:"/>
+		<control/>
+		<control caption="Yahoo:"/>
+		<control/>
+		<control caption="AOL:"/>
+		<control/>
+		<control caption="ICQ:"/>
 		<control/>
 	</dialog>
 	<dialog name="CBioProfilePage" cookie="Ed" caption="Bio">
+		<control/>
+	</dialog>
+	<dialog name="CFilesProfilePage" cookie="BuStSy" caption="Skedat">
+		<control caption="Skedat _Favorite:"/>
+		<control caption="Skedat favorite rekomandohen për përdoruesit që shfletojnë profilin tuaj. Ato mund t'i krijoni duke i shtuar në dosjen e librarisë, &quot;Favoritet&quot;."/>
 		<control/>
 	</dialog>
 	<dialog name="CFavouritesProfilePage" cookie="SyBuStEdStEdBuBu" caption="Favoritet">
@@ -3713,28 +3732,24 @@
 		<control caption="I Ri"/>
 		<control caption="Fshije"/>
 	</dialog>
-	<dialog name="CFilesProfilePage" cookie="BuStSy" caption="Skedat">
-		<control caption="Skedat _Favorite:"/>
-		<control caption="Skedat favorite rekomandohen për përdoruesit që shfletojnë profilin tuaj. Ato mund t'i krijoni duke i shtuar në dosjen e librarisë, &quot;Favoritet&quot;."/>
+	<dialog name="CCertificateProfilePage" cookie="BuStStStStBuBuSt" caption="Certifikata">
+		<control caption="Certifikata Unike e Identifikimit Mbarëbotëror:"/>
+		<control caption="Gnutella/G2 GUID:"/>
 		<control/>
-	</dialog>
-	<dialog name="CCertificateProfilePage" cookie="StBuStStStStBu" caption="Certifikata">
-		<control caption="Përdoruesit e Gnutella-s identifikohen nga një identifikues botërisht unik dhe nga një publik i caktuar e numër i parë privat. Normalisht nuk është se duhet të gjeneroni një ID të re, gjithsesi PeerProject e ofron këtë mundësi për përdoruesit e përparuar."/>
-		<control caption="Certifikata Unike e Identifikimit Mbarëbotëror të _Gnutella-s:"/>
-		<control caption="GUID:"/>
-		<control/>
-		<control caption="Krijimi:"/>
+		<control caption="BitTorrent GUID:"/>
 		<control/>
 		<control caption="Gjenero një të Re"/>
+		<control caption="Info:"/>
+		<control caption="Përdoruesit e Gnutella-s identifikohen nga një identifikues botërisht unik dhe nga një publik i caktuar e numër i parë privat. Normalisht nuk është se duhet të gjeneroni një ID të re, gjithsesi PeerProject e ofron këtë mundësi për përdoruesit e përparuar."/>
 	</dialog>
 	<dialog name="CLanguageDlg" cookie="" caption="Zgjidhni gjuhën">
 	</dialog>
-	<dialog name="CConnectToDlg" cookie="BuCoEdBuCoBuBuBu" caption="Lidhuni Te|Shfletoni Hostin">
-		<control caption="Nis një lidhje të re te hosti/serveri:|Shfleto këtë host:"/>
+	<dialog name="CConnectToDlg" cookie="BuCoEdBuCoBuBuBu" caption="Lidhuni Te|Shfletoni Hostin|Chat with User">
+		<control caption="Nis një lidhje të re te hosti/serveri:|Shfleto këtë host:|Message this user:"/>
 		<control/>
 		<control/>
 		<control caption="_Protokolli i Rrjetit:"/>
-		<control caption="Gnutella1 (auto)|Gnutella2 (auto)|eDonkey"/>
+		<control/>
 		<control caption="_Shtype Ultrapikën"/>
 		<control caption="Lidhu"/>
 		<control caption="_Anulo"/>
@@ -4170,14 +4185,16 @@
 		<control caption="Ngarkimi Total:"/>
 		<control caption="Shënime:"/>
 	</dialog>
-	<dialog name="CDownloadEditPage" cookie="StBuStStStBuStEdEdEdBuEdBuEdBuEdBuEdBuEd" caption="Përgjithësi">
+	<dialog name="CDownloadEditPage" cookie="StBuStStStStBuStEdEdEdSyBuEdBuEdBuEdBuEdBuEd" caption="Përgjithësi">
 		<control caption="KUJDES: Kjo tabelë paraqet veçori të përparuara për editimin e shkarkimit, të cilat nëse përdoren jokorrekt mund, dhe mbase do të shkaktojnë korruptim."/>
 		<control caption="Informacion:"/>
 		<control caption="Emri:"/>
 		<control caption="Skedës:"/>
 		<control caption="Përmasa Bajte:"/>
+		<control caption="Date:"/>
 		<control caption="URN-e:"/>
 		<control caption="Me besim"/>
+		<control/>
 		<control/>
 		<control/>
 		<control/>
@@ -4320,22 +4337,6 @@
 		<column from="Name" to="Emri"/>
 		<column from="Country" to="Shteti"/>
 	</list>
-	<list name="CSecurityWnd">
-		<column from="Address / Content" to="Përmbajtja"/>
-		<column from="Hits" to="Hitet"/>
-		<column from="Action" to="Veprimi"/>
-		<column from="Expires" to="Skadimi"/>
-		<column from="#" to="#"/>
-		<column from="Comment" to="Komenti"/>
-	</list>
-	<list name="CSchedulerWnd">
-		<column from="Task" to="Veprimi"/>
-		<column from="Date" to="Data"/>
-		<column from="Time" to="Kohë"/>
-		<column from="Status" to="Statusi"/>
-		<column from="Activity" to="Aktiv"/>
-		<column from="Description" to="Komenti"/>
-	</list>
 	<list name="CHostCacheWnd">
 		<column from="Address" to="Adresa"/>
 		<column from="Port" to="Porti"/>
@@ -4383,6 +4384,23 @@
 		<column from="Client" to="Klienti"/>
 		<column from="Country" to="Vendi"/>
 		<column from="Time" to="Koha"/>
+	</list>
+	<list name="CSecurityWnd">
+		<column from="Address / Content" to="Përmbajtja"/>
+		<column from="Hits" to="Hitet"/>
+		<column from="#" to="#"/>
+		<column from="Action" to="Veprimi"/>
+		<column from="Expires" to="Skadimi"/>
+		<column from="Match" to=""/>
+		<column from="Comment" to="Komenti"/>
+	</list>
+	<list name="CSchedulerWnd">
+		<column from="Task" to="Veprimi"/>
+		<column from="Date" to="Data"/>
+		<column from="Time" to="Kohë"/>
+		<column from="Status" to="Statusi"/>
+		<column from="Activity" to="Aktiv"/>
+		<column from="Comment" to="Komenti"/>
 	</list>
 	<list name="CUploadQueueList">
 		<column from="Name" to="Emri"/>

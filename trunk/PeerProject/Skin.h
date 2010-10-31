@@ -2,21 +2,18 @@
 // Skin.h
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2008.
+// Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #pragma once
@@ -124,7 +121,7 @@ protected:
 	BOOL		LoadWindowSkins(CXMLElement* pSub, const CString& strPath);
 	CList< CSkinWindow* > m_pSkins;
 
-// Watermarks + Color Scheme
+// Watermarks + Color Scheme (CColors/CImages)
 public:
 	CBitmap		m_bmBanner;
 	int 		m_nBanner;
@@ -138,27 +135,7 @@ public:
 	CBitmap		m_bmPanelMark;
 
 	CBitmap		m_bmSelected;
-	CBitmap		m_bmProgress;
-	CBitmap		m_bmProgressNone;
-	CBitmap		m_bmProgressShaded;
 	CBitmap		m_bmToolTip;
-
-	CBitmap		m_bmRichButton;
-	CBitmap		m_bmRichButtonPart;
-	CBitmap		m_bmRichButtonFocus;
-	CBitmap		m_bmRichButtonFocusPart;
-	CBitmap		m_bmRichButtonHover;
-	CBitmap		m_bmRichButtonHoverPart;
-	CBitmap		m_bmRichButtonPress;
-	CBitmap		m_bmRichButtonPressPart;
-	CBitmap		m_bmRichButtonDisabled;
-	CBitmap		m_bmRichButtonDisabledPart;
-
-	CBitmap		m_bmIconButton;
-	CBitmap		m_bmIconButtonFocus;
-	CBitmap		m_bmIconButtonHover;
-	CBitmap		m_bmIconButtonPress;
-	CBitmap		m_bmIconButtonDisabled;
 
 protected:
 	BOOL		LoadColorScheme(CXMLElement* pBase);
@@ -198,6 +175,7 @@ public:
 	BOOL		m_bMenuBorders;
 	BOOL		m_bMenuGripper;
 	BOOL		m_bRoundedSelect;
+	int			m_nButtonEdge;
 	int			m_nToolbarHeight;
 	int			m_nTaskbarHeight;
 	int			m_nTaskbarTabWidth;

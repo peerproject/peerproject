@@ -3,8 +3,8 @@
 
 <!-- PeerProject Default Serbian Skin File -->
 
-<!-- Translation based on default-en.xml r59 -->
-<!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
+<!-- Translation based on default-en.xml r60 -->
+<!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
 <!-- Use this file as a basis for creating new language skins,   -->
@@ -62,6 +62,7 @@
 		<button id="ID_VIEW_MEDIA"/>
 		<button id="ID_TAB_IRC"/>
 		<separator/>
+		<button id="ID_VIEW_SCHEDULER"/>
 		<button id="ID_VIEW_SECURITY"/>
 		<button id="ID_VIEW_HOSTS"/>
 		<button id="ID_VIEW_DISCOVERY"/>
@@ -1607,7 +1608,7 @@
 			<newline gap="8" indent="42"/>
 			<anchor id="SearchBox" width="256" height="80"/>
 			<newline gap="12" indent="0"/>
-			<icon res="124" width="32" height="32" target="command:shell:downloads"/><gap size="8"/>
+			<icon res="122" width="32" height="32" target="command:shell:downloads"/><gap size="8"/>
 			<heading align="middle">UPRAVO SKIDAM</heading>
 			<newline gap="8" indent="42"/>
 			<link target="command:ID_TOOLS_DOWNLOAD" format="bu">Click here to start</link>
@@ -1615,6 +1616,9 @@
 			<newline gap="4" indent="42"/>
 			<text>Or open your completed </text>
 			<link target="command:shell:downloads">downloads folder.</link>
+			<newline gap="4" indent="42"/>
+			<text>Поделите своје фајлове у </text>
+			<link id="RemoteBrowseURL"/>
 			<newline gap="20" indent="0"/>
 		</group>
 		<group id="3">
@@ -1640,26 +1644,26 @@
 		<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">PODESITE PEERPROJECT</heading>
 		<newline gap="12" indent="42"/>
-		<icon res="196"width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
-		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">Skinovi</link>
-		<text align="middle">&#160;- Promeni PeerProject Izgled i doživljaj</text>
+		<icon res="196" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
+		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">Skinovi</link><gap size="6"/>
+		<text align="middle">- Promeni PeerProject Izgled i doživljaj</text>
 		<newline gap="8"/>
-		<icon res="138"width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
-		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
-		<text align="middle">&#160;- Update blocklist to avoid bad search results</text>
+		<icon res="138" width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
+		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link><gap size="6"/>
+		<text align="middle">- Update blocklist to avoid bad search results</text>
 		<newline gap="8"/>
-		<icon res="197"width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
-		<link target="command:ID_TOOLS_WIZARD" align="middle">Pomoćnik s Podešavanjima</link>
-		<text align="middle">&#160;- Podesi PeerProject Podešavanja</text>
+		<icon res="197" width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
+		<link target="command:ID_TOOLS_WIZARD" align="middle">Pomoćnik s Podešavanjima</link><gap size="6"/>
+		<text align="middle">- Podesi PeerProject Podešavanja</text>
 		<newline gap="8"/>
-		<icon res="182"width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
-		<link target="command:ID_HELP_FAQ" align="middle">Hitna Pomoć</link>
-		<text align="middle">&#160;- Na brzinu nauči osnove rada sa PeerProject, or </text>
+		<icon res="182" width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
+		<link target="command:ID_HELP_FAQ" align="middle">Hitna Pomoć</link><gap size="6"/>
+		<text align="middle">- Na brzinu nauči osnove rada sa PeerProject, or </text>
 		<link target="command:ID_TAB_IRC" align="middle">IRC.</link>
 		<newline gap="8"/>
-		<icon res="201"width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
-		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">Локално Форуми</link>
-		<text align="middle">&#160;- Идите на српском језику Дисцуссион Форум</text>
+		<icon res="201" width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
+		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">Локално Форуми</link><gap size="6"/>
+		<text align="middle">- Идите на српском језику Дисцуссион Форум</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
 			<icon res="120" width="32" height="32"/><gap size="8"/>
@@ -1885,7 +1889,7 @@
 		</group>
 		<group id="41">
 			<newline gap="1"/>
-			<icon res="208"/><gap size="5"/>
+			<icon res="207"/><gap size="5"/>
 			<link id="ContactYahoo"/>
 		</group>
 		<group id="42">
@@ -1926,7 +1930,7 @@
 			<newline gap="16" indent="0"/>
 			<text format="b">Zajednica</text>
 			<newline gap="4" indent="8"/>
-			<icon res="127"target="command:ID_SEARCH_CHAT"/>
+			<icon res="127" target="command:ID_SEARCH_CHAT"/>
 			<gap size="5"/>
 			<link target="command:ID_SEARCH_CHAT" align="middle">Popričaj sa Osobom</link>
 		</group>
@@ -2798,8 +2802,8 @@
 	<string id="20441" value="PeerProject ne može preimenovati:\n\n%s\nto\n%s"/>
 	<string id="20442" value="Ta datoteka već postoji:\n\n%s\n\nŽelite li ju prebrisati?"/>
 	<string id="20443" value="Pokaži Datoteke Svih Vrsta"/>
-	<string id="20444" value="Kopiraj &URI"/>
-	<string id="20445" value="Export &URIs..."/>
+	<string id="20444" value="Kopiraj URI"/>
+	<string id="20445" value="Export URIs..."/>
 	<string id="20446" value="The file &quot;%s&quot; failed a hash verification test, and might not be the file you intended to download.Are you sure you want to open it?"/>
 	<string id="20447" value="Would you like to remove the &quot;potentially unsafe&quot; attribute from this file?"/>
 	<string id="20448" value="The file &quot;%s&quot; has not yet been hashed.Please wait for the file to be hashed, and then try again."/>
@@ -2902,7 +2906,8 @@
 	<string id="20590" value="Pristup na daljinu je onemogućen."/>
 	<string id="20591" value="http://%s:%i/remote - Morate odabrati ime i lozinku"/>
 	<string id="20592" value="U nemogućnosti sam primati veze, URL je nedostupan."/>
-	<string id="20595" value="&Šeme"/>
+	<string id="20599" value="Šeme"/>
+	<!-- Missing Scheduler/Security Strings -->
 	<string id="20620" value="PeerProject naporno i temeljito traži..."/>
 	<string id="20621" value="Stisni ovde ako želiš ponoviti traženje"/>
 	<string id="20622" value="Sve Mreže"/>
@@ -3112,7 +3117,7 @@
 	<string id="20884" value="Nema dostupnog URN-a"/>
 	<string id="20885" value="Changing interface direction requires restart. \nYou will need to start PeerProject manually. Exit now?"/>
 	<string id="20890" value="Dobrodošli u PeerProject"/>
-	<string id="20891" value="I&zlaz"/>
+	<string id="20891" value="Izlaz"/>
 	<string id="20895" value="Još mi niste zadali brzinu spajanja.Molim Vas da odaberete tip veze prema internetu, ili ručno upišete brzinu."/>
 	<string id="20896" value="You have indicated that you want to set up port-forwarding on your NAT router or firewall.\n\nPlease configure your network to forward TCP port %i to your local PC."/>
 	<string id="20897" value="Fasciklu koju delite je već na listi za deljenje kao deo druge fascikle:\n\n%s"/>
@@ -3596,7 +3601,7 @@
 		<control caption="Uživajte koristeći PeerProject!"/>
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StBuBuEdBu" caption="Ubaci eDonkey2000 Skidanje">
-		<control caption="PeerProject je našla da već imate neki eDonkey2000 program instaliran.Želite li ubaciti nedovršena skidanja u PeerProject?"/>
+		<control caption="PeerProject je našla da već imate neki eDonkey2000 program instaliran. Želite li ubaciti nedovršena skidanja u PeerProject?"/>
 		<control caption="Da"/>
 		<control caption="Ne|Prekini"/>
 		<control/>
@@ -3609,18 +3614,21 @@
 		<control caption="Potvrdi"/>
 		<control/>
 	</dialog>
-	<dialog name="CIdentityProfilePage" cookie="BuStEdStEdEdBuCoStCoStBu" caption="Identitet">
+	<dialog name="CIdentityProfilePage" cookie="BuStStEdEdEdBuStStCoCoBuStBuBu" caption="Identitet">
 		<control caption="Ime:"/>
 		<control caption="Nadimak:"/>
-		<control/>
 		<control caption="Pravo Ime:"/>
 		<control/>
 		<control/>
-		<control caption="Podaci o Polu i Starosti:"/>
-		<control caption="|Muško|Žensko"/>
-		<control caption="Pol:"/>
 		<control/>
+		<control caption="Podaci o Polu i Starosti:"/>
+		<control caption="Pol:"/>
 		<control caption="Starost:"/>
+		<control caption="|Muško|Žensko"/>
+		<control/>
+		<control caption="Info:"/>
+		<control caption="{n}G2 (PeerProject / Shareaza)"/>
+		<control caption="_Potvrdi:"/>
 		<control caption="Dopusti ostalima da pogledaju šta delim"/>
 	</dialog>
 	<dialog name="CAvatarProfilePage" cookie="BuStBuStBuBu" caption="Avatar">
@@ -3631,23 +3639,7 @@
 		<control caption="Traži"/>
 		<control caption="Ukloni"/>
 	</dialog>
-	<dialog name="CContactProfilePage" cookie="BuStEdBuStEdStEdStEdStEdStEd" caption="Kontakt">
-		<control caption="_Email Adresa:"/>
-		<control caption="Glavna:"/>
-		<control/>
-		<control caption="_Instant Messaging:"/>
-		<control caption="MSN/.NET Passport:"/>
-		<control/>
-		<control caption="Yahoo ID:"/>
-		<control/>
-		<control caption="ICQ UIN:"/>
-		<control/>
-		<control caption="AOL Nadimak:"/>
-		<control/>
-		<control caption="Jabber ID:"/>
-		<control/>
-	</dialog>
-	<dialog name="CProfileProfilePage" cookie="BuStCoStCoBuStEdStEdBuLiBuBuCo" caption="Profil">
+	<dialog name="CProfileProfilePage" cookie="BuStCoStCoBuStEdStEdBuLiBuBuCo" caption="Pozicija">
 		<control caption="Mesto Stanovanja"/>
 		<control caption="Država:"/>
 		<control/>
@@ -3660,11 +3652,38 @@
 		<control/>
 		<control caption="Zan_ima Me:"/>
 		<control/>
-		<control caption="&lt; Dodaj"/>
-		<control caption="Ukloni &gt;"/>
+		<control caption="Dodaj &gt;"/>
+		<control caption="&lt; Ukloni"/>
+		<control/>
+	</dialog>
+	<dialog name="CContactProfilePage" cookie="BuStEdBuStEdStEdStEdStEdStEdStEdStEdStEd" caption="Kontakt">
+		<control caption="_Email Adresa:"/>
+		<control caption="Glavna:"/>
+		<control/>
+		<control caption="_Instant Messaging:"/>
+		<control caption="PeerProject.org:"/>
+		<control/>
+		<control caption="Facebook:"/>
+		<control/>
+		<control caption="Twitter:"/>
+		<control/>
+		<control caption="Google:"/>
+		<control/>
+		<control caption="MSN/Live:"/>
+		<control/>
+		<control caption="Yahoo:"/>
+		<control/>
+		<control caption="AOL:"/>
+		<control/>
+		<control caption="ICQ:"/>
 		<control/>
 	</dialog>
 	<dialog name="CBioProfilePage" cookie="Ed" caption="Bio">
+		<control/>
+	</dialog>
+	<dialog name="CFilesProfilePage" cookie="BuStSy" caption="Datoteke">
+		<control caption="Vaše Datoteke Koje Preporučutje Ostalim Korisnicima:"/>
+		<control caption="Datoteke koje preporučite su vidljive svima koji pogledaju Vaš profil. Datoteku možete staviti u preporuke tako da je stavite u &quot;Favourites&quot; fasciklu u kolekciji."/>
 		<control/>
 	</dialog>
 	<dialog name="CFavouritesProfilePage" cookie="SyBuStEdStEdBuBu" caption="Moje Preporuke">
@@ -3677,28 +3696,24 @@
 		<control caption="Novi"/>
 		<control caption="Ukloni"/>
 	</dialog>
-	<dialog name="CFilesProfilePage" cookie="BuStSy" caption="Datoteke">
-		<control caption="Vaše Datoteke Koje Preporučutje Ostalim Korisnicima:"/>
-		<control caption="Datoteke koje preporučite su vidljive svima koji pogledaju Vaš profil.Datoteku možete staviti u preporuke tako da je stavite u &quot;Favourites&quot; fasciklu u kolekciji."/>
+	<dialog name="CCertificateProfilePage" cookie="BuStStStStBuBuSt" caption="Certifikat">
+		<control caption="_Globally Unique Identification Certificate:"/>
+		<control caption="Gnutella/G2 GUID:"/>
 		<control/>
-	</dialog>
-	<dialog name="CCertificateProfilePage" cookie="StBuStStStStBu" caption="Certifikat">
-		<control caption="Gnutella korisnici se identificiraju po jedinstvenom broju i pripadajućim javnim i privatnim parom ključa. U normalnom radu nema potrebe za menjanjem ID broja, ipak PeerProject to omogućuje naprednim korisnicima."/>
-		<control caption="_Gnutella Globally Unique Identification Certificate:"/>
-		<control caption="GUID:"/>
-		<control/>
-		<control caption="Created:"/>
+		<control caption="BitTorrent GUID:"/>
 		<control/>
 		<control caption="Promeni"/>
+		<control caption="Info:"/>
+		<control caption="Gnutella korisnici se identificiraju po jedinstvenom broju i pripadajućim javnim i privatnim parom ključa. U normalnom radu nema potrebe za menjanjem ID broja, ipak PeerProject to omogućuje naprednim korisnicima."/>
 	</dialog>
 	<dialog name="CLanguageDlg" cookie="" caption="Odaberite Jezik">
 	</dialog>
-	<dialog name="CConnectToDlg" cookie="BuCoEdBuCoBuBuBu" caption="Spoji se|Pogledaj šta ima">
-		<control caption="Započmi novu vezu sa hostom ili serverom:|Pogledaj šta ima ovaj host:"/>
+	<dialog name="CConnectToDlg" cookie="BuCoEdBuCoBuBuBu" caption="Spoji se|Pogledaj šta ima|Chat with User">
+		<control caption="Započmi novu vezu sa hostom ili serverom:|Pogledaj šta ima ovaj host:|Message this user:"/>
 		<control/>
 		<control/>
 		<control caption="Mrežni _Protokol:"/>
-		<control caption="Gnutella1 (auto)|Gnutella2 (auto)|eDonkey2000"/>
+		<control/>
 		<control caption="_Suppress Ultrapeer"/>
 		<control caption="Spoji"/>
 		<control caption="Odustani"/>
@@ -4135,14 +4150,16 @@
 		<control caption="Završeni(celi) (Seeds):"/>
 		<control caption="Notes:"/>
 	</dialog>
-	<dialog name="CDownloadEditPage" cookie="StBuStStStBuStEdEdEdBuEdBuEdBuEdBuEdBuEd" caption="Informacije">
+	<dialog name="CDownloadEditPage" cookie="StBuStStStStBuStEdEdEdSyBuEdBuEdBuEdBuEdBuEd" caption="Informacije">
 		<control caption="UPOZORENJE: Ove opcije omogućuju napredno podešavanje skidanja, ako se pogrešno koriste verovatno će uzrokovati GREŠKU u skinutoj datoteci"/>
 		<control caption="Informacije:"/>
 		<control caption="Ime datoteke:"/>
 		<control caption="Datoteke:"/>
 		<control caption="Byte Size:"/>
+		<control caption="Date:"/>
 		<control caption="URNs:"/>
 		<control caption="Trusted?"/>
+		<control/>
 		<control/>
 		<control/>
 		<control/>
@@ -4285,22 +4302,6 @@
 		<column from="Name" to="Ime"/>
 		<column from="Country" to="Država"/>
 	</list>
-	<list name="CSecurityWnd">
-		<column from="Address / Content" to="Adresa / Sadržaj"/>
-		<column from="Hits" to="Viđeno"/>
-		<column from="Action" to="Akcija"/>
-		<column from="Expires" to="Ističe"/>
-		<column from="#" to=""/>
-		<column from="Comment" to="Komentar"/>
-	</list>
-	<list name="CSchedulerWnd">
-		<column from="Task" to="Akcija"/>
-		<column from="Date" to="Датум"/>
-		<column from="Time" to="Vreme"/>
-		<column from="Status" to=""/>
-		<column from="Activity" to="Активан"/>
-		<column from="Description" to="Komentar"/>
-	</list>
 	<list name="CHostCacheWnd">
 		<column from="Address" to="Adresa"/>
 		<column from="Port" to="Port"/>
@@ -4348,6 +4349,23 @@
 		<column from="Client" to="Klijent"/>
 		<column from="Country" to="Država"/>
 		<column from="Time" to="Vreme"/>
+	</list>
+	<list name="CSecurityWnd">
+		<column from="Address / Content" to="Adresa / Sadržaj"/>
+		<column from="Hits" to="Viđeno"/>
+		<column from="#" to=""/>
+		<column from="Action" to="Akcija"/>
+		<column from="Expires" to="Ističe"/>
+		<column from="Match" to=""/>
+		<column from="Comment" to="Komentar"/>
+	</list>
+	<list name="CSchedulerWnd">
+		<column from="Task" to="Akcija"/>
+		<column from="Date" to="Датум"/>
+		<column from="Time" to="Vreme"/>
+		<column from="Status" to=""/>
+		<column from="Activity" to="Активан"/>
+		<column from="Comment" to="Komentar"/>
 	</list>
 	<list name="CUploadQueueList">
 		<column from="Name" to="Ime"/>

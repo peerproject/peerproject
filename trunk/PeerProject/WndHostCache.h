@@ -1,31 +1,27 @@
 //
 // WndHostCache.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
-// Portions Copyright Shareaza Development Team, 2002-2008.
+// This file is part of PeerProject (peerproject.org) © 2008-2010
+// Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
-//
-
-#if !defined(WNDHOSTCACHE_H)
-#define WNDHOSTCACHE_H
 
 #pragma once
 
 #include "WndPanel.h"
 #include "LiveList.h"
+
+#define IDC_HOSTS		100
 
 class CHostCacheHost;
 
@@ -48,21 +44,22 @@ protected:
 	CLiveListSizer	m_pSizer;
 	CImageList		m_gdiImageList;
 	DWORD			m_nCookie;
-	DWORD			tLastUpdate;
+	DWORD			m_tLastUpdate;
 
 // Operations
 public:
 	void			Update(BOOL bForce = FALSE);
 	CHostCacheHost*	GetItem(int nItem);
 	virtual void	OnSkinChange();
-	
+
 // Overrides
 protected:
 	virtual BOOL PreTranslateMessage(MSG* pMsg);
+	virtual void RecalcLayout(BOOL bNotify = TRUE);
 
 // Implementation
 protected:
-	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg void OnCustomDrawList(NMHDR* pNMHDR, LRESULT* pResult);
 	afx_msg void OnDblClkList(NMHDR* pNMHDR, LRESULT* pResult);
@@ -97,11 +94,4 @@ protected:
 	afx_msg void OnNeighboursCopy();
 
 	DECLARE_MESSAGE_MAP()
-
-protected:
-	virtual void RecalcLayout(BOOL bNotify = TRUE);
 };
-
-#define IDC_HOSTS		100
-
-#endif // !defined(WNDHOSTCACHE_H)

@@ -3,8 +3,8 @@
 
 <!-- PeerProject UK English Skin File -->
 
-<!-- Translation based on default-en.xml r59 -->
-<!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
+<!-- Translation based on default-en.xml r60 -->
+<!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
 <!-- Use this file as a basis for creating new language skins,   -->
@@ -515,7 +515,7 @@
 			<newline gap="4" indent="42"/>
 			<anchor id="SearchBox" width="256" height="80"/>
 			<newline gap="20" indent="0"/>
-			<icon res="124" width="32" height="32" target="command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
+			<icon res="122" width="32" height="32" target="command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
 			<heading align="middle">Start a Download</heading>
 			<newline gap="8" indent="42"/>
 			<link target="command:ID_TOOLS_DOWNLOAD" format="bu">Click here to start</link>
@@ -576,25 +576,25 @@
 		<icon res="120" width="30" height="30" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">Customise PeerProject</heading>
 		<newline gap="12" indent="42"/>
-		<icon res="196"width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
-		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">Skins</link>
-		<text align="middle">&#160;- Change PeerProject's visual appearance</text>
+		<icon res="196" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
+		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">Skins</link><gap size="6"/>
+		<text align="middle">- Change PeerProject's visual appearance</text>
 		<newline gap="8"/>
-		<icon res="138"width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
-		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
-		<text align="middle">&#160;- Update blocklist to avoid bad search results</text>
+		<icon res="138" width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
+		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link><gap size="6"/>
+		<text align="middle">- Update blocklist to avoid bad search results</text>
 		<newline gap="8"/>
-		<icon res="197"width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
-		<link target="command:ID_TOOLS_WIZARD" align="middle">Settings Wizard</link>
-		<text align="middle">&#160;- Quick-edit PeerProject's basic settings</text>
+		<icon res="197" width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
+		<link target="command:ID_TOOLS_WIZARD" align="middle">Settings Wizard</link><gap size="6"/>
+		<text align="middle">- Quick-edit PeerProject's basic settings</text>
 		<newline gap="8"/>
-		<icon res="182"width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
-		<link target="command:ID_HELP_FAQ" align="middle">Quick Help</link>
-		<text align="middle">&#160;- Get online support using PeerProject</text>
+		<icon res="182" width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
+		<link target="command:ID_HELP_FAQ" align="middle">Quick Help</link><gap size="6"/>
+		<text align="middle">- Get online support using PeerProject</text>
 		<newline gap="8"/>
-		<icon res="201"width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
-		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">Local Forums</link>
-		<text align="middle">&#160;- Go to the local English language forum</text>
+		<icon res="201" width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
+		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">Local Forums</link><gap size="6"/>
+		<text align="middle">- Go to the local English language forum</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
 			<icon res="120" width="32" height="32"/><gap size="8"/>
@@ -669,7 +669,7 @@
 			<newline gap="16" indent="0"/>
 			<text format="b">Community</text>
 			<newline gap="4" indent="8"/>
-			<icon res="127"target="command:ID_SEARCH_CHAT"/>
+			<icon res="127" target="command:ID_SEARCH_CHAT"/>
 			<gap size="5"/>
 			<link target="command:ID_SEARCH_CHAT" align="middle">Chat With User</link>
 		</group>
@@ -823,17 +823,7 @@
 		<control caption="Run command on connect"/>
 		<control/>
 	</dialog>
-	<dialog name="CFavouritesProfilePage" cookie="SyBuStEdStEdBuBu" caption="Favourites">
-		<control/>
-		<control caption="_Edit:"/>
-		<control caption="Title:"/>
-		<control/>
-		<control caption="URL:"/>
-		<control/>
-		<control caption="New"/>
-		<control caption="Remove"/>
-	</dialog>
-	<dialog name="CFilesProfilePage" cookie="BuStSy" caption="Files">
+	<dialog name="CFilesProfilePage" cookie="BuStSy" caption="Favourites">
 		<control caption="_Favourite Files:"/>
 		<control caption="Favourite files are recommended to users who browse your profile. You can create favourite files by adding them to the &quot;Favourites&quot; library folder."/>
 		<control/>

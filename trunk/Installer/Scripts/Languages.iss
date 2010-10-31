@@ -335,7 +335,7 @@ Source: "Installer\Filter\Chinese-Simpl.dat"; DestDir: "{app}\Data"; DestName: "
 [Messages]
 ; This section overrides existing phrases specified in Inno's Default.isl file
 
-SelectLanguageLabel=%nSelect a default language:
+SelectLanguageLabel=%nSelect default language:
 WelcomeLabel1=%nWelcome to the%n[name] Setup Wizard
 WelcomeLabel2=This will install [name/ver]%nP2P filesharing on your computer.%n%nIt is recommended to close applications before continuing.
 FinishedHeadingLabel=%nCompleting the [name]%nInstaller Wizard
@@ -378,7 +378,7 @@ dialog_firewall=Setup failed to add PeerProject to the Windows Firewall.%nPlease
 dialog_malwaredetected=Malware has been detected on your system at %1, please remove it with a virus/malware scanner before installing PeerProject.  Do you wish to exit now?
 page_safetywarning_title=Safety Awareness
 page_safetywarning_subtitle=Do you have an AntiVirus program running?
-page_safetywarning_text=Filesharing is a home server with browser to find others like you.%n%nWhen downloading, always have an updated virus scanner to protect yourself from malicious files.  Be aware that anti-p2p companies will return fake results to searches, but can easily be banned.%n%nWhen uploading, recognize Permissive and Restrictive material.%nSharing unlicensed copyright work may be liable in some countries.%nThe best policy is to boycott big corporate copyright-abusers entirely:%nSimply don't promote those who won't appreciate it, many others do.%n%nRemember, you are ultimately responsible for your own actions.
+page_safetywarning_text=Filesharing is a home server with browser to find others like you.%n%nWhen downloading, always have an updated virus scanner to protect yourself from malicious files.  Be aware that anti-p2p companies will return fake results to searches, but can easily be banned.%n%nWhen uploading, recognize Permissive and Restrictive material.%nSharing unlicensed copyright work may be liable in some countries.%nThe best policy is to boycott big corporate copyright-abusers entirely:%nSimply don't promote those who won't appreciate it, many others do.%n
 ; Don't copy these last 2 messages, they are just links.
 page_safetywarning_link=http://security.peerproject.org
 page_safetywarning_destination=http://security.peerproject.org

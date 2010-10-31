@@ -2,21 +2,18 @@
 // CtrlMediaFrame.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2007.
+// Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
@@ -38,7 +35,7 @@
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
-#endif
+#endif	// Filename
 
 #ifndef WM_APPCOMMAND
 
@@ -113,8 +110,9 @@ BEGIN_MESSAGE_MAP(CMediaFrame, CWnd)
 	ON_MESSAGE(WM_APPCOMMAND, OnMediaKey)
 END_MESSAGE_MAP()
 
+// ToDo: Make these skinnable options ?
 //#define SPLIT_SIZE	6		// Skin.m_nSplitter
-#define HEADER_HEIGHT	16
+#define HEADER_HEIGHT	17
 #define STATUS_HEIGHT	18
 #define SIZE_INTERNAL	1982
 #define SIZE_BARSLIDE	1983
@@ -123,7 +121,6 @@ END_MESSAGE_MAP()
 #define META_DELAY		10000
 #define TIME_FACTOR		1000000
 #define ONE_SECOND		10000000
-// ToDo: Make Above Skinnable Options ?
 
 CMediaFrame* CMediaFrame::g_pMediaFrame = NULL;
 
@@ -132,20 +129,19 @@ CMediaFrame* CMediaFrame::g_pMediaFrame = NULL;
 // CMediaFrame construction
 
 CMediaFrame::CMediaFrame()
+	: m_pPlayer			( NULL )
+	, m_nState			( smsNull )
+	, m_bMute			( FALSE )
+	, m_bThumbPlay		( FALSE )
+	, m_bRepeat			( FALSE )
+	, m_bLastMedia		( FALSE )
+	, m_bLastNotPlayed	( FALSE )
+	, m_bStopFlag		( FALSE )
+	, m_bEnqueue		( FALSE )
+	, m_tLastPlay		( 0 )
+	, m_tMetadata		( 0 )
 {
 	if ( g_pMediaFrame == NULL ) g_pMediaFrame = this;
-
-	m_pPlayer		= NULL;
-	m_nState		= smsNull;
-	m_bMute			= FALSE;
-	m_bThumbPlay	= FALSE;
-	m_bRepeat		= FALSE;
-	m_bLastMedia	= FALSE;
-	m_bLastNotPlayed= FALSE;
-	m_bStopFlag		= FALSE;
-	m_bEnqueue		= FALSE;
-	m_tLastPlay		= 0;
-	m_tMetadata		= 0;
 
 	m_bFullScreen		= FALSE;
 	m_bStatusVisible	= Settings.MediaPlayer.StatusVisible;
@@ -335,7 +331,7 @@ void CMediaFrame::OnSkinChange()
 	Skin.CreateToolBar( _T("CMediaList"), &m_wndListBar );
 
 	if ( CCoolBarItem* pItem = m_wndToolBar.GetID( IDC_MEDIA_POSITION ) ) pItem->Enable( FALSE );
-	if ( CCoolBarItem* pItem = m_wndToolBar.GetID( IDC_MEDIA_SPEED ) ) pItem->Enable( FALSE );
+	if ( CCoolBarItem* pItem = m_wndToolBar.GetID( IDC_MEDIA_SPEED ) )  pItem->Enable( FALSE );
 	if ( CCoolBarItem* pItem = m_wndToolBar.GetID( IDC_MEDIA_VOLUME ) ) pItem->Enable( FALSE );
 
 	HICON hIcon = CoolInterface.ExtractIcon( (UINT)ID_MEDIA_STATE_STOP, FALSE );
@@ -356,6 +352,11 @@ void CMediaFrame::OnSkinChange()
 		m_pIcons.Replace( 2, hIcon );
 		DestroyIcon( hIcon );
 	}
+
+	if ( m_bmLogo.m_hObject ) m_bmLogo.DeleteObject();
+	m_bmLogo.m_hObject = Skin.GetWatermark( _T("LargeLogo") );
+	if ( m_pPlayer && m_bmLogo.m_hObject )
+			m_pPlayer->SetLogoBitmap( m_bmLogo );
 
 	m_wndList.OnSkinChange();
 }
@@ -503,14 +504,7 @@ void CMediaFrame::OnPaint()
 {
 	CPaintDC dc( this );
 
-	if ( m_bmLogo.m_hObject == NULL)
-	{
-		m_bmLogo.m_hObject = Skin.GetWatermark( _T("LargeLogo") );
-		if ( m_pPlayer && m_bmLogo.m_hObject )
-			m_pPlayer->SetLogoBitmap( m_bmLogo );
-	}
-
-	if ( m_pFontDefault.m_hObject == NULL )
+	if ( ! m_pFontDefault.m_hObject )
 	{
 		LOGFONT pFont = { 80, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE,
 			DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
@@ -559,7 +553,7 @@ void CMediaFrame::OnPaint()
 			PaintStatus( dc, rcStatus );
 	}
 
-	if ( dc.RectVisible( &m_rcVideo ) /* &&  m_pPlayer == NULL */ )
+	if ( dc.RectVisible( &m_rcVideo ) /*&& ! m_pPlayer*/ )
 		PaintSplash( dc, m_rcVideo );
 	// else
 	//	dc.FillSolidRect( &m_rcVideo, Colors.m_crMediaWindowBack );
@@ -571,10 +565,16 @@ void CMediaFrame::OnPaint()
 
 void CMediaFrame::PaintSplash(CDC& dc, CRect& /*rcBar*/)
 {
-	if ( m_bmLogo.m_hObject == NULL )
+	if ( ! m_bmLogo.m_hObject )
 	{
-		dc.FillSolidRect( &m_rcVideo, Colors.m_crMediaWindowBack );
-		return;
+		m_bmLogo.m_hObject = Skin.GetWatermark( _T("LargeLogo") );
+		if ( m_pPlayer && m_bmLogo.m_hObject )
+			m_pPlayer->SetLogoBitmap( m_bmLogo );
+		else //if ( ! m_bmLogo.m_hObject )
+		{
+			dc.FillSolidRect( &m_rcVideo, Colors.m_crMediaWindowBack );
+			return;
+		}
 	}
 
 	BITMAP pInfo;
@@ -587,8 +587,7 @@ void CMediaFrame::PaintSplash(CDC& dc, CRect& /*rcBar*/)
 	CDC dcMem;
 	dcMem.CreateCompatibleDC( &dc );
 	CBitmap* pOldBmp = (CBitmap*)dcMem.SelectObject( &m_bmLogo );
-	dc.BitBlt( pt.x, pt.y, pInfo.bmWidth, pInfo.bmHeight, &dcMem,
-		0, 0, SRCCOPY );
+	dc.BitBlt( pt.x, pt.y, pInfo.bmWidth, pInfo.bmHeight, &dcMem, 0, 0, SRCCOPY );
 	dcMem.SelectObject( pOldBmp );
 
 	dc.ExcludeClipRect( pt.x, pt.y, pt.x + pInfo.bmWidth, pt.y + pInfo.bmHeight );
@@ -616,7 +615,21 @@ void CMediaFrame::PaintListHeader(CDC& dc, CRect& rcBar)
 	CPoint pt = rcBar.CenterPoint();
 	LoadString( strText, IDS_MEDIA_PLAYLIST );
 	CSize szText = dc.GetTextExtent( strText );
-	pt.x -= szText.cx / 2; pt.y -= szText.cy / 2;
+	pt.x -= szText.cx / 2; pt.y -= szText.cy / 2 + 1;
+
+	CBitmap bmHeader;
+	if ( Skin.GetWatermark( &bmHeader, _T("CMediaList.Header") ) )
+	{
+		if ( CoolInterface.DrawWatermark( &dc, &rcBar, &bmHeader ) )
+		{
+			dc.SetBkMode( TRANSPARENT );
+			dc.SetTextColor( Colors.m_crMediaPanelCaptionText );
+			dc.ExtTextOut( pt.x, pt.y, ETO_CLIPPED, &rcBar, strText, NULL );
+			return;
+		}
+	}
+
+	// No skinned image:
 	dc.SetBkMode( OPAQUE );
 	dc.SetBkColor( Colors.m_crMediaPanelCaptionBack );
 	dc.SetTextColor( Colors.m_crMediaPanelCaptionText );
@@ -636,6 +649,13 @@ void CMediaFrame::PaintStatus(CDC& dc, CRect& rcBar)
 	CString str;
 	CSize sz;
 
+	CBitmap bmStatusBar;
+	BOOL bSkinned = FALSE;
+
+	//if ( Skin.m_bmMediaStatusBar.m_hObject )	// Called every OnPaint, ToDo: Persistent Skin member + double-buffer?
+	if ( Skin.GetWatermark( &bmStatusBar, _T("CMediaFrame.StatusBar") ) )
+		bSkinned = CoolInterface.DrawWatermark( &dc, &rcBar, &bmStatusBar );	// Causes Flicker Below
+
 	int nState = 0;
 	if ( m_nState >= smsPlaying )
 		nState = 2;
@@ -643,29 +663,38 @@ void CMediaFrame::PaintStatus(CDC& dc, CRect& rcBar)
 		nState = 1;
 	ImageList_DrawEx( m_pIcons, nState, dc, rcBar.left + 2,
 		( rcBar.top + rcBar.bottom ) / 2 - 8, 16, 16,
-		crBack, CLR_NONE, ILD_NORMAL );
-	dc.ExcludeClipRect( rcBar.left + 2, ( rcBar.top + rcBar.bottom ) / 2 - 8,
-		rcBar.left + 18, ( rcBar.top + rcBar.bottom ) / 2 + 8 );
+		( bSkinned ? CLR_NONE : crBack ), CLR_NONE, ILD_NORMAL );
 
-	dc.SetBkMode( OPAQUE );
-	dc.SetBkColor( crBack );
-	dc.SetTextColor( crText );
+	if ( bSkinned )
+	{
+		dc.SetBkMode( TRANSPARENT );
+		dc.SetTextColor( crText );
+	}
+	else // Default
+	{
+		dc.ExcludeClipRect( rcBar.left + 2, ( rcBar.top + rcBar.bottom ) / 2 - 8,
+			rcBar.left + 18, ( rcBar.top + rcBar.bottom ) / 2 + 8 );
+
+		dc.SetBkMode( OPAQUE );
+		dc.SetBkColor( crBack );
+		dc.SetTextColor( crText );
+	}
 
 	if ( CMetaItem* pItem = m_pMetadata.GetFirst() )
 	{
 		dc.SelectObject( &m_pFontKey );
-		str 		= Settings.General.LanguageRTL ? ':' + pItem->m_sKey : pItem->m_sKey + ':';
-		sz			= dc.GetTextExtent( str );
-		rcPart.left = rcBar.left + 20;
-		rcPart.right = rcPart.left + sz.cx + 8;
-		dc.ExtTextOut( rcPart.left + 4, nY, ETO_CLIPPED|ETO_OPAQUE|dwOptions, &rcPart, str, NULL );
+		str 			= Settings.General.LanguageRTL ? ':' + pItem->m_sKey : pItem->m_sKey + ':';
+		sz				= dc.GetTextExtent( str );
+		rcPart.left 	= rcBar.left + 20;
+		rcPart.right	= rcPart.left + sz.cx + 8;
+		dc.ExtTextOut( rcPart.left + 4, nY, ( bSkinned ? 0 : ETO_OPAQUE )|ETO_CLIPPED|dwOptions, &rcPart, str, NULL );
 		dc.ExcludeClipRect( &rcPart );
 
 		dc.SelectObject( &m_pFontValue );
-		sz			= dc.GetTextExtent( pItem->m_sValue );
-		rcPart.left = rcPart.right;
-		rcPart.right = rcPart.left + sz.cx + 8;
-		dc.ExtTextOut( rcPart.left + 4, nY, ETO_CLIPPED|ETO_OPAQUE|dwOptions, &rcPart, pItem->m_sValue, NULL );
+		sz				= dc.GetTextExtent( pItem->m_sValue );
+		rcPart.left		= rcPart.right;
+		rcPart.right	= rcPart.left + sz.cx + 8;
+		dc.ExtTextOut( rcPart.left + 4, nY, ( bSkinned ? 0 : ETO_OPAQUE )|ETO_CLIPPED|dwOptions, &rcPart, pItem->m_sValue, NULL );
 		dc.ExcludeClipRect( &rcPart );
 	}
 	else
@@ -683,7 +712,7 @@ void CMediaFrame::PaintStatus(CDC& dc, CRect& rcBar)
 		sz				= dc.GetTextExtent( str );
 		rcPart.left		= rcBar.left + 20;
 		rcPart.right	= rcPart.left + sz.cx + 8;
-		dc.ExtTextOut( rcPart.left + 4, nY, ETO_CLIPPED|ETO_OPAQUE|dwOptions, &rcPart, str, NULL );
+		dc.ExtTextOut( rcPart.left + 4, nY, ( bSkinned ? 0 : ETO_OPAQUE )|ETO_CLIPPED|dwOptions, &rcPart, str, NULL );
 		dc.ExcludeClipRect( &rcPart );
 	}
 
@@ -704,11 +733,12 @@ void CMediaFrame::PaintStatus(CDC& dc, CRect& rcBar)
 		rcPart.right	= rcBar.right;
 		rcPart.left		= rcPart.right - sz.cx - 8;
 
-		dc.ExtTextOut( rcPart.left + 4, nY, ETO_CLIPPED|ETO_OPAQUE|dwOptions, &rcPart, str, NULL );
+		dc.ExtTextOut( rcPart.left + 4, nY, ( bSkinned ? 0 : ETO_OPAQUE )|ETO_CLIPPED|dwOptions, &rcPart, str, NULL );
 		dc.ExcludeClipRect( &rcPart );
 	}
 
-	dc.FillSolidRect( &rcBar, crBack );
+	if ( ! bSkinned )
+		dc.FillSolidRect( &rcBar, crBack );
 	dc.SelectObject( &m_pFontDefault );
 }
 
@@ -719,8 +749,7 @@ BOOL CMediaFrame::PaintStatusMicro(CDC& dc, CRect& rcBar)
 	CRect rcStatus( &rcBar );
 	CRect rcPart( &rcBar );
 	CString str;
-	CSize sz;
-	CSize size = rcBar.Size();
+	CSize sz, size = rcBar.Size();
 	CDC* pMemDC = CoolInterface.GetBuffer( dc, size );
 
 	DWORD dwOptions = Settings.General.LanguageRTL ? DT_RTLREADING : 0;

@@ -2,21 +2,18 @@
 // WizardConnectionPage.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2008.
+// Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
@@ -35,10 +32,10 @@
 
 
 #ifdef _DEBUG
-#define new DEBUG_NEW
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
-#endif
+#define new DEBUG_NEW
+#endif	// Filename
 
 IMPLEMENT_DYNCREATE(CWizardConnectionPage, CWizardPage)
 
@@ -314,7 +311,7 @@ LRESULT CWizardConnectionPage::OnWizardNext()
 	Settings.OnChangeConnectionSpeed();
 	UploadQueues.CreateDefault();
 
-	//if ( theApp.m_bLimitedConnections && !Settings.General.IgnoreXPsp2 )
+	//if ( theApp.m_bLimitedConnections && ! Settings.General.IgnoreXPsp2 )
 	//	CHelpDlg::Show( _T("GeneralHelp.XPsp2") );
 
 	m_nProgressSteps = 0;
@@ -333,10 +330,14 @@ LRESULT CWizardConnectionPage::OnWizardNext()
 		m_nProgressSteps += 30;	// UPnP device detection
 
 		// Create UPnP finder object if it doesn't exist
-		if ( !theApp.m_pUPnPFinder )
+		if ( ! theApp.m_pUPnPFinder )
 			theApp.m_pUPnPFinder.Attach( new CUPnPFinder );
 		if ( theApp.m_pUPnPFinder->AreServicesHealthy() )
 			theApp.m_pUPnPFinder->StartDiscovery();
+	}
+	else if ( m_wndUPnP.GetCurSel() == 1 )
+	{
+		Settings.Connection.EnableUPnP = false;
 	}
 
 	BeginThread( "WizardConnectionPage" );
@@ -349,7 +350,7 @@ LRESULT CWizardConnectionPage::OnWizardNext()
 		pSheet->GetDlgItem( ID_WIZNEXT )->EnableWindow( FALSE );
 	if ( pSheet->GetDlgItem( 2 ) )
 		pSheet->GetDlgItem( 2 )->EnableWindow( FALSE );
-	return -1; // don't move to the next page; the thread will do this work
+	return -1;	// Don't move to the next page; the thread will do this work
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -390,6 +391,8 @@ void CWizardConnectionPage::OnRun()
 		HostCache.CheckMinimumED2KServers();
 		nCurrentStep +=30;
 		m_wndProgress.PostMessage( PBM_SETPOS, nCurrentStep );
+		Sleep(10);	// Mixed text bugfix?
+		m_wndStatus.SetWindowText( _T("") );
 	}
 
 	if ( m_bQueryDiscoveries )
@@ -406,18 +409,17 @@ void CWizardConnectionPage::OnRun()
 		{
 			int i;
 			// It will be checked if it is needed inside DiscoveryServices.Execute()
-			for ( i = 0; i < 2 && !DiscoveryServices.Execute(TRUE, PROTOCOL_G1, 2); i++ ) Sleep(200);
+			for ( i = 0; i < 2 && ! DiscoveryServices.Execute(TRUE, PROTOCOL_G1, 2); i++ ) Sleep(200);
 			nCurrentStep += 5;
 			m_wndProgress.PostMessage( PBM_SETPOS, nCurrentStep );
-			for ( i = 0; i < 2 && !DiscoveryServices.Execute(TRUE, PROTOCOL_G2, 2); i++ ) Sleep(200);
+			for ( i = 0; i < 2 && ! DiscoveryServices.Execute(TRUE, PROTOCOL_G2, 2); i++ ) Sleep(200);
 			nCurrentStep += 5;
 			m_wndProgress.PostMessage( PBM_SETPOS, nCurrentStep );
-			for ( i = 0; i < 2 && !DiscoveryServices.Execute(TRUE, PROTOCOL_ED2K, 2); i++ ) Sleep(200);
+			for ( i = 0; i < 2 && ! DiscoveryServices.Execute(TRUE, PROTOCOL_ED2K, 2); i++ ) Sleep(200);
 			nCurrentStep += 5;
 			m_wndProgress.PostMessage( PBM_SETPOS, nCurrentStep );
 
-			if ( ! bConnected )
-				Network.Disconnect();
+		//	if ( ! bConnected ) Network.Disconnect();		// Causes UPnP false fail on first run
 		}
 		else
 		{

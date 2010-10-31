@@ -34,9 +34,9 @@ HKCU
 			{
 				NoRemove Plugins
 				{
-					NoRemove General
+					General
 					{
-						val 'PeerProject Image Viewer' = s '{CFFA98CB-08D4-402B-8595-1E067D563060}'
+						ForceRemove val 'PeerProject Image Viewer' = s '{CFFA98CB-08D4-402B-8595-1E067D563060}'
 					}
 					ForceRemove val '{CFFA98CB-08D4-402B-8595-1E067D563060}' = s ''
 				}

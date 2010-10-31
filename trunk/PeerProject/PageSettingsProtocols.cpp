@@ -2,21 +2,18 @@
 // PageSettingsProtocols.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2007.
+// Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
@@ -25,10 +22,10 @@
 #include "PageSettingsProtocols.h"
 
 #ifdef _DEBUG
-#define new DEBUG_NEW
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
-#endif
+#define new DEBUG_NEW
+#endif	// Filename
 
 IMPLEMENT_DYNCREATE(CProtocolsSettingsPage, CSettingsPage)
 
@@ -71,26 +68,34 @@ BOOL CProtocolsSettingsPage::OnInitDialog()
 	HTREEITEM hG2 = AddItem( hNetworks, _T("Gnutella2 Network") );
 	AddItem( hG2, _T("Name"), _T("Gnutella2") );
 	AddItem( hG2, _T("Type"), _T("Decentralized") );
-	AddItem( hG2, _T("PrimaryURN"), _T("sha1") );
 	AddItem( hG2, _T("NodeClass"), _T("Hub, Leaf") );
+	AddItem( hG2, _T("PrimaryURN"), _T("sha1") );
 	AddItem( hG2, _T("ProtocolVersion"), _T("1.0") );
 	AddItem( hG2, _T("ComponentVersion"), _T("1.0.0.0") );
 
 	HTREEITEM hG1 = AddItem( hNetworks, _T("Gnutella Network") );
 	AddItem( hG1, _T("Name"), _T("Gnutella") );
 	AddItem( hG1, _T("Type"), _T("Decentralized") );
+	AddItem( hG1, _T("NodeClass"), _T("Leaf, Ultrapeer*") );
 	AddItem( hG1, _T("PrimaryURN"), _T("sha1") );
-	AddItem( hG1, _T("NodeClass"), _T("Leaf, (Ultrapeer)") );
 	AddItem( hG1, _T("ProtocolVersion"), _T("0.6") );
 	AddItem( hG1, _T("ComponentVersion"), _T("1.0.0.0") );
 
 	HTREEITEM hED = AddItem( hNetworks, _T("eDonkey2000 Network") );
 	AddItem( hED, _T("Name"), _T("eDonkey2000") );
 	AddItem( hED, _T("Type"), _T("Server-Based") );
-	AddItem( hED, _T("PrimaryURN"), _T("ed2k (compound md4)") );
 	AddItem( hED, _T("NodeClass"), _T("Client") );
+	AddItem( hED, _T("PrimaryURN"), _T("ed2k (compound md4)") );
 	AddItem( hED, _T("ProtocolVersion"), _T("1.1") );
 	AddItem( hED, _T("ComponentVersion"), _T("1.0.0.0") );
+
+	HTREEITEM hDC = AddItem( hNetworks, _T("ADC Network") );
+	AddItem( hDC, _T("Name"), _T("Advanced Direct Connect (\"DC++\")") );
+	AddItem( hDC, _T("Type"), _T("Hub-Based") );
+	AddItem( hDC, _T("NodeClass"), _T("Client") );
+	AddItem( hDC, _T("PrimaryURN"), _T("ttr") );
+	AddItem( hDC, _T("ProtocolVersion"), _T("1.0") );
+	AddItem( hDC, _T("ComponentVersion"), _T("1.0.0.0") );
 
 	//HTREEITEM hED = AddItem( hNetworks, _T("KAD Network") );
 	//AddItem( hED, _T("Name"), _T("KAD (Inactive)") );

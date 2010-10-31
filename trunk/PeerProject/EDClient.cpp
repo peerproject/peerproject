@@ -2,21 +2,18 @@
 // EDClient.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2008.
+// Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
@@ -58,7 +55,7 @@
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
-#endif
+#endif	// Filename
 
 
 //////////////////////////////////////////////////////////////////////
@@ -750,8 +747,7 @@ BOOL CEDClient::OnPacket(CEDPacket* pPacket)
 	}
 
 	CString str;
-	str.Format( _T("Unrecognised packet type (in CEDClient::OnPacket) IP: %s"),
-		LPCTSTR( m_sAddress ) );
+	str.Format( _T("Unrecognised packet type (in CEDClient::OnPacket) IP: %s"), LPCTSTR( m_sAddress ) );
 	pPacket->Debug( str );
 
 	return TRUE;
@@ -763,7 +759,7 @@ BOOL CEDClient::OnPacket(CEDPacket* pPacket)
 BOOL CEDClient::SendCommentsPacket(int nRating, LPCTSTR pszComments)
 {
 	// If we have not sent comments yet, and this client supports comments
-	if ( ( ! m_bCommentSent ) && ( m_bEmComments > 0 ) && ( m_bEmule ) )
+	if ( ! m_bCommentSent && m_bEmComments > 0 && m_bEmule )
 	{
 		// Remove new lines and excess whitespace
 		CString strComments = pszComments;
@@ -772,7 +768,7 @@ BOOL CEDClient::SendCommentsPacket(int nRating, LPCTSTR pszComments)
 		strComments.Trim();
 
 		// If there's comments in the library
-		if ( ( nRating > 0 ) || ( strComments.GetLength() ) )
+		if ( nRating > 0 || ! strComments.IsEmpty() )
 		{
 			// Create the comments packet
 			CEDPacket* pComment = CEDPacket::New( ED2K_C2C_FILEDESC, ED2K_PROTOCOL_EMULE  );
@@ -1776,8 +1772,7 @@ BOOL CEDClient::OnViewSharedDir(CEDPacket* pPacket)
 					//
 					//	CString strType, strTitle, strArtist, strAlbum, strCodec;
 					//	DWORD nBitrate = 0, nLength = 0, nTags = 5;
-					//	if ( pFile->m_pSchema &&
-					//		 pFile->m_pSchema->m_sDonkeyType.GetLength() )
+					//	if ( pFile->m_pSchema && ! pFile->m_pSchema->m_sDonkeyType.IsEmpty() )
 					//	{
 					//		strType = pFile->m_pSchema->m_sDonkeyType;
 					//		nTags ++;
@@ -1786,7 +1781,7 @@ BOOL CEDClient::OnViewSharedDir(CEDPacket* pPacket)
 					//		if ( pFile->m_pMetadata->GetAttributeValue( _T("title") ).GetLength() )
 					//		{
 					//			strTitle = pFile->m_pMetadata->GetAttributeValue( _T("title") );
-					//			if ( strTitle.GetLength() )
+					//			if ( ! strTitle.IsEmpty() )
 					//				nTags ++;
 					//		}
 					//
@@ -1796,7 +1791,7 @@ BOOL CEDClient::OnViewSharedDir(CEDPacket* pPacket)
 					//			if ( pFile->m_pMetadata->GetAttributeValue( _T("artist") ).GetLength() )
 					//			{
 					//				strArtist = pFile->m_pMetadata->GetAttributeValue( _T("artist") );
-					//				if ( strArtist.GetLength() )
+					//				if ( ! strArtist.IsEmpty() )
 					//					nTags ++;
 					//			}
 					//
@@ -1804,12 +1799,12 @@ BOOL CEDClient::OnViewSharedDir(CEDPacket* pPacket)
 					//			if ( pFile->m_pMetadata->GetAttributeValue( _T("album") ).GetLength() )
 					//			{
 					//				strAlbum = pFile->m_pMetadata->GetAttributeValue( _T("album") );
-					//				if ( strAlbum.GetLength() )
+					//				if ( ! strAlbum.IsEmpty() )
 					//					nTags ++;
 					//			}
 					//
 					//			// Bitrate
-					//			if ( pFile->m_pMetadata->GetAttributeValue( _T("bitrate") ).GetLength() )	//And has a bitrate
+					//			if ( pFile->m_pMetadata->GetAttributeValue( _T("bitrate") ).GetLength() )	// And has a bitrate
 					//			{
 					//				_stscanf( pFile->m_pMetadata->GetAttributeValue( _T("bitrate") ), _T("%i"), &nBitrate );
 					//				if ( nBitrate )
@@ -1817,7 +1812,7 @@ BOOL CEDClient::OnViewSharedDir(CEDPacket* pPacket)
 					//			}
 					//
 					//			// Length
-					//			if ( pFile->m_pMetadata->GetAttributeValue( _T("seconds") ).GetLength() )	//And has seconds
+					//			if ( pFile->m_pMetadata->GetAttributeValue( _T("seconds") ).GetLength() )	// And has seconds
 					//			{
 					//				nLength = 0;
 					//				_stscanf( pFile->m_pMetadata->GetAttributeValue( _T("seconds") ), _T("%i"), &nLength );
@@ -1831,7 +1826,7 @@ BOOL CEDClient::OnViewSharedDir(CEDPacket* pPacket)
 					//			if ( pFile->m_pMetadata->GetAttributeValue( _T("codec") ).GetLength() )
 					//			{
 					//				strCodec = pFile->m_pMetadata->GetAttributeValue( _T("codec") );
-					//				if ( strCodec.GetLength() )
+					//				if ( ! strCodec.IsEmpty() )
 					//					nTags ++;
 					//			}
 					//
@@ -1840,7 +1835,7 @@ BOOL CEDClient::OnViewSharedDir(CEDPacket* pPacket)
 					//			{
 					//				double nMins = 0.0;
 					//				_stscanf( pFile->m_pMetadata->GetAttributeValue( _T("minutes") ), _T("%lf"), &nMins );
-					//				nLength = (DWORD)( nMins * (double)60 );	//Convert to seconds
+					//				nLength = (DWORD)( nMins * (double)60 );	// Convert to seconds
 					//				if ( nLength )
 					//					nTags ++;
 					//			}
@@ -1878,19 +1873,19 @@ BOOL CEDClient::OnViewSharedDir(CEDPacket* pPacket)
 					//	CEDTag( ED2K_FT_LASTSEENCOMPLETE, 0ull ).Write( pReply );
 					//
 					//	// File type
-					//	if ( strType.GetLength() )
+					//	if ( ! strType.IsEmpty() )
 					//		CEDTag( ED2K_FT_FILETYPE, strType ).Write( pReply );
 					//
 					//	// Title
-					//	if ( strTitle.GetLength() )
+					//	if ( ! strTitle.IsEmpty() )
 					//		CEDTag( ED2K_FT_TITLE, strTitle ).Write( pReply );
 					//
 					//	// Artist
-					//	if ( strArtist.GetLength() )
+					//	if ( ! strArtist.IsEmpty() )
 					//		CEDTag( ED2K_FT_ARTIST, strArtist ).Write( pReply );
 					//
 					//	// Album
-					//	if ( strAlbum.GetLength() )
+					//	if ( ! strAlbum.IsEmpty() )
 					//		CEDTag( ED2K_FT_ALBUM, strAlbum ).Write( pReply );
 					//
 					//	// Bitrate
@@ -1902,7 +1897,7 @@ BOOL CEDClient::OnViewSharedDir(CEDPacket* pPacket)
 					//		CEDTag( ED2K_FT_LENGTH, nLength ).Write( pReply );
 					//
 					//	// Codec
-					//	if ( strCodec.GetLength() )
+					//	if ( ! strCodec.IsEmpty() )
 					//		CEDTag( ED2K_FT_CODEC, strCodec ).Write( pReply );
 					//
 					//	// File rating

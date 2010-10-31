@@ -1,37 +1,34 @@
 //
 // PageProfileProfile.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
-// Portions Copyright Shareaza Development Team, 2002-2007.
+// This file is part of PeerProject (peerproject.org) © 2008-2010
+// Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
-#include "GProfile.h"
-#include "XML.h"
+#include "PeerProject.h"
 #include "PageProfileProfile.h"
+#include "GProfile.h"
 #include "WorldGPS.h"
+#include "XML.h"
 
 #ifdef _DEBUG
-#define new DEBUG_NEW
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
-#endif
+#define new DEBUG_NEW
+#endif	// Filename
 
 IMPLEMENT_DYNCREATE(CProfileProfilePage, CSettingsPage)
 
@@ -51,15 +48,16 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CProfileProfilePage property page
 
-CProfileProfilePage::CProfileProfilePage() : CSettingsPage( CProfileProfilePage::IDD )
+CProfileProfilePage::CProfileProfilePage()
+	: CSettingsPage( CProfileProfilePage::IDD )
+	, m_pWorld			( NULL )
+	, m_sLocCity		( _T("") )
+	, m_sLocCountry 	( _T("") )
+	, m_sLocLatitude	( _T("") )
+	, m_sLocLongitude	( _T("") )
 {
 	//{{AFX_DATA_INIT(CProfileProfilePage)
-	m_sLocCity = _T("");
-	m_sLocCountry = _T("");
-	m_sLocLatitude = _T("");
-	m_sLocLongitude = _T("");
 	//}}AFX_DATA_INIT
-	m_pWorld = NULL;
 }
 
 CProfileProfilePage::~CProfileProfilePage()
@@ -71,10 +69,10 @@ void CProfileProfilePage::DoDataExchange(CDataExchange* pDX)
 {
 	CSettingsPage::DoDataExchange(pDX);
 	//{{AFX_DATA_MAP(CProfileProfilePage)
-	DDX_Control(pDX, IDC_INTEREST_REMOVE, m_wndInterestRemove);
-	DDX_Control(pDX, IDC_INTEREST_ADD, m_wndInterestAdd);
-	DDX_Control(pDX, IDC_INTEREST_ALL, m_wndInterestAll);
 	DDX_Control(pDX, IDC_INTEREST_LIST, m_wndInterestList);
+	DDX_Control(pDX, IDC_INTEREST_ALL, m_wndInterestAll);
+	DDX_Control(pDX, IDC_INTEREST_ADD, m_wndInterestAdd);
+	DDX_Control(pDX, IDC_INTEREST_REMOVE, m_wndInterestRemove);
 	DDX_Control(pDX, IDC_LOC_CITY, m_wndCity);
 	DDX_Control(pDX, IDC_LOC_COUNTRY, m_wndCountry);
 	DDX_CBString(pDX, IDC_LOC_CITY, m_sLocCity);
@@ -108,9 +106,9 @@ BOOL CProfileProfilePage::OnInitDialog()
 			m_sLocCountry	= pPolitical->GetAttributeValue( _T("country") );
 			m_sLocCity		= pPolitical->GetAttributeValue( _T("city") );
 			CString str		= pPolitical->GetAttributeValue( _T("state") );
-			if ( str.GetLength() && m_sLocCity.GetLength() )
+			if ( ! str.IsEmpty() && ! m_sLocCity.IsEmpty() )
 				m_sLocCity += _T(", ");
-            m_sLocCity += str;
+			m_sLocCity += str;
 		}
 
 		if ( CXMLElement* pCoordinates = pLocation->GetElementByName( _T("coordinates") ) )
@@ -141,11 +139,11 @@ BOOL CProfileProfilePage::OnInitDialog()
 			CXMLElement* pInterest = pInterests->GetNextElement( pos );
 
 			if ( pInterest->IsNamed( _T("interest") ) )
-			{
 				m_wndInterestList.AddString( pInterest->GetValue() );
-			}
 		}
 	}
+
+	LoadDefaultInterests();
 
 	UpdateData( FALSE );
 
@@ -156,6 +154,69 @@ BOOL CProfileProfilePage::OnInitDialog()
 	RecalcDropWidth( &m_wndCountry );
 
 	return TRUE;
+}
+
+int CProfileProfilePage::LoadDefaultInterests()
+{
+	CFile pFile;
+	int nCount = 0;
+	const CString strFile = Settings.General.Path + _T("\\Data\\Interests.dat");
+
+	if ( ! pFile.Open( strFile, CFile::modeRead ) )
+		return nCount;
+
+	try
+	{
+		CString strLine;
+		CString strLang = _T(" ") + Settings.General.Language;
+		CBuffer pBuffer;
+
+		pBuffer.EnsureBuffer( (DWORD)pFile.GetLength() );
+		pBuffer.m_nLength = (DWORD)pFile.GetLength();
+		pFile.Read( pBuffer.m_pBuffer, pBuffer.m_nLength );
+		pFile.Close();
+
+		// Format: Delineated List, enabled by prespecified #languages:	#start en ... #end en
+		// (Allows multiple/nested/overlapped languages, all applicable results displayed alphabetically)
+
+		BOOL bActive = FALSE;
+
+		while ( pBuffer.ReadLine( strLine ) )
+		{
+			if ( strLine.GetLength() < 2 ) continue;		// Blank line
+
+			if ( strLine.GetAt( 0 ) == '#' )				// Language start/end line
+			{
+				if ( strLine.Find( strLang, 4 ) < 1 && strLine.Find( _T(" all"), 4 ) < 1 )
+				{
+					if ( strLine.Left( 10 ) == _T("#languages") )
+						strLang = _T(" en");
+				}
+				else if ( strLine.Left( 6 ) == _T("#start") || strLine.Left( 6 ) == _T("#begin") )
+					bActive = TRUE;
+				else if ( strLine.Left( 4 ) == _T("#end") )
+					bActive = FALSE;	//break;
+
+				continue;
+			}
+
+			if ( ! bActive ) continue;						// Disinterested language
+
+			if ( strLine.Find( _T("\t") ) > 0 ) 			// Trim at whitespace (remove any comments)
+				strLine.Left( strLine.Find( _T("\t") ) );
+
+			nCount++;
+			m_wndInterestAll.AddString( strLine );
+		}
+	}
+	catch ( CException* pException )
+	{
+		if ( pFile.m_hFile != CFile::hFileNull )
+			pFile.Close();	// File is still open so close it
+		pException->Delete();
+	}
+
+	return nCount;
 }
 
 void CProfileProfilePage::OnSelChangeCountry()
@@ -174,14 +235,14 @@ void CProfileProfilePage::OnSelChangeCountry()
 
 	for ( int nCity = pCountry->m_nCity ; nCity ; nCity--, pCity++ )
 	{
-		if ( pCity->m_sName.GetLength() )
+		if ( ! pCity->m_sName.IsEmpty() )
 		{
-			if ( pCity->m_sState.GetLength() )
+			if ( ! pCity->m_sState.IsEmpty() )
 				strCity = pCity->m_sName + _T(", ") + pCity->m_sState;
 			else
 				strCity = pCity->m_sName;
 		}
-		else if ( pCity->m_sState.GetLength() )
+		else if ( ! pCity->m_sState.IsEmpty() )
 		{
 			strCity = pCity->m_sState;
 		}
@@ -265,7 +326,7 @@ void CProfileProfilePage::OnOK()
 				pPolitical->AddAttribute( _T("city"), m_sLocCity.Left( nPos ) );
 				pPolitical->AddAttribute( _T("state"), m_sLocCity.Mid( nPos + 2 ) );
 			}
-			else if ( m_sLocCity.GetLength() )
+			else if ( ! m_sLocCity.IsEmpty() )
 			{
 				pPolitical->AddAttribute( _T("city"), m_sLocCity );
 				if ( CXMLAttribute* pAttr = pPolitical->GetAttribute( _T("state") ) )
@@ -325,4 +386,3 @@ void CProfileProfilePage::OnOK()
 
 	CSettingsPage::OnOK();
 }
-

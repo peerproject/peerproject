@@ -3,8 +3,8 @@
 
 <!-- PeerProject Default Catalan Skin File -->
 
-<!-- Translation based on default-en.xml r59 -->
-<!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
+<!-- Translation based on default-en.xml r60 -->
+<!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
 <!-- Use this file as a basis for creating new language skins,   -->
@@ -62,6 +62,7 @@
 		<button id="ID_VIEW_MEDIA"/>
 		<button id="ID_TAB_IRC"/>
 		<separator/>
+		<button id="ID_VIEW_SCHEDULER"/>
 		<button id="ID_VIEW_SECURITY"/>
 		<button id="ID_VIEW_HOSTS"/>
 		<button id="ID_VIEW_DISCOVERY"/>
@@ -1673,7 +1674,7 @@
 			<newline gap="8" indent="42"/>
 			<anchor id="SearchBox" width="256" height="80"/>
 			<newline gap="14" indent="0"/>
-			<icon res="124" width="32" height="32" target="command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
+			<icon res="122" width="32" height="32" target="command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
 			<heading align="middle">COMENÇA A DESCARREGAR</heading>
 			<newline gap="8" indent="42"/>
 			<link target="command:ID_TOOLS_DOWNLOAD" format="bu">Fes click aquí per a començar</link>
@@ -1681,6 +1682,9 @@
 			<newline gap="2" indent="42"/>
 			<text>O obre la meva </text>
 			<link target="command:shell:downloads">carpeta de descàrregues.</link>
+			<newline gap="4" indent="42"/>
+			<text>Comparteixi els seus arxius a </text>
+			<link id="RemoteBrowseURL"/>
 			<newline gap="20" indent="0"/>
 		</group>
 		<group id="3">
@@ -1728,26 +1732,26 @@
 		<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">PERSONALITZA PEERPROJECT</heading>
 		<newline gap="12" indent="42"/>
-		<icon res="196"width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
-		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">Skins</link>
-		<text align="middle">&#160;- Canvia l'aspecte del PeerProject</text>
+		<icon res="196" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
+		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">Skins</link><gap size="6"/>
+		<text align="middle">- Canvia l'aspecte del PeerProject</text>
 		<newline gap="8"/>
-		<icon res="138"width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
-		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
-		<text align="middle">&#160;- Update blocklist to avoid bad search results</text>
+		<icon res="138" width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
+		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link><gap size="6"/>
+		<text align="middle">- Update blocklist to avoid bad search results</text>
 		<newline gap="8"/>
-		<icon res="197"width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
-		<link target="command:ID_TOOLS_WIZARD" align="middle">Assistent de configuració</link>
-		<text align="middle">&#160;- Configuració de PeerProject</text>
+		<icon res="197" width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
+		<link target="command:ID_TOOLS_WIZARD" align="middle">Assistent de configuració</link><gap size="6"/>
+		<text align="middle">- Configuració de PeerProject</text>
 		<newline gap="8"/>
-		<icon res="182"width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
-		<link target="command:ID_HELP_FAQ" align="middle">Ajuda ràpida</link>
-		<text align="middle">&#160;- Rep ajuda ràpida de com usar PeerProject, o </text>
+		<icon res="182" width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
+		<link target="command:ID_HELP_FAQ" align="middle">Ajuda ràpida</link><gap size="6"/>
+		<text align="middle">- Rep ajuda ràpida de com usar PeerProject, o </text>
 		<link target="command:ID_TAB_IRC" align="middle">IRC.</link>
 		<newline gap="8"/>
-		<icon res="201"width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
-		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">Fòrum Local</link>
-		<text align="middle">&#160;- Vés a la teva llengua català fòrum de discussió</text>
+		<icon res="201" width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
+		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">Fòrum Local</link><gap size="6"/>
+		<text align="middle">- Vés a la teva llengua català fòrum de discussió</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
 			<icon res="120" width="32" height="32"/><gap size="8"/>
@@ -1973,7 +1977,7 @@
 		</group>
 		<group id="41">
 			<newline gap="1"/>
-			<icon res="208"/><gap size="5"/>
+			<icon res="207"/><gap size="5"/>
 			<link id="ContactYahoo"/>
 		</group>
 		<group id="42">
@@ -2014,7 +2018,7 @@
 			<newline gap="16" indent="0"/>
 			<text format="b">Comunitat</text>
 			<newline gap="4" indent="8"/>
-			<icon res="127"target="command:ID_SEARCH_CHAT"/>
+			<icon res="127" target="command:ID_SEARCH_CHAT"/>
 			<gap size="5"/>
 			<link target="command:ID_SEARCH_CHAT" align="middle">Parla amb l'usuari</link>
 		</group>
@@ -2941,8 +2945,8 @@
 	<string id="20441" value="PeerProject no ha pogut reanomenar:\n\n%s\na\n%s"/>
 	<string id="20442" value="l'arxiu:\n%s existeix.\n\nVols reescriu-re'l?"/>
 	<string id="20443" value="Mostra tots els tipus"/>
-	<string id="20444" value="Copiar &URI"/>
-	<string id="20445" value="Exportar &URIs..."/>
+	<string id="20444" value="Copiar URI"/>
+	<string id="20445" value="Exportar URIs..."/>
 	<string id="20446" value="L'arxiu %s ha fallat la verificació, i pot no ser el correcte. Estàs segur(a) d'obrir-lo?"/>
 	<string id="20447" value="Vols treure l'atribut &quot;potencialment insegur&quot; d'aquest arxiu?"/>
 	<string id="20448" value="l'arxiu %s no ha estat escanejat.  Per favor, espera a que sigui escanejat i intenta-ho més tard."/>
@@ -3065,7 +3069,9 @@
 	<string id="20590" value="L'accès remot està deshabilitat."/>
 	<string id="20591" value="http://%s:%i/remote - Nom d'usuari i contrasenya?"/>
 	<string id="20592" value="No es poden acceptar connexions, URL no disponible."/>
-	<string id="20595" value="&amp;Esquemes"/>
+	<string id="20597" value="Estàs segur de esborrar les normes de seguretat seleccionades? Aquesta operació no pot ser desfeta."/>
+	<string id="20599" value="&amp;Esquemes"/>
+	<!-- Missing Scheduler/Security Strings -->
 	<string id="20620" value="PeerProject està cercant activament a la xarxa..."/>
 	<string id="20621" value="Fes clic aquí per a cercar de nou"/>
 	<string id="20622" value="Totes les xarxes"/>
@@ -3113,7 +3119,6 @@
 	<string id="20668" value="Cercant..."/>
 	<string id="20669" value="Cerca de sols text"/>
 	<string id="20670" value="PeerProject està cercant activament a la xarxa..."/>
-	<string id="20671" value="Estàs segur de esborrar les normes de seguretat seleccionades? Aquesta operació no pot ser desfeta."/>
 	<string id="20672" value="Selecciona la carpeta temporal de eDonkey/eMule:"/>
 	<string id="20673" value="Automàtic"/>
 	<string id="20674" value="Les carpetes d'arxius complets i incomplerts no poden ser les mateixes."/>
@@ -3285,7 +3290,7 @@
 	<string id="20884" value="No hi ha URN disponible"/>
 	<string id="20885" value="El canvi de direcció de la interfície requereix un reinici de l'aplicació.\nols sortir ara? (Necessitaràs tornar a inciar PeerProject manualment)"/>
 	<string id="20890" value="Benvingut/uda a PeerProject"/>
-	<string id="20891" value="Sor&tir"/>
+	<string id="20891" value="Sortir"/>
 	<string id="20892" value="Si us plau, esperi: Actualitzant la llista de servidors d'eDonkey..."/>
 	<string id="20893" value="Si us plau, esperi: Actualitzant serveis de descobriment..."/>
 	<string id="20894" value="Si us plau, esperi: Cercant dispositius UPnP i configurant-los..."/>
@@ -3790,18 +3795,21 @@
 		<control caption="Aplica"/>
 		<control/>
 	</dialog>
-	<dialog name="CIdentityProfilePage" cookie="BuStEdStEdEdBuCoStCoStBu" caption="Identitat">
+	<dialog name="CIdentityProfilePage" cookie="BuStStEdEdEdBuStStCoCoBuStBuBu" caption="Identitat">
 		<control caption="_Nom:"/>
 		<control caption="Pseudònim:"/>
-		<control/>
 		<control caption="Nom real:"/>
 		<control/>
 		<control/>
-		<control caption="_Informació vital:"/>
-		<control caption="|Home|Dona"/>
-		<control caption="Gènere:"/>
 		<control/>
+		<control caption="_Informació vital:"/>
+		<control caption="Gènere:"/>
 		<control caption="Edat:"/>
+		<control caption="|Home|Dona"/>
+		<control/>
+		<control caption="Info:"/>
+		<control caption="{n}G2 (PeerProject / Shareaza)"/>
+		<control caption="_Aplica:"/>
 		<control caption="Permetre que altres explorin el meu perfil"/>
 	</dialog>
 	<dialog name="CAvatarProfilePage" cookie="BuStBuStBuBu" caption="Avatar">
@@ -3812,23 +3820,7 @@
 		<control caption="_Explora..."/>
 		<control caption="_Treu"/>
 	</dialog>
-	<dialog name="CContactProfilePage" cookie="BuStEdBuStEdStEdStEdStEdStEd" caption="Contacte">
-		<control caption="_Correu electrònic:"/>
-		<control caption="Primari:"/>
-		<control/>
-		<control caption="_Missatgeria instantània:"/>
-		<control caption="MSN/.NET Passport:"/>
-		<control/>
-		<control caption="Yahoo ID:"/>
-		<control/>
-		<control caption="ICQ UIN:"/>
-		<control/>
-		<control caption="Nom AOL:"/>
-		<control/>
-		<control caption="Jabber ID:"/>
-		<control/>
-	</dialog>
-	<dialog name="CProfileProfilePage" cookie="BuStCoStCoBuStEdStEdBuLiBuBuCo" caption="Perfil">
+	<dialog name="CProfileProfilePage" cookie="BuStCoStCoBuStEdStEdBuLiBuBuCo" caption="Ubicació">
 		<control caption="Ubicació:"/>
 		<control caption="País:"/>
 		<control/>
@@ -3841,11 +3833,38 @@
 		<control/>
 		<control caption="_Interessos:"/>
 		<control/>
-		<control caption="&lt; Afegeix"/>
-		<control caption="Treu &gt;"/>
+		<control caption="Afegeix &gt;"/>
+		<control caption="&lt; Treu"/>
+		<control/>
+	</dialog>
+	<dialog name="CContactProfilePage" cookie="BuStEdBuStEdStEdStEdStEdStEdStEdStEdStEd" caption="Contacte">
+		<control caption="_Correu electrònic:"/>
+		<control caption="Primari:"/>
+		<control/>
+		<control caption="_Missatgeria instantània:"/>
+		<control caption="PeerProject.org:"/>
+		<control/>
+		<control caption="Facebook:"/>
+		<control/>
+		<control caption="Twitter:"/>
+		<control/>
+		<control caption="Google:"/>
+		<control/>
+		<control caption="MSN/Live:"/>
+		<control/>
+		<control caption="Yahoo:"/>
+		<control/>
+		<control caption="AOL:"/>
+		<control/>
+		<control caption="ICQ:"/>
 		<control/>
 	</dialog>
 	<dialog name="CBioProfilePage" cookie="Ed" caption="Sobre mi">
+		<control/>
+	</dialog>
+	<dialog name="CFilesProfilePage" cookie="BuStSy" caption="Favorits">
+		<control caption="Arxius _favorits:"/>
+		<control caption="Aquests arxius són recomanants quant els usuaris explorin la teva col·lecció. Els pots crear afegint-los a la carpeta de &quot;Favorits&quot; dins la col·lecció."/>
 		<control/>
 	</dialog>
 	<dialog name="CFavouritesProfilePage" cookie="SyBuStEdStEdBuBu" caption="Favorits">
@@ -3858,28 +3877,24 @@
 		<control caption="Nou"/>
 		<control caption="Esborra"/>
 	</dialog>
-	<dialog name="CFilesProfilePage" cookie="BuStSy" caption="Arxius">
-		<control caption="Arxius _favorits:"/>
-		<control caption="Aquests arxius són recomanants quant els usuaris explorin la teva col·lecció. Els pots crear afegint-los a la carpeta de &quot;Favorits&quot; dins la col·lecció."/>
-		<control/>
-	</dialog>
-	<dialog name="CCertificateProfilePage" cookie="StBuStStStStBu" caption="Certificat">
-		<control caption="Els usuaris de Gnutella són identificats amb un identificador global únic i una clau privada i pública. Normalment no hi ha necessitat de crear una identitat nova, però PeerProject dóna aquesta opció als usuaris avançats."/>
+	<dialog name="CCertificateProfilePage" cookie="BuStStStStBuBuSt" caption="Certificat">
 		<control caption="_Certificat d'identificació global única de Gnutella:"/>
-		<control caption="GUID:"/>
+		<control caption="Gnutella/G2 GUID:"/>
 		<control/>
-		<control caption="Creat:"/>
+		<control caption="BitTorrent GUID:"/>
 		<control/>
 		<control caption="Genera nou"/>
+		<control caption="Ayuda:"/>
+		<control caption="Els usuaris de Gnutella són identificats amb un identificador global únic i una clau privada i pública. Normalment no hi ha necessitat de crear una identitat nova, però PeerProject dóna aquesta opció als usuaris avançats."/>
 	</dialog>
 	<dialog name="CLanguageDlg" cookie="" caption="Selecciona idioma">
 	</dialog>
-	<dialog name="CConnectToDlg" cookie="BuCoEdBuCoBuBuBu" caption="Connecta a|Explora servidor">
-		<control caption="Inicia una nova connexió al servidor:|Explora aquest servidor:"/>
+	<dialog name="CConnectToDlg" cookie="BuCoEdBuCoBuBuBu" caption="Connecta a|Explora servidor|Platicar con Usario">
+		<control caption="Inicia una nova connexió al servidor:|Explora aquest servidor:|Platicar con usario:"/>
 		<control/>
 		<control/>
 		<control caption="Protocol de xarxa."/>
-		<control caption="Gnutella1 (automàtic)|Gnutella2 (automàtic)|eDonkey"/>
+		<control/>
 		<control caption="_Sumprimeix Ultrapeer"/>
 		<control caption="Connecta"/>
 		<control caption="Cancel·la"/>
@@ -4316,14 +4331,16 @@
 		<control caption="Volumen pujat total:"/>
 		<control caption="Notes:"/>
 	</dialog>
-	<dialog name="CDownloadEditPage" cookie="StBuStStStBuStEdEdEdBuEdBuEdBuEdBuEdBuEd" caption="Avançada">
+	<dialog name="CDownloadEditPage" cookie="StBuStStStStBuStEdEdEdSyBuEdBuEdBuEdBuEdBuEd" caption="Avançada">
 		<control caption="ADVERTÈNCIA: Amb aquesta finestra es poden configurar opcions avançades de la descàrrega per a usuaris avançats, que, si són utilitzades incorrectament, podrien danyar o perdre la descàrrega."/>
 		<control caption="Nom de l'arxiu i mida:"/>
 		<control caption="Nom:"/>
 		<control caption="Arxiu:"/>
 		<control caption="Mida de Bytes:"/>
+		<control caption="Data:"/>
 		<control caption="URNs:"/>
 		<control caption="De confiança"/>
+		<control/>
 		<control/>
 		<control/>
 		<control/>
@@ -4466,22 +4483,6 @@
 		<column from="Name" to="Nom"/>
 		<column from="Country" to="País"/>
 	</list>
-	<list name="CSecurityWnd">
-		<column from="Address / Content" to="Adreça / Contingut"/>
-		<column from="Hits" to="Coincidències"/>
-		<column from="Action" to="Acció"/>
-		<column from="Expires" to="Expiració"/>
-		<column from="#" to="#"/>
-		<column from="Comment" to="Comentari"/>
-	</list>
-	<list name="CSchedulerWnd">
-		<column from="Task" to="Acció"/>
-		<column from="Date" to="Data"/>
-		<column from="Time" to="Temps"/>
-		<column from="Status" to="Estat"/>
-		<column from="Activity" to="Actiu"/>
-		<column from="Description" to="Comentari"/>
-	</list>
 	<list name="CHostCacheWnd">
 		<column from="Address" to="IP"/>
 		<column from="Port" to="Port"/>
@@ -4529,6 +4530,23 @@
 		<column from="Client" to="Client"/>
 		<column from="Country" to="País"/>
 		<column from="Time" to="Hora"/>
+	</list>
+	<list name="CSecurityWnd">
+		<column from="Address / Content" to="Adreça / Contingut"/>
+		<column from="Hits" to="Coincidències"/>
+		<column from="#" to="#"/>
+		<column from="Action" to="Acció"/>
+		<column from="Expires" to="Expiració"/>
+		<column from="Match" to=""/>
+		<column from="Comment" to="Comentari"/>
+	</list>
+	<list name="CSchedulerWnd">
+		<column from="Task" to="Acció"/>
+		<column from="Date" to="Data"/>
+		<column from="Time" to="Temps"/>
+		<column from="Status" to="Estat"/>
+		<column from="Activity" to="Actiu"/>
+		<column from="Comment" to="Comentari"/>
 	</list>
 	<list name="CUploadQueueList">
 		<column from="Name" to="Nom"/>

@@ -2,41 +2,41 @@
 // CoolMenu.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2008.
+// Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
 #include "PeerProject.h"
 #include "Settings.h"
-#include "Colors.h"
 #include "CoolInterface.h"
 #include "CoolMenu.h"
+#include "Colors.h"
+#include "Images.h"
 #include "Skin.h"
-#include "ResultFilters.h"
 #include "Shell.h"
+#include "ResultFilters.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
-#endif
+#endif	// Filename
 
 #define CM_ICONWIDTH		16
 #define CM_ICONHEIGHT		16
+#define CM_ICONOFFSET_X		5
+#define CM_ICONOFFSET_Y		4
 
 CCoolMenu CoolMenu;
 
@@ -77,7 +77,7 @@ void CCoolMenu::OnInitMenuPopup(CMenu* pPopupMenu, UINT nIndex, BOOL bSysMenu)
 		MENUITEMINFO mii = {};
 		mii.cbSize = sizeof( mii );
 		mii.fMask = MIIM_ID;
-		for ( UINT i = 0; i < pPopupMenu->GetMenuItemCount(); i++ )
+		for ( UINT i = 0 ; i < (UINT)pPopupMenu->GetMenuItemCount() ; i++ )
 		{
 			if ( pPopupMenu->GetMenuItemInfo( i, &mii, TRUE ) &&
 				mii.wID >= ID_SHELL_MENU_MIN && mii.wID <= ID_SHELL_MENU_MAX )
@@ -91,7 +91,7 @@ void CCoolMenu::OnInitMenuPopup(CMenu* pPopupMenu, UINT nIndex, BOOL bSysMenu)
 					Skin.AddString( strHelp, mii.wID );
 			}
 		}
-		for ( UINT i = 0; i < pPopupMenu->GetMenuItemCount(); i++ )
+		for ( UINT i = 0 ; i < (UINT)pPopupMenu->GetMenuItemCount() ; i++ )
 		{
 			if ( ! pPopupMenu->GetMenuItemInfo( i, &mii, TRUE ) ||
 				mii.wID == ID_SEPARATOR || mii.wID == -1 )
@@ -274,17 +274,6 @@ void CCoolMenu::SetWatermark(HBITMAP hBitmap)
 	}
 }
 
-void CCoolMenu::SetSelectmark(HBITMAP hBitmap)
-{
-	m_bSelectTest = FALSE;
-	if ( hBitmap != NULL )
-	{
-		if ( m_bmSelectmark.m_hObject )
-			m_bmSelectmark.DeleteObject();
-		m_bmSelectmark.Attach( hBitmap );
-		m_bSelectTest = TRUE;
-	}
-}
 
 //////////////////////////////////////////////////////////////////////
 // CCoolMenu measure item
@@ -367,11 +356,11 @@ void CCoolMenu::OnDrawItemInternal(LPDRAWITEMSTRUCT lpDrawItemStruct)
 	int nIcon = -1;
 	CDC dc;
 
-	BOOL	bSelected	= lpDrawItemStruct->itemState & ODS_SELECTED;
-	BOOL	bChecked	= lpDrawItemStruct->itemState & ODS_CHECKED;
-	BOOL	bDisabled	= lpDrawItemStruct->itemState & ODS_GRAYED;
-	BOOL	bKeyboard	= FALSE;
-	BOOL	bEdge		= TRUE;
+	BOOL bSelected	= lpDrawItemStruct->itemState & ODS_SELECTED;
+	BOOL bChecked	= lpDrawItemStruct->itemState & ODS_CHECKED;
+	BOOL bDisabled	= lpDrawItemStruct->itemState & ODS_GRAYED;
+	BOOL bKeyboard	= FALSE;
+	BOOL bEdge		= TRUE;
 
 	dc.Attach( lpDrawItemStruct->hDC );
 
@@ -422,32 +411,19 @@ void CCoolMenu::OnDrawItemInternal(LPDRAWITEMSTRUCT lpDrawItemStruct)
 
 	if ( bSelected )
 	{
-		SetSelectmark( Skin.GetWatermark( L"CCoolMenu.Hover" ) );
-		if ( m_bSelectTest && ( ! bDisabled || bKeyboard ) )
+		if ( ! ( bDisabled && Images.DrawButtonState( pDC, rcItem, IMAGE_MENUDISABLED ) ) &&					// "CCoolMenu.Disabled"
+			 ! ( ( ! bDisabled || bKeyboard ) && Images.DrawButtonState( pDC, rcItem, IMAGE_MENUSELECTED ) ) )	// "CCoolMenu.Hover"
 		{
-			CoolInterface.DrawWatermark( pDC, &rcItem, &m_bmSelectmark );
-		}
-		else if ( ! bDisabled )
-		{
+			const COLORREF crBack = bDisabled ? Colors.m_crBackNormal : Colors.m_crBackSel;
+
 			pDC->Draw3dRect( rcItem.left + 1, rcItem.top + 1,
 				rcItem.Width() - 2, rcItem.Height() - 1 - bEdge,
 				Colors.m_crBorder, Colors.m_crBorder );
 			pDC->FillSolidRect( rcItem.left + 2, rcItem.top + 2,
 				rcItem.Width() - 4, rcItem.Height() - 3 - bEdge,
-				Colors.m_crBackSel );
+				crBack );
 
-			pDC->SetBkColor( Colors.m_crBackSel );
-		}
-		else if ( bKeyboard )
-		{
-			pDC->Draw3dRect( rcItem.left + 1, rcItem.top + 1,
-				rcItem.Width() - 2, rcItem.Height() - 1 - bEdge,
-				Colors.m_crBorder, Colors.m_crBorder );
-			pDC->FillSolidRect( rcItem.left + 2, rcItem.top + 2,
-				rcItem.Width() - 4, rcItem.Height() - 3 - bEdge,
-				Colors.m_crBackNormal );
-
-			pDC->SetBkColor( Colors.m_crBackNormal );
+			pDC->SetBkColor( crBack );
 		}
 	}
 	else
@@ -455,26 +431,26 @@ void CCoolMenu::OnDrawItemInternal(LPDRAWITEMSTRUCT lpDrawItemStruct)
 		pDC->SetBkColor( Colors.m_crBackNormal );
 	}
 
-	if ( bChecked )
+	if ( bChecked ) 	// Checked-icon box Position
 	{
-		pDC->Draw3dRect( rcItem.left + 2, rcItem.top + 2, 20, rcItem.Height() - 3 - bEdge,
+		pDC->Draw3dRect( rcItem.left + CM_ICONOFFSET_X - 2, rcItem.top + CM_ICONOFFSET_Y - 2, 20, 20, //rcItem.Height() - 3 - bEdge,
 			Colors.m_crBorder, Colors.m_crBorder );
-		pDC->FillSolidRect( rcItem.left + 3, rcItem.top + 3, 18, rcItem.Height() - 5 - bEdge,
+		pDC->FillSolidRect( rcItem.left + CM_ICONOFFSET_X - 1, rcItem.top + CM_ICONOFFSET_Y - 1, 18, 18, //rcItem.Height() - 5 - bEdge ),
 			( bSelected && ! bDisabled ) ? Colors.m_crBackCheckSel : Colors.m_crBackCheck );
 	}
 
 	nIcon = CoolInterface.ImageForID( (DWORD)lpDrawItemStruct->itemID );
 
-	if ( bChecked && nIcon < 0 ) nIcon = CoolInterface.ImageForID( ID_CHECKMARK );
+	if ( bChecked && nIcon < 0 )
+		nIcon = CoolInterface.ImageForID( ID_CHECKMARK );
 
 	if ( nIcon >= 0 )
 	{
-		CPoint pt( rcItem.left + 4, rcItem.top + 4 );
+		CPoint pt( rcItem.left + CM_ICONOFFSET_X, rcItem.top + CM_ICONOFFSET_Y );	// Icon Position
 
 		if ( bDisabled )
 		{
-			CoolInterface.DrawEx( pDC, nIcon,
-				pt, CSize( 0, 0 ), CLR_NONE, Colors.m_crDisabled, ILD_BLEND50 );
+			CoolInterface.DrawEx( pDC, nIcon, pt, CSize( 0, 0 ), CLR_NONE, Colors.m_crDisabled, ILD_BLEND50 );
 		}
 		else if ( bChecked )
 		{
@@ -490,8 +466,7 @@ void CCoolMenu::OnDrawItemInternal(LPDRAWITEMSTRUCT lpDrawItemStruct)
 		}
 		else
 		{
-			CoolInterface.DrawEx( pDC, nIcon,
-				pt, CSize( 0, 0 ), CLR_NONE, Colors.m_crMargin, ILD_NORMAL );
+			CoolInterface.DrawEx( pDC, nIcon, pt, CSize( 0, 0 ), CLR_NONE, Colors.m_crMargin, ILD_NORMAL );
 		}
 	}
 

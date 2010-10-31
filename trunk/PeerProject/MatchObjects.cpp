@@ -2,21 +2,18 @@
 // MatchObjects.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2008.
+// Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
@@ -49,7 +46,7 @@
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
-#endif
+#endif	// Filename
 
 #define MAP_SIZE		256
 #define BUFFER_GROW		64
@@ -793,7 +790,7 @@ void CMatchList::Filter()
 	delete [] m_pszFilter;
 	m_pszFilter = NULL;
 
-	if ( m_sFilter.GetLength() )
+	if ( ! m_sFilter.IsEmpty() )
 	{
 		if ( m_bRegExp )
 		{
@@ -1763,7 +1760,7 @@ void CMatchFile::Added(CQueryHit* pHit)
 			else if ( bSchema )
 			{
 				strValue = (*pMember)->GetValueFrom( pHit->m_pXML, NULL, TRUE );
-				if ( strValue.GetLength() )
+				if ( ! strValue.IsEmpty() )
 					m_pColumns[ nCount ] = strValue;
 			}
 		}
@@ -2436,27 +2433,24 @@ void CMatchFile::GetUser(CString& sUser) const
 {
 	if ( m_nFiltered == 1 && m_pBest )
 	{
-		if ( m_pBest->m_sNick.GetLength() )
+		if ( ! m_pBest->m_sNick.IsEmpty() )
 		{
 			sUser.Format( _T("%s (%s - %s)"),
 				(LPCTSTR)m_pBest->m_sNick,
 				(LPCTSTR)CString( inet_ntoa( m_pBest->m_pAddress ) ),
 				(LPCTSTR)m_pBest->m_pVendor->m_sName );
 		}
+		else if ( ( m_pBest->m_nProtocol == PROTOCOL_ED2K ) && ( m_pBest->m_bPush == TRI_TRUE ) )
+		{
+			sUser.Format( _T("%lu@%s - %s"), m_pBest->m_oClientID.begin()[2],
+				(LPCTSTR)CString( inet_ntoa( (IN_ADDR&)*m_pBest->m_oClientID.begin() ) ),
+				(LPCTSTR)m_pBest->m_pVendor->m_sName );
+		}
 		else
 		{
-			if ( ( m_pBest->m_nProtocol == PROTOCOL_ED2K ) && ( m_pBest->m_bPush == TRI_TRUE ) )
-			{
-				sUser.Format( _T("%lu@%s - %s"), m_pBest->m_oClientID.begin()[2],
-					(LPCTSTR)CString( inet_ntoa( (IN_ADDR&)*m_pBest->m_oClientID.begin() ) ),
-					(LPCTSTR)m_pBest->m_pVendor->m_sName );
-			}
-			else
-			{
-				sUser.Format( _T("%s - %s"),
-					(LPCTSTR)CString( inet_ntoa( m_pBest->m_pAddress ) ),
-					(LPCTSTR)m_pBest->m_pVendor->m_sName );
-			}
+			sUser.Format( _T("%s - %s"),
+				(LPCTSTR)CString( inet_ntoa( m_pBest->m_pAddress ) ),
+				(LPCTSTR)m_pBest->m_pVendor->m_sName );
 		}
 	}
 	else
@@ -2497,7 +2491,7 @@ void CMatchFile::GetStatusTip( CString& sStatus, COLORREF& crStatus)
 				LoadString( sStatus, IDS_TIP_EXISTS_DELETED );
 				crStatus = Colors.m_crTextAlert ;
 
-				if ( pExisting->m_sComments.GetLength() )
+				if ( ! pExisting->m_sComments.IsEmpty() )
 				{
 					sStatus += L" (";
 					sStatus += pExisting->m_sComments;

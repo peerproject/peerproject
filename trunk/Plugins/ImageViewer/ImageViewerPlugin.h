@@ -14,7 +14,7 @@
 class CImageWindow;
 
 
-class ATL_NO_VTABLE CImageViewerPlugin : 
+class ATL_NO_VTABLE CImageViewerPlugin :
 	public CComObjectRootEx< CComSingleThreadModel >,
 	public CComCoClass< CImageViewerPlugin, &CLSID_ImageViewerPlugin >,
 	public IGeneralPlugin,
@@ -43,7 +43,7 @@ public:
 public:
 	BOOL			OpenNewWindow(LPCTSTR pszFilePath);
 	void			RemoveWindow(CImageWindow* pWindow);
-	
+
 // Interfaces
 public:
 	DECLARE_REGISTRY_RESOURCEID(IDR_IMAGEVIEWER)
@@ -56,7 +56,7 @@ public:
 
 // IGeneralPlugin
 protected:
-	virtual HRESULT STDMETHODCALLTYPE SetApplication( 
+	virtual HRESULT STDMETHODCALLTYPE SetApplication(
 		/* [in] */ IApplication __RPC_FAR *pApplication);
 	virtual HRESULT STDMETHODCALLTYPE QueryCapabilities(
 		/* [in] */ DWORD __RPC_FAR *pnCaps);
@@ -74,12 +74,12 @@ protected:
 protected:
 	virtual HRESULT STDMETHODCALLTYPE RegisterCommands();
 	virtual HRESULT STDMETHODCALLTYPE InsertCommands();
-	virtual HRESULT STDMETHODCALLTYPE OnUpdate( 
+	virtual HRESULT STDMETHODCALLTYPE OnUpdate(
 		/* [in] */ UINT nCommandID,
 		/* [out][in] */ TRISTATE __RPC_FAR *pbVisible,
 		/* [out][in] */ TRISTATE __RPC_FAR *pbEnabled,
 		/* [out][in] */ TRISTATE __RPC_FAR *pbChecked);
-	virtual HRESULT STDMETHODCALLTYPE OnCommand( 
+	virtual HRESULT STDMETHODCALLTYPE OnCommand(
 		/* [in] */ UINT nCommandID);
 };
 

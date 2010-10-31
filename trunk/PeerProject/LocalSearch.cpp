@@ -2,21 +2,18 @@
 // LocalSearch.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2008.
+// Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
@@ -60,7 +57,7 @@
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
-#endif
+#endif	// Filename
 
 //////////////////////////////////////////////////////////////////////
 // CLocalSearch construction
@@ -312,7 +309,7 @@ void CLocalSearch::AddHitG1(CG1Packet* pPacket, CSchemaMap& pSchemas, CLibraryFi
 {
 	pPacket->WriteLongLE( pFile->m_nIndex );
 	pPacket->WriteLongLE( (DWORD)min( pFile->GetSize(), 0xFFFFFFFF ) );
-	if ( Settings.Gnutella1.QueryHitUTF8 ) //Support UTF-8 Query
+	if ( Settings.Gnutella1.QueryHitUTF8 ) // Support UTF-8 Query
 		pPacket->WriteStringUTF8( pFile->m_sName );
 	else
 		pPacket->WriteString( pFile->m_sName );
@@ -360,7 +357,7 @@ void CLocalSearch::AddHitG1(CG1Packet* pPacket, CSchemaMap& pSchemas, CLibraryFi
 	if ( pFile->m_pSchema != NULL && pFile->m_pMetadata != NULL && ( ! m_pSearch || m_pSearch->m_bWantXML ) )
 	{
 		CXMLElement* pGroup = NULL;
- 		if ( ! pSchemas.Lookup( pFile->m_pSchema, pGroup ) )
+		if ( ! pSchemas.Lookup( pFile->m_pSchema, pGroup ) )
 		{
 			pGroup = pFile->m_pSchema->Instantiate();
 			pSchemas.SetAt( pFile->m_pSchema, pGroup );

@@ -2,21 +2,18 @@
 // DlgSecureRule.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2007.
+// Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
@@ -27,10 +24,10 @@
 #include "DlgSecureRule.h"
 
 #ifdef _DEBUG
-#define new DEBUG_NEW
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
-#endif
+#define new DEBUG_NEW
+#endif	// Filename
 
 BEGIN_MESSAGE_MAP(CSecureRuleDlg, CSkinDialog)
 	ON_CBN_SELCHANGE(IDC_RULE_EXPIRE, OnSelChangeRuleExpire)
@@ -41,24 +38,26 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CSecureRuleDlg dialog
 
-CSecureRuleDlg::CSecureRuleDlg(CWnd* pParent, CSecureRule* pRule) : CSkinDialog(CSecureRuleDlg::IDD, pParent)
+CSecureRuleDlg::CSecureRuleDlg(CWnd* pParent, CSecureRule* pRule)
+	: CSkinDialog(CSecureRuleDlg::IDD, pParent)
+	, m_sComment	( _T("") )
+	, m_sContent	( _T("") )
+	, m_nExpireD	( 0 )
+	, m_nExpireH	( 0 )
+	, m_nExpireM	( 0 )
+	, m_nAction 	( -1 )
+	, m_nExpire 	( -1 )
+	, m_nType		( -1 )
+	, m_nMatch		( -1 )
+	, m_bNew		( FALSE )
 {
-	m_nExpireD = 0;
-	m_nExpireH = 0;
-	m_nExpireM = 0;
-	m_nAction = -1;
-	m_nExpire = -1;
-	m_sComment = _T("");
-	m_sContent = _T("");
-	m_nType = -1;
-	m_nMatch = -1;
 	m_pRule	= pRule;
-	m_bNew	= FALSE;
 }
 
 CSecureRuleDlg::~CSecureRuleDlg()
 {
-	if ( m_pRule && m_bNew ) delete m_pRule;
+	if ( m_pRule && m_bNew )
+		delete m_pRule;
 }
 
 void CSecureRuleDlg::DoDataExchange(CDataExchange* pDX)
@@ -82,11 +81,11 @@ void CSecureRuleDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_EXPIRE_D, m_nExpireD);
 	DDX_Text(pDX, IDC_EXPIRE_H, m_nExpireH);
 	DDX_Text(pDX, IDC_EXPIRE_M, m_nExpireM);
-	DDX_CBIndex(pDX, IDC_RULE_ACTION, m_nAction);
-	DDX_CBIndex(pDX, IDC_RULE_EXPIRE, m_nExpire);
+	DDX_Text(pDX, IDC_RULE_CONTENT, m_sContent);
 	DDX_Text(pDX, IDC_RULE_COMMENT, m_sComment);
 	DDX_CBIndex(pDX, IDC_RULE_TYPE, m_nType);
-	DDX_Text(pDX, IDC_RULE_CONTENT, m_sContent);
+	DDX_CBIndex(pDX, IDC_RULE_ACTION, m_nAction);
+	DDX_CBIndex(pDX, IDC_RULE_EXPIRE, m_nExpire);
 	DDX_Radio(pDX, IDC_RULE_MATCH_ANY, m_nMatch);
 	//}}AFX_DATA_MAP
 }
@@ -143,6 +142,11 @@ BOOL CSecureRuleDlg::OnInitDialog()
 	case CSecureRule::srContentRegExp:
 		m_nType = 1;
 		m_nMatch = 2;
+		m_sContent = m_pRule->GetContentWords();
+		break;
+	case CSecureRule::srSizeType:
+		m_nType = 1;
+		m_nMatch = 0;
 		m_sContent = m_pRule->GetContentWords();
 		break;
 	}
@@ -280,32 +284,24 @@ void CSecureRuleDlg::OnOK()
 			m_pRule->m_nMask[ nByte ] = (BYTE)min( 255ul, nValue );
 		}
 	}
-	else if ( m_nType == 1 )
+	else if ( m_nType == 1 && ! m_sContent.IsEmpty() )
 	{
-		switch ( m_nMatch )
-		{
-		case 0:
-			m_pRule->m_nType = CSecureRule::srContentAny;
-			m_pRule->SetContentWords( m_sContent );
-			break;
-		case 1:
-			m_pRule->m_nType = CSecureRule::srContentAll;
-			m_pRule->SetContentWords( m_sContent );
-			break;
-		case 2:
-			m_pRule->m_nType = CSecureRule::srContentRegExp;
-			m_pRule->SetContentWords( m_sContent );
-			break;
-		}
+		if ( m_nMatch < 2 && m_sContent.Find( _T("size:") >= 0 ) )
+			m_pRule->m_nType = CSecureRule::srSizeType;
+		else
+			m_pRule->m_nType = ( m_nMatch == 2 ? CSecureRule::srContentRegExp : m_nMatch == 1 ? CSecureRule::srContentAll : CSecureRule::srContentAny );
+
+		m_pRule->SetContentWords( m_sContent );
 	}
+
 	m_pRule->m_sComment	= m_sComment;
 	m_pRule->m_nAction	= BYTE( m_nAction );
 	m_pRule->m_nExpire	= m_nExpire;
 
 	if ( m_nExpire == 2 )
 	{
-		m_pRule->m_nExpire	= static_cast< DWORD >( time( NULL ) ) + m_nExpireD * 86400
-							+ m_nExpireH * 3600 + m_nExpireM * 60;
+		m_pRule->m_nExpire	= static_cast< DWORD >( time( NULL ) ) +
+							m_nExpireD * 86400 + m_nExpireH * 3600 + m_nExpireM * 60;
 	}
 
 	Security.Add( m_pRule );

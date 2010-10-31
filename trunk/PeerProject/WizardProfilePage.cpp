@@ -2,21 +2,18 @@
 // WizardProfilePage.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2007.
+// Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
@@ -29,10 +26,10 @@
 #include "WizardProfilePage.h"
 
 #ifdef _DEBUG
-#define new DEBUG_NEW
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
-#endif
+#define new DEBUG_NEW
+#endif	// Filename
 
 IMPLEMENT_DYNCREATE(CWizardProfilePage, CWizardPage)
 
@@ -195,11 +192,11 @@ void CWizardProfilePage::OnSelChangeCountry()
 
 	for ( int nCity = pCountry->m_nCity ; nCity ; nCity--, pCity++ )
 	{
-		if ( pCity->m_sName.GetLength() && pCity->m_sState.GetLength() )
+		if ( ! pCity->m_sName.IsEmpty() && ! pCity->m_sState.IsEmpty() )
 			strCity = pCity->m_sName + _T(", ") + pCity->m_sState;
-		else if ( pCity->m_sName.GetLength() )
+		else if ( ! pCity->m_sName.IsEmpty() )
 			strCity = pCity->m_sName;
-		else if ( pCity->m_sState.GetLength() )
+		else if ( ! pCity->m_sState.IsEmpty() )
 			strCity = pCity->m_sState;
 		else
 			continue;
@@ -234,7 +231,7 @@ LRESULT CWizardProfilePage::OnWizardNext()
 		CString str;
 		m_wndComments.GetWindowText( str );
 
-		if ( str.GetLength() )
+		if ( ! str.IsEmpty() )
 			pNotes->SetValue( str );
 		//else
 		//	pNotes->Delete();
@@ -268,7 +265,7 @@ LRESULT CWizardProfilePage::OnWizardNext()
 	{
 		if ( CXMLElement* pPolitical = pLocation->GetElementByName( _T("political"), TRUE ) )
 		{
-			if ( m_sLocCountry.GetLength() )
+			if ( ! m_sLocCountry.IsEmpty() )
 				pPolitical->AddAttribute( _T("country"), m_sLocCountry );
 			else
 				pPolitical->DeleteAttribute( _T("country") );
@@ -280,7 +277,7 @@ LRESULT CWizardProfilePage::OnWizardNext()
 				pPolitical->AddAttribute( _T("city"), m_sLocCity.Left( nPos ) );
 				pPolitical->AddAttribute( _T("state"), m_sLocCity.Mid( nPos + 2 ) );
 			}
-			else if ( m_sLocCity.GetLength() )
+			else if ( ! m_sLocCity.IsEmpty() )
 			{
 				pPolitical->AddAttribute( _T("city"), m_sLocCity );
 				pPolitical->DeleteAttribute( _T("state") );

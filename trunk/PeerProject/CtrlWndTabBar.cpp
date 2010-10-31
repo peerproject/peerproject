@@ -2,21 +2,18 @@
 // CtrlWndTabBar.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2008.
+// Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
@@ -26,16 +23,17 @@
 #include "CoolInterface.h"
 #include "CoolMenu.h"
 #include "Colors.h"
+#include "Images.h"
 #include "Skin.h"
 
 #include "WndMain.h"
 #include "WndPlugin.h"
 
 #ifdef _DEBUG
-#define new DEBUG_NEW
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
-#endif
+#define new DEBUG_NEW
+#endif	// Filename
 
 //#define TABBARHEIGHT 26	// Skin.m_nTaskbarHeight
 //#define TABWIDTH 140		// Skin.m_nTaskbarTabWidth
@@ -66,6 +64,7 @@ CWndTabBar::CWndTabBar()
 	, m_nCookie 	( 0 )
 	, m_bTimer		( FALSE )
 	, m_bMenuGray	( FALSE )
+	, m_bCloseButton ( FALSE )
 	, m_nCloseImage	( 0 )
 	, m_nMessage	( 0 )
 	, m_nMaximumWidth( Skin.m_nTaskbarTabWidth )
@@ -113,6 +112,8 @@ void CWndTabBar::SetMessage(LPCTSTR pszText)
 
 void CWndTabBar::SetMaximumWidth(int nWidth)
 {
+	if ( Skin.m_nTaskbarTabWidth > 40 )
+		nWidth = Skin.m_nTaskbarTabWidth;
 	if ( m_nMaximumWidth == nWidth ) return;
 	m_nMaximumWidth = nWidth;
 	Invalidate();
@@ -233,6 +234,8 @@ CSize CWndTabBar::CalcFixedLayout(BOOL /*bStretch*/, BOOL /*bHorz*/)
 void CWndTabBar::OnSkinChange()
 {
 	SetWatermark( Skin.GetWatermark( _T("CWndTabBar") ) );
+	SetMaximumWidth( Settings.General.GUIMode == GUI_WINDOWED ? 140 : 200 );
+	m_nCloseImage = CoolInterface.ImageForID( ID_CHILD_CLOSE );
 }
 
 void CWndTabBar::OnUpdateCmdUI(CFrameWnd* pTarget, BOOL /*bDisableIfNoHndler*/)
@@ -378,7 +381,7 @@ CWndTabBar::TabItem* CWndTabBar::HitTest(const CPoint& point, CRect* pItemRect) 
 	CalcInsideRect( rc, FALSE );
 
 	rc.left -= m_cyTopBorder;
-	rc.top -= m_cxLeftBorder;
+	rc.top  -= m_cxLeftBorder;
 	rc.right += m_cyBottomBorder;
 	rc.bottom += m_cxRightBorder;
 
@@ -441,8 +444,6 @@ void CWndTabBar::DoPaint(CDC* pDC)
 
 	if ( m_pItems.GetCount() )
 	{
-		m_nCloseImage = CoolInterface.ImageForID( ID_CHILD_CLOSE );
-
 		CRect rcItem( rc.left + 3, rc.top + 1, 0, rc.bottom - 1 );
 		rcItem.right = static_cast< LONG >( ( rc.Width() - 10 ) / m_pItems.GetCount() );
 		rcItem.right = min( rcItem.right, m_nMaximumWidth );
@@ -451,8 +452,7 @@ void CWndTabBar::DoPaint(CDC* pDC)
 		{
 			TabItem* pItem = m_pItems.GetNext( pos );
 
-			pItem->Paint( this, pDC, &rcItem, m_pSelected == pItem, m_pHot == pItem,
-				pDC != pOutDC );
+			pItem->Paint( this, pDC, &rcItem, m_pSelected == pItem, m_pHot == pItem, pDC != pOutDC );
 			pDC->ExcludeClipRect( &rcItem );
 
 			rcItem.OffsetRect( rcItem.Width() + 3, 0 );
@@ -495,7 +495,17 @@ void CWndTabBar::DoPaint(CDC* pDC)
 
 void CWndTabBar::OnMouseMove(UINT nFlags, CPoint point)
 {
-	TabItem* pItem = HitTest( point );
+	CRect rc;
+	TabItem* pItem = HitTest( point, &rc );
+
+	rc.DeflateRect( 2, 2 );
+	rc.left = rc.right - 15;
+	if ( m_bCloseButton != rc.PtInRect( point ) )
+	{
+		m_bCloseButton = ! m_bCloseButton;
+		rc.left--;
+		InvalidateRect( rc );
+	}
 
 	if ( pItem != m_pHot )
 	{
@@ -563,15 +573,17 @@ void CWndTabBar::OnLButtonDown(UINT nFlags, CPoint point)
 {
 	CRect rc;
 
+	OnMouseMove( nFlags, point );
+
 	if ( TabItem* pItem = HitTest( point, &rc ) )
 	{
 		if ( ::IsWindow( pItem->m_hWnd ) )
 		{
 			CChildWnd* pChild = (CChildWnd*)CWnd::FromHandle( pItem->m_hWnd );
 
-			if ( m_pSelected == pItem &&
-				Settings.General.GUIMode != GUI_WINDOWED &&
-				point.x >= rc.right - 18 )
+			if ( m_bCloseButton &&
+				( m_pSelected == pItem || rc.Width() > 70 ) &&
+				Settings.General.GUIMode != GUI_WINDOWED )
 			{
 				pChild->PostMessage( WM_SYSCOMMAND, SC_CLOSE, 0 );
 				return;
@@ -774,6 +786,7 @@ BOOL CWndTabBar::OnDrop(IDataObject* pDataObj, DWORD /*grfKeyState*/, POINT ptSc
 	return FALSE;
 }
 
+
 /////////////////////////////////////////////////////////////////////////////
 // CWndTabBar::TabItem construction
 
@@ -781,10 +794,10 @@ CWndTabBar::TabItem::TabItem(CChildWnd* pWnd, DWORD nCookie, LPCTSTR pszCaption)
 {
 	m_hWnd		= pWnd->GetSafeHwnd();
 	m_pClass	= pWnd->GetRuntimeClass();
-	m_nImage	= -1;
 	m_bVisible	= pWnd->IsWindowVisible();
 	m_bAlert	= pWnd->m_bAlert;
 	m_nCookie	= nCookie;
+	m_nImage	= -1;
 
 	if ( pszCaption != NULL )
 		m_sCaption = pszCaption;
@@ -794,19 +807,6 @@ CWndTabBar::TabItem::TabItem(CChildWnd* pWnd, DWORD nCookie, LPCTSTR pszCaption)
 
 CWndTabBar::TabItem::~TabItem()
 {
-	if ( m_bmTabmark.m_hObject )
-		m_bmTabmark.DeleteObject();
-}
-
-void CWndTabBar::TabItem::SetTabmark(HBITMAP hBitmap)
-{
-	if ( hBitmap != NULL )
-	{
-		if ( m_bmTabmark.m_hObject )
-			m_bmTabmark.DeleteObject();
-		m_bmTabmark.Attach( hBitmap );
-		m_bTabTest = TRUE;
-	}
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -816,36 +816,41 @@ void CWndTabBar::TabItem::Paint(CWndTabBar* pBar, CDC* pDC, CRect* pRect, BOOL b
 {
 	CRect rc( pRect );
 	COLORREF crBack;
-	m_bTabTest = FALSE;
+	BOOL bSkinned = FALSE;
 
 	if ( ! Skin.m_bMenuBorders )
 	{
 		if ( ! bTransparent )
 			pDC->FillSolidRect( rc , Colors.m_crMidtone );
-		rc.DeflateRect(0,2);
+		rc.DeflateRect( 0, 2 );
 	}
 
-	if ( bSelected && pBar->m_bMenuGray )
-	{
-		crBack = Colors.m_crBackNormal;
-		pDC->Draw3dRect( &rc, Colors.m_crDisabled, Colors.m_crDisabled );
-	}
+	rc.InflateRect( 1, 1 );
 
-	else if ( bSelected && ( bHot || pBar->m_bMenuGray ) )
-		SetTabmark( Skin.GetWatermark( _T("CWndTabBar.Active.Hover") ) );
+	if ( bSelected && ( bHot || pBar->m_bMenuGray ) )
+		bSkinned = Images.DrawButtonState( pDC, rc, TASKBARBUTTON_PRESS );		// "CWndTabBar.Active.Hover"
 	else if ( bSelected )
-		SetTabmark( Skin.GetWatermark( _T("CWndTabBar.Active") ) );
+		bSkinned = Images.DrawButtonState( pDC, rc, TASKBARBUTTON_ACTIVE );		// "CWndTabBar.Active"
 	else if ( bHot )
-		SetTabmark( Skin.GetWatermark( _T("CWndTabBar.Hover") ) );
+		bSkinned = Images.DrawButtonState( pDC, rc, TASKBARBUTTON_HOVER );		// "CWndTabBar.Hover"
+	else
+		bSkinned = Images.DrawButtonState( pDC, rc, TASKBARBUTTON_DEFAULT );	// "CWndTabBar.Tab"
 
-	if ( m_bTabTest )
+	rc.DeflateRect( 1, 1 );
+
+	if ( bSkinned )
 	{
 		crBack = CLR_NONE;
 		pDC->SetBkMode( TRANSPARENT );
-		CoolInterface.DrawWatermark( pDC, &rc, &m_bmTabmark );
 	}
 	else
 	{
+		if ( bSelected && pBar->m_bMenuGray )
+		{
+			crBack = Colors.m_crBackNormal;
+			pDC->Draw3dRect( &rc, Colors.m_crDisabled, Colors.m_crDisabled );
+		}
+
 		if ( bHot || ( bSelected && m_bVisible ) )
 		{
 			crBack = ( bHot && bSelected ) ? Colors.m_crBackCheckSel : Colors.m_crBackSel;
@@ -905,14 +910,15 @@ void CWndTabBar::TabItem::Paint(CWndTabBar* pBar, CDC* pDC, CRect* pRect, BOOL b
 
 	rc.left += 20;
 
-	if ( bSelected && Settings.General.GUIMode != GUI_WINDOWED )
+	if ( ( bSelected || ( bHot && rc.Width() > 70 ) ) && Settings.General.GUIMode != GUI_WINDOWED )	// ID_CHILD_CLOSE "X"
 	{
 		ptImage.x = rc.right - 18;
 		CoolInterface.DrawEx( pDC, pBar->m_nCloseImage,
-			ptImage, CSize( 0, 0 ), crBack, Colors.m_crShadow, ILD_BLEND50 );
+			ptImage, CSize( 0, 0 ), crBack, Colors.m_crShadow, ( bHot && pBar->m_bCloseButton ) ? ILD_NORMAL : ILD_BLEND50 );
 		pDC->ExcludeClipRect( ptImage.x, ptImage.y, ptImage.x + 16, ptImage.y + 16 );
 		rc.right -= 20;
-		if ( crBack != CLR_NONE ) pDC->FillSolidRect( rc.right, rc.top, 20, rc.Height(), crBack );
+		if ( crBack != CLR_NONE )
+			pDC->FillSolidRect( rc.right, rc.top, 20, rc.Height(), crBack );
 	}
 
 	CString strText = m_sCaption;
@@ -924,12 +930,13 @@ void CWndTabBar::TabItem::Paint(CWndTabBar* pBar, CDC* pDC, CRect* pRect, BOOL b
 			strText = strText.Left( strText.GetLength() - 1 );
 		}
 
-		if ( strText.GetLength() ) strText += _T('\x2026');
+		if ( ! strText.IsEmpty() ) strText += _T('\x2026');
 	}
 
 	rc.left -= 20;
 
-	if ( crBack != CLR_NONE ) pDC->SetBkColor( crBack );
+	if ( crBack != CLR_NONE )
+		pDC->SetBkColor( crBack );
 
 	if ( m_bAlert )
 		pDC->SetTextColor( Colors.m_crTextAlert );

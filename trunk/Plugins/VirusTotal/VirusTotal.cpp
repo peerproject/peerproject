@@ -63,18 +63,17 @@ STDAPI DllInstall(BOOL bInstall, LPCWSTR pszCmdLine)
 
 	if ( pszCmdLine != NULL )
 	{
-		if (_wcsnicmp(pszCmdLine, szUserSwitch, _countof(szUserSwitch)) == 0)
-		{
-#if _MFC_VER > 0x0800	// No VS2005 ?
+//#if _MFC_VER > 0x0800 	// No VS2005
+#if defined(_MSC_VER) && (_MSC_VER >= 1500)
+		if ( _wcsnicmp( pszCmdLine, szUserSwitch, _countof(szUserSwitch) ) == 0 )
 			AtlSetPerUserRegistration(true);
-#endif
-		}
+#endif	// _MFC_VER
 	}
 
 	if ( bInstall )
 	{
- 		hr = DllRegisterServer();
-		if (FAILED(hr))
+		hr = DllRegisterServer();
+		if ( FAILED(hr) )
     		DllUnregisterServer();
 	}
 	else

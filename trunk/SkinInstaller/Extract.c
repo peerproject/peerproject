@@ -18,7 +18,8 @@ void ExtractSkinFile(LPCTSTR szFile)
 	TCHAR* szRealFile = _wcsdup( szFile );
 	TCHAR* tmp;
 
-	if ( *szRealFile=='\"') szRealFile++;
+	if ( *szRealFile=='\"')
+		szRealFile++;
 	tmp = szRealFile;
 	while ( tmp && *tmp )
 	{
@@ -74,7 +75,7 @@ int GetSkinFileCount(LPTSTR pszFile)
 
 	ufile = unzOpen( tmp );
 
-	if ( !ufile )
+	if ( ! ufile )
 	{
 		pszScanName = pszFile;
 		pszDest = tmp;
@@ -87,9 +88,9 @@ int GetSkinFileCount(LPTSTR pszFile)
 	}
 
 	free(tmp);
-	if ( !ufile ) return 0;
+	if ( ! ufile ) return 0;
 	err = unzGetGlobalInfo(ufile, &gi);
-	if (err!=UNZ_OK) return 0;
+	if ( err != UNZ_OK ) return 0;
 	return gi.number_entry;
 }
 
@@ -109,20 +110,21 @@ int ValidateSkin(LPTSTR pszFile, HWND hwndDlg) {
 
 	ufile = unzOpen( tmpName );
 
-	if ( !ufile )
+	if ( ! ufile )
 	{
 		pszScanName = pszFile;
 		pszDest = tmpName;
 		if ( GetShortPathNameW( pszFile, pszScanName, (DWORD)wcslen( pszFile ) + 1 ) )
 		{
-			for ( ; *pszScanName ; pszScanName++, pszDest++ ) *pszDest = (char)*pszScanName;
+			for ( ; *pszScanName ; pszScanName++, pszDest++ )
+				*pszDest = (char)*pszScanName;
 			*pszDest = '\0';
 			ufile = unzOpen( tmpName );
 		}
 	}
 
 	free(tmpName);
-	if ( !ufile ) return 0;
+	if ( ! ufile ) return 0;
 
 	err = unzGetGlobalInfo(ufile, &gi);
 	if ( err != UNZ_OK ) return 0;
@@ -133,7 +135,7 @@ int ValidateSkin(LPTSTR pszFile, HWND hwndDlg) {
 		char *p, *filename_withoutpath;
 
 		err = unzGetCurrentFileInfo( ufile, &fi, fn_zip, sizeof(fn_zip), NULL, 0, NULL, 0 );
-		if (err!=UNZ_OK)
+		if ( err != UNZ_OK )
 		{
 			unzClose(ufile);
 			return 0;
@@ -149,11 +151,11 @@ int ValidateSkin(LPTSTR pszFile, HWND hwndDlg) {
 
 			buf = (char*)malloc(fi.uncompressed_size+1);
 			err = unzOpenCurrentFile(ufile);
-			if (err!=UNZ_OK) return 0;
+			if ( err != UNZ_OK ) return 0;
 			do
 			{
 				err = unzReadCurrentFile(ufile, buf, fi.uncompressed_size);
-				if (err<0)
+				if ( err < 0 )
 				{
 					free(buf);
 					unzCloseCurrentFile(ufile);
@@ -194,7 +196,7 @@ int ValidateSkin(LPTSTR pszFile, HWND hwndDlg) {
 		}
 	}
 	unzClose(ufile);
-	if ( !xmlFile ) return 0;
+	if ( ! xmlFile ) return 0;
 	return 1;
 }
 
@@ -221,7 +223,7 @@ int ExtractSkin(LPTSTR pszFile, HWND hwndDlg)
 
 	ufile = unzOpen( tmp );
 
-	if ( !ufile )
+	if ( ! ufile )
 	{
 		pszScanName = pszFile;
 		pszDest = tmp;
@@ -339,15 +341,15 @@ int ExtractSkin(LPTSTR pszFile, HWND hwndDlg)
 		CloseHandle( hFile );
 		hFile = INVALID_HANDLE_VALUE;
 
-   		if ( (i+1) < gi.number_entry )
+		if ( (i+1) < gi.number_entry )
 		{
-   			err = unzGoToNextFile(ufile);
-   			if ( err != UNZ_OK )
+			err = unzGoToNextFile(ufile);
+			if ( err != UNZ_OK )
 			{
-   				unzClose(ufile);
+				unzClose(ufile);
 				free(zippedName);
-   				return 0;
-   			}
+				return 0;
+			}
 		}
 		free(zippedName);
 	}
@@ -361,7 +363,7 @@ LPCTSTR GetUnicodeString(char* pszString)
 	int nLen = 0;
 	nLen = MultiByteToWideChar( CP_UTF8, 0, (LPCSTR)pszString, (DWORD)strlen(pszString), NULL, 0 );
 	if ( nLen == 0 ) return NULL;
-	ret = (TCHAR*)malloc( ( nLen + 1) * sizeof(TCHAR) );
+	ret = (TCHAR*)malloc( (nLen + 1) * sizeof(TCHAR) );
 	MultiByteToWideChar( CP_UTF8, 0, (LPCSTR)pszString, (DWORD)strlen(pszString), ret, nLen * sizeof(TCHAR) );
 	ret[nLen] = '\0';
 	return ret;

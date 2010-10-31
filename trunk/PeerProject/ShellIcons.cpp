@@ -2,33 +2,31 @@
 // ShellIcons.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2008.
+// Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
 #include "PeerProject.h"
 #include "Settings.h"
 #include "ShellIcons.h"
+#include "CoolInterface.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
-#endif
+#endif	// Filename
 
 CShellIcons ShellIcons;
 
@@ -254,19 +252,21 @@ HICON CShellIcons::ExtractIcon(int nIndex, int nSize)
 	{
 	case 16:
 		hIcon = m_i16.ExtractIcon( nIndex );
-		if ( Settings.General.LanguageRTL ) hIcon = CreateMirroredIcon( hIcon );
-		return hIcon;
+		break;
 	case 32:
 		hIcon = m_i32.ExtractIcon( nIndex );
-		if ( Settings.General.LanguageRTL ) hIcon = CreateMirroredIcon( hIcon );
-		return hIcon;
+		break;
 	case 48:
 		hIcon = m_i48.ExtractIcon( nIndex );
-		if ( Settings.General.LanguageRTL ) hIcon = CreateMirroredIcon( hIcon );
-		return hIcon;
+		break;
 	default:
 		return NULL;
 	}
+
+	if ( Settings.General.LanguageRTL )
+		hIcon = CreateMirroredIcon( hIcon );
+
+	return hIcon;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -282,10 +282,10 @@ CString	CShellIcons::GetTypeString(LPCTSTR pszFile)
 	CString strName, strMime;
 	Lookup( pszType, NULL, NULL, &strName, &strMime );
 
-	if ( strName.GetLength() )
+	if ( ! strName.IsEmpty() )
 	{
 		strOutput = strName;
-		if ( strMime.GetLength() ) strOutput += _T(" (") + strMime + _T(")");
+		if ( ! strMime.IsEmpty() ) strOutput += _T(" (") + strMime + _T(")");
 	}
 	else
 	{

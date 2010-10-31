@@ -2,21 +2,18 @@
 // SkinWindow.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-20078.
+// Portions copyright Shareaza Development Team, 2002-20078.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
@@ -31,7 +28,7 @@
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
-#endif
+#endif	// Filename
 
 
 #define BORDER_WIDTH			GetSystemMetrics( SM_CXSIZEFRAME )
@@ -41,8 +38,21 @@ static char THIS_FILE[]=__FILE__;
 //////////////////////////////////////////////////////////////////////
 // CSkinWindow construction
 
-CSkinWindow::CSkinWindow() :
-	m_rcCaption( 0, 0, 0, 0 )
+CSkinWindow::CSkinWindow()
+	: m_hoSkin				( NULL )
+	, m_pRegionXML			( NULL )
+	, m_nHoverAnchor		( 0 )
+	, m_nDownAnchor 		( 0 )
+	, m_nMirror 			( 0 )
+
+	, m_bCaption			( FALSE )
+	, m_bCaptionCaps		( FALSE )
+	, m_rcCaption			( 0, 0, 0, 0 )
+	, m_crCaptionText		( RGB( 255, 255, 255 ) )
+	, m_crCaptionInactive	( RGB( 128, 128, 128 ) )
+	, m_crCaptionShadow 	( CLR_NONE )
+	, m_crCaptionOutline	( CLR_NONE )
+	, m_nCaptionAlign		( 0 )
 {
 	m_bPart		= new BOOL[ SKINPART_COUNT ];
 	m_rcPart	= new CRect[ SKINPART_COUNT ];
@@ -57,21 +67,6 @@ CSkinWindow::CSkinWindow() :
 	m_szMinSize.cx = m_szMinSize.cy = 0;
 	m_rcMaximise.SetRect( -1, 0, -1, -1 );
 	m_rcResize.SetRect( BORDER_WIDTH, BORDER_WIDTH, BORDER_WIDTH, BORDER_WIDTH );
-
-	m_hoSkin			= NULL;
-	m_bCaption			= FALSE;
-	m_bCaptionCaps		= FALSE;
-	m_crCaptionText		= RGB( 255, 255, 255 );
-	m_crCaptionInactive	= RGB( 128, 128, 128 );
-	m_crCaptionShadow	= CLR_NONE;
-	m_crCaptionOutline	= CLR_NONE;
-	m_nCaptionAlign		= 0;
-
-	m_pRegionXML	= NULL;
-
-	m_nHoverAnchor	= 0;
-	m_nDownAnchor	= 0;
-	m_nMirror = 0;
 	m_rcMirror.SetRectEmpty();
 }
 
@@ -152,7 +147,7 @@ BOOL CSkinWindow::Parse(CXMLElement* pBase, const CString& strPath)
 			if ( strTarget == _T("CMainTabBarCtrl") )
 				strTarget = strTarget;
 
-			if ( strTarget.GetLength() )
+			if ( ! strTarget.IsEmpty() )
 			{
 				m_sTargets += '|';
 				m_sTargets += strTarget;
@@ -359,22 +354,17 @@ BOOL CSkinWindow::Parse(CXMLElement* pBase, const CString& strPath)
 			if ( ! strFile.IsEmpty() )
 			{
 				strFile = strPath + strFile;
-				hBitmap = CImageFile::LoadBitmapFromFile( strFile );
-
-			// ToDo: Alternate PNG Alpha Handling
-			//	if ( strFile.Right( 4 ) == ".bmp" )
-			//	{
-			//		hBitmap = (HBITMAP)LoadImage( AfxGetInstanceHandle(), strFile,
-			//					IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE );
-			//	}
-			//	else //.png
-			//	{
-			//		CImageFile pFile;
-			//
-			//		pFile.LoadFromFile( strFile );
-			//		pFile.EnsureRGB();	// Removes Alpha, do reverse
-			//		hBitmap = pFile.CreateBitmap();
-			//	}
+				if ( strFile.Right( 4 ) == _T(".bmp") )
+				{
+					hBitmap = CImageFile::LoadBitmapFromFile( strFile );
+				//	hBitmap = (HBITMAP)LoadImage( AfxGetInstanceHandle(), strFile, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE );
+				}
+				else // Assume PNG (for Alpha)
+				{
+					CImageFile pFile;
+					pFile.LoadFromFile( strFile );
+					hBitmap = pFile.CreateBitmap();
+				}
 			}
 			else if ( ! strRes.IsEmpty() )
 			{
@@ -400,10 +390,15 @@ BOOL CSkinWindow::Parse(CXMLElement* pBase, const CString& strPath)
 						nResID = IDB_NAVBAR_ALPHA;
 				}
 
-				hBitmap = CImageFile::LoadBitmapFromResource( nResID ); 	// ToDo: Support PNG Alpha
+				hBitmap = CImageFile::LoadBitmapFromResource( nResID );
+
+				// ToDo: Support PNG Alpha ?
+				//	CImageFile pFile;
+				//	pFile.LoadFromResource( AfxGetResourceHandle(), nResID, RT_PNG );
+				//	hBitmap = pFile.CreateBitmap();
 			}
 
-			if ( hBitmap == NULL )
+			if ( ! hBitmap )
 			{
 				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Cannot load image"), pGroup->ToString() );
 				return FALSE;
@@ -412,21 +407,21 @@ BOOL CSkinWindow::Parse(CXMLElement* pBase, const CString& strPath)
 			str = pGroup->GetAttributeValue( _T("type") );
 			ToLower( str );
 
-			//ToDo: Add PNG Transparency Support
+			// ToDo: Add PNG Transparency Support
 
 			if ( str == _T("watermark") )
 			{
-				if ( m_bmWatermark.m_hObject != NULL ) m_bmWatermark.DeleteObject();
+				if ( m_bmWatermark.m_hObject ) m_bmWatermark.DeleteObject();
 				m_bmWatermark.Attach( hBitmap );
 			}
 			else if ( str == _T("alpha") )
 			{
-				if ( m_bmAlpha.m_hObject != NULL ) m_bmAlpha.DeleteObject();
+				if ( m_bmAlpha.m_hObject ) m_bmAlpha.DeleteObject();
 				m_bmAlpha.Attach( hBitmap );
 			}
 			else	// type="image"
 			{
-				if ( m_bmSkin.m_hObject != NULL ) m_bmSkin.DeleteObject();
+				if ( m_bmSkin.m_hObject ) m_bmSkin.DeleteObject();
 				m_bmSkin.Attach( hBitmap );
 			}
 		}
@@ -463,7 +458,7 @@ BOOL CSkinWindow::ParseRect(CXMLElement* pXML, CRect* pRect)
 {
 	CString strValue = pXML->GetAttributeValue( _T("rect") );
 
-	if ( strValue.GetLength() )
+	if ( ! strValue.IsEmpty() )
 	{
 		int x, y, cx, cy;
 		if ( _stscanf( strValue, _T("%i,%i,%i,%i"), &x, &y, &cx, &cy ) != 4 )
@@ -480,7 +475,7 @@ BOOL CSkinWindow::ParseRect(CXMLElement* pXML, CRect* pRect)
 
 	strValue = pXML->GetAttributeValue( _T("point") );
 
-	if ( strValue.GetLength() )
+	if ( ! strValue.IsEmpty() )
 	{
 		int x, y;
 		if ( _stscanf( strValue, _T("%i,%i"), &x, &y ) != 2 )
@@ -766,10 +761,21 @@ BOOL CSkinWindow::OnEraseBkgnd(CWnd* pWnd, CDC* pDC)
 void CSkinWindow::OnNcMouseMove(CWnd* pWnd, UINT nHitTest, CPoint /*point*/)
 {
 	int nAnchor = 0;
-	if ( nHitTest == HTSYSMENU ) nAnchor = SKINANCHOR_SYSTEM;
-	else if ( nHitTest == HTREDUCE ) nAnchor = SKINANCHOR_MINIMISE;
-	else if ( nHitTest == HTZOOM ) nAnchor = SKINANCHOR_MAXIMISE;
-	else if ( nHitTest == HTCLOSE ) nAnchor = SKINANCHOR_CLOSE;
+	switch ( nHitTest )
+	{
+	case HTREDUCE:
+		nAnchor = SKINANCHOR_MINIMISE;
+		break;
+	case HTZOOM:
+		nAnchor = SKINANCHOR_MAXIMISE;
+		break;
+	case HTCLOSE:
+		nAnchor = SKINANCHOR_CLOSE;
+		break;
+	case HTSYSMENU:
+		nAnchor = SKINANCHOR_SYSTEM;
+		break;
+	}
 
 	if ( m_nDownAnchor && m_nDownAnchor != nAnchor )
 	{
@@ -786,11 +792,23 @@ void CSkinWindow::OnNcMouseMove(CWnd* pWnd, UINT nHitTest, CPoint /*point*/)
 BOOL CSkinWindow::OnNcLButtonDown(CWnd* pWnd, UINT nHitTest, CPoint point)
 {
 	int nAnchor = 0;
-	if ( nHitTest == HTSYSMENU ) nAnchor = SKINANCHOR_SYSTEM;
-	else if ( nHitTest == HTREDUCE ) nAnchor = SKINANCHOR_MINIMISE;
-	else if ( nHitTest == HTZOOM ) nAnchor = SKINANCHOR_MAXIMISE;
-	else if ( nHitTest == HTCLOSE ) nAnchor = SKINANCHOR_CLOSE;
-	else return FALSE;
+	switch ( nHitTest )
+	{
+	case HTREDUCE:
+		nAnchor = SKINANCHOR_MINIMISE;
+		break;
+	case HTZOOM:
+		nAnchor = SKINANCHOR_MAXIMISE;
+		break;
+	case HTCLOSE:
+		nAnchor = SKINANCHOR_CLOSE;
+		break;
+	case HTSYSMENU:
+		nAnchor = SKINANCHOR_SYSTEM;
+		break;
+	default:
+		return FALSE;
+	}
 
 	m_nHoverAnchor = m_nDownAnchor = nAnchor;
 
@@ -982,6 +1000,8 @@ void CSkinWindow::Paint(CWnd* pWnd, TRISTATE bActive)
 	}
 
 	// Frames (Active/Inactive):
+
+	// ToDo: Support alpha transparency (No BitBlt/StretchBlt. Pre-multiply for slow AlphaBlend?)
 
 	CRect rcLeft( &rc ), rcTop( &rc ), rcRight( &rc ), rcBottom( &rc );
 	int nTotalWidth, nCaptionWidth, nSystemOffset;
@@ -1393,7 +1413,7 @@ void CSkinWindow::Paint(CWnd* pWnd, TRISTATE bActive)
 		DrawIconEx( pDC->GetSafeHdc(), rcItem.left, rcItem.top, hIcon, 16, 16, 0, NULL, DI_NORMAL );
 	}
 
-	if ( m_bCaption && strCaption.GetLength() )
+	if ( m_bCaption && ! strCaption.IsEmpty() )
 	{
 		CFont* pOldFont	= (CFont*)pDC->SelectObject( &m_fnCaption );
 		CSize sz		= pDC->GetTextExtent( strCaption );
@@ -1542,13 +1562,9 @@ void CSkinWindow::SelectRegion(CWnd* pWnd)
 		CString strType = pXML->GetAttributeValue( _T("type") );
 		HRGN hPart = NULL;
 
-		if ( strType.CompareNoCase( _T("rectangle") ) == 0 )
+		if ( ! strType.CompareNoCase( _T("rectangle") ) || ! strType.CompareNoCase( _T("rect") ) )
 		{
 			hPart = CreateRectRgnIndirect( &rcPart );
-		}
-		else if ( strType.CompareNoCase( _T("ellipse") ) == 0 )
-		{
-			hPart = CreateEllipticRgnIndirect( &rcPart );
 		}
 		else if ( strType.CompareNoCase( _T("roundRect") ) == 0 )
 		{
@@ -1556,6 +1572,10 @@ void CSkinWindow::SelectRegion(CWnd* pWnd)
 			_stscanf( pXML->GetAttributeValue( _T("size") ), _T("%i,%i"), &nWidth, &nHeight );
 			hPart = CreateRoundRectRgn( rcPart.left, rcPart.top, rcPart.right, rcPart.bottom,
 				nWidth, nHeight );
+		}
+		else if ( strType.CompareNoCase( _T("ellipse") ) == 0 )
+		{
+			hPart = CreateEllipticRgnIndirect( &rcPart );
 		}
 		else
 		{
@@ -1573,16 +1593,18 @@ void CSkinWindow::SelectRegion(CWnd* pWnd)
 		{
 			strType = pXML->GetAttributeValue( _T("combine") );
 
-			if ( strType.CompareNoCase( _T("and") ) == 0 )
-				CombineRgn( hRgn, hPart, hRgn, RGN_AND );
-			else if ( strType.CompareNoCase( _T("copy") ) == 0 )
-				CombineRgn( hRgn, hPart, hRgn, RGN_COPY );
-			else if ( strType.CompareNoCase( _T("diff") ) == 0 )
-				CombineRgn( hRgn, hRgn, hPart, RGN_DIFF );
-			else if ( strType.CompareNoCase( _T("or") ) == 0 )
+			if ( strType.IsEmpty() )
 				CombineRgn( hRgn, hPart, hRgn, RGN_OR );
-			else if ( strType.CompareNoCase( _T("xor") ) == 0 )
+			else if ( ! strType.CompareNoCase( _T("or") ) )
+				CombineRgn( hRgn, hPart, hRgn, RGN_OR );
+			else if ( ! strType.CompareNoCase( _T("xor") ) )
 				CombineRgn( hRgn, hPart, hRgn, RGN_XOR );
+			else if ( ! strType.CompareNoCase( _T("and") ) )
+				CombineRgn( hRgn, hPart, hRgn, RGN_AND );
+			else if ( ! strType.CompareNoCase( _T("diff") ) )
+				CombineRgn( hRgn, hRgn, hPart, RGN_DIFF );
+			else if ( ! strType.CompareNoCase( _T("copy") ) )
+				CombineRgn( hRgn, hPart, hRgn, RGN_COPY );
 
 			DeleteObject( hPart );
 		}
@@ -1618,7 +1640,7 @@ CSize CSkinWindow::GetRegionSize()
 
 BOOL CSkinWindow::PreBlend(CBitmap* pbmTarget, const CRect& rcTarget, const CRect& rcSource)
 {
-	// Currently Navbar transparency only
+	// Currently Navbar "alpha" mask file transparency only
 	// ToDo: Add transparency support for PNGs and frames, etc.?
 
 	BITMAPINFO pImageInfo = {};

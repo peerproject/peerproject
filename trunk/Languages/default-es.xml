@@ -3,8 +3,8 @@
 
 <!-- PeerProject Default Spanish (International) Skin File -->
 
-<!-- Translation based on default-en.xml r59 -->
-<!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
+<!-- Translation based on default-en.xml r60 -->
+<!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
 <!-- Use this file as a basis for creating new language skins,   -->
@@ -62,6 +62,7 @@
 		<button id="ID_VIEW_MEDIA"/>
 		<button id="ID_TAB_IRC"/>
 		<separator/>
+		<button id="ID_VIEW_SCHEDULER"/>
 		<button id="ID_VIEW_SECURITY"/>
 		<button id="ID_VIEW_HOSTS"/>
 		<button id="ID_VIEW_DISCOVERY"/>
@@ -537,7 +538,7 @@
 				<item id="ID_HELP_FAQ" text="Preguntas mas frecuentes" shortcut="F1"/>
 				<item id="ID_HELP_GUIDE" text="Guia para Usuarios de PeerProject"/>
 				<item id="ID_HELP_FORUMS" text="Foros de PeerProject"/>
- 				<item id="ID_HELP_FORUMS_LOCAL" text="Foro en Español"/>
+				<item id="ID_HELP_FORUMS_LOCAL" text="Foro en Español"/>
 				<menu text="Ayuda de SkinVista">
 				<menu text="Si la barra de menús se muestra de forma erronea"> </menu>
 				<menu text="Comprobar el menú: Ventana: Mostrar barra de navegación-"> </menu>
@@ -647,7 +648,7 @@
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProject site"/>
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="Foros de _PeerProject"/>
- 				<item id="ID_HELP_FORUMS_LOCAL" text="Foro en Español"/>
+				<item id="ID_HELP_FORUMS_LOCAL" text="Foro en Español"/>
 				<!-- <item id="ID_HELP_UPDATE" text="Últimas Noticias"/>
 				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
 				<item id="ID_HELP_WEB_2" text="P2PForums.com"/>	-->
@@ -807,7 +808,7 @@
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProject site"/>
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="Foros de _PeerProject"/>
- 				<item id="ID_HELP_FORUMS_LOCAL" text="Foro en Español"/>
+				<item id="ID_HELP_FORUMS_LOCAL" text="Foro en Español"/>
 				<!-- <item id="ID_HELP_UPDATE" text="Últimas Noticias"/>
 				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
 				<item id="ID_HELP_WEB_2" text="P2PForums.com"/>	-->
@@ -1630,7 +1631,7 @@
 			<newline gap="8" indent="42"/>
 			<anchor id="SearchBox" width="256" height="80"/>
 			<newline gap="12" indent="0"/>
-			<icon res="124" width="32" height="32" target="command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
+			<icon res="122" width="32" height="32" target="command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
 			<heading align="middle">Iniciar Descarga</heading>
 			<newline gap="8" indent="42"/>
 			<link target="command:ID_TOOLS_DOWNLOAD" format="bu">Pincha aquí para empezar</link>
@@ -1638,6 +1639,9 @@
 			<newline gap="8" indent="42"/>
 			<text>O abrir la </text>
 			<link target="command:shell:downloads">carpeta con descargas.</link>
+			<newline gap="4" indent="42"/>
+			<text>Comparta sus archivos a </text>
+			<link id="RemoteBrowseURL"/>
 			<newline gap="20" indent="0"/>
 		</group>
 		<group id="3">
@@ -1685,26 +1689,26 @@
 		<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">Personalizar PeerProject</heading>
 		<newline gap="12" indent="42"/>
-		<icon res="196"width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
-		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">Skins</link>
-		<text align="middle">&#160;- Cambia el aspecto de PeerProject &amp; experimenta</text>
+		<icon res="196" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
+		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">Skins</link><gap size="6"/>
+		<text align="middle">- Cambia el aspecto de PeerProject &amp; experimenta</text>
 		<newline gap="8"/>
-		<icon res="138"width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
-		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
-		<text align="middle">&#160;- Update blocklist to avoid bad search results</text>
+		<icon res="138" width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
+		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link><gap size="6"/>
+		<text align="middle">- Update blocklist to avoid bad search results</text>
 		<newline gap="8"/>
-		<icon res="197"width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
-		<link target="command:ID_TOOLS_WIZARD" align="middle">Asistente de Configuración</link>
-		<text align="middle">&#160;- Editar Configuración de PeerProject</text>
+		<icon res="197" width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
+		<link target="command:ID_TOOLS_WIZARD" align="middle">Asistente de Configuración</link><gap size="6"/>
+		<text align="middle">- Editar Configuración de PeerProject</text>
 		<newline gap="8"/>
-		<icon res="182"width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
-		<link target="command:ID_HELP_FAQ" align="middle">Ayuda Rápida</link>
-		<text align="middle">&#160;- Consigue ayuda sobre aspectos básicos de PeerProject, o </text>
+		<icon res="182" width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
+		<link target="command:ID_HELP_FAQ" align="middle">Ayuda Rápida</link><gap size="6"/>
+		<text align="middle">- Consigue ayuda sobre aspectos básicos de PeerProject, o </text>
 		<link target="command:ID_TAB_IRC" align="middle">IRC.</link>
 		<newline gap="8"/>
-		<icon res="201"width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
-		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">Foros locales</link>
-		<text align="middle">&#160;- Ve a tu idioma Español foro de discusión</text>
+		<icon res="201" width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
+		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">Foros locales</link><gap size="6"/>
+		<text align="middle">- Ve a tu idioma Español foro de discusión</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
 			<icon res="120" width="32" height="32"/><gap size="8"/>
@@ -1932,7 +1936,7 @@
 		</group>
 		<group id="41">
 			<newline gap="1"/>
-			<icon res="208"/><gap size="5"/>
+			<icon res="207"/><gap size="5"/>
 			<link id="ContactYahoo"/>
 		</group>
 		<group id="42">
@@ -1973,7 +1977,7 @@
 			<newline gap="16" indent="0"/>
 			<text format="b">Comunidad</text>
 			<newline gap="4" indent="8"/>
-			<icon res="127"target="command:ID_SEARCH_CHAT"/>
+			<icon res="127" target="command:ID_SEARCH_CHAT"/>
 			<gap size="5"/>
 			<link target="command:ID_SEARCH_CHAT" align="middle">Chatear con el usuario</link>
 		</group>
@@ -2125,7 +2129,7 @@
 		no un bloqueo 100% seguro.</text>
 		<newline gap="8"/>
 		<text>Si un niño esta usando Internet (incluyendo P2P) debe tener supervisión de padres.</text>
- 	</document>
+	</document>
 	<document name="GeneralHelp.BadTorrentEncoding">
 		<text format="b">Parece que este torrent tiene un error de codificación</text>
 		<newline gap="8"/>
@@ -2576,7 +2580,7 @@
 	<string id="20002" value="No"/>
 	<string id="20003" value="Aceptar"/>
 	<string id="20004" value="Cancelar"/>
-	<string id="20005" value="&Atrás"/>
+	<string id="20005" value="&amp;Atrás"/>
 	<string id="20006" value="&amp;Siguiente"/>
 	<string id="20008" value="Cerrar"/>
 	<string id="20009" value="de"/> <!--"1 of 10"-->
@@ -2918,8 +2922,8 @@
 	<string id="20441" value="PeerProject no pudo renombrar:\n\n%s\nto\n%s"/>
 	<string id="20442" value="El archivo:\n%s Existen ¿Deseas reescribirlo?"/>
 	<string id="20443" value="Mostrar todos los tipos de archivo"/>
-	<string id="20444" value="Copiar &URI"/>
-	<string id="20445" value="Exportar &URIs..."/>
+	<string id="20444" value="Copiar URI"/>
+	<string id="20445" value="Exportar URIs..."/>
 	<string id="20446" value="El archivo &quot;%s&quot; falló la verificación, y puede no ser el correcto.  ¿Estás seguro(a) de abrirlo?"/>
 	<string id="20447" value="¿Quieres quitar el atributo de &quot;potencialmente inseguro&quot; de este archivo?"/>
 	<string id="20448" value="El archivo &quot;%s&quot; no ha sido escaneado. Por favor espere a que sea escaneado, e intente más tarde."/>
@@ -3003,7 +3007,7 @@
 	<string id="20544" value="Cerrando el nucleo de la red..."/>
 	<string id="20545" value="Desconectado."/>
 	<string id="20546" value="Estas seguro que deseas desconectarte?"/>
-	<string id="20547" value="Gnutella2 es la Red Premiere de PeerProject.  Deshabilitando soporte a esta va a empeorar severamente tu búsqueda y cálidad de resultados.  Estas SEGURO que deseas hacer esto?"/>
+	<string id="20547" value="Gnutella2 es la Red Premiere de PeerProject. Deshabilitando soporte a esta va a empeorar severamente tu búsqueda y cálidad de resultados.  Estas SEGURO que deseas hacer esto?"/>
 	<string id="20548" value="Imposible asociar %s con el puerto %i para conexiones entrantes. Conexiones entrantes no van a ser soportadas."/>
 	<string id="20549" value="No se puede resolver %s para conexiones salientes.  Conexiones salientes van a usar la interfaz predeterminada."/>
 	<string id="20550" value="Tu ancho de banda de subida es muy baja para esta red"/>
@@ -3042,7 +3046,9 @@
 	<string id="20590" value="El Acceso Remoto esta deshabilitado."/>
 	<string id="20591" value="http://%s:%i/remote - ¿Nombre de usuario y contraseña?"/>
 	<string id="20592" value="No se puede aceptar conexiones, URL no disponible."/>
-	<string id="20595" value="&amp;Schemas"/>
+	<string id="20597" value="Estas seguro que quieres borrar las reglas de seguridad seleccionadas? Esto no se puede deshacer."/>
+	<string id="20599" value="&amp;Schemas"/>
+	<!-- Missing Scheduler/Security Strings -->
 	<string id="20620" value="PeerProject esta buscando activamente en la red..."/>
 	<string id="20621" value="Haz click aquí para buscar de nuevo"/>
 	<string id="20622" value="Todas las redes"/>
@@ -3090,7 +3096,6 @@
 	<string id="20668" value="Buscando..."/>
 	<string id="20669" value="Búsqueda de texto puro"/>
 	<string id="20670" value="PeerProject esta buscando activamente en la red..."/>
-	<string id="20671" value="Estas seguro que quieres borrar las reglas de seguridad seleccionadas? Esto no se puede deshacer."/>
 	<string id="20672" value="Selecciona la carpeta temporal de eDonkey/eMule:"/>
 	<string id="20673" value="Automatico"/>
 	<string id="20674" value="La carpeta de archivos incompletos no debe de estar en Colección, porque reduce velocidad. Archivos incompletos pueden ser compartidos directamente de la ventana de transferencias."/>
@@ -3262,7 +3267,7 @@
 	<string id="20884" value="No hay URN disponible"/>
 	<string id="20885" value="Cambiando la dirección de interface requiere reiniciar.\nVas a necesitar reiniciar PeerProject manualmente. \n\nSalir ahora?"/>
 	<string id="20890" value="Bienvenido a PeerProject"/>
-	<string id="20891" value="Sa&lir"/>
+	<string id="20891" value="Sa&amp;lir"/>
 	<string id="20892" value="Por favor espera: Actualizando lista de servidores eDonkey..."/>
 	<string id="20893" value="Por favor espera: Actualizando servicios de descubrimiento..."/>
 	<string id="20894" value="Por favor espera: Encontrando dispositivos UPnP y configurandolos..."/>
@@ -3809,18 +3814,21 @@
 		<control caption="Aplicar"/>
 		<control/>
 	</dialog>
-	<dialog name="CIdentityProfilePage" cookie="BuStEdStEdEdBuCoStCoStBu" caption="Identidad">
+	<dialog name="CIdentityProfilePage" cookie="BuStStEdEdEdBuStStCoCoBuStBuBu" caption="Identidad">
 		<control caption="_Nombre:"/>
 		<control caption="Nick:"/>
-		<control/>
 		<control caption="Nombre real:"/>
 		<control/>
 		<control/>
-		<control caption="_Vitales:"/>
-		<control caption="|Hombre|Mujer"/>
-		<control caption="Sexo:"/>
 		<control/>
+		<control caption="_Vitales:"/>
+		<control caption="Sexo:"/>
 		<control caption="Edad:"/>
+		<control caption="|Hombre|Mujer"/>
+		<control/>
+		<control caption="Info:"/>
+		<control caption="{n}G2 (PeerProyecto / Shareaza)"/>
+		<control caption="_Activo:"/>
 		<control caption="Permitir que otros exploren mi perfil"/>
 	</dialog>
 	<dialog name="CAvatarProfilePage" cookie="BuStBuStBuBu" caption="Avatar">
@@ -3831,23 +3839,7 @@
 		<control caption="_Explorar..."/>
 		<control caption="_Quitar"/>
 	</dialog>
-	<dialog name="CContactProfilePage" cookie="BuStEdBuStEdStEdStEdStEdStEd" caption="Contacto">
-		<control caption="Correo elecrónico:"/>
-		<control caption="Primario:"/>
-		<control/>
-		<control caption="Chat:"/>
-		<control caption="MSN/.NET Passport:"/>
-		<control/>
-		<control caption="Yahoo ID:"/>
-		<control/>
-		<control caption="ICQ UIN:"/>
-		<control/>
-		<control caption="AOL Screen Name:"/>
-		<control/>
-		<control caption="Jabber ID:"/>
-		<control/>
-	</dialog>
-	<dialog name="CProfileProfilePage" cookie="BuStCoStCoBuStEdStEdBuLiBuBuCo" caption="Perfil">
+	<dialog name="CProfileProfilePage" cookie="BuStCoStCoBuStEdStEdBuLiBuBuCo" caption="Ubicación">
 		<control caption="Ubicación:"/>
 		<control caption="País:"/>
 		<control/>
@@ -3860,11 +3852,38 @@
 		<control/>
 		<control caption="_Intereses:"/>
 		<control/>
-		<control caption="&lt; Agregar"/>
-		<control caption="Quitar &gt;"/>
+		<control caption="Agregar &gt;"/>
+		<control caption="&lt; Quitar"/>
+		<control/>
+	</dialog>
+	<dialog name="CContactProfilePage" cookie="BuStEdBuStEdStEdStEdStEdStEdStEdStEdStEd" caption="Contacto">
+		<control caption="Correo elecrónico:"/>
+		<control caption="Primario:"/>
+		<control/>
+		<control caption="Chat:"/>
+		<control caption="PeerProject.org:"/>
+		<control/>
+		<control caption="Facebook:"/>
+		<control/>
+		<control caption="Twitter:"/>
+		<control/>
+		<control caption="Google:"/>
+		<control/>
+		<control caption="MSN/Live:"/>
+		<control/>
+		<control caption="Yahoo:"/>
+		<control/>
+		<control caption="AOL:"/>
+		<control/>
+		<control caption="ICQ:"/>
 		<control/>
 	</dialog>
 	<dialog name="CBioProfilePage" cookie="Ed" caption="Acerca de mí">
+		<control/>
+	</dialog>
+	<dialog name="CFilesProfilePage" cookie="BuStSy" caption="Archivos">
+		<control caption="Archivos _favoritos:"/>
+		<control caption="Estos son recomendados, cuando los usuarios exploran Colección.  Los puedes crear agregandolos a la carpeta de &quot;Favoritos&quot; en Colección."/>
 		<control/>
 	</dialog>
 	<dialog name="CFavouritesProfilePage" cookie="SyBuStEdStEdBuBu" caption="Favoritos">
@@ -3877,28 +3896,24 @@
 		<control caption="Nuevo"/>
 		<control caption="Eliminar"/>
 	</dialog>
-	<dialog name="CFilesProfilePage" cookie="BuStSy" caption="Archivos">
-		<control caption="Archivos _favoritos:"/>
-		<control caption="Estos son recomendados, cuando los usuarios exploran Colección.  Los puedes crear agregandolos a la carpeta de &quot;Favoritos&quot; en Colección."/>
+	<dialog name="CCertificateProfilePage" cookie="BuStStStStBuBuSt" caption="Certificado">
+		<control caption="_Certificados de Globally Unique Identification:"/>
+		<control caption="Gnutella/G2 GUID:"/>
 		<control/>
-	</dialog>
-	<dialog name="CCertificateProfilePage" cookie="StBuStStStStBu" caption="Certificado">
-		<control caption="Los usuarios de Gnutella son identificados, para mantener el orden en la red.  Normalmente no hay necesidad de crear una identidad nueva, pero PeerProject le da esta opción a los usuarios avanzados."/>
-		<control caption="_Gnutella Globally Unique Identification Certificate:"/>
-		<control caption="GUID:"/>
-		<control/>
-		<control caption="Creado:"/>
+		<control caption="BitTorrent GUID:"/>
 		<control/>
 		<control caption="Generar Nuevo"/>
+		<control caption="Ayuda:"/>
+		<control caption="Los usuarios de Gnutella son identificados, para mantener el orden en la red.  Normalmente no hay necesidad de crear una identidad nueva, pero PeerProject le da esta opción a los usuarios avanzados."/>
 	</dialog>
 	<dialog name="CLanguageDlg" cookie="" caption="Seleccionar Idioma">
 	</dialog>
-	<dialog name="CConnectToDlg" cookie="BuCoEdBuCoBuBuBu" caption="Conectar A|Explorar Usuarios">
-		<control caption="Iniciar una nueva conexión al host o servidor:|Explorar este host:"/>
+	<dialog name="CConnectToDlg" cookie="BuCoEdBuCoBuBuBu" caption="Conectar A|Explorar Usuarios|Platicar con Usarios">
+		<control caption="Iniciar una nueva conexión al host o servidor:|Explorar este host:|Platicar con este usario:"/>
 		<control/>
 		<control/>
 		<control caption="Protocolo de red."/>
-		<control caption="Gnutella1 (automatico)|Gnutella2 (automatico)|eDonkey"/>
+		<control/>
 		<control caption="_Suprimir Ultrapeer"/>
 		<control caption="Conectar"/>
 		<control caption="Cancelar"/>
@@ -4335,14 +4350,16 @@
 		<control caption="Subida total:"/>
 		<control caption="Notas:"/>
 	</dialog>
-	<dialog name="CDownloadEditPage" cookie="StBuStStStBuStEdEdEdBuEdBuEdBuEdBuEdBuEd" caption="Avanzado">
+	<dialog name="CDownloadEditPage" cookie="StBuStStStStBuStEdEdEdSyBuEdBuEdBuEdBuEdBuEd" caption="Avanzado">
 		<control caption="ADVERTENCIA: En este diálogo se pueden configurar opciones avanzadas de la descarga, que pueden dañar o perder la descarga."/>
 		<control caption="Información:"/>
 		<control caption="Nombre de archivo:"/>
 		<control caption="Archivo:"/>
 		<control caption="Tamaño de Bytes:"/>
+		<control caption="Fecha:"/>
 		<control caption="URNs:"/>
 		<control caption="¿Confiado?"/>
+		<control/>
 		<control/>
 		<control/>
 		<control/>
@@ -4485,22 +4502,6 @@
 		<column from="Name" to="Nombre"/>
 		<column from="Country" to="País"/>
 	</list>
-	<list name="CSecurityWnd">
-		<column from="Address / Content" to="Dirección / Contenido"/>
-		<column from="Hits" to=""/>
-		<column from="Action" to="Acción"/>
-		<column from="Expires" to="Expira"/>
-		<column from="#" to="#"/>
-		<column from="Comment" to="Comentario"/>
-	</list>
-	<list name="CSchedulerWnd">
-		<column from="Task" to="Acción"/>
-		<column from="Date" to="Dias"/>
-		<column from="Time" to="Tiempo"/>
-		<column from="Status" to="Estado"/>
-		<column from="Activity" to="Activo"/>
-		<column from="Description" to="Comentario"/>
-	</list>
 	<list name="CHostCacheWnd">
 		<column from="Address" to="IP"/>
 		<column from="Port" to="Puerto"/>
@@ -4548,6 +4549,23 @@
 		<column from="Client" to="Cliente"/>
 		<column from="Country" to="País"/>
 		<column from="Time" to="Tiempo"/>
+	</list>
+	<list name="CSecurityWnd">
+		<column from="Address / Content" to="Dirección / Contenido"/>
+		<column from="Hits" to=""/>
+		<column from="#" to="#"/>
+		<column from="Action" to="Acción"/>
+		<column from="Expires" to="Expira"/>
+		<column from="Match" to=""/>
+		<column from="Comment" to="Comentario"/>
+	</list>
+	<list name="CSchedulerWnd">
+		<column from="Task" to="Acción"/>
+		<column from="Date" to="Dias"/>
+		<column from="Time" to="Tiempo"/>
+		<column from="Status" to="Estado"/>
+		<column from="Activity" to="Activo"/>
+		<column from="Comment" to="Comentario"/>
 	</list>
 	<list name="CUploadQueueList">
 		<column from="Name" to="Nombre"/>

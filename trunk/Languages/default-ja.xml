@@ -3,8 +3,8 @@
 
 <!-- PeerProject Default Japanese Skin File -->
 
-<!-- Translation based on default-en.xml r59 (Shareaza 2.2.0.2) -->
-<!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
+<!-- Translation based on default-en.xml r60 (Shareaza 2.2.0.2) -->
+<!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
 <!-- Use this file as a basis for creating new language skins,   -->
@@ -62,6 +62,7 @@
 		<button id="ID_VIEW_MEDIA"/>
 		<button id="ID_TAB_IRC"/>
 		<separator/>
+		<button id="ID_VIEW_SCHEDULER"/>
 		<button id="ID_VIEW_SECURITY"/>
 		<button id="ID_VIEW_HOSTS"/>
 		<button id="ID_VIEW_DISCOVERY"/>
@@ -1611,7 +1612,7 @@
 			<newline gap="8" indent="42"/>
 			<anchor id="SearchBox" width="256" height="80"/>
 			<newline gap="12" indent="0"/>
-			<icon res="124" width="32" height="32" target="command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
+			<icon res="122" width="32" height="32" target="command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
 			<heading align="middle">PEERPROJECT 検 索</heading>
 			<newline gap="8" indent="42"/>
 			<link target="command:ID_TOOLS_DOWNLOAD" format="bu">Click here to start</link>
@@ -1619,6 +1620,9 @@
 			<newline gap="2" indent="42"/>
 			<text>Or open your completed</text>
 			<link target="command:shell:downloads">downloads folder.</link>
+			<newline gap="4" indent="42"/>
+			<text>で共有するファイル </text>
+			<link id="RemoteBrowseURL"/>
 			<newline gap="24" indent="0"/>
 		</group>
 		<group id="3">
@@ -1666,26 +1670,26 @@
 		<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">PEERPROJECT  カ ス タ マ イ ズ</heading>
 		<newline gap="12" indent="42"/>
-		<icon res="196"width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
-		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">スキン</link>
-		<text align="middle">&#160;- PeerProjectの外観を変更することが出来ます</text>
+		<icon res="196" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
+		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">スキン</link><gap size="6"/>
+		<text align="middle">- PeerProjectの外観を変更することが出来ます</text>
 		<newline gap="8"/>
-		<icon res="138"width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
-		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
-		<text align="middle">&#160;- Update blocklist</text>
+		<icon res="138" width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
+		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link><gap size="6"/>
+		<text align="middle">- Update blocklist</text>
 		<newline gap="8"/>
-		<icon res="197"width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
-		<link target="command:ID_TOOLS_WIZARD" align="middle">設定ウィザード</link>
-		<text align="middle">&#160;- PeerProjectの設定を行います</text>
+		<icon res="197" width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
+		<link target="command:ID_TOOLS_WIZARD" align="middle">設定ウィザード</link><gap size="6"/>
+		<text align="middle">- PeerProjectの設定を行います</text>
 		<newline gap="8"/>
-		<icon res="182"width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
-		<link target="command:ID_HELP_FAQ" align="middle">クイックヘルプ</link>
-		<text align="middle">&#160;- PeerProjectを使う上での基本的なヘルプを参照出来ます, or </text>
+		<icon res="182" width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
+		<link target="command:ID_HELP_FAQ" align="middle">クイックヘルプ</link><gap size="6"/>
+		<text align="middle">- PeerProjectを使う上での基本的なヘルプを参照出来ます, or </text>
 		<link target="command:ID_TAB_IRC" align="middle">IRC.</link>
 		<newline gap="8"/>
-		<icon res="201"width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
-		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">ローカルフォーラム</link>
-		<text align="middle">&#160;- あなたの日本語のディスカッションフォーラムへ</text>
+		<icon res="201" width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
+		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">ローカルフォーラム</link><gap size="6"/>
+		<text align="middle">- あなたの日本語のディスカッションフォーラムへ</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
 			<icon res="120" width="32" height="32"/><gap size="8"/>
@@ -1891,7 +1895,7 @@
 		</group>
 		<group id="41">
 			<newline gap="1"/>
-			<icon res="208"/><gap size="5"/>
+			<icon res="207"/><gap size="5"/>
 			<link id="ContactYahoo"/>
 		</group>
 		<group id="42">
@@ -1932,7 +1936,7 @@
 			<newline gap="16" indent="0"/>
 			<text format="b">コミュニティ</text>
 			<newline gap="4" indent="8"/>
-			<icon res="127"target="command:ID_SEARCH_CHAT"/>
+			<icon res="127" target="command:ID_SEARCH_CHAT"/>
 			<gap size="5"/>
 			<link target="command:ID_SEARCH_CHAT" align="middle">チャット</link>
 		</group>
@@ -2529,8 +2533,8 @@
 	<string id="20002" value="いいえ"/>
 	<string id="20003" value="OK"/>
 	<string id="20004" value="キャンセル"/>
-	<string id="20005" value="戻る(&B)"/>
-	<string id="20006" value="次へ(&N)"/>
+	<string id="20005" value="戻る(&amp;B)"/>
+	<string id="20006" value="次へ(&amp;N)"/>
 	<string id="20008" value="閉じる"/>
 	<string id="20009" value="/"/> <!-- "1 of 10" -->
 	<string id="20011" value="自動"/>
@@ -2552,7 +2556,7 @@
 	<string id="20065" value="とても良い"/>
 	<string id="20066" value="素薔薇しい"/>
 	<string id="20080" value="これはPeerProjectのプレリリースバージョンで、ベータテスト期間は終了しています。http://peerproject.org/からオフィシャルリリースをダウンロードして下さい"/>
-	<string id="20081" value="閉じる(&C)"/>
+	<string id="20081" value="閉じる(&amp;C)"/>
 	<string id="20082" value="完了しました。閉じるをクリックして下さい"/>
 	<string id="20083" value="要求中..."/>
 	<string id="20084" value="成功!"/>
@@ -2852,8 +2856,8 @@
 	<string id="20441" value="PeerProjectはリネームできませんでした:\n\n%s\n→\n%s"/>
 	<string id="20442" value="目的のファイルは既に存在しています:\n\n%s\n\n上書きしますか?"/>
 	<string id="20443" value="全てのファイルタイプを表示します"/>
-	<string id="20444" value="URIをコピー(&U)"/>
-	<string id="20445" value="URIをエクスポート(&U)..."/>
+	<string id="20444" value="&amp;URIをコピー"/>
+	<string id="20445" value="&amp;URIをエクスポート..."/>
 	<string id="20446" value="ファイル &quot;%s&quot; はハッシュ検証テストに失敗しました。 これはあなたが要求したファイルではない可能性があります。 ファイルを開いて宜しいですか?"/>
 	<string id="20447" value="このファイルから&quot;潜在的に危険のある&quot;属性を取り除きますか?"/>
 	<string id="20448" value="ファイル &quot;%s&quot; はまだハッシュされていません。 ファイルがハッシュされるまで待ってから再試行して下さい"/>
@@ -2870,7 +2874,7 @@
 	<string id="20460" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; メ &#160; デ &#160; ィ &#160; ア &#160;&#160; &#160;&#160; シ &#160; ス &#160; テ &#160; ム"/>
 	<string id="20461" value="(視覚効果無し)"/>
 	<!--string id="20462" value="PeerProjectはダウンロード終了しました:"-->
-	<!--string id="20463" value="PeerProjectはダウンロード中です:"--
+	<!--string id="20463" value="PeerProjectはダウンロード中です:"-->
 	<!--string id="20464" value="PeerProjectはダウンロードデータを移動中です:"-->
 	<!--string id="20465" value="このダウンロードは一時停止しています:"-->
 	<!--string id="20466" value="PeerProjectはソースを探しています:"-->
@@ -2975,7 +2979,8 @@
 	<string id="20590" value="リモートアクセスが無効になりました"/>
 	<string id="20591" value="http://%s:%i/remote - ユーザー名とパスワードを入力しなければなりません"/>
 	<string id="20592" value="接続を受け付けることができません。URLが利用不能です"/>
-	<string id="20595" value="&スキーマ"/>
+	<string id="20599" value="スキーマ"/>
+	<!-- Missing Scheduler/Security Strings -->
 	<string id="20620" value="PeerProjectは現在ネットワークを検索中です..."/>
 	<string id="20621" value="再検索するにはクリックして下さい"/>
 	<string id="20622" value="全てのネットワーク"/>
@@ -3175,7 +3180,7 @@
 	<string id="20861" value="&quot;%s&quot; の %s へのアップロードを削除しました"/>
 	<string id="20862" value="追加"/>
 	<string id="20864" value="参照"/>
-	<string id="20865" value="接続(&C)"/>
+	<string id="20865" value="接続(&amp;C)"/>
 	<string id="20866" value="ファイル名:"/>
 	<string id="20867" value="ホスト:"/>
 	<string id="20868" value="ポート:"/>
@@ -3191,7 +3196,7 @@
 	<string id="20884" value="利用可能なURNがありません"/>
 	<string id="20885" value="インターフェースの変更を適用するにはPeerProjectの再起動が必要になります。nあなたはPeerProjectを手動で再起動しなければなりません。今すぐPeerProjectを終了しますか?"/>
 	<string id="20890" value="PeerProjectへようこそ"/>
-	<string id="20891" value="終了(&X)"/>
+	<string id="20891" value="終了(&amp;X)"/>
 	<string id="20892" value="暫くお待ち下さい: Donkey2000サーバーリストを更新しています..."/>
 	<string id="20893" value="暫くお待ち下さい: ディスカバリサービスを更新しています..."/>
 	<string id="20894" value="暫くお待ち下さい: UPnPデバイスを検索してセットアップしています..."/>
@@ -3695,18 +3700,21 @@
 		<control caption="適用"/>
 		<control/>
 	</dialog>
-	<dialog name="CIdentityProfilePage" cookie="BuStEdStEdEdBuCoStCoStBu" caption="個人情報">
+	<dialog name="CIdentityProfilePage" cookie="BuStStEdEdEdBuStStCoCoBuStBuBu" caption="個人情報">
 		<control caption="名前:"/>
 		<control caption="ニックネーム:"/>
-		<control/>
 		<control caption="本名:"/>
 		<control/>
 		<control/>
-		<control caption="身体:"/>
-		<control caption="|男性|女性"/>
-		<control caption="性別:"/>
 		<control/>
+		<control caption="身体:"/>
+		<control caption="性別:"/>
 		<control caption="年齢:"/>
+		<control caption="|男性|女性"/>
+		<control/>
+		<control caption="Info:"/>
+		<control caption="{n}G2 (PeerProject / Shareaza)"/>
+		<control caption="適用:"/>
 		<control caption="他のユーザーからの参照を許可する"/>
 	</dialog>
 	<dialog name="CAvatarProfilePage" cookie="BuStBuStBuBu" caption="近影">
@@ -3717,23 +3725,7 @@
 		<control caption="参照(_B)..."/>
 		<control caption="削除(_R)"/>
 	</dialog>
-	<dialog name="CContactProfilePage" cookie="BuStEdBuStEdStEdStEdStEdStEd" caption="連絡先">
-		<control caption="Eメールアドレス:"/>
-		<control caption="常時使用:"/>
-		<control/>
-		<control caption="メッセージングサービス:"/>
-		<control caption="MSN/.NET Passport:"/>
-		<control/>
-		<control caption="Yahoo ID:"/>
-		<control/>
-		<control caption="ICQ UIN:"/>
-		<control/>
-		<control caption="AOL スクリーン名:"/>
-		<control/>
-		<control caption="Jabber ID:"/>
-		<control/>
-	</dialog>
-	<dialog name="CProfileProfilePage" cookie="BuStCoStCoBuStEdStEdBuLiBuBuCo" caption="プロフィール">
+	<dialog name="CProfileProfilePage" cookie="BuStCoStCoBuStEdStEdBuLiBuBuCo" caption="住所">
 		<control caption="住所:"/>
 		<control caption="国:"/>
 		<control/>
@@ -3746,11 +3738,38 @@
 		<control/>
 		<control caption="興味:"/>
 		<control/>
-		<control caption="&lt; 追加"/>
-		<control caption="削除 &gt;"/>
+		<control caption="追加 &gt;"/>
+		<control caption="&lt; 削除"/>
+		<control/>
+	</dialog>
+	<dialog name="CContactProfilePage" cookie="BuStEdBuStEdStEdStEdStEdStEdStEdStEdStEd" caption="連絡先">
+		<control caption="Eメールアドレス:"/>
+		<control caption="常時使用:"/>
+		<control/>
+		<control caption="メッセージングサービス:"/>
+		<control caption="PeerProject.org:"/>
+		<control/>
+		<control caption="Facebook:"/>
+		<control/>
+		<control caption="Twitter:"/>
+		<control/>
+		<control caption="Google:"/>
+		<control/>
+		<control caption="MSN/Live:"/>
+		<control/>
+		<control caption="Yahoo:"/>
+		<control/>
+		<control caption="AOL:"/>
+		<control/>
+		<control caption="ICQ:"/>
 		<control/>
 	</dialog>
 	<dialog name="CBioProfilePage" cookie="Ed" caption="略歴">
+		<control/>
+	</dialog>
+	<dialog name="CFilesProfilePage" cookie="BuStSy" caption="ファイル">
+		<control caption="お気に入りのファイル:"/>
+		<control caption="お気に入りに指定することでプロフィールを参照したユーザーにお勧めを紹介できます。&quot;Favourites&quot;ライブラリフォルダに追加すればお気に入りを作成できます"/>
 		<control/>
 	</dialog>
 	<dialog name="CFavouritesProfilePage" cookie="SyBuStEdStEdBuBu" caption="お気に入り">
@@ -3763,28 +3782,24 @@
 		<control caption="新規"/>
 		<control caption="削除"/>
 	</dialog>
-	<dialog name="CFilesProfilePage" cookie="BuStSy" caption="ファイル">
-		<control caption="お気に入りのファイル:"/>
-		<control caption="お気に入りに指定することでプロフィールを参照したユーザーにお勧めを紹介できます。&quot;Favourites&quot;ライブラリフォルダに追加すればお気に入りを作成できます"/>
+	<dialog name="CCertificateProfilePage" cookie="BuStStStStBuBuSt" caption="証明書">
+		<control caption="グローバルユニーク識別証明:"/>
+		<control caption="Gnutella/G2 GUID:"/>
 		<control/>
-	</dialog>
-	<dialog name="CCertificateProfilePage" cookie="StBuStStStStBu" caption="証明書">
-		<control caption="Gnutellaユーザーはグローバルでユニーク(一意)な識別子と、それに対応する公開・秘密鍵によって特定することが出来ます。 通常は新しいIDを作成する必要はありませんが、PeerProjectはこのオプションを熟練したユーザに提供します"/>
-		<control caption="Gnutellaグローバルユニーク識別証明:"/>
-		<control caption="GUID:"/>
-		<control/>
-		<control caption="作成:"/>
+		<control caption="BitTorrent GUID:"/>
 		<control/>
 		<control caption="新規作成"/>
+		<control caption="Info:"/>
+		<control caption="Gnutellaユーザーはグローバルでユニーク(一意)な識別子と、それに対応する公開・秘密鍵によって特定することが出来ます。 通常は新しいIDを作成する必要はありませんが、PeerProjectはこのオプションを熟練したユーザに提供します"/>
 	</dialog>
 	<dialog name="CLanguageDlg" cookie="" caption="使用言語を選択">
 	</dialog>
-	<dialog name="CConnectToDlg" cookie="BuCoEdBuCoBuBuBu" caption="接続|ホスト参照">
-		<control caption="ホスト又はサーバへの新規接続を開始:|このホストを参照:"/>
+	<dialog name="CConnectToDlg" cookie="BuCoEdBuCoBuBuBu" caption="接続|ホスト参照|Chat with User">
+		<control caption="ホスト又はサーバへの新規接続を開始:|このホストを参照:|Message this user:"/>
 		<control/>
 		<control/>
 		<control caption="ネットワークプロトコル:"/>
-		<control caption="Gnutella (自動)|Gnutella2 (自動)|eDonkey2000"/>
+		<control/>
 		<control caption="ウルトラピア圧縮(_U)"/>
 		<control caption="接続"/>
 		<control caption="キャンセル"/>
@@ -4221,14 +4236,16 @@
 		<control caption="アップロード合計:"/>
 		<control caption="注記:"/>
 	</dialog>
-	<dialog name="CDownloadEditPage" cookie="StBuStStStBuStEdEdEdBuEdBuEdBuEdBuEdBuEd" caption="一般">
+	<dialog name="CDownloadEditPage" cookie="StBuStStStStBuStEdEdEdSyBuEdBuEdBuEdBuEdBuEd" caption="一般">
 		<control caption="警告: このダイアログは熟練したユーザーに対して高度なダウンロード編集機能を提供します。 これが不当に使用された場合、恐らくそのダウンロードは不正になります。"/>
 		<control caption="ファイル名とサイズ:"/>
 		<control caption="ファイル名:"/>
 		<control caption="ファイル名:"/>
 		<control caption="サイズ(バイト):"/>
+		<control caption="日付:"/>
 		<control caption="URN:"/>
 		<control caption="検証"/>
+		<control/>
 		<control/>
 		<control/>
 		<control/>
@@ -4373,22 +4390,6 @@
 		<column from="Name" to="名前"/>
 		<column from="Country" to="国"/>
 	</list>
-	<list name="CSecurityWnd">
-		<column from="Address / Content" to="アドレス / 内容"/>
-		<column from="Hits" to="ヒット"/>
-		<column from="Action" to="動作"/>
-		<column from="Expires" to="期間"/>
-		<column from="#" to="優先順位"/>
-		<column from="Comment" to="コメント"/>
-	</list>
-	<list name="CSchedulerWnd">
-		<column from="Task" to="動作"/>
-		<column from="Date" to="日付"/>
-		<column from="Time" to="時間"/>
-		<column from="Status" to="状態"/>
-		<column from="Activity" to="アクティブ"/>
-		<column from="Description" to="コメント"/>
-	</list>
 	<list name="CHostCacheWnd">
 		<column from="Address" to="アドレス"/>
 		<column from="Port" to="ポート"/>
@@ -4436,6 +4437,23 @@
 		<column from="Client" to="クライアント"/>
 		<column from="Country" to="国"/>
 		<column from="Time" to="時間"/>
+	</list>
+	<list name="CSecurityWnd">
+		<column from="Address / Content" to="アドレス / 内容"/>
+		<column from="Hits" to="ヒット"/>
+		<column from="#" to="優先順位"/>
+		<column from="Action" to="動作"/>
+		<column from="Expires" to="期間"/>
+		<column from="Match" to=""/>
+		<column from="Comment" to="コメント"/>
+	</list>
+	<list name="CSchedulerWnd">
+		<column from="Task" to="動作"/>
+		<column from="Date" to="日付"/>
+		<column from="Time" to="時間"/>
+		<column from="Status" to="状態"/>
+		<column from="Activity" to="アクティブ"/>
+		<column from="Comment" to="コメント"/>
 	</list>
 	<list name="CUploadQueueList">
 		<column from="Name" to="名前"/>

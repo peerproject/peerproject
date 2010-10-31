@@ -2,21 +2,18 @@
 // WndSettingsPage.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2007.
+// Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
@@ -30,10 +27,10 @@
 #include "Skin.h"
 
 #ifdef _DEBUG
-#define new DEBUG_NEW
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
-#endif
+#define new DEBUG_NEW
+#endif	// Filename
 
 IMPLEMENT_DYNAMIC(CSettingsPage, CDialog)
 
@@ -255,8 +252,8 @@ HBRUSH CSettingsPage::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 				return Skin.m_brDialog;									// Dynamic text exceptions workaround + slider	ToDo: improve this?
 
 			//TCHAR szName[24];
-			//GetClassName( pWnd->GetSafeHwnd(), szName, 24 );		// Alt detection method
-			//if ( _tcsistr( szName, _T("Static") ) )				"Static" "Button" "ListBox" "ComboBox" "Edit" "RICHEDIT" etc
+			//GetClassName( pWnd->GetSafeHwnd(), szName, 24 );			// Alt detection method
+			//if ( _tcsistr( szName, _T("Static") ) )					// "Static" "Button" "ListBox" "ComboBox" "Edit" "RICHEDIT" etc
 
 			if ( ! ( pWnd->GetStyle() & WS_GROUP ) )					// Skip buggy Group Boxes to target Checkboxes
 			{
@@ -304,7 +301,7 @@ BOOL CSettingsPage::PreTranslateMessage(MSG* pMsg)
 }
 
 /////////////////////////////////////////////////////////////////////////////
-// CEditPath
+// CEditPath	( Launch from double-click aware standard Edit boxes )
 
 IMPLEMENT_DYNAMIC(CEditPath, CEdit)
 
@@ -316,11 +313,17 @@ void CEditPath::OnLButtonDblClk(UINT nFlags, CPoint point)
 {
 	CEdit::OnLButtonDblClk( nFlags, point );
 
-	CString sPath;
-	GetWindowText( sPath );
+	CString strPath;
+	GetWindowText( strPath );
 
-	sPath = CString( _T("\\\\?\\") ) + sPath;	// Very long path
+	if ( strPath.IsEmpty() )
+		return;
 
-	if ( GetFileAttributes( sPath ) != INVALID_FILE_ATTRIBUTES )
-		ShellExecute( GetSafeHwnd(), NULL, sPath, NULL, NULL, SW_SHOWDEFAULT );
+	if ( strPath.GetLength() > 252 )
+		strPath = CString( _T("\\\\?\\") ) + strPath;	// Very long path (255+ char support) etc.
+
+	if ( PathIsDirectory( strPath ) )
+		ShellExecute( GetSafeHwnd(), NULL, strPath, NULL, NULL, SW_SHOWDEFAULT );
+	else if ( GetFileAttributes( strPath ) != INVALID_FILE_ATTRIBUTES )
+		ShellExecute( GetSafeHwnd(), NULL, _T("Explorer.exe"), _T("/select, ") + strPath, NULL, SW_SHOWNORMAL );
 }

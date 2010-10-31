@@ -2,21 +2,18 @@
 // PageFileGeneral.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2007.
+// Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
@@ -29,10 +26,10 @@
 #include "PageFileGeneral.h"
 
 #ifdef _DEBUG
-#define new DEBUG_NEW
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
-#endif
+#define new DEBUG_NEW
+#endif	// Filename
 
 IMPLEMENT_DYNCREATE(CFileGeneralPage, CFilePropertiesPage)
 
@@ -46,10 +43,17 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CFileGeneralPage property page
 
-CFileGeneralPage::CFileGeneralPage() :
-	CFilePropertiesPage( CFileGeneralPage::IDD ),
-	m_sSHA1(), m_sTiger(), m_sType(), m_sSize(), m_sPath(),
-	m_sModified(), m_sIndex(), m_sMD5(), m_sED2K()
+CFileGeneralPage::CFileGeneralPage()
+	: CFilePropertiesPage( CFileGeneralPage::IDD )
+	, m_sType()
+	, m_sPath()
+	, m_sSize()
+	, m_sModified()
+	, m_sIndex()
+	, m_sSHA1()
+	, m_sTiger()
+	, m_sED2K()
+	, m_sMD5()
 {
 }
 
@@ -61,15 +65,15 @@ void CFileGeneralPage::DoDataExchange(CDataExchange* pDX)
 {
 	CFilePropertiesPage::DoDataExchange(pDX);
 	//{{AFX_DATA_MAP(CFileGeneralPage)
-	DDX_Text(pDX, IDC_FILE_SHA1, m_sSHA1);
-	DDX_Text(pDX, IDC_FILE_TIGER, m_sTiger);
 	DDX_Text(pDX, IDC_FILE_TYPE, m_sType);
-	DDX_Text(pDX, IDC_FILE_SIZE, m_sSize);
 	DDX_Text(pDX, IDC_FILE_PATH, m_sPath);
+	DDX_Text(pDX, IDC_FILE_SIZE, m_sSize);
 	DDX_Text(pDX, IDC_FILE_MODIFIED, m_sModified);
 	DDX_Text(pDX, IDC_FILE_INDEX, m_sIndex);
-	DDX_Text(pDX, IDC_FILE_MD5, m_sMD5);
+	DDX_Text(pDX, IDC_FILE_SHA1, m_sSHA1);
+	DDX_Text(pDX, IDC_FILE_TIGER, m_sTiger);
 	DDX_Text(pDX, IDC_FILE_ED2K, m_sED2K);
+	DDX_Text(pDX, IDC_FILE_MD5, m_sMD5);
 	//}}AFX_DATA_MAP
 }
 
@@ -97,7 +101,7 @@ BOOL CFileGeneralPage::OnInitDialog()
 		m_sMD5  = pFile->m_oMD5.toShortUrn();
 
 		if ( m_sSHA1.IsEmpty() && m_sED2K.IsEmpty() && m_sTiger.IsEmpty() && m_sMD5.IsEmpty() )
-			LoadString(m_sSHA1, IDS_NOURNAVAILABLE );
+			LoadString( m_sSHA1, IDS_NOURNAVAILABLE );
 
 		CString strDate, strTime;
 		SYSTEMTIME pTime;
@@ -107,7 +111,8 @@ BOOL CFileGeneralPage::OnInitDialog()
 
 		GetDateFormat( LOCALE_USER_DEFAULT, DATE_LONGDATE, &pTime, NULL, strDate.GetBuffer( 64 ), 64 );
 		GetTimeFormat( LOCALE_USER_DEFAULT, TIME_FORCE24HOURFORMAT, &pTime, NULL, strTime.GetBuffer( 64 ), 64 );
-		strDate.ReleaseBuffer(); strTime.ReleaseBuffer();
+		strDate.ReleaseBuffer();
+		strTime.ReleaseBuffer();
 
 		m_sModified = strDate + _T(", ") + strTime;
 	}

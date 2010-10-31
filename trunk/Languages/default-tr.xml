@@ -3,8 +3,8 @@
 
 <!-- PeerProject Default Turkish Skin File -->
 
-<!-- Translation based on default-en.xml r59 -->
-<!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
+<!-- Translation based on default-en.xml r60 -->
+<!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
 <!-- Use this file as a basis for creating new language skins,   -->
@@ -62,6 +62,7 @@
 		<button id="ID_VIEW_MEDIA"/>
 		<button id="ID_TAB_IRC"/>
 		<separator/>
+		<button id="ID_VIEW_SCHEDULER"/>
 		<button id="ID_VIEW_SECURITY"/>
 		<button id="ID_VIEW_HOSTS"/>
 		<button id="ID_VIEW_DISCOVERY"/>
@@ -564,18 +565,18 @@
 				<item id="ID_HELP_FORUMS" text="PeerProject Forumları"/>
 				<item id="ID_HELP_FAQ" text="PeerProject SSS" shortcut="F1"/>
 				<menu text="Skin Yardımı">
-  					<menu text="Menü çubuğunun görünümü yanlış ise --"> </menu>
-  					<menu text="Menü: Pencere: Kaydırma Çubuğunu Göster'e bakınız"> </menu>
-  					<menu text="Ve kaydırma ve menü çubuğu kısmılarını ayırınız-"> </menu>
-  					<menu text="(Kaydırıp en üste yerleştirin)"> </menu>
-  					<menu text="Sorunu gidermek için arayüzü tekrar yükleyiniz: Cntrl+Shift+Z"> </menu>
+					<menu text="Menü çubuğunun görünümü yanlış ise --"> </menu>
+					<menu text="Menü: Pencere: Kaydırma Çubuğunu Göster'e bakınız"> </menu>
+					<menu text="Ve kaydırma ve menü çubuğu kısmılarını ayırınız-"> </menu>
+					<menu text="(Kaydırıp en üste yerleştirin)"> </menu>
+					<menu text="Sorunu gidermek için arayüzü tekrar yükleyiniz: Cntrl+Shift+Z"> </menu>
 				</menu>
 				<separator/>
 				<menu text="_Web Siteleri">
-  					<item id="ID_HELP_WEB_3" text="Slyck.com"/>
-  					<item id="ID_HELP_WEB_1" text="ZeroPaid.com"/>
-  					<item id="ID_HELP_WEB_2" text="P2PForums.com"/>
-  					<item id="ID_HELP_WEB_6" text="DeviantArt.com Skins"/>
+					<item id="ID_HELP_WEB_3" text="Slyck.com"/>
+					<item id="ID_HELP_WEB_1" text="ZeroPaid.com"/>
+					<item id="ID_HELP_WEB_2" text="P2PForums.com"/>
+					<item id="ID_HELP_WEB_6" text="DeviantArt.com Skins"/>
 				</menu>
 				<item id="ID_HELP_HOMEPAGE" text="PeerProject.org"/>
 				<separator/>
@@ -1701,13 +1702,16 @@
 			<newline gap="8" indent="42"/>
 			<anchor id="SearchBox" width="256" height="80"/>
 			<newline gap="14" indent="0"/>
-			<icon res="124" width="32" height="32" target="command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
+			<icon res="122" width="32" height="32" target="command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
 			<heading align="middle">İNDİRMEYE BAŞLA</heading>
 			<newline gap="8" indent="42"/>
 			<link target="command:ID_TOOLS_DOWNLOAD" format="bu">Buraya tıklayıp</link>
 			<text>&#160; yeni bir dosya ya da torrent indirmeye başlayın.</text>
 			<newline gap="2"/>
 			<link target="command:shell:downloads">İndirmeler Dosyamı Aç</link>
+			<newline gap="4" indent="42"/>
+			<text>Paylaşın dosyalar </text>
+			<link id="RemoteBrowseURL"/>
 			<newline gap="20" indent="0"/>
 		</group>
 		<group id="3">
@@ -1754,28 +1758,28 @@
 		<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">PEERPROJECT İstemcisine</heading>
 		<newline gap="12" indent="42"/>
-		<icon res="196"width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
-		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">Arayüzler</link>
-		<text align="middle">&#160;- PeerProject'nın görüntüsünü değiştir.</text>
+		<icon res="196" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
+		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">Arayüzler</link><gap size="6"/>
+		<text align="middle">- PeerProject'nın görüntüsünü değiştir.</text>
 		<newline gap="8"/>
-		<icon res="138"width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
-		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
-		<text align="middle">&#160;- Update blocklist to avoid bad search results</text>
+		<icon res="138" width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
+		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link><gap size="6"/>
+		<text align="middle">- Update blocklist to avoid bad search results</text>
 		<newline gap="8"/>
-		<icon res="197"width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
-		<link target="command:ID_TOOLS_WIZARD" align="middle">Ayarlar Sihirbazı</link>
-		<text align="middle">&#160;- PeerProject Ayarlarını Düzenle</text>
+		<icon res="197" width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
+		<link target="command:ID_TOOLS_WIZARD" align="middle">Ayarlar Sihirbazı</link><gap size="6"/>
+		<text align="middle">- PeerProject Ayarlarını Düzenle</text>
 		<newline gap="8"/>
-		<icon res="182"width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
-		<link target="command:ID_HELP_FAQ" align="middle">Hızlı Yardım</link>
-		<text align="middle">&#160;- PeerProject'nın temel kullanımı ile ilgili yardım, or </text>
+		<icon res="182" width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
+		<link target="command:ID_HELP_FAQ" align="middle">Hızlı Yardım</link><gap size="6"/>
+		<text align="middle">- PeerProject'nın temel kullanımı ile ilgili yardım, or </text>
 		<link target="command:ID_TAB_IRC" align="middle">IRC.</link>
 		<newline gap="8"/>
-		<icon res="201"width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
-		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">Yerel Forum</link>
-		<text align="middle">&#160;- Sizin türk dil tartışma forumu git</text>
+		<icon res="201" width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
+		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">Yerel Forum</link><gap size="6"/>
+		<text align="middle">- Sizin türk dil tartışma forumu git</text>
 		<newline gap="18" indent="0"/>
-		<icon res="124" width="32" height="32" target="command:shell:downloads"/>
+		<icon res="122" width="32" height="32" target="command:shell:downloads"/>
 		<gap size="8"/>
 		<heading align="middle">İNDİRMELERİM</heading>
 		<newline gap="8" indent="42"/>
@@ -2005,7 +2009,7 @@
 		</group>
 		<group id="41">
 			<newline gap="1"/>
-			<icon res="208"/><gap size="5"/>
+			<icon res="207"/><gap size="5"/>
 			<link id="ContactYahoo"/>
 		</group>
 		<group id="42">
@@ -2046,7 +2050,7 @@
 			<newline gap="16" indent="0"/>
 			<text format="b">İletişim</text>
 			<newline gap="4" indent="8"/>
-			<icon res="127"target="command:ID_SEARCH_CHAT"/>
+			<icon res="127" target="command:ID_SEARCH_CHAT"/>
 			<gap size="5"/>
 			<link target="command:ID_SEARCH_CHAT" align="middle">Sohbet</link>
 		</group>
@@ -3098,7 +3102,9 @@
 	<string id="20590" value="Uzaktan erişim engellendi."/>
 	<string id="20591" value="http://%s:%i/remote - Bir kullanıcı adı ve şifresi seçmelisiniz."/>
 	<string id="20592" value="Bağlantı onaylanılamaz, URL kullanılamaz."/>
-	<string id="20595" value="&Şemalar"/>
+	<string id="20597" value="Seçilen güvenlik kuralını silmek istediğinizden emin misiniz? Geri dönüş mümkün olmayacaktır."/>
+	<string id="20599" value="Şemalar"/>
+	<!-- Missing Scheduler/Security Strings -->
 	<string id="20620" value="PeerProject etkin ağ arıyor..."/>
 	<string id="20621" value="Tekrar aramak için tıklayınız"/>
 	<string id="20622" value="Tüm Ağlar"/>
@@ -3146,7 +3152,6 @@
 	<string id="20668" value="Aranıyor..."/>
 	<string id="20669" value="Metin Ara"/>
 	<string id="20670" value="PeerProject ağ arıyor..."/>
-	<string id="20671" value="Seçilen güvenlik kuralını silmek istediğinizden emin misiniz? Geri dönüş mümkün olmayacaktır."/>
 	<string id="20672" value="Geçici (temp) eDonkey/eMule dosyasını seçiniz:"/>
 	<string id="20673" value="Otomatik"/>
 	<string id="20674" value="Tamamlanmış ve tamamlanmamış klasörler aynı olmamalıdır"/>
@@ -3155,7 +3160,7 @@
 	<string id="20677" value="Lütfen &quot;123 kb/s&quot; kilobits saniye ya da &quot;123 KB/s&quot; kilobayt saniye olarak belirlediğiniz bantgenişliği limitinizi yazınız."/>
 	<string id="20678" value="eDonkey ağı uzun zamanla uzun sıra kullanılır. Maksimum sıra pozisyonu limitini kabul ederken dikkatli olmalısınız, indirmelere başlamak zor olabilir.\nKabul edeceğin sıra pozisyonunu kısıtlamak istediğinden emin misin?"/>
 	<string id="20680" value="PeerProject Ayarları"/>
-	<string id="20684" value=" &quot;%s&quot; arayüzünü silmek istediğinizden emin misiniz? Bu yapılamaz."/>
+	<string id="20684" value="&quot;%s&quot; arayüzünü silmek istediğinizden emin misiniz? Bu yapılamaz."/>
 	<string id="20700" value="Aktif"/>
 	<string id="20701" value="%s içeride : %s dışarıda (d:%I64i/u:%I64i)"/>
 	<string id="20702" value="Komşu(lar)ya %lu bağlandı.  %s yerel kütüphane."/>
@@ -3317,7 +3322,7 @@
 	<string id="20884" value="URN kullanılamaz"/>
 	<string id="20885" value="Arayüz yönetimi değiştirildiğinde yeniden başlama gerekir. \nPeerProject elle başlatmanız gerekecek. Şimdi çık?"/>
 	<string id="20890" value="PeerProject'ya Hoşgeldiniz"/>
-	<string id="20891" value="&Çıkış"/>
+	<string id="20891" value="Çıkış"/>
 	<string id="20892" value="Lütfen bekleyiniz: eDonkey sunucu listesi güncellenmektedir..."/>
 	<string id="20893" value="Lütfen bekleyiniz: Keşif servisleri güncellenmektedir..."/>
 	<string id="20894" value="Lütfen bekleyiniz: PeerProject UPnP cihazları bulmakta ve onları kurmaktatadır..."/>
@@ -3866,18 +3871,21 @@
 		<control caption="Uygula"/>
 		<control/>
 	</dialog>
-	<dialog name="CIdentityProfilePage" cookie="BuStEdStEdEdBuCoStCoStBu" caption="Kimlik">
+	<dialog name="CIdentityProfilePage" cookie="BuStStEdEdEdBuStStCoCoBuStBuBu" caption="Kimlik">
 		<control caption="_İsim:"/>
 		<control caption="Takma İsim:"/>
-		<control/>
 		<control caption="Gerçek İsim:"/>
 		<control/>
 		<control/>
-		<control caption="_Gerekli Olanlar:"/>
-		<control caption="|Bay|Bayan"/>
-		<control caption="Cinsiyet:"/>
 		<control/>
+		<control caption="_Gerekli Olanlar:"/>
+		<control caption="Cinsiyet:"/>
 		<control caption="Yaş:"/>
+		<control caption="|Bay|Bayan"/>
+		<control/>
+		<control caption="Info:"/>
+		<control caption="{n}G2 (PeerProject / Shareaza)"/>
+		<control caption="_Uygula:"/>
 		<control caption="Diğerlerinin benim profilimi görmesine izin ver"/>
 	</dialog>
 	<dialog name="CAvatarProfilePage" cookie="BuStBuStBuBu" caption="Havari">
@@ -3888,23 +3896,7 @@
 		<control caption="_Gözat..."/>
 		<control caption="_Kaldır"/>
 	</dialog>
-	<dialog name="CContactProfilePage" cookie="BuStEdBuStEdStEdStEdStEdStEd" caption="İletişim">
-		<control caption="_Email Adresleri:"/>
-		<control caption="Birincil:"/>
-		<control/>
-		<control caption="_Acil Mesajlaşma:"/>
-		<control caption="MSN/.NET Şifre:"/>
-		<control/>
-		<control caption="Yahoo Kimliği:"/>
-		<control/>
-		<control caption="ICQ UIN:"/>
-		<control/>
-		<control caption="AOL Ekran İsmi:"/>
-		<control/>
-		<control caption="Jabber Kimliği:"/>
-		<control/>
-	</dialog>
-	<dialog name="CProfileProfilePage" cookie="BuStCoStCoBuStEdStEdBuLiBuBuCo" caption="Profil">
+	<dialog name="CProfileProfilePage" cookie="BuStCoStCoBuStEdStEdBuLiBuBuCo" caption="Konum">
 		<control caption="_Konum:"/>
 		<control caption="Ülke:"/>
 		<control/>
@@ -3917,11 +3909,38 @@
 		<control/>
 		<control caption="İ_lgilerim:"/>
 		<control/>
-		<control caption="&lt;Ekle"/>
-		<control caption="Kaldır &gt;"/>
+		<control caption="Ekle  &gt;"/>
+		<control caption="&lt; Kaldır"/>
+		<control/>
+	</dialog>
+	<dialog name="CContactProfilePage" cookie="BuStEdBuStEdStEdStEdStEdStEdStEdStEdStEd" caption="İletişim">
+		<control caption="_Email Adresleri:"/>
+		<control caption="Birincil:"/>
+		<control/>
+		<control caption="_Acil Mesajlaşma:"/>
+		<control caption="PeerProject.org:"/>
+		<control/>
+		<control caption="Facebook:"/>
+		<control/>
+		<control caption="Twitter:"/>
+		<control/>
+		<control caption="Google:"/>
+		<control/>
+		<control caption="MSN/Live:"/>
+		<control/>
+		<control caption="Yahoo:"/>
+		<control/>
+		<control caption="AOL:"/>
+		<control/>
+		<control caption="ICQ:"/>
 		<control/>
 	</dialog>
 	<dialog name="CBioProfilePage" cookie="Ed" caption="Hakkımda">
+		<control/>
+	</dialog>
+	<dialog name="CFilesProfilePage" cookie="BuStSy" caption="Dosyalar">
+		<control caption="Favori Dosyalar:"/>
+		<control caption="Favori Dosyalar profilinize bakan kullanıcılara önerilir. Kütüphane klasörüne &quot;Favorileri&quot; ekleyerek favori dosyaları oluşturabilirsiniz."/>
 		<control/>
 	</dialog>
 	<dialog name="CFavouritesProfilePage" cookie="SyBuStEdStEdBuBu" caption="Favoriler">
@@ -3934,28 +3953,24 @@
 		<control caption="Yeni"/>
 		<control caption="Kaldır"/>
 	</dialog>
-	<dialog name="CFilesProfilePage" cookie="BuStSy" caption="Dosyalar">
-		<control caption="Favori Dosyalar:"/>
-		<control caption="Favori Dosyalar profilinize bakan kullanıcılara önerilir. Kütüphane klasörüne &quot;Favorileri&quot; ekleyerek favori dosyaları oluşturabilirsiniz."/>
+	<dialog name="CCertificateProfilePage" cookie="BuStStStStBuBuSt" caption="Sertifika">
+		<control caption="_Global Kimlik Tespit Sertifikası:"/>
+		<control caption="Gnutella/G2 GUID:"/>
 		<control/>
-	</dialog>
-	<dialog name="CCertificateProfilePage" cookie="StBuStStStStBu" caption="Sertifika">
-		<control caption="Gnutella kullanıcıları heskesçe bilinen tek bir kimlik ve özel anahtar eşlemesi ile tanınırlar. Normalde yeni bir ID oluşturulamaya ihtiyaç duyulmadığı halde PeerProject ileri kullanıcılarına böyle bir seçenek sağlar."/>
-		<control caption="_Gnutella Global Kimlik Tespit Sertifikası:"/>
-		<control caption="GUID:"/>
-		<control/>
-		<control caption="Yaratıldı:"/>
+		<control caption="BitTorrent GUID:"/>
 		<control/>
 		<control caption="Yeni Oluştur"/>
+		<control caption="Info:"/>
+		<control caption="Gnutella kullanıcıları heskesçe bilinen tek bir kimlik ve özel anahtar eşlemesi ile tanınırlar. Normalde yeni bir ID oluşturulamaya ihtiyaç duyulmadığı halde PeerProject ileri kullanıcılarına böyle bir seçenek sağlar."/>
 	</dialog>
 	<dialog name="CLanguageDlg" cookie="" caption="Dil Seçimi">
 	</dialog>
-	<dialog name="CConnectToDlg" cookie="BuCoEdBuCoBuBuBu" caption="Bağlan|Hosta Gözat">
-		<control caption="Host ya da sunucuya yeni bir bağlantı başlat:|Hosta Gözat:"/>
+	<dialog name="CConnectToDlg" cookie="BuCoEdBuCoBuBuBu" caption="Bağlan|Hosta Gözat|Chat with User">
+		<control caption="Host ya da sunucuya yeni bir bağlantı başlat:|Hosta Gözat:|Message this user:"/>
 		<control/>
 		<control/>
 		<control caption="Ağ _Protokolü:"/>
-		<control caption="Gnutella1 (otomatik)|Gnutella2 (otomatik)|eDonkey2000"/>
+		<control/>
 		<control caption="_Ultrapeer'ı Sil"/>
 		<control caption="Bağlan"/>
 		<control caption="İptal"/>
@@ -4390,14 +4405,16 @@
 		<control caption="Toplam Gönderilen:"/>
 		<control caption="Not:"/>
 	</dialog>
-	<dialog name="CDownloadEditPage" cookie="StBuStStStBuStEdEdEdBuEdBuEdBuEdBuEdBuEd" caption="General">
+	<dialog name="CDownloadEditPage" cookie="StBuStStStStBuStEdEdEdSyBuEdBuEdBuEdBuEdBuEd" caption="General">
 		<control caption="Uyarı: İleri kullanıcılar için bu diyalog ileri indirme biçimlendirme özelliği temin eder, bu özellikler kullanılırsa hatalar oluşabilir ve muhtemelen bozukluklar ortaya çıkabilir."/>
 		<control caption="Bilgileri:"/>
 		<control caption="Dosya Adı:"/>
 		<control caption="Dosya:"/>
 		<control caption="Boyutu Bayt"/>
+		<control caption="Tarih:"/>
 		<control caption="URNs:"/>
 		<control caption="Trusted?"/>
+		<control/>
 		<control/>
 		<control/>
 		<control/>
@@ -4540,22 +4557,6 @@
 		<column from="Name" to="İsim"/>
 		<column from="Country" to="Ülke"/>
 	</list>
-	<list name="CSecurityWnd">
-		<column from="Address / Content" to="Adres/İçerik"/>
-		<column from="Hits" to="Favoriler"/>
-		<column from="Action" to="Faaliyet"/>
-		<column from="Expires" to="Sonlananlar"/>
-		<column from="#" to="Öncelik"/>
-		<column from="Comment" to="Yorum"/>
-	</list>
-	<list name="CSchedulerWnd">
-		<column from="Task" to="Faaliyet"/>
-		<column from="Date" to="Tarih"/>
-		<column from="Time" to="Zaman"/>
-		<column from="Status" to="Durum"/>
-		<column from="Activity" to="Aktif"/>
-		<column from="Description" to="Yorum"/>
-	</list>
 	<list name="CHostCacheWnd">
 		<column from="Address" to="Adres"/>
 		<column from="Port" to="Port"/>
@@ -4603,6 +4604,23 @@
 		<column from="Client" to="İstemci"/>
 		<column from="Country" to="Ülke"/>
 		<column from="Time" to="Zaman"/>
+	</list>
+	<list name="CSecurityWnd">
+		<column from="Address / Content" to="Adres/İçerik"/>
+		<column from="Hits" to="Favoriler"/>
+		<column from="#" to="Öncelik"/>
+		<column from="Action" to="Faaliyet"/>
+		<column from="Expires" to="Sonlananlar"/>
+		<column from="Match" to=""/>
+		<column from="Comment" to="Yorum"/>
+	</list>
+	<list name="CSchedulerWnd">
+		<column from="Task" to="Faaliyet"/>
+		<column from="Date" to="Tarih"/>
+		<column from="Time" to="Zaman"/>
+		<column from="Status" to="Durum"/>
+		<column from="Activity" to="Aktif"/>
+		<column from="Comment" to="Yorum"/>
 	</list>
 	<list name="CUploadQueueList">
 		<column from="Name" to="İsim"/>

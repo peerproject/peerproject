@@ -1,33 +1,30 @@
 //
 // Firewall.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
-// Portions Copyright Shareaza Development Team, 2002-2007.
+// This file is part of PeerProject (peerproject.org) © 2008-2010
+// Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 // CFirewall wraps Windows COM components to change Windows Firewall settings, and talk UPnP to a NAT router
 // http://sourceforge.net/apps/mediawiki/shareaza/index.php?title=Developers.Code.CFirewall
+//
+// Include headers from the Windows SDK
 
-// Include headers from the Windows XP SP2 version of Platform SDK or later
-
-#ifndef FIREWALL_H_INCLUDED
-#define FIREWALL_H_INCLUDED
+#pragma once
 
 #include <upnp.h>
+
 
 // Control the Windows Firewall, and talk UPnP to the NAT router to setup port forwarding
 class CFirewall
@@ -35,17 +32,17 @@ class CFirewall
 public:
 
 	// Windows Firewall COM interfaces accessed with the object
-    CComPtr< INetFwMgr >					Manager;
-    CComPtr< INetFwPolicy >					Policy;
+	CComPtr< INetFwMgr >					Manager;
+	CComPtr< INetFwPolicy >					Policy;
 	CComPtr< INetFwProfile >				Profile;
 	CComPtr< INetFwServices >				ServiceList;
 	CComPtr< INetFwAuthorizedApplications >	ProgramList;
-    CComPtr< INetFwOpenPorts >				PortList;
+	CComPtr< INetFwOpenPorts >				PortList;
 
 	// Windows Firewall COM interfaces accessed in methods
 	CComPtr< INetFwService >				Service;
 	CComPtr< INetFwAuthorizedApplication >	Program;
-    CComPtr< INetFwOpenPort >				Port;
+	CComPtr< INetFwOpenPort >				Port;
 
 	// UPnP COM interfaces
 	CComPtr< IUPnPNAT >						Nat;
@@ -79,5 +76,3 @@ public:
 	BOOL EnableService( NET_FW_SERVICE_TYPE service );                   // Check the box for a service
 	BOOL EnableProgram( const CString& path );                           // Check the box for a program
 };
-
-#endif //#ifndef FIREWALL_H_INCLUDED

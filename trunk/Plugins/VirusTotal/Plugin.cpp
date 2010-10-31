@@ -24,7 +24,8 @@
 
 static const LPCWSTR VIRUSTOTAL_CHECK	= L"&VirusTotal Check";
 static const LPCWSTR VIRUSTOTAL_HOME	= L"http://www.virustotal.com";
-static const LPCWSTR VIRUSTOTAL_URL		= L"http://www.virustotal.com/vt/en/consultamd5";
+static const LPCWSTR VIRUSTOTAL_URL		= L"http://www.virustotal.com/latest-report.html?resource=";
+//static const LPCWSTR VIRUSTOTAL_URL	= L"http://www.virustotal.com/vt/en/consultamd5";	// Obsolete method
 
 void CPlugin::InsertCommand(ISMenu* pWebMenu, int nPos, UINT nID, LPCWSTR szItem)
 {
@@ -49,38 +50,43 @@ HRESULT CPlugin::Request(LPCWSTR szHash)
 {
 	ATLTRACE( _T("CPlugin::Request( %ls )\n"), szHash );
 
-	CComPtr< IWebBrowserApp > pWebBrowserApp;
-	HRESULT hr = pWebBrowserApp.CoCreateInstance( CLSID_InternetExplorer );
-	if ( SUCCEEDED( hr ) )
-	{
-		CComSafeArray< BYTE > pPost;
-		pPost.Create();
-		pPost.Add( 5, (LPBYTE)"hash=" );
-		pPost.Add( lstrlenW( szHash ), (LPBYTE)(LPCSTR)CW2A( szHash ) );
-		CComBSTR bstrURL( VIRUSTOTAL_URL );
-		CComVariant vFlags( 0 );
-		CComVariant vFrame( CComBSTR( L"" ) );
-		VARIANT vPost;
-		VariantInit( &vPost );
-		vPost.vt = VT_ARRAY | VT_UI1;
-		vPost.parray = pPost;
-		CComVariant vHeaders( CComBSTR( L"Content-Type: application/x-www-form-urlencoded\r\n") );
+	ShellExecute( NULL, NULL, CString( VIRUSTOTAL_URL ) + szHash, NULL, NULL, SW_SHOWDEFAULT );
 
-		hr = pWebBrowserApp->Navigate( bstrURL, &vFlags, &vFrame, &vPost, &vHeaders );
-		if ( SUCCEEDED( hr ) )
-		{
-			pWebBrowserApp->put_Visible( VARIANT_TRUE );
-		}
-		else
-		{
-			pWebBrowserApp->Quit();
-			ATLTRACE( _T("CPlugin::Request() : Internet Explorer navigate error: 0x%08x\n"), hr );
-		}
-	}
-	else
-		ATLTRACE( _T("CPlugin::Request() : Create Internet Explorer instance error: 0x%08x\n"), hr );
+	return S_OK;
 
-	return hr;
+// Obsolete method:
+//	CComPtr< IWebBrowserApp > pWebBrowserApp;
+//	HRESULT hr = pWebBrowserApp.CoCreateInstance( CLSID_InternetExplorer );
+//	if ( SUCCEEDED( hr ) )
+//	{
+//		CComSafeArray< BYTE > pPost;
+//		pPost.Create();
+//		pPost.Add( 5, (LPBYTE)"hash=" );
+//		pPost.Add( lstrlenW( szHash ), (LPBYTE)(LPCSTR)CW2A( szHash ) );
+//		CComBSTR bstrURL( VIRUSTOTAL_URL );
+//		CComVariant vFlags( 0 );
+//		CComVariant vFrame( CComBSTR( L"" ) );
+//		VARIANT vPost;
+//		VariantInit( &vPost );
+//		vPost.vt = VT_ARRAY | VT_UI1;
+//		vPost.parray = pPost;
+//		CComVariant vHeaders( CComBSTR( L"Content-Type: application/x-www-form-urlencoded\r\n") );
+//
+//		hr = pWebBrowserApp->Navigate( bstrURL, &vFlags, &vFrame, &vPost, &vHeaders );
+//		if ( SUCCEEDED( hr ) )
+//		{
+//			pWebBrowserApp->put_Visible( VARIANT_TRUE );
+//		}
+//		else
+//		{
+//			pWebBrowserApp->Quit();
+//			ATLTRACE( _T("CPlugin::Request() : Internet Explorer navigate error: 0x%08x\n"), hr );
+//		}
+//	}
+//	else
+//		ATLTRACE( _T("CPlugin::Request() : Create Internet Explorer instance error: 0x%08x\n"), hr );
+//
+//	return hr;
 }
 
 // IGeneralPlugin

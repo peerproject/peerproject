@@ -1,22 +1,19 @@
 //
 // ComObject.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
-// Portions Copyright Shareaza Development Team, 2002-2006.
+// This file is part of PeerProject (peerproject.org) © 2008-2010
+// Portions copyright Shareaza Development Team, 2002-2006.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
@@ -24,10 +21,10 @@
 #include "ComObject.h"
 
 #ifdef _DEBUG
-#define new DEBUG_NEW
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
-#endif
+#define new DEBUG_NEW
+#endif	// Filename
 
 IMPLEMENT_DYNCREATE(CComObject, CCmdTarget)
 IMPLEMENT_OLETYPELIB(CComObject, LIBID_PeerProject, 1, 0);
@@ -64,7 +61,7 @@ LPUNKNOWN CComObject::GetInterface(REFIID pIID, BOOL bAddRef)
 {
 	LPUNKNOWN pInterface = CCmdTarget::GetInterface( &pIID );
 
-	if ( !pInterface && pIID == IID_IDispatch )
+	if ( ! pInterface && pIID == IID_IDispatch )
 	{
 		if ( POSITION pos = m_pDispatchMap.GetStartPosition() )
 		{
@@ -116,7 +113,7 @@ STDMETHODIMP CComObject::ComQueryInterface(LPUNKNOWN pUnk, REFIID iid, LPVOID* p
 
 STDMETHODIMP CComObject::ComGetTypeInfoCount(LPUNKNOWN /*pUnk*/, UINT FAR* pctinfo)
 {
-	if ( !pctinfo ) return E_INVALIDARG;
+	if ( ! pctinfo ) return E_INVALIDARG;
 	*pctinfo = GetTypeInfoCount();
 	return NOERROR;
 }
@@ -124,11 +121,11 @@ STDMETHODIMP CComObject::ComGetTypeInfoCount(LPUNKNOWN /*pUnk*/, UINT FAR* pctin
 STDMETHODIMP CComObject::ComGetTypeInfo(LPUNKNOWN pUnk, UINT itinfo, LCID lcid,
 									 ITypeInfo FAR* FAR* pptinfo)
 {
-	if ( !pptinfo ) return E_INVALIDARG;
+	if ( ! pptinfo ) return E_INVALIDARG;
 	if ( itinfo != 0 ) return DISP_E_BADINDEX;
 
 	const IID* pIID;
-	if ( !m_pDispatchMap.Lookup( pUnk, pIID ) ) return E_INVALIDARG;
+	if ( ! m_pDispatchMap.Lookup( pUnk, pIID ) ) return E_INVALIDARG;
 
 	return GetTypeInfoOfGuid( lcid, *pIID, pptinfo );
 }
@@ -139,8 +136,8 @@ STDMETHODIMP CComObject::ComGetIDsOfNames(	LPUNKNOWN pUnk, REFIID riid,
 											DISPID FAR* rgdispid)
 {
 	if ( riid != IID_NULL ) return DISP_E_UNKNOWNINTERFACE;
-	if ( !rgszNames || cNames < 1 ) return E_INVALIDARG;
-	if ( !rgdispid ) return E_INVALIDARG;
+	if ( ! rgszNames || cNames < 1 ) return E_INVALIDARG;
+	if ( ! rgdispid ) return E_INVALIDARG;
 
 	LPTYPEINFO pTypeInfo;
 	SCODE sc;
@@ -165,7 +162,7 @@ STDMETHODIMP CComObject::ComInvoke(	LPUNKNOWN pUnk, DISPID dispidMember, REFIID 
 	if ( pdispparams == NULL ) return E_INVALIDARG;
 	if ( riid != IID_NULL ) return DISP_E_UNKNOWNINTERFACE;
 
-	if ( !IsInvokeAllowed( dispidMember ) ) return E_UNEXPECTED;
+	if ( ! IsInvokeAllowed( dispidMember ) ) return E_UNEXPECTED;
 
 	LPTYPEINFO pTypeInfo;
 	HRESULT hr;

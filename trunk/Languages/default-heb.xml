@@ -3,8 +3,8 @@
 
 <!-- PeerProject Default Hebrew Skin File -->
 
-<!-- Translation based on default-en.xml r59 -->
-<!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
+<!-- Translation based on default-en.xml r60 -->
+<!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
 <!-- Use this file as a basis for creating new language skins,   -->
@@ -377,7 +377,7 @@ gap i newline
 		<menu text="‪_כלים">
 			<item id="ID_LIBRARY_FOLDERS" text="‪...שתף _קבצים"/>
 			<item id="ID_TOOLS_DOWNLOAD" text="_הורד קבצים/טורנטים..."/>
-   			<item id="IDC_IMPORT_DOWNLOADS" text="_ייבא קבצים חלקיים של אי-מיול..."/>
+			<item id="IDC_IMPORT_DOWNLOADS" text="_ייבא קבצים חלקיים של אי-מיול..."/>
 			<item id="ID_OPEN_DOWNLOADS_FOLDER" text="_פתח את תקיית ההורדות שהושלמו..."/>
 			<separator/>
 			<item id="ID_TOOLS_SKIN" text="‪...בחר _מעטפת"/>
@@ -1296,6 +1296,9 @@ gap i newline
 			<text> מוריד קובץ או טורנט.</text>
 			<newline gap="2" indent="42"/>
 			<link target="command:shell:downloads">פתח את תקיית ההורדות שלי</link>
+			<newline gap="4" indent="42"/>
+			<text>שיתוף קבצים שלך </text>
+			<link id="RemoteBrowseURL"/>
 			<newline gap="20" indent="0"/>
 		</group>
 		<group id="3">
@@ -1343,25 +1346,25 @@ gap i newline
 		<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">ה ת א מ ת &#160; ש ר ז ה&#160;&#160;&#160;</heading>
 		<newline gap="12" indent="42"/>
-		<icon res="196"width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
-		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">מעטפות</link>
-		<text align="middle">&#160;- שנה לשרזה את המראה וההרגשה</text>
+		<icon res="196" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
+		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">מעטפות</link><gap size="6"/>
+		<text align="middle">- שנה לשרזה את המראה וההרגשה</text>
 		<newline gap="8"/>
-		<icon res="138"width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
-		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
-		<text align="middle">&#160;- Update blocklist</text>
+		<icon res="138" width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
+		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link><gap size="6"/>
+		<text align="middle">- Update blocklist</text>
 		<newline gap="8"/>
-		<icon res="197"width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
-		<link target="command:ID_TOOLS_WIZARD" align="middle">אשף ההגדרות</link>
-		<text align="middle">&#160;- ערוך את הגדרות שרזה</text>
+		<icon res="197" width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
+		<link target="command:ID_TOOLS_WIZARD" align="middle">אשף ההגדרות</link><gap size="6"/>
+		<text align="middle">- ערוך את הגדרות שרזה</text>
 		<newline gap="8"/>
-		<icon res="182"width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
-		<link target="command:ID_HELP_FAQ" align="middle">עזרה מהירה</link>
-		<text align="middle">&#160;- קבל עזרה בסיסית בהפעלת שרזה</text>
+		<icon res="182" width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
+		<link target="command:ID_HELP_FAQ" align="middle">עזרה מהירה</link><gap size="6"/>
+		<text align="middle">- קבל עזרה בסיסית בהפעלת שרזה</text>
 		<newline gap="8"/>
-		<icon res="201"width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
-		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">מקומי פורום</link>
-		<text align="middle">&#160;- עברית עבור השפה שלך לדיון בפורום</text>
+		<icon res="201" width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
+		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">מקומי פורום</link><gap size="6"/>
+		<text align="middle">- עברית עבור השפה שלך לדיון בפורום</text>
 		<newline gap="18" indent="16"/>
 		<group id="5">
 			<icon res="120" width="32" height="32"/><gap size="8"/>
@@ -1588,7 +1591,7 @@ gap i newline
 		</group>
 		<group id="41">
 			<newline gap="1"/>
-			<icon res="208"/><gap size="5"/>
+			<icon res="207"/><gap size="5"/>
 			<link id="ContactYahoo"/>
 		</group>
 		<group id="42">
@@ -1629,7 +1632,7 @@ gap i newline
 			<newline gap="16" indent="0"/>
 			<text format="b">קהילה:</text>
 			<newline gap="4" indent="8"/>
-			<icon res="127"target="command:ID_SEARCH_CHAT"/>
+			<icon res="127" target="command:ID_SEARCH_CHAT"/>
 			<gap size="5"/>
 			<link target="command:ID_SEARCH_CHAT" align="middle">שוחח עם משתמש</link>
 		</group>
@@ -2220,8 +2223,8 @@ gap i newline
 	<string id="20441" value="‪:שרזה נכשל לשנות את השם\n\n%snto\n%s"/>
 	<string id="20442" value="‪Target file exists:\n\n%s\n\nWould you like to overwrite it?"/>
 	<string id="20443" value="‪הצג את כל סוגי הקבצים"/>
-	<string id="20444" value="‪העתק &URI"/>
-	<string id="20445" value="‪ייצא &URI..."/>
+	<string id="20444" value="‪העתק URI"/>
+	<string id="20445" value="‪ייצא URI..."/>
 	<string id="20451" value="‪אף קובץ לא מנוגן כעת, לחץ לחיצה כפולה על קובץ בספריה שלך להשמעתו"/>
 	<string id="20452" value="‪All Media Files|*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Playlists|*.asx;*.wax;*.m3u;*.wvx;*.wmx|Audio Files|*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm|Video Files|*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|CD Audio Tracks|*.cda|MIDI Files|*.mid;*.rmi;*.midi|All Files|*.*||"/>
 	<string id="20453" value="‪Unable to load media file &quot;%s&quot;"/>
@@ -2311,7 +2314,9 @@ gap i newline
 	<string id="20590" value="‪גישה מרחוק לא מאופשרת"/>
 	<string id="20591" value="‪.אתה חייב לבחור שם משתמש וסיסמא http://%s:%i/remote"/>
 	<string id="20592" value="‪לא מצליח לקבל התקשרויות, כתובת האינטרנט לא זמינה"/>
-	<string id="20595" value="‪‪&סכמות"/>
+	<string id="20597" value="האם אתה בטוח שאתה רוצה למחוק את כללי הביטחון שנבחרו? זה לא ניתן לבטל."/>
+	<string id="20599" value="‪‪סכמות"/>
+	<!-- Missing Scheduler/Security Strings -->
 	<string id="20620" value="‪...שרזה מחפשת ברשת באופן פעיל"/>
 	<string id="20621" value="‪.לחץ כאן בכדי לחפש שנית"/>
 	<string id="20622" value="‪כל הרשתות"/>
@@ -2359,7 +2364,6 @@ gap i newline
 	<string id="20668" value="‪...מחפש"/>
 	<string id="20669" value="‪חיפוש טקסט פשוט"/>
 	<string id="20670" value="‪...שרזה מבצעת חיפוש ברשת"/>
-	<string id="20671" value="האם אתה בטוח שאתה רוצה למחוק את כללי הביטחון שנבחרו? זה לא ניתן לבטל."/>
 	<string id="20673" value="‪אוטומטי"/>
 	<string id="20674" value="שמות ספריית הקבצים השלמים והחלקיים חייבים להיות שונים"/>
 	<string id="20677" value="‪Please type the bandwidth limit you wish to set in the form &quot;123 kb/s&quot; for kilobits per second, or &quot;123 KB/s&quot; for kilobytes per second."/>
@@ -2482,7 +2486,7 @@ gap i newline
 	<string id="20884" value="‪זמין URN אין"/>
 	<string id="20885" value=".Changing interface direction requires restart\n.You will need to start PeerProject manually\n\n? Exit now"/>
 	<string id="20890" value="‪ברוכים הבאים לשרזה"/>
-	<string id="20891" value="‪י&ציאה"/>	
+	<string id="20891" value="‪יציאה"/>
 	<string id="20898" value="‪?לא בחרת אף תיקייה לשיתוף, האם הינך מעוניין להמשיך"/>
 	<string id="20899" value="‪בגיל"/>
 	<!--Missing Wizard Strings-->
@@ -2979,18 +2983,21 @@ gap i newline
 		<control caption="החל"/>
 		<control/>
 	</dialog>
-	<dialog name="CIdentityProfilePage" cookie="BuStEdStEdEdBuCoStCoStBu" caption="זהות">
+	<dialog name="CIdentityProfilePage" cookie="BuStStEdEdEdBuStStCoCoBuStBuBu" caption="זהות">
 		<control caption="שם"/>
 		<control caption=":כינוי"/>
-		<control/>
 		<control caption=":שם אמיתי"/>
 		<control/>
 		<control/>
-		<control caption=":מין וגיל"/>
-		<control caption="|זכר|נקבה"/>
-		<control caption=":מין"/>
 		<control/>
+		<control caption=":מין וגיל"/>
+		<control caption=":מין"/>
 		<control caption=":גיל"/>
+		<control caption="|זכר|נקבה"/>
+		<control/>
+		<control caption="Info:"/>
+		<control caption="{n}G2 (PeerProject / Shareaza)"/>
+		<control caption="החל:"/>
 		<control caption="אפשר לאחרים לסייר בפרופיל המשתמש שלי"/>
 	</dialog>
 	<dialog name="CAvatarProfilePage" cookie="BuStBuStBuBu" caption="תמונת פרופיל">
@@ -3001,23 +3008,7 @@ gap i newline
 		<control caption="סייר"/>
 		<control caption="הסר"/>
 	</dialog>
-	<dialog name="CContactProfilePage" cookie="BuStEdBuStEdStEdStEdStEdStEd" caption="צור קשר">
-		<control caption=":כתובות אימייל"/>
-		<control caption=":ראשי"/>
-		<control/>
-		<control caption=":מסרים מיידים"/>
-		<control caption=":MSN/.NET פספורט"/>
-		<control/>
-		<control caption=":Yahoo ID מספר"/>
-		<control/>
-		<control caption=":ICQ מספר"/>
-		<control/>
-		<control caption=":AOL כינוי"/>
-		<control/>
-		<control caption=":Jabber מספר"/>
-		<control/>
-	</dialog>
-	<dialog name="CProfileProfilePage" cookie="BuStCoStCoBuStEdStEdBuLiBuBuCo" caption="פרופיל">
+	<dialog name="CProfileProfilePage" cookie="BuStCoStCoBuStEdStEdBuLiBuBuCo" caption="מיקום">
 		<control caption=":מיקום"/>
 		<control caption=":ארץ"/>
 		<control/>
@@ -3030,11 +3021,38 @@ gap i newline
 		<control/>
 		<control caption=":תחביבים"/>
 		<control/>
-		<control caption="הוסף &lt;"/>
-		<control caption="הסר &gt;"/>
+		<control caption="הוסף &gt;"/>
+		<control caption="הסר &lt;"/>
+		<control/>
+	</dialog>
+	<dialog name="CContactProfilePage" cookie="BuStEdBuStEdStEdStEdStEdStEdStEdStEdStEd" caption="צור קשר">
+		<control caption=":כתובות אימייל"/>
+		<control caption=":ראשי"/>
+		<control/>
+		<control caption=":מסרים מיידים"/>
+		<control caption="PeerProject.org:"/>
+		<control/>
+		<control caption="Facebook:"/>
+		<control/>
+		<control caption="Twitter:"/>
+		<control/>
+		<control caption="Google:"/>
+		<control/>
+		<control caption="MSN/Live:"/>
+		<control/>
+		<control caption="Yahoo:"/>
+		<control/>
+		<control caption="AOL:"/>
+		<control/>
+		<control caption="ICQ:"/>
 		<control/>
 	</dialog>
 	<dialog name="CBioProfilePage" cookie="Ed" caption="ביוגרפיה">
+		<control/>
+	</dialog>
+	<dialog name="CFilesProfilePage" cookie="BuStSy" caption="קבצים">
+		<control caption=":קבצים מועדפים"/>
+		<control caption="‫שרזה ממליץ על קבצי המועדפים למשתמשים שצופים בפרופיל. תוכל לבחור קבצים על ידי הוספתם אל תיקיית מועדפים שבספריה שלך"/>
 		<control/>
 	</dialog>
 	<dialog name="CFavouritesProfilePage" cookie="SyBuStEdStEdBuBu" caption="מועדפים">
@@ -3047,19 +3065,15 @@ gap i newline
 		<control caption="חדש"/>
 		<control caption="הסר"/>
 	</dialog>
-	<dialog name="CFilesProfilePage" cookie="BuStSy" caption="קבצים">
-		<control caption=":קבצים מועדפים"/>
-		<control caption="‫שרזה ממליץ על קבצי המועדפים למשתמשים שצופים בפרופיל. תוכל לבחור קבצים על ידי הוספתם אל תיקיית מועדפים שבספריה שלך"/>
-		<control/>
-	</dialog>
-	<dialog name="CCertificateProfilePage" cookie="StBuStStStStBu" caption="אישורים">
-		<control caption="משתמשי גנוטלה שיסיירו בפרופיל שלך יראו את תמונתך תמונות שאתה יוצר צריכות להיות בגודל 128 על 128 פיקסלים ויכולים להיות מכל סוג של קובץ תמונה שנתמך במחשבך"/>
+	<dialog name="CCertificateProfilePage" cookie="BuStStStStBuBuSt" caption="אישורים">
 		<control caption=":שירות אישורי זיהוי ייחודי גלובלי של גנוטלה"/>
-		<control caption=":GUID"/>
+		<control caption=":Gnutella/G2 GUID"/>
 		<control/>
-		<control caption=":נוצר"/>
+		<control caption=":BitTorrent GUID"/>
 		<control/>
 		<control caption="צור כעת"/>
+		<control caption="Info:"/>
+		<control caption=" "/>
 	</dialog>
 	<dialog name="CLanguageDlg" cookie="" caption="בחר שפה">
 	</dialog>
@@ -3068,7 +3082,7 @@ gap i newline
 		<control/>
 		<control/>
 		<control caption=":פרוטוקול רשת"/>
-		<control caption="גנוטלה 1 (auto)|גנוטלה 2 (auto)|אידונקי 20000"/>
+		<control/>
 		<control caption="Ultrapeer השהה"/>
 		<control caption="התחבר"/>
 		<control caption="ביטול"/>
@@ -3093,7 +3107,7 @@ gap i newline
 		<control caption=":הראה רק תוצאות שמכילות את המילים"/>
 		<control/>
 		<control caption="Reg. Exp."/>
-		<control caption="‫( "/>תוכל גם להשמיט מילים כך: 'מילה')
+		<control caption="‫(תוכל גם להשמיט מילים כך: 'מילה') "/>
 		<control caption=":גודל הקבצים"/>
 		<control caption=":מינימום"/>
 		<control/>
@@ -3249,7 +3263,7 @@ gap i newline
 		<control/>
 		<control caption=":יחידות"/>
 		<control/>
- 		<control caption=":תצוגה"/>
+		<control caption=":תצוגה"/>
 		<control caption="...בחר צבע"/>
 		<control/>
 		<control caption="הסר"/>
@@ -3504,14 +3518,16 @@ gap i newline
 		<control caption="Total Uploaded:"/>
 		<control caption="Notes:"/>
 	</dialog>
-	<dialog name="CDownloadEditPage" cookie="StBuStStStBuStEdEdEdBuEdBuEdBuEdBuEdBuEd" caption="ערוך הורדה">
+	<dialog name="CDownloadEditPage" cookie="StBuStStStStBuStEdEdEdSyBuEdBuEdBuEdBuEdBuEd" caption="ערוך הורדה">
 		<control caption="אזהרה: תיבת דו-שיח זו מעניקה אפשרויות מתקדמות לעריכה למשתמשים כבדים אשר ים, אם יעשה בה שימוש באופן שגוי עלולה לגרום לנזק."/>
 		<control caption="שם קובץ וגודל:"/>
 		<control caption="שם קובץ:"/>
 		<control caption="שם קובץ:"/>
 		<control caption="גודל קובץ (בתים):"/>
+		<control caption="Date:"/>
 		<control caption="URNs:"/>
 		<control caption="אמין"/>
+		<control/>
 		<control/>
 		<control/>
 		<control/>
@@ -3655,22 +3671,6 @@ gap i newline
 		<column from="Name" to="שם"/>
 		<column from="Country" to="ארץ"/>
 	</list>
-	<list name="CSecurityWnd">
-		<column from="Address / Content" to="כתובת/תוכן"/>
-		<column from="Hits" to="בקשות"/>
-		<column from="Action" to="פעולה"/>
-		<column from="Expires" to="בתוקף עד"/>
-		<column from="#" to=""/>
-		<column from="Comment" to="הערה"/>
-	</list>
-	<list name="CSchedulerWnd">
-		<column from="Task" to="פעולה"/>
-		<column from="Date" to="תאריך"/>
-		<column from="Time" to="זמן"/>
-		<column from="Status" to="מצב"/>
-		<column from="Activity" to="פעיל"/>
-		<column from="Description" to="הערה"/>
-	</list>
 	<list name="CHostCacheWnd">
 		<column from="Address" to="כתובת"/>
 		<column from="Port" to="יציאה"/>
@@ -3718,6 +3718,23 @@ gap i newline
 		<column from="Client" to="מקורות"/>
 		<column from="Country" to="ארץ"/>
 		<column from="Time" to="זמן"/>
+	</list>
+	<list name="CSecurityWnd">
+		<column from="Address / Content" to="כתובת/תוכן"/>
+		<column from="Hits" to="בקשות"/>
+		<column from="#" to=""/>
+		<column from="Action" to="פעולה"/>
+		<column from="Expires" to="בתוקף עד"/>
+		<column from="Match" to=""/>
+		<column from="Comment" to="הערה"/>
+	</list>
+	<list name="CSchedulerWnd">
+		<column from="Task" to="פעולה"/>
+		<column from="Date" to="תאריך"/>
+		<column from="Time" to="זמן"/>
+		<column from="Status" to="מצב"/>
+		<column from="Activity" to="פעיל"/>
+		<column from="Comment" to="הערה"/>
 	</list>
 	<list name="CUploadQueueList">
 		<column from="Name" to="שם"/>

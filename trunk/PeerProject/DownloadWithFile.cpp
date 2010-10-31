@@ -2,21 +2,18 @@
 // DownloadWithFile.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2008.
+// Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
@@ -44,7 +41,7 @@
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
-#endif
+#endif	// Filename
 
 
 //////////////////////////////////////////////////////////////////////
@@ -407,7 +404,7 @@ DWORD CDownloadWithFile::GetTimeRemaining() const
 
 CString CDownloadWithFile::GetDisplayName() const
 {
-	if ( m_sName.GetLength() ) return m_sName;
+	if ( ! m_sName.IsEmpty() ) return m_sName;
 
 	CString strName;
 
@@ -728,29 +725,29 @@ BOOL CDownloadWithFile::MakeComplete()
 
 //BOOL CDownloadWithFile::AppendMetadata()
 //{
-//	if ( !Settings.Library.VirtualFiles ) return FALSE;
-
+//	if ( ! Settings.Library.VirtualFiles ) return FALSE;
+//
 //	if ( GetMetadata() == NULL ) return FALSE;
 //	CXMLElement* pXML = GetMetadata()->GetFirstElement();
 //	if ( pXML == NULL ) return FALSE;
-
+//
 //	HANDLE hFile = CreateFile( m_sPath, GENERIC_READ | GENERIC_WRITE,
 //		FILE_SHARE_READ | FILE_SHARE_WRITE | FILE_SHARE_DELETE,
 //		NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL );
 //	VERIFY_FILE_ACCESS( hFile, m_sPath )
 //	if ( hFile == INVALID_HANDLE_VALUE ) return FALSE;
-
+//
 //	CString strURI = GetMetadata()->GetAttributeValue( CXMLAttribute::schemaName );
 //	BOOL bSuccess = FALSE;
-
+//
 //	if ( CheckURI( strURI, CSchema::uriAudio ) )
 //	{
 //		if ( _tcsistr( m_sPath, _T(".mp3") ) != NULL )
 //			bSuccess |= AppendMetadataID3v1( hFile, pXML );
 //	}
-
+//
 //	CloseHandle( hFile );
-
+//
 //	return bSuccess;
 //}
 
@@ -758,49 +755,45 @@ BOOL CDownloadWithFile::MakeComplete()
 //{
 //	DWORD nBytes;
 //	CString str;
-
+//
 //	ID3V1 pID3 = {};
 //	SetFilePointer( hFile, 0, NULL, FILE_BEGIN );
-
+//
 //	if ( !::ReadFile( hFile, &pID3, 3, &nBytes, NULL ) ) return FALSE;
 //	if ( memcmp( pID3.szTag, ID3V2_TAG, 3 ) == 0 ) return FALSE;
-
+//
 //	ZeroMemory( &pID3, sizeof(pID3) );
 //	SetFilePointer( hFile, -(int)sizeof(pID3), NULL, FILE_END );
-
+//
 //	if ( !::ReadFile( hFile, &pID3, sizeof(pID3), &nBytes, NULL ) ) return FALSE;
 //	if ( memcmp( pID3.szTag, ID3V1_TAG, 3 ) == 0 ) return FALSE;
-
+//
 //	ZeroMemory( &pID3, sizeof(pID3) );
 //	std::memcpy( pID3.szTag, ID3V1_TAG, 3 );
-
+//
 //	str = pXML->GetAttributeValue( _T("title") );
-//	if ( str.GetLength() )
+//	if ( ! str.IsEmpty() )
 //		strncpy( pID3.szSongname, CT2CA( str ), 30 );
-
 //	str = pXML->GetAttributeValue( _T("artist") );
-//	if ( str.GetLength() )
+//	if ( ! str.IsEmpty() )
 //		strncpy( pID3.szArtist, CT2CA( str ), 30 );
-
 //	str = pXML->GetAttributeValue( _T("album") );
-//	if ( str.GetLength() )
+//	if ( ! str.IsEmpty() )
 //		strncpy( pID3.szAlbum, CT2CA( str ), 30 );
-
 //	str = pXML->GetAttributeValue( _T("year") );
-//	if ( str.GetLength() )
+//	if ( ! str.IsEmpty() )
 //		strncpy( pID3.szYear, CT2CA( str ), 4 );
-
 //	str = pXML->GetAttributeValue( _T("genre") );
-//	if ( str.GetLength() )
+//	if ( ! str.IsEmpty() )
 //	{
 //		int nGenre = LibraryBuilder.LookupID3v1Genre( str );
 //		if ( nGenre != -1 )
 //			pID3.nGenre = static_cast< BYTE >( nGenre );
 //	}
-
+//
 //	SetFilePointer( hFile, 0, NULL, FILE_END );
 //	::WriteFile( hFile, &pID3, sizeof(pID3), &nBytes, NULL );
-
+//
 //	return TRUE;
 //}
 
@@ -817,7 +810,7 @@ void CDownloadWithFile::Serialize(CArchive& ar, int nVersion)
 	{
 		ar.WriteCount( m_pFile.get() != NULL );
 
-		// Restore original filename added in nVersion == 41
+		// Restore original filename added in nVersion 41
 		{
 			DWORD nIndex = 0;
 			if ( static_cast< CDownload* >( this )->IsTorrent() )
@@ -846,15 +839,15 @@ void CDownloadWithFile::Serialize(CArchive& ar, int nVersion)
 	//		CString strLocalName;
 	//		ar >> strLocalName;
 
-	//		if ( strLocalName.GetLength() )
+	//		if ( ! strLocalName.IsEmpty() )
 	//		{
-	//			if ( m_sPath.GetLength() )
+	//			if ( ! m_sPath.IsEmpty() )
 	//				::MoveFile( m_sPath, strLocalName + _T(".sd") );	// Imported .pd?
 	//			m_sPath = strLocalName + _T(".sd");
 	//		}
 	//	}
 
-		if ( ar.ReadCount() /*|| nVersion < 25*/ )
+		if ( ar.ReadCount() )
 			SerializeFile( ar, nVersion );
 		else
 			CloseFile();

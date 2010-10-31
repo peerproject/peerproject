@@ -1,26 +1,20 @@
 //
 // VendorCache.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
-// Portions Copyright Shareaza Development Team, 2002-2007.
+// This file is part of PeerProject (peerproject.org) © 2008-2010
+// Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
-//
-
-#if !defined(AFX_VENDORCACHE_H__D5534D6B_0819_4C8F_B62B_9DD5CB3468AD__INCLUDED_)
-#define AFX_VENDORCACHE_H__D5534D6B_0819_4C8F_B62B_9DD5CB3468AD__INCLUDED_
 
 #pragma once
 
@@ -35,9 +29,8 @@ public:
 	virtual ~CVendorCache();
 
 public:
-	CVendor*		m_pNull;
+	CVendor*	m_pNull;
 
-public:
 	// Lookup 4-bytes vendor code (ASCII without terminating null)
 	inline CVendor* Lookup(LPCSTR pszCode) const
 	{
@@ -66,10 +59,10 @@ public:
 	}
 
 	// Lookup by code or by name
-	CVendor*		LookupByName(LPCTSTR pszName) const;
+	CVendor*	LookupByName(LPCTSTR pszName) const;
 
 	// Load data from Vendors.xml
-	BOOL			Load();
+	BOOL		Load();
 
 	// Is specified vendor a PeerProject-powered vendor?
 	bool			IsExtended(LPCTSTR pszCode) const;
@@ -80,8 +73,8 @@ protected:
 	// Name map (lowercased)
 	CMap< CString, const CString&, CVendor*, CVendor* > m_pNameMap;
 
-	void			Clear();
-	BOOL			LoadFrom(CXMLElement* pXML);
+	void		Clear();
+	BOOL		LoadFrom(CXMLElement* pXML);
 };
 
 
@@ -98,7 +91,7 @@ public:
 	CString		m_sLink;
 	bool		m_bChatFlag;
 	bool		m_bHTMLBrowse;
-	bool		m_bExtended;		// PeerProject-powered
+	bool		m_bExtended;		// PeerProject/Shareaza-powered
 
 protected:
 	BOOL		LoadFrom(CXMLElement* pXML);
@@ -107,6 +100,3 @@ protected:
 };
 
 extern CVendorCache VendorCache;
-
-
-#endif // !defined(AFX_VENDORCACHE_H__D5534D6B_0819_4C8F_B62B_9DD5CB3468AD__INCLUDED_)

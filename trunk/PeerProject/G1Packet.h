@@ -1,22 +1,19 @@
 //
 // G1Packet.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
-// Portions Copyright Shareaza Development Team, 2002-2007.
+// This file is part of PeerProject (peerproject.org) © 2008-2010
+// Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 // CG1Packet represents a Gnutella packet, and CG1PacketPool keeps lists of them
@@ -43,36 +40,32 @@ typedef struct
 } GNUTELLAPACKET;
 
 // Each CG1Packet object represents a received or preparing to send Gnutella packet
-class CG1Packet : public CPacket // Inherit from CPacket to get memory management, and methods to read
-								 // and write ASCII text, bytes, and DWORDs
+class CG1Packet : public CPacket // Inherit from CPacket to get memory management, and methods to read/write ASCII text, bytes, and DWORDs
 {
 
 protected:
-
 	// Make a new CG1Packet object, and delete this one
 	CG1Packet();
 	virtual ~CG1Packet(); // Why is this virtual, it's at the top of the inheritance tree (do)
 
 public:
-
 	// Data in the packet
 	Hashes::Guid m_oGUID; // The globally unique identifier of this packet
-	BYTE  m_nType; // The type of this packet, like ping or pong
-	BYTE  m_nTTL;  // The number of hops this packet can travel across the Internet from here
-	BYTE  m_nHops; // The number of hops this packet has travelled across the Internet to get here
+	BYTE  m_nType;	// The type of this packet, like ping or pong
+	BYTE  m_nTTL;	// The number of hops this packet can travel across the Internet from here
+	BYTE  m_nHops;	// The number of hops this packet has travelled across the Internet to get here
 
 	// Data about the packet
 	int   m_nTypeIndex; // Packet type like ping or pong, except as an enumeration this program defines instead of the byte code used by the packet itself
 	DWORD m_nHash;      // Used by CacheHash, but doesn't seem to ever get a hash written into it (do)
 
 public:
-
 	// Change the packet's TTL and hop counts
-	BOOL Hop(); // Make sure the TTL is 2 or more, and then make it one less and the hops count one more
+	BOOL Hop();	// Make sure the TTL is 2 or more, and then make it one less and the hops count one more
 
 	// Hash the packet
 	void         CacheHash();                                       // Calculate a simple hash of the packet payload in m_nHash
-    // ????????????????????????????????? redefinition of default Parameter!!!
+	// ?????????? Redefinition of default Parameter!
 	virtual BOOL GetRazaHash(Hashes::Sha1Hash& oHash, DWORD nLength = 0) const; // Compute the SHA hash of the packet GUID, type byte, and payload
 
 	// Get the packet's type, GUID, and all its bytes
@@ -84,7 +77,6 @@ public:
 	virtual void Debug(LPCTSTR pszReason) const; // Writes debug information about the packet into the PeerProject.log file
 
 public:
-
 	// Convert between the various ways the program expresses packet types, like ping and pong
 	static int     GnutellaTypeToIndex(BYTE nType); // Turn a type byte, like 0x30, into index 4, both describe a query route packet
 	static LPCTSTR m_pszPackets[9];                 // Turn a type index, like 4, into text like "QRP" for query route packet
@@ -104,18 +96,15 @@ public:
 	static bool IsFirewalled();
 
 protected:
-
 	// Create a nested class, CG1PacketPool, that holds arrays of Gnutella packets we can use quickly
 	class CG1PacketPool : public CPacketPool // Inherit from CPacketPool to get methods to create arrays of packets and break them off for speedy use
 	{
 
 	public:
-
 		// Delete this CG1PacketPool object
 		virtual ~CG1PacketPool() { Clear(); } // Call the Clear method to free all the arrays of packets
 
 	protected:
-
 		// Create a new array of packets, and free one
 		virtual void NewPoolImpl(int nSize, CPacket*& pPool, int& nPitch); // Allocate a new array of 256 packets
 		virtual void FreePoolImpl(CPacket* pPool);                         // Free an array of 256 packets
@@ -125,7 +114,6 @@ protected:
 	static CG1PacketPool POOL;
 
 public:
-
 	// Get a new packet from the global packet pool called POOL, fill it with these values, and return a pointer to it
 	static CG1Packet* New(int nType = 0, DWORD nTTL = 0, const Hashes::Guid& oGUID = Hashes::Guid());
 
@@ -189,16 +177,16 @@ inline void CG1Packet::CG1PacketPool::FreePoolImpl(CPacket* pPacket)
 #pragma pack() // Same as pragma pack(pop)
 
 // Gnutella packet type codes, m_nType in the header will be one of these values to show the type
-#define G1_PACKET_PING			0x00 // Ping packet
-#define G1_PACKET_PONG			0x01 // Pong packet, response to a ping
-#define G1_PACKET_BYE			0x02 // Goodbye packet, the remote computer telling us why it's disconnecting
-#define G1_PACKET_QUERY_ROUTE	0x30 // Packet about query routing table (do)
-#define G1_PACKET_VENDOR		0x31 // Vendor-specific packets (do)
+#define G1_PACKET_PING			0x00	// Ping packet
+#define G1_PACKET_PONG			0x01	// Pong packet, response to a ping
+#define G1_PACKET_BYE			0x02	// Goodbye packet, the remote computer telling us why it's disconnecting
+#define G1_PACKET_QUERY_ROUTE	0x30	// Packet about query routing table (do)
+#define G1_PACKET_VENDOR		0x31	// Vendor-specific packets (do)
 #define G1_PACKET_VENDOR_APP	0x32
-#define G1_PACKET_PUSH			0x40 // Packet asking that we push open a connection to a remote computer that can't connect directly to us
-#define G1_PACKET_RUDP			0x41 // Packet used for F2F RUDP transfers
-#define G1_PACKET_QUERY			0x80 // Search query
-#define G1_PACKET_HIT			0x81 // Response to search query, a hit
+#define G1_PACKET_PUSH			0x40	// Packet asking that we push open a connection to a remote computer that can't connect directly to us
+#define G1_PACKET_RUDP			0x41	// Packet used for F2F RUDP transfers
+#define G1_PACKET_QUERY			0x80	// Search query
+#define G1_PACKET_HIT			0x81	// Response to search query, a hit
 
 // Packet type indices, another enumeration for Gnutella packets, GnutellaTypeToIndex translates from the byte code to this number
 #define G1_PACKTYPE_UNKNOWN		0
@@ -210,7 +198,7 @@ inline void CG1Packet::CG1PacketPool::FreePoolImpl(CPacket* pPacket)
 #define G1_PACKTYPE_PUSH		6
 #define G1_PACKTYPE_QUERY		7
 #define G1_PACKTYPE_HIT			8
-#define G1_PACKTYPE_MAX			9 // There are 9 packet type indices, with values 0 through 8
+#define G1_PACKTYPE_MAX			9		// There are 9 packet type indices, with values 0 through 8
 
 // MinSpeed Flags (do)
 #define G1_QF_TAG				0x8000	// If the bit 15 is 0, then this is a query with the deprecated minspeed semantic. If the bit 15 is set to 1, then this is a query with the new minimum speed semantic.
@@ -238,4 +226,4 @@ inline void CG1Packet::CG1PacketPool::FreePoolImpl(CPacket* pPacket)
 #define G1_QHD_GGEP				0x20
 #define G1_QHD_MASK				0x3D
 
-#define G1_PACKET_HIT_SEP		0x1C // Query hit extension separator
+#define G1_PACKET_HIT_SEP		0x1C	// Query hit extension separator

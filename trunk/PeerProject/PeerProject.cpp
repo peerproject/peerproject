@@ -2,21 +2,18 @@
 // PeerProject.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2008.
+// Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
@@ -71,10 +68,10 @@
 #include "WndSystem.h"
 
 #ifdef _DEBUG
-#define new DEBUG_NEW
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
-#endif
+#define new DEBUG_NEW
+#endif	// Filename
 
 const LPCTSTR RT_BMP  = _T("BMP");
 const LPCTSTR RT_PNG  = _T("PNG");
@@ -211,16 +208,16 @@ CPeerProjectApp::CPeerProjectApp()
 	m_nUPnPExternalAddress.s_addr = INADDR_NONE;
 
 // BugTrap (www.intellesoft.net)
-#ifdef _DEBUG // ToDo: Enable release builds?
+#ifdef _DEBUG
 	BT_InstallSehFilter();
 	BT_SetTerminate();
 //	BT_SetAppName( CLIENT_NAME );		// Below
 //	BT_SetAppVersion( m_sVersionLong );	// Below
 	BT_SetFlags( BTF_INTERCEPTSUEF | BTF_SHOWADVANCEDUI | BTF_DESCRIBEERROR |
 		BTF_DETAILEDMODE | BTF_ATTACHREPORT | BTF_EDITMAIL );
-	BT_SetSupportURL( _T("http://peerproject.org/") );
+	BT_SetSupportURL( _T("http://peerproject.org") );
+	BT_SetSupportEMail( _T("peerprojectreports@lists.sourceforge.net") );
 //	BT_SetSupportServer( _T("http://bugtrap.peerproject.org/RequestHandler.aspx"), 80 );
-	BT_SetSupportEMail( _T("peerprojectbugs@lists.sourceforge.net") );
 	BT_AddRegFile( _T("Settings.reg"), _T("HKEY_CURRENT_USER\\") REGISTRY_KEY );
 #endif
 }
@@ -650,28 +647,34 @@ CDocument* CPeerProjectApp::OpenDocumentFile(LPCTSTR lpszFileName)
 
 BOOL CPeerProjectApp::Open(LPCTSTR lpszFileName)		// Note: No BOOL bDoIt needed
 {
-	int nLength = lstrlen( lpszFileName );
-	if ( nLength > 8 && ! lstrcmpi( lpszFileName + nLength - 8, _T(".torrent") ) )
+	int nLength = _tcslen( lpszFileName );
+	if ( nLength < 4 ) return FALSE;
+
+	if (	  nLength > 8  &&  ! _tcsicmp( lpszFileName + nLength - 8,  _T(".torrent") ) )
 		return OpenTorrent( lpszFileName );
-	else if ( nLength > 3 && ! lstrcmpi( lpszFileName + nLength - 3, _T(".co") ) )
+	else if (/*nLength > 3 &&*/! _tcsicmp( lpszFileName + nLength - 3,  _T(".co") ) )
 		return OpenCollection( lpszFileName );
-	else if ( nLength > 11 && ! lstrcmpi( lpszFileName + nLength - 11, _T(".collection") ) )
+	else if ( nLength > 11 &&  ! _tcsicmp( lpszFileName + nLength - 11, _T(".collection") ) )
 		return OpenCollection( lpszFileName );
-	else if ( nLength > 16 && ! lstrcmpi( lpszFileName + nLength - 16, _T(".emulecollection") ) )
+	else if ( nLength > 16 &&  ! _tcsicmp( lpszFileName + nLength - 16, _T(".emulecollection") ) )
 		return OpenCollection( lpszFileName );
-	else if ( nLength > 4 && ! lstrcmpi( lpszFileName + nLength - 4, _T(".url") ) )
+	else if ( nLength > 14 &&  ! _tcsicmp( lpszFileName + nLength - 15, _T("hublist.xml.bz2") ) )
+		return OpenImport( lpszFileName );
+	else if ( nLength > 8  &&  ! _tcsicmp( lpszFileName + nLength - 8,  _T (".xml.bz2") ) )
+		return OpenCollection( lpszFileName );
+	else if (/*nLength > 4 &&*/! _tcsicmp( lpszFileName + nLength - 4,  _T(".url") ) )
 		return OpenInternetShortcut( lpszFileName );
-	else if ( nLength > 4 && ! lstrcmpi( lpszFileName + nLength - 4, _T(".met") ) )
-		return OpenMET( lpszFileName );
-	else if ( nLength > 4 && ! lstrcmpi( lpszFileName + nLength - 4, _T(".dat") ) )
-		return OpenMET( lpszFileName );
-	else if ( nLength > 4 && ! lstrcmpi( lpszFileName + nLength - 4, _T(".lnk") ) )
+	else if (/*nLength > 4 &&*/! _tcsicmp( lpszFileName + nLength - 4,  _T(".met") ) )
+		return OpenImport( lpszFileName );
+	else if (/*nLength > 4 &&*/! _tcsicmp( lpszFileName + nLength - 4,  _T(".dat") ) )
+		return OpenImport( lpszFileName );
+	else if (/*nLength > 4 &&*/! _tcsicmp( lpszFileName + nLength - 4,  _T(".lnk") ) )
 		return OpenShellShortcut( lpszFileName );
 	else
 		return OpenURL( lpszFileName );
 }
 
-BOOL CPeerProjectApp::OpenMET(LPCTSTR lpszFileName)
+BOOL CPeerProjectApp::OpenImport(LPCTSTR lpszFileName)
 {
 	return HostCache.Import( lpszFileName );
 }
@@ -887,7 +890,7 @@ void CPeerProjectApp::GetVersionNumber()
 		}
 
 		// Windows 7 or Vista SP2+ have Registry patch
-		if ( m_nWindowsVersionMinor >= 1 || sp[ 13 ] >= '2' )
+		if ( m_nWindowsVersionMinor >= 1 || ( sp && sp[ 13 ] >= '2' ) ) 	// Vista (no SP) crashfix
 		{
 			m_bLimitedConnections = false;
 
@@ -1140,7 +1143,7 @@ void CPeerProjectApp::Message(WORD nType, UINT nID, ...)
 		strTemp.FormatV( strFormat, pArgs );
 
 	// Print the message if there still is one
-	if ( strTemp.GetLength() )
+	if ( ! strTemp.IsEmpty() )
 		PrintMessage( nType, strTemp );
 
 	// Null the argument list pointer
@@ -1164,7 +1167,7 @@ void CPeerProjectApp::Message(WORD nType, LPCTSTR pszFormat, ...)
 	strTemp.FormatV( pszFormat, pArgs );
 
 	// Print the message if there still is one
-	if ( strTemp.GetLength() )
+	if ( strTemp.GetLength() > 1 )
 		PrintMessage( nType, strTemp );
 
 	// Null the argument list pointer
@@ -1346,32 +1349,35 @@ BOOL CPeerProjectApp::InternalURI(LPCTSTR pszURI)
 	if ( pMainWnd == NULL ) return FALSE;
 
 	CString strURI( pszURI );
-	strURI = strURI.Left( 24 ).MakeLower(); 	// Most chars needed to determine protocol or command
+	strURI = strURI.Left( 20 ).MakeLower(); 	// Most chars needed to determine protocol or command
 
-	if ( strURI.Find( _T("command:") ) != 0 )
+	if ( _tcsnicmp( strURI, _T("command:"), 8 ) != 0 )				// Assume external URL if not internal command
 	{
-		if ( strURI.Find( _T("magnet:") ) == 0 ||
-			strURI.Find( _T("http://") ) == 0 ||
-			strURI.Find( _T("https://") ) == 0 ||
-			strURI.Find( _T("ftp://") ) == 0 ||
-			strURI.Find( _T("mailto:") ) == 0 ||
-			strURI.Find( _T("gnutella:") ) == 0 ||
-			strURI.Find( _T("gnutella1:") ) == 0 ||
-			strURI.Find( _T("gnutella2:") ) == 0 ||
-			strURI.Find( _T("shareaza:") ) == 0 ||
-			strURI.Find( _T("peerproject:") ) == 0 ||
-			strURI.Find( _T("ed2k:") ) == 0 ||
-			strURI.Find( _T("g2:") ) == 0 ||
-			strURI.Find( _T("gwc:") ) == 0 ||
-			strURI.Find( _T("uhc:") ) == 0 ||
-			strURI.Find( _T("ukhl:") ) == 0 ||
-			strURI.Find( _T("gnet:") ) == 0 ||
-			strURI.Find( _T("peer:") ) == 0 ||
-			strURI.Find( _T("p2p:") ) == 0 ||
-			strURI.Find( _T("mp2p:") ) == 0 ||
-			strURI.Find( _T("foxy:") ) == 0 ||
-			strURI.Find( _T("aim:") ) == 0 ||
-			strURI.Find( _T("sig2dat:") ) == 0 )
+		if ( ! _tcsnicmp( strURI, _T("magnet:"), 7 ) ||
+			! _tcsnicmp( strURI, _T("http://"), 7 ) ||
+			! _tcsnicmp( strURI, _T("https://"), 8 ) ||
+			! _tcsnicmp( strURI, _T("ftp://"), 6 ) ||
+			! _tcsnicmp( strURI, _T("gnutella:"), 9 ) ||
+			! _tcsnicmp( strURI, _T("gnutella1:"), 10 ) ||
+			! _tcsnicmp( strURI, _T("gnutella2:"), 10 ) ||
+			! _tcsnicmp( strURI, _T("peerproject:"), 12 ) ||
+			! _tcsnicmp( strURI, _T("shareaza:"), 9 ) ||
+			! _tcsnicmp( strURI, _T("ed2k:"), 5 ) ||
+			! _tcsnicmp( strURI, _T("g2:"), 3 ) ||
+			! _tcsnicmp( strURI, _T("gwc:"), 4 ) ||
+			! _tcsnicmp( strURI, _T("uhc:"), 4 ) ||
+			! _tcsnicmp( strURI, _T("ukhl:"), 5 ) ||
+			! _tcsnicmp( strURI, _T("gnet:"), 5 ) ||
+			! _tcsnicmp( strURI, _T("peer:"), 5 ) ||
+			! _tcsnicmp( strURI, _T("p2p:"), 4 ) ||
+			! _tcsnicmp( strURI, _T("mp2p:"), 5 ) ||
+			! _tcsnicmp( strURI, _T("foxy:"), 5 ) ||
+			! _tcsnicmp( strURI, _T("aim:"), 4 ) ||
+			! _tcsnicmp( strURI, _T("btc:"), 4 ) ||
+			! _tcsnicmp( strURI, _T("dchub:"), 6 ) ||
+			! _tcsnicmp( strURI, _T("dcfile:"), 7 ) ||
+			! _tcsnicmp( strURI, _T("mailto:"), 7 ) ||
+			! _tcsnicmp( strURI, _T("sig2dat:"), 8 ) )
 		{
 			ShellExecute( pMainWnd->GetSafeHwnd(), _T("open"),
 				pszURI, NULL, NULL, SW_SHOWNORMAL );
@@ -1385,7 +1391,7 @@ BOOL CPeerProjectApp::InternalURI(LPCTSTR pszURI)
 
 	// Specific "command:" prefixed internal utilities:
 
-	if ( strURI.Find( _T(":id_"), 6 ) > 1 ) 			// Common "command:ID_"
+	if ( ! _tcsnicmp( strURI, _T("command:id_"), 11 ) )				// Common "command:ID_"
 	{
 		if ( UINT nCmdID = CoolInterface.NameToID( pszURI + 8 ) )
 		{
@@ -1393,19 +1399,43 @@ BOOL CPeerProjectApp::InternalURI(LPCTSTR pszURI)
 			return TRUE;
 		}
 	}
-	else if ( strURI.Find( _T(":shell:"), 6 ) > 1 ) 	// Assume "command:shell:downloads"
+	else if ( ! _tcsnicmp( strURI, _T("command:shell:"), 14 ) ) 	// Assume "command:shell:downloads"
 	{
 		ShellExecute( pMainWnd->GetSafeHwnd(), _T("open"),
 			Settings.Downloads.CompletePath, NULL, NULL, SW_SHOWNORMAL );
 		if ( strURI.Find( _T(":downloads"), 12 ) > 1 )
 			return TRUE;
 	}
-	else if ( strURI.Find( _T(":update"), 6 ) > 1 ) 	// Version notice "command:update"
+	else if ( ! _tcsnicmp( strURI, _T("command:update"), 14 ) ) 	// Version notice "command:update"
 	{
 		pMainWnd->PostMessage( WM_VERSIONCHECK, VC_CONFIRM );
 		return TRUE;
 	}
-	//else if ( strURI.Find( _T(":launch:"), 6 ) > 0 )	// Unused but useful? "command:launch:"
+	else if ( ! _tcsnicmp( strURI, _T("command:copy:"), 13 ) )		// Clipboard "command:copy:<text>"
+	{
+		if ( ! AfxGetMainWnd()->OpenClipboard() ) return FALSE;
+
+		EmptyClipboard();
+
+		strURI = CString( pszURI ).Mid( 13 );
+
+		CT2CW pszWide( (LPCTSTR)strURI );
+		if ( HANDLE hMem = GlobalAlloc( GMEM_MOVEABLE|GMEM_DDESHARE, ( wcslen(pszWide) + 1 ) * sizeof(WCHAR) ) )
+		{
+			if ( LPVOID pMem = GlobalLock( hMem ) )
+			{
+				CopyMemory( pMem, pszWide, ( wcslen(pszWide) + 1 ) * sizeof(WCHAR) );
+				GlobalUnlock( hMem );
+				SetClipboardData( CF_UNICODETEXT, hMem );
+
+				theApp.Message( MSG_TRAY, LoadString( IDS_COPIED_TO_CLIPBOARD ) + _T("\n") + strURI );
+			}
+		}
+
+		CloseClipboard();
+		return TRUE;
+	}
+	//else if ( ! _tcsnicmp( strURI, _T("command:launch:"), 15 ) )	// Unused but useful? "command:launch:"
 	//{
 	//	DWORD nIndex = 0;
 	//	_stscanf( (LPCTSTR)strURI + 12, _T("%lu"), &nIndex );
@@ -1423,7 +1453,7 @@ BOOL CPeerProjectApp::InternalURI(LPCTSTR pszURI)
 	//	}
 	//	oLock.Unlock();
 	//}
-	//else if ( strURI.Find( _T(":windowptr:"), 6 ) > 0 ) // Unused but useful? "command:windowptr:"
+	//else if ( ! _tcsnicmp( strURI, _T("command:windowptr:"), 18 ) ) // Unused but useful? "command:windowptr:"
 	//{
 	//	CChildWnd* pChild = NULL;
 	//	_stscanf( (LPCTSTR)strURI + 15, _T("%lu"), &pChild );
@@ -1434,7 +1464,7 @@ BOOL CPeerProjectApp::InternalURI(LPCTSTR pszURI)
 	//	}
 	//}
 
-	//if ( strURI.Find( _T("page:") ) == 0 )			// "page:CSettingsPage" defined in PageSettingsRich
+	//else if ( ! _tcsnicmp( strURI, _T("page:"), 5 )				// "page:CSettingsPage" defined locally in PageSettingsRich
 
 	theApp.Message( MSG_ERROR, _T("Unknown internal command:  ") + CString( pszURI ) );
 	return FALSE;
@@ -1838,6 +1868,7 @@ HICON CreateMirroredIcon(HICON hIconOrig, BOOL bDestroyOriginal)
 	BITMAP bm;
 	ICONINFO ii;
 	HICON hIcon = NULL;
+
 	hdcBitmap = CreateCompatibleDC( NULL );
 	if ( hdcBitmap )
 	{
@@ -1853,43 +1884,42 @@ HICON CreateMirroredIcon(HICON hIconOrig, BOOL bDestroyOriginal)
 			hdcBitmap = NULL;
 		}
 	}
+
 	hdcScreen = GetDC( NULL );
 	if ( hdcScreen )
 	{
-		if ( hdcBitmap && hdcMask )
+		if ( hdcBitmap && hdcMask && hIconOrig )
 		{
-			if ( hIconOrig )
+			if ( GetIconInfo( hIconOrig, &ii ) && GetObject( ii.hbmColor, sizeof(BITMAP), &bm ) )
 			{
-				if ( GetIconInfo( hIconOrig, &ii ) && GetObject( ii.hbmColor, sizeof(BITMAP), &bm ) )
+				// Do the cleanup for the bitmaps.
+				DeleteObject( ii.hbmMask );
+				DeleteObject( ii.hbmColor );
+				ii.hbmMask = ii.hbmColor = NULL;
+				hbm = CreateCompatibleBitmap( hdcScreen, bm.bmWidth, bm.bmHeight );
+				if ( hbm != NULL )
 				{
-					// Do the cleanup for the bitmaps.
-					DeleteObject( ii.hbmMask );
-					DeleteObject( ii.hbmColor );
-					ii.hbmMask = ii.hbmColor = NULL;
-					hbm = CreateCompatibleBitmap( hdcScreen, bm.bmWidth, bm.bmHeight );
-					if ( hbm != NULL )
+					hbmMask = CreateBitmap( bm.bmWidth, bm.bmHeight, 1, 1, NULL );
+					if ( hbmMask != NULL )
 					{
-						hbmMask = CreateBitmap( bm.bmWidth, bm.bmHeight, 1, 1, NULL );
-						if ( hbmMask != NULL )
-						{
-							hbmOld = (HBITMAP)SelectObject( hdcBitmap, hbm );
-							hbmOldMask = (HBITMAP)SelectObject( hdcMask,hbmMask );
-							DrawIconEx( hdcBitmap, 0, 0, hIconOrig, bm.bmWidth, bm.bmHeight, 0, NULL, DI_IMAGE );
-							DrawIconEx( hdcMask, 0, 0, hIconOrig, bm.bmWidth, bm.bmHeight, 0, NULL, DI_MASK );
-							SelectObject( hdcBitmap, hbmOld );
-							SelectObject( hdcMask, hbmOldMask );
-							// Create the new mirrored icon and delete bitmaps
+						hbmOld = (HBITMAP)SelectObject( hdcBitmap, hbm );
+						hbmOldMask = (HBITMAP)SelectObject( hdcMask,hbmMask );
+						DrawIconEx( hdcBitmap, 0, 0, hIconOrig, bm.bmWidth, bm.bmHeight, 0, NULL, DI_IMAGE );
+						DrawIconEx( hdcMask, 0, 0, hIconOrig, bm.bmWidth, bm.bmHeight, 0, NULL, DI_MASK );
+						SelectObject( hdcBitmap, hbmOld );
+						SelectObject( hdcMask, hbmOldMask );
+						// Create the new mirrored icon and delete bitmaps
 
-							ii.hbmMask = hbmMask;
-							ii.hbmColor = hbm;
-							hIcon = CreateIconIndirect( &ii );
-							DeleteObject( hbmMask );
-						}
-						DeleteObject( hbm );
+						ii.hbmMask = hbmMask;
+						ii.hbmColor = hbm;
+						hIcon = CreateIconIndirect( &ii );
+						DeleteObject( hbmMask );
 					}
+					DeleteObject( hbm );
 				}
 			}
 		}
+
 		ReleaseDC( NULL, hdcScreen );
 	}
 
@@ -1961,7 +1991,7 @@ LRESULT CALLBACK KbdHook(int nCode, WPARAM wParam, LPARAM lParam)
 		{
 			if ( wParam == VK_DOWN )
 				SendMessage( AfxGetMainWnd()->GetSafeHwnd(), WM_SETALPHA, (WPARAM)0, 0 );
-			if ( wParam == VK_UP )
+			else if ( wParam == VK_UP )
 				SendMessage( AfxGetMainWnd()->GetSafeHwnd(), WM_SETALPHA, (WPARAM)1, 0 );
 		}
 	}

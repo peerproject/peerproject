@@ -1,33 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 
-<!--
-PeerProject Afrikaans Schemas File translated by Johann van der Walt (Thesage)
-PeerProject Catalan Schemas File translated by Daniel Olivares Giménez; Equip de traduccions de FeshoCAT
-PeerProject Chinese Simplified Schemas File translated by Sanley; John
-PeerProject Chinese Traditional Schemas File translated by James Bond
-PeerProject Czech Schemas File translated by Odin
-PeerProject German Schemas File translated by Spooky; jlh
-PeerProject Estonian Schemas File translated by Janza
-PeerProject Spanish Schemas File translated by Unknown
-PeerProject Spanish (Mexico) Schemas File translated by Help
-PeerProject French Schemas File translated by Antoine Martin-Lalande (Sensi), zigotozor
-PeerProject Greek Schemas File translated by erimitis
-PeerProject Hebrew Schemas File translated by _peer_ (H.L)
-PeerProject Croatian Schemas File translated by Biza
-PeerProject Hungarian Schemas File translated by Yuri
-PeerProject Italian Schemas File translated by ale5000
-PeerProject Japanese Schemas File translated by DukeDog; CyberBob
-PeerProject Lithuanian Schemas File translated by Rolandas Rudomanskis
-PeerProject Dutch Schemas File translated by Jan-Willem Koornwinder (thurstydog); Jonne; Neglacio
-PeerProject Norwegian Schemas File translated by Tom Seland (seli); vnmartinsen
-PeerProject Portuguese (Brasil) Schemas File translated by Lukas Taves (LightHeaven); Felipe
-PeerProject Russian Schemas File translated by dAbserver; Rolandas Rudomanskis
-PeerProject Slovenian Schemas File translated by Martin McDowell
-PeerProject Albanian Schemas File translated by Besmir Godole
-PeerProject Serbian Schemas File translated by Woodstoock
-PeerProject Swedish Schemas File translated by Marcus Ehrenlans; Printz; DanielB
-PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları, zigotozor
--->
+<!-- See ReadMe.txt for translation credits -->
 
 <schemaDescriptor location="http://www.shareaza.com/schemas/archive.xsd" xmlns="http://www.shareaza.com/schemas/SchemaDescriptor.xsd">
 
@@ -40,7 +13,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları,
 		<title language="af">Archive</title>
 		<title language="ca">Archive</title>
 		<title language="cz">Archive</title>
-		<title language="de">Archive</title>
+		<title language="de">Archiv</title>
 		<title language="ee">Archive</title>
 		<title language="es">Archivo</title>
 		<title language="es-mx">Archivo</title>
@@ -101,7 +74,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları,
 			<title language="af">Folders</title>
 			<title language="ca">Folders</title>
 			<title language="cz">Folders</title>
-			<title language="de">Folders</title>
+			<title language="de">Ordner</title>
 			<title language="ee">Folders</title>
 			<title language="es">Folders</title>
 			<title language="es-mx">Folders</title>
@@ -249,7 +222,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları,
 			<title language="af">Encrypted</title>
 			<title language="ca">Encrypted</title>
 			<title language="cz">Encrypted</title>
-			<title language="de">Encrypted</title>
+			<title language="de">Verschlüsselt</title>
 			<title language="ee">Encrypted</title>
 			<title language="es">Cifrados</title>
 			<title language="es-mx">Cifrados</title>
@@ -279,7 +252,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları,
 			<title language="af">Unpacked Size</title>
 			<title language="ca">Unpacked Size</title>
 			<title language="cz">Unpacked Size</title>
-			<title language="de">Unpacked Size</title>
+			<title language="de">Entpackte Größe</title>
 			<title language="ee">Unpacked Size</title>
 			<title language="es">Tamaño descomprimido</title>
 			<title language="es-mx">Tamaño descomprimido</title>
@@ -356,6 +329,66 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları,
 		<type extension="gzip"/>
 		<type extension="lzma"/>
 		<type extension="r00"/>
+		<type extension="r01"/>
+		<type extension="r02"/>
+		<type extension="r03"/>
+		<type extension="r04"/>
+		<type extension="r05"/>
+		<type extension="r06"/>
+		<type extension="r07"/>
+		<type extension="r08"/>
+		<type extension="r09"/>
+		<type extension="r10"/>
+		<type extension="r11"/>
+		<type extension="r12"/>
+		<type extension="r13"/>
+		<type extension="r14"/>
+		<type extension="r15"/>
+		<type extension="r16"/>
+		<type extension="r17"/>
+		<type extension="r18"/>
+		<type extension="r19"/>
+		<type extension="r20"/>
+		<type extension="r21"/>
+		<type extension="r22"/>
+		<type extension="r23"/>
+		<type extension="r24"/>
+		<type extension="r25"/>
+		<type extension="r26"/>
+		<type extension="r27"/>
+		<type extension="r28"/>
+		<type extension="r29"/>
+		<type extension="r30"/>
+		<type extension="r31"/>
+		<type extension="r32"/>
+		<type extension="r33"/>
+		<type extension="r34"/>
+		<type extension="r35"/>
+		<type extension="r36"/>
+		<type extension="r37"/>
+		<type extension="r38"/>
+		<type extension="r39"/>
+		<type extension="r40"/>
+		<type extension="r41"/>
+		<type extension="r42"/>
+		<type extension="r43"/>
+		<type extension="r44"/>
+		<type extension="r45"/>
+		<type extension="r46"/>
+		<type extension="r47"/>
+		<type extension="r48"/>
+		<type extension="r49"/>
+		<type extension="r50"/>
+		<type extension="r51"/>
+		<type extension="r52"/>
+		<type extension="r53"/>
+		<type extension="r54"/>
+		<type extension="r55"/>
+		<type extension="r56"/>
+		<type extension="r57"/>
+		<type extension="r58"/>
+		<type extension="r59"/>
+		<type extension="r60"/>
 		<type extension="rar"/>
 		<type extension="tar"/>
 		<type extension="tgz"/>

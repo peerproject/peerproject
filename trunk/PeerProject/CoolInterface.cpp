@@ -2,21 +2,18 @@
 // CoolInterface.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2008.
+// Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 #include "StdAfx.h"
@@ -25,13 +22,14 @@
 #include "Colors.h"
 #include "CoolInterface.h"
 #include "ShellIcons.h"
+#include "Flags.h"
 #include "XML.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
-#endif
+#endif	// Filename
 
 CCoolInterface CoolInterface;
 
@@ -43,7 +41,7 @@ CCoolInterface::CCoolInterface()
 {
 	m_czBuffer = CSize( 0, 0 );
 
-	// experimental values
+	// Experimental values
 	m_pNameMap.InitHashTable( 509 );
 	m_pImageMap16.InitHashTable( 347 );
 	m_pImageMap32.InitHashTable( 61 );
@@ -89,7 +87,7 @@ void CCoolInterface::Clear()
 	if ( m_pImages48.m_hImageList )
 		m_pImages48.DeleteImageList();
 
-	if ( m_bmBuffer.m_hObject != NULL )
+	if ( m_bmBuffer.m_hObject )
 	{
 		m_dcBuffer.SelectObject( CGdiObject::FromHandle( m_bmOldBuffer ) );
 		m_dcBuffer.DeleteDC();
@@ -189,7 +187,7 @@ HICON CCoolInterface::ExtractIcon(UINT nID, BOOL bMirrored, int nImageListType)
 			break;
 		}
 	}
-	if ( hIcon == NULL )
+	if ( ! hIcon )
 	{
 		int cx = 0;
 		switch ( nImageListType )
@@ -268,16 +266,13 @@ void CCoolInterface::SetIcon(HICON hIcon, BOOL bMirrored, BOOL bBigIcon, CWnd* p
 //	int nBase = m_pImages.Add( &pBmp, crBack );
 //	pBmp.DeleteObject();
 //	if ( nBase < 0 ) return FALSE;
-
+//
 //	BOOL bRet = FALSE;
-//	HRSRC hRsrc = FindResource( AfxGetResourceHandle(), MAKEINTRESOURCE(nIDToolBar), RT_TOOLBAR );
-//	if ( hRsrc )
+//	if ( HRSRC hRsrc = FindResource( AfxGetResourceHandle(), MAKEINTRESOURCE(nIDToolBar), RT_TOOLBAR ) )
 //	{
-//		HGLOBAL hGlobal = LoadResource( AfxGetResourceHandle(), hRsrc );
-//		if ( hGlobal )
+//		if ( HGLOBAL hGlobal = LoadResource( AfxGetResourceHandle(), hRsrc ) )
 //		{
-//			TOOLBAR_RES* pData = (TOOLBAR_RES*)LockResource( hGlobal );
-//			if ( pData )
+//			if ( TOOLBAR_RES* pData = (TOOLBAR_RES*)LockResource( hGlobal ) )
 //			{
 //				for ( WORD nItem = 0 ; nItem < pData->wItemCount ; nItem++ )
 //				{
@@ -298,25 +293,99 @@ void CCoolInterface::SetIcon(HICON hIcon, BOOL bMirrored, BOOL bBigIcon, CWnd* p
 BOOL CCoolInterface::ConfirmImageList()
 {
 	return
-		( m_pImages16.m_hImageList ||
+		( m_pImages16.GetSafeHandle() ||
 		  m_pImages16.Create( 16, 16, ILC_COLOR32|ILC_MASK, 16, 4 ) ||
 		  m_pImages16.Create( 16, 16, ILC_COLOR24|ILC_MASK, 16, 4 ) ||
 		  m_pImages16.Create( 16, 16, ILC_COLOR16|ILC_MASK, 16, 4 ) ) &&
-		( m_pImages32.m_hImageList ||
+		( m_pImages32.GetSafeHandle() ||
 		  m_pImages32.Create( 32, 32, ILC_COLOR32|ILC_MASK, 16, 4 ) ||
 		  m_pImages32.Create( 32, 32, ILC_COLOR24|ILC_MASK, 16, 4 ) ||
 		  m_pImages32.Create( 32, 32, ILC_COLOR16|ILC_MASK, 16, 4 ) ) &&
-		( m_pImages48.m_hImageList ||
+		( m_pImages48.GetSafeHandle() ||
 		  m_pImages48.Create( 48, 48, ILC_COLOR32|ILC_MASK, 16, 4 ) ||
 		  m_pImages48.Create( 48, 48, ILC_COLOR24|ILC_MASK, 16, 4 ) ||
 		  m_pImages48.Create( 48, 48, ILC_COLOR16|ILC_MASK, 16, 4 ) );
 }
+
+void CCoolInterface::LoadIconsTo(CImageList& pImageList, const UINT nID[], BOOL bMirror, int nImageListType)
+{
+	int nCount = 0;
+	for ( ; nID[ nCount ] ; ++nCount );
+	ASSERT( nCount != 0 );
+
+	int nSize = 16;		// LVSIL_SMALL
+	if ( nImageListType == LVSIL_NORMAL )
+		nSize = 32;
+	else if ( nImageListType == LVSIL_BIG )
+		nSize = 48;
+
+	if ( pImageList.GetSafeHandle() )
+		VERIFY( pImageList.DeleteImageList() );
+
+	VERIFY( pImageList.Create( nSize, nSize, ILC_COLOR32|ILC_MASK, nCount, 0 ) ||
+		pImageList.Create( nSize, nSize, ILC_COLOR24|ILC_MASK, nCount, 0 ) ||
+		pImageList.Create( nSize, nSize, ILC_COLOR16|ILC_MASK, nCount, 0 ) );
+
+	for ( int i = 0 ; nID[ i ] ; ++i )
+	{
+		if ( HICON hIcon = CoolInterface.ExtractIcon( nID[ i ], bMirror, nImageListType ) )
+		{
+			VERIFY( pImageList.Add( hIcon ) != -1 );
+			VERIFY( DestroyIcon( hIcon ) );
+		}
+		//else	// Fails at startup
+		//	ASSERT( hIcon != NULL );
+	}
+}
+
+void CCoolInterface::LoadFlagsTo(CImageList& pImageList)
+{
+	const int nImages = pImageList.GetImageCount();
+	const int nFlags  = Flags.GetCount();
+	VERIFY( pImageList.SetImageCount( nImages + nFlags ) );
+	for ( int nFlag = 0 ; nFlag < nFlags ; nFlag++ )
+	{
+		if ( HICON hIcon = Flags.ExtractIcon( nFlag ) )
+		{
+			VERIFY( pImageList.Replace( nImages + nFlag, hIcon ) != -1 );
+			VERIFY( DestroyIcon( hIcon ) );
+		}
+	}
+}
+
+// No CCoolInterface::LoadProtocolIconsTo(), Use LoadIconsTo( pImageList, protocolIDs );
+
+// Obsolete alpha-command-strip loading for reference elsewhere:
+//	CBitmap bmImages;
+//	CImageFile pFile;
+//	pFile.LoadFromResource( AfxGetResourceHandle(), IDB_PROTOCOLS, RT_PNG );
+//	HBITMAP hBitmap = pFile.CreateBitmap();
+//	bmImages.Attach( hBitmap );
+//
+//	m_gdiImageList.Create( 16, 16, ILC_COLOR32|ILC_MASK, 7, 1 ) ||
+//	m_gdiImageList.Create( 16, 16, ILC_COLOR24|ILC_MASK, 7, 1 ) ||
+//	m_gdiImageList.Create( 16, 16, ILC_COLOR16|ILC_MASK, 7, 1 );
+//	m_gdiImageList.Add( &bmImages, CLR_NONE );
+//	bmImages.DeleteObject();
+//
+//	// Replace with the skin images (if fails old images remain)
+//	for ( int nImage = 1 ; nImage < PROTOCOL_LAST ; nImage++ )
+//	{
+//		if ( HICON hIcon = CoolInterface.ExtractIcon( (UINT)protocolCmdMap[ nImage ].commandID, FALSE ) )
+//		{
+//			m_gdiProtocols.Replace( nImage, hIcon );
+//			DestroyIcon( hIcon );
+//		}
+//	}
+
 
 //////////////////////////////////////////////////////////////////////
 // CCoolInterface double buffer
 
 CDC* CCoolInterface::GetBuffer(CDC& dcScreen, const CSize& szItem)
 {
+	//CQuickLock oLock( m_pSection );
+
 	if ( szItem.cx <= m_czBuffer.cx && szItem.cy <= m_czBuffer.cy )
 	{
 		m_dcBuffer.SelectClipRgn( NULL );
@@ -583,7 +652,7 @@ BOOL CCoolInterface::Add(CSkin* pSkin, CXMLElement* pBase, HBITMAP hbmImage, COL
 	if ( nBase < 0 )
 		return FALSE;
 
-	const LPCTSTR pszNames[] = {
+	const static LPCTSTR pszNames[] = {
 		_T("id"),  _T("id1"), _T("id2"), _T("id3"), _T("id4"), _T("id5"), _T("id6"),
 		_T("id7"), _T("id8"), _T("id9"), _T("id10"), _T("id11"), _T("id12"), NULL };
 	int nIndex = 0;
@@ -599,7 +668,7 @@ BOOL CCoolInterface::Add(CSkin* pSkin, CXMLElement* pBase, HBITMAP hbmImage, COL
 		}
 
 		CString strValue = pXML->GetAttributeValue( _T("index") );
-		if ( strValue.GetLength() )
+		if ( ! strValue.IsEmpty() )
 		{
 			if ( _stscanf( strValue, _T("%i"), &nIndex ) != 1 )
 			{

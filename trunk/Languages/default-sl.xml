@@ -3,8 +3,8 @@
 
 <!-- PeerProject Default Slovenian Skin File -->
 
-<!-- Translation based on default-en.xml r59 (Shareaza 2.2.2.12) -->
-<!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
+<!-- Translation based on default-en.xml r60 (Shareaza 2.2.2.12) -->
+<!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
 <!-- Use this file as a basis for creating new language skins,   -->
@@ -62,6 +62,7 @@
 		<button id="ID_VIEW_MEDIA"/>
 		<button id="ID_TAB_IRC"/>
 		<separator/>
+		<button id="ID_VIEW_SCHEDULER"/>
 		<button id="ID_VIEW_SECURITY"/>
 		<button id="ID_VIEW_HOSTS"/>
 		<button id="ID_VIEW_DISCOVERY"/>
@@ -83,7 +84,7 @@
 		<button id="ID_SEARCH_DOWNLOAD" text="Prenesi"/>
 		<button id="ID_BROWSE_LAUNCH" text="Brskanje po uporabniku"/>
 		<rightAlign/>
-		<button id="ID_SEARCH_FILTER_RAW"text="Filter:" tip="Vnesite nekaj besed za filtriranje iskalnih rezultatov"/>
+		<button id="ID_SEARCH_FILTER_RAW" text="Filter:" tip="Vnesite nekaj besed za filtriranje iskalnih rezultatov"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
 		<button id="ID_SEARCH_DETAILS" text="Podrobno"/>
@@ -94,7 +95,7 @@
 		<button id="ID_BROWSE_LAUNCH" text="Brskanje po uporabniku"/>
 		<button id="ID_SECURITY_BAN" text="Ban"/>
 		<rightAlign/>
-		<button id="ID_SEARCH_FILTER_RAW"text="Filter:" tip="Vnesite nekaj besed za filtriranje iskalnih rezultatov"/>
+		<button id="ID_SEARCH_FILTER_RAW" text="Filter:" tip="Vnesite nekaj besed za filtriranje iskalnih rezultatov"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
 		<button id="ID_SEARCH_DETAILS" text="Podrobno"/>
@@ -108,7 +109,7 @@
 		<button id="ID_BROWSE_LAUNCH" text="Brskanje po uporabniku"/>
 		<button id="ID_SECURITY_BAN" text="Ban"/>
 		<rightAlign/>
-		<button id="ID_SEARCH_FILTER_RAW"text="Filter:" tip="Vnesite nekaj besed za filtriranje iskalnih rezultatov"/>
+		<button id="ID_SEARCH_FILTER_RAW" text="Filter:" tip="Vnesite nekaj besed za filtriranje iskalnih rezultatov"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
 		<button id="ID_SEARCH_DETAILS" text="Podrobno"/>
@@ -1582,7 +1583,7 @@
 			<newline gap="8" indent="42"/>
 			<anchor id="SearchBox" width="256" height="80"/>
 			<newline gap="14" indent="0"/>
-			<icon res="124" width="32" height="32" target="command:shell:downloads"/><gap size="8"/>
+			<icon res="122" width="32" height="32" target="command:shell:downloads"/><gap size="8"/>
 			<heading align="middle">MOJI PRENOSI</heading>
 			<newline gap="8" indent="42"/>
 			<link target="command:ID_TOOLS_DOWNLOAD" format="bu">Click here to start</link>
@@ -1590,6 +1591,9 @@
 			<newline gap="4" indent="42"/>
 			<text>Če želite odpreti mapo z vašimi prenešenimi datotekami, </text>
 			<link target="command:shell:downloads">kliknite sem</link><text>.</text>
+			<newline gap="4" indent="42"/>
+			<text>Delite vaše datoteke na </text>
+			<link id="RemoteBrowseURL"/>
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="3">
@@ -1615,26 +1619,26 @@
 		<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">PRILAGODI PEERPROJECT</heading>
 		<newline gap="12" indent="42"/>
-		<icon res="196"width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
-		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">Preobleke</link>
-		<text align="middle">&#160;- Spremeni izgled PeerProject</text>
+		<icon res="196" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
+		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">Preobleke</link><gap size="6"/>
+		<text align="middle">- Spremeni izgled PeerProject</text>
 		<newline gap="8"/>
-		<icon res="138"width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
-		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
-		<text align="middle">&#160;- Update blocklist to avoid bad search results</text>
+		<icon res="138" width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
+		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link><gap size="6"/>
+		<text align="middle">- Update blocklist to avoid bad search results</text>
 		<newline gap="8"/>
-		<icon res="197"width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
-		<link target="command:ID_TOOLS_WIZARD" align="middle">Čarovnik za nastavitve</link>
-		<text align="middle">&#160;- Uredi PeerProject Nastavitve</text>
+		<icon res="197" width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
+		<link target="command:ID_TOOLS_WIZARD" align="middle">Čarovnik za nastavitve</link><gap size="6"/>
+		<text align="middle">- Uredi PeerProject Nastavitve</text>
 		<newline gap="8"/>
-		<icon res="182"width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
-		<link target="command:ID_HELP_FAQ" align="middle">Hitra pomoč</link>
-		<text align="middle">&#160;- Osnovna pomoč za uporabo PeerProject, or </text>
+		<icon res="182" width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
+		<link target="command:ID_HELP_FAQ" align="middle">Hitra pomoč</link><gap size="6"/>
+		<text align="middle">- Osnovna pomoč za uporabo PeerProject, or </text>
 		<link target="command:ID_TAB_IRC" align="middle">IRC.</link>
 		<newline gap="8"/>
-		<icon res="201"width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
-		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">Lokalna Forums</link>
-		<text align="middle">&#160;- Pojdite na slovenski jezik debatni forum</text>
+		<icon res="201" width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
+		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">Lokalna Forums</link><gap size="6"/>
+		<text align="middle">- Pojdite na slovenski jezik debatni forum</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
 			<icon res="120" width="32" height="32"/><gap size="8"/>
@@ -1860,7 +1864,7 @@
 		</group>
 		<group id="41">
 			<newline gap="1"/>
-			<icon res="208"/><gap size="5"/>
+			<icon res="207"/><gap size="5"/>
 			<link id="ContactYahoo"/>
 		</group>
 		<group id="42">
@@ -1901,7 +1905,7 @@
 			<newline gap="16" indent="0"/>
 			<text format="b">Družba</text>
 			<newline gap="4" indent="8"/>
-			<icon res="127"target="command:ID_SEARCH_CHAT"/>
+			<icon res="127" target="command:ID_SEARCH_CHAT"/>
 			<gap size="5"/>
 			<link target="command:ID_SEARCH_CHAT" align="middle">Kramljaj z uporabnikom</link>
 		</group>
@@ -2813,8 +2817,8 @@
 	<string id="20441" value="PeerProject ni mogla preimenovati :\n\n%s\nv\n%s"/>
 	<string id="20442" value="Ciljna datoteka že obstaja:\n\n%s\n\nJo želite prepisati?"/>
 	<string id="20443" value="Pokaži vse tipe datotek"/>
-	<string id="20444" value="Kopiraj &URI"/>
-	<string id="20445" value="Izvozi &URI-je..."/>
+	<string id="20444" value="Kopiraj URI"/>
+	<string id="20445" value="Izvozi URI-je..."/>
 	<string id="20446" value="Datoteka &quot;%s&quot; je pogrnila na testu preverjanja izvlečka (hasha) in prav gotovo ni datoteka, ki ste jo nameravali prenesti. Ste prepričani, da jo želite odpreti?"/>
 	<string id="20447" value="Želite odstraniti &quot;potencialno nevarne&quot; atribute iz te datoteke?"/>
 	<string id="20448" value="Datoteka &quot;%s&quot; še ni bila zgoščena (hashed). Počakajte, da se postopek sgoščevanja (hashing) konča in nato poskusite znova."/>
@@ -2935,7 +2939,8 @@
 	<string id="20590" value="Oddaljen dostop je onemogočen."/>
 	<string id="20591" value="http://%s:%i/remote - Vnesti morate uporabniško ime in geslo."/>
 	<string id="20592" value="Sprejemanje povezav ni mogoče, URL ni na voljo."/>
-	<string id="20595" value="&amp;Sheme"/>
+	<string id="20599" value="&amp;Sheme"/>
+	<!-- Missing Scheduler/Security Strings -->
 	<string id="20620" value="PeerProject aktivno išče po omrežju..."/>
 	<string id="20621" value="Kliknite sem za novo iskanje"/>
 	<string id="20622" value="Vseh omrežjih"/>
@@ -3651,18 +3656,21 @@
 		<control caption="Omogoči"/>
 		<control/>
 	</dialog>
-	<dialog name="CIdentityProfilePage" cookie="BuStEdStEdEdBuCoStCoStBu" caption="Identiteta">
+	<dialog name="CIdentityProfilePage" cookie="BuStStEdEdEdBuStStCoCoBuStBuBu" caption="Identiteta">
 		<control caption="Ime:"/>
 		<control caption="Zaslonsko ime:"/>
-		<control/>
 		<control caption="Resnično ime:"/>
 		<control/>
 		<control/>
-		<control caption="Osnovne informacije:"/>
-		<control caption="|Moški|Ženska"/>
-		<control caption="Spol:"/>
 		<control/>
+		<control caption="Osnovne informacije:"/>
+		<control caption="Spol:"/>
 		<control caption="Starost:"/>
+		<control caption="|Moški|Ženska"/>
+		<control/>
+		<control caption="Info:"/>
+		<control caption="{n}G2 (PeerProject / Shareaza)"/>
+		<control caption="_Omogoči:"/>
 		<control caption="Dovoli drugim, da si lahko ogledajo moj uporabniški profil"/>
 	</dialog>
 	<dialog name="CAvatarProfilePage" cookie="BuStBuStBuBu" caption="Sličica">
@@ -3673,23 +3681,7 @@
 		<control caption="_Brskaj..."/>
 		<control caption="_Odstrani"/>
 	</dialog>
-	<dialog name="CContactProfilePage" cookie="BuStEdBuStEdStEdStEdStEdStEd" caption="Kontakt">
-		<control caption="_E-naslovi:"/>
-		<control caption="Osnovni:"/>
-		<control/>
-		<control caption="_Takojšnje sporočanje:"/>
-		<control caption="MSN/.NET Passport:"/>
-		<control/>
-		<control caption="Yahoo ID:"/>
-		<control/>
-		<control caption="ICQ UIN:"/>
-		<control/>
-		<control caption="Zaslonsko ime AOL:"/>
-		<control/>
-		<control caption="Jabber ID:"/>
-		<control/>
-	</dialog>
-	<dialog name="CProfileProfilePage" cookie="BuStCoStCoBuStEdStEdBuLiBuBuCo" caption="Profil">
+	<dialog name="CProfileProfilePage" cookie="BuStCoStCoBuStEdStEdBuLiBuBuCo" caption="Lokacija">
 		<control caption="_Lokacija:"/>
 		<control caption="Država:"/>
 		<control/>
@@ -3702,11 +3694,38 @@
 		<control/>
 		<control caption="_Stvari, ki vas zanimajo:"/>
 		<control/>
-		<control caption="&lt; Dodaj"/>
-		<control caption="Odstrani &gt;"/>
+		<control caption="Dodaj &gt;"/>
+		<control caption="&lt; Odstrani"/>
+		<control/>
+	</dialog>
+	<dialog name="CContactProfilePage" cookie="BuStEdBuStEdStEdStEdStEdStEdStEdStEdStEd" caption="Kontakt">
+		<control caption="_E-naslovi:"/>
+		<control caption="Osnovni:"/>
+		<control/>
+		<control caption="_Takojšnje sporočanje:"/>
+		<control caption="PeerProject.org:"/>
+		<control/>
+		<control caption="Facebook:"/>
+		<control/>
+		<control caption="Twitter:"/>
+		<control/>
+		<control caption="Google:"/>
+		<control/>
+		<control caption="MSN/Live:"/>
+		<control/>
+		<control caption="Yahoo:"/>
+		<control/>
+		<control caption="AOL:"/>
+		<control/>
+		<control caption="ICQ:"/>
 		<control/>
 	</dialog>
 	<dialog name="CBioProfilePage" cookie="Ed" caption="Življenjepis">
+		<control/>
+	</dialog>
+	<dialog name="CFilesProfilePage" cookie="BuStSy" caption="Datoteke">
+		<control caption="_Priljubljene datoteke:"/>
+		<control caption="Priljubljene datoteke so priporočljive uporabnikom, ki brskajo po vašem profilu. Priljublje datoteke lahko dodatke tako, da jih dodate v knjiž. mapo &quot;Zaznamki&quot;."/>
 		<control/>
 	</dialog>
 	<dialog name="CFavouritesProfilePage" cookie="SyBuStEdStEdBuBu" caption="Zaznamki">
@@ -3719,28 +3738,24 @@
 		<control caption="Novo"/>
 		<control caption="Odstrani"/>
 	</dialog>
-	<dialog name="CFilesProfilePage" cookie="BuStSy" caption="Datoteke">
-		<control caption="_Priljubljene datoteke:"/>
-		<control caption="Priljubljene datoteke so priporočljive uporabnikom, ki brskajo po vašem profilu. Priljublje datoteke lahko dodatke tako, da jih dodate v knjiž. mapo &quot;Zaznamki&quot;."/>
+	<dialog name="CCertificateProfilePage" cookie="BuStStStStBuBuSt" caption="Certifikat">
+		<control caption="_Globalno neponovljiv identifikacijski certifikat:"/>
+		<control caption="Gnutella/G2 GUID:"/>
 		<control/>
-	</dialog>
-	<dialog name="CCertificateProfilePage" cookie="StBuStStStStBu" caption="Certifikat">
-		<control caption="Gnutella uporabniki so prepoznavni po globalno neponovljivem razločevalcu (identifikatorju) in ustreznem paru javnega in zasebnega ključa. Ponavadi ni potrebe po ustvarjanju nove ID številke a PeerProject to omogoča zahtevnim uporabnikom."/>
-		<control caption="_Gnutellin globalno neponovljiv identifikacijski certifikat:"/>
-		<control caption="GUID:"/>
-		<control/>
-		<control caption="Ustvarjen:"/>
+		<control caption="BitTorrent GUID:"/>
 		<control/>
 		<control caption="Ustvari zdaj"/>
+		<control caption="Info:"/>
+		<control caption="Gnutella uporabniki so prepoznavni po globalno neponovljivem razločevalcu (identifikatorju) in ustreznem paru javnega in zasebnega ključa. Ponavadi ni potrebe po ustvarjanju nove ID številke a PeerProject to omogoča zahtevnim uporabnikom."/>
 	</dialog>
 	<dialog name="CLanguageDlg" cookie="" caption="Izberi jezik">
 	</dialog>
-	<dialog name="CConnectToDlg" cookie="BuCoEdBuCoBuBuBu" caption="Poveži se z|Brskalni gostitelj">
-		<control caption="Začni novo povezavo do gostitelja ali strežnika:|Brskaj po gostitelju:"/>
+	<dialog name="CConnectToDlg" cookie="BuCoEdBuCoBuBuBu" caption="Poveži se z|Brskalni gostitelj|Chat with User">
+		<control caption="Začni novo povezavo do gostitelja ali strežnika:|Brskaj po gostitelju:|Message this user:"/>
 		<control/>
 		<control/>
 		<control caption="Omrežni _protokol:"/>
-		<control caption="Gnutella1 (samodejno)|Gnutella2 (samodejno)|eDonkey2000"/>
+		<control/>
 		<control caption="_Zatri ultravrstnika"/>
 		<control caption="Poveži"/>
 		<control caption="_Prekliči"/>
@@ -4177,14 +4192,16 @@
 		<control caption="Skupno naloženo:"/>
 		<control caption="Opombe:"/>
 	</dialog>
-	<dialog name="CDownloadEditPage" cookie="StBuStStStBuStEdEdEdBuEdBuEdBuEdBuEdBuEd" caption="Uredi prenos">
+	<dialog name="CDownloadEditPage" cookie="StBuStStStStBuStEdEdEdSyBuEdBuEdBuEdBuEdBuEd" caption="Uredi prenos">
 		<control caption="OPOZORILO: V tem oknu boste lahko uredili napredne prenosne nastavitve za napredne uporabnike. Če bodo nastavitve uporabljene nepravilno, se lahko pojavijo težave v delovanju programa."/>
 		<control caption="Informacije:"/>
 		<control caption="Datotečno ime:"/>
 		<control caption="Datotečno:"/>
 		<control caption="Velikost v bajtih:"/>
+		<control caption="Date:"/>
 		<control caption="URN-ji:"/>
 		<control caption="Zaupanja vredni"/>
+		<control/>
 		<control/>
 		<control/>
 		<control/>
@@ -4327,22 +4344,6 @@
 		<column from="Name" to="Ime"/>
 		<column from="Country" to="Država"/>
 	</list>
-	<list name="CSecurityWnd">
-		<column from="Address / Content" to="Naslov / Vsebina"/>
-		<column from="Hits" to="Zadetki"/>
-		<column from="Action" to="Dejanje"/>
-		<column from="Expires" to="Poteče"/>
-		<column from="#" to="Prednost"/>
-		<column from="Comment" to="Komentar"/>
-	</list>
-	<list name="CSchedulerWnd">
-		<column from="Task" to="Dejanje"/>
-		<column from="Date" to="Datum"/>
-		<column from="Time" to="Čas"/>
-		<column from="Status" to=""/>
-		<column from="Activity" to="Aktivna"/>
-		<column from="Description" to="Komentar"/>
-	</list>
 	<list name="CHostCacheWnd">
 		<column from="Address" to="Naslov"/>
 		<column from="Port" to="Vrata"/>
@@ -4390,6 +4391,23 @@
 		<column from="Client" to="Odjemalec"/>
 		<column from="Country" to="Država"/>
 		<column from="Time" to=""/>
+	</list>
+	<list name="CSecurityWnd">
+		<column from="Address / Content" to="Naslov / Vsebina"/>
+		<column from="Hits" to="Zadetki"/>
+		<column from="#" to="Prednost"/>
+		<column from="Action" to="Dejanje"/>
+		<column from="Expires" to="Poteče"/>
+		<column from="Match" to=""/>
+		<column from="Comment" to="Komentar"/>
+	</list>
+	<list name="CSchedulerWnd">
+		<column from="Task" to="Dejanje"/>
+		<column from="Date" to="Datum"/>
+		<column from="Time" to="Čas"/>
+		<column from="Status" to=""/>
+		<column from="Activity" to="Aktivna"/>
+		<column from="Comment" to="Komentar"/>
 	</list>
 	<list name="CUploadQueueList">
 		<column from="Name" to="Ime"/>
