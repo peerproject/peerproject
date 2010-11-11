@@ -58,10 +58,7 @@ protected:
 	unzFile hArchive;
 };
 
-STDMETHODIMP CZIPBuilder::Process (
-	/* [in] */ HANDLE /* hFile */,
-	/* [in] */ BSTR sFile,
-	/* [in] */ ISXMLElement* pXML)
+STDMETHODIMP CZIPBuilder::Process(/*[in]*/ BSTR sFile, /*[in]*/ ISXMLElement* pXML)
 {
 	if ( ! pXML )
 		return E_POINTER;
@@ -133,11 +130,9 @@ STDMETHODIMP CZIPBuilder::Process (
 
 		unz_file_info pInfo = {};
 		CHAR szFile[ MAX_PATH ] = {};
-		if ( unzGetCurrentFileInfo( pFile, &pInfo, szFile,
-			MAX_PATH, NULL, 0, NULL, 0 ) != UNZ_OK )
-		{
+		if ( unzGetCurrentFileInfo( pFile, &pInfo, szFile, MAX_PATH, NULL, 0, NULL, 0 ) != UNZ_OK )
 			return E_UNEXPECTED;	// Bad format. Call CLibraryBuilder::SubmitCorrupted()
-		}
+
 		OemToCharA( szFile, szFile );
 
 		if ( ( pInfo.flag & 0x01 ) )
@@ -176,7 +171,7 @@ STDMETHODIMP CZIPBuilder::Process (
 
 			if ( sFiles.GetLength() + sName.GetLength() <= MAX_SIZE_FILES - 5 )
 			{
-				if ( sFiles.GetLength() )
+				if ( ! sFiles.IsEmpty() )
 					sFiles += _T(", ");
 				sFiles += sName;
 			}

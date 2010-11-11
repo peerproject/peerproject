@@ -82,6 +82,8 @@
 				LinkIncremental="2"
 				ModuleDefinitionFile="$(ProjectName).def"
 				GenerateDebugInformation="true"
+				RegisterOutput="true"
+				PerUserRedirection="true"
 				SubSystem="2"
 				BaseAddress="0x22100000"
 				LargeAddressAware="2"
@@ -108,8 +110,6 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description="Performing registration (for debug)"
-				CommandLine="regsvr32 /s /c &quot;$(TargetPath)&quot;&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
@@ -174,6 +174,8 @@
 				LinkIncremental="2"
 				ModuleDefinitionFile="$(ProjectName).def"
 				GenerateDebugInformation="true"
+				RegisterOutput="true"
+				PerUserRedirection="true"
 				SubSystem="2"
 				LargeAddressAware="2"
 				TargetMachine="17"
@@ -199,8 +201,6 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description="Performing registration (for debug)"
-				CommandLine="regsvr32 /s /c &quot;$(TargetPath)&quot;&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration

@@ -400,8 +400,7 @@ void CLibraryBuilder::OnRun()
 					SetFilePointer( hFile, 0, NULL, FILE_BEGIN );
 					ExtractMetadata( nIndex, sPath, hFile );
 
-					SetFilePointer( hFile, 0, NULL, FILE_BEGIN );
-					ExtractPluginMetadata( nIndex, sPath, hFile );
+					ExtractPluginMetadata( nIndex, sPath );
 
 					CThumbCache::Cache( sPath );
 
@@ -1083,6 +1082,8 @@ bool CLibraryBuilder::RefreshMetadata(const CString& sPath)
 		pFile->m_bMetadataAuto = TRUE;
 	}
 
+	theApp.Message( MSG_DEBUG, _T("Refreshing: %s"), (LPCTSTR)sPath );
+
 	bool bResult = false;
 	HANDLE hFile = CreateFile( sPath, GENERIC_READ,
 		 FILE_SHARE_READ | FILE_SHARE_DELETE, NULL,
@@ -1090,16 +1091,13 @@ bool CLibraryBuilder::RefreshMetadata(const CString& sPath)
 	VERIFY_FILE_ACCESS( hFile, sPath )
 	if ( hFile != INVALID_HANDLE_VALUE )
 	{
-		theApp.Message( MSG_DEBUG, _T("Refreshing: %s"), (LPCTSTR)sPath );
-
 		SetFilePointer( hFile, 0, NULL, FILE_BEGIN );
 		bResult |= ExtractMetadata( nIndex, sPath, hFile );
 
-		SetFilePointer( hFile, 0, NULL, FILE_BEGIN );
-		bResult |= ExtractPluginMetadata( nIndex, sPath, hFile );
-
 		CloseHandle( hFile );
 	}
+
+	bResult |= ExtractPluginMetadata( nIndex, sPath );
 
 	return bResult;
 }

@@ -1,7 +1,7 @@
 //
 // Class.h : Declaration of the CClass
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -42,10 +42,7 @@ END_COM_MAP()
 
 // ILibraryBuilderPlugin
 public:
-	STDMETHOD(Process)(
-		/* [in] */ HANDLE hFile,
-		/* [in] */ BSTR sFile,
-		/* [in] */ ISXMLElement* pXML);
+	STDMETHOD(Process)(/*[in]*/ BSTR sFile,	/*[in]*/ ISXMLElement* pXML);
 
 protected:
 	BOOL	ScanFile(LPCSTR pszXML, ISXMLElement* pOutput);

@@ -242,7 +242,7 @@ BOOL CSearchManager::OnQueryAck(CG2Packet* pPacket, const SOCKADDR_IN* pAddress,
 		pSearch->m_nHubs += nHubs;
 		pSearch->m_nLeaves += nLeaves;
 
-		// (technically not required, but..)
+		// (Technically not required, but..)
 		pSearch->OnHostAcknowledge( nFromIP );
 
 		for ( int nItem = 0 ; nItem < pDone.GetSize() ; nItem++ )
@@ -277,21 +277,24 @@ BOOL CSearchManager::OnQueryHits(const CQueryHit* pHits)
 
 		while ( pHits != NULL )
 		{
+		// Specific network hitcounts, if needed:
+		//	if ( pHits->m_nProtocol == PROTOCOL_G2 )
+		//		pSearch->m_nG2Hits++;
+		//	else if ( pHits->m_nProtocol == PROTOCOL_G1 )
+		//		pSearch->m_nG1Hits++;
+		//	else if ( pHits->m_nProtocol == PROTOCOL_ED2K )
+		//		pSearch->m_nEDHits++;
+		//	else if ( pHits->m_nProtocol == PROTOCOL_DC )
+		//		pSearch->m_nDCHits++;
+
 			pSearch->m_nHits ++;
-			if ( pHits->m_nProtocol == PROTOCOL_G1 )
-				pSearch->m_nG1Hits++;
-			else if ( pHits->m_nProtocol == PROTOCOL_G2 )
-				pSearch->m_nG2Hits++;
-			else if ( pHits->m_nProtocol == PROTOCOL_ED2K )
-				pSearch->m_nEDHits++;
 			pHits = pHits->m_pNext;
 		}
 
 		return FALSE;
 	}
 
-	// Route it!
-	return TRUE;
+	return TRUE;	// Route it
 }
 
 //////////////////////////////////////////////////////////////////////

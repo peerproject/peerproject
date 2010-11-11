@@ -50,9 +50,10 @@ static char THIS_FILE[]=__FILE__;
 #define FAPPCOMMAND_MASK				0x8000
 #define GET_APPCOMMAND_LPARAM(lParam) ((short)(HIWORD(lParam) & ~FAPPCOMMAND_MASK))
 
-#endif
+#endif // WM_APPCOMMAND
 
 #define VOLUME_KEY_MULTIPLIER 5
+#define UPDATE_TIMER 100				// ms delay for controls display
 
 IMPLEMENT_DYNAMIC(CMediaFrame, CWnd)
 
@@ -226,20 +227,18 @@ int CMediaFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_pIcons.Create( 16, 16, ILC_COLOR16|ILC_MASK, 3, 0 );
 	m_pIcons.Add( &bmIcons, RGB( 0, 255, 0 ) );
 
-	m_wndList.LoadTextList(
-		Settings.General.UserPath + _T("\\Data\\Playlist.m3u") );
+	m_wndList.LoadTextList( Settings.General.UserPath + _T("\\Data\\Playlist.m3u") );
 
 	UpdateState();
 
-	SetTimer( 1, 200, NULL );
+	SetTimer( 1, UPDATE_TIMER, NULL );
 
 	return 0;
 }
 
 void CMediaFrame::OnDestroy()
 {
-	m_wndList.SaveTextList(
-		Settings.General.UserPath + _T("\\Data\\Playlist.m3u") );
+	m_wndList.SaveTextList( Settings.General.UserPath + _T("\\Data\\Playlist.m3u") );
 
 	Settings.MediaPlayer.ListSize		= m_nListSize;
 	Settings.MediaPlayer.ListVisible	= m_bListVisible != FALSE;
@@ -380,8 +379,7 @@ void CMediaFrame::SetFullScreen(BOOL bFullScreen)
 		ModifyStyle( WS_CHILD, 0 );
 		SetParent( NULL );
 
-		HMONITOR hMonitor = MonitorFromWindow( AfxGetMainWnd()->GetSafeHwnd(),
-			MONITOR_DEFAULTTOPRIMARY );
+		HMONITOR hMonitor = MonitorFromWindow( AfxGetMainWnd()->GetSafeHwnd(), MONITOR_DEFAULTTOPRIMARY );
 
 		MONITORINFO oMonitor = {0};
 		oMonitor.cbSize = sizeof( MONITORINFO );
@@ -400,14 +398,13 @@ void CMediaFrame::SetFullScreen(BOOL bFullScreen)
 	else
 	{
 		CWnd* pOwner = GetOwner();
-		CRect rc;
 
 		ModifyStyle( 0, WS_CHILD );
 		SetParent( pOwner );
 
+		CRect rc;
 		pOwner->GetClientRect( &rc );
-		SetWindowPos( NULL, 0, 0, rc.right, rc.bottom,
-			SWP_FRAMECHANGED|SWP_SHOWWINDOW );
+		SetWindowPos( NULL, 0, 0, rc.right, rc.bottom, SWP_FRAMECHANGED|SWP_SHOWWINDOW );
 		m_bListVisible = m_bListWasVisible;
 		OnSize( SIZE_INTERNAL, 0, 0 );
 		KillTimer( 2 );
@@ -416,7 +413,8 @@ void CMediaFrame::SetFullScreen(BOOL bFullScreen)
 
 void CMediaFrame::OnSize(UINT nType, int cx, int cy)
 {
-	if ( nType != SIZE_INTERNAL && nType != SIZE_BARSLIDE ) CWnd::OnSize( nType, cx, cy );
+	if ( nType != SIZE_INTERNAL && nType != SIZE_BARSLIDE )
+		CWnd::OnSize( nType, cx, cy );
 
 	CRect rc;
 	GetClientRect( &rc );
@@ -709,9 +707,9 @@ void CMediaFrame::PaintStatus(CDC& dc, CRect& rcBar)
 			LoadString( str, IDS_MEDIA_EMPTY );
 		}
 
-		sz				= dc.GetTextExtent( str );
-		rcPart.left		= rcBar.left + 20;
-		rcPart.right	= rcPart.left + sz.cx + 8;
+		sz = dc.GetTextExtent( str );
+		rcPart.left  = rcBar.left + 20;
+		rcPart.right = rcPart.left + sz.cx + 8;
 		dc.ExtTextOut( rcPart.left + 4, nY, ( bSkinned ? 0 : ETO_OPAQUE )|ETO_CLIPPED|dwOptions, &rcPart, str, NULL );
 		dc.ExcludeClipRect( &rcPart );
 	}
@@ -729,9 +727,9 @@ void CMediaFrame::PaintStatus(CDC& dc, CRect& rcBar)
 			(int)( ( m_nLength / ONE_SECOND ) / 60 ),
 			(int)( ( m_nLength / ONE_SECOND ) % 60 ) );
 
-		sz				= dc.GetTextExtent( str );
-		rcPart.right	= rcBar.right;
-		rcPart.left		= rcPart.right - sz.cx - 8;
+		sz = dc.GetTextExtent( str );
+		rcPart.right = rcBar.right;
+		rcPart.left  = rcPart.right - sz.cx - 8;
 
 		dc.ExtTextOut( rcPart.left + 4, nY, ( bSkinned ? 0 : ETO_OPAQUE )|ETO_CLIPPED|dwOptions, &rcPart, str, NULL );
 		dc.ExcludeClipRect( &rcPart );
@@ -766,7 +764,7 @@ BOOL CMediaFrame::PaintStatusMicro(CDC& dc, CRect& rcBar)
 			(int)( ( m_nLength / ONE_SECOND ) / 60 ),
 			(int)( ( m_nLength / ONE_SECOND ) % 60 ) );
 
-		sz				= pMemDC->GetTextExtent( str );
+		sz = pMemDC->GetTextExtent( str );
 		rcPart.right	= rcStatus.right;
 		rcPart.left		= rcPart.right - sz.cx - 2;
 		rcStatus.right	= rcPart.left;
@@ -776,9 +774,9 @@ BOOL CMediaFrame::PaintStatusMicro(CDC& dc, CRect& rcBar)
 
 	if ( CMetaItem* pItem = m_pMetadata.GetFirst() )
 	{
-		str 		= Settings.General.LanguageRTL ? ':' + pItem->m_sKey : pItem->m_sKey + ':';
-		sz			= pMemDC->GetTextExtent( str );
-		rcPart.left = rcStatus.left;
+		str = Settings.General.LanguageRTL ? ':' + pItem->m_sKey : pItem->m_sKey + ':';
+		sz  = pMemDC->GetTextExtent( str );
+		rcPart.left  = rcStatus.left;
 		rcPart.right = rcPart.left + sz.cx + 2;
 		rcStatus.left = rcPart.right;
 
@@ -917,8 +915,8 @@ void CMediaFrame::OnLButtonDown(UINT nFlags, CPoint point)
 		}
 	}
 
-	if (	( m_bFullScreen && point.y <= STATUS_HEIGHT ) ||
-			( ! m_bFullScreen && point.y >= rcClient.bottom - STATUS_HEIGHT - Skin.m_nToolbarHeight ) )
+	if ( ( m_bFullScreen && point.y <= STATUS_HEIGHT ) ||
+		 ( ! m_bFullScreen && point.y >= rcClient.bottom - STATUS_HEIGHT - Skin.m_nToolbarHeight ) )
 	{
 		OnMediaStatus();
 		return;
@@ -982,7 +980,8 @@ BOOL CMediaFrame::DoSizeList()
 
 		int nSplit = rcClient.right - point.x;
 
-		if ( nOffset == 0xFFFF ) nOffset = m_nListSize - nSplit;
+		if ( nOffset == 0xFFFF )
+			nOffset = m_nListSize - nSplit;
 		nSplit += nOffset;
 
 		nSplit = max( nSplit, 0 );
@@ -1038,8 +1037,7 @@ LRESULT CMediaFrame::OnMediaKey(WPARAM wParam, LPARAM lParam)
 		MIXERLINE ml = {0};
 		ml.cbStruct = sizeof(MIXERLINE);
 		ml.dwComponentType = MIXERLINE_COMPONENTTYPE_DST_SPEAKERS;
-		result = mixerGetLineInfo( reinterpret_cast<HMIXEROBJ>(hMixer), &ml,
-			MIXER_GETLINEINFOF_COMPONENTTYPE );
+		result = mixerGetLineInfo( reinterpret_cast<HMIXEROBJ>(hMixer), &ml, MIXER_GETLINEINFOF_COMPONENTTYPE );
 		if ( result != MMSYSERR_NOERROR ) return 0;
 
 		// Get the mute control of the speaker line
@@ -1051,8 +1049,7 @@ LRESULT CMediaFrame::OnMediaKey(WPARAM wParam, LPARAM lParam)
 		mlc.cControls = 1;
 		mlc.pamxctrl = &mc;
 		mlc.cbmxctrl = sizeof(MIXERCONTROL);
-		result = mixerGetLineControls( reinterpret_cast<HMIXEROBJ>(hMixer), &mlc,
-			MIXER_GETLINECONTROLSF_ONEBYTYPE );
+		result = mixerGetLineControls( reinterpret_cast<HMIXEROBJ>(hMixer), &mlc, MIXER_GETLINECONTROLSF_ONEBYTYPE );
 		if ( result != MMSYSERR_NOERROR ) return 0;
 
 		// Set 1 channel if it controls mute state for all channels
@@ -1079,8 +1076,7 @@ LRESULT CMediaFrame::OnMediaKey(WPARAM wParam, LPARAM lParam)
 				pmcd_b[ ml.cChannels ].fValue = lNewValue;
 
 			// Set the mute status
-			result = mixerSetControlDetails( reinterpret_cast<HMIXEROBJ>(hMixer), &mcd,
-				MIXER_SETCONTROLDETAILSF_VALUE );
+			result = mixerSetControlDetails( reinterpret_cast<HMIXEROBJ>(hMixer), &mcd, MIXER_SETCONTROLDETAILSF_VALUE );
 		}
 		delete [] pmcd_b;
 
@@ -1101,7 +1097,7 @@ LRESULT CMediaFrame::OnMediaKey(WPARAM wParam, LPARAM lParam)
 		if ( m_pPlayer != NULL )
 			m_pPlayer->SetVolume( Settings.MediaPlayer.Volume );
 		UpdateState();
-		SetTimer( 1, 200, NULL );
+		SetTimer( 1, UPDATE_TIMER, NULL );
 		return 1;
 	case APPCOMMAND_MEDIA_PLAY_PAUSE:
 		GetOwner()->PostMessage( WM_COMMAND, m_nState == smsPlaying ? ID_MEDIA_PAUSE : ID_MEDIA_PLAY );
@@ -1220,7 +1216,8 @@ void CMediaFrame::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 		}
 
 		m_pPlayer->GetSpeed( &nOldSpeed );
-		if ( nNewSpeed != nOldSpeed ) m_pPlayer->SetSpeed( nNewSpeed );
+		if ( nNewSpeed != nOldSpeed )
+			m_pPlayer->SetSpeed( nNewSpeed );
 	}
 }
 
@@ -1279,7 +1276,8 @@ void CMediaFrame::OnMediaPause()
 {
 	if ( m_pPlayer ) m_pPlayer->Pause();
 	UpdateState();
-	if ( ! m_bScreenSaverEnabled ) EnableScreenSaver();
+	if ( ! m_bScreenSaverEnabled )
+		EnableScreenSaver();
 
 	UpdateNowPlaying(TRUE);
 }
@@ -1462,7 +1460,7 @@ BOOL CMediaFrame::PlayFile(LPCTSTR pszFile)
 {
 	UpdateWindow();
 
-	DWORD tNow = GetTickCount();
+	const DWORD tNow = GetTickCount();
 
 	if ( tNow - m_tLastPlay < 500 )
 	{
@@ -1502,8 +1500,8 @@ float CMediaFrame::GetPosition()
 {
 	if ( m_pPlayer != NULL && m_nState >= smsOpen && m_nLength > 0 )
 		return (float)m_nPosition / (float)m_nLength;
-	else
-		return 0;
+
+	return 0;
 }
 
 BOOL CMediaFrame::SeekTo(float nPosition)
@@ -1515,10 +1513,8 @@ BOOL CMediaFrame::SeekTo(float nPosition)
 		OnTimer( 1 );
 		return TRUE;
 	}
-	else
-	{
-		return FALSE;
-	}
+
+	return FALSE;
 }
 
 float CMediaFrame::GetVolume()
@@ -1545,7 +1541,7 @@ BOOL CMediaFrame::SetVolume(float nVolume)
 //	if ( m_pPlayer != NULL )
 //		m_pPlayer->SetVolume( Settings.MediaPlayer.Volume );
 //	UpdateState();
-//	SetTimer( 1, 200, NULL );
+//	SetTimer( 1, UPDATE_TIMER, NULL );
 //}
 
 //void CMediaFrame::OffsetPosition(int nPositionOffset)
@@ -1565,7 +1561,7 @@ BOOL CMediaFrame::SetVolume(float nVolume)
 //			m_pPlayer->Play();
 //	}
 //	UpdateState();
-//	SetTimer( 1, 200, NULL );
+//	SetTimer( 1, UPDATE_TIMER, NULL );
 //}
 
 /////////////////////////////////////////////////////////////////////////////
@@ -1584,8 +1580,7 @@ BOOL CMediaFrame::Prepare()
 	if ( Plugins.LookupCLSID( _T("MediaPlayer"), _T("Default"), pCLSID ) )
 	{
 		HINSTANCE hRes = AfxGetResourceHandle();
-		CoCreateInstance( pCLSID, NULL, CLSCTX_ALL,
-			IID_IMediaPlayer, (void**)&m_pPlayer );
+		CoCreateInstance( pCLSID, NULL, CLSCTX_ALL, IID_IMediaPlayer, (void**)&m_pPlayer );
 		AfxSetResourceHandle( hRes );
 	}
 
@@ -1600,19 +1595,17 @@ BOOL CMediaFrame::Prepare()
 	CoLockObjectExternal( m_pPlayer, TRUE, TRUE );
 	ModifyStyleEx( WS_EX_LAYOUTRTL, 0, 0 );
 	m_pPlayer->Create( GetSafeHwnd() );
-	if ( Settings.General.LanguageRTL )
-		ModifyStyleEx( 0, WS_EX_LAYOUTRTL, 0 );
+	if ( Settings.General.LanguageRTL ) ModifyStyleEx( 0, WS_EX_LAYOUTRTL, 0 );
 	m_pPlayer->SetZoom( Settings.MediaPlayer.Zoom );
 	m_pPlayer->SetAspect( Settings.MediaPlayer.Aspect );
 	m_pPlayer->SetVolume( m_bMute ? 0 : Settings.MediaPlayer.Volume );
 
 	if ( m_bmLogo.m_hObject )
 		m_pPlayer->SetLogoBitmap( (HBITMAP)m_bmLogo.m_hObject );
-	{
-		HINSTANCE hRes = AfxGetResourceHandle();
-		PrepareVis();
-		AfxSetResourceHandle( hRes );
-	}
+
+	HINSTANCE hRes = AfxGetResourceHandle();
+	//PrepareVis();
+	AfxSetResourceHandle( hRes );
 
 	OnSize( SIZE_INTERNAL, 0, 0 );
 	UpdateState();
@@ -1623,32 +1616,30 @@ BOOL CMediaFrame::Prepare()
 // ToDo: Re-Implement Audio Visualizations!
 BOOL CMediaFrame::PrepareVis()
 {
-	if ( m_pPlayer == NULL ) return FALSE;
+	return FALSE;	// Visualizations currently unsupported
 
+//	if ( m_pPlayer == NULL ) return FALSE;
+//
 //	IAudioVisPlugin* pPlugin = NULL;
 //	CLSID pCLSID;
 //
-//	if ( Hashes::fromGuid( Settings.MediaPlayer.VisCLSID, &pCLSID ) &&
-//		 Plugins.LookupEnable( pCLSID ) )
+//	if ( Hashes::fromGuid( Settings.MediaPlayer.VisCLSID, &pCLSID ) && Plugins.LookupEnable( pCLSID ) )
 //	{
-//		HRESULT hr = CoCreateInstance( pCLSID, NULL, CLSCTX_ALL, IID_IAudioVisPlugin,
-//			(void**)&pPlugin );
+//		HRESULT hr = CoCreateInstance( pCLSID, NULL, CLSCTX_ALL, IID_IAudioVisPlugin, (void**)&pPlugin );
 //
 //		if ( SUCCEEDED(hr) && pPlugin != NULL )
 //		{
-//			if ( Settings.MediaPlayer.VisPath.GetLength() )
+//			if ( ! Settings.MediaPlayer.VisPath.IsEmpty() )
 //			{
 //				IWrappedPluginControl* pWrap = NULL;
 //
-//				hr = pPlugin->QueryInterface( IID_IWrappedPluginControl,
-//					(void**)&pWrap );
+//				hr = pPlugin->QueryInterface( IID_IWrappedPluginControl, (void**)&pWrap );
 //
 //				if ( SUCCEEDED(hr) && pWrap != NULL )
 //				{
 //					hr = pWrap->Load( CComBSTR( Settings.MediaPlayer.VisPath ), 0 );
 //					pWrap->Release();
 //				}
-//
 //				if ( FAILED(hr) )
 //				{
 //					pPlugin->Release();
@@ -1662,8 +1653,8 @@ BOOL CMediaFrame::PrepareVis()
 //	m_pPlayer->SetPlugin( pPlugin );
 //
 //	if ( pPlugin != NULL ) pPlugin->Release();
-
-	return TRUE;
+//
+//	return TRUE;
 }
 
 BOOL CMediaFrame::OpenFile(LPCTSTR pszFile)
@@ -1812,6 +1803,7 @@ void CMediaFrame::AspectTo(double nAspect)
 
 void CMediaFrame::UpdateState()
 {
+	// On UPDATE_TIMER
 	m_nState = smsNull;
 
 	if ( m_pPlayer ) m_pPlayer->GetState( &m_nState );
@@ -1820,15 +1812,15 @@ void CMediaFrame::UpdateState()
 	{
 		m_nLength = 0;
 		m_pPlayer->GetLength( &m_nLength );
-		int nLength = (int)( m_nLength / TIME_FACTOR );
+		const int nLength = (int)( m_nLength / TIME_FACTOR );
 
 		m_nPosition = 0;
 		m_pPlayer->GetPosition( &m_nPosition );
-		int nPosition = (int)( m_nPosition / TIME_FACTOR );
+		const int nPosition = (int)( m_nPosition / TIME_FACTOR );
 
 		m_wndPosition.EnableWindow( TRUE );
-		m_wndPosition.SetRangeMax( (int)nLength );
-		m_wndPosition.SetPos( (int)nPosition );
+		m_wndPosition.SetRangeMax( nLength );
+		m_wndPosition.SetPos( nPosition );
 
 		double nSpeed = 1.0f;
 		m_pPlayer->GetSpeed( &nSpeed );
@@ -1846,7 +1838,8 @@ void CMediaFrame::UpdateState()
 	}
 	else
 	{
-		if ( m_nState != smsNull && m_wndList.GetCount() == 0 ) Cleanup();
+		if ( m_nState != smsNull && m_wndList.GetCount() == 0 )
+			Cleanup();
 		m_wndPosition.SetPos( 0 );
 		m_wndPosition.SetRange( 0, 0 );
 		m_wndPosition.EnableWindow( FALSE );
@@ -1864,8 +1857,9 @@ void CMediaFrame::OnNewCurrent(NMHDR* /*pNotify*/, LRESULT* pResult)
 {
 	int nCurrent = m_wndList.GetCurrent();
 	m_wndList.UpdateWindow();
-	m_bRepeat = Settings.MediaPlayer.Repeat;
+	m_wndPosition.SetPos( 0 );
 	m_bLastMedia = ( nCurrent == m_wndList.GetItemCount() - 1 );
+	m_bRepeat = Settings.MediaPlayer.Repeat;
 
 	if ( m_bStopFlag )
 	{
@@ -1878,7 +1872,7 @@ void CMediaFrame::OnNewCurrent(NMHDR* /*pNotify*/, LRESULT* pResult)
 	}
 
 	//	Prior-track-cleanup workaround.  ToDo: Fix Mediaplayer plugin instead
-	double nVolume = Settings.MediaPlayer.Volume; 	// Current volume restored below
+	const double nVolume = Settings.MediaPlayer.Volume; 	// Current volume restored below
 	if ( m_pPlayer )
 	{
 		m_pPlayer->Close();
@@ -1933,9 +1927,9 @@ void CMediaFrame::OnNewCurrent(NMHDR* /*pNotify*/, LRESULT* pResult)
 		{
 			nCurrent = m_wndList.GetNext( FALSE );
 			if ( m_wndList.GetItemCount() != 1 )
-			m_wndList.SetCurrent( nCurrent );
+				m_wndList.SetCurrent( nCurrent );
 			else if ( m_pPlayer )
-				Cleanup(); // Cleanup when no exception happened but file couldn't be opened
+				Cleanup();	// Cleanup when no exception happened but file couldn't be opened
 		}
 		else
 		{
@@ -1943,12 +1937,13 @@ void CMediaFrame::OnNewCurrent(NMHDR* /*pNotify*/, LRESULT* pResult)
 			m_bLastNotPlayed = FALSE;
 			m_wndList.Reset( TRUE );
 			m_bStopFlag = FALSE;
-			if ( m_pPlayer ) Cleanup();
+			if ( m_pPlayer )
+				Cleanup();
 		}
 	}
 	else if ( m_wndList.GetItemCount() > 0 ) // List was reset; current file was set to -1
 	{
-		nCurrent = m_wndList.GetCurrent(); // Get file #0
+		nCurrent = m_wndList.GetCurrent();	// Get file #0
 
 		if ( m_pPlayer )
 		{
@@ -1986,16 +1981,16 @@ void CMediaFrame::DisableScreenSaver()
 		m_CurrentPP.user.VideoTimeoutAc = 0;					// Disallow display shutoff
 		m_CurrentPP.user.VideoTimeoutDc = 0;
 
-		// set new values
+		// Set new values
 		SetActivePwrScheme( m_nPowerSchemeId, &m_CurrentGP, &m_CurrentPP );
 
 		BOOL bParam = FALSE;
 		BOOL bRetVal = SystemParametersInfo( SPI_GETSCREENSAVEACTIVE, 0, &bParam, 0 );
 		if ( bRetVal && bParam )
 		{
-			// save current screen saver timeout value
+			// Save current screen saver timeout value
 			SystemParametersInfo( SPI_GETSCREENSAVETIMEOUT, 0, &m_nScreenSaverTime, 0 );
-			// turn off screen saver
+			// Turn off screen saver
 			SystemParametersInfo( SPI_SETSCREENSAVETIMEOUT, 0, NULL, 0 );
 		}
 
@@ -2011,12 +2006,11 @@ void CMediaFrame::EnableScreenSaver()
 		m_CurrentPP.user.VideoTimeoutAc = m_nVidAC;
 		m_CurrentPP.user.VideoTimeoutDc = m_nVidDC;
 
-		// set original values
+		// Set original values
 		SetActivePwrScheme( m_nPowerSchemeId, &m_CurrentGP, &m_CurrentPP );
 
 		// Restore screen saver timeout value if it's not zero.
-		// Otherwise, if the screen saver was inactive,
-		// it toggles it to active state and shutoff stops working (MS bug?)
+		// Otherwise if the screen saver was inactive, it toggles it to active state and shutoff stops working (MS bug?)
 		if ( m_nScreenSaverTime > 0 )
 			SystemParametersInfo( SPI_SETSCREENSAVETIMEOUT, m_nScreenSaverTime, NULL, 0 );
 
@@ -2045,8 +2039,10 @@ CString CMediaFrame::GetNowPlaying()
 
 void CMediaFrame::UpdateNowPlaying(BOOL bEmpty)
 {
-	if(bEmpty)
+	if( bEmpty )
+	{
 		m_sNowPlaying = _T("");
+	}
 	else
 	{
 		m_sNowPlaying = m_sFile;

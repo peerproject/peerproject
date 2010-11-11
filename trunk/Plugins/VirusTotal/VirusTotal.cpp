@@ -59,27 +59,26 @@ STDAPI DllUnregisterServer(void)
 STDAPI DllInstall(BOOL bInstall, LPCWSTR pszCmdLine)
 {
 	HRESULT hr = E_FAIL;
-	static const wchar_t szUserSwitch[] = _T("user");
+	static const wchar_t szUserSwitch[] = L"user";
 
 	if ( pszCmdLine != NULL )
 	{
-//#if _MFC_VER > 0x0800 	// No VS2005
-#if defined(_MSC_VER) && (_MSC_VER >= 1500)
+#if defined(_MSC_VER) && (_MSC_VER >= 1500)	// No VS2005
 		if ( _wcsnicmp( pszCmdLine, szUserSwitch, _countof(szUserSwitch) ) == 0 )
 			AtlSetPerUserRegistration(true);
-#endif	// _MFC_VER
+#endif
 	}
 
 	if ( bInstall )
 	{
 		hr = DllRegisterServer();
 		if ( FAILED(hr) )
-    		DllUnregisterServer();
+			DllUnregisterServer();
 	}
 	else
 	{
 		hr = DllUnregisterServer();
 	}
 
-    return hr;
+	return hr;
 }

@@ -81,9 +81,11 @@
 			<Tool
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="true"
-				LinkIncremental="2"
 				ModuleDefinitionFile="SWFPlugin.def"
 				GenerateDebugInformation="true"
+				LinkIncremental="2"
+				RegisterOutput="true"
+				PerUserRedirection="true"
 				SubSystem="2"
 				BaseAddress="0x1af20000"
 				LargeAddressAware="2"
@@ -110,8 +112,6 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description="Performing registration (for debugging)"
-				CommandLine="regsvr32 /s /c &quot;$(TargetPath)&quot;"
 			/>
 		</Configuration>
 		<Configuration
@@ -175,9 +175,11 @@
 			<Tool
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="true"
-				LinkIncremental="2"
 				ModuleDefinitionFile="SWFPlugin.def"
 				GenerateDebugInformation="true"
+				LinkIncremental="2"
+				RegisterOutput="true"
+				PerUserRedirection="true"
 				SubSystem="2"
 				LargeAddressAware="2"
 				TargetMachine="17"
@@ -203,8 +205,6 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description="Performing registration (for debugging)"
-				CommandLine="regsvr32 /s /c &quot;$(TargetPath)&quot;"
 			/>
 		</Configuration>
 		<Configuration

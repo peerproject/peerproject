@@ -21,8 +21,8 @@
 #include "LibraryBuilder.h"
 #include "LibraryBuilderPlugins.h"
 #include "Plugins.h"
-#include "XML.h"
 #include "XMLCOM.h"
+#include "XML.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -33,85 +33,67 @@ static char THIS_FILE[]=__FILE__;
 //////////////////////////////////////////////////////////////////////
 // CLibraryBuilderPlugins construction
 
-CLibraryBuilderPlugins::CLibraryBuilderPlugins()
+HRESULT CLibraryBuilderPlugins::SafeProcess(ILibraryBuilderPlugin* pPlugin, BSTR szPath, ISXMLElement* pElement)
 {
-}
-
-CLibraryBuilderPlugins::~CLibraryBuilderPlugins()
-{
+	__try
+	{
+		return pPlugin->Process( szPath, pElement );
+	}
+	__except( EXCEPTION_EXECUTE_HANDLER )
+	{
+		return RPC_E_SERVERFAULT;
+	}
 }
 
 //////////////////////////////////////////////////////////////////////
 // CLibraryBuilderPlugins extract
 
-bool CLibraryBuilderPlugins::ExtractPluginMetadata(DWORD nIndex, const CString& strPath, HANDLE hFile)
+bool CLibraryBuilderPlugins::ExtractPluginMetadata(DWORD nIndex, const CString& strPath)
 {
-	CString strType;
+	CString strType = PathFindExtension( strPath );
+	strType.MakeLower();
 
-	int nExtPos = strPath.ReverseFind( '.' );
-	if ( nExtPos != -1 )
-		strType = strPath.Mid( nExtPos );
-
-	ToLower( strType );
-
-	CComQIPtr< ILibraryBuilderPlugin > pPlugin( LoadPlugin( strType ) );
-	if ( !pPlugin )
-		return false;
-
-	CXMLElement* pXML	= new CXMLElement();
-	ISXMLElement* ppXML	= (ISXMLElement*)CXMLCOM::Wrap( pXML, IID_ISXMLElement );
-
-	BSTR bsFile = strPath.AllocSysString();
-
-	HRESULT hResult = pPlugin->Process( hFile, bsFile, ppXML );
-
-	SysFreeString( bsFile );
-
-	ppXML->Release();
-
-	bool bSuccess = false;
-
-	if ( SUCCEEDED( hResult ) )
+	for ( int i = 0 ; i < 2 ; ++i )
 	{
-		if ( CXMLElement* pOuter = pXML->GetFirstElement() )
-		{
-			CXMLElement* pInner		= pOuter->GetFirstElement();
-			CString strSchemaURI	= pOuter->GetAttributeValue( CXMLAttribute::schemaName );
+		CComPtr< ILibraryBuilderPlugin > pPlugin( LoadPlugin( strType ) );
+		if ( ! pPlugin )
+			break;
 
-			if ( pInner && strSchemaURI.GetLength() )
+		auto_ptr< CXMLElement > pXML( new CXMLElement() );
+		CComPtr< ISXMLElement > pISXMLElement;
+		pISXMLElement.Attach( (ISXMLElement*)CXMLCOM::Wrap( pXML.get(), IID_ISXMLElement ) );
+		HRESULT hr = SafeProcess( pPlugin, CComBSTR( strPath ), pISXMLElement );
+		if ( SUCCEEDED( hr ) )
+		{
+			if ( CXMLElement* pOuter = pXML->GetFirstElement() )
 			{
-				pInner = pInner->Detach();
-				bSuccess = LibraryBuilder.SubmitMetadata( nIndex, strSchemaURI, pInner ) != 0;
+				CXMLElement* pInner  = pOuter->GetFirstElement();
+				CString strSchemaURI = pOuter->GetAttributeValue( CXMLAttribute::schemaName );
+
+				if ( pInner && ! strSchemaURI.IsEmpty() )
+				{
+					pInner = pInner->Detach();
+					return LibraryBuilder.SubmitMetadata( nIndex, strSchemaURI, pInner ) != 0;
+				}
 			}
 		}
-	}
-	else if ( hResult == E_UNEXPECTED )
-	{
-		bSuccess = LibraryBuilder.SubmitCorrupted( nIndex );
-	}
+		else if ( hr == E_UNEXPECTED )
+		{
+			return LibraryBuilder.SubmitCorrupted( nIndex );
+		}
+		else if ( SERVERLOST( hr ) )
+		{
+			Plugins.ReloadPlugin( _T("LibraryBuilder"), strType );
 
-	delete pXML;
+			pPlugin.Release();
 
-	return bSuccess;
-}
+			continue;	// Try again
+		}
 
-//////////////////////////////////////////////////////////////////////
-// CLibraryBuilderPlugins cleanup
-
-void CLibraryBuilderPlugins::CleanupPlugins()
-{
-	CQuickLock oLock( m_pSection );
-
-	for ( POSITION pos = m_pMap.GetStartPosition() ; pos ; )
-	{
-		ILibraryBuilderPlugin* pPlugin = NULL;
-		CString strType;
-		m_pMap.GetNextAssoc( pos, strType, pPlugin );
-		if ( pPlugin )
-			pPlugin->Release();
+		//break;
 	}
 
-	m_pMap.RemoveAll();
+	return false;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -119,24 +101,8 @@ void CLibraryBuilderPlugins::CleanupPlugins()
 
 ILibraryBuilderPlugin* CLibraryBuilderPlugins::LoadPlugin(LPCTSTR pszType)
 {
-	CQuickLock oLock( m_pSection );
+	CComQIPtr< ILibraryBuilderPlugin > pPlugin(
+		Plugins.GetPlugin( _T("LibraryBuilder"), pszType ) );
 
-	ILibraryBuilderPlugin* pPlugin = NULL;
-	if ( m_pMap.Lookup( pszType, pPlugin ) )
-		return pPlugin;
-
-	CLSID pCLSID;
-	if ( !Plugins.LookupCLSID( _T("LibraryBuilder"), pszType, pCLSID ) )
-	{
-		m_pMap.SetAt( pszType, NULL );
-		return NULL;
-	}
-
-	HRESULT hr = CoCreateInstance( pCLSID, NULL, CLSCTX_ALL,
-		IID_ILibraryBuilderPlugin, (void**)&pPlugin );
-
-	if ( SUCCEEDED( hr ) )
-		m_pMap.SetAt( pszType, pPlugin );
-
-	return pPlugin;
+	return pPlugin.Detach();
 }

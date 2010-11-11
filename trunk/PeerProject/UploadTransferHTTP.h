@@ -37,7 +37,6 @@ public:
 // Attributes
 protected:
 	CString		m_sRequest;
-	DWORD		m_tRequest;
 	BOOL		m_bHead;
 	BOOL		m_bConnectHdr;
 	BOOL		m_bKeepAlive;

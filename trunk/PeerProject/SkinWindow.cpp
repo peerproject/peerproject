@@ -53,6 +53,8 @@ CSkinWindow::CSkinWindow()
 	, m_crCaptionShadow 	( CLR_NONE )
 	, m_crCaptionOutline	( CLR_NONE )
 	, m_nCaptionAlign		( 0 )
+
+	, m_sLanguage			( _T("") )
 {
 	m_bPart		= new BOOL[ SKINPART_COUNT ];
 	m_rcPart	= new CRect[ SKINPART_COUNT ];
@@ -255,11 +257,6 @@ BOOL CSkinWindow::Parse(CXMLElement* pBase, const CString& strPath)
 				}
 			}
 		}
-		else if ( pGroup->IsNamed( _T("region") ) )
-		{
-			if ( m_pRegionXML ) delete m_pRegionXML;
-			m_pRegionXML = pGroup->Detach();
-		}
 		else if ( pGroup->IsNamed( _T("caption") ) )
 		{
 			m_bCaption = ParseRect( pGroup, &m_rcCaption );
@@ -336,16 +333,9 @@ BOOL CSkinWindow::Parse(CXMLElement* pBase, const CString& strPath)
 		else if ( pGroup->IsNamed( _T("image") ) )
 		{
 			str = pGroup->GetAttributeValue( _T("language") );
-
-			if ( ! str.IsEmpty() )
-			{
-				if ( str.CompareNoCase( Settings.General.Language ) != 0 ) continue;
-				m_sLanguage = str;
-			}
-			else
-			{
-				m_sLanguage = Settings.General.Language;
-			}
+			if ( ! str.IsEmpty() && str.CompareNoCase( Settings.General.Language ) != 0 )
+				continue;
+			m_sLanguage = Settings.General.Language;
 
 			CString strRes	= pGroup->GetAttributeValue( _T("res") );
 			CString strFile	= pGroup->GetAttributeValue( _T("path") );
@@ -424,6 +414,18 @@ BOOL CSkinWindow::Parse(CXMLElement* pBase, const CString& strPath)
 				if ( m_bmSkin.m_hObject ) m_bmSkin.DeleteObject();
 				m_bmSkin.Attach( hBitmap );
 			}
+		}
+		//else if ( pGroup->IsNamed( _T("language") ) )
+		//{
+		//	if ( m_sLanguage == Settings.General.Language ) continue;
+		//	str = pGroup->GetAttributeValue( _T("name") );
+		//	if ( str.IsEmpty() || ! str.CompareNoCase( Settings.General.Language ) || ! str.CompareNoCase( _T("default") ) )
+		//		m_sLanguage = Settings.General.Language;
+		//}
+		else if ( pGroup->IsNamed( _T("region") ) )
+		{
+			if ( m_pRegionXML ) delete m_pRegionXML;
+			m_pRegionXML = pGroup->Detach();
 		}
 		else if ( pGroup->IsNamed( _T("maximiseCrop") ) )
 		{

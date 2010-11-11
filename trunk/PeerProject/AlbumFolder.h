@@ -27,7 +27,7 @@ class CSchemaMember;
 class CXMLElement;
 
 
-class CAlbumFolder //: private boost::noncopyable
+class CAlbumFolder
 {
 // Construction
 public:

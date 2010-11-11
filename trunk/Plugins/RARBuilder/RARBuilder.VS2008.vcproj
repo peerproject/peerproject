@@ -30,6 +30,8 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				Description="Pre-Build Dependencies"
+				CommandLine="copy &quot;unrar.dll&quot; &quot;$(TargetDir)&quot; /b /y"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -79,10 +81,12 @@
 			<Tool
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="true"
-				LinkIncremental="2"
 				IgnoreDefaultLibraryNames=""
 				ModuleDefinitionFile="$(ProjectName).def"
 				GenerateDebugInformation="true"
+				LinkIncremental="2"
+				RegisterOutput="true"
+				PerUserRedirection="true"
 				SubSystem="2"
 				BaseAddress="0x1aea0000"
 				LargeAddressAware="2"
@@ -109,8 +113,6 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description="Performing registration (for debug)"
-				CommandLine="copy &quot;unrar.dll&quot; &quot;$(TargetDir)&quot; /b /y&#x0D;&#x0A;regsvr32 /s /c &quot;$(TargetPath)&quot;&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
@@ -124,6 +126,8 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				Description="Pre-Build Dependencies"
+				CommandLine="copy &quot;unrar.dll&quot; &quot;$(TargetDir)&quot; /b /y"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -172,10 +176,12 @@
 			<Tool
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="true"
-				LinkIncremental="2"
 				IgnoreDefaultLibraryNames=""
 				ModuleDefinitionFile="$(ProjectName).def"
 				GenerateDebugInformation="true"
+				LinkIncremental="2"
+				RegisterOutput="true"
+				PerUserRedirection="true"
 				SubSystem="2"
 				LargeAddressAware="2"
 				TargetMachine="17"
@@ -201,8 +207,6 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description="Performing registration (for debug)"
-				CommandLine="copy &quot;unrar64.dll&quot; &quot;$(TargetDir)&quot; /b /y&#x0D;&#x0A;regsvr32 /s /c &quot;$(TargetPath)&quot;&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration

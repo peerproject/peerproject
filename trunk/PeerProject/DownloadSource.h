@@ -111,11 +111,11 @@ public:
 	BOOL		CheckHash(const Hashes::Ed2kHash& oED2K);
 	BOOL		CheckHash(const Hashes::BtHash& oBTH);
 	BOOL		CheckHash(const Hashes::Md5Hash& oMD5);
-public:
+
 	BOOL		PushRequest();
 	BOOL		CheckPush(const Hashes::Guid& oClientID);
-	BOOL		CheckDonkey(CEDClient* pClient);
-public:
+	BOOL		CheckDonkey(const CEDClient* pClient);
+
 	void		AddFragment(QWORD nOffset, QWORD nLength, BOOL bMerge = FALSE);
 	void		SetAvailableRanges(LPCTSTR pszRanges);
 	BOOL		HasUsefulRanges() const;

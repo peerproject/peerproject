@@ -207,6 +207,10 @@ CPeerProjectApp::CPeerProjectApp()
 	ZeroMemory( m_pBTVersion, sizeof( m_pBTVersion ) );
 	m_nUPnPExternalAddress.s_addr = INADDR_NONE;
 
+#if defined(_MSC_VER) && (_MSC_VER >= 1500)	// No VS2005
+	AfxSetPerUserRegistration( TRUE );
+#endif
+
 // BugTrap (www.intellesoft.net)
 #ifdef _DEBUG
 	BT_InstallSehFilter();
@@ -571,8 +575,6 @@ int CPeerProjectApp::ExitInstance()
 
 		SplashStep();
 
-		LibraryBuilder.CleanupPlugins();
-		ImageServices.Clear();
 		Plugins.Clear();
 	}
 
@@ -3042,6 +3044,31 @@ CString& CLowerCaseTable::operator()(CString& strSource) const
 	return strSource;
 }
 
+BOOL IsUserFullscreen()
+{
+	// Detect system availability
+	if ( theApp.m_bIsVistaOrNewer )
+	{
+		QUERY_USER_NOTIFICATION_STATE state;
+		SHQueryUserNotificationState( &state );
+		if ( state != QUNS_ACCEPTS_NOTIFICATIONS )
+			return TRUE;
+	}
+	else // XP external fullscreen
+	{
+		const HWND hActive = GetForegroundWindow();
+		if ( hActive && hActive != AfxGetMainWnd()->GetSafeHwnd() && ( GetWindowLong( hActive, GWL_EXSTYLE ) & WS_EX_TOPMOST ) )
+		{
+			RECT rcWindow;
+			GetWindowRect( hActive, &rcWindow );
+			return rcWindow.top == 0 && rcWindow.left == 0 &&
+				rcWindow.right  == GetSystemMetrics(SM_CXSCREEN) &&
+				rcWindow.bottom == GetSystemMetrics(SM_CYSCREEN);
+		}
+	}
+
+	return FALSE;
+}
 
 template <>
 __int8 GetRandomNum<__int8>(const __int8& min, const __int8& max)

@@ -29,22 +29,21 @@
 
 
 // A buffer of memory that takes care of allocating and freeing itself, and has methods for compression and encoding
-class CBuffer //: private boost::noncopyable
+class CBuffer
 {
-
 // Construction
 public:
-	CBuffer();				// Construct CBuffer object
+	CBuffer();
 	~CBuffer();
 
 // Attributes
 public:
 	// Memory pointers and byte counts
-	CBuffer*	m_pNext;	// A pointer to the next CBuffer object, letting them be linked together in a list
-	BYTE*		m_pBuffer;	// The block of allocated memory
-	DWORD		m_nLength;	// The #bytes written into the block
+	CBuffer*	m_pNext;		// A pointer to the next CBuffer object, letting them be linked together in a list
+	BYTE*		m_pBuffer;		// The block of allocated memory
+	DWORD		m_nLength;		// The #bytes written into the block
 private:
-	DWORD		m_nBuffer;	// The size of the allocated block
+	DWORD		m_nBuffer;		// The size of the allocated block
 
 	CBuffer(const CBuffer&);
 	CBuffer& operator=(const CBuffer&);

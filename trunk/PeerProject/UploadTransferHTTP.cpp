@@ -63,7 +63,6 @@ static char THIS_FILE[]=__FILE__;
 
 CUploadTransferHTTP::CUploadTransferHTTP()
 	: CUploadTransfer	( PROTOCOL_HTTP )
-	, m_tRequest		( 0ul )
 	, m_bHead			( FALSE )
 	, m_bConnectHdr		( FALSE )
 	, m_bKeepAlive		( TRUE )
@@ -144,8 +143,7 @@ BOOL CUploadTransferHTTP::ReadRequest()
 
 		if ( GetTickCount() - m_tRequest < tLimit )
 		{
-			theApp.Message( MSG_ERROR, IDS_UPLOAD_BUSY_FAST, (LPCTSTR)m_sAddress );
-			Close();
+			Close( IDS_UPLOAD_BUSY_FAST );
 			return FALSE;
 		}
 	}
@@ -155,8 +153,7 @@ BOOL CUploadTransferHTTP::ReadRequest()
 	if ( strLine.GetLength() < 14 || nChar < 5 ||
 		 ( strLine.Left( 4 ) != _T("GET ") && strLine.Left( 5 ) != _T("HEAD ") ) )
 	{
-		theApp.Message( MSG_ERROR, IDS_UPLOAD_NOHTTP, (LPCTSTR)m_sAddress );
-		Close();
+		Close( IDS_UPLOAD_NOHTTP );
 		return FALSE;
 	}
 
@@ -214,100 +211,124 @@ BOOL CUploadTransferHTTP::OnHeaderLine(CString& strHeader, CString& strValue)
 	if ( ! CUploadTransfer::OnHeaderLine( strHeader, strValue ) )
 		return FALSE;
 
-	if ( strHeader.CompareNoCase( _T("Connection") ) == 0 )
-	{
-		if ( strValue.CompareNoCase( _T("Keep-Alive") ) == 0 ) m_bKeepAlive = TRUE;
-		if ( strValue.CompareNoCase( _T("close") ) == 0 ) m_bKeepAlive = FALSE;
-		m_bConnectHdr = TRUE;
-	}
-	else if ( strHeader.CompareNoCase( _T("Accept") ) == 0 )
-	{
-		if ( _tcsistr( strValue, _T("application/x-gnutella-packets") ) ) m_bHostBrowse = 1;
-		if ( _tcsistr( strValue, _T("application/x-gnutella2") ) ) m_bHostBrowse = 2;
-		if ( _tcsistr( strValue, _T("application/x-shareaza") ) ) m_bHostBrowse = 2;
-		if ( _tcsistr( strValue, _T("application/x-peerproject") ) ) m_bHostBrowse = 2;
-	}
-	else if ( strHeader.CompareNoCase( _T("Accept-Encoding") ) == 0 )
-	{
-		if ( _tcsistr( strValue, _T("deflate") ) ) m_bDeflate = TRUE;
-		if ( Settings.Uploads.AllowBackwards && _tcsistr( strValue, _T("backwards") ) ) m_bBackwards = TRUE;
-	}
-	else if ( strHeader.CompareNoCase( _T("Range") ) == 0 )
-	{
-		QWORD nFrom = 0, nTo = 0;
+	CString strCase( strHeader );
+	ToLower( strCase );
+	if ( strCase.GetLength() < 4 )
+		return TRUE;	// Skip bad/unknown header
 
-		if ( _stscanf( strValue, _T("bytes=%I64i-%I64i"), &nFrom, &nTo ) == 2 )
-		{
-			m_nOffset	= nFrom;
-			m_nLength	= nTo + 1 - nFrom;
-			m_bRange	= TRUE;
-		}
-		else if ( _stscanf( strValue, _T("bytes=%I64i-"), &nFrom ) == 1 )
-		{
-			m_nOffset	= nFrom;
-			m_nLength	= SIZE_UNKNOWN;
-			m_bRange	= TRUE;
-		}
-	}
-	else if (	strHeader.CompareNoCase( _T("X-Gnutella-Content-URN") ) == 0 ||
-				strHeader.CompareNoCase( _T("X-Content-URN") ) == 0 ||
-				strHeader.CompareNoCase( _T("Content-URN") ) == 0 )
+	// Expected Headers
+	SwitchMap( Text )
 	{
+		Text[ _T("connection") ]			= 'c';
+		Text[ _T("accept") ]				= 'a';
+		Text[ _T("accept-encoding") ]		= 'e';
+		Text[ _T("range") ]					= 'r';
+		Text[ _T("content-urn") ]			= 'u';
+		Text[ _T("x-content-urn") ]			= 'u';
+		Text[ _T("x-gnutella-content-urn") ] = 'u';
+		Text[ _T("x-gnutella-alternate-location") ] = 'l';
+		Text[ _T("alt-location") ]			= 'a';
+		Text[ _T("x-alt") ]					= 'a';
+		Text[ _T("x-nalt") ]				= 's';
+		Text[ _T("x-nick") ]				= 'n';
+		Text[ _T("x-name") ]				= 'n';
+		Text[ _T("x-username") ]			= 'n';
+		Text[ _T("x-features") ]			= 'f';
+		Text[ _T("x-queue") ]				= 'q';
+
+		Text[ _T("x-node") ]				= 'z';
+		Text[ _T("x-palt") ]				= 'x';
+		Text[ _T("fp-1a") ]					= 'x';
+		Text[ _T("fp-auth-challenge") ]		= 'x';
+	}
+
+	switch( Text[ strCase ] )
+	{
+
+	case 'c':		// "Connection"
+		if ( ! strValue.CompareNoCase( _T("Keep-Alive") ) )
+			m_bKeepAlive = TRUE;
+		else if ( ! strValue.CompareNoCase( _T("close") )  )
+			m_bKeepAlive = FALSE;
+		m_bConnectHdr = TRUE;
+		break;
+	case 'a':		// "Accept"
+		if ( _tcsistr( strValue, _T("application/x-gnutella-packets") ) )
+			m_bHostBrowse = 1;
+		if ( _tcsistr( strValue, _T("application/x-gnutella2") ) ||
+			 _tcsistr( strValue, _T("application/x-shareaza") )  ||
+			 _tcsistr( strValue, _T("application/x-peerproject") ) )
+			m_bHostBrowse = 2;
+		break;
+	case 'e':		// "Accept-Encoding"
+		if ( _tcsistr( strValue, _T("deflate") ) )
+			m_bDeflate = TRUE;
+		if ( Settings.Uploads.AllowBackwards && _tcsistr( strValue, _T("backwards") ) )
+			m_bBackwards = TRUE;
+		break;
+	case 'r':		// "Range"
+		{
+			QWORD nFrom = 0, nTo = 0;
+			if ( _stscanf( strValue, _T("bytes=%I64i-%I64i"), &nFrom, &nTo ) == 2 )
+			{
+				m_nOffset	= nFrom;
+				m_nLength	= nTo + 1 - nFrom;
+				m_bRange	= TRUE;
+			}
+			else if ( _stscanf( strValue, _T("bytes=%I64i-"), &nFrom ) == 1 )
+			{
+				m_nOffset	= nFrom;
+				m_nLength	= SIZE_UNKNOWN;
+				m_bRange	= TRUE;
+			}
+		}
+		break;
+	case 'u':		// "X-Gnutella-Content-URN" "X-Content-URN" "Content-URN"
 		HashesFromURN( strValue );
 		m_nGnutella |= 1;
-	}
-	else if (	strHeader.CompareNoCase( _T("X-Gnutella-Alternate-Location") ) == 0 ||
-				strHeader.CompareNoCase( _T("Alt-Location") ) == 0 ||
-				strHeader.CompareNoCase( _T("X-Alt") ) == 0 )
-	{
+		break;
+	case 'l':		// "X-Gnutella-Alternate-Location" "Alt-Location" "X-Alt"
 		if ( Settings.Library.SourceMesh )
 			m_sLocations = strValue;
 		m_nGnutella |= 1;
-	}
-	else if ( strHeader.CompareNoCase( _T("X-NAlt") ) == 0 )
-	{
-		// Dead alt-sources
-		LPCTSTR pszURN = (LPCTSTR)m_sRequest + 13;
-
-		if ( CDownload* pDownload = Downloads.FindByURN( pszURN ) )
+		break;
+	case 's':		// "X-NAlt" 	(Dead alt-sources)
 		{
-			if ( Settings.Library.SourceMesh )
+			LPCTSTR pszURN = (LPCTSTR)m_sRequest + 13;
+
+			if ( CDownload* pDownload = Downloads.FindByURN( pszURN ) )
 			{
-				if ( strValue.Find( _T("://") ) < 0 )
+				if ( Settings.Library.SourceMesh && strValue.Find( _T("://") ) < 0 )
 					pDownload->AddSourceURLs( strValue, TRUE, TRUE );
 			}
 		}
 		m_nGnutella |= 1;
-	}
-	else if ( strHeader.CompareNoCase( _T("X-Node") ) == 0 )
-	{
-		m_bNotPeerProject = TRUE; 		// PeerProject/Shareaza doesn't send this header
-	}
-	else if ( strHeader.CompareNoCase( _T("X-Queue") ) == 0 )
-	{
+		break;
+	case 'q':		// "X-Queue"
 		m_bQueueMe = TRUE;
 		m_nGnutella |= 1;
 	//	if ( strValue == _T("1.0") )
 	//		m_bNotPeerProject = TRUE;	// PeerProject/Shareaza doesn't send this value ?
-	}
-	else if (	strHeader.CompareNoCase( _T("X-Nick") ) == 0 ||
-				strHeader.CompareNoCase( _T("X-Name") ) == 0 ||
-				strHeader.CompareNoCase( _T("X-UserName") ) == 0 )
-	{
+		break;
+	case 'n':		// "X-Nick" "X-Name" "X-UserName"
 		m_sNick = URLDecode( strValue );
-	}
-	else if ( strHeader.CompareNoCase( _T("X-Features") ) == 0 )
-	{
-		if ( _tcsistr( strValue, _T("g2/") ) != NULL ) m_nGnutella |= 2;
-		if ( _tcsistr( strValue, _T("gnet2/") ) != NULL ) m_nGnutella |= 2;
-		if ( _tcsistr( strValue, _T("gnutella2/") ) != NULL ) m_nGnutella |= 2;
-		if ( m_nGnutella == 0 ) m_nGnutella = 1;
-	}
-	else if ( strHeader.CompareNoCase( _T("X-PAlt") ) == 0 ||
-			  strHeader.CompareNoCase( _T("FP-1a") ) == 0 ||
-			  strHeader.CompareNoCase( _T("FP-Auth-Challenge") ) == 0 )
-	{
+		break;
+	case 'f':		// "X-Features"
+		if ( _tcsistr( strValue, _T("g2/") ) != NULL ||
+			 _tcsistr( strValue, _T("gnet2/") ) != NULL ||
+			 _tcsistr( strValue, _T("gnutella2/") ) != NULL )
+			m_nGnutella |= 2;
+		else if ( m_nGnutella == 0 )
+			m_nGnutella = 1;
+		break;
+	case 'z':		// "X-Node"
+		m_bNotPeerProject = TRUE; 		// PeerProject/Shareaza doesn't send this header
+	case 'x':		// "X-PAlt" "FP-1a" "FP-Auth-Challenge"
 		m_nGnutella |= 1;
+		break;
+	default:		// Unknown Header
+		// ToDo: System message?
+		break;
 	}
 
 	return TRUE;
@@ -455,7 +476,7 @@ BOOL CUploadTransferHTTP::OnHeadersComplete()
 						// Adjust Retry-After header in SendDefaultHeaders() if you change the ban period
 						SendResponse( IDR_HTML_DISABLED );
 						theApp.Message( MSG_ERROR, IDS_UPLOAD_DISABLED, (LPCTSTR)m_sAddress, (LPCTSTR)m_sUserAgent );
-						Security.Ban( &m_pHost.sin_addr, ban2Hours, FALSE ); // Anti-hammer protection if client doesn't understand 403
+						Security.Ban( &m_pHost.sin_addr, ban2Hours, FALSE );	// Anti-hammer protection if client doesn't understand 403
 						Remove( FALSE );
 						return FALSE;
 					}
@@ -737,8 +758,8 @@ BOOL CUploadTransferHTTP::RequestSharedFile(CLibraryFile* pFile, CSingleLock& oL
 		return TRUE;
 	}
 
-	m_bTigerTree	= bool( m_oTiger );
-	m_bMetadata		= ( pFile->m_pMetadata != NULL && ( pFile->m_bMetadataAuto == FALSE || pFile->m_nVirtualSize > 0 ) );
+	m_bTigerTree = bool( m_oTiger );
+	m_bMetadata  = ( pFile->m_pMetadata != NULL && ( pFile->m_bMetadataAuto == FALSE || pFile->m_nVirtualSize > 0 ) );
 
 	if ( ! IsHashed() )
 		m_sLocations.Empty();
@@ -1264,7 +1285,7 @@ void CUploadTransferHTTP::OnCompleted()
 	m_tRequest	= GetTickCount();
 
 	m_pBaseFile->AddFragment( m_nOffset, m_nLength );
-	// m_pBaseFile = NULL;
+	//m_pBaseFile = NULL;
 
 	theApp.Message( MSG_INFO, IDS_UPLOAD_FINISHED, (LPCTSTR)m_sName, (LPCTSTR)m_sAddress );
 }
@@ -1283,16 +1304,14 @@ BOOL CUploadTransferHTTP::OnRun()
 	case upsRequest:
 		if ( ! m_bKeepAlive && GetOutputLength() == 0 )
 		{
-			theApp.Message( MSG_INFO, IDS_UPLOAD_DROPPED, (LPCTSTR)m_sAddress );
-			Close();
+			Close( IDS_UPLOAD_DROPPED );
 			return FALSE;
 		}
 
 	case upsHeaders:
 		if ( tNow - m_tRequest > Settings.Connection.TimeoutHandshake )
 		{
-			theApp.Message( MSG_ERROR, IDS_UPLOAD_REQUEST_TIMEOUT, (LPCTSTR)m_sAddress );
-			Close();
+			Close( IDS_UPLOAD_REQUEST_TIMEOUT );
 			return FALSE;
 		}
 		break;
@@ -1300,8 +1319,7 @@ BOOL CUploadTransferHTTP::OnRun()
 	case upsQueued:
 		if ( tNow - m_tRequest > ( Settings.Uploads.QueuePollMax * m_nReaskMultiplier ) )
 		{
-			theApp.Message( MSG_ERROR, IDS_UPLOAD_REQUEST_TIMEOUT, (LPCTSTR)m_sAddress );
-			Close();
+			Close( IDS_UPLOAD_REQUEST_TIMEOUT );
 			return FALSE;
 		}
 		break;
@@ -1315,8 +1333,7 @@ BOOL CUploadTransferHTTP::OnRun()
 	case upsPreQueue:
 		if ( tNow - m_mOutput.tLast > Settings.Connection.TimeoutTraffic )
 		{
-			theApp.Message( MSG_ERROR, IDS_UPLOAD_TRAFFIC_TIMEOUT, (LPCTSTR)m_sAddress );
-			Close();
+			Close( IDS_UPLOAD_TRAFFIC_TIMEOUT );
 			return FALSE;
 		}
 		break;
@@ -1330,7 +1347,7 @@ BOOL CUploadTransferHTTP::OnRun()
 
 void CUploadTransferHTTP::OnDropped()
 {
-	theApp.Message( MSG_INFO, IDS_UPLOAD_DROPPED, (LPCTSTR)m_sAddress );
+	//theApp.Message( MSG_INFO, IDS_UPLOAD_DROPPED, (LPCTSTR)m_sAddress );
 
 	if ( m_nState == upsUploading && m_pBaseFile != NULL )
 	{
@@ -1342,7 +1359,7 @@ void CUploadTransferHTTP::OnDropped()
 		m_pBaseFile = NULL;
 	}
 
-	Close();
+	Close( IDS_UPLOAD_DROPPED );
 }
 
 //////////////////////////////////////////////////////////////////////

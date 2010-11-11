@@ -41,7 +41,7 @@ static char THIS_FILE[]=__FILE__;
 #ifdef _WINSOCKAPI_
 static int Send(SOCKET s, const char* buf, int len) throw();
 static int Recv(SOCKET s, char* buf, int len) throw();
-#endif // _WINSOCKAPI_
+#endif
 
 ///////////////////////////////////////////////////////////////////////////////
 // CBuffer construction
@@ -55,11 +55,9 @@ CBuffer::CBuffer()
 {
 }
 
-// Delete this CBuffer object
-// Frees the memory taken up by the buffer
+// Delete this CBuffer object, frees memory taken up by the buffer
 CBuffer::~CBuffer()
 {
-	// If the member variable points to some memory, free it
 	if ( m_pBuffer ) free( m_pBuffer );
 }
 
@@ -139,7 +137,7 @@ DWORD CBuffer::AddBuffer(CBuffer* pBuffer, const size_t nLength)
 	ASSERT( pBuffer );
 	if ( pBuffer == NULL ) return 0;
 
-	// primitive overflow protection (relevant for 64bit)
+	// Primitive overflow protection (relevant for 64bit)
 	if ( nLength > INT_MAX ) return 0;
 
 	// If the call specified a length, use it, otherwise use the length of pBuffer
@@ -345,7 +343,7 @@ BOOL CBuffer::ReadLine(CString& strLine, BOOL bPeek, UINT nCodePage)
 
 	// Now that the line has been copied into the string, remove it and the '\n' from the buffer
 	if ( ! bPeek )
-		Remove( nLength + 1 ); // Unless we're peeking, then leave it in the buffer
+		Remove( nLength + 1 );	// Unless we're peeking, then leave it in the buffer
 
 	// Report that we found a line and moved it from the buffer to the string
 	return TRUE;
@@ -513,44 +511,61 @@ static int Send(SOCKET s, const char* buf, int len) throw()
 // Returns true if the data is compressed, false if there was an error
 BOOL CBuffer::Deflate(BOOL bIfSmaller)
 {
-	// If the caller requested we check for small buffers, and this one contains less than 45 bytes, return false
+	// If caller requested check for small buffers, and this contains less than 45 bytes, buffer is too small for compression to work
 	if ( bIfSmaller && m_nLength < 45 )
-		return FALSE;		// This buffer is too small for compression to work
+		return FALSE;
 
-	// Compress this buffer
-	DWORD nCompress = 0;		// Compress will write the size of the buffer it allocates and returns in this variable
-	auto_array< BYTE > pCompress( CZLib::Compress( m_pBuffer, static_cast< DWORD >( m_nLength ), &nCompress ) );
-					// Returns a buffer we must free
-	if ( ! pCompress.get() )
-		return FALSE;		// Compress had an error
+	DWORD nCompress = 0;
+
+	// Old method:
+	//auto_array< BYTE > pCompress( CZLib::Compress( m_pBuffer, static_cast< DWORD >( m_nLength ), &nCompress ) );
+
+	BYTE* pCompress = CZLib::Compress2( m_pBuffer, m_nLength, &nCompress );
+	if ( ! pCompress )
+		return FALSE;
 
 	// If compressing the data actually made it bigger, and we were told to watch for this happening
 	if ( bIfSmaller && nCompress >= m_nLength )
 		return FALSE;
 
+	// Old method:
 	// Move the compressed data from the buffer Compress returned to this one
-	m_nLength = 0;			// Record that there is no memory stored in this buffer
-	Add( pCompress.get(), nCompress ); // Copy the compressed data into this buffer
-	return TRUE;			// Report success
+	//m_nLength = 0;					 // Record that there is no memory stored in this buffer
+	//Add( pCompress.get(), nCompress ); // Copy the compressed data into this buffer
+
+	if ( m_pBuffer ) free( m_pBuffer );
+	m_pBuffer = pCompress;
+	m_nBuffer = m_nLength = nCompress;
+
+	return TRUE;
 }
 
 // Decompress the data in this buffer in place
 // Returns true if the data is decompressed, false if there was an error
 //
-// Side Effect: This function assumes that all of the data in the buffer needs
-// be decompressed, existing contents will be replaced by the decompression.
+// Side Effect: This function assumes that all of the data in the buffer needs to be decompressed,
+// existing contents will be replaced by the decompression.
+
 BOOL CBuffer::Inflate()
 {
-	// The bytes in this buffer are compressed, decompress them
-	DWORD nCompress = 0; // Decompress will write the size of the buffer it allocates and returns in this variable
-	auto_array< BYTE > pCompress( CZLib::Decompress( m_pBuffer, m_nLength, &nCompress ) );
-	if ( ! pCompress.get() )
-		return FALSE; // Decompress had an error
+	DWORD nCompress = 0;	// For size allocated
 
+	// Old method:
+	//auto_array< BYTE > pCompress( CZLib::Decompress( m_pBuffer, m_nLength, &nCompress ) );
+	//if ( ! pCompress.get() ) return FALSE;
+	//
 	// Move the decompressed data from the buffer Decompress returned to this one
-	m_nLength = 0;			// Record that there is no memory stored in this buffer
-	Add( pCompress.get(), nCompress ); // Copy the decompressed data into this buffer
-	return TRUE;			// Report success
+	//m_nLength = 0;					 // Record that there is no memory stored in this buffer
+	//Add( pCompress.get(), nCompress ); // Copy the decompressed data into this buffer
+
+	BYTE* pCompress = CZLib::Decompress2( m_pBuffer, m_nLength, &nCompress );
+	if ( ! pCompress ) return FALSE;
+
+	if ( m_pBuffer ) free( m_pBuffer );
+	m_pBuffer = pCompress;
+	m_nBuffer = m_nLength = nCompress;
+
+	return TRUE;
 }
 
 // If the contents of this buffer are between headers and compressed with gzip, this method can remove all that

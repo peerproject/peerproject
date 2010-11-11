@@ -1,7 +1,7 @@
 //
 // Object.h : Declaration of the CWebHook
 //
-// This file is part of PeerProject (peerproject.org) © 2009
+// This file is part of PeerProject (peerproject.org) © 2009-2010
 // Portions Copyright Shareaza Development Team, 2009.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -47,19 +47,13 @@ BEGIN_COM_MAP(CWebHook)
 	COM_INTERFACE_ENTRY(IObjectWithSite)
 END_COM_MAP()
 
-BEGIN_CATEGORY_MAP(CWebHook)
-	IMPLEMENTED_CATEGORY(CATID_SafeForScripting)
-	IMPLEMENTED_CATEGORY(CATID_SafeForInitializing)
-	IMPLEMENTED_CATEGORY(CATID_InternetAware)
-END_CATEGORY_MAP()
-
 DECLARE_PROTECT_FINAL_CONSTRUCT()
 DECLARE_GET_CONTROLLING_UNKNOWN()
 
 	HRESULT FinalConstruct();
 	void FinalRelease();
 
- protected:
+protected:
 	CComPtr < IUnknown >	m_pUnkMarshaler;
 	DWORD					m_dwCookie;
 	CString					m_sURL;

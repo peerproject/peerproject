@@ -102,8 +102,8 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <WarningLevel>Level4</WarningLevel>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <WarningLevel>Level4</WarningLevel>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -114,6 +114,8 @@
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ModuleDefinitionFile>$(ProjectName).def</ModuleDefinitionFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <RegisterOutput>true</RegisterOutput>
+      <PerUserRedirection>true</PerUserRedirection>
       <SubSystem>Windows</SubSystem>
       <BaseAddress>0x16800000</BaseAddress>
       <TargetMachine>MachineX86</TargetMachine>
@@ -123,9 +125,6 @@
       </OutputFile>
     </Bscmake>
     <PostBuildEvent>
-      <Message>Performing registration</Message>
-      <Command>regsvr32 /s /c "$(TargetPath)"
-</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -162,6 +161,8 @@
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ModuleDefinitionFile>$(ProjectName).def</ModuleDefinitionFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <RegisterOutput>true</RegisterOutput>
+      <PerUserRedirection>true</PerUserRedirection>
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX64</TargetMachine>
     </Link>
@@ -170,9 +171,6 @@
       </OutputFile>
     </Bscmake>
     <PostBuildEvent>
-      <Message>Performing registration</Message>
-      <Command>regsvr32 /s /c "$(TargetPath)"
-</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -223,7 +221,6 @@
       </OutputFile>
     </Bscmake>
     <PostBuildEvent>
-      <Message>No registration</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -274,7 +271,6 @@
       </OutputFile>
     </Bscmake>
     <PostBuildEvent>
-      <Message>No registration</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>

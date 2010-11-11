@@ -22,7 +22,6 @@
 #include "Network.h"
 #include "Neighbours.h"
 #include "Neighbour.h"
-#include "EDPacket.h"
 #include "WndPacket.h"
 #include "Colors.h"
 #include "CoolMenu.h"
@@ -203,13 +202,17 @@ void CPacketWnd::SmartDump(const CPacket* pPacket, const SOCKADDR_IN* pAddress, 
 	CG1Packet* pPacketG1 = ( pPacket->m_nProtocol == PROTOCOL_G1 ) ? (CG1Packet*)pPacket : NULL;
 	CG2Packet* pPacketG2 = ( pPacket->m_nProtocol == PROTOCOL_G2 ) ? (CG2Packet*)pPacket : NULL;
 	CEDPacket* pPacketED = ( pPacket->m_nProtocol == PROTOCOL_ED2K ) ? (CEDPacket*)pPacket : NULL;
+//	CDCPacket* pPacketDC = ( pPacket->m_nProtocol == PROTOCOL_DC ) ? (CDCPacket*)pPacket : NULL;
+	CBTPacket* pPacketBT = ( pPacket->m_nProtocol == PROTOCOL_BT ) ? (CBTPacket*)pPacket : NULL;
 
-	if ( pPacketG1 )
+	switch ( pPacket->m_nProtocol )
 	{
-		if ( ! m_bTypeG1[ pPacketG1->m_nTypeIndex ] ) return;
-	}
-	else if ( pPacketG2 )
-	{
+	case PROTOCOL_G1:
+		if ( ! m_bTypeG1[ pPacketG1->m_nTypeIndex ] )
+			return;
+		break;
+
+	case PROTOCOL_G2:
 		for ( int nType = 0 ; nType < nTypeG2Size ; nType++ )
 		{
 			if ( pPacketG2->IsType( m_nG2[ nType ] ) )
@@ -218,11 +221,15 @@ void CPacketWnd::SmartDump(const CPacket* pPacket, const SOCKADDR_IN* pAddress, 
 				break;
 			}
 		}
-	}
-	else if ( pPacketED )
-	{
+		break;
+
+	case PROTOCOL_ED2K:
 		// ToDo: Filter ED2K packets
 		if ( ! m_bTypeED ) return;
+		break;
+
+	//default:
+	//	;
 	}
 
 	CSingleLock pLock( &m_pSection, TRUE );
@@ -246,6 +253,10 @@ void CPacketWnd::SmartDump(const CPacket* pPacket, const SOCKADDR_IN* pAddress, 
 			pItem->Set( 2, _T("G1 TCP") );
 		else if ( pPacketED )
 			pItem->Set( 2, _T("ED2K TCP") );
+	//	else if ( pPacketDC )
+	//		pItem->Set( 2, _T("DC++ TCP") );
+		else if ( pPacketBT )
+			pItem->Set( 2, _T("BT TCP") );
 	}
 	else
 	{
@@ -256,6 +267,10 @@ void CPacketWnd::SmartDump(const CPacket* pPacket, const SOCKADDR_IN* pAddress, 
 			pItem->Set( 2, _T("G1 UDP") );
 		else if ( pPacketED )
 			pItem->Set( 2, _T("ED2K UDP") );
+	//	else if ( pPacketDC )
+	//		pItem->Set( 2, _T("DC++ UDP") );
+		else if ( pPacketBT )
+			pItem->Set( 2, _T("BT UDP") );
 	}
 
 	pItem->Set( 3, pPacket->GetType() );

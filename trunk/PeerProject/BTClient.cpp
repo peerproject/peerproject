@@ -60,9 +60,11 @@ CBTClient::CBTClient()
 	, m_bPrefersEncryption	( FALSE )
 	, m_tLastKeepAlive		( GetTickCount() )
 	, m_tLastUtPex			( 0 )
-	, m_nUtMetadataID		( 0 )
+	, m_nUtMetadataID		( 0 )	// 0 or BT_EXTENSION_UT_METADATA
 	, m_nUtMetadataSize		( 0 )
-	, m_nUtPexID			( 0 )
+	, m_nUtPexID			( 0 )	// 0 or BT_EXTENSION_UT_PEX
+//	, m_nLtTexID			( 0 )	// 0 or BT_EXTENSION_LT_TEX
+//	, m_nSrcExchangeID		( 0 )	// 0 or BT_HANDSHAKE_SOURCE
 {
 	m_sUserAgent = _T("BitTorrent");
 	m_mInput.pLimit = m_mOutput.pLimit = &Settings.Bandwidth.Request;
@@ -134,7 +136,7 @@ void CBTClient::AttachTo(CConnection* pConnection)
 //////////////////////////////////////////////////////////////////////
 // CBTClient close
 
-void CBTClient::Close()
+void CBTClient::Close(UINT nError)
 {
 	ASSERT( this != NULL );
 
@@ -162,7 +164,7 @@ void CBTClient::Close()
 
 	m_pDownload = NULL;
 
-	CTransfer::Close();
+	CTransfer::Close( nError );
 
 	delete this;
 }
@@ -178,6 +180,8 @@ void CBTClient::Send(CBTPacket* pPacket, BOOL bRelease)
 	if ( pPacket != NULL )
 	{
 		ASSERT( pPacket->m_nProtocol == PROTOCOL_BT );
+
+		pPacket->SmartDump( &m_pHost, FALSE, TRUE );
 
 		Write( pPacket );
 		if ( bRelease ) pPacket->Release();
@@ -199,8 +203,7 @@ BOOL CBTClient::OnRun()
 	{
 		if ( tNow - m_tConnected > Settings.Connection.TimeoutConnect )
 		{
-			theApp.Message( MSG_ERROR, IDS_BT_CLIENT_CONNECT_TIMEOUT, (LPCTSTR)m_sAddress );
-			Close();
+			Close( IDS_BT_CLIENT_CONNECT_TIMEOUT );
 			return FALSE;
 		}
 	}
@@ -208,8 +211,7 @@ BOOL CBTClient::OnRun()
 	{
 		if ( tNow - m_tConnected > Settings.Connection.TimeoutHandshake )
 		{
-			theApp.Message( MSG_ERROR, IDS_BT_CLIENT_HANDSHAKE_TIMEOUT, (LPCTSTR)m_sAddress );
-			Close();
+			Close( IDS_BT_CLIENT_HANDSHAKE_TIMEOUT );
 			return FALSE;
 		}
 	}
@@ -217,16 +219,9 @@ BOOL CBTClient::OnRun()
 	{
 		if ( tNow - m_mInput.tLast > Settings.BitTorrent.LinkTimeout * 2 )
 		{
-			theApp.Message( MSG_ERROR, IDS_BT_CLIENT_LOST, (LPCTSTR)m_sAddress );
-			Close();
+			Close( IDS_BT_CLIENT_LOST );
 			return FALSE;
 		}
-		//else if ( tNow - m_mOutput.tLast > Settings.BitTorrent.LinkPing / 2 && m_pOutput->m_nLength == 0 )
-		//{
-		//	DWORD dwZero = 0;
-		//	Write( &dwZero, 4 );	// ToDo: wtf?
-		//	OnWrite();
-		//}
 		else if ( tNow - m_tLastKeepAlive > Settings.BitTorrent.LinkPing )
 		{
 			Send( CBTPacket::New( BT_PACKET_KEEPALIVE ) );
@@ -234,7 +229,7 @@ BOOL CBTClient::OnRun()
 		}
 
 		ASSERT ( m_pUploadTransfer != NULL );
-		if ( tNow - m_tLastUtPex > Settings.BitTorrent.UtPexPeriod )
+		if ( tNow > m_tLastUtPex + Settings.BitTorrent.UtPexPeriod )
 		{
 			SendUtPex( m_tLastUtPex );
 			m_tLastUtPex = tNow;
@@ -263,13 +258,11 @@ BOOL CBTClient::OnConnected()
 void CBTClient::OnDropped()
 {
 	if ( ! m_bConnected )
-		theApp.Message( MSG_ERROR, IDS_BT_CLIENT_DROP_CONNECTING, (LPCTSTR)m_sAddress );
+		Close( IDS_BT_CLIENT_DROP_CONNECTING );
 	else if ( ! m_bOnline )
-		theApp.Message( MSG_ERROR, IDS_BT_CLIENT_DROP_HANDSHAKE, (LPCTSTR)m_sAddress );
+		Close( IDS_BT_CLIENT_DROP_HANDSHAKE );
 	else
-		theApp.Message( MSG_ERROR, IDS_BT_CLIENT_DROP_CONNECTED, (LPCTSTR)m_sAddress );
-
-	Close();
+		Close( IDS_BT_CLIENT_DROP_CONNECTED );
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -277,8 +270,11 @@ void CBTClient::OnDropped()
 
 BOOL CBTClient::OnWrite()
 {
-	if ( m_bClosing ) return FALSE;
+	if ( m_bClosing )
+		return FALSE;
+
 	CTransfer::OnWrite();
+
 	return TRUE;
 }
 
@@ -287,13 +283,15 @@ BOOL CBTClient::OnWrite()
 
 BOOL CBTClient::OnRead()
 {
-	BOOL bSuccess = TRUE;
-	if ( m_bClosing ) return FALSE;
+	if ( m_bClosing )
+		return FALSE;
 
-	CTransfer::OnRead();
+	if ( ! CTransfer::OnRead() )
+		return FALSE;
 
 	CLockedBuffer pInput( GetInput() );
 
+	BOOL bSuccess = TRUE;
 	if ( m_bOnline )
 	{
 		while ( CBTPacket* pPacket = CBTPacket::ReadBuffer( pInput ) )
@@ -305,11 +303,17 @@ BOOL CBTClient::OnRead()
 			catch ( CException* pException )
 			{
 				pException->Delete();
-				if ( ! m_bOnline ) bSuccess = FALSE;
+				if ( ! m_bOnline )
+					bSuccess = FALSE;
 			}
 
 			pPacket->Release();
-			if ( ! bSuccess ) break;
+
+			if ( ! bSuccess )
+				break;
+
+			if ( m_bClosing )
+				return FALSE;
 		}
 	}
 	else
@@ -339,7 +343,9 @@ BOOL CBTClient::OnRead()
 
 void CBTClient::SendHandshake(BOOL bPart1, BOOL bPart2)
 {
-	if ( m_bClosing ) return;
+	if ( m_bClosing )
+		return;
+
 	ASSERT( m_pDownload != NULL );
 
 	if ( bPart1 )
@@ -374,8 +380,7 @@ BOOL CBTClient::OnHandshake1()
 	// Read in the BT protocol header
 	if ( ! StartsWith( BT_PROTOCOL_HEADER, BT_PROTOCOL_HEADER_LEN ) )
 	{
-		theApp.Message( MSG_ERROR, _T("BitTorrent coupling from %s had invalid header"), (LPCTSTR)m_sAddress );
-		Close();
+		Close( IDS_HANDSHAKE_FAIL );
 		return FALSE;
 	}
 
@@ -395,15 +400,13 @@ BOOL CBTClient::OnHandshake1()
 		if ( validAndUnequal( oFileHash, m_pDownload->m_oBTH ) )
 		{
 			// Display an error and exit
-			theApp.Message( MSG_ERROR, IDS_BT_CLIENT_WRONG_FILE, (LPCTSTR)m_sAddress );
-			Close();
+			Close( IDS_BT_CLIENT_WRONG_FILE );
 			return FALSE;
 		}
 		else if ( ! m_pDownload->IsTrying() && ! m_pDownload->IsSeeding() )
 		{
 			// Display an error and exit
-			theApp.Message( MSG_ERROR, IDS_BT_CLIENT_INACTIVE_FILE, (LPCTSTR)m_sAddress );
-			Close();
+			Close( IDS_BT_CLIENT_INACTIVE_FILE );
 			return FALSE;
 		}
 	}
@@ -417,32 +420,28 @@ BOOL CBTClient::OnHandshake1()
 		if ( m_pDownload == NULL )				// If we can't find the file
 		{
 			// Display an error and exit
-			theApp.Message( MSG_ERROR, IDS_BT_CLIENT_UNKNOWN_FILE, (LPCTSTR)m_sAddress );
-			Close();
+			Close( IDS_BT_CLIENT_UNKNOWN_FILE );
 			return FALSE;
 		}
 		else if ( ! m_pDownload->IsTrying() && ! m_pDownload->IsSeeding() )	// If the file isn't active
 		{
 			// Display an error and exit
 			m_pDownload = NULL;
-			theApp.Message( MSG_ERROR, IDS_BT_CLIENT_INACTIVE_FILE, (LPCTSTR)m_sAddress );
-			Close();
+			Close( IDS_BT_CLIENT_INACTIVE_FILE );
 			return FALSE;
 		}
 		else if ( m_pDownload->UploadExists( &m_pHost.sin_addr ) )	// If there is already an upload of this file to this client
 		{
 			// Display an error and exit
 			m_pDownload = NULL;
-			theApp.Message( MSG_ERROR, IDS_BT_CLIENT_DUPLICATE, (LPCTSTR)m_sAddress );
-			Close();
+			Close( IDS_BT_CLIENT_DUPLICATE );
 			return FALSE;
 		}
 		else if ( m_pDownload->m_bVerify != TRI_TRUE
 			&& ( m_pDownload->IsMoving() ||  m_pDownload->IsCompleted() ) )
 		{
 			// The file isn't verified yet, close the connection
-			theApp.Message( MSG_ERROR, IDS_BT_CLIENT_INACTIVE_FILE, (LPCTSTR)m_sAddress );
-			Close();
+			Close( IDS_BT_CLIENT_INACTIVE_FILE );
 			return FALSE;
 		}
 
@@ -450,8 +449,7 @@ BOOL CBTClient::OnHandshake1()
 		// (Prevent routers overloading for very popular torrents)
 		if ( ( m_pDownload->GetTransferCount( dtsCountTorrentAndActive ) ) > ( Settings.BitTorrent.DownloadConnections * 1.25 ) )
 		{
-			theApp.Message( MSG_ERROR, IDS_BT_CLIENT_MAX_CONNECTIONS, (LPCTSTR)m_sAddress );
-			Close();
+			Close( IDS_BT_CLIENT_MAX_CONNECTIONS );
 			return FALSE;
 		}
 	}
@@ -487,8 +485,7 @@ BOOL CBTClient::OnHandshake2()
 		// ToDo: This seems to trip when it shouldn't. Should be investigated...
 		//if ( memcmp( &m_pGUID, &pSource->m_pGUID, 16 ) != 0 )
 		//{
-		//	theApp.Message( MSG_ERROR, IDS_BT_CLIENT_WRONG_GUID, (LPCTSTR)m_sAddress );
-		//	Close();
+		//	Close( IDS_BT_CLIENT_WRONG_GUID );
 		//	return FALSE;
 		//}
 	}
@@ -496,8 +493,7 @@ BOOL CBTClient::OnHandshake2()
 	{
 		if ( m_pDownload->UploadExists( m_oGUID ) )
 		{
-			theApp.Message( MSG_ERROR, IDS_BT_CLIENT_DUPLICATE, m_sAddress );
-			Close();
+			Close( IDS_BT_CLIENT_DUPLICATE );
 			return FALSE;
 		}
 
@@ -515,8 +511,7 @@ BOOL CBTClient::OnHandshake2()
 				if ( m_pDownloadTransfer == NULL )
 				{
 					m_pDownload = NULL;
-					theApp.Message( MSG_ERROR, IDS_BT_CLIENT_UNKNOWN_FILE, m_sAddress );
-					Close();
+					Close( IDS_BT_CLIENT_UNKNOWN_FILE );
 					return FALSE;
 				}
 			}
@@ -878,8 +873,7 @@ BOOL CBTClient::OnOnline()
 	if ( ! m_pDownload->IsTorrent() ) // Perhaps download just finished, ToDo: investigate this!
 	{
 		m_pDownload = NULL;
-		theApp.Message( MSG_ERROR, IDS_BT_CLIENT_UNKNOWN_FILE, (LPCTSTR)m_sAddress );
-		Close();
+		Close( IDS_BT_CLIENT_UNKNOWN_FILE );
 		return FALSE;
 	}
 
@@ -908,7 +902,7 @@ BOOL CBTClient::OnOnline()
 
 BOOL CBTClient::OnPacket(CBTPacket* pPacket)
 {
-	if ( m_bClosing ) return FALSE;
+	pPacket->SmartDump( &m_pHost, FALSE, FALSE );
 
 	switch ( pPacket->m_nType )
 	{
@@ -944,6 +938,19 @@ BOOL CBTClient::OnPacket(CBTPacket* pPacket)
 		return OnDHTPort( pPacket );
 	case BT_PACKET_EXTENSION:
 		return OnExtended( pPacket );
+	//	switch ( pPacket->m_nExtension )
+	//	{
+	//	case BT_EXTENSION_HANDSHAKE:
+	//		return OnExtendedHandshake( pPacket );
+	//	case BT_EXTENSION_UT_METADATA:
+	//		return OnMetadataRequest( pPacket );
+	//	case BT_EXTENSION_UT_PEX:
+	//		return OnUtPex( pPacket );
+	//	//case BT_EXTENSION_LT_TEX:
+	//	//	return OnLtTex( pPacket );
+	//	}
+		break;
+
 	case BT_PACKET_HANDSHAKE:
 		if ( ! m_bClientExtended )
 			break;
@@ -969,24 +976,21 @@ void CBTClient::SendBeHandshake()
 	if ( m_bClosing ) return;
 
 	// Send extended handshake (for G2 capable clients)
-	CBENode pRoot;
-
-	CString strNick = MyProfile.GetNick().Left( 255 ); // Truncate to 255 characters
-	if ( ! strNick.IsEmpty() )
-		pRoot.Add( "nickname" )->SetString( strNick );
-
-	if ( ( m_pDownload ) && ( m_pDownload->m_pTorrent.m_bPrivate ) )
-		pRoot.Add( "source-exchange" )->SetInt( 0 );
-	else
-		pRoot.Add( "source-exchange" )->SetInt( 2 );
-
-	pRoot.Add( "user-agent" )->SetString( Settings.SmartAgent() );
-
-	CBuffer pOutput;
-	pRoot.Encode( &pOutput );
-
 	CBTPacket* pPacket = CBTPacket::New( BT_PACKET_HANDSHAKE );
-	pPacket->Write( pOutput.m_pBuffer, pOutput.m_nLength );
+	CBENode* pRoot = pPacket->m_pNode.get();
+	ASSERT( pRoot );
+
+	CString strNick = MyProfile.GetNick().Left( 255 );	// Truncate to 255 characters
+	if ( ! strNick.IsEmpty() )
+		pRoot->Add( "nickname" )->SetString( strNick );
+
+	if ( m_pDownload && m_pDownload->m_pTorrent.m_bPrivate )
+		pRoot->Add( "source-exchange" )->SetInt( 0 );
+	else
+		pRoot->Add( "source-exchange" )->SetInt( 2 );
+
+	pRoot->Add( "user-agent" )->SetString( Settings.SmartAgent() );
+
 	Send( pPacket );
 }
 
@@ -994,17 +998,12 @@ BOOL CBTClient::OnBeHandshake(CBTPacket* pPacket)
 {
 	ASSUME_LOCK( Transfers.m_pSection );
 
-	if ( m_bClosing ) return TRUE;
 	// On extended handshake (for G2 capable clients)
-	if ( pPacket->GetRemaining() > 1024 ) return TRUE;
 
-	CBuffer pInput;
-	pInput.Add( pPacket->m_pBuffer, pPacket->GetRemaining() );
+	const CBENode* pRoot = pPacket->m_pNode.get();
+	ASSERT( pRoot );
 
-	CBENode* pRoot = CBENode::Decode( &pInput );
-	if ( pRoot == NULL ) return TRUE;
-
-	CBENode* pAgent = pRoot->GetNode( "user-agent" );
+	const CBENode* pAgent = pRoot->GetNode( "user-agent" );
 
 	if ( pAgent->IsType( CBENode::beString ) )
 	{
@@ -1027,7 +1026,7 @@ BOOL CBTClient::OnBeHandshake(CBTPacket* pPacket)
 		}
 	}
 
-	CBENode* pNick = pRoot->GetNode( "nickname" );
+	const CBENode* pNick = pRoot->GetNode( "nickname" );
 
 	if ( pNick->IsType( CBENode::beString ) )
 	{
@@ -1035,7 +1034,7 @@ BOOL CBTClient::OnBeHandshake(CBTPacket* pPacket)
 			pSource->m_sNick = pNick->GetString();
 	}
 
-	if ( CBENode* pExchange = pRoot->GetNode( "source-exchange" ) )
+	if ( const CBENode* pExchange = pRoot->GetNode( "source-exchange" ) )
 	{
 		if ( pExchange->GetInt() >= 2 )
 		{
@@ -1053,8 +1052,6 @@ BOOL CBTClient::OnBeHandshake(CBTPacket* pPacket)
 		}
 	}
 
-	delete pRoot;
-
 	theApp.Message( MSG_INFO, IDS_BT_CLIENT_EXTENDED, (LPCTSTR)m_sAddress, (LPCTSTR)m_sUserAgent );
 
 	return TRUE;
@@ -1071,9 +1068,11 @@ BOOL CBTClient::OnSourceRequest(CBTPacket* /*pPacket*/)
 	if ( ! m_pDownload || m_pDownload->m_pTorrent.m_bPrivate )
 		return TRUE;
 
-	CBENode pRoot;
-	CBENode* pPeers = pRoot.Add( "peers" );
+	CBTPacket* pResponse = CBTPacket::New( BT_PACKET_SOURCE_RESPONSE );
+	CBENode* pRoot = pResponse->m_pNode.get();
+	ASSERT( pRoot );
 
+	CBENode* pPeers = pRoot->Add( "peers" );
 	for ( POSITION posSource = m_pDownload->GetIterator(); posSource ; )
 	{
 		CDownloadSource* pSource = m_pDownload->GetNext( posSource );
@@ -1102,13 +1101,11 @@ BOOL CBTClient::OnSourceRequest(CBTPacket* /*pPacket*/)
 	}
 
 	if ( pPeers->GetCount() == 0 )
+	{
+		pResponse->Release();
 		return TRUE;
+	}
 
-	CBuffer pOutput;
-	pRoot.Encode( &pOutput );
-
-	CBTPacket* pResponse = CBTPacket::New( BT_PACKET_SOURCE_RESPONSE );
-	pResponse->Write( pOutput.m_pBuffer, pOutput.m_nLength );
 	Send( pResponse );
 
 	return TRUE;
@@ -1134,63 +1131,60 @@ BOOL CBTClient::OnDHTPort(CBTPacket* pPacket)
 //////////////////////////////////////////////////////////////////////
 // CBTClient Extension  (.torrentless)
 
-#define EXTENDED_PACKET_HANDSHAKE	0
-#define EXTENDED_PACKET_UT_METADATA	1
-#define EXTENDED_PACKET_UT_PEX		2
-#define UT_METADATA_REQUEST			0
-#define UT_METADATA_DATA			1
-#define UT_METADATA_REJECT			2
-
-void CBTClient::SendExtendedPacket(BYTE Type, CBuffer *pOutput)
+void CBTClient::SendExtendedHandshake()
 {
-	CBTPacket *pResponse = CBTPacket::New( BT_PACKET_EXTENSION );
-	pResponse->WriteByte( Type );
-	pResponse->Write( pOutput->m_pBuffer, pOutput->m_nLength );
+	CBTPacket* pResponse = CBTPacket::New( BT_PACKET_EXTENSION, BT_EXTENSION_HANDSHAKE );
+	CBENode* pRoot = pResponse->m_pNode.get();
+	ASSERT( pRoot );
+
+	CBENode* pM = pRoot->Add( "m" );
+	pM->Add( "ut_metadata" )->SetInt( BT_EXTENSION_UT_METADATA );
+	pM->Add( "ut_pex" )->SetInt( BT_EXTENSION_UT_PEX );
+
+	if ( m_pDownload->IsTorrent() && ! m_pDownload->m_pTorrent.m_bPrivate && m_pDownload->m_pTorrent.GetInfoSize() > 0)
+		pRoot->Add( "metadata_size" )->SetInt( m_pDownload->m_pTorrent.GetInfoSize() );
+
+	pRoot->Add( "p" )->SetInt( Settings.Connection.InPort );
+	pRoot->Add( "v" )->SetString( Settings.SmartAgent() );
+
 	Send( pResponse );
 }
 
-void CBTClient::SendExtendedHandshake()
+void CBTClient::SendMetadataRequest(QWORD nPiece)
 {
-	CBENode pRoot;
+	ASSERT( m_nUtMetadataID );
 
-	CBENode* pM = pRoot.Add( "m" );
-	pM->Add( "ut_metadata" )->SetInt( EXTENDED_PACKET_UT_METADATA );
-	pM->Add( "ut_pex" )->SetInt( EXTENDED_PACKET_UT_PEX );
+	CBTPacket* pResponse = CBTPacket::New( BT_PACKET_EXTENSION, m_nUtMetadataID );
+	CBENode* pRoot = pResponse->m_pNode.get();
+	ASSERT( pRoot );
 
-	if ( m_pDownload->IsTorrent() && ! m_pDownload->m_pTorrent.m_bPrivate && m_pDownload->m_pTorrent.GetInfoSize() > 0)
-		pRoot.Add( "metadata_size" )->SetInt( m_pDownload->m_pTorrent.GetInfoSize() );
-
-	pRoot.Add( "p" )->SetInt( Settings.Connection.InPort );
-	pRoot.Add( "v" )->SetString( Settings.SmartAgent() );
+	pRoot->Add( "piece" )->SetInt( nPiece );
 
 	CBuffer pOutput;
-	pRoot.Encode( &pOutput );
-	pRoot.Clear();
 
-	SendExtendedPacket( EXTENDED_PACKET_HANDSHAKE, &pOutput );
+	BYTE* pInfoPiece = NULL;
+	DWORD InfoLen = m_pDownload->m_pTorrent.GetInfoPiece( nPiece, &pInfoPiece );
+	if ( InfoLen == 0 || m_pDownload->m_pTorrent.m_bPrivate )
+	{
+		pRoot->Add( "msg_type" )->SetInt( UT_METADATA_REJECT );
+	}
+	else
+	{
+		pRoot->Add( "msg_type" )->SetInt( UT_METADATA_DATA );
+		pRoot->Add( "total_size" )->SetInt( m_pDownload->m_pTorrent.GetInfoSize() );
+		pResponse->Write( pInfoPiece, InfoLen );
+	}
+
+	Send( pResponse );
 }
 
 BOOL CBTClient::OnExtended(CBTPacket* pPacket)
 {
 	ASSUME_LOCK( Transfers.m_pSection );
 
-	if ( pPacket->GetRemaining() > 100 * 1024 )
-		return TRUE;
+	const CBENode* pRoot = pPacket->m_pNode.get();
 
-	if ( m_bClosing )
-		return TRUE;
-
-	BYTE nPacketID = pPacket->ReadByte();
-
-	CBuffer pInput;
-	pInput.Add( &pPacket->m_pBuffer[ pPacket->m_nPosition ], pPacket->GetRemaining() );
-
-	DWORD nReaden = 0;
-	CBENode* pRoot = CBENode::Decode( &pInput, &nReaden );
-	if ( pRoot == NULL )
-		return TRUE;
-
-	if ( nPacketID == EXTENDED_PACKET_HANDSHAKE )
+	if ( pPacket->m_nExtension == BT_EXTENSION_HANDSHAKE )
 	{
 		theApp.Message( MSG_DEBUG,
 			_T("[BT] EXTENDED PACKET HANDSHAKE: %s"), (LPCTSTR)pRoot->Encode() );
@@ -1213,9 +1207,9 @@ BOOL CBTClient::OnExtended(CBTPacket* pPacket)
 
 			if ( CBENode* pUtPex = pMetadata->GetNode( "ut_pex" ) )		// Peer-exchange
 			{
-				BOOL bSendUtPex = m_nUtPexID != pUtPex->GetInt();
+				QWORD nOldUtPexID = m_nUtPexID;
 				m_nUtPexID = pUtPex->GetInt();
-				if ( bSendUtPex )
+				if ( ! nOldUtPexID && m_nUtPexID )
 				{
 					SendUtPex();
 					m_tLastUtPex = GetTickCount();
@@ -1223,7 +1217,7 @@ BOOL CBTClient::OnExtended(CBTPacket* pPacket)
 			}
 		}
 	}
-	else if ( nPacketID == EXTENDED_PACKET_UT_METADATA )
+	else if ( pPacket->m_nExtension == BT_EXTENSION_UT_METADATA )
 	{
 		CBENode* pMsgType = pRoot->GetNode( "msg_type" );
 		CBENode* pPiece = pRoot->GetNode( "piece" );
@@ -1234,42 +1228,23 @@ BOOL CBTClient::OnExtended(CBTPacket* pPacket)
 
 			if ( nMsgType == UT_METADATA_REQUEST )
 			{
-				CBENode pRoot2;
-				pRoot2.Add( "piece" )->SetInt( nPiece );
-
-				CBuffer pOutput;
-
-				BYTE* pInfoPiece = NULL;
-				DWORD InfoLen = m_pDownload->m_pTorrent.GetInfoPiece( nPiece, &pInfoPiece );
-				if ( InfoLen == 0 || m_pDownload->m_pTorrent.m_bPrivate )
-				{
-					pRoot2.Add( "msg_type" )->SetInt( UT_METADATA_REJECT );
-					pRoot2.Encode( &pOutput );
-				}
-				else
-				{
-					pRoot2.Add( "msg_type" )->SetInt( UT_METADATA_DATA );
-					pRoot2.Add( "total_size" )->SetInt( m_pDownload->m_pTorrent.GetInfoSize() );
-					pRoot2.Encode( &pOutput );
-					pOutput.Add( pInfoPiece, InfoLen );
-				}
-
-				SendExtendedPacket( m_nUtMetadataID, &pOutput );
+				if ( m_nUtMetadataID )
+					SendMetadataRequest( nPiece );
 			}
 			else if ( nMsgType == UT_METADATA_DATA  && ! m_pDownload->m_pTorrent.m_pBlockBTH )
 			{
 				if ( CBENode* pTotalSize = pRoot->GetNode( "total_size" ) )
 				{
 					QWORD nTotalSize = pTotalSize->GetInt();
-					ASSERT( !( m_nUtMetadataSize > 0 && m_nUtMetadataSize != nTotalSize ) );
+					ASSERT( ! ( m_nUtMetadataSize && m_nUtMetadataSize != nTotalSize ) );
 					if ( ! m_nUtMetadataSize )
 						m_nUtMetadataSize = nTotalSize;
 				}
 
 				if ( m_nUtMetadataSize && ! m_pDownload->m_pTorrent.m_pBlockBTH )
 				{
-					if ( m_pDownload->m_pTorrent.LoadInfoPiece( pInput.m_nLength - nReaden,
-						 m_nUtMetadataSize, nPiece, pPacket->m_pBuffer, pPacket->m_nLength ) ) // If full info loaded
+					if ( m_pDownload->m_pTorrent.LoadInfoPiece( pPacket->m_pBuffer, pPacket->m_nLength,
+						 m_nUtMetadataSize, nPiece ) )	// If full info loaded
 					{
 						 m_pDownload->SetTorrent( m_pDownload->m_pTorrent );
 					}
@@ -1283,10 +1258,10 @@ BOOL CBTClient::OnExtended(CBTPacket* pPacket)
 			}
 		}
 	}
-	else if ( nPacketID == EXTENDED_PACKET_UT_PEX )	// Peer-exchange
+	else if ( pPacket->m_nExtension == BT_EXTENSION_UT_PEX )	// Peer-exchange
 	{
-		theApp.Message( MSG_DEBUG,
-			_T("[BT] EXTENDED PACKET PEX: %s"), (LPCTSTR)pRoot->Encode() );
+	//	theApp.Message( MSG_DEBUG,
+	//		_T("[BT] EXTENDED PACKET PEX: %s"), (LPCTSTR)pRoot->Encode() );
 
 		CBENode* pPeersAdd = pRoot->GetNode( "added" );
 
@@ -1328,12 +1303,6 @@ BOOL CBTClient::OnExtended(CBTPacket* pPacket)
 			}
 		}
 	}
-	else
-	{
-		ASSERT( nPacketID );
-	}
-
-	delete pRoot;
 
 	return TRUE;
 }
@@ -1342,14 +1311,13 @@ void CBTClient::SendInfoRequest(QWORD nPiece)
 {
 	ASSERT( m_nUtMetadataID );
 
-	CBENode pRoot;
-	pRoot.Add( "msg_type" )->SetInt( UT_METADATA_REQUEST );	// Request
-	pRoot.Add( "piece" )->SetInt( nPiece );
+	CBTPacket* pResponse = CBTPacket::New( BT_PACKET_EXTENSION, m_nUtMetadataID );
+	CBENode* pRoot = pResponse->m_pNode.get();
 
-	CBuffer pOutput;
-	pRoot.Encode( &pOutput );
+	pRoot->Add( "msg_type" )->SetInt( UT_METADATA_REQUEST );	// Request
+	pRoot->Add( "piece" )->SetInt( nPiece );
 
-	SendExtendedPacket( m_nUtMetadataID, &pOutput );
+	Send( pResponse );
 }
 
 // uTorrent Peer-Exchange
@@ -1410,13 +1378,12 @@ void CBTClient::SendUtPex(DWORD tConnectedAfter)
 
 	if ( pAddedBuffer.m_nLength )
 	{
-		CBENode pRoot;
-		pRoot.Add("added")->SetString( pAddedBuffer.m_pBuffer, pAddedBuffer.m_nLength );
-		pRoot.Add("added.f")->SetString( pAddedFlagsBuffer.m_pBuffer, pAddedFlagsBuffer.m_nLength );
+		CBTPacket* pResponse = CBTPacket::New( BT_PACKET_EXTENSION, m_nUtPexID );
+		CBENode* pRoot = pResponse->m_pNode.get();
 
-		CBuffer pOutput;
-		pRoot.Encode( &pOutput );
+		pRoot->Add("added")->SetString( pAddedBuffer.m_pBuffer, pAddedBuffer.m_nLength );
+		pRoot->Add("added.f")->SetString( pAddedFlagsBuffer.m_pBuffer, pAddedFlagsBuffer.m_nLength );
 
-		SendExtendedPacket( m_nUtPexID, &pOutput );
+		Send( pResponse );
 	}
 }

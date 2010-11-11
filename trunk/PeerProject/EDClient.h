@@ -116,7 +116,7 @@ protected:
 
 public:
 	virtual void	AttachTo(CConnection* pConnection);
-	virtual void	Close();
+	virtual void	Close(UINT nError = 0);
 
 protected:
 	virtual BOOL	OnRun();

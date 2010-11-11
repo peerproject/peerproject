@@ -160,6 +160,7 @@ public:
 	BOOL		Connect(BOOL bAutoConnect = FALSE);
 	void		Disconnect();
 	BOOL		ConnectTo(LPCTSTR pszAddress, int nPort = 0, PROTOCOLID nProtocol = PROTOCOL_NULL, BOOL bNoUltraPeer = FALSE);
+	BOOL		AcquireLocalAddress(SOCKET hSocket);
 	BOOL		AcquireLocalAddress(LPCTSTR pszHeader);
 	BOOL		AcquireLocalAddress(const IN_ADDR& pAddress);
 	BOOL		Resolve(LPCTSTR pszHost, int nPort, SOCKADDR_IN* pHost, BOOL bNames = TRUE) const;

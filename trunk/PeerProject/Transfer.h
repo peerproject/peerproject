@@ -37,11 +37,18 @@ public:
 	CArray< CString >	m_pHeaderName;
 	CArray< CString >	m_pHeaderValue;
 
+	int					m_nState;			// Common state code
+	QWORD				m_nLength;			// Fragment length
+	QWORD				m_nOffset;			// Fragment offset
+	QWORD				m_nPosition;		// Fragment position
+	DWORD				m_nBandwidth;		// Bandwidth allocated
+	DWORD				m_tRequest;			// The time a request was sent
+
 // Operations
 public:
 	virtual BOOL	ConnectTo(const IN_ADDR* pAddress, WORD nPort);
 	virtual void	AttachTo(CConnection* pConnection);
-	virtual void	Close();
+	virtual void	Close(UINT nError = 0);
 
 protected:
 	void			ClearHeaders();

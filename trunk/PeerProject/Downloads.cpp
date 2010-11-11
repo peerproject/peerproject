@@ -442,6 +442,29 @@ void CDownloads::CloseTransfers()
 //////////////////////////////////////////////////////////////////////
 // CDownloads list access
 
+INT_PTR CDownloads::GetCount(BOOL bActiveOnly) const
+{
+	if ( ! bActiveOnly )
+		return (DWORD)m_pList.GetCount();
+
+	INT_PTR nCount = 0;
+
+	CQuickLock pLock( Transfers.m_pSection );
+
+	for ( POSITION pos = GetIterator() ; pos ; )
+	{
+		CDownload* pDownload = GetNext( pos );
+
+		if ( ! pDownload->IsMoving() && ! pDownload->IsPaused() &&
+			 pDownload->GetEffectiveSourceCount() > 0 )
+		{
+			nCount++;
+		}
+	}
+
+	return nCount;
+}
+
 int CDownloads::GetSeedCount() const
 {
 	int nCount = 0;
@@ -480,43 +503,6 @@ int CDownloads::GetActiveTorrentCount() const
 	return nCount;
 }
 
-INT_PTR CDownloads::GetCount(BOOL bActiveOnly) const
-{
-	if ( ! bActiveOnly )
-		return (DWORD)m_pList.GetCount();
-
-	INT_PTR nCount = 0;
-
-	CQuickLock pLock( Transfers.m_pSection );
-
-	for ( POSITION pos = GetIterator() ; pos ; )
-	{
-		CDownload* pDownload = GetNext( pos );
-
-		if ( ! pDownload->IsMoving() && ! pDownload->IsPaused() &&
-			 pDownload->GetEffectiveSourceCount() > 0 )
-		{
-			nCount++;
-		}
-	}
-
-	return nCount;
-}
-
-DWORD CDownloads::GetTransferCount() const
-{
-	DWORD nCount = 0;
-
-	CQuickLock pLock( Transfers.m_pSection );
-
-	for ( POSITION pos = GetIterator() ; pos ; )
-	{
-		nCount += GetNext( pos )->GetTransferCount();
-	}
-
-	return nCount;
-}
-
 DWORD CDownloads::GetTryingCount(bool bTorrentsOnly) const
 {
 	if ( bTorrentsOnly )
@@ -540,6 +526,20 @@ DWORD CDownloads::GetConnectingTransferCount() const
 
 	return nCount;
 }
+
+//DWORD CDownloads::GetTransferCount() const
+//{
+//	DWORD nCount = 0;
+//
+//	CQuickLock pLock( Transfers.m_pSection );
+//
+//	for ( POSITION pos = GetIterator() ; pos ; )
+//	{
+//		nCount += GetNext( pos )->GetTransferCount();
+//	}
+//
+//	return nCount;
+//}
 
 void CDownloads::Remove(CDownload* pDownload)
 {
@@ -1090,8 +1090,7 @@ void CDownloads::OnRun()
 						nLimitED2K = (DWORD)(nBandwidthAvailableED2K * nPercentageUsed );
 					}
 
-					if ( nLimit ) nLimit = min( nLimit, nLimitED2K );
-					else nLimit = nLimitED2K;
+					nLimit = ( nLimit ? min( nLimit, nLimitED2K ) : nLimitED2K );
 				}
 
 				// Minimum allocation- 64 bytes / second to prevent time-outs.

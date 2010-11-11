@@ -192,7 +192,7 @@ BOOL CHostBrowser::IsBrowsing() const
 
 float CHostBrowser::GetProgress() const
 {
-	if ( m_nState != hbsContent || m_nLength == 0ul || m_nLength == ~0ul ) return 0.0f;
+	if ( m_nState != hbsContent || m_nLength == 0ul || m_nLength == SIZE_UNKNOWN ) return 0.0f;
 
 	return (float)m_nReceived / (float)m_nLength;
 }
@@ -276,7 +276,7 @@ void CHostBrowser::OnDropped()
 		}
 		else
 		{
-			if ( m_nLength == ~0ul )
+			if ( m_nLength == SIZE_UNKNOWN )
 			{
 				m_nLength = GetInputLength();
 				ReadContent();

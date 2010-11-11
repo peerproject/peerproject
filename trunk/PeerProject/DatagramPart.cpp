@@ -50,7 +50,7 @@ CDatagramOut::~CDatagramOut()
 //////////////////////////////////////////////////////////////////////
 // CDatagramOut create
 
-void CDatagramOut::Create(SOCKADDR_IN* pHost, CG2Packet* pPacket, WORD nSequence, CBuffer* pBuffer, BOOL bAck)
+void CDatagramOut::Create(const SOCKADDR_IN* pHost, CG2Packet* pPacket, WORD nSequence, CBuffer* pBuffer, BOOL bAck)
 {
 	ASSERT( m_pBuffer == NULL );
 
@@ -58,7 +58,7 @@ void CDatagramOut::Create(SOCKADDR_IN* pHost, CG2Packet* pPacket, WORD nSequence
 	m_nSequence	= nSequence;
 	m_pBuffer	= pBuffer;
 
-	pPacket->ToBuffer( m_pBuffer );
+	pPacket->ToBuffer( m_pBuffer, false );
 
 	m_bCompressed = m_pBuffer->Deflate( TRUE );
 
@@ -89,8 +89,8 @@ void CDatagramOut::Create(SOCKADDR_IN* pHost, CG2Packet* pPacket, WORD nSequence
 	{
 		if ( m_pLocked ) delete [] m_pLocked;
 
-		m_nLocked	= m_nCount;
-		m_pLocked	= new DWORD[ m_nLocked ];
+		m_nLocked = m_nCount;
+		m_pLocked = new DWORD[ m_nLocked ];
 	}
 
 	ZeroMemory( m_pLocked, sizeof(DWORD) * m_nCount );

@@ -62,12 +62,12 @@ static char THIS_FILE[]=__FILE__;
 //////////////////////////////////////////////////////////////////////
 // CLocalSearch construction
 
-CLocalSearch::CLocalSearch(CQuerySearch* pSearch)
+CLocalSearch::CLocalSearch(CQuerySearch* pSearch, PROTOCOLID nProtocol)
 	: m_pSearch		( pSearch )
 	, m_pEndpoint	( pSearch->m_pEndpoint )
 	, m_pBuffer		( NULL )
 	, m_bUDP		( TRUE )
-	, m_nProtocol	( PROTOCOL_G2 )
+	, m_nProtocol	( nProtocol )	// PROTOCOL_G2
 {
 }
 

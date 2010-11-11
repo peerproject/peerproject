@@ -49,7 +49,6 @@ static char THIS_FILE[]=__FILE__;
 CUploadTransferED2K::CUploadTransferED2K(CEDClient* pClient)
 	: CUploadTransfer( PROTOCOL_ED2K )
 	, m_pClient			( pClient )
-	, m_tRequest		( GetTickCount() )
 	, m_nRanking		( 0 )
 	, m_tRankingSent	( 0 )
 	, m_tRankingCheck	( 0 )
@@ -144,7 +143,7 @@ BOOL CUploadTransferED2K::Request(const Hashes::Ed2kHash& oED2K)
 //////////////////////////////////////////////////////////////////////
 // CUploadTransferED2K close
 
-void CUploadTransferED2K::Close(BOOL bMessage)
+void CUploadTransferED2K::Close(UINT nError)
 {
 	if ( m_nState == upsNull )
 	{
@@ -169,7 +168,7 @@ void CUploadTransferED2K::Close(BOOL bMessage)
 	m_pClient->OnUploadClose();
 	m_pClient = NULL;
 
-	CUploadTransfer::Close( bMessage );
+	CUploadTransfer::Close( nError );
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -191,8 +190,7 @@ BOOL CUploadTransferED2K::OnRunEx(DWORD tNow)
 		if ( m_pClient->IsOnline() == FALSE && tNow > m_tRequest &&
 			 tNow - m_tRequest >= Settings.eDonkey.DequeueTime * 1000 )
 		{
-			theApp.Message( MSG_NOTICE, IDS_UPLOAD_QUEUE_TIMEOUT, (LPCTSTR)m_sAddress );
-			Close();
+			Close( IDS_UPLOAD_QUEUE_TIMEOUT );
 			return FALSE;
 		}
 		else
@@ -225,8 +223,7 @@ BOOL CUploadTransferED2K::OnRunEx(DWORD tNow)
 		if ( tNow > m_pClient->m_mOutput.tLast &&
 			 tNow - m_pClient->m_mOutput.tLast > Settings.Connection.TimeoutTraffic * 3 )
 		{
-			theApp.Message( MSG_NOTICE, IDS_UPLOAD_TRAFFIC_TIMEOUT, (LPCTSTR)m_sAddress );
-			Close();
+			Close( IDS_UPLOAD_TRAFFIC_TIMEOUT );
 			return FALSE;
 		}
 	}
@@ -234,8 +231,7 @@ BOOL CUploadTransferED2K::OnRunEx(DWORD tNow)
 	{
 		if ( tNow > m_tRequest && tNow - m_tRequest > Settings.Connection.TimeoutHandshake )
 		{
-			theApp.Message( MSG_NOTICE, IDS_UPLOAD_REQUEST_TIMEOUT, (LPCTSTR)m_sAddress );
-			Close();
+			Close( IDS_UPLOAD_REQUEST_TIMEOUT );
 			return FALSE;
 		}
 	}
@@ -243,7 +239,7 @@ BOOL CUploadTransferED2K::OnRunEx(DWORD tNow)
 	{
 		if ( tNow > m_tRequest && tNow - m_tRequest > Settings.Connection.TimeoutConnect + Settings.Connection.TimeoutHandshake + 10000 )
 		{
-			Close( TRUE );
+			Close( IDS_UPLOAD_DROPPED );
 			return FALSE;
 		}
 	}
@@ -281,8 +277,7 @@ void CUploadTransferED2K::OnDropped()
 	}
 	else
 	{
-		theApp.Message( MSG_ERROR, IDS_UPLOAD_DROPPED, (LPCTSTR)m_sAddress );
-		Close();
+		Close( IDS_UPLOAD_DROPPED );
 	}
 }
 
@@ -329,7 +324,7 @@ DWORD CUploadTransferED2K::GetMeasuredSpeed()
 BOOL CUploadTransferED2K::OnQueueRelease(CEDPacket* /*pPacket*/)
 {
 	Cleanup();
-	Close( TRUE );
+	Close( IDS_UPLOAD_DROPPED );
 	return FALSE;
 }
 
@@ -374,9 +369,10 @@ BOOL CUploadTransferED2K::OnRequestParts(CEDPacket* pPacket)
 		else
 		{
 			// Invalid request- had an impossible range.
-			theApp.Message( MSG_ERROR, _T("Invalid file range(s) in request from %s"), (LPCTSTR)m_sAddress );
-			// They probably have an incorrent hash associated with a file. Calling close now
-			// will send "file not found" to stop them re-asking, then close the connection.
+			theApp.Message( MSG_ERROR, IDS_UPLOAD_BAD_RANGE, (LPCTSTR)m_sAddress, (LPCTSTR)m_sName );
+
+			// They probably have an incorrent hash associated with a file.
+			// Calling close now will send "file not found" to stop them re-asking, then close the connection.
 			Close();
 			return FALSE;
 		}
@@ -575,7 +571,7 @@ BOOL CUploadTransferED2K::StartNextRequest()
 	{
 		Send( CEDPacket::New( ED2K_C2C_FINISHUPLOAD ) );
 		Cleanup();
-		Close( TRUE );
+		Close( IDS_UPLOAD_DROPPED );
 		return FALSE;
 	}
 }
@@ -599,53 +595,53 @@ BOOL CUploadTransferED2K::DispatchNextChunk()
 						( ( m_nOffset + m_nPosition + nChunk ) & 0xffffffff00000000 );
 
 #if 0
-	// Use packet form
-
-	if (bI64Offset)
-	{
-		CEDPacket* pPacket = CEDPacket::New( ED2K_C2C_SENDINGPART_I64, ED2K_PROTOCOL_EMULE );
-		pPacket->Write( m_oED2K );
-		pPacket->WriteLongLE( ( m_nOffset + m_nPosition ) & 0x00000000ffffffff );
-		pPacket->WriteLongLE( ( ( m_nOffset + m_nPosition ) & 0xffffffff00000000 ) >> 32);
-		pPacket->WriteLongLE( ( m_nOffset + m_nPosition + nChunk ) & 0x00000000ffffffff );
-		pPacket->WriteLongLE( ( ( m_nOffset + m_nPosition + nChunk ) & 0xffffffff00000000 ) >> 32);
-
-		ReadFile( m_nFileBase + m_nOffset + m_nPosition, pPacket->GetWritePointer( nChunk ), nChunk, &nChunk );
-		// SetFilePointer( hFile, m_nFileBase + m_nOffset + m_nPosition, NULL, FILE_BEGIN );
-		// ReadFile( hFile, pPacket->WriteGetPointer( nChunk ), nChunk, &nChunk, NULL );
-
-		if ( nChunk == 0 )
-		{
-			pPacket->Release();
-			return FALSE;
-		}
-
-		pPacket->m_nLength = sizeof(MD4) + 16 + nChunk;
-
-		Send( pPacket );
-	}
-	else
-	{
-		CEDPacket* pPacket = CEDPacket::New( ED2K_C2C_SENDINGPART );
-		pPacket->Write( m_oED2K );
-		pPacket->WriteLongLE( m_nOffset + m_nPosition );
-		pPacket->WriteLongLE( m_nOffset + m_nPosition + nChunk );
-
-		ReadFile( m_nFileBase + m_nOffset + m_nPosition, pPacket->GetWritePointer( nChunk ), nChunk, &nChunk );
-		// SetFilePointer( hFile, m_nFileBase + m_nOffset + m_nPosition, NULL, FILE_BEGIN );
-		// ReadFile( hFile, pPacket->WriteGetPointer( nChunk ), nChunk, &nChunk, NULL );
-
-		if ( nChunk == 0 )
-		{
-			pPacket->Release();
-			return FALSE;
-		}
-
-		pPacket->m_nLength = sizeof(MD4) + 8 + nChunk;
-
-		Send( pPacket );
-	}
-
+// ToDo: Why is this here but unreachable?
+//	// Use packet form
+//	if ( bI64Offset )
+//	{
+//		CEDPacket* pPacket = CEDPacket::New( ED2K_C2C_SENDINGPART_I64, ED2K_PROTOCOL_EMULE );
+//		pPacket->Write( m_oED2K );
+//		pPacket->WriteLongLE( ( m_nOffset + m_nPosition ) & 0x00000000ffffffff );
+//		pPacket->WriteLongLE( ( ( m_nOffset + m_nPosition ) & 0xffffffff00000000 ) >> 32);
+//		pPacket->WriteLongLE( ( m_nOffset + m_nPosition + nChunk ) & 0x00000000ffffffff );
+//		pPacket->WriteLongLE( ( ( m_nOffset + m_nPosition + nChunk ) & 0xffffffff00000000 ) >> 32);
+//
+//		ReadFile( m_nFileBase + m_nOffset + m_nPosition, pPacket->GetWritePointer( nChunk ), nChunk, &nChunk );
+//		// SetFilePointer( hFile, m_nFileBase + m_nOffset + m_nPosition, NULL, FILE_BEGIN );
+//		// ReadFile( hFile, pPacket->WriteGetPointer( nChunk ), nChunk, &nChunk, NULL );
+//
+//		if ( nChunk == 0 )
+//		{
+//			pPacket->Release();
+//			return FALSE;
+//		}
+//
+//		pPacket->m_nLength = sizeof(MD4) + 16 + nChunk;
+//
+//		Send( pPacket );
+//	}
+//	else
+//	{
+//		CEDPacket* pPacket = CEDPacket::New( ED2K_C2C_SENDINGPART );
+//		pPacket->Write( m_oED2K );
+//		pPacket->WriteLongLE( m_nOffset + m_nPosition );
+//		pPacket->WriteLongLE( m_nOffset + m_nPosition + nChunk );
+//
+//		ReadFile( m_nFileBase + m_nOffset + m_nPosition, pPacket->GetWritePointer( nChunk ), nChunk, &nChunk );
+//		// SetFilePointer( hFile, m_nFileBase + m_nOffset + m_nPosition, NULL, FILE_BEGIN );
+//		// ReadFile( hFile, pPacket->WriteGetPointer( nChunk ), nChunk, &nChunk, NULL );
+//
+//		if ( nChunk == 0 )
+//		{
+//			pPacket->Release();
+//			return FALSE;
+//		}
+//
+//		pPacket->m_nLength = sizeof(MD4) + 8 + nChunk;
+//
+//		Send( pPacket );
+//	}
+//
 #else
 	// Raw write
 	if ( bI64Offset )
@@ -697,7 +693,7 @@ BOOL CUploadTransferED2K::DispatchNextChunk()
 		m_pClient->Send( NULL );
 	}
 
-#endif
+#endif // 0
 
 	m_nPosition += nChunk;
 	m_nUploaded += nChunk;
@@ -740,7 +736,7 @@ BOOL CUploadTransferED2K::CheckRanking()
 	{
 		// Invalid queue position, or queue deleted. Drop client and exit.
 		Cleanup();
-		Close( TRUE );
+		Close( IDS_UPLOAD_DROPPED );
 		return FALSE;
 	}
 
@@ -753,7 +749,7 @@ BOOL CUploadTransferED2K::CheckRanking()
 
 	if ( nPosition == 0 )
 	{
-		//Ready to start uploading
+		// Ready to start uploading
 
 		if ( m_pClient->IsOnline() )
 		{
@@ -778,7 +774,7 @@ BOOL CUploadTransferED2K::CheckRanking()
 	}
 	else if ( m_pClient->IsOnline() )
 	{
-		//Upload is queued
+		// Upload is queued
 
 		// Check if we should send a ranking packet- If we have not sent one in a while, or one was requested
 		if ( ( tNow > m_tRankingSent && tNow - m_tRankingSent >= Settings.eDonkey.QueueRankThrottle ) ||
@@ -799,8 +795,9 @@ BOOL CUploadTransferED2K::CheckRanking()
 
 			m_nState = upsQueued;
 
+			// eMule queue ranking
 			if ( m_pClient->m_bEmule )
-			{	//eMule queue ranking
+			{
 				CEDPacket* pPacket = CEDPacket::New( ED2K_C2C_QUEUERANKING, ED2K_PROTOCOL_EMULE );
 				pPacket->WriteShortLE( WORD( nPosition ) );
 				pPacket->WriteShortLE( 0 );
@@ -808,8 +805,8 @@ BOOL CUploadTransferED2K::CheckRanking()
 				pPacket->WriteLongLE( 0 );
 				Send( pPacket );
 			}
-			else
-			{	//older eDonkey style
+			else	// older eDonkey style
+			{
 				CEDPacket* pPacket = CEDPacket::New( ED2K_C2C_QUEUERANK );
 				pPacket->WriteLongLE( nPosition );
 				Send( pPacket );
@@ -886,8 +883,8 @@ BOOL CUploadTransferED2K::OnRequestParts64(CEDPacket* pPacket)
 		{
 			// Invalid request- had an impossible range.
 			theApp.Message( MSG_ERROR, _T("Invalid file range(s) in request from %s"), (LPCTSTR)m_sAddress );
-			// They probably have an incorrent hash associated with a file. Calling close now
-			// will send "file not found" to stop them re-asking, then close the connection.
+			// They probably have an incorrent hash associated with a file.
+			// Calling close now will send "file not found" to stop them re-asking, then close the connection.
 			Close();
 			return FALSE;
 		}

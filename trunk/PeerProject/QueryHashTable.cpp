@@ -99,8 +99,8 @@ void CQueryHashTable::Clear()
 	if ( bGrouped )
 		QueryHashMaster.Remove( this );
 
-	m_nCookie	= GetTickCount() + 1;
-	m_nCount	= 0;
+	m_nCookie = GetTickCount() + 1;
+	m_nCount  = 0;
 
 	FillMemory( m_pHash, ( m_nHash + 31 ) / 8, 0xFF );
 
@@ -113,7 +113,7 @@ void CQueryHashTable::Clear()
 
 bool CQueryHashTable::Merge(const CQueryHashTable* pSource)
 {
-	if ( ! m_pHash || !pSource->m_pHash )
+	if ( ! m_pHash || ! pSource->m_pHash )
 		return false;
 
 	if ( m_nHash == pSource->m_nHash )
@@ -143,8 +143,8 @@ bool CQueryHashTable::Merge(const CQueryHashTable* pSource)
 	}
 	else
 	{
-		int nDestScale		= 1;
-		int nSourceScale	= 1;
+		int nDestScale = 1;
+		int nSourceScale = 1;
 
 		if ( m_nHash > pSource->m_nHash )
 		{
@@ -246,8 +246,8 @@ bool CQueryHashTable::Merge(const CQueryHashGroup* pSource)
 	}
 	else
 	{
-		int nDestScale		= 1;
-		int nSourceScale	= 1;
+		int nDestScale = 1;
+		int nSourceScale = 1;
 
 		if ( m_nHash > pSource->m_nHash )
 		{
@@ -320,8 +320,8 @@ bool CQueryHashTable::PatchTo(const CQueryHashTable* pTarget,
 	if ( m_nCookie == pTarget->m_nCookie )
 		return false;
 
-	m_nCookie	= pTarget->m_nCookie;
-	m_nCount	= pTarget->m_nCount;
+	m_nCookie = pTarget->m_nCookie;
+	m_nCount  = pTarget->m_nCount;
 
 	bool bChanged = false;
 
@@ -330,9 +330,9 @@ bool CQueryHashTable::PatchTo(const CQueryHashTable* pTarget,
 		delete [] m_pHash;
 		m_pHash = NULL;
 
-		m_nBits		= pTarget->m_nBits;
-		m_nHash		= pTarget->m_nHash;
-		m_pHash		= new BYTE[ ( m_nHash + 31 ) / 8 ];
+		m_nBits = pTarget->m_nBits;
+		m_nHash = pTarget->m_nHash;
+		m_pHash = new BYTE[ ( m_nHash + 31 ) / 8 ];
 
 		FillMemory( m_pHash, ( m_nHash + 31 ) / 8, 0xFF );
 
@@ -358,29 +358,27 @@ bool CQueryHashTable::PatchTo(const CQueryHashTable* pTarget,
 
 	BYTE nBits = 4;
 
-	if ( pNeighbour->m_nProtocol == PROTOCOL_G2 )
-	{
+	if ( pNeighbour->m_nProtocol == PROTOCOL_G2 ||
+		 pNeighbour->m_sUserAgent.Find( _T("Shareaza") ) == 0 ||
+		 pNeighbour->m_sUserAgent.Find( _T("PeerProject") ) == 0 )	// ToDo: Is this still correct ?
 		nBits = 1;
-	}
-	else if ( pNeighbour->m_sUserAgent.Find( _T("PeerProject") ) == 0 )
-	{
-		LPCTSTR pszAgent = pNeighbour->m_sUserAgent;
 
-		if (	_tcsstr( pszAgent, _T(" 1.3") ) ||
-				_tcsstr( pszAgent, _T(" 1.2") ) ||
-				_tcsstr( pszAgent, _T(" 1.1") ) ||
-				_tcsstr( pszAgent, _T(" 1.0") ) )
-		{
-			return PatchToOldPeerProject( pTarget, pNeighbour );
-		}
-
-		if (	_tcsstr( pszAgent, _T(" 1.4") ) == NULL &&
-				_tcsstr( pszAgent, _T(" 1.5") ) == NULL &&
-				_tcsstr( pszAgent, _T(" 1.6.0") ) == NULL )
-		{
-			nBits = 1;
-		}
-	}
+	// Obsolete Shareaza 1.x fix?
+	//else if ( pNeighbour->m_sUserAgent.Find( _T("Shareaza") ) == 0 )
+	//{
+	//	LPCTSTR pszAgent = pNeighbour->m_sUserAgent;
+	//
+	//	if ( _tcsstr( pszAgent, _T(" 1.3") ) ||
+	//		 _tcsstr( pszAgent, _T(" 1.2") ) ||
+	//		 _tcsstr( pszAgent, _T(" 1.1") ) ||
+	//		 _tcsstr( pszAgent, _T(" 1.0") ) )
+	//		return PatchToOldShareaza( pTarget, pNeighbour );
+	//
+	//	if ( _tcsstr( pszAgent, _T(" 1.4") ) == NULL &&
+	//		 _tcsstr( pszAgent, _T(" 1.5") ) == NULL &&
+	//		 _tcsstr( pszAgent, _T(" 1.6.0") ) == NULL )
+	//		nBits = 1;
+	//}
 
 	BYTE* pBuffer	= new BYTE[ ( m_nHash + 31 ) / ( 8 / nBits ) ];
 	BYTE* pHashT	= pTarget->m_pHash;
@@ -478,13 +476,10 @@ bool CQueryHashTable::PatchTo(const CQueryHashTable* pTarget,
 		DWORD* const pDwordBuffer = reinterpret_cast< DWORD* >( pBuffer );
 		const DWORD* const pDwordHashS = reinterpret_cast< DWORD* >( pHashS );
 		const DWORD* const pDwordHashT = reinterpret_cast< DWORD* >( pHashT );
-		for ( DWORD nPosition = 0; nPosition < nEnd; ++nPosition )
+		for ( DWORD nPosition = 0 ; nPosition < nEnd ; ++nPosition )
 		{
-			if ( ( pDwordBuffer[ nPosition ]
-				= pDwordHashS[ nPosition ] ^ pDwordHashT[ nPosition ] ) != 0 )
-			{
+			if ( ( pDwordBuffer[ nPosition ] = pDwordHashS[ nPosition ] ^ pDwordHashT[ nPosition ] ) != 0 )
 				bChanged = true;
-			}
 		}
 		if ( bChanged )
 			std::memcpy( pHashS, pHashT, ( m_nHash + 31 ) / 8 );
@@ -504,8 +499,8 @@ bool CQueryHashTable::PatchTo(const CQueryHashTable* pTarget,
 	if ( ! pCompress.get() )
 		return false;
 
-	DWORD nPacketSize	= 1024;
-	BYTE nSequenceMax	= (BYTE)( nCompress / nPacketSize );
+	DWORD nPacketSize = 1024;
+	BYTE nSequenceMax = (BYTE)( nCompress / nPacketSize );
 
 	if ( nCompress % nPacketSize )
 		++nSequenceMax;
@@ -542,61 +537,61 @@ bool CQueryHashTable::PatchTo(const CQueryHashTable* pTarget,
 	return true;
 }
 
-bool CQueryHashTable::PatchToOldPeerProject(const CQueryHashTable* pTarget,
-	CNeighbour* pNeighbour)
-{
-	const DWORD nPacketSize = 4096;
-
-	BYTE* pBuffer	= new BYTE[ nPacketSize ];
-	BYTE* pHashT	= pTarget->m_pHash;
-	BYTE* pHashS	= m_pHash;
-	DWORD nPosition	= 0;
-
-	for ( BYTE nSequence = 1 ; nPosition < m_nHash ; ++nSequence )
-	{
-		CG1Packet* pPatch = CG1Packet::New( G1_PACKET_QUERY_ROUTE, 1 );
-
-		pPatch->WriteByte( 1 );
-		pPatch->WriteByte( nSequence );
-		pPatch->WriteByte( (BYTE)( m_nHash / nPacketSize ) );
-		pPatch->WriteByte( 1 );
-		pPatch->WriteByte( 4 );
-
-		BYTE nMask = 1;
-
-		DWORD nCount = 0;
-		for ( ; nCount < nPacketSize ; ++nCount, ++nPosition )
-		{
-			BYTE nPatch = ( *pHashT & nMask ) != ( *pHashS & nMask ) ? 7 : 0;
-
-			*pHashS = ( *pHashS & ~nMask ) | ( *pHashT & nMask );
-
-			if ( nCount & 1 )
-				pBuffer[ nCount >> 1 ] |= nPatch;
-			else
-				pBuffer[ nCount >> 1 ] = nPatch << 4;
-
-			if ( nMask == 0x80 )
-			{
-				nMask = 1;
-				++pHashT;
-				++pHashS;
-			}
-			else
-			{
-				nMask <<= 1;
-			}
-		}
-
-		pPatch->WriteZLib( pBuffer, nCount / 2 );
-		pNeighbour->Send( pPatch );
-	}
-
-	delete [] pBuffer;
-	m_bLive = true;
-
-	return true;
-}
+// Obsolete Shareaza 1.X support? don't bother.
+//bool CQueryHashTable::PatchToOldShareaza(const CQueryHashTable* pTarget, CNeighbour* pNeighbour)
+//{
+//	BYTE* pBuffer	= new BYTE[ nPacketSize ];
+//	BYTE* pHashT	= pTarget->m_pHash;
+//	BYTE* pHashS	= m_pHash;
+//	DWORD nPosition	= 0;
+//	const DWORD nPacketSize = 4096;
+//
+//	for ( BYTE nSequence = 1 ; nPosition < m_nHash ; ++nSequence )
+//	{
+//		CG1Packet* pPatch = CG1Packet::New( G1_PACKET_QUERY_ROUTE, 1 );
+//
+//		pPatch->WriteByte( 1 );
+//		pPatch->WriteByte( nSequence );
+//		pPatch->WriteByte( (BYTE)( m_nHash / nPacketSize ) );
+//		pPatch->WriteByte( 1 );
+//		pPatch->WriteByte( 4 );
+//
+//		BYTE nMask = 1;
+//		DWORD nCount = 0;
+//		for ( ; nCount < nPacketSize ; ++nCount, ++nPosition )
+//		{
+//			BYTE nPatch = ( *pHashT & nMask ) != ( *pHashS & nMask ) ? 7 : 0;
+//			*pHashS = ( *pHashS & ~nMask ) | ( *pHashT & nMask );
+//
+//			if ( nCount & 1 )
+//				pBuffer[ nCount >> 1 ] |= nPatch;
+//			else
+//				pBuffer[ nCount >> 1 ] = nPatch << 4;
+//
+//			if ( nMask == 0x80 )
+//			{
+//				nMask = 1;
+//				++pHashT;
+//				++pHashS;
+//			}
+//			else
+//				nMask <<= 1;
+//		}
+//
+//		DWORD nOutput = 0;
+//		if ( BYTE* pOutput = CZLib::Compress2( pBuffer, nCount / 2, &nOutput ) )
+//		{
+//			pPatch->Write( pOutput, nOutput );
+//			free( pOutput );
+//		}
+//
+//		pNeighbour->Send( pPatch );
+//	}
+//
+//	delete [] pBuffer;
+//	m_bLive = true;
+//	return true;
+//}
 
 //////////////////////////////////////////////////////////////////////
 // CQueryHashTable packet handler
@@ -797,7 +792,7 @@ bool CQueryHashTable::OnPatch(CPacket* pPacket)
 			}
 		}
 	}
-	else
+	else	// nBits 4/8
 	{
 		BYTE nMask = 1;
 
@@ -936,9 +931,8 @@ void CQueryHashTable::MakeKeywords(const CString& strPhrase, CStringList& oKeywo
 			// but PeerProject (Shareaza 2.2+) is not really following GDF about
 			// word length limit for ASIAN chars, so merging needs to be done.
 			if ( nPos > nNextWord )
-			{
 				MakeKeywords( strPhrase.Mid( nNextWord, nPos - nNextWord ), boundary[ 0 ], oKeywords );
-			}
+
 			nNextWord = nPos;
 			nNextWord += ( bCharacter ? 0 : 1 );
 		}
@@ -963,37 +957,37 @@ void CQueryHashTable::MakeKeywords(const CString& strWord, WORD nWordType, CStri
 		if ( nLength < 3 )
 			return;
 
-		// take off last 1 char
+		// Strip last 1 char
 		oKeywords.AddTail( strWord.Left( nLength - 1 ) );
 
-		// take off first 1 char
+		// Strip first 1 char
 		oKeywords.AddTail( strWord.Right( nLength - 1 ) );
 
 		if ( nLength < 4 )
 			return;
 
-		// take off last 2 chars
+		// Strip last 2 chars
 		oKeywords.AddTail( strWord.Left( nLength - 2 ) );
 
-		// take off first 2 chars
+		// Strip first 2 chars
 		oKeywords.AddTail( strWord.Right( nLength - 2 ) );
 
-		// take off first 1 & last 1 chars
+		// Strip first 1 & last 1 chars
 		oKeywords.AddTail( strWord.Mid( 1, nLength - 2 ) );
 
 		if ( nLength < 5 )
 			return;
 
-		// take off first 1 & last 2 chars
+		// Strip first 1 & last 2 chars
 		oKeywords.AddTail( strWord.Mid( 1, nLength - 3 ) );
 
-		// take off first 2 & last 1 chars
+		// Strip first 2 & last 1 chars
 		oKeywords.AddTail( strWord.Mid( 2, nLength - 3 ) );
 
 		if ( nLength < 6 )
 			return;
 
-		// take off first 2 & last 2 chars
+		// Strip first 2 & last 2 chars
 		oKeywords.AddTail( strWord.Mid( 2, nLength - 4 ) );
 
 		return;
@@ -1123,9 +1117,9 @@ void CQueryHashTable::Add(LPCTSTR pszString, int nStart, int nLength)
 	if ( nLength >= 5 )
 	{
 		//TRACE( _T("[QHT] \"%hs\"\n"), (LPCSTR)CT2A( CString( pszString + nStart, nLength - 1 ) ) );
-		nHash	= HashWord( pszString, nStart, nLength - 1, m_nBits );
-		pHash	= m_pHash + ( nHash >> 3 );
-		nMask	= BYTE( 1 << ( nHash & 7 ) );
+		nHash = HashWord( pszString, nStart, nLength - 1, m_nBits );
+		pHash = m_pHash + ( nHash >> 3 );
+		nMask = BYTE( 1 << ( nHash & 7 ) );
 		if ( *pHash & nMask )
 		{
 			m_nCookie = tNow;
@@ -1134,9 +1128,9 @@ void CQueryHashTable::Add(LPCTSTR pszString, int nStart, int nLength)
 		}
 
 		//TRACE( _T("[QHT] \"%hs\"\n"), (LPCSTR)CT2A( CString( pszString + nStart, nLength - 2 ) ) );
-		nHash	= HashWord( pszString, nStart, nLength - 2, m_nBits );
-		pHash	= m_pHash + ( nHash >> 3 );
-		nMask	= BYTE( 1 << ( nHash & 7 ) );
+		nHash = HashWord( pszString, nStart, nLength - 2, m_nBits );
+		pHash = m_pHash + ( nHash >> 3 );
+		nMask = BYTE( 1 << ( nHash & 7 ) );
 		if ( *pHash & nMask )
 		{
 			m_nCookie = tNow;
@@ -1208,8 +1202,8 @@ bool CQueryHashTable::Check(const CQuerySearch* pSearch) const
 		return false;
 	}
 
-	DWORD nWordHits		= 0;
-	DWORD nWords		= 0;
+	DWORD nWordHits = 0;
+	DWORD nWords = 0;
 
 	if ( ! pSearch->m_oKeywordHashList.empty() )
 	{
@@ -1225,7 +1219,7 @@ bool CQueryHashTable::Check(const CQuerySearch* pSearch) const
 	}
 
 	return ( nWords >= 3 )
-		? ( nWordHits * 3 / nWords >= 2 ) // at least 2/3 matches
+		? ( nWordHits * 3 / nWords >= 2 )	// At least 2/3 matches
 		: ( nWordHits == nWords );
 }
 
@@ -1237,7 +1231,7 @@ DWORD CQueryHashTable::HashWord(LPCTSTR pszString, size_t nStart, size_t nLength
 	DWORD nNumber	= 0;
 	int nByte		= 0;
 
-	for ( pszString += nStart; nLength ; --nLength, ++pszString )
+	for ( pszString += nStart ; nLength ; --nLength, ++pszString )
 	{
 		// A known bad using of tolower() with unicode chars but as is...
 		int nValue = tolower( *pszString ) & 0xFF;

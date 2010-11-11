@@ -135,17 +135,12 @@ BOOL CEDNeighbour::Send(CPacket* pPacket, BOOL bRelease, BOOL /*bBuffered*/)
 
 BOOL CEDNeighbour::OnRun()
 {
+	if ( ! CNeighbour::OnRun() )
+		return FALSE;
+
 	DWORD tNow = GetTickCount();
 
-	if ( m_nState != nrsConnected )
-	{
-		if ( tNow - m_tConnected > Settings.Connection.TimeoutConnect )
-		{
-			Close( IDS_CONNECTION_TIMEOUT_CONNECT );
-			return FALSE;
-		}
-	}
-	else if ( m_nClientID == 0 )
+	if ( m_nState == nrsConnected && m_nClientID == 0 )
 	{
 		if ( tNow - m_tConnected > Settings.Connection.TimeoutHandshake )
 		{
@@ -153,16 +148,6 @@ BOOL CEDNeighbour::OnRun()
 			return FALSE;
 		}
 	}
-	//else
-	//{
-	// Temporarily commenting out this code (ToDo: ?)
-	// because no PING/PONG on ed2k and can cause DROP without reason.
-	//	if ( tNow - m_tLastPacket > 20 * 60 * 1000 )
-	//	{
-	//		Close( IDS_CONNECTION_TIMEOUT_TRAFFIC );
-	//		return FALSE;
-	//	}
-	//}
 
 	return TRUE;
 }
@@ -559,8 +544,7 @@ bool CEDNeighbour::OnCallbackRequested(CEDPacket* pPacket)
 		|| Network.IsFirewalledAddress( (IN_ADDR*)&nAddress )
 		|| Network.IsReserved( (IN_ADDR*)&nAddress ) )
 	{
-		// Can't push open a connection, ignore packet and return that it was
-		// handled
+		// Can't push open a connection, ignore packet and return that it was handled
 		theApp.Message( MSG_NOTICE, IDS_PROTOCOL_ZERO_PUSH, m_sAddress );
 		++Statistics.Current.eDonkey.Dropped;
 		++m_nDropCount;
@@ -671,7 +655,7 @@ void CEDNeighbour::SendSharedFiles()
 
 	m_nFilesSent = 0;
 
-	pPacket->WriteLongLE( m_nFilesSent );		//Write number of files. (update this later)
+	pPacket->WriteLongLE( m_nFilesSent );		// Write number of files. (update this later)
 
 	// Send files on download list to ed2k server (partials)
 	CSingleLock pTransfersLock( &Transfers.m_pSection );
@@ -718,7 +702,7 @@ void CEDNeighbour::SendSharedFiles()
 	*(DWORD*)pPacket->m_pBuffer = m_nFilesSent;	// Correct the number of files sent
 
 	if ( bDeflate )
-		pPacket->Deflate();	// ZLIB compress if available
+		pPacket->Deflate(); 	// ZLIB compress if available
 
 	Send( pPacket );
 }
@@ -770,7 +754,7 @@ BOOL CEDNeighbour::SendQuery(const CQuerySearch* pSearch, CPacket* pPacket, BOOL
 		return FALSE;	// We're not ready
 
 	// Don't add the GUID for GetSources
-	if ( ( ! pSearch->m_oED2K ) || ( pSearch->m_bWantDN && Settings.eDonkey.MagnetSearch ) )
+	if ( ! pSearch->m_oED2K || ( pSearch->m_bWantDN && Settings.eDonkey.MagnetSearch ) )
 		m_pQueries.AddTail( pSearch->m_oGUID );
 
 	return CNeighbour::SendQuery( pSearch, pPacket, bLocal );

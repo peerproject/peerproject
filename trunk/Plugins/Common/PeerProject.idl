@@ -245,7 +245,7 @@ library PeerProject
 		//	S_x - Use metadata returned in second parameter;
 		//	E_UNEXPECTED - Mark file as corrupted;
 		//	E_x - Other errors.
-		HRESULT Process( [in] HANDLE hFile, [in] BSTR sFile, [in] ISXMLElement* pXML );
+		HRESULT Process( [in] BSTR sFile, [in] ISXMLElement* pXML );
 	};
 
 	//

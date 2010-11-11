@@ -4280,19 +4280,19 @@
 		<control caption="% de limit Download"/>
 		<control caption="% de limit Upload"/>
 		<control caption="Tarefa Ativa"/>
-		<control caption="Enable G2 Only"/>
-		<control caption="Set Event Time"/>
-		<control caption="Specified days"/>
-		<control caption="One day only"/>
+		<control caption="Habilitar somente G2"/>
+		<control caption="Definir o tempo"/>
+		<control caption="Dias especificados"/>
+		<control caption="Um dia só"/>
 		<control/>
 		<control/>
-		<control caption="Seg"/>
-		<control caption="Ter"/>
-		<control caption="Qua"/>
-		<control caption="Qui"/>
-		<control caption="Sex"/>
-		<control caption="Sab"/>
-		<control caption="Dom"/>
+		<control caption="Segunda"/>
+		<control caption="Terça"/>
+		<control caption="Quarta"/>
+		<control caption="Quinta"/>
+		<control caption="Sexta"/>
+		<control caption="Sábado"/>
+		<control caption="Domingo"/>
 		<control caption="Todos"/>
 		<control caption="Comentários"/>
 		<control/>

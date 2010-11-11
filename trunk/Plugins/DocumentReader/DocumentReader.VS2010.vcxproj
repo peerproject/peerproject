@@ -110,6 +110,8 @@
       <AdditionalLibraryDirectories>..\..\Services\zlib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ModuleDefinitionFile>DocumentReader.def</ModuleDefinitionFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <RegisterOutput>true</RegisterOutput>
+      <PerUserRedirection>true</PerUserRedirection>
       <BaseAddress>0x22000000</BaseAddress>
       <LargeAddressAware>true</LargeAddressAware>
       <TargetMachine>MachineX86</TargetMachine>
@@ -119,11 +121,11 @@
       </OutputFile>
     </Bscmake>
     <PostBuildEvent>
-      <Message>Performing registration</Message>
-      <Command>copy "..\..\Services\zlib\$(Configuration) $(Platform)\zlibwapi.dll" "$(TargetDir)" /b /y
-regsvr32 /s /c "$(TargetPath)"
-</Command>
     </PostBuildEvent>
+    <PreBuildEvent>
+      <Message>Pre-Build Dependencies</Message>
+      <Command>if exist "..\..\Services\zlib\$(ConfigurationName) $(PlatformName)\zlibwapi.dll" copy "..\..\Services\zlib\$(ConfigurationName) $(PlatformName)\zlibwapi.dll" "$(TargetDir)" /b /y</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Midl>
@@ -157,6 +159,8 @@ regsvr32 /s /c "$(TargetPath)"
       <AdditionalLibraryDirectories>..\..\Services\zlib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ModuleDefinitionFile>DocumentReader.def</ModuleDefinitionFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <RegisterOutput>true</RegisterOutput>
+      <PerUserRedirection>true</PerUserRedirection>
       <LargeAddressAware>true</LargeAddressAware>
       <TargetMachine>MachineX64</TargetMachine>
     </Link>
@@ -165,11 +169,11 @@ regsvr32 /s /c "$(TargetPath)"
       </OutputFile>
     </Bscmake>
     <PostBuildEvent>
-      <Message>Performing registration</Message>
-      <Command>copy "..\..\Services\zlib\$(Configuration) $(Platform)\zlibwapi.dll" "$(TargetDir)" /b /y
-regsvr32 /s /c "$(TargetPath)"
-</Command>
     </PostBuildEvent>
+    <PreBuildEvent>
+      <Message>Pre-Build Dependencies</Message>
+      <Command>if exist "..\..\Services\zlib\$(ConfigurationName) $(PlatformName)\zlibwapi.dll" copy "..\..\Services\zlib\$(ConfigurationName) $(PlatformName)\zlibwapi.dll" "$(TargetDir)" /b /y</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Midl>

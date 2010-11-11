@@ -1,7 +1,7 @@
 //
 // GFLLibraryBuilder.cpp : Implementation of DLL Exports.
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions copyright Nikolay Raspopov, 2005.
 //
 // GFL Library, GFL SDK and XnView
@@ -46,14 +46,17 @@ inline void FillExtMap ()
 	_ExtMap.RemoveAll ();
 	GFL_INT32 count = gflGetNumberOfFormat ();
 	ATLTRACE( _T("Total %d formats:\n"), count );
-	for (GFL_INT32 i = 0; i < count; ++i) {
+	for (GFL_INT32 i = 0; i < count; ++i)
+	{
 		GFL_FORMAT_INFORMATION info;
 		GFL_ERROR err = gflGetFormatInformationByIndex (i, &info);
-		if (err == GFL_NO_ERROR && (info.Status & GFL_READ)) {
+		if (err == GFL_NO_ERROR && (info.Status & GFL_READ))
+		{
 			CString name (info.Name);
 			CString desc (info.Description);
 			ATLTRACE( _T("%3d. %7s %32s :"), i, name, desc );
-			for (GFL_UINT32 j = 0; j < info.NumberOfExtension; ++j) {
+			for (GFL_UINT32 j = 0; j < info.NumberOfExtension; ++j)
+			{
 				CString ext (info.Extension [j]);
 				ext = ext.MakeLower ();
 				ATLTRACE( _T(" .%s"), ext );
@@ -123,22 +126,23 @@ extern "C" BOOL WINAPI DllMain (HINSTANCE hInstance, DWORD dwReason, LPVOID lpRe
 
 STDAPI DllCanUnloadNow(void)
 {
-    return _AtlModule.DllCanUnloadNow ();
+	return _AtlModule.DllCanUnloadNow ();
 }
 
 STDAPI DllGetClassObject(REFCLSID rclsid, REFIID riid, LPVOID* ppv)
 {
-    return _AtlModule.DllGetClassObject (rclsid, riid, ppv);
+	return _AtlModule.DllGetClassObject (rclsid, riid, ppv);
 }
 
 STDAPI DllRegisterServer(void)
 {
-    HRESULT hr = _AtlModule.DllRegisterServer ();
+	HRESULT hr = _AtlModule.DllRegisterServer ();
 
 	// Registering extensions using GFL
 	CString ext, tmp;
 	POSITION pos = _ExtMap.GetStartPosition ();
-	while (pos) {
+	while ( pos )
+	{
 		_ExtMap.GetNextAssoc (pos, ext, tmp);
 		if ( ext == _T("pdf") || ext == _T("ps") || ext == _T("eps") || ext == _T("vst") ) continue;
 		ext.Insert (0, _T('.'));
@@ -158,13 +162,39 @@ STDAPI DllUnregisterServer(void)
 	// Unregistering extensions using GFL
 	CString ext, tmp;
 	POSITION pos = _ExtMap.GetStartPosition ();
-	while (pos) {
+	while ( pos )
+	{
 		_ExtMap.GetNextAssoc (pos, ext, tmp);
 		if ( ext == _T("pdf") || ext == _T("ps") || ext == _T("eps") || ext == _T("vst") ) continue;
 		ext.Insert (0, _T('.'));
 		ATLTRACE (_T("Remove %s\n"), ext);
 		SHDeleteValue (HKEY_CURRENT_USER, REG_LIBRARYBUILDER_KEY, ext);
 	}
+
+	return hr;
+}
+
+STDAPI DllInstall(BOOL bInstall, LPCWSTR pszCmdLine)
+{
+	HRESULT hr = E_FAIL;
+	static const wchar_t szUserSwitch[] = L"user";
+
+	if ( pszCmdLine != NULL )
+	{
+#if defined(_MSC_VER) && (_MSC_VER >= 1500)	// No VS2005
+		if ( _wcsnicmp(pszCmdLine, szUserSwitch, _countof(szUserSwitch)) == 0 )
+			AtlSetPerUserRegistration(true);
+#endif
+	}
+
+	if ( bInstall )
+	{
+		hr = DllRegisterServer();
+		if ( FAILED(hr) )
+			DllUnregisterServer();
+	}
+	else
+		hr = DllUnregisterServer();
 
 	return hr;
 }

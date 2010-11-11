@@ -39,28 +39,30 @@ public:
 
 	enum { IDD = IDD_FILE_PREVIEW };
 
+public:
 	static void	OnSkinChange(BOOL bSet);
 	static void	CloseAll();
 
 protected:
 	CDownloadWithExtras*	m_pDownload;
-	CString			m_sDisplayName;
-	CString			m_sSourceName;
-	CString			m_sTargetName;
-	QWORD			m_nRange;
-	QWORD			m_nPosition;
-	DWORD			m_nScaled;
-	DWORD			m_nOldScaled;
-	CString			m_sStatus;
-	CString			m_sOldStatus;
-	CArray< QWORD >	m_pRanges;
+	CString					m_sDisplayName;
+	CString					m_sSourceName;
+	CString					m_sTargetName;
+	QWORD					m_nRange;
+	QWORD					m_nPosition;
+	DWORD					m_nScaled;
+	DWORD					m_nOldScaled;
+	CString					m_sStatus;
+	CString					m_sOldStatus;
+	CArray< QWORD > 		m_pRanges;
 
-	CString			m_sExecute;
-	CButton			m_wndCancel;
-	CProgressCtrl	m_wndProgress;
-	CStatic			m_wndStatus;
-	CStatic			m_wndName;
-	CComPtr< IDownloadPreviewPlugin2 >	m_pPlugin;
+	CString					m_sExecute;
+	CButton					m_wndCancel;
+	CProgressCtrl			m_wndProgress;
+	CStatic					m_wndStatus;
+	CStatic					m_wndName;
+
+	CComQIPtr< IDownloadPreviewPlugin2 > m_pPlugin;
 	static CCriticalSection	m_pSection;
 	static CPreviewList		m_pWindows;
 

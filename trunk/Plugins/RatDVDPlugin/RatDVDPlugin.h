@@ -61,15 +61,13 @@ public:
 	static LPCWSTR	uriVideo;
 
 	// ILibraryBuilderPlugin Methods
-	STDMETHOD(Process)(HANDLE hFile, BSTR sFile, ISXMLElement* pXML);
+	STDMETHOD(Process)(BSTR sFile, ISXMLElement* pXML);
 
 	// IImageServicePlugin Methods
 	STDMETHOD(LoadFromFile)(BSTR sFile, IMAGESERVICEDATA* pParams, SAFEARRAY** ppImage);
-	STDMETHOD(LoadFromMemory)(BSTR sType, SAFEARRAY* pMemory,
-		IMAGESERVICEDATA* pParams, SAFEARRAY** ppImage);
+	STDMETHOD(LoadFromMemory)(BSTR sType, SAFEARRAY* pMemory, IMAGESERVICEDATA* pParams, SAFEARRAY** ppImage);
 	STDMETHOD(SaveToFile)(BSTR sFile, IMAGESERVICEDATA* pParams, SAFEARRAY* pImage);
-	STDMETHOD(SaveToMemory)(BSTR sType, SAFEARRAY** ppMemory,
-		IMAGESERVICEDATA* pParams, SAFEARRAY* pImage);
+	STDMETHOD(SaveToMemory)(BSTR sType, SAFEARRAY** ppMemory, IMAGESERVICEDATA* pParams, SAFEARRAY* pImage);
 
 private:
 	STDMETHODIMP ProcessRatDVD(HANDLE hFile, ISXMLElement* pXML);

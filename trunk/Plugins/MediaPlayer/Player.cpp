@@ -23,17 +23,16 @@
 #include "Player.h"
 
 #define SAFE_RELEASE(comPtr)  \
-              if ((comPtr))  \
-                { (comPtr).Release(); }
+			if ((comPtr)) { (comPtr).Release(); }
 
 // CPlayer
 
-CPlayer::CPlayer() :
-	m_hwndOwner( NULL ),
-	m_rcWindow(),
-	m_dAspect(0.0),
-	m_nZoom(smaDefault),
-	m_bAudioOnly( FALSE )
+CPlayer::CPlayer()
+	: m_hwndOwner	( NULL )
+	, m_rcWindow	()
+	, m_dAspect 	( 0.0 )
+	, m_nZoom		( smaDefault )
+	, m_bAudioOnly	( FALSE )
 {
 }
 
@@ -47,8 +46,7 @@ void CPlayer::FinalRelease()
 	Destroy();
 }
 
-STDMETHODIMP CPlayer::Create(
-	/* [in] */ HWND hWnd)
+STDMETHODIMP CPlayer::Create(/*[in]*/ HWND hWnd)
 {
 	if ( ! hWnd )
 		return E_INVALIDARG;
@@ -117,8 +115,7 @@ STDMETHODIMP CPlayer::Destroy(void)
 	return S_OK;
 }
 
-STDMETHODIMP CPlayer::Reposition(
-	/* [in] */ RECT *prcWnd)
+STDMETHODIMP CPlayer::Reposition(/*[in]*/ RECT *prcWnd)
 {
 	if ( ! prcWnd )
 		return E_POINTER;
@@ -140,14 +137,12 @@ STDMETHODIMP CPlayer::Reposition(
 	return AdjustVideoZoom();
 }
 
-STDMETHODIMP CPlayer::SetLogoBitmap(
-	/* [in] */ HBITMAP hLogo)
+STDMETHODIMP CPlayer::SetLogoBitmap(/*[in]*/ HBITMAP hLogo)
 {
 	return E_NOTIMPL;
 }
 
-STDMETHODIMP CPlayer::GetVolume(
-	/* [out] */ DOUBLE *pnVolume)
+STDMETHODIMP CPlayer::GetVolume(/*[out]*/ DOUBLE *pnVolume)
 {
 	if ( ! pnVolume )
 		return E_POINTER;
@@ -177,8 +172,7 @@ STDMETHODIMP CPlayer::GetVolume(
 	return S_OK;
 }
 
-STDMETHODIMP CPlayer::SetVolume(
-	/* [in] */ DOUBLE nVolume)
+STDMETHODIMP CPlayer::SetVolume(/*[in]*/ DOUBLE nVolume)
 {
 	if ( ! m_pGraph )
 		return E_INVALIDARG;
@@ -193,8 +187,7 @@ STDMETHODIMP CPlayer::SetVolume(
 	return pAudio->put_Volume( (long)( ( nVolume * 6000. ) - 6000. ) );
 }
 
-STDMETHODIMP CPlayer::GetZoom(
-	/* [out] */ MediaZoom *pnZoom)
+STDMETHODIMP CPlayer::GetZoom(/*[out]*/ MediaZoom *pnZoom)
 {
 	if ( ! pnZoom )
 		return E_POINTER;
@@ -207,8 +200,7 @@ STDMETHODIMP CPlayer::GetZoom(
 	return S_OK;
 }
 
-STDMETHODIMP CPlayer::SetZoom(
-	/* [in] */ MediaZoom nZoom)
+STDMETHODIMP CPlayer::SetZoom(/*[in]*/ MediaZoom nZoom)
 {
 	if ( ! m_pGraph )
 		return E_INVALIDARG;
@@ -221,8 +213,7 @@ STDMETHODIMP CPlayer::SetZoom(
 	return AdjustVideoZoom();
 }
 
-STDMETHODIMP CPlayer::GetAspect(
-	/* [out] */ DOUBLE *pdAspect)
+STDMETHODIMP CPlayer::GetAspect(/*[out]*/ DOUBLE *pdAspect)
 {
 	if ( ! pdAspect )
 		return E_POINTER;
@@ -235,8 +226,7 @@ STDMETHODIMP CPlayer::GetAspect(
 	return S_OK;
 }
 
-STDMETHODIMP CPlayer::SetAspect(
-	/* [in] */ DOUBLE dAspect)
+STDMETHODIMP CPlayer::SetAspect(/*[in]*/ DOUBLE dAspect)
 {
 	if ( ! m_pGraph )
 		return E_INVALIDARG;
@@ -252,26 +242,23 @@ STDMETHODIMP CPlayer::SetAspect(
 //HRESULT FindPin(IBaseFilter* pFilter, int count, PIN_DIRECTION dir, IPin** ppPin)
 //{
 //	*ppPin = NULL;
-
+//
 //	CComPtr< IEnumPins > pPins;
 //	HRESULT hr = pFilter->EnumPins( &pPins );
-//	if ( FAILED( hr ) )
-//		return hr;
-
+//	if ( FAILED( hr ) ) return hr;
+//
 //	pPins->Reset();
-
+//
 //	for (;;)
 //	{
 //		CComPtr< IPin > pPin;
 //		hr = pPins->Next( 1, &pPin, NULL );
-//		if ( hr != S_OK )
-//			break;
-
+//		if ( hr != S_OK ) break;
+//
 //		PIN_INFO PinInfo = {};
 //		hr = pPin->QueryPinInfo( &PinInfo );
-//		if ( FAILED( hr ) )
-//			break;
-
+//		if ( FAILED( hr ) ) break;
+//
 //		if ( PinInfo.dir == dir )
 //		{
 //			if ( count-- == 0 )
@@ -281,7 +268,7 @@ STDMETHODIMP CPlayer::SetAspect(
 //			}
 //		}
 //	}
-
+//
 //	return E_FAIL;
 //}
 
@@ -297,11 +284,10 @@ HRESULT SafeRenderFile(IGraphBuilder* pGraph, BSTR sFilename) throw()
 	}
 }
 
-STDMETHODIMP CPlayer::Open(
-	/* [in] */ BSTR sFilename)
+STDMETHODIMP CPlayer::Open(/*[in]*/ BSTR sFilename)
 {
 	HRESULT hr;
-    long lVisible;
+	long lVisible;
 
 	if ( ! sFilename )
 		return E_POINTER;
@@ -392,8 +378,7 @@ STDMETHODIMP CPlayer::Stop(void)
 	return m_pControl->Stop();
 }
 
-STDMETHODIMP CPlayer::GetState(
-	/* [out] */ MediaState *pnState)
+STDMETHODIMP CPlayer::GetState(/*[out]*/ MediaState *pnState)
 {
 	if ( ! pnState )
 		return E_POINTER;
@@ -423,8 +408,7 @@ STDMETHODIMP CPlayer::GetState(
 	return S_OK;
 }
 
-STDMETHODIMP CPlayer::GetLength(
-	/* [out] */ LONGLONG *pnLength)
+STDMETHODIMP CPlayer::GetLength(/*[out]*/ LONGLONG *pnLength)
 {
 	if ( ! pnLength )
 		return E_POINTER;
@@ -441,8 +425,7 @@ STDMETHODIMP CPlayer::GetLength(
 	return pSeek->GetDuration( pnLength );
 }
 
-STDMETHODIMP CPlayer::GetPosition(
-	/* [out] */ LONGLONG *pnPosition)
+STDMETHODIMP CPlayer::GetPosition(/*[out]*/ LONGLONG *pnPosition)
 {
 	if ( ! pnPosition )
 		return E_POINTER;
@@ -459,8 +442,7 @@ STDMETHODIMP CPlayer::GetPosition(
 	return pSeek->GetCurrentPosition( pnPosition );
 }
 
-STDMETHODIMP CPlayer::SetPosition(
-	/* [in] */ LONGLONG nPosition)
+STDMETHODIMP CPlayer::SetPosition(/*[in]*/ LONGLONG nPosition)
 {
 	if ( ! m_pGraph )
 		return E_INVALIDARG;
@@ -491,8 +473,7 @@ STDMETHODIMP CPlayer::GetSpeed(
 	return pSeek->GetRate( pnSpeed );
 }
 
-STDMETHODIMP CPlayer::SetSpeed(
-	/* [in] */ DOUBLE nSpeed)
+STDMETHODIMP CPlayer::SetSpeed(/*[in]*/ DOUBLE nSpeed)
 {
 	if ( ! m_pGraph )
 		return E_INVALIDARG;
@@ -504,8 +485,7 @@ STDMETHODIMP CPlayer::SetSpeed(
 	return pSeek->SetRate( nSpeed );
 }
 
-STDMETHODIMP CPlayer::GetPlugin(
-	/* [out] */ IAudioVisPlugin **ppPlugin)
+STDMETHODIMP CPlayer::GetPlugin(/*[out]*/ IAudioVisPlugin **ppPlugin)
 {
 	if ( ! ppPlugin )
 		return E_POINTER;
@@ -515,8 +495,7 @@ STDMETHODIMP CPlayer::GetPlugin(
 	return E_NOTIMPL;
 }
 
-STDMETHODIMP CPlayer::SetPlugin(
-	/* [in] */ IAudioVisPlugin *pPlugin)
+STDMETHODIMP CPlayer::SetPlugin(/*[in]*/ IAudioVisPlugin *pPlugin)
 {
 	if ( ! pPlugin )
 		return E_POINTER;
@@ -524,8 +503,7 @@ STDMETHODIMP CPlayer::SetPlugin(
 	return E_NOTIMPL;
 }
 
-STDMETHODIMP CPlayer::GetPluginSize(
-	/* [out] */ LONG *pnSize)
+STDMETHODIMP CPlayer::GetPluginSize(/*[out]*/ LONG *pnSize)
 {
 	if ( ! pnSize )
 		return E_POINTER;
@@ -533,8 +511,7 @@ STDMETHODIMP CPlayer::GetPluginSize(
 	return E_NOTIMPL;
 }
 
-STDMETHODIMP CPlayer::SetPluginSize(
-	/* [in] */ LONG nSize)
+STDMETHODIMP CPlayer::SetPluginSize(/*[in]*/ LONG nSize)
 {
 	return E_NOTIMPL;
 }

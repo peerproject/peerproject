@@ -105,7 +105,7 @@ void CUploadTransferBT::SetChoke(BOOL bChoke)
 //////////////////////////////////////////////////////////////////////
 // CUploadTransferBT close
 
-void CUploadTransferBT::Close(BOOL bMessage)
+void CUploadTransferBT::Close(UINT nError)
 {
 	if ( m_pClient )
 	{
@@ -127,7 +127,7 @@ void CUploadTransferBT::Close(BOOL bMessage)
 	m_oRequested.clear();
 	m_oServed.clear();
 
-	CUploadTransfer::Close( bMessage );
+	CUploadTransfer::Close( nError );
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -179,8 +179,8 @@ BOOL CUploadTransferBT::OnUninterested(CBTPacket* /*pPacket*/)
 	if ( ! m_bInterested ) return TRUE;
 	if ( m_pDownload->IsSeeding() )
 	{
-		Close(); // Remove from upload queue
-		return FALSE; // Don't read the rest of buffer
+		Close();		// Remove from upload queue
+		return FALSE;	// Don't read the rest of buffer
 	}
 	m_bInterested = FALSE;
 	m_nState = upsReady;
@@ -247,8 +247,8 @@ BOOL CUploadTransferBT::OnCancel(CBTPacket* pPacket)
 
 	if ( m_pDownload->IsSeeding() )
 	{
-		Close(); // Remove from upload queue
-		return FALSE; // Don't read the rest of buffer
+		Close();		// Remove from upload queue
+		return FALSE;	// Don't read the rest of buffer
 	}
 
 	return TRUE;

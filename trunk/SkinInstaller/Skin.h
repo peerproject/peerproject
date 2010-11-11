@@ -23,20 +23,20 @@
 #include <errno.h>
 #include "Resource.h"
 
-#define VERSION			L"1.0.0.0"
-#define SKIN_MAIN_HWND	L"PeerProjectMainWnd"
-#define SKIN_SKIN_TITLE	L"PeerProject Skin Installer"
-#define SKIN_ADDON_TITLE L"PeerProject Add-on Installer"
+#define VERSION				L"1.0.0.0"
+#define SKIN_MAIN_HWND		L"PeerProjectMainWnd"
+#define SKIN_SKIN_TITLE 	L"PeerProject Skin Installer"
+#define SKIN_ADDON_TITLE	L"PeerProject Add-on Installer"
 
 // Globals
-extern int   skinType;
+extern int	  skinType;
 extern TCHAR* szName;
 extern TCHAR* szPath;
 extern TCHAR* szVersion;
 extern TCHAR* szAuthor;
 extern TCHAR* szUpdates;
 extern TCHAR* szXML;
-extern TCHAR skins_dir[MAX_PATH];	// Full path to Skin folder
+extern TCHAR  skins_dir[MAX_PATH];	// Full path to Skin folder
 
 // Extract.c
 void ExtractSkinFile(LPCTSTR pszFile);
@@ -47,8 +47,8 @@ int ExtractSkin(LPTSTR pszFile, HWND hwndDlg);
 LPCTSTR GetUnicodeString(char* pszString);
 
 // Registry.c
-void CreateSkinKeys();
-void DeleteSkinKeys();
+LSTATUS CreateSkinKeys();
+LSTATUS DeleteSkinKeys();
 
 // Utils.c
 void LoadManifestInfo(char *buf);

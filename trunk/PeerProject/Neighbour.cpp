@@ -55,7 +55,8 @@ static char THIS_FILE[]=__FILE__;
 // Make a new CNeighbour object for a certain network
 // Takes a protocol ID, like PROTOCOL_G1
 CNeighbour::CNeighbour(PROTOCOLID nProtocol)
-	: m_nRunCookie		( 0 )
+	: CConnection( nProtocol )
+	, m_nRunCookie		( 0 )
 	, m_nState			( nrsNull )		// No connection state now, soon we'll connect and do the handshake
 	, m_pVendor 		( NULL )		// We don't know what brand software the remote computer is running yet
 	, m_pProfile		( NULL )		// No profile on the person running the remote computer yet
@@ -97,13 +98,13 @@ CNeighbour::CNeighbour(PROTOCOLID nProtocol)
 	, m_bZFlush 		( FALSE )
 	, m_tZOutput		( 0 )
 {
-	m_nProtocol = nProtocol;
+	m_bAutoDelete = TRUE;
 }
 
 // Make a new CNeighbour object, copying values from a base one
 // Takes a protocol ID and a base neighbour to copy information from
 CNeighbour::CNeighbour(PROTOCOLID nProtocol, CNeighbour* pBase)
-	: CConnection		( *pBase )
+	: CConnection( nProtocol )
 	, m_nRunCookie		( 0 )
 	, m_nState			( nrsConnected )
 	, m_pVendor 		( pBase->m_pVendor )
@@ -137,18 +138,20 @@ CNeighbour::CNeighbour(PROTOCOLID nProtocol, CNeighbour* pBase)
 	, m_pQueryTableLocal(  m_bQueryRouting ? new CQueryHashTable : NULL )
 	, m_tLastPacket 	( GetTickCount() )
 	, m_pZInput 		( pBase->m_pZInput )	// Transfer of ownership
-	, m_pZOutput		( pBase->m_pZOutput )
-	, m_nZInput 		( pBase->m_nZInput )
-	, m_nZOutput		( pBase->m_nZOutput )
+	, m_pZOutput		( pBase->m_pZOutput )	// Transfer of ownership
+	, m_nZInput 		( pBase->m_nZInput )	// Transfer of ownership
+	, m_nZOutput		( pBase->m_nZOutput )	// Transfer of ownership
 	, m_pZSInput		( NULL )
 	, m_pZSOutput		( NULL )
 	, m_bZFlush 		( pBase->m_bZFlush )
 	, m_tZOutput		( pBase->m_tZOutput )
 {
-	m_nProtocol = nProtocol;
-	m_tConnected = m_tLastPacket;
+	AttachTo( pBase );
+
 	pBase->m_pZInput  = NULL;
 	pBase->m_pZOutput = NULL;
+
+	m_bAutoDelete = TRUE;
 
 	Neighbours.Add( this );		// Call CNeighboursBase::Add to keep track of this newly created CNeighbours object
 }
@@ -186,35 +189,20 @@ void CNeighbour::Close(UINT nError)
 	// Make sure that the socket stored in this CNeighbour object is valid
 	ASSERT( IsValid() );
 
-	// If nError is the default closed or a result of peer pruning, we're closing the connection voluntarily
-	BOOL bVoluntary = ( nError == IDS_CONNECTION_CLOSED || nError == IDS_CONNECTION_PEERPRUNE );
-
 	// Remove this neighbour from the list of them
 	Neighbours.Remove( this );
 
 	// Actually close the socket connection to the remote computer
-	CConnection::Close();
-
-	// If this Close method was called with an error, among which IDS_CONNECTION_CLOSED counts
-	if ( nError && nError != IDS_HANDSHAKE_REJECTED )
-		theApp.Message( bVoluntary ? MSG_INFO : MSG_ERROR, nError, (LPCTSTR)m_sAddress );	// Report a voluntary close
-
-	// Delete this CNeighbour object, calling its destructor right now
-	delete this;
+	CConnection::Close( nError );
 }
 
 // Close the connection, but not until we've written the buffered outgoing data first
 // Takes the reason we're closing the connection, or 0 by default
 void CNeighbour::DelayClose(UINT nError)
 {
-	// If this method got passed a close reason error, report it
-	if ( nError ) theApp.Message( MSG_ERROR, nError, (LPCTSTR)m_sAddress );
-
-	// Change this object's state to closing
 	m_nState = nrsClosing;
 
-	// Have the connection object write all the outgoing data soon
-	QueueRun();
+	CConnection::DelayClose( nError );
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -276,41 +264,63 @@ BOOL CNeighbour::SendQuery(const CQuerySearch* pSearch, CPacket* pPacket, BOOL b
 // Returns true if the connection is still open and there was no error sending the patch table
 BOOL CNeighbour::OnRun()
 {
-	// Get the tick count right now
+	if ( ! CConnection::OnRun() )
+		return FALSE;
+
 	DWORD tNow = GetTickCount();
 
-	// If it's been awhile since the last packet came in through this connection
-	if ( tNow - m_tLastPacket > Settings.Connection.TimeoutTraffic )
+	if ( m_nState == nrsConnecting )
 	{
-		// Close the connection, citing traffic timeout as the reason, and return false
-		Close( IDS_CONNECTION_TIMEOUT_TRAFFIC );
-		return FALSE;
-	}
-
-	// If this connection is to a hub above us, or to a Gnutella2 hub like us
-	if ( ( m_nNodeType == ntHub || ( m_nNodeType == ntNode && m_nProtocol == PROTOCOL_G2 ) ) &&
-		// And if we have a local query table for this neighbour and its cookie isn't the master cookie (do)
-		 ( m_pQueryTableLocal != NULL && m_pQueryTableLocal->m_nCookie != QueryHashMaster.m_nCookie ) &&
-		// And it's been more than 60 seconds since the last update (do)
-		 ( tNow - m_pQueryTableLocal->m_nCookie > 60000 ) &&
-		// And it's been more than 30 seconds since the master cookie (do)
-		 ( tNow - QueryHashMaster.m_nCookie > 30000 ||
-		// Or, the master cookie is a minute older than the local one (do)
-			QueryHashMaster.m_nCookie - m_pQueryTableLocal->m_nCookie > 60000 ||
-		// Or, the local query table is not live (do)
-			! m_pQueryTableLocal->m_bLive ) )
-	{
-		// Then send the connected computer a query hash table patch
-		if ( m_pQueryTableLocal->PatchTo( &QueryHashMaster, this ) )
+		if ( tNow - m_tConnected > Settings.Connection.TimeoutConnect )
 		{
-			// There was an error, record it
-			theApp.Message( MSG_NOTICE, IDS_PROTOCOL_QRP_SENT, (LPCTSTR)m_sAddress,
-				m_pQueryTableLocal->m_nBits, m_pQueryTableLocal->m_nHash,
-				m_pQueryTableLocal->m_nInfinity, m_pQueryTableLocal->GetPercent() );
+			Close( IDS_CONNECTION_TIMEOUT_CONNECT );
+			return FALSE;
+		}
+	}
+	else if ( m_nState < nrsConnected )
+	{
+		if ( tNow - m_tConnected > Settings.Connection.TimeoutHandshake )
+		{
+			Close( IDS_HANDSHAKE_TIMEOUT );
+			return FALSE;
+		}
+	}
+	else if ( m_nState == nrsConnected )
+	{
+		if ( m_nProtocol != PROTOCOL_ED2K &&	// ED2K has no keep-alive
+			 m_nProtocol != PROTOCOL_DC &&		// DC++ has no keep-alive
+			 tNow - m_tLastPacket > Settings.Connection.TimeoutTraffic )
+		{
+			// Close the connection, citing traffic timeout as the reason, and return false
+			Close( IDS_CONNECTION_TIMEOUT_TRAFFIC );
+			return FALSE;
+		}
+
+		// If this connection is to a hub above us, or to a Gnutella2 hub like us
+			// And if we have a local query table for this neighbour and its cookie isn't the master cookie (do)
+			// And it's been more than 60 seconds since the last update (do)
+			// And it's been more than 30 seconds since the master cookie (do)
+			//  Or, the master cookie is a minute older than the local one (do)
+			//  Or, the local query table is not live (do)
+
+		if ( ( m_nNodeType == ntHub || ( m_nNodeType == ntNode && m_nProtocol == PROTOCOL_G2 ) ) &&
+			 ( m_pQueryTableLocal != NULL && m_pQueryTableLocal->m_nCookie != QueryHashMaster.m_nCookie ) &&
+			 ( tNow - m_pQueryTableLocal->m_nCookie > 60000 ) &&
+			 ( tNow - QueryHashMaster.m_nCookie > 30000 ||
+				QueryHashMaster.m_nCookie - m_pQueryTableLocal->m_nCookie > 60000 ||
+				! m_pQueryTableLocal->m_bLive ) )
+		{
+			// Then send the connected computer a query hash table patch
+			if ( m_pQueryTableLocal->PatchTo( &QueryHashMaster, this ) )
+			{
+				// Error
+				theApp.Message( MSG_NOTICE, IDS_PROTOCOL_QRP_SENT, (LPCTSTR)m_sAddress,
+					m_pQueryTableLocal->m_nBits, m_pQueryTableLocal->m_nHash,
+					m_pQueryTableLocal->m_nInfinity, m_pQueryTableLocal->GetPercent() );
+			}
 		}
 	}
 
-	// Report success
 	return TRUE;
 }
 
@@ -387,7 +397,7 @@ BOOL CNeighbour::OnWrite()
 			delete m_pZOutput;
 			m_pZOutput = NULL;
 			m_pZSOutput = NULL;
-			return TRUE; // Report success anyway
+			return TRUE;	// Report success anyway
 		}
 	}
 
@@ -398,7 +408,8 @@ BOOL CNeighbour::OnWrite()
 	{
 		// Send it to the other computer
 		CConnection::OnWrite();
-		if ( pOutput->m_nLength ) return TRUE; // Return true if there is still more to send after this (do)
+		if ( pOutput->m_nLength )
+			return TRUE;	// Return true if there is still more to send after this (do)
 	}
 
 	// If it's been more than 2 seconds since we've flushed the compressed output buffer to the remote computer, set the flag to do it next
@@ -410,7 +421,7 @@ BOOL CNeighbour::OnWrite()
 		|| pStream->avail_out == 0 )							// Or, zlib says it has no more room left (do)
 	{
 		// Make sure the output buffer is 1 KB (do)
-		if ( !pOutput->EnsureBuffer( 1024u ) )
+		if ( ! pOutput->EnsureBuffer( 1024u ) )
 			return FALSE;
 
 		// Tell zlib where the data to compress is, and where it should put the compressed data
@@ -489,7 +500,7 @@ BOOL CNeighbour::OnCommonHit(CPacket* pPacket)
 		else if ( m_nProtocol == PROTOCOL_G2 )
 			Statistics.Current.Gnutella2.Dropped++;
 		pHits->Delete();
-		return TRUE; // Stay connected
+		return TRUE;	// Stay connected
 	}
 
 	Network.NodeRoute->Add( pHits->m_oClientID, this );
@@ -503,7 +514,7 @@ BOOL CNeighbour::OnCommonHit(CPacket* pPacket)
 
 	Network.OnQueryHits( pHits );
 
-	return TRUE; // Stay connected
+	return TRUE;	// Stay connected
 }
 
 //////////////////////////////////////////////////////////////////////

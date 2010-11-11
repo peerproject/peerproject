@@ -18,19 +18,19 @@
 
 #pragma once
 
+#include "ThreadImpl.h"
+
 class CPlugin;
 class CChildWnd;
 
 
-class CPlugins
+class CPlugins : public CThreadImpl
 {
 public:
 	CPlugins();
-	virtual ~CPlugins();
 
 public:
-	CList< CPlugin* >	m_pList;
-	UINT				m_nCommandID;
+	CCriticalSection	m_pSection;
 
 	void		Register(); 	// Register all plugins in PeerProject installation folder
 
@@ -38,20 +38,24 @@ public:
 	void		Clear();
 	BOOL		LookupCLSID(LPCTSTR pszGroup, LPCTSTR pszKey, CLSID& pCLSID) const;
 	BOOL		LookupEnable(REFCLSID pCLSID, LPCTSTR pszExt = NULL) const;
-	CPlugin*	Find(REFCLSID pCLSID) const;
-	UINT		GetCommandID();
 
-	// IGeneralPlugin mirroring
+	IUnknown*	GetPlugin(LPCTSTR pszGroup, LPCTSTR pszType);		// Load non-generic plugin and save it to cache
+	BOOL		ReloadPlugin(LPCTSTR pszGroup, LPCTSTR pszType);	// Reload non-generic plugin within cache
+//	void		UnloadPlugin(REFCLSID pCLSID);						// Unload plugin (from cache and generic plugin list)
+
+	UINT		GetCommandID(); 									// Retrieve next free command ID
+
+	// IGeneralPlugin mirroring:
 	void		OnSkinChanged();
-	// ICommandPlugin mirroring
+	// ICommandPlugin mirroring:
 	void		RegisterCommands();
 	void		InsertCommands();
 	BOOL		OnCommand(CChildWnd* pActiveWnd, UINT nCommandID);
 	BOOL		OnUpdate(CChildWnd* pActiveWnd, CCmdUI* pCmdUI);
-	// IExecutePlugin mirroring
+	// IExecutePlugin mirroring:
 	BOOL		OnExecuteFile(LPCTSTR pszFile, BOOL bUseImageViewer = FALSE);
 	BOOL		OnEnqueueFile(LPCTSTR pszFile);
-	// IChatPlugin mirroring
+	// IChatPlugin mirroring:
 	BOOL		OnChatMessage(LPCTSTR pszChatID, BOOL bOutgoing, LPCTSTR pszFrom, LPCTSTR pszTo, LPCTSTR pszMessage);
 
 	inline POSITION GetIterator() const
@@ -64,10 +68,26 @@ public:
 		return m_pList.GetNext( pos );
 	}
 
-	inline INT_PTR GetCount() const
+private:
+	typedef struct
 	{
-		return m_pList.GetCount();
-	}
+		CComGITPtr< IUnknown >	m_pGIT;
+		CComPtr< IUnknown >		m_pIUnknown;
+	} CPluginPtr;
+	typedef CMap< CLSID, const CLSID&, CPluginPtr*, CPluginPtr* > CPluginMap;
+
+	CPluginMap			m_pCache;		// Non-generic plugin cache
+	CList< CPlugin* >	m_pList;		// Generic plugins
+	CEvent				m_pReady;		// Interface creation completed
+	CLSID				m_inCLSID;		// [in] Create this interface
+public:
+	UINT				m_nCommandID;	// First free command ID
+
+private:
+	virtual void OnRun();
+
+	CPlugins(const CPlugins&);
+	CPlugins& operator=(const CPlugins&);
 };
 
 
@@ -75,7 +95,7 @@ class CPlugin
 {
 public:
 	CPlugin(REFCLSID pCLSID, LPCTSTR pszName);
-	virtual ~CPlugin();
+	~CPlugin();
 
 	CLSID						m_pCLSID;
 	CString						m_sName;
@@ -85,11 +105,20 @@ public:
 	CComPtr< IExecutePlugin >	m_pExecute;
 	CComPtr< IChatPlugin >		m_pChat;
 
-	void		Stop();
 	BOOL		Start();
-	BOOL		StartIfEnabled();
+	void		Stop();
 	CString		GetStringCLSID() const;
 	HICON		LookupIcon() const;
+
+private:
+	CPlugin(const CPlugin&);
+	CPlugin& operator=(const CPlugin&);
 };
+
+template<> AFX_INLINE UINT AFXAPI HashKey(const CLSID& key)
+{
+	return ( key.Data1 + MAKEDWORD( key.Data2, key.Data3 ) +
+		*(UINT*)&key.Data4[0] + *(UINT*)&key.Data4[4] ) & 0xffffffff;
+}
 
 extern CPlugins Plugins;

@@ -31,7 +31,7 @@ HINSTANCE         v_hModule;				// DLL module handle
 ULONG             v_cLocks;					// Count of server locks
 CRITICAL_SECTION  v_csSynch;				// Critical Section
 HANDLE            v_hPrivateHeap;			// Private Heap for Component
-BOOL              v_fRunningOnNT;			// Flag Set When on Unicode OS
+BOOL              v_fRunningOnNT;			// Flag set when on Unicode OS (Always true)
 PFN_STGOPENSTGEX  v_pfnStgOpenStorageEx;	// StgOpenStorageEx (Win2K/XP only)
 
 class CDocumentReaderModule : public CAtlDllModuleT< CDocumentReaderModule >
@@ -51,9 +51,8 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE hInstance, DWORD dwReason, LPVOID lpRes
 	case DLL_PROCESS_ATTACH:
 		v_hModule = hInstance; v_cLocks = 0;
 		v_hPrivateHeap = HeapCreate(0, 0x1000, 0);
-		v_fRunningOnNT = TRUE;	// ( ( GetVersion() & 0x80000000 ) != 0x80000000 );	// Windows9X is unsupported
-		v_pfnStgOpenStorageEx = ( (PFN_STGOPENSTGEX)GetProcAddress( GetModuleHandle( _T("OLE32") ),
-			"StgOpenStorageEx" ) );
+		v_fRunningOnNT = TRUE;	// ( ( GetVersion() & 0x80000000 ) != 0x80000000 ); 	// Windows9X is unsupported
+		v_pfnStgOpenStorageEx = ( (PFN_STGOPENSTGEX)GetProcAddress( GetModuleHandle( _T("OLE32") ), "StgOpenStorageEx" ) );
 		InitializeCriticalSection( &v_csSynch );
 		DisableThreadLibraryCalls( hInstance );
 		break;
@@ -83,7 +82,7 @@ STDAPI DllRegisterServer(void)
 	LPWSTR  pwszModule;
 
 	// If we can't find the path to the DLL, we can't register...
-	if (!FGetModuleFileName( v_hModule, &pwszModule) )
+	if ( ! FGetModuleFileName( v_hModule, &pwszModule) )
 		return E_UNEXPECTED;
 
 	return _AtlModule.DllRegisterServer();
@@ -95,8 +94,33 @@ STDAPI DllUnregisterServer(void)
 	LPWSTR  pwszModule;
 
 	// If we can't find the path to the DLL, we can't unregister...
-	if ( !FGetModuleFileName( v_hModule, &pwszModule) )
+	if ( ! FGetModuleFileName( v_hModule, &pwszModule) )
 		return E_UNEXPECTED;
 
 	return _AtlModule.DllUnregisterServer();
+}
+
+STDAPI DllInstall(BOOL bInstall, LPCWSTR pszCmdLine)
+{
+	HRESULT hr = E_FAIL;
+	static const wchar_t szUserSwitch[] = L"user";
+
+	if ( pszCmdLine != NULL )
+	{
+#if defined(_MSC_VER) && (_MSC_VER >= 1500)	// No VS2005
+		if ( _wcsnicmp(pszCmdLine, szUserSwitch, _countof(szUserSwitch)) == 0 )
+			AtlSetPerUserRegistration(true);
+#endif
+	}
+
+	if ( bInstall )
+	{
+		hr = DllRegisterServer();
+		if ( FAILED(hr) )
+			DllUnregisterServer();
+	}
+	else
+		hr = DllUnregisterServer();
+
+	return hr;
 }

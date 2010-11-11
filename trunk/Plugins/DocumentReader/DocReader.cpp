@@ -37,7 +37,7 @@ LPCWSTR	CDocReader::msVisioExt		= L".vsd.vst";
 LPCWSTR	CDocReader::ooWriterExt		= L".odt.ott.sxw.stw";
 LPCWSTR	CDocReader::ooCalcExt		= L".ods.ots.sxc.stc";
 LPCWSTR	CDocReader::ooImpressExt	= L".odp.otp.sxi.sti";
-
+ 
 
 // CDocReader
 CDocReader::CDocReader()
@@ -55,7 +55,7 @@ CDocReader::~CDocReader()
 
 // ILibraryBuilderPlugin Methods
 
-STDMETHODIMP CDocReader::Process(HANDLE hFile, BSTR sFile, ISXMLElement* pXML)
+STDMETHODIMP CDocReader::Process(BSTR sFile, ISXMLElement* pXML)
 {
 	ODS(_T("CDocReader::Process\n"));
 
@@ -507,8 +507,8 @@ STDMETHODIMP CDocReader::ProcessNewMSDocument(BSTR bsFile, ISXMLElement* pXML, L
 
 	if ( pInputXML != NULL )
 	{
-	pInputXML->Delete();
-	pInputXML->Release();
+		pInputXML->Delete();
+		pInputXML->Release();
 	}
 
 	return S_OK;
@@ -541,7 +541,7 @@ STDMETHODIMP CDocReader::ProcessOODocument(BSTR bsFile, ISXMLElement* pXML, LPCW
 			if ( ! pFile ) return STG_E_INVALIDNAME;
 		}
 		else
-			return E_FAIL; // system doesn't support 8.3 filenames
+			return E_FAIL;	// System doesn't support 8.3 filenames ?
 	}
 
 	// Read meta.xml from the archive
@@ -897,7 +897,7 @@ STDMETHODIMP CDocReader::GetMSThumbnail(BSTR bsFile, IMAGESERVICEDATA* pParams, 
 		CLIPMETAHEADER cHeader;
 		memcpy( &cHeader, pclp, sizeof(CLIPMETAHEADER) );
 
-		// convert to emf
+		// Convert to emf
 		hwmf = SetMetaFileBitsEx( cbDataSize, (BYTE*)(pclp + cbHeaderSize) );
 		if ( NULL != hwmf )
 		{
@@ -1114,13 +1114,13 @@ STDMETHODIMP CDocReader::GetOOThumbnail(BSTR bsFile, IMAGESERVICEDATA* pParams, 
 				return STG_E_INVALIDNAME;
 		}
 		else
-			return E_FAIL; // system doesn't support 8.3 filenames
+			return E_FAIL;	// System doesn't support 8.3 filenames ?
 	}
 
 	HRESULT hr;
 
-	// Load thumbnail.png file to memory. The thumbnail is 24-bit with alpha channel
-	// and located in Thumbnails folder.
+	// Load thumbnail.png file to memory.
+	// Thumbnail is 24-bit with alpha channel and located in Thumbnails folder.
 	CHAR szFile[256] = "Thumbnails/thumbnail.png";
 	int nError = unzLocateFile( pFile, szFile, 0 );
 	if ( nError == UNZ_OK )
@@ -1185,8 +1185,7 @@ STDMETHODIMP CDocReader::GetOOThumbnail(BSTR bsFile, IMAGESERVICEDATA* pParams, 
 						if ( SUCCEEDED( hr ) )
 						{
 							CComPtr<IImageServicePlugin> pPNGReader;
-							hr = pPNGReader.CoCreateInstance( CLSID_PNGReader,
-								NULL, CLSCTX_ALL );
+							hr = pPNGReader.CoCreateInstance( CLSID_PNGReader, NULL, CLSCTX_ALL );
 							if ( SUCCEEDED( hr ) )
 							{
 								hr = pPNGReader->LoadFromMemory( bsFile, psa,
@@ -1269,7 +1268,7 @@ HBITMAP CDocReader::GetBitmapFromMetaFile(PICTDESC pds, int nResolution, WORD wB
 	bmInfo->bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
 	bmInfo->bmiHeader.biWidth = nDotsWidth;
 	bmInfo->bmiHeader.biHeight = nDotsHeight;
-	bmInfo->bmiHeader.biCompression = BI_RGB; // no compression
+	bmInfo->bmiHeader.biCompression = BI_RGB;	// No compression
 	bmInfo->bmiHeader.biXPelsPerMeter = static_cast<long>(nResolution / 2.54E-2);
 	bmInfo->bmiHeader.biYPelsPerMeter=static_cast<long>(nResolution / 2.54E-2);
 	bmInfo->bmiHeader.biPlanes = 1;
@@ -1286,8 +1285,7 @@ HBITMAP CDocReader::GetBitmapFromMetaFile(PICTDESC pds, int nResolution, WORD wB
 	if ( ppBI != NULL )
 	{
 		*ppBI = (LPBITMAPINFO) new BYTE[ nInfoSize ];
-		//copy BITMAPINFO
-		memcpy( *ppBI, bmInfo, nInfoSize );
+		memcpy( *ppBI, bmInfo, nInfoSize );		// Copy BITMAPINFO
 	}
 
 	// Create a temporary dc in memory
@@ -1337,8 +1335,8 @@ HBITMAP CDocReader::GetBitmapFromEnhMetaFile(PICTDESC pds, int nResolution, WORD
 	GetEnhMetaFileHeader( pds.emf.hemf, sizeof(ENHMETAHEADER), &cHeader );
 	long nWidth = cHeader.rclFrame.right - cHeader.rclFrame.left;
 	long nHeight = cHeader.rclFrame.bottom - cHeader.rclFrame.top;
-	long nDotsWidth = CalculateDotsForHimetric( nResolution, nWidth);
-	long nDotsHeight = CalculateDotsForHimetric( nResolution, nHeight);
+	long nDotsWidth = CalculateDotsForHimetric( nResolution, nWidth );
+	long nDotsHeight = CalculateDotsForHimetric( nResolution, nHeight );
 
 	// Make smaller
 	if ( nDotsHeight > 800 )
@@ -1530,12 +1528,12 @@ LPWSTR CDocReader::GetSchema(BSTR sFile, LPCWSTR pszExt)
 CDocReader::CDocumentProperties::CDocumentProperties(BOOL bOnlyThumb)
 	: m_bstrFileName	( NULL )
 	, m_cFilePartIdx	( 0 )
-    , m_pStorage		( NULL )
-    , m_pPropSetStg		( NULL )
-    , m_dwFlags			( dsoOptionDefault )
+	, m_pStorage		( NULL )
+	, m_pPropSetStg		( NULL )
+	, m_dwFlags			( dsoOptionDefault )
 	, m_fReadOnly		( FALSE )
-    , m_wCodePage		( 0 )
-    , m_pSummProps		( NULL )
+	, m_wCodePage		( 0 )
+	, m_pSummProps		( NULL )
 	, m_bOnlyThumb		( bOnlyThumb )
 {
 	ODS(_T("CDocReader::CDocumentProperties::CDocumentProperties()\n"));
@@ -1544,7 +1542,7 @@ CDocReader::CDocumentProperties::CDocumentProperties(BOOL bOnlyThumb)
 CDocReader::CDocumentProperties::~CDocumentProperties(void)
 {
 	ODS(_T("CDocReader::CDocumentProperties::~CDocumentProperties()\n"));
-	ASSERT(m_pStorage == NULL); // We should be closed before delete!
+	ASSERT(m_pStorage == NULL); 	// We should be closed before delete!
 	if ( m_pStorage ) Close( VARIANT_FALSE );
 }
 
@@ -1576,17 +1574,17 @@ HRESULT CDocReader::
 	// Save file name and path index from SearchFile API...
 	m_bstrFileName = SysAllocString(wszFullName);
 	m_cFilePartIdx = ulIdx;
-	if ((m_cFilePartIdx < 1) || (m_cFilePartIdx > SysStringLen(m_bstrFileName)))
+	if ( (m_cFilePartIdx < 1) || (m_cFilePartIdx > SysStringLen(m_bstrFileName)) )
 		m_cFilePartIdx = 0;
 
 	// Set open mode flags based on ReadOnly flag (the exclusive access is required for
 	// the IPropertySetStorage interface -- which sucks, but we can work around for OLE files)...
 	m_fReadOnly = (ReadOnly != VARIANT_FALSE);
 	m_dwFlags = Options;
-	dwOpenMode = ((m_fReadOnly) ? (STGM_READ | STGM_SHARE_EXCLUSIVE) : (STGM_READWRITE | STGM_SHARE_EXCLUSIVE));
+	dwOpenMode = ( (m_fReadOnly) ? (STGM_READ | STGM_SHARE_EXCLUSIVE) : (STGM_READWRITE | STGM_SHARE_EXCLUSIVE) );
 
 	// If the file is an OLE Storage DocFile...
-	if (StgIsStorageFile(m_bstrFileName) == S_OK)
+	if ( StgIsStorageFile(m_bstrFileName) == S_OK )
 	{
 		// Get the data from IStorage...
 		hr = StgOpenStorage(m_bstrFileName, NULL, dwOpenMode, NULL, 0, &m_pStorage);
@@ -1605,21 +1603,21 @@ HRESULT CDocReader::
 
 		// If we are lucky, we have a storage to read from, so ask OLE to open the
 		// associated property set for the file and return the IPSS iface...
-		if (SUCCEEDED(hr))
-            hr = m_pStorage->QueryInterface(IID_IPropertySetStorage, (void**)&m_pPropSetStg);
+		if ( SUCCEEDED(hr) )
+			hr = m_pStorage->QueryInterface(IID_IPropertySetStorage, (void**)&m_pPropSetStg);
 	}
-	else if ((v_pfnStgOpenStorageEx) &&
-			((m_dwFlags & dsoOptionOnlyOpenOLEFiles) != dsoOptionOnlyOpenOLEFiles))
+	else if ( (v_pfnStgOpenStorageEx) &&
+			( (m_dwFlags & dsoOptionOnlyOpenOLEFiles) != dsoOptionOnlyOpenOLEFiles ) )
 	{
 		// On Win2K+ we can try and open plain files on NTFS 5.0 drive and get
 		// the NTFS version of OLE properties (saved in alt stream)...
 		hr = (v_pfnStgOpenStorageEx)(m_bstrFileName, dwOpenMode, STGFMT_FILE, 0, NULL, 0,
 			IID_IPropertySetStorage, (void**)&m_pPropSetStg);
 
-		// If we failed to gain write access, try to just read access if caller
-		// wants us to. This only works for access block, not share violations...
-		if ((hr == STG_E_ACCESSDENIED) && (!m_fReadOnly) &&
-			(m_dwFlags & dsoOptionOpenReadOnlyIfNoWriteAccess))
+		// If we failed to gain write access, try to just read access if caller wants us to.
+		// This only works for access block, not share violations...
+		if ( ( hr == STG_E_ACCESSDENIED ) && ( ! m_fReadOnly ) &&
+			 ( m_dwFlags & dsoOptionOpenReadOnlyIfNoWriteAccess ) )
 		{
 			m_fReadOnly = TRUE;
 			hr = (v_pfnStgOpenStorageEx)(m_bstrFileName, (STGM_READ | STGM_SHARE_EXCLUSIVE), STGFMT_FILE,
@@ -1627,14 +1625,15 @@ HRESULT CDocReader::
 		}
 	}
 	else
-	{	// If we land here, the file is non-OLE file, and not on NTFS5 drive,
+	{
+		// If we land here, the file is non-OLE file, and not on NTFS5 drive,
 		// so we return an error that file has no valid OLE/NTFS extended properties...
 		hr = E_NODOCUMENTPROPS;
 	}
 
 	if ( FAILED(hr) )
 	{
-		Close( VARIANT_FALSE ); // Force a cleanup on error...
+		Close( VARIANT_FALSE ); 	// Force a cleanup on error...
 	}
 	else
 	{
@@ -1707,10 +1706,10 @@ HRESULT CDocReader::
 	ODS(_T("CDocReader::CDocumentProperties::get_IsDirty\n"));
 
 	// Check the status of summary properties...
-	if ((m_pSummProps) && (m_pSummProps->FIsDirty()))
+	if ( (m_pSummProps) && m_pSummProps->FIsDirty() )
 		fDirty = TRUE;
 
-	if (pbDirty) // Return status to caller...
+	if ( pbDirty )	// Return status to caller...
 		*pbDirty = (VARIANT_BOOL)((fDirty) ? VARIANT_TRUE : VARIANT_FALSE);
 
 	return S_OK;
@@ -1738,7 +1737,7 @@ HRESULT CDocReader::
 
 	// If save was made, commit the root storage before return...
 	if ( (fSaveMade) && (m_pStorage) )
-        hr = m_pStorage->Commit(STGC_DEFAULT);
+		hr = m_pStorage->Commit(STGC_DEFAULT);
 
 	return hr;
 }
@@ -1759,7 +1758,7 @@ HRESULT CDocReader::
 	{
 		m_pSummProps = new CSummaryProperties(m_bOnlyThumb);
 		if ( m_pSummProps )
-			{ hr = m_pSummProps->LoadProperties(m_pPropSetStg, m_fReadOnly, m_dwFlags); }
+			hr = m_pSummProps->LoadProperties(m_pPropSetStg, m_fReadOnly, m_dwFlags);
 		else
 			hr = E_OUTOFMEMORY;
 
@@ -1785,7 +1784,7 @@ HRESULT CDocReader::
 	CHECK_NULL_RETURN(ppicIcon, E_POINTER); *ppicIcon = NULL;
 	CHECK_NULL_RETURN(m_pPropSetStg, E_DOCUMENTNOTOPEN);
 
-	if ( (m_bstrFileName) && FGetIconForFile( m_bstrFileName, &hIco ))
+	if ( (m_bstrFileName) && FGetIconForFile( m_bstrFileName, &hIco ) )
 	{
 		PICTDESC  icoDesc;
 		icoDesc.cbSizeofstruct = sizeof(PICTDESC);
@@ -1806,7 +1805,7 @@ HRESULT CDocReader::
 	CHECK_NULL_RETURN(pbstrName, E_POINTER); *pbstrName = NULL;
 	CHECK_NULL_RETURN(m_pPropSetStg, E_DOCUMENTNOTOPEN);
 
-	if (m_bstrFileName != NULL && m_cFilePartIdx > 0)
+	if ( m_bstrFileName != NULL && m_cFilePartIdx > 0 )
 		*pbstrName = SysAllocString((LPOLESTR)&(m_bstrFileName[m_cFilePartIdx]));
 
 	return S_OK;
@@ -1822,7 +1821,7 @@ HRESULT CDocReader::
 	CHECK_NULL_RETURN(pbstrPath, E_POINTER); *pbstrPath = NULL;
 	CHECK_NULL_RETURN(m_pPropSetStg, E_DOCUMENTNOTOPEN);
 
-	if (m_bstrFileName != NULL && m_cFilePartIdx > 0)
+	if ( m_bstrFileName != NULL && m_cFilePartIdx > 0 )
 		*pbstrPath = SysAllocStringLen(m_bstrFileName, m_cFilePartIdx);
 
 	return S_OK;
@@ -1916,7 +1915,7 @@ HRESULT CDocReader::
 			wsprintf(szName, _T("ClipFormat 0x%X (%d)"), cf, cf);
 
 		*pbstrFormat = ConvertToBSTR(szName, CP_ACP);
-		hr = ((*pbstrFormat) ? S_OK : E_OUTOFMEMORY);
+		hr = ( (*pbstrFormat) ? S_OK : E_OUTOFMEMORY );
 	}
 
 	return hr;
@@ -1936,7 +1935,7 @@ HRESULT CDocReader::
 	CHECK_NULL_RETURN(m_pPropSetStg, E_DOCUMENTNOTOPEN);
 	CHECK_NULL_RETURN(m_pStorage, E_MUSTHAVESTORAGE);
 
-	if (SUCCEEDED(ReadFmtUserTypeStg(m_pStorage, NULL, &lpolestr)) == TRUE)
+	if ( SUCCEEDED(ReadFmtUserTypeStg(m_pStorage, NULL, &lpolestr)) == TRUE )
 	{
 		*pbstrType = SysAllocString(lpolestr);
 		hr = ((*pbstrType) ? S_OK : E_OUTOFMEMORY);
@@ -2397,7 +2396,7 @@ HRESULT CDocReader::CDocumentProperties::
 		// with no properties. Otherwise we return error that propset is invalid...
 		if (hr == STG_E_FILENOTFOUND)
 		{	// We allow partial open if NoAutoCreate is set.
-			if ((fIsReadOnly) || (dwFlags & dsoOptionDontAutoCreate))
+			if ( (fIsReadOnly) || (dwFlags & dsoOptionDontAutoCreate) )
 			{
 				fIsReadOnly = TRUE;
 				hr = S_FALSE;
@@ -2408,7 +2407,7 @@ HRESULT CDocReader::CDocumentProperties::
 	}
 
 	// If all wen well, store the parameters passed for later use...
-	if (SUCCEEDED(hr))
+	if ( SUCCEEDED(hr) )
 	{
 		m_pPropSetStg = pPropSS;
 		m_fReadOnly = fIsReadOnly;
@@ -2429,7 +2428,8 @@ HRESULT CDocReader::CDocumentProperties::
 	VARIANT vtTmp;
 
 	TRACE1("CSummaryProperties::ReadProperty(id=%d)\n", pid);
-	ASSERT(ppv); *ppv = NULL;
+	ASSERT(ppv);
+	*ppv = NULL;
 
 	CHECK_FLAG_RETURN(m_fDeadObj, E_INVALIDOBJECT);
 
@@ -2573,8 +2573,8 @@ HRESULT CDocReader::CDocumentProperties::
 }
 
 ////////////////////////////////////////////////////////////////////////
-// GetPropertyFromList -- Enumerates a list and finds item with
-//	the matching id.  It can also add a new item (if flag set).
+// GetPropertyFromList -- Enumerates a list and finds item with	the matching id.
+// It can also add a new item (if flag set).
 //
 CDocProperty* CDocReader::CDocumentProperties::
 	CSummaryProperties::GetPropertyFromList(CDocProperty* plist, PROPID id, BOOL fAppendNew)
@@ -2626,19 +2626,27 @@ BOOL CDocReader::CDocumentProperties::
 
 	// Loop through summary items and see if any have changed...
 	pitem = m_pSummPropList;
-	while (pitem)
-    {
-		if (pitem->IsDirty()){ fDirty = TRUE; break; }
+	while ( pitem )
+	{
+		if ( pitem->IsDirty() )
+		{ 
+			fDirty = TRUE;
+			break; 
+		}
 		pitem = pitem->GetNextProperty();
 	}
 
 	// Look through doc summary items to see if those changed...
-	if (!fDirty)
+	if ( ! fDirty )
 	{
 		pitem = m_pDocPropList;
-		while (pitem)
+		while ( pitem )
 		{
-			if (pitem->IsDirty()){ fDirty = TRUE; break; }
+			if ( pitem->IsDirty() )
+			{
+				fDirty = TRUE;
+				break;
+			}
 			pitem = pitem->GetNextProperty();
 		}
 	}
@@ -2660,14 +2668,16 @@ void CDocReader::CDocumentProperties::
 	while ( m_pSummPropList )
 	{
 		pnext = m_pSummPropList->GetNextProperty();
-		m_pSummPropList->Disconnect(); m_pSummPropList = pnext;
+		m_pSummPropList->Disconnect();
+		m_pSummPropList = pnext;
 	}
 
 	m_pDocPropList = NULL;
 	while (m_pDocPropList)
 	{
 		pnext = m_pDocPropList->GetNextProperty();
-		m_pDocPropList->Disconnect(); m_pDocPropList = pnext;
+		m_pDocPropList->Disconnect();
+		m_pDocPropList = pnext;
 	}
 
 	// We are now dead ourselves (release prop storage ref)...

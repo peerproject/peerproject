@@ -159,17 +159,13 @@ protected:
 	HANDLE pFile;
 };
 
-STDMETHODIMP C7ZipBuilder::Process (
-	/* [in] */ HANDLE /* hFile */,
-	/* [in] */ BSTR sFile,
-	/* [in] */ ISXMLElement* pXML)
+STDMETHODIMP C7ZipBuilder::Process(/*[in]*/ BSTR sFile, /*[in]*/ ISXMLElement* pXML)
 {
 	if ( ! pXML )
 		return E_POINTER;
 
 	if ( ! fnCreateObject )
-		// 7zxr.dll not loaded
-		return E_NOTIMPL;
+		return E_NOTIMPL;	// 7zxr.dll not loaded
 
 	CComPtr <ISXMLElements> pISXMLRootElements;
 	HRESULT hr = pXML->get_Elements(&pISXMLRootElements);
@@ -207,21 +203,21 @@ STDMETHODIMP C7ZipBuilder::Process (
 	USES_CONVERSION;
 	CInStream oInStream;
 	if ( ! oInStream.Open( OLE2CT( sFile ) ) )
-		return E_FAIL;	// Cannot open file
+		return E_FAIL;				// Cannot open file
 
 	CComPtr< IInArchive > pIInArchive;
 	hr = fnCreateObject( &CLSID_CFormat7z, &IID_IInArchive, (void**)&pIInArchive );
 	if ( FAILED( hr ) )
-		return E_NOTIMPL;	// Bad 7zxr.dll version?
+		return E_NOTIMPL;			// Bad 7zxr.dll version?
 
 	hr = pIInArchive->Open( static_cast< IInStream* >( &oInStream ), NULL, NULL );
-	if ( hr != S_OK ) // S_FALSE - unknown format
-		return E_UNEXPECTED;	// Bad format. Call CLibraryBuilder::SubmitCorrupted()
+	if ( hr != S_OK )				// S_FALSE - unknown format
+		return E_UNEXPECTED;		// Bad format. Call CLibraryBuilder::SubmitCorrupted()
 
 	UInt32 numProperties = 0;
 	hr = pIInArchive->GetNumberOfArchiveProperties( &numProperties );
 	if ( FAILED( hr ) )
-		return E_UNEXPECTED;	// Bad format. Call CLibraryBuilder::SubmitCorrupted()
+		return E_UNEXPECTED;		// Bad format. Call CLibraryBuilder::SubmitCorrupted()
 
 	for ( UInt32 p = 0; p < numProperties; p++ )
 	{
@@ -238,7 +234,7 @@ STDMETHODIMP C7ZipBuilder::Process (
 	UInt32 numItems = 0;
 	hr = pIInArchive->GetNumberOfItems( &numItems );
 	if ( FAILED( hr ) )
-		return E_UNEXPECTED;	// Bad format. Call CLibraryBuilder::SubmitCorrupted()
+		return E_UNEXPECTED;		// Bad format. Call CLibraryBuilder::SubmitCorrupted()
 
 	for ( UInt32 i = 0; i < numItems; i++ )
 	{

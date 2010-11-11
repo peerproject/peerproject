@@ -369,47 +369,50 @@ BOOL CSkin::LoadFromXML(CXMLElement* pXML, const CString& strPath)
 		return bSuccess;
 	}
 
-	// Confirm if this switch overhead is any better than typical elseif sequence
-	static std::map< const CString, char > XMLElement;
-	XMLElement[ _T("manifest") ]		= 'm';
-	XMLElement[ _T("windowskins") ]		= 's';
-	XMLElement[ _T("watermarks") ]		= 'w';
-	XMLElement[ _T("commandimages") ]	= 'i';
-	XMLElement[ _T("icons") ]			= 'i';
-	XMLElement[ _T("colors") ]			= 'c';
-	XMLElement[ _T("colours") ]			= 'c';
-	XMLElement[ _T("colorscheme") ]		= 'c';
-	XMLElement[ _T("colourscheme") ]	= 'c';
-	XMLElement[ _T("toolbars") ]		= 't';
-	XMLElement[ _T("menus") ]			= 'u';
-	XMLElement[ _T("dialogs") ]			= 'a';
-	XMLElement[ _T("documents") ]		= 'd';
-	XMLElement[ _T("listcolumns") ]		= 'l';
-	XMLElement[ _T("options") ]			= 'o';
-	XMLElement[ _T("navbar") ]			= 'v';	// .sks
-	XMLElement[ _T("fonts") ]			= 'f';
-	XMLElement[ _T("strings") ]			= 'r';
-	XMLElement[ _T("commandtips") ]		= 'r';
-	XMLElement[ _T("controltips") ]		= 'n';
-	XMLElement[ _T("commandmap") ]		= 'p';
-	XMLElement[ _T("resourcemap") ]		= 'p';
-	XMLElement[ _T("tipmap") ]			= 'p';
-	CString strElement;
+	// XML Root Elements:
+	SwitchMap( Text )
+	{
+		Text[ _T("manifest") ]		= 'm';
+		Text[ _T("windows") ]		= 'w';
+		Text[ _T("windowskins") ]	= 'w';
+		Text[ _T("watermarks") ]	= 'e';
+		Text[ _T("images") ]		= 'e';
+		Text[ _T("icons") ] 		= 'i';
+		Text[ _T("commandimages") ] = 'i';
+		Text[ _T("colors") ]		= 'c';
+		Text[ _T("colours") ]		= 'c';
+		Text[ _T("colorscheme") ]	= 'c';
+		Text[ _T("colourscheme") ]	= 'c';
+		Text[ _T("toolbars") ]		= 't';
+		Text[ _T("menus") ]			= 'u';
+		Text[ _T("dialogs") ]		= 'a';
+		Text[ _T("documents") ] 	= 'd';
+		Text[ _T("listcolumns") ]	= 'l';
+		Text[ _T("options") ]		= 'o';
+		Text[ _T("navbar") ]		= 'v';	// Deprecated
+		Text[ _T("fonts") ] 		= 'f';
+		Text[ _T("strings") ]		= 'r';
+		Text[ _T("commandtips") ]	= 'r';
+		Text[ _T("controltips") ]	= 'n';
+		Text[ _T("commandmap") ]	= 'p';
+		Text[ _T("resourcemap") ]	= 'p';
+		Text[ _T("tipmap") ]		= 'p';
+	}
 
 	for ( POSITION pos = pXML->GetElementIterator() ; pos ; )
 	{
 		CXMLElement* pSub = pXML->GetNextElement( pos );
-		strElement = pSub->GetName();
-		ToLower( strElement );
+		CString strElement = pSub->GetName();
+		strElement.MakeLower();
 		bSuccess = FALSE;
 
-		switch( XMLElement[ strElement ] )
+		switch( Text[ strElement ] )
 		{
-		case 's':	// windowSkins
+		case 'w':	// windowSkins, windows
 			if ( ! LoadWindowSkins( pSub, strPath ) )
 				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Failed section"), _T("WindowSkins") );
 			break;
-		case 'w':	// watermarks
+		case 'e':	// watermarks, images
 			if ( ! LoadWatermarks( pSub, strPath ) )
 				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Failed section"), _T("Watermarks") );
 			break;
@@ -461,7 +464,7 @@ BOOL CSkin::LoadFromXML(CXMLElement* pXML, const CString& strPath)
 			if ( ! LoadOptions( pSub ) )
 				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Failed section"), _T("Options") );
 			break;
-		case 'v':	// navbar (deprecated)
+		case 'v':	// navbar  (Shareaza import only)
 			if ( ! LoadNavBar( pSub ) )
 				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Failed section"), _T("NavBar (Deprecated)") );
 			break;
@@ -608,48 +611,44 @@ BOOL CSkin::LoadOptions(CXMLElement* pBase)
 			continue;	// Failed, but keep trying
 		}
 
-		CString strName		= pXML->GetAttributeValue( _T("name") );
-		CString strValue	= pXML->GetAttributeValue( _T("value") );
-		CString strHeight	= pXML->GetAttributeValue( _T("height") );
-		CString strWidth	= pXML->GetAttributeValue( _T("width") );
+		const CString strName	= pXML->GetAttributeValue( _T("name") ).MakeLower();
+		const CString strValue	= pXML->GetAttributeValue( _T("value") ).MakeLower();
+		const CString strHeight	= pXML->GetAttributeValue( _T("height") );
+		const CString strWidth	= pXML->GetAttributeValue( _T("width") );
 
-		ToLower( strName );
-		ToLower( strValue );
-		//ToLower( strHeight );
-		//ToLower( strWidth );
+		// Skin Options:
+		SwitchMap( Text )
+		{
+			Text[ _T("navbar") ]		= 'n';
+			Text[ _T("dropmenu") ]		= 'd';
+			Text[ _T("submenu") ]		= 'd';
+			Text[ _T("menuborders") ]	= 'm';
+			Text[ _T("menubarbevel") ]	= 'm';
+			Text[ _T("menugripper") ]	= 'p';
+			Text[ _T("grippers") ] 		= 'p';
+			Text[ _T("toolbar") ]		= 't';
+			Text[ _T("toolbars") ]		= 't';
+			Text[ _T("taskbar") ]		= 'k';
+			Text[ _T("tabbar") ]		= 'k';
+			Text[ _T("sidebar") ]		= 's';
+			Text[ _T("sidepanel") ] 	= 's';
+			Text[ _T("titlebar") ]		= 'h';
+			Text[ _T("headerpanel") ]	= 'h';
+			Text[ _T("groupsbar") ] 	= 'g';
+			Text[ _T("downloadgroups") ] = 'g';
+			Text[ _T("bandwidthwidget") ] = 'o';
+			Text[ _T("monitorbar") ]	= 'o';
+			Text[ _T("dragbar") ]		= 'r';
+			Text[ _T("splitter") ]		= 'r';
+			Text[ _T("roundedselect") ] = 'c';
+			Text[ _T("highlightchamfer") ] = 'c';
+			Text[ _T("buttonedge") ]	= 'e';
+			Text[ _T("buttonmap") ] 	= 'e';
+			Text[ _T("icongrid") ]		= 'i';
+			Text[ _T("librarytiles") ]	= 'i';
+		}
 
-		// Skin Options:	ToDo: Confirm if this switch is any better than typical elseif sequence
-		static std::map< const CString, char > OptionName;
-
-		OptionName[ _T("navbar") ]		= 'n';
-		OptionName[ _T("dropmenu") ]	= 'd';
-		OptionName[ _T("submenu") ]		= 'd';
-		OptionName[ _T("menuborders") ]	= 'm';
-		OptionName[ _T("menubarbevel") ] = 'm';
-		OptionName[ _T("menugripper") ]	= 'p';
-		OptionName[ _T("grippers") ] 	= 'p';
-		OptionName[ _T("toolbar") ]		= 't';
-		OptionName[ _T("toolbars") ]	= 't';
-		OptionName[ _T("taskbar") ]		= 'k';
-		OptionName[ _T("tabbar") ]		= 'k';
-		OptionName[ _T("sidebar") ]		= 's';
-		OptionName[ _T("sidepanel") ]	= 's';
-		OptionName[ _T("titlebar") ]	= 'h';
-		OptionName[ _T("headerpanel") ]	= 'h';
-		OptionName[ _T("groupsbar") ]	= 'g';
-		OptionName[ _T("downloadgroups") ] = 'g';
-		OptionName[ _T("monitorbar") ]	= 'o';
-		OptionName[ _T("bandwidthwidget") ]	= 'o';
-		OptionName[ _T("dragbar") ]		= 'r';
-		OptionName[ _T("splitter") ]	= 'r';
-		OptionName[ _T("roundedselect") ] = 'c';
-		OptionName[ _T("highlightchamfer") ] = 'c';
-		OptionName[ _T("buttonedge") ]	= 'e';
-		OptionName[ _T("buttonmap") ]	= 'e';
-		OptionName[ _T("icongrid") ]	 = 'i';
-		OptionName[ _T("librarytiles") ] = 'i';
-
-		switch( OptionName[ strName ] )
+		switch( Text[ strName ] )
 		{
 		case 'n':	// "navbar"
 			if ( ! LoadNavBar( pXML ) )
@@ -1277,7 +1276,7 @@ BOOL CSkin::LoadWatermarks(CXMLElement* pSub, const CString& strPath)
 	{
 		CXMLElement* pMark = pSub->GetNextElement( posMark );
 
-		if ( pMark->IsNamed( _T("watermark") ) )
+		if ( pMark->IsNamed( _T("watermark") ) || pMark->IsNamed( _T("image") ) )
 		{
 			CString strName	= pMark->GetAttributeValue( _T("target") );
 			CString strFile	= pMark->GetAttributeValue( _T("path") );
@@ -1842,7 +1841,7 @@ BOOL CSkin::LoadWindowSkins(CXMLElement* pSub, const CString& strPath)
 	{
 		CXMLElement* pSkinElement = pSub->GetNextElement( posSkin );
 
-		if ( pSkinElement->IsNamed( _T("windowSkin") ) )
+		if ( pSkinElement->IsNamed( _T("windowSkin") ) || pSkinElement->IsNamed( _T("window") ) )
 		{
 			CSkinWindow* pSkin = new CSkinWindow();
 
@@ -2179,26 +2178,27 @@ BOOL CSkin::LoadFonts(CXMLElement* pBase, const CString& strPath)
 				CString strFace		= pXML->GetAttributeValue( _T("face") );
 				CString strSize		= pXML->GetAttributeValue( _T("size") );
 				CString strWeight	= pXML->GetAttributeValue( _T("weight") );
+				CFont* pFont		= NULL;
 
 				if ( strName.GetLength() < 6 ) continue;
-				ToLower( strName );
+				strName.MakeLower();
 
-				// Confirm if this switch overhead is any better than typical elseif sequence
-				static std::map< const CString, char > FontName;
-				FontName[ _T("system") ]			= 'd';
-				FontName[ _T("system.default") ]	= 'd';
-				FontName[ _T("system.plain") ]		= 'd';
-				FontName[ _T("system.bold") ]		= 'b';
-				FontName[ _T("panel.caption") ]		= 'p';
-				FontName[ _T("navbar.caption") ]	= 'n';
-				FontName[ _T("richdoc.default") ]	= 'r';
-				FontName[ _T("rich.default") ]		= 'r';
-				FontName[ _T("richdoc.heading") ]	= 'h';
-				FontName[ _T("rich.heading") ]		= 'h';
+				// Specifiable Fonts:
+				SwitchMap( Font )
+				{
+					Font[ _T("system") ]			= 'd';
+					Font[ _T("system.default") ]	= 'd';
+					Font[ _T("system.plain") ]		= 'd';
+					Font[ _T("system.bold") ]		= 'b';
+					Font[ _T("panel.caption") ]		= 'p';
+					Font[ _T("navbar.caption") ]	= 'n';
+					Font[ _T("richdoc.default") ]	= 'r';
+					Font[ _T("rich.default") ]		= 'r';
+					Font[ _T("richdoc.heading") ]	= 'h';
+					Font[ _T("rich.heading") ]		= 'h';
+				}
 
-				CFont* pFont = NULL;
-
-				switch( FontName[ strName ] )
+				switch( Font[ strName ] )
 				{
 				case 'd':	// system.default, system.plain, system
 					pFont = &CoolInterface.m_fntNormal;

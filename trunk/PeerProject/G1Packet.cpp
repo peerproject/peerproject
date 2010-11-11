@@ -23,9 +23,14 @@
 #include "PeerProject.h"
 #include "Settings.h"
 #include "G1Packet.h"
-#include "Network.h"
 #include "Buffer.h"
+#include "Datagrams.h"
+#include "DiscoveryServices.h"
 #include "HostCache.h"
+#include "LibraryMaps.h"
+#include "Network.h"
+#include "Security.h"
+#include "Statistics.h"
 #include "VendorCache.h"
 
 #ifdef _DEBUG
@@ -41,23 +46,31 @@ CG1Packet::CG1PacketPool CG1Packet::POOL;
 // CG1Packet construction
 
 // Make a new CG1Packet object
-CG1Packet::CG1Packet() : CPacket( PROTOCOL_G1 ) // Before running the code here, call the CPacket constructor, giving it Gnutella as the protocol
+CG1Packet::CG1Packet()
+	: CPacket( PROTOCOL_G1 )
+	, m_nType		( 0 )
+	, m_nTypeIndex	( 0 )
+	, m_nTTL		( 0 )
+	, m_nHops		( 0 )
+	, m_nHash		( 0 )
 {
-	// Start out with the type and type index 0, later they will be set to ping or pong
-	m_nType      = 0;
-	m_nTypeIndex = 0;
-
-	// Set the time to live and hops counts to 0
-	m_nTTL = m_nHops = 0;
-
-	// No hash yet
-	m_nHash = 0;
 }
 
-// Delete this CG1Packet object
 CG1Packet::~CG1Packet()
 {
-	// The CPacket destructor will take care of freeing memory, so there is nothing to do here (do)
+	// CPacket destructor will take care of freeing memory from this CG1Packet object
+}
+
+void CG1Packet::Reset()
+{
+	CPacket::Reset();
+
+	m_oGUID.clear();
+	m_nType		 = 0;
+	m_nTypeIndex = 0;
+	m_nTTL		 = 0;
+	m_nHops		 = 0;
+	m_nHash		 = 0;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -205,7 +218,7 @@ CString CG1Packet::GetGUID() const
 
 // Takes a pointer to a buffer
 // Writes this Gnutella packet into it, composing a Gnutella packet header and then adding the payload from the packet's buffer
-void CG1Packet::ToBuffer(CBuffer* pBuffer) const
+void CG1Packet::ToBuffer(CBuffer* pBuffer, bool /*bTCP*/) const
 {
 	// Compose a Gnutella packet header with values from this CG1Packet object
 	GNUTELLAPACKET pHeader;						// Make a local GNUTELLAPACKET structure called pHeader
@@ -216,7 +229,7 @@ void CG1Packet::ToBuffer(CBuffer* pBuffer) const
 	pHeader.m_nLength	= (LONG)m_nLength;		// Copy in the payload length number of bytes
 
 	// Abort if the buffer isn't big enough for the packet
-	if ( !pBuffer->EnsureBuffer( sizeof(pHeader) + m_nLength ) ) return;
+	if ( ! pBuffer->EnsureBuffer( sizeof(pHeader) + m_nLength ) ) return;
 
 	// Add the Gnutella packet header and packet payload to the buffer
 	pBuffer->Add( &pHeader, sizeof(pHeader) );	// First, copy the bytes of the Gnutella packet header structure we made right here
@@ -325,9 +338,10 @@ int CG1Packet::GGEPWriteRandomCache(CGGEPItem* pItem)
 		{
 			CHostCacheHostPtr pHost = (*i);
 
-			nPos = pList.back();	// take the smallest value;
-			pList.pop_back();		// remove it
-			for ( ; i != HostCache.Gnutella1.End() && nPos-- ; ++i ) pHost = (*i);
+			nPos = pList.back();	// Take the smallest value
+			pList.pop_back();		// Remove it
+			for ( ; i != HostCache.Gnutella1.End() && nPos-- ; ++i )
+				pHost = (*i);
 
 			// We won't provide PeerProject hosts for G1 cache, since users may disable
 			// G1 and it will pollute the host caches ( ??? )
@@ -355,9 +369,10 @@ int CG1Packet::GGEPWriteRandomCache(CGGEPItem* pItem)
 		{
 			CHostCacheHostPtr pHost = (*i);
 
-			nPos = pList.back();	// take the smallest value;
-			pList.pop_back();		// remove it
-			for ( ; i != HostCache.G1DNA.End() && nPos-- ; ++i ) pHost = (*i);
+			nPos = pList.back();	// Take the smallest value;
+			pList.pop_back();		// Remove it
+			for ( ; i != HostCache.G1DNA.End() && nPos-- ; ++i )
+				pHost = (*i);
 
 			// We won't provide PeerProject hosts for G1 cache, since users may disable
 			// G1 and it will pollute the host caches ( ??? )
@@ -387,4 +402,246 @@ bool CG1Packet::IsOOBEnabled()
 bool CG1Packet::IsFirewalled()
 {
 	return ( Network.IsFirewalled( CHECK_TCP ) != FALSE );
+}
+
+//////////////////////////////////////////////////////////////////////
+// UDP packet handler
+
+BOOL CG1Packet::OnPacket(const SOCKADDR_IN* pHost)
+{
+	SmartDump( pHost, TRUE, FALSE );
+
+	switch ( m_nType )
+	{
+	case G1_PACKET_PING:
+		return OnPing( pHost );
+	case G1_PACKET_PONG:
+		return OnPong( pHost );
+	case G1_PACKET_VENDOR:
+		return OnVendor( pHost );
+	default:
+		CString tmp;
+		tmp.Format( _T("Received unexpected UDP packet from %s:%u"),
+			(LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ),
+			htons( pHost->sin_port ) );
+		Debug( tmp );
+	}
+
+	return TRUE;
+}
+
+//////////////////////////////////////////////////////////////////////
+// PING packet handler for G1UDP
+
+BOOL CG1Packet::OnPing(const SOCKADDR_IN* pHost)
+{
+	Statistics.Current.Gnutella1.PingsReceived++;
+
+	CString strAddress( inet_ntoa( pHost->sin_addr ) );
+
+	// A ping packet is just a header, and shouldn't have length, if it does, and settings say to worry about stuff like this
+	if ( m_nLength != 0 && Settings.Gnutella1.StrictPackets )
+	{
+		// Record the error, drop the packet, but stay connected
+		theApp.Message( MSG_ERROR, IDS_PROTOCOL_SIZE_PING, (LPCTSTR)strAddress );
+		Statistics.Current.Gnutella1.Dropped++;
+		return TRUE;
+	}
+	else if ( m_nLength > Settings.Gnutella1.MaximumQuery )
+	{
+		// The ping is just a header or settings don't care, and the length is bigger than settings allow
+		// Record the error, drop the packet, but stay connected
+		theApp.Message( MSG_ERROR, IDS_PROTOCOL_TOO_LARGE, (LPCTSTR)strAddress );
+		Statistics.Current.Gnutella1.Dropped++;
+		return TRUE;
+	}
+
+	bool bSCP = false;
+	bool bDNA = false;
+
+	// If this ping packet strangely has length, and the remote computer does GGEP blocks
+	if ( m_nLength && Settings.Gnutella1.EnableGGEP )
+	{
+		// There is a GGEP block here, and checking and adjusting the TTL and hops counts worked
+		CGGEPBlock pGGEP;
+		if ( pGGEP.ReadFromPacket( this ) )
+		{
+			if ( CGGEPItem* pItem = pGGEP.Find( GGEP_HEADER_SUPPORT_CACHE_PONGS ) )
+			{
+				bSCP = true;
+			}
+			if ( CGGEPItem* pItem = pGGEP.Find( GGEP_HEADER_SUPPORT_GDNA ) )
+			{
+				bDNA = true;
+			}
+		}
+		else
+		{
+			// It's not, drop the packet, but stay connected
+			theApp.Message( MSG_ERROR, IDS_PROTOCOL_GGEP_REQUIRED, (LPCTSTR)strAddress );
+			Statistics.Current.Gnutella1.Dropped++;
+			return TRUE;
+		}
+	}
+
+	CGGEPBlock pGGEP;
+	if ( bSCP )
+		GGEPWriteRandomCache( pGGEP.Add( GGEP_HEADER_PACKED_IPPORTS ) );
+
+	if ( bDNA && Settings.Experimental.EnableDIPPSupport )
+		GGEPWriteRandomCache( pGGEP.Add( GGEP_HEADER_GDNA_PACKED_IPPORTS ) );
+
+	// Make a new pong packet, the response to a ping
+	CG1Packet* pPong = New(	// Gets it quickly from the Gnutella packet pool
+		G1_PACKET_PONG,		// We're making a pong packet
+		m_nHops,			// Give it TTL same as HOP count of received PING packet
+		m_oGUID);			// Give it the same GUID as the ping
+
+	// Get statistics about how many files we are sharing
+	QWORD nMyVolume = 0;
+	DWORD nMyFiles = 0;
+	LibraryMaps.GetStatistics( &nMyFiles, &nMyVolume );
+
+	// Start the pong's payload with the IP address and port number from the Network object (do)
+	pPong->WriteShortLE( htons( Network.m_pHost.sin_port ) );
+	pPong->WriteLongLE( Network.m_pHost.sin_addr.S_un.S_addr );
+
+	// Then, write in the information about how many files we are sharing
+	pPong->WriteLongLE( nMyFiles );
+	pPong->WriteLongLE( (DWORD)nMyVolume );
+
+	if ( ! pGGEP.IsEmpty() )
+		pGGEP.Write( pPong );
+
+	// Send the pong packet to the remote computer we are currently looping on
+	Datagrams.Send( pHost, pPong );
+	Statistics.Current.Gnutella1.PongsSent++;
+
+	return TRUE;
+}
+
+//////////////////////////////////////////////////////////////////////
+// PONG packet handler
+
+BOOL CG1Packet::OnPong(const SOCKADDR_IN* pHost)
+{
+	Statistics.Current.Gnutella1.PongsReceived++;
+
+	// If the pong is too short, or the pong is too long and settings say we should watch that
+	if ( m_nLength < 14 || ( m_nLength > 14 && Settings.Gnutella1.StrictPackets && ! Settings.Gnutella1.EnableGGEP ) )
+	{
+		// Pong packets should be 14 bytes long, drop this strangely sized one
+		theApp.Message( MSG_ERROR, IDS_PROTOCOL_SIZE_PONG, (LPCTSTR)inet_ntoa( pHost->sin_addr ) );
+		Statistics.Current.Gnutella1.Dropped++;
+		return TRUE;	// Don't disconnect from the remote computer, though
+	}
+
+	// Read information from the pong packet
+	WORD nPort     = ReadShortLE(); // 2 bytes, port number (do) of us? the remote computer? the computer that sent the packet?
+	DWORD nAddress = ReadLongLE();  // 4 bytes, IP address
+	DWORD nFiles   = ReadLongLE();  // 4 bytes, the number of files the source computer is sharing
+	DWORD nVolume  = ReadLongLE();  // 4 bytes, the total size of all those files
+	UNUSED_ALWAYS(nFiles);
+	UNUSED_ALWAYS(nVolume);
+
+	CDiscoveryService* pService = DiscoveryServices.GetByAddress(
+		&(pHost->sin_addr) , ntohs( pHost->sin_port ), CDiscoveryService::dsGnutellaUDPHC );
+
+	// If that IP address is in our list of computers to not talk to, except ones in UHC list in discovery
+	if ( pService == NULL && Security.IsDenied( (IN_ADDR*)&nAddress ) )
+	{
+		// Record the packet as dropped, do nothing else, and leave now
+		Statistics.Current.Gnutella1.Dropped++;
+		return TRUE;
+	}
+
+	// If the pong is bigger than 14 bytes, and the remote compuer told us in the handshake it supports GGEP blocks
+	if ( m_nLength > 14 && Settings.Gnutella1.EnableGGEP )
+	{
+		// There is a GGEP block here, and checking and adjusting the TTL and hops counts worked
+		CGGEPBlock pGGEP;
+		if ( pGGEP.ReadFromPacket( this ) )
+		{
+			// Read vendor code
+			CString strVendorCode;
+			if ( CGGEPItem* pVC = pGGEP.Find( GGEP_HEADER_VENDOR_INFO, 4 ) )
+			{
+				CHAR szaVendor[ 4 ] = {};
+				pVC->Read( szaVendor,4 );
+				TCHAR szVendor[5] = { szaVendor[0], szaVendor[1], szaVendor[2], szaVendor[3], 0 };
+				strVendorCode = szVendor;
+				strVendorCode.Trim();
+			}
+
+			// Read daily uptime
+			DWORD nUptime = 0;
+			if ( CGGEPItem* pDU = pGGEP.Find( GGEP_HEADER_DAILY_AVERAGE_UPTIME, 1 ) )
+			{
+				pDU->Read( (void*)&nUptime, 4 );
+			}
+
+			// Catch pongs and update host cache only from ultrapeers
+			if ( CGGEPItem* pUP = pGGEP.Find( GGEP_HEADER_UP_SUPPORT ) )
+			{
+				HostCache.Gnutella1.Add( (IN_ADDR*)&nAddress, nPort, 0,
+					( strVendorCode.IsEmpty() ? NULL : (LPCTSTR)strVendorCode ),
+					nUptime );
+
+				if ( CGGEPItem* pGDNA = pGGEP.Find( GGEP_HEADER_SUPPORT_GDNA ) )
+				{
+					HostCache.G1DNA.Add( (IN_ADDR*)&nAddress, nPort, 0,
+						( strVendorCode.IsEmpty() ? NULL : (LPCTSTR)strVendorCode ),
+						nUptime );
+				}
+			}
+
+			const int nCount = GGEPReadCachedHosts( pGGEP );
+
+			// Update Gnutella UDPHC state
+			if ( nCount != -1 && pService )
+			{
+				pService->OnSuccess();
+				pService->m_nHosts = nCount;
+				pService->OnCopyGiven();
+			}
+		}
+		else
+		{
+			// It's not, drop the packet, but stay connected
+			theApp.Message( MSG_ERROR, IDS_PROTOCOL_GGEP_REQUIRED, (LPCTSTR)inet_ntoa( pHost->sin_addr ) );
+			Statistics.Current.Gnutella1.Dropped++;
+			return TRUE;
+		}
+	}
+
+	return TRUE;
+}
+
+BOOL CG1Packet::OnVendor(const SOCKADDR_IN* pHost)
+{
+	// If the packet payload is smaller than 8 bytes, or settings don't allow vendor messages
+	if ( m_nLength < 8 || ! Settings.Gnutella1.VendorMsg )
+	{
+		Statistics.Current.Gnutella1.Dropped++;
+		return TRUE;
+	}
+
+	// Read the vendor, function, and version numbers from the packet payload
+	DWORD nVendor  = ReadLongBE();  // 4 bytes, vendor code in ASCII characters, like "RAZA" (do)
+	WORD nFunction = ReadShortLE(); // 2 bytes, function (do)
+	WORD nVersion  = ReadShortLE(); // 2 bytes, version (do)
+
+	if ( nVendor == 'LIME' )
+	{
+		if ( nFunction == 23 && nVersion == 2 )
+			return TRUE;	// ToDo: HEAD ping
+	}
+
+	CString tmp;
+	tmp.Format( _T("Received vendor packet from %s:%u Function: %u Version: %u"),
+		(LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ), htons( pHost->sin_port ),
+		nFunction, nVersion );
+	Debug( tmp );
+
+	return TRUE;
 }

@@ -201,69 +201,69 @@ Source: "Remote\chs\*"; DestDir: "{app}\Remote"; Flags: ignoreversion overwriter
 
 
 ; Common License file
-Source: "Installer\License\Default.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension
+Source: "Installer\License\Default.rtf"; DestDir: "{app}\Uninstall"; DestName: "AGPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension
 
 ; Install localized license
 ; English-UK
-;Source: "Installer\License\Default.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: en_uk
+;Source: "Installer\License\Default.rtf"; DestDir: "{app}\Uninstall"; DestName: "AGPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: en_uk
 ; Dutch
-Source: "Installer\License\Dutch.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: nl
+Source: "Installer\License\Dutch.rtf"; DestDir: "{app}\Uninstall"; DestName: "AGPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: nl
 ; Lithuanian
-Source: "Installer\License\Lithuanian.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: lt
+Source: "Installer\License\Lithuanian.rtf"; DestDir: "{app}\Uninstall"; DestName: "AGPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: lt
 ; German
-Source: "Installer\License\German.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: de
+Source: "Installer\License\German.rtf"; DestDir: "{app}\Uninstall"; DestName: "AGPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: de
 ; Italian
-Source: "Installer\License\Italian.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: it
+Source: "Installer\License\Italian.rtf"; DestDir: "{app}\Uninstall"; DestName: "AGPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: it
 ; Norwegian
-Source: "Installer\License\Norwegian.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: no
+Source: "Installer\License\Norwegian.rtf"; DestDir: "{app}\Uninstall"; DestName: "AGPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: no
 ; Afrikaans
-Source: "Installer\License\Afrikaans.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: af
+Source: "Installer\License\Afrikaans.rtf"; DestDir: "{app}\Uninstall"; DestName: "AGPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: af
 ; Portuguese std
-Source: "Installer\License\Portuguese.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: pt
+Source: "Installer\License\Portuguese.rtf"; DestDir: "{app}\Uninstall"; DestName: "AGPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: pt
 ; Portuguese Braz
-Source: "Installer\License\Portuguese.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: pt_br
+Source: "Installer\License\Portuguese.rtf"; DestDir: "{app}\Uninstall"; DestName: "AGPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: pt_br
 ; French
-Source: "Installer\License\French.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: fr
+Source: "Installer\License\French.rtf"; DestDir: "{app}\Uninstall"; DestName: "AGPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: fr
 ; Spanish std
-Source: "Installer\License\Spanish.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: es
+Source: "Installer\License\Spanish.rtf"; DestDir: "{app}\Uninstall"; DestName: "AGPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: es
 ; Spanish Mexican
-Source: "Installer\License\Spanish.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: es_mx
+Source: "Installer\License\Spanish.rtf"; DestDir: "{app}\Uninstall"; DestName: "AGPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: es_mx
 ; Russian
-Source: "Installer\License\Russian.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: ru
+Source: "Installer\License\Russian.rtf"; DestDir: "{app}\Uninstall"; DestName: "AGPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: ru
 ; Greek
-Source: "Installer\License\Greek.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: gr
+Source: "Installer\License\Greek.rtf"; DestDir: "{app}\Uninstall"; DestName: "AGPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: gr
 ; Hungarian
-Source: "Installer\License\Hungarian.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: hu
+Source: "Installer\License\Hungarian.rtf"; DestDir: "{app}\Uninstall"; DestName: "AGPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: hu
 ; Swedish
-Source: "Installer\License\Swedish.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: sv
+Source: "Installer\License\Swedish.rtf"; DestDir: "{app}\Uninstall"; DestName: "AGPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: sv
 ; Finnish
-Source: "Installer\License\Finnish.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: fi
+Source: "Installer\License\Finnish.rtf"; DestDir: "{app}\Uninstall"; DestName: "AGPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: fi
 ; Hebrew
-Source: "Installer\License\Hebrew.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: heb
+Source: "Installer\License\Hebrew.rtf"; DestDir: "{app}\Uninstall"; DestName: "AGPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: heb
 ; Polish
-Source: "Installer\License\Polish.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: pl
+Source: "Installer\License\Polish.rtf"; DestDir: "{app}\Uninstall"; DestName: "AGPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: pl
 ; Czech
-Source: "Installer\License\Czech.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: cz
+Source: "Installer\License\Czech.rtf"; DestDir: "{app}\Uninstall"; DestName: "AGPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: cz
 ; Serbian
-Source: "Installer\License\Serbian.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: sr
+Source: "Installer\License\Serbian.rtf"; DestDir: "{app}\Uninstall"; DestName: "AGPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: sr
 ; Turkish
-Source: "Installer\License\Turkish.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: tr
+Source: "Installer\License\Turkish.rtf"; DestDir: "{app}\Uninstall"; DestName: "AGPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: tr
 ; Japanese
-Source: "Installer\License\Japanese.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: ja
+Source: "Installer\License\Japanese.rtf"; DestDir: "{app}\Uninstall"; DestName: "AGPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: ja
 ; Arabic
-Source: "Installer\License\Arabic.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: ar
+Source: "Installer\License\Arabic.rtf"; DestDir: "{app}\Uninstall"; DestName: "AGPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: ar
 ; Estonian
-Source: "Installer\License\Estonian.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: ee
+Source: "Installer\License\Estonian.rtf"; DestDir: "{app}\Uninstall"; DestName: "AGPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: ee
 ; Chinese Simp
-Source: "Installer\License\Chinese-Simple.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: zhs
+Source: "Installer\License\Chinese-Simple.rtf"; DestDir: "{app}\Uninstall"; DestName: "AGPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: zhs
 ; Chinese Trad
-Source: "Installer\License\Chinese-Traditional.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: zht
+Source: "Installer\License\Chinese-Traditional.rtf"; DestDir: "{app}\Uninstall"; DestName: "AGPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: zht
 ; Slovenian
-Source: "Installer\License\Default.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: sl
+Source: "Installer\License\Default.rtf"; DestDir: "{app}\Uninstall"; DestName: "AGPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: sl
 ; Catalan
-Source: "Installer\License\Catalan.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: ca
+Source: "Installer\License\Catalan.rtf"; DestDir: "{app}\Uninstall"; DestName: "AGPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: ca
 ; Catalan
-Source: "Installer\License\Albanian.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: sq
+Source: "Installer\License\Albanian.rtf"; DestDir: "{app}\Uninstall"; DestName: "AGPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: sq
 
 
 ; Install default filter
@@ -335,12 +335,12 @@ Source: "Installer\Filter\Chinese-Simpl.dat"; DestDir: "{app}\Data"; DestName: "
 [Messages]
 ; This section overrides existing phrases specified in Inno's Default.isl file
 
-SelectLanguageLabel=%nSelect default language:
-WelcomeLabel1=%nWelcome to the%n[name] Setup Wizard
-WelcomeLabel2=This will install [name/ver]%nP2P filesharing on your computer.%n%nIt is recommended to close applications before continuing.
-FinishedHeadingLabel=%nCompleting the [name]%nInstaller Wizard
-FinishedLabel=Setup has finished installing [name] on your computer.%nIt can be launched from the installed shortcut icons.
-LicenseLabel3=Please read the following copyright license agreement.%nYou should understand the basic terms of this License before continuing installation.
+en.SelectLanguageLabel=%nSelect default language:
+en.WelcomeLabel1=%nWelcome to the%n[name] Setup Wizard
+en.WelcomeLabel2=This will install [name/ver]%nP2P filesharing on your computer.%n%nIt is recommended to close applications before continuing.
+en.FinishedHeadingLabel=%nCompleting the [name]%nInstaller Wizard
+en.FinishedLabel=Setup has finished installing [name] on your computer.%nIt can be launched from the installed shortcut icons.
+en.LicenseLabel3=Please read the following copyright license agreement.%nYou should understand the basic terms of this License before continuing installation.
 
 
 [CustomMessages]
@@ -362,7 +362,7 @@ tasks_deleteoldsetup=Delete old installers
 run_skinexe=Running skin installation...
 reg_incomingchat=Incoming chat message
 reg_apptitle=PeerProject P2P Filesharing
-icons_license=GPL License
+icons_license=AGPL License
 icons_uninstall=Uninstall
 icons_downloads=Downloads
 icons_basicmode=Basic Mode
@@ -401,7 +401,7 @@ af.tasks_resetdiscoveryhostcache=Reset Discovery and Hostcache
 af.run_skinexe=Hardloop omslagte installasie...
 af.reg_incomingchat=Inkomende Geselsie-boodskap
 af.reg_apptitle=PeerProject P2P Filesharing
-af.icons_license=Lisensie-ooreenkoms
+af.icons_license=AGPL Lisensie-ooreenkoms
 af.icons_uninstall=Deïnstalleer
 af.icons_downloads=Aflaaie
 af.icons_basicmode=Basic Modus
@@ -430,7 +430,7 @@ ar.tasks_resetdiscoveryhostcache=Reset Discovery and Hostcache
 ar.run_skinexe=...íÊã ÊÔÛíá ÊÑßíÈ ÇáÛáÇİ
 ar.reg_incomingchat=ÑÓÇáÉ ãÍÇÏËÉ æÇÑÏÉ
 ar.reg_apptitle=ÔíÑ-ÃÒÇ ááãÔÇÑßÉ ÇáÛíÑ ãÍÏæÏÉ ÈÇáãáİÇÊ
-ar.icons_license=ÇáÑÎÕÉ
+ar.icons_license=AGPL ÇáÑÎÕÉ
 ar.icons_uninstall=ÅáÛÇÁ ÇáÊËÈíÊ
 ar.icons_downloads=ÇáÊÍãíáÇÊ
 ar.icons_basicmode=äÙÇã ÚÇÏí
@@ -459,7 +459,7 @@ ca.tasks_resetdiscoveryhostcache=Reestableix els serveis de descobriment i caxè 
 ca.run_skinexe=Executant la instal·lació de la pell (skin)...
 ca.reg_incomingchat=Missatge de xat entrant
 ca.reg_apptitle=PeerProject: compartició d'arxius d'última generació
-ca.icons_license=Llicència
+ca.icons_license=AGPL Llicència
 ca.icons_uninstall=Desinstal·lació
 ca.icons_downloads=Descàrregues
 ca.icons_basicmode=Mode basico
@@ -489,7 +489,7 @@ cz.tasks_resetdiscoveryhostcache=Obnovit seznamy serverù
 cz.run_skinexe=Spouštím instalaci skinù...
 cz.reg_incomingchat=Pøíchozí zpráva chatu
 cz.reg_apptitle=PeerProject P2P Filesharing
-cz.icons_license=Licence
+cz.icons_license=AGPL Licence
 cz.icons_uninstall=Odinstalovat
 cz.icons_downloads=Staené soubory
 cz.icons_basicmode=Bascíc reim
@@ -518,7 +518,7 @@ de.tasks_resetdiscoveryhostcache=Service-Provider und Host-Cache zurücksetzen
 de.run_skinexe=SkinInstaller einrichten...
 de.reg_incomingchat=Eingehende Chatnachricht
 de.reg_apptitle=PeerProjekt P2P
-de.icons_license=Lizenz
+de.icons_license=AGPL Lizenz
 de.icons_uninstall=PeerProjekt deinstallieren
 de.icons_downloads=Downloads
 de.icons_basicmode=Basicmodus
@@ -548,7 +548,7 @@ ee.tasks_resetdiscoveryhostcache=Reset Discovery and Hostcache
 ee.run_skinexe=Käivitan Naha installi...
 ee.reg_incomingchat=Sisse tulev vestlusteade
 ee.reg_apptitle=PeerProject Failijagamine
-ee.icons_license=Litsents
+ee.icons_license=AGPL Litsents
 ee.icons_uninstall=Uninstalli
 ee.icons_downloads=Tõmbamised
 ee.icons_basicmode=Tavaline Vaade
@@ -577,7 +577,7 @@ es.tasks_resetdiscoveryhostcache=Reset Discovery and Hostcache
 es.run_skinexe=Instalando Skin...
 es.reg_incomingchat=Hay un mensaje de chat entrante
 es.reg_apptitle=PeerProject P2P Filesharing
-es.icons_license=Licencia
+es.icons_license=AGPL Licencia
 es.icons_uninstall=Desinstalar
 es.icons_downloads=Descargas
 es.icons_basicmode=Modo Básico
@@ -606,7 +606,7 @@ es_mx.tasks_resetdiscoveryhostcache=Reset Discovery and Hostcache
 es_mx.run_skinexe=Instalando Skin...
 es_mx.reg_incomingchat=Hay un mensaje de chat entrante
 es_mx.reg_apptitle=PeerProject P2P Filesharing
-es_mx.icons_license=Licencia
+es_mx.icons_license=AGPL Licencia
 es_mx.icons_uninstall=Desinstalar
 es_mx.icons_downloads=Descargas
 es_mx.icons_basicmode=Modo Básico
@@ -635,7 +635,7 @@ fr.tasks_resetdiscoveryhostcache=Remettre à zéro les services de découverte et l
 fr.run_skinexe=Installation de la skin en cours...
 fr.reg_incomingchat=Réception d'un message chat
 fr.reg_apptitle=PeerProject P2P Filesharing
-fr.icons_license=Licence
+fr.icons_license=AGPL Licence
 fr.icons_uninstall=Désinstaller
 fr.icons_downloads=Téléchargements
 fr.icons_basicmode=Mode simple
@@ -664,7 +664,7 @@ fi.tasks_resetdiscoveryhostcache=Reset Discovery and Hostcache
 fi.run_skinexe=Käynnissä ulkoasujen asennus...
 fi.reg_incomingchat=Tuleva keskusteluviesti
 fi.reg_apptitle=PeerProject jako-ohjelma
-fi.icons_license=Lisenssi
+fi.icons_license=AGPL Lisenssi
 fi.icons_uninstall=Poista
 fi.icons_downloads=Lataukset
 fi.icons_basicmode=Basicaali Tila
@@ -693,7 +693,7 @@ gr.tasks_resetdiscoveryhostcache=Reset Discovery and Hostcache
 gr.run_skinexe=Running ÅãêáôÜóôáóç ôïõ skin...
 gr.reg_incomingchat=Íİï ìŞíõìá chat
 gr.reg_apptitle=PeerProject P2P Filesharing
-gr.icons_license=¢äåéá
+gr.icons_license=AGPL ¢äåéá
 gr.icons_uninstall=ÁğåãêáôÜóôáóç
 gr.icons_downloads=Êáôİâáóìá
 gr.icons_basicmode=ÊáíïíéêŞ ÌïñöŞ
@@ -722,7 +722,7 @@ heb.tasks_resetdiscoveryhostcache=Reset Discovery and Hostcache
 heb.run_skinexe=îøéõ äú÷ğú îòèôåú...
 heb.reg_incomingchat=äåãòú ö'àè ğëğñú
 heb.reg_apptitle=ùéúåó ä÷áöéí äàåìèéîèéáé ùì ùøæä
-heb.icons_license=øùéåï
+heb.icons_license=AGPL øùéåï
 heb.icons_uninstall=äñø äú÷ğä
 heb.icons_downloads=äåøãåú
 heb.icons_basicmode=îöá øâéì
@@ -751,7 +751,7 @@ hu.tasks_resetdiscoveryhostcache=A Szerverkeresõ és a Kiszolgálók listájának ala
 hu.run_skinexe=Kinézet telepítése folyamatban...
 hu.reg_incomingchat=Bejövõ chat üzenet
 hu.reg_apptitle=PeerProject fájlmegosztó program
-hu.icons_license=Licenc
+hu.icons_license=AGPL Licenc
 hu.icons_uninstall=PeerProject eltávolítása
 hu.icons_downloads=Letöltések
 hu.icons_basicmode=Egyszerû nézet
@@ -781,7 +781,7 @@ it.tasks_resetdiscoveryhostcache=Resetta i servizi di connessione e la cache hos
 it.run_skinexe=Installazione delle skin in corso...
 it.reg_incomingchat=Messaggio di chat in arrivo
 it.reg_apptitle=PeerProject, il programma definitivo di P2P
-it.icons_license=Licenza
+it.icons_license=AGPL Licenza
 it.icons_uninstall=Disinstalla
 it.icons_downloads=Download
 it.icons_basicmode=Modalità basico
@@ -811,7 +811,7 @@ lt.tasks_resetdiscoveryhostcache=Apnulinti tarnybas ir adresatø talpyklas
 lt.run_skinexe=Vykdoma apvalkalo sàranka...
 lt.reg_incomingchat=Gaunama şinutë pokalbiui
 lt.reg_apptitle=PeerProject — geriausia programa bylø mainams
-lt.icons_license=Licencinë sutartis
+lt.icons_license=AGPL Licencinë sutartis
 lt.icons_uninstall=Pağalinti
 lt.icons_downloads=Atsisiuntimai
 lt.icons_basicmode=Áprastinë veiksena
@@ -841,7 +841,7 @@ nl.tasks_resetdiscoveryhostcache=Herstel de Discovery- en Hostcachelist
 nl.run_skinexe=Skin installatie uitvoeren...
 nl.reg_incomingchat=Nieuw chat bericht
 nl.reg_apptitle=PeerProject P2P FileSharer
-nl.icons_license=Gebruiksovereenkomst
+nl.icons_license=AGPL Gebruiksovereenkomst
 nl.icons_uninstall=Verwijderen
 nl.icons_downloads=Downloads
 nl.icons_basicmode=Basic Stijl
@@ -870,7 +870,7 @@ no.tasks_resetdiscoveryhostcache=Reset Discovery and Hostcache
 no.run_skinexe=Kjører skin installasjon...
 no.reg_incomingchat=Innkommende melding
 no.reg_apptitle=PeerProject P2P Filesharing
-no.icons_license=Lisens
+no.icons_license=AGPL Lisens
 no.icons_uninstall=Uninstall
 no.icons_downloads=Downloads
 no.icons_basicmode=Basicmodus
@@ -899,7 +899,7 @@ pl.tasks_resetdiscoveryhostcache=Reset Discovery and Hostcache
 pl.run_skinexe=Instalowanie skórek...
 pl.reg_incomingchat=Przychodz¹ca wiadomoœæ chatowa
 pl.reg_apptitle=PeerProject P2P Filesharing
-pl.icons_license=Licencja
+pl.icons_license=AGPL Licencja
 pl.icons_uninstall=Odinstaluj
 pl.icons_downloads=Pobierania
 pl.icons_basicmode=Tryb basic
@@ -928,7 +928,7 @@ pt.tasks_resetdiscoveryhostcache=Resetar o Cache de Armazenamento e Descoberta
 pt.run_skinexe=Instalando a Skin...
 pt.reg_incomingchat=Mensagem de chat
 pt.reg_apptitle=PeerProject Compartilhamento de Arquivos Incomparável
-pt.icons_license=Licença
+pt.icons_license=AGPL Licença
 pt.icons_uninstall=Desinstalar
 pt.icons_downloads=Downloads
 pt.icons_basicmode=Modo Basic
@@ -957,7 +957,7 @@ pt_br.tasks_resetdiscoveryhostcache=Resetar o Descobrimento e o Cache dos Hosts
 pt_br.run_skinexe=Executando a instalação das skins...
 pt_br.reg_incomingchat=Mensagem de chat a entrar
 pt_br.reg_apptitle=PeerProject Compartilhador de Arquivo
-pt_br.icons_license=Licença
+pt_br.icons_license=AGPL Licença
 pt_br.icons_uninstall=Desinstalar
 pt_br.icons_downloads=Downloads
 pt_br.icons_basicmode=Modo Simples
@@ -987,7 +987,7 @@ ru.tasks_resetdiscoveryhostcache=Ñáğîñèòü ğåñóğñû ñîåäèíåíèé è êıø õîñòîâ
 ru.run_skinexe=Èä¸ò óñòàíîâêà øêóğîê...
 ru.reg_incomingchat=Âõîäÿùåå ñîîáùåíèå äëÿ ÷àòà
 ru.reg_apptitle=PeerProject - ïğîãğàììà äëÿ îáìåíà ôàéëàìè
-ru.icons_license=Ëèöåíçèÿ
+ru.icons_license=AGPL Ëèöåíçèÿ
 ru.icons_uninstall=Äåèíñòàëëÿöèÿ
 ru.icons_downloads=Çàãğóçêè
 ru.icons_basicmode=Îáû÷íûé ğåæèì
@@ -1017,7 +1017,7 @@ sl.tasks_resetdiscoveryhostcache=Reset Discovery and Hostcache
 sl.run_skinexe=Namestitev preobleke v teku...
 sl.reg_incomingchat=Vhodno kramljalno sporoèilo
 sl.reg_apptitle=Izjemno PeerProject deljenje datotek
-sl.icons_license=Licenca
+sl.icons_license=AGPL Licenca
 sl.icons_uninstall=Odnamestitev
 sl.icons_downloads=Prenosi
 sl.icons_basicmode=Navadni naèin
@@ -1046,7 +1046,7 @@ sq.tasks_resetdiscoveryhostcache=Rivendos Zbulimin dhe Depon me Hostet
 sq.run_skinexe=Vepron instalimi i veshjes...
 sq.reg_incomingchat=Mesazh hyrës në chat
 sq.reg_apptitle=Shpërndarja më e Lartë e Skedave me PeerProject
-sq.icons_license=Licencë
+sq.icons_license=AGPL Licencë
 sq.icons_uninstall=Çinstalo
 sq.icons_downloads=Shkarkesa
 sq.icons_basicmode=Mënyrë me Thjeshtë
@@ -1076,7 +1076,7 @@ sr.tasks_resetdiscoveryhostcache=Reset Discovery and Hostcache
 sr.run_skinexe=Instalacija skina u toku...
 sr.reg_incomingchat=Dolazeæe cet poruke
 sr.reg_apptitle=PeerProject Najbolji P2P za Deljenje Datoteka
-sr.icons_license=Licenca
+sr.icons_license=AGPL Licenca
 sr.icons_uninstall=Ukloni Program
 sr.icons_downloads=Skinutno
 sr.icons_basicmode=Basic Prikaz
@@ -1105,7 +1105,7 @@ sv.tasks_resetdiscoveryhostcache=Återställ upptäckstjänster och värdcache
 sv.run_skinexe=Kör skinninstallation...
 sv.reg_incomingchat=Inkommande chattmeddelande
 sv.reg_apptitle=PeerProject Fildelning
-sv.icons_license=Licens
+sv.icons_license=AGPL Licens
 sv.icons_uninstall=Avinstallera
 sv.icons_downloads=Nedladdningar
 sv.icons_basicmode=Basic läge
@@ -1135,7 +1135,7 @@ tr.tasks_resetdiscoveryhostcache=Kesif servisleri ile host bellegini sifirla
 tr.run_skinexe=Arayüz kurulumu çalışıyor...
 tr.reg_incomingchat=Gelen sohbet mesajı
 tr.reg_apptitle=PeerProject En iyi Dosya Paylaşımı
-tr.icons_license=Lisans
+tr.icons_license=AGPL Lisans
 tr.icons_uninstall=Kurulumu Kaldır
 tr.icons_downloads=İndirmeler
 tr.icons_basicmode=Temel Mod
@@ -1164,7 +1164,7 @@ zht.tasks_resetdiscoveryhostcache=Reset Discovery and Hostcache
 zht.run_skinexe=¥¿¦b¦w¸Ë¥~Æ[...
 zht.reg_incomingchat=¿é¤Jªº²á¤Ñ°T®§
 zht.reg_apptitle=PeerProject---³Ì²×ªºÀÉ®×¤À¨É³nÅé
-zht.icons_license=³nÅé±ÂÅv¨ó©w
+zht.icons_license=AGPL ³nÅé±ÂÅv¨ó©w
 zht.icons_uninstall=¸Ñ°£¦w¸Ë
 zht.icons_downloads=¤U¸ü
 zht.icons_basicmode=¼Ğ·Ç¼Ò¦¡
@@ -1193,7 +1193,7 @@ zhs.tasks_resetdiscoveryhostcache=Reset Discovery and Hostcache
 zhs.run_skinexe=°²×°Æ¤·ô...
 zhs.reg_incomingchat=´«ÈëÁÄÌìÏûÏ¢
 zhs.reg_apptitle=PeerProject ÖÕ¼«ÎÄ¼ş¹²Ïí
-zhs.icons_license=Ğí¿É
+zhs.icons_license=AGPL Ğí¿É
 zhs.icons_uninstall=Ğ¶ÔØ
 zhs.icons_downloads=ÏÂÔØ
 zhs.icons_basicmode=ÆÕÍ¨Ä£Ê½
@@ -1222,7 +1222,7 @@ ja.tasks_resetdiscoveryhostcache=Reset Discovery and Hostcache
 ja.run_skinexe=ƒXƒLƒ“ƒCƒ“ƒXƒg[ƒ‰[‚ğÀs‚µ‚Ä‚¢‚Ü‚·...
 ja.reg_incomingchat=ƒ`ƒƒƒbƒgƒƒbƒZ[ƒW‚ğó‚¯“ü‚ê‚é
 ja.reg_apptitle=PeerProjectƒtƒ@ƒCƒ‹‹¤—Lƒ\ƒtƒg
-ja.icons_license=ƒ‰ƒCƒZƒ“ƒX
+ja.icons_license=AGPL ƒ‰ƒCƒZƒ“ƒX
 ja.icons_uninstall=ƒAƒ“ƒCƒ“ƒXƒg[ƒ‹
 ja.icons_downloads=ƒ_ƒEƒ“ƒ[ƒh
 ja.icons_basicmode=•W€ƒ‚[ƒh

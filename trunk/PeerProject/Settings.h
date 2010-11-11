@@ -28,7 +28,7 @@ enum
 
 class CSettingsItem;
 
-class CSettings //: private boost::noncopyable
+class CSettings
 {
 // Construction
 public:
@@ -250,6 +250,7 @@ public:
 		bool		ED2K;
 		bool		Piolet;
 		bool		Torrent;
+	//	bool		DC;
 	} Web;
 
 	struct sConnection
@@ -265,6 +266,7 @@ public:
 		DWORD		OutSpeed;				// Outbound internet connection speed in Kilobits/seconds
 		bool		IgnoreLocalIP;			// Ingnore all 'local' (LAN) IPs
 		bool		IgnoreOwnIP;			// Do not accept any ports on your external IP as a source
+		bool		IgnoreOwnUDP;			// Do not accept any ports on your external IP as a source of UDP
 		DWORD		TimeoutConnect;
 		DWORD		TimeoutHandshake;
 		DWORD		TimeoutTraffic;

@@ -44,16 +44,16 @@ CDiscoveryServices DiscoveryServices;
 // CDiscoveryServices construction
 
 CDiscoveryServices::CDiscoveryServices()
-	: m_pWebCache		( NULL )
-	, m_nWebCache		( wcmHosts )
-	, m_pSubmit			( NULL )
-	, m_nLastQueryProtocol ( PROTOCOL_NULL )
+	: m_pWebCache			( NULL )
+	, m_nWebCache			( wcmHosts )
+	, m_pSubmit				( NULL )
+	, m_nLastQueryProtocol	( PROTOCOL_NULL )
 	, m_nLastUpdateProtocol ( PROTOCOL_NULL )
-	, m_bFirstTime		( TRUE )
-	, m_tUpdated		( 0 )
-	, m_tExecute		( 0 )
-	, m_tQueried		( 0 )
-	, m_tMetQueried		( 0 )
+	, m_bFirstTime			( TRUE )
+	, m_tUpdated			( 0 )
+	, m_tExecute			( 0 )
+	, m_tQueried			( 0 )
+	, m_tMetQueried			( 0 )
 {
 }
 
@@ -362,7 +362,7 @@ CDiscoveryService* CDiscoveryServices::GetByAddress(LPCTSTR pszAddress) const
 	return NULL;
 }
 
-CDiscoveryService* CDiscoveryServices::GetByAddress( IN_ADDR* pAddress, WORD nPort, CDiscoveryService::SubType nSubType )
+CDiscoveryService* CDiscoveryServices::GetByAddress(const IN_ADDR* pAddress, WORD nPort, CDiscoveryService::SubType nSubType )
 {
 	for ( POSITION pos = m_pList.GetHeadPosition() ; pos ; )
 	{
@@ -966,31 +966,26 @@ BOOL CDiscoveryServices::Execute(BOOL bDiscovery, PROTOCOLID nProtocol, USHORT n
 
 int CDiscoveryServices::ExecuteBootstraps(int nCount, BOOL bUDP, PROTOCOLID nProtocol)
 {
+	if ( nCount < 1 ) return 0;
+
 	CArray< CDiscoveryService* > pRandom;
 	int nSuccess;
-	BOOL bGnutella1, bGnutella2;
+	BOOL bGnutella1 = FALSE;
+	BOOL bGnutella2 = FALSE;
 
-	switch(nProtocol)
+	switch( nProtocol )
 	{
-		case PROTOCOL_NULL:
-			bGnutella1 = TRUE;
-			bGnutella2 = TRUE;
-			break;
-		case PROTOCOL_G1:
-			bGnutella1 = TRUE;
-			bGnutella2 = FALSE;
-			break;
-		case PROTOCOL_G2:
-			bGnutella1 = FALSE;
-			bGnutella2 = TRUE;
-			break;
-		default:
-			bGnutella1 = FALSE;
-			bGnutella2 = FALSE;
-			break;
+	case PROTOCOL_NULL:
+		bGnutella1 = TRUE;
+		bGnutella2 = TRUE;
+		break;
+	case PROTOCOL_G1:
+		bGnutella1 = TRUE;
+		break;
+	case PROTOCOL_G2:
+		bGnutella2 = TRUE;
+		break;
 	}
-
-	if ( nCount < 1 ) return 0;
 
 	for ( POSITION pos = m_pList.GetHeadPosition() ; pos ; )
 	{
@@ -1018,22 +1013,11 @@ int CDiscoveryServices::ExecuteBootstraps(int nCount, BOOL bUDP, PROTOCOLID nPro
 	return nSuccess;
 }
 
-void CDiscoveryServices::OnGnutellaAdded(IN_ADDR* /*pAddress*/, int /*nCount*/)
-{
-	// Find this host somehow and add to m_nHosts
-}
-
-void CDiscoveryServices::OnGnutellaFailed(IN_ADDR* /*pAddress*/)
-{
-	// Find this host and add to m_nFailures, and delete if excessive
-}
-
-
 //////////////////////////////////////////////////////////////////////
 // CDiscoveryServices RequestRandomService
 
-// Execute a random service (of any type) for any given protocol. Used to find more
-// hosts (to connect to a network).
+// Execute a random service (of any type) for any given protocol.
+// Used to find more hosts (to connect to a network).
 
 BOOL CDiscoveryServices::RequestRandomService(PROTOCOLID nProtocol)
 {
@@ -1041,11 +1025,13 @@ BOOL CDiscoveryServices::RequestRandomService(PROTOCOLID nProtocol)
 	{
 		if ( pService->m_nType == CDiscoveryService::dsGnutella )
 			return pService->ResolveGnutella();
-		else if ( pService->m_nType == CDiscoveryService::dsServerMet )
+
+		if ( pService->m_nType == CDiscoveryService::dsServerMet )
 			return RequestWebCache( pService, wcmServerMet, nProtocol );
-		else
-			return RequestWebCache( pService, wcmHosts, nProtocol );
+
+		return RequestWebCache( pService, wcmHosts, nProtocol );
 	}
+
 	return FALSE;
 }
 
@@ -1146,8 +1132,8 @@ CDiscoveryService* CDiscoveryServices::GetRandomWebCache(PROTOCOLID nProtocol, B
 	// If there are any available web caches
 	if ( pWebCaches.GetSize() > 0 )
 		return pWebCaches.GetAt( GetRandomNum< INT_PTR >( 0, pWebCaches.GetSize() - 1 ) );	// Select a random one
-	else
-		return NULL;	// Null indicate none available
+
+	return NULL;	// Indicate none available
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -1559,7 +1545,7 @@ BOOL CDiscoveryServices::RunWebCacheGet(BOOL bCaches)
 					// Usage here: Used to check if cache supports requested network.
 					if ( m_nLastQueryProtocol != PROTOCOL_G2 )
 					{
-						//Mystery pong received - possibly a hosted static webpage.
+						// Mystery pong received - possibly a hosted static webpage.
 						theApp.Message( MSG_ERROR, _T("GWebCache %s : PONG received when no ping was given"), (LPCTSTR)m_pWebCache->m_sAddress );
 						return FALSE;
 					}
@@ -1776,7 +1762,7 @@ BOOL CDiscoveryServices::RunWebCacheUpdate()
 	}
 	else
 	{
-		//Assume gnutella
+		// Assume gnutella
 		strURL += _T("&net=gnutella");			 // Some gnutella GWCs that serve spec 1 will not serve right on host/url requests combined with the ping request.
 		strURL += _T("&client=")_T(VENDOR_CODE)_T("&version=");	// Version parameter is spec1
 		strURL += theApp.m_sVersion;
@@ -1931,19 +1917,15 @@ BOOL CDiscoveryServices::RunServerMet()
 BOOL CDiscoveryServices::Execute(CDiscoveryService* pService, Mode nMode)
 {
 	if ( pService->m_nType == CDiscoveryService::dsGnutella )
-	{
 		return pService->ResolveGnutella();
-	}
-	else if ( pService->m_nType == CDiscoveryService::dsWebCache )
-	{
+
+	if ( pService->m_nType == CDiscoveryService::dsWebCache )
 		return RequestWebCache( pService,
 			nMode, pService->m_bGnutella2 ? PROTOCOL_G2 : PROTOCOL_G1 );
-	}
-	else if ( pService->m_nType == CDiscoveryService::dsServerMet )
-	{
+
+	if ( pService->m_nType == CDiscoveryService::dsServerMet )
 		return RequestWebCache( pService,
 			CDiscoveryServices::wcmServerMet, PROTOCOL_ED2K );
-	}
 
 	return FALSE;
 }

@@ -35,14 +35,14 @@ class CQueryHashTable;
 typedef enum NeighbourStateEnum
 {
 	// One of these states describes what's happening with our connection to the remote computer right now
-	nrsNull,       // No state recorded yet, the CNeighbour constructor sets m_nState to nrsNull
-	nrsConnecting, // We called CConnection::ConnectTo, and are now waiting for the remote computer to do something
-	nrsHandshake1, // We've finished sending a group of headers, and await the response
-	nrsHandshake2, // We're reading the initial header group the remote computer has sent
-	nrsHandshake3, // We're reading the final header group from the remote computer
-	nrsRejected,   // The remote computer started with "GNUTELLA/0.6", but did not say "200 OK"
-	nrsClosing,    // We called DelayClose to send buffered data and then close the socket connection
-	nrsConnected   // The handshake is over, the CNeighbour copy constructor sets m_nState to nrsConnected
+	nrsNull,		// No state recorded yet, the CNeighbour constructor sets m_nState to nrsNull
+	nrsConnecting,	// We called CConnection::ConnectTo, and are now waiting for the remote computer to do something
+	nrsHandshake1,	// We've finished sending a group of headers, and await the response
+	nrsHandshake2,	// We're reading the initial header group the remote computer has sent
+	nrsHandshake3,	// We're reading the final header group from the remote computer
+	nrsRejected,	// The remote computer started with "GNUTELLA/0.6", but did not say "200 OK"
+	nrsClosing, 	// We called DelayClose to send buffered data and then close the socket connection
+	nrsConnected	// The handshake is over, the CNeighbour copy constructor sets m_nState to nrsConnected
 
 } NrsState;
 
@@ -50,9 +50,9 @@ typedef enum NeighbourStateEnum
 typedef enum NeighbourNodeEnum
 {
 	// The remote computer can be a leaf, or an ultrapeer or hub, and so can we
-	ntNode, // We are both Gnutella ultrapeers or Gnutella2 hubs
-	ntHub,  // We are a leaf, and this connection is to a Gnutella ultrapeer or Gnutella2 hub above us
-	ntLeaf  // We are a Gnutella ultrapeer or Gnutella2 hub, and this connection is to a leaf below us
+	ntNode,			// We are both Gnutella ultrapeers or Gnutella2 hubs
+	ntHub,			// We are a leaf, and this connection is to a Gnutella ultrapeer or Gnutella2 hub above us
+	ntLeaf			// We are a Gnutella ultrapeer or Gnutella2 hub, and this connection is to a leaf below us
 
 } NrsNode;
 
@@ -106,8 +106,8 @@ public:
 	DWORD m_nOutbound;
 
 	// If the remote computer sends us a pong packet it made, copy the sharing statistics here
-	DWORD m_nFileCount;  // The number of files the remote computer is sharing, according to the pong packet it sent us
-	DWORD m_nFileVolume; // The total size of all of those files, according to the same pong packet
+	DWORD m_nFileCount; 	// The number of files the remote computer is sharing, according to the pong packet it sent us
+	DWORD m_nFileVolume;	// The total size of all of those files, according to the same pong packet
 
 // Attributes: Query Hash Tables
 public:
@@ -131,7 +131,7 @@ public:
 	DWORD		GetMaxTTL() const;	// Get maximum TTL which is safe for both sides
 	void		GetCompression(float* pnInRate, float* pnOutRate);
 
-	void         DelayClose(UINT nError = 0); // Send the buffer then close the socket, record the error given
+	virtual void DelayClose(UINT nError);	// Send the buffer then close the socket, record the error given
 	virtual void Close(UINT nError = IDS_CONNECTION_CLOSED);
 	virtual BOOL Send(CPacket* pPacket, BOOL bRelease = TRUE, BOOL bBuffered = FALSE);
 	virtual BOOL SendQuery(const CQuerySearch* pSearch, CPacket* pPacket, BOOL bLocal); // Validate query

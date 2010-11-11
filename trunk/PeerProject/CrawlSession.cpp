@@ -151,7 +151,7 @@ void CCrawlSession::OnRun()
 //////////////////////////////////////////////////////////////////////
 // CCrawlSession process a crawl reply
 
-void CCrawlSession::OnCrawl(SOCKADDR_IN* pHost, CG2Packet* pPacket)
+void CCrawlSession::OnCrawl(const SOCKADDR_IN* pHost, CG2Packet* pPacket)
 {
 	if ( ! m_bActive ) return;
 
@@ -168,7 +168,7 @@ void CCrawlSession::OnCrawl(SOCKADDR_IN* pHost, CG2Packet* pPacket)
 //////////////////////////////////////////////////////////////////////
 // CCrawlSession find a crawled node
 
-CCrawlNode* CCrawlSession::Find(IN_ADDR* pAddress, BOOL bCreate)
+CCrawlNode* CCrawlSession::Find(const IN_ADDR* pAddress, BOOL bCreate)
 {
 	for ( POSITION pos = m_pNodes.GetTailPosition() ; pos ; )
 	{

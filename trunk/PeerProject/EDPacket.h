@@ -112,13 +112,10 @@ public:
 							const CEDClient* pClient, const CEDNeighbour* pServer = NULL,
 							bool bPartial = false);
 	BOOL				Deflate();
+	BOOL				Inflate();	// Unzip packet if any
 
-	// Unzip packet if any.
-	// Returns: FALSE - ok; TRUE - unzip error and packed was released
-	BOOL				InflateOrRelease();
-
-	virtual	void		ToBuffer(CBuffer* pBuffer) const;
-	virtual	void		ToBufferUDP(CBuffer* pBuffer) const;
+	virtual void		Reset();
+	virtual	void		ToBuffer(CBuffer* pBuffer, bool bTCP = true) const;
 	static	CEDPacket*	ReadBuffer(CBuffer* pBuffer);
 	virtual CString		GetType() const;
 	virtual void		Debug(LPCTSTR pszReason) const;
@@ -146,28 +143,39 @@ protected:
 public:
 	static CEDPacket* New(BYTE nType, BYTE nProtocol = ED2K_PROTOCOL_EDONKEY)
 	{
-		CEDPacket* pPacket		= (CEDPacket*)POOL.New();
-		pPacket->m_nEdProtocol	= nProtocol;
-		pPacket->m_nType		= nType;
-		return pPacket;
+		if ( CEDPacket* pPacket = (CEDPacket*)POOL.New() )
+		{
+			pPacket->m_nEdProtocol	= nProtocol;
+			pPacket->m_nType		= nType;
+			return pPacket;
+		}
+		return NULL;
 	}
 
-	static CEDPacket* New(ED2K_TCP_HEADER* pHeader)
+	static CEDPacket* New(const ED2K_TCP_HEADER* pHeader)
 	{
-		CEDPacket* pPacket		= (CEDPacket*)POOL.New();
-		pPacket->m_nEdProtocol	= pHeader->nProtocol;
-		pPacket->m_nType		= pHeader->nType;
-		pPacket->Write( &pHeader[1], pHeader->nLength - 1 );
-		return pPacket;
+		if ( CEDPacket* pPacket = (CEDPacket*)POOL.New() )
+		{
+			pPacket->m_nEdProtocol	= pHeader->nProtocol;
+			pPacket->m_nType		= pHeader->nType;
+			if ( pPacket->Write( &pHeader[1], pHeader->nLength - 1 ) )
+				return pPacket;
+			pPacket->Release();
+		}
+		return NULL;
 	}
 
-	static CEDPacket* New(ED2K_UDP_HEADER* pHeader, DWORD nLength)
+	static CEDPacket* New(const ED2K_UDP_HEADER* pHeader, DWORD nLength)
 	{
-		CEDPacket* pPacket		= (CEDPacket*)POOL.New();
-		pPacket->m_nEdProtocol	= pHeader->nProtocol;
-		pPacket->m_nType		= pHeader->nType;
-		pPacket->Write( &pHeader[1], nLength - sizeof(*pHeader) );
-		return pPacket;
+		if ( CEDPacket* pPacket = (CEDPacket*)POOL.New() )
+		{
+			pPacket->m_nEdProtocol	= pHeader->nProtocol;
+			pPacket->m_nType		= pHeader->nType;
+			if ( pPacket->Write( &pHeader[1], nLength - sizeof(*pHeader) ) && pPacket->Inflate() )
+				return pPacket;
+			pPacket->Release();
+		}
+		return NULL;
 	}
 
 	inline virtual void Delete()
@@ -175,7 +183,14 @@ public:
 		POOL.Delete( this );
 	}
 
+	// Packet handler
+	virtual BOOL OnPacket(const SOCKADDR_IN* pHost);
+
 	friend class CEDPacket::CEDPacketPool;
+
+private:
+	CEDPacket(const CEDPacket&);
+	CEDPacket& operator=(const CEDPacket&);
 };
 
 inline void CEDPacket::CEDPacketPool::NewPoolImpl(int nSize, CPacket*& pPool, int& nPitch)
@@ -302,7 +317,7 @@ inline void CEDPacket::CEDPacketPool::FreePoolImpl(CPacket* pPacket)
 #define ED2K_SERVER_UDP_TCPOBFUSCATION	0x00000400
 
 
-class CEDTag //: boost::noncopyable
+class CEDTag
 {
 // Construction
 public:
@@ -495,7 +510,7 @@ public:
 #define ED2K_VERSION_UDP			0x02
 #define ED2K_VERSION_SOURCEEXCHANGE	0x02
 #define ED2K_VERSION_COMMENTS		0x01
-#define ED2K_VERSION_EXTENDEDREQUEST 0x02 // Note: Defined at run time. 0, 1, or 2
+#define ED2K_VERSION_EXTENDEDREQUEST 0x02	// Note: Defined at run time. 0, 1, or 2
 
 // Things that aren't supported
 #define ED2K_VERSION_AICH			0x00

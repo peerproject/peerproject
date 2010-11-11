@@ -25,6 +25,7 @@
 #include "G1Packet.h"
 #include "G2Packet.h"
 #include "EDPacket.h"
+//#include "DCPacket.h"
 #include "Transfer.h"
 #include "SchemaCache.h"
 #include "Schema.h"
@@ -706,10 +707,10 @@ CQueryHit* CQueryHit::FromG2Packet(CG2Packet* pPacket, int* pnHops)
 //////////////////////////////////////////////////////////////////////
 // CQueryHit from ED2K packet
 
-CQueryHit* CQueryHit::FromEDPacket(CEDPacket* pPacket, SOCKADDR_IN* pServer, BOOL bUnicode, const Hashes::Guid& oSearchID )
+CQueryHit* CQueryHit::FromEDPacket(CEDPacket* pPacket, const SOCKADDR_IN* pServer, BOOL bUnicode, const Hashes::Guid& oSearchID )
 {
-	CQueryHit* pFirstHit	= NULL;
-	CQueryHit* pLastHit		= NULL;
+	CQueryHit* pFirstHit = NULL;
+	CQueryHit* pLastHit  = NULL;
 
 	try
 	{
@@ -793,6 +794,111 @@ CQueryHit* CQueryHit::FromEDPacket(CEDPacket* pPacket, SOCKADDR_IN* pServer, BOO
 
 	return pFirstHit;
 }
+
+//CQueryHit* CQueryHit::FromDCPacket(CDCPacket* pPacket)
+//{
+//	// Search result
+//	// $SR Nick FileName<0x05>FileSize FreeSlots/TotalSlots<0x05>HubName (HubIP:HubPort)|
+//
+//	std::string strParams( (const char*)pPacket->m_pBuffer + 4, pPacket->m_nLength - 5 );
+//	std::string::size_type nPos = strParams.find( ' ' );
+//	if ( nPos == std::string::npos )
+//		return FALSE;
+//	std::string strNick = strParams.substr( 0, nPos );
+//	strParams = strParams.substr( nPos + 1 );
+//
+//	nPos = strParams.find( '\x05' );
+//	if ( nPos == std::string::npos )
+//		return FALSE;
+//	std::string strFilename = strParams.substr( 0, nPos );
+//	strParams = strParams.substr( nPos + 1 );
+//	nPos = strFilename.rfind( '\\' );
+//	if ( nPos != std::string::npos )
+//		strFilename = strFilename.substr( nPos + 1 );	// Cut off path
+//
+//	nPos = strParams.find( ' ' );
+//	if ( nPos == std::string::npos )
+//		return FALSE;
+//	std::string strSize = strParams.substr( 0, nPos );
+//	strParams = strParams.substr( nPos + 1 );
+//	QWORD nSize = 0;
+//	if ( sscanf_s( strSize.c_str(), "%I64u", &nSize ) != 1 )
+//		return FALSE;
+//
+//	nPos = strParams.find( '/' );
+//	if ( nPos == std::string::npos )
+//		return FALSE;
+//	std::string strFreeSlots = strParams.substr( 0, nPos );
+//	strParams = strParams.substr( nPos + 1 );
+//	DWORD nFreeSlots = 0;
+//	if ( sscanf_s( strFreeSlots.c_str(), "%u", &nFreeSlots ) != 1 )
+//		return FALSE;
+//
+//	nPos = strParams.find( '\x05' );
+//	if ( nPos == std::string::npos )
+//		return FALSE;
+//	std::string strTotalSlots = strParams.substr( 0, nPos );
+//	strParams = strParams.substr( nPos + 1 );
+//	DWORD nTotalSlots = 0;
+//	if ( sscanf_s( strTotalSlots.c_str(), "%u", &nTotalSlots ) != 1 )
+//		return FALSE;
+//	if ( ! nTotalSlots || nTotalSlots < nFreeSlots )
+//		return FALSE;	// No upload - useless hit
+//
+//	nPos = strParams.find( ' ' );
+//	if ( nPos == std::string::npos )
+//		return FALSE;
+//	std::string strHubName = strParams.substr( 0, nPos );
+//	strParams = strParams.substr( nPos + 1 );
+//	Hashes::TigerHash oTiger;
+//	if ( strHubName.substr( 0, 4 ) == "TTH:" )
+//	{
+//		if ( ! oTiger.fromString( CA2W( strHubName.substr( 4 ).c_str() ) ) )
+//			return FALSE;
+//	}
+//
+//	int len = strParams.size();
+//	if ( strParams[ 0 ] != '(' || strParams[ len - 1 ] != ')' )
+//		return FALSE;
+//	nPos = strParams.find( ':' );
+//	if ( nPos == std::string::npos )
+//		return FALSE;
+//	DWORD nHubAddress = inet_addr( strParams.substr( 1, nPos - 1 ).c_str() );
+//	int nHubPort = atoi( strParams.substr( nPos + 1, len - nPos - 2 ).c_str() );
+//	if ( nHubPort <= 0 || nHubPort > USHRT_MAX || nHubAddress == INADDR_NONE ||
+//		Network.IsFirewalledAddress( (const IN_ADDR*)&nHubAddress ) ||
+//		Network.IsReserved( (const IN_ADDR*)&nHubAddress ) ||
+//		Security.IsDenied( (const IN_ADDR*)&nHubAddress ) )
+//		return FALSE;	// Unaccessible hub
+//
+//	CQueryHit* pHit = new CQueryHit( PROTOCOL_DC );
+//	if ( ! pHit )
+//		return FALSE;	// Out of memory
+//
+//	pHit->m_sName		= CA2W( strFilename.c_str() );
+//	pHit->m_nSize		= nSize;
+//	pHit->m_bSize		= TRUE;
+//	pHit->m_oTiger		= oTiger;
+//	pHit->m_bChat		= TRUE;
+//	pHit->m_bBrowseHost	= TRUE;
+//	pHit->m_sNick		= CA2W( strNick.c_str() );
+//	pHit->m_nUpSlots	= nTotalSlots;
+//	pHit->m_nUpQueue	= nTotalSlots - nFreeSlots;
+//	pHit->m_bBusy		= nFreeSlots ? TRI_TRUE : TRI_FALSE;
+//	pHit->m_pVendor		= VendorCache.Lookup( _T("DC++") );
+//	if ( ! pHit->m_pVendor ) pHit->m_pVendor = VendorCache.m_pNull;
+//
+//	// Hub
+//	pHit->m_bPush		= TRI_TRUE; // Always
+//	pHit->m_pAddress	= *(const IN_ADDR*)&nHubAddress;
+//	pHit->m_nPort		= (WORD)nHubPort;
+//	pHit->m_sCountry	= theApp.GetCountryCode( *(const IN_ADDR*)&nHubAddress );
+//
+//	pHit->Resolve();
+//
+//	return pHit;
+//}
+
 
 //////////////////////////////////////////////////////////////////////
 // CQueryHit bogus checking
@@ -1588,7 +1694,7 @@ bool CQueryHit::ReadG2Packet(CG2Packet* pPacket, DWORD nLength)
 //////////////////////////////////////////////////////////////////////
 // CQueryHit ED2K result entry reader
 
-void CQueryHit::ReadEDPacket(CEDPacket* pPacket, SOCKADDR_IN* pServer, BOOL bUnicode)
+void CQueryHit::ReadEDPacket(CEDPacket* pPacket, const SOCKADDR_IN* pServer, BOOL bUnicode)
 {
 	CString strLength(_T("")), strBitrate(_T("")), strCodec(_T(""));
 	DWORD nLength = 0;
@@ -1868,7 +1974,7 @@ void CQueryHit::ReadEDPacket(CEDPacket* pPacket, SOCKADDR_IN* pServer, BOOL bUni
 	}
 }
 
-void CQueryHit::ReadEDAddress(CEDPacket* pPacket, SOCKADDR_IN* pServer)
+void CQueryHit::ReadEDAddress(CEDPacket* pPacket, const SOCKADDR_IN* pServer)
 {
 	DWORD nAddress = m_pAddress.S_un.S_addr = pPacket->ReadLongLE();
 	if ( ! CEDPacket::IsLowID( nAddress ) && Security.IsDenied( (IN_ADDR*)&nAddress ) )
@@ -2023,7 +2129,6 @@ CQueryHit& CQueryHit::operator=(const CQueryHit& pOther)
 	m_bChat			= pOther.m_bChat;
 	m_bBrowseHost	= pOther.m_bBrowseHost;
 	m_sNick			= pOther.m_sNick;
-	m_sKeywords		= pOther.m_sKeywords;
 	m_nGroup		= pOther.m_nGroup;
 	m_nIndex		= pOther.m_nIndex;
 	m_bSize			= pOther.m_bSize;

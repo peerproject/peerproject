@@ -221,7 +221,6 @@ protected:
 	};
 
 	FTP_STATES		m_FtpState;			// FTP Control chanell state
-	DWORD			m_tRequest;			// Last request time
 	CFTPLIST		m_LIST;				// FTP "LIST" helper object
 	CFTPRETR		m_RETR;				// FTP "RETR" helper object
 	BOOL			m_bPassive;			// Passive or Active FTP mode

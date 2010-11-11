@@ -43,10 +43,10 @@ public:
 	int			GetLeafCount();
 
 	void		OnRun();
-	void		OnCrawl(SOCKADDR_IN* pHost, CG2Packet* pPacket);
+	void		OnCrawl(const SOCKADDR_IN* pHost, CG2Packet* pPacket);
 
 protected:
-	CCrawlNode*	Find(IN_ADDR* pAddress, BOOL bCreate);
+	CCrawlNode*	Find(const IN_ADDR* pAddress, BOOL bCreate);
 
 	friend class CCrawlNode;
 };

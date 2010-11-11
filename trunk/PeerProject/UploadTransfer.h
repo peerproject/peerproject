@@ -37,10 +37,8 @@ public:
 	virtual ~CUploadTransfer();
 
 public:
-	int				m_nState;		// Common state code
 	CUploadQueue*	m_pQueue;		// Queue reference
 	CUploadFile*	m_pBaseFile;	// Reference file
-	DWORD			m_nBandwidth;	// Bandwidth
 	DWORD			m_nUserRating;	// Has the downloader uploaded anything?
 	CString			m_sNick;		// User Nick
 
@@ -52,9 +50,6 @@ public:
 	DWORD			m_nRequests;	// Request count
 	QWORD			m_nUploaded;	// Bytes uploaded
 	DWORD			m_tContent;		// Send start timestamp
-	QWORD			m_nOffset;		// Fragment offset
-	QWORD			m_nLength;		// Fragment length
-	QWORD			m_nPosition;	// Send position
 
 protected:
 	BOOL			m_bStopTransfer; // Should this transfer stop? (to allow queue rotation, etc)
@@ -70,7 +65,7 @@ private:
 
 public:
 	virtual void	Remove(BOOL bMessage = TRUE);
-	virtual void	Close(BOOL bMessage = FALSE);
+	virtual void	Close(UINT nError = 0);
 	virtual BOOL	Promote();
 	virtual BOOL	OnRename(LPCTSTR pszSource, LPCTSTR pszTarget);	// pszTarget: 0 = delete file, 1 = release file
 
@@ -92,7 +87,7 @@ protected:
 	void			ClearHashes();
 	void			ClearRequest();
 	BOOL			HashesFromURN(LPCTSTR pszURN);
-	BOOL			RequestComplete(CLibraryFile* pFile);
+	BOOL			RequestComplete(const CLibraryFile* pFile);
 	BOOL			RequestPartial(CDownload* pFile);
 	void			StartSending(int nState);
 	void			AllocateBaseFile();

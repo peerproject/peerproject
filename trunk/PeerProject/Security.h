@@ -18,9 +18,10 @@
 
 #pragma once
 
-#include "QuerySearch.h"
+class CPeerProjectFile;
 
 class CSecureRule;
+class CQuerySearch;
 class CXMLElement;
 
 
@@ -39,7 +40,7 @@ class CSecurity
 // Construction
 public:
 	CSecurity();
-	virtual ~CSecurity();
+	~CSecurity();
 
 // Attributes
 public:
@@ -84,18 +85,17 @@ public:
 	BOOL			IsDenied(const IN_ADDR* pAddress);
 	BOOL			IsDenied(LPCTSTR pszContent);
 	BOOL			IsDenied(const CPeerProjectFile* pFile);
-	BOOL			IsDenied(CQuerySearch::const_iterator itStart,
-							 CQuerySearch::const_iterator itEnd, LPCTSTR pszContent);
+	BOOL			IsDenied(const CQuerySearch* pQuery, const CString& strContent);
 	void			Expire();
 	BOOL			Load();
 	BOOL			Save();
 	BOOL			Import(LPCTSTR pszFile);
 
 	// Don't ban GPL breakers, but don't offer leaf slots to them. Ban others.
-	BOOL			IsClientBad(const CString& sUserAgent);
+	BOOL			IsClientBad(const CString& sUserAgent) const;
 	BOOL			IsClientBanned(const CString& sUserAgent);
-	BOOL			IsAgentBlocked(const CString& sUserAgent);	// User-defined names
-	BOOL			IsVendorBlocked(const CString& sVendor);	// G1/G2 code
+	BOOL			IsAgentBlocked(const CString& sUserAgent) const;	// User-defined names
+	BOOL			IsVendorBlocked(const CString& sVendor) const;		// G1/G2 code
 
 protected:
 	void			BanHelper(const IN_ADDR* pAddress, const CPeerProjectFile* pFile, int nBanLength, BOOL bMessage, LPCTSTR szComment);
@@ -111,7 +111,7 @@ public:
 	CSecureRule(BOOL bCreate = TRUE);
 	CSecureRule(const CSecureRule& pRule);
 	CSecureRule& operator=(const CSecureRule& pRule);
-	virtual ~CSecureRule();
+	~CSecureRule();
 
 	typedef enum { srAddress, srContentAny, srContentAll, srContentRegExp, srSizeType } RuleType;
 	enum { srNull, srAccept, srDeny };
@@ -136,14 +136,13 @@ public:
 	BOOL		Match(const IN_ADDR* pAddress) const;
 	BOOL		Match(LPCTSTR pszContent) const;
 	BOOL		Match(const CPeerProjectFile* pFile) const;
-	BOOL		Match(CQuerySearch::const_iterator itStart,
-					CQuerySearch::const_iterator itEnd, LPCTSTR pszContent) const;
-	CString 	GetContentWords();
+	BOOL		Match(const CQuerySearch* pQuery, const CString& strContent) const;
+	CString 	GetContentWords() const;
 	void		SetContentWords(const CString& strContent);
 	void		Serialize(CArchive& ar, int nVersion);
 	BOOL		FromXML(CXMLElement* pXML);
 	CXMLElement* ToXML();
-	CString		ToGnucleusString();
+	CString		ToGnucleusString() const;
 	BOOL		FromGnucleusString(CString& str);
 };
 
@@ -153,24 +152,24 @@ class CAdultFilter
 // Construction
 public:
 	CAdultFilter();
-	virtual ~CAdultFilter();
+	~CAdultFilter();
 
 // Attributes
 private:
-	LPTSTR		m_pszBlockedWords;			// Definitely adult content
-	LPTSTR		m_pszDubiousWords;			// Possibly adult content
-	LPTSTR		m_pszChildWords;			// Words related to child ponography
+	LPTSTR		m_pszBlockedWords;					// Definitely adult content
+	LPTSTR		m_pszDubiousWords;					// Possibly adult content
+	LPTSTR		m_pszChildWords;					// Words related to child ponography
 
 // Operations
 public:
 	void		Load();
-	BOOL		IsChildPornography(LPCTSTR); // Word combination indicates underage
-	BOOL		IsHitAdult(LPCTSTR);		// Does this search result have adult content?
-	BOOL		IsSearchFiltered(LPCTSTR);	// Check if search is filtered
-	BOOL		IsChatFiltered(LPCTSTR);	// Check filter for chat
-	BOOL		Censor(TCHAR*);				// Censor (remove) bad words from a string
+	BOOL		IsHitAdult(LPCTSTR) const;			// Does this search result have adult content?
+	BOOL		IsChildPornography(LPCTSTR) const;	// Word combination indicates underage
+	BOOL		IsSearchFiltered(LPCTSTR) const;	// Check if search is filtered
+	BOOL		IsChatFiltered(LPCTSTR) const;		// Check filter for chat
+	BOOL		Censor(TCHAR*) const;				// Censor (remove) bad words from a string
 private:
-	BOOL		IsFiltered(LPCTSTR);
+	BOOL		IsFiltered(LPCTSTR) const;
 };
 
 // A message filter class for chat messages. (Spam protection)
@@ -179,7 +178,7 @@ class CMessageFilter
 // Construction
 public:
 	CMessageFilter();
-	virtual ~CMessageFilter();
+	~CMessageFilter();
 
 // Attributes
 private:

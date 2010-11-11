@@ -115,6 +115,8 @@
     <Link>
       <ModuleDefinitionFile>RatDVDReader.def</ModuleDefinitionFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <RegisterOutput>true</RegisterOutput>
+      <PerUserRedirection>true</PerUserRedirection>
       <SubSystem>Windows</SubSystem>
       <BaseAddress>0x22200000</BaseAddress>
       <LargeAddressAware>true</LargeAddressAware>
@@ -125,8 +127,6 @@
       </OutputFile>
     </Bscmake>
     <PostBuildEvent>
-      <Message>Performing registration</Message>
-      <Command>regsvr32 /s /c "$(TargetPath)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -165,6 +165,8 @@
     <Link>
       <ModuleDefinitionFile>RatDVDReader.def</ModuleDefinitionFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <RegisterOutput>true</RegisterOutput>
+      <PerUserRedirection>true</PerUserRedirection>
       <SubSystem>Windows</SubSystem>
       <LargeAddressAware>true</LargeAddressAware>
       <TargetMachine>MachineX64</TargetMachine>
@@ -174,8 +176,6 @@
       </OutputFile>
     </Bscmake>
     <PostBuildEvent>
-      <Message>Performing registration</Message>
-      <Command>regsvr32 /s /c "$(TargetPath)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -229,7 +229,6 @@
       </OutputFile>
     </Bscmake>
     <PostBuildEvent>
-      <Message>No registration</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -282,7 +281,6 @@
       </OutputFile>
     </Bscmake>
     <PostBuildEvent>
-      <Message>No registration</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>

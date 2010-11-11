@@ -30,8 +30,8 @@ static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
 #endif	// Filename
 
-CPlugins Plugins;
 
+CPlugins Plugins;
 
 //////////////////////////////////////////////////////////////////////
 // CPlugins construction
@@ -39,55 +39,78 @@ CPlugins Plugins;
 CPlugins::CPlugins()
 	: m_nCommandID	( ID_PLUGIN_FIRST )
 {
-}
-
-CPlugins::~CPlugins()
-{
-	Clear();
+	ZeroMemory( &m_inCLSID, sizeof( m_inCLSID ) );
 }
 
 void CPlugins::Register()
 {
 	CList< HINSTANCE > oModules; // Cache
 
+//	LPCTSTR szParam = AfxGetPerUserRegistration() ? _T("/RegServerPerUser") : _T("/RegServer");
+
 	CFileFind finder;
-	BOOL bWorking = finder.FindFile( Settings.General.Path + _T("\\Plugins\\*.dll") );
+	BOOL bWorking = finder.FindFile( Settings.General.Path + _T("\\Plugins\\*.*") );	// .DLLs +.EXEs
 	while ( bWorking )
 	{
 		bWorking = finder.FindNextFile();
-		CString sDllPath = finder.GetFilePath().MakeLower();
+		const CString sPath = finder.GetFilePath();
+		const CString sName = finder.GetFileName();
+		const CString sExt = PathFindExtension( sName );
 
-		if ( sDllPath.Find( _T("WebHook.dll") ) != -1 )
-			continue;	// Skip WebHook Integration
-
-		if ( HINSTANCE hDll = LoadLibrary( sDllPath ) )
+		if ( ! sExt.CompareNoCase( _T(".dll") ) )
 		{
-			HRESULT hr = S_FALSE;
+			if ( sName == _T("WebHook.dll") && ! Settings.Downloads.WebHookEnable )
+				continue;	// Skip WebHook Integration
 
-			HRESULT (WINAPI *pfnDllInstall)(BOOL bInstall, LPCWSTR pszCmdLine);
-			(FARPROC&)pfnDllInstall = GetProcAddress( hDll, "DllInstall" );
-			if ( pfnDllInstall )
+			if ( HINSTANCE hDll = LoadLibrary( sPath ) )
 			{
-				hr = pfnDllInstall( TRUE, L"user" );
+				HRESULT hr = S_FALSE;
+
+				HRESULT (WINAPI *pfnDllInstall)(BOOL bInstall, LPCWSTR pszCmdLine);
+				(FARPROC&)pfnDllInstall = GetProcAddress( hDll, "DllInstall" );
+				if ( pfnDllInstall )
+				{
+					hr = pfnDllInstall( TRUE, L"user" );
+				}
+				else
+				{
+					HRESULT (WINAPI *pfnDllRegisterServer)(void);
+					(FARPROC&)pfnDllRegisterServer = GetProcAddress( hDll, "DllRegisterServer" );
+					if ( pfnDllRegisterServer )
+						hr = pfnDllRegisterServer();
+				}
+
+				if ( hr == S_OK )
+					theApp.Message( MSG_NOTICE, _T("Registered plugin: %s"), sName );
+				else if ( FAILED( hr ) )
+					theApp.Message( MSG_ERROR, _T("Failed to register plugin: %s : 0x%08x"), sName, hr );
+
+				oModules.AddTail( hDll );
 			}
-			else
+		}
+		else if ( ! sExt.CompareNoCase( _T(".exe") ) )
+		{
+			DWORD dwSize = GetFileVersionInfoSize( sPath, &dwSize );
+			auto_array< BYTE > pBuffer( new BYTE[ dwSize ] );
+			if ( GetFileVersionInfo( sPath, NULL, dwSize, pBuffer.get() ) )
 			{
-				HRESULT (WINAPI *pfnDllRegisterServer)(void);
-				(FARPROC&)pfnDllRegisterServer = GetProcAddress( hDll, "DllRegisterServer" );
-				if ( pfnDllRegisterServer )
-					hr = pfnDllRegisterServer();
+				LPCWSTR pValue = NULL;
+				if ( VerQueryValue( pBuffer.get(),
+					_T("\\StringFileInfo\\000004b0\\SpecialBuild"),
+					(void**)&pValue, (UINT*)&dwSize ) &&
+					pValue && dwSize &&
+					_wcsicmp( pValue, _T("plugin") ) == 0 )
+				{
+					if ( (DWORD_PTR)ShellExecute( NULL, NULL, sPath, _T("/RegServerPerUser"), NULL, SW_HIDE ) > 32 )
+						theApp.Message( MSG_NOTICE, _T("Registered plugin: %s"), sName );
+					else
+						theApp.Message( MSG_ERROR, _T("Failed to register plugin: %s : 0x%08x"), sName, GetLastError() );
+				}
 			}
-
-			if ( hr == S_OK )
-				theApp.Message( MSG_NOTICE, _T("Registered plugin: %s"), sDllPath );
-			else if ( FAILED( hr ) )
-				theApp.Message( MSG_ERROR, _T("Failed to register plugin: %s : 0x%08x"), sDllPath, hr );
-
-			oModules.AddTail( hDll );
 		}
 	}
 
-	// ToDo: Minimize duplicate code block ?
+	// Root DLLs	ToDo: Minimize duplicate code block ?
 	bWorking = finder.FindFile( Settings.General.Path + _T("\\*.dll") );
 	while ( bWorking )
 	{
@@ -130,9 +153,8 @@ void CPlugins::Register()
 
 void CPlugins::Enumerate()
 {
-	HUSKEY hKey;
-
-	if ( SHRegOpenUSKey( _T("Software\\PeerProject\\PeerProject\\Plugins\\General"),
+	HUSKEY hKey = NULL;
+	if ( SHRegOpenUSKey( REGISTRY_KEY _T("\\Plugins\\General"),
 		KEY_READ, NULL, &hKey, FALSE ) != ERROR_SUCCESS ) return;
 
 	for ( DWORD nKey = 0 ; ; nKey++ )
@@ -160,10 +182,15 @@ void CPlugins::Enumerate()
 
 		if ( pCLSID == GUID_NULL ) continue;
 
-		CPlugin* pPlugin = new CPlugin( pCLSID, szName );
-		m_pList.AddTail( pPlugin );
+		if ( CPlugin* pPlugin = new CPlugin( pCLSID, szName ) )
+		{
+			CQuickLock oLock( m_pSection );
 
-		pPlugin->StartIfEnabled();
+			m_pList.AddTail( pPlugin );
+
+			if ( LookupEnable( pCLSID ) )
+				pPlugin->Start();
+		}
 	}
 
 	SHRegCloseUSKey( hKey );
@@ -174,13 +201,41 @@ void CPlugins::Enumerate()
 
 void CPlugins::Clear()
 {
+	CloseThread();
+
+	CQuickLock oLock( m_pSection );
+
 	for ( POSITION pos = GetIterator() ; pos ; )
 	{
 		delete GetNext( pos );
 	}
-
 	m_pList.RemoveAll();
 }
+
+//void CPlugins::UnloadPlugin(REFCLSID pCLSID)
+//{
+//	CQuickLock oLock( m_pSection );
+//
+//	// Delete from cache
+//	CPluginPtr* pGITPlugin = NULL;
+//	if ( m_pCache.Lookup( pCLSID, pGITPlugin ) )
+//	{
+//		m_pCache.RemoveKey( pCLSID );
+//		delete pGITPlugin;
+//	}
+//
+//	// Delete from generic plugins list
+//	for ( POSITION pos = GetIterator() ; pos ; )
+//	{
+//		POSITION posOrig = pos;
+//		CPlugin* pPlugin = GetNext( pos );
+//		if ( pPlugin->m_pCLSID == pCLSID )
+//		{
+//			m_pList.RemoveAt( posOrig );
+//			delete pPlugin;
+//		}
+//	}
+//}
 
 //////////////////////////////////////////////////////////////////////
 // CPlugins CLSID helpers
@@ -201,7 +256,7 @@ BOOL CPlugins::LookupEnable(REFCLSID pCLSID, LPCTSTR pszExt) const
 	CString strCLSID = Hashes::toGuid( pCLSID );
 
 	if ( ERROR_SUCCESS == RegOpenKeyEx( HKEY_CURRENT_USER,
-		_T("Software\\PeerProject\\PeerProject\\Plugins"), 0, KEY_ALL_ACCESS, &hPlugins ) )
+		REGISTRY_KEY _T("\\Plugins"), 0, KEY_ALL_ACCESS, &hPlugins ) )
 	{
 		DWORD nType = REG_SZ, nValue = 0;
 		if ( ERROR_SUCCESS == RegQueryValueEx( hPlugins, strCLSID, NULL, &nType, NULL, &nValue ) )
@@ -250,6 +305,132 @@ BOOL CPlugins::LookupEnable(REFCLSID pCLSID, LPCTSTR pszExt) const
 	if ( nChecked == 0 ) return FALSE;
 
 	return TRUE;
+}
+
+IUnknown* CPlugins::GetPlugin(LPCTSTR pszGroup, LPCTSTR pszType)
+{
+	HRESULT hr;
+
+	CLSID pCLSID;
+	if ( ! LookupCLSID( pszGroup, pszType, pCLSID ) )
+		return NULL;	// Disabled
+
+	for ( int i = 0 ; ; ++i )
+	{
+		{
+			CQuickLock oLock( m_pSection );
+
+			CComPtr< IUnknown > pPlugin;
+			CPluginPtr* pGITPlugin = NULL;
+			if ( m_pCache.Lookup( pCLSID, pGITPlugin ) )
+			{
+				if ( ! pGITPlugin )
+					return NULL;
+
+				if ( SUCCEEDED( hr = pGITPlugin->m_pGIT.CopyTo( &pPlugin ) ) )
+					return pPlugin.Detach();
+
+				TRACE( _T("Invalid plugin \"%s\"-\"%s\" %s\n"), pszGroup, pszType, (LPCTSTR)Hashes::toGuid( pCLSID ) );
+			}
+
+			if ( i == 1 )
+				break;
+
+			m_inCLSID = pCLSID;
+
+			// Create new one
+			if ( ! BeginThread( "PluginCache" ) )
+				break;	// Something really bad
+		}
+
+		Wakeup();									// Start process
+		WaitForSingleObject( m_pReady, INFINITE );	// Wait for result
+	}
+
+	return NULL;
+}
+
+BOOL CPlugins::ReloadPlugin(LPCTSTR pszGroup, LPCTSTR pszType)
+{
+	CLSID pCLSID;
+	if ( ! LookupCLSID( pszGroup, pszType, pCLSID ) )
+		return FALSE;	// Disabled
+
+	{
+		CQuickLock oLock( m_pSection );
+
+		m_inCLSID = pCLSID;
+
+		// Create new one
+		if ( ! BeginThread( "PluginCache" ) )
+			return FALSE;	// Something really bad
+	}
+
+	Wakeup();									// Start process
+	WaitForSingleObject( m_pReady, INFINITE );	// Wait for result
+
+	return TRUE;
+}
+
+void CPlugins::OnRun()
+{
+	HRESULT hr;
+
+	while( IsThreadEnabled() )
+	{
+		Doze();
+
+		if ( ! IsThreadEnabled() )
+			break;
+
+		CQuickLock oLock( m_pSection );
+
+		// Revoke interface
+		CPluginPtr* pGITPlugin = NULL;
+		if ( m_pCache.Lookup( m_inCLSID, pGITPlugin ) )
+		{
+			delete pGITPlugin;
+
+			TRACE( _T("Dropped plugin %s\n"), (LPCTSTR)Hashes::toGuid( m_inCLSID ) );
+		}
+
+		m_pCache.SetAt( m_inCLSID, NULL );
+
+		HINSTANCE hRes = AfxGetResourceHandle();
+
+		pGITPlugin = new CPluginPtr;
+		if ( pGITPlugin )
+		{
+			// Create plugin & Add plugin interface to GIT
+			if ( SUCCEEDED( hr = pGITPlugin->m_pIUnknown.CoCreateInstance( m_inCLSID ) ) &&
+				 SUCCEEDED( hr = pGITPlugin->m_pGIT.Attach( pGITPlugin->m_pIUnknown ) ) )
+			{
+				m_pCache.SetAt( m_inCLSID, pGITPlugin );
+
+				TRACE( _T("Created plugin %s\n"), (LPCTSTR)Hashes::toGuid( m_inCLSID ) );
+			}
+			else
+				delete pGITPlugin;
+		}
+
+		AfxSetResourceHandle( hRes );
+
+		ZeroMemory( &m_inCLSID, sizeof( m_inCLSID ) );
+
+		m_pReady.SetEvent();
+	}
+
+	CQuickLock oLock( m_pSection );
+
+	// Revoke all interfaces
+	for ( POSITION pos = m_pCache.GetStartPosition() ; pos ; )
+	{
+		CLSID pCLSID;
+		CPluginPtr* pGITPlugin = NULL;
+		m_pCache.GetNextAssoc( pos, pCLSID, pGITPlugin );
+		delete pGITPlugin;
+	}
+	m_pCache.RemoveAll();
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -444,18 +625,6 @@ BOOL CPlugins::OnChatMessage(LPCTSTR pszChatID, BOOL bOutgoing, LPCTSTR pszFrom,
 	return TRUE;
 }
 
-CPlugin* CPlugins::Find(REFCLSID pCLSID) const
-{
-	for ( POSITION pos = GetIterator() ; pos ; )
-	{
-		CPlugin* pPlugin = GetNext( pos );
-		if ( pPlugin->m_pCLSID == pCLSID )
-			return pPlugin;
-	}
-
-	return NULL;
-}
-
 //////////////////////////////////////////////////////////////////////
 // CPlugin construction
 
@@ -511,14 +680,6 @@ void CPlugin::Stop()
 	m_pExecute.Release();
 	m_pCommand.Release();
 	m_pPlugin.Release();
-}
-
-BOOL CPlugin::StartIfEnabled()
-{
-	if ( Plugins.LookupEnable( m_pCLSID ) )
-		return Start();
-	else
-		return FALSE;
 }
 
 //////////////////////////////////////////////////////////////////////

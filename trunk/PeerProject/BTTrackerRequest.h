@@ -24,7 +24,7 @@ class CDownloadWithTorrent;
 class CBENode;
 
 
-class CBTTrackerRequest : public boost::noncopyable
+class CBTTrackerRequest
 {
 public:
 	CBTTrackerRequest(CDownloadWithTorrent* pDownload, LPCTSTR pszVerb, DWORD nNumWant, bool bProcess);

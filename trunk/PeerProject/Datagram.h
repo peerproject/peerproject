@@ -49,7 +49,7 @@ public:
 
 // Operations
 public:
-	void		Create(SOCKADDR_IN* pHost, BYTE nFlags, WORD nSequence, BYTE nCount);
+	void		Create(const SOCKADDR_IN* pHost, BYTE nFlags, WORD nSequence, BYTE nCount);
 	BOOL		Add(BYTE nPart, LPCVOID pData, DWORD nLength);
 	CG2Packet*	ToG2Packet();
 };

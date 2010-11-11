@@ -200,7 +200,7 @@ Source: "Services\BugTrap\dbghelp.dll"; DestDir: "{sys}"; DestName: "dbghelp.dll
 ; == Include Files ==
 
 ; Main Data Files
-Source: "Data\*"; DestDir: "{app}\Data"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Excludes: ".svn,*.bak,*.bak.*,GPL*,WorldGPS.xml"
+Source: "Data\*"; DestDir: "{app}\Data"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Excludes: ".svn,*.bak,*.bak.*,*GPL*,WorldGPS.xml"
 
 ; Schemas
 Source: "Schemas\*"; DestDir: "{app}\Schemas"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Excludes: ".svn,*.bak,ReadMe.txt,PeerTags.*,SchemaDescriptor.*"
@@ -298,7 +298,7 @@ Name: "{group}\GUI Modes\{#internal_name} (Help Options)"; Filename: "{app}\Peer
 #endif
 
 ; Other icons in user language
-Name: "{group}\{cm:icons_license}"; Filename: "{app}\Uninstall\GPL License.rtf"; WorkingDir: "{app}\Uninstall"; Comment: "{cm:icons_license}"
+Name: "{group}\{cm:icons_license}"; Filename: "{app}\Uninstall\AGPL License.rtf"; WorkingDir: "{app}\Uninstall"; Comment: "{cm:icons_license}"
 Name: "{group}\{cm:icons_uninstall}"; Filename: "{uninstallexe}"; WorkingDir: "{app}\Uninstall"; Comment: "{cm:UninstallProgram,PeerProject}"; IconFilename: "{app}\Uninstall\uninstall.ico"
 ;Name: "{userprograms}\{groupname}\{cm:icons_downloads}"; Filename: "{ini:{param:SETTINGS|},Locations,CompletePath|{reg:HKCU\Software\PeerProject\PeerProject\Downloads,CompletePath|{userdocs}\PeerProject Downloads}}"; WorkingDir: "{ini:{param:SETTINGS|},Locations,CompletePath|{reg:HKCU\Software\PeerProject\PeerProject\Downloads,CompletePath|{userdocs}\PeerProject Downloads}}"; Comment: "{cm:icons_downloads}"; Tasks: multiuser; Check: not WizardNoIcons
 ;Name: "{group}\{cm:icons_downloads}"; Filename: "{ini:{param:SETTINGS|},Locations,CompletePath|{reg:HKCU\Software\PeerProject\PeerProject\Downloads,CompletePath|{app}\Downloads}}"; WorkingDir: "{ini:{param:SETTINGS|},Locations,CompletePath|{reg:HKCU\Software\PeerProject\PeerProject\Downloads,CompletePath|{app}\Downloads}}"; Comment: "{cm:icons_downloads}"; Tasks: not multiuser; Check: not WizardNoIcons

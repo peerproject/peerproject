@@ -43,10 +43,8 @@ static char THIS_FILE[]=__FILE__;
 
 CUploadTransfer::CUploadTransfer(PROTOCOLID nProtocol)
 	: CTransfer			( nProtocol )
-	, m_nState			( upsNull )
 	, m_pQueue			( NULL )
 	, m_pBaseFile		( NULL )
-	, m_nBandwidth		( Settings.Bandwidth.Request )
 	, m_nUserRating		( urNew )
 	, m_nFileBase		( 0 )
 	, m_bFilePartial	( FALSE )
@@ -54,9 +52,6 @@ CUploadTransfer::CUploadTransfer(PROTOCOLID nProtocol)
 	, m_nRequests		( 0 )
 	, m_nUploaded		( 0 )
 	, m_tContent		( 0 )
-	, m_nOffset			( 0 )
-	, m_nPosition		( 0 )
-	, m_nLength			( SIZE_UNKNOWN )
 	, m_bStopTransfer	( FALSE )
 	, m_tRotateTime		( 0 )
 	, m_tAverageTime	( 0 )
@@ -65,7 +60,9 @@ CUploadTransfer::CUploadTransfer(PROTOCOLID nProtocol)
 	, m_nMaxRate		( 0 )
 	, m_pFile			( NULL )
 {
-	m_nProtocol = nProtocol;
+	m_nProtocol			= nProtocol;
+	m_nBandwidth		= Settings.Bandwidth.Request;
+	m_nOffset			= 0; // ?
 	ZeroMemory( m_nAverageRate, sizeof( m_nAverageRate ) );
 
 	Uploads.Add( this );
@@ -73,7 +70,7 @@ CUploadTransfer::CUploadTransfer(PROTOCOLID nProtocol)
 
 CUploadTransfer::~CUploadTransfer()
 {
-	Close( FALSE );
+	Close();
 	UploadFiles.Remove( this );
 	Uploads.Remove( this );
 }
@@ -92,7 +89,7 @@ void CUploadTransfer::Remove(BOOL bMessage)
 	}
 
 	m_nUploaded = 1;
-	Close( FALSE );
+	Close();
 
 	delete this;
 }
@@ -100,16 +97,15 @@ void CUploadTransfer::Remove(BOOL bMessage)
 //////////////////////////////////////////////////////////////////////
 // CUploadTransfer close connection
 
-void CUploadTransfer::Close(BOOL bMessage)
+void CUploadTransfer::Close(UINT nError)
 {
 	if ( m_nState == upsNull ) return;
 	m_nState = upsNull;
 
-	CTransfer::Close();
+	CTransfer::Close( nError );
 	UploadQueues.Dequeue( this );
 	CloseFile();
 
-	if ( bMessage ) theApp.Message( MSG_NOTICE, IDS_UPLOAD_DROPPED, (LPCTSTR)m_sAddress );
 	if ( m_nUploaded == 0 ) Remove( FALSE );
 }
 
@@ -316,7 +312,7 @@ void CUploadTransfer::RotatingQueue(DWORD tNow)
 	if ( ! pLock.Lock( 350 ) )
 		 return;
 
-	if ( m_pQueue != NULL && UploadQueues.Check( m_pQueue ) &&	//Is this queue able to rotate?
+	if ( m_pQueue != NULL && UploadQueues.Check( m_pQueue ) &&	// Is this queue able to rotate?
 		 m_pQueue->m_bRotate && m_pQueue->IsActive( this ) && ! m_bStopTransfer )
 	{
 		DWORD tRotationLength = m_pQueue->m_nRotateTime * 1000;
@@ -327,12 +323,12 @@ void CUploadTransfer::RotatingQueue(DWORD tNow)
 
 		pLock.Unlock();
 
-		if ( m_tRotateTime == 0 )								//If the upload hasn't started yet
+		if ( m_tRotateTime == 0 )								// If the upload hasn't started yet
 		{
 			if ( m_nState == upsUploading )
-				m_tRotateTime = tNow;							//Set the upload as having started
+				m_tRotateTime = tNow;							// Set the upload as having started
 		}
-		else if ( tNow - m_tRotateTime >= tRotationLength )		//Otherwise check if it should rotate
+		else if ( tNow - m_tRotateTime >= tRotationLength )		// Otherwise check if it should rotate
 		{
 			m_bStopTransfer	= TRUE;
 		}
@@ -347,28 +343,28 @@ void CUploadTransfer::RotatingQueue(DWORD tNow)
 // CUploadTransfer calculate rating
 
 void CUploadTransfer::CalculateRating(DWORD tNow)
-{	//calculate a download rating for this transfer / user
-	if ( tNow > m_tRatingTime + 15000 )			//Recalculate rating every 15 seconds
+{	// Calculate a download rating for this transfer/user
+	if ( tNow > m_tRatingTime + 15000 )			// Recalculate rating every 15 seconds
 	{
 		QWORD nDownloaded = Downloads.GetAmountDownloadedFrom( &(m_pHost.sin_addr) );
 		m_tRatingTime = tNow;
-		if ( nDownloaded > 128 * 1024)			//They have uploaded to us. (Transfers < 128k are ignored)
+		if ( nDownloaded > 128 * 1024)			// They have uploaded to us. (Transfers < 128k are ignored)
 		{
-			if ( nDownloaded > m_nUploaded )	//If they have sent more to us than we have to them
-				m_nUserRating = urCredit;		//They get the highest rating
+			if ( nDownloaded > m_nUploaded )	// If they have sent more to us than we have to them
+				m_nUserRating = urCredit;		// They get the highest rating
 			else
-				m_nUserRating = urSharing;		//Otherwise, #2. (still known sharer)
+				m_nUserRating = urSharing;		// Otherwise, #2. (still known sharer)
 		}
-		else									//They have not uploaded to us.
+		else									// They have not uploaded to us.
 		{
-			if ( m_nUploaded < 4*1024*1024 )	//If they have not gotten at least 4MB
-				m_nUserRating = urNew;			//They are a new user- give uncertain rating
+			if ( m_nUploaded < 4*1024*1024 )	// If they have not gotten at least 4MB
+				m_nUserRating = urNew;			// They are a new user- give uncertain rating
 			else
-				m_nUserRating = urNotSharing;	//Else, probably not uploading to us.
+				m_nUserRating = urNotSharing;	// Else, probably not uploading to us.
 		}
 	}
 
-	//ToDo: Maybe add a 'remote client' class to retain transfer stats for an hour or so?
+	// ToDo: Maybe add a 'remote client' class to retain transfer stats for an hour or so?
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -403,20 +399,20 @@ void CUploadTransfer::ClearRequest()
 	m_sPath.Empty();
 	m_sFileTags.Empty();
 
-	m_nFileBase		= 0;
 	m_nSize			= 0;
+	m_nFileBase		= 0;
 	m_bFilePartial	= FALSE;
 
-	m_nOffset		= 0;
-	m_nPosition		= 0;
 	m_nLength		= SIZE_UNKNOWN;
+	m_nOffset		= SIZE_UNKNOWN;
+	m_nPosition		= 0;
 	m_nRequests ++;
 
 	ClearHashes();
 	ClearHeaders();
 }
 
-BOOL CUploadTransfer::RequestComplete(CLibraryFile* pFile)
+BOOL CUploadTransfer::RequestComplete(const CLibraryFile* pFile)
 {
 	ASSERT( pFile != NULL );
 
@@ -501,7 +497,7 @@ void CUploadTransfer::StartSending(int nState)
 	m_nState	= nState;
 	m_nPosition	= 0;
 	m_tContent	= m_mOutput.tLast = GetTickCount();
-	CTransfer::OnWrite();
+	OnWrite();
 }
 
 void CUploadTransfer::AllocateBaseFile()

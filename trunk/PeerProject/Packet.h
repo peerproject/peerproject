@@ -24,7 +24,7 @@
 // When the allocated block of memory needs to be bigger, make it 128 bytes bigger
 const DWORD PACKET_GROW = 128u;
 
-// Tell the compiler these classes exist, and it will find out more about them soon
+// Tell the compiler these classes exist
 class CBuffer;
 class CNeighbour;
 
@@ -50,11 +50,11 @@ public:
 public:
 
 	// Packet data
-	BYTE* m_pBuffer;    // A pointer to memory we allocated to hold the bytes of the payload of the packet, this is not a CBuffer object
-	DWORD m_nBuffer;    // The size of the allocated block of memory that holds the payload
-	DWORD m_nLength;    // The number of bytes of data we've written into the allocated block of memory
-	DWORD m_nPosition;  // What byte we are on, this position index is remembered by the packet between calls to methods
-	BOOL  m_bBigEndian; // True if the bytes of the packet are in big endian format, which is the default
+	BYTE* m_pBuffer;	// A pointer to memory we allocated to hold the bytes of the payload of the packet, this is not a CBuffer object
+	DWORD m_nBuffer;	// The size of the allocated block of memory that holds the payload
+	DWORD m_nLength;	// The number of bytes of data we've written into the allocated block of memory
+	DWORD m_nPosition;	// What byte we are on, this position index is remembered by the packet between calls to methods
+	BOOL  m_bBigEndian;	// True if the bytes of the packet are in big endian format, which is the default
 
 	// Set the position a given distance forwards from the start, or backwards from the end
 	enum { seekStart, seekEnd };
@@ -64,7 +64,7 @@ public:
 	virtual void Reset();
 
 	// What is const = 0 (do)
-	virtual void ToBuffer(CBuffer* pBuffer) const = 0;
+	virtual void ToBuffer(CBuffer* pBuffer, bool bTCP = true) const = 0;
 
 public:
 	// Packet position and length
@@ -87,10 +87,6 @@ public:
 	// String utility, not at all related to the packet
 	virtual int GetStringLenUTF8(LPCTSTR pszString) const; // Takes a string, and determines how long it would be as ASCII text converted UTF8
 
-	// Data compression
-	auto_array< BYTE > ReadZLib(DWORD nLength, DWORD* pnOutput);	// Read compressed data from the packet, decompress it, and return it
-	void   WriteZLib(LPCVOID pData, DWORD nLength);			// Compress the given data and write it into the packet
-
 	// Insert data into the packet
 	BYTE* WriteGetPointer(DWORD nLength, DWORD nOffset = 0xFFFFFFFF); // Makes room at the given spot, and returns a pointer to it
 
@@ -100,16 +96,14 @@ public:
 	virtual CString GetType() const;
 
 	// Encode the bytes of the packet into text
-	CString ToHex()   const; // Express the bytes of the packet in base 16 with spaces, like "08 C0 12 AF"
-	CString ToASCII() const; // Express the bytes of the packet as ASCII characters, like "abc..fgh.i", spaces replace low characters
+	virtual CString ToHex() const;		// Express the bytes of the packet in base 16 with spaces, like "08 C0 12 AF"
+	virtual CString ToASCII() const;	// Express the bytes of the packet as ASCII characters, like "abc..fgh.i", spaces replace low characters
 
 	// Inheriting classes will override this to (do)
-	virtual void    Debug(LPCTSTR pszReason) const;
+	virtual void Debug(LPCTSTR pszReason) const;
 
 	// Gives this packet and related objects to each window in the tab bar for them to process it
-	void SmartDump(const SOCKADDR_IN* pAddress, BOOL bUDP, BOOL bOutgoing, DWORD_PTR nNeighbourUnique = 0) const;
-
-public:
+	virtual void SmartDump(const SOCKADDR_IN* pAddress, BOOL bUDP, BOOL bOutgoing, DWORD_PTR nNeighbourUnique = 0) const;
 
 	// Compute the SHA hash of the bytes of the packet
 	virtual BOOL	GetRazaHash(Hashes::Sha1Hash& oHash, DWORD nLength = 0xFFFFFFFF) const;
@@ -438,34 +432,37 @@ public:
 		{
 			// Decrement the reference count of this packet, and move to the next one
 			CPacket* pNext = pPacket->m_pNext;	// Save a pointer to the next packet
-			pPacket->Release();			// Record that one fewer object needs this one, which might delete it
-			pPacket = pNext;			// Move pPacket to the next one
+			pPacket->Release();					// Record that one fewer object needs this one, which might delete it
+			pPacket = pNext;					// Move pPacket to the next one
 		}
 	}
 
 	// (do)
 	virtual inline void Delete() = 0;
 
+	// Packet handler
+	virtual BOOL OnPacket(const SOCKADDR_IN* pHost) = 0;
+
 	// Let the CPacketPool class access the private members of this one
 	friend class CPacketPool;
+
+private:
+	CPacket(const CPacket&);
+	CPacket& operator=(const CPacket&);
 };
 
 // Allocates and holds array of 256 packets so we can grab a packet to use it quickly
 class CPacketPool
 {
 public:
-
 	// Make a new packet pool, and delete one
 	CPacketPool();
-	virtual ~CPacketPool(); // Virtual lets inheriting classes override this with their own custom destructor
+	virtual ~CPacketPool(); 	// Virtual lets inheriting classes override this with their own custom destructor
 
 protected:
-
 	// Free packets ready to be used
-	CPacket* m_pFree; // A linked list of packets that are free and ready to be removed from the linked list and used
-	DWORD    m_nFree; // The total number of free packets in the linked list
-
-protected:
+	CPacket* m_pFree;	// A linked list of packets that are free and ready to be removed from the linked list and used
+	DWORD    m_nFree;	// The total number of free packets in the linked list
 
 	// Used to make sure only one thread can access this object at a time
 	CCriticalSection m_pSection;
@@ -474,19 +471,15 @@ protected:
 	CArray< CPacket* > m_pPools;
 
 protected:
-
 	// Delete all the packet pools, and make a new one
-	void Clear();   // Delete all the packet pools in this CPacketPool object
-	void NewPool(); // Create a new packet pool, which is an array that can hold 256 packets, and add it to the list here
-
-protected:
+	void Clear();		// Delete all the packet pools in this CPacketPool object
+	void NewPool(); 	// Create a new packet pool, which is an array that can hold 256 packets, and add it to the list here
 
 	// Methods inheriting classes implement to allocate and free arrays of 256 packets
 	virtual void NewPoolImpl(int nSize, CPacket*& pPool, int& nPitch) = 0;	// Allocate a new array of 256 packets
 	virtual void FreePoolImpl(CPacket* pPool) = 0;				// Free an array of 256 packets
 
 public:
-
 	// Removes a packet from the linked list of free packets, resets it, and adds a reference count
 	// Returns a pointer to the new packet the caller can use
 	inline CPacket* New()
@@ -496,19 +489,19 @@ public:
 
 		// If there aren't any packet pools yet, make one
 		if ( m_nFree == 0 ) NewPool();	// Now, m_pFree will point to the last packet in that pool, and the first packet will point to null
-		ASSERT( m_nFree > 0 );		// Make sure this caused the count of packets to go up, it should go to 256
+		ASSERT( m_nFree > 0 );			// Make sure this caused the count of packets to go up, it should go to 256
 
 		// Remove the last linked packet in the most recently added packet pool from the linked list of free packets
-		CPacket* pPacket = m_pFree;	// Point pPacket at the last packet in the newest pool
-		m_pFree = m_pFree->m_pNext;	// Move m_pFree to the second to last packet in the newest pool
-		m_nFree--;			// Record that there is one fewer packet linked together in all the packet pools here
+		CPacket* pPacket = m_pFree; 	// Point pPacket at the last packet in the newest pool
+		m_pFree = m_pFree->m_pNext; 	// Move m_pFree to the second to last packet in the newest pool
+		m_nFree--;						// Record that there is one fewer packet linked together in all the packet pools here
 
 		// We're done, let other threads stuck on a Lock line like that one above inside
 		m_pSection.Unlock();
 
 		// Prepare the packet for use
-		pPacket->Reset();  // Clear the values of the packet we just unlinked from the list
-		pPacket->AddRef(); // Record that an external object is referencing this packet
+		pPacket->Reset();	// Clear the values of the packet we just unlinked from the list
+		pPacket->AddRef();	// Record that an external object is referencing this packet
 
 		// Return a pointer to the packet we just
 		return pPacket;

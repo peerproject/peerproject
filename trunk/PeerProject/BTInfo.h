@@ -37,10 +37,10 @@ public:
 	// Tracker status/types (SetTrackerMode)
 	enum
 	{
-		tNull,			// No tracker
-		tSingle,		// User locked tracker or single tracker
-		tMultiFinding,	// Multi-tracker searching
-		tMultiFound		// Multi-tracker that's found a tracker
+		tNull,				// No tracker
+		tSingle,			// User locked tracker or single tracker
+		tMultiFinding,		// Multi-tracker searching
+		tMultiFound			// Multi-tracker that's found a tracker
 	};
 
 	// When to initiate new torrent transfers
@@ -60,8 +60,8 @@ public:
 		CString	FindFile();	// Find file on disk
 
 	private:
-		const CBTInfo*	m_pInfo;			// Parent torrent handler
-		QWORD			m_nOffset;			// File offset inside torrent (cached)
+		const CBTInfo*	m_pInfo;		// Parent torrent handler
+		QWORD			m_nOffset;		// File offset inside torrent (cached)
 
 		CBTFile(const CBTInfo* pInfo, const CBTFile* pFile = NULL);
 		void Serialize(CArchive& ar, int nVersion);
@@ -131,10 +131,10 @@ public:
 	void		Serialize(CArchive& ar);
 	void		ConvertOldTorrents();
 
-	int			NextInfoPiece();
-	BOOL		LoadInfoPiece(DWORD nPieceSize, DWORD nInfoSize, DWORD nInfoPiece, BYTE *pPacketBuffer, DWORD nPacketLength);
-	DWORD		GetInfoPiece(DWORD nPiece, BYTE **pInfoPiece);
-	DWORD		GetInfoSize();
+	int			NextInfoPiece() const;
+	BOOL		LoadInfoPiece(BYTE *pPiece, DWORD nPieceSize, DWORD nInfoSize, DWORD nInfoPiece);
+	DWORD		GetInfoPiece(DWORD nPiece, BYTE **pInfoPiece) const;
+	DWORD		GetInfoSize() const;
 	BOOL		CheckInfoData();
 	BOOL		LoadTorrentFile(LPCTSTR pszFile);
 	BOOL		LoadTorrentBuffer(const CBuffer* pBuffer);
@@ -207,4 +207,7 @@ public:
 	{
 		return (int)m_oTrackers.GetCount();
 	}
+
+	// Returns hex-encoded SHA1 string of all tracker URLs for "lt_tex" extension
+	//CString GetTrackerHash() const;
 };

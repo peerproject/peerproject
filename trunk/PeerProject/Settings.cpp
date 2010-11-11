@@ -276,6 +276,7 @@ void CSettings::Load()
 	Add( _T("Connection"), _T("ForceConnectedState"), &Connection.ForceConnectedState, true );
 	Add( _T("Connection"), _T("IgnoreLocalIP"), &Connection.IgnoreLocalIP, true );
 	Add( _T("Connection"), _T("IgnoreOwnIP"), &Connection.IgnoreOwnIP, true );
+	Add( _T("Connection"), _T("IgnoreOwnUDP"), &Connection.IgnoreOwnUDP, true );
 	Add( _T("Connection"), _T("InBind"), &Connection.InBind, false );
 	Add( _T("Connection"), _T("InHost"), &Connection.InHost );
 	Add( _T("Connection"), _T("InPort"), &Connection.InPort, GNUTELLA_ALTERNATE_PORT, 1, 1, 65535 );	// 6480... or GNUTELLA_DEFAULT_PORT 6346?
@@ -327,7 +328,7 @@ void CSettings::Load()
 	Add( _T("Gnutella"), _T("ConnectThrottle"), &Gnutella.ConnectThrottle, 30, 1, 0, 3600, _T(" s") );
 	Add( _T("Gnutella"), _T("DeflateHub2Hub"), &Gnutella.DeflateHub2Hub, true );
 	Add( _T("Gnutella"), _T("DeflateHub2Leaf"), &Gnutella.DeflateHub2Leaf, true );
-	Add( _T("Gnutella"), _T("DeflateLeaf2Hub"), &Gnutella.DeflateLeaf2Hub, false );
+	Add( _T("Gnutella"), _T("DeflateLeaf2Hub"), &Gnutella.DeflateLeaf2Hub, true );
 	Add( _T("Gnutella"), _T("HitsPerPacket"), &Gnutella.HitsPerPacket, 64, 1, 0, 1024, _T(" files") );
 	Add( _T("Gnutella"), _T("HostCacheSize"), &Gnutella.HostCacheSize, 1024, 1, 32, 16384, _T(" hosts") );
 	Add( _T("Gnutella"), _T("HostCacheView"), &Gnutella.HostCacheView, PROTOCOL_ED2K );

@@ -72,7 +72,7 @@ private:
 
 // Attributes
 protected:
-	IMediaPlayer*	m_pPlayer;
+	IMediaPlayer*	m_pPlayer;		// CComQIPtr< IMediaPlayer > (Shareaza r8522 for .exe)
 	MediaState		m_nState;
 	LONGLONG		m_nLength;
 	LONGLONG		m_nPosition;

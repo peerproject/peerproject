@@ -20,6 +20,7 @@
 
 class CBuffer;
 
+typedef const BYTE *LPCBYTE;
 
 class CBENode
 {
@@ -43,18 +44,18 @@ public:
 // Operations
 public:
 	void		Clear();
-	CBENode*	Add(const LPBYTE pKey, size_t nKey);
+	CBENode*	Add(LPCBYTE pKey, size_t nKey);
 	CBENode*	GetNode(LPCSTR pszKey) const;
 	CBENode*	GetNode(const LPBYTE pKey, int nKey) const;
 	CString		GetStringFromSubNode(LPCSTR pszKey, UINT nEncoding, bool& pEncodingError) const;
 	CString		GetStringFromSubNode(int nItem, UINT nEncoding, bool& pEncodingError) const;
 	CSHA		GetSHA1() const;
 	void		Encode(CBuffer* pBuffer) const;
-
-	static CBENode*	Decode(const CBuffer* pBuffer, DWORD *pnReaden = NULL );
+	void		Decode(LPCBYTE& pInput, DWORD& nInput, DWORD nSize);
+	static CBENode*	Decode(const CBuffer* pBuffer, DWORD *pnReaden = NULL);
+	static CBENode* Decode(LPCBYTE pBuffer, DWORD nLength, DWORD *pnReaden = NULL);
 private:
-	void		Decode(LPBYTE& pInput, DWORD& nInput, DWORD nSize);
-	static int	DecodeLen(LPBYTE& pInput, DWORD& nInput);
+	static int	DecodeLen(LPCBYTE& pInput, DWORD& nInput);
 
 // Inline
 public:
@@ -76,8 +77,6 @@ public:
 		m_nType		= beInt;
 		m_nValue	= nValue;
 	}
-
-	CString GetString() const;
 
 	// If a torrent is badly encoded, you can try forcing a code page.
 	// Trying codepages: nCodePage, m_nDefaultCP, OEM, ANSI, as-is
@@ -112,6 +111,18 @@ public:
 		m_pValue	= new BYTE[ nLength + ( bNull ? 1 : 0 ) ];
 		CopyMemory( m_pValue, pString, nLength + ( bNull ? 1 : 0 ) );
 	}
+
+	CString GetString() const;
+
+//#ifdef HASHES_HPP_INCLUDED
+
+	bool GetString(Hashes::BtGuid& oGUID) const;
+
+	inline void SetString(const Hashes::BtGuid& oGUID)
+	{
+		SetString( &oGUID[0], oGUID.byteCount );
+	}
+//#endif // HASHES_HPP_INCLUDED
 
 	inline CBENode* Add(LPCSTR pszKey = NULL)
 	{

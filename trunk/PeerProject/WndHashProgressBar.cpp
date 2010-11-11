@@ -70,35 +70,36 @@ void CHashProgressBar::Create(CWnd* pParent)
 
 void CHashProgressBar::Run()
 {
-	if ( Settings.Library.HashWindow && LibraryBuilder.GetRemaining() )
+	if ( ! Settings.Library.HashWindow || ! LibraryBuilder.GetRemaining() || IsUserFullscreen() )
 	{
-		m_sCurrent = LibraryBuilder.GetCurrent();
-		int nPos = m_sCurrent.ReverseFind( '\\' );
-		if ( nPos > 0 ) m_sCurrent = m_sCurrent.Mid( nPos + 1 );
-
-		if ( m_hWnd == NULL )
-		{
-			try
-			{
-				CreateEx( WS_EX_TOPMOST | WS_EX_TOOLWINDOW,	AfxRegisterWndClass( CS_SAVEBITS |
-					( ! Settings.Interface.TipShadow || theApp.m_bIsWin2000 ? 0 : CS_DROPSHADOW ) ),
-					_T("PeerProject Hashing..."), WS_POPUP, 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT, NULL, 0 );
-			}
-			catch (CResourceException* pEx)
-			{
-				pEx->Delete();
-			}
-		}
-
+		// No display
 		if ( m_hWnd )
-			Update();
-	}
-	else if ( m_hWnd )
-	{
-		DestroyWindow();
+			DestroyWindow();
 		m_sCurrent.Empty();
 		m_sPrevious.Empty();
+		return;
 	}
+
+	m_sCurrent = LibraryBuilder.GetCurrent();
+	const int nPos = m_sCurrent.ReverseFind( '\\' );
+	if ( nPos > 0 ) m_sCurrent = m_sCurrent.Mid( nPos + 1 );
+
+	if ( m_hWnd == NULL )
+	{
+		try
+		{
+			CreateEx( WS_EX_TOPMOST | WS_EX_TOOLWINDOW,	AfxRegisterWndClass( CS_SAVEBITS |
+				( ! Settings.Interface.TipShadow || theApp.m_bIsWin2000 ? 0 : CS_DROPSHADOW ) ),
+				_T("PeerProject Hashing..."), WS_POPUP, 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT, NULL, 0 );
+		}
+		catch (CResourceException* pEx)
+		{
+			pEx->Delete();
+		}
+	}
+
+	if ( m_hWnd )
+		Update();
 }
 
 void CHashProgressBar::Update()
