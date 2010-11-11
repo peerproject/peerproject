@@ -1,7 +1,7 @@
 //
 // Builder.h : Declaration of the CBuilder
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions copyright (c) Nikolay Raspopov, 2005.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -42,10 +42,7 @@ END_COM_MAP()
 
 // ILibraryBuilderPlugin
 public:
-	STDMETHOD(Process)(
-		/* [in] */ HANDLE hFile,
-		/* [in] */ BSTR sFile,
-		/* [in] */ ISXMLElement* pXML);
+	STDMETHOD(Process)(/*[in]*/ BSTR sFile, /*[in]*/ ISXMLElement* pXML);
 private:
 	HRESULT SafeProcess(BSTR sFile, ISXMLElement* pXML);
 };

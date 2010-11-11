@@ -35,6 +35,12 @@ static char THIS_FILE[]=__FILE__;
 CTransfer::CTransfer(PROTOCOLID nProtocol)
 	: CConnection		( nProtocol )
 	, m_nRunCookie		( 0 )
+	, m_nState			( 0 )
+	, m_nLength			( SIZE_UNKNOWN )
+	, m_nOffset			( SIZE_UNKNOWN )
+	, m_nPosition		( 0 )
+	, m_nBandwidth		( 0ul )
+	, m_tRequest		( 0 )
 {
 }
 
@@ -49,6 +55,8 @@ CTransfer::~CTransfer()
 
 BOOL CTransfer::ConnectTo(const IN_ADDR* pAddress, WORD nPort)
 {
+	m_nState = 0;
+
 	if ( CConnection::ConnectTo( pAddress, nPort ) )
 	{
 		Transfers.Add( this );
@@ -64,10 +72,10 @@ void CTransfer::AttachTo(CConnection* pConnection)
 	Transfers.Add( this );
 }
 
-void CTransfer::Close()
+void CTransfer::Close(UINT nError)
 {
 	Transfers.Remove( this );
-	CConnection::Close();
+	CConnection::Close( nError );
 }
 
 //////////////////////////////////////////////////////////////////////

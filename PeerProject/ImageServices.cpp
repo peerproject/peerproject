@@ -37,78 +37,13 @@ BEGIN_INTERFACE_MAP(CImageServices, CComObject)
 END_INTERFACE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
-// CImageServices construction
-
-CImageServices::CImageServices()
-{
-}
-
-CImageServices::~CImageServices()
-{
-	ASSERT( m_services.size() == 0 ); // Must be already cleared
-
-	Clear();
-}
-
-void CImageServices::Clear()
-{
-	CloseThread();
-}
-
-void CImageServices::OnRun()
-{
-	while( IsThreadEnabled() )
-	{
-		Doze();
-
-		if ( ! IsThreadEnabled() ) break;
-
-		CQuickLock oLock( m_pSection );
-
-		// Revoke interface
-		services_map::iterator i = m_services.find( m_inCLSID );
-		if ( i != m_services.end() )
-		{
-			CComGITPtr< IImageServicePlugin > oGIT( (*i).second );
-			m_services.erase( i );
-		}
-
-		// Create plugin
-		CComPtr< IImageServicePlugin > pService;
-		HRESULT hr = pService.CoCreateInstance( m_inCLSID );
-
-		if ( SUCCEEDED( hr ) )
-		{
-			// Add to cache
-			CComGITPtr< IImageServicePlugin > oGIT;
-			hr = oGIT.Attach( pService );
-			ASSERT( SUCCEEDED( hr ) );
-			if ( SUCCEEDED( hr ) )
-				m_services.insert( services_map::value_type( m_inCLSID, oGIT.Detach() ) );
-		}
-
-		m_pReady.SetEvent();
-	}
-
-	CQuickLock oLock( m_pSection );
-
-	// Revoke all interfaces
-	for ( services_map::iterator i = m_services.begin(); i != m_services.end(); ++i )
-		CComGITPtr< IImageServicePlugin > oGIT( (*i).second );
-	m_services.clear();
-}
-
-/////////////////////////////////////////////////////////////////////////////
 // CImageServices load operations
 
 BOOL CImageServices::LoadFromMemory(CImageFile* pFile, LPCTSTR pszType, LPCVOID pData, DWORD nLength, BOOL bScanOnly, BOOL bPartialOk)
 {
-	CLSID oCLSID;
-	if ( ! Plugins.LookupCLSID( L"ImageService", pszType, oCLSID ) )
-		return FALSE;
-
-	CComPtr< IImageServicePlugin > pService;
-	if ( ! GetService( oCLSID, &pService ) )
+	CComQIPtr< IImageServicePlugin > pService(
+		Plugins.GetPlugin( _T("ImageService"), pszType ) );
+	if ( ! pService )
 		return FALSE;
 
 	HINSTANCE hRes = AfxGetResourceHandle();
@@ -138,8 +73,8 @@ BOOL CImageServices::LoadFromMemory(CImageFile* pFile, LPCTSTR pszType, LPCVOID 
 				HRESULT hr = pService->LoadFromMemory( bstrType, pInput, &pParams, &pArray );
 				if ( SUCCEEDED( hr ) )
 					bSuccess = PostLoad( pFile, &pParams, pArray );
-				else if ( hr == MAKE_HRESULT( SEVERITY_ERROR, FACILITY_WIN32, RPC_S_SERVER_UNAVAILABLE ) )
-					LoadService( oCLSID );		// Plugin died, Reload.
+				else if ( SERVERLOST( hr ) )
+					Plugins.ReloadPlugin( _T("ImageService"), pszType );	// Plugin died, reload.
 
 				if ( pArray )
 					VERIFY( SUCCEEDED( SafeArrayDestroy( pArray ) ) );
@@ -160,15 +95,12 @@ BOOL CImageServices::LoadFromFile(CImageFile* pFile, LPCTSTR szFilename, BOOL bS
 	CString strType( PathFindExtension( szFilename ) ); // ".ext"
 	strType.MakeLower();
 
-	CLSID oCLSID;
-	if ( Plugins.LookupCLSID( L"ImageService", strType, oCLSID ) )
+	CComQIPtr< IImageServicePlugin > pService(
+		Plugins.GetPlugin( _T("ImageService"), strType ) );
+	if ( pService )
 	{
-		CComPtr< IImageServicePlugin > pService;
-		if ( GetService( oCLSID, &pService ) )
-		{
-			if ( LoadFromFileHelper( oCLSID, pService, pFile, szFilename, bScanOnly, bPartialOk ) )
-				return TRUE;
-		}
+		if ( LoadFromFileHelper( pService, pFile, szFilename, bScanOnly, bPartialOk ) )
+			return TRUE;
 	}
 
 	service_list oList;
@@ -176,7 +108,7 @@ BOOL CImageServices::LoadFromFile(CImageFile* pFile, LPCTSTR szFilename, BOOL bS
 	{
 		for ( service_list::const_iterator i = oList.begin(); i != oList.end(); ++i )
 		{
-			if ( LoadFromFileHelper( (*i).first, (*i).second.m_T, pFile, szFilename, bScanOnly, bPartialOk ) )
+			if ( LoadFromFileHelper( (*i).second.m_T, pFile, szFilename, bScanOnly, bPartialOk ) )
 				return TRUE;
 		}
 	}
@@ -184,8 +116,12 @@ BOOL CImageServices::LoadFromFile(CImageFile* pFile, LPCTSTR szFilename, BOOL bS
 	return FALSE;
 }
 
-BOOL CImageServices::LoadFromFileHelper(const CLSID& oCLSID, IImageServicePlugin* pService, CImageFile* pFile, LPCTSTR szFilename, BOOL bScanOnly, BOOL bPartialOk)
+BOOL CImageServices::LoadFromFileHelper(IImageServicePlugin* pService, CImageFile* pFile, LPCTSTR szFilename, BOOL bScanOnly, BOOL bPartialOk)
 {
+	// Get file extension
+	CString strType( PathFindExtension( szFilename ) ); // ".ext"
+	strType.MakeLower();
+
 	HINSTANCE hRes = AfxGetResourceHandle();	// Save resource handle for old plugins
 	BOOL bSuccess = FALSE;
 
@@ -199,8 +135,8 @@ BOOL CImageServices::LoadFromFileHelper(const CLSID& oCLSID, IImageServicePlugin
 	HRESULT hr = pService->LoadFromFile( CComBSTR( szFilename ), &pParams, &pArray );
 	if ( SUCCEEDED( hr ) )
 		bSuccess = PostLoad( pFile, &pParams, pArray );
-	else if ( hr == MAKE_HRESULT( SEVERITY_ERROR, FACILITY_WIN32, RPC_S_SERVER_UNAVAILABLE ) )
-		LoadService( oCLSID );	// Plugin died
+	else if ( SERVERLOST( hr ) )
+		Plugins.ReloadPlugin( _T("ImageService"), strType );	// Plugin died
 	if ( pArray )
 		VERIFY( SUCCEEDED( SafeArrayDestroy( pArray ) ) );
 
@@ -291,12 +227,9 @@ BOOL CImageServices::SaveToMemory(CImageFile* pFile, LPCTSTR pszType, int nQuali
 	*ppBuffer = NULL;
 	*pnLength = 0;
 
-	CLSID oCLSID;
-	if ( ! Plugins.LookupCLSID( L"ImageService", pszType, oCLSID ) )
-		return FALSE;
-
-	CComPtr< IImageServicePlugin > pService;
-	if ( ! GetService( oCLSID, &pService ) )
+	CComQIPtr< IImageServicePlugin > pService(
+		Plugins.GetPlugin( _T("ImageService"), pszType ) );
+	if ( ! pService )
 		return FALSE;
 
 	SAFEARRAY* pSource = ImageToArray( pFile );
@@ -344,12 +277,9 @@ BOOL CImageServices::SaveToFile(CImageFile* pFile, LPCTSTR szFilename, int nQual
 	CString strType( PathFindExtension( szFilename ) ); // ".ext"
 	strType.MakeLower();
 
-	CLSID oCLSID;
-	if ( ! Plugins.LookupCLSID( L"ImageService", strType, oCLSID ) )
-		return FALSE;
-
-	CComPtr< IImageServicePlugin > pService;
-	if ( ! GetService( oCLSID, &pService ) )
+	CComQIPtr< IImageServicePlugin > pService(
+		Plugins.GetPlugin( _T("ImageService"), strType ) );
+	if ( ! pService )
 		return FALSE;
 
 	SAFEARRAY* pSource = ImageToArray( pFile );
@@ -417,7 +347,7 @@ BOOL CImageServices::IsFileViewable(LPCTSTR pszPath)
 /////////////////////////////////////////////////////////////////////////////
 // CImageServices service discovery and control
 
-bool CImageServices::LookupUniversalPlugins(service_list& oList)
+BOOL CImageServices::LookupUniversalPlugins(service_list& oList)
 {
 	HUSKEY hKey;
 	if ( SHRegOpenUSKey( REGISTRY_KEY _T("\\Plugins\\ImageService"),
@@ -425,26 +355,23 @@ bool CImageServices::LookupUniversalPlugins(service_list& oList)
 	{
 		for ( DWORD nKey = 0 ; ; nKey++ )
 		{
-			TCHAR szName[ 128 ], szCLSID[ 64 ];
-			DWORD dwType, dwName = 128, dwCLSID = 64 * sizeof( TCHAR );
+			TCHAR szType[ 128 ] = {}, szCLSID[ 64 ] = {};
+			DWORD dwType, dwTypeLen = 128, dwCLSIDLen = 64 * sizeof( TCHAR ) - 1;
 
-			if ( SHRegEnumUSValue( hKey, nKey, szName, &dwName, &dwType,
-				(LPBYTE)szCLSID, &dwCLSID, SHREGENUM_DEFAULT ) != ERROR_SUCCESS )
+			if ( SHRegEnumUSValue( hKey, nKey, szType, &dwTypeLen, &dwType,
+				(LPBYTE)szCLSID, &dwCLSIDLen, SHREGENUM_DEFAULT ) != ERROR_SUCCESS )
 				break;
 
-			if ( dwType != REG_SZ || *szName == _T('.') )
+			if ( dwType != REG_SZ || *szType == _T('.') )
 				continue;
-			szCLSID[ 38 ] = 0;
 
 			CLSID pCLSID;
 			if ( ! Hashes::fromGuid( szCLSID, &pCLSID ) )
 				continue;
 
-			if ( ! Plugins.LookupEnable( pCLSID, szName ) )
-				continue;
-
-			CComPtr< IImageServicePlugin > pService;
-			if ( GetService( pCLSID, &pService ) )
+			CComQIPtr< IImageServicePlugin > pService(
+				Plugins.GetPlugin( _T("ImageService"), szType ) );
+			if ( pService )
 				oList.push_back( service_list::value_type( pCLSID, pService ) );
 		}
 
@@ -452,75 +379,6 @@ bool CImageServices::LookupUniversalPlugins(service_list& oList)
 	}
 
 	return ! oList.empty();
-}
-
-bool CImageServices::GetService(const CLSID& oCLSID, IImageServicePlugin** ppIImageServicePlugin)
-{
-	// Check cached one
-	DWORD dwCachedIndex = 0;
-	bool bNeeded = false;
-
-	{
-		CQuickLock oLock( ImageServices.m_pSection );
-
-		services_map::iterator i = ImageServices.m_services.find( oCLSID );
-		if ( i == ImageServices.m_services.end() )
-			bNeeded = true;
-		else
-			dwCachedIndex = (*i).second;
-	}
-
-	if ( bNeeded )
-	{
-		ImageServices.LoadService( oCLSID );
-
-		CQuickLock oLock( ImageServices.m_pSection );
-
-		services_map::iterator i = ImageServices.m_services.find( oCLSID ); // Get result
-		if ( i == ImageServices.m_services.end() )
-			return false;	// No plugin
-
-		dwCachedIndex = (*i).second;
-	}
-
-	// Just add to the plugin collection for the reference of CLSID.
-	// Not a very nice solution but without checking all plugins
-	// PeerProject holds only 1 plugin in the Plugins collection...
-
-	//CPlugin* pPlugin = Plugins.Find( oCLSID );
-	//if ( ! pPlugin )
-	//{
-	//	// Put an empty name, so it won't be displayed in the Settings
-	//	pPlugin = new CPlugin( oCLSID, L"" );
-	//	Plugins.m_pList.AddTail( pPlugin );
-	//}
-
-	// Get interface from cache
-	CComGITPtr< IImageServicePlugin > oGIT( dwCachedIndex );
-	HRESULT hr = oGIT.CopyTo( ppIImageServicePlugin );
-	ASSERT( SUCCEEDED( hr ) );
-
-	oGIT.Detach();
-
-	return SUCCEEDED( hr );
-}
-
-bool CImageServices::LoadService(const CLSID& oCLSID)
-{
-	{
-		CQuickLock oLock( ImageServices.m_pSection );
-
-		ImageServices.m_inCLSID = oCLSID;
-
-		// Create new one
-		if ( ! ImageServices.BeginThread( "ImageServices" ) )
-			return false;		// Something really bad
-	}
-
-	ImageServices.Wakeup();										// Start process
-	WaitForSingleObject( ImageServices.m_pReady, INFINITE );	// Wait for result
-
-	return true;	// Ok
 }
 
 
@@ -538,15 +396,12 @@ STDMETHODIMP CImageServices::XImageService::LoadFromFile( __in BSTR sFile, __ino
 	CString strType( PathFindExtension( sFile ) ); // ".ext"
 	strType.MakeLower();
 
-	CLSID oCLSID;
-	if ( Plugins.LookupCLSID( L"ImageService", strType, oCLSID ) )
+	CComQIPtr< IImageServicePlugin > pService(
+		Plugins.GetPlugin( _T("ImageService"), strType ) );
+	if ( pService )
 	{
-		CComPtr< IImageServicePlugin > pService;
-		if ( ImageServices.GetService( oCLSID, &pService ) )
-		{
-			if ( SUCCEEDED( pService->LoadFromFile( sFile, pParams, ppImage ) ) )
-				return S_OK;
-		}
+		if ( SUCCEEDED( pService->LoadFromFile( sFile, pParams, ppImage ) ) )
+			return S_OK;
 	}
 
 	service_list oList;
@@ -566,13 +421,10 @@ STDMETHODIMP CImageServices::XImageService::LoadFromMemory( __in BSTR sType, __i
 {
 	METHOD_PROLOGUE(CImageServices, ImageService)
 
-	CLSID oCLSID;
-	if ( Plugins.LookupCLSID( L"ImageService", sType, oCLSID ) )
-	{
-		CComPtr< IImageServicePlugin > pService;
-		if ( ImageServices.GetService( oCLSID, &pService ) )
-			return pService->LoadFromMemory( sType, pMemory, pParams, ppImage );
-	}
+	CComQIPtr< IImageServicePlugin > pService(
+		Plugins.GetPlugin( _T("ImageService"), sType ) );
+	if ( pService )
+		return pService->LoadFromMemory( sType, pMemory, pParams, ppImage );
 
 	return E_FAIL;
 }
@@ -585,13 +437,10 @@ STDMETHODIMP CImageServices::XImageService::SaveToFile( __in BSTR sFile, __inout
 	CString strType( PathFindExtension( sFile ) ); // ".ext"
 	strType.MakeLower();
 
-	CLSID oCLSID;
-	if ( Plugins.LookupCLSID( L"ImageService", strType, oCLSID ) )
-	{
-		CComPtr< IImageServicePlugin > pService;
-		if ( ImageServices.GetService( oCLSID, &pService ) )
-			return pService->SaveToFile( sFile, pParams, pImage );
-	}
+	CComQIPtr< IImageServicePlugin > pService(
+		Plugins.GetPlugin( _T("ImageService"), strType ) );
+	if ( pService )
+		return pService->SaveToFile( sFile, pParams, pImage );
 
 	return E_FAIL;
 }
@@ -600,13 +449,10 @@ STDMETHODIMP CImageServices::XImageService::SaveToMemory( __in BSTR sType, __out
 {
 	METHOD_PROLOGUE(CImageServices, ImageService)
 
-	CLSID oCLSID;
-	if ( Plugins.LookupCLSID( L"ImageService", sType, oCLSID ) )
-	{
-		CComPtr< IImageServicePlugin > pService;
-		if ( ImageServices.GetService( oCLSID, &pService ) )
-			return pService->SaveToMemory( sType, ppMemory, pParams, pImage );
-	}
+	CComQIPtr< IImageServicePlugin > pService(
+		Plugins.GetPlugin( _T("ImageService"), sType ) );
+	if ( pService )
+		return pService->SaveToMemory( sType, ppMemory, pParams, pImage );
 
 	return E_FAIL;
 }

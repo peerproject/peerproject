@@ -30,6 +30,8 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				Description="Pre-Build Dependencies"
+				CommandLine="xcopy &quot;..\..\Services\LibGFL\$(PlatformName)\*.dll&quot; &quot;$(TargetDir)&quot; /y"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -84,6 +86,8 @@
 				AdditionalDependencies="LibGFL.lib"
 				AdditionalLibraryDirectories="..\..\Services\LibGFL\$(PlatformName)"
 				ModuleDefinitionFile="GFLLibraryBuilder.def"
+				RegisterOutput="true"
+				PerUserRedirection="true"
 				GenerateDebugInformation="true"
 				LinkIncremental="2"
 				SubSystem="2"
@@ -112,8 +116,6 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description="Performing registration (for debug)"
-				CommandLine="xcopy &quot;..\..\Services\LibGFL\$(PlatformName)\*.dll&quot; &quot;$(TargetDir)&quot; /y&#x0D;&#x0A;regsvr32 /s /c &quot;$(TargetPath)&quot;&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
@@ -127,6 +129,8 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				Description="Pre-Build Dependencies"
+				CommandLine="xcopy &quot;..\..\Services\LibGFL\$(PlatformName)\*.dll&quot; &quot;$(TargetDir)&quot; /y"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -180,6 +184,8 @@
 				AdditionalDependencies="LibGFL.lib"
 				AdditionalLibraryDirectories="..\..\Services\LibGFL\$(PlatformName)"
 				ModuleDefinitionFile="GFLLibraryBuilder.def"
+				RegisterOutput="true"
+				PerUserRedirection="true"
 				GenerateDebugInformation="true"
 				LinkIncremental="2"
 				SubSystem="2"
@@ -207,8 +213,6 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description="Performing registration (for debug)"
-				CommandLine="xcopy &quot;..\..\Services\LibGFL\$(PlatformName)\*.dll&quot; &quot;$(TargetDir)&quot; /y&#x0D;&#x0A;regsvr32 /s /c &quot;$(TargetPath)&quot;&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration

@@ -61,55 +61,58 @@ bool CLibraryBuilderInternals::ExtractMetadata(DWORD nIndex, const CString& strP
 {
 	CString strType = PathFindExtension( strPath );
 	strType.MakeLower();
+	if ( strType.GetLength() < 3 )
+		return false;	// Skip missing/1-letter extension
 
-	// ToDo: Verify, is this Switch any better than typical ElseIf chain ?
-	static std::map< const CString, char > FileType;
-
-	FileType[ _T(".mp3") ]	= '3';
-	FileType[ _T(".aac") ]	= '3';
-	FileType[ _T(".flac") ]	= '3';
-	FileType[ _T(".wma") ]	= 'w';
-	FileType[ _T(".wmv") ]	= 'w';
-	FileType[ _T(".asf") ]	= 'w';
-	FileType[ _T(".avi") ]	= 'v';
-	FileType[ _T(".mpg") ]	= 'm';
-	FileType[ _T(".mpeg") ]	= 'm';
-	FileType[ _T(".jpg") ]	= 'j';
-	FileType[ _T(".jpeg") ]	= 'j';
-	FileType[ _T(".png") ]	= 'p';
-	FileType[ _T(".gif") ]	= 'g';
-	FileType[ _T(".bmp") ]	= 'b';
-	FileType[ _T(".pdf") ]	= 'f';
-	FileType[ _T(".cbr") ]	= 'r';	// RARBuilder
-	FileType[ _T(".cbz") ]	= 'r';	// ZipBuilder
-	FileType[ _T(".chm") ]	= 'h';
-	FileType[ _T(".exe") ]	= 'e';
-	FileType[ _T(".dll") ]	= 'e';
-	FileType[ _T(".msi") ]	= 's';
-	FileType[ _T(".ogg") ]	= 'o';
-	FileType[ _T(".ape") ]	= 'a';
-	FileType[ _T(".apl") ]	= 'a';
-	FileType[ _T(".mac") ]	= 'a';
-	FileType[ _T(".mpc") ]	= 'u';
-	FileType[ _T(".mpp") ]	= 'u';
-	FileType[ _T(".mp+") ]	= 'u';
-//	FileType[ _T(".wav") ]	= 'i';
-//	FileType[ _T(".webp") ]	= 'i';	// ToDo: RIFF-type Files?
-	FileType[ _T(".psk") ]	= 'k';
-	FileType[ _T(".sks") ]	= 'k';
-	FileType[ _T(".bz2") ]	= 'c';	// .xml.bz2
-	FileType[ _T(".co") ]	= 'c';
-	FileType[ _T(".collection") ] = 'c';
-	FileType[ _T(".emulecollection") ] = 'c';
-	FileType[ _T(".torrent") ] = 't';
-	FileType[ _T(".txt") ]	= 'x';
-	FileType[ _T(".xml") ]	= 'x';
-	FileType[ _T(".xps") ]	= 'x';
-	FileType[ _T(".rtf") ]	= 'x';
-	FileType[ _T(".nfo") ]	= 'x';
-	FileType[ _T(".html") ]	= 'x';
-	// Others by plugins: zip/rar/mkv/etc.
-	// ToDo: Generic Fallback "Uknown Type"
+	// Native file extensions:
+	SwitchMap( FileType )
+	{
+		FileType[ _T(".mp3") ]	= '3';
+		FileType[ _T(".aac") ]	= '3';
+		FileType[ _T(".flac") ]	= '3';
+		FileType[ _T(".wma") ]	= 'w';
+		FileType[ _T(".wmv") ]	= 'w';
+		FileType[ _T(".asf") ]	= 'w';
+		FileType[ _T(".avi") ]	= 'v';
+		FileType[ _T(".mpg") ]	= 'm';
+		FileType[ _T(".mpeg") ]	= 'm';
+		FileType[ _T(".jpg") ]	= 'j';
+		FileType[ _T(".jpeg") ]	= 'j';
+		FileType[ _T(".png") ]	= 'p';
+		FileType[ _T(".gif") ]	= 'g';
+		FileType[ _T(".bmp") ]	= 'b';
+		FileType[ _T(".pdf") ]	= 'f';
+		FileType[ _T(".cbr") ]	= 'r';	// RARBuilder
+		FileType[ _T(".cbz") ]	= 'r';	// ZipBuilder
+		FileType[ _T(".chm") ]	= 'h';
+		FileType[ _T(".exe") ]	= 'e';
+		FileType[ _T(".dll") ]	= 'e';
+		FileType[ _T(".msi") ]	= 's';
+		FileType[ _T(".ogg") ]	= 'o';
+		FileType[ _T(".ape") ]	= 'a';
+		FileType[ _T(".apl") ]	= 'a';
+		FileType[ _T(".mac") ]	= 'a';
+		FileType[ _T(".mpc") ]	= 'u';
+		FileType[ _T(".mpp") ]	= 'u';
+		FileType[ _T(".mp+") ]	= 'u';
+	//	FileType[ _T(".wav") ]	= 'i';
+	//	FileType[ _T(".webp") ]	= 'i';	// ToDo: RIFF-type Files?
+		FileType[ _T(".psk") ]	= 'k';
+		FileType[ _T(".sks") ]	= 'k';
+		FileType[ _T(".bz2") ]	= 'c';	// .xml.bz2
+		FileType[ _T(".co") ]	= 'c';
+		FileType[ _T(".collection") ] = 'c';
+		FileType[ _T(".emulecollection") ] = 'c';
+		FileType[ _T(".torrent") ] = 't';
+		FileType[ _T(".txt") ]	= 'x';
+		FileType[ _T(".xml") ]	= 'x';
+		FileType[ _T(".xps") ]	= 'x';
+		FileType[ _T(".rtf") ]	= 'x';
+		FileType[ _T(".nfo") ]	= 'x';
+		FileType[ _T(".html") ]	= 'x';
+		// Others by plugins: zip/rar/mkv/etc.
+		// ToDo: Generic Fallback "Uknown Type"
+	}
 
 	switch( FileType[ strType ] )
 	{
@@ -376,6 +379,62 @@ bool CLibraryBuilderInternals::ReadID3v2(DWORD nIndex, HANDLE hFile)
 	auto_ptr< CXMLElement > pXML( new CXMLElement( NULL, _T("audio") ) );
 	bool bBugInFrameSize = false;
 
+	// 4-Char ID3 FrameTag: 	(http://en.wikipedia.org/wiki/ID3)
+	SwitchMap( Tag )
+	{
+		Tag[ _T("TIT2") ]	= 'i';
+		Tag[ _T("TT2") ]	= 'i';
+		Tag[ _T("TPE1") ]	= 'p';
+		Tag[ _T("TPE2") ]	= 'p';
+		Tag[ _T("TP1") ]	= 'p';
+		Tag[ _T("TP2") ]	= 'p';
+		Tag[ _T("TOPE") ]	= 'o';
+		Tag[ _T("TOA") ]	= 'o';
+		Tag[ _T("TALB") ]	= 'a';
+		Tag[ _T("TAL") ]	= 'a';
+		Tag[ _T("TOAL") ]	= 't';
+		Tag[ _T("TOT") ]	= 't';
+		Tag[ _T("TRCK") ]	= 'k';
+		Tag[ _T("TRK") ]	= 'k';
+		Tag[ _T("TYER") ]	= 'y';
+		Tag[ _T("TYE") ]	= 'y';
+		Tag[ _T("TLEN") ]	= 'l';
+		Tag[ _T("TLE") ]	= 'l';
+		Tag[ _T("TCOP") ]	= 'r';
+		Tag[ _T("TCR") ]	= 'r';
+		Tag[ _T("TCON") ]	= 'g';
+		Tag[ _T("TCO") ]	= 'g';
+		Tag[ _T("TENC") ]	= 'e';
+		Tag[ _T("TEN") ]	= 'e';
+		Tag[ _T("TSSE") ]	= 's';
+		Tag[ _T("TSS") ]	= 's';
+		Tag[ _T("TCOM") ]	= 'm';
+		Tag[ _T("TCM") ]	= 'm';
+		Tag[ _T("COMM") ]	= 'c';
+		Tag[ _T("COM") ]	= 'c';
+		Tag[ _T("WXXX") ]	= 'w';
+		Tag[ _T("WXX") ]	= 'w';
+		Tag[ _T("TIME") ]	= 'd';
+		Tag[ _T("TDAT") ]	= 'd';
+		Tag[ _T("TDRC") ]	= 'd';
+		Tag[ _T("TDOR") ]	= 'Y';
+		Tag[ _T("TORY") ]	= 'Y';
+		Tag[ _T("TPUB") ]	= 'b';
+		Tag[ _T("TLAN") ]	= 'n';
+		Tag[ _T("TXXX") ]	= 'x';
+
+		Tag[ _T("ASPI") ]	= 'z';
+		Tag[ _T("EQUA") ]	= 'z';
+		Tag[ _T("EQU2") ]	= 'z';
+		Tag[ _T("TDEN") ]	= 'z';
+		Tag[ _T("MLLT") ]	= 'z';
+		Tag[ _T("POSS") ]	= 'z';
+		Tag[ _T("RBUF") ]	= 'z';
+		Tag[ _T("RVRB") ]	= 'z';
+		Tag[ _T("SIGN") ]	= 'z';
+		Tag[ _T("SEEK") ]	= 'z';
+	}
+
 	while ( nBuffer )
 	{
 		DWORD nFrameSize = 0;
@@ -428,51 +487,27 @@ bool CLibraryBuilderInternals::ReadID3v2(DWORD nIndex, HANDLE hFile)
 		if ( nBuffer < nFrameSize || ! szFrameTag[0] )
 			break;
 
-		if ( strcmp( szFrameTag, "TIT2" ) == 0 || strcmp( szFrameTag, "TT2" ) == 0)
+		switch( Tag[ CString(szFrameTag) ] )
 		{
+		case 'i':		// "TIT2" "TT2"
 			CopyID3v2Field( pXML.get(), _T("title"), pBuffer, nFrameSize );
-		}
-		else if ( strcmp( szFrameTag, "TPE1" ) == 0 || strcmp( szFrameTag, "TP1" ) == 0 || strcmp( szFrameTag, "TPE2" ) == 0 || strcmp( szFrameTag, "TP2" ) == 0 )
-		{
+			break;
+		case 'p':		// "TPE1" "TPE2" "TP1" "TP2"
 			CopyID3v2Field( pXML.get(), _T("artist"), pBuffer, nFrameSize );
-		}
-		else if ( strcmp( szFrameTag, "TOPE" ) == 0 || strcmp( szFrameTag, "TOA" ) == 0 )
-		{
+			break;
+		case 'o':		// "TOPE" "TOA"
 			CopyID3v2Field( pXML.get(), _T("origArtist"), pBuffer, nFrameSize );
-		}
-		else if ( strcmp( szFrameTag, "TALB" ) == 0 || strcmp( szFrameTag, "TAL" ) == 0 )
-		{
+			break;
+		case 'a':		// "TALB" "TAL"
 			CopyID3v2Field( pXML.get(), _T("album"), pBuffer, nFrameSize );
-		}
-		else if ( strcmp( szFrameTag, "TOAL" ) == 0 || strcmp( szFrameTag, "TOT" ) == 0 )
-		{
+			break;
+		case 't':		// "TOAL" "TOT"
 			CopyID3v2Field( pXML.get(), _T("origAlbum"), pBuffer, nFrameSize );
-		}
-		else if ( strcmp( szFrameTag, "TRCK" ) == 0 || strcmp( szFrameTag, "TRK" ) == 0 )
-		{
+			break;
+		case 'k':		// "TRCK" "TRK"
 			CopyID3v2Field( pXML.get(), _T("track"), pBuffer, nFrameSize );
-		}
-		else if ( pHeader.nMajorVersion < 4 &&
-			( strcmp( szFrameTag, "TYER" ) == 0 || strcmp( szFrameTag, "TYE" ) == 0 ) )
-		{
-			CopyID3v2Field( pXML.get(), _T("year"), pBuffer, nFrameSize );
-		}
-		else if ( strcmp( szFrameTag, "COMM" ) == 0 || strcmp( szFrameTag, "COM" ) == 0 )
-		{
-			if ( CopyID3v2Field( pXML.get(), _T("description"), pBuffer, nFrameSize, true ) )
-			{
-				if ( CXMLAttribute* pDescr = pXML->GetAttribute( _T("description") ) )
-				{
-					CString strDescr = pDescr->GetValue();
-
-					// Remove iTune crap
-					if ( strDescr.GetLength() && _tcsncmp( strDescr, L"iTunNORM", 8 ) == 0 )
-						pXML->RemoveAttribute( pDescr );
-				}
-			}
-		}
-		else if ( strcmp( szFrameTag, "TLEN" ) == 0 || strcmp( szFrameTag, "TLE" ) == 0 )
-		{
+			break;
+		case 'l':		// "TLEN" "TLE"
 			if ( CopyID3v2Field( pXML.get(), _T("seconds"), pBuffer, nFrameSize ) )
 			{
 				CString strMS = pXML->GetAttributeValue( _T("seconds"), _T("0") );
@@ -481,13 +516,23 @@ bool CLibraryBuilderInternals::ReadID3v2(DWORD nIndex, HANDLE hFile)
 				strMS.Format( _T("%lu"), nMS / 1000 );
 				pXML->AddAttribute( _T("seconds"), strMS );
 			}
-		}
-		else if ( strcmp( szFrameTag, "TCOP" ) == 0 || strcmp( szFrameTag, "TCR" ) == 0 )
-		{
+			break;
+		case 'c':		// "COMM" "COM"
+			if ( CopyID3v2Field( pXML.get(), _T("description"), pBuffer, nFrameSize, true ) )
+			{
+				if ( CXMLAttribute* pDescr = pXML->GetAttribute( _T("description") ) )
+				{
+					// Remove iTunes cruft
+					CString strDescr = pDescr->GetValue();
+					if ( ! strDescr.IsEmpty() && _tcsncmp( strDescr, L"iTunNORM", 8 ) == 0 )
+						pXML->RemoveAttribute( pDescr );
+				}
+			}
+			break;
+		case 'r':		// "TCOP" "TCR"
 			CopyID3v2Field( pXML.get(), _T("copyright"), pBuffer, nFrameSize );
-		}
-		else if ( strcmp( szFrameTag, "TCON" ) == 0 || strcmp( szFrameTag, "TCO" ) == 0 )
-		{
+			break;
+		case 'g':		// "TCON" "TCO"
 			if ( CopyID3v2Field( pXML.get(), _T("genre"), pBuffer, nFrameSize ) )
 			{
 				CString strGenre = pXML->GetAttributeValue( _T("genre"), _T("") );
@@ -532,46 +577,53 @@ bool CLibraryBuilderInternals::ReadID3v2(DWORD nIndex, HANDLE hFile)
 
 				pXML->AddAttribute( _T("genre"), strGenre );
 			}
-		}
-		else if ( strcmp( szFrameTag, "TENC" ) == 0 || strcmp( szFrameTag, "TEN" ) == 0 )
-		{
+			break;
+		case 'e':		// "TENC" "TEN"
 			CopyID3v2Field( pXML.get(), _T("encodedby"), pBuffer, nFrameSize );
-		}
-		else if ( strcmp( szFrameTag, "TSSE" ) == 0 || strcmp( szFrameTag, "TSS" ) == 0 )
-		{
+			break;
+		case 's':		// "TSSE" "TSS"
 			CopyID3v2Field( pXML.get(), _T("encodedby"), pBuffer, nFrameSize );
-		}
-		else if ( strcmp( szFrameTag, "TCOM" ) == 0 || strcmp( szFrameTag, "TCM" ) == 0 )
-		{
+			break;
+		case 'm':		// "TCOM" "TCM"
 			CopyID3v2Field( pXML.get(), _T("composer"), pBuffer, nFrameSize );
-		}
-		else if ( strcmp( szFrameTag, "WXXX" ) == 0 || strcmp( szFrameTag, "WXX" ) == 0 )
-		{
+			break;
+		case 'w':		// "WXXX" "WXX"
 			CopyID3v2Field( pXML.get(), _T("link"), pBuffer, nFrameSize );
-		}
-		else if ( pHeader.nMajorVersion == 4 && strcmp( szFrameTag, "TDRC" ) == 0 )
-		{
-			BYTE* pScan = pBuffer;
-			DWORD nLength = nFrameSize;
-			for ( ; *pScan != '-' && nLength > 0 ; nLength-- )
-				pScan++;
-			nLength = nFrameSize - nLength;
-			auto_array< BYTE > pszYear( new BYTE[ nLength + 1 ] );
-			memcpy( pszYear.get(), pBuffer, nLength );
-			CopyID3v2Field( pXML.get(), _T("year"), pszYear.get(), nLength );
-		}
-		else if ( strcmp( szFrameTag, "TPUB" ) == 0 )
-		{
-			CopyID3v2Field( pXML.get(), _T("publisher"), pBuffer, nFrameSize );
-		}
-		else if ( strcmp( szFrameTag, "TORY" ) == 0 )
-		{
+			break;
+		case 'y':		// "TYER" "TYE"
+			//if ( pHeader.nMajorVersion < 4 )
+				CopyID3v2Field( pXML.get(), _T("year"), pBuffer, nFrameSize );
+			break;
+		case 'd':		// "TDRC"
+			//if ( pHeader.nMajorVersion >= 4 )
+			{
+				BYTE* pScan = pBuffer;
+				DWORD nLength = nFrameSize;
+				for ( ; *pScan != '-' && nLength > 0 ; nLength-- )
+					pScan++;
+				nLength = nFrameSize - nLength;
+				auto_array< BYTE > pszYear( new BYTE[ nLength + 1 ] );
+				memcpy( pszYear.get(), pBuffer, nLength );
+				CopyID3v2Field( pXML.get(), _T("year"), pszYear.get(), nLength );
+			}
+			break;
+		case 'Y':		// "TDOR" "TORY"
 			CopyID3v2Field( pXML.get(), _T("origYear"), pBuffer, nFrameSize );
-		}
-		else if ( strcmp( szFrameTag, "TXXX" ) == 0 )
-		{
-			// User defined text information frame
+			break;
+		case 'b':		// "TPUB"
+			CopyID3v2Field( pXML.get(), _T("publisher"), pBuffer, nFrameSize );
+			break;
+		case 'n':		// "TLAN"
+			CopyID3v2Field( pXML.get(), _T("language"), pBuffer, nFrameSize );
+			break;
+		case 'x':		// "TXXX"	User defined text information frame
 			CopyID3v2Field( pXML.get(), NULL, pBuffer, nFrameSize );
+			break;
+		case 'z':		// Unwanted technical data
+			break;
+		default:		// Unknown Tag
+			CopyID3v2Field( pXML.get(), CString(szFrameTag), pBuffer, nFrameSize );
+			break;
 		}
 
 		pBuffer += nFrameSize;
@@ -699,9 +751,9 @@ bool CLibraryBuilderInternals::CopyID3v2Field(CXMLElement* pXML, LPCTSTR pszAttr
 		}
 
 		strValue.Trim();
-		strValue.Replace( L"\r\n", L"; " ); // Windows style replacement
-		strValue.Replace( L"\n", L"; " ); // Unix style replacement
-		strValue.Replace( L"\r", L"; " ); // Mac style replacement
+		strValue.Replace( L"\r\n", L"; " );	// Windows style replacement
+		strValue.Replace( L"\n", L"; " );	// Unix style replacement
+		strValue.Replace( L"\r", L"; " );	// Mac style replacement
 
 		if ( strResult.IsEmpty() && ( strValue.IsEmpty() || _tcslen( strValue ) == 0 ) )
 			return false;
@@ -915,14 +967,15 @@ bool CLibraryBuilderInternals::ScanMP3Frame(CXMLElement* pXML, HANDLE hFile, DWO
 			if ( ! nFrameSize )
 				return false;
 
-			// Skip frame when it has reserved layer
 			if ( nLayer )
 			{
+				// Skip frame when it has reserved layer
 				nTotalBitrate += nBitrate / 1000;
 				nFrameCount++;
 			}
-			else if ( nFrameCount == 0 ) // Reset base values if it was the first frame
+			else if ( nFrameCount == 0 )
 			{
+				// Reset base values if it was the first frame
 				nBaseBitrate = nBaseFrequency = 0;
 			}
 
@@ -950,14 +1003,14 @@ bool CLibraryBuilderInternals::ScanMP3Frame(CXMLElement* pXML, HANDLE hFile, DWO
 	}
 	else
 	{
-		DWORD dwFilePosition	= SetFilePointer( hFile, 0, NULL, FILE_CURRENT );
-		DWORD dwFileSize		= GetFileSize( hFile, NULL );
-		DWORD dwMusicSize		= dwFileSize - dwFilePosition - nIgnore + 4;
+		const DWORD dwFilePosition	= SetFilePointer( hFile, 0, NULL, FILE_CURRENT );
+		const DWORD dwFileSize		= GetFileSize( hFile, NULL );
+		const DWORD dwMusicSize		= dwFileSize - dwFilePosition - nIgnore + 4;
 		nFrameCount += ( dwMusicSize / nFrameSize ) - 1;
 	}
 
-	DWORD nFrameTime	= ( nLayer == 3 ? 384 : 1152 ) * 100000 / nBaseFrequency;
-	DWORD nTotalTime	= (DWORD)( (__int64)nFrameCount * (__int64)nFrameTime / 100000 );
+	DWORD nFrameTime = ( nLayer == 3 ? 384 : 1152 ) * 100000 / nBaseFrequency;
+	DWORD nTotalTime = (DWORD)( (__int64)nFrameCount * (__int64)nFrameTime / 100000 );
 
 	CString strValue;
 
@@ -1100,7 +1153,7 @@ DWORD CLibraryBuilderInternals::GetBestLanguageId(LPVOID pBuffer)
 			if ( ! GetLanguageId( pTranslation, nLength, MAKELANGID(LANG_NEUTRAL, SUBLANG_NEUTRAL), nLangCode, true ) )
 			{
 				if ( ! GetLanguageId( pTranslation, nLength, MAKELANGID(LANG_ENGLISH, SUBLANG_NEUTRAL), nLangCode, true ) )
-					nLangCode = *(DWORD*)pTranslation; // Use the first one
+					nLangCode = *(DWORD*)pTranslation;	// Use the first one
 			}
 		}
 	}
@@ -2150,8 +2203,71 @@ bool CLibraryBuilderInternals::ReadAPE(DWORD nIndex, HANDLE hFile, bool bPreferF
 
 	bool bHasTotalDiscsField = false, bHasDiscField = false;
 	bool bHasTotalTracksField = false, bHasTrackField = false;
-	CString strTotalDiscsField, strTotalTracksField, strKeyWords, strArtist;
+	CString strKeyWords, strArtist;
 	CString strDiscField, strTrackField;
+	CString strTotalDiscsField, strTotalTracksField;
+
+	// Keys:
+	SwitchMap( Text )
+	{
+		Text[ _T("title") ] 			= 't';
+		Text[ _T("artist") ]			= 'a';
+		Text[ _T("album") ] 			= 'm';
+		Text[ _T("comment") ]			= 'c';
+		Text[ _T("year") ]				= 'y';
+		Text[ _T("track") ] 			= 'k';
+		Text[ _T("totaltracks") ]		= 'q';
+		Text[ _T("genre") ]				= 'g';
+		Text[ _T("composer") ]			= 'o';
+		Text[ _T("publisher") ]			= 'b';
+		Text[ _T("copyright") ]			= 'x';
+		Text[ _T("producer") ]			= 'u';
+		Text[ _T("lyricist") ]			= 'v';
+		Text[ _T("arranger") ]			= 'h';
+		Text[ _T("performer") ]			= 'f';
+		Text[ _T("conductor") ]			= 'n';
+		Text[ _T("language") ]			= 'l';
+		Text[ _T("date") ]				= 'd';
+		Text[ _T("disc") ]				= 'i';
+		Text[ _T("totaldiscs") ]		= 'j';
+
+		Text[ _T("performersortorder") ] = 'p';
+		Text[ _T("releasetime") ]		= 'r';
+		Text[ _T("uniquefileid") ]		= 'F';
+		Text[ _T("contentgroup") ]		= 'G';
+		Text[ _T("encodersettings") ]	= 's';
+		Text[ _T("origalbum") ] 		= 'B';
+		Text[ _T("origartist") ]		= 'H';
+		Text[ _T("origfilename") ]		= 'N';
+		Text[ _T("origlyricist") ]		= 'V';
+		Text[ _T("origyear") ]			= 'Y';
+		Text[ _T("cddbdiscid") ]		= 'C';
+		Text[ _T(" url") ]				= 'U';
+		Text[ _T("url") ]				= 'U';
+
+		Text[ _T("encoded-by") ]		= 'e';
+		Text[ _T("encodedby") ] 		= 'e';
+		Text[ _T("encoded by") ]		= 'e';
+		Text[ _T("lyrics") ]			= 'L';
+		Text[ _T("unsyncedlyrics") ]	= 'L';
+		Text[ _T("unsynced lyrics") ]	= 'L';
+		Text[ _T("wwwaudiosource") ]	= 'w';
+		Text[ _T("wwwaudiofile") ]		= 'w';
+		Text[ _T("involvedpeople") ]	= 'P';
+
+  		Text[ _T("album artist") ]		= 'A';
+		Text[ _T("albumartist") ]		= 'A';
+		Text[ _T("musicbrainz album artist") ]	= 'A';
+		Text[ _T("musicbrainz albumartist") ]	= 'A';
+		Text[ _T("musicbrainz aritst id") ]		= 'I';
+		Text[ _T("musicbrainz album id") ]		= 'D';
+		Text[ _T("musicbrainz album artist id") ] = 'R';
+		Text[ _T("musicbrainz album type") ]	= 'T';
+		Text[ _T("musicbrainz album status") ]	= 'S';
+		Text[ _T("musicbrainz non-album") ]		= 'O';
+		Text[ _T("musicbrainz trm id") ]		= 'Z';
+		Text[ _T("musicip puid") ]				= 'M';
+	}
 
 	for ( int nTag = 0 ; nTag < pFooter.nFields ; nTag++ )
 	{
@@ -2188,27 +2304,25 @@ bool CLibraryBuilderInternals::ReadAPE(DWORD nIndex, HANDLE hFile, bool bPreferF
 
 		if ( ! strKey.IsEmpty() && ! strValue.IsEmpty() )
 		{
-			ToLower( strKey );
+			strKey.MakeLower();
 
-			if ( strKey == L"title" )
+			switch( Text[ strKey ] )
 			{
+
+			case 't':		// "title"
 				pXML->AddAttribute( L"title", strValue );
-			}
-			else if ( strKey == L"artist" )
-			{
+				break;
+			case 'a':		// "artist"
 				pXML->AddAttribute( L"artist", strValue );
 				strArtist = strValue;
-			}
-			else if ( strKey == L"album" )
-			{
+				break;
+			case 'm':		// "album"
 				pXML->AddAttribute( L"album", strValue );
-			}
-			else if ( strKey == L"comment" )
-			{
+				break;
+			case 'c':		// "comment"
 				pXML->AddAttribute( L"description", strValue );
-			}
-			else if ( strKey == L"year" )
-			{
+				break;
+			case 'y':		// "year"
 				if ( strValue.GetLength() > 4 && strValue.Find( L"-" ) != -1 )
 				{
 					pXML->AddAttribute( L"year", strValue.Left( 4 ) );
@@ -2216,192 +2330,162 @@ bool CLibraryBuilderInternals::ReadAPE(DWORD nIndex, HANDLE hFile, bool bPreferF
 				}
 				else
 					pXML->AddAttribute( L"year", strValue );
-			}
-			else if ( strKey == L"track" )
-			{
+				break;
+			case 'k':		// "track"
 				bHasTrackField = true;
-				int intSlashPosition = strValue.Find( L"/" );
-				if ( strValue.Find( L"/" ) != -1 )
 				{
-					bHasTotalTracksField = true;
-					strTrackField = strValue.Left( intSlashPosition );
-					strTotalTracksField = strValue.Right( strValue.GetLength() - intSlashPosition - 1 );
+					const int intSlashPosition = strValue.Find( L"/" );
+					if ( strValue.Find( L"/" ) != -1 )
+					{
+						bHasTotalTracksField = true;
+						strTrackField = strValue.Left( intSlashPosition );
+						strTotalTracksField = strValue.Right( strValue.GetLength() - intSlashPosition - 1 );
+					}
+					else
+						strTrackField = strValue;
 				}
-				else
-					strTrackField = strValue;
-			}
-			else if ( strKey == L"totaltracks" )
-			{
+				break;
+			case 'q':		// "totaltracks"
 				bHasTotalTracksField = true;
 				strTotalTracksField = strValue;
-			}
-			else if ( strKey == L"genre" )
-			{
+				break;
+			case 'g':		// "genre"
 				pXML->AddAttribute( L"genre", strValue );
-			}
-			else if ( strKey.Find( L" url" ) > 0 ) // are there any tag fields containing that?
-			{
+				break;
+			case 'U':		// "url" " url" 	Are there any tag fields containing this?
 				pXML->AddAttribute( L"link", strValue );
-			}
-			else if ( strKey == L"composer" )
-			{
+				break;
+			case 'o':		// "composer"
 				pXML->AddAttribute( L"composer", strValue );
-			}
-			else if ( strKey == L"publisher" )
-			{
+				break;
+			case 'b':		// "publisher"
 				pXML->AddAttribute( L"publisher", strValue );
-			}
-			else if ( strKey == L"copyright" )
-			{
+				break;
+			case 'x':		// "copyright"
 				pXML->AddAttribute( L"copyright", strValue );
-			}
-			else if ( strKey == L"producer" )
-			{
+				break;
+			case 'u':		// "producer"
 				pXML->AddAttribute( L"producer", strValue );
-			}
-			else if ( strKey == L"lyricist" )
-			{
+				break;
+			case 'v':		// "lyricist"
 				pXML->AddAttribute( L"lyricist", strValue );
-			}
-			else if ( strKey == L"arranger" )
-			{
+				break;
+			case 'h':		// "arranger"
 				pXML->AddAttribute( L"arranger", strValue );
-			}
-			else if ( strKey == L"performer" )
-			{
+				break;
+			case 'f':		// "performer"
 				pXML->AddAttribute( L"performer", strValue );
-			}
-			else if ( strKey == L"conductor" )
-			{
+				break;
+			case 'n':		// "conductor"
 				pXML->AddAttribute( L"conductor", strValue );
-			}
-			else if ( strKey == L"language" )
-			{
+				break;
+			case 'l':		// "language"
 				pXML->AddAttribute( L"language", strValue );
-			}
-			else if ( strKey == L"disc" )
-			{
+				break;
+			case 'i':		// "disc"
 				bHasDiscField = true;
-				int intSlashPosition = strValue.Find( L"/" );
-				if ( intSlashPosition != -1 )
 				{
-					bHasTotalDiscsField = true;
-					strDiscField = strValue.Left( intSlashPosition );
-					strTotalDiscsField = strValue.Right( strValue.GetLength() - intSlashPosition - 1 );
+					const int intSlashPosition = strValue.Find( L"/" );
+					if ( intSlashPosition > 0 )
+					{
+						bHasTotalDiscsField = true;
+						strDiscField = strValue.Left( intSlashPosition );
+						strTotalDiscsField = strValue.Right( strValue.GetLength() - intSlashPosition - 1 );
+					}
+					else
+						strDiscField = strValue;
 				}
-				else
-					strDiscField = strValue;
-			}
-			else if ( strKey == L"totaldiscs" )
-			{
+				break;
+			case 'j':		// "totaldiscs"
 				bHasTotalDiscsField = true;
 				strTotalDiscsField = strValue;
-			}
-			else if ( strKey == L"date" )
-			{
+				break;
+			case 'd':		// "date"
 				pXML->AddAttribute( L"releaseDate", strValue );
-			}
-			else if ( strKey == L"encoded-by" || strKey == L"encodedby" || strKey == L"encoded by" )
-			{
+				break;
+			case 'e':		// "encoded-by" "encodedby" "encoded by"
 				pXML->AddAttribute( L"encodedby", strValue );
-			}
-			else if ( strKey == L"involvedpeople" )
-			{
+				break;
+			case 'P':		// "involvedpeople" 
 				if ( ! strKeyWords.IsEmpty() )
 					strKeyWords += L"; " + strValue;
 				else
 					strKeyWords = strValue;
-			}
-			else if ( strKey == L"lyrics" || strKey == L"unsyncedlyrics" || strKey == L"unsynced lyrics" )
-			{
+				break;
+			case 'L':		// "lyrics" "unsyncedlyrics" "unsynced lyrics"
 				// pXML->AddAttribute( L"unsyncedlyrics", strValue );
-			}
-			else if ( strValue != strArtist && ( strKey == L"musicbrainz album artist" || strKey == L"musicbrainz albumartist" || strKey == L"album artist" || strKey == L"albumartist" ) )
-			{
-				pXML->AddAttribute( L"albumArtist", strValue );
-			}
-			else if ( strKey == L"musicbrainz album id" )
-			{
-				pXML->AddAttribute( L"mbalbumid", strValue );
-			}
-			else if ( strKey == L"musicbrainz album type" )
-			{
-				pXML->AddAttribute( L"type", strValue );
-			}
-			else if ( strKey == L"musicbrainz album artist id" )
-			{
-				pXML->AddAttribute( L"mbalbumartistid", strValue );
-			}
-			else if ( strKey == L"musicbrainz album status" )
-			{
-				pXML->AddAttribute( L"albumStatus", strValue );
-			}
-			else if ( strKey == L"musicbrainz aritst id" )
-			{
+				break;
+			case 'A':		// "musicbrainz album artist" "musicbrainz albumartist" "album artist" "albumartist"
+				if ( strValue != strArtist )
+					pXML->AddAttribute( L"albumArtist", strValue );
+				break;
+			case 'I':		// "musicbrainz aritst id"
 				pXML->AddAttribute( L"mbartistid", strValue );
-			}
-			else if ( strKey == L"musicbrainz non-album" && strValue == L"1" )
-			{
-				pXML->AddAttribute( L"type", L"Non-Album Track" );
-			}
-			else if ( strKey == L"musicip puid" )
-			{
+				break;
+			case 'D':		// "musicbrainz album id"
+				pXML->AddAttribute( L"mbalbumid", strValue );
+				break;
+			case 'R':		// "musicbrainz album artist id"
+				pXML->AddAttribute( L"mbalbumartistid", strValue );
+				break;
+			case 'T':		// "musicbrainz album type"
+				pXML->AddAttribute( L"type", strValue );
+				break;
+			case 'S':		// "musicbrainz album status"
+				pXML->AddAttribute( L"albumStatus", strValue );
+				break;
+			case 'O':		// "musicbrainz non-album"
+				if ( strValue == L"1" )
+					pXML->AddAttribute( L"type", L"Non-Album Track" );
+				break;
+			case 'M':		// "musicip puid"
 				pXML->AddAttribute( L"mbpuid", strValue );
-			}
-			else if ( strKey == L"musicbrainz trm id" )
-			{
+				break;
+			case 'Z':		// "musicbrainz trm id"
 				pXML->AddAttribute( L"mbtrmid", strValue );
-			}
-			else if ( strKey == L"performersortorder" )
-			{
+				break;
+			case 'p':		// "performersortorder" 
 				if ( ! strKeyWords.IsEmpty() )
 					strKeyWords += L"; " + strValue;
 				else
 					strKeyWords = strValue;
-			}
-			else if ( strKey == L"releasetime" )
-			{
+				break;
+			case 'r':		// "releasetime"
 				pXML->AddAttribute( L"releaseDate", strValue );
-			}
-			else if ( strKey == L"uniquefileid" )
-			{
+				break;
+			case 'F':		// "uniquefileid"
 				pXML->AddAttribute( L"mbuniquefileid", strValue );
-			}
-			else if ( strKey == L"contentgroup" )
-			{
+				break;
+			case 'G':		// "contentgroup"
 				pXML->AddAttribute( L"releasegroup", strValue );
-			}
-			else if ( strKey == L"encodersettings" )
-			{
+				break;
+			case 's':		// "encodersettings"
 				pXML->AddAttribute( L"qualitynotes", strValue );
-			}
-			else if ( strKey == L"origalbum" )
-			{
+				break;
+			case 'B':		// "origalbum"
 				pXML->AddAttribute( L"origAlbum", strValue );
-			}
-			else if ( strKey == L"origartist" )
-			{
+				break;
+			case 'H':		// "origartist"
 				pXML->AddAttribute( L"origArtist", strValue );
-			}
-			else if ( strKey == L"origfilename" )
-			{
+				break;
+			case 'N':		// "origfilename"
 				pXML->AddAttribute( L"origFilename", strValue );
-			}
-			else if ( strKey == L"origlyricist" )
-			{
+				break;
+			case 'V':		// "origlyricist"
 				pXML->AddAttribute( L"origLyricist", strValue );
-			}
-			else if ( strKey == _T("origyear") )
-			{
+				break;
+			case 'Y':		// "origyear"
 				pXML->AddAttribute( L"origYear", strValue );
-			}
-			else if ( strKey == L"wwwaudiosource" || strKey == L"wwwaudiofile" )
-			{
+				break;
+			case 'w':		// "wwwaudiosource" "wwwaudiofile" 
 				pXML->AddAttribute( L"releasegroupLink", strValue );
-			}
-			else if ( strKey == L"cddbdiscid" )
-			{
+				break;
+			case 'C':		// "cddbdiscid"
 				pXML->AddAttribute( L"cddb", strValue );
+				break;
+			default:		// Unknown tag
+				//pXML->AddAttribute( strKey, strValue );
+				break;
 			}
 		}
 	}
@@ -2462,7 +2546,7 @@ bool CLibraryBuilderInternals::ReadAPE(DWORD nIndex, HANDLE hFile, bool bPreferF
 		pNewAPE.nFinalFrameBlocks = pAPE.nFinalFrameBlocks;
 		pNewAPE.nChannels = pAPE.nChannels;
 		pNewAPE.nHeaderBytes = pAPE.nHeaderBytes;
-		ZeroMemory( &pAPE, nValidSize ); // Precaution in case someone messes up the code below
+		ZeroMemory( &pAPE, nValidSize );	// Precaution in case someone messes up the code below
 	}
 
 	bool bValidSignature = bMAC || bMPC;
@@ -2976,7 +3060,7 @@ bool CLibraryBuilderInternals::ReadPDF(DWORD nIndex, HANDLE hFile, LPCTSTR pszPa
 		if ( nCount < nTotal )
 			return false;
 
-		// collect objects positions from the references
+		// Collect objects positions from the references
 		for ( DWORD nObjectNo = nCountStart ; nObjectNo < nTotal ; nObjectNo++ )
 		{
 			strLine = ReadPDFLine( hFile, false );
@@ -3192,8 +3276,8 @@ bool CLibraryBuilderInternals::ReadPDF(DWORD nIndex, HANDLE hFile, LPCTSTR pszPa
 					}
 				}
 
-				// Read further if string reading was stopped at "/>" characters while
-				// inside parentheses and restore missing character
+				// Read further if string reading was stopped at "/>" characters
+				// while inside parentheses and restore missing character
 				if ( strLine.GetAt( 0 ) == _T('(') && strLine.Right( 1 ) != _T(')') )
 				{
 					DWORD nRead = 1;
@@ -3286,8 +3370,7 @@ CString	CLibraryBuilderInternals::DecodePDFText(CString strInput)
 	if ( strInput.GetAt( 0 ) == '(' && strInput.Right( 1 ) == _T(")") )
 	{
 		strInput = strInput.Mid( 1, strInput.GetLength() - 2 );
-		// Acrobat Reader doesn't decode (<XX>) strings created
-		// by Acrobat Distiller 6 but we do
+		// Acrobat Reader doesn't decode (<XX>) strings created by Acrobat Distiller 6 but we do
 		if ( strInput.GetAt( 0 ) == '<' && strInput.Right( 1 ) == _T(">") )
 		{
 			bHex = true; // Hexadecimal encoding

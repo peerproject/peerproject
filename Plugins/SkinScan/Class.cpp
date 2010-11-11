@@ -54,10 +54,7 @@ protected:
 	unzFile hArchive;
 };
 
-STDMETHODIMP CSkinScan::Process (
-	/* [in] */ HANDLE /* hFile */,
-	/* [in] */ BSTR sFile,
-	/* [in] */ ISXMLElement* pXML)
+STDMETHODIMP CSkinScan::Process(/*[in]*/ BSTR sFile, /*[in]*/ ISXMLElement* pXML)
 {
 	if ( ! pXML )
 		return E_POINTER;
@@ -68,10 +65,7 @@ STDMETHODIMP CSkinScan::Process (
 
 	unz_global_info pDir = {};
 	if ( unzGetGlobalInfo( pFile, &pDir ) != UNZ_OK )
-	{
-		// Bad format. Call CLibraryBuilder::SubmitCorrupted()
-		return E_UNEXPECTED;
-	}
+		return E_UNEXPECTED;			// Bad format. Call CLibraryBuilder::SubmitCorrupted()
 
 	for ( UINT nFile = 0; nFile < pDir.number_entry; nFile++ )
 	{
@@ -79,25 +73,15 @@ STDMETHODIMP CSkinScan::Process (
 		CHAR szFile[ MAX_PATH ];
 
 		if ( nFile && unzGoToNextFile( pFile ) != UNZ_OK )
-		{
-			// Bad format. Call CLibraryBuilder::SubmitCorrupted()
-			return E_UNEXPECTED;
-		}
+			return E_UNEXPECTED;		// Bad format. Call CLibraryBuilder::SubmitCorrupted()
 
-		if ( unzGetCurrentFileInfo( pFile, &pInfo, szFile,
-			MAX_PATH, NULL, 0, NULL, 0 ) != UNZ_OK )
-		{
-			// Bad format. Call CLibraryBuilder::SubmitCorrupted()
-			return E_UNEXPECTED;
-		}
+		if ( unzGetCurrentFileInfo( pFile, &pInfo, szFile, MAX_PATH, NULL, 0, NULL, 0 ) != UNZ_OK )
+			return E_UNEXPECTED;		// Bad format. Call CLibraryBuilder::SubmitCorrupted()
 
 		if ( lstrcmpiA( szFile + lstrlenA( szFile ) - 4, ".xml" ) == 0 )
 		{
 			if ( unzOpenCurrentFile( pFile ) != UNZ_OK )
-			{
-				// Bad format. Call CLibraryBuilder::SubmitCorrupted()
-				return E_UNEXPECTED;
-			}
+				return E_UNEXPECTED;	// Bad format. Call CLibraryBuilder::SubmitCorrupted()
 
 			LPSTR pszXML = new CHAR[ pInfo.uncompressed_size + 1 ];
 			if ( ! pszXML )
@@ -111,8 +95,7 @@ STDMETHODIMP CSkinScan::Process (
 			{
 				delete [] pszXML;
 				unzCloseCurrentFile( pFile );
-				// Bad format. Call CLibraryBuilder::SubmitCorrupted()
-				return E_UNEXPECTED;
+				return E_UNEXPECTED;	// Bad format. Call CLibraryBuilder::SubmitCorrupted()
 			}
 
 			pszXML[ pInfo.uncompressed_size ] = 0;

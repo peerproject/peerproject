@@ -21,7 +21,7 @@
 class CXMLElement;
 
 
-class CLibraryBuilderInternals : private boost::noncopyable
+class CLibraryBuilderInternals
 {
 // Construction
 public:

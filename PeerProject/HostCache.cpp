@@ -324,7 +324,7 @@ void CHostCacheList::Clear()
 //////////////////////////////////////////////////////////////////////
 // CHostCacheList host add
 
-CHostCacheHostPtr CHostCacheList::Add(IN_ADDR* pAddress, WORD nPort, DWORD tSeen, LPCTSTR pszVendor, DWORD nUptime, DWORD nCurrentLeaves, DWORD nLeafLimit)
+CHostCacheHostPtr CHostCacheList::Add(const IN_ADDR* pAddress, WORD nPort, DWORD tSeen, LPCTSTR pszVendor, DWORD nUptime, DWORD nCurrentLeaves, DWORD nLeafLimit)
 {
 	// Don't add invalid addresses
 	if ( ! nPort )
@@ -1350,7 +1350,7 @@ bool CHostCacheHost::CanQuery(const DWORD tNow) const throw()
 		// If haven't queried yet, its ok
 		//if ( m_tQuery == 0 ) return true;
 
-		return true; // ToDo: Fix KAD
+		return true;	// ToDo: Fix KAD
 
 	default:
 		return false;

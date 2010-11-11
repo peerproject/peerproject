@@ -114,6 +114,8 @@
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ModuleDefinitionFile>$(ProjectName).def</ModuleDefinitionFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <RegisterOutput>true</RegisterOutput>
+      <PerUserRedirection>true</PerUserRedirection>
       <SubSystem>Windows</SubSystem>
       <BaseAddress>0x1aea0000</BaseAddress>
       <LargeAddressAware>true</LargeAddressAware>
@@ -124,11 +126,11 @@
       </OutputFile>
     </Bscmake>
     <PostBuildEvent>
-      <Message>Performing registration</Message>
-      <Command>copy "unrar.dll" "$(TargetDir)" /b /y
-regsvr32 /s /c "$(TargetPath)"
-</Command>
     </PostBuildEvent>
+    <PreBuildEvent>
+      <Message>Pre-Build Dependencies</Message>
+      <Command>copy "unrar.dll" "$(TargetDir)" /b /y</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Midl>
@@ -165,6 +167,8 @@ regsvr32 /s /c "$(TargetPath)"
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ModuleDefinitionFile>$(ProjectName).def</ModuleDefinitionFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <RegisterOutput>true</RegisterOutput>
+      <PerUserRedirection>true</PerUserRedirection>
       <SubSystem>Windows</SubSystem>
       <LargeAddressAware>true</LargeAddressAware>
       <TargetMachine>MachineX64</TargetMachine>
@@ -174,11 +178,11 @@ regsvr32 /s /c "$(TargetPath)"
       </OutputFile>
     </Bscmake>
     <PostBuildEvent>
-      <Message>Performing registration</Message>
-      <Command>copy "unrar64.dll" "$(TargetDir)" /b /y
-regsvr32 /s /c "$(TargetPath)"
-</Command>
     </PostBuildEvent>
+    <PreBuildEvent>
+      <Message>Pre-Build Dependencies</Message>
+      <Command>copy "unrar.dll" "$(TargetDir)" /b /y</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Midl>

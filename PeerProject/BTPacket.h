@@ -20,6 +20,8 @@
 
 #include "Packet.h"
 
+class CBENode;
+
 //
 // Packet Types
 //
@@ -44,18 +46,21 @@
 
 // Packet extensions (for BT_PACKET_EXTENSION)
 
-//#define BT_EXTENSION_HANDSHAKE	0
-//#define BT_EXTENSION_UT_METADATA	1	// Extension for Peers to Send Metadata Files  http://www.bittorrent.org/beps/bep_0009.html
-//#define BT_EXTENSION_UT_PEX		2
-//#define BT_EXTENSION_LT_TEX		3	// Tracker exchange extension  http://www.bittorrent.org/beps/bep_0028.html
-//
-//#define BT_EXTENSION_NOP			255	// Packet without standard header (bencoded data only)
+#define BT_EXTENSION_HANDSHAKE		0
+#define BT_EXTENSION_UT_METADATA	1	// Extension for Peers to Send Metadata Files  http://www.bittorrent.org/beps/bep_0009.html
+#define BT_EXTENSION_UT_PEX 		2
+#define BT_EXTENSION_LT_TEX 		3	// Tracker exchange extension  http://www.bittorrent.org/beps/bep_0028.html
+
+#define BT_EXTENSION_NOP			255	// Packet without standard header (bencoded data only)
+
+// Packet extensions (for BT_PACKET_HANDSHAKE)
+#define BT_HANDSHAKE_SOURCE			2	// Source Exchange extension
 
 // Packet metadata type (for EXTENDED_PACKET_UT_METADATA)
 
-//#define UT_METADATA_REQUEST		0
-//#define UT_METADATA_DATA			1
-//#define UT_METADATA_REJECT		2
+#define UT_METADATA_REQUEST 		0
+#define UT_METADATA_DATA			1
+#define UT_METADATA_REJECT			2
 
 const LPCSTR BT_DICT_ADDED			= "added";
 const LPCSTR BT_DICT_ADDED_F		= "added.f";
@@ -84,6 +89,7 @@ const LPCSTR BT_DICT_SRC_EXCHANGE	= "source-exchange";
 const LPCSTR BT_DICT_TOKEN			= "token";
 const LPCSTR BT_DICT_TOTAL_SIZE		= "total_size";
 const LPCSTR BT_DICT_TRANSACT_ID	= "t";
+const LPCSTR BT_DICT_TRACKERS		= "tr";					// Tracker List hash
 const LPCSTR BT_DICT_TYPE			= "y";
 const LPCSTR BT_DICT_YOURIP			= "yourip";				// External IP (IPv4 or IPv6)
 const LPCSTR BT_DICT_USER_AGENT		= "user-agent";
@@ -106,14 +112,29 @@ protected:
 
 // Attributes
 public:
-	BYTE	m_nType;
+	BYTE				m_nType;
+	BYTE				m_nExtension;	// Extension type if packet type is a BT_PACKET_EXTENSION
+	auto_ptr< CBENode > m_pNode;		// Extension decoded data
 
-// Operations
 public:
+	virtual void		Reset();
+	virtual	void		ToBuffer(CBuffer* pBuffer, bool bTCP = true) const;
 	static	CBTPacket*	ReadBuffer(CBuffer* pBuffer);
-	virtual	void		ToBuffer(CBuffer* pBuffer) const;
-
+	virtual void		SmartDump(const SOCKADDR_IN* pAddress, BOOL bUDP, BOOL bOutgoing, DWORD_PTR nNeighbourUnique = 0) const;
 	virtual CString		GetType() const;
+	virtual CString		ToHex()   const;
+	virtual CString		ToASCII() const;
+
+	inline static bool IsEncoded(BYTE nType)
+	{
+		return
+			nType == BT_PACKET_EXTENSION ||
+			nType == BT_PACKET_HANDSHAKE ||
+			nType == BT_PACKET_SOURCE_REQUEST ||
+			nType == BT_PACKET_SOURCE_RESPONSE;
+	}
+
+	bool HasEncodedData() const;
 
 // Packet Pool
 protected:
@@ -130,19 +151,24 @@ protected:
 
 // Allocation
 public:
-	inline static CBTPacket* New(BYTE nType)
-	{
-		CBTPacket* pPacket = (CBTPacket*)POOL.New();
-		pPacket->m_nType = nType;
-		return pPacket;
-	}
+	static CBTPacket* New(BYTE nType = BT_PACKET_EXTENSION, BYTE nExtension = BT_EXTENSION_NOP, const BYTE* pBuffer = NULL, DWORD nLength = 0);
 
 	inline virtual void Delete()
 	{
 		POOL.Delete( this );
 	}
 
+	// Packet handler
+	virtual BOOL OnPacket(const SOCKADDR_IN* pHost);
+
+	BOOL OnPing(const SOCKADDR_IN* pHost);
+	BOOL OnError(const SOCKADDR_IN* pHost);
+
 	friend class CBTPacket::CBTPacketPool;
+
+private:
+	CBTPacket(const CBTPacket&);
+	CBTPacket& operator=(const CBTPacket&);
 };
 
 inline void CBTPacket::CBTPacketPool::NewPoolImpl(int nSize, CPacket*& pPool, int& nPitch)

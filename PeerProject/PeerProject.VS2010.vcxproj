@@ -102,6 +102,8 @@
     </PreBuildEvent>
     <Midl>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <TargetEnvironment>Win32</TargetEnvironment>
+      <GenerateStublessProxies>true</GenerateStublessProxies>
       <HeaderFileName>PeerProjectOM.h</HeaderFileName>
       <InterfaceIdentifierFileName>PeerProject_i.c</InterfaceIdentifierFileName>
     </Midl>
@@ -150,6 +152,7 @@
     <Midl>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <TargetEnvironment>X64</TargetEnvironment>
+      <GenerateStublessProxies>true</GenerateStublessProxies>
       <HeaderFileName>PeerProjectOM.h</HeaderFileName>
       <InterfaceIdentifierFileName>PeerProject_i.c</InterfaceIdentifierFileName>
     </Midl>
@@ -198,6 +201,8 @@
     </PreBuildEvent>
     <Midl>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <TargetEnvironment>Win32</TargetEnvironment>
+      <GenerateStublessProxies>true</GenerateStublessProxies>
       <HeaderFileName>PeerProjectOM.h</HeaderFileName>
       <InterfaceIdentifierFileName>PeerProject_i.c</InterfaceIdentifierFileName>
     </Midl>
@@ -255,6 +260,7 @@
     <Midl>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <TargetEnvironment>X64</TargetEnvironment>
+      <GenerateStublessProxies>true</GenerateStublessProxies>
       <HeaderFileName>PeerProjectOM.h</HeaderFileName>
       <InterfaceIdentifierFileName>PeerProject_i.c</InterfaceIdentifierFileName>
     </Midl>
@@ -332,7 +338,6 @@
     <ClCompile Include="DatagramPart.cpp" />
     <ClCompile Include="Datagrams.cpp" />
     <ClCompile Include="DDEServer.cpp" />
-    <ClCompile Include="DHT.cpp" />
     <ClCompile Include="DiscoveryServices.cpp" />
     <ClCompile Include="Download.cpp" />
     <ClCompile Include="DownloadBase.cpp" />
@@ -1278,7 +1283,6 @@
     <ClInclude Include="DatagramPart.h" />
     <ClInclude Include="Datagrams.h" />
     <ClInclude Include="DDEServer.h" />
-    <ClInclude Include="DHT.h" />
     <ClInclude Include="DiscoveryServices.h" />
     <ClInclude Include="Download.h" />
     <ClInclude Include="DownloadBase.h" />

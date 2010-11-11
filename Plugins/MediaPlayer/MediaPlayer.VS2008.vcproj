@@ -75,12 +75,13 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				RegisterOutput="true"
 				IgnoreImportLibrary="true"
 				AdditionalDependencies="Strmiids.lib"
-				LinkIncremental="2"
 				ModuleDefinitionFile="MediaPlayer.def"
 				GenerateDebugInformation="true"
+				LinkIncremental="2"
+				RegisterOutput="true"
+				PerUserRedirection="true"
 				SubSystem="2"
 				TargetMachine="1"
 			/>
@@ -161,12 +162,13 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				RegisterOutput="true"
 				IgnoreImportLibrary="true"
 				AdditionalDependencies="Strmiids.lib"
-				LinkIncremental="2"
 				ModuleDefinitionFile="MediaPlayer.def"
 				GenerateDebugInformation="true"
+				LinkIncremental="2"
+				RegisterOutput="true"
+				PerUserRedirection="true"
 				SubSystem="2"
 				TargetMachine="17"
 			/>
@@ -253,12 +255,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				RegisterOutput="true"
 				IgnoreImportLibrary="true"
 				AdditionalDependencies="Strmiids.lib"
-				LinkIncremental="1"
 				ModuleDefinitionFile="MediaPlayer.def"
 				GenerateDebugInformation="true"
+				LinkIncremental="1"
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
@@ -347,12 +348,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				RegisterOutput="true"
 				IgnoreImportLibrary="true"
 				AdditionalDependencies="Strmiids.lib"
-				LinkIncremental="1"
 				ModuleDefinitionFile="MediaPlayer.def"
 				GenerateDebugInformation="true"
+				LinkIncremental="1"
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"

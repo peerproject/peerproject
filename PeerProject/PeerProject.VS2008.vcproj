@@ -45,6 +45,7 @@
 			<Tool
 				Name="VCMIDLTool"
 				PreprocessorDefinitions="_DEBUG"
+				GenerateStublessProxies="true"
 				HeaderFileName="PeerProjectOM.h"
 				InterfaceIdentifierFileName="PeerProject_i.c"
 			/>
@@ -138,6 +139,7 @@
 			<Tool
 				Name="VCMIDLTool"
 				PreprocessorDefinitions="_DEBUG"
+				GenerateStublessProxies="true"
 				TargetEnvironment="3"
 				HeaderFileName="PeerProjectOM.h"
 				InterfaceIdentifierFileName="PeerProject_i.c"
@@ -233,6 +235,7 @@
 			<Tool
 				Name="VCMIDLTool"
 				PreprocessorDefinitions="NDEBUG"
+				GenerateStublessProxies="true"
 				HeaderFileName="PeerProjectOM.h"
 				InterfaceIdentifierFileName="PeerProject_i.c"
 			/>
@@ -333,6 +336,7 @@
 			<Tool
 				Name="VCMIDLTool"
 				PreprocessorDefinitions="NDEBUG"
+				GenerateStublessProxies="true"
 				TargetEnvironment="3"
 				HeaderFileName="PeerProjectOM.h"
 				InterfaceIdentifierFileName="PeerProject_i.c"
@@ -526,10 +530,6 @@
 			</File>
 			<File
 				RelativePath="DDEServer.cpp"
-				>
-			</File>
-			<File
-				RelativePath="DHT.cpp"
 				>
 			</File>
 			<File
@@ -2790,10 +2790,6 @@
 				>
 			</File>
 			<File
-				RelativePath="DHT.h"
-				>
-			</File>
-			<File
 				RelativePath="DiscoveryServices.h"
 				>
 			</File>
@@ -4312,7 +4308,7 @@
 		</Filter>
 		<Filter
 			Name="Resource Files"
-			Filter="ico;cur;bmp;dlg;rc2;rct;bin;cnt;rtf;gif;jpg;jpeg;jpe;htm;xml;png"
+			Filter="ico;cur;bmp;dlg;rc2;rct;bin;cnt;rtf;gif;jpg;jpeg;jpe;png;dat;htm;xml;txt"
 			>
 			<File
 				RelativePath="Res\About.htm"

@@ -21,12 +21,17 @@
 
 #pragma once
 
-// Wraps the compress and decompress data compression functions of the ZLib compression library
+// Wraps the compress/decompress data functions of the ZLib compression library
 class CZLib
 {
-// Operations
 public:
-	// Compress and decompress nInput bytes at pInput to a new returned buffer of size pnOutput
+	// Compress/Decompress nInput bytes at pInput to a new returned buffer of size pnOutput:
+
+	// After use free memory by delete[] function:
 	static auto_array< BYTE > Compress(LPCVOID pInput, DWORD nInput, DWORD* pnOutput, DWORD nSuggest = 0);
 	static auto_array< BYTE > Decompress(LPCVOID pInput, DWORD nInput, DWORD* pnOutput);
+
+	// Or, after use free memory by free() function:
+	static BYTE* Compress2(LPCVOID pInput, DWORD nInput, DWORD* pnOutput, DWORD nSuggest = 0);
+	static BYTE* Decompress2(LPCVOID pInput, DWORD nInput, DWORD* pnOutput);
 };

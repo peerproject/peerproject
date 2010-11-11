@@ -1,7 +1,7 @@
 //
 // Builder.cpp : Implementation of CBuilder
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions copyright Nikolay Raspopov, 2005.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -32,12 +32,9 @@ void CBuilder::FinalRelease () throw()
 	m_pUnkMarshaler.Release ();
 }
 
-STDMETHODIMP CBuilder::Process (
-	/* [in] */ HANDLE /* hFile */,
-	/* [in] */ BSTR sFile,
-	/* [in] */ ISXMLElement* pXML)
+STDMETHODIMP CBuilder::Process(/*[in]*/ BSTR sFile, /*[in]*/ ISXMLElement* pXML)
 {
-	if (!pXML)
+	if ( ! pXML )
 		return E_POINTER;
 
 	CComPtr <ISXMLElements> pISXMLRootElements;
@@ -79,10 +76,12 @@ STDMETHODIMP CBuilder::Process (
 	{
 		if ( GetShortPathNameW( sFile, pszPath, MAX_PATH ) )
 			err = gflGetFileInformation (CW2A(pszPath), -1, &inf);
-		else err = GFL_ERROR_FILE_OPEN;
+		else
+			err = GFL_ERROR_FILE_OPEN;
 	}
 
-	if (err == GFL_NO_ERROR) {
+	if ( err == GFL_NO_ERROR )
+	{
 		CString tmp;
 		
 		tmp.Format (_T("%lu"), inf.Height);
@@ -94,10 +93,11 @@ STDMETHODIMP CBuilder::Process (
 		pISXMLAttributes->Add (CComBSTR ("description"), CComBSTR (inf.Description));
 
 		CString colors;
-		int bits = inf.ComponentsPerPixel * inf.BitsPerComponent;
-		if (inf.ColorModel == GFL_CM_GREY)
+		const int bits = inf.ComponentsPerPixel * inf.BitsPerComponent;
+		if ( inf.ColorModel == GFL_CM_GREY )
 			colors = _T("Greyscale");
-		else {
+		else
+		{
 			if (bits <= 4)
 				colors = _T("16");
 			else
@@ -110,7 +110,9 @@ STDMETHODIMP CBuilder::Process (
 				colors = _T("16.7M");
 		}
 		pISXMLAttributes->Add (CComBSTR ("colors"), CComBSTR (colors));
-	} else
+	}
+	else
 		hr = E_FAIL;
+
 	return hr;
 }

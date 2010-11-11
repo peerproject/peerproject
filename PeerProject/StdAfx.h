@@ -107,13 +107,14 @@
 #include <afxwin.h>			// MFC core and standard components
 #include <afxext.h>			// MFC extensions
 #include <afxcmn.h>			// MFC support for Windows Common Controls
-//#include <afxdtctl.h>		// MFC date & time controls (scheduler)
+//#include <afxdtctl.h>		// MFC date & time controls  (scheduler)
 #include <afxtempl.h>		// MFC templates
 #include <afxmt.h>			// MFC threads
-#include <afxole.h>			// MFC OLE
-#include <afxocc.h>			// MFC OCC
 #include <afxhtml.h>		// MFC HTML
 #include <afxpriv.h>		// MFC UI
+#include <afxole.h>			// MFC OLE
+#include <afxocc.h>			// MFC OCC	(for fontmanager/ctrlweb)
+//#include <../src/mfc/occimpl.h>	// MFC OCC substitute for VCExpress+WDK?
 #include <../src/mfc/afximpl.h>
 
 //
@@ -135,7 +136,7 @@
 #include <atlfile.h>		// Thin file classes
 
 // If header is not found, install Windows SDK from microsoft.com
-// ( Vista SDK (6.0) or later -previously XP Platform SDK )
+// ( Vista SDK or later (6.0+) -previously XP Platform SDK )
 
 #include <netfw.h>
 #include <upnp.h>
@@ -145,7 +146,7 @@
 #include <MsiDefs.h>
 #include <Powrprof.h>		// Power policy applicator
 
-// Intrinsics  (Workaround for Microsoft double declaration with Visual Studio 2005)
+// Intrinsics  (Workaround for Microsoft double declaration in legacy Visual Studio 2005)
 #if defined(_MSC_VER) && (_MSC_VER < 1500)
 	#define _interlockedbittestandset _ms_set
 	#define _interlockedbittestandreset _ms_reset
@@ -211,12 +212,12 @@
 	#define BOOST_MEM_FN_ENABLE_STDCALL 1
 #endif
 
-// BOOST_STATIC_ASSERT(false) for compile-time checks below VS2010
+// BOOST_STATIC_ASSERT(false) for compile-time checks below VS2010  (ToDo: static_assert)
 #include <Boost/static_assert.hpp>
 
 #include <Boost/bind.hpp>
 #include <Boost/shared_ptr.hpp>
-#include <Boost/ptr_container/ptr_list.hpp>	// For noncopyable
+#include <Boost/ptr_container/ptr_list.hpp>
 
 //#include <Boost/array.hpp>			// In Hashes/HashDescriptors.hpp
 //#include <Boost/type_traits.hpp>		// In MinMax.hpp
@@ -668,9 +669,9 @@ struct std::less< CLSID > : public std::binary_function< CLSID, CLSID, bool >
 	inline bool operator()(const CLSID& _Left, const CLSID& _Right) const throw()
 	{
 		return _Left.Data1 < _Right.Data1 || ( _Left.Data1 == _Right.Data1 &&
-			( _Left.Data2 < _Right.Data2 || ( _Left.Data2 == _Right.Data2 &&
-			( _Left.Data3 < _Right.Data3 || ( _Left.Data3 == _Right.Data3 &&
-			( memcmp( _Left.Data4, _Right.Data4, 8 ) < 0 ) ) ) ) ) );
+			 ( _Left.Data2 < _Right.Data2 || ( _Left.Data2 == _Right.Data2 &&
+			 ( _Left.Data3 < _Right.Data3 || ( _Left.Data3 == _Right.Data3 &&
+			 ( memcmp( _Left.Data4, _Right.Data4, 8 ) < 0 ) ) ) ) ) );
 	}
 };
 
@@ -695,8 +696,7 @@ inline UINT ReadArchive(CArchive& ar, void* lpBuf, const UINT nMax)
 	return nReaded;
 }
 
-// The GetMicroCount function retrieves the number of microseconds that have elapsed
-// since the application was started.
+// The GetMicroCount function retrieves the number of microseconds that have elapsed since the application was started.
 __int64 GetMicroCount();
 
 // Produces the best hash table size for CMap::InitHashTable use
@@ -724,7 +724,7 @@ inline BOOL StartsWith(const CString& sInput, LPCTSTR pszText, const int len)
 
 // Compute average of values collected by specified time
 template< class T, DWORD dwMilliseconds >
-class CTimeAverage //: boost::noncopyable
+class CTimeAverage
 {
 public:
 	CTimeAverage()
@@ -819,4 +819,23 @@ INT_PTR MsgBox(UINT nIDPrompt, UINT nType = MB_OK, UINT nIDHelp = 0, DWORD* pnDe
 #undef  _stscanf
 #define _stscanf _stscanf_s 	// Don't forget that %s, %c and [ requires buffer size parameter.
 
-#define SERVERLOST(hr) (((hr)==MAKE_HRESULT(SEVERITY_ERROR,FACILITY_WIN32,RPC_S_SERVER_UNAVAILABLE))||((hr)==CO_E_OBJNOTCONNECTED)||((hr)==RPC_E_INVALID_OBJECT))
+#define SERVERLOST(hr) \
+	(((hr)==MAKE_HRESULT(SEVERITY_ERROR,FACILITY_WIN32,RPC_S_SERVER_UNAVAILABLE))|| \
+	((hr)==CO_E_OBJNOTCONNECTED)|| \
+	((hr)==RPC_E_SERVERFAULT)|| \
+	((hr)==RPC_E_INVALID_OBJECT))
+
+#define SwitchMap(name) 	static std::map < const CString, char > name; if ( name.empty() )	// Switch on text by proxy [PPD]
+
+// Is this switch overhead better than comparable else-if sequence?  (Note static list populated at first hit only.) [Persistent Public Domain license]
+// Usage:
+//	SwitchMap( Text )
+//	{
+//		Text[ _T("text1") ] = 'A';
+//		Text[ _T("text2") ] = 'b';
+//	}
+//	switch( Text[ str ] )
+//	{
+//	case 'A':	// "text1"
+//	case 'b':	// "text2"
+//	}

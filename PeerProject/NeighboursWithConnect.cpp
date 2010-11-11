@@ -222,9 +222,9 @@ void CNeighboursWithConnect::PeerPrune(PROTOCOLID nProtocol)
 			// Our connection to this neighbour is not up to a hub, and
 			if ( pNeighbour->m_nNodeType != ntHub )
 			{
-				// Either we don't need any more hubs, or we're done with the handshake so we know it wont' be a hub, then
+				// Either we don't need any more hubs, or we're done with the handshake so we know it wont' be a hub, then drop this connection
 				if ( ! bNeedMore || pNeighbour->m_nState == nrsConnected )
-					pNeighbour->Close( IDS_CONNECTION_PEERPRUNE );	// Drop this connection
+					pNeighbour->Close( IDS_CONNECTION_PEERPRUNE );
 			}
 		}
 		else if ( pNeighbour->m_nProtocol == PROTOCOL_NULL )
@@ -823,7 +823,8 @@ void CNeighboursWithConnect::Maintain()
 	}
 
 	// Loop down the list of connected neighbours, sorting each by network and role and counting it
-	for ( POSITION pos = GetIterator() ; pos ; ) // We'll also prune leaf to leaf connections, which shouldn't happen
+	// Also prune leaf to leaf connections, which shouldn't happen
+	for ( POSITION pos = GetIterator() ; pos ; )
 	{
 		// Get the next neighbour in the list
 		CNeighbour* pNeighbour = GetNext( pos );

@@ -114,6 +114,8 @@
       <AdditionalLibraryDirectories>../../Services/zlib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ModuleDefinitionFile>$(ProjectName).def</ModuleDefinitionFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <RegisterOutput>true</RegisterOutput>
+      <PerUserRedirection>true</PerUserRedirection>
       <SubSystem>Windows</SubSystem>
       <BaseAddress>0x1af00000</BaseAddress>
       <LargeAddressAware>true</LargeAddressAware>
@@ -124,10 +126,11 @@
       </OutputFile>
     </Bscmake>
     <PostBuildEvent>
-      <Message>Performing registration</Message>
-      <Command>copy "..\..\Services\zlib\$(Configuration) $(Platform)\zlibwapi.dll" "$(TargetDir)" /b /y
-regsvr32 /s /c "$(TargetPath)"</Command>
     </PostBuildEvent>
+    <PreBuildEvent>
+      <Message>Pre-Build Dependencies</Message>
+      <Command>copy "..\..\Services\zlib\$(Configuration) $(Platform)\zlibwapi.dll" "$(TargetDir)" /b /y</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Midl>
@@ -168,6 +171,8 @@ regsvr32 /s /c "$(TargetPath)"</Command>
       <ModuleDefinitionFile>$(ProjectName).def</ModuleDefinitionFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <GenerateMapFile>false</GenerateMapFile>
+      <RegisterOutput>true</RegisterOutput>
+      <PerUserRedirection>true</PerUserRedirection>
       <SubSystem>Windows</SubSystem>
       <LargeAddressAware>true</LargeAddressAware>
       <TargetMachine>MachineX64</TargetMachine>
@@ -177,10 +182,11 @@ regsvr32 /s /c "$(TargetPath)"</Command>
       </OutputFile>
     </Bscmake>
     <PostBuildEvent>
-      <Message>Performing registration</Message>
-      <Command>copy "..\..\Services\zlib\$(Configuration) $(Platform)\zlibwapi.dll" "$(TargetDir)" /b /y
-regsvr32 /s /c "$(TargetPath)"</Command>
     </PostBuildEvent>
+    <PreBuildEvent>
+      <Message>Pre-Build Dependencies</Message>
+      <Command>copy "..\..\Services\zlib\$(Configuration) $(Platform)\zlibwapi.dll" "$(TargetDir)" /b /y</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Midl>

@@ -30,6 +30,8 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				Description="Pre-Build Dependencies"
+				CommandLine="copy &quot;..\..\Services\zlib\$(ConfigurationName) $(PlatformName)\zlibwapi.dll&quot; &quot;$(TargetDir)&quot; /b /y"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -81,10 +83,12 @@
 			<Tool
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="true"
-				LinkIncremental="2"
 				AdditionalLibraryDirectories="../../Services/zlib"
 				ModuleDefinitionFile="$(ProjectName).def"
 				GenerateDebugInformation="true"
+				LinkIncremental="2"
+				RegisterOutput="true"
+				PerUserRedirection="true"
 				SubSystem="2"
 				BaseAddress="0x1af00000"
 				LargeAddressAware="2"
@@ -111,8 +115,6 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description="Performing registration (for debugging)"
-				CommandLine="copy &quot;..\..\Services\zlib\$(ConfigurationName) $(PlatformName)\zlibwapi.dll&quot; &quot;$(TargetDir)&quot; /b /y&#x0D;&#x0A;regsvr32 /s /c &quot;$(TargetPath)&quot;"
 			/>
 		</Configuration>
 		<Configuration
@@ -126,6 +128,8 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				Description="Pre-Build Dependencies"
+				CommandLine="copy &quot;..\..\Services\zlib\$(ConfigurationName) $(PlatformName)\zlibwapi.dll&quot; &quot;$(TargetDir)&quot; /b /y"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -177,11 +181,13 @@
 			<Tool
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="true"
-				LinkIncremental="2"
 				AdditionalLibraryDirectories="../../Services/zlib"
 				ModuleDefinitionFile="$(ProjectName).def"
 				GenerateDebugInformation="true"
 				GenerateMapFile="false"
+				LinkIncremental="2"
+				RegisterOutput="true"
+				PerUserRedirection="true"
 				SubSystem="2"
 				LargeAddressAware="2"
 				TargetMachine="17"
@@ -207,8 +213,6 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description="Performing registration (for debugging)"
-				CommandLine="copy &quot;..\..\Services\zlib\$(ConfigurationName) $(PlatformName)\zlibwapi.dll&quot; &quot;$(TargetDir)&quot; /b /y&#x0D;&#x0A;regsvr32 /s /c &quot;$(TargetPath)&quot;"
 			/>
 		</Configuration>
 		<Configuration

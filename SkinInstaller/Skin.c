@@ -13,17 +13,19 @@
 #include "Skin.h"
 
 // Globals
-int   skinType;
-TCHAR* szName;
-TCHAR* szPath;
-TCHAR* szVersion;
-TCHAR* szAuthor;
-TCHAR* szUpdates;
-TCHAR* szXML;
-TCHAR skins_dir[MAX_PATH];
+int 	skinType;
+TCHAR*	szName;
+TCHAR*	szPath;
+TCHAR*	szVersion;
+TCHAR*	szAuthor;
+TCHAR*	szUpdates;
+TCHAR*	szXML;
+TCHAR	skins_dir[MAX_PATH];
 
 int WINAPI wWinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPWSTR cmdParam, int cmdShow)
 {
+	int rtn = 0;
+
 	InitCommonControls();
 
 	// Globals
@@ -37,10 +39,10 @@ int WINAPI wWinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPWSTR cmdParam, int c
 
 	if ( wcslen(cmdParam) == 0 )
 		MessageBox(NULL,L"PeerProject Skin Installer " VERSION L"\n\nDouble-click on a PeerProject Skin File (.psk) to use this tool.",L"PeerProject Skin Installer",MB_OK | MB_ICONINFORMATION);
-	else if ( !wcscmp(cmdParam, L"/install") || !wcscmp(cmdParam, L"/installsilent") )
-		CreateSkinKeys();
-	else if ( !wcscmp(cmdParam, L"/uninstall") || !wcscmp(cmdParam, L"/uninstallsilent") )
-		DeleteSkinKeys();
+	else if ( ! wcscmp(cmdParam, L"/install") || ! wcscmp(cmdParam, L"/installsilent") )
+		rtn = CreateSkinKeys();
+	else if ( ! wcscmp(cmdParam, L"/uninstall") || ! wcscmp(cmdParam, L"/uninstallsilent") )
+		rtn = DeleteSkinKeys();
 	else
 		ExtractSkinFile(cmdParam);
 
@@ -51,5 +53,6 @@ int WINAPI wWinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPWSTR cmdParam, int c
 	if (szAuthor) free(szAuthor);
 	if (szUpdates) free(szUpdates);
 	if (szXML) free(szXML);
-	return 0;
+
+	return rtn;
 }

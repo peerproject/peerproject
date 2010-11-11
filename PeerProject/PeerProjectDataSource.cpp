@@ -1044,9 +1044,6 @@ HRESULT CPeerProjectDataSource::AddRefStgMedium(STGMEDIUM *pstgmIn, STGMEDIUM *p
 	return hr;
 }
 
-BEGIN_MESSAGE_MAP(CPeerProjectDataSource, CComObject)
-END_MESSAGE_MAP()
-
 BEGIN_INTERFACE_MAP(CPeerProjectDataSource, CComObject)
 	INTERFACE_PART(CPeerProjectDataSource, IID_IDropSource, DropSource)
 	INTERFACE_PART(CPeerProjectDataSource, IID_IDataObject, DataObject)

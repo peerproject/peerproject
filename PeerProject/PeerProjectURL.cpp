@@ -1206,7 +1206,8 @@ void CPeerProjectURL::Register(BOOL bOnStartup)
 	RegisterShellType( _T("Classes\\Applications\\PeerProject.exe"), NULL, _T("eMule Collection File"),
 		_T(".emulecollection"), _T("PeerProject"), _T("PEERFORMAT"), IDI_COLLECTION );
 
-	SHChangeNotify( SHCNE_ASSOCCHANGED, SHCNF_IDLIST, NULL, NULL );
+	if ( ! bOnStartup )
+		SHChangeNotify( SHCNE_ASSOCCHANGED, SHCNF_IDLIST, NULL, NULL );
 }
 
 /////////////////////////////////////////////////////////////////////////////

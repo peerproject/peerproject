@@ -69,17 +69,19 @@ public:
 	virtual BOOL GetRazaHash(Hashes::Sha1Hash& oHash, DWORD nLength = 0) const; // Compute the SHA hash of the packet GUID, type byte, and payload
 
 	// Get the packet's type, GUID, and all its bytes
-	virtual CString GetType()                  const; // Returns a pointer to a text literal like "Ping" or "Pong"
-	CString         GetGUID()                  const; // Returns the packet's GUID encoded into text in base 16
-	virtual void    ToBuffer(CBuffer* pBuffer) const; // Adds the Gnutella packet header and payload into the given CBuffer object
+	virtual CString GetType() const;				// Returns a pointer to a text literal like "Ping" or "Pong"
+	CString         GetGUID() const;				// Returns the packet's GUID encoded into text in base 16
+
+	virtual void	Reset();
+	virtual void    ToBuffer(CBuffer* pBuffer, bool bTCP = true) const; // Adds the Gnutella packet header and payload into the given CBuffer object
 
 	// Record information about the packet for debugging purposes
-	virtual void Debug(LPCTSTR pszReason) const; // Writes debug information about the packet into the PeerProject.log file
+	virtual void	Debug(LPCTSTR pszReason) const;	// Writes debug information about the packet into the PeerProject.log file
 
 public:
 	// Convert between the various ways the program expresses packet types, like ping and pong
-	static int     GnutellaTypeToIndex(BYTE nType); // Turn a type byte, like 0x30, into index 4, both describe a query route packet
-	static LPCTSTR m_pszPackets[9];                 // Turn a type index, like 4, into text like "QRP" for query route packet
+	static int     GnutellaTypeToIndex(BYTE nType);	// Turn a type byte, like 0x30, into index 4, both describe a query route packet
+	static LPCTSTR m_pszPackets[9];					// Turn a type index, like 4, into text like "QRP" for query route packet
 
 	// Read IP/IPP/DIP/DIPP hosts from GGEP and add to cache.
 	// Returns amount of successfully added or updated hosts and -1 on errors.
@@ -120,7 +122,7 @@ public:
 	// Takes a Gnutella packet header structure
 	// Gets a new packet from the pool and fills it with values from the header structure
 	// Returns a pointer to the prepared packet in the pool
-	inline static CG1Packet* New(GNUTELLAPACKET* pSource)
+	inline static CG1Packet* New(const GNUTELLAPACKET* pSource)
 	{
 		// Get a blank packet from the pool
 		CG1Packet* pPacket = (CG1Packet*)POOL.New();
@@ -150,8 +152,20 @@ public:
 		POOL.Delete( this ); // All it will really do is link it back into the list of packets we can use later
 	}
 
+	// Packet handler
+	virtual BOOL OnPacket(const SOCKADDR_IN* pHost);
+
+protected:
+	BOOL OnPing(const SOCKADDR_IN* pHost);
+	BOOL OnPong(const SOCKADDR_IN* pHost);
+	BOOL OnVendor(const SOCKADDR_IN* pHost);
+
 	// Let the nested CG1PacketPool class access the private members of this CG1Packet class
 	friend class CG1Packet::CG1PacketPool;
+
+private:
+	CG1Packet(const CG1Packet&);
+	CG1Packet& operator=(const CG1Packet&);
 };
 
 // Takes nSize, the number of CG1Packet objects we want

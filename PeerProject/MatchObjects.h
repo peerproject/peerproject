@@ -165,7 +165,7 @@ public:
 	DWORD		m_nSpeed;
 	CString		m_sSpeed;
 	int			m_nRating;				// Total value of all ratings
-	int			m_nRated;				// Number of ratings recieved
+	int			m_nRated;				// Number of ratings received
 	BOOL		m_bDRM;					// Appears to have DRM
 	TRISTATE	m_bRestricted;			// Appears to be a Restricted copyright file, or known Permissive File (False/True PeerTag)
 	BOOL		m_bSuspicious;			// Appears to be a suspicious file (small exe, vbs, etc)
@@ -177,8 +177,8 @@ public:
 	BOOL		m_bNew;
 	BOOL		m_bOneValid;
 	int			m_nShellIndex;
-	CString*	m_pColumns;
 	int			m_nColumns;
+	CString*	m_pColumns;
 	BYTE*		m_pPreview;
 	DWORD		m_nPreview;
 	CTime		m_pTime;				// Found time
@@ -215,12 +215,11 @@ public:
 
 //	int			GetRating() const;
 	DWORD		Filter();
-	void		Added(CQueryHit* pHit);
 	void		ClearNew();
 
 	CQueryHit*	GetHits() const;			// Access to Hits list first element.  Use with CAUTION, if Hit was changed call RefreshStatus().
 	CQueryHit*	GetBest() const;			// Access to best Hit.  Use with CAUTION, if Hit was changed call RefreshStatus().
-	void		RefreshStatus();			// Refresh file status (name, uri, etc.) in accord with Hits list
+	void		RefreshStatus();			// Refresh file status with Hits list: m_sName, m_sURL, m_nRating, m_nRated, m_nFiltered, m_nSources, m_nSpeed, m_sSpeed
 	DWORD		GetBogusHitsCount() const;	// Count bogus status setted Hits
 	DWORD		GetTotalHitsCount() const;	// Count Hits
 	DWORD		GetTotalHitsSpeed() const;	// Sum Hits speeds
@@ -262,7 +261,7 @@ protected:
 	CQueryHit*	m_pHits;
 	CQueryHit*	m_pBest;
 	TRISTATE	m_bLibraryStatus;
-
-protected:
 	TRISTATE	m_bExisting;
+
+	void		Added(CQueryHit* pHit);
 };

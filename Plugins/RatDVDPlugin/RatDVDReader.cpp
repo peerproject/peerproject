@@ -1,7 +1,7 @@
 //
 // RatDVDReader.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2006.
 // Originally Created by:	Rolandas Rudomanskis
 //
@@ -61,17 +61,17 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE hInstance, DWORD dwReason, LPVOID lpRes
 		ODS(_T("DllMain - Detach\n"));
 
 		if ( v_hPrivateHeap ) HeapDestroy( v_hPrivateHeap );
-        DeleteCriticalSection( &v_csSynch );
+		DeleteCriticalSection( &v_csSynch );
 		break;
 	}
 
-    return _AtlModule.DllMain( dwReason, lpReserved );
+	return _AtlModule.DllMain( dwReason, lpReserved );
 }
 
 // Used to determine whether the DLL can be unloaded by OLE
 STDAPI DllCanUnloadNow(void)
 {
-    return ( _AtlModule.GetLockCount() == 0 ) ? S_OK : S_FALSE;
+	return ( _AtlModule.GetLockCount() == 0 ) ? S_OK : S_FALSE;
 }
 
 // DllRegisterServer - Adds entries to the system registry
@@ -80,11 +80,11 @@ STDAPI DllRegisterServer(void)
 	LPWSTR  pwszModule;
 
 	// If we can't find the path to the DLL, we can't register...
-	if (!FGetModuleFileName( v_hModule, &pwszModule) )
+	if ( ! FGetModuleFileName( v_hModule, &pwszModule) )
 		return E_UNEXPECTED;
 
-    // registers object, typelib and all interfaces in typelib
-    HRESULT hr = _AtlModule.DllRegisterServer();
+	// Registers object, typelib and all interfaces in typelib
+	HRESULT hr = _AtlModule.DllRegisterServer();
 
 	return hr;
 }
@@ -95,12 +95,38 @@ STDAPI DllUnregisterServer(void)
 	LPWSTR  pwszModule;
 	HRESULT hr;
 	//If we can't find the path to the DLL, we can't unregister...
-	if ( !FGetModuleFileName( v_hModule, &pwszModule) )
+	if ( ! FGetModuleFileName( v_hModule, &pwszModule) )
 		return E_UNEXPECTED;
 
 	hr = _AtlModule.DllUnregisterServer();
 	return hr;
 }
+
+STDAPI DllInstall(BOOL bInstall, LPCWSTR pszCmdLine)
+{
+	HRESULT hr = E_FAIL;
+	static const wchar_t szUserSwitch[] = L"user";
+
+	if ( pszCmdLine != NULL )
+	{
+#if defined(_MSC_VER) && (_MSC_VER >= 1500)	// No VS2005
+		if ( _wcsnicmp(pszCmdLine, szUserSwitch, _countof(szUserSwitch)) == 0 )
+			AtlSetPerUserRegistration(true);
+#endif
+	}
+
+	if ( bInstall )
+	{
+		hr = DllRegisterServer();
+		if ( FAILED(hr) )
+			DllUnregisterServer();
+	}
+	else
+		hr = DllUnregisterServer();
+
+	return hr;
+}
+
 
 HRESULT CRatDVDReaderModule::DllGetClassObject(REFCLSID rclsid, REFIID /*riid*/, LPVOID* ppv)
 {
@@ -113,19 +139,19 @@ HRESULT CRatDVDReaderModule::DllGetClassObject(REFCLSID rclsid, REFIID /*riid*/,
 	CHECK_NULL_RETURN(ppv, E_POINTER);
 	*ppv = NULL;
 
- // The only components we can create
+	// The only components we can create
 	if ( rclsid != CLSID_RatDVDReader )
 		return CLASS_E_CLASSNOTAVAILABLE;
 
- // Create the needed class factory...
+	// Create the needed class factory...
 	pcf = new CRatDVDClassFactory();
 	CHECK_NULL_RETURN( pcf, E_OUTOFMEMORY );
 
- // Get requested interface.
-	if ( SUCCEEDED(hr = pcf->QueryInterface(rclsid, ppv)) )
-        { pcf->LockServer(TRUE); }
-    else
-        { *ppv = NULL; delete pcf; }
+	// Get requested interface.
+	if ( SUCCEEDED( hr = pcf->QueryInterface(rclsid, ppv) ) )
+		pcf->LockServer(TRUE);
+	else
+		*ppv = NULL; delete pcf;
 
 	return hr;
 }

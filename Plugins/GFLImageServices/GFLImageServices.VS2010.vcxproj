@@ -116,6 +116,8 @@
       <AdditionalLibraryDirectories>..\..\Services\LibGFL\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ModuleDefinitionFile>GFLImageServices.def</ModuleDefinitionFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <RegisterOutput>true</RegisterOutput>
+      <PerUserRedirection>true</PerUserRedirection>
       <SubSystem>Windows</SubSystem>
       <BaseAddress>0x1af40000</BaseAddress>
       <LargeAddressAware>true</LargeAddressAware>
@@ -126,11 +128,11 @@
       </OutputFile>
     </Bscmake>
     <PostBuildEvent>
-      <Message>Performing registration</Message>
-      <Command>xcopy "..\..\Services\LibGFL\$(Platform)\*.dll" "$(TargetDir)" /y
-regsvr32 /s /c "$(TargetPath)"
-</Command>
     </PostBuildEvent>
+    <PreBuildEvent>
+      <Message>Pre-Build Dependencies</Message>
+      <Command>xcopy "..\..\Services\LibGFL\$(Platform)\*.dll" "$(TargetDir)" /y</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Midl>
@@ -170,6 +172,8 @@ regsvr32 /s /c "$(TargetPath)"
       <AdditionalLibraryDirectories>..\..\Services\LibGFL\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ModuleDefinitionFile>GFLImageServices.def</ModuleDefinitionFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <RegisterOutput>true</RegisterOutput>
+      <PerUserRedirection>true</PerUserRedirection>
       <SubSystem>Windows</SubSystem>
       <LargeAddressAware>true</LargeAddressAware>
       <TargetMachine>MachineX64</TargetMachine>
@@ -179,11 +183,11 @@ regsvr32 /s /c "$(TargetPath)"
       </OutputFile>
     </Bscmake>
     <PostBuildEvent>
-      <Message>Performing registration</Message>
-      <Command>xcopy "..\..\Services\LibGFL\$(Platform)\*.dll" "$(TargetDir)" /y
-regsvr32 /s /c "$(TargetPath)"
-</Command>
     </PostBuildEvent>
+    <PreBuildEvent>
+      <Message>Pre-Build Dependencies</Message>
+      <Command>xcopy "..\..\Services\LibGFL\$(Platform)\*.dll" "$(TargetDir)" /y</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Midl>
@@ -240,7 +244,6 @@ regsvr32 /s /c "$(TargetPath)"
       </OutputFile>
     </Bscmake>
     <PostBuildEvent>
-      <Message>No registration</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -296,7 +299,6 @@ regsvr32 /s /c "$(TargetPath)"
       </OutputFile>
     </Bscmake>
     <PostBuildEvent>
-      <Message>No registration</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>

@@ -326,10 +326,10 @@ void CEDClient::AttachTo(CConnection* pConnection)
 //////////////////////////////////////////////////////////////////////
 // CEDClient close
 
-void CEDClient::Close()
+void CEDClient::Close(UINT nError)
 {
 	ASSERT( this != NULL );
-	CTransfer::Close();
+	CTransfer::Close( nError );
 	m_bConnected = m_bLogin = FALSE;
 
 	if ( ( m_pDownloadTransfer ) && ( m_pDownloadTransfer->m_nState == dtsDownloading ) )
@@ -2069,7 +2069,7 @@ BOOL CEDClient::OnRequestPreview(CEDPacket* pPacket)
 			else
 			{
 				theApp.Message( MSG_ERROR, IDS_UPLOAD_PREVIEW_EMPTY, (LPCTSTR)m_sAddress, (LPCTSTR)pFile->m_sName );
-				Send( pReply ); // Not an image packet
+				Send( pReply );	// Not an image packet
 				return TRUE;
 			}
 
@@ -2082,7 +2082,7 @@ BOOL CEDClient::OnRequestPreview(CEDPacket* pPacket)
 			{
 				theApp.Message( MSG_ERROR, IDS_UPLOAD_PREVIEW_EMPTY, (LPCTSTR)m_sAddress, (LPCTSTR)pFile->m_sName );
 				Send( pReply );
-				return TRUE; // Not an image packet
+				return TRUE;	// Not an image packet
 			}
 
 			pReply->Write( (LPCVOID)&nFrames, 1 );	// We send only 1 frame

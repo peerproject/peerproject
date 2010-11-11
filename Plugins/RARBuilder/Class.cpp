@@ -52,10 +52,7 @@ protected:
 	HANDLE hArchive;
 };
 
-STDMETHODIMP CRARBuilder::Process (
-	/* [in] */ HANDLE /* hFile */,
-	/* [in] */ BSTR sFile,
-	/* [in] */ ISXMLElement* pXML)
+STDMETHODIMP CRARBuilder::Process(/*[in]*/ BSTR sFile, /*[in]*/ ISXMLElement* pXML)
 {
 	if ( ! pXML )
 		return E_POINTER;
@@ -155,7 +152,7 @@ STDMETHODIMP CRARBuilder::Process (
 				{
 					if ( strFolders.GetLength() + strName.GetLength() <= MAX_SIZE_FOLDERS - 5 )
 					{
-						if ( strFolders.GetLength() )
+						if ( ! strFolders.IsEmpty() )
 							strFolders += _T(", ");
 						strFolders += strName;
 					}
@@ -168,7 +165,7 @@ STDMETHODIMP CRARBuilder::Process (
 
 					if ( strFiles.GetLength() + strName.GetLength() <= MAX_SIZE_FILES - 5 )
 					{
-						if ( strFiles.GetLength() )
+						if ( ! strFiles.IsEmpty() )
 							strFiles += _T(", ");
 						strFiles += strName;
 					}

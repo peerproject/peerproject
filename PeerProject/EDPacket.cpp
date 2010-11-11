@@ -27,7 +27,9 @@
 #include "Network.h"
 #include "SharedFile.h"
 #include "EDClient.h"
+#include "EDClients.h"
 #include "EDNeighbour.h"
+#include "Kademlia.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -41,12 +43,20 @@ CEDPacket::CEDPacketPool CEDPacket::POOL;
 //////////////////////////////////////////////////////////////////////
 // CEDPacket construction
 
-CEDPacket::CEDPacket() : CPacket( PROTOCOL_ED2K )
+CEDPacket::CEDPacket()
+	: CPacket		( PROTOCOL_ED2K )
+	, m_nEdProtocol	( 0 )
+	, m_nType		( 0 )
 {
 }
 
 CEDPacket::~CEDPacket()
 {
+}
+
+void CEDPacket::Reset()
+{
+	CPacket::Reset();
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -57,8 +67,8 @@ CString CEDPacket::ReadEDString(BOOL bUnicode)
 	WORD nLen = ReadShortLE();
 	if ( bUnicode )
 		return ReadStringUTF8( nLen );
-	else
-		return ReadStringASCII( nLen );
+
+	return ReadStringASCII( nLen );
 }
 
 void CEDPacket::WriteEDString(LPCTSTR psz, BOOL bUnicode)
@@ -82,8 +92,8 @@ CString CEDPacket::ReadLongEDString(BOOL bUnicode)
 	DWORD nLen = ReadLongLE();
 	if ( bUnicode )
 		return ReadStringUTF8( nLen );
-	else
-		return ReadStringASCII( nLen );
+
+	return ReadStringASCII( nLen );
 }
 
 void CEDPacket::WriteLongEDString(LPCTSTR psz, BOOL bUnicode)
@@ -282,23 +292,20 @@ void CEDPacket::WriteFile(const CPeerProjectFile* pPeerProjectFile, QWORD nSize,
 //////////////////////////////////////////////////////////////////////
 // CEDPacket buffers
 
-void CEDPacket::ToBuffer(CBuffer* pBuffer) const
+void CEDPacket::ToBuffer(CBuffer* pBuffer, bool bTCP) const
 {
-	ED2K_TCP_HEADER pHeader;
-	pHeader.nProtocol	= m_nEdProtocol;
-	pHeader.nLength		= m_nLength + 1;
-	pHeader.nType		= m_nType;
-	pBuffer->Add( &pHeader, sizeof(pHeader) );
-	pBuffer->Add( m_pBuffer, m_nLength );
-}
-
-void CEDPacket::ToBufferUDP(CBuffer* pBuffer) const
-{
-	ED2K_UDP_HEADER pHeader;
-	pHeader.nProtocol	= m_nEdProtocol;
-	pHeader.nType		= m_nType;
-	pBuffer->Add( &pHeader, sizeof(pHeader) );
-	pBuffer->Add( m_pBuffer, m_nLength );
+	if ( bTCP )
+	{
+		ED2K_TCP_HEADER pHeader = { m_nEdProtocol, m_nLength + 1, m_nType };
+		pBuffer->Add( &pHeader, sizeof(pHeader) );
+		pBuffer->Add( m_pBuffer, m_nLength );
+	}
+	else // UDP
+	{
+		ED2K_UDP_HEADER pHeader = { m_nEdProtocol, m_nType };
+		pBuffer->Add( &pHeader, sizeof(pHeader) );
+		pBuffer->Add( m_pBuffer, m_nLength );
+	}
 }
 
 CEDPacket* CEDPacket::ReadBuffer(CBuffer* pBuffer)
@@ -311,8 +318,10 @@ CEDPacket* CEDPacket::ReadBuffer(CBuffer* pBuffer)
 	if ( pBuffer->m_nLength - sizeof(*pHeader) + 1 < pHeader->nLength ) return NULL;
 	CEDPacket* pPacket = CEDPacket::New( pHeader );
 	pBuffer->Remove( sizeof(*pHeader) + pHeader->nLength - 1 );
-	if ( pPacket->InflateOrRelease() ) return NULL;
-	return pPacket;
+	if ( pPacket->Inflate() )
+		return pPacket;
+	pPacket->Release();
+	return NULL;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -321,12 +330,12 @@ CEDPacket* CEDPacket::ReadBuffer(CBuffer* pBuffer)
 BOOL CEDPacket::Deflate()
 {
 	if ( m_nEdProtocol != ED2K_PROTOCOL_EDONKEY &&
-		 m_nEdProtocol != ED2K_PROTOCOL_EMULE ) return FALSE;
+		 m_nEdProtocol != ED2K_PROTOCOL_EMULE )
+		return FALSE;
 
 	DWORD nOutput = 0;
 	auto_array< BYTE > pOutput( CZLib::Compress( m_pBuffer, m_nLength, &nOutput ) );
-
-	if ( pOutput.get() == NULL )
+	if ( ! pOutput.get() )
 		return FALSE;
 
 	if ( nOutput >= m_nLength )
@@ -334,57 +343,47 @@ BOOL CEDPacket::Deflate()
 
 	m_nEdProtocol = ED2K_PROTOCOL_EMULE_PACKED;
 
-	memcpy( m_pBuffer, pOutput.get(), nOutput );
+	delete [] m_pBuffer;
+	m_pBuffer = pOutput.release();
 	m_nLength = nOutput;
+	m_nBuffer = nOutput;
+	m_nPosition = 0;
 
 	return TRUE;
 }
 
-BOOL CEDPacket::InflateOrRelease()
+BOOL CEDPacket::Inflate()
 {
 	if ( m_nEdProtocol != ED2K_PROTOCOL_EMULE_PACKED &&
 		 m_nEdProtocol != ED2K_PROTOCOL_KAD_PACKED &&
 		 m_nEdProtocol != ED2K_PROTOCOL_REVCONNECT_PACKED )
-		return FALSE;
+		return TRUE;
 
 	DWORD nOutput = 0;
 	auto_array< BYTE > pOutput( CZLib::Decompress( m_pBuffer, m_nLength, &nOutput ) );
-
-	if ( pOutput.get() != NULL )
-	{
-		switch ( m_nEdProtocol )
-		{
-		case ED2K_PROTOCOL_EMULE_PACKED:
-			m_nEdProtocol = ED2K_PROTOCOL_EMULE;
-			break;
-		case ED2K_PROTOCOL_KAD_PACKED:
-			m_nEdProtocol = ED2K_PROTOCOL_KAD;
-			break;
-		case ED2K_PROTOCOL_REVCONNECT_PACKED:
-			m_nEdProtocol = ED2K_PROTOCOL_REVCONNECT;
-			break;
-		}
-
-		if ( m_nBuffer >= nOutput )
-		{
-			CopyMemory( m_pBuffer, pOutput.get(), nOutput );
-			m_nLength = nOutput;
-		}
-		else
-		{
-			delete [] m_pBuffer;
-			m_pBuffer = pOutput.release();
-			m_nLength = nOutput;
-			m_nBuffer = nOutput;
-		}
-
+	if ( ! pOutput.get() )
 		return FALSE;
-	}
-	else
+
+	switch ( m_nEdProtocol )
 	{
-		Release();
-		return TRUE;
+	case ED2K_PROTOCOL_EMULE_PACKED:
+		m_nEdProtocol = ED2K_PROTOCOL_EMULE;
+		break;
+	case ED2K_PROTOCOL_KAD_PACKED:
+		m_nEdProtocol = ED2K_PROTOCOL_KAD;
+		break;
+	case ED2K_PROTOCOL_REVCONNECT_PACKED:
+		m_nEdProtocol = ED2K_PROTOCOL_REVCONNECT;
+		break;
 	}
+
+	delete [] m_pBuffer;
+	m_pBuffer = pOutput.release();
+	m_nLength = nOutput;
+	m_nBuffer = nOutput;
+	m_nPosition = 0;
+
+	return TRUE;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -842,6 +841,29 @@ BOOL CEDTag::Read(CFile* pFile)
 	}
 
 	return TRUE;
+}
+
+BOOL CEDPacket::OnPacket(const SOCKADDR_IN* pHost)
+{
+	switch ( m_nEdProtocol )
+	{
+	case ED2K_PROTOCOL_EDONKEY:
+	case ED2K_PROTOCOL_EMULE:
+		return EDClients.OnPacket( pHost, this );
+
+	case ED2K_PROTOCOL_KAD:
+		return Kademlia.OnPacket( pHost, this );
+
+	case ED2K_PROTOCOL_REVCONNECT:
+		// ToDo: Implement RevConnect KAD
+		Debug( _T("RevConnect KAD not implemented.") );
+		break;
+
+	default:
+		;
+	}
+
+	return FALSE;
 }
 
 //////////////////////////////////////////////////////////////////////

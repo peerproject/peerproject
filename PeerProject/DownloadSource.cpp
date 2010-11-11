@@ -820,35 +820,54 @@ BOOL CDownloadSource::CheckHash(const Hashes::Md5Hash& oMD5)
 
 BOOL CDownloadSource::PushRequest()
 {
-	if ( m_nProtocol == PROTOCOL_BT )
+	switch ( m_nProtocol )
 	{
+	case PROTOCOL_BT:
 		return FALSE;
-	}
-	else if ( m_nProtocol == PROTOCOL_ED2K )
-	{
-		if ( m_nServerPort == 0 ) return FALSE;
-		if ( EDClients.IsFull() ) return TRUE;
 
-		CEDClient* pClient = EDClients.Connect( m_pAddress.S_un.S_addr, m_nPort,
-			&m_pServerAddress, m_nServerPort, m_oGUID );
-
-		if ( pClient != NULL && pClient->m_bConnected )
-		{
-			pClient->SeekNewDownload();
+	case PROTOCOL_ED2K:
+		if ( m_nServerPort == 0 )
+			return FALSE;
+		if ( EDClients.IsFull() )
 			return TRUE;
+		{
+			CEDClient* pClient = EDClients.Connect( m_pAddress.S_un.S_addr, m_nPort, &m_pServerAddress, m_nServerPort, m_oGUID );
+			if ( pClient != NULL && pClient->m_bConnected )
+			{
+				pClient->SeekNewDownload();
+				return TRUE;
+			}
 		}
-
 		if ( Neighbours.PushDonkey( m_pAddress.S_un.S_addr, m_pServerAddress, m_nServerPort ) )
 		{
 			theApp.Message( MSG_INFO, IDS_DOWNLOAD_PUSH_SENT, (LPCTSTR)m_pDownload->m_sName );
 			m_tAttempt = GetTickCount() + Settings.Downloads.PushTimeout;
 			return TRUE;
 		}
-	}
-	else
-	{
-		if ( ! m_oGUID ) return FALSE;
+		break;
 
+//	case PROTOCOL_DC:
+//		if ( m_pServerAddress.s_addr == INADDR_ANY || m_nServerPort == 0 )
+//			return FALSE;
+//		if ( m_sNick.IsEmpty() )
+//			return FALSE;
+//		{
+//			BOOL bSuccess = FALSE;
+//			if ( DCClients.Connect( m_pServerAddress, m_nServerPort, m_sNick, bSuccess ) )
+//			{
+//				if ( bSuccess )
+//				{
+//					theApp.Message( MSG_INFO, IDS_DOWNLOAD_PUSH_SENT, (LPCTSTR)m_pDownload->m_sName );
+//					m_tAttempt = GetTickCount() + Settings.Downloads.PushTimeout;
+//				}
+//				return TRUE;
+//			}
+//		}
+//		break;
+
+	default:
+		if ( ! m_oGUID )
+			return FALSE;
 		if ( Network.SendPush( m_oGUID, m_nIndex ) )
 		{
 			theApp.Message( MSG_INFO, IDS_DOWNLOAD_PUSH_SENT, (LPCTSTR)m_pDownload->m_sName );
@@ -865,21 +884,19 @@ BOOL CDownloadSource::CheckPush(const Hashes::Guid& oClientID)
 	return validAndEqual( m_oGUID, oClientID );
 }
 
-BOOL CDownloadSource::CheckDonkey(CEDClient* pClient)
+BOOL CDownloadSource::CheckDonkey(const CEDClient* pClient)
 {
-	if ( m_nProtocol != PROTOCOL_ED2K ) return FALSE;
+	if ( m_nProtocol != PROTOCOL_ED2K )
+		return FALSE;
 
-	if ( m_oGUID && pClient->m_oGUID ) return m_oGUID == pClient->m_oGUID;
+	if ( m_oGUID && pClient->m_oGUID )
+		return m_oGUID == pClient->m_oGUID;
 
 	if ( m_bPushOnly )
-	{
 		return	m_pServerAddress.S_un.S_addr == pClient->m_pServer.sin_addr.S_un.S_addr &&
 				m_pAddress.S_un.S_addr == pClient->m_nClientID;
-	}
-	else
-	{
-		return m_pAddress.S_un.S_addr == pClient->m_pHost.sin_addr.S_un.S_addr;
-	}
+
+	return m_pAddress.S_un.S_addr == pClient->m_pHost.sin_addr.S_un.S_addr;
 }
 
 //////////////////////////////////////////////////////////////////////

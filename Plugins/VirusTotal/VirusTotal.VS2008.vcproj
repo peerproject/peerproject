@@ -61,8 +61,8 @@
 				FloatingPointModel="2"
 				RuntimeTypeInfo="false"
 				UsePrecompiledHeader="2"
-				WarningLevel="4"
 				DebugInformationFormat="4"
+				WarningLevel="4"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -77,11 +77,12 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				RegisterOutput="true"
 				IgnoreImportLibrary="true"
-				LinkIncremental="2"
 				ModuleDefinitionFile="VirusTotal.def"
 				GenerateDebugInformation="true"
+				LinkIncremental="2"
+				RegisterOutput="true"
+				PerUserRedirection="true"
 				SubSystem="2"
 				LargeAddressAware="2"
 				TargetMachine="1"
@@ -260,11 +261,12 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				RegisterOutput="true"
 				IgnoreImportLibrary="true"
-				LinkIncremental="2"
 				ModuleDefinitionFile="VirusTotal.def"
 				GenerateDebugInformation="true"
+				LinkIncremental="2"
+				RegisterOutput="true"
+				PerUserRedirection="true"
 				SubSystem="2"
 				LargeAddressAware="2"
 				TargetMachine="17"

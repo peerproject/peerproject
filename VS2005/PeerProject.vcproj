@@ -64,9 +64,9 @@
 				RuntimeTypeInfo="false"
 				UsePrecompiledHeader="2"
 				ProgramDataBaseFileName="$(TargetDir)$(TargetName).pdb"
-				WarningLevel="4"
 				Detect64BitPortabilityProblems="true"
 				DebugInformationFormat="4"
+				WarningLevel="4"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -162,8 +162,8 @@
 				RuntimeTypeInfo="false"
 				UsePrecompiledHeader="2"
 				ProgramDataBaseFileName="$(TargetDir)$(TargetName).pdb"
-				WarningLevel="4"
 				DebugInformationFormat="3"
+				WarningLevel="4"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -257,9 +257,9 @@
 				RuntimeTypeInfo="false"
 				UsePrecompiledHeader="2"
 				ProgramDataBaseFileName="$(TargetDir)$(TargetName).pdb"
-				WarningLevel="4"
 				Detect64BitPortabilityProblems="true"
 				DebugInformationFormat="3"
+				WarningLevel="4"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -356,8 +356,8 @@
 				RuntimeTypeInfo="false"
 				UsePrecompiledHeader="2"
 				ProgramDataBaseFileName="$(TargetDir)$(TargetName).pdb"
-				WarningLevel="4"
 				DebugInformationFormat="3"
+				WarningLevel="4"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -736,6 +736,10 @@
 			</File>
 			<File
 				RelativePath="..\PeerProject\ImageServices.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\PeerProject\Images.cpp"
 				>
 			</File>
 			<File
@@ -2351,6 +2355,10 @@
 			</File>
 			<File
 				RelativePath="..\PeerProject\ImageServices.h"
+				>
+			</File>
+			<File
+				RelativePath="..\PeerProject\Images.h"
 				>
 			</File>
 			<File

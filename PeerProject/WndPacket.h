@@ -21,14 +21,17 @@
 #include "WndPanel.h"
 #include "G1Packet.h"
 #include "G2Packet.h"
+#include "EDPacket.h"
+//#include "DCPacket.h"
+#include "BTPacket.h"
 
 class CLiveItem;
 class CNeighbour;
 class CPacket;
 class CCoolMenu;
 
-const int		nTypeG1Size = G1_PACKTYPE_MAX;
-const int		nTypeG2Size = 22;
+const int	nTypeG1Size = G1_PACKTYPE_MAX;
+const int	nTypeG2Size = 22;
 
 class CPacketWnd : public CPanelWnd
 {
@@ -51,6 +54,7 @@ protected:
 	BOOL				m_bTypeG2[nTypeG2Size];
 	BOOL				m_bTypeED;
 	CListCtrl			m_wndList;
+//	CImageList			m_gdiImageList;
 	CLiveListSizer		m_pSizer;
 	CFont				m_pFont;
 	CCoolMenu*			m_pCoolMenu;
@@ -60,7 +64,7 @@ protected:
 
 	void AddNeighbour(CMenu* pMenus, int nGroup, UINT nID, DWORD_PTR nTarget, LPCTSTR pszText);
 
-	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg void OnCustomDrawList(NMHDR* pNMHDR, LRESULT* pResult);
 	afx_msg void OnContextMenu(CWnd* pWnd, CPoint point);

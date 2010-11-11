@@ -75,15 +75,15 @@ public:
 	DWORD				m_nOutPackets;
 
 protected:
-	SOCKET		m_hSocket;
-	WORD		m_nSequence;
-	BOOL		m_bStable;
-	DWORD		m_tLastWrite;
+	SOCKET			m_hSocket;
+	WORD			m_nSequence;
+	BOOL			m_bStable;
+	DWORD			m_tLastWrite;
 
-	DWORD		m_nBufferBuffer;	// Number of output buffers (Settings.Gnutella2.UdpBuffers)
-	CBuffer*	m_pBufferBuffer;	// Output buffers
-	CBuffer*	m_pBufferFree;		// List of free output buffers
-	DWORD		m_nBufferFree;		// Number of free output buffer items in list
+	DWORD			m_nBufferBuffer;	// Number of output buffers (Settings.Gnutella2.UdpBuffers)
+	CBuffer*		m_pBufferBuffer;	// Output buffers
+	CBuffer*		m_pBufferFree;		// List of free output buffers
+	DWORD			m_nBufferFree;		// Number of free output buffer items in list
 
 	DWORD			m_nInputBuffer;
 	CDatagramIn*	m_pInputBuffer;
@@ -126,9 +126,8 @@ public:
 		m_bStable = bStable;
 	}
 
-	BOOL	Send(IN_ADDR* pAddress, WORD nPort, CPacket* pPacket, BOOL bRelease = TRUE, LPVOID pToken = NULL, BOOL bAck = TRUE);
-	BOOL	Send(SOCKADDR_IN* pHost, const CBuffer& pOutput);
-	BOOL	Send(SOCKADDR_IN* pHost, CPacket* pPacket, BOOL bRelease = TRUE, LPVOID pToken = NULL, BOOL bAck = TRUE);
+	BOOL	Send(const IN_ADDR* pAddress, WORD nPort, CPacket* pPacket, BOOL bRelease = TRUE, LPVOID pToken = NULL, BOOL bAck = TRUE);
+	BOOL	Send(const SOCKADDR_IN* pHost, CPacket* pPacket, BOOL bRelease = TRUE, LPVOID pToken = NULL, BOOL bAck = TRUE);
 	void	PurgeToken(LPVOID pToken);
 	void	OnRun();
 
@@ -139,32 +138,11 @@ protected:
 	void	ManageOutput();
 	void	Remove(CDatagramOut* pDG);
 	void	Remove(CDatagramIn* pDG, BOOL bReclaimOnly = FALSE);
-	void	Rerequest(CDatagramIn* pDG);
 	void	ManagePartials();
 
-	BOOL	OnDatagram(SOCKADDR_IN* pHost, BYTE* pBuffer, DWORD nLength);
-	BOOL	OnReceiveSGP(SOCKADDR_IN* pHost, SGP_HEADER* pHeader, DWORD nLength);
-	BOOL	OnAcknowledgeSGP(SOCKADDR_IN* pHost, SGP_HEADER* pHeader, DWORD nLength);
-
-	BOOL	OnPacket(SOCKADDR_IN* pHost, CG1Packet* pPacket);
-	BOOL	OnPacket(SOCKADDR_IN* pHost, CG2Packet* pPacket);
-	BOOL	OnPing(SOCKADDR_IN* pHost, CG1Packet* pPacket);
-	BOOL	OnPing(SOCKADDR_IN* pHost, CG2Packet* pPacket);
-	BOOL	OnPong(SOCKADDR_IN* pHost, CG1Packet* pPacket);
-	BOOL	OnPong(SOCKADDR_IN* pHost, CG2Packet* pPacket);
-	BOOL	OnQuery(SOCKADDR_IN* pHost, CG2Packet* pPacket);
-	BOOL	OnQueryAck(SOCKADDR_IN* pHost, CG2Packet* pPacket);
-	BOOL	OnCommonHit(SOCKADDR_IN* pHost, CG2Packet* pPacket);
-	BOOL	OnQueryKeyRequest(SOCKADDR_IN* pHost, CG2Packet* pPacket);
-	BOOL	OnQueryKeyAnswer(SOCKADDR_IN* pHost, CG2Packet* pPacket);
-	BOOL	OnPush(SOCKADDR_IN* pHost, CG2Packet* pPacket);
-	BOOL	OnCrawlRequest(SOCKADDR_IN* pHost, CG2Packet* pPacket);
-	BOOL	OnCrawlAnswer(SOCKADDR_IN* pHost, CG2Packet* pPacket);
-	BOOL	OnDiscovery(SOCKADDR_IN* pHost, CG2Packet* pPacket);
-	BOOL	OnKHL(SOCKADDR_IN* pHost, CG2Packet* pPacket);
-	BOOL	OnKHLA(SOCKADDR_IN* pHost, CG2Packet* pPacket);
-	BOOL	OnKHLR(SOCKADDR_IN* pHost, CG2Packet* pPacket);
-	BOOL	OnVendor(SOCKADDR_IN* pHost, CG1Packet* pPacket);
+	BOOL	OnDatagram(const SOCKADDR_IN* pHost, const BYTE* pBuffer, DWORD nLength);
+	BOOL	OnReceiveSGP(const SOCKADDR_IN* pHost, const SGP_HEADER* pHeader, DWORD nLength);
+	BOOL	OnAcknowledgeSGP(const SOCKADDR_IN* pHost, const SGP_HEADER* pHeader, DWORD nLength);
 };
 
 extern CDatagrams Datagrams;

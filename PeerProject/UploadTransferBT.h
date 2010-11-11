@@ -48,7 +48,7 @@ private:
 // Operations
 public:
 	void			SetChoke(BOOL bChoke);
-	virtual void	Close(BOOL bMessage = FALSE);
+	virtual void	Close(UINT nError = 0);
 	virtual DWORD	GetMeasuredSpeed();
 	virtual BOOL	OnConnected();
 	virtual BOOL	OnRun();

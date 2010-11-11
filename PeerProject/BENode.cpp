@@ -95,14 +95,14 @@ void CBENode::Clear()
 //////////////////////////////////////////////////////////////////////
 // CBENode add a child node
 
-CBENode* CBENode::Add(const LPBYTE pKey, size_t nKey)
+CBENode* CBENode::Add(LPCBYTE pKey, size_t nKey)
 {
 	switch ( m_nType )
 	{
 	case beNull:
-		m_nType		= ( pKey != NULL && nKey > 0 ) ? beDict : beList;
-		m_pValue	= NULL;
-		m_nValue	= 0;
+		m_nType  = ( pKey != NULL && nKey > 0 ) ? beDict : beList;
+		m_pValue = NULL;
+		m_nValue = 0;
 		break;
 	case beList:
 		ASSERT( pKey == NULL && nKey == 0 );
@@ -416,11 +416,22 @@ const CString CBENode::Encode() const
 
 CBENode* CBENode::Decode(const CBuffer* pBuffer, DWORD *pnReaden)
 {
+	return Decode( pBuffer->m_pBuffer, pBuffer->m_nLength, pnReaden );
+}
+
+CBENode* CBENode::Decode(LPCBYTE pBuffer, DWORD nLength, DWORD *pnReaden)
+{
+	if ( pnReaden )
+		*pnReaden = 0;
+
 	try
 	{
 		auto_ptr< CBENode > pNode( new CBENode() );
-		LPBYTE pInput	= pBuffer->m_pBuffer;
-		DWORD nInput	= pBuffer->m_nLength;
+		if ( ! pNode.get() )
+			return NULL;	// Out of memory
+
+		LPCBYTE pInput	= pBuffer;
+		DWORD nInput	= nLength;
 
 		// IIS based trackers may insert unneeded EOL at the beginning
 		// of the torrent files or scrape responses, due to IIS bug.  Skip it.
@@ -430,7 +441,7 @@ CBENode* CBENode::Decode(const CBuffer* pBuffer, DWORD *pnReaden)
 		pNode->Decode( pInput, nInput, nInput );
 
 		if ( pnReaden )
-			*pnReaden = pBuffer->m_nLength - nInput;
+			*pnReaden = nLength - nInput;
 
 		return pNode.release();
 	}
@@ -441,7 +452,7 @@ CBENode* CBENode::Decode(const CBuffer* pBuffer, DWORD *pnReaden)
 	}
 }
 
-void CBENode::Decode(LPBYTE& pInput, DWORD& nInput, DWORD nSize)
+void CBENode::Decode(LPCBYTE& pInput, DWORD& nInput, DWORD nSize)
 {
 	ASSERT( m_nType == beNull );
 
@@ -465,10 +476,10 @@ void CBENode::Decode(LPBYTE& pInput, DWORD& nInput, DWORD nSize)
 
 		if ( nSeek >= 40 ) AfxThrowUserException();
 
-		pInput[nSeek] = 0;
-		if ( sscanf_s( (LPCSTR)pInput, "%I64i", &m_nValue ) != 1 )
+		char szFormat[ 8 ];
+		sprintf_s( szFormat, "%%%uI64u", nSeek );
+		if ( sscanf_s( (LPCSTR)pInput, szFormat, &m_nValue ) != 1 )
 			AfxThrowUserException();
-		pInput[nSeek] = 'e';
 
 		INC( nSeek + 1 );
 		m_nType = beInt;
@@ -505,7 +516,7 @@ void CBENode::Decode(LPBYTE& pInput, DWORD& nInput, DWORD nSize)
 
 			if ( nLen )
 			{
-				LPBYTE pKey = pInput;
+				LPCBYTE pKey = pInput;
 				INC( nLen );
 				Add( pKey, nLen )->Decode( pInput, nInput, nSize );
 			}
@@ -531,7 +542,7 @@ void CBENode::Decode(LPBYTE& pInput, DWORD& nInput, DWORD nSize)
 	m_nSize = nSize - nInput - m_nPosition;
 }
 
-int CBENode::DecodeLen(LPBYTE& pInput, DWORD& nInput)
+int CBENode::DecodeLen(LPCBYTE& pInput, DWORD& nInput)
 {
 	DWORD nSeek = 1;
 	for ( ; nSeek < 32 ; nSeek++ )
@@ -546,10 +557,10 @@ int CBENode::DecodeLen(LPBYTE& pInput, DWORD& nInput)
 		AfxThrowUserException();
 	int nLen = 0;
 
-	pInput[ nSeek ] = 0;
-	if ( sscanf_s( (LPCSTR)pInput, "%i", &nLen ) != 1 )
+	char szFormat[ 8 ];
+	sprintf_s( szFormat, "%%%ui", nSeek );
+	if ( sscanf_s( (LPCSTR)pInput, szFormat, &nLen ) != 1 )
 		AfxThrowUserException();
-	pInput[ nSeek ] = ':';
 	INC( nSeek + 1 );
 
 	if ( nInput < (DWORD)nLen )
@@ -573,6 +584,21 @@ CString CBENode::GetString() const
 	// Use as is
 	return CString( szValue );
 }
+
+//#ifdef HASHES_HPP_INCLUDED
+
+bool CBENode::GetString(Hashes::BtGuid& oGUID) const
+{
+	if ( m_nType != beString ||
+		 m_nValue != oGUID.byteCount )
+		 return false;
+
+	CopyMemory( &oGUID[0], m_pValue, oGUID.byteCount );
+	oGUID.validate();
+
+	return true;
+}
+//#endif // HASHES_HPP_INCLUDED
 
 CString CBENode::DecodeString(UINT nCodePage) const
 {

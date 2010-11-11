@@ -29,36 +29,32 @@ class CPongItem;
 class CGGEPItem;
 
 // A CG1Neighbour object represents a remote computer running Gnutella software with which we are exchanging Gnutella packets
-class CG1Neighbour : public CNeighbour // Inherit from CNeighbour and from that CConnection to get compression features and the connection socket
+class CG1Neighbour : public CNeighbour	// Inherit from CNeighbour and from that CConnection to get compression features and the connection socket
 {
 
 public:
 
 	// Make a new CG1Neighbour object, and delete this one
-	CG1Neighbour(CNeighbour* pBase); // Takes a pointer to a CShakeNeighbour object that determined the remote computer is running Gnutella
+	CG1Neighbour(CNeighbour* pBase);	// Takes a pointer to a CShakeNeighbour object that determined the remote computer is running Gnutella
 	virtual ~CG1Neighbour();
 
 protected:
 
 	// The tick count when something last happened
-	DWORD m_tLastInPing;  // When the remote computer last sent us a ping packet
-	DWORD m_tLastOutPing; // When we last sent a ping packet to the remote computer
-	DWORD m_tClusterHost; // When we last called SendClusterAdvisor (do)
-	DWORD m_tClusterSent; // When that method last sent a vendor specific cluster advisor packet
-
-protected:
+	DWORD m_tLastPingIn;	// When the remote computer last sent us a ping packet
+	DWORD m_tLastPingOut;	// When we last sent a ping packet to the remote computer
+	DWORD m_tClusterHost;	// When we last called SendClusterAdvisor (do)
+	DWORD m_tClusterSent;	// When that method last sent a vendor specific cluster advisor packet
 
 	// (do)
 	BYTE m_nPongNeeded[PONG_NEEDED_BUFFER]; // This is just an array of 32 bytes
 
 	// Information about the most recent ping packet the remote computer has sent us
-	Hashes::Guid m_pLastPingID;   // The GUID of the most recent ping packet the remote computer has sent us
-	BYTE  m_nLastPingHops; // The number of hops that packet has travelled, adding 1 (do)
+	Hashes::Guid m_pLastPingID;	// The GUID of the most recent ping packet the remote computer has sent us
+	BYTE  m_nLastPingHops;	// The number of hops that packet has travelled, adding 1 (do)
 
 	// A hops flow byte specific to BearShare (do)
 	BYTE  m_nHopsFlow;
-
-protected:
 
 	// Holds the packets we are going to send to the remote computer
 	CG1PacketBuffer* m_pOutbound;
@@ -68,12 +64,12 @@ public:
 	// Send a packet to the remote computer
 	virtual BOOL Send(CPacket* pPacket, BOOL bRelease = TRUE, BOOL bBuffered = FALSE);
 
+	// Query packet
+	virtual BOOL SendQuery(const CQuerySearch* pSearch, CPacket* pPacket, BOOL bLocal);
+
 	// Ping and Pong packets
 	BOOL SendPing(DWORD dwNow = 0, const Hashes::Guid& oGUID = Hashes::Guid());
 	void OnNewPong(CPongItem* pPong);
-
-	// Query packet
-	virtual BOOL SendQuery(const CQuerySearch* pSearch, CPacket* pPacket, BOOL bLocal);
 
 	// Push packet
 	void SendG2Push(const Hashes::Guid& oGUID, CPacket* pPacket);
@@ -81,15 +77,15 @@ public:
 protected:
 
 	// Send and recieve packets
-	virtual BOOL OnRead();  // Read in data from the socket, decompress it, and call ProcessPackets
-	virtual BOOL OnWrite(); // Sends all the packets from the outbound packet buffer to the remote computer
-	virtual BOOL OnRun();   // Makes sure the remote computer hasn't been silent too long, and sends a ping every so often
+	virtual BOOL OnRead();	// Read in data from the socket, decompress it, and call ProcessPackets
+	virtual BOOL OnWrite();	// Sends all the packets from the outbound packet buffer to the remote computer
+	virtual BOOL OnRun();	// Makes sure the remote computer hasn't been silent too long, and sends a ping every so often
 
 protected:
 
 	// Read and respond to packets from the remote computer
-	BOOL ProcessPackets();             // Cuts up the recieved data into packets, and calls OnPacket for each one
-	BOOL OnPacket(CG1Packet* pPacket); // Sorts the packet and calls one of the methods below
+	BOOL ProcessPackets();				// Cuts up the recieved data into packets, and calls OnPacket for each one
+	BOOL OnPacket(CG1Packet* pPacket);	// Sorts the packet and calls one of the methods below
 
 	// Ping and pong packets
 	BOOL OnPing(CG1Packet* pPacket);

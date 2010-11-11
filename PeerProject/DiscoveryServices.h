@@ -65,7 +65,7 @@ public:
 	void		Remove(BOOL bCheck = TRUE);
 	void		OnSuccess();
 	void		OnFailure();
-	void		OnCopyGiven();			//Used in Datagrams.cpp
+	void		OnCopyGiven();			// Used in Datagrams.cpp
 
 protected:
 	void		OnAccess();
@@ -114,14 +114,12 @@ public:
 //	DWORD				MetQueried() const;
 	DWORD				LastExecute() const;
 	CDiscoveryService*	GetByAddress(LPCTSTR pszAddress) const;
-	CDiscoveryService*	GetByAddress( IN_ADDR* pAddress, WORD nPort, CDiscoveryService::SubType nSubType );
+	CDiscoveryService*	GetByAddress(const IN_ADDR* pAddress, WORD nPort, CDiscoveryService::SubType nSubType );
 	BOOL				Load();
 	BOOL				Save();
 	BOOL				Update();
-	BOOL				Execute(BOOL bDiscovery, PROTOCOLID nProtocol, USHORT nForceDiscovery);
 	void				Stop();
-	void				OnGnutellaAdded(IN_ADDR* pAddress, int nCount);
-	void				OnGnutellaFailed(IN_ADDR* pAddress);
+	BOOL				Execute(BOOL bDiscovery, PROTOCOLID nProtocol, USHORT nForceDiscovery);
 	BOOL				Execute(CDiscoveryService* pService, Mode nMode);
 
 protected:

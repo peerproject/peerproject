@@ -77,7 +77,7 @@ int PathGetArgsIndex(const CString& str)
 {
 	if ( str.GetAt( 0 ) == _T('\"') )
 	{
-		// "command"args
+		// "command" args
 		int quote = str.Find( _T('\"'), 1 );
 		if ( quote == -1 )
 			return -1;	// No closing quote
@@ -88,12 +88,10 @@ int PathGetArgsIndex(const CString& str)
 	int i = -1;
 	for ( ;; )
 	{
-		int slash = str.Find( _T('\\'), i + 1 );
-		if ( slash == -1 ||
-			GetFileAttributes( str.Mid( 0, slash + 1 ) ) == INVALID_FILE_ATTRIBUTES )
-		{
+		const int slash = str.Find( _T('\\'), i + 1 );
+		if ( slash == -1 || GetFileAttributes( str.Mid( 0, slash + 1 ) ) == INVALID_FILE_ATTRIBUTES )
 			return str.Find( _T(' '), i + 1 );
-		}
+
 		i = slash;
 	}
 }
@@ -524,8 +522,7 @@ BOOL CFileExecutor::ShowBitziTicket(DWORD nIndex)
 	CString strName = pFile->m_sName;
 	LPCTSTR pszExt = _tcsrchr( strName, '.' );
 	int nExtLen = pszExt ? static_cast< int >( _tcslen( pszExt ) - 1 ) : 0;
-	CString strExt = strName.Right( nExtLen );
-	strExt.Trim().MakeUpper();
+	const CString strExt = strName.Right( nExtLen ).Trim().MakeUpper();
 
 	strURL.Replace( _T("(NAME)"), URLEncode( strName ) );
 	strURL.Replace( _T("(SHA1)"), pFile->m_oSHA1.toString() );
@@ -827,38 +824,120 @@ BOOL CFileExecutor::ShowBitziTicket(DWORD nIndex)
 			strINFO += _T("&tag.objective.description=") + strTitle;
 	}
 
-	if ( strExt == "AVI" )
-		strINFO += _T("&tag.video.format=AVI");
-	else if ( strExt == "DIVX" || strExt == "DIV" || strExt == "TIX" )
-		strINFO += _T("&tag.video.format=DivX");
-	else if ( strExt == "XVID" )
-		strINFO += _T("&tag.video.format=XviD");
-	else if ( strExt == "MKV" )
-		strINFO += _T("&tag.video.format=Matroska");
-	else if ( strExt == "MOV" || strExt == "QT" )
-		strINFO += _T("&tag.video.format=QuickTime");
-	else if ( strExt == "RM" || strExt == "RMVB" || strExt == "RAM" || strExt == "RPM" || strExt == "RV" )
-		strINFO += _T("&tag.video.format=Real");
-	else if ( strExt == "MPG" || strExt == "MPEG" || strExt == "MPE" )
-		strINFO += _T("&tag.video.format=MPEG");
-	else if ( strExt == "M1V" )
-		strINFO += _T("&tag.video.format=MPEG-1");
-	else if ( strExt == "MPV2" || strExt == "MP2" || strExt == "M2V" )
-		strINFO += _T("&tag.video.format=MPEG-2");
-	else if ( strExt == "MP4" || strExt == "M4V" )
-		strINFO += _T("&tag.video.format=MPEG-4");
-	else if ( strExt == "WM" || strExt == "WMV" || strExt == "WMD" || strExt == "ASF" )
-		strINFO += _T("&tag.video.format=Windows Media");
-	else if ( strExt == "OGM" )
-		strINFO += _T("&tag.video.format=Ogg Media File");
-	else if ( strExt == "VP6" )
-		strINFO += _T("&tag.video.format=VP6");
-	else if ( strExt == "VOB" )
-		strINFO += _T("&tag.video.format=DVD");
-	else if ( strExt == "IVF" )
-		strINFO += _T("&tag.video.format=Indeo Video");
-	else if ( pFile->m_pSchema != NULL && pFile->m_pSchema->CheckURI( CSchema::uriVideo ) && ! strExt.IsEmpty() )
-		strINFO += _T("&tag.video.format=") + URLEncode( strExt );
+	// Video Extensions		// ToDo: Handle any other types?
+	if ( ! strExt.IsEmpty() )
+	{
+		SwitchMap( FileExt )
+		{
+			FileExt[ _T("AVI") ]	= 'a';
+			FileExt[ _T("DIVX") ]	= 'v';
+			FileExt[ _T("XVID") ]	= 'x';
+			FileExt[ _T("MKV") ]	= 'k';
+			FileExt[ _T("WEBM") ]	= 'e';
+			FileExt[ _T("HDMOV") ]	= 'q';
+			FileExt[ _T("MOV") ]	= 'q';
+			FileExt[ _T("QT") ] 	= 'q';
+			FileExt[ _T("MPG") ]	= 'm';
+			FileExt[ _T("MPEG") ]	= 'm';
+			FileExt[ _T("MPE") ]	= 'm';
+			FileExt[ _T("M1V") ]	= '1';
+			FileExt[ _T("MP2") ]	= '2';
+			FileExt[ _T("M2V") ]	= '2';
+			FileExt[ _T("MPV2") ]	= '2';
+			FileExt[ _T("MP4") ]	= '4';
+			FileExt[ _T("M4V") ]	= '4';
+			FileExt[ _T("WMV") ]	= 'w';
+			FileExt[ _T("WM") ] 	= 'w';
+			FileExt[ _T("ASF") ]	= 'w';
+			FileExt[ _T("RM") ] 	= 'r';
+			FileExt[ _T("RMVB") ]	= 'r';
+			FileExt[ _T("RAM") ]	= 'r';
+			FileExt[ _T("OGM") ]	= 'o';
+			FileExt[ _T("OGV") ]	= 'o';
+			FileExt[ _T("VOB") ]	= 'b';
+			FileExt[ _T("VP6") ]	= '6';
+			FileExt[ _T("3GP") ]	= 'g';
+			FileExt[ _T("IVF") ]	= 'i';
+			FileExt[ _T("FLV") ]	= 'f';
+			FileExt[ _T("SWF") ]	= 'f';
+
+			FileExt[ _T("MP3") ]	= 'X';
+			FileExt[ _T("AAC") ]	= 'X';
+			FileExt[ _T("FLAC") ]	= 'X';
+			FileExt[ _T("PNG") ]	= 'X';
+			FileExt[ _T("GIF") ]	= 'X';
+			FileExt[ _T("JPG") ]	= 'X';
+			FileExt[ _T("PDF") ]	= 'X';
+			FileExt[ _T("ZIP") ]	= 'X';
+			FileExt[ _T("RAR") ]	= 'X';
+			FileExt[ _T("EXE") ]	= 'X';
+		}
+
+		switch( FileExt[ strExt ] )
+		{
+		case 'a':		// avi
+			strINFO += _T("&tag.video.format=AVI");
+			break;
+		case 'k':		// mkv
+			strINFO += _T("&tag.video.format=Matroska");
+			break;
+		case 'q':		// mov hdmov qt
+			strINFO += _T("&tag.video.format=QuickTime");
+			break;
+		case 'r':		// rm rmvb rv ram rpm?
+			strINFO += _T("&tag.video.format=Real");
+			break;
+		case 'm':		// mpg mpeg mpe
+			strINFO += _T("&tag.video.format=MPEG");
+			break;
+		case '1':		// m1v
+			strINFO += _T("&tag.video.format=MPEG-1");
+			break;
+		case '2':		// mp2 m2p mpv2
+			strINFO += _T("&tag.video.format=MPEG-2");
+			break;
+		case '4':		// mp4 m4v
+			strINFO += _T("&tag.video.format=MPEG-4");
+			break;
+		case 'v':		// divx (div/tix?)
+			strINFO += _T("&tag.video.format=DivX");
+			break;
+		case 'x':		// xvid
+			strINFO += _T("&tag.video.format=XviD");
+			break;
+		case 'w':		// wmv wm wmd? asf
+			strINFO += _T("&tag.video.format=Windows Media");
+			break;
+		case 'o':		// ogm ogv
+			strINFO += _T("&tag.video.format=Ogg Media File");
+			break;
+		case 'g':		// 3gp
+			strINFO += _T("&tag.video.format=3GP");
+			break;
+		case '6':		// vp6
+			strINFO += _T("&tag.video.format=VP6");
+			break;
+		case 'b':		// vob
+			strINFO += _T("&tag.video.format=DVD");
+			break;
+		case 'i':		// ivf
+			strINFO += _T("&tag.video.format=Indeo Video");
+			break;
+		case 'f':		// swf flv
+			strINFO += _T("&tag.video.format=Flash Video");
+			break;
+		case 'e':		// webm
+			strINFO += _T("&tag.video.format=WebM");
+			break;
+
+		case 'X':		// Skip common non-video types
+			break;
+
+		default:		// Unknown extension, try video schema
+			if ( pFile->m_pSchema != NULL && pFile->m_pSchema->CheckURI( CSchema::uriVideo ) )
+				strINFO += _T("&tag.video.format=") + URLEncode( strExt );
+		}
+	}
 
 	strURL.Replace( _T("&(INFO)"), strINFO );
 
@@ -878,34 +957,34 @@ BOOL CFileExecutor::DisplayURL(LPCTSTR pszURL)
 	return TRUE;
 
 #if 0
-	DWORD dwFilterFlags = 0;
-	BOOL bSuccess = FALSE;
-	DWORD hInstance = 0;
-
-	UINT uiResult = DdeInitialize( &hInstance, DDECallback, dwFilterFlags, 0 );
-	if ( uiResult != DMLERR_NO_ERROR ) return FALSE;
-
-	HSZ hszService	= DdeCreateStringHandle( hInstance, L"IExplore", CP_WINUNICODE );
-	HSZ hszTopic	= DdeCreateStringHandle( hInstance, L"WWW_OpenURL", CP_WINUNICODE );
-
-	if ( HCONV hConv = DdeConnect( hInstance, hszService, hszTopic, NULL ) )
-	{
-		CString strCommand;
-
-		strCommand.Format( _T("\"%s\",,0"), pszURL );
-		CT2A pszCommand( (LPCTSTR)strCommand );
-
-		DdeClientTransaction( (LPBYTE)pszCommand, pszCommand,
-			 hConv, 0, 0, XTYP_EXECUTE, 4000, NULL );
-
-		DdeDisconnect( hConv );
-	}
-
-	DdeFreeStringHandle( hInstance, hszTopic );
-	DdeFreeStringHandle( hInstance, hszService );
-
-	DdeUninitialize( hInstance );
-
-	return bSuccess;
+// ToDo: Why is this here but disabled?
+//	DWORD dwFilterFlags = 0;
+//	BOOL bSuccess = FALSE;
+//	DWORD hInstance = 0;
+//
+//	UINT uiResult = DdeInitialize( &hInstance, DDECallback, dwFilterFlags, 0 );
+//	if ( uiResult != DMLERR_NO_ERROR ) return FALSE;
+//
+//	HSZ hszService	= DdeCreateStringHandle( hInstance, L"IExplore", CP_WINUNICODE );
+//	HSZ hszTopic	= DdeCreateStringHandle( hInstance, L"WWW_OpenURL", CP_WINUNICODE );
+//
+//	if ( HCONV hConv = DdeConnect( hInstance, hszService, hszTopic, NULL ) )
+//	{
+//		CString strCommand;
+//		strCommand.Format( _T("\"%s\",,0"), pszURL );
+//		CT2A pszCommand( (LPCTSTR)strCommand );
+//
+//		DdeClientTransaction( (LPBYTE)pszCommand, pszCommand,
+//			 hConv, 0, 0, XTYP_EXECUTE, 4000, NULL );
+//
+//		DdeDisconnect( hConv );
+//	}
+//
+//	DdeFreeStringHandle( hInstance, hszTopic );
+//	DdeFreeStringHandle( hInstance, hszService );
+//
+//	DdeUninitialize( hInstance );
+//
+//	return bSuccess;
 #endif
 }

@@ -1,7 +1,7 @@
 //
 // Builder.h : Declaration of the CBuilder
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Copyright (c) Nikolay Raspopov, 2005.
 //
 // GFL Library, GFL SDK and XnView
@@ -55,10 +55,7 @@ DECLARE_GET_CONTROLLING_UNKNOWN()
 
 // ILibraryBuilderPlugin
 public:
-	STDMETHOD(Process)(
-		/* [in] */ HANDLE hFile,
-		/* [in] */ BSTR sFile,
-		/* [in] */ ISXMLElement* pXML);
+	STDMETHOD(Process)(/*[in]*/ BSTR sFile, /*[in]*/ ISXMLElement* pXML);
 };
 
 OBJECT_ENTRY_AUTO(__uuidof(Builder), CBuilder)

@@ -21,6 +21,7 @@
 //
 
 #pragma once
+
 #include "Resource.h"
 #include "DocumentReader.h"
 
@@ -133,7 +134,7 @@ protected:
 			WORD                    m_wCodePageDSI; // Code Page for DocPropList
 		};
 
-		CSummaryProperties*		m_pSummProps;   // Summary Properties Object
+		CSummaryProperties*			m_pSummProps;   // Summary Properties Object
 
 		// Implementation
 		HRESULT Open(BSTR sFileName, VARIANT_BOOL ReadOnly, dsoFileOpenOptions Options);
@@ -164,7 +165,7 @@ protected:
 	};
 
 public:
-	CDocumentProperties*	m_pDocProps;
+	CDocumentProperties*		m_pDocProps;
 
 public:
 	static LPCWSTR	uriBook;
@@ -182,16 +183,14 @@ public:
 
 	// ILibraryBuilderPlugin Methods
 public:
-	STDMETHOD(Process)(HANDLE hFile, BSTR sFile, ISXMLElement* pXML);
+	STDMETHOD(Process)(BSTR sFile, ISXMLElement* pXML);
 
 	// IImageServicePlugin Methods
 public:
 	STDMETHOD(LoadFromFile)(BSTR sFile, IMAGESERVICEDATA* pParams, SAFEARRAY** ppImage);
-	STDMETHOD(LoadFromMemory)(BSTR sType, SAFEARRAY* pMemory,
-		IMAGESERVICEDATA* pParams, SAFEARRAY** ppImage);
+	STDMETHOD(LoadFromMemory)(BSTR sType, SAFEARRAY* pMemory, IMAGESERVICEDATA* pParams, SAFEARRAY** ppImage);
 	STDMETHOD(SaveToFile)(BSTR sFile, IMAGESERVICEDATA* pParams, SAFEARRAY* pImage);
-	STDMETHOD(SaveToMemory)(BSTR sType, SAFEARRAY** ppMemory,
-		IMAGESERVICEDATA* pParams, SAFEARRAY* pImage);
+	STDMETHOD(SaveToMemory)(BSTR sType, SAFEARRAY** ppMemory, IMAGESERVICEDATA* pParams, SAFEARRAY* pImage);
 
 private:
 	STDMETHOD(ProcessMSDocument)(BSTR bsFile, ISXMLElement* pXML, LPCWSTR pszSchema, LPCWSTR pszFormat);

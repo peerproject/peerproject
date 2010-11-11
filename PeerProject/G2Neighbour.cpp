@@ -144,22 +144,22 @@ BOOL CG2Neighbour::OnWrite()
 
 BOOL CG2Neighbour::OnRun()
 {
-	if ( ! CNeighbour::OnRun() ) return FALSE;
+	if ( ! CNeighbour::OnRun() )
+		return FALSE;
 
 	DWORD tNow = GetTickCount();
 
 	// Check incoming LNI traffic
 	if ( m_nCountLNIIn == 0 && tNow - m_tConnected > Settings.Gnutella2.LNIPeriod * 3 )
 	{
-		// No LNI packet was recieved during 3 periods (dead or annonymous host)
+		// No LNI packet was received during 3 periods (dead or anonymous host)
 		Close( IDS_CONNECTION_TIMEOUT_TRAFFIC );
 		return FALSE;
 	}
 
-	// Is it time to send TCP ping?
+	// Is it time to send TCP ping? Don't ping neighbour if we recently got any packets.
 	if ( tNow - m_tLastPingOut >= Settings.Gnutella2.PingRate &&
-	// But don't ping neighbour if we recently got any packets
-		tNow - m_tLastPacket >= Settings.Connection.TimeoutTraffic / 2 )
+		 tNow - m_tLastPacket >= Settings.Connection.TimeoutTraffic / 2 )
 	{
 		Send( CG2Packet::New( G2_PACKET_PING ) );
 		m_tLastPingOut = tNow;
@@ -447,7 +447,7 @@ BOOL CG2Neighbour::OnPing(CG2Packet* pPacket, BOOL bTCP)
 			{
 				nAddress	= pPacket->ReadLongLE();
 				nPort		= pPacket->ReadShortBE();
-				bUDP = TRUE;
+				bUDP		= TRUE;
 			}
 			else if ( nType == G2_PACKET_RELAY )
 			{
@@ -505,8 +505,7 @@ BOOL CG2Neighbour::OnPing(CG2Packet* pPacket, BOOL bTCP)
 	{
 		// This is a TCP relayed ping request packet
 		if ( tNow - m_tLastRelayPingIn < Settings.Gnutella1.PingFlood )
-			// We are flooded
-			return TRUE;
+			return TRUE;	// We are flooded
 		m_tLastRelayPingIn = tNow;
 		m_nCountRelayPingIn++;
 
@@ -532,7 +531,7 @@ BOOL CG2Neighbour::OnPing(CG2Packet* pPacket, BOOL bTCP)
 				CG2Neighbour* pNeighbour2 = static_cast< CG2Neighbour* >( pNeighbour );
 				if ( pNeighbour2->m_nState == nrsConnected &&
 					 pNeighbour2 != this &&
-					 !pNeighbour2->m_bFirewalled &&
+					 ! pNeighbour2->m_bFirewalled &&
 					 tNow - pNeighbour2->m_tLastRelayedPingOut >= Settings.Gnutella2.PingRate )
 				{
 					pG2Nodes.Add(  pNeighbour2 );
@@ -665,7 +664,7 @@ BOOL CG2Neighbour::OnLNI(CG2Packet* pPacket)
 
 	G2_PACKET nType;
 	DWORD nLength;
-	m_bFirewalled = FALSE; // Node may report /LNI/FW flag initially and later discover firewall status and not send it.
+	m_bFirewalled = FALSE;	// Node may report /LNI/FW flag initially and later discover firewall status and not send it.
 
 	m_nLeafCount = 0;
 
@@ -673,48 +672,60 @@ BOOL CG2Neighbour::OnLNI(CG2Packet* pPacket)
 	{
 		DWORD nNext = pPacket->m_nPosition + nLength;
 
-		if ( nType == G2_PACKET_NODE_ADDRESS && nLength >= 6 )
+		switch ( nType )
 		{
-			m_pHost.sin_addr.S_un.S_addr = pPacket->ReadLongLE();
-			m_pHost.sin_port = htons( pPacket->ReadShortBE() );
-		}
-		else if ( nType == G2_PACKET_NODE_GUID && nLength >= 16 )
-		{
-			pPacket->Read( m_oGUID );
-		}
-		else if ( nType == G2_PACKET_VENDOR && nLength >= 4 )
-		{
-			CHAR szVendor[5] = { 0, 0, 0, 0, 0 };
-			pPacket->Read( szVendor, 4 );
-			m_pVendor = VendorCache.Lookup( szVendor );
-		}
-		else if ( nType == G2_PACKET_LIBRARY_STATUS && nLength >= 8 )
-		{
-			m_nFileCount	= pPacket->ReadLongBE();
-			m_nFileVolume	= pPacket->ReadLongBE();
-		}
-		else if ( nType == G2_PACKET_HUB_STATUS && nLength >= 2 )
-		{
-			m_nLeafCount = pPacket->ReadShortBE();
+		case G2_PACKET_NODE_ADDRESS:
+			if ( nLength >= 6 )
+			{
+				m_pHost.sin_addr.S_un.S_addr = pPacket->ReadLongLE();
+				m_pHost.sin_port = htons( pPacket->ReadShortBE() );
+			}
+			break;
+		case G2_PACKET_NODE_GUID:
+			if ( nLength >= 16 )
+				pPacket->Read( m_oGUID );
+			break;
+		case G2_PACKET_VENDOR:
 			if ( nLength >= 4 )
-				m_nLeafLimit = pPacket->ReadShortBE();
-		}
-		else if ( nType == G2_PACKET_FW && nLength == 0 )
-		{
-			theApp.Message( MSG_INFO, _T("Received /LNI/FW from %s:%lu"),
-				(LPCTSTR)CString( inet_ntoa( m_pHost.sin_addr ) ),
-				htons( m_pHost.sin_port ) );
+			{
+				CHAR szVendor[5] = { 0, 0, 0, 0, 0 };
+				pPacket->Read( szVendor, 4 );
+				m_pVendor = VendorCache.Lookup( szVendor );
+			}
+			break;
+		case G2_PACKET_LIBRARY_STATUS:
+			if ( nLength >= 8 )
+			{
+				m_nFileCount	= pPacket->ReadLongBE();
+				m_nFileVolume	= pPacket->ReadLongBE();
+			}
+			break;
+		case G2_PACKET_HUB_STATUS:
+			if ( nLength >= 2 )
+			{
+				m_nLeafCount = pPacket->ReadShortBE();
+				if ( nLength >= 4 )
+					m_nLeafLimit = pPacket->ReadShortBE();
+			}
+			break;
+		case G2_PACKET_FW:
+			if ( nLength == 0 )
+			{
+				theApp.Message( MSG_INFO, _T("Received /LNI/FW from %s:%lu"),
+					(LPCTSTR)CString( inet_ntoa( m_pHost.sin_addr ) ),
+					htons( m_pHost.sin_port ) );
 
-			if ( m_nNodeType == ntHub )
-				theApp.Message( MSG_ERROR, _T("Hub %s:%lu sent LNI with firewall flag"),
-				(LPCTSTR)CString( inet_ntoa( m_pHost.sin_addr ) ),
-				htons( m_pHost.sin_port ) );
+				if ( m_nNodeType == ntHub )
+					theApp.Message( MSG_ERROR, _T("Hub %s:%lu sent LNI with firewall flag"),
+					(LPCTSTR)CString( inet_ntoa( m_pHost.sin_addr ) ),
+					htons( m_pHost.sin_port ) );
 
-			m_bFirewalled = TRUE;
-		}
-		else if ( nType == G2_PACKET_QUERY_KEY )
-		{
+				m_bFirewalled = TRUE;
+			}
+			break;
+		case G2_PACKET_QUERY_KEY:
 			m_bCachedKeys = TRUE;
+			break;
 		}
 
 		pPacket->m_nPosition = nNext;
@@ -841,7 +852,7 @@ BOOL CG2Neighbour::OnKHL(CG2Packet* pPacket)
 	return ParseKHLPacket( pPacket, &m_pHost );
 }
 
-BOOL CG2Neighbour::ParseKHLPacket(CG2Packet* pPacket, SOCKADDR_IN* pHost)
+BOOL CG2Neighbour::ParseKHLPacket(CG2Packet* pPacket, const SOCKADDR_IN* pHost)
 {
 	BOOL bInvalid = FALSE;
 	CG2Neighbour* pOwner = static_cast< CG2Neighbour* >( Neighbours.Get( pHost->sin_addr ) );
@@ -861,8 +872,8 @@ BOOL CG2Neighbour::ParseKHLPacket(CG2Packet* pPacket, SOCKADDR_IN* pHost)
 		{
 			DWORD nNext = pPacket->m_nPosition + nLength;
 
-			if (	nType == G2_PACKET_NEIGHBOUR_HUB ||
-					nType == G2_PACKET_CACHED_HUB )
+			if ( nType == G2_PACKET_NEIGHBOUR_HUB ||
+				 nType == G2_PACKET_CACHED_HUB )
 			{
 				DWORD nAddress = 0, nKey = 0, tSeen = tNow;
 				WORD nPort = 0, nLeafs = 0, nLeafLimit = 0;
@@ -876,44 +887,51 @@ BOOL CG2Neighbour::ParseKHLPacket(CG2Packet* pPacket, SOCKADDR_IN* pHost)
 					{
 						DWORD nNextX = pPacket->m_nPosition + nInner;
 
-						if ( nInnerType == G2_PACKET_NODE_ADDRESS && nInner >= 6 )
+						switch ( nInnerType )
 						{
-							nAddress = pPacket->ReadLongLE();
-							nPort = pPacket->ReadShortBE();
-						}
-						else if ( nInnerType == G2_PACKET_VENDOR && nInner >= 4 )
-						{
-							strVendor = pPacket->ReadString( 4 );
-						}
-						else if ( nInnerType == G2_PACKET_QUERY_KEY && nInner >= 4 )
-						{
-							nKey = pPacket->ReadLongBE();
-							if ( pOwner ) pOwner->m_bCachedKeys = TRUE;
-						}
-						else if ( nInnerType == G2_PACKET_TIMESTAMP && nInner >= 4 )
-						{
-							tSeen = pPacket->ReadLongBE() + tAdjust;
-						}
-						else if ( nInnerType == G2_PACKET_HUB_STATUS && nInner >= 2 )
-						{
-							nLeafs = pPacket->ReadShortBE();
+						case G2_PACKET_NODE_ADDRESS:
+							if ( nInner >= 6 )
+							{
+								nAddress = pPacket->ReadLongLE();
+								nPort = pPacket->ReadShortBE();
+							}
+							break;
+						case G2_PACKET_VENDOR:
 							if ( nInner >= 4 )
-								nLeafLimit = pPacket->ReadShortBE();
-						}
+								strVendor = pPacket->ReadString( 4 );
+							break;
+						case G2_PACKET_QUERY_KEY:
+							if ( nInner >= 4 )
+							{
+								nKey = pPacket->ReadLongBE();
+								if ( pOwner ) pOwner->m_bCachedKeys = TRUE;
+							}
+							break;
+						case G2_PACKET_TIMESTAMP:
+							if ( nInner >= 4 )
+								tSeen = pPacket->ReadLongBE() + tAdjust;
+							break;
+						case G2_PACKET_HUB_STATUS:
+							if ( nInner >= 2 )
+							{
+								nLeafs = pPacket->ReadShortBE();
+								if ( nInner >= 4 )
+									nLeafLimit = pPacket->ReadShortBE();
+							}
+							break;
 						// Obsolete: Morpheus specific
-						//else if ( nInnerType == G2_PACKET_NODE_GUID && nInner >= 16 )
-						//{
-						//	// Used by Morpheus
-						//	pPacket->Read( oNodeID );
-						//}
-						//else if ( nInnerType == G2_PACKET_LIBRARY_STATUS && nInner >= 8 )
-						//{
-						//	// Used by Morpheus
-						//	nFileCount	= pPacket->ReadLongBE();
-						//	nFileVolume	= pPacket->ReadLongBE();
-						//}
-						else
-						{
+						//case G2_PACKET_NODE_GUID:			// Morpheus
+						//	if ( nInner >= 16 )
+						//		pPacket->Read( oNodeID );
+						//	break;
+						//case G2_PACKET_LIBRARY_STATUS:	// Morpheus
+						//	if ( nInner >= 8 )
+						//	{
+						//		nFileCount	= pPacket->ReadLongBE();
+						//		nFileVolume	= pPacket->ReadLongBE();
+						//	}
+						//	break;
+						default:
 							bInvalid = TRUE;
 						}
 
@@ -1191,7 +1209,7 @@ BOOL CG2Neighbour::OnQuery(CG2Packet* pPacket)
 		//{
 		//	if ( ! pPacket->SeekToWrapped() ) return TRUE;
 		//	GNUTELLAPACKET* pG1 = (GNUTELLAPACKET*)( pPacket->m_pBuffer + pPacket->m_nPosition );
-
+		//
 		//	if ( pG1->m_nTTL > 1 )
 		//	{
 		//		pG1->m_nTTL--;
@@ -1207,10 +1225,10 @@ BOOL CG2Neighbour::OnQuery(CG2Packet* pPacket)
 		Neighbours.RouteQuery( pSearch, pPacket, this, m_nNodeType == ntLeaf );
 	}
 
-	if ( pSearch->m_bUDP && /*! Network.IsFirewalled() &&*/
+	if ( pSearch->m_bUDP && // ! Network.IsFirewalled()
 		 pSearch->m_pEndpoint.sin_addr.S_un.S_addr != m_pHost.sin_addr.S_un.S_addr )
 	{
-		Network.OnQuerySearch( new CLocalSearch( pSearch ) );
+		Network.OnQuerySearch( new CLocalSearch( pSearch, PROTOCOL_G2 ) );
 	}
 	else
 	{

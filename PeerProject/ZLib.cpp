@@ -35,32 +35,65 @@ static char THIS_FILE[]=__FILE__;
 // Takes a pointer to memory and how many bytes are there
 // Compresses the memory into a new buffer this function allocates
 // Returns a pointer to the new buffer, and writes its size under pnOutput
+
 auto_array< BYTE > CZLib::Compress(LPCVOID pInput, DWORD nInput, DWORD* pnOutput, DWORD nSuggest)
 {
-	// If we were given nSuggest, use it as the output buffer size, otherwise call compressBound to set it
-	*pnOutput = nSuggest ? nSuggest : compressBound( nInput ); // compressBound just uses math to guess, it doesn't look at the data
+	// Use nSuggest as the output buffer size if given,
+ 	// Otherwise call compressBound to set it just using math to guess, it doesn't look at the data
+	*pnOutput = nSuggest ? nSuggest : compressBound( nInput );
 
 	// Allocate a new buffer of pnOutput bytes
 	auto_array< BYTE > pBuffer( new BYTE[ *pnOutput ] );
+	if ( ! pBuffer.get() )
+	{
+		*pnOutput = 0;
+		return auto_array< BYTE >();
+	}
 
 	// Compress the data at pInput into pBuffer, putting how many bytes it wrote under pnOutput
-	int nRes = compress(		// Compress data from one buffer to another, returns Z_OK 0 false if it works
-		pBuffer.get(),			// The output buffer where ZLib can write compressed data
-		pnOutput,				// Reads how much space it has there, writes how much space it used
-		(const BYTE *)pInput,	// The source buffer with data to compress
-		nInput );				// The number of bytes there
+	const int nRes = compress( pBuffer.get(), pnOutput, (const BYTE *)pInput, nInput );
+
 	if ( nRes != Z_OK )
 	{
 		// The compress function reported error
-		ASSERT( Z_BUF_ERROR != nRes );	// TODO
+		ASSERT( Z_BUF_ERROR != nRes );	// ToDo: Error
 		return auto_array< BYTE >();
 	}
 
 	// The pBuffer buffer is too big, make a new one exactly the right size, copy the data, delete the first, and return the second
-	auto_array< BYTE > pOutput( new BYTE[ *pnOutput ] );	// Allocate a new buffer exact size to hold the bytes compress wrote
-	memcpy( pOutput.get(), pBuffer.get(), *pnOutput );	// Copy the compressed bytes from the old buffer to the new one
-	return pOutput;										// Return new buffer
+	//auto_array< BYTE > pOutput( new BYTE[ *pnOutput ] );	// Allocate a new buffer exact size to hold the bytes compress wrote
+	//memcpy( pOutput.get(), pBuffer.get(), *pnOutput );	// Copy the compressed bytes from the old buffer to the new one
+	//return pOutput;										// Return new buffer
+
+	return pBuffer;
 }
+
+BYTE* CZLib::Compress2(LPCVOID pInput, DWORD nInput, DWORD* pnOutput, DWORD nSuggest)
+{
+	*pnOutput = nSuggest ? nSuggest : compressBound( nInput );
+
+	// Allocate a new buffer of pnOutput bytes
+	BYTE* pBuffer = (BYTE*)malloc( *pnOutput );
+	if ( ! pBuffer )
+	{
+		*pnOutput = 0;
+		return NULL;
+	}
+
+	// Compress the data at pInput into pBuffer, putting how many bytes it wrote under pnOutput
+	int nRes = compress( pBuffer, pnOutput, (const BYTE *)pInput, nInput );
+	if ( nRes != Z_OK )
+	{
+		// The compress function reported error
+		ASSERT( Z_BUF_ERROR != nRes );	// ToDo: Error
+		free( pBuffer );
+		*pnOutput = 0;
+		return NULL;
+	}
+
+	return pBuffer;
+}
+
 
 //////////////////////////////////////////////////////////////////////
 // CZLib decompression
@@ -68,48 +101,76 @@ auto_array< BYTE > CZLib::Compress(LPCVOID pInput, DWORD nInput, DWORD* pnOutput
 // Takes a pointer to compressed input bytes, and how many are there
 // Decompresses the memory into a new buffer this function allocates
 // Returns a pointer to the new buffer, and writes its size under pnOutput
+
 auto_array< BYTE > CZLib::Decompress(LPCVOID pInput, DWORD nInput, DWORD* pnOutput)
 {
-	BYTE* pBuffer;
-
-	// Guess how big the data will be decompressed, use nSuggest, or just guess it will be 6 times as big
-	for ( DWORD nSuggest = max( nInput * 6ul, 1024ul ); ; nSuggest *= 2 )
+	// Guess how big the data will be decompressed, use nSuggest, or just guess it will be 4 times as big
+	for ( DWORD nSuggest = nInput * 4 ; ; nSuggest *= 2 )
 	{
-		pBuffer = new BYTE[ nSuggest ];
-		if ( ! pBuffer )
+		*pnOutput = nSuggest;
+
+		auto_array< BYTE > pBuffer( new BYTE[ *pnOutput ] );
+		if ( ! pBuffer.get() )
 		{
 			// Out of memory
 			*pnOutput = 0;
 			return auto_array< BYTE >();
 		}
 
-		*pnOutput = nSuggest;
-
 		// Uncompress the data from pInput into pBuffer, writing how big it is now in pnOutput
-		int nRes = uncompress(		// Uncompress data
-			pBuffer,				// Destination buffer where uncompress can write uncompressed data
-			pnOutput,				// Reads how much space it has there, and writes how much space it used
-			(const BYTE *)pInput,	// Source buffer of compressed data
-			nInput ); 				// Number of bytes there
+		const int nRes = uncompress( pBuffer.get(), pnOutput, (const BYTE *)pInput, nInput );
 
 		if ( Z_OK == nRes )
-			break;
-
-		delete [] pBuffer;
+			return pBuffer;
 
 		if ( Z_BUF_ERROR != nRes )
 		{
-			// Uncompress function returned an error, delete allocated buffer and return the error
+			// Decompression error
 			*pnOutput = 0;
 			return auto_array< BYTE >();
 		}
 	}
 
 	// The pBuffer buffer is bigger than necessary, move its bytes into one perfectly sized, and return it
-	auto_array< BYTE > pOutput( new BYTE[ *pnOutput ] );	// Make a new buffer exactly the right size
-	memcpy( pOutput.get(), pBuffer, *pnOutput );	// Copy the data from the one that's too big
+	//auto_array< BYTE > pOutput( new BYTE[ *pnOutput ] );	// Make a new buffer exactly the right size
+	//memcpy( pOutput.get(), pBuffer, *pnOutput );		// Copy the data from the one that's too big
+	//delete [] pBuffer;
+	//return pOutput;									// Return a pointer to the perfectly sized one
+}
 
-	delete [] pBuffer;
 
-	return pOutput;									// Return a pointer to the perfectly sized one
+BYTE* CZLib::Decompress2(LPCVOID pInput, DWORD nInput, DWORD* pnOutput)
+{
+	BYTE* pBuffer = NULL;
+
+	// Guess how big the data will be decompressed, use nSuggest, or just guess it will be 4 times as big
+	for ( DWORD nSuggest = nInput * 4 ; ; nSuggest *= 2 )
+	{
+		*pnOutput = nSuggest;
+
+		BYTE* pNewBuffer = (BYTE*)realloc( pBuffer, *pnOutput );
+		if ( ! pNewBuffer )
+		{
+			// Out of memory
+			free( pBuffer );
+			*pnOutput = 0;
+			return NULL;
+		}
+		pBuffer = pNewBuffer;
+
+		// Uncompress the data from pInput into pBuffer, writing how big it is now in pnOutput
+		int nRes = uncompress( pBuffer, pnOutput, (const BYTE *)pInput, nInput );
+		if ( Z_OK == nRes )
+			break;
+
+		if ( Z_BUF_ERROR != nRes )
+		{
+			// Decompression error
+			free( pBuffer );
+			*pnOutput = 0;
+			return NULL;
+		}
+	}
+
+	return pBuffer;
 }

@@ -76,7 +76,8 @@ BOOL CHandshakes::Listen()
 	}
 
 	// Make sure only one thread can execute the code of this method at a time
-	CSingleLock pLock( &m_pSection, TRUE ); // When the method exits, local pLock will be destructed, and the lock released
+ 	// When the method exits, local pLock will be destructed, and the lock released
+	CSingleLock pLock( &m_pSection, TRUE );
 
 	m_hSocket = socket( 	// Create a socket
 		PF_INET,			// Specify the Internet address family
@@ -98,11 +99,13 @@ BOOL CHandshakes::Listen()
 	}
 
 	// Get our computer's Internet IP address and port number from the network object
-	SOCKADDR_IN saListen = Network.m_pHost; // This is the address of our computer as visible to remote computers on the Internet
+	SOCKADDR_IN saListen = Network.m_pHost; 	// This is the address of our computer as visible to remote computers on the Internet
 
 	// If the program connection settings disallow binding, zero the 4 bytes of the IP address
 	if ( ! Settings.Connection.InBind )
-		saListen.sin_addr.s_addr = INADDR_ANY; // s_addr is the IP address formatted as a single u_long
+	{
+		saListen.sin_addr.s_addr = INADDR_ANY;	// s_addr is the IP address formatted as a single u_long
+	}
 	else
 	{
 		// Set the exclusive address option
@@ -110,8 +113,9 @@ BOOL CHandshakes::Listen()
 		setsockopt( m_hSocket, SOL_SOCKET, SO_EXCLUSIVEADDRUSE, (char*)&bVal, sizeof(bVal) );
 	}
 
+	BOOL bBound = FALSE;	// We're not bound to this socket yet
+
 	// Loop to try 5 times since the socket might not be reused immediately
-	BOOL bBound = FALSE; // We're not bound to this socket yet
 	for ( int nAttempt = 0 ; nAttempt < 5 ; nAttempt++ )
 	{
 		// Bind our IP address to the socket, Windows Firewall may pop a message to the user when a program calls bind
@@ -143,21 +147,6 @@ BOOL CHandshakes::Listen()
 		}
 	}
 
-	// If our record of our IP address on the Internet in the network object is zeroed
-	if ( Network.m_pHost.sin_addr.S_un.S_addr == 0 )
-	{
-		// Ask the socket what it thinks our IP address on this end is
-		int nSockLen = sizeof(SOCKADDR_IN);	// The number of bytes an MFC SOCKADDR_IN structure takes
-		getsockname( m_hSocket,	(SOCKADDR*)&Network.m_pHost, &nSockLen );
-			// Retrieves the local name for a socket:
-			// The socket; Have getsockname write the answer right into Network.m_pHost; Tell getsockname how much space it has to write there
-	}
-
-	// If we were able to bind the socket to our local address
-	if ( bBound )	// Report that we are now listening on our IP address
-		theApp.Message( MSG_INFO, IDS_NETWORK_LISTENING_TCP, (LPCTSTR)CString( inet_ntoa( Network.m_pHost.sin_addr ) ), htons( Network.m_pHost.sin_port ) );
-
-
 	// Set it up so that when a remote computer connects to us, the m_pWakeup event is fired
 	WSAEventSelect( m_hSocket, GetWakeupEvent(), FD_ACCEPT );
 		// Specify an event object to associate with the specified set of FD_XXX network events
@@ -167,6 +156,12 @@ BOOL CHandshakes::Listen()
 	listen( m_hSocket, 256 );
 		// Place a socket in a state in which it is listening for an incoming connection
 		// Our socket; Maximum length of the queue of pending connections, let 256 computers try to call us at once (do)
+
+	Network.AcquireLocalAddress( m_hSocket );
+
+	// If we were able to bind the socket to our local address
+	if ( bBound )	// Report that we are now listening on our IP address
+		theApp.Message( MSG_INFO, IDS_NETWORK_LISTENING_TCP, (LPCTSTR)CString( inet_ntoa( Network.m_pHost.sin_addr ) ), htons( Network.m_pHost.sin_port ) );
 
 	// Create a new thread to run the ThreadStart method, passing it a pointer to this C
 	return BeginThread( "Handshakes" );
@@ -183,10 +178,11 @@ void CHandshakes::Disconnect()
 	CloseThread();
 
 	// Make sure only one thread can execute the remaining code of this method at a time
-	CSingleLock pLock( &m_pSection, TRUE ); // When the method exits, local pLock will be destructed, and the lock released
+	// When the method exits, local pLock will be destructed, and the lock released
+	CSingleLock pLock( &m_pSection, TRUE );
 
 	// Zero the statistics about how many connections we've received
-	m_nStableCount	= 0; // Reset our count of how many connections we've accepted
+	m_nStableCount	= 0;	// Reset our count of how many connections we've accepted
 	m_tStableTime	= 0;
 
 	// Delete all the handshake objects in the list, and the list itself
@@ -260,8 +256,7 @@ BOOL CHandshakes::IsConnectedTo(const IN_ADDR* pAddress) const
 		if ( pHandshake->m_pHost.sin_addr.S_un.S_addr == pAddress->S_un.S_addr ) return TRUE;
 	}
 
-	// We didn't find it
-	return FALSE;
+	return FALSE;	// We didn't find it
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -339,12 +334,11 @@ void CHandshakes::RunHandshakes()
 		CHandshake* pHandshake = m_pList.GetNext( posNext );	// Get the pointer at this position, and move posNext forward
 
 		// Send and receive data write with the remote computer, deleting the handshake object if we loose the connection
-		if (
-			// Read and write data through the socket
-			! pHandshake->DoRun() // If we've lost the connection, DoRun will return false, and we'll go to the next line
-
-			// If the position and pointer still match
-			&& m_pList.GetAt( posThis ) == pHandshake ) // (do) How could this not be so?
+		// Read and write data through the socket
+		// If we've lost the connection, DoRun will return false, and we'll go to the next line
+		// And verify the position and pointer still match -How could this not be so?
+		if ( ! pHandshake->DoRun() &&
+			m_pList.GetAt( posThis ) == pHandshake )
 		{
 			// Delete the handshake object and remove it from the list
 			delete pHandshake;
@@ -360,14 +354,16 @@ void CHandshakes::RunHandshakes()
 // Making a new CHandshake object in the list for it.  Returns true if we accepted the connection.
 BOOL CHandshakes::AcceptConnection()
 {
-	// Local variables to receive the IP address and port number of the remote computer
 	SOCKADDR_IN pHost = {};
 	SOCKET hSocket = CNetwork::AcceptSocket( m_hSocket, &pHost, AcceptCheck );
 	if ( hSocket == INVALID_SOCKET )
 		return FALSE;
 
+	Network.AcquireLocalAddress( hSocket );
+
 	// We've listened for and accepted one more stable connection
-	InterlockedIncrement( (PLONG)&m_nStableCount ); // Use an interlocked function to do this in a thread-safe way
+	// Use an interlocked function to do this in a thread-safe way
+	InterlockedIncrement( (PLONG)&m_nStableCount );
 
 	// If the remote computer's IP address is blocked or banned
 	if ( Security.IsDenied( &pHost.sin_addr ) )
@@ -448,7 +444,7 @@ void CHandshakes::RunStableUpdate()
 	{
 		// If there isn't a record of when we first connected yet, set it to the current time.
 		if ( m_tStableTime == 0 )
-			m_tStableTime = (DWORD)time( NULL ); // The function time( NULL ) resolves to the number of seconds since 1970
+			m_tStableTime = (DWORD)time( NULL );	// The function time( NULL ) resolves to the number of seconds since 1970
 
 		// Update the discovery services (do)
 		DiscoveryServices.Update();

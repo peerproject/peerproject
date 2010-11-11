@@ -30,6 +30,8 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				Description="Pre-Build Dependencies"
+				CommandLine="if exist &quot;..\..\Services\zlib\$(ConfigurationName) $(PlatformName)\zlibwapi.dll&quot; copy &quot;..\..\Services\zlib\$(ConfigurationName) $(PlatformName)\zlibwapi.dll&quot; &quot;$(TargetDir)&quot; /b /y&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -81,6 +83,8 @@
 				AdditionalLibraryDirectories="..\..\Services\zlib"
 				ModuleDefinitionFile="DocumentReader.def"
 				GenerateDebugInformation="true"
+				RegisterOutput="true"
+				PerUserRedirection="true"
 				BaseAddress="0x22000000"
 				LargeAddressAware="2"
 				TargetMachine="1"
@@ -106,8 +110,6 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description="Performing registration (for debug)"
-				CommandLine="copy &quot;..\..\Services\zlib\$(ConfigurationName) $(PlatformName)\zlibwapi.dll&quot; &quot;$(TargetDir)&quot; /b /y&#x0D;&#x0A;regsvr32 /s /c &quot;$(TargetPath)&quot;&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
@@ -121,6 +123,8 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				Description="Pre-Build Dependencies"
+				CommandLine="if exist &quot;..\..\Services\zlib\$(ConfigurationName) $(PlatformName)\zlibwapi.dll&quot; copy &quot;..\..\Services\zlib\$(ConfigurationName) $(PlatformName)\zlibwapi.dll&quot; &quot;$(TargetDir)&quot; /b /y&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -171,6 +175,8 @@
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="..\..\Services\zlib"
 				ModuleDefinitionFile="DocumentReader.def"
+				RegisterOutput="true"
+				PerUserRedirection="true"
 				GenerateDebugInformation="true"
 				LargeAddressAware="2"
 				TargetMachine="17"
@@ -196,8 +202,6 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description="Performing registration (for debug)"
-				CommandLine="copy &quot;..\..\Services\zlib\$(ConfigurationName) $(PlatformName)\zlibwapi.dll&quot; &quot;$(TargetDir)&quot; /b /y&#x0D;&#x0A;regsvr32 /s /c &quot;$(TargetPath)&quot;&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration

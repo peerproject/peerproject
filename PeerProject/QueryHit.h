@@ -27,6 +27,7 @@ class CQuerySearch;
 class CG1Packet;
 class CG2Packet;
 class CEDPacket;
+//class CDCPacket;
 
 class CQueryHit : public CPeerProjectFile
 {
@@ -56,7 +57,6 @@ public:
 	BOOL			m_bChat;
 	BOOL			m_bBrowseHost;
 	CString			m_sNick;
-	CString			m_sKeywords;
 
 	int				m_nGroup;
 	DWORD			m_nIndex;
@@ -89,7 +89,8 @@ protected:
 public:
 	static CQueryHit*	FromG1Packet(CG1Packet* pPacket, int* pnHops = NULL);
 	static CQueryHit*	FromG2Packet(CG2Packet* pPacket, int* pnHops = NULL);
-	static CQueryHit*	FromEDPacket(CEDPacket* pPacket, SOCKADDR_IN* pServer, BOOL bUnicode, const Hashes::Guid& pSearchID = Hashes::Guid()) throw();
+	static CQueryHit*	FromEDPacket(CEDPacket* pPacket, const SOCKADDR_IN* pServer, BOOL bUnicode, const Hashes::Guid& pSearchID = Hashes::Guid()) throw();
+//	static CQueryHit*	FromDCPacket(CDCPacket* pPacket);
 protected:
 	static BOOL			CheckBogus(CQueryHit* pFirstHit);
 	static CXMLElement*	ReadXML(CG1Packet* pPacket, int nSize);
@@ -102,7 +103,7 @@ public:
 	void		Serialize(CArchive& ar, int nVersion);
 	void		Ban(int nBanLength);	// Ban by host IP only
 	void		Resolve();
-	void		ReadEDPacket(CEDPacket* pPacket, SOCKADDR_IN* pServer, BOOL bUnicode);
+	void		ReadEDPacket(CEDPacket* pPacket, const SOCKADDR_IN* pServer, BOOL bUnicode);
 protected:
 	void		ParseAttributes(const Hashes::Guid& pClientID, CVendor* pVendor, BYTE* nFlags, BOOL bChat, BOOL bBrowseHost);
 	void		ReadG1Packet(CG1Packet* pPacket);
@@ -110,7 +111,7 @@ protected:
 	void		ReadExtension(CG1Packet* pPacket);
 	BOOL		CheckValid() const;
 	bool		ReadG2Packet(CG2Packet* pPacket, DWORD nLength);
-	void		ReadEDAddress(CEDPacket* pPacket, SOCKADDR_IN* pServer);
+	void		ReadEDAddress(CEDPacket* pPacket, const SOCKADDR_IN* pServer);
 	BOOL		ParseXML(CXMLElement* pXML, DWORD nRealIndex);
 	BOOL		HasBogusMetadata();
 	BOOL		AutoDetectSchema(LPCTSTR pszInfo);
@@ -118,13 +119,13 @@ protected:
 
 // Inlines
 public:
-	inline int GetSources() const
+	inline DWORD GetSources() const
 	{
 		return m_nHitSources;
 	}
 	inline BOOL IsRated() const
 	{
-		return ( m_nRating || m_sComments.GetLength() );
+		return ( m_nRating || ! m_sComments.IsEmpty() );
 	}
 };
 

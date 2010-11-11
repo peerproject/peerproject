@@ -19,24 +19,12 @@
 #pragma once
 
 
-class CLibraryBuilderPlugins : private boost::noncopyable
+class CLibraryBuilderPlugins
 {
-// Construction
 public:
-	CLibraryBuilderPlugins();
-	virtual ~CLibraryBuilderPlugins()=0;
+	static bool ExtractPluginMetadata(DWORD nIndex, const CString& strPath);
 
-// Attributes
 private:
-	typedef CMap< CString, LPCTSTR, ILibraryBuilderPlugin*, ILibraryBuilderPlugin* > CPluginMap;
-
-	CCriticalSection	m_pSection;
-	CPluginMap			m_pMap;
-
-	ILibraryBuilderPlugin* LoadPlugin(LPCTSTR pszType);
-
-// Operations
-public:
-	bool	ExtractPluginMetadata(DWORD nIndex, const CString& strPath, HANDLE hFile);
-	void	CleanupPlugins();
+	static HRESULT SafeProcess(ILibraryBuilderPlugin* pPlugin, BSTR szPath, ISXMLElement* pElement);
+	static ILibraryBuilderPlugin* LoadPlugin(LPCTSTR pszType);
 };

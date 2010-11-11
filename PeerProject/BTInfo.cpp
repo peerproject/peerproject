@@ -618,7 +618,7 @@ BOOL CBTInfo::SaveTorrentFile(const CString& sFolder)
 }
 
 #define MAX_PIECE_SIZE (16 * 1024)
-BOOL CBTInfo::LoadInfoPiece(DWORD nPieceSize, DWORD nInfoSize, DWORD nInfoPiece, BYTE *pPacketBuffer, DWORD nPacketLength)
+BOOL CBTInfo::LoadInfoPiece(BYTE *pPiece, DWORD nPieceSize, DWORD nInfoSize, DWORD nInfoPiece)
 {
 	ASSERT( nPieceSize <= MAX_PIECE_SIZE );
 	if ( nPieceSize > MAX_PIECE_SIZE )
@@ -650,9 +650,9 @@ BOOL CBTInfo::LoadInfoPiece(DWORD nPieceSize, DWORD nInfoSize, DWORD nInfoPiece,
 
 	QWORD nPieceStart = nInfoPiece * MAX_PIECE_SIZE;
 
-	if ( nPieceStart == ( m_pSource.m_nLength - m_nInfoStart ) && nPacketLength > nPieceSize )
+	if ( nPieceStart == ( m_pSource.m_nLength - m_nInfoStart ) )
 	{
-		m_pSource.Add( &pPacketBuffer[ nPacketLength - nPieceSize ], nPieceSize );
+		m_pSource.Add( pPiece, nPieceSize );
 
 		if ( m_pSource.m_nLength - m_nInfoStart == nInfoSize )
 		{
@@ -663,7 +663,7 @@ BOOL CBTInfo::LoadInfoPiece(DWORD nPieceSize, DWORD nInfoSize, DWORD nInfoPiece,
 	return FALSE;
 }
 
-int CBTInfo::NextInfoPiece()
+int CBTInfo::NextInfoPiece() const
 {
 	if ( m_pSource.m_nLength == 0 )
 		return 0;
@@ -673,7 +673,7 @@ int CBTInfo::NextInfoPiece()
 	return -1;
 }
 
-DWORD CBTInfo::GetInfoPiece(DWORD nPiece, BYTE **pInfoPiece)
+DWORD CBTInfo::GetInfoPiece(DWORD nPiece, BYTE **pInfoPiece) const
 {
 	DWORD nPiceStart = MAX_PIECE_SIZE * nPiece;
 	if ( m_nInfoSize && m_nInfoStart &&
@@ -687,7 +687,7 @@ DWORD CBTInfo::GetInfoPiece(DWORD nPiece, BYTE **pInfoPiece)
 	return 0;
 }
 
-DWORD CBTInfo::GetInfoSize()
+DWORD CBTInfo::GetInfoSize() const
 {
 	return m_nInfoSize;
 }

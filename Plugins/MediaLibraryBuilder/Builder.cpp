@@ -1,7 +1,7 @@
 //
 // Builder.cpp : Implementation of CBuilder
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Nikolay Raspopov, 2005-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -23,10 +23,7 @@
 #include "Builder.h"
 #include <strsafe.h>
 
-STDMETHODIMP CBuilder::Process (
-	/* [in] */ HANDLE /* hFile */,
-	/* [in] */ BSTR sFile,
-	/* [in] */ ISXMLElement* pXML)
+STDMETHODIMP CBuilder::Process(/*[in]*/ BSTR sFile, /*[in]*/ ISXMLElement* pXML)
 {
 	HRESULT hr = E_FAIL;
 	__try

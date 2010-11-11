@@ -115,11 +115,12 @@ public:
 	BOOL		Check(CDownload* pDownload) const;
 private:
 	int			GetActiveTorrentCount() const;
-	DWORD		GetTransferCount() const;
-	BOOL		Swap(CDownload* p1, CDownload* p2);
+//	DWORD		GetTransferCount() const;
 	DWORD		GetBandwidth() const;
+	BOOL		Swap(CDownload* p1, CDownload* p2);
 	BOOL		OnDonkeyCallback(CEDClient* pClient, CDownloadSource* pExcept = NULL);
 	void		PurgePreviews();
+
 // Legacy Shareaza multifile torrents:
 //	void		LoadFromCompoundFiles();
 //	BOOL		LoadFromCompoundFile(LPCTSTR pszFile);

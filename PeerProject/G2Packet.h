@@ -229,7 +229,7 @@ public:
 	virtual CString	ReadString(DWORD nMaximum = 0xFFFFFFFF);
 	virtual void	WriteString(LPCTSTR pszString, BOOL bNull = TRUE);
 	virtual int		GetStringLen(LPCTSTR pszString) const;
-	virtual void	ToBuffer(CBuffer* pBuffer) const;
+	virtual void	ToBuffer(CBuffer* pBuffer, bool bTCP = true) const;
 	virtual void	Debug(LPCTSTR pszReason) const;
 public:
 	static CG2Packet* ReadBuffer(CBuffer* pBuffer);
@@ -244,6 +244,11 @@ public:
 	}
 
 	virtual CString GetType() const;
+
+//#ifdef DEBUG_G2
+//	virtual CString ToASCII() const;
+//	CString Dump(DWORD nTotal);
+//#endif // DEBUG_G2
 
 // Packet Pool
 protected:
@@ -282,7 +287,30 @@ public:
 		POOL.Delete( this );
 	}
 
+	// Packet handler
+	virtual BOOL OnPacket(const SOCKADDR_IN* pHost);
+
+protected:
+	BOOL OnPing(const SOCKADDR_IN* pHost);
+	BOOL OnPong(const SOCKADDR_IN* pHost);
+	BOOL OnQuery(const SOCKADDR_IN* pHost);
+	BOOL OnQueryAck(const SOCKADDR_IN* pHost);
+	BOOL OnQueryKeyRequest(const SOCKADDR_IN* pHost);
+	BOOL OnQueryKeyAnswer(const SOCKADDR_IN* pHost);
+	BOOL OnCommonHit(const SOCKADDR_IN* pHost);
+	BOOL OnCrawlRequest(const SOCKADDR_IN* pHost);
+	BOOL OnCrawlAnswer(const SOCKADDR_IN* pHost);
+	BOOL OnDiscovery(const SOCKADDR_IN* pHost);
+	BOOL OnPush(const SOCKADDR_IN* pHost);
+	BOOL OnKHL(const SOCKADDR_IN* pHost);
+	BOOL OnKHLA(const SOCKADDR_IN* pHost);
+	BOOL OnKHLR(const SOCKADDR_IN* pHost);
+
 	friend class CG2Packet::CG2PacketPool;
+
+private:
+	CG2Packet(const CG2Packet&);
+	CG2Packet& operator=(const CG2Packet&);
 };
 
 inline void CG2Packet::CG2PacketPool::NewPoolImpl(int nSize, CPacket*& pPool, int& nPitch)

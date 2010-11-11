@@ -36,7 +36,7 @@ class CLocalSearch
 // Construction
 public:
 	CLocalSearch(CQuerySearch* pSearch, const CNeighbour* pNeighbour);
-	CLocalSearch(CQuerySearch* pSearch);
+	CLocalSearch(CQuerySearch* pSearch, PROTOCOLID nProtocol);
 	CLocalSearch(CQuerySearch* pSearch, CBuffer* pBuffer, PROTOCOLID nProtocol);
 
 // Attributes

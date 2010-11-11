@@ -36,30 +36,31 @@ public:
 
 // Attributes
 public:
-	Hashes::BtGuid			m_oGUID;
-	BOOL					m_bExchange;		// Exchange sources/other info (with extended client)
-	BOOL					m_bExtended;		// Extension Protocol support
-	CUploadTransferBT*		m_pUploadTransfer;
-	CDownloadTransferBT*	m_pDownloadTransfer;
-	CDownload*				m_pDownload;
-	BOOL					m_bSeeder;
-	BOOL					m_bPrefersEncryption;
+	Hashes::BtGuid		m_oGUID;
+	CUploadTransferBT*	m_pUploadTransfer;
+	CDownloadTransferBT* m_pDownloadTransfer;
+	CDownload*			m_pDownload;
+	BOOL				m_bExchange;		// Exchange sources/other info (with extended client)
+	BOOL				m_bExtended;		// Extension Protocol support
+	BOOL				m_bSeeder;
+	BOOL				m_bPrefersEncryption;
 
 protected:
-	BOOL					m_bShake;
-	BOOL					m_bOnline;
-	BOOL					m_bClosing;
-	DWORD					m_tLastKeepAlive;
-	DWORD					m_tLastUtPex;
-	DWORD					m_nUtMetadataID;
-	DWORD					m_nUtMetadataSize;
-	QWORD					m_nUtPexID;
+	BOOL				m_bShake;
+	BOOL				m_bOnline;
+	BOOL				m_bClosing;
+	DWORD				m_tLastKeepAlive;
+	DWORD				m_tLastUtPex;
+	DWORD				m_nUtMetadataID;
+	DWORD				m_nUtMetadataSize;
+	QWORD				m_nUtPexID;
 
 // Operations
 public:
 	virtual BOOL	Connect(CDownloadTransferBT* pDownloadTransfer);
 	virtual void	AttachTo(CConnection* pConnection);
-	virtual void	Close();
+	virtual void	Close(UINT nError = 0);
+
 	void			Send(CBTPacket* pPacket, BOOL bRelease = TRUE);
 	inline BOOL		IsOnline() const throw() { return m_bOnline; }
 	static CString	GetUserAgentAzureusStyle(LPBYTE pVendor, size_t nVendor = 6);
@@ -74,7 +75,7 @@ protected:
 
 	void			SendHandshake(BOOL bPart1, BOOL bPart2);
 	void			SendExtendedHandshake();
-	void			SendExtendedPacket(BYTE Type, CBuffer *pOutput);
+	void			SendMetadataRequest(QWORD nPiece);
 	void			SendInfoRequest(QWORD nPiece);
 	void			SendUtPex(DWORD tConnectedAfter = 0);
 	BOOL			OnHandshake1();						// First part of handshake

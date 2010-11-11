@@ -22,7 +22,7 @@ class CConnection;
 class CBTClient;
 
 
-class CBTClients //: private boost::noncopyable
+class CBTClients
 {
 // Construction
 public:

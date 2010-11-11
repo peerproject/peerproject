@@ -82,9 +82,11 @@
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="true"
 				AdditionalDependencies="Strmiids.lib Quartz.lib"
-				LinkIncremental="2"
 				ModuleDefinitionFile="MediaImageServices.def"
+				LinkIncremental="2"
 				GenerateDebugInformation="true"
+				RegisterOutput="true"
+				PerUserRedirection="true"
 				SubSystem="2"
 				BaseAddress="0x1af60000"
 				LargeAddressAware="2"
@@ -111,8 +113,6 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description="Performing registration (for debug)"
-				CommandLine="regsvr32 /s /c &quot;$(TargetPath)&quot;"
 			/>
 		</Configuration>
 		<Configuration
@@ -177,9 +177,11 @@
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="true"
 				AdditionalDependencies="Strmiids.lib Quartz.lib"
-				LinkIncremental="2"
 				ModuleDefinitionFile="MediaImageServices.def"
 				GenerateDebugInformation="true"
+				LinkIncremental="2"
+				RegisterOutput="true"
+				PerUserRedirection="true"
 				SubSystem="2"
 				LargeAddressAware="2"
 				TargetMachine="17"
@@ -205,8 +207,6 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description="Performing registration (for debug)"
-				CommandLine="regsvr32 /s /c &quot;$(TargetPath)&quot;"
 			/>
 		</Configuration>
 		<Configuration

@@ -42,15 +42,15 @@ private:
 public:
 	bool		HasActiveTransfers() const;
 	DWORD		GetTransferCount() const;
-	DWORD		GetTransferCount(int nState, IN_ADDR* const pAddress = NULL) const;
-	QWORD		GetAmountDownloadedFrom(IN_ADDR* const pAddress) const;
-	void		CloseTransfers();
+	DWORD		GetTransferCount(int nState, const IN_ADDR* pAddress = NULL) const;
+	QWORD		GetAmountDownloadedFrom(const IN_ADDR* pAddress) const;
 	DWORD		GetAverageSpeed() const;
 	DWORD		GetMeasuredSpeed() const;
 	BOOL		OnAcceptPush(const Hashes::Guid& oClientID, CConnection* pConnection);
-	BOOL		OnDonkeyCallback(CEDClient* pClient, CDownloadSource* pExcept = NULL);
+	BOOL		OnDonkeyCallback(const CEDClient* pClient, CDownloadSource* pExcept = NULL);
 	BOOL		StartNewTransfer(DWORD tNow = 0);
 	BOOL		CanStartTransfers(DWORD tNow);
+	void		CloseTransfers();
 protected:
 	BOOL		StartTransfersIfNeeded(DWORD tNow = 0);
 private:
@@ -59,8 +59,8 @@ private:
 
 // Inlines
 public:
-	inline bool			ValidTransfer(IN_ADDR* const pAddress, CDownloadTransfer* const pTransfer) const;
-	CDownloadTransfer*	GetFirstTransfer() const { return m_pTransferFirst; }
+	inline bool ValidTransfer(const IN_ADDR* pAddress, const CDownloadTransfer* pTransfer) const;
+	inline CDownloadTransfer* GetFirstTransfer() const { return m_pTransferFirst; }
 
 	friend class CDownloadTransfer; // AddTransfer && RemoveTransfer
 };

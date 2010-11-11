@@ -70,7 +70,7 @@ CG1Neighbour::CG1Neighbour(CNeighbour* pBase)
 	// The member variable m_nPongNeeded is just an array of 32 bytes, start them each out as 0
 	ZeroMemory( m_nPongNeeded, PONG_NEEDED_BUFFER );
 	// Say we sent a ping packet when we last got any packet from the remote computer (do)
-	m_tLastOutPing = m_tLastPacket;
+	m_tLastPingOut = m_tLastPacket;
 	m_nLastPingHops = 0;
 
 	// Set the hops flow byte to be all 1s (do)
@@ -200,15 +200,16 @@ BOOL CG1Neighbour::OnWrite()
 // Returns false if we should disconnect from this remote computer
 BOOL CG1Neighbour::OnRun()
 {
-	// Have CNeighbour::OnRun make sure the remote computer hasn't been silent too long, and send a query patch table
+	// Make sure the remote computer hasn't been silent too long, and send a query patch table
 	if ( ! CNeighbour::OnRun() )
 		return FALSE;
 
 	// Send a ping if we haven't sent one in awhile
 	DWORD tNow = GetTickCount();
-	SendPing( tNow );
+	if ( tNow - m_tLastPingOut > Settings.Gnutella1.PingRate )
+		SendPing( tNow );
 
-	// We should stay connected to the remote computer
+	// Stay connected to the remote computer
 	return TRUE;
 }
 
@@ -373,13 +374,13 @@ BOOL CG1Neighbour::SendPing(DWORD dwNow, const Hashes::Guid& oGUID)
 	bool bNeedPeers = bNeedHubs || bNeedLeafs;
 
 	// If the caller didn't give us the time, get it now
-	if ( ! dwNow ) dwNow = GetTickCount();
+	//if ( ! dwNow ) dwNow = GetTickCount();
 
 	// If we last sent a ping in less time than the ping rate in Gnutella settings allow, report error
-	if ( dwNow - m_tLastOutPing < Settings.Gnutella1.PingRate ) return FALSE;
+	//if ( dwNow - m_tLastPingOut < Settings.Gnutella1.PingRate ) return FALSE;
 
 	// Record that we most recently sent a ping now
-	m_tLastOutPing = dwNow;
+	m_tLastPingOut = dwNow;
 
 	// Send the remote computer a new Gnutella ping packet
 	CG1Packet* pPacket = CG1Packet::New( G1_PACKET_PING,
@@ -442,7 +443,7 @@ BOOL CG1Neighbour::OnPing(CG1Packet* pPacket)
 
 	// If we got the most recent ping less than 3 seconds ago, and this isn't a keep alive packet
 	DWORD dwNow = GetTickCount();
-	if ( dwNow - m_tLastInPing < Settings.Gnutella1.PingFlood && ! bIsKeepAlive )
+	if ( dwNow - m_tLastPingIn < Settings.Gnutella1.PingFlood && ! bIsKeepAlive )
 	{
 		// Drop it, but stay connected
 		Statistics.Current.Gnutella1.Dropped++;
@@ -504,7 +505,7 @@ BOOL CG1Neighbour::OnPing(CG1Packet* pPacket)
 	LibraryMaps.GetStatistics( &nMyFiles, &nMyVolume );
 
 	// Save information from this ping packet in the CG1Neighbour object
-	m_tLastInPing   = dwNow;						// Record that we last got a ping packet from this remote computer right now
+	m_tLastPingIn   = dwNow;						// Record that we last got a ping packet from this remote computer right now
 	m_nLastPingHops = pPacket->m_nHops + 1; 		// Save the hop count from the packet, making it one more (do)
 	m_pLastPingID   = pPacket->m_oGUID; 			// Save the packet's GUID
 
@@ -1050,8 +1051,7 @@ void CG1Neighbour::SendClusterAdvisor()
 
 		// Loop through the Gnutella host cache,
 		for ( CHostCacheIterator i = HostCache.Gnutella1.Begin() ;
-			i != HostCache.Gnutella1.End() && nCount < 20;
-			++i )
+			i != HostCache.Gnutella1.End() && nCount < 20 ; ++i )
 		{
 			CHostCacheHostPtr pHost = (*i);
 
@@ -1365,7 +1365,7 @@ BOOL CG1Neighbour::OnHit(CG1Packet* pPacket)
 		theApp.Message( MSG_ERROR, IDS_PROTOCOL_BAD_HIT, (LPCTSTR)m_sAddress );
 		Statistics.Current.Gnutella1.Dropped++;
 		m_nDropCount++;
-		return TRUE; // Stay connected to the remote computer
+		return TRUE;	// Stay connected to the remote computer
 	}
 
 	// Have OnCommonHit process the query hit packet, and return the result it does (do)

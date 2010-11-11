@@ -1,7 +1,7 @@
 //
 // RatDVDPlugin.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 // Originally Created by:	Rolandas Rudomanskis
 //
@@ -23,7 +23,7 @@
 #include "stdafx.h"
 #include "RatDVDPlugin.h"
 
-LPCWSTR	CRatDVDPlugin::uriVideo			= L"http://www.limewire.com/schemas/video.xsd";
+LPCWSTR	CRatDVDPlugin::uriVideo = L"http://www.limewire.com/schemas/video.xsd";
 
 // RatDVDPlugin
 CRatDVDPlugin::CRatDVDPlugin()
@@ -40,7 +40,7 @@ CRatDVDPlugin::~CRatDVDPlugin()
 
 // ILibraryBuilderPlugin Methods
 
-STDMETHODIMP CRatDVDPlugin::Process(HANDLE hFile, BSTR sFile, ISXMLElement* pXML)
+STDMETHODIMP CRatDVDPlugin::Process(BSTR sFile, ISXMLElement* pXML)
 {
 	ODS(_T("CRatDVDPlugin::Process\n"));
 
@@ -58,7 +58,15 @@ STDMETHODIMP CRatDVDPlugin::Process(HANDLE hFile, BSTR sFile, ISXMLElement* pXML
 		return E_UNEXPECTED;
 	}
 
-	hr = ProcessRatDVD( hFile, pXML );
+	HANDLE hFile = CreateFile( sFile, GENERIC_READ,
+		FILE_SHARE_READ | FILE_SHARE_DELETE, NULL,
+		OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL | FILE_FLAG_SEQUENTIAL_SCAN, NULL );
+
+	if ( hFile != INVALID_HANDLE_VALUE )
+	{
+		hr = ProcessRatDVD( hFile, pXML );
+		CloseHandle( hFile );
+	}
 
 	DllRelease();
 	LeaveCritical();
@@ -85,7 +93,7 @@ STDMETHODIMP CRatDVDPlugin::ProcessRatDVD(HANDLE hFile, ISXMLElement* pXML)
 		if ( SetFilePointer( hFile, -2, NULL, FILE_CURRENT ) == 0 ) break;
 		ReadFile( hFile, &szByte, 1, &nRead, NULL );
 		nTotalRead++;
-        if ( strncmp( &szByte, "K", 1 ) == 0 )
+		if ( strncmp( &szByte, "K", 1 ) == 0 )
 		{
 			if ( SetFilePointer( hFile, -2, NULL, FILE_CURRENT ) == 0 ) break;
 			ReadFile( hFile, &szByte, 1, &nRead, NULL );
@@ -98,8 +106,7 @@ STDMETHODIMP CRatDVDPlugin::ProcessRatDVD(HANDLE hFile, ISXMLElement* pXML)
 				if ( _strnicmp( szExt, ".xml", 4 ) == 0 )
 				{
 					str.clear();
-					// version.xml offset is always 0, so it would be harder to find it
-					// if it were located somewhere else
+					// version.xml offset is always 0, so it would be harder to find it if it were located somewhere else
 					// Nothing special can be found in it at the moment, maybe they will add later
 					while ( szByte && strncmp( &szByte, "\\", 1 ) && nTotalRead <= MAX_LENGTH_ALLOWED )
 					{
@@ -151,7 +158,7 @@ STDMETHODIMP CRatDVDPlugin::ProcessRatDVD(HANDLE hFile, ISXMLElement* pXML)
 		if ( bContentFound && bVersionFound ) break;
 	}
 
-	if ( !bContentFound ) return S_FALSE;
+	if ( ! bContentFound ) return S_FALSE;
 	if ( SetFilePointer( hFile, nContentOffset, NULL, FILE_BEGIN ) == 0 ) return S_FALSE;
 
 	// Validate if it starts with "PK"
@@ -195,9 +202,7 @@ STDMETHODIMP CRatDVDPlugin::ProcessRatDVD(HANDLE hFile, ISXMLElement* pXML)
 	CComQIPtr< ISXMLElement > pInputXML;
 
 	if ( FAILED( pXML->FromString( sXML, &pInputXML ) ) || pInputXML == NULL )
-	{
 		return S_FALSE;
-	}
 
 	CComQIPtr< ISXMLElements > pElements;
 	// Get the Elements collection from the XML document
@@ -347,10 +352,10 @@ STDMETHODIMP CRatDVDPlugin::ProcessRatDVD(HANDLE hFile, ISXMLElement* pXML)
 								CString strSep( strSeparator );
 								strTruncated = strTruncated.SpanExcluding( strSep );
 								strTruncated.Trim( _T("\"") );
-                                strValue = strTruncated;
+								strValue = strTruncated;
 							}
 
-							if ( !strActors.Length() )
+							if ( ! strActors.Length() )
 							{
 								strActors.AssignBSTR( strValue );
 							}
@@ -359,7 +364,8 @@ STDMETHODIMP CRatDVDPlugin::ProcessRatDVD(HANDLE hFile, ISXMLElement* pXML)
 								strActors.Append( L";" );
 								strActors.AppendBSTR( strValue );
 							}
-							// delete keyword to get the next
+
+							// Delete keyword to get the next once
 							pData->Delete();
 						}
 					}
@@ -369,7 +375,9 @@ STDMETHODIMP CRatDVDPlugin::ProcessRatDVD(HANDLE hFile, ISXMLElement* pXML)
 			while ( pData );
 		}
 	}
-	if ( strActors.Length() ) pAttributes->Add( L"stars", strActors );
+
+	if ( strActors.Length() )
+		pAttributes->Add( L"stars", strActors );
 
 	// Cleanup destination
 	pInputXML->Delete();
@@ -379,7 +387,7 @@ STDMETHODIMP CRatDVDPlugin::ProcessRatDVD(HANDLE hFile, ISXMLElement* pXML)
 
 CComBSTR CRatDVDPlugin::ReadXML(HANDLE hFile, DWORD nBytes)
 {
-    CHAR* pBuffer = new CHAR[ nBytes ];
+	CHAR* pBuffer = new CHAR[ nBytes ];
 	DWORD nRead = 0;
 	ReadFile( hFile, pBuffer, nBytes, &nRead, NULL );
 
@@ -440,7 +448,7 @@ STDMETHODIMP CRatDVDPlugin::GetRatDVDThumbnail(BSTR bsFile, IMAGESERVICEDATA* pP
 	HRESULT hr = E_FAIL;
 
 	if ( ! FFindQualifiedFileName( bsFile, pszName, &ulIdx ) )
-        return STG_E_INVALIDNAME;
+		return STG_E_INVALIDNAME;
 
 	CString strFile( pszName );
 	HANDLE hFile = CreateFile( strFile, GENERIC_READ,
@@ -463,7 +471,7 @@ STDMETHODIMP CRatDVDPlugin::GetRatDVDThumbnail(BSTR bsFile, IMAGESERVICEDATA* pP
 		if ( SetFilePointer( hFile, -2, NULL, FILE_CURRENT ) == 0 ) break;
 		ReadFile( hFile, &szByte, 1, &nRead, NULL );
 		nTotalRead++;
-        if ( strncmp( &szByte, "K", 1 ) == 0 )
+		if ( strncmp( &szByte, "K", 1 ) == 0 )
 		{
 			if ( SetFilePointer( hFile, -2, NULL, FILE_CURRENT ) == 0 ) break;
 			ReadFile( hFile, &szByte, 1, &nRead, NULL );
@@ -489,7 +497,7 @@ STDMETHODIMP CRatDVDPlugin::GetRatDVDThumbnail(BSTR bsFile, IMAGESERVICEDATA* pP
 						CoTaskMemFree( pwsz );
 						nTotalRead++;
 					}
-					// store full path
+					// Store full path
 					str.push_back( szExt[3] );
 					str.insert( 0, L"NFO" );
 
@@ -511,7 +519,7 @@ STDMETHODIMP CRatDVDPlugin::GetRatDVDThumbnail(BSTR bsFile, IMAGESERVICEDATA* pP
 		if ( bFound ) break;
 	}
 
-	if ( !bFound ) return S_FALSE;
+	if ( ! bFound ) return S_FALSE;
 	if ( SetFilePointer( hFile, nContentOffset, NULL, FILE_BEGIN ) == 0 ) return S_FALSE;
 
 	// Validate if it starts with "PK"
@@ -586,11 +594,11 @@ STDMETHODIMP CRatDVDPlugin::GetRatDVDThumbnail(BSTR bsFile, IMAGESERVICEDATA* pP
 	SAFEARRAY* psa = SafeArrayCreateVector( VT_UI1, 0, nArray );
 
 	BYTE* pData = NULL;
-    hr = SafeArrayAccessData( psa, (VOID**)&pData );
-	// copy data from the buffer
+	hr = SafeArrayAccessData( psa, (VOID**)&pData );
+	// Copy data from the buffer
 	CopyMemory( pData, pBuffer, nContentLength );
 	delete [] pBuffer;
-    SafeArrayUnaccessData( psa );
+	SafeArrayUnaccessData( psa );
 
 	if ( FAILED(hr) ) return E_FAIL;
 

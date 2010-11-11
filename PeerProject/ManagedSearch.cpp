@@ -49,21 +49,16 @@ CManagedSearch::CManagedSearch(CQuerySearch* pSearch, int nPriority)
 	, m_bAllowG2	( TRUE )
 	, m_bAllowG1	( TRUE )
 	, m_bAllowED2K	( TRUE )
+//	, m_bAllowDC	( TRUE )
 	, m_bActive		( FALSE )
 	, m_bReceive	( TRUE )
-	, m_tStarted	( 0 )
 	, m_nHits		( 0 )
-	, m_nG1Hits		( 0 )
-	, m_nG2Hits		( 0 )
-	, m_nEDHits		( 0 )
 	, m_nHubs		( 0 )
 	, m_nLeaves		( 0 )
 	, m_nQueryCount	( 0 )
 	, m_tLastG2		( 0 )
 	, m_tLastED2K	( 0 )
 	, m_tMoreResults( 0 )
-	, m_nEDServers	( 0 )
-	, m_nEDClients	( 0 )
 	, m_tExecute	( 0 )
 {
 	m_dwRef = 0;
@@ -83,6 +78,9 @@ void CManagedSearch::Serialize(CArchive& ar)
 	CQuickLock oLock( SearchManager.m_pSection );
 
 	int nVersion = 3;
+	// Version History:
+	// 3 - Shareaza 2.5
+	// 4 - Added m_bAllowDC (ryo-oh-ki) (PeerProject 1.0)
 
 	if ( ar.IsStoring() )
 	{
@@ -95,6 +93,7 @@ void CManagedSearch::Serialize(CArchive& ar)
 		ar << m_bAllowG2;
 		ar << m_bAllowG1;
 		ar << m_bAllowED2K;
+	//	ar << m_bAllowDC;
 	}
 	else // Loading
 	{
@@ -110,12 +109,11 @@ void CManagedSearch::Serialize(CArchive& ar)
 		// Auto-start search ability turned off
 		m_bActive = m_bReceive = FALSE;
 
-		//if ( nVersion > 2 )
-		//{
-			ar >> m_bAllowG2;
-			ar >> m_bAllowG1;
-			ar >> m_bAllowED2K;
-		//}
+		ar >> m_bAllowG2;
+		ar >> m_bAllowG1;
+		ar >> m_bAllowED2K;
+	//	if ( nVersion >= 4 )
+	//		ar >> m_bAllowDC;
 	}
 }
 
@@ -131,7 +129,6 @@ void CManagedSearch::Start()
 
 	if ( SearchManager.Add( this ) )
 	{
-		m_tStarted		= static_cast< DWORD >( time( NULL ) );
 		m_tExecute		= 0;
 		m_tLastED2K		= 0;
 		m_tMoreResults	= 0;
@@ -169,9 +166,9 @@ BOOL CManagedSearch::Execute(int nPriorityClass)
 	// Throttle this individual search (so it doesn't take up too many resources)
 	DWORD nThrottle = Settings.Search.GeneralThrottle;
 	if ( m_nPriority == spLowest )
-		nThrottle += 30000;
+		nThrottle += 30000; // + 30s
 	else if ( m_nPriority == spMedium )
-		nThrottle += 800;
+		nThrottle += 800;	// + .8s
 
 	const DWORD tTicks = GetTickCount();
 	const DWORD tSecs = static_cast< DWORD >( time( NULL ) );
@@ -208,7 +205,7 @@ BOOL CManagedSearch::Execute(int nPriorityClass)
 }
 
 //////////////////////////////////////////////////////////////////////
-// CManagedSearch execute the search on G1 / G2 / ED2K neighbours
+// CManagedSearch execute the search on neighbours
 
 BOOL CManagedSearch::ExecuteNeighbours(const DWORD tTicks, const DWORD tSecs)
 {
@@ -225,15 +222,18 @@ BOOL CManagedSearch::ExecuteNeighbours(const DWORD tTicks, const DWORD tSecs)
 		// Check network flags
 		switch ( pNeighbour->m_nProtocol )
 		{
-		case PROTOCOL_G1:
-			if ( ! m_bAllowG1 ) continue;
-			break;
 		case PROTOCOL_G2:
 			if ( ! m_bAllowG2 ) continue;
+			break;
+		case PROTOCOL_G1:
+			if ( ! m_bAllowG1 ) continue;
 			break;
 		case PROTOCOL_ED2K:
 			if ( ! m_bAllowED2K ) continue;
 			break;
+	//	case PROTOCOL_DC:
+	//		if ( ! m_bAllowDC ) continue;
+	//		break;
 		default:
 			continue;
 		}
@@ -305,7 +305,7 @@ BOOL CManagedSearch::ExecuteNeighbours(const DWORD tTicks, const DWORD tSecs)
 				{
 					if ( nTTL >= pNeighbour->GetMaxTTL() )
 						continue;	// X-Max-TTL reached
-					if ( m_nG1Hits >= Settings.Gnutella.MaxResults )
+					if ( m_nHits >= Settings.Gnutella.MaxResults )
 						continue;	// Maximum hits reached
 					nTTL++;
 				}
@@ -334,6 +334,10 @@ BOOL CManagedSearch::ExecuteNeighbours(const DWORD tTicks, const DWORD tSecs)
 		{
 			pPacket = m_pSearch->ToEDPacket( FALSE, ((CEDNeighbour*)pNeighbour)->m_nTCPFlags );
 		}
+	//	else if ( pNeighbour->m_nProtocol == PROTOCOL_DC )
+	//	{
+	//		pPacket = m_pSearch->ToDCPacket();
+	//	}
 
 		// Try to send the search
 		if ( pPacket != NULL )
@@ -354,14 +358,15 @@ BOOL CManagedSearch::ExecuteNeighbours(const DWORD tTicks, const DWORD tSecs)
 
 				if ( pNeighbour->m_nProtocol == PROTOCOL_ED2K )
 				{
-					// Add to ED2K search counts
-					m_nEDServers++;
-					m_nEDClients += ((CEDNeighbour*)pNeighbour)->m_nUserCount;
-
 					// Set the "last ED2K search" value if we sent a text search (to find the search later).
 					if ( ! m_pSearch->m_oED2K )
 						SearchManager.m_oLastED2KSearch = m_pSearch->m_oGUID;
 				}
+			//	else if ( pNeighbour->m_nProtocol == PROTOCOL_DC )
+			//	{
+			//		if ( ! m_pSearch->m_oTiger )
+			//			SearchManager.m_oLastSearch = m_pSearch->m_oGUID;
+			//	}
 			}
 			pPacket->Release();
 		}
@@ -626,10 +631,6 @@ BOOL CManagedSearch::ExecuteDonkeyMesh(const DWORD /*tTicks*/, const DWORD tSecs
 			// Send the datagram if possible
 			if ( Datagrams.Send( &pHost->m_pAddress, pHost->m_nPort + 4, pPacket, TRUE ) )
 			{
-				// Add to ED2K search counts
-				m_nEDServers ++;
-				m_nEDClients += pHost->m_nUserCount;
-
 				theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH,
 					_T("Sending UDP query to %s"),
 					(LPCTSTR)CString( inet_ntoa( pHost->m_pAddress ) ) );

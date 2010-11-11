@@ -49,7 +49,7 @@ CDatagramIn::~CDatagramIn()
 //////////////////////////////////////////////////////////////////////
 // CDatagramIn prepare to handle a datagram
 
-void CDatagramIn::Create(SOCKADDR_IN* pHost, BYTE nFlags, WORD nSequence, BYTE nCount)
+void CDatagramIn::Create(const SOCKADDR_IN* pHost, BYTE nFlags, WORD nSequence, BYTE nCount)
 {
 	CopyMemory( &m_pHost, pHost, sizeof(SOCKADDR_IN) );
 

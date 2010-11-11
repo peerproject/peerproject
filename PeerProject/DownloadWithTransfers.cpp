@@ -41,11 +41,11 @@ static char THIS_FILE[]=__FILE__;
 //////////////////////////////////////////////////////////////////////
 // CDownloadWithTransfers construction
 
-CDownloadWithTransfers::CDownloadWithTransfers() :
-	m_pTransferFirst	( NULL )
-,	m_pTransferLast		( NULL )
-,	m_nTransferCount	( 0 )
-,	m_tTransferStart	( 0 )
+CDownloadWithTransfers::CDownloadWithTransfers()
+	: m_pTransferFirst	( NULL )
+	, m_pTransferLast	( NULL )
+	, m_nTransferCount	( 0 )
+	, m_tTransferStart	( 0 )
 {
 }
 
@@ -63,9 +63,7 @@ bool CDownloadWithTransfers::HasActiveTransfers() const
 {
 	for ( CDownloadTransfer* pTransfer = m_pTransferFirst; pTransfer; pTransfer = pTransfer->m_pDlNext )
 	{
-		// Metadata, tiger fetch are also transfers, but very short in time -should we check that?
-		// ToDo: Fix why	static_cast< CConnection* >( pTransfer )->m_bConnected
-		// is always FALSE when status is dtsDownloading.
+		// Metadata, tiger fetch, etc. are also transfers, but very short in time - should we check that?
 		if ( pTransfer->m_nState == dtsDownloading )
 			return true;
 	}
@@ -78,9 +76,8 @@ DWORD CDownloadWithTransfers::GetTransferCount() const
 
 	for ( CDownloadTransfer* pTransfer = m_pTransferFirst; pTransfer; pTransfer = pTransfer->m_pDlNext )
 	{
-		if ( pTransfer->m_nState == dtsDownloading ||		 			// Workaround:
-			( pTransfer->m_nState > dtsNull &&
-			static_cast< CConnection* >( pTransfer )->m_bConnected ) )	// Always returns FALSE when dtsDownloading?
+		if ( ( pTransfer->m_nState > dtsNull ) &&
+			 ( pTransfer->m_nProtocol != PROTOCOL_ED2K || pTransfer->m_nState != dtsQueued ) )
 		{
 			++nCount;
 		}
@@ -88,17 +85,17 @@ DWORD CDownloadWithTransfers::GetTransferCount() const
 	return nCount;
 }
 
-// This inline is used to clean up the function below and make it more readable.
-// It's the first condition in any IF statement that checks if the current transfer should be counted
-bool CDownloadWithTransfers::ValidTransfer(IN_ADDR* const pAddress, CDownloadTransfer* const pTransfer) const
+bool CDownloadWithTransfers::ValidTransfer(const IN_ADDR* pAddress, const CDownloadTransfer* pTransfer) const
 {
+	// This inline is used to clean up the function below and make it more readable.
+	// It's the first condition in any IF statement that checks if the current transfer should be counted
+
 	return ( ! pAddress || pAddress->S_un.S_addr == pTransfer->m_pHost.sin_addr.S_un.S_addr ) &&
-			( pTransfer->m_nState == dtsDownloading ||		 			// Workaround:
-			( pTransfer->m_nState > dtsNull &&
-			static_cast< CConnection* >( pTransfer )->m_bConnected ) );	// Always returns FALSE when dtsDownloading?
+		( pTransfer->m_nState > dtsNull ) &&
+		( pTransfer->m_nProtocol != PROTOCOL_ED2K || pTransfer->m_nState != dtsQueued );
 }
 
-DWORD CDownloadWithTransfers::GetTransferCount(int nState, IN_ADDR* const pAddress) const
+DWORD CDownloadWithTransfers::GetTransferCount(int nState, const IN_ADDR* pAddress) const
 {
 	int nCount = 0;
 
@@ -159,7 +156,7 @@ DWORD CDownloadWithTransfers::GetTransferCount(int nState, IN_ADDR* const pAddre
 //////////////////////////////////////////////////////////////////////
 // GetAmountDownloadedFrom total volume from an IP
 
-QWORD CDownloadWithTransfers::GetAmountDownloadedFrom(IN_ADDR* const pAddress) const
+QWORD CDownloadWithTransfers::GetAmountDownloadedFrom(const IN_ADDR* pAddress) const
 {
 	QWORD nTotal = 0;
 
@@ -229,7 +226,7 @@ BOOL CDownloadWithTransfers::StartTransfersIfNeeded(DWORD tNow)
 			if ( Downloads.AllowMoreTransfers() )
 			{
 				// If download bandwidth isn't at max
-				if ( ( ( tNow - Downloads.m_tBandwidthAtMax ) > 5000 ) )
+				if ( ( tNow - Downloads.m_tBandwidthAtMax ) > 5000 )
 				{
 					// Start a new download
 					if ( StartNewTransfer( tNow ) )
@@ -324,7 +321,8 @@ BOOL CDownloadWithTransfers::StartNewTransfer(DWORD tNow)
 
 	if ( pConnectHead != NULL )
 	{
-		if ( pConnectHead->m_bPushOnly && ! ( pConnectHead->m_nProtocol == PROTOCOL_ED2K ) )
+		if ( pConnectHead->m_bPushOnly &&
+			 pConnectHead->m_nProtocol != PROTOCOL_ED2K )
 		{
 			if ( pConnectHead->PushRequest() )
 				return TRUE;
@@ -410,8 +408,10 @@ DWORD CDownloadWithTransfers::GetMeasuredSpeed() const
 
 BOOL CDownloadWithTransfers::OnAcceptPush(const Hashes::Guid& oClientID, CConnection* pConnection)
 {
-	CDownload* pDownload = (CDownload*)this;
-	if ( pDownload->IsMoving() || pDownload->IsPaused() ) return FALSE;
+	CDownload* pDownload = static_cast< CDownload* >( this );
+
+	if ( pDownload->IsMoving() || pDownload->IsPaused() )
+		return FALSE;
 
 	CDownloadSource* pSource = NULL;
 
@@ -425,7 +425,8 @@ BOOL CDownloadWithTransfers::OnAcceptPush(const Hashes::Guid& oClientID, CConnec
 		pSource = NULL;
 	}
 
-	if ( pSource == NULL ) return FALSE;
+	if ( pSource == NULL )
+		return FALSE;
 
 	if ( ! pSource->IsIdle() )
 	{
@@ -435,19 +436,24 @@ BOOL CDownloadWithTransfers::OnAcceptPush(const Hashes::Guid& oClientID, CConnec
 		pSource->Close();
 	}
 
-	if ( ! pConnection->IsValid() ) return FALSE;
+	if ( ! pConnection->IsValid() )
+		return FALSE;
 
-	CDownloadTransferHTTP* pTransfer = (CDownloadTransferHTTP*)pSource->CreateTransfer();
-	ASSERT( pTransfer->m_nProtocol == PROTOCOL_HTTP );
-	return pTransfer->AcceptPush( pConnection );
+	if ( CDownloadTransfer* pTransfer = pSource->CreateTransfer() )
+	{
+		pTransfer->AttachTo( pConnection );
+		return TRUE;
+	}
+
+	return FALSE;
 }
 
 //////////////////////////////////////////////////////////////////////
 // CDownloadWithTransfers eDonkey2000 callback handler
 
-BOOL CDownloadWithTransfers::OnDonkeyCallback(CEDClient* pClient, CDownloadSource* pExcept)
+BOOL CDownloadWithTransfers::OnDonkeyCallback(const CEDClient* pClient, CDownloadSource* pExcept)
 {
-	CDownload* pDownload = (CDownload*)this;
+	CDownload* pDownload = static_cast< CDownload* >( this );
 	if ( pDownload->IsMoving() || pDownload->IsPaused() ) return FALSE;
 
 	CDownloadSource* pSource = NULL;

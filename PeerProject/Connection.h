@@ -31,37 +31,42 @@ class CConnection
 // Construction
 protected:
 	CConnection(PROTOCOLID nProtocol = PROTOCOL_ANY);
-	CConnection(CConnection& other);
 	virtual ~CConnection();
 
 // Attributes
 public:
-	SOCKADDR_IN	m_pHost;		// The remote computer's IP address in Windows Sockets format
-	CString		m_sAddress;		// The same IP address in a string like "1.2.3.4"
-	CString		m_sCountry;		// The two letter country code of this host
-	CString		m_sCountryName;	// The full name of the country
-	BOOL		m_bInitiated;	// True if we initiated the connection, false if the remote computer connected to us
-	BOOL		m_bConnected;	// True when the socket is connected
-	DWORD		m_tConnected;	// The tick count when the socket connection was made
-	SOCKET		m_hSocket;		// The actual Windows socket for the Internet connection to the remote computer
-	CString		m_sUserAgent;	// The name of the program the remote computer is running
-	BOOL		m_bClientExtended; // Does remote computer support extended functions? (Running PeerProject/Shareaza/compatible mod. for chat, browse, etc.)
-	CString		m_sLastHeader;	// The handshake header that ReadHeaders most recently read
-	int			m_nQueuedRun;	// The queued run state of 0, 1, or 2 (do)
-	PROTOCOLID	m_nProtocol;	// Detected protocol
+	SOCKADDR_IN	m_pHost;			// The remote computer's IP address in Windows Sockets format
+	CString		m_sAddress;			// The same IP address in a string like "1.2.3.4"
+	CString		m_sCountry;			// The two letter country code of this host
+	CString		m_sCountryName; 	// The full name of the country
+	BOOL		m_bInitiated;		// True if we initiated the connection, false if the remote computer connected to us
+	BOOL		m_bConnected;		// True when the socket is connected
+	DWORD		m_tConnected;		// The tick count when the socket connection was made
+	SOCKET		m_hSocket;			// The actual Windows socket for the Internet connection to the remote computer
+	CString		m_sUserAgent;		// The name of the program the remote computer is running
+	BOOL		m_bClientExtended;	// Does remote computer support extended functions? (Running PeerProject/Shareaza/compatible mod. for chat, browse, etc.)
+	CString		m_sLastHeader;		// The handshake header that ReadHeaders most recently read
+	PROTOCOLID	m_nProtocol;		// Detected protocol
 
 // Buffers access
 protected:
 	// Class that looks like CBuffer* but with syncronization
 	typedef CLocked< CBuffer*, CCriticalSectionPtr > CLockedBuffer;
 
+	BOOL		m_bAutoDelete;		// Delete this object in Close() method
+
 	void LogOutgoing();
 
 private:
 	CCriticalSectionPtr	m_pInputSection;
-	CBuffer*			m_pInput;			// Data from the remote computer, will be compressed if the remote computer is sending compressed data
 	CCriticalSectionPtr	m_pOutputSection;
-	CBuffer*			m_pOutput;			// Data to send to the remote computer, will be compressed if we are sending the remote computer compressed data
+	CBuffer*	m_pInput;			// Data from the remote computer, will be compressed if the remote computer is sending compressed data
+	CBuffer*	m_pOutput;			// Data to send to the remote computer, will be compressed if we are sending the remote computer compressed data
+	int			m_nQueuedRun;		// The queued run state of 0, 1, or 2 (do)
+	UINT		m_nDelayCloseReason;  // Reason for DelayClose()
+
+	CConnection(const CConnection&);
+	CConnection& operator=(const CConnection&);
 
 public:
 	inline CLockedBuffer GetInput() const throw()
@@ -77,14 +82,14 @@ public:
 // Operations
 public:
 	// Exchange data with the other computer, measure bandwidth, and work with headers
-	BOOL DoRun();			// Communicate with the other computer, reading and writing everything we can right now
-	void QueueRun();		// (do) may no longer be in use
-	void Measure();			// Measure the bandwidth, setting nMeasure in the bandwidth meters for each direction
-	void MeasureIn();		// Measure the incoming bandwidth, setting nMeasure in the bandwidth meter
-	void MeasureOut();		// Measure the outgoing bandwidth, setting nMeasure in the bandwidth meter
-	BOOL ReadHeaders();		// Read text headers sitting in the input buffer
-	BOOL SendMyAddress();	// If we are listening on a port, tell the other computer our IP address and port number
-	void UpdateCountry();	// Call whenever the IP address is set
+	BOOL DoRun();				// Communicate with the other computer, reading and writing everything we can right now
+	void QueueRun();			// (do) may no longer be in use
+	void Measure();				// Measure the bandwidth, setting nMeasure in the bandwidth meters for each direction
+	void MeasureIn();			// Measure the incoming bandwidth, setting nMeasure in the bandwidth meter
+	void MeasureOut();			// Measure the outgoing bandwidth, setting nMeasure in the bandwidth meter
+	BOOL ReadHeaders();			// Read text headers sitting in the input buffer
+	BOOL SendMyAddress();		// If we are listening on a port, tell the other computer our IP address and port number
+	void UpdateCountry();		// Call whenever the IP address is set
 
 	// True if the socket is valid, false if its closed
 	inline BOOL IsValid() const throw()
@@ -174,7 +179,6 @@ public:
 		CheckingPolicy, ValidationPolicy >& oHash) throw()
 	{
 		CQuickLock oInputLock( *m_pInputSection );
-
 		m_pInput->Read( &oHash[ 0 ], oHash.byteCount );
 	}
 
@@ -187,7 +191,7 @@ public:
 	inline void Bypass(const size_t nLength) throw()
 	{
 		CQuickLock oInputLock( *m_pInputSection );
-		return m_pInput->Remove( nLength );
+		m_pInput->Remove( nLength );
 	}
 
 	inline void Prefix(LPCSTR pszText, const size_t nLength) throw()
@@ -241,16 +245,17 @@ public:
 	// Make a connection, accept a connection, copy a connection, and close a connection
 	virtual BOOL ConnectTo(const SOCKADDR_IN* pHost);			// Connect to an IP address and port number
 	virtual BOOL ConnectTo(const IN_ADDR* pAddress, WORD nPort);
-	virtual void AcceptFrom(SOCKET hSocket, SOCKADDR_IN* pHost);		// Accept a connection from a remote computer
+	virtual void AcceptFrom(SOCKET hSocket, SOCKADDR_IN* pHost);	// Accept a connection from a remote computer
 	virtual void AttachTo(CConnection* pConnection);			// Copy a connection (do)
-	virtual void Close();								// Disconnect from the remote computer
+	virtual void Close(UINT nError = 0);						// Disconnect from the remote computer
+	virtual void DelayClose(UINT nError);						// Send the buffer then close the socket, record given error
 
 	// Read and write data through the socket, and look at headers
-	virtual BOOL OnRun();			// (do) just returns true
-	virtual BOOL OnConnected();		// (do) just returns true
-	virtual BOOL OnRead();			// Read data waiting in the socket into the input buffer
-	virtual BOOL OnWrite();			// Move the contents of the output buffer into the socket
-	virtual void OnDropped();		// (do) empty
+	virtual BOOL OnRun();				// (do) just returns true
+	virtual BOOL OnConnected();			// (do) just returns true
+	virtual BOOL OnRead();				// Read data waiting in the socket into the input buffer
+	virtual BOOL OnWrite();				// Move the contents of the output buffer into the socket
+	virtual void OnDropped();			// (do) empty
 	virtual BOOL OnHeadersComplete();	// (do) just returns true
 	virtual BOOL OnHeaderLine(CString& strHeader, CString& strValue);	// Processes a single line from the headers
 

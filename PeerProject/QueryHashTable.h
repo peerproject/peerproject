@@ -78,5 +78,5 @@ protected:
 	bool	OnPatch(CPacket* pPacket);
 	void	Add(LPCTSTR pszString, int nStart, int nLength);
 	void	AddExact(LPCTSTR pszString, int nStart, int nLength);
-	bool	PatchToOldPeerProject(const CQueryHashTable* pTarget, CNeighbour* pNeighbour);
+//	bool	PatchToOldShareaza(const CQueryHashTable* pTarget, CNeighbour* pNeighbour);
 };

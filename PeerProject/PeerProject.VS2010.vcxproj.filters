@@ -68,7 +68,7 @@
     </Filter>
     <Filter Include="Resource Files">
       <UniqueIdentifier>{366ae396-7e23-452c-bca1-66803aa247d5}</UniqueIdentifier>
-      <Extensions>ico;cur;bmp;dlg;rc2;rct;bin;cnt;rtf;gif;jpg;jpeg;jpe;htm;xml;png</Extensions>
+      <Extensions>ico;cur;bmp;dlg;rc2;rct;bin;cnt;rtf;gif;jpg;jpeg;jpe;png;dat;htm;xml;txt</Extensions>
     </Filter>
     <Filter Include="Library Files">
       <UniqueIdentifier>{abcc2d4e-a582-4a20-8686-1062ca71b127}</UniqueIdentifier>
@@ -157,9 +157,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="DDEServer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="DHT.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="DiscoveryServices.cpp">
@@ -1635,9 +1632,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="DDEServer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="DHT.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="DiscoveryServices.h">
