@@ -67,6 +67,7 @@
 				LinkIncremental="2"
 				GenerateDebugInformation="true"
 				SubSystem="2"
+				LargeAddressAware="2"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -141,6 +142,7 @@
 				LinkIncremental="2"
 				GenerateDebugInformation="true"
 				SubSystem="2"
+				LargeAddressAware="2"
 				TargetMachine="17"
 			/>
 			<Tool
@@ -193,12 +195,13 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="3"
+				FavorSizeOrSpeed="1"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
 				InlineFunctionExpansion="2"
 				EnableIntrinsicFunctions="true"
-				FavorSizeOrSpeed="1"
-				OmitFramePointers="true"
+				EnableEnhancedInstructionSet="1"
 				EnableFiberSafeOptimizations="true"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
+				OmitFramePointers="true"
 				StringPooling="true"
 				ExceptionHandling="0"
 				RuntimeLibrary="0"
@@ -220,6 +223,7 @@
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
 				SetChecksum="true"
+				LargeAddressAware="2"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -273,12 +277,12 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="3"
+				FavorSizeOrSpeed="1"
+				PreprocessorDefinitions="WIN64;NDEBUG;_WINDOWS"
 				InlineFunctionExpansion="2"
 				EnableIntrinsicFunctions="true"
-				FavorSizeOrSpeed="1"
 				OmitFramePointers="true"
 				EnableFiberSafeOptimizations="true"
-				PreprocessorDefinitions="WIN64;NDEBUG;_WINDOWS"
 				StringPooling="true"
 				ExceptionHandling="0"
 				RuntimeLibrary="0"
@@ -300,6 +304,7 @@
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
 				SetChecksum="true"
+				LargeAddressAware="2"
 				TargetMachine="17"
 			/>
 			<Tool

@@ -210,12 +210,13 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="3"
+				FavorSizeOrSpeed="1"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;ZLIB_WINAPI;ASMV;ASMINF;NOOLDPENTIUMCODE;_CRT_SECURE_NO_DEPRECATE"
 				InlineFunctionExpansion="2"
 				EnableIntrinsicFunctions="true"
-				FavorSizeOrSpeed="1"
-				OmitFramePointers="true"
 				EnableFiberSafeOptimizations="true"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;ZLIB_WINAPI;ASMV;ASMINF;NOOLDPENTIUMCODE;_CRT_SECURE_NO_DEPRECATE"
+				EnableEnhancedInstructionSet="1"
+				OmitFramePointers="true"
 				StringPooling="true"
 				ExceptionHandling="0"
 				RuntimeLibrary="0"
@@ -295,12 +296,12 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="3"
+				FavorSizeOrSpeed="1"
+				PreprocessorDefinitions="WIN64;NDEBUG;_WINDOWS;_USRDLL;ZLIB_WINAPI;ASMV;ASMINF;NOOLDPENTIUMCODE;_CRT_SECURE_NO_DEPRECATE"
 				InlineFunctionExpansion="2"
 				EnableIntrinsicFunctions="true"
-				FavorSizeOrSpeed="1"
-				OmitFramePointers="true"
 				EnableFiberSafeOptimizations="true"
-				PreprocessorDefinitions="WIN64;NDEBUG;_WINDOWS;_USRDLL;ZLIB_WINAPI;ASMV;ASMINF;NOOLDPENTIUMCODE;_CRT_SECURE_NO_DEPRECATE"
+				OmitFramePointers="true"
 				StringPooling="true"
 				ExceptionHandling="0"
 				RuntimeLibrary="0"
@@ -454,7 +455,19 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="gzio.c"
+				RelativePath="gzclose.c"
+				>
+			</File>
+			<File
+				RelativePath="gzlib.c"
+				>
+			</File>
+			<File
+				RelativePath="gzread.c"
+				>
+			</File>
+			<File
+				RelativePath="gzwrite.c"
 				>
 			</File>
 			<File
@@ -617,6 +630,10 @@
 			</File>
 			<File
 				RelativePath="deflate.h"
+				>
+			</File>
+			<File
+				RelativePath="gzguts.h"
 				>
 			</File>
 			<File

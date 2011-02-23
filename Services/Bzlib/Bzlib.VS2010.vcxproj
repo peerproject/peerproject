@@ -90,8 +90,7 @@
 	<ClCompile>
 		<Optimization>Disabled</Optimization>
 		<PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;BZIP2_EXPORTS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-		<ExceptionHandling>
-		</ExceptionHandling>
+		<ExceptionHandling></ExceptionHandling>
 		<BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
 		<RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
 		<RuntimeTypeInfo>false</RuntimeTypeInfo>
@@ -112,8 +111,7 @@
 	<ClCompile>
 		<Optimization>Disabled</Optimization>
 		<PreprocessorDefinitions>WIN32;WIN64;_DEBUG;_WINDOWS;_USRDLL;BZIP2_EXPORTS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-		<ExceptionHandling>
-		</ExceptionHandling>
+		<ExceptionHandling></ExceptionHandling>
 		<BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
 		<RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
 		<RuntimeTypeInfo>false</RuntimeTypeInfo>
@@ -129,14 +127,14 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
 	<ClCompile>
 		<Optimization>Full</Optimization>
+		<FavorSizeOrSpeed>Size</FavorSizeOrSpeed>
+		<PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;BZIP2_EXPORTS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 		<InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
 		<IntrinsicFunctions>true</IntrinsicFunctions>
-		<FavorSizeOrSpeed>Size</FavorSizeOrSpeed>
+		<EnableEnhancedInstructionSet>StreamingSIMDExtensions</EnableEnhancedInstructionSet>
 		<OmitFramePointers>true</OmitFramePointers>
-		<PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;BZIP2_EXPORTS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 		<StringPooling>true</StringPooling>
-		<ExceptionHandling>
-		</ExceptionHandling>
+		<ExceptionHandling></ExceptionHandling>
 		<RuntimeLibrary>MultiThreaded</RuntimeLibrary>
 		<FloatingPointModel>Fast</FloatingPointModel>
 		<RuntimeTypeInfo>false</RuntimeTypeInfo>
@@ -157,14 +155,13 @@
 	</Midl>
 	<ClCompile>
 		<Optimization>Full</Optimization>
+		<FavorSizeOrSpeed>Size</FavorSizeOrSpeed>
+		<PreprocessorDefinitions>WIN32;WIN64;NDEBUG;_WINDOWS;_USRDLL;BZIP2_EXPORTS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 		<InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
 		<IntrinsicFunctions>true</IntrinsicFunctions>
-		<FavorSizeOrSpeed>Size</FavorSizeOrSpeed>
 		<OmitFramePointers>true</OmitFramePointers>
-		<PreprocessorDefinitions>WIN32;WIN64;NDEBUG;_WINDOWS;_USRDLL;BZIP2_EXPORTS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 		<StringPooling>true</StringPooling>
-		<ExceptionHandling>
-		</ExceptionHandling>
+		<ExceptionHandling></ExceptionHandling>
 		<RuntimeLibrary>MultiThreaded</RuntimeLibrary>
 		<FloatingPointModel>Fast</FloatingPointModel>
 		<RuntimeTypeInfo>false</RuntimeTypeInfo>

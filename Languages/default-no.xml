@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Norwegian Skin File -->
 
-<!-- Translation based on default-en.xml r60 (Shareaza 2.2.0.2) -->
+<!-- Translation based on default-en.xml r62 (Shareaza 2.2.0.2) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -786,7 +786,7 @@
 		<item id="ID_HOSTCACHE_REMOVE" text="Fjern vert(er)"/>
 		<separator/>
 		<menu text="_Filtrer">
-			<item id="ID_HOSTCACHE_G2_HORIZON" text="Gnutella2 cluster"/>
+			<item id="ID_HOSTCACHE_G2_HORIZON" text="Gnutella2 cl_uster"/>
 			<item id="ID_HOSTCACHE_G2_CACHE" text="Gnutella_2 cache"/>
 			<item id="ID_HOSTCACHE_G1_CACHE" text="Gnutella_1 cache"/>
 			<item id="ID_HOSTCACHE_ED2K_CACHE" text="eDonkey-servere"/>
@@ -1370,15 +1370,15 @@
 		<separator/>
 		<item id="ID_NEIGHBOURS_DISCONNECT" text="Koble fra"/>
 		<separator/>
-		<item id="ID_NEIGHBOURS_URI" text="Kopier URI"/>
+		<item id="ID_NEIGHBOURS_URI" text="Kopier _URI"/>
 		<separator/>
 		<menu text="Nettverk">
 			<item id="ID_NETWORK_CONNECT" text="Koble til"/>
 			<item id="ID_NETWORK_DISCONNECT" text="Koble fra"/>
 			<separator/>
-			<item id="ID_NETWORK_G2" text="Gnutella2"/>
-			<item id="ID_NETWORK_G1" text="Gnutella_1"/>
-			<item id="ID_NETWORK_ED2K" text="eDonkey2000"/>
+			<item id="ID_NETWORK_G2" text="Gnutella_2"/>
+			<item id="ID_NETWORK_G1" text="_Gnutella"/>
+			<item id="ID_NETWORK_ED2K" text="_eDonkey2000"/>
 		</menu>
 		<menu text="_Monitor">
 			<item id="ID_NEIGHBOURS_VIEW_ALL" text="Vis all trafikk"/>
@@ -3443,16 +3443,16 @@
 	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="Velkommen til PeerProject (2/8)">
 		<control caption="For optimal utnyttelse, trenger PeerProject å vite litt om tilkoblingen din."/>
 		<control caption="Hvis du kjenner hastigheten på tilkoblingen din, velg den som passer best nedenfor."/>
-		<control caption="| Oppringt modem|ISDN (128K)|DSL (768K)|DSL (1.5M)|DSL (4.0M)|DSL2 (8.0M)|FIOS (10.0M)|DSL2 (12.0M)|FIOS (20.0M)|DSL2+ (24.0M)| Kabelmodem/SDSL| T1| T3| LAN| OC3"/>
-		<control caption="Or choose the download speed:"/>
+		<control caption="|Oppringt modem|ISDN 128K|DSL 768K|DSL 1.5M|DSL 4M|DSL2 8|FIOS 10|DSL2 12|FIOS 15|FIOS 20|FIOS 25|FIOS 30|T1|T3|LAN|OC3|Kabelmodem"/>
+		<control caption="Eller velg nedlastingen hastighet:"/>
 		<control/>
-		<control caption="...and upload speed:"/>
+		<control caption="...og opplastingshastighet:"/>
 		<control/>
-		<control caption="Do auto port-forwarding with Plug&apos;n&apos;Play?"/>
+		<control caption="Gjør automatisk port-forwarding med Plug&apos;n&apos;Play?"/>
 		<control/>
 		<control caption="Port: &#160; (Any 4-5 digit number)"/>
 		<control/>
-		<control caption="Random"/>
+		<control caption="Tilfeldig"/>
 		<control caption="Status:"/>
 		<control/>
 	</dialog>
@@ -3467,7 +3467,7 @@
 		<control caption="Åpne torrent linker."/>
 	</dialog>
 	<dialog name="CWizardFoldersPage" cookie="StStEdBuStEdBuStEdBuSt" caption="Velkommen til PeerProject (4/8)">
-		<control caption="PeerProject first downloads partial files to a private folder, then moves them when completed according to Download Groups."/>
+		<control caption="PeerProject første nedlastinger delvis filer til en privat mappe, flyttes deretter dem når fullført i henhold til Download grupper."/>
 		<control caption="Lagre midlertidige filer her:"/>
 		<control/>
 		<control/>
@@ -3477,7 +3477,7 @@
 		<control caption="Lagre .Torrent filer her:"/>
 		<control/>
 		<control/>
-		<control caption="Common filetypes are initially setup as subfolders of the default location, but Groups can easily be customized by Right-Click.  Simply Drag&apos;n&apos;Drop files."/>
+		<control caption="Vanlige filtyper er opprinnelig oppsett som undermapper til standard, men grupper kan lett tilpasses av Høyre-klikk. Bare drag&apos;n&apos;drop filer."/>
 	</dialog>
 	<dialog name="CWizardSharePage" cookie="StStStSyBuBuSt" caption="Velkommen til PeerProject (5/8)">
 		<control caption="P2P-nettverket er kun så godt som det brukerne gjør det til. Alt du kan laste ned blir delt av en annen bruker."/>

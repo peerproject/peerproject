@@ -74,8 +74,8 @@
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="_DEBUG"
-				Culture="1049"
 				AdditionalIncludeDirectories="$(IntDir)"
+				Culture="1049"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
@@ -172,8 +172,8 @@
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="_DEBUG"
-				Culture="1049"
 				AdditionalIncludeDirectories="$(IntDir)"
+				Culture="1049"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
@@ -251,13 +251,14 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="3"
-				InlineFunctionExpansion="2"
-				EnableIntrinsicFunctions="true"
 				FavorSizeOrSpeed="1"
-				OmitFramePointers="true"
-				EnableFiberSafeOptimizations="true"
 				AdditionalIncludeDirectories="$(InputDir);..\..\Services\LibGFL"
 				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;_USRDLL"
+				InlineFunctionExpansion="2"
+				EnableIntrinsicFunctions="true"
+				EnableFiberSafeOptimizations="true"
+				EnableEnhancedInstructionSet="1"
+				OmitFramePointers="true"
 				StringPooling="true"
 				ExceptionHandling="0"
 				RuntimeLibrary="0"
@@ -274,8 +275,8 @@
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="NDEBUG"
-				Culture="1049"
 				AdditionalIncludeDirectories="$(IntDir)"
+				Culture="1049"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
@@ -355,13 +356,13 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="3"
-				InlineFunctionExpansion="2"
-				EnableIntrinsicFunctions="true"
 				FavorSizeOrSpeed="1"
-				OmitFramePointers="true"
-				EnableFiberSafeOptimizations="true"
 				AdditionalIncludeDirectories="$(InputDir);..\..\Services\LibGFL"
 				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;_USRDLL"
+				InlineFunctionExpansion="2"
+				EnableIntrinsicFunctions="true"
+				EnableFiberSafeOptimizations="true"
+				OmitFramePointers="true"
 				StringPooling="true"
 				ExceptionHandling="0"
 				RuntimeLibrary="0"
@@ -378,8 +379,8 @@
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="NDEBUG"
-				Culture="1049"
 				AdditionalIncludeDirectories="$(IntDir)"
+				Culture="1049"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"

@@ -1,7 +1,7 @@
 //
 // HttpRequest.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -32,16 +32,16 @@ static char THIS_FILE[]=__FILE__;
 //////////////////////////////////////////////////////////////////////
 // CHttpRequest construction
 
-CHttpRequest::CHttpRequest() :
-	m_hInternet( NULL ),
-	m_nLimit( 0 ),
-	m_nStatusCode( 0 ),
-//	m_pPost( NULL ),
-	m_pResponse( NULL ),
-	m_hNotifyWnd( NULL ),
-	m_nNotifyMsg( NULL ),
-	m_nNotifyParam( NULL ),
-	m_bUseCookie( true )
+CHttpRequest::CHttpRequest()
+	: m_hInternet	( NULL )
+	, m_nLimit		( 0 )
+	, m_nStatusCode	( 0 )
+//	, m_pPost		( NULL )
+	, m_pResponse	( NULL )
+	, m_hNotifyWnd	( NULL )
+	, m_nNotifyMsg	( NULL )
+	, m_nNotifyParam( NULL )
+	, m_bUseCookie	( true )
 {
 }
 
@@ -190,13 +190,8 @@ BOOL CHttpRequest::InflateResponse()
 
 bool CHttpRequest::Execute(bool bBackground)
 {
-	if ( IsPending() )
+	if ( IsPending() || m_sURL.IsEmpty() )	// m_sURL often fails from CBTTrackerRequest
 		return false;
-
-	// m_sURL fails often from CBTTrackerRequest.  ToDo: Track this down
-	// ASSERT( ! m_sURL.IsEmpty() );
-	//if ( m_sURL.IsEmpty() )
-	//	return false;
 
 	m_hInternet = NULL;
 	m_nStatusCode = 0;
@@ -214,14 +209,10 @@ bool CHttpRequest::Execute(bool bBackground)
 		return false;
 
 	if ( bBackground )
-	{
 		return true;
-	}
-	else
-	{
-		Wait();
-		return GetStatusSuccess();
-	}
+
+	Wait();
+	return GetStatusSuccess();
 }
 
 BOOL CHttpRequest::IsPending() const
@@ -257,7 +248,7 @@ void CHttpRequest::OnRun()
 	ASSERT( m_pResponse == NULL );
 
 	if ( m_sURL.GetLength() < 14 )
-		return;	// Torrent Crash Prevention
+		return;		// Torrent Crash Prevention
 
 	m_hInternet = InternetOpen( m_sUserAgent, INTERNET_OPEN_TYPE_DIRECT, NULL, NULL, 0 );
 	if ( m_hInternet )
@@ -301,7 +292,7 @@ void CHttpRequest::OnRun()
 						{
 							CString strHeader( pszHeader );
 							pszHeader += strHeader.GetLength() + 1;
-							int nColon = strHeader.Find( ':' );
+							const int nColon = strHeader.Find( ':' );
 							if ( nColon > 0 )
 							{
 								CString strValue, strName = strHeader.Left( nColon );

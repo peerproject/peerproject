@@ -45,7 +45,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="..\zlib"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;BUGTRAP_EXPORTS;ZLIB_WINAPI;ZLIB_DLL"
+				PreprocessorDefinitions="WIN32;_WIN32;_DEBUG;_WINDOWS;_USRDLL;BUGTRAP_EXPORTS;ZLIB_WINAPI;ZLIB_DLL"
 				ExceptionHandling="0"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -120,7 +120,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="..\zlib"
-				PreprocessorDefinitions="WIN64;_DEBUG;_WINDOWS;_USRDLL;BUGTRAP_EXPORTS;ZLIB_WINAPI;ZLIB_DLL"
+				PreprocessorDefinitions="WIN64;_WIN64;_DEBUG;_WINDOWS;_USRDLL;BUGTRAP_EXPORTS;ZLIB_WINAPI;ZLIB_DLL"
 				ExceptionHandling="0"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -135,8 +135,8 @@
 			/>
 			<Tool
 				Name="VCResourceCompilerTool"
-				Culture="1033"
 				ResourceOutputFileName="$(IntDir)/$(TargetName).res"
+				Culture="1033"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
@@ -199,12 +199,13 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="3"
+				FavorSizeOrSpeed="2"
+				AdditionalIncludeDirectories="..\zlib"
+				PreprocessorDefinitions="WIN32;_WIN32;NDEBUG;_WINDOWS;_USRDLL;BUGTRAP_EXPORTS;ZLIB_DLL;ZLIB_WINAPI"
 				InlineFunctionExpansion="2"
 				EnableIntrinsicFunctions="true"
-				FavorSizeOrSpeed="2"
+				EnableEnhancedInstructionSet="1"
 				OmitFramePointers="true"
-				AdditionalIncludeDirectories="..\zlib"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;BUGTRAP_EXPORTS;ZLIB_DLL;ZLIB_WINAPI"
 				StringPooling="true"
 				ExceptionHandling="0"
 				RuntimeLibrary="0"
@@ -283,12 +284,12 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="3"
+				FavorSizeOrSpeed="2"
+				AdditionalIncludeDirectories="..\zlib"
+				PreprocessorDefinitions="WIN64;_WIN64;NDEBUG;_WINDOWS;_USRDLL;BUGTRAP_EXPORTS"
 				InlineFunctionExpansion="2"
 				EnableIntrinsicFunctions="true"
-				FavorSizeOrSpeed="2"
 				OmitFramePointers="true"
-				AdditionalIncludeDirectories="..\zlib"
-				PreprocessorDefinitions="WIN64;NDEBUG;_WINDOWS;_USRDLL;BUGTRAP_EXPORTS"
 				StringPooling="true"
 				ExceptionHandling="0"
 				RuntimeLibrary="0"
@@ -303,8 +304,8 @@
 			/>
 			<Tool
 				Name="VCResourceCompilerTool"
-				Culture="1033"
 				ResourceOutputFileName="$(IntDir)/$(TargetName).res"
+				Culture="1033"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"

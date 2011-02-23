@@ -7,6 +7,10 @@
 
 /* @(#) $Id: gzio.c,v 1.1 2005/11/19 13:37:32 thetruecamper Exp $ */
 
+
+/* DEPRECATED: FILE NOT USED */
+
+
 #include <stdio.h>
 
 #include "zutil.h"
@@ -20,11 +24,7 @@ struct internal_state {int dummy;}; /* for buggy compilers */
 #endif
 
 #ifndef Z_BUFSIZE
-#  ifdef MAXSEG_64K
-#    define Z_BUFSIZE 4096 /* minimize memory usage for 16-bit DOS */
-#  else
-#    define Z_BUFSIZE 16384
-#  endif
+#  define Z_BUFSIZE 16384
 #endif
 #ifndef Z_PRINTF_BUFSIZE
 #  define Z_PRINTF_BUFSIZE 4096
@@ -191,8 +191,7 @@ local gzFile gz_open (path, mode, fd)
         s->start = 10L;
         /* We use 10L instead of ftell(s->file) to because ftell causes an
          * fflush on some systems. This version of the library doesn't use
-         * start anyway in write mode, so this initialization is not
-         * necessary.
+         * start anyway in write mode, so this initialization is not necessary.
          */
     } else {
         check_header(s); /* skip the .gz header */
@@ -254,8 +253,8 @@ int ZEXPORT gzsetparams (file, level, strategy)
 }
 
 /* ===========================================================================
-     Read a byte from a gz_stream; update next_in and avail_in. Return EOF
-   for end of file.
+     Read a byte from a gz_stream; update next_in and avail_in.
+   Return EOF for end of file.
    IN assertion: the stream s has been sucessfully opened for reading.
 */
 local int get_byte(s)

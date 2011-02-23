@@ -1,7 +1,7 @@
 //
 // CtrlLibraryFileView.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -71,16 +71,34 @@ protected:
 	afx_msg void OnLibraryCopy();
 	afx_msg void OnUpdateLibraryDelete(CCmdUI* pCmdUI);
 	afx_msg void OnLibraryDelete();
-	afx_msg void OnUpdateLibraryBitziWeb(CCmdUI* pCmdUI);
-	afx_msg void OnLibraryBitziWeb();
-	afx_msg void OnUpdateLibraryBitziDownload(CCmdUI* pCmdUI);
-	afx_msg void OnLibraryBitziDownload();
 	afx_msg void OnUpdateLibraryRefreshMetadata(CCmdUI* pCmdUI);
 	afx_msg void OnLibraryRefreshMetadata();
 	afx_msg void OnUpdateLibraryShared(CCmdUI* pCmdUI);
 	afx_msg void OnLibraryShared();
 	afx_msg void OnUpdateLibraryProperties(CCmdUI* pCmdUI);
 	afx_msg void OnLibraryProperties();
+	afx_msg void OnUpdateLibraryUnlink(CCmdUI* pCmdUI);
+	afx_msg void OnLibraryUnlink();
+	afx_msg void OnUpdateSearchForThis(CCmdUI* pCmdUI);
+	afx_msg void OnSearchForThis();
+	afx_msg void OnUpdateSearchForSimilar(CCmdUI* pCmdUI);
+	afx_msg void OnSearchForSimilar();
+	afx_msg void OnUpdateSearchForArtist(CCmdUI* pCmdUI);
+	afx_msg void OnSearchForArtist();
+	afx_msg void OnUpdateSearchForAlbum(CCmdUI* pCmdUI);
+	afx_msg void OnSearchForAlbum();
+	afx_msg void OnUpdateSearchForSeries(CCmdUI* pCmdUI);
+	afx_msg void OnSearchForSeries();
+	afx_msg void OnUpdateLibraryCreateTorrent(CCmdUI* pCmdUI);
+	afx_msg void OnLibraryCreateTorrent();
+	afx_msg void OnUpdateLibraryRebuildAnsi(CCmdUI* pCmdUI);
+	afx_msg void OnLibraryRebuildAnsi();
+
+	// WebServices:
+	afx_msg void OnUpdateLibraryBitziWeb(CCmdUI* pCmdUI);
+	afx_msg void OnLibraryBitziWeb();
+	afx_msg void OnUpdateLibraryBitziDownload(CCmdUI* pCmdUI);
+	afx_msg void OnLibraryBitziDownload();
 	afx_msg void OnUpdateMusicBrainzLookup(CCmdUI* pCmdUI);
 	afx_msg void OnMusicBrainzLookup();
 	afx_msg void OnUpdateMusicBrainzMatches(CCmdUI* pCmdUI);
@@ -105,22 +123,7 @@ protected:
 	afx_msg void OnShareMonkeyCompare();
 	afx_msg void OnUpdateShareMonkeyBuy(CCmdUI* pCmdUI);
 	afx_msg void OnShareMonkeyBuy();
-	afx_msg void OnUpdateLibraryUnlink(CCmdUI* pCmdUI);
-	afx_msg void OnLibraryUnlink();
-	afx_msg void OnUpdateSearchForThis(CCmdUI* pCmdUI);
-	afx_msg void OnSearchForThis();
-	afx_msg void OnUpdateSearchForSimilar(CCmdUI* pCmdUI);
-	afx_msg void OnSearchForSimilar();
-	afx_msg void OnUpdateSearchForArtist(CCmdUI* pCmdUI);
-	afx_msg void OnSearchForArtist();
-	afx_msg void OnUpdateSearchForAlbum(CCmdUI* pCmdUI);
-	afx_msg void OnSearchForAlbum();
-	afx_msg void OnUpdateSearchForSeries(CCmdUI* pCmdUI);
-	afx_msg void OnSearchForSeries();
-	afx_msg void OnUpdateLibraryCreateTorrent(CCmdUI* pCmdUI);
-	afx_msg void OnLibraryCreateTorrent();
-	afx_msg void OnUpdateLibraryRebuildAnsi(CCmdUI* pCmdUI);
-	afx_msg void OnLibraryRebuildAnsi();
+
 	afx_msg LRESULT OnServiceDone(WPARAM wParam, LPARAM lParam);
 
 	DECLARE_MESSAGE_MAP()

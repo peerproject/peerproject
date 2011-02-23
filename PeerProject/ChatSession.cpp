@@ -1,7 +1,7 @@
 //
 // ChatSession.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -86,7 +86,7 @@ void CChatSession::Setup(const Hashes::Guid& oGUID, SOCKADDR_IN* pHost, BOOL bMu
 {
 	CSingleLock pLock( &ChatCore.m_pSection, TRUE );
 
-	m_oGUID = oGUID;
+	m_oGUID 	= oGUID;
 
 	m_pHost		= *pHost;
 	m_bMustPush	= bMustPush;
@@ -533,7 +533,8 @@ BOOL CChatSession::ReadPacketsED2K()
 		catch ( CException* pException )
 		{
 			pException->Delete();
-			if ( ! m_oGUID ) bSuccess = FALSE;
+			if ( ! m_oGUID )
+				bSuccess = FALSE;
 		}
 
 		pPacket->Release();
@@ -781,11 +782,11 @@ BOOL CChatSession::ReadPackets()
 		BYTE nTypeLen	= ( nInput & 0x38 ) >> 3;
 		BYTE nFlags		= ( nInput & 0x07 );
 
-		if ( nLenLen == 0 )
-		{
-			Close();
-			return FALSE;
-		}
+	//	if ( nLenLen == 0 )
+	//	{
+	//		Close();
+	//		return FALSE;
+	//	}
 
 		if ( (DWORD)pInput->m_nLength < (DWORD)nLenLen + nTypeLen + 2 ) break;
 

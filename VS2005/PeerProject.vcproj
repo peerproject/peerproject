@@ -531,10 +531,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\PeerProject\DHT.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\PeerProject\DiscoveryServices.cpp"
 				>
 			</File>
@@ -1160,6 +1156,10 @@
 			</File>
 			<File
 				RelativePath="..\PeerProject\WindowManager.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\PeerProject\WebServices.cpp"
 				>
 			</File>
 			<File
@@ -2142,10 +2142,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\PeerProject\DHT.h"
-				>
-			</File>
-			<File
 				RelativePath="..\PeerProject\DiscoveryServices.h"
 				>
 			</File>
@@ -2731,6 +2727,10 @@
 			</File>
 			<File
 				RelativePath="..\PeerProject\WindowManager.h"
+				>
+			</File>
+			<File
+				RelativePath="..\PeerProject\WebServices.h"
 				>
 			</File>
 			<File

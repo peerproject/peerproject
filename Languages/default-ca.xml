@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Catalan Skin File -->
 
-<!-- Translation based on default-en.xml r60 -->
+<!-- Translation based on default-en.xml r62 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -691,8 +691,8 @@
 			<item id="ID_NETWORK_CONNECT" text="_Connecta" shortcut="Ctrl+G"/>
 			<separator/>
 			<menu text="Escollir _Xarxes">
-				<item id="ID_NETWORK_G2" text="Connecta a _Gnutella2"/>
-				<item id="ID_NETWORK_G1" text="Connecta a Gnutella_1"/>
+				<item id="ID_NETWORK_G2" text="Connecta a Gnutella_2"/>
+				<item id="ID_NETWORK_G1" text="Connecta a _Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="Connecta a _eDonkey"/>
 			</menu>
 			<separator/>
@@ -766,8 +766,8 @@
 			<item id="ID_NETWORK_BROWSE_TO" text="E_xplora host..."/>
 			<separator/>
 			<menu text="Connectar _A">
-				<item id="ID_NETWORK_G2" text="Connecta a _Gnutella2"/>
-				<item id="ID_NETWORK_G1" text="Connecta a _Gnutella_1"/>
+				<item id="ID_NETWORK_G2" text="Connecta a Gnutella_2"/>
+				<item id="ID_NETWORK_G1" text="Connecta a _Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="Connecta a _eDonkey"/>
 			</menu>
 			<separator/>
@@ -939,7 +939,7 @@
 		<item id="ID_HOSTCACHE_REMOVE" text="_Esborra IP"/>
 		<separator/>
 		<menu text="_Filter">
-			<item id="ID_HOSTCACHE_G2_HORIZON" text="Clúster de Gnutella2"/>
+			<item id="ID_HOSTCACHE_G2_HORIZON" text="Clúster de _Gnutella2"/>
 			<item id="ID_HOSTCACHE_G2_CACHE" text="Caxé de Gnutella_2"/>
 			<item id="ID_HOSTCACHE_G1_CACHE" text="Caxé de Gnutella_1"/>
 			<item id="ID_HOSTCACHE_ED2K_CACHE" text="_Servidors eDonkey"/>
@@ -1545,8 +1545,8 @@
 			<item id="ID_NETWORK_CONNECT" text="_Connecta"/>
 			<item id="ID_NETWORK_DISCONNECT" text="_Desconnecta"/>
 			<separator/>
-			<item id="ID_NETWORK_G2" text="_Gnutella2"/>
-			<item id="ID_NETWORK_G1" text="Gnutella_1"/>
+			<item id="ID_NETWORK_G2" text="Gnutella_2"/>
+			<item id="ID_NETWORK_G1" text="_Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="_eDonkey"/>
 		</menu>
 		<menu text="_Monitor">
@@ -3695,7 +3695,7 @@
 	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="Benvingut a PeerProject (2/8)">
 		<control caption="Per a un rendiment óptim, PeerProject necessita saber un mica més sobre la teva connexió a Internet."/>
 		<control caption="Tria el tipus de la teva connexió a Internet:"/>
-		<control caption="Mòdem|ISDN (128K)|DSL (768K)|DSL (1.5M)|DSL (4.0M)|DSL2 (8.0M)|FIOS (10.0M)|DSL2 (12.0M)|FIOS (20.0M)|DSL2+ (24.0M)|Cable Modem/SDSL|T1|T3|LAN|OC3"/>
+		<control caption="Mòdem|ISDN 128K|DSL 768K|DSL 1.5M|DSL 4M|DSL2 8|FIOS 10|DSL2 12|FIOS 15|FIOS 20|FIOS 25|FIOS 30|T1|T3|LAN|OC3|Cable Mòdem"/>
 		<control caption="O tria una velocitat de descàrrega:"/>
 		<control/>
 		<control caption="i de pujada:"/>
@@ -3719,7 +3719,7 @@
 		<control caption="Maneja enllaços BitTorrent."/>
 	</dialog>
 	<dialog name="CWizardFoldersPage" cookie="StStEdBuStEdBuStEdBuSt" caption="Benvingut a PeerProject (4/8)">
-		<control caption="PeerProject first downloads partial files to a private folder, then moves them when completed according to Download Groups."/>
+		<control caption="També PeerProject primer parcial arxius en una carpeta privada, després es mou quan es completi d'acord a Grups de Descàrrega."/>
 		<control caption="Carpeta d'arxius _incomplets: (temporal)"/>
 		<control/>
 		<control/>
@@ -3729,7 +3729,7 @@
 		<control caption="Carpeta d'arxius ._Torrents:"/>
 		<control/>
 		<control/>
-		<control caption="Common filetypes are initially setup as subfolders of the default location, but Groups can easily be customized by Right-Click.  Simply Drag&apos;n&apos;Drop files."/>
+		<control caption="Tipus d'arxius comuns són inicialment de configuració de les subcarpetes, però els grups es poden personalitzar. Arrossegar i deixar anar arxius."/>
 	</dialog>
 	<dialog name="CWizardSharePage" cookie="StStStSyBuBuSt" caption="Benvingut a PeerProject (5/8)">
 		<control caption="Les xarxes P2P són bones si la gent que les utilitza també ho és. Tot el contingut disponible per a descarregar està essent compartit per un altre usuari."/>

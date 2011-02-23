@@ -51,7 +51,7 @@
 				RuntimeLibrary="1"
 				UsePrecompiledHeader="2"
 				DebugInformationFormat="4"
-				WarningLevel="4"
+				WarningLevel="2"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -126,7 +126,7 @@
 				RuntimeLibrary="1"
 				UsePrecompiledHeader="2"
 				DebugInformationFormat="3"
-				WarningLevel="3"
+				WarningLevel="2"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -196,11 +196,12 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="3"
+				FavorSizeOrSpeed="1"
+				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;HASHLIB_USE_ASM"
 				InlineFunctionExpansion="2"
 				EnableIntrinsicFunctions="true"
-				FavorSizeOrSpeed="1"
+				EnableEnhancedInstructionSet="1"
 				OmitFramePointers="true"
-				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;HASHLIB_USE_ASM"
 				StringPooling="true"
 				ExceptionHandling="0"
 				RuntimeLibrary="0"
@@ -278,11 +279,11 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="3"
+				FavorSizeOrSpeed="1"
+				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
 				InlineFunctionExpansion="2"
 				EnableIntrinsicFunctions="true"
-				FavorSizeOrSpeed="1"
 				OmitFramePointers="true"
-				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
 				StringPooling="true"
 				ExceptionHandling="0"
 				RuntimeLibrary="0"

@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Albanian Skin File -->
 
-<!-- Translation based on default-en.xml r60 -->
+<!-- Translation based on default-en.xml r62 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -614,8 +614,8 @@
 			<item id="ID_NETWORK_DISCONNECT" text="_Shkëputu"/>
 			<separator/>
 			<menu text="Zgjidh _Rrjetet">
-				<item id="ID_NETWORK_G2" text="_Gnutella2"/>
-				<item id="ID_NETWORK_G1" text="Gnutella_1"/>
+				<item id="ID_NETWORK_G2" text="Gnutella_2"/>
+				<item id="ID_NETWORK_G1" text="_Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="_eDonkey"/>
 			</menu>
 			<separator/>
@@ -709,8 +709,8 @@
 			<item id="ID_NETWORK_CONNECT" text="_Lidhu" shortcut="Ctrl+G"/>
 			<separator/>
 			<menu text="Zgjidhe _Rrjetin">
-				<item id="ID_NETWORK_G2" text="_Gnutella2"/>
-				<item id="ID_NETWORK_G1" text="Gnutella_1"/>
+				<item id="ID_NETWORK_G2" text="Gnutella_2"/>
+				<item id="ID_NETWORK_G1" text="_Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="_eDonkey"/>
 			</menu>
 			<separator/>
@@ -784,8 +784,8 @@
 			<item id="ID_NETWORK_BROWSE_TO" text="_Shfleto një Host..."/>
 			<separator/>
 			<menu text="Zgjidhe _Rrjetin">
-				<item id="ID_NETWORK_G2" text="_Gnutella2"/>
-				<item id="ID_NETWORK_G1" text="Gnutella_1"/>
+				<item id="ID_NETWORK_G2" text="Gnutella_2"/>
+				<item id="ID_NETWORK_G1" text="_Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="_eDonkey"/>
 			</menu>
 			<separator/>
@@ -958,7 +958,7 @@
 		<item id="ID_HOSTCACHE_REMOVE" text="_Fshije"/>
 		<separator/>
 		<menu text="_Filtër">
-			<item id="ID_HOSTCACHE_G2_HORIZON" text="Co_pëz Gnutella2"/>
+			<item id="ID_HOSTCACHE_G2_HORIZON" text="Copëz Gn_utella2"/>
 			<item id="ID_HOSTCACHE_G2_CACHE" text="Depo Gnutella_2"/>
 			<item id="ID_HOSTCACHE_G1_CACHE" text="Depo Gnutella_1"/>
 			<item id="ID_HOSTCACHE_ED2K_CACHE" text="Servera _eDonkey"/>
@@ -1565,8 +1565,8 @@
 			<item id="ID_NETWORK_CONNECT" text="_Lidhu"/>
 			<item id="ID_NETWORK_DISCONNECT" text="_Shkëputu"/>
 			<separator/>
-			<item id="ID_NETWORK_G2" text="_Gnutella2"/>
-			<item id="ID_NETWORK_G1" text="Gnutella_1"/>
+			<item id="ID_NETWORK_G2" text="Gnutella_2"/>
+			<item id="ID_NETWORK_G1" text="_Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="_eDonkey"/>
 		</menu>
 		<menu text="_Monitori">
@@ -3550,7 +3550,7 @@
 	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="Mirë se erdhët në PeerProject (2/8)">
 		<control caption="Për efektshmëri optimale, PeerProject duhet të dijë si lidheni në Internet."/>
 		<control caption="Zgjidheni llojin e lidhjes me Internet:"/>
-		<control caption="Modem Dial up|ISDN (128K)|DSL (768K)|DSL (1.5M)|DSL (4.0M)|DSL2 (8.0M)|FIOS (10.0M)|DSL2 (12.0M)|FIOS (20.0M)|DSL2+ (24.0M)|Modem me Kabllo/SDSL|T1|T3|LAN|OC3"/>
+		<control caption="Modem Dial up|ISDN 128K|DSL 768K|DSL 1.5M|DSL 4M|DSL2 8|FIOS 10|DSL2 12|FIOS 15|FIOS 20|FIOS 25|FIOS 30|T1|T3|LAN|OC3|Modem me Kabllo"/>
 		<control caption="Ose zgjidheni shpejtësinë e shkarkimit:"/>
 		<control/>
 		<control caption="shpejtësinë e ngarkimit:"/>
@@ -3559,7 +3559,7 @@
 		<control/>
 		<control caption="Port: &#160; (Any 4-5 digit number)"/>
 		<control/>
-		<control caption="Random"/>
+		<control caption="Rastit"/>
 		<control caption="Statusi:"/>
 		<control/>
 	</dialog>
@@ -3574,7 +3574,7 @@
 		<control caption="Përkrahi linket torrente."/>
 	</dialog>
 	<dialog name="CWizardFoldersPage" cookie="StStEdBuStEdBuStEdBuSt" caption="Mirë se erdhët në PeerProject (4/8)">
-		<control caption="PeerProject first downloads partial files to a private folder, then moves them when completed according to Download Groups."/>
+		<control caption="Shkarkime PeerProject e parë të pjesshme fotografi të një dosje private, pastaj lëvizjet e tyre kur të përfundojë sipas Grupet Download."/>
 		<control caption="Depozitoni Këtu Skedat e Përkohshme të Papërfunduara:"/>
 		<control/>
 		<control/>
@@ -3584,7 +3584,7 @@
 		<control caption="Depozitoni Këtu Skedat e .Torrent:"/>
 		<control/>
 		<control/>
-		<control caption="Common filetypes are initially setup as subfolders of the default location, but Groups can easily be customized by Right-Click.  Simply Drag&apos;n&apos;Drop files."/>
+		<control caption="Llojet më të zakonshme janë të vendosur fillimisht në subfolders, por Grupet mund të personalizohet. Thjesht fotografi drag&apos;n&apos;drop."/>
 	</dialog>
 	<dialog name="CWizardSharePage" cookie="StStStSyBuBuSt" caption="Mirë se erdhët në PeerProject (5/8)">
 		<control caption="Rrjeti P2P është po aq i mirë sa edhe njerëzit që e përdorin atë. Gjithë përmbajtja që vlen të shkarkohet po shpërndahet nga një përdorues tjetër."/>

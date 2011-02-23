@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Hebrew Skin File -->
 
-<!-- Translation based on default-en.xml r60 -->
+<!-- Translation based on default-en.xml r62 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2883,7 +2883,7 @@ gap i newline
 	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="(2/8) ברוכים הבאים לשרזה">
 		<control caption="לביצועים מירביים, שרזה צריכה לדעת קצת יותר על החיבור שלך לאינטרנט"/>
 		<control caption="&#160;אנא בחר|אני משתמש באינטרנט בביתי|אני משתמש באינטרנט בקו קבוע במכללה|אני משתמש באינטרנט בקו קבוע במשרד|אני משתמש באינטרנט במלון או בשדה תעופה"/>
-		<control caption="|Dial-up Modem|ISDN (128K)|DSL (768K)|DSL (1.5M)|DSL (4.0M)|DSL2 (8.0M)|FIOS (10.0M)|DSL2 (12.0M)|FIOS (20.0M)|DSL2+ (24.0M)|Cable Modem|T1|T3|LAN|OC3"/>
+		<control caption="|Dial-up Modem|ISDN 128K|DSL 768K|DSL 1.5M|DSL 4M|DSL2 8|FIOS 10|DSL2 12|FIOS 15|FIOS 20|FIOS 25|FIOS 30|T1|T3|LAN|OC3|Cable Modem"/>
 		<control caption="או בחר:"/>
 		<control/>
 		<control caption="ומהירות ההעלאה:"/>
@@ -2907,7 +2907,7 @@ gap i newline
 		<control caption=".טפל בקישורי טורנטים"/>
 	</dialog>
 	<dialog name="CWizardFoldersPage" cookie="StStEdBuStEdBuStEdBuSt" caption="(4/8) ברוכים הבאים לשרזה">
-		<control caption="PeerProject first downloads partial files to a private folder, then moves them when completed according to Download Groups."/>
+		<control caption="הורדות PeerProject הראשון חלקי הקבצים לתיקיה פרטית, ואז מעביר אותם כאשר הושלמה לפי קבוצות הורד."/>
 		<control caption=":אכסן קבצים זמניים כאן"/>
 		<control/>
 		<control/>
@@ -2917,7 +2917,7 @@ gap i newline
 		<control caption="Store .Torrent files here:"/>
 		<control/>
 		<control/>
-		<control caption="Common filetypes are initially setup as subfolders of the default location, but Groups can easily be customized by Right-Click.  Simply Drag&apos;n&apos;Drop files."/>
+		<control caption="סוגי קבצים נפוצים הם בתחילה ההתקנה בתיקיות משנה, אבל קבוצות יכול להיות מותאם אישית. פשוט Drag&apos;n&apos;drop קבצים."/>
 	</dialog>
 	<dialog name="CWizardSharePage" cookie="StStStSyBuBuSt" caption="(5/8) ברוכים הבאים לשרזה">
 		<control caption="ערך רשתות השיתוף הוא כערך האנשים שמשתמשים בהן. כל התוכן שזמין להורדה זמין ממשתמשים אחרים"/>

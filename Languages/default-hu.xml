@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Hungarian Skin File -->
 
-<!-- Translation based on default-en.xml r60 -->
+<!-- Translation based on default-en.xml r62 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -592,8 +592,8 @@
 			<item id="ID_NETWORK_DISCONNECT" text="_Lekapcsolódás"/>
 			<separator/>
 			<menu text="_Hálózat kiválasztása">
-				<item id="ID_NETWORK_G2" text="Kapcsolódás a _Gnutella2-höz"/>
-				<item id="ID_NETWORK_G1" text="Kapcsolódás a Gnutella_1-hez"/>
+				<item id="ID_NETWORK_G2" text="Kapcsolódás a Gnutella_2-höz"/>
+				<item id="ID_NETWORK_G1" text="Kapcsolódás a _Gnutella-hez"/>
 				<item id="ID_NETWORK_ED2K" text="Kapcsolódás az _eDonkey-hoz"/>
 			</menu>
 			<separator/>
@@ -690,8 +690,8 @@
 			<item id="ID_NETWORK_CONNECT" text="_Kapcsolódás" shortcut="Ctrl+G"/>
 			<separator/>
 			<menu text="_Hálózat kiválasztása">
-				<item id="ID_NETWORK_G2" text="Kapcsolódás a _Gnutella2-höz"/>
-				<item id="ID_NETWORK_G1" text="Kapcsolódás a Gnutella_1-hez"/>
+				<item id="ID_NETWORK_G2" text="Kapcsolódás a Gnutella_2-höz"/>
+				<item id="ID_NETWORK_G1" text="Kapcsolódás a _Gnutella-hez"/>
 				<item id="ID_NETWORK_ED2K" text="Kapcsolódás az _eDonkey-hoz"/>
 			</menu>
 			<separator/>
@@ -768,8 +768,8 @@
 			<item id="ID_NETWORK_BROWSE_TO" text="_Fájllista és adatlap..."/>
 			<separator/>
 			<menu text="_Hálózat kiválasztása">
-				<item id="ID_NETWORK_G2" text="Kapcsolódás a _Gnutella2-höz"/>
-				<item id="ID_NETWORK_G1" text="Kapcsolódás a Gnutella_1-hez"/>
+				<item id="ID_NETWORK_G2" text="Kapcsolódás a Gnutella_2-höz"/>
+				<item id="ID_NETWORK_G1" text="Kapcsolódás a _Gnutella-hez"/>
 				<item id="ID_NETWORK_ED2K" text="Kapcsolódás az _eDonkey-hoz"/>
 			</menu>
 			<separator/>
@@ -1554,7 +1554,7 @@
 			<item id="ID_NETWORK_DISCONNECT" text="_Lekapcsolódás"/>
 			<separator/>
 			<item id="ID_NETWORK_G2" text="Gnutella_2"/>
-			<item id="ID_NETWORK_G1" text="Gnutella_1"/>
+			<item id="ID_NETWORK_G1" text="_Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="_eDonkey"/>
 		</menu>
 		<menu text="_Monitor">
@@ -3556,7 +3556,7 @@
 	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="Távoli elérés">
 		<control caption="_Engedélyezés"/>
 		<control caption="Távoli használat engedélyezése"/>
-		<control caption="URL"/>
+		<control caption="..."/>
 		<control caption="_Belépési adatok"/>
 		<control caption="Felhasználó neve:"/>
 		<control caption="Felhasználó jelszava:"/>
@@ -3754,7 +3754,7 @@
 	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="Köszöntöm a PeerProject (2/8)">
 		<control caption="A PeerProject többet kell tudnia az ön internetkapcsolatáról."/>
 		<control caption="Milyen kapcsolattal rendelketik?"/>
-		<control caption="Betárcsázós modem|ISDN (128K)|DSL (768K)|DSL (1.5M)|DSL (4.0M)|DSL2 (8.0M)|FIOS (10.0M)|DSL2 (12.0M)|FIOS (20.0M)|DSL2+ (24.0M)|Kábelmodem/SDSL|T1|T3|LAN|OC3"/>
+		<control caption="Betárcsázós modem|ISDN 128K|DSL 768K|DSL 1.5M|DSL 4M|DSL2 8|FIOS 10|DSL2 12|FIOS 15|FIOS 20|FIOS 25|FIOS 30|T1|T3|LAN|OC3|Kábelmodem"/>
 		<control caption="Vagy adja meg a letöltési:"/>
 		<control/>
 		<control caption="és a feltöltési sebességet:"/>
@@ -3778,7 +3778,7 @@
 		<control caption="Torrentfájlok kezelése"/>
 	</dialog>
 	<dialog name="CWizardFoldersPage" cookie="StStEdBuStEdBuStEdBuSt" caption="Köszöntöm a PeerProject (4/8)">
-		<control caption="PeerProject first downloads partial files to a private folder, then moves them when completed according to Download Groups."/>
+		<control caption="PeerProject első letöltések részleges fájlokat saját mappába, majd mozgatja őket, amikor szerint kitöltött Letöltés csoportok."/>
 		<control caption="Félkész letöltések mappája"/>
 		<control/>
 		<control/>
@@ -3788,7 +3788,7 @@
 		<control caption=".Torrent letöltések mappája:"/>
 		<control/>
 		<control/>
-		<control caption="Common filetypes are initially setup as subfolders of the default location, but Groups can easily be customized by Right-Click.  Simply Drag&apos;n&apos;Drop files."/>
+		<control caption="Közös fájltípusok kezdetben beállítás almappákat, de a csoportok testre szabható. Egyszerűen drag&apos;n&apos;drop fájlokat."/>
 	</dialog>
 	<dialog name="CWizardSharePage" cookie="StStStSyBuBuSt" caption="Köszöntöm a PeerProject (5/8)">
 		<control caption="A p2p hálózatok csak akkor működnek, ha mindenki megoszt valamit. Amit letölt a hálózaton az valakinek a megosztása."/>

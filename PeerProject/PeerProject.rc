@@ -86,7 +86,7 @@ BEGIN
 			VALUE "CompanyName", "PeerProject Development Team"
 			VALUE "FileDescription", "PeerProject P2P"
 			VALUE "FileVersion", "1.0.0.0"
-			VALUE "LegalCopyright", "© PeerProject Development Team, 2008-2010"
+			VALUE "LegalCopyright", "© PeerProject Development Team, 2008-2011"
 			VALUE "OriginalFilename", "PeerProject.exe"
 			VALUE "InternalName", "PeerProject"
 			VALUE "ProductName", "PeerProject"
@@ -618,7 +618,7 @@ CAPTION "About PeerProject"
 FONT 8, "Tahoma"
 BEGIN
 	LTEXT			"PeerProject Filesharing Client ",IDC_TITLE,20,10,262,10,SS_CENTERIMAGE
-	LTEXT			"© PeerProject Development Team, 2008-",IDC_COPYRIGHT,20,26,262,12
+	LTEXT			"© PeerProject Development Team, 2008-",IDC_COPYRIGHT,20,26,262,12		// Manifest LegalCopyright
 	LTEXT			"PeerProject™ is free software;  you can redistribute and/or modify it \nunder terms of the GNU Affero General Public License as published\nby the Free Software Foundation, version 3 or later.  (AGPL v3)",IDC_STATIC,20,46,262,24
 	LTEXT			"Creative Commons BY-NC-SA or PPD covers original artwork.",IDC_STATIC,20,76,220,12
 	LTEXT			"Portions previously copyright Shareaza, 2002-2008.",IDC_STATIC,20,90,220,18
@@ -800,7 +800,7 @@ BEGIN
 	LTEXT			"After closing this Wizard, the first thing to do is run a 'fake' random search to catch spammers and Ban them all.  Explore toolbar tabs while waiting.",IDC_STATIC,10,49,265,28
 	CONTROL			"Start PeerProject every time Windows starts",IDC_WIZARD_STARTUP,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,20,88,225,10
 	CONTROL			"Connect to the networks every time I start PeerProject",IDC_WIZARD_AUTO,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,20,102,225,10
-	LTEXT			"And thanks.  Enjoy using PeerProject for your peer-to-peer networking.",IDC_STATIC,10,132,265,16
+	LTEXT			"And thanks.  Enjoy using PeerProject for all your peer-to-peer networking.",IDC_STATIC,10,132,265,16
 END
 
 IDD_FOLDER_SCAN DIALOGEX 0, 0, 238, 50
@@ -1492,7 +1492,7 @@ BEGIN
 	DEFPUSHBUTTON	"OK",IDOK,242,135,44,14
 END
 
-IDD_EXISTING_FILE DIALOGEX 0, 0, 292, 142
+IDD_EXISTING_FILE DIALOGEX 0, 0, 292, 140
 STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Existing File"
 FONT 8, "Tahoma"
@@ -1507,7 +1507,7 @@ BEGIN
 	DEFPUSHBUTTON	"OK",IDOK,180,120,50,14,WS_GROUP
 	PUSHBUTTON		"Cancel",IDCANCEL,235,120,50,14
 	LTEXT			"You have downloaded and deleted this file before.  What would you like to do?",IDC_MESSAGE_DELETED,15,48,260,18
-	LTEXT			"Warning: Duplicate files detected. Malicious software may infect your Library, be certain you downloaded or placed these files intentionaly. Otherwise, shutdown PeerProject and scan your computer with an antivirus program.",IDC_MESSAGE_DUPLICATES,15,44,262,28
+	LTEXT			"Warning: Duplicate files detected. This can be a behavior of malicious software, be sure you downloaded or copied these files intentionaly. Otherwise, close PeerProject and scan with an antivirus program.",IDC_MESSAGE_DUPLICATES,15,40,262,28
 END
 
 IDD_CLOSE_MODE DIALOGEX 0, 0, 292, 115
@@ -1665,7 +1665,7 @@ FONT 8, "Tahoma"
 BEGIN
 	GROUPBOX		"&Activation:",IDC_STATIC,6,5,270,64,WS_GROUP
 	CONTROL			"&Enable PeerProject Remote Web Access:",IDC_REMOTE_ENABLE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,18,24,246,12
-	LTEXT			"URL",IDC_REMOTE_URL,18,45,246,10
+	LTEXT			"...",IDC_REMOTE_URL,18,45,246,10
 	GROUPBOX		"&Credentials:",IDC_STATIC,6,75,270,64,WS_GROUP
 	LTEXT			"Choose a Username:",IDC_STATIC,18,95,84,12,SS_CENTERIMAGE
 	LTEXT			"Choose a Password:",IDC_STATIC,18,114,84,12,SS_CENTERIMAGE
@@ -1758,9 +1758,9 @@ BEGIN
 	LTEXT			"Server:",IDC_STATIC,14,168,30,12,SS_CENTERIMAGE
 	EDITTEXT		IDC_IRC_SERVERNAME,50,168,94,12,ES_AUTOHSCROLL | WS_GROUP
 	LTEXT			"Port:",IDC_STATIC,152,168,64,12,SS_CENTERIMAGE
-	EDITTEXT		IDC_IRC_SERVERPORT,212,168,34,12,ES_AUTOHSCROLL | WS_GROUP
+	EDITTEXT		IDC_IRC_SERVERPORT,212,168,34,12,ES_AUTOHSCROLL | ES_NUMBER | WS_GROUP
 	LTEXT			"Run command on connect",IDC_STATIC,152,185,120,12,SS_CENTERIMAGE
-	EDITTEXT		IDC_IRC_ONCONNECT,14,185,130,12,ES_AUTOHSCROLL | ES_NUMBER | WS_GROUP
+	EDITTEXT		IDC_IRC_ONCONNECT,14,185,130,12,ES_AUTOHSCROLL | WS_GROUP
 END
 
 IDD_IRC_INPUTBOX DIALOGEX 0, 0, 205, 46
@@ -2760,35 +2760,39 @@ END
 IDD_WIZARD_CONNECTION DLGINIT
 BEGIN
 	IDC_CONNECTION_TYPE, 0x403, 14, 0
-0x6944, 0x6c61, 0x752d, 0x2070, 0x6f4d, 0x6564, 0x006d,
+0x4420, 0x6169, 0x756c, 0x2070, 0x6f4d, 0x6564, 0x006d,
 	IDC_CONNECTION_TYPE, 0x403, 12, 0
-0x5349, 0x4e44, 0x2820, 0x3231, 0x4b38, 0x0029,
-	IDC_CONNECTION_TYPE, 0x403, 11, 0
-0x5344, 0x204c, 0x3728, 0x3836, 0x294b, "\000"
-	IDC_CONNECTION_TYPE, 0x403, 11, 0
-0x5344, 0x204c, 0x3128, 0x352e, 0x294d, "\000"
-	IDC_CONNECTION_TYPE, 0x403, 11, 0
-0x5344, 0x204c, 0x3428, 0x302e, 0x294d, "\000"
+0x4920, 0x4453, 0x204e, 0x3120, 0x3832, 0x004b,
 	IDC_CONNECTION_TYPE, 0x403, 12, 0
-0x5344, 0x324c, 0x2820, 0x2e38, 0x4d30, 0x0029,
-	IDC_CONNECTION_TYPE, 0x403, 13, 0
-0x4946, 0x534f, 0x2820, 0x3031, 0x302e, 0x294d, "\000"
-	IDC_CONNECTION_TYPE, 0x403, 13, 0
-0x5344, 0x324c, 0x2820, 0x3231, 0x302e, 0x294d, "\000"
-	IDC_CONNECTION_TYPE, 0x403, 13, 0
-0x4946, 0x534f, 0x2820, 0x3032, 0x302e, 0x294d, "\000"
-	IDC_CONNECTION_TYPE, 0x403, 13, 0
-0x5344, 0x324c, 0x2820, 0x3432, 0x302e, 0x294d, "\000"
+0x4420, 0x4c53, 0x2020, 0x3720, 0x3836, 0x004b,
 	IDC_CONNECTION_TYPE, 0x403, 12, 0
-0x6143, 0x6c62, 0x2065, 0x6f4d, 0x6564, 0x006d,
-	IDC_CONNECTION_TYPE, 0x403, 3, 0
-0x3154, "\000"
-	IDC_CONNECTION_TYPE, 0x403, 3, 0
-0x3354, "\000"
+0x4420, 0x4c53, 0x2020, 0x3120, 0x352e, 0x004d,
+	IDC_CONNECTION_TYPE, 0x403, 10, 0
+0x4420, 0x4c53, 0x2020, 0x3420, 0x004d,
+	IDC_CONNECTION_TYPE, 0x403, 9, 0
+0x4420, 0x4c53, 0x2032, 0x3820, "\000"
+	IDC_CONNECTION_TYPE, 0x403, 10, 0
+0x4620, 0x4f49, 0x2053, 0x3120, 0x0030,
+	IDC_CONNECTION_TYPE, 0x403, 10, 0
+0x4420, 0x4c53, 0x2032, 0x3120, 0x0032,
+	IDC_CONNECTION_TYPE, 0x403, 10, 0
+0x4620, 0x4f49, 0x2053, 0x3120, 0x0035,
+	IDC_CONNECTION_TYPE, 0x403, 10, 0
+0x4620, 0x4f49, 0x2053, 0x3220, 0x0030,
+	IDC_CONNECTION_TYPE, 0x403, 10, 0
+0x4620, 0x4f49, 0x2053, 0x3220, 0x0035,
+	IDC_CONNECTION_TYPE, 0x403, 10, 0
+0x4620, 0x4f49, 0x2053, 0x3320, 0x0030,
 	IDC_CONNECTION_TYPE, 0x403, 4, 0
-0x414c, 0x004e,
+0x5420, 0x0031,
 	IDC_CONNECTION_TYPE, 0x403, 4, 0
-0x434f, 0x0033,
+0x5420, 0x0033,
+	IDC_CONNECTION_TYPE, 0x403, 5, 0
+0x4c20, 0x4e41, "\000"
+	IDC_CONNECTION_TYPE, 0x403, 5, 0
+0x4f20, 0x3343, "\000"
+	IDC_CONNECTION_TYPE, 0x403, 20, 0
+0x4320, 0x6261, 0x656c, 0x4d20, 0x646f, 0x6d65, 0x2820, 0x6c53, 0x776f, 0x0029,
 	0
 END
 

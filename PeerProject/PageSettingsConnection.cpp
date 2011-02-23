@@ -1,7 +1,7 @@
 //
 // PageSettingsConnection.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -114,8 +114,8 @@ BOOL CConnectionSettingsPage::OnInitDialog()
 	m_wndCanAccept.AddString( str );
 	LoadString( str, IDS_GENERAL_YES );
 	m_wndCanAccept.AddString( str );
-	/*m_wndCanAccept.AddString( _T("TCP-Only") );
-	m_wndCanAccept.AddString( _T("UDP-Only") );*/ // Temp disabled  ToDo:?
+	//m_wndCanAccept.AddString( _T("TCP-Only") );
+	//m_wndCanAccept.AddString( _T("UDP-Only") );	// "Temp disabled"  ToDo:?
 
 	m_wndCanAccept.SetCurSel( Settings.Connection.FirewallState );
 
@@ -270,18 +270,18 @@ void CConnectionSettingsPage::OnOK()
 	if ( m_sOutHost.CompareNoCase( strAutomatic ) == 0 )
 		m_sOutHost.Empty();
 
-	Settings.Connection.FirewallState		= m_wndCanAccept.GetCurSel();
-	Settings.Connection.InHost				= m_sInHost;
+	Settings.Connection.FirewallState	= m_wndCanAccept.GetCurSel();
+	Settings.Connection.InHost			= m_sInHost;
 
 	bool bRandomForwarded = ( m_nInPort == 0 &&
 		theApp.m_bUPnPPortsForwarded == TRI_TRUE );
 
 	if ( ! bRandomForwarded || m_nInPort != 0 || ! m_bInRandom )
 	{
-		Settings.Connection.InPort = m_nInPort;
+		if ( m_nInPort < 65535 && m_nInPort > 0 )
+			Settings.Connection.InPort = m_nInPort;
 
-		if ( m_bEnableUPnP && ( (DWORD)m_nInPort != Settings.Connection.InPort ||
-			!Settings.Connection.EnableUPnP ) )
+		if ( m_bEnableUPnP && ( (DWORD)m_nInPort != Settings.Connection.InPort || ! Settings.Connection.EnableUPnP ) )
 		{
 			if ( ! theApp.m_pUPnPFinder )
 				theApp.m_pUPnPFinder.Attach( new CUPnPFinder );
@@ -317,7 +317,8 @@ void CConnectionSettingsPage::OnOK()
 	{
 		QWORD nDownload = max( Settings.Bandwidth.Downloads, Settings.Connection.InSpeed * Kilobits / Bytes );
 		QWORD nUpload   = Settings.Connection.OutSpeed * Kilobits / Bytes;
-		if ( Settings.Bandwidth.Uploads > 0 ) nUpload =  min( Settings.Bandwidth.Uploads, nUpload );
+		if ( Settings.Bandwidth.Uploads > 0 )
+			nUpload =  min( Settings.Bandwidth.Uploads, nUpload );
 
 		if ( nUpload * 16 < nDownload )
 		{

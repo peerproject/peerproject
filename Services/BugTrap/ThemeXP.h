@@ -24,10 +24,10 @@
 #pragma once
 
 #include <uxtheme.h>
-#include <tmschema.h>
+#include <vssym32.h>			// Was obsolete tmschema.h
 
 #pragma warning(push)
-#pragma warning(disable:4100) // unreferenced formal parameter
+#pragma warning(disable:4100)	// Unreferenced formal parameter
 
 class CThemeXP
 {

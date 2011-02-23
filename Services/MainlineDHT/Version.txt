@@ -1,0 +1,8 @@
+Mainline DHT  0.18  (Jan.2011)
+
+http://www.pps.jussieu.fr/~jch/software/repos/dht/
+
+
+Sample BitTorrent Kademlia implementation.
+
+For reference only. Currently not used in any way.

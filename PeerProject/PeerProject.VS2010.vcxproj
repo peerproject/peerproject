@@ -209,13 +209,14 @@
     <ClCompile>
       <AdditionalOptions>/Wall %(AdditionalOptions)</AdditionalOptions>
       <Optimization>Full</Optimization>
-      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
-      <OmitFramePointers>true</OmitFramePointers>
-      <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
       <AdditionalIncludeDirectories>..\Services;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>NDEBUG;WIN32;_WINDOWS;_PEERPROJECT;PEERPROJECT_USE_ASM;ZLIB_WINAPI;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <OmitFramePointers>true</OmitFramePointers>
+      <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions</EnableEnhancedInstructionSet>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
@@ -267,13 +268,13 @@
     <ClCompile>
       <AdditionalOptions>/Wall %(AdditionalOptions)</AdditionalOptions>
       <Optimization>Full</Optimization>
-      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
-      <OmitFramePointers>true</OmitFramePointers>
-      <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
       <AdditionalIncludeDirectories>..\Services;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>NDEBUG;WIN64;_WINDOWS;_PEERPROJECT;ZLIB_WINAPI;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <OmitFramePointers>true</OmitFramePointers>
+      <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
@@ -508,6 +509,7 @@
     <ClCompile Include="VendorCache.cpp" />
     <ClCompile Include="VersionChecker.cpp" />
     <ClCompile Include="WindowManager.cpp" />
+    <ClCompile Include="WebServices.cpp" />
     <ClCompile Include="WorldGPS.cpp" />
     <ClCompile Include="XML.cpp" />
     <ClCompile Include="XMLCOM.cpp" />
@@ -1056,6 +1058,8 @@
     <ResourceCompile Include="PeerProject.rc" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Res\favicon.ico" />
+    <None Include="Res\Scheduler.ico" />
     <None Include="Revision.js" />
     <None Include="XML.inl" />
     <CustomBuild Include="Res\About.htm">
@@ -1431,6 +1435,7 @@
     <ClInclude Include="VendorCache.h" />
     <ClInclude Include="VersionChecker.h" />
     <ClInclude Include="WindowManager.h" />
+    <ClInclude Include="WebServices.h" />
     <ClInclude Include="WorldGPS.h" />
     <ClInclude Include="XML.h" />
     <ClInclude Include="XMLCOM.h" />

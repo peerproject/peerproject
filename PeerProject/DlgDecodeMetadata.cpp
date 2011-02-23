@@ -1,7 +1,7 @@
 //
 // DlgDecodeMetadata.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -20,8 +20,8 @@
 #include "PeerProject.h"
 #include "Library.h"
 #include "SharedFile.h"
-#include "XML.h"
 #include "Schema.h"
+#include "XML.h"
 #include "DlgDecodeMetadata.h"
 
 #ifdef _DEBUG
@@ -103,7 +103,7 @@ void CDecodeMetadataDlg::OnOK()
 	UpdateData();
 
 	unsigned nCodePage = m_wndCodepages.GetCurSel();
-	nCodePage = nCodePage < 13 ? codePages[ nCodePage ] : 1252;	// English
+	nCodePage = nCodePage < 13 ? codePages[ nCodePage ] : 1252;		// English
 
 	// Close dialog and perform decoding in background
 	CSkinDialog::OnOK();
@@ -147,6 +147,8 @@ void CDecodeMetadataDlg::OnOK()
 			delete pContainer;
 		}
 	}
+
+	Library.Update();
 }
 
 void CDecodeMetadataDlg::GetEncodedText(CString& strText, int nMethod) const
@@ -157,7 +159,7 @@ void CDecodeMetadataDlg::GetEncodedText(CString& strText, int nMethod) const
 	int nWide = 0;
 
 	unsigned nCodePage = m_wndCodepages.GetCurSel();
-	nCodePage = nCodePage < 13 ? codePages[ nCodePage ] : 1252; // english
+	nCodePage = nCodePage < 13 ? codePages[ nCodePage ] : 1252;		// English
 
 	if ( nMethod == 0 )
 	{

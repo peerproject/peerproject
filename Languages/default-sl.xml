@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Slovenian Skin File -->
 
-<!-- Translation based on default-en.xml r60 (Shareaza 2.2.2.12) -->
+<!-- Translation based on default-en.xml r62 (Shareaza 2.2.2.12) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -549,8 +549,8 @@
 			<item id="ID_NETWORK_DISCONNECT" text="Pre_kini povezavo"/>
 			<separator/>
 			<menu text="Izbira _omrežja">
-				<item id="ID_NETWORK_G2" text="Poveži se z _Gnutella2"/>
-				<item id="ID_NETWORK_G1" text="Poveži se z Gnutella_1"/>
+				<item id="ID_NETWORK_G2" text="Poveži se z Gnutella_2"/>
+				<item id="ID_NETWORK_G1" text="Poveži se z _Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="Poveži se z _eDonkey2000"/>
 			</menu>
 			<separator/>
@@ -639,8 +639,8 @@
 			<item id="ID_NETWORK_CONNECT" text="_Poveži se" shortcut="Ctrl+G"/>
 			<separator/>
 			<menu text="Izbira _omrežja">
-				<item id="ID_NETWORK_G2" text="Poveži se z _Gnutella2"/>
-				<item id="ID_NETWORK_G1" text="Poveži se z Gnutella_1"/>
+				<item id="ID_NETWORK_G2" text="Poveži se z Gnutella_2"/>
+				<item id="ID_NETWORK_G1" text="Poveži se z _Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="Poveži se z _eDonkey2000"/>
 			</menu>
 			<separator/>
@@ -712,8 +712,8 @@
 			<item id="ID_NETWORK_BROWSE_TO" text="_Brskaj po gostitelju..."/>
 			<separator/>
 			<menu text="Izbira _omrežja">
-				<item id="ID_NETWORK_G2" text="Poveži se z _Gnutella2"/>
-				<item id="ID_NETWORK_G1" text="Poveži se z Gnutella_1"/>
+				<item id="ID_NETWORK_G2" text="Poveži se z Gnutella_2"/>
+				<item id="ID_NETWORK_G1" text="Poveži se z _Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="Poveži se z _eDonkey2000"/>
 			</menu>
 			<separator/>
@@ -1469,8 +1469,8 @@
 			<item id="ID_NETWORK_CONNECT" text="_Poveži se"/>
 			<item id="ID_NETWORK_DISCONNECT" text="_Prekini povezavo"/>
 			<separator/>
-			<item id="ID_NETWORK_G2" text="_Gnutella2"/>
-			<item id="ID_NETWORK_G1" text="Gnutella_1"/>
+			<item id="ID_NETWORK_G2" text="Gnutella_2"/>
+			<item id="ID_NETWORK_G1" text="_Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="_eDonkey2000"/>
 		</menu>
 		<menu text="_Nadzornik">
@@ -3556,7 +3556,7 @@
 	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="Dobrodošli v PeerProject (2/8)">
 		<control caption="For optimum performance, PeerProject needs to know a little bit about your connection to the Internet."/>
 		<control caption="Če poznate hitrost vaše povezave v medmrežje, jo izberite iz spodnjega seznama:"/>
-		<control caption="|Modemska povezava|ISDN (128K)|DSL (768K)|DSL (1.5M)|DSL (4.0M)|DSL2 (8.0M)|FIOS (10.0M)|DSL2 (12.0M)|FIOS (20.0M)|DSL2+ (24.0M)| Kabelski modem/SDSL| T1| T3| LAN| OC3"/>
+		<control caption="|Modemska povezava|ISDN 128K|DSL 768K|DSL 1.5M|DSL 4M|DSL2 8|FIOS 10|DSL2 12|FIOS 15|FIOS 20|FIOS 25|FIOS 30|T1|T3|LAN|OC3|Kabelski modem"/>
 		<control caption="ALI izberite (download):"/>
 		<control/>
 		<control caption="ALI izberite (upload):"/>
@@ -3565,7 +3565,7 @@
 		<control/>
 		<control caption="Port: &#160; (Any 4-5 digit number)"/>
 		<control/>
-		<control caption="Random"/>
+		<control caption="Naključno"/>
 		<control caption="Status"/>
 		<control/>
 	</dialog>
@@ -3580,7 +3580,7 @@
 		<control caption="Uporabljaj torrent povezave."/>
 	</dialog>
 	<dialog name="CWizardFoldersPage" cookie="StStEdBuStEdBuStEdBuSt" caption="Dobrodošli v PeerProject (4/8)">
-		<control caption="PeerProject first downloads partial files to a private folder, then moves them when completed according to Download Groups."/>
+		<control caption="PeerProjectprvi delni prenosi datotek v zasebne mape, nato pa jih premika, ko bo dokončan v skladu s Skupine Download."/>
 		<control caption="Shrani začasne nedokončane datoteke na tem mestu:"/>
 		<control/>
 		<control/>
@@ -3590,7 +3590,7 @@
 		<control caption="Shrani .Torrent datoteke na tem mestu:"/>
 		<control/>
 		<control/>
-		<control caption="Common filetypes are initially setup as subfolders of the default location, but Groups can easily be customized by Right-Click.  Simply Drag&apos;n&apos;Drop files."/>
+		<control caption="Skupno vrste datotek so najprej ustanovljeno v podmapah, vendar Skupine lahko prilagodite. Preprosto spuščanje datotek."/>
 	</dialog>
 	<dialog name="CWizardSharePage" cookie="StStStSyBuBuSt" caption="Dobrodošli v PeerProject (5/8)">
 		<control caption="P2P omrežja so učikovita samo v tolikšni meri, kot so njihovi uporabniki. Vsako datoteko, ki jo prenesete z mreže, je moral najprej nek drug uporabnik ponuditi v skupno rabo."/>

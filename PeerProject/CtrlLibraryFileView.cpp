@@ -1,7 +1,7 @@
 //
 // CtrlLibraryFileView.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -40,6 +40,7 @@
 #include "DlgDecodeMetadata.h"
 #include "DlgBitziDownload.h"
 #include "ShareMonkeyData.h"
+#include "WebServices.h"
 #include "RelatedSearch.h"
 #include "Transfers.h"
 #include "Security.h"
@@ -54,7 +55,7 @@ static char THIS_FILE[] = __FILE__;
 
 IMPLEMENT_DYNAMIC(CLibraryFileView, CLibraryView)
 
-BEGIN_MESSAGE_MAP(CLibraryFileView, CLibraryView)
+BEGIN_MESSAGE_MAP(CLibraryFileView, CLibraryView, CWebServices)
 	ON_WM_CONTEXTMENU()
 	ON_WM_MOUSEMOVE()
 	ON_WM_KEYDOWN()
@@ -516,27 +517,6 @@ void CLibraryFileView::OnLibraryDelete()
 	}
 }
 
-void CLibraryFileView::OnUpdateLibraryBitziWeb(CCmdUI* pCmdUI)
-{
-	if ( m_bGhostFolder )
-		pCmdUI->Enable( FALSE );
-	else
-		pCmdUI->Enable( GetSelectedCount() == 1 && Settings.WebServices.BitziWebSubmit.GetLength() );
-}
-
-void CLibraryFileView::OnLibraryBitziWeb()
-{
-	CSingleLock pLock( &Library.m_pSection, TRUE );
-
-	if ( CLibraryFile* pFile = GetSelectedFile() )
-	{
-		DWORD nIndex = pFile->m_nIndex;
-		pLock.Unlock();
-		CFileExecutor::ShowBitziTicket( nIndex );
-	}
-}
-
-
 void CLibraryFileView::OnUpdateLibraryCreateTorrent(CCmdUI* pCmdUI)
 {
 	if ( m_bGhostFolder )
@@ -644,43 +624,6 @@ void CLibraryFileView::OnLibraryRebuildAnsi()
 	pLock.Unlock();
 
 	if ( dlg.m_pFiles.GetCount() ) dlg.DoModal();
-}
-
-
-void CLibraryFileView::OnUpdateLibraryBitziDownload(CCmdUI* pCmdUI)
-{
-	if ( m_bGhostFolder || m_bRequestingService )
-		pCmdUI->Enable( FALSE );
-	else
-		pCmdUI->Enable( GetSelectedCount() > 0 && Settings.WebServices.BitziXML.GetLength() );
-}
-
-void CLibraryFileView::OnLibraryBitziDownload()
-{
-	GetFrame()->SetDynamicBar( NULL );
-
-	if ( ! Settings.WebServices.BitziOkay )
-	{
-		CString strFormat;
-		Skin.LoadString( strFormat, IDS_LIBRARY_BITZI_MESSAGE );
-		if ( AfxMessageBox( strFormat, MB_ICONQUESTION|MB_YESNO ) != IDYES ) return;
-		Settings.WebServices.BitziOkay = true;
-		Settings.Save();
-	}
-
-	CSingleLock pLock( &Library.m_pSection, TRUE );
-	CBitziDownloadDlg dlg;
-
-	POSITION posSel = StartSelectedFileLoop();
-	while ( CLibraryFile* pFile = GetNextSelectedFile( posSel ) )
-	{
-		if ( pFile->m_oSHA1 )
-			dlg.AddFile( pFile->m_nIndex );
-	}
-
-	pLock.Unlock();
-
-	dlg.DoModal();
 }
 
 void CLibraryFileView::OnUpdateLibraryRefreshMetadata(CCmdUI* pCmdUI)
@@ -910,6 +853,66 @@ void CLibraryFileView::ClearServicePages()
 	m_bServiceFailed = FALSE;
 
 	GetFrame()->SetPanelData( NULL );
+}
+
+
+/////////////////////////////////////////////////////////////////////
+// Bitzi Ticket Services
+
+void CLibraryFileView::OnUpdateLibraryBitziWeb(CCmdUI* pCmdUI)
+{
+	if ( m_bGhostFolder )
+		pCmdUI->Enable( FALSE );
+	else
+		pCmdUI->Enable( GetSelectedCount() == 1 && Settings.WebServices.BitziWebSubmit.GetLength() );
+}
+
+void CLibraryFileView::OnLibraryBitziWeb()
+{
+	CSingleLock pLock( &Library.m_pSection, TRUE );
+
+	if ( CLibraryFile* pFile = GetSelectedFile() )
+	{
+		DWORD nIndex = pFile->m_nIndex;
+		pLock.Unlock();
+		CWebServices::ShowBitziTicket( nIndex );
+	}
+}
+
+void CLibraryFileView::OnUpdateLibraryBitziDownload(CCmdUI* pCmdUI)
+{
+	if ( m_bGhostFolder || m_bRequestingService )
+		pCmdUI->Enable( FALSE );
+	else
+		pCmdUI->Enable( GetSelectedCount() > 0 && Settings.WebServices.BitziXML.GetLength() );
+}
+
+void CLibraryFileView::OnLibraryBitziDownload()
+{
+	GetFrame()->SetDynamicBar( NULL );
+
+	if ( ! Settings.WebServices.BitziOkay )
+	{
+		CString strFormat;
+		Skin.LoadString( strFormat, IDS_LIBRARY_BITZI_MESSAGE );
+		if ( AfxMessageBox( strFormat, MB_ICONQUESTION|MB_YESNO ) != IDYES ) return;
+		Settings.WebServices.BitziOkay = true;
+		Settings.Save();
+	}
+
+	CSingleLock pLock( &Library.m_pSection, TRUE );
+	CBitziDownloadDlg dlg;
+
+	POSITION posSel = StartSelectedFileLoop();
+	while ( CLibraryFile* pFile = GetNextSelectedFile( posSel ) )
+	{
+		if ( pFile->m_oSHA1 )
+			dlg.AddFile( pFile->m_nIndex );
+	}
+
+	pLock.Unlock();
+
+	dlg.DoModal();
 }
 
 /////////////////////////////////////////////////////////////////////

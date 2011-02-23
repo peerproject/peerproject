@@ -1,7 +1,7 @@
 //
 // CtrlBrowseProfile.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2006.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -264,31 +264,33 @@ void CBrowseProfileCtrl::UpdateDocument1(CGProfile* pProfile)
 	//	m_pdContactJabber->m_sLink = _T("xmpp:") + str;
 	}
 
+	// Custom Extended Fields:
+
 	str = pProfile->GetContact( _T("Twitter") );
-	bContact |= ( ! str.IsEmpty() );
 	m_pDocument1->ShowGroup( 46, ! str.IsEmpty() );
-	if ( m_pdContactJabber != NULL )
+	if ( ! str.IsEmpty() && m_pdContactTwitter != NULL )
 	{
+		bContact = TRUE;
 		m_pdContactTwitter->SetText( str );
 		m_pdContactTwitter->m_sLink = _T("http://twitter.com/") + str;
 	}
 
 	str = pProfile->GetContact( _T("Facebook") );
-	bContact |= ( ! str.IsEmpty() );
 	m_pDocument1->ShowGroup( 47, ! str.IsEmpty() );
-	if ( m_pdContactFacebook != NULL )
+	if ( ! str.IsEmpty() && m_pdContactFacebook != NULL )
 	{
+		bContact = TRUE;
 		m_pdContactFacebook->SetText( str );
-		m_pdContactFacebook->m_sLink = _T("http://facebook.com./") + str;
+		m_pdContactFacebook->m_sLink = _T("http://facebook.com/") + str;
 	}
 
 	str = pProfile->GetContact( _T("PeerProject.org") );
-	bContact |= ( ! str.IsEmpty() );
 	m_pDocument1->ShowGroup( 48, ! str.IsEmpty() );
-	if ( m_pdContactPeerProjectOrg != NULL )
+	if ( ! str.IsEmpty() && m_pdContactPeerProjectOrg != NULL )
 	{
+		bContact = TRUE;
 		m_pdContactPeerProjectOrg->SetText( str );
-		m_pdContactPeerProjectOrg->m_sLink = _T("http://peeproject.org/?") + str;	// ToDo: Update user profile link
+		m_pdContactPeerProjectOrg->m_sLink = _T("http://peeproject.org/users/") + str;	// ToDo: Update user profile link
 	}
 
 	m_pDocument1->ShowGroup( 4, bContact );

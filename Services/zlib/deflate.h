@@ -213,8 +213,8 @@ typedef struct internal_state {
     uchf *l_buf;          /* buffer for literals or lengths */
 
     uInt  lit_bufsize;
-    /* Size of match buffer for literals/lengths.  There are 4 reasons for
-     * limiting lit_bufsize to 64K:
+    /* Size of match buffer for literals/lengths.
+     * There are 4 reasons for limiting lit_bufsize to 64K:
      *   - frequencies can be kept in 16 bit counters
      *   - if compression is not successful for the first block, all input
      *     data is still in the window so we can still emit a stored block even
@@ -229,7 +229,6 @@ typedef struct internal_state {
      *     a highly compressible string table.) Smaller buffer sizes give
      *     fast adaptation but have of course the overhead of transmitting
      *     trees more frequently.
-     *   - I can't count above 4
      */
 
     uInt last_lit;      /* running index in l_buf */
@@ -251,8 +250,8 @@ typedef struct internal_state {
 #endif
 
     ush bi_buf;
-    /* Output buffer. bits are inserted starting at the bottom (least
-     * significant bits).
+    /* Output buffer. bits are inserted starting at the bottom
+     * (least significant bits).
      */
     int bi_valid;
     /* Number of valid bits in bi_buf.  All bits above the last valid bit
@@ -300,8 +299,7 @@ void ZLIB_INTERNAL _tr_stored_block OF((deflate_state *s, charf *buf,
 #define d_code(dist) \
    ((dist) < 256 ? _dist_code[dist] : _dist_code[256+((dist)>>7)])
 /* Mapping from a distance to a distance code. dist is the distance - 1 and
- * must not have side effects. _dist_code[256] and _dist_code[257] are never
- * used.
+ * must not have side effects. _dist_code[256] and _dist_code[257] are never used.
  */
 
 #ifndef DEBUG

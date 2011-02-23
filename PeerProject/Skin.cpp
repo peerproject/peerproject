@@ -1,7 +1,7 @@
 //
 // Skin.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -2056,7 +2056,9 @@ BOOL CSkin::LoadColorScheme(CXMLElement* pBase)
 	pColors.SetAt( _T("navbar.outline.hover"), &Colors.m_crNavBarOutlineHover );
 	pColors.SetAt( _T("navbar.outline.checked"), &Colors.m_crNavBarOutlineChecked );
 
-	BOOL bSystem = FALSE, bNonBase = FALSE;
+	// "system.base.xxx" colors trigger recalculating (needs review)
+	BOOL bSystem  = FALSE;
+	BOOL bNonBase = FALSE;
 
 	for ( POSITION pos = pBase->GetElementIterator() ; pos ; )
 	{
@@ -2064,12 +2066,11 @@ BOOL CSkin::LoadColorScheme(CXMLElement* pBase)
 		if ( pXML->IsNamed( _T("color") ) ||
 			 pXML->IsNamed( _T("colour") ) )
 		{
-			CString strName		= pXML->GetAttributeValue( _T("name") );
-			CString strValue	= pXML->GetAttributeValue( _T("value") );
-			ToLower( strName );
+			CString strName  = pXML->GetAttributeValue( _T("name") );
+			CString strValue = pXML->GetAttributeValue( _T("value") );
+			strName.MakeLower();
 
 			COLORREF* pColor;
-
 			if ( pColors.Lookup( strName, (void*&)pColor ) )
 			{
 				if ( strValue.GetLength() == 6 )
@@ -2774,7 +2775,7 @@ void CSkin::DrawWrappedText(CDC* pDC, CRect* pBox, LPCTSTR pszText, CPoint ptSta
 
 HBITMAP CSkin::LoadBitmap(const CString& strName)
 {
-	int nPos = strName.Find( '$' );
+	const int nPos = strName.Find( '$' );
 	if ( nPos < 0 )
 	{
 		return CImageFile::LoadBitmapFromFile( strName );

@@ -1,8 +1,8 @@
 The files dht.c and dht.h implement the variant of the Kademlia Distributed
 Hash Table (DHT) used in the Bittorrent network (``mainline'' variant).
 
-The file dht-example.c is a stand-alone program that participates in the
-DHT.  Another example is a patch against Transmission, which you might or
+The file dht-example.c is a stand-alone program that participates in the DHT.
+Another example is a patch against Transmission, which you might or
 might not be able to find somewhere.
 
 The code is designed to work well in both event-driven and threaded code.
@@ -10,8 +10,8 @@ The caller, which is either an event-loop or a dedicated thread, must
 periodically call the function dht_periodic.  In addition, it must call
 dht_periodic whenever any data has arrived from the network.
 
-All functions return -1 in case of failure, in which case errno is set, or
-a positive value in case of success.
+All functions return -1 in case of failure, in which case errno is set,
+or a positive value in case of success.
 
 Initialisation
 **************
@@ -19,20 +19,20 @@ Initialisation
 * dht_init
 
 This must be called before using the library.  You pass it a bound IPv4
-datagram socket, and your node id, a 20-octet array that should be globally
-unique.
+datagram socket, a bound IPv6 datagram socket, and your node id, a 20-octet
+array that should be globally unique.
+
+If you're on a multi-homed host, you should bind the sockets to one of your addresses.
 
 Node ids must be well distributed, so you cannot just use your Bittorrent
 id; you should either generate a truly random value (using plenty of
 entropy), or at least take the SHA-1 of something.  However, it is a good
 idea to keep the id stable, so you may want to store it in stable storage
 at client shutdown.
- 
+
 * dht_uninit
 
-This may be called at the end of the session.  If dofree is true, it frees
-all the memory allocated for the DHT.  If dofree is false, this function
-currently does nothing.
+This may be called at the end of the session.
 
 Bootstrapping
 *************
@@ -48,8 +48,7 @@ Bittorrent peers using the PORT extension.
 
 This is the main bootstrapping primitive.  You pass it an address at which
 you believe that a DHT node may be living, and a query will be sent.  If
-a node replies, and if there is space in the routing table, it will be
-inserted.
+a node replies, and if there is space in the routing table, it will be inserted.
 
 * dht_insert_node
 
@@ -81,9 +80,8 @@ dht_periodic should be called if no data is available is returned in the
 parameter tosleep.  (You do not need to be particularly accurate; actually,
 it is a good idea to be late by a random value.)
 
-The parameter available indicates whether any data is available on the
-socket.  If it is 0, dht_periodic will not try to read data; if it is 1, it
-will.
+The parameters buf, buflen, from and fromlen optionally carry a received message.
+If buflen is 0, then no message was received.
 
 Dht_periodic also takes a callback, which will be called whenever something
 interesting happens (see below).
@@ -114,12 +112,10 @@ This returns the number of known good, dubious and cached nodes in our
 routing table.  This can be used to decide whether it's reasonable to start
 a search; a search is likely to be successful as long as we have a few good
 nodes; however, in order to avoid overloading your bootstrap nodes, you may
-want to wait until good is at least 4 and good + doubtful is at least 30 or
-so.
+want to wait until good is at least 4 and good + doubtful is at least 30 or so.
 
-It also includes the number of nodes that recently send us an unsolicited
-request; this can be used to determine if the UDP port used for the DHT is
-firewalled.
+It also includes the number of nodes that recently send us an unsolicited request;
+this can be used to determine if the UDP port used for the DHT is firewalled.
 
 If you want to display a single figure to the user, you should display
 good + doubtful, which is the total number of nodes in your routing table.
@@ -145,14 +141,14 @@ Functions provided by you
 * The callback function
 
 The callback function is called with 5 arguments.  Closure is simply the
-value that you passed to dht_periodic.  Event is one of DHT_EVENT_VALUES,
-which indicates that we have new values, or DHT_EVENT_SEARCH_DONE, which
-indicates that a search has completed.  In either case, info_hash is set to
-the info-hash of the search.
+value that you passed to dht_periodic.  Event is one of DHT_EVENT_VALUES or
+DHT_EVENT_VALUES6, which indicates that we have new values, or
+DHT_EVENT_SEARCH_DONE or DHT_EVENT_SEARCH_DONE6, which indicates that
+a search has completed.  In either case, info_hash is set to the
+info-hash of the search.
 
 In the case of DHT_EVENT_VALUES, data is a list of nodes in ``compact''
-format -- 6 bytes per node, 4 for the IP address and 2 for the port.  It's
-length in bytes is in data_len.
+format -- 6 or 18 bytes per node.  Its length in bytes is in data_len.
 
 * dht_hash
 
@@ -181,12 +177,9 @@ make most full cone NATs happy.
 
 * Missing functionality
 
-Some of the code has had very little testing.  If it breaks, you get to
-keep both pieces.
+Some of the code has had very little testing.
+If it breaks, you get to keep both pieces.
 
-IPv6 support is deliberately not included: designing a double-stack
-distributed hash table raises some tricky issues, and doing it naively may
-break connectivity for everyone.
 
                                         Juliusz Chroboczek
                                         <jch@pps.jussieu.fr>

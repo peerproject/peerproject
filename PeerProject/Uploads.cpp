@@ -1,7 +1,7 @@
 //
 // Uploads.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -158,6 +158,24 @@ DWORD CUploads::GetBandwidth() const
 	return nTotal;
 }
 
+DWORD CUploads::GetBandwidthLimit() const
+{
+	DWORD nTotal = Settings.Connection.OutSpeed * 128;	// Kilobits/s to Bytes/s
+	DWORD nLimit = Settings.Bandwidth.Uploads;
+	if ( nLimit == 0 || nLimit > nTotal )
+		nLimit = nTotal;
+
+	// Limit if hub mode
+	if ( Settings.Uploads.HubUnshare && ( Neighbours.IsG2Hub() || Neighbours.IsG1Ultrapeer() ) )
+		nLimit = nLimit * Settings.Bandwidth.HubUploads / 100;
+
+	// Limit if torrents are active
+	if ( UploadQueues.m_pTorrentQueue->m_nMinTransfers )	// ( Uploads.m_nTorrentSpeed > 0 )
+		nLimit = nLimit * Settings.BitTorrent.BandwidthPercentage / 100;
+
+	return nLimit;
+}
+
 //////////////////////////////////////////////////////////////////////
 // CUploads per-host limiting
 
@@ -294,14 +312,11 @@ void CUploads::OnRun()
 	if ( ! oUploadQueuesLock.Lock( 250 ) )
 		return;
 
-	int nCountTorrent = 0;
 	m_nCount = 0;
 	m_nBandwidth = 0;
 
-	POSITION pos;
-
-	//Set measured queue speeds to 0
-	for ( pos = UploadQueues.GetIterator() ; pos ; )
+	// Set measured queue speeds to 0
+	for ( POSITION pos = UploadQueues.GetIterator() ; pos ; )
 	{
 		UploadQueues.GetNext( pos )->m_nMeasured = 0;
 	}
@@ -309,15 +324,21 @@ void CUploads::OnRun()
 	UploadQueues.m_pTorrentQueue->m_nMinTransfers = 0;
 	UploadQueues.m_pTorrentQueue->m_nMaxTransfers = 0;
 
-	for ( pos = GetIterator() ; pos ; )
+	for ( POSITION pos = GetIterator() ; pos ; )
 	{
 		CUploadTransfer* pTransfer = GetNext( pos );
 
-		if ( ( pTransfer->m_nProtocol == PROTOCOL_BT ) && ( pTransfer->m_nState != upsNull ) )
+		if ( pTransfer->m_nState == upsNull )
+			continue;
+
+		// Only call this when we are going to use the returned value
+		DWORD nMeasured = pTransfer->GetMeasuredSpeed();
+
+		if ( pTransfer->m_nProtocol == PROTOCOL_BT )
 		{
 			// This is a torrent transfer
 			CUploadTransferBT* pBT = (CUploadTransferBT*)pTransfer;
-			if ( ( ! pBT->m_bInterested ) || ( pBT->m_bChoked ) )
+			if ( ! pBT->m_bInterested || pBT->m_bChoked )
 			{
 				// Choked- Increment appropriate torrent counter
 				UploadQueues.m_pTorrentQueue->m_nMaxTransfers ++;
@@ -326,49 +347,34 @@ void CUploads::OnRun()
 			{
 				// Active torrent. (Uploading or requesting)
 
-				// Only call this when we are going to use the returned value
-				DWORD nMeasured = pTransfer->GetMeasuredSpeed();
-
 				// Increment normal counters
 				m_nCount ++;
 				m_nBandwidth += nMeasured;
 
 				// Increment torrent counters
-				nCountTorrent ++;
 				UploadQueues.m_pTorrentQueue->m_nMinTransfers ++;
 				UploadQueues.m_pTorrentQueue->m_nMeasured += nMeasured;
 
-				//theApp.Message( MSG_NOTICE, pTransfer->m_sAddress );
-				//theApp.Message( MSG_NOTICE, _T("Port: %i "), pTransfer->m_pHost.sin_port );
+				//theApp.Message( MSG_NOTICE, _T("Transfer %s, Port: %i"), pTransfer->m_sAddress, pTransfer->m_pHost.sin_port );
 			}
 		}
 		else if ( pTransfer->m_nState == upsUploading )
 		{
 			// Regular transfer that's uploading
 
-			// Only call this when we are going to use the returned value
-			DWORD nMeasured = pTransfer->GetMeasuredSpeed();
-
 			m_nCount ++;
 			m_nBandwidth += nMeasured;
 
-			if ( pTransfer->m_pQueue != NULL && UploadQueues.Check( pTransfer->m_pQueue ) )
+			if ( UploadQueues.Check( pTransfer->m_pQueue ) )
 				pTransfer->m_pQueue->m_nMeasured += nMeasured;
 		}
 	}
 
-	if ( nCountTorrent > 0 )	//If there are any active torrents
-	{
-		// Assign bandwidth to BT
-		m_nTorrentSpeed = ( ( min(
-			( Settings.Bandwidth.Uploads ? Settings.Bandwidth.Uploads : 0xFFFFFFFF ),
-			Settings.Connection.OutSpeed * 128 ) *
-			Settings.BitTorrent.BandwidthPercentage ) / 100 ) / nCountTorrent;
-	}
+	// When there are any active torrents, assign bandwidth to BT, otherwise set zero
+	if ( UploadQueues.m_pTorrentQueue->m_nMinTransfers )
+		m_nTorrentSpeed = GetBandwidthLimit() / UploadQueues.m_pTorrentQueue->m_nMinTransfers;
 	else
-	{	//If there are no torrents, set to zero
 		m_nTorrentSpeed = 0;
-	}
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -382,8 +388,7 @@ BOOL CUploads::OnAccept(CConnection* pConnection)
 
 	if ( Settings.Remote.Enable &&
 		( pConnection->StartsWith( _P("GET /remote/") ) ||
-		// The user entered the remote page into a browser, but forgot the trailing '/'
-		  pConnection->StartsWith( _P("GET /remote HTTP") ) ) )
+		  pConnection->StartsWith( _P("GET /remote HTTP") ) ) )		// User entered remote page into browser, but forgot trailing '/'
 	{
 		new CRemote( pConnection );
 		return TRUE;
@@ -396,11 +401,8 @@ BOOL CUploads::OnAccept(CConnection* pConnection)
 		{
 			CUploadTransfer* pTest = GetNext( pos );
 
-			if ( pTest->m_pHost.sin_addr.S_un.S_addr ==
-				pConnection->m_pHost.sin_addr.S_un.S_addr )
-			{
+			if ( pTest->m_pHost.sin_addr.S_un.S_addr == pConnection->m_pHost.sin_addr.S_un.S_addr )
 				pTest->m_bLive = FALSE;
-			}
 		}
 
 		pUpload->AttachTo( pConnection );

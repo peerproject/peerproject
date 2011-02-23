@@ -63,9 +63,9 @@
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="StdAfx.h"
 				PrecompiledHeaderFile="$(IntDir)/$(ProjectName).pch"
-				WarningLevel="4"
-				DebugInformationFormat="4"
 				DisableSpecificWarnings="4512"
+				DebugInformationFormat="4"
+				WarningLevel="4"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -157,9 +157,9 @@
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="StdAfx.h"
 				PrecompiledHeaderFile="$(IntDir)/$(ProjectName).pch"
-				WarningLevel="4"
-				DebugInformationFormat="3"
 				DisableSpecificWarnings="4512"
+				DebugInformationFormat="3"
+				WarningLevel="4"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -243,13 +243,13 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/Wall"
 				Optimization="3"
-				InlineFunctionExpansion="2"
-				EnableIntrinsicFunctions="true"
 				FavorSizeOrSpeed="1"
-				OmitFramePointers="true"
-				EnableFiberSafeOptimizations="true"
 				AdditionalIncludeDirectories="..\Services"
 				PreprocessorDefinitions="NDEBUG;WIN32;_WINDOWS;_PEERPROJECT;PEERPROJECT_USE_ASM;ZLIB_WINAPI;ZLIB_DLL"
+				InlineFunctionExpansion="2"
+				EnableIntrinsicFunctions="true"
+				EnableEnhancedInstructionSet="1"
+				OmitFramePointers="true"
 				StringPooling="true"
 				RuntimeLibrary="0"
 				DefaultCharIsUnsigned="true"
@@ -257,9 +257,9 @@
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="StdAfx.h"
 				PrecompiledHeaderFile="$(IntDir)/$(ProjectName).pch"
-				WarningLevel="4"
-				DebugInformationFormat="3"
 				DisableSpecificWarnings="4710;4711;4738"
+				DebugInformationFormat="3"
+				WarningLevel="4"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -345,13 +345,12 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/Wall"
 				Optimization="3"
-				InlineFunctionExpansion="2"
-				EnableIntrinsicFunctions="true"
 				FavorSizeOrSpeed="1"
-				OmitFramePointers="true"
-				EnableFiberSafeOptimizations="true"
 				AdditionalIncludeDirectories="..\Services"
 				PreprocessorDefinitions="NDEBUG;WIN64;_WINDOWS;_PEERPROJECT;ZLIB_WINAPI;ZLIB_DLL"
+				InlineFunctionExpansion="2"
+				EnableIntrinsicFunctions="true"
+				OmitFramePointers="true"
 				StringPooling="true"
 				RuntimeLibrary="0"
 				DefaultCharIsUnsigned="true"
@@ -360,9 +359,9 @@
 				PrecompiledHeaderThrough="StdAfx.h"
 				PrecompiledHeaderFile="$(IntDir)/$(ProjectName).pch"
 				ProgramDataBaseFileName="$(IntDir)\PeerProject.pdb"
-				WarningLevel="4"
-				DebugInformationFormat="3"
 				DisableSpecificWarnings="4710;4711;4738"
+				DebugInformationFormat="3"
+				WarningLevel="4"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -1182,6 +1181,10 @@
 			</File>
 			<File
 				RelativePath="WindowManager.cpp"
+				>
+			</File>
+			<File
+				RelativePath="WebServices.cpp"
 				>
 			</File>
 			<File
@@ -3379,6 +3382,10 @@
 			</File>
 			<File
 				RelativePath="WindowManager.h"
+				>
+			</File>
+			<File
+				RelativePath="WebServices.h"
 				>
 			</File>
 			<File

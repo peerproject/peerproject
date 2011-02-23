@@ -245,12 +245,13 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="3"
-				InlineFunctionExpansion="2"
-				EnableIntrinsicFunctions="true"
 				FavorSizeOrSpeed="1"
-				OmitFramePointers="true"
 				AdditionalIncludeDirectories="$(InputDir)"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL"
+				InlineFunctionExpansion="2"
+				EnableIntrinsicFunctions="true"
+				EnableEnhancedInstructionSet="1"
+				OmitFramePointers="true"
 				StringPooling="true"
 				RuntimeLibrary="0"
 				BufferSecurityCheck="true"
@@ -266,8 +267,8 @@
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="NDEBUG"
-				Culture="3081"
 				AdditionalIncludeDirectories="$(OutDir)"
+				Culture="3081"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
@@ -348,12 +349,12 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="3"
-				InlineFunctionExpansion="2"
-				EnableIntrinsicFunctions="true"
 				FavorSizeOrSpeed="1"
-				OmitFramePointers="true"
 				AdditionalIncludeDirectories="$(InputDir)"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL"
+				InlineFunctionExpansion="2"
+				EnableIntrinsicFunctions="true"
+				OmitFramePointers="true"
 				StringPooling="true"
 				RuntimeLibrary="0"
 				BufferSecurityCheck="true"
@@ -369,8 +370,8 @@
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="NDEBUG"
-				Culture="3081"
 				AdditionalIncludeDirectories="$(OutDir)"
+				Culture="3081"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"

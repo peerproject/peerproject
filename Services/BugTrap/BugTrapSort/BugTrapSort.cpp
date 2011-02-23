@@ -44,8 +44,8 @@ public:
 	bool Extract(LPCTSTR szSrc, LPCTSTR szDst) throw()
 	{
 		bool ret = false;
-		char* pBuf;
-		DWORD dwSize;
+		char* pBuf = NULL;
+		DWORD dwSize = 0;
 		if ( Extract( szSrc, &pBuf, &dwSize ) )
 		{
 			HANDLE hFile = CreateFile( szDst, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL );
@@ -53,12 +53,11 @@ public:
 			{
 				DWORD dwWritten = 0;
 				if ( WriteFile( hFile, pBuf, dwSize, &dwWritten, NULL ) )
-				{
 					ret = ( dwWritten == dwSize );
-				}
 			}
 			CloseHandle( hFile );
 		}
+		delete [] pBuf;
 		return ret;
 	}
 
@@ -144,15 +143,15 @@ CString GetValue(IXMLDOMElement* pRoot, LPCTSTR szXPath)
 CString GetTime(IXMLDOMElement* pRoot, LPCTSTR szNode, LPCTSTR szFormat)
 {
 	try
-    {
+	{
 		FILETIME fTimestamp;
 		(__int64&)fTimestamp = _tstoi64( GetValue( pRoot, szNode ) );
 		CTime tTimeStamp( fTimestamp );
 		return tTimeStamp.FormatGmt( szFormat );
 	}
-    catch( ... )
-    {
-    }
+	catch( ... )
+	{
+	}
 	return CString();
 }
 
@@ -177,9 +176,14 @@ bool ProcessReport(const CString& sInput)
 	{
 		if ( ! pZip.Open( sInput ) )
 			return false;
+
 		char* pBuf = NULL;
 		if ( ! pZip.Extract( _T("errorlog.xml"), &pBuf ) )
+		{
+			delete [] pBuf;
 			return false;
+		}
+
 		hr = pFile->loadXML( CComBSTR( pBuf ), &ret );
 		delete [] pBuf;
 	}
@@ -259,8 +263,7 @@ bool ProcessReport(const CString& sInput)
 							sModule.MakeLower();
 							if ( ( ! g_oModules.Lookup( sModule, bGood ) || bGood ) &&
 								 ( ! g_oModules.Lookup( sModule + _T(":") + sAddress, bGood ) || bGood ) )
-								// Неизвестный модуль или подходящий модуль
-								break;
+								break;	// Неизвестный модуль или подходящий модуль
 						}
 						sAddress.Empty();
 						sModule.Empty();
@@ -370,8 +373,8 @@ bool Enum(LPCTSTR szInput, CAtlList< CString >& oDirs)
 				{
 					ret = true;
 
+					// Add folder without subfolders
 					if ( ! Enum( sDir + wfa.cFileName + _T("\\*.*"), oDirs ) )
-						// Add folder without subfolders
 						oDirs.AddTail( sDir + wfa.cFileName + _T("\\") );
 				}
 				else if ( _tcsstr( wfa.cFileName, _T(".zip") ) )
@@ -458,8 +461,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	for ( LPCTSTR szSect = pSections ; szSect && *szSect ; szSect += lstrlen( szSect ) + 1 )
 	{
 		if  ( lstrcmpi( szSect, _T("options") ) == 0 )
-			// Пропуск служебной секции
-			continue;
+			continue;	// Пропуск служебной секции
 
 		CRule r;
 

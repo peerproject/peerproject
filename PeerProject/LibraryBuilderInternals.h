@@ -1,7 +1,7 @@
 //
 // LibraryBuilderInternals.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -24,9 +24,9 @@ class CXMLElement;
 class CLibraryBuilderInternals
 {
 // Construction
-public:
-	CLibraryBuilderInternals();
-	virtual ~CLibraryBuilderInternals()=0;
+//public:
+//	CLibraryBuilderInternals();
+//	virtual ~CLibraryBuilderInternals()=0;
 
 // Attributes
 private:
@@ -40,7 +40,7 @@ public:
 // Implementation
 private:
 	// ID3v1 and ID3v2 and MP3
-	bool		ReadID3v1(DWORD nIndex, HANDLE hFile, CXMLElement* pXML = NULL);
+	bool		ReadID3v1(DWORD nIndex, HANDLE hFile);
 	bool		CopyID3v1Field(CXMLElement* pXML, LPCTSTR pszAttribute, CString strValue);
 	bool		ReadID3v2(DWORD nIndex, HANDLE hFile);
 	bool		CopyID3v2Field(CXMLElement* pXML, LPCTSTR pszAttribute, BYTE* pBuffer, DWORD nLength, bool bSkipLanguage = false);

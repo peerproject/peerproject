@@ -1,7 +1,7 @@
 //
 // Library.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -105,13 +105,13 @@ void CLibrary::AddFile(CLibraryFile* pFile)
 
 		if ( ! pFile->IsHashed() )
 		{
-			LibraryBuilder.Add( pFile ); // Hash the file and add it again
+			LibraryBuilder.Add( pFile );	// Hash the file and add it again
 		}
-		else if ( pFile->IsNewFile() )	// The new file was hashed
+		else if ( pFile->IsNewFile() )		// The new file was hashed
 		{
 			pFile->m_bNewFile = FALSE;
 
-			CheckDuplicates( pFile );	// Check for duplicates (malware)
+			CheckDuplicates( pFile );		// Check for duplicates (malware)
 		}
 	}
 	else
@@ -151,15 +151,15 @@ void CLibrary::CheckDuplicates(CLibraryFile* pFile, bool bForce)
 			nCount++;
 	}
 
-	if ( nCount > 4 ) // More than 4 same files is suspicious
+	if ( nCount > 4 )	// More than 4 same files is suspicious
 	{
 		if ( Settings.Live.LastDuplicateHash == pFile->m_oMD5.toString() && ! bForce )
-			return;	// we already warned about the same file
+			return;		// We already warned about the same file
 
 		Settings.Live.LastDuplicateHash = pFile->m_oMD5.toString();
 		if ( ! theApp.m_bLive ) return;
 
-		// warn the user
+		// Warn the user
 		CExistingFileDlg dlg( pFile, NULL, true );
 		Settings.Live.MaliciousWarning = TRUE;
 
@@ -190,7 +190,8 @@ void CLibrary::CheckDuplicates(CLibraryFile* pFile, bool bForce)
 		}
 		Settings.Live.MaliciousWarning = FALSE;
 	}
-	else Settings.Live.LastDuplicateHash.Empty();
+	else
+		Settings.Live.LastDuplicateHash.Empty();
 }
 
 void CLibrary::CheckDuplicates(LPCTSTR pszMD5Hash)
@@ -418,7 +419,7 @@ BOOL CLibrary::Save()
 		pFile.Write( &pFileTime, sizeof( FILETIME ) );
 		pFile.Flush();
 
-		CArchive ar( &pFile, CArchive::store, 262144 );	// 256 KB buffer
+		CArchive ar( &pFile, CArchive::store, 262144 );		// 256 KB buffer
 		try
 		{
 			Serialize( ar );
@@ -466,7 +467,8 @@ void CLibrary::Serialize(CArchive& ar)
 	else // Loading
 	{
 		ar >> nVersion;
-		if ( nVersion < 1 || nVersion > LIBRARY_SER_VERSION ) AfxThrowUserException();
+		if ( nVersion < 1000 || nVersion > LIBRARY_SER_VERSION )
+			AfxThrowUserException();
 	}
 
 	LibraryDictionary.Serialize( ar, nVersion );
@@ -483,8 +485,16 @@ void CLibrary::OnRun()
 {
 	while ( IsThreadEnabled() )
 	{
-		ThreadScan();
 		Doze( 1000 );
+
+		// Delay load at startup
+		if ( ! theApp.m_bLive )
+		{
+			Sleep( 100 );	// Sleep(0)?
+			continue;
+		}
+
+		ThreadScan();
 	}
 }
 
@@ -531,36 +541,33 @@ BOOL CLibrary::ThreadScan()
 
 BOOL CLibrary::IsBadFile(LPCTSTR pszFilenameOnly, LPCTSTR pszPathOnly, DWORD dwFileAttributes)
 {
-	// Ignore error files (Access denied)
-	if ( dwFileAttributes == INVALID_FILE_ATTRIBUTES ) return TRUE;
+	// Ignore common unshareworthy file/folder types
 
-	// Ignore files or folders begins from dot
-	if ( pszFilenameOnly && pszFilenameOnly[0] == _T('.') ) return TRUE;
-	// Ignore hidden or system files or folders
-	if ( dwFileAttributes & (FILE_ATTRIBUTE_HIDDEN|FILE_ATTRIBUTE_SYSTEM) ) return TRUE;
-	// Ignore metadata file or folder
-	if ( pszFilenameOnly && _tcsicmp( pszFilenameOnly, _T("Metadata") ) == 0 ) return TRUE;
+	if ( dwFileAttributes == INVALID_FILE_ATTRIBUTES )								// Ignore error files (Access denied)
+		return TRUE;
+
+	if ( dwFileAttributes & (FILE_ATTRIBUTE_HIDDEN|FILE_ATTRIBUTE_SYSTEM) )			// Ignore hidden or system files or folders
+		return TRUE;
+
+	if ( pszFilenameOnly && pszFilenameOnly[0] == _T('.') )							// Ignore files or folders begins from dot
+		return TRUE;
+
+	if ( pszFilenameOnly && _tcsicmp( pszFilenameOnly, _T("Metadata") ) == 0 )		// Ignore metadata file or folder
+		return TRUE;
 
 	if ( ! ( dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY ) )
 	{
-		// Ignore encrypted files
-		if ( (dwFileAttributes & FILE_ATTRIBUTE_ENCRYPTED) ) return TRUE;
+		if ( ( dwFileAttributes & FILE_ATTRIBUTE_ENCRYPTED ) )						// Ignore encrypted files
+			return TRUE;
 
 		if ( pszFilenameOnly )
 		{
-			if (
-				// Ignore our thumbnail database
-				_tcsicmp( pszFilenameOnly, _T("SThumbs.dat") ) == 0 ||
-				// Ignore windows thumbnail database
-				_tcsicmp( pszFilenameOnly, _T("Thumbs.db") ) == 0 ||
-				// Ignore video tag-file
-				_tcsicmp( pszFilenameOnly, _T("dxva_sig.txt") ) == 0 ||
-				// uTorrent part files
-				_tcsnicmp( pszFilenameOnly, _T("~uTorrentPartFile_"), 18 ) == 0 ||
-				// Ares Galaxy partials
-				 _tcsnicmp( pszFilenameOnly, _T("___ARESTRA___"), 13 ) == 0 ||
-				// FireFox Password files "signons3.txt"
-				 _tcsicmp( pszFilenameOnly, _T("signons") ) == 0 )
+			if ( _tcsicmp( pszFilenameOnly, _T("SThumbs.dat") ) == 0 ||				// Ignore our thumbnail database
+				_tcsicmp( pszFilenameOnly, _T("Thumbs.db") ) == 0 ||				// Ignore windows thumbnail database
+				_tcsicmp( pszFilenameOnly, _T("dxva_sig.txt") ) == 0 ||				// Ignore video tag-file
+				_tcsnicmp( pszFilenameOnly, _T("~uTorrentPartFile_"), 18 ) == 0 ||	// uTorrent part files
+				_tcsnicmp( pszFilenameOnly, _T("___ARESTRA___"), 13 ) == 0 ||		// Ares Galaxy partials
+				_tcsicmp( pszFilenameOnly, _T("signons") ) == 0 )					// FireFox Password files "signons3.txt"
 			{
 				 return TRUE;
 			}
@@ -569,21 +576,17 @@ BOOL CLibrary::IsBadFile(LPCTSTR pszFilenameOnly, LPCTSTR pszPathOnly, DWORD dwF
 			{
 				pszExt++;
 
-				// Ignore private type files
-				if ( IsIn( Settings.Library.PrivateTypes, pszExt ) )
+				if ( IsIn( Settings.Library.PrivateTypes, pszExt ) )				// Ignore private type files
 					return TRUE;
-				// Ignore .dat files in Kazaa folder
 
-				if ( pszPathOnly )
-					if ( _tcsistr( pszPathOnly, _T("kazaa") ) && _tcsicmp( pszExt, _T("dat") ) == 0 )
-						return TRUE;
+				if ( pszPathOnly && _tcsistr( pszPathOnly, _T("kazaa") ) && _tcsicmp( pszExt, _T("dat") ) == 0 )
+					return TRUE;													// Ignore .dat files in Kazaa folder
 			}
 		}
 	}
 
 	// Ignore Typical Private Directories
-	if ( pszPathOnly && (
-		_tcsistr( pszPathOnly, _T("\\Temporary Internet Files") ) ) )		// MS Internet Explorer folder
+	if ( pszPathOnly && _tcsistr( pszPathOnly, _T("\\Temporary Internet Files") ) )		// MS Internet Explorer folder
 		return TRUE;
 
 	return FALSE;

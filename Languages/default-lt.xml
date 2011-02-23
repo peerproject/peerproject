@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Lithuanian Skin File -->
 
-<!-- Translation based on default-en.xml r60 -->
+<!-- Translation based on default-en.xml r62 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -616,8 +616,8 @@
 			<item id="ID_NETWORK_DISCONNECT" text="_Atsijungti"/>
 			<separator/>
 			<menu text="_Rinktis tinklus">
-				<item id="ID_NETWORK_G2" text="Jungtis prie _Gnutella2"/>
-				<item id="ID_NETWORK_G1" text="Jungtis prie Gnutella_1"/>
+				<item id="ID_NETWORK_G2" text="Jungtis prie Gnutella_2"/>
+				<item id="ID_NETWORK_G1" text="Jungtis prie _Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="Jungtis prie _eDonkey"/>
 			</menu>
 			<separator/>
@@ -715,8 +715,8 @@
 			<item id="ID_NETWORK_CONNECT" text="Jun_gtis" shortcut="Ctrl+G"/>
 			<separator/>
 			<menu text="_Rinktis tinklus">
-				<item id="ID_NETWORK_G2" text="Jungtis prie _Gnutella2"/>
-				<item id="ID_NETWORK_G1" text="Jungtis prie Gnutella_1"/>
+				<item id="ID_NETWORK_G2" text="Jungtis prie Gnutella_2"/>
+				<item id="ID_NETWORK_G1" text="Jungtis prie _Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="Jungtis prie _eDonkey"/>
 			</menu>
 			<separator/>
@@ -794,8 +794,8 @@
 			<item id="ID_NETWORK_BROWSE_TO" text="_Naršyti adresatą..."/>
 			<separator/>
 			<menu text="_Rinktis tinklus">
-				<item id="ID_NETWORK_G2" text="Jungtis prie _Gnutella2"/>
-				<item id="ID_NETWORK_G1" text="Jungtis prie Gnutella_1"/>
+				<item id="ID_NETWORK_G2" text="Jungtis prie Gnutella_2"/>
+				<item id="ID_NETWORK_G1" text="Jungtis prie _Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="Jungtis prie _eDonkey"/>
 			</menu>
 			<separator/>
@@ -1580,8 +1580,8 @@
 			<item id="ID_NETWORK_CONNECT" text="Jun_gtis"/>
 			<item id="ID_NETWORK_DISCONNECT" text="_Atsijungti"/>
 			<separator/>
-			<item id="ID_NETWORK_G2" text="_Gnutella2"/>
-			<item id="ID_NETWORK_G1" text="Gnutella_1"/>
+			<item id="ID_NETWORK_G2" text="Gnutella_2"/>
+			<item id="ID_NETWORK_G1" text="_Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="_eDonkey"/>
 		</menu>
 		<menu text="_Monitorius">
@@ -3828,7 +3828,7 @@
 	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="Sveiki! Čia „PeerProject“ (2/8)">
 		<control caption="Optimaliam darbui „PeerProjecti“ reikia žinoti šiek tiek apie Jūsų interneto ryšį."/>
 		<control caption="Pasirinkite prisijungimo prie interneto tipą:"/>
-		<control caption="Telefono ryšys|ISDN (128 K)|DSL (768 K)|DSL (1,5 M)|DSL (4,0 M)|DSL2 (8,0 M)|DSL2 (10,0 M)|DSL2 (12,0 M)|DSL2 (20,0 M)|DSL2+ (24,0 M)|Kabelinis modemas|T1|T3|Vietinis tinklas|OC3"/>
+		<control caption="Telefono ryšys|ISDN 128K|DSL 768K|DSL 1.5M|DSL 4M|DSL2 8|FIOS 10|DSL2 12|FIOS 15|FIOS 20|FIOS 25|FIOS 30|T1|T3|LAN (Vietinis tinklas)|OC3|Kabelinis modemas"/>
 		<control caption="Arba pasirinkite atsisiuntimo greitį:"/>
 		<control/>
 		<control caption="ir išsiuntimo greitį:"/>
@@ -3852,7 +3852,7 @@
 		<control caption="Susieti torrent nuorodas su programa."/>
 	</dialog>
 	<dialog name="CWizardFoldersPage" cookie="StStEdBuStEdBuStEdBuSt" caption="Sveiki! Čia „PeerProject“ (4/8)">
-		<control caption="PeerProject first downloads partial files to a private folder, then moves them when completed according to Download Groups."/>
+		<control caption="PeerProject pirmasis parsisiųsti dalinio failus į privataus aplanko, tada perkelti juos, kai užpildytas pagal Atsisiųsti grupės."/>
 		<control caption="Laikyti nebaigtus siųstis failus čia:"/>
 		<control/>
 		<control/>
@@ -3862,7 +3862,7 @@
 		<control caption="Saugoti .Torrent failus čia:"/>
 		<control/>
 		<control/>
-		<control caption="Common filetypes are initially setup as subfolders of the default location, but Groups can easily be customized by Right-Click.  Simply Drag&apos;n&apos;Drop files."/>
+		<control caption="Bendrojo failų tipus, iš pradžių setup poaplankius, tačiau grupės gali būti pritaikytos. Tiesiog drag&apos;n&apos;drop failus."/>
 	</dialog>
 	<dialog name="CWizardSharePage" cookie="StStStSyBuBuSt" caption="Sveiki! Čia „PeerProject“ (5/8)">
 		<control caption="Lygiaverčio tarptinklinio susijungimo (P2P) tinklai yra geri tiek, kiek patys žmonės, kurie juo naudojasi. Parsisiųsti failus galite dėl to, kad kiti naudotojai dalinasi."/>

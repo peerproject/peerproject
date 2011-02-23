@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Brazilian Portuguese Skin File -->
 
-<!-- Translation based on default-en.xml r60 -->
+<!-- Translation based on default-en.xml r62 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -616,8 +616,8 @@
 		<item id="ID_NETWORK_DISCONNECT" text="_Desconectar"/>
 		<separator/>
 		<menu text="Escolha as _Redes">
-			<item id="ID_NETWORK_G2" text="Conectar na _Gnutella2"/>
-			<item id="ID_NETWORK_G1" text="Conectar na Gnutella_1"/>
+			<item id="ID_NETWORK_G2" text="Conectar na Gnutella_2"/>
+			<item id="ID_NETWORK_G1" text="Conectar na _Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="Conectar no _eDonkey"/>
 		</menu>
 		<separator/>
@@ -716,8 +716,8 @@
 		<item id="ID_NETWORK_CONNECT" text="_Conectar" shortcut="Ctrl+G"/>
 		<separator/>
 		<menu text="Escolha as _Redes">
-			<item id="ID_NETWORK_G2" text="Conectar na _Gnutella2"/>
-			<item id="ID_NETWORK_G1" text="Conectar na Gnutella_1"/>
+			<item id="ID_NETWORK_G2" text="Conectar na Gnutella_2"/>
+			<item id="ID_NETWORK_G1" text="Conectar na _Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="Conectar no _eDonkey"/>
 		</menu>
 		<separator/>
@@ -792,8 +792,8 @@
 		  <item id="ID_NETWORK_BROWSE_TO" text="_Navegar Host..."/>
 		<separator/>
 		<menu text="Escolha as _Redes">
-			<item id="ID_NETWORK_G2" text="Conectar na _Gnutella2"/>
-			<item id="ID_NETWORK_G1" text="Conectar na Gnutella_1"/>
+			<item id="ID_NETWORK_G2" text="Conectar na Gnutella_2"/>
+			<item id="ID_NETWORK_G1" text="Conectar na _Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="Conectar no _eDonkey"/>
 		</menu>
 		<separator/>
@@ -1577,8 +1577,8 @@
 		  <item id="ID_NETWORK_CONNECT" text="_Conectar"/>
 		  <item id="ID_NETWORK_DISCONNECT" text="_Desconectar"/>
 		  <separator/>
-		  <item id="ID_NETWORK_G2" text="_Gnutella 2"/>
-		  <item id="ID_NETWORK_G1" text="Gnutella_1"/>
+		  <item id="ID_NETWORK_G2" text="Gnutella_2"/>
+		  <item id="ID_NETWORK_G1" text="_Gnutella"/>
 		  <item id="ID_NETWORK_ED2K" text="_eDonkey"/>
 	 	</menu>
 		<menu text="_Monitor">
@@ -3175,13 +3175,30 @@
 	<string id="20584" value="O Vizinho %s repassou um pacote de tamanho excessivo, derrubando conexão."/>
 	<string id="20585" value="O Vizinho %s repassou um pacote desconhecido (0x%.2x), ignorando."/>
 	<string id="20586" value="O Vizinho %s repassou um pong com dados de endereço inválidos, ignorando."/>
-	<string id="20588" value="O Vizinho %s enviou uma requisição de push para um endereço atrás de um firewall , ignorando."/>
+	<string id="20588" value="O Vizinho %s enviou uma requisição de push para um endereço atrás de um firewall, ignorando."/>
 	<string id="20590" value="O acesso remoto está desativado."/>
 	<string id="20591" value="http://%s:%i/remote - Escolher um nome de usuário e senha."/>
 	<string id="20592" value="Incapaz de aceitar conexões, URL indisponível."/>
 	<string id="20597" value="Você tem certeza de que você quer apagar as regras de segurança selecionadas? Isto não pode ser desfeito."/>
 	<string id="20599" value="&amp;Schemas"/>
-	<!-- Missing Scheduler/Security Strings -->
+	<string id="20600" value="Banda: Completa"/>
+	<string id="20601" value="Banda: Reduzida"/>
+	<string id="20602" value="Banda: Parar"/>
+	<string id="20603" value="Sistema: Sair do PeerProject"/>
+	<string id="20604" value="Sistema: Desligar o Computador"/>
+	<string id="20605" value="Sistema: Desconectar a Conexão Dialup"/>
+	<string id="20606" value="Sistema: Aviso Lembrete"/>
+	<string id="20607" value="Aviso lembrete agendado."/>
+	<string id="20608" value="Você tem certeza que você quer remover todas as tarefas agendadas?\n\nIsto não pode ser desfeito."/>
+	<string id="20609" value="Programado tempo passou. Por favor, selecione um novo tempo."/>
+	<string id="20610" value="Nenhum dia agendado. Selecione um ou mais dias ou data."/>
+	<string id="20611" value="Nenhum evento programado. Por favor, selecione uma tarefa."/>
+	<string id="20612" value="Ativa"/>
+	<string id="20613" value="Inativa"/>
+	<string id="20614" value="Esperando"/>
+	<string id="20615" value="Feito Hoy"/>
+	<string id="20616" value="Feito"/>
+	<string id="20618" value="Não tarefas agendadas."/>
 	<string id="20620" value="O PeerProject está procurando ativamente na rede..."/>
 	<string id="20621" value="Clique aqui para procurar novamente"/>
 	<string id="20622" value="Todas as redes"/>
@@ -3649,7 +3666,7 @@
 	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="Acesso Remoto">
 		<control caption="_Ativar:"/>
 		<control caption="Ativar o Acesso Remoto do PeerProject:"/>
-		<control caption="URL"/>
+		<control caption="..."/>
 		<control caption="_Credenciais:"/>
 		<control caption="Escolha um Nome:"/>
 		<control caption="Escolha uma Senha:"/>
@@ -3847,7 +3864,7 @@
 	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="Bem-Vindo ao PeerProject &#160;(2/8)">
 		<control caption="Para ótima performance, PeerProject precisa saber um pouco sobre sua conexão com a Internet."/>
 		<control caption="Escolha o tipo da sua conexão com a Internet:"/>
-		<control caption="Modem Dial up|ISDN (128K)|DSL (768K)|DSL (1.5M)|DSL (4.0M)|DSL2 (8.0M)|FIOS (10.0M)|DSL2 (12.0M)|FIOS (20.0M)|DSL2+ (24.0M)|Modem a Cabo/SDSL|T1|T3|LAN|OC3"/>
+		<control caption="Modem Dial up|ISDN 128K|DSL 768K|DSL 1.5M|DSL 4M|DSL2 8|FIOS 10|DSL2 12|FIOS 15|FIOS 20|FIOS 25|FIOS 30|T1|T3|LAN|OC3|Modem a Cabo"/>
 		<control caption="Ou escolha a velocidade do download:"/>
 		<control/>
 		<control caption="e a velocidade do upload:"/>
@@ -3856,8 +3873,8 @@
 		<control/>
 		<control caption="Port: &#160; (Um número 4-5 dígitos)"/>
 		<control/>
-		<control caption="Random"/>
-		<control caption="Status:"/>
+		<control caption="Aleatória"/>
+		<control caption="Estado:"/>
 		<control/>
 	</dialog>
 	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuStBu" caption="Bem-Vindo ao PeerProject &#160;(3/8)">
@@ -3871,7 +3888,7 @@
 		<control caption="Gerenciar os links torrent."/>
 	</dialog>
 	<dialog name="CWizardFoldersPage" cookie="StStEdBuStEdBuStEdBuSt" caption="Welcome to PeerProject &#160;(4/8)">
-		<control caption="PeerProject first downloads partial files to a private folder, then moves them when completed according to Download Groups."/>
+		<control caption="Download PeerProject primeira parcial arquivos para uma pasta privada, em seguida, move-los quando preenchido de acordo com Grupos de download."/>
 		<control caption="Armazenar Arquivos Incompletos Aqui Temporário:"/>
 		<control/>
 		<control/>
@@ -3881,7 +3898,7 @@
 		<control caption="Salvar Arquivos .Torrent Aqui:"/>
 		<control/>
 		<control/>
-		<control caption="Common filetypes are initially setup as subfolders of the default location, but Groups can easily be customized by Right-Click.  Simply Drag&apos;n&apos;Drop files."/>
+		<control caption="Os tipos mais comuns são inicialmente a instalação em subpastas, mas os grupos podem ser personalizados. Basta arquivos Drag&apos;n&aposdrop."/>
 	</dialog>
 	<dialog name="CWizardSharePage" cookie="StStStSyBuBuSt" caption="Bem Vindo ao PeerProject &#160;(5/8)">
 		<control caption="Redes P2P só são tão boas quanto as pessoas que as usam. Todo o conteúdo disponível para baixar está sendo compartilhado por outro usuário."/>

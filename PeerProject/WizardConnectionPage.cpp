@@ -1,7 +1,7 @@
 //
 // WizardConnectionPage.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -100,35 +100,54 @@ BOOL CWizardConnectionPage::OnInitDialog()
 
 	CString strTemp;
 
+	// Set dropdown download values:  (Text via resource editor)
 	m_wndType.SetItemData( 0, 56 );		// Dial-up Modem;
-	m_wndType.SetItemData( 1, 128 );	// ISDN (128K)
-	m_wndType.SetItemData( 2, 768);		// DSL (768K)
-	m_wndType.SetItemData( 3, 1536 );	// DSL (1.5M)
-	m_wndType.SetItemData( 4, 4096 );	// DSL (4.0M)
-	m_wndType.SetItemData( 5, 8192 );	// DSL2 (8.0M)
-	m_wndType.SetItemData( 6, 10240 );	// FIOS (10.0M)
-	m_wndType.SetItemData( 7, 12288 );	// DSL2 (12.0M)
-//	m_wndType.SetItemData( 8, 16384 );	// FIOS (15.0M)
-	m_wndType.SetItemData( 8, 20480 );	// FIOS (20.0M)
-	m_wndType.SetItemData( 9, 24576 );	// DSL2 (24.0M)
-//	m_wndType.SetItemData(10, 30720 );	// FIOS (30.0M)
-	m_wndType.SetItemData(10, 3100 );	// Cable Modem
-	m_wndType.SetItemData(11, 1544 );	// T1
-	m_wndType.SetItemData(12, 45000 );	// T3
-	m_wndType.SetItemData(13, 102400 );	// LAN
-	m_wndType.SetItemData(14, 155000 );	// OC3
+	m_wndType.SetItemData( 1, 128 );	// ISDN 128K
+	m_wndType.SetItemData( 2, 768 );	// DSL  768K
+	m_wndType.SetItemData( 3, 1536 );	// DSL  1.5M
+	m_wndType.SetItemData( 4, 4096 );	// DSL  4
+	m_wndType.SetItemData( 5, 8192 );	// DSL2 8
+	m_wndType.SetItemData( 6, 10240 );	// FIOS 10
+	m_wndType.SetItemData( 7, 12288 );	// DSL2 12
+	m_wndType.SetItemData( 8, 16384 );	// FIOS 15
+	m_wndType.SetItemData( 9, 20480 );	// FIOS 20
+	m_wndType.SetItemData(10, 25400 );	// FIOS 25
+	m_wndType.SetItemData(11, 30720 );	// FIOS 30
+//	m_wndType.SetItemData(12, 50000 );	// FIOS 50
+	m_wndType.SetItemData(12, 1544 );	// T1
+	m_wndType.SetItemData(13, 44800 );	// T3
+	m_wndType.SetItemData(14, 102400 );	// LAN
+	m_wndType.SetItemData(15, 155000 );	// OC3
+	m_wndType.SetItemData(16, 3100 );	// Cable Modem (Slow)
 	m_wndType.SetCurSel( -1 );
-	//Dial-up Modem|ISDN (128K)|DSL (768K)|DSL (1.5M)|DSL (4.0M)|DSL2 (8.0M)|FIOS (10.0M)|DSL2 (12.0M)|FIOS (20.0M)|DSL2 (24.0M)|Cable Modem|T1|T3|LAN|OC3
 
-	const double nSpeeds[] = { 28.8, 33.6, 56, 64, 128, 256, 384, 512, 640, 768, 1024, 1536, 1550, 2048, 3072, 4096, 5120, 7200, 8192, 10240, 12288, 16384, 20480, 24576, 30720, 45050, 102400, 0 };
+	// Set corresponding uploads:  (Must match above)
+	m_mapSpeed[ 56 ]		= 36;		// Dial-up Modem;
+	m_mapSpeed[ 128 ]		= 128;		// ISDN 128K
+	m_mapSpeed[ 768 ]		= 128;		// DSL  768K
+	m_mapSpeed[ 1536 ]		= 256;		// DSL  1.5M
+	m_mapSpeed[ 4096 ]		= 768;		// DSL  4
+	m_mapSpeed[ 8192 ]		= 1024;		// DSL2 8
+	m_mapSpeed[ 10240 ]		= 2048;		// FIOS 10
+	m_mapSpeed[ 12288 ]		= 2048;		// DSL2 12
+	m_mapSpeed[ 16384 ]		= 5120;		// FIOS 15
+	m_mapSpeed[ 20480 ]		= 5120;		// FIOS 20
+	m_mapSpeed[ 25400 ]		= 10240;	// FIOS 25
+	m_mapSpeed[ 30720 ]		= 10240;	// FIOS 30
+//	m_mapSpeed[ 50000 ]		= 20480;	// FIOS 50
+	m_mapSpeed[ 1544 ]		= 1544; 	// T1
+	m_mapSpeed[ 44800 ]		= 44800;	// T3
+	m_mapSpeed[ 102400 ]	= 102400;	// LAN
+	m_mapSpeed[ 155000 ]	= 155000;	// OC3
+	m_mapSpeed[ 3100 ]		= 2040;		// Cable Modem (Slow)
+
+	// Translation: |Dial-up Modem|ISDN 128K|DSL 768K|DSL 1.5M|DSL 4M|DSL2 8|FIOS 10|DSL2 12|FIOS 15|FIOS 20|FIOS 25|FIOS 30|T1|T3|LAN|OC3|Cable Modem (3M)
+
+	const double nSpeeds[] = { 28.8, 33.6, 56, 64, 128, 256, 384, 512, 640, 768, 1024, 1536, 1550, 1760, 2048, 3072, 4096, 5120, 7200, 8192, 10240, 12288, 16384, 20480, 24576, 30720, 45050, 50800, 102400, 0 };
 	for ( int nSpeed = 0 ; nSpeeds[ nSpeed ] ; nSpeed++ )
 	{
-		if ( nSpeeds[ nSpeed ] < 100 )
-			strTemp.Format( _T("%.1f kbps    (%.1f KB/s)"), nSpeeds[ nSpeed ], nSpeeds[ nSpeed ] / 8 );
-		else if ( nSpeeds[ nSpeed ] < 8190 )
-			strTemp.Format( _T("%.0f kbps    (%.0f KB/s)"), nSpeeds[ nSpeed ], nSpeeds[ nSpeed ] / 8 );
-		else
-			strTemp.Format( _T("%.0f kbps    (%.2f MB/s)"), nSpeeds[ nSpeed ], nSpeeds[ nSpeed ] / 8 / 1024 );
+		// Populate "0000 kbps  (0.00 MB/s)"
+		strTemp = SpeedFormat( nSpeeds[ nSpeed ] );
 		m_wndDownloadSpeed.AddString( strTemp );
 		m_wndUploadSpeed.AddString( strTemp );
 	}
@@ -181,7 +200,7 @@ BOOL CWizardConnectionPage::OnInitDialog()
 
 BOOL CWizardConnectionPage::OnSetActive()
 {
-	//Wizard Window Caption Workaround
+	// Wizard Window Caption Workaround
 	CString strCaption;
 	GetWindowText( strCaption );
 	GetParent()->SetWindowText( strCaption );
@@ -202,8 +221,17 @@ void CWizardConnectionPage::OnXButtonDown(UINT /*nFlags*/, UINT nButton, CPoint 
 
 void CWizardConnectionPage::OnSelChangeConnectionType()
 {
-	m_wndDownloadSpeed.SetWindowText( _T("") );
-	m_wndUploadSpeed.SetWindowText( _T("") );
+//	m_wndDownloadSpeed.SetWindowText( _T("") );
+//	m_wndUploadSpeed.SetWindowText( _T("") );
+
+	const int nIndex = m_wndType.GetCurSel();
+	if ( nIndex < 0 )
+		return;
+
+	const DWORD nSpeed = static_cast< DWORD >( m_wndType.GetItemData( nIndex ) );
+
+	m_wndDownloadSpeed.SetWindowText( SpeedFormat( (double)nSpeed ) );
+	m_wndUploadSpeed.SetWindowText( SpeedFormat( (double)m_mapSpeed[ nSpeed ] ) );
 }
 
 void CWizardConnectionPage::OnChangeConnectionSpeed()
@@ -213,9 +241,7 @@ void CWizardConnectionPage::OnChangeConnectionSpeed()
 
 void CWizardConnectionPage::OnSelChangeUPnP()
 {
-		int nIndex = m_wndUPnP.GetCurSel();
-
-		if ( nIndex == 0 )
+		if ( m_wndUPnP.GetCurSel() == 0 )	// Index
 		{
 			m_bUPnPForward = TRUE;
 			m_wndRandom.EnableWindow( TRUE );
@@ -247,36 +273,13 @@ LRESULT CWizardConnectionPage::OnWizardNext()
 		AfxMessageBox( L"Port number ignored.  ( Use 1030 - 65530 )" );
 	Settings.Connection.RandomPort = ( m_bRandom == TRUE );
 
-	DWORD nSpeed = 0, nDownloadSpeed = 0, nUploadSpeed = 0;
-	int nIndex = m_wndType.GetCurSel();
+	DWORD nDownloadSpeed = 0, nUploadSpeed = 0;
+	const int nIndex = m_wndType.GetCurSel();
 
 	if ( nIndex >= 0 )
 	{
-		nSpeed = static_cast< DWORD >( m_wndType.GetItemData( nIndex ) );
-		nDownloadSpeed = nSpeed;
-
-		if( nSpeed <= 56 )								// Dial up modem
-			nUploadSpeed = 32;
-		else if( nSpeed <= 128 )						// ISDN
-			nUploadSpeed = nSpeed;
-		else if( nSpeed == 384 )						// 384/128 DSL (Europe)
-			nUploadSpeed = 128;
-		else if( nSpeed <= 700 )						// ADSL (4:1)
-			nUploadSpeed = nSpeed / 4;
-		else if( nSpeed <  1544 )						// ADSL (6:1)
-			nUploadSpeed = nSpeed / 6;
-		else if( nSpeed == 1544 )						// T1 (1:1)
-			nUploadSpeed = nSpeed;
-		else if( nSpeed <= 4000 )						// Cable (2:1)
-			nUploadSpeed = nSpeed / 2;
-		else if( nSpeed <= 8192 )						// ADSL2 (8:1)
-			nUploadSpeed = nSpeed / 8;
-		else if( nSpeed <= 12288 )						// ADSL2 (10:1)
-			nUploadSpeed = nSpeed / 10;
-		else if( nSpeed <= 24576 )						// ADSL2+ (12:1)
-			nUploadSpeed = nSpeed / 12;
-		else											// High capacity lines. (LAN, etc)
-			nUploadSpeed = nSpeed;
+		nDownloadSpeed = static_cast< DWORD >( m_wndType.GetItemData( nIndex ) );
+		nUploadSpeed = m_mapSpeed[ nDownloadSpeed ];
 	}
 	else
 	{
@@ -292,7 +295,7 @@ LRESULT CWizardConnectionPage::OnWizardNext()
 			nUploadSpeed = (DWORD)nTemp;
 	}
 
-	if ( nDownloadSpeed <= 0 || nUploadSpeed <= 0 )
+	if ( nDownloadSpeed < 2 || nUploadSpeed < 2 )
 	{
 		CString strSpeed;
 		LoadString( strSpeed, IDS_WIZARD_NEED_SPEED );
@@ -307,7 +310,7 @@ LRESULT CWizardConnectionPage::OnWizardNext()
 	Settings.Bandwidth.Uploads = ( Settings.Connection.OutSpeed / 8 ) *
 		( ( 100 - Settings.Uploads.FreeBandwidthFactor ) / 100 ) * 1024;
 
-	Settings.eDonkey.MaxLinks = nSpeed < 100 ? 100 : 250;
+	Settings.eDonkey.MaxLinks = nUploadSpeed < 130 ? 100 : 250;
 	Settings.OnChangeConnectionSpeed();
 	UploadQueues.CreateDefault();
 
@@ -350,6 +353,7 @@ LRESULT CWizardConnectionPage::OnWizardNext()
 		pSheet->GetDlgItem( ID_WIZNEXT )->EnableWindow( FALSE );
 	if ( pSheet->GetDlgItem( 2 ) )
 		pSheet->GetDlgItem( 2 )->EnableWindow( FALSE );
+
 	return -1;	// Don't move to the next page; the thread will do this work
 }
 
@@ -437,7 +441,7 @@ void CWizardConnectionPage::OnRun()
 		pSheet->GetDlgItem( 2 )->EnableWindow();
 
 	pSheet->SendMessage( PSM_SETCURSEL, 2, 0 );	// Go to the 3rd page
-	PostMessage( WM_TIMER, 1 );					// Terminate thread if necessarily
+	PostMessage( WM_TIMER, 1 );					// Terminate thread if necessary
 }
 
 BOOL CWizardConnectionPage::OnQueryCancel()
@@ -461,4 +465,19 @@ void CWizardConnectionPage::OnTimer(UINT_PTR nIDEvent)
 		strMessage.Format( strFormat, Settings.Connection.InPort );
 		AfxMessageBox( strMessage, MB_ICONINFORMATION );
 	}
+}
+
+
+CString CWizardConnectionPage::SpeedFormat(const double nSpeed) const
+{
+	CString strSpeed;
+
+	if ( nSpeed < 100 )
+		strSpeed.Format( _T("%.1f kbps    (%.1f KB/s)"), nSpeed, nSpeed / 8 );
+	else if ( nSpeed < 8190 )
+		strSpeed.Format( _T("%.0f kbps    (%.0f KB/s)"), nSpeed, nSpeed / 8 );
+	else
+		strSpeed.Format( _T("%.0f kbps    (%.2f MB/s)"), nSpeed, nSpeed / 8 / 1024 );
+
+	return strSpeed;
 }

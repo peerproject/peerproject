@@ -1,7 +1,7 @@
 //
 // LiveList.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -35,8 +35,8 @@ public:
 	virtual void AssertValid() const
 	{
 		CObject::AssertValid();
-		ASSERT( m_nImage );
-		ASSERT( m_pColumn );
+		m_nImage.AssertValid();
+		m_pColumn.AssertValid();
 	}
 #endif
 
@@ -49,14 +49,14 @@ public:
 	BOOL	SetImage(CListCtrl* pCtrl, int nParam, int nColumn, int nImageIndex);
 
 public:
-	CString*	m_pColumn;
+	CArray< CString >	m_pColumn;	// Text for each column
+	CArray< int >		m_nImage;	// Image for each column (-1 = no image, 0+ = index)
 	DWORD_PTR	m_nParam;
-	int*		m_nImage;
 	UINT		m_nMaskOverlay;
 	UINT		m_nMaskState;
-	UINT		m_nModified;	// Modified columns (bitmask)
-	bool		m_bModified;	// Is data modified?
-	bool		m_bOld;			// Is item old? (marked for deletion)
+	UINT		m_nModified;		// Modified columns (bitmask)
+	bool		m_bModified;		// Is data modified?
+	bool		m_bOld;				// Is item old? (marked for deletion)
 
 	friend class CLiveList;
 	friend class CLiveListCtrl;
@@ -117,7 +117,7 @@ protected:
 };
 
 
-// Prior to Win98/IE4 (Very Obsolete?):
+// Prior to Win98/IE4 (Very Obsolete):
 
 //#ifndef CDRF_NOTIFYSUBITEMDRAW
 //
@@ -139,7 +139,7 @@ protected:
 //	(BOOL)SNDMSG((hwnd), LVM_GETSUBITEMRECT, (WPARAM)(int)(iItem),  \
 //	((prc) ? ((((LPRECT)(prc))->top = iSubItem), (((LPRECT)(prc))->left = code), (LPARAM)(prc)) : (LPARAM)(LPRECT)NULL))
 //
-//#endif // CDRF_NOTIFYSUBITEMDRAW
+//#endif
 
 
 class CLiveListCtrl : public CListCtrl
@@ -172,8 +172,8 @@ public:
 	UINT GetItemOverlayMask(int nItem) const;
 
 protected:
-	afx_msg void OnLvnGetDispInfo(NMHDR *pNMHDR, LRESULT *pResult);	// OnLvnGetDispInfoW/OnLvnGetDispInfoA
-	afx_msg void OnLvnOdFindItem(NMHDR *pNMHDR, LRESULT *pResult);	// OnLvnOdFindItemW/OnLvnOdFindItemA
+	afx_msg void OnLvnGetDispInfo(NMHDR *pNMHDR, LRESULT *pResult);		// OnLvnGetDispInfoW/OnLvnGetDispInfoA
+	afx_msg void OnLvnOdFindItem(NMHDR *pNMHDR, LRESULT *pResult);		// OnLvnOdFindItemW/OnLvnOdFindItemA
 	afx_msg void OnLvnOdCacheHint(NMHDR *pNMHDR, LRESULT *pResult);
 
 	DECLARE_MESSAGE_MAP()

@@ -1,7 +1,7 @@
 //
 // GeoIP.c
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions Copyright MaxMind LLC, 2006-2007. (v1.4.2)
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -20,6 +20,11 @@
 //
 
 // http://www.maxmind.com/app/c
+//
+// Note: Base version 1.4.2, selective 1.4.4+ (2007), unused features removed.
+// Newer versions unnecessary, as of 1.4.7 (2010), until IPv6 supported.
+
+#pragma warning ( disable : 4706 )	// Assignment within conditional expression (Appears intentional twice?)
 
 #include "GeoIP.h"
 
@@ -38,8 +43,8 @@
 #include <stdint.h> 	/* For uint32_t */
 #endif
 
-#ifndef        INADDR_NONE
-#define        INADDR_NONE     -1
+#ifndef INADDR_NONE
+#define INADDR_NONE     -1
 #endif
 
 #define COUNTRY_BEGIN 16776960
@@ -118,7 +123,7 @@ const char * GeoIP_country_name[251] = { "N/A","Asia/Pacific Region","Europe",
 	"Andorra","United Arab Emirates","Afghanistan","Antigua and Barbuda","Anguilla","Albania","Armenia","Netherlands Antilles",
 	"Angola","Antarctica","Argentina","American Samoa","Austria","Australia","Aruba","Azerbaijan","Bosnia and Herzegovina","Barbados",
 	"Bangladesh","Belgium","Burkina Faso","Bulgaria","Bahrain","Burundi","Benin","Bermuda","Brunei Darussalam","Bolivia",
-	"Brazil","Bahamas","Bhutan","Bouvet Island","Botswana","Belarus","Belize","Canada","Cocos (Keeling) Islands","Congo, The Democratic Republic of the",
+	"Brazil","Bahamas","Bhutan","Bouvet Island","Botswana","Belarus","Belize","Canada","Cocos (Keeling) Islands","Congo, Democratic Republic of",
 	"Central African Republic","Congo","Switzerland","Cote D'Ivoire","Cook Islands","Chile","Cameroon","China","Colombia","Costa Rica",
 	"Cuba","Cape Verde","Christmas Island","Cyprus","Czech Republic","Germany","Djibouti","Denmark","Dominica","Dominican Republic",
 	"Algeria","Ecuador","Estonia","Egypt","Western Sahara","Eritrea","Spain","Ethiopia","Finland","Fiji",
@@ -137,8 +142,8 @@ const char * GeoIP_country_name[251] = { "N/A","Asia/Pacific Region","Europe",
 	"Sweden","Singapore","Saint Helena","Slovenia","Svalbard and Jan Mayen","Slovakia","Sierra Leone","San Marino","Senegal","Somalia","Suriname",
 	"Sao Tome and Principe","El Salvador","Syrian Arab Republic","Swaziland","Turks and Caicos Islands","Chad","French Southern Territories","Togo","Thailand",
 	"Tajikistan","Tokelau","Turkmenistan","Tunisia","Tonga","Timor-Leste","Turkey","Trinidad and Tobago","Tuvalu","Taiwan",
-	"Tanzania, United Republic of","Ukraine","Uganda","United States Minor Outlying Islands","United States","Uruguay","Uzbekistan","Holy See (Vatican City State)","Saint Vincent and the Grenadines","Venezuela",
-	"Virgin Islands, British","Virgin Islands, U.S.","Vietnam","Vanuatu","Wallis and Futuna","Samoa","Yemen","Mayotte","Serbia","South Africa",
+	"Tanzania, United Republic of","Ukraine","Uganda","United States Minor Outlying Islands","United States","Uruguay","Uzbekistan","Holy See (Vatican City)","Saint Vincent & Grenadines","Venezuela",
+	"Virgin Islands (British)","Virgin Islands (U.S.)","Vietnam","Vanuatu","Wallis and Futuna","Samoa","Yemen","Mayotte","Serbia","South Africa",
 	"Zambia","Montenegro","Zimbabwe","Anonymous Proxy","Satellite Provider","Other","Aland Islands","Guernsey","Isle of Man","Jersey"};
 
 /* Possible continent codes are AF, AS, EU, NA, OC, SA
@@ -181,7 +186,7 @@ void GeoIP_setup_custom_directory (char * dir) {
 
 char *_GeoIP_full_path_to(const char *file_name) {
 	size_t len;		// 64-bit-compatible int
-	char *path = malloc(sizeof(char) * 1024);
+	char *path = (char *)malloc(sizeof(char) * 1024);
 
 	if (custom_directory == NULL){
 #ifndef WIN32
@@ -193,12 +198,12 @@ char *_GeoIP_full_path_to(const char *file_name) {
 		len = GetModuleFileName(GetModuleHandle(NULL), buf, sizeof(buf) - 1);
 		for (p = buf + len; p > buf; p--)
 			if (*p == '\\')
-				{
-					if (!q)
-						q = p;
-					else
-						*p = '/';
-				}
+			{
+				if (!q)
+					q = p;
+				else
+					*p = '/';
+			}
 		*q = 0;
 		memset(path, 0, sizeof(char) * 1024);
 		snprintf(path, sizeof(char) * 1024 - 1, "%s/%s", buf, file_name);
@@ -218,7 +223,7 @@ char ** GeoIPDBFileName = NULL;
 
 void _GeoIP_setup_dbfilename() {
 	if (NULL == GeoIPDBFileName) {
-		GeoIPDBFileName = malloc(sizeof(char *) * NUM_DB_TYPES);
+		GeoIPDBFileName = (char **)malloc(sizeof(char *) * NUM_DB_TYPES);
 		memset(GeoIPDBFileName, 0, sizeof(char *) * NUM_DB_TYPES);
 
 		GeoIPDBFileName[GEOIP_COUNTRY_EDITION]		= _GeoIP_full_path_to("Data\\GeoIP.dat");
@@ -274,7 +279,7 @@ void _setup_segments(GeoIP * gi) {
 		//		/* backwards compatibility with databases from April 2003 and earlier */
 		//		gi->databaseType -= 105;
 		//	}
-
+		//
 		//	if (gi->databaseType == GEOIP_REGION_EDITION_REV0) {
 		//		/* Region Edition, pre June 2003 */
 		//		gi->databaseSegments = malloc(sizeof(int));
@@ -304,10 +309,11 @@ void _setup_segments(GeoIP * gi) {
 			fseek(gi->GeoIPDatabase, -4l, SEEK_CUR);
 		}
 	}
-	if (gi->databaseType == GEOIP_COUNTRY_EDITION ||
-			gi->databaseType == GEOIP_PROXY_EDITION ||
-			gi->databaseType == GEOIP_NETSPEED_EDITION) {
-		gi->databaseSegments = malloc(sizeof(int));
+	if (gi->databaseType == GEOIP_COUNTRY_EDITION
+		//	|| gi->databaseType == GEOIP_PROXY_EDITION
+		//	|| gi->databaseType == GEOIP_NETSPEED_EDITION
+		) {
+		gi->databaseSegments = (unsigned int *)malloc(sizeof(int));
 		gi->databaseSegments[0] = COUNTRY_BEGIN;
 	}
 }
@@ -438,38 +444,34 @@ unsigned int _GeoIP_seek_record (GeoIP *gi, unsigned long ipnum) {
 }
 
 unsigned long _GeoIP_addr_to_num (const char *addr) {
-	int i;
-	char tok[4];
-	int octet;
-	int j = 0, k = 0;
-	unsigned long ipnum = 0;
-	char c = 0;
+	unsigned int    c, octet, t;
+	unsigned long   ipnum;
+	int             i = 3;
 
-	for (i=0; i<4; i++) {
-		for (;;) {
-			c = addr[k++];
-			if (c == '.' || c == '\0') {
-				tok[j] = '\0';
-				octet = atoi(tok);
-				if (octet > 255)
-					return 0;
-				ipnum += (octet << ((3-i)*8));
-				j = 0;
-				break;
-			} else if (c >= '0' && c<= '9') {
-				if (j > 2) {
-					return 0;
-				}
-				tok[j++] = c;
-			} else {
+	octet = ipnum = 0;
+	while ((c = *addr++)) {
+		if (c == '.') {
+			if (octet > 255)
 				return 0;
-			}
-		}
-		if(c == '\0' && i<3) {
-			return 0;
+			ipnum <<= 8;
+			ipnum += octet;
+			i--;
+			octet = 0;
+		} else {
+			t = octet;
+			octet <<= 3;
+			octet += t;
+			octet += t;
+			c -= '0';
+			if (c > 9)
+				return 0;
+			octet += c;
 		}
 	}
-	return ipnum;
+	if (octet > 255 || i != 0)
+		return 0;
+	ipnum <<= 8;
+	return ipnum + octet;
 }
 
 GeoIP* GeoIP_open_type (int type, int flags) {
@@ -614,10 +616,10 @@ unsigned long _GeoIP_lookupaddress (const char *host) {
 	struct hostent phe2;
 	struct hostent * phe = &phe2;
 	char *buf = NULL;
-	int buflength = 16384;
-	int herr = 0;
 	int result = 0;
 #ifdef HAVE_GETHOSTBYNAME_R
+	int buflength = 16384;
+	int herr = 0;
 	buf = malloc(buflength);
 #endif
 	if (addr == INADDR_NONE) {
@@ -668,7 +670,6 @@ int GeoIP_id_by_name (GeoIP* gi, const char *name) {
 		return 0;
 	ret = _GeoIP_seek_record(gi, ipnum) - COUNTRY_BEGIN;
 	return ret;
-
 }
 
 const char *GeoIP_country_code_by_addr (GeoIP* gi, const char *addr) {
@@ -681,14 +682,12 @@ const char *GeoIP_country_code3_by_addr (GeoIP* gi, const char *addr) {
 	int country_id;
 	country_id = GeoIP_id_by_addr(gi, addr);
 	return (country_id > 0) ? GeoIP_country_code3[country_id] : NULL;
-	return GeoIP_country_code3[country_id];
 }
 
 const char *GeoIP_country_name_by_addr (GeoIP* gi, const char *addr) {
 	int country_id;
 	country_id = GeoIP_id_by_addr(gi, addr);
 	return (country_id > 0) ? GeoIP_country_name[country_id] : NULL;
-	return GeoIP_country_name[country_id];
 }
 
 const char *GeoIP_country_name_by_ipnum (GeoIP* gi, unsigned long ipnum) {

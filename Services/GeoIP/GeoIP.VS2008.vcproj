@@ -42,13 +42,13 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
+				AdditionalIncludeDirectories="..\..\Data"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;DLL;_CRT_SECURE_NO_DEPRECATE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				SmallerTypeCheck="true"
 				RuntimeLibrary="1"
 				ProgramDataBaseFileName="$(TargetDir)$(TargetName).pdb"
-				AdditionalIncludeDirectories="..\..\Data"
 				DebugInformationFormat="4"
 				WarningLevel="3"
 			/>
@@ -69,6 +69,8 @@
 				GenerateDebugInformation="true"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
+				LargeAddressAware="2"
+				TargetMachine="1"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -117,15 +119,15 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
+				AdditionalIncludeDirectories="..\..\Data"
 				PreprocessorDefinitions="WIN64;WIN32;_DEBUG;_WINDOWS;_USRDLL;DLL;_CRT_SECURE_NO_DEPRECATE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				SmallerTypeCheck="true"
 				RuntimeLibrary="1"
 				ProgramDataBaseFileName="$(TargetDir)$(TargetName).pdb"
-				AdditionalIncludeDirectories="..\..\Data"
-				WarningLevel="3"
 				DebugInformationFormat="3"
+				WarningLevel="3"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -194,11 +196,11 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;DLL;_CRT_SECURE_NO_DEPRECATE"
-				ProgramDataBaseFileName="$(TargetDir)$(TargetName).pdb"
 				AdditionalIncludeDirectories="..\..\Data"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;DLL;_CRT_SECURE_NO_DEPRECATE"
+				EnableEnhancedInstructionSet="1"
 				RuntimeLibrary="2"
-				WarningLevel="3"
+				WarningLevel="4"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -217,6 +219,8 @@
 				EnableCOMDATFolding="2"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
+				LargeAddressAware="2"
+				TargetMachine="1"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -265,10 +269,10 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				PreprocessorDefinitions="WIN64;WIN32;NDEBUG;_WINDOWS;_USRDLL;DLL;_CRT_SECURE_NO_DEPRECATE"
-				ProgramDataBaseFileName="$(TargetDir)$(TargetName).pdb"
 				AdditionalIncludeDirectories="..\..\Data"
-				WarningLevel="3"
+				PreprocessorDefinitions="WIN64;WIN32;NDEBUG;_WINDOWS;_USRDLL;DLL;_CRT_SECURE_NO_DEPRECATE"
+				EnableEnhancedInstructionSet="1"
+				WarningLevel="4"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
