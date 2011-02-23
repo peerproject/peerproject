@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Japanese Skin File -->
 
-<!-- Translation based on default-en.xml r60 (Shareaza 2.2.0.2) -->
+<!-- Translation based on default-en.xml r62 (Shareaza 2.2.0.2) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -3600,12 +3600,12 @@
 	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="PeerProjectへようこそ (2/8)">
 		<control caption="最適な性能を得る為、あなたのインターネット接続についての情報をいくつかPeerProjectに提供する必要があります。"/>
 		<control caption="以下の中からあなたが使用しているインターネットの接続を選択して下さい:"/>
-		<control caption="ダイヤルアップモデム|ISDN (128K)|DSL (768K)|DSL (1.5M)|DSL (4.0M)|DSL2 (8.0M)|FIOS (10.0M)|DSL2 (12.0M)|FIOS (20.0M)|DSL2+ (24.0M)| ケーブルモデム/SDSL| T1| T3| LAN| OC3"/>
+		<control caption="ダイヤルアップモデム|ISDN 128K|DSL 768K|DSL 1.5M|DSL 4M|DSL2 8|FIOS 10|DSL2 12|FIOS 15|FIOS 20|FIOS 25|FIOS 30|T1|T3|LAN|OC3|ケーブルモデム"/>
 		<control caption="下り速度："/>
 		<control/>
 		<control caption="上り速度:"/>
 		<control/>
-		<control caption="Universal Plug and Playを使用して自動的にポートを空けますか?"/>
+		<control caption="Plug'n'Playを使用して自動的にポートを空けますか?"/>
 		<control/>
 		<control caption="Port: &#160; (Any 4-5 digit number)"/>
 		<control/>
@@ -3624,7 +3624,7 @@
 		<control caption="BitTorrentリンクを処理する"/>
 	</dialog>
 	<dialog name="CWizardFoldersPage" cookie="StStEdBuStEdBuStEdBuSt" caption="PeerProjectへようこそ (4/8)">
-		<control caption="PeerProject first downloads partial files to a private folder, then moves them when completed according to Download Groups."/>
+		<control caption="PeerProject を初めてダウンロード部分の個人用フォルダにファイル、[ダウンロードグループによると完了したときにそれらを移動します。"/>
 		<control caption="未完了ファイルの保存先:"/>
 		<control/>
 		<control/>
@@ -3634,7 +3634,7 @@
 		<control caption=".Torrent了ファイルの保存先:"/>
 		<control/>
 		<control/>
-		<control caption="Common filetypes are initially setup as subfolders of the default location, but Groups can easily be customized by Right-Click.  Simply Drag&apos;n&apos;Drop files."/>
+		<control caption="一般的なファイル形式は、サブフォルダ内の最初にセットアップされるグループは、カスタマイズすることができます。単純にドラッグ＆ドロップファイル。"/>
 	</dialog>
 	<dialog name="CWizardSharePage" cookie="StStStSyBuBuSt" caption="PeerProjectへようこそ (5/8)">
 		<control caption="P2Pネットワークはその使用者によって成り立っています。 ダウンロードできる全てのファイルは世界中のユーザによって共有されているものです。"/>

@@ -1,7 +1,7 @@
 //
 // Scheduler.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007, 2010.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -194,7 +194,7 @@ void CScheduleTask::Serialize(CArchive& ar, int nVersion)
 	}
 	else // Loading
 	{
-		if ( nVersion == 1000 ) // Initial release
+		if ( nVersion >= 1000 )		// Initial release
 		{
 			// Load all task variables
 			ar >> m_bSpecificDays;
@@ -209,7 +209,7 @@ void CScheduleTask::Serialize(CArchive& ar, int nVersion)
 			ar >> m_nDays;
 			ReadArchive( ar, &m_pGUID, sizeof( GUID ) );
 		}
-		else if ( nVersion < 100 ) // Shareaza import ?
+		else if ( nVersion < 100 )	// Shareaza import ?
 		{
 			// Load all task variables
 			ar >> m_bSpecificDays;
@@ -666,24 +666,39 @@ void CScheduler::HangUpConnection()
 	RASCONN* lpRasConn = NULL;
 	LPRASCONNSTATUS RasConStatus = 0;
 
-	// Allocate the size needed for the RAS structure.
-	lpRasConn = (RASCONN*)HeapAlloc( GetProcessHeap(), 0, dwCb );
-
-	// Set the structure size for version checking purposes.
-	lpRasConn->dwSize = sizeof( RASCONN );
-
-	// Call the RAS API
-	RasEnumConnections( lpRasConn, &dwCb, &dwConnections );
-
-	DWORD i;
-	int loop = 0;
-
-	for ( i = 0; i < dwConnections; i++ ) // Loop through all current connections
+	for (;;)
 	{
-		RasHangUp( lpRasConn[i].hrasconn ); // Hang up the connection
-		while( ( RasGetConnectStatus( lpRasConn[i].hrasconn,RasConStatus ) || ( loop > 10 ) ) )
+		// Free memory if necessary
+		if ( lpRasConn != NULL )
 		{
-			// Loop until the connection handle is invalid, or 3 seconds have passed
+			HeapFree( GetProcessHeap(), 0, lpRasConn );
+			lpRasConn = NULL;
+		}
+
+		// Allocate the size needed for the RAS structure
+		lpRasConn = (RASCONN*)HeapAlloc( GetProcessHeap(), 0, dwCb );
+		if ( ! lpRasConn )
+			return;		// Out of memory
+
+		// Set the first structure size for version checking purposes
+		lpRasConn->dwSize = sizeof( RASCONN );
+
+		// Call the RAS API
+		const DWORD ret = RasEnumConnections( lpRasConn, &dwCb, &dwConnections );
+		if ( ret == 0 )
+			break;		// Okay
+		if ( ret == ERROR_NOT_ENOUGH_MEMORY )
+			continue;	// Re-allocate more memory
+
+		return; 		// Error unknown
+	}
+
+	for ( DWORD i = 0, loop = 0 ; i < dwConnections ; i++ )			// Loop through all current connections
+	{
+		RasHangUp( lpRasConn[i].hrasconn );							// Hang up the connection
+		while( RasGetConnectStatus( lpRasConn[i].hrasconn,RasConStatus ) || loop > 10 )
+		{
+			// Loop until the connection handle is invalid, or 3 seconds have passed total
 			Sleep(300);
 			loop++;
 		}

@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Polish Skin File -->
 
-<!-- Translation based on default-en.xml r60 (Shareaza 2.1.2.7) -->
+<!-- Translation based on default-en.xml r62 (Shareaza 2.1.2.7) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -3371,7 +3371,7 @@
 	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="Witaj w PeerProjecte (2/8)">
 		<control caption="Do optymalnego działania, PeerProject potrzebuje trochę wiadomości o Twoim połączeniu z Internetem."/>
 		<control caption="Wybierz rodzaj Twojego łącza Internetowego:"/>
-		<control caption="|Modem wdzwaniany |ISDN (128K)|DSL (768K)|DSL (1.5M)|DSL (4.0M)|DSL2 (8.0M)|FIOS (10.0M)|DSL2 (12.0M)|FIOS (20.0M)|DSL2+ (24.0M)| Modem kablowy/SDSL| T1| T3| LAN| OC3"/>
+		<control caption="|Modem wdzwaniany|ISDN 128K|DSL 768K|DSL 1.5M|DSL 4M|DSL2 8|FIOS 10|DSL2 12|FIOS 15|FIOS 20|FIOS 25|FIOS 30|T1|T3|LAN|OC3|Modem kablowy"/>
 		<control caption="LUB, wybierz prędkość pobierania:"/>
 		<control/>
 		<control caption="i prędkość wysyłania:"/>
@@ -3380,7 +3380,7 @@
 		<control/>
 		<control caption="Port: &#160; (Any 4-5 digit number)"/>
 		<control/>
-		<control caption="Random"/>
+		<control caption="Przypadkowy"/>
 		<control caption="Status:"/>
 		<control/>
 	</dialog>
@@ -3395,7 +3395,7 @@
 		<control caption="Obsługuj linki torrentowe."/>
 	</dialog>
 	<dialog name="CWizardFoldersPage" cookie="StStEdBuStEdBuStEdBuSt" caption="Witaj w PeerProjecte (4/8)">
-		<control caption="PeerProject first downloads partial files to a private folder, then moves them when completed according to Download Groups."/>
+		<control caption="PeerProject pierwszy częściowe pliki do pobrania plików do prywatnego folderu, a następnie przenosi je po ukończeniu zgodnie z Grupy Download."/>
 		<control caption="Przechowuj pliki tymczasowe (jeszcze niekompletne) tutaj:"/>
 		<control/>
 		<control/>
@@ -3405,7 +3405,7 @@
 		<control caption="Przechowuj .Torrent pliki tutaj:"/>
 		<control/>
 		<control/>
-		<control caption="Common filetypes are initially setup as subfolders of the default location, but Groups can easily be customized by Right-Click.  Simply Drag&apos;n&apos;Drop files."/>
+		<control caption="Popularne rodzaje początkowo konfiguracji w podfolderach, ale można dostosować do grupy. Wystarczy przeciągnąć pliki."/>
 	</dialog>
 	<dialog name="CWizardSharePage" cookie="StStStSyBuBuSt" caption="Witaj w PeerProjecte (5/8)">
 		<control caption="Sieci P2P są tylko tak dobre, jak ludzie, którzy ich używają. Cała możliwa do pobrania zawartość (tzw. kontent) jest udostępniana (współdzielona) przez innych użytkowników."/>

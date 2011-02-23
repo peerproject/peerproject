@@ -1,7 +1,7 @@
 //
 // Emoticons.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -173,9 +173,7 @@ BOOL CEmoticons::Load()
 		m_pImage.Create( EMOTICON_SIZE, EMOTICON_SIZE, ILC_COLOR24|ILC_MASK, 1, 8 ) ||
 		m_pImage.Create( EMOTICON_SIZE, EMOTICON_SIZE, ILC_COLOR16|ILC_MASK, 1, 8 );
 
-	CString strFile = Settings.General.Path + _T("\\Data\\Emoticons.xml");
-
-	if ( ! LoadXML( strFile ) )
+	if ( ! LoadXML( Settings.General.Path + _T("\\Data\\Emoticons.xml") ) )
 		return FALSE;
 
 	BuildTokens();
@@ -216,16 +214,16 @@ int CEmoticons::AddEmoticon(LPCTSTR pszText, CImageFile* pImage, CRect* pRect, C
 	pSource += pRect->top * nPitch + pRect->left * pImage->m_nComponents;
 
 	HDC hDCMem1, hDCMem2;
-	if ( HDC hDC = GetDC( NULL ) ) // Get screen DC
+	if ( HDC hDC = GetDC( NULL ) )	// Get screen DC
 	{
-		hDCMem1 = CreateCompatibleDC( hDC ); // Create memory DC for the source
+		hDCMem1 = CreateCompatibleDC( hDC );	// Create memory DC for the source
 		if ( ! hDCMem1 )
 		{
 			ReleaseDC( NULL, hDC );
 			return -1;
 		}
 
-		hDCMem2 = CreateCompatibleDC( hDC ); // Create memory DC for the destination
+		hDCMem2 = CreateCompatibleDC( hDC );	// Create memory DC for the destination
 		if ( ! hDCMem2 )
 		{
 			DeleteDC( hDCMem1 );
@@ -236,7 +234,7 @@ int CEmoticons::AddEmoticon(LPCTSTR pszText, CImageFile* pImage, CRect* pRect, C
 		CBitmap bmOriginal, bmMoved;
 		CDC* pDC = CDC::FromHandle( hDC );
 
-		if ( ! bmOriginal.CreateCompatibleBitmap( pDC, EMOTICON_SIZE, EMOTICON_SIZE ) ) // Source bitmap
+		if ( ! bmOriginal.CreateCompatibleBitmap( pDC, EMOTICON_SIZE, EMOTICON_SIZE ) )	// Source bitmap
 		{
 			ReleaseDC( NULL, hDC );
 			DeleteDC( hDCMem1 );
@@ -244,7 +242,7 @@ int CEmoticons::AddEmoticon(LPCTSTR pszText, CImageFile* pImage, CRect* pRect, C
 			return -1;
 		}
 
-		if ( ! bmMoved.CreateCompatibleBitmap( pDC, EMOTICON_SIZE, EMOTICON_SIZE ) ) // Destination bitmap
+		if ( ! bmMoved.CreateCompatibleBitmap( pDC, EMOTICON_SIZE, EMOTICON_SIZE ) )	// Destination bitmap
 		{
 			ReleaseDC( NULL, hDC );
 			DeleteDC( hDCMem1 );

@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Dutch Skin File -->
 
-<!-- Translation based on default-en.xml r60 -->
+<!-- Translation based on default-en.xml r62 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -718,8 +718,8 @@
 			<item id="ID_NETWORK_CONNECT" text="_Verbinden" shortcut="Ctrl+G"/>
 			<separator/>
 			<menu text="_Netwerken Kiezen">
-				<item id="ID_NETWORK_G2" text="Verbinden met _Gnutella2"/>
-				<item id="ID_NETWORK_G1" text="Verbinden met Gnutella_1"/>
+				<item id="ID_NETWORK_G2" text="Verbinden met Gnutella_2"/>
+				<item id="ID_NETWORK_G1" text="Verbinden met _Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="Verbinden met _eDonkey"/>
 			</menu>
 			<separator/>
@@ -796,8 +796,8 @@
 			<item id="ID_NETWORK_BROWSE_TO" text="Gastheer be_kijken..."/>
 			<separator/>
 			<menu text="Net_werken kiezen">
-				<item id="ID_NETWORK_G2" text="Verbinden met _Gnutella2"/>
-				<item id="ID_NETWORK_G1" text="Verbinden met Gnutella_1"/>
+				<item id="ID_NETWORK_G2" text="Verbinden met Gnutella_2"/>
+				<item id="ID_NETWORK_G1" text="Verbinden met _Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="Verbinden met _eDonkey"/>
 			</menu>
 			<separator/>
@@ -3841,7 +3841,7 @@
 	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="Welcome bij PeerProject (2/8)">
 		<control caption="Voor optimale snelheid, moet PeerProject meer weten over de snelheid en de connectie van je internet"/>
 		<control caption="Kies je Internet snelheid:"/>
-		<control caption="Dial-up modem|ISDN (128K)|DSL (768K)|DSL (1.5M)|DSL (4.0M)|DSL2 (8.0M)|FIOS (10.0M)|DSL2 (12.0M)|FIOS (20.0M)|DSL2+ (24.0M)|Kabel modem/SDSL|T1|T3|LAN|OC3"/>
+		<control caption="Dial-up modem|ISDN 128K|DSL 768K|DSL 1.5M|DSL 4M|DSL2 8|FIOS 10|DSL2 12|FIOS 15|FIOS 20|FIOS 25|FIOS 30|T1|T3|LAN|OC3|Kabel modem"/>
 		<control caption="Of kies je download snelheid:"/>
 		<control/>
 		<control caption="en je upload snelheid:"/>
@@ -3865,8 +3865,8 @@
 		<control caption="Verbinden met BitTorrent (.Torrents)"/>
 	</dialog>
 	<dialog name="CWizardFoldersPage" cookie="StStEdBuStEdBuStEdBuSt" caption="Welkom bij PeerProject (4/8)">
-		<control caption="PeerProject first downloads partial files to a private folder, then moves them when completed according to Download Groups."/>
-		<control caption="Sla tijdelijke\incomplete bestanden hier op:"/>
+		<control caption="PeerProject eerste downloads gedeeltelijke bestanden naar een persoonlijke map, dan beweegt ze als ze klaar zijn volgens Download groepen."/>
+		<control caption="Sla tijdelijke bestanden hier op:"/>
 		<control/>
 		<control/>
 		<control caption="Sla voltooide bestanden hier op:"/>
@@ -3875,7 +3875,7 @@
 		<control caption="Sla .Torrent bestanden hier op:"/>
 		<control/>
 		<control/>
-		<control caption="Common filetypes are initially setup as subfolders of the default location, but Groups can easily be customized by Right-Click.  Simply Drag&apos;n&apos;Drop files."/>
+		<control caption="Voorkomende bestandstypen worden in eerste instantie opgezet als submappen, maar groepen kunnen worden aangepast. Gewoon Drag&apos;n&apos;drop bestanden."/>
 	</dialog>
 	<dialog name="CWizardSharePage" cookie="StStStSyBuBuSt" caption="Welkom bij PeerProject (5/8)">
 		<control caption="P2P netwerken zijn enkel zo goed als de mensen die ze gebruiken. Al het voor downloaden beschikbare materiaal is vrijgegeven door andere gebruikers."/>

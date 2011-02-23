@@ -1,7 +1,7 @@
 //
 // Flags.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -63,13 +63,12 @@ BOOL CFlags::Load()
 
 	if ( ! pImage.LoadFromFile( strFile ) ||
 		 ! pImage.EnsureRGB( GetSysColor( COLOR_WINDOW ) ) ||
-		 ! pImage.SwapRGB() )
+		 ! pImage.SwapRGB() ||
+		 pImage.m_nWidth < SOURCE_FLAG_WIDTH * 26 ||
+		 pImage.m_nHeight < SOURCE_FLAG_HEIGHT * 26 )
 	{
 		return FALSE;
 	}
-
-	ASSERT( pImage.m_nWidth == (SOURCE_FLAG_WIDTH * 26) &&
-			pImage.m_nHeight == (SOURCE_FLAG_HEIGHT * 26) );
 
 	const COLORREF crMask = RGB( 0, 255, 0 );
 
@@ -95,11 +94,11 @@ BOOL CFlags::Load()
 
 void CFlags::AddFlag(CImageFile* pImage, CRect* pRect, COLORREF crBack)
 {
-	ASSERT( pImage->m_bLoaded && pImage->m_nComponents == 3 );	// Should allow alpha
-	ASSERT( pRect->left >= 0 && pRect->left + SOURCE_FLAG_WIDTH <= pImage->m_nWidth );
-	ASSERT( pRect->top >= 0 && pRect->top <= pImage->m_nHeight + SOURCE_FLAG_HEIGHT );
-	ASSERT( pRect->right == pRect->left + SOURCE_FLAG_WIDTH );
-	ASSERT( pRect->bottom == pRect->top + SOURCE_FLAG_HEIGHT );
+	//ASSERT( pImage->m_bLoaded && pImage->m_nComponents == 3 );	// Should allow alpha
+	//ASSERT( pRect->left >= 0 && pRect->left + SOURCE_FLAG_WIDTH <= pImage->m_nWidth );
+	//ASSERT( pRect->top >= 0 && pRect->top <= pImage->m_nHeight + SOURCE_FLAG_HEIGHT );
+	//ASSERT( pRect->right == pRect->left + SOURCE_FLAG_WIDTH );
+	//ASSERT( pRect->bottom == pRect->top + SOURCE_FLAG_HEIGHT );
 
 	DWORD nPitch = pImage->m_nWidth * pImage->m_nComponents;
 	while ( nPitch & 3 ) nPitch++;
@@ -107,82 +106,51 @@ void CFlags::AddFlag(CImageFile* pImage, CRect* pRect, COLORREF crBack)
 	BYTE* pSource = pImage->m_pImage;
 	pSource += pRect->top * nPitch + pRect->left * pImage->m_nComponents;
 
-	if ( HDC hDC = GetDC( NULL ) )					// Get screen DC
+	HDC hDC = GetDC( NULL );					// Get screen DC
+	HDC hDCMem1 = CreateCompatibleDC( hDC );	// Create source memory DC
+	HDC hDCMem2 = CreateCompatibleDC( hDC );	// Create destination memory DC
+
+	CBitmap bmOriginal, bmMoved;
+	CDC* pDC = CDC::FromHandle( hDC );
+
+	bmOriginal.CreateCompatibleBitmap( pDC, SOURCE_FLAG_WIDTH, SOURCE_FLAG_HEIGHT );	// Source bitmap
+	bmMoved.CreateCompatibleBitmap( pDC, IMAGELIST_FLAG_WIDTH, IMAGELIST_FLAG_HEIGHT );	// Destination bitmap
+
+	BITMAPINFOHEADER pInfo = {};
+	pInfo.biSize		= sizeof(BITMAPINFOHEADER);
+	pInfo.biWidth		= SOURCE_FLAG_WIDTH;
+	pInfo.biHeight		= SOURCE_FLAG_HEIGHT;
+	pInfo.biPlanes		= 1;
+	pInfo.biBitCount	= 24;
+	pInfo.biCompression	= BI_RGB;
+	pInfo.biSizeImage	= SOURCE_FLAG_WIDTH * SOURCE_FLAG_HEIGHT * 3;
+
+	for ( int nY = SOURCE_FLAG_HEIGHT - 1 ; nY >= 0 ; nY-- )
 	{
-		HDC hDCMem1 = CreateCompatibleDC( hDC );	// Create source memory DC
-		if ( ! hDCMem1 )
-		{
-			ASSERT( hDCMem1 );
-			ReleaseDC( NULL, hDC );
-			return;
-		}
-
-		HDC hDCMem2 = CreateCompatibleDC( hDC );	// Create destination memory DC
-		if ( ! hDCMem2 )
-		{
-			ASSERT( hDCMem2 );
-			DeleteDC( hDCMem1 );
-			ReleaseDC( NULL, hDC );
-			return;
-		}
-
-		CBitmap bmOriginal, bmMoved;
-		CDC* pDC = CDC::FromHandle( hDC );
-
-		if ( ! bmOriginal.CreateCompatibleBitmap( pDC, SOURCE_FLAG_WIDTH, SOURCE_FLAG_HEIGHT ) ) // Source bitmap
-		{
-			ASSERT( FALSE );
-			ReleaseDC( NULL, hDC );
-			DeleteDC( hDCMem1 );
-			DeleteDC( hDCMem2 );
-			return;
-		}
-
-		if ( ! bmMoved.CreateCompatibleBitmap( pDC, IMAGELIST_FLAG_WIDTH, IMAGELIST_FLAG_HEIGHT ) ) // Destination bitmap
-		{
-			ASSERT( FALSE );
-			ReleaseDC( NULL, hDC );
-			DeleteDC( hDCMem1 );
-			DeleteDC( hDCMem2 );
-			bmOriginal.DeleteObject();
-			return;
-		}
-
-		BITMAPINFOHEADER pInfo = {};
-		pInfo.biSize		= sizeof(BITMAPINFOHEADER);
-		pInfo.biWidth		= SOURCE_FLAG_WIDTH;
-		pInfo.biHeight		= SOURCE_FLAG_HEIGHT;
-		pInfo.biPlanes		= 1;
-		pInfo.biBitCount	= 24;
-		pInfo.biCompression	= BI_RGB;
-		pInfo.biSizeImage	= SOURCE_FLAG_WIDTH * SOURCE_FLAG_HEIGHT * 3;
-
-		for ( int nY = SOURCE_FLAG_HEIGHT - 1 ; nY >= 0 ; nY-- )
-		{
-			SetDIBits( hDCMem1, bmOriginal, nY, 1, pSource, (BITMAPINFO*)&pInfo, DIB_RGB_COLORS );
-			pSource += nPitch;
-		}
-
-		HBITMAP hOld_bm1 = (HBITMAP)SelectObject( hDCMem1, bmOriginal.m_hObject );
-		HBITMAP hOld_bm2 = (HBITMAP)SelectObject( hDCMem2, bmMoved.m_hObject );
-		CDC* pDC2 = CDC::FromHandle( hDCMem2 );
-		pDC2->SetBkMode( TRANSPARENT );
-		pDC2->FillSolidRect( 0, 0, IMAGELIST_FLAG_WIDTH, IMAGELIST_FLAG_HEIGHT, crBack );
-
-		if ( Settings.General.LanguageRTL )
-			SetLayout( hDCMem2, LAYOUT_RTL );
-		StretchBlt( hDCMem2, 0, 3, SOURCE_FLAG_WIDTH, SOURCE_FLAG_HEIGHT,
-					hDCMem1, 0, 0, SOURCE_FLAG_WIDTH, SOURCE_FLAG_HEIGHT, SRCCOPY );
-
-		SelectObject( hDCMem1, hOld_bm1 );
-		SelectObject( hDCMem2, hOld_bm2 );
-		VERIFY( DeleteDC( hDCMem1 ) );
-		VERIFY( DeleteDC( hDCMem2 ) );
-		ReleaseDC( NULL, hDC );
-		m_pImage.Add( &bmMoved, crBack );
-		bmMoved.DeleteObject();
-		bmOriginal.DeleteObject();
+		SetDIBits( hDCMem1, bmOriginal, nY, 1, pSource, (BITMAPINFO*)&pInfo, DIB_RGB_COLORS );
+		pSource += nPitch;
 	}
+
+	HBITMAP hOld_bm1 = (HBITMAP)SelectObject( hDCMem1, bmOriginal.m_hObject );
+	HBITMAP hOld_bm2 = (HBITMAP)SelectObject( hDCMem2, bmMoved.m_hObject );
+	CDC* pDC2 = CDC::FromHandle( hDCMem2 );
+	pDC2->SetBkMode( TRANSPARENT );
+	pDC2->FillSolidRect( 0, 0, IMAGELIST_FLAG_WIDTH, IMAGELIST_FLAG_HEIGHT, crBack );
+
+	if ( Settings.General.LanguageRTL )
+		SetLayout( hDCMem2, LAYOUT_RTL );
+
+	StretchBlt( hDCMem2, 0, 3, SOURCE_FLAG_WIDTH, SOURCE_FLAG_HEIGHT,
+				hDCMem1, 0, 0, SOURCE_FLAG_WIDTH, SOURCE_FLAG_HEIGHT, SRCCOPY );
+
+	SelectObject( hDCMem1, hOld_bm1 );
+	SelectObject( hDCMem2, hOld_bm2 );
+	VERIFY( DeleteDC( hDCMem1 ) );
+	VERIFY( DeleteDC( hDCMem2 ) );
+	ReleaseDC( NULL, hDC );
+	m_pImage.Add( &bmMoved, crBack );
+	bmMoved.DeleteObject();
+	bmOriginal.DeleteObject();
 }
 
 //////////////////////////////////////////////////////////////////////

@@ -1,7 +1,7 @@
 //
 // WizardConnectionPage.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -37,7 +37,6 @@ public:
 
 // Dialog Data
 public:
-	//{{AFX_DATA(CWizardConnectionPage)
 	CComboBox	m_wndType;
 	CComboBox	m_wndDownloadSpeed;
 	CComboBox	m_wndUploadSpeed;
@@ -46,7 +45,18 @@ public:
 	CButton		m_wndRandom;
 	CStatic		m_wndStatus;
 	CProgressCtrl m_wndProgress;
-	//}}AFX_DATA
+
+private:
+	bool		m_bQueryDiscoveries;
+	bool		m_bUpdateDonkeyServers;
+	bool		m_bUPnPForward;
+	BOOL		m_bRandom;
+	DWORD		m_nPort;
+	short		m_nProgressSteps;
+
+	std::map < const DWORD, DWORD > m_mapSpeed;
+
+	CString		SpeedFormat(const double nSpeed) const;
 
 // Operations
 protected:
@@ -60,10 +70,6 @@ public:
 
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);
-
-// Implementation
-protected:
-	//{{AFX_MSG(CWizardConnectionPage)
 	virtual BOOL OnInitDialog();
 	afx_msg void OnSelChangeConnectionType();
 	afx_msg void OnChangeConnectionSpeed();
@@ -71,14 +77,6 @@ protected:
 	afx_msg void OnBnClickedRandom();
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
 	afx_msg void OnXButtonDown(UINT nFlags, UINT nButton, CPoint point);
-	//}}AFX_MSG
-	DECLARE_MESSAGE_MAP()
 
-private:
-	bool	m_bQueryDiscoveries;
-	bool	m_bUpdateDonkeyServers;
-	bool	m_bUPnPForward;
-	BOOL	m_bRandom;
-	DWORD	m_nPort;
-	short	m_nProgressSteps;
+	DECLARE_MESSAGE_MAP()
 };

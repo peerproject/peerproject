@@ -1,7 +1,7 @@
 //
 // LiveList.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -146,21 +146,20 @@ IMPLEMENT_DYNAMIC( CLiveItem, CObject )
 CLiveItem::CLiveItem(int nColumns, DWORD_PTR nParam)
 	: m_bModified	( true )
 	, m_nModified	( 0xffffffff )
-	, m_pColumn		( new CString[ nColumns ] )
-	, m_nImage		( new int[ nColumns ] )
 	, m_nParam		( nParam )
 	, m_nMaskOverlay ( 0 )
 	, m_nMaskState	( 0 )
 	, m_bOld		( false )
 {
+	m_pColumn.SetSize( nColumns );
+	m_nImage.SetSize( nColumns );
+
 	for ( int i = 0 ; i < nColumns ; ++i )
 		m_nImage[ i ] = -1;
 }
 
 CLiveItem::~CLiveItem()
 {
-	delete [] m_nImage;
-	delete [] m_pColumn;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -170,6 +169,7 @@ void CLiveItem::Set(int nColumn, LPCTSTR pszText)
 {
 	ASSERT_VALID( this );
 	ASSERT( pszText );
+	ASSERT( nColumn >= 0 && nColumn < m_pColumn.GetSize() );
 
 	if ( m_pColumn[ nColumn ] != pszText )
 	{
@@ -182,6 +182,7 @@ void CLiveItem::Set(int nColumn, LPCTSTR pszText)
 void CLiveItem::SetImage(int nImage, int nColumn)
 {
 	ASSERT_VALID( this );
+	ASSERT( nColumn >= 0 && nColumn < m_pColumn.GetSize() );
 
 	m_bModified = ( m_nImage[ nColumn ] != nImage );
 	m_nImage[ nColumn ] = nImage;
@@ -202,7 +203,7 @@ void CLiveItem::Format(int nColumn, LPCTSTR pszFormat, ...)
 {
 	ASSERT_VALID( this );
 	ASSERT( pszFormat );
-	ASSERT( nColumn >= 0 );
+	ASSERT( nColumn >= 0 && nColumn < m_pColumn.GetSize() );
 
 	TCHAR szBuffer[1024];
 	va_list pArgs;
@@ -491,12 +492,12 @@ inline BOOL atoip (LPCTSTR c, DWORD& addr)
 			if ( digit == 4 )
 			{
 				if ( *c == _T('.') )
-					break;			// too long
-				else
-					return TRUE;	// it's IP!
+					break;			// Too long
+
+				return TRUE;		// IP found
 			}
 			if ( *c == _T('\0') || *c == _T('/') )
-				break;				// too short
+				break;				// Too short
 		}
 		else
 			break;
@@ -522,10 +523,10 @@ int CLiveList::SortProc(LPCTSTR sB, LPCTSTR sA, BOOL bNumeric)
 			QWORD nB = ( ( (QWORD) ipB ) << 32 ) | maskB;
 			if ( nA < nB )
 				return -1;
-			else if ( nA > nB )
+			if ( nA > nB )
 				return 1;
-			else
-				return 0;
+
+			return 0;
 		}
 	}
 	if ( bNumeric || ( IsNumber( sA ) && IsNumber( sB ) ) )
@@ -554,10 +555,10 @@ int CLiveList::SortProc(LPCTSTR sB, LPCTSTR sA, BOOL bNumeric)
 
 		if ( nB < nA )
 			return -1;
-		else if ( nB > nA )
+		if ( nB > nA )
 			return 1;
-		else
-			return 0;
+
+		return 0;
 	}
 	else
 	{
@@ -904,7 +905,9 @@ void CLiveListCtrl::OnLvnGetDispInfo(NMHDR *pNMHDR, LRESULT *pResult)	// OnLvnGe
 
 	CLiveItemPtr pItem = m_pIndex[ pDispInfo.iItem ];
 
-	if ( pDispInfo.mask & LVIF_TEXT )
+	if ( ( pDispInfo.mask & LVIF_TEXT ) &&
+		pDispInfo.iSubItem >= 0 &&
+		pDispInfo.iSubItem < pItem->m_pColumn.GetSize() )
 	{
 		wcsncpy_s( (LPWSTR)pDispInfo.pszText, pDispInfo.cchTextMax,
 			CT2CW( pItem->m_pColumn[ pDispInfo.iSubItem ] ),
@@ -912,10 +915,14 @@ void CLiveListCtrl::OnLvnGetDispInfo(NMHDR *pNMHDR, LRESULT *pResult)	// OnLvnGe
 	}
 
 	if ( pDispInfo.mask & LVIF_STATE )
+	{
 		pDispInfo.state = INDEXTOOVERLAYMASK( pItem->m_nMaskOverlay ) |
 			INDEXTOSTATEIMAGEMASK( pItem->m_nMaskState );
+	}
 
-	if ( pItem->m_nImage[ pDispInfo.iSubItem ] >= 0 )
+	if ( pDispInfo.iSubItem >= 0 &&
+		pDispInfo.iSubItem < pItem->m_pColumn.GetSize() &&
+		pItem->m_nImage[ pDispInfo.iSubItem ] >= 0 )
 	{
 		pDispInfo.mask |= LVIF_IMAGE;
 		pDispInfo.iImage = pItem->m_nImage[ pDispInfo.iSubItem ];

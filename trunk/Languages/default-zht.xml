@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Chinese (Traditional) Skin File -->
 
-<!-- Translation based on default-en.xml r60 (Shareaza 2.2.2.12) -->
+<!-- Translation based on default-en.xml r62 (Shareaza 2.2.2.12) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -3559,12 +3559,12 @@
 	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="歡迎使用者 PeerProject (2/8)">
 		<control caption="為了達到最佳效能, PeerProject 需要知道您的上網方式/地點."/>
 		<control caption="如果知道您網際網路的頻寬, 請選擇最接近的速度:"/>
-		<control caption="|撥接網路|ISDN (128K)|DSL (768K)|DSL (1.5M)|DSL (4.0M)|DSL2 (8.0M)|FIOS (10.0M)|DSL2 (12.0M)|FIOS (20.0M)|DSL2+ (24.0M)| Cable Modem/SDSL| T1| T3| 區域網路| OC3"/>
+		<control caption="|撥接網路|ISDN 128K|DSL 768K|DSL 1.5M|DSL 4M|DSL2 8|FIOS 10|DSL2 12|FIOS 15|FIOS 20|FIOS 25|FIOS 30|T1|T3|區域網路|OC3|Cable Modem"/>
 		<control caption="或选择:"/>
 		<control/>
 		<control caption="状态:"/>
 		<control/>
-		<control caption="Do auto port-forwarding with Plug&apos;n&apos;Play?"/>
+		<control caption="不要自動端口轉發，即插即用？"/>
 		<control/>
 		<control caption="Port: &#160; (任何4-5位數)"/>
 		<control/>
@@ -3583,7 +3583,7 @@
 		<control caption="管理 torrent 連結."/>
 	</dialog>
 	<dialog name="CWizardFoldersPage" cookie="StStEdBuStEdBuStEdBuSt" caption="歡迎來到 PeerProject (4/8)">
-		<control caption="PeerProject first downloads partial files to a private folder, then moves them when completed according to Download Groups."/>
+		<control caption="PeerProject 第一部分文件下載到一個私人文件夾，然後將它們移動完成後按下載組。"/>
 		<control caption="請將暫存的未完成檔案放在這裡:"/>
 		<control/>
 		<control/>
@@ -3593,7 +3593,7 @@
 		<control caption="請將.Torrent檔案存放在這裡:"/>
 		<control/>
 		<control/>
-		<control caption="Common filetypes are initially setup as subfolders of the default location, but Groups can easily be customized by Right-Click.  Simply Drag&apos;n&apos;Drop files."/>
+		<control caption="常見的文件類型設置為子最初的默認位置，但組可以很容易地定制右鍵單擊。只需拖放文件。"/>
 	</dialog>
 	<dialog name="CWizardSharePage" cookie="StStStSyBuBuSt" caption="歡迎使用 PeerProject (5/8)">
 		<control caption="P2P 網路的有效性取決於使用它的用戶.  所有可以下載的檔案內容都是由其他使用者貢獻的."/>

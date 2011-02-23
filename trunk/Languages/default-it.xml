@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Italian Skin File -->
 
-<!-- Translation based on default-en.xml r60 -->
+<!-- Translation based on default-en.xml r62 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -610,8 +610,8 @@
 			<item id="ID_NETWORK_DISCONNECT" text="Disconnetti"/>
 			<separator/>
 			<menu text="Scegli le _reti">
-				<item id="ID_NETWORK_G2" text="Connetti a _Gnutella2"/>
-				<item id="ID_NETWORK_G1" text="Connetti a Gnutella_1"/>
+				<item id="ID_NETWORK_G2" text="Connetti a Gnutella_2"/>
+				<item id="ID_NETWORK_G1" text="Connetti a _Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="Connetti a _eDonkey"/>
 			</menu>
 			<separator/>
@@ -705,8 +705,8 @@
 			<item id="ID_NETWORK_CONNECT" text="Connetti" shortcut="Ctrl+G"/>
 			<separator/>
 			<menu text="Scegli le _reti">
-				<item id="ID_NETWORK_G2" text="Connetti a _Gnutella2"/>
-				<item id="ID_NETWORK_G1" text="Connetti a Gnutella_1"/>
+				<item id="ID_NETWORK_G2" text="Connetti a Gnutella_2"/>
+				<item id="ID_NETWORK_G1" text="Connetti a _Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="Connetti a _eDonkey"/>
 			</menu>
 			<separator/>
@@ -778,8 +778,8 @@
 			<item id="ID_NETWORK_BROWSE_TO" text="Esplora host..."/>
 			<separator/>
 			<menu text="Scegli le _reti">
-				<item id="ID_NETWORK_G2" text="Connetti a _Gnutella2"/>
-				<item id="ID_NETWORK_G1" text="Connetti a Gnutella_1"/>
+				<item id="ID_NETWORK_G2" text="Connetti a Gnutella_2"/>
+				<item id="ID_NETWORK_G1" text="Connetti a _Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="Connetti a _eDonkey"/>
 			</menu>
 			<separator/>
@@ -3824,7 +3824,7 @@
 	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="Benvenuto su PeerProject (2/8)">
 		<control caption="Per prestazioni ottimali, PeerProject ha bisogno di avere informazioni sulla tua connessione a internet."/>
 		<control caption="Scegli il tipo della tua connessione a internet:"/>
-		<control caption="Modem analogico|ISDN (128K)|DSL (768K)|DSL (1.5M)|DSL (4.0M)|DSL2 (8.0M)|FIOS (10.0M)|DSL2 (12.0M)|FIOS (20.0M)|DSL2+ (24.0M)|Modem via cavo/SDSL|T1|T3|LAN|OC3"/>
+		<control caption="Modem analogico|ISDN 128K|DSL 768K|DSL 1.5M|DSL 4M|DSL2 8|FIOS 10|DSL2 12|FIOS 15|FIOS 20|FIOS 25|FIOS 30|T1|T3|LAN|OC3|Modem via cavo"/>
 		<control caption="O scegli la velocità di scaricamento:"/>
 		<control/>
 		<control caption="e la velocità di invio (upload):"/>
@@ -3848,7 +3848,7 @@
 		<control caption="Gestisci collegamenti ai torrent."/>
 	</dialog>
 	<dialog name="CWizardFoldersPage" cookie="StStEdBuStEdBuStEdBuSt" caption="Benvenuto su PeerProject (4/8)">
-		<control caption="PeerProject first downloads partial files to a private folder, then moves them when completed according to Download Groups."/>
+		<control caption="Downloads PeerProject parziali prime file in una cartella privata, si sposta poi una volta completato il download in base ai gruppi."/>
 		<control caption="Cartella dei file Incompleti temporanei:"/>
 		<control/>
 		<control/>
@@ -3858,7 +3858,7 @@
 		<control caption="Cartella dei file .Torrent:"/>
 		<control/>
 		<control/>
-		<control caption="Common filetypes are initially setup as subfolders of the default location, but Groups can easily be customized by Right-Click.  Simply Drag&apos;n&apos;Drop files."/>
+		<control caption="Comuni tipi di file di configurazione sono inizialmente in sottocartelle, ma i gruppi possono essere personalizzati. Semplicemente drag&apos;n&apos;drop file."/>
 	</dialog>
 	<dialog name="CWizardSharePage" cookie="StStStSyBuBuSt" caption="Benvenuto su PeerProject (5/8)">
 		<control caption="Le reti P2P sono composte da persone che le utilizzano. Tutto il contenuto disponibile per il download è condiviso da altri utenti."/>

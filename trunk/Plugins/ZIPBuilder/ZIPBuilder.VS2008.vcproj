@@ -64,8 +64,8 @@
 				FloatingPointModel="2"
 				RuntimeTypeInfo="false"
 				UsePrecompiledHeader="2"
-				WarningLevel="4"
 				DebugInformationFormat="4"
+				WarningLevel="4"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -73,8 +73,8 @@
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="_DEBUG"
-				Culture="1049"
 				AdditionalIncludeDirectories="$(IntDir)"
+				Culture="1049"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
@@ -171,8 +171,8 @@
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="_DEBUG"
-				Culture="1049"
 				AdditionalIncludeDirectories="$(IntDir)"
+				Culture="1049"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
@@ -250,13 +250,14 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="3"
-				InlineFunctionExpansion="2"
-				EnableIntrinsicFunctions="true"
 				FavorSizeOrSpeed="1"
-				OmitFramePointers="true"
-				EnableFiberSafeOptimizations="true"
 				AdditionalIncludeDirectories="$(InputDir);../../Services/zlib"
 				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;_USRDLL;ZLIB_DLL;ZLIB_WINAPI"
+				InlineFunctionExpansion="2"
+				EnableIntrinsicFunctions="true"
+				EnableFiberSafeOptimizations="true"
+				EnableEnhancedInstructionSet="1"
+				OmitFramePointers="true"
 				StringPooling="true"
 				ExceptionHandling="0"
 				RuntimeLibrary="0"
@@ -271,8 +272,8 @@
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="NDEBUG"
-				Culture="1049"
 				AdditionalIncludeDirectories="$(IntDir)"
+				Culture="1049"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
@@ -350,13 +351,13 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="3"
-				InlineFunctionExpansion="2"
-				EnableIntrinsicFunctions="true"
 				FavorSizeOrSpeed="1"
-				OmitFramePointers="true"
-				EnableFiberSafeOptimizations="true"
 				AdditionalIncludeDirectories="$(InputDir);../../Services/zlib"
 				PreprocessorDefinitions="WIN64;_WINDOWS;NDEBUG;_USRDLL;ZLIB_DLL;ZLIB_WINAPI"
+				InlineFunctionExpansion="2"
+				EnableIntrinsicFunctions="true"
+				EnableFiberSafeOptimizations="true"
+				OmitFramePointers="true"
 				StringPooling="true"
 				ExceptionHandling="0"
 				RuntimeLibrary="0"
@@ -371,8 +372,8 @@
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="NDEBUG"
-				Culture="1049"
 				AdditionalIncludeDirectories="$(IntDir)"
+				Culture="1049"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"

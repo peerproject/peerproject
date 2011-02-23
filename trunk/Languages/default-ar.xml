@@ -3,7 +3,7 @@
 
 <!-- PeerProject Arabic Language Skin File -->
 
-<!-- Translation based on default-en.xml r60 -->
+<!-- Translation based on default-en.xml r62 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -586,8 +586,8 @@
 		<item id="ID_NETWORK_DISCONNECT" text="_قطع الإتصال" />
 		<separator />
 		<menu text="تحديد _الشبكات">
-			<item id="ID_NETWORK_G2" text="_الإتصال بـ Gnutella2" />
-			<item id="ID_NETWORK_G1" text="الإتصال بـ Gnutella_1" />
+			<item id="ID_NETWORK_G2" text="_الإتصال بـ Gnutella_2" />
+			<item id="ID_NETWORK_G1" text="الإتصال بـ _Gnutella" />
 			<item id="ID_NETWORK_ED2K" text=" _الإتصال بـ eDonkey2000" />
 		</menu>
 		<separator />
@@ -680,9 +680,9 @@
 		<item id="ID_NETWORK_CONNECT" text="_إتصال" shortcut="Ctrl+G" />
 		<separator />
 		<menu text="تحديد _الشبكات">
-		<item id="ID_NETWORK_G2" text="_الإتصال بـ Gnutella2" />
-		<item id="ID_NETWORK_G1" text="الإتصال بـ Gnutella_1" />
-		<item id="ID_NETWORK_ED2K" text="_الإتصال بـ eDonkey2000" />
+		<item id="ID_NETWORK_G2" text="_الإتصال بـ Gnutella_2" />
+		<item id="ID_NETWORK_G1" text="الإتصال بـ _Gnutella" />
+		<item id="ID_NETWORK_ED2K" text="_الإتصال بـ e_Donkey2000" />
 		</menu>
 		<separator />
 		<item id="ID_NETWORK_AUTO_CLOSE" text="الخروج عند إنتهاء _ نقل البيانات" />
@@ -755,8 +755,8 @@
 			<item id="ID_NETWORK_BROWSE_TO" text="_إستعراض المضيف..."/>
 			<separator/>
 			<menu text="تحديد _الشبكات">
-				<item id="ID_NETWORK_G2" text="_Gnutella2 الإتصال بـ"/>
-				<item id="ID_NETWORK_G1" text="Gnutella_1 الإتصال بـ "/>
+				<item id="ID_NETWORK_G2" text="Gnutella_2 الإتصال بـ"/>
+				<item id="ID_NETWORK_G1" text="_Gnutella الإتصال بـ "/>
 				<item id="ID_NETWORK_ED2K" text="_eDonkey2000 الإتصال بـ "/>
 			</menu>
 			<separator/>
@@ -926,7 +926,7 @@
 	<item id="ID_HOSTCACHE_REMOVE" text="_حذف المضيفون" />
 	<separator />
 	<menu text="_فرز">
-		<item id="ID_HOSTCACHE_G2_HORIZON" text="كتلات_ Gnutella2" />
+		<item id="ID_HOSTCACHE_G2_HORIZON" text="كتلات _Gnutella2" />
 		<item id="ID_HOSTCACHE_G2_CACHE" text="مخزون Gnutella_2 المؤقت" />
 		<item id="ID_HOSTCACHE_G1_CACHE" text="مخزون Gnutella_1 المؤقت" />
 		<item id="ID_HOSTCACHE_ED2K_CACHE" text="_ملقمات eDonkey" />
@@ -1525,9 +1525,9 @@
 			<item id="ID_NETWORK_CONNECT" text="_إتصال" />
 			<item id="ID_NETWORK_DISCONNECT" text="_قطع الإتصال" />
 			<separator />
-			<item id="ID_NETWORK_G2" text="_Gnutella2" />
+			<item id="ID_NETWORK_G2" text="Gnutella_2" />
+			<item id="ID_NETWORK_G1" text="_Gnutella" />
 			<item id="ID_NETWORK_ED2K" text="_eDonkey" />
-			<item id="ID_NETWORK_G1" text="Gnutella_1" />
 		</menu>
 		<menu text="_شاشة">
 			<item id="ID_NEIGHBOURS_VIEW_ALL" text="عرض _كافة حركات المرور" />
@@ -3734,7 +3734,7 @@
 	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="(2/8) _ PeerProject مرحبا بكم في">
 		<control caption="للإتصال بالإنترنت PeerProject لأداء مثالي ، يجب إعداد" />
 		<control caption=":إختر نوع إتصال الإنترنت" />
-		<control caption="مودم طلب هاتفي|ISDN (128ك)|DSL (768ك)|DSL (1.5م)|DSL (4.0م)|DSL2 (8.0م)|FIOS (10.0م)|DSL2 (12.0م)|FIOS (20.0م)|DSL2+ (24.0)|مودم كيبل|T1|T3|LAN|OC3" />
+		<control caption="مودم طلب هاتفي|ISDN 128ك|DSL 768ك|DSL 1.5|DSL 4م|DSL2 8م|FIOS 10م|DSL2 12م|FIOS 15م|FIOS 20م|FIOS 25م|FIOS 30|T1|T3|LAN|OC3|مودم كيبل|" />
 		<control caption=":أو إختر سرعة التحميل" />
 		<control />
 		<control caption=":و سرعة الإرسال" />
@@ -3758,7 +3758,7 @@
 		<control caption=".torrent معالجة روابط" />
 	</dialog>
 	<dialog name="CWizardFoldersPage" cookie="StStEdBuStEdBuStEdBuSt" caption="(4/8) _ PeerProject مرحبا بكم في">
-		<control caption="PeerProject first downloads partial files to a private folder, then moves them when completed according to Download Groups."/>
+		<control caption="التنزيلات PeerProject أول جزئية الملفات إلى مجلد خاص، ثم ينتقل منها عند الانتهاء وفقا للمجموعات تحميل."/>
 		<control caption=":تخزين الملفات ال_غير مكتملة المؤقتة هنا" />
 		<control />
 		<control />
@@ -3768,7 +3768,7 @@
 		<control caption="Store .Torrent files here:"/>
 		<control/>
 		<control/>
-		<control caption="Common filetypes are initially setup as subfolders of the default location, but Groups can easily be customized by Right-Click.  Simply Drag&apos;n&apos;Drop files."/>
+		<control caption="نوع الملف المشترك يتم الإعداد في البداية والمجلدات الفرعية من الموقع الافتراضي، ولكن يمكن بسهولة يمكن تطويعه من قبل مجموعات بزر الماوس الأيمن. ببساطة الملفات Drag&apos;n&apos;Drop."/>
 	</dialog>
 	<dialog name="CWizardSharePage" cookie="StStStSyBuBuSt" caption="(5/8) _ PeerProject مرحبا بكم في">
 		<control caption="شبكات النظير إلى النظير هي فقط صالحة إذا كان من يستخدمها إنسان صالح . كل المحتوبات المتوفر للتحميل يتم مشاركتها مع مستخدمين آخرين" />

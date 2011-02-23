@@ -1,7 +1,7 @@
 //
 // DownloadWithTorrent.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -166,7 +166,7 @@ void CDownloadWithTorrent::Serialize(CArchive& ar, int nVersion)
 {
 	CDownloadWithFile::Serialize( ar, nVersion );
 
-	if ( nVersion < 23 )
+	if ( nVersion < 40 )	// Old Shareaza style conversion disabled
 		return;
 
 	m_pTorrent.Serialize( ar );
@@ -188,17 +188,15 @@ void CDownloadWithTorrent::Serialize(CArchive& ar, int nVersion)
 		ar >> m_nTorrentSuccess;
 		m_pTorrentBlock = new BYTE[ m_nTorrentBlock ];
 		ReadArchive( ar, m_pTorrentBlock, sizeof(BYTE) * m_nTorrentBlock );
-		//if ( nVersion >= 34 )
-		//{
-			ar >> m_bSeeding;
+		ar >> m_bSeeding;
 
-			//if ( nVersion < 41 )
-			//{
-			//	CString strServingFileName;
-			//	ar >> strServingFileName;
-			//	GetFile()->Delete();
-			//}
+		//if ( nVersion < 41 )
+		//{
+		//	CString strServingFileName;
+		//	ar >> strServingFileName;
+		//	GetFile()->Delete();
 		//}
+
 		GenerateTorrentDownloadID();
 
 		m_oBTH = m_pTorrent.m_oBTH;
@@ -274,20 +272,22 @@ void CDownloadWithTorrent::Serialize(CArchive& ar, int nVersion)
 		//		for ( QWORD nLength = m_pTorrent.m_nSize; nLength; )
 		//		{
 		//			DWORD nBuffer = (DWORD)min( nLength, BUFFER_SIZE );
-		//			nBuffer = oSource.Read( pBuffer.get(), nBuffer );
-		//			if ( nBuffer )
+		//			DWORD nRead = oSource.Read( pBuffer.get(), nBuffer );
+		//			if ( nRead )
 		//			{
-		//				if ( ! pFragFile->Write( nTotal, pBuffer.get(), nBuffer ) )
+		//				if ( ! pFragFile->Write( nTotal, pBuffer.get(), nRead ) )
 		//					AfxThrowFileException( CFileException::genericException );
 		//			}
+		//			if ( nRead != nBuffer )
+		//				break;	// EOF
 		//			nLength -= nBuffer;
 		//			nTotal += nBuffer;
 		//
 		//			CString strText;
 		//			strText.Format( _T("%s %s %s"),
-		//				Settings.SmartVolume( nTotal, KiloBytes ),
-		//				LoadString( IDS_GENERAL_OF ),
-		//				Settings.SmartVolume( m_pTorrent.m_nSize, KiloBytes ) );
+		//				(LPCTSTR)Settings.SmartVolume( nTotal, KiloBytes ),
+		//				(LPCTSTR)LoadString( IDS_GENERAL_OF ),
+		//				(LPCTSTR)Settings.SmartVolume( m_pTorrent.m_nSize, KiloBytes ) );
 		//			oProgress.SetSubActionText( strText );
 		//			oProgress.StepSubEvent( (int)( nBuffer / 1024ul ) );
 		//			oProgress.SetEventPos( (int)( nTotal / 1024ull ) );

@@ -30,7 +30,16 @@
     <ClCompile Include="gvmat32c.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="gzio.c">
+    <ClCompile Include="gzclose.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="gzlib.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="gzread.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="gzwrite.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="infback.c">
@@ -91,6 +100,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="deflate.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gzguts.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="inffast.h">

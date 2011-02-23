@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default English Skin File -->
 
-<!-- Translation based on default-en.xml r60 -->
+<!-- Translation based on default-en.xml r62 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -658,7 +658,7 @@
 			<separator/>
 			<menu text="Choose _Networks">
 				<item id="ID_NETWORK_G2" text="Connect to Gnutella_2"/>
-				<item id="ID_NETWORK_G1" text="Connect to Gnutella"/>
+				<item id="ID_NETWORK_G1" text="Connect to _Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="Connect to _eDonkey"/>
 			</menu>
 			<separator/>
@@ -745,7 +745,7 @@
 			</menu>
 			<separator/>
 			<menu text="_Websites">
-				<item id="ID_HELP_HOMEPAGE" text="_PeerProject site"/>
+				<item id="ID_HELP_HOMEPAGE" text="_PeerProject Site"/>
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject _Forums"/>
 				<item id="ID_HELP_FORUMS_LOCAL" text="_English Language Forum"/> <!--Localized-->
@@ -3720,7 +3720,7 @@
 	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="Remote Access">
 		<control caption="_Activation:"/>
 		<control caption="_Enable PeerProject Remote Web Access:"/>
-		<control caption="URL"/>
+		<control caption="..."/>
 		<control caption="_Credentials:"/>
 		<control caption="Choose a Username:"/>
 		<control caption="Choose a Password:"/>
@@ -4011,7 +4011,7 @@
 	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="Welcome to PeerProject &#160;(2/8)">
 		<control caption="For best performance, PeerProject needs to know your internet connection."/>
 		<control caption="You may select the Internet connection type:"/>
-		<control caption="|Dial-up Modem|ISDN (128K)|DSL (768K)|DSL (1.5M)|DSL (4.0M)|DSL2 (8.0M)|FIOS (10.0M)|DSL2 (12.0M)|FIOS (20.0M)|DSL2 (24.0M)|Cable Modem|T1|T3|LAN|OC3"/>
+		<control caption="|Dial-up Modem|ISDN 128K|DSL 768K|DSL 1.5M|DSL 4M|DSL2 8|FIOS 10|DSL2 12|FIOS 15|FIOS 20|FIOS 25|FIOS 30|T1|T3|LAN|OC3|Cable Modem"/>
 		<control caption="Or choose the download speed:"/>
 		<control/>
 		<control caption="...and upload speed:"/>

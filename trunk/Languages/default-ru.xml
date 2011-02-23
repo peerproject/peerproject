@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Russian Skin File -->
 
-<!-- Translation based on default-en.xml r60 -->
+<!-- Translation based on default-en.xml r62 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -624,8 +624,8 @@
 			<item id="ID_NETWORK_DISCONNECT" text="_Отключиться"/>
 			<separator/>
 			<menu text="Выбор _Сетей">
-				<item id="ID_NETWORK_G2" text="Подключиться к _Gnutella2"/>
-				<item id="ID_NETWORK_G1" text="Подключиться к Gnutella_1"/>
+				<item id="ID_NETWORK_G2" text="Подключиться к Gnutella_2"/>
+				<item id="ID_NETWORK_G1" text="Подключиться к _Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="Подключиться к _eDonkey"/>
 			</menu>
 			<separator/>
@@ -987,7 +987,7 @@
 		<item id="ID_HOSTCACHE_REMOVE" text="_Удалить хост(ы)"/>
 		<separator/>
 		<menu text="_Фильтр">
-			<item id="ID_HOSTCACHE_G2_HORIZON" text="Gnutella2 _кластер"/>
+			<item id="ID_HOSTCACHE_G2_HORIZON" text="Gn_utella2 кластер"/>
 			<item id="ID_HOSTCACHE_G2_CACHE" text="Gnutella_2 кэш"/>
 			<item id="ID_HOSTCACHE_G1_CACHE" text="Gnutella_1 кэш"/>
 			<item id="ID_HOSTCACHE_ED2K_CACHE" text="_eDonkey кэш"/>
@@ -1590,8 +1590,8 @@
 			<item id="ID_NETWORK_CONNECT" text="_Подключиться"/>
 			<item id="ID_NETWORK_DISCONNECT" text="_Отключиться"/>
 			<separator/>
-			<item id="ID_NETWORK_G2" text="_Gnutella2"/>
-			<item id="ID_NETWORK_G1" text="Gnutella_1"/>
+			<item id="ID_NETWORK_G2" text="Gnutella_2"/>
+			<item id="ID_NETWORK_G1" text="_Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="_eDonkey"/>
 		</menu>
 		<menu text="_Монитор">
@@ -3659,7 +3659,7 @@
 	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="Удалённый доступ">
 		<control caption="_Разрешение:"/>
 		<control caption="Разрешить удаленный доступ к PeerProject:"/>
-		<control caption="URL"/>
+		<control caption="..."/>
 		<control caption="_Безопасность:"/>
 		<control caption="Введите имя:"/>
 		<control caption="Введите пароль:"/>
@@ -3857,7 +3857,7 @@
 	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="Добро пожаловать в PeerProject (2/8)">
 		<control caption="Для оптимальной работы PeerProject должна знать о вашем соединении с Интернетом."/>
 		<control caption="Выберите тип подключения к интернету:"/>
-		<control caption="Коммутир. соединение|ИСДН (128 К)|ДСЛ (768 К)|ДСЛ (1,5 М)|ДСЛ (4,0 M)|ДСЛ2 (8,0 M)|ДСЛ2 (10,0 M)|ДСЛ2 (12,0 M)|ДСЛ2+ (20,0 M)|ДСЛ2+ (24,0 M)|Кабельный модем|Т1|Т3|Локальная сеть|OC3"/>
+		<control caption="Коммутир. соединение|ИСДН 128К)|ДСЛ 768К|ДСЛ 1,5М|ДСЛ 4M|ДСЛ2 8M|ДСЛ2 10|ДСЛ2 12|ДСЛ2 15|ДСЛ2 20|ДСЛ2 25|ДСЛ2 30|Т1|Т3|Локальная сеть|OC3|Кабельный модем"/>
 		<control caption="Или выберите скорость загрузки:"/>
 		<control/>
 		<control caption="и скорость раздачи:"/>
@@ -3881,7 +3881,7 @@
 		<control caption="Ассоциировать файлы торрентов с программой."/>
 	</dialog>
 	<dialog name="CWizardFoldersPage" cookie="StStEdBuStEdBuStEdBuSt" caption="Добро пожаловать в PeerProject (4/8)">
-		<control caption="PeerProject first downloads partial files to a private folder, then moves them when completed according to Download Groups."/>
+		<control caption="PeerProject первой загрузки частичные файлы в личную папку, затем перемещает их, когда завершено в соответствии с Скачать группы."/>
 		<control caption="Держать незаконченные файлы в папке:"/>
 		<control/>
 		<control/>
@@ -3891,7 +3891,7 @@
 		<control caption="Сохранять .Torrent файлы в папке:"/>
 		<control/>
 		<control/>
-		<control caption="Common filetypes are initially setup as subfolders of the default location, but Groups can easily be customized by Right-Click.  Simply Drag&apos;n&apos;Drop files."/>
+		<control caption="Наиболее распространенные типы изначально установки в подпапках, но группы могут быть настроены. Просто drag&apos;n&apos;drop файлов."/>
 	</dialog>
 	<dialog name="CWizardSharePage" cookie="StStStSyBuBuSt" caption="Добро пожаловать в PeerProject (5/8)">
 		<control caption="Качество P2P сетей зависит от самих же пользователей! Файлы в папках указанных для раздач будут открыты для других пользователей."/>

@@ -1,7 +1,7 @@
 //
 // Images.h
 //
-// This file is part of PeerProject (peerproject.org) © 2010
+// This file is part of PeerProject (peerproject.org) © 2010-2011
 // All work here is original and released as-is under Persistent Public Domain [PPD]
 //
 
@@ -20,6 +20,7 @@ public:
 public:
 	int 		m_nBanner;	// Height
 	CBitmap		m_bmBanner;
+	CBitmap		m_bmBannerEdge;
 
 	CBrush		m_brDialogControl;
 	CBrush		m_brDialogPanelControl;

@@ -1,7 +1,7 @@
 //
 // Settings.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -87,7 +87,7 @@ void CSettings::Load()
 	Add( _T(""), _T("HashIntegrity"), &General.HashIntegrity, true );
 	Add( _T(""), _T("ItWasLimited"), &General.ItWasLimited, false, true );
 	Add( _T(""), _T("MaxDebugLogSize"), &General.MaxDebugLogSize, 10*MegaByte, MegaByte, 0, 100, _T(" MB") );
-	Add( _T(""), _T("MinTransfersRest"), &General.MinTransfersRest, 15, 1, 1, 100, _T(" ms") );
+	Add( _T(""), _T("MinTransfersRest"), &General.MinTransfersRest, 40, 1, 1, 100, _T(" ms") );
 	Add( _T(""), _T("MultiUser"), &General.MultiUser, false, true );
 	Add( _T(""), _T("Path"), &General.Path );
 	Add( _T(""), _T("LogLevel"), &General.LogLevel, MSG_INFO, 1, MSG_ERROR, MSG_DEBUG, _T(" level") );
@@ -162,10 +162,9 @@ void CSettings::Load()
 	Add( _T("Library"), _T("LowPriorityHashing"), &Library.LowPriorityHashing, 4, 1, 1, 50, _T(" MB/s") );
 	Add( _T("Library"), _T("MarkFileAsDownload"), &Library.MarkFileAsDownload, true );
 	Add( _T("Library"), _T("MaxMaliciousFileSize"), &Library.MaxMaliciousFileSize, KiloByte, 1, KiloByte, 10*KiloByte, _T(" B") );
-	Add( _T("Library"), _T("PanelSize"), &Library.PanelSize, 120, 1, 0, 1024, _T(" px") );
-	Add( _T("Library"), _T("PreferAPETags"), &Library.PreferAPETags, true );
-	Add( _T("Library"), _T("PrivateTypes"), &Library.PrivateTypes, _T("|vbs|js|jc!|fb!|bc!|!ut|dbx|part|partial|pst|reget|getright|pif|lnk|sd|url|wab|m4p|infodb|racestats|svn|chk|tmp|temp|ini|inf|log|old|manifest|met|bak|$$$|---|~~~|###|__incomplete___|") );
 	Add( _T("Library"), _T("QueryRouteSize"), &Library.QueryRouteSize, 20, 1, 8, 24 );
+	Add( _T("Library"), _T("PanelSize"), &Library.PanelSize, 120, 1, 0, 1024, _T(" px") );
+	Add( _T("Library"), _T("PrivateTypes"), &Library.PrivateTypes, _T("|vbs|js|jc!|fb!|bc!|!ut|dbx|part|partial|pst|reget|getright|pif|lnk|sd|url|wab|m4p|infodb|racestats|svn|chk|tmp|temp|ini|inf|log|old|manifest|met|bak|$$$|---|~~~|###|__incomplete___|") );
 	Add( _T("Library"), _T("SafeExecute"), &Library.SafeExecute, _T("|3gp|7z|aac|ace|ape|asf|avi|bmp|cbr|cbz|co|collection|divx|flv|gif|iso|jpg|jpeg|lit|mid|mov|m1v|m2v|m3u|m4a|mka|mkv|mp2|mp3|mp4|mpa|mpe|mpg|mpeg|ogg|ogm|pdf|png|psk|qt|rar|rm|sks|swf|rtf|tar|tgz|torrent|txt|wav|zip|") );
 	Add( _T("Library"), _T("ScanAPE"), &Library.ScanAPE, true );
 	Add( _T("Library"), _T("ScanASF"), &Library.ScanASF, true );
@@ -280,7 +279,7 @@ void CSettings::Load()
 	Add( _T("Connection"), _T("InBind"), &Connection.InBind, false );
 	Add( _T("Connection"), _T("InHost"), &Connection.InHost );
 	Add( _T("Connection"), _T("InPort"), &Connection.InPort, GNUTELLA_ALTERNATE_PORT, 1, 1, 65535 );	// 6480... or GNUTELLA_DEFAULT_PORT 6346?
-	Add( _T("Connection"), _T("InSpeed"), &Connection.InSpeed, 2048, 25000 );
+	Add( _T("Connection"), _T("InSpeed"), &Connection.InSpeed, 4096, 25000 );
 	Add( _T("Connection"), _T("OutHost"), &Connection.OutHost );
 	Add( _T("Connection"), _T("OutSpeed"), &Connection.OutSpeed, 768, 15000 );
 	Add( _T("Connection"), _T("RandomPort"), &Connection.RandomPort, false );
@@ -296,7 +295,7 @@ void CSettings::Load()
 	Add( _T("Bandwidth"), _T("Downloads"), &Bandwidth.Downloads, 0 );
 	Add( _T("Bandwidth"), _T("HubIn"), &Bandwidth.HubIn, 0, 128, 0, 8192, _T(" Kb/s") );
 	Add( _T("Bandwidth"), _T("HubOut"), &Bandwidth.HubOut, 0, 128, 0, 8192, _T(" Kb/s") );
-	Add( _T("Bandwidth"), _T("HubUploads"), &Bandwidth.HubUploads, 40*128, 128, 0, 4096, _T(" Kb/s") );
+	Add( _T("Bandwidth"), _T("HubUploads"), &Bandwidth.HubUploads, 50, 1, 1, 100, _T(" %") );
 	Add( _T("Bandwidth"), _T("LeafIn"), &Bandwidth.LeafIn, 0, 128, 0, 8192, _T(" Kb/s") );
 	Add( _T("Bandwidth"), _T("LeafOut"), &Bandwidth.LeafOut, 0, 128, 0, 8192, _T(" Kb/s") );
 	Add( _T("Bandwidth"), _T("PeerIn"), &Bandwidth.PeerIn, 0, 128, 0, 8192, _T(" Kb/s") );
@@ -369,15 +368,15 @@ void CSettings::Load()
 
 	Add( _T("Gnutella2"), _T("ClientMode"), &Gnutella2.ClientMode, MODE_AUTO );
 	Add( _T("Gnutella2"), _T("EnableAlways"), &Gnutella2.EnableAlways, true );
-	Add( _T("Gnutella2"), _T("HAWPeriod"), &Gnutella2.HAWPeriod, 300000, 1000, 1, 60*60, _T(" s") );
+	Add( _T("Gnutella2"), _T("HAWPeriod"), &Gnutella2.HAWPeriod, 300*1000, 1000, 1, 60*60, _T(" s") );
 	Add( _T("Gnutella2"), _T("HostCurrent"), &Gnutella2.HostCurrent, 10*60, 60, 1, 24*60, _T(" m") );
 	Add( _T("Gnutella2"), _T("HostCount"), &Gnutella2.HostCount, 15, 1, 1, 50 );
 	Add( _T("Gnutella2"), _T("HostExpire"), &Gnutella2.HostExpire, 2*24*60*60, 24*60*60, 1, 100, _T(" d") );
 	Add( _T("Gnutella2"), _T("HubHorizonSize"), &Gnutella2.HubHorizonSize, 128, 1, 32, 512 );
 	Add( _T("Gnutella2"), _T("HubVerified"), &Gnutella2.HubVerified, false );
 	Add( _T("Gnutella2"), _T("KHLHubCount"), &Gnutella2.KHLHubCount, 50, 1, 1, 256 );
-	Add( _T("Gnutella2"), _T("KHLPeriod"), &Gnutella2.KHLPeriod, 60000, 1000, 1, 60*60, _T(" s") );
-	Add( _T("Gnutella2"), _T("LNIPeriod"), &Gnutella2.LNIPeriod, 60000, 1000, 1, 60*60, _T(" s") );
+	Add( _T("Gnutella2"), _T("KHLPeriod"), &Gnutella2.KHLPeriod, 60*1000, 1000, 1, 60*60, _T(" s") );
+	Add( _T("Gnutella2"), _T("LNIPeriod"), &Gnutella2.LNIPeriod, 60*1000, 1000, 1, 60*60, _T(" s") );
 #ifdef LAN_MODE
 	Add( _T("Gnutella2"), _T("NumHubs"), &Gnutella2.NumHubs, 1, 1, 1, 3 );
 	Add( _T("Gnutella2"), _T("NumLeafs"), &Gnutella2.NumLeafs, 1024, 1, 50, 1024 );

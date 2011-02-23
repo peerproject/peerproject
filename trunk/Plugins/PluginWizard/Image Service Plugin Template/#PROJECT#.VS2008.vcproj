@@ -40,14 +40,15 @@
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="TRUE"
 				AdditionalDependencies="unicows.lib kernel32.lib advapi32.lib user32.lib gdi32.lib shell32.lib comdlg32.lib version.lib mpr.lib rasapi32.lib winmm.lib winspool.lib vfw32.lib secur32.lib oleacc.lib oledlg.lib sensapi.lib"
-				LinkIncremental="2"
 				IgnoreDefaultLibraryNames="kernel32.lib;advapi32.lib;user32.lib;gdi32.lib;shell32.lib;comdlg32.lib;version.lib;mpr.lib;rasapi32.lib;winmm.lib;winspool.lib;vfw32.lib;secur32.lib;oleacc.lib;oledlg.lib;sensapi.lib"
 				ModuleDefinitionFile="$(ProjectName).def"
 				GenerateDebugInformation="TRUE"
 				GenerateMapFile="FALSE"
+				LinkIncremental="2"
 				SubSystem="2"
 				SetChecksum="FALSE"
 				ImportLibrary=""
+				LargeAddressAware="2"
 				TargetMachine="1"
 				/>
 			<Tool
@@ -58,6 +59,87 @@
 				InterfaceIdentifierFileName="$(InputName)_i.c"
 				HeaderFileName="$(InputName).h"
 				DLLDataFileName=""
+				ProxyFileName=""
+				/>
+			<Tool
+				Name="VCPostBuildEventTool"
+				Description="Performing registration (for debugging)"
+				CommandLine="regsvr32 /s /c &quot;$(TargetPath)&quot;"
+				/>
+			<Tool
+				Name="VCPreBuildEventTool"
+				/>
+			<Tool
+				Name="VCPreLinkEventTool"
+				/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="_DEBUG"
+				AdditionalIncludeDirectories="$(IntDir)"
+				Culture="1049"
+				/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+				/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+				/>
+			<Tool
+				Name="VCWebDeploymentTool"
+				/>
+			<Tool
+				Name="VCManagedWrapperGeneratorTool"
+				/>
+			<Tool
+				Name="VCAuxiliaryManagedWrapperGeneratorTool"
+				/>
+		</Configuration>
+		<Configuration
+			Name="Debug|x64"
+			OutputDirectory="Debug"
+			IntermediateDirectory="Debug"
+			ConfigurationType="2"
+			UseOfATL="1"
+			ATLMinimizesCRunTimeLibraryUsage="TRUE"
+			CharacterSet="1"
+			>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories="$(InputDir)"
+				PreprocessorDefinitions="WIN32;_WINDOWS;_DEBUG;_USRDLL"
+				ExceptionHandling="FALSE"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="1"
+				UsePrecompiledHeader="3"
+				DebugInformationFormat="4"
+				WarningLevel="4"
+				/>
+			<Tool
+				Name="VCCustomBuildTool"
+				/>
+			<Tool
+				Name="VCLinkerTool"
+				IgnoreImportLibrary="TRUE"
+				AdditionalDependencies="unicows.lib kernel32.lib advapi32.lib user32.lib gdi32.lib shell32.lib comdlg32.lib version.lib mpr.lib rasapi32.lib winmm.lib winspool.lib vfw32.lib secur32.lib oleacc.lib oledlg.lib sensapi.lib"
+				IgnoreDefaultLibraryNames="kernel32.lib;advapi32.lib;user32.lib;gdi32.lib;shell32.lib;comdlg32.lib;version.lib;mpr.lib;rasapi32.lib;winmm.lib;winspool.lib;vfw32.lib;secur32.lib;oleacc.lib;oledlg.lib;sensapi.lib"
+				ModuleDefinitionFile="$(ProjectName).def"
+				GenerateDebugInformation="TRUE"
+				GenerateMapFile="FALSE"
+				LinkIncremental="2"
+				SubSystem="2"
+				SetChecksum="FALSE"
+				ImportLibrary=""
+				LargeAddressAware="2"
+				TargetMachine="17"
+				/>
+			<Tool
+				Name="VCMIDLTool"
+				PreprocessorDefinitions="_DEBUG"
+				AdditionalIncludeDirectories=""
+				HeaderFileName="$(InputName).h"
+				DLLDataFileName=""
+				InterfaceIdentifierFileName="$(InputName)_i.c"
 				ProxyFileName=""
 				/>
 			<Tool
@@ -105,18 +187,18 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="3"
+				FavorSizeOrSpeed="1"
+				AdditionalIncludeDirectories="$(InputDir)"
+				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;_USRDLL"
 				GlobalOptimizations="TRUE"
 				InlineFunctionExpansion="2"
 				EnableIntrinsicFunctions="TRUE"
-				FavorSizeOrSpeed="1"
+				EnableEnhancedInstructionSet="1"
 				OmitFramePointers="TRUE"
-				AdditionalIncludeDirectories="$(InputDir)"
-				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;_USRDLL"
 				StringPooling="TRUE"
 				ExceptionHandling="FALSE"
 				RuntimeLibrary="0"
 				UsePrecompiledHeader="3"
-				Detect64BitPortabilityProblems="TRUE"
 				WarningLevel="4"
 				/>
 			<Tool
@@ -126,16 +208,16 @@
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="TRUE"
 				AdditionalDependencies="unicows.lib kernel32.lib advapi32.lib user32.lib gdi32.lib shell32.lib comdlg32.lib version.lib mpr.lib rasapi32.lib winmm.lib winspool.lib vfw32.lib secur32.lib oleacc.lib oledlg.lib sensapi.lib"
-				LinkIncremental="1"
 				IgnoreDefaultLibraryNames="kernel32.lib;advapi32.lib;user32.lib;gdi32.lib;shell32.lib;comdlg32.lib;version.lib;mpr.lib;rasapi32.lib;winmm.lib;winspool.lib;vfw32.lib;secur32.lib;oleacc.lib;oledlg.lib;sensapi.lib"
 				ModuleDefinitionFile="$(ProjectName).def"
 				GenerateDebugInformation="FALSE"
+				LinkIncremental="1"
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
-				OptimizeForWindows98="1"
 				SetChecksum="TRUE"
 				ImportLibrary=""
+				LargeAddressAware="2"
 				TargetMachine="1"
 				/>
 			<Tool
@@ -159,89 +241,8 @@
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="NDEBUG"
-				Culture="1049"
 				AdditionalIncludeDirectories="$(IntDir)"
-				/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-				/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-				/>
-			<Tool
-				Name="VCWebDeploymentTool"
-				/>
-			<Tool
-				Name="VCManagedWrapperGeneratorTool"
-				/>
-			<Tool
-				Name="VCAuxiliaryManagedWrapperGeneratorTool"
-				/>
-		</Configuration>
-		<Configuration
-			Name="Debug|x64"
-			OutputDirectory="Debug"
-			IntermediateDirectory="Debug"
-			ConfigurationType="2"
-			UseOfATL="1"
-			ATLMinimizesCRunTimeLibraryUsage="TRUE"
-			CharacterSet="1"
-			>
-			<Tool
-				Name="VCCLCompilerTool"
-				Optimization="0"
-				AdditionalIncludeDirectories="$(InputDir)"
-				PreprocessorDefinitions="WIN32;_WINDOWS;_DEBUG;_USRDLL"
-				ExceptionHandling="FALSE"
-				BasicRuntimeChecks="3"
-				RuntimeLibrary="1"
-				UsePrecompiledHeader="3"
-				WarningLevel="4"
-				Detect64BitPortabilityProblems="TRUE"
-				DebugInformationFormat="4"
-				/>
-			<Tool
-				Name="VCCustomBuildTool"
-				/>
-			<Tool
-				Name="VCLinkerTool"
-				IgnoreImportLibrary="TRUE"
-				AdditionalDependencies="unicows.lib kernel32.lib advapi32.lib user32.lib gdi32.lib shell32.lib comdlg32.lib version.lib mpr.lib rasapi32.lib winmm.lib winspool.lib vfw32.lib secur32.lib oleacc.lib oledlg.lib sensapi.lib"
-				LinkIncremental="2"
-				IgnoreDefaultLibraryNames="kernel32.lib;advapi32.lib;user32.lib;gdi32.lib;shell32.lib;comdlg32.lib;version.lib;mpr.lib;rasapi32.lib;winmm.lib;winspool.lib;vfw32.lib;secur32.lib;oleacc.lib;oledlg.lib;sensapi.lib"
-				ModuleDefinitionFile="$(ProjectName).def"
-				GenerateDebugInformation="TRUE"
-				GenerateMapFile="FALSE"
-				SubSystem="2"
-				SetChecksum="FALSE"
-				ImportLibrary=""
-				TargetMachine="1"
-				/>
-			<Tool
-				Name="VCMIDLTool"
-				PreprocessorDefinitions="_DEBUG"
-				AdditionalIncludeDirectories=""
-				HeaderFileName="$(InputName).h"
-				DLLDataFileName=""
-				InterfaceIdentifierFileName="$(InputName)_i.c"
-				ProxyFileName=""
-				/>
-			<Tool
-				Name="VCPostBuildEventTool"
-				Description="Performing registration (for debugging)"
-				CommandLine="regsvr32 /s /c &quot;$(TargetPath)&quot;"
-				/>
-			<Tool
-				Name="VCPreBuildEventTool"
-				/>
-			<Tool
-				Name="VCPreLinkEventTool"
-				/>
-			<Tool
-				Name="VCResourceCompilerTool"
-				PreprocessorDefinitions="_DEBUG"
 				Culture="1049"
-				AdditionalIncludeDirectories="$(IntDir)"
 				/>
 			<Tool
 				Name="VCWebServiceProxyGeneratorTool"
@@ -273,18 +274,17 @@
 				Name="VCCLCompilerTool"
 				Optimization="3"
 				GlobalOptimizations="TRUE"
-				InlineFunctionExpansion="2"
-				EnableIntrinsicFunctions="TRUE"
 				FavorSizeOrSpeed="1"
-				OmitFramePointers="TRUE"
 				AdditionalIncludeDirectories="$(InputDir)"
 				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;_USRDLL"
+				InlineFunctionExpansion="2"
+				EnableIntrinsicFunctions="TRUE"
+				OmitFramePointers="TRUE"
 				StringPooling="TRUE"
 				ExceptionHandling="FALSE"
 				RuntimeLibrary="0"
 				UsePrecompiledHeader="3"
 				WarningLevel="4"
-				Detect64BitPortabilityProblems="TRUE"
 				/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -293,17 +293,17 @@
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="TRUE"
 				AdditionalDependencies="unicows.lib kernel32.lib advapi32.lib user32.lib gdi32.lib shell32.lib comdlg32.lib version.lib mpr.lib rasapi32.lib winmm.lib winspool.lib vfw32.lib secur32.lib oleacc.lib oledlg.lib sensapi.lib"
-				LinkIncremental="1"
 				IgnoreDefaultLibraryNames="kernel32.lib;advapi32.lib;user32.lib;gdi32.lib;shell32.lib;comdlg32.lib;version.lib;mpr.lib;rasapi32.lib;winmm.lib;winspool.lib;vfw32.lib;secur32.lib;oleacc.lib;oledlg.lib;sensapi.lib"
 				ModuleDefinitionFile="$(ProjectName).def"
 				GenerateDebugInformation="FALSE"
+				LinkIncremental="1"
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
-				OptimizeForWindows98="1"
 				SetChecksum="TRUE"
 				ImportLibrary=""
-				TargetMachine="1"
+				LargeAddressAware="2"
+				TargetMachine="17"
 				/>
 			<Tool
 				Name="VCMIDLTool"

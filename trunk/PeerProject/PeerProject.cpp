@@ -1,7 +1,7 @@
 //
 // PeerProject.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -436,8 +436,10 @@ BOOL CPeerProjectApp::InitInstance()
 	SplashStep( L"Scheduler" );
 		Scheduler.Load();
 	SplashStep( L"Rich Documents" );
-		Emoticons.Load();
-		Flags.Load();
+		if ( ! Emoticons.Load() )
+			Message( MSG_ERROR, _T("Failed to load Emoticons.") );
+		if ( ! Flags.Load() )
+			Message( MSG_ERROR, _T("Failed to load Flags.") );
 
 	if ( Settings.Connection.EnableFirewallException )
 	{
@@ -649,31 +651,31 @@ CDocument* CPeerProjectApp::OpenDocumentFile(LPCTSTR lpszFileName)
 
 BOOL CPeerProjectApp::Open(LPCTSTR lpszFileName)		// Note: No BOOL bDoIt needed
 {
-	int nLength = _tcslen( lpszFileName );
+	const int nLength = _tcslen( lpszFileName );
 	if ( nLength < 4 ) return FALSE;
 
-	if (	  nLength > 8  &&  ! _tcsicmp( lpszFileName + nLength - 8,  _T(".torrent") ) )
+	if ( nLength > 8  &&  ! _tcsicmp( lpszFileName + nLength - 8,  _T(".torrent") ) )
 		return OpenTorrent( lpszFileName );
-	else if (/*nLength > 3 &&*/! _tcsicmp( lpszFileName + nLength - 3,  _T(".co") ) )
+	if (/*nLength > 3 &&*/! _tcsicmp( lpszFileName + nLength - 3,  _T(".co") ) )
 		return OpenCollection( lpszFileName );
-	else if ( nLength > 11 &&  ! _tcsicmp( lpszFileName + nLength - 11, _T(".collection") ) )
+	if ( nLength > 11 &&  ! _tcsicmp( lpszFileName + nLength - 11, _T(".collection") ) )
 		return OpenCollection( lpszFileName );
-	else if ( nLength > 16 &&  ! _tcsicmp( lpszFileName + nLength - 16, _T(".emulecollection") ) )
+	if ( nLength > 16 &&  ! _tcsicmp( lpszFileName + nLength - 16, _T(".emulecollection") ) )
 		return OpenCollection( lpszFileName );
-	else if ( nLength > 14 &&  ! _tcsicmp( lpszFileName + nLength - 15, _T("hublist.xml.bz2") ) )
+	if ( nLength > 14 &&  ! _tcsicmp( lpszFileName + nLength - 15, _T("hublist.xml.bz2") ) )
 		return OpenImport( lpszFileName );
-	else if ( nLength > 8  &&  ! _tcsicmp( lpszFileName + nLength - 8,  _T (".xml.bz2") ) )
+	if ( nLength > 8  &&  ! _tcsicmp( lpszFileName + nLength - 8,  _T (".xml.bz2") ) )
 		return OpenCollection( lpszFileName );
-	else if (/*nLength > 4 &&*/! _tcsicmp( lpszFileName + nLength - 4,  _T(".url") ) )
+	if (/*nLength > 4 &&*/! _tcsicmp( lpszFileName + nLength - 4,  _T(".url") ) )
 		return OpenInternetShortcut( lpszFileName );
-	else if (/*nLength > 4 &&*/! _tcsicmp( lpszFileName + nLength - 4,  _T(".met") ) )
+	if (/*nLength > 4 &&*/! _tcsicmp( lpszFileName + nLength - 4,  _T(".met") ) )
 		return OpenImport( lpszFileName );
-	else if (/*nLength > 4 &&*/! _tcsicmp( lpszFileName + nLength - 4,  _T(".dat") ) )
+	if (/*nLength > 4 &&*/! _tcsicmp( lpszFileName + nLength - 4,  _T(".dat") ) )
 		return OpenImport( lpszFileName );
-	else if (/*nLength > 4 &&*/! _tcsicmp( lpszFileName + nLength - 4,  _T(".lnk") ) )
+	if (/*nLength > 4 &&*/! _tcsicmp( lpszFileName + nLength - 4,  _T(".lnk") ) )
 		return OpenShellShortcut( lpszFileName );
-	else
-		return OpenURL( lpszFileName );
+
+	return OpenURL( lpszFileName );
 }
 
 BOOL CPeerProjectApp::OpenImport(LPCTSTR lpszFileName)

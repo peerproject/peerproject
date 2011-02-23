@@ -1,7 +1,7 @@
 //
 // PageFileMetadata.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -169,7 +169,7 @@ void CFileMetadataPage::OnSelChangeSchemas()
 			return;
 		}
 
-		CString strBody( ::LoadHTML( GetModuleHandle( NULL ), IDR_XML_SCHEMA_MAPS ) );	// SchemaMappings.xml.gz
+		CString strBody( ::LoadHTML( GetModuleHandle( NULL ), IDR_XML_SCHEMA_MAPS ) );		// SchemaMappings.xml.gz
 
 		if ( CXMLElement* pXML = CXMLElement::FromString( strBody, TRUE ) )
 		{
@@ -184,9 +184,8 @@ void CFileMetadataPage::OnSelChangeSchemas()
 						if ( pSourceURI && pSourceURI->GetValue() == m_wndData.GetSchemaURI() )
 						{
 							// Add attributes which correspond to other schema
-							// We don't need to delete the old ones because,
-							// after submitting new data, they will be ignored.
-							// It will also allow to save the old ones if we switch schema back.
+							// Don't need to delete old ones- after submitting new data, they will be ignored.
+							// Also allows to save the old ones if we switch schema back.
 							AddCrossAttributes( pMapping, pSchema->GetURI() );
 							break;
 						}
@@ -216,16 +215,15 @@ void CFileMetadataPage::AddCrossAttributes(CXMLElement* pXML, LPCTSTR pszTargetU
 	for ( POSITION pos = pXML->GetElementIterator() ; pos ; )
 	{
 		pTargetURI = pXML->GetNextElement( pos );
+
 		if ( pTargetURI && pTargetURI->IsNamed( L"target" ) )
 		{
 			CXMLAttribute* pURI = pTargetURI->GetAttribute( L"uri" );
 			if ( pURI && _tcscmp( pURI->GetValue(), pszTargetURI ) == 0 )
 				break;
-			else
-				pTargetURI = NULL;
 		}
-		else
-			pTargetURI = NULL;
+
+		pTargetURI = NULL;
 	}
 
 	if ( pTargetURI == NULL ) return;
@@ -311,9 +309,9 @@ void CFileMetadataPage::OnOK()
 			if ( CLibraryFile* pFile = pFiles->GetNextFile( pos1 ) )
 				pFile->ClearMetadata();
 		}
-
-		Library.Update();
 	}
+
+	Library.Update();
 
 	CFilePropertiesPage::OnOK();
 }

@@ -3,7 +3,7 @@
 
 <!-- PeerProject UK English Skin File -->
 
-<!-- Translation based on default-en.xml r60 -->
+<!-- Translation based on default-en.xml r62 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -60,8 +60,8 @@
 			<item id="ID_NETWORK_CONNECT" text="_Connect" shortcut="Ctrl+G"/>
 			<separator/>
 			<menu text="Choose _Networks">
-				<item id="ID_NETWORK_G2" text="Connect to _Gnutella2"/>
-				<item id="ID_NETWORK_G1" text="Connect to Gnutella_1"/>
+				<item id="ID_NETWORK_G2" text="Connect to Gnutella_2"/>
+				<item id="ID_NETWORK_G1" text="Connect to _Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="Connect to _eDonkey"/>
 			</menu>
 			<separator/>
@@ -135,8 +135,8 @@
 			<item id="ID_NETWORK_DISCONNECT" text="_Disconnect"/>
 			<separator/>
 			<menu text="Choose _Networks">
-				<item id="ID_NETWORK_G2" text="Connect to _Gnutella2"/>
-				<item id="ID_NETWORK_G1" text="Connect to Gnutella_1"/>
+				<item id="ID_NETWORK_G2" text="Connect to Gnutella_2"/>
+				<item id="ID_NETWORK_G1" text="Connect to _Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="Connect to _eDonkey"/>
 			</menu>
 			<separator/>
@@ -244,7 +244,8 @@
 			<item id="ID_NETWORK_DISCONNECT" text="_Disconnect"/>
 			<separator/>
 			<item id="ID_NETWORK_CONNECT_TO" text="Connect _To..." shortcut="Ctrl+T"/>
-			<item id="ID_NETWORK_BROWSE_TO" text="_Browse Host..."/>
+			<item id="ID_NETWORK_BROWSE_TO" text="_Browse User..."/>
+			<item id="ID_NETWORK_CHAT_TO" text="Chat with _User..."/>
 			<separator/>
 			<menu text="Choose _Networks">
 				<item id="ID_NETWORK_G2" text="Connect to Gnutella_2"/>
@@ -265,6 +266,7 @@
 			<item id="ID_VIEW_MEDIA" text="_Media Player" shortcut="F6"/>
 			<item id="ID_TAB_IRC" text="IRC _Chat" shortcut="F12"/>
 			<separator/>
+			<item id="ID_VIEW_SCHEDULER" text="Schedule_r" shortcut="Ctrl+F7"/>
 			<item id="ID_VIEW_SECURITY" text="Se_curity" shortcut="F7"/>
 			<item id="ID_VIEW_HOSTS" text="H_ost Cache" shortcut="F8"/>
 			<item id="ID_VIEW_DISCOVERY" text="Disco_very" shortcut="F9"/>
@@ -284,8 +286,8 @@
 			<item id="ID_OPEN_DOWNLOADS_FOLDER" text="_Open Downloads Folder"/>
 			<separator/>
 			<item id="ID_TOOLS_DOWNLOAD" text="_Download File/Torrent..."/>
-			<item id="ID_TOOLS_SEEDTORRENT" 	text="_Seed New Torrent..."/>
-			<item id="ID_TOOLS_CREATETORRENT" 	text="_Create New .Torrent..."/>
+			<item id="ID_TOOLS_SEEDTORRENT" text="_Seed New Torrent..."/>
+			<item id="ID_TOOLS_CREATETORRENT" text="_Create New .Torrent..."/>
 			<item id="IDC_IMPORT_DOWNLOADS"	text="_Import eMule Partials..."/>
 			<separator/>
 			<item id="ID_TOOLS_LANGUAGE" text="Choose a _Language..."/>
@@ -363,6 +365,7 @@
 		<item id="ID_VIEW_MEDIA" text="_Media Player"/>
 		<separator/>
 		<item id="ID_VIEW_SECURITY" text="Se_curity"/>
+		<item id="ID_VIEW_SCHEDULER" text="Schedule_r"/>
 		<item id="ID_VIEW_HOSTS" text="_Host Cache"/>
 		<item id="ID_VIEW_DISCOVERY" text="Disco_very"/>
 		<item id="ID_VIEW_TRAFFIC" text="_Graph"/>
@@ -383,6 +386,7 @@
 			<item id="ID_VIEW_NEIGHBOURS" text="_Neighbours"/>
 			<item id="ID_VIEW_UPLOADS" text="_Uploads"/>
 			<item id="ID_VIEW_SECURITY" text="_Security"/>
+			<item id="ID_VIEW_SCHEDULER" text="Schedule_r"/>
 			<item id="ID_VIEW_HOSTS" text="_Host Cache"/>
 		</menu>
 	</menu>

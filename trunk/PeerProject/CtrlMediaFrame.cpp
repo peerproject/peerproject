@@ -1,7 +1,7 @@
 //
 // CtrlMediaFrame.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -1026,64 +1026,63 @@ LRESULT CMediaFrame::OnMediaKey(WPARAM wParam, LPARAM lParam)
 		GetOwner()->PostMessage( WM_COMMAND, ID_MEDIA_STOP );
 		return 1;
 	case APPCOMMAND_VOLUME_MUTE:
-	{
-		MMRESULT result;
-		HMIXER hMixer;
-		// Obtain a handle to the mixer device
-		result = mixerOpen( &hMixer, MIXER_OBJECTF_MIXER, 0, 0, 0 );
-		if ( result != MMSYSERR_NOERROR ) return 0;
-
-		// Get the speaker line of the mixer device
-		MIXERLINE ml = {0};
-		ml.cbStruct = sizeof(MIXERLINE);
-		ml.dwComponentType = MIXERLINE_COMPONENTTYPE_DST_SPEAKERS;
-		result = mixerGetLineInfo( reinterpret_cast<HMIXEROBJ>(hMixer), &ml, MIXER_GETLINEINFOF_COMPONENTTYPE );
-		if ( result != MMSYSERR_NOERROR ) return 0;
-
-		// Get the mute control of the speaker line
-		MIXERLINECONTROLS mlc = {0};
-		MIXERCONTROL mc = {0};
-		mlc.cbStruct = sizeof(MIXERLINECONTROLS);
-		mlc.dwLineID = ml.dwLineID;
-		mlc.dwControlType = MIXERCONTROL_CONTROLTYPE_MUTE;
-		mlc.cControls = 1;
-		mlc.pamxctrl = &mc;
-		mlc.cbmxctrl = sizeof(MIXERCONTROL);
-		result = mixerGetLineControls( reinterpret_cast<HMIXEROBJ>(hMixer), &mlc, MIXER_GETLINECONTROLSF_ONEBYTYPE );
-		if ( result != MMSYSERR_NOERROR ) return 0;
-
-		// Set 1 channel if it controls mute state for all channels
-		if ( MIXERCONTROL_CONTROLF_UNIFORM & mc.fdwControl )
-			ml.cChannels = 1;
-
-		// Get the current mute values for all channels
-		MIXERCONTROLDETAILS mcd = {0};
-		MIXERCONTROLDETAILS_BOOLEAN* pmcd_b = new MIXERCONTROLDETAILS_BOOLEAN[ ml.cChannels ];
-		mcd.cbStruct = sizeof(mcd);
-		mcd.cChannels = ml.cChannels;
-		mcd.cMultipleItems = mc.cMultipleItems;
-		mcd.dwControlID = mc.dwControlID;
-		mcd.cbDetails = sizeof(MIXERCONTROLDETAILS_BOOLEAN) * ml.cChannels;
-		mcd.paDetails = pmcd_b;
-		result = mixerGetControlDetails( reinterpret_cast<HMIXEROBJ>(hMixer), &mcd,
-			MIXER_GETCONTROLDETAILSF_VALUE );
-
-		if ( result == MMSYSERR_NOERROR )
 		{
-			// Change mute values for all channels
-			LONG lNewValue = LONG( pmcd_b->fValue == 0 );
-			while ( ml.cChannels-- )
-				pmcd_b[ ml.cChannels ].fValue = lNewValue;
+			MMRESULT result;
+			HMIXER hMixer;
+			// Obtain a handle to the mixer device
+			result = mixerOpen( &hMixer, MIXER_OBJECTF_MIXER, 0, 0, 0 );
+			if ( result != MMSYSERR_NOERROR ) return 0;
 
-			// Set the mute status
-			result = mixerSetControlDetails( reinterpret_cast<HMIXEROBJ>(hMixer), &mcd, MIXER_SETCONTROLDETAILSF_VALUE );
+			// Get the speaker line of the mixer device
+			MIXERLINE ml = {0};
+			ml.cbStruct = sizeof(MIXERLINE);
+			ml.dwComponentType = MIXERLINE_COMPONENTTYPE_DST_SPEAKERS;
+			result = mixerGetLineInfo( reinterpret_cast<HMIXEROBJ>(hMixer), &ml, MIXER_GETLINEINFOF_COMPONENTTYPE );
+			if ( result != MMSYSERR_NOERROR ) return 0;
+
+			// Get the mute control of the speaker line
+			MIXERLINECONTROLS mlc = {0};
+			MIXERCONTROL mc = {0};
+			mlc.cbStruct = sizeof(MIXERLINECONTROLS);
+			mlc.dwLineID = ml.dwLineID;
+			mlc.dwControlType = MIXERCONTROL_CONTROLTYPE_MUTE;
+			mlc.cControls = 1;
+			mlc.pamxctrl = &mc;
+			mlc.cbmxctrl = sizeof(MIXERCONTROL);
+			result = mixerGetLineControls( reinterpret_cast<HMIXEROBJ>(hMixer), &mlc, MIXER_GETLINECONTROLSF_ONEBYTYPE );
+			if ( result != MMSYSERR_NOERROR ) return 0;
+
+			// Set 1 channel if it controls mute state for all channels
+			if ( MIXERCONTROL_CONTROLF_UNIFORM & mc.fdwControl )
+				ml.cChannels = 1;
+
+			// Get the current mute values for all channels
+			MIXERCONTROLDETAILS mcd = {0};
+			MIXERCONTROLDETAILS_BOOLEAN* pmcd_b = new MIXERCONTROLDETAILS_BOOLEAN[ ml.cChannels ];
+			mcd.cbStruct = sizeof(mcd);
+			mcd.cChannels = ml.cChannels;
+			mcd.cMultipleItems = mc.cMultipleItems;
+			mcd.dwControlID = mc.dwControlID;
+			mcd.cbDetails = sizeof(MIXERCONTROLDETAILS_BOOLEAN) * ml.cChannels;
+			mcd.paDetails = pmcd_b;
+			result = mixerGetControlDetails( reinterpret_cast<HMIXEROBJ>(hMixer), &mcd,
+				MIXER_GETCONTROLDETAILSF_VALUE );
+
+			if ( result == MMSYSERR_NOERROR )
+			{
+				// Change mute values for all channels
+				LONG lNewValue = LONG( pmcd_b->fValue == 0 );
+				while ( ml.cChannels-- )
+					pmcd_b[ ml.cChannels ].fValue = lNewValue;
+
+				// Set the mute status
+				result = mixerSetControlDetails( reinterpret_cast<HMIXEROBJ>(hMixer), &mcd, MIXER_SETCONTROLDETAILSF_VALUE );
+			}
+			delete [] pmcd_b;
 		}
-		delete [] pmcd_b;
-
-		// Now mute PeerProject player control ( probably, not needed )
+		// Now mute PeerProject player control (probably not needed)
 		GetOwner()->PostMessage( WM_COMMAND, ID_MEDIA_MUTE );
 		return 1;
-	}
 	case APPCOMMAND_VOLUME_DOWN:
 	case APPCOMMAND_VOLUME_UP:
 		KillTimer( 1 );
@@ -1703,7 +1702,7 @@ BOOL CMediaFrame::OpenFile(LPCTSTR pszFile)
 	{
 		CSingleLock oLock( &Library.m_pSection, TRUE );
 
-		if ( CLibraryFile* pFile = LibraryMaps.LookupFileByPath( m_sFile ) )
+		if ( CLibraryFile* pFile = LibraryMaps.LookupFileByPath( pszFile ) )
 		{
 			m_pMetadata.Add( _T("Filename"), pFile->m_sName );
 			m_pMetadata.Setup( pFile->m_pSchema, FALSE );
@@ -1941,9 +1940,9 @@ void CMediaFrame::OnNewCurrent(NMHDR* /*pNotify*/, LRESULT* pResult)
 				Cleanup();
 		}
 	}
-	else if ( m_wndList.GetItemCount() > 0 ) // List was reset; current file was set to -1
+	else if ( m_wndList.GetItemCount() > 0 )	// List was reset; current file was set to -1
 	{
-		nCurrent = m_wndList.GetCurrent();	// Get file #0
+		nCurrent = m_wndList.GetCurrent();		// Get file #0
 
 		if ( m_pPlayer )
 		{
@@ -1988,9 +1987,8 @@ void CMediaFrame::DisableScreenSaver()
 		BOOL bRetVal = SystemParametersInfo( SPI_GETSCREENSAVEACTIVE, 0, &bParam, 0 );
 		if ( bRetVal && bParam )
 		{
-			// Save current screen saver timeout value
+			// Turn off screen saver after saving current timeout value
 			SystemParametersInfo( SPI_GETSCREENSAVETIMEOUT, 0, &m_nScreenSaverTime, 0 );
-			// Turn off screen saver
 			SystemParametersInfo( SPI_SETSCREENSAVETIMEOUT, 0, NULL, 0 );
 		}
 
@@ -2039,7 +2037,7 @@ CString CMediaFrame::GetNowPlaying()
 
 void CMediaFrame::UpdateNowPlaying(BOOL bEmpty)
 {
-	if( bEmpty )
+	if ( bEmpty )
 	{
 		m_sNowPlaying = _T("");
 	}
@@ -2051,7 +2049,7 @@ void CMediaFrame::UpdateNowPlaying(BOOL bEmpty)
 		LPCTSTR pszFileName = _tcsrchr( m_sNowPlaying, '\\' );
 		if ( pszFileName )
 		{
-			int nFileNameLen = static_cast< int >( _tcslen( pszFileName ) );
+			const int nFileNameLen = static_cast< int >( _tcslen( pszFileName ) );
 			m_sNowPlaying = m_sNowPlaying.Right( nFileNameLen - 1 );
 		}
 
@@ -2059,7 +2057,7 @@ void CMediaFrame::UpdateNowPlaying(BOOL bEmpty)
 		LPCTSTR pszExt = _tcsrchr( m_sNowPlaying, '.' );
 		if ( pszExt )
 		{
-			int nFileNameLen = static_cast< int >( pszExt - m_sNowPlaying );
+			const int nFileNameLen = static_cast< int >( pszExt - m_sNowPlaying );
 			m_sNowPlaying = m_sNowPlaying.Left( nFileNameLen );
 		}
 	}

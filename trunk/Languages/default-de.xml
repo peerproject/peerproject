@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default German Skin File -->
 
-<!-- Translation based on default-en.xml r60 -->
+<!-- Translation based on default-en.xml r62 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -631,8 +631,8 @@
 			<item id="ID_NETWORK_DISCONNECT" text="Verbindung _trennen"/>
 			<separator/>
 			<menu text="_Netzwerke wählen">
-				<item id="ID_NETWORK_G2" text="Mit _Gnutella2 verbinden"/>
-				<item id="ID_NETWORK_G1" text="Mit Gnutella_1 verbinden"/>
+				<item id="ID_NETWORK_G2" text="Mit Gnutella_2 verbinden"/>
+				<item id="ID_NETWORK_G1" text="Mit _Gnutella verbinden"/>
 				<item id="ID_NETWORK_ED2K" text="Mit _eDonkey verbinden"/>
 			</menu>
 			<separator/>
@@ -729,8 +729,8 @@
 			<item id="ID_NETWORK_CONNECT" text="_Verbinden" shortcut="Strg+G"/>
 			<separator/>
 			<menu text="_Netzwerke wählen">
-				<item id="ID_NETWORK_G2" text="Mit _Gnutella2 verbinden"/>
-				<item id="ID_NETWORK_G1" text="Mit Gnutella_1 verbinden"/>
+				<item id="ID_NETWORK_G2" text="Mit Gnutella_2 verbinden"/>
+				<item id="ID_NETWORK_G1" text="Mit _Gnutella verbinden"/>
 				<item id="ID_NETWORK_ED2K" text="Mit _eDonkey verbinden"/>
 			</menu>
 			<separator/>
@@ -807,8 +807,8 @@
 			<item id="ID_NETWORK_BROWSE_TO" text="Benutzer _durchsuchen..."/>
 			<separator/>
 			<menu text="_Netzwerke wählen">
-				<item id="ID_NETWORK_G2" text="Mit _Gnutella2 verbinden"/>
-				<item id="ID_NETWORK_G1" text="Mit Gnutella_1 verbinden"/>
+				<item id="ID_NETWORK_G2" text="Mit Gnutella_2 verbinden"/>
+				<item id="ID_NETWORK_G1" text="Mit _Gnutella verbinden"/>
 				<item id="ID_NETWORK_ED2K" text="Mit _eDonkey verbinden"/>
 			</menu>
 			<separator/>
@@ -3670,7 +3670,7 @@
 	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="Remote-Access">
 		<control caption="_Aktivieren:"/>
 		<control caption="Remote-Access aktivieren:"/>
-		<control caption="URL"/>
+		<control caption="..."/>
 		<control caption="_Zugangsdaten:"/>
 		<control caption="Benutzername:"/>
 		<control caption="Passwort:"/>
@@ -3868,7 +3868,7 @@
 		<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="Willkommen bei PeerProjekt &#160;(2/8)">
 		<control caption="PeerProjekt benötigt nun einige Informationen über ihre Internetverbinung um bestmöglich zu funktionieren."/>
 		<control caption="Wählen Sie den Typ ihrer Internetverbindung:"/>
-		<control caption="Modem (56k)|ISDN (128k)|DSL light (768K)|DSL (1.5M)|DSL (4.0M)|DSL2 (8.0M)|FIOS (10.0M)|DSL2 (12.0M)|FIOS (20.0M)|DSL2+ (24.0M)|Cable Modem|T1|T3|LAN|OC3"/>
+		<control caption="Modem (56k)|ISDN 128K|DSL 768K|DSL 1.5M|DSL 4M|DSL2 8|FIOS 10|DSL2 12|FIOS 15|FIOS 20|FIOS 25|FIOS 30|T1|T3|LAN|OC3|Cable Modem"/>
 		<control caption="Oder wählen Sie ihre max. Downloadgeschwindigkeit:"/>
 		<control/>
 		<control caption="und die max. Uploadgeschwindigkeit:"/>
@@ -3892,7 +3892,7 @@
 		<control caption="PeerProjekt mit .torrent-Dateien verknüpfen."/>
 	</dialog>
 	<dialog name="CWizardFoldersPage" cookie="StStEdBuStEdBuStEdBuSt" caption="Welcome to PeerProject &#160;(4/8)">
-		<control caption="PeerProject first downloads partial files to a private folder, then moves them when completed according to Download Groups."/>
+		<control caption="PeerProject ersten Downloads teilweise Dateien in einen privaten Ordner, dann bewegt sie, wenn nach Download Gruppen abgeschlossen."/>
 		<control caption="Unvollständige Dateien:"/>
 		<control/>
 		<control/>
@@ -3902,7 +3902,7 @@
 		<control caption=".Torrentsverzeichnis:"/>
 		<control/>
 		<control/>
-		<control caption="Common filetypes are initially setup as subfolders of the default location, but Groups can easily be customized by Right-Click.  Simply Drag&apos;n&apos;Drop files."/>
+		<control caption="Gemeinsame Dateitypen werden zunächst Setup in Unterordnern, aber Gruppen können individuell gestaltet werden. Einfach Drag&apos;n&apos;Drop Dateien."/>
 	</dialog>
 	<dialog name="CWizardSharePage" cookie="StStStSyBuBuSt" caption="Willkommen bei PeerProjekt &#160;(5/8)">
 		<control caption="P2P-Netzwerke sind nur so gut wie die Leute, die sie benutzen. Alle Dateien, die Sie herunterladen können, werden von anderen Benutzern freigegeben."/>

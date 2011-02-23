@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Czech Skin File -->
 
-<!-- Translation based on default-en.xml r60 (Shareaza 2.2.5.7) -->
+<!-- Translation based on default-en.xml r62 (Shareaza 2.2.5.7) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1504,9 +1504,9 @@
 			<item id="ID_NETWORK_CONNECT" text="_Připojit"/>
 			<item id="ID_NETWORK_DISCONNECT" text="_Odpojit"/>
 			<separator/>
-			<item id="ID_NETWORK_G2" text="_Gnutella2"/>
+			<item id="ID_NETWORK_G2" text="Gnutella_2"/>
+			<item id="ID_NETWORK_G1" text="_Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="_eDonkey"/>
-			<item id="ID_NETWORK_G1" text="Gnutella_1"/>
 		</menu>
 		<menu text="_Monitor">
 			<item id="ID_NEIGHBOURS_VIEW_ALL" text="Ukázat _všechen provoz"/>
@@ -3660,7 +3660,7 @@
 	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="Vítejte v PeerProject (2/8)">
 		<control caption="Pro optimální výkon, potřebuje PeerProject vědět pár údajů o vašem připojení k Internetu."/>
 		<control caption="Vyberte typ připojení k internetu:"/>
-		<control caption="Telefoní modem|ISDN (128K)|DSL (768K)|DSL (1.5M)|DSL (4.0M)|DSL2 (8.0M)|FIOS (10.0M)|DSL2 (12.0M)|FIOS (20.0M)|DSL2+ (24.0M)|Kabel/SDSL|T1|T3|LAN|OC3"/>
+		<control caption="Telefoní modem|ISDN 128K|DSL 768K|DSL 1.5M|DSL 4M|DSL2 8|FIOS 10|DSL2 12|FIOS 15|FIOS 20|FIOS 25|FIOS 30|T1|T3|LAN|OC3|Kabel Modem"/>
 		<control caption="Nebo vyberte rychlost stahování:"/>
 		<control/>
 		<control caption="a rychlost odesílání:"/>
@@ -3684,7 +3684,7 @@
 		<control caption="Associate .Torrent Files  (Handle BitTorrent links)"/>
 	</dialog>
 	<dialog name="CWizardFoldersPage" cookie="StStEdBuStEdBuStEdBuSt" caption="Vítejte v PeerProject (4/8)">
-		<control caption="PeerProject first downloads partial files to a private folder, then moves them when completed according to Download Groups."/>
+		<control caption="PeerProject první dílčí stahování souborů do osobní složky, pak se pohybuje, když dokončí podle skupin ke stažení."/>
 		<control caption="Ukládat neúplné soubory do:"/>
 		<control/>
 		<control/>
@@ -3694,7 +3694,7 @@
 		<control caption="Ukládat .Torrent soubory do:"/>
 		<control/>
 		<control/>
-		<control caption="Common filetypes are initially setup as subfolders of the default location, but Groups can easily be customized by Right-Click.  Simply Drag&apos;n&apos;Drop files."/>
+		<control caption="Společný typy souborů jsou zpočátku nastavení v podsložkách, ale Skupiny lze přizpůsobit. Stačí Drag&apos;n&apos;Drop soubory."/>
 	</dialog>
 	<dialog name="CWizardSharePage" cookie="StStStSyBuBuSt" caption="Vítejte v PeerProject (5/8)">
 		<control caption="Sítě P2P jsou pouze tak dobré jako lidé, kteří je používají. Všechen obsah ve složce stahování je sdílený a dostupný pro další uživatele."/>

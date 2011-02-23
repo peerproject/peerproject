@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Greek Skin File -->
 
-<!-- Translation based on default-en.xml r60 -->
+<!-- Translation based on default-en.xml r62 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -3634,7 +3634,7 @@
 	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="Απομακρυσμένη Πρόσβαση">
 		<control caption="_Ενεργοποίηση:"/>
 		<control caption="Ενεργοποίηση Απομακρυσμένης Πρόσβασης PeerProject:"/>
-		<control caption="URL"/>
+		<control caption="..."/>
 		<control caption="_Στοιχεία Εισόδου:"/>
 		<control caption="Όνομα (Username):"/>
 		<control caption="Κωδικός (Password):"/>
@@ -3832,7 +3832,7 @@
 	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="Δήλωση Σύνδεσης (2/8)">
 		<control caption="Για βέλτιστη απόδοση, το PeerProject χρειάζεται να ξέρει λίγα πράγματα για τη σύνδεσή σας στο Διαδίκτυο."/>
 		<control caption="Διαλέξτε τον τύπο της σύνδεσής σας στο Διαδίκτυο:"/>
-		<control caption="|Dial-up Modem|ISDN (128K)|DSL (768K)|DSL (1.5M)|DSL (4.0M)|DSL2 (8.0M)|FIOS (10.0M)|DSL2 (12.0M)|FIOS (20.0M)|DSL2+ (24.0M)|Cable Modem|T1|T3|LAN|OC3"/>
+		<control caption="|Dial-up Modem|ISDN 128K|DSL 768K|DSL 1.5M|DSL 4M|DSL2 8|FIOS 10|DSL2 12|FIOS 15|FIOS 20|FIOS 25|FIOS 30|T1|T3|LAN|OC3|Cable Modem"/>
 		<control caption="Ή δηλώστε την ταχύτητα λήψης:"/>
 		<control/>
 		<control caption="και την ταχύτητα αποστολής:"/>
@@ -3856,7 +3856,7 @@
 		<control caption="Χειρισμός συνδέσμων .torrent"/>
 	</dialog>
 	<dialog name="CWizardFoldersPage" cookie="StStEdBuStEdBuStEdBuSt" caption="Επιλογή Δικτύων (4/8)">
-		<control caption="PeerProject first downloads partial files to a private folder, then moves them when completed according to Download Groups."/>
+		<control caption="PeerProject πρώτες λήψεις μερική αρχεία σε έναν ιδιωτικό φάκελο, κινείται στη συνέχεια, όταν ολοκληρωθεί, σύμφωνα με Λήψη ομάδες."/>
 		<control caption="Αποθήκευση Προσωρινών Ημιτελών Αρχείων Σε:"/>
 		<control/>
 		<control/>
@@ -3866,7 +3866,7 @@
 		<control caption="Αποθήκευση .Torrent Αρχείων Σε:"/>
 		<control/>
 		<control/>
-		<control caption="Common filetypes are initially setup as subfolders of the default location, but Groups can easily be customized by Right-Click.  Simply Drag&apos;n&apos;Drop files."/>
+		<control caption="Κοινή τύπους αρχείων αρχικά setup σε υποφακέλους, αλλά οι ομάδες μπορεί να προσαρμοστεί. Απλά τα αρχεία drag&apos;n&apos;drop."/>
 	</dialog>
 	<dialog name="CWizardSharePage" cookie="StStStSyBuBuSt" caption="Καθορισμός Κοινοποιήσεων (5/8)">
 		<control caption="Τα δίκτυα P2P είναι τόσο καλά, όσο οι άνθρωποι που τα χρησιμοποιούν. Όλα τα διαθέσιμα προς λήψη αρχεία κοινοποιούνται από άλλους χρήστες."/>

@@ -1,7 +1,7 @@
 //
 // XML.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -25,7 +25,11 @@ static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
 #endif
 
-#define IsSpace(ch)	((ch) == _T(' ') || (ch) == _T('\t') || (ch) == _T('\r') || (ch) == _T('\n'))
+// Produce 2 comma-seperated arguments: string itself, and string length (without null terminator)
+//#define _P(x) (x),((sizeof(x))/sizeof((x)[0])-1)
+#define _PT(x) ( _T(x) ), ( (sizeof(_T(x)))/sizeof((_T(x))[0]) - 1 )
+
+#define IsSpace(ch)	( (ch) == _T(' ') || (ch) == _T('\t') || (ch) == _T('\r') || (ch) == _T('\n') )
 
 //////////////////////////////////////////////////////////////////////
 // CXMLNode construction
@@ -36,6 +40,7 @@ CXMLNode::CXMLNode(CXMLElement* pParent, LPCTSTR pszName)
 {
 	if ( pszName )
 	{
+		ASSERT( *pszName );
 		m_sName = pszName;
 		m_sName.MakeLower();
 	}
@@ -51,8 +56,10 @@ void CXMLNode::Delete()
 
 	if ( m_pParent != NULL )
 	{
-		if ( m_nNode == xmlElement ) m_pParent->RemoveElement( (CXMLElement*)this );
-		else if ( m_nNode == xmlAttribute ) m_pParent->RemoveAttribute( (CXMLAttribute*)this );
+		if ( m_nNode == xmlElement )
+			m_pParent->RemoveElement( (CXMLElement*)this );
+		else if ( m_nNode == xmlAttribute )
+			m_pParent->RemoveAttribute( (CXMLAttribute*)this );
 	}
 
 	delete this;
@@ -66,7 +73,7 @@ BOOL CXMLNode::ParseMatch(LPCTSTR& pszBase, LPCTSTR pszToken)
 	LPCTSTR pszXML = pszBase;
 	int nParse = 0;
 
-	for ( ; *pszXML == ' ' || *pszXML == '\t' || *pszXML == '\r' || *pszXML == '\n' ; pszXML++, nParse++ );
+	for ( ; IsSpace( *pszXML ) ; pszXML++, nParse++ );
 	if ( ! *pszXML ) return FALSE;
 
 	for ( ; *pszXML && *pszToken ; pszXML++, pszToken++, nParse++ )
@@ -84,7 +91,7 @@ BOOL CXMLNode::ParseIdentifier(LPCTSTR& pszBase, CString& strIdentifier)
 	LPCTSTR pszXML = pszBase;
 	int nParse = 0;
 
-	while ( *pszXML == ' ' || *pszXML == '\t' || *pszXML == '\r' || *pszXML == '\n' )
+	while ( IsSpace( *pszXML ) )
 	{
 		pszXML++;
 		nParse++;
@@ -138,12 +145,23 @@ CString CXMLNode::StringToValue(LPCTSTR& pszXML, int nLength)
 			pszXML++;
 			if ( ! *pszXML || pszXML >= pszNull ) break;
 
-			if ( _tcsnicmp( pszXML, _T("amp;"), 4 ) == 0 )
+			// http://en.wikipedia.org/wiki/List_of_XML_and_HTML_character_entity_references
+
+			if ( *pszXML == '#' )
 			{
-				*pszOut++ = '&';
-				pszXML += 4;
+				pszXML++;
+				if ( ! *pszXML || pszXML >= pszNull || ! _istdigit( *pszXML ) ) break;
+
+				int nChar;
+				if ( _stscanf( pszXML, _T("%lu;"), &nChar ) == 1 )
+				{
+					*pszOut++ = (TCHAR)nChar;
+					while ( *pszXML && *pszXML != ';' ) pszXML++;
+					if ( ! *pszXML || pszXML >= pszNull ) break;
+					pszXML++;
+				}
 			}
-			else if ( _tcsnicmp( pszXML, _T("quot;"), 5 ) == 0 )
+			else if ( _tcsnicmp( pszXML, _T("quot;"), 5 ) == 0 )	// Most common
 			{
 				*pszOut++ = '\"';
 				pszXML += 5;
@@ -151,11 +169,6 @@ CString CXMLNode::StringToValue(LPCTSTR& pszXML, int nLength)
 			else if ( _tcsnicmp( pszXML, _T("apos;"), 5 ) == 0 )
 			{
 				*pszOut++ = '\'';
-				pszXML += 5;
-			}
-			else if ( _tcsnicmp( pszXML, _T("nbsp;"), 5 ) == 0 )
-			{
-				*pszOut++ = ' ';
 				pszXML += 5;
 			}
 			else if ( _tcsnicmp( pszXML, _T("lt;"), 3 ) == 0 )
@@ -168,19 +181,15 @@ CString CXMLNode::StringToValue(LPCTSTR& pszXML, int nLength)
 				*pszOut++ = '>';
 				pszXML += 3;
 			}
-			else if ( *pszXML == '#' )
+			else if ( _tcsnicmp( pszXML, _T("nbsp;"), 5 ) == 0 )	// Not XML spec, but common HTML
 			{
-				int nChar;
-				pszXML++;
-				if ( ! *pszXML || pszXML >= pszNull || ! _istdigit( *pszXML ) ) break;
-
-				if ( _stscanf( pszXML, _T("%lu;"), &nChar ) == 1 )
-				{
-					*pszOut++ = (TCHAR)nChar;
-					while ( *pszXML && *pszXML != ';' ) pszXML++;
-					if ( ! *pszXML || pszXML >= pszNull ) break;
-					pszXML++;
-				}
+				*pszOut++ = ' ';
+				pszXML += 5;
+			}
+			else if ( _tcsnicmp( pszXML, _T("amp;"), 4 ) == 0 )
+			{
+				*pszOut++ = '&';
+				pszXML += 4;
 			}
 			else
 			{
@@ -292,7 +301,7 @@ void CXMLNode::Serialize(CArchive& ar)
 
 void CXMLNode::UniformString(CString& str)
 {
-	// non-alphanumeric characters which will not be ignored
+	// Non-alphanumeric characters which will not be ignored
 	static LPCTSTR pszOK = _T("'-&/,;#()");
 
 	str.Trim();
@@ -351,6 +360,7 @@ CXMLElement::~CXMLElement()
 CXMLElement* CXMLElement::AddElement(LPCTSTR pszName)
 {
 	CXMLElement* pElement = new CXMLElement( this, pszName );
+	if ( ! pElement ) return NULL;			// Out of memory
 	m_pElements.AddTail( pElement );
 	return pElement;
 }
@@ -361,10 +371,12 @@ CXMLElement* CXMLElement::AddElement(LPCTSTR pszName)
 CXMLElement* CXMLElement::Clone(CXMLElement* pParent) const
 {
 	CXMLElement* pClone = new CXMLElement( pParent, m_sName );
+	if ( ! pClone ) return NULL;			// Out of memory
 
 	for ( POSITION pos = GetAttributeIterator() ; pos ; )
 	{
 		CXMLAttribute* pAttribute = GetNextAttribute( pos )->Clone( pClone );
+		if ( ! pAttribute ) return NULL;	// Out of memory
 		CString strName( pAttribute->m_sName );
 		strName.MakeLower();
 
@@ -382,6 +394,7 @@ CXMLElement* CXMLElement::Clone(CXMLElement* pParent) const
 		pClone->m_pElements.AddTail( pElement->Clone( pClone ) );
 	}
 
+	ASSERT( ! pClone->m_sName.IsEmpty() );
 	pClone->m_sValue = m_sValue;
 
 	return pClone;
@@ -418,10 +431,11 @@ void CXMLElement::DeleteAllAttributes()
 CString CXMLElement::ToString(BOOL bHeader, BOOL bNewline) const
 {
 	CString strXML;
+	strXML.Preallocate( 256 );
 	if ( bHeader )
 		strXML = _T("<?xml version=\"1.0\"?>");
 	if ( bNewline )
-		strXML += _T("\r\n");
+		strXML.Append( _PT("\r\n") );
 	ToString( strXML, bNewline );
 	ASSERT( strXML.GetLength() == int( _tcslen(strXML) ) );
 	return strXML;
@@ -429,12 +443,14 @@ CString CXMLElement::ToString(BOOL bHeader, BOOL bNewline) const
 
 void CXMLElement::ToString(CString& strXML, BOOL bNewline) const
 {
-	strXML += '<' + m_sName;
+	// strXML += '<' + m_sName; Optimzed:
+	strXML.AppendChar( _T('<') );
+	strXML.Append( m_sName );
 
 	POSITION pos = GetAttributeIterator();
 	for ( ; pos ; )
 	{
-		strXML += ' ';
+		strXML.AppendChar( _T(' ') );
 		CXMLAttribute* pAttribute = GetNextAttribute( pos );
 		pAttribute->ToString( strXML );
 	}
@@ -443,13 +459,15 @@ void CXMLElement::ToString(CString& strXML, BOOL bNewline) const
 
 	if ( pos == NULL && m_sValue.IsEmpty() )
 	{
-		strXML += _T("/>");
-		if ( bNewline ) strXML += _T("\r\n");
+		strXML.Append( _PT("/>") );
+		if ( bNewline )
+			strXML.Append( _PT("\r\n") );
 		return;
 	}
 
-	strXML += '>';
-	if ( bNewline && pos ) strXML += _T("\r\n");
+	strXML.AppendChar( _T('>') );
+	if ( bNewline && pos )
+		strXML.Append( _PT("\r\n") );
 
 	while ( pos )
 	{
@@ -459,8 +477,11 @@ void CXMLElement::ToString(CString& strXML, BOOL bNewline) const
 
 	ValueToString( m_sValue, strXML );
 
-	strXML += _T("</") + m_sName + '>';
-	if ( bNewline ) strXML += _T("\r\n");
+	strXML.Append( _PT("</") );
+	strXML.Append( m_sName );
+	strXML.AppendChar( _T('>') );
+	if ( bNewline )
+		strXML.Append( _PT("\r\n") );
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -911,6 +932,8 @@ CXMLAttribute::~CXMLAttribute()
 
 CXMLAttribute* CXMLElement::AddAttribute(LPCTSTR pszName, LPCTSTR pszValue)
 {
+	ASSERT( pszName && *pszName );
+
 	CXMLAttribute* pAttribute = GetAttribute( pszName );
 
 	if ( ! pAttribute )
@@ -955,6 +978,8 @@ CXMLAttribute* CXMLElement::AddAttribute(CXMLAttribute* pAttribute)
 CXMLAttribute* CXMLAttribute::Clone(CXMLElement* pParent) const
 {
 	CXMLAttribute* pClone = new CXMLAttribute( pParent, m_sName );
+	if ( ! pClone ) return NULL;	// Out of memory
+	ASSERT( ! pClone->m_sName.IsEmpty() );
 	pClone->m_sValue = m_sValue;
 	return pClone;
 }

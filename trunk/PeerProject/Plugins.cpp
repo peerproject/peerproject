@@ -1,7 +1,7 @@
 //
 // Plugins.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2006.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -277,9 +277,9 @@ BOOL CPlugins::LookupEnable(REFCLSID pCLSID, LPCTSTR pszExt) const
 
 	if ( strExtensions.IsEmpty() )
 		return TRUE;
-	else if ( strExtensions == _T("-") ) // for plugins without associations
+	if ( strExtensions == _T("-") ) // for plugins without associations
 		return FALSE;
-	else if ( strExtensions.Left( 1 ) == _T("-") && strExtensions.GetLength() > 1 )
+	if ( strExtensions.Left( 1 ) == _T("-") && strExtensions.GetLength() > 1 )
 		strExtensions = strExtensions.Mid( 1 );
 
 	if ( pszExt ) // Checking only a certain extension
@@ -667,6 +667,10 @@ BOOL CPlugin::Start()
 	m_nCapabilities = 0;
 	hr = m_pPlugin->QueryCapabilities( &m_nCapabilities );
 
+	ASSERT( ! m_pCommand );
+	ASSERT( ! m_pExecute );
+	ASSERT( ! m_pChat );
+
 	hr = m_pPlugin->QueryInterface( IID_ICommandPlugin, (void**)&m_pCommand );
 	hr = m_pPlugin->QueryInterface( IID_IExecutePlugin, (void**)&m_pExecute );
 	hr = m_pPlugin->QueryInterface( IID_IChatPlugin, (void**)&m_pChat );
@@ -676,10 +680,34 @@ BOOL CPlugin::Start()
 
 void CPlugin::Stop()
 {
-	m_pChat.Release();
-	m_pExecute.Release();
-	m_pCommand.Release();
-	m_pPlugin.Release();
+	__try
+	{
+		m_pChat.Release();
+	}
+	__except( EXCEPTION_EXECUTE_HANDLER )
+	{
+	}
+	__try
+	{
+		m_pExecute.Release();
+	}
+	__except( EXCEPTION_EXECUTE_HANDLER )
+	{
+	}
+	__try
+	{
+		m_pCommand.Release();
+	}
+	__except( EXCEPTION_EXECUTE_HANDLER )
+	{
+	}
+	__try
+	{
+		m_pPlugin.Release();
+	}
+	__except( EXCEPTION_EXECUTE_HANDLER )
+	{
+	}
 }
 
 //////////////////////////////////////////////////////////////////////

@@ -1,7 +1,7 @@
 //
 // PageSettingsRemote.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -33,9 +33,9 @@ static char THIS_FILE[] = __FILE__;
 IMPLEMENT_DYNAMIC(CRemoteSettingsPage, CSettingsPage)
 
 BEGIN_MESSAGE_MAP(CRemoteSettingsPage, CSettingsPage)
-	ON_BN_CLICKED(IDC_REMOTE_ENABLE, OnBnClickedRemoteEnable)
-	ON_EN_CHANGE(IDC_REMOTE_USERNAME, OnBnClickedRemoteEnable)
-	ON_EN_CHANGE(IDC_REMOTE_PASSWORD, OnNewPassword)
+	ON_BN_CLICKED(IDC_REMOTE_ENABLE,  &CRemoteSettingsPage::OnBnClickedRemoteEnable)
+	ON_EN_CHANGE(IDC_REMOTE_USERNAME, &CRemoteSettingsPage::OnBnClickedRemoteEnable)
+	ON_EN_CHANGE(IDC_REMOTE_PASSWORD, &CRemoteSettingsPage::OnNewPassword)
 	ON_WM_CTLCOLOR()
 	ON_WM_SETCURSOR()
 	ON_WM_LBUTTONUP()
@@ -80,7 +80,6 @@ BOOL CRemoteSettingsPage::OnInitDialog()
 	if ( ! m_sOldPassword.IsEmpty() ) m_sPassword = _T("      ");
 
 	UpdateData( FALSE );
-	OnBnClickedRemoteEnable();
 
 	return TRUE;
 }
@@ -216,4 +215,14 @@ void CRemoteSettingsPage::OnCancel()
 	Settings.Remote.Password	= m_sOldPassword;
 
 	CSettingsPage::OnCancel();
+}
+
+void CRemoteSettingsPage::OnSkinChange()
+{
+	if ( ! IsWindow( GetSafeHwnd() ) )
+		return;		// Page not created yet
+
+	CSettingsPage::OnSkinChange();
+
+	OnBnClickedRemoteEnable();
 }

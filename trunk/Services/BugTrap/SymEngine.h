@@ -17,9 +17,8 @@
 #include "SmartPtr.h"
 #include "InterfacePtr.h"
 
-#ifdef _MANAGED
-#include "NetThunks.h"
-#endif
+/* Note: _MANAGED Code Sections Removed */
+/* Note: _M_X64 and _M_IX86 Sections Reordered for x64 Access */
 
 /// Type definition of pointer to SymGetOptions() function.
 typedef DWORD (WINAPI *PFSymGetOptions)(VOID);
@@ -57,10 +56,6 @@ public:
 		WIN32_EXCEPTION,
 		/// C++ exception.
 		CPP_EXCEPTION,
-#ifdef _MANAGED
-		/// .NET exception.
-		NET_EXCEPTION
-#endif
 	};
 
 	/// Screen-shot object.
@@ -191,10 +186,6 @@ private:
 		TCHAR m_szSPVersion[128];
 		/// Build number.
 		TCHAR m_szBuildNumber[16];
-#ifdef _MANAGED
-		/// CLR Version.
-		WCHAR m_szNetVersion[64];
-#endif
 	};
 
 	/// Error information.
@@ -293,40 +284,7 @@ private:
 	{
 		/// Initialize the object.
 		CRegistersValues(void);
-#if defined _M_IX86
-		/// EAX register.
-		TCHAR m_szEax[16];
-		/// EBX register.
-		TCHAR m_szEbx[16];
-		/// ECX register.
-		TCHAR m_szEcx[16];
-		/// EDX register.
-		TCHAR m_szEdx[16];
-		/// ESI register.
-		TCHAR m_szEsi[16];
-		/// EDI register.
-		TCHAR m_szEdi[16];
-		/// ESP register.
-		TCHAR m_szEsp[16];
-		/// EBP register.
-		TCHAR m_szEbp[16];
-		/// EIP register.
-		TCHAR m_szEip[16];
-		/// CS register.
-		TCHAR m_szSegCs[16];
-		/// DS register.
-		TCHAR m_szSegDs[16];
-		/// SS register.
-		TCHAR m_szSegSs[16];
-		/// ES register.
-		TCHAR m_szSegEs[16];
-		/// FS register.
-		TCHAR m_szSegFs[16];
-		/// GS register.
-		TCHAR m_szSegGs[16];
-		/// EFLAGS register.
-		TCHAR m_szEFlags[16];
-#elif defined _M_X64
+#if defined _M_X64
 		/// RAX register.
 		TCHAR m_szRax[32];
 		/// RBX register.
@@ -345,6 +303,39 @@ private:
 		TCHAR m_szRbp[32];
 		/// RIP register.
 		TCHAR m_szRip[32];
+		/// CS register.
+		TCHAR m_szSegCs[16];
+		/// DS register.
+		TCHAR m_szSegDs[16];
+		/// SS register.
+		TCHAR m_szSegSs[16];
+		/// ES register.
+		TCHAR m_szSegEs[16];
+		/// FS register.
+		TCHAR m_szSegFs[16];
+		/// GS register.
+		TCHAR m_szSegGs[16];
+		/// EFLAGS register.
+		TCHAR m_szEFlags[16];
+#elif defined _M_IX86
+		/// EAX register.
+		TCHAR m_szEax[16];
+		/// EBX register.
+		TCHAR m_szEbx[16];
+		/// ECX register.
+		TCHAR m_szEcx[16];
+		/// EDX register.
+		TCHAR m_szEdx[16];
+		/// ESI register.
+		TCHAR m_szEsi[16];
+		/// EDI register.
+		TCHAR m_szEdi[16];
+		/// ESP register.
+		TCHAR m_szEsp[16];
+		/// EBP register.
+		TCHAR m_szEbp[16];
+		/// EIP register.
+		TCHAR m_szEip[16];
 		/// CS register.
 		TCHAR m_szSegCs[16];
 		/// DS register.
@@ -390,11 +381,6 @@ private:
 	CStackWalkContext m_swContext;
 	/// Frame count (in rare cases DbgHelp could produce infinite stack traces).
 	DWORD m_dwFrameCount;
-
-#ifdef _MANAGED
-	/// Managed stack trace.
-	CNetStackTrace* m_pNetStackTrace;
-#endif
 
 	/// Pointer to SymGetOptions() function.
 	PFSymGetOptions FSymGetOptions;
@@ -443,10 +429,6 @@ private:
 	void GetWin32StackTrace(CXmlWriter& rXmlWriter, DWORD dwThreadID, HANDLE hThread, PCTSTR pszThreadStatus);
 	/// Get error information in XML format.
 	BOOL GetErrorInfo(CXmlWriter& rXmlWriter);
-#ifdef _MANAGED
-	/// Get error information in XML format.
-	BOOL GetErrorInfo(CXmlWriter& rXmlWriter, CNetStackTrace* pNetStackTrace, gcroot<Exception^> exception, DWORD dwNestedLevel);
-#endif
 	/// Get register values.
 	void GetRegistersInfo(CXmlWriter& rXmlWriter);
 	/// Get system error information.
@@ -459,32 +441,14 @@ private:
 	void GetOsInfo(CXmlWriter& rXmlWriter);
 	/// Get system memory information.
 	void GetMemInfo(CXmlWriter& rXmlWriter);
-#ifdef _MANAGED
-	/// Get stack trace info for interrupted .NET thread.
-	void GetNetStackTrace(CUTF8EncStream& rEncStream);
-	/// Get stack trace info for interrupted .NET thread.
-	void GetNetStackTrace(CXmlWriter& rXmlWriter);
-#endif
 	/// Get stack trace info for all threads.
 	void GetWin32ThreadsList(CUTF8EncStream& rEncStream, CEnumProcess* pEnumProcess);
 	/// Get stack trace info for all threads.
 	void GetWin32ThreadsList(CXmlWriter& rXmlWriter, CEnumProcess* pEnumProcess);
-#ifdef _MANAGED
-	/// Get stack trace info for all threads.
-	void GetNetThreadsList(CUTF8EncStream& rEncStream);
-	/// Get stack trace info for all threads.
-	void GetNetThreadsList(CXmlWriter& rXmlWriter);
-#endif
 	/// Get module list for specified process.
 	void GetModuleList(CUTF8EncStream& rEncStream, CEnumProcess* pEnumProcess, CEnumProcess::CProcessEntry& rProcEntry);
 	/// Get module list for specified process.
 	void GetModuleList(CXmlWriter& rXmlWriter, CEnumProcess* pEnumProcess, CEnumProcess::CProcessEntry& rProcEntry);
-#ifdef _MANAGED
-	/// Get assemblies list for current process.
-	void GetAssemblyList(CUTF8EncStream& rEncStream);
-	/// Get assemblies list for current process.
-	void GetAssemblyList(CXmlWriter& rXmlWriter);
-#endif
 	/// Get process info for specified process.
 	void GetProcessList(CUTF8EncStream& rEncStream, CEnumProcess* pEnumProcess);
 	/// Get process info for specified process.
@@ -509,22 +473,10 @@ private:
 	BOOL GetFirstWin32StackTraceString(CUTF8EncStream& rEncStream, HANDLE hThread = NULL);
 	/// Get text representation of lower call stack entry.
 	BOOL GetNextWin32StackTraceString(CUTF8EncStream& rEncStream);
-#ifdef _MANAGED
-	/// Get text representation of topmost call stack entry.
-	BOOL GetFirstNetStackTraceString(CUTF8EncStream& rEncStream);
-	/// Get text representation of lower call stack entry.
-	BOOL GetNextNetStackTraceString(CUTF8EncStream& rEncStream);
-#endif
 	/// Get string with CPU registers for the crash.
 	void GetRegistersString(CUTF8EncStream& rEncStream);
 	/// Get crash location and reason.
 	BOOL GetWin32ErrorString(CUTF8EncStream& rEncStream);
-#ifdef _MANAGED
-	/// Get crash location and reason.
-	BOOL GetNetErrorString(CUTF8EncStream& rEncStream);
-	/// Get crash location and reason.
-	BOOL GetNetErrorStringEx(CUTF8EncStream& rEncStream);
-#endif
 	/// Get crash location and reason.
 	BOOL GetErrorString(CUTF8EncStream& rEncStream);
 	/// Get system error description.
@@ -600,24 +552,10 @@ public:
 	BOOL GetFirstStackTraceEntry(CStackTraceEntry& rEntry, HANDLE hThread = NULL);
 	/// Get structured representation of lower call stack entry.
 	BOOL GetNextStackTraceEntry(CStackTraceEntry& rEntry);
-#ifdef _MANAGED
-	/// Get structured representation of topmost call stack entry.
-	BOOL GetFirstStackTraceEntry(CNetStackTrace::CNetStackTraceEntry& rEntry);
-	/// Get structured representation of lower call stack entry.
-	BOOL GetNextStackTraceEntry(CNetStackTrace::CNetStackTraceEntry& rEntry);
-#endif
 	/// Get string with CPU registers for the crash.
 	void GetRegistersString(PTSTR pszRegString, DWORD dwRegStringSize);
 	/// Get crash location and error reason.
 	BOOL GetWin32ErrorString(CStrStream& rStream);
-#ifdef _MANAGED
-	/// Return true if .NET exception info is valid.
-	BOOL IsNetException(void) const;
-	/// Get crash location and error reason.
-	BOOL GetNetErrorString(CStrStream& rStream);
-	/// Get crash location and error reason, including inner exception info.
-	BOOL GetNetErrorStringEx(CStrStream& rStream);
-#endif
 	/// Get crash location and error reason.
 	BOOL GetErrorString(CStrStream& rStream);
 	/// Get description of system CPUs.
@@ -730,8 +668,6 @@ inline void CSymEngine::GetReportFileName(PTSTR pszFileName, DWORD dwBufferSize)
 	GetReportFileName(pszReportExtension, pszFileName, dwBufferSize);
 }
 
-#ifndef _MANAGED
-
 /**
  * @param rStream - stream object.
  * @return true if error info is not empty.
@@ -750,72 +686,4 @@ inline BOOL CSymEngine::GetErrorString(CUTF8EncStream& rEncStream)
 	return GetWin32ErrorString(rEncStream);
 }
 
-#endif
-
-#ifdef _MANAGED
-
-/**
- * @param rEntry - stack entry information.
- * @return true if there is information about stack entry.
- */
-inline BOOL CSymEngine::GetFirstStackTraceEntry(CNetStackTrace::CNetStackTraceEntry& rEntry)
-{
-	_ASSERTE(m_pNetStackTrace != NULL);
-	return (m_pNetStackTrace != NULL ? m_pNetStackTrace->GetFirstStackTraceEntry(rEntry) : FALSE);
-}
-
-/**
- * @param rEntry - stack entry information.
- * @return true if there is information about stack entry.
- */
-inline BOOL CSymEngine::GetNextStackTraceEntry(CNetStackTrace::CNetStackTraceEntry& rEntry)
-{
-	_ASSERTE(m_pNetStackTrace != NULL);
-	return (m_pNetStackTrace != NULL ? m_pNetStackTrace->GetNextStackTraceEntry(rEntry) : FALSE);
-}
-
-/**
- * @param rEncStream - UTF-8 encoder object.
- * @return true if thread context was successfully resolved.
- */
-inline BOOL CSymEngine::GetFirstNetStackTraceString(CUTF8EncStream& rEncStream)
-{
-	_ASSERTE(m_pNetStackTrace != NULL);
-	return (m_pNetStackTrace != NULL ? m_pNetStackTrace->GetFirstStackTraceString(rEncStream) : FALSE);
-}
-
-/**
- * @param rEncStream - UTF-8 encoder object.
- * @return true if thread context was successfully resolved.
- */
-inline BOOL CSymEngine::GetNextNetStackTraceString(CUTF8EncStream& rEncStream)
-{
-	_ASSERTE(m_pNetStackTrace != NULL);
-	return (m_pNetStackTrace != NULL ? m_pNetStackTrace->GetNextStackTraceString(rEncStream) : FALSE);
-}
-
-/**
- * @param rEncStream - UTF-8 encoder object.
- */
-inline void CSymEngine::GetNetThreadsList(CUTF8EncStream& rEncStream)
-{
-	rEncStream; // TBD
-}
-
-/**
- * @param rXmlWriter - XML writer.
- */
-inline void CSymEngine::GetNetThreadsList(CXmlWriter& rXmlWriter)
-{
-	rXmlWriter; // TBD
-}
-
-/**
- * @return true if .NET exception info is valid.
- */
-inline BOOL CSymEngine::IsNetException(void) const
-{
-	return (NetThunks::IsNetException() && m_pNetStackTrace != NULL);
-}
-
-#endif
+/* _MANAGED Code Removed */

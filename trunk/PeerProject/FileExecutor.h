@@ -1,7 +1,7 @@
 //
 // FileExecutor.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -25,13 +25,12 @@ class CLibraryWnd;
 class CFileExecutor
 {
 public:
-	// Is file extension safe to execute?
-	// Returns: TRI_TRUE - safe, TRI_FALSE - dangerous, TRI_UNKNOWN - dangerous and cancel
+	// Is file extension safe to execute?  TRI_TRUE -safe, TRI_FALSE -dangerous, TRI_UNKNOWN -dangerous and cancel
 	static TRISTATE IsSafeExecute(LPCTSTR szExt, LPCTSTR szFile = NULL);
 	static BOOL		Execute(LPCTSTR pszFile, BOOL bSkipSecurityCheck = FALSE, LPCTSTR pszExt = NULL);
 	static BOOL		Enqueue(LPCTSTR pszFiles, BOOL bSkipSecurityCheck = FALSE, LPCTSTR pszExt = NULL);
-	static BOOL		ShowBitziTicket(DWORD nFile);
-	static BOOL		DisplayURL(LPCTSTR pszURL);
+//	static BOOL		ShowBitziTicket(DWORD nFile);	// Moved to WebServices
+//	static BOOL		DisplayURL(LPCTSTR pszURL);
 
 protected:
 	// Open Media Player window
@@ -43,6 +42,6 @@ protected:
 	// Is file a video, audio or image file?
 	static void DetectFileType(LPCTSTR pszFile, LPCTSTR szType, bool& bVideo, bool& bAudio, bool& bImage);
 
-	//Extracts custom players form settings
+	// Extracts custom players form settings
 	static int FillServices(CString sServicePaths[]);
 };

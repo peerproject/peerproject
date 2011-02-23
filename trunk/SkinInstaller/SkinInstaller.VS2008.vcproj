@@ -51,9 +51,9 @@
 				RuntimeLibrary="1"
 				EnableFunctionLevelLinking="true"
 				RuntimeTypeInfo="false"
-				WarningLevel="4"
 				DebugInformationFormat="4"
 				DisableSpecificWarnings="4100"
+				WarningLevel="4"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -72,6 +72,7 @@
 				IgnoreDefaultLibraryNames=""
 				GenerateManifest="false"
 				GenerateDebugInformation="true"
+				LargeAddressAware="2"
 				TargetMachine="1"
 				KeyFile=""
 			/>
@@ -132,9 +133,9 @@
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
 				RuntimeTypeInfo="false"
-				WarningLevel="4"
 				DebugInformationFormat="3"
 				DisableSpecificWarnings="4100"
+				WarningLevel="4"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -153,6 +154,7 @@
 				IgnoreDefaultLibraryNames=""
 				GenerateManifest="false"
 				GenerateDebugInformation="true"
+				LargeAddressAware="2"
 				TargetMachine="17"
 			/>
 			<Tool
@@ -206,18 +208,19 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="3"
-				InlineFunctionExpansion="2"
-				EnableIntrinsicFunctions="true"
 				FavorSizeOrSpeed="1"
-				OmitFramePointers="true"
 				AdditionalIncludeDirectories="../Services/zlib"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;NOCRYPT;ZLIB_DLL;ZLIB_WINAPI;_CRT_SECURE_NO_DEPRECATE"
+				InlineFunctionExpansion="2"
+				EnableIntrinsicFunctions="true"
+				EnableEnhancedInstructionSet="1"
+				OmitFramePointers="true"
 				StringPooling="true"
 				ExceptionHandling="0"
 				RuntimeLibrary="0"
 				RuntimeTypeInfo="false"
-				WarningLevel="4"
 				DisableSpecificWarnings="4100"
+				WarningLevel="4"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -239,6 +242,7 @@
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
 				SetChecksum="true"
+				LargeAddressAware="2"
 				TargetMachine="1"
 				KeyFile=""
 			/>
@@ -292,18 +296,18 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="3"
-				InlineFunctionExpansion="2"
-				EnableIntrinsicFunctions="true"
 				FavorSizeOrSpeed="1"
-				OmitFramePointers="true"
 				AdditionalIncludeDirectories="../Services/zlib"
 				PreprocessorDefinitions="WIN64;NDEBUG;_WINDOWS;NOCRYPT;ZLIB_DLL;ZLIB_WINAPI;_CRT_SECURE_NO_DEPRECATE"
+				InlineFunctionExpansion="2"
+				EnableIntrinsicFunctions="true"
+				OmitFramePointers="true"
 				StringPooling="true"
 				ExceptionHandling="0"
 				RuntimeLibrary="0"
 				RuntimeTypeInfo="false"
-				WarningLevel="4"
 				DisableSpecificWarnings="4100"
+				WarningLevel="4"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -325,6 +329,7 @@
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
 				SetChecksum="true"
+				LargeAddressAware="2"
 				TargetMachine="17"
 			/>
 			<Tool

@@ -2,13 +2,13 @@
 // stdafx.h
 //
 
-
 #pragma once
 
 // For /Wall
 #pragma warning(disable:4668)
 #pragma warning(disable:4820)
 #pragma warning(disable:4548)
+#pragma warning(disable:4986)	// operator new[]/delete[] previous declaration
 
 #define WINVER 0x0500
 #define _WIN32_WINNT 0x0500
@@ -22,4 +22,4 @@
 #include <windows.h>
 #include <algorithm>
 
-// define HASHLIB_USE_ASM for assembler use (several times faster)
+// Define HASHLIB_USE_ASM for assembler use (several times faster)

@@ -1,7 +1,7 @@
 //
 // LibraryBuilder.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -373,7 +373,16 @@ void CLibraryBuilder::OnRun()
 
 	while ( IsThreadEnabled() )
 	{
-		Sleep( 100 );	// Max 10 files per second
+		if ( ! theApp.m_bLive )
+		{
+			Sleep( 5000 );	// Delay load at startup	Sleep(0)?
+			continue;
+		}
+
+		if ( Settings.Library.HighPriorityHash )
+			Sleep( 50 );	// Max 20 files per second
+		else
+			Sleep( 100 );	// Max 10 files per second
 
 		CString sPath;
 		DWORD nIndex = GetNextFileToHash( sPath );
@@ -490,11 +499,12 @@ bool CLibraryBuilder::HashFile(LPCTSTR szPath, HANDLE hFile)
 	QWORD nLength = nFileSize;
 	while ( nLength )
 	{
-		nBlock	= (DWORD)min( nLength, MAX_HASH_BUFFER_SIZE );
+		nBlock = (DWORD)min( nLength, MAX_HASH_BUFFER_SIZE );
 
 		{
-			// Calculate % done (nResult = 0.00 -> 100.00)
 			CQuickLock pLock( m_pSection );
+
+			// Calculate % done (nResult = 0.00 -> 100.00)
 			m_nProgress = ( ( nFileSize - nLength ) * 100.00f ) / nFileSize;
 		}
 
@@ -506,8 +516,7 @@ bool CLibraryBuilder::HashFile(LPCTSTR szPath, HANDLE hFile)
 			break;
 
 		QueryPerformanceCounter( &count1 );
-		m_nElapsed += ( ( ( count1.QuadPart - m_nLastCall.QuadPart ) * 1000000ull ) /
-			m_nFreq.QuadPart);	// mks
+		m_nElapsed += ( ( ( count1.QuadPart - m_nLastCall.QuadPart ) * 1000000ull ) / m_nFreq.QuadPart );	// mks
 		m_nLastCall.QuadPart = count1.QuadPart;
 		m_nReaded += nBlock;
 
@@ -804,10 +813,10 @@ bool CLibraryBuilder::DetectVirtualAPEHeader(HANDLE hFile, QWORD& nOffset, QWORD
 bool CLibraryBuilder::DetectVirtualAPEFooter(HANDLE hFile, QWORD& nOffset, QWORD& nLength)
 {
 	APE_TAG_FOOTER pFooter = { 0 };
-	DWORD nRead;
 	if ( nLength < sizeof(pFooter) )
 		return false;
 
+	DWORD nRead;
 	LONG nPosLow	= (LONG)( ( nOffset + nLength - sizeof(pFooter) ) & 0xFFFFFFFF );
 	LONG nPosHigh	= (LONG)( ( nOffset + nLength - sizeof(pFooter) ) >> 32 );
 
@@ -896,15 +905,15 @@ bool CLibraryBuilder::DetectVirtualLAME(HANDLE hFile, QWORD& nOffset, QWORD& nLe
 		return false;
 
 	const int bitrate_table[ 3 ][ 16 ] = {
-		{ 0, 8, 16, 24, 32, 40, 48, 56, 64, 80, 96, 112, 128, 144, 160, -1 }, // MPEG 2
-		{ 0, 32, 40, 48, 56, 64, 80, 96, 112, 128, 160, 192, 224, 256, 320, -1 }, // MPEG 1
-		{ 0, 8, 16, 24, 32, 40, 48, 56, 64, -1, -1, -1, -1, -1, -1, -1 } // MPEG 2.5
+		{ 0, 8, 16, 24, 32, 40, 48, 56, 64, 80, 96, 112, 128, 144, 160, -1 },		// MPEG 2
+		{ 0, 32, 40, 48, 56, 64, 80, 96, 112, 128, 160, 192, 224, 256, 320, -1 },	// MPEG 1
+		{ 0, 8, 16, 24, 32, 40, 48, 56, 64, -1, -1, -1, -1, -1, -1, -1 }			// MPEG 2.5
 	};
 
 	const int samplerate_table[ 3 ][ 4 ] = {
-		{ 22050, 24000, 16000, -1 }, // MPEG 2
-		{ 44100, 48000, 32000, -1 }, // MPEG 1
-		{ 11025, 12000, 8000, -1 } // MPEG 2.5
+		{ 22050, 24000, 16000, -1 },	// MPEG 2
+		{ 44100, 48000, 32000, -1 },	// MPEG 1
+		{ 11025, 12000, 8000, -1 }		// MPEG 2.5
 	};
 
 	// Get MPEG header data
@@ -941,7 +950,7 @@ bool CLibraryBuilder::DetectVirtualLAME(HANDLE hFile, QWORD& nOffset, QWORD& nLe
 
 	if ( ! ReadFile( hFile, &pFrame, sizeof(pFrame), &nRead, NULL ) || nRead != sizeof(pFrame) )
 		return false;
-	if ( memcmp( &pFrame, &pEmtyRef, sizeof(pFrame) ) == 0 ) // All zeros, strip them off
+	if ( memcmp( &pFrame, &pEmtyRef, sizeof(pFrame) ) == 0 )	// All zeros, strip them off
 	{
 		bChanged = true;
 		nLength -= nVbrHeaderOffset + sizeof(pFrame);
@@ -962,10 +971,10 @@ bool CLibraryBuilder::DetectVirtualLAME(HANDLE hFile, QWORD& nOffset, QWORD& nLe
 		nOffset += nFrameSize;
 		nLength -= nFrameSize;
 	}
-	else if ( memcmp( pFrame.ClassID, cEncoder, 4 ) == 0 ) // LAME encoder
+	else if ( memcmp( pFrame.ClassID, cEncoder, 4 ) == 0 )	// LAME encoder
 	{
 		bChanged = true;
-		DWORD nMusicLength = swapEndianess( pFrame.MusicLength ) - nFrameSize; // Minus the first frame
+		DWORD nMusicLength = swapEndianess( pFrame.MusicLength ) - nFrameSize;	// Minus the first frame
 		nOffset += nFrameSize;
 
 		if ( nFrameSize + nMusicLength > nLength )
@@ -989,9 +998,9 @@ bool CLibraryBuilder::DetectVirtualLAME(HANDLE hFile, QWORD& nOffset, QWORD& nLe
 		WORD nTestBytes = 0;
 		if ( ! ReadFile( hFile, &nTestBytes, sizeof(nTestBytes), &nRead, NULL ) || nRead != sizeof(WORD) )
 			break;
-		if ( memcmp( &nTestBytes, nFrameHeader, 2 ) ) // Doesn't match the start of the first frame
+		if ( memcmp( &nTestBytes, nFrameHeader, 2 ) )	// Doesn't match the start of the first frame
 		{
-			nFrameSize--; // Shorten frame size from the end until it becomes so small to fit header
+			nFrameSize--;	// Shorten frame size from the end until it becomes so small to fit header
 			continue;
 		}
 
@@ -1023,7 +1032,7 @@ bool CLibraryBuilder::DetectVirtualLAME(HANDLE hFile, QWORD& nOffset, QWORD& nLe
 		char* pszChars = (char*)&pFrame;
 		while ( nLen && pszChars[ nLen-- ] == pFrame.ClassID[ 0 ] );
 
-		if ( nLen == 0 ) // All bytes equal
+		if ( nLen == 0 )	// All bytes equal
 		{
 			bChanged = true;
 			nLength -= nFrameSize;

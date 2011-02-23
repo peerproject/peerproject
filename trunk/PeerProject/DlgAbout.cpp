@@ -1,7 +1,7 @@
 //
 // DlgAbout.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -21,7 +21,7 @@
 #include "CoolInterface.h"
 #include "Colors.h"
 #include "DlgAbout.h"
-#include "Revision.h"
+//#include "Revision.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -70,23 +70,19 @@ BOOL CAboutDlg::OnInitDialog()
 	strCaption += _T(" v");
 	strCaption += theApp.m_sVersion;
 	SetWindowText( strCaption );
-	m_wndTitle.SetWindowText( theApp.m_sVersionLong );	// PeerProject 1.x.x.x 32/64-bit (date rXXXX) Debug
+	m_wndTitle.SetWindowText( theApp.m_sVersionLong );		// PeerProject 1.x.x.x 32/64-bit (date rXXXX) Debug
 
 	DWORD dwSize = GetFileVersionInfoSize( theApp.m_strBinaryPath, &dwSize );
 	BYTE* pBuffer = new BYTE[ dwSize ];
 	GetFileVersionInfo( theApp.m_strBinaryPath, NULL, dwSize, pBuffer );
 
+	CWnd* pWnd = GetDlgItem( IDC_COPYRIGHT );
 	BYTE* pValue = NULL;
-	CString strCopyRight;
 
-	if ( VerQueryValue( pBuffer, L"\\StringFileInfo\\000004b0\\LegalCopyright",
-		(void**)&pValue, (UINT*)&dwSize ) )
-		strCopyRight = (LPCTSTR)pValue;
+	if ( VerQueryValue( pBuffer, L"\\StringFileInfo\\000004b0\\LegalCopyright", (void**)&pValue, (UINT*)&dwSize ) )
+		pWnd->SetWindowText( (LPCTSTR)pValue );				// Substitute manifest info
 
 	delete [] pBuffer;
-
-	CWnd* pWnd = GetDlgItem( IDC_COPYRIGHT );
-	pWnd->SetWindowText( (LPCTSTR)strCopyRight );
 
 	return TRUE;
 }
@@ -144,15 +140,24 @@ void CAboutDlg::OnLButtonDown(UINT nFlags, CPoint point)
 
 void CAboutDlg::OnRButtonDown(UINT /*nFlags*/, CPoint point)
 {
+	// Shift+Rightclick on link for BugTrap crash testing
+
 //#ifdef _DEBUG
+	if ( ! ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 ) )
+		return;
+
 	CRect rc;
 	m_wndWeb.GetWindowRect( &rc );
 	ScreenToClient( &rc );
+	if ( ! rc.PtInRect( point ) )
+		return;
 
-	if ( rc.PtInRect( point ) && ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 ) )
-	{
-		DWORD* pNullPtr = (DWORD*)NULL;
-		*pNullPtr = 0xFFFFFFFF;				// Force a program crash (for testing)
-	}
+#ifndef _DEBUG
+	if ( AfxMessageBox( _T("\nDo you wish to trigger a program crash?"), MB_ICONQUESTION|MB_YESNO|MB_DEFBUTTON2 ) != IDYES )
+		return;
+#endif
+
+	DWORD* pNullPtr = (DWORD*)NULL;
+	*pNullPtr = 0xFFFFFFFF;				// Force program crash
 //#endif
 }

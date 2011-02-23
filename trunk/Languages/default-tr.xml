@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Turkish Skin File -->
 
-<!-- Translation based on default-en.xml r60 -->
+<!-- Translation based on default-en.xml r62 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -689,8 +689,8 @@
 			<item id="ID_NETWORK_CONNECT" text="_Bağlan" shortcut="Ctrl+G"/>
 			<separator/>
 			<menu text="Ağını _Seç">
-				<item id="ID_NETWORK_G2" text="Bağlan _Gnutella2"/>
-				<item id="ID_NETWORK_G1" text="Bağlan Gnutella_1"/>
+				<item id="ID_NETWORK_G2" text="Bağlan Gnutella_2"/>
+				<item id="ID_NETWORK_G1" text="Bağlan _Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="Bağlan _eDonkey2000"/>
 			</menu>
 			<separator/>
@@ -767,8 +767,8 @@
 			<item id="ID_NETWORK_BROWSE_TO" text="_Hosta Gözat..."/>
 			<separator/>
 			<menu text="_Ağ Seç">
-				<item id="ID_NETWORK_G2" text="Bağlan _Gnutella2"/>
-				<item id="ID_NETWORK_G1" text="Bağlan Gnutella_1"/>
+				<item id="ID_NETWORK_G2" text="Bağlan Gnutella_2"/>
+				<item id="ID_NETWORK_G1" text="Bağlan _Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="Bağlan _eDonkey2000"/>
 			</menu>
 			<separator/>
@@ -1546,8 +1546,8 @@
 			<item id="ID_NETWORK_CONNECT" text="_Bağlan"/>
 			<item id="ID_NETWORK_DISCONNECT" text="Bağlantı _Kes"/>
 			<separator/>
-			<item id="ID_NETWORK_G2" text="_Gnutella2"/>
-			<item id="ID_NETWORK_G1" text="Gnutella_1"/>
+			<item id="ID_NETWORK_G2" text="Gnutella_2"/>
+			<item id="ID_NETWORK_G1" text="_Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="_eDonkey2000"/>
 		</menu>
 		<menu text="Ek_ran">
@@ -3771,7 +3771,7 @@
 	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="PeerProject'ya Hoşgeldiniz (2/8)">
 		<control caption="En iyi sonuç için PeerProject'nın bağlantınız hakkında bazı temel bilgilere ihtiyacı bulunmaktadır."/>
 		<control caption="İnternet bağlantınızı PeerProject'ya belirtin:"/>
-		<control caption="Çevirmeli Modem|ISDN (128K)|DSL (768K)|DSL (1.5M)|DSL (4.0M)|DSL2 (8.0M)|FIOS (10.0M)|DSL2 (12.0M)|FIOS (20.0M)|DSL2+ (24.0M)|Kablo Modemi/SDSL|T1|T3|LAN|OC3"/>
+		<control caption="Çevirmeli Modem|ISDN 128K|DSL 768K|DSL 1.5M|DSL 4M|DSL2 8|FIOS 10|DSL2 12|FIOS 15|FIOS 20|FIOS 25|FIOS 30|T1|T3|LAN|OC3|Kablo Modemi"/>
 		<control caption="Ya da indirme hızınızı:"/>
 		<control/>
 		<control caption="ve gönderme hızınızı belirtin:"/>
@@ -3780,7 +3780,7 @@
 		<control/>
 		<control caption="Port: &#160; (4-5 basamaklı bir sayı)"/>
 		<control/>
-		<control caption="Random"/>
+		<control caption="Rasgele"/>
 		<control caption="Durum:"/>
 		<control/>
 	</dialog>
@@ -3795,7 +3795,7 @@
 		<control caption="Torrent bağlantılarını yönet."/>
 	</dialog>
 	<dialog name="CWizardFoldersPage" cookie="StStEdBuStEdBuStEdBuSt" caption="PeerProject'ya Hoşgeldiniz (4/8)">
-		<control caption="PeerProject first downloads partial files to a private folder, then moves them when completed according to Download Groups."/>
+		<control caption="PeerProject ilk indirmeler kısmi özel bir klasöre dosya, daha sonra Download Göre tamamlandığında taşır."/>
 		<control caption="Geçici tamamlanmamış dosyaları burada depola:"/>
 		<control/>
 		<control/>
@@ -3805,7 +3805,7 @@
 		<control caption="Geçici .Torrent burada depola:"/>
 		<control/>
 		<control/>
-		<control caption="Common filetypes are initially setup as subfolders of the default location, but Groups can easily be customized by Right-Click.  Simply Drag&apos;n&apos;Drop files."/>
+		<control caption="Yaygın türleri başlangıçta ama, alt klasörler kurmak Grupları özelleştirilebilir. Sadece sürükle-bırak desteği dosyaları."/>
 	</dialog>
 	<dialog name="CWizardSharePage" cookie="StStStSyBuBuSt" caption="PeerProject'ya Hoşgeldiniz (5/8)">
 		<control caption="P2P ağları onu kullanan insanlar için en iyisidir. İndirme için diğer kullanıcılardan bulunan tüm içerikler paylaştırılıyor."/>

@@ -1,7 +1,7 @@
 //
 // Images.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2010
+// This file is part of PeerProject (peerproject.org) © 2010-2011
 // All work here is original and released as-is under Persistent Public Domain [PPD]
 //
 
@@ -43,6 +43,7 @@ void CImages::DeleteObjects()
 	if ( m_brMediaControl.m_hObject ) m_brMediaControl.DeleteObject();
 
 	if ( m_bmBanner.m_hObject ) m_bmBanner.DeleteObject();
+	if ( m_bmBannerEdge.m_hObject ) m_bmBannerEdge.DeleteObject();
 	if ( m_bmDialog.m_hObject ) m_bmDialog.DeleteObject();
 	if ( m_bmDialogPanel.m_hObject ) m_bmDialogPanel.DeleteObject();
 	if ( m_bmPanelMark.m_hObject ) m_bmPanelMark.DeleteObject();
@@ -294,7 +295,8 @@ void CImages::Load()
 		m_brMediaControl.CreateSolidBrush( Colors.m_crMidtone );
 
 
-	m_nBanner = 0;
+	m_nBanner = 0;		// Height = Images.m_bmBanner.GetBitmapDimension().cy
+
 	if ( HBITMAP hBanner = Skin.GetWatermark( _T("System.Header") ) )
 	{
 		BITMAP bmInfo;
@@ -302,6 +304,13 @@ void CImages::Load()
 		m_bmBanner.GetObject( sizeof(BITMAP), &bmInfo );
 		m_bmBanner.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 		m_nBanner = bmInfo.bmHeight;
+
+		if ( HBITMAP hEdge = Skin.GetWatermark( _T("System.Header.Edge") ) )
+		{
+			m_bmBannerEdge.Attach( hEdge );
+			m_bmBannerEdge.GetObject( sizeof(BITMAP), &bmInfo );
+			m_bmBannerEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
+		}
 	}
 	else if ( HBITMAP hBanner = Skin.GetWatermark( _T("Banner") ) )
 	{
@@ -310,6 +319,13 @@ void CImages::Load()
 		m_bmBanner.GetObject( sizeof(BITMAP), &bmInfo );
 		m_bmBanner.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 		m_nBanner = bmInfo.bmHeight;
+
+		if ( HBITMAP hEdge = Skin.GetWatermark( _T("Banner.Edge") ) )
+		{
+			m_bmBannerEdge.Attach( hEdge );
+			m_bmBannerEdge.GetObject( sizeof(BITMAP), &bmInfo );
+			m_bmBannerEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
+		}
 	}
 
 	if ( HBITMAP hPanelMark = Skin.GetWatermark( _T("CPanelWnd.Caption") ) )
@@ -1336,16 +1352,17 @@ BOOL CImages::DrawButtonState(CDC* pDC, const CRect rc, const int nResource)
 
 	switch( nResource )
 	{
-	//case IMAGE_BANNER:
-	//	return DrawButton(pDC, rc, m_bmBanner, m_bmBannerEdge);
+	case IMAGE_BANNER:
+		if ( m_nBanner < 2 ) return FALSE;
+		return DrawButton(pDC, rc, &m_bmBanner, &m_bmBannerEdge);
 	case IMAGE_DIALOG:
-		return DrawButton( pDC, rc, &m_bmDialog );	// ToDo: m_bmDialogEdge?
+		return DrawButton( pDC, rc, &m_bmDialog );		// ToDo: m_bmDialogEdge?
 	case IMAGE_DIALOGPANEL:
 		return DrawButton( pDC, rc, &m_bmDialogPanel );	// ToDo: m_bmDialogPanelEdge?
 	case IMAGE_PANELMARK:
 		return DrawButton( pDC, rc, &m_bmPanelMark );
 	case IMAGE_TOOLTIP:
-		return DrawButton( pDC, rc, &m_bmToolTip );	// ToDo: &m_bmToolTipEdge?
+		return DrawButton( pDC, rc, &m_bmToolTip );		// ToDo: &m_bmToolTipEdge?
 
 	case IMAGE_SELECTED:	// + IMAGE_HIGHLIGHT
 		return DrawButton( pDC, rc, &m_bmSelected );	// ToDo: &m_bmSelectedEdge?
@@ -1467,6 +1484,7 @@ BOOL CImages::DrawButtonState(CDC* pDC, const CRect rc, const int nResource)
 			DrawButtonMap( pDC, rc, &m_bmButtonMapDownloadgroup, STATE_DISABLED );
 
 	default:
+		//ASSERT();
 		return FALSE;
 	}
 }

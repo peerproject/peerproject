@@ -1,7 +1,7 @@
 //
 // DownloadTransferBT.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -508,13 +508,7 @@ bool CDownloadTransferBT::SendFragmentRequests()
 					nOffset, nOffset + nLength - 1,
 					(LPCTSTR)m_pDownload->GetDisplayName(), (LPCTSTR)m_sAddress );
 			}
-#ifdef _DEBUG
-			DWORD ndBlock1 = (DWORD)( nOffset / nBlockSize );
-			DWORD ndBlock2 = (DWORD)( ( nOffset + nLength - 1 ) / nBlockSize );
-			ASSERT( ndBlock1 < m_pDownload->m_pTorrent.m_nBlockCount );
-			ASSERT( ndBlock1 == ndBlock2 );
-			ASSERT( nLength <= nBlockSize );
-#endif
+
 			CBTPacket* pPacket = CBTPacket::New( BT_PACKET_REQUEST );
 			pPacket->WriteLongBE( (DWORD)( nOffset / nBlockSize ) );
 			pPacket->WriteLongBE( (DWORD)( nOffset % nBlockSize ) );

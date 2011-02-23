@@ -1,7 +1,7 @@
 //
 // BTInfo.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -821,7 +821,7 @@ BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 	}
 
 	// Get the comments (if present)
-	m_sComment = pRoot->GetStringFromSubNode( "comment", m_nEncoding, m_bEncodingError );
+	m_sComment = pRoot->GetStringFromSubNode( "comment", m_nEncoding );
 
 	// Get the creation date (if present)
 	CBENode* pDate = pRoot->GetNode( "creation date" );
@@ -831,7 +831,7 @@ BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 		// theApp.Message( MSG_NOTICE, pTime.Format( _T("%Y-%m-%d %H:%M:%S") ) );
 
 	// Get the creator (if present)
-	m_sCreatedBy = pRoot->GetStringFromSubNode( "created by", m_nEncoding, m_bEncodingError );
+	m_sCreatedBy = pRoot->GetStringFromSubNode( "created by", m_nEncoding );
 
 	// Get announce-list (if present)
 	CBENode* pAnnounceList = pRoot->GetNode( "announce-list" );
@@ -992,7 +992,7 @@ BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 		m_bPrivate = pPrivate->GetInt() > 0;
 
 	// Get the name
-	m_sName = pInfo->GetStringFromSubNode( "name", m_nEncoding, m_bEncodingError );
+	m_sName = pInfo->GetStringFromSubNode( "name", m_nEncoding );
 
 	// If we still don't have a name, generate one
 	if ( m_sName.IsEmpty() )
@@ -1156,7 +1156,7 @@ BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 					// Check the path matches the .utf path
 					CString strCheck =  pPathPart->GetString();
 					if ( strPath != strCheck )
-						m_bEncodingError = TRUE;
+						m_bEncodingError = true;
 					// Switch back to the UTF-8 path
 					pPath = pFile->GetNode( "path.utf-8" );
 				}
@@ -1166,7 +1166,7 @@ BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 			if ( ( ! IsValid( strPath ) )  )
 			{
 				// There was an error reading the path
-				m_bEncodingError = TRUE;
+				m_bEncodingError = true;
 				// Open path node
 				pPath = pFile->GetNode( "path" );
 				if ( pPath )
@@ -1388,8 +1388,7 @@ BOOL CBTInfo::FinishBlockTest(DWORD nBlock)
 void CBTInfo::SetTrackerAccess(DWORD tNow)
 {
 	// Check that there should be a tracker
-	if ( m_oTrackers.IsEmpty() )
-		return;
+	if ( m_oTrackers.IsEmpty() ) return;
 
 	ASSERT( m_nTrackerIndex >= 0 && m_nTrackerIndex < m_oTrackers.GetCount() );
 
@@ -1400,8 +1399,7 @@ void CBTInfo::SetTrackerAccess(DWORD tNow)
 void CBTInfo::SetTrackerSucceeded(DWORD tNow)
 {
 	// Check that there should be a tracker
-	if ( m_oTrackers.IsEmpty() )
-		return;
+	if ( m_oTrackers.IsEmpty() ) return;
 
 	ASSERT( m_nTrackerIndex >= 0 && m_nTrackerIndex < m_oTrackers.GetCount() );
 
@@ -1415,8 +1413,7 @@ void CBTInfo::SetTrackerSucceeded(DWORD tNow)
 void CBTInfo::SetTrackerRetry(DWORD tTime)
 {
 	// Check that there should be a tracker
-	if ( m_oTrackers.IsEmpty() )
-		return;
+	if ( ! HasTracker() ) return;
 
 	ASSERT( m_nTrackerIndex >= 0 && m_nTrackerIndex < m_oTrackers.GetCount() );
 
@@ -1504,11 +1501,12 @@ TRISTATE CBTInfo::GetTrackerStatus(int nTrackerIndex) const
 	if ( ! m_oTrackers[ nTrackerIndex ].m_tNextTry &&
 		 ! m_oTrackers[ nTrackerIndex ].m_tLastSuccess )
 		return TRI_UNKNOWN;
-	else if ( m_oTrackers[ nTrackerIndex ].m_tNextTry >
+
+	if ( m_oTrackers[ nTrackerIndex ].m_tNextTry >
 		m_oTrackers[ nTrackerIndex ].m_tLastSuccess )
 		return TRI_FALSE;
-	else
-		return TRI_TRUE;
+
+	return TRI_TRUE;
 }
 
 int CBTInfo::GetTrackerTier(int nTrackerIndex) const

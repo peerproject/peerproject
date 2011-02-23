@@ -1,7 +1,7 @@
 //
 // BENode.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -47,8 +47,8 @@ public:
 	CBENode*	Add(LPCBYTE pKey, size_t nKey);
 	CBENode*	GetNode(LPCSTR pszKey) const;
 	CBENode*	GetNode(const LPBYTE pKey, int nKey) const;
-	CString		GetStringFromSubNode(LPCSTR pszKey, UINT nEncoding, bool& pEncodingError) const;
-	CString		GetStringFromSubNode(int nItem, UINT nEncoding, bool& pEncodingError) const;
+	CString		GetStringFromSubNode(LPCSTR pszKey, UINT nEncoding) const;
+	CString		GetStringFromSubNode(int nItem, UINT nEncoding) const;
 	CSHA		GetSHA1() const;
 	void		Encode(CBuffer* pBuffer) const;
 	void		Decode(LPCBYTE& pInput, DWORD& nInput, DWORD nSize);
@@ -81,16 +81,6 @@ public:
 	// If a torrent is badly encoded, you can try forcing a code page.
 	// Trying codepages: nCodePage, m_nDefaultCP, OEM, ANSI, as-is
 	CString DecodeString(UINT nCodePage) const;
-
-	// Check if a string is a valid path/file name.
-	inline BOOL IsValid(LPCTSTR psz) const
-	{
-		if ( _tcsclen( psz ) == 0 ) return FALSE;
-		if ( _tcschr( psz, '?' ) != NULL ) return FALSE;
-		if ( _tcsicmp( psz , _T("#ERROR#") ) == 0 ) return FALSE;
-
-		return TRUE;
-	}
 
 	inline void SetString(LPCSTR psz)
 	{

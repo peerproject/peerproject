@@ -1,7 +1,7 @@
 //
 // Settings.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -154,7 +154,6 @@ public:
 		DWORD		HighPriorityHashing;	// desired speed in MB/s when hashing with hi priority
 		DWORD		LowPriorityHashing;		// desired speed in MB/s when hashing with low priority
 		DWORD		MaxMaliciousFileSize;	// Size for which to trigger malicious software search
-		bool		PreferAPETags;			// Read APE tags first and only then ID3 tags from audio files
 		bool		UseFolderGUID;			// Save/Load folder GUID using NTFS stream
 		bool		MarkFileAsDownload;		// Mark downloaded file using NTFS stream as Internet Explorer
 		bool		UseCustomFolders;		// Use desktop.ini

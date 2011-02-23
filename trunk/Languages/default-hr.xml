@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Croatian Skin File -->
 
-<!-- Translation based on default-en.xml r60 (Shareaza 2.2.0.2) -->
+<!-- Translation based on default-en.xml r62 (Shareaza 2.2.0.2) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1468,8 +1468,8 @@
 			<item id="ID_NETWORK_CONNECT" text="_Spoji"/>
 			<item id="ID_NETWORK_DISCONNECT" text="_Isključi"/>
 			<separator/>
-			<item id="ID_NETWORK_G2" text="_Gnutella2"/>
-			<item id="ID_NETWORK_G1" text="Gnutella_1"/>
+			<item id="ID_NETWORK_G2" text="Gnutella_2"/>
+			<item id="ID_NETWORK_G1" text="_Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="_eDonkey2000"/>
 		</menu>
 		<menu text="Praćenje">
@@ -3529,7 +3529,7 @@
 	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="Dobrodošli u PeerProject (2/8)">
 		<control caption="Da bi ispravno radila, PeerProject treba znati nešto i o Vašoj vezi prema internetu."/>
 		<control caption="Vi svibanj odabrati vrstu veze Internet:"/>
-		<control caption="|Običan Modem|ISDN (128K)|DSL (768K)|DSL (1.5M)|DSL (4.0M)|DSL2 (8.0M)|FIOS (10.0M)|DSL2 (12.0M)|FIOS (20.0M)|DSL2 (24.0M)|Kablovski Modem|T1|T3|LAN|OC3"/>
+		<control caption="|Običan Modem|ISDN 128K|DSL 768K|DSL 1.5M|DSL 4M|DSL2 8|FIOS 10|DSL2 12|FIOS 15|FIOS 20|FIOS 25|FIOS 30|T1|T3|LAN|OC3|Kablovski Modem"/>
 		<control caption="Ili izaberite preuzimanje datoteka speed:"/>
 		<control/>
 		<control caption="...i upload speed:"/>
@@ -3553,7 +3553,7 @@
 		<control caption="Preuzmi .torrent linkove."/>
 	</dialog>
 	<dialog name="CWizardFoldersPage" cookie="StStEdBuStEdBuStEdBuSt" caption="Dobrodošli u PeerProject (4/8)">
-		<control caption="PeerProject first downloads partial files to a private folder, then moves them when completed according to Download Groups."/>
+		<control caption="PeerProject prvi preuzimanja djelomične datoteke privatne mape, a zatim ih pomiče kada je dovršen u skladu s Preuzimanje grupe."/>
 		<control caption="Nezavršene Datoteke Spremi Ovdje:"/>
 		<control/>
 		<control/>
@@ -3563,7 +3563,7 @@
 		<control caption=".Torrent Datoteke Spremi Ovdje:"/>
 		<control/>
 		<control/>
-		<control caption="Common filetypes are initially setup as subfolders of the default location, but Groups can easily be customized by Right-Click.  Simply Drag&apos;n&apos;Drop files."/>
+		<control caption="Zajednički su u početku vrstama datoteka postava u podmape, ali grupe mogu se prilagoditi. Jednostavno uzmi i pusti datoteke."/>
 	</dialog>
 	<dialog name="CWizardSharePage" cookie="StStStSyBuBuSt" caption="Dobrodošli u PeerProject (5/8)">
 		<control caption="P2P mreže su dobre onoliko koliko i ljudi koji ih koriste.Sve što je vama dostupno za skidanje, netko to djeli sa vama."/>

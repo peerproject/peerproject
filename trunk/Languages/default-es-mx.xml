@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Spanish (Mexican) Skin File -->
 
-<!-- Translation based on default-en.xml r60 -->
+<!-- Translation based on default-en.xml r62 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1504,8 +1504,8 @@
 			<item id="ID_NETWORK_CONNECT" text="_Conectar"/>
 			<item id="ID_NETWORK_DISCONNECT" text="_Desconectar"/>
 			<separator/>
-			<item id="ID_NETWORK_G2" text="_Gnutella2"/>
-			<item id="ID_NETWORK_G1" text="Gnutella_1"/>
+			<item id="ID_NETWORK_G2" text="Gnutella_2"/>
+			<item id="ID_NETWORK_G1" text="_Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="_eDonkey2000"/>
 		</menu>
 		<menu text="_Monitor">
@@ -3515,7 +3515,7 @@
 	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="Acceso Remoto">
 		<control caption="_Habilitar:"/>
 		<control caption="Habilitar Acceso Remoto de PeerProject:"/>
-		<control caption="URL"/>
+		<control caption="..."/>
 		<control caption="_Credenciales:"/>
 		<control caption="Escoge un usuario:"/>
 		<control caption="Escoge una contraseña:"/>
@@ -3713,7 +3713,7 @@
 	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="Bienvenido a PeerProject &#160;(2/8)">
 		<control caption="Para un rendimiento optimo, PeerProject necesita saber un poco más sobre tu conexión a Internet."/>
 		<control caption="Elije el tipo de tu conexión a Internet"/>
-		<control caption="|Dial-up Modem|ISDN (128K)|DSL (768K)|DSL (1.5M)|DSL (4.0M)|DSL2 (8.0M)|FIOS (10.0M)|DSL2 (12.0M)|FIOS (20.0M)|DSL2+ (24.0M)|Cable Modem|T1|T3|LAN|OC3"/>
+		<control caption="|Dial-up Modem|ISDN 128K|DSL 768K|DSL 1.5M|DSL 4M|DSL2 8|FIOS 10|DSL2 12|FIOS 15|FIOS 20|FIOS 25|FIOS 30|T1|T3|LAN|OC3|Cable Modem"/>
 		<control caption="O escoge la velocidad de descarga:"/>
 		<control/>
 		<control caption="y la velocidad de subida:"/>
@@ -3737,7 +3737,7 @@
 		<control caption="Manejar enlaces .torrent."/>
 	</dialog>
 	<dialog name="CWizardFoldersPage" cookie="StStEdBuStEdBuStEdBuSt" caption="Bienvenido a PeerProject &#160;(4/8)">
-		<control caption="PeerProject first downloads partial files to a private folder, then moves them when completed according to Download Groups."/>
+		<control caption="PeerProject primer parcial archivos en una carpeta privada, y cuando se complete luego se mueve de acuerdo a Grupos de Descarga."/>
 		<control caption="Carpeta temporale de archivos incompletos:"/>
 		<control/>
 		<control/>
@@ -3747,7 +3747,7 @@
 		<control caption="Carpeta de archivos .Torrent:"/>
 		<control/>
 		<control/>
-		<control caption="Common filetypes are initially setup as subfolders of the default location, but Groups can easily be customized by Right-Click.  Simply Drag&apos;n&apos;Drop files."/>
+		<control caption="Tipos de archivos comunes son inicialmente de configuración de las subcarpetas, pero los grupos se pueden personalizar. Arrastrar y soltar archivos."/>
 	</dialog>
 	<dialog name="CWizardSharePage" cookie="StStStSyBuBuSt" caption="Bienvenido a PeerProject &#160;(5/8)">
 		<control caption="Las redes P2P son buenas si son como la gente que los usa.  Todo el contenido disponible para descargar esta siendo compartido por otro usuario."/>

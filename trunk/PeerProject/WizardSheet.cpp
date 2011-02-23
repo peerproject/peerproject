@@ -1,7 +1,7 @@
 //
 // WizardSheet.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -21,6 +21,7 @@
 #include "Settings.h"
 #include "CoolInterface.h"
 #include "Colors.h"
+//#include "Images.h"
 #include "GProfile.h"
 #include "WizardSheet.h"
 
@@ -196,8 +197,7 @@ void CWizardSheet::OnSize(UINT nType, int cx, int cy)
 		m_rcPage.top += Skin.m_nBanner;
 		m_rcPage.bottom -= CONTROLBAR_HEIGHT + 2;
 
-		pWnd->SetWindowPos( NULL, m_rcPage.left, m_rcPage.top, m_rcPage.Width(),
-			m_rcPage.Height(), SWP_NOSIZE );
+		pWnd->SetWindowPos( NULL, m_rcPage.left, m_rcPage.top, m_rcPage.Width(), m_rcPage.Height(), SWP_NOSIZE );
 	}
 }
 
@@ -207,6 +207,9 @@ void CWizardSheet::OnPaint()
 
 	CRect rc;
 	GetClientRect( &rc );
+	//rc.bottom = Images.m_nBanner;
+
+	// ToDo: Use Images.DrawButtonState( &dc, rc, IMAGE_BANNER );
 
 	CDC mdc;
 	mdc.CreateCompatibleDC( &dc );
@@ -215,18 +218,17 @@ void CWizardSheet::OnPaint()
 	mdc.SelectObject( pOldBitmap );
 	mdc.DeleteDC();
 
-//	dc.Draw3dRect( 0, Skin.m_nBanner, rc.Width() + 1, 1,
-//		RGB( 128, 128, 128 ), RGB( 128, 128, 128 ) );
+	//dc.Draw3dRect( 0, Skin.m_nBanner, rc.Width() + 1, 1, RGB( 128, 128, 128 ), RGB( 128, 128, 128 ) );
 
+	//GetClientRect( &rc );
 	rc.top = rc.bottom - CONTROLBAR_HEIGHT;
 
-	dc.Draw3dRect( 0, rc.top - 2, rc.Width() + 1, 2,
-		RGB( 142, 141, 140 ), RGB( 255, 255, 255 ) );	// ToDo: Make skinned bevel color
+	dc.Draw3dRect( 0, rc.top - 2, rc.Width() + 1, 2, RGB( 142, 141, 140 ), RGB( 255, 255, 255 ) );	// ToDo: Skinned bevel color?
 
 	if ( Skin.m_bmDialog.m_hObject )
 		CoolInterface.DrawWatermark( &dc, &rc, &Skin.m_bmDialog );
 	else
-		dc.FillSolidRect( rc.left, rc.top, rc.Width(), CONTROLBAR_HEIGHT, Colors.m_crSysBtnFace ); // Colors.m_crDialog?
+		dc.FillSolidRect( rc.left, rc.top, rc.Width(), CONTROLBAR_HEIGHT, Colors.m_crSysBtnFace );	// Colors.m_crDialog?
 }
 
 void CWizardSheet::OnXButtonDown(UINT /*nFlags*/, UINT nButton, CPoint /*point*/)

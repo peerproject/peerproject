@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Swedish Skin File -->
 
-<!-- Translation based on default-en.xml r60 -->
+<!-- Translation based on default-en.xml r62 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -565,8 +565,8 @@
 			<item id="ID_NETWORK_DISCONNECT" text="_Koppla ifrån"/>
 			<separator/>
 			<menu text="Välj _Nätverk">
-				<item id="ID_NETWORK_G2" text="Anslut till _Gnutella2"/>
-				<item id="ID_NETWORK_G1" text="Anslut till Gnutella_1"/>
+				<item id="ID_NETWORK_G2" text="Anslut till Gnutella_2"/>
+				<item id="ID_NETWORK_G1" text="Anslut till _Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="Anslut till _eDonkey"/>
 			</menu>
 			<separator/>
@@ -663,8 +663,8 @@
 			<item id="ID_NETWORK_CONNECT" text="_Anslut" shortcut="Ctrl+G"/>
 			<separator/>
 			<menu text="Välj _Nätverk">
-				<item id="ID_NETWORK_G2" text="Anslut till _Gnutella2"/>
-				<item id="ID_NETWORK_G1" text="Anslut till Gnutella_1"/>
+				<item id="ID_NETWORK_G2" text="Anslut till Gnutella_2"/>
+				<item id="ID_NETWORK_G1" text="Anslut till _Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="Anslut till _eDonkey"/>
 			</menu>
 			<separator/>
@@ -741,8 +741,8 @@
 			<item id="ID_NETWORK_BROWSE_TO" text="Visa värdens _filer…"/>
 			<separator/>
 			<menu text="Välj _Nätverk">
-				<item id="ID_NETWORK_G2" text="Anslut till _Gnutella2"/>
-				<item id="ID_NETWORK_G1" text="Anslut till Gnutella_1"/>
+				<item id="ID_NETWORK_G2" text="Anslut till Gnutella_2"/>
+				<item id="ID_NETWORK_G1" text="Anslut till _Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="Anslut till _eDonkey"/>
 			</menu>
 			<separator/>
@@ -1518,8 +1518,8 @@
 			<item id="ID_NETWORK_CONNECT" text="_Anslut"/>
 			<item id="ID_NETWORK_DISCONNECT" text="_Koppla ifrån"/>
 			<separator/>
-			<item id="ID_NETWORK_G2" text="_Gnutella2"/>
-			<item id="ID_NETWORK_G1" text="Gnutella_1"/>
+			<item id="ID_NETWORK_G2" text="Gnutella_2"/>
+			<item id="ID_NETWORK_G1" text="_Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="_eDonkey"/>
 		</menu>
 		<menu text="_Monitor">
@@ -3740,7 +3740,7 @@
 	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="Välkommen till PeerProject (2/8)">
 		<control caption="För att uppnå bästa prestanda måste PeerProject veta lite om din Internetanslutning."/>
 		<control caption="Välj typ av Internetanslutning:"/>
-		<control caption="Uppringt modem|ISDN (128K)|DSL (768K)|DSL (1.5M)|DSL (4.0M)|DSL2 (8.0M)|FIOS (10.0M)|DSL2 (12.0M)|FIOS (20.0M)|DSL2+ (24.0M)|Kabelmodem/SDSL|T1|T3|LAN|OC3"/>
+		<control caption="Uppringt modem|ISDN 128K|DSL 768K|DSL 1.5M|DSL 4M|DSL2 8|FIOS 10|DSL2 12|FIOS 15|FIOS 20|FIOS 25|FIOS 30|T1|T3|LAN|OC3|Kabelmodem"/>
 		<control caption="Eller välj nedladdningdshastighet:"/>
 		<control/>
 		<control caption="och uppladdningshastighet:"/>
@@ -3749,7 +3749,7 @@
 		<control/>
 		<control caption="Port: &#160; (Any 4-5 digit number)"/>
 		<control/>
-		<control caption="Random"/>
+		<control caption="Slumpmässiga"/>
 		<control caption="Status:"/>
 		<control/>
 	</dialog>
@@ -3764,7 +3764,7 @@
 		<control caption="Hantera torrentlänkar."/>
 	</dialog>
 	<dialog name="CWizardFoldersPage" cookie="StStEdBuStEdBuStEdBuSt" caption="Välkommen till PeerProject (4/8)">
-		<control caption="PeerProject first downloads partial files to a private folder, then moves them when completed according to Download Groups."/>
+		<control caption="PeerProject första nedladdningar del filer till en privat mapp, flyttar sedan dem när genomförts enligt Hämta grupper."/>
 		<control caption="Spara tillfälliga ofullständiga nedladdningar här:"/>
 		<control/>
 		<control/>
@@ -3774,7 +3774,7 @@
 		<control caption="Spara .Torrent nedladdningar här:"/>
 		<control/>
 		<control/>
-		<control caption="Common filetypes are initially setup as subfolders of the default location, but Groups can easily be customized by Right-Click.  Simply Drag&apos;n&apos;Drop files."/>
+		<control caption="Vanliga filtyper är inställda på i undermappar, men grupper kan anpassas. Helt enkelt dra och släpp filer."/>
 	</dialog>
 	<dialog name="CWizardSharePage" cookie="StStStSyBuBuSt" caption="Välkomment till PeerProject (5/8)">
 		<control caption="Fildelningsnätverk är bara så bra som användarna vill att de ska vara. Allt innehåll för nedladdning delas ut av anda användare."/>

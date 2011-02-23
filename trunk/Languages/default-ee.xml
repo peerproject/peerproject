@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Estonian Skin File -->
 
-<!-- Translation based on default-en.xml r60 (Shareaza 2.2.2.9) -->
+<!-- Translation based on default-en.xml r62 (Shareaza 2.2.2.9) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -559,8 +559,8 @@
 			<item id="ID_NETWORK_DISCONNECT" text="_Katkesta ühendus"/>
 			<separator/>
 			<menu text="Vali _Võrk">
-				<item id="ID_NETWORK_G2" text="Ühenda _Gnutella2"/>
-				<item id="ID_NETWORK_G1" text="Ühenda Gnutella_1"/>
+				<item id="ID_NETWORK_G2" text="Ühenda Gnutella_2"/>
+				<item id="ID_NETWORK_G1" text="Ühenda _Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="Ühenda _eDonkey2000"/>
 			</menu>
 			<separator/>
@@ -649,8 +649,8 @@
 			<item id="ID_NETWORK_CONNECT" text="_Ühenda" shortcut="Ctrl+G"/>
 			<separator/>
 			<menu text="Vali _Võrk">
-				<item id="ID_NETWORK_G2" text="Ühenda _Gnutella2"/>
-				<item id="ID_NETWORK_G1" text="Ühenda Gnutella_1"/>
+				<item id="ID_NETWORK_G2" text="Ühenda Gnutella_2"/>
+				<item id="ID_NETWORK_G1" text="Ühenda _Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="Ühenda _eDonkey2000"/>
 			</menu>
 			<separator/>
@@ -722,8 +722,8 @@
 			<item id="ID_NETWORK_BROWSE_TO" text="_Sirvi Võrku..."/>
 			<separator/>
 			<menu text="Vali _Võrgud">
-				<item id="ID_NETWORK_G2" text="Ühenda _Gnutella2"/>
-				<item id="ID_NETWORK_G1" text="Ühenda Gnutella_1"/>
+				<item id="ID_NETWORK_G2" text="Ühenda Gnutella_2"/>
+				<item id="ID_NETWORK_G1" text="Ühenda _Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="Ühenda _eDonkey2000"/>
 			</menu>
 			<separator/>
@@ -1478,8 +1478,8 @@
 			<item id="ID_NETWORK_CONNECT" text="_Ühenda"/>
 			<item id="ID_NETWORK_DISCONNECT" text="_Katkesta Ühendus"/>
 			<separator/>
-			<item id="ID_NETWORK_G2" text="_Gnutella2"/>
-			<item id="ID_NETWORK_G1" text="Gnutella_1"/>
+			<item id="ID_NETWORK_G2" text="Gnutella_2"/>
+			<item id="ID_NETWORK_G1" text="_Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="_eDonkey2000"/>
 		</menu>
 		<menu text="_Vaatleja">
@@ -3555,7 +3555,7 @@
 	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="Teretulemast PeerProject (2/8)">
 		<control caption="Optimaalseks kasutuseks vajab PeerProject veidi infot sinu Internetiühenduse kohta."/>
 		<control caption="You may select the Internet connection type:"/>
-		<control caption="|Dial-up Modem|ISDN (128K)|DSL (768K)|DSL (1.5M)|DSL (4.0M)|DSL2 (8.0M)|FIOS (10.0M)|DSL2 (12.0M)|FIOS (20.0M)|DSL2 (24.0M)|Cable Modem|T1|T3|LAN|OC3"/>
+		<control caption="Dial-up Modem|ISDN 128K|DSL 768K|DSL 1.5M|DSL 4M|DSL2 8|FIOS 10|DSL2 12|FIOS 15|FIOS 20|FIOS 25|FIOS 30|T1|T3|LAN|OC3|Cable Modem"/>
 		<control caption="Or choose the download speed:"/>
 		<control/>
 		<control caption="...and upload speed:"/>
@@ -3579,7 +3579,7 @@
 		<control caption="Käsitle .torrent linke."/>
 	</dialog>
 	<dialog name="CWizardFoldersPage" cookie="StStEdBuStEdBuStEdBuSt" caption="Welcome to PeerProject (4/8)">
-		<control caption="PeerProject first downloads partial files to a private folder, then moves them when completed according to Download Groups."/>
+		<control caption="PeerProject esimene downloads osaline faile erasektori kausta, siis liigub neid, kui täidetakse vastavalt Lae rühmad."/>
 		<control caption="Salvesta Ajutised Poolikud Failid Siia:"/>
 		<control/>
 		<control/>
@@ -3589,7 +3589,7 @@
 		<control caption="Salvesta .Torrent Failid Siia:"/>
 		<control/>
 		<control/>
-		<control caption="Common filetypes are initially setup as subfolders of the default location, but Groups can easily be customized by Right-Click.  Simply Drag&apos;n&apos;Drop files."/>
+		<control caption="Ühine failitüüpe on esialgu setup alamkaustadena vaikimisi asukohta, kuid Gruppide saab kohandada. Lihtsalt drag&apos;n&apos;drop faile."/>
 	</dialog>
 	<dialog name="CWizardSharePage" cookie="StStStSyBuBuSt" caption="Teretulemast PeerProject (5/8)">
 		<control caption="P2P võrgud on ainult nii head kui head on nende võrkude kasutajad.  Kõiki saadaolevaid faile jagavad teised kasutajad."/>

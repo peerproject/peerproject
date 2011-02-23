@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Chinese (Simplified) Skin File -->
 
-<!-- Translation based on default-en.xml r60 (Shareaza r6092) -->
+<!-- Translation based on default-en.xml r62 (Shareaza r6092) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -391,15 +391,15 @@
 	</toolbar>
 	<!-- SCHEDULER WINDOW -->
 	<toolbar name="CSchedulerWnd">
-		<button id="ID_SCHEDULER_ADD" text="添加规则"/>
+		<button id="ID_SCHEDULER_ADD" text="添加计划任务"/>
 		<separator/>
-		<button id="ID_SCHEDULER_EDIT" text="编辑规则"/>
-		<button id="ID_SCHEDULER_REMOVE" text="删除规则"/>
+		<button id="ID_SCHEDULER_EDIT" text="编辑任务"/>
+		<button id="ID_SCHEDULER_REMOVE" text="删除任务"/>
 		<separator/>
-		<button id="ID_SCHEDULER_ACTIVATE" text="Activate"/>
-		<button id="ID_SCHEDULER_DEACTIVATE" text="Deactivate"/>
+		<button id="ID_SCHEDULER_ACTIVATE" text="启用"/>
+		<button id="ID_SCHEDULER_DEACTIVATE" text="禁用"/>
 		<rightAlign/>
-		<button id="ID_SCHEDULER_REMOVE_ALL" text="重置列表"/>
+		<button id="ID_SCHEDULER_REMOVE_ALL" text="删除所有"/>
 		<separator/>
 		<button id="ID_SCHEDULER_IMPORT" text="导入列表"/>
 		<button id="ID_SCHEDULER_EXPORT" text="导出列表"/>
@@ -1617,13 +1617,13 @@
 		<item id="ID_IRC_WHOIS" text="是谁"/>
 		<item id="ID_IRC_QUERY" text="查询"/>
 		<separator/>
-		<menu text="Actions">
+		<menu text="动作">
 			<item id="ID_IRC_TIME" text="时间"/>
 			<item id="ID_IRC_VERSION" text="版本"/>
-			<item id="ID_IRC_BROWSE" text="_Browse (G2)"/>
+			<item id="ID_IRC_BROWSE" text="浏览 (_G2)"/>
 		</menu>
 		<separator/>
-		<menu text="Control">
+		<menu text="控制">
 			<item id="ID_IRC_IGNORE" text="忽略(_I)"/>
 			<item id="ID_IRC_UNIGNORE" text="取消忽略(_U)"/>
 			<item id="ID_IRC_OP" text="带帽(_O)"/>
@@ -1804,10 +1804,10 @@
 				<newline gap="8"/>
 			</group>
 			<group id="3">
-				<link target="command:ID_LIBRARY_HASH_PRIORITY">点击这里加快 Hash</link>
+				<link target="command:ID_LIBRARY_HASH_PRIORITY">点击这里加快 快哈希速度</link>
 			</group>
 			<group id="4">
-				<link target="command:ID_LIBRARY_HASH_PRIORITY">点击这里减慢 Hash</link>
+				<link target="command:ID_LIBRARY_HASH_PRIORITY">点击这里减慢 快哈希速度</link>
 			</group>
 		</para>
 	</document>
@@ -3007,7 +3007,24 @@
 	<string id="20591" value="http://%s:%i/remote - 您必须选择一个用户名和密码。"/>
 	<string id="20592" value="未能接受连接，链接不可用。"/>
 	<string id="20599" value="构架"/>
-	<!-- Missing Scheduler/Security Strings -->
+	<string id="20600" value="带宽： 全速"/>
+	<string id="20601" value="带宽： 减速"/>
+	<string id="20602" value="带宽： 停止"/>
+	<string id="20603" value="系统： 退出 PeerProject"/>
+	<string id="20604" value="系统： 关闭计算机"/>
+	<string id="20605" value="系统： 断开拨号连接"/>
+	<string id="20606" value="系统： 提醒通知"/>
+	<string id="20607" value="预定提醒通知。"/>
+	<string id="20608" value="您是否确认删除所有计划任务？\n\n该操作无法撤销。"/>
+	<string id="20609" value="预定的时间已经过去了。请选择一个新的时间。"/>
+	<string id="20610" value="没有计划的日期。选择一个或多个天或日期。"/>
+	<string id="20611" value="没有预定的事件。请选择一个任务。"/>
+	<string id="20612" value="活跃"/>
+	<string id="20613" value="无效"/>
+	<string id="20614" value="等待"/>
+	<string id="20615" value="完成 今天"/>
+	<string id="20616" value="完成"/>
+	<string id="20618" value="当前没有计划的任务"/>
 	<string id="20620" value="PeerProject 正积极地搜索网络..."/>
 	<string id="20621" value="单击这里重新搜索"/>
 	<string id="20622" value="所有网络"/>
@@ -3626,12 +3643,12 @@
 	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="欢迎使用 PeerProject (2/8)">
 		<control caption="为获得最佳效果，PeerProject 必须知道您的互联网连接。"/>
 		<control caption="如果您知道互联网连接速度，请在下面做出选择:"/>
-		<control caption="|调制解调器拨号|ISDN (128K)|DSL (768K)|DSL (1.5M)|DSL (4.0M)|DSL2 (8.0M)|FIOS (10.0M)|DSL2 (12.0M)|FIOS (20.0M)|DSL2+ (24.0M)|Cable Modem|T1|T3|LAN|OC3"/>
+		<control caption="|调制解调器拨号|ISDN 128K|DSL 768K|DSL 1.5M|DSL 4M|DSL2 8|FIOS 10|DSL2 12|FIOS 15|FIOS 20|FIOS 25|FIOS 30|T1|T3|LAN|OC3|Cable Modem"/>
 		<control caption="或选择:"/>
 		<control/>
 		<control caption="状态:"/>
 		<control/>
-		<control caption="Do auto port-forwarding with Plug&apos;n&apos;Play?"/>
+		<control caption="不要与即插即用自动端口转发？"/>
 		<control/>
 		<control caption="Port: &#160; (任何4-5位数)"/>
 		<control/>
@@ -3650,7 +3667,7 @@
 		<control caption="监视 Torrent 链接"/>
 	</dialog>
 	<dialog name="CWizardFoldersPage" cookie="StStEdBuStEdBuStEdBuSt" caption="欢迎使用 PeerProject (4/8)">
-		<control caption="PeerProject first downloads partial files to a private folder, then moves them when completed according to Download Groups."/>
+		<control caption="PeerProject 第一部分下载到私人文件夹中，然后将它们移到完成后按下载组。"/>
 		<control caption="在这里保存未完成文件:"/>
 		<control/>
 		<control/>
@@ -3660,7 +3677,7 @@
 		<control caption="在这里保存.Torrent完成文件:"/>
 		<control/>
 		<control/>
-		<control caption="Common filetypes are initially setup as subfolders of the default location, but Groups can easily be customized by Right-Click.  Simply Drag&apos;n&apos;Drop files."/>
+		<control caption="常见的文件类型是最初作为子文件夹的默认位置的设置，但组可以很容易地定制右键单击。只需拖放文件。"/>
 	</dialog>
 	<dialog name="CWizardSharePage" cookie="StStStSyBuBuSt" caption="欢迎使用 PeerProject (5/8)">
 		<control caption="P2P 网络和使用他们的人一样重要。所有的可用的内容由另外的用户共享。"/>

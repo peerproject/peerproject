@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <skin xmlns="http://schemas.peerproject.org/Skin.xsd" version="1.0">
 
-<!-- PeerProject Default Serbian Skin File -->
+<!-- PeerProject/ПеерПројецт Default Serbian Skin File -->
 
-<!-- Translation based on default-en.xml r60 -->
+<!-- Translation based on default-en.xml r62 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1493,8 +1493,8 @@
 			<item id="ID_NETWORK_CONNECT" text="_Spoji"/>
 			<item id="ID_NETWORK_DISCONNECT" text="_Isključi"/>
 			<separator/>
-			<item id="ID_NETWORK_G2" text="_Gnutella2"/>
-			<item id="ID_NETWORK_G1" text="Gnutella_1"/>
+			<item id="ID_NETWORK_G2" text="Gnutella_2"/>
+			<item id="ID_NETWORK_G1" text="_Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="_eDonkey2000"/>
 		</menu>
 		<menu text="Praćenje">
@@ -3499,7 +3499,7 @@
 		<control caption="Reward uploaders"/>
 	</dialog>
 	<dialog name="CWizardWelcomePage" cookie="StStStStStStStStStStStSt" caption="Dobrodošli u PeerProject (1/8)">
-		<control caption="Dobrodošli u PeerProject!"/>
+		<control caption="Dobrodošli u PeerProject! (ПеерПројецт)"/>
 		<control caption="Ako još niste koristili PeerProject ili neki drugi P2P klijent,brzo i lagano pomoćnik će vam u nekoliko jednostavnih koraka pomoći prilikom podešavanja osnovnih opcija."/>
 		<control caption="Ukoliko ste napredni korisnik, sve PeerProject opcije možete naći u meniju Alati.Ako želite zatvoriti ovu pomoć u bilo kojem trentku kliknite na Izlaz."/>
 		<control caption="Ovde možete jednostavno podesiti sledeće:"/>
@@ -3515,20 +3515,20 @@
 	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="Dobrodošli u PeerProject (2/8)">
 		<control caption="Da bi ispravno radila, PeerProject treba znati nešto i o Vašoj vezi prema internetu."/>
 		<control caption="Ako znate brzinu vaše veze na Internet molim da odaberete najbolju opciju:"/>
-		<control caption="|Običan Modem (56K)|ISDN (128K)|DSL (768K)|DSL (1.5M)|DSL (4.0M)|DSL2 (8.0M)|FIOS (10.0M)|DSL2 (12.0M)|FIOS (20.0M)|DSL2+ (24.0M)| Kablovski Modem/SDSL| T1| T3| LAN| OC3"/>
-		<control caption="Or choose the download speed:"/>
+		<control caption="|Običan Modem|ISDN 128K|DSL 768K|DSL 1.5M|DSL 4M|DSL2 8|FIOS 10|DSL2 12|FIOS 15|FIOS 20|FIOS 25|FIOS 30|T1|T3|LAN|OC3|Kablovski Modem"/>
+		<control caption="Или изаберите довнлоад брзину:"/>
 		<control/>
-		<control caption="...and upload speed:"/>
+		<control caption="...и брзина слања:"/>
 		<control/>
-		<control caption="Do auto port-forwarding with Plug&apos;n&apos;Play?"/>
+		<control caption="Да ли ауто-Порт-форвардинг са Плуг&apos;н&apos;плаи"/>
 		<control/>
 		<control caption="Port: &#160; (Any 4-5 digit number)"/>
 		<control/>
-		<control caption="Random"/>
-		<control caption="Status:"/>
+		<control caption="Cлучајан"/>
+		<control caption="Статус:"/>
 	</dialog>
 	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuStBu" caption="Dobrodošli u PeerProject (3/8)">
-		<control caption="PeerProject je program za deljenje i skidanje datoteka opšteg sadržaja, i može se istovremeno spojiti na više P2P mreža.Ovde možete odabrati kojim mrežama želite pristupiti.Posle možete promeniti odabrane mreže."/>
+		<control caption="ПеерПројецт први парцијални преузимања датотеке приватну фасциклу, а затим их помера када се заврши у складу са Преузмите групе."/>
 		<control caption="Spoji se na Gnutellu2 (Preporučeno)"/>
 		<control caption="Gnutella2 mreža je PeerProject osnovna mreža, nudi najviše opcija i najbrža je od svih ostalih P2P mreža."/>
 		<control caption="Spoji se na Originalnu Gnutellu"/>
@@ -3548,7 +3548,7 @@
 		<control caption=".Torrent Datoteke Sačuvj Ovde:"/>
 		<control/>
 		<control/>
-		<control caption="Common filetypes are initially setup as subfolders of the default location, but Groups can easily be customized by Right-Click.  Simply Drag&apos;n&apos;Drop files."/>
+		<control caption="Уобичајени типови су првобитно поставили у потфасцикле, али групе могу да се прилагоде. Једноставно драг&apos;н&apos;дроп датотеке."/>
 	</dialog>
 	<dialog name="CWizardSharePage" cookie="StStStSyBuBuSt" caption="Dobrodošli u PeerProject (5/8)">
 		<control caption="P2P mreže su dobre onoliko koliko i ljudi koji ih koriste.Sve šta je vama dostupno za skidanje, neko to deli sa vama."/>

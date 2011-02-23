@@ -1,7 +1,7 @@
 /*
-** sqlite3.h  (3.7.0) (July.2010)
+** sqlite3.h  (3.7.4)(Dec.2010)
 **
-** This file is part of PeerProject (peerproject.org) © 2008-2010
+** This file is part of PeerProject (peerproject.org) © 2008-2011
 ** The original author disclaimed copyright to this source code.
 */
 
@@ -39,10 +39,11 @@
 
 #ifndef _SQLITE3_H_
 #define _SQLITE3_H_
+
 #include <stdarg.h>     /* Needed for the definition of va_list */
 
 /*
-** Make sure we can call this stuff from C++.
+** Make sure we can call this from C++.
 */
 #ifdef __cplusplus
 extern "C" {
@@ -82,9 +83,9 @@ extern "C" {
 /*
 ** Compile-Time Library Version Numbers
 */
-#define SQLITE_VERSION        "3.7.0"
-#define SQLITE_VERSION_NUMBER 3007000
-#define SQLITE_SOURCE_ID      "2010-07-21 16:16:28 b36b105eab6fd3195f4bfba6cb5cda0f063b7460"
+#define SQLITE_VERSION        "3.7.4"
+#define SQLITE_VERSION_NUMBER 3007004
+#define SQLITE_SOURCE_ID      "2010-12-07 20:14:09 a586a4deeb25330037a49df295b36aaf624d0f45"
 
 /*
 ** Run-Time Library Version Numbers
@@ -127,6 +128,13 @@ typedef struct sqlite3 sqlite3;
 #endif
 typedef sqlite_int64 sqlite3_int64;
 typedef sqlite_uint64 sqlite3_uint64;
+
+/*
+** If compiling for a processor that lacks floating point support, use int
+** #ifdef SQLITE_OMIT_FLOATING_POINT
+** # define double sqlite3_int64
+** #endif
+*/
 
 /*
 ** Closing A Database Connection
@@ -309,6 +317,9 @@ struct sqlite3_io_methods {
 #define SQLITE_SET_LOCKPROXYFILE      3
 #define SQLITE_LAST_ERRNO             4
 #define SQLITE_FCNTL_SIZE_HINT        5
+#define SQLITE_FCNTL_CHUNK_SIZE       6
+#define SQLITE_FCNTL_FILE_POINTER     7
+
 
 /*
 ** Mutex Handle
@@ -326,8 +337,7 @@ struct sqlite3_vfs {
   sqlite3_vfs *pNext;      /* Next registered VFS */
   const char *zName;       /* Name of this virtual file system */
   void *pAppData;          /* Pointer to application-specific data */
-  int (*xOpen)(sqlite3_vfs*, const char *zName, sqlite3_file*,
-               int flags, int *pOutFlags);
+  int (*xOpen)(sqlite3_vfs*, const char *zName, sqlite3_file*, int flags, int *pOutFlags);
   int (*xDelete)(sqlite3_vfs*, const char *zName, int syncDir);
   int (*xAccess)(sqlite3_vfs*, const char *zName, int flags, int *pResOut);
   int (*xFullPathname)(sqlite3_vfs*, const char *zName, int nOut, char *zOut);
@@ -346,8 +356,8 @@ struct sqlite3_vfs {
   int (*xCurrentTimeInt64)(sqlite3_vfs*, sqlite3_int64*);
   /*
   ** The methods above are in versions 1 and 2 of the sqlite_vfs object.
-  ** New fields may be appended in figure versions.  The iVersion
-  ** value will increment whenever this happens.
+  ** New fields may be appended in figure versions.
+  ** The iVersion value will increment whenever this happens.
   */
 };
 
@@ -664,6 +674,11 @@ SQLITE_API int sqlite3_prepare16_v2(
 SQLITE_API const char *sqlite3_sql(sqlite3_stmt *pStmt);
 
 /*
+** Determine If An SQL Statement Writes The Database
+*/
+SQLITE_API int sqlite3_stmt_readonly(sqlite3_stmt *pStmt);
+
+/*
 ** Dynamically Typed Value Object
 */
 typedef struct Mem sqlite3_value;
@@ -804,6 +819,17 @@ SQLITE_API int sqlite3_create_function16(
   void (*xStep)(sqlite3_context*,int,sqlite3_value**),
   void (*xFinal)(sqlite3_context*)
 );
+SQLITE_API int sqlite3_create_function_v2(
+  sqlite3 *db,
+  const char *zFunctionName,
+  int nArg,
+  int eTextRep,
+  void *pApp,
+  void (*xFunc)(sqlite3_context*,int,sqlite3_value**),
+  void (*xStep)(sqlite3_context*,int,sqlite3_value**),
+  void (*xFinal)(sqlite3_context*),
+  void(*xDestroy)(void*)
+);
 
 /*
 ** Text Encodings
@@ -899,14 +925,14 @@ SQLITE_API int sqlite3_create_collation(
   sqlite3*,
   const char *zName,
   int eTextRep,
-  void*,
+  void *pArg,
   int(*xCompare)(void*,int,const void*,int,const void*)
 );
 SQLITE_API int sqlite3_create_collation_v2(
   sqlite3*,
   const char *zName,
   int eTextRep,
-  void*,
+  void *pArg,
   int(*xCompare)(void*,int,const void*,int,const void*),
   void(*xDestroy)(void*)
 );
@@ -914,7 +940,7 @@ SQLITE_API int sqlite3_create_collation16(
   sqlite3*,
   const void *zName,
   int eTextRep,
-  void*,
+  void *pArg,
   int(*xCompare)(void*,int,const void*,int,const void*)
 );
 
@@ -988,7 +1014,13 @@ SQLITE_API int sqlite3_release_memory(int);
 /*
 ** Impose A Limit On Heap Size
 */
-SQLITE_API void sqlite3_soft_heap_limit(int);
+SQLITE_API sqlite3_int64 sqlite3_soft_heap_limit64(sqlite3_int64 N);
+
+/*
+** Deprecated Soft Heap Limit Interface
+*/
+SQLITE_API SQLITE_DEPRECATED void sqlite3_soft_heap_limit(int N);
+
 
 /*
 ** Extract Metadata About A Column Of A Table
@@ -1021,7 +1053,7 @@ SQLITE_API int sqlite3_load_extension(
 SQLITE_API int sqlite3_enable_load_extension(sqlite3 *db, int onoff);
 
 /*
-** Automatically Load An Extensions
+** Automatically Load Statically Linked Extensions
 */
 SQLITE_API int sqlite3_auto_extension(void (*xEntryPoint)(void));
 
@@ -1161,7 +1193,6 @@ SQLITE_API int sqlite3_overload_function(sqlite3*, const char *zFuncName, int nA
 
 /*
 ** The interface to the virtual-table mechanism defined above is considered experimental.
-** (back up to a comment remarkably similar to this one.)
 */
 
 /*
@@ -1181,6 +1212,11 @@ SQLITE_API int sqlite3_blob_open(
   int flags,
   sqlite3_blob **ppBlob
 );
+
+/*
+** Move a BLOB Handle to a New Row
+*/
+SQLITE_API SQLITE_EXPERIMENTAL int sqlite3_blob_reopen(sqlite3_blob *, sqlite3_int64);
 
 /*
 ** Close A BLOB Handle
@@ -1287,7 +1323,8 @@ SQLITE_API int sqlite3_test_control(int op, ...);
 #define SQLITE_TESTCTRL_OPTIMIZATIONS           15
 #define SQLITE_TESTCTRL_ISKEYWORD               16
 #define SQLITE_TESTCTRL_PGHDRSZ                 17
-#define SQLITE_TESTCTRL_LAST                    17
+#define SQLITE_TESTCTRL_SCRATCHMALLOC           18
+#define SQLITE_TESTCTRL_LAST                    18
 
 /*
 ** SQLite Runtime Status
@@ -1307,6 +1344,7 @@ SQLITE_API int sqlite3_status(int op, int *pCurrent, int *pHighwater, int resetF
 #define SQLITE_STATUS_PARSER_STACK         6
 #define SQLITE_STATUS_PAGECACHE_SIZE       7
 #define SQLITE_STATUS_SCRATCH_SIZE         8
+#define SQLITE_STATUS_MALLOC_COUNT         9
 
 /*
 ** Database Connection Status
@@ -1318,7 +1356,9 @@ SQLITE_API int sqlite3_db_status(sqlite3*, int op, int *pCur, int *pHiwtr, int r
 */
 #define SQLITE_DBSTATUS_LOOKASIDE_USED     0
 #define SQLITE_DBSTATUS_CACHE_USED         1
-#define SQLITE_DBSTATUS_MAX                1   /* Largest defined DBSTATUS */
+#define SQLITE_DBSTATUS_SCHEMA_USED        2
+#define SQLITE_DBSTATUS_STMT_USED          3
+#define SQLITE_DBSTATUS_MAX                3   /* Largest defined DBSTATUS */
 
 
 /*
@@ -1417,4 +1457,52 @@ SQLITE_API int sqlite3_wal_checkpoint(sqlite3 *db, const char *zDb);
 #ifdef __cplusplus
 }  /* End of the 'extern "C"' block */
 #endif
+
+#endif  /* _SQLITE3_H_ */
+
+/*
+** 2010 August 30
+*************************************************************************
+*/
+
+#ifndef _SQLITE3RTREE_H_
+#define _SQLITE3RTREE_H_
+
+#ifdef __cplusplus
+extern "C" {
 #endif
+
+typedef struct sqlite3_rtree_geometry sqlite3_rtree_geometry;
+
+/*
+** Register a geometry callback named zGeom that can be used as part of an
+** R-Tree geometry query as follows:
+**
+**   SELECT ... FROM <rtree> WHERE <rtree col> MATCH $zGeom(... params ...)
+*/
+SQLITE_API int sqlite3_rtree_geometry_callback(
+  sqlite3 *db,
+  const char *zGeom,
+  int (*xGeom)(sqlite3_rtree_geometry *, int nCoord, double *aCoord, int *pRes),
+  void *pContext
+);
+
+
+/*
+** A pointer to a structure of the following type is passed as the first
+** argument to callbacks registered using rtree_geometry_callback().
+*/
+struct sqlite3_rtree_geometry {
+  void *pContext;                 /* Copy of pContext passed to s_r_g_c() */
+  int nParam;                     /* Size of array aParam[] */
+  double *aParam;                 /* Parameters passed to SQL geom function */
+  void *pUser;                    /* Callback implementation user data */
+  void (*xDelUser)(void *);       /* Called by SQLite to clean up pUser */
+};
+
+
+#ifdef __cplusplus
+}  /* end of the 'extern "C"' block */
+#endif
+
+#endif  /* ifndef _SQLITE3RTREE_H_ */

@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default French Skin File -->
 
-<!-- Translation based on default-en.xml r60 -->
+<!-- Translation based on default-en.xml r62 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -636,8 +636,8 @@
 			<item id="ID_NETWORK_DISCONNECT" text="Se _déconnecter"/>
 			<separator/>
 			<menu text="_Choisir les réseaux">
-				<item id="ID_NETWORK_G2" text="Se connecter à _Gnutella2"/>
-				<item id="ID_NETWORK_G1" text="Se connecter à Gnutella_1"/>
+				<item id="ID_NETWORK_G2" text="Se connecter à Gnutella_2"/>
+				<item id="ID_NETWORK_G1" text="Se connecter à _Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="Se connecter à _eDonkey"/>
 			</menu>
 			<separator/>
@@ -735,8 +735,8 @@
 			<item id="ID_NETWORK_CONNECT" text="Se c_onnecter" shortcut="Ctrl+G"/>
 			<separator/>
 			<menu text="_Choisir les réseaux">
-				<item id="ID_NETWORK_G2" text="Se connecter à _Gnutella2"/>
-				<item id="ID_NETWORK_G1" text="Se connecter à Gnutella_1"/>
+				<item id="ID_NETWORK_G2" text="Se connecter à Gnutella_2"/>
+				<item id="ID_NETWORK_G1" text="Se connecter à _Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="Se connecter à _eDonkey"/>
 			</menu>
 			<separator/>
@@ -812,8 +812,8 @@
 			<item id="ID_NETWORK_BROWSE_TO" text="_Parcourir l'hôte..."/>
 			<separator/>
 			<menu text="_Choisir les réseaux">
-				<item id="ID_NETWORK_G2" text="Se connecter à _Gnutella2"/>
-				<item id="ID_NETWORK_G1" text="Se connecter à Gnutella_1"/>
+				<item id="ID_NETWORK_G2" text="Se connecter à Gnutella_2"/>
+				<item id="ID_NETWORK_G1" text="Se connecter à _Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="Se connecter à _eDonkey"/>
 			</menu>
 			<separator/>
@@ -1605,8 +1605,8 @@
 			<item id="ID_NETWORK_CONNECT" text="Se _connecter"/>
 			<item id="ID_NETWORK_DISCONNECT" text="Déco_nnecter"/>
 			<separator/>
-			<item id="ID_NETWORK_G2" text="_Gnutella2"/>
-			<item id="ID_NETWORK_G1" text="Gnutella_1"/>
+			<item id="ID_NETWORK_G2" text="Gnutella_2"/>
+			<item id="ID_NETWORK_G1" text="_Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="_eDonkey"/>
 		</menu>
 		<menu text="_Moniteur">
@@ -3685,7 +3685,7 @@
 	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="Accès à distance">
 		<control caption="Activ_er&#160;:"/>
 		<control caption="Activer l'accès à distance PeerProject&#160;:"/>
-		<control caption="URL"/>
+		<control caption="..."/>
 		<control caption="Compte utilisateur&#160;:"/>
 		<control caption="Nom d'utilisateur&#160;:"/>
 		<control caption="Mot de passe&#160;:"/>
@@ -3883,7 +3883,7 @@
 	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="PeerProject vous souhaite la bienvenue &#160;(2/8)">
 		<control caption="Pour des performances optimales, PeerProject doit en connaître un peu plus sur votre connexion à Internet."/>
 		<control caption="Veuillez sélectionner le type de connexion&#160;:"/>
-		<control caption="| Modem Dial up|ISDN (128K)|DSL (768K)|DSL (1.5M)|DSL (4.0M)|DSL2 (8.0M)|FIOS (10.0M)|DSL2 (12.0M)|FIOS (20.0M)|DSL2+ (24.0M)| Modem Câble/SDSL| T1| T3| LAN| OC3"/>
+		<control caption="|Modem Dial-up|ISDN 128K|DSL 768K|DSL 1.5M|DSL 4M|DSL2 8|FIOS 10|DSL2 12|FIOS 15|FIOS 20|FIOS 25|FIOS 30|T1|T3|LAN|OC3|Modem Câble"/>
 		<control caption="Ou, choisissez la vitesse téléchargement&#160;:"/>
 		<control/>
 		<control caption="et la vitesse d'envoi&#160;:"/>
@@ -3907,7 +3907,7 @@
 		<control caption="Prendre en charge les liens torrent."/>
 	</dialog>
 	<dialog name="CWizardFoldersPage" cookie="StStEdBuStEdBuStEdBuSt" caption="PeerProject vous souhaite la bienvenue &#160;(4/8)">
-		<control caption="PeerProject first downloads partial files to a private folder, then moves them when completed according to Download Groups."/>
+		<control caption="PeerProject abord partielle des fichiers dans un dossier privé, puis les transfère une fois complété selon les Groupes de téléchargement."/>
 		<control caption="Stocker les fichiers incomplets ici&#160;:"/>
 		<control/>
 		<control/>
@@ -3917,7 +3917,7 @@
 		<control caption="Stocker les .Torrents ici&#160;:"/>
 		<control/>
 		<control/>
-		<control caption="Common filetypes are initially setup as subfolders of the default location, but Groups can easily be customized by Right-Click.  Simply Drag&apos;n&apos;Drop files."/>
+		<control caption="Types de fichiers communs sont d'abord l'installation en sous-dossiers, mais les groupes peuvent être personnalisés. Glisser-déposer des fichiers."/>
 	</dialog>
 	<dialog name="CWizardSharePage" cookie="StStStSyBuBuSt" caption="PeerProject vous souhaite la bienvenue &#160;(5/8)">
 		<control caption="Les réseaux P2P ne peuvent être performants si vous ne partagez pas. Le contenu disponible en téléchargement provient des utilisateurs."/>

@@ -3,7 +3,7 @@
 
 <!-- PeerProject Korean Language Skin File -->
 
-<!-- Translation based on default-en.xml r60 --> <!--Machine Translated!-->
+<!-- Translation based on default-en.xml r62 --> <!--Machine Translated!-->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -739,7 +739,7 @@
 			<separator/>
 			<menu text="Choose _Networks">
 				<item id="ID_NETWORK_G2" text="연결 to Gnutella_2"/>
-				<item id="ID_NETWORK_G1" text="연결 to Gnutella_1"/>
+				<item id="ID_NETWORK_G1" text="연결 to _Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="연결 to eDonkey"/>
 			</menu>
 			<separator/>
@@ -818,8 +818,8 @@
 			<item id="ID_NETWORK_BROWSE_TO" text="찾아보기 호스트..."/>
 			<separator/>
 			<menu text="선택 네트웍스 ">
-				<item id="ID_NETWORK_G2" text="연결 to _Gnutella2"/>
-				<item id="ID_NETWORK_G1" text="연결 to Gnutella_1"/>
+				<item id="ID_NETWORK_G2" text="연결 to Gnutella_2"/>
+				<item id="ID_NETWORK_G1" text="연결 to _Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="연결 to _eDonkey"/>
 			</menu>
 			<separator/>
@@ -1000,7 +1000,7 @@
 		<item id="ID_NEIGHBOURS_URI" text="Get P2P Link (_URI)"/>
 		<item id="ID_HOSTCACHE_PRIORITY" text="_Priority Server"/>
 		<separator/>
-		<item id="ID_HOSTCACHE_REMOVE" text="_Remove Host(s)"/>
+		<item id="ID_HOSTCACHE_REMOVE" text="_Remove Host"/>
 		<separator/>
 		<menu text="_Filter">
 			<item id="ID_HOSTCACHE_G2_HORIZON" text="Gnutella2 Cl_uster"/>
@@ -2915,101 +2915,7 @@
 		<control caption="도움:"/>
 		<control caption="PeerProject Remote Access allows you to leave PeerProject running on your PC, and control it remotely using a web browser.  You will need to be able to accept incoming connections to use this feature.  (Ensure port-forwarding.)"/>
 	</dialog>
-<!--	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuSt" caption="네트워크">
-		<control caption="PeerProject is a general-purpose file-sharing application that can access many P2P networks at the same time. On this page you can select which P2P networks you want to connect to, and then adjust specific settings for each network."/>
-		<control caption="Gnutella2 Network:"/>
-		<control caption="The Gnutella2 network is PeerProject&apos;s premiere network, offering more features and performance than any other P2P net.  Highly recommended."/>
-		<control caption="Connect to Gnutella2 (G2)"/>
-		<control caption="Configure Gnutella2"/>
-		<control caption="Gnutella Network:"/>
-		<control caption="The original Gnutella network is less feature-rich than Gnutella2, and has fewer files than eDonkey, yet remains a valuable resource."/>
-		<control caption="Connect to Original Gnutella (G1)"/>
-		<control caption="Configure Gnutella1"/>
-		<control caption="eDonkey Network:"/>
-		<control caption="The eDonkey network is a popular server-based network. While not as feature-rich or fast as Gnutella2, eMule has an impressive file collection."/>
-		<control caption="Connect to eDonkey2000 (ED2K)"/>
-		<control caption="Configure eDonkey"/>
-	</dialog> -->
-<!--	<dialog name="CGnutellaSettingsPage" cookie="BuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuBu" caption="Gnutella">
-		<control caption="Gnutella2 Network:"/>
-		<control caption="Connect to G2 now"/>
-		<control caption="Connect to G2 at starup"/>
-		<control caption="Mode:"/>
-		<control caption="Optimal|Leaf|Hub"/>
-		<control caption="G2 Connections:"/>
-		<control caption="Leaf to Hub:"/>
-		<control/>
-		<control/>
-		<control caption="Hub to Leaf:"/>
-		<control/>
-		<control/>
-		<control caption="Hub to Hub:"/>
-		<control/>
-		<control/>
-		<control caption="Gnutella Network:"/>
-		<control caption="Connect to Gnutella now"/>
-		<control caption="Connect to Gnutella at starup"/>
-		<control caption="Mode:"/>
-		<control caption="Optimal|Leaf|Ultrapeer"/>
-		<control caption="G1 Connections:"/>
-		<control caption="Leaf to Ultrapeer:"/>
-		<control/>
-		<control/>
-		<control caption="Ultrapeer to Leaf:"/>
-		<control/>
-		<control/>
-		<control caption="Peer to Peer:"/>
-		<control/>
-		<control/>
-		<control caption="Link Compression:"/>
-		<control caption="Hub to Leaf"/>
-		<control caption="Leaf to Hub"/>
-		<control caption="Hub to Hub"/>
-	</dialog> -->
-<!--	<dialog name="CDonkeySettingsPage" cookie="BuBuBuBuStEdmsStBuBuStEdmsStBuBuBuSt" caption="eDonkey">
-		<control caption="_eDonkey Network:"/>
-		<control caption="Connect to eDonkey2000 now"/>
-		<control caption="Connect to eDonkey2000 at starup"/>
-		<control caption="_Client Link Connections:"/>
-		<control caption="Connect to no more than:"/>
-		<control/>
-		<control/>
-		<control caption="other eDonkey clients."/>
-		<control caption="_Global Searching:"/>
-		<control caption="Search known remote servers in the server cache:"/>
-		<control caption="Stop searching after:"/>
-		<control/>
-		<control/>
-		<control caption="search results."/>
-		<control caption="Update global server list from the connected server"/>
-		<control caption="eDonkey _Tools:"/>
-		<control caption="Download..."/>
-		<control caption="Update eDonkey server list MET from the web."/>
-	</dialog> -->
-<!--	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
-		<control caption="_Download Connections:"/>
-		<control/>
-		<control/>
-		<control caption="Torrents at once"/>
-		<control/>
-		<control/>
-		<control caption="Client connections"/>
-		<control caption="Prefer torrent sources"/>
-		<control caption="_EndGame:"/>
-		<control caption="Enable EndGame mode when completing torrents  (multi-source)"/>
-		<control caption="Clear downloaded torrents when share ratio reaches:"/>
-		<control/>
-		<control/>
-		<control caption="%"/>
-		<control caption="_Store Torrents Here:"/>
-		<control/>
-		<control/>
-		<control caption="_Torrent Creator:"/>
-		<control/>
-		<control/>
-		<control caption="Default Tracker:"/>
-		<control/>
-	</dialog> -->
+	<!-- MISSING DIALOG PAGES -->
 	<dialog name="CSkinsSettingsPage" cookie="SyBuStStStStStEdStBuBuBu" caption="테마">
 		<control/>
 		<control caption="테마 정보:"/>
@@ -3104,7 +3010,7 @@
 	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="피어 프로젝트에 오신 것을 환영합니다 (2/8)">
 		<control caption="For best performance, PeerProject needs to know your internet connection."/>
 		<control caption="You may select the Internet connection type:"/>
-		<control caption="|Dial-up Modem|ISDN (128K)|DSL (768K)|DSL (1.5M)|DSL (4.0M)|DSL2 (8.0M)|FIOS (10.0M)|DSL2 (12.0M)|FIOS (20.0M)|DSL2 (24.0M)|Cable Modem|T1|T3|LAN|OC3"/>
+		<control caption="|Dial-up Modem|ISDN 128K|DSL 768K|DSL 1.5M|DSL 4M|DSL2 8|FIOS 10|DSL2 12|FIOS 15|FIOS 20|FIOS 25|FIOS 30|T1|T3|LAN|OC3|Cable Modem"/>
 		<control caption="Or choose the download speed:"/>
 		<control/>
 		<control caption="...and upload speed:"/>
@@ -3128,26 +3034,26 @@
 		<control caption="Associate .Torrent Files  (Handle BitTorrent links by default)"/>
 	</dialog>
 	<dialog name="CWizardFoldersPage" cookie="StStEdBuStEdBuStEdBuSt" caption="피어 프로젝트에 오신 것을 환영합니다 (4/8)">
-		<control caption="PeerProject first downloads partial files to a private folder, then moves them when completed according to Download Groups."/>
-		<control caption="Store Incomplete files here temporarily:"/>
+		<control caption="PeerProject 첫번째 다운로드 부분적 개인 폴더로 파일을 다운로드 다음 그룹에 따라 완료되면 그들을 이동합니다."/>
+		<control caption="여기에 일시적으로 저장 불완전 파일 :"/>
 		<control/>
 		<control/>
-		<control caption="Save Complete files here by default:"/>
+		<control caption="기본적으로 여기에 파일을 저장 완료 :"/>
 		<control/>
 		<control/>
-		<control caption="Save .Torrent files here:"/>
+		<control caption="저장 .torrent 현재 파일 :"/>
 		<control/>
 		<control/>
-		<control caption="Common filetypes are initially setup as subfolders of the default location, but Groups can easily be customized by Right-Click.  Simply Drag&apos;n&apos;Drop files."/>
+		<control caption="일반적인 파일 형식이 있지만, 하위 폴더에 처음 설치 아르 그룹은 사용자 정의할 수 있습니다. 간단히 Drag&apos;n&apos;drop 파일."/>
 	</dialog>
 	<dialog name="CWizardSharePage" cookie="StStStSyBuBuSt" caption="피어 프로젝트에 오신 것을 환영합니다 (5/8)">
 		<control caption="P2P networks are only as good as the people who use them. All of the content available for download is being shared by another user."/>
 		<control caption="You do not have to share content to use PeerProject, however some software will behave differently to users who are not sharing anything."/>
 		<control caption="Please indicate which folders, if any, you wish to share. Simply click the Add button to add a new folder."/>
 		<control/>
-		<control caption="Add..."/>
-		<control caption="Remove"/>
-		<control caption="WARNING: Distributing copyrighted works is an offence in most countries."/>
+		<control caption="추가..."/>
+		<control caption="제거"/>
+		<control caption="주의 : 업로드 승인되지 않은 저작권 작품이 일부 국가에서 책임을집니다."/>
 	</dialog>
 	<dialog name="CFolderScanDlg" cookie="StStStStStStBu" caption="Scanning Folder...">
 		<control/>

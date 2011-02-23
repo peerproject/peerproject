@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Finnish Skin File -->
 
-<!-- Translation based on default-en.xml r60 (Shareaza 2.1.3.7) -->
+<!-- Translation based on default-en.xml r62 (Shareaza 2.1.3.7) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -632,8 +632,8 @@
 			<item id="ID_NETWORK_CONNECT" text="_Yhdistä" shortcut="Ctrl+G"/>
 			<separator/>
 			<menu text="Valitse _Verkot">
-				<item id="ID_NETWORK_G2" text="Yhdistä _Gnutella2"/>
-				<item id="ID_NETWORK_G1" text="Yhdistä Gnutella_1"/>
+				<item id="ID_NETWORK_G2" text="Yhdistä Gnutella_2"/>
+				<item id="ID_NETWORK_G1" text="Yhdistä _Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="Yhdistä _eDonkey2000"/>
 			</menu>
 			<separator/>
@@ -705,8 +705,8 @@
 			<item id="ID_NETWORK_BROWSE_TO" text="_Selaa Käyttäjää"/>
 			<separator/>
 			<menu text="Valitse _Verkot">
-				<item id="ID_NETWORK_G2" text="Yhdistä _Gnutella2"/>
-				<item id="ID_NETWORK_G1" text="Yhdistä Gnutella_1"/>
+				<item id="ID_NETWORK_G2" text="Yhdistä Gnutella_2"/>
+				<item id="ID_NETWORK_G1" text="Yhdistä _Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="Yhdistä _eDonkey2000"/>
 			</menu>
 			<separator/>
@@ -1464,8 +1464,8 @@
 			<item id="ID_NETWORK_CONNECT" text="_Yhdistä"/>
 			<item id="ID_NETWORK_DISCONNECT" text="_Katkaise Yhteys"/>
 			<separator/>
-			<item id="ID_NETWORK_G2" text="_Gnutella2"/>
-			<item id="ID_NETWORK_G1" text="Gnutella_1"/>
+			<item id="ID_NETWORK_G2" text="Gnutella_2"/>
+			<item id="ID_NETWORK_G1" text="_Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="_eDonkey2000"/>
 		</menu>
 		<menu text="_Monitori">

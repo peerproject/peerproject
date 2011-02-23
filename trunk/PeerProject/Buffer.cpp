@@ -1,7 +1,7 @@
 //
 // Buffer.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -94,14 +94,14 @@ void CBuffer::Insert(const DWORD nOffset, const void * pData, const size_t nLeng
 	// Cut the memory block sitting in the buffer in two, slicing it at offset and shifting that part forward nLength
 	MoveMemory(
 		m_pBuffer + nOffset + nLength,	// Destination is the offset plus the length of the memory block to insert
-		m_pBuffer + nOffset,		// Source is at the offset
-		m_nLength - nOffset );		// Length is the size of the memory block beyond the offset
+		m_pBuffer + nOffset,			// Source is at the offset
+		m_nLength - nOffset );			// Length is the size of the memory block beyond the offset
 
 	// Now that there is nLength of free space in the buffer at nOffset, copy the given memory to fill it
 	CopyMemory(
 		m_pBuffer + nOffset,	// Destination is at the offset in the buffer
-		pData,			// Source is the given pointer to the memory to insert
-		nLength );		// Length is the length of that memory
+		pData,					// Source is the given pointer to the memory to insert
+		nLength );				// Length is the length of that memory
 
 	// Add the length of the new memory to the total length in the buffer
 	m_nLength += static_cast< DWORD >( nLength );
@@ -234,7 +234,7 @@ bool CBuffer::EnsureBuffer(const size_t nLength) //throw()
 // Convert Unicode text to ASCII and add it to the buffer
 void CBuffer::Print(const LPCWSTR pszText, const size_t nLength, const UINT nCodePage)
 {
-	// primitive overflow protection (relevant for 64bit)
+	// Primitive overflow protection (relevant for 64bit)
 	if ( nLength > INT_MAX ) return;
 
 	// If the text is blank or no memory, don't do anything
@@ -262,7 +262,6 @@ void CBuffer::Print(const LPCWSTR pszText, const size_t nLength, const UINT nCod
 // Returns the text in a string, which will contain Unicode or ASCII characters depending on the compile
 CString CBuffer::ReadString(const size_t nBytes, const UINT nCodePage)
 {
-	// Make a new blank string to hold the text we find
 	CString str;
 
 	// Set nSource to whichever is smaller, the number of bytes in the buffer, or the number we can look at there
@@ -289,7 +288,6 @@ CString CBuffer::ReadString(const size_t nBytes, const UINT nCodePage)
 	// Release our direct manipulation of the CString's buffer
 	str.ReleaseBuffer( nLength );	// Tell it how many wide characters we wrote there, null terminator not included
 
-	// Return the string
 	return str;
 }
 
@@ -394,9 +392,9 @@ DWORD CBuffer::Receive(SOCKET hSocket, DWORD nSpeedLimit)
 		size_t nLength = min( GetBufferFree(), static_cast< size_t >( INT_MAX ) );
 
 		if ( nLength )
-			nLength = min( nLength, nSpeedLimit );			// Limit nLength to the speed limit
+			nLength = min( nLength, (size_t)nSpeedLimit );			// Limit nLength to the speed limit
 		else
-			nLength = min( nSpeedLimit, MAX_RECV_SIZE );	// Limit nLength to the maximum recieve size
+			nLength = min( (size_t)nSpeedLimit, MAX_RECV_SIZE );	// Limit nLength to the maximum recieve size
 
 		// Exit loop if the buffer isn't big enough to hold the data
 		if ( ! EnsureBuffer( nLength ) )
@@ -482,7 +480,7 @@ DWORD CBuffer::Send(SOCKET hSocket, DWORD nSpeedLimit)
 	// Add the total to statistics (Moved to Connection.cpp)
 	//Statistics.Current.Bandwidth.Outgoing += nTotal;
 
-	// Return the total #bytes sent
+	// Return #bytes sent
 	return nTotal;
 }
 

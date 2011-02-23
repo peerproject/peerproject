@@ -1,7 +1,7 @@
 //
 // UploadQueue.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -364,17 +364,8 @@ DWORD CUploadQueue::GetBandwidthLimit(DWORD nTransfers) const
 		if ( pOther != this ) nTotalPoints += pOther->GetBandwidthPoints();
 	}
 
-	DWORD nTotal = Settings.Connection.OutSpeed * 128;
-	DWORD nLimit = ( Settings.Uploads.HubUnshare && Neighbours.IsG2Hub() ) ?
-		Settings.Bandwidth.HubUploads : Settings.Bandwidth.Uploads;
-	if ( nLimit == 0 || nLimit > nTotal ) nLimit = nTotal;
-
-	// Limit if torrents are active
-	if ( Uploads.m_nTorrentSpeed > 0 )
-		nLimit = ( nLimit * Settings.BitTorrent.BandwidthPercentage ) / 100;
-
-	return nLimit * ( nLocalPoints + Settings.Uploads.ThrottleMode ) /
-		max( 1ul, nTotalPoints );
+	return Uploads.GetBandwidthLimit() *
+		( nLocalPoints + Settings.Uploads.ThrottleMode ) / max( 1ul, nTotalPoints );
 }
 
 DWORD CUploadQueue::GetAvailableBandwidth() const

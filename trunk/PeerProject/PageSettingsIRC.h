@@ -1,7 +1,7 @@
 //
 // PageSettingsIRC.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2005-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -36,28 +36,28 @@ public:
 
 // Dialog Data
 public:
-	CButton	m_wndColorBg;
-	CButton	m_wndColorText;
-	CButton	m_wndColorTextLocal;
-	CButton	m_wndColorUserAction;
-	CButton	m_wndColorAction;
-	CButton m_wndColorServer;
-	CButton	m_wndColorNotice;
-	CButton	m_wndColorTopic;
-	BOOL	m_bShow;
-	BOOL	m_bFloodEnable;
-	BOOL	m_bTimestamp;
-	CString	m_sNick;
-	CString	m_sAlternate;
-	CString	m_sServerName;
-	CString m_sUserName;
-	CString m_sRealName;
-	CString	m_sServerPort;
-	CString	m_sFloodLimit;
-	CString	m_sOnConnect;
-	CString m_sFontSize;
-	CString m_sScreenFont;
-	CFontCombo m_wndFonts;
+	CButton		m_wndColorBg;
+	CButton		m_wndColorText;
+	CButton		m_wndColorTextLocal;
+	CButton		m_wndColorUserAction;
+	CButton		m_wndColorAction;
+	CButton		m_wndColorServer;
+	CButton		m_wndColorNotice;
+	CButton		m_wndColorTopic;
+	BOOL		m_bShow;
+	BOOL		m_bFloodEnable;
+	BOOL		m_bTimestamp;
+	CString		m_sNick;
+	CString		m_sAlternate;
+	CString		m_sServerName;
+	CString		m_sUserName;
+	CString		m_sRealName;
+	CString		m_sOnConnect;
+	int 		m_nServerPort;
+	int 		m_nFloodLimit;
+	int 		m_nFontSize;
+	CString		m_sScreenFont;
+	CFontCombo	m_wndFonts;
 	CSpinButtonCtrl	m_wndFontSizeSpin;
 	CSpinButtonCtrl	m_wndFloodLimitSpin;
 

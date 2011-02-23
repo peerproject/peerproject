@@ -1,7 +1,7 @@
 //
 // Uploads.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -35,10 +35,9 @@ public:
 public:
 	DWORD		m_nCount;			// Active count
 	DWORD		m_nBandwidth;		// Total speed
-	DWORD		m_nTorrentSpeed;	// BitTorrent clamp
-public:
-	BOOL		m_bStable;			// Stable flag
 	DWORD		m_nBestSpeed;		// Best speed
+	DWORD		m_nTorrentSpeed;	// BitTorrent clamp
+	BOOL		m_bStable;			// Stable flag
 protected:
 	CList< CUploadTransfer* >	m_pList;
 
@@ -54,6 +53,7 @@ public:
 
 	void		SetStable(DWORD nSpeed);
 	DWORD		GetBandwidth() const;
+	DWORD		GetBandwidthLimit() const;			// Calculate upload speed (Bytes/s)
 	void		OnRun();
 	BOOL		OnAccept(CConnection* pConnection);
 	void		OnRename(LPCTSTR pszSource, LPCTSTR pszTarget);	// pszTarget: 0 = delete file, 1 = release file
