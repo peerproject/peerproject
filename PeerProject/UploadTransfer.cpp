@@ -1,7 +1,7 @@
 //
 // UploadTransfer.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -167,7 +167,7 @@ DWORD CUploadTransfer::GetAverageSpeed()
 	if ( m_nState != upsUploading || m_nLength == 0 || m_nLength == SIZE_UNKNOWN )
 		return GetMeasuredSpeed();
 
-	DWORD nTime = ( GetTickCount() - m_tContent ) / 1000;
+	const DWORD nTime = ( GetTickCount() - m_tContent ) / 1000;
 	return nTime ? (DWORD)( m_nPosition / nTime ) : 0;
 }
 
@@ -206,6 +206,7 @@ BOOL CUploadTransfer::OnRun()
 	LongTermAverage( tNow );
 	RotatingQueue( tNow );
 	CalculateRating( tNow );
+
 	return CTransfer::OnRun();
 }
 
@@ -318,7 +319,7 @@ void CUploadTransfer::RotatingQueue(DWORD tNow)
 		DWORD tRotationLength = m_pQueue->m_nRotateTime * 1000;
 
 		// High ranked users can get a longer rotate time
-		if ( ( m_pQueue->m_bRewardUploaders ) && ( m_nUserRating == urCredit ) )
+		if ( m_pQueue->m_bRewardUploaders && m_nUserRating == urCredit )
 			tRotationLength <<= 1;
 
 		pLock.Unlock();
@@ -343,28 +344,29 @@ void CUploadTransfer::RotatingQueue(DWORD tNow)
 // CUploadTransfer calculate rating
 
 void CUploadTransfer::CalculateRating(DWORD tNow)
-{	// Calculate a download rating for this transfer/user
-	if ( tNow > m_tRatingTime + 15000 )			// Recalculate rating every 15 seconds
-	{
-		QWORD nDownloaded = Downloads.GetAmountDownloadedFrom( &(m_pHost.sin_addr) );
-		m_tRatingTime = tNow;
-		if ( nDownloaded > 128 * 1024)			// They have uploaded to us. (Transfers < 128k are ignored)
-		{
-			if ( nDownloaded > m_nUploaded )	// If they have sent more to us than we have to them
-				m_nUserRating = urCredit;		// They get the highest rating
-			else
-				m_nUserRating = urSharing;		// Otherwise, #2. (still known sharer)
-		}
-		else									// They have not uploaded to us.
-		{
-			if ( m_nUploaded < 4*1024*1024 )	// If they have not gotten at least 4MB
-				m_nUserRating = urNew;			// They are a new user- give uncertain rating
-			else
-				m_nUserRating = urNotSharing;	// Else, probably not uploading to us.
-		}
-	}
+{
+	// Calculate a download rating for this transfer/user
+	// ToDo: Maybe add a 'remote client' class to retain transfer stats for session?
 
-	// ToDo: Maybe add a 'remote client' class to retain transfer stats for an hour or so?
+	if ( tNow < m_tRatingTime + 15000 )		// Recalculate rating only every 15 seconds
+		return;
+	m_tRatingTime = tNow;
+
+	const QWORD nDownloaded = Downloads.GetAmountDownloadedFrom( &(m_pHost.sin_addr) );
+	if ( nDownloaded > 128 * 1024)			// They have uploaded to us. (Transfers < 128k are ignored)
+	{
+		if ( nDownloaded > m_nUploaded )	// If they have sent more to us than we have to them
+			m_nUserRating = urCredit;		// They get the highest rating
+		else
+			m_nUserRating = urSharing;		// Otherwise still known sharer
+	}
+	else									// They have not uploaded to us
+	{
+		if ( m_nUploaded < 4*1024*1024 )	// If they have not gotten at least 4MB
+			m_nUserRating = urNew;			// They are likely a new user, given uncertain rating
+		else
+			m_nUserRating = urNotSharing;	// Otherwise probably not uploading to us
+	}
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -449,7 +451,7 @@ BOOL CUploadTransfer::RequestPartial(CDownload* pFile)
 	if ( validAndUnequal( m_oMD5, pFile->m_oMD5 ) ) return FALSE;
 
 	m_sName	= pFile->m_sName;
-	if ( ! pFile->IsTorrent() )
+	if ( ! pFile->IsTorrent() || pFile->IsSingleFileTorrent() )
 		m_sPath	= pFile->GetPath( 0 );
 	m_nFileBase	= 0;
 	m_nSize	= pFile->m_nSize;

@@ -1,7 +1,7 @@
 //
 // QuerySearch.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -72,7 +72,6 @@ CQuerySearch::CQuerySearch(BOOL bGUID)
 	, m_bPartial	( false )
 	, m_bNoProxy	( false )
 	, m_bExtQuery	( false )
-	, m_bWarning	( false )
 	, m_nMeta		( 0 )
 	, m_oWords		( )
 	, m_oNegWords	( )
@@ -90,51 +89,6 @@ CQuerySearch::~CQuerySearch()
 {
 	if ( m_pXML ) delete m_pXML;
 }
-
-// Obsolete, for reference?
-//CQuerySearch::CQuerySearch(const CQuerySearch* pOrigin)
-//	: m_bAutostart	( pOrigin->m_bAutostart )
-//	, m_oGUID		( pOrigin->m_oGUID )
-//	, m_sSearch		( pOrigin->m_sSearch )
-//	, m_sKeywords	( pOrigin->m_sKeywords )
-//	, m_sPosKeywords( pOrigin->m_sPosKeywords )
-//	, m_sG2Keywords	( pOrigin->m_sG2Keywords )
-//	, m_pSchema		( pOrigin->m_pSchema )
-//	, m_pXML		( pOrigin->m_pXML ? pOrigin->m_pXML->Clone() : NULL )
-//	, m_nMinSize	( pOrigin->m_nMinSize )
-//	, m_nMaxSize	( pOrigin->m_nMaxSize )
-//	, m_oSimilarED2K()	//! verify this
-//	, m_bWantURL	( pOrigin->m_bWantURL )
-//	, m_bWantDN 	( pOrigin->m_bWantDN )
-//	, m_bWantXML	( pOrigin->m_bWantXML )
-//	, m_bWantCOM	( pOrigin->m_bWantCOM )
-//	, m_bWantPFS	( pOrigin->m_bWantPFS )
-//	, m_bAndG1		( pOrigin->m_bAndG1 )
-//	, m_nTTL		( pOrigin->m_nTTL )
-//	, m_bUDP		( pOrigin->m_bUDP )
-//	, m_pEndpoint	( pOrigin->m_pEndpoint )
-//	, m_nKey		( pOrigin->m_nKey )
-//	, m_bFirewall	( pOrigin->m_bFirewall )
-//	, m_bDynamic	( pOrigin->m_bDynamic )
-//	, m_bBinHash	( pOrigin->m_bBinHash )
-//	, m_bOOB		( pOrigin->m_bOOB )
-//	, m_bOOBv3		( pOrigin->m_bOOBv3 )
-//	, m_nMeta		( pOrigin->m_nMeta )
-//	, m_bPartial	( pOrigin->m_bPartial )
-//	, m_bNoProxy	( pOrigin->m_bNoProxy )
-//	, m_bExtQuery	( pOrigin->m_bExtQuery )
-//	, m_bWarning	( pOrigin->m_bWarning )
-//	, m_oURNs		( pOrigin->m_oURNs )
-//	, m_oKeywordHashList( pOrigin->m_oKeywordHashList )
-//	, //m_oWords	()	//! comment this - we copy the search string but not the word list
-//	, //m_oNegWords	()
-//{
-//	m_oSHA1		= pOrigin->m_oSHA1;
-//	m_oTiger	= pOrigin->m_oTiger;
-//	m_oED2K		= pOrigin->m_oED2K;
-//	m_oBTH		= pOrigin->m_oBTH;
-//	m_oMD5		= pOrigin->m_oMD5;
-//}
 
 
 //////////////////////////////////////////////////////////////////////
@@ -230,7 +184,7 @@ CG1Packet* CQuerySearch::ToG1Packet(DWORD nTTL) const
 
 		// ToDo: GGEP_HEADER_META
 
-		if ( CG1Packet::IsOOBEnabled() )				// Currently disabled by default.  ToDo: Verify and enable Out of Band query hits
+		if ( CG1Packet::IsOOBEnabled() )				// OOB currently disabled by default.  ToDo: Verify and enable Out of Band query hits
 			pBlock.Add( GGEP_HEADER_SECURE_OOB );
 
 		if ( m_bWantPFS )
@@ -629,17 +583,11 @@ CQuerySearchPtr CQuerySearch::FromPacket(CPacket* pPacket, const SOCKADDR_IN* pE
 		else if ( pPacket->m_nProtocol == PROTOCOL_G2 )
 		{
 			pSearch->m_nProtocol = PROTOCOL_G2; 	// Display convenience
-			if ( ((CG2Packet*)pPacket)->IsType( G2_PACKET_QUERY_WRAP ) )
-			{
-				theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("CQuerySearch::FromPacket dropping obsolete wrapped packet") );
-				//if ( pSearch->ReadG1Packet( (CG1Packet*)pPacket ) )
-				//	return pSearch;
-			}
-			else
-			{
+			//if ( ((CG2Packet*)pPacket)->IsType( G2_PACKET_QUERY_WRAP ) )
+			//	theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("CQuerySearch::FromPacket dropping obsolete wrapped packet") );
+			//else
 				if ( pSearch->ReadG2Packet( (CG2Packet*)pPacket, pEndpoint ) )
 					return pSearch;
-			}
 		}
 		//else
 		//{
@@ -751,7 +699,7 @@ void CQuerySearch::ReadGGEP(CG1Packet* pPacket)
 		Hashes::Md5Hash		oMD5;
 
 		CGGEPItem* pItemPos = pGGEP.GetFirst();
-		for ( BYTE nItemCount = 0; pItemPos && nItemCount < pGGEP.GetCount();
+		for ( BYTE nItemCount = 0 ; pItemPos && nItemCount < pGGEP.GetCount() ;
 			nItemCount++, pItemPos = pItemPos->m_pNext )
 		{
 			if ( pItemPos->IsNamed( GGEP_HEADER_HASH ) )
@@ -852,8 +800,8 @@ void CQuerySearch::ReadGGEP(CG1Packet* pPacket)
 	}
 	else
 	{
-		m_bWarning = true;
-		theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("[G1] Got query packet with malformed GGEP") );
+		pPacket->Debug( _T("G1 Malformed GGEP.") );
+	//	theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("[G1] Got query packet with malformed GGEP") );
 	}
 }
 
@@ -864,7 +812,7 @@ void CQuerySearch::ReadExtension(CG1Packet* pPacket)
 	DWORD nRemaining = pPacket->GetRemaining();
 	const BYTE* pData = pPacket->GetCurrent();
 	for ( ; *pData != G1_PACKET_HIT_SEP &&
-		nLength < nRemaining; pData++, nLength++ );
+		nLength < nRemaining ; pData++, nLength++ );
 
 	// Read extension
 	auto_array< BYTE > pszData( new BYTE[ nLength + 1] );
@@ -1147,7 +1095,7 @@ BOOL CQuerySearch::CheckValid(bool bExpression)
 		size_t nValidCharacters = 0;
 
 		// Check we aren't just searching for broad terms - set counters, etc
-		for ( const_iterator pWord = begin(); pWord != end(); pWord++ )
+		for ( const_iterator pWord = begin() ; pWord != end() ; pWord++ )
 		{
 			nValidCharacters = 0;
 			szChar = *(pWord->first);
@@ -1477,28 +1425,22 @@ BOOL CQuerySearch::NumberMatch(const CString& strValue, const CString& strRange)
 	if ( _stscanf( strValue, _T("%lf"), &nValue ) != 1 )
 		return FALSE;
 
-	int nPos = strRange.Find( '-' );
+	const int nPos = strRange.Find( '-' );
 
 	if ( nPos < 0 )
-	{
 		return _stscanf( strRange, _T("%lf"), &nMinimum ) == 1 && nValue == nMinimum;
-	}
-	else if ( nPos == 0 )
-	{
-		return _stscanf( (LPCTSTR)strRange + 1, _T("%lf"), &nMaximum ) && nValue <= nMaximum;
-	}
-	else if ( nPos == strRange.GetLength() - 1 )
-	{
-		return _stscanf( strRange, _T("%lf"), &nMinimum ) && nValue >= nMinimum;
-	}
-	else
-	{
-		if ( _stscanf( strRange.Left( nPos ), _T("%lf"), &nMinimum ) != 1 ||
-			 _stscanf( strRange.Mid( nPos + 1 ), _T("%lf"), &nMaximum ) != 1 )
-			return FALSE;
 
-		return nValue >= nMinimum && nValue <= nMaximum;
-	}
+	if ( nPos == 0 )
+		return _stscanf( (LPCTSTR)strRange + 1, _T("%lf"), &nMaximum ) && nValue <= nMaximum;
+
+	if ( nPos == strRange.GetLength() - 1 )
+		return _stscanf( strRange, _T("%lf"), &nMinimum ) && nValue >= nMinimum;
+
+	if ( _stscanf( strRange.Left( nPos ), _T("%lf"), &nMinimum ) != 1 ||
+		 _stscanf( strRange.Mid( nPos + 1 ), _T("%lf"), &nMaximum ) != 1 )
+		return FALSE;
+
+	return nValue >= nMinimum && nValue <= nMaximum;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -1656,7 +1598,7 @@ void CQuerySearch::BuildG2PosKeywords()
 	m_sG2Keywords.Empty();
 
 	// Create string with positive keywords.
-	for ( const_iterator pWord = begin(); pWord != end(); pWord++ )
+	for ( const_iterator pWord = begin() ; pWord != end() ; pWord++ )
 	{
 		m_sPosKeywords.AppendFormat( _T("%s "), LPCTSTR( CString( pWord->first, int(pWord->second) ) ) );
 	}
@@ -1665,7 +1607,7 @@ void CQuerySearch::BuildG2PosKeywords()
 	m_sPosKeywords.TrimRight();		// Trim off extra space char at the end of string.
 
 	// Append negative keywords to G2 keywords string.
-	for ( const_iterator pWord = beginNeg(); pWord != endNeg(); pWord++ )
+	for ( const_iterator pWord = beginNeg() ; pWord != endNeg() ; pWord++ )
 	{
 		m_sG2Keywords.AppendFormat( _T("-%s "), LPCTSTR( CString( pWord->first, int(pWord->second) ) ) );
 	}
@@ -1729,7 +1671,7 @@ void CQuerySearch::MakeKeywords(CString& strPhrase, bool bExpression)
 					!_istdigit( TCHAR( str.Right( nPos < 3 ? 1 : 3 ).GetAt( 0 ) ) ) )
 				{
 					// Join two phrases if the previous was a sigle characters word.
-					// idea of joining single characters breaks GDF compatibility completely,
+					// The idea of joining single characters breaks GDF compatibility completely,
 					// but because PeerProject (Shareaza 2.2+) is not really following GDF about
 					// word length limit for ASIAN chars, merging is necessary to be done.
 				}
@@ -1775,7 +1717,7 @@ void CQuerySearch::MakeKeywords(CString& strPhrase, bool bExpression)
 		 boundary[ 1 ] )
 	{
 		// Join two phrases if the previous was a sigle characters word.
-		// Idea of joining single characters breaks GDF compatibility completely,
+		// The idea of joining single characters breaks GDF compatibility completely,
 		// but because PeerProject (Shareaza 2.2+) is not really following GDF about
 		// word length limit for ASIAN chars, merging is necessary to be done.
 	}
@@ -2000,8 +1942,8 @@ CSearchWnd* CQuerySearch::OpenWindow(CQuerySearch* pSearch)
 {
 	if ( pSearch && pSearch->CheckValid( false ) )
 		return new CSearchWnd( pSearch );
-	else
-		return NULL;
+
+	return NULL;
 }
 
 void CQuerySearch::PrepareCheck()

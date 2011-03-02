@@ -1,7 +1,7 @@
 //
 // CtrlMonitorBar.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -35,7 +35,6 @@ public:
 	CGraphItem*		m_pRxItem;
 	DWORD			m_nMaximumIn;
 	DWORD			m_nMaximumOut;
-	DWORD			m_nCount;
 protected:
 	CBitmap			m_bmWatermark;
 	CRect			m_rcTrackIn;
@@ -66,11 +65,12 @@ protected:
 
 // Message Map
 protected:
-	DECLARE_MESSAGE_MAP()
 	afx_msg int 	OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void	OnDestroy();
 	afx_msg void	OnSize(UINT nType, int cx, int cy);
 	afx_msg void	OnTimer(UINT_PTR nIDEvent);
 	afx_msg BOOL	OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message);
 	afx_msg void	OnLButtonDown(UINT nFlags, CPoint point);
+
+	DECLARE_MESSAGE_MAP()
 };

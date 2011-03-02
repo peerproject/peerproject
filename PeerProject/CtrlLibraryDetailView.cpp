@@ -1,7 +1,7 @@
 //
 // CtrlLibraryDetailView.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -54,10 +54,11 @@ BEGIN_MESSAGE_MAP(CLibraryDetailView, CLibraryFileView)
 	ON_WM_CONTEXTMENU()
 	ON_WM_MEASUREITEM()
 	ON_WM_DRAWITEM()
+	ON_UPDATE_COMMAND_UI_RANGE(ID_SCHEMA_MENU_MIN, ID_SCHEMA_MENU_MAX, OnUpdateBlocker)
 	ON_UPDATE_COMMAND_UI(ID_LIBRARY_RENAME, OnUpdateLibraryRename)
+	ON_UPDATE_COMMAND_UI(ID_LIBRARY_COLUMNS, OnUpdateLibraryColumns)
 	ON_COMMAND(ID_LIBRARY_RENAME, OnLibraryRename)
 	ON_COMMAND(ID_LIBRARY_COLUMNS, OnLibraryColumns)
-	ON_UPDATE_COMMAND_UI(ID_LIBRARY_COLUMNS, OnUpdateLibraryColumns)
 	ON_NOTIFY_REFLECT(LVN_ODCACHEHINT, OnCacheHint)
 	ON_NOTIFY_REFLECT(LVN_GETDISPINFOW, OnGetDispInfoW)
 	ON_NOTIFY_REFLECT(LVN_GETDISPINFOA, OnGetDispInfoA)
@@ -73,7 +74,6 @@ BEGIN_MESSAGE_MAP(CLibraryDetailView, CLibraryFileView)
 	ON_NOTIFY_REFLECT(LVN_ODFINDITEMA, OnFindItemA)
 	ON_NOTIFY_REFLECT(NM_CUSTOMDRAW, OnCustomDraw)
 	ON_NOTIFY_REFLECT(NM_DBLCLK, OnDblClk)
-	ON_UPDATE_COMMAND_UI_RANGE(ID_SCHEMA_MENU_MIN, ID_SCHEMA_MENU_MAX, OnUpdateBlocker)
 END_MESSAGE_MAP()
 
 #define GET_LIST()		CListCtrl* pList = (CListCtrl*)this
@@ -365,17 +365,17 @@ BOOL CLibraryDetailView::Select(DWORD nObject)
 	}
 
 	LDVITEM* pItem = m_pList;
-
 	for ( DWORD nCount = 0 ; nCount < m_nList ; nCount++, pItem++ )
 	{
 		if ( pItem->nIndex == nObject )
 		{
-			LV_ITEM pItem;
+			LV_ITEM it = {};
+			it.mask = LVIF_STATE;
+			it.state = 0xFFFFFFFF;
+			it.stateMask = LVIS_SELECTED|LVIS_FOCUSED;
 
-			pItem.mask = LVIF_STATE; pItem.state = 0xFFFFFFFF; pItem.stateMask = LVIS_SELECTED|LVIS_FOCUSED;
-			SendMessage( LVM_SETITEMSTATE, nCount, (LPARAM)&pItem );
+			SendMessage( LVM_SETITEMSTATE, nCount, (LPARAM)&it );
 			PostMessage( LVM_ENSUREVISIBLE, nCount, FALSE );
-
 			return TRUE;
 		}
 	}
@@ -389,7 +389,7 @@ void CLibraryDetailView::SelectAll()
 
 	SelClear( FALSE );
 
-	for ( DWORD i = 0 ; i < m_nList; i++ )
+	for ( DWORD i = 0 ; i < m_nList ; i++ )
 	{
 		pList->SetItemState( i, LVIS_SELECTED, LVIS_SELECTED );
 	}
@@ -492,7 +492,7 @@ void CLibraryDetailView::CacheItem(int nItem)
 void CLibraryDetailView::OnCacheHint(NMHDR* pNotify, LRESULT* /*pResult*/)
 {
 	CSingleLock oLock( &Library.m_pSection );
-	if ( !oLock.Lock( 100 ) ) return;
+	if ( ! oLock.Lock( 100 ) ) return;
 
 	for ( int nItem = ((NMLVCACHEHINT*) pNotify)->iFrom ; nItem <= ((NMLVCACHEHINT*) pNotify)->iTo ; nItem++ )
 	{
@@ -556,7 +556,7 @@ void CLibraryDetailView::OnGetDispInfoA(NMHDR* pNMHDR, LRESULT* pResult)
 	{
 		{
 			CSingleLock oLock( &Library.m_pSection );
-			if ( !oLock.Lock( 100 ) ) return;
+			if ( ! oLock.Lock( 100 ) ) return;
 			CacheItem( pNotify.iItem );
 		}
 		if ( pItem->nCookie != m_nListCookie ) return;
@@ -659,7 +659,7 @@ int CLibraryDetailView::ListCompare(LPCVOID pA, LPCVOID pB)
 			break;
 		default:
 			{
-				int nColumn = m_pThis->m_nSortColumn - DETAIL_COLUMNS;
+				const int nColumn = m_pThis->m_nSortColumn - DETAIL_COLUMNS;
 				if ( nColumn >= m_pThis->m_pColumns.GetCount() ) return 0;
 				POSITION pos = m_pThis->m_pColumns.FindIndex( nColumn );
 				if ( pos == NULL ) return 0;
@@ -754,7 +754,8 @@ void CLibraryDetailView::OnItemChanged(NMHDR* pNotify, LRESULT* pResult)
 		SelClear();
 
 		LDVITEM* pItem = m_pList;
-		for ( DWORD nCount = m_nList ; nCount ; nCount--, pItem++ ) pItem->nState &= ~LDVI_SELECTED;
+		for ( DWORD nCount = m_nList ; nCount ; nCount--, pItem++ )
+			pItem->nState &= ~LDVI_SELECTED;
 	}
 }
 

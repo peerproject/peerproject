@@ -1,7 +1,7 @@
 //
 // CtrlBrowseTree.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -47,11 +47,11 @@ BEGIN_MESSAGE_MAP(CBrowseTreeCtrl, CWnd)
 	ON_WM_PAINT()
 	ON_WM_LBUTTONDOWN()
 	ON_WM_LBUTTONDBLCLK()
-	ON_WM_MOUSEWHEEL()
-	ON_WM_KEYDOWN()
-	ON_WM_RBUTTONDOWN()
-	ON_WM_MOUSEMOVE()
 	ON_WM_LBUTTONUP()
+	ON_WM_RBUTTONDOWN()
+	ON_WM_KEYDOWN()
+	ON_WM_MOUSEMOVE()
+	ON_WM_MOUSEWHEEL()
 	ON_MESSAGE(WM_UPDATE,OnUpdate)
 END_MESSAGE_MAP()
 
@@ -723,8 +723,8 @@ CBrowseTreeItem* CBrowseTreeCtrl::HitTest(const POINT& point, RECT* pRect) const
 
 	for ( int nCount = m_pRoot->m_nCount ; nCount && pt.y < rcClient.bottom ; nCount--, pChild++ )
 	{
-		CBrowseTreeItem* pItem = HitTest( rcClient, pt, *pChild, point, pRect );
-		if ( pItem ) return pItem;
+		if ( CBrowseTreeItem* pItem = HitTest( rcClient, pt, *pChild, point, pRect ) )
+			return pItem;
 	}
 
 	return NULL;

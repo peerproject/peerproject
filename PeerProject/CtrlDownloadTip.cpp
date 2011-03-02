@@ -1,7 +1,7 @@
 //
 // CtrlDownloadTip.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -166,19 +166,21 @@ void CDownloadTipCtrl::OnCalcSize(CDC* pDC, CDownload* pDownload)
 	m_sz.cy += 34;	// Icon
 	m_sz.cy += TIP_RULE;
 
-	// Torrent Tracker error
-	if ( pDownload->m_bTorrentTrackerError && ! pDownload->m_sTorrentTrackerError.IsEmpty() )
-	{
-		AddSize( pDC, pDownload->m_sTorrentTrackerError );
-		m_bDrawError = TRUE;
-		m_sz.cy += TIP_TEXTHEIGHT;
-		m_sz.cy += TIP_RULE;
-	}
-	else
-		m_bDrawError = FALSE;
-
 	if ( pDownload->IsTorrent() )
+	{
+		// Torrent Tracker error
+		if ( pDownload->m_bTorrentTrackerError && ! pDownload->m_sTorrentTrackerError.IsEmpty() )
+		{
+			AddSize( pDC, pDownload->m_sTorrentTrackerError );
+			m_sz.cy += TIP_TEXTHEIGHT;
+			m_sz.cy += TIP_RULE;
+			m_bDrawError = TRUE;
+		}
+		else
+			m_bDrawError = FALSE;
+
 		m_sz.cy += TIP_TEXTHEIGHT;		// Torrent ratio
+	}
 
 	if ( pDownload->IsSeeding() )
 		m_sz.cy += TIP_TEXTHEIGHT;		// Seed: Just Sources (for Seeds/Peers)
@@ -296,9 +298,9 @@ void CDownloadTipCtrl::OnPaint(CDC* pDC, CDownload* pDownload)
 
 	DrawRule( pDC, &pt );
 
-	int nSourceCount	= pDownload->GetSourceCount();
-	int nTransferCount	= pDownload->GetTransferCount();
-	int nReviewCount	= pDownload->GetReviewCount();
+	const int nSourceCount		= pDownload->GetSourceCount();
+	const int nTransferCount	= pDownload->GetTransferCount();
+	const int nReviewCount		= pDownload->GetReviewCount();
 
 	CString strFormat, strETA, strSpeed, strVolume, strSources, strReviews, strTorrentUpload;
 	LoadString( strFormat, IDS_TIP_NA );
@@ -317,7 +319,7 @@ void CDownloadTipCtrl::OnPaint(CDC* pDC, CDownload* pDownload)
 	}
 	else if ( nTransferCount )
 	{
-		DWORD nTime = pDownload->GetTimeRemaining();
+		const DWORD nTime = pDownload->GetTimeRemaining();
 
 		if ( nTime != 0xFFFFFFFF )
 		{
@@ -422,58 +424,67 @@ void CDownloadTipCtrl::OnPaint(CDC* pDC, CDownload* pDownload)
 	}
 
 	// Draw the pop-up box
+
 	if ( m_bDrawError )
-	{	// Tracker error
+	{
+		// Tracker error
 		DrawText( pDC, &pt, pDownload->m_sTorrentTrackerError, 3 );
 		pt.y += TIP_TEXTHEIGHT;
 		DrawRule( pDC, &pt );
 	}
 
 	// Starting dynamic text
-	if ( ! Skin.m_bmToolTip.m_hObject ) 	// Unskinned, no double-buffer
+	if ( ! Skin.m_bmToolTip.m_hObject )
 	{
+		// Unskinned, no double-buffer
 		m_rcUpdateText.top = pt.y;
 		m_rcUpdateText.right = m_sz.cx;
 		m_rcUpdateText.left = m_nStatWidth;
 	}
 
 	if ( ! pDownload->IsCompleted() )
-	{	// Speed. Not for completed files
+	{
+		// Speed. Not for completed files
 		LoadString( strFormat, IDS_MONITOR_TOTAL_SPEED );
 		DrawText( pDC, &pt, strFormat, 3 );
 		DrawText( pDC, &pt, strSpeed, m_nStatWidth );
 		pt.y += TIP_TEXTHEIGHT;
 	}
 	if ( ! pDownload->IsSeeding() )
-	{	// ETA. Not applicable for seeding torrents.
+	{
+		// ETA. Not for seeding torrents.
 		LoadString( strFormat, IDS_MONITOR_ESTIMATED_TIME );
 		DrawText( pDC, &pt, strFormat, 3 );
 		DrawText( pDC, &pt, strETA, m_nStatWidth );
 		pt.y += TIP_TEXTHEIGHT;
 	}
 	if ( ! pDownload->IsSeeding() )
-	{	// Volume downloaded. Not for seeding torrents
+	{
+		// Volume downloaded. Not for seeding torrents
 		LoadString( strFormat, IDS_MONITOR_VOLUME_DOWNLOADED );
 		DrawText( pDC, &pt, strFormat, 3 );
 		DrawText( pDC, &pt, strVolume, m_nStatWidth );
 		pt.y += TIP_TEXTHEIGHT;
 	}
 	if ( pDownload->IsTorrent() )
-	{	// Upload ratio- only for torrents
+	{
+		// Upload ratio. Only for torrents
 		LoadString( strFormat, IDS_MONITOR_VOLUME_UPLOADED );
 		DrawText( pDC, &pt, strFormat, 3 );
 		DrawText( pDC, &pt, strTorrentUpload, m_nStatWidth );
 		pt.y += TIP_TEXTHEIGHT;
 	}
 	if ( ! pDownload->IsCompleted() || pDownload->IsSeeding() )
-	{	// No. Sources- Not applicable for completed files, except seeds.
+	{
+		// No. Sources. Not for completed files, except seeds.
 		LoadString( strFormat, IDS_MONITOR_NUMBER_SOURCES );
 		DrawText( pDC, &pt, strFormat, 3 );
 		DrawText( pDC, &pt, strSources, m_nStatWidth );
 		pt.y += TIP_TEXTHEIGHT;
 	}
 	if ( nReviewCount > 0 )
-	{	// No. Reviews
+	{
+		// No. Reviews
 		LoadString( strFormat, IDS_MONITOR_NUMBER_REVIEWS );
 		DrawText( pDC, &pt, strFormat, 3 );
 		DrawText( pDC, &pt, strReviews, m_nStatWidth );
@@ -695,7 +706,7 @@ void CDownloadTipCtrl::PrepareFileInfo(CDownload* pDownload)	// CPeerProjectFile
 
 	if ( nPeriod > 0 )
 	{
-		CString strType = m_sName.Mid( nPeriod );
+		const CString strType = m_sName.Mid( nPeriod );
 		CString strName, strMime;
 
 		ShellIcons.Lookup( strType, NULL, NULL, &strName, &strMime );
@@ -766,7 +777,8 @@ void CDownloadTipCtrl::OnCalcSize(CDC* pDC, CDownloadSource* pSource)
 			CString strName		= pTransfer->m_pHeaderName.GetAt( nHeader );
 			CString strValue	= pTransfer->m_pHeaderValue.GetAt( nHeader );
 
-			if ( strValue.GetLength() > 64 ) strValue = strValue.Left( 64 ) + _T("...");
+			if ( strValue.GetLength() > 64 )
+				strValue = strValue.Left( 64 ) + _T("...");
 
 			m_pHeaderName.Add( strName );
 			m_pHeaderValue.Add( strValue );
@@ -817,7 +829,7 @@ void CDownloadTipCtrl::OnPaint(CDC* pDC, CDownloadSource* pSource)
 	DrawText( pDC, &pt, m_sName );
 	pt.y += TIP_TEXTHEIGHT;
 
-	int nFlagIndex = Flags.GetFlagIndex( pSource->m_sCountry );
+	const int nFlagIndex = Flags.GetFlagIndex( pSource->m_sCountry );
 	if ( nFlagIndex >= 0 )
 	{
 		Flags.Draw( nFlagIndex, pDC->GetSafeHdc(), pt.x, pt.y, Colors.m_crTipBack );

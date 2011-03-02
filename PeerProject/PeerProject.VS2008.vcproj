@@ -1076,6 +1076,10 @@
 				>
 			</File>
 			<File
+				RelativePath="Strings.cpp"
+				>
+			</File>
+			<File
 				RelativePath="Statistics.cpp"
 				>
 			</File>
@@ -3298,6 +3302,10 @@
 			</File>
 			<File
 				RelativePath="SQLite.h"
+				>
+			</File>
+			<File
+				RelativePath="Strings.h"
 				>
 			</File>
 			<File

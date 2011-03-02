@@ -1,7 +1,7 @@
 //
 // WndSecurity.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -96,9 +96,7 @@ int CSecurityWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	if ( ! m_wndToolBar.Create( this, WS_CHILD|WS_VISIBLE|CBRS_NOALIGN, AFX_IDW_TOOLBAR ) ) return -1;
 	m_wndToolBar.SetBarStyle( m_wndToolBar.GetBarStyle() | CBRS_TOOLTIPS | CBRS_BORDER_TOP );
 
-	m_wndList.Create( WS_VISIBLE|LVS_ICON|LVS_AUTOARRANGE|LVS_REPORT|LVS_SHOWSELALWAYS,
-		rectDefault, this, IDC_RULES );
-
+	m_wndList.Create( WS_VISIBLE|LVS_ICON|LVS_AUTOARRANGE|LVS_REPORT|LVS_SHOWSELALWAYS, rectDefault, this, IDC_RULES );
 	m_wndList.SetExtendedStyle( LVS_EX_DOUBLEBUFFER|LVS_EX_HEADERDRAGDROP|LVS_EX_FULLROWSELECT|LVS_EX_LABELTIP );
 
 	m_wndList.InsertColumn( 0, _T("Address / Content"), LVCFMT_LEFT, 200, -1 );
@@ -160,7 +158,7 @@ void CSecurityWnd::Update(int nColumn, BOOL bSort)
 
 	Security.Expire();
 
-	DWORD nNow = static_cast< DWORD >( time( NULL ) );
+	const DWORD nNow = static_cast< DWORD >( time( NULL ) );
 	int nCount = 1;
 
 	for ( POSITION pos = Security.GetIterator() ; pos ; nCount++ )
@@ -235,7 +233,7 @@ void CSecurityWnd::Update(int nColumn, BOOL bSort)
 		}
 		else if ( pRule->m_nExpire >= nNow )
 		{
-			DWORD nTime = ( pRule->m_nExpire - nNow );
+			const DWORD nTime = ( pRule->m_nExpire - nNow );
 			pItem->Format( 4, _T("%ud %uh %um"), nTime / 86400u, (nTime % 86400u) / 3600u, ( nTime % 3600u ) / 60u );
 			//pItem->Format( 4, _T("%i:%.2i:%.2i"), nTime / 3600, ( nTime % 3600 ) / 60, nTime % 60 );
 		}
@@ -280,8 +278,8 @@ void CSecurityWnd::OnTimer(UINT_PTR nIDEvent)
 {
 	if ( nIDEvent == 1 && IsPartiallyVisible() )
 	{
-		DWORD tTicks = GetTickCount();
-		DWORD tDelay = max( ( 2 * (DWORD)Security.GetCount() ), 1000ul ); // Delay based on size of list
+		const DWORD tTicks = GetTickCount();
+		const DWORD tDelay = max( ( 2 * (DWORD)Security.GetCount() ), 1000ul );	// Delay based on size of list
 
 		if ( ( tTicks - tLastUpdate ) > tDelay )
 		{
@@ -526,7 +524,7 @@ void CSecurityWnd::OnSecurityExport()
 				{
 					strText += _T("\r\n");
 
-					int nBytes = WideCharToMultiByte( CP_ACP, 0, strText, strText.GetLength(), NULL, 0, NULL, NULL );
+					const int nBytes = WideCharToMultiByte( CP_ACP, 0, strText, strText.GetLength(), NULL, 0, NULL, NULL );
 					LPSTR pBytes = new CHAR[nBytes];
 					WideCharToMultiByte( CP_ACP, 0, strText, strText.GetLength(), pBytes, nBytes, NULL, NULL );
 					pFile.Write( pBytes, nBytes );
@@ -551,7 +549,7 @@ void CSecurityWnd::OnSecurityExport()
 
 		strText = pXML->ToString( TRUE, TRUE );
 
-		int nBytes = WideCharToMultiByte( CP_ACP, 0, strText, strText.GetLength(), NULL, 0, NULL, NULL );
+		const int nBytes = WideCharToMultiByte( CP_ACP, 0, strText, strText.GetLength(), NULL, 0, NULL, NULL );
 		auto_ptr< CHAR > pBytes( new CHAR[ nBytes ] );
 		WideCharToMultiByte( CP_ACP, 0, strText, strText.GetLength(), pBytes.get(), nBytes, NULL, NULL );
 		pFile.Write( pBytes.get(), nBytes );

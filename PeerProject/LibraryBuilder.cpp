@@ -270,7 +270,7 @@ DWORD CLibraryBuilder::GetNextFileToHash(CString& sPath)
 			GetSystemTimeAsFileTime( &ftCurrentTime );
 			QWORD nCurrentTime = MAKEQWORD( ftCurrentTime.dwLowDateTime,
 				ftCurrentTime.dwHighDateTime );
-			for ( CFileInfoList::iterator i = m_pFiles.begin(); i != m_pFiles.end(); i++ )
+			for ( CFileInfoList::iterator i = m_pFiles.begin() ; i != m_pFiles.end() ; i++ )
 			{
 				if ( (*i).nNextAccessTime < nCurrentTime )
 				{

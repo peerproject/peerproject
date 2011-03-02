@@ -1,7 +1,7 @@
 //
 // EDClient.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -482,8 +482,7 @@ void CEDClient::OnRunEx(DWORD tNow)
 		if ( m_bOpenChat )
 		{
 			// We might be waiting for a push reply, give it a little time
-			DWORD tNow = GetTickCount();
-			if ( tNow - m_tConnected < Settings.Connection.TimeoutHandshake  )
+			if ( tNow - m_tConnected < Settings.Connection.TimeoutHandshake )
 				return;
 		}
 
@@ -1683,7 +1682,7 @@ BOOL CEDClient::OnAskSharedDirs(CEDPacket* /*pPacket*/)
 				if ( pFolder->IsShared() )
 					oFolderPath.AddTail( pFolder->GetRelativeName() );
 
-				for ( POSITION pos = pFolder->GetFolderIterator(); pos ; )
+				for ( POSITION pos = pFolder->GetFolderIterator() ; pos ; )
 				{
 					oFolders.AddTail( pFolder->GetNextFolder( pos ) );
 				}
@@ -1694,7 +1693,7 @@ BOOL CEDClient::OnAskSharedDirs(CEDPacket* /*pPacket*/)
 			{
 				pReply->WriteLongLE( (DWORD)oFolderPath.GetCount() );
 
-				for ( POSITION pos = oFolderPath.GetHeadPosition(); pos ; )
+				for ( POSITION pos = oFolderPath.GetHeadPosition() ; pos ; )
 				{
 					CString sPath = oFolderPath.GetNext( pos );
 					pReply->WriteEDString( sPath, m_bEmUnicode );
@@ -1730,7 +1729,7 @@ BOOL CEDClient::OnViewSharedDir(CEDPacket* pPacket)
 			{
 				// Count files
 				DWORD nCount = 0;
-				for ( POSITION pos = pFolder->GetFileIterator(); pos; )
+				for ( POSITION pos = pFolder->GetFileIterator() ; pos; )
 				{
 					CLibraryFile* pFile = pFolder->GetNextFile( pos );
 
@@ -1748,7 +1747,7 @@ BOOL CEDClient::OnViewSharedDir(CEDPacket* pPacket)
 					// Number of files
 					pReply->WriteLongLE( nCount );
 
-					for ( POSITION pos = pFolder->GetFileIterator(); pos && nCount; )
+					for ( POSITION pos = pFolder->GetFileIterator() ; pos && nCount ; )
 					{
 						CLibraryFile* pFile = pFolder->GetNextFile( pos );
 
@@ -1759,14 +1758,13 @@ BOOL CEDClient::OnViewSharedDir(CEDPacket* pPacket)
 
 						pReply->WriteFile( pFile, pFile->GetSize(), this );
 					}
+
 					// Obsolete (ToDo: Delete this?)
 
 					//	// File hash
 					//	pReply->Write( pFile->m_oED2K );
-					//
 					//	// ID
 					//	pReply->WriteLongLE( Network.m_pHost.sin_addr.s_addr );
-					//
 					//	// Port
 					//	pReply->WriteShortLE( htons( Network.m_pHost.sin_port ) );
 					//
@@ -1781,43 +1779,34 @@ BOOL CEDClient::OnViewSharedDir(CEDPacket* pPacket)
 					//		if ( pFile->m_pMetadata->GetAttributeValue( _T("title") ).GetLength() )
 					//		{
 					//			strTitle = pFile->m_pMetadata->GetAttributeValue( _T("title") );
-					//			if ( ! strTitle.IsEmpty() )
-					//				nTags ++;
+					//			if ( ! strTitle.IsEmpty() ) nTags++;
 					//		}
-					//
 					//		if ( pFile->IsSchemaURI( CSchema::uriAudio ) )
 					//		{
 					//			// Artist
 					//			if ( pFile->m_pMetadata->GetAttributeValue( _T("artist") ).GetLength() )
 					//			{
 					//				strArtist = pFile->m_pMetadata->GetAttributeValue( _T("artist") );
-					//				if ( ! strArtist.IsEmpty() )
-					//					nTags ++;
+					//				if ( ! strArtist.IsEmpty() ) nTags++;
 					//			}
-					//
 					//			// Album
 					//			if ( pFile->m_pMetadata->GetAttributeValue( _T("album") ).GetLength() )
 					//			{
 					//				strAlbum = pFile->m_pMetadata->GetAttributeValue( _T("album") );
-					//				if ( ! strAlbum.IsEmpty() )
-					//					nTags ++;
+					//				if ( ! strAlbum.IsEmpty() ) nTags++;
 					//			}
-					//
 					//			// Bitrate
 					//			if ( pFile->m_pMetadata->GetAttributeValue( _T("bitrate") ).GetLength() )	// And has a bitrate
 					//			{
 					//				_stscanf( pFile->m_pMetadata->GetAttributeValue( _T("bitrate") ), _T("%i"), &nBitrate );
-					//				if ( nBitrate )
-					//					nTags ++;
+					//				if ( nBitrate ) nTags++;
 					//			}
-					//
 					//			// Length
 					//			if ( pFile->m_pMetadata->GetAttributeValue( _T("seconds") ).GetLength() )	// And has seconds
 					//			{
 					//				nLength = 0;
 					//				_stscanf( pFile->m_pMetadata->GetAttributeValue( _T("seconds") ), _T("%i"), &nLength );
-					//				if ( nLength )
-					//					nTags ++;
+					//				if ( nLength ) nTags++;
 					//			}
 					//		}
 					//		else if ( pFile->IsSchemaURI( CSchema::uriVideo ) )
@@ -1826,18 +1815,15 @@ BOOL CEDClient::OnViewSharedDir(CEDPacket* pPacket)
 					//			if ( pFile->m_pMetadata->GetAttributeValue( _T("codec") ).GetLength() )
 					//			{
 					//				strCodec = pFile->m_pMetadata->GetAttributeValue( _T("codec") );
-					//				if ( ! strCodec.IsEmpty() )
-					//					nTags ++;
+					//				if ( ! strCodec.IsEmpty() ) nTags++;
 					//			}
-					//
 					//			// Length
 					//			if ( pFile->m_pMetadata->GetAttributeValue( _T("minutes") ).GetLength() )
 					//			{
 					//				double nMins = 0.0;
 					//				_stscanf( pFile->m_pMetadata->GetAttributeValue( _T("minutes") ), _T("%lf"), &nMins );
 					//				nLength = (DWORD)( nMins * (double)60 );	// Convert to seconds
-					//				if ( nLength )
-					//					nTags ++;
+					//				if ( nLength ) nTags++;
 					//			}
 					//		}
 					//	}
@@ -1854,52 +1840,39 @@ BOOL CEDClient::OnViewSharedDir(CEDPacket* pPacket)
 					//
 					//	// Number of Tags
 					//	pReply->WriteLongLE( nTags );
-					//
 					//	// Filename
 					//	CEDTag( ED2K_FT_FILENAME, pFile->m_sName ).Write( pReply, m_bEmUnicode );
-					//
 					//	// File size
 					//	CEDTag( ED2K_FT_FILESIZE, (DWORD)pFile->m_nSize ).Write( pReply );
 					//	if ( pFile->m_nSize > MAX_SIZE_32BIT )
 					//		CEDTag( ED2K_FT_FILESIZE_HI, (DWORD)(pFile->m_nSize >> 32 ) ).Write( pReply );
-					//
 					//	// Sources
 					//	CEDTag( ED2K_FT_SOURCES, 1ull ).Write( pReply );
-					//
 					//	// Complete sources
 					//	CEDTag( ED2K_FT_COMPLETE_SOURCES, 1ull ).Write( pReply );
-					//
 					//	// Last seen
 					//	CEDTag( ED2K_FT_LASTSEENCOMPLETE, 0ull ).Write( pReply );
-					//
 					//	// File type
 					//	if ( ! strType.IsEmpty() )
 					//		CEDTag( ED2K_FT_FILETYPE, strType ).Write( pReply );
-					//
 					//	// Title
 					//	if ( ! strTitle.IsEmpty() )
 					//		CEDTag( ED2K_FT_TITLE, strTitle ).Write( pReply );
-					//
 					//	// Artist
 					//	if ( ! strArtist.IsEmpty() )
 					//		CEDTag( ED2K_FT_ARTIST, strArtist ).Write( pReply );
-					//
 					//	// Album
 					//	if ( ! strAlbum.IsEmpty() )
 					//		CEDTag( ED2K_FT_ALBUM, strAlbum ).Write( pReply );
-					//
 					//	// Bitrate
 					//	if ( nBitrate )
 					//		CEDTag( ED2K_FT_BITRATE, nBitrate ).Write( pReply );
-					//
 					//	// Length
 					//	if ( nLength )
 					//		CEDTag( ED2K_FT_LENGTH, nLength ).Write( pReply );
-					//
 					//	// Codec
 					//	if ( ! strCodec.IsEmpty() )
 					//		CEDTag( ED2K_FT_CODEC, strCodec ).Write( pReply );
-					//
 					//	// File rating
 					//	if ( nRating )
 					//		CEDTag( ED2K_FT_FILERATING, nRating ).Write( pReply );
@@ -1931,7 +1904,7 @@ BOOL CEDClient::OnAskSharedDirsAnswer(CEDPacket* pPacket)
 		// Read number of directories
 		DWORD nCount = pPacket->ReadLongLE();
 
-		for ( DWORD i = 0; i < nCount; i++ )
+		for ( DWORD i = 0 ; i < nCount ; i++ )
 		{
 			if ( pPacket->GetRemaining() < 2 )
 				break;
@@ -1973,7 +1946,7 @@ BOOL CEDClient::OnViewSharedDirAnswer(CEDPacket* pPacket)
 			// Read number of files
 			DWORD nCount = pPacket->ReadLongLE();
 
-			for ( DWORD i = 0; i < nCount; i++ )
+			for ( DWORD i = 0 ; i < nCount ; i++ )
 			{
 				if ( pPacket->GetRemaining() < Hashes::Ed2kHash::byteCount + 4 + 2 + 4 )
 					break;
@@ -2118,7 +2091,7 @@ BOOL CEDClient::OnPreviewAnswer(CEDPacket* pPacket)
 	pPacket->Read( oHash );
 	CDownload* pDownload = NULL;
 
-	if ( pPacket->GetRemaining() > 1 + 4 ) // File has preview
+	if ( pPacket->GetRemaining() > 1 + 4 )	// File has preview
 	{
 		// Check only downloads. Previews become unneeded when download is completed.
 		if ( ( pDownload = Downloads.FindByED2K( oHash ) ) != NULL )
@@ -2196,7 +2169,7 @@ BOOL CEDClient::OnSourceRequest(CEDPacket* pPacket)
 
 	if ( CDownload* pDownload = Downloads.FindByED2K( oHash, TRUE ))
 	{
-		for ( POSITION posSource = pDownload->GetIterator(); posSource ; )
+		for ( POSITION posSource = pDownload->GetIterator() ; posSource ; )
 		{
 			CDownloadSource* pSource = pDownload->GetNext( posSource );
 

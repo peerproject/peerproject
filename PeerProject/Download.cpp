@@ -706,6 +706,9 @@ BOOL CDownload::Save(BOOL bFlush)
 	if ( m_sPath.IsEmpty() )	// From incomplete folder
 		m_sPath = Settings.Downloads.IncompletePath + _T("\\") + GetFilename() + _T(".pd");	//.sd
 
+	// Escape Windows path length limit with \\?\ if needed?
+	//const CString strPath = ( m_sPath.GetLength() > ( MAX_PATH - 4 ) ) ? ( _T("\\\\?\\")  + m_sPath ) : m_sPath;
+
 	m_nSaveCookie = m_nCookie;
 	m_tSaved = GetTickCount();
 
@@ -715,10 +718,10 @@ BOOL CDownload::Save(BOOL bFlush)
 	if ( m_bSeeding && ! Settings.BitTorrent.AutoSeed )
 		return TRUE;
 
-	DeleteFileEx( m_sPath + _T(".sav"), FALSE, FALSE, FALSE );
+	DeleteFileEx( LPCTSTR( m_sPath + _T(".sav") ), FALSE, FALSE, FALSE );
 
 	CFile pFile;
-	if ( ! pFile.Open( m_sPath + _T(".sav"),
+	if ( ! pFile.Open( LPCTSTR( m_sPath + _T(".sav") ),			// Create temp .pd.sav
 		CFile::modeReadWrite|CFile::modeCreate|CFile::osWriteThrough ) )
 		return FALSE;
 
@@ -754,21 +757,23 @@ BOOL CDownload::Save(BOOL bFlush)
 		return FALSE;
 	}
 
-	BOOL bSuccess = FALSE;
-
-	// .pd files should start with characters PD:, legacy is SDL (Shareaza .sd)
-	if ( ( szID[0] == 'P' && szID[1] == 'D' && szID[2] == ':' ) ||
-		 ( szID[0] == 'S' && szID[1] == 'D' && szID[2] == 'L' ) )
+	// .pd file should now start with characters PD:  (Legacy SDL in Shareaza .sd)
+	if ( szID[0] == 'P' && szID[1] == 'D' && szID[2] == ':' )
 	{
-		bSuccess = ::MoveFileEx( CString( _T("\\\\?\\") ) + m_sPath + _T(".sav"),
-			CString( _T("\\\\?\\") ) + m_sPath,
-			MOVEFILE_REPLACE_EXISTING | MOVEFILE_WRITE_THROUGH );
-	}
-	else
-		DeleteFileEx( m_sPath + _T(".sav"), FALSE, FALSE, FALSE );
+		// Rename temp .pd.sav file to .pd
+		if ( ::MoveFileEx( LPCTSTR( m_sPath + _T(".sav") ), LPCTSTR( m_sPath ),
+				MOVEFILE_REPLACE_EXISTING | MOVEFILE_WRITE_THROUGH ) )
+			return TRUE;	// Done
 
-	ASSERT( bSuccess );
-	return bSuccess;
+		ASSERT( FALSE );
+	}
+	else // Bad file header?
+	{
+		DeleteFileEx( LPCTSTR( m_sPath + _T(".sav") ), FALSE, FALSE, FALSE );
+		ASSERT( FALSE );
+	}
+
+	return FALSE;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -794,15 +799,15 @@ void CDownload::Serialize(CArchive& ar, int nVersion)	// DOWNLOAD_SER_VERSION
 		{
 			CHAR szID[3];
 			ReadArchive( ar, szID, 3 );
-			if ( strncmp( szID, "PD:", 3 ) )
-				if ( strncmp( szID, "SDL", 3 ) )	// Shareaza import (or pre r60)
+			if ( strncmp( szID, "PD:", 3 ) != 0 )
+				if ( strncmp( szID, "SDL", 3 ) != 0 )	// Shareaza import or pre r60?
 					AfxThrowUserException();
 			ar >> nVersion;
 			if ( nVersion <= 0 || nVersion > DOWNLOAD_SER_VERSION )
 				AfxThrowUserException();
 		}
 	}
-//	else if ( nVersion < 11 && ar.IsLoading() ) 	// Very old Shareaza
+//	else if ( nVersion < 11 && ar.IsLoading() ) 		// Very old Shareaza, for reference
 //	{
 //		SerializeOld( ar, nVersion );
 //		return;

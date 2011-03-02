@@ -109,7 +109,7 @@ void CDownloadTransferBT::Close(TRISTATE bKeepSource, DWORD nRetryAfter)
 		if ( m_pClient->IsOnline() )
 		{
 			m_pClient->m_mInput.pLimit = &Settings.Bandwidth.Request;
-			m_pClient->Send( CBTPacket::New( BT_PACKET_NOT_INTERESTED ) );
+			m_pClient->NotInterested();		// BT_PACKET_NOT_INTERESTED
 		}
 		else
 		{
@@ -158,15 +158,6 @@ CString CDownloadTransferBT::GetStateText(BOOL bLong)
 }
 
 //////////////////////////////////////////////////////////////////////
-// CDownloadTransferBT send packet helper
-
-void CDownloadTransferBT::Send(CBTPacket* pPacket, BOOL bRelease)
-{
-	ASSERT( m_pClient != NULL );
-	m_pClient->Send( pPacket, bRelease );
-}
-
-//////////////////////////////////////////////////////////////////////
 // CDownloadTransferBT run event
 
 BOOL CDownloadTransferBT::OnRun()
@@ -198,7 +189,7 @@ BOOL CDownloadTransferBT::OnRun()
 			delete [] pAvailable;
 		}
 
-		for ( DWORD nBlock = 0; nBlock < nBlockCount; nBlock++ )
+		for ( DWORD nBlock = 0 ; nBlock < nBlockCount ; nBlock++ )
 		{
 			if ( m_pAvailable[ nBlock ] )
 			{
@@ -221,11 +212,13 @@ BOOL CDownloadTransferBT::OnRun()
 				return FALSE;
 		}
 	}
-	if ( m_pClient->m_bExchange && tNow - m_tSourceRequest >= Settings.BitTorrent.SourceExchangePeriod * 60000 )
+
+	if ( tNow >= m_tSourceRequest + Settings.BitTorrent.SourceExchangePeriod * 60000 )	// 1 minute
 	{
-		Send( CBTPacket::New( BT_PACKET_SOURCE_REQUEST ) );
+		m_pClient->SendSourceRequest();		// BT_PACKET_SOURCE_REQUEST
 		m_tSourceRequest = tNow;
 	}
+
 	return CDownloadTransfer::OnRun();
 }
 
@@ -322,10 +315,9 @@ BOOL CDownloadTransferBT::OnBitfield(CBTPacket* pPacket)
 
 void CDownloadTransferBT::SendFinishedBlock(DWORD nBlock)
 {
-	if ( m_pClient == NULL || ! m_pClient->IsOnline() ) return;
-	CBTPacket* pPacket = CBTPacket::New( BT_PACKET_HAVE );
-	pPacket->WriteLongBE( nBlock );
-	Send( pPacket );
+	if ( ! m_pClient || ! m_pClient->IsOnline() )
+		return;
+	m_pClient->Have( nBlock );		// BT_PACKET_HAVE
 }
 
 BOOL CDownloadTransferBT::OnHave(CBTPacket* pPacket)
@@ -379,15 +371,15 @@ void CDownloadTransferBT::ShowInterest()
 	// ToDo: Use an algorithm similar to CDownloadWithTiger::FindNext..,
 	// rather than relying on that algorithm to complete verifications here.
 
-	QWORD nBlockSize = m_pDownload->m_pTorrent.m_nBlockSize;
-
 	// We can only be interested if we know what they have
 	if ( m_pAvailable )
 	{
+		const QWORD nBlockSize = m_pDownload->m_pTorrent.m_nBlockSize;
+
 		Fragments::List oList( m_pDownload->GetWantedFragmentList() );
 		Fragments::List::const_iterator pItr = oList.begin();
 		const Fragments::List::const_iterator pEnd = oList.end();
-		for ( ; !bInterested && pItr != pEnd ; ++pItr )
+		for ( ; ! bInterested && pItr != pEnd ; ++pItr )
 		{
 			QWORD nBlock = pItr->begin() / nBlockSize;
 			QWORD nEnd = ( pItr->end() - 1 ) / nBlockSize;
@@ -405,10 +397,16 @@ void CDownloadTransferBT::ShowInterest()
 	if ( bInterested != m_bInterested )
 	{
 		m_bInterested = bInterested;
-		Send( CBTPacket::New( bInterested ? BT_PACKET_INTERESTED : BT_PACKET_NOT_INTERESTED ) );
 
-		if ( ! bInterested )
+		if ( bInterested )
+		{
+			m_pClient->Interested();		// BT_PACKET_INTERESTED
+		}
+		else
+		{
+			m_pClient->NotInterested();		// BT_PACKET_NOT_INTERESTED
 			m_oRequested.clear();
+		}
 	}
 }
 
@@ -425,14 +423,13 @@ BOOL CDownloadTransferBT::OnChoked(CBTPacket* /*pPacket*/)
 
 	theApp.Message( MSG_DEBUG, _T("Download from %s was choked."), (LPCTSTR)m_sAddress );
 
-	//for ( Fragments::Queue::const_iterator pFragment = m_oRequested.begin();
+	//for ( Fragments::Queue::const_iterator pFragment = m_oRequested.begin() ;
 	//	pFragment != m_oRequested.end() ; ++pFragment )
 	//{
-	//	CBTPacket* pPacket = CBTPacket::New( BT_PACKET_CANCEL );
-	//	pPacket->WriteLongBE( (DWORD)( pFragment->begin() / m_pDownload->m_pTorrent.m_nBlockSize ) );
-	//	pPacket->WriteLongBE( (DWORD)( pFragment->begin() % m_pDownload->m_pTorrent.m_nBlockSize ) );
-	//	pPacket->WriteLongBE( (DWORD)pFragment->size() );
-	//	Send( pPacket );
+	//	m_pClient->Cancel(				// BT_PACKET_CANCEL
+	//		(DWORD)( pFragment->begin() / m_pDownload->m_pTorrent.m_nBlockSize ),
+	//		(DWORD)( pFragment->begin() % m_pDownload->m_pTorrent.m_nBlockSize ),
+	//		(DWORD)( pFragment->size() ) );
 	//}
 
 	m_oRequested.clear();
@@ -485,7 +482,7 @@ bool CDownloadTransferBT::SendFragmentRequests()
 
 	if ( ! m_pDownload->m_bTorrentEndgame )
 	{
-		for ( CDownloadTransfer* pTransfer = m_pDownload->GetFirstTransfer() ; pTransfer && !oPossible.empty() ; pTransfer = pTransfer->m_pDlNext )
+		for ( CDownloadTransfer* pTransfer = m_pDownload->GetFirstTransfer() ; pTransfer && ! oPossible.empty() ; pTransfer = pTransfer->m_pDlNext )
 		{
 			pTransfer->SubtractRequested( oPossible );
 		}
@@ -509,11 +506,10 @@ bool CDownloadTransferBT::SendFragmentRequests()
 					(LPCTSTR)m_pDownload->GetDisplayName(), (LPCTSTR)m_sAddress );
 			}
 
-			CBTPacket* pPacket = CBTPacket::New( BT_PACKET_REQUEST );
-			pPacket->WriteLongBE( (DWORD)( nOffset / nBlockSize ) );
-			pPacket->WriteLongBE( (DWORD)( nOffset % nBlockSize ) );
-			pPacket->WriteLongBE( (DWORD)nLength );
-			Send( pPacket );
+			m_pClient->Request(						// BT_PACKET_REQUEST
+				(DWORD)( nOffset / nBlockSize ),
+				(DWORD)( nOffset % nBlockSize ),
+				(DWORD)( nLength ) );
 		}
 		else
 		{
@@ -581,17 +577,16 @@ bool CDownloadTransferBT::UnrequestRange(QWORD nOffset, QWORD nLength)
 	Fragments::Queue oUnrequests = extract_range( m_oRequested,
 		Fragments::Fragment( nOffset, nOffset + nLength ) );
 
-	for ( Fragments::Queue::const_iterator pFragment = oUnrequests.begin();
+	for ( Fragments::Queue::const_iterator pFragment = oUnrequests.begin() ;
 		pFragment != oUnrequests.end(); ++pFragment )
 	{
-		CBTPacket* pPacket = CBTPacket::New( BT_PACKET_CANCEL );
-		pPacket->WriteLongBE( (DWORD)( pFragment->begin() / m_pDownload->m_pTorrent.m_nBlockSize ) );
-		pPacket->WriteLongBE( (DWORD)( pFragment->begin() % m_pDownload->m_pTorrent.m_nBlockSize ) );
-		pPacket->WriteLongBE( (DWORD)pFragment->size() );
-		Send( pPacket );
+		m_pClient->Cancel(							// BT_PACKET_CANCEL
+			(DWORD)( pFragment->begin() / m_pDownload->m_pTorrent.m_nBlockSize ),
+			(DWORD)( pFragment->begin() % m_pDownload->m_pTorrent.m_nBlockSize ),
+			(DWORD)( pFragment->size() ) );
 	}
 
-	return !oUnrequests.empty();
+	return ! oUnrequests.empty();
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -634,7 +629,7 @@ BOOL CDownloadTransferBT::OnSourceResponse(CBTPacket* pPacket)
 {
 	const CBENode* pRoot = pPacket->m_pNode.get();
 
-	const CBENode* pPeers = pRoot->GetNode( "peers" );	// BT_DICT_PEERS "peers"
+	const CBENode* pPeers = pRoot->GetNode( BT_DICT_PEERS );				// "peers"
 	if ( ! pPeers->IsType( CBENode::beList ) )
 	{
 		delete pRoot;
@@ -648,7 +643,7 @@ BOOL CDownloadTransferBT::OnSourceResponse(CBTPacket* pPacket)
 		const CBENode* pPeer = pPeers->GetNode( nPeer );
 		if ( ! pPeer->IsType( CBENode::beDict ) ) continue;
 
-		const CBENode* pURL = pPeer->GetNode( "url" );
+		const CBENode* pURL = pPeer->GetNode( BT_DICT_PEER_URL );			// "url"
 
 		if ( pURL->IsType( CBENode::beString ) )
 		{
@@ -656,10 +651,10 @@ BOOL CDownloadTransferBT::OnSourceResponse(CBTPacket* pPacket)
 		}
 		else
 		{
-			const CBENode* pIP = pPeer->GetNode( "ip" );
+			const CBENode* pIP = pPeer->GetNode( BT_DICT_PEER_IP );			// "ip"
 			if ( ! pIP->IsType( CBENode::beString ) ) continue;
 
-			const CBENode* pPort = pPeer->GetNode( "port" );
+			const CBENode* pPort = pPeer->GetNode( BT_DICT_PEER_PORT );		// "port"
 			if ( ! pPort->IsType( CBENode::beInt ) ) continue;
 
 			SOCKADDR_IN saPeer = {};
@@ -669,7 +664,7 @@ BOOL CDownloadTransferBT::OnSourceResponse(CBTPacket* pPacket)
 				(LPCTSTR)m_sAddress,
 				(LPCTSTR)CString( inet_ntoa( saPeer.sin_addr ) ), htons( saPeer.sin_port ) );
 
-			const CBENode* pID = pPeer->GetNode( "peer id" );
+			const CBENode* pID = pPeer->GetNode( BT_DICT_PEER_ID );			// "peer id"
 			if ( ! pID->IsType( CBENode::beString ) || pID->m_nValue != Hashes::BtGuid::byteCount )
 			{
 				nCount += m_pDownload->AddSourceBT( Hashes::BtGuid(),

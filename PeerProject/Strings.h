@@ -1,7 +1,7 @@
 //
 // Strings.h
 //
-// This file is part of PeerProject (peerproject.org) © 2010
+// This file is part of PeerProject (peerproject.org) © 2010-2011
 // Portions copyright Shareaza Development Team, 2010.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -18,13 +18,6 @@
 
 #pragma once
 
-bool IsCharacter(WCHAR nChar);
-bool IsHiragana(WCHAR nChar);
-bool IsKatakana(WCHAR nChar);
-bool IsKanji(WCHAR nChar);
-bool IsWord(LPCTSTR pszString, size_t nStart, size_t nLength);
-void IsType(LPCTSTR pszString, size_t nStart, size_t nLength, bool& bWord, bool& bDigit, bool& bMix);
-
 class CLowerCaseTable
 {
 public:
@@ -40,6 +33,24 @@ private:
 };
 
 extern const CLowerCaseTable ToLower;
+
+
+typedef enum
+{
+	sNone = 0,
+	sNumeric = 1,
+	sRegular = 2,
+	sKanji = 4,
+	sHiragana = 8,
+	sKatakana = 16
+} ScriptType;
+
+bool IsCharacter(WCHAR nChar);
+bool IsHiragana(WCHAR nChar);
+bool IsKatakana(WCHAR nChar);
+bool IsKanji(WCHAR nChar);
+bool IsWord(LPCTSTR pszString, size_t nStart, size_t nLength);
+void IsType(LPCTSTR pszString, size_t nStart, size_t nLength, bool& bWord, bool& bDigit, bool& bMix);
 
 // Encode Unicode text to UTF-8 text
 CStringA UTF8Encode(__in const CStringW& strInput);
@@ -71,5 +82,5 @@ __int64 atoin(__in_bcount(nLen) const char* pszString, __in size_t nLen);
 // Split string using delimiter to string array
 void Split(const CString& strSource, TCHAR cDelimiter, CStringArray& pAddIt, BOOL bAddFirstEmpty = FALSE);
 
-// StartsWith("hello world", "hello") is true
-BOOL StartsWith(const CString& sInput, LPCTSTR pszText, size_t nLen);
+// StartsWith("Hello world", "hello") is true
+BOOL StartsWith(const CString& sInput, LPCTSTR pszText, size_t nLen = 0);

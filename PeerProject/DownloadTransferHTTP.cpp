@@ -1,7 +1,7 @@
 //
 // DownloadTransferHTTP.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -533,9 +533,7 @@ BOOL CDownloadTransferHTTP::OnRun()
 
 	case dtsQueued:
 		if ( tNow >= m_tRequest )
-		{
 			return StartNextFragment();
-		}
 		break;
 	}
 
@@ -881,7 +879,7 @@ BOOL CDownloadTransferHTTP::OnHeaderLine(CString& strHeader, CString& strValue)
 			Hashes::BtHash oBTH;
 			Hashes::Md5Hash oMD5;
 			CString strURNs = strValue + ',';
-			for ( int nPos = strURNs.Find( ',' ); nPos >= 0; nPos = strURNs.Find( ',' ) )
+			for ( int nPos = strURNs.Find( ',' ) ; nPos >= 0 ; nPos = strURNs.Find( ',' ) )
 			{
 				strValue = strURNs.Left( nPos ).TrimLeft();
 				strURNs = strURNs.Mid( nPos + 1 );
@@ -901,7 +899,7 @@ BOOL CDownloadTransferHTTP::OnHeaderLine(CString& strHeader, CString& strValue)
 				//		// in case if "X-Thex-URI" and "X-TigerTree-Path" headers will be absent
 				//		// (perfect workaround for "silent" Shareaza 2.2.0.0)
 				//		m_sTigerTree.Format( L"/gnutella/thex/v1?%s&depth=%d&ed2k=%d",
-				//			oTiger.toUrn(),
+				//			(LPCTSTR)oTiger.toUrn(),
 				//			Settings.Library.TigerHeight,
 				//			Settings.Downloads.VerifyED2K );
 				//	}
@@ -1337,7 +1335,7 @@ BOOL CDownloadTransferHTTP::ReadContent()
 
 		if ( m_bChunked )
 		{
-			BOOL bBreak	= FALSE;
+			BOOL bBreak = FALSE;
 			switch( m_ChunkState )
 			{
 			case Header:
@@ -1345,7 +1343,7 @@ BOOL CDownloadTransferHTTP::ReadContent()
 				{
 					// Looking for "Length<CR><LF>"
 					DWORD i = 1;
-					for ( ; i < pInput->m_nLength - 1; i++ )
+					for ( ; i < pInput->m_nLength - 1 ; i++ )
 					{
 						if ( pInput->m_pBuffer[ i ] == 0x0d &&
 							 pInput->m_pBuffer[ i + 1 ] == 0x0a )
@@ -1599,10 +1597,8 @@ BOOL CDownloadTransferHTTP::ReadTiger(bool bDropped)
 		pInput->Clear();
 	}
 
-	// m_bKeepAlive == FALSE means that it was not keep-alive, so should just get disconnected.
-	// after reading of DIME message
-	// This might be better with returning FALSE because it is not keep alive connection
-	// need to disconnect after the business
+	// m_bKeepAlive == FALSE means that it was not keep-alive, so should just get disconnected after reading DIME message.
+	// ToDo: This might be better returning FALSE because it is not keep alive connection: need to disconnect after business.
 	if ( bDropped || ! m_bKeepAlive )
 		return TRUE;
 
@@ -1648,8 +1644,7 @@ BOOL CDownloadTransferHTTP::ReadFlush()
 		else if ( m_bRangeFault && m_bGotRanges && m_nRequests >= 2 )
 		{
 			// Made two requests already and the source does advertise available ranges,
-			// but we still managed to request a wrong one
-			// ToDo: Determine if/why this is still happening
+			// but we still managed to request a wrong one.  // ToDo: Determine if/why this is still happening
 			theApp.Message( MSG_ERROR, _T("BUG: PeerProject requested a fragment from host %s, although it knew that the host doesn't have that fragment") , (LPCTSTR)m_sAddress );
 			Close( TRI_TRUE );
 			return FALSE;
@@ -1683,11 +1678,10 @@ void CDownloadTransferHTTP::OnDropped()
 	}
 	else if ( m_nState == dtsTiger )
 	{
-		// this is basically for PHEX DIME download
+		// This is basically for PHEX DIME download
 		theApp.Message( MSG_DEBUG, _T("Reading THEX from the closed connection...") );
-		// It was closed connection with no content length, so assume the content length is equal to the
-		// size of buffer when the connection gets cut. It is important to set it because the DIME decoding
-		// code check if the content length is equals to size of buffer.
+		// Closed connection with no content length, so assume content length equal to the size of buffer when the connection gets cut.
+		// It is important to set it because the DIME decoding code check if the content length is equals to size of buffer.
 		m_nLength = m_nContentLength = GetInputLength();
 		ReadTiger( true );
 		// CDownloadTransfer::Close will resume the closed connection

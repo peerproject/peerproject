@@ -1,7 +1,7 @@
 //
 // StdAfx.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -278,6 +278,8 @@ template<> AFX_INLINE BOOL AFXAPI CompareElements(const IN_ADDR* pElement1, cons
 }
 
 #include "Hashes.hpp"
+
+#include "Strings.h"
 
 #include "Resource.h"
 
@@ -696,31 +698,11 @@ inline UINT ReadArchive(CArchive& ar, void* lpBuf, const UINT nMax)
 	return nReaded;
 }
 
-// The GetMicroCount function retrieves the number of microseconds that have elapsed since the application was started.
+// GetMicroCount function retrieves the number of microseconds elapsed since the application started.
 __int64 GetMicroCount();
 
 // Produces the best hash table size for CMap::InitHashTable use
 UINT GetBestHashTableSize(UINT nCount);
-
-// Encode Unicode text to UTF-8 text
-CStringA UTF8Encode(__in const CStringW& strInput);
-CStringA UTF8Encode(__in_bcount(nInput) LPCWSTR psInput, __in int nInput);
-
-// Decode UTF-8 text to Unicode text
-CStringW UTF8Decode(__in const CStringA& strInput);
-CStringW UTF8Decode(__in_bcount(nInput) LPCSTR psInput, __in int nInput);
-
-// Encode and decode URL text, and see if a string starts with a tag
-CString URLEncode(LPCTSTR pszInput);			// Encode "hello world" into "hello%20world"
-CString URLDecode(LPCTSTR pszInput);			// Decode "hello%20world" back to "hello world"
-CString URLDecodeANSI(LPCTSTR pszInput);		// Decodes properly encoded URLs
-CString URLDecodeUnicode(LPCTSTR pszInput);		// Decodes URLs with extended characters
-
-// StartsWith("hello world", "hello") is true
-inline BOOL StartsWith(const CString& sInput, LPCTSTR pszText, const int len)
-{
-	return ( sInput.GetLength() >= len ) && ! _tcsnicmp( (LPCTSTR)sInput, pszText, len );
-}
 
 // Compute average of values collected by specified time
 template< class T, DWORD dwMilliseconds >
@@ -747,7 +729,7 @@ public:
 
 		// Calculate average
 		T sum = 0;
-		for ( CAverageList::const_iterator i = m_Data.begin(); i != m_Data.end(); ++i )
+		for ( CAverageList::const_iterator i = m_Data.begin() ; i != m_Data.end() ; ++i )
 			sum += (*i).first;
 		return sum / (T)m_Data.size();
 	}
@@ -798,8 +780,8 @@ inline QWORD GetFileSize(LPCTSTR pszFile)
 	WIN32_FILE_ATTRIBUTE_DATA fd = {};
 	if ( GetFileAttributesEx( pszFile, GetFileExInfoStandard, &fd ) )
 		return MAKEQWORD( fd.nFileSizeLow, fd.nFileSizeHigh );
-	else
-		return SIZE_UNKNOWN;
+
+	return SIZE_UNKNOWN;
 }
 
 // Powered version of AfxMessageBox()

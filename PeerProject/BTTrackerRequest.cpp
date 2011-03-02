@@ -1,7 +1,7 @@
 //
 // BTTrackerRequest.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -21,6 +21,7 @@
 #include "Settings.h"
 #include "Network.h"
 #include "BENode.h"
+#include "BTPacket.h"
 #include "BTTrackerRequest.h"
 #include "Transfers.h"
 #include "Downloads.h"
@@ -39,7 +40,6 @@ static char THIS_FILE[] = __FILE__;
 CBTTrackerRequest::CBTTrackerRequest(CDownloadWithTorrent* pDownload, LPCTSTR pszVerb, DWORD nNumWant, bool bProcess)
 	: m_pDownload( pDownload )
 	, m_bProcess( bProcess )
-//	, m_bCancel( false )
 {
 	ASSERT( pDownload != NULL );
 	ASSERT( pDownload->IsTorrent() );
@@ -50,10 +50,10 @@ CBTTrackerRequest::CBTTrackerRequest(CDownloadWithTorrent* pDownload, LPCTSTR ps
 	// Create basic URL  http://wiki.theory.org/BitTorrentSpecification#Tracker_HTTP.2FHTTPS_Protocol
 	CString strURL, strAddress = pDownload->m_pTorrent.GetTrackerAddress();
 	strURL.Format( _T("%s%cinfo_hash=%s&peer_id=%s&port=%i&uploaded=%I64i&downloaded=%I64i&left=%I64i&compact=1"),
-		strAddress.TrimRight( _T('&') ),
+		(LPCTSTR)strAddress.TrimRight( _T('&') ),
 		( ( strAddress.Find( _T('?') ) != -1 ) ? _T('&') : _T('?') ),
-		Escape( pDownload->m_oBTH ),
-		Escape( m_pDownload->m_pPeerID ),
+		(LPCTSTR)Escape( pDownload->m_oBTH ),
+		(LPCTSTR)Escape( m_pDownload->m_pPeerID ),
 		Network.m_pHost.sin_port ? (int)htons( Network.m_pHost.sin_port ) : (int)Settings.Connection.InPort,
 		pDownload->m_nTorrentUploaded,
 		pDownload->m_nTorrentDownloaded,
@@ -67,7 +67,7 @@ CBTTrackerRequest::CBTTrackerRequest(CDownloadWithTorrent* pDownload, LPCTSTR ps
 		strURL += pszVerb;
 
 		// If event is 'started' and the IP is valid, add it.
-		if ( !_tcscmp( pszVerb, _T("started") ) && Network.m_pHost.sin_addr.s_addr != INADDR_ANY )
+		if ( ! _tcscmp( pszVerb, _T("started") ) && Network.m_pHost.sin_addr.s_addr != INADDR_ANY )
 		{
 			// Note: Some trackers ignore this value and take the IP the request came from. (Usually the same)
 			strURL += _T("&ip=");
@@ -83,7 +83,7 @@ CBTTrackerRequest::CBTTrackerRequest(CDownloadWithTorrent* pDownload, LPCTSTR ps
 	// If the TrackerKey is true and we have a valid key, then use it.
 	if ( ( pDownload->m_sKey.GetLength() > 4 ) && ( Settings.BitTorrent.TrackerKey ) )
 	{
-		ASSERT ( pDownload->m_sKey.GetLength() < 20 );		//Key too long
+		ASSERT ( pDownload->m_sKey.GetLength() < 20 );		// Key too long
 
 		strURL += _T("&key=");
 		strURL += pDownload->m_sKey;
@@ -121,9 +121,9 @@ CString CBTTrackerRequest::Escape(const Hashes::BtHash& oBTH)
 	{
 		int nValue = oBTH[ nByte ];
 
-		if (	( nValue >= '0' && nValue <= '9' ) ||
-				( nValue >= 'a' && nValue <= 'z' ) ||
-				( nValue >= 'A' && nValue <= 'Z' ) )
+		if ( ( nValue >= '0' && nValue <= '9' ) ||
+			 ( nValue >= 'a' && nValue <= 'z' ) ||
+			 ( nValue >= 'A' && nValue <= 'Z' ) )
 		{
 			*psz++ = (TCHAR)nValue;
 		}
@@ -152,9 +152,9 @@ CString CBTTrackerRequest::Escape(const Hashes::BtGuid& oGUID)
 	{
 		int nValue = oGUID[ nByte ];
 
-		if (	( nValue >= '0' && nValue <= '9' ) ||
-				( nValue >= 'a' && nValue <= 'z' ) ||
-				( nValue >= 'A' && nValue <= 'Z' ) )
+		if ( ( nValue >= '0' && nValue <= '9' ) ||
+			 ( nValue >= 'a' && nValue <= 'z' ) ||
+			 ( nValue >= 'A' && nValue <= 'Z' ) )
 		{
 			*psz++ = (TCHAR)nValue;
 		}
@@ -184,12 +184,12 @@ UINT CBTTrackerRequest::ThreadStart(LPVOID pParam)
 void CBTTrackerRequest::OnRun()
 {
 	// Check if the request return needs to be parsed
-	if ( m_pRequest.m_sURL.GetLength() < 14 )	// Need to verify m_sURL! Crash in CHttpRequest::OnRun()
+	if ( m_pRequest.m_sURL.GetLength() < 14 )		// Need to verify m_sURL! Crash in CHttpRequest::OnRun()
 		; // Why no m_sURL? Do nothing
 	else if ( m_bProcess )
-		Process( m_pRequest.Execute( false ) );	// Parse result if there is one
+		Process( m_pRequest.Execute( false ) );		// Parse result if there is one
 	else
-		m_pRequest.Execute( false );			// Don't wait for result, just send the request
+		m_pRequest.Execute( false );				// Don't wait for result, just send the request
 
 	delete this;
 }
@@ -272,7 +272,7 @@ void CBTTrackerRequest::Process(CBENode* pRoot)
 	CString strError;
 
 	// Check for failure
-	if ( CBENode* pError = pRoot->GetNode( "failure reason" ) )
+	if ( CBENode* pError = pRoot->GetNode( BT_DICT_FAILURE ) )		// "failure reason"
 	{
 		CString strErrorFormat;
 		LoadString( strErrorFormat, IDS_BT_TRACK_ERROR );
@@ -282,7 +282,7 @@ void CBTTrackerRequest::Process(CBENode* pRoot)
 	}
 
 	// Get the interval (next tracker contact)
-	CBENode* pInterval = pRoot->GetNode( "interval" );
+	CBENode* pInterval = pRoot->GetNode( BT_DICT_INTERVAL );		// "interval"
 	if ( ! pInterval->IsType( CBENode::beInt ) )
 	{
 		LoadString( strError, IDS_BT_TRACK_PARSE_ERROR );
@@ -301,7 +301,7 @@ void CBTTrackerRequest::Process(CBENode* pRoot)
 	m_pDownload->m_bTorrentStarted = TRUE;
 
 	// Get list of peers
-	CBENode* pPeers = pRoot->GetNode( "peers" );
+	CBENode* pPeers = pRoot->GetNode( BT_DICT_PEERS );				// "peers"
 	int nCount = 0;
 
 	if ( pPeers->IsType( CBENode::beList ) )
@@ -312,13 +312,13 @@ void CBTTrackerRequest::Process(CBENode* pRoot)
 			if ( ! pPeer->IsType( CBENode::beDict ) )
 				continue;
 
-			CBENode* pID = pPeer->GetNode( "peer id" );
+			CBENode* pID = pPeer->GetNode( BT_DICT_PEER_ID );		// "peer id"
 
-			CBENode* pIP = pPeer->GetNode( "ip" );
+			CBENode* pIP = pPeer->GetNode( BT_DICT_PEER_IP );		// "ip"
 			if ( ! pIP->IsType( CBENode::beString ) )
 				continue;
 
-			CBENode* pPort = pPeer->GetNode( "port" );
+			CBENode* pPort = pPeer->GetNode( BT_DICT_PEER_PORT );	// "port"
 			if ( ! pPort->IsType( CBENode::beInt ) )
 				continue;
 
@@ -336,8 +336,7 @@ void CBTTrackerRequest::Process(CBENode* pRoot)
 			}
 			else
 			{
-				// Self IP is checked later although if bound to 0.0.0.0
-				// this will add self too
+				// Self IP is checked later, although if bound to 0.0.0.0 this will add self too
 				nCount += m_pDownload->AddSourceBT( Hashes::BtGuid(),
 					&saPeer.sin_addr, ntohs( saPeer.sin_port ) );
 			}

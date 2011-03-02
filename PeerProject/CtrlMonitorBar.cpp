@@ -1,7 +1,7 @@
 //
 // CtrlMonitorBar.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -48,8 +48,7 @@ END_MESSAGE_MAP()
 // CMonitorBarCtrl construction
 
 CMonitorBarCtrl::CMonitorBarCtrl()
-	: m_nCount		( 0 )
-	, m_nMaximumIn	( 0 )
+	: m_nMaximumIn	( 0 )
 	, m_nMaximumOut	( 0 )
 	, m_bTabIn		( FALSE )
 	, m_bTabOut		( FALSE )
@@ -96,7 +95,7 @@ int CMonitorBarCtrl::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	OnSkinChange();
 
-	SetTimer( 1, 50, NULL );
+	SetTimer( 1, 120, NULL );
 
 	return 0;
 }
@@ -105,7 +104,7 @@ void CMonitorBarCtrl::OnDestroy()
 {
 	KillTimer( 1 );
 
-	if ( m_hTabIn ) DestroyIcon( m_hTabIn );
+	if ( m_hTabIn )  DestroyIcon( m_hTabIn );
 	if ( m_hTabOut ) DestroyIcon( m_hTabOut );
 	if ( m_hUpDown ) DestroyIcon( m_hUpDown );
 
@@ -146,7 +145,7 @@ INT_PTR CMonitorBarCtrl::OnToolHitTest(CPoint point, TOOLINFO* pTI) const
 
 CSize CMonitorBarCtrl::CalcFixedLayout(BOOL /*bStretch*/, BOOL /*bHorz*/)
 {
-	int nHeight = Settings.General.GUIMode == GUI_WINDOWED ? 30 : 38;
+	const int nHeight = Settings.General.GUIMode == GUI_WINDOWED ? 30 : 38;
 	CSize size( Skin.m_nMonitorbarWidth, nHeight );
 
 	for ( int nSnap = 1 ; nSnap >= 0 ; nSnap-- )
@@ -172,14 +171,11 @@ void CMonitorBarCtrl::OnSize(UINT nType, int cx, int cy)
 
 void CMonitorBarCtrl::OnTimer(UINT_PTR /*nIDEvent*/)
 {
-	if ( m_nCount++ & 1 )
-	{
-		m_pTxItem->Update();
-		m_pRxItem->Update();
+	m_pTxItem->Update();
+	m_pRxItem->Update();
 
-		m_nMaximumIn  = max( m_pRxItem->GetMaximum(), Settings.Connection.InSpeed * 1000 );
-		m_nMaximumOut = max( m_pTxItem->GetMaximum(), Settings.Connection.OutSpeed * 1000 );
-	}
+	m_nMaximumIn  = max( m_pRxItem->GetMaximum(), Settings.Connection.InSpeed * 1000 );
+	m_nMaximumOut = max( m_pTxItem->GetMaximum(), Settings.Connection.OutSpeed * 1000 );
 
 	if ( IsWindowVisible() )
 		Invalidate();
@@ -302,9 +298,9 @@ void CMonitorBarCtrl::PaintHistory(CDC* pDC, CRect* prc)
 		return;
 	}
 
-	if ( m_nMaximumIn < 1000 && m_nMaximumOut < 1000 ) return;	// initial 0
+	if ( m_nMaximumIn < 1000 && m_nMaximumOut < 1000 ) return;	// Initial 0
 
-	DWORD nMax = min( m_pTxItem->m_nLength, (DWORD)rc.Width() );
+	const DWORD nMax = min( m_pTxItem->m_nLength, (DWORD)rc.Width() );
 	int nX = rc.right - 1;
 
 	for ( DWORD nPos = 0 ; nPos < nMax ; nPos++, nX-- )
@@ -411,10 +407,8 @@ BOOL CMonitorBarCtrl::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 		SetCursor( AfxGetApp()->LoadCursor( IDC_HAND ) );
 		return TRUE;
 	}
-	else
-	{
-		return CControlBar::OnSetCursor( pWnd, nHitTest, message );
-	}
+
+	return CControlBar::OnSetCursor( pWnd, nHitTest, message );
 }
 
 void CMonitorBarCtrl::OnLButtonDown(UINT nFlags, CPoint point)

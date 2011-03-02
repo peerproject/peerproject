@@ -396,15 +396,15 @@
 	</toolbar>
 	<!-- SCHEDULER WINDOW -->
 	<toolbar name="CSchedulerWnd">
-		<button id="ID_SCHEDULER_ADD" text="Task hinzufügen"/>
+		<button id="ID_SCHEDULER_ADD" text="Aufgabe hinzufügen"/>
 		<separator/>
-		<button id="ID_SCHEDULER_EDIT" text="Task bearbeiten"/>
-		<button id="ID_SCHEDULER_REMOVE" text="Task löschen"/>
+		<button id="ID_SCHEDULER_EDIT" text="Aufgabe bearbeiten"/>
+		<button id="ID_SCHEDULER_REMOVE" text="Aufgabe löschen"/>
 		<separator/>
-		<button id="ID_SCHEDULER_ACTIVATE" text="Activate"/>
-		<button id="ID_SCHEDULER_DEACTIVATE" text="Deactivate"/>
+		<button id="ID_SCHEDULER_ACTIVATE" text="Aktivieren"/>
+		<button id="ID_SCHEDULER_DEACTIVATE" text="Deaktivieren"/>
 		<rightAlign/>
-		<button id="ID_SCHEDULER_REMOVE_ALL" text="Zähler zurücksetzen"/>
+		<button id="ID_SCHEDULER_REMOVE_ALL" text="Alle löschen"/>
 		<separator/>
 		<button id="ID_SCHEDULER_IMPORT" text="Importieren"/>
 		<button id="ID_SCHEDULER_EXPORT" text="Exportieren"/>
@@ -1697,12 +1697,13 @@
 		<item id="ID_IRC_WHOIS" text="_Whois"/>	<!-- TRNASLATION STILL NEEDED -->
 		<item id="ID_IRC_QUERY" text="_Abfragen"/>
 		<separator/>
-		<menu text="Actions">
+		<menu text="Aktionen">
 			<item id="ID_IRC_TIME" text="_Zeit"/>
 			<item id="ID_IRC_VERSION" text="_Version"/>
+			<item id="ID_IRC_BROWSE" text="_Durchsuchen G2"/>
 		</menu>
 		<separator/>
-		<menu text="Control">
+		<menu text="Steuerung">
 			<item id="ID_IRC_IGNORE" text="_Ignorieren"/>
 			<item id="ID_IRC_UNIGNORE" text="_Nicht mehr ignorieren"/>
 			<item id="ID_IRC_OP" text="_Op"/>
@@ -3202,7 +3203,24 @@
 	<string id="20592" value="Kann keine eingehenden Verbindungen akzeptieren, URL nicht verfügbar."/>
 	<string id="20597" value="Sind Sie sicher, dass Sie die ausgewählten Sicherheitsregeln löschen möchten? Dieser Schritt kann nicht rückgängig gemacht werden."/>
 	<string id="20599" value="&amp;Schemas"/>
-	<!-- Missing Scheduler/Security Strings -->
+	<string id="20600" value="Bandbreite: Volle"/>
+	<string id="20601" value="Bandbreite: Reduzieren"/>
+	<string id="20602" value="Bandbreite: Stoppen"/>
+	<string id="20603" value="System: PeerProject Beenden"/>
+	<string id="20604" value="System: Computer Abschalten"/>
+	<string id="20605" value="System: Wählverbindung Trennen"/>
+	<string id="20606" value="System: Reminder Notice"/>
+	<string id="20607" value="Geplante Mahnung."/>
+	<string id="20608" value="Sind sie sicher dass sie alle geplanten Aufgaben löschen wollen?\n\nDies kann nicht rückgängig gemacht werden."/>
+	<string id="20609" value="Scheduled time has passed. Please select a new time."/>
+	<string id="20610" value="Keine Termine Tag. Wählen Sie einen oder mehrere Tage oder ein Datum."/>
+	<string id="20611" value="Kein geplantes Ereignis. Bitte wählen Sie eine Aufgabe."/>
+	<string id="20612" value="Aktiv"/>
+	<string id="20613" value="Inaktiv"/>
+	<string id="20614" value="Warte"/>
+	<string id="20615" value="Fertig Heute"/>
+	<string id="20616" value="Fertig"/>
+	<string id="20618" value="Keine Aufgaben geplant."/>
 	<string id="20620" value="Suche läuft..."/>
 	<string id="20621" value="Klicken Sie hier, um erneut zu suchen"/>
 	<string id="20622" value="Alle Netzwerke"/>
@@ -4538,7 +4556,7 @@
 		<control/>
 		<control/>
 		<control caption="_Aktionen:"/>
-		<control caption="Data _Eraser:"/>
+		<control caption="Daten löschen:"/>
 		<control caption="Bytes löschen:"/>
 		<control caption="bis"/>
 		<control caption="Löschen"/>

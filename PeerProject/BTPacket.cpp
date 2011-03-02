@@ -1,7 +1,7 @@
 //
 // BTPacket.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -260,8 +260,17 @@ CString CBTPacket::GetType() const
 		case BT_EXTENSION_NOP:
 			sType = _T("DHT");
 			break;
+	//	case BT_EXTENSION_UT_METADATA:
+	//		sType = _T("UT Metadata");
+	//		break;
+	//	case BT_EXTENSION_UT_PEX:
+	//		sType = _T("UT PEX");
+	//		break;
+	//	case BT_EXTENSION_LT_TEX:
+	//		sType = _T("LT TEX");
+	//		break;
 		default:
-			sType.Format( _T("Ext %02u"), m_nExtension );
+			sType.Format( _T("Extension %d"), m_nExtension );
 		}
 		break;
 	case BT_PACKET_HANDSHAKE:
@@ -303,8 +312,8 @@ BOOL CBTPacket::OnPacket(const SOCKADDR_IN* pHost)
 		return FALSE;
 
 	// Get packet type and transaction id
-	CBENode* pType = m_pNode->GetNode( BT_DICT_TYPE );
-	CBENode* pTransID = m_pNode->GetNode( BT_DICT_TRANSACT_ID );
+	CBENode* pType = m_pNode->GetNode( BT_DICT_TYPE );				// "y"
+	CBENode* pTransID = m_pNode->GetNode( BT_DICT_TRANSACT_ID );	// "t"
 	if ( ! pType || ! pType->IsType( CBENode::beString ) ||
 		 ! pTransID || ! pTransID->IsType( CBENode::beString ) )
 		 return FALSE;
@@ -323,7 +332,7 @@ BOOL CBTPacket::OnPacket(const SOCKADDR_IN* pHost)
 	HostCache.BitTorrent.m_nCookie++;
 
 	// Get version
-	CBENode* pVersion = m_pNode->GetNode( BT_DICT_VENDOR );
+	CBENode* pVersion = m_pNode->GetNode( BT_DICT_VENDOR );			// "v"
 	if ( pVersion && pVersion->IsType( CBENode::beString ) )
 	{
 		pCache->m_sName = CBTClient::GetUserAgentAzureusStyle(
@@ -334,12 +343,12 @@ BOOL CBTPacket::OnPacket(const SOCKADDR_IN* pHost)
 	if ( sType == BT_DICT_QUERY )
 	{
 		// Query message
-		CBENode* pQueryMethod = m_pNode->GetNode( BT_DICT_QUERY );
+		CBENode* pQueryMethod = m_pNode->GetNode( BT_DICT_QUERY );	// "q"
 		if ( ! pQueryMethod || ! pQueryMethod->IsType( CBENode::beString ) )
 			return FALSE;
 
 		CString sQueryMethod = pQueryMethod->GetString();
-		if ( sQueryMethod == "ping" )
+		if ( sQueryMethod == L"ping" )
 			return OnPing( pHost );
 		//else if ( sQueryMethod == "find_node" )
 		//	; // ToDo: Find node
@@ -355,12 +364,12 @@ BOOL CBTPacket::OnPacket(const SOCKADDR_IN* pHost)
 	else if ( sType == BT_DICT_RESPONSE )
 	{
 		// Response message
-		CBENode* pResponse = m_pNode->GetNode( BT_DICT_RESPONSE );
+		CBENode* pResponse = m_pNode->GetNode( BT_DICT_RESPONSE );	// "r"
 		if ( ! pResponse || ! pResponse->IsType( CBENode::beDict ) )
 			 return FALSE;
 
 		Hashes::BtGuid oNodeGUID;
-		CBENode* pNodeID = pResponse->GetNode( BT_DICT_ID );
+		CBENode* pNodeID = pResponse->GetNode( BT_DICT_ID );		// "id"
 		if ( ! pNodeID || ! pNodeID->GetString( oNodeGUID ) )
 			return FALSE;
 
@@ -370,19 +379,19 @@ BOOL CBTPacket::OnPacket(const SOCKADDR_IN* pHost)
 		// ToDo: Check queries pool for pTransID
 
 		// Save access token
-		CBENode* pToken = pResponse->GetNode( BT_DICT_TOKEN );
+		CBENode* pToken = pResponse->GetNode( BT_DICT_TOKEN );		// "token"
 		if ( pToken && pToken->IsType( CBENode::beString ) )
 		{
 			pCache->m_Token.SetSize( (INT_PTR)pToken->m_nValue );
 			CopyMemory( pCache->m_Token.GetData(), pToken->m_pValue, (size_t)pToken->m_nValue );
 		}
 
-		CBENode* pPeers = pResponse->GetNode( BT_DICT_VALUES );
+		CBENode* pPeers = pResponse->GetNode( BT_DICT_VALUES );		// "values"
 		if ( pPeers && pPeers->IsType( CBENode::beList) )
 		{
 		}
 
-		CBENode* pNodes = pResponse->GetNode( BT_DICT_NODES );
+		CBENode* pNodes = pResponse->GetNode( BT_DICT_NODES );		// "nodes"
 		if ( pNodes && pNodes->IsType( CBENode::beString ) )
 		{
 		}
@@ -392,7 +401,7 @@ BOOL CBTPacket::OnPacket(const SOCKADDR_IN* pHost)
 	else if ( sType == BT_DICT_ERROR )
 	{
 		// Error message
-		CBENode* pError = m_pNode->GetNode( BT_DICT_ERROR );
+		CBENode* pError = m_pNode->GetNode( BT_DICT_ERROR );		// "e"
 		if ( ! pError || ! pError->IsType( CBENode::beList ) )
 			return FALSE;
 
@@ -404,22 +413,21 @@ BOOL CBTPacket::OnPacket(const SOCKADDR_IN* pHost)
 
 BOOL CBTPacket::OnPing(const SOCKADDR_IN* pHost)
 {
-	CBENode* pTransID = m_pNode->GetNode( BT_DICT_TRANSACT_ID );
+	CBENode* pTransID = m_pNode->GetNode( BT_DICT_TRANSACT_ID );	// "t"
 
-	CBENode* pQueryData = m_pNode->GetNode( BT_DICT_DATA );
+	CBENode* pQueryData = m_pNode->GetNode( BT_DICT_DATA );			// "a"
 	if ( ! pQueryData || ! pQueryData->IsType( CBENode::beDict ) )
 		return FALSE;
 
 	Hashes::BtGuid oNodeGUID;
-	CBENode* pNodeID = pQueryData->GetNode( BT_DICT_ID );
+	CBENode* pNodeID = pQueryData->GetNode( BT_DICT_ID );			// "id"
 	if ( ! pNodeID || ! pNodeID->GetString( oNodeGUID ) )
 		return FALSE;
 
 	{
 		CQuickLock oLock( HostCache.BitTorrent.m_pSection );
 
-		CHostCacheHostPtr pCache = HostCache.BitTorrent.Add( &pHost->sin_addr, htons( pHost->sin_port ) );
-		if ( pCache )
+		if ( CHostCacheHostPtr pCache = HostCache.BitTorrent.Add( &pHost->sin_addr, htons( pHost->sin_port ) ) )
 		{
 			pCache->m_oBtGUID = oNodeGUID;
 			pCache->m_sDescription = oNodeGUID.toString();
@@ -450,10 +458,10 @@ BOOL CBTPacket::OnError(const SOCKADDR_IN* /*pHost*/)
 //BOOL CBTPacket::Ping(const SOCKADDR_IN* pHost)
 //{
 //	CBENode pPing;
-//	CBENode* pPingData = pPing.Add( BT_DICT_DATA );
+//	CBENode* pPingData = pPing.Add( BT_DICT_DATA );					// "a"
 //	pPingData->Add( BT_DICT_ID )->SetString( MyProfile.oGUIDBT );
-//	pPing.Add( BT_DICT_TYPE )->SetString( BT_DICT_QUERY );
-//	pPing.Add( BT_DICT_TRANSACT_ID )->SetString( "1234" ); // TODO
+//	pPing.Add( BT_DICT_TYPE )->SetString( BT_DICT_QUERY );			// "q"
+//	pPing.Add( BT_DICT_TRANSACT_ID )->SetString( "1234" );			// ToDo:
 //	pPing.Add( BT_DICT_QUERY )->SetString( "ping" );
 //	pPing.Add( BT_DICT_VENDOR )->SetString( theApp.m_pBTVersion, 4 );
 //	CBuffer pOutput;
@@ -464,11 +472,11 @@ BOOL CBTPacket::OnError(const SOCKADDR_IN* /*pHost*/)
 //BOOL CBTPacket::GetPeers(const SOCKADDR_IN* pHost, const Hashes::BtGuid& oNodeGUID, const Hashes::BtHash& oGUID)
 //{
 //	CBENode pGetPeers;
-//	CBENode* pGetPeersData = pGetPeers.Add( BT_DICT_DATA );
+//	CBENode* pGetPeersData = pGetPeers.Add( BT_DICT_DATA );			// "a"
 //	pGetPeersData->Add( BT_DICT_ID )->SetString( oNodeGUID );
 //	pGetPeersData->Add( "info_hash" )->SetString( oGUID );
-//	pGetPeers.Add( BT_DICT_TYPE )->SetString( BT_DICT_QUERY );
-//	pGetPeers.Add( BT_DICT_TRANSACT_ID )->SetString( "4567" ); // TODO
+//	pGetPeers.Add( BT_DICT_TYPE )->SetString( BT_DICT_QUERY );		// "q"
+//	pGetPeers.Add( BT_DICT_TRANSACT_ID )->SetString( "4567" );		// ToDo:
 //	pGetPeers.Add( BT_DICT_QUERY )->SetString( "get_peers" );
 //	pGetPeers.Add( BT_DICT_VENDOR )->SetString( theApp.m_pBTVersion, 4 );
 //	CBuffer pOutput;

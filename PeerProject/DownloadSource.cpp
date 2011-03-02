@@ -1,7 +1,7 @@
 //
 // DownloadSource.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -101,21 +101,22 @@ CDownloadSource::CDownloadSource(const CDownload* pDownload, const CQueryHit* pH
 		if ( ( m_sURL.Right( 3 ) == _T("/0/") ) && ( pDownload->m_nSize ) )
 		{
 			CString strTemp =  m_sURL.Left( m_sURL.GetLength() - 2 );
-			m_sURL.Format( _T("%s%I64i/"), strTemp, pDownload->m_nSize );
+			m_sURL.Format( _T("%s%I64i/"), (LPCTSTR)strTemp, pDownload->m_nSize );
 		}
 	}
 
 	ResolveURL();
 
 	// If we got hit with BitTorrent hash
+	// and url now looks like btc://
+	// but hit was received from G1/G2 search
+	// and download is a single file torrent or isnt a torrent
+	// then change hit (back) to G1/G2 protocol
+
 	if ( pHit->m_oBTH &&
-	// ... and url now looks like btc://
 		m_nProtocol == PROTOCOL_BT &&
-	// ... but hit was received from G1/G2 search
 		( pHit->m_nProtocol == PROTOCOL_G1 || pHit->m_nProtocol == PROTOCOL_G2 ) &&
-	// ... and download is a single file torrent or isnt a torrent
 		( pDownload->IsSingleFileTorrent() || ! pDownload->IsTorrent() ) )
-	// ... then change (back) hit to G1/G2 protocol
 	{
 		m_nProtocol = pHit->m_nProtocol;
 		m_sURL = pHit->GetURL( m_pAddress, m_nPort );
@@ -392,7 +393,7 @@ void CDownloadSource::Serialize(CArchive& ar, int nVersion)	// DOWNLOAD_SER_VERS
 		//else
 		//	m_bClientExtended = VendorCache.IsExtended( m_sServer );
 
-		if ( nVersion >= 42 )	// 1000
+		//if ( nVersion >= 42 )	// 1000
 			ar >> m_bMetaIgnore;
 	}
 	//else	// nVersion < 21	Obsolete legacy Shareaza, for reference?
@@ -1047,7 +1048,7 @@ void CDownloadSource::Draw(CDC* pDC, CRect* prcBar, COLORREF crNatural)
 	{
 		Fragments::List::const_iterator pItr = m_oAvailable.begin();
 		const Fragments::List::const_iterator pEnd = m_oAvailable.end();
-		for ( ; pItr != pEnd; ++pItr )
+		for ( ; pItr != pEnd ; ++pItr )
 		{
 			CFragmentBar::DrawFragment( pDC, prcBar, m_pDownload->m_nSize,
 				pItr->begin(), pItr->size(), crNatural, FALSE );

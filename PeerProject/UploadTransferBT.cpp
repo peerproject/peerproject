@@ -1,7 +1,7 @@
 //
 // UploadTransferBT.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -94,9 +94,13 @@ void CUploadTransferBT::SetChoke(BOOL bChoke)
 	{
 		m_nState = upsReady;
 		UploadFiles.MoveToTail( this );
-	}
 
-	m_pClient->Send( CBTPacket::New( bChoke ? BT_PACKET_CHOKE : BT_PACKET_UNCHOKE ) );
+		m_pClient->Choke();			// BT_PACKET_CHOKE
+	}
+	else
+	{
+		m_pClient->UnChoke();		// BT_PACKET_UNCHOKE
+	}
 
 	theApp.Message( MSG_DEBUG, _T("%s upload to %s"),
 		bChoke ? _T("Choking") : _T("Unchoking"), (LPCTSTR)m_sAddress );
@@ -310,8 +314,7 @@ BOOL CUploadTransferBT::ServeRequests()
 	while ( ! m_oRequested.empty() && ( m_nLength == SIZE_UNKNOWN || m_nLength == 0 ) )
 	{
 		if ( std::find( m_oServed.begin(), m_oServed.end(), *m_oRequested.begin() ) == m_oServed.end()
-			// This should be redundant
-			&& m_oRequested.begin()->begin() < m_nSize
+			&& m_oRequested.begin()->begin() < m_nSize		// This should be redundant
 			&& m_oRequested.begin()->end() <= m_nSize )
 		{
 			m_nOffset = m_oRequested.begin()->begin();
@@ -330,24 +333,17 @@ BOOL CUploadTransferBT::ServeRequests()
 			(LPCTSTR)m_sName, (LPCTSTR)m_sAddress, _T("BT") );
 
 		CBuffer pBuffer;
-		pBuffer.EnsureBuffer( sizeof(BT_PIECE_HEADER) + (DWORD)m_nLength );
+		pBuffer.EnsureBuffer( m_nLength );
 
-		BT_PIECE_HEADER* pHeader = (BT_PIECE_HEADER*)( pBuffer.m_pBuffer + pBuffer.m_nLength );
-
-		if ( ! ReadFile( m_nOffset + m_nPosition, &pHeader[1], m_nLength, &m_nLength ) )
+		QWORD nRead = 0;
+		if ( ! ReadFile( m_nOffset + m_nPosition, pBuffer.m_pBuffer, m_nLength, &nRead ) )
 			return FALSE;
+		pBuffer.m_nLength = (DWORD)nRead;
 
-		pHeader->nLength	= swapEndianess( 1 + 8 + (DWORD)m_nLength );
-		pHeader->nType		= BT_PACKET_PIECE;
-		pHeader->nPiece		= (DWORD)( m_nOffset / m_pDownload->m_pTorrent.m_nBlockSize );
-		pHeader->nOffset	= (DWORD)( m_nOffset % m_pDownload->m_pTorrent.m_nBlockSize );
-		pHeader->nPiece		= swapEndianess( pHeader->nPiece );
-		pHeader->nOffset	= swapEndianess( pHeader->nOffset );
-
-		pBuffer.m_nLength += sizeof(BT_PIECE_HEADER) + (DWORD)m_nLength;
-
-		m_pClient->Write( &pBuffer );
-		m_pClient->Send( NULL );
+		m_pClient->Piece(			// BT_PIECE_HEADER/BT_PACKET_PIECE
+			(DWORD)( m_nOffset / m_pDownload->m_pTorrent.m_nBlockSize ),
+			(DWORD)( m_nOffset % m_pDownload->m_pTorrent.m_nBlockSize ),
+			pBuffer.m_nLength, pBuffer.m_pBuffer );
 
 		m_nPosition += m_nLength;
 		m_nUploaded += m_nLength;

@@ -1,7 +1,7 @@
 //
 // QuerySearch.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -40,8 +40,6 @@ public:
 	CQuerySearch(BOOL bGUID = TRUE);
 	virtual ~CQuerySearch();
 
-	typedef std::vector<DWORD>			Hash32List;
-
 // Attributes
 public:
 	bool				m_bAutostart;	// Autostart search (default - true)
@@ -74,9 +72,9 @@ public:
 	bool				m_bPartial;		// G1: Partial results support
 	bool				m_bNoProxy;		// G1: Disable OOB proxying
 	bool				m_bExtQuery;	// G1: Extended query (long query)
-	bool				m_bWarning;		// Got parser warnings
 	PROTOCOLID			m_nProtocol;	// Pass network for convenience (SearchMonitor)
 
+	typedef std::vector<DWORD>	Hash32List;
 	Hash32List			m_oURNs;			// Hashed URNs
 	Hash32List			m_oKeywordHashList;	// List of hashed keywords to BOOST QUery Routing.
 

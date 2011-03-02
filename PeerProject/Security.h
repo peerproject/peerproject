@@ -1,7 +1,7 @@
 //
 // Security.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -46,6 +46,7 @@ public:
 public:
 	mutable CCriticalSection	m_pSection;
 	BOOL						m_bDenyPolicy;
+
 	static LPCTSTR				xmlns;
 
 protected:
@@ -56,8 +57,9 @@ protected:
 	} CComplain;
 	typedef CMap< DWORD, DWORD, CComplain*, CComplain* > CComplainMap;
 
-	CList< CSecureRule* >		m_pRules;
 	CComplainMap				m_Complains;
+	CList< CSecureRule* >		m_pRules;
+	std::set< DWORD >			m_Cache;	// Known good addresses
 
 // Operations
 public:

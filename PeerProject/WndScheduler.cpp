@@ -1,7 +1,7 @@
 //
 // WndScheduler.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2010
+// This file is part of PeerProject (peerproject.org) © 2010-2011
 // Portions copyright Shareaza Development Team, 2010.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -102,7 +102,7 @@ int CSchedulerWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_wndList.InsertColumn( 0, _T("Task"), LVCFMT_LEFT, 240, -1 );
 	m_wndList.InsertColumn( 1, _T("Date"), LVCFMT_CENTER, 220, -1 );
 	m_wndList.InsertColumn( 2, _T("Time"), LVCFMT_CENTER, 90, -1 );
-	m_wndList.InsertColumn( 3, _T("Status"), LVCFMT_CENTER, 90, -1);
+	m_wndList.InsertColumn( 3, _T("Status"), LVCFMT_CENTER, 90, -1 );
 	m_wndList.InsertColumn( 4, _T("Activity"), LVCFMT_CENTER, 90, -1 );
 	m_wndList.InsertColumn( 5, _T("Comment"), LVCFMT_LEFT, 280, -1 );
 
@@ -232,11 +232,11 @@ void CSchedulerWnd::Update(int nColumn, BOOL bSort)
 	}
 
 	if ( nColumn >= 0 )
-		SetWindowLong( m_wndList.GetSafeHwnd(), GWLP_USERDATA, 0 - nColumn - 1 );
+		SetWindowLongPtr( m_wndList.GetSafeHwnd(), GWLP_USERDATA, 0 - nColumn - 1 );
 
-	pLiveList.Apply( &m_wndList, bSort );	// Putting items in the main list
+	pLiveList.Apply( &m_wndList, bSort );	// Put items in the main list
 
-	tLastUpdate = GetTickCount();	// Update time after it's done doing its work
+	tLastUpdate = GetTickCount();			// Update time after done doing work
 
 }
 
@@ -268,10 +268,9 @@ void CSchedulerWnd::OnTimer(UINT_PTR nIDEvent)
 {
 	if ( nIDEvent == 1 && IsPartiallyVisible() )
 	{
-		DWORD tTicks = GetTickCount();
-		DWORD tDelay = max( ( 2 * (DWORD)Scheduler.GetCount() ), 1000ul ); // Delay based on size of list
+		const DWORD tDelay = max( ( 2 * (DWORD)Scheduler.GetCount() ), 1000ul );	// Delay based on size of list
 
-		if ( ( tTicks - tLastUpdate ) > tDelay )
+		if ( ( GetTickCount() - tLastUpdate ) > tDelay )
 		{
 			if ( tDelay < 2000 )
 				Update();				// Sort if list is under 1000
@@ -425,7 +424,7 @@ void CSchedulerWnd::OnUpdateSchedulerDeactivate(CCmdUI* pCmdUI)
 		return;
 	}
 
-	pCmdUI->Enable( (m_wndList.GetSelectedCount() > 0 ) && (pSchTask->m_bActive));
+	pCmdUI->Enable( m_wndList.GetSelectedCount() > 0 && pSchTask->m_bActive );
 }
 
 void CSchedulerWnd::OnSchedulerDeactivate()
@@ -455,7 +454,7 @@ void CSchedulerWnd::OnUpdateSchedulerActivate(CCmdUI* pCmdUI)
 		return;
 	}
 
-	pCmdUI->Enable( (m_wndList.GetSelectedCount() > 0 ) && (!pSchTask->m_bActive));
+	pCmdUI->Enable( m_wndList.GetSelectedCount() > 0 && ! pSchTask->m_bActive );
 }
 
 void CSchedulerWnd::OnSchedulerActivate()
@@ -465,7 +464,7 @@ void CSchedulerWnd::OnSchedulerActivate()
 	CScheduleTask* pSchTask = GetItem( m_wndList.GetNextItem( -1, LVIS_SELECTED ) );
 	if ( ! pSchTask ) return;
 
-	if (! Scheduler.IsScheduledTimePassed( pSchTask ) || pSchTask->m_bSpecificDays)
+	if ( ! Scheduler.IsScheduledTimePassed( pSchTask ) || pSchTask->m_bSpecificDays )
 	{
 		pSchTask->m_bActive = true;
 		pSchTask->m_bExecuted = false;
@@ -492,7 +491,7 @@ void CSchedulerWnd::OnSchedulerRemoveAll()
 
 	CQuickLock oLock( Scheduler.m_pSection);
 
-	for ( int nItem = 0 ;  nItem < m_wndList.GetItemCount() ; nItem++)
+	for ( int nItem = 0 ; nItem < m_wndList.GetItemCount() ; nItem++ )
 	{
 		if ( CScheduleTask* pSchTask = GetItem( nItem ) )
 			Scheduler.Remove( pSchTask );

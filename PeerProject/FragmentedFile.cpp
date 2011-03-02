@@ -1,7 +1,7 @@
 //
 // FragmentedFile.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -119,7 +119,7 @@ void CFragmentedFile::AssertValid() const
 	{
 		ASSERT( m_oFile.front().m_nOffset == 0 );
 		CVirtualFile::const_iterator j;
-		for ( CVirtualFile::const_iterator i = m_oFile.begin(); i != m_oFile.end(); ++i )
+		for ( CVirtualFile::const_iterator i = m_oFile.begin() ; i != m_oFile.end() ; ++i )
 		{
 			if ( i != m_oFile.begin() )
 				ASSERT( (*j).m_nOffset + (*j).m_nSize == (*i).m_nOffset );
@@ -133,7 +133,7 @@ void CFragmentedFile::Dump(CDumpContext& dc) const
 	CObject::Dump( dc );
 
 	int n = 1;
-	for ( CVirtualFile::const_iterator i = m_oFile.begin(); i != m_oFile.end(); ++i, ++n )
+	for ( CVirtualFile::const_iterator i = m_oFile.begin() ; i != m_oFile.end() ; ++i, ++n )
 		dc << n << _T(". File offset ") << (*i).m_nOffset << _T(", ")
 			<< (*i).m_nSize << _T(" bytes, ")
 			<< ( (*i).m_bWrite ? _T("RW") : _T("RO") )
@@ -214,8 +214,7 @@ BOOL CFragmentedFile::Open(LPCTSTR pszFile, QWORD nOffset, QWORD nLength,
 		switch( nMethod )
 		{
 		case 0:
-			// Try to open file for write from current incomplete folder
-			// (in case of changed folder)
+			// Try to open file for write from current incomplete folder (in case of changed folder)
 			(*pItr).m_sPath = Settings.Downloads.IncompletePath +
 				strPath.Mid( strPath.ReverseFind( _T('\\') ) );
 			break;
@@ -257,7 +256,7 @@ BOOL CFragmentedFile::Open(CPeerProjectFile& oSHFile, BOOL bWrite)
 	{
 		// Generate new filename (inside incomplete folder)
 		strSource.Format( _T("%s\\%s.partial"),
-			Settings.Downloads.IncompletePath, sUniqueName );
+			(LPCTSTR)Settings.Downloads.IncompletePath, sUniqueName );
 	}
 	else if ( GetFileAttributes( oSHFile.m_sPath ) != INVALID_FILE_ATTRIBUTES )
 	{
@@ -316,7 +315,7 @@ BOOL CFragmentedFile::Open(const CBTInfo& oInfo, const BOOL bWrite,	CString& str
 		{
 			// Generate new temp filename (inside incomplete folder)
 			strSource.Format( _T("%s\\%s_%d.partial"),
-				Settings.Downloads.IncompletePath, sUniqueName, i );
+				(LPCTSTR)Settings.Downloads.IncompletePath, sUniqueName, i );
 		}
 		else
 		{
@@ -346,7 +345,7 @@ BOOL CFragmentedFile::FindByPath(const CString& sPath) const
 {
 	CQuickLock oLock( m_pSection );
 
-	for ( CVirtualFile::const_iterator i = m_oFile.begin(); i != m_oFile.end(); ++i )
+	for ( CVirtualFile::const_iterator i = m_oFile.begin() ; i != m_oFile.end() ; ++i )
 	{
 		if ( ! (*i).m_sPath.CompareNoCase( sPath ) )
 			return TRUE;	// Our subfile
@@ -360,9 +359,9 @@ BOOL CFragmentedFile::IsOpen() const
 	CQuickLock oLock( m_pSection );
 
 	if ( m_oFile.empty() )
-		return FALSE;	// No subfiles
+		return FALSE;		// No subfiles
 
-	for ( CVirtualFile::const_iterator i = m_oFile.begin(); i != m_oFile.end(); ++i )
+	for ( CVirtualFile::const_iterator i = m_oFile.begin() ; i != m_oFile.end() ; ++i )
 	{
 		if ( ! (*i).m_pFile || ! (*i).m_pFile->IsOpen() )
 			return FALSE;	// Closed subfile
@@ -436,11 +435,11 @@ float CFragmentedFile::GetProgress(DWORD nIndex) const
 
 	if ( nIndex >= m_oFile.size() )
 		return -1.f;
-	else if ( m_oFile[ nIndex ].m_nSize == 0 )
+	if ( m_oFile[ nIndex ].m_nSize == 0 )
 		return 100.f;
-	else
-		return ( (float)GetCompleted( m_oFile[ nIndex ].m_nOffset,
-			m_oFile[ nIndex ].m_nSize ) * 100.f ) / (float)m_oFile[ nIndex ].m_nSize;
+
+	return ( (float)GetCompleted( m_oFile[ nIndex ].m_nOffset,
+		m_oFile[ nIndex ].m_nSize ) * 100.f ) / (float)m_oFile[ nIndex ].m_nSize;
 }
 
 Fragments::List CFragmentedFile::GetFullFragmentList() const
@@ -463,12 +462,12 @@ Fragments::List CFragmentedFile::GetWantedFragmentList() const
 {
 	CQuickLock oLock( m_pSection );
 
-	// ToDo: Implement priorities
+	// ToDo: Implement fragment priorities
 	// ToDo: Optimize this by caching
 
 	// Exclude unwanted files
 	Fragments::List oList( m_oFList );
-	for ( CVirtualFile::const_iterator i = m_oFile.begin(); i != m_oFile.end(); ++i )
+	for ( CVirtualFile::const_iterator i = m_oFile.begin() ; i != m_oFile.end() ; ++i )
 		if ( (*i).m_nPriority == prUnwanted )
 			oList.erase( Fragments::Fragment( (*i).m_nOffset, (*i).m_nOffset + (*i).m_nSize ) );
 
@@ -510,7 +509,7 @@ int CFragmentedFile::SelectFile(CSingleLock* pLock) const
 		{
 			CQuickLock oLock( m_pSection );
 			int index = 0;
-			for( CVirtualFile::const_iterator i = m_oFile.begin(); i != m_oFile.end(); ++i, ++index )
+			for ( CVirtualFile::const_iterator i = m_oFile.begin() ; i != m_oFile.end() ; ++i, ++index )
 				if ( GetCompleted( (*i).m_nOffset, (*i).m_nSize ) > 0 )
 					dlg.Add( (*i).m_sName, index );
 		}
@@ -546,7 +545,7 @@ void CFragmentedFile::Delete()
 		// Enumerate all subfiles
 		CVirtualFile::const_iterator pItr = m_oFile.begin();
 		const CVirtualFile::const_iterator pEnd = m_oFile.end();
-		for ( ; pItr != pEnd; ++pItr )
+		for ( ; pItr != pEnd ; ++pItr )
 		{
 			oPurge.push_back( *pItr );
 		}
@@ -561,7 +560,7 @@ void CFragmentedFile::Delete()
 
 	CVirtualFile::const_iterator pItr = oPurge.begin();
 	const CVirtualFile::const_iterator pEnd = oPurge.end();
-	for( ; pItr != pEnd; ++pItr )
+	for ( ; pItr != pEnd ; ++pItr )
 	{
 		// Delete subfile
 		BOOL bToRecycleBin = !(*pItr).m_bWrite;
@@ -736,8 +735,7 @@ void CFragmentedFile::Serialize(CArchive& ar, int nVersion)
 		SerializeOut1( ar, m_oFList );
 
 		ar << (DWORD)m_oFile.size();
-		for ( CVirtualFile::const_iterator i = m_oFile.begin();
-			i != m_oFile.end(); ++i )
+		for ( CVirtualFile::const_iterator i = m_oFile.begin() ; i != m_oFile.end() ; ++i )
 		{
 			ASSERT( ! (*i).m_sPath.IsEmpty() );
 			ar << (*i).m_sPath;
@@ -757,7 +755,7 @@ void CFragmentedFile::Serialize(CArchive& ar, int nVersion)
 		{
 			DWORD count = 0;
 			ar >> count;
-			for ( DWORD i = 0; i < count; ++i )
+			for ( DWORD i = 0 ; i < count ; ++i )
 			{
 				CString sPath;
 				ar >> sPath;
@@ -807,7 +805,7 @@ BOOL CFragmentedFile::Write(QWORD nOffset, LPCVOID pData, QWORD nLength, QWORD* 
 		return FALSE;	// Empty range
 
 	QWORD nProcessed = 0;
-	for ( ; pMatches.first != pMatches.second; ++pMatches.first )
+	for ( ; pMatches.first != pMatches.second ; ++pMatches.first )
 	{
 		QWORD nStart = max( pMatches.first->begin(), oMatch.begin() );
 		QWORD nToWrite = min( pMatches.first->end(), oMatch.end() ) - nStart;
@@ -862,24 +860,28 @@ BOOL CFragmentedFile::VirtualRead(QWORD nOffset, char* pBuffer, QWORD nBuffer, Q
 	if ( pnRead )
 		*pnRead = 0;
 
-	for ( ; nBuffer; ++i )
+	for ( ; nBuffer ; ++i )
 	{
 		if ( i == m_oFile.end() )
 			return FALSE;	// EOF
 
-		if ( (*i).m_nOffset > nOffset )
+		const CVirtualFilePart& file = (*i);
+
+		if ( file.m_nOffset > nOffset )
 			return FALSE;	// EOF
 
-		QWORD nPartOffset = ( nOffset - (*i).m_nOffset );
-		if ( (*i).m_nSize < nPartOffset )
+		QWORD nPartOffset = ( nOffset - file.m_nOffset );
+		if ( file.m_nSize < nPartOffset )
 			return FALSE;	// EOF
 
-		QWORD nPartLength = min( nBuffer, (*i).m_nSize - nPartOffset );
+		QWORD nPartLength = min( nBuffer, file.m_nSize - nPartOffset );
 		if ( ! nPartLength )
-			continue;	// Skip zero length files
+			continue;		// Skip zero length files
 
 		QWORD nRead = 0;
-		if ( ! (*i).m_pFile || ! (*i).m_pFile->Read( nPartOffset, pBuffer, nPartLength, &nRead ) )
+		if ( ! file.m_pFile )
+			return FALSE;
+		if ( ! file.m_pFile->Read( nPartOffset, pBuffer, nPartLength, &nRead ) )
 			return FALSE;
 
 		pBuffer += nRead;
@@ -909,25 +911,30 @@ BOOL CFragmentedFile::VirtualWrite(QWORD nOffset, const char* pBuffer, QWORD nBu
 	if ( pnWritten )
 		*pnWritten = 0;
 
-	for ( ; nBuffer; ++i )
+	for ( ; nBuffer ; ++i )
 	{
 		if ( i == m_oFile.end() )
 			return FALSE;	// EOF
-		if ( (*i).m_nOffset > nOffset )
+
+		const CVirtualFilePart& file = (*i);
+
+		if ( file.m_nOffset > nOffset )
 			return FALSE;	// EOF
 
-		QWORD nPartOffset = ( nOffset - (*i).m_nOffset );
-		if ( (*i).m_nSize < nPartOffset )
+		QWORD nPartOffset = ( nOffset - file.m_nOffset );
+		if ( file.m_nSize < nPartOffset )
 			return FALSE;	// EOF
 
-		QWORD nPartLength = min( nBuffer, (*i).m_nSize - nPartOffset );
+		QWORD nPartLength = min( nBuffer, file.m_nSize - nPartOffset );
 		if ( ! nPartLength )
-			continue;	// Skip zero length files
+			continue;		// Skip zero length files
 
 		QWORD nWritten = 0;
-		if ( ! (*i).m_bWrite )
+		if ( ! file.m_bWrite )
 			nWritten = nPartLength;	// Skip read only files
-		else if ( ! (*i).m_pFile || ! (*i).m_pFile->Write( nPartOffset, pBuffer, nPartLength, &nWritten ) )
+		if ( ! file.m_pFile )
+			return FALSE;
+		if ( ! file.m_pFile->Write( nPartOffset, pBuffer, nPartLength, &nWritten ) )
 			return FALSE;
 
 		pBuffer += nWritten;

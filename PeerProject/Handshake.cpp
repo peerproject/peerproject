@@ -1,7 +1,7 @@
 //
 // Handshake.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -51,10 +51,8 @@ static char THIS_FILE[]=__FILE__;
 // Make a new CHandshake object
 // Initializes the member variables with default values
 CHandshake::CHandshake()
+	: m_bPushing ( FALSE )
 {
-	// We did not connect to the remote computer as part of a push
-	m_bPushing = FALSE;
-
 	// Set pointers so the input and output bandwidth limits are read from the DWORD in settings
 	m_mInput.pLimit = m_mOutput.pLimit = &Settings.Bandwidth.Request;
 }
@@ -63,10 +61,8 @@ CHandshake::CHandshake()
 // Make a new CHanshake object given a socket, and a MFC SOCKADDR_IN structure which contains an IP address and port number
 // Uses AcceptFrom to make a new object with this socket and ip address
 CHandshake::CHandshake(SOCKET hSocket, SOCKADDR_IN* pHost)
+	: m_bPushing ( FALSE )
 {
-	// We did not connect to the remote computer as part of a push
-	m_bPushing = FALSE;
-
 	// Call CConnection::AcceptFrom to setup this object with the socket and
 	AcceptFrom( hSocket, pHost );
 
@@ -92,10 +88,9 @@ CHandshake::CHandshake(CHandshake* pCopy)
 	m_mInput.pLimit = m_mOutput.pLimit = &Settings.Bandwidth.Request;
 }
 
-// Delete this CHandshake object
 CHandshake::~CHandshake()
 {
-	// There is nothing the CConnection destructor won't take care of
+	// Delete this CHandshake object, there is nothing the CConnection destructor won't take care of
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -110,23 +105,23 @@ BOOL CHandshake::Push(IN_ADDR* pAddress, WORD nPort, DWORD nIndex)
 	theApp.Message( MSG_INFO, IDS_UPLOAD_CONNECT, (LPCTSTR)CString( inet_ntoa( *pAddress ) ), _T("") );
 
 	// Connect the socket in this CHandshake object to the IP address and port number the method got passed
-	if ( ! ConnectTo( pAddress, nPort ) ) return FALSE; // If the connection was not made, leave now
+	if ( ! ConnectTo( pAddress, nPort ) )
+		return FALSE;					// If the connection was not made, leave now
 
 	// Tell Windows to give us a m_pWakeup event if this socket connects, gets data, is ready for writing, or closes
-	WSAEventSelect(				// Specify our event object Handshakes.m_pWakeup to the FD_CONNECT FD_READ FD_WRITE and FD_CLOSE events
-		m_hSocket,				// The socket in this CHandshake object
+	WSAEventSelect(						// Specify our event object Handshakes.m_pWakeup to FD_CONNECT FD_READ FD_WRITE FD_CLOSE events
+		m_hSocket,						// The socket in this CHandshake object
 		Handshakes.GetWakeupEvent(),	// The MFC CEvent object we've made for the wakeup event
-		FD_CONNECT	|			// The connection has been made
-		FD_READ		|			// There is data from the remote computer on our end of the socket waiting for us to read it
-		FD_WRITE	|			// The remote computer is ready for some data from us (do)
-		FD_CLOSE );				// The socket has been closed
+		FD_CONNECT	|					// The connection has been made
+		FD_READ		|					// There is data from the remote computer on our end of the socket waiting for us to read it
+		FD_WRITE	|					// The remote computer is ready for some data from us (do)
+		FD_CLOSE );						// The socket has been closed
 
 	// Record the push in the member variables
 	m_bPushing		= TRUE;				// We connected to this computer as part of a push
 	m_tConnected	= GetTickCount();	// Record that we connected right now
 	m_nIndex		= nIndex;			// Copy the given index number into this object (do)
 
-	// Report success
 	return TRUE;
 }
 
@@ -134,18 +129,16 @@ BOOL CHandshake::Push(IN_ADDR* pAddress, WORD nPort, DWORD nIndex)
 // CHandshake run event
 
 // Determine the handshake has been going on for too long
-// Returns true or false
 BOOL CHandshake::OnRun()
 {
-	// If we've been connected for longer than the handshake timeout from settings
+	// If we've been connected for longer than the handshake timeout from settings, report it.
 	if ( GetTickCount() - m_tConnected > Settings.Connection.TimeoutHandshake )
 	{
-		// Report this, and return false
 		theApp.Message( MSG_ERROR, IDS_HANDSHAKE_TIMEOUT, (LPCTSTR)m_sAddress );
 		return FALSE;
 	}
 
-	// We still have time for the handshake
+	// Still have time for handshake
 	return TRUE;
 }
 
@@ -158,7 +151,7 @@ BOOL CHandshake::OnConnected()
 	// Call CConnection's OnConnected method first, even though it does nothing (do)
 	CConnection::OnConnected();
 
-	// copy Profile's GUID
+	// Copy Profile's GUID
 	Hashes::Guid oID( MyProfile.oGUID );
 
 	// Compose the GIV string, which is like "GIV index:guid/" with two newlines at the end (do)
@@ -183,12 +176,11 @@ BOOL CHandshake::OnConnected()
 // If we connected to the remote computer as part of a push, record that we couldn't connect to do the upload
 void CHandshake::OnDropped()
 {
-	// If we connected to the remote computer as part of a push
+	// If we connected to the remote computer as part of a push, record an upload connect error
 	if ( m_bPushing )
-	{
-		// Record a upload connect error
 		theApp.Message( MSG_ERROR, IDS_UPLOAD_CONNECT_ERROR, (LPCTSTR)m_sAddress );
-	}
+	else
+		theApp.Message( MSG_INFO, _T("Handshaking connection from %s port %i dropped unexpectedly."), (LPCTSTR)m_sAddress, htons( m_pHost.sin_port ) );
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -205,41 +197,41 @@ BOOL CHandshake::OnRead()
 	if ( GetInputLength() < 7 ) return TRUE; // Not enough information yet, leave now returning true
 
 	// Determine if the remote computer has sent an eDonkey2000 hello packet
-	if ( GetInputLength() >= 7							&& // 7 or more bytes have arrived
+	if ( GetInputLength() >= 7					&& // 7 or more bytes have arrived
 		 PeekAt( 0 ) == ED2K_PROTOCOL_EDONKEY	&& // The first byte is "e3", indicating eDonkey2000
 		 PeekAt( 5 ) == ED2K_C2C_HELLO			&& // 5 bytes in is "01", a hello for that network
 		 PeekAt( 6 ) == 0x10 )					   // And after that is "10"
 	{
 		// Have the EDClients object accept this CHandshake as a new eDonkey2000 computer
 		EDClients.OnAccept( this );
-		return FALSE; // Return false to indicate that we are done sorting the handshake
+		return FALSE;	// Done sorting the handshake
 	}
 
 	// See if the remote computer is speaking BitTorrent
-	if ( GetInputLength() >= BT_PROTOCOL_HEADER_LEN && // We have at least 20 bytes
-		 StartsWith( BT_PROTOCOL_HEADER, BT_PROTOCOL_HEADER_LEN ) ) // They are "\023BitTorrent protocol"
+	if ( GetInputLength() >= BT_PROTOCOL_HEADER_LEN &&	// We have at least 20 bytes
+		 StartsWith( BT_PROTOCOL_HEADER, BT_PROTOCOL_HEADER_LEN ) )	// They are "\023BitTorrent protocol"
 	{
 		// Have the BTClients object accept this CHandshake as a new BitTorrent computer
 		BTClients.OnAccept( this );
-		return FALSE; // Done sorting the handshake
+		return FALSE;	// Done sorting the handshake
 	}
 
 	// With eDonkey2000 and BitTorrent out of the way, now we can look for text-based handshakes
 
 	// Read the first header line
 	CString strLine;
-	if ( ! Read( strLine, TRUE ) ) // Read characters until \n, returning false if there is no \n
+	if ( ! Read( strLine, TRUE ) )	// Read characters until \n, returning false if there is no \n
 	{
 		// The remote computer hasn't sent a \n yet, if there are more than 2048 bytes in the first line, abort
-		return ( GetInputLength() < 2048 ) ? TRUE : FALSE; // Return false to signal we are done sorting the handshake
+		return ( GetInputLength() < 2048 ) ? TRUE : FALSE;	// Return false to signal we are done sorting the handshake
 	}
 
 	// The first line the remote computer sent was blank
 	if ( strLine.IsEmpty() )
 	{
 		// Eat blank lines, just read the next line into strLine and return true
-		Read( strLine ); // But strLine is never used? (do)
-		return TRUE; // Keep trying to sort the handshake
+		Read( strLine );	// But strLine is never used? (do)
+		return TRUE;		// Keep trying to sort the handshake
 	}
 
 	// Record this handshake line as an application message
@@ -288,8 +280,7 @@ BOOL CHandshake::OnRead()
 		theApp.Message( MSG_ERROR, IDS_HANDSHAKE_FAIL, (LPCTSTR)m_sAddress );
 	}
 
-	// Return false to indicate that we are done sorting the handshake
-	return FALSE;
+	return FALSE;		// Done sorting the handshake
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -297,7 +288,6 @@ BOOL CHandshake::OnRead()
 
 // When the first thing a remote computer says is a Gnutella2 "PUSH", this method gets called
 // Checks if a child window recognizes the guid
-// Returns true or false
 BOOL CHandshake::OnAcceptPush()
 {
 	// Make a string for the header line, and variables to hold the GUID in string and binary forms
@@ -334,6 +324,7 @@ BOOL CHandshake::OnAcceptPush()
 
 	// Record the fact that we got a push we knew nothing about, and return false to not accept it
 	theApp.Message( MSG_ERROR, IDS_DOWNLOAD_UNKNOWN_PUSH, (LPCTSTR)CString( inet_ntoa( m_pHost.sin_addr ) ), _T("Gnutella2") );
+
 	return FALSE;
 }
 
@@ -342,7 +333,6 @@ BOOL CHandshake::OnAcceptPush()
 
 // If the first thing the remote computer says to us is a Gnutella "GIV ", this method gets called
 // Checks if a child window recognizes the guid
-// Returns true or false
 BOOL CHandshake::OnAcceptGive()
 {
 	// Local variables for the searching and parsing
@@ -352,7 +342,7 @@ BOOL CHandshake::OnAcceptGive()
 	int nPos;								// The distance from the start of the string to a colon or slash we will look for
 
 	// The first line should be like "GIV 124:d51dff817f895598ff0065537c09d503/my%20song.mp3"
-	if ( ! Read( strLine ) ) return FALSE; // If the line isn't all there yet, return false to try again later
+	if ( ! Read( strLine ) ) return FALSE;	// If the line isn't all there yet, return false to try again later
 
 	// If there is a slash in the line
 	if ( ( nPos = strLine.Find( '/' ) ) > 0 ) // Find returns the 0-based index in the string, -1 if not found
@@ -401,6 +391,7 @@ BOOL CHandshake::OnAcceptGive()
 
 	// Log this unexpected push, and return false
 	theApp.Message( MSG_ERROR, IDS_DOWNLOAD_UNKNOWN_PUSH, (LPCTSTR)CString( inet_ntoa( m_pHost.sin_addr ) ) );
+
 	return FALSE;
 }
 
@@ -409,19 +400,18 @@ BOOL CHandshake::OnAcceptGive()
 
 // Takes the GUID of a remote computer which has sent us a Gnutella2-style PUSH handshake
 // Sees if any child windows recognize the GUID
-// Returns true or false
 BOOL CHandshake::OnPush(const Hashes::Guid& oGUID)
 {
 	// Make sure the socket is valid
 	if ( ! IsValid() ) return FALSE;
 
-	// Look for the remote computer's GUID in our list of downloads and the chat interface
-	if ( Downloads.OnPush( oGUID, this ) ) return TRUE; // Return true if it's found
+	// Look for the remote computer's GUID in our list of downloads and the chat interface, True if found
+	if ( Downloads.OnPush( oGUID, this ) ) return TRUE;
 	if ( ChatCore.OnPush( oGUID, this ) ) return TRUE;
 
 	// Make sure this is the only thread doing this right now
 	CSingleLock pWindowLock( &theApp.m_pSection );
-	if ( pWindowLock.Lock( 250 ) ) // Don't wait here for more than a quarter second, Lock will return false and so will OnPush
+	if ( pWindowLock.Lock( 250 ) )	// Don't wait here for more than a quarter second, Lock will return false and so will OnPush
 	{
 		// Access granted, get a pointer to the windowing system
 		if ( CMainWnd* pMainWnd = theApp.SafeMainWnd() )

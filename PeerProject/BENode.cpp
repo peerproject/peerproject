@@ -28,15 +28,13 @@ static char THIS_FILE[]=__FILE__;
 
 static bool Decode(UINT nCodePage, LPCSTR szFrom, CString& strTo)
 {
-	int nLength = MultiByteToWideChar( nCodePage, MB_ERR_INVALID_CHARS, szFrom, -1, NULL, 0 );
-	if ( nLength > 0 )
-	{
-		MultiByteToWideChar( nCodePage, 0, szFrom, -1,
-			strTo.GetBuffer( nLength ), nLength );
-		strTo.ReleaseBuffer();
-		return true;
-	}
-	return false;
+	const int nLength = MultiByteToWideChar( nCodePage, MB_ERR_INVALID_CHARS, szFrom, -1, NULL, 0 );
+	if ( nLength < 1 ) return false;
+
+	MultiByteToWideChar( nCodePage, 0, szFrom, -1, strTo.GetBuffer( nLength ), nLength );
+	strTo.ReleaseBuffer();
+
+	return true;
 }
 
 UINT CBENode::m_nDefaultCP = CP_ACP;
@@ -72,7 +70,8 @@ void CBENode::Clear()
 		else if ( m_nType == beList )
 		{
 			CBENode** pNode = (CBENode**)m_pValue;
-			for ( ; m_nValue-- ; pNode++ ) delete *pNode;
+			for ( ; m_nValue-- ; pNode++ )
+				delete *pNode;
 			delete [] (CBENode**)m_pValue;
 		}
 		else if ( m_nType == beDict )
@@ -328,13 +327,13 @@ const CString CBENode::Encode() const
 	switch ( m_nType )
 	{
 	case beNull:
-		sOutput += _T("(null)");
+		sOutput = _T("(null)");
 		break;
 	case beString:
 		{
-			sOutput += _T('\"');
-			QWORD nLen = min( m_nValue, 100ull );
-			for ( QWORD n = 0; n < nLen; n++ )
+			sOutput = _T('\"');
+			const QWORD nLen = min( m_nValue, 100ull );
+			for ( QWORD n = 0 ; n < nLen ; n++ )
 			{
 				sOutput += ( ( ( (LPSTR)m_pValue )[ n ] < ' ' ) ?
 					'.' : ( (LPSTR)m_pValue )[ n ] );
@@ -346,13 +345,13 @@ const CString CBENode::Encode() const
 		break;
 	case beInt:
 		sTmp.Format( _T("%I64i"), m_nValue );
-		sOutput += sTmp;
+		sOutput = sTmp;
 		break;
 	case beList:
-		sOutput += _T("{ ");
+		sOutput = _T("{ ");
 		{
 			CBENode** pNode = (CBENode**)m_pValue;
-			for (QWORD n = 0 ; n < m_nValue ; n++, pNode++ )
+			for ( QWORD n = 0 ; n < m_nValue ; n++, pNode++ )
 			{
 				if ( n )
 					sOutput += _T(", ");
@@ -362,14 +361,14 @@ const CString CBENode::Encode() const
 		sOutput += _T(" }");
 		break;
 	case beDict:
-		sOutput += _T("{ ");
+		sOutput = _T("{ ");
 		{
 			CBENode** pNode = (CBENode**)m_pValue;
-			for (QWORD n = 0 ; n < m_nValue ; n++, pNode += 2 )
+			for ( QWORD n = 0 ; n < m_nValue ; n++, pNode += 2 )
 			{
 				if ( n )
 					sOutput += _T(", ");
-				sTmp.Format( _T("\"%s\" = "), CString( (LPCSTR)pNode[ 1 ] ) );
+				sTmp.Format( _T("\"%s\" = "), (LPCSTR)pNode[ 1 ] );
 				sOutput += sTmp;
 				sOutput += (*pNode)->Encode();
 			}
@@ -377,6 +376,7 @@ const CString CBENode::Encode() const
 		sOutput += _T(" }");
 		break;
 	}
+
 	return sOutput;
 }
 
@@ -447,10 +447,10 @@ void CBENode::Decode(LPCBYTE& pInput, DWORD& nInput, DWORD nSize)
 
 		if ( nSeek >= 40 ) AfxThrowUserException();
 
-		char szFormat[ 8 ];
-		sprintf_s( szFormat, "%%%uI64u", nSeek );
-		if ( sscanf_s( (LPCSTR)pInput, szFormat, &m_nValue ) != 1 )
+		__int64 nValue = atoin( (LPCSTR)pInput, nSeek );
+		if ( nValue == -1 )
 			AfxThrowUserException();
+		m_nValue = (QWORD)nValue;
 
 		INC( nSeek + 1 );
 		m_nType = beInt;
@@ -522,18 +522,15 @@ int CBENode::DecodeLen(LPCBYTE& pInput, DWORD& nInput)
 
 	if ( nSeek >= 32 )
 		AfxThrowUserException();
-	int nLen = 0;
-
-	char szFormat[ 8 ];
-	sprintf_s( szFormat, "%%%ui", nSeek );
-	if ( sscanf_s( (LPCSTR)pInput, szFormat, &nLen ) != 1 )
+	__int64 nLen = atoin( (LPCSTR)pInput, nSeek );
+	if ( nLen == -1 )
 		AfxThrowUserException();
 	INC( nSeek + 1 );
 
 	if ( nInput < (DWORD)nLen )
 		AfxThrowUserException();
 
-	return nLen;
+	return (int)nLen;
 }
 
 CString CBENode::GetString() const

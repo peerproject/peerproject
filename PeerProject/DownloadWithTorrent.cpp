@@ -87,10 +87,10 @@ CDownloadWithTorrent::~CDownloadWithTorrent()
 		CSingleLock oLock( &m_pRequestsSection, TRUE );
 
 		// Wait infinite
-		while( ! m_pRequests.IsEmpty() )
+		while ( ! m_pRequests.IsEmpty() )
 		{
 			// Wait 5 seconds
-			for( DWORD i = 0; ! m_pRequests.IsEmpty() && i < 50; ++i )
+			for ( DWORD i = 0 ; ! m_pRequests.IsEmpty() && i < 50 ; ++i )
 			{
 				oLock.Unlock();
 				Sleep( 100 );
@@ -98,7 +98,7 @@ CDownloadWithTorrent::~CDownloadWithTorrent()
 			}
 
 			// Cancel all pending requests
-			for ( POSITION pos = m_pRequests.GetHeadPosition(); pos; )
+			for ( POSITION pos = m_pRequests.GetHeadPosition() ; pos ; )
 			{
 				CBTTrackerRequest* pRequest = m_pRequests.GetNext( pos );
 				pRequest->Cancel();
@@ -269,7 +269,7 @@ void CDownloadWithTorrent::Serialize(CArchive& ar, int nVersion)
 		//		if ( ! pBuffer.get() ) AfxThrowMemoryException();
 		//		// Optimize this by reading only available data
 		//		QWORD nTotal = 0ull;
-		//		for ( QWORD nLength = m_pTorrent.m_nSize; nLength; )
+		//		for ( QWORD nLength = m_pTorrent.m_nSize ; nLength ; )
 		//		{
 		//			DWORD nBuffer = (DWORD)min( nLength, BUFFER_SIZE );
 		//			DWORD nRead = oSource.Read( pBuffer.get(), nBuffer );
@@ -662,7 +662,7 @@ CDownloadTransferBT* CDownloadWithTorrent::CreateTorrentTransfer(CBTClient* pCli
 	CDownloadSource* pSource = NULL;
 
 	Hashes::Guid tmp = transformGuid( pClient->m_oGUID );
-	for ( POSITION posSource = GetIterator(); posSource ; )
+	for ( POSITION posSource = GetIterator() ; posSource ; )
 	{
 		pSource = GetNext( posSource );
 
@@ -852,8 +852,8 @@ void CDownloadWithTorrent::ChokeTorrent(DWORD tNow)
 		CDownloadTransferBT* pBest = NULL;
 		DWORD nBest = 0;
 
-		for ( CDownloadTransferBT* pTransfer = (CDownloadTransferBT*)GetFirstTransfer()
-				; pTransfer ; pTransfer = (CDownloadTransferBT*)pTransfer->m_pDlNext )
+		for ( CDownloadTransferBT* pTransfer = (CDownloadTransferBT*)GetFirstTransfer() ;
+				pTransfer ; pTransfer = (CDownloadTransferBT*)pTransfer->m_pDlNext )
 		{
 			if (	pTransfer->m_nProtocol == PROTOCOL_BT &&
 					pSelected.Find( pTransfer->m_pClient ) == NULL &&

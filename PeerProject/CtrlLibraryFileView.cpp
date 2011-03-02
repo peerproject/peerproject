@@ -277,7 +277,7 @@ void CLibraryFileView::OnLibraryLaunch()
 		}
 	}
 
-	for ( POSITION pos = oFileList.GetStartPosition(); pos; )
+	for ( POSITION pos = oFileList.GetStartPosition() ; pos ; )
 	{
 		CString strPath;
 		bool bSecurity;
@@ -460,7 +460,7 @@ void CLibraryFileView::OnUpdateLibraryDelete(CCmdUI* pCmdUI)
 
 void CLibraryFileView::OnLibraryDelete()
 {
-	CSingleLock pTransfersLock( &Transfers.m_pSection, TRUE ); // Can clear uploads and downloads
+	CSingleLock pTransfersLock( &Transfers.m_pSection, TRUE );	// Can clear uploads and downloads
 	CSingleLock pLibraryLock( &Library.m_pSection, TRUE );
 	CLibraryList pList;
 
@@ -475,7 +475,7 @@ void CLibraryFileView::OnLibraryDelete()
 		CLibraryFile* pFile = Library.LookupFile( pList.GetHead(), FALSE, ! m_bGhostFolder );
 		if ( pFile == NULL )
 		{
-			pList.RemoveHead(); // Remove item from list to avoid endless loop
+			pList.RemoveHead();	// Remove item from list to avoid endless loop
 			continue;
 		}
 
@@ -667,7 +667,7 @@ void CLibraryFileView::OnLibraryProperties()
 	//{
 	//	// Convert path string list to PIDL list
 	//	auto_array< PIDLIST_ABSOLUTE > pShellFileAbs( new PIDLIST_ABSOLUTE [ oFiles.GetCount() ] );
-	//	for ( int i = 0; i < oFiles.GetCount(); ++i )
+	//	for ( int i = 0 ; i < oFiles.GetCount() ; ++i )
 	//	  pShellFileAbs[ i ] = ILCreateFromPath( oFiles.GetHead() );
 	//
 	//	PIDLIST_ABSOLUTE pShellParent = ILCloneFull( pShellFileAbs[ 0 ] );
@@ -675,7 +675,7 @@ void CLibraryFileView::OnLibraryProperties()
 	//
 	//	auto_array< LPCITEMIDLIST > pShellFiles( new LPCITEMIDLIST [ oFiles.GetCount() ] );
 	//	POSITION pos = oFiles.GetHeadPosition();
-	//	for ( int i = 0; i < oFiles.GetCount(); ++i )
+	//	for ( int i = 0 ; i < oFiles.GetCount() ; ++i )
 	//		pShellFiles[ i ] = ILFindChild( pShellParent, pShellFileAbs[ i ] );
 	//
 	//	hr = CIDLData_CreateFromIDArray( pShellParent, oFiles.GetCount(),
@@ -683,7 +683,7 @@ void CLibraryFileView::OnLibraryProperties()
 	//
 	//	ILFree( pShellParent );
 	//
-	//	for ( int i = 0; i < oFiles.GetCount(); ++i )
+	//	for ( int i = 0 ; i < oFiles.GetCount() ; ++i )
 	//		ILFree( (LPITEMIDLIST)pShellFileAbs[ i ] );
 	//}
 	//if ( SUCCEEDED( hr ) )
@@ -1008,49 +1008,78 @@ void CLibraryFileView::OnUpdateMusicBrainzMatches(CCmdUI* pCmdUI)
 {
 	CSingleLock pLock( &Library.m_pSection, TRUE );
 
-	CLibraryFile* pFile = GetSelectedFile();
-
-	ASSERT( pFile->m_pMetadata != NULL );
-
-	CXMLAttribute* pAttribute = pFile->m_pMetadata->GetAttribute( L"mbpuid" );
-	pCmdUI->Enable( pAttribute != NULL && ! pAttribute->GetValue().IsEmpty() );
+	if ( CLibraryFile* pFile = GetSelectedFile() )
+	{
+		if ( pFile->m_pMetadata )
+		{
+			if ( CXMLAttribute* pAttribute = pFile->m_pMetadata->GetAttribute( L"mbpuid" ) )
+			{
+				pCmdUI->Enable( pAttribute != NULL && ! pAttribute->GetValue().IsEmpty() );
+				return;
+			}
+		}
+	}
+	pCmdUI->Enable( FALSE );
 }
 
 void CLibraryFileView::OnMusicBrainzMatches()
 {
 	CSingleLock pLock( &Library.m_pSection, TRUE );
 
-	CLibraryFile* pFile = GetSelectedFile();
-	ASSERT( pFile->m_pMetadata != NULL );
-
-	CXMLAttribute* pAttribute = pFile->m_pMetadata->GetAttribute( L"mbpuid" );
-	CString strURL = L"http://musicbrainz.org/show/puid/?matchesonly=0&amp;puid=" + pAttribute->GetValue();
-
-	ShellExecute( GetSafeHwnd(), _T("open"), strURL, NULL, NULL, SW_SHOWNORMAL );
+	if ( CLibraryFile* pFile = GetSelectedFile() )
+	{
+		if ( pFile->m_pMetadata )
+		{
+			if ( CXMLAttribute* pAttribute = pFile->m_pMetadata->GetAttribute( L"mbpuid" ) )
+			{
+				CString mbpuid = pAttribute->GetValue();
+				if ( ! mbpuid.IsEmpty() )
+				{
+					CString strURL = L"http://musicbrainz.org/show/puid/?matchesonly=0&amp;puid=" + mbpuid;
+					ShellExecute( GetSafeHwnd(), _T("open"), strURL, NULL, NULL, SW_SHOWNORMAL );
+				}
+			}
+		}
+	}
 }
 
 void CLibraryFileView::OnUpdateMusicBrainzAlbums(CCmdUI* pCmdUI)
 {
 	CSingleLock pLock( &Library.m_pSection, TRUE );
-	CLibraryFile* pFile = GetSelectedFile();
 
-	ASSERT( pFile->m_pMetadata != NULL );
-
-	CXMLAttribute* pAttribute = pFile->m_pMetadata->GetAttribute( L"mbartistid" );
-	pCmdUI->Enable( pAttribute != NULL && ! pAttribute->GetValue().IsEmpty() );
+	if ( CLibraryFile* pFile = GetSelectedFile() )
+	{
+		if ( pFile->m_pMetadata )
+		{
+			if ( CXMLAttribute* pAttribute = pFile->m_pMetadata->GetAttribute( L"mbartistid" ) )
+			{
+				pCmdUI->Enable( pAttribute != NULL && ! pAttribute->GetValue().IsEmpty() );
+				return;
+			}
+		}
+	}
+	pCmdUI->Enable( FALSE );
 }
 
 void CLibraryFileView::OnMusicBrainzAlbums()
 {
 	CSingleLock pLock( &Library.m_pSection, TRUE );
 
-	CLibraryFile* pFile = GetSelectedFile();
-	ASSERT( pFile->m_pMetadata != NULL );
-
-	CXMLAttribute* pAttribute = pFile->m_pMetadata->GetAttribute( L"mbartistid" );
-	CString strURL = L"http://musicbrainz.org/artist/" + pAttribute->GetValue();
-
-	ShellExecute( GetSafeHwnd(), _T("open"), strURL, NULL, NULL, SW_SHOWNORMAL );
+	if ( CLibraryFile* pFile = GetSelectedFile() )
+	{
+		if ( pFile->m_pMetadata )
+		{
+			if ( CXMLAttribute* pAttribute = pFile->m_pMetadata->GetAttribute( L"mbartistid" ) )
+			{
+				CString mbartistid = pAttribute->GetValue();
+				if ( ! mbartistid.IsEmpty() )
+				{
+					CString strURL = L"http://musicbrainz.org/artist/" + mbartistid;
+					ShellExecute( GetSafeHwnd(), _T("open"), strURL, NULL, NULL, SW_SHOWNORMAL );
+				}
+			}
+		}
+	}
 }
 
 /////////////////////////////////////////////////////////////////////

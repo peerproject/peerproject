@@ -1,7 +1,7 @@
 //
 // AlbumFolder.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -60,7 +60,7 @@ CAlbumFolder::CAlbumFolder(CAlbumFolder* pParent, LPCTSTR pszSchemaURI, LPCTSTR 
 	{
 		if ( m_pSchema != NULL )
 		{
-			int nColon = m_pSchema->m_sTitle.Find( ':' );
+			const int nColon = m_pSchema->m_sTitle.Find( ':' );
 			if ( nColon >= 0 )
 				m_sName = m_pSchema->m_sTitle.Mid( nColon + 1 ).Trim();
 		}
@@ -881,7 +881,7 @@ BOOL CAlbumFolder::OrganiseFile(CLibraryFile* pFile)
 			size_t nCount = RegExp::Split( _T("(.*)(\\bse?a?s?o?n?)\\s*([0-9]+)\\s*(ep?i?s?o?d?e?)\\s*([0-9]+)[^0-9]+.*"),
 				sFileName, &szResults );
 			LPCTSTR p = szResults;
-			for ( size_t i = 0; i < nCount; ++i )
+			for ( size_t i = 0 ; i < nCount ; ++i )
 			{
 				results.push_back( p );
 				p += lstrlen( p ) + 1;
@@ -913,8 +913,8 @@ BOOL CAlbumFolder::OrganiseFile(CLibraryFile* pFile)
 			{
 				nCount = RegExp::Split( _T("(.*[^0-9]+\\b)([0-9]+)\\s*[xX]\\s*([0-9]+)[^0-9]+.*"),
 					sFileName, &szResults );
-				LPCTSTR p = szResults;
-				for ( size_t i = 0; i < nCount; ++i )
+				p = szResults;
+				for ( size_t i = 0 ; i < nCount ; ++i )
 				{
 					results.push_back( p );
 					p += lstrlen( p ) + 1;
@@ -1104,8 +1104,6 @@ BOOL CAlbumFolder::OrganiseFile(CLibraryFile* pFile)
 
 void CAlbumFolder::Serialize(CArchive& ar, int nVersion)
 {
-	POSITION pos;
-
 	if ( ar.IsStoring() )
 	{
 		ar << m_sSchemaURI;
@@ -1123,7 +1121,7 @@ void CAlbumFolder::Serialize(CArchive& ar, int nVersion)
 
 		ar.WriteCount( GetFolderCount() );
 
-		for ( pos = GetFolderIterator() ; pos ; )
+		for ( POSITION pos = GetFolderIterator() ; pos ; )
 		{
 			CAlbumFolder* pFolder = GetNextFolder( pos );
 			pFolder->Serialize( ar, nVersion );
@@ -1131,7 +1129,7 @@ void CAlbumFolder::Serialize(CArchive& ar, int nVersion)
 
 		ar.WriteCount( GetFileCount() );
 
-		for ( pos = GetFileIterator() ; pos ; )
+		for ( POSITION pos = GetFileIterator() ; pos ; )
 		{
 			CLibraryFile* pFile = GetNextFile( pos );
 			ar << pFile->m_nIndex;
@@ -1159,28 +1157,25 @@ void CAlbumFolder::Serialize(CArchive& ar, int nVersion)
 			m_pXML->Serialize( ar );
 		}
 
-		//if ( nVersion > 19 )
-		//{
-			SerializeIn( ar, m_oCollSHA1, nVersion );
-			pCollection = LibraryMaps.LookupFileBySHA1( m_oCollSHA1, FALSE, TRUE );
-			// ToDo: Needs better validation.
-			// Some collections are bound to URIs that assign the whole library as one big collection.
-			if ( pCollection == NULL || m_pSchema &&
-					( m_pSchema->CheckURI( CSchema::uriAllFiles ) ||
-					  m_pSchema->CheckURI( CSchema::uriGhostFolder ) ||
-					  m_pSchema->CheckURI( CSchema::uriApplicationRoot ) ||
-					  m_pSchema->CheckURI( CSchema::uriArchiveRoot ) ||
-					  m_pSchema->CheckURI( CSchema::uriBookRoot ) ||
-					  m_pSchema->CheckURI( CSchema::uriDocumentRoot ) ||
-					  m_pSchema->CheckURI( CSchema::uriImageRoot ) ||
-					  m_pSchema->CheckURI( CSchema::uriMusicRoot ) ||
-					  m_pSchema->CheckURI( CSchema::uriVideoRoot ) ||
-					  m_pSchema->CheckURI( CSchema::uriLibrary )
-					) )
-				m_oCollSHA1.clear();
-		//}
+		SerializeIn( ar, m_oCollSHA1, nVersion );
+		pCollection = LibraryMaps.LookupFileBySHA1( m_oCollSHA1, FALSE, TRUE );
+		// ToDo: Needs better validation.
+		// Some collections are bound to URIs that assign the whole library as one big collection.
+		if ( pCollection == NULL || m_pSchema &&
+				( m_pSchema->CheckURI( CSchema::uriAllFiles ) ||
+				  m_pSchema->CheckURI( CSchema::uriGhostFolder ) ||
+				  m_pSchema->CheckURI( CSchema::uriApplicationRoot ) ||
+				  m_pSchema->CheckURI( CSchema::uriArchiveRoot ) ||
+				  m_pSchema->CheckURI( CSchema::uriBookRoot ) ||
+				  m_pSchema->CheckURI( CSchema::uriDocumentRoot ) ||
+				  m_pSchema->CheckURI( CSchema::uriImageRoot ) ||
+				  m_pSchema->CheckURI( CSchema::uriMusicRoot ) ||
+				  m_pSchema->CheckURI( CSchema::uriVideoRoot ) ||
+				  m_pSchema->CheckURI( CSchema::uriLibrary )
+				) )
+			m_oCollSHA1.clear();
 
-		//if ( nVersion >= 24 )
+		//if ( nVersion > 24 )
 			SerializeIn( ar, m_oGUID, nVersion );
 
 		ar >> m_sName;

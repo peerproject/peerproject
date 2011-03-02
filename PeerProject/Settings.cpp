@@ -149,7 +149,7 @@ void CSettings::Load()
 	Add( _T("Fonts"), _T("DefaultFont"), &Fonts.DefaultFont, theApp.m_bIsVistaOrNewer ? _T("Segoe UI") : _T("Tahoma") );
 	Add( _T("Fonts"), _T("SystemLogFont"), &Fonts.SystemLogFont, theApp.m_bIsVistaOrNewer ? _T("Segoe UI") : _T("Tahoma") );
 	Add( _T("Fonts"), _T("PacketDumpFont"), &Fonts.PacketDumpFont, _T("Lucida Console") );
-	Add( _T("Fonts"), _T("FontSize"), &Fonts.FontSize, 11 );
+	Add( _T("Fonts"), _T("FontSize"), &Fonts.FontSize, 11, 1, 10, 12, _T(" pt") );
 
 	Add( _T("Library"), _T("CreateGhosts"), &Library.CreateGhosts, true );
 	Add( _T("Library"), _T("FilterURI"), &Library.FilterURI );
@@ -160,11 +160,13 @@ void CSettings::Load()
 	Add( _T("Library"), _T("HistoryTotal"), &Library.HistoryTotal, 36, 1, 0, 120, _T(" files") );
 	Add( _T("Library"), _T("LastUsedView"), &Library.LastUsedView );
 	Add( _T("Library"), _T("LowPriorityHashing"), &Library.LowPriorityHashing, 4, 1, 1, 50, _T(" MB/s") );
-	Add( _T("Library"), _T("MarkFileAsDownload"), &Library.MarkFileAsDownload, true );
-	Add( _T("Library"), _T("MaxMaliciousFileSize"), &Library.MaxMaliciousFileSize, KiloByte, 1, KiloByte, 10*KiloByte, _T(" B") );
 	Add( _T("Library"), _T("QueryRouteSize"), &Library.QueryRouteSize, 20, 1, 8, 24 );
+	Add( _T("Library"), _T("MarkFileAsDownload"), &Library.MarkFileAsDownload, true );
+	Add( _T("Library"), _T("MaliciousFileCount"), &Library.MaliciousFileCount, 5, 1, 2, 50, _T(" files") );
+	Add( _T("Library"), _T("MaliciousFileSize"), &Library.MaliciousFileSize, 2*MegaByte, KiloByte, KiloByte, 10*MegaByte, _T(" KB") );
+	Add( _T("Library"), _T("MaliciousFileTypes"), &Library.MaliciousFileTypes, _T("|exe|com|bat|vbs|scr|zip|rar|ace|7z|cab|lzh|tar|tgz|bz2|wmv|") );
 	Add( _T("Library"), _T("PanelSize"), &Library.PanelSize, 120, 1, 0, 1024, _T(" px") );
-	Add( _T("Library"), _T("PrivateTypes"), &Library.PrivateTypes, _T("|vbs|js|jc!|fb!|bc!|!ut|dbx|part|partial|pst|reget|getright|pif|lnk|sd|url|wab|m4p|infodb|racestats|svn|chk|tmp|temp|ini|inf|log|old|manifest|met|bak|$$$|---|~~~|###|__incomplete___|") );
+	Add( _T("Library"), _T("PrivateTypes"), &Library.PrivateTypes, _T("|vbs|js|jc!|fb!|bc!|!ut|db3|dbx|part|partial|pst|reget|getright|pif|lnk|url|pd|sd|wab|m4p|infodb|racestats|svn|chk|tmp|temp|ini|inf|log|old|manifest|met|bak|$$$|---|~~~|###|__incomplete___|") );
 	Add( _T("Library"), _T("SafeExecute"), &Library.SafeExecute, _T("|3gp|7z|aac|ace|ape|asf|avi|bmp|cbr|cbz|co|collection|divx|flv|gif|iso|jpg|jpeg|lit|mid|mov|m1v|m2v|m3u|m4a|mka|mkv|mp2|mp3|mp4|mpa|mpe|mpg|mpeg|ogg|ogm|pdf|png|psk|qt|rar|rm|sks|swf|rtf|tar|tgz|torrent|txt|wav|zip|") );
 	Add( _T("Library"), _T("ScanAPE"), &Library.ScanAPE, true );
 	Add( _T("Library"), _T("ScanASF"), &Library.ScanASF, true );
@@ -173,7 +175,6 @@ void CSettings::Load()
 	Add( _T("Library"), _T("ScanEXE"), &Library.ScanEXE, true );
 	Add( _T("Library"), _T("ScanImage"), &Library.ScanImage, true );
 	Add( _T("Library"), _T("ScanMP3"), &Library.ScanMP3, true );
-	Add( _T("Library"), _T("ScanMPC"), &Library.ScanMPC, true );
 	Add( _T("Library"), _T("ScanMPEG"), &Library.ScanMPEG, true );
 	Add( _T("Library"), _T("ScanMSI"), &Library.ScanMSI, true );
 	Add( _T("Library"), _T("ScanOGG"), &Library.ScanOGG, true );
@@ -235,7 +236,7 @@ void CSettings::Load()
 	Add( _T("MediaPlayer"), _T("AviPreviewCLSID"), &MediaPlayer.AviPreviewCLSID, _T("{394011F0-6D5C-42a3-96C6-24B9AD6B010C}") );
 	Add( _T("MediaPlayer"), _T("EnableEnqueue"), &MediaPlayer.EnableEnqueue, true );
 	Add( _T("MediaPlayer"), _T("EnablePlay"), &MediaPlayer.EnablePlay, true );
-	Add( _T("MediaPlayer"), _T("FileTypes"), &MediaPlayer.FileTypes, _T("|aac|asx|wax|m3u|wvx|wmx|asf|wav|snd|au|aif|aifc|aiff|flac|mp3|wma|cda|mid|rmi|midi|avi|flv|mkv|mpeg|mpg|m1v|mp2|mp4|mpa|mpe|ogm|wmv|") );
+	Add( _T("MediaPlayer"), _T("FileTypes"), &MediaPlayer.FileTypes, _T("|aac|asx|wax|m3u|wvx|wmx|asf|wav|snd|au|aif|aifc|aiff|flac|mp3|ogg|wma|cda|mid|rmi|midi|avi|flv|mkv|mpeg|mpg|m1v|mp2|mp4|mpa|mpe|ogm|wmv|") );
 	Add( _T("MediaPlayer"), _T("ListSize"), &MediaPlayer.ListSize, 200 );
 	Add( _T("MediaPlayer"), _T("ListVisible"), &MediaPlayer.ListVisible, true );
 	Add( _T("MediaPlayer"), _T("MediaServicesCLSID"), &MediaPlayer.MediaServicesCLSID, _T("{CCE7B109-15D6-4223-B6FF-0C6C851B6680}") );
@@ -775,7 +776,7 @@ void CSettings::SetDefault(LPVOID pSetting)
 
 void CSettings::SmartUpgrade()
 {
-	//This function resets certain values when upgrading, obsolete depending on version.
+	// This function resets certain values when upgrading, obsolete depending on version.
 
 	// Set next update check
 //	if ( General.SmartVersion < SMART_VERSION )
@@ -787,18 +788,17 @@ void CSettings::SmartUpgrade()
 //	}
 
 	// Add OGG handling if needed
-	if ( ( General.SmartVersion < SMART_VERSION || Live.FirstRun ) &&
-		! IsIn( MediaPlayer.FileTypes, _T("ogg") ) )
-	{
-		LONG nReg = 0;
-
-		if ( RegQueryValue( HKEY_CLASSES_ROOT,
-			_T("CLSID\\{02391F44-2767-4E6A-A484-9B47B506F3A4}"), NULL, &nReg )
-			== ERROR_SUCCESS && nReg > 0 )
-		{
-			MediaPlayer.FileTypes.insert( _T("ogg") );
-		}
-	}
+//	if ( Live.FirstRun && ! IsIn( MediaPlayer.FileTypes, _T("ogg") ) )
+//	{
+//		LONG nReg = 0;
+//
+//		if ( RegQueryValue( HKEY_CLASSES_ROOT,
+//			_T("CLSID\\{02391F44-2767-4E6A-A484-9B47B506F3A4}"), NULL, &nReg )
+//			== ERROR_SUCCESS && nReg > 0 )
+//		{
+//			MediaPlayer.FileTypes.insert( _T("ogg") );
+//		}
+//	}
 
 	if ( General.SmartVersion > SMART_VERSION )
 		General.SmartVersion = SMART_VERSION;
@@ -824,7 +824,7 @@ void CSettings::SmartUpgrade()
 	//		// Remove dots
 	//		string_set tmp;
 	//		for ( string_set::const_iterator i = Library.SafeExecute.begin() ;
-	//			i != Library.SafeExecute.end(); i++ )
+	//			i != Library.SafeExecute.end() ; i++ )
 	//		{
 	//			tmp.insert( ( (*i).GetAt( 0 ) == _T('.') ) ? (*i).Mid( 1 ) : (*i) );
 	//		}
@@ -1652,7 +1652,7 @@ void CSettings::Item::Save() const
 void CSettings::LoadSet(string_set* pSet, LPCTSTR pszString)
 {
 	pSet->clear();
-	for( LPCTSTR start = pszString; start && *start; start++ )
+	for ( LPCTSTR start = pszString ; start && *start ; start++ )
 	{
 		LPCTSTR c = _tcschr( start, _T('|') );
 		int len = c ? (int) ( c - start ) : (int) _tcslen( start );
@@ -1674,7 +1674,7 @@ CString CSettings::SaveSet(const string_set* pSet)
 		return CString();
 
 	CString tmp( _T("|") );
-	for( string_set::const_iterator i = pSet->begin(); i != pSet->end(); i++ )
+	for ( string_set::const_iterator i = pSet->begin() ; i != pSet->end() ; i++ )
 	{
 		tmp += *i;
 		tmp += _T('|');

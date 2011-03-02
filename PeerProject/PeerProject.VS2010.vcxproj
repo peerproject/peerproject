@@ -485,6 +485,7 @@
     <ClCompile Include="Skin.cpp" />
     <ClCompile Include="SkinWindow.cpp" />
     <ClCompile Include="SQLite.cpp" />
+    <ClCompile Include="Strings.cpp" />
     <ClCompile Include="Statistics.cpp" />
     <ClCompile Include="StdAfx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -1414,6 +1415,7 @@
     <ClInclude Include="Skin.h" />
     <ClInclude Include="SkinWindow.h" />
     <ClInclude Include="SQLite.h" />
+    <ClInclude Include="Strings.h" />
     <ClInclude Include="Statistics.h" />
     <ClInclude Include="StdAfx.h" />
     <ClInclude Include="StreamArchive.h" />

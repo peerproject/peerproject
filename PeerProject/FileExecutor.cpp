@@ -166,7 +166,7 @@ int CFileExecutor::FillServices(CString strServicePaths[])
 	int nCount = 0;
 	int nSelected = 3;
 
-	for( string_set::const_reverse_iterator i = Settings.MediaPlayer.ServicePath.rbegin() ; i != Settings.MediaPlayer.ServicePath.rend() ; ++i )
+	for ( string_set::const_reverse_iterator i = Settings.MediaPlayer.ServicePath.rbegin() ; i != Settings.MediaPlayer.ServicePath.rend() ; ++i )
 	{
 		strServicePaths[nCount] = *i;
 
@@ -397,7 +397,7 @@ BOOL CFileExecutor::Enqueue(LPCTSTR pszFile, BOOL /*bSkipSecurityCheck*/, LPCTST
 
 		// Try to create "enqueue" verb from default verb for known players
 		CString strExecutable = PathFindFileName( strServicePaths[nSelServiceIndex] );
-		for ( int i = 0; KnownPlayers[ i ].szPlayer; ++i )
+		for ( int i = 0 ; KnownPlayers[ i ].szPlayer ; ++i )
 		{
 			if ( strExecutable.CompareNoCase( KnownPlayers[ i ].szPlayer ) == 0 )
 			{
@@ -434,7 +434,7 @@ BOOL CFileExecutor::Enqueue(LPCTSTR pszFile, BOOL /*bSkipSecurityCheck*/, LPCTST
 	if ( hr == S_OK )
 	{
 		CString strParam, strExecutable = PathFindFileName( strCommand );
-		for ( int i = 0; KnownPlayers[ i ].szPlayer; ++i )
+		for ( int i = 0 ; KnownPlayers[ i ].szPlayer ; ++i )
 		{
 			if ( strExecutable.CompareNoCase( KnownPlayers[ i ].szPlayer ) == 0 )
 			{

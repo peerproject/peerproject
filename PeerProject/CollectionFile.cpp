@@ -1,7 +1,7 @@
 //
 // ColletionFile.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -266,7 +266,7 @@ BOOL CCollectionFile::LoadEMule(LPCTSTR pszFile)
 			if ( pFile.Read( &nCount, sizeof( nCount ) ) == sizeof( nCount ) &&
 				nCount > 0 && nCount < 10 )
 			{
-				for ( DWORD i = 0; i < nCount; ++i )
+				for ( DWORD i = 0 ; i < nCount ; ++i )
 				{
 					CEDTag pTag;
 					if ( ! pTag.Read( &pFile ) )
@@ -285,7 +285,7 @@ BOOL CCollectionFile::LoadEMule(LPCTSTR pszFile)
 			if ( pFile.Read( &nFileCount, sizeof( nFileCount ) ) == sizeof( nFileCount ) &&
 				nFileCount > 0 && nFileCount < 20000 )
 			{
-				for ( DWORD i = 0; i < nFileCount; ++i )
+				for ( DWORD i = 0 ; i < nFileCount ; ++i )
 				{
 					auto_ptr< File > pCollectionFile( new File( this ) );
 					if ( pCollectionFile.get() && pCollectionFile->Parse( pFile ) )
@@ -472,11 +472,11 @@ void CCollectionFile::Render(CString& strBuffer) const
 		_T(".size { width: 100px; text-align: center; }\n")
 		_T("</style>\n</head>\n<body>\n<h1>%s</h1>\n<table>\n"),
 		(LPCTSTR)GetTitle(),
-		Settings.Fonts.DefaultFont, Settings.Fonts.FontSize,
+		(LPCTSTR)Settings.Fonts.DefaultFont, Settings.Fonts.FontSize,
 		(LPCTSTR)GetTitle() );
 
 	DWORD i = 1;
-	for ( POSITION pos = GetFileIterator(); pos; )
+	for ( POSITION pos = GetFileIterator() ; pos ; )
 	{
 		CCollectionFile::File* pFile = GetNextFile( pos );
 
@@ -497,7 +497,7 @@ void CCollectionFile::Render(CString& strBuffer) const
 			_T("<td class=\"url\" onclick=\"if ( ! window.external.open('%s') ) window.external.download('%s');\" onmouseover=\"window.external.hover('%s');\" onmouseout=\"window.external.hover('');\">%s</td>")
 			_T("<td class=\"size\">%s</td></tr>\n"),
 			i++, (LPCTSTR)strURN, (LPCTSTR)strURN, (LPCTSTR)strURN, (LPCTSTR)pFile->m_sName,
-			Settings.SmartVolume( pFile->m_nSize ) );
+			(LPCTSTR)Settings.SmartVolume( pFile->m_nSize ) );
 		strBuffer += strTemp;
 	}
 
@@ -578,7 +578,7 @@ BOOL CCollectionFile::File::Parse(CFile& pFile)
 	if ( pFile.Read( &nCount, sizeof( nCount ) ) == sizeof( nCount ) &&
 		nCount > 0 && nCount < 10 )
 	{
-		for ( DWORD i = 0; i < nCount; ++i )
+		for ( DWORD i = 0 ; i < nCount ; ++i )
 		{
 			CEDTag pTag;
 			if ( ! pTag.Read( &pFile ) )
@@ -646,8 +646,8 @@ BOOL CCollectionFile::File::IsDownloading() const
 	return Downloads.FindBySHA1( m_oSHA1 )
 		|| Downloads.FindByTiger( m_oTiger )
 		|| Downloads.FindByED2K( m_oED2K )
-		|| Downloads.FindByMD5( m_oMD5 )
-		|| Downloads.FindByBTH( m_oBTH );
+		|| Downloads.FindByBTH( m_oBTH )
+		|| Downloads.FindByMD5( m_oMD5 );
 }
 
 /////////////////////////////////////////////////////////////////////////////

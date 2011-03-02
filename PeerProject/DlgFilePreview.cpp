@@ -66,7 +66,7 @@ CFilePreviewDlg::CFilePreviewDlg(CDownloadWithExtras* pDownload, DWORD nIndex, C
 {
 	CQuickLock oLock( m_pSection );
 
-	int nPos = m_sSourceName.ReverseFind( '\\' );
+	const int nPos = m_sSourceName.ReverseFind( '\\' );
 	if ( nPos >= 0 )
 	{
 		CString strFileName = m_sDisplayName;
@@ -400,7 +400,7 @@ BOOL CFilePreviewDlg::RunManual()
 		return FALSE;
 
 	QWORD nProgressPosition = 0;
-	for ( INT_PTR i = 0 ; i < m_pRanges.GetSize() && IsThreadEnabled(); i += 2 )
+	for ( INT_PTR i = 0 ; i < m_pRanges.GetSize() && IsThreadEnabled() ; i += 2 )
 	{
 		QWORD nOffset = m_pRanges.GetAt( i );
 		QWORD nLength = m_pRanges.GetAt( i + 1 );

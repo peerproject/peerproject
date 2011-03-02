@@ -148,14 +148,16 @@ public:
 		string_set	SafeExecute;
 		string_set	PrivateTypes;
 		DWORD		ThumbSize;
-		bool		HighPriorityHash;		// Use high priority hashing
-		bool		HashWindow;				// Display annoying hashing window
 		bool		CreateGhosts;			// Default action in the delete file dialog
+		bool		HashWindow;				// Display annoying hashing window
+		bool		HighPriorityHash;		// Use high priority hashing or not
 		DWORD		HighPriorityHashing;	// desired speed in MB/s when hashing with hi priority
 		DWORD		LowPriorityHashing;		// desired speed in MB/s when hashing with low priority
-		DWORD		MaxMaliciousFileSize;	// Size for which to trigger malicious software search
-		bool		UseFolderGUID;			// Save/Load folder GUID using NTFS stream
+		DWORD		MaliciousFileCount;		// Minimum number of duplicate files required to trigger warning
+		DWORD		MaliciousFileSize;		// Size range for which to trigger malicious software search
+		string_set	MaliciousFileTypes;		// Malicious software file extensions
 		bool		MarkFileAsDownload;		// Mark downloaded file using NTFS stream as Internet Explorer
+		bool		UseFolderGUID;			// Save/Load folder GUID using NTFS stream
 		bool		UseCustomFolders;		// Use desktop.ini
 		bool		ScanAPE;				// Enable .ape,.mac,.apl metadata extraction by internals
 		bool		ScanASF;				// Enable .asf,.wma,.wmv metadata extraction by internals
@@ -163,8 +165,7 @@ public:
 		bool		ScanCHM;				// Enable .chm metadata extraction by internals
 		bool		ScanEXE;				// Enable .exe,.dll metadata extraction by internals
 		bool		ScanImage;				// Enable .jpg,.jpeg,.gif,.png,.bmp metadata extraction by internals
-		bool		ScanMP3;				// Enable .mp3 metadata extraction by internals
-		bool		ScanMPC;				// Enable .mpc,.mpp,.mp+ metadata extraction by internals
+		bool		ScanMP3;				// Enable .mp3 +.aac,.flac,.mpc metadata extraction by internals
 		bool		ScanMPEG;				// Enable .mpeg,.mpg metadata extraction by internals
 		bool		ScanMSI;				// Enable .msi metadata extraction by internals
 		bool		ScanOGG;				// Enable .ogg metadata extraction by internals
@@ -581,21 +582,21 @@ public:
 
 	struct sLive
 	{
+		bool		DiskSpaceStop;			// Has PeerProject paused all downloads due to critical disk space?
 		bool		DiskSpaceWarning;		// Has the user been warned of low disk space?
 		bool		DiskWriteWarning;		// Has the user been warned of write problems?
 		bool		AdultWarning;			// Has the user been warned about the adult filter?
-		bool		QueueLimitWarning;		// Has the user been warned about limiting the max Q position accepted?
-		bool		DefaultED2KServersLoaded; // Has PeerProject already loaded default ED2K servers?
-		bool		DonkeyServerWarning;	// Has the user been warned about having an empty server list?
 		bool		UploadLimitWarning;		// Has the user been warned about the ed2k/BT ratio?
-		bool		DiskSpaceStop;			// Has PeerProject paused all downloads due to critical disk space?
+		bool		QueueLimitWarning;		// Has the user been warned about limiting the max Q position accepted?
+		bool		DonkeyServerWarning;	// Has the user been warned about having an empty server list?
+		bool		DefaultED2KServersLoaded; // Has PeerProject already loaded default ED2K servers?
+		bool		MaliciousWarning;		// Is the warning dialog triggered? (Single case at startup)
+		CString		LastDuplicateHash;		// Stores the hash of the file about which the warning was shown
 		DWORD		BandwidthScaleIn;		// MonitorBar Download slider setting
 		DWORD		BandwidthScaleOut;		// MonitorBar Upload slider setting
 		bool		LoadWindowState;
 		bool		AutoClose;
 		bool		FirstRun;				// Is this the first time PeerProject is being run?
-		bool		MaliciousWarning;		// Is the warning dialog opened?
-		CString		LastDuplicateHash;		// Stores the hash of the file about which the warning was shown
 	} Live;
 
 	struct sRemote
@@ -805,16 +806,18 @@ public:
 	BOOL	LoadList(LPCTSTR pszName, CListCtrl* pCtrl, int nSort = 0);
 	void	SaveList(LPCTSTR pszName, CListCtrl* pCtrl);
 
+	static void		LoadSet(string_set* pSet, LPCTSTR pszString);
+	static CString	SaveSet(const string_set* pSet);
+
 	const CString	SmartSpeed(QWORD nVolume, int nVolumeUnits = Bytes, bool bTruncate = false) const;	// Convert speeds into formatted strings
 	const CString	SmartVolume(QWORD nVolume, int nVolumeUnits = Bytes, bool bTruncate = false) const;	// Convert sizes into formatted strings
 	QWORD	ParseVolume(const CString& strVolume, int nReturnUnits = Bytes) const;						// Convert size string into desired units
 	DWORD	GetOutgoingBandwidth() const;																// Returns available outgoing bandwidth in KB/s
-	BOOL	CheckStartup();
-	void	SetStartup(BOOL bStartup);
-
+	void	OnChangeConnectionSpeed();
 	bool	GetValue(LPCTSTR pszPath, VARIANT* value);
 
-	void	OnChangeConnectionSpeed();
+	BOOL	CheckStartup();
+	void	SetStartup(BOOL bStartup);
 
 protected:
 	inline void Add(const LPCTSTR szSection, const LPCTSTR szName, bool* const pBool, const bool bDefault, const bool bHidden = false) throw()
@@ -843,9 +846,6 @@ protected:
 	}
 
 	void	SmartUpgrade();
-
-	static void LoadSet(string_set* pSet, LPCTSTR pszString);
-	static CString SaveSet(const string_set* pSet);
 
 // Inlines
 public:
