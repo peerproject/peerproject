@@ -135,7 +135,7 @@ void CScheduler::Serialize(CArchive& ar)
 
 		ar >> nVersion;
 
-		for ( int nNumTasks = ar.ReadCount(); nNumTasks > 0; nNumTasks-- )	// Read the number of tasks to load
+		for ( int nNumTasks = ar.ReadCount() ; nNumTasks > 0 ; nNumTasks-- )	// Read the number of tasks to load
 		{
 			CScheduleTask *pSchTask = new CScheduleTask();	// Create a new instance of each task
 			pSchTask->Serialize( ar,nVersion );				// Read each task's data

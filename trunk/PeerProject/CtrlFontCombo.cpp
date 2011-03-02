@@ -1,7 +1,7 @@
 //
 // CtrlFontCombo.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -48,9 +48,9 @@ IMPLEMENT_DYNAMIC(CFontCombo, CComboBox)
 BEGIN_MESSAGE_MAP(CFontCombo, CComboBox)
 	//{{AFX_MSG_MAP(CFontCombo)
 	ON_WM_CREATE()
+	ON_WM_DESTROY()
 	ON_MESSAGE(OCM_DRAWITEM, OnOcmDrawItem)
 	ON_CONTROL_REFLECT(CBN_DROPDOWN, OnDropdown)
-	ON_WM_DESTROY()
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -85,7 +85,10 @@ void CFontCombo::Initialize()
 
 	ResetContent();
 	DeleteAllFonts();
-	EnumFontFamiliesEx( dc.m_hDC, NULL, (FONTENUMPROC)EnumFontProc, (LPARAM)this, 0 );
+
+	LOGFONT lf = {};
+	lf.lfCharSet = DEFAULT_CHARSET;
+	EnumFontFamiliesEx( dc.m_hDC, &lf, (FONTENUMPROC)EnumFontProc, (LPARAM)this, 0 );
 
 	SetCurSel( 0 );
 }
@@ -126,7 +129,7 @@ void CFontCombo::OnDestroy()
 
 void CFontCombo::OnDropdown()
 {
-	int nNumEntries = GetCount();
+	const int nNumEntries = GetCount();
 	int nWidth = 0;
 	CString str;
 
@@ -134,7 +137,7 @@ void CFontCombo::OnDropdown()
 	int nSave = dc.SaveDC();
 	dc.SelectObject( GetFont() );
 
-	int nScrollWidth = GetSystemMetrics( SM_CXVSCROLL );
+	const int nScrollWidth = GetSystemMetrics( SM_CXVSCROLL );
 	for ( int nEntry = 0 ; nEntry < nNumEntries ; nEntry++ )
 	{
 		GetLBText( nEntry, str );
@@ -203,14 +206,13 @@ void CFontCombo::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 		( lpDrawItemStruct->itemState & ODS_SELECTED ) ? ILD_SELECTED : ILD_NORMAL );
 
 	rcItem.left += SYMBOL_WIDTH;
-	int nOffsetX = SPACING;
 
 	CFont* pFontValid;
 	if ( m_pFonts.Lookup( strCurrentFont, (void*&)pFontValid ) == NULL ) return;
 
 	CSize sz = pDC->GetTextExtent( strCurrentFont );
 	int nPosY = ( rcItem.Height() - sz.cy ) / 2;
-	pDC->TextOut( rcItem.left + nOffsetX, rcItem.top + nPosY, strCurrentFont );
+	pDC->TextOut( rcItem.left + SPACING, rcItem.top + nPosY, strCurrentFont );
 
 	pDC->SelectObject( pFont );
 	pDC->RestoreDC( nOldDC );

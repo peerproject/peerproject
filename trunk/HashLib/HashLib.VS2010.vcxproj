@@ -118,7 +118,6 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <SetChecksum>true</SetChecksum>
       <SubSystem>Windows</SubSystem>
       <LargeAddressAware>true</LargeAddressAware>
       <TargetMachine>MachineX64</TargetMachine>
@@ -144,6 +143,7 @@
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
+      <SetChecksum>true</SetChecksum>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <BaseAddress>0x29100000</BaseAddress>
@@ -173,6 +173,7 @@
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
+      <SetChecksum>true</SetChecksum>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <LargeAddressAware>true</LargeAddressAware>

@@ -1,7 +1,7 @@
 //
 // PageTorrentGeneral.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -86,7 +86,7 @@ BOOL CTorrentFilesPage::OnInitDialog()
 
 	auto_ptr< CLibraryTipCtrl > pTip( new CLibraryTipCtrl );
 	pTip->Create( this, &Settings.Interface.TipDownloads );
-//	m_wndFiles.EnableTips( pTip );
+//	m_wndFiles.EnableTips( pTip );	// ComboListCtrl
 
 	CRect rc;
 	m_wndFiles.GetClientRect( &rc );
@@ -105,7 +105,7 @@ BOOL CTorrentFilesPage::OnInitDialog()
 	else
 		m_wndFiles.SetBkColor( Colors.m_crWindow );
 
-// Priority Column Combobox:
+// Priority Column Combobox:	(Unused custom ComboListCtrl)
 //	BEGIN_COLUMN_MAP()
 //		COLUMN_MAP( CFragmentedFile::prHigh,		LoadString( IDS_PRIORITY_HIGH ) )
 //		COLUMN_MAP( CFragmentedFile::prNormal,		LoadString( IDS_PRIORITY_NORMAL ) )
@@ -122,21 +122,22 @@ BOOL CTorrentFilesPage::OnInitDialog()
 
 		for ( DWORD i = 0 ; i < pFragFile->GetCount() ; ++i )
 		{
-			LV_ITEM pItem = {};
+			CString sText	= pFragFile->GetName( i );
+			sText			= sText.Mid( sText.Find( '\\' ) + 1 );
+
+			LV_ITEM pItem	= {};
 			pItem.mask		= LVIF_TEXT|LVIF_IMAGE|LVIF_PARAM;
 			pItem.iItem		= i;
-			CString sText	= pFragFile->GetName( i );
 			pItem.lParam	= (LPARAM)pFragFile->GetAt( i );
 			pItem.iImage	= ShellIcons.Get( sText, 16 );
-			pItem.pszText	= (LPTSTR)(LPCTSTR)sText.Mid( sText.Find( '\\' ) + 1 );
+			pItem.pszText	= (LPTSTR)(LPCTSTR)sText;
 			pItem.iItem		= m_wndFiles.InsertItem( &pItem );
-			m_wndFiles.SetItemText( pItem.iItem, 1,
-				Settings.SmartVolume( pFragFile->GetLength( i ) ) );
+			m_wndFiles.SetItemText( pItem.iItem, 1, Settings.SmartVolume( pFragFile->GetLength( i ) ) );
 			sText.Format( _T("%i"), i );
 			m_wndFiles.SetItemText( pItem.iItem, 3, sText );
 			m_wndFiles.SetItemState( i,
 				UINT( ( pFragFile->GetPriority( i ) == CFragmentedFile::prUnwanted ? 1 : 2 ) << 12 ), LVIS_STATEIMAGEMASK );
-		//Priority Column:
+		// Priority Column:
 		//	m_wndFiles.SetColumnData( pItem.iItem, 4, pFragFile->GetPriority( i ) );
 		}
 	}
@@ -222,18 +223,18 @@ void CTorrentFilesPage::OnNMDblclkTorrentFiles(NMHDR *pNMHDR, LRESULT *pResult)
 
 BOOL CTorrentFilesPage::OnApply()
 {
-// Unused Priority Column:
+// Unused ComboListCtrl Priority Column:
 
 //	CSingleLock oLock( &Transfers.m_pSection );
 //	if ( ! oLock.Lock( 250 ) ) return FALSE;
-
+//
 //	CDownload* pDownload = ((CDownloadSheet*)GetParent())->m_pDownload;
 //	if ( ! Downloads.Check( pDownload ) || ! pDownload->IsTorrent() )
 //		return FALSE;
-
+//
 //	if ( CComPtr< CFragmentedFile > pFragFile = pDownload->GetFile() )
 //	{
-//		for ( DWORD i = 0; i < pFragFile->GetCount(); ++i )
+//		for ( DWORD i = 0 ; i < pFragFile->GetCount() ; ++i )
 //		{
 //			pFragFile->SetPriority( i, m_wndFiles.GetColumnData( i, 3 ) );
 //		}

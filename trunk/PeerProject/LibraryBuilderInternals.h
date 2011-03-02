@@ -71,7 +71,6 @@ private:
 	bool		ReadASF(DWORD nIndex, HANDLE hFile);
 	bool		ReadAVI(DWORD nIndex, HANDLE hFile);
 	bool		ReadMPEG(DWORD nIndex, HANDLE hFile);
-	bool		ReadMPC(DWORD nIndex, HANDLE hFile);
 	bool		ReadOGG(DWORD nIndex, HANDLE hFile);
 	BYTE*		ReadOGGPage(HANDLE hFile, DWORD& nBuffer, BYTE nFlags, DWORD nSequence, DWORD nMinSize = 0);
 	bool		ReadOGGString(BYTE*& pOGG, DWORD& nOGG, CString& str);

@@ -1,7 +1,7 @@
 //
 // Strings.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2010
+// This file is part of PeerProject (peerproject.org) © 2010-2011
 // Portions copyright Shareaza Development Team, 2010.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -95,7 +95,7 @@ const CLowerCaseTable ToLower;
 
 CLowerCaseTable::CLowerCaseTable()
 {
-	for ( size_t i = 0; i < 65536; ++i ) cTable[ i ] = TCHAR( i );
+	for ( size_t i = 0 ; i < 65536 ; ++i ) cTable[ i ] = TCHAR( i );
 	CharLowerBuff( cTable, 65536 );
 
 	// Greek Capital Sigma and Greek Small Final Sigma to Greek Small Sigma
@@ -140,18 +140,18 @@ TCHAR CLowerCaseTable::operator()(TCHAR cLookup) const
 		// A..Z -> a..z
 		if ( cLookup >= _T('A') && cLookup <= _T('Z') )
 			return (TCHAR)( cLookup + 32 );
-		else
-			return cLookup;
+
+		return cLookup;
 	}
-	else
-		return cTable[ cLookup ];
+
+	return cTable[ cLookup ];
 }
 
 CString& CLowerCaseTable::operator()(CString& strSource) const
 {
 	const int nLength = strSource.GetLength();
 	LPTSTR str = strSource.GetBuffer();
-	for ( int i = 0; i < nLength; ++i, ++str )
+	for ( int i = 0 ; i < nLength ; ++i, ++str )
 	{
 		TCHAR cLookup = *str;
 		if ( cLookup <= 127 )
@@ -216,13 +216,12 @@ CStringW UTF8Decode(__in_bcount(nInput) LPCSTR psInput, __in int nInput)
 	return strWide;
 }
 
-// Encodes unsafe characters in a string, turning "hello world" into "hello%20world", for instance
-// Takes text and returns a string
+// Encodes unsafe characters in a string, turning text "hello world" into string "hello%20world", for instance
 CString URLEncode(LPCTSTR pszInputT)
 {
 	// Setup two strings, one with all the hexidecimal digits, the other with all the characters to find and encode
-	static LPCTSTR pszHex	= _T("0123456789ABCDEF");	// A string with all the hexidecimal digits
-	static LPCSTR pszUnsafe	= "<>\"#%{}|\\^~[]+?&@=:,";	// A string with all the characters unsafe for a URL
+	static LPCTSTR pszHex	= _T("0123456789ABCDEF");		// A string with all the hexidecimal digits
+	static LPCSTR pszUnsafe	= "<>\"#%{}|\\^~[]+?&@=:,";		// A string with all the characters unsafe for a URL
 
 	// The output string starts blank
 	CString strOutput;
@@ -277,7 +276,7 @@ CString URLEncode(LPCTSTR pszInputT)
 
 	// Null terminate the output text, and then close our direct manipulation of the string
 	*pszOutput = 0;
-	strOutput.ReleaseBuffer(); // This closes the string so Windows can again start managing its memory for us
+	strOutput.ReleaseBuffer();			// Closes the string so Windows can start managing its memory for us again
 
 	// Free the memory we allocated with the new keyword above
 	delete [] pszUTF8;
@@ -286,19 +285,16 @@ CString URLEncode(LPCTSTR pszInputT)
 	return strOutput;
 }
 
-// Decodes unsafe characters in a string, turning "hello%20world" into "hello world", for instance
-// Takes text and returns a string
+// Decodes unsafe characters in a string, turning text "hello%20world" into string "hello world", for instance
 CString URLDecode(LPCTSTR pszInput)
 {
-	LPCTSTR pszLoop = pszInput;
 	// Check each character of input text
+	LPCTSTR pszLoop( pszInput );
 	for ( ; *pszLoop ; pszLoop++ )
 	{
+		// This URI is not properly encoded, and has unicode characters in it. URL-decode only
 		if ( *pszLoop > 255 )
-		{
-			// This URI is not properly encoded, and has unicode characters in it. URL-decode only
 			return URLDecodeUnicode( pszInput );
-		}
 	}
 
 	// This is a correctly formatted URI, which must be url-decoded, then UTF-8 decoded.
@@ -308,10 +304,9 @@ CString URLDecode(LPCTSTR pszInput)
 // Decodes a properly formatted URI, then UTF-8 decodes it
 CString URLDecodeANSI(LPCTSTR pszInput)
 {
-	// Setup local variables useful for the conversion
-	TCHAR szHex[3] = { 0, 0, 0 };	// A 3 character long array filled with 3 null terminators
-	CString strOutput;				// The output string, which starts out blank
-	int nHex;						// The hex code of the character we found
+	TCHAR szHex[3] = { 0, 0, 0 };		// A 3 character long array filled with 3 null terminators
+	CString strOutput;					// The output string, which starts out blank
+	int nHex;							// The hex code of the character we found
 
 	// Allocate a new CHAR array big enough to hold the input characters and a null terminator
 	LPSTR pszBytes = new CHAR[ _tcslen( pszInput ) + 1 ];
@@ -322,8 +317,7 @@ CString URLDecodeANSI(LPCTSTR pszInput)
 	// Loop for each character of input text
 	for ( ; *pszInput ; pszInput++ )
 	{
-		// We hit a %, which might be the start of something like %20
-		if ( *pszInput == '%' )
+		if ( *pszInput == '%' )			// Encountered the start of something like %20
 		{
 			// Copy characters like "20" into szHex, making sure neither are null
 			if ( ( szHex[0] = pszInput[1] ) == 0 ) break;
@@ -331,22 +325,20 @@ CString URLDecodeANSI(LPCTSTR pszInput)
 
 			// Read the text like "20" as a number, and store it in nHex
 			if ( _stscanf( szHex, _T("%x"), &nHex ) != 1 ) break;
-			if ( nHex < 1 ) break; // Make sure the number isn't 0 or negative
+			if ( nHex < 1 ) break;		// Make sure the number isn't 0 or negative
 
 			// That number is the code of a character, copy it into the output string
-			*pszOutput++ = CHAR( nHex ); // And then move the output pointer to the next spot
+			*pszOutput++ = CHAR( nHex );	// And then move the output pointer to the next spot
 
 			// Move the input pointer past the two characters of the "20"
 			pszInput += 2;
 		}
-		// We hit a +, which is shorthand for space
-		else if ( *pszInput == '+' )
+		else if ( *pszInput == '+' )	// Encountered shorthand for a space
 		{
 			// Add a space to the output text, and move the pointer forward
 			*pszOutput++ = ' ';
 		}
-		// The input pointer is just on a normal character
-		else
+		else	// Normal character
 		{
 			// Copy it across
 			*pszOutput++ = (CHAR)*pszInput;
@@ -366,7 +358,6 @@ CString URLDecodeANSI(LPCTSTR pszInput)
 	// Free the memory we allocated above
 	delete [] pszBytes;
 
-	// Return the output string
 	return strOutput;
 }
 
@@ -374,9 +365,9 @@ CString URLDecodeANSI(LPCTSTR pszInput)
 CString URLDecodeUnicode(LPCTSTR pszInput)
 {
 	// Setup local variables useful for the conversion
-	TCHAR szHex[3] = { 0, 0, 0 };	// A 3 character long array filled with 3 null terminators
-	CString strOutput;				// The output string, which starts out blank
-	int nHex;						// The hex code of the character we found
+	TCHAR szHex[3] = { 0, 0, 0 };		// A 3 character long array filled with 3 null terminators
+	CString strOutput;					// The output string, which starts out blank
+	int nHex;							// The hex code of the character we found
 
 	// Allocate a new CHAR array big enough to hold the input characters and a null terminator
 	LPTSTR pszBytes = strOutput.GetBuffer( static_cast< int >( _tcslen( pszInput ) ) );
@@ -387,8 +378,7 @@ CString URLDecodeUnicode(LPCTSTR pszInput)
 	// Loop for each character of input text
 	for ( ; *pszInput ; pszInput++ )
 	{
-		// We hit a %, which might be the start of something like %20
-		if ( *pszInput == '%' )
+		if ( *pszInput == '%' )			// Encounterd the start of something like %20
 		{
 			// Copy characters like "20" into szHex, making sure neither are null
 			if ( ( szHex[0] = pszInput[1] ) == 0 ) break;
@@ -396,7 +386,7 @@ CString URLDecodeUnicode(LPCTSTR pszInput)
 
 			// Read the text like "20" as a number, and store it in nHex
 			if ( _stscanf( szHex, _T("%x"), &nHex ) != 1 ) break;
-			if ( nHex < 1 ) break; // Make sure the number isn't 0 or negative
+			if ( nHex < 1 ) break;		// Make sure the number isn't 0 or negative
 
 			// That number is the code of a character, copy it into the output string
 			*pszOutput++ = WCHAR( nHex ); // And then move the output pointer to the next spot
@@ -404,14 +394,12 @@ CString URLDecodeUnicode(LPCTSTR pszInput)
 			// Move the input pointer past the two characters of the "20"
 			pszInput += 2;
 		}
-		// We hit a +, which is shorthand for space
-		else if ( *pszInput == '+' )
+		else if ( *pszInput == '+' )	// Encountered shorthand for a space
 		{
 			// Add a space to the output text, and move the pointer forward
 			*pszOutput++ = ' ';
 		}
-		// The input pointer is just on a normal character
-		else
+		else	// Normal character
 		{
 			// Copy it across
 			*pszOutput++ = (TCHAR)*pszInput;
@@ -419,9 +407,10 @@ CString URLDecodeUnicode(LPCTSTR pszInput)
 	}
 
 	// Close and return the string
-	*pszOutput = 0;            // End the output text with a null terminator
-	strOutput.ReleaseBuffer(); // Release direct access to the buffer of the CString object
-	return strOutput;          // Return the string
+	*pszOutput = 0;						// End the output text with a null terminator
+	strOutput.ReleaseBuffer();			// Release direct access to the buffer of the CString object
+
+	return strOutput;
 }
 
 LPCTSTR _tcsistr(LPCTSTR pszString, LPCTSTR pszSubString)
@@ -463,14 +452,13 @@ LPCTSTR _tcsistr(LPCTSTR pszString, LPCTSTR pszSubString)
 		}
 
 		// If the substring matched return a pointer to the start of the match
-		if ( !pszSubString[nChar] )
+		if ( ! pszSubString[nChar] )
 			return pszString;
 
 		// Move on to the next character and continue search
 		++pszString;
 	}
 
-	// No match found, return a null pointer
 	return NULL;
 }
 
@@ -510,7 +498,7 @@ LPCTSTR _tcsnistr(LPCTSTR pszString, LPCTSTR pszSubString, size_t nlen)
 __int64 atoin(__in_bcount(nLen) const char* pszString, __in size_t nLen)
 {
 	__int64 nNum = 0;
-	for ( size_t i = 0; i < nLen; ++i )
+	for ( size_t i = 0 ; i < nLen ; ++i )
 	{
 		if ( pszString[ i ] < '0' || pszString[ i ] > '9' )
 			return -1;
@@ -521,15 +509,14 @@ __int64 atoin(__in_bcount(nLen) const char* pszString, __in size_t nLen)
 
 void Split(const CString& strSource, TCHAR cDelimiter, CStringArray& pAddIt, BOOL bAddFirstEmpty)
 {
-	for ( LPCTSTR start = strSource; *start; start++ )
+	for ( LPCTSTR start = strSource ; *start ; start++ )
 	{
 		LPCTSTR c = _tcschr( start, cDelimiter );
-		int len = c ? (int) ( c - start ) : (int) _tcslen( start );
+		const int len = c ? (int) ( c - start ) : (int) _tcslen( start );
 		if ( len > 0 )
 			pAddIt.Add( CString( start, len ) );
-		else
-			if ( bAddFirstEmpty && ( start == strSource ) )
-				pAddIt.Add( CString() );
+		else if ( bAddFirstEmpty && ( start == strSource ) )
+			pAddIt.Add( CString() );
 		if ( ! c )
 			break;
 		start = c;
@@ -538,6 +525,9 @@ void Split(const CString& strSource, TCHAR cDelimiter, CStringArray& pAddIt, BOO
 
 BOOL StartsWith(const CString& sInput, LPCTSTR pszText, size_t nLen)
 {
+	if ( nLen == 0 )
+		nLen = _tcslen(pszText);
+
 	return ( (size_t)sInput.GetLength() >= nLen ) &&
 		! _tcsnicmp( (LPCTSTR)sInput, pszText, nLen );
 }

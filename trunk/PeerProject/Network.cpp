@@ -171,25 +171,25 @@ BOOL CNetwork::IsFirewalled(int nCheck) const
 	UNUSED_ALWAYS( nCheck );
 	return FALSE;
 #else // No LAN_MOD
-	if ( Settings.Connection.FirewallState == CONNECTION_OPEN )	// CHECK_BOTH, CHECK_TCP, CHECK_UDP
-		return FALSE;		// We know we are not firewalled on both TCP and UDP
-	else if ( Settings.Connection.FirewallState == CONNECTION_OPEN_TCPONLY && nCheck == CHECK_TCP )
-		return FALSE;		// We know we are not firewalled on TCP port
-	else if ( Settings.Connection.FirewallState == CONNECTION_OPEN_UDPONLY && nCheck == CHECK_UDP )
-		return FALSE;		// We know we are not firewalled on UDP port
-	else if ( Settings.Connection.FirewallState == CONNECTION_AUTO )
+	if ( Settings.Connection.FirewallState == CONNECTION_OPEN )		// CHECK_BOTH, CHECK_TCP, CHECK_UDP
+		return FALSE;			// We know we are not firewalled on both TCP and UDP
+	if ( Settings.Connection.FirewallState == CONNECTION_OPEN_TCPONLY && nCheck == CHECK_TCP )
+		return FALSE;			// We know we are not firewalled on TCP port
+	if ( Settings.Connection.FirewallState == CONNECTION_OPEN_UDPONLY && nCheck == CHECK_UDP )
+		return FALSE;			// We know we are not firewalled on UDP port
+	if ( Settings.Connection.FirewallState == CONNECTION_AUTO )
 	{
-		BOOL bTCPOpened = IsStable();
-		BOOL bUDPOpened = Datagrams.IsStable();
+		const BOOL bTCPOpened = IsStable();
+		const BOOL bUDPOpened = Datagrams.IsStable();
 		if( nCheck == CHECK_BOTH && bTCPOpened && bUDPOpened )
-			return FALSE;	// We know we are not firewalled on both TCP and UDP
-		else if ( nCheck == CHECK_TCP && bTCPOpened )
-			return FALSE;	// We know we are not firewalled on TCP port
-		else if ( nCheck == CHECK_UDP && bUDPOpened )
-			return FALSE;	// We know we are not firewalled on UDP port
+			return FALSE;		// We know we are not firewalled on both TCP and UDP
+		if ( nCheck == CHECK_TCP && bTCPOpened )
+			return FALSE;		// We know we are not firewalled on TCP port
+		if ( nCheck == CHECK_UDP && bUDPOpened )
+			return FALSE;		// We know we are not firewalled on UDP port
 	}
 
-	return TRUE;			// We know we are firewalled
+	return TRUE;				// We know we are firewalled
 #endif // No LAN_MOD
 }
 
@@ -357,9 +357,9 @@ BOOL CNetwork::Resolve(LPCTSTR pszHost, int nPort, SOCKADDR_IN* pHost, BOOL bNam
 
 	CString strHost( pszHost );
 
-	int nColon = strHost.Find( ':' );
+	const int nColon = strHost.Find( ':' );
 
-	if ( nColon >= 0 )
+	if ( nColon > 0 )
 	{
 		if ( _stscanf( strHost.Mid( nColon + 1 ), _T("%i"), &nPort ) == 1 )
 			pHost->sin_port = htons( u_short( nPort ) );

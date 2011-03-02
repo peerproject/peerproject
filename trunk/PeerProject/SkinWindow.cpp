@@ -1,7 +1,7 @@
 //
 // SkinWindow.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-20078.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -250,9 +250,9 @@ BOOL CSkinWindow::Parse(CXMLElement* pBase, const CString& strPath)
 
 					m_rcMirror = pRect;
 
-					if ( strName == "Mirror" )
+					if ( strName == _T("Mirror") )
 						m_nMirror = 1;
-					else if ( strName == "MirrorFull" )
+					else if ( strName == _T("MirrorFull") )
 						m_nMirror = 2;
 				}
 			}
@@ -316,11 +316,11 @@ BOOL CSkinWindow::Parse(CXMLElement* pBase, const CString& strPath)
 			m_bCaptionCaps = ! str.IsEmpty();
 
 			str = pGroup->GetAttributeValue( _T("align") );
-			if ( str.CompareNoCase( _T("left") ) == 0 )
+			if ( ! str.CompareNoCase( _T("left") ) )
 				m_nCaptionAlign = 0;
-			else if ( str.CompareNoCase( _T("center") ) == 0 )
+			else if ( ! str.CompareNoCase( _T("center") ) )
 				m_nCaptionAlign = 1;
-			else if ( str.CompareNoCase( _T("right") ) == 0 )
+			else if ( ! str.CompareNoCase( _T("right") ) )
 				m_nCaptionAlign = 2;
 
 			if ( m_bCaption && m_fnCaption.m_hObject == NULL )

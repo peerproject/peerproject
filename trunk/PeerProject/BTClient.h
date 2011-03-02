@@ -1,7 +1,7 @@
 //
 // BTClient.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -40,7 +40,6 @@ public:
 	CUploadTransferBT*	m_pUploadTransfer;
 	CDownloadTransferBT* m_pDownloadTransfer;
 	CDownload*			m_pDownload;
-	BOOL				m_bExchange;		// Exchange sources/other info (with extended client)
 	BOOL				m_bExtended;		// Extension Protocol support
 	BOOL				m_bSeeder;
 	BOOL				m_bPrefersEncryption;
@@ -54,17 +53,54 @@ protected:
 	DWORD				m_nUtMetadataID;
 	DWORD				m_nUtMetadataSize;
 	QWORD				m_nUtPexID;
+	QWORD				m_nLtTexID;
+	CString				m_sLtTexTrackers;
+	QWORD				m_nSrcExchangeID;
 
 // Operations
 public:
+	static CString	GetUserAgentAzureusStyle(LPBYTE pVendor, size_t nVendor = 6);
+	CString			GetUserAgentOtherStyle(LPBYTE pVendor, CString* strNick);
+	void			DetermineUserAgent();					// Figure out the other client name/version from the peer ID
+
+	void			SendHandshake(BOOL bPart1, BOOL bPart2);
+	void			SendExtendedHandshake();
+	void			SendMetadataRequest(QWORD nPiece);
+	void			SendInfoRequest(QWORD nPiece);
+	void			SendUtPex(DWORD tConnectedAfter = 0);
+	void			SendLtTex();
+	void			SendSourceRequest();					// Send extended client source (PeerProject/Shareaza) BT_PACKET_SOURCE_REQUEST
+	void			SendBeHandshake();						// Send extended client handshake (PeerProject/Shareaza)
+	BOOL			OnHandshake1();							// First part of handshake
+	BOOL			OnHandshake2();							// Second part- Peer ID
+	BOOL			OnPacket(CBTPacket* pPacket);
+	BOOL			OnUtPex(CBTPacket* pPacket);
+	BOOL			OnLtTex(CBTPacket* pPacket);
+	BOOL			OnDHTPort(CBTPacket* pPacket);
+	BOOL			OnBeHandshake(CBTPacket* pPacket);		// Process extended client handshake (PeerProject/Shareaza)
+	BOOL			OnSourceRequest(CBTPacket* pPacket);	// Process extended client source (PeerProject/Shareaza)
+	BOOL			OnMetadataRequest(CBTPacket* pPacket);
+	BOOL			OnExtendedHandshake(CBTPacket* pPacket);
+
+	void			Choke();								// Send BT_PACKET_CHOKE
+	void			UnChoke();								// Send BT_PACKET_UNCHOKE
+	void			Interested();							// Send BT_PACKET_INTERESTED
+	void			NotInterested();						// Send BT_PACKET_NOT_INTERESTED
+	void			Have(DWORD nBlock);						// Send BT_PACKET_HAVE
+	void			Piece(DWORD nBlock, DWORD nOffset, DWORD nLength, LPCVOID pBuffer);
+	void			Request(DWORD nBlock, DWORD nOffset, DWORD nLength);
+	void			Cancel(DWORD nBlock, DWORD nOffset, DWORD nLength);
+
+	CDownloadSource* GetSource() const;						// Get download transfer source
+
+	inline BOOL		IsOnline() const
+	{
+		return m_bOnline;
+	}
+
 	virtual BOOL	Connect(CDownloadTransferBT* pDownloadTransfer);
 	virtual void	AttachTo(CConnection* pConnection);
 	virtual void	Close(UINT nError = 0);
-
-	void			Send(CBTPacket* pPacket, BOOL bRelease = TRUE);
-	inline BOOL		IsOnline() const throw() { return m_bOnline; }
-	static CString	GetUserAgentAzureusStyle(LPBYTE pVendor, size_t nVendor = 6);
-	CString			GetUserAgentOtherStyle(LPBYTE pVendor, CString* strNick);
 
 protected:
 	virtual BOOL	OnRun();
@@ -73,22 +109,5 @@ protected:
 	virtual BOOL	OnWrite();
 	virtual BOOL	OnRead();
 
-	void			SendHandshake(BOOL bPart1, BOOL bPart2);
-	void			SendExtendedHandshake();
-	void			SendMetadataRequest(QWORD nPiece);
-	void			SendInfoRequest(QWORD nPiece);
-	void			SendUtPex(DWORD tConnectedAfter = 0);
-	BOOL			OnHandshake1();						// First part of handshake
-	BOOL			OnHandshake2();						// Second part- Peer ID
-	//BOOL			OnNoHandshake2();					// If no peer ID is received
-	BOOL			OnOnline();
-	BOOL			OnPacket(CBTPacket* pPacket);
-	void			SendBeHandshake();					// Send extended client handshake
-	BOOL			OnBeHandshake(CBTPacket* pPacket);	// Process extended client handshake
-	BOOL			OnSourceRequest(CBTPacket* pPacket);
-	BOOL			OnDHTPort(CBTPacket* pPacket);
-	BOOL			OnExtended(CBTPacket* pPacket);
-	void			DetermineUserAgent();				// Figure out the other client name/version from the peer ID
-
-	CDownloadSource* GetSource() const;					// Get download transfer source
+	void			Send(CBTPacket* pPacket, BOOL bRelease = TRUE);
 };

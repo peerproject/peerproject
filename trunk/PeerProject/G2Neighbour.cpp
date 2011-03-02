@@ -1,7 +1,7 @@
 //
 // G2Neighbour.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -191,7 +191,8 @@ BOOL CG2Neighbour::OnRun()
 
 	// Is it time to send HAW?
 	if ( tNow - m_tLastHAWOut > Settings.Gnutella2.HAWPeriod &&
-			m_nNodeType != ntLeaf && ! Neighbours.IsG2Leaf() )
+			m_nNodeType == ntNode && ! Neighbours.IsG2Leaf() &&
+			( Neighbours.IsG2Hub() || Neighbours.IsG2HubCapable() ) )
 		SendHAW();
 
 	// Update allowed queries based on the node type
@@ -1141,13 +1142,15 @@ BOOL CG2Neighbour::SendQuery(const CQuerySearch* pSearch, CPacket* pPacket, BOOL
 BOOL CG2Neighbour::OnQuery(CG2Packet* pPacket)
 {
 	CQuerySearchPtr pSearch = CQuerySearch::FromPacket( pPacket );
-	if ( ! pSearch || pSearch->m_bWarning )
-		pPacket->Debug( _T("Malformed query.") );
-	if ( ! pSearch )
+
+	if ( ! pSearch ||	// Or leaf used firewalled/invalid return address:
+		( m_nNodeType == ntLeaf && pSearch->m_bUDP &&
+		pSearch->m_pEndpoint.sin_addr.S_un.S_addr != m_pHost.sin_addr.S_un.S_addr ) )
 	{
 		theApp.Message( MSG_INFO, IDS_PROTOCOL_BAD_QUERY, _T("G2"), (LPCTSTR)m_sAddress );
 		Statistics.Current.Gnutella2.Dropped++;
 		m_nDropCount++;
+		pPacket->Debug( _T("Malformed query.") );
 		return TRUE;
 	}
 
@@ -1179,22 +1182,7 @@ BOOL CG2Neighbour::OnQuery(CG2Packet* pPacket)
 		}
 	}
 
-	// Check for old wrapped queries
-	if ( pPacket->IsType( G2_PACKET_QUERY_WRAP ) )
-	{
-		theApp.Message( MSG_DEBUG, _T("CG2Neighbour::OnQuery Ignoring wrapped query packet") );
-		Statistics.Current.Gnutella2.Dropped++;
-		m_nDropCount++;
-		return TRUE;
-	}
-
-	if ( m_nNodeType == ntLeaf && pSearch->m_bUDP &&
-		 pSearch->m_pEndpoint.sin_addr.S_un.S_addr != m_pHost.sin_addr.S_un.S_addr )
-	{
-		Statistics.Current.Gnutella2.Dropped++;
-		m_nDropCount++;
-		return TRUE;
-	}
+	// Removed checks for old wrapped queries: G2_PACKET_QUERY_WRAP deprecated
 
 	if ( ! Network.QueryRoute->Add( pSearch->m_oGUID, this ) )
 	{
@@ -1205,23 +1193,6 @@ BOOL CG2Neighbour::OnQuery(CG2Packet* pPacket)
 
 	if ( m_nNodeType != ntHub )
 	{
-		//if ( pPacket->IsType( G2_PACKET_QUERY_WRAP ) )
-		//{
-		//	if ( ! pPacket->SeekToWrapped() ) return TRUE;
-		//	GNUTELLAPACKET* pG1 = (GNUTELLAPACKET*)( pPacket->m_pBuffer + pPacket->m_nPosition );
-		//
-		//	if ( pG1->m_nTTL > 1 )
-		//	{
-		//		pG1->m_nTTL--;
-		//		pG1->m_nHops++;
-		//		Neighbours.RouteQuery( pSearch, pPacket, this, TRUE );
-		//	}
-		//}
-		//else
-		//{
-		//	Neighbours.RouteQuery( pSearch, pPacket, this, m_nNodeType == ntLeaf );
-		//}
-
 		Neighbours.RouteQuery( pSearch, pPacket, this, m_nNodeType == ntLeaf );
 	}
 
@@ -1232,12 +1203,6 @@ BOOL CG2Neighbour::OnQuery(CG2Packet* pPacket)
 	}
 	else
 	{
-		//BOOL bIsG1 = pPacket->IsType( G2_PACKET_QUERY_WRAP );
-		//if ( ! bIsG1 || Settings.Gnutella1.EnableToday )
-		//{
-		//	CLocalSearch pLocal( pSearch, this, bIsG1 );
-		//	pLocal.Execute();
-		//}
 		Network.OnQuerySearch( new CLocalSearch( pSearch, this ) );
 	}
 

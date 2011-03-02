@@ -130,71 +130,71 @@ void CLibrary::RemoveFile(CLibraryFile* pFile)
 		LibraryDictionary.RemoveFile( *pFile );
 }
 
-void CLibrary::CheckDuplicates(CLibraryFile* pFile, bool bForce)
+void CLibrary::CheckDuplicates(CLibraryFile* pFile, bool bForce) const
 {
-	long nCount = 0;
-
 	// Malicious software are usually small, we won't search all duplicates
-	if ( pFile->m_nSize / 1024 > Settings.Library.MaxMaliciousFileSize ) return;
+	if ( pFile->m_nSize < 48 || pFile->m_nSize > Settings.Library.MaliciousFileSize ) return;
 
-	int nDot = pFile->m_sName.ReverseFind( '.' );
+	LPCTSTR pszExt = _tcsrchr( pFile->m_sName, _T('.') );
+	if ( ! pszExt ) return;
+	if ( ! IsIn( Settings.Library.MaliciousFileTypes, ++pszExt ) ) return;	// exe/com/scr/vbs/wmv/cab/zip/rar/etc.
 
-	if ( nDot == -1 ) return;
-	if ( _tcsistr( _T("|exe|com|zip|rar|ace|7z|cab|lzh|tar|tgz|bz2|wmv|"),
-		pFile->m_sName.Mid( nDot + 1 ) ) == NULL ) return;
+	DWORD nCount = 0;
 
 	for ( POSITION pos = LibraryMaps.GetFileIterator() ; pos ; )
 	{
-		CLibraryFile* pExisting = LibraryMaps.GetNextFile( pos );
+		const CLibraryFile* pExisting = LibraryMaps.GetNextFile( pos );
 
-		if ( validAndEqual( pFile->m_oMD5, pExisting->m_oMD5 ) )
+		if ( *pFile == *pExisting )
 			nCount++;
 	}
 
-	if ( nCount > 4 )	// More than 4 same files is suspicious
+	if ( nCount < Settings.Library.MaliciousFileCount )		// Only more than ~4 duplicate files is suspicious
 	{
-		if ( Settings.Live.LastDuplicateHash == pFile->m_oMD5.toString() && ! bForce )
-			return;		// We already warned about the same file
-
-		Settings.Live.LastDuplicateHash = pFile->m_oMD5.toString();
-		if ( ! theApp.m_bLive ) return;
-
-		// Warn the user
-		CExistingFileDlg dlg( pFile, NULL, true );
-		Settings.Live.MaliciousWarning = TRUE;
-
-		m_pSection.Unlock();
-
-		dlg.DoModal();
-
-		switch ( dlg.GetResult() )
-		{
-		case CExistingFileDlg::ShowInLibrary:
-			if ( CMainWnd* pMainWnd = (CMainWnd*)AfxGetMainWnd() )
-			{
-				CString strHash = L"urn:md5:" + Settings.Live.LastDuplicateHash;
-				int nLen = strHash.GetLength() + 1;
-				LPTSTR pszHash = new TCHAR[ nLen ];
-
-				CopyMemory( pszHash, strHash.GetBuffer(), sizeof(TCHAR) * nLen );
-				pMainWnd->PostMessage( WM_LIBRARYSEARCH, (WPARAM)pszHash );
-			}
-			break;
-
-		case CExistingFileDlg::Cancel:
-			Settings.Live.LastDuplicateHash.Empty();
-			break;
-
-		default:
-			;
-		}
-		Settings.Live.MaliciousWarning = FALSE;
-	}
-	else
 		Settings.Live.LastDuplicateHash.Empty();
+		return;
+	}
+
+	if ( Settings.Live.LastDuplicateHash == pFile->m_oMD5.toString() && ! bForce )
+		return;		// Already warned about the same file
+
+	Settings.Live.LastDuplicateHash = pFile->m_oMD5.toString();
+	if ( ! theApp.m_bLive ) return;
+
+	// Warn the user
+	CExistingFileDlg dlg( pFile, NULL, true );
+	Settings.Live.MaliciousWarning = true;
+
+	m_pSection.Unlock();
+
+	dlg.DoModal();
+
+	switch ( dlg.GetResult() )
+	{
+	case CExistingFileDlg::ShowInLibrary:
+		if ( CMainWnd* pMainWnd = (CMainWnd*)AfxGetMainWnd() )
+		{
+			CString strHash = L"urn:md5:" + Settings.Live.LastDuplicateHash;
+			int nLen = strHash.GetLength() + 1;
+			LPTSTR pszHash = new TCHAR[ nLen ];
+
+			CopyMemory( pszHash, strHash.GetBuffer(), sizeof(TCHAR) * nLen );
+			pMainWnd->PostMessage( WM_LIBRARYSEARCH, (WPARAM)pszHash );
+		}
+		break;
+
+	case CExistingFileDlg::Cancel:
+		Settings.Live.LastDuplicateHash.Empty();
+		break;
+
+	default:
+		;
+	}
+
+	Settings.Live.MaliciousWarning = false;
 }
 
-void CLibrary::CheckDuplicates(LPCTSTR pszMD5Hash)
+void CLibrary::CheckDuplicates(LPCTSTR pszMD5Hash) const
 {
 	Hashes::Md5Hash oMD5;
 	oMD5.fromString( pszMD5Hash );
@@ -202,16 +202,16 @@ void CLibrary::CheckDuplicates(LPCTSTR pszMD5Hash)
 	if ( oMD5 )
 	{
 		CSingleLock oLock( &m_pSection );
-		if ( ! oLock.Lock( 50 ) ) return;
-		CLibraryFile* pFile = LibraryMaps.LookupFileByMD5( oMD5, FALSE, TRUE );
-		if ( pFile )
+		if ( ! oLock.Lock( 200 ) ) return;
+
+		if ( CLibraryFile* pFile = LibraryMaps.LookupFileByMD5( oMD5, FALSE, TRUE ) )
 		{
 			CheckDuplicates( pFile, true );
 		}
 		else
 		{
 			Settings.Live.LastDuplicateHash.Empty();
-			Settings.Live.MaliciousWarning = FALSE;
+			Settings.Live.MaliciousWarning = false;
 		}
 	}
 }
@@ -322,12 +322,11 @@ BOOL CLibrary::Load()
 	FILETIME pFileTime1 = { 0, 0 }, pFileTime2 = { 0, 0 };
 	CFile pFile1, pFile2;
 	BOOL bFile1, bFile2;
-	CString strFile;
 
-	strFile = Settings.General.UserPath + _T("\\Data\\Library");
+	const CString strPath = Settings.General.UserPath + _T("\\Data\\");
 
-	bFile1 = pFile1.Open( strFile + _T("1.dat"), CFile::modeRead );
-	bFile2 = pFile2.Open( strFile + _T("2.dat"), CFile::modeRead );
+	bFile1 = pFile1.Open( strPath + _T("Library1.dat"), CFile::modeRead );
+	bFile2 = pFile2.Open( strPath + _T("Library2.dat"), CFile::modeRead );
 
 	if ( bFile1 || bFile2 )
 	{
@@ -339,7 +338,7 @@ BOOL CLibrary::Load()
 	}
 	else
 	{
-		bFile1 = pFile1.Open( strFile + _T(".dat"), CFile::modeRead );
+		bFile1 = pFile1.Open( strPath + _T("Library.dat"), CFile::modeRead );
 		pFileTime1.dwHighDateTime++;
 	}
 

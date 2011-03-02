@@ -1601,7 +1601,7 @@ BOOL CSkin::Apply(LPCTSTR pszName, CDialog* pDialog, UINT nIconID, CToolTipCtrl*
 			else if ( _tcsistr( szClass, _T("ListBox") ) )
 			{
 				CListBox* pListBox = static_cast< CListBox* >( pWnd );
-				for ( int i = 0; i < pListBox->GetCount(); ++i )
+				for ( int i = 0 ; i < pListBox->GetCount() ; ++i )
 				{
 					CString strTemp;
 					pListBox->GetText( i, strTemp );
@@ -1613,7 +1613,7 @@ BOOL CSkin::Apply(LPCTSTR pszName, CDialog* pDialog, UINT nIconID, CToolTipCtrl*
 			else if ( _tcsistr( szClass, _T("ComboBox") ) )
 			{
 				CComboBox* pComboBox = static_cast< CComboBox* >( pWnd );
-				for ( int i = 0; i < pComboBox->GetCount(); ++i )
+				for ( int i = 0 ; i < pComboBox->GetCount() ; ++i )
 				{
 					CString strTemp;
 					pComboBox->GetLBText( i, strTemp );
@@ -1718,7 +1718,7 @@ BOOL CSkin::Apply(LPCTSTR pszName, CDialog* pDialog, UINT nIconID, CToolTipCtrl*
 					{
 						int nCurSel = pCombo->GetCurSel();
 						pCombo->ResetContent();
-						for ( int i = 0; i < nNum; ++i )
+						for ( int i = 0 ; i < nNum ; ++i )
 						{
 							pCombo->AddString( pItems.GetAt( i ) );
 						}
@@ -2580,7 +2580,7 @@ int CSkin::GetTextFlowChange(LPCTSTR pszText, BOOL* bIsRTL)
 	LPCTSTR pszScan = pszText;
 
 	int nPos;
-	for ( nPos = 0; ; pszScan++, nPos++ )
+	for ( nPos = 0 ; ; pszScan++, nPos++ )
 	{
 		// Get the first word with punctuation marks and whitespaces
 		if ( (unsigned short)*pszScan > 32 && (unsigned short)*pszScan != 160 ) continue;
@@ -2698,7 +2698,7 @@ void CSkin::DrawWrappedText(CDC* pDC, CRect* pBox, LPCTSTR pszText, CPoint ptSta
 			pDC->SetTextAlign( nAlignOptionsOld ^ TA_RTLREADING );
 		pszScan += nLenFull - 1;
 		pszWord += nLenFull;
-		for ( int nEnd = nLenFull - 1; nEnd >= 0 ; nEnd-- )
+		for ( int nEnd = nLenFull - 1 ; nEnd >= 0 ; nEnd-- )
 		{
 			if ( nEnd ) pszScan--;
 			if ( nEnd && (unsigned short)*pszScan > 32 && (unsigned short)*pszScan != 160 ) continue;

@@ -738,7 +738,7 @@ CLiveListCtrl::CLiveListCtrl()
 
 CLiveListCtrl::~CLiveListCtrl()
 {
-	for ( CLiveMap::iterator i = m_pItems.begin(); i != m_pItems.end(); ++i )
+	for ( CLiveMap::iterator i = m_pItems.begin() ; i != m_pItems.end() ; ++i )
 	{
 		CLiveItemPtr pItem = (*i).second;
 		delete pItem;
@@ -785,7 +785,7 @@ CLiveItemPtr CLiveListCtrl::Add(LPVOID pParam)
 void CLiveListCtrl::Apply()
 {
 	// Remove old items
-	for ( CLiveMap::iterator i = m_pItems.begin(); i != m_pItems.end(); )
+	for ( CLiveMap::iterator i = m_pItems.begin() ; i != m_pItems.end() ; )
 	{
 		CLiveItemPtr pItem = (*i).second;
 		if ( pItem->m_bOld )
@@ -805,7 +805,7 @@ void CLiveListCtrl::Apply()
 	// Recreate index
 	m_pIndex.clear();
 	m_pIndex.reserve( m_pItems.size() );
-	for ( CLiveMap::iterator i = m_pItems.begin(); i != m_pItems.end(); ++i )
+	for ( CLiveMap::iterator i = m_pItems.begin() ; i != m_pItems.end() ; ++i )
 	{
 		CLiveItemPtr pItem = (*i).second;
 		pItem->m_bOld = true;
@@ -818,7 +818,7 @@ void CLiveListCtrl::Apply()
 
 void CLiveListCtrl::Sort(int nColumn)
 {
-	int nOldColumn	= (int)GetWindowLongPtr( GetSafeHwnd(), GWLP_USERDATA );
+	const int nOldColumn = (int)GetWindowLongPtr( GetSafeHwnd(), GWLP_USERDATA );
 
 	if ( nColumn == -1 )
 	{

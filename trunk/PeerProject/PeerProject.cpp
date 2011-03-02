@@ -73,21 +73,16 @@ static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
 #endif	// Filename
 
-const LPCTSTR RT_BMP  = _T("BMP");
-const LPCTSTR RT_PNG  = _T("PNG");
-const LPCTSTR RT_JPEG = _T("JPEG");
-const LPCTSTR RT_GZIP = _T("GZIP");
-// double scaleX = 1;
-// double scaleY = 1;
 
 /////////////////////////////////////////////////////////////////////////////
 // CPeerProjectCommandLineInfo
 
 CPeerProjectCommandLineInfo::CPeerProjectCommandLineInfo()
 	: m_bTray		( FALSE )
+	, m_bHelp		( FALSE )
+//	, m_bWait		( FALSE )
 	, m_bNoSplash	( FALSE )
 	, m_bNoAlphaWarning ( FALSE )
-	, m_bHelp		( FALSE )
 	, m_nGUIMode	( -1 )
 {
 }
@@ -226,6 +221,12 @@ CPeerProjectApp::CPeerProjectApp()
 #endif
 }
 
+CPeerProjectApp::~CPeerProjectApp()
+{
+	if ( m_pMutex != NULL )
+		CloseHandle( m_pMutex );
+}
+
 /////////////////////////////////////////////////////////////////////////////
 // CPeerProjectApp initialization
 
@@ -250,8 +251,8 @@ BOOL CPeerProjectApp::InitInstance()
 	EnableShellOpen();
 //	RegisterShellFileTypes();
 
-	ParseCommandLine( m_ocmdInfo );
-	if ( m_ocmdInfo.m_bHelp )
+	ParseCommandLine( m_cmdInfo );
+	if ( m_cmdInfo.m_bHelp )
 	{
 		// Unskinned Banner Workaround:
 		Skin.m_bmBanner.Attach( CImageFile::LoadBitmapFromResource( IDB_BANNER ) );
@@ -271,10 +272,10 @@ BOOL CPeerProjectApp::InitInstance()
 			MB_ICONINFORMATION | MB_OK );
 		return FALSE;
 	}
-	if ( m_ocmdInfo.m_nShellCommand == CCommandLineInfo::AppUnregister )
+	if ( m_cmdInfo.m_nShellCommand == CCommandLineInfo::AppUnregister )
 	{
 		// Do not call this ->
-		// ProcessShellCommand( m_ocmdInfo );
+		// ProcessShellCommand( m_cmdInfo );
 		// ... else all INI settings will be deleted (by design)
 
 		// Do not call this ->
@@ -284,13 +285,13 @@ BOOL CPeerProjectApp::InitInstance()
 		// ... else OLE interface settings may be deleted (bug in MFC?)
 		return FALSE;
 	}
-	if ( m_ocmdInfo.m_nShellCommand == CCommandLineInfo::AppRegister )
-		ProcessShellCommand( m_ocmdInfo );
+	if ( m_cmdInfo.m_nShellCommand == CCommandLineInfo::AppRegister )
+		ProcessShellCommand( m_cmdInfo );
 
 	AfxOleRegisterTypeLib( AfxGetInstanceHandle(), _tlid );
 	COleTemplateServer::RegisterAll();
 	COleObjectFactory::UpdateRegistryAll( TRUE );
-	if ( m_ocmdInfo.m_nShellCommand == CCommandLineInfo::AppRegister )
+	if ( m_cmdInfo.m_nShellCommand == CCommandLineInfo::AppRegister )
 		return FALSE;
 
 	m_pMutex = CreateMutex( NULL, FALSE, _T("Global\\PeerProject") );
@@ -316,18 +317,10 @@ BOOL CPeerProjectApp::InitInstance()
 	}
 	// else only app instance, continue.
 
-	m_bInteractive = true;
-
 	if ( m_pRegisterApplicationRestart )
 		m_pRegisterApplicationRestart( NULL, 0 );
 
 	ShowStartupText();
-
-	if ( Settings.Live.FirstRun )
-		Plugins.Register();
-
-	DDEServer.Create();
-	IEProtocol.Create();
 
 
 	// *****************
@@ -360,9 +353,9 @@ BOOL CPeerProjectApp::InitInstance()
 	}
 
 
-	// ALPHA WARNING.  Remember to remove this section for final releases and public betas.
+	// ALPHA WARNING.  Remember to remove this section for public betas.
 
-	if ( ! m_ocmdInfo.m_bNoAlphaWarning && m_ocmdInfo.m_bShowSplash )
+	if ( ! m_cmdInfo.m_bNoAlphaWarning && m_cmdInfo.m_bShowSplash )
 	{
 		if ( AfxMessageBox(
 			L"\nWARNING: This is an ALPHA TEST version of PeerProject p2p"
@@ -379,67 +372,136 @@ BOOL CPeerProjectApp::InitInstance()
 				return FALSE;
 	}
 
-#endif
+#endif	// _DEBUG/__REVISION__
+
 	// END NO PUBLIC RELEASE
 	// *********************
 
+	m_bInteractive = true;
 
-	int nSplashSteps = 18
+	// Show Startup Splash Screen
+
+	const int nSplashSteps = 18
 		+ ( Settings.Connection.EnableFirewallException ? 1 : 0 )
 		+ ( Settings.Connection.EnableUPnP ? 1 : 0 );
 
-	SplashStep( L"Winsock", ( ( m_ocmdInfo.m_bNoSplash || ! m_ocmdInfo.m_bShowSplash ) ? 0 : nSplashSteps ), false );
+	SplashStep( L"Up", ( ( m_cmdInfo.m_bNoSplash || ! m_cmdInfo.m_bShowSplash ) ? 0 : nSplashSteps ), false );
+		if ( m_cmdInfo.m_nGUIMode != -1 )
+			Settings.General.GUIMode = m_cmdInfo.m_nGUIMode;
+		if ( Settings.General.GUIMode != GUI_WINDOWED && Settings.General.GUIMode != GUI_TABBED && Settings.General.GUIMode != GUI_BASIC )
+			Settings.General.GUIMode = GUI_BASIC;
+
+		if ( Settings.Live.FirstRun )
+			Plugins.Register();
+
+		DDEServer.Create();
+		IEProtocol.Create();
+
+		PurgeDeletes();
+		Sleep( 60 );
+
+	SplashStep( L"Network Winsock" );
 		WSADATA wsaData;
-		for ( int i = 1; i <= 2; i++ )
+		for ( int i = 1 ; i <= 2 ; i++ )
 		{
 			if ( WSAStartup( MAKEWORD( 1, 1 ), &wsaData ) ) return FALSE;
 			if ( wsaData.wVersion == MAKEWORD( 1, 1 ) ) break;
 			if ( i == 2 ) return FALSE;
 			WSACleanup();
 		}
+		CryptAcquireContext( &m_hCryptProv, NULL, NULL, PROV_RSA_FULL, CRYPT_VERIFYCONTEXT );
+		Sleep( 60 );
 
-	CryptAcquireContext( &m_hCryptProv, NULL, NULL, PROV_RSA_FULL, CRYPT_VERIFYCONTEXT );
-
-	if ( m_ocmdInfo.m_nGUIMode != -1 )
-		Settings.General.GUIMode = m_ocmdInfo.m_nGUIMode;
-
-	if ( Settings.General.GUIMode != GUI_WINDOWED && Settings.General.GUIMode != GUI_TABBED && Settings.General.GUIMode != GUI_BASIC )
-		Settings.General.GUIMode = GUI_BASIC;
-
-	SplashStep( L"Database" );
-		PurgeDeletes();
-		CThumbCache::InitDatabase();
 	SplashStep( L"P2P URIs" );
 		CPeerProjectURL::Register( TRUE );
-	SplashStep( L"Shell Icons" );
-		ShellIcons.Clear();
-	SplashStep( L"Metadata Schemas" );
-		if ( SchemaCache.Load() < 48 )	// Presumed number of .xsd files in Schemas folder
-		{
-			if ( AfxMessageBox( IDS_SCHEMA_LOAD_ERROR, MB_ICONWARNING|MB_OKCANCEL ) != IDOK )
-				return FALSE;
-		}
-	SplashStep( L"Vendor Data" );
-		VendorCache.Load();
+		Sleep( 60 );
 	SplashStep( L"Profile" );
 		MyProfile.Load();
+		Sleep( 60 );
+	SplashStep( L"Vendor Data" );
+		VendorCache.Load();
+		Sleep( 60 );
 	SplashStep( L"Security Services" );
 		Security.Load();
 		AdultFilter.Load();
 		MessageFilter.Load();
-	SplashStep( L"Query Manager" );
-		QueryHashMaster.Create();
-	SplashStep( L"Host Cache" );
-		HostCache.Load();
+		Sleep( 60 );
 	SplashStep( L"Discovery Services" );
 		DiscoveryServices.Load();
+		Sleep( 60 );
+	SplashStep( L"Host Cache" );
+		HostCache.Load();
+		Sleep( 60 );
+	SplashStep( L"Query Manager" );
+		QueryHashMaster.Create();
+		Sleep( 60 );
 	SplashStep( L"Scheduler" );
 		Scheduler.Load();
-	SplashStep( L"Rich Documents" );
+		Sleep( 60 );
+	SplashStep( L"Shell Icons" );
+		ShellIcons.Clear();
 		if ( ! Emoticons.Load() )
 			Message( MSG_ERROR, _T("Failed to load Emoticons.") );
 		if ( ! Flags.Load() )
 			Message( MSG_ERROR, _T("Failed to load Flags.") );
+		Sleep( 60 );
+	SplashStep( L"Metadata Schemas" );
+		if ( SchemaCache.Load() < 48 )	// Presumed number of .xsd files in Schemas folder
+		{
+			SplashAbort();
+			if ( AfxMessageBox( IDS_SCHEMA_LOAD_ERROR, MB_ICONWARNING|MB_OKCANCEL ) != IDOK )
+				return FALSE;
+			SplashStep( L"Metadata Schemas" );
+		}
+		if ( ! Settings.MediaPlayer.FileTypes.size() )
+		{
+			CString sTypeFilter;
+			static const LPCTSTR szTypes[] =
+			{
+				CSchema::uriAudio,
+				CSchema::uriVideo,
+				NULL
+			};
+			for ( int i = 0 ; szTypes[ i ] ; ++ i )
+			{
+				if ( CSchemaPtr pSchema = SchemaCache.Get( szTypes[ i ] ) )
+					sTypeFilter += pSchema->m_sTypeFilter;
+			}
+			sTypeFilter.Replace( _T("|."), _T("|") );
+			CSettings::LoadSet( &Settings.MediaPlayer.FileTypes, sTypeFilter );
+		}
+		if ( ! Settings.Library.SafeExecute.size() )
+		{
+			CString sTypeFilter;
+			static const LPCTSTR szTypes[] =
+			{
+				CSchema::uriArchive,
+				CSchema::uriAudio,
+				CSchema::uriVideo,
+				CSchema::uriBook,
+				CSchema::uriImage,
+				CSchema::uriCollection,
+				CSchema::uriBitTorrent,
+				NULL
+			};
+			for ( int i = 0 ; szTypes[ i ] ; ++ i )
+			{
+				if ( CSchemaPtr pSchema = SchemaCache.Get( szTypes[ i ] ) )
+					sTypeFilter += pSchema->m_sTypeFilter;
+			}
+			sTypeFilter.Replace( _T("|."), _T("|") );
+			CSettings::LoadSet( &Settings.Library.SafeExecute, sTypeFilter );
+		}
+		Sleep( 60 );
+	SplashStep( L"Thumb Database" );
+		CThumbCache::InitDatabase();	// Lengthy if large
+	SplashStep( L"Library" );
+		Library.Load();					// Lengthy if very large
+	SplashStep( L"Download Manager" );
+		Downloads.Load();				// Lengthy if many
+	SplashStep( L"Upload Manager" );
+		UploadQueues.Load();
+		Sleep( 60 );
 
 	if ( Settings.Connection.EnableFirewallException )
 	{
@@ -456,7 +518,7 @@ BOOL CPeerProjectApp::InitInstance()
 
 	if ( Settings.Connection.EnableUPnP )
 	{
-		SplashStep( L"Enabling Plug'n'Play Network Access" );
+		SplashStep( L"Plug'n'Play Network Access" );
 		// First run will do UPnP discovery in the QuickStart Wizard
 		if ( ! Settings.Live.FirstRun )
 		{
@@ -467,10 +529,12 @@ BOOL CPeerProjectApp::InitInstance()
 	}
 
 	SplashStep( L"GUI" );
-		if ( m_ocmdInfo.m_bTray ) WriteProfileInt( _T("Windows"), _T("CMainWnd.ShowCmd"), 0 );
+		Sleep( 60 );
+		if ( m_cmdInfo.m_bTray )
+			WriteProfileInt( _T("Windows"), _T("CMainWnd.ShowCmd"), 0 );
 		new CMainWnd();
 		CoolMenu.EnableHook();
-		if ( m_ocmdInfo.m_bTray )
+		if ( m_cmdInfo.m_bTray )
 		{
 			((CMainWnd*)m_pMainWnd)->CloseToTray();
 		}
@@ -481,22 +545,18 @@ BOOL CPeerProjectApp::InitInstance()
 				m_dlgSplash->Topmost();
 			m_pMainWnd->UpdateWindow();
 		}
+		// From this point translations would be available, and LoadString returns correct strings
+		Sleep( 60 );
 
-	// From this point translations are available and LoadString returns correct strings
-	SplashStep( L"Download Manager" );
-		Downloads.Load();
-	SplashStep( L"Upload Manager" );
-		UploadQueues.Load();
-	SplashStep( L"Library" );
-		Library.Load();
 	SplashStep( L"Upgrade Manager" );
 		VersionChecker.Start();
+		Sleep( 120 );
 
 	SplashStep();
 
 	m_bLive = true;
 
-	ProcessShellCommand( m_ocmdInfo );
+	ProcessShellCommand( m_cmdInfo );
 
 //	afxMemDF = allocMemDF | delayFreeMemDF | checkAlwaysMemDF;
 
@@ -510,45 +570,52 @@ int CPeerProjectApp::ExitInstance()
 {
 	if ( m_bInteractive )
 	{
-		int nSplashSteps = 6
-		+ ( Settings.Connection.DeleteFirewallException ? 1 : 0 )
-		+ ( m_pUPnPFinder ? 1 : 0 )
-		+ ( m_bLive ? 1 : 0 );
-		// Active From WndMain
+		// Continue Shutdown Splash Screen (from WndMain)
 
 		CWaitCursor pCursor;
 
-		DDEServer.Close();
-		IEProtocol.Close();
+		const int nSplashSteps = 5
+			+ ( Settings.Connection.DeleteFirewallException ? 1 : 0 )
+			+ ( m_pUPnPFinder ? 2 : 0 )
+			+ ( m_bLive ? 3 : 0 );
 
 		SplashStep( L"Disconnecting", nSplashSteps, true );
 		VersionChecker.Stop();
 		DiscoveryServices.Stop();
 		Network.Disconnect();
+		Sleep( 80 );
 
 		SplashStep( L"Stopping Library Tasks" );
 		LibraryBuilder.CloseThread();
 		Library.CloseThread();
+		Sleep( 60 );
 
 		SplashStep( L"Stopping Transfers" );
 		Transfers.StopThread();
 		Downloads.CloseTransfers();
+		Sleep( 60 );
 
 		SplashStep( L"Clearing Clients" );
 		Uploads.Clear( FALSE );
 		EDClients.Clear();
+		Sleep( 60 );
 
 		if ( m_bLive )
 		{
-			SplashStep( L"Saving" );
+			SplashStep( L"Saving Services" );
 			Settings.Save( TRUE );
-			DownloadGroups.Save();
-			Downloads.Save();
-			Library.Save();
 			Security.Save();
 			HostCache.Save();
 			UploadQueues.Save();
 			DiscoveryServices.Save();
+			Sleep( 80 );
+
+			SplashStep( L"Saving Downloads" );
+			DownloadGroups.Save();
+			Downloads.Save();
+
+			SplashStep( L"Saving Library" );
+			Library.Save();
 		}
 
 		if ( m_pUPnPFinder )
@@ -575,9 +642,14 @@ int CPeerProjectApp::ExitInstance()
 		CoolMenu.Clear();
 		Skin.Clear();
 
-		SplashStep();
-
+		DDEServer.Close();
+		IEProtocol.Close();
 		Plugins.Clear();
+
+		FreeCountry();	// Release GeoIP
+
+		Sleep( 80 );
+		SplashStep();
 	}
 
 	WSACleanup();
@@ -591,12 +663,10 @@ int CPeerProjectApp::ExitInstance()
 	if ( m_hShlWapi != NULL )
 		FreeLibrary( m_hShlWapi );
 
-	FreeCountry();	// Release GeoIP
-
 	if ( m_hLibGFL != NULL )
 		FreeLibrary( m_hLibGFL );
 
-//	delete m_pFontManager;
+	//delete m_pFontManager;
 
 	UnhookWindowsHookEx( m_hHookKbd );
 	UnhookWindowsHookEx( m_hHookMouse );
@@ -604,8 +674,9 @@ int CPeerProjectApp::ExitInstance()
 	if ( m_hCryptProv )
 		CryptReleaseContext( m_hCryptProv, 0 );
 
-	if ( m_pMutex != NULL )
-		CloseHandle( m_pMutex );
+	// Moved to destructor
+	//if ( m_pMutex != NULL )
+	//	CloseHandle( m_pMutex );
 
 	{
 		CQuickLock pLock( m_csMessage );
@@ -615,6 +686,92 @@ int CPeerProjectApp::ExitInstance()
 
 	return CWinApp::ExitInstance();
 }
+
+//BOOL CPeerProjectApp::ParseCommandLine()
+//{
+//	CWinApp::ParseCommandLine( m_cmdInfo );
+//
+//	AfxSetPerUserRegistration( m_cmdInfo.m_bRegisterPerUser );	// || ! IsRunAsAdmin()
+//
+//	if ( m_cmdInfo.m_nShellCommand == CCommandLineInfo::AppUnregister ||
+//		 m_cmdInfo.m_nShellCommand == CCommandLineInfo::AppRegister )
+//	{
+//		m_cmdInfo.m_bRunEmbedded = TRUE;	// Suppress dialog
+//
+//		ProcessShellCommand( m_cmdInfo );
+//
+//		return FALSE;
+//	}
+//
+//	BOOL bFirst = FALSE;
+//	HWND hwndFirst = NULL;
+//	for (;;)
+//	{
+//		m_pMutex = CreateMutex( NULL, FALSE, _T("Global\\") CLIENT_NAME );
+//		if ( m_pMutex != NULL )
+//		{
+//			if ( GetLastError() == ERROR_ALREADY_EXISTS )
+//			{
+//				CloseHandle( m_pMutex );
+//				m_pMutex = NULL;
+//				hwndFirst = FindWindow( _T("PeerProjectMainWnd"), NULL );
+//			}
+//			else
+//				bFirst = TRUE;	// We are first!
+//		}
+//		// else Likely mutex created in another user's session
+//
+//		if ( ! m_cmdInfo.m_bWait || bFirst )
+//			break;
+//
+//		Sleep( 250 );	// Wait for first instance exit
+//	}
+//
+//	if ( ! m_cmdInfo.m_sTask.IsEmpty() )
+//	{
+//		// Pass scheduler task to existing instance (Note Windows scheduling not implemented)
+//		//CScheduler::Execute( hwndFirst, m_cmdInfo.m_sTask );
+//
+//		return FALSE;	// Don't start second instance
+//	}
+//
+//	if ( ! bFirst )
+//	{
+//		if ( hwndFirst )
+//		{
+//			if ( m_cmdInfo.m_nShellCommand == CCommandLineInfo::FileOpen )
+//			{
+//				// Pass command line to first instance
+//				m_cmdInfo.m_strFileName.Trim( _T(" \t\r\n\"") );
+//				COPYDATASTRUCT cd =
+//				{
+//					COPYDATA_OPEN,
+//					m_cmdInfo.m_strFileName.GetLength() * sizeof( TCHAR ),
+//					(PVOID)(LPCTSTR)m_cmdInfo.m_strFileName
+//				};
+//				DWORD_PTR dwResult;
+//				SendMessageTimeout( hwndFirst, WM_COPYDATA, NULL, (WPARAM)&cd, SMTO_NORMAL, 250, &dwResult );
+//			}
+//			else
+//			{
+//				// Popup first instance
+//				DWORD_PTR dwResult;
+//				SendMessageTimeout( hwndFirst, WM_COMMAND, ID_TRAY_OPEN, 0, SMTO_NORMAL, 250, &dwResult );
+//				ShowWindow( hwndFirst, SW_SHOWNA );
+//				BringWindowToTop( hwndFirst );
+//				SetForegroundWindow( hwndFirst );
+//			}
+//		}
+//		// else Likely window created in another user's session
+//
+//		return FALSE;	// Don't start second instance
+//	}
+//
+//	if ( m_cmdInfo.m_bWait )
+//		Sleep( 1000 );	// Wait for other instance complete exit
+//
+//	return TRUE;		// Continue PeerProject execution
+//}
 
 void CPeerProjectApp::SplashStep(LPCTSTR pszMessage, int nMax, bool bClosing)
 {
@@ -635,6 +792,15 @@ void CPeerProjectApp::SplashStep(LPCTSTR pszMessage, int nMax, bool bClosing)
 		m_dlgSplash->Step( pszMessage );
 
 	TRACE( _T("Step: %s\n"), pszMessage ? pszMessage : _T("Done") );
+}
+
+void CPeerProjectApp::SplashAbort()
+{
+	if ( m_dlgSplash )
+	{
+		m_dlgSplash->Hide( TRUE );
+		m_dlgSplash = NULL;
+	}
 }
 
 void CPeerProjectApp::WinHelp(DWORD /*dwData*/, UINT /*nCmd*/)
@@ -738,13 +904,10 @@ BOOL CPeerProjectApp::OpenURL(LPCTSTR lpszFileName, BOOL bSilent)
 		theApp.Message( MSG_NOTICE, IDS_URL_RECEIVED, lpszFileName );
 
 	auto_ptr< CPeerProjectURL > pURL( new CPeerProjectURL() );
-	if ( pURL.get() )
+	if ( pURL.get() && pURL->Parse( lpszFileName ) )
 	{
-		if ( pURL->Parse( lpszFileName ) )
-		{
-			PostMainWndMessage( WM_URL, (WPARAM)pURL.release() );
-			return TRUE;
-		}
+		PostMainWndMessage( WM_URL, (WPARAM)pURL.release() );
+		return TRUE;
 	}
 
 	if ( ! bSilent )
@@ -839,24 +1002,19 @@ void CPeerProjectApp::GetVersionNumber()
 	GetSystemInfo( &m_SysInfo );
 
 	// Determine if it's a server
-	m_bIsServer = pVersion.wProductType != VER_NT_WORKSTATION;
+	m_bIsServer = pVersion.wProductType != VER_NT_WORKSTATION;	// VER_NT_SERVER
 
-	// Get Major version
-	// Windows 2000 (Major Version == 5) does not support some functions
+	// Many supported windows versions have network limiting
+	m_bLimitedConnections = ! m_bIsServer;
+
+	// Get Major+Minor version (6.1)
+	//	Major ver 5:	Win2000 = 0, WinXP = 1, WinXP64 = 2, Server2003 = 2
+	//	Major ver 6:	Vista = 0, Server2008 = 0, Windows7 = 1
 	m_nWindowsVersion = pVersion.dwMajorVersion;
-
-	// Get Minor version
-	//	Major version == 5
-	//		Win2000 = 0, WinXP = 1, WinXP64 = 2, Server2003 = 2
-	//	Major version == 6
-	//		Vista = 0, Server2008 = 0, Windows7 = 1
 	m_nWindowsVersionMinor = pVersion.dwMinorVersion;
 
 	// Get Service Pack version
 	TCHAR* sp = _tcsstr( pVersion.szCSDVersion, _T("Service Pack") );
-
-	// Most supported windows versions have network limiting
-	m_bLimitedConnections = true;
 
 	// Set some variables for different Windows OS
 	if ( m_nWindowsVersion == 5 )
@@ -908,7 +1066,7 @@ void CPeerProjectApp::GetVersionNumber()
 					NULL, &nType, (LPBYTE)&nResult, &nSize ) == ERROR_SUCCESS ) &&
 					nType == REG_DWORD && nResult == 1 )
 				{
-					// ToDo: Request user to modify value
+					// ToDo: Request user to modify registry value?
 					m_bLimitedConnections = true;
 				}
 
@@ -1270,7 +1428,7 @@ CString GetErrorString(DWORD dwError)
 		_T("ntdsbmsg.dll"),
 		NULL
 	};
-	for ( int i = 0; szModules[ i ]; i++ )
+	for ( int i = 0 ; szModules[ i ] ; i++ )
 	{
 		HMODULE hModule = LoadLibraryEx( szModules[ i ], NULL, LOAD_LIBRARY_AS_DATAFILE );
 		if ( hModule )
@@ -1501,23 +1659,7 @@ CRuntimeClass* AfxClassForName(LPCTSTR pszClass)
 }
 
 /////////////////////////////////////////////////////////////////////////////
-// String functions
-
-void Split(const CString& strSource, TCHAR cDelimiter, CStringArray& pAddIt, BOOL bAddFirstEmpty)
-{
-	for( LPCTSTR start = strSource; *start; start++ )
-	{
-		LPCTSTR c = _tcschr( start, cDelimiter );
-		int len = c ? (int) ( c - start ) : (int) _tcslen( start );
-		if ( len > 0 )
-			pAddIt.Add( CString( start, len ) );
-		else if ( bAddFirstEmpty && ( start == strSource ) )
-			pAddIt.Add( CString() );
-		if ( ! c )
-			break;
-		start = c;
-	}
-}
+// String functions  (See Strings.cpp)
 
 BOOL LoadString(CString& str, UINT nID)
 {
@@ -1561,90 +1703,6 @@ BOOL LoadSourcesString(CString& str, DWORD num, bool bFraction)
 }
 
 /////////////////////////////////////////////////////////////////////////////
-// Case independent string search
-
-LPCTSTR _tcsistr(LPCTSTR pszString, LPCTSTR pszSubString)
-{
-	// Return null if string or substring is empty
-	if ( ! *pszString || ! *pszSubString )
-		return NULL;
-
-	// Return if string is too small to hold the substring
-	size_t nString( _tcslen( pszString ) );
-	size_t nSubString( _tcslen( pszSubString ) );
-	if ( nString < nSubString )
-		return NULL;
-
-	// Get the first character from the substring and lowercase it
-	const TCHAR cFirstPatternChar = ToLower( *pszSubString );
-
-	// Loop over the part of the string that the substring could fit into
-	LPCTSTR pszCutOff = pszString + nString - nSubString;
-	while ( pszString <= pszCutOff )
-	{
-		// Search for the start of the substring
-		while ( pszString <= pszCutOff
-			&& ToLower( *pszString ) != cFirstPatternChar )
-		{
-			++pszString;
-		}
-
-		// Exit loop if no match found
-		if ( pszString > pszCutOff )
-			break;
-
-		// Check the rest of the substring
-		size_t nChar( 1 );
-		while ( pszSubString[nChar]
-			&& ToLower( pszString[nChar] ) == ToLower( pszSubString[nChar] ) )
-		{
-			++nChar;
-		}
-
-		// If substring matched return pointer to the start of the match
-		if ( ! pszSubString[nChar] )
-			return pszString;
-
-		// Move on to next character and continue search
-		++pszString;
-	}
-
-	// No match found, return null pointer
-	return NULL;
-}
-
-LPCTSTR _tcsnistr(LPCTSTR pszString, LPCTSTR pszPattern, size_t plen)
-{
-	if ( ! *pszString || ! *pszPattern || ! plen ) return NULL;
-
-	const TCHAR cFirstPatternChar = ToLower( *pszPattern );
-
-	for ( ; ; ++pszString )
-	{
-		while ( *pszString && ToLower( *pszString ) != cFirstPatternChar ) ++pszString;
-
-		if ( !*pszString ) return NULL;
-
-		DWORD i = 0;
-		while ( ++i < plen )
-		{
-			if ( const TCHAR cStringChar = ToLower( pszString[ i ] ) )
-			{
-				if ( cStringChar != ToLower( pszPattern[ i ] ) )
-					break;
-			}
-			else
-			{
-				return NULL;
-			}
-		}
-
-		if ( i == plen )
-			return pszString;
-	}
-}
-
-/////////////////////////////////////////////////////////////////////////////
 // Time Management Functions (C-runtime)
 
 DWORD TimeFromString(LPCTSTR pszTime)
@@ -1681,7 +1739,7 @@ DWORD TimeFromString(LPCTSTR pszTime)
 		gmtime_s( &pGM, &tGMT ) != 0 ||
 		( tSub = mktime( &pGM ) ) == -1 )
 	{
-		theApp.Message( MSG_ERROR, _T("Invalid Date/Time"), pszTime );
+	//	theApp.Message( MSG_ERROR, _T("Invalid Date/Time"), pszTime );
 		return 0;
 	}
 
@@ -1765,7 +1823,7 @@ void RecalcDropWidth(CComboBox* pWnd)
 	dc.SelectObject( pWnd->GetFont() );
 
 	int nScrollWidth = GetSystemMetrics( SM_CXVSCROLL );
-	for ( int nEntry = 0; nEntry < nNumEntries; nEntry++ )
+	for ( int nEntry = 0 ; nEntry < nNumEntries ; nEntry++ )
 	{
 		pWnd->GetLBText( nEntry, str );
 		int nLength = dc.GetTextExtent( str ).cx + nScrollWidth;
@@ -2307,7 +2365,7 @@ BOOL CreateDirectory(LPCTSTR szPath)
 	if ( dwAttr != INVALID_FILE_ATTRIBUTES && ( dwAttr & FILE_ATTRIBUTE_DIRECTORY ) )
 		return TRUE;
 
-	for ( int nStart = 3; ; )
+	for ( int nStart = 3 ; ; )
 	{
 		int nSlash = strDir.Find( _T('\\'), nStart );
 		if ( ( nSlash == -1 ) || ( nSlash == strDir.GetLength() - 1 ) )
@@ -2889,161 +2947,6 @@ void SafeMessageLoop()
 	{
 	}
 	InterlockedDecrement( &theApp.m_bBusy );
-}
-
-// Wide character functions (eastern languages)
-
-bool IsCharacter(const WCHAR nChar)
-{
-	WORD nCharType = 0;
-
-	if ( GetStringTypeW( CT_CTYPE3, &nChar, 1, &nCharType ) )
-		return ( nCharType & C3_ALPHA
-			|| ( ( nCharType & ( C3_KATAKANA | C3_HIRAGANA ) ) && ( nCharType & C3_DIACRITIC ) )
-			|| iswdigit( nChar ) );
-
-	return false;
-}
-
-bool IsHiragana(const WCHAR nChar)
-{
-	WORD nCharType = 0;
-
-	if ( GetStringTypeW( CT_CTYPE3, &nChar, 1, &nCharType ) )
-		return ( nCharType & C3_HIRAGANA ) != 0;
-
-	return false;
-}
-
-bool IsKatakana(const WCHAR nChar)
-{
-	WORD nCharType = 0;
-
-	if ( GetStringTypeW( CT_CTYPE3, &nChar, 1, &nCharType ) )
-		return ( nCharType & C3_KATAKANA ) != 0;
-
-	return false;
-}
-
-bool IsKanji(const WCHAR nChar)
-{
-	WORD nCharType = 0;
-
-	if ( GetStringTypeW( CT_CTYPE3, &nChar, 1, &nCharType ) )
-		return ( nCharType & C3_IDEOGRAPH ) != 0;
-
-	return false;
-}
-
-bool IsWord(LPCTSTR pszString, size_t nStart, size_t nLength)
-{
-	for ( pszString += nStart ; *pszString && nLength ; ++pszString, --nLength )
-	{
-		if ( _istdigit( *pszString ) )
-			return false;
-	}
-	return true;
-}
-
-void IsType(LPCTSTR pszString, size_t nStart, size_t nLength, bool& bWord, bool& bDigit, bool& bMix)
-{
-	bWord = false;
-	bDigit = false;
-	for ( pszString += nStart ; *pszString && nLength ; ++pszString, --nLength )
-	{
-		if ( _istdigit( *pszString ) )
-			bDigit = true;
-		else if ( IsCharacter( *pszString ) )
-			bWord = true;
-	}
-
-	bMix = bWord && bDigit;
-	if ( bMix )
-	{
-		bWord = false;
-		bDigit = false;
-	}
-}
-
-const CLowerCaseTable ToLower;
-
-CLowerCaseTable::CLowerCaseTable()
-{
-	for ( size_t i = 0; i < 65536; ++i ) cTable[ i ] = TCHAR( i );
-	CharLowerBuff( cTable, 65536 );
-
-	// Greek Capital Sigma and Greek Small Final Sigma to Greek Small Sigma
-	cTable[ 931 ] = 963;
-	cTable[ 962 ] = 963;
-
-	// Turkish Capital I with dot to "i"
-	cTable[ 304 ] = 105;
-
-	// Convert fullwidth latin characters to halfwidth
-	for ( size_t i = 65281 ; i < 65313 ; ++i ) cTable[ i ] = TCHAR( i - 65248 );
-	for ( size_t i = 65313 ; i < 65339 ; ++i ) cTable[ i ] = TCHAR( i - 65216 );
-	for ( size_t i = 65339 ; i < 65375 ; ++i ) cTable[ i ] = TCHAR( i - 65248 );
-
-	// Convert circled katakana to ordinary katakana
-	for ( size_t i = 13008 ; i < 13028 ; ++i ) cTable[ i ] = TCHAR( 2 * i - 13566 );
-	for ( size_t i = 13028 ; i < 13033 ; ++i ) cTable[ i ] = TCHAR( i - 538 );
-	for ( size_t i = 13033 ; i < 13038 ; ++i ) cTable[ i ] = TCHAR( 3 * i - 26604 );
-	for ( size_t i = 13038 ; i < 13043 ; ++i ) cTable[ i ] = TCHAR( i - 528 );
-	for ( size_t i = 13043 ; i < 13046 ; ++i ) cTable[ i ] = TCHAR( 2 * i - 13571 );
-	for ( size_t i = 13046 ; i < 13051 ; ++i ) cTable[ i ] = TCHAR( i - 525 );
-	cTable[ 13051 ] = TCHAR( 12527 );
-	for ( size_t i = 13052 ; i < 13055 ; ++i ) cTable[ i ] = TCHAR( i - 524 );
-
-	// Map Katakana middle dot to space, since no API identifies it as a punctuation
-	cTable[ 12539 ] = cTable[ 65381 ] = L' ';
-
-	// Map CJK Fullwidth space to halfwidth space
-	cTable[ 12288 ] = L' ';
-
-	// Convert japanese halfwidth sound marks to fullwidth
-	// all forms should be mapped; we need NFKD here
-	cTable[ 65392 ] = TCHAR( 12540 );
-	cTable[ 65438 ] = TCHAR( 12443 );
-	cTable[ 65439 ] = TCHAR( 12444 );
-}
-
-TCHAR CLowerCaseTable::operator()(TCHAR cLookup) const
-{
-	if ( cLookup < 128 )
-	{
-		// A..Z -> a..z
-		if ( cLookup >= _T('A') && cLookup <= _T('Z') )
-			return (TCHAR)( cLookup + 32 );
-		else
-			return cLookup;
-	}
-	else
-	{
-		return cTable[ cLookup ];
-	}
-}
-
-CString& CLowerCaseTable::operator()(CString& strSource) const
-{
-	const int nLength = strSource.GetLength();
-	LPTSTR str = strSource.GetBuffer();
-	for ( int i = 0; i < nLength; ++i, ++str )
-	{
-		TCHAR cLookup = *str;
-		if ( cLookup < 128 )
-		{
-			// A..Z -> a..z
-			if ( cLookup >= _T('A') && cLookup <= _T('Z') )
-				*str = (TCHAR)( cLookup + 32 );
-		}
-		else
-		{
-			*str = cTable[ cLookup ];
-		}
-	}
-	strSource.ReleaseBuffer( nLength );
-
-	return strSource;
 }
 
 BOOL IsUserFullscreen()

@@ -1,7 +1,7 @@
 //
 // BTPacket.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -36,31 +36,29 @@ class CBENode;
 #define BT_PACKET_PIECE				7
 #define BT_PACKET_CANCEL			8
 #define BT_PACKET_DHT_PORT			9
-#define BT_PACKET_EXTENSION 		20	// Extension Protocol  http://www.bittorrent.org/beps/bep_0010.html
+#define BT_PACKET_EXTENSION 		20		// Extension Protocol  http://www.bittorrent.org/beps/bep_0010.html
 
-#define BT_PACKET_HANDSHAKE			128
+#define BT_PACKET_HANDSHAKE			128		// PeerProject/Shareaza Extension Protocol
 #define BT_PACKET_SOURCE_REQUEST	129
 #define BT_PACKET_SOURCE_RESPONSE	130
 
 #define BT_PACKET_KEEPALIVE			255
 
 // Packet extensions (for BT_PACKET_EXTENSION)
-
 #define BT_EXTENSION_HANDSHAKE		0
-#define BT_EXTENSION_UT_METADATA	1	// Extension for Peers to Send Metadata Files  http://www.bittorrent.org/beps/bep_0009.html
-#define BT_EXTENSION_UT_PEX 		2
-#define BT_EXTENSION_LT_TEX 		3	// Tracker exchange extension  http://www.bittorrent.org/beps/bep_0028.html
+#define BT_EXTENSION_UT_METADATA	1		// Extension for Peers to Send Metadata Files (ex. Size)  http://www.bittorrent.org/beps/bep_0009.html
+#define BT_EXTENSION_UT_PEX 		2		// Peer exchange
+#define BT_EXTENSION_LT_TEX 		3		// Tracker exchange  http://www.bittorrent.org/beps/bep_0028.html
 
-#define BT_EXTENSION_NOP			255	// Packet without standard header (bencoded data only)
-
-// Packet extensions (for BT_PACKET_HANDSHAKE)
-#define BT_HANDSHAKE_SOURCE			2	// Source Exchange extension
+#define BT_EXTENSION_NOP			255		// Packet without standard header (bencoded data only)
 
 // Packet metadata type (for EXTENDED_PACKET_UT_METADATA)
-
 #define UT_METADATA_REQUEST 		0
 #define UT_METADATA_DATA			1
 #define UT_METADATA_REJECT			2
+
+// Packet extensions (for BT_PACKET_HANDSHAKE)
+#define BT_HANDSHAKE_SOURCE			2		// Source Exchange extension
 
 const LPCSTR BT_DICT_ADDED			= "added";
 const LPCSTR BT_DICT_ADDED_F		= "added.f";
@@ -92,9 +90,10 @@ const LPCSTR BT_DICT_TRANSACT_ID	= "t";
 const LPCSTR BT_DICT_TRACKERS		= "tr";					// Tracker List hash
 const LPCSTR BT_DICT_TYPE			= "y";
 const LPCSTR BT_DICT_YOURIP			= "yourip";				// External IP (IPv4 or IPv6)
+const LPCSTR BT_DICT_UPLOAD_ONLY	= "upload_only";		// Partial Seed
 const LPCSTR BT_DICT_USER_AGENT		= "user-agent";
-const LPCSTR BT_DICT_UT_PEX			= "ut_pex";
 const LPCSTR BT_DICT_UT_METADATA	= "ut_metadata";
+const LPCSTR BT_DICT_UT_PEX			= "ut_pex";
 const LPCSTR BT_DICT_VALUES			= "values";
 const LPCSTR BT_DICT_VENDOR			= "v";					// Client name and version (as utf-8 string)
 

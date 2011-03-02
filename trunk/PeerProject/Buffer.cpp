@@ -602,7 +602,7 @@ BOOL CBuffer::Ungzip()
 	if ( nFlags & 0x08 )
 	{
 		DWORD i = 0;
-		for( ; m_pBuffer[i] && i < m_nLength; ++i );
+		for ( ; m_pBuffer[i] && i < m_nLength ; ++i );
 		if ( i == m_nLength ) return FALSE;
 		Remove( i + 1 );
 	}
@@ -611,7 +611,7 @@ BOOL CBuffer::Ungzip()
 	if ( nFlags & 0x10 )
 	{
 		DWORD i = 0;
-		for( ; m_pBuffer[i] && i < m_nLength; ++i );
+		for ( ; m_pBuffer[i] && i < m_nLength ; ++i );
 		if ( i == m_nLength ) return FALSE;
 		Remove( i + 1 );
 	}

@@ -1,7 +1,7 @@
 //
 // Library.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -47,7 +47,7 @@ public:
 
 // Attributes
 public:
-	CMutexEx		m_pSection;
+	mutable CMutexEx m_pSection;
 
 protected:
 	int				m_nFileSwitch;			// Library next save slot number
@@ -93,10 +93,10 @@ public:
 	CLibraryFile*	LookupFile(DWORD_PTR nIndex, BOOL bSharedOnly = FALSE, BOOL bAvailableOnly = FALSE) const;
 	void			AddFile(CLibraryFile* pFile);
 	void			RemoveFile(CLibraryFile* pFile);
-	void			CheckDuplicates(LPCTSTR pszMD5Hash);
+	void			CheckDuplicates(LPCTSTR pszMD5Hash) const;
 
 protected:
-	void			CheckDuplicates(CLibraryFile* pFile, bool bForce = false);
+	void			CheckDuplicates(CLibraryFile* pFile, bool bForce = false) const;
 
 // General Operations
 public:

@@ -1,7 +1,7 @@
 //
 // WndMain.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -351,22 +351,26 @@ void CMainWnd::SaveState()
 
 BOOL CMainWnd::PreCreateWindow(CREATESTRUCT& cs)
 {
+	cs.lpszClass = _T("PeerProjectMainWnd");
+	if ( ! ( cs.hInstance ) )
+		return FALSE;
+
 	WNDCLASS wndcls = {};
 
 	wndcls.style			= CS_PARENTDC | CS_DBLCLKS;	// CS_HREDRAW | CS_VREDRAW
 	wndcls.lpfnWndProc		= AfxWndProc;
-	wndcls.hInstance		= AfxGetInstanceHandle();
+	wndcls.hInstance		= cs.hInstance;				//AfxGetInstanceHandle();
 	wndcls.hIcon			= CoolInterface.ExtractIcon( IDR_MAINFRAME, FALSE, LVSIL_NORMAL );
 	wndcls.hCursor			= theApp.LoadStandardCursor( IDC_ARROW );
-	wndcls.hbrBackground	= NULL;
-	wndcls.lpszMenuName		= NULL;
-	wndcls.lpszClassName	= _T("PeerProjectMainWnd");
+//	wndcls.hbrBackground	= NULL;
+//	wndcls.lpszMenuName		= NULL;
+	wndcls.lpszClassName	= cs.lpszClass;
 
-	AfxRegisterClass( &wndcls );
+	VERIFY( AfxRegisterClass( &wndcls ) );
 
-	cs.lpszClass = wndcls.lpszClassName;
+	//return CMDIFrameWnd::PreCreateWindow( cs );
 
-	return CMDIFrameWnd::PreCreateWindow( cs );
+	return TRUE;
 }
 
 int CMainWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
@@ -431,26 +435,7 @@ int CMainWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_wndMonitorBar.SetBarStyle( m_wndMonitorBar.GetBarStyle() | CBRS_TOOLTIPS );
 	DockControlBar( &m_wndMonitorBar, AFX_IDW_DOCKBAR_TOP );
 
-	// Default Size
-	int iXSize, iYSize;
-	//Creates problems in dualview mode
-	//if ( GetSystemMetrics( SM_CMONITORS ) > 1 )
-	//{	// Multi Monitor
-	//	iXSize = GetSystemMetrics( SM_CXVIRTUALSCREEN );
-	//	iYSize = GetSystemMetrics( SM_CYVIRTUALSCREEN );
-	//}
-	//else // Single Monitor
-	{
-		iXSize = GetSystemMetrics( SM_CXSCREEN );
-		iYSize = GetSystemMetrics( SM_CYSCREEN );
-	}
-
-	SetWindowPos( NULL, iXSize * 1 / 10,
-						iYSize * 1 / 10,
-						iXSize * 8 / 10,
-						iYSize * 8 / 10, 0 );
-
-	// Disable bars themes
+	// Disable bar themes
 	if ( CWnd* pMDIClientWnd = GetWindow( GW_CHILD ) )
 	if ( CWnd* pStatusbarWnd = pMDIClientWnd->GetWindow( GW_HWNDNEXT ) )
 	if ( CWnd* pBar1 = pStatusbarWnd->GetWindow( GW_HWNDNEXT ) )
@@ -464,6 +449,13 @@ int CMainWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 		CoolInterface.EnableTheme( pBar4, FALSE );
 	}
 
+	// Default Size/Position
+	// Centered w/ 10% margin on primary monitor
+	const int nX = GetSystemMetrics( SM_CXSCREEN ) / 10;
+	const int nY = GetSystemMetrics( SM_CYSCREEN ) / 10;
+
+	SetWindowPos( NULL, nX, nY, nX * 8, nY * 8, 0 );
+
 	// Plugins
 	Plugins.Enumerate();
 
@@ -471,13 +463,17 @@ int CMainWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	Settings.LoadWindow( _T("CMainWnd"), this );
 	LoadBarState( _T("Toolbars\\CoolBar") );
 
-	if ( ! m_wndMenuBar.IsVisible() ) ShowControlBar( &m_wndMenuBar, TRUE, TRUE );
+	if ( ! m_wndMenuBar.IsVisible() )
+		ShowControlBar( &m_wndMenuBar, TRUE, TRUE );
+
 	if ( ! m_wndNavBar.IsVisible() && ! m_wndToolBar.IsVisible() )
 	{
 		ShowControlBar( &m_wndNavBar, Settings.General.GUIMode != GUI_WINDOWED, TRUE );
 		ShowControlBar( &m_wndToolBar, Settings.General.GUIMode == GUI_WINDOWED, TRUE );
 	}
-	if ( ! m_wndTabBar.IsVisible() ) ShowControlBar( &m_wndTabBar, TRUE, FALSE );
+
+	if ( ! m_wndTabBar.IsVisible() )
+		ShowControlBar( &m_wndTabBar, TRUE, FALSE );
 
 	if ( Settings.Toolbars.ShowRemote )
 		m_wndRemoteWnd.Create( &m_wndMonitorBar );
@@ -518,7 +514,9 @@ void CMainWnd::OnClose()
 {
 	CWaitCursor pCursor;
 
-	theApp.SplashStep( L"Preparing to Close", 7, true );
+	// Show Shutdown Splash, continued in PeerProject.cpp
+
+	theApp.SplashStep( L"Preparing to Close", 9, true );
 
 	if ( theApp.m_bBusy && ! theApp.m_bClosing )
 	{
@@ -528,7 +526,7 @@ void CMainWnd::OnClose()
 	}
 
 	if ( theApp.m_bClosing )
-		return;	// Already closing
+		return;		// Already closing
 
 	theApp.m_bClosing = true;
 
@@ -1566,8 +1564,7 @@ void CMainWnd::LocalSystemChecks()
 	// Check for duplicates if LibraryBuilder finished hashing during startup
 	// Happens when Library*.dat files are not saved and PeerProject crashed
 	// In this case all files are re-added and we can find malicious duplicates
-	if ( ! Settings.Live.LastDuplicateHash.IsEmpty() &&
-		 ! Settings.Live.MaliciousWarning )
+	if ( ! Settings.Live.LastDuplicateHash.IsEmpty() && ! Settings.Live.MaliciousWarning )
 		Library.CheckDuplicates( Settings.Live.LastDuplicateHash );
 }
 
@@ -2224,7 +2221,7 @@ void CMainWnd::OnUpdateToolsDownload(CCmdUI* pCmdUI)
 
 void CMainWnd::OnToolsDownload()
 {
-	for ( BOOL bBreak = FALSE; ! bBreak; )
+	for ( BOOL bBreak = FALSE ; ! bBreak ; )
 	{
 		bBreak = TRUE;
 
@@ -2232,7 +2229,7 @@ void CMainWnd::OnToolsDownload()
 		if ( dlg.DoModal() != IDOK )
 			return;
 
-		for ( POSITION pos = dlg.m_pURLs.GetHeadPosition(); pos; )
+		for ( POSITION pos = dlg.m_pURLs.GetHeadPosition() ; pos ; )
 		{
 			CPeerProjectURL pURL( dlg.m_pURLs.GetNext( pos ) );
 

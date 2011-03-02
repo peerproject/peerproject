@@ -1,7 +1,7 @@
 //
 // Downloads.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -953,7 +953,7 @@ void CDownloads::OnRun()
 		// Just run the downloads, don't bother re-calulating bandwidth
 		++m_nRunCookie;
 
-		for ( POSITION pos = GetIterator(); pos; )
+		for ( POSITION pos = GetIterator() ; pos ; )
 		{
 			CDownload* pDownload = GetNext( pos );
 			pDownload->m_nRunCookie = m_nRunCookie;
@@ -984,7 +984,7 @@ void CDownloads::OnRun()
 			++m_nRunCookie;
 
 			// Run all the downloads, select the transfers that need bandwidth limiting
-			for ( POSITION pos = GetIterator(); pos; )
+			for ( POSITION pos = GetIterator() ; pos ; )
 			{
 				CDownload* pDownload = GetNext( pos );
 				pDownload->m_nRunCookie = m_nRunCookie;
@@ -1215,25 +1215,23 @@ void CDownloads::Load()
 	m_nLimitDonkey = Settings.Bandwidth.Downloads;
 
 	CSingleLock pLock( &Transfers.m_pSection, TRUE );
-	CString strPath;
 
 	PurgePreviews();
+//	LoadFromCompoundFiles();						// Legacy Shareaza multifile torrents
 
-	DownloadGroups.CreateDefault();
-//	LoadFromCompoundFiles();	// Legacy Shareaza multifile torrents
+	const CString strRoot = Settings.Downloads.IncompletePath + _T("\\");
 
 	WIN32_FIND_DATA pFind = {};
-	HANDLE hSearch = FindFirstFile( Settings.Downloads.IncompletePath + _T("\\*.pd"), &pFind );
-	if ( hSearch == INVALID_HANDLE_VALUE )	// Try imported Shareaza file
-		hSearch = FindFirstFile( Settings.Downloads.IncompletePath + _T("\\*.sd"), &pFind );
+	HANDLE hSearch = FindFirstFile( strRoot + _T("*.pd"), &pFind );
+	if ( hSearch == INVALID_HANDLE_VALUE )			// Try imported Shareaza files
+		hSearch = FindFirstFile( strRoot + _T("*.sd"), &pFind );
 
 	if ( hSearch != INVALID_HANDLE_VALUE )
 	{
 		do
 		{
-			CString strPath;
-			strPath.Format( _T("%s\\%s"),
-				(LPCTSTR)Settings.Downloads.IncompletePath, pFind.cFileName );
+			CString strPath( strRoot );
+			strPath.Append( pFind.cFileName );
 
 			auto_ptr< CDownload > pDownload( new CDownload() );
 			if ( pDownload->Load( strPath ) )
@@ -1269,7 +1267,10 @@ void CDownloads::Load()
 	}
 
 	Save( FALSE );
-	DownloadGroups.Load();
+
+	if( ! DownloadGroups.Load() )
+		DownloadGroups.CreateDefault();
+
 	Transfers.StartThread();
 }
 
@@ -1285,23 +1286,50 @@ void CDownloads::Save(BOOL bForce)
 	}
 }
 
+
 //////////////////////////////////////////////////////////////////////
-// CDownloads load old compound file formats (Legacy Shareaza)
+// CDownloads left over file purge operations
+
+void CDownloads::PurgePreviews()
+{
+	const CString strRoot = Settings.Downloads.IncompletePath + _T("\\");
+	CString strPath = strRoot + _T("Preview of *.*");
+
+	WIN32_FIND_DATA pFind = {};
+	HANDLE hSearch = FindFirstFile( strPath, &pFind );
+	if ( hSearch == INVALID_HANDLE_VALUE ) return;
+
+	do
+	{
+		if ( _tcsnicmp( pFind.cFileName, _T("Preview of "), 11 ) == 0 )
+		{
+			strPath = strRoot + pFind.cFileName;
+			DeleteFileEx( strPath, FALSE, FALSE, TRUE );
+		}
+	}
+	while ( FindNextFile( hSearch, &pFind ) );
+
+	FindClose( hSearch );
+}
+
+
+//////////////////////////////////////////////////////////////////////
+// CDownloads import old compound file format (Legacy Shareaza)
 
 //void CDownloads::LoadFromCompoundFiles()
 //{
-//	if ( LoadFromCompoundFile( Settings.Downloads.IncompletePath + _T("\\PeerProject Downloads.dat") ) )
+//	if ( LoadFromCompoundFile( Settings.Downloads.IncompletePath + _T("\\Shareaza Downloads.dat") ) )
 //		; // Good
-//	else if ( LoadFromCompoundFile( Settings.Downloads.IncompletePath + _T("\\PeerProject Downloads.bak") ) )
+//	else if ( LoadFromCompoundFile( Settings.Downloads.IncompletePath + _T("\\Shareaza Downloads.bak") ) )
 //		; // Good
 //	else
 //		LoadFromTimePair();
 //
-//	DeleteFileEx( Settings.Downloads.IncompletePath + _T("\\PeerProject Downloads.dat"), FALSE, TRUE, TRUE );
-//	DeleteFileEx( Settings.Downloads.IncompletePath + _T("\\PeerProject Downloads.bak"), FALSE, TRUE, TRUE );
-//	DeleteFileEx( Settings.Downloads.IncompletePath + _T("\\PeerProject.dat"), FALSE, TRUE, TRUE );
-//	DeleteFileEx( Settings.Downloads.IncompletePath + _T("\\PeerProject1.dat"), FALSE, TRUE, TRUE );
-//	DeleteFileEx( Settings.Downloads.IncompletePath + _T("\\PeerProject2.dat"), FALSE, TRUE, TRUE );
+//	DeleteFileEx( Settings.Downloads.IncompletePath + _T("\\Shareaza Downloads.dat"), FALSE, TRUE, TRUE );
+//	DeleteFileEx( Settings.Downloads.IncompletePath + _T("\\Shareaza Downloads.bak"), FALSE, TRUE, TRUE );
+//	DeleteFileEx( Settings.Downloads.IncompletePath + _T("\\Shareaza.dat"), FALSE, TRUE, TRUE );
+//	DeleteFileEx( Settings.Downloads.IncompletePath + _T("\\Shareaza1.dat"), FALSE, TRUE, TRUE );
+//	DeleteFileEx( Settings.Downloads.IncompletePath + _T("\\Shareaza2.dat"), FALSE, TRUE, TRUE );
 //}
 
 //BOOL CDownloads::LoadFromCompoundFile(LPCTSTR pszFile)
@@ -1328,12 +1356,9 @@ void CDownloads::Save(BOOL bForce)
 //{
 //	FILETIME pFileTime1 = { 0, 0 }, pFileTime2 = { 0, 0 };
 //	CFile pFile1, pFile2;
-//	BOOL bFile1, bFile2;
-//	CString strFile;
-//
-//	strFile	= Settings.Downloads.IncompletePath + _T("\\PeerProject");
-//	bFile1	= pFile1.Open( strFile + _T("1.dat"), CFile::modeRead );
-//	bFile2	= pFile2.Open( strFile + _T("2.dat"), CFile::modeRead );
+//	const CString strFile = Settings.Downloads.IncompletePath + _T("\\");
+//	BOOL bFile1	= pFile1.Open( strFile + _T("Shareaza1.dat"), CFile::modeRead );
+//	BOOL bFile2	= pFile2.Open( strFile + _T("Shareaza2.dat"), CFile::modeRead );
 //
 //	if ( bFile1 || bFile2 )
 //	{
@@ -1342,7 +1367,7 @@ void CDownloads::Save(BOOL bForce)
 //	}
 //	else
 //	{
-//		if ( ! pFile1.Open( strFile + _T(".dat"), CFile::modeRead ) ) return FALSE;
+//		if ( ! pFile1.Open( strFile + _T("Shareaza.dat"), CFile::modeRead ) ) return FALSE;
 //		pFileTime1.dwHighDateTime++;
 //	}
 //
@@ -1382,7 +1407,6 @@ void CDownloads::Save(BOOL bForce)
 //			}
 //		}
 //	}
-//
 //	return TRUE;
 //}
 
@@ -1401,29 +1425,3 @@ void CDownloads::Save(BOOL bForce)
 //		pDownload->Serialize( ar, nVersion );
 //	}
 //}
-
-//////////////////////////////////////////////////////////////////////
-// CDownloads left over file purge operations
-
-void CDownloads::PurgePreviews()
-{
-	WIN32_FIND_DATA pFind;
-	HANDLE hSearch;
-	CString strPath;
-
-	strPath = Settings.Downloads.IncompletePath + _T("\\Preview of *.*");
-	hSearch = FindFirstFile( strPath, &pFind );
-	if ( hSearch == INVALID_HANDLE_VALUE ) return;
-
-	do
-	{
-		if ( _tcsnicmp( pFind.cFileName, _T("Preview of "), 11 ) == 0 )
-		{
-			strPath = Settings.Downloads.IncompletePath + '\\' + pFind.cFileName;
-			DeleteFileEx( strPath, FALSE, FALSE, TRUE );
-		}
-	}
-	while ( FindNextFile( hSearch, &pFind ) );
-
-	FindClose( hSearch );
-}

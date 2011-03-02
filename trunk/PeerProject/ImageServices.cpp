@@ -1,7 +1,7 @@
 //
 // ImageServices.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -106,7 +106,7 @@ BOOL CImageServices::LoadFromFile(CImageFile* pFile, LPCTSTR szFilename, BOOL bS
 	service_list oList;
 	if ( LookupUniversalPlugins( oList ) )
 	{
-		for ( service_list::const_iterator i = oList.begin(); i != oList.end(); ++i )
+		for ( service_list::const_iterator i = oList.begin() ; i != oList.end() ; ++i )
 		{
 			if ( LoadFromFileHelper( (*i).second.m_T, pFile, szFilename, bScanOnly, bPartialOk ) )
 				return TRUE;
@@ -151,16 +151,10 @@ BOOL CImageServices::LoadFromFileHelper(IImageServicePlugin* pService, CImageFil
 		{
 			if ( GetFileSize( hFile, NULL ) < 10*1024*1024 )	// Max size 10 MB
 			{
-				HANDLE hMap = CreateFileMapping( hFile, NULL, PAGE_READONLY, 0, 0, NULL );
-				if ( hMap )
+				if ( HANDLE hMap = CreateFileMapping( hFile, NULL, PAGE_READONLY, 0, 0, NULL ) )
 				{
-					LPCVOID pBuffer = MapViewOfFile( hMap, FILE_MAP_READ, 0, 0, 0 );
-
-					if ( pBuffer )
+					if ( LPCVOID pBuffer = MapViewOfFile( hMap, FILE_MAP_READ, 0, 0, 0 ) )
 					{
-						CString strType( PathFindExtension( szFilename ) ); // ".ext"
-						strType.MakeLower();
-
 						bSuccess = LoadFromMemory( pFile, strType, pBuffer,
 							GetFileSize( hFile, NULL ), bScanOnly, bPartialOk );
 
@@ -393,7 +387,7 @@ STDMETHODIMP CImageServices::XImageService::LoadFromFile( __in BSTR sFile, __ino
 	METHOD_PROLOGUE(CImageServices, ImageService)
 
 	// Get file extension
-	CString strType( PathFindExtension( sFile ) ); // ".ext"
+	CString strType( PathFindExtension( sFile ) );	// ".ext"
 	strType.MakeLower();
 
 	CComQIPtr< IImageServicePlugin > pService(
@@ -407,7 +401,7 @@ STDMETHODIMP CImageServices::XImageService::LoadFromFile( __in BSTR sFile, __ino
 	service_list oList;
 	if ( ImageServices.LookupUniversalPlugins( oList ) )
 	{
-		for ( service_list::const_iterator i = oList.begin(); i != oList.end(); ++i )
+		for ( service_list::const_iterator i = oList.begin() ; i != oList.end() ; ++i )
 		{
 			if ( SUCCEEDED( (*i).second.m_T->LoadFromFile( sFile, pParams, ppImage ) ) )
 				return S_OK;

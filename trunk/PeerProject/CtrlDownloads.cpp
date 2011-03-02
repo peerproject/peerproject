@@ -279,7 +279,7 @@ BOOL CDownloadsCtrl::IsExpandable(CDownload* pDownload)
 	}
 	else
 	{
-		for ( POSITION posSource = pDownload->GetIterator(); posSource ; )
+		for ( POSITION posSource = pDownload->GetIterator() ; posSource ; )
 		{
 			CDownloadSource* pSource = pDownload->GetNext( posSource );
 
@@ -400,13 +400,13 @@ void CDownloadsCtrl::SelectAll(CDownload* /*pDownload*/, CDownloadSource* /*pSou
 		}
 
 		// If a source is selected, select all sources for that download
-		for ( POSITION posSource = pDownload->GetIterator(); posSource ; )
+		for ( POSITION posSource = pDownload->GetIterator() ; posSource ; )
 		{
 			CDownloadSource* pSource = pDownload->GetNext( posSource );
 
 			if ( pSource->m_bSelected )
 			{
-				for ( POSITION posSource2 = pDownload->GetIterator(); posSource2 ; )
+				for ( POSITION posSource2 = pDownload->GetIterator() ; posSource2 ; )
 				{
 					CDownloadSource* pSource2 = pDownload->GetNext( posSource2 );
 
@@ -446,7 +446,7 @@ void CDownloadsCtrl::DeselectAll(CDownload* pExcept1, CDownloadSource* pExcept2)
 		if ( pDownload != pExcept1 )
 			pDownload->m_bSelected = FALSE;
 
-		for ( POSITION posSource = pDownload->GetIterator(); posSource ; )
+		for ( POSITION posSource = pDownload->GetIterator() ; posSource ; )
 		{
 			CDownloadSource* pSource = pDownload->GetNext( posSource );
 
@@ -469,7 +469,7 @@ int CDownloadsCtrl::GetSelectedCount()
 		if ( pDownload->m_bSelected )
 			nCount++;
 
-		for ( POSITION posSource = pDownload->GetIterator(); posSource ; )
+		for ( POSITION posSource = pDownload->GetIterator() ; posSource ; )
 		{
 			CDownloadSource* pSource = pDownload->GetNext( posSource );
 			if ( pSource->m_bSelected )
@@ -540,7 +540,7 @@ BOOL CDownloadsCtrl::HitTest(const CPoint& point, CDownload** ppDownload, CDownl
 			}
 		}
 
-		for ( POSITION posSource = pDownload->GetIterator(); posSource ; )
+		for ( POSITION posSource = pDownload->GetIterator() ; posSource ; )
 		{
 			CDownloadSource* pSource = pDownload->GetNext( posSource );
 
@@ -599,7 +599,7 @@ BOOL CDownloadsCtrl::GetAt(int nSelect, CDownload** ppDownload, CDownloadSource*
 		if ( ! pDownload->m_bExpanded || ( pDownload->IsSeeding() && ! Settings.General.DebugBTSources ) )
 			continue;
 
-		for ( POSITION posSource = pDownload->GetIterator(); posSource ; )
+		for ( POSITION posSource = pDownload->GetIterator() ; posSource ; )
 		{
 			CDownloadSource* pSource = pDownload->GetNext( posSource );
 
@@ -660,7 +660,7 @@ BOOL CDownloadsCtrl::GetRect(CDownload* pSelect, RECT* prcItem)
 			continue;
 		}
 
-		for ( POSITION posSource = pDownload->GetIterator(); posSource ; )
+		for ( POSITION posSource = pDownload->GetIterator() ; posSource ; )
 		{
 			CDownloadSource* pSource = pDownload->GetNext( posSource );
 
@@ -832,7 +832,7 @@ void CDownloadsCtrl::OnSize(UINT nType, int cx, int cy)
 		{
 			pDownload->m_bSelected = FALSE;
 
-			for ( POSITION posSource = pDownload->GetIterator(); posSource ; )
+			for ( POSITION posSource = pDownload->GetIterator() ; posSource ; )
 			{
 				CDownloadSource* pSource = pDownload->GetNext( posSource );
 
@@ -851,7 +851,7 @@ void CDownloadsCtrl::OnSize(UINT nType, int cx, int cy)
 		}
 		else
 		{
-			for ( POSITION posSource = pDownload->GetIterator(); posSource ; )
+			for ( POSITION posSource = pDownload->GetIterator() ; posSource ; )
 			{
 				CDownloadSource* pSource = pDownload->GetNext( posSource );
 
@@ -951,7 +951,7 @@ void CDownloadsCtrl::OnPaint()
 			}
 		}
 
-		for ( POSITION posSource = pDownload->GetIterator(); posSource ; )
+		for ( POSITION posSource = pDownload->GetIterator() ; posSource ; )
 		{
 			CDownloadSource* pSource = pDownload->GetNext( posSource );
 
@@ -1980,7 +1980,7 @@ void CDownloadsCtrl::OnLButtonDown(UINT nFlags, CPoint point)
 
 				if ( ! pDownload->m_bExpanded )
 				{
-					for ( POSITION posSource = pDownload->GetIterator(); posSource ; )
+					for ( POSITION posSource = pDownload->GetIterator() ; posSource ; )
 					{
 						CDownloadSource* pDownloadSource = pDownload->GetNext( posSource );
 
@@ -2053,7 +2053,7 @@ void CDownloadsCtrl::OnLButtonDblClk(UINT nFlags, CPoint point)
 
 				if ( ! pDownload->m_bExpanded )
 				{
-					for ( POSITION posSource = pDownload->GetIterator(); posSource ; )
+					for ( POSITION posSource = pDownload->GetIterator() ; posSource ; )
 					{
 						CDownloadSource* pDownloadSource = pDownload->GetNext( posSource );
 

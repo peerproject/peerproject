@@ -1,7 +1,7 @@
 //
 // Security.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -96,7 +96,14 @@ void CSecurity::Add(CSecureRule* pRule)
 	{
 		CQuickLock oLock( m_pSection );
 
-		pRule->MaskFix();
+		if ( pRule->m_nType == CSecureRule::srAddress )
+		{
+			pRule->MaskFix();
+			if ( pRule->m_nMask[3] == 255 && pRule->m_nMask[2] == 255 && pRule->m_nMask[1] == 255 )
+				m_Cache.erase( *(DWORD*)pRule->m_nIP );
+			else
+				m_Cache.clear();
+		}
 
 		CSecureRule* pExistingRule = GetGUID( pRule->m_pGUID );
 		if ( pExistingRule == NULL )
@@ -185,7 +192,7 @@ void CSecurity::BanHelper(const IN_ADDR* pAddress, const CPeerProjectFile* pFile
 {
 	CQuickLock oLock( m_pSection );
 
-	DWORD tNow = static_cast< DWORD >( time( NULL ) );
+	const DWORD tNow = static_cast< DWORD >( time( NULL ) );
 
 	for ( POSITION pos = GetIterator() ; pos ; )
 	{
@@ -245,7 +252,7 @@ void CSecurity::BanHelper(const IN_ADDR* pAddress, const CPeerProjectFile* pFile
 		break;
 	default:
 		pRule->m_nExpire	= CSecureRule::srSession;
-		pRule->m_sComment	= _T("Quick Ban");
+		pRule->m_sComment	= _T("Session Ban");
 	}
 
 	if ( szComment )
@@ -281,7 +288,7 @@ bool CSecurity::Complain(const IN_ADDR* pAddress, int nBanLength, int nExpire, i
 {
 	CQuickLock oLock( m_pSection );
 
-	DWORD nNow = static_cast< DWORD >( time( NULL ) );
+	const DWORD nNow = static_cast< DWORD >( time( NULL ) );
 
 	CComplain* pComplain = NULL;
 	if ( m_Complains.Lookup( pAddress->s_addr, pComplain ) )
@@ -315,13 +322,17 @@ bool CSecurity::Complain(const IN_ADDR* pAddress, int nBanLength, int nExpire, i
 }
 
 //////////////////////////////////////////////////////////////////////
-// CSecurity access check
+// CSecurity access checks
 
 BOOL CSecurity::IsDenied(const IN_ADDR* pAddress)
 {
+	if ( m_Cache.count( *(DWORD*)pAddress ) )
+		return m_bDenyPolicy;
+		// theApp.Message( MSG_DEBUG, _T("Skipped Repeat IP Security Check  (%i Cached)"), m_Cache.size() );
+
 	CQuickLock oLock( m_pSection );
 
-	DWORD nNow = static_cast< DWORD >( time( NULL ) );
+	const DWORD nNow = static_cast< DWORD >( time( NULL ) );
 
 	for ( POSITION pos = GetIterator() ; pos ; )
 	{
@@ -338,17 +349,17 @@ BOOL CSecurity::IsDenied(const IN_ADDR* pAddress)
 			pRule->m_nToday ++;
 			pRule->m_nEver ++;
 
+			// Add 5 min penalty for early access
 			if ( pRule->m_nExpire > CSecureRule::srSession &&
 				pRule->m_nExpire < nNow + 300 )
-				// Add 5 min penalty for early access
 				pRule->m_nExpire = nNow + 300;
 
-			if ( pRule->m_nAction == CSecureRule::srAccept )
-				return FALSE;
-			if ( pRule->m_nAction == CSecureRule::srDeny )
-				return TRUE;
+			if ( pRule->m_nAction == CSecureRule::srDeny )		return TRUE;
+			if ( pRule->m_nAction == CSecureRule::srAccept )	return FALSE;
 		}
 	}
+
+	m_Cache.insert( *(DWORD*)pAddress );	// Skip future lookups
 
 	return m_bDenyPolicy;
 }
@@ -357,7 +368,7 @@ BOOL CSecurity::IsDenied(LPCTSTR pszContent)
 {
 	CQuickLock oLock( m_pSection );
 
-	DWORD nNow = static_cast< DWORD >( time( NULL ) );
+	const DWORD nNow = static_cast< DWORD >( time( NULL ) );
 
 	for ( POSITION pos = GetIterator() ; pos ; )
 	{
@@ -374,23 +385,18 @@ BOOL CSecurity::IsDenied(LPCTSTR pszContent)
 			pRule->m_nToday ++;
 			pRule->m_nEver ++;
 
+			// Add 5 min penalty for early access
 			if ( pRule->m_nExpire > CSecureRule::srSession &&
 				pRule->m_nExpire < nNow + 300 )
-				// Add 5 min penalty for early access
 				pRule->m_nExpire = nNow + 300;
 
-			if ( pRule->m_nAction == CSecureRule::srAccept )
-				return FALSE;
-			if ( pRule->m_nAction == CSecureRule::srDeny )
-				return TRUE;
+			if ( pRule->m_nAction == CSecureRule::srDeny )		return TRUE;
+			if ( pRule->m_nAction == CSecureRule::srAccept )	return FALSE;
 		}
 	}
 
 	return m_bDenyPolicy;
 }
-
-//////////////////////////////////////////////////////////////////////
-// CSecurity check file size, hash
 
 BOOL CSecurity::IsDenied(const CPeerProjectFile* pFile) 	// ToDo: Never called?
 {
@@ -413,15 +419,13 @@ BOOL CSecurity::IsDenied(const CPeerProjectFile* pFile) 	// ToDo: Never called?
 			pRule->m_nToday ++;
 			pRule->m_nEver ++;
 
+			// Add 5 min penalty for early access
 			if ( pRule->m_nExpire > CSecureRule::srSession &&
 				pRule->m_nExpire < nNow + 300 )
-				// Add 5 min penalty for early access
 				pRule->m_nExpire = nNow + 300;
 
-			if ( pRule->m_nAction == CSecureRule::srAccept )
-				return FALSE;
-			if ( pRule->m_nAction == CSecureRule::srDeny )
-				return TRUE;
+			if ( pRule->m_nAction == CSecureRule::srDeny )		return TRUE;
+			if ( pRule->m_nAction == CSecureRule::srAccept )	return FALSE;
 		}
 	}
 
@@ -432,7 +436,7 @@ BOOL CSecurity::IsDenied(const CQuerySearch* pQuery, const CString& strContent)
 {
 	CQuickLock oLock( m_pSection );
 
-	DWORD nNow = static_cast< DWORD >( time( NULL ) );
+	const DWORD nNow = static_cast< DWORD >( time( NULL ) );
 
 	for ( POSITION pos = GetIterator() ; pos ; )
 	{
@@ -449,8 +453,8 @@ BOOL CSecurity::IsDenied(const CQuerySearch* pQuery, const CString& strContent)
 			pRule->m_nToday ++;
 			pRule->m_nEver ++;
 
-			if ( pRule->m_nAction == CSecureRule::srAccept ) return FALSE;
-			if ( pRule->m_nAction == CSecureRule::srDeny ) return TRUE;
+			if ( pRule->m_nAction == CSecureRule::srDeny )		return TRUE;
+			if ( pRule->m_nAction == CSecureRule::srAccept )	return FALSE;
 		}
 	}
 
@@ -499,8 +503,7 @@ BOOL CSecurity::Load()
 	CQuickLock oLock( m_pSection );
 
 	CFile pFile;
-
-	CString strFile = Settings.General.UserPath + _T("\\Data\\Security.dat");
+	const CString strFile = Settings.General.UserPath + _T("\\Data\\Security.dat");
 
 	if ( ! pFile.Open( strFile, CFile::modeRead ) ) return FALSE;
 
@@ -523,7 +526,7 @@ BOOL CSecurity::Load()
 BOOL CSecurity::Save()
 {
 	CFile pFile;
-	CString strFile = Settings.General.UserPath + _T("\\Data\\Security.dat");
+	const CString strFile = Settings.General.UserPath + _T("\\Data\\Security.dat");
 
 	CQuickLock oLock( m_pSection );
 
@@ -733,7 +736,7 @@ BOOL CSecurity::Import(LPCTSTR pszFile)
 BOOL CSecurity::IsClientBad(const CString& sUserAgent) const
 {
 	// No user agent- Assume bad. (Allowed connection but no searches performed)
-	if ( sUserAgent.IsEmpty()  )								return TRUE;
+	if ( sUserAgent.IsEmpty() ) 								return TRUE;
 
 	// PeerProject Fakes
 	if ( LPCTSTR szVersion = _tcsistr( sUserAgent, _T("PeerProject") ) )
@@ -766,7 +769,7 @@ BOOL CSecurity::IsClientBad(const CString& sUserAgent) const
 		return FALSE;
 	}
 
-	//BearShare Selectivity
+	// BearShare Selectivity
 	if ( LPCTSTR szVersion = _tcsistr( sUserAgent, _T("BearShare") ) )
 	{
 		szVersion += 9;
@@ -776,7 +779,7 @@ BOOL CSecurity::IsClientBad(const CString& sUserAgent) const
 		return TRUE;
 	}
 
-	//Any iMesh
+	// Any iMesh
 	if ( _tcsistr( sUserAgent, _T("iMesh") ) )					return TRUE;
 
 	// Other Miscillaneous
@@ -837,7 +840,7 @@ BOOL CSecurity::IsAgentBlocked(const CString& sUserAgent) const
 
 	// Loop through the user-defined list of programs to block
 	for ( string_set::const_iterator i = Settings.Uploads.BlockAgents.begin() ;
-		i != Settings.Uploads.BlockAgents.end(); i++ )
+		i != Settings.Uploads.BlockAgents.end() ; i++ )
 	{
 		if ( _tcsistr( sUserAgent, *i ) )						return TRUE;
 	}
@@ -1006,8 +1009,8 @@ BOOL CSecureRule::Match(const CPeerProjectFile* pFile) const
 				( pFile->m_oSHA1  && Match( pFile->m_oSHA1.toUrn() ) ) ||
 				( pFile->m_oED2K  && Match( pFile->m_oED2K.toUrn() ) ) ||
 				( pFile->m_oTiger && Match( pFile->m_oTiger.toUrn() ) ) ||
-				( pFile->m_oMD5   && Match( pFile->m_oMD5.toUrn() ) ) ||
-				( pFile->m_oBTH   && Match( pFile->m_oBTH.toUrn() ) );
+				( pFile->m_oBTH   && Match( pFile->m_oBTH.toUrn() ) ) ||
+				( pFile->m_oMD5   && Match( pFile->m_oMD5.toUrn() ) );
 	}
 
 	return FALSE;
@@ -1032,7 +1035,7 @@ BOOL CSecureRule::Match(const CQuerySearch* pQuery, const CString& strContent) c
 
 	CString strFilter;
 	int nTotal = 0;
-	for ( LPCTSTR pszPattern = m_pContent; *pszPattern; pszPattern++ )
+	for ( LPCTSTR pszPattern = m_pContent ; *pszPattern ; pszPattern++ )
 	{
 		if ( *pszPattern == '<' )
 		{
@@ -1533,9 +1536,10 @@ BOOL CSecureRule::FromGnucleusString(CString& str)
 
 //////////////////////////////////////////////////////////////////////
 // CSecureRule Netmask Fix
-void  CSecureRule::MaskFix()
+
+void CSecureRule::MaskFix()
 {
-	DWORD nNetwork = 0 , nOldMask  = 0 , nNewMask = 0;
+	DWORD nNetwork = 0 , nOldMask = 0 , nNewMask = 0;
 
 	for ( int nByte = 0 ; nByte < 4 ; nByte++ )		// Convert the byte arrays to dwords
 	{
@@ -1581,7 +1585,7 @@ void  CSecureRule::MaskFix()
 		return;
 	}
 
-	nNetwork &= nNewMask;			// Do the & now so we don't have to each time there's a match
+	nNetwork &= nNewMask;							// Do the & now so we don't have to each time there's a match
 
 	for ( int nByte = 0 ; nByte < 4 ; nByte++ )		// Convert the dwords back to byte arrays
 	{
@@ -1624,8 +1628,8 @@ CAdultFilter::~CAdultFilter()
 void CAdultFilter::Load()
 {
 	CFile pFile;
-	CString strFile = Settings.General.Path + _T("\\Data\\AdultFilter.dat");
 	CString strBlockedWords, strDubiousWords, strChildWords;
+	const CString strFile = Settings.General.Path + _T("\\Data\\AdultFilter.dat");
 
 	// Delete current adult filters (if present)
 	if ( m_pszBlockedWords ) delete [] m_pszBlockedWords;
@@ -1643,11 +1647,11 @@ void CAdultFilter::Load()
 		try
 		{
 			CBuffer pBuffer;
-			DWORD nLen = (DWORD)pFile.GetLength();
+			const DWORD nLen = (DWORD)pFile.GetLength();
 			if ( ! pBuffer.EnsureBuffer( nLen ) )
 				AfxThrowUserException();
 
-			pBuffer.m_nLength = (DWORD)pFile.GetLength();
+			pBuffer.m_nLength = nLen;
 			pFile.Read( pBuffer.m_pBuffer, pBuffer.m_nLength );
 			pFile.Close();
 
@@ -1840,12 +1844,10 @@ BOOL CAdultFilter::Censor(TCHAR* pszText) const
 	BOOL bModified = FALSE;
 	if ( ! pszText ) return FALSE;
 
-	LPCTSTR pszWord;
-
 	// Check and replace blocked words
 	if ( m_pszBlockedWords )
 	{
-		for ( pszWord = m_pszBlockedWords ; *pszWord ; )
+		for ( LPCTSTR pszWord = m_pszBlockedWords ; *pszWord ; )
 		{
 			TCHAR* pReplace = (TCHAR*)_tcsistr( pszText, pszWord );
 
@@ -1948,15 +1950,15 @@ CMessageFilter::~CMessageFilter()
 void CMessageFilter::Load()
 {
 	CFile pFile;
-	CString strFile = Settings.General.Path + _T("\\Data\\MessageFilter.dat");
 	CString strFilteredPhrases, strED2KSpamPhrases;
+	const CString strFile = Settings.General.Path + _T("\\Data\\MessageFilter.dat");
 
 	// Delete current filter (if present)
 	if ( m_pszFilteredPhrases ) delete [] m_pszFilteredPhrases;
 	m_pszFilteredPhrases = NULL;
 
 	// Load the message filter from disk
-	if (  pFile.Open( strFile, CFile::modeRead ) )
+	if ( pFile.Open( strFile, CFile::modeRead ) )
 	{
 		try
 		{
@@ -2078,17 +2080,17 @@ void CMessageFilter::Load()
 
 BOOL CMessageFilter::IsED2KSpam( LPCTSTR pszText )
 {
-	if ( Settings.Community.ChatFilterED2K && pszText )
+	if ( ! Settings.Community.ChatFilterED2K || ! pszText )
+		return FALSE;
+
+	// Check for Ed2K spam phrases
+	if ( m_pszED2KSpam )
 	{
-		// Check for Ed2K spam phrases
-		if ( m_pszED2KSpam )
+		LPCTSTR pszWord;
+		for ( pszWord = m_pszED2KSpam ; *pszWord ; )
 		{
-			LPCTSTR pszWord;
-			for ( pszWord = m_pszED2KSpam ; *pszWord ; )
-			{
-				if ( _tcsistr( pszText, pszWord ) != NULL ) return TRUE;
-				pszWord += _tcslen( pszWord ) + 1;
-			}
+			if ( _tcsistr( pszText, pszWord ) != NULL ) return TRUE;
+			pszWord += _tcslen( pszWord ) + 1;
 		}
 	}
 
@@ -2097,17 +2099,17 @@ BOOL CMessageFilter::IsED2KSpam( LPCTSTR pszText )
 
 BOOL CMessageFilter::IsFiltered( LPCTSTR pszText )
 {
-	if ( Settings.Community.ChatFilter && pszText )
+	if ( ! Settings.Community.ChatFilter || ! pszText )
+		return FALSE;
+
+	// Check for filtered (spam) phrases
+	if ( m_pszFilteredPhrases )
 	{
-		// Check for filtered (spam) phrases
-		if ( m_pszFilteredPhrases )
+		LPCTSTR pszWord;
+		for ( pszWord = m_pszFilteredPhrases ; *pszWord ; )
 		{
-			LPCTSTR pszWord;
-			for ( pszWord = m_pszFilteredPhrases ; *pszWord ; )
-			{
-				if ( _tcsistr( pszText, pszWord ) != NULL ) return TRUE;
-				pszWord += _tcslen( pszWord ) + 1;
-			}
+			if ( _tcsistr( pszText, pszWord ) != NULL ) return TRUE;
+			pszWord += _tcslen( pszWord ) + 1;
 		}
 	}
 

@@ -1,7 +1,7 @@
 //
 // UploadTransfer.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -30,7 +30,7 @@ class CDownload;
 #define ULA_SLOTS	16
 
 
-class CUploadTransfer : public CTransfer, public CPeerProjectFile
+class CUploadTransfer abstract : public CTransfer, public CPeerProjectFile
 {
 public:
 	CUploadTransfer(PROTOCOLID nProtocol);

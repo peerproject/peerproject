@@ -522,6 +522,9 @@
     <ClCompile Include="SQLite.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Strings.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="Statistics.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -2022,6 +2025,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SQLite.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Strings.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Statistics.h">

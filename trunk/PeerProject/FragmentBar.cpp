@@ -196,7 +196,7 @@ void CFragmentBar::DrawDownload(CDC* pDC, CRect* prcBar, CDownload* pDownload, C
 			pItr->begin(), pItr->size(), crNatural, FALSE );
 	}
 
-	for ( POSITION posSource = pDownload->GetIterator(); posSource ; )
+	for ( POSITION posSource = pDownload->GetIterator() ; posSource ; )
 	{
 		CDownloadSource* pSource = pDownload->GetNext( posSource );
 		pSource->Draw( pDC, prcBar );
@@ -247,9 +247,9 @@ void CFragmentBar::DrawDownloadSimple(CDC* pDC, CRect* prcBar, CDownload* pDownl
 //			break;	// Do nothing more
 //		case PROTOCOL_ED2K:
 //			for ( Fragments::Queue::const_iterator pRequested
-//				= static_cast< CDownloadTransferED2K* >( pSource->m_pTransfer )->m_oRequested.begin();
+//				= static_cast< CDownloadTransferED2K* >( pSource->m_pTransfer )->m_oRequested.begin() ;
 //				pRequested
-//				!= static_cast< CDownloadTransferED2K* >( pSource->m_pTransfer )->m_oRequested.end();
+//				!= static_cast< CDownloadTransferED2K* >( pSource->m_pTransfer )->m_oRequested.end() ;
 //				++pRequested )
 //			{
 //				DrawStateBar( pDC, prcBar, pSource->m_pDownload->m_nSize,
@@ -258,9 +258,9 @@ void CFragmentBar::DrawDownloadSimple(CDC* pDC, CRect* prcBar, CDownload* pDownl
 //			break;
 //		case PROTOCOL_BT:
 //			for ( Fragments::Queue::const_iterator pRequested
-//				= static_cast< CDownloadTransferBT* >( pSource->m_pTransfer )->m_oRequested.begin();
+//				= static_cast< CDownloadTransferBT* >( pSource->m_pTransfer )->m_oRequested.begin() ;
 //				pRequested
-//				!= static_cast< CDownloadTransferBT* >( pSource->m_pTransfer )->m_oRequested.end();
+//				!= static_cast< CDownloadTransferBT* >( pSource->m_pTransfer )->m_oRequested.end() ;
 //				++pRequested )
 //			{
 //				DrawStateBar( pDC, prcBar, pSource->m_pDownload->m_nSize,
@@ -278,8 +278,8 @@ void CFragmentBar::DrawDownloadSimple(CDC* pDC, CRect* prcBar, CDownload* pDownl
 //
 //	if ( ! pSource->m_oAvailable.empty() )
 //	{
-//		for ( Fragments::List::const_iterator pFragment = pSource->m_oAvailable.begin();
-//			pFragment != pSource->m_oAvailable.end(); ++pFragment )
+//		for ( Fragments::List::const_iterator pFragment = pSource->m_oAvailable.begin() ;
+//			pFragment != pSource->m_oAvailable.end() ; ++pFragment )
 //		{
 //			DrawFragment( pDC, prcBar, pSource->m_pDownload->m_nSize,
 //				pFragment->begin(), pFragment->size(), crNatural, FALSE );
@@ -334,8 +334,8 @@ void CFragmentBar::DrawDownloadSimple(CDC* pDC, CRect* prcBar, CDownload* pDownl
 //		}
 //	}
 //
-//	for ( Fragments::List::const_iterator pFragment = pSource->m_oPastFragments.begin();
-//		pFragment != pSource->m_oPastFragments.end(); ++pFragment )
+//	for ( Fragments::List::const_iterator pFragment = pSource->m_oPastFragments.begin() ;
+//		pFragment != pSource->m_oPastFragments.end() ; ++pFragment )
 //	{
 //		DrawFragment( pDC, prcBar, pSource->m_pDownload->m_nSize,
 //			pFragment->begin(), pFragment->size(), crTransfer, TRUE );

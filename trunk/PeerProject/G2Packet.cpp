@@ -1,7 +1,7 @@
 //
 // G2Packet.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -619,7 +619,7 @@ CString CG2Packet::GetType() const
 //			{
 //				CStringA sDump;
 //				char* c = sDump.GetBuffer( nLength );
-//				for ( DWORD i = 0; i < nLength; ++i )
+//				for ( DWORD i = 0 ; i < nLength ; ++i )
 //				{
 //					c[ i ] = ( m_pBuffer[ m_nPosition + i ] < ' ' ) ? '.' : m_pBuffer[ m_nPosition + i ];
 //				}
@@ -747,13 +747,13 @@ BOOL CG2Packet::OnPong(const SOCKADDR_IN* pHost)
 BOOL CG2Packet::OnQuery(const SOCKADDR_IN* pHost)
 {
 	CQuerySearchPtr pSearch = CQuerySearch::FromPacket( this, pHost );
-	if ( ! pSearch || pSearch->m_bWarning )
-		Debug( _T("Malformed query.") );
+
 	if ( ! pSearch || ! pSearch->m_bUDP )
 	{
 		theApp.Message( MSG_INFO, IDS_PROTOCOL_BAD_QUERY,
 			(LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ) );
 		Statistics.Current.Gnutella2.Dropped++;
+		Debug( _T("Malformed query.") );
 		return FALSE;
 	}
 
@@ -1449,7 +1449,7 @@ BOOL CG2Packet::OnKHLR(const SOCKADDR_IN* pHost)
 		CQuickLock oLock( HostCache.Gnutella2.m_pSection );
 
 		for ( CHostCacheIterator i = HostCache.Gnutella2.Begin() ;
-			i != HostCache.Gnutella2.End() && nCount > 0; ++i )
+			i != HostCache.Gnutella2.End() && nCount > 0 ; ++i )
 		{
 			CHostCacheHostPtr pCachedHost = (*i);
 

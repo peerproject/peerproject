@@ -1,7 +1,7 @@
 //
 // BTInfo.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -74,9 +74,13 @@ public:
 	class CBTTracker
 	{
 	public:
-		CBTTracker();
+		CBTTracker(LPCTSTR szAddress = NULL, INT nTier = 0);
 		CBTTracker(const CBTTracker& oSource);
+		CBTTracker& operator=(const CBTTracker& oSource);
 
+		bool operator==(const CBTTracker& oSource);
+
+	private:
 		CString		m_sAddress;
 		DWORD		m_tLastAccess;
 		DWORD		m_tLastSuccess;
@@ -85,7 +89,6 @@ public:
 		INT			m_nTier;
 		INT			m_nType;
 
-	private:
 		void Serialize(CArchive& ar, int nVersion);
 
 		friend class CBTInfo;
@@ -94,8 +97,8 @@ public:
 // Attributes
 public:
 	CStringList	m_sURLs;				// Add sources from torrents - DWK
-	Hashes::BtPureHash* m_pBlockBTH;
 	CList< CBTFile* > m_pFiles;			// List of files
+	Hashes::BtPureHash* m_pBlockBTH;
 	DWORD		m_nBlockSize;
 	DWORD		m_nBlockCount;
 	QWORD		m_nTotalUpload;			// Total amount uploaded
@@ -123,7 +126,6 @@ private:
 	DWORD		m_nInfoSize;
 
 	BOOL		CheckFiles();
-	int			AddTracker(const CBTTracker& oTracker);
 
 // Operations
 public:
@@ -145,6 +147,7 @@ public:
 	void		AddToTest(LPCVOID pInput, DWORD nLength);
 	BOOL		FinishBlockTest(DWORD nBlock);
 
+	int			AddTracker(const CBTTracker& oTracker);
 	void		SetTrackerAccess(DWORD tNow);
 	void		SetTrackerSucceeded(DWORD tNow);
 	void		SetTrackerRetry(DWORD tTime);
@@ -208,6 +211,6 @@ public:
 		return (int)m_oTrackers.GetCount();
 	}
 
-	// Returns hex-encoded SHA1 string of all tracker URLs for "lt_tex" extension
-	//CString GetTrackerHash() const;
+	// Return hex-encoded SHA1 string of all tracker URLs for "lt_tex" extension
+	CString GetTrackerHash() const;
 };

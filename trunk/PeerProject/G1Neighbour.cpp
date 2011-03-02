@@ -1,7 +1,7 @@
 //
 // G1Neighbour.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -1304,8 +1304,7 @@ BOOL CG1Neighbour::OnQuery(CG1Packet* pPacket)
 
 	// Have the CQuerySearch class turn the query search packet into a CQuerySearch object (do)
 	CQuerySearchPtr pSearch = CQuerySearch::FromPacket( pPacket );
-	if ( ! pSearch || pSearch->m_bWarning )
-		pPacket->Debug( _T("Malformed query.") );
+
 	if ( ! pSearch )
 	{
 		// The CQuerySearch class rejected the search, drop the packet
@@ -1315,6 +1314,7 @@ BOOL CG1Neighbour::OnQuery(CG1Packet* pPacket)
 //#endif
 		Statistics.Current.Gnutella1.Dropped++;
 		m_nDropCount++;
+		pPacket->Debug( _T("Malformed Query.") );
 		return TRUE;	// Stay connected to the remote computer
 	}
 
