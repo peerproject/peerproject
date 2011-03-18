@@ -35,7 +35,7 @@ static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
 #endif	// Filename
 
-#define ITEM_HEIGHT	17
+//#define ITEM_HEIGHT 17	// Skinnable Settings.Interface.RowSize
 #define WM_UPDATE	(WM_APP+80)
 
 IMPLEMENT_DYNAMIC(CBrowseTreeCtrl, CWnd)
@@ -161,9 +161,7 @@ BOOL CBrowseTreeCtrl::CollapseRecursive(CBrowseTreeItem* pItem)
 	BOOL bChanged = FALSE;
 
 	if ( pItem != m_pRoot && pItem->m_bExpanded && pItem->m_bContract1 )
-	{
 		bChanged |= Expand( pItem, TRI_FALSE, FALSE );
-	}
 
 	CBrowseTreeItem** pChild = pItem->m_pList;
 
@@ -236,10 +234,8 @@ BOOL CBrowseTreeCtrl::Select(CBrowseTreeItem* pItem, TRISTATE bSelect, BOOL bInv
 		if ( bInvalidate ) Invalidate();
 		return TRUE;
 	}
-	else
-	{
-		return FALSE;
-	}
+
+	return FALSE;
 }
 
 BOOL CBrowseTreeCtrl::DeselectAll(CBrowseTreeItem* pExcept, CBrowseTreeItem* pParent, BOOL bInvalidate)
@@ -474,7 +470,7 @@ void CBrowseTreeCtrl::OnKeyDown(UINT nChar, UINT /*nRepCnt*/, UINT /*nFlags*/)
 		if ( GetRect( m_pFocus, &rc ) )
 		{
 			CPoint pt( rc.left, ( rc.top + rc.bottom ) / 2 );
-			pt.y -= ITEM_HEIGHT;
+			pt.y -= Settings.Interface.RowSize;
 			pTo = HitTest( pt );
 		}
 	}
@@ -483,7 +479,7 @@ void CBrowseTreeCtrl::OnKeyDown(UINT nChar, UINT /*nRepCnt*/, UINT /*nFlags*/)
 		if ( GetRect( m_pFocus, &rc ) )
 		{
 			CPoint pt( rc.left, ( rc.top + rc.bottom ) / 2 );
-			pt.y += ITEM_HEIGHT;
+			pt.y += Settings.Interface.RowSize;
 			pTo = HitTest( pt );
 		}
 	}
@@ -572,7 +568,7 @@ void CBrowseTreeCtrl::UpdateScroll()
 	pInfo.cbSize	= sizeof(pInfo);
 	pInfo.fMask		= SIF_PAGE | SIF_POS | SIF_RANGE;
 	pInfo.nMin		= 0;
-	pInfo.nMax		= m_nTotal * ITEM_HEIGHT;
+	pInfo.nMax		= m_nTotal * Settings.Interface.RowSize;
 	pInfo.nPage		= m_nVisible;
 	pInfo.nPos		= m_nScroll = max( 0, min( m_nScroll, pInfo.nMax - (int)pInfo.nPage + 1 ) );
 
@@ -610,7 +606,7 @@ void CBrowseTreeCtrl::OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* /*pScrollBa
 
 BOOL CBrowseTreeCtrl::OnMouseWheel(UINT /*nFlags*/, short zDelta, CPoint /*pt*/)
 {
-	ScrollBy( zDelta * 3 * -ITEM_HEIGHT / WHEEL_DELTA );
+	ScrollBy( zDelta * 3 * -Settings.Interface.RowSize / WHEEL_DELTA );
 	return TRUE;
 }
 
@@ -667,8 +663,8 @@ void CBrowseTreeCtrl::OnPaint()
 
 void CBrowseTreeCtrl::Paint(CDC& dc, CRect& rcClient, CPoint& pt, CBrowseTreeItem* pItem)
 {
-	CRect rc( pt.x, pt.y, pt.x, pt.y + ITEM_HEIGHT );
-	pt.y += ITEM_HEIGHT;
+	CRect rc( pt.x, pt.y, pt.x, pt.y + Settings.Interface.RowSize );
+	pt.y += Settings.Interface.RowSize;
 
 	if ( rc.top >= rcClient.bottom )
 	{
@@ -732,14 +728,13 @@ CBrowseTreeItem* CBrowseTreeCtrl::HitTest(const POINT& point, RECT* pRect) const
 
 CBrowseTreeItem* CBrowseTreeCtrl::HitTest(CRect& rcClient, CPoint& pt, CBrowseTreeItem* pItem, const POINT& point, RECT* pRect) const
 {
-	CRect rc( rcClient.left, pt.y, rcClient.right, pt.y + ITEM_HEIGHT );
-	pt.y += ITEM_HEIGHT;
+	CRect rc( rcClient.left, pt.y, rcClient.right, pt.y + Settings.Interface.RowSize );
+	pt.y += Settings.Interface.RowSize;
 
-	if ( rc.top >= rcClient.bottom + ITEM_HEIGHT )
-	{
+	if ( rc.top >= rcClient.bottom + Settings.Interface.RowSize )
 		return NULL;
-	}
-	else if ( rc.bottom >= rcClient.top - ITEM_HEIGHT )
+
+	if ( rc.bottom >= rcClient.top - Settings.Interface.RowSize )
 	{
 		if ( rc.PtInRect( point ) )
 		{
@@ -762,7 +757,7 @@ CBrowseTreeItem* CBrowseTreeCtrl::HitTest(CRect& rcClient, CPoint& pt, CBrowseTr
 		{
 			CBrowseTreeItem* pItem = HitTest( rcClient, pt, *pChild, point, pRect );
 			if ( pItem ) return pItem;
-			if ( pt.y >= rcClient.bottom + ITEM_HEIGHT ) break;
+			if ( pt.y >= rcClient.bottom + Settings.Interface.RowSize ) break;
 		}
 
 		pt.x -= 16;
@@ -800,7 +795,7 @@ BOOL CBrowseTreeCtrl::GetRect(CPoint& pt, CBrowseTreeItem* pItem, CBrowseTreeIte
 		pRect->left		= pt.x;
 		pRect->top		= pt.y;
 		pRect->right	= pt.x;
-		pRect->bottom	= pt.y = pRect->top + ITEM_HEIGHT;
+		pRect->bottom	= pt.y = pRect->top + Settings.Interface.RowSize;
 
 		CClientDC dc( this );
 		CFont* pOld = (CFont*)dc.SelectObject( pItem->m_bBold ?
@@ -812,7 +807,7 @@ BOOL CBrowseTreeCtrl::GetRect(CPoint& pt, CBrowseTreeItem* pItem, CBrowseTreeIte
 	}
 	else
 	{
-		pt.y += ITEM_HEIGHT;
+		pt.y += Settings.Interface.RowSize;
 	}
 
 	if ( pItem->m_bExpanded && pItem->m_nCount )
@@ -903,27 +898,27 @@ LRESULT CBrowseTreeCtrl::OnUpdate(WPARAM, LPARAM)
 // CBrowseTreeItem construction
 
 CBrowseTreeItem::CBrowseTreeItem(CBrowseTreeItem* pParent)
+	: m_pParent		( pParent )
+	, m_pList		( NULL )
+	, m_nCount		( 0 )
+	, m_nBuffer		( 0 )
+	, m_pSelPrev	( NULL )
+	, m_pSelNext	( NULL )
+	, m_nCleanCookie ( 0 )
+
+	, m_nCookie		( 0 )
+	, m_nIcon16		( -1 )
+	, m_bBold		( FALSE )
+
+	, m_bExpanded	( FALSE )
+	, m_bSelected	( FALSE )
+	, m_bContract1	( FALSE )
+	, m_bContract2	( FALSE )
+
+	, m_pSchema		( NULL )
+	, m_pFiles		( NULL )
+	, m_nFiles		( 0 )
 {
-	m_pParent		= pParent;
-	m_pList			= NULL;
-	m_nCount		= 0;
-	m_nBuffer		= 0;
-	m_pSelPrev		= NULL;
-	m_pSelNext		= NULL;
-	m_nCleanCookie	= 0;
-
-	m_bExpanded		= FALSE;
-	m_bSelected		= FALSE;
-	m_bContract1	= FALSE;
-	m_bContract2	= FALSE;
-
-	m_nCookie		= 0;
-	m_bBold			= FALSE;
-	m_nIcon16		= -1;
-
-	m_pSchema		= NULL;
-	m_pFiles		= NULL;
-	m_nFiles		= 0;
 }
 
 CBrowseTreeItem::~CBrowseTreeItem()
@@ -945,7 +940,8 @@ CBrowseTreeItem* CBrowseTreeItem::Add(LPCTSTR pszName)
 {
 	if ( m_nCount == m_nBuffer )
 	{
-		if ( m_nBuffer ) m_nBuffer += min( m_nBuffer, 16 ); else m_nBuffer = 4;
+		if ( m_nBuffer ) m_nBuffer += min( m_nBuffer, 16 );
+		else m_nBuffer = 4;
 
 		CBrowseTreeItem** pList = new CBrowseTreeItem*[ m_nBuffer ];
 
@@ -981,7 +977,8 @@ CBrowseTreeItem* CBrowseTreeItem::Add(CBrowseTreeItem* pNewItem)
 {
 	if ( m_nCount == m_nBuffer )
 	{
-		if ( m_nBuffer ) m_nBuffer += min( m_nBuffer, 16 ); else m_nBuffer = 4;
+		if ( m_nBuffer ) m_nBuffer += min( m_nBuffer, 16 );
+		else m_nBuffer = 4;
 
 		CBrowseTreeItem** pList = new CBrowseTreeItem*[ m_nBuffer ];
 
@@ -991,7 +988,8 @@ CBrowseTreeItem* CBrowseTreeItem::Add(CBrowseTreeItem* pNewItem)
 		m_pList = pList;
 	}
 
-	if ( m_nCount == 0 ) return m_pList[ m_nCount++ ] = pNewItem;
+	if ( m_nCount == 0 )
+		return m_pList[ m_nCount++ ] = pNewItem;
 
 	int nFirst = 0;
 	for ( int nLast = m_nCount - 1 ; nLast >= nFirst ; )
@@ -1108,7 +1106,7 @@ void CBrowseTreeItem::Paint(CDC& dc, CRect& rc, BOOL bTarget, COLORREF crBack) c
 		dc.GetWindow()->ScreenToClient( &ptHover );
 
 	if ( crBack == CLR_NONE ) crBack = Colors.m_crWindow;
-	dc.FillSolidRect( rc.left, rc.top, 33, 17, crBack );
+	dc.FillSolidRect( rc.left, rc.top, 33, Settings.Interface.RowSize, crBack );
 
 	if ( m_bExpanded )
 	{

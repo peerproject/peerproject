@@ -1,7 +1,7 @@
 //
 // CtrlDownloadTabBar.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -243,9 +243,10 @@ INT_PTR CDownloadTabBar::OnToolHitTest(CPoint point, TOOLINFO* pTI) const
 	else // All other groups
 	{
 		LoadString( strTip, IDS_DOWNLOAD_GROUP );
-		strTip.Format( strTip, pItem->m_sName );
+		strTip.Format( strTip, (LPCTSTR)pItem->m_sName );
 
-		if ( pItem->m_sName == _T("Custom") && Settings.General.Language.Left(2) == _T("en") )
+		// Special case tutorial (No translation needed?)
+		if ( pItem->m_sName == _T("Custom") )	// Assume default Settings.General.Language == _T("en")
 			strTip += _T(", or right-click to customize this tab now.");
 	}
 
@@ -302,7 +303,8 @@ void CDownloadTabBar::DoPaint(CDC* pDC)
 	{
 		CSize  sz = pDC->GetTextExtent( m_sMessage );
 		CPoint pt = rc.CenterPoint();
-		pt.x -= sz.cx / 2; pt.y -= sz.cy / 2 + 1;
+		pt.x -= sz.cx / 2;
+		pt.y -= sz.cy / 2 + 1;
 
 		pDC->SetBkColor( Colors.m_crMidtone );
 		pDC->SetTextColor( Colors.m_crDisabled );

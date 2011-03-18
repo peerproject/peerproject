@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Chinese (Simplified) Skin File -->
 
-<!-- Translation based on default-en.xml r62 (Shareaza r6092) -->
+<!-- Translation based on default-en.xml r64 (Shareaza r6092) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -589,9 +589,9 @@
 			<item id="ID_NETWORK_DISCONNECT" text="断开(_D)"/>
 			<separator/>
 			<menu text="选择网络(_N)">
-				<item id="ID_NETWORK_G2" text="连接到 Gnutella2(_G)"/>
-				<item id="ID_NETWORK_G1" text="连接到 Gnutella1(_1)"/>
-				<item id="ID_NETWORK_ED2K" text="连接到 edonkey(_E)"/>
+				<item id="ID_NETWORK_G2" text="连接到 Gnutella_2"/>
+				<item id="ID_NETWORK_G1" text="连接到 _Gnutella"/>
+				<item id="ID_NETWORK_ED2K" text="连接到 e_Donkey"/>
 			</menu>
 			<separator/>
 			<item id="ID_NETWORK_CONNECT_TO" text="连接到(_T)..." shortcut="Ctrl+T"/>
@@ -2452,8 +2452,8 @@
 	<tip id="ID_SEARCH_STOP" message="停止此窗口的结果。"/>
 	<tip id="ID_SEARCHMONITOR_CLEAR" message="清除搜索监视器缓存。"/>
 	<tip id="ID_SEARCHMONITOR_PAUSE" message="暂停搜索监视器。"/>
-	<tip id="ID_SECURITY_ADD" message="添加新的规则到选定的安全链..."/>
 	<tip id="ID_SECURITY_BAN" message="禁止选定主机在此期间的活动。"/>
+	<tip id="ID_SECURITY_ADD" message="添加新的规则到选定的安全链..."/>
 	<tip id="ID_SECURITY_EDIT" message="编辑选定的安全策略..."/>
 	<tip id="ID_SECURITY_EXPORT" message="导出选定的安全策略到文件..."/>
 	<tip id="ID_SECURITY_IMPORT" message="导入选定的安全策略于文件..."/>
@@ -2463,6 +2463,14 @@
 	<tip id="ID_SECURITY_POLICY_DENY" message="使用默认的安全策略拒绝主机。"/>
 	<tip id="ID_SECURITY_REMOVE" message="清除选定的安全策略。"/>
 	<tip id="ID_SECURITY_RESET" message="重置选定规则的命中计数器。"/>
+	<tip id="ID_SCHEDULER_ADD" message="添加新的规则到选定的安全链..."/>
+	<tip id="ID_SCHEDULER_EDIT" message="编辑选定的安全策略..."/>
+	<tip id="ID_SCHEDULER_ACTIVATE" message="清除列表中选定的上传。"/>
+	<tip id="ID_SCHEDULER_DEACTIVATE" message="连接到网络。"/>
+	<tip id="ID_SCHEDULER_EXPORT" message="导出选定的安全策略到文件..."/>
+	<tip id="ID_SCHEDULER_IMPORT" message="导入选定的安全策略于文件..."/>
+	<tip id="ID_SCHEDULER_REMOVE" message="从列表中移除选定的下载。"/>
+	<tip id="ID_SCHEDULER_REMOVE_ALL" message="Delete all scheduled tasks."/>
 	<tip id="ID_SYSTEM_CLEAR" message="清除状态日志。"/>
 	<tip id="ID_SYSTEM_TIMESTAMP" message="记录每行的时间戳。"/>
 	<tip id="ID_SYSTEM_VERBOSE" message="显示详细的系统活动日志。"/>
@@ -3088,7 +3096,7 @@
 	<string id="20706" value="超对等模式有 %lu 个邻居。%s 处于本地收藏中。"/>
 	<string id="20707" value="连接网络..."/>
 	<string id="20708" value="尚未连接网络。"/>
-	<string id="20710" value="(无资源)"/>
+	<string id="20710" value="放晴了"/>
 	<string id="20711" value="不能移动"/>
 	<string id="20712" value="通道已满"/>
 	<string id="20713" value="排队"/>
@@ -3114,6 +3122,7 @@
 	<string id="20733" value="个资源"/>
 	<string id="20734" value="个资源"/>
 	<string id="20735" value="个资源"/>
+	<string id="20736" value="(无资源)"/>
 	<string id="20740" value="TigerTree"/>
 	<string id="20741" value="Torrent"/>
 	<string id="20742" value="Tracker 未响应"/>
@@ -4421,9 +4430,9 @@
 		<column from="Address" to="地址"/>
 		<column from="Port" to="端口"/>
 		<column from="Time" to="时间"/>
-		<column from="Packets" to="数据包"/>
-		<column from="Bandwidth" to="带宽"/>
+		<column from="Traffic" to="带宽"/>
 		<column from="Total" to="全部"/>
+		<column from="Packets" to="数据包"/>
 		<column from="Flow" to="流量"/>
 		<column from="Leaves" to="子端"/>
 		<column from="Mode" to="模式"/>
@@ -4499,7 +4508,7 @@
 	<list name="CUploadQueueList">
 		<column from="Name" to="名称"/>
 		<column from="Criteria" to="标准"/>
-		<column from="Bandwidth" to="带宽"/>
+		<column from="Minimum" to="带宽"/>
 		<column from="Transfers" to="传送"/>
 		<column from="Order" to="顺序"/>
 	</list>

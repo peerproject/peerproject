@@ -1,7 +1,7 @@
 //
 // CtrlUploads.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -66,7 +66,7 @@ BEGIN_MESSAGE_MAP(CUploadsCtrl, CWnd)
 END_MESSAGE_MAP()
 
 #define HEADER_HEIGHT			20
-#define ITEM_HEIGHT				17
+//#define ITEM_HEIGHT			17	// Skinnable Settings.Interface.RowSize
 
 #define UPLOAD_COLUMN_TITLE		0
 #define UPLOAD_COLUMN_SIZE		1
@@ -283,7 +283,7 @@ void CUploadsCtrl::SelectTo(int nIndex)
 	GetClientRect( &rcClient );
 
 	int nScroll = GetScrollPos( SB_VERT );
-	int nHeight = ( rcClient.bottom - HEADER_HEIGHT ) / ITEM_HEIGHT - 1;
+	int nHeight = ( rcClient.bottom - HEADER_HEIGHT ) / Settings.Interface.RowSize - 1;
 	nHeight = max( 0, nHeight );
 
 	if ( m_nFocus < nScroll )
@@ -337,7 +337,7 @@ BOOL CUploadsCtrl::HitTest(const CPoint& point, CUploadQueue** ppQueue, CUploadF
 
 	rcItem.CopyRect( &rcClient );
 	rcItem.left -= GetScrollPos( SB_HORZ );
-	rcItem.bottom = rcItem.top + ITEM_HEIGHT;
+	rcItem.bottom = rcItem.top + Settings.Interface.RowSize;
 
 	int nScroll = GetScrollPos( SB_VERT );
 	int nIndex = 0;
@@ -369,7 +369,7 @@ BOOL CUploadsCtrl::HitTest(const CPoint& point, CUploadQueue** ppQueue, CUploadF
 				if ( prcItem != NULL ) *prcItem = rcItem;
 				return TRUE;
 			}
-			rcItem.OffsetRect( 0, ITEM_HEIGHT );
+			rcItem.OffsetRect( 0, Settings.Interface.RowSize );
 		}
 
 		nIndex ++;
@@ -393,7 +393,7 @@ BOOL CUploadsCtrl::HitTest(const CPoint& point, CUploadQueue** ppQueue, CUploadF
 					if ( prcItem != NULL ) *prcItem = rcItem;
 					return TRUE;
 				}
-				rcItem.OffsetRect( 0, ITEM_HEIGHT );
+				rcItem.OffsetRect( 0, Settings.Interface.RowSize );
 			}
 
 			nIndex ++;
@@ -458,12 +458,12 @@ POSITION CUploadsCtrl::GetQueueIterator()
 
 	if ( Settings.Uploads.FilterMask & ULF_TORRENT )
 		return (POSITION)UploadQueues.m_pTorrentQueue;
-	else if ( Settings.Uploads.FilterMask & ( ULF_ACTIVE | ULF_QUEUED ) )
+	if ( Settings.Uploads.FilterMask & ( ULF_ACTIVE | ULF_QUEUED ) )
 		return UploadQueues.GetIterator();
-	else if ( Settings.Uploads.FilterMask & ULF_HISTORY )
+	if ( Settings.Uploads.FilterMask & ULF_HISTORY )
 		return (POSITION)UploadQueues.m_pHistoryQueue;
-	else
-		return NULL;
+
+	return NULL;
 }
 
 CUploadQueue* CUploadsCtrl::GetNextQueue(POSITION& pos)
@@ -701,7 +701,7 @@ void CUploadsCtrl::OnSize(UINT nType, int cx, int cy)
 	pScroll.fMask	= SIF_RANGE|SIF_PAGE;
 	pScroll.nMin	= 0;
 	pScroll.nMax	= nHeight;
-	pScroll.nPage	= ( rcClient.bottom - HEADER_HEIGHT ) / ITEM_HEIGHT + 1;
+	pScroll.nPage	= ( rcClient.bottom - HEADER_HEIGHT ) / Settings.Interface.RowSize + 1;
 	SetScrollInfo( SB_VERT, &pScroll, TRUE );
 
 	m_nFocus = min( m_nFocus, max( 0, nHeight - 1 ) );
@@ -732,7 +732,7 @@ void CUploadsCtrl::OnPaint()
 
 	rcItem.CopyRect( &rcClient );
 	rcItem.left -= GetScrollPos( SB_HORZ );
-	rcItem.bottom = rcItem.top + ITEM_HEIGHT;
+	rcItem.bottom = rcItem.top + Settings.Interface.RowSize;
 
 	int nScroll = GetScrollPos( SB_VERT );
 	int nIndex = 0;
@@ -755,7 +755,7 @@ void CUploadsCtrl::OnPaint()
 		else
 		{
 			PaintQueue( dc, rcItem, pQueue, bFocus && ( m_nFocus == nIndex ) );
-			rcItem.OffsetRect( 0, ITEM_HEIGHT );
+			rcItem.OffsetRect( 0, Settings.Interface.RowSize );
 		}
 
 		nIndex ++;
@@ -777,7 +777,7 @@ void CUploadsCtrl::OnPaint()
 			else
 			{
 				PaintFile( dc, rcItem, pQueue, pFile, nPosition, bFocus && ( m_nFocus == nIndex ) );
-				rcItem.OffsetRect( 0, ITEM_HEIGHT );
+				rcItem.OffsetRect( 0, Settings.Interface.RowSize );
 			}
 
 			nIndex ++;
@@ -840,7 +840,7 @@ void CUploadsCtrl::PaintQueue(CDC& dc, const CRect& rcRow, CUploadQueue* pQueue,
 		rcCell.bottom	= rcRow.bottom;
 
 		POINT ptHover;
-		RECT  rcTick = { rcCell.left+2, rcCell.top+2, rcCell.left+14, rcCell.bottom-2 };
+		RECT  rcTick = { rcCell.left + 2, rcCell.top + 2, rcCell.left + 14, rcCell.bottom - 2 };
 		GetCursorPos(&ptHover);
 		ScreenToClient(&ptHover);
 
@@ -850,8 +850,8 @@ void CUploadsCtrl::PaintQueue(CDC& dc, const CRect& rcRow, CUploadQueue* pQueue,
 			bLeftMargin = rcRow.left == rcCell.left;
 			crLeftMargin = ( bLeftMargin ? crNatural : bSelected ? -1 : crBack );
 
-			if ( bLeftMargin || ! bSelected )
-				dc.FillSolidRect( rcCell.left, rcCell.bottom - 1, 32, 1, crLeftMargin );
+			if ( bLeftMargin || ! bSelected && rcCell.Height() > 16 )
+				dc.FillSolidRect( rcCell.left, rcCell.top + 16, 32, rcCell.Height() - 16, crLeftMargin );
 
 			if ( pQueue->m_bExpanded )
 			{
@@ -882,9 +882,8 @@ void CUploadsCtrl::PaintQueue(CDC& dc, const CRect& rcRow, CUploadQueue* pQueue,
 			}
 			else
 			{
-				CoolInterface.Draw( &dc,
-					pQueue->m_bExpanded ? IDI_FOLDER_OPEN : IDI_FOLDER_CLOSED, 16,
-					rcCell.left, rcCell.top, crLeftMargin, bSelected );
+				CoolInterface.Draw( &dc, pQueue->m_bExpanded ? IDI_FOLDER_OPEN : IDI_FOLDER_CLOSED,
+					16, rcCell.left, rcCell.top, crLeftMargin, bSelected );
 			}
 			rcCell.left += 16;
 			if ( bLeftMargin || ! bSelected )
@@ -1036,8 +1035,8 @@ void CUploadsCtrl::PaintFile(CDC& dc, const CRect& rcRow, CUploadQueue* /*pQueue
 			if ( bLeftMargin || ! bSelectmark )
 				dc.FillSolidRect( rcCell.left, rcCell.top, 24, rcCell.Height(), crLeftMargin );
 			rcCell.left += 24;
-			if ( bLeftMargin || ! bSelectmark )
-				dc.FillSolidRect( rcCell.left, rcCell.bottom - 1, 16, 1, crLeftMargin );
+			if ( bLeftMargin || ! bSelectmark && Settings.Interface.RowSize > 16 )
+				dc.FillSolidRect( rcCell.left, rcCell.top + 16, 16, rcCell.Height() - 16, crLeftMargin );
 			ImageList_DrawEx( ShellIcons.GetHandle( 16 ), ShellIcons.Get( bMultifile ? _T(".torrent") : pFile->m_sName, 16 ), dc.GetSafeHdc(),
 					rcCell.left, rcCell.top, 16, 16, crBack, CLR_DEFAULT, bSelected ? ILD_SELECTED : ILD_NORMAL );
 			rcCell.left += 16;
@@ -1200,6 +1199,10 @@ void CUploadsCtrl::OnSkinChange()
 	m_wndHeader.SetFont( &CoolInterface.m_fntNormal );
 
 	CoolInterface.LoadIconsTo( m_gdiProtocols, protocolIDs );
+
+	// Update Dropshadow
+	m_wndTip.DestroyWindow();
+	m_wndTip.Create( this, &Settings.Interface.TipUploads );
 }
 
 //////////////////////////////////////////////////////////////////////////////

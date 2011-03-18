@@ -2847,7 +2847,7 @@
 	<tip id="IDC_REGEXP" message="Enter regular expressions in perl syntax.{n}All search keywords can be listed in order with the &lt;%&gt; tag.{n}Individual keywords can be specified with &lt;1&gt;, numbers 1 through 9."/>
 	<tip id="IDC_THROTTLE_MODE" message="In maximum mode bandwidth won't ever exceed the specified value.{n}In average mode it will fluctuate around the value to both sides."/>
 	<tip id="IDC_SHARE_PARTIALS" message="This setting has no effect on current downloads, or torrents, or with eDonkey hash and eDonkey network enabled. However, this setting is not ignored if the download is paused.{n}{n}ATTENTION: Use this option only if necessary, if you abuse the option you may be banned."/>
-	<tip id="IDC_TIP_SHADOW" message="Toggle Drop Shadows under tooltips.{n}-Note changes take effect at next program restart."/>
+	<tip id="IDC_TIP_SHADOW" message="Toggle drop shadow effect under tooltips."/>
 </controlTips>
 
 </skin>

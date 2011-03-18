@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Finnish Skin File -->
 
-<!-- Translation based on default-en.xml r62 (Shareaza 2.1.3.7) -->
+<!-- Translation based on default-en.xml r64 (Shareaza 2.1.3.7) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2167,9 +2167,9 @@
 		<column from="Address" to=""/>
 		<column from="Port" to=""/>
 		<column from="Time" to="Aika"/>
-		<column from="Packets" to=""/>
-		<column from="Bandwidth" to=""/>
+		<column from="Traffic" to=""/>
 		<column from="Total" to=""/>
+		<column from="Packets" to=""/>
 		<column from="Flow" to=""/>
 		<column from="Leaves" to=""/>
 		<column from="Mode" to=""/>
@@ -2245,7 +2245,7 @@
 	<list name="CUploadQueueList">
 		<column from="Name" to="Nimi"/>
 		<column from="Criteria" to=""/>
-		<column from="Bandwidth" to=""/>
+		<column from="Minimum" to=""/>
 		<column from="Transfers" to=""/>
 		<column from="Order" to=""/>
 	</list>

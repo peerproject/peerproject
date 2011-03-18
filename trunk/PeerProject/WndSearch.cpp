@@ -1,7 +1,7 @@
 //
 // WndSearch.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -94,7 +94,7 @@ CSearchWnd::CSearchWnd(CQuerySearch* pSearch)
 	, m_nCacheHits		( 0 )
 	, m_nCacheHubs		( 0 )
 	, m_nCacheLeaves	( 0 )
-	, m_bWaitMore		(  FALSE )
+	, m_bWaitMore		( FALSE )
 	, m_sCaption		( _T("") )
 	, m_nMaxResults		( 0 )
 	, m_nMaxED2KResults ( 0 )
@@ -203,7 +203,8 @@ void CSearchWnd::OnSize(UINT nType, int cx, int cy)
 		m_wndPanel.ShowWindow( SW_HIDE );
 	}
 
-	if ( ! (m_bPaused||m_bWaitMore) ) rc.top += STATUS_HEIGHT;
+	if ( ! ( m_bPaused || m_bWaitMore ) )
+		rc.top += STATUS_HEIGHT;
 
 	m_wndToolBar.SetWindowPos( NULL, rc.left, rc.bottom - Skin.m_nToolbarHeight, rc.Width(), Skin.m_nToolbarHeight,	SWP_NOZORDER );
 	rc.bottom -= Skin.m_nToolbarHeight;
@@ -276,10 +277,8 @@ void CSearchWnd::OnPaint()
 
 	if ( m_wndDetails && m_wndDetails.IsWindowVisible() )
 	{
-		CRect rcBar(	rcClient.left,
-						rcClient.bottom - m_nDetails - Skin.m_nSplitter,
-						rcClient.right,
-						rcClient.bottom - m_nDetails );
+		CRect rcBar( rcClient.left, rcClient.bottom - m_nDetails - Skin.m_nSplitter,
+					rcClient.right, rcClient.bottom - m_nDetails );
 
 		if ( m_bPanel ) rcBar.left += Skin.m_nSidebarWidth;
 
@@ -589,7 +588,7 @@ void CSearchWnd::OnSearchStop()
 		}
 	}
 
-	for ( iterator pManaged = begin(); pManaged != end(); ++pManaged )
+	for ( iterator pManaged = begin() ; pManaged != end() ; ++pManaged )
 	{
 		(*pManaged)->Stop();
 		(*pManaged)->m_bReceive = FALSE;
@@ -807,7 +806,7 @@ BOOL CSearchWnd::OnQueryHits(const CQueryHit* pHits)
 	if ( ! pLock.Lock( 250 ) || m_bPaused )
 		return FALSE;
 
-	for ( reverse_iterator pManaged = rbegin(); pManaged != rend(); ++pManaged )
+	for ( reverse_iterator pManaged = rbegin() ; pManaged != rend() ; ++pManaged )
 	{
 		if ( (*pManaged)->m_bReceive )
 		{
@@ -902,7 +901,8 @@ void CSearchWnd::OnTimer(UINT_PTR nIDEvent)
 
 	CBaseMatchWnd::OnTimer( nIDEvent );
 
-	if ( m_pMatches->m_nFilteredHits == 0 ) m_wndDetails.SetFile( NULL );
+	if ( m_pMatches->m_nFilteredHits == 0 )
+		m_wndDetails.SetFile( NULL );
 }
 
 void CSearchWnd::OnSelChangeMatches()
@@ -927,7 +927,7 @@ void CSearchWnd::Serialize(CArchive& ar)
 
 		ar.WriteCount( size() );
 
-		for( iterator pManaged = begin(); pManaged != end(); ++pManaged )
+		for ( iterator pManaged = begin() ; pManaged != end() ; ++pManaged )
 		{
 			(*pManaged)->Serialize( ar );
 		}

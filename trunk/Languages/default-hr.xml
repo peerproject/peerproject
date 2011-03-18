@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Croatian Skin File -->
 
-<!-- Translation based on default-en.xml r62 (Shareaza 2.2.0.2) -->
+<!-- Translation based on default-en.xml r64 (Shareaza 2.2.0.2) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2366,8 +2366,8 @@
 	<tip id="ID_SEARCH_COLUMNS" message="Select metadata columns to be displayed..."/>
 	<tip id="ID_SEARCH_URI" message="Copy the URI of the selected file."/>
 	<tip id="ID_SEARCH_DETAILS" message="Display detailed information on the selected file."/>
-	<tip id="ID_SEARCH_DOWNLOAD" message="Download the selected file(s)."/>
-	<tip id="ID_SEARCH_DOWNLOADNOW" message="Download the selected file(s) with priority."/>
+	<tip id="ID_SEARCH_DOWNLOAD" message="Download selected files."/>
+	<tip id="ID_SEARCH_DOWNLOADNOW" message="Download the selected files with priority."/>
 	<tip id="ID_SEARCH_FILTER" message="Filter the search results by certain words and conditions..."/>
 	<tip id="ID_SEARCH_FILTER_RAW" message="Filter the search results by certain words and conditions..."/>
 	<tip id="ID_SEARCH_FILTER_REMOVE" message="Remove filtering from the results."/>
@@ -2381,20 +2381,7 @@
 	<tip id="ID_SEARCH_STOP" message="Stani receiving results in this window."/>
 	<tip id="ID_SEARCHMONITOR_CLEAR" message="Clear the search monitor buffer."/>
 	<tip id="ID_SEARCHMONITOR_PAUSE" message="Pause search monitoring."/>
-	<tip id="ID_SECURITY_ADD" message="Add a new rule to the security chain..."/>
-	<tip id="ID_SECURITY_BAN" message="Ban the selected host for the duration of this session."/>
-	<tip id="ID_SECURITY_EDIT" message="Edit the selected security rule..."/>
-	<tip id="ID_SECURITY_EXPORT" message="Export the selected security rules to a file..."/>
-	<tip id="ID_SECURITY_IMPORT" message="Import security rules from a file..."/>
-	<tip id="ID_SECURITY_MOVE_DOWN" message="Move the selected security rules down the precedence list."/>
-	<tip id="ID_SECURITY_MOVE_UP" message="Move the selected security rules up the precedence list."/>
-	<tip id="ID_SECURITY_POLICY_ACCEPT" message="Set the default security policy to allow all hosts."/>
-	<tip id="ID_SECURITY_POLICY_DENY" message="Set the default security policy to deny all hosts."/>
-	<tip id="ID_SECURITY_REMOVE" message="Remove the selected security rules."/>
-	<tip id="ID_SECURITY_RESET" message="Reset the hit counts on the selected rules."/>
-	<tip id="ID_SYSTEM_CLEAR" message="Clear the status log."/>
-	<tip id="ID_SYSTEM_TIMESTAMP" message="Record a timestamp for each line."/>
-	<tip id="ID_SYSTEM_VERBOSE" message="Display a detailed system activity log."/>
+	<!-- MISSING Security/Scheduler Tips -->
 	<tip id="ID_TAB_CONNECT" message="Spoji se ili isključi sa mreže."/>
 	<tip id="ID_TAB_HELP" message="Potraži pomoć u korištenju PeerProject."/>
 	<tip id="ID_TAB_HOME" message="Vrača PeerProject na početnu stranicu"/>
@@ -2492,7 +2479,8 @@
 	<string id="20008" value="Zatvori"/>
 	<string id="20009" value="od"/> <!-- "1 of 10" -->
 	<string id="20011" value="Auto"/>
-	<string id="20050" value="Every Day"/>
+	<string id="20012" value="Prilagodi"/>
+	<string id="20050" value="Svaki Dan"/>
 	<string id="20051" value="Ponedjeljek"/>
 	<string id="20052" value="Utorak"/>
 	<string id="20053" value="Srijeda"/>
@@ -2983,7 +2971,7 @@
 	<string id="20706" value="Ultrapeer način sa %lu susjeda.%s u vašoj kolekciji."/>
 	<string id="20707" value="Spajam se na mrežu..."/>
 	<string id="20708" value="Nije spojeno."/>
-	<string id="20710" value="(Nema Izvora)"/>
+	<string id="20710" value="Kliring"/>
 	<string id="20711" value="Ne mogu Pomaknuti"/>
 	<string id="20712" value="Zagušen"/>
 	<string id="20713" value="Dodaj"/>
@@ -3009,6 +2997,7 @@
 	<string id="20733" value="izvora"/> <!-- many -->
 	<string id="20734" value="izvora"/> <!-- few  2,3,4 -->
 	<string id="20735" value="izvor"/>  <!-- ones 21,31,... -->
+	<string id="20736" value="(Nema Izvora)"/>
 	<string id="20740" value="TigerTree"/>
 	<string id="20741" value="Torrent"/>
 	<string id="20742" value="Tracker Down"/>
@@ -4304,9 +4293,9 @@
 		<column from="Address" to="Adresa"/>
 		<column from="Port" to="Port"/>
 		<column from="Time" to="Vrijeme"/>
-		<column from="Packets" to="Paketi"/>
-		<column from="Bandwidth" to="Brzina Prijenosa"/>
+		<column from="Traffic" to="Brzina Prijenosa"/>
 		<column from="Total" to="Ukupno"/>
+		<column from="Packets" to="Paketi"/>
 		<column from="Flow" to="Protok"/>
 		<column from="Leaves" to="Leaves"/>
 		<column from="Mode" to="Način"/>
@@ -4382,7 +4371,7 @@
 	<list name="CUploadQueueList">
 		<column from="Name" to="Ime"/>
 		<column from="Criteria" to="Kriterij"/>
-		<column from="Bandwidth" to="Brzina"/>
+		<column from="Minimum" to="Brzina"/>
 		<column from="Transfers" to="Razmjene"/>
 		<column from="Order" to="Naredba"/>
 	</list>

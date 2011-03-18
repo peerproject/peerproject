@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Slovenian Skin File -->
 
-<!-- Translation based on default-en.xml r62 (Shareaza 2.2.2.12) -->
+<!-- Translation based on default-en.xml r64 (Shareaza 2.2.2.12) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2389,8 +2389,8 @@
 	<tip id="ID_SEARCH_STOP" message="Ustavi prejemanje rezultatov v tem oknu."/>
 	<tip id="ID_SEARCHMONITOR_CLEAR" message="Počisti medpomnilnik iskalnega nadzornika."/>
 	<tip id="ID_SEARCHMONITOR_PAUSE" message="Trenutno zaustavi nadziranje iskanja."/>
-	<tip id="ID_SECURITY_ADD" message="Dodaj novo pravilo v varnostno verigo..."/>
 	<tip id="ID_SECURITY_BAN" message="Izobči (ban) izbranega gostitelja za čas trenutne seje."/>
+	<tip id="ID_SECURITY_ADD" message="Dodaj novo pravilo v varnostno verigo..."/>
 	<tip id="ID_SECURITY_EDIT" message="Uredi izbrano varnostno pravilo..."/>
 	<tip id="ID_SECURITY_EXPORT" message="Izvozi izbrana varnostna pravila v datoteko..."/>
 	<tip id="ID_SECURITY_IMPORT" message="Uvozi varnostna pravila iz datoteke..."/>
@@ -2400,6 +2400,14 @@
 	<tip id="ID_SECURITY_POLICY_DENY" message="Nastavi privzeto varnostno politiko tako, da zavrne vse gostitelje."/>
 	<tip id="ID_SECURITY_REMOVE" message="Odstrani izbrana varnostna pravila."/>
 	<tip id="ID_SECURITY_RESET" message="Ponastavi števce zadetkov na izbrana pravila."/>
+	<tip id="ID_SCHEDULER_ADD" message="Dodaj novo pravilo v varnostno verigo..."/>
+	<tip id="ID_SCHEDULER_EDIT" message="Uredi izbrano varnostno pravilo..."/>
+	<tip id="ID_SCHEDULER_ACTIVATE" message="Počisti iz seznama izbrane naložke."/>
+	<tip id="ID_SCHEDULER_DEACTIVATE" message="Poveži se na omrežje."/>
+	<tip id="ID_SCHEDULER_EXPORT" message="Izvozi izbrana varnostna pravila v datoteko..."/>
+	<tip id="ID_SCHEDULER_IMPORT" message="Uvozi varnostna pravila iz datoteke..."/>
+	<tip id="ID_SCHEDULER_REMOVE" message="Odstranitev izbranih prenosov iz seznama."/>
+	<tip id="ID_SCHEDULER_REMOVE_ALL" message="Delete all scheduled tasks."/>
 	<tip id="ID_SYSTEM_CLEAR" message="Pobriši statusni dnevnik (log)."/>
 	<tip id="ID_SYSTEM_TIMESTAMP" message="Zapiši časovni žig za vsako vrstico."/>
 	<tip id="ID_SYSTEM_VERBOSE" message="Prikaži podroben dnevnik sistemske aktivnosti."/>
@@ -3004,7 +3012,7 @@
 	<string id="20706" value="Način Ultrapeer s številom sosedov: %lu. V lokalni knjižnici: %s."/>
 	<string id="20707" value="Povezujem na omrežje..."/>
 	<string id="20708" value="Ni povezave v omrežje."/>
-	<string id="20710" value="(Ni virov)"/>
+	<string id="20710" value="Klirinških"/>
 	<string id="20711" value="Premik ni mogoč"/>
 	<string id="20712" value="Zadušen (choked)"/>
 	<string id="20713" value="Postavi v čakalno vrsto"/>
@@ -3030,6 +3038,7 @@
 	<string id="20733" value="virov"/> <!-- many -->
 	<string id="20734" value="viri"/>  <!-- few  2,3,4 -->
 	<string id="20735" value="virov"/> <!-- ones 21,31,... -->
+	<string id="20736" value="(Ni virov)"/>
 	<string id="20740" value="TigerTree"/>
 	<string id="20741" value="Torrent"/>
 	<string id="20742" value="Sledilnik ne deluje"/>
@@ -4334,9 +4343,9 @@
 		<column from="Address" to="Naslov"/>
 		<column from="Port" to="Vrata"/>
 		<column from="Time" to="Čas"/>
-		<column from="Packets" to="Paketi"/>
-		<column from="Bandwidth" to="Pasovna širina"/>
+		<column from="Traffic" to="Pasovna širina"/>
 		<column from="Total" to="Skupaj"/>
+		<column from="Packets" to="Paketi"/>
 		<column from="Flow" to="Potek"/>
 		<column from="Leaves" to="Listi"/>
 		<column from="Mode" to="Način"/>
@@ -4412,7 +4421,7 @@
 	<list name="CUploadQueueList">
 		<column from="Name" to="Ime"/>
 		<column from="Criteria" to="Merilo"/>
-		<column from="Bandwidth" to="Pasovna širina"/>
+		<column from="Minimum" to="Pasovna širina"/>
 		<column from="Transfers" to="Prenosi"/>
 		<column from="Order" to="Zaporedje"/>
 	</list>

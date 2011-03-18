@@ -7,6 +7,7 @@ ___________________________
 
 1. Install Visual Studio 2010
 	- http://www.microsoft.com/downloads/details.aspx?FamilyID=26bae65f-b0df-4081-ae6e-1d828993d4d0  (30/90day Trial)
+	- http://www.microsoft.com/downloads/details.aspx?FamilyID=75568aa6-8107-475d-948a-ef22627e57a5  (Service Pack)
 
    OR Install Visual Studio 2008 + SP1
 	- http://www.microsoft.com/downloads/details.aspx?FamilyID=83c3a1ec-ed72-4a79-8961-25635db0192b  (90day Trial)

@@ -97,32 +97,42 @@ void CPeerProjectCommandLineInfo::ParseParam(const TCHAR* pszParam, BOOL bFlag, 
 			m_bNoSplash = TRUE;
 			return;
 		}
-		else if ( ! lstrcmpi( pszParam, _T("nosplash") ) )
+		if ( ! lstrcmpi( pszParam, _T("nosplash") ) )
 		{
 			m_bNoSplash = TRUE;
 			return;
 		}
-		else if ( ! lstrcmpi( pszParam, _T("nowarn") ) )
+		if ( ! lstrcmpi( pszParam, _T("nowarn") ) )
 		{
 			m_bNoAlphaWarning = TRUE;
 			return;
 		}
-		else if ( ! lstrcmpi( pszParam, _T("basic") ) )
+		if ( ! lstrcmpi( pszParam, _T("noskin") ) )
+		{
+			ClearSkins();
+			return;
+		}
+		if ( ! lstrcmpi( pszParam, _T("basic") ) )
 		{
 			m_nGUIMode = GUI_BASIC;
 			return;
 		}
-		else if ( ! lstrcmpi( pszParam, _T("tabbed") ) )
+		if ( ! lstrcmpi( pszParam, _T("tabbed") ) )
 		{
 			m_nGUIMode = GUI_TABBED;
 			return;
 		}
-		else if ( ! lstrcmpi( pszParam, _T("windowed") ) )
+		if ( ! lstrcmpi( pszParam, _T("windowed") ) )
 		{
 			m_nGUIMode = GUI_WINDOWED;
 			return;
 		}
-		else if ( ! lstrcmpi( pszParam, _T("help") ) || ! lstrcmpi( pszParam, _T("?") ) )
+	//	if ( ! lstrcmpi( pszParam, _T("wait") ) )
+	//	{
+	//		m_bWait = TRUE;
+	//		return;
+	//	}
+		if ( ! lstrcmpi( pszParam, _T("help") ) || ! lstrcmpi( pszParam, _T("?") ) )
 		{
 			m_bHelp = TRUE;
 			return;
@@ -264,6 +274,7 @@ BOOL CPeerProjectApp::InitInstance()
 			_T(" -tray\t\tStart application quietly in system tray\n")
 			_T(" -nosplash\tDisable startup splash screen\n")
 			_T(" -nowarn\t\tSkip debug version warning dialog\n")
+			_T(" -noskin\t\tDisable all skins and languages\n")
 			_T(" -basic\t\tStart application in Basic mode\n")
 			_T(" -tabbed\t\tStart application in Tabbed mode\n")
 			_T(" -windowed\tStart application in Windowed mode\n")
@@ -296,10 +307,9 @@ BOOL CPeerProjectApp::InitInstance()
 
 	m_pMutex = CreateMutex( NULL, FALSE, _T("Global\\PeerProject") );
 	if ( m_pMutex == NULL )
-	{
 		return FALSE;		// Mutex probably created in another multi-user session
-	}
-	else if ( GetLastError() == ERROR_ALREADY_EXISTS )
+
+	if ( GetLastError() == ERROR_ALREADY_EXISTS )
 	{
 		CloseHandle( m_pMutex );
 		m_pMutex = NULL;
@@ -398,7 +408,6 @@ BOOL CPeerProjectApp::InitInstance()
 		IEProtocol.Create();
 
 		PurgeDeletes();
-		Sleep( 60 );
 
 	SplashStep( L"Network Winsock" );
 		WSADATA wsaData;
@@ -410,41 +419,31 @@ BOOL CPeerProjectApp::InitInstance()
 			WSACleanup();
 		}
 		CryptAcquireContext( &m_hCryptProv, NULL, NULL, PROV_RSA_FULL, CRYPT_VERIFYCONTEXT );
-		Sleep( 60 );
 
 	SplashStep( L"P2P URIs" );
 		CPeerProjectURL::Register( TRUE );
-		Sleep( 60 );
 	SplashStep( L"Profile" );
 		MyProfile.Load();
-		Sleep( 60 );
 	SplashStep( L"Vendor Data" );
 		VendorCache.Load();
-		Sleep( 60 );
 	SplashStep( L"Security Services" );
 		Security.Load();
 		AdultFilter.Load();
 		MessageFilter.Load();
-		Sleep( 60 );
 	SplashStep( L"Discovery Services" );
 		DiscoveryServices.Load();
-		Sleep( 60 );
 	SplashStep( L"Host Cache" );
 		HostCache.Load();
-		Sleep( 60 );
 	SplashStep( L"Query Manager" );
 		QueryHashMaster.Create();
-		Sleep( 60 );
 	SplashStep( L"Scheduler" );
 		Scheduler.Load();
-		Sleep( 60 );
 	SplashStep( L"Shell Icons" );
 		ShellIcons.Clear();
 		if ( ! Emoticons.Load() )
 			Message( MSG_ERROR, _T("Failed to load Emoticons.") );
 		if ( ! Flags.Load() )
 			Message( MSG_ERROR, _T("Failed to load Flags.") );
-		Sleep( 60 );
 	SplashStep( L"Metadata Schemas" );
 		if ( SchemaCache.Load() < 48 )	// Presumed number of .xsd files in Schemas folder
 		{
@@ -492,7 +491,9 @@ BOOL CPeerProjectApp::InitInstance()
 			sTypeFilter.Replace( _T("|."), _T("|") );
 			CSettings::LoadSet( &Settings.Library.SafeExecute, sTypeFilter );
 		}
-		Sleep( 60 );
+
+	//CWaitCursor pCursor;
+
 	SplashStep( L"Thumb Database" );
 		CThumbCache::InitDatabase();	// Lengthy if large
 	SplashStep( L"Library" );
@@ -501,7 +502,6 @@ BOOL CPeerProjectApp::InitInstance()
 		Downloads.Load();				// Lengthy if many
 	SplashStep( L"Upload Manager" );
 		UploadQueues.Load();
-		Sleep( 60 );
 
 	if ( Settings.Connection.EnableFirewallException )
 	{
@@ -518,18 +518,19 @@ BOOL CPeerProjectApp::InitInstance()
 
 	if ( Settings.Connection.EnableUPnP )
 	{
-		SplashStep( L"Plug'n'Play Network Access" );
+		SplashStep( L"Plug'n'Play Network Access, Please Wait" );
 		// First run will do UPnP discovery in the QuickStart Wizard
 		if ( ! Settings.Live.FirstRun )
 		{
 			m_pUPnPFinder.Attach( new CUPnPFinder );
 			if ( m_pUPnPFinder->AreServicesHealthy() )
-				m_pUPnPFinder->StartDiscovery();
+				m_pUPnPFinder->StartDiscovery();	// Lengthy 30s
 		}
 	}
 
+	//pCursor.Restore();
+
 	SplashStep( L"GUI" );
-		Sleep( 60 );
 		if ( m_cmdInfo.m_bTray )
 			WriteProfileInt( _T("Windows"), _T("CMainWnd.ShowCmd"), 0 );
 		new CMainWnd();
@@ -546,7 +547,7 @@ BOOL CPeerProjectApp::InitInstance()
 			m_pMainWnd->UpdateWindow();
 		}
 		// From this point translations would be available, and LoadString returns correct strings
-		Sleep( 60 );
+		Sleep( 60 );	// Allow some splash text visibility
 
 	SplashStep( L"Upgrade Manager" );
 		VersionChecker.Start();
@@ -583,22 +584,18 @@ int CPeerProjectApp::ExitInstance()
 		VersionChecker.Stop();
 		DiscoveryServices.Stop();
 		Network.Disconnect();
-		Sleep( 80 );
 
 		SplashStep( L"Stopping Library Tasks" );
 		LibraryBuilder.CloseThread();
 		Library.CloseThread();
-		Sleep( 60 );
 
 		SplashStep( L"Stopping Transfers" );
 		Transfers.StopThread();
 		Downloads.CloseTransfers();
-		Sleep( 60 );
 
 		SplashStep( L"Clearing Clients" );
 		Uploads.Clear( FALSE );
 		EDClients.Clear();
-		Sleep( 60 );
 
 		if ( m_bLive )
 		{
@@ -608,7 +605,6 @@ int CPeerProjectApp::ExitInstance()
 			HostCache.Save();
 			UploadQueues.Save();
 			DiscoveryServices.Save();
-			Sleep( 80 );
 
 			SplashStep( L"Saving Downloads" );
 			DownloadGroups.Save();
@@ -644,6 +640,8 @@ int CPeerProjectApp::ExitInstance()
 
 		DDEServer.Close();
 		IEProtocol.Close();
+
+		SchemaCache.Clear();
 		Plugins.Clear();
 
 		FreeCountry();	// Release GeoIP
@@ -788,7 +786,7 @@ void CPeerProjectApp::SplashStep(LPCTSTR pszMessage, int nMax, bool bClosing)
 		m_dlgSplash = new CSplashDlg( nMax, bClosing );
 		m_dlgSplash->Step( pszMessage );
 	}
-	else if ( m_dlgSplash && ! nMax )
+	else if ( m_dlgSplash /*&& ! nMax*/ )	// Reset m_dlgSplash->m_nPos ?
 		m_dlgSplash->Step( pszMessage );
 
 	TRACE( _T("Step: %s\n"), pszMessage ? pszMessage : _T("Done") );
@@ -817,29 +815,71 @@ CDocument* CPeerProjectApp::OpenDocumentFile(LPCTSTR lpszFileName)
 
 BOOL CPeerProjectApp::Open(LPCTSTR lpszFileName)		// Note: No BOOL bDoIt needed
 {
-	const int nLength = _tcslen( lpszFileName );
-	if ( nLength < 4 ) return FALSE;
+	CString strExt( PathFindExtension( lpszFileName ) );
+	if ( strExt.IsEmpty() ) return FALSE;
+	strExt = strExt.MakeLower();
 
-	if ( nLength > 8  &&  ! _tcsicmp( lpszFileName + nLength - 8,  _T(".torrent") ) )
+	SwitchMap( Ext )
+	{
+		Ext[ _T(".torrent") ] 	= 't';
+		Ext[ _T(".co") ]		= 'c';
+		Ext[ _T(".collection") ] = 'c';
+		Ext[ _T(".emulecollection") ] = 'c';
+		Ext[ _T(".bz2") ]		= 'b';
+		Ext[ _T(".met") ]		= 'i';
+		Ext[ _T(".dat") ]		= 'i';
+		Ext[ _T(".url") ]		= 'u';
+		Ext[ _T(".lnk") ]		= 'l';
+	//	Ext[ _T(".metalink") ]	= 'm';
+	//	Ext[ _T(".meta4") ]		= 'm';
+	//	Ext[ _T(".magma") ]		= 'a';
+	}
+
+	switch( Ext[ strExt ] )
+	{
+	case 't':	// .torrent
 		return OpenTorrent( lpszFileName );
-	if (/*nLength > 3 &&*/! _tcsicmp( lpszFileName + nLength - 3,  _T(".co") ) )
+	case 'c':	// .co .collection .emulecollection
 		return OpenCollection( lpszFileName );
-	if ( nLength > 11 &&  ! _tcsicmp( lpszFileName + nLength - 11, _T(".collection") ) )
-		return OpenCollection( lpszFileName );
-	if ( nLength > 16 &&  ! _tcsicmp( lpszFileName + nLength - 16, _T(".emulecollection") ) )
-		return OpenCollection( lpszFileName );
-	if ( nLength > 14 &&  ! _tcsicmp( lpszFileName + nLength - 15, _T("hublist.xml.bz2") ) )
+	case 'i':	// .met .dat
 		return OpenImport( lpszFileName );
-	if ( nLength > 8  &&  ! _tcsicmp( lpszFileName + nLength - 8,  _T (".xml.bz2") ) )
-		return OpenCollection( lpszFileName );
-	if (/*nLength > 4 &&*/! _tcsicmp( lpszFileName + nLength - 4,  _T(".url") ) )
+//	case 'm':	// ToDo: .metalink .meta4 .magma (0.2)
+//		return OpenMetalink( lpszFileName );
+	case 'u':	// .url
 		return OpenInternetShortcut( lpszFileName );
-	if (/*nLength > 4 &&*/! _tcsicmp( lpszFileName + nLength - 4,  _T(".met") ) )
-		return OpenImport( lpszFileName );
-	if (/*nLength > 4 &&*/! _tcsicmp( lpszFileName + nLength - 4,  _T(".dat") ) )
-		return OpenImport( lpszFileName );
-	if (/*nLength > 4 &&*/! _tcsicmp( lpszFileName + nLength - 4,  _T(".lnk") ) )
+	case 'l':	// .lnk
 		return OpenShellShortcut( lpszFileName );
+	case 'b':	// .xml.bz2 (DC++)
+		if ( ! _tcsicmp( lpszFileName + ( _tcslen( lpszFileName ) - 8 ),  _T(".xml.bz2") ) )
+		{
+			if ( ! _tcsicmp( PathFindFileName( lpszFileName ), _T("hublist.xml.bz2") ) )
+				return OpenImport( lpszFileName );
+			return OpenCollection( lpszFileName );
+		}
+		break;
+	}
+
+	// Legacy method for reference:
+//	if ( nLength > 8  &&  ! _tcsicmp( lpszFileName + nLength - 8,  _T(".torrent") ) )
+//		return OpenTorrent( lpszFileName );
+//	if (/*nLength > 3 &&*/! _tcsicmp( lpszFileName + nLength - 3,  _T(".co") ) )
+//		return OpenCollection( lpszFileName );
+//	if ( nLength > 11 &&  ! _tcsicmp( lpszFileName + nLength - 11, _T(".collection") ) )
+//		return OpenCollection( lpszFileName );
+//	if ( nLength > 16 &&  ! _tcsicmp( lpszFileName + nLength - 16, _T(".emulecollection") ) )
+//		return OpenCollection( lpszFileName );
+//	if ( nLength > 8  &&  ! _tcsicmp( lpszFileName + nLength - 8,  _T(".xml.bz2") ) )
+//		return OpenCollection( lpszFileName );
+//	if ( nLength > 14 &&  ! _tcsicmp( lpszFileName + nLength - 15, _T("hublist.xml.bz2") ) )
+//		return OpenImport( lpszFileName );
+//	if (/*nLength > 4 &&*/! _tcsicmp( lpszFileName + nLength - 4,  _T(".met") ) )
+//		return OpenImport( lpszFileName );
+//	if (/*nLength > 4 &&*/! _tcsicmp( lpszFileName + nLength - 4,  _T(".dat") ) )
+//		return OpenImport( lpszFileName );
+//	if (/*nLength > 4 &&*/! _tcsicmp( lpszFileName + nLength - 4,  _T(".url") ) )
+//		return OpenInternetShortcut( lpszFileName );
+//	if (/*nLength > 4 &&*/! _tcsicmp( lpszFileName + nLength - 4,  _T(".lnk") ) )
+//		return OpenShellShortcut( lpszFileName );
 
 	return OpenURL( lpszFileName );
 }
@@ -852,7 +892,7 @@ BOOL CPeerProjectApp::OpenImport(LPCTSTR lpszFileName)
 BOOL CPeerProjectApp::OpenShellShortcut(LPCTSTR lpszFileName)
 {
 	CString sPath( ResolveShortcut( lpszFileName ) );
-	return sPath.GetLength() && Open( sPath );
+	return ! sPath.IsEmpty() && Open( sPath );
 }
 
 BOOL CPeerProjectApp::OpenInternetShortcut(LPCTSTR lpszFileName)
@@ -861,7 +901,7 @@ BOOL CPeerProjectApp::OpenInternetShortcut(LPCTSTR lpszFileName)
 	BOOL bResult = ( GetPrivateProfileString( _T("InternetShortcut"), _T("URL"),
 		_T(""), sURL.GetBuffer( MAX_PATH ), MAX_PATH, lpszFileName ) > 3 );
 	sURL.ReleaseBuffer();
-	return bResult && sURL.GetLength() && OpenURL( sURL );
+	return bResult && ! sURL.IsEmpty() && OpenURL( sURL );
 }
 
 BOOL CPeerProjectApp::OpenTorrent(LPCTSTR lpszFileName)
@@ -1019,6 +1059,7 @@ void CPeerProjectApp::GetVersionNumber()
 	// Set some variables for different Windows OS
 	if ( m_nWindowsVersion == 5 )
 	{
+#ifndef WIN64
 		// Windows 2000
 		if ( m_nWindowsVersionMinor == 0 )
 		{
@@ -1034,6 +1075,7 @@ void CPeerProjectApp::GetVersionNumber()
 		}
 		// Windows XP64 or 2003
 		else if ( m_nWindowsVersionMinor == 2 )
+#endif
 		{
 			// No network limiting for Vanilla Win2003/XP64
 			if ( ! sp )
@@ -1190,7 +1232,7 @@ void CPeerProjectApp::InitResources()
 	m_hHookMouse = SetWindowsHookEx( WH_MOUSE, (HOOKPROC)MouseHook, NULL, AfxGetThread()->m_nThreadID );
 	m_nLastInput = (DWORD)time( NULL );
 
-	if( SystemParametersInfo( SPI_GETWHEELSCROLLLINES, 0, &m_nMouseWheel, 0 ) )
+	if ( SystemParametersInfo( SPI_GETWHEELSCROLLLINES, 0, &m_nMouseWheel, 0 ) )
 	{
 		if ( m_nMouseWheel > 20 )			// Catch WHEEL_PAGESCROLL (UINT_MAX)
 			m_nMouseWheel = 20;				// ToDo: Better handling rare mouse wheel set to scroll by page?
@@ -1511,9 +1553,10 @@ BOOL CPeerProjectApp::InternalURI(LPCTSTR pszURI)
 	if ( pMainWnd == NULL ) return FALSE;
 
 	CString strURI( pszURI );
-	strURI = strURI.Left( 20 ).MakeLower(); 	// Most chars needed to determine protocol or command
+//	const int nBreak = strURI.FindOneOf( _T(":") ) + 1;
+	strURI = strURI.Left( 20 ).MakeLower();					// Most chars needed to determine protocol or command
 
-	if ( _tcsnicmp( strURI, _T("command:"), 8 ) != 0 )				// Assume external URL if not internal command
+	if ( _tcsnicmp( strURI, _T("command:"), 8 ) != 0 )		// Assume external URL if not internal command
 	{
 		if ( ! _tcsnicmp( strURI, _T("magnet:"), 7 ) ||
 			! _tcsnicmp( strURI, _T("http://"), 7 ) ||
@@ -1534,8 +1577,9 @@ BOOL CPeerProjectApp::InternalURI(LPCTSTR pszURI)
 			! _tcsnicmp( strURI, _T("p2p:"), 4 ) ||
 			! _tcsnicmp( strURI, _T("mp2p:"), 5 ) ||
 			! _tcsnicmp( strURI, _T("foxy:"), 5 ) ||
-			! _tcsnicmp( strURI, _T("aim:"), 4 ) ||
 			! _tcsnicmp( strURI, _T("btc:"), 4 ) ||
+			! _tcsnicmp( strURI, _T("irc:"), 4 ) ||
+			! _tcsnicmp( strURI, _T("aim:"), 4 ) ||
 			! _tcsnicmp( strURI, _T("dchub:"), 6 ) ||
 			! _tcsnicmp( strURI, _T("dcfile:"), 7 ) ||
 			! _tcsnicmp( strURI, _T("mailto:"), 7 ) ||
@@ -1935,7 +1979,7 @@ HICON CreateMirroredIcon(HICON hIconOrig, BOOL bDestroyOriginal)
 	if ( hdcBitmap )
 	{
 		hdcMask = CreateCompatibleDC( NULL );
-		if( hdcMask )
+		if ( hdcMask )
 		{
 			SetLayout( hdcBitmap, LAYOUT_RTL );
 			SetLayout( hdcMask, LAYOUT_RTL );
@@ -2331,7 +2375,7 @@ CString SafeFilename(CString strName, bool bPath)
 	// Replace incompatible symbols
 	for ( ;; )
 	{
-		int nChar = strName.FindOneOf(
+		const int nChar = strName.FindOneOf(
 			bPath ? _T("/:*?\"<>|") : _T("\\/:*?\"<>|") );
 
 		if ( nChar == -1 )
@@ -2367,13 +2411,12 @@ BOOL CreateDirectory(LPCTSTR szPath)
 
 	for ( int nStart = 3 ; ; )
 	{
-		int nSlash = strDir.Find( _T('\\'), nStart );
+		const int nSlash = strDir.Find( _T('\\'), nStart );
 		if ( ( nSlash == -1 ) || ( nSlash == strDir.GetLength() - 1 ) )
 			break;
 		CString strSubDir( strDir.Left( nSlash + 1 ) );
 		dwAttr = GetFileAttributes( CString( _T("\\\\?\\") ) + strSubDir );
-		if ( ( dwAttr == INVALID_FILE_ATTRIBUTES ) ||
-			! ( dwAttr & FILE_ATTRIBUTE_DIRECTORY ) )
+		if ( ( dwAttr == INVALID_FILE_ATTRIBUTES ) || ! ( dwAttr & FILE_ATTRIBUTE_DIRECTORY ) )
 			if ( ! CreateDirectory( CString( _T("\\\\?\\") ) + strSubDir, NULL ) )
 				return FALSE;
 		nStart = nSlash + 1;
@@ -2381,11 +2424,23 @@ BOOL CreateDirectory(LPCTSTR szPath)
 	return CreateDirectory( CString( _T("\\\\?\\") ) + szPath, NULL );
 }
 
-void DeleteFiles(CStringList& pList)
+void DeleteFolders(CStringList& pList)
 {
+	// Primarily from WndDownloads torrents
 	while ( ! pList.IsEmpty() )
 	{
-		CString strFirstPath = pList.GetHead();
+		const CString strPath = pList.RemoveHead();
+		if ( PathIsDirectoryEmpty( strPath ) )
+			RemoveDirectory( strPath );
+	}
+}
+
+void DeleteFiles(CStringList& pList)
+{
+	// From WndDownloads
+	while ( ! pList.IsEmpty() )
+	{
+		const CString strFirstPath = pList.GetHead();
 
 		CDeleteFileDlg dlg;
 		dlg.m_bAll = ( pList.GetCount() > 1 );
@@ -2411,10 +2466,10 @@ void DeleteFiles(CStringList& pList)
 		for ( INT_PTR nProcess = dlg.m_bAll ? pList.GetCount() : 1 ;
 			nProcess > 0 && pList.GetCount() > 0 ; nProcess-- )
 		{
-			CString strPath = pList.RemoveHead();
+			const CString strPath = pList.RemoveHead();
 
 			{
-				CQuickLock pTransfersLock( Transfers.m_pSection ); // Can clear uploads and downloads
+				CQuickLock pTransfersLock( Transfers.m_pSection );	// Can clear uploads and downloads
 				CQuickLock pLibraryLock( Library.m_pSection );
 
 				if ( CLibraryFile* pFile = LibraryMaps.LookupFileByPath( strPath ) )
@@ -2527,6 +2582,7 @@ void PurgeDeletes()
 	}
 }
 
+// Direct Web Browsing Page (About.htm/etc.)
 CString LoadHTML(HINSTANCE hInstance, UINT nResourceID)
 {
 	CString strBody;
@@ -2541,7 +2597,7 @@ CString LoadHTML(HINSTANCE hInstance, UINT nResourceID)
 		bGZIP = TRUE;
 	}
 
-	DWORD nSize 	= SizeofResource( hInstance, hRes );
+	const DWORD nSize = SizeofResource( hInstance, hRes );
 	HGLOBAL hMemory = LoadResource( hInstance, hRes );
 	if ( ! hMemory ) return strBody;
 
@@ -2575,6 +2631,7 @@ CString LoadHTML(HINSTANCE hInstance, UINT nResourceID)
 	return strBody;
 }
 
+// Direct Web Browsing Style Resources (About.htm/etc.)
 const struct
 {
 	LPCTSTR szPath;
@@ -2583,9 +2640,9 @@ const struct
 	LPCTSTR	szContentType;
 } WebResources [] =
 {
-	{ _T("/remote/header_1.png"),	IDR_HOME_HEADER,		RT_PNG,			_T("image/png") },
-	{ _T("/remote/header_2.png"),	IDR_HOME_HEADER_REPEAT,	RT_PNG,			_T("image/png") },
-	{ _T("/favicon.ico"),			IDR_MAINFRAME,			RT_GROUP_ICON,	_T("image/x-icon") },
+	{ _T("/remote/header.png"),			IDR_HOME_HEADER,		RT_PNG,			_T("image/png") },
+	{ _T("/remote/header_repeat.png"),	IDR_HOME_HEADER_REPEAT,	RT_PNG,			_T("image/png") },
+	{ _T("/favicon.ico"),				IDI_FAVICON,			RT_GROUP_ICON,	_T("image/x-icon") },
 	{ NULL, NULL, NULL, NULL }
 };
 
@@ -2660,8 +2717,7 @@ bool ResourceRequest(const CString& strPath, CBuffer& pResponse, CString& sHeade
 						pResponse.m_nLength = nSize;
 					}
 
-					sHeader.Format(	_T("Content-Type: %s\r\n"),
-						WebResources[ i ].szContentType);
+					sHeader.Format(	_T("Content-Type: %s\r\n"), WebResources[ i ].szContentType);
 					ret = true;
 				}
 				FreeResource( hMemory );
@@ -2974,6 +3030,39 @@ BOOL IsUserFullscreen()
 
 	return FALSE;
 }
+
+void ClearSkins()
+{
+	// Commandline "-noskin" reset
+	HKEY hRoot;
+	if ( RegOpenKeyEx( HKEY_LOCAL_MACHINE, REGISTRY_KEY, 0, KEY_ALL_ACCESS, &hRoot ) != ERROR_SUCCESS )
+		return;
+	RegDeleteKey( hRoot, _T("\\Settings\\Language") );
+	RegDeleteKey( hRoot, _T("\\Settings\\LanguageRTL") );
+
+	// Prefer native Vista+ way
+	OSVERSIONINFOEX pVersion = { sizeof( OSVERSIONINFOEX ) };
+	GetVersionEx( (OSVERSIONINFO*)&pVersion );
+	if ( pVersion.dwMajorVersion > 5 )
+	{
+		RegDeleteTree( hRoot, _T("\\Skins") );
+		RegDeleteTree( hRoot, _T("\\Toolbars") );
+		RegDeleteTree( hRoot, _T("\\Windows") );
+		RegDeleteTree( hRoot, _T("\\ListStates") );
+		RegDeleteTree( hRoot, _T("\\Interface") );
+	}
+	else // XP/2000
+	{
+		SHDeleteKey( hRoot, _T("\\Skins") );
+		SHDeleteKey( hRoot, _T("\\Toolbars") );
+		SHDeleteKey( hRoot, _T("\\Windows") );
+		SHDeleteKey( hRoot, _T("\\ListStates") );
+		SHDeleteKey( hRoot, _T("\\Interface") );
+	}
+
+	RegCloseKey( hRoot );
+}
+
 
 template <>
 __int8 GetRandomNum<__int8>(const __int8& min, const __int8& max)

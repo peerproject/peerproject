@@ -181,7 +181,7 @@ BOOL CNetwork::IsFirewalled(int nCheck) const
 	{
 		const BOOL bTCPOpened = IsStable();
 		const BOOL bUDPOpened = Datagrams.IsStable();
-		if( nCheck == CHECK_BOTH && bTCPOpened && bUDPOpened )
+		if ( nCheck == CHECK_BOTH && bTCPOpened && bUDPOpened )
 			return FALSE;		// We know we are not firewalled on both TCP and UDP
 		if ( nCheck == CHECK_TCP && bTCPOpened )
 			return FALSE;		// We know we are not firewalled on TCP port
@@ -276,12 +276,28 @@ BOOL CNetwork::ConnectTo(LPCTSTR pszAddress, int nPort, PROTOCOLID nProtocol, BO
 {
 	CSingleLock pLock( &m_pSection, TRUE );
 
-	if ( ! IsConnected() && ! Connect() ) return FALSE;
+	if ( ! IsConnected() && ! Connect() )
+		return FALSE;
 
-	if ( nPort == 0 ) nPort = GNUTELLA_DEFAULT_PORT;
+	if ( nPort <= 0 || nPort > USHRT_MAX )
+	{
+		switch ( nProtocol )
+		{
+		case PROTOCOL_ED2K:
+			nPort = ED2K_DEFAULT_PORT;
+			break;
+		case PROTOCOL_DC:
+			nPort = DC_DEFAULT_PORT;
+			break;
+		default:
+			nPort = GNUTELLA_DEFAULT_PORT;
+		}
+	}
+
 	theApp.Message( MSG_INFO, IDS_NETWORK_RESOLVING, pszAddress );
 
-	if ( AsyncResolve( pszAddress, (WORD)nPort, nProtocol, bNoUltraPeer ? 2 : 1 ) ) return TRUE;
+	if ( AsyncResolve( pszAddress, (WORD)nPort, nProtocol, bNoUltraPeer ? 2 : 1 ) )
+		return TRUE;
 
 	theApp.Message( MSG_ERROR, IDS_NETWORK_RESOLVE_FAIL, pszAddress );
 
@@ -559,7 +575,7 @@ bool CNetwork::PreRun()
 
 	gethostname( m_sHostName.GetBuffer( 255 ), 255 );
 	m_sHostName.ReleaseBuffer();
-	if( hostent* h = gethostbyname( m_sHostName ) )
+	if ( hostent* h = gethostbyname( m_sHostName ) )
 	{
 		for ( char** p = h->h_addr_list ; p && *p ; p++ )
 		{
@@ -1117,20 +1133,17 @@ bool CNetwork::ProcessQueryHits(CNetwork::CJob& oJob)
 
 	switch( oJob.GetStage() )
 	{
-	case 0:
-		// Update downloads
+	case 0:		// Update downloads
 		if ( Downloads.OnQueryHits( pHits ) )
 			oJob.Next();
 		break;
 
-	case 1:
-		// Update library files alternate sources
+	case 1:		// Update library files alternate sources
 		if ( Library.OnQueryHits( pHits ) )
 			oJob.Next();
 		break;
 
-	case 2:
-		// Send hits to search windows
+	case 2:		// Send hits to search windows
 		{
 			CSingleLock oAppLock( &theApp.m_pSection );
 			if ( oAppLock.Lock( 250 ) )

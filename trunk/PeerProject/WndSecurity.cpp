@@ -40,6 +40,18 @@ static char THIS_FILE[] = __FILE__;
 //	NULL
 //};
 
+// Set Column Order
+enum {
+	COL_CONTENT,
+	COL_HITS,
+	COL_NUM,
+	COL_ACTION,
+	COL_EXPIRES,
+	COL_TYPE,
+	COL_COMMENT,
+	COL_LAST	// Column Count
+};
+
 IMPLEMENT_SERIAL(CSecurityWnd, CPanelWnd, 0)
 
 BEGIN_MESSAGE_MAP(CSecurityWnd, CPanelWnd)
@@ -99,13 +111,13 @@ int CSecurityWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_wndList.Create( WS_VISIBLE|LVS_ICON|LVS_AUTOARRANGE|LVS_REPORT|LVS_SHOWSELALWAYS, rectDefault, this, IDC_RULES );
 	m_wndList.SetExtendedStyle( LVS_EX_DOUBLEBUFFER|LVS_EX_HEADERDRAGDROP|LVS_EX_FULLROWSELECT|LVS_EX_LABELTIP );
 
-	m_wndList.InsertColumn( 0, _T("Address / Content"), LVCFMT_LEFT, 200, -1 );
-	m_wndList.InsertColumn( 1, _T("Hits"), LVCFMT_CENTER, 60, 0 );
-	m_wndList.InsertColumn( 2, _T("#"), LVCFMT_CENTER, 30, 1 );
-	m_wndList.InsertColumn( 3, _T("Action"), LVCFMT_CENTER, 60, 2 );
-	m_wndList.InsertColumn( 4, _T("Expires"), LVCFMT_CENTER, 60, 3 );
-	m_wndList.InsertColumn( 5, _T("Match"), LVCFMT_CENTER, 60, 4 );
-	m_wndList.InsertColumn( 6, _T("Comment"), LVCFMT_LEFT, 200, 5 );
+	m_wndList.InsertColumn( COL_CONTENT, _T("Address / Content"), LVCFMT_LEFT, 200 );
+	m_wndList.InsertColumn( COL_HITS, _T("Hits"), LVCFMT_CENTER, 60 );
+	m_wndList.InsertColumn( COL_NUM, _T("#"), LVCFMT_CENTER, 30 );
+	m_wndList.InsertColumn( COL_ACTION, _T("Action"), LVCFMT_CENTER, 60 );
+	m_wndList.InsertColumn( COL_EXPIRES, _T("Expires"), LVCFMT_CENTER, 60 );
+	m_wndList.InsertColumn( COL_TYPE, _T("Match"), LVCFMT_CENTER, 60 );
+	m_wndList.InsertColumn( COL_COMMENT, _T("Comment"), LVCFMT_LEFT, 200 );
 
 	m_pSizer.Attach( &m_wndList );
 
@@ -148,12 +160,12 @@ void CSecurityWnd::Update(int nColumn, BOOL bSort)
 {
 	CQuickLock oLock( Security.m_pSection );
 
-	CLiveList pLiveList( 7, Security.GetCount() + Security.GetCount() / 4u );
+	CLiveList pLiveList( COL_LAST, Security.GetCount() + Security.GetCount() / 4u );
 
 	CLiveItem* pDefault = pLiveList.Add( (LPVOID)0 );
-	pDefault->Set( 2, _T(" - ") );							// Need leading space for proper sort priority (until sorting is fixed)
-	pDefault->Set( 0, LoadString( IDS_SECURITY_DEFAULT ) );	// "Default Policy"
-	pDefault->Set( 3, LoadString( Security.m_bDenyPolicy ? IDS_SECURITY_DENY : IDS_SECURITY_ACCEPT ) );
+	pDefault->Set( COL_NUM, _T(" - ") );								// Need leading space for proper sort priority (until sorting is fixed)
+	pDefault->Set( COL_CONTENT, LoadString( IDS_SECURITY_DEFAULT ) );	// "Default Policy"
+	pDefault->Set( COL_ACTION, LoadString( Security.m_bDenyPolicy ? IDS_SECURITY_DENY : IDS_SECURITY_ACCEPT ) );
 	pDefault->SetImage( Security.m_bDenyPolicy ? Settings.General.LanguageRTL ? 0 : 2 : 1 );
 
 	Security.Expire();
@@ -173,13 +185,13 @@ void CSecurityWnd::Update(int nColumn, BOOL bSort)
 		{
 			if ( *(DWORD*)pRule->m_nMask == 0xFFFFFFFF )
 			{
-				pItem->Format( 0, _T("%u.%u.%u.%u"),
+				pItem->Format( COL_CONTENT, _T("%u.%u.%u.%u"),
 					unsigned( pRule->m_nIP[0] ), unsigned( pRule->m_nIP[1] ),
 					unsigned( pRule->m_nIP[2] ), unsigned( pRule->m_nIP[3] ) );
 			}
 			else
 			{
-				pItem->Format( 0, _T("%u.%u.%u.%u/%u.%u.%u.%u"),
+				pItem->Format( COL_CONTENT, _T("%u.%u.%u.%u/%u.%u.%u.%u"),
 					unsigned( pRule->m_nIP[0] ), unsigned( pRule->m_nIP[1] ),
 					unsigned( pRule->m_nIP[2] ), unsigned( pRule->m_nIP[3] ),
 					unsigned( pRule->m_nMask[0] ), unsigned( pRule->m_nMask[1] ),
@@ -188,59 +200,62 @@ void CSecurityWnd::Update(int nColumn, BOOL bSort)
 		}
 		else
 		{
-			pItem->Set( 0, pRule->GetContentWords() );
+			pItem->Set( COL_CONTENT, pRule->GetContentWords() );
 		}
 
 		switch ( pRule->m_nAction )
 		{
 		case CSecureRule::srNull:
-			pItem->Set( 3, _T("N/A") );
+			pItem->Set( COL_ACTION, LoadString( IDS_TIP_NA ) );
 			break;
 		case CSecureRule::srAccept:
-			pItem->Set( 3, LoadString( IDS_SECURITY_ACCEPT ) );
+			pItem->Set( COL_ACTION, LoadString( IDS_SECURITY_ACCEPT ) );
 			break;
 		case CSecureRule::srDeny:
-			pItem->Set( 3, LoadString( IDS_SECURITY_DENY ) );
+			pItem->Set( COL_ACTION, LoadString( IDS_SECURITY_DENY ) );
 			break;
 		}
 
-		switch ( (int)pRule->m_nType )
+		switch ( pRule->m_nType )
 		{
 		case CSecureRule::srAddress:
-			pItem->Set( 5, _T("IP") );
+			pItem->Set( COL_TYPE, _T("IP") );
 			break;
 		case CSecureRule::srContentAny:
-			pItem->Set( 5, _T("Any") );
+			pItem->Set( COL_TYPE, _T("Any") );
 			break;
 		case CSecureRule::srContentAll:
-			pItem->Set( 5, _T("All") );
+			pItem->Set( COL_TYPE, _T("All") );
 			break;
 		case CSecureRule::srContentRegExp:
-			pItem->Set( 5, _T("RegExp") );
+			pItem->Set( COL_TYPE, _T("RegExp") );
+			break;
+		case CSecureRule::srContentHash:
+			pItem->Set( COL_TYPE, _T("Hash") );
 			break;
 		case CSecureRule::srSizeType:
-			pItem->Set( 5, _T("Size") );
+			pItem->Set( COL_TYPE, _T("Size") );
 			break;
 		}
 
 		if ( pRule->m_nExpire == CSecureRule::srIndefinite )
 		{
-			pItem->Set( 4, LoadString( IDS_SECURITY_NOEXPIRE ) );	// "Never"
+			pItem->Set( COL_EXPIRES, LoadString( IDS_SECURITY_NOEXPIRE ) );	// "Never"
 		}
 		else if ( pRule->m_nExpire == CSecureRule::srSession )
 		{
-			pItem->Set( 4, _T("Session") );
+			pItem->Set( COL_EXPIRES, _T("Session") );
 		}
 		else if ( pRule->m_nExpire >= nNow )
 		{
 			const DWORD nTime = ( pRule->m_nExpire - nNow );
-			pItem->Format( 4, _T("%ud %uh %um"), nTime / 86400u, (nTime % 86400u) / 3600u, ( nTime % 3600u ) / 60u );
-			//pItem->Format( 4, _T("%i:%.2i:%.2i"), nTime / 3600, ( nTime % 3600 ) / 60, nTime % 60 );
+			pItem->Format( COL_EXPIRES, _T("%ud %uh %um"), nTime / 86400u, (nTime % 86400u) / 3600u, ( nTime % 3600u ) / 60u );
+			//pItem->Format( COL_EXPIRES, _T("%i:%.2i:%.2i"), nTime / 3600, ( nTime % 3600 ) / 60, nTime % 60 );
 		}
 
-		pItem->Format( 1, _T("%u (%u)"), pRule->m_nToday, pRule->m_nEver );
-		pItem->Format( 2, _T("%i"), nCount );
-		pItem->Set( 6, pRule->m_sComment );
+		pItem->Format( COL_HITS, _T("%u (%u)"), pRule->m_nToday, pRule->m_nEver );
+		pItem->Format( COL_NUM, _T("%i"), nCount );
+		pItem->Set( COL_COMMENT, pRule->m_sComment );
 	}
 
 	if ( nColumn >= 0 )
@@ -518,6 +533,9 @@ void CSecurityWnd::OnSecurityExport()
 
 			if ( CSecureRule* pRule = GetItem( nItem ) )
 			{
+				if ( pRule->m_nType != CSecureRule::srAddress )
+					continue;	// IP only for .net files?
+
 				strText = pRule->ToGnucleusString();
 
 				if ( ! strText.IsEmpty() )
@@ -533,7 +551,7 @@ void CSecurityWnd::OnSecurityExport()
 			}
 		}
 	}
-	else
+	else	// Generate .XML
 	{
 		auto_ptr< CXMLElement > pXML( new CXMLElement( NULL, _T("security") ) );
 

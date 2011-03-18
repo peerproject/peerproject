@@ -1,7 +1,7 @@
 //
 // Scheduler.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -23,7 +23,6 @@ class CXMLElement;
 
 #define SCHEDULER_SER_VERSION	1000	// 1
 
-
 // Add new tasks here: (In order)
 enum ScheduleTask
 {
@@ -38,13 +37,13 @@ enum ScheduleTask
 
 enum DayOfWeek
 {
-	SUNDAY		= 0x1,
-	MONDAY		= 0x2,
-	TUESDAY 	= 0x4,
-	WEDNESDAY	= 0x8,
-	THURSDAY	= 0x10,
-	FRIDAY		= 0x20,
-	SATURDAY	= 0x40
+	MONDAY		= 0x1,
+	TUESDAY		= 0x2,
+	WEDNESDAY 	= 0x4,
+	THURSDAY	= 0x8,
+	FRIDAY		= 0x10,
+	SATURDAY	= 0x20,
+	SUNDAY		= 0x40
 };
 
 

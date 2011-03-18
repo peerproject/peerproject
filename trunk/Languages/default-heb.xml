@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Hebrew Skin File -->
 
-<!-- Translation based on default-en.xml r62 -->
+<!-- Translation based on default-en.xml r64 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1968,8 +1968,8 @@ gap i newline
 	<tip id="ID_SEARCH_STOP" message="הפסק קבלת תוצאות בחלון זה"/>
 	<tip id="ID_SEARCHMONITOR_CLEAR" message="נקה את זכירון המטמון של מוניטור החיפוש"/>
 	<tip id="ID_SEARCHMONITOR_PAUSE" message="השהה ניטור חיפוש"/>
-	<tip id="ID_SECURITY_ADD" message="הוסף חוק חדש לשרשרת האבטחה"/>
 	<tip id="ID_SECURITY_BAN" message="חסום את הכתובת למשך ההפעלה הנוכחית"/>
+	<tip id="ID_SECURITY_ADD" message="הוסף חוק חדש לשרשרת האבטחה"/>
 	<tip id="ID_SECURITY_EDIT" message="ערוך את חוק האבטחה הנבחר"/>
 	<tip id="ID_SECURITY_EXPORT" message=".ייצא חוקי אבטחה לקובץ"/>
 	<tip id="ID_SECURITY_IMPORT" message="ייבא חוקי אבטחה מקובץ"/>
@@ -1979,6 +1979,14 @@ gap i newline
 	<tip id="ID_SECURITY_POLICY_DENY" message="Set the default security policy to deny all hosts."/>
 	<tip id="ID_SECURITY_REMOVE" message="הסר את חוקי האבטחה הנבחרים"/>
 	<tip id="ID_SECURITY_RESET" message="אפס את המונה לחוקי אבטחה הנבחרים"/>
+	<tip id="ID_SCHEDULER_ADD" message="הוסף חוק חדש לשרשרת האבטחה"/>
+	<tip id="ID_SCHEDULER_EDIT" message="ערוך את חוק האבטחה הנבחר"/>
+	<tip id="ID_SCHEDULER_ACTIVATE" message="נקה את העלאות הנבחרות מהרשימה"/>
+	<tip id="ID_SCHEDULER_DEACTIVATE" message="התחבר לרשת"/>
+	<tip id="ID_SCHEDULER_EXPORT" message=".ייצא חוקי אבטחה לקובץ"/>
+	<tip id="ID_SCHEDULER_IMPORT" message="ייבא חוקי אבטחה מקובץ"/>
+	<tip id="ID_SCHEDULER_REMOVE" message="הסר את ההורדה הנבחרת מהרשימה"/>
+	<tip id="ID_SCHEDULER_REMOVE_ALL" message="Delete all scheduled tasks."/>
 	<tip id="ID_SYSTEM_CLEAR" message="נקה את רישום המצב"/>
 	<tip id="ID_SYSTEM_TIMESTAMP" message="הצג זמן/שעה לכל שורה"/>
 	<tip id="ID_SYSTEM_VERBOSE" message="הצג רישום מפורט על פעילות המערכת"/>
@@ -2378,7 +2386,7 @@ gap i newline
 	<string id="20706" value="‪‏‪ULTRAPEER ‏עם‎ %lu ‏שכנים‎: , %s ‏מקומית‎ ‏בספריה"/>
 	<string id="20707" value="‪...מתחבר לרשת"/>
 	<string id="20708" value="‪.לא מחובר לרשת"/>
-	<string id="20710" value="‪(ללא מקורות)"/>
+	<string id="20710" value="מתבהרים"/>
 	<string id="20711" value="‪לא ניתן להעביר"/>
 	<string id="20712" value="‪Choked"/>
 	<string id="20713" value="‪נכנס לתור"/>
@@ -2404,6 +2412,7 @@ gap i newline
 	<string id="20733" value="מקורות"/>
 	<string id="20734" value="‪:מקורות"/>
 	<string id="20735" value=":מקורות"/>
+	<string id="20736" value="‪(ללא מקורות)"/>
 	<string id="20740" value="‪TigerTree"/>
 	<string id="20741" value="‪טורנט"/>
 	<string id="20742" value="‪תקלה בגשש"/>
@@ -2588,7 +2597,7 @@ gap i newline
 		<control caption="...סינון הודעות זבל"/>
 		<control caption="צינזור חומר פוגעני בצ'אט"/>
 	</dialog>
-	<!--dialog name="CIRCSettingsPage" cookie="BuBuBuBuStEdStStEdCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStEdStEdStEd" caption="חדר שיחה"-->
+	<!--dialog name="CIRCSettingsPage" cookie="BuBuBuBuStEdmsStStEdmsCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStCoStEdStEd" caption="חדר שיחה"-->
 	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuCoBuBuSt" caption="רשת">
 		<control caption=":צורת השימוש בלינקים לתקשורת ישירה"/>
 		<control caption=":השתמש בשרזה לפתיחת סוגי הלינקים הבאים"/>
@@ -3661,9 +3670,9 @@ gap i newline
 		<column from="Address" to="כתובת"/>
 		<column from="Port" to="יציאה"/>
 		<column from="Time" to="זמן"/>
-		<column from="Packets" to="פקטים"/>
-		<column from="Bandwidth" to="רוחב פס"/>
+		<column from="Traffic" to="רוחב פס"/>
 		<column from="Total" to="כמות כוללת"/>
+		<column from="Packets" to="פקטים"/>
 		<column from="Flow" to="זרימה"/>
 		<column from="Leaves" to="קווי ענף"/>
 		<column from="Mode" to="מצב"/>
@@ -3739,7 +3748,7 @@ gap i newline
 	<list name="CUploadQueueList">
 		<column from="Name" to="שם"/>
 		<column from="Criteria" to="קריטריון"/>
-		<column from="Bandwidth" to="רוחב פס"/>
+		<column from="Minimum" to="רוחב פס"/>
 		<column from="Transfers" to="העברות"/>
 		<column from="Order" to="סדר"/>
 	</list>

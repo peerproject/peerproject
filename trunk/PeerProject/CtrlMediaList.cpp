@@ -1,7 +1,7 @@
 //
 // CtrlMediaList.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -135,7 +135,8 @@ BOOL CMediaListCtrl::Enqueue(LPCTSTR pszFile, BOOL bStart)
 		Add( pszFile );
 	}
 
-	if ( bStart && GetItemCount() == 1 ) GetNext();
+	if ( bStart && GetItemCount() == 1 )
+		GetNext();
 
 	return TRUE;
 }
@@ -831,4 +832,8 @@ void CMediaListCtrl::OnSkinChange()
 {
 	SetBkColor( Colors.m_crMediaPanelBack );
 	SetBkImage( Skin.GetWatermark( _T("CMediaList") ) );
+
+	// Update Dropshadow
+	m_wndTip.DestroyWindow();
+	m_wndTip.Create( this, &Settings.Interface.TipMedia );
 }

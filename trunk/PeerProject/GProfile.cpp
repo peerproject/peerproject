@@ -1,7 +1,7 @@
 //
 // GProfile.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -32,6 +32,7 @@ static char THIS_FILE[]=__FILE__;
 #define WORDLIM(x)  (WORD)( ( (x) < 0 ) ? 0 : ( ( (x) > 65535 ) ? 65535 : (x) ) )
 
 LPCTSTR CGProfile::xmlns = _T("http://schemas.peerproject.org/Profile.xsd");
+LPCTSTR CGProfile::xmlnsLegacy = _T("http://www.shareaza.com/schemas/GProfile.xsd");
 
 BEGIN_INTERFACE_MAP(CGProfile, CComObject)
 END_INTERFACE_MAP()
@@ -49,10 +50,9 @@ CGProfile::CGProfile() :
 	VERIFY( m_pXML->AddAttribute( _T("xmlns"), xmlns ) );
 }
 
-CGProfile::~CGProfile()
-{
-	delete m_pXML;
-}
+//CGProfile::~CGProfile()
+//{
+//}
 
 //////////////////////////////////////////////////////////////////////
 // CGProfile access
@@ -67,7 +67,47 @@ BOOL CGProfile::IsValid() const
 
 CXMLElement* CGProfile::GetXML(LPCTSTR pszElement, BOOL bCreate)
 {
-	return pszElement ? m_pXML->GetElementByName( pszElement, bCreate ) : m_pXML;
+	if ( pszElement )
+		return m_pXML->GetElementByName( pszElement, bCreate );
+
+	return GetPublicXML();	// Should never happen (legacy formatting)
+}
+
+CXMLElement* CGProfile::GetPublicXML(CString strClient, BOOL bChallenge)
+{
+	// Add/Increment browsing counter
+	if ( ! bChallenge )		// Skip G2_PACKET_PROFILE_CHALLENGE
+		if ( CXMLElement* pStats = m_pXML->GetElementByName( _T("statistics"), TRUE ) )
+		{
+			CString strCount = pStats->GetAttributeValue( _T("hitcount"), _T("0") );
+			strCount.Format( _T("%i"), _tstoi( strCount ) + 1 );
+			pStats->AddAttribute( _T("hitcount"), (LPCTSTR)strCount );
+			Save();
+		}
+
+	// Prepare profile for UploadTransferHTTP browse (or G2 challenge request)
+	m_pXMLExport.Free();
+	m_pXMLExport.Attach( m_pXML->Clone() );
+
+	// Remove "avatar" element (exposed local path)
+	if ( CXMLElement* pAvatar = m_pXMLExport->GetElementByName( _T("avatar"), FALSE ) )
+		pAvatar->Delete();
+
+	// Vendor-specific compatibility changes
+	if ( StartsWith( strClient, _T("shareaza"), 8 ) )
+	{
+		m_pXMLExport->SetName( _T("gProfile") );
+		m_pXMLExport->AddAttribute( _T("xmlns"), xmlnsLegacy );
+	}
+
+//#ifdef _DEBUG
+//		CFile pFile;
+//		pFile.Open( Settings.General.UserPath + _T("\\Data\\Profile.Public.xml"), CFile::modeWrite | CFile::modeCreate );
+//		CStringA strUTF8 = UTF8Encode( m_pXMLExport->ToString( TRUE, TRUE ) );
+//		pFile.Write( (LPCSTR)strUTF8, strUTF8.GetLength() );
+//#endif  // TESTING
+
+	return m_pXMLExport;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -157,14 +197,14 @@ BOOL CGProfile::FromXML(const CXMLElement* pXML)
 	if ( pXML == NULL )
 		 return FALSE;
 
-	if ( ! pXML->GetAttributeValue( _T("xmlns") ).CompareNoCase( xmlns ) )	// http://schemas.peerproject.org/Profile.xsd defined above
+	if ( ! pXML->GetAttributeValue( _T("xmlns") ).CompareNoCase( xmlns ) )				// http://schemas.peerproject.org/Profile.xsd defined above
 	{
 		if ( ! pXML->IsNamed( _T("profile") ) )
 			return FALSE;
 	}
-	else if ( ! pXML->GetAttributeValue( _T("xmlns") ).CompareNoCase( _T("http://www.shareaza.com/schemas/GProfile.xsd") ) )
+	else if ( ! pXML->GetAttributeValue( _T("xmlns") ).CompareNoCase( xmlnsLegacy ) )	// http://www.shareaza.com/schemas/GProfile.xsd defined above
 	{
-		if ( ! pXML->IsNamed( _T("gprofile") ) )
+		if ( ! pXML->IsNamed( _T("gProfile") ) )
 			return FALSE;
 	}
 	//else if ( ! pXML->GetAttributeValue( _T("xmlns") ).CompareNoCase( _T("http://www.limewire.com/schemas/person.xsd" ) ) )
@@ -177,7 +217,7 @@ BOOL CGProfile::FromXML(const CXMLElement* pXML)
 	else
 	{
 		theApp.Message( MSG_INFO, _T("Unknown Profile Type:  %s"), pXML->GetAttributeValue( _T("xmlns") ) );
-		if ( ! pXML->IsNamed( _T("gprofile") ) && ! pXML->IsNamed( _T("profile") ) )
+		if ( ! pXML->IsNamed( _T("profile") ) && ! pXML->IsNamed( _T("gProfile") ) )
 			return FALSE;
 	}
 
@@ -201,8 +241,12 @@ BOOL CGProfile::FromXML(const CXMLElement* pXML)
 	}
 
 	// Replace XML
-	delete m_pXML;
-	m_pXML = const_cast< CXMLElement* >( pXML );
+	m_pXML.Free();
+	m_pXML.Attach( const_cast< CXMLElement* >( pXML ) );
+
+	// Insecure legacy method
+	//delete m_pXML;
+	//m_pXML = const_cast< CXMLElement* >( pXML );
 
 	return TRUE;
 }

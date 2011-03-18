@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Turkish Skin File -->
 
-<!-- Translation based on default-en.xml r62 -->
+<!-- Translation based on default-en.xml r64 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2511,8 +2511,8 @@
 	<tip id="ID_SEARCH_STOP" message="Pencerede sonuç alımını durdur."/>
 	<tip id="ID_SEARCHMONITOR_CLEAR" message="Arama ekranı belleğini temizle."/>
 	<tip id="ID_SEARCHMONITOR_PAUSE" message="Arama ekranını duraklat."/>
-	<tip id="ID_SECURITY_ADD" message="Güvenlik zincirine yeni kural ekle..."/>
 	<tip id="ID_SECURITY_BAN" message="Bu bölümün devam etmesi için seçilen host yasaklı."/>
+	<tip id="ID_SECURITY_ADD" message="Güvenlik zincirine yeni kural ekle..."/>
 	<tip id="ID_SECURITY_EDIT" message="Seçilen güvenlik kuralını düzenle..."/>
 	<tip id="ID_SECURITY_EXPORT" message="Seçilen güvenlik kurallarını bir dosyaya gönder..."/>
 	<tip id="ID_SECURITY_IMPORT" message="Dosyadan güvenlik kurallarını aktar..."/>
@@ -2522,6 +2522,14 @@
 	<tip id="ID_SECURITY_POLICY_DENY" message="Tanınmayan tüm hostlar için varsayılan güvenlik politikasını kümele."/>
 	<tip id="ID_SECURITY_REMOVE" message="Seçilen güvenlik kurallarını kaldır."/>
 	<tip id="ID_SECURITY_RESET" message="Güvenlik kurallarında ulaşılan sayıları sıfırla."/>
+	<tip id="ID_SCHEDULER_ADD" message="Güvenlik zincirine yeni kural ekle..."/>
+	<tip id="ID_SCHEDULER_EDIT" message="Seçilen güvenlik kuralını düzenle..."/>
+	<tip id="ID_SCHEDULER_ACTIVATE" message="Listeden seçilen yüklemeleri temizle."/>
+	<tip id="ID_SCHEDULER_DEACTIVATE" message="Ağa bağlan."/>
+	<tip id="ID_SCHEDULER_EXPORT" message="Seçilen güvenlik kurallarını bir dosyaya gönder..."/>
+	<tip id="ID_SCHEDULER_IMPORT" message="Dosyadan güvenlik kurallarını aktar..."/>
+	<tip id="ID_SCHEDULER_REMOVE" message="Listeden seçilmiş indirmeleri kaldır."/>
+	<tip id="ID_SCHEDULER_REMOVE_ALL" message="Delete all scheduled tasks."/>
 	<tip id="ID_SYSTEM_CLEAR" message="Durum günlüğünü temizle."/>
 	<tip id="ID_SYSTEM_TIMESTAMP" message="Her hat için zamanı kaydet."/>
 	<tip id="ID_SYSTEM_VERBOSE" message="Sistemin detaylı etkinlik günlüğünü görüntüle."/>
@@ -3170,7 +3178,7 @@
 	<string id="20706" value="%lu komşusu ile Ultrapeer mod. %s yerel kütüphanede."/>
 	<string id="20707" value="Ağa bağlanıyor..."/>
 	<string id="20708" value="Ağa bağlanmadı."/>
-	<string id="20710" value="(Kaynak Yok)"/>
+	<string id="20710" value="Temizlenmesi"/>
 	<string id="20711" value="Oynatılamaz"/>
 	<string id="20712" value="Tıkandı"/>
 	<string id="20713" value="Sırada"/>
@@ -3196,6 +3204,7 @@
 	<string id="20733" value="Kaynak"/>
 	<string id="20734" value="Kaynak"/>
 	<string id="20735" value="Kaynak"/>
+	<string id="20736" value="(Kaynak Yok)"/>
 	<string id="20740" value="TigerTree"/>
 	<string id="20741" value="Torrent"/>
 	<string id="20742" value="Tracker Servis Dışı"/>
@@ -3433,7 +3442,7 @@
 		<control caption="Spam için sohbet mesajlarını filtrele"/>
 		<control caption="Saygısızlıkları sansürle"/>
 	</dialog>
-	<dialog name="CIRCSettingsPage" cookie="BuBuBuBuStEdStStEdCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStEdStEdStEd" caption="Sohbet">
+	<dialog name="CIRCSettingsPage" cookie="BuBuBuBuStEdmsStStEdmsCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStCoStEdStEd" caption="Sohbet">
 		<control caption="İstemci _Seçenekleri :"/>
 		<control caption="Sohbet Bütünleşmesini Göster"/>
 		<control caption="Zaman Etiketlerini Göster"/>
@@ -4547,9 +4556,9 @@
 		<column from="Address" to="Adres"/>
 		<column from="Port" to="Port"/>
 		<column from="Time" to="Zaman"/>
-		<column from="Packets" to="Paketler"/>
-		<column from="Bandwidth" to="Bantgenişliği"/>
+		<column from="Traffic" to="Bantgenişliği"/>
 		<column from="Total" to="Toplam"/>
+		<column from="Packets" to="Paketler"/>
 		<column from="Flow" to="Akım"/>
 		<column from="Leaves" to="Eşler"/>
 		<column from="Mode" to="Mod"/>
@@ -4625,7 +4634,7 @@
 	<list name="CUploadQueueList">
 		<column from="Name" to="İsim"/>
 		<column from="Criteria" to="Kriter"/>
-		<column from="Bandwidth" to="Bantgenişliği"/>
+		<column from="Minimum" to="Bantgenişliği"/>
 		<column from="Transfers" to="Transferler"/>
 		<column from="Order" to="Düzen"/>
 	</list>

@@ -1,7 +1,7 @@
 //
 // DlgSecureRule.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -105,13 +105,14 @@ BOOL CSecureRuleDlg::OnInitDialog()
 		m_pRule = new CSecureRule();
 	}
 
-	CEdit* pwIP[4]		= { &m_wndIP1, &m_wndIP2, &m_wndIP3, &m_wndIP4 };
-	CEdit* pwMask[4]	= { &m_wndMask1, &m_wndMask2, &m_wndMask3, &m_wndMask4 };
+	CEdit* pwIP[4]   = { &m_wndIP1, &m_wndIP2, &m_wndIP3, &m_wndIP4 };
+	CEdit* pwMask[4] = { &m_wndMask1, &m_wndMask2, &m_wndMask3, &m_wndMask4 };
+
 	switch ( m_pRule->m_nType )
 	{
 	case CSecureRule::srAddress:
-		m_nType = 0;
-		m_nMatch = 0;
+		m_nType  = 0;
+		m_nMatch = 0;	//(int)CSecureRule::srAddress;
 		for ( int nByte = 0 ; nByte < 4 ; nByte++ )
 		{
 			CString strItem;
@@ -130,33 +131,40 @@ BOOL CSecureRuleDlg::OnInitDialog()
 		}
 		break;
 	case CSecureRule::srContentAny:
-		m_nType = 1;
-		m_nMatch = 0;
+		m_nType  = 1;	// Set dropdown index
+		m_nMatch = 0;	// Set radio check
 		m_sContent = m_pRule->GetContentWords();
 		break;
 	case CSecureRule::srContentAll:
-		m_nType = 1;
+		m_nType  = 1;
 		m_nMatch = 1;
 		m_sContent = m_pRule->GetContentWords();
 		break;
 	case CSecureRule::srContentRegExp:
-		m_nType = 1;
+		m_nType  = 1;
 		m_nMatch = 2;
 		m_sContent = m_pRule->GetContentWords();
 		break;
-	case CSecureRule::srSizeType:
-		m_nType = 1;
+	case CSecureRule::srContentHash:
+		m_nType  = 1;
 		m_nMatch = 0;
 		m_sContent = m_pRule->GetContentWords();
 		break;
+	case CSecureRule::srSizeType:
+		m_nType  = 1;
+		m_nMatch = 0;
+		m_sContent = m_pRule->GetContentWords();
+		break;
+	//default: ?
 	}
-	m_sComment	= m_pRule->m_sComment;
-	m_nAction	= m_pRule->m_nAction;
-	m_nExpire	= min( m_pRule->m_nExpire, 2ul );
+
+	m_sComment = m_pRule->m_sComment;
+	m_nAction  = m_pRule->m_nAction;
+	m_nExpire  = min( m_pRule->m_nExpire, 2ul );
 
 	if ( m_nExpire == 2 )
 	{
-		DWORD nTime = m_pRule->m_nExpire - static_cast< DWORD >( time( NULL ) );
+		const DWORD nTime = m_pRule->m_nExpire - static_cast< DWORD >( time( NULL ) );
 		m_nExpireD = nTime / 86400;
 		m_nExpireH = ( nTime % 86400 ) / 3600;
 		m_nExpireM = ( nTime % 3600 ) / 60;
@@ -239,7 +247,8 @@ BOOL CSecureRuleDlg::PreTranslateMessage(MSG* pMsg)
 
 					return TRUE;
 				}
-				else if ( pMsg->wParam == '*' )
+
+				if ( pMsg->wParam == '*' )
 				{
 					if ( pFocus != pwIP[ nByte ] ) return TRUE;
 					pwIP[ nByte ]->SetWindowText( _T("*") );
@@ -248,10 +257,9 @@ BOOL CSecureRuleDlg::PreTranslateMessage(MSG* pMsg)
 					pwMask[ nByte ]->SetSel( 0, 1 );
 					return TRUE;
 				}
-				else if ( pMsg->wParam >= 32 && ! _istdigit( (TCHAR)pMsg->wParam ) )
-				{
+
+				if ( pMsg->wParam >= 32 && ! _istdigit( (TCHAR)pMsg->wParam ) )
 					return TRUE;
-				}
 
 				break;
 			}
@@ -286,10 +294,14 @@ void CSecureRuleDlg::OnOK()
 	}
 	else if ( m_nType == 1 && ! m_sContent.IsEmpty() )
 	{
-		if ( m_nMatch < 2 && m_sContent.Find( _T("size:") >= 0 ) )
+		if ( StartsWith( m_sContent, _T("size:"), 5 ) || StartsWith( m_sContent, _T("type:"), 5 ) )
 			m_pRule->m_nType = CSecureRule::srSizeType;
+		else if ( StartsWith( m_sContent, _T("urn:"), 4 ) && m_sContent.GetLength() > 20 )
+			m_pRule->m_nType = CSecureRule::srContentHash;
+		else if ( m_sContent.FindOneOf( _T("/:<>|\"") ) >= 0 )
+			MsgBox( LoadString( IDS_BT_ENCODING ) );	// ToDo: Better response (return)
 		else
-			m_pRule->m_nType = ( m_nMatch == 2 ? CSecureRule::srContentRegExp : m_nMatch == 1 ? CSecureRule::srContentAll : CSecureRule::srContentAny );
+			m_pRule->m_nType = (CSecureRule::RuleType)(m_nMatch + 1);	// Note: Change if enum does not match radio button order
 
 		m_pRule->SetContentWords( m_sContent );
 	}
@@ -300,8 +312,8 @@ void CSecureRuleDlg::OnOK()
 
 	if ( m_nExpire == 2 )
 	{
-		m_pRule->m_nExpire	= static_cast< DWORD >( time( NULL ) ) +
-							m_nExpireD * 86400 + m_nExpireH * 3600 + m_nExpireM * 60;
+		m_pRule->m_nExpire = static_cast< DWORD >( time( NULL ) ) +
+			m_nExpireD * 86400 + m_nExpireH * 3600 + m_nExpireM * 60;
 	}
 
 	Security.Add( m_pRule );

@@ -914,7 +914,7 @@ void CDownloads::SetPerHostLimit(IN_ADDR* pAddress, DWORD nLimit)
 
 BOOL CDownloads::IsSpaceAvailable(QWORD nVolume, int nPath)
 {
-	QWORD nMargin = 10485760;
+	const QWORD nMargin = 10485760;
 
 	ULARGE_INTEGER nFree, nNull;
 
@@ -944,7 +944,7 @@ void CDownloads::OnRun()
 	if ( ! oLock.Lock( 250 ) )
 		return;
 
-	DWORD tNow = GetTickCount();
+	const DWORD tNow = GetTickCount();
 
 	// Re-calculating bandwidth may be a little CPU heavy if there are a lot of transfers-
 	// limit it to 4 times per second
@@ -1268,7 +1268,7 @@ void CDownloads::Load()
 
 	Save( FALSE );
 
-	if( ! DownloadGroups.Load() )
+	if ( ! DownloadGroups.Load() )
 		DownloadGroups.CreateDefault();
 
 	Transfers.StartThread();

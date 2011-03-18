@@ -1,7 +1,7 @@
 //
 // DCNeighbour.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2010
+// This file is part of PeerProject (peerproject.org) © 2010-2011
 // Portions copyright Shareaza Development Team, 2010.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -18,10 +18,10 @@
 
 #include "StdAfx.h"
 #include "PeerProject.h"
-#include "DCClient.h"
-#include "DCClients.h"
 #include "DCNeighbour.h"
-#include "DCPacket.h"
+//#include "DCPacket.h"
+//#include "DCClient.h"
+//#include "DCClients.h"
 #include "HostCache.h"
 #include "GProfile.h"
 #include "LibraryMaps.h"
@@ -55,8 +55,7 @@ BOOL CDCNeighbour::ConnectToMe(const CString& sNick)
 	// $ConnectToMe RemoteNick SenderIp:SenderPort|
 
 	if ( m_nState != nrsConnected )
-		// Too early
-		return FALSE;
+		return FALSE;	// Too early
 
 	ASSERT( ! sNick.IsEmpty() );
 
@@ -66,12 +65,12 @@ BOOL CDCNeighbour::ConnectToMe(const CString& sNick)
 		inet_ntoa( Network.m_pHost.sin_addr ),
 		htons( Network.m_pHost.sin_port ) );
 
-	if ( CDCPacket* pPacket = CDCPacket::New() )
-	{
-		pPacket->WriteString( strRequest, FALSE );
-
-		Send( pPacket );
-	}
+//	if ( CDCPacket* pPacket = CDCPacket::New() )
+//	{
+//		pPacket->WriteString( strRequest, FALSE );
+//
+//		Send( pPacket );
+//	}
 
 	return TRUE;
 }
@@ -90,8 +89,7 @@ BOOL CDCNeighbour::ConnectTo(const IN_ADDR* pAddress, WORD nPort, BOOL bAutomati
 	}
 	else
 	{
-		theApp.Message( MSG_ERROR, IDS_CONNECTION_CONNECT_FAIL,
-			(LPCTSTR)sHost );
+		theApp.Message( MSG_ERROR, IDS_CONNECTION_CONNECT_FAIL, (LPCTSTR)sHost );
 		return FALSE;
 	}
 
@@ -116,11 +114,11 @@ BOOL CDCNeighbour::OnRead()
 
 		m_tLastPacket = GetTickCount();
 
-		if ( CDCPacket* pPacket = CDCPacket::New( (const BYTE*)strLine.c_str(), strLine.size() ) )
-		{
-			pPacket->SmartDump( &m_pHost, FALSE, FALSE, (DWORD_PTR)this );
-			pPacket->Release();
-		}
+	//	if ( CDCPacket* pPacket = CDCPacket::New( (const BYTE*)strLine.c_str(), strLine.size() ) )
+	//	{
+	//		pPacket->SmartDump( &m_pHost, FALSE, FALSE, (DWORD_PTR)this );
+	//		pPacket->Release();
+	//	}
 
 		std::string strCommand, strParams;
 		std::string::size_type nPos = strLine.find( ' ' );
@@ -185,7 +183,7 @@ BOOL CDCNeighbour::OnConnected()
 
 	theApp.Message( MSG_INFO, IDS_CONNECTION_CONNECTED, (LPCTSTR)m_sAddress );
 
-	m_nState = nrsHandshake1; // Waiting for $Lock
+	m_nState = nrsHandshake1;	// Waiting for $Lock
 
 	return TRUE;
 }
@@ -275,8 +273,7 @@ BOOL CDCNeighbour::OnCommand(const std::string& strCommand, const std::string& s
 			nPos = strParams.find( ' ' );
 			if ( nPos != std::string::npos )
 				strLock = strParams.substr( 0, nPos );
-			else
-				// Very bad way
+			else	// Very bad way
 				strLock = strParams;
 		}
 
@@ -297,9 +294,7 @@ BOOL CDCNeighbour::OnCommand(const std::string& strCommand, const std::string& s
 				continue;
 			strFeature.MakeLower();
 			if ( m_oFeatures.Find( strFeature ) == NULL )
-			{
 				m_oFeatures.AddTail( strFeature );
-			}
 		}
 
 		return TRUE;
@@ -345,7 +340,6 @@ BOOL CDCNeighbour::OnCommand(const std::string& strCommand, const std::string& s
 	{
 		// Client connection request
 		// $ConnectToMe RemoteNick SenderIp:SenderPort|
-		// or
 		// $ConnectToMe SenderNick RemoteNick SenderIp:SenderPort|
 
 		std::string::size_type nPos = strParams.rfind( ' ' );
@@ -370,8 +364,8 @@ BOOL CDCNeighbour::OnCommand(const std::string& strCommand, const std::string& s
 					! Network.IsReserved( (const IN_ADDR*)&nAddress ) )
 				{
 					// Ok
-					if ( CDCClient* pClient = new CDCClient( m_sNick ) )
-						pClient->ConnectTo( (const IN_ADDR*)&nAddress, (WORD)nPort );
+	//				if ( CDCClient* pClient = new CDCClient( m_sNick ) )
+	//					pClient->ConnectTo( (const IN_ADDR*)&nAddress, (WORD)nPort );
 				}
 				else
 				{
@@ -401,23 +395,22 @@ BOOL CDCNeighbour::OnCommand(const std::string& strCommand, const std::string& s
 
 		return TRUE;
 	}
-	else if ( strCommand == "$ValidateDenide" ||
-		// TODO: Add registered user support - for now just change nick
-		strCommand == "$GetPass" )
+	else if ( strCommand == "$ValidateDenide" ||	// Note "Denide" Not "Denied"
+		strCommand == "$GetPass" )	// ToDo: Add registered user support - for now just change nick
 	{
 		// Bad user nick
 		// $ValidateDenide Nick|
 
-		m_sNick.Format( CLIENT_NAME_T _T("%04u"), GetRandomNum( 0, 9999 ) );
+		m_sNick.Format( CLIENT_NAME _T("%04u"), GetRandomNum( 0, 9999 ) );
 
 		if ( CHostCacheHostPtr pServer = HostCache.DC.Find( &m_pHost.sin_addr ) )
 			pServer->m_sUser = m_sNick;
 
-		if ( CDCPacket* pPacket = CDCPacket::New() )
-		{
-			pPacket->WriteString( _T("$ValidateNick ") + m_sNick + _T("|"), FALSE );
-			Send( pPacket );
-		}
+	//	if ( CDCPacket* pPacket = CDCPacket::New() )
+	//	{
+	//		pPacket->WriteString( _T("$ValidateNick ") + m_sNick + _T("|"), FALSE );
+	//		Send( pPacket );
+	//	}
 
 		return TRUE;
 	}
@@ -474,8 +467,7 @@ BOOL CDCNeighbour::OnSearch(const IN_ADDR* pAddress, WORD nPort, std::string& st
 	int nType = atoi( strType.c_str() );
 	strSearch = strSearch.substr( nPos + 1 );
 	if ( nType < 1 || nType > 9 )
-		// Unknown search type
-		return TRUE;
+		return TRUE;	// Unknown search type
 
 	CQuerySearchPtr pSearch = new CQuerySearch( TRUE );
 
@@ -534,32 +526,32 @@ BOOL CDCNeighbour::OnLock(const std::string& strLock)
 	if ( m_nNodeType == ntHub )
 		HostCache.DC.Add( &m_pHost.sin_addr, htons( m_pHost.sin_port ) );
 
-	if ( m_bExtended && CDCPacket* pPacket = CDCPacket::New() )
-	{
-		pPacket->WriteString( _T("$Supports NoHello NoGetINFO UserIP2 TTHSearch |"), FALSE );
-		Send( pPacket );
-	}
+//	if ( m_bExtended && CDCPacket* pPacket = CDCPacket::New() )
+//	{
+//		pPacket->WriteString( _T("$Supports NoHello NoGetINFO UserIP2 TTHSearch |"), FALSE );
+//		Send( pPacket );
+//	}
 
-	std::string strKey = DCClients.MakeKey( strLock );
-	if ( CDCPacket* pPacket = CDCPacket::New() )
-	{
-		pPacket->Write( _P("$Key ") );
-		pPacket->Write( strKey.c_str(), strKey.size() );
-		pPacket->Write( _P("|") );
-		Send( pPacket );
-	}
+//	std::string strKey = DCClients.MakeKey( strLock );
+//	if ( CDCPacket* pPacket = CDCPacket::New() )
+//	{
+//		pPacket->Write( _P("$Key ") );
+//		pPacket->Write( strKey.c_str(), strKey.size() );
+//		pPacket->Write( _P("|") );
+//		Send( pPacket );
+//	}
 
 	if ( CHostCacheHostPtr pServer = HostCache.DC.Find( &m_pHost.sin_addr ) )
 		m_sNick = pServer->m_sUser;
 
-	if ( m_sNick.IsEmpty() )
-		m_sNick = DCClients.GetDefaultNick();
+//	if ( m_sNick.IsEmpty() )
+//		m_sNick = DCClients.GetDefaultNick();
 
-	if ( CDCPacket* pPacket = CDCPacket::New() )
-	{
-		pPacket->WriteString( _T("$ValidateNick ")  + m_sNick + _T("|"), FALSE );
-		Send( pPacket );
-	}
+//	if ( CDCPacket* pPacket = CDCPacket::New() )
+//	{
+//		pPacket->WriteString( _T("$ValidateNick ")  + m_sNick + _T("|"), FALSE );
+//		Send( pPacket );
+//	}
 
 	return TRUE;
 }
@@ -574,18 +566,18 @@ BOOL CDCNeighbour::OnChat(const std::string& strMessage)
 BOOL CDCNeighbour::OnHello()
 {
 	// NMDC version
-	if ( CDCPacket* pPacket = CDCPacket::New() )
-	{
-		pPacket->Write( _P("$Version 1,0091|") );
-		Send( pPacket );
-	}
+//	if ( CDCPacket* pPacket = CDCPacket::New() )
+//	{
+//		pPacket->Write( _P("$Version 1,0091|") );
+//		Send( pPacket );
+//	}
 
 	// Request nick list
-	if ( CDCPacket* pPacket = CDCPacket::New() )
-	{
-		pPacket->Write( _P("$GetNickList|") );
-		Send( pPacket );
-	}
+//	if ( CDCPacket* pPacket = CDCPacket::New() )
+//	{
+//		pPacket->Write( _P("$GetNickList|") );
+//		Send( pPacket );
+//	}
 
 	// $MyINFO $ALL nick description<tag>$ $connection$e-mail$sharesize$|
 
@@ -597,37 +589,25 @@ BOOL CDCNeighbour::OnHello()
 
 	CString sInfo;
 	sInfo.Format( _T("$MyINFO $ALL %s %s<%s V:%s,M:%c,H:%u/%u/%u,S:%u>$ $%.2f%c$%s$%I64u$|"),
-		// Registered nick
-		m_sNick,
-		// Description
-		WEB_SITE_T,
-		// Client name
-		CLIENT_NAME_T,
-		// Client version
-		theApp.m_sVersion,
-		// User is in active(A), passive(P), or SOCKS5(5) mode
-		( Network.IsFirewalled( CHECK_BOTH ) ? _T('P') : _T('A') ),
-		// Number of connected hubs as regular user
-		Neighbours.GetCount( PROTOCOL_DC, nrsConnected, ntHub ),
-		// Number of connected hubs as VIP
-		0,
-		// Number of connected hubs as operator
-		0,
-		// Number of upload slots
-		( pQueue ? pQueue->m_nMaxTransfers : 0 ),
-		// Upload speed (Mbit/s)
-		(float)Settings.Bandwidth.Uploads * Bytes / ( Kilobits * Kilobits ),
-		// User status: Normal(1), Away(2,3), Server(4,5), Server Away(6,7)
-		1,
-		// E-mail
-		MyProfile.GetContact( _T("Email") ),
-		// Share size (bytes)
-		nMyVolume << 10 );
-	if ( CDCPacket* pPacket = CDCPacket::New() )
-	{
-		pPacket->WriteString( sInfo, FALSE );
-		Send( pPacket );
-	}
+		m_sNick,													// Registered nick
+		WEB_SITE,													// Description
+		CLIENT_NAME,												// Client/vendor name
+		theApp.m_sVersion,											// Client version
+		( Network.IsFirewalled( CHECK_BOTH ) ? _T('P') : _T('A') ),	// User is in active(A), passive(P), or SOCKS5(5) mode
+		Neighbours.GetCount( PROTOCOL_DC, nrsConnected, ntHub ),	// Number of connected hubs as regular user
+		0,															// Number of connected hubs as VIP
+		0,															// Number of connected hubs as operator
+		( pQueue ? pQueue->m_nMaxTransfers : 0 ),					// Number of upload slots
+		(float)Settings.Bandwidth.Uploads * Bytes / ( Kilobits * Kilobits ),	// Upload speed (Mbit/s)
+		1,															// User status: Normal(1), Away(2,3), Server(4,5), Server Away(6,7)
+		MyProfile.GetContact( _T("Email") ),						// E-mail
+		nMyVolume << 10 );											// Share size (bytes)
+
+//	if ( CDCPacket* pPacket = CDCPacket::New() )
+//	{
+//		pPacket->WriteString( sInfo, FALSE );
+//		Send( pPacket );
+//	}
 
 	return TRUE;
 }

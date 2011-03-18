@@ -1,7 +1,7 @@
 //
 // DlgSecureRule.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -56,8 +56,8 @@ public:
 	int		m_nExpire;
 	CString	m_sComment;
 	CString	m_sContent;
-	int		m_nType;
-	int		m_nMatch;
+	int		m_nType;	// Dropdown Box Select
+	int		m_nMatch;	// Radio Button Select
 	//}}AFX_DATA
 
 	CSecureRule*	m_pRule;
@@ -68,9 +68,8 @@ public:
 // Overrides
 public:
 	//{{AFX_VIRTUAL(CSecureRuleDlg)
-	public:
 	virtual BOOL PreTranslateMessage(MSG* pMsg);
-	protected:
+protected:
 	virtual void DoDataExchange(CDataExchange* pDX);
 	//}}AFX_VIRTUAL
 

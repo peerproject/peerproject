@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Albanian Skin File -->
 
-<!-- Translation based on default-en.xml r62 -->
+<!-- Translation based on default-en.xml r64 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2570,8 +2570,8 @@
 	<tip id="ID_SEARCH_STOP" message="Ndalon marrjen e rezultateve në dritare."/>
 	<tip id="ID_SEARCHMONITOR_CLEAR" message="Pastron zbutësin e monitorit kërkues."/>
 	<tip id="ID_SEARCHMONITOR_PAUSE" message="Pushon monitorimin e kërkimit."/>
-	<tip id="ID_SECURITY_ADD" message="Shton një rregull të ri tek zinxhiri i sigurisë..."/>
 	<tip id="ID_SECURITY_BAN" message="Dëbon hostin e zgjedhur për zgjatje të sesionit."/>
+	<tip id="ID_SECURITY_ADD" message="Shton një rregull të ri tek zinxhiri i sigurisë..."/>
 	<tip id="ID_SECURITY_EDIT" message="Editon rregullin e zgjedhur të sigurisë..."/>
 	<tip id="ID_SECURITY_EXPORT" message="Eksporton në skedë rregullin e zgjedhur të sigurisë..."/>
 	<tip id="ID_SECURITY_IMPORT" message="Importon nga një skedë rregullat e sigurisë..."/>
@@ -2581,6 +2581,14 @@
 	<tip id="ID_SECURITY_POLICY_DENY" message="Vendos dëftesën e sigurisë tipike për të mohuar tërë hostet."/>
 	<tip id="ID_SECURITY_REMOVE" message="Fshin rregullin e zgjedhur të sigurisë."/>
 	<tip id="ID_SECURITY_RESET" message="Rivendos numërimin e hiteve në rregullin e zgjedhur."/>
+	<tip id="ID_SCHEDULER_ADD" message="Shton një rregull të ri tek zinxhiri..."/>
+	<tip id="ID_SCHEDULER_EDIT" message="Editon rregullin e zgjedhur të..."/>
+	<tip id="ID_SCHEDULER_ACTIVATE" message="Pastron nga lista ngarkesën e zgjedhur."/>
+	<tip id="ID_SCHEDULER_DEACTIVATE" message="Lidhet në rrjet."/>
+	<tip id="ID_SCHEDULER_EXPORT" message="Eksporton në skedë rregullin e zgjedhur..."/>
+	<tip id="ID_SCHEDULER_IMPORT" message="Importon nga një skedë rregullat..."/>
+	<tip id="ID_SCHEDULER_REMOVE" message="Fshin nga lista shkarkesën e zgjedhur."/>
+	<tip id="ID_SCHEDULER_REMOVE_ALL" message="Delete all scheduled tasks."/>
 	<tip id="ID_SYSTEM_CLEAR" message="Pastron ditarin e statusit."/>
 	<tip id="ID_SYSTEM_TIMESTAMP" message="Regjistron shtypjen e kohës për secilën vijë."/>
 	<tip id="ID_SYSTEM_VERBOSE" message="Tregon një ditar me detaje për aktivitetet e sistemit."/>
@@ -3015,7 +3023,7 @@
 	<string id="20706" value="Mënyrë Ultrapikë me %lu hoste.  %s në librarinë lokale."/>
 	<string id="20707" value="Lidhje në rrjet..."/>
 	<string id="20708" value="Nuk jeni i Lidhur në Rrjet."/>
-	<string id="20710" value="(Asnjë Burim)"/>
+	<string id="20710" value="Pastër"/>
 	<string id="20711" value="Nuk Lëviz"/>
 	<string id="20712" value="I Mbytur"/>
 	<string id="20713" value="Në radhë"/>
@@ -3041,6 +3049,7 @@
 	<string id="20733" value="burime"/>
 	<string id="20734" value="burime"/>
 	<string id="20735" value="burime"/>
+	<string id="20736" value="(Asnjë Burim)"/>
 	<string id="20740" value="TigerTree"/>
 	<string id="20741" value="Torrenti"/>
 	<string id="20742" value="Gjurmuesi Poshtë"/>
@@ -3214,7 +3223,7 @@
 		<control caption="Filtro mesazhet me spame"/>
 		<control caption="Censuro blasfeminë në chat"/>
 	</dialog>
-	<dialog name="CIRCSettingsPage" cookie="BuBuBuBuStEdStStEdCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStEdStEdStEd" caption="Chat">
+	<dialog name="CIRCSettingsPage" cookie="BuBuBuBuStEdmsStStEdmsCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStCoStEdStEd" caption="Chat">
 		<control caption="_Mundësitë e Klientit:"/>
 		<control caption="Trego intregimin e chat-it"/>
 		<control caption="Trego orën"/>
@@ -4327,9 +4336,9 @@
 		<column from="Address" to="Adresa"/>
 		<column from="Port" to="Porti"/>
 		<column from="Time" to="Kohë"/>
-		<column from="Packets" to="Paketat"/>
-		<column from="Bandwidth" to="Shtrirja e bandës"/>
+		<column from="Traffic" to="Bandës"/>
 		<column from="Total" to="Totali"/>
+		<column from="Packets" to="Paketat"/>
 		<column from="Flow" to="Rrjedha"/>
 		<column from="Leaves" to="Gjethet"/>
 		<column from="Mode" to="Mënyrë"/>
@@ -4405,7 +4414,7 @@
 	<list name="CUploadQueueList">
 		<column from="Name" to="Emri"/>
 		<column from="Criteria" to="Kriteri"/>
-		<column from="Bandwidth" to="Shtrirja e Bandës"/>
+		<column from="Minimum" to="Bandës"/>
 		<column from="Transfers" to="Transferime"/>
 		<column from="Order" to="Rendi"/>
 	</list>

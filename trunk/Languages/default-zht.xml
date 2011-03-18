@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Chinese (Traditional) Skin File -->
 
-<!-- Translation based on default-en.xml r62 (Shareaza 2.2.2.12) -->
+<!-- Translation based on default-en.xml r64 (Shareaza 2.2.2.12) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2388,8 +2388,8 @@
 	<tip id="ID_SEARCH_STOP" message="停止在這個視窗接收搜尋結果."/>
 	<tip id="ID_SEARCHMONITOR_CLEAR" message="清除 search monitor 緩衝."/>
 	<tip id="ID_SEARCHMONITOR_PAUSE" message="暫停搜尋要求監控."/>
-	<tip id="ID_SECURITY_ADD" message="Add a new rule to the security chain..."/>
 	<tip id="ID_SECURITY_BAN" message="封鎖選擇的主機直到會期結束."/>
+	<tip id="ID_SECURITY_ADD" message="添加新的规则到选定的安全链..."/>
 	<tip id="ID_SECURITY_EDIT" message="編輯選擇的安全性規則..."/>
 	<tip id="ID_SECURITY_EXPORT" message="匯出選擇的安全性規則至檔案..."/>
 	<tip id="ID_SECURITY_IMPORT" message="從檔案匯入安全性規則..."/>
@@ -2398,7 +2398,15 @@
 	<tip id="ID_SECURITY_POLICY_ACCEPT" message="將預設的安全性方針設定成接受所有的主機."/>
 	<tip id="ID_SECURITY_POLICY_DENY" message="將預設的安全性方針設定成拒絕所有的主機."/>
 	<tip id="ID_SECURITY_REMOVE" message="移除選擇的安全性規則."/>
-	<tip id="ID_SECURITY_RESET" message="Reset the hit counts on the selected rules."/>
+	<tip id="ID_SECURITY_RESET" message="重置选定规则的命中计数器."/>
+	<tip id="ID_SCHEDULER_ADD" message="添加新的规则到选定的安全链..."/>
+	<tip id="ID_SCHEDULER_EDIT" message="編輯選擇的安全性規則..."/>
+	<tip id="ID_SCHEDULER_ACTIVATE" message="從清單清除選擇的上傳."/>
+	<tip id="ID_SCHEDULER_DEACTIVATE" message="請選擇使用者介面:"/>
+	<tip id="ID_SCHEDULER_EXPORT" message="匯出選擇的安全性規則至檔案..."/>
+	<tip id="ID_SCHEDULER_IMPORT" message="從檔案匯入安全性規則..."/>
+	<tip id="ID_SCHEDULER_REMOVE" message="由清單移除選擇的下載."/>
+	<tip id="ID_SCHEDULER_REMOVE_ALL" message="Delete all scheduled tasks."/>
 	<tip id="ID_SYSTEM_CLEAR" message="清除狀態記錄."/>
 	<tip id="ID_SYSTEM_TIMESTAMP" message="為每一列附上時間郵戳."/>
 	<tip id="ID_SYSTEM_VERBOSE" message="顯示詳細系統活動記錄."/>
@@ -3004,7 +3012,7 @@
 	<string id="20706" value="超級用戶模式 with %lu 鄰居.  %s 在本地的收藏."/>
 	<string id="20707" value="連線到網路中..."/>
 	<string id="20708" value="還沒連線到網路."/>
-	<string id="20710" value="(沒有來源)"/>
+	<string id="20710" value="放晴了"/>
 	<string id="20711" value="無法移動"/>
 	<string id="20712" value="組塞"/>
 	<string id="20713" value="進入排隊隊伍"/>
@@ -3020,7 +3028,7 @@
 	<string id="20723" value="忙碌"/>
 	<string id="20724" value="下一個"/>
 	<string id="20725" value="Q"/>
-	<string id="20726" value="排隊中 (Queued)"/>
+	<string id="20726" value="排隊中"/>
 	<string id="20727" value="已暫停"/>
 	<string id="20728" value="等待中"/>
 	<string id="20729" value="要求中"/>
@@ -3030,6 +3038,7 @@
 	<string id="20733" value="來源"/>
 	<string id="20734" value="來源"/>
 	<string id="20735" value="來源"/>
+	<string id="20736" value="(沒有來源)"/>
 	<string id="20740" value="TigerTree"/>
 	<string id="20741" value="Torrent"/>
 	<string id="20742" value="Tracker 斷線了"/>
@@ -4337,9 +4346,9 @@
 		<column from="Address" to="位址" />
 		<column from="Port" to="連接埠" />
 		<column from="Time" to="时间" />
-		<column from="Packets" to="封包" />
-		<column from="Bandwidth" to="頻寬" />
+		<column from="Traffic" to="頻寬" />
 		<column from="Total" to="總計" />
+		<column from="Packets" to="封包" />
 		<column from="Flow" to="流量" />
 		<column from="Leaves" to="葉結點" />
 		<column from="Mode" to="模式" />
@@ -4415,7 +4424,7 @@
 	<list name="CUploadQueueList">
 		<column from="Name" to="名稱" />
 		<column from="Criteria" to="條件" />
-		<column from="Bandwidth" to="頻寬" />
+		<column from="Minimum" to="頻寬" />
 		<column from="Transfers" to="傳輸" />
 		<column from="Order" to="順序" />
 	</list>

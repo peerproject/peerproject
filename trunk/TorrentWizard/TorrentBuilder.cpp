@@ -1,7 +1,7 @@
 //
 // TorrentBuilder.cpp
 //
-// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008
+// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008-2011
 // Portions Copyright Shareaza Development Team, 2007.
 //
 // PeerProject Torrent Wizard is free software; you can redistribute it
@@ -41,26 +41,26 @@ END_MESSAGE_MAP()
 // CTorrentBuilder construction
 
 CTorrentBuilder::CTorrentBuilder()
-: m_bActive( FALSE )
-, m_bFinished ( FALSE )
-, m_bAbort( FALSE )
-, m_nTotalSize( 0 )
-, m_nTotalPos( 0 )
-, m_bSHA1( FALSE )
-, m_bED2K( FALSE )
-, m_bMD5( FALSE )
-, m_pFileSize( NULL )
-, m_pFileSHA1( NULL )
-, m_pFileED2K( NULL )
-, m_pFileMD5( NULL )
-, m_pPieceSHA1( NULL )
-, m_nPieceSize( 0 )
-, m_nPieceCount( 0 )
-, m_nPiecePos( 0 )
-, m_nPieceUsed( 0 )
-, m_bAutoPieces( TRUE )
-, m_pBuffer( NULL )
-, m_nBuffer( 0 )
+	: m_bActive		( FALSE )
+	, m_bFinished	( FALSE )
+	, m_bAbort		( FALSE )
+	, m_nTotalSize	( 0 )
+	, m_nTotalPos	( 0 )
+	, m_bSHA1		( FALSE )
+	, m_bED2K		( FALSE )
+	, m_bMD5		( FALSE )
+	, m_pFileSize	( NULL )
+	, m_pFileSHA1	( NULL )
+	, m_pFileED2K	( NULL )
+	, m_pFileMD5	( NULL )
+	, m_pPieceSHA1	( NULL )
+	, m_nPieceSize	( 0 )
+	, m_nPieceCount	( 0 )
+	, m_nPiecePos	( 0 )
+	, m_nPieceUsed	( 0 )
+	, m_bAutoPieces	( TRUE )
+	, m_pBuffer		( NULL )
+	, m_nBuffer		( 0 )
 {
 	m_bAutoDelete = FALSE;
 }
@@ -186,16 +186,15 @@ void CTorrentBuilder::Stop()
 	}
 
 	if ( nAttempt <= 0 )
-	{
 		TerminateThread( m_hThread, 1 );
-	}
 
 	m_hThread	= NULL;
 	m_bActive	= FALSE;
 	m_bFinished	= FALSE;
 	m_bAbort	= FALSE;
 
-	if ( m_pBuffer != NULL ) {
+	if ( m_pBuffer != NULL )
+	{
 		delete [] m_pBuffer;
 		m_pBuffer = NULL;
 	}
@@ -271,27 +270,22 @@ int CTorrentBuilder::Run()
 
 	if ( ScanFiles() && ! m_bAbort )
 	{
-		if ( ProcessFiles() )
-		{
-			if ( WriteOutput() )
-			{
-				m_bFinished = TRUE;
-			}
-		}
+		if ( ProcessFiles() && WriteOutput() )
+			m_bFinished = TRUE;
 	}
 
 	if ( m_pSection.Lock() )
 	{
 		delete [] m_pPieceSHA1;
-		m_pPieceSHA1	= NULL;
+		m_pPieceSHA1 = NULL;
 		delete [] m_pFileMD5;
-		m_pFileMD5		= NULL;
+		m_pFileMD5 = NULL;
 		delete [] m_pFileED2K;
-		m_pFileED2K		= NULL;
+		m_pFileED2K = NULL;
 		delete [] m_pFileSHA1;
-		m_pFileSHA1		= NULL;
+		m_pFileSHA1 = NULL;
 		delete [] m_pFileSize;
-		m_pFileSize		= NULL;
+		m_pFileSize = NULL;
 
 		m_sThisFile.Empty();
 		m_bActive = FALSE;
@@ -432,7 +426,7 @@ BOOL CTorrentBuilder::ProcessFiles()
 
 	if ( m_bSHA1 ) m_oDataSHA1.Finish();
 	if ( m_bED2K ) m_oDataED2K.FinishFile();
-	if ( m_bMD5 ) m_oDataMD5.Finish();
+	if ( m_bMD5 )  m_oDataMD5.Finish();
 
 	return ( m_bAbort == FALSE );
 }
@@ -456,15 +450,15 @@ BOOL CTorrentBuilder::ProcessFile(DWORD nFile, LPCTSTR pszFile)
 
 	if ( m_bSHA1 ) m_pFileSHA1[ nFile ].Reset();
 	if ( m_bED2K ) m_pFileED2K[ nFile ].BeginFile( nSize );
-	if ( m_bMD5 ) m_pFileMD5[ nFile ].Reset();
+	if ( m_bMD5 )  m_pFileMD5[ nFile ].Reset();
 
 	while ( nSize > 0 && ! m_bAbort )
 	{
 		DWORD nLimit	= min( m_nBuffer, m_nPieceSize - m_nPieceUsed );
 		DWORD nRead		= ( nSize > (QWORD)nLimit ) ? nLimit : (DWORD)nSize;
 
-		ReadFile( hFile, m_pBuffer, nRead, &nRead, NULL );
-		if ( nRead == 0 ) break;
+		if ( ! ReadFile( hFile, m_pBuffer, nRead, &nRead, NULL ) || nRead == 0 )
+			break;
 
 		nSize -= (QWORD)nRead;
 		m_nTotalPos += (QWORD)nRead;
@@ -501,7 +495,7 @@ BOOL CTorrentBuilder::ProcessFile(DWORD nFile, LPCTSTR pszFile)
 
 	if ( m_bSHA1 ) m_pFileSHA1[ nFile ].Finish();
 	if ( m_bED2K ) m_pFileED2K[ nFile ].FinishFile();
-	if ( m_bMD5 ) m_pFileMD5[ nFile ].Finish();
+	if ( m_bMD5 )  m_pFileMD5[ nFile ].Finish();
 
 	CloseHandle( hFile );
 
@@ -525,7 +519,7 @@ BOOL CTorrentBuilder::WriteOutput()
 
 		CBENode* pAnnounceList = pRoot.Add( "announce-list" );
 		{
-			BYTE*	pBuffer = NULL;		// Quick List Workaround
+			BYTE* pBuffer = NULL;		// Quick List Workaround
 
 			CBENode* pList1 = pAnnounceList->Add( pBuffer, 1 );
 			{
@@ -581,8 +575,9 @@ BOOL CTorrentBuilder::WriteOutput()
 
 	if ( m_pFiles.GetCount() == 1 )
 	{
-		int nPos = strFirst.ReverseFind( '\\' );
-		if ( nPos >= 0 ) strFirst = strFirst.Mid( nPos + 1 );
+		const int nPos = strFirst.ReverseFind( '\\' );
+		if ( nPos >= 0 )
+			strFirst = strFirst.Mid( nPos + 1 );
 		{
 			CBENode* pName = pInfo->Add( "name" );
 			pName->SetString( strFirst );
@@ -638,7 +633,7 @@ BOOL CTorrentBuilder::WriteOutput()
 			{
 				CBENode* pPath = pFile->Add( "path" );
 				strFile = strFile.Mid( nCommonPath );
-				while ( strFile.GetLength() )
+				while ( ! strFile.IsEmpty() )
 				{
 					CString strPart = strFile.SpanExcluding( _T("\\/") );
 					if ( strPart.IsEmpty() ) break;
@@ -646,7 +641,7 @@ BOOL CTorrentBuilder::WriteOutput()
 					pPath->Add( NULL, NULL )->SetString( strPart );
 
 					strFile = strFile.Mid( strPart.GetLength() );
-					if ( strFile.GetLength() ) strFile = strFile.Mid( 1 );
+					if ( ! strFile.IsEmpty() ) strFile = strFile.Mid( 1 );
 				}
 			}
 			if ( m_bSHA1 )
@@ -677,7 +672,7 @@ BOOL CTorrentBuilder::WriteOutput()
 		CString strAgent = _T("PeerProject Wizard ") + theApp.m_sVersion;
 		pAgent->SetString( strAgent );
 	}
-	if ( m_sComment.GetLength() > 0 )
+	if ( ! m_sComment.IsEmpty() )
 	{
 		CBENode* pComment = pRoot.Add( "comment" );
 		pComment->SetString( m_sComment );

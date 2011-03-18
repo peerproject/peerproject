@@ -1,7 +1,7 @@
 //
 // DlgTorrentSeed.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -102,55 +102,55 @@ void CTorrentSeedDlg::OnDownload()
 	/*CWnd* pWnd =*/ AfxGetMainWnd();
 	CBTInfo* pTorrent = new CBTInfo();
 
-	if ( pTorrent->LoadTorrentFile( m_sTorrent ) )
+	if ( ! pTorrent->LoadTorrentFile( m_sTorrent ) )
 	{
-		if ( pTorrent->HasEncodingError() )		// Check the torrent is valid
-			CHelpDlg::Show( _T("GeneralHelp.BadTorrentEncoding") );
-
-		CPeerProjectURL oURL( pTorrent );
-
-		CSingleLock oLibraryLock( &Library.m_pSection, TRUE );
-
-		CExistingFileDlg::Action action = CExistingFileDlg::CheckExisting( &oURL );
-		if ( action == CExistingFileDlg::Cancel )
-			return;
-		else if ( action != CExistingFileDlg::Download )
-		{
-			EndDialog( IDOK );
-			return;
-		}
-
-		oLibraryLock.Unlock();
-
-		CDownload* pDownload = Downloads.Add( oURL );
-
-		if ( pDownload == NULL )
-		{
-			EndDialog( IDOK );
-			return;
-		}
-
-		if ( ! Network.IsWellConnected() &&
-			( GetAsyncKeyState( VK_SHIFT ) & 0x8000 ) == 0 )
-		{
-			Network.Connect( TRUE );
-		}
-
-		CMainWnd* pMainWnd = (CMainWnd*)AfxGetMainWnd();
-		pMainWnd->m_pWindows.Open( RUNTIME_CLASS(CDownloadsWnd) );
-
-		if ( Settings.Downloads.ShowMonitorURLs )
-		{
-			CSingleLock pTransfersLock( &Transfers.m_pSection, TRUE );
-			if ( Downloads.Check( pDownload ) ) pDownload->ShowMonitor( &pTransfersLock );
-		}
-
+		delete pTorrent;
+		theApp.Message( MSG_ERROR, IDS_BT_PREFETCH_ERROR, (LPCTSTR)m_sTorrent );
 		EndDialog( IDOK );
 		return;
 	}
-	else
-		delete pTorrent;
-	theApp.Message( MSG_ERROR, IDS_BT_PREFETCH_ERROR, (LPCTSTR)m_sTorrent );
+
+	if ( pTorrent->HasEncodingError() )		// Check the torrent is valid
+		CHelpDlg::Show( _T("GeneralHelp.BadTorrentEncoding") );
+
+	CPeerProjectURL oURL( pTorrent );
+
+	CSingleLock oLibraryLock( &Library.m_pSection, TRUE );
+
+	CExistingFileDlg::Action action = CExistingFileDlg::CheckExisting( &oURL );
+	if ( action == CExistingFileDlg::Cancel )
+		return;
+	if ( action != CExistingFileDlg::Download )
+	{
+		EndDialog( IDOK );
+		return;
+	}
+
+	oLibraryLock.Unlock();
+
+	CDownload* pDownload = Downloads.Add( oURL );
+
+	if ( pDownload == NULL )
+	{
+		EndDialog( IDOK );
+		return;
+	}
+
+	if ( ! Network.IsWellConnected() &&
+		( GetAsyncKeyState( VK_SHIFT ) & 0x8000 ) == 0 )
+	{
+		Network.Connect( TRUE );
+	}
+
+	CMainWnd* pMainWnd = (CMainWnd*)AfxGetMainWnd();
+	pMainWnd->m_pWindows.Open( RUNTIME_CLASS(CDownloadsWnd) );
+
+	if ( Settings.Downloads.ShowMonitorURLs )
+	{
+		CSingleLock pTransfersLock( &Transfers.m_pSection, TRUE );
+		if ( Downloads.Check( pDownload ) ) pDownload->ShowMonitor( &pTransfersLock );
+	}
+
 	EndDialog( IDOK );
 }
 
@@ -193,7 +193,7 @@ void CTorrentSeedDlg::OnSeed()
 		else	// We are already seeding the torrent
 		{
 			CString strFormat, strMessage;
-			LoadString(strFormat, IDS_BT_SEED_ALREADY );
+			LoadString( strFormat, IDS_BT_SEED_ALREADY );
 			strMessage.Format( strFormat, (LPCTSTR)m_pInfo.m_sName );
 			AfxMessageBox( strMessage, MB_ICONEXCLAMATION );
 			EndDialog( IDOK );
@@ -203,7 +203,7 @@ void CTorrentSeedDlg::OnSeed()
 	{
 		// We couldn't load the .torrent file
 		CString strFormat, strMessage;
-		LoadString(strFormat, IDS_BT_SEED_PARSE_ERROR );
+		LoadString( strFormat, IDS_BT_SEED_PARSE_ERROR );
 		strMessage.Format( strFormat, (LPCTSTR)m_sTorrent );
 		AfxMessageBox( strMessage, MB_ICONEXCLAMATION );
 		EndDialog( IDOK );
@@ -262,16 +262,19 @@ BOOL CTorrentSeedDlg::LoadTorrent(CString strPath)
 	if ( ! m_pInfo.LoadTorrentFile( strPath ) )
 		return FALSE;	// Try again with manual Dialog
 
-	if ( Downloads.FindByBTH( m_pInfo.m_oBTH ) == NULL )	// Not already listed
+	if ( Downloads.FindByBTH( m_pInfo.m_oBTH ) == NULL )		// Not already listed
 	{
+		if ( ! Network.IsConnected() )
+			Network.Connect();
+
+		CSingleLock pTransfersLock( &Transfers.m_pSection );	// Rare new .torrent crashfix elsewhere?
+		if ( ! pTransfersLock.Lock( 2000 ) ) return FALSE;
+
 		CPeerProjectURL oURL( new CBTInfo( m_pInfo ) );
 		CDownload* pDownload = Downloads.Add( oURL );
 
 		if ( pDownload == NULL )
 			return FALSE;
-
-		if ( ! Network.IsConnected() )
-			Network.Connect();
 
 		// ToDo: Fix existing fragment detection instead.
 
@@ -280,16 +283,17 @@ BOOL CTorrentSeedDlg::LoadTorrent(CString strPath)
 
 		if ( pDownload->GetVolumeRemaining() == 0 )
 		{
-			// Update last seeded torrent
+			pTransfersLock.Unlock();
 			CSingleLock pLock( &Library.m_pSection );
 			if ( pLock.Lock( 250 ) )
 			{
+				// Update last seeded torrent
 				LibraryHistory.LastSeededTorrent.m_sName = m_pInfo.m_sName.Left( 40 );
 				LibraryHistory.LastSeededTorrent.m_sPath = strPath;
 				LibraryHistory.LastSeededTorrent.m_tLastSeeded = static_cast< DWORD >( time( NULL ) );
 
 				// If 'new' torrent, reset the counters
-				if ( !validAndEqual( LibraryHistory.LastSeededTorrent.m_oBTH, m_pInfo.m_oBTH ) )
+				if ( ! validAndEqual( LibraryHistory.LastSeededTorrent.m_oBTH, m_pInfo.m_oBTH ) )
 				{
 					LibraryHistory.LastSeededTorrent.m_nUploaded	= 0;
 					LibraryHistory.LastSeededTorrent.m_nDownloaded	= 0;
@@ -304,10 +308,12 @@ BOOL CTorrentSeedDlg::LoadTorrent(CString strPath)
 
 			if ( Settings.Downloads.ShowMonitorURLs )
 			{
-				CSingleLock pTransfersLock( &Transfers.m_pSection, TRUE );
+			//	CSingleLock pTransfersLock( &Transfers.m_pSection, TRUE );
 				if ( Downloads.Check( pDownload ) )
 					pDownload->ShowMonitor( &pTransfersLock );
 			}
+
+			pTransfersLock.Unlock();
 		}
 	}
 
@@ -341,25 +347,22 @@ BOOL CTorrentSeedDlg::CreateDownload()
 		{
 			// Already seeding
 			CString strFormat;
-			LoadString(strFormat, IDS_BT_SEED_ALREADY );
+			LoadString( strFormat, IDS_BT_SEED_ALREADY );
 			m_sMessage.Format( strFormat, (LPCTSTR)m_pInfo.m_sName );
 		}
-		else
+		else if ( CDownload* pDownload = Downloads.Add( CPeerProjectURL( new CBTInfo( m_pInfo ) ) ) )
 		{
-			if ( CDownload* pDownload = Downloads.Add( CPeerProjectURL( new CBTInfo( m_pInfo ) ) ) )
-			{
-				if ( pDownload->SeedTorrent( m_sMessage ) )
-					return TRUE;
+			if ( pDownload->SeedTorrent( m_sMessage ) )
+				return TRUE;
 
-				pDownload->Remove();
-			}
+			pDownload->Remove();
 		}
 	}
 
 	if ( m_sMessage.IsEmpty() )
 	{
 		CString strFormat;
-		LoadString(strFormat, IDS_BT_SEED_ERROR );
+		LoadString( strFormat, IDS_BT_SEED_ERROR );
 		m_sMessage.Format( strFormat, (LPCTSTR)m_pInfo.m_sName );
 	}
 

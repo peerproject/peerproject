@@ -18,11 +18,11 @@ body {
 }
 body,td,th {
 	font-family: Tahoma, Verdana, Arial, sans-serif;
-	font-size: 12px; 
+	font-size: 12px;
 	color: #666666;
 }
 a:link {
-	color: #333333;
+	color: #444444;
 	text-decoration: none;
 }
 a:visited {
@@ -31,11 +31,11 @@ a:visited {
 }
 a:hover {
 	text-decoration: underline;
-	color: #333333;
+	color: #666666;
 }
 a:active {
 	text-decoration: none;
-	color: #333333;
+	color: #555555;
 }
 .boldtext {
 	font-size: 12px;
@@ -79,18 +79,18 @@ table.nodeinfo tr td {
 </head>
 <body>
 
-<div class="headerborder" style="width: 100%; background-image:url(/remote/header_2.png);">
-  <img src="/remote/header_1.png" width="800" height="152" alt="PeerProject header" />
+<div class="headerborder" style="width: 100%; background-image:url(/remote/header_repeat.png);">
+  <img src="/remote/header.png" width="800" height="152" alt="PeerProject header" />
 </div>
 
-<div align="center"><br />
-  <table width="800" border="0" cellspacing="4" cellpadding="6"> <!-- NODE BOX START-->
+<div align="center"><br /> <!-- NODE BOX START -->
+  <table width="800" border="0" cellspacing="4" cellpadding="6">
 	<tr align="center" bgcolor="#999999">
-	  <td colspan="2" bgcolor="#CCCCCC" class="solidborder blacktext">This node is powered by <a href="http://peerproject.org/?id=download" target="_top"><strong>PeerProject <% Version %></strong></a></td>
+	  <td colspan="2" bgcolor="#CCCCCC" class="solidborder blacktext">This node is powered by <a href="http://peerproject.org" target="_top"><strong>PeerProject <% Version %></strong></a></td>
 	</tr>
 	<tr>
-	  <td width="50%" align="center" valign="top" class="solidborder"><a href="gnutella:browse:<% ListenIP %>"><strong>Browse Node</strong></a> In PeerProject</td>
-	  <td width="50%" align="center" valign="top" class="solidborder"><a href="/remote/" target="_top"><strong>Remotely Access </strong></a>this node</td>
+	  <td width="50%" align="center" valign="top" class="solidborder"><a href="gnutella:browse:<% ListenIP %>"><strong>Browse Node </strong></a> in PeerProject</td>
+	  <td width="50%" align="center" valign="top" class="solidborder"><a href="/remote/" target="_top"><strong>Remotely Access </strong></a> your node</td>
 	</tr>
 	<tr>
 	  <td colspan="2" align="center" valign="top">
@@ -101,18 +101,19 @@ table.nodeinfo tr td {
 				  <th width="100" align="center" valign="top" class="text2">Uptime</th>
 				  <th width="100" align="center" valign="top" class="text2">Mode</th>
 				  <th width="170" align="center" valign="top" class="text2">User Agent</th>
-				  <th width="80" align="center" valign="top" class="text2">&nbsp;</th>
-				</tr>	
-			  
-				<% Neighbours 
+				  <th width="80"  align="center" valign="top" class="text2">&nbsp;</th>
+				</tr>
+
+				<% Neighbours
 				<tr>
 					<td class="lcol"><a href="gnutella:host:%s:%lu">%s:%lu</a></td>
-					<td>%i:%.2i:%.2i</td><td>%s</td>
-					<td>%s</td>
+					<td>%i:%.2i:%.2i</td>
+                    <td>%s</td>
+                    <td>%s</td>
 					<td class="rcol"><a href="http://%s:%lu/">Browse</a></td>
-				</tr> 
+				</tr>
 				%>
-				
+
 		 	</table>
 		</td>
 	</tr>
@@ -124,16 +125,17 @@ table.nodeinfo tr td {
 	  <td colspan="2" bgcolor="#CFCFCF" class="headerborder blacktext"><strong>What Is PeerProject?</strong></td>
 	</tr>
 	<tr>
-	  <td rowspan="2" align="left" valign="top" style="width: 35px"><img src="/favicon.ico" alt="raza" width="32" height="32" /></td>
-	  <td valign="top" class="text3">PeerProject is a peer-to-peer client that allows you to download any file found on several popular P2P networks.<br>
-		-PeerProject is Free and Open-Source Software.</td>
+	  <td rowspan="2" align="left" valign="top" style="width: 35px"><img src="/favicon.ico" alt="PeerProject.org" width="32" height="32" /></td>
+	  <td valign="top" class="text3">PeerProject is a personal peer-to-peer client that allows you to share and download any file found on several popular P2P networks.<br />
+		-Proud to be Free and Open-Source Software.</td>
 	</tr>
 	<tr>
 	  <td valign="top">
 	  <ul>
-		  <li class="text1"><a href="http://peerproject.org/" target="_top">Visit the PeerProject Homepage</a> </li>
-		  <li class="text1"><a href="http://peerproject.org/?id=download" target="_top">Check out the latest PeerProject Release</a></li>
-	  </ul>	 </td>
+		  <li class="text1"><a href="http://peerproject.org/" target="_top">Visit the PeerProject.org Homepage</a> </li>
+		  <li class="text1"><a href="http://sourceforge.net/projects/peerproject/" target="_top">Check out the latest PeerProject p2p release</a></li>
+	  </ul>
+	  </td>
 	</tr>
   </table>
   <br />

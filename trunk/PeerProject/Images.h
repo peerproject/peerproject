@@ -13,9 +13,9 @@
 class CImages
 {
 // Construction
-public:
-	CImages();
-	virtual ~CImages();
+//public:
+//	CImages();
+//	~CImages();
 
 public:
 	int 		m_nBanner;	// Height

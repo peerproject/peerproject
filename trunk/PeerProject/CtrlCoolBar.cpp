@@ -1,7 +1,7 @@
 //
 // CtrlCoolBar.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -100,8 +100,8 @@ BOOL CCoolBarCtrl::Create(CWnd* pParentWnd, DWORD dwStyle, UINT nID)
 
 void CCoolBarCtrl::SetSize(int nHeight, BOOL bStretch)
 {
-	m_bStretch	= bStretch;
-	m_nHeight	= nHeight < 1 ? DEFAULT_HEIGHT : nHeight;
+	m_bStretch = bStretch;
+	m_nHeight  = nHeight < 1 ? DEFAULT_HEIGHT : nHeight;
 
 	SetWindowPos( NULL, 0, 0, 0, 0,
 		SWP_DRAWFRAME|SWP_NOMOVE|SWP_NOSIZE|SWP_NOACTIVATE|SWP_NOZORDER );
@@ -220,7 +220,7 @@ BOOL CCoolBarCtrl::LoadToolBar(UINT nIDToolBar)
 
 	if ( ! pToolBar.Create( this ) || ! pToolBar.LoadToolBar( nIDToolBar ) ) return FALSE;
 
-	for ( int i = 0 ; i < pToolBar.GetCount(); i++ )
+	for ( int i = 0 ; i < pToolBar.GetCount() ; i++ )
 	{
 		UINT nID, nStyle;
 		int nImage;
@@ -252,6 +252,8 @@ void CCoolBarCtrl::Copy(CCoolBarCtrl* pOther)
 		CCoolBarItem* pItem = pOther->m_pItems.GetNext( pos );
 		m_pItems.AddTail( new CCoolBarItem( this, pItem ) );
 	}
+
+	Invalidate();
 }
 
 UINT CCoolBarCtrl::ThrowMenu(UINT nID, CMenu* pMenu, CWnd* pParent, BOOL bCommand, BOOL bRight)
@@ -389,10 +391,10 @@ void CCoolBarCtrl::PrepareRect(CRect* pRect) const
 	GetClientRect( &rcClient );
 	CalcInsideRect( rcClient, FALSE );
 
-	rcClient.left -= m_cyTopBorder;
-	rcClient.top -= m_cxLeftBorder;
-	rcClient.right += m_cyBottomBorder;
-	rcClient.bottom += m_cxRightBorder;
+	rcClient.left	-= m_cyTopBorder;
+	rcClient.top	-= m_cxLeftBorder;
+	rcClient.right	+= m_cyBottomBorder;
+	rcClient.bottom	+= m_cxRightBorder;
 
 	pRect->SetRect( rcClient.left + MARGIN_WIDTH, rcClient.top + 1, rcClient.right - MARGIN_WIDTH, rcClient.bottom - 1 );
 	if ( m_bGripper ) pRect->left += GRIPPER_WIDTH;
@@ -506,7 +508,7 @@ INT_PTR CCoolBarCtrl::OnToolHitTest(CPoint point, TOOLINFO* pTI) const
 	pTI->rect		= rcItem;
 	pTI->lpszText	= LPSTR_TEXTCALLBACK;
 
-	if ( pItem->m_sTip.GetLength() )
+	if ( ! pItem->m_sTip.IsEmpty() )
 	{
 		pTI->lpszText = _tcsdup( pItem->m_sTip );
 	}
@@ -554,10 +556,10 @@ void CCoolBarCtrl::DoPaint(CDC* pDC)
 		if ( CoolInterface.DrawWatermark( pBuffer, &rc, &m_bmImage ) )
 		{
 			CalcInsideRect( rc, FALSE );
-			rc.left -= m_cyTopBorder;
-			rc.top -= m_cxLeftBorder;
-			rc.right += m_cyBottomBorder;
-			rc.bottom += m_cxRightBorder;
+			rc.left		-= m_cyTopBorder;
+			rc.top		-= m_cxLeftBorder;
+			rc.right	+= m_cyBottomBorder;
+			rc.bottom	+= m_cxRightBorder;
 		}
 		else
 		{

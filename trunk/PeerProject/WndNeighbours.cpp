@@ -1,7 +1,7 @@
 //
 // WndNeighbours.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -50,6 +50,24 @@
 static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
 #endif	// Filename
+
+// Set Column Order
+enum {
+	COL_ADDRESS,
+	COL_PORT,
+	COL_TIME,
+	COL_TRAFFIC,
+	COL_TOTAL,
+	COL_PACKETS,
+	COL_FLOW,
+	COL_LEAVES,
+	COL_MODE,
+	COL_CLIENT,
+	COL_NAME,
+	COL_COUNTRY,
+	COL_LAST // Column Count
+};
+
 
 IMPLEMENT_SERIAL(CNeighboursWnd, CPanelWnd, 0)
 
@@ -124,7 +142,6 @@ int CNeighboursWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 //	pFile.LoadFromResource( AfxGetResourceHandle(), IDB_PROTOCOLS, RT_PNG );
 //	hBitmap = pFile.CreateBitmap();
 //	bmImages.Attach( hBitmap );
-//
 //	if ( Settings.General.LanguageRTL )
 //		bmImages.m_hObject = CreateMirroredBitmap( (HBITMAP)bmImages.m_hObject );
 //
@@ -146,28 +163,28 @@ int CNeighboursWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 //			VERIFY( DestroyIcon( hIcon ) );
 //		}
 //	}
-
-	// Merge protocols and flags in one image list (OnSkin)
+//
+//	// Merge protocols and flags in one image list (OnSkin)
 //	CoolInterface.LoadIconsTo( m_gdiImageList, protocolIDs );
 //	CoolInterface.LoadFlagsTo( m_gdiImageList );
 //	m_wndList.SetImageList( &m_gdiImageList, LVSIL_SMALL );
 
-	m_wndList.InsertColumn( 0, _T("Address"), LVCFMT_LEFT, 110, -1 );
-	m_wndList.InsertColumn( 1, _T("Port"), LVCFMT_CENTER, 44, 0 );
-	m_wndList.InsertColumn( 2, _T("Time"), LVCFMT_CENTER, 56, 1 );
-	m_wndList.InsertColumn( 3, _T("Packets"), LVCFMT_CENTER, 70, 2 );
-	m_wndList.InsertColumn( 4, _T("Bandwidth"), LVCFMT_CENTER, 84, 3 );
-	m_wndList.InsertColumn( 5, _T("Total"), LVCFMT_CENTER, 96, 4 );
-	m_wndList.InsertColumn( 6, _T("Flow"), LVCFMT_CENTER, 0, 5 );
-	m_wndList.InsertColumn( 7, _T("Leaves"), LVCFMT_CENTER, 52, 6 );
-	m_wndList.InsertColumn( 8, _T("Mode"), LVCFMT_CENTER, 60, 7 );
-	m_wndList.InsertColumn( 9, _T("Client"), LVCFMT_LEFT, 100, 8 );
-	m_wndList.InsertColumn( 10, _T("Name"), LVCFMT_LEFT, 100, 9 );
-	m_wndList.InsertColumn( 11, _T("Country"), LVCFMT_LEFT, 54, 10 );
+	m_wndList.InsertColumn( COL_ADDRESS, _T("Address"),	LVCFMT_LEFT,	110 );
+	m_wndList.InsertColumn( COL_PORT,	 _T("Port"), 	LVCFMT_CENTER,	 42 );
+	m_wndList.InsertColumn( COL_TIME,	 _T("Time"),	LVCFMT_CENTER,	 56 );
+	m_wndList.InsertColumn( COL_TRAFFIC, _T("Traffic"), LVCFMT_CENTER,	 84 );
+	m_wndList.InsertColumn( COL_TOTAL,	 _T("Total"),	LVCFMT_CENTER,	 96 );
+	m_wndList.InsertColumn( COL_PACKETS, _T("Packets"),	LVCFMT_CENTER,	 70 );
+	m_wndList.InsertColumn( COL_FLOW,	 _T("Flow"), 	LVCFMT_CENTER,	  0 );
+	m_wndList.InsertColumn( COL_LEAVES,	 _T("Leaves"),	LVCFMT_CENTER,	 52 );
+	m_wndList.InsertColumn( COL_MODE,	 _T("Mode"), 	LVCFMT_CENTER,	 84 );
+	m_wndList.InsertColumn( COL_CLIENT,	 _T("Client"),	LVCFMT_LEFT,	110 );
+	m_wndList.InsertColumn( COL_NAME,	 _T("Name"), 	LVCFMT_LEFT,	100 );
+	m_wndList.InsertColumn( COL_COUNTRY, _T("Country"),	LVCFMT_LEFT,	 54 );
 
 	m_wndList.SetFont( &theApp.m_gdiFont );
 
-	//CLiveList::Sort( &m_wndList, 8 );
+	//CLiveList::Sort( &m_wndList, COL_MODE ); // Does not work
 
 	LoadState( _T("CNeighboursWnd"), FALSE );
 
@@ -193,7 +210,7 @@ void CNeighboursWnd::Update()
 	CSingleLock pLock( &Network.m_pSection );
 	if ( ! pLock.Lock( 50 ) ) return;
 
-	CLiveList pLiveList( 12 );
+	CLiveList pLiveList( COL_LAST );
 
 	m_tLastUpdate = GetTickCount();
 
@@ -203,10 +220,10 @@ void CNeighboursWnd::Update()
 		CNeighbour* pNeighbour = Neighbours.GetNext( pos );
 		CLiveItem* pItem = pLiveList.Add( pNeighbour );
 
-		pItem->Set( 0, pNeighbour->m_sAddress );
-		pItem->Format( 1, _T("%hu"), htons( pNeighbour->m_pHost.sin_port ) );
+		pItem->Set( COL_ADDRESS, _T(" ") + pNeighbour->m_sAddress );
+		pItem->Format( COL_PORT, _T("%hu"), htons( pNeighbour->m_pHost.sin_port ) );
 
-		DWORD nTime = ( m_tLastUpdate - pNeighbour->m_tConnected ) / 1000;
+		const DWORD nTime = ( m_tLastUpdate - pNeighbour->m_tConnected ) / 1000;
 
 		switch ( pNeighbour->m_nState )
 		{
@@ -240,19 +257,21 @@ void CNeighboursWnd::Update()
 
 		pNeighbour->Measure();
 
-		pItem->Format( 3, _T("%u - %u"), pNeighbour->m_nInputCount, pNeighbour->m_nOutputCount );
-		pItem->Format( 4, _T("%s - %s"),
+		pItem->Format( COL_TRAFFIC, _T("%s - %s"),
 			Settings.SmartSpeed( pNeighbour->m_mInput.nMeasure ),
 			Settings.SmartSpeed( pNeighbour->m_mOutput.nMeasure ) );
-		pItem->Format( 5, _T("%s - %s"),
+		pItem->Format( COL_TOTAL, _T("%s - %s"),
 			Settings.SmartVolume( pNeighbour->m_mInput.nTotal ),
 			Settings.SmartVolume( pNeighbour->m_mOutput.nTotal ) );
-		pItem->Format( 6, _T("%u (%u)"), pNeighbour->m_nOutbound, pNeighbour->m_nLostCount );
+		pItem->Format( COL_PACKETS, _T("%u - %u"), pNeighbour->m_nInputCount, pNeighbour->m_nOutputCount );
+		pItem->Format( COL_FLOW, _T("%u (%u)"), pNeighbour->m_nOutbound, pNeighbour->m_nLostCount );
 
-		pItem->Set( 9, pNeighbour->m_sUserAgent );
+		pItem->Set( COL_CLIENT, pNeighbour->m_sUserAgent );
 
 		if ( pNeighbour->m_nState >= nrsConnected )
 		{
+			pItem->SetImage( pNeighbour->m_nProtocol );
+
 			if ( pNeighbour->m_nProtocol == PROTOCOL_G1 )
 			{
 			//	CG1Neighbour* pG1 = reinterpret_cast<CG1Neighbour*>(pNeighbour);
@@ -260,92 +279,85 @@ void CNeighboursWnd::Update()
 				switch ( pNeighbour->m_nNodeType )
 				{
 				case ntNode:
-					LoadString ( str,IDS_NEIGHBOUR_G1PEER );
+					LoadString ( str, IDS_NEIGHBOUR_G1PEER );
 					break;
 				case ntHub:
-					LoadString ( str,IDS_NEIGHBOUR_G1ULTRA );
+					LoadString ( str, IDS_NEIGHBOUR_G1ULTRA );
 					break;
 				case ntLeaf:
-					LoadString ( str,IDS_NEIGHBOUR_G1LEAF );
+					LoadString ( str, IDS_NEIGHBOUR_G1LEAF );
 					break;
 				}
+				pItem->Set( COL_MODE, str );
 
-				pItem->Set( 8, str );
-				pItem->SetImage( PROTOCOL_G1 );
+				pItem->Set( COL_LEAVES, _T("-") );		// Note leaves/peers count is only returned to crawler header
 			}
 			else if ( pNeighbour->m_nProtocol == PROTOCOL_G2 )
 			{
 				CG2Neighbour* pG2 = static_cast<CG2Neighbour*>(pNeighbour);
 
-				switch ( pNeighbour->m_nNodeType )
+				switch ( pG2->m_nNodeType )
 				{
 				case ntNode:
-					LoadString ( str,IDS_NEIGHBOUR_G2PEER );
+					LoadString ( str, IDS_NEIGHBOUR_G2PEER );
 					break;
 				case ntHub:
-					LoadString ( str,IDS_NEIGHBOUR_G2HUB );
+					LoadString ( str, IDS_NEIGHBOUR_G2HUB );
 					break;
 				case ntLeaf:
-					LoadString ( str,IDS_NEIGHBOUR_G2LEAF );
+					LoadString ( str, IDS_NEIGHBOUR_G2LEAF );
 					break;
 				}
-				pItem->Set( 8, str );
+				pItem->Set( COL_MODE, str );
 
 				if ( pG2->m_nLeafCount > 0 )
 				{
 					if ( pG2->m_nLeafLimit > 0 )
-						pItem->Format( 7, _T("%u/%u"), pG2->m_nLeafCount, pG2->m_nLeafLimit );
+						pItem->Format( COL_LEAVES, _T("%u/%u"), pG2->m_nLeafCount, pG2->m_nLeafLimit );
 					else
-						pItem->Format( 7, _T("%u"), pG2->m_nLeafCount );
+						pItem->Format( COL_LEAVES, _T("%u"), pG2->m_nLeafCount );
 				}
 				else if ( pG2->m_nNodeType != ntLeaf )
 				{
-					pItem->Set( 7, _T("?") );
+					pItem->Set( COL_LEAVES, _T("?") );
 				}
-
-				pItem->SetImage( PROTOCOL_G2 );
 			}
 			else if ( pNeighbour->m_nProtocol == PROTOCOL_ED2K )
 			{
 				CEDNeighbour* pED2K = static_cast<CEDNeighbour*>(pNeighbour);
 
-				pItem->SetImage( PROTOCOL_ED2K );
-				pItem->Set( 8, _T("eDonkey") );
-				pItem->Set( 10, pED2K->m_sServerName );
+				pItem->Set( COL_MODE, _T("eDonkey2000") );
 
 				if ( pED2K->m_nClientID > 0 )
 				{
 					if ( pED2K->m_nUserLimit > 0 )
-						pItem->Format( 7, _T("%u/%u"), pED2K->m_nUserCount, pED2K->m_nUserLimit );
+						pItem->Format( COL_LEAVES, _T("%u/%u"), pED2K->m_nUserCount, pED2K->m_nUserLimit );
 					else
-						pItem->Format( 7, _T("%u"), pED2K->m_nUserCount );
+						pItem->Format( COL_LEAVES, _T("%u"), pED2K->m_nUserCount );
 
 					LoadString( str, CEDPacket::IsLowID( pED2K->m_nClientID ) ? IDS_NEIGHBOUR_ED2K_LOWID : IDS_NEIGHBOUR_ED2K_HIGHID );
-					pItem->Set( 9, str );
+					pItem->Set( COL_CLIENT, str );
 				}
 				else
 				{
 					LoadString ( str,IDS_NEIGHBOUR_ED2K_SERVER );
-					pItem->Set( 9, str );
+					pItem->Set( COL_CLIENT, str );
 				}
 			}
-			else
+			else if ( pNeighbour->m_nProtocol == PROTOCOL_DC )
 			{
-				pItem->SetImage( PROTOCOL_NULL );
+				//CDCNeighbour* pDC = static_cast< CDCNeighbour* >( pNeighbour );
+
+				pItem->Set( COL_MODE, _T("DC++") );
 			}
 		}
-		else
-		{
-			pItem->SetImage( PROTOCOL_NULL );
-		}
 
-		if ( pNeighbour->m_pProfile != NULL )
-			pItem->Set( 10, pNeighbour->m_pProfile->GetNick() );
+		pItem->Set( COL_NAME, pNeighbour->m_pProfile ? pNeighbour->m_pProfile->GetNick() : pNeighbour->m_sServerName );
 
-		pItem->Set( 11, pNeighbour->m_sCountry );
+		pItem->Set( COL_COUNTRY, pNeighbour->m_sCountry );
 		const int nFlagIndex = Flags.GetFlagIndex( pNeighbour->m_sCountry );
 		if ( nFlagIndex >= 0 )
-			pItem->SetImage( PROTOCOL_LAST + nFlagIndex, 11 );
+			pItem->SetImage( PROTOCOL_LAST + nFlagIndex, COL_COUNTRY );
 	}
 
 	pLiveList.Apply( &m_wndList, TRUE );
@@ -389,7 +401,7 @@ void CNeighboursWnd::OnTimer(UINT_PTR nIDEvent)
 {
 	if ( nIDEvent == 1 )
 	{
-		if ( ( IsPartiallyVisible() ) || ( GetTickCount() - m_tLastUpdate > 30000 ) )
+		if ( IsPartiallyVisible() || ( GetTickCount() - m_tLastUpdate > 30000 ) )
 			 Update();
 	}
 }
@@ -442,12 +454,17 @@ void CNeighboursWnd::OnNeighboursCopy()
 
 	if ( pNeighbour->m_nProtocol == PROTOCOL_G1 || pNeighbour->m_nProtocol == PROTOCOL_G2 )
 	{
-		strURL.Format( _T("gnutella:host:%s:%lu"),
+		strURL.Format( _T("gnutella:host:%s:%u"),
 			(LPCTSTR)pNeighbour->m_sAddress, htons( pNeighbour->m_pHost.sin_port ) );
 	}
 	else if ( pNeighbour->m_nProtocol == PROTOCOL_ED2K )
 	{
-		strURL.Format( _T("ed2k://|server|%s|%lu|/"),
+		strURL.Format( _T("ed2k://|server|%s|%u|/"),
+			(LPCTSTR)pNeighbour->m_sAddress, htons( pNeighbour->m_pHost.sin_port ) );
+	}
+	else if ( pNeighbour->m_nProtocol == PROTOCOL_DC )
+	{
+		strURL.Format( _T("dchub://%s:%u"),
 			(LPCTSTR)pNeighbour->m_sAddress, htons( pNeighbour->m_pHost.sin_port ) );
 	}
 
@@ -462,7 +479,9 @@ void CNeighboursWnd::OnUpdateNeighboursChat(CCmdUI* pCmdUI)
 		if ( pNetworkLock.Lock( 500 ) )
 		{
 			CNeighbour* pNeighbour = GetItem( m_wndList.GetNextItem( -1, LVNI_SELECTED ) );
-			if ( pNeighbour && pNeighbour->m_nProtocol != PROTOCOL_ED2K )
+			if ( pNeighbour &&
+				pNeighbour->m_nProtocol == PROTOCOL_G1 ||
+				pNeighbour->m_nProtocol == PROTOCOL_G2 )
 			{
 				pCmdUI->Enable( TRUE );
 				return;
@@ -480,7 +499,8 @@ void CNeighboursWnd::OnNeighboursChat()
 	{
 		if ( CNeighbour* pNeighbour = GetItem( nItem ) )
 		{
-			if ( pNeighbour->m_nProtocol != PROTOCOL_ED2K )
+			if ( pNeighbour->m_nProtocol == PROTOCOL_G1 ||
+				 pNeighbour->m_nProtocol == PROTOCOL_G2 )
 			{
 				ChatWindows.OpenPrivate( pNeighbour->m_oGUID,
 					&pNeighbour->m_pHost, FALSE, pNeighbour->m_nProtocol );
@@ -519,7 +539,9 @@ void CNeighboursWnd::OnUpdateBrowseLaunch(CCmdUI* pCmdUI)
 		if ( pNetworkLock.Lock( 500 ) )
 		{
 			CNeighbour* pNeighbour = GetItem( m_wndList.GetNextItem( -1, LVNI_SELECTED ) );
-			if ( pNeighbour && pNeighbour->m_nProtocol != PROTOCOL_ED2K )
+			if ( pNeighbour &&
+				pNeighbour->m_nProtocol == PROTOCOL_G1 ||
+				pNeighbour->m_nProtocol == PROTOCOL_G2 )
 			{
 				pCmdUI->Enable( TRUE );
 				return;
@@ -535,7 +557,8 @@ void CNeighboursWnd::OnBrowseLaunch()
 
 	if ( CNeighbour* pNeighbour = GetItem( m_wndList.GetNextItem( -1, LVNI_SELECTED ) ) )
 	{
-		if ( pNeighbour->m_nProtocol != PROTOCOL_ED2K )
+		if ( pNeighbour->m_nProtocol == PROTOCOL_G1 ||
+			 pNeighbour->m_nProtocol == PROTOCOL_G2 )
 		{
 			PROTOCOLID nProtocol = pNeighbour->m_nProtocol;
 			SOCKADDR_IN pAddress = pNeighbour->m_pHost;
@@ -601,8 +624,8 @@ void CNeighboursWnd::OpenPacketWnd(BOOL bIncoming, BOOL bOutgoing)
 	{
 		if ( CNeighbour* pNeighbour = GetItem( nItem ) )
 		{
-			pWnd->m_nInputFilter	= bIncoming ? (DWORD_PTR)pNeighbour : 1;
-			pWnd->m_nOutputFilter	= bOutgoing ? (DWORD_PTR)pNeighbour : 1;
+			pWnd->m_nInputFilter  = bIncoming ? (DWORD_PTR)pNeighbour : 1;
+			pWnd->m_nOutputFilter = bOutgoing ? (DWORD_PTR)pNeighbour : 1;
 		}
 	}
 
@@ -626,6 +649,11 @@ void CNeighboursWnd::OnSkinChange()
 		m_wndList.SetExtendedStyle( LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP|LVS_EX_LABELTIP|LVS_EX_SUBITEMIMAGES );	// No LVS_EX_DOUBLEBUFFER
 	else
 		m_wndList.SetBkColor( Colors.m_crWindow );
+
+	// Update Dropshadow
+//	m_wndTip.Hide();
+	m_wndTip.DestroyWindow();
+	m_wndTip.Create( this, &Settings.Interface.TipNeighbours );
 }
 
 void CNeighboursWnd::OnCustomDrawList(NMHDR* pNMHDR, LRESULT* pResult)

@@ -156,6 +156,9 @@
     <ClCompile Include="Datagrams.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="DCNeighbour.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="DDEServer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -1641,6 +1644,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Datagrams.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DCNeighbour.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="DDEServer.h">

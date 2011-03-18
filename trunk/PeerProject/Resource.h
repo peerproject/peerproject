@@ -1415,7 +1415,7 @@
 #define IDS_STATUS_BAR_CONNECTED_UP         20706		// 8061
 #define IDS_STATUS_BAR_CONNECTING           20707		// 8065
 #define IDS_STATUS_BAR_DISCONNECTED         20708		// 8066
-#define IDS_STATUS_NOSOURCES                20710		// 20135
+#define IDS_STATUS_CLEARING                 20710
 #define IDS_STATUS_CANTMOVE                 20711		// 20116
 #define IDS_STATUS_CHOKED                   20712		// 20136
 #define IDS_STATUS_ENQUEUE                  20713		// 20108
@@ -1441,6 +1441,7 @@
 #define IDS_STATUS_SOURCES                  20733		// 20134
 #define IDS_STATUS_SOURCES_FEW              20734		// 20132
 #define IDS_STATUS_SOURCES_ONES             20735		// 20131
+#define IDS_STATUS_NOSOURCES                20736		// 20135
 #define IDS_STATUS_TIGERTREE                20740		// 20104
 #define IDS_STATUS_TORRENT                  20741		// 20122
 #define IDS_STATUS_TRACKERDOWN              20742		// 20123

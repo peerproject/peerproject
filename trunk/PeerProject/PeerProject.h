@@ -256,6 +256,7 @@ BOOL	CreateDirectory(LPCTSTR szPath);
 // Delete file to Recycle Bin, etc.
 BOOL	DeleteFileEx(LPCTSTR szFileName, BOOL bShared, BOOL bToRecycleBin, BOOL bEnableDelayed);
 void	DeleteFiles(CStringList& pList);	// User confirmation
+void	DeleteFolders(CStringList& pList);	// Cleanup
 void	PurgeDeletes();						// Delete postponed file
 
 // Loads RT_HTML or RT_GZIP resource as string
@@ -286,6 +287,9 @@ void	SafeMessageLoop();
 
 // Detect external fullscreen application
 BOOL	IsUserFullscreen();
+
+// Handle "-noskin" flag
+void	ClearSkins();
 
 struct CompareNums
 {

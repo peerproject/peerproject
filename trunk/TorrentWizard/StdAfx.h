@@ -41,8 +41,9 @@
 
 #ifndef _PORTABLE
 #include "..\HashLib\HashLib.h"
+//#include "..\PeerProject\Strings.h"
 //#include "..\PeerProject\Buffer.h"	// Common alternative
-//#include "..\PeerProject\BENode.h"	// (remove local files first)
+//#include "..\PeerProject\BENode.h"	// (Remove local files first)
 #endif
 
 typedef unsigned __int64 QWORD;

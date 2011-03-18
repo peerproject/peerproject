@@ -3,7 +3,7 @@
 
 <!-- PeerProject Korean Language Skin File -->
 
-<!-- Translation based on default-en.xml r62 --> <!--Machine Translated!-->
+<!-- Translation based on default-en.xml r64 --> <!--Machine Translated!-->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2515,7 +2515,7 @@
 	<string id="20706" value="Ultrapeer mode with %lu neighbours. %s 개 지역 도서관에."/>
 	<string id="20707" value="네트워크에 연결하기..."/>
 	<string id="20708" value="아니라 네트워크에 연결."/>
-	<string id="20710" value="(아니 소스)"/>
+	<string id="20710" value="갤거야"/>
 	<string id="20711" value="Can't Move"/>
 	<string id="20712" value="숨막혀"/>
 	<string id="20713" value="Enqueue"/>
@@ -2541,6 +2541,7 @@
 	<string id="20733" value="소스"/>
 	<string id="20734" value="소스"/>
 	<string id="20735" value="소스"/>
+	<string id="20736" value="(아니 소스)"/>
 	<string id="20740" value="TigerTree"/>
 	<string id="20741" value="Torrent"/>
 	<string id="20742" value="Tracker Down"/>
@@ -2766,7 +2767,7 @@
 		<control caption="Filter chat messages for spam"/>
 		<control caption="Censor profanity in chat"/>
 	</dialog>
-	<dialog name="CIRCSettingsPage" cookie="BuBuBuBuStEdStStEdCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStEdStEdStEd" caption="채팅 IRC">
+	<dialog name="CIRCSettingsPage" cookie="BuBuBuBuStEdmsStStEdmsCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStCoStEdStEd" caption="채팅 IRC">
 		<control caption="Client Options:"/>
 		<control caption="Show chat integration"/>
 		<control caption="Show timestamp"/>
@@ -3702,9 +3703,9 @@
 		<column from="Address" to="주소"/>
 		<column from="Port" to="포트"/>
 		<column from="Time" to="타임"/>
-		<column from="Packets" to="패킷"/>
-		<column from="Bandwidth" to="대역폭"/>
+		<column from="Traffic" to="대역폭"/>
 		<column from="Total" to="총"/>
+		<column from="Packets" to="패킷"/>
 		<column from="Flow" to="흐름"/>
 		<column from="Leaves" to="남겼더군요"/>
 		<column from="Mode" to="모드"/>
@@ -3780,7 +3781,7 @@
 	<list name="CUploadQueueList">
 		<column from="Name" to="이름"/>
 		<column from="Criteria" to="기준"/>
-		<column from="Bandwidth" to="대역폭"/>
+		<column from="Minimum" to="대역폭"/>
 		<column from="Transfers" to="전학"/>
 		<column from="Order" to="주문"/>
 	</list>

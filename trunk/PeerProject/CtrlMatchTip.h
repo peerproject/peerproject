@@ -1,7 +1,7 @@
 //
 // CtrlMatchTip.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -51,8 +51,8 @@ protected:
 	CString			m_sMD5;
 	CString			m_sType;
 	CString			m_sSize;
-	CString			m_sBusy; // Busy status message
-	CString			m_sPush; // Firewalled status message
+	CString			m_sBusy;	// Busy status message
+	CString			m_sPush;	// Firewalled status message
 	CString			m_sUnstable; // Unstable status message
 	int				m_nIcon;
 	CString			m_sStatus;
@@ -63,8 +63,10 @@ protected:
 	CMetaList		m_pMetadata;
 	int				m_nKeyWidth;
 	int				m_nRating;
+
+public:
+	static LPCTSTR	m_hClass;	// CWnd Style
 protected:
-	static LPCTSTR	m_hClass;
 	static CBrush	m_brBack;
 	static COLORREF	m_crBack;
 	static COLORREF	m_crText;
@@ -101,6 +103,7 @@ protected:
 	afx_msg void OnMouseMove(UINT nFlags, CPoint point);
 	afx_msg void OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
 	//}}AFX_MSG
+
 	DECLARE_MESSAGE_MAP()
 };
 

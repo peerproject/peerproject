@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Japanese Skin File -->
 
-<!-- Translation based on default-en.xml r62 (Shareaza 2.2.0.2) -->
+<!-- Translation based on default-en.xml r64 (Shareaza 2.2.0.2) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2419,8 +2419,8 @@
 	<tip id="ID_SEARCH_STOP" message="このウィンドウでの検索結果の受信を停止します"/>
 	<tip id="ID_SEARCHMONITOR_CLEAR" message="検索モニタバッファをクリアします"/>
 	<tip id="ID_SEARCHMONITOR_PAUSE" message="検索モニタリングを一時停止します"/>
-	<tip id="ID_SECURITY_ADD" message="セキュリィティチェインに新しい規則を追加します..."/>
 	<tip id="ID_SECURITY_BAN" message="このセッションの間、選択したホストをBAN(禁止)します"/>
+	<tip id="ID_SECURITY_ADD" message="セキュリィティチェインに新しい規則を追加します..."/>
 	<tip id="ID_SECURITY_EDIT" message="選択したセキュリィティ規則を編集します..."/>
 	<tip id="ID_SECURITY_EXPORT" message="選択したセキュリティ規則をファイルへエクスポートします..."/>
 	<tip id="ID_SECURITY_IMPORT" message="ファイルからセキュリティ規則をインポートします..."/>
@@ -2430,6 +2430,14 @@
 	<tip id="ID_SECURITY_POLICY_DENY" message="デフォルトセキュリティ方針を全てのホストで許可しないように設定します"/>
 	<tip id="ID_SECURITY_REMOVE" message="選択したセキュリティ規則を削除します"/>
 	<tip id="ID_SECURITY_RESET" message="選択した規則のヒット数をリセットします"/>
+	<tip id="ID_SCHEDULER_ADD" message="セキュリィティチェインに新しい規則を追加します..."/>
+	<tip id="ID_SCHEDULER_EDIT" message="選択したセキュリィティ規則を編集します..."/>
+	<tip id="ID_SCHEDULER_ACTIVATE" message="選択したアップロードをリストからクリアします"/>
+	<tip id="ID_SCHEDULER_DEACTIVATE" message="ネットワークに接続します"/>
+	<tip id="ID_SCHEDULER_EXPORT" message="選択したセキュリティ規則をファイルへエクスポートします..."/>
+	<tip id="ID_SCHEDULER_IMPORT" message="ファイルからセキュリティ規則をインポートします..."/>
+	<tip id="ID_SCHEDULER_REMOVE" message="選択したダウンロードをリストから取り除きます"/>
+	<tip id="ID_SCHEDULER_REMOVE_ALL" message="Delete all scheduled tasks."/>
 	<tip id="ID_SYSTEM_CLEAR" message="ステータスログをクリアします"/>
 	<tip id="ID_SYSTEM_TIMESTAMP" message="各行のタイムスタンプを記録します"/>
 	<tip id="ID_SYSTEM_VERBOSE" message="詳細なシステム稼働ログを表示します"/>
@@ -3045,7 +3053,7 @@
 	<string id="20706" value="ウルトラピアモード 近隣接続 %lu, 共有 %s"/>
 	<string id="20707" value="ネットワークに接続中..."/>
 	<string id="20708" value="ネットワーク未接続です"/>
-	<string id="20710" value="(ソース無し)"/>
+	<string id="20710" value="交流クリア"/>
 	<string id="20711" value="移動できません"/>
 	<string id="20712" value="チョーク済"/>
 	<string id="20713" value="エンキュー"/>
@@ -3071,6 +3079,7 @@
 	<string id="20733" value="ソース"/>
 	<string id="20734" value="ソース"/>
 	<string id="20735" value="ソース"/>
+	<string id="20736" value="(ソース無し)"/>
 	<string id="20740" value="TigerTree"/>
 	<string id="20741" value="Torrent"/>
 	<string id="20742" value="トラッカーダウン"/>
@@ -4380,9 +4389,9 @@
 		<column from="Address" to="アドレス"/>
 		<column from="Port" to="ポート"/>
 		<column from="Time" to="時間"/>
-		<column from="Packets" to="パケット"/>
-		<column from="Bandwidth" to="帯域幅"/>
+		<column from="Traffic" to="帯域幅"/>
 		<column from="Total" to="合計"/>
+		<column from="Packets" to="パケット"/>
 		<column from="Flow" to="フロー"/>
 		<column from="Leaves" to="リーフ"/>
 		<column from="Mode" to="モード"/>
@@ -4458,7 +4467,7 @@
 	<list name="CUploadQueueList">
 		<column from="Name" to="名前"/>
 		<column from="Criteria" to="評価基準"/>
-		<column from="Bandwidth" to="帯域幅"/>
+		<column from="Minimum" to="帯域幅"/>
 		<column from="Transfers" to="転送"/>
 		<column from="Order" to="順番"/>
 	</list>

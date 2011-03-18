@@ -1,7 +1,7 @@
 //
 // CtrlHomePanel.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -239,7 +239,7 @@ void CHomeConnectionBox::Update()
 	CSingleLock pLock( &Network.m_pSection );
 	if ( ! pLock.Lock( 50 ) ) return;
 
-	int nCount[4][4] = {};
+	int nCount[ PROTOCOL_LAST ][ 4 ] = {};
 	int nTotal = 0;
 	CString str;
 
@@ -265,7 +265,7 @@ void CHomeConnectionBox::Update()
 	m_pDocument->ShowGroup( 1, ! bConnected );
 	m_pDocument->ShowGroup( 2, bConnected );
 
-	const bool* pEnable[4] =
+	const bool* pEnable[ PROTOCOL_LAST ] =
 	{
 		NULL,
 		&Settings.Gnutella1.EnableToday,
@@ -428,6 +428,10 @@ void CHomeLibraryBox::OnSkinChange()
 	SetDocument( m_pDocument );
 
 	Update();
+
+	// Update Dropshadow	(Note: Caused app freeze when allowing hovered item during skin change)
+	m_wndTip.DestroyWindow();
+	m_wndTip.Create( this, &Settings.Interface.TipLibrary );
 }
 
 void CHomeLibraryBox::Update()
@@ -601,8 +605,8 @@ void CHomeLibraryBox::OnPaint()
 	rcIcon.SetRect( 4, rcClient.top, 4 + 16, rcClient.top + 16 );
 	rcText.SetRect( rcIcon.right, rcIcon.top, rcClient.right - 4, rcIcon.bottom );
 
-	dc.SetBkMode( OPAQUE );	// ToDo: Transparent for skinning
-	dc.SetBkColor( Colors.m_crRichdocBack );	// ToDo: m_crTaskBoxClient
+	dc.SetBkMode( OPAQUE );		// ToDo: Transparent for skinning
+	dc.SetBkColor( Colors.m_crRichdocBack );	// ToDo: m_crTaskBoxClient ?
 	dc.SetTextColor( Colors.m_crTextLink );
 
 	CFont* pOldFont = (CFont*)dc.SelectObject( &m_pFont );
@@ -611,7 +615,7 @@ void CHomeLibraryBox::OnPaint()
 	{
 		Item* pItem = m_pList.GetAt( nItem );
 
-		ShellIcons.Draw( &dc, pItem->m_nIcon16, 16, rcIcon.left, rcIcon.top, Colors.m_crRichdocBack );	// ToDo: m_crTaskBoxClient
+		ShellIcons.Draw( &dc, pItem->m_nIcon16, 16, rcIcon.left, rcIcon.top, Colors.m_crRichdocBack );	// ToDo: m_crTaskBoxClient ?
 
 		CString str = pItem->m_sText;
 
@@ -625,8 +629,7 @@ void CHomeLibraryBox::OnPaint()
 		}
 
 		dc.SetTextColor( m_pHover == pItem ? Colors.m_crTextLinkHot : Colors.m_crTextLink );
-		dc.ExtTextOut( rcText.left + 4, rcText.top + 2, ETO_CLIPPED|ETO_OPAQUE,
-			&rcText, str, NULL );
+		dc.ExtTextOut( rcText.left + 4, rcText.top + 2, ETO_CLIPPED|ETO_OPAQUE, &rcText, str, NULL );
 
 		dc.ExcludeClipRect( &rcIcon );
 		dc.ExcludeClipRect( &rcText );
@@ -636,7 +639,7 @@ void CHomeLibraryBox::OnPaint()
 	}
 
 	rcClient.top = 0;
-	dc.FillSolidRect( &rcClient, Colors.m_crRichdocBack );	// ToDo: m_crTaskBoxClient
+	dc.FillSolidRect( &rcClient, Colors.m_crRichdocBack );	// ToDo: m_crTaskBoxClient ?
 	dc.SelectObject( pOldFont );
 }
 
@@ -671,7 +674,7 @@ BOOL CHomeLibraryBox::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 
 	Item* pItem = HitTest( point );
 
-	if ( pItem != NULL )
+	if ( pItem != NULL && Settings.Interface.TipLibrary && ! Skin.m_bSkinChanging )		// App freeze workaround
 		m_wndTip.Show( pItem->m_nIndex );
 	else
 		m_wndTip.Hide();
@@ -824,6 +827,10 @@ void CHomeDownloadsBox::OnSkinChange()
 	GetView().SetDocument( m_pDocument );
 
 	Update();
+
+	// Update Dropshadow
+	m_wndTip.DestroyWindow();
+	m_wndTip.Create( this, &Settings.Interface.TipDownloads );
 }
 
 void CHomeDownloadsBox::Update()
@@ -960,7 +967,7 @@ void CHomeDownloadsBox::Update()
 	{
 		str = Settings.SmartVolume( Statistics.Today.Downloads.Volume, KiloBytes );
 		m_pdDownloadedVolume->SetText( str );
-		if ( Statistics.Last.Bandwidth.Incoming > 120 )	// More activity than idle connection
+		if ( Statistics.Last.Bandwidth.Incoming > 120 )		// More activity than idle connection
 			GetView().Invalidate();
 	}
 

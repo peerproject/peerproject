@@ -1,7 +1,7 @@
 //
 // DCPacket.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2010
+// This file is part of PeerProject (peerproject.org) © 2010-2011
 // Portions copyright Shareaza Development Team, 2010.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -41,12 +41,28 @@ CDCPacket::~CDCPacket()
 {
 }
 
-void CDCPacket::ToBuffer(CBuffer* pBuffer) const
+void CDCPacket::Reset()
+{
+	CPacket::Reset();
+}
+
+void CDCPacket::ToBuffer(CBuffer* pBuffer, bool /*bTCP*/) const
 {
 	ASSERT( m_pBuffer && m_nLength );
 
 	pBuffer->Add( m_pBuffer, m_nLength );
 }
+
+#ifdef _DEBUG
+
+void CDCPacket::Debug(LPCTSTR pszReason) const
+{
+	CString strOutput;
+	strOutput.Format( L"[DC++] %s ", pszReason );
+	CPacket::Debug( strOutput );
+}
+
+#endif // _DEBUG
 
 BOOL CDCPacket::OnPacket(const SOCKADDR_IN* pHost)
 {
@@ -61,6 +77,16 @@ BOOL CDCPacket::OnPacket(const SOCKADDR_IN* pHost)
 		}
 		return TRUE;
 	}
+#ifdef _DEBUG
+	else
+	{
+		CString tmp;
+		tmp.Format( _T("Unknown packet from %s:%u."),
+			(LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ),
+			htons( pHost->sin_port ) );
+		Debug( tmp );
+	}
+#endif // _DEBUG
 
 	// Unknown packet
 	return FALSE;

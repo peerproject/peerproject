@@ -1,7 +1,7 @@
 //
 // DownloadWithFile.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -269,7 +269,7 @@ DWORD CDownloadWithFile::MoveFile(LPCTSTR pszDestination, LPPROGRESS_ROUTINE lpP
 		return ERROR_FILE_NOT_FOUND;
 
 	const DWORD nCount = m_pFile->GetCount();
-	for( DWORD nIndex = 0; nIndex < nCount; ++nIndex )
+	for ( DWORD nIndex = 0 ; nIndex < nCount ; ++nIndex )
 	{
 		DWORD dwError = m_pFile->Move( nIndex, pszDestination, lpProgressRoutine, lpData );
 
@@ -430,7 +430,7 @@ CString CDownloadWithFile::GetDisplayName() const
 //Fragments::List CDownloadWithFile::GetPossibleFragments(
 //	const Fragments::List& oAvailable, Fragments::Fragment& oLargest)
 //{
-//	if ( !PrepareFile() ) return Fragments::List( oAvailable.limit() );
+//	if ( ! PrepareFile() ) return Fragments::List( oAvailable.limit() );
 //	Fragments::List oPossible( oAvailable );
 //
 //	if ( oAvailable.empty() )
@@ -447,8 +447,8 @@ CString CDownloadWithFile::GetDisplayName() const
 //
 //	oLargest = *oPossible.largest_range();
 //
-//	for ( CDownloadTransfer* pTransfer = GetFirstTransfer();
-//		!oPossible.empty() && pTransfer;
+//	for ( CDownloadTransfer* pTransfer = GetFirstTransfer() ;
+//		! oPossible.empty() && pTransfer ;
 //		pTransfer = pTransfer->m_pDlNext )
 //	{
 //		pTransfer->SubtractRequested( oPossible );
@@ -462,8 +462,8 @@ CString CDownloadWithFile::GetDisplayName() const
 
 //inline DWORD CalcChunkSize(QWORD nSize)
 //{
-//	if ( nSize <= 268435456 ) return 1024 * 1024; // try to keep chunk size reasonably large
-//	DWORD nChunk = DWORD( ( nSize - 1 ) / 256 ), nTemp; // default treeheight of 9
+//	if ( nSize <= 268435456 ) return 1024 * 1024;		// Try to keep chunk size reasonably large
+//	DWORD nChunk = DWORD( ( nSize - 1 ) / 256 ), nTemp;	// Default treeheight of 9
 //	while ( nTemp = nChunk & ( nChunk - 1 ) ) nChunk = nTemp;
 //	return nChunk * 2;
 //}
@@ -472,10 +472,9 @@ CString CDownloadWithFile::GetDisplayName() const
 //{
 //	ASSUME_LOCK( Transfers.m_pSection );
 //
-//	if ( !PrepareFile() ) return NULL;
+//	if ( ! PrepareFile() ) return NULL;
 //
 //	Fragments::Fragment oLargest( SIZE_UNKNOWN, SIZE_UNKNOWN );
-//
 //	Fragments::List oPossible = GetPossibleFragments(
 //		pTransfer->GetSource()->m_oAvailable, oLargest );
 //
@@ -485,11 +484,11 @@ CString CDownloadWithFile::GetDisplayName() const
 //		return FALSE;
 //	}
 //
-//	if ( !oPossible.empty() )
+//	if ( ! oPossible.empty() )
 //	{
 //		Fragments::List::const_iterator pRandom = oPossible.begin()->begin() == 0
 //			? oPossible.begin() : oPossible.random_range();
-//		//ToDo: Streaming Download and Rarest Piece Selection
+//		// Streaming Download and Rarest Piece Selection?
 //		//	: (Settings.Downloads.NoRandomFragments ? oPossible.begin() : oPossible.random_range());
 //
 //		pTransfer->m_nOffset = pRandom->begin();
@@ -594,7 +593,7 @@ BOOL CDownloadWithFile::IsPositionEmpty(QWORD nOffset)
 //	DWORD nLength2 = 5 * pTransfer->GetAverageSpeed();
 //	if ( nLength2 < nLength )
 //	{
-//		if ( !pTransfer->m_bRecvBackwards )
+//		if ( ! pTransfer->m_bRecvBackwards )
 //			nOffset += nLength - nLength2;
 //		nLength = nLength2;
 //	}
@@ -810,24 +809,22 @@ void CDownloadWithFile::Serialize(CArchive& ar, int nVersion)
 	{
 		ar.WriteCount( m_pFile.get() != NULL );
 
-		// Restore original filename added in nVersion 41
+		// Restore original filename
+		DWORD nIndex = 0;
+		if ( static_cast< CDownload* >( this )->IsTorrent() )
 		{
-			DWORD nIndex = 0;
-			if ( static_cast< CDownload* >( this )->IsTorrent() )
+			CBTInfo& oInfo = static_cast< CDownload* >( this )->m_pTorrent;
+			for ( POSITION pos = oInfo.m_pFiles.GetHeadPosition() ; pos ; ++nIndex )
 			{
-				CBTInfo& oInfo = static_cast< CDownload* >( this )->m_pTorrent;
-				for ( POSITION pos = oInfo.m_pFiles.GetHeadPosition() ; pos ; ++nIndex )
-				{
-					CBTInfo::CBTFile* pBTFile = oInfo.m_pFiles.GetNext( pos );
-					if ( m_pFile->GetName( nIndex ).IsEmpty() )
-						m_pFile->SetName( nIndex, pBTFile->m_sPath );
-				}
-			}
-			else
-			{
+				CBTInfo::CBTFile* pBTFile = oInfo.m_pFiles.GetNext( pos );
 				if ( m_pFile->GetName( nIndex ).IsEmpty() )
-					m_pFile->SetName( nIndex, m_sName );
+					m_pFile->SetName( nIndex, pBTFile->m_sPath );
 			}
+		}
+		else
+		{
+			if ( m_pFile->GetName( nIndex ).IsEmpty() )
+				m_pFile->SetName( nIndex, m_sName );
 		}
 
 		SerializeFile( ar, nVersion );
@@ -838,7 +835,6 @@ void CDownloadWithFile::Serialize(CArchive& ar, int nVersion)
 	//	{
 	//		CString strLocalName;
 	//		ar >> strLocalName;
-
 	//		if ( ! strLocalName.IsEmpty() )
 	//		{
 	//			if ( ! m_sPath.IsEmpty() )

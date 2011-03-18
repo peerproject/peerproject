@@ -3,7 +3,7 @@
 
 <!-- PeerProject Arabic Language Skin File -->
 
-<!-- Translation based on default-en.xml r62 -->
+<!-- Translation based on default-en.xml r64 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2497,8 +2497,8 @@
 	<tip id="ID_SEARCH_STOP" message="التوقف عن إستلام النتائج في هذه النافذة" />
 	<tip id="ID_SEARCHMONITOR_CLEAR" message="مسح المخزون المؤقت لمراقب البحث" />
 	<tip id="ID_SEARCHMONITOR_PAUSE" message="إيقاف مراقب البحث مؤقتا" />
-	<tip id="ID_SECURITY_ADD" message="إضافة قاعدة جديدة إلى سلسلة الأمان..." />
 	<tip id="ID_SECURITY_BAN" message="حظر المضيف المحدد لمدة هذه الجلسة" />
+	<tip id="ID_SECURITY_ADD" message="إضافة قاعدة جديدة إلى سلسلة الأمان..." />
 	<tip id="ID_SECURITY_EDIT" message="تحرير قاعدة الأمان المحددة..." />
 	<tip id="ID_SECURITY_EXPORT" message="تصدير قواعد الأمان المحددة إلى ملف..." />
 	<tip id="ID_SECURITY_IMPORT" message="إستيراد قواعد الأمان المحددة من ملف..." />
@@ -2508,6 +2508,14 @@
 	<tip id="ID_SECURITY_POLICY_DENY" message="وضع نهج الأمان الإفتراضي لحظر كافة المضيفين" />
 	<tip id="ID_SECURITY_REMOVE" message="إزالة قواعد الأمان المحددة" />
 	<tip id="ID_SECURITY_RESET" message="إستعادة عدد الضربات مع القواعد المحددة" />
+	<tip id="ID_SCHEDULER_ADD" message="إضافة قاعدة جديدة إلى سلسلة الأمان..." />
+	<tip id="ID_SCHEDULER_EDIT" message="تحرير قاعدة الأمان المحددة..." />
+	<tip id="ID_SCHEDULER_ACTIVATE" message="مسح عمليات الرفع المحددة من القائمة" />
+	<tip id="ID_SCHEDULER_DEACTIVATE" message="الإتصال بالشبكات المحددة" />
+	<tip id="ID_SCHEDULER_EXPORT" message="تصدير قواعد الأمان المحددة إلى ملف..." />
+	<tip id="ID_SCHEDULER_IMPORT" message="إستيراد قواعد الأمان المحددة من ملف..." />
+	<tip id="ID_SCHEDULER_REMOVE" message="إزالة التحميل(ات) المحددة من القائمة" />
+	<tip id="ID_SCHEDULER_REMOVE_ALL" message="Removes all scheduled tasks." />
 	<tip id="ID_SYSTEM_CLEAR" message="مسح سجل الحالة" />
 	<tip id="ID_SYSTEM_TIMESTAMP" message="تسجيل طابع الوقت لكل سطر" />
 	<tip id="ID_SYSTEM_VERBOSE" message="عرض سجل تفصيلي عن نشاط النظام" />
@@ -2615,26 +2623,26 @@
 	<string id="WINDOW_MEDIA" value="Media Player" />
 	<string id="WINDOW_HELP" value="تعليمات PeerProject" />
 	<string id="20001" value="حسنا" />
-	<string id="20002" value="No" />
+	<string id="20002" value="لا" />
 	<string id="20003" value="حسنا"/>
 	<string id="20004" value="إلغاء الأمر"/>
 	<string id="20005" value="&amp;Back" />
 	<string id="20006" value="&amp;Next" />
 	<string id="20008" value="Close" />
-	<string id="20009" value="of" />	<!-- "1 of 10" -->
+	<string id="20009" value="/" />	<!-- "1 of 10" -->
 	<string id="20010" value="All" />
 	<string id="20011" value="تلقائيا" />
-	<string id="20012" value="Custom" />
+	<string id="20012" value="مخصص" />
 	<string id="20013" value="Default" />
 	<string id="20014" value="Finish" />
-	<string id="20050" value="Every Day" />
-	<string id="20051" value="Monday" />
-	<string id="20052" value="Tuesday" />
-	<string id="20053" value="Wednesday" />
-	<string id="20054" value="Thursday" />
-	<string id="20055" value="Friday" />
-	<string id="20056" value="Saturday" />
-	<string id="20057" value="Sunday" />
+	<string id="20050" value="كل يوم" />
+	<string id="20051" value="الاثنين" />
+	<string id="20052" value="الثلاثاء" />
+	<string id="20053" value="الأربعاء" />
+	<string id="20054" value="الخميس" />
+	<string id="20055" value="الجمعة" />
+	<string id="20056" value="السبت" />
+	<string id="20057" value="الأحد" />
 	<string id="20060" value="(No Rating)" />
 	<string id="20061" value="Fake / Corrupt" />
 	<string id="20062" value="Poor" />
@@ -3146,7 +3154,7 @@
 	<string id="20706" value="Ultrapeer mode with %lu neighbours.  %s in local library." />
 	<string id="20707" value="Connecting to the network..." />
 	<string id="20708" value="Not connected to the network." />
-	<string id="20710" value="(No Sources)"/>
+	<string id="20710" value="ازالة"/>
 	<string id="20711" value="لاتستطيع النقل" />
 	<string id="20712" value="Choked"/>
 	<string id="20713" value="Enqueue" />
@@ -3172,6 +3180,7 @@
 	<string id="20733" value="sources"/> <!-- many -->
 	<string id="20734" value="sources"/> <!-- few  2-4 -->
 	<string id="20735" value="sources"/> <!-- ones 21,31,... -->
+	<string id="20736" value="(No Sources)"/>
 	<string id="20740" value="TigerTree" />
 	<string id="20741" value="Torrent" />
 	<string id="20742" value="Tracker Down" />
@@ -3396,7 +3405,7 @@
 		<control caption="فرز رسائل المحادثة من الرسائل العشوائية" />
 		<control caption="حساسية عبارات المحادثة" />
 	</dialog>
-	<dialog name="CIRCSettingsPage" cookie="BuBuBuBuStEdStStEdCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStEdStEdStEd" caption="محادثة">
+	<dialog name="CIRCSettingsPage" cookie="BuBuBuBuStEdmsStStEdmsCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStCoStEdStEd" caption="محادثة">
 		<control caption="خيارات ال_تابع :" />
 		<control caption="إظهار تكامل المحادثة" />
 		<control caption="إظهار طابع الوقت" />
@@ -4509,9 +4518,9 @@
 		<column from="Address" to="العنوان" />
 		<column from="Port" to="المنفذ" />
 		<column from="Time" to="الوقت" />
-		<column from="Packets" to="الحزم" />
-		<column from="Bandwidth" to="نطاق العرض" />
+		<column from="Traffic" to="نطاق العرض" />
 		<column from="Total" to="المجموع" />
+		<column from="Packets" to="الحزم" />
 		<column from="Flow" to="التدفق" />
 		<column from="Leaves" to="الفروع" />
 		<column from="Mode" to="النمط" />
@@ -4587,7 +4596,7 @@
 	<list name="CUploadQueueList">
 		<column from="Name" to="الاسم" />
 		<column from="Criteria" to="المعيار" />
-		<column from="Bandwidth" to="نطاق العرض" />
+		<column from="Minimum" to="نطاق العرض" />
 		<column from="Transfers" to="النقل" />
 		<column from="Order" to="ترتيب" />
 	</list>

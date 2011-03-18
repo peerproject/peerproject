@@ -53,9 +53,9 @@ CIRCSettingsPage::CIRCSettingsPage() : CSettingsPage(CIRCSettingsPage::IDD)
 {
 }
 
-CIRCSettingsPage::~CIRCSettingsPage()
-{
-}
+//CIRCSettingsPage::~CIRCSettingsPage()
+//{
+//}
 
 void CIRCSettingsPage::DoDataExchange(CDataExchange* pDX)
 {
@@ -70,6 +70,7 @@ void CIRCSettingsPage::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_IRC_COLOR_TOPIC, m_wndColorTopic);
 	DDX_Control(pDX, IDC_IRC_FLOODLIMIT_SPIN, m_wndFloodLimitSpin);
 	DDX_Control(pDX, IDC_IRC_FONTSIZE_SPIN, m_wndFontSizeSpin);
+	DDX_Control(pDX, IDC_IRC_SERVERNAME, m_wndServerName);
 	DDX_Check(pDX, IDC_IRC_SHOW, m_bShow);
 	DDX_Check(pDX, IDC_IRC_FLOODENABLE, m_bFloodEnable);
 	DDX_Check(pDX, IDC_IRC_TIMESTAMP, m_bTimestamp);
@@ -110,6 +111,11 @@ BOOL CIRCSettingsPage::OnInitDialog()
 		Settings.IRC.Nick = m_sNick = strNick;
 	else
 		m_sNick = Settings.IRC.Nick;
+
+	// ToDo: Save last few servers
+	if ( Settings.IRC.ServerName != _T("irc.p2pchat.net") )
+		m_wndServerName.AddString( Settings.IRC.ServerName );
+	m_wndServerName.AddString( _T("irc.p2pchat.net") );
 
 	m_sAlternate = Settings.IRC.Alternate;
 	m_sRealName = Settings.IRC.RealName;

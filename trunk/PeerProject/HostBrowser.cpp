@@ -1,7 +1,7 @@
 //
 // HostBrowser.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -89,6 +89,23 @@ BOOL CHostBrowser::Browse()
 	CQuickLock oTransfersLock( Transfers.m_pSection );
 
 	m_sAddress = inet_ntoa( m_pAddress );
+
+	switch ( m_nProtocol )
+	{
+		case PROTOCOL_G2:
+			Settings.Gnutella2.EnableToday = true;
+			break;
+		case PROTOCOL_G1:
+			Settings.Gnutella1.EnableToday = true;
+			break;
+		case PROTOCOL_ED2K:
+			Settings.eDonkey.EnableToday = true;
+			break;
+		case PROTOCOL_DC:
+			Settings.DC.EnableToday = true;
+			break;
+	//	default: ?
+	}
 
 	// ED2K Clients have their connection controlled by ED2KClient.
 	// (One connection used for many things)
@@ -590,7 +607,7 @@ BOOL CHostBrowser::ReadContent()
 			if ( m_bDeflate )
 			{
 				// Try to decompress the stream
-				if( ! pInput->InflateStreamTo( *m_pBuffer, m_pInflate ) )
+				if ( ! pInput->InflateStreamTo( *m_pBuffer, m_pInflate ) )
 				{
 					Stop();			// Clean up
 					return FALSE;	// Report failure

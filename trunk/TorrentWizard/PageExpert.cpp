@@ -1,7 +1,7 @@
 //
 // PageExpert.cpp
 //
-// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008
+// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008-2011
 // Portions Copyright Shareaza Development Team, 2007.
 //
 // PeerProject Torrent Wizard is free software; you can redistribute it
@@ -116,7 +116,7 @@ BOOL CExpertPage::OnInitDialog()
 		CString strName, strURL;
 		strName.Format( _T("%.3i.Path"), nItem + 1 );
 		strURL = theApp.GetProfileString( _T("Folders"), strName );
-		if ( strURL.GetLength() )
+		if ( ! strURL.IsEmpty() )
 			m_wndFolders.AddString( strURL );
 	}
 
@@ -358,8 +358,8 @@ void CExpertPage::OnDropFiles( HDROP hDropInfo )
 
 	CString sFilename;
 
-	int nFiles = DragQueryFile( hDropInfo, (UINT)-1, NULL, 0 );
-	for ( int i = 0; i < nFiles; i++ )
+	const int nFiles = DragQueryFile( hDropInfo, (UINT)-1, NULL, 0 );
+	for ( int i = 0 ; i < nFiles ; i++ )
 	{
 		LPWSTR pszFile = sFilename.GetBuffer( _MAX_PATH );
 		DragQueryFile( hDropInfo, i, pszFile, _MAX_PATH );
@@ -408,28 +408,33 @@ void CExpertPage::OnAddFile()
 		OFN_HIDEREADONLY|OFN_ALLOWMULTISELECT|OFN_ENABLESIZING,
 		_T("All Files|*.*||"), this );
 
-	TCHAR szFiles[81920] = { 0 };
+	const DWORD nFilesSize( 81920 );
+	LPTSTR szFiles = new TCHAR [ nFilesSize ];
+	ZeroMemory( szFiles, nFilesSize * sizeof( TCHAR ) );
 	dlg.m_ofn.lpstrFile	= szFiles;
-	dlg.m_ofn.nMaxFile	= 81920;
+	dlg.m_ofn.nMaxFile	= nFilesSize;
 
-	if ( dlg.DoModal() != IDOK ) return;
-
-	CWaitCursor wc;
-	CString strFolder	= CString( szFiles );
-	LPCTSTR pszFile		= szFiles + strFolder.GetLength() + 1;
-
-	if ( *pszFile )
+	if ( dlg.DoModal() == IDOK )
 	{
-		for ( strFolder += '\\' ; *pszFile ; )
+		CWaitCursor wc;
+		CString strFolder	= szFiles;
+		LPCTSTR pszFile		= szFiles + strFolder.GetLength() + 1;
+
+		if ( *pszFile )
 		{
-			AddFile( strFolder + pszFile );
-			pszFile += _tcslen( pszFile ) + 1;
+			for ( strFolder += '\\' ; *pszFile ; )
+			{
+				AddFile( strFolder + pszFile );
+				pszFile += _tcslen( pszFile ) + 1;
+			}
+		}
+		else
+		{
+			AddFile( strFolder );
 		}
 	}
-	else
-	{
-		AddFile( strFolder );
-	}
+
+	delete [] szFiles;
 }
 
 void CExpertPage::OnRemoveFile()
@@ -484,7 +489,7 @@ void CExpertPage::AddFile(LPCTSTR pszFile)
 	LVFINDINFO lvInfo;
 	lvInfo.flags = LVFI_STRING;
 	lvInfo.psz = pszFile;
-	if( m_wndList.FindItem( &lvInfo, -1 ) != -1 )
+	if ( m_wndList.FindItem( &lvInfo, -1 ) != -1 )
 	{
 		//CString strMessage;
 		//strMessage.Format( _T("Duplicate filename denied:  %s"), pszFile );
@@ -513,7 +518,7 @@ void CExpertPage::AddFile(LPCTSTR pszFile)
 		pTemp.Detach();
 	}
 
-	int nItem = m_wndList.InsertItem( LVIF_TEXT|LVIF_IMAGE, m_wndList.GetItemCount(),
+	const int nItem = m_wndList.InsertItem( LVIF_TEXT|LVIF_IMAGE, m_wndList.GetItemCount(),
 		pszFile, 0, 0, pInfo.iIcon, NULL );
 
 	CString sBytes;
@@ -554,12 +559,16 @@ void CExpertPage::AddFolder(LPCTSTR pszPath, int nRecursive)
 				if ( nRecursive == 0 )
 				{
 					UINT nResp = AfxMessageBox( IDS_PACKAGE_RECURSIVE, MB_ICONQUESTION|MB_YESNOCANCEL );
-					if ( nResp == IDYES ) nRecursive = 2;
-					else if ( nResp == IDNO ) nRecursive = 1;
-					else break;
+					if ( nResp == IDYES )
+						nRecursive = 2;
+					else if ( nResp == IDNO )
+						nRecursive = 1;
+					else
+						break;
 				}
 
-				if ( nRecursive == 2 ) AddFolder( strPath, 2 );
+				if ( nRecursive == 2 )
+					AddFolder( strPath, 2 );
 			}
 			else
 			{

@@ -496,22 +496,35 @@ QWORD CFragmentedFile::GetCompleted(DWORD nIndex) const
 
 int CFragmentedFile::SelectFile(CSingleLock* pLock) const
 {
-	int nCount = GetCount();
+	const int nCount = GetCount();
+
 	if ( nCount == 1 )
+		return 0;	// Single file download
+
+	if ( nCount == 2 )
 	{
-		// Single file download
-		return 0;
+		// Special case single file detection (disregard tracker spam)
+		if ( m_oFile[ 1 ].m_nSize < 100 &&
+			StartsWith( m_oFile[ 1 ].m_sName.Mid( m_oFile[ 1 ].m_sName.Find( '\\' ) + 1 ), _T("Torrent downloaded from"), 23 ) )
+			return 0;
+		if ( m_oFile[ 0 ].m_nSize < 100 &&
+			StartsWith( m_oFile[ 0 ].m_sName.Mid( m_oFile[ 0 ].m_sName.Find( '\\' ) + 1 ), _T("Torrent downloaded from"), 23 ) )
+			return 1;
 	}
-	else if ( nCount > 1 )
+
+	if ( nCount > 1 )
 	{
 		CSelectDialog dlg;
 
 		{
 			CQuickLock oLock( m_pSection );
+
 			int index = 0;
 			for ( CVirtualFile::const_iterator i = m_oFile.begin() ; i != m_oFile.end() ; ++i, ++index )
+			{
 				if ( GetCompleted( (*i).m_nOffset, (*i).m_nSize ) > 0 )
 					dlg.Add( (*i).m_sName, index );
+			}
 		}
 
 		if ( pLock ) pLock->Unlock();
@@ -525,11 +538,8 @@ int CFragmentedFile::SelectFile(CSingleLock* pLock) const
 
 		return (int)dlg.Get();
 	}
-	else
-	{
-		// File closed
-		return -1;
-	}
+
+	return -1;		// File closed
 }
 
 //////////////////////////////////////////////////////////////////////

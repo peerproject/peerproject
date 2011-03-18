@@ -1,7 +1,7 @@
 //
 // XML.inl
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -158,14 +158,18 @@ inline int CXMLElement::GetAttributeCount() const
 
 inline POSITION CXMLElement::GetAttributeIterator() const
 {
-	return m_pAttributes.GetStartPosition();
+	ASSERT( m_pAttributes.GetCount() == m_pAttributesInsertion.GetCount() );
+//	return m_pAttributes.GetStartPosition();				// Legacy unordered
+	return m_pAttributesInsertion.GetHeadPosition();		// Track output order
 }
 
 inline CXMLAttribute* CXMLElement::GetNextAttribute(POSITION& pos) const
 {
 	CXMLAttribute* pAttribute = NULL;
 	CString strName;
-	m_pAttributes.GetNextAssoc( pos, strName, pAttribute );
+//	m_pAttributes.GetNextAssoc( pos, strName, pAttribute );						// Legacy unordered
+	m_pAttributes.Lookup( m_pAttributesInsertion.GetNext( pos ), pAttribute );	// Track output order
+
 	return pAttribute;
 }
 
@@ -190,11 +194,20 @@ inline CString CXMLElement::GetAttributeValue(LPCTSTR pszName, LPCTSTR pszDefaul
 
 inline void CXMLElement::RemoveAttribute(CXMLAttribute* pAttribute)
 {
-	m_pAttributes.RemoveKey( CString( pAttribute->m_sName ).MakeLower() );
+	m_pAttributes.RemoveKey( pAttribute->m_sName.MakeLower() );
+
+	if ( m_pAttributesInsertion.GetCount() )		// Tracking output order
+		m_pAttributesInsertion.RemoveAt( m_pAttributesInsertion.Find( pAttribute->m_sName.MakeLower() ) );
 }
 
 inline void CXMLElement::DeleteAttribute(LPCTSTR pszName)
 {
 	CXMLAttribute* pAttribute = GetAttribute( pszName );
-	if ( pAttribute ) pAttribute->Delete();
+	if ( pAttribute )
+	{
+		pAttribute->Delete();
+
+		if ( m_pAttributesInsertion.GetCount() )	// Tracking output order
+			m_pAttributesInsertion.RemoveAt( m_pAttributesInsertion.Find( pAttribute->m_sName.MakeLower() ) );
+	}
 }

@@ -1,7 +1,7 @@
 //
 // PeerProjectURL.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -164,11 +164,8 @@ BOOL CPeerProjectURL::Parse(const CString& sText, CList< CString >& pURLs, BOOL 
 
 BOOL CPeerProjectURL::Parse(LPCTSTR pszURL, BOOL bResolve)
 {
-	// Parse "good" URL
-	if ( ParseRoot( pszURL, bResolve ) )
-		return TRUE;
-	else // Parse "bad" URL
-		return ParseRoot( URLDecode( pszURL ), bResolve );
+	// Parse "good" URL, and retry "bad" URL
+	return ( ParseRoot( pszURL, bResolve ) || ParseRoot( URLDecode( pszURL ), bResolve ) );
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -176,91 +173,193 @@ BOOL CPeerProjectURL::Parse(LPCTSTR pszURL, BOOL bResolve)
 
 BOOL CPeerProjectURL::ParseRoot(LPCTSTR pszURL, BOOL bResolve)
 {
-	if ( ParseHTTP( pszURL, bResolve ) )		// http://
-		return TRUE;
+	CString strRoot( pszURL );
+	const int nRoot = strRoot.Find( _T(":") ) + 1;
+	if ( nRoot < 2 ) return FALSE;
+	strRoot = strRoot.Left( nRoot ).MakeLower();
 
-	if ( ParseFTP( pszURL, bResolve ) ) 		// ftp://
-		return TRUE;
+	SwitchMap( Root )
+	{
+		Root[ _T("http:") ] 	= 'h';
+		Root[ _T("https:") ]	= 'h';
+		Root[ _T("ftp:") ]		= 'f';
+		Root[ _T("btc:") ]		= 'b';
+		Root[ _T("magnet:") ]	= 'm';
+		Root[ _T("ed2k:") ]		= 'e';
+		Root[ _T("ed2kftp:") ]	= 'k';
+		Root[ _T("peerproject:") ] = 'g';
+		Root[ _T("shareaza:") ]	= 'g';
+		Root[ _T("gnutella:") ]	= 'g';
+		Root[ _T("gnet:") ] 	= 'g';
+		Root[ _T("g2:") ]		= '2';
+		Root[ _T("gwc:") ]		= 'u';
+		Root[ _T("uhc:") ]		= 'u';
+		Root[ _T("ukhl:") ]		= 'u';
+		Root[ _T("gnutella1:") ] = 'u';
+		Root[ _T("gnutella2:") ] = 'u';
+		Root[ _T("mp2p:") ]		= 'p';
+		Root[ _T("dchub:") ]	= 'd';
+		Root[ _T("dcfile:") ]	= 'c';
+		Root[ _T("foxy:") ]		= 'x';
+	//	Root[ _T("irc:") ]		= 'i';
+	}
 
-	if ( ParseED2KFTP( pszURL, bResolve ) ) 	// ed2kftp://
-		return TRUE;
-
-	if ( ParseBTC( pszURL, bResolve ) ) 		// btc://
-		return TRUE;
-
-
-	if ( _tcsnicmp( pszURL, _T("magnet:?"), 8 ) == 0 )
+	switch( Root[ strRoot ] )
 	{
-		pszURL += 8;
-		return ParseMagnet( pszURL );
-	}
-	else if ( _tcsnicmp( pszURL, _T("magnet:"), 7 ) == 0 )
-	{
-		pszURL += 7;
+	case 'h':	// http:// https://
+		return ParseHTTP( pszURL, bResolve );
+	case 'f':	// ftp://
+		return ParseFTP( pszURL, bResolve );
+	case 'm':	// magnet:?
+		if ( ! _tcsnicmp( pszURL, _T("magnet:?"), 8 ) )
+		{
+			pszURL += 8;
+			return ParseMagnet( pszURL );
+		}
+		pszURL += nRoot;
 		return ParsePeerProject( pszURL );
-	}
-	else if ( _tcsnicmp( pszURL, _T("ed2k:"), 5 ) == 0 )
-	{
-		SkipSlashes( pszURL, 5 );
-		return ParseDonkey( pszURL );
-	}
-	else if (	_tcsnicmp( pszURL, _T("shareaza:"), 9 ) == 0 ||
-				_tcsnicmp( pszURL, _T("gnutella:"), 9 ) == 0 )
-	{
-		SkipSlashes( pszURL, 9 );
+	case 'g':	// peerproject: shareaza: gnutella: gnet:
+		SkipSlashes( pszURL, nRoot );
 		return ParsePeerProject( pszURL );
-	}
-	else if ( _tcsnicmp( pszURL, _T("peerproject:"), 12 ) == 0 )	// APP_LENGTH LETTERCOUNT
-	{
-		SkipSlashes( pszURL, 12 );
-		return ParsePeerProject( pszURL );
-	}
-	else if ( _tcsnicmp( pszURL, _T("gwc:"), 4 ) == 0 )
-	{
-		CString strTemp;
-		strTemp.Format( _T("peerproject:%s"), pszURL );
-		pszURL = strTemp;
-		SkipSlashes( pszURL, 12 );
-		return ParsePeerProject( pszURL );
-	}
-	else if (	_tcsnicmp( pszURL, _T("uhc:"), 4 ) == 0 ||
-				_tcsnicmp( pszURL, _T("ukhl:"), 5 ) == 0 ||
-				_tcsnicmp( pszURL, _T("gnutella1:"), 10 ) == 0 ||
-				_tcsnicmp( pszURL, _T("gnutella2:"), 10 ) == 0 )
-	{
-		return ParsePeerProject( pszURL );
-	}
-	else if ( _tcsnicmp( pszURL, _T("g2:"), 3 ) == 0 )
-	{
-		SkipSlashes( pszURL, 3 );
-		if ( _tcsnicmp( pszURL, _T("browse:"), 7 ) == 0 || ! ParseMagnet( pszURL ) )
+	case '2':	// g2:
+		SkipSlashes( pszURL, nRoot );
+		if ( ! _tcsnicmp( pszURL, _T("//"), 2 ) )	// Check malformed assumption
+			SkipSlashes( pszURL, 2 );
+		if ( ! _tcsnicmp( pszURL, _T("browse:"), 7 ) ||
+			 ! _tcsnicmp( pszURL, _T("host:"), 5 ) ||
+			 ! _tcsnicmp( pszURL, _T("chat:"), 5 ) ||
+			 ! _tcsnicmp( pszURL, _T("search:"), 7 ) ||
+			 ! ParseMagnet( pszURL ) )
 			return ParsePeerProject( pszURL );
-		return TRUE;
-	}
-	else if ( _tcsnicmp( pszURL, _T("gnet:"), 5 ) == 0 )
-	{
-		SkipSlashes( pszURL, 5 );
+		return true;	// Magnet succeeded (?)
+	case 'u':	// gwc: uhc: ukhl: gnutella1:host: gnutella2:host:
 		return ParsePeerProject( pszURL );
-	}
-	else if ( _tcsnicmp( pszURL, _T("mp2p:"), 5 ) == 0 )
-	{
-		SkipSlashes( pszURL, 5 );
+	case 'k':	// ed2kftp://
+		return ParseED2KFTP( pszURL, bResolve );
+	case 'e':	// ed2k:
+		SkipSlashes( pszURL, nRoot );
+		return ParseDonkey( pszURL );
+	case 'b':	// btc://
+		return ParseBTC( pszURL, bResolve );
+	case 'p':	// mp2p:
+		SkipSlashes( pszURL, nRoot );
 		return ParsePiolet( pszURL );
-	}
-	else if ( _tcsnicmp( pszURL, _T("foxy:"), 5 ) == 0 )	// Foxy
-	{
-		pszURL += 5;
+	case 'd':	// dchub://1.2.3.4:411
+		m_nProtocol	= PROTOCOL_DC;
+		m_nPort = DC_DEFAULT_PORT;
+		SkipSlashes( pszURL, nRoot + 2 );
+		return ParsePeerProjectHost( pszURL, FALSE );
+//	case 'c':	// dcfile://
+//		return ParseDC( pszURL, FALSE );
+	case 'x':	// foxy://download?
+		pszURL += nRoot;
 		if ( ! _tcsnicmp( pszURL, _T("//download?"), 11 ) )			// Original
-		{
 			pszURL += 11;
-			return ParseMagnet( pszURL );
-		}
 		else if ( ! _tcsnicmp( pszURL, _T("//download/?"), 12 ) )	// "Fixed" by IE
-		{
 			pszURL += 12;
-			return ParseMagnet( pszURL );
-		}
+		else
+			return FALSE;	// Unknown
+		return ParseMagnet( pszURL );
+//	case 'i':	// irc://irc.server:port/channel?key
+//		return FALSE;	// ToDo: IRC link support
+//	default:
+//		return FALSE;	// Unknown? See http://en.wikipedia.org/wiki/URI_scheme
 	}
+
+// Legacy method for verification, to be deleted
+//	if ( ! _tcsnicmp( pszURL, _T("http://"), 7 ) ||
+//		 ! _tcsnicmp( pszURL, _T("https://"), 8 ) )
+//		return ParseHTTP( pszURL, bResolve );
+//	if ( ! _tcsnicmp( pszURL, _T("ftp://"), 6 ) )
+//		return ParseFTP( pszURL, bResolve );
+//	if ( ! _tcsnicmp( pszURL, _T("ed2kftp://"), 10 ) )
+//		return ParseED2KFTP( pszURL, bResolve );
+//	if ( ! _tcsnicmp( pszURL, _T("btc://"), 6 ) )
+//		return ParseBTC( pszURL, bResolve );
+//
+//	if ( _tcsnicmp( pszURL, _T("magnet:?"), 8 ) == 0 )
+//	{
+//		pszURL += 8;
+//		return ParseMagnet( pszURL );
+//	}
+//	else if ( _tcsnicmp( pszURL, _T("magnet:"), 7 ) == 0 )
+//	{
+//		pszURL += 7;
+//		return ParsePeerProject( pszURL );
+//	}
+//	else if ( _tcsnicmp( pszURL, _T("ed2k:"), 5 ) == 0 )
+//	{
+//		SkipSlashes( pszURL, 5 );
+//		return ParseDonkey( pszURL );
+//	}
+//	else if ( _tcsnicmp( pszURL, _T("shareaza:"), 9 ) == 0 ||
+//			  _tcsnicmp( pszURL, _T("gnutella:"), 9 ) == 0 )
+//	{
+//		SkipSlashes( pszURL, 9 );
+//		return ParsePeerProject( pszURL );
+//	}
+//	else if ( _tcsnicmp( pszURL, _T("peerproject:"), 12 ) == 0 )	// APP_LENGTH LETTERCOUNT
+//	{
+//		SkipSlashes( pszURL, 12 );
+//		return ParsePeerProject( pszURL );
+//	}
+//	else if ( _tcsnicmp( pszURL, _T("gwc:"), 4 ) == 0 )
+//	{
+//		CString strTemp;
+//		strTemp.Format( _T("peerproject:%s"), pszURL );
+//		pszURL = strTemp;
+//		SkipSlashes( pszURL, 12 );
+//		return ParsePeerProject( pszURL );
+//	}
+//	else if ( _tcsnicmp( pszURL, _T("uhc:"), 4 ) == 0 ||
+//			  _tcsnicmp( pszURL, _T("ukhl:"), 5 ) == 0 ||
+//			  _tcsnicmp( pszURL, _T("gnutella1:"), 10 ) == 0 ||
+//			  _tcsnicmp( pszURL, _T("gnutella2:"), 10 ) == 0 )
+//	{
+//		return ParsePeerProject( pszURL );
+//	}
+//	else if ( _tcsnicmp( pszURL, _T("g2:"), 3 ) == 0 )
+//	{
+//		SkipSlashes( pszURL, 3 );
+//		if ( _tcsnicmp( pszURL, _T("browse:"), 7 ) == 0 || ! ParseMagnet( pszURL ) )
+//			return ParsePeerProject( pszURL );
+//		return TRUE;
+//	}
+//	else if ( _tcsnicmp( pszURL, _T("gnet:"), 5 ) == 0 )
+//	{
+//		SkipSlashes( pszURL, 5 );
+//		return ParsePeerProject( pszURL );
+//	}
+//	else if ( _tcsnicmp( pszURL, _T("mp2p:"), 5 ) == 0 )
+//	{
+//		SkipSlashes( pszURL, 5 );
+//		return ParsePiolet( pszURL );
+//	}
+//	else if ( _tcsnicmp( pszURL, _T("foxy:"), 5 ) == 0 )	// Foxy
+//	{
+//		pszURL += 5;
+//		if ( ! _tcsnicmp( pszURL, _T("//download?"), 11 ) )			// Original
+//		{
+//			pszURL += 11;
+//			return ParseMagnet( pszURL );
+//		}
+//		else if ( ! _tcsnicmp( pszURL, _T("//download/?"), 12 ) )	// "Fixed" by IE
+//		{
+//			pszURL += 12;
+//			return ParseMagnet( pszURL );
+//		}
+//	}
+//	else if ( ! _tcsnicmp( pszURL, _T("dchub://"), 8 ) )	// dchub://1.2.3.4:411
+//	{
+//		SkipSlashes( pszURL, 8 );
+//		m_nPort = DC_DEFAULT_PORT;
+//		m_nProtocol	= PROTOCOL_DC;
+//		return ParsePeerProjectHost( pszURL, FALSE );
+//	}
+//	else if ( ! _tcsnicmp( pszURL, _T("dcfile://"), 8 ) )
+//	{
+//		return ParseDC( pszURL, FALSE );
+//	}
 
 	Clear();
 
@@ -275,7 +374,7 @@ BOOL CPeerProjectURL::ParseHTTP(LPCTSTR pszURL, BOOL bResolve)
 	CString strURL;
 	if ( ! _tcsnicmp( pszURL, _T("http://"), 7 ) )
 		strURL = pszURL + 7;
-	else if ( ! _tcsncmp( pszURL, _T("https://"), 8 ) )		// HTTPS unsupported, but such links may work
+	else if ( ! _tcsncmp( pszURL, _T("https://"), 8 ) )		// HTTPS unsupported, but try such links
 		strURL = pszURL + 8;
 	else
 		return FALSE;
@@ -327,7 +426,7 @@ BOOL CPeerProjectURL::ParseHTTP(LPCTSTR pszURL, BOOL bResolve)
 
 	SOCKADDR_IN saHost;
 
-	BOOL bResult = Network.Resolve( m_sAddress, INTERNET_DEFAULT_HTTP_PORT, &saHost, bResolve );
+	const BOOL bResult = Network.Resolve( m_sAddress, INTERNET_DEFAULT_HTTP_PORT, &saHost, bResolve );
 
 	m_pAddress	= saHost.sin_addr;
 	m_nPort		= htons( saHost.sin_port );
@@ -345,8 +444,7 @@ BOOL CPeerProjectURL::ParseFTP(LPCTSTR pszURL, BOOL bResolve)
 {
 	// URI format:	ftp://[user[:password]@]host[:port][/path]
 
-	if ( _tcsncmp( pszURL, _T("ftp://"), 6 ) != 0 )
-		return FALSE;
+	//if ( _tcsncmp( pszURL, _T("ftp://"), 6 ) != 0 ) return FALSE;
 
 	Clear();
 
@@ -414,7 +512,7 @@ BOOL CPeerProjectURL::ParseFTP(LPCTSTR pszURL, BOOL bResolve)
 
 BOOL CPeerProjectURL::ParseED2KFTP(LPCTSTR pszURL, BOOL bResolve)
 {
-	if ( _tcsnicmp( pszURL, _T("ed2kftp://"), 10 ) != 0 ) return FALSE;
+	//if ( _tcsnicmp( pszURL, _T("ed2kftp://"), 10 ) != 0 ) return FALSE;
 
 	Clear();
 
@@ -471,11 +569,60 @@ BOOL CPeerProjectURL::ParseED2KFTP(LPCTSTR pszURL, BOOL bResolve)
 }
 
 //////////////////////////////////////////////////////////////////////
+// CPeerProjectURL DC
+
+//BOOL CPeerProjectURL::ParseDC(LPCTSTR pszURL, BOOL bResolve)
+//{
+//	Clear();
+//
+//	//if ( _tcsnicmp( pszURL, _T("dcfile://"), 6 ) != 0 ) return FALSE;
+//
+//	CString strURL = pszURL + 9;		// "dcfile://"
+//
+//	int nSlash = strURL.Find( _T('/') );
+//	if ( nSlash < 7 ) return FALSE;
+//
+//	m_sAddress	= strURL.Left( nSlash );
+//	strURL		= strURL.Mid( nSlash + 1 );
+//
+//	nSlash = strURL.Find( _T('/') );
+//	if ( nSlash < 3 ) return FALSE;
+//
+//	m_sLogin	= URLDecode( strURL.Left( nSlash ) );
+//	strURL		= strURL.Mid( nSlash + 1 );
+//
+//	nSlash = strURL.Find( _T('/') );
+//	if ( nSlash != 4 + 39 ) return FALSE;
+//
+//	CString strHash	= strURL.Left( nSlash );
+//	strURL			= strURL.Mid( nSlash + 1 );
+//	strURL.TrimRight( _T("//") );
+//
+//	if ( strHash.Left( 4 ) != _T("TTH:") ) return FALSE;
+//
+//	if ( ! m_oTiger.fromString( strHash.Mid( 4 ) ) ) return FALSE;
+//
+//	m_bSize = _stscanf( strURL, _T("%I64i"), &m_nSize ) == 1;
+//	if ( ! m_bSize ) return FALSE;
+//
+//	SOCKADDR_IN saHost = {};
+//	BOOL bResult = Network.Resolve( m_sAddress, DC_DEFAULT_PORT, &saHost, bResolve );
+//
+//	m_pServerAddress	= saHost.sin_addr;
+//	m_nServerPort		= htons( saHost.sin_port );
+//	m_sURL				= pszURL;
+//	m_nProtocol			= PROTOCOL_DC;
+//	m_nAction			= uriDownload;
+//
+//	return bResult;
+//}
+
+//////////////////////////////////////////////////////////////////////
 // CPeerProjectURL BTC
 
 BOOL CPeerProjectURL::ParseBTC(LPCTSTR pszURL, BOOL bResolve)
 {
-	if ( _tcsnicmp( pszURL, _T("btc://"), 6 ) != 0 ) return FALSE;
+	//if ( _tcsnicmp( pszURL, _T("btc://"), 6 ) != 0 ) return FALSE;
 
 	Clear();
 
@@ -525,12 +672,14 @@ BOOL CPeerProjectURL::ParseMagnet(LPCTSTR pszURL)
 	CString strURL( pszURL );
 	CBTInfo* pTorrent = new CBTInfo();
 
-	for ( strURL += '&' ; strURL.GetLength() ; )
+	// http://en.wikipedia.org/wiki/Magnet_URI_scheme
+
+	for ( strURL += '&' ; ! strURL.IsEmpty() ; )
 	{
-		CString strPart = strURL.SpanExcluding( _T("&") );
+		const CString strPart = strURL.SpanExcluding( _T("&") );
 		strURL = strURL.Mid( strPart.GetLength() + 1 );
 
-		int nEquals = strPart.Find( '=' );
+		const int nEquals = strPart.Find( '=' );
 		if ( nEquals < 0 ) continue;
 
 		CString strKey		= URLDecode( strPart.Left( nEquals ) );
@@ -544,17 +693,19 @@ BOOL CPeerProjectURL::ParseMagnet(LPCTSTR pszURL)
 		if ( _tcsicmp( strKey, _T("xt") ) == 0 ||
 			 _tcsicmp( strKey, _T("xs") ) == 0 ||
 			 _tcsicmp( strKey, _T("as") ) == 0 ||
-			 _tcsicmp( strKey, _T("tr") ) == 0 )
+			 _tcsicmp( strKey, _T("tr") ) == 0 ||
+			 _tcsicmp( strKey, _T("mt") ) == 0 ||
+			 _tcsicmp( strKey, _T("xt.1") ) == 0 )
 		{
-			if (	_tcsnicmp( strValue, _T("urn:"), 4 ) == 0 ||
-					_tcsnicmp( strValue, _T("sha1:"), 5 ) == 0 ||
-					_tcsnicmp( strValue, _T("bitprint:"), 9 ) == 0 ||
-					_tcsnicmp( strValue, _T("btih:"), 5 ) == 0 ||
-					_tcsnicmp( strValue, _T("ed2k:"), 5 ) == 0 ||
-					_tcsnicmp( strValue, _T("md5:"), 4 ) == 0 ||
-					_tcsnicmp( strValue, _T("tree:tiger:"), 11 ) == 0 ||
-					_tcsnicmp( strValue, _T("tree:tiger/:"), 12 ) == 0 ||
-					_tcsnicmp( strValue, _T("tree:tiger/1024:"), 16 ) == 0 )
+			if ( _tcsnicmp( strValue, _T("urn:"), 4 ) == 0 ||
+				_tcsnicmp( strValue, _T("sha1:"), 5 ) == 0 ||
+				_tcsnicmp( strValue, _T("bitprint:"), 9 ) == 0 ||
+				_tcsnicmp( strValue, _T("btih:"), 5 ) == 0 ||
+				_tcsnicmp( strValue, _T("ed2k:"), 5 ) == 0 ||
+				_tcsnicmp( strValue, _T("md5:"), 4 ) == 0 ||
+				_tcsnicmp( strValue, _T("tree:tiger:"), 11 ) == 0 ||
+				_tcsnicmp( strValue, _T("tree:tiger/:"), 12 ) == 0 ||
+				_tcsnicmp( strValue, _T("tree:tiger/1024:"), 16 ) == 0 )
 			{
 				if ( ! m_oSHA1 ) m_oSHA1.fromUrn( strValue );
 				if ( ! m_oTiger ) m_oTiger.fromUrn( strValue );
@@ -563,11 +714,11 @@ BOOL CPeerProjectURL::ParseMagnet(LPCTSTR pszURL)
 				if ( ! m_oBTH ) m_oBTH.fromUrn( strValue );
 				if ( ! m_oBTH ) m_oBTH.fromUrn< Hashes::base16Encoding >( strValue );
 			}
-			else if (	_tcsnicmp( strValue, _T("http://"), 7 ) == 0 ||
-						_tcsnicmp( strValue, _T("https://"), 8 ) == 0 ||
-						_tcsnicmp( strValue, _T("http%3A//"), 9 ) == 0 ||
-						_tcsnicmp( strValue, _T("ftp://"), 6 ) == 0 ||
-						_tcsnicmp( strValue, _T("ftp%3A//"), 8 ) == 0 )
+			else if ( _tcsnicmp( strValue, _T("http://"), 7 ) == 0 ||
+					  _tcsnicmp( strValue, _T("https://"), 8 ) == 0 ||
+					  _tcsnicmp( strValue, _T("http%3A//"), 9 ) == 0 ||
+					  _tcsnicmp( strValue, _T("ftp://"), 6 ) == 0 ||
+					  _tcsnicmp( strValue, _T("ftp%3A//"), 8 ) == 0 )
 			{
 				strValue.Replace( _T(" "), _T("%20") );
 				strValue.Replace( _T("p%3A//"), _T("p://") );
@@ -581,7 +732,7 @@ BOOL CPeerProjectURL::ParseMagnet(LPCTSTR pszURL)
 					else
 						m_sURL = strURL;
 				}
-				else if( _tcsicmp( strKey, _T("tr") ) == 0 )
+				else if ( _tcsicmp( strKey, _T("tr") ) == 0 )
 				{
 					pTorrent->SetTracker( strValue );
 				}
@@ -645,7 +796,8 @@ BOOL CPeerProjectURL::ParseMagnet(LPCTSTR pszURL)
 		m_nAction = uriDownload;
 		return TRUE;
 	}
-	else if ( ! m_sName.IsEmpty() )
+
+	if ( ! m_sName.IsEmpty() )
 	{
 		m_nAction = uriSearch;
 		return TRUE;
@@ -662,33 +814,44 @@ BOOL CPeerProjectURL::ParsePeerProject(LPCTSTR pszURL)
 	Clear();
 
 	int nIP[4];
-
 	if ( _stscanf( pszURL, _T("%i.%i.%i.%i"), &nIP[0], &nIP[1], &nIP[2], &nIP[3] ) == 4 )
 		return ParsePeerProjectHost( pszURL, FALSE );
 
 	if ( ! _tcsnicmp( pszURL, _T("host:"), 5 ) || ! _tcsnicmp( pszURL, _T("node:"), 5 ) )
 		return ParsePeerProjectHost( pszURL + 5, FALSE );
-	else if ( ! _tcsnicmp( pszURL, _T("hub:"), 4 ) )
+	if ( ! _tcsnicmp( pszURL, _T("hub:"), 4 ) )
 		return ParsePeerProjectHost( pszURL + 4, FALSE );
-	else if ( ! _tcsnicmp( pszURL, _T("server:"), 7 ) )
+	if ( ! _tcsnicmp( pszURL, _T("server:"), 7 ) )
 		return ParsePeerProjectHost( pszURL + 7, FALSE );
-	else if ( ! _tcsnicmp( pszURL, _T("browse:"), 7 ) )
+	if ( ! _tcsnicmp( pszURL, _T("browse:"), 7 ) )
 		return ParsePeerProjectHost( pszURL + 7, TRUE );
-	else if ( ! _tcsnicmp( pszURL, _T("chat:"), 5 ) )
+	if ( ! _tcsnicmp( pszURL, _T("chat:"), 5 ) )
 		return ParsePeerProjectHost( pszURL + 5, TRUE );
-	else if ( ! _tcsnicmp( pszURL, _T("gwc:"), 4 ) )
+	if ( ! _tcsnicmp( pszURL, _T("gwc:"), 4 ) )
 		return ParseDiscovery( pszURL + 4, CDiscoveryService::dsWebCache );
-	else if ( ! _tcsnicmp( pszURL, _T("meturl:"), 7 ) )
+	if ( ! _tcsnicmp( pszURL, _T("meturl:"), 7 ) )
 		return ParseDiscovery( pszURL + 7, CDiscoveryService::dsServerMet );
-	else if ( ! _tcsnicmp( pszURL, _T("url:"), 4 ) )
+	if ( ! _tcsnicmp( pszURL, _T("url:"), 4 ) )
 		return Parse( pszURL + 4 );
-	else if ( ! _tcsnicmp( pszURL, _T("uhc:"), 4 ) ||
-			! _tcsnicmp( pszURL, _T("ukhl:"), 5 ) ||
-			! _tcsnicmp( pszURL, _T("gnutella1:host:"), 15 ) ||
-			! _tcsnicmp( pszURL, _T("gnutella2:host:"), 15 ) )
+	if ( ! _tcsnicmp( pszURL, _T("uhc:"), 4 ) ||
+		 ! _tcsnicmp( pszURL, _T("ukhl:"), 5 ) ||
+		 ! _tcsnicmp( pszURL, _T("gnutella1:host:"), 15 ) ||
+		 ! _tcsnicmp( pszURL, _T("gnutella2:host:"), 15 ) )
 		return ParseDiscovery( pszURL, CDiscoveryService::dsGnutella );
+	if ( _tcsnicmp( pszURL, _T("search:"), 7 ) == 0 )
+	{
+		// ToDo: Formalize search parameters (Handle size/schema/etc?)
+		m_sName = URLDecode( pszURL + 7 );
+		m_nAction = uriSearch;
+		m_oSHA1.clear();
+		m_oTiger.clear();
+		m_oED2K.clear();
+		m_oMD5.clear();
+		m_oBTH.clear();
+		return TRUE;
+	}
 
-		return ParsePeerProjectFile( pszURL );
+	return ParsePeerProjectFile( pszURL );
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -720,7 +883,7 @@ BOOL CPeerProjectURL::ParsePeerProjectFile(LPCTSTR pszURL)
 {
 	CString strURL( pszURL );
 
-	for ( strURL += '/' ; strURL.GetLength() ; )
+	for ( strURL += '/' ; ! strURL.IsEmpty() ; )
 	{
 		CString strPart = strURL.SpanExcluding( _T("/|") );
 		strURL = strURL.Mid( strPart.GetLength() + 1 );
@@ -728,15 +891,15 @@ BOOL CPeerProjectURL::ParsePeerProjectFile(LPCTSTR pszURL)
 		strPart.Trim();
 		if ( strPart.IsEmpty() ) continue;
 
-		if (	_tcsnicmp( strPart, _T("urn:"), 4 ) == 0 ||
-				_tcsnicmp( strPart, _T("sha1:"), 5 ) == 0 ||
-				_tcsnicmp( strPart, _T("bitprint:"), 9 ) == 0 ||
-				_tcsnicmp( strPart, _T("btih:"), 5 ) == 0 ||
-				_tcsnicmp( strPart, _T("ed2k:"), 5 ) == 0 ||
-				_tcsnicmp( strPart, _T("md5:"), 4 ) == 0 ||
-				_tcsnicmp( strPart, _T("tree:tiger:"), 11 ) == 0 ||
-				_tcsnicmp( strPart, _T("tree:tiger/:"), 12 ) == 0 ||
-				_tcsnicmp( strPart, _T("tree:tiger/1024:"), 16 ) == 0 )
+		if ( ! _tcsnicmp( strPart, _T("urn:"), 4 ) ||
+			! _tcsnicmp( strPart, _T("sha1:"), 5 ) ||
+			! _tcsnicmp( strPart, _T("bitprint:"), 9 ) ||
+			! _tcsnicmp( strPart, _T("btih:"), 5 ) ||
+			! _tcsnicmp( strPart, _T("ed2k:"), 5 ) ||
+			! _tcsnicmp( strPart, _T("md5:"), 4 ) ||
+			! _tcsnicmp( strPart, _T("tree:tiger:"), 11 ) ||
+			! _tcsnicmp( strPart, _T("tree:tiger/:"), 12 ) ||
+			! _tcsnicmp( strPart, _T("tree:tiger/1024:"), 16 ) )
 		{
 			if ( ! m_oSHA1 ) m_oSHA1.fromUrn( strPart );
 			if ( ! m_oTiger ) m_oTiger.fromUrn( strPart );
@@ -755,8 +918,8 @@ BOOL CPeerProjectURL::ParsePeerProjectFile(LPCTSTR pszURL)
 			m_sURL += URLEncode( strSource );
 			m_sURL += _T("/(^name^)");
 		}
-		else if (	_tcsnicmp( strPart, _T("name:"), 5 ) == 0 ||
-					_tcsnicmp( strPart, _T("file:"), 5 ) == 0 )
+		else if ( ! _tcsnicmp( strPart, _T("name:"), 5 ) ||
+				  ! _tcsnicmp( strPart, _T("file:"), 5 ) )
 		{
 			m_sName = URLDecode( strPart.Mid( 5 ) );
 			SafeString( m_sName );
@@ -802,21 +965,20 @@ BOOL CPeerProjectURL::ParseDonkey(LPCTSTR pszURL)
 {
 	Clear();
 
-	if ( _tcsnicmp( pszURL, _T("|file|"), 6 ) == 0 )
+	if ( ! _tcsnicmp( pszURL, _T("|file|"), 6 ) )
 		return ParseDonkeyFile( pszURL + 6 );
-	else if ( _tcsnicmp( pszURL, _T("|server|"), 8 ) == 0 )
+	if ( ! _tcsnicmp( pszURL, _T("|server|"), 8 ) )
 		return ParseDonkeyServer( pszURL + 8 );
-	else if ( _tcsnicmp( pszURL, _T("|meturl|"), 8 ) == 0 )
+	if ( ! _tcsnicmp( pszURL, _T("|meturl|"), 8 ) )
 		return ParseDiscovery( pszURL + 8, CDiscoveryService::dsServerMet );
-	else if ( _tcsnicmp( pszURL, _T("|serverlist|"), 12 ) == 0 )
+	if ( ! _tcsnicmp( pszURL, _T("|serverlist|"), 12 ) )
 		return ParseDiscovery( pszURL + 12, CDiscoveryService::dsServerMet );
-	else if ( _tcsnicmp( pszURL, _T("|search|"), 8 ) == 0 )
+	if ( ! _tcsnicmp( pszURL, _T("|search|"), 8 ) )
 	{
 		// ed2k://|search|text_to_find|/
-
 		CString sURL( pszURL + 8 );
 
-		int nSep = sURL.Find( _T('|') );
+		const int nSep = sURL.Find( _T('|') );
 		if ( nSep <= 0 ) return FALSE;
 
 		m_sName = URLDecode( sURL.Mid( 0, nSep ) ).Trim();
@@ -877,13 +1039,13 @@ BOOL CPeerProjectURL::ParseDonkeyFile(LPCTSTR pszURL)
 	strURL	= strURL.Mid( nSep + 1 );
 	while ( strPart != _T("/") )
 	{
-		if ( _tcsncmp( strPart, _T("h="), 2 ) == 0 )
+		if ( ! _tcsncmp( strPart, _T("h="), 2 ) )
 		{
 			// AICH hash
 			 // theApp.Message(MSG_INFO, _T("AICH") );
 			 strPart = strPart.Mid( 2 );
 		}
-		else if ( _tcsncmp( strPart, _T("s="), 2 ) == 0 )
+		else if ( ! _tcsncmp( strPart, _T("s="), 2 ) )
 		{
 			// HTTP source
 			// theApp.Message(MSG_INFO, _T("HTTP") );
@@ -893,7 +1055,7 @@ BOOL CPeerProjectURL::ParseDonkeyFile(LPCTSTR pszURL)
 			SafeString( strPart );
 			m_sURL += strPart;
 		}
-		else if ( _tcsncmp( strPart, _T("p="), 2 ) == 0 )
+		else if ( ! _tcsncmp( strPart, _T("p="), 2 ) )
 		{
 			// Hash set
 			// theApp.Message(MSG_INFO, _T("hash set") );
@@ -1016,19 +1178,19 @@ BOOL CPeerProjectURL::ParseDiscovery(LPCTSTR pszURL, int nType)
 		 _tcsncmp( pszURL, _T("uhc:"), 4 ) != 0 &&
 		 _tcsncmp( pszURL, _T("ukhl:"), 5 ) != 0 &&
 		 _tcsncmp( pszURL, _T("gnutella1:host:"), 15 ) != 0 &&
-		 _tcsncmp( pszURL, _T("gnutella2:host:"), 15 ) != 0 ) return FALSE;
+		 _tcsncmp( pszURL, _T("gnutella2:host:"), 15 ) != 0 &&
+		 _tcsncmp( pszURL, _T("g2:host:"), 8 ) != 0 )
+		return FALSE;
 
-	int nPos;
-	CString strURL, strNets, strTemp = pszURL;
+	CString strURL, strNets, strTemp( pszURL );
 	m_nProtocol = PROTOCOL_NULL;
 
-	nPos = strTemp.Find( '?' );
+	int nPos = strTemp.Find( '?' );
 
 	strURL = nPos < 0 ? strTemp : strTemp.Left( nPos );
 	strNets = strTemp.Mid( nPos + 1 );
 
-
-	if ( _tcsnicmp( strNets, _T("nets="), 5 ) == 0 )
+	if ( ! _tcsnicmp( strNets, _T("nets="), 5 ) )
 	{
 		BOOL bG1 = FALSE, bG2 = FALSE;
 
@@ -1314,8 +1476,8 @@ BOOL CPeerProjectURL::RegisterShellType(LPCTSTR pszRoot, LPCTSTR pszProtocol, LP
 	if ( pszType != NULL && pszProtocol != NULL )
 	{
 		strSubKey.Format( _T("Software\\%s\\%s"), pszRoot, pszType );
-		if ( !	RegCreateKeyEx( HKEY_CURRENT_USER, (LPCTSTR)strSubKey, 0, NULL, 0,
-				KEY_ALL_ACCESS, NULL, &hKey, &nDisposition ) )
+		if ( ! RegCreateKeyEx( HKEY_CURRENT_USER, (LPCTSTR)strSubKey, 0, NULL, 0,
+			KEY_ALL_ACCESS, NULL, &hKey, &nDisposition ) )
 		{
 			RegSetValueEx( hKey, NULL, 0, REG_SZ, (LPBYTE)pszProtocol,
 				static_cast< DWORD >( sizeof(TCHAR) * ( _tcslen( pszProtocol ) + 1 ) ) );
@@ -1329,7 +1491,6 @@ BOOL CPeerProjectURL::RegisterShellType(LPCTSTR pszRoot, LPCTSTR pszProtocol, LP
 BOOL CPeerProjectURL::IsRegistered(LPCTSTR pszProtocol)
 {
 	CString strSubKey;
-
 	strSubKey.Format( _T("Software\\Classes\\%s"), pszProtocol );
 	CString strPath = CRegistry::GetString( _T("shell\\open\\command"), NULL, NULL, strSubKey );
 
@@ -1347,14 +1508,13 @@ BOOL CPeerProjectURL::UnregisterShellType(LPCTSTR pszRoot, LPCTSTR pszProtocol)
 	else
 		strSubKey.Format( _T("Software\\%s\\%s"), pszRoot, pszProtocol );
 
-	BOOL bRegisteredUser = IsRegistered( pszProtocol );
-	if ( bRegisteredUser )
-	{
-		DeleteKey( HKEY_CURRENT_USER, (LPCTSTR)strSubKey );
-		RegDeleteKey( HKEY_CURRENT_USER, (LPCTSTR)strSubKey );
-	}
+	if ( ! IsRegistered( pszProtocol ) )
+		return FALSE;
 
-	return bRegisteredUser;
+	DeleteKey( HKEY_CURRENT_USER, (LPCTSTR)strSubKey );
+	RegDeleteKey( HKEY_CURRENT_USER, (LPCTSTR)strSubKey );
+
+	return TRUE;
 }
 
 void CPeerProjectURL::DeleteKey(HKEY hParent, LPCTSTR pszKey)
@@ -1366,7 +1526,7 @@ void CPeerProjectURL::DeleteKey(HKEY hParent, LPCTSTR pszKey)
 
 	for ( DWORD dwIndex = 0 ; ; dwIndex++ )
 	{
-		DWORD dwName = 64; // Input parameter in TCHARs
+		DWORD dwName = 64;	// Input parameter in TCHARs
 		TCHAR szName[64];
 
 		LRESULT lResult = RegEnumKeyEx( hKey, dwIndex, szName, &dwName, NULL, NULL, 0, NULL );
@@ -1429,9 +1589,8 @@ BOOL CPeerProjectURL::RegisterMagnetHandler(LPCTSTR pszID, LPCTSTR pszName, LPCT
 		return FALSE;
 	}
 
-	CString strIcon, strCommand;
-
-	strIcon = Skin.GetImagePath( nIDIcon );
+	CString strCommand;
+	CString strIcon( Skin.GetImagePath( nIDIcon ) );
 	strCommand.Format( _T("\"%s\" \"%%URL\""), theApp.m_strBinaryPath );
 
 	RegSetValueEx( hHandler, _T(""), 0, REG_SZ, (LPBYTE)pszName, static_cast< DWORD >( sizeof(TCHAR) * ( _tcslen( pszName ) + 1 ) ) );

@@ -1,7 +1,7 @@
 //
 // WizardInterfacePage.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -89,7 +89,7 @@ BOOL CWizardInterfacePage::OnInitDialog()
 
 BOOL CWizardInterfacePage::OnSetActive()
 {
-	//Wizard Window Caption Workaround
+	// Wizard Window Caption Workaround
 	CString strCaption;
 	GetWindowText( strCaption );
 	GetParent()->SetWindowText( strCaption );
@@ -143,6 +143,7 @@ LRESULT CWizardInterfacePage::OnWizardNext()
 		CMainWnd* pMainWnd = (CMainWnd*)AfxGetMainWnd();
 
 		Settings.General.GUIMode = GUI_TABBED;
+		Settings.Interface.RowSize = 17;
 		pMainWnd->SetGUIMode( Settings.General.GUIMode, FALSE );
 	}
 	else if ( ! m_bExpert && Settings.General.GUIMode != GUI_BASIC )
@@ -151,6 +152,7 @@ LRESULT CWizardInterfacePage::OnWizardNext()
 		CMainWnd* pMainWnd = (CMainWnd*)AfxGetMainWnd();
 
 		Settings.General.GUIMode = GUI_BASIC;
+		Settings.Interface.RowSize = 18;
 		pMainWnd->SetGUIMode( Settings.General.GUIMode, FALSE );
 	}
 

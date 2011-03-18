@@ -28,7 +28,7 @@ class CIRCSettingsPage : public CSettingsPage
 // Construction
 public:
 	CIRCSettingsPage();
-	virtual ~CIRCSettingsPage();
+//	virtual ~CIRCSettingsPage();
 
 	DECLARE_DYNCREATE(CIRCSettingsPage)
 
@@ -53,6 +53,7 @@ public:
 	CString		m_sUserName;
 	CString		m_sRealName;
 	CString		m_sOnConnect;
+	CComboBox	m_wndServerName;
 	int 		m_nServerPort;
 	int 		m_nFloodLimit;
 	int 		m_nFontSize;

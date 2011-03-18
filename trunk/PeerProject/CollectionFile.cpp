@@ -1,5 +1,5 @@
 //
-// ColletionFile.cpp
+// CollectionFile.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
@@ -63,7 +63,7 @@ BOOL CCollectionFile::Open(LPCTSTR lpszFileName)
 {
 	Close();
 
-	int nLength = _tcslen( lpszFileName );
+	const int nLength = _tcslen( lpszFileName );
 	if ( nLength < 4 ) return FALSE;
 
 	if (      				  ! _tcsicmp( lpszFileName + nLength - 3,  _T(".co") ) ||
@@ -163,7 +163,7 @@ CCollectionFile::File* CCollectionFile::FindFile(CLibraryFile* pShared, BOOL bAp
 
 int CCollectionFile::GetMissingCount()
 {
-	int nCount =0;
+	int nCount = 0;
 
 	for ( POSITION pos = GetFileIterator() ; pos ; )
 	{
@@ -258,13 +258,11 @@ BOOL CCollectionFile::LoadEMule(LPCTSTR pszFile)
 		// Check collection version
 		DWORD nVersion;
 		if ( pFile.Read( &nVersion, sizeof( nVersion ) ) == sizeof( nVersion ) &&
-			( nVersion == ED2K_FILE_VERSION1_INITIAL ||
-			  nVersion == ED2K_FILE_VERSION2_LARGEFILES ) )
+			( nVersion == ED2K_FILE_VERSION1_INITIAL || nVersion == ED2K_FILE_VERSION2_LARGEFILES ) )
 		{
 			// Load collection properties
 			DWORD nCount;
-			if ( pFile.Read( &nCount, sizeof( nCount ) ) == sizeof( nCount ) &&
-				nCount > 0 && nCount < 10 )
+			if ( pFile.Read( &nCount, sizeof( nCount ) ) == sizeof( nCount ) && nCount > 0 && nCount < 10 )
 			{
 				for ( DWORD i = 0 ; i < nCount ; ++i )
 				{
@@ -296,6 +294,7 @@ BOOL CCollectionFile::LoadEMule(LPCTSTR pszFile)
 			}
 		}
 	}
+
 	return nFileCount && ( (DWORD)m_pFiles.GetCount() == nFileCount );
 }
 
@@ -306,7 +305,7 @@ BOOL CCollectionFile::LoadDC(LPCTSTR pszFile)
 {
 	m_nType = SimpleCollection;
 
-	// TODO: Add schema detection
+	// ToDo: Add schema detection
 	m_sThisURI = CSchema::uriFolder;
 	m_sParentURI = CSchema::uriCollectionsFolder;
 
@@ -464,7 +463,7 @@ void CCollectionFile::Render(CString& strBuffer) const
 		_T("<title>%s</title>\n")
 		_T("<style type=\"text/css\">\n")
 		_T("body  { margin: 0px; padding: 0px; background-color: #ffffff; color: #000000; font-family: %s; font-size: %upx; }\n")
-		_T("h1    { text-align: left; color: #ffffff; height: 64px; margin: 0px; padding: 20px; font-size: 10pt; font-weight: bold; background-image: url(res://PeerProject.exe/#2/#221); }\n")
+		_T("h1    { text-align: left; color: #ffffff; height: 64px; margin: 0px; padding: 20px; font-size: 10pt; font-weight: bold; background-image: url(res://PeerProject.exe/312); }\n")
 		_T("table { font-size: 8pt; width: 100%%; }\n")
 		_T("td    { background-color: #e0e8f0; padding: 4px; }\n")
 		_T(".num  { width: 40px; text-align: center; }\n")

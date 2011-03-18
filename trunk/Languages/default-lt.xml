@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Lithuanian Skin File -->
 
-<!-- Translation based on default-en.xml r62 -->
+<!-- Translation based on default-en.xml r64 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2572,8 +2572,8 @@
 	<tip id="ID_SEARCH_STOP" message="Sustabdyti radinių išvedimą šiame lange."/>
 	<tip id="ID_SEARCHMONITOR_CLEAR" message="Išvalyti paieškos užklausų monitoriaus buferį."/>
 	<tip id="ID_SEARCHMONITOR_PAUSE" message="Pristabdyti paieškos užklausų stebėjimą."/>
-	<tip id="ID_SECURITY_ADD" message="Pridėti naują taisyklę prie apsaugos sekos..."/>
 	<tip id="ID_SECURITY_BAN" message="Užkirsti pasirinkto adresato prieigą visos šios sesijos metu."/>
+	<tip id="ID_SECURITY_ADD" message="Pridėti naują taisyklę prie apsaugos sekos..."/>
 	<tip id="ID_SECURITY_EDIT" message="Taisyti pasirinktą saugos taisyklę..."/>
 	<tip id="ID_SECURITY_EXPORT" message="Eksportuoti pasirinktas saugos taisykles į failą..."/>
 	<tip id="ID_SECURITY_IMPORT" message="Importuoti saugos taisykles iš failo..."/>
@@ -2583,6 +2583,14 @@
 	<tip id="ID_SECURITY_POLICY_DENY" message="Nustatyti, kad saugos politika, draudžianti visų adresatų prieigą, būtų numatytąja."/>
 	<tip id="ID_SECURITY_REMOVE" message="Pašalinti pasirinktą(-as) saugos taisyklę(-es)."/>
 	<tip id="ID_SECURITY_RESET" message="Apnulinti pasirinktų saugos taisyklių kreipinių skaitliukus."/>
+	<tip id="ID_SCHEDULER_ADD" message="Pridėti naują taisyklę prie apsaugos sekos..."/>
+	<tip id="ID_SCHEDULER_EDIT" message="Taisyti pasirinktą saugos taisyklę..."/>
+	<tip id="ID_SCHEDULER_ACTIVATE" message="Pašalinti iš išsiunčiamų failų sąrašo pasirinktą failą(-us)."/>
+	<tip id="ID_SCHEDULER_DEACTIVATE" message="Jungtis prie pasirinktų tinklų."/>
+	<tip id="ID_SCHEDULER_EXPORT" message="Eksportuoti pasirinktas saugos taisykles į failą..."/>
+	<tip id="ID_SCHEDULER_IMPORT" message="Importuoti saugos taisykles iš failo..."/>
+	<tip id="ID_SCHEDULER_REMOVE" message="Pašalinti pasirinktą failą(-us) iš sąrašo."/>
+	<tip id="ID_SCHEDULER_REMOVE_ALL" message="Delete all scheduled tasks."/>
 	<tip id="ID_SYSTEM_CLEAR" message="Valyti būsenos žurnalą."/>
 	<tip id="ID_SYSTEM_TIMESTAMP" message="Registruoti laiką kiekvienoje eilutėje."/>
 	<tip id="ID_SYSTEM_VERBOSE" message="Rodyti išsamų sistemos aktyvumo žurnalą."/>
@@ -3229,7 +3237,7 @@
 	<string id="20706" value="Vedančiojo veiksena su %lu kaimynais(-ų). %s asmeninėje kolekcijoje."/>
 	<string id="20707" value="Jungiamasi prie tinklo..."/>
 	<string id="20708" value="Neprisijungta prie tinklo."/>
-	<string id="20710" value="(Nėra šaltinių)"/>
+	<string id="20710" value="Kliringas"/>
 	<string id="20711" value="Neįmanoma perkelti"/>
 	<string id="20712" value="Apkrautas"/>
 	<string id="20713" value="Stojama eilėn"/>
@@ -3255,6 +3263,7 @@
 	<string id="20733" value="šaltinių"/>  <!-- many -->
 	<string id="20734" value="šaltiniai"/> <!-- few  2-4 -->
 	<string id="20735" value="šaltinis"/>  <!-- ones 21,31,... -->
+	<string id="20736" value="(Nėra šaltinių)"/>
 	<string id="20740" value="Dryžinė maiša"/>
 	<string id="20741" value="Torrent"/>
 	<string id="20742" value="Seklys atsijungęs"/>
@@ -3490,7 +3499,7 @@
 		<control caption="Filtruoti pokalbio tekstus nuo informacinių šiukšlių"/>
 		<control caption="Filtruoti nešvankybes pokalbiuose"/>
 	</dialog>
-	<dialog name="CIRCSettingsPage" cookie="BuBuBuBuStEdStStEdCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStEdStEdStEd" caption="Pokalbiai">
+	<dialog name="CIRCSettingsPage" cookie="BuBuBuBuStEdmsStStEdmsCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStCoStEdStEd" caption="Pokalbiai">
 		<control caption="_Kliento nuostatos:"/>
 		<control caption="Rodyti sąsajos integraciją"/>
 		<control caption="Rodyti laiką"/>
@@ -4606,9 +4615,9 @@
 		<column from="Address" to="Adresas"/>
 		<column from="Port" to="Prievadas"/>
 		<column from="Time" to="Laikas"/>
-		<column from="Packets" to="Paketų"/>
-		<column from="Bandwidth" to="Greitaveika"/>
+		<column from="Traffic" to="Greitaveika"/>
 		<column from="Total" to="Viso"/>
+		<column from="Packets" to="Paketų"/>
 		<column from="Flow" to="Srautas"/>
 		<column from="Leaves" to="Atšakų"/>
 		<column from="Mode" to="Veiksena"/>
@@ -4681,7 +4690,7 @@
 	<list name="CUploadQueueList">
 		<column from="Name" to="Pavadinimas"/>
 		<column from="Criteria" to="Kriterijus"/>
-		<column from="Bandwidth" to="Greitaveika"/>
+		<column from="Minimum" to="Greitaveika"/>
 		<column from="Transfers" to="Siuntimai"/>
 		<column from="Order" to="Eilė"/>
 	</list>

@@ -8,6 +8,7 @@
 #pragma warning(disable:4668)
 #pragma warning(disable:4820)
 #pragma warning(disable:4548)
+#pragma warning(disable:4710)	// 'inline' function not inlined
 #pragma warning(disable:4986)	// operator new[]/delete[] previous declaration
 
 #define WINVER 0x0500
@@ -22,4 +23,4 @@
 #include <windows.h>
 #include <algorithm>
 
-// Define HASHLIB_USE_ASM for assembler use (several times faster)
+// Define HASHLIB_USE_ASM for win32 assembler use (several times faster)

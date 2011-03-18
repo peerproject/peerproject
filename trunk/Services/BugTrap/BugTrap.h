@@ -12,9 +12,7 @@
 #ifndef _BUGTRAP_H_
 #define _BUGTRAP_H_
 
-#if defined _MANAGED && ! defined _UNICODE
- #error Managed version of BugTrap requires Unicode character set
-#endif // _MANAGED && ! _UNICODE
+/* _MANAGED Check Removed */
 
 /*
  * The following ifdef block is the standard way of creating macros which make exporting
@@ -66,8 +64,7 @@ typedef enum BUGTRAP_ACTIVITY_tag
 BUGTRAP_ACTIVITY;
 
 /**
- * @brief Different BugTrap options. You can use any combinations
- * of these flags.
+ * @brief Different BugTrap options. You can use any combinations of these flags.
  */
 typedef enum BUGTRAP_FLAGS_tag
 {
@@ -92,8 +89,7 @@ typedef enum BUGTRAP_FLAGS_tag
 	 * messages. Be careful with this option. It's potentially
 	 * dangerous for the detailed mode because of even zipped
 	 * mini-dump may require huge size. It may exceed the
-	 * maximum size of e-mail message supported by Internet
-	 * provider.
+	 * maximum size of e-mail message supported by Internet provider.
 	 */
 	BTF_ATTACHREPORT   = 0x004,
 	/**
@@ -142,8 +138,7 @@ typedef enum BUGTRAP_FLAGS_tag
 	  */
 	 BTF_DESCRIBEERROR = 0x100,
 	 /**
-	  * @brief Automatically restart the application after the crash has been
-	  * handled.
+	  * @brief Automatically restart the application after the crash has been handled.
 	  */
 	 BTF_RESTARTAPP    = 0x200
 }
@@ -785,22 +780,10 @@ BUGTRAP_API LONG CALLBACK BT_CppFilter(PEXCEPTION_POINTERS pExceptionPointers);
  */
 BUGTRAP_API void CDECL BT_CallCppFilter(void);
 
-#ifdef _MANAGED
-/**
- * @brief Executes .NET exception filter.
- * @note Don't call this function directly in your code.
- */
-BUGTRAP_API LONG CALLBACK BT_NetFilter(PEXCEPTION_POINTERS pExceptionPointers);
-/**
- * @brief Simulates access violation in .NET application. Used by set_terminate().
- * @note Don't call this function directly in your code.
- */
-BUGTRAP_API void CDECL BT_CallNetFilter(void);
-#endif // _MANAGED
+/* _MANAGED Code Removed */
 
 /**
- * Installs BugTrap handler to be called by the runtime in response to
- * unhandled C++ exception.
+ * Installs BugTrap handler to be called by the runtime in response to unhandled C++ exception.
  */
 #if defined __cplusplus && defined _INC_EH
 #define BT_SetTerminate() { set_terminate(BT_CallCppFilter); set_unexpected(BT_CallCppFilter); }

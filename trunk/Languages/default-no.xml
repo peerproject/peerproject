@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Norwegian Skin File -->
 
-<!-- Translation based on default-en.xml r62 (Shareaza 2.2.0.2) -->
+<!-- Translation based on default-en.xml r64 (Shareaza 2.2.0.2) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2293,8 +2293,8 @@
 	<tip id="ID_SEARCH_STOP" message="Ikke motta flere resultat i dette vinduet."/>
 	<tip id="ID_SEARCHMONITOR_CLEAR" message="Oppdater søkemonitor-bufferen."/>
 	<tip id="ID_SEARCHMONITOR_PAUSE" message="Sett monitoren på pause."/>
-	<tip id="ID_SECURITY_ADD" message="Legg til en ny regel til sikkerhetslisten."/>
 	<tip id="ID_SECURITY_BAN" message="Blokker valgte vert til neste gang du starter PeerProject."/>
+	<tip id="ID_SECURITY_ADD" message="Legg til en ny regel til sikkerhetslisten."/>
 	<tip id="ID_SECURITY_EDIT" message="Endre valgte sikkerhetsregel."/>
 	<tip id="ID_SECURITY_EXPORT" message="Lagre de valgte sikkerhetsreglene som en fil..."/>
 	<tip id="ID_SECURITY_IMPORT" message="Åpne lagrede sikkerhetsregler..."/>
@@ -2304,6 +2304,14 @@
 	<tip id="ID_SECURITY_POLICY_DENY" message="Velg at normal sikkerhet skal nekte alle verter."/>
 	<tip id="ID_SECURITY_REMOVE" message="Fjern valgte sikkerhetsregler."/>
 	<tip id="ID_SECURITY_RESET" message="Fjern treffresultat til valgte regler."/>
+	<tip id="ID_SCHEDULER_ADD" message="Legg til en ny regel til sikkerhetslisten."/>
+	<tip id="ID_SCHEDULER_EDIT" message="Endre valgte sikkerhetsregel."/>
+	<tip id="ID_SCHEDULER_ACTIVATE" message="Fjern valgte opplasting(er) fra listen."/>
+	<tip id="ID_SCHEDULER_DEACTIVATE" message="Koble til nettverket."/>
+	<tip id="ID_SCHEDULER_EXPORT" message="Lagre de valgte sikkerhetsreglene som en fil..."/>
+	<tip id="ID_SCHEDULER_IMPORT" message="Åpne lagrede sikkerhetsregler..."/>
+	<tip id="ID_SCHEDULER_REMOVE" message="Fjern valgte nedlasting(er) fra listen."/>
+	<tip id="ID_SCHEDULER_REMOVE_ALL" message="Delete all scheduled tasks."/>
 	<tip id="ID_SYSTEM_CLEAR" message="Oppdater stausloggen."/>
 	<tip id="ID_SYSTEM_TIMESTAMP" message="Lag tidsstempel for hver linje."/>
 	<tip id="ID_SYSTEM_VERBOSE" message="Vis en detaljert systemlogg."/>
@@ -2401,9 +2409,16 @@
 	<string id="20002" value="Nei"/>
 	<string id="20003" value="OK"/>
 	<string id="20004" value="Avbryt"/>
-	<string id="20009" value="av"/> <!-- "1 of 10" -->
+	<string id="20009" value="av"/>	<!-- "1 of 10" -->
 	<string id="20011" value="Auto"/>
-	<string id="20050" value="Every Dag"/>
+	<string id="20012" value="Tilpassede"/>
+	<string id="20013" value="Standard"/>
+	<string id="20014" value="Fullfør"/>
+	<string id="20015" value="Ignorere"/>
+	<string id="20016" value="Prøv på nytt"/>
+	<string id="20017" value="Abortere"/>
+	<string id="20018" value="Prøv Igjen"/>
+	<string id="20050" value="Hver Dag"/>
 	<string id="20051" value="Mandag"/>
 	<string id="20052" value="Tirsdag"/>
 	<string id="20053" value="Onsdag"/>
@@ -2893,7 +2908,7 @@
 	<string id="20706" value="Ultrapeer-modus med %lu nabo(er).  %s in local library."/>
 	<string id="20707" value="Kobler til nettverket..."/>
 	<string id="20708" value="Ikke koblet til nettverket."/>
-	<string id="20710" value="(Ingen kilder)"/>
+	<string id="20710" value="Oppklaring"/>
 	<string id="20711" value="Kan ikke flytte"/>
 	<string id="20712" value="Kvalt"/>
 	<string id="20713" value="Settes i kø"/>
@@ -2919,6 +2934,7 @@
 	<string id="20733" value="kilder"/>
 	<string id="20734" value="kilder"/>
 	<string id="20735" value="kilder"/>
+	<string id="20736" value="(Ingen kilder)"/>
 	<string id="20740" value="TigerTree"/>
 	<string id="20741" value="Torrent"/>
 	<string id="20742" value="Tracker nede"/>
@@ -4221,9 +4237,9 @@
 		<column from="Address" to="Adresse"/>
 		<column from="Port" to="Port"/>
 		<column from="Time" to="Tid"/>
-		<column from="Packets" to="Pakker"/>
-		<column from="Bandwidth" to="Båndbredde"/>
+		<column from="Traffic" to="Båndbredde"/>
 		<column from="Total" to="Total"/>
+		<column from="Packets" to="Pakker"/>
 		<column from="Flow" to="Strøm"/>
 		<column from="Leaves" to="Kilder"/>
 		<column from="Mode" to="Modus"/>
@@ -4299,7 +4315,7 @@
 	<list name="CUploadQueueList">
 		<column from="Name" to="Navn"/>
 		<column from="Criteria" to="Kriterier"/>
-		<column from="Bandwidth" to="Båndbredde"/>
+		<column from="Minimum" to="Båndbredde"/>
 		<column from="Transfers" to="Overføring"/>
 		<column from="Order" to="Rekkefølge"/>
 	</list>

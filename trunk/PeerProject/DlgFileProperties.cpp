@@ -1,7 +1,7 @@
 //
 // DlgFileProperties.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -51,20 +51,20 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CFilePropertiesDlg dialog
 
-CFilePropertiesDlg::CFilePropertiesDlg(CWnd* pParent, DWORD nIndex) : CSkinDialog( 0, pParent )
+CFilePropertiesDlg::CFilePropertiesDlg(CWnd* pParent, DWORD nIndex)
+	: CSkinDialog( 0, pParent )
+	, m_nIndex		( nIndex )
+	, m_bHexHash	( FALSE )
+	, m_nWidth		( 0 )
+	, m_sName		( _T("") )
+	, m_sSize		( _T("") )
+	, m_sType		( _T("") )
+	, m_sPath		( _T("") )
+	, m_sIndex		( _T("") )
+	, m_sSHA1		( _T("") )
+	, m_sTiger		( _T("") )
 {
-	m_nIndex	= nIndex;
-	m_bHexHash	= FALSE;
-	m_nWidth	= 0;
-
 	//{{AFX_DATA_INIT(CFilePropertiesDlg)
-	m_sName = _T("");
-	m_sSize = _T("");
-	m_sType = _T("");
-	m_sPath = _T("");
-	m_sIndex = _T("");
-	m_sSHA1 = _T("");
-	m_sTiger = _T("");
 	//}}AFX_DATA_INIT
 }
 
@@ -142,13 +142,13 @@ void CFilePropertiesDlg::Update()
 	}
 	else
 	{
-		LoadString(m_sSHA1, IDS_NOURNAVAILABLE );
+		LoadString( m_sSHA1, IDS_NOURNAVAILABLE );
 	}
 
 	m_sTiger = pFile->m_oTiger.toShortUrn();
 
-	CString strExt = pFile->m_sName;
-	int nPeriod = strExt.ReverseFind( '.' );
+	CString strExt( pFile->m_sName );
+	const int nPeriod = strExt.ReverseFind( '.' );
 	if ( nPeriod > 0 ) strExt = strExt.Mid( nPeriod );
 
 	CString strMIME, strText;

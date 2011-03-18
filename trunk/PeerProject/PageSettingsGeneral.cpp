@@ -1,7 +1,7 @@
 //
 // PageSettingsGeneral.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -23,6 +23,9 @@
 #include "DlgHelp.h"
 #include "Schema.h"
 #include "SchemaCache.h"
+
+#include "CtrlCoolTip.h"	// Dropshadow updates
+#include "CtrlMatchTip.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -132,7 +135,7 @@ BOOL CGeneralSettingsPage::OnInitDialog()
 	if ( CSchemaPtr pSchema = SchemaCache.Get( CSchema::uriSearchFolder ) )
 	{
 		strTitle = pSchema->m_sTitle;
-		int nColon = strTitle.Find( ':' );
+		const int nColon = strTitle.Find( ':' );
 		if ( nColon >= 0 )
 			strTitle = strTitle.Mid( nColon + 1 ).Trim();
 	}
@@ -155,8 +158,10 @@ BOOL CGeneralSettingsPage::OnInitDialog()
 	Settings.SetRange( &Settings.Interface.TipAlpha, m_wndTipAlpha );
 	m_wndTipAlpha.SetPos( Settings.Interface.TipAlpha );
 
+#ifndef WIN64
 	if ( theApp.m_bIsWin2000 )
 		GetDlgItem( IDC_TIP_SHADOW )->EnableWindow( FALSE );
+#endif
 
 	UpdateData( FALSE );
 
@@ -165,7 +170,7 @@ BOOL CGeneralSettingsPage::OnInitDialog()
 
 void CGeneralSettingsPage::Add(LPCTSTR pszName, BOOL bState)
 {
-	int nItem = m_wndTips.InsertItem( LVIF_TEXT, m_wndTips.GetItemCount(), pszName, 0, 0, 0, 0 );
+	const int nItem = m_wndTips.InsertItem( LVIF_TEXT, m_wndTips.GetItemCount(), pszName, 0, 0, 0, 0 );
 
 	if ( bState )
 		m_wndTips.SetItemState( nItem, 2 << 12, LVIS_STATEIMAGEMASK );
@@ -216,18 +221,15 @@ void CGeneralSettingsPage::OnOK()
 
 	Settings.Interface.TipDelay 		= m_nTipDelay;
 	Settings.Interface.TipAlpha 		= m_wndTipAlpha.GetPos();
-	Settings.Interface.TipShadow		= m_bTipShadow == TRUE;
 
-	// ToDo: Fix Realtime DropShadow Changes
-	//if ( m_bTipShadow != (BOOL)Settings.Interface.TipShadow && ! theApp.m_bIsWin2000 )
-	//{
-	//	Settings.Interface.TipShadow	= m_bTipShadow != FALSE;
-	//
-	//	CCoolTipCtrl::m_hClass = AfxRegisterWndClass( CS_SAVEBITS |
-	//		( m_bTipShadow == FALSE ? 0 : CS_DROPSHADOW ) );
-	//	CMatchTipCtrl::m_hClass = AfxRegisterWndClass( CS_SAVEBITS |
-	//		( m_bTipShadow == FALSE ? 0 : CS_DROPSHADOW ) );
-	//}
+	// Update DropShadow
+	if ( m_bTipShadow != Settings.Interface.TipShadow == true && ! theApp.m_bIsWin2000 )
+	{
+		Settings.Interface.TipShadow	= m_bTipShadow == TRUE;
+		CCoolTipCtrl::m_hClass  = AfxRegisterWndClass( CS_SAVEBITS | ( m_bTipShadow ? CS_DROPSHADOW : 0 ) );
+		CMatchTipCtrl::m_hClass = AfxRegisterWndClass( CS_SAVEBITS | ( m_bTipShadow ? CS_DROPSHADOW : 0 ) );
+		PostMainWndMessage( WM_SKINCHANGED );
+	}
 
 	CSettingsPage::OnOK();
 }

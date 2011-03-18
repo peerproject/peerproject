@@ -1,9 +1,10 @@
-; This sub-script lists extra PeerProject settings that need to be written at installation time
+; This sub-script lists extra PeerProject settings that should be written at installation time
 
 [Registry]
 ; Enable SkinSeven Theme
 Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Skins"; ValueType: dword; ValueName: "SkinVista\SkinSeven.xml"; ValueData: "{ini:{param:SETTINGS|},Skins,SkinSeven|1}"; Flags: createvalueifdoesntexist uninsdeletekey
 Root: HKCU; Subkey: "Software\PeerProject\PeerProject\MediaPlayer"; ValueType: dword; ValueName: "ListSize"; ValueData: 139 ;				Flags: createvalueifdoesntexist uninsdeletekey
+Root: HKCU; Subkey: "Software\PeerProject\PeerProject\ListStates"; ValueType: dword; ValueName: "CNeighboursWnd.Sort"; ValueData: 9 ;			Flags: createvalueifdoesntexist uninsdeletekey
 
 ; Set SkinVista Menubar
 Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Toolbars\CoolBar-Summary"; ValueType: dword; ValueName: "Bars";  ValueData: 7 ;			Flags: createvalueifdoesntexist uninsdeletekey
@@ -111,8 +112,8 @@ Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Toolbars\CoolBar-Bar10"; V
 Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Toolbars\CoolBar-Bar10"; ValueType: dword; ValueName: "YPos"; ValueData: $000002CB ;		Flags: createvalueifdoesntexist uninsdeletekey
 
 
-; Disable extensions for plugins which make trouble (?)
-; Since it is image services plugin we need to add extensions required for the first run
+; Disable extensions for plugins that have trouble (?)
+; For image services plugin we need to add extensions required for the first run
 ; Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Plugins"; ValueType: string; ValueName: "{C9314782-CB91-40B8-B375-F631FF30C1C8}"; ValueData: "|-.pdf||.bmp||.png||.jpg|"; Flags: createvalueifdoesntexist uninsdeletekey
 
 ; Set Defaults

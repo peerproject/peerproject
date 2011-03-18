@@ -1080,6 +1080,8 @@ LRESULT CMainWnd::OnSkinChanged(WPARAM /*wParam*/, LPARAM /*lParam*/)
 {
 	CWaitCursor pCursor;
 
+	Skin.m_bSkinChanging = TRUE;	// Indicate transitional state where needed
+
 	//LockWindowUpdate();
 	RemoveSkin();
 
@@ -1163,6 +1165,8 @@ LRESULT CMainWnd::OnSkinChanged(WPARAM /*wParam*/, LPARAM /*lParam*/)
 	LibraryFolders.Maintain();
 	CPeerProjectURL::Register();
 
+	Skin.m_bSkinChanging = FALSE;	// Restore system state
+
 	return 0;
 }
 
@@ -1217,8 +1221,8 @@ LRESULT CMainWnd::OnHandleTorrent(WPARAM wParam, LPARAM /*lParam*/)
 	delete [] pszPath;
 
 	CTorrentSeedDlg dlg( strPath );
-	// Shift Key or Active Hashing (crashbug) bypass Torrent Loading Attempt straight to Dialog
-	if ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 || LibraryBuilder.GetRemaining() || ! dlg.LoadTorrent( strPath ) )
+	// Shift key bypasses torrent loading attempt straight to dialog
+	if ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 || ! dlg.LoadTorrent( strPath ) )
 		dlg.DoModal();	// Try again manually
 
 	return 0;
@@ -1387,7 +1391,7 @@ void CMainWnd::UpdateMessages()
 		else if ( Network.IsConnected() )
 		{
 			// If only BitTorrent is enabled say connected (G1, G2, eDonkey are disabled)
-			if( ! Settings.Gnutella1.EnableToday && ! Settings.Gnutella2.EnableToday && ! Settings.eDonkey.EnableToday )
+			if ( ! Settings.Gnutella1.EnableToday && ! Settings.Gnutella2.EnableToday && ! Settings.eDonkey.EnableToday )
 				strMessage.Format( LoadString( IDS_STATUS_BAR_CONNECTED_SIMPLE ),
 					Settings.SmartVolume( nLocalVolume, KiloBytes ) );
 			else	// Trying to connect
@@ -1693,7 +1697,7 @@ void CMainWnd::OnNetworkG2()
 
 	if ( Settings.Gnutella2.EnableToday )
 	{
-		if( ! Network.IsConnected() )
+		if ( ! Network.IsConnected() )
 			Network.Connect( TRUE );
 		else
 			DiscoveryServices.Execute( FALSE, PROTOCOL_G2, FALSE );

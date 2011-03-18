@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Swedish Skin File -->
 
-<!-- Translation based on default-en.xml r62 -->
+<!-- Translation based on default-en.xml r64 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2494,8 +2494,8 @@
 	<tip id="ID_SEARCH_STOP" message="Sluta ta emot resultat i detta fönster."/>
 	<tip id="ID_SEARCHMONITOR_CLEAR" message="Rensa sökmonitorns buffert."/>
 	<tip id="ID_SEARCHMONITOR_PAUSE" message="Gör en paus i sökmonitorn."/>
-	<tip id="ID_SECURITY_ADD" message="Lägg till en regel till säkerhetskedjan…"/>
 	<tip id="ID_SECURITY_BAN" message="Utestäng de valda värdarna under denna session."/>
+	<tip id="ID_SECURITY_ADD" message="Lägg till en regel till säkerhetskedjan…"/>
 	<tip id="ID_SECURITY_EDIT" message="Redigera den valda säkerhetspolicyn…"/>
 	<tip id="ID_SECURITY_EXPORT" message="Exportera de valda säkerhetsreglerna till en fil…"/>
 	<tip id="ID_SECURITY_IMPORT" message="Importera säkerhetsregler från en fil…"/>
@@ -2505,6 +2505,14 @@
 	<tip id="ID_SECURITY_POLICY_DENY" message="Sätt förvald säkerhetspolicy till att neka alla värdar."/>
 	<tip id="ID_SECURITY_REMOVE" message="Radera den valda säkerhetspolicyn."/>
 	<tip id="ID_SECURITY_RESET" message="Återställ träffräknaren för de valda reglerna."/>
+	<tip id="ID_SCHEDULER_ADD" message="Lägg till en regel till säkerhetskedjan…"/>
+	<tip id="ID_SCHEDULER_EDIT" message="Redigera den valda säkerhetspolicyn…"/>
+	<tip id="ID_SCHEDULER_ACTIVATE" message="Rensa de valda uppladdningen/uppladdningarna från listan."/>
+	<tip id="ID_SCHEDULER_DEACTIVATE" message="Anslut till nätverket."/>
+	<tip id="ID_SCHEDULER_EXPORT" message="Exportera de valda säkerhetsreglerna till en fil…"/>
+	<tip id="ID_SCHEDULER_IMPORT" message="Importera säkerhetsregler från en fil…"/>
+	<tip id="ID_SCHEDULER_REMOVE" message="Radera de valda nedladdningarna från listan."/>
+	<tip id="ID_SCHEDULER_REMOVE_ALL" message="Delete all scheduled tasks."/>
 	<tip id="ID_SYSTEM_CLEAR" message="Rensa statusloggen."/>
 	<tip id="ID_SYSTEM_TIMESTAMP" message="Gör en tidsstämpel för varje rad."/>
 	<tip id="ID_SYSTEM_VERBOSE" message="Visa en detaljerad logg över systemaktiviteter."/>
@@ -3141,7 +3149,7 @@
 	<string id="20706" value="Ultralikeläge med %lu grannar. %s i ditt lokala bibliotek."/>
 	<string id="20707" value="Ansluter till nätverket…"/>
 	<string id="20708" value="Ej ansluten till nätverket."/>
-	<string id="20710" value="(Ingen framgång)"/>
+	<string id="20710" value="Rensa"/>
 	<string id="20711" value="Kan inte flytta"/>
 	<string id="20712" value="Kvävd"/>
 	<string id="20713" value="Lägg i kö"/>
@@ -3167,6 +3175,7 @@
 	<string id="20733" value="källor"/>
 	<string id="20734" value="källor"/>
 	<string id="20735" value="källor"/>
+	<string id="20736" value="(Ingen framgång)"/>
 	<string id="20740" value="TigerTree"/>
 	<string id="20741" value="Torrent"/>
 	<string id="20742" value="Spårare nere"/>
@@ -3402,7 +3411,7 @@
 		<control caption="Filtrera spam från chatmeddelanden"/>
 		<control caption="Censurera chatten"/>
 	</dialog>
-	<dialog name="CIRCSettingsPage" cookie="BuBuBuBuStEdStStEdCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStEdStEdStEd" caption="Chat">
+	<dialog name="CIRCSettingsPage" cookie="BuBuBuBuStEdmsStStEdmsCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStCoStEdStEd" caption="Chat">
 		<control caption="Klient_alternativ:"/>
 		<control caption="Visa den integrerade chatten"/>
 		<control caption="Visa tidsstämpel"/>
@@ -4519,9 +4528,9 @@
 		<column from="Address" to="Adress"/>
 		<column from="Port" to="Port"/>
 		<column from="Time" to="Tid"/>
-		<column from="Packets" to="Paket"/>
-		<column from="Bandwidth" to="Bandbredd"/>
+		<column from="Traffic" to="Bandbredd"/>
 		<column from="Total" to="Totalt"/>
+		<column from="Packets" to="Paket"/>
 		<column from="Flow" to="Flöde"/>
 		<column from="Leaves" to="Löv"/>
 		<column from="Mode" to="Läge"/>
@@ -4597,7 +4606,7 @@
 	<list name="CUploadQueueList">
 		<column from="Name" to="Namn"/>
 		<column from="Criteria" to="Kriterium"/>
-		<column from="Bandwidth" to="Bandbredd"/>
+		<column from="Minimum" to="Bandbredd"/>
 		<column from="Transfers" to="Överföringar"/>
 		<column from="Order" to="Ordning"/>
 	</list>

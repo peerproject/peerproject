@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default English Skin File -->
 
-<!-- Translation based on default-en.xml r62 -->
+<!-- Translation based on default-en.xml r64 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2710,8 +2710,8 @@
 	<tip id="ID_SEARCH_STOP" message="Stop receiving results in this window."/>
 	<tip id="ID_SEARCHMONITOR_CLEAR" message="Clear the search monitor buffer."/>
 	<tip id="ID_SEARCHMONITOR_PAUSE" message="Pause search monitoring."/>
-	<tip id="ID_SECURITY_ADD" message="Add a new rule to the security chain..."/>
 	<tip id="ID_SECURITY_BAN" message="Filter out the selected host for an extended period."/>
+	<tip id="ID_SECURITY_ADD" message="Add a new rule to the security chain..."/>
 	<tip id="ID_SECURITY_EDIT" message="Edit the selected security rule..."/>
 	<tip id="ID_SECURITY_EXPORT" message="Export the selected security rules to a file..."/>
 	<tip id="ID_SECURITY_IMPORT" message="Import security rules from a file..."/>
@@ -2721,6 +2721,14 @@
 	<tip id="ID_SECURITY_POLICY_DENY" message="Set the default security policy to deny all hosts."/>
 	<tip id="ID_SECURITY_REMOVE" message="Remove the selected security rules."/>
 	<tip id="ID_SECURITY_RESET" message="Reset the hit counts on the selected rules."/>
+	<tip id="ID_SCHEDULER_ADD" message="Create a new scheduled task for the list..."/>
+	<tip id="ID_SCHEDULER_EDIT" message="Edit the selected task..."/>
+	<tip id="ID_SCHEDULER_ACTIVATE" message="Enable selected tasks."/>
+	<tip id="ID_SCHEDULER_DEACTIVATE" message="Disable selected tasks."/>
+	<tip id="ID_SCHEDULER_EXPORT" message="Export selected tasks to a file..."/>
+	<tip id="ID_SCHEDULER_IMPORT" message="Import scheduled tasks from a file..."/>
+	<tip id="ID_SCHEDULER_REMOVE" message="Remove selected tasks from the list."/>
+	<tip id="ID_SCHEDULER_REMOVE_ALL" message="Delete all scheduled tasks."/>
 	<tip id="ID_SYSTEM_CLEAR" message="Clear the status log."/>
 	<tip id="ID_SYSTEM_TIMESTAMP" message="Record a timestamp for each line."/>
 	<tip id="ID_SYSTEM_VERBOSE" message="Display a detailed system activity log."/>
@@ -2802,7 +2810,7 @@
 	<tip id="IDC_REGEXP" message="Enter regular expressions in perl syntax.{n}All search keywords can be listed in order with the &lt;%&gt; tag.{n}Individual keywords can be specified with &lt;1&gt;, numbers 1 through 9."/>
 	<tip id="IDC_THROTTLE_MODE" message="In maximum mode bandwidth won't ever exceed the specified value.{n}In average mode it will fluctuate around the value to both sides."/>
 	<tip id="IDC_SHARE_PARTIALS" message="This setting has no effect on current downloads, or torrents, or with eDonkey hash and eDonkey network enabled. However, this setting is not ignored if the download is paused.{n}{n}ATTENTION: Use this option only if necessary, if you abuse the option you may be banned."/>
-	<tip id="IDC_TIP_SHADOW" message="Toggle Drop Shadows under tooltips.{n}-Note changes take effect at next program restart."/>
+	<tip id="IDC_TIP_SHADOW" message="Toggle drop shadow effect under advanced tooltips."/>
 </controlTips>
 <!-- Localized Strings -->
 <strings>
@@ -3409,7 +3417,7 @@
 	<string id="20706" value="Ultrapeer mode with %lu neighbors. %s in local library."/>
 	<string id="20707" value="Connecting to the network..."/>
 	<string id="20708" value="Not connected to the network."/>
-	<string id="20710" value="(No Sources)"/>
+	<string id="20710" value="Clearing"/>
 	<string id="20711" value="Can't Move"/>
 	<string id="20712" value="Choked"/>
 	<string id="20713" value="Enqueue"/>
@@ -3435,6 +3443,7 @@
 	<string id="20733" value="sources"/> <!-- many -->
 	<string id="20734" value="sources"/> <!-- few  2,3,4 -->
 	<string id="20735" value="sources"/> <!-- ones 21,31,... -->
+	<string id="20736" value="(No Sources)"/>
 	<string id="20740" value="TigerTree"/>
 	<string id="20741" value="Torrent"/>
 	<string id="20742" value="Tracker Down"/>
@@ -3663,12 +3672,12 @@
 		<control caption="_Select Plugin..."/>
 		<control caption="Note: For playback problems, install an updated 'Codec Pack' (Try Codecs.com)"/>
 	</dialog>
-	<dialog name="CIRCSettingsPage" cookie="BuBuBuBuStEdStStEdCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStEdStEdStEd" caption="IRC Chat">
+	<dialog name="CIRCSettingsPage" cookie="BuBuBuBuStEdmsStStEdmsCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStCoStEdStEd" caption="IRC Chat">
 		<control caption="Client _Options:"/>
 		<control caption="Show chat integration"/>
 		<control caption="Show timestamp"/>
 		<control caption="Flood protection:"/>
-		<control caption="Lines"/>
+		<control caption="Lines/Sec"/>
 		<control/>
 		<control caption="Screen Font:"/>
 		<control caption="Size"/>
@@ -4808,9 +4817,9 @@
 		<column from="Address" to=""/>
 		<column from="Port" to=""/>
 		<column from="Time" to=""/>
-		<column from="Packets" to=""/>
-		<column from="Bandwidth" to=""/>
+		<column from="Traffic" to=""/>
 		<column from="Total" to=""/>
+		<column from="Packets" to=""/>
 		<column from="Flow" to=""/>
 		<column from="Leaves" to=""/>
 		<column from="Mode" to=""/>

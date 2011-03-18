@@ -183,6 +183,8 @@ void CSecurity::Clear()
 	}
 
 	m_pRules.RemoveAll();
+
+	m_Cache.clear();
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -199,7 +201,7 @@ void CSecurity::BanHelper(const IN_ADDR* pAddress, const CPeerProjectFile* pFile
 		CSecureRule* pRule = GetNext( pos );
 
 		if ( ( pAddress && pRule->Match( pAddress ) ) ||
-			( pFile && pRule->Match( pFile ) ) )				// Non-regexp name, hash, or size:ext:0000
+			 ( pFile && pRule->Match( pFile ) ) )				// Non-regexp name, hash, or size:ext:0000
 		{
 			if ( pRule->m_nAction == CSecureRule::srDeny )
 			{
@@ -260,13 +262,13 @@ void CSecurity::BanHelper(const IN_ADDR* pAddress, const CPeerProjectFile* pFile
 
 	if ( pAddress )
 		CopyMemory( pRule->m_nIP, pAddress, sizeof pRule->m_nIP );
-	else if ( pFile && ( pFile->m_oSHA1 || pFile->m_oTiger || pFile->m_oBTH || pFile->m_oED2K || pFile->m_oMD5 ) )
+	else if ( pFile && ( pFile->m_oSHA1 || pFile->m_oTiger || pFile->m_oED2K || pFile->m_oBTH || pFile->m_oMD5 ) )
 	{
-		pRule->m_nType = CSecureRule::srContentAny;
+		pRule->m_nType = CSecureRule::srContentHash;
 		pRule->SetContentWords(
 			( pFile->m_oSHA1  ? pFile->m_oSHA1.toUrn()  + _T(" ") : CString() ) +
-			( pFile->m_oED2K  ? pFile->m_oED2K.toUrn()  + _T(" ") : CString() ) +
 			( pFile->m_oTiger ? pFile->m_oTiger.toUrn() + _T(" ") : CString() ) +
+			( pFile->m_oED2K  ? pFile->m_oED2K.toUrn()  + _T(" ") : CString() ) +
 			( pFile->m_oMD5   ? pFile->m_oMD5.toUrn()   + _T(" ") : CString() ) +
 			( pFile->m_oBTH   ? pFile->m_oBTH.toUrn()             : CString() ) );
 	}
@@ -274,10 +276,7 @@ void CSecurity::BanHelper(const IN_ADDR* pAddress, const CPeerProjectFile* pFile
 	Add( pRule );
 
 	if ( bMessage && pAddress )
-	{
-		theApp.Message( MSG_NOTICE, IDS_NETWORK_SECURITY_BLOCKED,
-			(LPCTSTR)CString( inet_ntoa( *pAddress ) ) );
-	}
+		theApp.Message( MSG_NOTICE, IDS_NETWORK_SECURITY_BLOCKED, (LPCTSTR)CString( inet_ntoa( *pAddress ) ) );
 }
 
 
@@ -967,9 +966,9 @@ BOOL CSecureRule::Match(LPCTSTR pszContent) const
 		{
 			BOOL bFound = _tcsistr( pszContent, pszFilter ) != NULL;
 
-			if ( ! bFound && ( m_nType == srContentAll || m_nType == srSizeType ) )
+			if ( ! bFound && ( m_nType == srContentAll || m_nType == srSizeType || m_nType == srContentHash ) )
 				return FALSE;
-			if ( bFound && ( m_nType == srContentAny || m_nType == srSizeType ) )
+			if ( bFound && ( m_nType == srContentAny || m_nType == srSizeType || m_nType == srContentHash ) )
 				return TRUE;
 
 			pszFilter += _tcslen( pszFilter ) + 1;
@@ -984,34 +983,34 @@ BOOL CSecureRule::Match(LPCTSTR pszContent) const
 
 BOOL CSecureRule::Match(const CPeerProjectFile* pFile) const
 {
-	if ( m_nType != srContentRegExp && m_nType != srAddress && pFile && m_pContent )
+	if ( m_nType == srContentRegExp || m_nType == srAddress || ! ( pFile && m_pContent ) )
+		return FALSE;
+
+	if ( m_nType == srSizeType )
 	{
-		if ( m_nType == srSizeType )
-		{
-			if ( pFile->m_nSize == 0 || pFile->m_nSize == SIZE_UNKNOWN )
-				return FALSE;
+		if ( pFile->m_nSize == 0 || pFile->m_nSize == SIZE_UNKNOWN )
+			return FALSE;
 
-			LPCTSTR pszExt = PathFindExtension( (LPCTSTR)pFile->m_sName );
-			if ( *pszExt != '.' )
-				return FALSE;
+		LPCTSTR pszExt = PathFindExtension( (LPCTSTR)pFile->m_sName );
+		if ( *pszExt != '.' )
+			return FALSE;
 
-			pszExt++;
-			CString strCompare;
-			strCompare.Format( _T("size:%s:%u"), pszExt, pFile->m_nSize );	// %I64i
-			return Match( strCompare );
-		}
-
-		if ( Match( pFile->m_sName ) )
-			return TRUE;
-
-		if ( m_nContentLength > 30 )
-			return
-				( pFile->m_oSHA1  && Match( pFile->m_oSHA1.toUrn() ) ) ||
-				( pFile->m_oED2K  && Match( pFile->m_oED2K.toUrn() ) ) ||
-				( pFile->m_oTiger && Match( pFile->m_oTiger.toUrn() ) ) ||
-				( pFile->m_oBTH   && Match( pFile->m_oBTH.toUrn() ) ) ||
-				( pFile->m_oMD5   && Match( pFile->m_oMD5.toUrn() ) );
+		pszExt++;
+		CString strCompare;
+		strCompare.Format( _T("size:%s:%u"), pszExt, pFile->m_nSize );	// %I64i
+		return Match( strCompare );
 	}
+
+	if ( m_nType != srContentHash && Match( pFile->m_sName ) )
+		return TRUE;
+
+	if ( m_nType == srContentHash || m_nContentLength > 30 )
+		return
+			( pFile->m_oSHA1  && Match( pFile->m_oSHA1.toUrn() ) ) ||
+			( pFile->m_oED2K  && Match( pFile->m_oED2K.toUrn() ) ) ||
+			( pFile->m_oTiger && Match( pFile->m_oTiger.toUrn() ) ) ||
+			( pFile->m_oBTH   && Match( pFile->m_oBTH.toUrn() ) ) ||
+			( pFile->m_oMD5   && Match( pFile->m_oMD5.toUrn() ) );
 
 	return FALSE;
 }
@@ -1125,8 +1124,8 @@ void CSecureRule::SetContentWords(const CString& strContent)
 		return;
 	}
 
-	LPTSTR pszContent	= (LPTSTR)(LPCTSTR)strContent;
-	int nTotalLength	= 3;
+	LPTSTR pszContent = (LPTSTR)(LPCTSTR)strContent;
+	int nTotalLength  = 3;
 	CList< CString > pWords;
 
 	int nStart = 0, nPos = 0;
@@ -1219,10 +1218,12 @@ void CSecureRule::Serialize(CArchive& ar, int nVersion)
 			ar.Write( m_nIP, 4 );
 			ar.Write( m_nMask, 4 );
 			break;
-		case srContentAny:
-		case srContentAll:
-		case srContentRegExp:
-		case srSizeType:
+		//case srContentAny:
+		//case srContentAll:
+		//case srContentRegExp:
+		//case srContentHash:
+		//case srSizeType:
+		default:
 			strTemp = GetContentWords();
 			ar << strTemp;
 			break;
@@ -1232,10 +1233,10 @@ void CSecureRule::Serialize(CArchive& ar, int nVersion)
 	{
 		int nType;
 		ar >> nType;
-		ar >> m_nAction;
+		m_nType = (RuleType)nType;
 
-		//if ( nVersion > 2 )
-			ar >> m_sComment;
+		ar >> m_nAction;
+		ar >> m_sComment;
 
 		//if ( nVersion > 3 )
 			ReadArchive( ar, &m_pGUID, sizeof(GUID) );
@@ -1245,49 +1246,30 @@ void CSecureRule::Serialize(CArchive& ar, int nVersion)
 		ar >> m_nExpire;
 		ar >> m_nEver;
 
-		switch ( nType )
-		{
-		case 0:
-			m_nType = srAddress;
-			break;
-		case 1:
-			m_nType = srContentAny;
-			break;
-		case 2:
-			m_nType = srContentAll;
-			break;
-		case 3:
-			m_nType = srContentRegExp;
-			break;
-		case 4:
-			m_nType = srSizeType;
-			break;
-		}
-
 		if ( m_nType == srAddress )
 		{
 			ReadArchive( ar, m_nIP, 4 );
 			ReadArchive( ar, m_nMask, 4 );
-			MaskFix();				// Make sure old rules are updated to new format (obsolete?)
+			MaskFix();					// Make sure old rules are updated to new format (obsolete?)
 		}
 		else
 		{
-			if ( nVersion < 5 )		// Shareaza Import?
-			{
-				ASSERT( m_nType == srContentAny );
-
-				BYTE foo;
-				ar >> foo;
-				switch ( foo )
-				{
-				case 1:
-					m_nType = srContentAll;
-					break;
-				case 2:
-					m_nType = srContentRegExp;
-					break;
-				}
-			}
+			//if ( nVersion < 5 )		// Map RuleType enum changes
+			//{
+			//	ASSERT( m_nType == srContentAny );
+			//
+			//	BYTE foo;
+			//	ar >> foo;
+			//	switch ( foo )
+			//	{
+			//	case 1:
+			//		m_nType = srContentAll;
+			//		break;
+			//	case 2:
+			//		m_nType = srContentRegExp;
+			//		break;
+			//	}
+			//}
 
 			//if ( nVersion < 3 )
 			//{
@@ -1316,44 +1298,28 @@ CXMLElement* CSecureRule::ToXML()
 	CXMLElement* pXML = new CXMLElement( NULL, _T("rule") );
 	CString strValue;
 
-	// Order has no influence on output (Indeterminate CMap)
+	// Note: Insertion order is generally maintained with an XML workaround for indeterminate CMap
 
 	wchar_t szGUID[39];
 	szGUID[ StringFromGUID2( *(GUID*)&m_pGUID, szGUID, 39 ) - 2 ] = 0;
 	pXML->AddAttribute( _T("guid"), (CString)&szGUID[1] );
 
-	if ( ! m_sComment.IsEmpty() )
-		pXML->AddAttribute( _T("comment"), m_sComment );
-
-	pXML->AddAttribute( _T("action"),
-		( m_nAction == srDeny ? _T("deny") : m_nAction == srAccept ? _T("accept") : _T("null") ) ); 	// srNull
-
-	if ( m_nExpire > srSession )
-	{
-		strValue.Format( _T("%lu"), m_nExpire );
-		pXML->AddAttribute( _T("expire"), strValue );
-	}
-	else if ( m_nExpire == srSession )
-	{
-		pXML->AddAttribute( _T("expire"), _T("session") );
-	}
-
 	if ( m_nType == srAddress )
 	{
+		pXML->AddAttribute( _T("type"), _T("address") );
+
+		strValue.Format( _T("%lu.%lu.%lu.%lu"),
+			m_nIP[0], m_nIP[1], m_nIP[2], m_nIP[3] );
+		pXML->AddAttribute( _T("address"), strValue );
+
 		if ( *(DWORD*)m_nMask != 0xFFFFFFFF )
 		{
 			strValue.Format( _T("%lu.%lu.%lu.%lu"),
 				m_nMask[0], m_nMask[1], m_nMask[2], m_nMask[3] );
 			pXML->AddAttribute( _T("mask"), strValue );
 		}
-
-		strValue.Format( _T("%lu.%lu.%lu.%lu"),
-			m_nIP[0], m_nIP[1], m_nIP[2], m_nIP[3] );
-		pXML->AddAttribute( _T("address"), strValue );
-
-		pXML->AddAttribute( _T("type"), _T("address") );
 	}
-	else	// srContentAny srContentAll srContentRegExp srSizeType
+	else
 	{
 		CString str;
 		switch ( m_nType )
@@ -1367,6 +1333,9 @@ CXMLElement* CSecureRule::ToXML()
 		case srContentRegExp:
 			str = L"regexp";
 			break;
+		case srContentHash:
+			str = L"hash";
+			break;
 		case srSizeType:
 			str = L"size";
 			break;
@@ -1375,10 +1344,26 @@ CXMLElement* CSecureRule::ToXML()
 			str = L"null";
 		}
 
-		pXML->AddAttribute( _T("match"), str );
-		pXML->AddAttribute( _T("content"), GetContentWords() );
 		pXML->AddAttribute( _T("type"), _T("content") );
+		pXML->AddAttribute( _T("content"), GetContentWords() );
+		pXML->AddAttribute( _T("match"), str );
 	}
+
+	if ( m_nExpire > srSession )
+	{
+		strValue.Format( _T("%lu"), m_nExpire );
+		pXML->AddAttribute( _T("expire"), strValue );
+	}
+	else if ( m_nExpire == srSession )
+	{
+		pXML->AddAttribute( _T("expire"), _T("session") );
+	}
+
+	pXML->AddAttribute( _T("action"),
+		( m_nAction == srDeny ? _T("deny") : m_nAction == srAccept ? _T("accept") : _T("null") ) ); 	// srNull?
+
+	if ( ! m_sComment.IsEmpty() )
+		pXML->AddAttribute( _T("comment"), m_sComment );
 
 	return pXML;
 }
@@ -1417,6 +1402,8 @@ BOOL CSecureRule::FromXML(CXMLElement* pXML)
 			m_nType = srContentAll;
 		else if ( strMatch.CompareNoCase( _T("regexp") ) == 0 )
 			m_nType = srContentRegExp;
+		else if ( strMatch.CompareNoCase( _T("hash") ) == 0 )
+			m_nType = srContentHash;
 		else if ( strMatch.CompareNoCase( _T("size") ) == 0 )
 			m_nType = srSizeType;
 		SetContentWords( pXML->GetAttributeValue( _T("content") ) );
@@ -1452,7 +1439,7 @@ BOOL CSecureRule::FromXML(CXMLElement* pXML)
 }
 
 //////////////////////////////////////////////////////////////////////
-// CSecureRule Gnucelus strings
+// CSecureRule Gnucelus strings (.net file export)
 
 CString CSecureRule::ToGnucleusString() const
 {

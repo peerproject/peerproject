@@ -1,7 +1,7 @@
 //
 // DlgURLAction.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -75,12 +75,12 @@ void CURLActionDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CSkinDialog::DoDataExchange(pDX);
 	//{{AFX_DATA_MAP(CURLActionDlg)
-	DDX_Control(pDX, IDC_NEW_WINDOW, m_wndNewWindow);
 	DDX_Control(pDX, IDCANCEL, m_wndCancel);
-	DDX_Control(pDX, IDC_MESSAGE_4, m_wndMessage4);
-	DDX_Control(pDX, IDC_MESSAGE_3, m_wndMessage3);
-	DDX_Control(pDX, IDC_MESSAGE_2, m_wndMessage2);
+	DDX_Control(pDX, IDC_NEW_WINDOW, m_wndNewWindow);
 	DDX_Control(pDX, IDC_MESSAGE_1, m_wndMessage1);
+	DDX_Control(pDX, IDC_MESSAGE_2, m_wndMessage2);
+	DDX_Control(pDX, IDC_MESSAGE_3, m_wndMessage3);
+	DDX_Control(pDX, IDC_MESSAGE_4, m_wndMessage4);
 	DDX_Control(pDX, IDC_URL_SEARCH, m_wndSearch);
 	DDX_Control(pDX, IDC_URL_DOWNLOAD, m_wndDownload);
 	DDX_Text(pDX, IDC_URL_NAME_TITLE, m_sNameTitle);
@@ -101,16 +101,16 @@ BOOL CURLActionDlg::OnInitDialog()
 
 	SkinMe( _T("CURLActionDlg"), IDR_MAINFRAME );
 
-	m_bAlwaysOpen	= Settings.General.AlwaysOpenURLs;
-	m_bNewWindow	= Settings.Downloads.ShowMonitorURLs;
+	m_bAlwaysOpen = Settings.General.AlwaysOpenURLs;
+	m_bNewWindow  = Settings.Downloads.ShowMonitorURLs;
 
 	CString strMessage;
 
 	if ( m_pURL->m_nAction == CPeerProjectURL::uriHost ||
 		 m_pURL->m_nAction == CPeerProjectURL::uriDonkeyServer )
 	{
-		LoadString(m_sNameTitle, IDS_URL_HOST );
-		LoadString(m_sHashTitle, IDS_URL_PORT );
+		LoadString( m_sNameTitle, IDS_URL_HOST );
+		LoadString( m_sHashTitle, IDS_URL_PORT );
 
 		m_sNameValue = m_pURL->m_sName;
 		m_sHashValue.Format( _T("%lu"), m_pURL->m_nPort );
@@ -124,7 +124,7 @@ BOOL CURLActionDlg::OnInitDialog()
 
 		if ( m_pURL->m_nAction == CPeerProjectURL::uriHost )
 		{
-			LoadString(strMessage, IDS_URL_BROWSE );
+			LoadString( strMessage, IDS_URL_BROWSE );
 			m_wndSearch.SetWindowText( strMessage );
 		}
 		else
@@ -151,8 +151,8 @@ BOOL CURLActionDlg::OnInitDialog()
 	}
 	else if ( m_pURL->m_nAction == CPeerProjectURL::uriDiscovery )
 	{
-		LoadString(m_sNameTitle, IDS_URL_URL );
-		LoadString(m_sHashTitle, IDS_URL_TYPE );
+		LoadString( m_sNameTitle, IDS_URL_URL );
+		LoadString( m_sHashTitle, IDS_URL_TYPE );
 
 		m_sNameValue = m_pURL->m_sURL;
 
@@ -167,14 +167,14 @@ BOOL CURLActionDlg::OnInitDialog()
 		}
 
 		m_wndMessage4.ShowWindow( SW_SHOW );
-		LoadString(strMessage, IDS_URL_ADD );
+		LoadString( strMessage, IDS_URL_ADD );
 		m_wndDownload.SetWindowText( strMessage );
 		m_wndSearch.ShowWindow( SW_HIDE );
 		m_wndNewWindow.ShowWindow( SW_HIDE );
 	}
 	else if ( m_pURL->m_nAction == CPeerProjectURL::uriSource )
 	{
-		LoadString(m_sNameTitle, IDS_URL_URL );
+		LoadString( m_sNameTitle, IDS_URL_URL );
 
 		m_sNameValue = m_pURL->m_sURL;
 
@@ -183,7 +183,7 @@ BOOL CURLActionDlg::OnInitDialog()
 	}
 	else
 	{
-		LoadString(m_sNameTitle, IDS_URL_FILENAME );
+		LoadString( m_sNameTitle, IDS_URL_FILENAME );
 		m_sHashTitle = _T("URN:");
 
 		if ( ! m_pURL->m_sName.IsEmpty() )
@@ -195,7 +195,7 @@ BOOL CURLActionDlg::OnInitDialog()
 		}
 		else
 		{
-			LoadString(m_sNameValue, IDS_URL_UNSPECIFIED );
+			LoadString( m_sNameValue, IDS_URL_UNSPECIFIED );
 		}
 
 		if ( m_pURL->m_oTiger && m_pURL->m_oSHA1 )
@@ -211,7 +211,14 @@ BOOL CURLActionDlg::OnInitDialog()
 		else if ( m_pURL->m_oMD5 )
 			m_sHashValue = m_pURL->m_oMD5.toShortUrn();
 		else
+		{
 			LoadString( m_sHashValue, IDS_URL_UNSPECIFIED );
+
+			if ( StartsWith( m_pURL->m_sURL, _T("http"), 4 ) )
+				m_sHashValue += _T("  (HTTP)");
+			else if ( StartsWith( m_pURL->m_sURL, _T("ftp"), 4 ) )
+				m_sHashValue += _T("  (FTP)");
+		}
 
 		m_wndMessage1.ShowWindow( SW_SHOW );
 
@@ -265,61 +272,64 @@ void CURLActionDlg::OnUrlDownload()
 	Settings.General.AlwaysOpenURLs		= m_bAlwaysOpen != FALSE;
 	Settings.Downloads.ShowMonitorURLs	= m_bNewWindow != FALSE;
 
-	if ( m_pURL->m_nAction == CPeerProjectURL::uriDownload ||
-		 m_pURL->m_nAction == CPeerProjectURL::uriSource )
+	switch ( m_pURL->m_nAction )
 	{
-		CExistingFileDlg::Action action = CExistingFileDlg::CheckExisting( m_pURL );
-		if ( action == CExistingFileDlg::Cancel )
-			return;
-
-		if ( action != CExistingFileDlg::Download )
+	case CPeerProjectURL::uriDownload:
+	case CPeerProjectURL::uriSource:
 		{
-			DestroyWindow();
-			return;
+			CExistingFileDlg::Action action = CExistingFileDlg::CheckExisting( m_pURL );
+			if ( action == CExistingFileDlg::Cancel )
+				return;
+
+			if ( action != CExistingFileDlg::Download )
+			{
+				DestroyWindow();
+				return;
+			}
+
+			CDownload* pDownload = Downloads.Add( *m_pURL );
+			if ( ! pDownload )
+			{
+				DestroyWindow();
+				return;
+			}
+
+			if ( ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 ) == 0 &&
+				! Network.IsWellConnected() )
+			{
+				Network.Connect( TRUE );
+			}
+
+			CMainWnd* pMainWnd = (CMainWnd*)AfxGetMainWnd();
+			pMainWnd->m_pWindows.Open( RUNTIME_CLASS(CDownloadsWnd) );
+
+			if ( Settings.Downloads.ShowMonitorURLs )
+			{
+				CSingleLock pLock( &Transfers.m_pSection, TRUE );
+				if ( Downloads.Check( pDownload ) )
+					pDownload->ShowMonitor( &pLock );
+			}
 		}
-
-		CDownload* pDownload = Downloads.Add( *m_pURL );
-
-		if ( ! pDownload )
+		break;
+	case CPeerProjectURL::uriBrowse:
 		{
-			DestroyWindow();
-			return;
+			SOCKADDR_IN pAddress;
+			if ( Network.Resolve( m_pURL->m_sName, m_pURL->m_nPort, &pAddress ) )
+				new CBrowseHostWnd( m_pURL->m_nProtocol, &pAddress );
 		}
-
-		if ( ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 ) == 0 &&
-			! Network.IsWellConnected() )
-		{
-			Network.Connect( TRUE );
-		}
-
-		CMainWnd* pMainWnd = (CMainWnd*)AfxGetMainWnd();
-		pMainWnd->m_pWindows.Open( RUNTIME_CLASS(CDownloadsWnd) );
-
-		if ( Settings.Downloads.ShowMonitorURLs )
-		{
-			CSingleLock pLock( &Transfers.m_pSection, TRUE );
-			if ( Downloads.Check( pDownload ) )
-				pDownload->ShowMonitor( &pLock );
-		}
-	}
-	else if ( m_pURL->m_nAction == CPeerProjectURL::uriHost )
-	{
+		break;
+	case CPeerProjectURL::uriHost:
 		Network.ConnectTo( m_pURL->m_sName, m_pURL->m_nPort, m_pURL->m_nProtocol );
-	}
-	else if ( m_pURL->m_nAction == CPeerProjectURL::uriDonkeyServer )
-	{
-		Network.ConnectTo( m_pURL->m_sName, m_pURL->m_nPort, PROTOCOL_ED2K );
-	}
-	else if ( m_pURL->m_nAction == CPeerProjectURL::uriBrowse )
-	{
-		SOCKADDR_IN pAddress;
-
-		if ( Network.Resolve( m_pURL->m_sName, m_pURL->m_nPort, &pAddress ) )
-			new CBrowseHostWnd( m_pURL->m_nProtocol, &pAddress );
-	}
-	else if ( m_pURL->m_nAction == CPeerProjectURL::uriDiscovery )
-	{
+		break;
+	case CPeerProjectURL::uriDiscovery:
 		DiscoveryServices.Add( m_pURL->m_sURL, (int)m_pURL->m_nSize );
+		break;
+	case CPeerProjectURL::uriDonkeyServer:
+		Network.ConnectTo( m_pURL->m_sName, m_pURL->m_nPort, PROTOCOL_ED2K );
+		break;
+	//case CPeerProjectURL::uriSearch:
+	//default:
+	//	ASSERT( ! m_pURL->m_nAction );
 	}
 
 	DestroyWindow();
@@ -332,7 +342,6 @@ void CURLActionDlg::OnUrlSearch()
 	if ( m_pURL->m_nAction == CPeerProjectURL::uriHost )
 	{
 		SOCKADDR_IN pAddress;
-
 		if ( Network.Resolve( m_pURL->m_sName, m_pURL->m_nPort, &pAddress ) )
 			new CBrowseHostWnd( m_pURL->m_nProtocol, &pAddress );
 	}
@@ -340,8 +349,8 @@ void CURLActionDlg::OnUrlSearch()
 	{
 		Network.ConnectTo( m_pURL->m_sName, m_pURL->m_nPort );
 	}
-	else if (	m_pURL->m_nAction == CPeerProjectURL::uriDownload ||
-				m_pURL->m_nAction == CPeerProjectURL::uriSearch )
+	else if ( m_pURL->m_nAction == CPeerProjectURL::uriDownload ||
+			  m_pURL->m_nAction == CPeerProjectURL::uriSearch )
 	{
 		if ( ! Network.IsWellConnected() )
 			Network.Connect( TRUE );

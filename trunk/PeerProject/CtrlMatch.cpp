@@ -1,7 +1,7 @@
 //
 // CtrlMatch.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -41,7 +41,7 @@ static char THIS_FILE[] = __FILE__;
 #endif	// Filename
 
 #define HEADER_HEIGHT	20
-#define ITEM_HEIGHT		17
+//#define ITEM_HEIGHT	17	// Skinnable Settings.Interface.RowSize
 
 
 BEGIN_MESSAGE_MAP(CMatchCtrl, CWnd)
@@ -106,6 +106,13 @@ void CMatchCtrl::OnSkinChange()
 
 	ASSERT_VALID( &m_wndHeader );
 	m_wndHeader.SetFont( &CoolInterface.m_fntNormal );
+
+	if ( m_wndTip.m_hWnd )	// Update Dropshadow
+	{
+		m_wndTip.Hide();
+		m_wndTip.DestroyWindow();
+		m_wndTip.Create( this );
+	}
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -173,7 +180,7 @@ void CMatchCtrl::OnSize(UINT nType, int cx, int cy)
 
 	m_nCurrentWidth = cx;
 
-	m_nPageCount = ( cy - HEADER_HEIGHT ) / ITEM_HEIGHT;
+	m_nPageCount = ( cy - HEADER_HEIGHT ) / Settings.Interface.RowSize;
 	if ( m_nPageCount < 1 ) m_nPageCount = 1;
 	m_nBottomIndex = 0xFFFFFFFF;
 
@@ -644,16 +651,14 @@ void CMatchCtrl::OnPaint()
 	m_nTrailWidth = dc.GetTextExtent( _T("\x2026") ).cx;
 
 	rcItem.SetRect( rcClient.left, rcClient.top, rcClient.right, 0 );
-	rcItem.top -= m_nHitIndex * ITEM_HEIGHT;
-	rcItem.bottom = rcItem.top + ITEM_HEIGHT;
+	rcItem.top -= m_nHitIndex * Settings.Interface.RowSize;
+	rcItem.bottom = rcItem.top + Settings.Interface.RowSize;
 
 	CMatchFile** ppFile = m_pMatches->m_pFiles + m_nTopIndex;
 	BOOL bFocus = ( GetFocus() == this );
 
 	DWORD nIndex = m_nTopIndex;
-	for (	;
-			nIndex < m_pMatches->m_nFiles && rcItem.top < rcClient.bottom ;
-			nIndex++, ppFile++ )
+	for ( ; nIndex < m_pMatches->m_nFiles && rcItem.top < rcClient.bottom ; nIndex++, ppFile++ )
 	{
 		CMatchFile* pFile = *ppFile;
 		int nCount = pFile->GetFilteredCount();
@@ -664,8 +669,8 @@ void CMatchCtrl::OnPaint()
 		if ( rcItem.top >= rcClient.top && dc.RectVisible( &rcItem ) )
 			DrawItem( dc, rcItem, pFile, NULL, bFocus && ( nIndex == m_nFocus ) );
 
-		rcItem.top += ITEM_HEIGHT;
-		rcItem.bottom += ITEM_HEIGHT;
+		rcItem.top += Settings.Interface.RowSize;
+		rcItem.bottom += Settings.Interface.RowSize;
 
 		if ( nCount > 1 && pFile->m_bExpanded )
 		{
@@ -677,8 +682,8 @@ void CMatchCtrl::OnPaint()
 				if ( rcItem.top >= rcClient.top && dc.RectVisible( &rcItem ) )
 					DrawItem( dc, rcItem, pFile, pHit, FALSE );
 
-				rcItem.top += ITEM_HEIGHT;
-				rcItem.bottom += ITEM_HEIGHT;
+				rcItem.top += Settings.Interface.RowSize;
+				rcItem.bottom += Settings.Interface.RowSize;
 
 				if ( rcItem.top >= rcClient.bottom ) break;
 			}
@@ -854,14 +859,14 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 				ShellIcons.Draw( &dc, pFile->m_nShellIndex, 16, rcCol.left + 16, rcCol.top,	crLeftMargin, bSelected );
 
 				if ( bLeftMargin || ! bSelectmark )
-					dc.FillSolidRect( rcCol.left, rcCol.top + 16, 32, ITEM_HEIGHT - 16, crLeftMargin );
+					dc.FillSolidRect( rcCol.left, rcCol.top + 16, 32, Settings.Interface.RowSize - 16, crLeftMargin );
 
 				rcCol.left += 32;
 			}
 			else
 			{
 				if ( bLeftMargin || ! bSelectmark )
-					dc.FillSolidRect( rcCol.left, rcCol.top, ( pHit ? 24 : 16 ), ITEM_HEIGHT, crLeftMargin );
+					dc.FillSolidRect( rcCol.left, rcCol.top, ( pHit ? 24 : 16 ), Settings.Interface.RowSize, crLeftMargin );
 				rcCol.left += ( pHit ? 24 : 16 );
 
 				// Draw file icon
@@ -877,7 +882,7 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 				}
 
 				if ( bLeftMargin || ! bSelectmark )
-					dc.FillSolidRect( rcCol.left, rcCol.top + 16, 16, ITEM_HEIGHT - 16, crLeftMargin );
+					dc.FillSolidRect( rcCol.left, rcCol.top + 16, 16, Settings.Interface.RowSize - 16, crLeftMargin );
 
 				rcCol.left += 16;
 			}
@@ -887,7 +892,7 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 					rcCol.left - 16, rcCol.top, CLR_NONE, bSelected );
 
 			if ( bLeftMargin || ! bSelectmark )
-				dc.FillSolidRect( rcCol.left, rcCol.top, 1, ITEM_HEIGHT, crLeftMargin );
+				dc.FillSolidRect( rcCol.left, rcCol.top, 1, Settings.Interface.RowSize, crLeftMargin );
 			rcCol.left++;
 
 			if ( bSelected && bFocus )
@@ -1099,7 +1104,7 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 					// using fact that neighbour hits got at same time
 					static TCHAR szBufferCache[ 64 ] = {};
 					static SYSTEMTIME stCache = {};
-					st.wMilliseconds = 0;	// round to seconds
+					st.wMilliseconds = 0;	// Round to seconds
 					if ( memcmp( &stCache, &st, sizeof( SYSTEMTIME ) ) == 0 )
 						pszText = szBufferCache;	// Use cache
 					else
@@ -1387,14 +1392,14 @@ BOOL CMatchCtrl::HitTest(const CPoint& point, CMatchFile** poFile, CQueryHit** p
 	rcClient.top += HEADER_HEIGHT;
 
 	rcItem.SetRect( rcClient.left, rcClient.top, rcClient.right, 0 );
-	rcItem.top -= m_nHitIndex * ITEM_HEIGHT;
-	rcItem.bottom = rcItem.top + ITEM_HEIGHT;
+	rcItem.top -= m_nHitIndex * Settings.Interface.RowSize;
+	rcItem.bottom = rcItem.top + Settings.Interface.RowSize;
 
 	CMatchFile** ppFile = m_pMatches->m_pFiles + m_nTopIndex;
 
-	for (	DWORD nIndex = m_nTopIndex ;
-			nIndex < m_pMatches->m_nFiles && rcItem.top < rcClient.bottom ;
-			nIndex++, ppFile++ )
+	for ( DWORD nIndex = m_nTopIndex ;
+		nIndex < m_pMatches->m_nFiles && rcItem.top < rcClient.bottom ;
+		nIndex++, ppFile++ )
 	{
 		CMatchFile* pFile = *ppFile;
 		int nCount = pFile->GetFilteredCount();
@@ -1409,8 +1414,8 @@ BOOL CMatchCtrl::HitTest(const CPoint& point, CMatchFile** poFile, CQueryHit** p
 			return TRUE;
 		}
 
-		rcItem.top += ITEM_HEIGHT;
-		rcItem.bottom += ITEM_HEIGHT;
+		rcItem.top += Settings.Interface.RowSize;
+		rcItem.bottom += Settings.Interface.RowSize;
 
 		if ( nCount > 1 && pFile->m_bExpanded )
 		{
@@ -1427,8 +1432,8 @@ BOOL CMatchCtrl::HitTest(const CPoint& point, CMatchFile** poFile, CQueryHit** p
 					return TRUE;
 				}
 
-				rcItem.top += ITEM_HEIGHT;
-				rcItem.bottom += ITEM_HEIGHT;
+				rcItem.top += Settings.Interface.RowSize;
+				rcItem.bottom += Settings.Interface.RowSize;
 
 				if ( rcItem.top >= rcClient.bottom ) break;
 			}
@@ -1448,9 +1453,9 @@ BOOL CMatchCtrl::GetItemRect(CMatchFile* pFindFile, CQueryHit* pFindHit, CRect* 
 	GetClientRect( &rcClient );
 	rcClient.top += HEADER_HEIGHT;
 
-	rcItem.SetRect( rcClient.left, rcClient.top, rcClient.right, rcClient.top + ITEM_HEIGHT );
-	rcItem.top -= m_nHitIndex * ITEM_HEIGHT;
-	rcItem.bottom = rcItem.top + ITEM_HEIGHT;
+	rcItem.SetRect( rcClient.left, rcClient.top, rcClient.right, rcClient.top + Settings.Interface.RowSize );
+	rcItem.top -= m_nHitIndex * Settings.Interface.RowSize;
+	rcItem.bottom = rcItem.top + Settings.Interface.RowSize;
 
 	if ( m_nTopIndex > 0 )
 	{
@@ -1463,8 +1468,8 @@ BOOL CMatchCtrl::GetItemRect(CMatchFile* pFindFile, CQueryHit* pFindHit, CRect* 
 
 			if ( ! nCount ) continue;
 
-			rcItem.top -= ITEM_HEIGHT;
-			rcItem.bottom -= ITEM_HEIGHT;
+			rcItem.top -= Settings.Interface.RowSize;
+			rcItem.bottom -= Settings.Interface.RowSize;
 
 			if ( nCount > 1 && pFile->m_bExpanded )
 			{
@@ -1472,8 +1477,8 @@ BOOL CMatchCtrl::GetItemRect(CMatchFile* pFindFile, CQueryHit* pFindHit, CRect* 
 				{
 					if ( ! pHit->m_bFiltered ) continue;
 
-					rcItem.top -= ITEM_HEIGHT;
-					rcItem.bottom -= ITEM_HEIGHT;
+					rcItem.top -= Settings.Interface.RowSize;
+					rcItem.bottom -= Settings.Interface.RowSize;
 				}
 			}
 		}
@@ -1494,8 +1499,8 @@ BOOL CMatchCtrl::GetItemRect(CMatchFile* pFindFile, CQueryHit* pFindHit, CRect* 
 			return TRUE;
 		}
 
-		rcItem.top += ITEM_HEIGHT;
-		rcItem.bottom += ITEM_HEIGHT;
+		rcItem.top += Settings.Interface.RowSize;
+		rcItem.bottom += Settings.Interface.RowSize;
 
 		if ( nCount > 1 && pFile->m_bExpanded )
 		{
@@ -1509,8 +1514,8 @@ BOOL CMatchCtrl::GetItemRect(CMatchFile* pFindFile, CQueryHit* pFindHit, CRect* 
 					return TRUE;
 				}
 
-				rcItem.top += ITEM_HEIGHT;
-				rcItem.bottom += ITEM_HEIGHT;
+				rcItem.top += Settings.Interface.RowSize;
+				rcItem.bottom += Settings.Interface.RowSize;
 			}
 		}
 	}
@@ -1779,7 +1784,7 @@ BOOL CMatchCtrl::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 		rc.left		= ( rc.left + rc.right ) / 2 - 64;
 		rc.right	= rc.left + 128;
 		rc.top		= ( rc.top + rc.bottom ) / 2;
-		rc.bottom	= rc.top + 16; // ITEM_HEIGHT ?
+		rc.bottom	= rc.top + Settings.Interface.RowSize - 1;
 		ClientToScreen( &rc );
 
 		GetCursorPos( &point );
@@ -1879,9 +1884,9 @@ void CMatchCtrl::MoveFocus(int nDelta, BOOL bShift)
 	CMatchFile* pFocus = NULL;
 	nDelta += nSign;
 
-	for (	DWORD nPosition = m_nFocus ;
-			nPosition < m_pMatches->m_nFiles && nDelta != 0 ;
-			nPosition += nSign, ppFile += nSign )
+	for ( DWORD nPosition = m_nFocus ;
+		nPosition < m_pMatches->m_nFiles && nDelta != 0 ;
+		nPosition += nSign, ppFile += nSign )
 	{
 		CMatchFile* pFile = *ppFile;
 
@@ -1907,9 +1912,9 @@ void CMatchCtrl::MoveFocus(int nDelta, BOOL bShift)
 			rcClient.top += HEADER_HEIGHT;
 
 			if ( rcItem.top < rcClient.top )
-				ScrollBy( ( rcItem.top - rcClient.top - ITEM_HEIGHT + 1 ) / ITEM_HEIGHT );
+				ScrollBy( ( rcItem.top - rcClient.top - Settings.Interface.RowSize + 1 ) / Settings.Interface.RowSize );
 			else if ( rcItem.bottom > rcClient.bottom )
-				ScrollBy( ( rcItem.bottom - rcClient.bottom + ITEM_HEIGHT - 1 ) / ITEM_HEIGHT );
+				ScrollBy( ( rcItem.bottom - rcClient.bottom + Settings.Interface.RowSize - 1 ) / Settings.Interface.RowSize );
 		}
 
 		if ( bChanged ) NotifySelection();

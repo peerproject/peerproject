@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<schema targetNamespace="http://www.shareaza.com/schemas/VendorCache.xsd" version="1.0" xmlns="http://www.w3.org/2001/XMLSchema">
+<schema targetNamespace="http://schemas.peerproject.org/VendorCache.xsd" version="1.0" xmlns="http://www.w3.org/2001/XMLSchema">
 
 	<element name="vendorCache">
 		<complexType>
@@ -9,7 +9,7 @@
 			</sequence>
 		</complexType>
 	</element>
-	
+
 	<complexType name="vendorType">
 		<attribute name="code" type="NMTOKEN" use="required"/>
 		<sequence>
@@ -20,8 +20,18 @@
 	</complexType>
 	
 	<complexType name="capabilityType">
-		<attribute name="name" type="string" use="required"/>
-		<attribute name="value" type="boolean" default="true"/>
+		<attribute name="name" type="string" use="required">
+			<simpleType base="string">
+				<enumeration value="htmlHostBrowse"/>
+				<enumeration value="chatFlag"/>
+				<enumeration value="extended"/>
+				<enumeration value="g1"/>
+				<enumeration value="g2"/>
+				<enumeration value="ed2k"/>
+				<enumeration value="dc"/>
+				<enumeration value="bt"/>
+			</simpleType>
+		</attribute>
 	</complexType>
-	
+
 </schema>

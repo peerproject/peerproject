@@ -4,7 +4,7 @@
 <!-- PeerProject Default Afrikaans Skin File -->
 <!-- Weergawe: 27 Oktober 2005 vir Shareaza 2.2.0.2 -->
 
-<!-- Translation based on default-en.xml r62 -->
+<!-- Translation based on default-en.xml r64 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2544,8 +2544,8 @@
 	<tip id="ID_SEARCH_STOP" message="Staak die ontvang van nuwe resultate in hierdie venster."/>
 	<tip id="ID_SEARCHMONITOR_CLEAR" message="Maak die soekmonitor buffer skoon."/>
 	<tip id="ID_SEARCHMONITOR_PAUSE" message="Vries die soekmonitor."/>
-	<tip id="ID_SECURITY_ADD" message="Voeg 'n nuwe reël by die sekuriteitsketting..."/>
 	<tip id="ID_SECURITY_BAN" message="Verban die geselekteerde gasheer vir die duur van die sessie."/>
+	<tip id="ID_SECURITY_ADD" message="Voeg 'n nuwe reël by die sekuriteitsketting..."/>
 	<tip id="ID_SECURITY_EDIT" message="Verander die geselekteerde sekuriteitsreël..."/>
 	<tip id="ID_SECURITY_EXPORT" message="Voer die geselekteerde sekuriteitsreëls uit na 'n lêer..."/>
 	<tip id="ID_SECURITY_IMPORT" message="Trek sekuriteitsreëls in van 'n lêer..."/>
@@ -2555,6 +2555,14 @@
 	<tip id="ID_SECURITY_POLICY_DENY" message="Stel die standaard sekuriteitsbeleid in sodat alle gashere geweier word."/>
 	<tip id="ID_SECURITY_REMOVE" message="Verwyder die geselekteerde sekuriteitsreëls."/>
 	<tip id="ID_SECURITY_RESET" message="Herstel die trefteller van die geselekteerde reëls."/>
+	<tip id="ID_SCHEDULER_ADD" message="Voeg 'n nuwe reël by die sekuriteitsketting..."/>
+	<tip id="ID_SCHEDULER_EDIT" message="Verander die geselekteerde sekuriteitsreël..."/>
+	<tip id="ID_SCHEDULER_ACTIVATE" message="Verwyder die geselekteerde oplaai(e) van die lys."/>
+	<tip id="ID_SCHEDULER_DEACTIVATE" message="Konnekteer aan die netwerk."/>
+	<tip id="ID_SCHEDULER_EXPORT" message="Voer die geselekteerde sekuriteitsreëls uit na 'n lêer..."/>
+	<tip id="ID_SCHEDULER_IMPORT" message="Trek sekuriteitsreëls in van 'n lêer..."/>
+	<tip id="ID_SCHEDULER_REMOVE" message="Verwyder die geselekteerde aflaai(e) van die lys."/>
+	<tip id="ID_SCHEDULER_REMOVE_ALL" message="Delete all scheduled tasks."/>
 	<tip id="ID_SYSTEM_CLEAR" message="Maak die statuslog skoon."/>
 	<tip id="ID_SYSTEM_TIMESTAMP" message="Hou rekord van die tyd van elke lyn."/>
 	<tip id="ID_SYSTEM_VERBOSE" message="Vertoon 'n gedetailleerde stelselaktiwiteitslog."/>
@@ -2663,7 +2671,7 @@
 	<string id="20009" value="van"/>	<!-- "1 of 10" -->
 	<string id="20010" value="All"/>
 	<string id="20011" value="Auto"/>
-	<string id="20012" value="Custom"/>
+	<string id="20012" value="Aanpas"/>
 	<string id="20013" value="Default"/>
 	<string id="20014" value="Finish"/>
 	<string id="20050" value="Every Dag"/>
@@ -3184,7 +3192,7 @@
 	<string id="20706" value="Ultrapeer modus met %lu kliënt(e).  %s in lokale biblioteek."/>
 	<string id="20707" value="Besig om aan die netwerk te konnekteer..."/>
 	<string id="20708" value="Nie aan die netwerk gekonnekteer nie."/>
-	<string id="20710" value="(Geen Bronne)"/>
+	<string id="20710" value="Skoonmaak"/>
 	<string id="20711" value="Kan nie Skuif"/>
 	<string id="20712" value="Beset"/>
 	<string id="20713" value="Waglys"/>
@@ -3210,6 +3218,7 @@
 	<string id="20733" value="bronne"/>
 	<string id="20734" value="bronne"/>
 	<string id="20735" value="bronne"/>
+	<string id="20736" value="(Geen Bronne)"/>
 	<string id="20740" value="TigerTree"/>
 	<string id="20741" value="Torrent"/>
 	<string id="20742" value="Verwyser Af"/>
@@ -4515,9 +4524,9 @@
 		<column from="Address" to="Adres"/>
 		<column from="Port" to="Poort"/>
 		<column from="Time" to="Tyd"/>
-		<column from="Packets" to="Pakkies"/>
-		<column from="Bandwidth" to="Bandwydte"/>
+		<column from="Traffic" to="Bandwydte"/>
 		<column from="Total" to="Totaal"/>
+		<column from="Packets" to="Pakkies"/>
 		<column from="Flow" to="Vloei"/>
 		<column from="Leaves" to="Kliënte"/>
 		<column from="Mode" to="Tipe"/>
@@ -4593,7 +4602,7 @@
 	<list name="CUploadQueueList">
 		<column from="Name" to="Naam"/>
 		<column from="Criteria" to="Kriteria"/>
-		<column from="Bandwidth" to="Bandwydte"/>
+		<column from="Minimum" to="Bandwydte"/>
 		<column from="Transfers" to="Oordragte"/>
 		<column from="Order" to="Volgorde"/>
 	</list>

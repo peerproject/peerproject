@@ -1,7 +1,7 @@
 //
 // CtrlBrowseHeader.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -151,23 +151,21 @@ void CBrowseHeaderCtrl::OnSkinChange()
 	OnSize( 0, 0, 0 );
 	Skin.CreateToolBar( _T("CBrowseHeaderCtrl"), this );
 
-	if ( m_bmImage.m_hObject == NULL &&
-		 Colors.m_crBannerBack == RGB( 122, 160, 230 ) )
-	{
+	if ( m_bmImage.m_hObject == NULL && Colors.m_crBannerBack == RGB_DEFAULT_CASE )
 		m_bmImage.LoadBitmap( IDB_BANNER_MARK );
-	}
 }
 
 void CBrowseHeaderCtrl::PrepareRect(CRect* pRect) const
 {
 	CCoolBarCtrl::PrepareRect( pRect );
 	pRect->left -= 5;
-	if ( m_czLast.cx < pRect->Width() ) pRect->left = pRect->right - m_czLast.cx;
+	if ( m_czLast.cx < pRect->Width() )
+		pRect->left = pRect->right - m_czLast.cx;
 	pRect->left += 5;
 
 	pRect->top		= ( pRect->top + pRect->bottom ) / 2;
-	pRect->bottom	= pRect->top + 14;
-	pRect->top		= pRect->top - 14;
+	pRect->top		= pRect->top - ( Skin.m_nToolbarHeight / 2 ) + 1;
+	pRect->bottom	= pRect->top + Skin.m_nToolbarHeight - 2;
 }
 
 void CBrowseHeaderCtrl::DoPaint(CDC* pDC, CRect& rcClient, BOOL bTransparent)
@@ -181,8 +179,8 @@ void CBrowseHeaderCtrl::DoPaint(CDC* pDC, CRect& rcClient, BOOL bTransparent)
 	CRect rcBar;
 
 	rcBar.top		= ( rcClient.top + rcClient.bottom ) / 2;
-	rcBar.bottom	= rcBar.top + 14;
-	rcBar.top		= rcBar.top - 14;
+	rcBar.top		= rcBar.top - ( Skin.m_nToolbarHeight / 2 ) + 1;
+	rcBar.bottom	= rcBar.top + Skin.m_nToolbarHeight - 2;
 	rcBar.right		= rcClient.right;
 	rcBar.left		= rcBar.right - m_czLast.cx;
 

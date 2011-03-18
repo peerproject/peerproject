@@ -48,26 +48,26 @@ BEGIN_MESSAGE_MAP(CDownloadsCtrl, CWnd)
 	ON_WM_PAINT()
 	ON_WM_VSCROLL()
 	ON_WM_HSCROLL()
-	ON_WM_MOUSEWHEEL()
-	ON_NOTIFY(HDN_ITEMCLICKA, AFX_IDW_PANE_FIRST, OnSortPanelItems)
-	ON_NOTIFY(HDN_ITEMCLICKW, AFX_IDW_PANE_FIRST, OnSortPanelItems)
-	ON_NOTIFY(HDN_ITEMCHANGEDW, AFX_IDW_PANE_FIRST, OnChangeHeader)
-	ON_NOTIFY(HDN_ITEMCHANGEDA, AFX_IDW_PANE_FIRST, OnChangeHeader)
-	ON_NOTIFY(HDN_ENDDRAG, AFX_IDW_PANE_FIRST, OnChangeHeader)
 	ON_WM_KEYDOWN()
+	ON_WM_MOUSEMOVE()
+	ON_WM_MOUSEWHEEL()
 	ON_WM_LBUTTONDOWN()
 	ON_WM_RBUTTONDOWN()
 	ON_WM_LBUTTONDBLCLK()
-	ON_WM_MOUSEMOVE()
 	ON_WM_LBUTTONUP()
 	ON_WM_RBUTTONUP()
 	ON_WM_SETFOCUS()
 	ON_WM_KILLFOCUS()
 	ON_WM_GETDLGCODE()
+	ON_NOTIFY(HDN_ITEMCLICKA, AFX_IDW_PANE_FIRST, OnSortPanelItems)
+	ON_NOTIFY(HDN_ITEMCLICKW, AFX_IDW_PANE_FIRST, OnSortPanelItems)
+	ON_NOTIFY(HDN_ITEMCHANGEDW, AFX_IDW_PANE_FIRST, OnChangeHeader)
+	ON_NOTIFY(HDN_ITEMCHANGEDA, AFX_IDW_PANE_FIRST, OnChangeHeader)
+	ON_NOTIFY(HDN_ENDDRAG, AFX_IDW_PANE_FIRST, OnChangeHeader)
 END_MESSAGE_MAP()
 
 #define HEADER_HEIGHT				20
-#define ITEM_HEIGHT					17
+// Skin ITEM_HEIGHT					17	// Settings.Interface.RowSize
 
 #define DOWNLOAD_COLUMN_TITLE		0
 #define DOWNLOAD_COLUMN_SIZE		1
@@ -358,7 +358,7 @@ void CDownloadsCtrl::SelectTo(int nIndex)
 	GetClientRect( &rcClient );
 
 	int nScroll = GetScrollPos( SB_VERT );
-	int nHeight = ( rcClient.bottom - HEADER_HEIGHT ) / ITEM_HEIGHT - 1;
+	int nHeight = ( rcClient.bottom - HEADER_HEIGHT ) / Settings.Interface.RowSize - 1;
 	nHeight = max( 0, nHeight );
 
 	if ( m_nFocus < nScroll )
@@ -489,7 +489,7 @@ BOOL CDownloadsCtrl::HitTest(const CPoint& point, CDownload** ppDownload, CDownl
 
 	rcItem.CopyRect( &rcClient );
 	rcItem.left -= GetScrollPos( SB_HORZ );
-	rcItem.bottom = rcItem.top + ITEM_HEIGHT;
+	rcItem.bottom = rcItem.top + Settings.Interface.RowSize;
 
 	int nScroll = GetScrollPos( SB_VERT );
 	int nIndex = 0;
@@ -521,7 +521,7 @@ BOOL CDownloadsCtrl::HitTest(const CPoint& point, CDownload** ppDownload, CDownl
 				if ( prcItem ) *prcItem = rcItem;
 				return TRUE;
 			}
-			rcItem.OffsetRect( 0, ITEM_HEIGHT );
+			rcItem.OffsetRect( 0, Settings.Interface.RowSize );
 		}
 
 		nIndex++;
@@ -559,7 +559,7 @@ BOOL CDownloadsCtrl::HitTest(const CPoint& point, CDownload** ppDownload, CDownl
 						if ( prcItem != NULL ) *prcItem = rcItem;
 						return TRUE;
 					}
-					rcItem.OffsetRect( 0, ITEM_HEIGHT );
+					rcItem.OffsetRect( 0, Settings.Interface.RowSize );
 				}
 
 				nIndex ++;
@@ -626,10 +626,10 @@ BOOL CDownloadsCtrl::GetRect(CDownload* pSelect, RECT* prcItem)
 
 	rcItem.CopyRect( &rcClient );
 	rcItem.left -= GetScrollPos( SB_HORZ );
-	rcItem.bottom = rcItem.top + ITEM_HEIGHT;
+	rcItem.bottom = rcItem.top + Settings.Interface.RowSize;
 
 	int nScroll = GetScrollPos( SB_VERT );
-	rcItem.OffsetRect( 0, ITEM_HEIGHT * -nScroll );
+	rcItem.OffsetRect( 0, Settings.Interface.RowSize * -nScroll );
 
 	ASSUME_LOCK( Transfers.m_pSection );
 
@@ -648,7 +648,7 @@ BOOL CDownloadsCtrl::GetRect(CDownload* pSelect, RECT* prcItem)
 			return TRUE;
 		}
 
-		rcItem.OffsetRect( 0, ITEM_HEIGHT );
+		rcItem.OffsetRect( 0, Settings.Interface.RowSize );
 
 		if ( ! pDownload->m_bExpanded )
 			continue;
@@ -656,7 +656,7 @@ BOOL CDownloadsCtrl::GetRect(CDownload* pSelect, RECT* prcItem)
 		if ( Settings.Downloads.ShowSources )
 		{
 			int nSources = pDownload->GetSourceCount();
-			rcItem.OffsetRect( 0, ITEM_HEIGHT * nSources );
+			rcItem.OffsetRect( 0, Settings.Interface.RowSize * nSources );
 			continue;
 		}
 
@@ -665,7 +665,7 @@ BOOL CDownloadsCtrl::GetRect(CDownload* pSelect, RECT* prcItem)
 			CDownloadSource* pSource = pDownload->GetNext( posSource );
 
 			if ( pSource->IsConnected() )
-				rcItem.OffsetRect( 0, ITEM_HEIGHT );
+				rcItem.OffsetRect( 0, Settings.Interface.RowSize );
 		}
 	}
 
@@ -868,7 +868,7 @@ void CDownloadsCtrl::OnSize(UINT nType, int cx, int cy)
 	pScroll.fMask	= SIF_RANGE|SIF_PAGE;
 	pScroll.nMin	= 0;
 	pScroll.nMax	= nHeight;
-	pScroll.nPage	= ( rcClient.bottom - HEADER_HEIGHT ) / ITEM_HEIGHT + 1;
+	pScroll.nPage	= ( rcClient.bottom - HEADER_HEIGHT ) / Settings.Interface.RowSize + 1;
 	SetScrollInfo( SB_VERT, &pScroll, TRUE );
 
 	m_nFocus = min( m_nFocus, max( 0, nHeight - 1 ) );
@@ -903,7 +903,7 @@ void CDownloadsCtrl::OnPaint()
 
 	rcItem.CopyRect( &rcClient );
 	rcItem.left -= GetScrollPos( SB_HORZ );
-	rcItem.bottom = rcItem.top + ITEM_HEIGHT;
+	rcItem.bottom = rcItem.top + Settings.Interface.RowSize;
 
 	int nScroll = GetScrollPos( SB_VERT );
 	int nIndex = 0;
@@ -931,7 +931,7 @@ void CDownloadsCtrl::OnPaint()
 		else
 		{
 			PaintDownload( dc, rcItem, pDownload, bFocus && ( m_nFocus == nIndex ), m_pDragDrop == pDownload );
-			rcItem.OffsetRect( 0, ITEM_HEIGHT );
+			rcItem.OffsetRect( 0, Settings.Interface.RowSize );
 		}
 
 		++nIndex;
@@ -967,7 +967,7 @@ void CDownloadsCtrl::OnPaint()
 				else
 				{
 					PaintSource( dc, rcItem, pDownload, pSource, bFocus && ( m_nFocus == nIndex ) );
-					rcItem.OffsetRect( 0, ITEM_HEIGHT );
+					rcItem.OffsetRect( 0, Settings.Interface.RowSize );
 				}
 
 				++nIndex;
@@ -1024,7 +1024,12 @@ void CDownloadsCtrl::PaintDownload(CDC& dc, const CRect& rcRow, CDownload* pDown
 	dc.SetBkMode( bSelectmark ? TRANSPARENT : OPAQUE );
 
 	// Modify Text color if needed
-	if ( pDownload->IsCompleted() )
+	if ( pDownload->m_bClearing )
+	{
+		// Briefly marked for removal/deletion.  ToDo: m_crTransferClearing?
+		crText = Colors.m_crNetworkNull;
+	}
+	else if ( pDownload->IsCompleted() )
 	{
 		if ( pDownload->m_bVerify == TRI_FALSE )
 			crText = bSelected ? Colors.m_crTransferVerifyFailSelected : Colors.m_crTransferVerifyFail;
@@ -1072,8 +1077,8 @@ void CDownloadsCtrl::PaintDownload(CDC& dc, const CRect& rcRow, CDownload* pDown
 		case DOWNLOAD_COLUMN_TITLE:
 			bLeftMargin = rcRow.left == rcCell.left;
 			crLeftMargin = ( bLeftMargin ? crNatural : bSelectmark ? -1 : crBack ) ;
-			if ( bLeftMargin || ! bSelectmark )
-				dc.FillSolidRect( rcCell.left, rcCell.bottom - 1, 32, 1, crLeftMargin );
+			if ( bLeftMargin || ! bSelectmark && rcCell.Height() > 16 )
+				dc.FillSolidRect( rcCell.left, rcCell.top + 16, 32, rcCell.Height() - 16, crLeftMargin );
 			if ( IsExpandable( pDownload ) )
 			{
 				if ( pDownload->m_bExpanded )
@@ -1091,7 +1096,7 @@ void CDownloadsCtrl::PaintDownload(CDC& dc, const CRect& rcRow, CDownload* pDown
 			}
 			else if ( bLeftMargin || ! bSelectmark )
 			{
-				dc.FillSolidRect( rcCell.left, rcCell.top, 16, 17, crLeftMargin );
+				dc.FillSolidRect( rcCell.left, rcCell.top, 16, Settings.Interface.RowSize, crLeftMargin );
 			}
 			rcCell.left += 16;
 
@@ -1332,8 +1337,8 @@ void CDownloadsCtrl::PaintSource(CDC& dc, const CRect& rcRow, CDownload* pDownlo
 			if ( bLeftMargin || ! bSelectmark )
 				dc.FillSolidRect( rcCell.left, rcCell.top, 24, rcCell.Height(), crLeftMargin );
 			rcCell.left += 24;
-			if ( bLeftMargin || ! bSelectmark )
-				dc.FillSolidRect( rcCell.left, rcCell.bottom - 1, 16, 1, crLeftMargin );
+			if ( ( bLeftMargin || ! bSelectmark ) && Settings.Interface.RowSize > 16 )
+				dc.FillSolidRect( rcCell.left, rcCell.top + 16, 16, rcCell.Height() - 16, crLeftMargin );
 			ImageList_DrawEx( m_pProtocols, pSource->m_nProtocol, dc.GetSafeHdc(),
 					rcCell.left, rcCell.top, 16, 16, crLeftMargin, CLR_DEFAULT, bSelected ? ILD_SELECTED : ILD_NORMAL );
 			rcCell.left += 16;
@@ -1541,6 +1546,10 @@ void CDownloadsCtrl::OnSkinChange()
 	//		DestroyIcon( hIcon );
 	//	}
 	//}
+
+	// Update Dropshadow
+	m_wndTip.DestroyWindow();
+	m_wndTip.Create( this, &Settings.Interface.TipDownloads );
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -1850,7 +1859,7 @@ void CDownloadsCtrl::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 		{
 			CRect rcView;
 			GetWindowRect ( &rcView );
-			int nRows = ( rcView.Height() - Skin.m_nToolbarHeight ) / ITEM_HEIGHT;
+			int nRows = ( rcView.Height() - Skin.m_nToolbarHeight ) / Settings.Interface.RowSize;
 
 			if ( bControl )
 			{
@@ -1865,7 +1874,7 @@ void CDownloadsCtrl::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 		{
 			CRect rcView;
 			GetWindowRect ( &rcView );
-			int nRows = ( rcView.Height() - Skin.m_nToolbarHeight ) / ITEM_HEIGHT;
+			int nRows = ( rcView.Height() - Skin.m_nToolbarHeight ) / Settings.Interface.RowSize;
 
 			if ( bControl )
 			{
@@ -2108,7 +2117,7 @@ void CDownloadsCtrl::OnMouseMove(UINT nFlags, CPoint point)
 				m_wndTip.Show( pDownload );
 				return;
 			}
-			else if ( pSource != NULL )
+			if ( pSource != NULL )
 			{
 				m_wndTip.Show( pSource );
 				return;

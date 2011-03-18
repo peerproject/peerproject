@@ -96,7 +96,7 @@
 
 	<vendor code="AGNT">
 		<title>Agentella</title>
-		<link>http://www.agentella.com/</link>
+	<!--	<link>http://www.agentella.com/</link> -->
 	</vendor>
 
 	<vendor code="ARES">
@@ -106,7 +106,7 @@
 
 	<vendor code="ATOM">
 		<title>AtomWire</title>
-		<link>http://www.atomwire.com/</link>
+	<!--	<link>http://www.atomwire.com/</link> -->
 	</vendor>
 
 	<vendor code="BEAR">
@@ -121,6 +121,14 @@
 		<title>Cultiv8r</title>
 	</vendor>
 -->
+	<vendor code="DC++">
+		<title>DC++</title>
+		<link>http://dcplusplus.sourceforge.net/</link>
+		<capability name="htmlHostBrowse"/>
+		<capability name="chatFlag"/>
+		<capability name="dc"/>
+	</vendor>
+
 	<vendor code="ED2K">
 		<title>eMule</title>
 		<link>http://emule-project.net/</link>
@@ -171,7 +179,7 @@
 
 	<vendor code="GNOT">
 		<title>Gnotella</title>
-		<link>http://www.gnotella.com/</link>
+	<!--	<link>http://www.gnotella.com/</link> -->
 	</vendor>
 
 	<vendor code="GNTD">
@@ -280,7 +288,7 @@
 
 	<vendor code="MXIE">
 		<title>mxie</title>
-		<link>http://www.mxie.com/</link>
+	<!--	<link>http://www.mxie.com/</link> -->
 	</vendor>
 
 	<vendor code="NAPS">
@@ -301,7 +309,7 @@
 
 	<vendor code="PHEX">
 		<title>Phex</title>
-		<link>http://phex.kouk.de/mambo/</link>
+		<link>http://phex.org/mambo/</link>
 		<capability name="g1"/>
 	</vendor>
 
@@ -345,7 +353,7 @@
 
 	<vendor code="SNUT">
 		<title>SwapNut</title>
-		<link>http://www.swapnut.com/</link>
+	<!--	<link>http://www.swapnut.com/</link> -->
 	</vendor>
 
 	<vendor code="SWAP">

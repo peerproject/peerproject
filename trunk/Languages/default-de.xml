@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default German Skin File -->
 
-<!-- Translation based on default-en.xml r62 -->
+<!-- Translation based on default-en.xml r64 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2612,8 +2612,8 @@
 	<tip id="ID_SEARCH_STOP" message="Den Empfang von Suchergebnissen in diesem Fenster beenden." tip="Suche stoppen"/>
 	<tip id="ID_SEARCHMONITOR_CLEAR" message="Suchmonitor-Puffer leeren." tip="Puffer leeren"/>
 	<tip id="ID_SEARCHMONITOR_PAUSE" message="Den Suchmonitor anhalten" tip="Anzeige anhalten"/>
-	<tip id="ID_SECURITY_ADD" message="Eine neue Regel hinzufügen..." tip="Regel hinzufügen"/>
 	<tip id="ID_SECURITY_BAN" message="Den markierten Host für die Dauer dieser Sitzung bannen." tip="Host bannen"/>
+	<tip id="ID_SECURITY_ADD" message="Eine neue Regel hinzufügen..." tip="Regel hinzufügen"/>
 	<tip id="ID_SECURITY_EDIT" message="Die markierte Sicherheitsregel bearbeiten..." tip="Regel bearbeiten"/>
 	<tip id="ID_SECURITY_EXPORT" message="Die markierten Regeln in eine Datei exportieren..." tip="Regeln exportieren"/>
 	<tip id="ID_SECURITY_IMPORT" message="Sicherheitsregeln aus Datei importieren..." tip="Importieren"/>
@@ -2623,6 +2623,14 @@
 	<tip id="ID_SECURITY_POLICY_DENY" message="Standardmäßig alle Hosts abweisen." tip="Default-Policy: Verweigern"/>
 	<tip id="ID_SECURITY_REMOVE" message="Die markierte(n) Sicherheitsregel(n) löschen." tip="Regel(n) löschen"/>
 	<tip id="ID_SECURITY_RESET" message="Die Trefferzähler der markierte(n) Sicherheitsregel(n) zurücksetzen." tip="Zähler zurücksetzen"/>
+	<tip id="ID_SCHEDULER_ADD" message="Eine neue Regel hinzufügen..."/>
+	<tip id="ID_SCHEDULER_EDIT" message="Die markierte Sicherheitsregel bearbeiten..."/>
+	<tip id="ID_SCHEDULER_ACTIVATE" message="Markierte(n) Upload(s) von der Liste entfernen."/>
+	<tip id="ID_SCHEDULER_DEACTIVATE" message="Mit den Netzwerken verbinden"/>
+	<tip id="ID_SCHEDULER_EXPORT" message="Die markierten Regeln in eine Datei exportieren..." tip="Regeln exportieren"/>
+	<tip id="ID_SCHEDULER_IMPORT" message="Sicherheitsregeln aus Datei importieren..." tip="Importieren"/>
+	<tip id="ID_SCHEDULER_REMOVE" message="Den markierten Download von der Liste entfernen."/>
+	<tip id="ID_SCHEDULER_REMOVE_ALL" message="Delete all scheduled tasks."/>
 	<tip id="ID_SYSTEM_CLEAR" message="Den Konsolenpuffer leeren." tip="Puffer leeren"/>
 	<tip id="ID_SYSTEM_TIMESTAMP" message="Für jede Zeile einen Zeitstempel aufzeichnen." tip="Zeitstempel aufzeichnen"/>
 	<tip id="ID_SYSTEM_VERBOSE" message="Ausführliche Meldungen ausgeben." tip="Ausführliche Meldungen"/>
@@ -3286,7 +3294,7 @@
 	<string id="20706" value="Ultrapeer-Modus mit %lu Leaves.  %s in ihrer Bibliothek."/>
 	<string id="20707" value="Verbindung mit Netzwerken herstellen..."/>
 	<string id="20708" value="Mit keinem Netzwerk verbunden."/>
-	<string id="20710" value="(Keine Quellen)"/>
+	<string id="20710" value="Clearing"/>
 	<string id="20711" value="Verschieben nicht möglich"/>
 	<string id="20712" value="Choked"/>
 	<string id="20713" value="Einreihen"/>
@@ -3312,6 +3320,7 @@
 	<string id="20733" value="Quellen"/>
 	<string id="20734" value="Quellen"/>
 	<string id="20735" value="Quellen"/>
+	<string id="20736" value="(Keine Quellen)"/>
 	<string id="20740" value="TigerTree"/>
 	<string id="20741" value="Torrent"/>
 	<string id="20742" value="Kein Seeder"/>
@@ -3548,7 +3557,7 @@
 		<control caption="Spamnachrichten im Chat filtern"/>
 		<control caption="Vulgäre Sprache im Chat filtern"/>
 	</dialog>
-	<dialog name="CIRCSettingsPage" cookie="BuBuBuBuStEdStStEdCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStEdStEdStEd" caption="IRC Chat">
+	<dialog name="CIRCSettingsPage" cookie="BuBuBuBuStEdmsStStEdmsCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStCoStEdStEd" caption="IRC Chat">
 		<control caption="IRC _Optionen:"/>
 		<control caption="Zeige IRC im Menü an"/>
 		<control caption="Zeitstempel anzeigen"/>
@@ -4664,9 +4673,9 @@
 		<column from="Address" to="Adresse"/>
 		<column from="Port" to="Port"/>
 		<column from="Time" to="Zeit"/>
-		<column from="Packets" to="Pakete"/>
-		<column from="Bandwidth" to="Bandbreite"/>
+		<column from="Traffic" to="Bandbreite"/>
 		<column from="Total" to="Gesamt"/>
+		<column from="Packets" to="Pakete"/>
 		<column from="Flow" to="Fluss"/>
 		<column from="Leaves" to="Leaves"/>
 		<column from="Mode" to="Modus"/>
@@ -4742,7 +4751,7 @@
 	<list name="CUploadQueueList">
 		<column from="Name" to="Name"/>
 		<column from="Criteria" to="Kriterien"/>
-		<column from="Bandwidth" to="Bandbreite"/>
+		<column from="Minimum" to="Bandbreite"/>
 		<column from="Transfers" to="Transfer"/>
 		<column from="Order" to="#"/>
 	</list>

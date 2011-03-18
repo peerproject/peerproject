@@ -450,24 +450,25 @@ const LPCTSTR protocolNames[] =
 	_T("Kademlia")
 };
 
-struct ProtocolCmdIDMapEntry
-{
-	BYTE	protocol;
-	DWORD	commandID;
-};
-
-const ProtocolCmdIDMapEntry protocolCmdMap[] =
-{
-	{ PROTOCOL_NULL, ID_NETWORK_NULL },
-	{ PROTOCOL_G1, ID_NETWORK_G1 },
-	{ PROTOCOL_G2, ID_NETWORK_G2 },
-	{ PROTOCOL_ED2K, ID_NETWORK_ED2K },
-	{ PROTOCOL_HTTP, ID_NETWORK_HTTP },
-	{ PROTOCOL_FTP, ID_NETWORK_FTP },
-	{ PROTOCOL_DC, ID_NETWORK_DC },
-	{ PROTOCOL_BT, ID_NETWORK_BT },
-	{ PROTOCOL_KAD, ID_NETWORK_KAD }
-};
+// Legacy mapping
+//struct ProtocolCmdIDMapEntry
+//{
+//	BYTE	protocol;
+//	DWORD	commandID;
+//};
+//
+//const ProtocolCmdIDMapEntry protocolCmdMap[] =
+//{
+//	{ PROTOCOL_NULL, ID_NETWORK_NULL },
+//	{ PROTOCOL_G1,	ID_NETWORK_G1 },
+//	{ PROTOCOL_G2,	ID_NETWORK_G2 },
+//	{ PROTOCOL_ED2K, ID_NETWORK_ED2K },
+//	{ PROTOCOL_HTTP, ID_NETWORK_HTTP },
+//	{ PROTOCOL_FTP, ID_NETWORK_FTP },
+//	{ PROTOCOL_DC,	ID_NETWORK_DC },
+//	{ PROTOCOL_BT,	ID_NETWORK_BT },
+//	{ PROTOCOL_KAD, ID_NETWORK_KAD }
+//};
 
 inline PROTOCOLID& operator++(PROTOCOLID& arg)
 {
