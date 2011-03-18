@@ -238,18 +238,14 @@
     <ClCompile Include="LogFile.cpp" />
     <ClCompile Include="LogStream.cpp" />
     <ClCompile Include="ModuleImportTable.cpp" />
-    <ClCompile Include="NetThunks.cpp" />
     <ClCompile Include="SymEngine.cpp" />
-    <ClCompile Include="SymEngineNet.cpp" />
     <ClCompile Include="TextLogFile.cpp" />
     <ClCompile Include="ThemeXP.cpp" />
     <ClCompile Include="XmlLogFile.cpp" />
     <ClCompile Include="BugTrap.cpp" />
-    <ClCompile Include="BugTrapNet.cpp" />
     <ClCompile Include="BugTrapUI.cpp" />
     <ClCompile Include="BugTrapUtils.cpp" />
     <ClCompile Include="ResManager.cpp" />
-    <ClCompile Include="AssemblyInfo.cpp" />
     <ClCompile Include="Globals.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -301,9 +297,7 @@
     <ClInclude Include="LogLink.h" />
     <ClInclude Include="LogStream.h" />
     <ClInclude Include="ModuleImportTable.h" />
-    <ClInclude Include="NetThunks.h" />
     <ClInclude Include="SymEngine.h" />
-    <ClInclude Include="SymEngineNet.h" />
     <ClInclude Include="TextLogFile.h" />
     <ClInclude Include="ThemeXP.h" />
     <ClInclude Include="XmlLogFile.h" />
@@ -311,7 +305,6 @@
     <ClInclude Include="BTMfcWindow.h" />
     <ClInclude Include="BTTrace.h" />
     <ClInclude Include="BugTrap.h" />
-    <ClInclude Include="BugTrapNet.h" />
     <ClInclude Include="BugTrapUI.h" />
     <ClInclude Include="BugTrapUtils.h" />
     <ClInclude Include="ResManager.h" />

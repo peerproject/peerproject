@@ -824,7 +824,7 @@ BOOL CSkinWindow::OnNcLButtonDown(CWnd* pWnd, UINT nHitTest, CPoint point)
 
 		Paint( pWnd );
 
-		DWORD nTime = GetTickCount();
+		const DWORD nTime = GetTickCount();
 
 		UINT nCmdID = pPopup->TrackPopupMenu( TPM_LEFTALIGN|TPM_TOPALIGN|TPM_RETURNCMD,
 			Settings.General.LanguageRTL ? rcWindow.right - rcSystem.left + rcWindow.left : rcSystem.left,
@@ -1643,7 +1643,7 @@ CSize CSkinWindow::GetRegionSize()
 BOOL CSkinWindow::PreBlend(CBitmap* pbmTarget, const CRect& rcTarget, const CRect& rcSource)
 {
 	// Currently Navbar "alpha" mask file transparency only
-	// ToDo: Add transparency support for PNGs and frames, etc.?
+	// ToDo: Add transparency support for PNGs (plus frames etc.?)
 
 	BITMAPINFO pImageInfo = {};
 	BITMAPINFO pAlphaInfo = {};

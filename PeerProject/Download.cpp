@@ -1,7 +1,7 @@
 //
 // Download.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -59,9 +59,10 @@ CDownload::CDownload()
 	, m_bTempPaused	( FALSE )
 	, m_bPaused		( FALSE )
 	, m_bBoosted	( FALSE )
-	, m_bShared		( Settings.Uploads.SharePartials )
+	, m_bClearing	( FALSE )
 	, m_bDownloading( false )
 	, m_bComplete	( false )
+	, m_bShared		( Settings.Uploads.SharePartials )
 	, m_tSaved		( 0 )
 	, m_tBegan		( 0 )
 {
@@ -110,7 +111,7 @@ void CDownload::Resume()
 
 	if ( IsFileOpen() )
 	{
-		for ( POSITION posSource = GetIterator(); posSource ; )
+		for ( POSITION posSource = GetIterator() ; posSource ; )
 		{
 			CDownloadSource* pSource = GetNext( posSource );
 
@@ -120,8 +121,8 @@ void CDownload::Resume()
 
 	m_bPaused				= FALSE;
 	m_bTempPaused			= FALSE;
-	m_tReceived				= GetTickCount();
 	m_bTorrentTrackerError	= FALSE;
+	m_tReceived				= GetTickCount();
 
 	// Try again
 	ClearFileError();
@@ -246,7 +247,7 @@ void CDownload::StartTrying()
 
 DWORD CDownload::GetStartTimer() const
 {
-	return m_tBegan ;
+	return m_tBegan;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -261,8 +262,8 @@ bool CDownload::IsPaused(bool bRealState /*= false*/) const
 {
 	if ( bRealState )
 		return m_bPaused != 0;
-	else
-		return m_bTempPaused != 0;
+
+	return m_bTempPaused != 0;
 }
 
 // Is the download receiving data?
@@ -309,9 +310,12 @@ int CDownload::GetClientStatus() const
 CString CDownload::GetDownloadStatus() const
 {
 	CString strText;
-	int nSources = GetEffectiveSourceCount();
 
-	if ( IsCompleted() )
+	if ( m_bClearing )	// Briefly marked for removal
+	{
+		LoadString( strText, IDS_STATUS_CLEARING );
+	}
+	else if ( IsCompleted() )
 	{
 		if ( IsSeeding() )
 			LoadString( strText, m_bTorrentTrackerError ? IDS_STATUS_TRACKERDOWN : IDS_STATUS_SEEDING );
@@ -320,10 +324,10 @@ CString CDownload::GetDownloadStatus() const
 	}
 	else if ( IsPaused() )
 	{
-		if ( GetFileError() != ERROR_SUCCESS )
-			LoadString( strText, IsMoving() ? IDS_STATUS_CANTMOVE : IDS_STATUS_FILEERROR );
-		else
+		if ( GetFileError() == ERROR_SUCCESS )
 			LoadString( strText, IDS_STATUS_PAUSED );
+		else
+			LoadString( strText, IsMoving() ? IDS_STATUS_CANTMOVE : IDS_STATUS_FILEERROR );
 	}
 	else if ( IsMoving() )
 	{
@@ -333,12 +337,18 @@ CString CDownload::GetDownloadStatus() const
 	{
 		LoadString( strText, IDS_STATUS_VERIFYING );
 	}
+	else if ( ! IsTrying() )
+	{
+		LoadString( strText, IDS_STATUS_QUEUED );
+	}
 	else if ( IsDownloading() )
 	{
-		DWORD nTime = GetTimeRemaining();
+		const DWORD nTime = GetTimeRemaining();
 
 		if ( nTime == 0xFFFFFFFF )
-			LoadString( strText, IDS_STATUS_ACTIVE );
+		{
+			LoadString( strText, IDS_STATUS_ACTIVE );	// IDS_STATUS_DOWNLOADING
+		}
 		else
 		{
 			if ( nTime > 86400 )
@@ -347,15 +357,7 @@ CString CDownload::GetDownloadStatus() const
 				strText.Format( _T("%i:%.2i:%.2i"), nTime / 3600, ( nTime / 60 ) % 60, nTime % 60 );
 		}
 	}
-	else if ( ! IsTrying() )
-	{
-		LoadString( strText, IDS_STATUS_QUEUED );
-	}
-	else if ( IsDownloading() )
-	{
-		LoadString( strText, IDS_STATUS_DOWNLOADING );
-	}
-	else if ( nSources > 0 )
+	else if ( GetEffectiveSourceCount() > 0 )
 	{
 		LoadString( strText, IDS_STATUS_PENDING );
 	}
@@ -378,8 +380,8 @@ CString CDownload::GetDownloadStatus() const
 
 CString CDownload::GetDownloadSources() const
 {
-	int nTotalSources = GetSourceCount();
-	int nSources = GetEffectiveSourceCount();
+	const int nTotalSources = GetSourceCount();
+	const int nSources = GetEffectiveSourceCount();
 
 	CString strText;
 	if ( IsCompleted() )
@@ -396,13 +398,13 @@ CString CDownload::GetDownloadSources() const
 	else if ( nSources == nTotalSources )
 	{
 		CString strSource;
-		LoadSourcesString( strSource,  nSources );
+		LoadSourcesString( strSource, nSources );
 		strText.Format( _T("(%i %s)"), nSources, (LPCTSTR)strSource );
 	}
 	else
 	{
 		CString strSource;
-		LoadSourcesString( strSource,  nTotalSources, true );
+		LoadSourcesString( strSource, nTotalSources, true );
 		strText.Format( _T("(%i/%i %s)"), nSources, nTotalSources, (LPCTSTR)strSource );
 	}
 	return strText;
@@ -417,7 +419,7 @@ void CDownload::OnRun()
 	// (Used to optimize display in Ctrl/Wnd functions)
 	m_bDownloading = false;
 
-	DWORD tNow = GetTickCount();
+	const DWORD tNow = GetTickCount();
 
 	if ( ! IsPaused() )
 	{
@@ -437,23 +439,25 @@ void CDownload::OnRun()
 			// Incomplete, and trying for at least 3 hours:
 			if ( ! IsCompleted() && ( tNow - GetStartTimer() ) > ( 3 * 60 * 60 * 1000 )  )
 			{
-				DWORD tHoursToTry = min( ( GetEffectiveSourceCount() + 49u ) / 50u, 9lu ) + Settings.Downloads.StarveGiveUp;
+				const DWORD tHoursToTry = min( ( GetEffectiveSourceCount() + 49u ) / 50u, 9lu ) + Settings.Downloads.StarveGiveUp;
 
+				// No new data for 5-14 hours
 				if ( ( tNow - m_tReceived ) > ( tHoursToTry * 60 * 60 * 1000 ) )
-				{	// And have no new data for 5-14 hours
-
+				{
 					if ( IsTorrent() )
 					{
+						// Are there other torrents that should start?
 						if ( Downloads.GetTryingCount( TRUE ) >= Settings.BitTorrent.DownloadTorrents )
-						{	// If there are other torrents that could start
+						{
 							StopTrying();		// Give up for now, try again later
 							return;
 						}
 					}
 					else	// Regular download
 					{
+						// Are there other downloads that should try?
 						if ( Downloads.GetTryingCount() >= ( Settings.Downloads.MaxFiles + Settings.Downloads.MaxFileSearches ) )
-						{	// If there are other downloads that could try
+						{
 							StopTrying();		// Give up for now, try again later
 							return;
 						}
@@ -483,24 +487,24 @@ void CDownload::OnRun()
 					}
 					else if ( CheckTorrentRatio() )
 					{
-						if ( Network.IsConnected() )
-							StartTransfersIfNeeded( tNow );
-						else
+						if ( ! Network.IsConnected() )
 						{
 							StopTrying();
 							return;
 						}
+
+						StartTransfersIfNeeded( tNow );
 					}
 				}
 			} // if ( RunTorrent( tNow ) )
 
 			// Calculate current downloading state
-			if( HasActiveTransfers() )
+			if ( HasActiveTransfers() )
 				m_bDownloading = true;
 		}
 		else if ( ! IsCompleted() && m_bVerify != TRI_TRUE )
 		{
-		//	//If this download isn't trying to download, see if it can try
+		//	// If this download isn't trying to download, see if it can try
 		//	if ( IsDownloading() )
 		//		SetStartTimer();	// This download was probably started by a push/etc
 
@@ -721,7 +725,7 @@ BOOL CDownload::Save(BOOL bFlush)
 	DeleteFileEx( LPCTSTR( m_sPath + _T(".sav") ), FALSE, FALSE, FALSE );
 
 	CFile pFile;
-	if ( ! pFile.Open( LPCTSTR( m_sPath + _T(".sav") ),			// Create temp .pd.sav
+	if ( ! pFile.Open( LPCTSTR( m_sPath + _T(".sav") ),		// Create temp .pd.sav
 		CFile::modeReadWrite|CFile::modeCreate|CFile::osWriteThrough ) )
 		return FALSE;
 
@@ -902,8 +906,9 @@ BOOL CDownload::Launch(int nIndex, CSingleLock* pLock, BOOL bForceOriginal)
 {
 	if ( nIndex < 0 && IsCompleted() && ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 ) != 0 )
 	{
-		// Shift key opens folder on multifile torrents
-		CString strPath = GetPath( 0 );
+		// Shift key opens file externally, folder on multifile torrents
+		const CString strPath = ( IsTorrent() && ! IsSingleFileTorrent() ) ?
+			GetPath( 0 ).Left( GetPath( 0 ).ReverseFind( '\\' ) + 1 ) : GetPath( 0 );
 		ShellExecute( AfxGetMainWnd()->GetSafeHwnd(),
 			_T("open"), strPath, NULL, NULL, SW_SHOWNORMAL );
 		return TRUE;
@@ -915,9 +920,10 @@ BOOL CDownload::Launch(int nIndex, CSingleLock* pLock, BOOL bForceOriginal)
 		return FALSE;
 
 	BOOL bResult = TRUE;
-	CString strPath = GetPath( nIndex );
-	CString strName = GetName( nIndex );
-	CString strExt = strName.Mid( strName.ReverseFind( '.' ) );
+	const CString strPath = GetPath( nIndex );
+	const CString strName = GetName( nIndex );
+	const CString strExt = strName.Mid( strName.ReverseFind( '.' ) );
+
 	if ( IsCompleted() )
 	{
 		// Run complete file
@@ -988,12 +994,13 @@ BOOL CDownload::Enqueue(int nIndex, CSingleLock* pLock)
 		return TRUE;
 
 	BOOL bResult = TRUE;
-	CString strPath = GetPath( nIndex );
-	CString strName = GetName( nIndex );
-	CString strExt = strName.Mid( strName.ReverseFind( '.' ) );
 	if ( IsStarted() )
 	{
 		if ( pLock ) pLock->Unlock();
+
+		const CString strPath = GetPath( nIndex );
+		const CString strName = GetName( nIndex );
+		const CString strExt = strName.Mid( strName.ReverseFind( '.' ) );
 
 		bResult = CFileExecutor::Enqueue( strPath, FALSE, strExt );
 

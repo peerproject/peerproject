@@ -319,13 +319,10 @@ BOOL CG1Neighbour::OnPacket(CG1Packet* pPacket)
 
 	// Make sure the packet's time to live count isn't too high
 	if (
-
-		// The can be sent across the Internet some more, but
+		// It can be sent across the Internet some more, but
 		pPacket->m_nTTL != 0 &&
-
 		// The packet's time to live and hops numbers added together are bigger than settings allow, and
 		(DWORD)pPacket->m_nTTL + pPacket->m_nHops > Settings.Gnutella1.MaximumTTL &&
-
 		// This isn't a push or hit packet
 		pPacket->m_nType != G1_PACKET_PUSH && pPacket->m_nType != G1_PACKET_HIT )
 	{
@@ -340,15 +337,15 @@ BOOL CG1Neighbour::OnPacket(CG1Packet* pPacket)
 	// Sort the packet by type, hand it to the correct packet handler, and return the result from that
 	switch ( pPacket->m_nType )
 	{
-	case G1_PACKET_PING:        return OnPing( pPacket );		// Ping
-	case G1_PACKET_PONG:        return OnPong( pPacket );		// Pong, response to a ping
-	case G1_PACKET_BYE:         return OnBye( pPacket );		// Bye message
+	case G1_PACKET_PING:        return OnPing( pPacket );			// Ping
+	case G1_PACKET_PONG:        return OnPong( pPacket );			// Pong, response to a ping
+	case G1_PACKET_BYE:         return OnBye( pPacket );			// Bye message
 	case G1_PACKET_QUERY_ROUTE: return OnCommonQueryHash( pPacket ); // Common query hash
-	case G1_PACKET_VENDOR:										// Vendor-specific message
+	case G1_PACKET_VENDOR:											// Vendor-specific message
 	case G1_PACKET_VENDOR_APP:  return OnVendor( pPacket );
-	case G1_PACKET_PUSH:        return OnPush( pPacket );		// Push open a connection
-	case G1_PACKET_QUERY:       return OnQuery( pPacket );		// Search query
-	case G1_PACKET_HIT:         return OnHit( pPacket );		// Hit, a search result
+	case G1_PACKET_PUSH:        return OnPush( pPacket );			// Push open a connection
+	case G1_PACKET_QUERY:       return OnQuery( pPacket );			// Search query
+	case G1_PACKET_HIT:         return OnHit( pPacket );			// Hit, a search result
 	}
 
 	// If control makes it down here, the Gnutella packet had a type we don't know about, document it
@@ -572,11 +569,9 @@ BOOL CG1Neighbour::OnPing(CG1Packet* pPacket)
 
 	// Hop the packet, or determine that we are done and leave returning true
 	if ( bIsKeepAlive ||							// If this is a keep alive packet
-		m_nNodeType == ntHub ||						// Or, we are a leaf, and the remote computer is to a ultrapeer above us
-		! pPacket->Hop() )							// Or, the packet is dead or can only travel 1 more time
-
-		// We're done
-		return TRUE;
+		 m_nNodeType == ntHub ||					// Or, we are a leaf, and the remote computer is to a ultrapeer above us
+		 ! pPacket->Hop() )							// Or, the packet is dead or can only travel 1 more time
+		return TRUE;								// We're done
 
 	// Tell the neighbours object we just got a Gnutella ping (do)
 	Neighbours.OnG1Ping();
@@ -616,8 +611,7 @@ BOOL CG1Neighbour::OnPing(CG1Packet* pPacket)
 //////////////////////////////////////////////////////////////////////
 // CG1Neighbour PONG packet handlers
 
-// Takes a pointer to the bytes of a pong packet from the remote computer
-// Reads information from it
+// Takes a pointer to the bytes of a pong packet from the remote computer, and reads information from it
 // Always returns true
 BOOL CG1Neighbour::OnPong(CG1Packet* pPacket)
 {
@@ -632,7 +626,7 @@ BOOL CG1Neighbour::OnPong(CG1Packet* pPacket)
 		theApp.Message( MSG_ERROR, IDS_PROTOCOL_SIZE_PONG, (LPCTSTR)m_sAddress );
 		Statistics.Current.Gnutella1.Dropped++;
 		m_nDropCount++;
-		return TRUE; // Don't disconnect from the remote computer, though
+		return TRUE;	// Don't disconnect from the remote computer, though
 	}
 
 	// Read information from the pong packet

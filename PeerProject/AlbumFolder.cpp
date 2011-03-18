@@ -131,14 +131,14 @@ DWORD CAlbumFolder::GetFolderCount() const
 
 POSITION CAlbumFolder::GetFolderIterator() const
 {
-	ASSUME_LOCK( Library.m_pSection );
+	//ASSUME_LOCK( Library.m_pSection );
 
 	return m_pFolders.GetHeadPosition();
 }
 
 CAlbumFolder* CAlbumFolder::GetNextFolder(POSITION& pos) const
 {
-	ASSUME_LOCK( Library.m_pSection );
+	//ASSUME_LOCK( Library.m_pSection );
 
 	return m_pFolders.GetNext( pos );
 }
@@ -196,10 +196,9 @@ CAlbumFolder* CAlbumFolder::GetTarget(CSchemaMember* pMember, LPCTSTR pszValue) 
 	if ( m_pSchema == pMember->m_pSchema )
 	{
 		if ( pszValue == NULL )
-		{
 			return (CAlbumFolder*)this;
-		}
-		else if ( m_pXML != NULL )
+
+		if ( m_pXML != NULL )
 		{
 			CString strValue = pMember->GetValueFrom( m_pXML, NULL, TRUE );
 			CXMLNode::UniformString( strValue );
@@ -526,9 +525,11 @@ BOOL CAlbumFolder::MetaToFiles(BOOL bAggressive)
 
 CString CAlbumFolder::GetBestView() const
 {
-	if ( ! m_sBestView.IsEmpty() ) return m_sBestView;
+	if ( ! m_sBestView.IsEmpty() )
+		return m_sBestView;
 
-	if ( m_oCollSHA1 ) return _T("CLibraryCollectionView");
+	if ( m_oCollSHA1 )
+		return _T("CLibraryCollectionView");
 
 	if ( m_pSchema && ! m_pSchema->m_sLibraryView.IsEmpty() )
 		return m_pSchema->m_sLibraryView;
@@ -562,10 +563,10 @@ BOOL CAlbumFolder::MountCollection(const Hashes::Sha1Hash& oSHA1, CCollectionFil
 	if ( m_oCollSHA1 || CheckURI( m_sSchemaURI, CSchema::uriFolder ) )
 		bMountHere = TRI_FALSE;
 
-	if ( bMountHere != TRI_FALSE &&
 	// If the folder schema allows to hold objects having URIs of the collection
-		 m_pSchema->GetContained( pCollection->GetThisURI() ) != NULL ||
 	// or when the folder URI is the root collection folder
+	if ( bMountHere != TRI_FALSE &&
+		 m_pSchema->GetContained( pCollection->GetThisURI() ) != NULL ||
 		 CheckURI( m_sSchemaURI, CSchema::uriCollectionsFolder ) )
 	{
 		CAlbumFolder* pFolder = NULL;
@@ -658,14 +659,10 @@ CCollectionFile* CAlbumFolder::GetCollection()
 		m_pCollection = new CCollectionFile();
 
 		if ( m_pCollection->Open( pFile->GetPath() ) )
-		{
 			return m_pCollection;
-		}
-		else
-		{
-			delete m_pCollection;
-			m_pCollection = NULL;
-		}
+
+		delete m_pCollection;
+		m_pCollection = NULL;
 	}
 
 	m_oCollSHA1.clear();
@@ -1221,7 +1218,7 @@ bool CAlbumFolder::operator==(const CAlbumFolder& val) const
 
 void CAlbumFolder::Clear()
 {
-	ASSUME_LOCK( Library.m_pSection );
+//	ASSUME_LOCK( Library.m_pSection );
 
 	for ( POSITION pos = GetFolderIterator() ; pos ; )
 	{

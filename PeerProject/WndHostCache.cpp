@@ -1,7 +1,7 @@
 //
 // WndHostCache.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -70,6 +70,8 @@ BEGIN_MESSAGE_MAP(CHostCacheWnd, CPanelWnd)
 	ON_COMMAND(ID_HOSTCACHE_BT_CACHE, OnHostcacheBTCache)
 	ON_UPDATE_COMMAND_UI(ID_HOSTCACHE_KAD_CACHE, OnUpdateHostcacheKADCache)
 	ON_COMMAND(ID_HOSTCACHE_KAD_CACHE, OnHostcacheKADCache)
+	ON_UPDATE_COMMAND_UI(ID_HOSTCACHE_DC_CACHE, OnUpdateHostcacheDCCache)
+	ON_COMMAND(ID_HOSTCACHE_DC_CACHE, OnHostcacheDCCache)
 	ON_COMMAND(ID_HOSTCACHE_IMPORT, OnHostcacheImport)
 	ON_COMMAND(ID_HOSTCACHE_ED2K_DOWNLOAD, OnHostcacheEd2kDownload)
 	ON_UPDATE_COMMAND_UI(ID_HOSTCACHE_PRIORITY, OnUpdateHostcachePriority)
@@ -83,21 +85,23 @@ END_MESSAGE_MAP()
 // CHostCacheWnd construction
 
 CHostCacheWnd::CHostCacheWnd()
+	: m_nMode			( PROTOCOLID( Settings.Gnutella.HostCacheView ) )
+	, m_bAllowUpdates	( TRUE )
+	, m_nCookie			( 0 )
+	, m_tLastUpdate		( 0 )
 {
 	Create( IDR_HOSTCACHEFRAME );
 }
 
-CHostCacheWnd::~CHostCacheWnd()
-{
-}
+//CHostCacheWnd::~CHostCacheWnd()
+//{
+//}
 
 /////////////////////////////////////////////////////////////////////////////
 // CHostCacheWnd create
 
 int CHostCacheWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
-	m_nMode = PROTOCOLID( Settings.Gnutella.HostCacheView );
-
 	if ( CPanelWnd::OnCreate( lpCreateStruct ) == -1 ) return -1;
 
 	if ( ! m_wndToolBar.Create( this, WS_CHILD|WS_VISIBLE|CBRS_NOALIGN, AFX_IDW_TOOLBAR ) ) return -1;
@@ -200,6 +204,8 @@ void CHostCacheWnd::Update(BOOL bForce)
 		//	pItem->Set( 2, _T("(eDonkey Server)") );
 		//else if ( pHost->m_nProtocol == PROTOCOL_BT )
 		//	pItem->Set( 2, _T("(BitTorrent)") );
+		//else if ( pHost->m_nProtocol == PROTOCOL_DC )
+		//	pItem->Set( 2, _T("(DC++)") );
 
 		CTime pTime( (time_t)pHost->Seen() );
 		pItem->Set( 3, pTime.Format( _T("%Y-%m-%d %H:%M:%S") ) );
@@ -277,8 +283,12 @@ void CHostCacheWnd::OnTimer(UINT_PTR nIDEvent)
 	{
 		PROTOCOLID nEffective = m_nMode ? m_nMode : PROTOCOL_G2;
 
-		if ( nEffective != PROTOCOL_G1 && nEffective != PROTOCOL_G2 &&
-			nEffective != PROTOCOL_ED2K && nEffective != PROTOCOL_BT &&	nEffective != PROTOCOL_KAD )
+		if ( nEffective != PROTOCOL_G2 &&
+			 nEffective != PROTOCOL_G1 &&
+			 nEffective != PROTOCOL_ED2K &&
+			 nEffective != PROTOCOL_BT &&
+			 nEffective != PROTOCOL_DC &&
+			 nEffective != PROTOCOL_KAD )
 			nEffective = PROTOCOL_G2;
 
 		CHostCacheList* pCache = HostCache.ForProtocol( nEffective );
@@ -343,24 +353,26 @@ void CHostCacheWnd::OnUpdateHostCacheConnect(CCmdUI* pCmdUI)
 {
 	pCmdUI->Enable( ( m_wndList.GetSelectedCount() > 0 ) &&
 		( m_nMode == PROTOCOL_NULL ||
-		m_nMode == PROTOCOL_G1 ||
 		m_nMode == PROTOCOL_G2 ||
+		m_nMode == PROTOCOL_G1 ||
 		m_nMode == PROTOCOL_ED2K ||
+		m_nMode == PROTOCOL_DC ||
 		m_nMode == PROTOCOL_KAD ) );
 }
 
 void CHostCacheWnd::OnHostCacheConnect()
 {
 	if ( m_nMode == PROTOCOL_NULL ||
-		m_nMode == PROTOCOL_G1 ||
 		m_nMode == PROTOCOL_G2 ||
+		m_nMode == PROTOCOL_G1 ||
 		m_nMode == PROTOCOL_ED2K ||
+		m_nMode == PROTOCOL_DC ||
 		m_nMode == PROTOCOL_KAD )
 	{
 		POSITION pos = m_wndList.GetFirstSelectedItemPosition();
 		while ( pos )
 		{
-			int nItem = m_wndList.GetNextSelectedItem( pos );
+			const int nItem = m_wndList.GetNextSelectedItem( pos );
 			if ( CHostCacheHostPtr pHost = GetItem( nItem ) )
 				pHost->ConnectTo();
 		}
@@ -384,7 +396,7 @@ void CHostCacheWnd::OnUpdateHostCacheDisconnect(CCmdUI* pCmdUI)
 		POSITION pos = m_wndList.GetFirstSelectedItemPosition();
 		while ( pos )
 		{
-			int nItem = m_wndList.GetNextSelectedItem( pos );
+			const int nItem = m_wndList.GetNextSelectedItem( pos );
 			if ( CHostCacheHostPtr pHost = GetItem( nItem ) )
 			{
 				CNeighbour* pNeighbour = Neighbours.Get( pHost->m_pAddress );
@@ -416,7 +428,7 @@ void CHostCacheWnd::OnHostCacheDisconnect()
 		POSITION pos = m_wndList.GetFirstSelectedItemPosition();
 		while ( pos )
 		{
-			int nItem = m_wndList.GetNextSelectedItem( pos );
+			const int nItem = m_wndList.GetNextSelectedItem( pos );
 			if ( CHostCacheHostPtr pHost = GetItem( nItem ) )
 			{
 				CNeighbour* pNeighbour = Neighbours.Get( pHost->m_pAddress );
@@ -443,7 +455,7 @@ void CHostCacheWnd::OnUpdateHostcachePriority(CCmdUI* pCmdUI)
 	POSITION pos = m_wndList.GetFirstSelectedItemPosition();
 	while ( pos )
 	{
-		int nItem = m_wndList.GetNextSelectedItem( pos );
+		const int nItem = m_wndList.GetNextSelectedItem( pos );
 		if ( CHostCacheHostPtr pHost = GetItem( nItem ) )
 		{
 			if ( pHost->m_bPriority )
@@ -507,6 +519,11 @@ void CHostCacheWnd::OnNeighboursCopy()
 		strURL.Format( _T("ed2k://|kad|%s|%u|/"),
 			(LPCTSTR)CString( inet_ntoa( (IN_ADDR&)pHost->m_pAddress ) ), pHost->m_nUDPPort );
 	}
+	else if ( pHost->m_nProtocol == PROTOCOL_DC )
+	{
+		strURL.Format( _T("dchub://%s:%u"),
+			(LPCTSTR)CString( inet_ntoa( (IN_ADDR&)pHost->m_pAddress ) ), pHost->m_nUDPPort );
+	}
 
 	CURLCopyDlg::SetClipboardText( strURL );
 }
@@ -523,7 +540,7 @@ void CHostCacheWnd::OnHostCacheRemove()
 	POSITION pos = m_wndList.GetFirstSelectedItemPosition();
 	while ( pos )
 	{
-		int nItem = m_wndList.GetNextSelectedItem( pos );
+		const int nItem = m_wndList.GetNextSelectedItem( pos );
 		if ( CHostCacheHostPtr pHost = GetItem( nItem ) )
 			HostCache.Remove( pHost );
 	}
@@ -605,12 +622,25 @@ void CHostCacheWnd::OnHostcacheKADCache()
 	Update( TRUE );
 }
 
+void CHostCacheWnd::OnUpdateHostcacheDCCache(CCmdUI* pCmdUI)
+{
+	pCmdUI->SetCheck( m_nMode == PROTOCOL_DC );
+}
+
+void CHostCacheWnd::OnHostcacheDCCache()
+{
+	Settings.Gnutella.HostCacheView = m_nMode = PROTOCOL_DC;
+	m_wndList.DeleteAllItems();
+	Update( TRUE );
+}
+
 void CHostCacheWnd::OnHostcacheImport()
 {
 	// ToDo: Localize it
 	CFileDialog dlg( TRUE, _T("met"), NULL, OFN_HIDEREADONLY,
 		_T("eDonkey2000 MET files|*.met|")
 		_T("Kademlia Nodes files|nodes.dat|")
+		_T("DC++ hub lists|*.xml.bz2|")
 		_T("All Files|*.*||"), this );
 
 	if ( dlg.DoModal() != IDOK ) return;

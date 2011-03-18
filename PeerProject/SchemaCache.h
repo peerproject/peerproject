@@ -1,7 +1,7 @@
 //
 // SchemaCache.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -28,15 +28,10 @@ public:
 	CSchemaCache();
 	virtual ~CSchemaCache();
 
-// Attributes
-protected:
-	CMap< CString, const CString&, CSchemaPtr, CSchemaPtr > m_pURIs;
-	CMap< CString, const CString&, CSchemaPtr, CSchemaPtr >	m_pNames;
-
 // Operations
 public:
-	int			Load();
-	void		Clear();
+	int		Load();
+	void	Clear();
 
 // Inlines
 public:
@@ -79,12 +74,22 @@ public:
 		return m_pNames.Lookup( strName, pSchema ) ? pSchema : NULL;
 	}
 
+	inline BOOL IsFilter(const CString& sType) const
+	{
+		return ( m_pTypeFilters.PLookup( sType ) != NULL );
+	}
+
 	// Decode metadata and Schema from text or XML deflated or plain
 	CXMLElement* Decode(BYTE* pszData, DWORD nLength, CSchemaPtr& pSchema);
 	static CXMLElement* AutoDetectSchema(LPCTSTR pszInfo);
 	static CXMLElement* AutoDetectAudio(LPCTSTR pszInfo);
 
 private:
+	typedef CMap< CString, const CString&, CSchemaPtr, CSchemaPtr > CSchemaMap;
+	CSchemaMap m_pURIs;
+	CSchemaMap m_pNames;
+	CSchemaMap m_pTypeFilters;	// Combined "file type":"schema"
+
 	CSchemaCache(const CSchemaCache&);
 	CSchemaCache& operator=(const CSchemaCache&);
 };

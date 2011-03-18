@@ -1,7 +1,7 @@
 //
 // WndSystem.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -21,11 +21,11 @@
 #include "Settings.h"
 #include "WndSystem.h"
 #include "Neighbours.h"
-#include "Skin.h"
 #include "CrawlSession.h"
 #include "WindowManager.h"
 #include "WndNeighbours.h"
 #include "WndMain.h"
+#include "Skin.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -139,7 +139,7 @@ void CSystemWnd::OnTimer(UINT_PTR /*nIDEvent*/)
 void CSystemWnd::OnSize(UINT nType, int cx, int cy)
 {
 	CPanelWnd::OnSize( nType, cx, cy );
-	m_wndText.SetWindowPos( NULL, 0, 0, cx, cy, SWP_NOZORDER );
+	if ( m_wndText.m_hWnd ) m_wndText.SetWindowPos( NULL, 0, 0, cx, cy, SWP_NOZORDER );
 }
 
 void CSystemWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
@@ -159,32 +159,32 @@ BOOL CSystemWnd::PreTranslateMessage(MSG* pMsg)
 			m_wndText.PostMessage( WM_VSCROLL, MAKELONG( SB_PAGEUP, 0 ), NULL );
 			return TRUE;
 		}
-		else if ( pMsg->wParam == VK_NEXT )
+		if ( pMsg->wParam == VK_NEXT )
 		{
 			m_wndText.PostMessage( WM_VSCROLL, MAKELONG( SB_PAGEDOWN, 0 ), NULL );
 			return TRUE;
 		}
-		else if ( pMsg->wParam == VK_HOME )
+		if ( pMsg->wParam == VK_HOME )
 		{
 			m_wndText.PostMessage( WM_VSCROLL, MAKELONG( SB_TOP, 0 ), NULL );
 			return TRUE;
 		}
-		else if ( pMsg->wParam == VK_END )
+		if ( pMsg->wParam == VK_END )
 		{
 			m_wndText.PostMessage( WM_VSCROLL, MAKELONG( SB_BOTTOM, 0 ), NULL );
 			return TRUE;
 		}
-		else if ( pMsg->wParam == VK_UP )
+		if ( pMsg->wParam == VK_UP )
 		{
 			m_wndText.PostMessage( WM_VSCROLL, MAKELONG( SB_LINEUP, 0 ), NULL );
 			return TRUE;
 		}
-		else if ( pMsg->wParam == VK_DOWN )
+		if ( pMsg->wParam == VK_DOWN )
 		{
 			m_wndText.PostMessage( WM_VSCROLL, MAKELONG( SB_LINEDOWN, 0 ), NULL );
 			return TRUE;
 		}
-		else if ( pMsg->wParam == VK_TAB )
+		if ( pMsg->wParam == VK_TAB )
 		{
 			GetManager()->Open( RUNTIME_CLASS(CNeighboursWnd) );
 			return TRUE;

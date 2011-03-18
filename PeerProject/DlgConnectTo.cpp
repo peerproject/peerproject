@@ -1,7 +1,7 @@
 //
 // DlgConnectTo.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -162,9 +162,8 @@ void CConnectToDlg::LoadItem(int nItem)
 	ASSERT( nItem != CB_ERR);
 
 	if ( m_wndHost.GetCurSel() != nItem )
-	{
 		m_wndHost.SetCurSel( nItem );
-	}
+
 	CONNECT_HOST_DATA* pData = static_cast< CONNECT_HOST_DATA* >( m_wndHost.GetItemDataPtr( nItem ) );
 	ASSERT( pData != NULL );
 	if ( reinterpret_cast< INT_PTR >( pData ) != -1 )
@@ -181,7 +180,7 @@ void CConnectToDlg::OnCbnSelchangeConnectHost()
 {
 	if ( ! UpdateData () ) return;
 
-	int nItem = m_wndHost.GetCurSel();
+	const int nItem = m_wndHost.GetCurSel();
 	ASSERT( nItem != CB_ERR );
 	LoadItem( nItem );
 }
@@ -251,7 +250,7 @@ BOOL CConnectToDlg::UpdateItems()
 		return FALSE;
 
 	m_sHost.Trim( _T(" \t\r\n:\"\'\\") ).MakeLower();
-	int n = m_sHost.Find( _T(':') );
+	const int n = m_sHost.Find( _T(':') );
 	if ( n != -1 )
 	{
 		m_nPort = _tstoi( m_sHost.Mid( n + 1 ) );
@@ -271,7 +270,8 @@ BOOL CConnectToDlg::UpdateItems()
 		ASSERT( pData != NULL && reinterpret_cast< INT_PTR >( pData ) != -1 );
 		pData->nPort = m_nPort;
 		pData->nProtocol = m_nProtocol;
-		if( m_wndHost.GetCurSel() != nItem ) m_wndHost.SetCurSel( nItem );
+		if ( m_wndHost.GetCurSel() != nItem )
+			m_wndHost.SetCurSel( nItem );
 	}
 	else
 	{
@@ -302,7 +302,7 @@ BOOL CConnectToDlg::UpdateData(BOOL bSaveAndValidate)
 	else
 	{
 		int nIndex = 0;
-		for ( int i = 0; i < m_wndProtocol.GetCount(); i++ )
+		for ( int i = 0 ; i < m_wndProtocol.GetCount() ; i++ )
 		{
 			if ( (PROTOCOLID)m_wndProtocol.GetItemData( i ) == m_nProtocol )
 			{
@@ -317,7 +317,7 @@ BOOL CConnectToDlg::UpdateData(BOOL bSaveAndValidate)
 
 void CConnectToDlg::SaveItems()
 {
-	int nCount = m_wndHost.GetCount();
+	const int nCount = m_wndHost.GetCount();
 	ASSERT( nCount != CB_ERR );
 	theApp.WriteProfileInt( CONNECT_SECTION, _T("Count"), nCount );
 
@@ -325,7 +325,7 @@ void CConnectToDlg::SaveItems()
 	ASSERT( nItem != CB_ERR );
 	theApp.WriteProfileInt( CONNECT_SECTION, _T("Last.Index"), nItem );
 
-	for( nItem = 0; nItem < nCount; nItem++ )
+	for ( nItem = 0 ; nItem < nCount ; nItem++ )
 	{
 		CONNECT_HOST_DATA* pData = static_cast< CONNECT_HOST_DATA* >( m_wndHost.GetItemDataPtr( nItem ) );
 		ASSERT( pData != NULL && reinterpret_cast< INT_PTR >( pData ) != -1 );

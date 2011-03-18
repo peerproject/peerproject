@@ -1,7 +1,7 @@
 //
 // CtrlMatchTip.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -51,13 +51,19 @@ BEGIN_MESSAGE_MAP(CMatchTipCtrl, CWnd)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
-#define TIP_DELAY		500
 #define TIP_TEXTHEIGHT	14
 #define TIP_ICONHEIGHT	16
 // In CtrlCoolTip.h:
 //#define TIP_OFFSET_X	0
 //#define TIP_OFFSET_Y	24
 //#define TIP_MARGIN	6
+
+LPCTSTR		CMatchTipCtrl::m_hClass = NULL;
+CBrush		CMatchTipCtrl::m_brBack;
+//COLORREF	CMatchTipCtrl::m_crBack;
+//COLORREF	CMatchTipCtrl::m_crText;
+//COLORREF	CMatchTipCtrl::m_crBorder;
+//COLORREF	CMatchTipCtrl::m_crWarnings;
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -79,13 +85,6 @@ CMatchTipCtrl::CMatchTipCtrl()
 CMatchTipCtrl::~CMatchTipCtrl()
 {
 }
-
-LPCTSTR		CMatchTipCtrl::m_hClass = NULL;
-CBrush		CMatchTipCtrl::m_brBack;
-//COLORREF	CMatchTipCtrl::m_crBack;
-//COLORREF	CMatchTipCtrl::m_crText;
-//COLORREF	CMatchTipCtrl::m_crBorder;
-//COLORREF	CMatchTipCtrl::m_crWarnings;
 
 /////////////////////////////////////////////////////////////////////////////
 // CMatchTipCtrl operations
@@ -130,7 +129,7 @@ void CMatchTipCtrl::Show(CMatchFile* pFile, CQueryHit* pHit)
 		m_pFile	= pFile;
 		m_pHit	= pHit;
 		m_pOpen	= point;
-		m_tOpen	= GetTickCount() + TIP_DELAY;
+		m_tOpen	= GetTickCount() + Settings.Interface.TipDelay;
 	}
 }
 

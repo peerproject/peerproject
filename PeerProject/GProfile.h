@@ -1,7 +1,7 @@
 //
 // GProfile.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -27,7 +27,7 @@ class CGProfile : public CComObject
 // Construction
 public:
 	CGProfile();
-	virtual ~CGProfile();
+//	virtual ~CGProfile();
 
 public:
 	CGuarded< Hashes::Guid >	oGUID;					// Gnutella GUID (128 bit)
@@ -41,6 +41,7 @@ public:
 	BOOL			IsValid() const;
 
 	CXMLElement*	GetXML(LPCTSTR pszElement = NULL, BOOL bCreate = FALSE);
+	CXMLElement*	GetPublicXML(CString strClient = NULL, BOOL bChallenge = FALSE);
 	CString			GetNick() const;
 	CString			GetContact(LPCTSTR pszType) const;
 	CString			GetLocation() const;
@@ -49,10 +50,13 @@ public:
 	CG2Packet*		CreateAvatar() const;
 
 protected:
-	CXMLElement*	m_pXML;
 	static LPCTSTR	xmlns;
+	static LPCTSTR	xmlnsLegacy;			// Shareaza compatibility
+//	CXMLElement*	m_pXML;					// Insecure legacy method
+	CAutoPtr< CXMLElement > m_pXML;			// Local profile (file)
+	CAutoPtr< CXMLElement > m_pXMLExport;	// Profile for public export  -Recreated from m_pXML by GetXML()
 
-	void			CreateBT();		// Create BitTorrent GUID from Gnutella GUID
+	void			CreateBT();				// Create BitTorrent GUID from Gnutella GUID
 
 	DECLARE_INTERFACE_MAP()
 };

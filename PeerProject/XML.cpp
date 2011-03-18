@@ -386,6 +386,9 @@ CXMLElement* CXMLElement::Clone(CXMLElement* pParent) const
 			delete pExisting;
 
 		pClone->m_pAttributes.SetAt( strName, pAttribute );
+
+		if ( ! pClone->m_pAttributesInsertion.Find( pAttribute->m_sName ) )
+			pClone->m_pAttributesInsertion.AddTail( strName );		// Track output order
 	}
 
 	for ( POSITION pos = GetElementIterator() ; pos ; )
@@ -423,6 +426,7 @@ void CXMLElement::DeleteAllAttributes()
 		delete pAttribute;
 	}
 	m_pAttributes.RemoveAll();
+	m_pAttributesInsertion.RemoveAll();		// Track output order
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -572,23 +576,24 @@ BOOL CXMLElement::ParseString(LPCTSTR& strXML)
 
 		CXMLAttribute* pAttribute = new CXMLAttribute( this );
 
-		if ( pAttribute->ParseString( strXML ) )
-		{
-			CString strName( pAttribute->m_sName );
-			strName.MakeLower();
-
-			// Delete the old attribute if one exists
-			CXMLAttribute* pExisting;
-			if ( m_pAttributes.Lookup( strName, pExisting ) )
-				delete pExisting;
-
-			m_pAttributes.SetAt( strName, pAttribute );
-		}
-		else
+		if ( ! pAttribute->ParseString( strXML ) )
 		{
 			delete pAttribute;
 			return FALSE;
 		}
+
+		CString strName( pAttribute->m_sName );
+		strName.MakeLower();
+
+		// Delete the old attribute if one exists
+		CXMLAttribute* pExisting;
+		if ( m_pAttributes.Lookup( strName, pExisting ) )
+			delete pExisting;
+
+		m_pAttributes.SetAt( strName, pAttribute );
+
+		if ( ! m_pAttributesInsertion.Find( pAttribute->m_sName ) )
+			m_pAttributesInsertion.AddTail( strName );		// Track output order
 	}
 
 	CString strClose = _T("</");
@@ -902,6 +907,9 @@ void CXMLElement::Serialize(CArchive& ar)
 				delete pExisting;
 
 			m_pAttributes.SetAt( strName, pAttribute );
+
+			if ( ! m_pAttributesInsertion.Find( pAttribute->m_sName ) )
+				m_pAttributesInsertion.AddTail( strName );		// Track output order
 		}
 
 		for ( int nCount = (int)ar.ReadCount() ; nCount > 0 ; nCount-- )
@@ -948,6 +956,9 @@ CXMLAttribute* CXMLElement::AddAttribute(LPCTSTR pszName, LPCTSTR pszValue)
 			delete pExisting;
 
 		m_pAttributes.SetAt( strName, pAttribute );
+
+		if ( ! m_pAttributesInsertion.Find( pAttribute->m_sName ) )
+			m_pAttributesInsertion.AddTail( strName );		// Track output order
 	}
 
 	if ( pszValue )
@@ -966,6 +977,10 @@ CXMLAttribute* CXMLElement::AddAttribute(CXMLAttribute* pAttribute)
 	CXMLAttribute* pExisting;
 	if ( m_pAttributes.Lookup( strName, pExisting ) )
 		delete pExisting;
+
+	if ( ! m_pAttributesInsertion.Find( pAttribute->m_sName ) )
+		m_pAttributesInsertion.AddTail( strName );		// Track output order
+
 
 	m_pAttributes.SetAt( pAttribute->m_sName, pAttribute );
 	pAttribute->m_pParent = this;
@@ -1014,7 +1029,8 @@ BOOL CXMLAttribute::ParseString(LPCTSTR& strXML)
 
 		return ParseMatch( strXML, _T("\"") );
 	}
-	else if ( ParseMatch( strXML, _T("'") ) )
+
+	if ( ParseMatch( strXML, _T("'") ) )
 	{
 		LPCTSTR pszQuote = _tcschr( strXML,  '\'' );
 		if ( ! pszQuote || *pszQuote != '\'' )
@@ -1024,10 +1040,8 @@ BOOL CXMLAttribute::ParseString(LPCTSTR& strXML)
 
 		return ParseMatch( strXML, _T("\'") );
 	}
-	else
-	{
-		return FALSE;
-	}
+
+	return FALSE;
 }
 
 //////////////////////////////////////////////////////////////////////

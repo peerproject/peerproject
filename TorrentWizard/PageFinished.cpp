@@ -1,7 +1,7 @@
 //
 // PageFinished.cpp
 //
-// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008
+// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008-2011
 // Portions Copyright Shareaza Development Team, 2007.
 //
 // PeerProject Torrent Wizard is free software; you can redistribute it
@@ -58,8 +58,8 @@ END_MESSAGE_MAP()
 CFinishedPage::CFinishedPage() : CWizardPage(CFinishedPage::IDD)
 {
 	//{{AFX_DATA_INIT(CFinishedPage)
-	//}}AFX_DATA_INIT
 	m_pBuilder = NULL;
+	//}}AFX_DATA_INIT
 }
 
 CFinishedPage::~CFinishedPage()
@@ -199,7 +199,8 @@ void CFinishedPage::OnTimer(UINT_PTR nIDEvent)
 		if ( m_pBuilder->GetCurrentFile( str1 ) )
 		{
 			m_wndFileName.GetWindowText( str2 );
-			if ( str1 != str2 ) m_wndFileName.SetWindowText( str1 );
+			if ( str1 != str2 )
+				m_wndFileName.SetWindowText( str1 );
 		}
 
 		if ( m_pBuilder->IsRunning() ) return;
@@ -287,10 +288,8 @@ LRESULT CFinishedPage::OnWizardBack()
 		GetSheet()->DoReset();
 		return IDD_WELCOME_PAGE;
 	}
-	else
-	{
-		return -1;
-	}
+
+	return -1;
 }
 
 BOOL CFinishedPage::OnWizardFinish()
@@ -339,7 +338,7 @@ void CFinishedPage::OnTorrentCopy()
 			EmptyClipboard();
 			SetClipboardData( CF_TEXT, hMem );
 			CloseClipboard();
-			delete pStr;
+			delete [] pStr;
 		}
 	}
 }

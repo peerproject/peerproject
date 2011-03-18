@@ -874,7 +874,7 @@ BOOL CChatSession::OnProfileChallenge(CG2Packet* /*pPacket*/)
 	if ( ! MyProfile.IsValid() ) return TRUE;
 
 	CG2Packet* pProfile = CG2Packet::New( G2_PACKET_PROFILE_DELIVERY, TRUE );
-	CString strXML = MyProfile.GetXML( NULL, TRUE )->ToString( TRUE );
+	CString strXML = MyProfile.GetPublicXML( /*m_sUserAgent*/ NULL, TRUE )->ToString( TRUE );
 
 	pProfile->WritePacket( G2_PACKET_XML, pProfile->GetStringLen( strXML ) );
 	pProfile->WriteString( strXML, FALSE );

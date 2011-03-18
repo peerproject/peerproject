@@ -184,13 +184,7 @@
     <ClCompile Include="ModuleImportTable.cpp">
       <Filter>System\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="NetThunks.cpp">
-      <Filter>System\Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="SymEngine.cpp">
-      <Filter>System\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SymEngineNet.cpp">
       <Filter>System\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="TextLogFile.cpp">
@@ -205,9 +199,6 @@
     <ClCompile Include="BugTrap.cpp">
       <Filter>Main\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="BugTrapNet.cpp">
-      <Filter>Main\Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="BugTrapUI.cpp">
       <Filter>Main\Source Files</Filter>
     </ClCompile>
@@ -216,9 +207,6 @@
     </ClCompile>
     <ClCompile Include="ResManager.cpp">
       <Filter>Main\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="AssemblyInfo.cpp">
-      <Filter>Accessories\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Globals.cpp">
       <Filter>Accessories\Source Files</Filter>
@@ -354,13 +342,7 @@
     <ClInclude Include="ModuleImportTable.h">
       <Filter>System\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="NetThunks.h">
-      <Filter>System\Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="SymEngine.h">
-      <Filter>System\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SymEngineNet.h">
       <Filter>System\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="TextLogFile.h">
@@ -384,9 +366,6 @@
     <ClInclude Include="BugTrap.h">
       <Filter>Main\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="BugTrapNet.h">
-      <Filter>Main\Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="BugTrapUI.h">
       <Filter>Main\Header Files</Filter>
     </ClInclude>
@@ -402,7 +381,7 @@
     <ClInclude Include="LeakWatcher.h">
       <Filter>Accessories\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h">
+    <ClInclude Include="Resource.h">
       <Filter>Accessories\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="stdafx.h">

@@ -25,13 +25,13 @@ CImages Images;
 //////////////////////////////////////////////////////////////////////
 // CImages construction
 
-CImages::CImages()
-{
-}
+//CImages::CImages()
+//{
+//}
 
-CImages::~CImages()
-{
-}
+//CImages::~CImages()
+//{
+//}
 
 //////////////////////////////////////////////////////////////////////
 // CImages Bitmap Objects
@@ -330,7 +330,7 @@ void CImages::Load()
 
 	if ( HBITMAP hPanelMark = Skin.GetWatermark( _T("CPanelWnd.Caption") ) )
 		m_bmPanelMark.Attach( hPanelMark );
-	else if ( Colors.m_crPanelBack == RGB( 60, 60, 60 ) )
+	else if ( Colors.m_crPanelBack == RGB_DEFAULT_CASE )
 		m_bmPanelMark.LoadBitmap( IDB_PANEL_MARK );				// Special-case default resource handling
 
 

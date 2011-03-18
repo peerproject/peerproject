@@ -365,6 +365,7 @@ reg_apptitle=PeerProject P2P Filesharing
 icons_license=AGPL License
 icons_uninstall=Uninstall
 icons_downloads=Downloads
+icons_noskin=No Skins
 icons_basicmode=Basic Mode
 icons_tabbedmode=Tabbed Mode
 icons_windowedmode=Windowed Mode

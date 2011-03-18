@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Polish Skin File -->
 
-<!-- Translation based on default-en.xml r62 (Shareaza 2.1.2.7) -->
+<!-- Translation based on default-en.xml r64 (Shareaza 2.1.2.7) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2286,8 +2286,8 @@
 	<tip id="ID_SEARCH_STOP" message="Zatrzymaj otrzymywanie rezultatów szukania w tym oknie."/>
 	<tip id="ID_SEARCHMONITOR_CLEAR" message="Wyczyść bufor monitora wyszukiwania."/>
 	<tip id="ID_SEARCHMONITOR_PAUSE" message="Pauzuj monitor wyszukiwania."/>
-	<tip id="ID_SECURITY_ADD" message="Dodaj nową zasadę do łańcucha bezpieczeństwa..."/>
 	<tip id="ID_SECURITY_BAN" message="Zablokuj wybrany serwer na czas tej sesji."/>
+	<tip id="ID_SECURITY_ADD" message="Dodaj nową zasadę do łańcucha bezpieczeństwa..."/>
 	<tip id="ID_SECURITY_EDIT" message="Edytuj zasade bezpieczeństwa..."/>
 	<tip id="ID_SECURITY_EXPORT" message="Eksportuj wybraną zasadę bezpieczeństwa do pliku..."/>
 	<tip id="ID_SECURITY_IMPORT" message="Importuj Zasady bezpieczeństwa z pliku..."/>
@@ -2297,6 +2297,14 @@
 	<tip id="ID_SECURITY_POLICY_DENY" message="Ustaw domyślnie aby zabraniać łączenia z wszystkimi hostami."/>
 	<tip id="ID_SECURITY_REMOVE" message="Usuń wybraną zasadę bezpieczeństwa."/>
 	<tip id="ID_SECURITY_RESET" message="Wyresetuj statystyki używania wybranej reguły."/>
+	<tip id="ID_SCHEDULER_ADD" message="Dodaj nową zasadę do łańcucha bezpieczeństwa..."/>
+	<tip id="ID_SCHEDULER_EDIT" message="Edytuj zaznaczoną regułę bezpieczeństwa..."/>
+	<tip id="ID_SCHEDULER_ACTIVATE" message="Wyczyść zaznaczone wysyłanie(a) z listy."/>
+	<tip id="ID_SCHEDULER_DEACTIVATE" message="Podłącz się do wybranych sieci."/>
+	<tip id="ID_SCHEDULER_EXPORT" message="Eksportuj wybraną zasadę bezpieczeństwa do pliku..."/>
+	<tip id="ID_SCHEDULER_IMPORT" message="Importuj Zasady bezpieczeństwa z pliku..."/>
+	<tip id="ID_SCHEDULER_REMOVE" message="Usuń zaznaczone pobieranie (pobierania) z listy."/>
+	<tip id="ID_SCHEDULER_REMOVE_ALL" message="Delete all scheduled tasks."/>
 	<tip id="ID_SYSTEM_CLEAR" message="Wyczyść log statusu."/>
 	<tip id="ID_SYSTEM_TIMESTAMP" message="Zapisuj znacznik czasu dla każdej linijki."/>
 	<tip id="ID_SYSTEM_VERBOSE" message="Pokaż dokładny log aktywności systemu."/>
@@ -2815,7 +2823,7 @@
 	<string id="20706" value="Tryb Ultrapeer z %lu Sąsiadem(ami).  %s w lokalnej bibliotece."/>
 	<string id="20707" value="Łączenie do sieci..."/>
 	<string id="20708" value="Nie połączony do sieci."/>
-	<string id="20710" value="(Brak źródeł)"/>
+	<string id="20710" value="Usuwanie"/>
 	<string id="20711" value="Nie można przenieść"/>
 	<string id="20712" value="Zdławiony"/>
 	<string id="20713" value="Kolejkowanie"/>
@@ -2841,6 +2849,7 @@
 	<string id="20733" value="źródeł"/> <!-- many -->
 	<string id="20734" value="źródła"/> <!-- few  2,3,4 -->
 	<string id="20735" value="źródeł"/> <!-- ones 21,31,... -->
+	<string id="20736" value="(Brak źródeł)"/>
 	<string id="20740" value="TigerTree"/>
 	<string id="20741" value="Torrent"/>
 	<string id="20742" value="Tracker wyłączony"/>
@@ -3033,7 +3042,7 @@
 		<control caption="Filtruj wiadomości ze spamu"/>
 		<control caption="Cenzuruj wulgaryzmy w rozmowie"/>
 	</dialog>
-	<dialog name="CIRCSettingsPage" cookie="BuBuBuBuStEdStStEdCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStEdStEdStEd" caption="Czat">
+	<dialog name="CIRCSettingsPage" cookie="BuBuBuBuStEdmsStStEdmsCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStCoStEdStEd" caption="Czat">
 		<control caption="Opcje klienta:"/>
 		<control caption="Pokaż integrację czata"/>
 		<control caption="Pokaż znacznik czasu"/>
@@ -4149,9 +4158,9 @@
 		<column from="Address" to="Adres"/>
 		<column from="Port" to="Port"/>
 		<column from="Time" to="Czas"/>
-		<column from="Packets" to="Pakiety"/>
-		<column from="Bandwidth" to="Pasmo"/>
+		<column from="Traffic" to="Pasmo"/>
 		<column from="Total" to="Przesłano"/>
+		<column from="Packets" to="Pakiety"/>
 		<column from="Flow" to="Strumień"/>
 		<column from="Leaves" to="Listki"/>
 		<column from="Mode" to="Tryb"/>
@@ -4227,7 +4236,7 @@
 	<list name="CUploadQueueList">
 		<column from="Name" to="Nazwa"/>
 		<column from="Criteria" to="Kryteria"/>
-		<column from="Bandwidth" to="Szerokość pasma"/>
+		<column from="Minimum" to="Szerokość pasma"/>
 		<column from="Transfers" to="Transfery"/>
 		<column from="Order" to="Kolejność"/>
 	</list>

@@ -42,6 +42,8 @@ static char THIS_FILE[]=__FILE__;
 
 CSkin Skin;
 
+BOOL CSkin::m_bSkinChanging = FALSE;	// Static system state indicator (Active CMainWnd::OnSkinChanged)
+
 
 //////////////////////////////////////////////////////////////////////
 // CSkin construction
@@ -640,6 +642,8 @@ BOOL CSkin::LoadOptions(CXMLElement* pBase)
 			Text[ _T("monitorbar") ]	= 'o';
 			Text[ _T("dragbar") ]		= 'r';
 			Text[ _T("splitter") ]		= 'r';
+			Text[ _T("listitem") ]		= 'w';
+			Text[ _T("rowsize") ]		= 'w';
 			Text[ _T("roundedselect") ] = 'c';
 			Text[ _T("highlightchamfer") ] = 'c';
 			Text[ _T("buttonedge") ]	= 'e';
@@ -650,11 +654,11 @@ BOOL CSkin::LoadOptions(CXMLElement* pBase)
 
 		switch( Text[ strName ] )
 		{
-		case 'n':	// "navbar"
+		case 'n':	// "Navbar"
 			if ( ! LoadNavBar( pXML ) )
 				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Skin Option [Navbar] Failed"), pXML->ToString() );
 			break;
-		case 'd':	// "dropmenu" or "submenu"
+		case 'd':	// "DropMenu" or "SubMenu"
 			if ( strValue == _T("true") )
 				m_bDropMenu = TRUE;
 			else if ( strValue == _T("false") )
@@ -668,7 +672,7 @@ BOOL CSkin::LoadOptions(CXMLElement* pBase)
 			else if ( strValue == _T("0") )
 				m_bDropMenu = FALSE;
 			break;
-		case 'm':	// "menuborders" or "menubarbevel"
+		case 'm':	// "MenuBorders" or "MenubarBevel"
 			if ( strValue == _T("true") )
 				m_bMenuBorders = TRUE;
 			else if ( strValue == _T("false") )
@@ -682,7 +686,7 @@ BOOL CSkin::LoadOptions(CXMLElement* pBase)
 			else if ( strValue == _T("0") )
 				m_bMenuBorders = FALSE;
 			break;
-		case 'p':	// "menugripper" or "grippers"
+		case 'p':	// "MenuGripper" or "Grippers"
 			if ( strValue == _T("true") )
 				m_bMenuGripper = TRUE;
 			else if ( strValue == _T("false") )
@@ -696,7 +700,7 @@ BOOL CSkin::LoadOptions(CXMLElement* pBase)
 			else if ( strValue == _T("0") )
 				m_bMenuGripper = FALSE;
 			break;
-		case 'c':	// "roundedselect" or "highlightchamfer"
+		case 'c':	// "RoundedSelect" or "HighlightChamfer"
 			if ( strValue == _T("true") )
 				m_bRoundedSelect = TRUE;
 			else if ( strValue == _T("false") )
@@ -710,13 +714,13 @@ BOOL CSkin::LoadOptions(CXMLElement* pBase)
 			else if ( strValue == _T("0") )
 				m_bRoundedSelect = FALSE;
 			break;
-		case 't':	// "toolbar" or "toolbars"
+		case 't':	// "Toolbar" or "Toolbars"
 			if ( ! strHeight.IsEmpty() )
 				m_nToolbarHeight = _wtoi(strHeight);
 			else if ( ! strValue.IsEmpty() )
 				m_nToolbarHeight = _wtoi(strValue);
 			break;
-		case 'k':	// "taskbar" or "tabbar"
+		case 'k':	// "Taskbar" or "TabBar"
 			if ( ! strWidth.IsEmpty() )
 				m_nTaskbarTabWidth = _wtoi(strWidth);
 			if ( ! strHeight.IsEmpty() )
@@ -724,49 +728,62 @@ BOOL CSkin::LoadOptions(CXMLElement* pBase)
 			else if ( ! strValue.IsEmpty() )
 				m_nTaskbarHeight = _wtoi(strValue);
 			break;
-		case 's':	// "sidebar" or "sidepanel"
+		case 's':	// "Sidebar" or "SidePanel"
 			if ( ! strWidth.IsEmpty() )
 				m_nSidebarWidth = _wtoi(strWidth);
 			else if ( ! strValue.IsEmpty() )
 				m_nSidebarWidth = _wtoi(strValue);
 			break;
-		case 'h':	// "titlebar" or "headerpanel"
+		case 'h':	// "Titlebar" or "HeaderPanel"
 			if ( ! strHeight.IsEmpty() )
 				m_nHeaderbarHeight = _wtoi(strHeight);
 			else if ( ! strValue.IsEmpty() )
 				m_nHeaderbarHeight = _wtoi(strValue);
 			break;
-		case 'g':	// "groupsbar" or "downloadgroups"
+		case 'g':	// "Groupsbar" or "DownloadGroups"
 			if ( ! strHeight.IsEmpty() )
 				m_nGroupsbarHeight = _wtoi(strHeight);
 			else if ( ! strValue.IsEmpty() )
 				m_nGroupsbarHeight = _wtoi(strValue);
 			break;
-		case 'o':	// "monitorbar" or "bandwidthwidget"
+		case 'o':	// "Monitorbar" or "BandwidthWidget"
 			if ( ! strWidth.IsEmpty() )
 				m_nMonitorbarWidth = _wtoi(strWidth);
 			else if ( ! strValue.IsEmpty() )
 				m_nMonitorbarWidth = _wtoi(strValue);
 			break;
-		case 'e':	// "buttonedge" or "buttonmap"
-			if ( ! strWidth.IsEmpty() )
-				m_nButtonEdge = _wtoi(strWidth);
-			else if ( ! strValue.IsEmpty() )
-				m_nButtonEdge = _wtoi(strValue);
-			break;
-		case 'r':	// "dragbar" or "splitter"
+		case 'r':	// "Dragbar" or "Splitter"
 			if ( ! strWidth.IsEmpty() )
 				m_nSplitter = _wtoi(strWidth);
 			else if ( ! strValue.IsEmpty() )
 				m_nSplitter = _wtoi(strValue);
 			break;
-		case 'i':	// "icongrid" or "librarytiles"
+		case 'e':	// "ButtonEdge" or "ButtonMap"
+			if ( ! strWidth.IsEmpty() )
+				m_nButtonEdge = _wtoi(strWidth);
+			else if ( ! strValue.IsEmpty() )
+				m_nButtonEdge = _wtoi(strValue);
+			break;
+		case 'i':	// "IconGrid" or "LibraryTiles"
 			if ( ! strHeight.IsEmpty() )
 				m_nLibIconsY = _wtoi(strHeight);
 			if ( ! strWidth.IsEmpty() )
 				m_nLibIconsX = _wtoi(strWidth);
 			else if ( ! strValue.IsEmpty() )
 				m_nLibIconsX = _wtoi(strValue);
+			break;
+		case 'w':	// "RowSize" or "ListItem"
+			{
+				int nSize;
+				if ( ! strHeight.IsEmpty() )
+					nSize = _wtoi(strHeight);
+				else if ( ! strValue.IsEmpty() )
+					nSize = _wtoi(strValue);
+				else
+					break;
+				if ( nSize >= 16 && nSize <= 20 )
+					Settings.Interface.RowSize = nSize;
+			}
 			break;
 		}
 	}
@@ -898,14 +915,14 @@ BOOL CSkin::LoadMenu(CXMLElement* pXML)
 
 	if ( pXML->GetAttributeValue( _T("type"), _T("popup") ).CompareNoCase( _T("bar") ) == 0 )
 	{
-		if( ! pMenu->CreateMenu() )
+		if ( ! pMenu->CreateMenu() )
 		{
 			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR,
 				_T("Cannot create menu"), pXML->ToString() );
 			return FALSE;
 		}
 	}
-	else if( ! pMenu->CreatePopupMenu() )
+	else if ( ! pMenu->CreatePopupMenu() )
 	{
 		theApp.Message( MSG_ERROR, IDS_SKIN_ERROR,
 			_T("Cannot create popup menu"), pXML->ToString() );
@@ -1382,8 +1399,8 @@ BOOL CSkin::LoadWatermarks(CXMLElement* pSub, const CString& strPath)
 	if ( m_bmPanelMark.m_hObject != NULL ) m_bmPanelMark.DeleteObject();
 	if ( HBITMAP hPanelMark = GetWatermark( _T("CPanelWnd.Caption") ) )
 		m_bmPanelMark.Attach( hPanelMark );
-	else if ( Colors.m_crPanelBack == RGB( 60, 60, 60 ) )
-		m_bmPanelMark.LoadBitmap( IDB_PANEL_MARK );				// Special-case default resource handling
+	else if ( Colors.m_crPanelBack == RGB_DEFAULT_CASE )
+		m_bmPanelMark.LoadBitmap( IDB_PANEL_MARK );				// Default resource handling
 
 	// "System.Toolbars" fallback at toolbar creation
 	// Button states in CImages
@@ -2002,6 +2019,7 @@ BOOL CSkin::LoadColorScheme(CXMLElement* pBase)
 	pColors.SetAt( _T("system.base.transfer.failed.selected"), &Colors.m_crTransferVerifyFailSelected );
 	pColors.SetAt( _T("system.base.network.null"), &Colors.m_crNetworkNull );
 	pColors.SetAt( _T("system.base.network.gnutella"), &Colors.m_crNetworkG1 );
+	pColors.SetAt( _T("system.base.network.gnutella2"), &Colors.m_crNetworkG2 );
 	pColors.SetAt( _T("system.base.network.g1"), &Colors.m_crNetworkG1 );
 	pColors.SetAt( _T("system.base.network.g2"), &Colors.m_crNetworkG2 );
 	pColors.SetAt( _T("system.base.network.ed2k"), &Colors.m_crNetworkED2K );
@@ -2489,7 +2507,9 @@ BOOL CSkin::LoadCommandBitmap(CXMLElement* pBase, const CString& strPath)
 			pFile.LoadFromResource( AfxGetResourceHandle(), nID, RT_PNG );
 		else
 			pFile.LoadFromFile( strFile );
+#ifndef WIN64
 		if ( theApp.m_bIsWin2000 ) pFile.EnsureRGB();
+#endif
 		hBitmap = pFile.CreateBitmap();
 	}
 	else

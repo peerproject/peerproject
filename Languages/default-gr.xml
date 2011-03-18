@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Greek Skin File -->
 
-<!-- Translation based on default-en.xml r62 -->
+<!-- Translation based on default-en.xml r64 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2583,8 +2583,8 @@
 	<tip id="ID_SEARCH_STOP" message="Ματαίωση αναζήτησης σε αυτό το παράθυρο."/>
 	<tip id="ID_SEARCHMONITOR_CLEAR" message="Καθαρισμός buffer εποπτείας αναζητήσεων."/>
 	<tip id="ID_SEARCHMONITOR_PAUSE" message="Παύση εποπτείας αναζητήσεων."/>
-	<tip id="ID_SECURITY_ADD" message="Προσθήκη νέου κανόνα στην αλυσίδα ασφαλείας..."/>
 	<tip id="ID_SECURITY_BAN" message="Αποκλεισμός επιλεγμένου χρήστη για τη διάρκεια αυτής της συνεδρίας."/>
+	<tip id="ID_SECURITY_ADD" message="Προσθήκη νέου κανόνα στην αλυσίδα ασφαλείας..."/>
 	<tip id="ID_SECURITY_EDIT" message="Επεξεργασία επιλεγμένου κανόνα ασφαλείας..."/>
 	<tip id="ID_SECURITY_EXPORT" message="Εξαγωγή επιλεγμένων κανόνων ασφαλείας σε αρχείο..."/>
 	<tip id="ID_SECURITY_IMPORT" message="Εισαγωγή κανόνων ασφαλείας από αρχείο..."/>
@@ -2594,6 +2594,14 @@
 	<tip id="ID_SECURITY_POLICY_DENY" message="Ρύθμιση προεπιλεγμένης πολιτικής ασφαλείας σε άρνηση όλων των hosts."/>
 	<tip id="ID_SECURITY_REMOVE" message="Αφαίρεση επιλεγμένων κανόνων ασφαλείας."/>
 	<tip id="ID_SECURITY_RESET" message="Μηδενισμός των μετρητών εφαρμογής των επιλεγμένων κανόνων."/>
+	<tip id="ID_SCHEDULER_ADD" message="Προσθήκη νέου κανόνα στην αλυσίδα ασφαλείας..."/>
+	<tip id="ID_SCHEDULER_EDIT" message="Επεξεργασία επιλεγμένου κανόνα ασφαλείας..."/>
+	<tip id="ID_SCHEDULER_ACTIVATE" message="Αφαίρεση των επιλεγμένων αποστολών από τη λίστα."/>
+	<tip id="ID_SCHEDULER_DEACTIVATE" message="Σύνδεση στα επιλεγμένα δίκτυα."/>
+	<tip id="ID_SCHEDULER_EXPORT" message="Εξαγωγή επιλεγμένων κανόνων ασφαλείας σε αρχείο..."/>
+	<tip id="ID_SCHEDULER_IMPORT" message="Εισαγωγή κανόνων ασφαλείας από αρχείο..."/>
+	<tip id="ID_SCHEDULER_REMOVE" message="Απόσυρση επιλεγμένων λήψεων."/>
+	<tip id="ID_SCHEDULER_REMOVE_ALL" message="Delete all scheduled tasks."/>
 	<tip id="ID_SYSTEM_CLEAR" message="Καθαρισμός του ιστορικού κατάστασης."/>
 	<tip id="ID_SYSTEM_TIMESTAMP" message="Καταγραφή χρονικής επισήμανσης σε κάθε γραμμή."/>
 	<tip id="ID_SYSTEM_VERBOSE" message="Εμφάνιση λεπτομερούς ιστορικού δραστηριότητας συστήματος."/>
@@ -3233,7 +3241,7 @@
 	<string id="20706" value="Λειτουργία Ultrapeer με %lu γείτονες. %s στην τοπική Βιβλιοθήκη."/>
 	<string id="20707" value="Σύνδεση με το δίκτυο..."/>
 	<string id="20708" value="Μη ενωμένο στο δίκτυο."/>
-	<string id="20710" value="(Καμία Πηγή)"/>
+	<string id="20710" value="Διαλεύκανση"/>
 	<string id="20711" value="Αδυναμία Μετακίνησης"/>
 	<string id="20712" value="Πλήρες"/>
 	<string id="20713" value="Ανάρτηση"/>
@@ -3259,6 +3267,7 @@
 	<string id="20733" value="πηγές"/>
 	<string id="20734" value="πηγές"/>
 	<string id="20735" value="πηγές"/>
+	<string id="20736" value="(Καμία Πηγή)"/>
 	<string id="20740" value="TigerTree"/>
 	<string id="20741" value="Torrent"/>
 	<string id="20742" value="Πεσμένος Tracker"/>
@@ -3494,7 +3503,7 @@
 		<control caption="Φιλτράρισμα ενοχλητικών μηνυμάτων"/>
 		<control caption="Φιλτράρισμα αισχρόλογων"/>
 	</dialog>
-	<dialog name="CIRCSettingsPage" cookie="BuBuBuBuStEdStStEdCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStEdStEdStEd" caption="Συνομιλία">
+	<dialog name="CIRCSettingsPage" cookie="BuBuBuBuStEdmsStStEdmsCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStCoStEdStEd" caption="Συνομιλία">
 		<control caption="_Επιλογές Client:"/>
 		<control caption="Εμφάνιση ενσωμάτωσης συνομιλίας"/>
 		<control caption="Προβολή χρονικών επισημάνσεων"/>
@@ -4609,9 +4618,9 @@
 		<column from="Address" to="Διεύθυνση"/>
 		<column from="Port" to="Θύρα"/>
 		<column from="Time" to="Διάρκεια"/>
-		<column from="Packets" to="Πακέτα"/>
-		<column from="Bandwidth" to="Εύρος Ζώνης"/>
+		<column from="Traffic" to="Εύρος Ζώνης"/>
 		<column from="Total" to="Σύνολο"/>
+		<column from="Packets" to="Πακέτα"/>
 		<column from="Flow" to="Ροή"/>
 		<column from="Leaves" to="Φύλλα"/>
 		<column from="Mode" to="Λειτουργία"/>
@@ -4687,7 +4696,7 @@
 	<list name="CUploadQueueList">
 		<column from="Name" to="Όνομα"/>
 		<column from="Criteria" to="Κριτήρια"/>
-		<column from="Bandwidth" to="Εύρος Ζώνης"/>
+		<column from="Minimum" to="Εύρος Ζώνης"/>
 		<column from="Transfers" to="Μεταφορές"/>
 		<column from="Order" to="Σειρά"/>
 	</list>

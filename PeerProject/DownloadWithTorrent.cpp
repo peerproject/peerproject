@@ -171,7 +171,7 @@ void CDownloadWithTorrent::Serialize(CArchive& ar, int nVersion)
 
 	m_pTorrent.Serialize( ar );
 
-	if ( !IsTorrent() )
+	if ( ! IsTorrent() )
 		return;
 
 	if ( ar.IsStoring() )
@@ -228,7 +228,8 @@ void CDownloadWithTorrent::Serialize(CArchive& ar, int nVersion)
 		//	// Get old file name
 		//	ASSERT( GetFileCount() == 1 );
 		//	CString sPath = GetPath( 0 );
-		//	if ( sServingFileName.IsEmpty() )	// sServingFileName = sPath;
+		//	if ( sServingFileName.IsEmpty() )
+		//		sServingFileName = sPath;
 		//
 		//	CProgressBarDlg oProgress( AfxGetMainWnd() );
 		//	oProgress.SetWindowText( LoadString( IDS_BT_UPDATE_TITLE ) );
@@ -237,15 +238,13 @@ void CDownloadWithTorrent::Serialize(CArchive& ar, int nVersion)
 		//	oProgress.SetEventRange( 0, (int)( m_pTorrent.m_nSize / 1024ull ) );
 		//	oProgress.SetSubEventText( sServingFileName );
 		//	oProgress.SetSubEventRange( 0, (int)( m_pTorrent.m_nSize / 1024ull ) );
-		//
 		//	oProgress.CenterWindow();
 		//	oProgress.ShowWindow( SW_SHOW );
 		//	oProgress.UpdateWindow();
 		//	oProgress.UpdateData( FALSE );
 		//
-		//	ClearFile();	// Close old files
-		//
 		//	// Create a bunch of new empty files
+		//	ClearFile();	// Close old files
 		//	CString sErrorMessage;
 		//	CComPtr< CFragmentedFile > pFragFile = GetFile();
 		//	if ( ! pFragFile )
@@ -255,13 +254,10 @@ void CDownloadWithTorrent::Serialize(CArchive& ar, int nVersion)
 		//
 		//	if ( ! IsSeeding() )
 		//	{
-		//		// Check for free space
-		//		if ( ! Downloads.IsSpaceAvailable( m_pTorrent.m_nSize,
-		//			Downloads.dlPathIncomplete ) )
+		//		// Check for free space, then open file
+		//		if ( ! Downloads.IsSpaceAvailable( m_pTorrent.m_nSize, Downloads.dlPathIncomplete ) )
 		//			AfxThrowFileException( CFileException::diskFull );
-		//		// Open old file
-		//		CFile oSource( sServingFileName,
-		//			CFile::modeRead | CFile::shareDenyWrite | CFile::osSequentialScan );
+		//		CFile oSource( sServingFileName, CFile::modeRead | CFile::shareDenyWrite | CFile::osSequentialScan );
 		//
 		//		// Copy data from old file to new files
 		//		const QWORD BUFFER_SIZE = 4ul * 1024ul * 1024ul;	// 4 MB
@@ -292,13 +288,12 @@ void CDownloadWithTorrent::Serialize(CArchive& ar, int nVersion)
 		//			oProgress.StepSubEvent( (int)( nBuffer / 1024ul ) );
 		//			oProgress.SetEventPos( (int)( nTotal / 1024ull ) );
 		//			oProgress.UpdateWindow();
-		//
 		//			AfxGetMainWnd()->UpdateWindow();
 		//			Sleep( 50 );
 		//		}
 		//	}
 		//
-		//	// Delete old files
+		//	// Delete old multifile
 		//	DeleteFileEx( sServingFileName, FALSE, FALSE, TRUE );
 		//	if ( sServingFileName != sPath )
 		//		DeleteFileEx( sPath, FALSE, FALSE, TRUE );
@@ -780,7 +775,6 @@ void CDownloadWithTorrent::ChokeTorrent(DWORD tNow)
 		}
 	}
 
-
 	for ( POSITION pos = m_pTorrentUploads.GetHeadPosition() ; pos ; )
 	{
 		CUploadTransferBT* pTransfer = m_pTorrentUploads.GetNext( pos );
@@ -808,7 +802,7 @@ void CDownloadWithTorrent::ChokeTorrent(DWORD tNow)
 			if ( pTransfer->m_nProtocol != PROTOCOL_BT ) continue;
 			if ( pTransfer->m_bInterested == FALSE ) continue;
 
-			int nWeight = ( pTransfer->m_nRandomUnchoke == 0 ) ? 3 : 1;
+			const int nWeight = ( pTransfer->m_nRandomUnchoke == 0 ) ? 3 : 1;
 
 			if ( nTotalRandom < nWeight )
 			{
@@ -833,10 +827,10 @@ void CDownloadWithTorrent::ChokeTorrent(DWORD tNow)
 		{
 			CUploadTransferBT* pTransfer = m_pTorrentUploads.GetNext( pos );
 
-			if (	pTransfer->m_nProtocol == PROTOCOL_BT &&
-					pTransfer->m_bInterested &&
-					pSelected.Find( pTransfer->m_pClient ) == NULL &&
-					pTransfer->GetAverageSpeed() >= nBest )
+			if ( pTransfer->m_nProtocol == PROTOCOL_BT &&
+				 pTransfer->m_bInterested &&
+				 pSelected.Find( pTransfer->m_pClient ) == NULL &&
+				 pTransfer->GetAverageSpeed() >= nBest )
 			{
 				pBest = pTransfer;
 				nBest = pTransfer->GetAverageSpeed();
@@ -855,11 +849,11 @@ void CDownloadWithTorrent::ChokeTorrent(DWORD tNow)
 		for ( CDownloadTransferBT* pTransfer = (CDownloadTransferBT*)GetFirstTransfer() ;
 				pTransfer ; pTransfer = (CDownloadTransferBT*)pTransfer->m_pDlNext )
 		{
-			if (	pTransfer->m_nProtocol == PROTOCOL_BT &&
-					pSelected.Find( pTransfer->m_pClient ) == NULL &&
-					pTransfer->m_nState == dtsDownloading &&
-					pTransfer->m_pClient->m_pUploadTransfer->m_bInterested &&
-					pTransfer->GetAverageSpeed() >= nBest )
+			if ( pTransfer->m_nProtocol == PROTOCOL_BT &&
+				 pSelected.Find( pTransfer->m_pClient ) == NULL &&
+				 pTransfer->m_nState == dtsDownloading &&
+				 pTransfer->m_pClient->m_pUploadTransfer->m_bInterested &&
+				 pTransfer->GetAverageSpeed() >= nBest )
 			{
 				pBest = pTransfer;
 				nBest = pTransfer->GetAverageSpeed();
@@ -875,8 +869,8 @@ void CDownloadWithTorrent::ChokeTorrent(DWORD tNow)
 		CUploadTransferBT* pTransfer = m_pTorrentUploads.GetNext( pos );
 		if ( pTransfer->m_nProtocol != PROTOCOL_BT ) continue;
 
-		pTransfer->SetChoke(	pTransfer->m_bInterested == TRUE &&
-								pSelected.Find( pTransfer->m_pClient ) == NULL );
+		pTransfer->SetChoke( pTransfer->m_bInterested == TRUE &&
+							 pSelected.Find( pTransfer->m_pClient ) == NULL );
 	}
 }
 

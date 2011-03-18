@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Estonian Skin File -->
 
-<!-- Translation based on default-en.xml r62 (Shareaza 2.2.2.9) -->
+<!-- Translation based on default-en.xml r64 (Shareaza 2.2.2.9) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2392,8 +2392,8 @@
 	<tip id="ID_SEARCH_STOP" message="Peata tulemuste saamine."/>
 	<tip id="ID_SEARCHMONITOR_CLEAR" message="Puhasta otsingu jälgimise vahemälu."/>
 	<tip id="ID_SEARCHMONITOR_PAUSE" message="Peata osingu jälgimine."/>
-	<tip id="ID_SECURITY_ADD" message="Lisa turvalisuse ahelasse uus reegel..."/>
 	<tip id="ID_SECURITY_BAN" message="Keela valitud server antud sessiooniks."/>
+	<tip id="ID_SECURITY_ADD" message="Lisa turvalisuse ahelasse uus reegel..."/>
 	<tip id="ID_SECURITY_EDIT" message="Muuda valitud turvareeglit..."/>
 	<tip id="ID_SECURITY_EXPORT" message="Ekspordi valitud failist uued turvareeglid..."/>
 	<tip id="ID_SECURITY_IMPORT" message="Impordi turvareeglid valitud failist..."/>
@@ -2403,6 +2403,14 @@
 	<tip id="ID_SECURITY_POLICY_DENY" message="Keela vaikimisi reeglina kõik serverid."/>
 	<tip id="ID_SECURITY_REMOVE" message="Eemalda valitud turvareegel."/>
 	<tip id="ID_SECURITY_RESET" message="Nulli löögilugeja valitud reeglil."/>
+	<tip id="ID_SCHEDULER_ADD" message="Lisa turvalisuse ahelasse uus reegel..."/>
+	<tip id="ID_SCHEDULER_EDIT" message="Muuda valitud turvareeglit..."/>
+	<tip id="ID_SCHEDULER_ACTIVATE" message="Eemalda nimekirjast valitud üleslaadimised."/>
+	<tip id="ID_SCHEDULER_DEACTIVATE" message="Ühenda võrkku."/>
+	<tip id="ID_SCHEDULER_EXPORT" message="Ekspordi valitud failist uued turvareeglid..."/>
+	<tip id="ID_SCHEDULER_IMPORT" message="Impordi turvareeglid valitud failist..."/>
+	<tip id="ID_SCHEDULER_REMOVE" message="Eemalda nimekirjast valitud allalaadimised."/>
+	<tip id="ID_SCHEDULER_REMOVE_ALL" message="Delete all scheduled tasks."/>
 	<tip id="ID_SYSTEM_CLEAR" message="Puhasta oleku logi."/>
 	<tip id="ID_SYSTEM_TIMESTAMP" message="Salvesta iga rea jaoks ajamärk."/>
 	<tip id="ID_SYSTEM_VERBOSE" message="Kuva detailselt süsteemi tegevuste logi."/>
@@ -3006,7 +3014,7 @@
 	<string id="20706" value="Ultrapeer mode with %lu neighbour(s).  %s kohalikus raamatukogus."/>
 	<string id="20707" value="Ühendan võrku..."/>
 	<string id="20708" value="Ei ole võrguga ühendust."/>
-	<string id="20710" value="(Allikateta)"/>
+	<string id="20710" value="Selgineb"/>
 	<string id="20711" value="Ei Saa Liigutada"/>
 	<string id="20712" value="Umbes"/>
 	<string id="20713" value="Enqueue"/>
@@ -3032,6 +3040,7 @@
 	<string id="20733" value="allikat"/>
 	<string id="20734" value="allikat"/>
 	<string id="20735" value="allikat"/>
+	<string id="20736" value="(Allikateta)"/>
 	<string id="20740" value="TigerTree"/>
 	<string id="20741" value="Torrent"/>
 	<string id="20742" value="Jälitajata"/>
@@ -4331,9 +4340,9 @@
 		<column from="Address" to="Aadress"/>
 		<column from="Port" to="Port"/>
 		<column from="Time" to="Aeg"/>
-		<column from="Packets" to="Paketid"/>
-		<column from="Bandwidth" to="Läbilaskevõime"/>
+		<column from="Traffic" to="Läbilaskevõime"/>
 		<column from="Total" to="Kokku"/>
+		<column from="Packets" to="Paketid"/>
 		<column from="Flow" to="Voog"/>
 		<column from="Leaves" to=""/>
 		<column from="Mode" to=""/>
@@ -4409,7 +4418,7 @@
 	<list name="CUploadQueueList">
 		<column from="Name" to="Nimi"/>
 		<column from="Criteria" to="Kriteerium"/>
-		<column from="Bandwidth" to="Ülekandekiirus"/>
+		<column from="Minimum" to="Ülekandekiirus"/>
 		<column from="Transfers" to="Ülekandeid"/>
 		<column from="Order" to="Järjekord"/>
 	</list>

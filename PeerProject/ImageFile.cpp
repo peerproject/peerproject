@@ -1,7 +1,7 @@
 //
 // ImageFile.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -170,21 +170,25 @@ BOOL CImageFile::LoadFromBitmap(HBITMAP hBitmap, BOOL bScanOnly)
 		return FALSE;
 
 	if ( bmInfo.bmType != 0 || bmInfo.bmPlanes != 1 || ! bmInfo.bmBits ||
-		bmInfo.bmWidth < 1 || bmInfo.bmHeight < 1 )
+		 bmInfo.bmWidth < 1 || bmInfo.bmHeight < 1 )
 		return FALSE;	// Unsupported format
 
 	m_bScanned = TRUE;
-	m_nWidth = bmInfo.bmWidth;
+	m_nWidth  = bmInfo.bmWidth;
 	m_nHeight = bmInfo.bmHeight;
-	if ( bmInfo.bmBitsPixel == 32 && ! theApp.m_bIsWin2000 )
+	if ( bmInfo.bmBitsPixel == 32 )
 		m_nComponents = 4;
-	else // if ( bmInfo.bmBitsPixel == 24 )
+	else if ( bmInfo.bmBitsPixel == 24 )
 		m_nComponents = 3;
+	else if ( bmInfo.bmBitsPixel == 8 )
+		m_nComponents = 1;
+	else // ?
+		m_nComponents = 0;
 
 	if ( bScanOnly )
 		return TRUE;
 
-	DWORD line_size = ( m_nWidth * m_nComponents + 3 ) & ~3;
+	const DWORD line_size = ( m_nWidth * m_nComponents + 3 ) & ~3;
 	m_pImage = new BYTE[ line_size * m_nHeight ];
 	if ( ! m_pImage )
 		return FALSE;	// Out of memory
@@ -196,12 +200,12 @@ BOOL CImageFile::LoadFromBitmap(HBITMAP hBitmap, BOOL bScanOnly)
 
 	// BGR -> RGB
 	LPBYTE dst = m_pImage;
-	for ( LONG j = 0; j < bmInfo.bmHeight; ++j, dst += line_size )
+	for ( LONG j = 0 ; j < bmInfo.bmHeight ; ++j, dst += line_size )
 	{
 		BYTE c;
 	//	if ( m_nComponents = 4 )
 	//	{
-	//		for ( LONG i = 0; i < bmInfo.bmWidth * 4; i += 3 )
+	//		for ( LONG i = 0 ; i < bmInfo.bmWidth * 4 ; i += 3 )
 	//		{
 	//			c = dst[i + 0];
 	//			dst[i + 0] = dst[i + 2];
@@ -211,7 +215,7 @@ BOOL CImageFile::LoadFromBitmap(HBITMAP hBitmap, BOOL bScanOnly)
 	//	}
 	//	else // if ( m_nComponents = 3 )
 	//	{
-			for ( LONG i = 0; i < bmInfo.bmWidth * m_nComponents; i += 3 )
+			for ( LONG i = 0 ; i < bmInfo.bmWidth * m_nComponents ; i += 3 )
 			{
 				c = dst[i + 0];
 				dst[i + 0] = dst[i + 2];
@@ -219,6 +223,11 @@ BOOL CImageFile::LoadFromBitmap(HBITMAP hBitmap, BOOL bScanOnly)
 			}
 	//	}
 	}
+
+#ifndef WIN64
+	if ( m_nComponents == 4 && theApp.m_bIsWin2000 )
+		AlphaToRGB( RGB( 255,255,255 ) );
+#endif
 
 	m_bLoaded = TRUE;
 
@@ -300,9 +309,9 @@ void CImageFile::Serialize(CArchive& ar)
 		// Clear high bits for components
 		m_nComponents = nCompositeValue & 0x0000FFFF;
 
-		int nPitch = ( ( m_nWidth * m_nComponents + 3 ) & ~3 ) * m_nHeight;
+		const int nPitch = ( ( m_nWidth * m_nComponents + 3 ) & ~3 ) * m_nHeight;
 
-		m_pImage = new BYTE[ nPitch  ];
+		m_pImage = new BYTE[ nPitch ];
 		ReadArchive( ar, m_pImage, nPitch );
 
 		m_bLoaded = TRUE;
@@ -316,8 +325,10 @@ HBITMAP CImageFile::CreateBitmap(HDC hUseDC)
 {
 	if ( ! m_bLoaded ) return NULL;
 	if ( m_nComponents == 1 ) MonoToRGB();
+#ifndef WIN64
 	if ( theApp.m_bIsWin2000 && m_nComponents != 3 )
 		AlphaToRGB( RGB( 255,255,255 ) );	// EnsureRGB for Win2K to otherwise support Alpha transparency
+#endif
 
 	BITMAPV5HEADER pV5Header = {};
 
@@ -325,7 +336,7 @@ HBITMAP CImageFile::CreateBitmap(HDC hUseDC)
 	pV5Header.bV5Width			= (LONG)m_nWidth;
 	pV5Header.bV5Height			= (LONG)m_nHeight;
 	pV5Header.bV5Planes			= 1;
-	pV5Header.bV5BitCount		= 24; // Not 32 bit :(
+	pV5Header.bV5BitCount		= 24;		// Not 32 bit by default
 	pV5Header.bV5Compression	= BI_RGB;
 	pV5Header.bV5SizeImage		= m_nWidth * m_nHeight * m_nComponents;
 
@@ -360,12 +371,12 @@ HBITMAP CImageFile::CreateBitmap(HDC hUseDC)
 		{
 			void operator()(BYTE* pBegin, BYTE* pEnd, const int nComponents )
 			{
-				for ( ; pBegin != pEnd; pBegin += nComponents )
+				for ( ; pBegin != pEnd ; pBegin += nComponents )
 					std::swap( pBegin[ 0 ], pBegin[ 2 ] );
 			}
 		};
 
-		for ( int nY = m_nHeight; nY--; )
+		for ( int nY = m_nHeight ; nY-- ; )
 		{
 			SwapRGB()( pLine, pLine + m_nWidth * m_nComponents, m_nComponents );
 
@@ -411,13 +422,13 @@ BOOL CImageFile::Resample(int nNewWidth, int nNewHeight)
 		return FALSE;
 	if ( ! m_bLoaded )
 		return FALSE;
-	if ( m_nComponents != 3 ) // ToDo: Support Alpha transparency?
+	if ( m_nComponents != 3 && ! EnsureRGB() ) // ToDo: Support Alpha channel?
 		return FALSE;
 	if ( nNewWidth == m_nWidth && nNewHeight == m_nHeight )
 		return TRUE;
 
-	DWORD nInPitch	= ( m_nWidth * 3 + 3 ) & ~3u;
-	DWORD nOutPitch	= ( nNewWidth * 3 + 3 ) & ~3u;
+	const DWORD nInPitch  = ( m_nWidth * 3 + 3 ) & ~3u;
+	const DWORD nOutPitch = ( nNewWidth * 3 + 3 ) & ~3u;
 
 	BYTE* pNew = new BYTE[ nOutPitch * nNewHeight ];
 	if ( ! pNew )
@@ -446,7 +457,8 @@ BOOL CImageFile::Resample(int nNewWidth, int nNewHeight)
 		int nFirst = ( nY * m_nHeight / nNewHeight );
 		int nCount = ( ( nY + 1 ) * m_nHeight / nNewHeight ) - nFirst + 1;
 
-		if ( nFirst + nCount >= m_nHeight ) nCount = 1;
+		if ( nFirst + nCount >= m_nHeight )
+			nCount = 1;
 
 		BYTE* pRow = m_pImage + nInPitch * nFirst;
 		pColPtr = pColInfo;
@@ -480,9 +492,9 @@ BOOL CImageFile::Resample(int nNewWidth, int nNewHeight)
 	delete [] pColInfo;
 	delete [] m_pImage;
 
-	m_pImage	= pNew;
-	m_nWidth	= nNewWidth;
-	m_nHeight	= nNewHeight;
+	m_pImage  = pNew;
+	m_nWidth  = nNewWidth;
+	m_nHeight = nNewHeight;
 
 	return TRUE;
 }
@@ -492,16 +504,15 @@ BOOL CImageFile::Resample(int nNewWidth, int nNewHeight)
 //	if ( ! m_bLoaded ) return FALSE;
 //	if ( m_nComponents != 3 ) return FALSE;
 //	if ( nNewWidth == m_nWidth && nNewHeight == m_nHeight ) return TRUE;
-
+//
 //	DWORD nInPitch	= ( m_nWidth * 3 + 3 ) & ~3u;
 //	DWORD nOutPitch	= ( nNewWidth * 3 + 3 ) & ~3u;
 //	BYTE *pNew, *pRow, *pIn, *pOut;
 //	pOut = pNew = new BYTE[ nOutPitch * nNewHeight ];
-
+//
 //	for ( int nY = 0 ; nY < nNewHeight ; nY++ )
 //	{
 //		pRow = m_pImage + nInPitch * ( nY * m_nHeight / nNewHeight );
-
 //		for ( int nX = 0 ; nX < nNewWidth ; nX++ )
 //		{
 //			pIn = pRow + 3 * ( nX * m_nWidth / nNewWidth );
@@ -511,7 +522,7 @@ BOOL CImageFile::Resample(int nNewWidth, int nNewHeight)
 //		}
 //		pOut += ( nOutPitch - nNewWidth * 3 );
 //	}
-
+//
 //	delete [] m_pImage;
 //	m_pImage	= pNew;
 //	m_nWidth	= nNewWidth;
@@ -526,14 +537,14 @@ BOOL CImageFile::EnsureRGB(COLORREF crBack)
 {
 	if ( ! m_bLoaded || ! m_pImage || m_nWidth < 1 || m_nHeight < 1 )
 		return FALSE;
-	else if ( m_nComponents == 3 )
+	if ( m_nComponents == 3 )
 		return TRUE;
-	else if ( m_nComponents == 1 )
+	if ( m_nComponents == 1 )
 		return MonoToRGB();
-	else if ( m_nComponents == 4 )	// ToDo: Support transparent PNGs
+	if ( m_nComponents == 4 )
 		return AlphaToRGB( crBack );
-	else
-		return FALSE;
+
+	return FALSE;
 }
 
 BOOL CImageFile::MonoToRGB()
@@ -567,8 +578,8 @@ BOOL CImageFile::MonoToRGB()
 
 	delete [] m_pImage;
 
-	m_pImage		= pNew;
-	m_nComponents	= 3;
+	m_pImage = pNew;
+	m_nComponents = 3;
 
 	return TRUE;
 }
@@ -579,8 +590,8 @@ BOOL CImageFile::AlphaToRGB(COLORREF crBack)
 	if ( m_nComponents == 3 ) return TRUE;
 	if ( m_nComponents != 4 ) return FALSE;
 
-	DWORD nInPitch	= ( m_nWidth * 4 + 3 ) & ~3u;
-	DWORD nOutPitch	= ( m_nWidth * 3 + 3 ) & ~3u;
+	const DWORD nInPitch  = ( m_nWidth * 4 + 3 ) & ~3u;
+	const DWORD nOutPitch = ( m_nWidth * 3 + 3 ) & ~3u;
 
 	BYTE* pNew		= new BYTE[ nOutPitch * m_nHeight ];
 	BYTE* pInRow	= m_pImage;
@@ -624,8 +635,8 @@ BOOL CImageFile::AlphaToRGB(COLORREF crBack)
 
 	delete [] m_pImage;
 
-	m_pImage		= pNew;
-	m_nComponents	= 3;
+	m_pImage = pNew;
+	m_nComponents = 3;
 
 	return TRUE;
 }

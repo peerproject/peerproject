@@ -338,6 +338,7 @@
     <ClCompile Include="Datagram.cpp" />
     <ClCompile Include="DatagramPart.cpp" />
     <ClCompile Include="Datagrams.cpp" />
+    <ClCompile Include="DCNeighbour.cpp" />
     <ClCompile Include="DDEServer.cpp" />
     <ClCompile Include="DiscoveryServices.cpp" />
     <ClCompile Include="Download.cpp" />
@@ -1287,6 +1288,7 @@
     <ClInclude Include="Datagram.h" />
     <ClInclude Include="DatagramPart.h" />
     <ClInclude Include="Datagrams.h" />
+    <ClInclude Include="DCNeighbour.h" />
     <ClInclude Include="DDEServer.h" />
     <ClInclude Include="DiscoveryServices.h" />
     <ClInclude Include="Download.h" />

@@ -608,15 +608,7 @@
 					>
 				</File>
 				<File
-					RelativePath="NetThunks.cpp"
-					>
-				</File>
-				<File
 					RelativePath="SymEngine.cpp"
-					>
-				</File>
-				<File
-					RelativePath="SymEngineNet.cpp"
 					>
 				</File>
 				<File
@@ -665,15 +657,7 @@
 					>
 				</File>
 				<File
-					RelativePath="NetThunks.h"
-					>
-				</File>
-				<File
 					RelativePath="SymEngine.h"
-					>
-				</File>
-				<File
-					RelativePath="SymEngineNet.h"
 					>
 				</File>
 				<File
@@ -699,10 +683,6 @@
 				>
 				<File
 					RelativePath="BugTrap.cpp"
-					>
-				</File>
-				<File
-					RelativePath="BugTrapNet.cpp"
 					>
 				</File>
 				<File
@@ -739,10 +719,6 @@
 					>
 				</File>
 				<File
-					RelativePath="BugTrapNet.h"
-					>
-				</File>
-				<File
 					RelativePath="BugTrapUI.h"
 					>
 				</File>
@@ -763,10 +739,6 @@
 				Name="Source Files"
 				Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm"
 				>
-				<File
-					RelativePath="AssemblyInfo.cpp"
-					>
-				</File>
 				<File
 					RelativePath="Globals.cpp"
 					>

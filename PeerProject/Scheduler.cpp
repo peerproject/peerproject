@@ -43,6 +43,19 @@ static char THIS_FILE[]=__FILE__;
 
 CScheduler Scheduler;
 
+
+//////////////////////////////////////////////////////////////////////
+// CScheduler class construction
+
+CScheduler::CScheduler()
+{
+}
+
+CScheduler::~CScheduler()
+{
+	Clear();
+}
+
 //////////////////////////////////////////////////////////////////////
 // CScheduler load and save
 
@@ -149,15 +162,14 @@ void CScheduler::Serialize(CArchive& ar)
 // CScheduleTask class construction
 
 CScheduleTask::CScheduleTask(BOOL bCreate)
+	: m_nAction			( 0 )		// Invalid value
+	, m_nDays			( 0x7F ) 	// All days of week
+	, m_bActive			( false )
+	, m_bExecuted		( false )
+	, m_bSpecificDays	( false )
+	, m_tScheduleDateTime ( 0 )
+	, m_sDescription	( "" )
 {
-	m_bSpecificDays = false;
-	m_nDays = 0x7F; 	// All days of week
-	m_nAction = 0;		// Invalid value
-	m_sDescription = "";
-	m_tScheduleDateTime = 0;
-
-	m_bActive = false;
-	m_bExecuted = false;
 
 	if ( bCreate )
 		CoCreateGuid( &m_pGUID );
@@ -231,15 +243,15 @@ void CScheduleTask::Serialize(CArchive& ar, int nVersion)
 /////////////////////////////////////////////////////////////////////
 // CSchedulerTask XML
 
-// Task type XML standards:
-#define BANDWIDTH_FULL_TEXT			_T("Bandwidth: Full")
-#define BANDWIDTH_LIMITED_TEXT		_T("Bandwidth: Limited")
-#define BANDWIDTH_STOP_TEXT 		_T("Bandwidth: Stop")
-#define SYSTEM_EXIT_TEXT			_T("System: Exit")
-#define SYSTEM_SHUTDOWN_TEXT		_T("System: Shutdown")
-#define SYSTEM_DISCONNECT_TEXT		_T("System: Disconnect Dial-Up")
-#define SYSTEM_NOTICE_TEXT			_T("System: Notice")
-// Legacy Shareaza import:
+// Task type XML keywords:
+#define BANDWIDTH_FULL_TEXT			_T("Bandwidth:Full")
+#define BANDWIDTH_LIMITED_TEXT		_T("Bandwidth:Limited")
+#define BANDWIDTH_STOP_TEXT 		_T("Bandwidth:Stop")
+#define SYSTEM_EXIT_TEXT			_T("System:Exit")
+#define SYSTEM_SHUTDOWN_TEXT		_T("System:Shutdown")
+#define SYSTEM_DISCONNECT_TEXT		_T("System:Disconnect")
+#define SYSTEM_NOTICE_TEXT			_T("System:Notice")
+// Legacy Shareaza imports:
 #define BANDWIDTH_FULL_TEXT_ALT 	_T("Bandwidth - Full Speed")
 #define BANDWIDTH_LIMITED_TEXT_ALT	_T("Bandwidth - Reduced Speed")
 #define BANDWIDTH_STOP_TEXT_ALT 	_T("Bandwidth - Stop")
@@ -252,8 +264,23 @@ CXMLElement* CScheduleTask::ToXML()
 	CXMLElement* pXML = new CXMLElement( NULL, _T("task") );
 	CString strValue;
 
-	if ( ! m_sDescription.IsEmpty() )
-		pXML->AddAttribute( _T("description"), m_sDescription );
+	wchar_t szGUID[39];
+	szGUID[ StringFromGUID2( *(GUID*)&m_pGUID, szGUID, 39 ) - 2 ] = 0;
+	pXML->AddAttribute( _T("guid"), (CString)&szGUID[1] );
+
+	strValue.Format( _T("%I64i"), m_tScheduleDateTime.GetTime() );
+	pXML->AddAttribute( _T("time"), strValue );
+
+	strValue.Format( _T("%i|%i|%i|%i|%i|%i|%i"),
+		(m_nDays & MONDAY) != 0,
+		(m_nDays & TUESDAY) != 0,
+		(m_nDays & WEDNESDAY) != 0,
+		(m_nDays & THURSDAY) != 0,
+		(m_nDays & FRIDAY) != 0,
+		(m_nDays & SATURDAY) != 0,
+		(m_nDays & SUNDAY) != 0 );
+
+	pXML->AddAttribute( _T("days"), strValue );
 
 	switch ( m_nAction )
 	{
@@ -280,9 +307,6 @@ CXMLElement* CScheduleTask::ToXML()
 		break;
 	}
 
-	strValue.Format( _T("%I64i"), m_tScheduleDateTime.GetTime() );
-	pXML->AddAttribute( _T("time"), strValue );
-
 	pXML->AddAttribute( _T("active"), m_bActive ? _T("Yes") : _T("No") );
 	pXML->AddAttribute( _T("executed"), m_bExecuted ? _T("Yes") : _T("No") );
 	pXML->AddAttribute( _T("specificdays"), m_bSpecificDays ? _T("Yes") : _T("No") );
@@ -294,31 +318,16 @@ CXMLElement* CScheduleTask::ToXML()
 	strValue.Format( _T("%i") , m_nLimitUp );
 	pXML->AddAttribute( _T("limitup"), strValue );
 
-	strValue.Format( _T("%i|%i|%i|%i|%i|%i|%i") ,
-		(m_nDays & SUNDAY) != 0,
-		(m_nDays & MONDAY) != 0,
-		(m_nDays & TUESDAY) != 0,
-		(m_nDays & WEDNESDAY) != 0,
-		(m_nDays & THURSDAY) != 0,
-		(m_nDays & FRIDAY) != 0,
-		(m_nDays & SATURDAY) != 0 );
-
-	pXML->AddAttribute( _T("days"), strValue );
-
-	wchar_t szGUID[39];
-	szGUID[ StringFromGUID2( *(GUID*)&m_pGUID, szGUID, 39 ) - 2 ] = 0;
-	pXML->AddAttribute( _T("guid"), (CString)&szGUID[1] );
+	if ( ! m_sDescription.IsEmpty() )
+		pXML->AddAttribute( _T("comment"), m_sDescription );
 
 	return pXML;
 }
 
 BOOL CScheduleTask::FromXML(CXMLElement* pXML)
 {
-	CString strValue;
-
-	m_sDescription = pXML->GetAttributeValue( _T("description") );
-
-	strValue = pXML->GetAttributeValue( _T("action") );
+	BOOL bLegacy = FALSE;
+	CString strValue = pXML->GetAttributeValue( _T("action") );
 
 	if ( strValue == BANDWIDTH_FULL_TEXT )
 		m_nAction = BANDWIDTH_FULL;
@@ -334,20 +343,27 @@ BOOL CScheduleTask::FromXML(CXMLElement* pXML)
 		m_nAction = SYSTEM_DISCONNECT;
 	else if ( strValue == SYSTEM_NOTICE_TEXT )
 		m_nAction = SYSTEM_NOTICE;
-	else if ( strValue == BANDWIDTH_FULL_TEXT_ALT )
-		m_nAction = BANDWIDTH_FULL;
-	else if ( strValue == BANDWIDTH_LIMITED_TEXT_ALT )
-		m_nAction = BANDWIDTH_LIMITED;
-	else if ( strValue == BANDWIDTH_STOP_TEXT_ALT )
-		m_nAction = BANDWIDTH_STOP;
-	else if ( strValue == SYSTEM_EXIT_TEXT_ALT )
-		m_nAction = SYSTEM_EXIT;
-	else if ( strValue == SYSTEM_SHUTDOWN_TEXT_ALT )
-		m_nAction = SYSTEM_SHUTDOWN;
-	else if ( strValue == SYSTEM_DISCONNECT_TEXT_ALT )
-		m_nAction = SYSTEM_DISCONNECT;
-	else
-		return FALSE;
+	else // Shareaza Import
+	{
+		if ( strValue == BANDWIDTH_FULL_TEXT_ALT )
+			m_nAction = BANDWIDTH_FULL;
+		else if ( strValue == BANDWIDTH_LIMITED_TEXT_ALT )
+			m_nAction = BANDWIDTH_LIMITED;
+		else if ( strValue == BANDWIDTH_STOP_TEXT_ALT )
+			m_nAction = BANDWIDTH_STOP;
+		else if ( strValue == SYSTEM_EXIT_TEXT_ALT )
+			m_nAction = SYSTEM_EXIT;
+		else if ( strValue == SYSTEM_SHUTDOWN_TEXT_ALT )
+			m_nAction = SYSTEM_SHUTDOWN;
+		else if ( strValue == SYSTEM_DISCONNECT_TEXT_ALT )
+			m_nAction = SYSTEM_DISCONNECT;
+		else
+			return FALSE;
+
+		bLegacy = TRUE;
+	}
+
+	m_sDescription = pXML->GetAttributeValue( bLegacy ? _T("description") : _T("comment") );
 
 	strValue = pXML->GetAttributeValue( _T("time") );
 	__time64_t tTemp;
@@ -361,7 +377,7 @@ BOOL CScheduleTask::FromXML(CXMLElement* pXML)
 	strValue = pXML->GetAttributeValue( _T("active") );
 	if ( strValue == _T("Yes") )
 		m_bActive = TRUE;
-	else if( strValue == _T("No") )
+	else if ( strValue == _T("No") )
 		m_bActive = FALSE;
 	else
 		return FALSE;
@@ -402,38 +418,25 @@ BOOL CScheduleTask::FromXML(CXMLElement* pXML)
 	m_nDays = 0;
 	wchar_t wcTmp;
 	wcTmp = strValue[0];
-	if ( _wtoi( &wcTmp ) ) m_nDays |= SUNDAY;
+	if ( _wtoi( &wcTmp ) )	m_nDays |= ( bLegacy ? SUNDAY : MONDAY );
 	wcTmp =strValue[2];
-	if ( _wtoi( &wcTmp ) ) m_nDays |= MONDAY;
+	if ( _wtoi( &wcTmp ) )	m_nDays |= ( bLegacy ? MONDAY : TUESDAY );
 	wcTmp =strValue[4];
-	if ( _wtoi( &wcTmp ) ) m_nDays |= TUESDAY;
+	if ( _wtoi( &wcTmp ) )	m_nDays |= ( bLegacy ? TUESDAY : WEDNESDAY );
 	wcTmp =	strValue[6];
-	if ( _wtoi( &wcTmp ) ) m_nDays |= WEDNESDAY;
+	if ( _wtoi( &wcTmp ) )	m_nDays |= ( bLegacy ? WEDNESDAY : THURSDAY );
 	wcTmp =	strValue[8];
-	if ( _wtoi( &wcTmp ) ) m_nDays |= THURSDAY;
+	if ( _wtoi( &wcTmp ) )	m_nDays |= ( bLegacy ? THURSDAY : FRIDAY );
 	wcTmp =strValue[10];
-	if ( _wtoi( &wcTmp ) ) m_nDays |= FRIDAY;
+	if ( _wtoi( &wcTmp ) )	m_nDays |= ( bLegacy ? FRIDAY : SATURDAY );
 	wcTmp =strValue[12];
-	if ( _wtoi( &wcTmp ) ) m_nDays |= SATURDAY;
+	if ( _wtoi( &wcTmp ) )	m_nDays |= ( bLegacy ? SATURDAY : SUNDAY );
 
 	return TRUE;
 }
 
-
 //////////////////////////////////////////////////////////////////////
-// CScheduler class construction
-
-CScheduler::CScheduler()
-{
-}
-
-CScheduler::~CScheduler()
-{
-	Clear();
-}
-
-//////////////////////////////////////////////////////////////////////
-//GUID
+// GUID
 
 CScheduleTask* CScheduler::GetGUID(const GUID& pGUID) const
 {
@@ -448,6 +451,7 @@ CScheduleTask* CScheduler::GetGUID(const GUID& pGUID) const
 
 	return NULL;
 }
+
 
 //////////////////////////////////////////////////////////////////////
 // CScheduler item modification
@@ -520,16 +524,16 @@ void CScheduler::CheckSchedule()
 				// Task is executed and active. The task is either "Only Once" or "Specific Days of Week"
 				// In the first case if the date is for the days passed, its a task not executed and expired
 				// In the second case it should mark as not executed so in the next CheckSchedule() call it will enter else block.
-				if( ! pSchTask->m_bSpecificDays || ( ScheduleFromToday( pSchTask ) < 0 ) )
+				if ( ! pSchTask->m_bSpecificDays || ( ScheduleFromToday( pSchTask ) < 0 ) )
 					pSchTask->m_bExecuted = false;
 			}
-			else if( IsScheduledTimePassed( pSchTask ) )
+			else if ( IsScheduledTimePassed( pSchTask ) )
 			{
 				// Time is passed so task should be executed if one of two conditions is met:
 				// It is scheduled for a specific date and time ("Only Once"). Checking for date.
 				// Or, it is scheduled for specific days of week. Checking for day.
 
-				if( ( ! pSchTask->m_bSpecificDays && ScheduleFromToday( pSchTask ) == 0 )  ||
+				if ( ( ! pSchTask->m_bSpecificDays && ScheduleFromToday( pSchTask ) == 0 )  ||
 					( pSchTask->m_bSpecificDays && ( ( 1 << ( tNow.GetDayOfWeek() - 1 ) ) & pSchTask->m_nDays ) ) )
 				{
 					//static_cast<int>(pow(2.0f, tNow.GetDayOfWeek() - 1)
@@ -621,7 +625,7 @@ void CScheduler::ExecuteScheduledTask(CScheduleTask *pSchTask)
 		if ( ShutDownComputer() )
 		{
 			// Close PeerProject if shutdown successfully started
-			if( ! PostMainWndMessage( WM_CLOSE ) )
+			if ( ! PostMainWndMessage( WM_CLOSE ) )
 				theApp.Message( MSG_ERROR, _T("Scheduler failed to send CLOSE message") );
 			else
 				theApp.Message( MSG_DEBUG, _T("System shutdown failed!") );
@@ -642,7 +646,7 @@ void CScheduler::ExecuteScheduledTask(CScheduleTask *pSchTask)
 
 	case SYSTEM_NOTICE:				// Reminder Notes
 		LoadString( IDS_SCHEDULER_REMINDER_NOTICE );
-		theApp.Message( MSG_NOTICE, _T("Scheduler| System: Reminder Notice") );
+		theApp.Message( MSG_NOTICE, _T("Scheduler| System: Reminder Notice | ") + pSchTask->m_sDescription );
 		theApp.Message( MSG_TRAY, LoadString( IDS_SCHEDULER_REMINDER_NOTICE ) );
 
 		PostMainWndMessage( WM_COMMAND, ID_TRAY_OPEN );
@@ -712,12 +716,14 @@ void CScheduler::HangUpConnection()
 	}
 }
 
-bool  CScheduler::ShutDownComputer()
+bool CScheduler::ShutDownComputer()
 {
 	int ShutdownSuccess = 0;
 
 	// Try 2000/XP way first
-	ShutdownSuccess = InitiateSystemShutdownEx( NULL,_T("PeerProject Scheduled Shutdown\n\nA system shutdown was scheduled using PeerProject. The system will now shut down."), 30, Settings.Scheduler.ForceShutdown, FALSE, SHTDN_REASON_FLAG_USER_DEFINED );
+	ShutdownSuccess = InitiateSystemShutdownEx( NULL,
+		_T("PeerProject Scheduled Shutdown\n\nA system shutdown was scheduled using PeerProject. The system will now shut down."),
+		30, Settings.Scheduler.ForceShutdown, FALSE, SHTDN_REASON_FLAG_USER_DEFINED );
 
 	// Fall back to 9x way if this does not work
 	if ( ! ShutdownSuccess && GetLastError() != ERROR_SHUTDOWN_IN_PROGRESS )
@@ -726,11 +732,12 @@ bool  CScheduler::ShutDownComputer()
 		DWORD dReason = ( SHTDN_REASON_MAJOR_OTHER | SHTDN_REASON_MINOR_OTHER | SHTDN_REASON_FLAG_PLANNED );
 		ShutdownSuccess = ExitWindowsEx( ShutdownFlags, dReason );
 	}
+
 	return ( ShutdownSuccess != 0 );
 }
 
 // Give the process shutdown rights
-bool  CScheduler::SetShutdownRights()
+bool CScheduler::SetShutdownRights()
 {
 	HANDLE hToken;
 	TOKEN_PRIVILEGES tkp;
@@ -754,7 +761,7 @@ bool  CScheduler::SetShutdownRights()
 	return TRUE;
 }
 
-bool  CScheduler::IsScheduledTimePassed(CScheduleTask* pSchTask) const
+bool CScheduler::IsScheduledTimePassed(CScheduleTask* pSchTask) const
 {
 	CTime tNow = CTime::GetCurrentTime();
 
@@ -779,7 +786,7 @@ bool  CScheduler::IsScheduledTimePassed(CScheduleTask* pSchTask) const
 	return true;
 }
 
-int  CScheduler::ScheduleFromToday(CScheduleTask* pSchTask) const
+int CScheduler::ScheduleFromToday(CScheduleTask* pSchTask) const
 {
 	CTime tNow = CTime::GetCurrentTime();
 
@@ -807,8 +814,8 @@ int  CScheduler::ScheduleFromToday(CScheduleTask* pSchTask) const
 		return 0;
 }
 
-//Calculates the different between current hour and shutdown hour
-//Caller must first check to see if scheduler is enabled or not
+// Calculates the different between current hour and shutdown hour
+// Caller must first check to see if scheduler is enabled or not
 LONGLONG CScheduler::GetHoursTo(unsigned int nTaskCombination)
 {
 	int nHoursToTasks = 0xFFFF;

@@ -92,6 +92,7 @@ public:
 		bool		AutoComplete;			// Use text field histories
 		bool		CoolMenuEnable;			// Use skinned menus
 		bool		LowResMode;
+		DWORD		RowSize;				// 17 pixel ITEM_HEIGHT in custom-draw lists
 		DWORD		RefreshRateGraph;		// Data display update in milliseconds (set speed)
 		DWORD		RefreshRateText;		// Data display update in milliseconds
 		DWORD		TipDelay;
@@ -185,6 +186,7 @@ public:
 		bool		ShareMonkeyOkay;
 		bool		ShareMonkeySaveThumbnail;
 		CString		ShareMonkeyCid;			// Affiliate ID
+		CString		ShareMonkeyBaseURL;		// Redirect obsolete sharemonkey*com, does not exist
 	} WebServices;
 
 	struct sSearch
@@ -206,12 +208,11 @@ public:
 		CString		MonitorFilter;
 		DWORD		MonitorQueue;
 		DWORD		BrowseTreeSize;
-		bool		DetailPanelVisible;
 		DWORD		DetailPanelSize;
+		bool		DetailPanelVisible;
 		DWORD		MaxPreviewLength;
 		DWORD		SpamFilterThreshold;	// Percentage of spam hits which triggers file sources to be treated as a spam
 		DWORD		GeneralThrottle;		// A general throttle for how often each individual search may run. Low values may cause source finding to get overlooked.
-		CString		ShareMonkeyBaseURL;
 		DWORD		ClearPrevious;			// Clear previous search results? 0 - ask user; 1 - no; 2 - yes.
 		bool		SanityCheck;			// Drop hits of banned hosts
 	} Search;
@@ -244,13 +245,14 @@ public:
 
 	struct sWeb
 	{
-		bool		Magnet;
-		bool		Foxy;					// Handle Foxy links (slightly altered magnet)
-		bool		Gnutella;
-		bool		ED2K;
-		bool		Piolet;
-		bool		Torrent;
-	//	bool		DC;
+		bool		Magnet;					// Handle magnet: links  (.magma 0.2 files?)
+		bool		Gnutella;				// Handle gnutella: links
+		bool		Foxy;					// Handle foxy: links (slightly altered magnet)
+		bool		ED2K;					// Handle ed2k: links
+		bool		DC;						// Handle dcfile: dchub: links
+		bool		Piolet;					// Handle .mp2p links (obsolete?)
+		bool		Torrent;				// Handle .torrent files
+	//	bool		Metalink;				// ToDo: Handle .metalink, .meta4, .magma files
 	} Web;
 
 	struct sConnection
@@ -448,6 +450,17 @@ public:
 		bool		Endgame;				// Allow endgame mode when completing downloads. (Download same chunk from multiple sources)
 		bool		LargeFileSupport;		// Allow 64 bit file sizes
 	} eDonkey;
+
+	struct sDC
+	{
+		bool		EnableToday;
+		bool		EnableAlways;
+		bool		ShowInterface;			// Hide experimental DC++ by default, but expose interface elements for development
+		DWORD		NumServers;				// Default 1 hub
+		DWORD		QueryThrottle;			// Throttle for DC++ neighbor searches (s), default 2 min delay
+		DWORD		ReAskTime;				// How often to re-ask a remote client about download (ms), default every minute
+		DWORD		DequeueTime;			// Timeout for remote client confirmation of upload queue (ms), default 5 min
+	} DC;
 
 	struct sBitTorrent
 	{
@@ -877,3 +890,4 @@ enum
 #define GNUTELLA_ALTERNATE_PORT	6480
 #define GNUTELLA_DEFAULT_PORT	6346
 #define ED2K_DEFAULT_PORT		4661
+#define DC_DEFAULT_PORT			411

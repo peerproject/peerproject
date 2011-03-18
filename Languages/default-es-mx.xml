@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Spanish (Mexican) Skin File -->
 
-<!-- Translation based on default-en.xml r62 -->
+<!-- Translation based on default-en.xml r64 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2460,8 +2460,8 @@
 	<tip id="ID_SEARCH_STOP" message="Parar la búsqueda."/>
 	<tip id="ID_SEARCHMONITOR_CLEAR" message="Borrar historia del monitor de búsqueda."/>
 	<tip id="ID_SEARCHMONITOR_PAUSE" message="Poner en pausa al monitor."/>
-	<tip id="ID_SECURITY_ADD" message="Agregar..."/>
 	<tip id="ID_SECURITY_BAN" message="Bloquear usuario por esta sesión."/>
+	<tip id="ID_SECURITY_ADD" message="Agregar..."/>
 	<tip id="ID_SECURITY_EDIT" message="Editar regla de seguridad..."/>
 	<tip id="ID_SECURITY_EXPORT" message="Exportar reglas a un archivo XML."/>
 	<tip id="ID_SECURITY_IMPORT" message="Importar reglas de un archivo XML externos."/>
@@ -2471,6 +2471,14 @@
 	<tip id="ID_SECURITY_POLICY_DENY" message="Negar todas las conexiones."/>
 	<tip id="ID_SECURITY_REMOVE" message="Eliminar esta regla de seguridad."/>
 	<tip id="ID_SECURITY_RESET" message="Reiniciar contadores."/>
+	<tip id="ID_SCHEDULER_ADD" message="Agregar un nuevo task a la lista scheduler."/>
+	<tip id="ID_SCHEDULER_EDIT" message="Editar regla de siguientes..."/>
+	<tip id="ID_SCHEDULER_ACTIVATE" message="Eliminar las transferencias seleccionadas."/>
+	<tip id="ID_SCHEDULER_DEACTIVATE" message="Conectar a la red o redes."/>
+	<tip id="ID_SCHEDULER_EXPORT" message="Exportar reglas a un archivo XML."/>
+	<tip id="ID_SCHEDULER_IMPORT" message="Importar reglas de un archivo XML externos."/>
+	<tip id="ID_SCHEDULER_REMOVE" message="Borrar el/las siguiente(s) descarga(s) de tu lista."/>
+	<tip id="ID_SCHEDULER_REMOVE_ALL" message="Borrar todos las siguientes descargas."/>
 	<tip id="ID_SYSTEM_CLEAR" message="Borra la historia de estado."/>
 	<tip id="ID_SYSTEM_TIMESTAMP" message="Dejar estampa del tiempo en la historia."/>
 	<tip id="ID_SYSTEM_VERBOSE" message="Mostrar detalles."/>
@@ -2584,7 +2592,7 @@
 	<string id="20009" value="de"/> <!--"1 of 10"-->
 	<string id="20010" value="Todo"/>
 	<string id="20011" value="Auto"/>
-	<string id="20012" value="Custom"/>
+	<string id="20012" value="Personalizado"/>
 	<string id="20013" value="Por defecto"/>
 	<string id="20014" value="Finalizar"/>
 	<string id="20050" value="Todos los Dias"/>
@@ -3112,7 +3120,7 @@
 	<string id="20706" value="Modo Ultrapeer en %lu vecinos.  %s en mi Colección."/>
 	<string id="20707" value="Conectando a la red..."/>
 	<string id="20708" value="PeerProject no esta conectado a la red."/>
-	<string id="20710" value="(No hay fuentes)"/>
+	<string id="20710" value="Aclarar"/>
 	<string id="20711" value="No se puede mover"/>
 	<string id="20712" value="Cortado"/>
 	<string id="20713" value="Enqueue"/>
@@ -3138,6 +3146,7 @@
 	<string id="20733" value="fuentes"/>
 	<string id="20734" value="fuentes"/>
 	<string id="20735" value="fuentes"/>
+	<string id="20736" value="(No hay fuentes)"/>
 	<string id="20740" value="TigerTree"/>
 	<string id="20741" value="Torrent"/>
 	<string id="20742" value="Tracker Caído"/>
@@ -3375,7 +3384,7 @@
 		<control caption="Filtrar mensajes de chat para spam"/>
 		<control caption="Censurar cosas obsenas en chat"/>
 	</dialog>
-	<dialog name="CIRCSettingsPage" cookie="BuBuBuBuStEdStStEdCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStEdStEdStEd" caption="IRC">
+	<dialog name="CIRCSettingsPage" cookie="BuBuBuBuStEdmsStStEdmsCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStCoStEdStEd" caption="IRC">
 		<control caption="_Opciones de Cliente:"/>
 		<control caption="Mostrar ventana de chat IRC"/>
 		<control caption="Mostrar tiempos"/>
@@ -4491,9 +4500,9 @@
 		<column from="Address" to="Dirección"/>
 		<column from="Port" to="Puerto"/>
 		<column from="Time" to="Tiempo"/>
-		<column from="Packets" to="Paquetes"/>
-		<column from="Bandwidth" to="Banda Ancha"/>
+		<column from="Traffic" to="Banda Ancha"/>
 		<column from="Total" to="Total"/>
+		<column from="Packets" to="Paquetes"/>
 		<column from="Flow" to=""/>
 		<column from="Leaves" to=""/>
 		<column from="Mode" to="Modo"/>
@@ -4569,7 +4578,7 @@
 	<list name="CUploadQueueList">
 		<column from="Name" to="Nombre"/>
 		<column from="Criteria" to="Criterio"/>
-		<column from="Bandwidth" to="Ancho de Banda"/>
+		<column from="Minimum" to="Ancho de Banda"/>
 		<column from="Transfers" to="Transferencias"/>
 		<column from="Order" to="Ordenar"/>
 	</list>

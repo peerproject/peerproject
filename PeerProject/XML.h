@@ -1,7 +1,7 @@
 //
 // XML.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -42,12 +42,12 @@ protected:
 	void			Serialize(CArchive& ar);
 
 public:
+	void			Delete();
 	int				GetType() const;
 	CXMLNode*		AsNode() const;
 	CXMLElement*	AsElement() const;
 	CXMLAttribute*	AsAttribute() const;
 	CXMLElement*	GetParent() const;
-	void			Delete();
 	CString			GetName() const;
 	void			SetName(LPCTSTR pszValue);
 	BOOL			IsNamed(LPCTSTR pszName) const;
@@ -71,13 +71,14 @@ public:
 
 protected:
 	CList< CXMLElement* > m_pElements;
+	CList< CString > m_pAttributesInsertion;		// Track insertion order (parallel workaround for deterministic file output)
 	CMap< CString, const CString&, CXMLAttribute*, CXMLAttribute* > m_pAttributes;
 
 	void			AddRecursiveWords(CString& strWords) const;
 
 public:
-	CXMLElement*	Clone(CXMLElement* pParent = NULL) const;
 	CXMLElement*	Detach();
+	CXMLElement*	Clone(CXMLElement* pParent = NULL) const;
 	CXMLElement*	AddElement(LPCTSTR pszName);
 	CXMLElement*	AddElement(CXMLElement* pElement);
 	INT_PTR			GetElementCount() const;

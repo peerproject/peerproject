@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Dutch Skin File -->
 
-<!-- Translation based on default-en.xml r62 -->
+<!-- Translation based on default-en.xml r64 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2573,8 +2573,8 @@
 	<tip id="ID_SEARCH_STOP" message="Stop met het ontvangen van resultaten in dit venster."/>
 	<tip id="ID_SEARCHMONITOR_CLEAR" message="De buffer van de zoekmonitor wissen."/>
 	<tip id="ID_SEARCHMONITOR_PAUSE" message="Pauzeer het meekijken met zoekopdrachten."/>
-	<tip id="ID_SECURITY_ADD" message="Voeg een nieuwe beveilingsregel toe..." tip="Regel toevoegen"/>
 	<tip id="ID_SECURITY_BAN" message="De geselecteerde gastheer verbannen voor de duur van deze sessie."/>
+	<tip id="ID_SECURITY_ADD" message="Voeg een nieuwe beveilingsregel toe..." tip="Regel toevoegen"/>
 	<tip id="ID_SECURITY_EDIT" message="Wijzig de geselecteerde beveiligingsregel..."/>
 	<tip id="ID_SECURITY_EXPORT" message="Exporteer de geselecteerde beveiligingsregels naar een bestand..."/>
 	<tip id="ID_SECURITY_IMPORT" message="Importeer beveiligingsregels vanuit een bestand..."/>
@@ -2584,6 +2584,14 @@
 	<tip id="ID_SECURITY_POLICY_DENY" message="De beveiliging zodanig instellen, dat standaard alle bronnen worden geweigerd."/>
 	<tip id="ID_SECURITY_REMOVE" message="Verwijder de geselecteerde beveiligingsregel."/>
 	<tip id="ID_SECURITY_RESET" message="De tellers terugzetten voor de geselecteerde regels." tip="Teller terugzetten"/>
+	<tip id="ID_SCHEDULER_ADD" message="Voeg een nieuwe beveilingsregel toe..."/>
+	<tip id="ID_SCHEDULER_EDIT" message="Wijzig de geselecteerde beveiligingsregel..."/>
+	<tip id="ID_SCHEDULER_ACTIVATE" message="De geselecteerde uploads uit de lijst wissen."/>
+	<tip id="ID_SCHEDULER_DEACTIVATE" message="Selecteer alsjeblieft een taak."/>
+	<tip id="ID_SCHEDULER_EXPORT" message="Exporteer de geselecteerde beveiligingsregels naar een bestand..."/>
+	<tip id="ID_SCHEDULER_IMPORT" message="Importeer beveiligingsregels vanuit een bestand..."/>
+	<tip id="ID_SCHEDULER_REMOVE" message="Verwijder de geselecteerde downloads uit de lijst."/>
+	<tip id="ID_SCHEDULER_REMOVE_ALL" message="Delete all scheduled tasks."/>
 	<tip id="ID_SYSTEM_CLEAR" message="Het statuslog wissen."/>
 	<tip id="ID_SYSTEM_TIMESTAMP" message="Geef elke regel een tijdstempel."/>
 	<tip id="ID_SYSTEM_VERBOSE" message="Een uitgebreider logboek weergeven van de systeemactiviteiten."/>
@@ -3239,7 +3247,7 @@
 	<string id="20706" value="Ultrapeer Modus met %lu buurman(nen). %s in lokale bibliotheek."/>
 	<string id="20707" value="Bezig te verbinden met het netwerk..."/>
 	<string id="20708" value="Niet verbonden met het netwerk."/>
-	<string id="20710" value="(Geen bronnen)"/>
+	<string id="20710" value="Opruimen"/>
 	<string id="20711" value="Kan niet verplaatsen"/>
 	<string id="20712" value="Versperd"/>
 	<string id="20713" value="In wachtrij"/>
@@ -3265,6 +3273,7 @@
 	<string id="20733" value="bronnen"/>
 	<string id="20734" value="bronnen"/>
 	<string id="20735" value="bronnen"/>
+	<string id="20736" value="(Geen bronnen)"/>
 	<string id="20740" value="TigerTree"/>
 	<string id="20741" value="Torrent"/>
 	<string id="20742" value="Tracker plat"/>
@@ -3503,7 +3512,7 @@
 		<control caption="Filter chatberichten op spam"/>
 		<control caption="Verberg scheldwoorden in chatberichten"/>
 	</dialog>
-	<dialog name="CIRCSettingsPage" cookie="BuBuBuBuStEdStStEdCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStEdStEdStEd" caption="IRC/Chat">
+	<dialog name="CIRCSettingsPage" cookie="BuBuBuBuStEdmsStStEdmsCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStCoStEdStEd" caption="IRC/Chat">
 		<control caption="Client _Opties:"/>
 		<control caption="Toon de chat integratie"/>
 		<control caption="Toon tijdsaanduiding"/>
@@ -4619,9 +4628,9 @@
 		<column from="Address" to="Adres"/>
 		<column from="Port" to="Poort"/>
 		<column from="Time" to="Tijd"/>
-		<column from="Packets" to="Pakketten"/>
-		<column from="Bandwidth" to="Bandbreedte"/>
+		<column from="Traffic" to="Bandbreedte"/>
 		<column from="Total" to="Totaal"/>
+		<column from="Packets" to="Pakketten"/>
 		<column from="Flow" to="Stroom"/>
 		<column from="Leaves" to="Leaves"/>
 		<column from="Mode" to="Modus"/>
@@ -4697,7 +4706,7 @@
 	<list name="CUploadQueueList">
 		<column from="Name" to="Naam"/>
 		<column from="Criteria" to="Criteria"/>
-		<column from="Bandwidth" to="Bandbreedte"/>
+		<column from="Minimum" to="Bandbreedte"/>
 		<column from="Transfers" to="Overdrachten"/>
 		<column from="Order" to="Volgorde"/>
 	</list>

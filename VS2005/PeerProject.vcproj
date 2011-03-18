@@ -527,6 +527,9 @@
 				>
 			</File>
 			<File
+				RelativePath="..\PeerProject\DCNeighbour.cpp"
+				
+			<File
 				RelativePath="..\PeerProject\DDEServer.cpp"
 				>
 			</File>
@@ -1048,6 +1051,10 @@
 			</File>
 			<File
 				RelativePath="..\PeerProject\SQLite.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\PeerProject\Strings.cpp"
 				>
 			</File>
 			<File
@@ -2134,6 +2141,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\PeerProject\DCNeighbour.h"
+				>
+			</File>
+			<File
 				RelativePath="..\PeerProject\Datagrams.h"
 				>
 			</File>
@@ -2643,6 +2654,10 @@
 			</File>
 			<File
 				RelativePath="..\PeerProject\SQLite.h"
+				>
+			</File>
+			<File
+				RelativePath="..\PeerProject\Strings.h"
 				>
 			</File>
 			<File

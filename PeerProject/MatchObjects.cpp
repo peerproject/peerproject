@@ -1,7 +1,7 @@
 //
 // MatchObjects.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -174,7 +174,7 @@ void CMatchList::UpdateStats()
 			m_nItems += nItemCount;
 			m_nFilteredFiles ++;
 			m_nFilteredHits += m_pFiles[ i ]->m_nFiltered;
-			for ( CQueryHit* pHit = m_pFiles[ i ]->GetHits(); pHit; pHit = pHit->m_pNext )
+			for ( CQueryHit* pHit = m_pFiles[ i ]->GetHits() ; pHit ; pHit = pHit->m_pNext )
 			{
 				switch ( pHit->m_nProtocol )
 				{
@@ -200,7 +200,7 @@ void CMatchList::AddHits(const CQueryHit* pHits, const CQuerySearch* pFilter)
 {
 	CSingleLock pLock( &m_pSection, TRUE );
 	CMatchFile** pMap = NULL;
-	for ( const CQueryHit* pNext = pHits; pNext; pNext = pNext->m_pNext )
+	for ( const CQueryHit* pNext = pHits ; pNext ; pNext = pNext->m_pNext )
 	{
 		// Empty file names mean a hit for the currently downloading file.
 		// We just clicked the search result while the search was in progress.
@@ -288,9 +288,8 @@ void CMatchList::AddHits(const CQueryHit* pHits, const CQuerySearch* pFilter)
 			pFile = FindFileAndAddHit( pHit, fSize, &Stats );
 		}
 
-		if ( pFile )
+		if ( pFile )	// New hit for an existing file
 		{
-			// New hit for the existing file
 			pMap = m_pFiles;
 			for ( DWORD nCount = m_nFiles ; nCount ; nCount--, pMap++ )
 			{
@@ -311,15 +310,17 @@ void CMatchList::AddHits(const CQueryHit* pHits, const CQuerySearch* pFilter)
 				}
 			}
 		}
-		else
+		else	// New file hit
 		{
-			// New file hit
 			pFile = new CMatchFile( this, pHit );
 			pFile->m_bNew = m_bNew;
 
 			pMap = m_pSizeMap + (DWORD)( pFile->m_nSize & 0xFF );
 			pFile->m_pNextSize = *pMap;
 			*pMap = pFile;
+
+			if ( Security.IsDenied( pFile ) )	// Non-regex/address filters
+				continue;
 
 			if ( m_nFiles + 1 > m_nBuffer )
 			{
@@ -983,7 +984,7 @@ void CMatchList::SetSortColumn(int nColumn, BOOL bDirection)
 	int nStackFirst[128];
 	int nStackLast[128];
 
-	for ( ; ; )
+	for ( ;; )
 	{
 		if ( nLast - nFirst <= 16 )
 		{
@@ -1051,7 +1052,7 @@ void CMatchList::SetSortColumn(int nColumn, BOOL bDirection)
 				DWORD nDown = nFirst;
 				nUp = nLast;
 
-				for ( ; ; )
+				for ( ;; )
 				{
 					do
 					{
@@ -1349,7 +1350,7 @@ CMatchFile::~CMatchFile()
 	{
 		CMatchFile** pMap = m_pList->m_pSizeMap + (DWORD)( m_nSize & 0xFF );
 		CMatchFile* pPrevFile = NULL;
-		for ( CMatchFile* pFile = *pMap; pFile; pFile = pFile->m_pNextSize )
+		for ( CMatchFile* pFile = *pMap ; pFile ; pFile = pFile->m_pNextSize )
 		{
 			if ( this == pFile )
 			{
@@ -1368,7 +1369,7 @@ CMatchFile::~CMatchFile()
 	{
 		CMatchFile** pMap = m_pList->m_pMapSHA1 + m_oSHA1[ 0 ];
 		CMatchFile* pPrevFile = NULL;
-		for ( CMatchFile* pFile = *pMap; pFile; pFile = pFile->m_pNextSHA1 )
+		for ( CMatchFile* pFile = *pMap ; pFile ; pFile = pFile->m_pNextSHA1 )
 		{
 			if ( this == pFile )
 			{
@@ -1387,7 +1388,7 @@ CMatchFile::~CMatchFile()
 	{
 		CMatchFile** pMap = m_pList->m_pMapTiger + m_oTiger[ 0 ];
 		CMatchFile* pPrevFile = NULL;
-		for ( CMatchFile* pFile = *pMap; pFile; pFile = pFile->m_pNextTiger )
+		for ( CMatchFile* pFile = *pMap ; pFile ; pFile = pFile->m_pNextTiger )
 		{
 			if ( this == pFile )
 			{
@@ -1406,7 +1407,7 @@ CMatchFile::~CMatchFile()
 	{
 		CMatchFile** pMap = m_pList->m_pMapED2K + m_oED2K[ 0 ];
 		CMatchFile* pPrevFile = NULL;
-		for ( CMatchFile* pFile = *pMap; pFile; pFile = pFile->m_pNextED2K )
+		for ( CMatchFile* pFile = *pMap ; pFile ; pFile = pFile->m_pNextED2K )
 		{
 			if ( this == pFile )
 			{
@@ -1425,7 +1426,7 @@ CMatchFile::~CMatchFile()
 	{
 		CMatchFile** pMap = m_pList->m_pMapBTH + m_oBTH[ 0 ];
 		CMatchFile* pPrevFile = NULL;
-		for ( CMatchFile* pFile = *pMap; pFile; pFile = pFile->m_pNextBTH )
+		for ( CMatchFile* pFile = *pMap ; pFile ; pFile = pFile->m_pNextBTH )
 		{
 			if ( this == pFile )
 			{
@@ -1444,7 +1445,7 @@ CMatchFile::~CMatchFile()
 	{
 		CMatchFile** pMap = m_pList->m_pMapMD5 + m_oMD5[ 0 ];
 		CMatchFile* pPrevFile = NULL;
-		for ( CMatchFile* pFile = *pMap; pFile; pFile = pFile->m_pNextMD5 )
+		for ( CMatchFile* pFile = *pMap ; pFile ; pFile = pFile->m_pNextMD5 )
 		{
 			if ( this == pFile )
 			{
@@ -1825,8 +1826,7 @@ void CMatchFile::Added(CQueryHit* pHit)
 	// Cross-packet spam filtering
 	DWORD nBogusCount = 0;
 	DWORD nTotal = 0;
-	for ( CQueryHit* pFileHits = m_pHits; pFileHits ;
-			pFileHits = pFileHits->m_pNext, nTotal++ )
+	for ( CQueryHit* pFileHits = m_pHits ; pFileHits ; pFileHits = pFileHits->m_pNext, nTotal++ )
 	{
 #ifndef LAN_MODE
 		if ( pFileHits->m_pNext && validAndEqual( pFileHits->m_oClientID, pFileHits->m_pNext->m_oClientID ) )

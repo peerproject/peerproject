@@ -528,6 +528,10 @@
 				>
 			</File>
 			<File
+				RelativePath="DCNeighbour.cpp"
+				>
+			</File>
+			<File
 				RelativePath="DDEServer.cpp"
 				>
 			</File>
@@ -2790,6 +2794,10 @@
 			</File>
 			<File
 				RelativePath="Datagrams.h"
+				>
+			</File>
+			<File
+				RelativePath="DCNeighbour.h"
 				>
 			</File>
 			<File

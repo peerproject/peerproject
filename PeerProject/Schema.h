@@ -1,7 +1,7 @@
 //
 // Schema.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -41,23 +41,23 @@ public:
 	CString		m_sTitle;
 	CString		m_sPlural;
 	CString		m_sSingular;
+	CString		m_sDonkeyType;
 	int			m_nAvailability;
 	BOOL		m_bPrivate;
-	CString		m_sDonkeyType;
-public:
+
 	CList< CSchemaMember* >	m_pMembers;
-	CList< CString >	m_pExtends;
+	CList< CString >		m_pExtends;
 	CList< CSchemaChild* >	m_pContains;
+	CList< CSchemaBitzi* >	m_pBitziMap;
 	CString		m_sDefaultColumns;
 	CString		m_sTypeFilter;
-	CList< CSchemaBitzi* >	m_pBitziMap;
 	CString		m_sBitziTest;
 	CString		m_sLibraryView;
 	CString		m_sHeaderTitle;
 	CString		m_sHeaderSubtitle;
 	CString		m_sTileLine1;
 	CString		m_sTileLine2;
-public:
+
 	CString		m_sIcon;
 	int			m_nIcon16;
 	int			m_nIcon32;
@@ -71,17 +71,17 @@ protected:
 
 // Operations
 public:
+	void			Clear();
+	BOOL			Load(LPCTSTR pszName);
+	CXMLElement*	Instantiate(BOOL bNamespace = FALSE) const;
+	BOOL			Validate(CXMLElement* pXML, BOOL bFix) const;
 	POSITION		GetMemberIterator() const;
 	CSchemaMember*	GetNextMember(POSITION& pos) const;
 	CSchemaMember*	GetMember(LPCTSTR pszName) const;
 	INT_PTR			GetMemberCount() const;
 	CString			GetFirstMemberName() const;
-	void			Clear();
-	BOOL			Load(LPCTSTR pszName);
 	CSchemaChild*	GetContained(LPCTSTR pszURI) const;
 	CString			GetContainedURI(int nType) const;
-	CXMLElement*	Instantiate(BOOL bNamespace = FALSE) const;
-	BOOL			Validate(CXMLElement* pXML, BOOL bFix) const;
 	CString			GetIndexedWords(CXMLElement* pXML) const;
 	CString			GetVisibleWords(CXMLElement* pXML) const;
 	void			ResolveTokens(CString& str, CXMLElement* pXML) const;
@@ -150,7 +150,6 @@ public:
 	static LPCTSTR	uriImage;
 	static LPCTSTR	uriVideo;
 	static LPCTSTR	uriROM;
-	static LPCTSTR	uriSkin;
 	static LPCTSTR	uriDocument;
 	static LPCTSTR	uriSpreadsheet;
 	static LPCTSTR	uriPresentation;
@@ -172,24 +171,25 @@ public:
 	static LPCTSTR	uriImageAlbum;
 	static LPCTSTR	uriMusicRoot;
 	static LPCTSTR	uriMusicAll;
-	static LPCTSTR	uriMusicAlbumCollection;
-	static LPCTSTR	uriMusicArtistCollection;
-	static LPCTSTR	uriMusicGenreCollection;
 	static LPCTSTR	uriMusicAlbum;
 	static LPCTSTR	uriMusicArtist;
 	static LPCTSTR	uriMusicGenre;
+	static LPCTSTR	uriMusicAlbumCollection;
+	static LPCTSTR	uriMusicArtistCollection;
+	static LPCTSTR	uriMusicGenreCollection;
 	static LPCTSTR	uriVideoRoot;
 	static LPCTSTR	uriVideoAll;
-	static LPCTSTR	uriVideoSeriesCollection;
+	static LPCTSTR	uriVideoFilm;
 	static LPCTSTR	uriVideoSeries;
 	static LPCTSTR	uriVideoFilmCollection;
-	static LPCTSTR	uriVideoFilm;
+	static LPCTSTR	uriVideoSeriesCollection;
 	static LPCTSTR	uriVideoMusicCollection;
 	static LPCTSTR	uriDocumentRoot;
 	static LPCTSTR	uriDocumentAll;
 	static LPCTSTR	uriGhostFolder;
-	static LPCTSTR	uriComments;
 	static LPCTSTR	uriBitTorrent;
+//	static LPCTSTR	uriComments;
+//	static LPCTSTR	uriSkin;
 
 	friend class CSchemaMember;
 
@@ -205,6 +205,6 @@ public:
 	CString		m_sFrom;
 	CString		m_sTo;
 	double		m_nFactor;
-public:
+
 	BOOL		Load(CXMLElement* pXML);
 };

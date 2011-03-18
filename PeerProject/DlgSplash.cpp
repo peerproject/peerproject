@@ -135,6 +135,9 @@ void CSplashDlg::Step(LPCTSTR pszText)
 
 	CClientDC dc( this );
 	DoPaint( &dc );
+
+	if ( IsWindowVisible() )
+		Sleep( 60 );	// Allow brief text and progress bar movement  (Waste a second for the appearance of speed)
 }
 
 void CSplashDlg::Topmost()

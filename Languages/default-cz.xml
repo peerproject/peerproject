@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Czech Skin File -->
 
-<!-- Translation based on default-en.xml r62 (Shareaza 2.2.5.7) -->
+<!-- Translation based on default-en.xml r64 (Shareaza 2.2.5.7) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2460,8 +2460,8 @@
 	<tip id="ID_SEARCH_STOP" message="Zastavit přijímání výsledků v tomto okně."/>
 	<tip id="ID_SEARCHMONITOR_CLEAR" message="Vymazat zásobník monitoru hledání."/>
 	<tip id="ID_SEARCHMONITOR_PAUSE" message="Pozastavit výpis při hledání."/>
-	<tip id="ID_SECURITY_ADD" message="Přidat nové pravidlo k zabezpečení..."/>
 	<tip id="ID_SECURITY_BAN" message="Zakázat označeného hosta po dobu tohoto sezení."/>
+	<tip id="ID_SECURITY_ADD" message="Přidat nové pravidlo k zabezpečení..."/>
 	<tip id="ID_SECURITY_EDIT" message="Upravit označené pravidlo zabezpečení..."/>
 	<tip id="ID_SECURITY_EXPORT" message="Export vybraných pravidel zabezpečení u souboru..."/>
 	<tip id="ID_SECURITY_IMPORT" message="Importovat pravidla zabezpečení ze souboru..."/>
@@ -2471,6 +2471,14 @@
 	<tip id="ID_SECURITY_POLICY_DENY" message="Nastavit standardní zabezpečení odepření pro všechny hosty."/>
 	<tip id="ID_SECURITY_REMOVE" message="Odstranit označené pravidlo zabezpečení."/>
 	<tip id="ID_SECURITY_RESET" message="Ihned resetovat a počítat s pravidly výběru."/>
+	<tip id="ID_SCHEDULER_ADD" message="Přidat nové pravidlo k zabezpečení..."/>
+	<tip id="ID_SCHEDULER_EDIT" message="Upravit označené pravidlo zabezpečení..."/>
+	<tip id="ID_SCHEDULER_ACTIVATE" message="Vymazat označené odesílání ze seznamu."/>
+	<tip id="ID_SCHEDULER_DEACTIVATE" message="Připojit k síti."/>
+	<tip id="ID_SCHEDULER_EXPORT" message="Export vybraných pravidel zabezpečení u souboru..."/>
+	<tip id="ID_SCHEDULER_IMPORT" message="Importovat pravidla zabezpečení ze souboru..."/>
+	<tip id="ID_SCHEDULER_REMOVE" message="Odstranit označené stahování ze seznamu."/>
+	<tip id="ID_SCHEDULER_REMOVE_ALL" message="Delete all scheduled tasks."/>
 	<tip id="ID_SYSTEM_CLEAR" message="Vymazat stav záznamu."/>
 	<tip id="ID_SYSTEM_TIMESTAMP" message="Zaznamenat časovou značku pro každou linku."/>
 	<tip id="ID_SYSTEM_VERBOSE" message="Zobrazit podrobný záznam aktivit záznamu."/>
@@ -3104,7 +3112,7 @@
 	<string id="20706" value="Režim Ultrapeer s uživatelem %lu. %s v místní knihovně."/>
 	<string id="20707" value="Připojuji se do sítě..."/>
 	<string id="20708" value="Nejste připojeni do sítě."/>
-	<string id="20710" value="(Nejsou zdroje)"/>
+	<string id="20710" value="Uklízet"/>
 	<string id="20711" value="Nelze přesunout"/>
 	<string id="20712" value="Přetížený"/>
 	<string id="20713" value="Řadím se"/>
@@ -3130,6 +3138,7 @@
 	<string id="20733" value="zdrojů"/> <!-- many -->
 	<string id="20734" value="zdroje"/> <!-- few  2,3,4 -->
 	<string id="20735" value="zdrojů"/> <!-- ones 21,31,... -->
+	<string id="20736" value="(Nejsou zdroje)"/>
 	<string id="20740" value="TigerTree"/>
 	<string id="20741" value="Torrent"/>
 	<string id="20742" value="Tracker Down"/>
@@ -4437,9 +4446,9 @@
 		<column from="Address" to="Adresa"/>
 		<column from="Port" to=""/>
 		<column from="Time" to="Čas"/>
-		<column from="Packets" to="Pakety"/>
-		<column from="Bandwidth" to="Šířka pásma"/>
+		<column from="Traffic" to="Šířka pásma"/>
 		<column from="Total" to="Celkem"/>
+		<column from="Packets" to="Pakety"/>
 		<column from="Flow" to="Tok"/>
 		<column from="Leaves" to="Ukončení"/>
 		<column from="Mode" to="Režim"/>
@@ -4515,7 +4524,7 @@
 	<list name="CUploadQueueList">
 		<column from="Name" to="Název"/>
 		<column from="Criteria" to="Měřítko"/>
-		<column from="Bandwidth" to="Šířka pásma"/>
+		<column from="Minimum" to="Šířka pásma"/>
 		<column from="Transfers" to="Přenos"/>
 		<column from="Order" to="Pořadí"/>
 	</list>

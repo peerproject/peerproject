@@ -1,7 +1,7 @@
 //
 // DlgURLCopy.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -111,15 +111,11 @@ void CURLCopyDlg::OnIncludeSelf()
 		strURN += strTemp;
 	}
 
+	BOOL bAddTracker( FALSE );
 	if ( m_pFile->m_oBTH && strURN.IsEmpty() )	// BitTorrent Magnet
 	{
 		strURN = _T("xt=") + m_pFile->m_oBTH.toUrn();
-		if ( CDownload* pDownload = Downloads.FindByBTH( m_pFile->m_oBTH ) )
-		{
-			strTemp = URLEncode( (LPCTSTR)pDownload->m_pTorrent.GetTrackerAddress() );
-			if ( strTemp.GetLength() > 24 )
-				strURN = strURN + _T("&tr=") + strTemp;
-		}
+		bAddTracker = TRUE;
 	}
 
 	m_sMagnet = strURN;
@@ -143,18 +139,26 @@ void CURLCopyDlg::OnIncludeSelf()
 
 	m_sMagnet = _T("magnet:?") + m_sMagnet;
 
+	if ( bAddTracker )
+	{
+		if ( CDownload* pDownload = Downloads.FindByBTH( m_pFile->m_oBTH ) )
+		{
+			strTemp = URLEncode( (LPCTSTR)pDownload->m_pTorrent.GetTrackerAddress() );
+			if ( strTemp.GetLength() > 24 )
+				m_sMagnet += _T("&tr=") + strTemp;
+		}
+	}
+
 	if ( bIncludeSelf )
 	{
-		CString strURL = m_pFile->GetURL( Network.m_pHost.sin_addr,
-			htons( Network.m_pHost.sin_port ) );
+		CString strURL = m_pFile->GetURL( Network.m_pHost.sin_addr, htons( Network.m_pHost.sin_port ) );
 		if ( ! strURL.IsEmpty() )
 			m_sMagnet += _T("&xs=") + URLEncode( strURL );
 	}
 
 	if ( m_pFile->m_oSHA1 )
 	{
-		m_sGnutella.Format( _T("gnutella://%s/"),
-			(LPCTSTR)m_pFile->m_oSHA1.toUrn() );
+		m_sGnutella.Format( _T("gnutella://%s/"), (LPCTSTR)m_pFile->m_oSHA1.toUrn() );
 
 		if ( ! m_pFile->m_sName.IsEmpty() )
 			m_sGnutella += URLEncode( m_pFile->m_sName ) + _T("/");
@@ -172,7 +176,6 @@ void CURLCopyDlg::OnIncludeSelf()
 		if ( bIncludeSelf )
 		{
 			CString strURL2;
-
 			strURL2.Format ( _T("%s:%i"),
 					(LPCTSTR)CString( inet_ntoa( Network.m_pHost.sin_addr ) ),
 					htons( Network.m_pHost.sin_port ) );
@@ -182,18 +185,11 @@ void CURLCopyDlg::OnIncludeSelf()
 	}
 
 	if ( ! m_pFile->m_sURL.IsEmpty() )
-	{
 		m_sHost = m_pFile->m_sURL;
-	}
 	else if ( bIncludeSelf )
-	{
-		m_sHost = m_pFile->GetURL( Network.m_pHost.sin_addr,
-			htons( Network.m_pHost.sin_port ) );
-	}
+		m_sHost = m_pFile->GetURL( Network.m_pHost.sin_addr, htons( Network.m_pHost.sin_port ) );
 	else
-	{
 		m_sHost.Empty();
-	}
 
 	UpdateData( FALSE );
 }

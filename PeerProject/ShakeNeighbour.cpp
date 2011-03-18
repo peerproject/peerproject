@@ -597,7 +597,7 @@ BOOL CShakeNeighbour::ReadResponse()
 		else if ( ! m_bInitiated )	// It does say "200 OK", and the remote computer contacted us
 		{
 			// The remote computer connected to us and sent its headers, we replied with ours, and now it's sending the final group
-			m_nState = nrsHandshake3; // We're reading the final header group from the remote computer
+			m_nState = nrsHandshake3;	// We're reading the final header group from the remote computer
 		}
 		else	// It does say "200 OK", and we initiated the connection
 		{
@@ -645,10 +645,10 @@ BOOL CShakeNeighbour::OnHeaderLine(CString& strHeader, CString& strValue)
 	// Record this header
 	theApp.Message( MSG_DEBUG | MSG_FACILITY_INCOMING, _T("%s >> %s: %s"), (LPCTSTR)m_sAddress, (LPCTSTR)strHeader, (LPCTSTR)strValue );
 
-	CString strCase = strHeader;
-	strCase.MakeLower();
-	if ( strCase.GetLength() < 3 )
+	if ( strHeader.GetLength() < 4 )
 		return TRUE;	// Skip bad/unknown small header
+
+	const CString strCase( strHeader.MakeLower() );
 
 	// Expected Headers:
 	SwitchMap( Text )
@@ -683,17 +683,23 @@ BOOL CShakeNeighbour::OnHeaderLine(CString& strHeader, CString& strValue)
 		Text[ _T("x-try-dna-hubs") ]		= 'D';
 		Text[ _T("x-try-hubs") ]			= 'H';
 		Text[ _T("x-try-ultrapeers") ]		= 'U';
+		Text[ _T("x-hostname") ]			= 'N';
 
-		//Text[ _T("x-try") ]				= 'x';
+		// http://limewire.negatis.com/index.php?title=Known_Gnutella_Connection_Headers
 		//Text[ _T("uptime") ]				= 'x';
 		//Text[ _T("x-live-since") ]		= 'x';
 		//Text[ _T("x-features") ]			= 'x';
-		//Text[ _T("x-hostname") ]			= 'x';
 		//Text[ _T("x-version") ]			= 'x';
 		//Text[ _T("x-guess") ]				= 'x';	// OOB
 		//Text[ _T("x-leaf-max") ]			= 'x';
 		//Text[ _T("x-hops-flow") ] 		= 'x';
 		//Text[ _T("x-bye-packet") ]		= 'x';
+		//Text[ _T("x-try") ]				= 'x';
+
+		// http://limewire.negatis.com/index.php?title=Communicating_Network_Topology_Information
+		//Text[ _T("crawler") ]				= 'w';
+		//Text[ _T("leaves") ]				= '#';
+		//Text[ _T("peers") ]				= '#';
 	}
 
 	switch( Text[ strCase ] )
@@ -816,6 +822,12 @@ BOOL CShakeNeighbour::OnHeaderLine(CString& strHeader, CString& strValue)
 		if ( m_bCanDeflate )
 			m_bDeflateSend |= ( strValue.Find( _T("deflate") ) >= 0 );
 		break;
+	case 'f':		// "X-Locale-Pref"
+		m_sLocalePref = strValue.MakeLower();	// Unused
+		break;
+	case 'N':		// "X-Hostname"
+		m_sServerName = strValue;	// Off-chance dns can be given
+		break;
 	case 'd':		// "X-Degree"
 		{
 			const int nValue = _tstoi( strValue );
@@ -835,9 +847,6 @@ BOOL CShakeNeighbour::OnHeaderLine(CString& strHeader, CString& strValue)
 		break;
 	case 'z':		// "X-Ultrapeer-Query-Routing"
 		m_bUltrapeerQueryRouting = ( strValue != _T("0") && strValue != _T("0.0") );
-		break;
-	case 'f':		// "X-Locale-Pref"
-		m_sLocalePref = strValue.MakeLower();
 		break;
 	case 'r':		// "X-Requeries"
 		m_bRequeries = ( strValue.CompareNoCase( _T("False") ) != 0 );

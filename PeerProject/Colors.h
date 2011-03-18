@@ -1,7 +1,7 @@
 //
 // Colors.h
 //
-// This file is part of PeerProject (peerproject.org) © 2009-2010
+// This file is part of PeerProject (peerproject.org) © 2009-2011
 //
 // PeerProject is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Affero General Public License
@@ -19,12 +19,14 @@
 
 #include "Skin.h"
 
+#define RGB_DEFAULT_CASE RGB( 66, 65, 64 )
+
 class CColors
 {
 // Construction
 public:
 	CColors();
-	virtual ~CColors();
+//	virtual ~CColors();
 
 public:
 	BOOL		m_bCustom;

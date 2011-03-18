@@ -1,7 +1,7 @@
 //
 // Download.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -18,7 +18,7 @@
 
 #pragma once
 
-#define DOWNLOAD_SER_VERSION	1000	//42+
+#define DOWNLOAD_SER_VERSION	1000	// 42+
 // nVersion History:
 // 33 - added m_sSearchKeyword to CDownloadBase (CyberBob)
 // 34 - added m_bSeeding and m_sServingFileName to CDownloadWithTorrent (Rolandas)
@@ -49,17 +49,16 @@ public:
 	DWORD		m_tCompleted;
 	int			m_nRunCookie;
 	int			m_nGroupCookie;
+	BOOL		m_bClearing;	// Briefly marked for removal or deletion (rarely visible, but may take longer than expected)
 private:
 	BOOL		m_bTempPaused;
 	BOOL		m_bPaused;
 	BOOL		m_bBoosted;
 	BOOL		m_bShared;
 	bool		m_bComplete;
+	bool		m_bDownloading;	// Store if a download is downloading, as performance tweak. Count transfers for 100% current answer.
+	DWORD		m_tBegan;		// Time when this download began trying to download (Started searching, etc). 0 means not tried this session.
 	DWORD		m_tSaved;
-	DWORD		m_tBegan;		// The time when this download began trying to download
-								// (Started searching, etc). 0 means not tried this session.
-	bool		m_bDownloading;	// This is used to store if a download is downloading. (Performance tweak)
-								// You should count the transfers if you need a 100% current answer.
 // Operations
 public:
 	void		Pause(BOOL bRealPause = TRUE);
@@ -74,27 +73,27 @@ public:
 	CString		GetDownloadSources() const;
 	CString		GetDownloadStatus() const;
 	int			GetClientStatus() const;
-	BOOL		Load(LPCTSTR pszPath);
-	BOOL		Save(BOOL bFlush = FALSE);
-	void		OnRun();
 	void		ForceComplete();
 	BOOL		Launch(int nIndex, CSingleLock* pLock, BOOL bForceOriginal);
 	BOOL		Enqueue(int nIndex, CSingleLock* pLock);
+	BOOL		Load(LPCTSTR pszPath);
+	BOOL		Save(BOOL bFlush = FALSE);
 	void		OnTaskComplete(const CDownloadTask* pTask);
+	void		OnRun();
 private:
 	void		StartTrying();
 	void		StopTrying();
 	DWORD		GetStartTimer() const;
 	void		OnDownloaded();
 	void		OnMoved();
-//	void		SerializeOld(CArchive& ar, int nVersion);	// For DOWNLOAD_SER_VERSION < 11
+//	void		SerializeOld(CArchive& ar, int nVersion);	// Legacy DOWNLOAD_SER_VERSION < 11, for reference
 
 // Overrides
 public:
-	virtual bool	IsPaused(bool bRealState = false) const;
-	virtual bool	IsCompleted() const;
-	virtual bool	IsTrying() const;	// Is the download currently trying to download?
-	virtual void	Serialize(CArchive& ar, int nVersion);	// DOWNLOAD_SER_VERSION
+	virtual bool IsPaused(bool bRealState = false) const;
+	virtual bool IsCompleted() const;
+	virtual bool IsTrying() const;		// Is the download currently trying to download?
+	virtual void Serialize(CArchive& ar, int nVersion);	// DOWNLOAD_SER_VERSION
 
 	friend class CDownloadTransfer;		// GetVerifyLength
 	friend class CDownloadWithTorrent;	// m_bComplete

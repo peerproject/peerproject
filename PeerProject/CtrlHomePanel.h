@@ -1,7 +1,7 @@
 //
 // CtrlHomePanel.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -32,13 +32,14 @@ class CHomeConnectionBox : public CRichTaskBox
 public:
 	CHomeConnectionBox();
 	virtual ~CHomeConnectionBox();
+
 	DECLARE_DYNAMIC(CHomeConnectionBox)
 
 protected:
 	CRichElement*	m_pdConnectedHours;
 	CRichElement*	m_pdConnectedMinutes;
-	CRichElement*	m_pdCount[4][3];
-	CString			m_sCount[4][3];
+	CRichElement*	m_pdCount[PROTOCOL_LAST][3];
+	CString			m_sCount[PROTOCOL_LAST][3];
 
 public:
 	void	OnSkinChange();
@@ -55,6 +56,7 @@ class CHomeLibraryBox : public CRichTaskBox
 public:
 	CHomeLibraryBox();
 	virtual ~CHomeLibraryBox();
+
 	DECLARE_DYNAMIC(CHomeLibraryBox)
 
 protected:
@@ -77,8 +79,8 @@ protected:
 	CRichElement*	m_pdLibraryHashRemaining;
 	CArray< Item* >	m_pList;
 	CFont			m_pFont;
-	HCURSOR			m_hHand;
 	Item*			m_pHover;
+	HCURSOR			m_hHand;
 	CLibraryTipCtrl	m_wndTip;
 
 public:
@@ -104,6 +106,7 @@ class CHomeDownloadsBox : public CRichTaskBox
 public:
 	CHomeDownloadsBox();
 	virtual ~CHomeDownloadsBox();
+
 	DECLARE_DYNAMIC(CHomeDownloadsBox)
 
 protected:
@@ -136,8 +139,8 @@ protected:
 	CString				m_sDownloadsMany;
 	CArray< Item* >		m_pList;
 	CFont				m_pFont;
-	HCURSOR				m_hHand;
 	Item*				m_pHover;
+	HCURSOR				m_hHand;
 	CDownloadTipCtrl	m_wndTip;
 
 public:
@@ -164,6 +167,7 @@ class CHomeUploadsBox : public CRichTaskBox
 public:
 	CHomeUploadsBox();
 	virtual ~CHomeUploadsBox();
+
 	DECLARE_DYNAMIC(CHomeUploadsBox)
 
 protected:

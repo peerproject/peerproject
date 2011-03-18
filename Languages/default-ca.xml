@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Catalan Skin File -->
 
-<!-- Translation based on default-en.xml r62 -->
+<!-- Translation based on default-en.xml r64 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2492,8 +2492,8 @@
 	<tip id="ID_SEARCH_STOP" message="Atura la cerca."/>
 	<tip id="ID_SEARCHMONITOR_CLEAR" message="Esborra el buffer del monitor de cerques."/>
 	<tip id="ID_SEARCHMONITOR_PAUSE" message="Posa en pausa al monitor de cerques."/>
-	<tip id="ID_SECURITY_ADD" message="Afegeix una nova regla de seguretat."/>
 	<tip id="ID_SECURITY_BAN" message="Bloqueja aquesta adreça IP per aquesta sessió."/>
+	<tip id="ID_SECURITY_ADD" message="Afegeix una nova regla de seguretat."/>
 	<tip id="ID_SECURITY_EDIT" message="Edita la norma de seguretat."/>
 	<tip id="ID_SECURITY_EXPORT" message="Exporta les normes de seguretat a un arxiu XML."/>
 	<tip id="ID_SECURITY_IMPORT" message="Importa les normes de seguretat d'un arxiu XML."/>
@@ -2503,6 +2503,14 @@
 	<tip id="ID_SECURITY_POLICY_DEny" message="Canvia la política de seguretat per defecte a denegar totes les connexions."/>
 	<tip id="ID_SECURITY_REMOVE" message="Esborra aquesta norma de seguretat."/>
 	<tip id="ID_SECURITY_RESET" message="Reinicia els compadors de les regles de seguretat seleccionades."/>
+	<tip id="ID_SCHEDULER_ADD" message="Afegeix una nova regla de scheduled."/>
+	<tip id="ID_SCHEDULER_EDIT" message="Edita la norma de seguretat."/>
+	<tip id="ID_SCHEDULER_ACTIVATE" message="Esborra les pujades seleccionades de la llista."/>
+	<tip id="ID_SCHEDULER_DEACTIVATE" message="Connecta a les xarxes seleccionades."/>
+	<tip id="ID_SCHEDULER_EXPORT" message="Exporta les normes a un arxiu XML."/>
+	<tip id="ID_SCHEDULER_IMPORT" message="Importa les normes d'un arxiu XML."/>
+	<tip id="ID_SCHEDULER_REMOVE" message="Esborra les descàrregues seleccionades de la llista."/>
+	<tip id="ID_SCHEDULER_REMOVE_ALL" message="Delete all scheduled tasks."/>
 	<tip id="ID_SYSTEM_CLEAR" message="Esborra la història d'estat."/>
 	<tip id="ID_SYSTEM_TIMESTAMP" message="Enregistra el temps a cada línia."/>
 	<tip id="ID_SYSTEM_VERBOSE" message="Mostra informació detallada de l'activitat del sistema."/>
@@ -3137,7 +3145,7 @@
 	<string id="20706" value="Mode Ultrapeer amb %lu veí(ïns). %s a la col·lecció local."/>
 	<string id="20707" value="Conectant a la xarxa..."/>
 	<string id="20708" value="PeerProject no està connectat a la xarxa."/>
-	<string id="20710" value="(No hi ha fonts)"/>
+	<string id="20710" value="Aclarir"/>
 	<string id="20711" value="No es pot moure"/>
 	<string id="20712" value="Tallat"/>
 	<string id="20713" value="Posant en cua"/>
@@ -3163,6 +3171,7 @@
 	<string id="20733" value="fonts"/>
 	<string id="20734" value="fonts"/>
 	<string id="20735" value="fonts"/>
+	<string id="20736" value="(No hi ha fonts)"/>
 	<string id="20740" value="TigerTree"/>
 	<string id="20741" value="Torrent"/>
 	<string id="20742" value="Rastrejador caigut"/>
@@ -4473,9 +4482,9 @@
 		<column from="Address" to="Adreça"/>
 		<column from="Port" to="Port"/>
 		<column from="Time" to="Temps"/>
-		<column from="Packets" to="Paquets"/>
-		<column from="Bandwidth" to="Banda ampla"/>
+		<column from="Traffic" to="Banda ampla"/>
 		<column from="Total" to="Total"/>
+		<column from="Packets" to="Paquets"/>
 		<column from="Flow" to="Flux"/>
 		<column from="Leaves" to="Llavors"/>
 		<column from="Mode" to="Mode"/>
@@ -4551,7 +4560,7 @@
 	<list name="CUploadQueueList">
 		<column from="Name" to="Nom"/>
 		<column from="Criteria" to="Criteri"/>
-		<column from="Bandwidth" to="Ample de banda"/>
+		<column from="Minimum" to="Ample de banda"/>
 		<column from="Transfers" to="Transferències"/>
 		<column from="Order" to="Ordenar"/>
 	</list>

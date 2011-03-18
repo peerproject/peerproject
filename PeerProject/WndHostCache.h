@@ -1,7 +1,7 @@
 //
 // WndHostCache.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -30,7 +30,7 @@ class CHostCacheWnd : public CPanelWnd
 {
 public:
 	CHostCacheWnd();
-	virtual ~CHostCacheWnd();
+//	virtual ~CHostCacheWnd();
 
 	DECLARE_SERIAL(CHostCacheWnd)
 
@@ -73,7 +73,6 @@ protected:
 	afx_msg void OnHostCacheDisconnect();
 	afx_msg void OnUpdateHostCacheRemove(CCmdUI* pCmdUI);
 	afx_msg void OnHostCacheRemove();
-	afx_msg void OnDestroy();
 	afx_msg void OnUpdateHostcacheG2Horizon(CCmdUI* pCmdUI);
 	afx_msg void OnHostcacheG2Horizon();
 	afx_msg void OnUpdateHostcacheG2Cache(CCmdUI* pCmdUI);
@@ -82,16 +81,19 @@ protected:
 	afx_msg void OnHostcacheG1Cache();
 	afx_msg void OnUpdateHostcacheEd2kCache(CCmdUI* pCmdUI);
 	afx_msg void OnHostcacheEd2kCache();
+	afx_msg void OnHostcacheEd2kDownload();
 	afx_msg void OnUpdateHostcacheBTCache(CCmdUI* pCmdUI);
 	afx_msg void OnHostcacheBTCache();
 	afx_msg void OnUpdateHostcacheKADCache(CCmdUI* pCmdUI);
 	afx_msg void OnHostcacheKADCache();
-	afx_msg void OnHostcacheImport();
-	afx_msg void OnHostcacheEd2kDownload();
+	afx_msg void OnUpdateHostcacheDCCache(CCmdUI* pCmdUI);
+	afx_msg void OnHostcacheDCCache();
 	afx_msg void OnUpdateHostcachePriority(CCmdUI* pCmdUI);
 	afx_msg void OnHostcachePriority();
 	afx_msg void OnUpdateNeighboursCopy(CCmdUI *pCmdUI);
 	afx_msg void OnNeighboursCopy();
+	afx_msg void OnHostcacheImport();
+	afx_msg void OnDestroy();
 
 	DECLARE_MESSAGE_MAP()
 };

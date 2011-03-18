@@ -1,7 +1,7 @@
 ﻿//
 // CtrlIRCFrame.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2005-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -135,18 +135,18 @@ CIRCFrame::CIRCFrame()
 	, m_nFloodingDelay	( 4000 )
 	, m_nUpdateFrequency( 40 )
 //	, m_nUpdateChanListFreq ( 100000 )
-	, m_nBufferCount	( 0 )
-	, m_nHeaderIcon 	( 0 )
-	, m_hBuffer 		( NULL )
 //	, m_ptCursor		( 0, 0 )
 //	, m_nListWidth		( 170 )
+	, m_nHeaderIcon 	( 0 )
+	, m_nBufferCount	( 0 )
+	, m_hBuffer 		( NULL )
 	, m_nSocket 		( INVALID_SOCKET )
 	, m_nLocalTextLimit	( 300 )
 	, m_nLocalLinesLimit( 14 )
 {
 	if ( g_pIrcFrame == NULL ) g_pIrcFrame = this;
 
-	for ( int nChannel = 0; nChannel < MAX_CHANNELS; ++nChannel )
+	for ( int nChannel = 0 ; nChannel < MAX_CHANNELS ; ++nChannel )
 		m_nCurrentPosLineBuffer[ nChannel ] = -1;
 }
 
@@ -412,7 +412,7 @@ void CIRCFrame::OnSkinChange()
 	if ( m_bmWatermark.m_hObject != NULL ) m_bmWatermark.DeleteObject();
 	if ( HBITMAP hMark = Skin.GetWatermark( _T("CIRCHeaderPanel") ) )
 		m_bmWatermark.Attach( hMark );
-	else if ( Colors.m_crBannerBack == RGB( 122, 160, 230 ) )
+	else if ( Colors.m_crBannerBack == RGB_DEFAULT_CASE )
 		m_bmWatermark.LoadBitmap( IDB_BANNER_MARK );
 
 	SetFonts();
@@ -1337,7 +1337,7 @@ void CIRCFrame::OnStatusMessage(LPCTSTR pszText, int nFlags)
 //	// Display here what left.
 //	pWordDivide.RemoveAll();
 //	strMsgTemp.Trim();
-
+//
 //	if ( ! strMsgTemp.IsEmpty() )
 //	{
 //		m_pContent.Add( retText, strMsgTemp.GetBuffer(), NULL, retfColor )->m_cColor = cRGB;
@@ -1603,7 +1603,7 @@ void CIRCFrame::ActivateMessageByID(CIRCNewMessage& oNewMessage, int nMessageTyp
 		{
 			SendString( _T("PONG ") + GetStringAfterParsedItem( 1 ) );
 #ifdef _DEBUG
-			oNewMessage.Add ( _T("Ping? Pong."), m_sStatus, ID_COLOR_SERVERMSG );
+			oNewMessage.Add( _T("Ping? Pong."), m_sStatus, ID_COLOR_SERVERMSG );
 #endif
 			return;
 		}
@@ -1909,7 +1909,7 @@ void CIRCFrame::ActivateMessageByID(CIRCNewMessage& oNewMessage, int nMessageTyp
 			CString strChannelName = m_pWords.GetAt( 6 );	// Get the channel we're being kicked from
 			if ( strChannelName == m_sStatus ) return;		// The status window is not a channel
 			int nTab = GetTabIndex( strChannelName );		// Get the tab number of the channel
-			if( nTab < 0 ) return;							// Can't leave a channel we're not in, ignore
+			if ( nTab < 0 ) return;							// Can't leave a channel we're not in, ignore
 
 			// ToDo: Show kick notification in status window ?
 
@@ -2236,7 +2236,7 @@ int CIRCFrame::ParseMessageID()
 			// 0x01 indicates a CTCP message, including '/me'
 			if ( pszFirst == char('\x01') )
 			{
-				if( m_pWords.GetAt( 6 ).CompareNoCase( m_sNickname ) == 0 )
+				if ( m_pWords.GetAt( 6 ).CompareNoCase( m_sNickname ) == 0 )
 				{
 					if ( str == _T("version") )
 						nMessageType = ID_MESSAGE_USER_CTCPVERSION;
@@ -2313,7 +2313,7 @@ void CIRCFrame::ParseString(const CString& strMessage, CIRCNewMessage& oNewMessa
 		nPos = strMessage.Find( _T(' '), nPos + 1 );
 	}
 
-	for( int index = 0; index < incomingWords.GetCount(); index++ )
+	for ( int index = 0 ; index < incomingWords.GetCount() ; index++ )
 	{
 		m_pWords.Add( incomingWords.GetAt( index ) );
 	}
@@ -2754,13 +2754,9 @@ int CIRCFrame::FindInList(CString strName, int nList, int nTab)
 //{
 //	BOOL bMinimized = ( (CMainWnd*)AfxGetMainWnd() )->m_bTrayHide;
 //	if ( ! bMinimized ) return FALSE;
-
-//	//OSVERSIONINFO pVersion;
-//	//pVersion.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
-//	//GetVersionEx( &pVersion );
-//	//if ( pVersion.dwMajorVersion < 5 )
-//	//	return FALSE; // Do not support Win9x/Me/NT
-
+//
+//	// Does not support Win9x/Me/NT
+//
 //	// Verify input parameters
 //	// Balloon tooltip text can be up to 255 chars long.
 //	CString strText( szText );
@@ -3091,7 +3087,7 @@ void CIRCTabCtrl::DrawTabControl(CDC* pDC)
 	DrawTabThemed( pDC->m_hDC, -1, rcClient, paintBody );
 
 	int tabCount = TabCtrl_GetItemCount( m_hWnd );
-	if( tabCount == 0 ) return;
+	if ( tabCount == 0 ) return;
 
 	// Paint inactive tabs.
 	//TCHITTESTINFO htInfo = {};

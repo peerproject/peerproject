@@ -1,7 +1,7 @@
 //
 // ShareMonkeyData.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -15,6 +15,8 @@
 // See the GNU Affero General Public License 3.0 (AGPLv3) for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
+
+// Note: For reference & reuse only, ShareMonkey*com does not exist
 
 #include "StdAfx.h"
 #include "PeerProject.h"
@@ -41,7 +43,7 @@ CShareMonkeyData::CShareMonkeyData(INT_PTR nOffset, int nRequestType)
 	, m_nOffset 	( nOffset )
 	, m_nRequestType( nRequestType )
 {
-	int nLength = GetLocaleInfo( LOCALE_USER_DEFAULT, LOCALE_SISO3166CTRYNAME, NULL, 0 );
+	const int nLength = GetLocaleInfo( LOCALE_USER_DEFAULT, LOCALE_SISO3166CTRYNAME, NULL, 0 );
 	LPTSTR pszCountry = m_sCountry.GetBuffer( nLength );
 	VERIFY( GetLocaleInfo( LOCALE_USER_DEFAULT, LOCALE_SISO3166CTRYNAME, pszCountry, nLength ) );
 	m_sCountry.ReleaseBuffer();
@@ -113,7 +115,7 @@ void CShareMonkeyData::Stop()
 // CShareMonkeyData thread run
 void CShareMonkeyData::OnRun()
 {
-	Sleep( 50 ); // Display "Please wait..." message
+	Sleep( 50 );	// Display "Please wait..." message
 	while ( m_hInternet != NULL )
 	{
 		m_pSection.Lock();
@@ -181,7 +183,7 @@ BOOL CShareMonkeyData::BuildRequest()
 {
 	int nCategory = 0;
 
-	m_sURL = Settings.Search.ShareMonkeyBaseURL;
+	m_sURL = Settings.WebServices.ShareMonkeyBaseURL;
 	m_pSchema = NULL;
 
 	if ( m_nRequestType == stProductMatch )
@@ -305,7 +307,7 @@ BOOL CShareMonkeyData::BuildRequest()
 
 BOOL CShareMonkeyData::ExecuteRequest()
 {
-	DWORD nTime = GetTickCount();
+	const DWORD nTime = GetTickCount();
 
 	int nPos, nPort = INTERNET_DEFAULT_HTTP_PORT;
 	CString strHost, strPath;
@@ -486,10 +488,10 @@ BOOL CShareMonkeyData::DecodeResponse(CString& strMessage)
 
 	if ( bFailed )
 		return FALSE;
-	else if ( m_nRequestType == stComparison )
+	if ( m_nRequestType == stComparison )
 		return TRUE;
-	else
-		return bResult;
+
+	return bResult;
 }
 
 BOOL CShareMonkeyData::ImportData(CXMLElement* pRoot)
@@ -499,7 +501,7 @@ BOOL CShareMonkeyData::ImportData(CXMLElement* pRoot)
 
 	if ( m_nRequestType == stProductMatch )
 	{
-		if ( m_pSchema == NULL ) // Get the schema from the product Category
+		if ( m_pSchema == NULL )	// Get the schema from the product Category
 		{
 			CXMLElement* pCategory = pRoot->GetElementByName( L"CategoryID" );
 			int nCategory = 0;
@@ -512,7 +514,7 @@ BOOL CShareMonkeyData::ImportData(CXMLElement* pRoot)
 					m_pSchema = SchemaCache.Get( CSchema::uriAudio );
 					break;
 				case 2:
-					m_pSchema = SchemaCache.Get( CSchema::uriBook ); // For documents
+					m_pSchema = SchemaCache.Get( CSchema::uriBook );	// For documents
 					break;
 				case 3:
 					m_pSchema = SchemaCache.Get( CSchema::uriArchive ); // For games
@@ -523,8 +525,8 @@ BOOL CShareMonkeyData::ImportData(CXMLElement* pRoot)
 				case 5:
 					m_pSchema = SchemaCache.Get( CSchema::uriVideo );
 					break;
-				default:
-					break;
+				//default:
+				//	break;
 				}
 			}
 		}

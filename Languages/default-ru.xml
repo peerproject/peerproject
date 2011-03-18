@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Russian Skin File -->
 
-<!-- Translation based on default-en.xml r62 -->
+<!-- Translation based on default-en.xml r64 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2594,8 +2594,8 @@
 	<tip id="ID_SEARCH_STOP" message="Остановить получение результатов в этом окне."/>
 	<tip id="ID_SEARCHMONITOR_CLEAR" message="Очистить буфер монитора поиска."/>
 	<tip id="ID_SEARCHMONITOR_PAUSE" message="Приостановить вывод в монитор поиска."/>
-	<tip id="ID_SECURITY_ADD" message="Добавить новое правило в цепочку безопасности..."/>
 	<tip id="ID_SECURITY_BAN" message="Запретить доступ помеченного хоста на протяжении этой сессии."/>
+	<tip id="ID_SECURITY_ADD" message="Добавить новое правило в цепочку безопасности..."/>
 	<tip id="ID_SECURITY_EDIT" message="Править помеченное правило безопасности..."/>
 	<tip id="ID_SECURITY_EXPORT" message="Экспорт помеченных правил безопасности в файл..."/>
 	<tip id="ID_SECURITY_IMPORT" message="Импорт правил безопасности из файла..."/>
@@ -2605,6 +2605,14 @@
 	<tip id="ID_SECURITY_POLICY_DENY" message="Установить политику безопасности по умочанию на отказ допуска всем хостам."/>
 	<tip id="ID_SECURITY_REMOVE" message="Удалить помеченное правило(а) безопасности."/>
 	<tip id="ID_SECURITY_RESET" message="Сбросить счетчики хитов для помеченных правил."/>
+	<tip id="ID_SCHEDULER_ADD" message="Добавить новую задачу в Планировщике."/>
+	<tip id="ID_SCHEDULER_EDIT" message="Править выбранную задачу..."/>
+	<tip id="ID_SCHEDULER_ACTIVATE" message="Включить выбранную задачу."/>
+	<tip id="ID_SCHEDULER_DEACTIVATE" message="Выключить выбранные задачи."/>
+	<tip id="ID_SCHEDULER_EXPORT" message="Экспорт помеченных правил безопасности в файл..."/>
+	<tip id="ID_SCHEDULER_IMPORT" message="Импорт правил безопасности из файла..."/>
+	<tip id="ID_SCHEDULER_REMOVE" message="Убрать выбранные задачи из списка."/>
+	<tip id="ID_SCHEDULER_REMOVE_ALL" message="Удалить все задачи Планировщика."/>
 	<tip id="ID_SYSTEM_CLEAR" message="Очистить журнал статуса."/>
 	<tip id="ID_SYSTEM_TIMESTAMP" message="Добавлять штамп времени в каждую строчку."/>
 	<tip id="ID_SYSTEM_VERBOSE" message="Показывать подробный журнал активности системы."/>
@@ -3257,7 +3265,7 @@
 	<string id="20706" value="Режим Ведущего с %lu хостом(ами).  %s в собсвенном хранилище."/>
 	<string id="20707" value="Подключаюсь к сети..."/>
 	<string id="20708" value="Нет соединения с сетью."/>
-	<string id="20710" value="(нет источников)"/>
+	<string id="20710" value="Уборка"/>
 	<string id="20711" value="Не перемещается!"/>
 	<string id="20712" value="Заморожен"/>
 	<string id="20713" value="Ставится в очередь"/>
@@ -3283,6 +3291,7 @@
 	<string id="20733" value="источников"/> <!-- many -->
 	<string id="20734" value="источника"/>  <!-- few  2,3,4 -->
 	<string id="20735" value="источник"/>   <!-- ones 21,31,... -->
+	<string id="20736" value="(нет источников)"/>
 	<string id="20740" value="TigerTree"/>
 	<string id="20741" value="Торрент"/>
 	<string id="20742" value="Трекер не отвечает"/>
@@ -3519,7 +3528,7 @@
 		<control caption="Фильтровать текст чата от спама"/>
 		<control caption="Фильтровать нецензурные слова в чате"/>
 	</dialog>
-	<dialog name="CIRCSettingsPage" cookie="BuBuBuBuStEdStStEdCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStEdStEdStEd" caption="Чат">
+	<dialog name="CIRCSettingsPage" cookie="BuBuBuBuStEdmsStStEdmsCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStCoStEdStEd" caption="Чат">
 		<control caption="Настройки _чата:"/>
 		<control caption="Метки chat integration"/>
 		<control caption="Метки времени"/>
@@ -4635,9 +4644,9 @@
 		<column from="Address" to="Адрес"/>
 		<column from="Port" to="Порт"/>
 		<column from="Time" to="Время"/>
-		<column from="Packets" to="Пакеты"/>
-		<column from="Bandwidth" to="Трафик"/>
+		<column from="Traffic" to="Трафик"/>
 		<column from="Total" to="Всего"/>
+		<column from="Packets" to="Пакеты"/>
 		<column from="Flow" to="Поток"/>
 		<column from="Leaves" to="Ветвей"/>
 		<column from="Mode" to="Режим"/>
@@ -4713,7 +4722,7 @@
 	<list name="CUploadQueueList">
 		<column from="Name" to="Название"/>
 		<column from="Criteria" to="Критерии"/>
-		<column from="Bandwidth" to="Трафик"/>
+		<column from="Minimum" to="Трафик"/>
 		<column from="Transfers" to="Загрузок"/>
 		<column from="Order" to="Порядок"/>
 	</list>

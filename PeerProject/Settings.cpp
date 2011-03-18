@@ -127,6 +127,7 @@ void CSettings::Load()
 	Add( _T("Interface"), _T("AutoComplete"), &Interface.AutoComplete, true );
 	Add( _T("Interface"), _T("CoolMenuEnable"), &Interface.CoolMenuEnable, true );
 	Add( _T("Interface"), _T("LowResMode"), &Interface.LowResMode, false );
+	Add( _T("Interface"), _T("RowSize"), &Interface.RowSize, 17, 1, 16, 20, _T(" px") );
 	Add( _T("Interface"), _T("RefreshRateGraph"), &Interface.RefreshRateGraph, 72, 1, 10, 60000, _T(" ms") );	// 30sec display areas
 	Add( _T("Interface"), _T("RefreshRateText"), &Interface.RefreshRateText, 650, 1, 10, 10000, _T(" ms") );	// 3x per 2 sec.
 	Add( _T("Interface"), _T("TipDelay"), &Interface.TipDelay, 500, 1, 100, 5000, _T(" ms") );
@@ -205,6 +206,7 @@ void CSettings::Load()
 	Add( _T("WebServices"), _T("ShareMonkeyCid"), &WebServices.ShareMonkeyCid );
 	Add( _T("WebServices"), _T("ShareMonkeyOkay"), &WebServices.ShareMonkeyOkay, false, true );
 	Add( _T("WebServices"), _T("ShareMonkeySaveThumbnail"), &WebServices.ShareMonkeySaveThumbnail, false, true );
+	Add( _T("WebServices"), _T("ShareMonkeyBaseURL"), &WebServices.ShareMonkeyBaseURL, _T("http://tools.sharemonkey.com/xml/") );	// Obsolete: Does not exist!
 
 	Add( _T("Search"), _T("AdultFilter"), &Search.AdultFilter, false );
 	Add( _T("Search"), _T("AdvancedPanel"), &Search.AdvancedPanel, true );
@@ -228,7 +230,6 @@ void CSettings::Load()
 	Add( _T("Search"), _T("ShowNames"), &Search.ShowNames, true );
 	Add( _T("Search"), _T("SpamFilterThreshold"), &Search.SpamFilterThreshold, 20, 1, 0, 100, _T("%") );
 	Add( _T("Search"), _T("SwitchToTransfers"), &Search.SwitchToTransfers, true );
-	Add( _T("Search"), _T("ShareMonkeyBaseURL"), &Search.ShareMonkeyBaseURL, _T("http://tools.sharemonkey.com/xml/") );	// Does not exist!
 	Add( _T("Search"), _T("SanityCheck"), &Search.SanityCheck, true );
 	Add( _T("Search"), _T("ClearPrevious"), &Search.ClearPrevious, 0, 1, 0, 2 );
 
@@ -437,22 +438,24 @@ void CSettings::Load()
 	Add( _T("eDonkey"), _T("StatsGlobalThrottle"), &eDonkey.StatsGlobalThrottle, 30*60*1000, 60*1000, 30, 120, _T(" m") );
 	Add( _T("eDonkey"), _T("StatsServerThrottle"), &eDonkey.StatsServerThrottle, 7*24*60*60, 24*60*60, 7, 28, _T(" d") );
 
-#ifndef LAN_MODE
-	Add( _T("BitTorrent"), _T("EnableAlways"), &BitTorrent.EnableAlways, true );
-	Add( _T("BitTorrent"), _T("EnableToday"), &BitTorrent.EnableToday, true );
-#else
-	Add( _T("BitTorrent"), _T("EnableAlways"), &BitTorrent.EnableAlways, false );
-	Add( _T("BitTorrent"), _T("EnableToday"), &BitTorrent.EnableToday, false );
-#endif // LAN
+	Add( _T("DC"), _T("ShowInterface"), &DC.ShowInterface, false );
+	Add( _T("DC"), _T("EnableAlways"), &DC.EnableAlways, false );
+	Add( _T("DC"), _T("NumServers"), &DC.NumServers, 1, 1, 0, 5 );
+	Add( _T("DC"), _T("QueryThrottle"), &DC.QueryThrottle, 2*60, 1, 30, 60*60, _T(" s") );
+	Add( _T("DC"), _T("ReAskTime"), &DC.ReAskTime, 60*1000, 1000, 30, 60*60, _T(" s") );
+	Add( _T("DC"), _T("DequeueTime"), &DC.DequeueTime, 5*60*1000, 1000, 2*60, 60*60, _T(" s") );
+
 	Add( _T("BitTorrent"), _T("AutoClear"), &BitTorrent.AutoClear, false );
 	Add( _T("BitTorrent"), _T("AutoSeed"), &BitTorrent.AutoSeed, true );
 	Add( _T("BitTorrent"), _T("BandwidthPercentage"), &BitTorrent.BandwidthPercentage, 80, 1, 50, 95, _T(" %") );
 	Add( _T("BitTorrent"), _T("ClearRatio"), &BitTorrent.ClearRatio, 120, 1, 100, 999, _T(" %") );
-	Add( _T("BitTorrent"), _T("DefaultTracker"), &BitTorrent.DefaultTracker );
+	Add( _T("BitTorrent"), _T("DefaultTracker"), &BitTorrent.DefaultTracker, _T("http://tracker.openbittorrent.com/announce") );
 	Add( _T("BitTorrent"), _T("DefaultTrackerPeriod"), &BitTorrent.DefaultTrackerPeriod, 5*60000, 60000, 2, 120, _T(" m") );
 	Add( _T("BitTorrent"), _T("DhtPruneTime"), &BitTorrent.DhtPruneTime, 30*60, 60, 10, 7*24*60*60, _T(" m") );
 	Add( _T("BitTorrent"), _T("DownloadConnections"), &BitTorrent.DownloadConnections, 40, 1, 1, 800 );
 	Add( _T("BitTorrent"), _T("DownloadTorrents"), &BitTorrent.DownloadTorrents, 3, 1, 1, 12 );
+	Add( _T("BitTorrent"), _T("EnableAlways"), &BitTorrent.EnableAlways, true );
+	Add( _T("BitTorrent"), _T("EnableToday"), &BitTorrent.EnableToday, true );
 	Add( _T("BitTorrent"), _T("Endgame"), &BitTorrent.Endgame, true );
 	Add( _T("BitTorrent"), _T("PreferenceBTSources"), &BitTorrent.PreferenceBTSources, true );
 	Add( _T("BitTorrent"), _T("LinkPing"), &BitTorrent.LinkPing, 120*1000, 1000, 10, 60*10, _T(" s") );
@@ -1179,7 +1182,7 @@ void CSettings::OnChangeConnectionSpeed()
 		BitTorrent.DownloadTorrents 	= 10;	// Should be able to handle several torrents
 	}
 
-	if( bLimited )	// Windows XP SP2+
+	if ( bLimited )	// Windows XP SP2+
 	{
 		Connection.ConnectThrottle		= max( Connection.ConnectThrottle, 250ul );
 		Downloads.ConnectThrottle		= max( Downloads.ConnectThrottle, 800ul );
@@ -1192,7 +1195,7 @@ void CSettings::OnChangeConnectionSpeed()
 
 		General.ItWasLimited			= true;
 	}
-	else if( General.ItWasLimited )
+	else if ( General.ItWasLimited )
 	{
 		// Revert Settings if Half-Open Limit Patch Applied
 		SetDefault( &Connection.ConnectThrottle );

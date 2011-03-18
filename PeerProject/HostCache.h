@@ -1,7 +1,7 @@
 //
 // HostCache.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -38,12 +38,14 @@ public:
 	DWORD		m_nUserCount;		// G2 leaf count / ED2K user count
 	DWORD		m_nUserLimit;		// G2 leaf limit / ED2K user limit
 	DWORD		m_nFileLimit;		// ED2K-server file limit
-	CString		m_sName;			// Host name
-	CString		m_sDescription;		// Host description
-	CString		m_sCountry; 		// Country code
 	DWORD		m_nTCPFlags;		// ED2K TCP flags (ED2K_SERVER_TCP_*)
 	DWORD		m_nUDPFlags;		// ED2K UDP flags (ED2K_SERVER_UDP_*)
 	BOOL		m_bCheckedLocally;	// Host was successfully accessed via TCP or UDP
+	CString		m_sName;			// Host name
+	CString		m_sDescription;		// Host description
+	CString		m_sUser;			// User name on this server (DC)
+	CString		m_sPass;			// User password on this server (DC)
+	CString		m_sCountry; 		// Country code
 
 	// Attributes: Contact Times
 	DWORD		m_tAdded;			// Time when host was constructed (in ticks)
@@ -71,15 +73,15 @@ public:
 	BYTE			m_nKADVersion;	// Kademlia version
 
 	CNeighbour*	ConnectTo(BOOL bAutomatic = FALSE);
-	CString		ToString(bool bLong = true) const;			// "10.0.0.1:6346 2002-04-30T08:30Z"
-	bool		IsExpired(const DWORD tNow) const throw();	// Is this host expired?
-	bool		IsThrottled(const DWORD tNow) const throw();// Is host temporary throttled down?
-	bool		CanConnect(const DWORD tNow) const throw();	// Can we connect to this host now?
-	bool		CanQuote(const DWORD tNow) const throw();	// Is this a recently seen host?
-	bool		CanQuery(const DWORD tNow) const throw();	// Can we UDP query this host? (G2/ed2k)
+	CString		ToString(bool bLong = true) const;		// "10.0.0.1:6346 2002-04-30T08:30Z"
+	bool		IsExpired(const DWORD tNow) const;		// Is this host expired?
+	bool		IsThrottled(const DWORD tNow) const;	// Is host temporary throttled down?
+	bool		CanConnect(const DWORD tNow) const;		// Can we connect to this host now?
+	bool		CanQuote(const DWORD tNow) const;		// Is this a recently seen host?
+	bool		CanQuery(const DWORD tNow) const;		// Can we UDP query this host? (G2/ed2k)
 	void		SetKey(DWORD nKey, const IN_ADDR* pHost = NULL);
 
-	inline DWORD Seen() const throw()
+	inline DWORD Seen() const
 	{
 		return m_tSeen;
 	}
@@ -91,7 +93,7 @@ protected:
 	bool		Update(WORD nPort, DWORD tSeen = 0, LPCTSTR pszVendor = NULL, DWORD nUptime = 0, DWORD nCurrentLeaves = 0, DWORD nLeafLimit = 0);
 	void		Serialize(CArchive& ar, int nVersion);
 
-	inline bool	IsValid() const throw()
+	inline bool	IsValid() const
 	{
 		return m_nProtocol != PROTOCOL_NULL &&
 			m_pAddress.s_addr != INADDR_ANY && m_pAddress.s_addr != INADDR_NONE &&
@@ -208,6 +210,9 @@ public:
 
 	inline CHostCacheHostPtr Find(const IN_ADDR* pAddress) const throw()
 	{
+		if ( pAddress->s_addr == INADDR_ANY ||
+			 pAddress->s_addr == INADDR_NONE )
+			return NULL;
 		CQuickLock oLock( m_pSection );
 		CHostCacheMap::const_iterator i = m_Hosts.find( *pAddress );
 		return ( i != m_Hosts.end() ) ? (*i).second : NULL;
@@ -273,6 +278,7 @@ public:
 	CHostCacheList	G1DNA;
 	CHostCacheList	BitTorrent;
 	CHostCacheList	Kademlia;
+	CHostCacheList	DC;
 
 	BOOL				Load();
 	BOOL				Save();
@@ -307,12 +313,14 @@ public:
 			return &BitTorrent;
 		case PROTOCOL_KAD:
 			return &Kademlia;
-		case PROTOCOL_NULL:
-		case PROTOCOL_ANY:
-		case PROTOCOL_HTTP:
-		case PROTOCOL_FTP:
+		case PROTOCOL_DC:
+			return &DC;
+		//case PROTOCOL_NULL:
+		//case PROTOCOL_ANY:
+		//case PROTOCOL_HTTP:
+		//case PROTOCOL_FTP:
 		default:
-			ASSERT(FALSE);
+		//	ASSERT(FALSE);
 			return NULL;
 		}
 	}

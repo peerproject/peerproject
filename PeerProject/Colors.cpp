@@ -1,7 +1,7 @@
 //
 // Colors.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2009-2010
+// This file is part of PeerProject (peerproject.org) © 2009-2011
 //
 // PeerProject is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Affero General Public License
@@ -34,9 +34,9 @@ CColors::CColors()
 {
 }
 
-CColors::~CColors()
-{
-}
+//CColors::~CColors()
+//{
+//}
 
 void CColors::Load()
 {
@@ -87,9 +87,9 @@ void CColors::CalculateColors(BOOL bCustom)
 
 	m_crPanelBorder				= RGB( 0, 0, 0 );
 	m_crPanelText				= RGB( 255, 255, 255 );
-	m_crPanelBack				= RGB( 60, 60, 60 );
+	m_crPanelBack				= RGB_DEFAULT_CASE;
 	m_crBannerText				= RGB( 250, 250, 255 );
-	m_crBannerBack				= RGB( 122, 160, 230 );
+	m_crBannerBack				= RGB_DEFAULT_CASE;
 	m_crSchemaRow[0]			= RGB( 245, 245, 255 );
 	m_crSchemaRow[1]			= RGB( 215, 225, 245 );
 

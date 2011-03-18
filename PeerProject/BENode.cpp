@@ -180,7 +180,8 @@ CBENode* CBENode::GetNode(LPCSTR pszKey) const
 
 	for ( DWORD nNode = (DWORD)m_nValue ; nNode ; nNode--, pNode += 2 )
 	{
-		if ( strcmp( pszKey, (LPCSTR)pNode[1] ) == 0 ) return *pNode;
+		if ( strcmp( pszKey, (LPCSTR)pNode[1] ) == 0 )
+			return *pNode;
 	}
 
 	return NULL;
@@ -330,22 +331,21 @@ const CString CBENode::Encode() const
 		sOutput = _T("(null)");
 		break;
 	case beString:
+		sOutput = _T('\"');
 		{
-			sOutput = _T('\"');
 			const QWORD nLen = min( m_nValue, 100ull );
 			for ( QWORD n = 0 ; n < nLen ; n++ )
 			{
 				sOutput += ( ( ( (LPSTR)m_pValue )[ n ] < ' ' ) ?
 					'.' : ( (LPSTR)m_pValue )[ n ] );
 			}
-			sOutput += _T('\"');
-			sTmp.Format( _T("[%I64i]"), m_nValue );
-			sOutput += sTmp;
 		}
+		sOutput += _T('\"');
+		sTmp.Format( _T("[%I64i]"), m_nValue );
+		sOutput += sTmp;
 		break;
 	case beInt:
-		sTmp.Format( _T("%I64i"), m_nValue );
-		sOutput = sTmp;
+		sOutput.Format( _T("%I64i"), m_nValue );
 		break;
 	case beList:
 		sOutput = _T("{ ");
@@ -353,8 +353,7 @@ const CString CBENode::Encode() const
 			CBENode** pNode = (CBENode**)m_pValue;
 			for ( QWORD n = 0 ; n < m_nValue ; n++, pNode++ )
 			{
-				if ( n )
-					sOutput += _T(", ");
+				if ( n ) sOutput += _T(", ");
 				sOutput += (*pNode)->Encode();
 			}
 		}
@@ -366,9 +365,8 @@ const CString CBENode::Encode() const
 			CBENode** pNode = (CBENode**)m_pValue;
 			for ( QWORD n = 0 ; n < m_nValue ; n++, pNode += 2 )
 			{
-				if ( n )
-					sOutput += _T(", ");
-				sTmp.Format( _T("\"%s\" = "), (LPCSTR)pNode[ 1 ] );
+				if ( n ) sOutput += _T(", ");
+				sTmp.Format( _T("\"%s\" = "), (CString)(LPCSTR)pNode[ 1 ] );
 				sOutput += sTmp;
 				sOutput += (*pNode)->Encode();
 			}
@@ -553,8 +551,7 @@ CString CBENode::GetString() const
 
 bool CBENode::GetString(Hashes::BtGuid& oGUID) const
 {
-	if ( m_nType != beString ||
-		 m_nValue != oGUID.byteCount )
+	if ( m_nType != beString || m_nValue != oGUID.byteCount )
 		 return false;
 
 	CopyMemory( &oGUID[0], m_pValue, oGUID.byteCount );

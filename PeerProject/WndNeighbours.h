@@ -1,7 +1,7 @@
 //
 // WndNeighbours.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -37,16 +37,16 @@ protected:
 	CCoolBarCtrl		m_wndToolBar;
 	CTipListCtrl		m_wndList;
 	CNeighbourTipCtrl	m_wndTip;
-	CImageList			m_gdiImageList;
 	CLiveListSizer		m_pSizer;
+	CImageList			m_gdiImageList;
 	DWORD				m_tLastUpdate;
 
 // Operations
 public:
-	void			Update();
-	void			OpenPacketWnd(BOOL bIncoming, BOOL bOutgoing);
-	void			DrawEmptyMessage(CDC* pDC);
-	CNeighbour*		GetItem(int nItem);
+	void		Update();
+	void		OpenPacketWnd(BOOL bIncoming, BOOL bOutgoing);
+	void		DrawEmptyMessage(CDC* pDC);
+	CNeighbour*	GetItem(int nItem);
 
 // Overrides
 public:

@@ -1,7 +1,7 @@
 //
 // WindowManager.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2006.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -704,6 +704,9 @@ void CWindowManager::OnSize(UINT nType, int cx, int cy)
 
 BOOL CWindowManager::OnEraseBkgnd(CDC* pDC)
 {
+//	if ( Colors.m_crPanelBack == RGB_DEFAULT_CASE )
+//		return TRUE;
+
 	CRect rc;
 	GetClientRect( &rc );
 	pDC->FillSolidRect( &rc, Colors.m_crPanelBack );

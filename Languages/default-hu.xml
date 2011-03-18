@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Hungarian Skin File -->
 
-<!-- Translation based on default-en.xml r62 -->
+<!-- Translation based on default-en.xml r64 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2504,8 +2504,8 @@
 	<tip id="ID_SEARCH_STOP" message="Eredmények fogadásának leállítása."/>
 	<tip id="ID_SEARCHMONITOR_CLEAR" message="Törli az összes keresési bejegyzést."/>
 	<tip id="ID_SEARCHMONITOR_PAUSE" message="Keresések megfigelésének leállítása."/>
-	<tip id="ID_SECURITY_ADD" message="Új szabály hozzáadása..."/>
 	<tip id="ID_SECURITY_BAN" message="A kiválasztott felhasználó kitiltása egy időre."/>
+	<tip id="ID_SECURITY_ADD" message="Új szabály hozzáadása..."/>
 	<tip id="ID_SECURITY_EDIT" message="A kiválasztott biztonsági szabály szerkesztése..."/>
 	<tip id="ID_SECURITY_EXPORT" message="Biztonsági szabályok exportálása..."/>
 	<tip id="ID_SECURITY_IMPORT" message="Biztonsági szabályok importálása..."/>
@@ -2515,6 +2515,14 @@
 	<tip id="ID_SECURITY_POLICY_DENY" message="Beállítja az alapértelmezett biztonsági szabályt, ami mindenhol tiltva van."/>
 	<tip id="ID_SECURITY_REMOVE" message="A kiválasztott biztonsági szabály eltávolítása."/>
 	<tip id="ID_SECURITY_RESET" message="A kiválasztott biztonsági szabály számlálójának nullázása."/>
+	<tip id="ID_SCHEDULER_ADD" message="Új szabály hozzáadása..."/>
+	<tip id="ID_SCHEDULER_EDIT" message="A kiválasztott biztonsági szabály szerkesztése..."/>
+	<tip id="ID_SCHEDULER_ACTIVATE" message="A kijelölt feltöltés(ek) törlése."/>
+	<tip id="ID_SCHEDULER_DEACTIVATE" message="Kapcsolódás a kiválasztott hálózatokhoz."/>
+	<tip id="ID_SCHEDULER_EXPORT" message="Biztonsági szabályok exportálása..."/>
+	<tip id="ID_SCHEDULER_IMPORT" message="Biztonsági szabályok importálása..."/>
+	<tip id="ID_SCHEDULER_REMOVE" message="A kiválasztott letöltés(ek) törlése."/>
+	<tip id="ID_SCHEDULER_REMOVE_ALL" message="Delete all scheduled tasks."/>
 	<tip id="ID_SYSTEM_CLEAR" message="A napló törlése."/>
 	<tip id="ID_SYSTEM_COPY" message="Kijelölt sorok másolása."/>
 	<tip id="ID_SYSTEM_TIMESTAMP" message="Minden sorhoz időbélyeget ad."/>
@@ -3155,7 +3163,7 @@
 	<string id="20706" value="Ultrapeer mód %lu szomszéddal.  %s a helyi könyvtárban."/>
 	<string id="20707" value="Kapcsolódás..."/>
 	<string id="20708" value="Nincs kapcsolat."/>
-	<string id="20710" value="(Nincs forrás)"/>
+	<string id="20710" value="Klíring"/>
 	<string id="20711" value="Nem mozgatható"/>
 	<string id="20712" value="Elakadva"/>
 	<string id="20713" value="Sorbanállás"/>
@@ -3181,6 +3189,7 @@
 	<string id="20733" value="forrás"/>
 	<string id="20734" value="forrás"/>
 	<string id="20735" value="forrás"/>
+	<string id="20736" value="(Nincs forrás)"/>
 	<string id="20740" value="TigerTree"/>
 	<string id="20741" value="Torrent"/>
 	<string id="20742" value="Tracker üzemen kívül"/>
@@ -3416,7 +3425,7 @@
 		<control caption="Kéretlen üzenetek kiszűrése"/>
 		<control caption="Trágár szövegek kiszűrése"/>
 	</dialog>
-	<dialog name="CIRCSettingsPage" cookie="BuBuBuBuStEdStStEdCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStEdStEdStEd" caption="Csevegés">
+	<dialog name="CIRCSettingsPage" cookie="BuBuBuBuStEdmsStStEdmsCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStCoStEdStEd" caption="Csevegés">
 		<control caption="_Kliens beállítások"/>
 		<control caption="Csevegés intergrálása"/>
 		<control caption="Időbélyeg megjelenítése"/>
@@ -4532,9 +4541,9 @@
 		<column from="Address" to="Cím"/>
 		<column from="Port" to="Port"/>
 		<column from="Time" to="Idő"/>
-		<column from="Packets" to="Csomagok"/>
-		<column from="Bandwidth" to="Sávszél"/>
+		<column from="Traffic" to="Sávszél"/>
 		<column from="Total" to="Teljes forgalom"/>
+		<column from="Packets" to="Csomagok"/>
 		<column from="Flow" to="Folyamat"/>
 		<column from="Leaves" to="Leafek"/>
 		<column from="Mode" to="Mód"/>
@@ -4610,7 +4619,7 @@
 	<list name="CUploadQueueList">
 		<column from="Name" to="Név"/>
 		<column from="Criteria" to="Ismérv"/>
-		<column from="Bandwidth" to="Sávszél"/>
+		<column from="Minimum" to="Sávszél"/>
 		<column from="Transfers" to="Forgalom"/>
 		<column from="Order" to="Sorrend"/>
 	</list>

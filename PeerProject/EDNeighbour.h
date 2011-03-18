@@ -1,7 +1,7 @@
 //
 // EDNeighbour.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -40,7 +40,6 @@ public:
 	DWORD		m_nTCPFlags;
 	DWORD		m_nUDPFlags;
 	DWORD		m_nFilesSent;
-	CString		m_sServerName;
 	CList< Hashes::Guid > m_pQueries;
 
 // Operations
@@ -59,7 +58,7 @@ private:
 	BOOL	OnSearchResults(CEDPacket* pPacket);
 	BOOL	OnFoundSources(CEDPacket* pPacket);
 	void	SendSharedFiles();
-	bool	IsGoodSize(QWORD nFileSize) const;		// File has good size for current ed2k-server
+	bool	IsGoodSize(QWORD nFileSize) const;		// Acceptable file for current ed2k-server
 
 // Overrides
 public:

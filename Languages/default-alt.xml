@@ -783,7 +783,7 @@
 		<control caption="_Select Plugin..."/>
 		<control caption="Note: Choosing an external Media Handler will disable Media/Visualisation Plugins."/>
 	</dialog>
-	<dialog name="CIRCSettingsPage" cookie="BuBuBuBuStEdStStEdCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStEdStEdStEd" caption="Chat">
+	<dialog name="CIRCSettingsPage" cookie="BuBuBuBuStEdmsStStEdmsCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStCoStEdStEd" caption="Chat">
 		<control caption="Client _Options:"/>
 		<control caption="Show chat integration"/>
 		<control caption="Show timestamp"/>

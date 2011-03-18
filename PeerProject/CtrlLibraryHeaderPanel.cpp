@@ -1,7 +1,7 @@
 //
 // CtrlLibraryHeaderPanel.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -138,7 +138,7 @@ void CLibraryHeaderPanel::OnSkinChange()
 
 	if ( HBITMAP hMark = Skin.GetWatermark( _T("CLibraryHeaderPanel") ) )
 		m_bmWatermark.Attach( hMark );
-	else if ( Colors.m_crBannerBack == RGB( 122, 160, 230 ) )
+	else if ( Colors.m_crBannerBack == RGB_DEFAULT_CASE )
 		m_bmWatermark.LoadBitmap( IDB_BANNER_MARK );
 
 	Update();
@@ -162,7 +162,8 @@ CAlbumFolder* CLibraryHeaderPanel::GetSelectedAlbum() const
 
 int CLibraryHeaderPanel::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
-	if ( CWnd::OnCreate( lpCreateStruct ) == -1 ) return -1;
+	if ( CWnd::OnCreate( lpCreateStruct ) == -1 )
+		return -1;
 
 	m_szBuffer = CSize( 0, 0 );
 	OnSkinChange();
@@ -246,8 +247,8 @@ void CLibraryHeaderPanel::DoPaint(CDC* pDC, CRect& rcClient)
 	if ( m_pMetadata.GetCount() )
 	{
 		CRect rcMeta( &rcWork );
-		rcMeta.left		= rcWork.right - m_nMetaWidth;
-		rcWork.right	= rcMeta.left - 8;
+		rcMeta.left  = rcWork.right - m_nMetaWidth;
+		rcWork.right = rcMeta.left - 8;
 
 		int nY = rcMeta.top;
 

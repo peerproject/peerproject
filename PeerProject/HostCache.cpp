@@ -1,7 +1,7 @@
 //
 // HostCache.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -48,6 +48,7 @@ CHostCache::CHostCache()
 	, eDonkey	( PROTOCOL_ED2K )
 	, BitTorrent( PROTOCOL_BT )
 	, Kademlia	( PROTOCOL_KAD )
+	, DC		( PROTOCOL_DC )
 	, m_tLastPruneTime ( 0 )
 {
 	m_pList.AddTail( &Gnutella1 );
@@ -56,6 +57,7 @@ CHostCache::CHostCache()
 	m_pList.AddTail( &G1DNA );
 	m_pList.AddTail( &BitTorrent );
 	m_pList.AddTail( &Kademlia );
+	m_pList.AddTail( &DC );
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -311,7 +313,7 @@ void CHostCacheList::Clear()
 {
 	CQuickLock oLock( m_pSection );
 
-	for( CHostCacheMap::const_iterator i = m_Hosts.begin(); i != m_Hosts.end(); ++i )
+	for ( CHostCacheMap::const_iterator i = m_Hosts.begin() ; i != m_Hosts.end() ; ++i )
 	{
 		delete (*i).second;
 	}
@@ -450,7 +452,7 @@ bool CHostCacheList::Remove(CHostCacheHostPtr pHost)
 {
 	CQuickLock oLock( m_pSection );
 
-	for( CHostCacheMap::iterator i = m_Hosts.begin(); i != m_Hosts.end(); ++i )
+	for ( CHostCacheMap::iterator i = m_Hosts.begin() ; i != m_Hosts.end() ; ++i )
 	{
 		if ( (*i).second == pHost )
 		{
@@ -487,7 +489,7 @@ void CHostCacheList::SanityCheck()
 {
 	CQuickLock oLock( m_pSection );
 
-	for( CHostCacheMap::iterator i = m_Hosts.begin(); i != m_Hosts.end(); )
+	for ( CHostCacheMap::iterator i = m_Hosts.begin() ; i != m_Hosts.end() ; )
 	{
 		CHostCacheHostPtr pHost = (*i).second;
 		if ( Security.IsDenied( &pHost->m_pAddress ) ||
@@ -557,7 +559,7 @@ void CHostCacheList::OnSuccess(const IN_ADDR* pAddress, WORD nPort, bool bUpdate
 //{
 //	CQuickLock oLock( m_pSection );
 //	DWORD tNow = static_cast< DWORD >( time( NULL ) );
-//	for( CHostCacheMap::iterator i = m_Hosts.begin(); i != m_Hosts.end(); )
+//	for ( CHostCacheMap::iterator i = m_Hosts.begin() ; i != m_Hosts.end() ; )
 //	{
 //		bool bRemoved = false;
 //		CHostCacheHostPtr pHost = (*i).second;
@@ -587,7 +589,7 @@ void CHostCacheList::PruneOldHosts()
 
 	DWORD tNow = static_cast< DWORD >( time( NULL ) );
 
-	for( CHostCacheMap::iterator i = m_Hosts.begin(); i != m_Hosts.end(); )
+	for ( CHostCacheMap::iterator i = m_Hosts.begin() ; i != m_Hosts.end() ; )
 	{
 		CHostCacheHostPtr pHost = (*i).second;
 
@@ -629,8 +631,8 @@ void CHostCacheList::PruneHosts()
 {
 	CQuickLock oLock( m_pSection );
 
-	for( CHostCacheIndex::iterator i = m_HostsTime.end();
-		m_Hosts.size() > Settings.Gnutella.HostCacheSize && i != m_HostsTime.begin(); )
+	for ( CHostCacheIndex::iterator i = m_HostsTime.end() ;
+		m_Hosts.size() > Settings.Gnutella.HostCacheSize && i != m_HostsTime.begin() ; )
 	{
 		--i;
 		CHostCacheHostPtr pHost = (*i);
@@ -643,8 +645,8 @@ void CHostCacheList::PruneHosts()
 		}
 	}
 
-	for( CHostCacheIndex::iterator i = m_HostsTime.end();
-		m_Hosts.size() > Settings.Gnutella.HostCacheSize && i != m_HostsTime.begin(); )
+	for ( CHostCacheIndex::iterator i = m_HostsTime.end() ;
+		m_Hosts.size() > Settings.Gnutella.HostCacheSize && i != m_HostsTime.begin() ; )
 	{
 		--i;
 		CHostCacheHostPtr pHost = (*i);
@@ -668,7 +670,7 @@ void CHostCacheList::Serialize(CArchive& ar, int nVersion)
 	if ( ar.IsStoring() )
 	{
 		ar.WriteCount( GetCount() );
-		for( CHostCacheMap::const_iterator i = m_Hosts.begin(); i != m_Hosts.end(); ++i )
+		for ( CHostCacheMap::const_iterator i = m_Hosts.begin() ; i != m_Hosts.end() ; ++i )
 		{
 			CHostCacheHostPtr pHost = (*i).second;
 			pHost->Serialize( ar, nVersion );
@@ -677,7 +679,7 @@ void CHostCacheList::Serialize(CArchive& ar, int nVersion)
 	else // Loading
 	{
 		DWORD_PTR nCount = ar.ReadCount();
-		for ( DWORD_PTR nItem = 0 ; nItem < nCount; nItem++ )
+		for ( DWORD_PTR nItem = 0 ; nItem < nCount ; nItem++ )
 		{
 			CHostCacheHostPtr pHost = new CHostCacheHost( m_nProtocol );
 			if ( pHost )
@@ -1194,10 +1196,16 @@ CNeighbour* CHostCacheHost::ConnectTo(BOOL bAutomatic)
 	case PROTOCOL_G1:
 	case PROTOCOL_G2:
 	case PROTOCOL_ED2K:
+	case PROTOCOL_DC:
+		//if ( m_pAddress.s_addr == INADDR_ANY )
+		//{
+		//	m_tConnect += 30;	// Throttle for 30 seconds
+		//	return Network.ConnectTo( m_sAddress, m_nPort, m_nProtocol, FALSE ) != FALSE;
+		//}
 		return Neighbours.ConnectTo( m_pAddress, m_nPort, m_nProtocol, bAutomatic );
 	case PROTOCOL_KAD:
 		{
-			SOCKADDR_IN pHost = { 0 };
+			SOCKADDR_IN pHost = {};
 			pHost.sin_family = AF_INET;
 			pHost.sin_addr.s_addr = m_pAddress.s_addr;
 			pHost.sin_port = htons( m_nUDPPort );
@@ -1237,7 +1245,7 @@ CString CHostCacheHost::ToString(bool bLong) const
 	return str;
 }
 
-bool CHostCacheHost::IsExpired(const DWORD tNow) const throw()
+bool CHostCacheHost::IsExpired(const DWORD tNow) const
 {
 	switch ( m_nProtocol )
 	{
@@ -1246,6 +1254,7 @@ bool CHostCacheHost::IsExpired(const DWORD tNow) const throw()
 	case PROTOCOL_G2:
 		return m_tSeen && ( tNow - m_tSeen > Settings.Gnutella2.HostExpire );
 	case PROTOCOL_ED2K:
+	case PROTOCOL_DC:
 		return false;	// Never
 	case PROTOCOL_BT:
 		return m_tSeen && ( tNow - m_tSeen > Settings.BitTorrent.DhtPruneTime );
@@ -1256,7 +1265,7 @@ bool CHostCacheHost::IsExpired(const DWORD tNow) const throw()
 	}
 }
 
-bool CHostCacheHost::IsThrottled(const DWORD tNow) const throw()
+bool CHostCacheHost::IsThrottled(const DWORD tNow) const
 {
 	switch ( m_nProtocol )
 	{
@@ -1273,7 +1282,7 @@ bool CHostCacheHost::IsThrottled(const DWORD tNow) const throw()
 //////////////////////////////////////////////////////////////////////
 // CHostCacheHost connection test
 
-bool CHostCacheHost::CanConnect(const DWORD tNow) const throw()
+bool CHostCacheHost::CanConnect(const DWORD tNow) const
 {
 	// Don't connect to self
 	if ( Settings.Connection.IgnoreOwnIP && Network.IsSelfIP( m_pAddress ) ) return false;
@@ -1289,7 +1298,7 @@ bool CHostCacheHost::CanConnect(const DWORD tNow) const throw()
 //////////////////////////////////////////////////////////////////////
 // CHostCacheHost quote test
 
-bool CHostCacheHost::CanQuote(const DWORD tNow) const throw()
+bool CHostCacheHost::CanQuote(const DWORD tNow) const
 {
 	// If a host isn't dead and isn't expired, we can tell others about it
 	return ( m_nFailures == 0 ) && ( ! IsExpired( tNow ) );
@@ -1299,7 +1308,7 @@ bool CHostCacheHost::CanQuote(const DWORD tNow) const throw()
 // CHostCacheHost query test
 
 // Can we UDP query this host? (G2/ED2K/KAD/BT)
-bool CHostCacheHost::CanQuery(const DWORD tNow) const throw()
+bool CHostCacheHost::CanQuery(const DWORD tNow) const
 {
 	// Retry After check, for all
 	if ( m_tRetryAfter != 0 && tNow < m_tRetryAfter ) return false;
@@ -1343,14 +1352,16 @@ bool CHostCacheHost::CanQuery(const DWORD tNow) const throw()
 		// Don't query too fast
 		return ( tNow - m_tQuery ) >= 90u;
 
+	case PROTOCOL_DC:
+		if ( ! Network.IsConnected() ) return false;
+		return true;
+
 	case PROTOCOL_KAD:
-		// ToDo: Must support KAD
 		if ( ! Network.IsConnected() ) return false;
 
 		// If haven't queried yet, its ok
 		//if ( m_tQuery == 0 ) return true;
-
-		return true;	// ToDo: Fix KAD
+		return true;	// ToDo: Support KAD
 
 	default:
 		return false;
@@ -1362,13 +1373,12 @@ bool CHostCacheHost::CanQuery(const DWORD tNow) const throw()
 
 void CHostCacheHost::SetKey(DWORD nKey, const IN_ADDR* pHost)
 {
-	if ( nKey )
-	{
-		m_tAck		= 0;
-		m_nFailures	= 0;
-		m_tFailure	= 0;
-		m_nKeyValue	= nKey;
-		m_tKeyTime	= static_cast< DWORD >( time( NULL ) );
-		m_nKeyHost	= pHost ? pHost->S_un.S_addr : Network.m_pHost.sin_addr.S_un.S_addr;
-	}
+	if ( ! nKey ) return;
+
+	m_tAck		= 0;
+	m_nFailures	= 0;
+	m_tFailure	= 0;
+	m_nKeyValue	= nKey;
+	m_tKeyTime	= static_cast< DWORD >( time( NULL ) );
+	m_nKeyHost	= pHost ? pHost->S_un.S_addr : Network.m_pHost.sin_addr.S_un.S_addr;
 }

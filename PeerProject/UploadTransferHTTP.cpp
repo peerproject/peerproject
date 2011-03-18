@@ -1,7 +1,7 @@
 //
 // UploadTransferHTTP.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -809,8 +809,8 @@ BOOL CUploadTransferHTTP::RequestPartialFile(CDownload* pDownload)
 
 	ASSERT( m_nFileBase == 0 );
 
-	m_bTigerTree	= ( m_oTiger && pDownload->GetTigerTree() != NULL );
-	m_bMetadata		= pDownload->HasMetadata();
+	m_bTigerTree = ( m_oTiger && pDownload->GetTigerTree() != NULL );
+	m_bMetadata  = pDownload->HasMetadata();
 
 	if ( ! m_sLocations.IsEmpty() )
 	{
@@ -826,7 +826,7 @@ BOOL CUploadTransferHTTP::RequestPartialFile(CDownload* pDownload)
 
 	pDownload->GetAvailableRanges( m_sRanges );
 
-	if ( m_bRange && m_nOffset == 0 && m_nLength == SIZE_UNKNOWN )
+	if ( ! m_bRange || ( m_nOffset == 0 && m_nLength == SIZE_UNKNOWN ) )
 		pDownload->GetRandomRange( m_nOffset, m_nLength );
 
 	if ( m_nLength == SIZE_UNKNOWN )
@@ -837,10 +837,10 @@ BOOL CUploadTransferHTTP::RequestPartialFile(CDownload* pDownload)
 
 	if ( pDownload->IsMoving() )
 	{
-		if ( GetTickCount() - pDownload->m_tCompleted < 60 * 60 * 1000 ) // 1 hour
+		if ( GetTickCount() - pDownload->m_tCompleted < 60 * 60 * 1000 )	// 1 hour
 		{
 			Write( _P("HTTP/1.1 503 Range Temporarily Unavailable\r\n") );
-			Write( _P("Retry-After: 60\r\n") ); // 1 min
+			Write( _P("Retry-After: 60\r\n") );		// 1 min
 		}
 		else
 		{
@@ -1692,7 +1692,7 @@ BOOL CUploadTransferHTTP::RequestHostBrowse()
 {
 	CBuffer pBuffer;
 
-	DWORD nExisting = static_cast< DWORD >( Uploads.GetCount( this, upsBrowse ) );
+	const DWORD nExisting = static_cast< DWORD >( Uploads.GetCount( this, upsBrowse ) );
 
 	if ( nExisting >= Settings.Uploads.PreviewTransfers )
 	{
@@ -1709,12 +1709,13 @@ BOOL CUploadTransferHTTP::RequestHostBrowse()
 			pSearch.Execute( 0 );
 		}
 	}
-	else
+	else // Rich G2
 	{
 		if ( Settings.Community.ServeProfile && MyProfile.IsValid() )
 		{
+			const CString strXML = MyProfile.GetPublicXML( m_sUserAgent )->ToString( TRUE );
+
 			CG2Packet* pProfile = CG2Packet::New( G2_PACKET_PROFILE_DELIVERY, TRUE );
-			CString strXML = MyProfile.GetXML()->ToString( TRUE );
 			pProfile->WritePacket( G2_PACKET_XML, pProfile->GetStringLen( strXML ) );
 			pProfile->WriteString( strXML, FALSE );
 			pProfile->ToBuffer( &pBuffer );
@@ -1780,38 +1781,36 @@ BOOL CUploadTransferHTTP::RequestHostBrowse()
 
 void CUploadTransferHTTP::SendResponse(UINT nResourceID, BOOL bFileHeaders)
 {
+	// Process About.htm/etc.
 	CString strBody( ::LoadHTML( GetModuleHandle( NULL ), nResourceID ) ), strResponse;
 
-	int nBreak	= strBody.Find( _T("\r\n") );
-	bool bWindowsEOL = true;
+	int nBreak = strBody.Find( _T("\r\n") ) + 2;
+	if ( nBreak < 2 )
+		nBreak = strBody.Find( _T("\n") ) + 1;
 
-	if ( nBreak == -1 )
-	{
-		nBreak	= strBody.Find( _T("\n") );
-		bWindowsEOL = false;
-	}
-	strResponse	= strBody.Left( nBreak + ( bWindowsEOL ? 2 : 1 ) );
-	strBody		= strBody.Mid( nBreak + ( bWindowsEOL ? 2 : 1 ) );
+	strResponse	= strBody.Left( nBreak );
+	strBody		= strBody.Mid( nBreak );
 
+	// Process custom keywords:
 	for (;;)
 	{
-		int nStart = strBody.Find( _T("<%") );
+		const int nStart = strBody.Find( _T("<%") );
 		if ( nStart < 0 ) break;
 
-		int nEnd = strBody.Find( _T("%>") );
+		const int nEnd = strBody.Find( _T("%>") );
 		if ( nEnd < nStart ) break;
 
 		CString strReplace = strBody.Mid( nStart + 2, nEnd - nStart - 2 );
 		strReplace.Trim();
 
-		if ( strReplace.CompareNoCase( _T("Name") ) == 0 )
+		if ( strReplace.CompareNoCase( _T("Version") ) == 0 )
+			strReplace = theApp.m_sVersion;
+		else if ( strReplace.CompareNoCase( _T("Name") ) == 0 )
 			strReplace = m_sName;
 		else if ( strReplace.CompareNoCase( _T("SHA1") ) == 0 )
 			strReplace = m_oSHA1.toString();
 		else if ( strReplace.CompareNoCase( _T("URN") ) == 0 )
 			strReplace = m_oSHA1.toUrn();
-		else if ( strReplace.CompareNoCase( _T("Version") ) == 0 )
-			strReplace = theApp.m_sVersion;
 		else if ( strReplace.Find( _T("Neighbours") ) == 0 )
 			GetNeighbourList( strReplace );
 		else if ( strReplace.CompareNoCase( _T("ListenIP") ) == 0 )
@@ -1866,14 +1865,14 @@ void CUploadTransferHTTP::GetNeighbourList(CString& strOutput)
 		{ _T("eDonkey2000"), _T("eDonkey2000"), _T("eDonkey2000") }
 	};
 
-	// Strip off the leading "Neighbours " (length 11) and use the rest as a format string
-	CString strFormat = strOutput.Right( strOutput.GetLength() - 11 );
+	// Strip off the leading "Neighbours" keyword (length 10) and use the rest as a format string
+	CString strFormat( strOutput.Mid( 10 ) );
 	strOutput.Empty();
 
 	CSingleLock pLock( &Network.m_pSection );
-	if ( ! pLock.Lock( 100 ) ) return;
+	if ( ! pLock.Lock( 200 ) ) return;
 
-	DWORD tNow = GetTickCount();
+	const DWORD tNow = GetTickCount();
 
 	for ( POSITION pos = Neighbours.GetIterator() ; pos ; )
 	{
@@ -1881,10 +1880,9 @@ void CUploadTransferHTTP::GetNeighbourList(CString& strOutput)
 
 		if ( pNeighbour->m_nState == nrsConnected )
 		{
+			const DWORD nTime = ( tNow - pNeighbour->m_tConnected ) / 1000;
+
 			CString strNode;
-
-			DWORD nTime = ( tNow - pNeighbour->m_tConnected ) / 1000;
-
 			strNode.Format( strFormat,
 				(LPCTSTR)pNeighbour->m_sAddress, htons( pNeighbour->m_pHost.sin_port ),
 				(LPCTSTR)pNeighbour->m_sAddress, htons( pNeighbour->m_pHost.sin_port ),

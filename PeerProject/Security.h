@@ -88,10 +88,10 @@ public:
 	BOOL			IsDenied(LPCTSTR pszContent);
 	BOOL			IsDenied(const CPeerProjectFile* pFile);
 	BOOL			IsDenied(const CQuerySearch* pQuery, const CString& strContent);
-	void			Expire();
+	BOOL			Import(LPCTSTR pszFile);
 	BOOL			Load();
 	BOOL			Save();
-	BOOL			Import(LPCTSTR pszFile);
+	void			Expire();
 
 	// Don't ban GPL breakers, but don't offer leaf slots to them. Ban others.
 	BOOL			IsClientBad(const CString& sUserAgent) const;
@@ -115,7 +115,7 @@ public:
 	CSecureRule& operator=(const CSecureRule& pRule);
 	~CSecureRule();
 
-	typedef enum { srAddress, srContentAny, srContentAll, srContentRegExp, srSizeType } RuleType;
+	typedef enum { srAddress, srContentAny, srContentAll, srContentRegExp, srContentHash, srSizeType } RuleType;
 	enum { srNull, srAccept, srDeny };
 	enum { srIndefinite = 0, srSession = 1 };
 
@@ -142,8 +142,9 @@ public:
 	CString 	GetContentWords() const;
 	void		SetContentWords(const CString& strContent);
 	void		Serialize(CArchive& ar, int nVersion);
-	BOOL		FromXML(CXMLElement* pXML);
+
 	CXMLElement* ToXML();
+	BOOL		FromXML(CXMLElement* pXML);
 	CString		ToGnucleusString() const;
 	BOOL		FromGnucleusString(CString& str);
 };

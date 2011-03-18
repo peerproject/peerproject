@@ -1,7 +1,7 @@
 //
 // Neighbour.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -49,7 +49,7 @@ typedef enum NeighbourStateEnum
 // Record if the remote computer is in the same network role as us, or in a higher or lower one
 typedef enum NeighbourNodeEnum
 {
-	// The remote computer can be a leaf, or an ultrapeer or hub, and so can we
+	// The remote computer can be a leaf, or ultrapeer, or hub, and so can we
 	ntNode,			// We are both Gnutella ultrapeers or Gnutella2 hubs
 	ntHub,			// We are a leaf, and this connection is to a Gnutella ultrapeer or Gnutella2 hub above us
 	ntLeaf			// We are a Gnutella ultrapeer or Gnutella2 hub, and this connection is to a leaf below us
@@ -71,43 +71,44 @@ protected:
 
 // Attributes: State
 public:
-	DWORD			m_nRunCookie;		// The number of times this neighbour has been run, CNeighboursBase::OnRun uses this to run each neighbour in the list once
-	NrsState		m_nState;			// Neighbour state, like connecting, handshake 1, 2, or 3, or rejected
-	CVendor*		m_pVendor;
-	Hashes::Guid	m_oGUID;
-	CGProfile*		m_pProfile;
-	Hashes::Guid	m_oMoreResultsGUID;	// GUID of the last search, used to get more results (do)
+	DWORD		m_nRunCookie;			// The number of times this neighbour has been run, CNeighboursBase::OnRun uses this to run each neighbour in the list once
+	NrsState	m_nState;				// Neighbour state, like connecting, handshake 1, 2, or 3, or rejected
+	CVendor*	m_pVendor;
+	CGProfile*	m_pProfile;
+	Hashes::Guid m_oGUID;
+	Hashes::Guid m_oMoreResultsGUID;	// GUID of the last search, used to get more results (do)
+	CString		m_sServerName;			// Server name, primarily for eD2K and DC++ hubs
 
 // Attributes: Capabilities
 public:
-	BOOL	m_bAutomatic;
-	NrsNode	m_nNodeType;				// This connection is to a hub above us, ntHub, a leaf below us, ntLeaf, or a hub just like us, ntNode
-	BOOL	m_bQueryRouting;
-	BOOL	m_bPongCaching;
-	BOOL	m_bVendorMsg;				// True if the remote computer told us it supports vendor-specific messages
-	BOOL	m_bGGEP;
-	DWORD	m_tLastQuery;				// The time we last got a query packet, recorded as the number of seconds since 1970
-	BOOL	m_bBadClient;				// Is the remote client running a 'bad' client- GPL rip, buggy, etc. (not banned, though)
+	NrsNode		m_nNodeType;			// This connection is to a hub above us, ntHub, a leaf below us, ntLeaf, or a hub just like us, ntNode
+	BOOL		m_bAutomatic;
+	BOOL		m_bQueryRouting;
+	BOOL		m_bPongCaching;
+	BOOL		m_bVendorMsg;			// True if the remote computer told us it supports vendor-specific messages
+	BOOL		m_bGGEP;
+	BOOL		m_bBadClient;			// Is the remote client running a 'bad' client- GPL rip, buggy, etc. (not banned, though)
+	DWORD		m_tLastQuery;			// The time we last got a query packet, recorded as the number of seconds since 1970
 
-	DWORD	m_nDegree;					// "X-Degree: n" (-1 if not set)
-	DWORD	m_nMaxTTL;					// "X-Max-TTL: n" (-1 if not set)
-	BOOL	m_bDynamicQuerying;			// "X-Dynamic-Querying: 0.1" (default: false)
-	BOOL	m_bUltrapeerQueryRouting;	// "X-Ultrapeer-Query-Routing: 0.1" (default: false)
-	CString	m_sLocalePref;				// "X-Locale-Pref: en" ("" if not set)
-	BOOL	m_bRequeries;				// "X-Requeries: false" (default: true)
-	BOOL	m_bExtProbes;				// "X-Ext-Probes: 0.1" (default: false)
+	DWORD		m_nDegree;				// "X-Degree: n" (-1 if not set)
+	DWORD		m_nMaxTTL;				// "X-Max-TTL: n" (-1 if not set)
+	BOOL		m_bDynamicQuerying;		// "X-Dynamic-Querying: 0.1" (default: false)
+	BOOL		m_bUltrapeerQueryRouting;	// "X-Ultrapeer-Query-Routing: 0.1" (default: false)
+	BOOL		m_bRequeries;			// "X-Requeries: false" (default: true)
+	BOOL		m_bExtProbes;			// "X-Ext-Probes: 0.1" (default: false)
+	CString 	m_sLocalePref;			// "X-Locale-Pref: en" ("" if not set) -UNUSED?
 
 // Attributes: Statistics
 public:
-	DWORD m_nInputCount;
-	DWORD m_nOutputCount;
-	DWORD m_nDropCount;
-	DWORD m_nLostCount;
-	DWORD m_nOutbound;
+	DWORD		m_nInputCount;
+	DWORD		m_nOutputCount;
+	DWORD		m_nDropCount;
+	DWORD		m_nLostCount;
+	DWORD		m_nOutbound;
 
 	// If the remote computer sends us a pong packet it made, copy the sharing statistics here
-	DWORD m_nFileCount; 	// The number of files the remote computer is sharing, according to the pong packet it sent us
-	DWORD m_nFileVolume;	// The total size of all of those files, according to the same pong packet
+	DWORD		m_nFileCount; 			// The number of files the remote computer is sharing, according to the pong packet it sent us
+	DWORD		m_nFileVolume;			// The total size of all of those files, according to the same pong packet
 
 // Attributes: Query Hash Tables
 public:
@@ -116,25 +117,25 @@ public:
 
 // Attributes: Internals
 protected:
-	DWORD		m_tLastPacket;	// The time that we received the last packet
-	CBuffer*	m_pZInput;		// The remote computer is sending compressed data, we'll save it in m_pInput, and then decompress it to here
-	CBuffer*	m_pZOutput;		// We are sending the remote computer compressed data, we're writing it here, and then compressing it to m_pOutput
-	DWORD		m_nZInput;		// The number of decompressed bytes of data the remote computer sent us
-	DWORD		m_nZOutput;		// The number of not yet compressed bytes of data we've sent the remote computer
-	z_streamp	m_pZSInput;		// Pointer to the zlib z_stream structure for decompression
-	z_streamp	m_pZSOutput;	// Pointer to the zlib z_stream structure for compression
-	BOOL		m_bZFlush;		// True to flush the compressed output buffer to the remote computer
-	DWORD		m_tZOutput;		// The time that Zlib last compressed something
+	DWORD		m_tLastPacket;			// The time that we received the last packet
+	CBuffer*	m_pZInput;				// The remote computer is sending compressed data, we'll save it in m_pInput, and then decompress it to here
+	CBuffer*	m_pZOutput;				// We are sending the remote computer compressed data, we're writing it here, and then compressing it to m_pOutput
+	DWORD		m_nZInput;				// The number of decompressed bytes of data the remote computer sent us
+	DWORD		m_nZOutput;				// The number of not yet compressed bytes of data we've sent the remote computer
+	z_streamp	m_pZSInput;				// Pointer to the zlib z_stream structure for decompression
+	z_streamp	m_pZSOutput;			// Pointer to the zlib z_stream structure for compression
+	BOOL		m_bZFlush;				// True to flush the compressed output buffer to the remote computer
+	DWORD		m_tZOutput;				// The time that Zlib last compressed something
 
 // Operations
 public:
-	DWORD		GetMaxTTL() const;	// Get maximum TTL which is safe for both sides
+	DWORD		GetMaxTTL() const;		// Get maximum TTL which is safe for both sides
 	void		GetCompression(float* pnInRate, float* pnOutRate);
 
 	virtual void DelayClose(UINT nError);	// Send the buffer then close the socket, record the error given
 	virtual void Close(UINT nError = IDS_CONNECTION_CLOSED);
 	virtual BOOL Send(CPacket* pPacket, BOOL bRelease = TRUE, BOOL bBuffered = FALSE);
-	virtual BOOL SendQuery(const CQuerySearch* pSearch, CPacket* pPacket, BOOL bLocal); // Validate query
+	virtual BOOL SendQuery(const CQuerySearch* pSearch, CPacket* pPacket, BOOL bLocal); 	// Validate query
 
 protected:
 	virtual BOOL OnRun();

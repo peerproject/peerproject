@@ -8,7 +8,7 @@
  */
 
 #include "StdAfx.h"
-#include "resource.h"
+#include "Resource.h"
 #include "BugTrapUI.h"
 #include "WaitCursor.h"
 #include "MainDlg.h"
@@ -22,11 +22,9 @@
 #define new DEBUG_NEW
 #endif
 
-/// Stack trace list column identifiers.
+/// Stack trace list column identifiers. (Set display order)
 enum STACK_WIN32_COLUMN_ID
 {
-	/// Stack frame address.
-	CID_WIN32_ENTRY_ADDRESS,
 	/// Function name.
 	CID_WIN32_ENTRY_FUNCTION,
 	/// Source file name.
@@ -34,27 +32,12 @@ enum STACK_WIN32_COLUMN_ID
 	/// Entry line number.
 	CID_WIN32_ENTRY_LINE,
 	/// Module file name.
-	CID_WIN32_ENTRY_MODULE
+	CID_WIN32_ENTRY_MODULE,
+	/// Stack frame address.
+	CID_WIN32_ENTRY_ADDRESS
 };
 
-#ifdef _MANAGED
-
-/// Stack trace list column identifiers.
-enum STACK_NET_COLUMN_ID
-{
-	/// Type name.
-	CID_NET_ENTRY_TYPE,
-	/// Method name.
-	CID_NET_ENTRY_METHOD,
-	/// Source file name.
-	CID_NET_ENTRY_FILE,
-	/// Entry line number.
-	CID_NET_ENTRY_LINE,
-	/// Assembly name.
-	CID_NET_ENTRY_ASSEMBLY
-};
-
-#endif
+/* _MANAGED Code Removed */
 
 /**
  * @addtogroup BugTrapUI BugTrap Graphical User Interface
@@ -155,100 +138,50 @@ static void InitStackTrace(HWND hwnd)
 	lvc.mask = LVCF_TEXT;
 	lvc.pszText = szColumnTitle;
 
-#ifdef _MANAGED
-	if (NetThunks::IsNetException())
+/* _MANAGED Code Removed */
+
+	LoadString(g_hInstance, IDS_COLUMN_FUNCTION, szColumnTitle, countof(szColumnTitle));
+	ListView_InsertColumn(hwndStack, CID_WIN32_ENTRY_FUNCTION, &lvc);
+
+	LoadString(g_hInstance, IDS_COLUMN_FILE, szColumnTitle, countof(szColumnTitle));
+	ListView_InsertColumn(hwndStack, CID_WIN32_ENTRY_FILE, &lvc);
+
+	LoadString(g_hInstance, IDS_COLUMN_LINE, szColumnTitle, countof(szColumnTitle));
+	ListView_InsertColumn(hwndStack, CID_WIN32_ENTRY_LINE, &lvc);
+
+	LoadString(g_hInstance, IDS_COLUMN_MODULE, szColumnTitle, countof(szColumnTitle));
+	ListView_InsertColumn(hwndStack, CID_WIN32_ENTRY_MODULE, &lvc);
+
+	LoadString(g_hInstance, IDS_COLUMN_ADDRESS, szColumnTitle, countof(szColumnTitle));
+	ListView_InsertColumn(hwndStack, CID_WIN32_ENTRY_ADDRESS, &lvc);
+
+	CSymEngine::CStackTraceEntry Entry;
+	if (g_pSymEngine->GetFirstStackTraceEntry(Entry))
 	{
-		LoadString(g_hInstance, IDS_COLUMN_TYPE, szColumnTitle, countof(szColumnTitle));
-		ListView_InsertColumn(hwndStack, CID_NET_ENTRY_TYPE, &lvc);
-
-		LoadString(g_hInstance, IDS_COLUMN_METHOD, szColumnTitle, countof(szColumnTitle));
-		ListView_InsertColumn(hwndStack, CID_NET_ENTRY_METHOD, &lvc);
-
-		LoadString(g_hInstance, IDS_COLUMN_FILE, szColumnTitle, countof(szColumnTitle));
-		ListView_InsertColumn(hwndStack, CID_NET_ENTRY_FILE, &lvc);
-
-		LoadString(g_hInstance, IDS_COLUMN_LINE, szColumnTitle, countof(szColumnTitle));
-		ListView_InsertColumn(hwndStack, CID_NET_ENTRY_LINE, &lvc);
-
-		LoadString(g_hInstance, IDS_COLUMN_ASSEMBLY, szColumnTitle, countof(szColumnTitle));
-		ListView_InsertColumn(hwndStack, CID_NET_ENTRY_ASSEMBLY, &lvc);
-
-		CNetStackTrace::CNetStackTraceEntry Entry;
-		if (g_pSymEngine->GetFirstStackTraceEntry(Entry))
+		LVITEM lvi;
+		ZeroMemory(&lvi, sizeof(lvi));
+		lvi.mask = LVIF_TEXT;
+		int iItemPos = 0;
+		do
 		{
-			LVITEM lvi;
-			ZeroMemory(&lvi, sizeof(lvi));
-			lvi.mask = LVIF_TEXT;
-			int iItemPos = 0;
-			do
-			{
-				lvi.iItem = iItemPos;
-				lvi.pszText = Entry.m_szType;
-				ListView_InsertItem(hwndStack, &lvi);
-				ListView_SetItemText(hwndStack, iItemPos, CID_NET_ENTRY_METHOD, Entry.m_szMethod);
-				ListView_SetItemText(hwndStack, iItemPos, CID_NET_ENTRY_FILE, Entry.m_szSourceFile);
-				ListView_SetItemText(hwndStack, iItemPos, CID_NET_ENTRY_LINE, Entry.m_szLineInfo);
-				ListView_SetItemText(hwndStack, iItemPos, CID_NET_ENTRY_ASSEMBLY, Entry.m_szAssembly);
-				++iItemPos;
-			}
-			while (g_pSymEngine->GetNextStackTraceEntry(Entry));
+			lvi.iItem = iItemPos;
+			lvi.pszText = Entry.m_szFunctionInfo;
+			ListView_InsertItem(hwndStack, &lvi);
+			ListView_SetItemText(hwndStack, iItemPos, CID_WIN32_ENTRY_FUNCTION, Entry.m_szFunctionInfo);
+			ListView_SetItemText(hwndStack, iItemPos, CID_WIN32_ENTRY_FILE, Entry.m_szSourceFile);
+			ListView_SetItemText(hwndStack, iItemPos, CID_WIN32_ENTRY_LINE, Entry.m_szLineInfo);
+			ListView_SetItemText(hwndStack, iItemPos, CID_WIN32_ENTRY_MODULE, Entry.m_szModule);
+			ListView_SetItemText(hwndStack, iItemPos, CID_WIN32_ENTRY_ADDRESS, Entry.m_szAddress);
+			++iItemPos;
 		}
-
-		ListView_SetColumnWidth(hwndStack, CID_NET_ENTRY_TYPE, LVSCW_AUTOSIZE_USEHEADER);
-		ListView_SetColumnWidth(hwndStack, CID_NET_ENTRY_METHOD, LVSCW_AUTOSIZE_USEHEADER);
-		ListView_SetColumnWidth(hwndStack, CID_NET_ENTRY_FILE, LVSCW_AUTOSIZE_USEHEADER);
-		ListView_SetColumnWidth(hwndStack, CID_NET_ENTRY_LINE, LVSCW_AUTOSIZE_USEHEADER);
-		ListView_SetColumnWidth(hwndStack, CID_NET_ENTRY_ASSEMBLY, LVSCW_AUTOSIZE_USEHEADER);
+		while (g_pSymEngine->GetNextStackTraceEntry(Entry));
 	}
-	else
-	{
-#endif
 
-		LoadString(g_hInstance, IDS_COLUMN_ADDRESS, szColumnTitle, countof(szColumnTitle));
-		ListView_InsertColumn(hwndStack, CID_WIN32_ENTRY_ADDRESS, &lvc);
-
-		LoadString(g_hInstance, IDS_COLUMN_FUNCTION, szColumnTitle, countof(szColumnTitle));
-		ListView_InsertColumn(hwndStack, CID_WIN32_ENTRY_FUNCTION, &lvc);
-
-		LoadString(g_hInstance, IDS_COLUMN_FILE, szColumnTitle, countof(szColumnTitle));
-		ListView_InsertColumn(hwndStack, CID_WIN32_ENTRY_FILE, &lvc);
-
-		LoadString(g_hInstance, IDS_COLUMN_LINE, szColumnTitle, countof(szColumnTitle));
-		ListView_InsertColumn(hwndStack, CID_WIN32_ENTRY_LINE, &lvc);
-
-		LoadString(g_hInstance, IDS_COLUMN_MODULE, szColumnTitle, countof(szColumnTitle));
-		ListView_InsertColumn(hwndStack, CID_WIN32_ENTRY_MODULE, &lvc);
-
-		CSymEngine::CStackTraceEntry Entry;
-		if (g_pSymEngine->GetFirstStackTraceEntry(Entry))
-		{
-			LVITEM lvi;
-			ZeroMemory(&lvi, sizeof(lvi));
-			lvi.mask = LVIF_TEXT;
-			int iItemPos = 0;
-			do
-			{
-				lvi.iItem = iItemPos;
-				lvi.pszText = Entry.m_szAddress;
-				ListView_InsertItem(hwndStack, &lvi);
-				ListView_SetItemText(hwndStack, iItemPos, CID_WIN32_ENTRY_FUNCTION, Entry.m_szFunctionInfo);
-				ListView_SetItemText(hwndStack, iItemPos, CID_WIN32_ENTRY_FILE, Entry.m_szSourceFile);
-				ListView_SetItemText(hwndStack, iItemPos, CID_WIN32_ENTRY_LINE, Entry.m_szLineInfo);
-				ListView_SetItemText(hwndStack, iItemPos, CID_WIN32_ENTRY_MODULE, Entry.m_szModule);
-				++iItemPos;
-			}
-			while (g_pSymEngine->GetNextStackTraceEntry(Entry));
-		}
-
-		ListView_SetColumnWidth(hwndStack, CID_WIN32_ENTRY_ADDRESS, LVSCW_AUTOSIZE_USEHEADER);
-		ListView_SetColumnWidth(hwndStack, CID_WIN32_ENTRY_FUNCTION, LVSCW_AUTOSIZE_USEHEADER);
-		ListView_SetColumnWidth(hwndStack, CID_WIN32_ENTRY_FILE, LVSCW_AUTOSIZE_USEHEADER);
-		ListView_SetColumnWidth(hwndStack, CID_WIN32_ENTRY_LINE, LVSCW_AUTOSIZE_USEHEADER);
-		ListView_SetColumnWidth(hwndStack, CID_WIN32_ENTRY_MODULE, LVSCW_AUTOSIZE_USEHEADER);
-#ifdef _MANAGED
-	}
-#endif
-
+	ListView_SetColumnWidth(hwndStack, CID_WIN32_ENTRY_FUNCTION, LVSCW_AUTOSIZE_USEHEADER);
+	ListView_SetColumnWidth(hwndStack, CID_WIN32_ENTRY_FILE, LVSCW_AUTOSIZE_USEHEADER);
+	ListView_SetColumnWidth(hwndStack, CID_WIN32_ENTRY_LINE, LVSCW_AUTOSIZE_USEHEADER);
+	ListView_SetColumnWidth(hwndStack, CID_WIN32_ENTRY_MODULE, LVSCW_AUTOSIZE_USEHEADER);
+	ListView_SetColumnWidth(hwndStack, CID_WIN32_ENTRY_ADDRESS, LVSCW_AUTOSIZE_USEHEADER);
 }
 
 /**
