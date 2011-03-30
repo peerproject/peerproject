@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default German Skin File -->
 
-<!-- Translation based on default-en.xml r64 -->
+<!-- Translation based on default-en.xml r65 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -365,6 +365,7 @@
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
+		<button id="ID_NETWORK_DC" text="DC++"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Einstellungen"/>
 	</toolbar>
@@ -422,15 +423,6 @@
 	</toolbar>
 	<!-- DISCOVERY SERVICES WINDOW -->
 	<!-- HOST CACHE WINDOW -->
-	<toolbar name="CHostCacheWnd.Basic">
-		<button id="ID_HOSTCACHE_CONNECT" text="Verbinden mit..."/>
-		<button id="ID_HOSTCACHE_DISCONNECT" text="Verbindung trennen"/>
-		<button id="ID_HOSTCACHE_REMOVE" text="Entfernen"/>
-			<rightAlign/>
-		<button id="ID_HOSTCACHE_G2_CACHE" text="Cache"/>
-		<button id="ID_HOSTCACHE_G1_CACHE" text="Cache"/>
-		<button id="ID_HOSTCACHE_ED2K_CACHE" text="Servers"/>
-	</toolbar>
 	<toolbar name="CHostCacheWnd">
 		<button id="ID_HOSTCACHE_CONNECT" text="Verbinden mit..."/>
 		<button id="ID_HOSTCACHE_DISCONNECT" text="Verbindung trennen"/>
@@ -440,6 +432,7 @@
 		<button id="ID_HOSTCACHE_G2_CACHE" text="G2-Cache"/>
 		<button id="ID_HOSTCACHE_G1_CACHE" text="G1-Cache"/>
 		<button id="ID_HOSTCACHE_ED2K_CACHE" text="Servers"/>
+		<button id="ID_HOSTCACHE_DC_CACHE" text="DC-Hubs"/>
 		<!-- <button id="ID_HOSTCACHE_BT_CACHE" text="BitTorrent-Cache"/> -->
 		<!-- <button id="ID_HOSTCACHE_KAD_CACHE" text="Kademlia-Cache"/> -->
 	</toolbar>
@@ -543,6 +536,7 @@
 				<item id="ID_NETWORK_G2" text="Mit Gnutella_2 verbinden"/>
 				<item id="ID_NETWORK_G1" text="Mit _Gnutella verbinden"/>
 				<item id="ID_NETWORK_ED2K" text="Mit _eDonkey verbinden"/>
+				<item id="ID_NETWORK_DC" text="Mit _DC++ verbinden"/>
 				<separator/>
 				<item id="ID_NETWORK_CONNECT_TO" text="Verbinden _mit..." shortcut="Strg+T"/>
 				<item id="ID_NETWORK_BROWSE_TO" text="Benutzer _durchsuchen..."/>
@@ -557,7 +551,7 @@
 				<item id="ID_TOOLS_DOWNLOAD" text="_Datei / Torrent herunterladen..." shortcut="Strg+D"/>
 				<item id="ID_TOOLS_SEEDTORRENT" text="_Seed a .Torrent..."/>
 				<item id="ID_TOOLS_CREATETORRENT" text="_Create New .Torrent..."/>
-				<item id="IDC_IMPORT_DOWNLOADS" text="Laufende eMule-Downloads _importieren..."/>
+				<item id="ID_IMPORT_DOWNLOADS" text="Laufende eMule-Downloads _importieren..."/>
 				<separator/>
 				<item id="ID_TOOLS_LANGUAGE" text="S_prache wählen..."/>
 				<item id="ID_TOOLS_SKIN" text="_Skins wählen..."/>
@@ -576,6 +570,7 @@
 				<item id="ID_TAB_MEDIA" text="_Medienwiedergabe" shortcut="F6"/>
 				<item id="ID_TAB_IRC" text="_IRC" shortcut="F12"/>
 				<separator/>
+				<item id="ID_VIEW_SCHEDULER" text="_Zeitplan" shortcut="Ctrl+F7"/>
 				<item id="ID_VIEW_SECURITY" text="S_icherheit" shortcut="F7"/>
 				<item id="ID_VIEW_HOSTS" text="H_ost-Cache" shortcut="F8"/>
 				<item id="ID_VIEW_DISCOVERY" text="Service-Pro_vider" shortcut="F9"/>
@@ -634,6 +629,7 @@
 				<item id="ID_NETWORK_G2" text="Mit Gnutella_2 verbinden"/>
 				<item id="ID_NETWORK_G1" text="Mit _Gnutella verbinden"/>
 				<item id="ID_NETWORK_ED2K" text="Mit _eDonkey verbinden"/>
+				<item id="ID_NETWORK_DC" text="Mit _DC++ verbinden"/>
 			</menu>
 			<separator/>
 			<item id="ID_NETWORK_CONNECT_TO" text="Verbinden _mit..." shortcut="Strg+T"/>
@@ -652,6 +648,7 @@
 			<item id="ID_TAB_IRC" text="_Chat"/>
 			<separator/>
 			<item id="ID_VIEW_SECURITY" text="S_icherheit"/>
+			<item id="ID_VIEW_SCHEDULER" text="_Zeitplan"/>
 			<item id="ID_VIEW_HOSTS" text="H_ost-Cache"/>
 			<separator/>
 			<menu text="_Erweitert">
@@ -662,6 +659,7 @@
 				<item id="ID_VIEW_LIBRARY" text="_Bibliothek" shortcut="F5"/>
 				<item id="ID_VIEW_MEDIA" text="_Medienwiedergabe" shortcut="F6"/>
 				<separator/>
+				<item id="ID_VIEW_SCHEDULER" text="_Zeitplan" shortcut="Ctrl+F7"/>
 				<item id="ID_VIEW_SECURITY" text="S_icherheit" shortcut="F7"/>
 				<item id="ID_VIEW_HOSTS" text="_Host-Cache" shortcut="F8"/>
 				<item id="ID_VIEW_DISCOVERY" text="Service-Pro_vider" shortcut="F9"/>
@@ -679,7 +677,7 @@
 		<menu text="_Extras">
 			<item id="ID_LIBRARY_FOLDERS" text="Ordner _freigeben..."/>
 			<item id="ID_TOOLS_DOWNLOAD" text="_Datei / Torrent herunterladen..." shortcut="Strg+D"/>
-			<item id="IDC_IMPORT_DOWNLOADS" text="Laufende eMule-Downloads _importieren..."/>
+			<item id="ID_IMPORT_DOWNLOADS" text="Laufende eMule-Downloads _importieren..."/>
 			<item id="ID_OPEN_DOWNLOADS_FOLDER" text="_Downloadordner öffnen"/>
 			<separator/>
 			<item id="ID_TOOLS_SKIN" text="_Skin(s) wählen..."/>
@@ -739,9 +737,9 @@
 		</menu>
 		<menu text="_Ansicht">
 			<item id="ID_TAB_HOME" text="_Home"/>
+			<item id="ID_TAB_SEARCH" text="_Suchen"/>
 			<item id="ID_TAB_LIBRARY" text="_Bibliothek"/>
 			<item id="ID_TAB_MEDIA" text="_Medienwiedergabe"/>
-			<item id="ID_TAB_SEARCH" text="_Suchen"/>
 			<item id="ID_TAB_TRANSFERS" text="_Downloads"/>
 			<item id="ID_WINDOW_REMOTE" text="_Fernbedienung"/>
 			<item id="ID_TAB_IRC" text="_Chat"/>
@@ -751,6 +749,7 @@
 				<item id="ID_VIEW_UPLOADS" text="_Uploads"/>
 				<separator/>
 				<item id="ID_VIEW_SECURITY" text="_Sicherheit"/>
+				<item id="ID_VIEW_SCHEDULER" text="_Zeitplan"/>
 				<item id="ID_VIEW_HOSTS" text="H_ost-Cache"/>
 				<item id="ID_VIEW_DISCOVERY" text="Service-_Provider"/>
 			</menu>
@@ -806,23 +805,25 @@
 			<item id="ID_NETWORK_CONNECT_TO" text="Verbinden _mit..." shortcut="Strg+T"/>
 			<item id="ID_NETWORK_BROWSE_TO" text="Benutzer _durchsuchen..."/>
 			<separator/>
-			<menu text="_Netzwerke wählen">
-				<item id="ID_NETWORK_G2" text="Mit Gnutella_2 verbinden"/>
-				<item id="ID_NETWORK_G1" text="Mit _Gnutella verbinden"/>
-				<item id="ID_NETWORK_ED2K" text="Mit _eDonkey verbinden"/>
-			</menu>
+			<item id="ID_NETWORK_G2" text="Mit Gnutella_2 verbinden"/>
+			<item id="ID_NETWORK_G1" text="Mit _Gnutella verbinden"/>
+			<item id="ID_NETWORK_ED2K" text="Mit _eDonkey verbinden"/>
+			<item id="ID_NETWORK_DC" text="Mit _DC++ verbinden"/>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="N_ach Transfer beenden"/>
 			<item id="ID_NETWORK_EXIT" text="_Beenden"/>
 		</menu>
 		<menu text="_Ansicht">
+			<item id="ID_TAB_HOME" text="_Home View" shortcut="Alt-Home"/>
 			<item id="ID_VIEW_SYSTEM" text="_Konsole" shortcut="F1"/>
 			<item id="ID_VIEW_NEIGHBOURS" text="N_etzwerk" shortcut="Strg+F11"/>
 			<item id="ID_VIEW_DOWNLOADS" text="_Downloads" shortcut="F3"/>
 			<item id="ID_VIEW_UPLOADS" text="_Uploads" shortcut="F4"/>
 			<item id="ID_VIEW_LIBRARY" text="_Bibliothek" shortcut="F5"/>
 			<item id="ID_VIEW_MEDIA" text="_Medienwiedergabe" shortcut="F6"/>
+			<item id="ID_TAB_IRC" text="IRC _Chat" shortcut="F12"/>
 			<separator/>
+			<item id="ID_VIEW_SCHEDULER" text="_Zeitplan" shortcut="Ctrl+F7"/>
 			<item id="ID_VIEW_SECURITY" text="S_icherheit" shortcut="F7"/>
 			<item id="ID_VIEW_HOSTS" text="_Host-Cache" shortcut="F8"/>
 			<item id="ID_VIEW_DISCOVERY" text="Service-Pro_vider" shortcut="F9"/>
@@ -831,6 +832,7 @@
 			<item id="ID_VIEW_PACKETS" text="_Packet-Dump" shortcut="Strg+F1"/>
 			<item id="ID_VIEW_SEARCH_MONITOR" text="S_uchmonitor" shortcut="Strg+F2"/>
 			<item id="ID_VIEW_RESULTS_MONITOR" text="_Treffermonitor" shortcut="Strg+F3"/>
+			<item id="ID_TAB_SEARCH" text="New _Search" shortcut="Ctrl+S"/>
 			<separator/>
 			<item id="ID_VIEW_BASIC" text="No_rmaler Modus"/>
 			<item id="ID_VIEW_TABBED" text="T_ab-Modus"/>
@@ -839,7 +841,7 @@
 		<menu text="_Extras">
 			<item id="ID_LIBRARY_FOLDERS" text="Ordner _freigeben..."/>
 			<item id="ID_TOOLS_DOWNLOAD" text="_Datei/Torrent herunterladen..." shortcut="Strg+D"/>
-			<item id="IDC_IMPORT_DOWNLOADS" text="Laufende eMule-Downloads _importieren..."/>
+			<item id="ID_IMPORT_DOWNLOADS" text="Laufende eMule-Downloads _importieren..."/>
 			<item id="ID_OPEN_DOWNLOADS_FOLDER" text="D_ownloadordner öffnen"/>
 			<separator/>
 			<item id="ID_TOOLS_SKIN" text="_Skin(s) wählen..."/>
@@ -899,8 +901,10 @@
 		<menu text="_Erweitert">
 			<item id="ID_VIEW_NEIGHBOURS" text="_Netzwerk"/>
 			<item id="ID_VIEW_UPLOADS" text="_Uploads"/>
-			<item id="ID_VIEW_SECURITY" text="_Sicherheit"/>
 			<item id="ID_VIEW_HOSTS" text="_Host-Cache"/>
+			<item id="ID_VIEW_SECURITY" text="_Sicherheit"/>
+			<item id="ID_VIEW_SCHEDULER" text="_Zeitplan"/>
+
 		</menu>
 	</menu>
 	<menu name="CMainWnd.View.Tabbed">
@@ -913,6 +917,7 @@
 		<item id="ID_TAB_IRC" text="_Chat"/>
 		<separator/>
 		<item id="ID_VIEW_SECURITY" text="_Sicherheit"/>
+		<item id="ID_VIEW_SCHEDULER" text="_Zeitplan"/>
 		<item id="ID_VIEW_HOSTS" text="_Host-Cache"/>
 		<item id="ID_VIEW_DISCOVERY" text="Service-Pro_vider"/>
 		<item id="ID_VIEW_TRAFFIC" text="Dia_gramm"/>
@@ -932,6 +937,7 @@
 		<item id="ID_VIEW_MEDIA" text="_Medienwiedergabe"/>
 		<separator/>
 		<item id="ID_VIEW_SECURITY" text="_Sicherheit"/>
+		<item id="ID_VIEW_SCHEDULER" text="_Zeitplan"/>
 		<item id="ID_VIEW_HOSTS" text="_Host-Cache"/>
 		<item id="ID_VIEW_DISCOVERY" text="Service-Pro_vider"/>
 		<item id="ID_VIEW_TRAFFIC" text="Dia_gramm"/>
@@ -951,8 +957,9 @@
 		<menu text="_Erweitert">
 			<item id="ID_VIEW_NEIGHBOURS" text="_Netzwerk"/>
 			<item id="ID_VIEW_UPLOADS" text="_Uploads"/>
-			<item id="ID_VIEW_SECURITY" text="_Sicherheit"/>
 			<item id="ID_VIEW_HOSTS" text="_Host-Cache"/>
+			<item id="ID_VIEW_SECURITY" text="_Sicherheit"/>
+			<item id="ID_VIEW_SCHEDULER" text="_Zeitplan"/>
 		</menu>
 	</menu>
 	<menu name="CHomeWnd.Tabbed">
@@ -965,6 +972,7 @@
 		<item id="ID_TAB_IRC" text="_Chat"/>
 		<separator/>
 		<item id="ID_VIEW_SECURITY" text="_Sicherheit"/>
+		<item id="ID_VIEW_SCHEDULER" text="_Zeitplan"/>
 		<item id="ID_VIEW_HOSTS" text="_Host Cache"/>
 		<item id="ID_VIEW_DISCOVERY" text="Service-Pro_vider"/>
 		<item id="ID_VIEW_TRAFFIC" text="Dia_gramm"/>
@@ -1600,9 +1608,10 @@
 			<item id="ID_NETWORK_G2" text="Gnutella_2"/>
 			<item id="ID_NETWORK_G1" text="_Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="_eDonkey"/>
+			<item id="ID_NETWORK_DC" text="_DC++"/>
 			<separator/>
-			<item id="ID_VIEW_DISCOVERY" text="_Discovery Services"/>
-			<item id="ID_VIEW_HOSTS" text="_Host Server Cache"/>
+			<item id="ID_VIEW_DISCOVERY" text="Service-_Provider"/>
+			<item id="ID_VIEW_HOSTS" text="H_ost-Cache"/>
 		</menu>
 		<menu text="_Monitor">
 			<item id="ID_NEIGHBOURS_VIEW_ALL" text="_Alle Pakete anzeigen"/>
@@ -1832,9 +1841,13 @@
 		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">Skins</link><gap size="6"/>
 		<text align="middle"> - Das Aussehen von PeerProjekt verändern</text>
 		<newline gap="8"/>
+		<icon res="139" width="16" height="16" target="command:ID_VIEW_SCHEDULER"/><gap size="8"/>
+		<link target="command:ID_VIEW_SCHEDULER" align="middle">Zeitplan</link><gap size="6"/>
+		<text align="middle">- Stellen Sie automatisierte Aufgaben zu bestimmten Zeiten auftreten</text>
+		<newline gap="8"/>
 		<icon res="138" width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
-		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link><gap size="6"/>
-		<text align="middle">- Update blocklist to avoid bad search results</text>
+		<link target="command:ID_VIEW_SECURITY" align="middle">Security-Filter</link><gap size="6"/>
+		<text align="middle">- Update blocklist zu vermeiden schlechte Resultate</text>
 		<newline gap="8"/>
 		<icon res="197" width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 		<link target="command:ID_TOOLS_WIZARD" align="middle">Einstellungsassistent</link><gap size="6"/>
@@ -1897,7 +1910,15 @@
 		<text group="31" align="middle">Nicht verbunden</text>
 		<text group="32" align="middle">Verbinden...</text>
 		<text group="33" align="middle">Verbunden</text>
+		<text group="34" align="middle" id="EDServers">%i Server</text>
 		<newline group="30" gap="2"/>
+		<icon group="60" command="ID_NETWORK_DC"/>
+		<text group="60" align="middle" format="b">&#160;DC++: &#160; </text>
+		<text group="61" align="middle">Nicht verbunden</text>
+		<text group="62" align="middle">Verbinden...</text>
+		<text group="63" align="middle">Verbunden</text>
+		<text group="64" align="middle" id="DCHubs">%i Hubs</text>
+		<newline group="60" gap="2"/>
 		<group id="2">
 			<para align="center">
 				<newline gap="4"/>
@@ -2587,8 +2608,9 @@
 	<tip id="ID_NETWORK_CONNECT" message="Mit den Netzwerken verbinden"/>
 	<tip id="ID_NETWORK_CONNECT_TO" message="Manuell mit einem Host verbinden..." tip="Verbinden mit"/>
 	<tip id="ID_NETWORK_DISCONNECT" message="Die Verbindung mit den Netzwerken trennen"/>
-	<tip id="ID_NETWORK_ED2K" message="Zum eDonkey-Netzwerk verbinden."/>
 	<tip id="ID_NETWORK_EXIT" message="PeerProjekt beenden" tip="Beenden"/>
+	<tip id="ID_NETWORK_ED2K" message="Zum eDonkey-Netzwerk verbinden."/>
+	<tip id="ID_NETWORK_DC" message="Zum DC++-Netzwerk verbinden."/>
 	<tip id="ID_NETWORK_G1" message="Zum Gnutella1-Netzwerk verbinden."/>
 	<tip id="ID_NETWORK_G2" message="Zum Gnutella2-Netzwerk verbinden (empfohlen)."/>
 	<tip id="ID_NETWORK_SEARCH" message="Eine neue Suche starten..." tip="Eine neue Suche starten"/>
@@ -2751,7 +2773,9 @@
 	<string id="20012" value="Benutzerdefiniert"/>
 	<string id="20013" value="Vorgabe"/>
 	<string id="20014" value="Abschließen"/>
-	<string id="20050" value="Every Day"/>
+	<string id="20020" value="Datei"/>
+	<string id="20021" value="Dateien"/>
+	<string id="20050" value="Jeden Tag"/>
 	<string id="20051" value="Montag"/>
 	<string id="20052" value="Dienstag"/>
 	<string id="20053" value="Mittwoch"/>
@@ -3495,7 +3519,7 @@
 		<control/>
 		<control caption="Transp.:"/>
 		<control/>
-		<control caption="Schatten (restarten)"/>
+		<control caption="Schatten"/>
 		<control caption="_Tray:"/>
 		<control caption="Bei Klick auf [X]:"/>
 		<control caption="Fragen|In den Tray minimieren|Sofort beenden|Nach Transfers beenden"/>
@@ -3505,9 +3529,9 @@
 	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuBuCoBuBuBuCoBuBuBuEdBu" caption="Bibliothek">
 		<control caption="_Optionen:"/>
 		<control caption="Durchsuchen erlauben"/>
-		<control caption="Ansichtoptionen speichern"/>
 		<control caption="Ordner überwachen"/>
 		<control caption="Schnell hashen (mehr CPU)"/>
+		<control caption="Ansichtoptionen speichern"/>
 		<control caption="Smart media series detection"/>
 		<control caption="Erst. Ghost-Dateien beim Löschen"/>
 		<control caption="_Neue Dateien:"/>
@@ -3601,13 +3625,14 @@
 		<control caption="On-connect"/>
 		<control/>
 	</dialog>
-	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuCoBuBuSt" caption="Web">
+	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuBuCoBuBuSt" caption="Web">
 		<control caption="_Peer-to-Peer-Links:"/>
 		<control caption="Folgende Linktypen mit PeerProjekt öffnen"/>
 		<control caption="Magnet ( magnet: )"/>
 		<control caption="Gnutella ( gnutella: )"/>
 		<control caption="eDonkey ( ed2k: )"/>
 		<control caption="Piolet ( mp2p: )"/>
+		<control caption="DC++ ( dchub:/dcfile: )"/>
 		<control caption="BitTorrent ( .torrent )"/>
 		<control caption="_Downloadmanager:"/>
 		<control caption="PeerProjekt für alle Internetdownloads benutzen"/>
@@ -4497,7 +4522,8 @@
 		<control caption="Um vollständige Dateien über BitTorrent freizugeben, müssen diese geseedet werden. Wenn dies der Fall ist, erscheint der Torrent als Datei in ihrer Downloadliste."/>
 		<control/>
 	</dialog>
-	<dialog name="CTorrentFilesPage" cookie="Sy" caption="Dateien">
+	<dialog name="CTorrentFilesPage" cookie="StSy" caption="Dateien">
+		<control/>
 		<control/>
 	</dialog>
 	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="Tracker">
@@ -4686,14 +4712,13 @@
 	<list name="CHostCacheWnd">
 		<column from="Address" to="Adresse"/>
 		<column from="Port" to="Port"/>
-		<column from="Client" to="Client"/>
 		<column from="Last Seen" to="Zuletzt gesehen"/>
-		<column from="Daily Uptime" to="Tägliche Verfügbarkeit"/>
+		<column from="Client" to="Client"/>
 		<column from="Name" to=""/>
 		<column from="Description" to="Beschreibung"/>
+		<column from="Failures" to="Fehler"/>
 		<column from="CurUsers" to="Benutzer"/>
 		<column from="MaxUsers" to="Benutzer max."/>
-		<column from="Failures" to="Fehler"/>
 		<column from="Country" to="Land"/>
 	</list>
 	<list name="CDiscoveryWnd">
@@ -4753,7 +4778,7 @@
 		<column from="Criteria" to="Kriterien"/>
 		<column from="Minimum" to="Bandbreite"/>
 		<column from="Transfers" to="Transfer"/>
-		<column from="Order" to="#"/>
+		<column from="Priority" to="#"/>
 	</list>
 	<list name="CAdvancedSettingsList">
 		<column from="Setting" to="Einstellung"/>

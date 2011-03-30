@@ -16,7 +16,7 @@
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
-// Note: This file is not currently used.
+// This file is not used.
 // (Extra features not needed by PageTorrentFiles)
 
 #include "StdAfx.h"
@@ -129,8 +129,8 @@ void CComboListCtrl::Show(int iItem, int iSubItem)
 			m_pCombo->SetFont( GetFont() );
 
 			int n = 0, nSelected = 0;
-			for ( CIntStringMap::const_iterator i = (*column).second.begin();
-				i != (*column).second.end(); ++i, ++n )
+			for ( CIntStringMap::const_iterator i = (*column).second.begin() ;
+				i != (*column).second.end() ; ++i, ++n )
 			{
 				m_pCombo->AddString( (*i).second );
 				if ( (*i).first == (*data).second )
@@ -153,7 +153,7 @@ void CComboListCtrl::Hide()
 			m_oColumns.find( m_iSelectedSubItem );
 		CIntStringMap::const_iterator value = (*column).second.begin();
 		const int nSelected = m_pCombo->GetCurSel();
-		for ( int i = 0; i != nSelected; ++value, ++i );
+		for ( int i = 0 ; i != nSelected ; ++value, ++i );
 
 		m_oData[ m_iSelectedItem ].erase( m_iSelectedSubItem );
 		m_oData[ m_iSelectedItem ].insert(

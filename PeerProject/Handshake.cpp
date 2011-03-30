@@ -34,6 +34,8 @@
 #include "Buffer.h"
 #include "GProfile.h"
 #include "BTClients.h"
+#include "DCClients.h"
+#include "DCPacket.h"
 #include "EDClients.h"
 #include "EDPacket.h"
 #include "WndMain.h"
@@ -191,16 +193,19 @@ void CHandshake::OnDropped()
 BOOL CHandshake::OnRead()
 {
 	// Read data waiting in the socket into the input buffer
-	CConnection::OnRead();
+	if ( ! CConnection::OnRead() )
+		return FALSE;
 
-	// We need at least 7 bytes of headers from the remote compuer to figure out what network its talking about
-	if ( GetInputLength() < 7 ) return TRUE; // Not enough information yet, leave now returning true
+	const DWORD nLength = GetInputLength();
+
+	if ( nLength < 3 )		// We need at least 3 bytes of headers from the remote compuer to figure out what network it's talking about (was 7)
+		return TRUE;		// Not enough information yet, leave now
 
 	// Determine if the remote computer has sent an eDonkey2000 hello packet
-	if ( GetInputLength() >= 7					&& // 7 or more bytes have arrived
-		 PeekAt( 0 ) == ED2K_PROTOCOL_EDONKEY	&& // The first byte is "e3", indicating eDonkey2000
-		 PeekAt( 5 ) == ED2K_C2C_HELLO			&& // 5 bytes in is "01", a hello for that network
-		 PeekAt( 6 ) == 0x10 )					   // And after that is "10"
+	if ( nLength >= 7							&&	// 7 or more bytes have arrived
+		 PeekAt( 0 ) == ED2K_PROTOCOL_EDONKEY	&&	// The first byte is "e3", indicating eDonkey2000
+		 PeekAt( 5 ) == ED2K_C2C_HELLO			&&	// 5 bytes in is "01", a hello for that network
+		 PeekAt( 6 ) == 0x10 )						// And after that is "10"
 	{
 		// Have the EDClients object accept this CHandshake as a new eDonkey2000 computer
 		EDClients.OnAccept( this );
@@ -208,15 +213,25 @@ BOOL CHandshake::OnRead()
 	}
 
 	// See if the remote computer is speaking BitTorrent
-	if ( GetInputLength() >= BT_PROTOCOL_HEADER_LEN &&	// We have at least 20 bytes
-		 StartsWith( BT_PROTOCOL_HEADER, BT_PROTOCOL_HEADER_LEN ) )	// They are "\023BitTorrent protocol"
+	if ( nLength >= BT_PROTOCOL_HEADER_LEN &&		// We have at least 20 bytes
+		 StartsWith( BT_PROTOCOL_HEADER, BT_PROTOCOL_HEADER_LEN ) ) 	// They are "\023BitTorrent protocol"
 	{
 		// Have the BTClients object accept this CHandshake as a new BitTorrent computer
 		BTClients.OnAccept( this );
 		return FALSE;	// Done sorting the handshake
 	}
 
-	// With eDonkey2000 and BitTorrent out of the way, now we can look for text-based handshakes
+	// See if the remote computer is speaking DC++
+	if ( nLength >= DC_PROTOCOL_MIN_LEN &&
+		 PeekAt( 0 ) == '$' &&
+		 PeekAt( nLength - 1 ) == '|' )
+	{
+		// Have the DCClients object accept this CHandshake as a new DC++ computer
+		DCClients.OnAccept( this );
+		return FALSE;	// Done sorting the handshake
+	}
+
+	// With others out of the way, now we can look for text-based handshakes
 
 	// Read the first header line
 	CString strLine;
@@ -417,8 +432,8 @@ BOOL CHandshake::OnPush(const Hashes::Guid& oGUID)
 		if ( CMainWnd* pMainWnd = theApp.SafeMainWnd() )
 		{
 			// Get a pointer to the main PeerProject window
-			CWindowManager* pWindows	= &pMainWnd->m_pWindows;
-			CChildWnd* pChildWnd		= NULL;
+			CWindowManager* pWindows = &pMainWnd->m_pWindows;
+			CChildWnd* pChildWnd = NULL;
 
 			// Loop through all of PeerProject's child windows
 			while ( ( pChildWnd = pWindows->Find( NULL, pChildWnd ) ) != NULL )

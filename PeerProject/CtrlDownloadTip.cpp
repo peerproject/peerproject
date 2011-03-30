@@ -128,6 +128,8 @@ void CDownloadTipCtrl::OnPaint(CDC* pDC)
 
 void CDownloadTipCtrl::OnCalcSize(CDC* pDC, CDownload* pDownload)
 {
+	if ( ! pDownload ) return;
+
 	PrepareDownloadInfo( pDownload );
 
 	AddSize( pDC, m_sName );
@@ -166,18 +168,18 @@ void CDownloadTipCtrl::OnCalcSize(CDC* pDC, CDownload* pDownload)
 	m_sz.cy += 34;	// Icon
 	m_sz.cy += TIP_RULE;
 
+	m_bDrawError = FALSE;
 	if ( pDownload->IsTorrent() )
 	{
 		// Torrent Tracker error
-		if ( pDownload->m_bTorrentTrackerError && ! pDownload->m_sTorrentTrackerError.IsEmpty() )
+		if (  pDownload->m_bTorrentTrackerError &&
+			! pDownload->m_sTorrentTrackerError.IsEmpty() )		// Rare crash?
 		{
 			AddSize( pDC, pDownload->m_sTorrentTrackerError );
 			m_sz.cy += TIP_TEXTHEIGHT;
 			m_sz.cy += TIP_RULE;
 			m_bDrawError = TRUE;
 		}
-		else
-			m_bDrawError = FALSE;
 
 		m_sz.cy += TIP_TEXTHEIGHT;		// Torrent ratio
 	}

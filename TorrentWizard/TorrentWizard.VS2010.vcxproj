@@ -81,18 +81,14 @@
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Configuration) $(Platform)\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Configuration) $(Platform)\</IntDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
-    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</GenerateManifest>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(Configuration) $(Platform)\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(Configuration) $(Platform)\</IntDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</LinkIncremental>
-    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</GenerateManifest>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Configuration) $(Platform)\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Configuration) $(Platform)\</IntDir>
-    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</GenerateManifest>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(Configuration) $(Platform)\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(Configuration) $(Platform)\</IntDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkIncremental>
-    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</GenerateManifest>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <PreBuildEvent>
@@ -136,7 +132,6 @@
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
     <Manifest>
-      <InputResourceManifests>$(TargetPath);%(InputResourceManifests)</InputResourceManifests>
     </Manifest>
     <Bscmake>
       <OutputFile>
@@ -177,7 +172,6 @@
       <TargetMachine>MachineX64</TargetMachine>
     </Link>
     <Manifest>
-      <InputResourceManifests>$(TargetPath);%(InputResourceManifests)</InputResourceManifests>
     </Manifest>
     <Bscmake>
       <OutputFile>
@@ -221,7 +215,6 @@
       <TargetMachine>NotSet</TargetMachine>
     </Link>
     <Manifest>
-      <InputResourceManifests>$(TargetPath);%(InputResourceManifests)</InputResourceManifests>
     </Manifest>
     <Bscmake>
       <OutputFile>
@@ -266,7 +259,6 @@
       <TargetMachine>MachineX64</TargetMachine>
     </Link>
     <Manifest>
-      <InputResourceManifests>$(TargetPath);%(InputResourceManifests)</InputResourceManifests>
     </Manifest>
     <Bscmake>
       <OutputFile>

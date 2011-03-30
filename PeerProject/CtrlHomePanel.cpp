@@ -182,9 +182,9 @@ void CHomeConnectionBox::OnSkinChange()
 	m_pDocument = NULL;
 	m_pdConnectedHours = m_pdConnectedMinutes = NULL;
 
-	for ( int nP = 0 ; nP < 4 ; nP++ )
+	for ( PROTOCOLID nP = PROTOCOL_NULL ; nP < PROTOCOL_LAST ; ++nP )
 	{
-		for ( int nT = 0 ; nT < 3 ; nT++ )
+		for ( int nT = ntNode ; nT <= ntLeaf ; nT++ )
 		{
 			m_pdCount[ nP ][ nT ] = NULL;
 			m_sCount[ nP ][ nT ].Empty();
@@ -218,9 +218,11 @@ void CHomeConnectionBox::OnSkinChange()
 
 	pMap.Lookup( _T("EDServers"), m_pdCount[PROTOCOL_ED2K][ntHub] );
 
-	for ( int nP = 0 ; nP < 4 ; nP++ )
+	pMap.Lookup( _T("DCHubs"), m_pdCount[PROTOCOL_DC][ntHub] );
+
+	for ( PROTOCOLID nP = PROTOCOL_NULL ; nP < PROTOCOL_LAST ; ++nP )
 	{
-		for ( int nT = 0 ; nT < 3 ; nT++ )
+		for ( int nT = ntNode ; nT < ntLast ; nT++ )
 		{
 			if ( m_pdCount[ nP ][ nT ] != NULL )
 				m_sCount[ nP ][ nT ] = m_pdCount[ nP ][ nT ]->m_sText;
@@ -239,7 +241,7 @@ void CHomeConnectionBox::Update()
 	CSingleLock pLock( &Network.m_pSection );
 	if ( ! pLock.Lock( 50 ) ) return;
 
-	int nCount[ PROTOCOL_LAST ][ 4 ] = {};
+	int nCount[ PROTOCOL_LAST ][ ntLast + 1 ] = {};
 	int nTotal = 0;
 	CString str;
 
@@ -249,77 +251,85 @@ void CHomeConnectionBox::Update()
 
 		if ( pNeighbour->m_nState >= nrsConnected )
 		{
-			nCount[ pNeighbour->m_nProtocol ][ pNeighbour->m_nNodeType+1 ] ++;
+			nCount[ pNeighbour->m_nProtocol ][ pNeighbour->m_nNodeType + 1 ] ++;
 			nTotal ++;
 		}
 		else
 		{
-			nCount[ pNeighbour->m_nProtocol ][ 0 ] ++;
+			nCount[ pNeighbour->m_nProtocol ][ ntNode ] ++;
 		}
 	}
 
-	nCount[ PROTOCOL_G1 ][ 0 ] += nCount[ 0 ][ 0 ];
-	nCount[ PROTOCOL_G2 ][ 0 ] += nCount[ 0 ][ 0 ];
+	nCount[ PROTOCOL_G1 ][ ntNode ] += nCount[ PROTOCOL_NULL ][ ntNode ];	// 0
+	nCount[ PROTOCOL_G2 ][ ntNode ] += nCount[ PROTOCOL_NULL ][ ntNode ];	// 0
 
 	BOOL bConnected = Network.IsConnected();
 	m_pDocument->ShowGroup( 1, ! bConnected );
 	m_pDocument->ShowGroup( 2, bConnected );
 
-	const bool* pEnable[ PROTOCOL_LAST ] =
+	static const bool* pEnable[ PROTOCOL_LAST ] =
 	{
-		NULL,
-		&Settings.Gnutella1.EnableToday,
-		&Settings.Gnutella2.EnableToday,
-		&Settings.eDonkey.EnableToday
+		NULL,							// PROTOCOL_NULL
+		&Settings.Gnutella1.Enabled,	// PROTOCOL_G1		(Group 10)
+		&Settings.Gnutella2.Enabled,	// PROTOCOL_G2		(Group 20)
+		&Settings.eDonkey.Enabled,		// PROTOCOL_ED2K	(Group 30)
+		NULL,							// PROTOCOL_HTTP
+		NULL,							// PROTOCOL_FTP
+		&Settings.DC.Enabled,			// PROTOCOL_DC		(Group 60)
+		NULL,							// PROTOCOL_BT
+		NULL							// PROTOCOL_KAD
 	};
 
-	BOOL bDetail = Settings.General.GUIMode != GUI_BASIC;
+	const BOOL bDetail = Settings.General.GUIMode != GUI_BASIC;
 
-	for ( int nProtocol = PROTOCOL_G1 ; nProtocol <= PROTOCOL_ED2K ; nProtocol++ )
+	for ( PROTOCOLID nProtocol = PROTOCOL_G1 ; nProtocol < PROTOCOL_LAST ; nProtocol++ )
 	{
-		int nBase = nProtocol * 10;
+		if ( ! pEnable[ nProtocol ] )
+			continue;
+
+		const int nBase = nProtocol * 10;
 
 		if ( bConnected && *pEnable[ nProtocol ] )
 		{
 			m_pDocument->ShowGroup( nBase, TRUE );
 
-			if ( nCount[ nProtocol ][ ntLeaf+1 ] )
+			if ( nCount[ nProtocol ][ ntLeaf + 1 ] )
 			{
 				if ( m_pdCount[ nProtocol ][ ntLeaf ] && bDetail )
 				{
-					str.Format( m_sCount[ nProtocol ][ ntLeaf ], nCount[ nProtocol ][ ntLeaf+1 ] );
+					str.Format( m_sCount[ nProtocol ][ ntLeaf ], nCount[ nProtocol ][ ntLeaf + 1 ] );
 					m_pdCount[ nProtocol ][ ntLeaf ]->SetText( str );
 
 					m_pDocument->ShowGroup( nBase + 3, FALSE );
 					m_pDocument->ShowGroup( nBase + 4, FALSE );
 					m_pDocument->ShowGroup( nBase + 5, TRUE );
 				}
-				else
+				else // Basic Mode Hub
 				{
 					m_pDocument->ShowGroup( nBase + 3, TRUE );
 					m_pDocument->ShowGroup( nBase + 4, FALSE );
 					m_pDocument->ShowGroup( nBase + 5, FALSE );
 				}
 			}
-			else if ( nCount[ nProtocol ][ ntHub+1 ] )
+			else if ( nCount[ nProtocol ][ ntHub + 1 ] )
 			{
 				if ( m_pdCount[ nProtocol ][ ntHub ] && bDetail )
 				{
-					str.Format( m_sCount[ nProtocol ][ ntHub ], nCount[ nProtocol ][ ntHub+1 ] );
+					str.Format( m_sCount[ nProtocol ][ ntHub ], nCount[ nProtocol ][ ntHub + 1 ] );
 					m_pdCount[ nProtocol ][ ntHub ]->SetText( str );
 
 					m_pDocument->ShowGroup( nBase + 3, FALSE );
 					m_pDocument->ShowGroup( nBase + 4, TRUE );
 					m_pDocument->ShowGroup( nBase + 5, FALSE );
 				}
-				else
+				else // Basic Mode Leaf
 				{
 					m_pDocument->ShowGroup( nBase + 3, TRUE );
 					m_pDocument->ShowGroup( nBase + 4, FALSE );
 					m_pDocument->ShowGroup( nBase + 5, FALSE );
 				}
 			}
-			else if ( nCount[ nProtocol ][ ntNode+1 ] )
+			else if ( nCount[ nProtocol ][ ntNode + 1 ] )
 			{
 				m_pDocument->ShowGroup( nBase + 3, TRUE );
 				m_pDocument->ShowGroup( nBase + 4, FALSE );
@@ -332,17 +342,17 @@ void CHomeConnectionBox::Update()
 				m_pDocument->ShowGroup( nBase + 5, FALSE );
 			}
 
-			if ( nCount[ nProtocol ][ ntNode+1 ] ||
-				 nCount[ nProtocol ][ ntHub+1 ] ||
-				 nCount[ nProtocol ][ ntLeaf+1 ] )
+			if ( nCount[ nProtocol ][ ntNode + 1 ] ||
+				 nCount[ nProtocol ][ ntHub  + 1 ] ||
+				 nCount[ nProtocol ][ ntLeaf + 1 ] )
 			{
 				m_pDocument->ShowGroup( nBase + 1, FALSE );
 				m_pDocument->ShowGroup( nBase + 2, FALSE );
 			}
 			else
 			{
-				m_pDocument->ShowGroup( nBase + 1, nCount[ nProtocol ][ 0 ] == 0 );
-				m_pDocument->ShowGroup( nBase + 2, nCount[ nProtocol ][ 0 ] != 0 );
+				m_pDocument->ShowGroup( nBase + 1, nCount[ nProtocol ][ ntNode ] == 0 );
+				m_pDocument->ShowGroup( nBase + 2, nCount[ nProtocol ][ ntNode ] != 0 );
 			}
 		}
 		else
@@ -351,10 +361,16 @@ void CHomeConnectionBox::Update()
 		}
 	}
 
-	str.Format( _T("%I64i "), Statistics.Today.Timer.Connected / ( 60 * 60 ) );
-	if ( m_pdConnectedHours ) m_pdConnectedHours->SetText( str );
-	str.Format( _T("%I64i "), ( Statistics.Today.Timer.Connected / 60 ) % 60 );
-	if ( m_pdConnectedMinutes ) m_pdConnectedMinutes->SetText( str );
+	if ( m_pdConnectedHours )
+	{
+		str.Format( _T("%I64i "), Statistics.Today.Timer.Connected / ( 60 * 60 ) );
+		m_pdConnectedHours->SetText( str );
+	}
+	if ( m_pdConnectedMinutes )
+	{
+		str.Format( _T("%I64i "), ( Statistics.Today.Timer.Connected / 60 ) % 60 );
+		m_pdConnectedMinutes->SetText( str );
+	}
 
 	OnSize( 0, 0, 0 );		// Fix all taskbox heights if Sidebar width changed
 
@@ -1068,8 +1084,7 @@ void CHomeDownloadsBox::OnPaint()
 		}
 
 		dc.SetTextColor( m_pHover == pItem ? Colors.m_crTextLinkHot : Colors.m_crTextLink );
-		dc.ExtTextOut( rcText.left + 4, rcText.top + 2, ETO_CLIPPED|ETO_OPAQUE,
-			&rcText, str, NULL );
+		dc.ExtTextOut( rcText.left + 4, rcText.top + 2, ETO_CLIPPED|ETO_OPAQUE, &rcText, str, NULL );
 
 		dc.ExcludeClipRect( &rcText );
 
@@ -1299,7 +1314,7 @@ void CHomeUploadsBox::Update()
 			m_pdTorrentsMany->SetText( str );
 			m_pdTorrentsMany->Show( TRUE );
 		}
-		if ( m_pdTorrentsOne ) m_pdTorrentsOne->Show( FALSE );
+		if ( m_pdTorrentsOne )  m_pdTorrentsOne->Show( FALSE );
 	}
 	else if ( nCount == 1 )
 	{

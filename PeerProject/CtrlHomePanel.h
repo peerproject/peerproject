@@ -21,6 +21,7 @@
 #include "CtrlRichTaskBox.h"
 #include "CtrlDownloadTip.h"
 #include "CtrlLibraryTip.h"
+#include "Neighbour.h"	// ntLast enum
 
 class CDownload;
 class CLibraryRecent;
@@ -38,8 +39,8 @@ public:
 protected:
 	CRichElement*	m_pdConnectedHours;
 	CRichElement*	m_pdConnectedMinutes;
-	CRichElement*	m_pdCount[PROTOCOL_LAST][3];
-	CString			m_sCount[PROTOCOL_LAST][3];
+	CRichElement*	m_pdCount[PROTOCOL_LAST][ntLast];
+	CString			m_sCount[PROTOCOL_LAST][ntLast];
 
 public:
 	void	OnSkinChange();
@@ -150,7 +151,7 @@ public:
 	BOOL	ExecuteDownload(CDownload* pDownload);
 
 protected:
-	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg void OnPaint();
 	afx_msg BOOL OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message);

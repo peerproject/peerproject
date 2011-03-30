@@ -504,7 +504,7 @@ void CScheduler::CheckSchedule()
 	bool bSchedulerIsEnabled = false;
 	CTime tNow = CTime::GetCurrentTime();
 
-	// Enable it to test GetHoursTo()
+	// Enable this to test GetHoursTo()
 	//int nHoursToDisconnect = Scheduler.GetHoursTo(BANDWIDTH_STOP|SYSTEM_DISCONNECT|SYSTEM_EXIT|SYSTEM_SHUTDOWN );
 	//theApp.Message( MSG_DEBUG, _T("Calculated time to disconnect is %i hours."), nHoursToDisconnect );
 
@@ -516,7 +516,7 @@ void CScheduler::CheckSchedule()
 		// Check if a task should be executed
 		if ( pSchTask->m_bActive )
 		{
-			bSchedulerIsEnabled = true;	// We always ignore deactivated tasks
+			bSchedulerIsEnabled = true;		// Always ignore deactivated tasks
 
 			// Shorter if structure
 			if ( pSchTask->m_bExecuted )
@@ -576,9 +576,11 @@ void CScheduler::ExecuteScheduledTask(CScheduleTask *pSchTask)
 		Settings.Live.BandwidthScaleOut	= 101;
 		Settings.Bandwidth.Downloads	= 0;
 		Settings.Bandwidth.Uploads		= ( ( ( Settings.Connection.OutSpeed * ( 100 - Settings.Uploads.FreeBandwidthFactor ) ) / 100 ) / 8 ) * 1024;
-		Settings.Gnutella2.EnableToday	= TRUE;
-		Settings.Gnutella1.EnableToday	= Settings.Gnutella1.EnableAlways;
-		Settings.eDonkey.EnableToday	= Settings.eDonkey.EnableAlways;
+		Settings.Gnutella2.Enabled		= true;
+		Settings.Gnutella1.Enabled		= Settings.Gnutella1.EnableAlways;
+		Settings.eDonkey.Enabled		= Settings.eDonkey.EnableAlways;
+		Settings.DC.Enabled				= Settings.DC.EnableAlways;
+		Settings.BitTorrent.Enabled		= true;
 		if ( ! Network.IsConnected() )
 			Network.Connect( TRUE );
 		break;
@@ -589,10 +591,11 @@ void CScheduler::ExecuteScheduledTask(CScheduleTask *pSchTask)
 		Settings.Live.BandwidthScaleOut	= pSchTask->m_nLimitUp;
 		Settings.Bandwidth.Downloads	= ( Settings.Connection.InSpeed * 1024) / 8;
 		Settings.Bandwidth.Uploads		= ( ( ( Settings.Connection.OutSpeed * ( 100 - Settings.Uploads.FreeBandwidthFactor ) ) / 100 ) / 8 ) * 1024;
-
-		Settings.Gnutella2.EnableToday	= TRUE;
-		Settings.Gnutella1.EnableToday	= pSchTask->m_bLimitedNetworks ? FALSE : Settings.Gnutella1.EnableAlways;
-		Settings.eDonkey.EnableToday	= pSchTask->m_bLimitedNetworks ? FALSE : Settings.eDonkey.EnableAlways;
+		Settings.Gnutella2.Enabled		= true;
+		Settings.Gnutella1.Enabled		= pSchTask->m_bLimitedNetworks ? FALSE : Settings.Gnutella1.EnableAlways;
+		Settings.eDonkey.Enabled		= pSchTask->m_bLimitedNetworks ? FALSE : Settings.eDonkey.EnableAlways;
+		Settings.DC.Enabled 			= pSchTask->m_bLimitedNetworks ? FALSE : Settings.DC.EnableAlways;
+	//	Settings.BitTorrent.Enabled		= true;
 		if ( ! Network.IsConnected() )
 			Network.Connect( TRUE );
 		break;
@@ -601,9 +604,11 @@ void CScheduler::ExecuteScheduledTask(CScheduleTask *pSchTask)
 		theApp.Message( MSG_NOTICE, _T("Scheduler| Bandwidth: Stop") );
 		Settings.Live.BandwidthScaleIn	= 0;
 		Settings.Live.BandwidthScaleOut	= 0;
-		Settings.Gnutella2.EnableToday	= FALSE;
-		Settings.Gnutella1.EnableToday	= FALSE;
-		Settings.eDonkey.EnableToday	= FALSE;
+		Settings.Gnutella2.Enabled		= false;
+		Settings.Gnutella1.Enabled		= false;
+		Settings.eDonkey.Enabled		= false;
+		Settings.DC.Enabled				= false;
+	//	Settings.BitTorrent.Enabled		= false;
 		if ( Network.IsConnected() )
 			Network.Disconnect();
 		break;
@@ -636,9 +641,11 @@ void CScheduler::ExecuteScheduledTask(CScheduleTask *pSchTask)
 		theApp.Message( MSG_NOTICE, _T("Scheduler| System: Disconnect Dial-Up") );
 		Settings.Live.BandwidthScaleIn	= 0;
 		Settings.Live.BandwidthScaleOut	= 0;
-		Settings.Gnutella2.EnableToday	= FALSE;
-		Settings.Gnutella1.EnableToday	= FALSE;
-		Settings.eDonkey.EnableToday	= FALSE;
+		Settings.Gnutella2.Enabled		= false;
+		Settings.Gnutella1.Enabled		= false;
+		Settings.eDonkey.Enabled		= false;
+		Settings.DC.Enabled 			= false;
+	//	Settings.BitTorrent.Enabled		= false;
 		if ( Network.IsConnected() )
 			Network.Disconnect();
 		HangUpConnection();			// Close
@@ -651,7 +658,7 @@ void CScheduler::ExecuteScheduledTask(CScheduleTask *pSchTask)
 
 		PostMainWndMessage( WM_COMMAND, ID_TRAY_OPEN );
 
-		pSchTask->m_bActive = false; // Repeat AfxMsgBox workaround
+		pSchTask->m_bActive = false;	// Repeat MsgBox workaround
 		AfxMessageBox( LoadString( IDS_SCHEDULER_REMINDER_NOTICE ) + _T("\n\n") + pSchTask->m_sDescription, MB_OK );
 		pSchTask->m_bActive = true;
 		break;

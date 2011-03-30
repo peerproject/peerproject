@@ -760,7 +760,7 @@ void CDownloadsWnd::OnDownloadsClear()
 		CDownload* pDownload = Downloads.GetNext( pos );
 		if ( ! pDownload->m_bSelected ) continue;
 
-		pDownload->m_bClearing;		// Mark for deletion (may take awhile)
+		pDownload->m_bClearing = TRUE;		// Mark for removal (may take awhile)
 		pList.AddTail( pDownload );
 	}
 
@@ -771,10 +771,10 @@ void CDownloadsWnd::OnDownloadsClear()
 	// If no downloads selected then process selected sources
 	if ( pList.IsEmpty() )
 		OnTransfersForget();
-	else if ( ! pLock.Lock( 2000 ) ) return;
 
 	while ( ! pList.IsEmpty() )
 	{
+		pLock.Lock();
 		CDownload* pDownload = pList.RemoveHead();
 
 		if ( Downloads.Check( pDownload ) && ! pDownload->IsTasking() )
@@ -795,7 +795,15 @@ void CDownloadsWnd::OnDownloadsClear()
 
 				pLock.Unlock();
 				if ( dlg.DoModal() != IDOK )
+				{
+					pDownload->m_bClearing = FALSE;
+					while ( ! pList.IsEmpty() )
+					{
+						pDownload = pList.RemoveHead();
+						pDownload->m_bClearing = FALSE;
+					}
 					break;
+				}
 				pLock.Lock();
 
 				if ( Downloads.Check( pDownload ) && ! pDownload->IsTasking() )
@@ -841,10 +849,10 @@ void CDownloadsWnd::OnDownloadsClearIncomplete()
 
 	pLock.Unlock();	// Break if above takes too long
 	m_wndDownloads.Update();
-	if ( ! pLock.Lock( 2000 ) ) return;
 
 	while ( ! pList.IsEmpty() )
 	{
+		pLock.Lock();
 		CDownload* pDownload = pList.RemoveHead();
 		if ( ! Downloads.Check( pDownload ) )
 			continue;
@@ -859,7 +867,15 @@ void CDownloadsWnd::OnDownloadsClearIncomplete()
 
 				pLock.Unlock();
 				if ( dlg.DoModal() != IDOK )
+				{
+					pDownload->m_bClearing = FALSE;
+					while ( ! pList.IsEmpty() )
+					{
+						pDownload = pList.RemoveHead();
+						pDownload->m_bClearing = FALSE;
+					}
 					break;
+				}
 				pLock.Lock();
 
 				if ( Downloads.Check( pDownload ) )
@@ -869,6 +885,7 @@ void CDownloadsWnd::OnDownloadsClearIncomplete()
 			if ( Downloads.Check( pDownload ) && ! pDownload->IsTasking() )
 				pDownload->Remove();
 		}
+		pLock.Unlock();
 	}
 
 	Update();
@@ -887,28 +904,31 @@ void CDownloadsWnd::OnDownloadsClearComplete()
 	CList<CDownload*> pList;
 	CDownload* pDownload;
 
-	CSingleLock pLock( &Transfers.m_pSection, TRUE );
+	CWaitCursor pCursor;
+
+	CSingleLock pLock( &Transfers.m_pSection );
+	if ( ! pLock.Lock( 800 ) ) return;
 
 	for ( POSITION pos = Downloads.GetIterator() ; pos ; )
 	{
 		pDownload = Downloads.GetNext( pos );
 		if ( pDownload->m_bSelected && pDownload->IsCompleted() && ! pDownload->IsTasking() && ! pDownload->IsPreviewVisible() )
 		{
-			pDownload->m_bClearing = TRUE;	// Indicate marked for deletion (may take awhile)
+			pDownload->m_bClearing = TRUE;	// Indicate marked for removal (may take awhile)
 			pList.AddTail( pDownload );
 		}
 	}
 
-	pLock.Unlock();	// ToDo: Stop freezing GUI for many cleared downloads/seeds
+	// Stop freezing GUI ?
+	pLock.Unlock();
 	m_wndDownloads.Update();
-	//if ( pList.GetCount() > 10 )
-		// ToDo: Workaround user notification at least
-	pLock.Lock();
 
 	while ( ! pList.IsEmpty() )
 	{
+		pLock.Lock();
 		pDownload = pList.RemoveHead();
 		pDownload->Remove();
+		pLock.Unlock();
 	}
 
 	Update();
@@ -1014,7 +1034,7 @@ void CDownloadsWnd::OnDownloadsRemotePreview()
 				}
 				else if ( pSource->m_nProtocol == PROTOCOL_HTTP && pSource->m_bPreview && pDownload->m_oSHA1 )
 				{
-					if (  pSource->m_sPreview.IsEmpty() )
+					if ( pSource->m_sPreview.IsEmpty() )
 					{
 						pSource->m_sPreview.Format( _T("http://%s:%i/gnutella/preview/v1?%s"),
 							(LPCTSTR)CString( inet_ntoa( pSource->m_pAddress ) ), pSource->m_nPort,
@@ -1049,7 +1069,8 @@ void CDownloadsWnd::OnDownloadsLaunch()
 	for ( POSITION pos = Downloads.GetIterator() ; pos ; )
 	{
 		CDownload* pDownload = Downloads.GetNext( pos );
-		if ( pDownload->m_bSelected ) pList.AddTail( pDownload );
+		if ( pDownload->m_bSelected )
+			pList.AddTail( pDownload );
 	}
 
 	while ( ! pList.IsEmpty() )
@@ -1087,7 +1108,9 @@ void CDownloadsWnd::OnUpdateDownloadsLaunchCopy(CCmdUI* pCmdUI)
 
 void CDownloadsWnd::OnDownloadsLaunchCopy()
 {
-	CSingleLock pLock( &Transfers.m_pSection, TRUE );
+	CSingleLock pLock( &Transfers.m_pSection );
+	if ( ! pLock.Lock( 800 ) ) return;
+
 	CList<CDownload*> pList;
 
 	for ( POSITION pos = Downloads.GetIterator() ; pos ; )
@@ -1118,7 +1141,9 @@ void CDownloadsWnd::OnUpdateDownloadsEnqueue(CCmdUI* pCmdUI)
 
 void CDownloadsWnd::OnDownloadsEnqueue()
 {
-	CSingleLock pLock( &Transfers.m_pSection, TRUE );
+	CSingleLock pLock( &Transfers.m_pSection );
+	if ( ! pLock.Lock( 800 ) ) return;
+
 	CList<CDownload*> pList;
 
 	for ( POSITION pos = Downloads.GetIterator() ; pos ; )
@@ -1214,7 +1239,7 @@ void CDownloadsWnd::OnDownloadsAddSource()
 
 			if ( ! Downloads.Check( pDownload ) || pDownload->IsMoving() ) continue;
 
-			for ( POSITION pos = dlg.m_pURLs.GetHeadPosition(); pos; )
+			for ( POSITION pos = dlg.m_pURLs.GetHeadPosition() ; pos ; )
 			{
 				pDownload->AddSourceURL( dlg.m_pURLs.GetNext( pos ), FALSE );
 			}
@@ -1346,7 +1371,7 @@ void CDownloadsWnd::OnDownloadsURI()
 			pList.AddTail( pFile );
 		}
 
-		for ( POSITION posSource = pDownload->GetIterator(); posSource ; )
+		for ( POSITION posSource = pDownload->GetIterator() ; posSource ; )
 		{
 			CDownloadSource* pSource = pDownload->GetNext( posSource );
 			if ( pSource->m_bSelected )
@@ -1719,32 +1744,43 @@ void CDownloadsWnd::OnDownloadsFileDelete()
 {
 	// Create file list of all selected and completed downloads
 	CStringList pList, pFolderList;
+	CSingleLock pLock( &Transfers.m_pSection );
+	if ( ! pLock.Lock( 800 ) ) return;
+
+	for ( POSITION pos = Downloads.GetIterator() ; pos ; )
 	{
-		CSingleLock pTransfersLock( &Transfers.m_pSection, TRUE );
-
-		for ( POSITION pos = Downloads.GetIterator() ; pos ; )
+		CDownload* pDownload = Downloads.GetNext( pos );
+		if ( pDownload->m_bSelected && pDownload->IsCompleted() )
 		{
-			CDownload* pDownload = Downloads.GetNext( pos );
-			if ( pDownload->m_bSelected && pDownload->IsCompleted() )
+			pDownload->m_bClearing == TRUE;		// Indicate marked for removal (may take awhile)
+
+			const DWORD nCount = pDownload->GetFileCount();
+			for ( DWORD i = 0 ; i < nCount ; ++i )
 			{
-				pDownload->m_bClearing == TRUE;		// Indicate marked for deletion (may take awhile)
+				pList.AddTail( pDownload->GetPath( i ) );
+			}
 
-				for ( DWORD i = 0 ; i < pDownload->GetFileCount() ; ++i )
-				{
-					pList.AddTail( pDownload->GetPath( i ) );
-				}
+			// Attempt orphan root folder for torrents
+			if ( nCount > 1 )	// pDownload->IsTorrent() && ! pDownload->IsSingleFileTorrent()
+			{
+				CString strPath = pDownload->GetPath( 0 );
+				strPath = strPath.Left( strPath.ReverseFind( '\\' ) );
+				pFolderList.AddTail( strPath );
 
-				if ( pDownload->IsTorrent() && ! pDownload->IsSingleFileTorrent() )
-				{
-					CString strPath = pDownload->GetPath( 0 );
-					strPath = strPath.Left( strPath.ReverseFind( '\\' ) );
-					pFolderList.AddTail( strPath );
-				}
+				CString strPathCheck = pDownload->GetPath( nCount - 1 );
+				strPathCheck = strPathCheck.Left( strPathCheck.ReverseFind( '\\' ) );
+				if ( strPathCheck.GetLength() < strPath.GetLength() )
+					pFolderList.AddTail( strPathCheck );
+
+				const int nRoot = strPathCheck.Find( pDownload->m_sName + L"\\" );
+				if ( nRoot > 4 )					// Last file was likely subfolder, try again
+					pFolderList.AddTail( strPathCheck.Left( nRoot + pDownload->m_sName.GetLength() ) );
 			}
 		}
 	}
 
-	m_wndDownloads.Update();
+	pLock.Unlock();
+	Update();
 
 	DeleteFiles( pList );
 	DeleteFolders( pFolderList );

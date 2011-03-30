@@ -1293,7 +1293,7 @@ void CDownloads::Save(BOOL bForce)
 void CDownloads::PurgePreviews()
 {
 	const CString strRoot = Settings.Downloads.IncompletePath + _T("\\");
-	CString strPath = strRoot + _T("Preview of *.*");
+	CString strPath = strRoot + _T("Preview *.*");		// Text defined in DlgFilePreview
 
 	WIN32_FIND_DATA pFind = {};
 	HANDLE hSearch = FindFirstFile( strPath, &pFind );
@@ -1301,7 +1301,7 @@ void CDownloads::PurgePreviews()
 
 	do
 	{
-		if ( _tcsnicmp( pFind.cFileName, _T("Preview of "), 11 ) == 0 )
+		if ( _tcsnicmp( pFind.cFileName, _T("Preview "), 11 ) == 0 )
 		{
 			strPath = strRoot + pFind.cFileName;
 			DeleteFileEx( strPath, FALSE, FALSE, TRUE );

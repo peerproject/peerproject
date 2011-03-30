@@ -1,7 +1,7 @@
 //
 // DownloadWithTiger.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -58,7 +58,7 @@ private:
 // Operations
 public:
 	CTigerTree*	GetTigerTree();
-	BOOL		SetTigerTree(BYTE* pTiger, DWORD nTiger);
+	BOOL		SetTigerTree(BYTE* pTiger, DWORD nTiger, BOOL bLevel1 = FALSE);
 	BOOL		NeedTigerTree() const;
 	BOOL		NeedHashset() const;
 	BOOL		SetHashset(BYTE* pSource, DWORD nSource);

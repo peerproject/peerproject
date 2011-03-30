@@ -1,7 +1,7 @@
 //
 // VendorCache.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -58,20 +58,13 @@ public:
 		return NULL;
 	}
 
-	// Lookup by code or by name
-	CVendor*	LookupByName(LPCTSTR pszName) const;
-
-	// Load data from Vendors.xml
-	BOOL		Load();
-
-	// Is specified vendor a PeerProject-powered vendor?
-	bool			IsExtended(LPCTSTR pszCode) const;
+	BOOL		Load(); 								// Load data from Vendors.xml
+	CVendor*	LookupByName(LPCTSTR pszName) const;	// Lookup by code or by name
+	bool		IsExtended(LPCTSTR pszCode) const;		// Is specified vendor a PeerProject/Shareaza-powered vendor?
 
 protected:
-	// Vendor code map
-	CMap< CString, const CString&, CVendor*, CVendor* > m_pCodeMap;
-	// Name map (lowercased)
-	CMap< CString, const CString&, CVendor*, CVendor* > m_pNameMap;
+	CMap< CString, const CString&, CVendor*, CVendor* > m_pCodeMap;		// Vendor code map
+	CMap< CString, const CString&, CVendor*, CVendor* > m_pNameMap;		// Vendor name map (lowercased)
 
 	void		Clear();
 	BOOL		LoadFrom(CXMLElement* pXML);
@@ -90,7 +83,7 @@ public:
 	CString		m_sName;
 	CString		m_sLink;
 	bool		m_bChatFlag;
-	bool		m_bHTMLBrowse;
+	bool		m_bBrowseFlag;
 	bool		m_bExtended;		// PeerProject/Shareaza-powered
 
 protected:

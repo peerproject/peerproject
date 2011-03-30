@@ -310,7 +310,7 @@ BOOL CDownloadTransferHTTP::SendRequest()
 
 	Write( _P("Connection: Keep-Alive\r\n") ); // BearShare assumes close
 
-	if ( Settings.Gnutella2.EnableToday )
+	if ( Settings.Gnutella2.Enabled )
 		Write( _P("X-Features: g2/1.0\r\n") );
 
 	if ( m_bTigerFetch )
@@ -679,44 +679,44 @@ BOOL CDownloadTransferHTTP::OnHeaderLine(CString& strHeader, CString& strValue)
 	// Expected Headers
 	SwitchMap( Text )
 	{
-		Text[ _T("server") ]					= 'S';
-		Text[ _T("connection") ]				= 'C';
-		Text[ _T("location") ]					= 'L';
-		Text[ _T("retry-after") ]				= 'R';
-		Text[ _T("content-length") ]			= 'l';
-		Text[ _T("content-range") ]				= 'r';
-		Text[ _T("content-type") ]				= 't';
-		Text[ _T("content-language") ]			= 'y';
-		Text[ _T("content-encoding") ]			= 'e';
-		Text[ _T("transfer-encoding") ]			= 'E';
-		Text[ _T("content-urn") ]				= 'u';
-		Text[ _T("x-content-urn") ]				= 'u';
-		Text[ _T("x-gnutella-content-urn") ]	= 'u';
-		Text[ _T("x-metadata-path") ]			= 'm';
-		Text[ _T("x-tigertree-path") ]			= 'g';
-		Text[ _T("x-thex-uri") ]				= 'h';
-		Text[ _T("alt-location") ]				= 'a';
-		Text[ _T("x-alt") ]						= 'a';
-		Text[ _T("x-gnutella-alternate-location") ] = 'a';
-		Text[ _T("x-available-ranges") ]		= 'v';
-		Text[ _T("x-queue") ]					= 'q';
-		Text[ _T("x-perhost") ]					= 'p';
-		Text[ _T("x-gnutella-maxslotsperhost") ] = 'p';
-		Text[ _T("x-delete-source") ]			= 'd';
-		Text[ _T("x-nick") ]					= 'n';
-		Text[ _T("x-name") ]					= 'n';
-		Text[ _T("x-username") ]				= 'n';
-		Text[ _T("x-features") ]				= 'f';
-		Text[ _T("content-disposition") ]		= 'o';
-		Text[ _T("content-md5") ]				= '5';
+		Text[ L"server" ]					= 'S';
+		Text[ L"connection" ]				= 'C';
+		Text[ L"location" ]					= 'L';
+		Text[ L"retry-after" ]				= 'R';
+		Text[ L"content-length" ]			= 'l';
+		Text[ L"content-range" ]			= 'r';
+		Text[ L"content-type" ]				= 't';
+		Text[ L"content-language" ]			= 'y';
+		Text[ L"content-encoding" ]			= 'e';
+		Text[ L"transfer-encoding" ]		= 'E';
+		Text[ L"content-urn" ]				= 'u';
+		Text[ L"x-content-urn" ]			= 'u';
+		Text[ L"x-gnutella-content-urn" ]	= 'u';
+		Text[ L"x-metadata-path" ]			= 'm';
+		Text[ L"x-tigertree-path" ]			= 'g';
+		Text[ L"x-thex-uri" ]				= 'h';
+		Text[ L"alt-location" ]				= 'a';
+		Text[ L"x-alt" ]					= 'a';
+		Text[ L"x-gnutella-alternate-location" ] = 'a';
+		Text[ L"x-available-ranges" ]		= 'v';
+		Text[ L"x-queue" ]					= 'q';
+		Text[ L"x-perhost" ]				= 'p';
+		Text[ L"x-gnutella-maxslotsperhost" ] = 'p';
+		Text[ L"x-delete-source" ]			= 'd';
+		Text[ L"x-nick" ]					= 'n';
+		Text[ L"x-name" ]					= 'n';
+		Text[ L"x-username" ]				= 'n';
+		Text[ L"x-features" ]				= 'f';
+		Text[ L"content-disposition" ]		= 'o';
+		Text[ L"content-md5" ]				= '5';
 
-		Text[ _T("x-node") ]					= 'x';
-		Text[ _T("x-nalt") ]					= 'x';
-		Text[ _T("x-palt") ]					= 'x';
-		Text[ _T("fp-1a") ]						= 'x';
-		Text[ _T("fp-auth-challenge") ] 		= 'x';
-		Text[ _T("accept-ranges") ] 			= 'x';
-		Text[ _T("x-create-time") ] 			= 'x';
+		Text[ L"x-node" ]					= 'x';
+		Text[ L"x-nalt" ]					= 'x';
+		Text[ L"x-palt" ]					= 'x';
+		Text[ L"fp-1a" ]					= 'x';
+		Text[ L"fp-auth-challenge" ] 		= 'x';
+		Text[ L"accept-ranges" ] 			= 'x';
+		Text[ L"x-create-time" ] 			= 'x';
 	}
 
 	switch( Text[ strCase ] )

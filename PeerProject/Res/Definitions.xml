@@ -130,7 +130,6 @@
 	<resource code="1502" id="IDC_SEARCH_STOP"/>
 	<resource code="1504" id="IDC_SEARCH_ADVANCED"/>
 	<resource code="1505" id="IDC_SEARCH_TEXT"/>
-	<resource code="1211" id="IDC_IMPORT_DOWNLOADS"/>
 	<!-- Commands -->
 	<resource code="40001" id="ID_TAB_HOME"/>
 	<resource code="40002" id="ID_TAB_CONNECT"/>
@@ -251,7 +250,7 @@
 	<resource code="40128" id="ID_HELP_WARNINGS"/>
 	<resource code="40130" id="ID_HOSTCACHE_CONNECT"/>
 	<resource code="40131" id="ID_HOSTCACHE_DISCONNECT"/>
-	<resource code="40131" id="ID_HOSTCACHE_G2_HORIZON"/>
+	<resource code="40132" id="ID_HOSTCACHE_G2_HORIZON"/>
 	<resource code="40133" id="ID_HOSTCACHE_G2_CACHE"/>
 	<resource code="40134" id="ID_HOSTCACHE_G1_CACHE"/>
 	<resource code="40135" id="ID_HOSTCACHE_DC_CACHE"/>
@@ -265,6 +264,7 @@
 	<resource code="40144" id="ID_HITMONITOR_CLEAR"/>
 	<resource code="40145" id="ID_HITMONITOR_PAUSE"/>
 	<resource code="40146" id="ID_HITMONITOR_SEARCH"/>
+	<resource code="40148" id="ID_IMPORT_DOWNLOADS"/>
 	<resource code="40150" id="ID_IRC_CONNECT"/>
 	<resource code="40151" id="ID_IRC_DISCONNECT"/>
 	<resource code="40152" id="ID_IRC_CLOSETAB"/>

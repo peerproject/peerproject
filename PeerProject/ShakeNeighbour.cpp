@@ -289,21 +289,21 @@ void CShakeNeighbour::SendMinimalHeaders()
 		else if ( m_nProtocol == PROTOCOL_NULL )
 		{
 			// Tell the remote computer we know how to read Gnutella and Gnutella2 packets
-			if ( Settings.Gnutella1.EnableToday && Settings.Gnutella2.EnableToday )
+			if ( Settings.Gnutella1.Enabled && Settings.Gnutella2.Enabled )
 				Write( _P("Accept: application/x-gnutella2,application/x-gnutella-packets\r\n") );
-			else if ( Settings.Gnutella2.EnableToday )
+			else if ( Settings.Gnutella2.Enabled )
 				Write( _P("Accept: application/x-gnutella2\r\n") );
-			else if ( Settings.Gnutella1.EnableToday )
+			else if ( Settings.Gnutella1.Enabled )
 				Write( _P("Accept: application/x-gnutella-packets\r\n") );
 		}
 	}
-	else if ( m_bG2Accept && Settings.Gnutella2.EnableToday && m_nProtocol != PROTOCOL_G1 )
+	else if ( m_bG2Accept && Settings.Gnutella2.Enabled && m_nProtocol != PROTOCOL_G1 )
 	{
 		// The remote computer contacted us, and accepts G2 packets
 		Write( _P("Accept: application/x-gnutella2\r\n") );					// We can read Gnutella2 packets
 		Write( _P("Content-Type: application/x-gnutella2\r\n") );			// You will be getting them from us
 	}
-	else if ( m_bG1Accept && Settings.Gnutella1.EnableToday && m_nProtocol != PROTOCOL_G2 )
+	else if ( m_bG1Accept && Settings.Gnutella1.Enabled && m_nProtocol != PROTOCOL_G2 )
 	{
 		// The remote computer contacted us, and accepts Gnutella packets
 		Write( _P("Accept: application/x-gnutella-packets\r\n") );			// We can read Gnutella1 packets
@@ -345,7 +345,7 @@ void CShakeNeighbour::SendPublicHeaders()
 	}
 
 	// If the settings say connect to Gnutella and this function got passed Gnutella or the unknown network
-	if ( Settings.Gnutella1.EnableToday && m_nProtocol != PROTOCOL_G2 )
+	if ( Settings.Gnutella1.Enabled && m_nProtocol != PROTOCOL_G2 )
 	{
 		Write( _P("X-Requeries: False\r\n") );
 
@@ -392,7 +392,7 @@ void CShakeNeighbour::SendXUltrapeerHeaders()
 	}
 	else if ( m_nProtocol == PROTOCOL_NULL ) // This protocol ID this method got passed is both Gnutella1 and Gnutella2
 	{
-		if ( Settings.Gnutella1.EnableToday && Settings.Gnutella2.EnableToday &&
+		if ( Settings.Gnutella1.Enabled && Settings.Gnutella2.Enabled &&
 			( m_bInitiated || ( ( m_bG2Send || m_bG2Accept) && ( m_bG1Send || m_bG1Accept) ) ) )
 		{
 			// Find if we are a Gnutella1 Ultrapeer or Gnutella2 hub already, or eligible to become one soon
@@ -404,7 +404,7 @@ void CShakeNeighbour::SendXUltrapeerHeaders()
 			bXUltrapeerNeeded = Neighbours.NeedMoreHubs( PROTOCOL_G1 ) &&
 				 Neighbours.NeedMoreHubs( PROTOCOL_G2 );
 		}
-		else if ( Settings.Gnutella1.EnableToday &&
+		else if ( Settings.Gnutella1.Enabled &&
 			( m_bInitiated || ( m_bG1Send || m_bG1Accept ) ) )
 		{
 			// Find if we are a Gnutella1 Ultrapeer, or at least eligible to become one soon
@@ -412,7 +412,7 @@ void CShakeNeighbour::SendXUltrapeerHeaders()
 				Neighbours.IsG1Ultrapeer() || Neighbours.IsG1UltrapeerCapable() );
 			bXUltrapeerNeeded = Neighbours.NeedMoreHubs( PROTOCOL_G1 ) == TRUE;
 		}
-		else if ( Settings.Gnutella2.EnableToday &&
+		else if ( Settings.Gnutella2.Enabled &&
 			( m_bInitiated || ( m_bG2Send || m_bG2Accept ) ) )
 		{
 			// Find if we are a Gnutella2 hub, or at least eligible to become one soon
@@ -653,53 +653,53 @@ BOOL CShakeNeighbour::OnHeaderLine(CString& strHeader, CString& strValue)
 	// Expected Headers:
 	SwitchMap( Text )
 	{
-		Text[ _T("user-agent") ]			= 'u';
-		Text[ _T("remote-ip") ]				= 'i';
-		Text[ _T("listen-ip") ]				= 'o';
-		Text[ _T("x-my-address") ]			= 'o';
-		Text[ _T("x-node") ]				= 'o';
-		Text[ _T("node") ]					= 'o';
-		Text[ _T("pong-caching") ]			= 'p';
-		Text[ _T("vendor-message") ]		= 'v';
-		Text[ _T("ggep") ]					= 'g';
-		Text[ _T("accept") ]				= 'a';
-		Text[ _T("accept-encoding") ] 		= 'e';
-		Text[ _T("content-encoding") ]		= 's';
-		Text[ _T("content-type") ]			= 't';
-		Text[ _T("x-query-routing") ] 		= 'q';
-		Text[ _T("x-hub") ]					= 'h';
-		Text[ _T("x-ultrapeer") ]			= 'h';
-		Text[ _T("x-hub-needed") ]			= 'n';
-		Text[ _T("x-ultrapeer-needed") ]	= 'n';
-		Text[ _T("x-hub-loaded") ]			= 'l';
-		Text[ _T("x-ultrapeer-loaded") ]	= 'l';
-		Text[ _T("x-degree") ]				= 'd';
-		Text[ _T("x-max-ttl") ]				= 'm';
-		Text[ _T("x-dynamic-querying") ]	= 'y';
-		Text[ _T("x-ultrapeer-query-routing") ] = 'z';
-		Text[ _T("x-requeries") ]			= 'r';
-		Text[ _T("x-ext-probes") ]			= 'b';
-		Text[ _T("x-locale-pref") ]			= 'f';
-		Text[ _T("x-try-dna-hubs") ]		= 'D';
-		Text[ _T("x-try-hubs") ]			= 'H';
-		Text[ _T("x-try-ultrapeers") ]		= 'U';
-		Text[ _T("x-hostname") ]			= 'N';
+		Text[ L"user-agent" ]			= 'u';
+		Text[ L"remote-ip" ]			= 'i';
+		Text[ L"listen-ip" ]			= 'o';
+		Text[ L"x-my-address" ]			= 'o';
+		Text[ L"x-node" ]				= 'o';
+		Text[ L"node" ]					= 'o';
+		Text[ L"pong-caching" ]			= 'p';
+		Text[ L"vendor-message" ]		= 'v';
+		Text[ L"ggep" ]					= 'g';
+		Text[ L"accept" ]				= 'a';
+		Text[ L"accept-encoding" ] 		= 'e';
+		Text[ L"content-encoding" ]		= 's';
+		Text[ L"content-type" ]			= 't';
+		Text[ L"x-query-routing" ] 		= 'q';
+		Text[ L"x-hub" ]				= 'h';
+		Text[ L"x-ultrapeer" ]			= 'h';
+		Text[ L"x-hub-needed" ]			= 'n';
+		Text[ L"x-ultrapeer-needed" ]	= 'n';
+		Text[ L"x-hub-loaded" ]			= 'l';
+		Text[ L"x-ultrapeer-loaded" ]	= 'l';
+		Text[ L"x-degree" ]				= 'd';
+		Text[ L"x-max-ttl" ]			= 'm';
+		Text[ L"x-dynamic-querying" ]	= 'y';
+		Text[ L"x-ultrapeer-query-routing" ] = 'z';
+		Text[ L"x-requeries" ]			= 'r';
+		Text[ L"x-ext-probes" ]			= 'b';
+		Text[ L"x-locale-pref" ]		= 'f';
+		Text[ L"x-try-dna-hubs" ]		= 'D';
+		Text[ L"x-try-hubs" ]			= 'H';
+		Text[ L"x-try-ultrapeers" ]		= 'U';
+		Text[ L"x-hostname" ]			= 'N';
 
 		// http://limewire.negatis.com/index.php?title=Known_Gnutella_Connection_Headers
-		//Text[ _T("uptime") ]				= 'x';
-		//Text[ _T("x-live-since") ]		= 'x';
-		//Text[ _T("x-features") ]			= 'x';
-		//Text[ _T("x-version") ]			= 'x';
-		//Text[ _T("x-guess") ]				= 'x';	// OOB
-		//Text[ _T("x-leaf-max") ]			= 'x';
-		//Text[ _T("x-hops-flow") ] 		= 'x';
-		//Text[ _T("x-bye-packet") ]		= 'x';
-		//Text[ _T("x-try") ]				= 'x';
+		//Text[ L"uptime" ]				= 'x';
+		//Text[ L"x-live-since" ]		= 'x';
+		//Text[ L"x-features" ]			= 'x';
+		//Text[ L"x-version" ]			= 'x';
+		//Text[ L"x-guess" ]			= 'x';	// OOB
+		//Text[ L"x-leaf-max" ]			= 'x';
+		//Text[ L"x-hops-flow" ] 		= 'x';
+		//Text[ L"x-bye-packet" ]		= 'x';
+		//Text[ L"x-try" ]				= 'x';
 
 		// http://limewire.negatis.com/index.php?title=Communicating_Network_Topology_Information
-		//Text[ _T("crawler") ]				= 'w';
-		//Text[ _T("leaves") ]				= '#';
-		//Text[ _T("peers") ]				= '#';
+		//Text[ L"crawler" ]			= 'w';
+		//Text[ L"leaves" ]				= '#';
+		//Text[ L"peers" ]				= '#';
 	}
 
 	switch( Text[ strCase ] )
@@ -958,7 +958,7 @@ BOOL CShakeNeighbour::OnHeadersComplete()
 
 		int nCount = 0;
 		// Append a comma onto the end of the value text once, and then loop forever
-		for ( m_sTryUltrapeers += ',' ; ; )	// for (;;) is the same thing as forever
+		for ( m_sTryUltrapeers += ',' ; ; )	// for (;;) is forever
 		{
 			// Find the first comma in the value text
 			int nPos = m_sTryUltrapeers.Find( ',' ); // Set nPos to the distance in characters from the start to the comma
@@ -997,13 +997,13 @@ BOOL CShakeNeighbour::OnHeadersComplete()
 		DelayClose( IDS_HANDSHAKE_REJECTED );
 	}
 	else if ( ( ( ! m_bInitiated && m_bG2Accept ) || ( m_bInitiated && m_bG2Send ) ) &&
-			Settings.Gnutella2.EnableToday && m_nProtocol != PROTOCOL_G1 )
+			Settings.Gnutella2.Enabled && m_nProtocol != PROTOCOL_G1 )
 	{
 		m_nProtocol = PROTOCOL_G2;		// This is a G2 connection
 		bResult = OnHeadersCompleteG2();
 	}
 	else if ( ( ( ! m_bInitiated && m_bG1Accept ) || ( m_bInitiated && m_bG1Send ) ) &&
-			Settings.Gnutella1.EnableToday && m_nProtocol != PROTOCOL_G2 )
+			Settings.Gnutella1.Enabled && m_nProtocol != PROTOCOL_G2 )
 	{
 		// Remote computer doesn't accept Gnutella2 packets, or it's not going to send them because we contacted it
 		m_nProtocol = PROTOCOL_G1;		// This is a Gnutella connection
@@ -1263,7 +1263,7 @@ BOOL CShakeNeighbour::OnHeadersCompleteG1()
 	theApp.Message( MSG_DEBUG, _T("Headers Complete: G1 client") );
 
 	// Check if Gnutella1 is enabled before connecting to a gnutella client
-	if ( ! Settings.Gnutella1.EnableToday && m_nState < nrsRejected ) // And make sure the state is before getting rejected
+	if ( ! Settings.Gnutella1.Enabled && m_nState < nrsRejected ) // And make sure the state is before getting rejected
 	{
 		// Tell the remote computer that we're only connecting to Gnutella2 today
 		Write( _P("GNUTELLA/0.6 503 G2 Required\r\n") );

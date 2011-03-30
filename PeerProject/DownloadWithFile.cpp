@@ -268,9 +268,71 @@ DWORD CDownloadWithFile::MoveFile(LPCTSTR pszDestination, LPPROGRESS_ROUTINE lpP
 	if ( ! m_pFile.get() )
 		return ERROR_FILE_NOT_FOUND;
 
+	CSingleLock oLibraryLock( &Library.m_pSection, FALSE );
+
+	const CString strRoot = (CString)pszDestination + L"\\";
+
 	const DWORD nCount = m_pFile->GetCount();
 	for ( DWORD nIndex = 0 ; nIndex < nCount ; ++nIndex )
 	{
+		// Handle conflicts
+		if ( Settings.Downloads.RenameExisting && PathFileExists( strRoot + m_pFile->GetName( nIndex ) ) )
+		{
+			CString strName( m_pFile->GetName( nIndex ) );
+			BOOL bDuplicate = FALSE;
+
+			if ( m_pFile->GetLength( nIndex ) < 2 )
+				continue;	// Just skip empty files  (ToDo: Verify seeds okay!)
+
+			// Do quick size comparison
+			if ( oLibraryLock.Lock( 100 ) )
+			{
+				if ( CLibraryFile* pFile = LibraryMaps.LookupFileByPath( strRoot + strName ) )
+				{
+					if ( pFile->m_nSize == m_pFile->GetLength( nIndex ) )
+					{
+						bDuplicate = TRUE;
+						if ( nCount == 1 && IsHashed() &&
+							( validAndUnequal( m_oSHA1, pFile->m_oSHA1 ) ||
+							  validAndUnequal( m_oTiger, pFile->m_oTiger ) ||
+							  validAndUnequal( m_oED2K, pFile->m_oED2K ) ||
+							  validAndUnequal( m_oBTH, pFile->m_oBTH ) ) )
+							bDuplicate = FALSE;
+						//else if ( m_pFile->GetAt( nIndex )->IsHashed() )
+						// ToDo: Otherwise get temp hash or byte confirmation ?
+					}
+				}
+
+				oLibraryLock.Unlock();
+			}
+
+			if ( bDuplicate )	// Process presumed identical file ?
+			{
+				theApp.Message( MSG_INFO, _T("Overwriting Duplicate File:  %s"), (LPCTSTR)strName );
+			}
+			else // Smart Rename
+			{
+				CString strFormat = strName;
+				int nPos = strFormat.ReverseFind( '.' );
+				if ( nPos > strFormat.ReverseFind( '\\' ) )
+					strFormat.Insert( nPos, L".%i" );		// Filename.1.ext
+				else
+					strFormat.Append( L".%i" );
+
+				for ( int i = 1 ; i < 100 ; i++ )
+				{
+					strName.Format( strFormat, i );
+					if ( ! PathFileExists( strRoot + strName ) )
+					{
+						m_pFile->SetName( nIndex, strName );
+						theApp.Message( MSG_INFO, _T("New File Renamed:  %s"), (LPCTSTR)m_pFile->GetName( nIndex ) );
+						break;
+					}
+				}
+			}
+		}
+
+		// Create new file
 		DWORD dwError = m_pFile->Move( nIndex, pszDestination, lpProgressRoutine, lpData );
 
 		if ( dwError != ERROR_SUCCESS )
@@ -292,10 +354,9 @@ DWORD CDownloadWithFile::MoveFile(LPCTSTR pszDestination, LPPROGRESS_ROUTINE lpP
 
 		LibraryBuilder.RequestPriority( sPath );
 
-		// ToDo: Get hashes for all files of download
 		if ( nCount == 1 )
 		{
-			// Update with download hashes single-file download only
+			// Update with download hashes, single-file download only
 			Hashes::Sha1ManagedHash oSHA1( m_oSHA1 );
 			if ( m_bSHA1Trusted )		oSHA1.signalTrusted();
 			Hashes::TigerManagedHash oTiger( m_oTiger );
@@ -311,6 +372,7 @@ DWORD CDownloadWithFile::MoveFile(LPCTSTR pszDestination, LPPROGRESS_ROUTINE lpP
 		}
 		else // Multifile torrent
 		{
+			// ToDo: Get hashes for all files of download?
 			Hashes::Sha1ManagedHash		oSHA1;
 			Hashes::TigerManagedHash	oTiger;
 			Hashes::Ed2kManagedHash		oED2K;
@@ -320,11 +382,11 @@ DWORD CDownloadWithFile::MoveFile(LPCTSTR pszDestination, LPPROGRESS_ROUTINE lpP
 		}
 
 		// Early metadata update
-		CSingleLock oLibraryLock( &Library.m_pSection, FALSE );
 		if ( oLibraryLock.Lock( 100 ) )
 		{
 			if ( CLibraryFile* pFile = LibraryMaps.LookupFileByPath( sPath ) )
 				pFile->UpdateMetadata( static_cast< CDownload* >( this ) );
+			oLibraryLock.Unlock();
 		}
 	}
 
@@ -375,8 +437,8 @@ QWORD CDownloadWithFile::GetVolumeComplete() const
 	{
 		if ( m_pFile->IsValid() )
 			return m_pFile->GetCompleted();
-		else
-			return 0;
+
+		return 0;
 	}
 	return m_nSize;
 }
@@ -387,8 +449,8 @@ QWORD CDownloadWithFile::GetVolumeRemaining() const
 	{
 		if ( m_pFile->IsValid() )
 			return m_pFile->GetRemaining();
-		else
-			return m_nSize;
+
+		return m_nSize;
 	}
 	return 0;
 }

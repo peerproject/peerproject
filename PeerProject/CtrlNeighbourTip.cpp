@@ -1,7 +1,7 @@
 //
 // CtrlNeighbourTip.cpp : implementation file
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -130,9 +130,9 @@ void CNeighbourTipCtrl::OnCalcSize(CDC* pDC)
 
 		m_sz.cy += TIP_RULE;
 	}
-	else if ( pNeighbour->m_nProtocol == PROTOCOL_ED2K )
+	else if ( pNeighbour->m_nProtocol == PROTOCOL_ED2K || pNeighbour->m_nProtocol == PROTOCOL_DC )
 	{
-		str = ((CEDNeighbour*)pNeighbour)->m_sServerName;
+		str = pNeighbour->m_sServerName;
 
 		if ( ! str.IsEmpty() )
 		{
@@ -206,9 +206,9 @@ void CNeighbourTipCtrl::OnPaint(CDC* pDC)
 
 		DrawRule( pDC, &pt );
 	}
-	else if ( pNeighbour->m_nProtocol == PROTOCOL_ED2K )
+	else if ( pNeighbour->m_nProtocol == PROTOCOL_ED2K || pNeighbour->m_nProtocol == PROTOCOL_DC)
 	{
-		str = ((CEDNeighbour*)pNeighbour)->m_sServerName;
+		str = pNeighbour->m_sServerName;
 
 		if ( ! str.IsEmpty() )
 		{
@@ -295,6 +295,9 @@ void CNeighbourTipCtrl::OnPaint(CDC* pDC)
 					LoadString( str, IDS_NEIGHBOUR_ED2K_HIGH );
 				}
 			}
+			break;
+		case PROTOCOL_DC:
+			str = L"NMDC Client-to-Hub Connection";		// ToDo: Localize
 			break;
 		default:
 			LoadString( str, IDS_NEIGHBOUR_HANDSHAKE );
@@ -391,8 +394,8 @@ void CNeighbourTipCtrl::OnTimer(UINT_PTR nIDEvent)
 
 	pNeighbour->Measure();
 
-	DWORD nIn	= pNeighbour->m_mInput.nMeasure;
-	DWORD nOut	= pNeighbour->m_mOutput.nMeasure;
+	const DWORD nIn  = pNeighbour->m_mInput.nMeasure;
+	const DWORD nOut = pNeighbour->m_mOutput.nMeasure;
 
 	m_pItemIn->Add( nIn );
 	m_pItemOut->Add( nOut );

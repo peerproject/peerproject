@@ -77,22 +77,19 @@ BOOL CDCPacket::OnPacket(const SOCKADDR_IN* pHost)
 		}
 		return TRUE;
 	}
+
 #ifdef _DEBUG
-	else
-	{
-		CString tmp;
-		tmp.Format( _T("Unknown packet from %s:%u."),
-			(LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ),
-			htons( pHost->sin_port ) );
-		Debug( tmp );
-	}
+	CString tmp;
+	tmp.Format( _T("Unknown packet from %s:%u."),
+		(LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ),
+		htons( pHost->sin_port ) );
+	Debug( tmp );
 #endif // _DEBUG
 
-	// Unknown packet
-	return FALSE;
+	return FALSE;	// Unknown packet
 }
 
-BOOL CDCPacket::OnCommonHit(const SOCKADDR_IN* /* pHost */)
+BOOL CDCPacket::OnCommonHit(const SOCKADDR_IN* /*pHost*/)
 {
 	if ( CQueryHit* pHit = CQueryHit::FromDCPacket( this ) )
 		Network.OnQueryHits( pHit );

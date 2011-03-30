@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Albanian Skin File -->
 
-<!-- Translation based on default-en.xml r64 -->
+<!-- Translation based on default-en.xml r65 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -357,6 +357,7 @@
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
+		<button id="ID_NETWORK_DC" text="DC++"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Kuadro"/>
 	</toolbar>
@@ -414,20 +415,16 @@
 		<button id="ID_SEARCH_FILTER_RAW" text="Më shumë..."/>
 	</toolbar>
 	<!-- HOST CACHE WINDOW -->
-	<toolbar name="CHostCacheWnd.Basic">
-		<button id="ID_HOSTCACHE_CONNECT" text="Lidhu Te"/>
-		<button id="ID_HOSTCACHE_DISCONNECT" text="Shkëputu"/>
-		<button id="ID_HOSTCACHE_REMOVE" text="Fshije"/>
-	</toolbar>
 	<toolbar name="CHostCacheWnd">
 		<button id="ID_HOSTCACHE_CONNECT" text="Lidhu Te"/>
 		<button id="ID_HOSTCACHE_DISCONNECT" text="Shkëputu"/>
 		<button id="ID_HOSTCACHE_REMOVE" text="Fshije"/>
 		<rightAlign/>
-		<button id="ID_HOSTCACHE_G2_HORIZON" text="Copëz G2"/>
-		<button id="ID_HOSTCACHE_G2_CACHE" text="Depo G2"/>
-		<button id="ID_HOSTCACHE_G1_CACHE" text="Depo G1"/>
-		<button id="ID_HOSTCACHE_ED2K_CACHE" text="Depo eDonkey"/>
+		<button id="ID_HOSTCACHE_G2_HORIZON" text="Copëz"/>
+		<button id="ID_HOSTCACHE_G2_CACHE" text="Depo "/>
+		<button id="ID_HOSTCACHE_G1_CACHE" text="Depo "/>
+		<button id="ID_HOSTCACHE_ED2K_CACHE" text="Depo "/>
+		<button id="ID_HOSTCACHE_DC_CACHE" text="Depo "/>
 	</toolbar>
 	<!-- PRIVATE CHAT WINDOW -->
 	<toolbar name="CPrivateChatFrame">
@@ -529,6 +526,7 @@
 				<item id="ID_NETWORK_G2" text="Gnutella_2"/>
 				<item id="ID_NETWORK_G1" text="_Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="_eDonkey"/>
+				<item id="ID_NETWORK_DC" text="_DC++"/>
 				<separator/>
 				<item id="ID_NETWORK_CONNECT_TO" text="Lidhu _Te..." shortcut="Ctrl+T"/>
 				<item id="ID_NETWORK_BROWSE_TO" text="_Shfleto një Host..."/>
@@ -542,7 +540,7 @@
 				<separator/>
 				<item id="ID_TOOLS_DOWNLOAD" text="Shkarko një _Skedë/Torrent..."/>
 				<item id="ID_TOOLS_CREATETORRENT" text="_Create .Torrent..."/>
-				<item id="IDC_IMPORT_DOWNLOADS" text="_Importo Shkarkesat e Pjesshme të eMule..."/>
+				<item id="ID_IMPORT_DOWNLOADS" text="_Importo Shkarkesat e Pjesshme të eMule..."/>
 				<separator/>
 				<item id="ID_TOOLS_LANGUAGE" text="Zgjidhe _Gjuhën..."/>
 				<item id="ID_TOOLS_SKIN" text="Zgjidhe L_ëvoren..."/>
@@ -613,11 +611,10 @@
 			<item id="ID_NETWORK_CONNECT" text="_Lidhu" shortcut="Ctrl+G"/>
 			<item id="ID_NETWORK_DISCONNECT" text="_Shkëputu"/>
 			<separator/>
-			<menu text="Zgjidh _Rrjetet">
-				<item id="ID_NETWORK_G2" text="Gnutella_2"/>
-				<item id="ID_NETWORK_G1" text="_Gnutella"/>
-				<item id="ID_NETWORK_ED2K" text="_eDonkey"/>
-			</menu>
+			<item id="ID_NETWORK_G2" text="Gnutella_2"/>
+			<item id="ID_NETWORK_G1" text="_Gnutella"/>
+			<item id="ID_NETWORK_ED2K" text="_eDonkey"/>
+			<item id="ID_NETWORK_DC" text="_DC++"/>
 			<separator/>
 			<item id="ID_NETWORK_CONNECT_TO" text="Lidhu _Te..." shortcut="Ctrl+T"/>
 			<item id="ID_NETWORK_BROWSE_TO" text="_Shfleto një Host..."/>
@@ -662,7 +659,7 @@
 		<menu text="_Mjete">
 			<item id="ID_LIBRARY_FOLDERS" text="_Skedat e Shpërndara..."/>
 			<item id="ID_TOOLS_DOWNLOAD" text="Shkarko një _Skedë/Torrent..."/>
-			<item id="IDC_IMPORT_DOWNLOADS" text="_Importo Shkarkesat e Pjesshme të eMule..."/>
+			<item id="ID_IMPORT_DOWNLOADS" text="_Importo Shkarkesat e Pjesshme të eMule..."/>
 			<item id="ID_OPEN_DOWNLOADS_FOLDER" text="_Hape Dosjen me të Përfunduarit"/>
 			<separator/>
 			<item id="ID_TOOLS_SKIN" text="Zgjidhe L_ëvoren..."/>
@@ -708,11 +705,9 @@
 		<menu text="_Rrjeti">
 			<item id="ID_NETWORK_CONNECT" text="_Lidhu" shortcut="Ctrl+G"/>
 			<separator/>
-			<menu text="Zgjidhe _Rrjetin">
-				<item id="ID_NETWORK_G2" text="Gnutella_2"/>
-				<item id="ID_NETWORK_G1" text="_Gnutella"/>
-				<item id="ID_NETWORK_ED2K" text="_eDonkey"/>
-			</menu>
+			<item id="ID_NETWORK_G2" text="Gnutella_2"/>
+			<item id="ID_NETWORK_G1" text="_Gnutella"/>
+			<item id="ID_NETWORK_ED2K" text="_eDonkey"/>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="Dil _Kur Përfundon"/>
 			<item id="ID_NETWORK_EXIT" text="D_il"/>
@@ -783,11 +778,10 @@
 			<item id="ID_NETWORK_CONNECT_TO" text="Lidhu _Te..." shortcut="Ctrl+T"/>
 			<item id="ID_NETWORK_BROWSE_TO" text="_Shfleto një Host..."/>
 			<separator/>
-			<menu text="Zgjidhe _Rrjetin">
-				<item id="ID_NETWORK_G2" text="Gnutella_2"/>
-				<item id="ID_NETWORK_G1" text="_Gnutella"/>
-				<item id="ID_NETWORK_ED2K" text="_eDonkey"/>
-			</menu>
+			<item id="ID_NETWORK_G2" text="Gnutella_2"/>
+			<item id="ID_NETWORK_G1" text="_Gnutella"/>
+			<item id="ID_NETWORK_ED2K" text="_eDonkey"/>
+			<item id="ID_NETWORK_DC" text="_DC++"/>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="Mbylle _Kur Përfundon"/>
 			<item id="ID_NETWORK_EXIT" text="D_il"/>
@@ -817,7 +811,7 @@
 		<menu text="_Mjete">
 			<item id="ID_LIBRARY_FOLDERS" text="_Skedat e Shpërndara..."/>
 			<item id="ID_TOOLS_DOWNLOAD" text="Shkarko një _Skedë/Torrent..."/>
-			<item id="IDC_IMPORT_DOWNLOADS" text="_Importo Shkarkesat e Pjesshme të eMule..."/>
+			<item id="ID_IMPORT_DOWNLOADS" text="_Importo Shkarkesat e Pjesshme të eMule..."/>
 			<item id="ID_OPEN_DOWNLOADS_FOLDER" text="_Hape Dosjen me të Përfunduarit"/>
 			<separator/>
 			<item id="ID_TOOLS_SKIN" text="Zgjidhe L_ëvoren..."/>
@@ -1568,6 +1562,10 @@
 			<item id="ID_NETWORK_G2" text="Gnutella_2"/>
 			<item id="ID_NETWORK_G1" text="_Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="_eDonkey"/>
+			<item id="ID_NETWORK_DC" text="_DC++"/>
+			<separator/>
+			<item id="ID_VIEW_DISCOVERY" text="Zbu_limi"/>
+			<item id="ID_VIEW_HOSTS" text="Depo H_osti"/>
 		</menu>
 		<menu text="_Monitori">
 			<item id="ID_NEIGHBOURS_VIEW_ALL" text="Shiko _Gjithë Trafikun"/>
@@ -1854,12 +1852,20 @@
 		<text group="31" align="middle">I shkëputur</text>
 		<text group="32" align="middle">Lidhje...</text>
 		<text group="33" align="middle">I Lidhur</text>
+		<text group="34" align="middle" id="EDServers">%i Server</text>
 		<newline group="30" gap="2"/>
+		<icon group="60" command="ID_NETWORK_DC"/>
+		<text group="60" align="middle" format="b">&#160;DC++: &#160; </text>
+		<text group="61" align="middle">I shkëputur</text>
+		<text group="62" align="middle">Lidhje...</text>
+		<text group="63" align="middle">I Lidhur</text>
+		<text group="64" align="middle" id="DCHubs">%i nyje</text>
+		<newline group="60" gap="2"/>
 		<group id="2">
 			<para align="center">
 				<newline gap="4"/>
-				<text>Jeni i lidhur për </text>
-				<newline gap="0"/>
+				<link target="command:ID_TAB_NETWORK">Jeni i lidhur për</link>
+				<newline gap="4"/>
 				<text id="ConnectedHours" format="b">%i </text>
 				<text>orë dhe </text>
 				<text id="ConnectedMinutes" format="b">%i </text>
@@ -1867,7 +1873,7 @@
 			</para>
 		</group>
 	</document>
-	<document name="CHomeLibraryBox" title="Libraria Ime" leftMargin="6" topMargin="6">
+	<document name="CHomeLibraryBox" title="Libraria" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
 				<font size="11"/>
@@ -2545,8 +2551,9 @@
 	<tip id="ID_NETWORK_CONNECT" message="Lidhet në rrjet."/>
 	<tip id="ID_NETWORK_CONNECT_TO" message="Lidhet me porosi në host..."/>
 	<tip id="ID_NETWORK_DISCONNECT" message="Shkëputet nga rrjeti."/>
-	<tip id="ID_NETWORK_ED2K" message="Lidhet tek rrjeti eDonkey."/>
 	<tip id="ID_NETWORK_EXIT" message="PeerProject do të mbyllet."/>
+	<tip id="ID_NETWORK_ED2K" message="Lidhet tek rrjeti eDonkey."/>
+	<tip id="ID_NETWORK_DC" message="Lidhet tek rrjeti DC++."/>
 	<tip id="ID_NETWORK_G1" message="Lidhet tek rrjeti origjinal Gnutella."/>
 	<tip id="ID_NETWORK_G2" message="Lidhet tek rrjeti Gnutella2 (rekomandohet fort)."/>
 	<tip id="ID_NETWORK_SEARCH" message="Nis një kërkim të ri në rrjet..."/>
@@ -2713,7 +2720,9 @@
 	<string id="20016" value="Riprovo"/>
 	<string id="20017" value="Ndërprite"/>
 	<string id="20018" value="Provo Përsëri"/>
-	<string id="20050" value="Every Day"/>
+	<string id="20020" value="Skedë"/>
+	<string id="20021" value="Skedë"/>
+	<string id="20050" value="Çdo Ditë"/>
 	<string id="20051" value="e Hënë"/>
 	<string id="20052" value="e Martë"/>
 	<string id="20053" value="e Mërkurë"/>
@@ -3161,7 +3170,7 @@
 		<control/>
 		<control caption="Opaciteti:"/>
 		<control/>
-		<control caption="Shadow (restart)"/>
+		<control caption="Shadows"/>
 		<control caption="_Brezi:"/>
 		<control caption="Kur klikoj mbylle:"/>
 		<control caption="Më Pyet|Minimizohu në Brez|Mbylle Menjëherë|Mbylle Pas Transferimit"/>
@@ -3171,9 +3180,9 @@
 	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuBuCoBuBuBuCoBuBuBuEdBu" caption="Librari">
 		<control caption="Mundësi:"/>
 		<control caption="Të tjerët i shfletojnë shpërndarjet"/>
-		<control caption="Mbaje mend pamjen e dosjes"/>
 		<control caption="Shiko dosjet në librari"/>
 		<control caption="Grirje e shpejtë (mjaft CPU)"/>
+		<control caption="Mbaje mend pamjen e shpejtë"/>
 		<control caption="Diktim i serive filmike"/>
 		<control caption="Krijo skeda fantazmë kur fshin"/>
 		<control caption="Skedat e Fundit:"/>
@@ -3265,13 +3274,14 @@
 		<control caption="On-connect"/>
 		<control/>
 	</dialog>
-	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuCoBuBuSt" caption="Rrjeti">
+	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuBuCoBuBuSt" caption="Rrjeti">
 		<control caption="Trajtimi i Linkeve _Pikë më Pikë:"/>
 		<control caption="PeerProject do të hapë këto lloje linkesh:"/>
 		<control caption="Magnet ( magnet: )"/>
 		<control caption="Gnutella ( gnutella: )"/>
 		<control caption="eDonkey ( ed2k: )"/>
 		<control caption="Piolet ( mp2p: )"/>
+		<control caption="DC++ ( dchub:/dcfile: )"/>
 		<control caption="BitTorrent ( .torrent )"/>
 		<control caption="Menaxheri _Shkarkues:"/>
 		<control caption="PeerProject do të menaxhojë gjithë shkarkesat e mia nga rrjeti:"/>
@@ -4161,7 +4171,8 @@
 		<control caption="Për të shpërndarë skeda të plota me BitTorrent ato në fillim duhet të mbillen. Sapo ky proces të përfundojë Torrent-i do të shfaqet si një njësi e re në listën tuaj të shkarkimeve."/>
 		<control/>
 	</dialog>
-	<dialog name="CTorrentFilesPage" cookie="Sy" caption="Skedat">
+	<dialog name="CTorrentFilesPage" cookie="StSy" caption="Skedat">
+		<control/>
 		<control/>
 	</dialog>
 	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="Gjurmuesit">
@@ -4351,12 +4362,11 @@
 		<column from="Port" to="Porti"/>
 		<column from="Client" to="Klienti"/>
 		<column from="Last Seen" to="Parë së Fundmi"/>
-		<column from="Daily Uptime" to="Zgjimi Ditor"/>
 		<column from="Name" to="Emri"/>
 		<column from="Description" to="Përshkrimi"/>
+		<column from="Failures" to="Dështimet"/>
 		<column from="CurUsers" to="PërdoruesAkt"/>
 		<column from="MaxUsers" to="PërdoruesMaks"/>
-		<column from="Failures" to="Dështimet"/>
 		<column from="Country" to="Shteti"/>
 	</list>
 	<list name="CDiscoveryWnd">
@@ -4416,7 +4426,7 @@
 		<column from="Criteria" to="Kriteri"/>
 		<column from="Minimum" to="Bandës"/>
 		<column from="Transfers" to="Transferime"/>
-		<column from="Order" to="Rendi"/>
+		<column from="Priority" to="Rendi"/>
 	</list>
 	<list name="CAdvancedSettingsList">
 		<column from="Setting" to="Vendosje"/>

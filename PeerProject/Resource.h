@@ -426,13 +426,13 @@
 #define IDC_GUID_BT                         1201
 #define IDC_GUID_CREATE                     1202
 #define IDC_HASH_INTEGRITY                  1203
-#define IDC_HIDE_SEARCH                     1204
-#define IDC_HIGHLIGHT_NEW                   1205
-#define IDC_HIGH_HASH                       1206
-#define IDC_HUB_UNSHARE                     1207
-#define IDC_IGNORE_LOCAL                    1208
+#define IDC_HASH_PRIORITY                   1204
+#define IDC_HASH_WINDOW                     1205
+#define IDC_HIDE_SEARCH                     1206
+#define IDC_HIGHLIGHT_NEW                   1207
+#define IDC_HUB_UNSHARE                     1208
+#define IDC_IGNORE_LOCAL                    1209
 #define IDC_IMPORT                          1210
-#define IDC_IMPORT_DOWNLOADS                1211
 #define IDC_INBOUND_BIND                    1212
 #define IDC_INBOUND_HOST                    1213
 #define IDC_INBOUND_PORT                    1214
@@ -681,7 +681,6 @@
 #define IDC_STATIC_AUTHOR                   1537
 #define IDC_STATIC_DESC                     1538
 #define IDC_STATIC_GROUPBOX                 1540
-#define IDC_STORE_VIEWS                     1541
 #define IDC_SUB_EVENT                       1542
 #define IDC_SMART_SERIES_DETECTION          1544
 #define IDC_SWITCH_TO_TRANSFERS             1545
@@ -710,6 +709,7 @@
 #define IDC_TORRENT_CLEAR_PERCENTAGE        1606
 #define IDC_TORRENT_CLEAR_SPIN              1607
 #define IDC_TORRENT_CLIENTLINKS             1608
+#define IDC_TORRENT_COUNT                   1609
 #define IDC_TORRENT_COMMENTS                1610
 #define IDC_TORRENT_COMPLETED               1612
 #define IDC_TORRENT_CREATEDBY               1614
@@ -754,6 +754,8 @@
 #define IDC_URI_ED2K                        1654
 #define IDC_URI_PIOLET                      1655
 #define IDC_URI_TORRENT                     1656
+//#define IDC_URI_METALINK                  1657
+#define IDC_URI_DC                          1658
 #define IDC_URL_DOWNLOAD                    1660
 #define IDC_URL_MAGNET                      1661
 #define IDC_URL_GNUTELLA                    1662
@@ -848,6 +850,8 @@
 #define IDS_GENERAL_RETRY                   20016		// 20240
 #define IDS_GENERAL_ABORT                   20017		// 20239
 #define IDS_GENERAL_TRYAGAIN                20018		// 20242
+#define IDS_GENERAL_FILE                    20020
+#define IDS_GENERAL_FILES                   20021
 #define IDS_DAY_EVERYDAY                    20050		// 20200
 #define IDS_DAY_MONDAY                      20051		// 20201
 #define IDS_DAY_TUESDAY                     20052		// 20202
@@ -1533,6 +1537,7 @@
 #define IDS_UPLOAD_QUEUE_NEW                20840		// 16374
 #define IDS_UPLOAD_QUEUE_COMPLETE           20841		// 16376
 #define IDS_UPLOAD_QUEUE_DROP               20842		// 16358
+#define IDS_UPLOAD_QUEUE_DC_GUARD           20843
 #define IDS_UPLOAD_QUEUE_ED2K_CORE          20844		// 16367
 #define IDS_UPLOAD_QUEUE_ED2K_GUARD         20845		// 16369
 #define IDS_UPLOAD_QUEUE_ED2K_PARTIALS      20846		// 16368
@@ -1715,6 +1720,7 @@
 #define ID_HITMONITOR_CLEAR                 40144		// 32817
 #define ID_HITMONITOR_PAUSE                 40145		// 32818
 #define ID_HITMONITOR_SEARCH                40146		// 32819
+#define ID_IMPORT_DOWNLOADS                 40148		// 1211
 #define ID_IRC_CONNECT                      40150		// 33203
 #define ID_IRC_DISCONNECT                   40151		// 33204
 #define ID_IRC_CLOSETAB                     40152		// 33227

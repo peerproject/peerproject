@@ -1,7 +1,7 @@
 //
 // PageSettingsNetworks.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -82,9 +82,9 @@ BOOL CNetworksSettingsPage::OnInitDialog()
 {
 	CSettingsPage::OnInitDialog();
 
-	m_bG2Enable		= Settings.Gnutella2.EnableToday;
-	m_bG1Enable		= Settings.Gnutella1.EnableToday;
-	m_bEDEnable		= Settings.eDonkey.EnableToday;
+	m_bG2Enable = Settings.Gnutella2.Enabled;
+	m_bG1Enable = Settings.Gnutella1.Enabled;
+	m_bEDEnable = Settings.eDonkey.Enabled;
 
 	UpdateData( FALSE );
 
@@ -177,7 +177,7 @@ BOOL CNetworksSettingsPage::OnSetActive()
 	if ( ppDonkey->GetSafeHwnd() != NULL )
 	{
 		ppDonkey->UpdateData();
-		m_bEDEnable = ppDonkey->m_bEnableToday;
+		m_bEDEnable = ppDonkey->m_bEnabled;
 	}
 
 	UpdateData( FALSE );
@@ -262,7 +262,7 @@ void CNetworksSettingsPage::OnEd2kEnable()
 	if ( ppDonkey->GetSafeHwnd() != NULL )
 	{
 		ppDonkey->UpdateData( TRUE );
-		ppDonkey->m_bEnableToday = m_bEDEnable;
+		ppDonkey->m_bEnabled = m_bEDEnable;
 		ppDonkey->UpdateData( FALSE );
 	}
 
@@ -273,9 +273,9 @@ void CNetworksSettingsPage::OnOK()
 {
 	UpdateData( TRUE );
 
-	Settings.Gnutella2.EnableToday	= m_bG2Enable != FALSE;
-	Settings.Gnutella1.EnableToday	= m_bG1Enable != FALSE;
-	Settings.eDonkey.EnableToday	= m_bEDEnable != FALSE;
+	Settings.Gnutella2.Enabled	= m_bG2Enable != FALSE;
+	Settings.Gnutella1.Enabled	= m_bG1Enable != FALSE;
+	Settings.eDonkey.Enabled	= m_bEDEnable != FALSE;
 
 	CSettingsPage::OnOK();
 }

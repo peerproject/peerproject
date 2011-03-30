@@ -1,7 +1,7 @@
 //
 // Extract.c
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 //
 // Portions of this page have been previously released into the public domain.
 // You are free to redistribute and modify it without any restrictions
@@ -269,9 +269,8 @@ int ExtractSkin(LPTSTR pszFile, HWND hwndDlg)
         }
 		SendDlgItemMessage(hwndDlg, IDC_PROGRESS, PBM_STEPIT, 0, 0);
 		{
-			TCHAR pb[512];
-
-			_snwprintf(pb, sizeof(pb), L"Installing (%s)...", (TCHAR*)filename_withoutpath);
+			TCHAR pb[MAX_PATH];
+			_snwprintf(pb, MAX_PATH, L"Installing (%s)...", (TCHAR*)filename_withoutpath);
 			SetWindowText(GetDlgItem(hwndDlg, IDC_STATUS), pb);
 		}
 		if ( err != UNZ_OK )
@@ -360,11 +359,10 @@ int ExtractSkin(LPTSTR pszFile, HWND hwndDlg)
 LPCTSTR GetUnicodeString(char* pszString)
 {
 	TCHAR* ret;
-	int nLen = 0;
-	nLen = MultiByteToWideChar( CP_UTF8, 0, (LPCSTR)pszString, (DWORD)strlen(pszString), NULL, 0 );
+	int nLen = MultiByteToWideChar( CP_UTF8, 0, (LPCSTR)pszString, (DWORD)strlen(pszString), NULL, 0 );
 	if ( nLen == 0 ) return NULL;
 	ret = (TCHAR*)malloc( (nLen + 1) * sizeof(TCHAR) );
-	MultiByteToWideChar( CP_UTF8, 0, (LPCSTR)pszString, (DWORD)strlen(pszString), ret, nLen * sizeof(TCHAR) );
+	MultiByteToWideChar( CP_UTF8, 0, (LPCSTR)pszString, (DWORD)strlen(pszString), ret, nLen );
 	ret[nLen] = '\0';
 	return ret;
 }

@@ -30,12 +30,16 @@ public:
 	virtual ~CXMLNode();
 
 protected:
+	enum {
+		xmlNode,
+		xmlElement,
+		xmlAttribute
+	};
+
 	int				m_nNode;
 	CXMLElement*	m_pParent;
 	CString			m_sName;
 	CString			m_sValue;
-
-	enum { xmlNode, xmlElement, xmlAttribute };
 
 	static BOOL		ParseMatch(LPCTSTR& pszXML, LPCTSTR pszToken);
 	static BOOL		ParseIdentifier(LPCTSTR& pszXML, CString& strIdentifier);
@@ -108,7 +112,7 @@ public:
 	CString			GetRecursiveWords() const;
 	void			Serialize(CArchive& ar);
 
-	static CXMLElement*	FromString(LPCTSTR pszXML, BOOL bHeader = FALSE);
+	static CXMLElement*	FromString(LPCTSTR pszXML, BOOL bHeader = FALSE, CString* pEncoding = NULL);
 	static CXMLElement* FromBytes(BYTE* pByte, DWORD nByte, BOOL bHeader = FALSE);
 	static CXMLElement* FromFile(LPCTSTR pszPath, BOOL bHeader = FALSE);
 	static CXMLElement* FromFile(HANDLE hFile, BOOL bHeader = FALSE);

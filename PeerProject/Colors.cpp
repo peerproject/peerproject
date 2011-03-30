@@ -137,7 +137,7 @@ void CColors::CalculateColors(BOOL bCustom)
 
 	m_crRatingNull				= RGB( 0x4A, 0x44, 0x40 );
 	m_crRating0					= RGB( 0xEA, 0x4A, 0x60 );
-	m_crRating1	 				= RGB( 0xC8, 0xC4, 0xC0 );
+	m_crRating1					= RGB( 0xC8, 0xC4, 0xC0 );
 	m_crRating2					= RGB( 0xB4, 0xB2, 0xB0 );
 	m_crRating3					= RGB( 0x84, 0x82, 0x80 );
 	m_crRating4					= RGB( 0x60, 0x5A, 0x55 );
@@ -153,7 +153,7 @@ void CColors::CalculateColors(BOOL bCustom)
 
 	m_crChatIn					= RGB( 0, 0, 255 );
 	m_crChatOut					= RGB( 255, 0, 0 );
-	m_crChatNull	  			= RGB( 128, 128, 128 );
+	m_crChatNull				= RGB( 128, 128, 128 );
 	m_crSearchExists  			= RGB( 0, 128, 0 );
 	m_crSearchExistsHit			= RGB( 0, 64, 0 );
 	m_crSearchExistsSelected	= RGB( 0, 255, 0 );

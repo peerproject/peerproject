@@ -1,7 +1,7 @@
 //
 // LibraryFolders.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -120,7 +120,7 @@ CLibraryFolder* CLibraryFolders::GetFolderByName(LPCTSTR pszName) const
 	ToLower( strName );
 
 	CString strNextName;
-	int nPos = strName.Find( _T('\\') );
+	const int nPos = strName.FindOneOf( _T("\\/") );
 	if ( nPos != -1 )
 	{
 		strNextName = strName.Mid( nPos + 1 );
@@ -175,7 +175,8 @@ CLibraryFolder* CLibraryFolders::AddFolder(LPCTSTR pszPath)
 		}
 	}
 
-	if ( ! bAdded ) m_pFolders.AddTail( pFolder );
+	if ( ! bAdded )
+		m_pFolders.AddTail( pFolder );
 
 	pFolder->Maintain( TRUE );
 
@@ -276,11 +277,11 @@ bool CLibraryFolders::AddSharedFolder(CListCtrl& oList)
 		}
 	}
 
-	//Add path to shared list
+	// Add path to shared list
 	oList.InsertItem( LVIF_TEXT|LVIF_IMAGE, oList.GetItemCount(), strPath, 0,
 		0, SHI_FOLDER_OPEN, 0 );
 
-	// Return success
+	// Success
 	return true;
 }
 
@@ -378,14 +379,14 @@ bool CLibraryFolders::IsShareable(const CString& strPath)
 	CString strPathLC( strPath );
 	ToLower( strPathLC );
 
-	//Get system paths (to compare)
+	// Get system paths (to compare)
 	CString strWindowsLC( theApp.GetWindowsFolder() );
 	ToLower( strWindowsLC );
 
 	CString strProgramsLC( theApp.GetProgramFilesFolder() );
 	ToLower( strProgramsLC );
 
-	//Get various PeerProject paths (to compare)
+	// Get various PeerProject paths (to compare)
 	CString strIncompletePathLC = Settings.Downloads.IncompletePath;
 	ToLower( strIncompletePathLC );
 
@@ -395,7 +396,7 @@ bool CLibraryFolders::IsShareable(const CString& strPath)
 	CString strUserPathLC = Settings.General.UserPath;
 	ToLower( strUserPathLC );
 
-	return !( strPathLC == _T( "" ) ||
+	return ! ( strPathLC == _T( "" ) ||
 		 strPathLC == strWindowsLC.Left( 3 ) ||
 		 strPathLC == strProgramsLC ||
 		 strPathLC == strWindowsLC ||
@@ -622,7 +623,7 @@ void CLibraryFolders::ClearGhosts()
 	{
 		if ( CAlbumFolder* pGhosts = m_pAlbumRoot->GetFolderByURI( CSchema::uriGhostFolder ) )
 		{
-			for ( POSITION pos = pGhosts->GetFileIterator(); pos; )
+			for ( POSITION pos = pGhosts->GetFileIterator() ; pos ; )
 			{
 				CLibraryFile* pFile = pGhosts->GetNextFile( pos );
 				ASSERT( ! pFile->IsAvailable() );

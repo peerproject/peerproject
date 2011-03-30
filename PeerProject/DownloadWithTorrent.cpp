@@ -368,7 +368,7 @@ bool CDownloadWithTorrent::RunTorrent(DWORD tNow)
 	//if ( ! IsTorrent() )
 	//	return true;
 
-	if ( ! Settings.BitTorrent.EnableToday )	// ( || ! Network.IsConnected() )
+	if ( ! Settings.BitTorrent.Enabled )	// ( || ! Network.IsConnected() )
 		return true;
 
 	// Return if disk is full
@@ -502,7 +502,7 @@ BOOL CDownloadWithTorrent::GenerateTorrentDownloadID()
 
 void CDownloadWithTorrent::SendStarted(DWORD nNumWant)
 {
-	if ( ! Network.IsConnected() || ! Settings.BitTorrent.EnableToday )
+	if ( ! Network.IsConnected() || ! Settings.BitTorrent.Enabled )
 		return;
 
 	// Return if there is no tracker
@@ -525,7 +525,7 @@ void CDownloadWithTorrent::SendStarted(DWORD nNumWant)
 
 void CDownloadWithTorrent::SendUpdate(DWORD nNumWant)
 {
-	if ( ! Network.IsConnected() || ! Settings.BitTorrent.EnableToday )
+	if ( ! Network.IsConnected() || ! Settings.BitTorrent.Enabled )
 		return;
 
 	// Return if there is no tracker
@@ -546,7 +546,7 @@ void CDownloadWithTorrent::SendUpdate(DWORD nNumWant)
 
 void CDownloadWithTorrent::SendCompleted()
 {
-	if ( ! Network.IsConnected() || ! Settings.BitTorrent.EnableToday )
+	if ( ! Network.IsConnected() || ! Settings.BitTorrent.Enabled )
 		return;
 
 	// Return if there is no tracker
@@ -563,7 +563,7 @@ void CDownloadWithTorrent::SendCompleted()
 
 void CDownloadWithTorrent::SendStopped()
 {
-	if ( ! Network.IsConnected() || ! Settings.BitTorrent.EnableToday )
+	if ( ! Network.IsConnected() || ! Settings.BitTorrent.Enabled )
 		return;
 
 	// Return if there is no tracker

@@ -35,15 +35,17 @@ public:
 protected:
 //	CComboListCtrl	m_wndFiles;		// Custom features currently unused
 	CListCtrl	m_wndFiles;
+	CString 	m_sFilecount;
 
-	void Update();	// Refresh interface
+	void Update();		// Refresh interface
+	void UpdateCount();	// Refresh file counter text
 
 	virtual void DoDataExchange(CDataExchange* pDX);
 	virtual BOOL OnInitDialog();
 	virtual BOOL OnApply();
 
-	afx_msg void OnTimer(UINT_PTR nIDEvent);
 	afx_msg void OnDestroy();
+	afx_msg void OnTimer(UINT_PTR nIDEvent);
 	afx_msg void OnCheckbox(NMHDR *pNMHDR, LRESULT *pResult);
 	afx_msg void OnSortColumn(NMHDR* pNotifyStruct, LRESULT* pResult);
 	afx_msg void OnNMDblclkTorrentFiles(NMHDR *pNMHDR, LRESULT *pResult);

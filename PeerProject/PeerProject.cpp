@@ -18,15 +18,17 @@
 
 #include "StdAfx.h"
 #include "PeerProject.h"
-#include "BTClients.h"
-#include "BTInfo.h"
+#include "Settings.h"
 #include "CoolInterface.h"
+#include "BTInfo.h"
+#include "BTClients.h"
+#include "DCClients.h"
+#include "EDClients.h"
 #include "DDEServer.h"
 #include "DiscoveryServices.h"
 #include "DlgDeleteFile.h"
 #include "DownloadGroups.h"
 #include "Downloads.h"
-#include "EDClients.h"
 #include "Emoticons.h"
 #include "FileExecutor.h"
 #include "Firewall.h"
@@ -48,7 +50,6 @@
 #include "Scheduler.h"
 #include "SchemaCache.h"
 #include "Security.h"
-#include "Settings.h"
 #include "SharedFile.h"
 #include "ShellIcons.h"
 #include "Skin.h"
@@ -595,6 +596,8 @@ int CPeerProjectApp::ExitInstance()
 
 		SplashStep( L"Clearing Clients" );
 		Uploads.Clear( FALSE );
+		BTClients.Clear();
+		DCClients.Clear();
 		EDClients.Clear();
 
 		if ( m_bLive )
@@ -632,7 +635,6 @@ int CPeerProjectApp::ExitInstance()
 		}
 
 		SplashStep( L"Finalizing" );
-		BTClients.Clear();
 		Downloads.Clear( true );
 		Library.Clear();
 		CoolMenu.Clear();
@@ -821,18 +823,18 @@ BOOL CPeerProjectApp::Open(LPCTSTR lpszFileName)		// Note: No BOOL bDoIt needed
 
 	SwitchMap( Ext )
 	{
-		Ext[ _T(".torrent") ] 	= 't';
-		Ext[ _T(".co") ]		= 'c';
-		Ext[ _T(".collection") ] = 'c';
-		Ext[ _T(".emulecollection") ] = 'c';
-		Ext[ _T(".bz2") ]		= 'b';
-		Ext[ _T(".met") ]		= 'i';
-		Ext[ _T(".dat") ]		= 'i';
-		Ext[ _T(".url") ]		= 'u';
-		Ext[ _T(".lnk") ]		= 'l';
-	//	Ext[ _T(".metalink") ]	= 'm';
-	//	Ext[ _T(".meta4") ]		= 'm';
-	//	Ext[ _T(".magma") ]		= 'a';
+		Ext[ L".torrent" ] 	= 't';
+		Ext[ L".co" ]		= 'c';
+		Ext[ L".collection" ] = 'c';
+		Ext[ L".emulecollection" ] = 'c';
+		Ext[ L".bz2" ]		= 'b';
+		Ext[ L".met" ]		= 'i';
+		Ext[ L".dat" ]		= 'i';
+		Ext[ L".url" ]		= 'u';
+		Ext[ L".lnk" ]		= 'l';
+	//	Ext[ L".metalink" ]	= 'm';
+	//	Ext[ L".meta4" ]	= 'm';
+	//	Ext[ L".magma" ]	= 'a';
 	}
 
 	switch( Ext[ strExt ] )
@@ -886,7 +888,18 @@ BOOL CPeerProjectApp::Open(LPCTSTR lpszFileName)		// Note: No BOOL bDoIt needed
 
 BOOL CPeerProjectApp::OpenImport(LPCTSTR lpszFileName)
 {
-	return HostCache.Import( lpszFileName );
+	//return HostCache.Import( lpszFileName );	// Obsolete
+
+	const size_t nLen = _tcslen( lpszFileName ) + 1;
+	auto_array< TCHAR > pszPath( new TCHAR[ nLen ] );
+	if ( pszPath.get() )
+	{
+		_tcscpy_s( pszPath.get(), nLen, lpszFileName );
+		if ( PostMainWndMessage( WM_IMPORT, (WPARAM)pszPath.release() ) )
+			return TRUE;
+	}
+
+	return FALSE;
 }
 
 BOOL CPeerProjectApp::OpenShellShortcut(LPCTSTR lpszFileName)
@@ -2221,7 +2234,7 @@ CString CPeerProjectApp::GetDocumentsFolder() const
 		hr = m_pfnSHGetFolderPathW( NULL, CSIDL_PERSONAL, NULL, NULL,
 			sDocuments.GetBuffer( MAX_PATH ) );
 		sDocuments.ReleaseBuffer();
-		if ( SUCCEEDED( hr  ) && ! sDocuments.IsEmpty() )
+		if ( SUCCEEDED( hr ) && ! sDocuments.IsEmpty() )
 			return sDocuments;
 	}
 
@@ -2250,10 +2263,7 @@ CString CPeerProjectApp::GetDownloadsFolder() const
 		}
 
 		if ( SUCCEEDED( hr ) && ! strDownloads.IsEmpty() )
-		{
-			strDownloads += _T("\\PeerProject");
-			return strDownloads;
-		}
+			return strDownloads + _T("\\") + CLIENT_NAME;
 	}
 
 	// XP/Legacy
@@ -2400,11 +2410,12 @@ CString SafeFilename(CString strName, bool bPath)
 
 BOOL CreateDirectory(LPCTSTR szPath)
 {
-	CString strDir = szPath;
+	CString strDir( szPath );
+	BOOL bMax = strDir.GetLength() > MAX_PATH;
+	if ( strDir.GetLength() == 2 )	//&& strDir.GetAt( 1 ) == ':'
+		strDir.AppendChar( '\\' );	// Root Drive
 
-	DWORD dwAttr = ( strDir.GetLength() == 2 ) ?
-		GetFileAttributes( strDir + _T("\\") ) :	// Root Drive
-		GetFileAttributes( CString( _T("\\\\?\\") ) + strDir );
+	DWORD dwAttr = GetFileAttributes( bMax ? _T("\\\\?\\") + strDir : strDir );
 
 	if ( dwAttr != INVALID_FILE_ATTRIBUTES && ( dwAttr & FILE_ATTRIBUTE_DIRECTORY ) )
 		return TRUE;
@@ -2412,16 +2423,20 @@ BOOL CreateDirectory(LPCTSTR szPath)
 	for ( int nStart = 3 ; ; )
 	{
 		const int nSlash = strDir.Find( _T('\\'), nStart );
-		if ( ( nSlash == -1 ) || ( nSlash == strDir.GetLength() - 1 ) )
+		if ( nSlash == -1 || nSlash == strDir.GetLength() - 1 )
 			break;
-		CString strSubDir( strDir.Left( nSlash + 1 ) );
-		dwAttr = GetFileAttributes( CString( _T("\\\\?\\") ) + strSubDir );
+		CString strSubDir = strDir.Left( nSlash + 1 );
+		if ( strSubDir.GetLength() > MAX_PATH )
+			strSubDir = _T("\\\\?\\") + strSubDir;
+		dwAttr = GetFileAttributes( strSubDir );
 		if ( ( dwAttr == INVALID_FILE_ATTRIBUTES ) || ! ( dwAttr & FILE_ATTRIBUTE_DIRECTORY ) )
-			if ( ! CreateDirectory( CString( _T("\\\\?\\") ) + strSubDir, NULL ) )
+		{
+			if ( ! CreateDirectory( strSubDir, NULL ) )
 				return FALSE;
+		}
 		nStart = nSlash + 1;
 	}
-	return CreateDirectory( CString( _T("\\\\?\\") ) + szPath, NULL );
+	return CreateDirectory( bMax ? CString( _T("\\\\?\\") ) + szPath : szPath, NULL );
 }
 
 void DeleteFolders(CStringList& pList)
@@ -2487,7 +2502,7 @@ void DeleteFiles(CStringList& pList)
 		}
 	}
 
-	// ToDo: Delete Empty Folder (for BitTorrent Multifiles)
+	// Note: Cleanup empty folders for multifile torrents
 }
 
 BOOL DeleteFileEx(LPCTSTR szFileName, BOOL bShared, BOOL bToRecycleBin, BOOL bEnableDelayed)

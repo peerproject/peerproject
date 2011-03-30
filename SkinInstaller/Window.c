@@ -1,7 +1,7 @@
 //
 // Window.c
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 //
 // Portions of this page have been previously released into the public domain.
 // You are free to redistribute and modify it without any restrictions
@@ -21,7 +21,7 @@ INT_PTR CALLBACK ExtractProc(HWND hwndDlg, UINT msg, WPARAM wParam, LPARAM lPara
 
 	switch (msg)
 	{
-		case WM_INITDIALOG:
+	case WM_INITDIALOG:
 		{
 			HWND hBanner;
 
@@ -54,7 +54,8 @@ INT_PTR CALLBACK ExtractProc(HWND hwndDlg, UINT msg, WPARAM wParam, LPARAM lPara
 				SetWindowText(hwndDlg, SKIN_SKIN_TITLE);
 			}
 
-			{	LOGFONT lf;
+			{
+				LOGFONT lf;
 				HFONT hFont;
 				hFont=(HFONT)SendDlgItemMessage(hwndDlg,IDC_NAME,WM_GETFONT,0,0);
 				GetObject(hFont,sizeof(lf),&lf);
@@ -64,42 +65,42 @@ INT_PTR CALLBACK ExtractProc(HWND hwndDlg, UINT msg, WPARAM wParam, LPARAM lPara
 			}
 			if ( szPath )
 			{
-				TCHAR buf[256], tbuf[256];
-				_snwprintf(buf, sizeof(buf), L"%s %s", szName, szVersion?szVersion:L"");
-				_snwprintf(tbuf, sizeof(tbuf), L"%s - %s", szName, skinType? SKIN_ADDON_TITLE : SKIN_SKIN_TITLE);
+				TCHAR buf[MAX_PATH], tbuf[MAX_PATH];
+				_snwprintf(buf, MAX_PATH, L"%s %s", szName, szVersion?szVersion:L"");
+				_snwprintf(tbuf, MAX_PATH, L"%s - %s", szName, skinType? SKIN_ADDON_TITLE : SKIN_SKIN_TITLE);
 				SetDlgItemText(hwndDlg, IDC_NAME, buf);
 				SetWindowText(hwndDlg, tbuf);
 			}
 			if ( szAuthor )
 			{
-				TCHAR buf[256];
-				_snwprintf(buf, sizeof(buf), L"By %s", szAuthor);
+				TCHAR buf[MAX_PATH];
+				_snwprintf(buf, MAX_PATH, L"By %s", szAuthor);
 				SetDlgItemText(hwndDlg, IDC_AUTH, buf);
 			}
 			if ( szUpdates && wcscmp( szAuthor, szUpdates ) != 0 )
 			{
-				TCHAR updbuf[256], buf[256];
+				TCHAR buf[MAX_PATH], updbuf[MAX_PATH];
 				if ( szAuthor )
 				{
-					_snwprintf(updbuf, sizeof(updbuf), L",  Updated by %s", szUpdates);
-					GetDlgItemText(hwndDlg, IDC_AUTH, buf, 256 );
-					wcsncat( buf, updbuf, 256 - wcslen(buf) );
+					_snwprintf(updbuf, MAX_PATH, L",  Updated by %s", szUpdates);
+					GetDlgItemText(hwndDlg, IDC_AUTH, buf, MAX_PATH );
+					wcsncat( buf, updbuf, MAX_PATH - wcslen(buf) );
 				}
 				else
-					_snwprintf(buf, sizeof(buf), L"Updated by %s", szUpdates);
+					_snwprintf(buf, MAX_PATH, L"Updated by %s", szUpdates);
 				SetDlgItemText(hwndDlg, IDC_AUTH, buf);
 			}
 			if ( szPath )
 			{
-				TCHAR updbuf[256], buf[256];
+				TCHAR buf[MAX_PATH], updbuf[MAX_PATH];
 				if ( szAuthor )
 				{
-					_snwprintf(updbuf, sizeof(updbuf), L"        (%s Folder)", szPath);
+					_snwprintf(updbuf, MAX_PATH, L"        (%s Folder)", szPath);
 					GetDlgItemText(hwndDlg, IDC_AUTH, buf, 256 );
-					wcsncat( buf, updbuf, 256 - wcslen(buf) );
+					wcsncat( buf, updbuf, MAX_PATH - wcslen(buf) );
 				}
 				else
-					_snwprintf(buf, sizeof(buf), L"(%s Folder)", szPath);
+					_snwprintf(buf, MAX_PATH, L"(%s Folder)", szPath);
 				SetDlgItemText(hwndDlg, IDC_AUTH, buf);
 			}
 			SetWindowLongPtr( GetDlgItem(hwndDlg,IDC_WHITERECT), GWL_STYLE, WS_VISIBLE|WS_CHILD|SS_LEFT|SS_OWNERDRAW );
@@ -108,85 +109,83 @@ INT_PTR CALLBACK ExtractProc(HWND hwndDlg, UINT msg, WPARAM wParam, LPARAM lPara
 			SetWindowLongPtr( GetDlgItem(hwndDlg,IDC_STATUS), GWL_STYLE, WS_VISIBLE|WS_CHILD|SS_LEFT|SS_OWNERDRAW );
 			break;
 		}
-		case WM_CLOSE:
+	case WM_CLOSE:
+		EndDialog(hwndDlg, 0);
+		break;
+	case WM_DESTROY:
+		DeleteObject(hBannerBmp);
+		break;
+	case WM_DRAWITEM:
+		if ( (UINT)wParam == IDC_WHITERECT ||
+			 (UINT)wParam == IDC_NAME ||
+			 (UINT)wParam == IDC_AUTH ||
+			 (UINT)wParam == IDC_STATUS )
+		{
+			TCHAR buf[MAX_PATH];
+			LPDRAWITEMSTRUCT lpDrawItemStruct;
+			lpDrawItemStruct = (LPDRAWITEMSTRUCT)lParam;
+			FillRect(lpDrawItemStruct->hDC, &lpDrawItemStruct->rcItem, IntToPtr(WHITE_BRUSH+1));
+			ExtFloodFill(lpDrawItemStruct->hDC, lpDrawItemStruct->rcItem.top,
+				lpDrawItemStruct->rcItem.left, RGB(0, 0, 0), FLOODFILLBORDER);
+			SetBkMode(lpDrawItemStruct->hDC, TRANSPARENT);
+			SetTextColor(lpDrawItemStruct->hDC, RGB(0, 0, 0));
+			GetDlgItemText(hwndDlg, (UINT)wParam, buf, MAX_PATH);
+			DrawText(lpDrawItemStruct->hDC, buf, (int)wcslen(buf), &lpDrawItemStruct->rcItem, DT_LEFT);
+		}
+		break;
+	case WM_COMMAND:
+		switch(LOWORD(wParam))
+		{
+		case IDOK:
 			EndDialog(hwndDlg, 0);
 			break;
-		case WM_DESTROY:
-			DeleteObject(hBannerBmp);
-			break;
-		case WM_DRAWITEM:
-			if ( (UINT)wParam == IDC_WHITERECT ||
-				 (UINT)wParam == IDC_NAME ||
-				 (UINT)wParam == IDC_AUTH ||
-				 (UINT)wParam == IDC_STATUS )
+		case IDC_INSTALL:
 			{
-				TCHAR buf[256];
-				LPDRAWITEMSTRUCT lpDrawItemStruct;
-				lpDrawItemStruct = (LPDRAWITEMSTRUCT)lParam;
-				FillRect(lpDrawItemStruct->hDC, &lpDrawItemStruct->rcItem, IntToPtr(WHITE_BRUSH+1));
-				ExtFloodFill(lpDrawItemStruct->hDC, lpDrawItemStruct->rcItem.top,
-					lpDrawItemStruct->rcItem.left, RGB(0, 0, 0), FLOODFILLBORDER);
-				SetBkMode(lpDrawItemStruct->hDC, TRANSPARENT);
-				SetTextColor(lpDrawItemStruct->hDC, RGB(0, 0, 0));
-				GetDlgItemText(hwndDlg, (UINT)wParam, buf, 256);
-				DrawText(lpDrawItemStruct->hDC, buf, (int)wcslen(buf), &lpDrawItemStruct->rcItem, DT_LEFT);
-			}
-			break;
-		case WM_COMMAND:
-		{
-			switch(LOWORD(wParam))
-			{
-				case IDOK:
-					EndDialog(hwndDlg, 0);
-					break;
-				case IDC_INSTALL:
+				GetInstallDirectory();
+				if ( !ExtractSkin(szFile, hwndDlg) )
 				{
-					GetInstallDirectory();
-					if ( !ExtractSkin(szFile, hwndDlg) )
-					{
-						SendDlgItemMessage(hwndDlg, IDC_PROGRESS, PBM_SETPOS, maxPos, 0);
-						SetWindowText(GetDlgItem(hwndDlg, IDC_STATUS), L"An error occured while extracting the skin.  Please try again.");
-						EnableWindow(GetDlgItem(hwndDlg, IDOK), TRUE);
-						break;
-					}
 					SendDlgItemMessage(hwndDlg, IDC_PROGRESS, PBM_SETPOS, maxPos, 0);
-					if ( skinType == 1 )
-						SetWindowText(GetDlgItem(hwndDlg, IDC_STATUS), L"Language successfully installed.");
-					else
-						SetWindowText(GetDlgItem(hwndDlg, IDC_STATUS), L"Skin successfully installed.");
+					SetWindowText(GetDlgItem(hwndDlg, IDC_STATUS), L"An error occured while extracting the skin.  Please try again.");
 					EnableWindow(GetDlgItem(hwndDlg, IDOK), TRUE);
-					EnableWindow(GetDlgItem(hwndDlg, IDC_INSTALL), FALSE);
-					if ( FindWindow(SKIN_MAIN_HWND,NULL) )
-						EnableWindow(GetDlgItem(hwndDlg, IDC_CONFIG), TRUE);
 					break;
 				}
-				case IDC_CONFIG:
+				SendDlgItemMessage(hwndDlg, IDC_PROGRESS, PBM_SETPOS, maxPos, 0);
+				if ( skinType == 1 )
+					SetWindowText(GetDlgItem(hwndDlg, IDC_STATUS), L"Language successfully installed.");
+				else
+					SetWindowText(GetDlgItem(hwndDlg, IDC_STATUS), L"Skin successfully installed.");
+				EnableWindow(GetDlgItem(hwndDlg, IDOK), TRUE);
+				EnableWindow(GetDlgItem(hwndDlg, IDC_INSTALL), FALSE);
+				if ( FindWindow(SKIN_MAIN_HWND,NULL) )
+					EnableWindow(GetDlgItem(hwndDlg, IDC_CONFIG), TRUE);
+			}
+			break;
+		case IDC_CONFIG:
+			{
+				HWND app = FindWindow(SKIN_MAIN_HWND,NULL);
+				if ( app )
 				{
-					HWND app = FindWindow(SKIN_MAIN_HWND,NULL);
-					if ( app )
-					{
-						if ( !IsZoomed(app) )
-							PostMessage(app,WM_SYSCOMMAND,SC_RESTORE,0);
-
+					if ( !IsZoomed(app) )
+						PostMessage(app,WM_SYSCOMMAND,SC_RESTORE,0);
 						PostMessage(app,WM_COMMAND,32879,0);
-						SetFocus(app);
-						if ( skinType == 1 )
-						{
-							PostMessage(app,WM_COMMAND,32974,0);
-						}
-						else if ( SetSkinAsDefault() )
-						{
-							PostMessage(app,WM_COMMAND,32959,0);
-							PostMessage(app,WM_COMMAND,32965,0);
-						}
-						EndDialog(hwndDlg, 0);
+					SetFocus(app);
+					if ( skinType == 1 )
+					{
+						PostMessage(app,WM_COMMAND,32974,0);
 					}
-					break;
+					else if ( SetSkinAsDefault() )
+					{
+						PostMessage(app,WM_COMMAND,32959,0);
+						PostMessage(app,WM_COMMAND,32965,0);
+					}
+					EndDialog(hwndDlg, 0);
 				}
 			}
 			break;
 		}
+		break;
 	}
+
 	return FALSE;
 }
 // EXPORT END

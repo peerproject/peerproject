@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Dutch Skin File -->
 
-<!-- Translation based on default-en.xml r64 -->
+<!-- Translation based on default-en.xml r65 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -361,6 +361,7 @@
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
+		<button id="ID_NETWORK_DC" text="DC++"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Instellingen"/>
 	</toolbar>
@@ -418,22 +419,16 @@
 	</toolbar>
 	<!-- DISCOVERY SERVICES WINDOW -->
 	<!-- HOST CACHE WINDOW -->
-	<toolbar name="CHostCacheWnd.Basic">
-		<button id="ID_HOSTCACHE_CONNECT" text="Verbinden met..."/>
-		<button id="ID_HOSTCACHE_DISCONNECT" text="Verbinding verbreken"/>
-		<button id="ID_HOSTCACHE_REMOVE" text="Verwijderen"/>
-	</toolbar>
 	<toolbar name="CHostCacheWnd">
 		<button id="ID_HOSTCACHE_CONNECT" text="Verbinden met..."/>
 		<button id="ID_HOSTCACHE_DISCONNECT" text="Verbinding verbreken"/>
 		<button id="ID_HOSTCACHE_REMOVE" text="Verwijderen"/>
 		<rightAlign/>
-		<button id="ID_HOSTCACHE_G2_HORIZON" text="G2 cluster"/>
-		<button id="ID_HOSTCACHE_G2_CACHE" text="G2 cache"/>
-		<button id="ID_HOSTCACHE_G1_CACHE" text="G1 cache"/>
-		<button id="ID_HOSTCACHE_ED2K_CACHE" text="eDonkey cache"/>
-		<button id="ID_HOSTCACHE_BT_CACHE" text="BitTorrent Cache"/>
-		<button id="ID_HOSTCACHE_KAD_CACHE" text="Kademlia Cache"/>
+		<button id="ID_HOSTCACHE_G2_HORIZON" text="Cluster"/>
+		<button id="ID_HOSTCACHE_G2_CACHE" text="Cache"/>
+		<button id="ID_HOSTCACHE_G1_CACHE" text="Cache"/>
+		<button id="ID_HOSTCACHE_ED2K_CACHE" text="Cache"/>
+		<button id="ID_HOSTCACHE_DC_CACHE" text="Cache"/>
 	</toolbar>
 	<!-- PRIVATE CHAT WINDOW -->
 	<toolbar name="CPrivateChatFrame">
@@ -535,6 +530,7 @@
 				<item id="ID_NETWORK_G2" text="Verbinden met Gnutella_2"/>
 				<item id="ID_NETWORK_G1" text="Verbinden met _Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="Verbinden met _eDonkey"/>
+				<item id="ID_NETWORK_DC" text="Verbinden met _DC++"/>
 				<separator/>
 				<item id="ID_NETWORK_CONNECT_TO" text="Verbinden _met..." shortcut="Ctrl+T"/>
 				<item id="ID_NETWORK_BROWSE_TO" text="Gastheer be_kijken..."/>
@@ -549,7 +545,7 @@
 				<item id="ID_TOOLS_DOWNLOAD" text="Downloadlink _invoegen..."/>
 				<item id="ID_TOOLS_SEEDTORRENT" text="_Seed a .Torrent..."/>
 				<item id="ID_TOOLS_CREATETORRENT" text="_Create New .Torrent..."/>
-				<item id="IDC_IMPORT_DOWNLOADS" text="_Importeer gedeeltelijke eMule downloads..."/>
+				<item id="ID_IMPORT_DOWNLOADS" text="_Importeer gedeeltelijke eMule downloads..."/>
 				<separator/>
 				<item id="ID_TOOLS_LANGUAGE" text="Een _taal kiezen..."/>
 				<item id="ID_TOOLS_SKIN" text="Een _skin kiezen..."/>
@@ -619,11 +615,10 @@
 			<item id="ID_NETWORK_CONNECT" text="_Verbinden..." shortcut="Ctrl+G"/>
 			<item id="ID_NETWORK_DISCONNECT" text="Verbinding ver_breken"/>
 			<separator/>
-			<menu text="Net_werken kiezen">
-				<item id="ID_NETWORK_G2" text="Verbinden met Gnutella_2"/>
-				<item id="ID_NETWORK_G1" text="Verbinden met _Gnutella"/>
-				<item id="ID_NETWORK_ED2K" text="Verbinden met _eDonkey"/>
-			</menu>
+			<item id="ID_NETWORK_G2" text="Verbinden met Gnutella_2"/>
+			<item id="ID_NETWORK_G1" text="Verbinden met _Gnutella"/>
+			<item id="ID_NETWORK_ED2K" text="Verbinden met _eDonkey"/>
+			<item id="ID_NETWORK_DC" text="Verbinden met _DC++"/>
 			<separator/>
 			<item id="ID_NETWORK_CONNECT_TO" text="Verbinden _met..." shortcut="Ctrl+T"/>
 			<item id="ID_NETWORK_BROWSE_TO" text="Gastheer be_kijken..."/>
@@ -668,7 +663,7 @@
 		<menu text="_Hulpmiddelen">
 			<item id="ID_LIBRARY_FOLDERS" text="_Bestanden delen..."/>
 			<item id="ID_TOOLS_DOWNLOAD" text="Downloadlink _invoegen..."/>
-			<item id="IDC_IMPORT_DOWNLOADS" text="_Importeer gedeeltelijke eMule downloads..."/>
+			<item id="ID_IMPORT_DOWNLOADS" text="_Importeer gedeeltelijke eMule downloads..."/>
 			<item id="ID_OPEN_DOWNLOADS_FOLDER" text="_Open mijn map met complete downloads"/>
 			<separator/>
 			<item id="ID_TOOLS_SKIN" text="Een _skin kiezen..."/>
@@ -717,11 +712,9 @@
 		<menu text="_Netwerk">
 			<item id="ID_NETWORK_CONNECT" text="_Verbinden" shortcut="Ctrl+G"/>
 			<separator/>
-			<menu text="_Netwerken Kiezen">
-				<item id="ID_NETWORK_G2" text="Verbinden met Gnutella_2"/>
-				<item id="ID_NETWORK_G1" text="Verbinden met _Gnutella"/>
-				<item id="ID_NETWORK_ED2K" text="Verbinden met _eDonkey"/>
-			</menu>
+			<item id="ID_NETWORK_G2" text="Verbinden met Gnutella_2"/>
+			<item id="ID_NETWORK_G1" text="Verbinden met _Gnutella"/>
+			<item id="ID_NETWORK_ED2K" text="Verbinden met _eDonkey"/>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="Afsluiten na ver_keer"/>
 			<item id="ID_NETWORK_EXIT" text="_Afsluiten"/>
@@ -795,11 +788,10 @@
 			<item id="ID_NETWORK_CONNECT_TO" text="Verbinden _met..." shortcut="Ctrl+T"/>
 			<item id="ID_NETWORK_BROWSE_TO" text="Gastheer be_kijken..."/>
 			<separator/>
-			<menu text="Net_werken kiezen">
-				<item id="ID_NETWORK_G2" text="Verbinden met Gnutella_2"/>
-				<item id="ID_NETWORK_G1" text="Verbinden met _Gnutella"/>
-				<item id="ID_NETWORK_ED2K" text="Verbinden met _eDonkey"/>
-			</menu>
+			<item id="ID_NETWORK_G2" text="Verbinden met Gnutella_2"/>
+			<item id="ID_NETWORK_G1" text="Verbinden met _Gnutella"/>
+			<item id="ID_NETWORK_ED2K" text="Verbinden met _eDonkey"/>
+			<item id="ID_NETWORK_DC" text="Verbinden met _DC++"/>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="Afsluiten na ver_keer"/>
 			<item id="ID_NETWORK_EXIT" text="_Afsluiten"/>
@@ -828,7 +820,7 @@
 		<menu text="_Hulpmiddelen">
 			<item id="ID_LIBRARY_FOLDERS" text="_Bestanden delen..."/>
 			<item id="ID_TOOLS_DOWNLOAD" text="Downloadlink _invoegen..."/>
-			<item id="IDC_IMPORT_DOWNLOADS" text="_Importeer gedeeltelijke eMule downloads..."/>
+			<item id="ID_IMPORT_DOWNLOADS" text="_Importeer gedeeltelijke eMule downloads..."/>
 			 <item id="ID_OPEN_DOWNLOADS_FOLDER" text="_Open mijn map met complete downloads"/>
 			<separator/>
 			<item id="ID_TOOLS_SKIN" text="Een _skin kiezen..."/>
@@ -1575,9 +1567,10 @@
 			<item id="ID_NETWORK_G2" text="_Gnutella2"/>
 			<item id="ID_NETWORK_G1" text="Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="_eDonkey"/>
+			<item id="ID_NETWORK_DC" text="_DC++"/>
 			<separator/>
 			<item id="ID_VIEW_DISCOVERY" text="_Discovery Services"/>
-			<item id="ID_VIEW_HOSTS" text="_Host Server Cache"/>
+			<item id="ID_VIEW_HOSTS" text="Gastheer c_ache"/>
 		</menu>
 		<menu text="_Monitor">
 			<item id="ID_NEIGHBOURS_VIEW_ALL" text="_Al het verkeer tonen"/>
@@ -1863,7 +1856,15 @@
 		<text group="31" align="middle">Niet verbonden</text>
 		<text group="32" align="middle">Verbinding maken...</text>
 		<text group="33" align="middle">Verbonden</text>
+		<text group="34" align="middle" id="EDServers">%i server</text>
 		<newline group="30" gap="2"/>
+		<icon group="60" command="ID_NETWORK_DC"/>
+		<text group="60" align="middle" format="b">&#160;DC++: &#160; </text>
+		<text group="61" align="middle">Niet verbonden</text>
+		<text group="62" align="middle">Verbinding maken...</text>
+		<text group="63" align="middle">Verbonden</text>
+		<text group="64" align="middle" id="DCHubs">%i hubs</text>
+		<newline group="60" gap="2"/>
 		<group id="2">
 			<para align="center">
 				<newline gap="4"/>
@@ -2548,8 +2549,9 @@
 	<tip id="ID_NETWORK_CONNECT" message="Verbinden met het netwerk."/>
 	<tip id="ID_NETWORK_CONNECT_TO" message="Zelf verbinding maken met een gastheer..."/>
 	<tip id="ID_NETWORK_DISCONNECT" message="De verbinding met het netwerk verbreken."/>
-	<tip id="ID_NETWORK_ED2K" message="Verbinden met het eDonkey netwerk."/>
 	<tip id="ID_NETWORK_EXIT" message="PeerProject afsluiten."/>
+	<tip id="ID_NETWORK_ED2K" message="Verbinden met het eDonkey netwerk."/>
+	<tip id="ID_NETWORK_DC" message="Verbinden met het DC++ netwerk."/>
 	<tip id="ID_NETWORK_G1" message="Verbinden met het originele Gnutella netwerk."/>
 	<tip id="ID_NETWORK_G2" message="Verbinden met het Gnutella2 netwerk (zeer aanbevolen)."/>
 	<tip id="ID_NETWORK_SEARCH" message="Begin een nieuwe zoekopdracht van het netwerk..."/>
@@ -2729,7 +2731,9 @@
 	<string id="20012" value="Aangepast"/>
 	<string id="20013" value="Standaard"/>
 	<string id="20014" value="Beëindig"/>
-	<string id="20050" value="Every Dag"/>
+	<string id="20020" value="Bestand"/>
+	<string id="20021" value="Bestanden"/>
+	<string id="20050" value="Elke Dag"/>
 	<string id="20051" value="Maandag"/>
 	<string id="20052" value="Dinsdag"/>
 	<string id="20053" value="Woensdag"/>
@@ -3450,7 +3454,7 @@
 		<control/>
 		<control caption="Opaciteit:"/>
 		<control/>
-		<control caption="Shadow (restart)"/>
+		<control caption="Shadows"/>
 		<control caption="_Systeembalk:"/>
 		<control caption="Als ik op Afsluiten klik:"/>
 		<control caption="Vraag me|Minimaliseer|Sluit direct|Sluit na verzenden"/>
@@ -3460,9 +3464,9 @@
 	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuBuCoBuBuBuCoBuBuBuEdBu" caption="Bibliotheek">
 		<control caption="_Opties:"/>
 		<control caption="Toon anderen mijn bestanden"/>
-		<control caption="Herinner de mappenweergave"/>
 		<control caption="Bewaak bibliotheekmappen"/>
 		<control caption="Snel hashen (gebruikt meer CPU)"/>
+		<control caption="Herinner de mappenweergave"/>
 		<control caption="Smart media series detection"/>
 		<control caption="Maak een spookbestand"/>
 		<control caption="_Recente bestanden:"/>
@@ -3556,13 +3560,14 @@
 		<control caption="On-connect"/>
 		<control/>
 	</dialog>
-	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuCoBuBuSt" caption="Internet">
+	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuBuCoBuBuSt" caption="Internet">
 		<control caption="_Peer-To-Peer Snelkoppelingsverwerker:"/>
 		<control caption="Gebruik PeerProject voor het openen van deze soorten koppelingen:"/>
 		<control caption="Magnet (magnet:)"/>
 		<control caption="Gnutella (gnutella:)"/>
 		<control caption="eDonkey (ed2k:)"/>
 		<control caption="Piolet (mp2p:)"/>
+		<control caption="DC++ ( dchub:/dcfile: )"/>
 		<control caption="BitTorrent (Torrent)"/>
 		<control caption="_Downloadbeheerder:"/>
 		<control caption="Gebruik PeerProject voor het beheren van al mijn internetdownloads:"/>
@@ -4452,7 +4457,8 @@
 		<control caption="Om volledige bestanden te delen via BitTorrent moeten ze eerst worden uitgezaaid. Als dit proces klaar is verschijnt de torrent als een nieuw item in je downloadlijst."/>
 		<control/>
 	</dialog>
-	<dialog name="CTorrentFilesPage" cookie="Sy" caption="Files">
+	<dialog name="CTorrentFilesPage" cookie="StSy" caption="Files">
+		<control/>
 		<control/>
 	</dialog>
 	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="Trackers">
@@ -4641,14 +4647,13 @@
 	<list name="CHostCacheWnd">
 		<column from="Address" to="Adres"/>
 		<column from="Port" to="Poort"/>
-		<column from="Client" to="Cliënt"/>
 		<column from="Last Seen" to="Laatst gezien"/>
-		<column from="Daily Uptime" to="Gemiddeld uur online per dag"/>
+		<column from="Client" to="Cliënt"/>
 		<column from="Name" to="Naam"/>
 		<column from="Description" to="Omschrijving"/>
+		<column from="Failures" to="Mislukkingen"/>
 		<column from="CurUsers" to="Gebruikers"/>
 		<column from="MaxUsers" to="Max. gebruikers"/>
-		<column from="Failures" to="Mislukkingen"/>
 		<column from="Country" to="Land"/>
 	</list>
 	<list name="CDiscoveryWnd">
@@ -4708,7 +4713,7 @@
 		<column from="Criteria" to="Criteria"/>
 		<column from="Minimum" to="Bandbreedte"/>
 		<column from="Transfers" to="Overdrachten"/>
-		<column from="Order" to="Volgorde"/>
+		<column from="Priority" to="Volgorde"/>
 	</list>
 	<list name="CAdvancedSettingsList">
 		<column from="Setting" to="Instelling"/>

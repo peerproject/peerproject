@@ -1,7 +1,7 @@
 //
 // CtrlSearchPanel.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -49,7 +49,7 @@ public:
 // Implementation
 protected:
 	//{{AFX_MSG(CSearchInputBox)
-	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg void OnPaint();
 	afx_msg void OnSelChangeSchemas();
@@ -85,6 +85,7 @@ public:
 	CButton		m_wndCheckBoxG1;
 	CButton		m_wndCheckBoxG2;
 	CButton		m_wndCheckBoxED2K;
+	CButton		m_wndCheckBoxDC;
 	CBrush		m_brBack;
 	COLORREF	m_crBack;
 	CImageList	m_gdiProtocols;
@@ -96,12 +97,13 @@ public:
 // Implementation
 protected:
 	//{{AFX_MSG(CSearchAdvancedBox)
-	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg void OnPaint();
 	afx_msg void OnG2Clicked();
 	afx_msg void OnG1Clicked();
 	afx_msg void OnED2KClicked();
+	afx_msg void OnDCClicked();
 	afx_msg LRESULT OnCtlColorStatic(WPARAM, LPARAM);
 	//}}AFX_MSG
 
@@ -124,7 +126,7 @@ public:
 // Implementation
 protected:
 	//{{AFX_MSG(CSearchSchemaBox)
-	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	//}}AFX_MSG
 
@@ -187,15 +189,15 @@ public:
 
 // Operations
 public:
-	void			SetSearchFocus();
-	void			ShowSearch(const CManagedSearch* pSearch);
-	void			ShowStatus(BOOL bStarted, BOOL bSearching, DWORD nHubs, DWORD nLeaves, DWORD nFiles, DWORD nHits, DWORD nBadHits);
-	void			OnSchemaChange();
-	void			OnSkinChange();
-	CSearchPtr		GetSearch();
-	void			ExecuteSearch();
-	void			Enable();
-	void			Disable();
+	CSearchPtr	GetSearch();
+	void		SetSearchFocus();
+	void		ShowSearch(const CManagedSearch* pSearch);
+	void		ShowStatus(BOOL bStarted, BOOL bSearching, DWORD nHubs, DWORD nLeaves, DWORD nFiles, DWORD nHits, DWORD nBadHits);
+	void		OnSchemaChange();
+	void		OnSkinChange();
+	void		ExecuteSearch();
+	void		Enable();
+	void		Disable();
 
 // Overrides
 public:
@@ -227,3 +229,4 @@ protected:
 #define IDC_SEARCH_GNUTELLA1			277
 #define IDC_SEARCH_GNUTELLA2			278
 #define IDC_SEARCH_EDONKEY				279
+#define IDC_SEARCH_DC					280

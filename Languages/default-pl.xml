@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Polish Skin File -->
 
-<!-- Translation based on default-en.xml r64 (Shareaza 2.1.2.7) -->
+<!-- Translation based on default-en.xml r65 (Shareaza 2.1.2.7) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -356,6 +356,7 @@
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey2000"/>
+		<button id="ID_NETWORK_DC" text="DC++"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Ustawienia"/>
 	</toolbar>
@@ -386,20 +387,16 @@
 		<button id="ID_SEARCH_FILTER_RAW" text="Więcej..."/>
 	</toolbar>
 	<!-- HOST CACHE WINDOW -->
-	<toolbar name="CHostCacheWnd.Basic">
-		<button id="ID_HOSTCACHE_CONNECT" text="Połącz z"/>
-		<button id="ID_HOSTCACHE_DISCONNECT" text="Rozłącz"/>
-		<button id="ID_HOSTCACHE_REMOVE" text="Usuń"/>
-	</toolbar>
 	<toolbar name="CHostCacheWnd">
 		<button id="ID_HOSTCACHE_CONNECT" text="Połącz z"/>
 		<button id="ID_HOSTCACHE_DISCONNECT" text="Rozłącz"/>
 		<button id="ID_HOSTCACHE_REMOVE" text="Usuń"/>
 		<rightAlign/>
-		<button id="ID_HOSTCACHE_G2_HORIZON" text="Gromada G2"/>
-		<button id="ID_HOSTCACHE_G2_CACHE" text="Cache G2"/>
-		<button id="ID_HOSTCACHE_G1_CACHE" text="Cache G1"/>
-		<button id="ID_HOSTCACHE_ED2K_CACHE" text="Cache eDonkey"/>
+		<button id="ID_HOSTCACHE_G2_HORIZON" text="Gromada"/>
+		<button id="ID_HOSTCACHE_G2_CACHE" text="Cache"/>
+		<button id="ID_HOSTCACHE_G1_CACHE" text="Cache"/>
+		<button id="ID_HOSTCACHE_ED2K_CACHE" text="Cache"/>
+		<button id="ID_HOSTCACHE_DC_CACHE" text="Cache"/>
 	</toolbar>
 	<!-- PRIVATE CHAT WINDOW -->
 	<toolbar name="CPrivateChatFrame">
@@ -467,6 +464,7 @@
 				<item id="ID_NETWORK_G2" text="Połącz z Gnutella2"/>
 				<item id="ID_NETWORK_G1" text="Połącz z Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="Połącz z eDonkey2000"/>
+				<item id="ID_NETWORK_DC" text="Połącz z DC++"/>
 				<separator/>
 				<item id="ID_NETWORK_CONNECT_TO" text="Połącz z..." shortcut="Ctrl+T"/>
 				<item id="ID_NETWORK_BROWSE_TO" text="Przeglądaj użytkownika..."/>
@@ -547,11 +545,9 @@
 		<menu text="Sieć">
 			<item id="ID_NETWORK_CONNECT" text="Połącz" shortcut="Ctrl+G"/>
 			<separator/>
-			<menu text="Wybierz sieci">
-				<item id="ID_NETWORK_G2" text="Połącz z Gnutella2"/>
-				<item id="ID_NETWORK_G1" text="Połącz z Gnutella1"/>
-				<item id="ID_NETWORK_ED2K" text="Połącz z eDonkey2000"/>
-			</menu>
+			<item id="ID_NETWORK_G2" text="Połącz z Gnutella2"/>
+			<item id="ID_NETWORK_G1" text="Połącz z Gnutella"/>
+			<item id="ID_NETWORK_ED2K" text="Połącz z eDonkey2000"/>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="Zakończ po pobieraniu"/>
 			<item id="ID_NETWORK_EXIT" text="Zakończ"/>
@@ -620,11 +616,10 @@
 			<item id="ID_NETWORK_CONNECT_TO" text="Połącz z..." shortcut="Ctrl+T"/>
 			<item id="ID_NETWORK_BROWSE_TO" text="Przeglądaj użytkownika..."/>
 			<separator/>
-			<menu text="Wybierz sieci">
-				<item id="ID_NETWORK_G2" text="Połącz z Gnutella2"/>
-				<item id="ID_NETWORK_G1" text="Połącz z Gnutella1"/>
-				<item id="ID_NETWORK_ED2K" text="Połącz z eDonkey2000"/>
-			</menu>
+			<item id="ID_NETWORK_G2" text="Połącz z Gnutella2"/>
+			<item id="ID_NETWORK_G1" text="Połącz z Gnutella"/>
+			<item id="ID_NETWORK_ED2K" text="Połącz z eDonkey2000"/>
+			<item id="ID_NETWORK_DC" text="Połącz z DC++"/>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="Zakończ po pobieraniu"/>
 			<item id="ID_NETWORK_EXIT" text="Zakończ"/>
@@ -1377,8 +1372,12 @@
 			<item id="ID_NETWORK_DISCONNECT" text="Rozłącz"/>
 			<separator/>
 			<item id="ID_NETWORK_G2" text="Gnutella2"/>
-			<item id="ID_NETWORK_G1" text="Gnutella1"/>
+			<item id="ID_NETWORK_G1" text="Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="eDonkey2000"/>
+			<item id="ID_NETWORK_DC" text="DC++"/>
+			<separator/>
+			<item id="ID_VIEW_DISCOVERY" text="Discovery Services"/>
+			<item id="ID_VIEW_HOSTS" text="Cache hostów"/>
 		</menu>
 		<menu text="Monitor">
 			<item id="ID_NEIGHBOURS_VIEW_ALL" text="Pokaż wszystkie pakiety"/>
@@ -1577,7 +1576,7 @@
 		<text group="21" align="middle">Rozłączony</text>
 		<text group="22" align="middle">Łączenie...</text>
 		<text group="23" align="middle">Połączony</text>
-		<text group="24" align="middle" id="G2Hubs">%i hub(y)</text>
+		<text group="24" align="middle" id="G2Hubs">%i huby</text>
 		<text group="25" align="middle" id="G2Leaves">%i listków</text>
 		<newline group="20" gap="2"/>
 		<icon group="10" command="ID_NETWORK_G1"/>
@@ -1593,20 +1592,28 @@
 		<text group="31" align="middle">Rozłączony</text>
 		<text group="32" align="middle">Łączenie...</text>
 		<text group="33" align="middle">Połączony</text>
+		<text group="34" align="middle" id="EDServers">%i serwer</text>
 		<newline group="30" gap="2"/>
+		<icon group="60" command="ID_NETWORK_DC"/>
+		<text group="60" align="middle" format="b">&#160;DC++: &#160; </text>
+		<text group="61" align="middle">Rozłączony</text>
+		<text group="62" align="middle">Łączenie...</text>
+		<text group="63" align="middle">Połączony</text>
+		<text group="64" align="middle" id="DCHubs">%i hub</text>
+		<newline group="60" gap="2"/>
 		<group id="2">
 			<para align="center">
 				<newline gap="6"/>
-				<text>Jesteś połączony przez </text>
+				<link target="command:ID_TAB_NETWORK">Jesteś połączony przez</link>
 				<newline gap="0"/>
 				<text id="ConnectedHours" format="b">%i </text>
-				<text>godzin(y) i </text>
+				<text>godziny i </text>
 				<text id="ConnectedMinutes" format="b">%i </text>
-				<text>minuty.</text>
+				<text>minuty</text>
 			</para>
 		</group>
 	</document>
-	<document name="CHomeLibraryBox" title="Moje Zasoby" leftMargin="6" topMargin="6">
+	<document name="CHomeLibraryBox" title="Zasoby" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
 				<font size="11"/>
@@ -1638,7 +1645,7 @@
 			</group>
 		</para>
 	</document>
-	<document name="CHomeDownloadsBox" title="Moje Pobierania" leftMargin="6" topMargin="6">
+	<document name="CHomeDownloadsBox" title="Pobierania" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
 				<font size="11"/>
@@ -2261,8 +2268,9 @@
 	<tip id="ID_NETWORK_CONNECT" message="Podłącz się do sieci."/>
 	<tip id="ID_NETWORK_CONNECT_TO" message="Ręcznie podłącz do hosta..."/>
 	<tip id="ID_NETWORK_DISCONNECT" message="Odłącz się od sieci."/>
-	<tip id="ID_NETWORK_ED2K" message="Podłącz sie do sieci eDonkey2000."/>
 	<tip id="ID_NETWORK_EXIT" message="Wyjdź z PeerProject"/>
+	<tip id="ID_NETWORK_ED2K" message="Podłącz sie do sieci eDonkey2000."/>
+	<tip id="ID_NETWORK_DC" message="Podłącz sie do sieci DC++."/>
 	<tip id="ID_NETWORK_G1" message="Podłącz się do orginalnej sieci Gnutella."/>
 	<tip id="ID_NETWORK_G2" message="Podłącz się do sieci Gnutella2 (Zalecane)."/>
 	<tip id="ID_NETWORK_SEARCH" message="Rozpocznij nowe przeszukiwanie sieci..."/>
@@ -2425,7 +2433,9 @@
 	<string id="20012" value="do potrzeb"/> <!-- oryg.: "Custom" ? -->
 	<string id="20013" value="Domyślnie"/>
 	<string id="20014" value="Finisz"/> <!-- oryg.: "Finish" ? -->
-	<string id="20050" value="Every Day"/>
+	<string id="20020" value="Plik"/>
+	<string id="20021" value="Pliki"/>
+	<string id="20050" value="Każdy Dzień"/>
 	<string id="20051" value="Poniedziałek"/>
 	<string id="20052" value="Wtorek"/>
 	<string id="20053" value="Sroda"/>
@@ -2980,7 +2990,7 @@
 		<control/>
 		<control caption="Przezroczystość:"/>
 		<control/>
-		<control caption="Shadow (restart)"/>
+		<control caption="Shadows"/>
 		<control caption="Zasobnik systemowy:"/>
 		<control caption="Kiedy kliknę zamknij:"/>
 		<control caption="Spytaj mnie|Minimalizuj do zasobnika|Od razu zamknij|Zamknij po zakończeniu transferów"/>
@@ -2990,9 +3000,9 @@
 	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuBuCoBuBuBuCoBuBuBuEdBu" caption="Biblioteka (Zasobów)">
 		<control caption="Opcje:"/>
 		<control caption="Pozwól innym na przeglądanie"/>
-		<control caption="Zapamiętaj widok folderów"/>
 		<control caption="Pilnuj folderów biblioteki (zasobów)"/>
 		<control caption="Szybkie hashowanie (więcej CPU)"/>
+		<control caption="Zapamiętaj widok hashowanie"/>
 		<control caption="Smart media series detection"/>
 		<control caption="Create ghost files by default"/>
 		<control caption="Ostatnie pliki:"/>
@@ -3086,13 +3096,14 @@
 		<control caption="On-connect"/>
 		<control/>
 	</dialog>
-	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuCoBuBuSt" caption="WWW">
+	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuBuCoBuBuSt" caption="WWW">
 		<control caption="Obsługa linków_Peer to Peer:"/>
 		<control caption="Używaj PeerProject aby otwierała te rodzaje linków:"/>
 		<control caption="Magnet ( magnet: )"/>
 		<control caption="Gnutella ( gnutella: )"/>
 		<control caption="eDonkey2000 ( ed2k: )"/>
 		<control caption="Piolet ( mp2p: )"/>
+		<control caption="DC++ ( dchub:/dcfile: )"/>
 		<control caption="BitTorrent ( .torrent )"/>
 		<control caption="Menadżer pobierań:"/>
 		<control caption="Użyj PeerProject do zarządzania wszystkimi moimi pobieraniami z Internetu:"/>
@@ -3982,7 +3993,8 @@
 		<control caption="Aby udostępniać kompletne pliki poprzez BitTorrent musisz je najpierw seedować (zasadzić). Gdy ten proces zostanie zakończony, Torrent pojawi się jako nowa pozycja w Twojej liście pobierań."/>
 		<control/>
 	</dialog>
-	<dialog name="CTorrentFilesPage" cookie="Sy" caption="Pliki">
+	<dialog name="CTorrentFilesPage" cookie="StSy" caption="Pliki">
+		<control/>
 		<control/>
 	</dialog>
 	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="Trackery">
@@ -4171,14 +4183,13 @@
 	<list name="CHostCacheWnd">
 		<column from="Address" to="Adres"/>
 		<column from="Port" to="Port"/>
-		<column from="Client" to="Klient"/>
 		<column from="Last Seen" to="Ostatnio widziany"/>
-		<column from="Daily Uptime" to="Dzienny Uptime"/>
+		<column from="Client" to="Klient"/>
 		<column from="Name" to="Nazwa"/>
 		<column from="Description" to="Opis"/>
+		<column from="Failures" to="Niepowodzeń"/>
 		<column from="CurUsers" to="Akt Użytkowników"/>
 		<column from="MaxUsers" to="Max użytkowników"/>
-		<column from="Failures" to="Niepowodzeń"/>
 		<column from="Country" to="Kraj"/>
 	</list>
 	<list name="CDiscoveryWnd">
@@ -4238,7 +4249,7 @@
 		<column from="Criteria" to="Kryteria"/>
 		<column from="Minimum" to="Szerokość pasma"/>
 		<column from="Transfers" to="Transfery"/>
-		<column from="Order" to="Kolejność"/>
+		<column from="Priority" to="Kolejność"/>
 	</list>
 	<list name="CAdvancedSettingsList">
 		<column from="Setting" to="Ustawienie"/>

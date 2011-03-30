@@ -43,7 +43,6 @@ typedef enum NeighbourStateEnum
 	nrsRejected,	// The remote computer started with "GNUTELLA/0.6", but did not say "200 OK"
 	nrsClosing, 	// We called DelayClose to send buffered data and then close the socket connection
 	nrsConnected	// The handshake is over, the CNeighbour copy constructor sets m_nState to nrsConnected
-
 } NrsState;
 
 // Record if the remote computer is in the same network role as us, or in a higher or lower one
@@ -52,8 +51,8 @@ typedef enum NeighbourNodeEnum
 	// The remote computer can be a leaf, or ultrapeer, or hub, and so can we
 	ntNode,			// We are both Gnutella ultrapeers or Gnutella2 hubs
 	ntHub,			// We are a leaf, and this connection is to a Gnutella ultrapeer or Gnutella2 hub above us
-	ntLeaf			// We are a Gnutella ultrapeer or Gnutella2 hub, and this connection is to a leaf below us
-
+	ntLeaf,			// We are a Gnutella ultrapeer or Gnutella2 hub, and this connection is to a leaf below us
+	ntLast			// Workaround count hack
 } NrsNode;
 
 // Make the m_nPongNeeded buffer an array of 32 bytes
@@ -130,12 +129,13 @@ protected:
 // Operations
 public:
 	DWORD		GetMaxTTL() const;		// Get maximum TTL which is safe for both sides
-	void		GetCompression(float* pnInRate, float* pnOutRate);
+	void		GetCompression(float* pnInRate, float* pnOutRate);	// Calculate average compression rate in either direction for this connection
 
-	virtual void DelayClose(UINT nError);	// Send the buffer then close the socket, record the error given
 	virtual void Close(UINT nError = IDS_CONNECTION_CLOSED);
+	virtual void DelayClose(UINT nError);	// Send the buffer then close the socket, record the error given
 	virtual BOOL Send(CPacket* pPacket, BOOL bRelease = TRUE, BOOL bBuffered = FALSE);
 	virtual BOOL SendQuery(const CQuerySearch* pSearch, CPacket* pPacket, BOOL bLocal); 	// Validate query
+	virtual BOOL ConnectTo(const IN_ADDR* pAddress, WORD nPort, BOOL bAutomatic);
 
 protected:
 	virtual BOOL OnRun();

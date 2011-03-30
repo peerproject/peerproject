@@ -1,7 +1,7 @@
 //
 // DCClients.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2010
+// This file is part of PeerProject (peerproject.org) © 2010-2011
 // Portions copyright Shareaza Development Team, 2010.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -87,7 +87,7 @@ int CDCClients::GetCount() const
 void CDCClients::OnRun()
 {
 	CSingleLock oLock( &m_pSection, TRUE );
-	for ( POSITION pos = m_pList.GetHeadPosition(); pos; )
+	for ( POSITION pos = m_pList.GetHeadPosition() ; pos ; )
 	{
 		CDCClient* pClient = m_pList.GetNext( pos );
 		if ( ! pClient->IsValid() )
@@ -111,7 +111,9 @@ CString CDCClients::GetDefaultNick() const
 {
 	CString sNick = MyProfile.GetNick();
 	if ( sNick.GetLength() < 3 )
-		sNick.Format( CLIENT_NAME_T _T("%04u"), GetRandomNum( 0, 9999 ) );
+	{
+		sNick.Format( CLIENT_NAME _T("%04u"), GetRandomNum( 0, 9999 ) );
+	}
 	else
 	{
 		sNick.Replace( _T(' '), _T('_') );
@@ -132,8 +134,7 @@ BOOL CDCClients::Connect(const IN_ADDR& pHubAddress, WORD nHubPort, const CStrin
 
 	CSingleLock oLock( &Network.m_pSection );
 	if ( ! oLock.Lock( 250 ) )
-		// Network core overload
-		return FALSE;
+		return FALSE;	// Network core overload
 
 	// Get existing hub
 	CNeighbour* pNeighbour = Neighbours.Get( pHubAddress );
@@ -142,8 +143,7 @@ BOOL CDCClients::Connect(const IN_ADDR& pHubAddress, WORD nHubPort, const CStrin
 		// Connect to new hub
 		pNeighbour = new CDCNeighbour();
 		if ( ! pNeighbour )
-			// Out of memory
-			return FALSE;
+			return FALSE;	// Out of memory
 
 		if ( ! pNeighbour->ConnectTo( &pHubAddress, nHubPort, FALSE ) )
 		{
@@ -154,8 +154,7 @@ BOOL CDCClients::Connect(const IN_ADDR& pHubAddress, WORD nHubPort, const CStrin
 	}
 
 	if ( pNeighbour->m_nProtocol != PROTOCOL_DC )
-		// Hmmm...
-		return FALSE;
+		return FALSE;	// Hmmm...
 
 	// Ask (via this hub) source for call-back connection
 	bSuccess = static_cast< CDCNeighbour* >( pNeighbour )->ConnectToMe( sNick );
@@ -165,7 +164,7 @@ BOOL CDCClients::Connect(const IN_ADDR& pHubAddress, WORD nHubPort, const CStrin
 
 BOOL CDCClients::OnAccept(CConnection* pConnection)
 {
-	if ( ! Network.IsConnected() || ( Settings.Connection.RequireForTransfers && ! Settings.DC.EnableToday ) )
+	if ( ! Network.IsConnected() || ( Settings.Connection.RequireForTransfers && ! Settings.DC.Enabled ) )
 	{
 		theApp.Message( MSG_ERROR, _T("Refusing DC++ client link from %s because network is disabled."),
 			(LPCTSTR)pConnection->m_sAddress );
@@ -184,8 +183,7 @@ BOOL CDCClients::OnAccept(CConnection* pConnection)
 
 	CDCClient* pClient = new CDCClient();
 	if ( ! pClient )
-		// Out of memory
-		return FALSE;
+		return FALSE;	// Out of memory
 
 	pClient->AttachTo( pConnection );
 
@@ -198,7 +196,7 @@ BOOL CDCClients::Merge(CDCClient* pClient)
 
 	ASSERT( pClient != NULL );
 
-	for ( POSITION pos = m_pList.GetHeadPosition(); pos; )
+	for ( POSITION pos = m_pList.GetHeadPosition() ; pos ; )
 	{
 		CDCClient* pOther = m_pList.GetNext( pos );
 
@@ -222,7 +220,7 @@ std::string CDCClients::MakeKey(const std::string& aLock) const
 	BYTE v1 = (BYTE)( (BYTE)aLock[ 0 ] ^ 5 );
 	v1 = (BYTE)( ( ( v1 >> 4 ) | ( v1 << 4 ) ) & 0xff );
 	temp[ 0 ] = v1;
-	for ( size_t i = 1; i < aLock.size(); i++ )
+	for ( size_t i = 1 ; i < aLock.size() ; i++ )
 	{
 		v1 = (BYTE)( (BYTE)aLock[ i ] ^ (BYTE)aLock[ i - 1 ] );
 		v1 = (BYTE)( ( ( v1 >> 4 ) | ( v1 << 4 ) ) & 0xff );
@@ -241,7 +239,7 @@ std::string CDCClients::KeySubst(const BYTE* aKey, size_t len, size_t n) const
 {
 	auto_array< BYTE > temp( new BYTE[ len + n * 9 ] );
 	size_t j = 0;
-	for ( size_t i = 0; i < len; i++ )
+	for ( size_t i = 0 ; i < len ; i++ )
 	{
 		if ( IsExtra( aKey[ i ] ) )
 		{

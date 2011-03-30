@@ -1,7 +1,7 @@
 //
 // Utils.c
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 //
 // Portions of this page have been previously released into the public domain.
 // You are free to redistribute and modify it without any restrictions
@@ -28,7 +28,7 @@ void LoadManifestInfo(char *buf)
 
 	nLen = MultiByteToWideChar( CP_UTF8, 0, (LPCSTR)buf, -1, NULL, 0 );
 	pszBuf = (TCHAR*)malloc( nLen * sizeof(TCHAR) );
-	MultiByteToWideChar( CP_UTF8, 0, (LPCSTR)buf, -1, pszBuf, nLen * sizeof(TCHAR) );
+	MultiByteToWideChar( CP_UTF8, 0, (LPCSTR)buf, -1, pszBuf, nLen );
 
 	if ( ( p=(TCHAR*)GetManifestValue(pszBuf, L"type") ) != NULL )
 	{
@@ -115,7 +115,7 @@ int SetSkinAsDefault()
 		}
 		if (needsKey)
 		{
-			DWORD dval = 1;
+			dval = 1;
 			RegSetValueEx(hkey,szXMLNorm,0,REG_DWORD,(LPBYTE)&dval,sizeof(DWORD));
 		}
 		RegCloseKey(hkey);
@@ -269,7 +269,7 @@ static int CheckManifestForSkin(LPCTSTR pszFile)
 
 	nLen = MultiByteToWideChar( CP_UTF8, 0, (LPCSTR)buffer, (DWORD)strlen(buffer) , NULL, 0 );
 	pszBuf = (TCHAR*)malloc( nLen * sizeof(TCHAR) );
-	MultiByteToWideChar( CP_UTF8, 0, (LPCSTR)buffer, (DWORD)strlen(buffer), pszBuf, nLen * sizeof(TCHAR) );
+	MultiByteToWideChar( CP_UTF8, 0, (LPCSTR)buffer, (DWORD)strlen(buffer), pszBuf, nLen );
 	if ( bBOM ) buffer -= 3;
 	free(buffer);
 

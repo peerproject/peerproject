@@ -1,7 +1,7 @@
 //
 // ManagedSearch.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -72,13 +72,13 @@ public:
 	void	Serialize(CArchive& ar);
 	void	OnHostAcknowledge(DWORD nAddress);
 	BOOL	Execute(int nPriorityClass);	// Run search of specified priority class
-	BOOL	IsLastED2KSearch();
+	BOOL	IsLastSearch(); 				// Check GUID of latest text search on ED2K and DC++ networks
 	void	CreateGUID();
 
-	BOOL			m_bAllowG2;
-	BOOL			m_bAllowG1;
-	BOOL			m_bAllowED2K;
-//	BOOL			m_bAllowDC;				// DC++ search enabled
+	BOOL			m_bAllowG2; 			// Gnutella2 search enabled
+	BOOL			m_bAllowG1; 			// Gnutella search enabled
+	BOOL			m_bAllowED2K;			// eDonkey search enabled
+	BOOL			m_bAllowDC;				// DC++ search enabled
 	BOOL			m_bReceive;
 //	DWORD			m_nG2Hits;				// G2 hits if needed
 //	DWORD			m_nG1Hits;				// G1 hits if needed

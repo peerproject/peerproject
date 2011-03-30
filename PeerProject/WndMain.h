@@ -1,7 +1,7 @@
 //
 // WndMain.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -114,6 +114,7 @@ protected:
 	afx_msg void OnEndSession(BOOL bEnding);
 	afx_msg LRESULT OnWinsock(WPARAM wParam, LPARAM lParam);
 	afx_msg LRESULT OnHandleURL(WPARAM wParam, LPARAM lParam);
+	afx_msg LRESULT OnHandleImport(WPARAM wParam, LPARAM lParam);
 	afx_msg LRESULT OnHandleTorrent(WPARAM wParam, LPARAM lParam);
 	afx_msg LRESULT OnHandleCollection(WPARAM wParam, LPARAM lParam);
 	afx_msg LRESULT OnVersionCheck(WPARAM wParam, LPARAM lParam);
@@ -254,8 +255,8 @@ protected:
 	afx_msg void OnNetworkG1();
 	afx_msg void OnUpdateNetworkED2K(CCmdUI* pCmdUI);
 	afx_msg void OnNetworkED2K();
-//	afx_msg void OnUpdateNetworkDC(CCmdUI* pCmdUI);
-//	afx_msg void OnNetworkDC();
+	afx_msg void OnUpdateNetworkDC(CCmdUI* pCmdUI);
+	afx_msg void OnNetworkDC();
 	afx_msg void OnUpdateViewBasic(CCmdUI* pCmdUI);
 	afx_msg void OnViewBasic();
 	afx_msg void OnUpdateLibraryHashPriority(CCmdUI* pCmdUI);

@@ -1,7 +1,7 @@
 //
 // UploadQueues.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -90,14 +90,10 @@ BOOL CUploadQueues::Dequeue(CUploadTransfer* pUpload)
 	ASSERT( pUpload != NULL );
 
 	if ( Check( pUpload->m_pQueue ) )
-	{
 		return pUpload->m_pQueue->Dequeue( pUpload );
-	}
-	else
-	{
-		pUpload->m_pQueue = NULL;
-		return FALSE;
-	}
+
+	pUpload->m_pQueue = NULL;
+	return FALSE;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -114,8 +110,8 @@ int CUploadQueues::GetPosition(CUploadTransfer* pUpload, BOOL bStart)
 
 		if ( Check( pUpload->m_pQueue ) )
 			return pUpload->m_pQueue->GetPosition( pUpload, bStart );
-		else
-			pUpload->m_pQueue = NULL;
+
+		pUpload->m_pQueue = NULL;
 	}
 	else
 	{
@@ -245,7 +241,7 @@ DWORD CUploadQueues::GetTotalBandwidthPoints( BOOL ActiveOnly )
 			{
 				if ( ( ( pQptr->m_nProtocols & ( 1 << PROTOCOL_ED2K ) ) != 0 ) && ( Settings.Connection.RequireForTransfers ) )
 				{
-					if ( ! ( Settings.eDonkey.EnableAlways | Settings.eDonkey.EnableToday ) )
+					if ( ! ( Settings.eDonkey.EnableAlways | Settings.eDonkey.Enabled ) )
 						continue;
 				}
 			}
@@ -258,6 +254,7 @@ DWORD CUploadQueues::GetTotalBandwidthPoints( BOOL ActiveOnly )
 	return nCount;
 }
 
+// CPU Intensive
 //DWORD CUploadQueues::GetQueueCapacity()
 //{
 //	CQuickLock oLock( m_pSection );
@@ -384,7 +381,7 @@ BOOL CUploadQueues::CanUpload(PROTOCOLID nProtocol, CLibraryFile const * const p
 
 	CQuickLock oLock( m_pSection );
 
-	//Check each queue
+	// Check each queue
 	for ( POSITION pos = GetIterator() ; pos ; )
 	{
 		CUploadQueue* pQueue = GetNext( pos );
@@ -393,7 +390,7 @@ BOOL CUploadQueues::CanUpload(PROTOCOLID nProtocol, CLibraryFile const * const p
 		{
 			// If this queue will accept this file, and we don't care if there is space now, or the queue isn't full
 			if ( ! bCanQueue || pQueue->IsFull() )
-				return TRUE; // Then this file can be uploaded
+				return TRUE;	// Then this file can be uploaded
 		}
 	}
 
@@ -402,7 +399,7 @@ BOOL CUploadQueues::CanUpload(PROTOCOLID nProtocol, CLibraryFile const * const p
 
 // Unused?
 //DWORD CUploadQueues::QueueRank(PROTOCOLID nProtocol, CLibraryFile const * const pFile )
-//{	// if the specified file was requested now, what queue position would it be in?
+//{	// If the specified file was requested now, what queue position would it be in?
 //	// 0x7FFF (max int) indicates the file cannot be downloaded
 //	// Don't bother with 0 byte files
 //	if ( pFile->m_nSize == 0 ) return 0x7FFF;
@@ -411,10 +408,9 @@ BOOL CUploadQueues::CanUpload(PROTOCOLID nProtocol, CLibraryFile const * const p
 //	// G1 and G2 both use HTTP transfers, PeerProject doesn't consider them different.
 //	if ( ( nProtocol == PROTOCOL_G1 ) || ( nProtocol == PROTOCOL_G2 ) )
 //		nProtocol = PROTOCOL_HTTP;
-
+//
 //	CSingleLock pLock( &m_pSection, TRUE );
-//	//Check each queue
-//	for ( POSITION pos = GetIterator() ; pos ; )
+//	for ( POSITION pos = GetIterator() ; pos ; )	// Check each queue
 //	{
 //		CUploadQueue* pQueue = GetNext( pos );
 //		if ( pQueue->CanAccept(	nProtocol, pFile->m_sName, pFile->m_nSize, CUploadQueue::ulqLibrary, pFile->m_sShareTags ) )
@@ -424,7 +420,7 @@ BOOL CUploadQueues::CanUpload(PROTOCOLID nProtocol, CLibraryFile const * const p
 //				return pQueue->GetQueuedCount();
 //		}
 //	}
-//	return 0x7FFF;	//This file is not uploadable with the current queue setup
+//	return 0x7FFF;	// This file is not uploadable with the current queue setup
 //}
 
 //////////////////////////////////////////////////////////////////////
@@ -522,7 +518,7 @@ BOOL CUploadQueues::Save()
 //////////////////////////////////////////////////////////////////////
 // CUploadQueues serialize
 
-#define UPLOADQUEUES_SER_VERSION	1000	//6
+#define UPLOADQUEUES_SER_VERSION	1000	// 6
 // nVersion History:
 // 6 - Shareaza 2.3 (ryo-oh-ki)
 // 1000 - (PeerProject 1.0) (6)
@@ -531,7 +527,7 @@ void CUploadQueues::Serialize(CArchive& ar)
 {
 	ASSUME_LOCK( m_pSection );
 
-	int nVersion = UPLOADQUEUES_SER_VERSION;
+	int nVersion = UPLOADQUEUES_SER_VERSION;	// ToDo: INTERNAL_VERSION
 
 	if ( ar.IsStoring() )
 	{
@@ -865,7 +861,7 @@ void CUploadQueues::CreateDefault()
 		pQueue->m_nRotateTime		= 20*60;
 		pQueue->m_bRewardUploaders	= FALSE;
 	}
-	else  // <50 Kb/s (Dial up modem)
+	else  // < 50 Kb/s (Dial up modem)
 	{
 		LoadString ( strQueueName, IDS_UPLOAD_QUEUE_ED2K_CORE );
 		pQueue						= Create( strQueueName );
@@ -902,17 +898,60 @@ void CUploadQueues::Validate()
 {
 	CQuickLock oLock( m_pSection );
 
-	CString strQueueName;
-	if ( SelectQueue( PROTOCOL_ED2K, _T("Filename"), 0x00A00000, CUploadQueue::ulqPartial ) == NULL ||
-		 SelectQueue( PROTOCOL_ED2K, _T("Filename"), 0x03200000, CUploadQueue::ulqPartial ) == NULL ||
-		 SelectQueue( PROTOCOL_ED2K, _T("Filename"), 0x1F400000, CUploadQueue::ulqPartial ) == NULL )
+	const bool bHTTP_NoPartial =
+		SelectQueue( PROTOCOL_HTTP, _T("Filename"), 1, CUploadQueue::ulqPartial ) == NULL ||
+		SelectQueue( PROTOCOL_HTTP, _T("Filename"), SIZE_UNKNOWN - 1, CUploadQueue::ulqPartial ) == NULL;
+	const bool bHTTP_NoLibrary =
+		SelectQueue( PROTOCOL_HTTP, _T("Filename"), 1, CUploadQueue::ulqLibrary ) == NULL ||
+		SelectQueue( PROTOCOL_HTTP, _T("Filename"), SIZE_UNKNOWN - 1, CUploadQueue::ulqLibrary ) == NULL;
+
+	const bool bED2K_NoPartial =
+		SelectQueue( PROTOCOL_ED2K, _T("Filename"), 1, CUploadQueue::ulqPartial ) == NULL ||
+		SelectQueue( PROTOCOL_ED2K, _T("Filename"), SIZE_UNKNOWN - 1, CUploadQueue::ulqPartial ) == NULL;
+	const bool bED2K_NoLibrary =
+		SelectQueue( PROTOCOL_ED2K, _T("Filename"), 1, CUploadQueue::ulqLibrary ) == NULL ||
+		SelectQueue( PROTOCOL_ED2K, _T("Filename"), SIZE_UNKNOWN - 1, CUploadQueue::ulqLibrary ) == NULL;
+
+	const bool bDC_NoPartial =
+		SelectQueue( PROTOCOL_DC, _T("Filename"), 1, CUploadQueue::ulqPartial ) == NULL ||
+		SelectQueue( PROTOCOL_DC, _T("Filename"), SIZE_UNKNOWN - 1, CUploadQueue::ulqPartial ) == NULL;
+	const bool bDC_NoLibrary =
+		SelectQueue( PROTOCOL_DC, _T("Filename"), 1, CUploadQueue::ulqLibrary ) == NULL ||
+		SelectQueue( PROTOCOL_DC, _T("Filename"), SIZE_UNKNOWN - 1, CUploadQueue::ulqLibrary ) == NULL;
+
+	if ( bHTTP_NoPartial || bHTTP_NoLibrary )
 	{
-		LoadString ( strQueueName, IDS_UPLOAD_QUEUE_ED2K_GUARD );
-		CUploadQueue* pQueue		= Create( strQueueName );
-		pQueue->m_nProtocols		= (1<<PROTOCOL_ED2K);
+		CUploadQueue* pQueue		= Create( LoadString ( IDS_UPLOAD_QUEUE_HTTP_GUARD ) );
+		pQueue->m_nProtocols		= ( 1 << PROTOCOL_HTTP);
 		pQueue->m_nMaxTransfers		= 5;
 		pQueue->m_bRotate			= TRUE;
-		pQueue->m_nFileStateFlag	= CUploadQueue::ulqPartial;
+		pQueue->m_nFileStateFlag	= ( bHTTP_NoPartial && bHTTP_NoLibrary ) ?
+			CUploadQueue::ulqBoth : ( bHTTP_NoPartial ? CUploadQueue::ulqPartial : CUploadQueue::ulqLibrary );
+
+		if ( Settings.Connection.OutSpeed > 100 )
+		{
+			pQueue->m_nMinTransfers		= 2;
+			pQueue->m_nBandwidthPoints	= 30;
+			pQueue->m_nCapacity			= 10;
+			pQueue->m_nRotateTime		= 10*60;
+		}
+		else
+		{
+			pQueue->m_nMinTransfers		= 1;
+			pQueue->m_nBandwidthPoints	= 20;
+			pQueue->m_nCapacity			= 5;
+			pQueue->m_nRotateTime		= 30*60;
+		}
+	}
+
+	if ( bED2K_NoPartial || bED2K_NoLibrary )
+	{
+		CUploadQueue* pQueue		= Create( LoadString ( IDS_UPLOAD_QUEUE_ED2K_GUARD ) );
+		pQueue->m_nProtocols		= ( 1 << PROTOCOL_ED2K );
+		pQueue->m_nMaxTransfers		= 5;
+		pQueue->m_bRotate			= TRUE;
+		pQueue->m_nFileStateFlag	= ( bED2K_NoPartial && bED2K_NoLibrary ) ?
+			CUploadQueue::ulqBoth : ( bED2K_NoPartial ? CUploadQueue::ulqPartial : CUploadQueue::ulqLibrary );
 
 		if ( Settings.Connection.OutSpeed > 100 )
 		{
@@ -932,45 +971,14 @@ void CUploadQueues::Validate()
 		}
 	}
 
-	if ( SelectQueue( PROTOCOL_ED2K, _T("Filename"), 0x00A00000, CUploadQueue::ulqLibrary ) == NULL ||
-		 SelectQueue( PROTOCOL_ED2K, _T("Filename"), 0x03200000, CUploadQueue::ulqLibrary ) == NULL ||
-		 SelectQueue( PROTOCOL_ED2K, _T("Filename"), 0x1F400000, CUploadQueue::ulqLibrary ) == NULL )
+	if ( bDC_NoPartial || bDC_NoLibrary )
 	{
-		LoadString ( strQueueName, IDS_UPLOAD_QUEUE_ED2K_GUARD );
-		CUploadQueue* pQueue		= Create( strQueueName );
-		pQueue->m_nProtocols		= (1<<PROTOCOL_ED2K);
+		CUploadQueue* pQueue		= Create( LoadString ( IDS_UPLOAD_QUEUE_DC_GUARD ) );
+		pQueue->m_nProtocols		= ( 1 << PROTOCOL_DC );
 		pQueue->m_nMaxTransfers		= 5;
 		pQueue->m_bRotate			= TRUE;
-		pQueue->m_nFileStateFlag	= CUploadQueue::ulqLibrary;
-
-		if ( Settings.Connection.OutSpeed > 100 )
-		{
-			pQueue->m_nMinTransfers		= 2;
-			pQueue->m_nBandwidthPoints	= 30;
-			pQueue->m_nCapacity			= 2000;
-			pQueue->m_nRotateTime		= 10*60;
-			pQueue->m_bRewardUploaders	= TRUE;
-		}
-		else
-		{
-			pQueue->m_nMinTransfers		= 1;
-			pQueue->m_nBandwidthPoints	= 20;
-			pQueue->m_nCapacity			= 500;
-			pQueue->m_nRotateTime		= 30*60;
-			pQueue->m_bRewardUploaders	= TRUE;
-		}
-	}
-
-	if ( SelectQueue( PROTOCOL_HTTP, _T("Filename"), 0x00A00000, CUploadQueue::ulqPartial ) == NULL ||
-		 SelectQueue( PROTOCOL_HTTP, _T("Filename"), 0x03200000, CUploadQueue::ulqPartial ) == NULL ||
-		 SelectQueue( PROTOCOL_HTTP, _T("Filename"), 0x1F400000, CUploadQueue::ulqPartial ) == NULL )
-	{
-		LoadString ( strQueueName, IDS_UPLOAD_QUEUE_HTTP_GUARD );
-		CUploadQueue* pQueue		= Create( strQueueName );
-		pQueue->m_nProtocols		= (1<<PROTOCOL_HTTP);
-		pQueue->m_nMaxTransfers		= 5;
-		pQueue->m_bRotate			= TRUE;
-		pQueue->m_nFileStateFlag	= CUploadQueue::ulqPartial;
+		pQueue->m_nFileStateFlag	= ( bDC_NoPartial && bDC_NoLibrary ) ?
+			CUploadQueue::ulqBoth : ( bDC_NoPartial ? CUploadQueue::ulqPartial : CUploadQueue::ulqLibrary );
 
 		if ( Settings.Connection.OutSpeed > 100 )
 		{
@@ -988,44 +996,9 @@ void CUploadQueues::Validate()
 		}
 	}
 
-	if ( SelectQueue( PROTOCOL_HTTP, _T("Filename"), 0x00A00000, CUploadQueue::ulqLibrary ) == NULL ||
-		 SelectQueue( PROTOCOL_HTTP, _T("Filename"), 0x03200000, CUploadQueue::ulqLibrary ) == NULL ||
-		 SelectQueue( PROTOCOL_HTTP, _T("Filename"), 0x1F400000, CUploadQueue::ulqLibrary ) == NULL )
-	{
-		LoadString ( strQueueName, IDS_UPLOAD_QUEUE_HTTP_GUARD );
-		CUploadQueue* pQueue		= Create( strQueueName );
-		pQueue->m_nProtocols		= (1<<PROTOCOL_HTTP);
-		pQueue->m_nMaxTransfers		= 5;
-		pQueue->m_bRotate			= TRUE;
-		pQueue->m_nFileStateFlag	= CUploadQueue::ulqLibrary;
-
-		if ( Settings.Connection.OutSpeed > 100 )
-		{
-			pQueue->m_nMinTransfers		= 2;
-			pQueue->m_nBandwidthPoints	= 30;
-			pQueue->m_nCapacity			= 10;
-			pQueue->m_nRotateTime		= 10*60;
-		}
-		else
-		{
-			pQueue->m_nMinTransfers		= 1;
-			pQueue->m_nBandwidthPoints	= 20;
-			pQueue->m_nCapacity			= 5;
-			pQueue->m_nRotateTime		= 30*60;
-		}
-	}
-
-	if ( GetMinimumDonkeyBandwidth() < 10240 )
-		m_bDonkeyLimited = TRUE;
-	else
-		m_bDonkeyLimited = FALSE;
+	m_bDonkeyLimited = ( GetMinimumDonkeyBandwidth() < 10240 );
 
 	// Display warning if needed
-	if ( Settings.eDonkey.EnableToday || Settings.eDonkey.EnableAlways )
-	{
-		if ( m_bDonkeyLimited )
-			theApp.Message( MSG_NOTICE, _T("eDonkey upload ratio active: Low uploads may slow downloads.")  );
-		else
-			theApp.Message( MSG_DEBUG, _T("eDonkey upload ratio is OK.")  );
-	}
+	if ( m_bDonkeyLimited && Settings.eDonkey.Enabled || Settings.eDonkey.EnableAlways )
+			theApp.Message( MSG_NOTICE, _T("eDonkey upload ratio active: Low uploads may slow downloads.") );
 }

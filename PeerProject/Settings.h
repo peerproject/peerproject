@@ -142,7 +142,6 @@ public:
 		DWORD		TreeSize;
 		DWORD		PanelSize;
 		bool		ShowPanel;
-		bool		StoreViews;
 		bool		ShowCoverArt;
 		CString		SchemaURI;
 		CString		FilterURI;
@@ -349,8 +348,8 @@ public:
 	struct sGnutella1
 	{
 		DWORD		ClientMode;				// Desired mode of operation: MODE_AUTO, MODE_LEAF, MODE_ULTRAPEER
-		bool		EnableToday;
-		bool		EnableAlways;
+		bool		Enabled;				// Was Gnutella1.EnableToday
+		bool		EnableAlways;			// Do  Gnutella1.EnableStartup ?  Or EnableDefult?
 		DWORD		NumHubs;				// Number of ultrapeers a leaf has
 		DWORD		NumLeafs;				// Number of leafs an ultrapeer has
 		DWORD		NumPeers;				// Number of peers an ultrapeer has
@@ -382,9 +381,9 @@ public:
 	struct sGnutella2
 	{
 		DWORD		ClientMode;				// Desired mode of operation: MODE_AUTO, MODE_LEAF, MODE_HUB
+		bool		Enabled;				// Was Gnutella2.EnableToday
+		bool		EnableAlways;			// Do  Gnutella2.EnableStartup ?
 		bool		HubVerified;
-		bool		EnableToday;
-		bool		EnableAlways;
 		DWORD		NumHubs;				// Number of hubs a leaf has
 		DWORD		NumLeafs;				// Number of leafs a hub has
 		DWORD		NumPeers;				// Number of peers a hub has
@@ -401,22 +400,22 @@ public:
 		DWORD		KHLPeriod;
 		DWORD		KHLHubCount;
 		DWORD		HAWPeriod;
+		DWORD		HubHorizonSize;
 		DWORD		HostCurrent;
 		DWORD		HostCount;				// Number of hosts in X-Try-Hubs
 		DWORD		HostExpire;
 		DWORD		PingRate;
+		DWORD		QueryThrottle;			// Throttle for G2 neighbor searches (sec) (was QueryHostThrottle)
 		DWORD		QueryGlobalThrottle;	// Max G2 query rate (Cannot exceed 8/sec)
-		DWORD		QueryHostThrottle;
 		DWORD		QueryHostDeadline;
-		DWORD		RequeryDelay;
-		DWORD		HubHorizonSize;
+		DWORD		RequeryDelay;			// Throttle for G2 neighbor UDP searches (hr?)
 		DWORD		QueryLimit;
 	} Gnutella2;
 
 	struct seDonkey
 	{
-		bool		EnableToday;
-		bool		EnableAlways;
+		bool		Enabled;				// Was eDonkey.EnableToday
+		bool		EnableAlways;			// Do  eDonkey.EnableStartup ?
 		bool		FastConnect;			// Try connecting to 2 servers to get online faster
 		bool		ForceHighID;			// Reconnect if low-id. (once only)
 		DWORD		NumServers;				// 1 Connection
@@ -427,10 +426,10 @@ public:
 		DWORD		StatsGlobalThrottle;	// Global throttle for server UDP stats requests
 		DWORD		QueryGlobalThrottle;	// Global throttle for all ed2k searches (TCP, UDP, manual and auto)
 		DWORD		StatsServerThrottle;	// Max rate at which an individual server can be asked for stats
-		DWORD		QueryServerThrottle;	// Max rate at which an individual server can be queried
-		DWORD		QueryFileThrottle;		// Max rate a file can have GetSources done
 		DWORD		GetSourcesThrottle;		// Max rate a general GetSources can done
+		DWORD		QueryFileThrottle;		// Max rate a file can have GetSources done
 		DWORD		QueueRankThrottle;		// How frequently queue ranks are sent
+		DWORD		QueryThrottle;			// Max rate at which an individual server can be queried (sec) (was QueryServerThrottle)
 		DWORD		PacketThrottle;			// ED2K packet rate limiter
 		DWORD		SourceThrottle;			// ED2K source rate limiter
 		DWORD		MetAutoQuery;			// Auto query for a new server list
@@ -447,14 +446,14 @@ public:
 		bool		MagnetSearch;			// Search for magnets over ed2k (lower server load)
 		DWORD		MinServerFileSize;		// Minimum size a file in the library must be in order to be included in the server file list. (In KB)
 		DWORD		DefaultServerFlags;		// Default server flags (for UDP searches)
+		bool		LargeFileSupport;		// Allow 64 bit file sizes (for server)
 		bool		Endgame;				// Allow endgame mode when completing downloads. (Download same chunk from multiple sources)
-		bool		LargeFileSupport;		// Allow 64 bit file sizes
 	} eDonkey;
 
 	struct sDC
 	{
-		bool		EnableToday;
-		bool		EnableAlways;
+		bool		Enabled;				// Was DC.EnableToday
+		bool		EnableAlways;			// Do  DC.EnableStartup ?
 		bool		ShowInterface;			// Hide experimental DC++ by default, but expose interface elements for development
 		DWORD		NumServers;				// Default 1 hub
 		DWORD		QueryThrottle;			// Throttle for DC++ neighbor searches (s), default 2 min delay
@@ -464,8 +463,8 @@ public:
 
 	struct sBitTorrent
 	{
-		bool		EnableToday;
-		bool		EnableAlways;
+		bool		Enabled;				// Was BitTorrent.EnableToday
+		bool		EnableAlways;			// Do  BitTorrent.EnableStartup ?
 		CString		TorrentCreatorPath;		// Location of the program used to create .torrent files
 		CString		DefaultTracker;
 		DWORD		DefaultTrackerPeriod;	// Delay between tracker contact attempts if one is not specified by tracker
@@ -508,25 +507,26 @@ public:
 		DWORD		MinSources;				// The minimum number of sources a download has before PeerProject regards it as having a problem
 		DWORD		ConnectThrottle;		// Delay between download attempts. (Very important for routers)
 		DWORD		QueueLimit;				// Longest queue to wait in. (0 to disable. This should be >800 or 0 to get good performance from ed2k)
-		DWORD		SearchPeriod;
-		DWORD		StarveTimeout;
-		DWORD		StarveGiveUp;			// How long (in hours) before PeerProject will give up and try another download if it gets no data. (+ 0-9 h, depending on sources)
 		DWORD		RetryDelay;
+		DWORD		SearchPeriod;
+		DWORD		StarveGiveUp;			// How long (in hours) before PeerProject will give up and try another download if it gets no data. (+ 0-9 h, depending on sources)
+		DWORD		StarveTimeout;
 		DWORD		PushTimeout;
 		bool		StaggardStart;
 		bool		AllowBackwards;			// Permit download to run in reverse when appropriate
 		DWORD		ChunkSize;
 		DWORD		ChunkStrap;
 		bool		Metadata;
+		bool		NeverDrop;				// Do not drop bad sources (may pollute source list with many dead sources)
 		bool		VerifyFiles;
 		bool		VerifyTiger;
 		bool		VerifyED2K;
-		bool		NeverDrop;				// Do not drop bad sources (may pollute source list with many dead sources)
 		bool		RequestHash;
 		bool		RequestHTTP11;
 		bool		RequestURLENC;
-		DWORD		SaveInterval;
+		bool		RenameExisting;			// Append to filename on move when confilict (or fail)	ToDo: CString for "%s (%i)" or "%s.%i" or "" ?
 		bool		FlushPD;				// Force .pd flush (Used once, why change at all?)
+		DWORD		SaveInterval;
 		bool		ShowSources;
 		bool		SimpleBar;				// Displays a simplified progress bar (lower CPU use)
 		bool		ShowPercent;			// Display small green % complete bar on progress graphic

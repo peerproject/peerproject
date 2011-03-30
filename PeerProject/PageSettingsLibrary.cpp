@@ -1,7 +1,7 @@
 //
 // PageSettingsLibrary.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -54,14 +54,14 @@ END_MESSAGE_MAP()
 // CLibrarySettingsPage property page
 
 CLibrarySettingsPage::CLibrarySettingsPage() : CSettingsPage(CLibrarySettingsPage::IDD)
-	, m_bMakeGhosts 	(FALSE)
-	, m_bWatchFolders	(FALSE)
-	, m_nRecentDays 	(0)
-	, m_nRecentTotal	(0)
-	, m_bStoreViews 	(FALSE)
-	, m_bBrowseFiles	(FALSE)
-	, m_bSmartSeries	(FALSE)
-	, m_bHighPriorityHash (FALSE)
+	, m_bMakeGhosts 	( FALSE )
+	, m_bBrowseFiles	( FALSE )
+	, m_bWatchFolders	( FALSE )
+	, m_bHashWindow 	( FALSE )
+	, m_bHighPriorityHash ( FALSE )
+	, m_bSmartSeries	( FALSE )
+	, m_nRecentDays 	( 0 )
+	, m_nRecentTotal	( 0 )
 {
 }
 
@@ -81,16 +81,16 @@ void CLibrarySettingsPage::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_PRIVATE_REMOVE, m_wndPrivateRemove);
 	DDX_Control(pDX, IDC_PRIVATE_ADD, m_wndPrivateAdd);
 	DDX_Control(pDX, IDC_PRIVATE_TYPES, m_wndPrivateList);
-	DDX_Check(pDX, IDC_WATCH_FOLDERS, m_bWatchFolders);
-	DDX_Text(pDX, IDC_RECENT_DAYS, m_nRecentDays);
-	DDX_Text(pDX, IDC_RECENT_TOTAL, m_nRecentTotal);
-	DDX_Check(pDX, IDC_STORE_VIEWS, m_bStoreViews);
 	DDX_Check(pDX, IDC_BROWSE_FILES, m_bBrowseFiles);
-	DDX_Check(pDX, IDC_HIGH_HASH, m_bHighPriorityHash);
-	DDX_Control(pDX, IDC_COLLECTIONS_BROWSE, m_wndCollectionPath);
-	DDX_Text(pDX, IDC_COLLECTIONS_FOLDER, m_sCollectionPath);
+	DDX_Check(pDX, IDC_WATCH_FOLDERS, m_bWatchFolders);
+	DDX_Check(pDX, IDC_HASH_WINDOW, m_bHashWindow);
+	DDX_Check(pDX, IDC_HASH_PRIORITY, m_bHighPriorityHash);
 	DDX_Check(pDX, IDC_MAKE_GHOSTS, m_bMakeGhosts);
 	DDX_Check(pDX, IDC_SMART_SERIES_DETECTION, m_bSmartSeries);
+	DDX_Control(pDX, IDC_COLLECTIONS_BROWSE, m_wndCollectionPath);
+	DDX_Text(pDX, IDC_COLLECTIONS_FOLDER, m_sCollectionPath);
+	DDX_Text(pDX, IDC_RECENT_DAYS, m_nRecentDays);
+	DDX_Text(pDX, IDC_RECENT_TOTAL, m_nRecentTotal);
 	//}}AFX_DATA_MAP
 }
 
@@ -101,9 +101,9 @@ BOOL CLibrarySettingsPage::OnInitDialog()
 {
 	CSettingsPage::OnInitDialog();
 
-	m_bStoreViews		= Settings.Library.StoreViews;
-	m_bWatchFolders		= Settings.Library.WatchFolders;
 	m_bBrowseFiles		= Settings.Community.ServeFiles;
+	m_bWatchFolders		= Settings.Library.WatchFolders;
+	m_bHashWindow		= Settings.Library.HashWindow;
 	m_bHighPriorityHash = Settings.Library.HighPriorityHash;
 	m_bMakeGhosts		= Settings.Library.CreateGhosts;
 	m_bSmartSeries		= Settings.Library.SmartSeriesDetection;
@@ -114,13 +114,13 @@ BOOL CLibrarySettingsPage::OnInitDialog()
 	m_sCollectionPath	= Settings.Downloads.CollectionPath;
 
 	for ( string_set::const_iterator i = Settings.Library.SafeExecute.begin() ;
-		i != Settings.Library.SafeExecute.end(); i++ )
+		i != Settings.Library.SafeExecute.end() ; i++ )
 	{
 		m_wndSafeList.AddString( *i );
 	}
 
 	for ( string_set::const_iterator i = Settings.Library.PrivateTypes.begin() ;
-		i != Settings.Library.PrivateTypes.end(); i++ )
+		i != Settings.Library.PrivateTypes.end() ; i++ )
 	{
 		m_wndPrivateList.AddString( *i );
 	}
@@ -251,9 +251,9 @@ void CLibrarySettingsPage::OnOK()
 {
 	UpdateData();
 
-	Settings.Library.StoreViews			= m_bStoreViews != FALSE;
 	Settings.Library.WatchFolders		= m_bWatchFolders != FALSE;
 	Settings.Community.ServeFiles		= m_bBrowseFiles != FALSE;
+	Settings.Library.HashWindow			= m_bHashWindow != FALSE;
 	Settings.Library.HighPriorityHash	= m_bHighPriorityHash != FALSE;
 	Settings.Library.CreateGhosts		= m_bMakeGhosts != FALSE;
 	Settings.Library.SmartSeriesDetection = m_bSmartSeries != FALSE;
@@ -262,7 +262,7 @@ void CLibrarySettingsPage::OnOK()
 
 	Settings.Downloads.CollectionPath = m_sCollectionPath;
 
-	//Set current hashing speed to requested
+	// Set current hashing speed to requested
 	LibraryBuilder.BoostPriority( m_bHighPriorityHash != FALSE );
 
 	Settings.Library.SafeExecute.clear();

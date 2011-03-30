@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Hebrew Skin File -->
 
-<!-- Translation based on default-en.xml r64 -->
+<!-- Translation based on default-en.xml r65 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -81,6 +81,7 @@ gap i newline
 				<item id="ID_NETWORK_G2" text="התחבר אל גנוטלה _2"/>
 				<item id="ID_NETWORK_G1" text="התחבר אל גנוטלה _1"/>
 				<item id="ID_NETWORK_ED2K" text="‪התחבר אל _אידונקי"/>
+				<item id="ID_NETWORK_DC" text="התחבר אל גנוטלה _DC"/>
 				<separator/>
 				<item id="ID_NETWORK_CONNECT_TO" text="_התחבר אל..." shortcut="Ctrl+T"/>
 				<item id="ID_NETWORK_BROWSE_TO" text="_עיין במארח..."/>
@@ -94,7 +95,7 @@ gap i newline
 				<separator/>
 				<item id="ID_TOOLS_DOWNLOAD" text="_הורד קבצים/טורנטים..."/>
 				<item id="ID_TOOLS_CREATETORRENT" text="_Create .Torrent..."/>
-				<item id="IDC_IMPORT_DOWNLOADS" text="_ייבא קבצים חלקיים של אי-מיול..."/>
+				<item id="ID_IMPORT_DOWNLOADS" text="_ייבא קבצים חלקיים של אי-מיול..."/>
 				<separator/>
 				<item id="ID_TOOLS_LANGUAGE" text="‪...בחר _שפה"/>
 				<item id="ID_TOOLS_SKIN" text="‪...בחר _מעטפת"/>
@@ -168,11 +169,10 @@ gap i newline
 			<item id="ID_NETWORK_CONNECT" text="הת_חבר" shortcut="Ctrl+G"/>
 			<item id="ID_NETWORK_DISCONNECT" text="הת_נתק"/>
 			<separator/>
-			<menu text="‪_בחר רשתות">
-				<item id="ID_NETWORK_G2" text="התחבר אל גנוטלה _2"/>
-				<item id="ID_NETWORK_G1" text="התחבר אל גנוטלה _1"/>
-				<item id="ID_NETWORK_ED2K" text="‪התחבר אל _אידונקי"/>
-			</menu>
+			<item id="ID_NETWORK_G2" text="התחבר אל גנוטלה _2"/>
+			<item id="ID_NETWORK_G1" text="התחבר אל גנוטלה _1"/>
+			<item id="ID_NETWORK_ED2K" text="‪התחבר אל _אידונקי"/>
+			<item id="ID_NETWORK_DC" text="התחבר אל גנוטלה DC"/>
 			<separator/>
 			<item id="ID_NETWORK_CONNECT_TO" text="_התחבר אל..." shortcut="Ctrl+T"/>
 			<item id="ID_NETWORK_BROWSE_TO" text="_עיין במארח..."/>
@@ -217,7 +217,7 @@ gap i newline
 		<menu text="‪_כלים">
 			<item id="ID_LIBRARY_FOLDERS" text="שתף _קבצים..."/>
 			<item id="ID_TOOLS_DOWNLOAD" text="_הורד קבצים/טורנטים..."/>
-			<item id="IDC_IMPORT_DOWNLOADS" text="_ייבא קבצים חלקיים של אי-מיול..."/>
+			<item id="ID_IMPORT_DOWNLOADS" text="_ייבא קבצים חלקיים של אי-מיול..."/>
 			<item id="ID_OPEN_DOWNLOADS_FOLDER" text="_פתח את תקיית ההורדות שהושלמו..."/>
 			<separator/>
 			<item id="ID_TOOLS_SKIN" text="‪...בחר _מעטפת"/>
@@ -266,11 +266,9 @@ gap i newline
 		<menu text="‪_רשת">
 			<item id="ID_NETWORK_CONNECT" text="ה_תחבר" shortcut="Ctrl+G"/>
 			<separator/>
-			<menu text="_בחר רשתות">
-				<item id="ID_NETWORK_G2" text="‪התחבר אל גנוטלה _2"/>
-				<item id="ID_NETWORK_G1" text="‪התחבר אל גנוטלה _1"/>
-				<item id="ID_NETWORK_ED2K" text="‪התחבר אל _אי-דונקי"/>
-			</menu>
+			<item id="ID_NETWORK_G2" text="‪התחבר אל גנוטלה _2"/>
+			<item id="ID_NETWORK_G1" text="‪התחבר אל גנוטלה _1"/>
+			<item id="ID_NETWORK_ED2K" text="‪התחבר אל _אי-דונקי"/>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="‪צא ב_סיום העברות"/>
 			<item id="ID_NETWORK_EXIT" text="י_ציאה"/>
@@ -344,11 +342,10 @@ gap i newline
 			<item id="ID_NETWORK_CONNECT_TO" text="_...התחבר אל" shortcut="Ctrl+T"/>
 			<item id="ID_NETWORK_BROWSE_TO" text="_...עיין במארח"/>
 			<separator/>
-			<menu text="_בחר רשתות">
-				<item id="ID_NETWORK_G2" text="‪_התחבר אל גנוטלה 2"/>
-				<item id="ID_NETWORK_G1" text="‪_התחבר אל גנוטלה 1"/>
-				<item id="ID_NETWORK_ED2K" text="‪התחבר אל _אידונקי"/>
-			</menu>
+			<item id="ID_NETWORK_G2" text="‪_התחבר אל גנוטלה 2"/>
+			<item id="ID_NETWORK_G1" text="‪_התחבר אל גנוטלה 1"/>
+			<item id="ID_NETWORK_ED2K" text="‪התחבר אל _אידונקי"/>
+			<item id="ID_NETWORK_G1" text="‪_התחבר אל גנוטלה DC"/>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="‪_סגור בסיום העברות"/>
 			<item id="ID_NETWORK_EXIT" text="‪_יציאה"/>
@@ -377,7 +374,7 @@ gap i newline
 		<menu text="‪_כלים">
 			<item id="ID_LIBRARY_FOLDERS" text="‪...שתף _קבצים"/>
 			<item id="ID_TOOLS_DOWNLOAD" text="_הורד קבצים/טורנטים..."/>
-			<item id="IDC_IMPORT_DOWNLOADS" text="_ייבא קבצים חלקיים של אי-מיול..."/>
+			<item id="ID_IMPORT_DOWNLOADS" text="_ייבא קבצים חלקיים של אי-מיול..."/>
 			<item id="ID_OPEN_DOWNLOADS_FOLDER" text="_פתח את תקיית ההורדות שהושלמו..."/>
 			<separator/>
 			<item id="ID_TOOLS_SKIN" text="‪...בחר _מעטפת"/>
@@ -1131,8 +1128,12 @@ gap i newline
 			<item id="ID_NETWORK_DISCONNECT" text="‪ה_תנתק"/>
 			<separator/>
 			<item id="ID_NETWORK_G2" text="‪גנוטלה 2"/>
-			<item id="ID_NETWORK_ED2K" text="‪אידונקי 2000"/>
 			<item id="ID_NETWORK_G1" text="‪גנוטלה 1"/>
+			<item id="ID_NETWORK_ED2K" text="‪אידונקי 2000"/>
+			<item id="ID_NETWORK_DC" text="_DC++ גנוטלה"/>
+			<separator/>
+			<item id="ID_VIEW_DISCOVERY" text="משאבי _חיבור"/>
+			<item id="ID_VIEW_HOSTS" text="_מטמון מארחים (הוסטים)"/>
 		</menu>
 		<menu text="‪מוניטור">
 			<item id="ID_NEIGHBOURS_VIEW_ALL" text="‪הצג את כל תעבורת הרשת"/>
@@ -1413,15 +1414,24 @@ gap i newline
 		<text group="31" align="middle">מנותק.</text>
 		<text group="32" align="middle"> מתחבר...</text>
 		<text group="33" align="middle">מחובר.</text>
+		<text group="34" align="middle" id="EDServers">%i Server</text>
 		<newline group="30" gap="2"/>
+		<icon group="60" command="ID_NETWORK_DC"/>
+		<text group="60" align="middle" format="b">&#160;DC++: &#160; </text>
+		<text group="61" align="middle">מנותק.</text>
+		<text group="62" align="middle"> מתחבר...</text>
+		<text group="63" align="middle">מחובר.</text>
+		<text group="64" align="middle" id="DCHubs"> מוקדים ‎%i</text>
+		<newline group="60" gap="2"/>
 		<group id="2">
 			<para align="center">
-				<newline gap="6"/>
-				<text>מחובר במשך </text>
+				<newline gap="4"/>
+				<link target="command:ID_TAB_NETWORK">מחובר במשך</link>
+				<newline gap="4"/>
 				<text id="ConnectedHours" format="b">%i </text>
 				<text>שעות ו-</text>
 				<text id="ConnectedMinutes" format="b">%i </text>
-				<text>דקות. </text>
+				<text>דקות </text>
 			</para>
 		</group>
 	</document>
@@ -1943,8 +1953,9 @@ gap i newline
 	<tip id="ID_NETWORK_CONNECT" message="התחבר לרשת"/>
 	<tip id="ID_NETWORK_CONNECT_TO" message="התחבר באופן ידני למשתמש..."/>
 	<tip id="ID_NETWORK_DISCONNECT" message="התנתק מהרשת"/>
-	<tip id="ID_NETWORK_ED2K" message="התחבר לרשת אידונקי2000"/>
 	<tip id="ID_NETWORK_EXIT" message="צא משרזה"/>
+	<tip id="ID_NETWORK_ED2K" message="התחבר לרשת אידונקי2000"/>
+	<tip id="ID_NETWORK_DC" message="התחבר לרשת אידונקיDC++"/>
 	<tip id="ID_NETWORK_G1" message="התחבר לרשת גנוטלה המקורית"/>
 	<tip id="ID_NETWORK_G2" message="התחבר לגנוטלה2 - מומלץ מאוד"/>
 	<tip id="ID_NETWORK_SEARCH" message="התחל חיפוש חדש ברשת"/>
@@ -2106,7 +2117,9 @@ gap i newline
 	<string id="20012" value="מנהג"/>
 	<string id="20013" value="ברירת מחדל"/>
 	<string id="20014" value="לגמור"/>
-	<string id="20050" value="‪ששש"/>
+	<string id="20020" value="קובץ"/>
+	<string id="20021" value="קבצים"/>
+	<string id="20050" value="‪שכל יום"/>
 	<string id="20051" value="‪שני"/>
 	<string id="20052" value="‪שלישי"/>
 	<string id="20053" value="‪רביעי"/>
@@ -2517,7 +2530,7 @@ gap i newline
 		<control caption="‪הפעל את שרזה עם אתחול חלונות"/>
 		<control caption="‪התחבר אוטמטית באתחול של שרזה"/>
 		<control caption="‪URI הראה הודעה לפני פתיחת"/>
-		<control caption="Check for updates"/>
+		<control caption="בדוק אם יש עדכונים (חודשי)"/>
 		<control caption="‪:הורדות"/>
 		<control caption="‪הרחב הורדות חדשות כברירת מחדל"/>
 		<control caption="‪הצג מד התקדמות פשוט"/>
@@ -2535,7 +2548,7 @@ gap i newline
 		<control/>
 		<control caption="‪:אטימות"/>
 		<control/>
-		<control caption="הצל (מחדש)"/>
+		<control caption="הצל "/>
 		<control caption="‪:שורת משימות"/>
 		<control caption=":כשאני לוחצ/ת סגור"/>
 		<control caption="‪שאל אותי|מזער|סגור מיד|סגור בסיום פעולה"/>
@@ -2545,9 +2558,9 @@ gap i newline
 	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuBuCoBuBuBuCoBuBuBuEdBu" caption="ספריה">
 		<control caption=":אפשרויות"/>
 		<control caption="אפשר לסייר בקבצי המשותפים"/>
-		<control caption="זכור את תצוגות התיקייה"/>
 		<control caption="צפה בתיקיות הספריה"/>
 		<control caption="&#8234;(עומס למעבד)‎ ‏מהיר‎ ‏האשינג"/>
+		<control caption="זכור את תצוגות התיקייה"/>
 		<control caption="Create ghost files when deleting"/>
 		<control caption="Smart media series detection"/>
 		<control caption=":קבצים אחרונים"/>
@@ -2598,13 +2611,14 @@ gap i newline
 		<control caption="צינזור חומר פוגעני בצ'אט"/>
 	</dialog>
 	<!--dialog name="CIRCSettingsPage" cookie="BuBuBuBuStEdmsStStEdmsCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStCoStEdStEd" caption="חדר שיחה"-->
-	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuCoBuBuSt" caption="רשת">
+	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuBuCoBuBuSt" caption="רשת">
 		<control caption=":צורת השימוש בלינקים לתקשורת ישירה"/>
 		<control caption=":השתמש בשרזה לפתיחת סוגי הלינקים הבאים"/>
 		<control caption="מגנט ( magnet: )"/>
 		<control caption="גונוטלה ( gnutella: )"/>
 		<control caption="אי-דונקי 2000 ( ed2k: )"/>
 		<control caption="פיולט ( mp2p: )"/>
+		<control caption="DC++ ( dchub:/dcfile: )"/>
 		<control caption="ביט-טורנט ( .torrent )"/>
 		<control caption=":מנהל ההורדות"/>
 		<control caption=":התשמש בשרזה לניהול כל ההורדות מסוגים אלה באינטרנט"/>
@@ -3493,7 +3507,8 @@ gap i newline
 		<control caption="בכדי לשתף קבצים שלמים בעזרת ביטורנט יש לפני כן להפעיל תהליך הפצה, כשהתהליך מסתיים הטורנט יופי כפריט נוסף ברשימת ההורדה שלך"/>
 		<control/>
 	</dialog>
-	<dialog name="CTorrentFilesPage" cookie="Sy" caption="Files">
+	<dialog name="CTorrentFilesPage" cookie="StSy" caption="Files">
+		<control/>
 		<control/>
 	</dialog>
 	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="Trackers">
@@ -3683,14 +3698,13 @@ gap i newline
 	<list name="CHostCacheWnd">
 		<column from="Address" to="כתובת"/>
 		<column from="Port" to="יציאה"/>
-		<column from="Client" to="לקוח"/>
 		<column from="Last Seen" to="נראה לאחרונה"/>
-		<column from="Daily Uptime" to=""/>
+		<column from="Client" to="לקוח"/>
 		<column from="Name" to="שם"/>
 		<column from="Description" to="תיאור"/>
+		<column from="Failures" to=""/>
 		<column from="CurUsers" to="משתמשים כרגע"/>
 		<column from="MaxUsers" to="מקסימום משתמשים"/>
-		<column from="Failures" to=""/>
 		<column from="Country" to="ארץ"/>
 	</list>
 	<list name="CDiscoveryWnd">
@@ -3750,7 +3764,7 @@ gap i newline
 		<column from="Criteria" to="קריטריון"/>
 		<column from="Minimum" to="רוחב פס"/>
 		<column from="Transfers" to="העברות"/>
-		<column from="Order" to="סדר"/>
+		<column from="Priority" to="סדר"/>
 	</list>
 	<list name="CAdvancedSettingsList">
 		<column from="Setting" to="הגדרה"/>

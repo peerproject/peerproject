@@ -750,7 +750,8 @@ bool CMatchList::CreateRegExpFilter(CString strPattern, CString& strFilter)
 			pszPattern++;
 		}
 	}
-	else return false;
+	else
+		return false;
 
 	strFilter = strNewPattern;
 
@@ -1007,7 +1008,8 @@ void CMatchList::SetSortColumn(int nColumn, BOOL bDirection)
 
 						if ( pTemp->Compare( pCurrent ) == m_bSortDir )
 							m_pFiles[ nIndex2-- ] = pTemp;
-						else break;
+						else
+							break;
 					}
 					m_pFiles[ nIndex2 ] = pCurrent;
 				}
@@ -1109,16 +1111,16 @@ void CMatchList::SetSortColumn(int nColumn, BOOL bDirection)
 
 void CMatchList::UpdateRange(DWORD nMin, DWORD nMax)
 {
-	m_nUpdateMin = min( m_nUpdateMin, nMin );
-	m_nUpdateMax = max( m_nUpdateMax, nMax );
-	m_bUpdated = TRUE;
+	m_nUpdateMin	= min( m_nUpdateMin, nMin );
+	m_nUpdateMax	= max( m_nUpdateMax, nMax );
+	m_bUpdated		= TRUE;
 }
 
 void CMatchList::ClearUpdated()
 {
-	m_bUpdated		= FALSE;
 	m_nUpdateMin	= 0xFFFFFFFF;
 	m_nUpdateMax	= 0;
+	m_bUpdated		= FALSE;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -1140,7 +1142,7 @@ void CMatchList::ClearNew()
 //////////////////////////////////////////////////////////////////////
 // CMatchList serialize
 
-#define MATCHLIST_SER_VERSION	1000	//14
+#define MATCHLIST_SER_VERSION	1000	// 14
 // nVersion History:
 // 12 - Shareaza 2.2 (Rolandas)
 // 13 - Shareaza 2.3 (ryo-oh-ki)
@@ -1149,7 +1151,7 @@ void CMatchList::ClearNew()
 
 void CMatchList::Serialize(CArchive& ar)
 {
-	int nVersion = MATCHLIST_SER_VERSION;
+	int nVersion = MATCHLIST_SER_VERSION;	// ToDo: INTERNAL_VERSION
 
 	if ( ar.IsStoring() )
 	{
@@ -1345,7 +1347,7 @@ CMatchFile::CMatchFile(CMatchList* pList, CQueryHit* pHit)
 
 CMatchFile::~CMatchFile()
 {
-	// Remove file form Size Map
+	// Remove file from Size Map
 	if ( m_pList && m_pList->m_pSizeMap )
 	{
 		CMatchFile** pMap = m_pList->m_pSizeMap + (DWORD)( m_nSize & 0xFF );
@@ -1364,7 +1366,7 @@ CMatchFile::~CMatchFile()
 		}
 	}
 
-	// Remove file form SHA1 Map
+	// Remove file from SHA1 Map
 	if ( m_oSHA1 && m_pList && m_pList->m_pMapSHA1 )
 	{
 		CMatchFile** pMap = m_pList->m_pMapSHA1 + m_oSHA1[ 0 ];
@@ -1383,7 +1385,7 @@ CMatchFile::~CMatchFile()
 		}
 	}
 
-	// Remove file form Tiger Map
+	// Remove file from Tiger Map
 	if ( m_oTiger && m_pList && m_pList->m_pMapTiger )
 	{
 		CMatchFile** pMap = m_pList->m_pMapTiger + m_oTiger[ 0 ];
@@ -1402,7 +1404,7 @@ CMatchFile::~CMatchFile()
 		}
 	}
 
-	// Remove file form ED2K Map
+	// Remove file from ED2K Map
 	if ( m_oED2K && m_pList && m_pList->m_pMapED2K )
 	{
 		CMatchFile** pMap = m_pList->m_pMapED2K + m_oED2K[ 0 ];
@@ -1421,7 +1423,7 @@ CMatchFile::~CMatchFile()
 		}
 	}
 
-	// Remove file form BTH Map
+	// Remove file from BTH Map
 	if ( m_oBTH && m_pList && m_pList->m_pMapBTH )
 	{
 		CMatchFile** pMap = m_pList->m_pMapBTH + m_oBTH[ 0 ];
@@ -1440,7 +1442,7 @@ CMatchFile::~CMatchFile()
 		}
 	}
 
-	// Remove file form MD5 Map
+	// Remove file from MD5 Map
 	if ( m_oMD5 && m_pList && m_pList->m_pMapMD5 )
 	{
 		CMatchFile** pMap = m_pList->m_pMapMD5 + m_oMD5[ 0 ];
@@ -1826,15 +1828,15 @@ void CMatchFile::Added(CQueryHit* pHit)
 	// Cross-packet spam filtering
 	DWORD nBogusCount = 0;
 	DWORD nTotal = 0;
+#ifndef LAN_MODE
 	for ( CQueryHit* pFileHits = m_pHits ; pFileHits ; pFileHits = pFileHits->m_pNext, nTotal++ )
 	{
-#ifndef LAN_MODE
 		if ( pFileHits->m_pNext && validAndEqual( pFileHits->m_oClientID, pFileHits->m_pNext->m_oClientID ) )
 			pFileHits->m_bBogus = TRUE;
 		if ( pFileHits->m_bBogus )
 			nBogusCount++;
-#endif // LAN_MODE
 	}
+#endif // LAN_MODE
 
 	// Mark/unmark a file as suspicious depending on the percentage of the spam hits
 	m_bSuspicious = (float)nBogusCount / nTotal > Settings.Search.SpamFilterThreshold / 100.0f;
@@ -1979,7 +1981,7 @@ int CMatchFile::Compare(CMatchFile* pFile) const
 
 	case MATCH_COL_COUNT:
 		x = ( m_nFiltered == pFile->m_nFiltered ) ? 0 : ( ( m_nFiltered > pFile->m_nFiltered ) ? 1 : -1 );
-		//ToDo: Add secondary sorting value to m_nSources ?
+		// ToDo: Add secondary sorting value to m_nSources ?
 		break;
 
 	case MATCH_COL_SPEED:
@@ -2146,8 +2148,8 @@ void CMatchFile::Serialize(CArchive& ar, int nVersion)
 
 		//if ( nVersion >= 13 )
 		//{
-			SerializeIn( ar, m_oBTH, nVersion  );
-			SerializeIn( ar, m_oMD5, nVersion  );
+			SerializeIn( ar, m_oBTH, nVersion );
+			SerializeIn( ar, m_oMD5, nVersion );
 		//}
 
 		ar >> m_bBusy;
@@ -2207,7 +2209,7 @@ CQueryHit*	CMatchFile::GetBest() const
 DWORD CMatchFile::GetBogusHitsCount() const
 {
 	DWORD nBogusCount = 0;
-	for ( CQueryHit* pHits = m_pHits; pHits ; pHits = pHits->m_pNext )
+	for ( CQueryHit* pHits = m_pHits ; pHits ; pHits = pHits->m_pNext )
 	{
 		if ( pHits->m_bBogus )
 			nBogusCount++;
@@ -2318,7 +2320,7 @@ BOOL CMatchFile::AddHitsToPreviewURLs(CList<CString>& oPreviewURLs) const
 				oPreviewURLs.AddTail( strURL );
 				bCanPreview = TRUE;
 			}
-#endif  //Debug Only
+#endif  // Debug Only
 		}
 	}
 	return bCanPreview;
@@ -2542,7 +2544,7 @@ TRISTATE CMatchFile::GetLibraryStatus()
 	// ToDo: Is some cache needed?
 
 	CSingleLock pLock( &Library.m_pSection );
-	if (  pLock.Lock( 100 ) )
+	if ( pLock.Lock( 100 ) )
 	{
 		CLibraryFile* pExisting;
 

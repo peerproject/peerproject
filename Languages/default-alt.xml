@@ -3,7 +3,7 @@
 
 <!-- PeerProject UK English Skin File -->
 
-<!-- Translation based on default-en.xml r62 -->
+<!-- Translation based on default-en.xml r65 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -82,6 +82,7 @@
 				<item id="ID_VIEW_UPLOADS" text="_Uploads"/>
 				<separator/>
 				<item id="ID_VIEW_SECURITY" text="Se_curity"/>
+				<item id="ID_VIEW_SECURITY" text="Sc_heduler"/>
 				<item id="ID_VIEW_HOSTS" text="H_ost Cache"/>
 				<item id="ID_VIEW_DISCOVERY" text="Disco_very"/>
 			</menu>
@@ -156,6 +157,7 @@
 			<item id="ID_TAB_IRC" text="IRC _Chat"/>
 			<separator/>
 			<item id="ID_VIEW_SECURITY" text="Se_curity"/>
+			<item id="ID_VIEW_SCHEDULER" text="Schedule_r"/>
 			<item id="ID_VIEW_HOSTS" text="H_ost Cache"/>
 			<separator/>
 			<menu text="A_dvanced">
@@ -166,6 +168,7 @@
 				<item id="ID_VIEW_LIBRARY" text="_Library" shortcut="F5"/>
 				<item id="ID_VIEW_MEDIA" text="_Media Player" shortcut="F6"/>
 				<separator/>
+				<item id="ID_VIEW_SCHEDULER" text="Schedule_r" shortcut="Ctrl+F7"/>
 				<item id="ID_VIEW_SECURITY" text="Se_curity" shortcut="F7"/>
 				<item id="ID_VIEW_HOSTS" text="H_ost Cache" shortcut="F8"/>
 				<item id="ID_VIEW_DISCOVERY" text="Disco_very" shortcut="F9"/>
@@ -188,9 +191,9 @@
 			<item id="ID_OPEN_DOWNLOADS_FOLDER" text="_Open completed download folder"/>
 			<separator/>
 			<item id="ID_TOOLS_DOWNLOAD" text="_Download File/Torrent..."/>
-			<item id="ID_TOOLS_SEEDTORRENT" 	text="_Seed New Torrent..."/>
-			<item id="ID_TOOLS_CREATETORRENT" 	text="_Create New .Torrent..."/>
-			<item id="IDC_IMPORT_DOWNLOADS"	text="_Import eMule Partials..."/>
+			<item id="ID_TOOLS_SEEDTORRENT" text="_Seed New Torrent..."/>
+			<item id="ID_TOOLS_CREATETORRENT" text="_Create New .Torrent..."/>
+			<item id="ID_IMPORT_DOWNLOADS"	text="_Import eMule Partials..."/>
 			<separator/>
 			<item id="ID_TOOLS_LANGUAGE" text="Choose a _Language..."/>
 			<item id="ID_TOOLS_SKIN" text="Choose a S_kin..."/>
@@ -220,7 +223,7 @@
 			</menu>
 			<separator/>
 			<menu text="_Websites">
-				<item id="ID_HELP_HOMEPAGE" text="_PeerProject site"/>
+				<item id="ID_HELP_HOMEPAGE" text="_PeerProject Site"/>
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject _Forums"/>
 				<item id="ID_HELP_WEB_6" text="PeerProject S_kin Site"/>
@@ -251,6 +254,7 @@
 				<item id="ID_NETWORK_G2" text="Connect to Gnutella_2"/>
 				<item id="ID_NETWORK_G1" text="Connect to _Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="Connect to _eDonkey"/>
+				<item id="ID_NETWORK_DC" text="Connect to _DC++"/>
 			</menu>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="Close _After Transfers"/>
@@ -288,7 +292,7 @@
 			<item id="ID_TOOLS_DOWNLOAD" text="_Download File/Torrent..."/>
 			<item id="ID_TOOLS_SEEDTORRENT" text="_Seed New Torrent..."/>
 			<item id="ID_TOOLS_CREATETORRENT" text="_Create New .Torrent..."/>
-			<item id="IDC_IMPORT_DOWNLOADS"	text="_Import eMule Partials..."/>
+			<item id="ID_IMPORT_DOWNLOADS"	text="_Import eMule Partials..."/>
 			<separator/>
 			<item id="ID_TOOLS_LANGUAGE" text="Choose a _Language..."/>
 			<item id="ID_TOOLS_SKIN" text="Choose a S_kin..."/>
@@ -351,6 +355,7 @@
 			<item id="ID_VIEW_NEIGHBOURS" text="_Neighbours"/>
 			<item id="ID_VIEW_UPLOADS" text="_Uploads"/>
 			<item id="ID_VIEW_SECURITY" text="_Security"/>
+			<item id="ID_VIEW_SCHEDULER" text="Schedule_r"/>
 			<item id="ID_VIEW_HOSTS" text="_Host Cache"/>
 		</menu>
 	</menu>
@@ -743,7 +748,7 @@
 		<control caption="_General:"/>
 		<control caption="Start PeerProject at Windows startup"/>
 		<control caption="Auto-connect at PeerProject startup"/>
-		<control caption="Show a prompt before opening URIs"/>
+		<control caption="Show a dialog when opening links"/>
 		<control caption="Check for updates (monthly)"/>
 		<control caption="_Downloads:"/>
 		<control caption="Expand new downloads by default"/>
@@ -762,7 +767,7 @@
 		<control/>
 		<control caption="Opacity:"/>
 		<control/>
-		<control caption="DropShadow (restart)"/>
+		<control caption="DropShadows"/>
 		<control caption="_Tray:"/>
 		<control caption="Close button behaviour:"/>
 		<control caption="Ask Me|Minimise to Tray|Close Immediately|Close After Transfers"/>

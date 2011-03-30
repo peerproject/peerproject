@@ -1,7 +1,7 @@
 //
 // PageSettingsWeb.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -46,10 +46,11 @@ END_MESSAGE_MAP()
 
 CWebSettingsPage::CWebSettingsPage()
 	: CSettingsPage( CWebSettingsPage::IDD )
+	, m_bWebHook	( FALSE )
 	, m_bUriMagnet	( FALSE )
 	, m_bUriGnutella ( FALSE )
 	, m_bUriED2K	( FALSE )
-	, m_bWebHook	( FALSE )
+	, m_bUriDC		( FALSE )
 	, m_bUriPiolet	( FALSE )
 	, m_bUriTorrent	( FALSE )
 {
@@ -68,10 +69,11 @@ void CWebSettingsPage::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_EXT_REMOVE, m_wndExtRemove);
 	DDX_Control(pDX, IDC_EXT_ADD, m_wndExtAdd);
 	DDX_Control(pDX, IDC_EXT_LIST, m_wndExtensions);
+	DDX_Check(pDX, IDC_WEB_HOOK, m_bWebHook);
 	DDX_Check(pDX, IDC_URI_MAGNET, m_bUriMagnet);
 	DDX_Check(pDX, IDC_URI_GNUTELLA, m_bUriGnutella);
 	DDX_Check(pDX, IDC_URI_ED2K, m_bUriED2K);
-	DDX_Check(pDX, IDC_WEB_HOOK, m_bWebHook);
+	DDX_Check(pDX, IDC_URI_DC, m_bUriDC);
 	DDX_Check(pDX, IDC_URI_PIOLET, m_bUriPiolet);
 	DDX_Check(pDX, IDC_URI_TORRENT, m_bUriTorrent);
 	//}}AFX_DATA_MAP
@@ -87,13 +89,14 @@ BOOL CWebSettingsPage::OnInitDialog()
 	m_bUriMagnet	= Settings.Web.Magnet;
 	m_bUriGnutella	= Settings.Web.Gnutella;
 	m_bUriED2K		= Settings.Web.ED2K;
+	m_bUriDC		= Settings.Web.DC;
 	m_bUriPiolet	= Settings.Web.Piolet;
 	m_bUriTorrent	= Settings.Web.Torrent;
 
 	m_bWebHook		= Settings.Downloads.WebHookEnable;
 
 	for ( string_set::const_iterator i = Settings.Downloads.WebHookExtensions.begin() ;
-		i != Settings.Downloads.WebHookExtensions.end(); i++ )
+		i != Settings.Downloads.WebHookExtensions.end() ; i++ )
 	{
 		m_wndExtensions.AddString( (*i) );
 	}
@@ -153,6 +156,7 @@ void CWebSettingsPage::OnOK()
 	Settings.Web.Magnet		= m_bUriMagnet != FALSE;
 	Settings.Web.Gnutella	= m_bUriGnutella != FALSE;
 	Settings.Web.ED2K		= m_bUriED2K != FALSE;
+	Settings.Web.DC 		= m_bUriDC != FALSE;
 	Settings.Web.Piolet		= m_bUriPiolet != FALSE;
 	Settings.Web.Torrent	= m_bUriTorrent != FALSE;
 

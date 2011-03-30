@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Greek Skin File -->
 
-<!-- Translation based on default-en.xml r64 -->
+<!-- Translation based on default-en.xml r65 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -367,6 +367,7 @@
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="ED2K"/>
+		<button id="ID_NETWORK_DC" text="DC++"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Ρυθμίσεις"/>
 	</toolbar>
@@ -397,22 +398,16 @@
 		<button id="ID_SEARCH_FILTER_RAW" text="Περισσότερα..."/>
 	</toolbar>
 	<!-- HOST CACHE WINDOW -->
-	<toolbar name="CHostCacheWnd.Basic">
-		<button id="ID_HOSTCACHE_CONNECT" text="Σύνδεση Με"/>
-		<button id="ID_HOSTCACHE_DISCONNECT" text="Αποσύνδεση"/>
-		<button id="ID_HOSTCACHE_REMOVE" text="Αφαίρεση"/>
-	</toolbar>
 	<toolbar name="CHostCacheWnd">
 		<button id="ID_HOSTCACHE_CONNECT" text="Σύνδεση Με"/>
 		<button id="ID_HOSTCACHE_DISCONNECT" text="Αποσύνδεση"/>
 		<button id="ID_HOSTCACHE_REMOVE" text="Αφαίρεση"/>
 		<rightAlign/>
-		<button id="ID_HOSTCACHE_G2_HORIZON" text="G2 Cluster"/>
-		<button id="ID_HOSTCACHE_G2_CACHE" text="G2 Cache"/>
-		<button id="ID_HOSTCACHE_G1_CACHE" text="G1 Cache"/>
-		<button id="ID_HOSTCACHE_ED2K_CACHE" text="ED2K Cache"/>
-		<button id="ID_HOSTCACHE_BT_CACHE" text="BitTorrent Cache"/>
-		<button id="ID_HOSTCACHE_KAD_CACHE" text="Kademlia Cache"/>
+		<button id="ID_HOSTCACHE_G2_HORIZON" text="Cluster"/>
+		<button id="ID_HOSTCACHE_G2_CACHE" text="Cache"/>
+		<button id="ID_HOSTCACHE_G1_CACHE" text="Cache"/>
+		<button id="ID_HOSTCACHE_ED2K_CACHE" text="Cache"/>
+		<button id="ID_HOSTCACHE_DC_CACHE" text="Cache"/>
 	</toolbar>
 	<!-- PRIVATE CHAT WINDOW -->
 	<toolbar name="CPrivateChatFrame">
@@ -511,11 +506,10 @@
 				<item id="ID_NETWORK_CONNECT" text="_Σύνδεση" shortcut="Ctrl+G"/>
 				<item id="ID_NETWORK_DISCONNECT" text="_Αποσύνδεση"/>
 				<separator/>
-				<menu text="Επιλογή _Δικτύων">
-					<item id="ID_NETWORK_G2" text="Σύνδεση στο Gnutella_2"/>
-					<item id="ID_NETWORK_G1" text="Σύνδεση στο _Gnutella"/>
-					<item id="ID_NETWORK_ED2K" text="Σύνδεση στο _ED2K"/>
-				</menu>
+				<item id="ID_NETWORK_G2" text="Σύνδεση στο Gnutella_2"/>
+				<item id="ID_NETWORK_G1" text="Σύνδεση στο _Gnutella"/>
+				<item id="ID_NETWORK_ED2K" text="Σύνδεση στο _ED2K"/>
+				<item id="ID_NETWORK_DC" text="Σύνδεση στο _DC++"/>
 				<separator/>
 				<item id="ID_NETWORK_CONNECT_TO" text="Σύνδεση _ με..." shortcut="Ctrl+T"/>
 				<item id="ID_NETWORK_BROWSE_TO" text="_Περιήγηση Host..."/>
@@ -526,7 +520,7 @@
 			<menu text="_Εργαλεία">
 				<item id="ID_LIBRARY_FOLDERS" text="Κοινοποιημένοι _Φάκελοι..."/>
 				<item id="ID_TOOLS_DOWNLOAD" text="_Νέα Λήψη ή Torrent..."/>
-				<item id="IDC_IMPORT_DOWNLOADS" text="Εισαγωγή _ημιτελών αρχείων του eMule..."/>
+				<item id="ID_IMPORT_DOWNLOADS" text="Εισαγωγή _ημιτελών αρχείων του eMule..."/>
 				<item id="ID_OPEN_DOWNLOADS_FOLDER" text="Εξερεύνηση _Ληφθέντων"/>
 				<separator/>
 				<item id="ID_TOOLS_SKIN" text="Επιλογή _Φλοιού..."/>
@@ -613,11 +607,10 @@
 			<item id="ID_NETWORK_CONNECT" text="_Σύνδεση" shortcut="Ctrl+G"/>
 			<item id="ID_NETWORK_DISCONNECT" text="_Αποσύνδεση"/>
 			<separator/>
-			<menu text="Επιλογή _Δικτύων">
-				<item id="ID_NETWORK_G2" text="Σύνδεση στο Gnutella_2"/>
-				<item id="ID_NETWORK_G1" text="Σύνδεση στο _Gnutella"/>
-				<item id="ID_NETWORK_ED2K" text="Σύνδεση στο _ED2K"/>
-			</menu>
+			<item id="ID_NETWORK_G2" text="Σύνδεση στο Gnutella_2"/>
+			<item id="ID_NETWORK_G1" text="Σύνδεση στο _Gnutella"/>
+			<item id="ID_NETWORK_ED2K" text="Σύνδεση στο _ED2K"/>
+			<item id="ID_NETWORK_DC" text="Σύνδεση στο _DC++"/>
 			<separator/>
 			<item id="ID_NETWORK_CONNECT_TO" text="Σύνδεση _ με..." shortcut="Ctrl+T"/>
 			<item id="ID_NETWORK_BROWSE_TO" text="_Περιήγηση Host..."/>
@@ -662,7 +655,7 @@
 		<menu text="_Εργαλεία">
 			<item id="ID_LIBRARY_FOLDERS" text="Κοινοποιημένοι _Φάκελοι..."/>
 			<item id="ID_TOOLS_DOWNLOAD" text="_Νέα Λήψη ή Torrent..."/>
-			<item id="IDC_IMPORT_DOWNLOADS" text="Εισαγωγή _ημιτελών αρχείων του eMule..."/>
+			<item id="ID_IMPORT_DOWNLOADS" text="Εισαγωγή _ημιτελών αρχείων του eMule..."/>
 			<item id="ID_OPEN_DOWNLOADS_FOLDER" text="Εξερεύνηση _Ληφθέντων"/>
 			<separator/>
 			<item id="ID_TOOLS_SKIN" text="Επιλογή _Φλοιού..."/>
@@ -713,11 +706,9 @@
 		<menu text="_Δίκτυα">
 			<item id="ID_NETWORK_CONNECT" text="_Σύνδεση" shortcut="Ctrl+G"/>
 			<separator/>
-			<menu text="Επιλογή _Δικτύων">
-				<item id="ID_NETWORK_G2" text="Σύνδεση στο Gnutella_2"/>
-				<item id="ID_NETWORK_G1" text="Σύνδεση στο _Gnutella"/>
-				<item id="ID_NETWORK_ED2K" text="Σύνδεση στο _ED2K"/>
-			</menu>
+			<item id="ID_NETWORK_G2" text="Σύνδεση στο Gnutella_2"/>
+			<item id="ID_NETWORK_G1" text="Σύνδεση στο _Gnutella"/>
+			<item id="ID_NETWORK_ED2K" text="Σύνδεση στο _ED2K"/>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="Έξοδος _Μετά τις Μεταφορές"/>
 			<item id="ID_NETWORK_EXIT" text="Έ_ξοδος"/>
@@ -793,11 +784,10 @@
 			<item id="ID_NETWORK_CONNECT_TO" text="Σύνδεση _Με..." shortcut="Ctrl+T"/>
 			<item id="ID_NETWORK_BROWSE_TO" text="_Περιήγηση Host..."/>
 			<separator/>
-			<menu text="Επιλογή _Δικτύων">
-				<item id="ID_NETWORK_G2" text="Σύνδεση στο Gnutella_2"/>
-				<item id="ID_NETWORK_G1" text="Σύνδεση στο _Gnutella"/>
-				<item id="ID_NETWORK_ED2K" text="Σύνδεση στο _ED2K"/>
-			</menu>
+			<item id="ID_NETWORK_G2" text="Σύνδεση στο Gnutella_2"/>
+			<item id="ID_NETWORK_G1" text="Σύνδεση στο _Gnutella"/>
+			<item id="ID_NETWORK_ED2K" text="Σύνδεση στο _ED2K"/>
+			<item id="ID_NETWORK_DC" text="Σύνδεση στο _DC++"/>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="Έξοδος _Μετά τις Μεταφορές"/>
 			<item id="ID_NETWORK_EXIT" text="Έ_ξοδος"/>
@@ -826,7 +816,7 @@
 		<menu text="_Εργαλεία">
 			<item id="ID_LIBRARY_FOLDERS" text="Κοινοποιημένοι _Φάκελοι..."/>
 			<item id="ID_TOOLS_DOWNLOAD" text="_Νέα Λήψη ή Torrent..."/>
-			<item id="IDC_IMPORT_DOWNLOADS" text="Εισαγωγή _ημιτελών αρχείων του eMule..."/>
+			<item id="ID_IMPORT_DOWNLOADS" text="Εισαγωγή _ημιτελών αρχείων του eMule..."/>
 			<item id="ID_OPEN_DOWNLOADS_FOLDER" text="Εξερεύνηση _Ληφθέντων"/>
 			<separator/>
 			<item id="ID_TOOLS_SKIN" text="Επιλογή _Φλοιού..."/>
@@ -1584,6 +1574,10 @@
 			<item id="ID_NETWORK_G2" text="Gnutella_2"/>
 			<item id="ID_NETWORK_G1" text="Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="ED2K"/>
+			<item id="ID_NETWORK_DC" text="_DC++"/>
+			<separator/>
+			<item id="ID_VIEW_DISCOVERY" text="Ανα_κάλυψη"/>
+			<item id="ID_VIEW_HOSTS" text="H_ost Cache"/>
 		</menu>
 		<menu text="_Εποπτεία">
 			<item id="ID_NEIGHBOURS_VIEW_ALL" text="Προβολή _Όλων"/>
@@ -1863,16 +1857,24 @@
 		<text group="31" align="middle">Αποσυνδεμένο</text>
 		<text group="32" align="middle">Σύνδεση...</text>
 		<text group="33" align="middle">Ενωμένο</text>
+		<text group="34" align="middle" id="EDServers">%i Server</text>
 		<newline group="30" gap="2"/>
+		<icon group="60" command="ID_NETWORK_DC"/>
+		<text group="60" align="middle" format="b">&#160;DC++: &#160; </text>
+		<text group="61" align="middle">Αποσυνδεμένο</text>
+		<text group="62" align="middle">Σύνδεση...</text>
+		<text group="63" align="middle">Ενωμένο</text>
+		<text group="64" align="middle" id="DCHubs">%i κόμβοι</text>
+		<newline group="60" gap="2"/>
 		<group id="2">
 			<para align="center">
-				<newline gap="6"/>
+				<newline gap="4"/>
 				<text>Είστε ενωμένοι εδώ και </text>
-				<newline gap="0"/>
+				<newline gap="4"/>
 				<text id="ConnectedHours" format="b">%i </text>
 				<text>ώρες και </text>
 				<text id="ConnectedMinutes" format="b">%i </text>
-				<text>λεπτά.</text>
+				<text>λεπτά</text>
 			</para>
 		</group>
 	</document>
@@ -2558,8 +2560,9 @@
 	<tip id="ID_NETWORK_CONNECT" message="Σύνδεση στα επιλεγμένα δίκτυα."/>
 	<tip id="ID_NETWORK_CONNECT_TO" message="Χειροκίνητη σύνδεση σε έναν host..."/>
 	<tip id="ID_NETWORK_DISCONNECT" message="Αποσύνδεση από όλα τα δίκτυα, διακόπτοντας κατά συνέπεια όλες τις μεταφορές."/>
-	<tip id="ID_NETWORK_ED2K" message="Σύνδεση στο δίκτυο ED2K."/>
 	<tip id="ID_NETWORK_EXIT" message="Έξοδος από το PeerProject."/>
+	<tip id="ID_NETWORK_ED2K" message="Σύνδεση στο δίκτυο ED2K."/>
+	<tip id="ID_NETWORK_DC" message="Σύνδεση στο δίκτυο DC++."/>
 	<tip id="ID_NETWORK_G1" message="Σύνδεση στο δίκτυο Gnutella."/>
 	<tip id="ID_NETWORK_G2" message="Σύνδεση στο δίκτυο Gnutella2 (συνιστώμενη)."/>
 	<tip id="ID_NETWORK_SEARCH" message="Έναρξη νέας αναζήτησης στο δίκτυο..."/>
@@ -2722,7 +2725,9 @@
 	<string id="20012" value="Προσαρμογή"/>
 	<string id="20013" value="Προεπιλογή"/>
 	<string id="20014" value="Τέλος"/>
-	<string id="20050" value="Every Day"/>
+	<string id="20020" value="Αρχείο"/>
+	<string id="20021" value="Αρχεία"/>
+	<string id="20050" value="Κάθε μέρα"/>
 	<string id="20051" value="Δευτέρα"/>
 	<string id="20052" value="Τρίτη"/>
 	<string id="20053" value="Τετάρτη"/>
@@ -3441,7 +3446,7 @@
 		<control/>
 		<control caption="Αδιαφάν.:"/>
 		<control/>
-		<control caption="Shadow (restart)"/>
+		<control caption="Shadows"/>
 		<control caption="_Γραμμή Συστήματος:"/>
 		<control caption="Με εντολή κλεισίματος:"/>
 		<control caption="Ερώτηση|Ελαχιστ. στη Γραμμή Συστήματος|Άμεσο Κλείσιμο|Κλείσιμο Μετά τις Μεταφορές"/>
@@ -3451,9 +3456,9 @@
 	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuBuCoBuBuBuCoBuBuBuEdBu" caption="Βιβλιοθήκη">
 		<control caption="_Επιλογές:"/>
 		<control caption="Επίτρεψη περιήγησης κοινοποιημέν."/>
-		<control caption="Απομνημόν. προβολών φακέλων"/>
 		<control caption="Παρακολούθ. φακέλων Βιβλιοθήκης"/>
 		<control caption="Γρήγορη σάρωση (Αυξημένη CPU)"/>
+		<control caption="Απομνημόν. προβολών φακέλων"/>
 		<control caption="Εντόπιση σειρών έξυπνων media"/>
 		<control caption="Δημιουργία αρχείων φαντασμάτων"/>
 		<control caption="Εμφάνιση _Πρόσφατων:"/>
@@ -3547,13 +3552,14 @@
 		<control caption="On-connect"/>
 		<control/>
 	</dialog>
-	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuCoBuBuSt" caption="Ιστός">
+	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuBuCoBuBuSt" caption="Ιστός">
 		<control caption="Χειρισμός _Συνδέσμων Peer to Peer:"/>
 		<control caption="Χρήση του PeerProject για άνοιγμα συνδέσμων τύπου:"/>
 		<control caption="Magnet ( magnet: )"/>
 		<control caption="Gnutella ( gnutella: )"/>
 		<control caption="eDonkey ( ED2K: )"/>
 		<control caption="Piolet ( mp2p: )"/>
+		<control caption="DC++ ( dchub:/dcfile: )"/>
 		<control caption="BitTorrent ( .torrent )"/>
 		<control caption="Διαχειριστής _Λήψεων:"/>
 		<control caption="Χρήση του PeerProject για διαχείριση των εξής λήψεων από τον Ιστό:"/>
@@ -4443,7 +4449,8 @@
 		<control caption="Για να κοινοποιήσετε ολοκληρωμένα αρχεία χρησιμοποιώντας το BitTorrent, πρέπει πρώτα να τα κάνετε seed. Μόλις ολοκληρωθεί η σχετική διαδικασία, το Torrent θα εμφανιστεί στη λίστα λήψεων."/>
 		<control/>
 	</dialog>
-	<dialog name="CTorrentFilesPage" cookie="Sy" caption="Αρχεία">
+	<dialog name="CTorrentFilesPage" cookie="StSy" caption="Αρχεία">
+		<control/>
 		<control/>
 	</dialog>
 	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="Trackers">
@@ -4631,14 +4638,13 @@
 	<list name="CHostCacheWnd">
 		<column from="Address" to="Διεύθυνση"/>
 		<column from="Port" to="Θύρα"/>
-		<column from="Client" to="Πρόγραμμα"/>
 		<column from="Last Seen" to="Τελευταία Προσπέλαση"/>
-		<column from="Daily Uptime" to="Καθημερινό Uptime"/>
+		<column from="Client" to="Πρόγραμμα"/>
 		<column from="Name" to="Όνομα"/>
 		<column from="Description" to="Περιγραφή"/>
+		<column from="Failures" to="Αποτυχίες"/>
 		<column from="CurUsers" to="Τωρινοί Χρήστες"/>
 		<column from="MaxUsers" to="Πλείστοι Χρήστες"/>
-		<column from="Failures" to="Αποτυχίες"/>
 		<column from="Country" to="Χώρα"/>
 	</list>
 	<list name="CDiscoveryWnd">
@@ -4698,7 +4704,7 @@
 		<column from="Criteria" to="Κριτήρια"/>
 		<column from="Minimum" to="Εύρος Ζώνης"/>
 		<column from="Transfers" to="Μεταφορές"/>
-		<column from="Order" to="Σειρά"/>
+		<column from="Priority" to="Σειρά"/>
 	</list>
 	<list name="CAdvancedSettingsList">
 		<column from="Setting" to="Ρύθμιση"/>

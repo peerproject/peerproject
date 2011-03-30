@@ -1,7 +1,7 @@
 //
 // PageSettingsDownloads.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -234,7 +234,7 @@ void CDownloadsSettingsPage::OnOK()
 
 	// Check the queue limit value is okay
 	if ( ( nQueueLimit > 0 ) && ( nQueueLimit < 2000 ) && ( ! Settings.Live.QueueLimitWarning ) &&
-		 ( Settings.eDonkey.EnableToday || Settings.eDonkey.EnableAlways ) && ( Settings.Downloads.QueueLimit != (int)nQueueLimit ) )
+		 ( Settings.eDonkey.Enabled || Settings.eDonkey.EnableAlways ) && ( Settings.Downloads.QueueLimit != (int)nQueueLimit ) )
 	{
 		// Warn the user about setting the max queue wait limit too low
 		CString strMessage;
@@ -357,9 +357,11 @@ void CDownloadsSettingsPage::OnShowWindow(BOOL bShow, UINT nStatus)
 		// Update the queue limit combo values
 
 		// Remove any existing strings
-		while ( m_wndQueueLimit.GetCount() ) m_wndQueueLimit.DeleteString( 0 );
+		while ( m_wndQueueLimit.GetCount() )
+			m_wndQueueLimit.DeleteString( 0 );
+
 		// Add the new ones
-		if ( Settings.eDonkey.EnableToday || Settings.eDonkey.EnableAlways )
+		if ( Settings.eDonkey.Enabled || Settings.eDonkey.EnableAlways )
 		{
 			m_wndQueueLimit.AddString( _T("2000") );
 			m_wndQueueLimit.AddString( _T("5000") );

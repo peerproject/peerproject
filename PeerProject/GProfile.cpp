@@ -101,10 +101,10 @@ CXMLElement* CGProfile::GetPublicXML(CString strClient, BOOL bChallenge)
 	}
 
 //#ifdef _DEBUG
-//		CFile pFile;
-//		pFile.Open( Settings.General.UserPath + _T("\\Data\\Profile.Public.xml"), CFile::modeWrite | CFile::modeCreate );
-//		CStringA strUTF8 = UTF8Encode( m_pXMLExport->ToString( TRUE, TRUE ) );
-//		pFile.Write( (LPCSTR)strUTF8, strUTF8.GetLength() );
+//	CFile pFile;
+//	pFile.Open( Settings.General.UserPath + _T("\\Data\\Profile.Public.xml"), CFile::modeWrite | CFile::modeCreate );
+//	CStringA strUTF8 = UTF8Encode( m_pXMLExport->ToString( TRUE, TRUE ) );
+//	pFile.Write( (LPCSTR)strUTF8, strUTF8.GetLength() );
 //#endif  // TESTING
 
 	return m_pXMLExport;

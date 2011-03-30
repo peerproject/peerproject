@@ -1,7 +1,7 @@
 //
 // DownloadTransferED2K.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -172,7 +172,7 @@ BOOL CDownloadTransferED2K::OnRun()
 
 BOOL CDownloadTransferED2K::OnRunEx(DWORD tNow)
 {
-	if ( ! Network.IsConnected() || ( ! Settings.eDonkey.EnableToday && Settings.Connection.RequireForTransfers ) )
+	if ( ! Network.IsConnected() || ( ! Settings.eDonkey.Enabled && Settings.Connection.RequireForTransfers ) )
 	{
 		Close( TRI_TRUE );
 		return FALSE;
@@ -791,8 +791,8 @@ bool CDownloadTransferED2K::SendFragmentRequests()
 
 	if ( ! m_pDownload->m_bTorrentEndgame )
 	{
-		for ( CDownloadTransfer* pTransfer = m_pDownload->GetFirstTransfer();
-			pTransfer && !oPossible.empty(); pTransfer = pTransfer->m_pDlNext )
+		for ( CDownloadTransfer* pTransfer = m_pDownload->GetFirstTransfer() ;
+			pTransfer && !oPossible.empty() ; pTransfer = pTransfer->m_pDlNext )
 		{
 			pTransfer->SubtractRequested( oPossible );
 		}
@@ -1000,8 +1000,8 @@ BOOL CDownloadTransferED2K::RunQueued(DWORD tNow)
 
 		if ( m_pClient->IsOnline() )
 			return OnConnected();
-		else
-			m_pClient->Connect();
+
+		m_pClient->Connect();
 	}
 
 	return TRUE;

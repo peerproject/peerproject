@@ -17,11 +17,26 @@
 //
 
 //! \file	StdAfx.h
-//! \brief	Standard header for prcompiled header feature.
+//! \brief	Standard header for precompiled header feature.
 //!
 //! Includes MFC header files. Contains several global definitions.
 
 #pragma once
+
+
+//
+// Generate Manifest  (Themed controls)
+//
+
+//#ifdef _UNICODE (Required)
+#ifdef _M_X64
+#pragma comment(linker,"/manifestdependency:\"type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' processorArchitecture='amd64' publicKeyToken='6595b64144ccf1df' language='*'\"")
+#elif defined _M_IX86
+#pragma comment(linker,"/manifestdependency:\"type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' processorArchitecture='x86' publicKeyToken='6595b64144ccf1df' language='*'\"")
+#else
+#pragma comment(linker,"/manifestdependency:\"type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' processorArchitecture='*' publicKeyToken='6595b64144ccf1df' language='*'\"")
+#endif
+
 
 //
 // Configuration
@@ -472,7 +487,7 @@ const LPCTSTR protocolNames[] =
 
 inline PROTOCOLID& operator++(PROTOCOLID& arg)
 {
-	ASSERT( arg < PROTOCOL_LAST - 1 );
+	ASSERT( arg < PROTOCOL_LAST );
 	arg = PROTOCOLID( arg + 1 );
 	return arg;
 }
@@ -810,12 +825,12 @@ INT_PTR MsgBox(UINT nIDPrompt, UINT nType = MB_OK, UINT nIDHelp = 0, DWORD* pnDe
 
 #define SwitchMap(name) 	static std::map < const CString, char > name; if ( name.empty() )	// Switch on text by proxy [PPD]
 
-// Is this switch overhead better than comparable else-if sequence?  (Note static list populated at first hit only.) [Persistent Public Domain license]
+// Is this switch overhead better than comparable else-if sequence?  (Note static list populated at first hit only.)  [Persistent Public Domain license]
 // Usage:
 //	SwitchMap( Text )
 //	{
-//		Text[ _T("text1") ] = 'A';
-//		Text[ _T("text2") ] = 'b';
+//		Text[ L"text1" ] = 'A';
+//		Text[ L"text2" ] = 'b';
 //	}
 //	switch( Text[ str ] )
 //	{

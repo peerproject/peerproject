@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Catalan Skin File -->
 
-<!-- Translation based on default-en.xml r64 -->
+<!-- Translation based on default-en.xml r65 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -374,6 +374,7 @@
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
+		<button id="ID_NETWORK_DC" text="DC++"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Configuració..."/>
 	</toolbar>
@@ -392,20 +393,16 @@
 		<button id="ID_SEARCH_FILTER_RAW" text="Més..."/>
 	</toolbar>
 	<!-- HOST CACHE WINDOW -->
-	<toolbar name="CHostCacheWnd.Basic">
-		<button id="ID_HOSTCACHE_CONNECT" text="Connectar a"/>
-		<button id="ID_HOSTCACHE_DISCONNECT" text="Desconnecta"/>
-		<button id="ID_HOSTCACHE_REMOVE" text="Esborra"/>
-	</toolbar>
 	<toolbar name="CHostCacheWnd">
 		<button id="ID_HOSTCACHE_CONNECT" text="Connectar a"/>
 		<button id="ID_HOSTCACHE_DISCONNECT" text="Desconnecta"/>
 		<button id="ID_HOSTCACHE_REMOVE" text="Esborra"/>
 		<rightAlign/>
-		<button id="ID_HOSTCACHE_G2_HORIZON" text="Clúster G2"/>
-		<button id="ID_HOSTCACHE_G2_CACHE" text="Caxè de G2"/>
-		<button id="ID_HOSTCACHE_G1_CACHE" text="Caxè de G1"/>
-		<button id="ID_HOSTCACHE_ED2K_CACHE" text="Caxè eDonkey"/>
+		<button id="ID_HOSTCACHE_G2_HORIZON" text="Clúster"/>
+		<button id="ID_HOSTCACHE_G2_CACHE" text="Caxè"/>
+		<button id="ID_HOSTCACHE_G1_CACHE" text="Caxè"/>
+		<button id="ID_HOSTCACHE_ED2K_CACHE" text="Caxè"/>
+		<button id="ID_HOSTCACHE_DC_CACHE" text="Caxè"/>
 	</toolbar>
 	<!-- PRIVATE CHAT WINDOW -->
 	<toolbar name="CPrivateChatFrame">
@@ -508,6 +505,7 @@
 					<item id="ID_NETWORK_G2" text="Connecta a Gnutella_2"/>
 					<item id="ID_NETWORK_G1" text="Connecta a _Gnutella"/>
 					<item id="ID_NETWORK_ED2K" text="Connecta a _eDonkey"/>
+					<item id="ID_NETWORK_DC" text="Connecta a _DC++"/>
 				</menu>
 				<separator/>
 				<item id="ID_NETWORK_CONNECT_TO" text="Connecta _a..." shortcut="Ctrl+T"/>
@@ -522,7 +520,7 @@
 				<separator/>
 				<item id="ID_TOOLS_DOWNLOAD" text="_Descarrega arxiu/torrent..."/>
 				<item id="ID_TOOLS_CREATETORRENT" text="_Create New .Torrent..."/>
-				<item id="IDC_IMPORT_DOWNLOADS" text="_Importa descàrregues parcials de l'eMule"/>
+				<item id="ID_IMPORT_DOWNLOADS" text="_Importa descàrregues parcials de l'eMule"/>
 				<separator/>
 				<item id="ID_TOOLS_LANGUAGE" text="Tria un _idioma..."/>
 				<item id="ID_TOOLS_SKIN" text="Tria _interfície..."/>
@@ -534,18 +532,20 @@
 			</menu>
 			<menu text="_Veure">
 				<item id="ID_TAB_HOME" text="_Inici" shortcut="Ctrl+H"/>
-				<item id="ID_VIEW_NEIGHBOURS" text="_Xarxa" shortcut="Ctrl+F11"/>
-				<item id="ID_VIEW_SYSTEM" text="_Sistema" shortcut="F11"/>
+				<item id="ID_TAB_SEARCH" text="_Search" shortcut="Ctrl-S/F3"/>
 				<item id="ID_VIEW_DOWNLOADS" text="_Descàrregues" shortcut="F3"/>
 				<item id="ID_VIEW_UPLOADS" text="_Pujades" shortcut="F4"/>
 				<item id="ID_VIEW_LIBRARY" text="La meva _Col·lecció" shortcut="F5"/>
 				<item id="ID_VIEW_MEDIA" text="_Media" shortcut="F6"/>
 				<item id="ID_TAB_IRC" text="_Chat" shortcut="F12"/>
 				<separator/>
+				<item id="ID_VIEW_SCHEDULER" text="Programado_r" shortcut="Ctrl+F7"/>
 				<item id="ID_VIEW_SECURITY" text="_Seguretat" shortcut="F7"/>
 				<item id="ID_VIEW_HOSTS" text="_Caxè de servidors" shortcut="F8"/>
 				<item id="ID_VIEW_DISCOVERY" text="_Descobriments" shortcut="F9"/>
 				<item id="ID_VIEW_TRAFFIC" text="_Gràfica" shortcut="F10"/>
+				<item id="ID_VIEW_SYSTEM" text="_Sistema" shortcut="F11"/>
+				<item id="ID_VIEW_NEIGHBOURS" text="_Xarxa" shortcut="Ctrl+F11"/>
 				<separator/>
 				<item id="ID_VIEW_PACKETS" text="_Monitor de paquets" shortcut="Ctrl+F1"/>
 				<item id="ID_VIEW_SEARCH_MONITOR" text="_Monitor de cerca" shortcut="Ctrl+F2"/>
@@ -597,6 +597,7 @@
 				<item id="ID_NETWORK_G2" text="Connecta a _Gnutella2"/>
 				<item id="ID_NETWORK_G1" text="Connecta a _Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="Connecta a _eDonkey"/>
+				<item id="ID_NETWORK_DC" text="Connecta a _DC++"/>
 			</menu>
 			<separator/>
 			<item id="ID_NETWORK_CONNECT_TO" text="Connecta _a..." shortcut="Ctrl+T"/>
@@ -615,6 +616,7 @@
 			<item id="ID_TAB_IRC" text="_Chat"/>
 			<separator/>
 			<item id="ID_VIEW_SECURITY" text="_Seguretat"/>
+			<item id="ID_VIEW_SCHEDULER" text="Programado_r"/>
 			<item id="ID_VIEW_HOSTS" text="_Caxè de servidors"/>
 			<separator/>
 			<menu text="A_vançat">
@@ -625,6 +627,7 @@
 				<item id="ID_VIEW_LIBRARY" text="La meva _Col·lecció" shortcut="F5"/>
 				<item id="ID_VIEW_MEDIA" text="_Media" shortcut="F6"/>
 				<separator/>
+				<item id="ID_VIEW_SCHEDULER" text="Programado_r" shortcut="Ctrl+F7"/>
 				<item id="ID_VIEW_SECURITY" text="_Seguretat" shortcut="F7"/>
 				<item id="ID_VIEW_HOSTS" text="_Caxè de servidors" shortcut="F8"/>
 				<item id="ID_VIEW_DISCOVERY" text="_Descobriments" shortcut="F9"/>
@@ -645,7 +648,7 @@
 			<separator/>
 			<item id="ID_TOOLS_DOWNLOAD" text="_Descarrega arxiu/torrent..."/>
 			<item id="ID_TOOLS_CREATETORRENT" text="_Create New .Torrent..."/>
-			<item id="IDC_IMPORT_DOWNLOADS" text="_Importa descàrregues parcials de l'eMule"/>
+			<item id="ID_IMPORT_DOWNLOADS" text="_Importa descàrregues parcials de l'eMule"/>
 			<separator/>
 			<item id="ID_TOOLS_SKIN" text="Tria _interfície..."/>
 			<item id="ID_TOOLS_LANGUAGE" text="Tria un _idioma..."/>
@@ -713,6 +716,7 @@
 				<item id="ID_VIEW_UPLOADS" text="_Pujades" shortcut="F8"/>
 				<separator/>
 				<item id="ID_VIEW_SECURITY" text="Se_guretat"/>
+				<item id="ID_VIEW_SCHEDULER" text="Programado_r"/>
 				<item id="ID_VIEW_HOSTS" text="C_axè dels servidors"/>
 				<item id="ID_VIEW_DISCOVERY" text="Desco_briment"/>
 			</menu>
@@ -769,6 +773,7 @@
 				<item id="ID_NETWORK_G2" text="Connecta a Gnutella_2"/>
 				<item id="ID_NETWORK_G1" text="Connecta a _Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="Connecta a _eDonkey"/>
+				<item id="ID_NETWORK_DC" text="Connecta a _DC++"/>
 			</menu>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="Tanca _després de les transferències"/>
@@ -783,6 +788,7 @@
 			<item id="ID_VIEW_MEDIA" text="_Multimèdia" shortcut="F6"/>
 			<item id="ID_TAB_IRC" text="IRC _Chat" shortcut="F12"/>
 			<separator/>
+			<item id="ID_VIEW_SCHEDULER" text="Programado_r" shortcut="Ctrl+F7"/>
 			<item id="ID_VIEW_SECURITY" text="_Seguretat" shortcut="F7"/>
 			<item id="ID_VIEW_HOSTS" text="C_axè dels servidors" shortcut="F8"/>
 			<item id="ID_VIEW_DISCOVERY" text="_Serveis de descobriment" shortcut="F9"/>
@@ -799,7 +805,7 @@
 		<menu text="_Eines">
 			<item id="ID_LIBRARY_FOLDERS" text="Arxius _compartits..."/>
 			<item id="ID_TOOLS_DOWNLOAD" text="_Descarrega arxiu/torrent..."/>
-			<item id="IDC_IMPORT_DOWNLOADS" text="_Importa descàrregues parcials de l'eMule"/>
+			<item id="ID_IMPORT_DOWNLOADS" text="_Importa descàrregues parcials de l'eMule"/>
 			<item id="ID_OPEN_DOWNLOADS_FOLDER" text="_Obre la carpeta de descàrregues completades"/>
 			<separator/>
 			<item id="ID_TOOLS_SKIN" text="Tria _interfície..."/>
@@ -852,11 +858,13 @@
 		<item id="ID_TAB_MEDIA" text="_Multimèdia"/>
 		<item id="ID_TAB_SEARCH" text="_Cerca"/>
 		<item id="ID_TAB_TRANSFERS" text="_Descàrregues"/>
+		<item id="ID_TAB_IRC" text="_Chat"/>
 		<separator/>
 		<menu text="_Advanced">
 			<item id="ID_VIEW_NEIGHBOURS" text="_Xarxa"/>
 			<item id="ID_VIEW_UPLOADS" text="_Pujades"/>
 			<item id="ID_VIEW_SECURITY" text="_Seguretat"/>
+			<item id="ID_VIEW_SCHEDULER" text="Programado_r"/>
 			<item id="ID_VIEW_HOSTS" text="_Caxè dels servidors"/>
 		</menu>
 	</menu>
@@ -867,9 +875,10 @@
 		<item id="ID_TAB_SEARCH" text="_Cerca"/>
 		<item id="ID_TAB_TRANSFERS" text="_Transferències"/>
 		<item id="ID_TAB_NETWORK" text="_Xarxa"/>
-		<item id="ID_TAB_IRC" text="_Chat"/>
+		<item id="ID_TAB_IRC" text="IRC _Chat"/>
 		<separator/>
 		<item id="ID_VIEW_SECURITY" text="_Seguretat"/>
+		<item id="ID_VIEW_SCHEDULER" text="Programado_r"/>
 		<item id="ID_VIEW_HOSTS" text="Caxè de servidors"/>
 		<item id="ID_VIEW_DISCOVERY" text="Serveis de desc_obriment"/>
 		<item id="ID_VIEW_TRAFFIC" text="_Gràfica"/>
@@ -889,6 +898,7 @@
 		<item id="ID_VIEW_MEDIA" text="_Reproductor de multimèdia"/>
 		<separator/>
 		<item id="ID_VIEW_SECURITY" text="Se_guretat"/>
+		<item id="ID_VIEW_SCHEDULER" text="Programado_r"/>
 		<item id="ID_VIEW_HOSTS" text="Caxè de servidors"/>
 		<item id="ID_VIEW_DISCOVERY" text="Desc_obriment"/>
 		<item id="ID_VIEW_TRAFFIC" text="_Gràfica"/>
@@ -908,8 +918,9 @@
 		<menu text="_Advanced">
 			<item id="ID_VIEW_NEIGHBOURS" text="_Xarxa"/>
 			<item id="ID_VIEW_UPLOADS" text="_Pujades"/>
-			<item id="ID_VIEW_SECURITY" text="_Seguretat"/>
 			<item id="ID_VIEW_HOSTS" text="_Caxè de servidors"/>
+			<item id="ID_VIEW_SECURITY" text="_Seguretat"/>
+			<item id="ID_VIEW_SCHEDULER" text="Programado_r"/>
 		</menu>
 	</menu>
 	<menu name="CHomeWnd.Tabbed">
@@ -918,9 +929,10 @@
 		<item id="ID_TAB_MEDIA" text="_Media"/>
 		<item id="ID_TAB_SEARCH" text="_Cerca"/>
 		<item id="ID_TAB_TRANSFERS" text="_Transferències"/>
-		<item id="ID_TAB_NETWORK" text="_Xarxa"/>
+		<item id="ID_TAB_NETWORK" text="_Xarxa IRC"/>
 		<separator/>
 		<item id="ID_VIEW_SECURITY" text="Se_guretat"/>
+		<item id="ID_VIEW_SCHEDULER" text="Programado_r"/>
 		<item id="ID_VIEW_HOSTS" text="_Caxè de servidors"/>
 		<item id="ID_VIEW_DISCOVERY" text="_Serveis de descobriment"/>
 		<item id="ID_VIEW_TRAFFIC" text="_Gràfic"/>
@@ -1548,6 +1560,10 @@
 			<item id="ID_NETWORK_G2" text="Gnutella_2"/>
 			<item id="ID_NETWORK_G1" text="_Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="_eDonkey"/>
+			<item id="ID_NETWORK_DC" text="_DC++"/>
+			<separator/>
+			<item id="ID_VIEW_DISCOVERY" text="_Descobriments"/>
+			<item id="ID_VIEW_HOSTS" text="Caxè de servidors"/>
 		</menu>
 		<menu text="_Monitor">
 			<item id="ID_NEIGHBOURS_VIEW_ALL" text="Mostra _tot el trànsit"/>
@@ -1736,6 +1752,10 @@
 		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">Skins</link><gap size="6"/>
 		<text align="middle">- Canvia l'aspecte del PeerProject</text>
 		<newline gap="8"/>
+		<icon res="139" width="16" height="16" target="command:ID_VIEW_SCHEDULER"/><gap size="8"/>
+		<link target="command:ID_VIEW_SCHEDULER" align="middle">Programador</link><gap size="6"/>
+		<text align="middle">- Set automated tasks to occur at specific times</text>
+		<newline gap="8"/>
 		<icon res="138" width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
 		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link><gap size="6"/>
 		<text align="middle">- Update blocklist to avoid bad search results</text>
@@ -1799,12 +1819,20 @@
 		<text group="31" align="middle">Desconnectat</text>
 		<text group="32" align="middle">Connectant...</text>
 		<text group="33" align="middle">Connectat</text>
+		<text group="34" align="middle" id="EDServers">%i Servidor</text>
 		<newline group="30" gap="2"/>
+		<icon group="60" command="ID_NETWORK_DC"/>
+		<text group="60" align="middle" format="b">&#160;DC++: &#160; </text>
+		<text group="61" align="middle">Desconnectat</text>
+		<text group="62" align="middle">Connectant...</text>
+		<text group="63" align="middle">Connectat</text>
+		<text group="64" align="middle" id="DCHubs">%i Hubs</text>
+		<newline group="60" gap="2"/>
 		<group id="2">
 			<para align="center">
-				<newline gap="6"/>
-				<text>Has estat connectat durant </text>
-				<newline gap="0"/>
+				<newline gap="4"/>
+				<link target="command:ID_TAB_NETWORK">Connectat durant </link>
+				<newline gap="4"/>
 				<text id="ConnectedHours" format="b">%i </text>
 				<text>hores i </text>
 				<text id="ConnectedMinutes" format="b">%i </text>
@@ -2467,8 +2495,9 @@
 	<tip id="ID_NETWORK_CONNECT" message="Connecta a les xarxes seleccionades."/>
 	<tip id="ID_NETWORK_CONNECT_TO" message="Connecta manualment al servidor..."/>
 	<tip id="ID_NETWORK_DISCONNECT" message="Desconnecta de les xarxes seleccionades."/>
-	<tip id="ID_NETWORK_ED2K" message="Connecta a la xarxa eDonkey."/>
 	<tip id="ID_NETWORK_EXIT" message="Surt de PeerProject"/>
+	<tip id="ID_NETWORK_ED2K" message="Connecta a la xarxa eDonkey."/>
+	<tip id="ID_NETWORK_DC" message="Connecta a la xarxa DC++."/>
 	<tip id="ID_NETWORK_G1" message="Connectar a la xarxa original de Gnutella."/>
 	<tip id="ID_NETWORK_G2" message="Connectar a la xarxa Gnutella2 (molt recomanada)."/>
 	<tip id="ID_NETWORK_SEARCH" message="Comença una nova cerca de la xarxa"/>
@@ -2604,7 +2633,7 @@
 	<string id="WINDOW_HITMONITOR" value="Monitor de resultats"/>
 	<string id="WINDOW_DOWNLOADS" value="Arxius descarregant"/>
 	<string id="WINDOW_UPLOADS" value="Pujades"/>
-	<string id="WINDOW_LIBRARY" value="La meva col·lecció"/>
+	<string id="WINDOW_LIBRARY" value="Col·lecció"/>
 	<string id="WINDOW_TRAFFIC" value="Gràfic"/>
 	<string id="WINDOW_CHAT" value="Xat"/>
 	<string id="WINDOW_SECURITY" value="Seguretat"/>
@@ -2626,7 +2655,9 @@
 	<string id="20012" value="Personalitzat"/>
 	<string id="20013" value="Predefinit"/>
 	<string id="20014" value="Finalitza"/>
-	<string id="20050" value="Todos Dis"/>
+	<string id="20020" value="Arxiu"/>
+	<string id="20021" value="Arxius"/>
+	<string id="20050" value="Cada Dis"/>
 	<string id="20051" value="Dilluns"/>
 	<string id="20052" value="Dimarts"/>
 	<string id="20053" value="Dimecres"/>
@@ -3347,7 +3378,7 @@
 		<control/>
 		<control caption="Opacitat:"/>
 		<control/>
-		<control caption="L'ombra (reiniciar)"/>
+		<control caption="L'ombras"/>
 		<control caption="_Barra de tasques:"/>
 		<control caption="Quant fas clic al botó de tancament:"/>
 		<control caption="Pregunta|Minimitza a barra de tasques|Tanca inmediatament|Tanca després de les transferències"/>
@@ -3357,9 +3388,9 @@
 	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuBuCoBuBuBuCoBuBuBuEdBu" caption="Col·lecció">
 		<control caption="_Opcions:"/>
 		<control caption="Permet que altres exploren"/>
-		<control caption="Recordar les vistes"/>
 		<control caption="Mostra les carpetes"/>
 		<control caption="Hashing ràpid  (més CPU)"/>
+		<control caption="Recordar les vistes"/>
 		<control caption="Smart media series detection"/>
 		<control caption="Crea arxius fantasma"/>
 		<control caption="Arxius _recents:"/>
@@ -3410,13 +3441,14 @@
 		<control caption="Censura coses obscenes al xat"/>
 	</dialog>
 	<!--Missing dialog name="CIRCSettingsPage"-->
-	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuCoBuBuSt" caption="Web">
+	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuBuCoBuBuSt" caption="Web">
 		<control caption="Controla enllaços avançats:"/>
 		<control caption="Usa PeerProject per a obrir aquests enllaços:"/>
 		<control caption="Magnet ( magnet: )"/>
 		<control caption="Gnutella ( gnutella: )"/>
 		<control caption="eDonkey ( ed2k: )"/>
 		<control caption="Piolet ( mp2p: )"/>
+		<control caption="DC++ ( dchub:/dcfile: )"/>
 		<control caption="BitTorrent ( .torrent )"/>
 		<control caption="Controlador de _Descàrregues:"/>
 		<control caption="Empra PeerProject per a descarregar tots els arxius des del navegador d'Internet:"/>
@@ -4306,7 +4338,8 @@
 		<control caption="Per a compartir arxius completats usant BitTorrent han d'estar suministrats. Quant aquest procès estigui complet el Torrent apareixerà com una nova descàrrega a la llista."/>
 		<control/>
 	</dialog>
-	<dialog name="CTorrentFilesPage" cookie="Sy" caption="Arxius">
+	<dialog name="CTorrentFilesPage" cookie="StSy" caption="Arxius">
+		<control/>
 		<control/>
 	</dialog>
 	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="Trackers">
@@ -4495,14 +4528,13 @@
 	<list name="CHostCacheWnd">
 		<column from="Address" to="IP"/>
 		<column from="Port" to="Port"/>
-		<column from="Client" to="Client"/>
 		<column from="Last Seen" to="Última vegada vist"/>
-		<column from="Daily Uptime" to="Temps actiu diari"/>
+		<column from="Client" to="Client"/>
 		<column from="Name" to="Nom"/>
 		<column from="Description" to="Descripció"/>
+		<column from="Failures" to="Errors"/>
 		<column from="CurUsers" to="Usuaris actuals"/>
 		<column from="MaxUsers" to="Uusuaris màxims"/>
-		<column from="Failures" to="Errors"/>
 		<column from="Country" to="País"/>
 	</list>
 	<list name="CDiscoveryWnd">
@@ -4562,7 +4594,7 @@
 		<column from="Criteria" to="Criteri"/>
 		<column from="Minimum" to="Ample de banda"/>
 		<column from="Transfers" to="Transferències"/>
-		<column from="Order" to="Ordenar"/>
+		<column from="Priority" to="Ordenar"/>
 	</list>
 	<list name="CAdvancedSettingsList">
 		<column from="Setting" to="Configuració"/>

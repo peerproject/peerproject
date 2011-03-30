@@ -19,15 +19,16 @@
 #include "StdAfx.h"
 #include "PeerProject.h"
 #include "Settings.h"
-#include "Network.h"
+#include "Buffer.h"
+#include "DiscoveryServices.h"
 #include "HostCache.h"
+#include "EDPacket.h"
+#include "Kademlia.h"
 #include "Neighbours.h"
+#include "Network.h"
 #include "Security.h"
 #include "VendorCache.h"
-#include "EDPacket.h"
-#include "Buffer.h"
-#include "Kademlia.h"
-#include "DiscoveryServices.h"
+#include "XML.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -137,17 +138,19 @@ BOOL CHostCache::Save()
 	return TRUE;
 }
 
-#define HOSTCACHE_SER_VERSION		1000	//17
+#define HOSTCACHE_SER_VERSION		1000	// 19
 // nVersion History:
 // 14 - Added m_sCountry
 // 15 - Added m_bDHT and m_oBtGUID (Ryo-oh-ki)
 // 16 - Added m_nUDPPort, m_oGUID and m_nKADVersion (Ryo-oh-ki)
 // 17 - Added m_tConnect (Ryo-oh-ki)
-// 1000 - (PeerProject 1.0) (17)
+// 18 - Added m_sUser and m_sPass (Ryo-oh-ki)
+// 19 - Added m_sAddress (Ryo-oh-ki)
+// 1000 - (PeerProject 1.0) (19)
 
 void CHostCache::Serialize(CArchive& ar)
 {
-	int nVersion = HOSTCACHE_SER_VERSION;
+	int nVersion = HOSTCACHE_SER_VERSION;	// ToDo: INTERNAL_VERSION
 
 	if ( ar.IsStoring() )
 	{
@@ -185,45 +188,16 @@ void CHostCache::Serialize(CArchive& ar)
 }
 
 //////////////////////////////////////////////////////////////////////
-// CHostCache root import
-
-int CHostCache::Import(LPCTSTR pszFile, BOOL bFreshOnly)
-{
-	// Ignore old files (120 days)
-	if ( bFreshOnly && ! IsFileNewerThan( pszFile, 120ull * 24 * 60 * 60 * 1000 ) )
-		return 0;
-
-	CFile pFile;
-	if ( ! pFile.Open( pszFile, CFile::modeRead ) )
-		return 0;
-
-	// server.met
-	if ( _tcsicmp( PathFindExtension( pszFile ), _T(".met") ) == 0 )
-	{
-		theApp.Message( MSG_NOTICE, _T("Importing MET file: %s ..."), pszFile );
-		return ImportMET( &pFile );
-	}
-	// nodes.dat
-	else if ( _tcsicmp( PathFindExtension( pszFile ), _T(".dat") ) == 0 )
-	{
-		theApp.Message( MSG_NOTICE, _T("Importing Nodes file: %s ..."), pszFile );
-		return ImportNodes( &pFile );
-	}
-
-	return 0;
-}
-
-//////////////////////////////////////////////////////////////////////
 // CHostCache prune old hosts
 
 void CHostCache::PruneOldHosts()
 {
-	DWORD tNow = static_cast< DWORD >( time( NULL ) );
-	if ( tNow - m_tLastPruneTime > 90 )
+	const DWORD tNow = static_cast< DWORD >( time( NULL ) );
+	if ( tNow > m_tLastPruneTime + 90 )		// Every minute+
 	{
 		for ( POSITION pos = m_pList.GetHeadPosition() ; pos ; )
 		{
-			m_pList.GetNext( pos )->PruneOldHosts();
+			m_pList.GetNext( pos )->PruneOldHosts( tNow );
 		}
 		m_tLastPruneTime = tNow;
 	}
@@ -238,6 +212,17 @@ CHostCacheHostPtr CHostCache::Find(const IN_ADDR* pAddress) const
 	{
 		CHostCacheList* pCache = m_pList.GetNext( pos );
 		if ( CHostCacheHostPtr pHost = pCache->Find( pAddress ) )
+			return pHost;
+	}
+	return NULL;
+}
+
+CHostCacheHostPtr CHostCache::Find(LPCTSTR szAddress) const
+{
+	for ( POSITION pos = m_pList.GetHeadPosition() ; pos ; )
+	{
+		CHostCacheList* pCache = m_pList.GetNext( pos );
+		if ( CHostCacheHostPtr pHost = pCache->Find( szAddress ) )
 			return pHost;
 	}
 	return NULL;
@@ -326,29 +311,31 @@ void CHostCacheList::Clear()
 //////////////////////////////////////////////////////////////////////
 // CHostCacheList host add
 
-CHostCacheHostPtr CHostCacheList::Add(const IN_ADDR* pAddress, WORD nPort, DWORD tSeen, LPCTSTR pszVendor, DWORD nUptime, DWORD nCurrentLeaves, DWORD nLeafLimit)
+CHostCacheHostPtr CHostCacheList::Add(const IN_ADDR* pAddress, WORD nPort, DWORD tSeen, LPCTSTR pszVendor, DWORD nUptime, DWORD nCurrentLeaves, DWORD nLeafLimit, LPCTSTR szAddress)
 {
+	ASSERT( pAddress || szAddress );
+
 	// Don't add invalid addresses
 	if ( ! nPort )
 		return NULL;
 
-	if ( ! pAddress->S_un.S_un_b.s_b1 )
+	if ( pAddress && ! pAddress->S_un.S_un_b.s_b1 )
 		return NULL;
 
 	// Don't add own firewalled IPs
-	if ( Network.IsFirewalledAddress( pAddress, TRUE ) )
+	if ( pAddress && Network.IsFirewalledAddress( pAddress, TRUE ) )
 		return NULL;
 
-	// check against IANA Reserved address.
-	if ( Network.IsReserved( pAddress ) )
+	// Check against IANA Reserved addresses
+	if ( pAddress && Network.IsReserved( pAddress ) )
 		return NULL;
 
 	// Check security settings, don't add blocked IPs
-	if ( Security.IsDenied( pAddress ) )
+	if ( pAddress && Security.IsDenied( pAddress ) )
 		return NULL;
 
 	// Try adding it to the cache. (duplicates will be rejected)
-	return AddInternal( pAddress, nPort, tSeen, pszVendor, nUptime, nCurrentLeaves, nLeafLimit );
+	return AddInternal( pAddress, nPort, tSeen, pszVendor, nUptime, nCurrentLeaves, nLeafLimit, szAddress );
 }
 
 BOOL CHostCacheList::Add(LPCTSTR pszHost, DWORD tSeen, LPCTSTR pszVendor, DWORD nUptime, DWORD nCurrentLeaves, DWORD nLeafLimit)
@@ -356,7 +343,7 @@ BOOL CHostCacheList::Add(LPCTSTR pszHost, DWORD tSeen, LPCTSTR pszVendor, DWORD 
 	CString strHost( pszHost );
 	strHost.Trim();
 
-	int nPos = strHost.ReverseFind( ' ' );
+	int nPos = strHost.ReverseFind( _T(' ') );
 	if ( nPos > 0 )
 	{
 		CString strTime = strHost.Mid( nPos + 1 );
@@ -364,13 +351,9 @@ BOOL CHostCacheList::Add(LPCTSTR pszHost, DWORD tSeen, LPCTSTR pszVendor, DWORD 
 		strHost.TrimRight();
 
 		tSeen = TimeFromString( strTime );
-
-		DWORD tNow = static_cast< DWORD >( time( NULL ) );
-		if ( tNow < tSeen )
-			tSeen = tNow;
 	}
 
-	nPos = strHost.Find( ':' );
+	nPos = strHost.Find( _T(':') );
 	if ( nPos < 0 ) return FALSE;
 
 	int nPort = GNUTELLA_DEFAULT_PORT;
@@ -386,18 +369,30 @@ BOOL CHostCacheList::Add(LPCTSTR pszHost, DWORD tSeen, LPCTSTR pszVendor, DWORD 
 
 // This function actually adds the remote client to the host cache.
 // Private, but used by the public functions.  No security checking, etc.
-CHostCacheHostPtr CHostCacheList::AddInternal(const IN_ADDR* pAddress, WORD nPort,
-											DWORD tSeen, LPCTSTR pszVendor, DWORD nUptime, DWORD nCurrentLeaves, DWORD nLeafLimit)
+CHostCacheHostPtr CHostCacheList::AddInternal(const IN_ADDR* pAddress, WORD nPort, DWORD tSeen, LPCTSTR pszVendor, DWORD nUptime, DWORD nCurrentLeaves, DWORD nLeafLimit, LPCTSTR szAddress)
 {
-	CQuickLock oLock( m_pSection );
-
-	ASSERT( pAddress );
-	ASSERT( pAddress->s_addr != INADDR_NONE && pAddress->s_addr != INADDR_ANY );
+	ASSERT( pAddress || szAddress );
 	ASSERT( nPort );
-	ASSERT( m_Hosts.size() == m_HostsTime.size() );
+
+	SOCKADDR_IN saHost;
+	if ( ! pAddress )
+	{
+		// Try to quick resolve dotted IP address
+		if ( ! Network.Resolve( szAddress, nPort, &saHost, FALSE ) )
+			return FALSE;	// Cannot resolve
+
+		pAddress = &saHost.sin_addr;
+		nPort = ntohs( saHost.sin_port );
+		if ( pAddress->s_addr != INADDR_ANY )
+			szAddress = NULL;
+	}
+
+	CQuickLock oLock( m_pSection );
 
 	// Check if we already have the host
 	CHostCacheHostPtr pHost = Find( pAddress );
+	if ( ! pHost && szAddress )
+		pHost = Find( szAddress );
 	if ( ! pHost )
 	{
 		// Create new host
@@ -406,10 +401,14 @@ CHostCacheHostPtr CHostCacheList::AddInternal(const IN_ADDR* pAddress, WORD nPor
 		{
 			PruneHosts();
 
-			// Add host to map and index
 			pHost->m_pAddress = *pAddress;
+			if ( szAddress ) pHost->m_sAddress = szAddress;
+			pHost->m_sAddress = pHost->m_sAddress.SpanExcluding( _T(":") );
+
 			pHost->Update( nPort, tSeen, pszVendor, nUptime, nCurrentLeaves, nLeafLimit );
-			m_Hosts.insert( CHostCacheMapPair( *pAddress, pHost ) );
+
+			// Add host to map and index
+			m_Hosts.insert( CHostCacheMapPair( pHost->m_pAddress, pHost ) );
 			m_HostsTime.insert( pHost );
 
 			m_nCookie++;
@@ -417,8 +416,14 @@ CHostCacheHostPtr CHostCacheList::AddInternal(const IN_ADDR* pAddress, WORD nPor
 	}
 	else
 	{
+		if ( szAddress ) pHost->m_sAddress = szAddress;
+		pHost->m_sAddress = pHost->m_sAddress.SpanExcluding( _T(":") );
+
 		Update( pHost, nPort, tSeen, pszVendor, nUptime, nCurrentLeaves, nLeafLimit );
 	}
+
+	ASSERT( m_Hosts.size() == m_HostsTime.size() );
+
 	return pHost;
 }
 
@@ -427,7 +432,6 @@ void CHostCacheList::Update(CHostCacheHostPtr pHost, WORD nPort, DWORD tSeen, LP
 	CQuickLock oLock( m_pSection );
 
 	ASSERT( pHost );
-	ASSERT( pHost->IsValid() );
 	ASSERT( m_Hosts.size() == m_HostsTime.size() );
 
 	// Update host
@@ -495,14 +499,39 @@ void CHostCacheList::SanityCheck()
 		if ( Security.IsDenied( &pHost->m_pAddress ) ||
 			( pHost->m_pVendor && Security.IsVendorBlocked( pHost->m_pVendor->m_sCode ) ) )
 		{
-			m_HostsTime.erase(
-				std::find( m_HostsTime.begin(), m_HostsTime.end(), pHost ) );
+			m_HostsTime.erase( std::find( m_HostsTime.begin(), m_HostsTime.end(), pHost ) );
 			i = m_Hosts.erase( i );
 			delete pHost;
 			m_nCookie++;
 		}
 		else
 			++i;
+	}
+}
+
+void CHostCacheList::OnResolve(LPCTSTR szAddress, const IN_ADDR* pAddress, WORD nPort)
+{
+	CQuickLock oLock( m_pSection );
+
+	CHostCacheHostPtr pHost = Find( szAddress );
+	if ( pHost )
+	{
+		// Remove from old place
+		m_Hosts.erase( std::find_if( m_Hosts.begin(), m_Hosts.end(),
+			std::bind2nd( is_host(), pHost ) ) );
+
+		pHost->m_pAddress = *pAddress;
+		pHost->m_nPort = nPort;
+		pHost->m_sCountry = theApp.GetCountryCode( pHost->m_pAddress );
+
+		// Add to new place
+		m_Hosts.insert( CHostCacheMapPair( pHost->m_pAddress, pHost ) );
+
+		ASSERT( m_Hosts.size() == m_HostsTime.size() );
+	}
+	else
+	{
+		Add( pAddress, nPort, 0, 0, 0, 0, 0, szAddress );
 	}
 }
 
@@ -515,6 +544,35 @@ void CHostCacheList::OnFailure(const IN_ADDR* pAddress, WORD nPort, bool bRemove
 
 	CHostCacheHostPtr pHost = Find( pAddress );
 	if ( pHost && ( ! nPort || pHost->m_nPort == nPort ) )
+	{
+		m_nCookie++;
+		pHost->m_nFailures++;
+
+		// Clear current IP address to re-resolve name later
+		if ( ! pHost->m_sAddress.IsEmpty() )
+			pHost->m_pAddress.s_addr = INADDR_ANY;
+
+		if ( pHost->m_bPriority )
+			return;
+
+		if ( bRemove || pHost->m_nFailures >= Settings.Connection.FailureLimit )
+		{
+			Remove( pHost );
+		}
+		else
+		{
+			pHost->m_tFailure = static_cast< DWORD >( time( NULL ) );
+			pHost->m_bCheckedLocally = TRUE;
+		}
+	}
+}
+
+void CHostCacheList::OnFailure(LPCTSTR szAddress, bool bRemove)
+{
+	CQuickLock oLock( m_pSection );
+
+	CHostCacheHostPtr pHost = Find( szAddress );
+	if ( pHost )
 	{
 		m_nCookie++;
 		pHost->m_nFailures++;
@@ -583,11 +641,9 @@ void CHostCacheList::OnSuccess(const IN_ADDR* pAddress, WORD nPort, bool bUpdate
 //////////////////////////////////////////////////////////////////////
 // CHostCacheList prune old hosts
 
-void CHostCacheList::PruneOldHosts()
+void CHostCacheList::PruneOldHosts(DWORD tNow)
 {
 	CQuickLock oLock( m_pSection );
-
-	DWORD tNow = static_cast< DWORD >( time( NULL ) );
 
 	for ( CHostCacheMap::iterator i = m_Hosts.begin() ; i != m_Hosts.end() ; )
 	{
@@ -602,7 +658,7 @@ void CHostCacheList::PruneOldHosts()
 			bRemove = true;
 		}
 		else if ( pHost->m_nProtocol == PROTOCOL_G2 && pHost->m_tAck &&
-			tNow - pHost->m_tAck > Settings.Gnutella2.QueryHostDeadline )
+			tNow > pHost->m_tAck + Settings.Gnutella2.QueryHostDeadline )
 		{
 			// Query acknowledgment prune (G2)
 			pHost->m_tAck = 0;
@@ -639,7 +695,8 @@ void CHostCacheList::PruneHosts()
 		if ( ! pHost->m_bPriority )
 		{
 			i = m_HostsTime.erase( i );
-			m_Hosts.erase( pHost->m_pAddress );
+			m_Hosts.erase( std::find_if( m_Hosts.begin(), m_Hosts.end(),
+				std::bind2nd( is_host(), pHost ) ) );
 			delete pHost;
 			m_nCookie++;
 		}
@@ -651,7 +708,8 @@ void CHostCacheList::PruneHosts()
 		--i;
 		CHostCacheHostPtr pHost = (*i);
 		i = m_HostsTime.erase( i );
-		m_Hosts.erase( pHost->m_pAddress );
+		m_Hosts.erase( std::find_if( m_Hosts.begin(), m_Hosts.end(),
+			std::bind2nd( is_host(), pHost ) ) );
 		delete pHost;
 		m_nCookie++;
 	}
@@ -685,9 +743,9 @@ void CHostCacheList::Serialize(CArchive& ar, int nVersion)
 			if ( pHost )
 			{
 				pHost->Serialize( ar, nVersion );
-				if ( pHost->IsValid() &&
-					! Security.IsDenied( &pHost->m_pAddress ) &&
-					! Find( &pHost->m_pAddress ) )
+				if ( ! Security.IsDenied( &pHost->m_pAddress ) &&
+					 ! Find( &pHost->m_pAddress ) &&
+					 ! Find( pHost->m_sAddress ) )
 				{
 					m_Hosts.insert( CHostCacheMapPair( pHost->m_pAddress, pHost ) );
 					m_HostsTime.insert( pHost );
@@ -707,7 +765,114 @@ void CHostCacheList::Serialize(CArchive& ar, int nVersion)
 }
 
 //////////////////////////////////////////////////////////////////////
-// CHostCache MET import
+// CHostCache root import
+
+int CHostCache::Import(LPCTSTR pszFile, BOOL bFreshOnly)
+{
+	const LPCTSTR szExt = PathFindExtension( pszFile );
+
+	// Ignore old files (120 days)
+	if ( bFreshOnly && ! IsFileNewerThan( pszFile, 120ull * 24 * 60 * 60 * 1000 ) )
+		return 0;
+
+	CFile pFile;
+	if ( ! pFile.Open( pszFile, CFile::modeRead ) )
+		return 0;
+
+	int nImported = 0;
+
+	if ( ! _tcsicmp( szExt, _T(".met") ) )
+	{
+		theApp.Message( MSG_NOTICE, _T("Importing MET file: %s ..."), pszFile );
+
+		nImported = ImportMET( &pFile );
+	}
+	else if ( ! _tcsicmp( szExt, _T(".bz2") ) )		// hublist.xml.bz2
+	{
+		theApp.Message( MSG_NOTICE, _T("Importing HubList file: %s ..."), pszFile );
+
+		nImported = ImportHubList( &pFile );
+	}
+	else if ( ! _tcsicmp( szExt, _T(".dat") ) )
+	{
+		theApp.Message( MSG_NOTICE, _T("Importing Nodes file: %s ..."), pszFile );
+
+		nImported = ImportNodes( &pFile );
+	}
+//	else if ( ! _tcsicmp( szExt, _T(".xml") ) ) 	// ToDo: G2/Gnutella import/export
+//	{
+//		theApp.Message( MSG_NOTICE, _T("Importing cache file: %s ..."), pszFile );
+//
+//		nImported = ImportCache( &pFile );
+//	}
+
+
+	Save();
+
+	return nImported;
+}
+
+int CHostCache::ImportHubList(CFile* pFile)
+{
+	const DWORD nSize = pFile->GetLength();
+
+	CBuffer pBuffer;
+	if ( ! pBuffer.EnsureBuffer( nSize ) )
+		return 0;	// Out of memory
+
+	if ( pFile->Read( pBuffer.GetData(), nSize ) != nSize )
+		return 0;	// File error
+	pBuffer.m_nLength = nSize;
+
+	if ( ! pBuffer.UnBZip() )
+		return 0;	// Decompression error
+
+	CString strEncoding;
+	auto_ptr< CXMLElement > pHublist ( CXMLElement::FromString(
+		pBuffer.ReadString( pBuffer.m_nLength ), TRUE, &strEncoding ) );
+	if ( strEncoding.CompareNoCase( _T("utf-8") ) == 0 )	// Reload as UTF-8
+		pHublist.reset( CXMLElement::FromString(
+			pBuffer.ReadString( pBuffer.m_nLength, CP_UTF8 ), TRUE ) );
+	if ( ! pHublist.get() )
+		return FALSE;	// XML decoding error
+
+	if ( ! pHublist->IsNamed( _T("Hublist") ) )
+		return FALSE;	// Invalid XML file format
+
+	CXMLElement* pHubs = pHublist->GetFirstElement();
+	if ( !  pHubs || ! pHubs->IsNamed( _T("Hubs") ) )
+		return FALSE;	// Invalid XML file format
+
+	int nHubs = 0;
+	for ( POSITION pos = pHubs->GetElementIterator() ; pos ; )
+	{
+		CXMLElement* pHub = pHubs->GetNextElement( pos );
+		if ( pHub->IsNamed( _T("Hub") ) )
+		{
+			CString sAddress = pHub->GetAttributeValue( _T("Address") );
+			if ( _tcsnicmp( sAddress, _T("dchub://"), 8 ) == 0 )
+				sAddress = sAddress.Mid( 8 );
+			else if ( _tcsnicmp( sAddress, _T("adc://"), 6 ) == 0 )
+				continue;	// Skip ADC-hubs
+			else if ( _tcsnicmp( sAddress, _T("adcs://"), 7 ) == 0 )
+				continue;	// Skip ADCS-hubs
+
+			const int nUsers	= _tstoi( pHub->GetAttributeValue( _T("Users") ) );
+			const int nMaxusers	= _tstoi( pHub->GetAttributeValue( _T("Maxusers") ) );
+
+			CHostCacheHostPtr pServer = DC.Add( NULL, DC_DEFAULT_PORT, 0,
+				protocolNames[ PROTOCOL_DC ], 0, nUsers, nMaxusers, sAddress );
+			if ( pServer )
+			{
+				pServer->m_sName = pHub->GetAttributeValue( _T("Name") );
+				pServer->m_sDescription = pHub->GetAttributeValue( _T("Description") );
+				nHubs++;
+			}
+		}
+	}
+
+	return nHubs;
+}
 
 int CHostCache::ImportMET(CFile* pFile)
 {
@@ -715,10 +880,10 @@ int CHostCache::ImportMET(CFile* pFile)
 	pFile->Read( &nVersion, sizeof(nVersion) );
 	if ( nVersion != 0xE0 &&
 		 nVersion != ED2K_MET &&
-		 nVersion != ED2K_MET_I64TAGS ) return FALSE;
+		 nVersion != ED2K_MET_I64TAGS ) return 0;
 
 	int nServers = 0;
-	UINT nCount = 0;
+	DWORD nCount = 0;
 
 	pFile->Read( &nCount, sizeof(nCount) );
 
@@ -726,7 +891,7 @@ int CHostCache::ImportMET(CFile* pFile)
 	{
 		IN_ADDR pAddress;
 		WORD nPort;
-		UINT nTags;
+		DWORD nTags;
 
 		if ( pFile->Read( &pAddress, sizeof(pAddress) ) != sizeof(pAddress) ) break;
 		if ( pFile->Read( &nPort, sizeof(nPort) ) != sizeof(nPort) ) break;
@@ -758,15 +923,12 @@ int CHostCache::ImportMET(CFile* pFile)
 	return nServers;
 }
 
-//////////////////////////////////////////////////////////////////////
-// CHostCache Nodes import
-
 int CHostCache::ImportNodes(CFile* pFile)
 {
 	int nServers = 0;
-	UINT nVersion = 0;
+	DWORD nVersion = 0;
 
-	UINT nCount;
+	DWORD nCount;
 	if ( pFile->Read( &nCount, sizeof( nCount ) ) != sizeof( nCount ) )
 		return 0;
 	if ( nCount == 0 )
@@ -964,7 +1126,7 @@ CHostCacheHost::CHostCacheHost(PROTOCOLID nProtocol)
 	, m_bDHT		( FALSE )	// Attributes: DHT
 	, m_nKADVersion	( 0 )		// Attributes: Kademlia
 {
-	m_pAddress.s_addr = 0;
+	m_pAddress.s_addr = INADDR_ANY;
 
 	// 20sec cooldown to avoid neighbor add-remove oscillation
 	DWORD tNow = static_cast< DWORD >( time( NULL ) );
@@ -975,17 +1137,30 @@ CHostCacheHost::CHostCacheHost(PROTOCOLID nProtocol)
 		m_tConnect = tNow - Settings.Gnutella.ConnectThrottle + 20;
 		break;
 	case PROTOCOL_ED2K:
-		m_tConnect = tNow - Settings.eDonkey.QueryServerThrottle + 20;
+		m_tConnect = tNow - Settings.eDonkey.QueryThrottle + 20;
 		break;
 	default:
 		break;
 	}
 }
 
+DWORD CHostCacheHost::Seen() const
+{
+	return m_tSeen;
+}
+
+CString CHostCacheHost::Address() const
+{
+	if ( m_pAddress.s_addr != INADDR_ANY )
+		return CString( inet_ntoa( m_pAddress ) );
+
+	return m_sAddress;
+}
+
 //////////////////////////////////////////////////////////////////////
 // CHostCacheHost serialize
 
-void CHostCacheHost::Serialize(CArchive& ar, int /*nVersion*/)
+void CHostCacheHost::Serialize(CArchive& ar, int /*nVersion*/)	// HOSTCACHE_SER_VER
 {
 	if ( ar.IsStoring() )
 	{
@@ -1043,14 +1218,25 @@ void CHostCacheHost::Serialize(CArchive& ar, int /*nVersion*/)
 		ar << m_nKADVersion;
 
 		ar << m_tConnect;
+
+		ar << m_sUser;
+		ar << m_sPass;
+
+		ar << m_sAddress;
 	}
 	else // Loading
 	{
+		const DWORD tNow = static_cast< DWORD >( time( NULL ) );
+
 		ReadArchive( ar, &m_pAddress, sizeof(m_pAddress) );
 		ar >> m_nPort;
 
 		ar >> m_tAdded;
+
 		ar >> m_tSeen;
+		if ( m_tSeen > tNow )
+			m_tSeen = tNow;
+
 		ar >> m_tRetryAfter;
 
 		CHAR szaVendor[4] = { 0, 0, 0, 0 };
@@ -1085,16 +1271,16 @@ void CHostCacheHost::Serialize(CArchive& ar, int /*nVersion*/)
 		//	{
 		//		ar >> m_sDescription;
 		//		ar >> m_nUserCount;
-		//		//if ( nVersion >= 8 )
+		//		if ( nVersion >= 8 )
 		//			ar >> m_nUserLimit;
-		//		//if ( nVersion >= 9 )
+		//		if ( nVersion >= 9 )
 		//			ar >> m_bPriority;
-		//		//if ( nVersion >= 10 )
-		//		//{
+		//		if ( nVersion >= 10 )
+		//		{
 		//			ar >> m_nFileLimit;
 		//			ar >> m_nTCPFlags;
 		//			ar >> m_nUDPFlags;
-		//		//}
+		//		}
 		//	}
 		//}
 
@@ -1139,6 +1325,15 @@ void CHostCacheHost::Serialize(CArchive& ar, int /*nVersion*/)
 
 		//if ( nVersion >= 17 )
 			ar >> m_tConnect;
+
+		//if ( nVersion >= 18 )
+		//{
+			ar >> m_sUser;
+			ar >> m_sPass;
+		//}
+
+		//if ( nVersion >= 19 )
+			ar >> m_sAddress;
 	}
 }
 
@@ -1152,8 +1347,9 @@ bool CHostCacheHost::Update(WORD nPort, DWORD tSeen, LPCTSTR pszVendor, DWORD nU
 	if ( nPort )
 		m_nUDPPort = m_nPort = nPort;
 
-	if ( ! tSeen )
-		tSeen = static_cast< DWORD >( time( NULL ) );
+	const DWORD tNow = static_cast< DWORD >( time( NULL ) );
+	if ( ! tSeen || tSeen > tNow )
+		tSeen = tNow;
 
 	if ( m_tSeen < tSeen )
 	{
@@ -1187,7 +1383,7 @@ bool CHostCacheHost::Update(WORD nPort, DWORD tSeen, LPCTSTR pszVendor, DWORD nU
 //////////////////////////////////////////////////////////////////////
 // CHostCacheHost connection setup
 
-CNeighbour* CHostCacheHost::ConnectTo(BOOL bAutomatic)
+bool CHostCacheHost::ConnectTo(BOOL bAutomatic)
 {
 	m_tConnect = static_cast< DWORD >( time( NULL ) );
 
@@ -1197,12 +1393,12 @@ CNeighbour* CHostCacheHost::ConnectTo(BOOL bAutomatic)
 	case PROTOCOL_G2:
 	case PROTOCOL_ED2K:
 	case PROTOCOL_DC:
-		//if ( m_pAddress.s_addr == INADDR_ANY )
-		//{
-		//	m_tConnect += 30;	// Throttle for 30 seconds
-		//	return Network.ConnectTo( m_sAddress, m_nPort, m_nProtocol, FALSE ) != FALSE;
-		//}
-		return Neighbours.ConnectTo( m_pAddress, m_nPort, m_nProtocol, bAutomatic );
+		if ( m_pAddress.s_addr == INADDR_ANY )
+		{
+			m_tConnect += 30;	// Throttle for 30 seconds
+			return Network.ConnectTo( m_sAddress, m_nPort, m_nProtocol, FALSE ) != FALSE;
+		}
+		return Neighbours.ConnectTo( m_pAddress, m_nPort, m_nProtocol, bAutomatic ) != NULL;
 	case PROTOCOL_KAD:
 		{
 			SOCKADDR_IN pHost = {};
@@ -1215,6 +1411,7 @@ CNeighbour* CHostCacheHost::ConnectTo(BOOL bAutomatic)
 	default:
 		ASSERT( FALSE );
 	}
+
 	return NULL;
 }
 
@@ -1250,30 +1447,34 @@ bool CHostCacheHost::IsExpired(const DWORD tNow) const
 	switch ( m_nProtocol )
 	{
 	case PROTOCOL_G1:
-		return m_tSeen && ( tNow - m_tSeen > Settings.Gnutella1.HostExpire );
+		return m_tSeen && ( tNow > m_tSeen + Settings.Gnutella1.HostExpire );
 	case PROTOCOL_G2:
-		return m_tSeen && ( tNow - m_tSeen > Settings.Gnutella2.HostExpire );
-	case PROTOCOL_ED2K:
-	case PROTOCOL_DC:
-		return false;	// Never
+		return m_tSeen && ( tNow > m_tSeen + Settings.Gnutella2.HostExpire );
 	case PROTOCOL_BT:
-		return m_tSeen && ( tNow - m_tSeen > Settings.BitTorrent.DhtPruneTime );
+		return m_tSeen && ( tNow > m_tSeen + Settings.BitTorrent.DhtPruneTime );
 	case PROTOCOL_KAD:
-		return m_tSeen && ( tNow - m_tSeen > 24 * 60 * 60 ); // TODO: Add Kademlia setting
-	default:
+		return m_tSeen && ( tNow > m_tSeen + 24 * 60 * 60 );	// ToDo: Add Kademlia setting
+	default:	// Never PROTOCOL_ED2K PROTOCOL_DC
 		return false;
 	}
 }
 
 bool CHostCacheHost::IsThrottled(const DWORD tNow) const
 {
+	// Don't overload network name resolver
+	if ( m_pAddress.s_addr == INADDR_ANY && Network.GetResolveCount() > 3 )
+		return true;
+
+	if ( tNow < m_tConnect + Settings.Connection.ConnectThrottle )
+		return true;
+
 	switch ( m_nProtocol )
 	{
 	case PROTOCOL_G1:
 	case PROTOCOL_G2:
-		return ( tNow - m_tConnect < Settings.Gnutella.ConnectThrottle );
+		return ( tNow < m_tConnect + Settings.Gnutella.ConnectThrottle );
 	case PROTOCOL_ED2K:
-		return ( tNow - m_tConnect < Settings.eDonkey.QueryServerThrottle );
+		return ( tNow < m_tConnect + Settings.eDonkey.QueryThrottle );
 	default:
 		return false;
 	}
@@ -1287,12 +1488,13 @@ bool CHostCacheHost::CanConnect(const DWORD tNow) const
 	// Don't connect to self
 	if ( Settings.Connection.IgnoreOwnIP && Network.IsSelfIP( m_pAddress ) ) return false;
 
-	return														// Let failed host rest some time
-		( ! m_tFailure || ( tNow - m_tFailure >= Settings.Connection.FailurePenalty ) ) &&
-		( m_nFailures <= Settings.Connection.FailureLimit ) &&	// and we haven't lost hope on this host
-		( ! IsExpired( tNow ) ) &&								// and host isn't expired
-		( ! IsThrottled( tNow ) );								// and don't reconnect too fast
-																// now we can connect.
+	return
+		( ! m_tFailure ||											// Let failed host rest some time
+		( tNow > m_tFailure + Settings.Connection.FailurePenalty  ) ) &&
+		( m_nFailures <= Settings.Connection.FailureLimit ) &&		// and we haven't lost hope on this host
+		( ! IsExpired( tNow ) ) &&									// and host isn't expired
+		( ! IsThrottled( tNow ) );									// and don't reconnect too fast
+																	// now we can connect.
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -1317,40 +1519,40 @@ bool CHostCacheHost::CanQuery(const DWORD tNow) const
 	{
 	case PROTOCOL_G2:
 		// Must support G2
-		if ( ! Network.IsConnected() || ! Settings.Gnutella2.EnableToday ) return false;
+		if ( ! Network.IsConnected() || ! Settings.Gnutella2.Enabled ) return false;
 
 		// Must not be waiting for an ack
 		if ( m_tAck == 0 ) return false;
 
 		// Must be a recently seen (current) host
-		if ( ( tNow - m_tSeen ) > Settings.Gnutella2.HostCurrent ) return false;
+		if ( tNow > m_tSeen + Settings.Gnutella2.HostCurrent ) return false;
 
 		// If haven't queried yet, its ok
 		if ( m_tQuery == 0 ) return true;
 
 		// Don't query too fast
-		return ( tNow - m_tQuery ) >= Settings.Gnutella2.QueryHostThrottle;
+		return tNow > m_tQuery + Settings.Gnutella2.QueryThrottle;
 
 	case PROTOCOL_ED2K:
 		// Must support ED2K
-		if ( ! Network.IsConnected() || ! Settings.eDonkey.EnableToday ) return false;
+		if ( ! Network.IsConnected() || ! Settings.eDonkey.Enabled ) return false;
 		if ( ! Settings.eDonkey.ServerWalk ) return false;
 
 		// If haven't queried yet, its ok
 		if ( m_tQuery == 0 ) return true;
 
 		// Don't query too fast
-		return ( tNow - m_tQuery ) >= Settings.eDonkey.QueryServerThrottle;
+		return tNow > m_tQuery + Settings.eDonkey.QueryThrottle;
 
 	case PROTOCOL_BT:
 		// Must support BT
-		if ( ! Settings.BitTorrent.EnableToday ) return false;
+		if ( ! Settings.BitTorrent.Enabled ) return false;
 
 		// If haven't queried yet, its ok
 		if ( m_tQuery == 0 ) return true;
 
 		// Don't query too fast
-		return ( tNow - m_tQuery ) >= 90u;
+		return tNow > m_tQuery + 90u;
 
 	case PROTOCOL_DC:
 		if ( ! Network.IsConnected() ) return false;

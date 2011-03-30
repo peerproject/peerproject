@@ -1,7 +1,7 @@
 //
 // UploadTransferDC.h
 //
-// This file is part of PeerProject (peerproject.org) © 2010
+// This file is part of PeerProject (peerproject.org) © 2011
 // Portions copyright Shareaza Development Team, 2010.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -29,6 +29,7 @@ public:
 	CUploadTransferDC(CDCClient* pClient);
 	virtual ~CUploadTransferDC();
 
+public:
 	CDCClient*		m_pClient;			// Upload owner
 
 	virtual void	Close(UINT nError = 0);
@@ -41,7 +42,7 @@ public:
 	BOOL			OnUpload(const std::string& strType, const std::string& strFilename, QWORD nOffset, QWORD nLength, const std::string& strOptions);
 
 protected:
-	DWORD			m_tRankingCheck;	// The time the queue position was last checked
+	DWORD			m_tRankingCheck;	// Time the queue position was last checked
 
 	// Check the client's Q rank. Start upload or send notification if required
 	BOOL			CheckRanking();
@@ -50,7 +51,7 @@ protected:
 	BOOL			RequestTigerTree(CLibraryFile* pFile, QWORD nOffset, QWORD nLength);
 	BOOL			RequestFile(CLibraryFile* pFile, QWORD nOffset, QWORD nLength);
 	BOOL			SendFile();
-	void			LibraryToFileList(const CString& strRoot, CBuffer& pXML);
-	void			FolderToFileList(const CLibraryFolder* pFolder, CBuffer& pXML);
-	void			FileToFileList(const CLibraryFile* pFile, CBuffer& pXML);
+	static void		LibraryToFileList(const CString& strRoot, CBuffer& pXML);
+	static void		FolderToFileList(const CLibraryFolder* pFolder, CBuffer& pXML);
+	static void		FileToFileList(const CLibraryFile* pFile, CBuffer& pXML);
 };

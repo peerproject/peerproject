@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Croatian Skin File -->
 
-<!-- Translation based on default-en.xml r64 (Shareaza 2.2.0.2) -->
+<!-- Translation based on default-en.xml r65 (Shareaza 2.2.0.2) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -356,6 +356,7 @@
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey2000"/>
+		<button id="ID_NETWORK_DC" text="DC++"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Postavke"/>
 	</toolbar>
@@ -386,20 +387,16 @@
 		<button id="ID_SEARCH_FILTER_RAW" text="Više..."/>
 	</toolbar>
 	<!-- HOST CACHE WINDOW -->
-	<toolbar name="CHostCacheWnd.Basic">
-		<button id="ID_HOSTCACHE_CONNECT" text="Spoji Se Na"/>
-		<button id="ID_HOSTCACHE_DISCONNECT" text="Isključi"/>
-		<button id="ID_HOSTCACHE_REMOVE" text="Makni"/>
-	</toolbar>
 	<toolbar name="CHostCacheWnd">
 		<button id="ID_HOSTCACHE_CONNECT" text="Spoji Se Na"/>
 		<button id="ID_HOSTCACHE_DISCONNECT" text="Isključi"/>
 		<button id="ID_HOSTCACHE_REMOVE" text="Makni"/>
 		<rightAlign/>
-		<button id="ID_HOSTCACHE_G2_HORIZON" text="G2 Cluster"/>
-		<button id="ID_HOSTCACHE_G2_CACHE" text="G2 Cache"/>
-		<button id="ID_HOSTCACHE_G1_CACHE" text="G1 Cache"/>
-		<button id="ID_HOSTCACHE_ED2K_CACHE" text="eDonkey Cache"/>
+		<button id="ID_HOSTCACHE_G2_HORIZON" text="Cluster"/>
+		<button id="ID_HOSTCACHE_G2_CACHE" text="Cache"/>
+		<button id="ID_HOSTCACHE_G1_CACHE" text="Cache"/>
+		<button id="ID_HOSTCACHE_ED2K_CACHE" text="Cache"/>
+		<button id="ID_HOSTCACHE_DC_CACHE" text="Cache"/>
 	</toolbar>
 	<!-- PRIVATE CHAT WINDOW -->
 	<toolbar name="CPrivateChatFrame">
@@ -467,6 +464,7 @@
 				<item id="ID_NETWORK_G2" text="Spoji se na Gnutellu_2"/>
 				<item id="ID_NETWORK_G1" text="Spoji se na _Gnutellu"/>
 				<item id="ID_NETWORK_ED2K" text="Spoji se na _eDonkey2000"/>
+				<item id="ID_NETWORK_DC" text="Spoji se na _DC++"/>
 				<separator/>
 				<item id="ID_NETWORK_CONNECT_TO" text="Spoji se na..." shortcut="Ctrl+T"/>
 				<item id="ID_NETWORK_BROWSE_TO" text="Pogledaj Što Ima..."/>
@@ -548,11 +546,10 @@
 			<item id="ID_NETWORK_CONNECT" text="_Spoji" shortcut="Ctrl+S"/>
 			<item id="ID_NETWORK_DISCONNECT" text="_Isključi"/>
 			<separator/>
-			<menu text="Odaberi _Mrežu">
-				<item id="ID_NETWORK_G2" text="Spoji se na _Gnutellu2"/>
-				<item id="ID_NETWORK_G1" text="Spoji se na Gnutellu_1"/>
-				<item id="ID_NETWORK_ED2K" text="Spoji se na _eDonkey2000"/>
-			</menu>
+			<item id="ID_NETWORK_G2" text="Spoji se na Gnutellu_2"/>
+			<item id="ID_NETWORK_G1" text="Spoji se na _Gnutellu"/>
+			<item id="ID_NETWORK_ED2K" text="Spoji se na _eDonkey2000"/>
+			<item id="ID_NETWORK_DC" text="Spoji se na _DC++"/>
 			<separator/>
 			<item id="ID_NETWORK_CONNECT_TO" text="Spoji se na..." shortcut="Ctrl+T"/>
 			<item id="ID_NETWORK_BROWSE_TO" text="Pogledaj Što Ima..."/>
@@ -638,11 +635,9 @@
 		<menu text="_Mreža">
 			<item id="ID_NETWORK_CONNECT" text="_Spoji" shortcut="Ctrl+S"/>
 			<separator/>
-			<menu text="Odaberi _Mrežu">
-				<item id="ID_NETWORK_G2" text="Spoji se na _Gnutellu2"/>
-				<item id="ID_NETWORK_G1" text="Spoji se na Gnutellu_1"/>
-				<item id="ID_NETWORK_ED2K" text="Spoji se na _eDonkey2000"/>
-			</menu>
+			<item id="ID_NETWORK_G2" text="Spoji se na Gnutellu_2"/>
+			<item id="ID_NETWORK_G1" text="Spoji se na _Gnutellu"/>
+			<item id="ID_NETWORK_ED2K" text="Spoji se na _eDonkey"/>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="Izađi po završetku razmjene"/>
 			<item id="ID_NETWORK_EXIT" text="Izlaz"/>
@@ -711,11 +706,10 @@
 			<item id="ID_NETWORK_CONNECT_TO" text="Spoji Se _Na..." shortcut="Ctrl+N"/>
 			<item id="ID_NETWORK_BROWSE_TO" text="Pogledaj Što Ima..."/>
 			<separator/>
-			<menu text="Odaberite _Mrežu">
-				<item id="ID_NETWORK_G2" text="Spoji se na _Gnutellu2"/>
-				<item id="ID_NETWORK_G1" text="Spoji se na Gnutellu_1"/>
-				<item id="ID_NETWORK_ED2K" text="Spoji se na _eDonkey2000"/>
-			</menu>
+			<item id="ID_NETWORK_G2" text="Spoji se na Gnutellu_2"/>
+			<item id="ID_NETWORK_G1" text="Spoji se na _Gnutellu"/>
+			<item id="ID_NETWORK_ED2K" text="Spoji se na _eDonkey2000"/>
+			<item id="ID_NETWORK_DC" text="Spoji se na _CD"/>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="Z_atvori Po Završetku"/>
 			<item id="ID_NETWORK_EXIT" text="Izlaz"/>
@@ -1471,6 +1465,10 @@
 			<item id="ID_NETWORK_G2" text="Gnutella_2"/>
 			<item id="ID_NETWORK_G1" text="_Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="_eDonkey2000"/>
+			<item id="ID_NETWORK_DC" text="_DC++"/>
+			<separator/>
+			<item id="ID_VIEW_DISCOVERY" text="_Discovery Services"/>
+			<item id="ID_VIEW_HOSTS" text="_Host/Server Cache"/>
 		</menu>
 		<menu text="Praćenje">
 			<item id="ID_NEIGHBOURS_VIEW_ALL" text="Pok_aži Sav Promet"/>
@@ -1678,23 +1676,32 @@
 		<text group="15" align="middle" id="G1Leaves">%i leavesa</text>
 		<newline group="10" gap="2"/>
 		<icon group="30" command="ID_NETWORK_ED2K"/>
-		<text group="30" align="middle" format="b">&#160;eDonkey:</text>
+		<text group="30" align="middle" format="b">&#160;eDonkey: </text>
 		<text group="31" align="middle">Isključeno</text>
 		<text group="32" align="middle">Spajam...</text>
 		<text group="33" align="middle">Spojeno</text>
+		<text group="34" align="middle" id="EDServers">%i Server</text>
 		<newline group="30" gap="2"/>
+		<icon group="60" command="ID_NETWORK_DC"/>
+		<text group="60" align="middle" format="b">&#160;DC++: &#160; </text>
+		<text group="61" align="middle">Isključeno</text>
+		<text group="62" align="middle">Spajam...</text>
+		<text group="63" align="middle">Spojeno</text>
+		<text group="64" align="middle" id="DCHubs">%i hubova</text>
+		<newline group="60" gap="2"/>
 		<group id="2">
 			<para align="center">
-				<newline gap="6"/>
-				<text>Spojen sam već </text>
+				<newline gap="4"/>
+				<link target="command:ID_TAB_NETWORK">Spojen sam već</link>
+				<newline gap="4"/>
 				<text id="ConnectedHours" format="b">%i </text>
 				<text>sati i </text>
 				<text id="ConnectedMinutes" format="b">%i </text>
-				<text>minuta.</text>
+				<text>minuta</text>
 			</para>
 		</group>
 	</document>
-	<document name="CHomeLibraryBox" title="Moja Kolekcija" leftMargin="6" topMargin="6">
+	<document name="CHomeLibraryBox" title="Kolekcija" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
 				<font size="11"/>
@@ -2356,8 +2363,9 @@
 	<tip id="ID_NETWORK_CONNECT" message="Spoji se na mrežu."/>
 	<tip id="ID_NETWORK_CONNECT_TO" message="Manually connect to a host..."/>
 	<tip id="ID_NETWORK_DISCONNECT" message="Isključi se sa mreže."/>
-	<tip id="ID_NETWORK_ED2K" message="Spoji to the eDonkey2000 network."/>
 	<tip id="ID_NETWORK_EXIT" message="Ugasi PeerProject"/>
+	<tip id="ID_NETWORK_ED2K" message="Spoji se na eDonkey2000 mrežu."/>
+	<tip id="ID_NETWORK_DC" message="Spoji se na DC++ mrežu."/>
 	<tip id="ID_NETWORK_G1" message="Spoji se na originalnu Gnutella mrežu."/>
 	<tip id="ID_NETWORK_G2" message="Spoji se na Gnutella2 mrežu (preporučeno)."/>
 	<tip id="ID_NETWORK_SEARCH" message="Start a new search of the network..."/>
@@ -2480,6 +2488,8 @@
 	<string id="20009" value="od"/> <!-- "1 of 10" -->
 	<string id="20011" value="Auto"/>
 	<string id="20012" value="Prilagodi"/>
+	<string id="20020" value="Datoteka"/>
+	<string id="20021" value="Datoteke"/>
 	<string id="20050" value="Svaki Dan"/>
 	<string id="20051" value="Ponedjeljek"/>
 	<string id="20052" value="Utorak"/>
@@ -3165,7 +3175,7 @@
 		<control/>
 		<control caption="Prozirnost:"/>
 		<control/>
-		<control caption="Shadow (restart)"/>
+		<control caption="Shadows"/>
 		<control caption="_Tray:"/>
 		<control caption="Kada pritisnem zatvori:"/>
 		<control caption="Pitaj|Spusti u Tray|Odmah Zatvori|Zatvori tek kada završiš"/>
@@ -3175,9 +3185,9 @@
 	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuBuCoBuBuBuCoBuBuBuEdBu" caption="Kolekcija">
 		<control caption="_Opcije:"/>
 		<control caption="Dopusti drugima da vide što djelite"/>
-		<control caption="Zapamti mape"/>
 		<control caption="Prati mape moje kolekcije"/>
 		<control caption="Brzi hashing (Koristi više CPU-a)"/>
+		<control caption="Zapamti hashing"/>
 		<control caption="Smart media series detection"/>
 		<control caption="Create ghost files by default"/>
 		<control caption="Ko_rištene Datoteke:"/>
@@ -3227,12 +3237,13 @@
 		<control caption="Cenzuriraj prostačenje"/>
 	</dialog>
 	<!--Missing dialog name="CIRCSettingsPage"-->
-	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuCoBuBuSt" caption="Web">
+	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuBuCoBuBuSt" caption="Web">
 		<control caption="Upravljanje _Peer to Peer Linkovima:"/>
 		<control caption="Koristi PeerProject za otvaranje ovih vrsta linkova:"/>
 		<control caption="Magnet ( magnet: )"/>
 		<control caption="Gnutella ( gnutella: )"/>
 		<control caption="eDonkey2000 ( ed2k: )"/>
+		<control caption="DC++ ( dchub:/dcfile: )"/>
 		<control caption="Piolet ( mp2p: )"/>
 		<control caption="BitTorrent ( .torrent )"/>
 		<control caption="Upravitelj Ski_danja:"/>
@@ -4117,7 +4128,8 @@
 		<control caption="To share complete files using BitTorrent they must first be seeded.Once this process is complete the Torrent will appear as a new item in your download list."/>
 		<control/>
 	</dialog>
-	<dialog name="CTorrentFilesPage" cookie="Sy" caption="Datotekes">
+	<dialog name="CTorrentFilesPage" cookie="StSy" caption="Datotekes">
+		<control/>
 		<control/>
 	</dialog>
 	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="Trackers">
@@ -4306,14 +4318,13 @@
 	<list name="CHostCacheWnd">
 		<column from="Address" to="Adresa"/>
 		<column from="Port" to="Port"/>
-		<column from="Client" to="Klijent"/>
 		<column from="Last Seen" to="Zadnji Put Viđeno"/>
-		<column from="Daily Uptime" to=""/>
+		<column from="Client" to="Klijent"/>
 		<column from="Name" to="Ime"/>
 		<column from="Description" to="Opis"/>
+		<column from="Failures" to=""/>
 		<column from="CurUsers" to="UprKorisnika"/>
 		<column from="MaxUsers" to="MaxKorisnika"/>
-		<column from="Failures" to=""/>
 		<column from="Country" to="Država"/>
 	</list>
 	<list name="CDiscoveryWnd">
@@ -4373,7 +4384,7 @@
 		<column from="Criteria" to="Kriterij"/>
 		<column from="Minimum" to="Brzina"/>
 		<column from="Transfers" to="Razmjene"/>
-		<column from="Order" to="Naredba"/>
+		<column from="Priority" to="Naredba"/>
 	</list>
 	<list name="CAdvancedSettingsList">
 		<column from="Setting" to="Postavka"/>

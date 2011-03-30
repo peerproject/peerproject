@@ -1,7 +1,7 @@
 //
 // WizardNetworksPage.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -95,7 +95,7 @@ BOOL CWizardNetworksPage::OnInitDialog()
 
 BOOL CWizardNetworksPage::OnSetActive()
 {
-	//Wizard Window Caption Workaround
+	// Wizard Window Caption Workaround
 	CString strCaption;
 	GetWindowText( strCaption );
 	GetParent()->SetWindowText( strCaption );
@@ -135,11 +135,11 @@ LRESULT CWizardNetworksPage::OnWizardNext()
 	}
 
 	Settings.Gnutella2.EnableAlways	= m_bG2Enable != FALSE;
-	Settings.Gnutella2.EnableToday	= m_bG2Enable != FALSE;
+	Settings.Gnutella2.Enabled		= m_bG2Enable != FALSE;
 	Settings.Gnutella1.EnableAlways	= m_bG1Enable != FALSE;
-	Settings.Gnutella1.EnableToday	= m_bG1Enable != FALSE;
+	Settings.Gnutella1.Enabled		= m_bG1Enable != FALSE;
 	Settings.eDonkey.EnableAlways	= m_bEDEnable != FALSE;
-	Settings.eDonkey.EnableToday	= m_bEDEnable != FALSE;
+	Settings.eDonkey.Enabled		= m_bEDEnable != FALSE;
 
 	if ( m_bEDEnable && HostCache.eDonkey.GetCount() < 3 )
 	{

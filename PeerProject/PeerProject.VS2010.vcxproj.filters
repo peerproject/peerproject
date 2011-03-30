@@ -156,6 +156,15 @@
     <ClCompile Include="Datagrams.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="DCClient.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DCClients.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DCPacket.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="DCNeighbour.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -190,6 +199,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="DownloadTransferBT.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DownloadTransferDC.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="DownloadTransferED2K.cpp">
@@ -565,6 +577,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="UploadTransferBT.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UploadTransferDC.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="UploadTransferED2K.cpp">
@@ -1646,6 +1661,15 @@
     <ClInclude Include="Datagrams.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="DCClient.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DCClients.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DCPacket.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="DCNeighbour.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -1680,6 +1704,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="DownloadTransferBT.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DownloadTransferDC.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="DownloadTransferED2K.h">
@@ -2079,6 +2106,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="UploadTransferBT.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UploadTransferDC.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="UploadTransferED2K.h">

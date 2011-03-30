@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Norwegian Skin File -->
 
-<!-- Translation based on default-en.xml r64 (Shareaza 2.2.0.2) -->
+<!-- Translation based on default-en.xml r65 (Shareaza 2.2.0.2) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -355,6 +355,7 @@
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey2000"/>
+		<button id="ID_NETWORK_DC" text="DC++"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Innstillinger"/>
 	</toolbar>
@@ -385,20 +386,16 @@
 		<button id="ID_SEARCH_FILTER_RAW" text="Mer..."/>
 	</toolbar>
 	<!-- HOST CACHE WINDOW -->
-	<toolbar name="CHostCacheWnd.Basic">
-		<button id="ID_HOSTCACHE_CONNECT" text="Koble til"/>
-		<button id="ID_HOSTCACHE_DISCONNECT" text="Koble fra"/>
-		<button id="ID_HOSTCACHE_REMOVE" text="Fjern"/>
-	</toolbar>
 	<toolbar name="CHostCacheWnd">
 		<button id="ID_HOSTCACHE_CONNECT" text="Koble til"/>
 		<button id="ID_HOSTCACHE_DISCONNECT" text="Koble fra"/>
 		<button id="ID_HOSTCACHE_REMOVE" text="Fjern"/>
 		<rightAlign/>
-		<button id="ID_HOSTCACHE_G2_HORIZON" text="G2 cluster"/>
-		<button id="ID_HOSTCACHE_G2_CACHE" text="G2 cache"/>
-		<button id="ID_HOSTCACHE_G1_CACHE" text="G1 cache"/>
-		<button id="ID_HOSTCACHE_ED2K_CACHE" text="eDonkey cache"/>
+		<button id="ID_HOSTCACHE_G2_HORIZON" text="Cluster"/>
+		<button id="ID_HOSTCACHE_G2_CACHE" text="Cache"/>
+		<button id="ID_HOSTCACHE_G1_CACHE" text="Cache"/>
+		<button id="ID_HOSTCACHE_ED2K_CACHE" text="Cache"/>
+		<button id="ID_HOSTCACHE_DC_CACHE" text="Cache"/>
 	</toolbar>
 	<!-- PRIVATE CHAT WINDOW -->
 	<toolbar name="CPrivateChatFrame">
@@ -466,6 +463,7 @@
 				<item id="ID_NETWORK_G2" text="Koble til Gnutella2"/>
 				<item id="ID_NETWORK_G1" text="Koble til Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="Koble til eDonkey2000"/>
+				<item id="ID_NETWORK_DC" text="Koble til DC++"/>
 				<separator/>
 				<item id="ID_NETWORK_CONNECT_TO" text="Koble til..." shortcut="Ctrl+T"/>
 				<item id="ID_NETWORK_BROWSE_TO" text="Utforsk vert..."/>
@@ -546,11 +544,9 @@
 		<menu text="Nettverk">
 			<item id="ID_NETWORK_CONNECT" text="Koble til" shortcut="Ctrl+G"/>
 			<separator/>
-			<menu text="Velg nettverk">
-				<item id="ID_NETWORK_G2" text="Koble til Gnutella2"/>
-				<item id="ID_NETWORK_G1" text="Koble til Gnutella1"/>
-				<item id="ID_NETWORK_ED2K" text="Koble til eDonkey2000"/>
-			</menu>
+			<item id="ID_NETWORK_G2" text="Koble til Gnutella2"/>
+			<item id="ID_NETWORK_G1" text="Koble til Gnutella1"/>
+			<item id="ID_NETWORK_ED2K" text="Koble til eDonkey2000"/>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="Avslutt etter overføringer"/>
 			<item id="ID_NETWORK_EXIT" text="Avslutt"/>
@@ -619,11 +615,10 @@
 			<item id="ID_NETWORK_CONNECT_TO" text="Koble til..." shortcut="Ctrl+T"/>
 			<item id="ID_NETWORK_BROWSE_TO" text="Utforsk vert..."/>
 			<separator/>
-			<menu text="Velg nettverk">
-				<item id="ID_NETWORK_G2" text="Koble til Gnutella2"/>
-				<item id="ID_NETWORK_G1" text="Koble til Gnutella1"/>
-				<item id="ID_NETWORK_ED2K" text="Koble til eDonkey2000"/>
-			</menu>
+			<item id="ID_NETWORK_G2" text="Koble til Gnutella2"/>
+			<item id="ID_NETWORK_G1" text="Koble til Gnutella"/>
+			<item id="ID_NETWORK_ED2K" text="Koble til eDonkey2000"/>
+			<item id="ID_NETWORK_DC" text="Koble til DC++"/>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="Avslutt etter overføringer"/>
 			<item id="ID_NETWORK_EXIT" text="Avslutt"/>
@@ -1379,6 +1374,10 @@
 			<item id="ID_NETWORK_G2" text="Gnutella_2"/>
 			<item id="ID_NETWORK_G1" text="_Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="_eDonkey2000"/>
+			<item id="ID_NETWORK_DC" text="_DC++"/>
+			<separator/>
+			<item id="ID_VIEW_DISCOVERY" text="Oppdagelse"/>
+			<item id="ID_VIEW_HOSTS" text="Vert-cache"/>
 		</menu>
 		<menu text="_Monitor">
 			<item id="ID_NEIGHBOURS_VIEW_ALL" text="Vis all trafikk"/>
@@ -1435,7 +1434,7 @@
 		<separator/>
 		<item id="ID_DISCOVERY_GNUTELLA" text="Vis bootstraps"/>
 		<item id="ID_DISCOVERY_WEBCACHE" text="Vis GWebCaches"/>
-		<item id="ID_DISCOVERY_SERVERMET" text="Vis server.met's"/>
+		<item id="ID_DISCOVERY_SERVERMET" text="Vis server.METs"/>
 		<separator/>
 		<item id="ID_DISCOVERY_ADD" text="Legg til tjeneste..."/>
 		<separator/>
@@ -1590,20 +1589,28 @@
 		<text group="31" align="middle">Ikke koblet til</text>
 		<text group="32" align="middle">Kobler til...</text>
 		<text group="33" align="middle">Koblet til</text>
+		<text group="34" align="middle" id="EDServers">%i server</text>
 		<newline group="30" gap="2"/>
+		<icon group="60" command="ID_NETWORK_DC"/>
+		<text group="60" align="middle" format="b">&#160;DC++: &#160; </text>
+		<text group="61" align="middle">Ikke koblet til</text>
+		<text group="62" align="middle">Kobler til...</text>
+		<text group="63" align="middle">Koblet til</text>
+		<text group="64" align="middle" id="DCHubs">%i hubs</text>
+		<newline group="60" gap="2"/>
 		<group id="2">
 			<para align="center">
-				<newline gap="6"/>
-				<text>Du har vært koblet til i </text>
-				<newline group="30" gap="0"/>
+				<newline gap="4"/>
+				<link target="command:ID_TAB_NETWORK">Vært koblet til i</link>
+				<newline gap="4"/>
 				<text id="ConnectedHours" format="b">%i </text>
 				<text>timer og </text>
 				<text id="ConnectedMinutes" format="b">%i </text>
-				<text>minutter.</text>
+				<text>minutter</text>
 			</para>
 		</group>
 	</document>
-	<document name="CHomeLibraryBox" title="Mine filer" leftMargin="6" topMargin="6">
+	<document name="CHomeLibraryBox" title="Filer" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
 				<font size="11"/>
@@ -1635,7 +1642,7 @@
 			</group>
 		</para>
 	</document>
-	<document name="CHomeDownloadsBox" title="Mine nedlastinger" leftMargin="6" topMargin="6">
+	<document name="CHomeDownloadsBox" title="Nedlastinger" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
 				<font size="11"/>
@@ -2268,8 +2275,9 @@
 	<tip id="ID_NETWORK_CONNECT" message="Koble til nettverket."/>
 	<tip id="ID_NETWORK_CONNECT_TO" message="Manuelt koble til en vert..."/>
 	<tip id="ID_NETWORK_DISCONNECT" message="Koble fra nettverket"/>
-	<tip id="ID_NETWORK_ED2K" message="Koble til eDonkey2000-nettverket."/>
 	<tip id="ID_NETWORK_EXIT" message="Avslutt PeerProject"/>
+	<tip id="ID_NETWORK_ED2K" message="Koble til eDonkey2000-nettverket."/>
+	<tip id="ID_NETWORK_DC" message="Koble til DC++-nettverket."/>
 	<tip id="ID_NETWORK_G1" message="Koble til det originale Gnutella-nettverket."/>
 	<tip id="ID_NETWORK_G2" message="Koble til Gnutella2-nettverket (Høyst anbefalt)."/>
 	<tip id="ID_NETWORK_SEARCH" message="Start et nytt søk på nettverket..."/>
@@ -2418,6 +2426,8 @@
 	<string id="20016" value="Prøv på nytt"/>
 	<string id="20017" value="Abortere"/>
 	<string id="20018" value="Prøv Igjen"/>
+	<string id="20020" value="Fil"/>
+	<string id="20021" value="Filer"/>
 	<string id="20050" value="Hver Dag"/>
 	<string id="20051" value="Mandag"/>
 	<string id="20052" value="Tirsdag"/>
@@ -3102,7 +3112,7 @@
 		<control/>
 		<control caption="Uklarhet:"/>
 		<control/>
-		<control caption="Shadow (restart)"/>
+		<control caption="Shadows"/>
 		<control caption="_Systemfeltet:"/>
 		<control caption="Når jeg trykker lukk:"/>
 		<control caption="Spør meg|Minimer til systemfelt|Avslutt umiddelbart|Avslutt etter overføringer"/>
@@ -3112,9 +3122,9 @@
 	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuBuCoBuBuBuCoBuBuBuEdBu" caption="Bibliotek">
 		<control caption="_Egenskaper:"/>
 		<control caption="La andre utforske mine filer"/>
-		<control caption="Husk mappevisning"/>
 		<control caption="Overvåk mapper i biblioteket"/>
 		<control caption="Rask hashing (bruker mer CPU)"/>
+		<control caption="Husk mappevisning"/>
 		<control caption="Smart media series detection"/>
 		<control caption="Create ghost files by default"/>
 		<control caption="Nye filer:"/>
@@ -3165,13 +3175,14 @@
 		<control caption="Sensurer krenkende meldinger i chat"/>
 	</dialog>
 	<!--Missing dialog name="CIRCSettingsPage"-->
-	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuCoBuBuSt" caption="Internett">
+	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuBuCoBuBuSt" caption="Internett">
 		<control caption="_Bruk av peer to peer linker:"/>
 		<control caption="Bruk PeerProject til å åpne denne typen linker:"/>
 		<control caption="Magnet ( magnet: )"/>
 		<control caption="Gnutella ( gnutella: )"/>
 		<control caption="eDonkey2000 ( ed2k: )"/>
 		<control caption="Piolet ( mp2p: )"/>
+		<control caption="DC++ ( dchub:/dcfile: )"/>
 		<control caption="BitTorrent ( .torrent )"/>
 		<control caption="Nedlastingsguide:"/>
 		<control caption="Bruk PeerProject til alle mine nedlastinger fra nettet:"/>
@@ -4061,7 +4072,8 @@
 		<control caption="For å dele ferdige filer med BitTorrent må man spre. Når denne prosessen er ferdig vil filen bli lagt til i nedlastings-listen."/>
 		<control/>
 	</dialog>
-	<dialog name="CTorrentFilesPage" cookie="Sy" caption="Files">
+	<dialog name="CTorrentFilesPage" cookie="StSy" caption="Files">
+		<control/>
 		<control/>
 	</dialog>
 	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="Trackers">
@@ -4250,14 +4262,13 @@
 	<list name="CHostCacheWnd">
 		<column from="Address" to="Adresse"/>
 		<column from="Port" to="Port"/>
-		<column from="Client" to="Klient"/>
 		<column from="Last Seen" to="Sist sett"/>
-		<column from="Daily Uptime" to=""/>
+		<column from="Client" to="Klient"/>
 		<column from="Name" to="Navn"/>
 		<column from="Description" to="Beskrivelse"/>
+		<column from="Failures" to=""/>
 		<column from="CurUsers" to="Brukere"/>
 		<column from="MaxUsers" to="Maks brukere"/>
-		<column from="Failures" to=""/>
 		<column from="Country" to="Land"/>
 	</list>
 	<list name="CDiscoveryWnd">
@@ -4317,7 +4328,7 @@
 		<column from="Criteria" to="Kriterier"/>
 		<column from="Minimum" to="Båndbredde"/>
 		<column from="Transfers" to="Overføring"/>
-		<column from="Order" to="Rekkefølge"/>
+		<column from="Priority" to="Rekkefølge"/>
 	</list>
 	<list name="CAdvancedSettingsList">
 		<column from="Setting" to="Innstilling"/>

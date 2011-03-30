@@ -811,7 +811,7 @@ BOOL CSearchWnd::OnQueryHits(const CQueryHit* pHits)
 		if ( (*pManaged)->m_bReceive )
 		{
 			if ( (*pManaged)->IsEqualGUID( pHits->m_oSearchID ) ||	// The hits GUID matches the search
-				 ( ! pHits->m_oSearchID && ( (*pManaged)->IsLastED2KSearch() ) ) )	// The hits have no GUID and the search is the most recent ED2K text search
+				 ( ! pHits->m_oSearchID && ( (*pManaged)->IsLastSearch() ) ) )	// The hits have no GUID and the search is the most recent text search (ED2K/DC)
 			{
 				m_pMatches->AddHits( pHits, (*pManaged)->GetSearch() );
 				m_bUpdate = TRUE;
@@ -821,7 +821,7 @@ BOOL CSearchWnd::OnQueryHits(const CQueryHit* pHits)
 				if ( ( m_pMatches->m_nED2KHits >= m_nMaxED2KResults ) &&
 					 ( (*pManaged)->m_tLastED2K != 0xFFFFFFFF ) )
 				{
-					if ( ! (*pManaged)->m_bAllowG2 ) //If G2 is not active, pause the search now.
+					if ( ! (*pManaged)->m_bAllowG2 )	// If G2 is not active, pause the search now.
 					{
 						m_bWaitMore = TRUE;
 						(*pManaged)->SetActive( FALSE );

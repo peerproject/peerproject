@@ -537,7 +537,7 @@ BOOL CG2Neighbour::OnPing(CG2Packet* pPacket, BOOL bTCP)
 					 ! pNeighbour2->m_bFirewalled &&
 					 tNow - pNeighbour2->m_tLastRelayedPingOut >= Settings.Gnutella2.PingRate )
 				{
-					pG2Nodes.Add(  pNeighbour2 );
+					pG2Nodes.Add( pNeighbour2 );
 				}
 			}
 		}
@@ -1151,15 +1151,24 @@ BOOL CG2Neighbour::SendQuery(const CQuerySearch* pSearch, CPacket* pPacket, BOOL
 BOOL CG2Neighbour::OnQuery(CG2Packet* pPacket)
 {
 	CQuerySearchPtr pSearch = CQuerySearch::FromPacket( pPacket );
+	if ( ! pSearch )
+	{
+		DEBUG_ONLY( pPacket->Debug( _T("Malformed Query.") ) );
+		theApp.Message( MSG_WARNING, IDS_PROTOCOL_BAD_QUERY, _T("G2"), (LPCTSTR)m_sAddress );
+		Statistics.Current.Gnutella2.Dropped++;
+		m_nDropCount++;
+		return TRUE;
+	}
 
-	if ( ! pSearch ||	// Or leaf used firewalled/invalid return address:
-		( m_nNodeType == ntLeaf && pSearch->m_bUDP &&
-		pSearch->m_pEndpoint.sin_addr.S_un.S_addr != m_pHost.sin_addr.S_un.S_addr ) )
+	const BOOL bUseUDP = pSearch->m_bUDP &&
+		pSearch->m_pEndpoint.sin_addr.s_addr != m_pHost.sin_addr.s_addr;
+
+	if ( ( bUseUDP && m_nNodeType == ntLeaf ) ||				// Forbid UDP answer for leaf query
+		! Network.QueryRoute->Add( pSearch->m_oGUID, this ) )	// Forbid looped query
 	{
 		theApp.Message( MSG_INFO, IDS_PROTOCOL_BAD_QUERY, _T("G2"), (LPCTSTR)m_sAddress );
 		Statistics.Current.Gnutella2.Dropped++;
 		m_nDropCount++;
-		pPacket->Debug( _T("Malformed query.") );
 		return TRUE;
 	}
 
@@ -1203,7 +1212,7 @@ BOOL CG2Neighbour::OnQuery(CG2Packet* pPacket)
 	if ( m_nNodeType != ntHub )
 		Neighbours.RouteQuery( pSearch, pPacket, this, m_nNodeType == ntLeaf );
 
-	if ( pSearch->m_bUDP && pSearch->m_pEndpoint.sin_addr.S_un.S_addr != m_pHost.sin_addr.S_un.S_addr )		// && ! Network.IsFirewalled()
+	if ( bUseUDP )		//&& ! Network.IsFirewalled()
 		Network.OnQuerySearch( new CLocalSearch( pSearch, PROTOCOL_G2 ) );
 	else
 		Network.OnQuerySearch( new CLocalSearch( pSearch, this ) );

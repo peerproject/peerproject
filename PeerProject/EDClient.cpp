@@ -984,11 +984,9 @@ BOOL CEDClient::OnHello(CEDPacket* pPacket)
 	m_pServer.sin_addr.S_un.S_addr = pPacket->ReadLongLE();
 	m_pServer.sin_port = htons( pPacket->ReadShortLE() );
 
-	// If we are learning new servers from clients
+	// If we are learning new servers from clients, Add their server
 	if ( Settings.eDonkey.LearnNewServersClient )
-	{	// Add their server
 		HostCache.eDonkey.Add( &m_pServer.sin_addr, htons( m_pServer.sin_port ) );
-	}
 
 	// Some clients append additional "stuff" at the end.
 	if ( pPacket->GetRemaining() >= 4 )
@@ -1017,8 +1015,8 @@ BOOL CEDClient::OnHello(CEDPacket* pPacket)
 
 	if ( m_bLogin )
 		return TRUE;
-	else
-		return OnLoggedIn();
+
+	return OnLoggedIn();
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -1409,7 +1407,7 @@ BOOL CEDClient::OnFileRequest(CEDPacket* pPacket)
 		CLibraryFile* pFile = LibraryMaps.LookupFileByED2K( m_oUpED2K, TRUE, TRUE );
 		if ( ( pFile ) && ( UploadQueues.CanUpload( PROTOCOL_ED2K, pFile, TRUE ) ) )
 		{
-			if ( Settings.eDonkey.EnableToday || !Settings.Connection.RequireForTransfers )
+			if ( Settings.eDonkey.Enabled || !Settings.Connection.RequireForTransfers )
 			{
 				// Create the reply packet
 				pReply->WriteEDString( pFile->m_sName, m_bEmUnicode );
@@ -2029,7 +2027,7 @@ BOOL CEDClient::OnRequestPreview(CEDPacket* pPacket)
 	// We own this file and previews are enabled
 	if ( pFile && Settings.Uploads.SharePreviews )
 	{
-		if ( Network.IsConnected() && ( Settings.eDonkey.EnableToday || !Settings.Connection.RequireForTransfers ) )
+		if ( Network.IsConnected() && ( Settings.eDonkey.Enabled || ! Settings.Connection.RequireForTransfers ) )
 		{
 			CEDPacket* pReply = CEDPacket::New( ED2K_C2C_PREVIEWANWSER, ED2K_PROTOCOL_EMULE );
 			pReply->Write( oHash );

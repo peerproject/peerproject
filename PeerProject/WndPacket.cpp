@@ -1,7 +1,7 @@
 //
 // WndPacket.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -202,7 +202,7 @@ void CPacketWnd::SmartDump(const CPacket* pPacket, const SOCKADDR_IN* pAddress, 
 	CG1Packet* pPacketG1 = ( pPacket->m_nProtocol == PROTOCOL_G1 ) ? (CG1Packet*)pPacket : NULL;
 	CG2Packet* pPacketG2 = ( pPacket->m_nProtocol == PROTOCOL_G2 ) ? (CG2Packet*)pPacket : NULL;
 	CEDPacket* pPacketED = ( pPacket->m_nProtocol == PROTOCOL_ED2K ) ? (CEDPacket*)pPacket : NULL;
-//	CDCPacket* pPacketDC = ( pPacket->m_nProtocol == PROTOCOL_DC ) ? (CDCPacket*)pPacket : NULL;
+	CDCPacket* pPacketDC = ( pPacket->m_nProtocol == PROTOCOL_DC ) ? (CDCPacket*)pPacket : NULL;
 	CBTPacket* pPacketBT = ( pPacket->m_nProtocol == PROTOCOL_BT ) ? (CBTPacket*)pPacket : NULL;
 
 	switch ( pPacket->m_nProtocol )
@@ -253,8 +253,8 @@ void CPacketWnd::SmartDump(const CPacket* pPacket, const SOCKADDR_IN* pAddress, 
 			pItem->Set( 2, _T("G1 TCP") );
 		else if ( pPacketED )
 			pItem->Set( 2, _T("ED2K TCP") );
-	//	else if ( pPacketDC )
-	//		pItem->Set( 2, _T("DC++ TCP") );
+		else if ( pPacketDC )
+			pItem->Set( 2, _T("DC++ TCP") );
 		else if ( pPacketBT )
 			pItem->Set( 2, _T("BT TCP") );
 	}
@@ -267,8 +267,8 @@ void CPacketWnd::SmartDump(const CPacket* pPacket, const SOCKADDR_IN* pAddress, 
 			pItem->Set( 2, _T("G1 UDP") );
 		else if ( pPacketED )
 			pItem->Set( 2, _T("ED2K UDP") );
-	//	else if ( pPacketDC )
-	//		pItem->Set( 2, _T("DC++ UDP") );
+		else if ( pPacketDC )
+			pItem->Set( 2, _T("DC++ UDP") );
 		else if ( pPacketBT )
 			pItem->Set( 2, _T("BT UDP") );
 	}
@@ -344,9 +344,9 @@ void CPacketWnd::OnCustomDrawList(NMHDR* pNMHDR, LRESULT* pResult)
 		if ( m_nInputFilter != 1 && m_nOutputFilter != 1 )
 		{
 			if ( pDraw->nmcd.lItemlParam )
-				pDraw->clrText = Colors.m_crNetworkUp ;
+				pDraw->clrText = Colors.m_crNetworkUp;
 			else
-				pDraw->clrText = Colors.m_crNetworkDown ;
+				pDraw->clrText = Colors.m_crNetworkDown;
 		}
 		*pResult = CDRF_DODEFAULT;
 	}
@@ -403,9 +403,9 @@ void CPacketWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 
 	pTypes3.CreatePopupMenu();
 	if ( m_bTypeED )
-			pTypes3.AppendMenu( MF_STRING|MF_CHECKED, 3200, CString( "All" ) );
-		else
-			pTypes3.AppendMenu( MF_STRING, 3200, CString( "All" ) );
+		pTypes3.AppendMenu( MF_STRING|MF_CHECKED, 3200, CString( "All" ) );
+	else
+		pTypes3.AppendMenu( MF_STRING, 3200, CString( "All" ) );
 
 	pMenu.CreatePopupMenu();
 	pMenu.AppendMenu( MF_STRING|MF_POPUP, (UINT_PTR)pHosts[0].GetSafeHmenu(), _T("Incoming") );
@@ -439,12 +439,14 @@ void CPacketWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 		m_bPaused = ! m_bPaused;
 		return;
 	}
-	else if ( nCmd == ID_SYSTEM_CLEAR )
+
+	if ( nCmd == ID_SYSTEM_CLEAR )
 	{
 		m_wndList.DeleteAllItems();
 		return;
 	}
-	else if ( nCmd >= 3000 && nCmd < 3000 + nTypeG1Size )
+
+	if ( nCmd >= 3000 && nCmd < 3000 + nTypeG1Size )
 	{
 		nCmd -= 3000;
 
@@ -462,7 +464,8 @@ void CPacketWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 
 		return;
 	}
-	else if ( nCmd >= 3100 && nCmd < 3100 + nTypeG2Size )
+
+	if ( nCmd >= 3100 && nCmd < 3100 + nTypeG2Size )
 	{
 		nCmd -= 3100;
 
@@ -480,7 +483,8 @@ void CPacketWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 
 		return;
 	}
-	else if ( nCmd == 3200 )
+
+	if ( nCmd == 3200 )
 	{
 		nCmd -= 3200;
 
@@ -491,7 +495,8 @@ void CPacketWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 
 		return;
 	}
-	else if ( nCmd >= 1000 && nCmd < 2000 )
+
+	if ( nCmd >= 1000 && nCmd < 2000 )
 	{
 		pModify = &m_nInputFilter;
 		nCmd -= 1000;

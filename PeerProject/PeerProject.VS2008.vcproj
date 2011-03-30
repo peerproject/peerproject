@@ -82,7 +82,6 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="rasapi32.lib winmm.lib version.lib ws2_32.lib wininet.lib Iphlpapi.lib msi.lib powrprof.lib"
 				LinkIncremental="2"
-				GenerateManifest="false"
 				IgnoreDefaultLibraryNames=""
 				GenerateDebugInformation="true"
 				SubSystem="2"
@@ -94,7 +93,6 @@
 			/>
 			<Tool
 				Name="VCManifestTool"
-				InputResourceManifests="$(TargetPath)"
 			/>
 			<Tool
 				Name="VCXDCMakeTool"
@@ -176,7 +174,6 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="rasapi32.lib winmm.lib version.lib ws2_32.lib wininet.lib Iphlpapi.lib msi.lib powrprof.lib"
 				LinkIncremental="2"
-				GenerateManifest="false"
 				IgnoreDefaultLibraryNames=""
 				GenerateDebugInformation="true"
 				SubSystem="2"
@@ -189,7 +186,6 @@
 			/>
 			<Tool
 				Name="VCManifestTool"
-				InputResourceManifests="$(TargetPath)"
 			/>
 			<Tool
 				Name="VCXDCMakeTool"
@@ -275,7 +271,6 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="rasapi32.lib winmm.lib version.lib ws2_32.lib wininet.lib Iphlpapi.lib msi.lib powrprof.lib"
-				GenerateManifest="false"
 				IgnoreDefaultLibraryNames=""
 				SubSystem="2"
 				OptimizeReferences="2"
@@ -290,7 +285,6 @@
 			/>
 			<Tool
 				Name="VCManifestTool"
-				InputResourceManifests="$(TargetPath)"
 			/>
 			<Tool
 				Name="VCXDCMakeTool"
@@ -377,7 +371,6 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="rasapi32.lib winmm.lib version.lib ws2_32.lib wininet.lib Iphlpapi.lib msi.lib powrprof.lib"
-				GenerateManifest="false"
 				IgnoreDefaultLibraryNames=""
 				SubSystem="2"
 				OptimizeReferences="2"
@@ -392,7 +385,6 @@
 			/>
 			<Tool
 				Name="VCManifestTool"
-				InputResourceManifests="$(TargetPath)"
 			/>
 			<Tool
 				Name="VCXDCMakeTool"
@@ -528,6 +520,18 @@
 				>
 			</File>
 			<File
+				RelativePath="DCClient.cpp"
+				>
+			</File>
+			<File
+				RelativePath="DCClients.cpp"
+				>
+			</File>
+			<File
+				RelativePath="DCPacket.cpp"
+				>
+			</File>
+			<File
 				RelativePath="DCNeighbour.cpp"
 				>
 			</File>
@@ -573,6 +577,10 @@
 			</File>
 			<File
 				RelativePath="DownloadTransferBT.cpp"
+				>
+			</File>
+			<File
+				RelativePath="DownloadTransferDC.cpp"
 				>
 			</File>
 			<File
@@ -1165,6 +1173,10 @@
 			</File>
 			<File
 				RelativePath="UploadTransferBT.cpp"
+				>
+			</File>
+			<File
+				RelativePath="UploadTransferDC.cpp"
 				>
 			</File>
 			<File
@@ -2797,6 +2809,18 @@
 				>
 			</File>
 			<File
+				RelativePath="DCClient.h"
+				>
+			</File>
+			<File
+				RelativePath="DCClients.h"
+				>
+			</File>
+			<File
+				RelativePath="DCPacket.h"
+				>
+			</File>
+			<File
 				RelativePath="DCNeighbour.h"
 				>
 			</File>
@@ -2842,6 +2866,10 @@
 			</File>
 			<File
 				RelativePath="DownloadTransferBT.h"
+				>
+			</File>
+			<File
+				RelativePath="DownloadTransferDC.h"
 				>
 			</File>
 			<File
@@ -3374,6 +3402,10 @@
 			</File>
 			<File
 				RelativePath="UploadTransferBT.h"
+				>
+			</File>
+			<File
+				RelativePath="UploadTransferDC.h"
 				>
 			</File>
 			<File

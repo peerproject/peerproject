@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Slovenian Skin File -->
 
-<!-- Translation based on default-en.xml r64 (Shareaza 2.2.2.12) -->
+<!-- Translation based on default-en.xml r65 (Shareaza 2.2.2.12) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -357,6 +357,7 @@
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
+		<button id="ID_NETWORK_DC" text="DC++"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Nastavitve"/>
 	</toolbar>
@@ -387,20 +388,16 @@
 		<button id="ID_SEARCH_FILTER_RAW" text="Več..."/>
 	</toolbar>
 	<!-- HOST CACHE WINDOW -->
-	<toolbar name="CHostCacheWnd.Basic">
-		<button id="ID_HOSTCACHE_CONNECT" text="Poveži se z"/>
-		<button id="ID_HOSTCACHE_DISCONNECT" text="Prekini povezavo"/>
-		<button id="ID_HOSTCACHE_REMOVE" text="Odstrani"/>
-	</toolbar>
 	<toolbar name="CHostCacheWnd">
 		<button id="ID_HOSTCACHE_CONNECT" text="Poveži se z"/>
 		<button id="ID_HOSTCACHE_DISCONNECT" text="Prekini povezavo"/>
 		<button id="ID_HOSTCACHE_REMOVE" text="Odstrani"/>
 		<rightAlign/>
-		<button id="ID_HOSTCACHE_G2_HORIZON" text="Grozd G2"/>
-		<button id="ID_HOSTCACHE_G2_CACHE" text="Predpomnilnik G2"/>
-		<button id="ID_HOSTCACHE_G1_CACHE" text="Predpomnilnik G1"/>
-		<button id="ID_HOSTCACHE_ED2K_CACHE" text="Predpomnilnik eDonkey"/>
+		<button id="ID_HOSTCACHE_G2_HORIZON" text="Grozd"/>
+		<button id="ID_HOSTCACHE_G2_CACHE" text="Predpomnilnik"/>
+		<button id="ID_HOSTCACHE_G1_CACHE" text="Predpomnilnik"/>
+		<button id="ID_HOSTCACHE_ED2K_CACHE" text="Predpomnilnik"/>
+		<button id="ID_HOSTCACHE_DC_CACHE" text="Predpomnilnik"/>
 	</toolbar>
 	<!-- PRIVATE CHAT WINDOW -->
 	<toolbar name="CPrivateChatFrame">
@@ -467,6 +464,7 @@
 				<item id="ID_NETWORK_G2" text="Poveži se z Gnutella_2"/>
 				<item id="ID_NETWORK_G1" text="Poveži se z _Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="Poveži se z _eDonkey2000"/>
+				<item id="ID_NETWORK_DC" text="Poveži se z _DC++"/>
 				<separator/>
 				<item id="ID_NETWORK_CONNECT_TO" text="_Poveži se z..." shortcut="Ctrl+T"/>
 				<item id="ID_NETWORK_BROWSE_TO" text="_Brskaj po gostitelju..."/>
@@ -548,11 +546,10 @@
 			<item id="ID_NETWORK_CONNECT" text="_Poveži se" shortcut="Ctrl+G"/>
 			<item id="ID_NETWORK_DISCONNECT" text="Pre_kini povezavo"/>
 			<separator/>
-			<menu text="Izbira _omrežja">
-				<item id="ID_NETWORK_G2" text="Poveži se z Gnutella_2"/>
-				<item id="ID_NETWORK_G1" text="Poveži se z _Gnutella"/>
-				<item id="ID_NETWORK_ED2K" text="Poveži se z _eDonkey2000"/>
-			</menu>
+			<item id="ID_NETWORK_G2" text="Poveži se z Gnutella_2"/>
+			<item id="ID_NETWORK_G1" text="Poveži se z _Gnutella"/>
+			<item id="ID_NETWORK_ED2K" text="Poveži se z _eDonkey2000"/>
+			<item id="ID_NETWORK_DC" text="Poveži se z _DC++"/>
 			<separator/>
 			<item id="ID_NETWORK_CONNECT_TO" text="_Poveži se z..." shortcut="Ctrl+T"/>
 			<item id="ID_NETWORK_BROWSE_TO" text="_Brskaj po gostitelju..."/>
@@ -638,11 +635,9 @@
 		<menu text="_Omrežje">
 			<item id="ID_NETWORK_CONNECT" text="_Poveži se" shortcut="Ctrl+G"/>
 			<separator/>
-			<menu text="Izbira _omrežja">
-				<item id="ID_NETWORK_G2" text="Poveži se z Gnutella_2"/>
-				<item id="ID_NETWORK_G1" text="Poveži se z _Gnutella"/>
-				<item id="ID_NETWORK_ED2K" text="Poveži se z _eDonkey2000"/>
-			</menu>
+			<item id="ID_NETWORK_G2" text="Poveži se z Gnutella_2"/>
+			<item id="ID_NETWORK_G1" text="Poveži se z _Gnutella"/>
+			<item id="ID_NETWORK_ED2K" text="Poveži se z _eDonkey"/>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="Izhod po p_renosih"/>
 			<item id="ID_NETWORK_EXIT" text="_Izhod"/>
@@ -711,11 +706,10 @@
 			<item id="ID_NETWORK_CONNECT_TO" text="Poveži se _z..." shortcut="Ctrl+T"/>
 			<item id="ID_NETWORK_BROWSE_TO" text="_Brskaj po gostitelju..."/>
 			<separator/>
-			<menu text="Izbira _omrežja">
-				<item id="ID_NETWORK_G2" text="Poveži se z Gnutella_2"/>
-				<item id="ID_NETWORK_G1" text="Poveži se z _Gnutella"/>
-				<item id="ID_NETWORK_ED2K" text="Poveži se z _eDonkey2000"/>
-			</menu>
+			<item id="ID_NETWORK_G2" text="Poveži se z Gnutella_2"/>
+			<item id="ID_NETWORK_G1" text="Poveži se z _Gnutella"/>
+			<item id="ID_NETWORK_ED2K" text="Poveži se z _eDonkey2000"/>
+			<item id="ID_NETWORK_DC" text="Poveži se z _DC++"/>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="Zapri po p_renosih"/>
 			<item id="ID_NETWORK_EXIT" text="_Izhod"/>
@@ -1472,6 +1466,10 @@
 			<item id="ID_NETWORK_G2" text="Gnutella_2"/>
 			<item id="ID_NETWORK_G1" text="_Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="_eDonkey2000"/>
+			<item id="ID_NETWORK_DC" text="_DC++"/>
+			<separator/>
+			<item id="ID_VIEW_DISCOVERY" text="_Discovery"/>
+			<item id="ID_VIEW_HOSTS" text="_Predpomnilnik gostitelja"/>
 		</menu>
 		<menu text="_Nadzornik">
 			<item id="ID_NEIGHBOURS_VIEW_ALL" text="Poglej _ves promet"/>
@@ -1686,12 +1684,20 @@
 		<text group="31" align="middle">Povezava prekinjena</text>
 		<text group="32" align="middle">Povezujem...</text>
 		<text group="33" align="middle">Povezan</text>
+		<text group="34" align="middle" id="EDServers">%i strežnik</text>
 		<newline group="30" gap="2"/>
+		<icon group="60" command="ID_NETWORK_DC"/>
+		<text group="60" align="middle" format="b">&#160;DC++: &#160; </text>
+		<text group="61" align="middle">Povezava prekinjena</text>
+		<text group="62" align="middle">Povezujem...</text>
+		<text group="63" align="middle">Povezan</text>
+		<text group="64" align="middle" id="DCHubs">%i zvezdišč</text>
+		<newline group="60" gap="2"/>
 		<group id="2">
 			<para align="center">
-				<newline gap="6"/>
-				<text>Povezani ste </text>
-				<newline gap="0"/>
+				<newline gap="4"/>
+				<link target="command:ID_TAB_NETWORK">Povezani ste</link>
+				<newline gap="4"/>
 				<text id="ConnectedHours" format="b">%i </text>
 				<text>ur in </text>
 				<text id="ConnectedMinutes" format="b">%i </text>
@@ -2364,8 +2370,9 @@
 	<tip id="ID_NETWORK_CONNECT" message="Poveži se na omrežje."/>
 	<tip id="ID_NETWORK_CONNECT_TO" message="Ročno se poveži na gostitelja..."/>
 	<tip id="ID_NETWORK_DISCONNECT" message="Prekini povezavo do omrežja."/>
-	<tip id="ID_NETWORK_ED2K" message="Poveži se z eDonkey2000 omrežjem."/>
 	<tip id="ID_NETWORK_EXIT" message="Izhod iz PeerProject"/>
+	<tip id="ID_NETWORK_ED2K" message="Poveži se z eDonkey2000 omrežjem."/>
+	<tip id="ID_NETWORK_DC" message="Poveži se z DC++ omrežjem."/>
 	<tip id="ID_NETWORK_G1" message="Poveži se z izvornim Gnutella omrežjem."/>
 	<tip id="ID_NETWORK_G2" message="Poveži se z Gnutella2 omrežjem (zelo priporočljivo)."/>
 	<tip id="ID_NETWORK_SEARCH" message="Začni novo iskanje po mreži..."/>
@@ -2511,7 +2518,9 @@
 	<string id="20011" value="samodejno"/>
 	<string id="20012" value="Po meri"/>
 	<string id="20013" value="Privzeto"/>
-	<string id="20050" value="Every Day"/>
+	<string id="20020" value="Datoteka"/>
+	<string id="20021" value="Datoteke"/>
+	<string id="20050" value="Vsak Dan"/>
 	<string id="20051" value="ponedeljek"/>
 	<string id="20052" value="torek"/>
 	<string id="20053" value="sreda"/>
@@ -3208,7 +3217,7 @@
 		<control/>
 		<control caption="Motnost:"/>
 		<control/>
-		<control caption="Shadow (restart)"/>
+		<control caption="Shadows"/>
 		<control caption="_Opravilna vrstica:"/>
 		<control caption="Ko kliknem zapri:"/>
 		<control caption="Vprašaj me|Minimiziraj v opravilno vrstico|Takoj zapri|Zapri po prenosih"/>
@@ -3218,9 +3227,9 @@
 	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuBuCoBuBuBuCoBuBuBuEdBu" caption="Knjižnica">
 		<control caption="_Možnosti:"/>
 		<control caption="Dovoljuj brskanje drugim"/>
-		<control caption="Zapomni si poglede map"/>
 		<control caption="Opazuj knjižnične mape"/>
 		<control caption="Hitro zgoščevanje (+procesor)"/>
+		<control caption="Zapomni si poglede hitro"/>
 		<control caption="Smart video series detection"/>
 		<control caption="Create ghost files by default"/>
 		<control caption="_Nedavne datoteke:"/>
@@ -3271,13 +3280,14 @@
 		<control caption="Cenzuriraj psovke v klepetalnici"/>
 	</dialog>
 	<!--Missing dialog name="CIRCSettingsPage"-->
-	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuCoBuBuSt" caption="Splet">
+	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuBuCoBuBuSt" caption="Splet">
 		<control caption="_P2P obdelava povezav:"/>
 		<control caption="Uporabi PeerProject za odpiranje naslednjih vrst povezav:"/>
 		<control caption="Magnet ( magnet: )"/>
 		<control caption="Gnutella ( gnutella: )"/>
 		<control caption="eDonkey2000 ( ed2k: )"/>
 		<control caption="Piolet ( mp2p: )"/>
+		<control caption="DC++ ( dchub:/dcfile: )"/>
 		<control caption="BitTorrent ( .torrent )"/>
 		<control caption="_Upravljalec prenosov:"/>
 		<control caption="Uporabi PeerProject za upravljanje vseh spletnih prenosov:"/>
@@ -4167,7 +4177,8 @@
 		<control caption="Za deljenje celotnih datotek s pomočjo BitTorrenta se morajo najprej sejati (seed). Ko je postopek sejanja končan, bo Torrent viden kot nova vrstica v seznamu prenosov."/>
 		<control/>
 	</dialog>
-	<dialog name="CTorrentFilesPage" cookie="Sy" caption="Datoteke">
+	<dialog name="CTorrentFilesPage" cookie="StSy" caption="Datoteke">
+		<control/>
 		<control/>
 	</dialog>
 	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="Sledilniki">
@@ -4356,14 +4367,13 @@
 	<list name="CHostCacheWnd">
 		<column from="Address" to="Naslov"/>
 		<column from="Port" to="Vrata"/>
-		<column from="Client" to="Odjemalec"/>
 		<column from="Last Seen" to="Zadnje videno"/>
-		<column from="Daily Uptime" to=""/>
+		<column from="Client" to="Odjemalec"/>
 		<column from="Name" to="Ime"/>
 		<column from="Description" to="Opis"/>
+		<column from="Failures" to=""/>
 		<column from="CurUsers" to="TrenutUporab"/>
 		<column from="MaxUsers" to="MaksUporab"/>
-		<column from="Failures" to=""/>
 		<column from="Country" to="Država"/>
 	</list>
 	<list name="CDiscoveryWnd">
@@ -4423,7 +4433,7 @@
 		<column from="Criteria" to="Merilo"/>
 		<column from="Minimum" to="Pasovna širina"/>
 		<column from="Transfers" to="Prenosi"/>
-		<column from="Order" to="Zaporedje"/>
+		<column from="Priority" to="Zaporedje"/>
 	</list>
 	<list name="CAdvancedSettingsList">
 		<column from="Setting" to="Nastavitev"/>

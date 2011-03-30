@@ -83,17 +83,13 @@
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Configuration) $(Platform)\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Configuration) $(Platform)\</IntDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
-    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</GenerateManifest>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(Configuration) $(Platform)\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(Configuration) $(Platform)\</IntDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</LinkIncremental>
-    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</GenerateManifest>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Configuration) $(Platform)\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Configuration) $(Platform)\</IntDir>
-    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</GenerateManifest>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(Configuration) $(Platform)\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(Configuration) $(Platform)\</IntDir>
-    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</GenerateManifest>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <PreBuildEvent>
@@ -137,7 +133,6 @@
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
     <Manifest>
-      <InputResourceManifests>$(TargetPath);%(InputResourceManifests)</InputResourceManifests>
     </Manifest>
     <Bscmake>
       <OutputFile>
@@ -187,7 +182,6 @@
       </KeyFile>
     </Link>
     <Manifest>
-      <InputResourceManifests>$(TargetPath);%(InputResourceManifests)</InputResourceManifests>
     </Manifest>
     <Bscmake>
       <OutputFile>
@@ -245,7 +239,6 @@
       </KeyFile>
     </Link>
     <Manifest>
-      <InputResourceManifests>$(TargetPath);%(InputResourceManifests)</InputResourceManifests>
     </Manifest>
     <Bscmake>
       <OutputFile>
@@ -303,7 +296,6 @@
       </KeyFile>
     </Link>
     <Manifest>
-      <InputResourceManifests>$(TargetPath);%(InputResourceManifests)</InputResourceManifests>
     </Manifest>
     <Bscmake>
       <OutputFile>
@@ -338,6 +330,9 @@
     <ClCompile Include="Datagram.cpp" />
     <ClCompile Include="DatagramPart.cpp" />
     <ClCompile Include="Datagrams.cpp" />
+    <ClCompile Include="DCClient.cpp" />
+    <ClCompile Include="DCClients.cpp" />
+    <ClCompile Include="DCPacket.cpp" />
     <ClCompile Include="DCNeighbour.cpp" />
     <ClCompile Include="DDEServer.cpp" />
     <ClCompile Include="DiscoveryServices.cpp" />
@@ -350,6 +345,7 @@
     <ClCompile Include="DownloadTask.cpp" />
     <ClCompile Include="DownloadTransfer.cpp" />
     <ClCompile Include="DownloadTransferBT.cpp" />
+    <ClCompile Include="DownloadTransferDC.cpp" />
     <ClCompile Include="DownloadTransferED2K.cpp" />
     <ClCompile Include="DownloadTransferFTP.cpp" />
     <ClCompile Include="DownloadTransferHTTP.cpp" />
@@ -505,6 +501,7 @@
     <ClCompile Include="Uploads.cpp" />
     <ClCompile Include="UploadTransfer.cpp" />
     <ClCompile Include="UploadTransferBT.cpp" />
+    <ClCompile Include="UploadTransferDC.cpp" />
     <ClCompile Include="UploadTransferED2K.cpp" />
     <ClCompile Include="UploadTransferHTTP.cpp" />
     <ClCompile Include="UPnPFinder.cpp" />
@@ -1288,6 +1285,9 @@
     <ClInclude Include="Datagram.h" />
     <ClInclude Include="DatagramPart.h" />
     <ClInclude Include="Datagrams.h" />
+    <ClInclude Include="DCClient.h" />
+    <ClInclude Include="DCClients.h" />
+    <ClInclude Include="DCPacket.h" />
     <ClInclude Include="DCNeighbour.h" />
     <ClInclude Include="DDEServer.h" />
     <ClInclude Include="DiscoveryServices.h" />
@@ -1300,6 +1300,7 @@
     <ClInclude Include="DownloadTask.h" />
     <ClInclude Include="DownloadTransfer.h" />
     <ClInclude Include="DownloadTransferBT.h" />
+    <ClInclude Include="DownloadTransferDC.h" />
     <ClInclude Include="DownloadTransferED2K.h" />
     <ClInclude Include="DownloadTransferFTP.h" />
     <ClInclude Include="DownloadTransferHTTP.h" />
@@ -1433,6 +1434,7 @@
     <ClInclude Include="Uploads.h" />
     <ClInclude Include="UploadTransfer.h" />
     <ClInclude Include="UploadTransferBT.h" />
+    <ClInclude Include="UploadTransferDC.h" />
     <ClInclude Include="UploadTransferED2K.h" />
     <ClInclude Include="UploadTransferHTTP.h" />
     <ClInclude Include="UPnPFinder.h" />

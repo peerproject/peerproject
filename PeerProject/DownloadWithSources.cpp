@@ -1,7 +1,7 @@
 //
 // DownloadWithSources.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -53,8 +53,9 @@ CDownloadWithSources::CDownloadWithSources()
 	, m_nG2SourceCount	( 0 )
 	, m_nEdSourceCount	( 0 )
 	, m_nHTTPSourceCount( 0 )
-	, m_nBTSourceCount	( 0 )
 	, m_nFTPSourceCount	( 0 )
+	, m_nBTSourceCount	( 0 )
+	, m_nDCSourceCount	( 0 )
 	, m_pXML			( NULL )
 {
 }
@@ -135,15 +136,17 @@ DWORD CDownloadWithSources::GetEffectiveSourceCount() const
 
 	if ( Settings.Connection.RequireForTransfers )
 	{
-		if ( Settings.Gnutella1.EnableToday || Settings.Gnutella2.EnableToday )
+		if ( Settings.Gnutella2.Enabled || Settings.Gnutella1.Enabled )
 			nResult += m_nHTTPSourceCount;
-		if ( Settings.Gnutella1.EnableToday )
+		if ( Settings.Gnutella1.Enabled )
 			nResult += m_nG1SourceCount;
-		if ( Settings.Gnutella2.EnableToday )
+		if ( Settings.Gnutella2.Enabled )
 			nResult += m_nG2SourceCount;
-		if ( Settings.eDonkey.EnableToday )
+		if ( Settings.eDonkey.Enabled )
 			nResult += m_nEdSourceCount;
-		if ( Settings.BitTorrent.EnableToday )
+		if ( Settings.DC.Enabled )
+			nResult += m_nDCSourceCount;
+		if ( Settings.BitTorrent.Enabled )
 			nResult += m_nBTSourceCount;
 		nResult += m_nFTPSourceCount;
 	}
@@ -182,7 +185,7 @@ DWORD CDownloadWithSources::GetED2KCompleteSourceCount() const
 {
 	CQuickLock pLock( Transfers.m_pSection );
 
-	DWORD tNow = GetTickCount();
+	const DWORD tNow = GetTickCount();
 	DWORD nCount = 0;
 
 	for ( POSITION posSource = GetIterator() ; posSource ; )
@@ -230,6 +233,7 @@ void CDownloadWithSources::ClearSources()
 	m_nHTTPSourceCount	= 0;
 	m_nBTSourceCount	= 0;
 	m_nFTPSourceCount	= 0;
+	m_nDCSourceCount	= 0;
 
 	SetModified();
 }
@@ -413,8 +417,7 @@ BOOL CDownloadWithSources::AddSourceURL(LPCTSTR pszURL, BOOL bURN, FILETIME* pLa
 	CFailedSource* pBadSource = LookupFailedSource( pszURL );
 	if ( pBadSource )
 	{
-		// Add a positive vote, add to the downloads if the negative votes compose
-		// less than 2/3 of total.
+		// Add a positive vote, add to downloads if negative votes compose less than 2/3 of total.
 		int nTotal = pBadSource->m_nPositiveVotes + pBadSource->m_nNegativeVotes + 1;
 		if ( bFailed )
 			pBadSource->m_nNegativeVotes++;
@@ -510,7 +513,7 @@ int CDownloadWithSources::AddSourceURLs(LPCTSTR pszURLs, BOOL bURN, BOOL bFailed
 		ClearSources();
 		return 0;
 	}
-	else if ( IsPaused() )
+	if ( IsPaused() )
 		return 0;
 
 	int nCount = 0;
@@ -518,7 +521,7 @@ int CDownloadWithSources::AddSourceURLs(LPCTSTR pszURLs, BOOL bURN, BOOL bFailed
 	CMapStringToFILETIME oUrls;
 	SplitStringToURLs( pszURLs, oUrls );
 
-	for ( POSITION pos = oUrls.GetStartPosition(); pos; )
+	for ( POSITION pos = oUrls.GetStartPosition() ; pos ; )
 	{
 		CString strURL;
 		FILETIME tSeen = {};
@@ -577,12 +580,12 @@ BOOL CDownloadWithSources::AddSourceInternal(CDownloadSource* pSource)
 
 	CQuickLock pLock( Transfers.m_pSection );
 
-	if ( pSource->m_nRedirectionCount == 0 ) // Don't check for existing sources if source is a redirection
+	if ( pSource->m_nRedirectionCount == 0 )	// Don't check for existing sources if source is a redirection
 	{
 		bool bDeleteSource = false;
 		bool bHTTPSource = pSource->IsHTTPSource();
 		bool bNeedHTTPSource = ! bHTTPSource &&
-			Settings.Gnutella2.EnableToday &&
+			Settings.Gnutella2.Enabled &&
 			VendorCache.IsExtended( pSource->m_sServer );
 
 		// Remove unneeded sources
@@ -591,7 +594,7 @@ BOOL CDownloadWithSources::AddSourceInternal(CDownloadSource* pSource)
 			CDownloadSource* pExisting = GetNext( posSource );
 
 			ASSERT( pSource != pExisting );
-			if ( pExisting->Equals( pSource ) ) // IPs and ports are equal
+			if ( pExisting->Equals( pSource ) )	// IPs and ports are equal
 			{
 				bool bExistingHTTPSource = pExisting->IsHTTPSource();
 
@@ -637,7 +640,7 @@ BOOL CDownloadWithSources::AddSourceInternal(CDownloadSource* pSource)
 			CString strURL = GetURL( pSource->m_pAddress, pSource->m_nPort );
 			if ( ! strURL.IsEmpty() )
 			{
-				if ( CDownloadSource* pG2Source  = new CDownloadSource(
+				if ( CDownloadSource* pG2Source = new CDownloadSource(
 					(CDownload*)this, strURL ) )
 				{
 					pG2Source->m_sServer = pSource->m_sServer;		// Copy user-agent
@@ -672,7 +675,7 @@ CString CDownloadWithSources::GetSourceURLs(CList< CString >* pState, int nMaxim
 
 		if ( pSource != pExcept && pSource->m_bPushOnly == FALSE &&
 			 pSource->m_nFailures == 0 && pSource->m_bReadContent &&
-			 ( pSource->m_bSHA1 || pSource->m_bED2K || pSource->m_bBTH  || pSource->m_bMD5 ) &&
+			 ( pSource->m_bSHA1 || pSource->m_bED2K || pSource->m_bBTH || pSource->m_bMD5 ) &&
 			 ( pState == NULL || pState->Find( pSource->m_sURL ) == NULL ) )
 		{
 			// Only return appropriate sources
@@ -771,9 +774,9 @@ CString	CDownloadWithSources::GetTopFailedSources(int nMaximum, PROTOCOLID nProt
 
 BOOL CDownloadWithSources::OnQueryHits(const CQueryHit* pHits)
 {
-	for ( const CQueryHit* pHit = pHits; pHit ; pHit = pHit->m_pNext )
+	for ( const CQueryHit* pHit = pHits ; pHit ; pHit = pHit->m_pNext )
 	{
-		if ( ! pHit->m_sURL.IsEmpty() )
+	//	if ( ! pHit->m_sURL.IsEmpty() )	// Obsolete
 			AddSourceHit( pHit );
 	}
 
@@ -949,7 +952,7 @@ void CDownloadWithSources::InternalAdd(const CDownloadSource* pSource)
 		m_nFTPSourceCount++;
 		break;
 	case PROTOCOL_DC:
-	//	m_nDCSourceCount++;
+		m_nDCSourceCount++;
 		break;
 	default:
 		ASSERT( FALSE );
@@ -975,6 +978,9 @@ void CDownloadWithSources::InternalRemove(const CDownloadSource* pSource)
 	case PROTOCOL_ED2K:
 		m_nEdSourceCount--;
 		break;
+	case PROTOCOL_DC:
+		m_nDCSourceCount--;
+		break;
 	case PROTOCOL_BT:
 		m_nBTSourceCount--;
 		break;
@@ -983,9 +989,6 @@ void CDownloadWithSources::InternalRemove(const CDownloadSource* pSource)
 		break;
 	case PROTOCOL_FTP:
 		m_nFTPSourceCount--;
-		break;
-	case PROTOCOL_DC:
-	//	m_nBTSourceCount--;
 		break;
 	default:
 		ASSERT( FALSE );

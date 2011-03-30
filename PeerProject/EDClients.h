@@ -1,7 +1,7 @@
 //
 // EDClients.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -37,7 +37,7 @@ private:
 
 // Attributes
 public:
-	mutable CMutex	m_pSection;	// EDClients Guard
+	mutable CMutex	m_pSection;		// EDClients Guard
 private:
 	CEDClient*		m_pFirst;
 	CEDClient*		m_pLast;
@@ -54,6 +54,7 @@ public:
 	void			Add(CEDClient* pClient);
 	void			Remove(CEDClient* pClient);
 	void			Clear();
+	int				GetCount() const;
 	bool			PushTo(DWORD nClientID, WORD nClientPort);
 	CEDClient*		GetByIP(const IN_ADDR* pAddress) const;
 	CEDClient*		Connect(DWORD nClientID, WORD nClientPort, IN_ADDR* pServerAddress, WORD nServerPort, const Hashes::Guid& oGUID);

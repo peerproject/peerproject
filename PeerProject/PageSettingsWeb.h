@@ -1,7 +1,7 @@
 //
 // PageSettingsWeb.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -39,12 +39,14 @@ public:
 	CButton	m_wndExtRemove;
 	CButton	m_wndExtAdd;
 	CComboBox	m_wndExtensions;
+	BOOL	m_bWebHook;
 	BOOL	m_bUriMagnet;
 	BOOL	m_bUriGnutella;
 	BOOL	m_bUriED2K;
-	BOOL	m_bWebHook;
+	BOOL	m_bUriDC;
 	BOOL	m_bUriPiolet;
 	BOOL	m_bUriTorrent;
+//	BOOL	m_bUriMetalink;
 	//}}AFX_DATA
 
 // Overrides
@@ -68,5 +70,4 @@ protected:
 	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()
-
 };
