@@ -524,7 +524,7 @@ bool CLibraryBuilder::HashFile(LPCTSTR szPath, HANDLE hFile)
 		{
 			// Calculation of compensation delay
 			QWORD nSpeed = ( m_nReaded * 1000000ull ) / m_nElapsed;	// B/s
-			QWORD nMaxSpeed = 1024 * 1024 * (  m_bPriority ?
+			QWORD nMaxSpeed = 1024 * 1024 * ( m_bPriority ?
 				Settings.Library.HighPriorityHashing :
 				Settings.Library.LowPriorityHashing );				// B/s
 			if ( nMaxSpeed && nSpeed > nMaxSpeed )
@@ -1043,7 +1043,7 @@ bool CLibraryBuilder::DetectVirtualLAME(HANDLE hFile, QWORD& nOffset, QWORD& nLe
 	}
 
 	// Remove trailing bytes
-	for ( ;  ; )
+	for ( ; ; )
 	{
 		nNewOffset.LowPart = (LONG)( ( nOffset + nLength - 1 ) & 0xFFFFFFFF );
 		nNewOffset.HighPart = (LONG)( ( nOffset + nLength - 1 ) >> 32 );

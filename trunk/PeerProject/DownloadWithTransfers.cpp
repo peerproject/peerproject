@@ -1,7 +1,7 @@
 //
 // DownloadWithTransfers.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -419,7 +419,7 @@ BOOL CDownloadWithTransfers::OnAcceptPush(const Hashes::Guid& oClientID, CConnec
 	{
 		pSource = GetNext( posSource );
 
-		if ( pSource->m_nProtocol == PROTOCOL_HTTP && pSource->CheckPush( oClientID ) )
+		if ( pSource->CheckPush( oClientID ) )
 			break;
 
 		pSource = NULL;
@@ -457,7 +457,6 @@ BOOL CDownloadWithTransfers::OnDonkeyCallback(const CEDClient* pClient, CDownloa
 	if ( pDownload->IsMoving() || pDownload->IsPaused() ) return FALSE;
 
 	CDownloadSource* pSource = NULL;
-//	DWORD tNow = GetTickCount();
 
 	for ( POSITION posSource = GetIterator(); posSource ; )
 	{

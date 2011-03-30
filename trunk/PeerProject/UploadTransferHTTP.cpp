@@ -219,27 +219,27 @@ BOOL CUploadTransferHTTP::OnHeaderLine(CString& strHeader, CString& strValue)
 	// Expected Headers
 	SwitchMap( Text )
 	{
-		Text[ _T("connection") ]			= 'c';
-		Text[ _T("accept") ]				= 'a';
-		Text[ _T("accept-encoding") ]		= 'e';
-		Text[ _T("range") ]					= 'r';
-		Text[ _T("content-urn") ]			= 'u';
-		Text[ _T("x-content-urn") ]			= 'u';
-		Text[ _T("x-gnutella-content-urn") ] = 'u';
-		Text[ _T("x-gnutella-alternate-location") ] = 'l';
-		Text[ _T("alt-location") ]			= 'a';
-		Text[ _T("x-alt") ]					= 'a';
-		Text[ _T("x-nalt") ]				= 's';
-		Text[ _T("x-nick") ]				= 'n';
-		Text[ _T("x-name") ]				= 'n';
-		Text[ _T("x-username") ]			= 'n';
-		Text[ _T("x-features") ]			= 'f';
-		Text[ _T("x-queue") ]				= 'q';
+		Text[ L"connection" ]			= 'c';
+		Text[ L"accept" ]				= 'a';
+		Text[ L"accept-encoding" ]		= 'e';
+		Text[ L"range" ]				= 'r';
+		Text[ L"content-urn" ]			= 'u';
+		Text[ L"x-content-urn" ]		= 'u';
+		Text[ L"x-gnutella-content-urn" ] = 'u';
+		Text[ L"x-gnutella-alternate-location" ] = 'l';
+		Text[ L"alt-location" ]			= 'a';
+		Text[ L"x-alt" ]				= 'a';
+		Text[ L"x-nalt" ]				= 's';
+		Text[ L"x-nick" ]				= 'n';
+		Text[ L"x-name" ]				= 'n';
+		Text[ L"x-username" ]			= 'n';
+		Text[ L"x-features" ]			= 'f';
+		Text[ L"x-queue" ]				= 'q';
 
-		Text[ _T("x-node") ]				= 'z';
-		Text[ _T("x-palt") ]				= 'x';
-		Text[ _T("fp-1a") ]					= 'x';
-		Text[ _T("fp-auth-challenge") ]		= 'x';
+		Text[ L"x-node" ]				= 'z';
+		Text[ L"x-palt" ]				= 'x';
+		Text[ L"fp-1a" ]				= 'x';
+		Text[ L"fp-auth-challenge" ]	= 'x';
 	}
 
 	switch( Text[ strCase ] )
@@ -381,7 +381,7 @@ BOOL CUploadTransferHTTP::OnHeadersComplete()
 			// so they can download from (but not upload to) clients connected to G2.
 			m_nGnutella = 1;
 
-			if ( ! Settings.Gnutella1.EnableToday )
+			if ( ! Settings.Gnutella1.Enabled )
 			{
 				// Terminate the connection and do not try to download from them.
 				SendResponse( IDR_HTML_FILENOTFOUND );
@@ -718,8 +718,8 @@ BOOL CUploadTransferHTTP::IsNetworkDisabled()
 {
 	if ( ! Network.IsConnected() ) return TRUE;
 	if ( Settings.Connection.RequireForTransfers == FALSE ) return FALSE;
-	if ( ( m_nGnutella & 2 ) && Settings.Gnutella2.EnableToday ) return FALSE;
-	if ( ( m_nGnutella & 1 ) && Settings.Gnutella1.EnableToday ) return FALSE;
+	if ( ( m_nGnutella & 2 ) && Settings.Gnutella2.Enabled ) return FALSE;
+	if ( ( m_nGnutella & 1 ) && Settings.Gnutella1.Enabled ) return FALSE;
 	return TRUE;
 }
 
@@ -1084,7 +1084,7 @@ void CUploadTransferHTTP::SendFileHeaders()
 		Write( _P("X-Thex-URI: /gnutella/thex/v1?") );
 		Write( m_oTiger.toUrn() );
 		Write( _P("&depth=9&ed2k=0;") );
-		Write(  m_oTiger.toString() );
+		Write( m_oTiger.toString() );
 		Write( _P("\r\n") );
 	}
 

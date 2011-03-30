@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Finnish Skin File -->
 
-<!-- Translation based on default-en.xml r64 (Shareaza 2.1.3.7) -->
+<!-- Translation based on default-en.xml r65 (Shareaza 2.1.3.7) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -351,6 +351,7 @@
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
+		<button id="ID_NETWORK_DC" text="DC++"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Asetukset"/>
 	</toolbar>
@@ -379,20 +380,16 @@
 		<button id="ID_SEARCH_FILTER_RAW" text="Lisää..."/>
 	</toolbar>
 	<!-- HOST CACHE WINDOW -->
-	<toolbar name="CHostCacheWnd.Basic">
-		<button id="ID_HOSTCACHE_CONNECT" text="Yhdistä..."/>
-		<button id="ID_HOSTCACHE_DISCONNECT" text="Katkaise Yhteys"/>
-		<button id="ID_HOSTCACHE_REMOVE" text="Poista"/>
-	</toolbar>
 	<toolbar name="CHostCacheWnd">
 		<button id="ID_HOSTCACHE_CONNECT" text="Yhdistä..."/>
 		<button id="ID_HOSTCACHE_DISCONNECT" text="Katkaise Yhteys"/>
 		<button id="ID_HOSTCACHE_REMOVE" text="Poista"/>
 		<rightAlign/>
-		<button id="ID_HOSTCACHE_G2_HORIZON" text="G2 Cluster"/>
-		<button id="ID_HOSTCACHE_G2_CACHE" text="G2 Välimuisti"/>
-		<button id="ID_HOSTCACHE_G1_CACHE" text="G1 Välimuisti"/>
-		<button id="ID_HOSTCACHE_ED2K_CACHE" text="eDonkey Välimuisti"/>
+		<button id="ID_HOSTCACHE_G2_HORIZON" text="Cluster"/>
+		<button id="ID_HOSTCACHE_G2_CACHE" text="Välimuisti"/>
+		<button id="ID_HOSTCACHE_G1_CACHE" text="Välimuisti"/>
+		<button id="ID_HOSTCACHE_ED2K_CACHE" text="Välimuisti"/>
+		<button id="ID_HOSTCACHE_DC_CACHE" text="Hubs"/>
 	</toolbar>
 	<!-- PRIVATE CHAT WINDOW -->
 	<toolbar name="CPrivateChatFrame">
@@ -459,6 +456,7 @@
 				<item id="ID_NETWORK_G2" text="Yhdistä Gnutella_2"/>
 				<item id="ID_NETWORK_G1" text="Yhdistä _Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="Yhdistä _eDonkey2000"/>
+				<item id="ID_NETWORK_DC" text="Yhdistä _DC++"/>
 				<separator/>
 				<item id="ID_NETWORK_CONNECT_TO" text="Yhdistä..." shortcut="Ctrl+T"/>
 				<item id="ID_NETWORK_BROWSE_TO" text="_Selaa Käyttäjää"/>
@@ -541,11 +539,10 @@
 			<item id="ID_NETWORK_CONNECT" text="_Yhdistä" shortcut="Ctrl+G"/>
 			<item id="ID_NETWORK_DISCONNECT" text="_Katkaise Yhteys"/>
 			<separator/>
-			<menu text="Valitse _Verkot">
-				<item id="ID_NETWORK_G2" text="Yhdistä _Gnutella2"/>
-				<item id="ID_NETWORK_G1" text="Yhdistä Gnutella1"/>
-				<item id="ID_NETWORK_ED2K" text="Yhdistä _eDonkey2000"/>
-			</menu>
+			<item id="ID_NETWORK_G2" text="Yhdistä Gnutella_2"/>
+			<item id="ID_NETWORK_G1" text="Yhdistä _Gnutella"/>
+			<item id="ID_NETWORK_ED2K" text="Yhdistä _eDonkey2000"/>
+			<item id="ID_NETWORK_DC" text="Yhdistä _DC++"/>
 			<separator/>
 			<item id="ID_NETWORK_CONNECT_TO" text="Yhdistä..." shortcut="Ctrl+T"/>
 			<item id="ID_NETWORK_BROWSE_TO" text="_Selaa Käyttäjää"/>
@@ -631,11 +628,9 @@
 		<menu text="_Verkko">
 			<item id="ID_NETWORK_CONNECT" text="_Yhdistä" shortcut="Ctrl+G"/>
 			<separator/>
-			<menu text="Valitse _Verkot">
-				<item id="ID_NETWORK_G2" text="Yhdistä Gnutella_2"/>
-				<item id="ID_NETWORK_G1" text="Yhdistä _Gnutella"/>
-				<item id="ID_NETWORK_ED2K" text="Yhdistä _eDonkey2000"/>
-			</menu>
+			<item id="ID_NETWORK_G2" text="Yhdistä Gnutella_2"/>
+			<item id="ID_NETWORK_G1" text="Yhdistä _Gnutella"/>
+			<item id="ID_NETWORK_ED2K" text="Yhdistä _eDonkey"/>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="Poistu Siirtojen Jälkeen"/>
 			<item id="ID_NETWORK_EXIT" text="P_oistu"/>
@@ -704,11 +699,10 @@
 			<item id="ID_NETWORK_CONNECT_TO" text="Yhdistä.." shortcut="Ctrl+T"/>
 			<item id="ID_NETWORK_BROWSE_TO" text="_Selaa Käyttäjää"/>
 			<separator/>
-			<menu text="Valitse _Verkot">
-				<item id="ID_NETWORK_G2" text="Yhdistä Gnutella_2"/>
-				<item id="ID_NETWORK_G1" text="Yhdistä _Gnutella"/>
-				<item id="ID_NETWORK_ED2K" text="Yhdistä _eDonkey2000"/>
-			</menu>
+			<item id="ID_NETWORK_G2" text="Yhdistä Gnutella_2"/>
+			<item id="ID_NETWORK_G1" text="Yhdistä _Gnutella"/>
+			<item id="ID_NETWORK_ED2K" text="Yhdistä _eDonkey2000"/>
+			<item id="ID_NETWORK_DC" text="Yhdistä _DC++"/>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="Sulje _Siirtojen Jälkeen"/>
 			<item id="ID_NETWORK_EXIT" text="P_oistu"/>
@@ -873,7 +867,7 @@
 		<menu text="_Suodatin">
 			<item id="ID_HOSTCACHE_G2_HORIZON" text="Gnutella2 Cl_uster"/>
 			<item id="ID_HOSTCACHE_G2_CACHE" text="Gnutella_2 Välimuisti"/>
-			<item id="ID_HOSTCACHE_G1_CACHE" text="Gnutella_1 Välimuisti"/>
+			<item id="ID_HOSTCACHE_G1_CACHE" text="_Gnutella Välimuisti"/>
 			<item id="ID_HOSTCACHE_ED2K_CACHE" text="_eDonkey Palvelimet"/>
 		</menu>
 		<separator/>
@@ -1467,6 +1461,10 @@
 			<item id="ID_NETWORK_G2" text="Gnutella_2"/>
 			<item id="ID_NETWORK_G1" text="_Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="_eDonkey2000"/>
+			<item id="ID_NETWORK_DC" text="_DC++"/>
+			<separator/>
+			<item id="ID_VIEW_DISCOVERY" text="Disco_very"/>
+			<item id="ID_VIEW_HOSTS" text="K_äyttäjä Välimuisti"/>
 		</menu>
 		<menu text="_Monitori">
 			<item id="ID_NEIGHBOURS_VIEW_ALL" text="Näytä _Kaikki Liikenne"/>
@@ -2180,14 +2178,13 @@
 	<list name="CHostCacheWnd">
 		<column from="Address" to=""/>
 		<column from="Port" to=""/>
-		<column from="Client" to=""/>
 		<column from="Last Seen" to=""/>
-		<column from="Daily Uptime" to="Aika"/>
+		<column from="Client" to=""/>
 		<column from="Name" to="Nimi"/>
 		<column from="Description" to=""/>
+		<column from="Failures" to=""/>
 		<column from="CurUsers" to=""/>
 		<column from="MaxUsers" to=""/>
-		<column from="Failures" to=""/>
 		<column from="Country" to="Maa"/>
 	</list>
 	<list name="CDiscoveryWnd">
@@ -2247,7 +2244,7 @@
 		<column from="Criteria" to=""/>
 		<column from="Minimum" to=""/>
 		<column from="Transfers" to=""/>
-		<column from="Order" to=""/>
+		<column from="Priority" to=""/>
 	</list>
 	<list name="CAdvancedSettingsList">
 		<column from="Setting" to=""/>

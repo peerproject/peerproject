@@ -3,7 +3,7 @@
 
 <!-- PeerProject/ПеерПројецт Default Serbian Skin File -->
 
-<!-- Translation based on default-en.xml r64 -->
+<!-- Translation based on default-en.xml r65 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -356,6 +356,7 @@
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
+		<button id="ID_NETWORK_DC" text="DC++"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Подешавања"/>
 	</toolbar>
@@ -386,20 +387,16 @@
 		<button id="ID_SEARCH_FILTER_RAW" text="Више ..."/>
 	</toolbar>
 	<!-- HOST CACHE WINDOW -->
-	<toolbar name="CHostCacheWnd.Basic">
-		<button id="ID_HOSTCACHE_CONNECT" text="Повежи се на"/>
-		<button id="ID_HOSTCACHE_DISCONNECT" text="Прекини везу"/>
-		<button id="ID_HOSTCACHE_REMOVE" text="Уклони"/>
-	</toolbar>
 	<toolbar name="CHostCacheWnd">
 		<button id="ID_HOSTCACHE_CONNECT" text="Повежи се на"/>
 		<button id="ID_HOSTCACHE_DISCONNECT" text="Прекини везу"/>
 		<button id="ID_HOSTCACHE_REMOVE" text="Уклони"/>
 		<rightAlign/>
-		<button id="ID_HOSTCACHE_G2_HORIZON" text="G2 Cluster"/>
-		<button id="ID_HOSTCACHE_G2_CACHE" text="G2 Cache"/>
-		<button id="ID_HOSTCACHE_G1_CACHE" text="G1 Cache"/>
-		<button id="ID_HOSTCACHE_ED2K_CACHE" text="eDonkey Cache"/>
+		<button id="ID_HOSTCACHE_G2_HORIZON" text="Cluster"/>
+		<button id="ID_HOSTCACHE_G2_CACHE" text="Cache"/>
+		<button id="ID_HOSTCACHE_G1_CACHE" text="Cache"/>
+		<button id="ID_HOSTCACHE_ED2K_CACHE" text="Cache"/>
+		<button id="ID_HOSTCACHE_DC_CACHE" text="Cache"/>
 	</toolbar>
 	<!-- PRIVATE CHAT WINDOW -->
 	<toolbar name="CPrivateChatFrame">
@@ -474,6 +471,7 @@
 				<item id="ID_NETWORK_G2" text="Повежи се на Gnutellu_2"/>
 				<item id="ID_NETWORK_G1" text="Повежи се на _Gnutellu"/>
 				<item id="ID_NETWORK_ED2K" text="Повежи се на _eDonkey2000"/>
+				<item id="ID_NETWORK_DC" text="Повежи се на _DC++"/>
 				<separator/>
 				<item id="ID_NETWORK_CONNECT_TO" text="Повежи се на ..." shortcut="Ctrl+T"/>
 				<item id="ID_NETWORK_BROWSE_TO" text="Претражи корисника ..."/>
@@ -487,7 +485,7 @@
 				<separator/>
 				<item id="ID_TOOLS_DOWNLOAD" text="_Преузимање фајла/Torrent..."/>
 				<item id="ID_TOOLS_CREATETORRENT" text="_Create .Torrent..."/>
-				<item id="IDC_IMPORT_DOWNLOADS" text="_Увези eMule парцијално преузето..."/>
+				<item id="ID_IMPORT_DOWNLOADS" text="_Увези eMule парцијално преузето..."/>
 				<separator/>
 				<item id="ID_TOOLS_LANGUAGE" text="Изабери _језик ..."/>
 				<item id="ID_TOOLS_SKIN" text="Изабери и_зглед..."/>
@@ -558,11 +556,10 @@
 			<item id="ID_NETWORK_CONNECT" text="_Повежи се" shortcut="Ctrl+G"/>
 			<item id="ID_NETWORK_DISCONNECT" text="_Прекини везу"/>
 			<separator/>
-			<menu text="Odaberi _Mrežu">
-				<item id="ID_NETWORK_G2" text="Повежи се на _Gnutellu2"/>
-				<item id="ID_NETWORK_G1" text="Повежи се на Gnutellu_1"/>
-				<item id="ID_NETWORK_ED2K" text="Повежи се на _eDonkey2000"/>
-			</menu>
+			<item id="ID_NETWORK_G2" text="Повежи се на Gnutellu_2"/>
+			<item id="ID_NETWORK_G1" text="Повежи се на _Gnutellu"/>
+			<item id="ID_NETWORK_ED2K" text="Повежи се на _eDonkey2000"/>
+			<item id="ID_NETWORK_DC" text="Повежи се на _DC++"/>
 			<separator/>
 			<item id="ID_NETWORK_CONNECT_TO" text="Повежи се на ..." shortcut="Ctrl+T"/>
 			<item id="ID_NETWORK_BROWSE_TO" text="Претражи корисника ..."/>
@@ -606,7 +603,7 @@
 		<menu text="Ala_ti">
 			<item id="ID_LIBRARY_FOLDERS" text="Дели _фајлове ..."/>
 			<item id="ID_TOOLS_DOWNLOAD" text="_Преузимање фајла/Torrent..."/>
-			<item id="IDC_IMPORT_DOWNLOADS" text="_Увези eMule парцијално преузето..."/>
+			<item id="ID_IMPORT_DOWNLOADS" text="_Увези eMule парцијално преузето..."/>
 			<item id="ID_OPEN_DOWNLOADS_FOLDER" text="_Отвори фолдер са преузетим фајловима"/>
 			<separator/>
 			<item id="ID_TOOLS_SKIN" text="Изабери и_зглед..."/>
@@ -652,11 +649,9 @@
 		<menu text="_Mreža">
 			<item id="ID_NETWORK_CONNECT" text="_Повежи се" shortcut="Ctrl+G"/>
 			<separator/>
-			<menu text="Odaberi _Mrežu">
-				<item id="ID_NETWORK_G2" text="Повежи се на _Gnutellu2"/>
-				<item id="ID_NETWORK_G1" text="SПовежи се на Gnutellu_1"/>
-				<item id="ID_NETWORK_ED2K" text="Повежи се на _eDonkey2000"/>
-			</menu>
+			<item id="ID_NETWORK_G2" text="Повежи се на Gnutellu_2"/>
+			<item id="ID_NETWORK_G1" text="SПовежи се на _Gnutellu"/>
+			<item id="ID_NETWORK_ED2K" text="Повежи се на _eDonkey"/>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="Изађи _након преузимања"/>
 			<item id="ID_NETWORK_EXIT" text="И_злаз"/>
@@ -726,11 +721,10 @@
 			<item id="ID_NETWORK_CONNECT_TO" text="Повежи се _на ..." shortcut="Ctrl+T"/>
 			<item id="ID_NETWORK_BROWSE_TO" text="_Претражи корисника ..."/>
 			<separator/>
-			<menu text="Odaberite _Mrežu">
-				<item id="ID_NETWORK_G2" text="Spoji se na _Gnutellu2"/>
-				<item id="ID_NETWORK_G1" text="Spoji se na Gnutellu_1"/>
-				<item id="ID_NETWORK_ED2K" text="Spoji se na _eDonkey2000"/>
-			</menu>
+			<item id="ID_NETWORK_G2" text="Spoji se na Gnutellu_2"/>
+			<item id="ID_NETWORK_G1" text="Spoji se na _Gnutellu"/>
+			<item id="ID_NETWORK_ED2K" text="Spoji se na _eDonkey2000"/>
+			<item id="ID_NETWORK_DC" text="Spoji se na _DC++"/>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="Затвори _након преузимања"/>
 			<item id="ID_NETWORK_EXIT" text="И_злаз"/>
@@ -759,7 +753,7 @@
 		<menu text="Ala_ti">
 			<item id="ID_LIBRARY_FOLDERS" text="Deli..."/>
 			<item id="ID_TOOLS_DOWNLOAD" text="Skini/Torrent..."/>
-			<item id="IDC_IMPORT_DOWNLOADS" text="_Import eMule partial downloads..."/>
+			<item id="ID_IMPORT_DOWNLOADS" text="_Import eMule partial downloads..."/>
 			<item id="ID_OPEN_DOWNLOADS_FOLDER" text="_Pokreni completed Downloads folder"/>
 			<separator/>
 			<item id="ID_TOOLS_SKIN" text="Odaberi Izgled..."/>
@@ -1496,6 +1490,10 @@
 			<item id="ID_NETWORK_G2" text="Gnutella_2"/>
 			<item id="ID_NETWORK_G1" text="_Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="_eDonkey2000"/>
+			<item id="ID_NETWORK_DC" text="_DC++"/>
+			<separator/>
+			<item id="ID_VIEW_DISCOVERY" text="Прон_алажење"/>
+			<item id="ID_VIEW_HOSTS" text="Кеш _домаћина"/>
 		</menu>
 		<menu text="Praćenje">
 			<item id="ID_NEIGHBOURS_VIEW_ALL" text="Pok_aži Sav Promet"/>
@@ -1711,12 +1709,20 @@
 		<text group="31" align="middle">Isključeno</text>
 		<text group="32" align="middle">Spajam...</text>
 		<text group="33" align="middle">Spojeno</text>
+		<text group="34" align="middle" id="EDServers">%i Server</text>
 		<newline group="30" gap="2"/>
+		<icon group="60" command="ID_NETWORK_DC"/>
+		<text group="60" align="middle" format="b">&#160;DC++: &#160; </text>
+		<text group="61" align="middle">Isključeno</text>
+		<text group="62" align="middle">Spajam...</text>
+		<text group="63" align="middle">Spojeno</text>
+		<text group="64" align="middle" id="DCHubs">%i hubova</text>
+		<newline group="60" gap="2"/>
 		<group id="2">
 			<para align="center">
-				<newline gap="6"/>
-				<text>Spojen sam već </text>
-				<newline gap="0"/>
+				<newline gap="4"/>
+				<link target="command:ID_TAB_NETWORK">Spojen sam već</link>
+				<newline gap="4"/>
 				<text id="ConnectedHours" format="b">%i </text>
 				<text>sati i </text>
 				<text id="ConnectedMinutes" format="b">%i </text>
@@ -2387,8 +2393,9 @@
 	<tip id="ID_NETWORK_CONNECT" message="Spoji se na mrežu."/>
 	<tip id="ID_NETWORK_CONNECT_TO" message="Spoji se ručno na host..."/>
 	<tip id="ID_NETWORK_DISCONNECT" message="Isključi se sa mreže."/>
-	<tip id="ID_NETWORK_ED2K" message="Spoji se na eDonkey2000 mrežu."/>
 	<tip id="ID_NETWORK_EXIT" message="Ugasi PeerProject"/>
+	<tip id="ID_NETWORK_ED2K" message="Spoji se na eDonkey2000 mrežu."/>
+	<tip id="ID_NETWORK_DC" message="Spoji se na DC++ mrežu."/>
 	<tip id="ID_NETWORK_G1" message="Spoji se na originalnu Gnutella mrežu."/>
 	<tip id="ID_NETWORK_G2" message="Spoji se na Gnutella2 mrežu (preporučeno)."/>
 	<tip id="ID_NETWORK_SEARCH" message="Započnite novu potragu na mreži..."/>
@@ -2533,6 +2540,8 @@
 	<string id="20009" value="od"/> <!-- "1 of 10" -->
 	<string id="20011" value="Auto"/>
 	<string id="20012" value="Прилагоди"/>
+	<string id="20020" value="фајл"/>
+	<string id="20021" value="фајлова"/>
 	<string id="20050" value="Сваки дан"/>
 	<string id="20051" value="Ponedjeljek"/>
 	<string id="20052" value="Utorak"/>
@@ -3171,7 +3180,7 @@
 		<control/>
 		<control caption="Prozirnost:"/>
 		<control/>
-		<control caption="Shadow (restart)"/>
+		<control caption="Shadows"/>
 		<control caption="_Tray:"/>
 		<control caption="Kada pritisnem zatvori:"/>
 		<control caption="Pitaj|Spusti u Tray|Odmah Zatvori|Zatvori tek kada završiš"/>
@@ -3181,9 +3190,9 @@
 	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuBuCoBuBuBuCoBuBuBuEdBu" caption="Kolekcija">
 		<control caption="_Opcije:"/>
 		<control caption="Dopusti drugima da vide šta delite"/>
-		<control caption="Zapamti fascikle"/>
 		<control caption="Prati fascikle moje kolekcije"/>
 		<control caption="Brzi hashing (Koristi više CPU-a)"/>
+		<control caption="Zapamti hashing"/>
 		<control caption="Smart media series detection"/>
 		<control caption="Create ghost files by default"/>
 		<control caption="Korištene Datoteke:"/>
@@ -3234,12 +3243,13 @@
 		<control caption="Cenzuriši prostačenje"/>
 	</dialog>
 	<!--Missing dialog name="CIRCSettingsPage"-->
-	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuCoBuBuSt" caption="Web">
+	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuBuCoBuBuSt" caption="Web">
 		<control caption="Upravljanje _Peer to Peer Linkovima:"/>
 		<control caption="Koristi PeerProject za otvaranje ovih vrsta linkova:"/>
 		<control caption="Magnet ( magnet: )"/>
 		<control caption="Gnutella ( gnutella: )"/>
 		<control caption="eDonkey2000 ( ed2k: )"/>
+		<control caption="DC++ ( dchub:/dcfile: )"/>
 		<control caption="Piolet ( mp2p: )"/>
 		<control caption="BitTorrent ( .torrent )"/>
 		<control caption="Upravitelj Ski_danja:"/>
@@ -4125,7 +4135,8 @@
 		<control caption="Da bi ste delili komletne(seed) datoteke koristeći BitTorrent one moraju prvo biti seeded.Nakon toga Torrent  će se pojaviti kao nova stavaka na Vasoj download listi."/>
 		<control/>
 	</dialog>
-	<dialog name="CTorrentFilesPage" cookie="Sy" caption="Files">
+	<dialog name="CTorrentFilesPage" cookie="StSy" caption="Files">
+		<control/>
 		<control/>
 	</dialog>
 	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="Trackers">
@@ -4315,14 +4326,13 @@
 	<list name="CHostCacheWnd">
 		<column from="Address" to="Adresa"/>
 		<column from="Port" to="Port"/>
-		<column from="Client" to="Klijent"/>
 		<column from="Last Seen" to="Zadnji Put Viđeno"/>
-		<column from="Daily Uptime" to="Vreme"/>
+		<column from="Client" to="Klijent"/>
 		<column from="Name" to="Ime"/>
 		<column from="Description" to="Opis"/>
+		<column from="Failures" to="Neuspesi"/>
 		<column from="CurUsers" to="UprKorisnika"/>
 		<column from="MaxUsers" to="MaxKorisnika"/>
-		<column from="Failures" to="Neuspesi"/>
 		<column from="Country" to="Država"/>
 	</list>
 	<list name="CDiscoveryWnd">
@@ -4382,7 +4392,7 @@
 		<column from="Criteria" to="Kriterijum"/>
 		<column from="Minimum" to="Brzina"/>
 		<column from="Transfers" to="Razmene"/>
-		<column from="Order" to="Naredba"/>
+		<column from="Priority" to="Naredba"/>
 	</list>
 	<list name="CAdvancedSettingsList">
 		<column from="Setting" to="Podešavanje"/>

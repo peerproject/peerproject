@@ -1,7 +1,7 @@
 //
 // Network.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -72,9 +72,11 @@ protected:
 			HOSTENT	m_pHost;
 		};
 	} ResolveStruct;
+
 	typedef CMap< HANDLE, HANDLE, ResolveStruct*, ResolveStruct* > CResolveMap;
-	CResolveMap			m_pLookups;
-	CCriticalSection	m_pLookupsSection;
+
+	CResolveMap					m_pLookups;
+	mutable CCriticalSection	m_pLookupsSection;
 
 	class CJob
 	{
@@ -165,10 +167,11 @@ public:
 	BOOL		AcquireLocalAddress(const IN_ADDR& pAddress);
 	BOOL		Resolve(LPCTSTR pszHost, int nPort, SOCKADDR_IN* pHost, BOOL bNames = TRUE) const;
 	BOOL		AsyncResolve(LPCTSTR pszAddress, WORD nPort, PROTOCOLID nProtocol, BYTE nCommand);
+	UINT		GetResolveCount() const;		// Pending network name resolves queue size
 	BOOL		IsReserved(const IN_ADDR* pAddress, bool bCheckLocal=true) const;
+	BOOL		IsFirewalledAddress(const IN_ADDR* pAddress, BOOL bIncludeSelf = FALSE) const;
 	WORD		RandomPort() const;
 	void		CreateID(Hashes::Guid& oID);
-	BOOL		IsFirewalledAddress(const IN_ADDR* pAddress, BOOL bIncludeSelf = FALSE) const;
 
 	BOOL		GetNodeRoute(const Hashes::Guid& oGUID, CNeighbour** ppNeighbour, SOCKADDR_IN* pEndpoint);
 	BOOL		RoutePacket(CG2Packet* pPacket);

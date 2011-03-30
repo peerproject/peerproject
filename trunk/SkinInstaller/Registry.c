@@ -1,7 +1,7 @@
 // 
 // Registry.c
 // 
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // 
 // Portions of this page have been previously released into the public domain.  
 // You are free to redistribute and modify it without any restrictions
@@ -22,9 +22,9 @@ LSTATUS CreateSkinKeys()
 	TCHAR fullpath[MAX_PATH];
 	TCHAR imagpath[MAX_PATH];
 
-	GetModuleFileName( NULL, filename, sizeof(filename) );
-	_snwprintf( fullpath, sizeof(fullpath), L"\"%s\" \"%%1\"", filename );
-	_snwprintf( imagpath, sizeof(imagpath), L"%s,0", filename );
+	GetModuleFileName( NULL, filename, MAX_PATH );
+	_snwprintf( fullpath, MAX_PATH, L"\"%s\" \"%%1\"", filename );
+	_snwprintf( imagpath, MAX_PATH, L"%s,0", filename );
 
 	rtn = CreateHKCRKey( L"SOFTWARE\\Classes\\.sks", L"", L"PeerProject.SkinFile" );
 	rtn = CreateHKCRKey( L"SOFTWARE\\Classes\\.psk", L"", L"PeerProject.SkinFile" );
@@ -63,10 +63,9 @@ LSTATUS DeleteSkinKeys()
 static LSTATUS CreateHKCRKey(LPCTSTR lpSubKey, LPTSTR lpClass, LPTSTR lpData)
 {
 	HKEY keyHandle;
-	LSTATUS rtn;
 	DWORD aLen;
 
-	rtn = RegCreateKeyEx( HKEY_CURRENT_USER, lpSubKey, 0, NULL, 0, KEY_ALL_ACCESS, NULL, &keyHandle, NULL );
+	LSTATUS rtn = RegCreateKeyEx( HKEY_CURRENT_USER, lpSubKey, 0, NULL, 0, KEY_ALL_ACCESS, NULL, &keyHandle, NULL );
 	if ( rtn != ERROR_SUCCESS ) return rtn;
 
 	aLen = (DWORD)wcslen(lpData) * sizeof(TCHAR) + 1;
@@ -79,9 +78,8 @@ static LSTATUS CreateHKCRKey(LPCTSTR lpSubKey, LPTSTR lpClass, LPTSTR lpData)
 static LSTATUS DeleteHKCRKey(LPCTSTR lpSubKey, LPTSTR lpClass)
 {
 	HKEY keyHandle;
-	LSTATUS rtn;
 
-	rtn = RegOpenKeyEx( HKEY_CURRENT_USER, lpSubKey, 0, KEY_ALL_ACCESS, &keyHandle );
+	LSTATUS rtn = RegOpenKeyEx( HKEY_CURRENT_USER, lpSubKey, 0, KEY_ALL_ACCESS, &keyHandle );
 	if ( rtn != ERROR_SUCCESS ) return rtn;
 
 	RegDeleteKey( keyHandle, lpClass );

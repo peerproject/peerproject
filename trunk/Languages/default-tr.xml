@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Turkish Skin File -->
 
-<!-- Translation based on default-en.xml r64 -->
+<!-- Translation based on default-en.xml r65 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -360,6 +360,7 @@
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
+		<button id="ID_NETWORK_DC" text="DC++"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Ayarlar"/>
 	</toolbar>
@@ -390,22 +391,16 @@
 		<button id="ID_SEARCH_FILTER_RAW" text="Dahası..."/>
 	</toolbar>
 	<!-- HOST CACHE WINDOW -->
-	<toolbar name="CHostCacheWnd.Basic">
-		<button id="ID_HOSTCACHE_CONNECT" text="Bağlan"/>
-		<button id="ID_HOSTCACHE_DISCONNECT" text="Bağlantı Kes"/>
-		<button id="ID_HOSTCACHE_REMOVE" text="Ayrıl"/>
-	</toolbar>
 	<toolbar name="CHostCacheWnd">
 		<button id="ID_HOSTCACHE_CONNECT" text="Bağlan"/>
 		<button id="ID_HOSTCACHE_DISCONNECT" text="Bağlantı Kes"/>
 		<button id="ID_HOSTCACHE_REMOVE" text="Ayrıl"/>
 		<rightAlign/>
-		<button id="ID_HOSTCACHE_G2_HORIZON" text="G2 Kümesi"/>
-		<button id="ID_HOSTCACHE_G2_CACHE" text="G2 Bellek"/>
-		<button id="ID_HOSTCACHE_G1_CACHE" text="G1 Bellek"/>
-		<button id="ID_HOSTCACHE_ED2K_CACHE" text="eDonkey Bellek"/>
-		<button id="ID_HOSTCACHE_BT_CACHE" text="BitTorrent Bellek"/>
-		<button id="ID_HOSTCACHE_KAD_CACHE" text="Kademlia Bellek"/>
+		<button id="ID_HOSTCACHE_G2_HORIZON" text="Kümesi"/>
+		<button id="ID_HOSTCACHE_G2_CACHE" text="Bellek"/>
+		<button id="ID_HOSTCACHE_G1_CACHE" text="Bellek"/>
+		<button id="ID_HOSTCACHE_ED2K_CACHE" text="Bellek"/>
+		<button id="ID_HOSTCACHE_DC_CACHE" text="Bellek"/>
 	</toolbar>
 	<!-- PRIVATE CHAT WINDOW -->
 	<toolbar name="CPrivateChatFrame">
@@ -507,6 +502,7 @@
 				<item id="ID_NETWORK_G2" text="Gnutella2 ağına bağlan"/>
 				<item id="ID_NETWORK_G1" text="Gnutella1 ağına bağlan"/>
 				<item id="ID_NETWORK_ED2K" text="eDonkey2000 ağına bağlan"/>
+				<item id="ID_NETWORK_DC" text="DC++ ağına bağlan"/>
 				<separator/>
 				<item id="ID_NETWORK_CONNECT_TO" text="Bağlan..." shortcut="Ctrl+T"/>
 				<item id="ID_NETWORK_BROWSE_TO" text="Hosta Gözat..."/>
@@ -521,7 +517,7 @@
 				<item id="ID_TOOLS_DOWNLOAD" text="Dosya/Torrent İndir..."/>
 				<item id="ID_TOOLS_SEEDTORRENT" text="Yeni Torrent Seed et..."/>
 				<item id="ID_TOOLS_CREATETORRENT" text="_Create New .Torrent..."/>
-				<item id="IDC_IMPORT_DOWNLOADS" text="eMule indirim bölümlerini içe aktar..."/>
+				<item id="ID_IMPORT_DOWNLOADS" text="eMule indirim bölümlerini içe aktar..."/>
 				<separator/>
 				<item id="ID_TOOLS_LANGUAGE" text="Dil Seçimi..."/>
 				<item id="ID_TOOLS_SKIN" text="Arayüz Seçimi..."/>
@@ -590,11 +586,10 @@
 			<item id="ID_NETWORK_CONNECT" text="_Bağlan" shortcut="Ctrl+G"/>
 			<item id="ID_NETWORK_DISCONNECT" text="Bağ_lantı Kes"/>
 			<separator/>
-			<menu text="Choose _Networks">
-				<item id="ID_NETWORK_G2" text="Bağlan Gnutella_2"/>
-				<item id="ID_NETWORK_G1" text="Bağlan _Gnutella"/>
-				<item id="ID_NETWORK_ED2K" text="Bağlan _eDonkey2000"/>
-			</menu>
+			<item id="ID_NETWORK_G2" text="Bağlan Gnutella_2"/>
+			<item id="ID_NETWORK_G1" text="Bağlan _Gnutella"/>
+			<item id="ID_NETWORK_ED2K" text="Bağlan _eDonkey2000"/>
+			<item id="ID_NETWORK_DC" text="Bağlan _DC++"/>
 			<separator/>
 			<item id="ID_NETWORK_CONNECT_TO" text="B_ağlan..." shortcut="Ctrl+T"/>
 			<item id="ID_NETWORK_BROWSE_TO" text="_Hosta Gözat..."/>
@@ -639,7 +634,7 @@
 		<menu text="_Araçlar">
 			<item id="ID_LIBRARY_FOLDERS" text="_Paylaşılan Dosyalar..."/>
 			<item id="ID_TOOLS_DOWNLOAD" text="_Dosya/Torrent İndir..."/>
-			<item id="IDC_IMPORT_DOWNLOADS" text="_eMule indirim bölümlerini içe aktar..."/>
+			<item id="ID_IMPORT_DOWNLOADS" text="_eMule indirim bölümlerini içe aktar..."/>
 			<item id="ID_OPEN_DOWNLOADS_FOLDER" text="_Tamamlanan indirimler dosyamı aç"/>
 			<separator/>
 			<item id="ID_TOOLS_SKIN" text="_Arayüz Seçimi..."/>
@@ -688,11 +683,9 @@
 		<menu text="_Ağ">
 			<item id="ID_NETWORK_CONNECT" text="_Bağlan" shortcut="Ctrl+G"/>
 			<separator/>
-			<menu text="Ağını _Seç">
-				<item id="ID_NETWORK_G2" text="Bağlan Gnutella_2"/>
-				<item id="ID_NETWORK_G1" text="Bağlan _Gnutella"/>
-				<item id="ID_NETWORK_ED2K" text="Bağlan _eDonkey2000"/>
-			</menu>
+			<item id="ID_NETWORK_G2" text="Bağlan Gnutella_2"/>
+			<item id="ID_NETWORK_G1" text="Bağlan _Gnutella"/>
+			<item id="ID_NETWORK_ED2K" text="Bağlan _eDonkey"/>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="Çıkış _Transferden Sonra"/>
 			<item id="ID_NETWORK_EXIT" text="Çı_kış"/>
@@ -766,11 +759,10 @@
 			<item id="ID_NETWORK_CONNECT_TO" text="Bağlan..." shortcut="Ctrl+T"/>
 			<item id="ID_NETWORK_BROWSE_TO" text="_Hosta Gözat..."/>
 			<separator/>
-			<menu text="_Ağ Seç">
-				<item id="ID_NETWORK_G2" text="Bağlan Gnutella_2"/>
-				<item id="ID_NETWORK_G1" text="Bağlan _Gnutella"/>
-				<item id="ID_NETWORK_ED2K" text="Bağlan _eDonkey2000"/>
-			</menu>
+			<item id="ID_NETWORK_G2" text="Bağlan Gnutella_2"/>
+			<item id="ID_NETWORK_G1" text="Bağlan _Gnutella"/>
+			<item id="ID_NETWORK_ED2K" text="Bağlan _eDonkey2000"/>
+			<item id="ID_NETWORK_DC" text="Bağlan _DC++"/>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="Kapat _Transferden Sonra"/>
 			<item id="ID_NETWORK_EXIT" text="Çı_kış"/>
@@ -799,7 +791,7 @@
 		<menu text="A_raçlar">
 			<item id="ID_LIBRARY_FOLDERS" text="_Paylaşılan Dosyalar..."/>
 			<item id="ID_TOOLS_DOWNLOAD" text="_Dosya İndir/Torrent..."/>
-			<item id="IDC_IMPORT_DOWNLOADS" text="_eMule indirim bölümlerini içe aktar..."/>
+			<item id="ID_IMPORT_DOWNLOADS" text="_eMule indirim bölümlerini içe aktar..."/>
 			<item id="ID_OPEN_DOWNLOADS_FOLDER" text="_Tamamlanan indirimler dosyamı aç"/>
 			<separator/>
 			<item id="ID_TOOLS_SKIN" text="A_rayüz Seçimi......"/>
@@ -1549,6 +1541,10 @@
 			<item id="ID_NETWORK_G2" text="Gnutella_2"/>
 			<item id="ID_NETWORK_G1" text="_Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="_eDonkey2000"/>
+			<item id="ID_NETWORK_DC" text="_DC++"/>
+			<separator/>
+			<item id="ID_VIEW_DISCOVERY" text="K_eşif"/>
+			<item id="ID_VIEW_HOSTS" text="Sunucu _Belleği"/>
 		</menu>
 		<menu text="Ek_ran">
 			<item id="ID_NEIGHBOURS_VIEW_ALL" text="_Tüm Aktarımları Görüntüle"/>
@@ -1832,15 +1828,24 @@
 		<text group="31" align="middle">Bağlantı Yok</text>
 		<text group="32" align="middle">Bağlanıyor...</text>
 		<text group="33" align="middle">Bağlandı</text>
+		<text group="34" align="middle" id="EDServers">%i sunucu</text>
 		<newline group="30" gap="2"/>
+		<icon group="60" command="ID_NETWORK_DC"/>
+		<text group="60" align="middle" format="b">&#160;DC++: &#160; </text>
+		<text group="61" align="middle">Bağlantı Yok</text>
+		<text group="62" align="middle">Bağlanıyor...</text>
+		<text group="63" align="middle">Bağlandı</text>
+		<text group="64" align="middle" id="DCHubs">%i hub</text>
+		<newline group="60" gap="2"/>
 		<group id="2">
 			<para align="center">
 				<newline gap="4"/>
-				<text>Bağlantıda </text>
+				<link target="command:ID_TAB_NETWORK">Bağlantıda</link>
+				<newline gap="4"/>
 				<text id="ConnectedHours" format="b">%i </text>
 				<text>saat ve </text>
 				<text id="ConnectedMinutes" format="b">%i </text>
-				<text>dakika bulundunuz</text>
+				<text>dakika</text>
 			</para>
 		</group>
 	</document>
@@ -2486,8 +2491,9 @@
 	<tip id="ID_NETWORK_CONNECT" message="Ağa bağlan."/>
 	<tip id="ID_NETWORK_CONNECT_TO" message="Hosta elle bağlan..."/>
 	<tip id="ID_NETWORK_DISCONNECT" message="Ağla bağlantıyı kes."/>
-	<tip id="ID_NETWORK_ED2K" message="eDonkey2000 ağına bağlan."/>
 	<tip id="ID_NETWORK_EXIT" message="PeerProject'dan çık"/>
+	<tip id="ID_NETWORK_ED2K" message="eDonkey2000 ağına bağlan."/>
+	<tip id="ID_NETWORK_DC" message="DC++ ağına bağlan."/>
 	<tip id="ID_NETWORK_G1" message="Orijinal Gnutella ağına bağlan."/>
 	<tip id="ID_NETWORK_G2" message="Gnutella2 ağına bağlan."/>
 	<tip id="ID_NETWORK_SEARCH" message="Ağda yeni bir arama başlat..."/>
@@ -2651,7 +2657,9 @@
 	<string id="20012" value="Kişisel"/>
 	<string id="20013" value="Temel"/>
 	<string id="20014" value="Sona erdir"/>
-	<string id="20050" value="Every Day"/>
+	<string id="20020" value="Dosya"/>
+	<string id="20021" value="Dosyaları"/>
+	<string id="20050" value="Her Gün"/>
 	<string id="20051" value="Pazartesi"/>
 	<string id="20052" value="Salı"/>
 	<string id="20053" value="Çarşamba"/>
@@ -3380,7 +3388,7 @@
 		<control/>
 		<control caption="Opaklık:"/>
 		<control/>
-		<control caption="Shadow (restart)"/>
+		<control caption="Shadows"/>
 		<control caption="_Boyut:"/>
 		<control caption="Kapattığımda:"/>
 		<control caption="Bana Sor|Boyutu Küçült|Hemen Kapat|Transferden sonra Kapat"/>
@@ -3390,9 +3398,9 @@
 	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuBuCoBuBuBuCoBuBuBuEdBu" caption="Kütüphane">
 		<control caption="_Seçenekler:"/>
 		<control caption="Başkaları görüntüleyebilmek için izin"/>
-		<control caption="Klasör görünümlerini hatırla"/>
 		<control caption="Kütüphane klasörlerini izle"/>
 		<control caption="Hızlı tarama (Daha fazla CPU kullanır)"/>
+		<control caption="Klasör görünümlerini hızlı"/>
 		<control caption="Zeki video serileri tespiti"/>
 		<control caption="Silerken hayalet dosya yarat"/>
 		<control caption="_Güncel Dosyalar:"/>
@@ -3486,13 +3494,14 @@
 		<control caption="on-connect"/>
 		<control/>
 	</dialog>
-	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuCoBuBuSt" caption="Web">
+	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuBuCoBuBuSt" caption="Web">
 		<control caption="E_şli bağlantı kullanılıyor:"/>
 		<control caption="Bu bağlantı türlerini açmak için PeerProject kullan:"/>
 		<control caption="Magnet ( magnet: )"/>
 		<control caption="Gnutella ( gnutella: )"/>
 		<control caption="eDonkey2000 ( ed2k: )"/>
 		<control caption="Piolet ( mp2p: )"/>
+		<control caption="DC++ ( dchub:/dcfile: )"/>
 		<control caption="BitTorrent ( .torrent )"/>
 		<control caption="_İndirme Yönetimi:"/>
 		<control caption="Tüm web indirmelerinin yönetiminde PeerProject'yı kullan:"/>
@@ -4381,7 +4390,8 @@
 		<control caption="Dosyaları tam paylaşmak için BitTorrent köken olmalıdır. Bir kere bu iş indirme listenizde yeni bir parça gibi görünecek tam Torent'dır."/>
 		<control/>
 	</dialog>
-	<dialog name="CTorrentFilesPage" cookie="Sy" caption="Files">
+	<dialog name="CTorrentFilesPage" cookie="StSy" caption="Files">
+		<control/>
 		<control/>
 	</dialog>
 	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="Trackers">
@@ -4569,14 +4579,13 @@
 	<list name="CHostCacheWnd">
 		<column from="Address" to="Adres"/>
 		<column from="Port" to="Port"/>
-		<column from="Client" to="İstemci"/>
 		<column from="Last Seen" to="Son Görüşülen"/>
-		<column from="Daily Uptime" to=""/>
+		<column from="Client" to="İstemci"/>
 		<column from="Name" to="İsim"/>
 		<column from="Description" to="Açıklama"/>
+		<column from="Failures" to="Sorunlar"/>
 		<column from="CurUsers" to="Güncel Kullanıcılar"/>
 		<column from="MaxUsers" to="Maksimum Kullanıcılar"/>
-		<column from="Failures" to="Sorunlar"/>
 		<column from="Country" to="Ülke"/>
 	</list>
 	<list name="CDiscoveryWnd">
@@ -4636,7 +4645,7 @@
 		<column from="Criteria" to="Kriter"/>
 		<column from="Minimum" to="Bantgenişliği"/>
 		<column from="Transfers" to="Transferler"/>
-		<column from="Order" to="Düzen"/>
+		<column from="Priority" to="Düzen"/>
 	</list>
 	<list name="CAdvancedSettingsList">
 		<column from="Setting" to="Ayar"/>

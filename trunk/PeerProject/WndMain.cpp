@@ -127,6 +127,7 @@ BEGIN_MESSAGE_MAP(CMainWnd, CMDIFrameWnd)
 	ON_WM_WINDOWPOSCHANGING()
 	ON_MESSAGE(WM_WINSOCK, OnWinsock)
 	ON_MESSAGE(WM_URL, OnHandleURL)
+	ON_MESSAGE(WM_IMPORT, OnHandleImport)
 	ON_MESSAGE(WM_TORRENT, OnHandleTorrent)
 	ON_MESSAGE(WM_COLLECTION, OnHandleCollection)
 	ON_MESSAGE(WM_VERSIONCHECK, OnVersionCheck)
@@ -203,8 +204,8 @@ BEGIN_MESSAGE_MAP(CMainWnd, CMDIFrameWnd)
 	ON_COMMAND(ID_NETWORK_AUTO_CLOSE, OnNetworkAutoClose)
 	ON_UPDATE_COMMAND_UI(ID_TOOLS_DOWNLOAD, OnUpdateToolsDownload)
 	ON_COMMAND(ID_TOOLS_DOWNLOAD, OnToolsDownload)
-	ON_UPDATE_COMMAND_UI(IDC_IMPORT_DOWNLOADS, OnUpdateToolsImportDownloads)
-	ON_COMMAND(IDC_IMPORT_DOWNLOADS, OnToolsImportDownloads)
+	ON_UPDATE_COMMAND_UI(ID_IMPORT_DOWNLOADS, OnUpdateToolsImportDownloads)
+	ON_COMMAND(ID_IMPORT_DOWNLOADS, OnToolsImportDownloads)
 	ON_UPDATE_COMMAND_UI(ID_OPEN_DOWNLOADS_FOLDER, OnUpdateOpenDownloadsFolder)
 	ON_COMMAND(ID_OPEN_DOWNLOADS_FOLDER, OnOpenDownloadsFolder)
 	ON_UPDATE_COMMAND_UI(ID_VIEW_SECURITY, OnUpdateViewSecurity)
@@ -265,6 +266,8 @@ BEGIN_MESSAGE_MAP(CMainWnd, CMDIFrameWnd)
 	ON_COMMAND(ID_NETWORK_G1, OnNetworkG1)
 	ON_UPDATE_COMMAND_UI(ID_NETWORK_ED2K, OnUpdateNetworkED2K)
 	ON_COMMAND(ID_NETWORK_ED2K, OnNetworkED2K)
+	ON_UPDATE_COMMAND_UI(ID_NETWORK_DC, OnUpdateNetworkDC)
+	ON_COMMAND(ID_NETWORK_DC, OnNetworkDC)
 	ON_UPDATE_COMMAND_UI(ID_VIEW_BASIC, OnUpdateViewBasic)
 	ON_COMMAND(ID_VIEW_BASIC, OnViewBasic)
 	ON_UPDATE_COMMAND_UI(ID_LIBRARY_HASH_PRIORITY, OnUpdateLibraryHashPriority)
@@ -1187,20 +1190,20 @@ LRESULT CMainWnd::OnHandleURL(WPARAM wParam, LPARAM /*lParam*/)
 	return 0;
 }
 
-//LRESULT CMainWnd::OnHandleImport(WPARAM wParam, LPARAM /*lParam*/)
-//{
-//	LPTSTR pszPath = (LPTSTR)wParam;
-//
-//	CWaitCursor wc;
-//	HostCache.Import( pszPath );
-//
-//	delete [] pszPath;
-//
-//	if ( CHostCacheWnd* pCacheWnd = (CHostCacheWnd*)m_pWindows.Open( RUNTIME_CLASS(CHostCacheWnd) ) )
-//		pCacheWnd->Update( TRUE );
-//
-//	return 0;
-//}
+LRESULT CMainWnd::OnHandleImport(WPARAM wParam, LPARAM /*lParam*/)
+{
+	LPTSTR pszPath = (LPTSTR)wParam;
+
+	CWaitCursor wc;
+	HostCache.Import( pszPath );
+
+	delete [] pszPath;
+
+	if ( CHostCacheWnd* pCacheWnd = (CHostCacheWnd*)m_pWindows.Open( RUNTIME_CLASS(CHostCacheWnd) ) )
+		pCacheWnd->Update( TRUE );
+
+	return 0;
+}
 
 LRESULT CMainWnd::OnHandleCollection(WPARAM wParam, LPARAM /*lParam*/)
 {
@@ -1391,7 +1394,7 @@ void CMainWnd::UpdateMessages()
 		else if ( Network.IsConnected() )
 		{
 			// If only BitTorrent is enabled say connected (G1, G2, eDonkey are disabled)
-			if ( ! Settings.Gnutella1.EnableToday && ! Settings.Gnutella2.EnableToday && ! Settings.eDonkey.EnableToday )
+			if ( ! Settings.Gnutella1.Enabled && ! Settings.Gnutella2.Enabled && ! Settings.eDonkey.Enabled )
 				strMessage.Format( LoadString( IDS_STATUS_BAR_CONNECTED_SIMPLE ),
 					Settings.SmartVolume( nLocalVolume, KiloBytes ) );
 			else	// Trying to connect
@@ -1463,23 +1466,23 @@ void CMainWnd::LocalSystemChecks()
 	static DWORD nConnectionFailCount = 0;	// Counter for times a connection problem has been detected
 
 	// Check disk space
-	if ( Settings.Live.DiskSpaceStop == FALSE )
+	if ( ! Settings.Live.DiskSpaceStop )
 	{
 		if ( ! Downloads.IsSpaceAvailable( (QWORD)Settings.General.DiskSpaceStop * 1024 * 1024 ) )
 		{
 			CSingleLock pLock( &Transfers.m_pSection );
 			if ( pLock.Lock( 250 ) )
 			{
-				Settings.Live.DiskSpaceStop = TRUE;
+				Settings.Live.DiskSpaceStop = true;
 				Downloads.PauseAll();
 			}
 		}
 	}
-	if ( Settings.Live.DiskSpaceWarning == FALSE )
+	if ( ! Settings.Live.DiskSpaceWarning )
 	{
 		if ( ! Downloads.IsSpaceAvailable( (QWORD)Settings.General.DiskSpaceWarning * 1024 * 1024 ) )
 		{
-			Settings.Live.DiskSpaceWarning = TRUE;
+			Settings.Live.DiskSpaceWarning = true;
 			PostMessage( WM_COMMAND, ID_HELP_DISKSPACE );
 		}
 	}
@@ -1494,7 +1497,7 @@ void CMainWnd::LocalSystemChecks()
 		if ( ( nCompleteAttributes == INVALID_FILE_ATTRIBUTES ) ||  ( nIncompleteAttributes == INVALID_FILE_ATTRIBUTES ) ||
 			!( nCompleteAttributes & FILE_ATTRIBUTE_DIRECTORY ) || !( nIncompleteAttributes & FILE_ATTRIBUTE_DIRECTORY ) )
 		{
-			Settings.Live.DiskWriteWarning = TRUE;
+			Settings.Live.DiskWriteWarning = true;
 			PostMessage( WM_COMMAND, ID_HELP_DISKWRITEFAIL );
 		}
 		//else
@@ -1538,7 +1541,7 @@ void CMainWnd::LocalSystemChecks()
 		else
 		{
 			// We are not currently connected. Check if we disconnected because of failure and want to re-connect.
-			if ( ( nConnectionFailCount > 0 ) && ( Settings.Connection.DetectConnectionReset ) )
+			if ( nConnectionFailCount > 0 && Settings.Connection.DetectConnectionReset )
 			{
 				// See if we can reconnect
 				if ( Network.IsAvailable() )
@@ -1552,16 +1555,16 @@ void CMainWnd::LocalSystemChecks()
 	}
 
 	// Check we have donkey servers
-	if ( Settings.Live.DefaultED2KServersLoaded == FALSE )
+	if ( ! Settings.Live.DefaultED2KServersLoaded )
 	{
-		Settings.Live.DefaultED2KServersLoaded  = TRUE;
+		Settings.Live.DefaultED2KServersLoaded = true;
 		HostCache.CheckMinimumED2KServers();
 	}
 
-	if ( ( Settings.Live.DonkeyServerWarning == FALSE ) && ( Settings.eDonkey.EnableToday ) )
+	if ( ! Settings.Live.DonkeyServerWarning && Settings.eDonkey.Enabled )
 	{
-		Settings.Live.DonkeyServerWarning = TRUE;
-		if ( ( ! Settings.eDonkey.MetAutoQuery ) && ( HostCache.eDonkey.CountHosts(TRUE) < 1 ) )
+		Settings.Live.DonkeyServerWarning = true;
+		if ( ! Settings.eDonkey.MetAutoQuery && HostCache.eDonkey.CountHosts(TRUE) < 1 )
 			PostMessage( WM_COMMAND, ID_HELP_DONKEYSERVERS );
 	}
 
@@ -1605,10 +1608,10 @@ void CMainWnd::OnUpdateNetworkConnect(CCmdUI* pCmdUI)
 	pCmdUI->Enable( TRUE );
 
 	UINT nTextID = 0;
-	bool bNetworksEnabled = ( Settings.Gnutella1.EnableToday || Settings.Gnutella2.EnableToday || Settings.eDonkey.EnableToday );
 
 	if ( Network.IsConnected() &&
-		( Network.IsWellConnected() || ! bNetworksEnabled ) )	// If Network.IsWellConnected() or G1, G2, eDonkey are disabled and only BitTorrent is enabled say connected
+		( Network.IsWellConnected() ||	// If well connected or only BitTorrent is enabled (G1, G2, eDonkey, DC are disabled) say connected
+		( Settings.BitTorrent.Enabled && ! Settings.Gnutella2.Enabled && ! Settings.Gnutella1.Enabled && ! Settings.eDonkey.Enabled && ! Settings.DC.Enabled ) ) )
 	{
 		nTextID = IDS_NETWORK_CONNECTED;
 		pCmdUI->SetCheck( TRUE );
@@ -1679,12 +1682,12 @@ void CMainWnd::OnNetworkChatTo()
 
 void CMainWnd::OnUpdateNetworkG2(CCmdUI* pCmdUI)
 {
-	pCmdUI->SetCheck( Settings.Gnutella2.EnableToday );
+	pCmdUI->SetCheck( Settings.Gnutella2.Enabled );
 }
 
 void CMainWnd::OnNetworkG2()
 {
-	if ( Settings.Gnutella2.EnableToday )
+	if ( Settings.Gnutella2.Enabled )
 	{
 		CString strMessage;
 		LoadString( strMessage, IDS_NETWORK_DISABLE_G2 );
@@ -1693,9 +1696,9 @@ void CMainWnd::OnNetworkG2()
 			return;
 	}
 
-	Settings.Gnutella2.EnableToday = ! Settings.Gnutella2.EnableToday;
+	Settings.Gnutella2.Enabled = ! Settings.Gnutella2.Enabled;
 
-	if ( Settings.Gnutella2.EnableToday )
+	if ( Settings.Gnutella2.Enabled )
 	{
 		if ( ! Network.IsConnected() )
 			Network.Connect( TRUE );
@@ -1706,7 +1709,7 @@ void CMainWnd::OnNetworkG2()
 
 void CMainWnd::OnUpdateNetworkG1(CCmdUI* pCmdUI)
 {
-	pCmdUI->SetCheck( Settings.Gnutella1.EnableToday );
+	pCmdUI->SetCheck( Settings.Gnutella1.Enabled );
 #ifdef LAN_MODE
 	pCmdUI->Enable( FALSE );
 #else // LAN_MODE
@@ -1717,29 +1720,29 @@ void CMainWnd::OnUpdateNetworkG1(CCmdUI* pCmdUI)
 void CMainWnd::OnNetworkG1()
 {
 #ifndef LAN_MODE
-	Settings.Gnutella1.EnableToday = ! Settings.Gnutella1.EnableToday;
+	Settings.Gnutella1.Enabled = ! Settings.Gnutella1.Enabled;
 
-	if ( Settings.Gnutella1.EnableToday )
+	if ( ! Settings.Gnutella1.Enabled )
+		return;
+
+	if ( ! Settings.Gnutella1.EnableAlways )
 	{
-		if ( ! Settings.Gnutella1.EnableAlways )
-		{
-			CString strMessage;
-			LoadString( strMessage, IDS_NETWORK_UNLIMIT );
-			if ( AfxMessageBox( strMessage, MB_ICONQUESTION|MB_YESNO ) == IDYES )
-				Settings.Gnutella1.EnableAlways = true;
-		}
-
-		if ( ! Network.IsConnected() )
-			Network.Connect( TRUE );
-		else
-			DiscoveryServices.Execute( FALSE, PROTOCOL_G1, FALSE );
+		CString strMessage;
+		LoadString( strMessage, IDS_NETWORK_UNLIMIT );
+		if ( AfxMessageBox( strMessage, MB_ICONQUESTION|MB_YESNO ) == IDYES )
+			Settings.Gnutella1.EnableAlways = true;
 	}
+
+	if ( ! Network.IsConnected() )
+		Network.Connect( TRUE );
+	else
+		DiscoveryServices.Execute( FALSE, PROTOCOL_G1, FALSE );
 #endif // LAN_MOD
 }
 
 void CMainWnd::OnUpdateNetworkED2K(CCmdUI* pCmdUI)
 {
-	pCmdUI->SetCheck( Settings.eDonkey.EnableToday );
+	pCmdUI->SetCheck( Settings.eDonkey.Enabled );
 #ifdef LAN_MODE
 	pCmdUI->Enable( FALSE );
 #else  // LAN_MOD
@@ -1750,21 +1753,59 @@ void CMainWnd::OnUpdateNetworkED2K(CCmdUI* pCmdUI)
 void CMainWnd::OnNetworkED2K()
 {
 #ifndef LAN_MODE
-	Settings.eDonkey.EnableToday = ! Settings.eDonkey.EnableToday;
+	Settings.eDonkey.Enabled = ! Settings.eDonkey.Enabled;
 
-	if ( Settings.eDonkey.EnableToday )
+	if ( ! Settings.eDonkey.Enabled )
+		return;
+
+	if ( ! Settings.eDonkey.EnableAlways )
 	{
-		if ( ! Settings.eDonkey.EnableAlways )
-		{
-			CString strMessage;
-			LoadString( strMessage, IDS_NETWORK_UNLIMIT );
-			if ( AfxMessageBox( strMessage, MB_ICONQUESTION|MB_YESNO ) == IDYES )
-				Settings.eDonkey.EnableAlways = true;
-		}
-
-		if ( ! Network.IsConnected() )
-			Network.Connect( TRUE );
+		CString strMessage;
+		LoadString( strMessage, IDS_NETWORK_UNLIMIT );
+		if ( AfxMessageBox( strMessage, MB_ICONQUESTION|MB_YESNO ) == IDYES )
+			Settings.eDonkey.EnableAlways = true;
 	}
+
+	if ( ! Network.IsConnected() )
+		Network.Connect( TRUE );
+#endif // LAN_MOD
+}
+
+void CMainWnd::OnUpdateNetworkDC(CCmdUI* pCmdUI)
+{
+	if ( ! Settings.DC.ShowInterface )
+	{
+		if ( CCoolBarItem* pcCmdUI = CCoolBarItem::FromCmdUI( pCmdUI ) )
+			pcCmdUI->Show( FALSE );
+		return;
+	}
+
+	pCmdUI->SetCheck( Settings.DC.Enabled );
+#ifdef LAN_MODE
+	pCmdUI->Enable( FALSE );
+#else
+	pCmdUI->Enable( Settings.GetOutgoingBandwidth() >= 2 );
+#endif
+}
+
+void CMainWnd::OnNetworkDC()
+{
+#ifndef LAN_MODE
+	Settings.DC.Enabled = ! Settings.DC.Enabled;
+
+	if ( ! Settings.DC.Enabled )
+		return;
+
+	if ( ! Settings.DC.EnableAlways )
+	{
+		CString strMessage;
+		LoadString( strMessage, IDS_NETWORK_UNLIMIT );
+		if ( AfxMessageBox( strMessage, MB_ICONQUESTION|MB_YESNO ) == IDYES )
+			Settings.DC.EnableAlways = true;
+	}
+
+	if ( ! Network.IsConnected() )
+		Network.Connect( TRUE );
 #endif // LAN_MOD
 }
 
@@ -2031,7 +2072,7 @@ void CMainWnd::OnUpdateTabConnect(CCmdUI* /*pCmdUI*/)
 
 	UINT nTextID = 0;
 	UINT nTipID = 0;
-	bool bNetworksEnabled = ( Settings.Gnutella1.EnableToday || Settings.Gnutella2.EnableToday || Settings.eDonkey.EnableToday );
+	bool bNetworksEnabled = ( Settings.Gnutella1.Enabled || Settings.Gnutella2.Enabled || Settings.eDonkey.Enabled );
 
 	if ( Network.IsConnected() &&
 		( Network.IsWellConnected() || ! bNetworksEnabled ) )	// If Network.IsWellConnected() or G1, G2, eDonkey are disabled and only BitTorrent is enabled say connected

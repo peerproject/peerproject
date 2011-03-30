@@ -23,6 +23,7 @@
 #include "Neighbours.h"
 #include "G1Neighbour.h"
 #include "G2Neighbour.h"
+//#include "DCNeighbour.h"
 #include "EDNeighbour.h"
 #include "EDPacket.h"
 #include "HostCache.h"
@@ -65,7 +66,7 @@ enum {
 	COL_CLIENT,
 	COL_NAME,
 	COL_COUNTRY,
-	COL_LAST // Column Count
+	COL_LAST  // Column Count
 };
 
 
@@ -347,8 +348,9 @@ void CNeighboursWnd::Update()
 			else if ( pNeighbour->m_nProtocol == PROTOCOL_DC )
 			{
 				//CDCNeighbour* pDC = static_cast< CDCNeighbour* >( pNeighbour );
+				// ToDo: Get users count for COL_LEAVES
 
-				pItem->Set( COL_MODE, _T("DC++") );
+				pItem->Set( COL_MODE, _T("NMDC Hub") );		// ToDo: Support ADC mode hubs (adc://)
 			}
 		}
 
@@ -651,7 +653,6 @@ void CNeighboursWnd::OnSkinChange()
 		m_wndList.SetBkColor( Colors.m_crWindow );
 
 	// Update Dropshadow
-//	m_wndTip.Hide();
 	m_wndTip.DestroyWindow();
 	m_wndTip.Create( this, &Settings.Interface.TipNeighbours );
 }

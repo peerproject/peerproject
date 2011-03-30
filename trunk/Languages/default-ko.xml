@@ -364,6 +364,7 @@
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
+		<button id="ID_NETWORK_DC" text="DC++"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="설정"/>
 	</toolbar>
@@ -420,15 +421,6 @@
 		<control id="IDC_FILTER_BOX" width="100"/>
 	</toolbar>
 	<!-- HOST CACHE WINDOW -->
-	<toolbar name="CHostCacheWnd.Basic">
-		<button id="ID_HOSTCACHE_CONNECT" text="에 연결하려면"/>
-		<button id="ID_HOSTCACHE_DISCONNECT" text="끊습니다"/>
-		<button id="ID_HOSTCACHE_REMOVE" text="제거"/>
-			<rightAlign/>
-		<button id="ID_HOSTCACHE_G2_CACHE" text="캐시"/>
-		<button id="ID_HOSTCACHE_G1_CACHE" text="캐시"/>
-		<button id="ID_HOSTCACHE_ED2K_CACHE" text="캐시"/>
-	</toolbar>
 	<toolbar name="CHostCacheWnd">
 		<button id="ID_HOSTCACHE_CONNECT" text="에 연결하려면"/>
 		<button id="ID_HOSTCACHE_DISCONNECT" text="끊습니다"/>
@@ -438,8 +430,7 @@
 		<button id="ID_HOSTCACHE_G2_CACHE" text="캐시"/>
 		<button id="ID_HOSTCACHE_G1_CACHE" text="캐시"/>
 		<button id="ID_HOSTCACHE_ED2K_CACHE" text="캐시"/>
-		<button id="ID_HOSTCACHE_BT_CACHE" text="캐시"/>
-		<button id="ID_HOSTCACHE_KAD_CACHE" text="Kademlia"/>
+		<button id="ID_HOSTCACHE_DC_CACHE" text="캐시"/>
 	</toolbar>
 	<!-- PRIVATE CHAT WINDOW -->
 	<toolbar name="CPrivateChatFrame">
@@ -533,7 +524,7 @@
 	<!-- MAIN WINDOW MENU BAR -->
 	<menu name="CMainWnd.DropMenu" type="bar">
 		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160;">
-			<item id="ID_TOOLS_SETTINGS" text="설정..."/>
+			<item id="ID_TOOLS_SETTINGS" text="설정... &#160; "/>
 			<menu text="_Network">
 				<item id="ID_NETWORK_CONNECT" text="연결" shortcut="Ctrl+G"/>
 				<item id="ID_NETWORK_DISCONNECT" text="끊습니다"/>
@@ -541,6 +532,7 @@
 				<item id="ID_NETWORK_G2" text="연결 to Gnutella_2"/>
 				<item id="ID_NETWORK_G1" text="연결 to _Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="연결 to _eDonkey"/>
+				<item id="ID_NETWORK_DC" text="연결 to _DC++"/>
 				<separator/>
 				<item id="ID_NETWORK_CONNECT_TO" text="에 연결하려면..." shortcut="Ctrl+T"/>
 				<item id="ID_NETWORK_BROWSE_TO" text="찾아보기 호스트 ..."/>
@@ -555,7 +547,7 @@
 				<item id="ID_TOOLS_DOWNLOAD" text="다운로드 파일/Torrent..."/>
 				<item id="ID_TOOLS_SEEDTORRENT"	text="종자 뉴 Torrent..."/>
 				<item id="ID_TOOLS_CREATETORRENT" text="새. Torrent 만들기..."/>
-				<item id="IDC_IMPORT_DOWNLOADS"	text="가져오기 eMule 부분..."/>
+				<item id="ID_IMPORT_DOWNLOADS"	text="가져오기 eMule 부분..."/>
 				<separator/>
 				<item id="ID_TOOLS_LANGUAGE" text="언어 선택 항목 ID를..."/>
 				<item id="ID_TOOLS_SKIN" text="Skin 선택..."/>
@@ -631,11 +623,10 @@
 			<item id="ID_NETWORK_CONNECT" text="연결" shortcut="Ctrl+G"/>
 			<item id="ID_NETWORK_DISCONNECT" text="끊습니다"/>
 			<separator/>
-			<menu text="Choose _Networks">
-				<item id="ID_NETWORK_G2" text="연결 to Gnutella_2"/>
-				<item id="ID_NETWORK_G1" text="연결 to _Gnutella"/>
-				<item id="ID_NETWORK_ED2K" text="연결 to _eDonkey"/>
-			</menu>
+			<item id="ID_NETWORK_G2" text="연결 to Gnutella_2"/>
+			<item id="ID_NETWORK_G1" text="연결 to _Gnutella"/>
+			<item id="ID_NETWORK_ED2K" text="연결 to _eDonkey"/>
+			<item id="ID_NETWORK_DC" text="연결 to _DC++"/>
 			<separator/>
 			<item id="ID_NETWORK_CONNECT_TO" text="에 연결하려면..." shortcut="Ctrl+T"/>
 			<item id="ID_NETWORK_BROWSE_TO" text="찾아보기 호스트 ..."/>
@@ -687,7 +678,7 @@
 			<item id="ID_TOOLS_DOWNLOAD" text="다운로드 파일/Torrent..."/>
 			<item id="ID_TOOLS_SEEDTORRENT" 	text="종자 뉴 Torrent..."/>
 			<item id="ID_TOOLS_CREATETORRENT" 	text="새. Torrent 만들기..."/>
-			<item id="IDC_IMPORT_DOWNLOADS"	text="가져오기 eMule 부분..."/>
+			<item id="ID_IMPORT_DOWNLOADS"	text="가져오기 eMule 부분..."/>
 			<separator/>
 			<item id="ID_TOOLS_LANGUAGE" text="언어 선택 항목 ID를..."/>
 			<item id="ID_TOOLS_SKIN" text="Skin 선택..."/>
@@ -737,11 +728,9 @@
 		<menu text="_Network">
 			<item id="ID_NETWORK_CONNECT" text="연결" shortcut="Ctrl+G"/>
 			<separator/>
-			<menu text="Choose _Networks">
-				<item id="ID_NETWORK_G2" text="연결 to Gnutella_2"/>
-				<item id="ID_NETWORK_G1" text="연결 to _Gnutella"/>
-				<item id="ID_NETWORK_ED2K" text="연결 to eDonkey"/>
-			</menu>
+			<item id="ID_NETWORK_G2" text="연결 to Gnutella_2"/>
+			<item id="ID_NETWORK_G1" text="연결 to _Gnutella"/>
+			<item id="ID_NETWORK_ED2K" text="연결 to eDonkey"/>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="종료 After Transfers"/>
 			<item id="ID_NETWORK_EXIT" text="종료"/>
@@ -817,11 +806,10 @@
 			<item id="ID_NETWORK_CONNECT_TO" text="에 연결하려면..." shortcut="Ctrl+T"/>
 			<item id="ID_NETWORK_BROWSE_TO" text="찾아보기 호스트..."/>
 			<separator/>
-			<menu text="선택 네트웍스 ">
-				<item id="ID_NETWORK_G2" text="연결 to Gnutella_2"/>
-				<item id="ID_NETWORK_G1" text="연결 to _Gnutella"/>
-				<item id="ID_NETWORK_ED2K" text="연결 to _eDonkey"/>
-			</menu>
+			<item id="ID_NETWORK_G2" text="연결 Gnutella_2"/>
+			<item id="ID_NETWORK_G1" text="연결 _Gnutella"/>
+			<item id="ID_NETWORK_ED2K" text="연결 _eDonkey"/>
+			<item id="ID_NETWORK_ED2K" text="연결 _DC++"/>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="전학 후 닫기"/>
 			<item id="ID_NETWORK_EXIT" text="종료"/>
@@ -857,7 +845,7 @@
 			<item id="ID_TOOLS_DOWNLOAD" text="다운로드 파일Torrent..."/>
 			<item id="ID_TOOLS_SEEDTORRENT" text="종자 뉴 Torrent..."/>
 			<item id="ID_TOOLS_CREATETORRENT" text="새. Torrent 만들기..."/>
-			<item id="IDC_IMPORT_DOWNLOADS"	text="가져오기 eMule 부분..."/>
+			<item id="ID_IMPORT_DOWNLOADS"	text="가져오기 eMule 부분..."/>
 			<separator/>
 			<item id="ID_TOOLS_LANGUAGE" text="언어 선택 항목 ID를..."/>
 			<item id="ID_TOOLS_SKIN" text="스킨 선택..."/>
@@ -1606,6 +1594,10 @@
 			<item id="ID_NETWORK_G2" text="Gnutella_2"/>
 			<item id="ID_NETWORK_G1" text="_Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="_eDonkey"/>
+			<item id="ID_NETWORK_DC" text="_DC++"/>
+			<separator/>
+			<item id="ID_VIEW_DISCOVERY" text="디스커버"/>
+			<item id="ID_VIEW_HOSTS" text="호스트 캐시"/>
 		</menu>
 		<menu text="_Monitor">
 			<item id="ID_NEIGHBOURS_VIEW_ALL" text="View _All Traffic"/>
@@ -1716,7 +1708,15 @@
 		<text group="31" align="middle">Disconnected</text>
 		<text group="32" align="middle">Connecting...</text>
 		<text group="33" align="middle">Connected</text>
+		<text group="34" align="middle" id="EDServers">%i Server</text>
 		<newline group="30" gap="2"/>
+		<icon group="60" command="ID_NETWORK_DC"/>
+		<text group="60" align="middle" format="b">&#160;DC++: &#160; </text>
+		<text group="61" align="middle">Disconnected</text>
+		<text group="62" align="middle">Connecting...</text>
+		<text group="63" align="middle">Connected</text>
+		<text group="64" align="middle" id="DCHubs">%i Hubs</text>
+		<newline group="60" gap="2"/>
 		<group id="2">
 			<para align="center">
 				<newline gap="4"/>
@@ -1994,6 +1994,8 @@
 	<string id="20016" value="다시 시도"/>
 	<string id="20017" value="을 중단하라"/>
 	<string id="20018" value="다시 시도"/>
+	<string id="20020" value="파일"/>
+	<string id="20021" value="파일"/>
 	<string id="20050" value="매일"/>
 	<string id="20051" value="월요일"/>
 	<string id="20052" value="화요일"/>
@@ -2705,7 +2707,7 @@
 		<control/>
 		<control caption="Opacity:"/>
 		<control/>
-		<control caption="Shadow (restart)"/>
+		<control caption="DropShadows"/>
 		<control caption="Tray:"/>
 		<control caption="Close button behavior:"/>
 		<control caption="Ask Me|Minimize to Tray|Exit Immediately|Exit After Transfers"/>
@@ -2715,9 +2717,9 @@
 	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuBuCoBuBuBuCoBuBuBuEdBu" caption="도서관">
 		<control caption="옵션:"/>
 		<control caption="Allow others to browse"/>
-		<control caption="Remember folder views"/>
 		<control caption="Watch library folders"/>
 		<control caption="Quick hashing  (more CPU)"/>
+		<control caption="Show hashing status window"/>
 		<control caption="Smart media series detection"/>
 		<control caption="Create ghost files by default"/>
 		<control caption="Recent Files:"/>
@@ -2811,13 +2813,14 @@
 		<control caption="Run command on connect"/>
 		<control/>
 	</dialog>
-	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuCoBuBuSt" caption="웹 링크">
+	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuBuCoBuBuSt" caption="웹 링크">
 		<control caption="Peer to Peer Link Handling:"/>
 		<control caption="Use PeerProject to open these types of links:"/>
 		<control caption="Magnet ( magnet: )"/>
 		<control caption="Gnutella ( gnutella: )"/>
 		<control caption="eDonkey ( ed2k: )"/>
 		<control caption="Piolet ( mp2p: )"/>
+		<control caption="DC++ ( dchub:/dcfile: )"/>
 		<control caption="BitTorrent ( .torrent )"/>
 		<control caption="Download Manager:"/>
 		<control caption="Use PeerProject to manage all my web downloads:"/>
@@ -3536,7 +3539,8 @@
 		<control caption="To share complete files using BitTorrent they must first be seeded. Once this process is complete the Torrent will appear as a new item in your download list."/>
 		<control/>
 	</dialog>
-	<dialog name="CTorrentFilesPage" cookie="Sy" caption="파일">
+	<dialog name="CTorrentFilesPage" cookie="StSy" caption="파일">
+		<control/>
 		<control/>
 	</dialog>
 	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="추적자">
@@ -3716,14 +3720,13 @@
 	<list name="CHostCacheWnd">
 		<column from="Address" to="주소"/>
 		<column from="Port" to="포트"/>
-		<column from="Client" to="클라이언트"/>
 		<column from="Last Seen" to="을 봤어요 마지막"/>
-		<column from="Daily Uptime" to="을 매일 가동"/>
+		<column from="Client" to="클라이언트"/>
 		<column from="Name" to="이름"/>
 		<column from="Description" to="설명"/>
+		<column from="Failures" to="실패"/>
 		<column from="CurUsers" to="사용자"/>
 		<column from="MaxUsers" to="최대 사용자"/>
-		<column from="Failures" to="실패"/>
 		<column from="Country" to="국가"/>
 	</list>
 	<list name="CDiscoveryWnd">
@@ -3783,7 +3786,7 @@
 		<column from="Criteria" to="기준"/>
 		<column from="Minimum" to="대역폭"/>
 		<column from="Transfers" to="전학"/>
-		<column from="Order" to="주문"/>
+		<column from="Priority" to="주문"/>
 	</list>
 	<list name="CAdvancedSettingsList">
 		<column from="Setting" to="설정"/>

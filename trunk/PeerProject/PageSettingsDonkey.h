@@ -1,7 +1,7 @@
 //
 // PageSettingsDonkey.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -36,13 +36,13 @@ public:
 public:
 	//{{AFX_DATA(CDonkeySettingsPage)
 	CSpinButtonCtrl	m_wndLinksSpin;
-	CEdit	m_wndResults;
 	CSpinButtonCtrl	m_wndResultsSpin;
+	CEdit	m_wndResults;
 	CButton	m_wndDiscoveryGo;
 	int		m_nResults;
 	BOOL	m_bServerWalk;
 	int		m_nLinks;
-	BOOL	m_bEnableToday;
+	BOOL	m_bEnabled;
 	BOOL	m_bEnableAlways;
 	BOOL	m_bLearnServers;
 	//}}AFX_DATA
@@ -63,7 +63,7 @@ protected:
 	virtual BOOL OnInitDialog();
 	afx_msg void OnDiscoveryGo();
 	afx_msg void OnServerWalk();
-	afx_msg void OnEnableToday();
+	afx_msg void OnEnable();
 	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()

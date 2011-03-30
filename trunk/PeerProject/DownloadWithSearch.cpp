@@ -1,7 +1,7 @@
 //
 // DownloadWithSearch.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -56,8 +56,8 @@ BOOL CDownloadWithSearch::FindSourcesAllowed(DWORD tNow) const
 {
 	if ( tNow > m_tSearchTime && tNow - m_tSearchTime > 15*1000 )
 		return TRUE;
-	else
-		return FALSE;
+
+	return FALSE;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -145,11 +145,14 @@ BOOL CDownloadWithSearch::CanSearch() const
 {
 	if ( IsMoving() || IsCompleted() )
 		return FALSE;
-	if ( ( m_oSHA1 || m_oTiger ) && ( Settings.Gnutella1.EnableToday || Settings.Gnutella2.EnableToday ) )
+
+	if ( Settings.Gnutella1.Enabled && m_oSHA1 )
 		return TRUE;
-	if ( m_oED2K && ( Settings.Gnutella2.EnableToday || Settings.eDonkey.EnableToday ) )
+	if ( Settings.Gnutella2.Enabled && IsHashed() )
 		return TRUE;
-	if ( ( m_oBTH || m_oMD5 ) && Settings.Gnutella2.EnableToday )
+	if ( Settings.eDonkey.Enabled && m_oED2K )
+		return TRUE;
+	if ( Settings.DC.Enabled && m_oTiger )
 		return TRUE;
 
 	return FALSE;
@@ -163,12 +166,12 @@ void CDownloadWithSearch::PrepareSearch()
 	if ( ! m_pSearch )
 		m_pSearch = new CManagedSearch();
 	else if ( ! m_bUpdateSearch )
-		return;	// Search not changed
+		return;		// Search not changed
 	m_bUpdateSearch = FALSE;
 
 	CQuerySearchPtr pSearch = m_pSearch->GetSearch();
 
-	pSearch->m_bAndG1 = Settings.Gnutella1.EnableToday;
+	pSearch->m_bAndG1 = Settings.Gnutella1.Enabled;
 
 	if ( pSearch->m_sSearch.IsEmpty() && ! m_sName.IsEmpty() )
 	{
@@ -190,14 +193,10 @@ void CDownloadWithSearch::PrepareSearch()
 		pSearch->m_oMD5 = m_oMD5;
 
 	if ( m_oED2K )
-	{
 		pSearch->m_oED2K = m_oED2K;
-		m_pSearch->m_bAllowED2K = TRUE;
-	}
-	else
-	{
-		m_pSearch->m_bAllowED2K = FALSE;
-	}
+
+	m_pSearch->m_bAllowED2K = ( m_oED2K != NULL );
+	m_pSearch->m_bAllowDC   = ( m_oTiger != NULL );
 
 	pSearch->m_bWantURL	= TRUE;
 	pSearch->m_bWantDN	= m_sName.IsEmpty();

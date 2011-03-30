@@ -93,16 +93,16 @@ BOOL CHostBrowser::Browse()
 	switch ( m_nProtocol )
 	{
 		case PROTOCOL_G2:
-			Settings.Gnutella2.EnableToday = true;
+			Settings.Gnutella2.Enabled = true;
 			break;
 		case PROTOCOL_G1:
-			Settings.Gnutella1.EnableToday = true;
+			Settings.Gnutella1.Enabled = true;
 			break;
 		case PROTOCOL_ED2K:
-			Settings.eDonkey.EnableToday = true;
+			Settings.eDonkey.Enabled = true;
 			break;
 		case PROTOCOL_DC:
-			Settings.DC.EnableToday = true;
+			Settings.DC.Enabled = true;
 			break;
 	//	default: ?
 	}

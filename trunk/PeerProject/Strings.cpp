@@ -95,30 +95,33 @@ const CLowerCaseTable ToLower;
 
 CLowerCaseTable::CLowerCaseTable()
 {
-	for ( size_t i = 0 ; i < 65536 ; ++i ) cTable[ i ] = TCHAR( i );
-	CharLowerBuff( cTable, 65536 );
+	for ( size_t i = 0 ; i < 65536 ; ++i )	cTable[ i ] = TCHAR( i );
+	VERIFY( CharLowerBuff( cTable, 65536 ) == 65536 );
 
-	// Greek Capital Sigma and Greek Small Final Sigma to Greek Small Sigma
-	cTable[ 931 ] = 963;
-	cTable[ 962 ] = 963;
+	cTable[ 0x0130 ] = 0x0069;	// Turkish Capital I with dot to "i"			(304 to 105)
 
-	// Turkish Capital I with dot to "i"
-	cTable[ 304 ] = 105;
+	cTable[ 0x03A3 ] = 0x03C3;	// Greek Capital Sigma to Greek Small Sigma		(931 to 963)
+	cTable[ 0x03C2 ] = 0x03C3;	// Greek Final Sigma to Greek Small Sigma		(962 to 963)
+
+	cTable[ 0x0401 ] = 0x0435;	// Russian Capital Io to Russian Small Ie		(1025 to 1077)
+	cTable[ 0x0451 ] = 0x0435;	// Russian Small Io to Russian Small Ie			(1105 to 1077)
+	cTable[ 0x0419 ] = 0x0438;	// Russian Capital Short I to Russian Small I	(1049 to 1080)
+	cTable[ 0x0439 ] = 0x0438;	// Russian Small Short I to Russian Small I 	(1081 to 1080)
 
 	// Convert fullwidth latin characters to halfwidth
-	for ( size_t i = 65281 ; i < 65313 ; ++i ) cTable[ i ] = TCHAR( i - 65248 );
-	for ( size_t i = 65313 ; i < 65339 ; ++i ) cTable[ i ] = TCHAR( i - 65216 );
-	for ( size_t i = 65339 ; i < 65375 ; ++i ) cTable[ i ] = TCHAR( i - 65248 );
+	for ( size_t i = 65281 ; i < 65313 ; ++i )	cTable[ i ] = TCHAR( i - 65248 );
+	for ( size_t i = 65313 ; i < 65339 ; ++i )	cTable[ i ] = TCHAR( i - 65216 );
+	for ( size_t i = 65339 ; i < 65375 ; ++i )	cTable[ i ] = TCHAR( i - 65248 );
 
 	// Convert circled katakana to ordinary katakana
-	for ( size_t i = 13008 ; i < 13028 ; ++i ) cTable[ i ] = TCHAR( 2 * i - 13566 );
-	for ( size_t i = 13028 ; i < 13033 ; ++i ) cTable[ i ] = TCHAR( i - 538 );
-	for ( size_t i = 13033 ; i < 13038 ; ++i ) cTable[ i ] = TCHAR( 3 * i - 26604 );
-	for ( size_t i = 13038 ; i < 13043 ; ++i ) cTable[ i ] = TCHAR( i - 528 );
-	for ( size_t i = 13043 ; i < 13046 ; ++i ) cTable[ i ] = TCHAR( 2 * i - 13571 );
-	for ( size_t i = 13046 ; i < 13051 ; ++i ) cTable[ i ] = TCHAR( i - 525 );
+	for ( size_t i = 13008 ; i < 13028 ; ++i )	cTable[ i ] = TCHAR( 2 * i - 13566 );
+	for ( size_t i = 13028 ; i < 13033 ; ++i )	cTable[ i ] = TCHAR( i - 538 );
+	for ( size_t i = 13033 ; i < 13038 ; ++i )	cTable[ i ] = TCHAR( 3 * i - 26604 );
+	for ( size_t i = 13038 ; i < 13043 ; ++i )	cTable[ i ] = TCHAR( i - 528 );
+	for ( size_t i = 13043 ; i < 13046 ; ++i )	cTable[ i ] = TCHAR( 2 * i - 13571 );
+	for ( size_t i = 13046 ; i < 13051 ; ++i )	cTable[ i ] = TCHAR( i - 525 );
 	cTable[ 13051 ] = TCHAR( 12527 );
-	for ( size_t i = 13052 ; i < 13055 ; ++i ) cTable[ i ] = TCHAR( i - 524 );
+	for ( size_t i = 13052 ; i < 13055 ; ++i )	cTable[ i ] = TCHAR( i - 524 );
 
 	// Map Katakana middle dot to space, since no API identifies it as a punctuation
 	cTable[ 12539 ] = cTable[ 65381 ] = L' ';

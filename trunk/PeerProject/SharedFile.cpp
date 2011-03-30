@@ -1,7 +1,7 @@
 //
 // SharedFile.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -243,8 +243,8 @@ BOOL CLibraryFile::IsSchemaURI(LPCTSTR pszURI) const
 {
 	if ( m_pSchema == NULL )
 		return ( pszURI == NULL || *pszURI == NULL );
-	else
-		return m_pSchema->CheckURI( pszURI );
+
+	return m_pSchema->CheckURI( pszURI );
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -260,7 +260,7 @@ BOOL CLibraryFile::IsRatedOnly() const
 	return IsRated() && ( m_pSchema == NULL || m_pMetadata == NULL );
 }
 
-//ToDo: Implement PeerTags (Permissiveness)
+// ToDo: Implement PeerTags (Permissiveness)
 //BOOL CLibraryFile::IsPeerTagged() const
 //{
 //	return ( m_nPeerTag );
@@ -489,8 +489,8 @@ CString CLibraryFile::GetMetadataWords() const
 {
 	if ( m_pSchema != NULL && m_pMetadata != NULL )
 		return m_pSchema->GetIndexedWords( m_pMetadata );
-	else
-		return CString();
+
+	return CString();
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -498,27 +498,38 @@ CString CLibraryFile::GetMetadataWords() const
 
 CTigerTree* CLibraryFile::GetTigerTree()
 {
-	if ( ! m_oTiger ) return NULL;
-	if ( ! IsAvailable() ) return NULL;
+	if ( ! m_oTiger )
+		return NULL;	// Not hashed yet
 
-	CTigerTree* pTiger = new CTigerTree();
+	if ( ! m_pFolder )
+		return NULL;	// Virtual file
 
-	if ( LibraryHashDB.GetTiger( m_nIndex, pTiger ) )
+	CAutoPtr< CTigerTree > pTiger( new CTigerTree() );
+	if ( ! pTiger )
+		return NULL;	// Out of memory
+
+	if ( ! LibraryHashDB.GetTiger( m_nIndex, pTiger ) )
+		return NULL;	// Database error
+
+	pTiger->SetupParameters( m_nSize );
+
+	Hashes::TigerHash oRoot;
+	pTiger->GetRoot( &oRoot[ 0 ] );
+	oRoot.validate();
+	if ( m_oTiger != oRoot )
 	{
-		Hashes::TigerHash oRoot;
-		pTiger->GetRoot( &oRoot[ 0 ] );
-		oRoot.validate();
-		if ( ! m_oTiger || m_oTiger == oRoot ) return pTiger;
-
+		// Wrong hash
 		LibraryHashDB.DeleteTiger( m_nIndex );
 
 		Library.RemoveFile( this );
 		m_oTiger.clear();
 		Library.AddFile( this );
+
+		return NULL;
 	}
 
-	delete pTiger;
-	return NULL;
+	// OK
+	return pTiger.Detach();
 }
 
 CED2K* CLibraryFile::GetED2K()
@@ -559,7 +570,7 @@ CSharedSource* CLibraryFile::AddAlternateSources(LPCTSTR pszURLs)
 	CMapStringToFILETIME oUrls;
 	SplitStringToURLs( pszURLs, oUrls );
 
-	for ( POSITION pos = oUrls.GetStartPosition(); pos; )
+	for ( POSITION pos = oUrls.GetStartPosition() ; pos ; )
 	{
 		CString strURL;
 		FILETIME tSeen = {};
@@ -602,7 +613,7 @@ CSharedSource* CLibraryFile::AddAlternateSource(LPCTSTR pszURL, FILETIME* tSeen)
 
 	if ( ! pURL.Parse( strURL ) ) return NULL;
 
-	if ( Network.IsFirewalledAddress( &pURL.m_pAddress, TRUE ) ||
+	if ( Network.IsFirewalledAddress( &pURL.m_pAddress, Settings.Connection.IgnoreOwnIP ) ||
 		 Network.IsReserved( (IN_ADDR*)&pURL.m_pAddress ) ) return NULL;
 
 	if ( pURL != *this ) return NULL;
@@ -1265,14 +1276,10 @@ STDMETHODIMP CLibraryFile::XLibraryFile::put_Metadata(ISXMLElement FAR* pXML)
 	CQuickLock oLock( Library.m_pSection );
 
 	if ( CXMLElement* pReal = CXMLCOM::Unwrap( pXML ) )
-	{
 		return pThis->SetMetadata( pReal ) ? S_OK : E_FAIL;
-	}
-	else
-	{
-		pThis->ClearMetadata();
-		return S_OK;
-	}
+
+	pThis->ClearMetadata();
+	return S_OK;
 }
 
 STDMETHODIMP CLibraryFile::XLibraryFile::Execute()

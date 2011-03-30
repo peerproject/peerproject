@@ -1,7 +1,7 @@
 //
 // PageSettingsGnutella.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -45,27 +45,26 @@ public:
 	BOOL	m_bG2Always;
 	BOOL	m_bG1Today;
 	BOOL	m_bG1Always;
-	CComboBox m_wndG1ClientMode;
-	int		m_nG1Hubs;
-	int		m_nG1Leafs;
-	int		m_nG1Peers;
 	CComboBox m_wndG2ClientMode;
+	CComboBox m_wndG1ClientMode;
 	int		m_nG2Hubs;
 	int		m_nG2Leafs;
 	int		m_nG2Peers;
+	int		m_nG1Hubs;
+	int		m_nG1Leafs;
+	int		m_nG1Peers;
 	BOOL	m_bDeflateHub2Hub;
 	BOOL	m_bDeflateLeaf2Hub;
 	BOOL	m_bDeflateHub2Leaf;
-	//}}AFX_DATA
 	BOOL	m_bAgent;
+	//}}AFX_DATA
 
 // Overrides
 public:
 	//{{AFX_VIRTUAL(CGnutellaSettingsPage)
-	public:
 	virtual BOOL OnSetActive();
 	virtual void OnOK();
-	protected:
+protected:
 	virtual void DoDataExchange(CDataExchange* pDX);
 	//}}AFX_VIRTUAL
 

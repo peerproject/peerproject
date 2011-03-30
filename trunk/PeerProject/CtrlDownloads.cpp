@@ -881,13 +881,13 @@ void CDownloadsCtrl::OnSize(UINT nType, int cx, int cy)
 
 void CDownloadsCtrl::OnPaint()
 {
-	CSingleLock pTransfersLock( &Transfers.m_pSection, FALSE );
-	if ( ! pTransfersLock.Lock( 250 ) )
-		return;
-
 	CRect rcClient, rcItem;
 	CPaintDC dc( this );
-	DWORD tNow = GetTickCount();
+	const DWORD tNow = GetTickCount();
+
+	CSingleLock pTransfersLock( &Transfers.m_pSection );
+	if ( ! pTransfersLock.Lock( 250 ) )
+		return;
 
 	if ( tNow - m_tSwitchTimer > 10000 )
 	{
@@ -908,8 +908,8 @@ void CDownloadsCtrl::OnPaint()
 	int nScroll = GetScrollPos( SB_VERT );
 	int nIndex = 0;
 
-	CFont* pfOld	= (CFont*)dc.SelectObject( &CoolInterface.m_fntNormal );
-	BOOL bFocus		= ( GetFocus() == this );
+	CFont* pfOld = (CFont*)dc.SelectObject( &CoolInterface.m_fntNormal );
+	const BOOL bFocus = ( GetFocus() == this );
 
 	for ( POSITION posDownload = Downloads.GetIterator() ; posDownload ; )
 	{
@@ -941,7 +941,7 @@ void CDownloadsCtrl::OnPaint()
 
 		if ( Settings.Downloads.ShowSources )
 		{
-			int nSources = pDownload->GetSourceCount();
+			const int nSources = pDownload->GetSourceCount();
 
 			if ( nScroll >= nSources )
 			{
@@ -1351,6 +1351,12 @@ void CDownloadsCtrl::PaintSource(CDC& dc, const CRect& rcRow, CDownload* pDownlo
 			{
 				strText.Format( _T("%lu@%s:%u"),
 					pSource->m_pAddress.S_un.S_addr,
+					(LPCTSTR)CString( inet_ntoa( pSource->m_pServerAddress ) ),
+					pSource->m_nServerPort );
+			}
+			else if ( pSource->m_nProtocol == PROTOCOL_DC )	// Or DC++
+			{
+				strText.Format( _T("%s:%u"),
 					(LPCTSTR)CString( inet_ntoa( pSource->m_pServerAddress ) ),
 					pSource->m_nServerPort );
 			}

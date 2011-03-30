@@ -1,7 +1,7 @@
 //
 // WizardSharePage.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -116,21 +116,17 @@ BOOL CWizardSharePage::OnInitDialog()
 		CreateDirectory( Settings.Downloads.TorrentPath );
 		AddPhysicalFolder( Settings.Downloads.TorrentPath );
 
+		strFolder = theApp.GetDownloadsFolder();
+		AddPhysicalFolder( strFolder );
+
 		// ToDo: Check other common programs for download folder locations
 		//strFolder = strPrograms + _T("\\Shareaza\\Downloads");
 		//AddPhysicalFolder( strFolder );
-		strFolder = strPrograms + _T("\\eMule\\Incoming");
-		AddPhysicalFolder( strFolder );
-		//strFolder = strPrograms + _T("\\Neo Mule\\Incoming");
-		//AddPhysicalFolder( strFolder );
 		//strFolder = strPrograms + _T("\\Ares\\My Shared Folder");
 		//AddPhysicalFolder( strFolder );
-		//strFolder = strPrograms + _T("\\Piolet\\My Shared Folder");
+		//strFolder = strPrograms + _T("\\Neo Mule\\Incoming");
 		//AddPhysicalFolder( strFolder );
-		//strFolder = strPrograms + _T("\\morpheus\\My Shared Folder");
-		//AddPhysicalFolder( strFolder );
-		strFolder = theApp.GetDownloadsFolder();
-		strFolder.Left( strFolder.Find( _T("\\PeerProject") ) );
+		strFolder = strPrograms + _T("\\eMule\\Incoming");
 		AddPhysicalFolder( strFolder );
 
 		AddRegistryFolder( HKEY_CURRENT_USER, _T("Software\\Shareaza\\Shareaza\\Downloads"), _T("CompletePath") );
@@ -152,7 +148,7 @@ void CWizardSharePage::OnXButtonDown(UINT /*nFlags*/, UINT nButton, CPoint /*poi
 
 BOOL CWizardSharePage::OnSetActive()
 {
-	//Wizard Window Caption Workaround
+	// Wizard Window Caption Workaround
 	CString strCaption;
 	GetWindowText( strCaption );
 	GetParent()->SetWindowText( strCaption );

@@ -205,7 +205,7 @@ void CG2Packet::WritePacket(G2_PACKET nType, DWORD nLength, BOOL bCompound)
 
 	Write( &nType, nTypeLen + 1 );
 
-	m_bCompound = TRUE;	// This must be compound now
+	m_bCompound = TRUE;		// This must be compound now
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -264,7 +264,8 @@ BOOL CG2Packet::SkipCompound()
 	if ( m_bCompound )
 	{
 		DWORD nLength = m_nLength;
-		if ( ! SkipCompound( nLength ) ) return FALSE;
+		if ( ! SkipCompound( nLength ) )
+			return FALSE;
 	}
 
 	return TRUE;
@@ -301,7 +302,8 @@ BOOL CG2Packet::SkipCompound(DWORD& nLength, DWORD nRemaining)
 			Read( &nPacket, nLenLen );
 		}
 
-		if ( m_nPosition + nTypeLen + 1 + nPacket > nEnd ) AfxThrowUserException();
+		if ( m_nPosition + nTypeLen + 1 + nPacket > nEnd )
+			AfxThrowUserException();
 
 		m_nPosition += nPacket + nTypeLen + 1;
 	}
@@ -514,7 +516,7 @@ CString CG2Packet::GetType() const
 	CStringA sType;
 	sType.Append( (LPCSTR)&m_nType, G2_TYPE_LEN( m_nType ) );
 
-	return CString(  sType );
+	return CString( sType );
 }
 
 //#ifdef DEBUG_G2
@@ -540,7 +542,7 @@ CString CG2Packet::GetType() const
 //
 //	return sASCII;
 //}
-
+//
 //CString CG2Packet::Dump(DWORD nTotal)
 //{
 //	CString sASCII;
@@ -674,8 +676,7 @@ BOOL CG2Packet::OnPacket(const SOCKADDR_IN* pHost)
 	case G2_PACKET_HIT_WRAP:
 		return OnCommonHit( pHost );
 	case G2_PACKET_QUERY_WRAP:
-		// G2_PACKET_QUERY_WRAP deprecated and ignored
-		break;
+		return TRUE;	// G2_PACKET_QUERY_WRAP deprecated and ignored
 	case G2_PACKET_QUERY_ACK:
 		return OnQueryAck( pHost );
 	case G2_PACKET_QUERY_KEY_ANS:
@@ -758,7 +759,7 @@ BOOL CG2Packet::OnQuery(const SOCKADDR_IN* pHost)
 	}
 
 	if ( Security.IsDenied( &pSearch->m_pEndpoint.sin_addr ) ||
-		! Settings.Gnutella2.EnableToday )
+		! Settings.Gnutella2.Enabled )
 	{
 		Statistics.Current.Gnutella2.Dropped++;
 		return FALSE;
@@ -843,8 +844,8 @@ BOOL CG2Packet::OnQueryAck(const SOCKADDR_IN* pHost)
 
 			if ( pNeighbour != NULL && pNeighbour->m_nNodeType == ntLeaf )
 				pNeighbour->Send( this, FALSE, FALSE );
-		//	else
-		//		; // Don't route it on via UDP
+			//else
+			//	; // Don't route it on via UDP
 		}
 	}
 

@@ -1,7 +1,7 @@
 //
 // Remote.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -85,7 +85,7 @@ BOOL CRemote::OnRun()
 	DWORD tNow = GetTickCount();
 
 	// 3 minute timeout
-	if ( ( tNow - m_mOutput.tLast > 3 * 60 * 1000 ) || ( ! Network.IsConnected() ) )
+	if ( ( tNow - m_mOutput.tLast > 3 * 60 * 1000 ) || ! Network.IsConnected() )
 	{
 		Close();
 		delete this;
@@ -279,7 +279,7 @@ BOOL CRemote::RemoveCookie()
 			if ( nPos >= 0 )
 			{
 				int nCookie = 0;
-				_stscanf( strValue.Mid( nPos + 18 ), _T("%i"), &nCookie );
+				_stscanf( strValue.Mid( nPos + 18 ), _T("%i"), &nCookie );		// APP_LENGTH LETTERCOUNT + 7
 				POSITION pos = m_pCookies.Find( nCookie );
 				if ( pos != NULL )
 				{
@@ -339,8 +339,8 @@ void CRemote::Output(LPCTSTR pszName)
 	strValue = Settings.General.Path + _T("\\Remote\\") + pszName + _T(".htm");
 	if ( ! hFile.Open( strValue, CFile::modeRead ) ) return;
 
-	int nBytes		= (int)hFile.GetLength();
-	CHAR* pBytes	= new CHAR[ nBytes ];
+	int nBytes	 = (int)hFile.GetLength();
+	CHAR* pBytes = new CHAR[ nBytes ];
 	hFile.Read( pBytes, nBytes );
 	hFile.Close();
 
@@ -352,7 +352,7 @@ void CRemote::Output(LPCTSTR pszName)
 		bBOM = true;
 	}
 
-	int nWide = MultiByteToWideChar( CP_UTF8, 0, pBytes, nBytes, NULL, 0 );
+	const int nWide = MultiByteToWideChar( CP_UTF8, 0, pBytes, nBytes, NULL, 0 );
 	MultiByteToWideChar( CP_UTF8, 0, pBytes, nBytes, strBody.GetBuffer( nWide ), nWide );
 	strBody.ReleaseBuffer( nWide );
 	if ( bBOM ) pBytes -= 3;
@@ -796,8 +796,8 @@ void CRemote::PageNewSearch()
 	CMainWnd* pMainWnd = (CMainWnd*)theApp.m_pMainWnd;
 	if ( pMainWnd == NULL || ! pMainWnd->IsKindOf( RUNTIME_CLASS(CMainWnd) ) ) return;
 
-	CString strSearch	= GetKey( _T("search") );
-	CString strSchema	= GetKey( _T("schema") );
+	const CString strSearch = GetKey( L"search" );
+	const CString strSchema = GetKey( L"schema" );
 
 	if ( strSearch.IsEmpty() || ( ! strSchema.IsEmpty() && SchemaCache.Get( strSchema ) == NULL ) )
 	{
@@ -809,7 +809,8 @@ void CRemote::PageNewSearch()
 	pSearch->m_sSearch		= strSearch;
 	pSearch->m_pSchema		= SchemaCache.Get( strSchema );
 
-	if ( pSearch->m_pSchema != NULL ) strURI = pSearch->m_pSchema->GetURI();
+	if ( pSearch->m_pSchema != NULL )
+		strURI = pSearch->m_pSchema->GetURI();
 
 	Settings.Search.LastSchemaURI = strURI;
 
@@ -861,7 +862,8 @@ void CRemote::PageDownloads()
 		}
 
 		Add( _T("group_caption"), pGroup->m_sName );
-		if ( pGroup->m_bRemoteSelected ) Add( _T("group_selected"), _T("true") );
+		if ( pGroup->m_bRemoteSelected )
+			Add( _T("group_selected"), _T("true") );
 		Output( _T("downloadsTab") );
 		Prepare( _T("group_") );
 	}
@@ -873,7 +875,7 @@ void CRemote::PageDownloads()
 		if ( GetKey( _T("filter_paused") ) == _T("1") ) Settings.Downloads.FilterMask |= DLF_PAUSED;
 		if ( GetKey( _T("filter_queued") ) == _T("1") ) Settings.Downloads.FilterMask |= DLF_QUEUED;
 		if ( GetKey( _T("filter_sources") ) == _T("1") ) Settings.Downloads.FilterMask |= DLF_SOURCES;
-		if ( GetKey( _T("filter_seeds") ) == _T("1") ) Settings.Downloads.FilterMask |= DLF_SEED;
+		if ( GetKey( _T("filter_seeds") ) == _T("1") )  Settings.Downloads.FilterMask |= DLF_SEED;
 		Settings.Downloads.ShowSources = ( GetKey( _T("filter_show_all") ) == _T("1") );
 	}
 
@@ -897,13 +899,15 @@ void CRemote::PageDownloads()
 			CString strAction = GetKey( _T("modify_action") );
 			strAction.MakeLower();
 
-			if ( strAction == _T("expand") && CDownloadsCtrl::IsExpandable( pDownload ) )
+			if ( strAction == _T("expand") )
 			{
-				pDownload->m_bExpanded = TRUE;
+				if ( CDownloadsCtrl::IsExpandable( pDownload ) )
+					pDownload->m_bExpanded = TRUE;
 			}
-			else if ( strAction == _T("collapse") && CDownloadsCtrl::IsExpandable( pDownload ) )
+			else if ( strAction == _T("collapse") )
 			{
-				pDownload->m_bExpanded = FALSE;
+				if ( CDownloadsCtrl::IsExpandable( pDownload ) )
+					pDownload->m_bExpanded = FALSE;
 			}
 			else if ( strAction == _T("resume") )
 			{
@@ -976,7 +980,7 @@ void CRemote::PageDownloads()
 
 		if ( pDownload->m_bExpanded && CDownloadsCtrl::IsExpandable( pDownload ) )
 		{
-			for ( POSITION posSource = pDownload->GetIterator(); posSource ; )
+			for ( POSITION posSource = pDownload->GetIterator() ; posSource ; )
 			{
 				CDownloadSource* pSource = pDownload->GetNext( posSource );
 
@@ -1174,11 +1178,8 @@ void CRemote::PageUploads()
 						LoadString( str, IDS_STATUS_UNINTERESTED );
 					else if ( pBT->m_bChoked )
 						LoadString( str, IDS_STATUS_CHOKED );
-					else
-					{
-						if ( DWORD nSpeed = pTransfer->GetMeasuredSpeed() )
-							str = Settings.SmartSpeed( nSpeed );
-					}
+					else if ( DWORD nSpeed = pTransfer->GetMeasuredSpeed() )
+						str = Settings.SmartSpeed( nSpeed );
 				}
 				else if ( nPosition > 0 )
 				{
@@ -1234,9 +1235,9 @@ void CRemote::PageNetwork()
 	Add( _T("random"), str );
 	Output( _T("networkHeader") );
 
-	PageNetworkNetwork( PROTOCOL_G2, &Settings.Gnutella2.EnableToday, _T("Gnutella2") );
-	PageNetworkNetwork( PROTOCOL_G1, &Settings.Gnutella1.EnableToday, _T("Gnutella1") );
-	PageNetworkNetwork( PROTOCOL_ED2K, &Settings.eDonkey.EnableToday, _T("eDonkey") );
+	PageNetworkNetwork( PROTOCOL_G2, &Settings.Gnutella2.Enabled, _T("Gnutella2") );
+	PageNetworkNetwork( PROTOCOL_G1, &Settings.Gnutella1.Enabled, _T("Gnutella1") );
+	PageNetworkNetwork( PROTOCOL_ED2K, &Settings.eDonkey.Enabled, _T("eDonkey") );
 
 	Output( _T("networkFooter") );
 }

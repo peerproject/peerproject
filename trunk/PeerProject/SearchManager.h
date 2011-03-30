@@ -1,7 +1,7 @@
 //
 // SearchManager.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -31,6 +31,7 @@ public:
 	CSearchManager();
 	~CSearchManager();
 
+public:
 	void			OnRun();
 	BOOL			OnQueryAck(CG2Packet* pPacket, const SOCKADDR_IN* pAddress, Hashes::Guid& oGUID);
 	BOOL			OnQueryHits(const CQueryHit* pHits);
@@ -44,13 +45,13 @@ protected:
 	DWORD			m_tLastTick;
 	int				m_nPriorityClass;
 	int				m_nPriorityCount;
-	Hashes::Guid	m_oLastED2KSearch;
+	Hashes::Guid	m_oLastSearch;
 
 	bool			Add(CManagedSearch* pSearch);
 	bool			Remove(CManagedSearch* pSearch);
 	CSearchPtr		Find(const Hashes::Guid& oGUID) const;
 
-	friend class CManagedSearch;	// m_pSection, m_oLastED2KSearch, Add(), Remove()
+	friend class CManagedSearch;	// m_pSection, m_oLastSearch, Add(), Remove()
 };
 
 extern CSearchManager SearchManager;

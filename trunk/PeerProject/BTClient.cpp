@@ -217,7 +217,7 @@ BOOL CBTClient::OnRun()
 			Close( IDS_BT_CLIENT_LOST );
 			return FALSE;
 		}
-		else if ( tNow - m_tLastKeepAlive > Settings.BitTorrent.LinkPing )
+		if ( tNow - m_tLastKeepAlive > Settings.BitTorrent.LinkPing )
 		{
 			Send( CBTPacket::New( BT_PACKET_KEEPALIVE ) );
 			m_tLastKeepAlive = tNow;
@@ -557,113 +557,216 @@ BOOL CBTClient::OnHandshake2()
 // CBTClient online handler
 //
 // See http://bittorrent.org/beps/bep_0020.html
-// ToDo: Update/Optimize/Abstract these BT Vendor lists
+// See http://wiki.theory.org/BitTorrentSpecification
+// ToDo: Update/Optimize/Abstract these PeerID vendor lists
+
+// Legacy Method:
+//CString CBTClient::GetUserAgentAzureusStyle(LPBYTE pVendor, size_t nVendor)
+//{
+//	CString sUserAgent;
+//	if ( ! pVendor ) return sUserAgent;
+//
+//	// Azureus style "-SSVVVV-"
+//
+//	struct azureusStyleEntry
+//	{
+//		uchar signature[ 2 ];
+//		LPCTSTR client;
+//	};
+//
+//	static const azureusStyleEntry azureusStyleClients[] =
+//	{
+//		{ 'A', '~', L"Ares" },
+//		{ 'A', 'G', L"Ares" },
+//		{ 'A', 'R', L"Arctic" },
+//		{ 'A', 'V', L"Avicora" },
+//		{ 'A', 'X', L"BitPump" },
+//		{ 'A', 'Z', L"Azureus" },	// +Frostwire/etc.
+//		{ 'B', 'B', L"BitBuddy" },
+//		{ 'B', 'C', L"BitComet" },
+//		{ 'B', 'F', L"Bitflu" },
+//		{ 'B', 'G', L"BTG" },
+//		{ 'b', 'k', L"BitKitten" },
+//		{ 'B', 'R', L"BitRocket" },
+//		{ 'B', 'S', L"BitSlave" },
+//		{ 'B', 'X', L"Bittorrent X" },
+//		{ 'C', 'B', L"ShareazaPlus" },
+//		{ 'C', 'D', L"Enhanced CTorrent" },
+//		{ 'C', 'T', L"CTorrent" },
+//		{ 'D', 'E', L"DelugeTorrent" },
+//		{ 'E', 'B', L"EBit" },
+//		{ 'E', 'S', L"Electric Sheep" },
+//		{ 'F', 'C', L"FileCroc" },
+//		{ 'F', 'G', L"FlashGet" },	// vXX.XX
+//		{ 'G', 'R', L"GetRight" },
+//		{ 'H', 'K', L"Hekate" },
+//		{ 'H', 'L', L"Halite" },
+//		{ 'H', 'N', L"Hydranode" },
+//		{ 'K', 'T', L"KTorrent" },
+//		{ 'L', 'C', L"Leechcraft" },
+//		{ 'L', 'H', L"LH-ABC" },
+//		{ 'L', 'K', L"Linkage" },
+//		{ 'L', 'P', L"Lphant" },
+//		{ 'L', 'T', L"libtorrent" },
+//		{ 'l', 't', L"libtorrent" },
+//		{ 'L', 'W', L"LimeWire" },
+//		{ 'M', 'K', L"Meerkat" },
+//		{ 'M', 'R', L"Miro" },
+//		{ 'M', 'O', L"Mono Torrent" },
+//		{ 'M', 'P', L"MooPolice" },
+//		{ 'M', 'T', L"MoonlightTorrent" },
+//		{ 'O', 'S', L"OneSwarm" },
+//		{ 'P', 'C', L"CacheLogic" },
+//		{ 'P', 'D', L"Pando" },
+//		{ 'P', 'E', L"PeerProject" },
+//		{ 'P', 'T', L"PHPTracker" },
+//		{ 'p', 'X', L"pHoeniX" },
+//		{ 'q', 'B', L"qBittorrent" },
+//		{ 'Q', 'T', L"QT4" },
+//		{ 'R', 'T', L"Retriever" },
+//		{ 'S', 'B', L"SwiftBit" },
+//		{ 'S', 'M', L"SoMud" },
+//		{ 'S', 'N', L"ShareNet" },
+//		{ 'S', 'S', L"Swarmscope" },
+//		{ 's', 't', L"Sharktorrent" },
+//		{ 'S', 'T', L"SymTorrent" },
+//		{ 'S', 'Z', L"Shareaza" },
+//		{ 'S', '~', L"ShareazaBeta" },
+//		{ 'T', 'N', L"Torrent.NET" },
+//		{ 'T', 'R', L"Transmission" },
+//		{ 'T', 'S', L"TorrentStorm" },
+//		{ 'T', 'T', L"TuoTu" },
+//		{ 'U', 'L', L"uLeecher!" },
+//		{ 'U', 'M', L"\x00B5Torrent mac" },
+//		{ 'U', 'T', L"\x00B5Torrent" },
+//		{ 'W', 'Y', L"FireTorrent" },
+//		{ 'X', 'L', L"Xunlei" },
+//		{ 'X', 'T', L"XanTorrent" },
+//		{ 'X', 'X', L"xTorrent" },
+//		{ 'Z', 'T', L"ZipTorrent" }
+//	};
+//	static const size_t azureusClients =
+//		sizeof azureusStyleClients / sizeof azureusStyleEntry;
+//
+//	for ( size_t i = 0 ; i < azureusClients ; ++i )
+//	{
+//		if ( pVendor[ 0 ] == azureusStyleClients[ i ].signature[ 0 ] &&
+//				pVendor[ 1 ] == azureusStyleClients[ i ].signature[ 1 ] )
+//		{
+//			if ( nVendor == 6 )
+//			{
+//				sUserAgent.Format( _T( "%s %i.%i.%i.%i" ),
+//					azureusStyleClients[ i ].client,
+//					( pVendor[ 2 ] - '0' ), ( pVendor[ 3 ] - '0' ),
+//					( pVendor[ 4 ] - '0' ), ( pVendor[ 5 ] - '0' ) );
+//			}
+//			else if ( nVendor == 4 )
+//			{
+//				sUserAgent.Format( _T( "%s %i.%i" ),
+//					azureusStyleClients[ i ].client, pVendor[ 2 ], pVendor[ 3 ] );
+//			}
+//			break;
+//		}
+//	}
+//
+//	if ( sUserAgent.IsEmpty() ) 	// If we don't want the version, etc.
+//		sUserAgent.Format( _T("BitTorrent (%c%c)"), pVendor[ 0 ], pVendor[ 1 ] );
+//
+//	return sUserAgent;
+//}
 
 CString CBTClient::GetUserAgentAzureusStyle(LPBYTE pVendor, size_t nVendor)
 {
-	CString sUserAgent;
-	if ( ! pVendor ) return sUserAgent;
+	CString strUserAgent;
+	if ( ! pVendor ) return strUserAgent;
 
 	// Azureus style "-SSVVVV-"
-
-	struct azureusStyleEntry
+	static std::map < const CString, CString > Vendors;
+	if ( Vendors.empty() )
 	{
-		uchar signature[ 2 ];
-		LPCTSTR client;
-	};
-
-	static const azureusStyleEntry azureusStyleClients[] =
-	{
-		{ 'A', '~', L"Ares" },
-		{ 'A', 'G', L"Ares" },
-		{ 'A', 'R', L"Arctic" },
-		{ 'A', 'V', L"Avicora" },
-		{ 'A', 'X', L"BitPump" },
-		{ 'A', 'Z', L"Azureus" },	// +Frostwire/etc.
-		{ 'B', 'B', L"BitBuddy" },
-		{ 'B', 'C', L"BitComet" },
-		{ 'B', 'F', L"Bitflu" },
-		{ 'B', 'G', L"BTG" },
-		{ 'b', 'k', L"BitKitten" },
-		{ 'B', 'O', L"BO" },
-		{ 'B', 'R', L"BitRocket" },
-		{ 'B', 'S', L"BitSlave" },
-		{ 'B', 'X', L"Bittorrent X" },
-		{ 'C', 'B', L"ShareazaPlus" },
-		{ 'C', 'D', L"Enhanced CTorrent" },
-		{ 'C', 'T', L"CTorrent" },
-		{ 'D', 'E', L"DelugeTorrent" },
-		{ 'E', 'B', L"EBit" },
-		{ 'E', 'S', L"Electric Sheep" },
-		{ 'F', 'C', L"FileCroc" },
-		{ 'F', 'G', L"FlashGet" },	// vXX.XX
-		{ 'G', 'R', L"GetRight" },
-		{ 'H', 'L', L"Halite" },
-		{ 'H', 'N', L"Hydranode" },
-		{ 'K', 'T', L"KTorrent" },
-		{ 'L', 'H', L"LH-ABC" },
-		{ 'L', 'K', L"Linkage" },
-		{ 'L', 'P', L"Lphant" },
-		{ 'L', 'T', L"libtorrent" },
-		{ 'l', 't', L"libtorrent" },
-		{ 'L', 'W', L"LimeWire" },
-		{ 'M', 'O', L"Mono Torrent" },
-		{ 'M', 'P', L"MooPolice" },
-		{ 'M', 'T', L"MoonlightTorrent" },
-		{ 'P', 'C', L"CacheLogic" },
-		{ 'P', 'D', L"Pando" },
-		{ 'P', 'E', L"PeerProject" },
-		{ 'p', 'X', L"pHoeniX" },
-		{ 'q', 'B', L"qBittorrent" },
-		{ 'Q', 'T', L"QT4" },
-		{ 'R', 'T', L"Retriever" },
-		{ 'S', 'B', L"SwiftBit" },
-		{ 'S', 'N', L"ShareNet" },
-		{ 'S', 'S', L"Swarmscope" },
-		{ 's', 't', L"Sharktorrent" },
-		{ 'S', 'T', L"SymTorrent" },
-		{ 'S', 'Z', L"Shareaza" },
-		{ 'S', '~', L"ShareazaBeta" },
-		{ 'T', 'N', L"Torrent.NET" },
-		{ 'T', 'R', L"Transmission" },
-		{ 'T', 'S', L"TorrentStorm" },
-		{ 'T', 'T', L"TuoTu" },
-		{ 'U', 'L', L"uLeecher!" },
-		{ 'U', 'M', L"\x00B5Torrent mac" },
-		{ 'U', 'T', L"\x00B5Torrent" },
-		{ 'X', 'L', L"Xunlei" },
-		{ 'X', 'T', L"XanTorrent" },
-		{ 'X', 'X', L"xTorrent" },
-		{ 'Z', 'T', L"ZipTorrent" }
-	};
-	static const size_t azureusClients =
-		sizeof azureusStyleClients / sizeof azureusStyleEntry;
-
-	for ( size_t i = 0 ; i < azureusClients ; ++i )
-	{
-		if ( pVendor[ 0 ] == azureusStyleClients[ i ].signature[ 0 ] &&
-				pVendor[ 1 ] == azureusStyleClients[ i ].signature[ 1 ] )
-		{
-			if ( nVendor == 6 )
-			{
-				sUserAgent.Format( _T( "%s %i.%i.%i.%i" ),
-					azureusStyleClients[ i ].client,
-					( pVendor[ 2 ] - '0' ), ( pVendor[ 3 ] - '0' ),
-					( pVendor[ 4 ] - '0' ), ( pVendor[ 5 ] - '0' ) );
-			}
-			else if ( nVendor == 4 )
-			{
-				sUserAgent.Format( _T( "%s %i.%i" ),
-					azureusStyleClients[ i ].client, pVendor[ 2 ], pVendor[ 3 ] );
-			}
-			break;
-		}
+		Vendors[ L"A~" ] = L"Ares";
+		Vendors[ L"AG" ] = L"Ares";
+		Vendors[ L"AR" ] = L"Arctic";
+		Vendors[ L"AV" ] = L"Avicora";
+		Vendors[ L"AX" ] = L"BitPump";
+		Vendors[ L"AZ" ] = L"Azureus";	// +Frostwire/etc.
+		Vendors[ L"BB" ] = L"BitBuddy";
+		Vendors[ L"BC" ] = L"BitComet";
+		Vendors[ L"BF" ] = L"Bitflu";
+		Vendors[ L"BG" ] = L"BTG";
+	//	Vendors[ L"BO" ] = L"BO ";		// ?
+		Vendors[ L"bk" ] = L"BitKitten";
+		Vendors[ L"BR" ] = L"BitRocket";
+		Vendors[ L"BS" ] = L"BitSlave";
+		Vendors[ L"BX" ] = L"Bittorrent X";
+		Vendors[ L"CB" ] = L"ShareazaPlus";
+		Vendors[ L"CD" ] = L"CTorrent";	// "Enhanced"
+		Vendors[ L"CT" ] = L"CTorrent";
+		Vendors[ L"DE" ] = L"DelugeTorrent";
+		Vendors[ L"EB" ] = L"EBit";
+		Vendors[ L"ES" ] = L"Electric Sheep";
+		Vendors[ L"FC" ] = L"FileCroc";
+		Vendors[ L"FG" ] = L"FlashGet";	// vXX.XX
+		Vendors[ L"GR" ] = L"GetRight";
+		Vendors[ L"HK" ] = L"Hekate";
+		Vendors[ L"HL" ] = L"Halite";
+		Vendors[ L"HN" ] = L"Hydranode";
+		Vendors[ L"KT" ] = L"KTorrent";
+		Vendors[ L"LC" ] = L"Leechcraft";
+		Vendors[ L"LH" ] = L"LH-ABC";
+		Vendors[ L"LK" ] = L"Linkage";
+		Vendors[ L"LP" ] = L"Lphant";
+		Vendors[ L"LT" ] = L"Libtorrent";
+		Vendors[ L"lt" ] = L"libtorrent";
+		Vendors[ L"LW" ] = L"LimeWire";
+		Vendors[ L"MK" ] = L"Meerkat";
+		Vendors[ L"MR" ] = L"Miro";
+		Vendors[ L"MO" ] = L"Mono Torrent";
+		Vendors[ L"MP" ] = L"MooPolice";
+		Vendors[ L"MT" ] = L"Moonlight";
+		Vendors[ L"OS" ] = L"OneSwarm";
+		Vendors[ L"PC" ] = L"CacheLogic";
+		Vendors[ L"PD" ] = L"Pando";
+		Vendors[ L"PE" ] = L"PeerProject";
+		Vendors[ L"PT" ] = L"PHPTracker";
+		Vendors[ L"pX" ] = L"pHoeniX";
+		Vendors[ L"qB" ] = L"qBittorrent";
+		Vendors[ L"QD" ] = L"QQDownload";
+		Vendors[ L"QT" ] = L"QT4";
+		Vendors[ L"RT" ] = L"Retriever";
+		Vendors[ L"SB" ] = L"SwiftBit";
+		Vendors[ L"SM" ] = L"SoMud";
+		Vendors[ L"SN" ] = L"ShareNet";
+		Vendors[ L"SS" ] = L"Swarmscope";
+		Vendors[ L"st" ] = L"Sharktorrent";
+		Vendors[ L"ST" ] = L"SymTorrent";
+		Vendors[ L"SZ" ] = L"Shareaza";
+		Vendors[ L"S~" ] = L"ShareazaBeta";
+		Vendors[ L"TN" ] = L"Torrent.NET";
+		Vendors[ L"TR" ] = L"Transmission";
+		Vendors[ L"TS" ] = L"TorrentStorm";
+		Vendors[ L"TT" ] = L"TuoTu";
+		Vendors[ L"UL" ] = L"uLeecher";
+		Vendors[ L"UM" ] = L"\x00B5Torrent mac";
+		Vendors[ L"UT" ] = L"\x00B5Torrent";
+		Vendors[ L"WY" ] = L"FireTorrent";
+		Vendors[ L"XC" ] = L"XC ";		// ?
+		Vendors[ L"XL" ] = L"Xunlei";
+		Vendors[ L"XT" ] = L"XanTorrent";
+		Vendors[ L"XX" ] = L"xTorrent";
+		Vendors[ L"ZT" ] = L"ZipTorrent";
 	}
 
-	if ( sUserAgent.IsEmpty() ) 	// If we don't want the version, etc.
-		sUserAgent.Format( _T("BitTorrent (%c%c)"), pVendor[ 0 ], pVendor[ 1 ] );
+	strUserAgent = Vendors[ CString( pVendor ).Left( 2 ) ];
 
-	return sUserAgent;
+	if ( strUserAgent.IsEmpty() ) 	// If we don't want the version, etc.
+		strUserAgent.Format( _T("BitTorrent (%c%c)"), pVendor[ 0 ], pVendor[ 1 ] );
+	else if ( nVendor == 6 )
+		strUserAgent.Format( _T("%s %i.%i.%i.%i"), strUserAgent, ( pVendor[ 2 ] - '0' ), ( pVendor[ 3 ] - '0' ), ( pVendor[ 4 ] - '0' ), ( pVendor[ 5 ] - '0' ) );
+	else //if ( nVendor == 4 )
+		strUserAgent.Format( _T("%s %i.%i"), strUserAgent, pVendor[ 2 ], pVendor[ 3 ] );
+
+	return strUserAgent;
 }
 
 CString CBTClient::GetUserAgentOtherStyle(LPBYTE pVendor, CString* strNick)
@@ -761,7 +864,7 @@ CString CBTClient::GetUserAgentOtherStyle(LPBYTE pVendor, CString* strNick)
 	}
 	else if ( m_oGUID[0] == '-' && m_oGUID[1] == 'F' && m_oGUID[2] == 'G' )
 	{
-		// FlashGet 	// This is never reached? (Azureus-style but vXX.XX)
+		// FlashGet 	// This is never reached (Azureus-style but vXX.XX)
 		sUserAgent.Format( _T("FlashGet %i.%i%i"), ( ( m_oGUID[3] - '0' ) * 10 + ( m_oGUID[4] - '0' ) ), m_oGUID[5] - '0', m_oGUID[6] - '0' );
 	}
 	else if ( m_oGUID[0] == '-' && m_oGUID[1] == 'G' && m_oGUID[2] == '3' )

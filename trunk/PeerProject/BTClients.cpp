@@ -1,7 +1,7 @@
 //
 // BTClients.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -65,7 +65,7 @@ void CBTClients::Clear()
 
 BOOL CBTClients::OnAccept(CConnection* pConnection)
 {
-	if ( ! Network.IsConnected() || ( Settings.Connection.RequireForTransfers && ! Settings.BitTorrent.EnableToday ) )
+	if ( ! Network.IsConnected() || ( Settings.Connection.RequireForTransfers && ! Settings.BitTorrent.Enabled ) )
 	{
 		theApp.Message( MSG_ERROR, IDS_BT_CLIENT_DROP_CONNECTED,
 			(LPCTSTR)pConnection->m_sAddress );

@@ -1,7 +1,7 @@
 //
 // DownloadWithFile.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -67,9 +67,9 @@ public:
 	BOOL			FindByPath(const CString& sPath) const;
 	DWORD			GetFileCount() const;
 	QWORD			GetOffset(DWORD nIndex) const;
-	QWORD			GetLength(DWORD nIndex) const;
-	CString			GetPath(DWORD nIndex) const;
-	CString			GetName(DWORD nIndex) const;
+	QWORD			GetLength(DWORD nIndex = 0) const;
+	CString			GetPath(DWORD nIndex = 0) const;
+	CString			GetName(DWORD nIndex = 0) const;
 	QWORD			GetCompleted(DWORD nIndex) const;
 	int				SelectFile(CSingleLock* pLock) const;
 	DWORD			GetFileError() const;

@@ -1,7 +1,7 @@
 //
 // CtrlHomeView.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -127,7 +127,7 @@ void CHomeViewCtrl::Update()
 	m_pDocument.ShowGroup( GROUP_DISCONNECTED, ! bConnected );
 	m_pDocument.ShowGroup( GROUP_CONNECTED, bConnected );
 
-	BOOL bOnG2 = bConnected && Settings.Gnutella2.EnableToday && ( Neighbours.GetCount( PROTOCOL_G2, nrsConnected, -1 ) >= Settings.Gnutella2.NumHubs );
+	BOOL bOnG2 = bConnected && Settings.Gnutella2.Enabled && ( Neighbours.GetCount( PROTOCOL_G2, nrsConnected, -1 ) >= Settings.Gnutella2.NumHubs );
 	// BOOL bTCPFirewalled = Network.IsFirewalled(CHECK_TCP);
 	BOOL bUDPFirewalled = Network.IsFirewalled(CHECK_UDP);
 

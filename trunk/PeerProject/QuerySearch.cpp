@@ -25,6 +25,7 @@
 #include "G1Packet.h"
 #include "G2Packet.h"
 #include "EDPacket.h"
+#include "DCPacket.h"
 #include "PeerProjectURL.h"
 #include "Schema.h"
 #include "SchemaCache.h"
@@ -60,7 +61,7 @@ CQuerySearch::CQuerySearch(BOOL bGUID)
 	, m_bWantXML	( TRUE )
 	, m_bWantCOM	( TRUE )
 	, m_bWantPFS	( TRUE )
-	, m_bAndG1		( Settings.Gnutella1.EnableToday )
+	, m_bAndG1		( Settings.Gnutella1.Enabled )
 	, m_bUDP		( FALSE )
 	, m_nTTL		( 0 )
 	, m_nKey		( 0 )
@@ -200,7 +201,7 @@ CG1Packet* CQuerySearch::ToG1Packet(DWORD nTTL) const
 		{
 			if ( m_oSHA1.isValid() )
 			{
-				if (  m_oTiger.isValid() )
+				if ( m_oTiger.isValid() )
 				{
 					CGGEPItem* pItem = pBlock.Add( GGEP_HEADER_HASH );
 					pItem->WriteByte( GGEP_H_BITPRINT );
@@ -563,6 +564,60 @@ BOOL CQuerySearch::WriteHashesToEDPacket(CEDPacket* pPacket, BOOL bUDP) const
 	}
 
 	return TRUE;
+}
+
+//////////////////////////////////////////////////////////////////////
+// CQuerySearch to DC packet
+
+CDCPacket* CQuerySearch::ToDCPacket() const
+{
+	// $Search Ip:Port (F|T)?(F|T)?Size?Type?String|
+
+	int nType = 1;
+	if ( m_oTiger )
+	{
+		nType = 9;
+	}
+	else if ( m_pSchema )
+	{
+		if ( m_pSchema->CheckURI( CSchema::uriAudio )  )
+			nType = 2;
+		else if ( m_pSchema->CheckURI( CSchema::uriArchive )  )
+			nType = 3;
+		else if ( m_pSchema->CheckURI( CSchema::uriDocument )  )
+			nType = 4;
+		else if ( m_pSchema->CheckURI( CSchema::uriApplication )  )
+			nType = 5;
+		else if ( m_pSchema->CheckURI( CSchema::uriImage )  )
+			nType = 6;
+		else if ( m_pSchema->CheckURI( CSchema::uriVideo )  )
+			nType = 7;
+		else if ( m_pSchema->CheckURI( CSchema::uriFolder )  )
+			nType = 8;
+	}
+
+	CDCPacket* pPacket = CDCPacket::New();
+
+	const bool bSizeRestriced = m_nMinSize != 0 || m_nMaxSize != SIZE_UNKNOWN;
+	const bool bIsMaxSize = m_nMaxSize != SIZE_UNKNOWN || ! bSizeRestriced;
+
+	CString strSearch = m_sSearch;
+	strSearch.Replace( _T(' '), _T('$') );
+	strSearch.Replace( _T('|'), _T('$') );
+
+	CString strQuery;
+	strQuery.Format( _T("$Search %s:%u %c?%c?%I64u?%d?%s|"),
+		(LPCTSTR)CString( inet_ntoa( Network.m_pHost.sin_addr ) ),
+		ntohs( Network.m_pHost.sin_port ),
+		( bSizeRestriced ? _T('T') : _T('F') ),
+		( bIsMaxSize ? _T('T') : _T('F') ),
+		( bSizeRestriced ? ( bIsMaxSize ? m_nMaxSize : m_nMinSize ) : 0ull ),
+		nType,
+		( m_oTiger ? ( _T("TTH:") + m_oTiger.toString() ) : strSearch ) );
+
+	pPacket->WriteString( strQuery, FALSE );
+
+	return pPacket;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -1446,7 +1501,7 @@ BOOL CQuerySearch::NumberMatch(const CString& strValue, const CString& strRange)
 //////////////////////////////////////////////////////////////////////
 // CQuerySearch word list builder
 
-void CQuerySearch::BuildWordList(bool bExpression, bool /* bLocal */ )
+void CQuerySearch::BuildWordList(bool bExpression, bool /*bLocal*/ )
 {
 	m_sSearch.Trim();
 	ToLower( m_sSearch );
@@ -1853,7 +1908,7 @@ void CQuerySearch::BuildWordTable()
 
 void CQuerySearch::Serialize(CArchive& ar)
 {
-	int nVersion = QUERYSEARCH_SER_VERSION;
+	int nVersion = QUERYSEARCH_SER_VERSION;	// ToDo: INTERNAL_VERSION
 
 	CString strURI;
 

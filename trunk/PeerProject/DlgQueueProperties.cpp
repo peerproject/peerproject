@@ -1,7 +1,7 @@
 //
 // DlgQueueProperties.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -139,7 +139,8 @@ BOOL CQueuePropertiesDlg::OnInitDialog()
 	m_wndProtocols.SendMessage( LVM_SETEXTENDEDLISTVIEWSTYLE, LVS_EX_CHECKBOXES, LVS_EX_CHECKBOXES );
 	m_wndProtocols.InsertItem( LVIF_TEXT|LVIF_IMAGE|LVIF_PARAM, 0, _T("HTTP"), 0, 0, PROTOCOL_HTTP, PROTOCOL_HTTP );
 	m_wndProtocols.InsertItem( LVIF_TEXT|LVIF_IMAGE|LVIF_PARAM, 1, _T("ED2K"), 0, 0, PROTOCOL_ED2K, PROTOCOL_ED2K );
-	m_wndProtocols.InsertItem( LVIF_TEXT|LVIF_IMAGE|LVIF_PARAM, 2, _T("BitTorrent"), 0, 0, PROTOCOL_BT, PROTOCOL_BT );
+	m_wndProtocols.InsertItem( LVIF_TEXT|LVIF_IMAGE|LVIF_PARAM, 2, _T("DC++"), 0, 0, PROTOCOL_DC, PROTOCOL_DC );
+	m_wndProtocols.InsertItem( LVIF_TEXT|LVIF_IMAGE|LVIF_PARAM, 3, _T("BitTorrent"), 0, 0, PROTOCOL_BT, PROTOCOL_BT );
 
 	CSingleLock pLock( &UploadQueues.m_pSection, TRUE );
 
@@ -190,8 +191,10 @@ BOOL CQueuePropertiesDlg::OnInitDialog()
 		m_wndProtocols.SetItemState( 0, INDEXTOSTATEIMAGEMASK(2), LVIS_STATEIMAGEMASK );
 	if ( ! m_bProtocols || ( m_pQueue->m_nProtocols & (1<<PROTOCOL_ED2K) ) )
 		m_wndProtocols.SetItemState( 1, INDEXTOSTATEIMAGEMASK(2), LVIS_STATEIMAGEMASK );
-	if ( ! m_bProtocols || ( m_pQueue->m_nProtocols & (1<<PROTOCOL_BT) ) )
+	if ( ! m_bProtocols || ( m_pQueue->m_nProtocols & (1<<PROTOCOL_DC) ) )
 		m_wndProtocols.SetItemState( 2, INDEXTOSTATEIMAGEMASK(2), LVIS_STATEIMAGEMASK );
+	if ( ! m_bProtocols || ( m_pQueue->m_nProtocols & (1<<PROTOCOL_BT) ) )
+		m_wndProtocols.SetItemState( 3, INDEXTOSTATEIMAGEMASK(2), LVIS_STATEIMAGEMASK );
 
 	m_bEnable		= m_pQueue->m_bEnable || m_bEnableOverride;
 
@@ -233,7 +236,7 @@ BOOL CQueuePropertiesDlg::OnInitDialog()
 
 	if ( Settings.General.GUIMode == GUI_BASIC )
 	{
-		if ( !( Settings.eDonkey.EnableAlways | Settings.eDonkey.EnableToday ) )
+		if ( !( Settings.eDonkey.EnableAlways | Settings.eDonkey.Enabled ) )
 		{
 			m_bProtocols = FALSE;
 			m_wndProtocols.EnableWindow( FALSE );
@@ -274,7 +277,7 @@ void CQueuePropertiesDlg::OnMatchCheck()
 void CQueuePropertiesDlg::OnProtocolsCheck()
 {
 	if ( Settings.General.GUIMode == GUI_BASIC &&
-		!( Settings.eDonkey.EnableAlways | Settings.eDonkey.EnableToday ) )
+		!( Settings.eDonkey.EnableAlways | Settings.eDonkey.Enabled ) )
 			return;
 
 	UpdateData();
@@ -316,8 +319,7 @@ void CQueuePropertiesDlg::OnHScroll(UINT /*nSBCode*/, UINT /*nPos*/, CScrollBar*
 	DWORD nBandwidth = nLimit * nLocalPoints / max( 1, nTotalPoints );
 
 	CString str;
-	str.Format( _T("%u%% (%lu/%lu)"), ( 100 * nBandwidth ) / nLimit,
-		nLocalPoints, nTotalPoints );
+	str.Format( _T("%u%% (%lu/%lu)"), ( 100 * nBandwidth ) / nLimit, nLocalPoints, nTotalPoints );
 
 	m_wndBandwidthPoints.SetWindowText( str );
 	m_wndBandwidthValue.SetWindowText( Settings.SmartSpeed( nBandwidth ) + '+' );
@@ -377,9 +379,11 @@ void CQueuePropertiesDlg::OnOK()
 		if ( m_wndProtocols.GetItemState( 1, LVIS_STATEIMAGEMASK ) == INDEXTOSTATEIMAGEMASK(2) )
 			m_pQueue->m_nProtocols |= (1<<PROTOCOL_ED2K);
 		if ( m_wndProtocols.GetItemState( 2, LVIS_STATEIMAGEMASK ) == INDEXTOSTATEIMAGEMASK(2) )
+			m_pQueue->m_nProtocols |= (1<<PROTOCOL_DC);
+		if ( m_wndProtocols.GetItemState( 3, LVIS_STATEIMAGEMASK ) == INDEXTOSTATEIMAGEMASK(2) )
 			m_pQueue->m_nProtocols |= (1<<PROTOCOL_BT);
 
-		if ( m_pQueue->m_nProtocols == ( (1<<PROTOCOL_HTTP)|(1<<PROTOCOL_ED2K)|(1<<PROTOCOL_BT) ) )
+		if ( m_pQueue->m_nProtocols == ( (1<<PROTOCOL_HTTP)|(1<<PROTOCOL_ED2K)|(1<<PROTOCOL_DC)|(1<<PROTOCOL_BT) ) )
 			m_pQueue->m_nProtocols = 0;
 	}
 

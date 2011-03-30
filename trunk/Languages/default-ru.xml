@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Russian Skin File -->
 
-<!-- Translation based on default-en.xml r64 -->
+<!-- Translation based on default-en.xml r65 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -362,6 +362,7 @@
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
+		<button id="ID_NETWORK_DC" text="DC++"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Установки"/>
 	</toolbar>
@@ -419,22 +420,16 @@
 		<button id="ID_SEARCH_FILTER_RAW" text="Ещё..."/>
 	</toolbar>
 	<!-- HOST CACHE WINDOW -->
-	<toolbar name="CHostCacheWnd.Basic">
-		<button id="ID_HOSTCACHE_CONNECT" text="Подключиться"/>
-		<button id="ID_HOSTCACHE_DISCONNECT" text="Отключиться"/>
-		<button id="ID_HOSTCACHE_REMOVE" text="Удалить"/>
-	</toolbar>
 	<toolbar name="CHostCacheWnd">
 		<button id="ID_HOSTCACHE_CONNECT" text="Подключиться"/>
 		<button id="ID_HOSTCACHE_DISCONNECT" text="Отключиться"/>
 		<button id="ID_HOSTCACHE_REMOVE" text="Удалить"/>
 		<rightAlign/>
-		<button id="ID_HOSTCACHE_G2_HORIZON" text="G2 кластер"/>
-		<button id="ID_HOSTCACHE_G2_CACHE" text="G2 кэш"/>
-		<button id="ID_HOSTCACHE_G1_CACHE" text="G1 кэш"/>
-		<button id="ID_HOSTCACHE_ED2K_CACHE" text="eDonkey кэш"/>
-		<button id="ID_HOSTCACHE_BT_CACHE" text="BitTorrent кэш"/>
-		<button id="ID_HOSTCACHE_KAD_CACHE" text="Kademlia кэш"/>
+		<button id="ID_HOSTCACHE_G2_HORIZON" text="кластер"/>
+		<button id="ID_HOSTCACHE_G2_CACHE" text="кэш "/>
+		<button id="ID_HOSTCACHE_G1_CACHE" text="кэш "/>
+		<button id="ID_HOSTCACHE_ED2K_CACHE" text="кэш "/>
+		<button id="ID_HOSTCACHE_DC_CACHE" text="кэш "/>
 	</toolbar>
 	<!-- PRIVATE CHAT WINDOW -->
 	<toolbar name="CPrivateChatFrame">
@@ -536,6 +531,7 @@
 				<item id="ID_NETWORK_G2" text="Подключиться к Gnutella_2"/>
 				<item id="ID_NETWORK_G1" text="Подключиться к _Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="Подключиться к _eDonkey"/>
+				<item id="ID_NETWORK_DC" text="Подключиться к _DC++"/>
 				<separator/>
 				<item id="ID_NETWORK_CONNECT_TO" text="Под_ключиться..." shortcut="Ctrl+T"/>
 				<item id="ID_NETWORK_BROWSE_TO" text="Просмотр _хоста..."/>
@@ -550,7 +546,7 @@
 				<item id="ID_TOOLS_DOWNLOAD" text="_Начать загрузку..."/>
 				<item id="ID_TOOLS_SEEDTORRENT" text="_Seed a .Torrent..."/>
 				<item id="ID_TOOLS_CREATETORRENT" text="_Create New .Torrent..."/>
-				<item id="IDC_IMPORT_DOWNLOADS" text="_Импорт частичных загрузок eMule..."/>
+				<item id="ID_IMPORT_DOWNLOADS" text="_Импорт частичных загрузок eMule..."/>
 				<separator/>
 				<item id="ID_TOOLS_LANGUAGE" text="Выбрать _язык..."/>
 				<item id="ID_TOOLS_SKIN" text="Выбрать _шкурку..."/>
@@ -623,11 +619,10 @@
 			<item id="ID_NETWORK_CONNECT" text="_Подключиться" shortcut="Ctrl+G"/>
 			<item id="ID_NETWORK_DISCONNECT" text="_Отключиться"/>
 			<separator/>
-			<menu text="Выбор _Сетей">
-				<item id="ID_NETWORK_G2" text="Подключиться к Gnutella_2"/>
-				<item id="ID_NETWORK_G1" text="Подключиться к _Gnutella"/>
-				<item id="ID_NETWORK_ED2K" text="Подключиться к _eDonkey"/>
-			</menu>
+			<item id="ID_NETWORK_G2" text="Подключиться к Gnutella_2"/>
+			<item id="ID_NETWORK_G1" text="Подключиться к _Gnutella"/>
+			<item id="ID_NETWORK_ED2K" text="Подключиться к _eDonkey"/>
+			<item id="ID_NETWORK_DC" text="Подключиться к _DC++"/>
 			<separator/>
 			<item id="ID_NETWORK_CONNECT_TO" text="Под_ключиться..." shortcut="Ctrl+T"/>
 			<item id="ID_NETWORK_BROWSE_TO" text="Просмотр _хоста..."/>
@@ -674,7 +669,7 @@
 		<menu text="_Инструменты">
 			<item id="ID_LIBRARY_FOLDERS" text="Общий _доступ..."/>
 			<item id="ID_TOOLS_DOWNLOAD" text="_Начать загрузку..."/>
-			<item id="IDC_IMPORT_DOWNLOADS" text="_Импорт частичных загрузок eMule..."/>
+			<item id="ID_IMPORT_DOWNLOADS" text="_Импорт частичных загрузок eMule..."/>
 			<item id="ID_OPEN_DOWNLOADS_FOLDER" text="_Открыть папку с загрузками"/>
 			<separator/>
 			<item id="ID_TOOLS_SKIN" text="Выбрать _шкурку..."/>
@@ -724,11 +719,9 @@
 		<menu text="_Сети">
 			<item id="ID_NETWORK_CONNECT" text="_Подключиться" shortcut="Ctrl+G"/>
 			<separator/>
-			<menu text="Выберите _сеть">
-				<item id="ID_NETWORK_G2" text="Подключиться к Gnutella_2"/>
-				<item id="ID_NETWORK_G1" text="Подключиться к _Gnutella"/>
-				<item id="ID_NETWORK_ED2K" text="Подключиться к _eDonkey"/>
-			</menu>
+			<item id="ID_NETWORK_G2" text="Подключиться к Gnutella_2"/>
+			<item id="ID_NETWORK_G1" text="Подключиться к _Gnutella"/>
+			<item id="ID_NETWORK_ED2K" text="Подключиться к _eDonkey"/>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="Выйти _после пересылок"/>
 			<item id="ID_NETWORK_EXIT" text="В_ыход"/>
@@ -803,11 +796,10 @@
 			<item id="ID_NETWORK_CONNECT_TO" text="Подключиться..." shortcut="Ctrl+T"/>
 			<item id="ID_NETWORK_BROWSE_TO" text="Просмотр _хоста..."/>
 			<separator/>
-			<menu text="_Выбор сетей">
-				<item id="ID_NETWORK_G2" text="Подключиться к Gnutella_2"/>
-				<item id="ID_NETWORK_G1" text="Подключиться к _Gnutella"/>
-				<item id="ID_NETWORK_ED2K" text="Подключиться кс _eDonkey"/>
-			</menu>
+			<item id="ID_NETWORK_G2" text="Подключиться к Gnutella_2"/>
+			<item id="ID_NETWORK_G1" text="Подключиться к _Gnutella"/>
+			<item id="ID_NETWORK_ED2K" text="Подключиться кс _eDonkey"/>
+			<item id="ID_NETWORK_DC" text="Подключиться кс _DC++"/>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="_Закрыть после пересылок"/>
 			<item id="ID_NETWORK_EXIT" text="В_ыход"/>
@@ -837,7 +829,7 @@
 		<menu text="_Инструменты">
 			<item id="ID_LIBRARY_FOLDERS" text="Общий _доступ..."/>
 			<item id="ID_TOOLS_DOWNLOAD" text="_Начать загрузку..."/>
-			<item id="IDC_IMPORT_DOWNLOADS" text="_Импорт частичных загрузок eMule..."/>
+			<item id="ID_IMPORT_DOWNLOADS" text="_Импорт частичных загрузок eMule..."/>
 			<item id="ID_OPEN_DOWNLOADS_FOLDER" text="_Открыть папку с загрузками"/>
 			<separator/>
 			<item id="ID_TOOLS_SKIN" text="Выбрать _шкурку..."/>
@@ -1593,6 +1585,10 @@
 			<item id="ID_NETWORK_G2" text="Gnutella_2"/>
 			<item id="ID_NETWORK_G1" text="_Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="_eDonkey"/>
+			<item id="ID_NETWORK_DC" text="_DC++"/>
+			<separator/>
+			<item id="ID_VIEW_DISCOVERY" text="_Ресурсы подключений"/>
+			<item id="ID_VIEW_HOSTS" text="_Кэш хостов"/>
 		</menu>
 		<menu text="_Монитор">
 			<item id="ID_NEIGHBOURS_VIEW_ALL" text="Смотреть весь _трафик"/>
@@ -1891,12 +1887,20 @@
 		<text group="31" align="middle">Отключено</text>
 		<text group="32" align="middle">Подключение…</text>
 		<text group="33" align="middle">Подключено</text>
+		<text group="34" align="middle" id="EDServers">%i сервер</text>
 		<newline group="30" gap="2"/>
+		<icon group="60" command="ID_NETWORK_DC"/>
+		<text group="60" align="middle" format="b">&#160;DC++: &#160; </text>
+		<text group="61" align="middle">Отключено</text>
+		<text group="62" align="middle">Подключение…</text>
+		<text group="63" align="middle">Подключено</text>
+		<text group="64" align="middle" id="DCHubs">%i узла</text>
+		<newline group="60" gap="2"/>
 		<group id="2">
 			<para align="center">
-				<newline gap="6"/>
-				<text>Вы подключены </text>
-				<newline gap="0"/>
+				<newline gap="4"/>
+				<link target="command:ID_TAB_NETWORK">Вы подключены </link>
+				<newline gap="4"/>
 				<text id="ConnectedHours" format="b">%i </text>
 				<text>часов и </text>
 				<text id="ConnectedMinutes" format="b">%i </text>
@@ -1904,7 +1908,7 @@
 			</para>
 		</group>
 	</document>
-	<document name="CHomeLibraryBox" title="Моё хранилище" leftMargin="6" topMargin="6">
+	<document name="CHomeLibraryBox" title="Xранилище" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
 				<font size="11"/>
@@ -1936,7 +1940,7 @@
 			</group>
 		</para>
 	</document>
-	<document name="CHomeDownloadsBox" title="Мои загрузки" leftMargin="6" topMargin="6">
+	<document name="CHomeDownloadsBox" title="загрузки" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
 				<font size="11"/>
@@ -2569,8 +2573,9 @@
 	<tip id="ID_NETWORK_CONNECT" message="Соединиться с выбранными сетями."/>
 	<tip id="ID_NETWORK_CONNECT_TO" message="Вручную присоединиться к хосту..."/>
 	<tip id="ID_NETWORK_DISCONNECT" message="Отсоединиться от сетей. Это также остановит все загрузки и раздачи."/>
-	<tip id="ID_NETWORK_ED2K" message="Соединиться с сетью eDonkey."/>
 	<tip id="ID_NETWORK_EXIT" message="Выйти из PeerProject"/>
+	<tip id="ID_NETWORK_ED2K" message="Соединиться с сетью eDonkey."/>
+	<tip id="ID_NETWORK_DC" message="Соединиться с сетью DC++."/>
 	<tip id="ID_NETWORK_G1" message="Соединиться с оригинальной сетью Gnutella."/>
 	<tip id="ID_NETWORK_G2" message="Соединиться с сетью Gnutella2 (рекомендуется)."/>
 	<tip id="ID_NETWORK_SEARCH" message="Начать новый поиск в сети..."/>
@@ -2737,7 +2742,9 @@
 	<string id="20016" value="Повторить"/>
 	<string id="20017" value="Прервать"/>
 	<string id="20018" value="Повторить снова"/>
-	<string id="20050" value="Every Day"/>
+	<string id="20020" value="Файл"/>
+	<string id="20021" value="Файлы"/>
+	<string id="20050" value="Каждый день"/>
 	<string id="20051" value="Понедельник"/>
 	<string id="20052" value="Вторник"/>
 	<string id="20053" value="Среда"/>
@@ -3476,9 +3483,9 @@
 	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuBuCoBuBuBuCoBuBuBuEdBu" caption="Хранилище">
 		<control caption="_Опции:"/>
 		<control caption="Открыть общий доступ"/>
-		<control caption="Запоминать вид папок"/>
 		<control caption="Следить за хранилищем"/>
 		<control caption="Быстрое хеширование"/>
+		<control caption="Запоминать вид папок"/>
 		<control caption="Определение номеров серий у видео"/>
 		<control caption="Теневые файлы при стирании"/>
 		<control caption="_Последние файлы:"/>
@@ -3572,13 +3579,14 @@
 		<control caption="On-connect"/>
 		<control/>
 	</dialog>
-	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuCoBuBuSt" caption="Веб">
+	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuBuCoBuBuSt" caption="Веб">
 		<control caption="Обработка _пиринговых (P2P) ссылок:"/>
 		<control caption="Использовать PeerProject для перехвата следующих типов ссылок:"/>
 		<control caption="Magnet ( magnet: )"/>
 		<control caption="Gnutella ( gnutella: )"/>
 		<control caption="eDonkey ( ed2k: )"/>
 		<control caption="Piolet ( mp2p: )"/>
+		<control caption="DC++ ( dchub:/dcfile: )"/>
 		<control caption="BitTorrent ( .torrent )"/>
 		<control caption="_Менеджер загрузок:"/>
 		<control caption="Обрабатывать PeerProject'ой все мои веб загрузки:"/>
@@ -4468,7 +4476,8 @@
 		<control caption="Чтобы обмениваться файлами в BitTorrent, их нужно сперва раздать. Когда процесс завершится, торрент появится в Вашем списке загрузок."/>
 		<control/>
 	</dialog>
-	<dialog name="CTorrentFilesPage" cookie="Sy" caption="Файлы">
+	<dialog name="CTorrentFilesPage" cookie="StSy" caption="Файлы">
+		<control/>
 		<control/>
 	</dialog>
 	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="Трекеры">
@@ -4657,14 +4666,13 @@
 	<list name="CHostCacheWnd">
 		<column from="Address" to="Адрес"/>
 		<column from="Port" to="Порт"/>
-		<column from="Client" to="Клиент"/>
 		<column from="Last Seen" to="Когда встречался"/>
-		<column from="Daily Uptime" to="Работоспособность"/>
+		<column from="Client" to="Клиент"/>
 		<column from="Name" to="Название"/>
 		<column from="Description" to="Описание"/>
+		<column from="Failures" to="Отказов"/>
 		<column from="CurUsers" to="Текущих пользов."/>
 		<column from="MaxUsers" to="Макс. число польз."/>
-		<column from="Failures" to="Отказов"/>
 		<column from="Country" to="Страна"/>
 	</list>
 	<list name="CDiscoveryWnd">
@@ -4724,7 +4732,7 @@
 		<column from="Criteria" to="Критерии"/>
 		<column from="Minimum" to="Трафик"/>
 		<column from="Transfers" to="Загрузок"/>
-		<column from="Order" to="Порядок"/>
+		<column from="Priority" to="Порядок"/>
 	</list>
 	<list name="CAdvancedSettingsList">
 		<column from="Setting" to="Установка"/>

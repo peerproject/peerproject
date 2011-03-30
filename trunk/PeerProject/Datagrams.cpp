@@ -1,7 +1,7 @@
 //
 // Datagrams.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -28,7 +28,7 @@
 #include "G1Packet.h"
 #include "G2Packet.h"
 #include "EDPacket.h"
-//#include "DCPacket.h"
+#include "DCPacket.h"
 #include "BTPacket.h"
 #include "BENode.h"
 #include "Security.h"
@@ -231,8 +231,6 @@ BOOL CDatagrams::Send(const SOCKADDR_IN* pHost, CPacket* pPacket, BOOL bRelease,
 
 	pPacket->SmartDump( pHost, TRUE, TRUE );
 
-	// Gnutella2 uses SGP-powered datagrams
-
 	if ( pPacket->m_nProtocol != PROTOCOL_G2 )
 	{
 		CBuffer pBuffer;
@@ -246,6 +244,8 @@ BOOL CDatagrams::Send(const SOCKADDR_IN* pHost, CPacket* pPacket, BOOL bRelease,
 
 		return TRUE;
 	}
+
+	// Gnutella2 uses SGP-powered datagrams
 
 	if ( m_pOutputFree == NULL || m_pBufferFree == NULL )
 	{
@@ -489,7 +489,7 @@ BOOL CDatagrams::TryWrite()
 
 void CDatagrams::ManageOutput()
 {
-	DWORD tNow = GetTickCount();
+	const DWORD tNow = GetTickCount();
 
 	for ( CDatagramOut* pDG = m_pOutputLast ; pDG ; )
 	{
@@ -553,7 +553,7 @@ BOOL CDatagrams::TryRead()
 
 	if ( m_mInput.pHistory )
 	{
-		DWORD tNow = GetTickCount();
+		const DWORD tNow = GetTickCount();
 		if ( tNow - m_mInput.tLastSlot < METER_MINIMUM )
 		{
 			m_mInput.pHistory[ m_mInput.nPosition ] += nLength;
@@ -585,7 +585,7 @@ BOOL CDatagrams::TryRead()
 	{
 		// Report unknown packets
 		CString strText;
-		for ( int i = 0; i < nLength && i < 80; i++ )
+		for ( int i = 0 ; i < nLength && i < 80 ; i++ )
 		{
 			strText += ( ( m_pReadBuffer[ i ] < ' ' ) ? '.' : (char)m_pReadBuffer[ i ] );
 		}
@@ -685,23 +685,23 @@ BOOL CDatagrams::OnDatagram(const SOCKADDR_IN* pHost, const BYTE* pBuffer, DWORD
 		}
 	}
 
-//	// Detect DC++ packets
-//	if ( nLength >= DC_PROTOCOL_MIN_LEN &&
-//		 pBuffer[ 0 ] == '$' &&
-//		 pBuffer[ nLength - 1 ] == '|' )
-//	{
-//		if ( CDCPacket* pPacket = CDCPacket::New( pBuffer, nLength ) )
-//		{
-//			m_nInPackets++;
-//
-//			bHandled = pPacket->OnPacket( pHost );
-//
-//			pPacket->Release();
-//
-//			if ( bHandled )
-//				return TRUE;
-//		}
-//	}
+	// Detect DC++ packets
+	if ( nLength >= DC_PROTOCOL_MIN_LEN &&
+		 pBuffer[ 0 ] == '$' &&
+		 pBuffer[ nLength - 1 ] == '|' )
+	{
+		if ( CDCPacket* pPacket = CDCPacket::New( pBuffer, nLength ) )
+		{
+			m_nInPackets++;
+
+			bHandled = pPacket->OnPacket( pHost );
+
+			pPacket->Release();
+
+			if ( bHandled )
+				return TRUE;
+		}
+	}
 
 	// Detect BitTorrent packets
 	if ( nLength > 16 )
@@ -854,7 +854,7 @@ BOOL CDatagrams::OnReceiveSGP(const SOCKADDR_IN* pHost, const SGP_HEADER* pHeade
 		m_pInputLast = pDG;
 
 	m_pInputFirst = pDG;
-	m_pInputFree = pDG->m_pNextHash;
+	m_pInputFree  = pDG->m_pNextHash;
 
 	if ( *pHash ) (*pHash)->m_pPrevHash = &pDG->m_pNextHash;
 	pDG->m_pNextHash = *pHash;

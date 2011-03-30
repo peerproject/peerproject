@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Hungarian Skin File -->
 
-<!-- Translation based on default-en.xml r64 -->
+<!-- Translation based on default-en.xml r65 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -362,6 +362,7 @@
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
+		<button id="ID_NETWORK_DC" text="DC++"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Beállítások"/>
 	</toolbar>
@@ -392,22 +393,16 @@
 		<button id="ID_SEARCH_FILTER_RAW" text="Tovább..."/>
 	</toolbar>
 	<!-- HOST CACHE WINDOW -->
-	<toolbar name="CHostCacheWnd.Basic">
-		<button id="ID_HOSTCACHE_CONNECT" text="Kapcsolódás"/>
-		<button id="ID_HOSTCACHE_DISCONNECT" text="Lekapcsolódás"/>
-		<button id="ID_HOSTCACHE_REMOVE" text="Eltávolítás"/>
-	</toolbar>
 	<toolbar name="CHostCacheWnd">
 		<button id="ID_HOSTCACHE_CONNECT" text="Kapcsolódás"/>
 		<button id="ID_HOSTCACHE_DISCONNECT" text="Lekapcsolódás"/>
 		<button id="ID_HOSTCACHE_REMOVE" text="Eltávolítás"/>
 		<rightAlign/>
-		<button id="ID_HOSTCACHE_G2_HORIZON" text="G2 Cluster"/>
-		<button id="ID_HOSTCACHE_G2_CACHE" text="G2 Cache"/>
-		<button id="ID_HOSTCACHE_G1_CACHE" text="G1 Cache"/>
-		<button id="ID_HOSTCACHE_ED2K_CACHE" text="eDonkey Cache"/>
-		<button id="ID_HOSTCACHE_BT_CACHE" text="BitTorrent Cache"/>
-		<button id="ID_HOSTCACHE_KAD_CACHE" text="Kademlia Cache"/>
+		<button id="ID_HOSTCACHE_G2_HORIZON" text="Cluster"/>
+		<button id="ID_HOSTCACHE_G2_CACHE" text="Cache"/>
+		<button id="ID_HOSTCACHE_G1_CACHE" text="Cache"/>
+		<button id="ID_HOSTCACHE_ED2K_CACHE" text="Cache"/>
+		<button id="ID_HOSTCACHE_DC_CACHE" text="Cache"/>
 	</toolbar>
 	<!-- PRIVATE CHAT WINDOW -->
 	<toolbar name="CPrivateChatFrame">
@@ -506,8 +501,9 @@
 				<item id="ID_NETWORK_DISCONNECT" text="Lekapcsolódás"/>
 				<separator/>
 				<item id="ID_NETWORK_G2" text="Kapcsolódás a Gnutella2-höz"/>
-				<item id="ID_NETWORK_G1" text="Kapcsolódás a Gnutella1-hez"/>
+				<item id="ID_NETWORK_G1" text="Kapcsolódás a Gnutella-hez"/>
 				<item id="ID_NETWORK_ED2K" text="Kapcsolódás az eDonkey-hoz"/>
+				<item id="ID_NETWORK_ED2K" text="Kapcsolódás az DC++-hoz"/>
 				<separator/>
 				<item id="ID_NETWORK_CONNECT_TO" text="Manuális kapcsolódás..." shortcut="Ctrl+T"/>
 				<item id="ID_NETWORK_BROWSE_TO" text="Fájllista és adatlap..."/>
@@ -522,7 +518,7 @@
 				<item id="ID_TOOLS_DOWNLOAD" text="Torrent/Fájl letöltése..."/>
 				<item id="ID_TOOLS_SEEDTORRENT" text="Újabb torrent seedelése..."/>
 				<item id="ID_TOOLS_CREATETORRENT" text="_Create New .Torrent..."/>
-				<item id="IDC_IMPORT_DOWNLOADS" text="eDonkey félkész letöltések importálása..."/>
+				<item id="ID_IMPORT_DOWNLOADS" text="eDonkey félkész letöltések importálása..."/>
 				<separator/>
 				<item id="ID_TOOLS_LANGUAGE" text="Nyelv kiválasztása..."/>
 				<item id="ID_TOOLS_SKIN" text="Kinézet kiválasztása..."/>
@@ -591,11 +587,10 @@
 			<item id="ID_NETWORK_CONNECT" text="_Kapcsolódás" shortcut="Ctrl+G"/>
 			<item id="ID_NETWORK_DISCONNECT" text="_Lekapcsolódás"/>
 			<separator/>
-			<menu text="_Hálózat kiválasztása">
-				<item id="ID_NETWORK_G2" text="Kapcsolódás a Gnutella_2-höz"/>
-				<item id="ID_NETWORK_G1" text="Kapcsolódás a _Gnutella-hez"/>
-				<item id="ID_NETWORK_ED2K" text="Kapcsolódás az _eDonkey-hoz"/>
-			</menu>
+			<item id="ID_NETWORK_G2" text="Kapcsolódás a Gnutella_2-höz"/>
+			<item id="ID_NETWORK_G1" text="Kapcsolódás a _Gnutella-hez"/>
+			<item id="ID_NETWORK_ED2K" text="Kapcsolódás az _eDonkey-hoz"/>
+			<item id="ID_NETWORK_DC" text="Kapcsolódás az _DC++-hoz"/>
 			<separator/>
 			<item id="ID_NETWORK_CONNECT_TO" text="_Manuális kapcsolódás..." shortcut="Ctrl+T"/>
 			<item id="ID_NETWORK_BROWSE_TO" text="_Fájllista és adatlap..."/>
@@ -640,7 +635,7 @@
 		<menu text="_Eszközök">
 			<item id="ID_LIBRARY_FOLDERS" text="_Fájlok megosztása..."/>
 			<item id="ID_TOOLS_DOWNLOAD" text="_Torrent/Fájl letöltése..."/>
-			<item id="IDC_IMPORT_DOWNLOADS" text="_eMule félkész letöltések importálása..."/>
+			<item id="ID_IMPORT_DOWNLOADS" text="_eMule félkész letöltések importálása..."/>
 			<item id="ID_OPEN_DOWNLOADS_FOLDER" text="A kész _letöltések mappa megnyitása..."/>
 			<separator/>
 			<item id="ID_TOOLS_SKIN" text="_Kinézet kiválasztása..."/>
@@ -689,11 +684,9 @@
 		<menu text="_Hálózat">
 			<item id="ID_NETWORK_CONNECT" text="_Kapcsolódás" shortcut="Ctrl+G"/>
 			<separator/>
-			<menu text="_Hálózat kiválasztása">
-				<item id="ID_NETWORK_G2" text="Kapcsolódás a Gnutella_2-höz"/>
-				<item id="ID_NETWORK_G1" text="Kapcsolódás a _Gnutella-hez"/>
-				<item id="ID_NETWORK_ED2K" text="Kapcsolódás az _eDonkey-hoz"/>
-			</menu>
+			<item id="ID_NETWORK_G2" text="Kapcsolódás a Gnutella_2-höz"/>
+			<item id="ID_NETWORK_G1" text="Kapcsolódás a _Gnutella-hez"/>
+			<item id="ID_NETWORK_ED2K" text="Kapcsolódás az _eDonkey-hoz"/>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="_Forgalom után kilépés"/>
 			<item id="ID_NETWORK_EXIT" text="_Kilépés"/>
@@ -767,11 +760,10 @@
 			<item id="ID_NETWORK_CONNECT_TO" text="K_apcsolódás" shortcut="Ctrl+T"/>
 			<item id="ID_NETWORK_BROWSE_TO" text="_Fájllista és adatlap..."/>
 			<separator/>
-			<menu text="_Hálózat kiválasztása">
-				<item id="ID_NETWORK_G2" text="Kapcsolódás a Gnutella_2-höz"/>
-				<item id="ID_NETWORK_G1" text="Kapcsolódás a _Gnutella-hez"/>
-				<item id="ID_NETWORK_ED2K" text="Kapcsolódás az _eDonkey-hoz"/>
-			</menu>
+			<item id="ID_NETWORK_G2" text="Kapcsolódás a Gnutella_2-höz"/>
+			<item id="ID_NETWORK_G1" text="Kapcsolódás a _Gnutella-hez"/>
+			<item id="ID_NETWORK_ED2K" text="Kapcsolódás az _eDonkey-hoz"/>
+			<item id="ID_NETWORK_DC" text="Kapcsolódás az _DC++-hoz"/>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="_Forgalom után kilépés"/>
 			<item id="ID_NETWORK_EXIT" text="_Kilépés"/>
@@ -800,7 +792,7 @@
 		<menu text="_Eszközök">
 			<item id="ID_LIBRARY_FOLDERS" text="_Fájlok megosztása..."/>
 			<item id="ID_TOOLS_DOWNLOAD" text="_Torrent/Fájl letöltése..."/>
-			<item id="IDC_IMPORT_DOWNLOADS" text="_eMule félkész letöltések importálása..."/>
+			<item id="ID_IMPORT_DOWNLOADS" text="_eMule félkész letöltések importálása..."/>
 			<item id="ID_OPEN_DOWNLOADS_FOLDER" text="A kész _letöltések mappa megnyitása..."/>
 			<separator/>
 			<item id="ID_TOOLS_SKIN" text="_Kinézet kiválasztása..."/>
@@ -1556,6 +1548,10 @@
 			<item id="ID_NETWORK_G2" text="Gnutella_2"/>
 			<item id="ID_NETWORK_G1" text="_Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="_eDonkey"/>
+			<item id="ID_NETWORK_DC" text="_DC++"/>
+			<separator/>
+			<item id="ID_VIEW_DISCOVERY" text="_Szerverkereső"/>
+			<item id="ID_VIEW_HOSTS" text="_Kiszolgálók listája"/>
 		</menu>
 		<menu text="_Monitor">
 			<item id="ID_NEIGHBOURS_VIEW_ALL" text="_Minden forgalom"/>
@@ -1826,15 +1822,24 @@
 		<text group="31" align="middle">Nincs kapcsolat</text>
 		<text group="32" align="middle">Kapcsolódás...</text>
 		<text group="33" align="middle">Kapcsolódva</text>
+		<text group="34" align="middle" id="EDServers">%i szerver</text>
 		<newline group="30" gap="2"/>
+		<icon group="60" command="ID_NETWORK_DC"/>
+		<text group="60" align="middle" format="b">&#160;DC++: &#160; </text>
+		<text group="61" align="middle">Nincs kapcsolat</text>
+		<text group="62" align="middle">Kapcsolódás...</text>
+		<text group="63" align="middle">Kapcsolódva</text>
+		<text group="64" align="middle" id="DCHubs">%i hub</text>
+		<newline group="60" gap="2"/>
 		<group id="2">
 			<para align="center">
-				<newline gap="6"/>
-				<text>Jelenleg </text>
+				<newline gap="4"/>
+				<link target="command:ID_TAB_NETWORK">Jelenleg</link>
+				<newline gap="4"/>
 				<text id="ConnectedHours" format="b">%i </text>
 				<text>órája és </text>
 				<text id="ConnectedMinutes" format="b">%i </text>
-				<text>perce van kapcsolat.</text>
+				<text>perce</text>
 			</para>
 		</group>
 	</document>
@@ -2479,8 +2484,9 @@
 	<tip id="ID_NETWORK_CONNECT" message="Kapcsolódás a kiválasztott hálózatokhoz."/>
 	<tip id="ID_NETWORK_CONNECT_TO" message="Manuálisan kapcsolódik egy kiszolgálóhoz..."/>
 	<tip id="ID_NETWORK_DISCONNECT" message="Minden hálózatról lekapcsolódik, így megszűnik a le- és feltöltési forgalom is."/>
-	<tip id="ID_NETWORK_ED2K" message="Kapcsolódik a eDonkey-hoz."/>
 	<tip id="ID_NETWORK_EXIT" message="Kilépés a PeerProject."/>
+	<tip id="ID_NETWORK_ED2K" message="Kapcsolódik a eDonkey-hoz."/>
+	<tip id="ID_NETWORK_DC" message="Kapcsolódik a DC++-hoz."/>
 	<tip id="ID_NETWORK_G1" message="Kapcsolódik a Gnutella1-hez."/>
 	<tip id="ID_NETWORK_G2" message="Kapcsolódik a Gnutella2-höz (erősen ajánlott)."/>
 	<tip id="ID_NETWORK_SEARCH" message="Új keresést indít a hálózaton..."/>
@@ -2643,7 +2649,9 @@
 	<string id="20012" value="Saját"/>
 	<string id="20013" value="Alapértelmezett"/>
 	<string id="20014" value="Befejezve"/>
-	<string id="20050" value="Every Day"/>
+	<string id="20020" value="Fájl"/>
+	<string id="20021" value="Fájlok"/>
+	<string id="20050" value="Minden Nap"/>
 	<string id="20051" value="Hétfő"/>
 	<string id="20052" value="Kedd"/>
 	<string id="20053" value="Szerda"/>
@@ -3363,7 +3371,7 @@
 		<control/>
 		<control caption="Átlátszó:"/>
 		<control/>
-		<control caption="Shadow (restart)"/>
+		<control caption="Shadows"/>
 		<control caption="_Tálca"/>
 		<control caption="Bezárás gomb:"/>
 		<control caption="Rákérdez|Leküldi az óra mellé|Azonnal bezár|Forgalom után bezár"/>
@@ -3373,9 +3381,9 @@
 	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuBuCoBuBuBuCoBuBuBuEdBu" caption="Könyvtár">
 		<control caption="_Beállítások"/>
 		<control caption="Mások is lássák a megosztásom"/>
-		<control caption="Utolsó mappa megjegyzése"/>
 		<control caption="Mappák figyelése"/>
 		<control caption="Gyors hash (nagy CPU használat)"/>
+		<control caption="Utolsó mappa megjegyzése"/>
 		<control caption="Okos epizódérzékelés"/>
 		<control caption="Szellemfájl készítése törléskor"/>
 		<control caption="_Legutóbbi fájlok:"/>
@@ -3469,13 +3477,14 @@
 		<control caption="On-connect"/>
 		<control/>
 	</dialog>
-	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuCoBuBuSt" caption="Web">
+	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuBuCoBuBuSt" caption="Web">
 		<control caption="_P2P linkek"/>
 		<control caption="Használja a PeerProject ezeknek a linkeknek a megnyitására:"/>
 		<control caption="Magnet ( magnet: )"/>
 		<control caption="Gnutella ( gnutella: )"/>
 		<control caption="eDonkey ( ed2k: )"/>
 		<control caption="Piolet ( mp2p: )"/>
+		<control caption="DC++ ( dchub:/dcfile: )"/>
 		<control caption="BitTorrent ( .torrent )"/>
 		<control caption="_Letöltésmenedzser"/>
 		<control caption="Használja a PeerProject, mint letöltésmenedzsert:"/>
@@ -4365,7 +4374,8 @@
 		<control caption="Ha egy kész fájlt akar megosztani a BitTorrent hálózaton, előbb seedelni kell azt. A torrent egy új elemként fog megjelenni a letöltési listában."/>
 		<control/>
 	</dialog>
-	<dialog name="CTorrentFilesPage" cookie="Sy" caption="Fájlok">
+	<dialog name="CTorrentFilesPage" cookie="StSy" caption="Fájlok">
+		<control/>
 		<control/>
 	</dialog>
 	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="Trackerek">
@@ -4554,14 +4564,13 @@
 	<list name="CHostCacheWnd">
 		<column from="Address" to="Cím"/>
 		<column from="Port" to=""/>
-		<column from="Client" to="Kliensprogram"/>
 		<column from="Last Seen" to="Utoljára látva"/>
-		<column from="Daily Uptime" to="Napi működés"/>
+		<column from="Client" to="Kliensprogram"/>
 		<column from="Name" to="Név"/>
 		<column from="Description" to="Leírás"/>
+		<column from="Failures" to="Hibák"/>
 		<column from="CurUsers" to="Jelenlegi felahszn."/>
 		<column from="MaxUsers" to="Max. felhasználók"/>
-		<column from="Failures" to="Hibák"/>
 		<column from="Country" to="Ország"/>
 	</list>
 	<list name="CDiscoveryWnd">
@@ -4621,7 +4630,7 @@
 		<column from="Criteria" to="Ismérv"/>
 		<column from="Minimum" to="Sávszél"/>
 		<column from="Transfers" to="Forgalom"/>
-		<column from="Order" to="Sorrend"/>
+		<column from="Priority" to="Sorrend"/>
 	</list>
 	<list name="CAdvancedSettingsList">
 		<column from="Setting" to="Beállítás"/>

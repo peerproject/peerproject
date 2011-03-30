@@ -87,7 +87,6 @@
 			/>
 			<Tool
 				Name="VCManifestTool"
-				InputResourceManifests="$(TargetPath)"
 			/>
 			<Tool
 				Name="VCXDCMakeTool"
@@ -177,7 +176,6 @@
 			/>
 			<Tool
 				Name="VCManifestTool"
-				InputResourceManifests="$(TargetPath)"
 			/>
 			<Tool
 				Name="VCXDCMakeTool"

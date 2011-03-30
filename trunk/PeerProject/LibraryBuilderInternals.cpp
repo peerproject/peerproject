@@ -73,49 +73,49 @@ bool CLibraryBuilderInternals::ExtractMetadata(DWORD nIndex, const CString& strP
 	// Native file extensions:
 	SwitchMap( FileType )
 	{
-		FileType[ _T(".mp3") ]	= '3';
-		FileType[ _T(".aac") ]	= '3';
-		FileType[ _T(".flac") ]	= '3';
-		FileType[ _T(".mpc") ]	= '3';
-		FileType[ _T(".mpp") ]	= '3';
-		FileType[ _T(".mp+") ]	= '3';
-		FileType[ _T(".wma") ]	= 'w';
-		FileType[ _T(".wmv") ]	= 'w';
-		FileType[ _T(".asf") ]	= 'w';
-		FileType[ _T(".avi") ]	= 'v';
-		FileType[ _T(".mpg") ]	= 'm';
-		FileType[ _T(".mpeg") ]	= 'm';
-		FileType[ _T(".jpg") ]	= 'j';
-		FileType[ _T(".jpeg") ]	= 'j';
-		FileType[ _T(".png") ]	= 'p';
-		FileType[ _T(".gif") ]	= 'g';
-		FileType[ _T(".bmp") ]	= 'b';
-		FileType[ _T(".pdf") ]	= 'f';
-		FileType[ _T(".cbr") ]	= 'r';	// RARBuilder
-		FileType[ _T(".cbz") ]	= 'r';	// ZipBuilder
-		FileType[ _T(".chm") ]	= 'h';
-		FileType[ _T(".exe") ]	= 'e';
-		FileType[ _T(".dll") ]	= 'e';
-		FileType[ _T(".msi") ]	= 's';
-		FileType[ _T(".ogg") ]	= 'o';
-		FileType[ _T(".ape") ]	= 'a';
-		FileType[ _T(".apl") ]	= 'a';
-		FileType[ _T(".mac") ]	= 'a';
-	//	FileType[ _T(".wav") ]	= 'i';
-	//	FileType[ _T(".webp") ]	= 'i';	// ToDo: RIFF-type Files?
-		FileType[ _T(".psk") ]	= 'k';
-		FileType[ _T(".sks") ]	= 'k';
-		FileType[ _T(".bz2") ]	= 'c';	// .xml.bz2
-		FileType[ _T(".co") ]	= 'c';
-		FileType[ _T(".collection") ] = 'c';
-		FileType[ _T(".emulecollection") ] = 'c';
-		FileType[ _T(".torrent") ] = 't';
-		FileType[ _T(".txt") ]	= 'x';
-		FileType[ _T(".xml") ]	= 'x';
-		FileType[ _T(".xps") ]	= 'x';
-		FileType[ _T(".rtf") ]	= 'x';
-		FileType[ _T(".nfo") ]	= 'x';
-		FileType[ _T(".html") ]	= 'x';
+		FileType[ L".mp3" ]  = '3';
+		FileType[ L".aac" ]  = '3';
+		FileType[ L".flac" ] = '3';
+		FileType[ L".mpc" ]  = '3';
+		FileType[ L".mpp" ]  = '3';
+		FileType[ L".mp+" ]  = '3';
+		FileType[ L".wma" ]  = 'w';
+		FileType[ L".wmv" ]  = 'w';
+		FileType[ L".asf" ]  = 'w';
+		FileType[ L".avi" ]  = 'v';
+		FileType[ L".mpg" ]  = 'm';
+		FileType[ L".mpeg" ] = 'm';
+		FileType[ L".jpg" ]  = 'j';
+		FileType[ L".jpeg" ] = 'j';
+		FileType[ L".png" ]  = 'p';
+		FileType[ L".gif" ]  = 'g';
+		FileType[ L".bmp" ]  = 'b';
+		FileType[ L".pdf" ]  = 'f';
+		FileType[ L".cbr" ]  = 'r';	// RARBuilder
+		FileType[ L".cbz" ]  = 'r';	// ZipBuilder
+		FileType[ L".chm" ]  = 'h';
+		FileType[ L".exe" ]  = 'e';
+		FileType[ L".dll" ]  = 'e';
+		FileType[ L".msi" ]  = 's';
+		FileType[ L".ogg" ]  = 'o';
+		FileType[ L".ape" ]  = 'a';
+		FileType[ L".apl" ]  = 'a';
+		FileType[ L".mac" ]  = 'a';
+	//	FileType[ L".wav" ]  = 'i';
+	//	FileType[ L".webp" ] = 'i';	// ToDo: RIFF-type Files?
+		FileType[ L".psk" ]  = 'k';
+		FileType[ L".sks" ]  = 'k';
+		FileType[ L".bz2" ]  = 'c';	// .xml.bz2
+		FileType[ L".co" ]   = 'c';
+		FileType[ L".collection" ] = 'c';
+		FileType[ L".emulecollection" ] = 'c';
+		FileType[ L".torrent" ] = 't';
+		FileType[ L".txt" ]  = 'x';
+		FileType[ L".xml" ]  = 'x';
+		FileType[ L".xps" ]  = 'x';
+		FileType[ L".rtf" ]  = 'x';
+		FileType[ L".nfo" ]  = 'x';
+		FileType[ L".html" ] = 'x';
 		// Others by plugins: zip/rar/mkv/etc.
 		// ToDo: Generic Fallback "Uknown Type"
 	}
@@ -373,57 +373,57 @@ bool CLibraryBuilderInternals::ReadID3v2(DWORD nIndex, HANDLE hFile)
 	// 4-Char ID3 FrameTag: 	(http://en.wikipedia.org/wiki/ID3)
 	SwitchMap( Tag )
 	{
-		Tag[ _T("TIT2") ]	= 'i';
-		Tag[ _T("TT2") ]	= 'i';
-		Tag[ _T("TPE1") ]	= 'p';
-		Tag[ _T("TPE2") ]	= 'p';
-		Tag[ _T("TP1") ]	= 'p';
-		Tag[ _T("TP2") ]	= 'p';
-		Tag[ _T("TOPE") ]	= 'o';
-		Tag[ _T("TOA") ]	= 'o';
-		Tag[ _T("TALB") ]	= 'a';
-		Tag[ _T("TAL") ]	= 'a';
-		Tag[ _T("TOAL") ]	= 't';
-		Tag[ _T("TOT") ]	= 't';
-		Tag[ _T("TRCK") ]	= 'k';
-		Tag[ _T("TRK") ]	= 'k';
-		Tag[ _T("TYER") ]	= 'y';
-		Tag[ _T("TYE") ]	= 'y';
-		Tag[ _T("TLEN") ]	= 'l';
-		Tag[ _T("TLE") ]	= 'l';
-		Tag[ _T("TCOP") ]	= 'r';
-		Tag[ _T("TCR") ]	= 'r';
-		Tag[ _T("TCON") ]	= 'g';
-		Tag[ _T("TCO") ]	= 'g';
-		Tag[ _T("TENC") ]	= 'e';
-		Tag[ _T("TEN") ]	= 'e';
-		Tag[ _T("TSSE") ]	= 's';
-		Tag[ _T("TSS") ]	= 's';
-		Tag[ _T("TCOM") ]	= 'm';
-		Tag[ _T("TCM") ]	= 'm';
-		Tag[ _T("COMM") ]	= 'c';
-		Tag[ _T("COM") ]	= 'c';
-		Tag[ _T("WXXX") ]	= 'w';
-		Tag[ _T("WXX") ]	= 'w';
-		Tag[ _T("TIME") ]	= 'd';
-		Tag[ _T("TDAT") ]	= 'd';
-		Tag[ _T("TDRC") ]	= 'd';
-		Tag[ _T("TDOR") ]	= 'Y';
-		Tag[ _T("TORY") ]	= 'Y';
-		Tag[ _T("TPUB") ]	= 'b';
-		Tag[ _T("TLAN") ]	= 'n';
-		Tag[ _T("TXXX") ]	= 'x';
+		Tag[ L"TIT2" ]	= 'i';
+		Tag[ L"TT2" ]	= 'i';
+		Tag[ L"TPE1" ]	= 'p';
+		Tag[ L"TPE2" ]	= 'p';
+		Tag[ L"TP1" ]	= 'p';
+		Tag[ L"TP2" ]	= 'p';
+		Tag[ L"TOPE" ]	= 'o';
+		Tag[ L"TOA" ]	= 'o';
+		Tag[ L"TALB" ]	= 'a';
+		Tag[ L"TAL" ]	= 'a';
+		Tag[ L"TOAL" ]	= 't';
+		Tag[ L"TOT" ]	= 't';
+		Tag[ L"TRCK" ]	= 'k';
+		Tag[ L"TRK" ]	= 'k';
+		Tag[ L"TYER" ]	= 'y';
+		Tag[ L"TYE" ]	= 'y';
+		Tag[ L"TLEN" ]	= 'l';
+		Tag[ L"TLE" ]	= 'l';
+		Tag[ L"TCOP" ]	= 'r';
+		Tag[ L"TCR" ]	= 'r';
+		Tag[ L"TCON" ]	= 'g';
+		Tag[ L"TCO" ]	= 'g';
+		Tag[ L"TENC" ]	= 'e';
+		Tag[ L"TEN" ]	= 'e';
+		Tag[ L"TSSE" ]	= 's';
+		Tag[ L"TSS" ]	= 's';
+		Tag[ L"TCOM" ]	= 'm';
+		Tag[ L"TCM" ]	= 'm';
+		Tag[ L"COMM" ]	= 'c';
+		Tag[ L"COM" ]	= 'c';
+		Tag[ L"WXXX" ]	= 'w';
+		Tag[ L"WXX" ]	= 'w';
+		Tag[ L"TIME" ]	= 'd';
+		Tag[ L"TDAT" ]	= 'd';
+		Tag[ L"TDRC" ]	= 'd';
+		Tag[ L"TDOR" ]	= 'Y';
+		Tag[ L"TORY" ]	= 'Y';
+		Tag[ L"TPUB" ]	= 'b';
+		Tag[ L"TLAN" ]	= 'n';
+		Tag[ L"TXXX" ]	= 'x';
 
-		Tag[ _T("ASPI") ]	= 'z';
-		Tag[ _T("EQUA") ]	= 'z';
-		Tag[ _T("EQU2") ]	= 'z';
-		Tag[ _T("TDEN") ]	= 'z';
-		Tag[ _T("MLLT") ]	= 'z';
-		Tag[ _T("POSS") ]	= 'z';
-		Tag[ _T("RBUF") ]	= 'z';
-		Tag[ _T("RVRB") ]	= 'z';
-		Tag[ _T("SIGN") ]	= 'z';
-		Tag[ _T("SEEK") ]	= 'z';
+		Tag[ L"ASPI" ]	= 'z';
+		Tag[ L"EQUA" ]	= 'z';
+		Tag[ L"EQU2" ]	= 'z';
+		Tag[ L"TDEN" ]	= 'z';
+		Tag[ L"MLLT" ]	= 'z';
+		Tag[ L"POSS" ]	= 'z';
+		Tag[ L"RBUF" ]	= 'z';
+		Tag[ L"RVRB" ]	= 'z';
+		Tag[ L"SIGN" ]	= 'z';
+		Tag[ L"SEEK" ]	= 'z';
 	}
 
 	while ( nBuffer )
@@ -2201,63 +2201,63 @@ bool CLibraryBuilderInternals::ReadAPE(DWORD nIndex, HANDLE hFile, bool bPreferF
 	// Keys:
 	SwitchMap( Text )
 	{
-		Text[ _T("title") ] 			= 't';
-		Text[ _T("artist") ]			= 'a';
-		Text[ _T("album") ] 			= 'm';
-		Text[ _T("comment") ]			= 'c';
-		Text[ _T("year") ]				= 'y';
-		Text[ _T("track") ] 			= 'k';
-		Text[ _T("totaltracks") ]		= 'q';
-		Text[ _T("genre") ]				= 'g';
-		Text[ _T("composer") ]			= 'o';
-		Text[ _T("publisher") ]			= 'b';
-		Text[ _T("copyright") ]			= 'x';
-		Text[ _T("producer") ]			= 'u';
-		Text[ _T("lyricist") ]			= 'v';
-		Text[ _T("arranger") ]			= 'h';
-		Text[ _T("performer") ]			= 'f';
-		Text[ _T("conductor") ]			= 'n';
-		Text[ _T("language") ]			= 'l';
-		Text[ _T("date") ]				= 'd';
-		Text[ _T("disc") ]				= 'i';
-		Text[ _T("totaldiscs") ]		= 'j';
+		Text[ L"title" ] 			= 't';
+		Text[ L"artist" ]			= 'a';
+		Text[ L"album" ] 			= 'm';
+		Text[ L"comment" ]			= 'c';
+		Text[ L"year" ]				= 'y';
+		Text[ L"track" ] 			= 'k';
+		Text[ L"totaltracks" ]		= 'q';
+		Text[ L"genre" ]			= 'g';
+		Text[ L"composer" ]			= 'o';
+		Text[ L"publisher" ]		= 'b';
+		Text[ L"copyright" ]		= 'x';
+		Text[ L"producer" ]			= 'u';
+		Text[ L"lyricist" ]			= 'v';
+		Text[ L"arranger" ]			= 'h';
+		Text[ L"performer" ]		= 'f';
+		Text[ L"conductor" ]		= 'n';
+		Text[ L"language" ]			= 'l';
+		Text[ L"date" ]				= 'd';
+		Text[ L"disc" ]				= 'i';
+		Text[ L"totaldiscs" ]		= 'j';
 
-		Text[ _T("performersortorder") ] = 'p';
-		Text[ _T("releasetime") ]		= 'r';
-		Text[ _T("uniquefileid") ]		= 'F';
-		Text[ _T("contentgroup") ]		= 'G';
-		Text[ _T("encodersettings") ]	= 's';
-		Text[ _T("origalbum") ] 		= 'B';
-		Text[ _T("origartist") ]		= 'H';
-		Text[ _T("origfilename") ]		= 'N';
-		Text[ _T("origlyricist") ]		= 'V';
-		Text[ _T("origyear") ]			= 'Y';
-		Text[ _T("cddbdiscid") ]		= 'C';
-		Text[ _T(" url") ]				= 'U';
-		Text[ _T("url") ]				= 'U';
+		Text[ L"performersortorder" ] = 'p';
+		Text[ L"releasetime" ]		= 'r';
+		Text[ L"uniquefileid" ]		= 'F';
+		Text[ L"contentgroup" ]		= 'G';
+		Text[ L"encodersettings" ]	= 's';
+		Text[ L"origalbum" ] 		= 'B';
+		Text[ L"origartist" ]		= 'H';
+		Text[ L"origfilename" ]		= 'N';
+		Text[ L"origlyricist" ]		= 'V';
+		Text[ L"origyear" ]			= 'Y';
+		Text[ L"cddbdiscid" ]		= 'C';
+		Text[ L"url" ]				= 'U';
+		Text[ L" url" ]				= 'U';
 
-		Text[ _T("encoded-by") ]		= 'e';
-		Text[ _T("encodedby") ] 		= 'e';
-		Text[ _T("encoded by") ]		= 'e';
-		Text[ _T("lyrics") ]			= 'L';
-		Text[ _T("unsyncedlyrics") ]	= 'L';
-		Text[ _T("unsynced lyrics") ]	= 'L';
-		Text[ _T("wwwaudiosource") ]	= 'w';
-		Text[ _T("wwwaudiofile") ]		= 'w';
-		Text[ _T("involvedpeople") ]	= 'P';
+		Text[ L"encoded-by" ]		= 'e';
+		Text[ L"encodedby" ] 		= 'e';
+		Text[ L"encoded by" ]		= 'e';
+		Text[ L"lyrics" ]			= 'L';
+		Text[ L"unsyncedlyrics" ]	= 'L';
+		Text[ L"unsynced lyrics" ]	= 'L';
+		Text[ L"wwwaudiosource" ]	= 'w';
+		Text[ L"wwwaudiofile" ]		= 'w';
+		Text[ L"involvedpeople" ]	= 'P';
 
-  		Text[ _T("album artist") ]		= 'A';
-		Text[ _T("albumartist") ]		= 'A';
-		Text[ _T("musicbrainz album artist") ]	= 'A';
-		Text[ _T("musicbrainz albumartist") ]	= 'A';
-		Text[ _T("musicbrainz aritst id") ]		= 'I';
-		Text[ _T("musicbrainz album id") ]		= 'D';
-		Text[ _T("musicbrainz album artist id") ] = 'R';
-		Text[ _T("musicbrainz album type") ]	= 'T';
-		Text[ _T("musicbrainz album status") ]	= 'S';
-		Text[ _T("musicbrainz non-album") ]		= 'O';
-		Text[ _T("musicbrainz trm id") ]		= 'Z';
-		Text[ _T("musicip puid") ]				= 'M';
+		Text[ L"album artist" ]		= 'A';
+		Text[ L"albumartist" ]		= 'A';
+		Text[ L"musicbrainz album artist" ]	= 'A';
+		Text[ L"musicbrainz albumartist" ]	= 'A';
+		Text[ L"musicbrainz aritst id" ]	= 'I';
+		Text[ L"musicbrainz album id" ]		= 'D';
+		Text[ L"musicbrainz album artist id" ] = 'R';
+		Text[ L"musicbrainz album type" ]	= 'T';
+		Text[ L"musicbrainz album status" ]	= 'S';
+		Text[ L"musicbrainz non-album" ]	= 'O';
+		Text[ L"musicbrainz trm id" ]		= 'Z';
+		Text[ L"musicip puid" ]				= 'M';
 	}
 
 	for ( int nTag = 0 ; nTag < pFooter.nFields ; nTag++ )
@@ -2289,8 +2289,7 @@ bool CLibraryBuilderInternals::ReadAPE(DWORD nIndex, HANDLE hFile, bool bPreferF
 		if ( ! ReadFile( hFile, pszInput.get(), nLength, &nRead, NULL ) || nLength != nRead )
 			break;
 
-		strValue = UTF8Decode( pszInput.get(), nLength );
-		strValue.Trim();
+		strValue = UTF8Decode( pszInput.get(), nLength ).Trim();
 		strKey.Trim();
 
 		if ( ! strKey.IsEmpty() && ! strValue.IsEmpty() )
@@ -3363,7 +3362,7 @@ CString	CLibraryBuilderInternals::DecodePDFText(CString strInput)
 		// Acrobat Reader doesn't decode (<XX>) strings created by Acrobat Distiller 6 but we do
 		if ( strInput.GetAt( 0 ) == '<' && strInput.Right( 1 ) == _T(">") )
 		{
-			bHex = true; // Hexadecimal encoding
+			bHex = true;	// Hexadecimal encoding
 			nFactor = 2;
 			strInput.Replace( L"\\ ", L"" );
 			strInput = strInput.Mid( 1, strInput.GetLength() - 2 );
@@ -3373,7 +3372,7 @@ CString	CLibraryBuilderInternals::DecodePDFText(CString strInput)
 	}
 	else if ( strInput.GetAt( 0 ) == '<' )
 	{
-		bHex = true; // Hexadecimal encoding
+		bHex = true;	// Hexadecimal encoding
 		nFactor = 2;
 		strInput.Replace( L"\\ ", L"" );
 		strInput = strInput.Mid( 1, strInput.GetLength() - 2 );
@@ -3493,7 +3492,7 @@ CString	CLibraryBuilderInternals::DecodePDFText(CString strInput)
 	short bCharsToMove = 0;
 	if ( nByte > 2 )
 	{
-		if ( pByte[ 0 ] == 0xFEFF )	// UTF-16, big endian
+		if ( pByte[ 0 ] == 0xFEFF )		// UTF-16, big endian
 			bCharsToMove = 1;
 		else if ( pByte[ 0 ] == 0x00FE && pByte[ 1 ] == 0x00FF )
 			bCharsToMove = 2;
@@ -3676,7 +3675,7 @@ bool CLibraryBuilderInternals::ReadCHM(DWORD nIndex, HANDLE hFile, LPCTSTR pszPa
 	// Get CHM file version number
 	ReadFile( hFile, &nVersion, sizeof(nVersion), &nRead, NULL );
 	if ( nRead != sizeof(nVersion) || nVersion < 3 )
-		return false; // In Version 2 files, content section data offset is not there
+		return false;	// In Version 2 files, content section data offset is not there
 
 	// Get initial header size
 	ReadFile( hFile, &nIHDRSize, sizeof(nIHDRSize), &nRead, NULL );
@@ -3716,12 +3715,12 @@ bool CLibraryBuilderInternals::ReadCHM(DWORD nIndex, HANDLE hFile, LPCTSTR pszPa
 	if ( nRead != 4 || strncmp( szMagic, "LZXC", 4 ) ) // Compression method
 		return false;
 	ReadFile( hFile, &nComprVersion, sizeof(nComprVersion), &nRead, NULL );
-	if ( nRead != sizeof(nComprVersion) || nComprVersion != 2 ) // Note: MS Reader books has version 3
+	if ( nRead != sizeof(nComprVersion) || nComprVersion != 2 )		// Note: MS Reader books has version 3
 		return false;
 
 	// Read no more than 8192 bytes to find "HHA Version" string
 	CHAR szByte[1];
-	CHAR szFragment[16] = {}; // "HA Version" string
+	CHAR szFragment[16] = {};	// "HA Version" string
 	bool bCorrupted = false;
 	bool bHFound = false;
 	int nFragmentPos = 0;
@@ -3901,7 +3900,7 @@ bool CLibraryBuilderInternals::ReadCHM(DWORD nIndex, HANDLE hFile, LPCTSTR pszPa
 				 strLine.CompareNoCase( _T("windows") ) != 0 )
 			{
 				bHasTitle = true;
-				nPos = strLine.ReverseFind( '\\' ); // remove paths in title
+				nPos = strLine.ReverseFind( '\\' );		// Remove paths in title
 				strLine = strLine.Mid( nPos + 1 );
 				pXML->AddAttribute( _T("title"), strLine );
 			}

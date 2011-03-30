@@ -25,12 +25,15 @@
 #include "Download.h"
 #include "Downloads.h"
 #include "DownloadSource.h"
-#include "DownloadTransferHTTP.h"
-#include "DownloadTransferFTP.h"
-#include "DownloadTransferED2K.h"
 #include "DownloadTransferBT.h"
-#include "EDClients.h"
+#include "DownloadTransferDC.h"
+#include "DownloadTransferED2K.h"
+#include "DownloadTransferFTP.h"
+#include "DownloadTransferHTTP.h"
+#include "DCClient.h"
+#include "DCClients.h"
 #include "EDClient.h"
+#include "EDClients.h"
 #include "EDPacket.h"
 #include "FragmentBar.h"
 #include "FragmentedFile.h"
@@ -103,6 +106,15 @@ CDownloadSource::CDownloadSource(const CDownload* pDownload, const CQueryHit* pH
 			CString strTemp =  m_sURL.Left( m_sURL.GetLength() - 2 );
 			m_sURL.Format( _T("%s%I64i/"), (LPCTSTR)strTemp, pDownload->m_nSize );
 		}
+	}
+	else if ( pHit->m_nProtocol == PROTOCOL_DC )
+	{
+		// Generate source GUID form source nick
+		CMD5 pMD5;
+		pMD5.Add( (LPCTSTR)m_sNick, m_sNick.GetLength() * sizeof( TCHAR ) );
+		pMD5.Finish();
+		pMD5.GetHash( &m_oGUID[ 0 ] );
+		m_oGUID.validate();
 	}
 
 	ResolveURL();
@@ -283,7 +295,8 @@ BOOL CDownloadSource::ResolveURL()
 	m_pAddress	= pURL.m_pAddress;
 	m_nPort		= pURL.m_nPort;
 
-	if ( m_nProtocol == PROTOCOL_ED2K )
+	if ( m_nProtocol == PROTOCOL_ED2K ||
+		 m_nProtocol == PROTOCOL_DC )
 	{
 		m_pServerAddress	= pURL.m_pServerAddress;
 		m_nServerPort		= pURL.m_nServerPort;
@@ -457,9 +470,9 @@ CDownloadTransfer* CDownloadSource::CreateTransfer(LPVOID pParam)
 		return ( m_pTransfer = new CDownloadTransferFTP( this ) );
 	case PROTOCOL_BT:
 		return ( m_pTransfer = new CDownloadTransferBT( this, (CBTClient*)pParam ) );
-	case PROTOCOL_NULL:
-	case PROTOCOL_ANY:
-	default:
+	case PROTOCOL_DC:
+		return ( m_pTransfer = new CDownloadTransferDC( this, (CDCClient*)pParam ) );
+	default:	// PROTOCOL_ANY PROTOCOL_NULL
 		return NULL;
 	}
 }
@@ -476,33 +489,29 @@ BOOL CDownloadSource::CanInitiate(BOOL bNetwork, BOOL bEstablished)
 		switch ( m_nProtocol )
 		{
 		case PROTOCOL_G1:
-			if ( ! Settings.Gnutella1.EnableToday ) return FALSE;
+			if ( ! Settings.Gnutella1.Enabled ) return FALSE;
 			break;
 		case PROTOCOL_G2:
-			if ( ! Settings.Gnutella2.EnableToday ) return FALSE;
+			if ( ! Settings.Gnutella2.Enabled ) return FALSE;
 			break;
 		case PROTOCOL_ED2K:
-			if ( ! Settings.eDonkey.EnableToday || ! bNetwork ) return FALSE;
+			if ( ! Settings.eDonkey.Enabled || ! bNetwork ) return FALSE;
 			break;
 		case PROTOCOL_HTTP:
 			switch( m_nGnutella )
 			{
-			case 0:
-				// Pure HTTP source
+			case 0:		// Pure HTTP source
 				if ( ! bNetwork ) return FALSE;
 				break;
-			case 1:
-				// Pure G1 source
-				if ( ! Settings.Gnutella1.EnableToday ) return FALSE;
+			case 1:		// Pure G1 source
+				if ( ! Settings.Gnutella1.Enabled ) return FALSE;
 				break;
-			case 2:
-				// Pure G2 source
-				if ( ! Settings.Gnutella2.EnableToday ) return FALSE;
+			case 2:		// Pure G2 source
+				if ( ! Settings.Gnutella2.Enabled ) return FALSE;
 				break;
-			case 3:
-				// Mixed G1/G2 source
-				if ( ! Settings.Gnutella1.EnableToday &&
-					 ! Settings.Gnutella2.EnableToday ) return FALSE;
+			case 3:		// Mixed G1/G2 source
+				if ( ! Settings.Gnutella1.Enabled &&
+					 ! Settings.Gnutella2.Enabled ) return FALSE;
 				break;
 			}
 			break;
@@ -510,11 +519,12 @@ BOOL CDownloadSource::CanInitiate(BOOL bNetwork, BOOL bEstablished)
 			if ( ! bNetwork ) return FALSE;
 			break;
 		case PROTOCOL_BT:
-			if ( ! Settings.BitTorrent.EnableToday || ! bNetwork ) return FALSE;
+			if ( ! Settings.BitTorrent.Enabled || ! bNetwork ) return FALSE;
 			break;
-		case PROTOCOL_NULL:
-		case PROTOCOL_ANY:
-		default:
+		case PROTOCOL_DC:
+			if ( ! Settings.DC.Enabled || ! bNetwork ) return FALSE;
+			break;
+		default:	// PROTOCOL_ANY PROTOCOL_NULL
 			return FALSE;
 		}
 	}
@@ -831,8 +841,8 @@ BOOL CDownloadSource::PushRequest()
 			return FALSE;
 		if ( EDClients.IsFull() )
 			return TRUE;
+		if ( CEDClient* pClient = EDClients.Connect( m_pAddress.S_un.S_addr, m_nPort, &m_pServerAddress, m_nServerPort, m_oGUID ) )
 		{
-			CEDClient* pClient = EDClients.Connect( m_pAddress.S_un.S_addr, m_nPort, &m_pServerAddress, m_nServerPort, m_oGUID );
 			if ( pClient != NULL && pClient->m_bConnected )
 			{
 				pClient->SeekNewDownload();
@@ -847,24 +857,24 @@ BOOL CDownloadSource::PushRequest()
 		}
 		break;
 
-//	case PROTOCOL_DC:
-//		if ( m_pServerAddress.s_addr == INADDR_ANY || m_nServerPort == 0 )
-//			return FALSE;
-//		if ( m_sNick.IsEmpty() )
-//			return FALSE;
-//		{
-//			BOOL bSuccess = FALSE;
-//			if ( DCClients.Connect( m_pServerAddress, m_nServerPort, m_sNick, bSuccess ) )
-//			{
-//				if ( bSuccess )
-//				{
-//					theApp.Message( MSG_INFO, IDS_DOWNLOAD_PUSH_SENT, (LPCTSTR)m_pDownload->m_sName );
-//					m_tAttempt = GetTickCount() + Settings.Downloads.PushTimeout;
-//				}
-//				return TRUE;
-//			}
-//		}
-//		break;
+	case PROTOCOL_DC:
+		if ( m_pServerAddress.s_addr == INADDR_ANY || m_nServerPort == 0 )
+			return FALSE;
+		if ( m_sNick.IsEmpty() )
+			return FALSE;
+		{
+			BOOL bSuccess = FALSE;
+			if ( DCClients.Connect( m_pServerAddress, m_nServerPort, m_sNick, bSuccess ) )
+			{
+				if ( bSuccess )
+				{
+					theApp.Message( MSG_INFO, IDS_DOWNLOAD_PUSH_SENT, (LPCTSTR)m_pDownload->m_sName );
+					m_tAttempt = GetTickCount() + Settings.Downloads.PushTimeout;
+				}
+				return TRUE;
+			}
+		}
+		break;
 
 	default:
 		if ( ! m_oGUID )
@@ -882,7 +892,8 @@ BOOL CDownloadSource::PushRequest()
 
 BOOL CDownloadSource::CheckPush(const Hashes::Guid& oClientID)
 {
-	return validAndEqual( m_oGUID, oClientID );
+	return ( m_nProtocol == PROTOCOL_HTTP || m_nProtocol == PROTOCOL_DC ) &&
+		validAndEqual( m_oGUID, oClientID );
 }
 
 BOOL CDownloadSource::CheckDonkey(const CEDClient* pClient)
@@ -1036,8 +1047,8 @@ void CDownloadSource::Draw(CDC* pDC, CRect* prcBar, COLORREF crNatural)
 			}
 			break;
 
-		default:
-			;	// Do nothing more
+		//default:
+		//	;	// Do nothing more
 		}
 	}
 
@@ -1083,7 +1094,7 @@ void CDownloadSource::Draw(CDC* pDC, CRect* prcBar)
 	COLORREF crTransfer = m_bReadContent ? crFill[ GetColor() ] : Colors.m_crFragmentComplete;
 	crTransfer = CColors::CalculateColor( crTransfer, Colors.m_crHighlight, 90 );
 
-	if ( ! IsIdle() && GetState() == dtsDownloading )	// && m_pTransfer->m_nOffset < SIZE_UNKNOWN )
+	if ( ! IsIdle() && GetState() == dtsDownloading )	//&& m_pTransfer->m_nOffset < SIZE_UNKNOWN )
 	{
 		if ( m_pTransfer->m_bRecvBackwards )
 		{

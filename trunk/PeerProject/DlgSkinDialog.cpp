@@ -1,7 +1,7 @@
 //
 // DlgSkinDialog.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -300,11 +300,19 @@ HBRUSH CSkinDialog::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 				return Skin.m_brDialog;								// Dynmic controls (UploadQueue slider, variable icon, etc.)
 
 			if ( nCtrlID == IDC_MONITOR_SOURCES || nCtrlID == IDC_MONITOR_VOLUME ||
-				nCtrlID == IDC_MONITOR_SPEED || nCtrlID == IDC_MONITOR_TIME || nCtrlID == IDC_INFO_TEXT )
+				nCtrlID == IDC_MONITOR_SPEED || nCtrlID == IDC_MONITOR_TIME )
 			{
 				pDC->SetTextColor( Colors.m_crDialogText );
 				pDC->SetBkMode( TRANSPARENT );
-				return Skin.m_brDialog;								// Dynamic text exceptions workaround	ToDo: fix this
+				return Skin.m_brDialog;								// Dynamic text exceptions workaround	ToDo: Fix this properly!
+			}
+
+			if ( nCtrlID == IDC_URL_MAGNET || nCtrlID == IDC_URL_ED2K ||
+				nCtrlID == IDC_URL_HOST || nCtrlID == IDC_INFO_TEXT )
+			{
+				pDC->SetTextColor( Colors.m_crDialogText );
+				pDC->SetBkMode( TRANSPARENT );
+				return CreateSolidBrush( Colors.m_crDialog );		// Dynamic text exceptions workaround	ToDo: Fix this properly!
 			}
 
 			//TCHAR szName[24];

@@ -114,7 +114,6 @@
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
     <Manifest>
-      <InputResourceManifests>$(TargetPath)</InputResourceManifests>
     </Manifest>
     <Bscmake>
       <OutputFile>
@@ -151,7 +150,6 @@
       <TargetMachine>MachineX64</TargetMachine>
     </Link>
     <Manifest>
-      <InputResourceManifests>$(TargetPath)</InputResourceManifests>
     </Manifest>
     <Bscmake>
       <OutputFile>
@@ -192,7 +190,6 @@
       <TargetMachine>NotSet</TargetMachine>
     </Link>
     <Manifest>
-      <InputResourceManifests>$(TargetPath)</InputResourceManifests>
     </Manifest>
     <Bscmake>
       <OutputFile>
@@ -234,7 +231,6 @@
       <TargetMachine>MachineX64</TargetMachine>
     </Link>
     <Manifest>
-      <InputResourceManifests>$(TargetPath)</InputResourceManifests>
     </Manifest>
     <Bscmake>
       <OutputFile>

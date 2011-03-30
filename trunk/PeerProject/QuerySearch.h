@@ -27,6 +27,7 @@ class CSearchWnd;
 class CG1Packet;
 class CG2Packet;
 class CEDPacket;
+class CDCPacket;
 class CQuerySearch;
 
 
@@ -58,7 +59,7 @@ public:
 	BOOL				m_bWantXML;		// G1,G2: Metadata request
 	BOOL				m_bWantCOM;		// G2: Comments request
 	BOOL				m_bWantPFS;		// G2: Partial Files Search request
-	BOOL				m_bAndG1;		// Settings.Gnutella1.EnableToday
+	BOOL				m_bAndG1;		// Settings.Gnutella1.Enabled
 	BYTE				m_nTTL;			// G1: Suggested TTL for answer
 	BOOL				m_bUDP;			// G2: Packet received over UDP
 	SOCKADDR_IN			m_pEndpoint;	// G2: Packet received from this host
@@ -94,7 +95,7 @@ private:
 		FindStr(const WordEntry& entry) : m_entry( entry ) {}
 		bool operator()(const LPCTSTR& arg) const
 		{
-			// Todo: Verify this - it will succeed for every arg that starts with the search string, not an exact match
+			// ToDo: Verify this - it will succeed for every arg that starts with the search string, not an exact match
 			return _tcsnicmp( arg, m_entry.first, m_entry.second ) == 0;
 		}
 	};
@@ -128,6 +129,7 @@ public:
 	CG1Packet*				ToG1Packet(DWORD nTTL = 0) const;
 	CG2Packet*				ToG2Packet(SOCKADDR_IN* pUDP, DWORD nKey) const;
 	CEDPacket*				ToEDPacket(BOOL bUDP, DWORD nServerFlags = 0) const;
+	CDCPacket*				ToDCPacket() const;
 private:
 	BOOL					ReadG1Packet(CG1Packet* pPacket);
 	void					ReadGGEP(CG1Packet* pPacket);

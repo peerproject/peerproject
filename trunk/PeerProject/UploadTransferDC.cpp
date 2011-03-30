@@ -1,7 +1,7 @@
 //
 // UploadTransferDC.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2010
+// This file is part of PeerProject (peerproject.org) © 2011
 // Portions copyright Shareaza Development Team, 2010.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -136,10 +136,8 @@ BOOL CUploadTransferDC::OnRun()
 			Close( IDS_UPLOAD_QUEUE_TIMEOUT );
 			return FALSE;
 		}
-		else if ( tNow > m_tRankingCheck + 5 * 1000 ) // Re-check every 5 seconds
-		{
+		if ( tNow > m_tRankingCheck + 5 * 1000 )	// Re-check every 5 seconds
 			return CheckRanking();
-		}
 		break;
 
 	case upsUploading:
@@ -475,17 +473,25 @@ BOOL CUploadTransferDC::SendFile()
 
 BOOL CUploadTransferDC::RequestTigerTree(CLibraryFile* pFile, QWORD nOffset, QWORD nLength)
 {
-	theApp.Message( MSG_INFO, IDS_UPLOAD_TIGER_SEND,
-		(LPCTSTR)pFile->m_sName, (LPCTSTR)m_sAddress );
+	if ( ! RequestComplete( pFile ) )
+	{
+		ASSERT( FALSE );
+		return FALSE;
+	}
 
-	auto_ptr< CTigerTree > pTigerTree( pFile->GetTigerTree() );
+	theApp.Message( MSG_INFO, IDS_UPLOAD_TIGER_SEND,
+		(LPCTSTR)m_sName, (LPCTSTR)m_sAddress );
+
+	CAutoPtr< CTigerTree > pTigerTree( pFile->GetTigerTree() );
+	if ( ! pTigerTree )
+	{
+		return FALSE;
+	}
+
 	BYTE* pSerialTree = NULL;
 	DWORD nSerialTree = 0;
-	if ( ! pTigerTree.get() || ! pTigerTree->ToBytes( &pSerialTree, &nSerialTree ) )
+	if ( ! pTigerTree->ToBytesLevel1( &pSerialTree, &nSerialTree ) )
 		return FALSE;
-
-	// ToDo: Find out and fix TigerTree hashes placement in output buffer
-	nSerialTree = 24; // Root hash only
 
 	if ( nOffset >= nSerialTree )
 		nLength = SIZE_UNKNOWN;
@@ -510,7 +516,6 @@ BOOL CUploadTransferDC::RequestTigerTree(CLibraryFile* pFile, QWORD nOffset, QWO
 	m_nOffset = nOffset;
 	m_nLength = nLength;
 	m_nPosition = 0;
-	m_sName = pFile->m_sName;
 
 	StartSending( upsTigerTree );
 
@@ -525,13 +530,13 @@ BOOL CUploadTransferDC::RequestFileList(BOOL bFile, BOOL bZip, const std::string
 		(LPCTSTR)m_sAddress, (LPCTSTR)m_sUserAgent );
 
 	BOOL bBZip = bFile && ( strFilename == "files.xml.bz2" );
-	CString strFile( bFile ? "/" : strFilename.c_str() );
+	m_sName = ( bFile ? "/" : strFilename.c_str() );
 
 	// Create library file list
 	CBuffer pXML;
-	LibraryToFileList( strFile, pXML );
+	LibraryToFileList( m_sName, pXML );
 
-	// TODO: Implement partial request of file list
+	// ToDo: Implement partial request of file list
 	nOffset = 0;
 	nLength = pXML.m_nLength;
 
@@ -565,7 +570,6 @@ BOOL CUploadTransferDC::RequestFileList(BOOL bFile, BOOL bZip, const std::string
 	m_nOffset = nOffset;
 	m_nLength = pXML.m_nLength;
 	m_nPosition = 0;
-	m_sName = strFile;
 
 	StartSending( upsBrowse );
 

@@ -1158,9 +1158,9 @@ FONT 8, "Tahoma"
 BEGIN
 	GROUPBOX		"&Options:",IDC_STATIC,6,5,140,99,WS_GROUP
 	CONTROL			"Allow others to browse",IDC_BROWSE_FILES,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,18,126,10
-	CONTROL			"Remember folder views",IDC_STORE_VIEWS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,32,126,10
-	CONTROL			"Watch library folders",IDC_WATCH_FOLDERS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,46,126,10
-	CONTROL			"Quick hashing  (more CPU)",IDC_HIGH_HASH,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,60,126,10
+	CONTROL			"Watch library folders",IDC_WATCH_FOLDERS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,32,126,10
+	CONTROL			"Quick hashing  (more CPU)",IDC_HASH_PRIORITY,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,46,126,10
+	CONTROL			"Show hashing status window",IDC_HASH_WINDOW,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,60,126,10
 	CONTROL			"Smart media series detection",IDC_SMART_SERIES_DETECTION,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,74,130,10
 	CONTROL			"Create ghost files by default",IDC_MAKE_GHOSTS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,88,130,10
 	GROUPBOX		"&Recent Files:",IDC_STATIC,6,107,140,70,WS_GROUP
@@ -1240,18 +1240,19 @@ FONT 8, "Tahoma"
 BEGIN
 	GROUPBOX		"&Peer-to-Peer Link Handling:",IDC_STATIC,6,5,270,85,WS_GROUP
 	LTEXT			"Use PeerProject to open these types of links:",IDC_STATIC,15,20,250,10
-	CONTROL			"Magnet ( magnet: )",IDC_URI_MAGNET,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,20,35,105,12
-	CONTROL			"Gnutella ( gnutella: )",IDC_URI_GNUTELLA,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,20,50,105,12
-	CONTROL			"eDonkey ( ed2k: )",IDC_URI_ED2K,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,20,65,105,12
-	CONTROL			"Piolet ( mp2p: )",IDC_URI_PIOLET,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,150,35,105,12
-	CONTROL			"BitTorrent ( .torrent )",IDC_URI_TORRENT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,150,50,105,12
+	CONTROL			"Magnet  ( magnet: )",IDC_URI_MAGNET,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,20,35,105,12
+	CONTROL			"Gnutella  ( gnutella: )",IDC_URI_GNUTELLA,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,20,50,105,12
+	CONTROL			"eDonkey  ( ed2k: )",IDC_URI_ED2K,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,20,65,105,12
+	CONTROL			"Piolet  ( mp2p: )",IDC_URI_PIOLET,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,150,35,105,12
+	CONTROL			"DC++  ( dchub: dcfile: )",IDC_URI_DC,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,150,50,105,12
+	CONTROL			"BitTorrent  ( .torrent )",IDC_URI_TORRENT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,150,65,105,12
 	GROUPBOX		"&Download Manager:",IDC_STATIC,6,95,132,120,WS_GROUP
 	CONTROL			"Manage all web downloads:",IDC_WEB_HOOK,"Button",BS_AUTOCHECKBOX | BS_MULTILINE | WS_TABSTOP,12,112,122,12
 	COMBOBOX		IDC_EXT_LIST,20,130,60,80,CBS_SIMPLE | CBS_AUTOHSCROLL | CBS_SORT | CBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
 	PUSHBUTTON		"&Add",IDC_EXT_ADD,85,129,44,15
 	PUSHBUTTON		"&Remove",IDC_EXT_REMOVE,85,148,44,15
 	GROUPBOX		"&WebHook Plugin:",IDC_STATIC,144,95,132,120,WS_GROUP
-	LTEXT			"The webhook download manager plugin will only attempt to download file types listed here.  Other file types will be handled by your web browser.\n(PeerProject must be running to manage downloads.)",IDC_STATIC,150,130,120,70
+	LTEXT			"The webhook download manager plugin will only attempt to download file types listed here.  Other file types will be handled by your web browser.\n\n(PeerProject must be running to manage downloads.)",IDC_STATIC,150,130,120,70
 END
 
 IDD_PROFILE_IDENTITY DIALOG  0, 0, 282, 160
@@ -1779,7 +1780,9 @@ STYLE DS_SETFONT | DS_3DLOOK | WS_CHILD | WS_DISABLED | WS_CAPTION
 CAPTION "Download Properties"
 FONT 8, "Tahoma"
 BEGIN
-	CONTROL			"",IDC_TORRENT_FILES,"SysListView32",LVS_REPORT | LVS_SHAREIMAGELISTS | WS_BORDER | WS_TABSTOP,6,7,286,208
+//	GROUPBOX		"0 Files",IDC_TORRENT_COUNT,6,3,288,7	// Alternative decoration
+	LTEXT			"0 Files",IDC_TORRENT_COUNT,12,3,280,9
+	CONTROL			"",IDC_TORRENT_FILES,"SysListView32",LVS_REPORT | LVS_SHAREIMAGELISTS | WS_BORDER | WS_TABSTOP,6,14,288,201
 END
 
 IDD_TORRENT_TRACKERS DIALOGEX 0, 0, 300, 220
@@ -1790,9 +1793,9 @@ BEGIN
 	EDITTEXT		IDC_TORRENT_TRACKER,90,14,194,12,ES_AUTOHSCROLL
 	EDITTEXT		IDC_TORRENT_COMPLETED,90,34,56,12,ES_CENTER | ES_AUTOHSCROLL | ES_READONLY | NOT WS_TABSTOP
 	EDITTEXT		IDC_TORRENT_INCOMPLETE,228,34,56,12,ES_CENTER | ES_AUTOHSCROLL | ES_READONLY | NOT WS_TABSTOP
-	CONTROL			"",IDC_TORRENT_TRACKERS,"SysListView32",LVS_REPORT | LVS_SHAREIMAGELISTS | WS_BORDER | WS_TABSTOP,6,82,286,133
+	CONTROL			"",IDC_TORRENT_TRACKERS,"SysListView32",LVS_REPORT | LVS_SHAREIMAGELISTS | WS_BORDER | WS_TABSTOP,6,82,288,133
 	LTEXT			"Tracker:",IDC_STATIC,14,14,74,12,SS_CENTERIMAGE
-	GROUPBOX		"&Current Tracker:",IDC_STATIC,6,3,286,71
+	GROUPBOX		"&Current Tracker:",IDC_STATIC,6,3,288,71
 	LTEXT			"Seeds (Complete):",IDC_STATIC,14,34,74,12,SS_CENTERIMAGE
 	CTEXT			"Peers (Incomplete):",IDC_STATIC,148,34,80,12,SS_CENTERIMAGE
 	LTEXT			"Tracker Mode:",IDC_STATIC,14,56,78,9
@@ -1812,12 +1815,12 @@ BEGIN
 	EDITTEXT		IDC_TORRENT_OTHER,60,137,224,12,ES_AUTOHSCROLL | ES_READONLY
 	COMBOBOX		IDC_TORRENT_STARTDOWNLOADS,170,174,114,66,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
 	EDITTEXT		IDC_TORRENT_UPLOADTOTAL,170,194,114,12,ES_AUTOHSCROLL | ES_READONLY | NOT WS_TABSTOP
-	GROUPBOX		"Torrent &Information:",-1,6,3,286,153
+	GROUPBOX		"Torrent &Information:",-1,6,3,288,153
 	LTEXT			"Name:",-1,14,14,44,12,SS_CENTERIMAGE
 	LTEXT			"Created:",-1,14,34,40,12,SS_CENTERIMAGE
 	RTEXT			"By:",-1,132,34,32,12,SS_CENTERIMAGE
 	LTEXT			"Comments:",-1,14,54,44,12,SS_CENTERIMAGE
-	GROUPBOX		"Transfers:",-1,6,161,286,54
+	GROUPBOX		"Transfers:",-1,6,161,288,54
 	RTEXT			"Start new download transfers:",-1,14,176,150,9
 	RTEXT			"Total Uploaded:",-1,14,195,150,9,SS_CENTERIMAGE
 	LTEXT			"Notes:",-1,14,137,46,12,SS_CENTERIMAGE
@@ -1829,12 +1832,12 @@ CAPTION "Download Properties"
 FONT 8, "Tahoma"
 BEGIN
 	LTEXT			"CAUTION: This dialog provides advanced download editing features \nfor power users, that may cause corruption when used incorrectly.",IDC_STATIC,7,7,286,18
-	GROUPBOX		"Details:",IDC_STATIC,6,28,286,69
+	GROUPBOX		"Details:",IDC_STATIC,6,28,288,69
 	LTEXT			"Filename:",IDC_STATIC,14,44,60,10
 	LTEXT			"Location:",IDC_STATIC,14,62,60,10
 	LTEXT			"Byte Size:",IDC_STATIC,14,80,60,11
 	CTEXT			"Start Date:",IDC_STATIC,140,80,60,11
-	GROUPBOX		"URN Hashes:",IDC_STATIC,6,100,286,115
+	GROUPBOX		"URN Hashes:",IDC_STATIC,6,100,288,115
 	LTEXT			"Trusted?",IDC_STATIC,14,112,270,11
 	EDITTEXT		IDC_NAME,74,42,210,12,ES_AUTOHSCROLL
 	EDITTEXT		IDC_DISKNAME,74,60,210,12,ES_AUTOHSCROLL | ES_READONLY
@@ -1865,11 +1868,11 @@ BEGIN
 	LTEXT			"Save incomplete files and Cancel download",IDC_CANCEL_DOWNLOAD,20,44,264,8
 	EDITTEXT		IDC_ERASE_FROM,74,194,65,12,ES_AUTOHSCROLL
 	EDITTEXT		IDC_ERASE_TO,160,194,65,12,ES_AUTOHSCROLL
-	GROUPBOX		"&Actions:",IDC_STATIC,6,28,286,148
-	GROUPBOX		"Data &Eraser:",IDC_STATIC,6,181,286,34
+	GROUPBOX		"&Actions:",IDC_STATIC,6,28,288,148
+	GROUPBOX		"Data &Eraser:",IDC_STATIC,6,181,288,34
 	LTEXT			"Byte Range:",IDC_STATIC,20,194,52,12,SS_CENTERIMAGE
 	CTEXT			"to",IDC_STATIC,141,194,18,12,SS_CENTERIMAGE
-	PUSHBUTTON		"Erase",IDC_ERASE,234,193,50,14
+	PUSHBUTTON		"Erase",IDC_ERASE,235,193,50,14
 END
 
 IDD_PLUGIN_EXT_SETUP DIALOGEX 0, 0, 100, 147
@@ -3300,6 +3303,7 @@ END
 
 STRINGTABLE
 BEGIN
+	ID_IMPORT_DOWNLOADS 		"Import eMule partial downloads..."
 	ID_HITMONITOR_CLEAR			"Clear the hit monitor buffer."
 	ID_HITMONITOR_PAUSE			"Pause hit monitoring."
 	ID_HITMONITOR_SEARCH		"Search the network for the selected term."
@@ -3337,9 +3341,10 @@ BEGIN
 	ID_LIBRARY_FOLDER_DOWNLOAD	"Download all files in the selected collection."
 	ID_LIBRARY_FOLDER_ENQUEUE	"Add every file in selected album folders to your playlist."
 	ID_LIBRARY_FOLDER_FILE_PROPERTIES "View and edit the properties of all files in selected folders..."
+	ID_LIBRARY_FOLDER_PROPERTIES "View and edit the properties of the selected album folder..."
 	ID_LIBRARY_FOLDER_METADATA	"Apply common metadata from the album folder to all of its files."
 	ID_LIBRARY_FOLDER_NEW		"Create a new album folder here..."
-	ID_LIBRARY_FOLDER_PROPERTIES "View and edit the properties of the selected album folder..."
+	ID_LIBRARY_FOLDER_DELETE	"Delete the selected album folder."
 	ID_LIBRARY_HASH_PRIORITY	"Boost the speed of file scanning and hashing."
 	ID_LIBRARY_LAUNCH			"Open or play the selected files."
 	ID_LIBRARY_LAUNCH_FOLDER	"Show in Windows folder."
@@ -3439,8 +3444,9 @@ BEGIN
 	ID_NETWORK_CONNECT			"Connect to selected networks."
 	ID_NETWORK_CONNECT_TO		"Manually connect to a host..."
 	ID_NETWORK_DISCONNECT		"Disconnect from all networks, this will also stop all downloads and uploads."
-	ID_NETWORK_ED2K				"Connect to the eDonkey network."
 	ID_NETWORK_EXIT				"Exit PeerProject"
+	ID_NETWORK_ED2K				"Connect to the eDonkey network."
+	ID_NETWORK_DC				"Connect to the DC++ network."
 	ID_NETWORK_G1				"Connect to the original Gnutella network."
 	ID_NETWORK_G2				"Connect to the Gnutella2 network (highly recommended)."
 	ID_NETWORK_SEARCH			"Start a new search of the network..."
@@ -3635,6 +3641,8 @@ BEGIN
 	IDS_GENERAL_IGNORE			"Ignore"
 	IDS_GENERAL_RETRY			"Retry"
 	IDS_GENERAL_TRYAGAIN		"Try Again"
+	IDS_GENERAL_FILE			"File"
+	IDS_GENERAL_FILES			"Files"
 END
 
 STRINGTABLE
@@ -3701,7 +3709,7 @@ BEGIN
 	IDS_BT_CLIENT_ACCEPTED		"Incoming connection from %s is a BitTorrent coupling, negotiating..."
 	IDS_BT_CLIENT_CONNECTING	"Initiating BitTorrent client coupling with %s..."
 	IDS_BT_CLIENT_CONNECT_TIMEOUT "Timed out connecting to BitTorrent client %s."
-	IDS_BT_CLIENT_DROP_CONNECTED "BitTorrent coupling with %s was dropped."
+	IDS_BT_CLIENT_DROP_CONNECTED  "BitTorrent coupling with %s was dropped."
 	IDS_BT_CLIENT_DROP_CONNECTING "BitTorrent connection to %s was dropped."
 	IDS_BT_CLIENT_DROP_HANDSHAKE "BitTorrent handshake with %s was dropped."
 	IDS_BT_CLIENT_DUPLICATE		"BitTorrent coupling with %s not accepted, a connection to this client already exists."
@@ -4500,8 +4508,9 @@ END
 STRINGTABLE
 BEGIN
 	IDS_UPLOAD_QUEUED			"Too busy to upload ""%s"" to %s, queued at #%i of %i (""%s"")."
-	IDS_UPLOAD_QUEUE_COMPLETE	"All Files"
 	IDS_UPLOAD_QUEUE_DROP		"Upload connection to %s was lost, preserving queue position."
+	IDS_UPLOAD_QUEUE_COMPLETE	"All Files"
+	IDS_UPLOAD_QUEUE_DC_GUARD	"DC++ Guard"
 	IDS_UPLOAD_QUEUE_ED2K_CORE	"eDonkey Core"
 	IDS_UPLOAD_QUEUE_ED2K_GUARD "eDonkey Guard"
 	IDS_UPLOAD_QUEUE_ED2K_PARTIALS "eDonkey Partials"
@@ -4511,9 +4520,9 @@ BEGIN
 	IDS_UPLOAD_QUEUE_LIBRARY	"Library Files"
 	IDS_UPLOAD_QUEUE_MEDIUM_FILES "Medium Files"
 	IDS_UPLOAD_QUEUE_NEW		"New Queue"
+	IDS_UPLOAD_QUEUE_QUEUE		"Queue"
 	IDS_UPLOAD_QUEUE_PARTIAL	"Partial"
 	IDS_UPLOAD_QUEUE_PARTIAL_FILES "Partial Files"
-	IDS_UPLOAD_QUEUE_QUEUE		"Queue"
 	IDS_UPLOAD_QUEUE_SMALL_FILES "Small Files"
 	IDS_UPLOAD_QUEUE_TIMEOUT	"Offline queued upload host %s expired, removing."
 	IDS_UPLOAD_QUEUE_TORRENT	"Torrent Uploads"
@@ -4594,10 +4603,6 @@ BEGIN
 	ID_PREV_PANE				"Switch back to the previous window pane\nPrevious Pane"
 END
 
-STRINGTABLE
-BEGIN
-	IDC_IMPORT_DOWNLOADS		"Import eMule partial downloads..."
-END
 
 #endif	// English (U.S.) resources
 /////////////////////////////////////////////////////////////////////////////

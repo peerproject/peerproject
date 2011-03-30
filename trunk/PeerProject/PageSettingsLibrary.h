@@ -1,7 +1,7 @@
 //
 // PageSettingsLibrary.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2006.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -46,9 +46,9 @@ protected:
 	BOOL			m_bWatchFolders;
 	DWORD			m_nRecentDays;
 	int 			m_nRecentTotal;
-	BOOL			m_bStoreViews;
-	BOOL			m_bHighPriorityHash;
 	BOOL			m_bBrowseFiles;
+	BOOL			m_bHashWindow;
+	BOOL			m_bHighPriorityHash;
 	BOOL			m_bMakeGhosts;
 	BOOL			m_bSmartSeries;
 	CString			m_sCollectionPath;

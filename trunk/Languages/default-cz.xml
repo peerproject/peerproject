@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Czech Skin File -->
 
-<!-- Translation based on default-en.xml r64 (Shareaza 2.2.5.7) -->
+<!-- Translation based on default-en.xml r65 (Shareaza 2.2.5.7) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -358,6 +358,7 @@
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
+		<button id="ID_NETWORK_DC" text="DC++"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Nastavení"/>
 	</toolbar>
@@ -388,20 +389,16 @@
 		<button id="ID_SEARCH_FILTER_RAW" text="Více..."/>
 	</toolbar>
 	<!-- HOST CACHE WINDOW -->
-	<toolbar name="CHostCacheWnd.Basic">
-		<button id="ID_HOSTCACHE_CONNECT" text="Připojit se"/>
-		<button id="ID_HOSTCACHE_DISCONNECT" text="Nepřipojeno"/>
-		<button id="ID_HOSTCACHE_REMOVE" text="Odstranit"/>
-	</toolbar>
 	<toolbar name="CHostCacheWnd">
 		<button id="ID_HOSTCACHE_CONNECT" text="Připojit se"/>
 		<button id="ID_HOSTCACHE_DISCONNECT" text="Nepřipojeno"/>
 		<button id="ID_HOSTCACHE_REMOVE" text="Odstranit"/>
 		<rightAlign/>
-		<button id="ID_HOSTCACHE_G2_HORIZON" text="G2 Cluster"/>
-		<button id="ID_HOSTCACHE_G2_CACHE" text="G2 Cache"/>
-		<button id="ID_HOSTCACHE_G1_CACHE" text="G1 Cache"/>
-		<button id="ID_HOSTCACHE_ED2K_CACHE" text="eDonkey Cache"/>
+		<button id="ID_HOSTCACHE_G2_HORIZON" text="Cluster"/>
+		<button id="ID_HOSTCACHE_G2_CACHE" text="Cache"/>
+		<button id="ID_HOSTCACHE_G1_CACHE" text="Cache"/>
+		<button id="ID_HOSTCACHE_ED2K_CACHE" text="Cache"/>
+		<button id="ID_HOSTCACHE_DC_CACHE" text="Cache"/>
 	</toolbar>
 	<!-- PRIVATE CHAT WINDOW -->
 	<toolbar name="CPrivateChatFrame">
@@ -476,6 +473,7 @@
 				<item id="ID_NETWORK_G2" text="Připojit ke Gnutelle_2"/>
 				<item id="ID_NETWORK_G1" text="Připojit ke _Gnutelle"/>
 				<item id="ID_NETWORK_ED2K" text="Připojit k _eDonkey"/>
+				<item id="ID_NETWORK_DC" text="Připojit k _DC++"/>
 				<separator/>
 				<item id="ID_NETWORK_CONNECT_TO" text="Připojit _ke..." shortcut="Ctrl+T"/>
 				<item id="ID_NETWORK_BROWSE_TO" text="_Prohlížet hosta..."/>
@@ -489,7 +487,7 @@
 				<separator/>
 				<item id="ID_TOOLS_DOWNLOAD" text="_Stáhnout soubor/Torrent..."/>
 				<item id="ID_TOOLS_CREATETORRENT" text="_Create New .Torrent..."/>
-				<item id="IDC_IMPORT_DOWNLOADS" text="_Importovat soubory z eMule..."/>
+				<item id="ID_IMPORT_DOWNLOADS" text="_Importovat soubory z eMule..."/>
 				<separator/>
 				<item id="ID_TOOLS_LANGUAGE" text="Zvolte si _jazyk..."/>
 				<item id="ID_TOOLS_SKIN" text="Zvolte si _vzhled (Skiny)..."/>
@@ -562,8 +560,9 @@
 			<separator/>
 			<menu text="Zvolte si _Síť">
 				<item id="ID_NETWORK_G2" text="Připojit ke _Gnutelle2"/>
-				<item id="ID_NETWORK_ED2K" text="Připojit k _eDonkey"/>
 				<item id="ID_NETWORK_G1" text="Připojit ke Gnutelle_1"/>
+				<item id="ID_NETWORK_ED2K" text="Připojit k _eDonkey"/>
+				<item id="ID_NETWORK_DC" text="Připojit k _DC++"/>
 			</menu>
 			<separator/>
 			<item id="ID_NETWORK_CONNECT_TO" text="Připojit _ke..." shortcut="Ctrl+T"/>
@@ -608,7 +607,7 @@
 		<menu text="Nás_troje">
 			<item id="ID_LIBRARY_FOLDERS" text="Sdílené _soubory..."/>
 			<item id="ID_TOOLS_DOWNLOAD" text="_Stáhnout soubor/Torrent..."/>
-			<item id="IDC_IMPORT_DOWNLOADS" text="_Importovat soubory z eMule..."/>
+			<item id="ID_IMPORT_DOWNLOADS" text="_Importovat soubory z eMule..."/>
 			<item id="ID_OPEN_DOWNLOADS_FOLDER" text="_Otevřít adresář se staženými soubory"/>
 			<separator/>
 			<item id="ID_TOOLS_SKIN" text="Zvolte si _vzhled (Skiny)..."/>
@@ -656,8 +655,9 @@
 			<separator/>
 			<menu text="Zvolte si _Síť">
 				<item id="ID_NETWORK_G2" text="Připojit ke _Gnutelle2"/>
-				<item id="ID_NETWORK_ED2K" text="Připojit k _eDonkey"/>
 				<item id="ID_NETWORK_G1" text="Připojit ke Gnutelle_1"/>
+				<item id="ID_NETWORK_ED2K" text="Připojit k _eDonkey"/>
+				<item id="ID_NETWORK_DC" text="Připojit k _DC++"/>
 			</menu>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="Ukončit po _stažení"/>
@@ -728,11 +728,10 @@
 			<item id="ID_NETWORK_CONNECT_TO" text="Připojit _ke..." shortcut="Ctrl+T"/>
 			<item id="ID_NETWORK_BROWSE_TO" text="_Prohlížet hosta..."/>
 			<separator/>
-			<menu text="Zvolte si _Síť">
-				<item id="ID_NETWORK_G2" text="Připojit ke _Gnutelle2"/>
-				<item id="ID_NETWORK_ED2K" text="Připojit k _eDonkey"/>
-				<item id="ID_NETWORK_G1" text="Připojit ke Gnutelle_1"/>
-			</menu>
+			<item id="ID_NETWORK_G2" text="Připojit ke _Gnutelle2"/>
+			<item id="ID_NETWORK_G1" text="Připojit ke Gnutelle_1"/>
+			<item id="ID_NETWORK_ED2K" text="Připojit k _eDonkey"/>
+			<item id="ID_NETWORK_DC" text="Připojit k _DC++"/>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="Ukončit po _stažení"/>
 			<item id="ID_NETWORK_EXIT" text="K_onec"/>
@@ -761,7 +760,7 @@
 		<menu text="Nás_troje">
 			<item id="ID_LIBRARY_FOLDERS" text="Sdílené _soubory..."/>
 			<item id="ID_TOOLS_DOWNLOAD" text="_Stáhnout soubor/Torrent..."/>
-			<item id="IDC_IMPORT_DOWNLOADS" text="_Importovat soubort z eMule..."/>
+			<item id="ID_IMPORT_DOWNLOADS" text="_Importovat soubort z eMule..."/>
 			<item id="ID_OPEN_DOWNLOADS_FOLDER" text="_Otevřít adresář se staženými soubory"/>
 			<separator/>
 			<item id="ID_TOOLS_SKIN" text="Zvolte si _vzhled (Skiny)..."/>
@@ -1507,6 +1506,10 @@
 			<item id="ID_NETWORK_G2" text="Gnutella_2"/>
 			<item id="ID_NETWORK_G1" text="_Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="_eDonkey"/>
+			<item id="ID_NETWORK_DC" text="_DC++"/>
+			<separator/>
+			<item id="ID_VIEW_DISCOVERY" text="Vyhledání"/>
+			<item id="ID_VIEW_HOSTS" text="Cache h_osta"/>
 		</menu>
 		<menu text="_Monitor">
 			<item id="ID_NEIGHBOURS_VIEW_ALL" text="Ukázat _všechen provoz"/>
@@ -1754,12 +1757,20 @@
 		<text group="31" align="middle">Nepřipojeno</text>
 		<text group="32" align="middle">Připojuji...</text>
 		<text group="33" align="middle">Připojeno</text>
+		<text group="34" align="middle" id="EDServers">%i serveru</text>
 		<newline group="30" gap="2"/>
+		<icon group="60" command="ID_NETWORK_DC"/>
+		<text group="60" align="middle" format="b">&#160;DC++: &#160; </text>
+		<text group="61" align="middle">Nepřipojeno</text>
+		<text group="62" align="middle">Připojuji...</text>
+		<text group="63" align="middle">Připojeno</text>
+		<text group="64" align="middle" id="DCHubs">%i uzle</text>
+		<newline group="60" gap="2"/>
 		<group id="2">
 			<para align="center">
-				<newline gap="6"/>
+				<newline gap="4"/>
 				<link target="command:ID_VIEW_LIBRARY">Jste připojeni</link>
-				<newline gap="2"/>
+				<newline gap="4"/>
 				<text id="ConnectedHours" format="b">%i </text>
 				<text>hodin a </text>
 				<text id="ConnectedMinutes" format="b">%i </text>
@@ -2435,8 +2446,9 @@
 	<tip id="ID_NETWORK_CONNECT" message="Připojit k síti."/>
 	<tip id="ID_NETWORK_CONNECT_TO" message="Ručně se připojit k hostiteli..."/>
 	<tip id="ID_NETWORK_DISCONNECT" message="Odpojit od sítě."/>
-	<tip id="ID_NETWORK_ED2K" message="Připojit k síti eDonkey."/>
 	<tip id="ID_NETWORK_EXIT" message="Ukončit PeerProject"/>
+	<tip id="ID_NETWORK_ED2K" message="Připojit k síti eDonkey."/>
+	<tip id="ID_NETWORK_DC" message="Připojit k síti DC++."/>
 	<tip id="ID_NETWORK_G1" message="Připojit k původní síti Gnutella."/>
 	<tip id="ID_NETWORK_G2" message="Připojit k síti Gnutelly2 (velmi doporučeno)."/>
 	<tip id="ID_NETWORK_SEARCH" message="Začít nové hledání v síti..."/>
@@ -2595,7 +2607,9 @@
 	<string id="20012" value="Vlastní"/>
 	<string id="20013" value="Výchozí"/>
 	<string id="20014" value="Ukončit"/>
-	<string id="20050" value="Every Day"/>
+	<string id="20020" value="Soubor"/>
+	<string id="20021" value="Soubory"/>
+	<string id="20050" value="Každý Den"/>
 	<string id="20051" value="Pondělí"/>
 	<string id="20052" value="Úterý"/>
 	<string id="20053" value="Středa"/>
@@ -2977,7 +2991,7 @@
 	<string id="20511" value="eDonkey (HighID)"/>
 	<string id="20512" value="Připojení serveru eDonkey (LOWID: %lu)"/>
 	<string id="20513" value="eDonkey (LowID)"/>
-	<string id="20514" value="Server eDonkey"/>
+	<string id="20514" value="Serveru eDonkey"/>
 	<string id="20515" value="G1 Leaf"/>
 	<string id="20516" value="G1 Peer"/>
 	<string id="20517" value="Gnutella: Připojení Peer-to-Peer"/>
@@ -3312,7 +3326,7 @@
 		<control/>
 		<control caption="Transp:"/>
 		<control/>
-		<control caption="Shadow (restart)"/>
+		<control caption="Shadows"/>
 		<control caption="_Lišta:"/>
 		<control caption="Když kliknu zavřít:"/>
 		<control caption="Zeptej se mě|Shodit do lišty|Ihned zavřít|Zavít po dokončení přenosu"/>
@@ -3322,9 +3336,9 @@
 	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuBuCoBuBuBuCoBuBuBuEdBu" caption="Knihovna">
 		<control caption="_Nastavení:"/>
 		<control caption="Povolit ostatním prohlížet sdílené"/>
-		<control caption="Pamatovat si vzhled složky"/>
 		<control caption="Sledovat složky knihovny"/>
 		<control caption="Rychlý hashing (používá více CPU)"/>
+		<control caption="Pamatovat si vzhled složky"/>
 		<control caption="Smart media series detection"/>
 		<control caption="Ukládat informace o smazaných"/>
 		<control caption="_Poslední soubory:"/>
@@ -3375,13 +3389,14 @@
 		<control caption="Cenzurovat vulgárnost v chatu"/>
 	</dialog>
 	<!--Missing dialog name="CIRCSettingsPage"-->
-	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuCoBuBuSt" caption="Web">
+	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuBuCoBuBuSt" caption="Web">
 		<control caption="Odkazy _Peer to Peer (P2P):"/>
 		<control caption="Použít PeerProject k otevření těchto odkazů:"/>
 		<control caption="Magnet (magnet:)"/>
 		<control caption="Gnutella (gnutella:)"/>
 		<control caption="eDonkey (ed2k:)"/>
 		<control caption="Piolet (mp2p:)"/>
+		<control caption="DC++ ( dchub:/dcfile: )"/>
 		<control caption="BitTorrent (.torrent)"/>
 		<control caption="_Správce stahování:"/>
 		<control caption="Používat PeerProject pro všechna stahování z webu:"/>
@@ -4271,7 +4286,8 @@
 		<control caption="Před sdílením obsahu stažených BitTorrent souborů musí být nejprve nasdílený vlastní BitTorrent soubor (seed). Jakmile je tento proces dokončen objeví se torent jako stažený soubor ve frontě."/>
 		<control/>
 	</dialog>
-	<dialog name="CTorrentFilesPage" cookie="Sy" caption="Soubory">
+	<dialog name="CTorrentFilesPage" cookie="StSy" caption="Soubory">
+		<control/>
 		<control/>
 	</dialog>
 	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="Trackery">
@@ -4459,14 +4475,13 @@
 	<list name="CHostCacheWnd">
 		<column from="Address" to="Adresa"/>
 		<column from="Port" to=""/>
-		<column from="Client" to="Klient"/>
 		<column from="Last Seen" to="Naposledy prohlédnut"/>
-		<column from="Daily Uptime" to="Denní uptime"/>
+		<column from="Client" to="Klient"/>
 		<column from="Name" to="Název"/>
 		<column from="Description" to="Popis"/>
+		<column from="Failures" to="Chyby"/>
 		<column from="CurUsers" to="Aktuál. uživatelé"/>
 		<column from="MaxUsers" to="Max. uživatelů"/>
-		<column from="Failures" to="Chyby"/>
 		<column from="Country" to="Stát"/>
 	</list>
 	<list name="CDiscoveryWnd">
@@ -4526,7 +4541,7 @@
 		<column from="Criteria" to="Měřítko"/>
 		<column from="Minimum" to="Šířka pásma"/>
 		<column from="Transfers" to="Přenos"/>
-		<column from="Order" to="Pořadí"/>
+		<column from="Priority" to="Pořadí"/>
 	</list>
 	<list name="CAdvancedSettingsList">
 		<column from="Setting" to="Nastavení"/>

@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Chinese (Traditional) Skin File -->
 
-<!-- Translation based on default-en.xml r64 (Shareaza 2.2.2.12) -->
+<!-- Translation based on default-en.xml r65 (Shareaza 2.2.2.12) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -358,6 +358,7 @@
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
+		<button id="ID_NETWORK_DC" text="DC++"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="設定"/>
 	</toolbar>
@@ -417,11 +418,6 @@
 		<button id="ID_SEARCH_FILTER_RAW" text="更多..."/>
 	</toolbar>
 	<!-- HOST CACHE WINDOW -->
-	<toolbar name="CHostCacheWnd.Basic">
-		<button id="ID_HOSTCACHE_CONNECT" text="連線至"/>
-		<button id="ID_HOSTCACHE_DISCONNECT" text="中斷連線"/>
-		<button id="ID_HOSTCACHE_REMOVE" text="移除"/>
-	</toolbar>
 	<toolbar name="CHostCacheWnd">
 		<button id="ID_HOSTCACHE_CONNECT" text="連線至"/>
 		<button id="ID_HOSTCACHE_DISCONNECT" text="中斷連線"/>
@@ -430,7 +426,8 @@
 		<button id="ID_HOSTCACHE_G2_HORIZON" text="G2 叢集"/>
 		<button id="ID_HOSTCACHE_G2_CACHE" text="G2 快取"/>
 		<button id="ID_HOSTCACHE_G1_CACHE" text="G1 快取"/>
-		<button id="ID_HOSTCACHE_ED2K_CACHE" text="eDonkey 快取"/>
+		<button id="ID_HOSTCACHE_ED2K_CACHE" text="ED2K 快取"/>
+		<button id="ID_HOSTCACHE_DC_CACHE" text="DC 快取"/>
 	</toolbar>
 	<!-- PRIVATE CHAT WINDOW -->
 	<toolbar name="CPrivateChatFrame">
@@ -498,7 +495,7 @@
 	<!-- MAIN WINDOW MENU BAR -->
 	<menu name="CMainWnd.DropMenu" type="bar">
 		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160;">
-			<item id="ID_TOOLS_SETTINGS" text="設定..."/>
+			<item id="ID_TOOLS_SETTINGS" text="設定... &#160; "/>
 			<menu text="網路">
 				<item id="ID_NETWORK_CONNECT" text="連線" shortcut="Ctrl+G"/>
 				<item id="ID_NETWORK_DISCONNECT" text="中斷連線"/>
@@ -506,6 +503,7 @@
 				<item id="ID_NETWORK_G2" text="連線至 Gnutella2"/>
 				<item id="ID_NETWORK_G1" text="連線至 Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="連線至 eDonkey2000"/>
+				<item id="ID_NETWORK_DC" text="連線至 DC++"/>
 				<separator/>
 				<item id="ID_NETWORK_CONNECT_TO" text="連線至..." shortcut="Ctrl+T"/>
 				<item id="ID_NETWORK_BROWSE_TO" text="瀏覽主機..."/>
@@ -587,11 +585,10 @@
 			<item id="ID_NETWORK_CONNECT" text="連線" shortcut="Ctrl+G"/>
 			<item id="ID_NETWORK_DISCONNECT" text="中斷連線"/>
 			<separator/>
-			<menu text="選擇網路">
-				<item id="ID_NETWORK_G2" text="連線至 Gnutella2"/>
-				<item id="ID_NETWORK_G1" text="連線至 Gnutella 1"/>
-				<item id="ID_NETWORK_ED2K" text="連線至 eDonkey2000"/>
-			</menu>
+			<item id="ID_NETWORK_G2" text="連線至 Gnutella2"/>
+			<item id="ID_NETWORK_G1" text="連線至 Gnutella"/>
+			<item id="ID_NETWORK_ED2K" text="連線至 eDonkey2000"/>
+			<item id="ID_NETWORK_DC" text="連線至 DC++"/>
 			<separator/>
 			<item id="ID_NETWORK_CONNECT_TO" text="連線至..." shortcut="Ctrl+T"/>
 			<item id="ID_NETWORK_BROWSE_TO" text="瀏覽主機..."/>
@@ -677,11 +674,9 @@
 		<menu text="網路">
 			<item id="ID_NETWORK_CONNECT" text="連線" shortcut="Ctrl+G"/>
 			<separator/>
-			<menu text="選擇網路">
-				<item id="ID_NETWORK_G2" text="連線至 Gnutella2"/>
-				<item id="ID_NETWORK_G1" text="連線至 Gnutella 1"/>
-				<item id="ID_NETWORK_ED2K" text="連線至 eDonkey2000"/>
-			</menu>
+			<item id="ID_NETWORK_G2" text="連線至 Gnutella2"/>
+			<item id="ID_NETWORK_G1" text="連線至 Gnutella"/>
+			<item id="ID_NETWORK_ED2K" text="連線至 eDonkey"/>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="傳輸後離開"/>
 			<item id="ID_NETWORK_EXIT" text="離開"/>
@@ -750,11 +745,10 @@
 			<item id="ID_NETWORK_CONNECT_TO" text="連線至..." shortcut="Ctrl+T"/>
 			<item id="ID_NETWORK_BROWSE_TO" text="瀏覽主機..."/>
 			<separator/>
-			<menu text="選擇網路">
-				<item id="ID_NETWORK_G2" text="連線至 Gnutella_2"/>
-				<item id="ID_NETWORK_G1" text="連線至 _Gnutella"/>
-				<item id="ID_NETWORK_ED2K" text="連線至 _eDonkey2000"/>
-			</menu>
+			<item id="ID_NETWORK_G2" text="連線至 Gnutella_2"/>
+			<item id="ID_NETWORK_G1" text="連線至 _Gnutella"/>
+			<item id="ID_NETWORK_ED2K" text="連線至 _eDonkey2000"/>
+			<item id="ID_NETWORK_DC" text="連線至 _DC++"/>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="傳輸後關閉"/>
 			<item id="ID_NETWORK_EXIT" text="離開"/>
@@ -1509,8 +1503,12 @@
 			<item id="ID_NETWORK_DISCONNECT" text="中斷連線"/>
 			<separator/>
 			<item id="ID_NETWORK_G2" text="Gnutella2"/>
-			<item id="ID_NETWORK_G1" text="Gnutella1"/>
+			<item id="ID_NETWORK_G1" text="Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="eDonkey2000"/>
+			<item id="ID_NETWORK_DC" text="_DC++"/>
+			<separator/>
+			<item id="ID_VIEW_DISCOVERY" text="揭示"/>
+			<item id="ID_VIEW_HOSTS" text="主機快取"/>
 		</menu>
 		<menu text="監視器">
 			<item id="ID_NEIGHBOURS_VIEW_ALL" text="顯示所有的流量"/>
@@ -1582,7 +1580,7 @@
 		<separator/>
 		<item id="ID_DISCOVERY_GNUTELLA" text="顯示 Bootstraps"/>
 		<item id="ID_DISCOVERY_WEBCACHE" text=" 顯示 GWeb快取"/>
-		<item id="ID_DISCOVERY_SERVERMET" text="顯示 Server.met's"/>
+		<item id="ID_DISCOVERY_SERVERMET" text="顯示 Server.METs"/>
 		<separator/>
 		<item id="ID_DISCOVERY_ADD" text="新增服務..."/>
 		<separator/>
@@ -1749,7 +1747,7 @@
 		<text group="25" align="middle" id="G2Leaves">%i 葉結點</text>
 		<newline group="20" gap="2"/>
 		<icon group="10" command="ID_NETWORK_G1"/>
-		<text group="10" align="middle" format="b">&#160;Gnutella:</text>
+		<text group="10" align="middle" format="b">&#160;Gnutella: </text>
 		<text group="11" align="middle">已中斷連線</text>
 		<text group="12" align="middle">連線中...</text>
 		<text group="13" align="middle">已連線</text>
@@ -1757,19 +1755,28 @@
 		<text group="15" align="middle" id="G1Leaves">%i 葉結點</text>
 		<newline group="10" gap="2"/>
 		<icon group="30" command="ID_NETWORK_ED2K"/>
-		<text group="30" align="middle" format="b">&#160;eDonkey:</text>
+		<text group="30" align="middle" format="b">&#160;eDonkey: </text>
 		<text group="31" align="middle">已中斷連線</text>
 		<text group="32" align="middle">連線中...</text>
 		<text group="33" align="middle">已連線</text>
+		<text group="34" align="middle" id="EDServers">%i 伺服器</text>
 		<newline group="30" gap="2"/>
+		<icon group="60" command="ID_NETWORK_DC"/>
+		<text group="60" align="middle" format="b">&#160;DC++: &#160; </text>
+		<text group="61" align="middle">已中斷連線</text>
+		<text group="62" align="middle">連線中...</text>
+		<text group="63" align="middle">已連線</text>
+		<text group="64" align="middle" id="DCHubs">%i 結點</text>
+		<newline group="60" gap="2"/>
 		<group id="2">
 			<para align="center">
-				<newline gap="6"/>
-				<text>您已經連線了</text>
+				<newline gap="4"/>
+				<link target="command:ID_TAB_NETWORK">您已經連線了</link>
+				<newline gap="4"/>
 				<text id="ConnectedHours" format="b">%i </text>
 				<text>小時與</text>
 				<text id="ConnectedMinutes" format="b">%i </text>
-				<text>分.</text>
+				<text>分</text>
 			</para>
 		</group>
 	</document>
@@ -2363,8 +2370,9 @@
 	<tip id="ID_NETWORK_CONNECT" message="連線至網路."/>
 	<tip id="ID_NETWORK_CONNECT_TO" message="手動連線至主機..."/>
 	<tip id="ID_NETWORK_DISCONNECT" message="與網路中斷連線."/>
-	<tip id="ID_NETWORK_ED2K" message="連線至 eDonkey2000 網路."/>
 	<tip id="ID_NETWORK_EXIT" message="離開 PeerProject"/>
+	<tip id="ID_NETWORK_ED2K" message="連線至 eDonkey2000 網路."/>
+	<tip id="ID_NETWORK_DC" message="連線至 DC++ 網路."/>
 	<tip id="ID_NETWORK_G1" message="連線至原始的 Gnutella 網路."/>
 	<tip id="ID_NETWORK_G2" message="連縣至 Gnutella2 網路 (強烈建議)."/>
 	<tip id="ID_NETWORK_SEARCH" message="在這個網路上開始新的搜尋..."/>
@@ -2511,7 +2519,9 @@
 	<string id="20011" value="自動"/>
 	<string id="20012" value="自訂"/>
 	<string id="20013" value="預設"/>
-	<string id="20050" value="星期"/>
+	<string id="20020" value="文件"/>
+	<string id="20021" value="文件"/>
+	<string id="20050" value="星期每天"/>
 	<string id="20051" value="星期一"/>
 	<string id="20052" value="星期二"/>
 	<string id="20053" value="星期三"/>
@@ -3211,7 +3221,7 @@
 		<control/>
 		<control caption="不透明度:"/>
 		<control/>
-		<control caption="Shadow (restart)"/>
+		<control caption="Shadows"/>
 		<control caption="系統列:"/>
 		<control caption="當我點選關閉鈕時:"/>
 		<control caption="詢問我|最小化至系統列|立刻關閉程式|傳輸後關閉"/>
@@ -3221,10 +3231,10 @@
 	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuBuCoBuBuBuCoBuBuBuEdBu" caption="收藏">
 		<control caption="選項:"/>
 		<control caption="允許其他人瀏覽我分享的檔案"/>
-		<control caption="記住資料夾檢視方式"/>
 		<control caption="監視收藏的資料夾"/>
 		<control caption="快速切細(消耗更多CPU 資源)"/>
-		<control caption="Smart media series detection"/>
+		<control caption="記住資料夾檢視方式 hash"/>
+		<control caption="视频系列只能探测"/>
 		<control caption="当删除时建立回收文件"/>
 		<control caption="最近的檔案:"/>
 		<control caption="記住:"/>
@@ -3274,13 +3284,14 @@
 		<control caption="聊天時過濾不雅字眼"/>
 	</dialog>
 	<!--Missing dialog name="CIRCSettingsPage"-->
-	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuCoBuBuSt" caption="網際網路">
+	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuBuCoBuBuSt" caption="網際網路">
 		<control caption="P2P 連結處理:"/>
 		<control caption="使用 PeerProject 開啟下列類型的連結:"/>
 		<control caption="Magnet ( magnet: )"/>
 		<control caption="Gnutella ( gnutella: )"/>
 		<control caption="eDonkey2000 ( ed2k: )"/>
 		<control caption="Piolet ( mp2p: )"/>
+		<control caption="DC++ ( dchub:/dcfile: )"/>
 		<control caption="BitTorrent ( .torrent )"/>
 		<control caption="下載管理員:"/>
 		<control caption="使用 PeerProject 管理所有的網際網路的下載:"/>
@@ -4170,7 +4181,8 @@
 		<control caption="欲使用 BitTorrent 分享完整的檔案, 必須先做種. 完成這個程序後, 在下載清單中, Torrent 將成為新項目."/>
 		<control/>
 	</dialog>
-	<dialog name="CTorrentFilesPage" cookie="Sy" caption="檔案">
+	<dialog name="CTorrentFilesPage" cookie="StSy" caption="檔案">
+		<control/>
 		<control/>
 	</dialog>
 	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="伺服器">
@@ -4359,15 +4371,14 @@
 	<list name="CHostCacheWnd">
 		<column from="Address" to="位址" />
 		<column from="Port" to="連接埠" />
-		<column from="Client" to="客戶端" />
 		<column from="Last Seen" to="最後看見" />
-		<column from="Daily Uptime" to="时间"/>
+		<column from="Client" to="客戶端" />
 		<column from="Name" to="名稱" />
 		<column from="Description" to="敘述" />
+		<column from="Failures" to="失败"/>
 		<column from="CurUsers" to="目前用戶人數" />
 		<column from="MaxUsers" to="最大用戶人數" />
-		<column from="Failures" to=""/>
-		<column from="Country" to="地區"/>
+		<column from="Country" to="地區" />
 	</list>
 	<list name="CDiscoveryWnd">
 		<column from="Address" to="位址" />
@@ -4376,7 +4387,7 @@
 		<column from="Hosts" to="主機" />
 		<column from="Accesses" to="" />
 		<column from="Updates" to="更新" />
-		<column from="Failures" to="" />
+		<column from="Failures" to="失败" />
 	</list>
 	<list name="CPacketWnd">
 		<column from="Address" to="位址" />
@@ -4426,7 +4437,7 @@
 		<column from="Criteria" to="條件" />
 		<column from="Minimum" to="頻寬" />
 		<column from="Transfers" to="傳輸" />
-		<column from="Order" to="順序" />
+		<column from="Priority" to="順序" />
 	</list>
 	<list name="CAdvancedSettingsList">
 		<column from="Setting" to="設定" />

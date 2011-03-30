@@ -1,7 +1,7 @@
 //
 // PageSettingsProtocols.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -66,7 +66,7 @@ BOOL CProtocolsSettingsPage::OnInitDialog()
 	HTREEITEM hNetworks = AddItem( NULL, _T("Peer-to-Peer Network Protocols") );
 
 	HTREEITEM hG2 = AddItem( hNetworks, _T("Gnutella2 Network") );
-	AddItem( hG2, _T("Name"), _T("Gnutella2") );
+	AddItem( hG2, _T("Name"), _T("Gnutella2  (\"G2\")") );
 	AddItem( hG2, _T("Type"), _T("Decentralized") );
 	AddItem( hG2, _T("NodeClass"), _T("Hub, Leaf") );
 	AddItem( hG2, _T("PrimaryURN"), _T("sha1") );
@@ -89,8 +89,8 @@ BOOL CProtocolsSettingsPage::OnInitDialog()
 	AddItem( hED, _T("ProtocolVersion"), _T("1.1") );
 	AddItem( hED, _T("ComponentVersion"), _T("1.0.0.0") );
 
-	HTREEITEM hDC = AddItem( hNetworks, _T("ADC Network") );
-	AddItem( hDC, _T("Name"), _T("Advanced Direct Connect (\"DC++\")") );
+	HTREEITEM hDC = AddItem( hNetworks, _T("ADC/NMDC Network") );
+	AddItem( hDC, _T("Name"), _T("Direct Connect  (\"DC++\")") );
 	AddItem( hDC, _T("Type"), _T("Hub-Based") );
 	AddItem( hDC, _T("NodeClass"), _T("Client") );
 	AddItem( hDC, _T("PrimaryURN"), _T("ttr") );
@@ -108,8 +108,8 @@ BOOL CProtocolsSettingsPage::OnInitDialog()
 	AddItem( hHTTP, _T("Prefix"), _T("http://") );
 	AddItem( hHTTP, _T("TransferMode"), _T("Stream") );
 	AddItem( hHTTP, _T("Directions"), _T("Download, Upload") );
-	AddItem( hHTTP, _T("Capabilities"), _T("THEX, PFS, Metadata, HUGE, Browse") );
 	AddItem( hHTTP, _T("Encodings"), _T("Deflate, Backwards") );
+	AddItem( hHTTP, _T("Capabilities"), _T("THEX, PFS, Metadata, HUGE, Browse") );
 	AddItem( hHTTP, _T("ProtocolVersion"), _T("1.1") );
 	AddItem( hHTTP, _T("ComponentVersion"), _T("1.0.0.0") );
 

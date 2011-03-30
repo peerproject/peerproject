@@ -1,7 +1,7 @@
 //
 // PageSettingsDonkey.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -36,7 +36,7 @@ BEGIN_MESSAGE_MAP(CDonkeySettingsPage, CSettingsPage)
 	//{{AFX_MSG_MAP(CDonkeySettingsPage)
 	ON_BN_CLICKED(IDC_DISCOVERY_GO, OnDiscoveryGo)
 	ON_BN_CLICKED(IDC_SERVER_WALK, OnServerWalk)
-	ON_BN_CLICKED(IDC_ENABLE_TODAY, OnEnableToday)
+	ON_BN_CLICKED(IDC_ENABLE_TODAY, OnEnable)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -49,7 +49,7 @@ CDonkeySettingsPage::CDonkeySettingsPage() : CSettingsPage( CDonkeySettingsPage:
 	, m_nResults		( 0 )
 	, m_nLinks			( 0 )
 	, m_bServerWalk 	( FALSE )
-	, m_bEnableToday	( FALSE )
+	, m_bEnabled		( FALSE )
 	, m_bEnableAlways	( FALSE )
 {
 }
@@ -67,11 +67,11 @@ void CDonkeySettingsPage::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_RESULTS_SPIN, m_wndResultsSpin);
 	DDX_Control(pDX, IDC_DISCOVERY_GO, m_wndDiscoveryGo);
 	DDX_Text(pDX, IDC_RESULTS, m_nResults);
-	DDX_Check(pDX, IDC_SERVER_WALK, m_bServerWalk);
 	DDX_Text(pDX, IDC_LINKS, m_nLinks);
-	DDX_Check(pDX, IDC_ENABLE_TODAY, m_bEnableToday);
+	DDX_Check(pDX, IDC_ENABLE_TODAY, m_bEnabled);
 	DDX_Check(pDX, IDC_ENABLE_ALWAYS, m_bEnableAlways);
 	DDX_Check(pDX, IDC_LEARN_ED2K_SERVERS, m_bLearnServers);
+	DDX_Check(pDX, IDC_SERVER_WALK, m_bServerWalk);
 	//}}AFX_DATA_MAP
 }
 
@@ -82,11 +82,11 @@ BOOL CDonkeySettingsPage::OnInitDialog()
 {
 	CSettingsPage::OnInitDialog();
 
-	m_bEnableToday	= Settings.eDonkey.EnableToday;
+	m_bEnabled		= Settings.eDonkey.Enabled;
 	m_bEnableAlways	= Settings.eDonkey.EnableAlways;
 	m_nLinks		= Settings.eDonkey.MaxLinks;
-	m_bServerWalk	= Settings.eDonkey.ServerWalk;
 	m_nResults		= Settings.eDonkey.MaxResults;
+	m_bServerWalk	= Settings.eDonkey.ServerWalk;
 	m_bLearnServers = Settings.eDonkey.LearnNewServers;
 
 	UpdateData( FALSE );
@@ -106,23 +106,23 @@ BOOL CDonkeySettingsPage::OnSetActive()
 	if ( ppNetworks->GetSafeHwnd() != NULL )
 	{
 		ppNetworks->UpdateData( TRUE );
-		m_bEnableToday = ppNetworks->m_bEDEnable;
+		m_bEnabled = ppNetworks->m_bEDEnable;
 		UpdateData( FALSE );
 	}
 
 	return CSettingsPage::OnSetActive();
 }
 
-void CDonkeySettingsPage::OnEnableToday()
+void CDonkeySettingsPage::OnEnable()
 {
 	UpdateData( TRUE );
 
-	if ( m_bEnableToday && ( Settings.GetOutgoingBandwidth() < 2 ) )
+	if ( m_bEnabled && ( Settings.GetOutgoingBandwidth() < 2 ) )
 	{
 		CString strMessage;
 		LoadString( strMessage, IDS_NETWORK_BANDWIDTH_LOW );
 		AfxMessageBox( strMessage, MB_OK );
-		m_bEnableToday = FALSE;
+		m_bEnabled = FALSE;
 		UpdateData( FALSE );
 	}
 
@@ -132,7 +132,7 @@ void CDonkeySettingsPage::OnEnableToday()
 	if ( ppNetworks->GetSafeHwnd() != NULL )
 	{
 		ppNetworks->UpdateData( TRUE );
-		ppNetworks->m_bEDEnable = m_bEnableToday;
+		ppNetworks->m_bEDEnable = m_bEnabled;
 		ppNetworks->UpdateData( FALSE );
 	}
 }
@@ -155,10 +155,10 @@ void CDonkeySettingsPage::OnOK()
 	UpdateData();
 
 	Settings.eDonkey.EnableAlways	= m_bEnableAlways && ( Settings.GetOutgoingBandwidth() >= 2 );
-	Settings.eDonkey.EnableToday	= m_bEnableToday && ( Settings.GetOutgoingBandwidth() >= 2 );
+	Settings.eDonkey.Enabled		= m_bEnabled && ( Settings.GetOutgoingBandwidth() >= 2 );
 	Settings.eDonkey.MaxLinks		= m_nLinks;
-	Settings.eDonkey.ServerWalk		= m_bServerWalk != FALSE;
 	Settings.eDonkey.MaxResults		= m_nResults;
+	Settings.eDonkey.ServerWalk		= m_bServerWalk != FALSE;
 	Settings.eDonkey.LearnNewServers = m_bLearnServers != FALSE;
 
 	Settings.Normalize( &Settings.eDonkey.MaxResults );

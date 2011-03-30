@@ -1,7 +1,7 @@
 //
 // UploadTransferED2K.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -193,26 +193,24 @@ BOOL CUploadTransferED2K::OnRunEx(DWORD tNow)
 			Close( IDS_UPLOAD_QUEUE_TIMEOUT );
 			return FALSE;
 		}
-		else
-		{
-			DWORD nCheckThrottle;	// Throttle for how often ED2K clients have queue rank checked
-			if ( m_nRanking <= 2 )
-				nCheckThrottle = 2 * 1000;
-			else if ( m_nRanking < 10 )
-				nCheckThrottle = 15 * 1000;
-			else if ( m_nRanking < 50 )
-				nCheckThrottle = 1 * 60 * 1000;
-			else if ( m_nRanking < 200 )
-				nCheckThrottle = 4 * 60 * 1000;
-			else // Over 200 at 8 minutes
-				nCheckThrottle = 8 * 60 * 1000;
 
-			if ( tNow > m_tRankingCheck && tNow - m_tRankingCheck >= nCheckThrottle )
-			{
-				// Check the queue rank. Start upload or send rank update if required.
-				if ( ! CheckRanking() )
-					return FALSE;
-			}
+		DWORD nCheckThrottle;	// Throttle for how often ED2K clients have queue rank checked
+		if ( m_nRanking <= 2 )
+			nCheckThrottle = 2 * 1000;
+		else if ( m_nRanking < 10 )
+			nCheckThrottle = 15 * 1000;
+		else if ( m_nRanking < 50 )
+			nCheckThrottle = 1 * 60 * 1000;
+		else if ( m_nRanking < 200 )
+			nCheckThrottle = 4 * 60 * 1000;
+		else // Over 200 at 8 minutes
+			nCheckThrottle = 8 * 60 * 1000;
+
+		if ( tNow > m_tRankingCheck && tNow - m_tRankingCheck >= nCheckThrottle )
+		{
+			// Check the queue rank. Start upload or send rank update if required.
+			if ( ! CheckRanking() )
+				return FALSE;
 		}
 	}
 	else if ( m_nState == upsUploading )
@@ -507,7 +505,7 @@ BOOL CUploadTransferED2K::ServeRequests()
 		{
 			CheckFinishedRequest();
 
-			if ( ! Settings.eDonkey.EnableToday && Settings.Connection.RequireForTransfers )
+			if ( ! Settings.eDonkey.Enabled && Settings.Connection.RequireForTransfers )
 			{
 				Send( CEDPacket::New( ED2K_C2C_FINISHUPLOAD ) );
 				Cleanup();
@@ -549,7 +547,7 @@ BOOL CUploadTransferED2K::StartNextRequest()
 
 	if ( m_nLength < SIZE_UNKNOWN )
 	{
-		if ( ! Settings.eDonkey.EnableToday && Settings.Connection.RequireForTransfers )
+		if ( ! Settings.eDonkey.Enabled && Settings.Connection.RequireForTransfers )
 		{
 			Send( CEDPacket::New( ED2K_C2C_FILENOTFOUND ) );
 			Cleanup();
@@ -710,7 +708,7 @@ BOOL CUploadTransferED2K::CheckFinishedRequest()
 	ASSERT( m_nState == upsUploading );
 
 	if ( m_nPosition < m_nLength &&
-		( Settings.eDonkey.EnableToday ||
+		( Settings.eDonkey.Enabled ||
 		! Settings.Connection.RequireForTransfers ) )
 		return FALSE;
 
@@ -777,9 +775,7 @@ BOOL CUploadTransferED2K::CheckRanking()
 		// Upload is queued
 
 		// Check if we should send a ranking packet- If we have not sent one in a while, or one was requested
-		if ( ( tNow > m_tRankingSent && tNow - m_tRankingSent >= Settings.eDonkey.QueueRankThrottle ) ||
-			 (  m_nRanking == -1 ) )
-
+		if ( ( tNow > m_tRankingSent && tNow - m_tRankingSent >= Settings.eDonkey.QueueRankThrottle ) || ( m_nRanking == -1 ) )
 		{
 			// Send a queue rank packet
 			CSingleLock pLock( &UploadQueues.m_pSection, TRUE );

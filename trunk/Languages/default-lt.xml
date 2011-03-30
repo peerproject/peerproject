@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Lithuanian Skin File -->
 
-<!-- Translation based on default-en.xml r64 -->
+<!-- Translation based on default-en.xml r65 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -359,6 +359,7 @@
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
+		<button id="ID_NETWORK_DC" text="DC++"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Nuostatos"/>
 	</toolbar>
@@ -415,22 +416,16 @@
 		<button id="ID_SEARCH_FILTER_RAW" text="Dar..."/>
 	</toolbar>
 	<!-- HOST CACHE WINDOW -->
-	<toolbar name="CHostCacheWnd.Basic">
-		<button id="ID_HOSTCACHE_CONNECT" text="Jungtis prie..."/>
-		<button id="ID_HOSTCACHE_DISCONNECT" text="Atsijungti"/>
-		<button id="ID_HOSTCACHE_REMOVE" text="Šalinti"/>
-	</toolbar>
 	<toolbar name="CHostCacheWnd">
 		<button id="ID_HOSTCACHE_CONNECT" text="Jungtis prie..."/>
 		<button id="ID_HOSTCACHE_DISCONNECT" text="Atsijungti"/>
 		<button id="ID_HOSTCACHE_REMOVE" text="Šalinti"/>
 		<rightAlign/>
-		<button id="ID_HOSTCACHE_G2_HORIZON" text="G2 junginys"/>
-		<button id="ID_HOSTCACHE_G2_CACHE" text="G2 talpykla"/>
-		<button id="ID_HOSTCACHE_G1_CACHE" text="G1 talpykla"/>
-		<button id="ID_HOSTCACHE_ED2K_CACHE" text="eDonkey talpykla"/>
-		<button id="ID_HOSTCACHE_BT_CACHE" text="BitTorrent talpykla"/>
-		<button id="ID_HOSTCACHE_KAD_CACHE" text="Kademlia talpykla"/>
+		<button id="ID_HOSTCACHE_G2_HORIZON" text="junginys"/>
+		<button id="ID_HOSTCACHE_G2_CACHE" text="talpykla"/>
+		<button id="ID_HOSTCACHE_G1_CACHE" text="talpykla"/>
+		<button id="ID_HOSTCACHE_ED2K_CACHE" text="talpykla"/>
+		<button id="ID_HOSTCACHE_ED2K_CACHE" text="talpykla"/>
 	</toolbar>
 	<!-- PRIVATE CHAT WINDOW -->
 	<toolbar name="CPrivateChatFrame">
@@ -532,6 +527,7 @@
 			<item id="ID_NETWORK_G2" text="Jungtis prie Gnutella2"/>
 			<item id="ID_NETWORK_G1" text="Jungtis prie Gnutella1"/>
 			<item id="ID_NETWORK_ED2K" text="Jungtis prie eDonkey"/>
+			<item id="ID_NETWORK_DC" text="Jungtis prie DC++"/>
 			<separator/>
 			<item id="ID_NETWORK_CONNECT_TO" text="Jungtis prie..." shortcut="Ctrl+T"/>
 			<item id="ID_NETWORK_BROWSE_TO" text="Naršyti adresatą..."/>
@@ -546,7 +542,7 @@
 			<item id="ID_TOOLS_DOWNLOAD" text="Atsisiųsti failą/Torrent..."/>
 			<item id="ID_TOOLS_SEEDTORRENT" text="Skleisti torrent..."/>
 			<item id="ID_TOOLS_CREATETORRENT" text="_Create New .Torrent..."/>
-			<item id="IDC_IMPORT_DOWNLOADS" text="Importuoti eMule dalinius failus..."/>
+			<item id="ID_IMPORT_DOWNLOADS" text="Importuoti eMule dalinius failus..."/>
 			<separator/>
 			<item id="ID_TOOLS_LANGUAGE" text="Pasirinkti kalbą..."/>
 			<item id="ID_TOOLS_SKIN" text="Pasirinkti apvalkalą..."/>
@@ -615,11 +611,10 @@
 			<item id="ID_NETWORK_CONNECT" text="Jun_gtis" shortcut="Ctrl+G"/>
 			<item id="ID_NETWORK_DISCONNECT" text="_Atsijungti"/>
 			<separator/>
-			<menu text="_Rinktis tinklus">
-				<item id="ID_NETWORK_G2" text="Jungtis prie Gnutella_2"/>
-				<item id="ID_NETWORK_G1" text="Jungtis prie _Gnutella"/>
-				<item id="ID_NETWORK_ED2K" text="Jungtis prie _eDonkey"/>
-			</menu>
+			<item id="ID_NETWORK_G2" text="Jungtis prie Gnutella_2"/>
+			<item id="ID_NETWORK_G1" text="Jungtis prie _Gnutella"/>
+			<item id="ID_NETWORK_ED2K" text="Jungtis prie _eDonkey"/>
+			<item id="ID_NETWORK_DC" text="Jungtis prie _DC++"/>
 			<separator/>
 			<item id="ID_NETWORK_CONNECT_TO" text="Jung_tis prie..." shortcut="Ctrl+T"/>
 			<item id="ID_NETWORK_BROWSE_TO" text="_Naršyti adresatą..."/>
@@ -664,7 +659,7 @@
 		<menu text="Įran_kiai">
 			<item id="ID_LIBRARY_FOLDERS" text="_Bendrinti failus..."/>
 			<item id="ID_TOOLS_DOWNLOAD" text="_Atsisiųsti failą/Torrent..."/>
-			<item id="IDC_IMPORT_DOWNLOADS" text="_Importuoti eMule dalinius failus..."/>
+			<item id="ID_IMPORT_DOWNLOADS" text="_Importuoti eMule dalinius failus..."/>
 			<item id="ID_OPEN_DOWNLOADS_FOLDER" text="_Atverti atsisiųstų failų _katalogą"/>
 			<separator/>
 			<item id="ID_TOOLS_SKIN" text="Pasirinkti ap_valkalą..."/>
@@ -714,11 +709,9 @@
 		<menu text="_Tinklas">
 			<item id="ID_NETWORK_CONNECT" text="Jun_gtis" shortcut="Ctrl+G"/>
 			<separator/>
-			<menu text="_Rinktis tinklus">
-				<item id="ID_NETWORK_G2" text="Jungtis prie Gnutella_2"/>
-				<item id="ID_NETWORK_G1" text="Jungtis prie _Gnutella"/>
-				<item id="ID_NETWORK_ED2K" text="Jungtis prie _eDonkey"/>
-			</menu>
+			<item id="ID_NETWORK_G2" text="Jungtis prie Gnutella_2"/>
+			<item id="ID_NETWORK_G1" text="Jungtis prie _Gnutella"/>
+			<item id="ID_NETWORK_ED2K" text="Jungtis prie _eDonkey"/>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="Išeiti _baigus siųsti"/>
 			<item id="ID_NETWORK_EXIT" text="Iš_eiti"/>
@@ -793,11 +786,10 @@
 			<item id="ID_NETWORK_CONNECT_TO" text="Jung_tis prie..." shortcut="Ctrl+T"/>
 			<item id="ID_NETWORK_BROWSE_TO" text="_Naršyti adresatą..."/>
 			<separator/>
-			<menu text="_Rinktis tinklus">
-				<item id="ID_NETWORK_G2" text="Jungtis prie Gnutella_2"/>
-				<item id="ID_NETWORK_G1" text="Jungtis prie _Gnutella"/>
-				<item id="ID_NETWORK_ED2K" text="Jungtis prie _eDonkey"/>
-			</menu>
+			<item id="ID_NETWORK_G2" text="Jungtis prie Gnutella_2"/>
+			<item id="ID_NETWORK_G1" text="Jungtis prie _Gnutella"/>
+			<item id="ID_NETWORK_ED2K" text="Jungtis prie _eDonkey"/>
+			<item id="ID_NETWORK_DC" text="Jungtis prie _DC++"/>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="Išeiti _baigus siųsti"/>
 			<item id="ID_NETWORK_EXIT" text="Iš_eiti"/>
@@ -826,7 +818,7 @@
 		<menu text="Įran_kiai">
 			<item id="ID_LIBRARY_FOLDERS" text="_Bendrinti failai..."/>
 			<item id="ID_TOOLS_DOWNLOAD" text="_Atsisiųsti failą/Torrent..."/>
-			<item id="IDC_IMPORT_DOWNLOADS" text="_Importuoti eMule dalinius failus..."/>
+			<item id="ID_IMPORT_DOWNLOADS" text="_Importuoti eMule dalinius failus..."/>
 			<item id="ID_OPEN_DOWNLOADS_FOLDER" text="_Atverti atsisiųstų failų _katalogą"/>
 			<separator/>
 			<item id="ID_TOOLS_SKIN" text="Pasirinkti ap_valkalą..."/>
@@ -1583,6 +1575,10 @@
 			<item id="ID_NETWORK_G2" text="Gnutella_2"/>
 			<item id="ID_NETWORK_G1" text="_Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="_eDonkey"/>
+			<item id="ID_NETWORK_DC" text="_DC++"/>
+			<separator/>
+			<item id="ID_VIEW_DISCOVERY" text="Paslaugų _radimo tarnybos"/>
+			<item id="ID_VIEW_HOSTS" text="Adresatų _talpykla"/>
 		</menu>
 		<menu text="_Monitorius">
 			<item id="ID_NEIGHBOURS_VIEW_ALL" text="Rodyti _visą srautą"/>
@@ -1868,12 +1864,20 @@
 		<text group="31" align="middle">Atsijungta</text>
 		<text group="32" align="middle">Jungiamasi...</text>
 		<text group="33" align="middle">Prisijungta</text>
+		<text group="34" align="middle" id="EDServers">%i Įeinantis</text>
 		<newline group="30" gap="2"/>
+		<icon group="60" command="ID_NETWORK_DC"/>
+		<text group="60" align="middle" format="b">&#160;DC++: &#160; </text>
+		<text group="61" align="middle">Atsijungta</text>
+		<text group="62" align="middle">Jungiamasi...</text>
+		<text group="63" align="middle">Prisijungta</text>
+		<text group="64" align="middle" id="DCHubs">%i mazgai</text>
+		<newline group="60" gap="2"/>
 		<group id="2">
 			<para align="center">
 				<newline gap="4"/>
-				<text>Jūs esate prisijungę </text>
-				<newline gap="0"/>
+				<link target="command:ID_TAB_NETWORK">Jūs esate prisijungę</link>
+				<newline gap="4"/>
 				<text id="ConnectedHours" format="b">%i </text>
 				<text>val. ir </text>
 				<text id="ConnectedMinutes" format="b">%i </text>
@@ -1881,7 +1885,7 @@
 			</para>
 		</group>
 	</document>
-	<document name="CHomeLibraryBox" title="Mano kolekcija" leftMargin="6" topMargin="6">
+	<document name="CHomeLibraryBox" title="Kolekcija" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
 				<font size="11"/>
@@ -1913,7 +1917,7 @@
 			</group>
 		</para>
 	</document>
-	<document name="CHomeDownloadsBox" title="Mano atsisiuntimai" leftMargin="6" topMargin="6">
+	<document name="CHomeDownloadsBox" title="Atsisiuntimai" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
 				<font size="11"/>
@@ -2547,8 +2551,9 @@
 	<tip id="ID_NETWORK_CONNECT" message="Jungtis prie pasirinktų tinklų."/>
 	<tip id="ID_NETWORK_CONNECT_TO" message="Jungtis prie adresato rankiniu būdu..."/>
 	<tip id="ID_NETWORK_DISCONNECT" message="Atsijungti nuo tinklų. Tai sustabdys visus išsiuntimus ir atsisiuntimus."/>
-	<tip id="ID_NETWORK_ED2K" message="Jungtis prie eDonkey tinklo."/>
 	<tip id="ID_NETWORK_EXIT" message="Baigti darbą su „PeerProject“"/>
+	<tip id="ID_NETWORK_ED2K" message="Jungtis prie eDonkey tinklo."/>
+	<tip id="ID_NETWORK_DC" message="Jungtis prie DC++ tinklo."/>
 	<tip id="ID_NETWORK_G1" message="Jungtis prie pirminio Gnutella tinklo."/>
 	<tip id="ID_NETWORK_G2" message="Jungtis prie Gnutella2 tinklo (labai rekomenduojama)."/>
 	<tip id="ID_NETWORK_SEARCH" message="Pradėti naują paiešką tinkle..."/>
@@ -2712,7 +2717,9 @@
 	<string id="20012" value="Pasirinktina"/>
 	<string id="20013" value="Numatyta"/>
 	<string id="20014" value="Baigti"/>
-	<string id="20050" value="Dienių"/>
+	<string id="20020" value="Failą"/>
+	<string id="20021" value="Failai"/>
+	<string id="20050" value="Kiekvienas Dienių"/>
 	<string id="20051" value="Pirmadienis"/>
 	<string id="20052" value="Antradienis"/>
 	<string id="20053" value="Trečiadienis"/>
@@ -3437,7 +3444,7 @@
 		<control/>
 		<control caption="Ryškis:"/>
 		<control/>
-		<control caption="Shadow (restart)"/>
+		<control caption="Shadows"/>
 		<control caption="_Sistemos juostelė:"/>
 		<control caption="Kai paspaudžiu baigti:"/>
 		<control caption="Paklausti|Patalpinti juostelėn|Iškart užverti|Baigti atsisiuntus"/>
@@ -3447,9 +3454,9 @@
 	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuBuCoBuBuBuCoBuBuBuEdBu" caption="Kolekcija">
 		<control caption="Pa_rinktys:"/>
 		<control caption="Leisti peržiūrėti bendrintus failus"/>
-		<control caption="Prisiminti aplankų peržiūros būdą"/>
 		<control caption="Stebėti kolekcijos katalogus"/>
 		<control caption="Greita maiša (daugiau CPU)"/>
+		<control caption="Prisiminti aplankų peržiūros būdą"/>
 		<control caption="Gudrus video serialų aptikimas"/>
 		<control caption="Kurti šešėlinius failus trinant"/>
 		<control caption="Paskutiniai _failai:"/>
@@ -3543,13 +3550,14 @@
 		<control caption="On-connect"/>
 		<control/>
 	</dialog>
-	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuCoBuBuSt" caption="Žiniatinklis">
+	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuBuCoBuBuSt" caption="Žiniatinklis">
 		<control caption="_Lygiaverčio tarptinklinio ryšio nuorodos:"/>
 		<control caption="Naudoti „PeerProject“ šių tipų nuorodoms atverti:"/>
 		<control caption="Magnet ( magnet: )"/>
 		<control caption="Gnutella ( gnutella: )"/>
 		<control caption="eDonkey ( ed2k: )"/>
 		<control caption="Piolet ( mp2p: )"/>
+		<control caption="DC++ ( dchub:/dcfile: )"/>
 		<control caption="BitTorrent ( .torrent )"/>
 		<control caption="_Parsisiuntimų tvarkytuvė:"/>
 		<control caption="Naudoti „PeerProject“ tvarkant visus mano parsisiuntimus iš interneto:"/>
@@ -4439,7 +4447,8 @@
 		<control caption="Tam, kad galetumėte dalintis failais BitTorrent tinkle, juos pirma reikia paskleisti. Kai procesas baigsis, Torrent failas atsiras parsisiunčiamų failų sąraše."/>
 		<control/>
 	</dialog>
-	<dialog name="CTorrentFilesPage" cookie="Sy" caption="Failai">
+	<dialog name="CTorrentFilesPage" cookie="StSy" caption="Failai">
+		<control/>
 		<control/>
 	</dialog>
 	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="Sekliai">
@@ -4628,14 +4637,13 @@
 	<list name="CHostCacheWnd">
 		<column from="Address" to="Adresas"/>
 		<column from="Port" to="Prievadas"/>
-		<column from="Client" to="Klientas"/>
 		<column from="Last Seen" to="Kada matytas"/>
-		<column from="Daily Uptime" to="Darbingas laikas"/>
+		<column from="Client" to="Klientas"/>
 		<column from="Name" to="Pavadinimas"/>
 		<column from="Description" to="Aprašas"/>
+		<column from="Failures" to="Nesėkmių"/>
 		<column from="CurUsers" to="Naudotojų skč."/>
 		<column from="MaxUsers" to="Maks. naudotojų"/>
-		<column from="Failures" to="Nesėkmių"/>
 		<column from="Country" to="Šalis"/>
 	</list>
 	<list name="CDiscoveryWnd">
@@ -4692,7 +4700,7 @@
 		<column from="Criteria" to="Kriterijus"/>
 		<column from="Minimum" to="Greitaveika"/>
 		<column from="Transfers" to="Siuntimai"/>
-		<column from="Order" to="Eilė"/>
+		<column from="Priority" to="Eilė"/>
 	</list>
 	<list name="CAdvancedSettingsList">
 		<column from="Setting" to="Nuostata"/>

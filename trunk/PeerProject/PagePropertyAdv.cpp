@@ -1,7 +1,7 @@
 //
 // PagePropertyAdv.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2006.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -139,13 +139,21 @@ HBRUSH CPropertyPageAdv::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 	// Skinned dialog control panels	(Download/File Properties Tabs + QuickStart Wizard)
 	if ( nCtlColor == CTLCOLOR_STATIC && Skin.m_bmDialogPanel.m_hObject )
 	{
-		if ( pWnd->GetDlgCtrlID() != IDC_STATIC )
+		const int nID = pWnd->GetDlgCtrlID();
+		if ( nID != IDC_STATIC )
 		{
-			if ( pWnd->GetDlgCtrlID() >= IDC_STATIC_1 && pWnd->GetDlgCtrlID() <= IDC_STATIC_4 )
+			if ( nID >= IDC_STATIC_1 && nID <= IDC_STATIC_9 )
 				return CreateSolidBrush( Colors.m_crDialogPanel );		// Wizard Icons (SS_REALSIZEIMAGE/ES_READONLY conflict)
 
 			if ( ( pWnd->GetStyle() & ES_READONLY ) && ! ( pWnd->GetStyle() & WS_BORDER ) )
 				return hbr; 											// Skip disabled edit boxes (but not selectable metadata)
+
+			if ( nID == IDC_TORRENT_COUNT )
+			{
+				pDC->SetTextColor( Colors.m_crDialogPanelText );
+				pDC->SetBkMode( TRANSPARENT );
+				return CreateSolidBrush( Colors.m_crDialogPanel );		// Dynamic text exceptions workaround	ToDo: Fix this properly!
+			}
 
 			// Checkbox label skinning fix, etc.
 			CRect rc;

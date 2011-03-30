@@ -3,7 +3,7 @@
 
 <!-- PeerProject Arabic Language Skin File -->
 
-<!-- Translation based on default-en.xml r64 -->
+<!-- Translation based on default-en.xml r65 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -38,9 +38,13 @@
 		<button id="ID_TAB_TRANSFERS" text="التحميلات" />
 		<button id="ID_TAB_LIBRARY" text="المكتبة" />
 		<button id="ID_TAB_MEDIA" text="الوسائط" />
+		<button id="ID_TAB_IRC" text="Chat"/>
+		<separator/>
+		<button id="ID_VIEW_TABBED" text="Leave Basic Mode"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Tabbed">
 		<button id="ID_TAB_CONNECT" text="إتصال" />
+		<button id="ID_WINDOW_NAVBAR" text="Show NavBar"/>
 		<separator />
 		<button id="ID_TAB_HOME" text="الرئيسية" />
 		<button id="ID_TAB_SEARCH" text="بحث" />
@@ -63,7 +67,7 @@
 		<button id="ID_VIEW_MEDIA" />
 		<button id="ID_TAB_IRC" />
 		<separator/>
-		<button id="ID_VIEW_SCHEDULER"/>
+		<button id="ID_VIEW_SCHEDULER" />
 		<button id="ID_VIEW_SECURITY" />
 		<button id="ID_VIEW_HOSTS" />
 		<button id="ID_VIEW_DISCOVERY" />
@@ -368,6 +372,7 @@
 		<button id="ID_NETWORK_G2" text="Gnutella2" />
 		<button id="ID_NETWORK_G1" text="Gnutella" />
 		<button id="ID_NETWORK_ED2K" text="eDonkey" />
+		<button id="ID_NETWORK_DC" text="DC++"/>
 		<separator />
 		<button id="ID_NEIGHBOURS_SETTINGS" text="إعدادات" />
 	</toolbar>
@@ -386,20 +391,16 @@
 		<button id="ID_SEARCH_FILTER_RAW" text="المزيد..." />
 	</toolbar>
 	<!--نافذة مخزون المضيف المؤقت-->
-	<toolbar name="CHostCacheWnd.Basic">
-		<button id="ID_HOSTCACHE_CONNECT" text="الإتصال بـ" />
-		<button id="ID_HOSTCACHE_DISCONNECT" text="قطع الإتصال" />
-		<button id="ID_HOSTCACHE_REMOVE" text="إزالة" />
-	</toolbar>
 	<toolbar name="CHostCacheWnd">
 		<button id="ID_HOSTCACHE_CONNECT" text="الإتصال بـ" />
 		<button id="ID_HOSTCACHE_DISCONNECT" text="قطع الإتصال" />
 		<button id="ID_HOSTCACHE_REMOVE" text="إزالة" />
 		<rightAlign />
-		<button id="ID_HOSTCACHE_G2_HORIZON" text="G2 كتلة" />
-		<button id="ID_HOSTCACHE_G2_CACHE" text="G2 مخزون مؤقت" />
-		<button id="ID_HOSTCACHE_G1_CACHE" text="G1 مخزون مؤقت" />
-		<button id="ID_HOSTCACHE_ED2K_CACHE" text="eDonkey مخزون مؤقت" />
+		<button id="ID_HOSTCACHE_G2_HORIZON" text="كتلة" />
+		<button id="ID_HOSTCACHE_G2_CACHE" text="مخزون مؤقت" />
+		<button id="ID_HOSTCACHE_G1_CACHE" text="مخزون مؤقت" />
+		<button id="ID_HOSTCACHE_ED2K_CACHE" text="مخزون مؤقت" />
+		<button id="ID_HOSTCACHE_DC_CACHE" text="مخزون مؤقت" />
 	</toolbar>
 	<!--غطار المحادثة الخاصة-->
 	<toolbar name="CPrivateChatFrame">
@@ -501,6 +502,7 @@
 				<item id="ID_NETWORK_G2" text="_الإتصال بـ Gnutella_2" />
 				<item id="ID_NETWORK_G1" text="الإتصال بـ _Gnutella" />
 				<item id="ID_NETWORK_ED2K" text=" _الإتصال بـ _eDonkey2000" />
+				<item id="ID_NETWORK_DC" text=" _الإتصال بـ _DC++" />
 				<separator />
 				<item id="ID_NETWORK_CONNECT_TO" text="الإتصال _بـ..." shortcut="Ctrl+T" />
 				<item id="ID_NETWORK_BROWSE_TO" text="_إستعراض المضيف..." />
@@ -514,7 +516,7 @@
 				<separator />
 				<item id="ID_TOOLS_DOWNLOAD" text="_تحميل الملف/Torrent..." />
 				<item id="ID_TOOLS_CREATETORRENT" text="_Create .Torrent..."/>
-				<item id="IDC_IMPORT_DOWNLOADS" text="_إستيراد تحميلات eMule الجزئية" />
+				<item id="ID_IMPORT_DOWNLOADS" text="_إستيراد تحميلات eMule الجزئية" />
 				<separator />
 				<item id="ID_TOOLS_LANGUAGE" text="تحديد _ اللغه..." />
 				<item id="ID_TOOLS_SKIN" text="تحديد غ_لاف..." />
@@ -533,6 +535,7 @@
 				<item id="ID_VIEW_LIBRARY" text="_المكتبة" shortcut="F5" />
 				<item id="ID_VIEW_MEDIA" text="_الوسائط" shortcut="F6" />
 				<separator />
+				<item id="ID_VIEW_SCHEDULER" text="جدولة" shortcut="Ctrl+F7"/>
 				<item id="ID_VIEW_SECURITY" text="ا_من" shortcut="F7" />
 				<item id="ID_VIEW_HOSTS" text="ا_لمخزون المؤقت للمضيف" shortcut="F8" />
 				<item id="ID_VIEW_DISCOVERY" text="اكت_شاف" shortcut="F9" />
@@ -588,7 +591,8 @@
 		<menu text="تحديد _الشبكات">
 			<item id="ID_NETWORK_G2" text="_الإتصال بـ Gnutella_2" />
 			<item id="ID_NETWORK_G1" text="الإتصال بـ _Gnutella" />
-			<item id="ID_NETWORK_ED2K" text=" _الإتصال بـ eDonkey2000" />
+			<item id="ID_NETWORK_ED2K" text=" _الإتصال بـ _eDonkey2000" />
+			<item id="ID_NETWORK_DC" text=" _الإتصال بـ _DC++" />
 		</menu>
 		<separator />
 		<item id="ID_NETWORK_CONNECT_TO" text="الإتصال _بـ..." shortcut="Ctrl+T" />
@@ -606,6 +610,7 @@
 		<item id="ID_TAB_NETWORK" text="_شبكة" />
 		<separator />
 		<item id="ID_VIEW_SECURITY" text="ا_من" />
+		<item id="ID_VIEW_SCHEDULER" text="جدولة" />
 		<item id="ID_VIEW_HOSTS" text="ا_لمخزون المؤقت للمضيف" />
 		<separator />
 		<menu text="مت_قدم">
@@ -633,7 +638,7 @@
 	<menu text="_ادوات">
 		<item id="ID_LIBRARY_FOLDERS" text="مشاركة _الملفات..." />
 		<item id="ID_TOOLS_DOWNLOAD" text="_تحميل الملف/Torrent..." />
-		<item id="IDC_IMPORT_DOWNLOADS" text="_إستيراد تحميلات eMule الجزئية" />
+		<item id="ID_IMPORT_DOWNLOADS" text="_إستيراد تحميلات eMule الجزئية" />
 		<item id="ID_OPEN_DOWNLOADS_FOLDER" text="_فتح مجلدي للتحميلات المكتملة" />
 		<separator />
 		<item id="ID_TOOLS_SKIN" text="تحديد غ_لاف..." />
@@ -702,6 +707,7 @@
 			<item id="ID_VIEW_UPLOADS" text="_المرفوعات" />
 			<separator />
 			<item id="ID_VIEW_SECURITY" text="ال_أمان" />
+			<item id="ID_VIEW_SCHEDULER" text="جدولة" />
 			<item id="ID_VIEW_HOSTS" text="ا_لمخزون المؤقت للمضيف" />
 			<item id="ID_VIEW_DISCOVERY" text="الإكت_شاف" />
 		</menu>
@@ -758,19 +764,23 @@
 				<item id="ID_NETWORK_G2" text="Gnutella_2 الإتصال بـ"/>
 				<item id="ID_NETWORK_G1" text="_Gnutella الإتصال بـ "/>
 				<item id="ID_NETWORK_ED2K" text="_eDonkey2000 الإتصال بـ "/>
+				<item id="ID_NETWORK_DC" text="_DC++ الإتصال بـ"/>
 			</menu>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="الإغلاق _عند اتمام نقل البيانات"/>
 			<item id="ID_NETWORK_EXIT" text="خ_روج"/>
 		</menu>
 		<menu text="_عرض">
+			<item id="ID_TAB_HOME" text="_Home View" shortcut="Alt-Home"/>
 			<item id="ID_VIEW_SYSTEM" text="_نظام" shortcut="F11"/>
 			<item id="ID_VIEW_NEIGHBOURS" text="_الإتصالات المجاوره" shortcut="F2"/>
 			<item id="ID_VIEW_DOWNLOADS" text="_مكتبة الملفات" shortcut="F3"/>
 			<item id="ID_VIEW_UPLOADS" text="_رفع الملفات" shortcut="F4"/>
 			<item id="ID_VIEW_LIBRARY" text="_المكتبة" shortcut="F5"/>
 			<item id="ID_VIEW_MEDIA" text="_الوسائط" shortcut="F6"/>
+			<item id="ID_TAB_IRC" text="IRC _Chat" shortcut="F12"/>
 			<separator/>
+			<item id="ID_VIEW_SCHEDULER" text="جدولة" shortcut="Ctrl+F7"/>
 			<item id="ID_VIEW_SECURITY" text="ا_من" shortcut="F7"/>
 			<item id="ID_VIEW_HOSTS" text="ا_لمخزون المؤقت للمضيف" shortcut="F8"/>
 			<item id="ID_VIEW_DISCOVERY" text="اكت_شاف" shortcut="F9"/>
@@ -779,6 +789,7 @@
 			<item id="ID_VIEW_PACKETS" text="_تفريغ الحزمة" shortcut="Ctrl+F1"/>
 			<item id="ID_VIEW_SEARCH_MONITOR" text="شا_شة البحث" shortcut="Ctrl+F2"/>
 			<item id="ID_VIEW_RESULTS_MONITOR" text="ا_ختر شاشة" shortcut="Ctrl+F3"/>
+			<item id="ID_TAB_SEARCH" text="New _Search" shortcut="Ctrl+S"/>
 			<separator/>
 			<item id="ID_VIEW_BASIC" text="نظام عادي"/>
 			<item id="ID_VIEW_TABBED" text="نظام متقدم"/>
@@ -786,16 +797,18 @@
 		</menu>
 		<menu text="_ادوات">
 			<item id="ID_LIBRARY_FOLDERS" text="مشاركة _الملفات..."/>
-			<item id="ID_TOOLS_DOWNLOAD" text="_تحميل الملف/Torrent..."/>
-			<item id="IDC_IMPORT_DOWNLOADS" text="_إستيراد تحميلات eMule الجزئية"/>
 			<item id="ID_OPEN_DOWNLOADS_FOLDER" text="_فتح مجلدي للتحميلات المكتملة"/>
 			<separator/>
-			<item id="ID_TOOLS_SKIN" text="تحديد غ_لاف..."/>
+			<item id="ID_TOOLS_DOWNLOAD" text="_تحميل الملف/Torrent..."/>
+			<item id="ID_TOOLS_SEEDTORRENT" text="_Seed New Torrent..."/>
+			<item id="ID_IMPORT_DOWNLOADS" text="_إستيراد تحميلات eMule الجزئية"/>
+			<separator/>
 			<item id="ID_TOOLS_LANGUAGE" text="تحديد _ اللغه..."/>
+			<item id="ID_TOOLS_SKIN" text="تحديد غ_لاف..."/>
 			<separator/>
 			<item id="ID_TOOLS_PROFILE" text="تحرير _ملفي الخاص..."/>
-			<separator/>
 			<item id="ID_TOOLS_WIZARD" text="_معالج البدء السريع..."/>
+			<separator/>
 			<item id="ID_TOOLS_SETTINGS" text="إ_عدادات PeerProject"/>
 		</menu>
 		<menu text="_نافذة">
@@ -1528,6 +1541,10 @@
 			<item id="ID_NETWORK_G2" text="Gnutella_2" />
 			<item id="ID_NETWORK_G1" text="_Gnutella" />
 			<item id="ID_NETWORK_ED2K" text="_eDonkey" />
+			<item id="ID_NETWORK_DC" text="_DC++" />
+			<separator />
+			<item id="ID_VIEW_DISCOVERY" text="الإكت_شاف" />
+			<item id="ID_VIEW_HOSTS" text="ا_لمخزون المؤقت للمضيف" />
 		</menu>
 		<menu text="_شاشة">
 			<item id="ID_NEIGHBOURS_VIEW_ALL" text="عرض _كافة حركات المرور" />
@@ -1747,50 +1764,59 @@
 		<styles>
 			<style name="default">
 				<font size="11" />
-		 	</style>
+			</style>
 		</styles>
-		<para align="center">
-			<group id="1">
+		<group id="1">
+			<para align="center">
 				<text format="b">غير متصل</text>
 				<newline gap="4" />
 				<link target="command:ID_NETWORK_CONNECT">اضغط هنا للإتصال</link>
-			</group>
-			<icon group="20" command="ID_NETWORK_G2" />
-			<gap group="20" size="4" />
-			<text group="20" align="middle" format="b">&#160;Gnutella2: </text>
-			<text group="21" align="middle">غير متصل</text>
-			<text group="22" align="middle">إتصال...</text>
-			<text group="23" align="middle">متصل</text>
-			<text group="24" align="middle" id="G2Hubs">%i محور</text>
-			<text group="25" align="middle" id="G2Leaves">%i فرع</text>
-			<newline group="20" gap="2" />
-			<icon group="10" command="ID_NETWORK_G1" />
-			<gap group="10" size="4" />
-			<text group="10" align="middle" format="b">&#160;Gnutella: </text>
-			<text group="11" align="middle">غير متصل</text>
-			<text group="12" align="middle">إتصال...</text>
-			<text group="13" align="middle">متصل</text>
-			<text group="14" align="middle" id="G1Hubs">%i محور</text>
-			<text group="15" align="middle" id="G1Leaves">%i فرع</text>
-			<newline group="10" gap="2" />
-			<icon group="30" command="ID_NETWORK_ED2K" />
-			<gap group="30" size="4" />
-			<text group="30" align="middle" format="b">&#160;eDonkey: </text>
-			<text group="31" align="middle">غير متصل</text>
-			<text group="32" align="middle">إتصال...</text>
-			<text group="33" align="middle">متصل</text>
-			<newline group="30" gap="2" />
-			<group id="2">
+			</para>
+		</group>
+		<icon group="20" command="ID_NETWORK_G2" />
+		<gap group="20" size="4" />
+		<text group="20" align="middle" format="b">&#160;Gnutella2: </text>
+		<text group="21" align="middle">غير متصل</text>
+		<text group="22" align="middle">إتصال...</text>
+		<text group="23" align="middle">متصل</text>
+		<text group="24" align="middle" id="G2Hubs">%i محور</text>
+		<text group="25" align="middle" id="G2Leaves">%i فرع</text>
+		<newline group="20" gap="2" />
+		<icon group="10" command="ID_NETWORK_G1" />
+		<gap group="10" size="4" />
+		<text group="10" align="middle" format="b">&#160;Gnutella: </text>
+		<text group="11" align="middle">غير متصل</text>
+		<text group="12" align="middle">إتصال...</text>
+		<text group="13" align="middle">متصل</text>
+		<text group="14" align="middle" id="G1Hubs">%i محور</text>
+		<text group="15" align="middle" id="G1Leaves">%i فرع</text>
+		<newline group="10" gap="2" />
+		<icon group="30" command="ID_NETWORK_ED2K" />
+		<gap group="30" size="4" />
+		<text group="30" align="middle" format="b">&#160;eDonkey: </text>
+		<text group="31" align="middle">غير متصل</text>
+		<text group="32" align="middle">إتصال...</text>
+		<text group="33" align="middle">متصل</text>
+		<text group="34" align="middle" id="EDServers">%i محور</text>
+		<newline group="30" gap="2"/>
+		<icon group="60" command="ID_NETWORK_DC"/>
+		<text group="60" align="middle" format="b">&#160;DC++: &#160; </text>
+		<text group="61" align="middle">غير متصل</text>
+		<text group="62" align="middle">إتصال...</text>
+		<text group="63" align="middle">متصل</text>
+		<text group="64" align="middle" id="DCHubs">%i محور</text>
+		<newline group="60" gap="2"/>
+		<group id="2">
 			<para align="center">
-				<newline gap="6" />
-				<text>انت متصل لـ  </text>
+				<newline gap="4" />
+				<link target="command:ID_TAB_NETWORK">انت متصل لـ </link>
+				<newline gap="4"/>
 				<text id="ConnectedHours" format="b">%i </text>
 				<text>ساعة و </text>
 				<text id="ConnectedMinutes" format="b">%i </text>
 				<text>دقيقة</text>
 			</para>
-			</group>
-		</para>
+		</group>
 	</document>
 	<document name="CHomeLibraryBox" title="مكتبتي الخاصة" rightMargin="6" topMargin="6">
 		<styles>
@@ -2472,8 +2498,9 @@
 	<tip id="ID_NETWORK_CONNECT" message="الإتصال بالشبكات المحددة" />
 	<tip id="ID_NETWORK_CONNECT_TO" message="الإتصال يدويا بمضيف..." />
 	<tip id="ID_NETWORK_DISCONNECT" message="قطع الإتصال من كافة الشبكات ، سيتم إيقاف كافة التحميلات أيضا و عمليات الرفع" />
-	<tip id="ID_NETWORK_ED2K" message="الإتصال بشبكة eDonkey" />
 	<tip id="ID_NETWORK_EXIT" message="الخروج من PeerProject" />
+	<tip id="ID_NETWORK_ED2K" message="الإتصال بشبكة eDonkey" />
+	<tip id="ID_NETWORK_DC" message="الإتصال بشبكة DC++" />
 	<tip id="ID_NETWORK_G1" message="الإتصال بشبكة Gnutella الأصلية" />
 	<tip id="ID_NETWORK_G2" message="الإتصال بشبكة Gnutella2 (جدا مستحسن) ـ" />
 	<tip id="ID_NETWORK_SEARCH" message="بدء بحث جديد للشبكة..." />
@@ -2635,6 +2662,8 @@
 	<string id="20012" value="مخصص" />
 	<string id="20013" value="Default" />
 	<string id="20014" value="Finish" />
+	<string id="20020" value="ملف" />
+	<string id="20021" value="الملفات" />
 	<string id="20050" value="كل يوم" />
 	<string id="20051" value="الاثنين" />
 	<string id="20052" value="الثلاثاء" />
@@ -3353,9 +3382,9 @@
 	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuBuCoBuBuBuCoBuBuBuEdBu" caption="المكتبة">
 		<control caption=":_خيارات" />
 		<control caption="السماح للآخرين بتصفح الملفات المشاركة" />
-		<control caption="تذكر طرق عرض المجلدات" />
 		<control caption="مشاهدة مجلدات المكتبة" />
 		<control caption="(CPU تجزئة سريعة (إستهلاك أكثر لـ" />
+		<control caption="تذكر طرق عرض المجلدات" />
 		<control caption="Smart media" />
 		<control caption="إنشاء ملفات وهمية عند الحذف" />
 		<control caption=":ال_ملفات الأخيرة" />
@@ -3449,13 +3478,14 @@
 		<control caption="On-connect"/>
 		<control/>
 	</dialog>
-	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuCoBuBuSt" caption="ويب">
+	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuBuCoBuBuSt" caption="ويب">
 		<control caption="معالجة رابط _نظير إلى نظر:" />
 		<control caption="إستعمال PeerProject لفتح هذه الأنواع من الروابط :" />
 		<control caption="Magnet ( magnet: )" />
 		<control caption="Gnutella ( gnutella: )" />
 		<control caption="eDonkey ( ed2k: )" />
 		<control caption="Piolet ( mp2p: )" />
+		<control caption="DC++ ( dchub:/dcfile: )"/>
 		<control caption="BitTorrent ( .torrent )" />
 		<control caption="_:مدير التحميل" />
 		<control caption=":لإدارة جميع تحميلات إنترنت PeerProject إستخدام" />
@@ -4343,7 +4373,8 @@
 		<control caption="To share complete files using BitTorrent they must first be seeded.  Once this process is complete the Torrent will appear as a new item in your download list." />
 		<control />
 	</dialog>
-	<dialog name="CTorrentFilesPage" cookie="Sy" caption="Files">
+	<dialog name="CTorrentFilesPage" cookie="StSy" caption="Files">
+		<control />
 		<control />
 	</dialog>
 	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="Trackers">
@@ -4531,14 +4562,13 @@
 	<list name="CHostCacheWnd">
 		<column from="Address" to="العنوان" />
 		<column from="Port" to="المنفذ" />
-		<column from="Client" to="التابع" />
 		<column from="Last Seen" to="آخر مشاهدة" />
-		<column from="Daily Uptime" to="وقت العمل اليومي" />
+		<column from="Client" to="التابع" />
 		<column from="Name" to="الاسم" />
 		<column from="Description" to="الوصف" />
+		<column from="Failures" to="الفشل" />
 		<column from="CurUsers" to="" />
 		<column from="MaxUsers" to="اقصى مستخدمون" />
-		<column from="Failures" to="الفشل" />
 		<column from="Country" to="البلد" />
 	</list>
 	<list name="CDiscoveryWnd">
@@ -4598,7 +4628,7 @@
 		<column from="Criteria" to="المعيار" />
 		<column from="Minimum" to="نطاق العرض" />
 		<column from="Transfers" to="النقل" />
-		<column from="Order" to="ترتيب" />
+		<column from="Priority" to="ترتيب" />
 	</list>
 	<list name="CAdvancedSettingsList">
 		<column from="Setting" to="إعداد" />
@@ -4615,7 +4645,8 @@
 	<list name="CTorrentFileList">
 		<column from="Filename" to="إسم الملف" />
 		<column from="Size" to="الحجم" />
-		<column from="Status" to="الحالة"/>
+		<column from="Status" to="الحالة" />
+		<column from="Index" to="" />
 	</list>
 	<list name="CTorrentTrackerList">
 		<column from="Tracker" to="المتتبع" />

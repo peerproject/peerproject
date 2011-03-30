@@ -1063,6 +1063,36 @@ BOOL CTigerTree::ToBytes(uint8** ppOutput, uint32* pnOutput, uint32 nHeight)
 	return TRUE;
 }
 
+BOOL CTigerTree::ToBytesLevel1(uint8** ppOutput, uint32* pnOutput)
+{
+	CSectionLock oLock( &m_pSection );
+
+	if ( m_pNode == NULL )
+		return FALSE;
+
+	*pnOutput	= m_nBaseUsed * TIGER_SIZE;
+	uint8* pOut = *ppOutput	= (uint8*)GlobalAlloc( GPTR, *pnOutput );
+	if ( ! *ppOutput )
+		return FALSE;
+
+	CTigerNode* pNode = m_pNode + m_nNodeCount - m_nNodeBase;
+
+	for ( uint32 nNode = 0 ; nNode < m_nBaseUsed ; ++nNode, ++pNode )
+	{
+		if ( pNode->bValid )
+		{
+			CopyMemory( pOut, pNode->value, TIGER_SIZE );
+			pOut += TIGER_SIZE;
+		}
+		else
+		{
+			*pnOutput -= TIGER_SIZE;
+		}
+	}
+
+	return TRUE;
+}
+
 //////////////////////////////////////////////////////////////////////
 // CTigerTree breadth-first serialize
 
@@ -1135,6 +1165,37 @@ BOOL CTigerTree::FromBytes(const uint8* pInput, uint32 nInput, uint32 nHeight, u
 	return TRUE;
 }
 
+BOOL CTigerTree::FromBytesLevel1(const uint8* pInput, uint32 nInput, uint32 nHeight, uint64 nLength)
+{
+	CSectionLock oLock( &m_pSection );
+
+	SetupAndAllocate( nHeight, nLength );
+
+	CTigerNode* pBase = m_pNode + m_nNodeCount - m_nNodeBase;
+
+	uint32 nCount = nInput / TIGER_SIZE;
+	if ( nCount != m_nBaseUsed )
+	{
+		// Not a first level
+		Clear();
+		return FALSE;
+	}
+
+	for ( uint32 i = 0 ; i < m_nBaseUsed ; ++i, ++pBase )
+	{
+		CopyMemory( pBase->value, &pInput[ i * TIGER_SIZE ], TIGER_SIZE );
+		pBase->bValid = true;
+	}
+
+	if ( ! CheckIntegrity() )
+	{
+		Clear();
+		return FALSE;
+	}
+
+	return TRUE;
+}
+
 //////////////////////////////////////////////////////////////////////
 // CTigerTree integrity check
 
@@ -1147,12 +1208,10 @@ BOOL CTigerTree::CheckIntegrity()
 	m_nNodeBase = ( m_nNodeCount + 1 ) / 2;
 	CTigerNode* pBase = m_pNode + m_nNodeCount - m_nNodeBase;
 
-	for ( uint32 nCombine = m_nNodeBase ; nCombine > 1 ; nCombine /= 2 )
+	for ( uint32 nCombine = m_nNodeBase ; nCombine > 1 ; )
 	{
 		CTigerNode* pIn  = pBase;
 		CTigerNode* pOut = pBase - nCombine / 2;
-
-		if ( nCombine == 2 && ! pOut->bValid ) return FALSE;
 
 		for ( uint32 nIterate = nCombine / 2 ; nIterate ; nIterate--, pIn += 2, pOut++ )
 		{
@@ -1160,11 +1219,24 @@ BOOL CTigerTree::CheckIntegrity()
 			{
 				TIGEROOT pTemp;
 				Tiger( NULL, TIGER_SIZE * 2, pTemp.w, pIn[0].value, pIn[1].value );
-				if ( memcmp( pTemp.w, pOut->value, TIGER_SIZE ) ) return FALSE;
+				
+				if ( ! pOut->bValid )
+				{
+					memcpy( pOut->value, pTemp.w, TIGER_SIZE );
+					pOut->bValid = true;
+				}
+				else if ( memcmp( pTemp.w, pOut->value, TIGER_SIZE ) )
+					return FALSE;
 			}
 			else if ( pIn[0].bValid )
 			{
-				if ( memcmp( pIn[0].value, pOut->value, TIGER_SIZE ) ) return FALSE;
+				if ( ! pOut->bValid )
+				{
+					memcpy( pOut->value, pIn[0].value, TIGER_SIZE );
+					pOut->bValid = true;
+				}
+				else if ( memcmp( pIn[0].value, pOut->value, TIGER_SIZE ) )
+					return FALSE;
 			}
 			else
 			{
@@ -1172,7 +1244,11 @@ BOOL CTigerTree::CheckIntegrity()
 			}
 		}
 
-		pBase -= nCombine / 2;
+		if ( nCombine == 2 && ! pOut->bValid )
+			return FALSE;
+
+		nCombine /= 2;
+		pBase -= nCombine;
 	}
 
 	return TRUE;

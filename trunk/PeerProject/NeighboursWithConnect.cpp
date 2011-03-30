@@ -114,17 +114,17 @@ CNeighbour* CNeighboursWithConnect::ConnectTo(
 		switch ( nProtocol )
 		{
 		case PROTOCOL_G1:
-			Settings.Gnutella1.EnableToday = TRUE;
+			Settings.Gnutella1.Enabled = TRUE;
 			break;
 		case PROTOCOL_G2:
-			Settings.Gnutella2.EnableToday = TRUE;
+			Settings.Gnutella2.Enabled = TRUE;
 			break;
 		case PROTOCOL_ED2K:
-			Settings.eDonkey.EnableToday = TRUE;
+			Settings.eDonkey.Enabled = TRUE;
 			CloseDonkeys();		// Reset the eDonkey2000 network (do)
 			break;
 		case PROTOCOL_DC:
-			Settings.DC.EnableToday = TRUE;
+			Settings.DC.Enabled = TRUE;
 			break;
 		default:
 			ASSERT( ! nProtocol );
@@ -264,7 +264,7 @@ DWORD CNeighboursWithConnect::IsG2HubCapable(BOOL bIgnoreTime, BOOL bDebug)
 	if ( bDebug ) theApp.Message( MSG_DEBUG, _T("Is Gnutella2 hub capable?") );
 
 	// We can't be a Gnutella2 hub if the user has not chosen to connect to Gnutella2 in the program settings
-	if ( ! Network.IsConnected() || ! Settings.Gnutella2.EnableToday )
+	if ( ! Network.IsConnected() || ! Settings.Gnutella2.Enabled )
 	{
 		// Finish the lines of debugging information, and report no, we can't be a hub
 		if ( bDebug ) theApp.Message( MSG_DEBUG, _T("NO: G2 not enabled") );
@@ -376,7 +376,7 @@ DWORD CNeighboursWithConnect::IsG2HubCapable(BOOL bIgnoreTime, BOOL bDebug)
 	nRating = 1 + CalculateSystemPerformanceScore( bDebug );	// The higher it is, the better a hub we can be
 
 	// The program is not connected to the Gnutella network
-	if ( ! Settings.Gnutella1.EnableToday )
+	if ( ! Settings.Gnutella1.Enabled )
 	{
 		nRating++;
 		if ( bDebug ) theApp.Message( MSG_DEBUG, _T("Gnutella not enabled") );
@@ -419,7 +419,7 @@ DWORD CNeighboursWithConnect::IsG1UltrapeerCapable(BOOL bIgnoreTime, BOOL bDebug
 	if ( bDebug ) theApp.Message( MSG_DEBUG, _T("Is Gnutella ultrapeer capable?") );
 
 	// We can't be a Gnutella ultrapeer if we're not connected to the Gnutella network
-	if ( ! Network.IsConnected() || ! Settings.Gnutella1.EnableToday )
+	if ( ! Network.IsConnected() || ! Settings.Gnutella1.Enabled )
 	{
 		if ( bDebug ) theApp.Message( MSG_DEBUG, _T("NO: Gnutella1 not enabled") );
 		return FALSE;
@@ -533,14 +533,14 @@ DWORD CNeighboursWithConnect::IsG1UltrapeerCapable(BOOL bIgnoreTime, BOOL bDebug
 	// The higher it is, the better an ultrapeer we can be
 	nRating = 1 + CalculateSystemPerformanceScore(bDebug);
 
-	if ( ! Settings.Gnutella2.EnableToday )
+	if ( ! Settings.Gnutella2.Enabled )
 	{
 		nRating++;
 		if ( bDebug ) theApp.Message( MSG_DEBUG, _T("G2 not enabled") );
 	}
 
 	// We'll be a better Gnutella ultrapeer if the program isn't connected to the other networks
-	if ( ! Settings.eDonkey.EnableToday )	// Not connected to eDonkey2000
+	if ( ! Settings.eDonkey.Enabled )	// Not connected to eDonkey2000
 	{
 		nRating++;
 		if ( bDebug ) theApp.Message( MSG_DEBUG, _T("eDonkey not enabled") );
@@ -589,13 +589,13 @@ BOOL CNeighboursWithConnect::NeedMoreHubs(PROTOCOLID nProtocol)
 	// The caller wants to know if we need more hubs for either Gnutella or Gnutella2
 	case PROTOCOL_NULL:
 		// If we need more Gnutella ultrapeers or Gnutella2 hubs, return true, only return false if we don't need more hubs from either network
-		return ( ( Settings.Gnutella1.EnableToday && ( nConnected[PROTOCOL_G1] < ( IsG1Leaf() ? Settings.Gnutella1.NumHubs : Settings.Gnutella1.NumPeers ) ) ) ||
-				 ( Settings.Gnutella2.EnableToday && ( nConnected[PROTOCOL_G2] < ( IsG2Leaf() ? Settings.Gnutella2.NumHubs : Settings.Gnutella2.NumPeers ) ) ) );
+		return ( ( Settings.Gnutella1.Enabled && ( nConnected[PROTOCOL_G1] < ( IsG1Leaf() ? Settings.Gnutella1.NumHubs : Settings.Gnutella1.NumPeers ) ) ) ||
+				 ( Settings.Gnutella2.Enabled && ( nConnected[PROTOCOL_G2] < ( IsG2Leaf() ? Settings.Gnutella2.NumHubs : Settings.Gnutella2.NumPeers ) ) ) );
 
 	// Return true if we need more Gnutella ultrapeer connections
 	case PROTOCOL_G1:
 		// If we're not connected to Gnutella, say we have enough ultrapeer connections
-		if ( Settings.Gnutella1.EnableToday == FALSE ) return FALSE;
+		if ( ! Settings.Gnutella1.Enabled ) return FALSE;
 
 		// If we're a leaf, compare our hub count to NumHubs from settings, return true if we don't have enough
 		return ( nConnected[PROTOCOL_G1] ) < ( ! IsG1UltrapeerCapable() ? Settings.Gnutella1.NumHubs : Settings.Gnutella1.NumPeers );	// 2 and 32 defaults
@@ -603,7 +603,7 @@ BOOL CNeighboursWithConnect::NeedMoreHubs(PROTOCOLID nProtocol)
 	// Return true if we need more Gnutella2 hub connections
 	case PROTOCOL_G2:
 		// If we're not connected to Gnutella2, say we have enough hub connections
-		if ( Settings.Gnutella2.EnableToday == FALSE ) return FALSE;
+		if ( ! Settings.Gnutella2.Enabled ) return FALSE;
 
 		// If we're a leaf, compare our hub count to NumHubs from settings, return true if we don't have enough
 		return ( nConnected[PROTOCOL_G2] ) < ( ! IsG2HubCapable() ? Settings.Gnutella2.NumHubs : Settings.Gnutella2.NumPeers );		// 2 and 6 defaults
@@ -642,13 +642,13 @@ BOOL CNeighboursWithConnect::NeedMoreLeafs(PROTOCOLID nProtocol)
 	// The caller wants to know if we need more leaves for either Gnutella or Gnutella2
 	case PROTOCOL_NULL:
 		// If we need more Gnutella or Gnutella2 leaves, return true, only return false if we don't need more leaves from either network
-		return ( ( Settings.Gnutella1.EnableToday && ( ( nConnected[PROTOCOL_G1] ) < Settings.Gnutella1.NumLeafs ) ) ||
-				 ( Settings.Gnutella2.EnableToday && ( ( nConnected[PROTOCOL_G2] ) < Settings.Gnutella2.NumLeafs ) ) );
+		return ( ( Settings.Gnutella1.Enabled && ( ( nConnected[PROTOCOL_G1] ) < Settings.Gnutella1.NumLeafs ) ) ||
+				 ( Settings.Gnutella2.Enabled && ( ( nConnected[PROTOCOL_G2] ) < Settings.Gnutella2.NumLeafs ) ) );
 
 	// Return true if we need more Gnutella ultrapeer connections
 	case PROTOCOL_G1:
 		// If we're not connected to Gnutella, say we have enough leaf connections
-		if ( Settings.Gnutella1.EnableToday == FALSE ) return FALSE;
+		if ( ! Settings.Gnutella1.Enabled ) return FALSE;
 
 		// Compare our leaf count to NumLeafs from settings, return true if we don't have enough
 		return IsG1UltrapeerCapable() &&
@@ -657,7 +657,7 @@ BOOL CNeighboursWithConnect::NeedMoreLeafs(PROTOCOLID nProtocol)
 	// Return true if we need more Gnutella2 hub connections
 	case PROTOCOL_G2:
 		// If we're not connected to Gnutella2, say we have enough leaf connections
-		if ( Settings.Gnutella2.EnableToday == FALSE ) return FALSE;
+		if ( ! Settings.Gnutella2.Enabled ) return FALSE;
 
 		// Compare our leaf count to NumLeafs from settings, return true if we don't have enough
 		return IsG2HubCapable() &&
@@ -702,7 +702,7 @@ BOOL CNeighboursWithConnect::IsHubLoaded(PROTOCOLID nProtocol)
 	// The caller wants to know about Gnutella
 	case PROTOCOL_G1:
 		// If we're not connected to Gnutella, say no
-		if ( Settings.Gnutella1.EnableToday == FALSE ) return FALSE;
+		if ( ! Settings.Gnutella1.Enabled ) return FALSE;
 
 		// If we've got more than 75% of the leaf number from settings, say yes
 		return ( nConnected[PROTOCOL_G1] ) > Settings.Gnutella1.NumLeafs * 3 / 4;
@@ -710,7 +710,7 @@ BOOL CNeighboursWithConnect::IsHubLoaded(PROTOCOLID nProtocol)
 	// The caller wants to know about Gnutella2
 	case PROTOCOL_G2:
 		// If we're not connected to Gnutella2, say no
-		if ( Settings.Gnutella2.EnableToday == FALSE ) return FALSE;
+		if ( ! Settings.Gnutella2.Enabled ) return FALSE;
 
 		// If we've got more than 75% of the leaf number from settings, say yes
 		return ( nConnected[PROTOCOL_G2] ) > Settings.Gnutella2.NumLeafs * 3 / 4;
@@ -869,7 +869,7 @@ void CNeighboursWithConnect::Maintain()
 		}
 	}
 
-	if ( ! Settings.Gnutella1.EnableToday )
+	if ( ! Settings.Gnutella1.Enabled )
 	{
 		// Set the limit as no Gnutella hub or leaf connections allowed at all
 		nLimit[ PROTOCOL_G1 ][ ntHub ] = nLimit[ PROTOCOL_G1 ][ ntLeaf ] = 0;
@@ -887,7 +887,7 @@ void CNeighboursWithConnect::Maintain()
 		nLimit[ PROTOCOL_G1 ][ ntLeaf ] = Settings.Gnutella1.NumLeafs;		// 50 leaves by default
 	}
 
-	if ( ! Settings.Gnutella2.EnableToday )
+	if ( ! Settings.Gnutella2.Enabled )
 	{
 		// Set the limit as no Gnutella2 hub or leaf connections allowed at all
 		nLimit[ PROTOCOL_G2 ][ ntHub ] = nLimit[ PROTOCOL_G2 ][ ntLeaf ] = 0;
@@ -906,9 +906,9 @@ void CNeighboursWithConnect::Maintain()
 		nLimit[ PROTOCOL_G2 ][ ntLeaf ] = Settings.Gnutella2.NumLeafs;		// 300 leaves by default
 	}
 
-	nLimit[ PROTOCOL_ED2K ][ ntHub ] = Settings.eDonkey.EnableToday ? Settings.eDonkey.NumServers : 0;		// 1 server by default
+	nLimit[ PROTOCOL_ED2K ][ ntHub ] = Settings.eDonkey.Enabled ? Settings.eDonkey.NumServers : 0;		// 1 server by default
 
-	nLimit[ PROTOCOL_DC ][ ntHub ] = Settings.DC.EnableToday ? Settings.DC.NumServers : 0;					// 1 hub by default
+	nLimit[ PROTOCOL_DC ][ ntHub ] = Settings.DC.Enabled ? Settings.DC.NumServers : 0;					// 1 hub by default
 
 
 	// Add the count of connections where we don't know the network yet to the 0 column of both Gnutella and Gnutella2
@@ -916,7 +916,7 @@ void CNeighboursWithConnect::Maintain()
 	nCount[ PROTOCOL_G2 ][0] += nCount[ PROTOCOL_NULL ][0];
 
 	// Connect to more computers or disconnect from some to get the connection counts where settings wants them to be
-	for ( PROTOCOLID nProtocol = PROTOCOL_ED2K ; nProtocol >= PROTOCOL_G1 ; --nProtocol )	// Loop once for each protocol, eDonkey2000, Gnutella2, then Gnutella
+	for ( PROTOCOLID nProtocol = PROTOCOL_NULL ; nProtocol < PROTOCOL_LAST ; ++nProtocol )	// Loop once for each protocol, eDonkey2000, Gnutella2, then Gnutella
 	{
 		// If we're connected to a hub of this protocol, store the tick count now in m_tPresent for this protocol
 		if ( nCount[ nProtocol ][ ntHub ] > 0 ) m_tPresent[ nProtocol ] = tNow;
@@ -925,7 +925,7 @@ void CNeighboursWithConnect::Maintain()
 		if ( nCount[ nProtocol ][ ntHub ] < nLimit[ nProtocol ][ ntHub ] )
 		{
 			// Don't try to connect to G1 right away, wait a few seconds to reduce the number of connections
-			if ( nProtocol == PROTOCOL_G1 && Settings.Gnutella2.EnableToday == TRUE )
+			if ( nProtocol == PROTOCOL_G1 && Settings.Gnutella2.Enabled )
 			{
 				// Wait 4 seconds before trying G1
 				if ( ! Network.ReadyToTransfer( tTimer ) ) return;
@@ -955,8 +955,8 @@ void CNeighboursWithConnect::Maintain()
 			// Lower the needed hub number to avoid hitting Windows XP Service Pack 2's half open connection limit
 			nAttempt = min( nAttempt, ( Settings.Downloads.MaxConnectingSources - 2 ) );
 
-			// In the loop for eDonkey2000, handle priority eDonkey2000 servers
-			if ( nProtocol == PROTOCOL_ED2K )
+			// Handle priority servers
+			if ( nProtocol == PROTOCOL_ED2K || nProtocol == PROTOCOL_DC )
 			{
 				CQuickLock oLock( pCache->m_pSection );
 
@@ -1038,14 +1038,14 @@ void CNeighboursWithConnect::Maintain()
 				{
 					const DWORD tDiscoveryLastExecute = DiscoveryServices.LastExecute();
 
-					if ( nProtocol == PROTOCOL_G2 && Settings.Gnutella2.EnableToday )
+					if ( nProtocol == PROTOCOL_G2 && Settings.Gnutella2.Enabled )
 					{
 						// We're looping for Gnutella2 right now
 						// Execute the discovery services (do)
 						if ( pCache->IsEmpty() && ( tDiscoveryLastExecute == 0 || tNow - tDiscoveryLastExecute >= 8 ) )
 							DiscoveryServices.Execute( TRUE, PROTOCOL_G2, 1 );
 					}
-					else if ( nProtocol == PROTOCOL_G1 && Settings.Gnutella1.EnableToday )
+					else if ( nProtocol == PROTOCOL_G1 && Settings.Gnutella1.Enabled )
 					{
 						// We're looping for Gnutella right now
 						// If the Gnutella host cache is empty (do), execute discovery services (do)

@@ -1,7 +1,7 @@
 //
 // QueryHit.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -27,7 +27,7 @@ class CQuerySearch;
 class CG1Packet;
 class CG2Packet;
 class CEDPacket;
-//class CDCPacket;
+class CDCPacket;
 
 class CQueryHit : public CPeerProjectFile
 {
@@ -90,7 +90,7 @@ public:
 	static CQueryHit*	FromG1Packet(CG1Packet* pPacket, int* pnHops = NULL);
 	static CQueryHit*	FromG2Packet(CG2Packet* pPacket, int* pnHops = NULL);
 	static CQueryHit*	FromEDPacket(CEDPacket* pPacket, const SOCKADDR_IN* pServer, BOOL bUnicode, const Hashes::Guid& pSearchID = Hashes::Guid()) throw();
-//	static CQueryHit*	FromDCPacket(CDCPacket* pPacket);
+	static CQueryHit*	FromDCPacket(CDCPacket* pPacket);
 protected:
 	static BOOL			CheckBogus(CQueryHit* pFirstHit);
 	static CXMLElement*	ReadXML(CG1Packet* pPacket, int nSize);

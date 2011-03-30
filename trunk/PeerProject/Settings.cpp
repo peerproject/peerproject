@@ -186,7 +186,6 @@ void CSettings::Load()
 	Add( _T("Library"), _T("ShowVirtual"), &Library.ShowVirtual, true );
 	Add( _T("Library"), _T("SourceExpire"), &Library.SourceExpire, 24*60*60, 60, 60, 7*24*60*60, _T(" m") );
 	Add( _T("Library"), _T("SourceMesh"), &Library.SourceMesh, true );
-	Add( _T("Library"), _T("StoreViews"), &Library.StoreViews, true );
 	Add( _T("Library"), _T("ThumbSize"), &Library.ThumbSize, 128, 1, 16, 256, _T(" px") );
 	Add( _T("Library"), _T("TigerHeight"), &Library.TigerHeight, 9, 1, 1, 64 );
 	Add( _T("Library"), _T("TreeSize"), &Library.TreeSize, 200, 1, 0, 1024, _T(" px") );
@@ -257,9 +256,11 @@ void CSettings::Load()
 	Add( _T("MediaPlayer"), _T("Zoom"), (DWORD*)&MediaPlayer.Zoom, smzOne );
 
 	Add( _T("Web"), _T("Torrent"), &Web.Torrent, ( CRegistry::GetString( _T("Software\\Classes\\.torrent"), NULL, NULL, NULL ).GetLength() < 4 ) );
+//	Add( _T("Web"), _T("Metalink"), &Web.Metalink, true );
 	Add( _T("Web"), _T("Magnet"), &Web.Magnet, true );
 	Add( _T("Web"), _T("Gnutella"), &Web.Gnutella, true );
 	Add( _T("Web"), _T("ED2K"), &Web.ED2K, true );
+	Add( _T("Web"), _T("DC"), &Web.DC, true );
 	Add( _T("Web"), _T("Foxy"), &Web.Foxy, true );
 	Add( _T("Web"), _T("Piolet"), &Web.Piolet, true );
 
@@ -330,7 +331,7 @@ void CSettings::Load()
 	Add( _T("Gnutella"), _T("DeflateHub2Hub"), &Gnutella.DeflateHub2Hub, true );
 	Add( _T("Gnutella"), _T("DeflateHub2Leaf"), &Gnutella.DeflateHub2Leaf, true );
 	Add( _T("Gnutella"), _T("DeflateLeaf2Hub"), &Gnutella.DeflateLeaf2Hub, true );
-	Add( _T("Gnutella"), _T("HitsPerPacket"), &Gnutella.HitsPerPacket, 64, 1, 0, 1024, _T(" files") );
+	Add( _T("Gnutella"), _T("HitsPerPacket"), &Gnutella.HitsPerPacket, 64, 1, 1, 1024, _T(" files") );
 	Add( _T("Gnutella"), _T("HostCacheSize"), &Gnutella.HostCacheSize, 1024, 1, 32, 16384, _T(" hosts") );
 	Add( _T("Gnutella"), _T("HostCacheView"), &Gnutella.HostCacheView, PROTOCOL_ED2K );
 	Add( _T("Gnutella"), _T("MaxHits"), &Gnutella.MaxHits, 64, 1, 0, 4096, _T(" files") );
@@ -339,7 +340,7 @@ void CSettings::Load()
 	Add( _T("Gnutella"), _T("RouteCache"), &Gnutella.RouteCache, 600, 60, 1, 120, _T(" m") );
 	Add( _T("Gnutella"), _T("SpecifyProtocol"), &Gnutella.SpecifyProtocol, true );
 
-	Add( _T("Gnutella1"), _T("ClientMode"), &Gnutella1.ClientMode, MODE_LEAF, 1, MODE_AUTO, MODE_HUB );	// ToDo: MODE_LEAF until Ultrapeer updated/validated
+	Add( _T("Gnutella1"), _T("ClientMode"), &Gnutella1.ClientMode, MODE_LEAF, 1, MODE_AUTO, MODE_HUB );		// ToDo: MODE_LEAF until Ultrapeer updated/validated
 	Add( _T("Gnutella1"), _T("DefaultTTL"), &Gnutella1.DefaultTTL, 3, 1, 1, 3 );
 	Add( _T("Gnutella1"), _T("EnableAlways"), &Gnutella1.EnableAlways, true );
 	Add( _T("Gnutella1"), _T("EnableGGEP"), &Gnutella1.EnableGGEP, true );
@@ -351,7 +352,7 @@ void CSettings::Load()
 	Add( _T("Gnutella1"), _T("MaximumTTL"), &Gnutella1.MaximumTTL, 10, 1, 1, 10 );
 	Add( _T("Gnutella1"), _T("NumHubs"), &Gnutella1.NumHubs, 3, 1, 1, 6 );
 	Add( _T("Gnutella1"), _T("NumLeafs"), &Gnutella1.NumLeafs, 50, 1, 5, 1024 );
-	Add( _T("Gnutella1"), _T("NumPeers"), &Gnutella1.NumPeers, 32, 1, 15, 64 );	// For X-Degree
+	Add( _T("Gnutella1"), _T("NumPeers"), &Gnutella1.NumPeers, 32, 1, 15, 64 );		// For X-Degree
 	Add( _T("Gnutella1"), _T("PacketBufferSize"), &Gnutella1.PacketBufferSize, 64, 1, 1, 1024, _T(" packets") );
 	Add( _T("Gnutella1"), _T("PacketBufferTime"), &Gnutella1.PacketBufferTime, 60000, 1000, 10, 180, _T(" s") );
 	Add( _T("Gnutella1"), _T("PingFlood"), &Gnutella1.PingFlood, 3000, 1000, 0, 30, _T(" s") );
@@ -371,8 +372,8 @@ void CSettings::Load()
 	Add( _T("Gnutella2"), _T("ClientMode"), &Gnutella2.ClientMode, MODE_AUTO );
 	Add( _T("Gnutella2"), _T("EnableAlways"), &Gnutella2.EnableAlways, true );
 	Add( _T("Gnutella2"), _T("HAWPeriod"), &Gnutella2.HAWPeriod, 300*1000, 1000, 1, 60*60, _T(" s") );
-	Add( _T("Gnutella2"), _T("HostCurrent"), &Gnutella2.HostCurrent, 10*60, 60, 1, 24*60, _T(" m") );
 	Add( _T("Gnutella2"), _T("HostCount"), &Gnutella2.HostCount, 15, 1, 1, 50 );
+	Add( _T("Gnutella2"), _T("HostCurrent"), &Gnutella2.HostCurrent, 10*60, 60, 1, 24*60, _T(" m") );
 	Add( _T("Gnutella2"), _T("HostExpire"), &Gnutella2.HostExpire, 2*24*60*60, 24*60*60, 1, 100, _T(" d") );
 	Add( _T("Gnutella2"), _T("HubHorizonSize"), &Gnutella2.HubHorizonSize, 128, 1, 32, 512 );
 	Add( _T("Gnutella2"), _T("HubVerified"), &Gnutella2.HubVerified, false );
@@ -390,8 +391,8 @@ void CSettings::Load()
 #endif // LAN_MODE
 	Add( _T("Gnutella2"), _T("PingRate"), &Gnutella2.PingRate, 15000, 1000, 5, 180, _T(" s") );
 	Add( _T("Gnutella2"), _T("PingRelayLimit"), &Gnutella2.PingRelayLimit, 10, 1, 10, 30 );
+	Add( _T("Gnutella2"), _T("QueryThrottle"), &Gnutella2.QueryThrottle, 120, 1, 20, 30*60, _T(" s") );
 	Add( _T("Gnutella2"), _T("QueryGlobalThrottle"), &Gnutella2.QueryGlobalThrottle, 125, 1, 1, 60*1000, _T(" ms") );
-	Add( _T("Gnutella2"), _T("QueryHostThrottle"), &Gnutella2.QueryHostThrottle, 120, 1, 20, 30*60, _T(" s") );
 	Add( _T("Gnutella2"), _T("QueryHostDeadline"), &Gnutella2.QueryHostDeadline, 10*60, 1, 1, 120*60, _T(" s") );
 	Add( _T("Gnutella2"), _T("QueryLimit"), &Gnutella2.QueryLimit, 2400, 1, 0, 10000 );
 	Add( _T("Gnutella2"), _T("RequeryDelay"), &Gnutella2.RequeryDelay, 4*60*60, 60*60, 1, 24, _T(" h") );
@@ -426,8 +427,8 @@ void CSettings::Load()
 	Add( _T("eDonkey"), _T("PacketThrottle"), &eDonkey.PacketThrottle, 500, 1, 250, 5000, _T(" ms") );
 	Add( _T("eDonkey"), _T("QueryFileThrottle"), &eDonkey.QueryFileThrottle, 60*60*1000, 60*1000, 30, 120, _T(" m") );
 	Add( _T("eDonkey"), _T("QueryGlobalThrottle"), &eDonkey.QueryGlobalThrottle, 1000, 1, 1000, 20000, _T(" ms") );
-	Add( _T("eDonkey"), _T("QueryServerThrottle"), &eDonkey.QueryServerThrottle, 120, 1, 60, 10*60, _T(" s") );
 	Add( _T("eDonkey"), _T("QueueRankThrottle"), &eDonkey.QueueRankThrottle, 2*60*1000, 1000, 60, 600, _T(" s") );
+	Add( _T("eDonkey"), _T("QueryThrottle"), &eDonkey.QueryThrottle, 120, 1, 60, 10*60, _T(" s") );
 	Add( _T("eDonkey"), _T("ReAskTime"), &eDonkey.ReAskTime, 29*60, 60, 20, 360, _T(" m") );
 	Add( _T("eDonkey"), _T("RequestPipe"), &eDonkey.RequestPipe, 3, 1, 1, 10 );
 	Add( _T("eDonkey"), _T("RequestSize"), &eDonkey.RequestSize, 90*KiloByte, KiloByte, 10, 1000, _T(" KB") );
@@ -438,7 +439,7 @@ void CSettings::Load()
 	Add( _T("eDonkey"), _T("StatsGlobalThrottle"), &eDonkey.StatsGlobalThrottle, 30*60*1000, 60*1000, 30, 120, _T(" m") );
 	Add( _T("eDonkey"), _T("StatsServerThrottle"), &eDonkey.StatsServerThrottle, 7*24*60*60, 24*60*60, 7, 28, _T(" d") );
 
-	Add( _T("DC"), _T("ShowInterface"), &DC.ShowInterface, false );
+	Add( _T("DC"), _T("ShowInterface"), &DC.ShowInterface, true );
 	Add( _T("DC"), _T("EnableAlways"), &DC.EnableAlways, false );
 	Add( _T("DC"), _T("NumServers"), &DC.NumServers, 1, 1, 0, 5 );
 	Add( _T("DC"), _T("QueryThrottle"), &DC.QueryThrottle, 2*60, 1, 30, 60*60, _T(" s") );
@@ -455,7 +456,7 @@ void CSettings::Load()
 	Add( _T("BitTorrent"), _T("DownloadConnections"), &BitTorrent.DownloadConnections, 40, 1, 1, 800 );
 	Add( _T("BitTorrent"), _T("DownloadTorrents"), &BitTorrent.DownloadTorrents, 3, 1, 1, 12 );
 	Add( _T("BitTorrent"), _T("EnableAlways"), &BitTorrent.EnableAlways, true );
-	Add( _T("BitTorrent"), _T("EnableToday"), &BitTorrent.EnableToday, true );
+	Add( _T("BitTorrent"), _T("Enabled"), &BitTorrent.Enabled, true );
 	Add( _T("BitTorrent"), _T("Endgame"), &BitTorrent.Endgame, true );
 	Add( _T("BitTorrent"), _T("PreferenceBTSources"), &BitTorrent.PreferenceBTSources, true );
 	Add( _T("BitTorrent"), _T("LinkPing"), &BitTorrent.LinkPing, 120*1000, 1000, 10, 60*10, _T(" s") );
@@ -481,10 +482,10 @@ void CSettings::Load()
 	Add( _T("Downloads"), _T("ConnectThrottle"), &Downloads.ConnectThrottle, 250, 1, 0, 5000, _T(" ms") );
 	Add( _T("Downloads"), _T("CollectionPath"), &Downloads.CollectionPath );
 	Add( _T("Downloads"), _T("CompletePath"), &Downloads.CompletePath );
+	Add( _T("Downloads"), _T("IncompletePath"), &Downloads.IncompletePath );
 	Add( _T("Downloads"), _T("TorrentPath"), &Downloads.TorrentPath );
 	Add( _T("Downloads"), _T("FilterMask"), &Downloads.FilterMask, 0xFFFFFFFF );
 	Add( _T("Downloads"), _T("FlushPD"), &Downloads.FlushPD, true );
-	Add( _T("Downloads"), _T("IncompletePath"), &Downloads.IncompletePath );
 	Add( _T("Downloads"), _T("MaxAllowedFailures"), &Downloads.MaxAllowedFailures, 10, 1, 3, 40 );
 	Add( _T("Downloads"), _T("MaxConnectingSources"), &Downloads.MaxConnectingSources, 28, 1, 5, 99 );
 	Add( _T("Downloads"), _T("MaxFileSearches"), &Downloads.MaxFileSearches, 2, 1, 0, 8 );
@@ -500,6 +501,7 @@ void CSettings::Load()
 	Add( _T("Downloads"), _T("RequestHTTP11"), &Downloads.RequestHTTP11, true );
 	Add( _T("Downloads"), _T("RequestHash"), &Downloads.RequestHash, true );
 	Add( _T("Downloads"), _T("RequestURLENC"), &Downloads.RequestURLENC, true );
+	Add( _T("Downloads"), _T("RenameExisting"), &Downloads.RenameExisting, true );
 	Add( _T("Downloads"), _T("RetryDelay"), &Downloads.RetryDelay, 10*60*1000, 1000, 120, 60*60, _T(" s") );
 	Add( _T("Downloads"), _T("SaveInterval"), &Downloads.SaveInterval, 60*1000, 1000, 1, 120, _T(" s") );
 	Add( _T("Downloads"), _T("SearchPeriod"), &Downloads.SearchPeriod, 120*1000, 1000, 10, 4*60, _T(" s") );
@@ -640,7 +642,7 @@ void CSettings::Load()
 	}
 
 	if ( Downloads.TorrentPath.IsEmpty() )
-		Downloads.TorrentPath = General.UserPath + _T("\\Torrents");
+		Downloads.TorrentPath = Downloads.CompletePath + _T("\\Torrents");
 	if ( Downloads.CollectionPath.IsEmpty() )
 		Downloads.CollectionPath = General.UserPath + _T("\\Collections");
 
@@ -661,22 +663,25 @@ void CSettings::Load()
 	CreateDirectory( Downloads.CollectionPath );
 
 	// Set interface
-	Interface.LowResMode		= ! ( GetSystemMetrics( SM_CYSCREEN ) > 600 );
+	Interface.LowResMode = ! ( GetSystemMetrics( SM_CYSCREEN ) > 600 );
 	if ( Live.FirstRun )
-		Search.AdvancedPanel	= ! Interface.LowResMode;
+		Search.AdvancedPanel = ! Interface.LowResMode;
 
 	// Set current networks
-	Gnutella1.EnableToday		= Gnutella1.EnableAlways;
-	Gnutella2.EnableToday		= Gnutella2.EnableAlways;
-	eDonkey.EnableToday			= eDonkey.EnableAlways;
-	BitTorrent.EnableToday		= BitTorrent.EnableAlways;
+	Gnutella1.Enabled	= Gnutella1.EnableAlways;
+	Gnutella2.Enabled	= Gnutella2.EnableAlways;
+	eDonkey.Enabled		= eDonkey.EnableAlways;
+	DC.Enabled			= DC.EnableAlways;
+	BitTorrent.Enabled	= BitTorrent.EnableAlways;
 
 	// Reset certain ed2k/G1 network variables if bandwidth is too low
 	if ( GetOutgoingBandwidth() < 2 )
 	{
-		eDonkey.EnableToday		= false;
+		DC.Enabled				= false;
+		DC.EnableAlways 		= false;
+		eDonkey.Enabled			= false;
 		eDonkey.EnableAlways	= false;
-		Gnutella1.EnableToday	= false;
+		Gnutella1.Enabled		= false;
 		Gnutella1.EnableAlways	= false;
 	}
 
@@ -713,10 +718,10 @@ void CSettings::Load()
 
 #ifdef LAN_MODE
 	Connection.IgnoreLocalIP = false;
-	Gnutella2.EnableToday = Gnutella2.EnableAlways = true;
-	eDonkey.EnableToday = eDonkey.EnableAlways = false;
-	Gnutella1.EnableToday = Gnutella1.EnableAlways = false;
-	BitTorrent.EnableToday = BitTorrent.EnableAlways = false;
+	Gnutella2.Enabled = Gnutella2.EnableAlways = true;
+	eDonkey.Enabled = eDonkey.EnableAlways = false;
+	Gnutella1.Enabled = Gnutella1.EnableAlways = false;
+	BitTorrent.Enabled = BitTorrent.EnableAlways = false;
 	Gnutella.MaxHits = 0;
 #endif // LAN_MODE
 
@@ -1191,7 +1196,7 @@ void CSettings::OnChangeConnectionSpeed()
 		Connection.RequireForTransfers	= true;
 		Downloads.MaxConnectingSources	= 8;
 		Gnutella1.EnableAlways			= false;
-		Gnutella1.EnableToday			= false;
+		Gnutella1.Enabled			= false;
 
 		General.ItWasLimited			= true;
 	}
@@ -1256,14 +1261,14 @@ void CSettings::SaveWindow(LPCTSTR pszName, CWnd* pWindow)
 
 	pWindow->GetWindowPlacement( &pPos );
 
-	CRegistry::SetInt(  _T("Windows"), strEntry + _T(".ShowCmd"), pPos.showCmd );
+	CRegistry::SetInt( _T("Windows"), strEntry + _T(".ShowCmd"), pPos.showCmd );
 
 	if ( pPos.showCmd != SW_SHOWNORMAL ) return;
 
-	CRegistry::SetInt(  _T("Windows"), strEntry + _T(".Left"), pPos.rcNormalPosition.left );
-	CRegistry::SetInt(  _T("Windows"), strEntry + _T(".Top"), pPos.rcNormalPosition.top );
-	CRegistry::SetInt(  _T("Windows"), strEntry + _T(".Right"), pPos.rcNormalPosition.right );
-	CRegistry::SetInt(  _T("Windows"), strEntry + _T(".Bottom"), pPos.rcNormalPosition.bottom );
+	CRegistry::SetInt( _T("Windows"), strEntry + _T(".Left"), pPos.rcNormalPosition.left );
+	CRegistry::SetInt( _T("Windows"), strEntry + _T(".Top"), pPos.rcNormalPosition.top );
+	CRegistry::SetInt( _T("Windows"), strEntry + _T(".Right"), pPos.rcNormalPosition.right );
+	CRegistry::SetInt( _T("Windows"), strEntry + _T(".Bottom"), pPos.rcNormalPosition.bottom );
 }
 
 //////////////////////////////////////////////////////////////////////

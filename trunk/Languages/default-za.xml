@@ -4,7 +4,7 @@
 <!-- PeerProject Default Afrikaans Skin File -->
 <!-- Weergawe: 27 Oktober 2005 vir Shareaza 2.2.0.2 -->
 
-<!-- Translation based on default-en.xml r64 -->
+<!-- Translation based on default-en.xml r65 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -362,6 +362,7 @@
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
+		<button id="ID_NETWORK_DC" text="DC++"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Verstellings"/>
 	</toolbar>
@@ -392,26 +393,16 @@
 		<button id="ID_SEARCH_FILTER_RAW" text="Meer..."/>
 	</toolbar>
 	<!-- HOST CACHE WINDOW -->
-	<toolbar name="CHostCacheWnd.Basic">
-		<button id="ID_HOSTCACHE_CONNECT" text="Konnekteer Aan"/>
-		<button id="ID_HOSTCACHE_DISCONNECT" text="Diskonnekteer"/>
-		<button id="ID_HOSTCACHE_REMOVE" text="Verwyder"/>
-			<rightAlign/>
-		<button id="ID_HOSTCACHE_G2_CACHE" text="Cache"/>
-		<button id="ID_HOSTCACHE_G1_CACHE" text="Cache"/>
-		<button id="ID_HOSTCACHE_ED2K_CACHE" text="Cache"/>
-	</toolbar>
 	<toolbar name="CHostCacheWnd">
 		<button id="ID_HOSTCACHE_CONNECT" text="Konnekteer Aan"/>
 		<button id="ID_HOSTCACHE_DISCONNECT" text="Diskonnekteer"/>
 		<button id="ID_HOSTCACHE_REMOVE" text="Verwyder"/>
 		<rightAlign/>
-		<button id="ID_HOSTCACHE_G2_HORIZON" text="G2 Kluster"/>
-		<button id="ID_HOSTCACHE_G2_CACHE" text="G2 Kasgeheue"/>
-		<button id="ID_HOSTCACHE_G1_CACHE" text="G1 Kasgeheue"/>
-		<button id="ID_HOSTCACHE_ED2K_CACHE" text="eDonkey Kasgeheue"/>
-		<button id="ID_HOSTCACHE_BT_CACHE" text="BitTorrent Cache"/>
-		<button id="ID_HOSTCACHE_KAD_CACHE" text="Kademlia Cache"/>
+		<button id="ID_HOSTCACHE_G2_HORIZON" text="Kluster"/>
+		<button id="ID_HOSTCACHE_G2_CACHE" text="Kasgeheue"/>
+		<button id="ID_HOSTCACHE_G1_CACHE" text="Kasgeheue"/>
+		<button id="ID_HOSTCACHE_ED2K_CACHE" text="Kasgeheue"/>
+		<button id="ID_HOSTCACHE_DC_CACHE" text="Kasgeheue"/>
 	</toolbar>
 	<!-- PRIVATE CHAT WINDOW -->
 	<toolbar name="CPrivateChatFrame">
@@ -511,6 +502,7 @@
 				<item id="ID_NETWORK_G2" text="Konnekteer aan Gnutella_2"/>
 				<item id="ID_NETWORK_G1" text="Konnekteer aan _Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="Konnekteer aan _eDonkey2000"/>
+				<item id="ID_NETWORK_DC" text="Konnekteer aan _DC++"/>
 				<separator/>
 				<item id="ID_NETWORK_CONNECT_TO" text="Konnekteer _Aan..." shortcut="Ctrl+T"/>
 				<item id="ID_NETWORK_BROWSE_TO" text="_Blaai deur Gebruikersinligting..."/>
@@ -524,7 +516,7 @@
 				<separator/>
 				<item id="ID_TOOLS_DOWNLOAD" text="_Laai Lêer/Torrent Af..."/>
 				<item id="ID_TOOLS_CREATETORRENT" text="_Create New .Torrent..."/>
-				<item id="IDC_IMPORT_DOWNLOADS" text="_Import eMule partials..."/>
+				<item id="ID_IMPORT_DOWNLOADS" text="_Import eMule partials..."/>
 				<separator/>
 				<item id="ID_TOOLS_LANGUAGE" text="Verander jou _Taal..."/>
 				<item id="ID_TOOLS_SKIN" text="Kies 'n O_mslag..."/>
@@ -598,11 +590,10 @@
 			<item id="ID_NETWORK_CONNECT" text="_Konnekteer" shortcut="Ctrl+G"/>
 			<item id="ID_NETWORK_DISCONNECT" text="_Diskonnekteer"/>
 			<separator/>
-			<menu text="Selekteer _Netwerke">
-				<item id="ID_NETWORK_G2" text="Konnekteer aan Gnutella_2"/>
-				<item id="ID_NETWORK_G1" text="Konnekteer aan _Gnutella"/>
-				<item id="ID_NETWORK_ED2K" text="Konnekteer aan _eDonkey2000"/>
-			</menu>
+			<item id="ID_NETWORK_G2" text="Konnekteer aan Gnutella_2"/>
+			<item id="ID_NETWORK_G1" text="Konnekteer aan _Gnutella"/>
+			<item id="ID_NETWORK_ED2K" text="Konnekteer aan _eDonkey2000"/>
+			<item id="ID_NETWORK_DC" text="Konnekteer aan _DC++"/>
 			<separator/>
 			<item id="ID_NETWORK_CONNECT_TO" text="Konnekteer _Aan..." shortcut="Ctrl+T"/>
 			<item id="ID_NETWORK_BROWSE_TO" text="_Blaai deur Gebruikersinligting..."/>
@@ -647,7 +638,7 @@
 		<menu text="_Opsies">
 			<item id="ID_LIBRARY_FOLDERS" text="Deel _Lêers..."/>
 			<item id="ID_TOOLS_DOWNLOAD" text="_Laai Lêer/Torrent Af..."/>
-			<item id="IDC_IMPORT_DOWNLOADS" text="_Import eMule partial downloads..."/>
+			<item id="ID_IMPORT_DOWNLOADS" text="_Import eMule partial downloads..."/>
 			<item id="ID_OPEN_DOWNLOADS_FOLDER" text="_Open my folder of completed Downloads"/>
 			<separator/>
 			<item id="ID_TOOLS_SKIN" text="Kies 'n O_mslag..."/>
@@ -696,11 +687,9 @@
 		<menu text="_Netwerk">
 			<item id="ID_NETWORK_CONNECT" text="_Konnekteer" shortcut="Ctrl+G"/>
 			<separator/>
-			<menu text="Selekteer _Netwerke">
-				<item id="ID_NETWORK_G2" text="Konnekteer aan Gnutella_2"/>
-				<item id="ID_NETWORK_G1" text="Konnekteer aan _Gnutella"/>
-				<item id="ID_NETWORK_ED2K" text="Konnekteer aan _eDonkey2000"/>
-			</menu>
+			<item id="ID_NETWORK_G2" text="Konnekteer aan Gnutella_2"/>
+			<item id="ID_NETWORK_G1" text="Konnekteer aan _Gnutella"/>
+			<item id="ID_NETWORK_ED2K" text="Konnekteer aan _eDonkey"/>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="Verlaat PeerProject _Na Oordragte"/>
 			<item id="ID_NETWORK_EXIT" text="_Verlaat PeerProject"/>
@@ -775,11 +764,10 @@
 			<item id="ID_NETWORK_CONNECT_TO" text="Konnekteer _Aan..." shortcut="Ctrl+T"/>
 			<item id="ID_NETWORK_BROWSE_TO" text="_Blaai deur Gebruikersinligting..."/>
 			<separator/>
-			<menu text="Selekteer _Netwerke">
-				<item id="ID_NETWORK_G2" text="Konnekteer aan Gnutella_2"/>
-				<item id="ID_NETWORK_G1" text="Konnekteer aan _Gnutella"/>
-				<item id="ID_NETWORK_ED2K" text="Konnekteer aan _eDonkey2000"/>
-			</menu>
+			<item id="ID_NETWORK_G2" text="Konnekteer aan Gnutella_2"/>
+			<item id="ID_NETWORK_G1" text="Konnekteer aan _Gnutella"/>
+			<item id="ID_NETWORK_ED2K" text="Konnekteer aan _eDonkey2000"/>
+			<item id="ID_NETWORK_DC" text="Konnekteer aan _DC++"/>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="Verlaat PeerProject _Na Oordragte"/>
 			<item id="ID_NETWORK_EXIT" text="_Verlaat PeerProject"/>
@@ -808,7 +796,7 @@
 		<menu text="_Opsies">
 			<item id="ID_LIBRARY_FOLDERS" text="Deel _Lêers..."/>
 			<item id="ID_TOOLS_DOWNLOAD" text="_Laai Lêer/Torrent Af..."/>
-			<item id="IDC_IMPORT_DOWNLOADS" text="_Import eMule partial downloads..."/>
+			<item id="ID_IMPORT_DOWNLOADS" text="_Import eMule partial downloads..."/>
 			<item id="ID_OPEN_DOWNLOADS_FOLDER" text="_Open my folder of completed Downloads"/>
 			<separator/>
 			<item id="ID_TOOLS_SKIN" text="Kies 'n O_mslag..."/>
@@ -1562,6 +1550,10 @@
 			<item id="ID_NETWORK_G2" text="Gnutella_2"/>
 			<item id="ID_NETWORK_G1" text="_Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="_eDonkey2000"/>
+			<item id="ID_NETWORK_DC" text="_DC++"/>
+			<separator/>
+			<item id="ID_VIEW_DISCOVERY" text="_Ontdekkings"/>
+			<item id="ID_VIEW_HOSTS" text="_Gasheer Kasgeheue"/>
 		</menu>
 		<menu text="_Monitor">
 			<item id="ID_NEIGHBOURS_VIEW_ALL" text="Vertoon _Alle Dataverkeer"/>
@@ -1832,16 +1824,24 @@
 		<text group="31" align="middle">Nie Gekonnekteer</text>
 		<text group="32" align="middle">Konnekteer nou...</text>
 		<text group="33" align="middle">Gekonnekteer</text>
+		<text group="34" align="middle" id="EDServers">%i bediener</text>
 		<newline group="30" gap="2"/>
+		<icon group="60" command="ID_NETWORK_DC"/>
+		<text group="60" align="middle" format="b">&#160;DC++: &#160; </text>
+		<text group="61" align="middle">Nie Gekonnekteer</text>
+		<text group="62" align="middle">Konnekteer nou...</text>
+		<text group="63" align="middle">Gekonnekteer</text>
+		<text group="64" align="middle" id="DCHubs">%i gashere</text>
+		<newline group="60" gap="2"/>
 		<group id="2">
 			<para align="center">
 				<newline gap="4"/>
-				<text>Jy is gekonnekteer vir </text>
-				<newline gap="0"/>
+				<link target="command:ID_TAB_NETWORK">Gekonnekteer vir</link>
+				<newline gap="4"/>
 				<text id="ConnectedHours" format="b">%i </text>
 				<text>ure en </text>
 				<text id="ConnectedMinutes" format="b">%i </text>
-				<text>minute.</text>
+				<text>minute</text>
 			</para>
 		</group>
 	</document>
@@ -2519,8 +2519,8 @@
 	<tip id="ID_NETWORK_CONNECT" message="Konnekteer aan die netwerk."/>
 	<tip id="ID_NETWORK_CONNECT_TO" message="Konnekteer met die hand aan 'n gasheer..."/>
 	<tip id="ID_NETWORK_DISCONNECT" message="Diskonnekteer van die netwerk."/>
-	<tip id="ID_NETWORK_ED2K" message="Konnekteer aan die eDonkey2000 netwerk."/>
 	<tip id="ID_NETWORK_EXIT" message="Verlaat PeerProject"/>
+	<tip id="ID_NETWORK_DC" message="Konnekteer aan die DC++ netwerk."/>
 	<tip id="ID_NETWORK_G1" message="Konnekteer aan die oorspronklike Gnutella netwerk."/>
 	<tip id="ID_NETWORK_G2" message="Konnekteer aan die Gnutella2 netwerk (word sterk aanbeveel)."/>
 	<tip id="ID_NETWORK_SEARCH" message="Begin 'n nuwe soektog op die netwerk..."/>
@@ -2674,7 +2674,9 @@
 	<string id="20012" value="Aanpas"/>
 	<string id="20013" value="Default"/>
 	<string id="20014" value="Finish"/>
-	<string id="20050" value="Every Dag"/>
+	<string id="20020" value="Lêer"/>
+	<string id="20021" value="Lêers"/>
+	<string id="20050" value="Elke Dag"/>
 	<string id="20051" value="Maandag"/>
 	<string id="20052" value="Dinsdag"/>
 	<string id="20053" value="Woensdag"/>
@@ -3389,7 +3391,7 @@
 		<control/>
 		<control caption="Deursig:"/>
 		<control/>
-		<control caption="Shadow (restart)"/>
+		<control caption="Shadows"/>
 		<control caption="_Taakbalk:"/>
 		<control caption="As ek sluit kliek:"/>
 		<control caption="Vra My|Minimeer na Taakbalk|Sluit Dadelik|Sluit Na Oordragte"/>
@@ -3399,9 +3401,9 @@
 	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuBuCoBuBuBuCoBuBuBuEdBu" caption="Biblioteek">
 		<control caption="_Verstellings:"/>
 		<control caption="Lys jou gedeelde lêers vir ander"/>
-		<control caption="Onthou gidsaansigte"/>
 		<control caption="Hou biblioteekgidse dop"/>
 		<control caption="Vinnige hashing (Meer CPU)"/>
+		<control caption="Onthou gidsaansigte"/>
 		<control caption="Smart media series detection"/>
 		<control caption="Create ghost files when deleting"/>
 		<control caption="_Onlangse Lêers:"/>
@@ -3452,13 +3454,14 @@
 		<control caption="Sensor gesels boodskappe vir ongewenste inhoud"/>
 	</dialog>
 	<!--Missing dialog name="CIRCSettingsPage"-->
-	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuCoBuBuSt" caption="Web">
+	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuBuCoBuBuSt" caption="Web">
 		<control caption="_Persoon-tot-Persoon Skakelhantering:"/>
 		<control caption="Gebruik PeerProject om die volgende tipes skakels af te laai:"/>
 		<control caption="Magnet ( magnet: )"/>
 		<control caption="Gnutella ( gnutella: )"/>
 		<control caption="eDonkey2000 ( ed2k: )"/>
 		<control caption="Piolet ( mp2p: )"/>
+		<control caption="DC++ ( dchub:/dcfile: )"/>
 		<control caption="BitTorrent ( .torrent )"/>
 		<control caption="_Aflaai Hanteerder:"/>
 		<control caption="Gebruik PeerProject om al my web aflaaie te hanteer:"/>
@@ -4348,7 +4351,8 @@
 		<control caption="Om voltooide lêers te deel met BitTorrent, moet hulle eers gesaai word. Sodra hierdie proses voltooi is, sal die Torrent as 'n nuwe item op jou aflaailys verskyn."/>
 		<control/>
 	</dialog>
-	<dialog name="CTorrentFilesPage" cookie="Sy" caption="Files">
+	<dialog name="CTorrentFilesPage" cookie="StSy" caption="Files">
+		<control/>
 		<control/>
 	</dialog>
 	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="Trackers">
@@ -4537,14 +4541,13 @@
 	<list name="CHostCacheWnd">
 		<column from="Address" to="Adres"/>
 		<column from="Port" to="Poort"/>
-		<column from="Client" to="Program"/>
 		<column from="Last Seen" to="Laaste Gesien"/>
-		<column from="Daily Uptime" to=""/>
+		<column from="Client" to="Program"/>
 		<column from="Name" to="Naam"/>
 		<column from="Description" to="Beskrywing"/>
+		<column from="Failures" to=""/>
 		<column from="CurUsers" to="Huidiglik"/>
 		<column from="MaxUsers" to="Maksimum"/>
-		<column from="Failures" to=""/>
 		<column from="Country" to="Anderland"/>
 	</list>
 	<list name="CDiscoveryWnd">
@@ -4604,7 +4607,7 @@
 		<column from="Criteria" to="Kriteria"/>
 		<column from="Minimum" to="Bandwydte"/>
 		<column from="Transfers" to="Oordragte"/>
-		<column from="Order" to="Volgorde"/>
+		<column from="Priority" to="Volgorde"/>
 	</list>
 	<list name="CAdvancedSettingsList">
 		<column from="Setting" to="Instelling"/>

@@ -144,7 +144,7 @@ void CPlugins::Register()
 		}
 	}
 
-	for ( POSITION pos = oModules.GetHeadPosition(); pos; )
+	for ( POSITION pos = oModules.GetHeadPosition() ; pos ; )
 		FreeLibrary( oModules.GetNext( pos ) );
 }
 

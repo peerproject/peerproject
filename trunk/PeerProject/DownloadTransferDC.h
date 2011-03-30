@@ -1,7 +1,7 @@
 //
 // DownloadTransferDC.h
 //
-// This file is part of PeerProject (peerproject.org) © 2010
+// This file is part of PeerProject (peerproject.org) © 2011
 // Portions copyright Shareaza Development Team, 2010.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -41,14 +41,15 @@ public:
 
 	// Got $ADCSND command
 	BOOL			OnDownload(const std::string& strType, const std::string& strFilename, QWORD nOffset, QWORD nLength, const std::string& strOptions);
-	// Got $MaxedOut command with queue position
-	BOOL			OnQueue(int nQueue);
-	// Got $MaxedOut command without queue position
-	BOOL			OnBusy();
-	// Got $Error command
-	BOOL			OnError();
+	BOOL			OnQueue(int nQueue);	// Got $MaxedOut command with queue position
+	BOOL			OnBusy();				// Got $MaxedOut command without queue position
+	BOOL			OnError();				// Got $Error command
 
 protected:
+	QWORD			m_nTigerLength;
+
 	virtual BOOL	SubtractRequested(Fragments::List& ppFragments);
 	BOOL			StartNextFragment();
+	BOOL			ReadContent();
+	BOOL			ReadTiger();
 };

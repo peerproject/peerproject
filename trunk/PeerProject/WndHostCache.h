@@ -30,7 +30,7 @@ class CHostCacheWnd : public CPanelWnd
 {
 public:
 	CHostCacheWnd();
-//	virtual ~CHostCacheWnd();
+	virtual ~CHostCacheWnd();
 
 	DECLARE_SERIAL(CHostCacheWnd)
 

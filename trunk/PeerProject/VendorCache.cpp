@@ -1,7 +1,7 @@
 //
 // VendorCache.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -37,7 +37,7 @@ CVendorCache VendorCache;
 CVendorCache::CVendorCache() :
 	m_pNull( new CVendor() )
 {
-	// experimental values
+	// Experimental values
 	m_pCodeMap.InitHashTable( 83 );
 	m_pNameMap.InitHashTable( 83 );
 }
@@ -67,8 +67,8 @@ CVendor* CVendorCache::LookupByName(LPCTSTR pszName) const
 	CVendor* pVendor;
 	if ( m_pNameMap.Lookup( sName, pVendor ) )
 		return pVendor;
-	else
-		return NULL;
+
+	return NULL;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -171,7 +171,7 @@ bool CVendorCache::IsExtended(LPCTSTR pszCode) const
 
 CVendor::CVendor()
 	: m_bChatFlag	( false )
-	, m_bHTMLBrowse	( false )
+	, m_bBrowseFlag	( false )
 	, m_bExtended	( false )
 {
 }
@@ -180,7 +180,7 @@ CVendor::CVendor(LPCTSTR pszCode)
 	: m_sCode		( pszCode )
 	, m_sName		( pszCode )
 	, m_bChatFlag	( false )
-	, m_bHTMLBrowse	( false )
+	, m_bBrowseFlag	( false )
 	, m_bExtended	( false )
 {
 	if ( m_sCode.GetLength() > 4 )
@@ -218,17 +218,17 @@ BOOL CVendor::LoadFrom(CXMLElement* pXML)
 		}
 		else if ( pKey->IsNamed( _T("capability") ) )
 		{
-			CString strCap = pKey->GetAttributeValue( _T("name") );
-			ToLower( strCap );
+			const CString strCap = pKey->GetAttributeValue( _T("name") ).MakeLower();
 
 			if ( strCap == _T("chatflag") )
 				m_bChatFlag = true;
-			else if ( strCap == _T("htmlhostbrowse") )
-				m_bHTMLBrowse = true;
+			else if ( strCap == _T("htmlhostbrowse") || strCap == _T("browseflag") )
+				m_bBrowseFlag = true;
 			else if ( strCap == _T("extended") )
 				m_bExtended = true;
+			// ToDo: Other flags? g2,g1,ed2k,dc,bt,etc.
 		}
 	}
 
-	return m_sName.GetLength() > 0;
+	return ! m_sName.IsEmpty();
 }

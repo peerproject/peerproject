@@ -1,7 +1,7 @@
 //
 // Neighbour.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -122,7 +122,7 @@ CNeighbour::CNeighbour(PROTOCOLID nProtocol, CNeighbour* pBase)
 	, m_nDegree 		( pBase->m_nDegree )
 	, m_nMaxTTL 		( pBase->m_nMaxTTL )
 	, m_bDynamicQuerying( pBase->m_bDynamicQuerying )
-	, m_bUltrapeerQueryRouting(	pBase->m_bUltrapeerQueryRouting )
+	, m_bUltrapeerQueryRouting ( pBase->m_bUltrapeerQueryRouting )
 	, m_sLocalePref 	( pBase->m_sLocalePref )
 	, m_bRequeries		( pBase->m_bRequeries )
 	, m_bExtProbes		( pBase->m_bExtProbes )
@@ -135,7 +135,7 @@ CNeighbour::CNeighbour(PROTOCOLID nProtocol, CNeighbour* pBase)
 	, m_nFileVolume 	( pBase->m_nFileVolume )
 	// If the connected computer is sending and receiving Gnutella2 packets, it will also support query routing
 	, m_pQueryTableRemote( m_bQueryRouting ? new CQueryHashTable : NULL )
-	, m_pQueryTableLocal(  m_bQueryRouting ? new CQueryHashTable : NULL )
+	, m_pQueryTableLocal ( m_bQueryRouting ? new CQueryHashTable : NULL )
 	, m_tLastPacket 	( GetTickCount() )
 	, m_pZInput 		( pBase->m_pZInput )	// Transfer of ownership
 	, m_pZOutput		( pBase->m_pZOutput )	// Transfer of ownership
@@ -205,6 +205,11 @@ void CNeighbour::DelayClose(UINT nError)
 	CConnection::DelayClose( nError );
 }
 
+BOOL CNeighbour::ConnectTo(const IN_ADDR* /*pAddress*/, WORD /*nPort*/, BOOL /*bAutomatic*/)
+{
+	return FALSE;	// ToDo: ?
+}
+
 //////////////////////////////////////////////////////////////////////
 // CNeighbour send
 
@@ -267,7 +272,7 @@ BOOL CNeighbour::OnRun()
 	if ( ! CConnection::OnRun() )
 		return FALSE;
 
-	DWORD tNow = GetTickCount();
+	const DWORD tNow = GetTickCount();
 
 	if ( m_nState == nrsConnecting )
 	{
@@ -332,8 +337,8 @@ BOOL CNeighbour::OnRun()
 void CNeighbour::OnDropped()
 {
 	// Find out how many seconds it's been since this neighbour connected, and since it received the last packet
-	DWORD nTime1 = ( GetTickCount() - m_tConnected ) / 1000;	// Time since connected in seconds
-	DWORD nTime2 = ( GetTickCount() - m_tLastPacket ) / 1000;	// Time since last packet received in seconds
+	const DWORD nTime1 = ( GetTickCount() - m_tConnected ) / 1000;	// Time since connected in seconds
+	const DWORD nTime2 = ( GetTickCount() - m_tLastPacket ) / 1000;	// Time since last packet received in seconds
 
 	// Report these times in a message about the connection being dropped
 	theApp.Message( MSG_DEBUG, _T("Dropped neighbour %s (%s), conn: %.2i:%.2i, packet: %.2i:%.2i"),
@@ -413,7 +418,7 @@ BOOL CNeighbour::OnWrite()
 	}
 
 	// If it's been more than 2 seconds since we've flushed the compressed output buffer to the remote computer, set the flag to do it next
-	DWORD tNow = GetTickCount();
+	const DWORD tNow = GetTickCount();
 	if ( tNow - m_tZOutput >= Z_TIMER ) m_bZFlush = TRUE;
 
 	// Loop until all the data in ZOutput has been compressed into Output
@@ -487,7 +492,7 @@ BOOL CNeighbour::OnCommonHit(CPacket* pPacket)
 			Statistics.Current.Gnutella1.Dropped++;
 		else if ( m_nProtocol == PROTOCOL_G2 )
 			Statistics.Current.Gnutella2.Dropped++;
-		return TRUE; // Stay connected
+		return TRUE;	// Stay connected
 	}
 
 	if ( Security.IsDenied( &pHits->m_pAddress ) )

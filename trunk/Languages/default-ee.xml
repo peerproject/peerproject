@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Estonian Skin File -->
 
-<!-- Translation based on default-en.xml r64 (Shareaza 2.2.2.9) -->
+<!-- Translation based on default-en.xml r65 (Shareaza 2.2.2.9) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -367,6 +367,7 @@
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey2000"/>
+		<button id="ID_NETWORK_DC" text="DC++"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Seaded"/>
 	</toolbar>
@@ -396,20 +397,16 @@
 		<control id="IDC_FILTER_BOX" width="80"/>
 	</toolbar>
 	<!-- HOST CACHE WINDOW -->
-	<toolbar name="CHostCacheWnd.Basic">
-		<button id="ID_HOSTCACHE_CONNECT" text="Ühenda"/>
-		<button id="ID_HOSTCACHE_DISCONNECT" text="Katkesta ühendus"/>
-		<button id="ID_HOSTCACHE_REMOVE" text="Eemalda"/>
-	</toolbar>
 	<toolbar name="CHostCacheWnd">
 		<button id="ID_HOSTCACHE_CONNECT" text="Ühenda"/>
 		<button id="ID_HOSTCACHE_DISCONNECT" text="Katkesta ühendus"/>
 		<button id="ID_HOSTCACHE_REMOVE" text="Eemalda"/>
 		<rightAlign/>
-		<button id="ID_HOSTCACHE_G2_HORIZON" text="G2 Cluster"/>
-		<button id="ID_HOSTCACHE_G2_CACHE" text="G2 Cache"/>
-		<button id="ID_HOSTCACHE_G1_CACHE" text="G1 Cache"/>
-		<button id="ID_HOSTCACHE_ED2K_CACHE" text="eDonkey Cache"/>
+		<button id="ID_HOSTCACHE_G2_HORIZON" text="Cluster"/>
+		<button id="ID_HOSTCACHE_G2_CACHE" text="Cache"/>
+		<button id="ID_HOSTCACHE_G1_CACHE" text="Cache"/>
+		<button id="ID_HOSTCACHE_ED2K_CACHE" text="Cache"/>
+		<button id="ID_HOSTCACHE_DC_CACHE" text="Hubs"/>
 	</toolbar>
 	<!-- PRIVATE CHAT WINDOW -->
 	<toolbar name="CPrivateChatFrame">
@@ -476,6 +473,7 @@
 				<item id="ID_NETWORK_G2" text="Ühenda Gnutella_2"/>
 				<item id="ID_NETWORK_G1" text="Ühenda _Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="Ühenda _eDonkey2000"/>
+				<item id="ID_NETWORK_DC" text="Ühenda _DC++"/>
 				<separator/>
 				<item id="ID_NETWORK_CONNECT_TO" text="Ühenda _Aadressil..." shortcut="Ctrl+T"/>
 				<item id="ID_NETWORK_BROWSE_TO" text="_Sirvi Võõrustajat..."/>
@@ -558,14 +556,13 @@
 			<item id="ID_NETWORK_CONNECT" text="_Ühenda" shortcut="Ctrl+G"/>
 			<item id="ID_NETWORK_DISCONNECT" text="_Katkesta ühendus"/>
 			<separator/>
-			<menu text="Vali _Võrk">
-				<item id="ID_NETWORK_G2" text="Ühenda Gnutella_2"/>
-				<item id="ID_NETWORK_G1" text="Ühenda _Gnutella"/>
-				<item id="ID_NETWORK_ED2K" text="Ühenda _eDonkey2000"/>
-			</menu>
-			<separator/>
 			<item id="ID_NETWORK_CONNECT_TO" text="Ühenda _Aadressil..." shortcut="Ctrl+T"/>
 			<item id="ID_NETWORK_BROWSE_TO" text="_Sirvi Võõrustajat..."/>
+			<separator/>
+			<item id="ID_NETWORK_G2" text="Ühenda Gnutella_2"/>
+			<item id="ID_NETWORK_G1" text="Ühenda _Gnutella"/>
+			<item id="ID_NETWORK_ED2K" text="Ühenda _eDonkey2000"/>
+			<item id="ID_NETWORK_DC" text="Ühenda _DC++"/>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="Välju _Ülekande Lõpus"/>
 			<item id="ID_NETWORK_EXIT" text="V_älju"/>
@@ -651,7 +648,7 @@
 			<menu text="Vali _Võrk">
 				<item id="ID_NETWORK_G2" text="Ühenda Gnutella_2"/>
 				<item id="ID_NETWORK_G1" text="Ühenda _Gnutella"/>
-				<item id="ID_NETWORK_ED2K" text="Ühenda _eDonkey2000"/>
+				<item id="ID_NETWORK_ED2K" text="Ühenda _eDonkey"/>
 			</menu>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="Välju _Ülekande lõpus"/>
@@ -725,6 +722,7 @@
 				<item id="ID_NETWORK_G2" text="Ühenda Gnutella_2"/>
 				<item id="ID_NETWORK_G1" text="Ühenda _Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="Ühenda _eDonkey2000"/>
+				<item id="ID_NETWORK_DC" text="Ühenda _DC++"/>
 			</menu>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="Välju _Ülekande Lõpus"/>
@@ -1481,6 +1479,10 @@
 			<item id="ID_NETWORK_G2" text="Gnutella_2"/>
 			<item id="ID_NETWORK_G1" text="_Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="_eDonkey2000"/>
+			<item id="ID_NETWORK_DC" text="_DC++"/>
+			<separator/>
+			<item id="ID_VIEW_DISCOVERY" text="Serveri_d"/>
+			<item id="ID_VIEW_HOSTS" text="_Võõrustajad"/>
 		</menu>
 		<menu text="_Vaatleja">
 			<item id="ID_NEIGHBOURS_VIEW_ALL" text="Vaata _Kogu Liiklust"/>
@@ -1694,19 +1696,28 @@
 		<text group="31" align="middle">Ühenduseta</text>
 		<text group="32" align="middle">Ühendan...</text>
 		<text group="33" align="middle">Ühendatud</text>
+		<text group="34" align="middle" id="EDServers">%i Server</text>
 		<newline group="30" gap="2"/>
+		<icon group="60" command="ID_NETWORK_DC"/>
+		<text group="60" align="middle" format="b">&#160;DC++: &#160; </text>
+		<text group="61" align="middle">Ühenduseta</text>
+		<text group="62" align="middle">Ühendan...</text>
+		<text group="63" align="middle">Ühendatud</text>
+		<text group="64" align="middle" id="DCHubs">%i Hubs</text>
+		<newline group="60" gap="2"/>
 		<group id="2">
 			<para align="center">
-				<newline gap="6"/>
-				<text>Sa oled olnud ühendatud </text>
+				<newline gap="4"/>
+				<link target="command:ID_TAB_NETWORK">Olnud ühendatud</link>
+				<newline gap="4"/>
 				<text id="ConnectedHours" format="b">%i </text>
 				<text>tundi ja </text>
 				<text id="ConnectedMinutes" format="b">%i </text>
-				<text>minutit.</text>
+				<text>minutit</text>
 			</para>
 		</group>
 	</document>
-	<document name="CHomeLibraryBox" title="Minu Raamatukogu" leftMargin="6" topMargin="6">
+	<document name="CHomeLibraryBox" title="Raamatukogu" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
 				<font size="11"/>
@@ -1738,7 +1749,7 @@
 			</group>
 		</para>
 	</document>
-	<document name="CHomeDownloadsBox" title="Minu Tõmbamised" leftMargin="6" topMargin="6">
+	<document name="CHomeDownloadsBox" title="Tõmbamised" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
 				<font size="11"/>
@@ -2367,8 +2378,9 @@
 	<tip id="ID_NETWORK_CONNECT" message="Ühenda võrkku."/>
 	<tip id="ID_NETWORK_CONNECT_TO" message="Ühenda serveriga käsitsi..."/>
 	<tip id="ID_NETWORK_DISCONNECT" message="Katkesta võrguga ühendus."/>
-	<tip id="ID_NETWORK_ED2K" message="Ühenda eDonkey2000 võrgustikku."/>
 	<tip id="ID_NETWORK_EXIT" message="Välju PeerProjectst"/>
+	<tip id="ID_NETWORK_ED2K" message="Ühenda eDonkey2000 võrgustikku."/>
+	<tip id="ID_NETWORK_DC" message="Ühenda DC++ võrgustikku."/>
 	<tip id="ID_NETWORK_G1" message="Ühendu algsesse Gnutella võrkku."/>
 	<tip id="ID_NETWORK_G2" message="Ühendu Gnutella2 võrkku (väga soovitatav)."/>
 	<tip id="ID_NETWORK_SEARCH" message="Alusta võrgus uut otsingut..."/>
@@ -2513,7 +2525,9 @@
 	<string id="20011" value="Auto"/>
 	<string id="20012" value="Muudetud"/>
 	<string id="20013" value="Vaikimisi"/>
-	<string id="20050" value="Every Day"/>
+	<string id="20020" value="Faili"/>
+	<string id="20021" value="Failid"/>
+	<string id="20050" value="Iga Päev"/>
 	<string id="20051" value="Esmaspäev"/>
 	<string id="20052" value="Teisipäev"/>
 	<string id="20053" value="Kolmapäev"/>
@@ -3210,7 +3224,7 @@
 		<control/>
 		<control caption="Ulatus:"/>
 		<control/>
-		<control caption="Shadow (restart)"/>
+		<control caption="Shadows"/>
 		<control caption="_Tööriistariba:"/>
 		<control caption="Kui ma klikin Sulge:"/>
 		<control caption="Küsi|Vähenda Tööriistaribale|Sule Kohe|Sule peale ülekandeid"/>
@@ -3220,9 +3234,9 @@
 	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuBuCoBuBuBuCoBuBuBuEdBu" caption="Raamatukogu">
 		<control caption="_Seaded:"/>
 		<control caption="Luba teistel oma faile vaadata"/>
-		<control caption="Pea meeles kaustade vaated"/>
 		<control caption="Vaata raamatukogu kaustu"/>
 		<control caption="Kiire paigutamine (+ CPU-d)"/>
+		<control caption="Pea meeles kaustade vaated"/>
 		<control caption="Smart media series detection"/>
 		<control caption="Create ghost files by default"/>
 		<control caption="_Hiljutised Failid:"/>
@@ -3273,13 +3287,14 @@
 		<control caption="Praagi labased väljendid"/>
 	</dialog>
 	<!--Missing dialog name="CIRCSettingsPage"-->
-	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuCoBuBuSt" caption="Weeb">
+	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuBuCoBuBuSt" caption="Weeb">
 		<control caption="_P2P linkide käsitlus:"/>
 		<control caption="Kasuta PeerProjectt, et avada seda tüüpi faile:"/>
 		<control caption="Magnet ( magnet: )"/>
 		<control caption="Gnutella ( gnutella: )"/>
 		<control caption="eDonkey2000 ( ed2k: )"/>
 		<control caption="Piolet ( mp2p: )"/>
+		<control caption="DC++ ( dchub:/dcfile: )"/>
 		<control caption="BitTorrent ( .torrent )"/>
 		<control caption="_Allalaadimiste Haldus:"/>
 		<control caption="Kasuta PeerProjectt kõikideks weebi allalaadimisteks:"/>
@@ -4164,7 +4179,8 @@
 		<control caption="Et jagada faile kasutades BitTorrentit, peavad nad olema jagatud.  Kui see on tehtud siis ilmub Torrent uue failina sinu allalaadimiste nimekirja"/>
 		<control/>
 	</dialog>
-	<dialog name="CTorrentFilesPage" cookie="Sy" caption="Failid">
+	<dialog name="CTorrentFilesPage" cookie="StSy" caption="Failid">
+		<control/>
 		<control/>
 	</dialog>
 	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="Jälitused">
@@ -4353,14 +4369,13 @@
 	<list name="CHostCacheWnd">
 		<column from="Address" to="Aadress"/>
 		<column from="Port" to="Port"/>
-		<column from="Client" to="Klient"/>
 		<column from="Last Seen" to="Viimati Nähtud"/>
-		<column from="Daily Uptime" to=""/>
+		<column from="Client" to="Klient"/>
 		<column from="Name" to="Nimi"/>
 		<column from="Description" to="Kirjeldus"/>
+		<column from="Failures" to=""/>
 		<column from="CurUsers" to="Hetkel kasutajaid"/>
 		<column from="MaxUsers" to="Max kasutajaid"/>
-		<column from="Failures" to=""/>
 		<column from="Country" to="Piirkond"/>
 	</list>
 	<list name="CDiscoveryWnd">
@@ -4420,7 +4435,7 @@
 		<column from="Criteria" to="Kriteerium"/>
 		<column from="Minimum" to="Ülekandekiirus"/>
 		<column from="Transfers" to="Ülekandeid"/>
-		<column from="Order" to="Järjekord"/>
+		<column from="Priority" to="Järjekord"/>
 	</list>
 	<list name="CAdvancedSettingsList">
 		<column from="Setting" to="Seaded"/>

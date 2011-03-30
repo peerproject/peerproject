@@ -98,7 +98,7 @@ void CSystemWnd::OnTimer(UINT_PTR /*nIDEvent*/)
 	CQuickLock pLock( theApp.m_csMessage );
 
 	// Max 200 lines per second
-	for ( int i = 0; i < 50 && ! theApp.m_oMessages.IsEmpty(); i++ )
+	for ( int i = 0 ; i < 50 && ! theApp.m_oMessages.IsEmpty() ; i++ )
 	{
 		CLogMessage* pMsg = theApp.m_oMessages.RemoveHead();
 

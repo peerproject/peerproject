@@ -76,13 +76,13 @@ CFilePreviewDlg::CFilePreviewDlg(CDownloadWithExtras* pDownload, DWORD nIndex, C
 		{
 			if ( nCount > 0 )
 			{
-				m_sTargetName.Format( _T("%sPreview (%i) of %s"),
+				m_sTargetName.Format( _T("%sPreview (%i) %s"),
 					(LPCTSTR)m_sSourceName.Left( nPos + 1 ), nCount,
 					(LPCTSTR)strFileName );
 			}
 			else
 			{
-				m_sTargetName.Format( _T("%sPreview of %s"),
+				m_sTargetName.Format( _T("%sPreview %s"),		// Cleared in CDownloads::PurgePreviews(), was "Preview of"
 					(LPCTSTR)m_sSourceName.Left( nPos + 1 ),
 					(LPCTSTR)strFileName );
 			}
@@ -415,7 +415,7 @@ BOOL CFilePreviewDlg::RunManual()
 			hr = oSourceFile.Read( pData.get(), nChunk, nChunk );
 			if ( FAILED( hr ) || nChunk == 0 )
 			{
-				theApp.Message( MSG_DEBUG, _T("Preview: read error %d."), GetLastError() );
+				theApp.Message( MSG_DEBUG, _T("Preview: Read error %d."), GetLastError() );
 				Exit();
 			}
 
@@ -424,7 +424,7 @@ BOOL CFilePreviewDlg::RunManual()
 				hr = oTargetFile.Write( pData.get(), nChunk, &nChunk );
 				if ( FAILED( hr ) || nChunk == 0 )
 				{
-					theApp.Message( MSG_DEBUG, _T("Preview: write error %d."), GetLastError() );
+					theApp.Message( MSG_DEBUG, _T("Preview: Write error %d."), GetLastError() );
 					Exit();
 				}
 			}

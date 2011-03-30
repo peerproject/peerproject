@@ -166,9 +166,10 @@ public:
 	void			Message(WORD nType, LPCTSTR pszFormat, ...);
 	void			PrintMessage(WORD nType, const CString& strLog);
 	void			LogMessage(const CString& strLog);
+
+	void			ShowStartupText();
 	void			SplashStep(LPCTSTR pszMessage = NULL, int nMax = 0, bool bClosing = false);
 	void			SplashAbort();
-	void			ShowStartupText();
 
 	virtual CDocument* OpenDocumentFile(LPCTSTR lpszFileName);	// Open file or url. Returns NULL always.
 	static BOOL		Open(LPCTSTR lpszFileName);					// Open file or url (generic function)
@@ -365,6 +366,7 @@ const LPCTSTR RT_GZIP = _T("GZIP");
 #define WM_SANITY_CHECK			(WM_APP+115)	// Run allsystem check against banned hosts (WPARAM: unused, LPARAM: unused)
 #define WM_NOWUPLOADING			(WM_APP+117)	// New upload notification (WPARAM: unused, LPARAM: CString* pFilename)
 #define WM_TORRENT				(WM_APP+118)	// Open torrent file ( WPARAM: LPTSTR szFilename, LPARAM: unused )
+#define WM_IMPORT				(WM_APP+119)	// Import hub list file ( WPARAM: LPTSTR szFilename, LPARAM: unused )
 
 // WM_COPYDATA types
 //#define COPYDATA_SCHEDULER	0				// Scheduler task ( lpData: LPCTSTR szTaskData - encoded string ) - Note Windows scheduling not implemented.
@@ -398,7 +400,8 @@ const LPCTSTR RT_GZIP = _T("GZIP");
 // Network ID's:
 
 // Client's name
-#define CLIENT_NAME				_T("PeerProject")
+#define CLIENT_NAME				L"PeerProject"
+#define CLIENT_NAME_CHAR		"PeerProject"
 
 // G1/G2 4 character vendor code
 // PEER, RAZA, RAZB, BEAR, LIME

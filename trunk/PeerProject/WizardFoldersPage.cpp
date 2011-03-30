@@ -1,7 +1,7 @@
 //
 // WizardFoldersPage.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2010
+// This file is part of PeerProject (peerproject.org) © 2011
 //
 // PeerProject is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Affero General Public License
@@ -108,7 +108,7 @@ void CWizardFoldersPage::OnXButtonDown(UINT /*nFlags*/, UINT nButton, CPoint /*p
 
 BOOL CWizardFoldersPage::OnSetActive()
 {
-	//Wizard Window Caption Workaround
+	// Wizard Window Caption Workaround
 	CString strCaption;
 	GetWindowText( strCaption );
 	GetParent()->SetWindowText( strCaption );
@@ -144,6 +144,7 @@ void CWizardFoldersPage::OnDownloadsBrowse()
 
 	UpdateData( TRUE );
 	m_sDownloadsPath = strPath;
+	m_sTorrentsPath  = strPath + _T("\\Torrents");
 	UpdateData( FALSE );
 }
 
@@ -155,7 +156,7 @@ void CWizardFoldersPage::OnIncompleteBrowse()
 		return;
 
 	// Warn user about a path that's too long
-	if ( _tcslen( strPath ) > MAX_PATH - 60 )
+	if ( _tcslen( strPath ) > MAX_PATH - 52 )
 	{
 		CString strMessage;
 		LoadString( strMessage, IDS_SETTINGS_FILEPATH_TOO_LONG );

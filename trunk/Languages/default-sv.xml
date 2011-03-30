@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Swedish Skin File -->
 
-<!-- Translation based on default-en.xml r64 -->
+<!-- Translation based on default-en.xml r65 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -359,6 +359,7 @@
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
+		<button id="ID_NETWORK_DC" text="DC++"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Inställningar"/>
 	</toolbar>
@@ -389,20 +390,16 @@
 		<button id="ID_SEARCH_FILTER_RAW" text="Mer…"/>
 	</toolbar>
 	<!-- HOST CACHE WINDOW -->
-	<toolbar name="CHostCacheWnd.Basic">
-		<button id="ID_HOSTCACHE_CONNECT" text="Anslut till"/>
-		<button id="ID_HOSTCACHE_DISCONNECT" text="Koppla ifrån"/>
-		<button id="ID_HOSTCACHE_REMOVE" text="Radera"/>
-	</toolbar>
 	<toolbar name="CHostCacheWnd">
 		<button id="ID_HOSTCACHE_CONNECT" text="Anslut till"/>
 		<button id="ID_HOSTCACHE_DISCONNECT" text="Koppla ifrån"/>
 		<button id="ID_HOSTCACHE_REMOVE" text="Radera"/>
 		<rightAlign/>
-		<button id="ID_HOSTCACHE_G2_HORIZON" text="G2 Kluster"/>
-		<button id="ID_HOSTCACHE_G2_CACHE" text="G2 Cache"/>
-		<button id="ID_HOSTCACHE_G1_CACHE" text="G1 Cache"/>
-		<button id="ID_HOSTCACHE_ED2K_CACHE" text="eDonkey Cache"/>
+		<button id="ID_HOSTCACHE_G2_HORIZON" text="Kluster"/>
+		<button id="ID_HOSTCACHE_G2_CACHE" text="Cache"/>
+		<button id="ID_HOSTCACHE_G1_CACHE" text="Cache"/>
+		<button id="ID_HOSTCACHE_ED2K_CACHE" text="Cache"/>
+		<button id="ID_HOSTCACHE_DC_CACHE" text="Cache"/>
 	</toolbar>
 	<!-- PRIVATE CHAT WINDOW -->
 	<toolbar name="CPrivateChatFrame">
@@ -477,6 +474,7 @@
 				<item id="ID_NETWORK_G2" text="Anslut till Gnutella_2"/>
 				<item id="ID_NETWORK_G1" text="Anslut till _Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="Anslut till _eDonkey"/>
+				<item id="ID_NETWORK_DC" text="Anslut till _DC++"/>
 				<separator/>
 				<item id="ID_NETWORK_CONNECT_TO" text="Anslut _till…" shortcut="Ctrl+T"/>
 				<item id="ID_NETWORK_BROWSE_TO" text="Visa värdens _filer…"/>
@@ -490,7 +488,7 @@
 				<separator/>
 				<item id="ID_TOOLS_DOWNLOAD" text="_Ladda ned fil/Torrent…"/>
 				<item id="ID_TOOLS_CREATETORRENT" text="_Create New .Torrent..."/>
-				<item id="IDC_IMPORT_DOWNLOADS" text="_Importera oavslutade eMule"/>
+				<item id="ID_IMPORT_DOWNLOADS" text="_Importera oavslutade eMule"/>
 				<separator/>
 				<item id="ID_TOOLS_LANGUAGE" text="Välj ett s_pråk…"/>
 				<item id="ID_TOOLS_SKIN" text="Välj _skinn…"/>
@@ -564,11 +562,10 @@
 			<item id="ID_NETWORK_CONNECT" text="_Anslut" shortcut="Ctrl+G"/>
 			<item id="ID_NETWORK_DISCONNECT" text="_Koppla ifrån"/>
 			<separator/>
-			<menu text="Välj _Nätverk">
-				<item id="ID_NETWORK_G2" text="Anslut till Gnutella_2"/>
-				<item id="ID_NETWORK_G1" text="Anslut till _Gnutella"/>
-				<item id="ID_NETWORK_ED2K" text="Anslut till _eDonkey"/>
-			</menu>
+			<item id="ID_NETWORK_G2" text="Anslut till Gnutella_2"/>
+			<item id="ID_NETWORK_G1" text="Anslut till _Gnutella"/>
+			<item id="ID_NETWORK_ED2K" text="Anslut till _eDonkey"/>
+			<item id="ID_NETWORK_DC" text="Anslut till _DC++"/>
 			<separator/>
 			<item id="ID_NETWORK_CONNECT_TO" text="Anslut _till…" shortcut="Ctrl+T"/>
 			<item id="ID_NETWORK_BROWSE_TO" text="Visa värdens _filer…"/>
@@ -613,7 +610,7 @@
 		<menu text="V_erktyg">
 			<item id="ID_LIBRARY_FOLDERS" text="Utdelade _filer…"/>
 			<item id="ID_TOOLS_DOWNLOAD" text="_Ladda ned fil/Torrent…"/>
-			<item id="IDC_IMPORT_DOWNLOADS" text="_Importera oavslutade eMule nedladdningar"/>
+			<item id="ID_IMPORT_DOWNLOADS" text="_Importera oavslutade eMule nedladdningar"/>
 			<item id="ID_OPEN_DOWNLOADS_FOLDER" text="_ppna mappen med avslutade nedladdninagar"/>
 			<separator/>
 			<item id="ID_TOOLS_SKIN" text="Välj _skinn…"/>
@@ -662,11 +659,9 @@
 		<menu text="_Nätverk">
 			<item id="ID_NETWORK_CONNECT" text="_Anslut" shortcut="Ctrl+G"/>
 			<separator/>
-			<menu text="Välj _Nätverk">
-				<item id="ID_NETWORK_G2" text="Anslut till Gnutella_2"/>
-				<item id="ID_NETWORK_G1" text="Anslut till _Gnutella"/>
-				<item id="ID_NETWORK_ED2K" text="Anslut till _eDonkey"/>
-			</menu>
+			<item id="ID_NETWORK_G2" text="Anslut till Gnutella_2"/>
+			<item id="ID_NETWORK_G1" text="Anslut till _Gnutella"/>
+			<item id="ID_NETWORK_ED2K" text="Anslut till _eDonkey"/>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="Avsluta _efter överföringar"/>
 			<item id="ID_NETWORK_EXIT" text="A_vsluta"/>
@@ -740,11 +735,10 @@
 			<item id="ID_NETWORK_CONNECT_TO" text="Anslut _till…" shortcut="Ctrl+T"/>
 			<item id="ID_NETWORK_BROWSE_TO" text="Visa värdens _filer…"/>
 			<separator/>
-			<menu text="Välj _Nätverk">
-				<item id="ID_NETWORK_G2" text="Anslut till Gnutella_2"/>
-				<item id="ID_NETWORK_G1" text="Anslut till _Gnutella"/>
-				<item id="ID_NETWORK_ED2K" text="Anslut till _eDonkey"/>
-			</menu>
+			<item id="ID_NETWORK_G2" text="Anslut till Gnutella_2"/>
+			<item id="ID_NETWORK_G1" text="Anslut till _Gnutella"/>
+			<item id="ID_NETWORK_ED2K" text="Anslut till _eDonkey"/>
+			<item id="ID_NETWORK_DC" text="Anslut till _DC++"/>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="Stäng _efter överföringar"/>
 			<item id="ID_NETWORK_EXIT" text="A_vsluta"/>
@@ -773,7 +767,7 @@
 		<menu text="_Verktyg">
 			<item id="ID_LIBRARY_FOLDERS" text="Utdelade _filer…"/>
 			<item id="ID_TOOLS_DOWNLOAD" text="_Ladda ned fil/Torrent…"/>
-			<item id="IDC_IMPORT_DOWNLOADS" text="_Importera oavslutade eMule nedladdningar"/>
+			<item id="ID_IMPORT_DOWNLOADS" text="_Importera oavslutade eMule nedladdningar"/>
 			<item id="ID_OPEN_DOWNLOADS_FOLDER" text="_Öppna mappen med avslutade nedladdningar"/>
 			<separator/>
 			<item id="ID_TOOLS_SKIN" text="Välj _skinn…"/>
@@ -1521,6 +1515,10 @@
 			<item id="ID_NETWORK_G2" text="Gnutella_2"/>
 			<item id="ID_NETWORK_G1" text="_Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="_eDonkey"/>
+			<item id="ID_NETWORK_DC" text="_DC++"/>
+			<separator/>
+			<item id="ID_VIEW_DISCOVERY" text="_Upptäck"/>
+			<item id="ID_VIEW_HOSTS" text="_Värdcache"/>
 		</menu>
 		<menu text="_Monitor">
 			<item id="ID_NEIGHBOURS_VIEW_ALL" text="Visa _all trafik"/>
@@ -1792,12 +1790,20 @@
 		<text group="31" align="middle">Inte ansluten</text>
 		<text group="32" align="middle">Ansluter…</text>
 		<text group="33" align="middle">Ansluten</text>
+		<text group="34" align="middle" id="EDServers">%i Server</text>
 		<newline group="30" gap="2"/>
+		<icon group="60" command="ID_NETWORK_DC"/>
+		<text group="60" align="middle" format="b">&#160;DC++: &#160; </text>
+		<text group="61" align="middle">Inte ansluten</text>
+		<text group="62" align="middle">Ansluter…</text>
+		<text group="63" align="middle">Ansluten</text>
+		<text group="64" align="middle" id="DCHubs">%i nav</text>
+		<newline group="60" gap="2"/>
 		<group id="2">
 			<para align="center">
-				<newline gap="2"/>
+				<newline gap="4"/>
 				<link target="command:ID_TAB_NETWORK">Nätverk Session</link>
-				<newline gap="2"/>
+				<newline gap="4"/>
 				<text id="ConnectedHours" format="b">%i </text>
 				<text>timmar och </text>
 				<text id="ConnectedMinutes" format="b">%i </text>
@@ -2469,8 +2475,9 @@
 	<tip id="ID_NETWORK_CONNECT" message="Anslut till nätverket."/>
 	<tip id="ID_NETWORK_CONNECT_TO" message="Ansluter manuellt till värden…"/>
 	<tip id="ID_NETWORK_DISCONNECT" message="Koppla ifrån nätverket."/>
-	<tip id="ID_NETWORK_ED2K" message="Anslut till eDonkey-nätverket."/>
 	<tip id="ID_NETWORK_EXIT" message="Avsluta PeerProject"/>
+	<tip id="ID_NETWORK_ED2K" message="Anslut till eDonkey-nätverket."/>
+	<tip id="ID_NETWORK_DC" message="Anslut till DC++-nätverket."/>
 	<tip id="ID_NETWORK_G1" message="Anslut till Gnutellas ursprungsnätverk."/>
 	<tip id="ID_NETWORK_G2" message="Anslut till Gnutella2-nätverket (mycket rekommenderat)."/>
 	<tip id="ID_NETWORK_SEARCH" message="Starta en ny sökning i nätverket…"/>
@@ -2631,7 +2638,9 @@
 	<string id="20012" value="Anpassat"/>
 	<string id="20013" value="Standard"/>
 	<string id="20014" value="Avsluta"/>
-	<string id="20050" value="Every Dag"/>
+	<string id="20020" value="Fil"/>
+	<string id="20021" value="Filer"/>
+	<string id="20050" value="Varje Dag"/>
 	<string id="20051" value="Måndag"/>
 	<string id="20052" value="Tisdag"/>
 	<string id="20053" value="Onsdag"/>
@@ -3349,7 +3358,7 @@
 		<control/>
 		<control caption="Synlig:"/>
 		<control/>
-		<control caption="Shadow (restart)"/>
+		<control caption="Shadows"/>
 		<control caption="A_ktivitetsfält:"/>
 		<control caption="När jag klickar stäng:"/>
 		<control caption="Fråga mig|Minimera till aktivitetsfältet|Stäng omedelbart|Stäng efter överföringar"/>
@@ -3359,9 +3368,9 @@
 	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuBuCoBuBuBuCoBuBuBuEdBu" caption="Bibliotek">
 		<control caption="_Alternativ:"/>
 		<control caption="Tillåt andra användare att se fillistan"/>
-		<control caption="Kom ihåg mappvyer"/>
 		<control caption="Bevaka biblioteksmappar"/>
 		<control caption="Snabb hashing (mer processorkraft)"/>
+		<control caption="Kom ihåg hashing"/>
 		<control caption="Smart video series detection"/>
 		<control caption="Skapa skuggfil vid radering"/>
 		<control caption="_Senast använda filer:"/>
@@ -3455,13 +3464,14 @@
 		<control caption="On-connect"/>
 		<control/>
 	</dialog>
-	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuCoBuBuSt" caption="Webb">
+	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuBuCoBuBuSt" caption="Webb">
 		<control caption="_Hantering av P2P-länkar:"/>
 		<control caption="Använd PeerProject för att öppna filer av typen:"/>
 		<control caption="Magnet ( magnet: )"/>
 		<control caption="Gnutella ( gnutella: )"/>
 		<control caption="eDonkey ( ed2k: )"/>
 		<control caption="Piolet ( mp2p: )"/>
+		<control caption="DC++ ( dchub:/dcfile: )"/>
 		<control caption="BitTorrent ( .torrent )"/>
 		<control caption="_Nedladdningshanterare:"/>
 		<control caption="Använd PeerProject för att hantera alla mina webbnedladdningar:"/>
@@ -4352,7 +4362,8 @@
 		<control caption="För att dela ut kompletta filer med BitTorrent måste de sås. När denna process är färdig kommer torrentfilen synas som en ny artikel i din nedladdningslista."/>
 		<control/>
 	</dialog>
-	<dialog name="CTorrentFilesPage" cookie="Sy" caption="Filer">
+	<dialog name="CTorrentFilesPage" cookie="StSy" caption="Filer">
+		<control/>
 		<control/>
 	</dialog>
 	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="Trackers">
@@ -4541,14 +4552,13 @@
 	<list name="CHostCacheWnd">
 		<column from="Address" to="Adress"/>
 		<column from="Port" to="Port"/>
-		<column from="Client" to="Klient"/>
 		<column from="Last Seen" to="Sist sedd"/>
-		<column from="Daily Uptime" to="Daglig drifttid"/>
+		<column from="Client" to="Klient"/>
 		<column from="Name" to="Namn"/>
 		<column from="Description" to="Beskrivning"/>
+		<column from="Failures" to="Fel"/>
 		<column from="CurUsers" to="Anslutna användare"/>
 		<column from="MaxUsers" to="Max användare"/>
-		<column from="Failures" to="Fel"/>
 		<column from="Country" to="Land"/>
 	</list>
 	<list name="CDiscoveryWnd">
@@ -4608,7 +4618,7 @@
 		<column from="Criteria" to="Kriterium"/>
 		<column from="Minimum" to="Bandbredd"/>
 		<column from="Transfers" to="Överföringar"/>
-		<column from="Order" to="Ordning"/>
+		<column from="Priority" to="Ordning"/>
 	</list>
 	<list name="CAdvancedSettingsList">
 		<column from="Setting" to="Inställning"/>

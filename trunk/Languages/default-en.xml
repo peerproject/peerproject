@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default English Skin File -->
 
-<!-- Translation based on default-en.xml r64 -->
+<!-- Translation based on default-en.xml r65 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -350,6 +350,7 @@
 			<rightAlign/>
 		<button id="ID_MEDIA_CLEAR" text="Clear"/>
 		<button id="ID_MEDIA_SAVE" text="Save"/>
+		<button id="ID_MEDIA_OPEN" text="Open"/>
 	</toolbar>
 	<!-- NEIGHBORS WINDOW -->
 	<toolbar name="CNeighboursWnd.Basic">
@@ -371,6 +372,7 @@
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey2000"/>
+		<button id="ID_NETWORK_DC" text="DC++"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Settings"/>
 	</toolbar>
@@ -429,18 +431,9 @@
 			<rightAlign/>
 		<button id="ID_DISCOVERY_WEBCACHE" text="GWebCaches"/>
 		<button id="ID_DISCOVERY_GNUTELLA" text="Bootstraps"/>
-		<button id="ID_DISCOVERY_SERVERMET" text="Server.met's"/>
+		<button id="ID_DISCOVERY_SERVERMET" text="Server.METs"/>
 	</toolbar>
 	<!-- HOST CACHE WINDOW -->
-	<toolbar name="CHostCacheWnd.Basic">
-		<button id="ID_HOSTCACHE_CONNECT" text="Connect To"/>
-		<button id="ID_HOSTCACHE_DISCONNECT" text="Disconnect"/>
-		<button id="ID_HOSTCACHE_REMOVE" text="Remove"/>
-			<rightAlign/>
-		<button id="ID_HOSTCACHE_G2_CACHE" text="Cache"/>
-		<button id="ID_HOSTCACHE_G1_CACHE" text="Cache"/>
-		<button id="ID_HOSTCACHE_ED2K_CACHE" text="Servers"/>
-	</toolbar>
 	<toolbar name="CHostCacheWnd">
 		<button id="ID_HOSTCACHE_CONNECT" text="Connect To"/>
 		<button id="ID_HOSTCACHE_DISCONNECT" text="Disconnect"/>
@@ -450,7 +443,7 @@
 		<button id="ID_HOSTCACHE_G2_CACHE" text="Cache"/>
 		<button id="ID_HOSTCACHE_G1_CACHE" text="Cache"/>
 		<button id="ID_HOSTCACHE_ED2K_CACHE" text="Servers"/>
-		<!--button id="ID_HOSTCACHE_DC_CACHE" text="Servers"-->
+		<button id="ID_HOSTCACHE_DC_CACHE" text="Hubs"/>
 		<!--button id="ID_HOSTCACHE_BT_CACHE" text="Cache"-->
 		<!--button id="ID_HOSTCACHE_KAD_CACHE" text="Kademlia"-->
 	</toolbar>
@@ -566,7 +559,7 @@
 	</menu>
 	<!-- MAIN WINDOW MENU BAR -->
 	<menu name="CMainWnd.DropMenu" type="bar">
-		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160;">
+		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160;">
 			<item id="ID_TOOLS_SETTINGS" text="_Settings..."/>
 			<menu text="_Network">
 				<item id="ID_NETWORK_CONNECT" text="_Connect" shortcut="Ctrl+G"/>
@@ -575,6 +568,7 @@
 				<item id="ID_NETWORK_G2" text="Connect to Gnutella_2"/>
 				<item id="ID_NETWORK_G1" text="Connect to _Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="Connect to _eDonkey2000"/>
+				<item id="ID_NETWORK_DC" text="Connect to _DC++"/>
 				<separator/>
 				<item id="ID_NETWORK_CONNECT_TO" text="Connect _To..." shortcut="Ctrl+T"/>
 				<item id="ID_NETWORK_BROWSE_TO" text="_Browse User..."/>
@@ -590,7 +584,7 @@
 				<item id="ID_TOOLS_DOWNLOAD" text="_Download File/Torrent..."/>
 				<item id="ID_TOOLS_SEEDTORRENT" text="_Seed a .Torrent..."/>
 				<item id="ID_TOOLS_CREATETORRENT" text="_Create New .Torrent..."/>
-				<item id="IDC_IMPORT_DOWNLOADS" text="_Import eMule Partials..."/>
+				<item id="ID_IMPORT_DOWNLOADS" text="_Import eMule Partials..."/>
 				<separator/>
 				<item id="ID_TOOLS_LANGUAGE" text="Choose a _Language..."/>
 				<item id="ID_TOOLS_SKIN" text="Choose a S_kin..."/>
@@ -627,7 +621,7 @@
 				<separator/>
 				<item id="ID_WINDOW_NAVBAR" text="Show _Nav Bar" shortcut="default"/>
 				<item id="ID_WINDOW_TABBAR" text="Show Tas_k Bar" shortcut="default"/>
-				<item id="ID_WINDOW_MONITOR" text="Show _Monitor Bar"/>
+				<item id="ID_WINDOW_MONITOR" text="Show _Monitor Bar" shortcut="default"/>
 				<item id="ID_WINDOW_REMOTE" text="Show Media _Remote"/>
 			</menu>
 			<menu text="_Help">
@@ -635,8 +629,6 @@
 				<item id="ID_HELP_GUIDE" text="PeerProject User _Guide"/>
 				<item id="ID_HELP_FORUMS" text="PeerProject _Forums"/>
 				<item id="ID_HELP_FORUMS_LOCAL" text="_English Language Forum"/> <!--Localized-->
-				<menu text="Skin Help">
-				</menu>
 				<separator/>
 				<menu text="_Websites">
 					<item id="ID_HELP_WEB_3" text="Slyck.com"/>
@@ -660,6 +652,7 @@
 				<item id="ID_NETWORK_G2" text="Connect to Gnutella_2"/>
 				<item id="ID_NETWORK_G1" text="Connect to _Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="Connect to _eDonkey"/>
+				<item id="ID_NETWORK_DC" text="Connect to _DC++"/>
 			</menu>
 			<separator/>
 			<item id="ID_NETWORK_CONNECT_TO" text="Connect _To..." shortcut="Ctrl+T"/>
@@ -715,7 +708,7 @@
 			<item id="ID_TOOLS_DOWNLOAD" text="_Download File/Torrent..."/>
 			<item id="ID_TOOLS_SEEDTORRENT" text="_Seed New Torrent..."/>
 			<item id="ID_TOOLS_CREATETORRENT" text="_Create New .Torrent..."/>
-			<item id="IDC_IMPORT_DOWNLOADS"	text="_Import eMule Partials..."/>
+			<item id="ID_IMPORT_DOWNLOADS"	text="_Import eMule Partials..."/>
 			<separator/>
 			<item id="ID_TOOLS_LANGUAGE" text="Choose a _Language..."/>
 			<item id="ID_TOOLS_SKIN" text="Choose a S_kin..."/>
@@ -789,7 +782,7 @@
 				<item id="ID_VIEW_UPLOADS" text="_Uploads"/>
 				<separator/>
 				<item id="ID_VIEW_SECURITY" text="Se_curity"/>
-				<item id="ID_VIEW_SHEDULER" text="Schedue_r"/>
+				<item id="ID_VIEW_SCHEDULER" text="Schedue_r"/>
 				<item id="ID_VIEW_HOSTS" text="H_ost Cache"/>
 				<item id="ID_VIEW_DISCOVERY" text="Disco_very"/>
 			</menu>
@@ -850,6 +843,7 @@
 				<item id="ID_NETWORK_G2" text="Connect to Gnutella_2"/>
 				<item id="ID_NETWORK_G1" text="Connect to _Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="Connect to _eDonkey"/>
+				<item id="ID_NETWORK_DC" text="Connect to _DC++"/>
 			</menu>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="Close _After Transfers"/>
@@ -887,7 +881,7 @@
 			<item id="ID_TOOLS_DOWNLOAD" text="_Download File/Torrent..."/>
 			<item id="ID_TOOLS_SEEDTORRENT" text="_Seed New Torrent..."/>
 			<item id="ID_TOOLS_CREATETORRENT" text="_Create New .Torrent..."/>
-			<item id="IDC_IMPORT_DOWNLOADS"	text="_Import eMule Partials..."/>
+			<item id="ID_IMPORT_DOWNLOADS"	text="_Import eMule Partials..."/>
 			<separator/>
 			<item id="ID_TOOLS_LANGUAGE" text="Choose a _Language..."/>
 			<item id="ID_TOOLS_SKIN" text="Choose a S_kin..."/>
@@ -950,18 +944,18 @@
 		<menu text="_Advanced">
 			<item id="ID_VIEW_NEIGHBOURS" text="_Neighbors"/>
 			<item id="ID_VIEW_UPLOADS" text="_Uploads"/>
+			<item id="ID_VIEW_HOSTS" text="_Host Cache"/>
 			<item id="ID_VIEW_SECURITY" text="_Security"/>
 			<item id="ID_VIEW_SCHEDULER" text="Schedule_r"/>
-			<item id="ID_VIEW_HOSTS" text="_Host Cache"/>
 		</menu>
 	</menu>
 	<menu name="CMainWnd.View.Tabbed">
 		<item id="ID_TAB_HOME" text="_Home"/>
-		<item id="ID_TAB_LIBRARY" text="_Library"/>
-		<item id="ID_TAB_MEDIA" text="_Media Player"/>
 		<item id="ID_TAB_SEARCH" text="_Search"/>
 		<item id="ID_TAB_TRANSFERS" text="_Transfers"/>
 		<item id="ID_TAB_NETWORK" text="_Network"/>
+		<item id="ID_TAB_LIBRARY" text="_Library"/>
+		<item id="ID_TAB_MEDIA" text="_Media Player"/>
 		<item id="ID_TAB_IRC" text="IRC _Chat"/>
 		<separator/>
 		<item id="ID_VIEW_SECURITY" text="Se_curity"/>
@@ -1005,9 +999,9 @@
 		<menu text="_Advanced">
 			<item id="ID_VIEW_NEIGHBOURS" text="_Neighbors"/>
 			<item id="ID_VIEW_UPLOADS" text="_Uploads"/>
+			<item id="ID_VIEW_HOSTS" text="_Host Cache"/>
 			<item id="ID_VIEW_SECURITY" text="_Security"/>
 			<item id="ID_VIEW_SCHEDULER" text="Schedule_r"/>
-			<item id="ID_VIEW_HOSTS" text="_Host Cache"/>
 		</menu>
 	</menu>
 	<menu name="CHomeWnd.Tabbed">
@@ -1036,15 +1030,16 @@
 		<item id="ID_NEIGHBOURS_URI" text="Get P2P Link (_URI)"/>
 		<item id="ID_HOSTCACHE_PRIORITY" text="_Priority Server"/>
 		<separator/>
-		<item id="ID_HOSTCACHE_REMOVE" text="_Remove Host(s)"/>
+		<item id="ID_HOSTCACHE_REMOVE" text="_Remove Hosts"/>
 		<separator/>
 		<menu text="_Filter">
 			<item id="ID_HOSTCACHE_G2_HORIZON" text="Gnutella2 Cl_uster"/>
 			<item id="ID_HOSTCACHE_G2_CACHE" text="Gnutella_2 Cache"/>
-			<item id="ID_HOSTCACHE_G1_CACHE" text="Gnutella_1 Cache"/>
+			<item id="ID_HOSTCACHE_G1_CACHE" text="_Gnutella Cache"/>
 			<item id="ID_HOSTCACHE_ED2K_CACHE" text="_eDonkey Servers"/>
-			<item id="ID_HOSTCACHE_BT_CACHE" text="_BitTorrent Cache"/>
-			<item id="ID_HOSTCACHE_KAD_CACHE" text="_Kademlia Cache"/>
+			<item id="ID_HOSTCACHE_DC_CACHE" text="_DC++ Hubs"/>
+		<!--	<item id="ID_HOSTCACHE_BT_CACHE" text="_BitTorrent Cache"/> -->
+		<!--	<item id="ID_HOSTCACHE_KAD_CACHE" text="_Kademlia Cache"/> -->
 		</menu>
 		<separator/>
 		<item id="ID_HOSTCACHE_IMPORT" text="_Import MET File..."/>
@@ -1055,7 +1050,7 @@
 		<item id="ID_SEARCH_DOWNLOAD" text="_Download"/>
 		<separator/>
 		<item id="ID_BROWSE_LAUNCH" text="_Browse User"/>
-		<item id="ID_SECURITY_BAN" text="_Ban User"/>
+		<item id="ID_SECURITY_BAN" text="B_an User"/>
 		<separator/>
 		<menu text="_Search For">
 			<item id="ID_SEARCH_FOR_SIMILAR" text="_Similar Files"/>
@@ -1658,16 +1653,17 @@
 			<item id="ID_NETWORK_G2" text="Gnutella_2"/>
 			<item id="ID_NETWORK_G1" text="_Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="_eDonkey"/>
+			<item id="ID_NETWORK_DC" text="_DC++"/>
 			<separator/>
 			<item id="ID_VIEW_DISCOVERY" text="_Discovery Services"/>
-			<item id="ID_VIEW_HOSTS" text="_Host Server Cache"/>
+			<item id="ID_VIEW_HOSTS" text="_Host/Server Cache"/>
 		</menu>
 		<menu text="_Monitor">
 			<item id="ID_NEIGHBOURS_VIEW_ALL" text="View _Traffic Packets"/>
 			<item id="ID_NEIGHBOURS_VIEW_INCOMING" text="View _Incoming Traffic"/>
 			<item id="ID_NEIGHBOURS_VIEW_OUTGOING" text="View _Outgoing Traffic"/>
 			<separator/>
-			<item id="ID_VIEW_TRAFFIC" text="View Advanced Gra_ph"/>
+			<item id="ID_VIEW_TRAFFIC" text="View Advanced _Graph"/>
 		</menu>
 	</menu>
 	<!-- SEARCH MONITOR WINDOW -->
@@ -1974,8 +1970,16 @@
 		<text group="30" align="middle" format="b">&#160;eDonkey: </text>
 		<text group="31" align="middle">Disconnected</text>
 		<text group="32" align="middle">Connecting...</text>
-		<text group="33" align="middle" id="ED2KServers">1 Server</text>
+		<text group="33" align="middle">Connected</text>
+		<text group="34" align="middle" id="EDServers">%i Server</text>
 		<newline group="30" gap="2"/>
+		<icon group="60" command="ID_NETWORK_DC"/>
+		<text group="60" align="middle" format="b">&#160;DC++: &#160; </text>
+		<text group="61" align="middle">Disconnected</text>
+		<text group="62" align="middle">Connecting...</text>
+		<text group="63" align="middle">Connected</text>
+		<text group="64" align="middle" id="DCHubs">%i Hubs</text>
+		<newline group="60" gap="2"/>
 		<group id="2">
 			<para align="center">
 				<newline gap="4"/>
@@ -2587,6 +2591,7 @@
 	<tip id="ID_HOSTCACHE_IMPORT" message="Import a list of known hosts, such as a &quot;server.met&quot; file..."/>
 	<tip id="ID_HOSTCACHE_PRIORITY" message="Try to connect to this server before other servers."/>
 	<tip id="ID_HOSTCACHE_REMOVE" message="Remove the selected hosts from the host cache."/>
+	<tip id="ID_IMPORT_DOWNLOADS" message="Import eMule partial downloads..."/>
 	<tip id="ID_LIBRARY_ADD" message="Add a new folder to your library..."/>
 	<tip id="ID_LIBRARY_ALBUM_DELETE" message="Delete the selected album folder."/>
 	<tip id="ID_LIBRARY_ALBUM_OPEN" message="Open the selected album folder."/>
@@ -2685,8 +2690,9 @@
 	<tip id="ID_NETWORK_CONNECT" message="Open a direct chat session with a user..."/>
 	<tip id="ID_NETWORK_CONNECT_TO" message="Manually connect to a host..."/>
 	<tip id="ID_NETWORK_DISCONNECT" message="Disconnect from all networks, this will also stop all downloads and uploads."/>
-	<tip id="ID_NETWORK_ED2K" message="Connect to the eDonkey network."/>
 	<tip id="ID_NETWORK_EXIT" message="Exit PeerProject"/>
+	<tip id="ID_NETWORK_ED2K" message="Connect to the eDonkey network."/>
+	<tip id="ID_NETWORK_DC" message="Connect to the DC++ network."/>
 	<tip id="ID_NETWORK_G1" message="Connect to the original Gnutella network."/>
 	<tip id="ID_NETWORK_G2" message="Connect to the Gnutella2 network (highly recommended)."/>
 	<tip id="ID_NETWORK_SEARCH" message="Start a new search of the network..."/>
@@ -2854,6 +2860,8 @@
 	<string id="20016" value="Retry"/>
 	<string id="20017" value="Abort"/>
 	<string id="20018" value="Try Again"/>
+	<string id="20020" value="File"/>
+	<string id="20021" value="Files"/>
 	<string id="20050" value="Every Day"/>
 	<string id="20051" value="Monday"/>
 	<string id="20052" value="Tuesday"/>
@@ -3620,7 +3628,7 @@
 		<control/>
 		<control caption="Opacity:"/>
 		<control/>
-		<control caption="Shadow (restart)"/>
+		<control caption="DropShadows"/>
 		<control caption="_Tray:"/>
 		<control caption="Close button behavior:"/>
 		<control caption="Ask Me|Minimize to Tray|Exit Immediately|Exit After Transfers"/>
@@ -3630,9 +3638,9 @@
 	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuBuCoBuBuBuCoBuBuBuEdBu" caption="Library">
 		<control caption="_Options:"/>
 		<control caption="Allow others to browse"/>
-		<control caption="Remember folder views"/>
 		<control caption="Watch library folders"/>
 		<control caption="Quick hashing  (more CPU)"/>
+		<control caption="Show hashing status window"/>
 		<control caption="Smart media series detection"/>
 		<control caption="Create ghost files by default"/>
 		<control caption="_Recent Files:"/>
@@ -3738,13 +3746,14 @@
 		<control caption="Help:"/>
 		<control caption="PeerProject Remote Access allows you to leave PeerProject running on your PC, and control it remotely using a web browser.  You will need to be able to accept incoming connections to use this feature.  (Ensure port-forwarding.)"/>
 	</dialog>
-	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuCoBuBuSt" caption="Web Links">
+	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuBuCoBuBuSt" caption="Web Links">
 		<control caption="_Peer to Peer Link Handling:"/>
 		<control caption="Use PeerProject to open these types of links:"/>
 		<control caption="Magnet ( magnet: )"/>
 		<control caption="Gnutella ( gnutella: )"/>
 		<control caption="eDonkey ( ed2k: )"/>
 		<control caption="Piolet ( mp2p: )"/>
+		<control caption="DC++ ( dchub:/dcfile: )"/>
 		<control caption="BitTorrent ( .torrent )"/>
 		<control caption="_Download Manager:"/>
 		<control caption="Use PeerProject to manage all my web downloads:"/>
@@ -4632,7 +4641,8 @@
 		<control caption="To share complete files using BitTorrent they must first be seeded.  Once this process is complete the Torrent will appear as a new item in your download list."/>
 		<control/>
 	</dialog>
-	<dialog name="CTorrentFilesPage" cookie="Sy" caption="Files">
+	<dialog name="CTorrentFilesPage" cookie="StSy" caption="Files">
+		<control/>
 		<control/>
 	</dialog>
 	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="Trackers">
@@ -4830,14 +4840,13 @@
 	<list name="CHostCacheWnd">
 		<column from="Address" to=""/>
 		<column from="Port" to=""/>
-		<column from="Client" to=""/>
 		<column from="Last Seen" to=""/>
-		<column from="Daily Uptime" to=""/>
+		<column from="Client" to=""/>
 		<column from="Name" to=""/>
 		<column from="Description" to=""/>
+		<column from="Failures" to=""/>
 		<column from="CurUsers" to=""/>
 		<column from="MaxUsers" to=""/>
-		<column from="Failures" to=""/>
 		<column from="Country" to=""/>
 	</list>
 	<list name="CDiscoveryWnd">

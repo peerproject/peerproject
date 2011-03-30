@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Chinese (Simplified) Skin File -->
 
-<!-- Translation based on default-en.xml r64 (Shareaza r6092) -->
+<!-- Translation based on default-en.xml r65 (Shareaza r6092) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -358,6 +358,7 @@
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
+		<button id="ID_NETWORK_DC" text="DC++"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="设置"/>
 	</toolbar>
@@ -417,11 +418,6 @@
 		<button id="ID_SEARCH_FILTER_RAW" text="更多..."/>
 	</toolbar>
 	<!-- HOST CACHE WINDOW -->
-	<toolbar name="CHostCacheWnd.Basic">
-		<button id="ID_HOSTCACHE_CONNECT" text="连接到"/>
-		<button id="ID_HOSTCACHE_DISCONNECT" text="断开"/>
-		<button id="ID_HOSTCACHE_REMOVE" text="移除"/>
-	</toolbar>
 	<toolbar name="CHostCacheWnd">
 		<button id="ID_HOSTCACHE_CONNECT" text="连接到"/>
 		<button id="ID_HOSTCACHE_DISCONNECT" text="断开"/>
@@ -430,7 +426,8 @@
 		<button id="ID_HOSTCACHE_G2_HORIZON" text="G2 群"/>
 		<button id="ID_HOSTCACHE_G2_CACHE" text="G2 缓存"/>
 		<button id="ID_HOSTCACHE_G1_CACHE" text="G1 缓存"/>
-		<button id="ID_HOSTCACHE_ED2K_CACHE" text="eDonkey 缓存"/>
+		<button id="ID_HOSTCACHE_ED2K_CACHE" text="ED2K 缓存"/>
+		<button id="ID_HOSTCACHE_DC_CACHE" text="DC 缓存"/>
 	</toolbar>
 	<!-- PRIVATE CHAT WINDOW -->
 	<toolbar name="CPrivateChatFrame">
@@ -499,14 +496,15 @@
 	<!-- MAIN WINDOW MENU BAR -->
 	<menu name="CMainWnd.DropMenu" type="bar">
 		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160;">
-			<item id="ID_TOOLS_SETTINGS" text="设置..."/>
+			<item id="ID_TOOLS_SETTINGS" text="设置... &#160; "/>
 			<menu text="网络(_N)">
 				<item id="ID_NETWORK_CONNECT" text="连接(_C)" shortcut="Ctrl+G"/>
 				<item id="ID_NETWORK_DISCONNECT" text="断开(_D)"/>
 				<separator/>
-				<item id="ID_NETWORK_G2" text="连接到 Gnutella2(_2)"/>
-				<item id="ID_NETWORK_G1" text="连接到 Gnutella1(_1)"/>
-				<item id="ID_NETWORK_ED2K" text="连接到 edonkey(_E)"/>
+				<item id="ID_NETWORK_G2" text="连接到 Gnutella_2"/>
+				<item id="ID_NETWORK_G1" text="连接到 _Gnutella"/>
+				<item id="ID_NETWORK_ED2K" text="连接到 _edonkey"/>
+				<item id="ID_NETWORK_DC" text="连接到 _DC++"/>
 				<separator/>
 				<item id="ID_NETWORK_CONNECT_TO" text="连接到(_T)..." shortcut="Ctrl+T"/>
 				<item id="ID_NETWORK_BROWSE_TO" text="浏览主机(_B)..."/>
@@ -588,11 +586,10 @@
 			<item id="ID_NETWORK_CONNECT" text="连接(_C)" shortcut="Ctrl+G"/>
 			<item id="ID_NETWORK_DISCONNECT" text="断开(_D)"/>
 			<separator/>
-			<menu text="选择网络(_N)">
-				<item id="ID_NETWORK_G2" text="连接到 Gnutella_2"/>
-				<item id="ID_NETWORK_G1" text="连接到 _Gnutella"/>
-				<item id="ID_NETWORK_ED2K" text="连接到 e_Donkey"/>
-			</menu>
+			<item id="ID_NETWORK_G2" text="连接到 Gnutella_2"/>
+			<item id="ID_NETWORK_G1" text="连接到 _Gnutella"/>
+			<item id="ID_NETWORK_ED2K" text="连接到 _eDonkey"/>
+			<item id="ID_NETWORK_DC" text="连接到 _DDC++"/>
 			<separator/>
 			<item id="ID_NETWORK_CONNECT_TO" text="连接到(_T)..." shortcut="Ctrl+T"/>
 			<item id="ID_NETWORK_BROWSE_TO" text="浏览主机(_B)..."/>
@@ -675,70 +672,69 @@
 		</menu>
 	</menu>
 	<menu name="CMainWnd.Basic" type="bar">
-		<menu text="网络(_N)">
-			<item id="ID_NETWORK_CONNECT" text="连接(_C)" shortcut="Ctrl+G"/>
+		<menu text="网络 ">
+			<item id="ID_NETWORK_CONNECT" text="连接" shortcut="Ctrl+G"/>
 			<separator/>
-			<menu text="选择网络(_N)">
-				<item id="ID_NETWORK_G2" text="连接到 Gnutella2(_G)"/>
-				<item id="ID_NETWORK_G1" text="连接到 Gnutella1(_1)"/>
-				<item id="ID_NETWORK_ED2K" text="连接到 edonkey(_E)"/>
-			</menu>
+			<item id="ID_NETWORK_G2" text="连接到 Gnutella2"/>
+			<item id="ID_NETWORK_G1" text="连接到 Gnutella"/>
+			<item id="ID_NETWORK_ED2K" text="连接到 edonkey"/>
 			<separator/>
-			<item id="ID_NETWORK_AUTO_CLOSE" text="传送后退出(_A)"/>
-			<item id="ID_NETWORK_EXIT" text="退出(_X)"/>
+			<item id="ID_NETWORK_AUTO_CLOSE" text="传送后退出"/>
+			<item id="ID_NETWORK_EXIT" text="退出 (_X)"/>
 		</menu>
-		<menu text="视图(_V)">
-			<item id="ID_TAB_HOME" text="首页(_H)"/>
-			<item id="ID_TAB_LIBRARY" text="收藏(_L)"/>
-			<item id="ID_TAB_MEDIA" text="媒体播放器(_M)"/>
-			<item id="ID_TAB_SEARCH" text="搜索(_S)"/>
-			<item id="ID_TAB_TRANSFERS" text="下载(_D)"/>
-			<item id="ID_WINDOW_REMOTE" text="远程(_R)"/>
+		<menu text="视图 ">
+			<item id="ID_TAB_HOME" text="首页"/>
+			<item id="ID_TAB_LIBRARY" text="收藏"/>
+			<item id="ID_TAB_MEDIA" text="媒体播放器"/>
+			<item id="ID_TAB_SEARCH" text="搜索"/>
+			<item id="ID_TAB_TRANSFERS" text="下载"/>
+			<item id="ID_WINDOW_REMOTE" text="远程"/>
 			<separator/>
-			<menu text="高级(_A)">
-				<item id="ID_VIEW_NEIGHBOURS" text="邻居(_N)"/>
-				<item id="ID_VIEW_UPLOADS" text="上传(_U)"/>
+			<menu text="高级">
+				<item id="ID_VIEW_NEIGHBOURS" text="邻居"/>
+				<item id="ID_VIEW_UPLOADS" text="上传"/>
 				<separator/>
-				<item id="ID_VIEW_SECURITY" text="安全(_C)"/>
-				<item id="ID_VIEW_HOSTS" text="主机缓存(_O)"/>
-				<item id="ID_VIEW_DISCOVERY" text="发现服务(_V)"/>
+				<item id="ID_VIEW_SECURITY" text="安全"/>
+				<item id="ID_VIEW_SCHEDULER" text="安全"/>
+				<item id="ID_VIEW_HOSTS" text="主机缓存"/>
+				<item id="ID_VIEW_DISCOVERY" text="发现服务"/>
 			</menu>
 			<separator/>
-			<item id="ID_VIEW_BASIC" text="普通模式(_N)"/>
-			<item id="ID_VIEW_TABBED" text="增强模式(_P)"/>
+			<item id="ID_VIEW_BASIC" text="普通模式"/>
+			<item id="ID_VIEW_TABBED" text="增强模式"/>
 		</menu>
-		<menu text="工具(_T)">
-			<item id="ID_LIBRARY_FOLDERS" text="共享文件(_F)..."/>
-			<item id="ID_TOOLS_DOWNLOAD" text="下载文件/Torrent(_D)..."/>
+		<menu text="工具 ">
+			<item id="ID_LIBRARY_FOLDERS" text="共享文件..."/>
+			<item id="ID_TOOLS_DOWNLOAD" text="下载文件/Torrent..."/>
 			<separator/>
-			<item id="ID_TOOLS_SKIN" text="选择皮肤(_K)..."/>
-			<item id="ID_TOOLS_LANGUAGE" text="选择语言(_L)..."/>
+			<item id="ID_TOOLS_SKIN" text="选择皮肤..."/>
+			<item id="ID_TOOLS_LANGUAGE" text="选择语言..."/>
 			<separator/>
-			<item id="ID_TOOLS_PROFILE" text="编辑个人资料...(_P)"/>
-			<item id="ID_TOOLS_WIZARD" text="快速启动向导...(_W)"/>
+			<item id="ID_TOOLS_PROFILE" text="编辑个人资料..."/>
+			<item id="ID_TOOLS_WIZARD" text="快速启动向导..."/>
 			<separator/>
-			<item id="ID_TOOLS_SETTINGS" text="PeerProject 设置(_S)..."/>
+			<item id="ID_TOOLS_SETTINGS" text="PeerProject 设置..."/>
 		</menu>
-		<menu text="帮助(_H)">
-			<item id="ID_HELP_FAQ" text="PeerProject 常见问题(_F)"/>
+		<menu text="帮助 ">
+			<item id="ID_HELP_FAQ" text="PeerProject 常见问题"/>
 			<separator/>
-			<menu text="指南(_G)">
-				<item id="ID_HELP_GUIDE" text="PeerProject 用户指南(_U)"/>
-				<item id="ID_HELP_ROUTER" text="路由器帮助(_R)"/>
-				<item id="ID_HELP_SECURITY" text="安全帮助(_C)"/>
-				<item id="ID_HELP_CODEC" text="解码器帮助(_C)"/>
+			<menu text="指南">
+				<item id="ID_HELP_GUIDE" text="PeerProject 用户指南"/>
+				<item id="ID_HELP_ROUTER" text="路由器帮助"/>
+				<item id="ID_HELP_SECURITY" text="安全帮助"/>
+				<item id="ID_HELP_CODEC" text="解码器帮助"/>
 			</menu>
 			<separator/>
-			<menu text="网站(_W)">
-				<item id="ID_HELP_HOMEPAGE" text="PeerProject site(_S)"/>
+			<menu text="网站">
+				<item id="ID_HELP_HOMEPAGE" text="PeerProject Site"/>
 				<separator/>
-				<item id="ID_HELP_FORUMS" text="PeerProject 论坛(_F)"/>
+				<item id="ID_HELP_FORUMS" text="PeerProject 论坛"/>
 				<!-- <item id="ID_HELP_UPDATE" text="最新消息"/>
 				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
 				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
 			</menu>
 			<separator/>
-			<item id="ID_HELP_ABOUT" text="关于 PeerProject(_A)..."/>
+			<item id="ID_HELP_ABOUT" text="关于 PeerProject..."/>
 		</menu>
 	</menu>
 	<menu name="CMainWnd.Windowed" type="bar">
@@ -751,11 +747,10 @@
 			<item id="ID_NETWORK_CONNECT_TO" text="连接到(_T)..." shortcut="Ctrl+T"/>
 			<item id="ID_NETWORK_BROWSE_TO" text="浏览主机(_B)..."/>
 			<separator/>
-			<menu text="选择网络(_N)">
-				<item id="ID_NETWORK_G2" text="连接到 Gnutella_2"/>
-				<item id="ID_NETWORK_G1" text="连接到 _Gnutella"/>
-				<item id="ID_NETWORK_ED2K" text="连接到 _eDonkey"/>
-			</menu>
+			<item id="ID_NETWORK_G2" text="连接到 Gnutella_2"/>
+			<item id="ID_NETWORK_G1" text="连接到 _Gnutella"/>
+			<item id="ID_NETWORK_ED2K" text="连接到 _eDonkey"/>
+			<item id="ID_NETWORK_DC" text="连接到 _DC++"/>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="传送后关闭(_A)"/>
 			<item id="ID_NETWORK_EXIT" text="退出(_X)"/>
@@ -1509,9 +1504,13 @@
 			<item id="ID_NETWORK_CONNECT" text="连接(_C)"/>
 			<item id="ID_NETWORK_DISCONNECT" text="断开(_D)"/>
 			<separator/>
-			<item id="ID_NETWORK_G2" text="Gnutella2(_G)"/>
-			<item id="ID_NETWORK_G1" text="Gnutella1(_1)"/>
-			<item id="ID_NETWORK_ED2K" text="eDonkey(_E)"/>
+			<item id="ID_NETWORK_G2" text="Gnutella_2"/>
+			<item id="ID_NETWORK_G1" text="_Gnutella"/>
+			<item id="ID_NETWORK_ED2K" text="_eDonkey"/>
+			<item id="ID_NETWORK_DC" text="_DC++"/>
+			<separator/>
+			<item id="ID_VIEW_DISCOVERY" text="发现服务"/>
+			<item id="ID_VIEW_HOSTS" text="主机缓存"/>
 		</menu>
 		<menu text="监视器(_M)">
 			<item id="ID_NEIGHBOURS_VIEW_ALL" text="查看全部通讯量(_A)"/>
@@ -1767,11 +1766,20 @@
 		<text group="31" align="middle">断开连接</text>
 		<text group="32" align="middle">连接中...</text>
 		<text group="33" align="middle">已连接</text>
+		<text group="34" align="middle" id="EDServers">%i Server</text>
 		<newline group="30" gap="2"/>
+		<icon group="60" command="ID_NETWORK_DC"/>
+		<text group="60" align="middle" format="b">&#160;DC++: &#160; </text>
+		<text group="61" align="middle">断开连接</text>
+		<text group="62" align="middle">连接中...</text>
+		<text group="63" align="middle">已连接</text>
+		<text group="64" align="middle" id="DCHubs">%i 个集端</text>
+		<newline group="60" gap="2"/>
 		<group id="2">
 			<para align="center">
-				<newline gap="6"/>
-				<text>您已连接 </text>
+				<newline gap="4"/>
+				<link target="command:ID_TAB_NETWORK">您已连接</link>
+				<newline gap="4"/>
 				<text id="ConnectedHours" format="b">%i</text>
 				<text>小时 </text>
 				<text id="ConnectedMinutes" format="b">%i</text>
@@ -2427,8 +2435,9 @@
 	<tip id="ID_NETWORK_CONNECT" message="连接到网络。"/>
 	<tip id="ID_NETWORK_CONNECT_TO" message="手动连接到主机..."/>
 	<tip id="ID_NETWORK_DISCONNECT" message="从网络断开。"/>
-	<tip id="ID_NETWORK_ED2K" message="连接到 edonkey 网络。"/>
 	<tip id="ID_NETWORK_EXIT" message="退出 PeerProject"/>
+	<tip id="ID_NETWORK_ED2K" message="连接到 edonkey 网络。"/>
+	<tip id="ID_NETWORK_DC" message="连接到 DC++ 网络。"/>
 	<tip id="ID_NETWORK_G1" message="连接到原始的 Gnutella 网络。"/>
 	<tip id="ID_NETWORK_G2" message="连接到 Gnutella2 网络(强力推荐)。"/>
 	<tip id="ID_NETWORK_SEARCH" message="在网络上进行新的搜索..."/>
@@ -2575,7 +2584,9 @@
 	<string id="20011" value="自动"/>
 	<string id="20012" value="自定义"/>
 	<string id="20013" value="默认"/>
-	<string id="20050" value="星期"/>
+	<string id="20020" value="文件"/>
+	<string id="20021" value="文件"/>
+	<string id="20050" value="星期每天"/>
 	<string id="20051" value="星期一"/>
 	<string id="20052" value="星期二"/>
 	<string id="20053" value="星期三"/>
@@ -3295,7 +3306,7 @@
 		<control/>
 		<control caption="透明度:"/>
 		<control/>
-		<control caption="Shadow (restart)"/>
+		<control caption="Shadows"/>
 		<control caption="系统托盘:"/>
 		<control caption="点击关闭时:"/>
 		<control caption="询问我|最小化到系统托盘|立即关闭|传输完毕后关闭"/>
@@ -3305,10 +3316,10 @@
 	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuBuCoBuBuBuCoBuBuBuEdBu" caption="收藏">
 		<control caption="选项:"/>
 		<control caption="允许他人浏览共享"/>
-		<control caption="记住文件夹视图"/>
 		<control caption="监视收藏文件夹"/>
 		<control caption="快速 Hash(占用更多 CPU 资源)"/>
-		<control caption="Smart media series detection"/>
+		<control caption="记住文件夹视图 hash"/>
+		<control caption="视频系列只能探测"/>
 		<control caption="当删除时建立回收文件"/>
 		<control caption="近期文件:"/>
 		<control caption="记住:"/>
@@ -3358,13 +3369,14 @@
 		<control caption="在聊天中检查粗俗用语"/>
 	</dialog>
 	<!--Missing dialog name="CIRCSettingsPage"-->
-	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuCoBuBuSt" caption="网页">
+	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuBuCoBuBuSt" caption="网页">
 		<control caption="P2P 链接控制:"/>
 		<control caption="使用 PeerProject 打开下列类型的链接:"/>
 		<control caption="Magnet ( magnet: )"/>
 		<control caption="Gnutella ( gnutella: )"/>
 		<control caption="edonkey ( ed2k: )"/>
 		<control caption="Piolet ( mp2p: )"/>
+		<control caption="DC++ ( dchub:/dcfile: )"/>
 		<control caption="BitTorrent ( .torrent )"/>
 		<control caption="下载管理器:"/>
 		<control caption="使用 PeerProject 管理所有的网页下载:"/>
@@ -4254,7 +4266,8 @@
 		<control caption="要使用 BitTorrent 共享完整的文件必须先做种子。此过程完成后 Torrent 将在您的下载列表中显示为一个新的项目。"/>
 		<control/>
 	</dialog>
-	<dialog name="CTorrentFilesPage" cookie="Sy" caption="文件">
+	<dialog name="CTorrentFilesPage" cookie="StSy" caption="文件">
+		<control/>
 		<control/>
 	</dialog>
 	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="Trackers">
@@ -4443,14 +4456,13 @@
 	<list name="CHostCacheWnd">
 		<column from="Address" to="地址"/>
 		<column from="Port" to="端口"/>
-		<column from="Client" to="客户端"/>
 		<column from="Last Seen" to="最近查看"/>
-		<column from="Daily Uptime" to="时间"/>
+		<column from="Client" to="客户端"/>
 		<column from="Name" to="名称"/>
 		<column from="Description" to="描述"/>
+		<column from="Failures" to="失败"/>
 		<column from="CurUsers" to="当前用户"/>
 		<column from="MaxUsers" to="最大用户数"/>
-		<column from="Failures" to="失败"/>
 		<column from="Country" to="国家"/>
 	</list>
 	<list name="CDiscoveryWnd">
@@ -4510,7 +4522,7 @@
 		<column from="Criteria" to="标准"/>
 		<column from="Minimum" to="带宽"/>
 		<column from="Transfers" to="传送"/>
-		<column from="Order" to="顺序"/>
+		<column from="Priority" to="顺序"/>
 	</list>
 	<list name="CAdvancedSettingsList">
 		<column from="Setting" to="设置"/>

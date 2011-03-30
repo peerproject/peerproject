@@ -1,7 +1,7 @@
 //
 // PageSettingsUploads.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -179,7 +179,7 @@ void CUploadsSettingsPage::UpdateQueues()
 
 		// If queue is ed2k only and we need to be connected to upload, Then queue is inactive ed2k isn't enabled
 		if ( ( ( pQueue->m_nProtocols & ( 1 << PROTOCOL_ED2K ) ) != 0 ) && ( Settings.Connection.RequireForTransfers ) )
-			bDonkeyOnlyDisabled = !( Settings.eDonkey.EnableAlways | Settings.eDonkey.EnableToday );
+			bDonkeyOnlyDisabled = !( Settings.eDonkey.EnableAlways | Settings.eDonkey.Enabled );
 
 
 		// If the queue is inactive and we're in basic GUI mode
@@ -447,6 +447,6 @@ bool CUploadsSettingsPage::IsLimited(CString& strText) const
 		 ( _tcsistr( strText, _T("MAX") ) != NULL ) ||
 		 ( _tcsistr( strText, _T("NONE") ) != NULL ) )
 		return false;
-	else
-		return true;
+
+	return true;
 }

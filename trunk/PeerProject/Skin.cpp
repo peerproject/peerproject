@@ -374,31 +374,31 @@ BOOL CSkin::LoadFromXML(CXMLElement* pXML, const CString& strPath)
 	// XML Root Elements:
 	SwitchMap( Text )
 	{
-		Text[ _T("manifest") ]		= 'm';
-		Text[ _T("windows") ]		= 'w';
-		Text[ _T("windowskins") ]	= 'w';
-		Text[ _T("watermarks") ]	= 'e';
-		Text[ _T("images") ]		= 'e';
-		Text[ _T("icons") ] 		= 'i';
-		Text[ _T("commandimages") ] = 'i';
-		Text[ _T("colors") ]		= 'c';
-		Text[ _T("colours") ]		= 'c';
-		Text[ _T("colorscheme") ]	= 'c';
-		Text[ _T("colourscheme") ]	= 'c';
-		Text[ _T("toolbars") ]		= 't';
-		Text[ _T("menus") ]			= 'u';
-		Text[ _T("dialogs") ]		= 'a';
-		Text[ _T("documents") ] 	= 'd';
-		Text[ _T("listcolumns") ]	= 'l';
-		Text[ _T("options") ]		= 'o';
-		Text[ _T("navbar") ]		= 'v';	// Deprecated
-		Text[ _T("fonts") ] 		= 'f';
-		Text[ _T("strings") ]		= 'r';
-		Text[ _T("commandtips") ]	= 'r';
-		Text[ _T("controltips") ]	= 'n';
-		Text[ _T("commandmap") ]	= 'p';
-		Text[ _T("resourcemap") ]	= 'p';
-		Text[ _T("tipmap") ]		= 'p';
+		Text[ L"manifest" ]		= 'm';
+		Text[ L"windows" ]		= 'w';
+		Text[ L"windowskins" ]	= 'w';
+		Text[ L"watermarks" ]	= 'e';
+		Text[ L"images" ]		= 'e';
+		Text[ L"icons" ] 		= 'i';
+		Text[ L"commandimages" ] = 'i';
+		Text[ L"colors" ]		= 'c';
+		Text[ L"colours" ]		= 'c';
+		Text[ L"colorscheme" ]	= 'c';
+		Text[ L"colourscheme" ]	= 'c';
+		Text[ L"toolbars" ]		= 't';
+		Text[ L"menus" ]		= 'u';
+		Text[ L"dialogs" ]		= 'a';
+		Text[ L"documents" ] 	= 'd';
+		Text[ L"listcolumns" ]	= 'l';
+		Text[ L"options" ]		= 'o';
+		Text[ L"navbar" ]		= 'v';	// Legacy
+		Text[ L"fonts" ] 		= 'f';
+		Text[ L"strings" ]		= 'r';
+		Text[ L"commandtips" ]	= 'r';
+		Text[ L"controltips" ]	= 'n';
+		Text[ L"commandmap" ]	= 'p';
+		Text[ L"resourcemap" ]	= 'p';
+		Text[ L"tipmap" ]		= 'p';
 	}
 
 	for ( POSITION pos = pXML->GetElementIterator() ; pos ; )
@@ -621,35 +621,35 @@ BOOL CSkin::LoadOptions(CXMLElement* pBase)
 		// Skin Options:
 		SwitchMap( Text )
 		{
-			Text[ _T("navbar") ]		= 'n';
-			Text[ _T("dropmenu") ]		= 'd';
-			Text[ _T("submenu") ]		= 'd';
-			Text[ _T("menuborders") ]	= 'm';
-			Text[ _T("menubarbevel") ]	= 'm';
-			Text[ _T("menugripper") ]	= 'p';
-			Text[ _T("grippers") ] 		= 'p';
-			Text[ _T("toolbar") ]		= 't';
-			Text[ _T("toolbars") ]		= 't';
-			Text[ _T("taskbar") ]		= 'k';
-			Text[ _T("tabbar") ]		= 'k';
-			Text[ _T("sidebar") ]		= 's';
-			Text[ _T("sidepanel") ] 	= 's';
-			Text[ _T("titlebar") ]		= 'h';
-			Text[ _T("headerpanel") ]	= 'h';
-			Text[ _T("groupsbar") ] 	= 'g';
-			Text[ _T("downloadgroups") ] = 'g';
-			Text[ _T("bandwidthwidget") ] = 'o';
-			Text[ _T("monitorbar") ]	= 'o';
-			Text[ _T("dragbar") ]		= 'r';
-			Text[ _T("splitter") ]		= 'r';
-			Text[ _T("listitem") ]		= 'w';
-			Text[ _T("rowsize") ]		= 'w';
-			Text[ _T("roundedselect") ] = 'c';
-			Text[ _T("highlightchamfer") ] = 'c';
-			Text[ _T("buttonedge") ]	= 'e';
-			Text[ _T("buttonmap") ] 	= 'e';
-			Text[ _T("icongrid") ]		= 'i';
-			Text[ _T("librarytiles") ]	= 'i';
+			Text[ L"navbar" ]		= 'n';
+			Text[ L"dropmenu" ]		= 'd';
+			Text[ L"submenu" ]		= 'd';
+			Text[ L"menuborders" ]	= 'm';
+			Text[ L"menubarbevel" ]	= 'm';
+			Text[ L"menugripper" ]	= 'p';
+			Text[ L"grippers" ] 	= 'p';
+			Text[ L"toolbar" ]		= 't';
+			Text[ L"toolbars" ]		= 't';
+			Text[ L"taskbar" ]		= 'k';
+			Text[ L"tabbar" ]		= 'k';
+			Text[ L"sidebar" ]		= 's';
+			Text[ L"sidepanel" ] 	= 's';
+			Text[ L"titlebar" ]		= 'h';
+			Text[ L"headerpanel" ]	= 'h';
+			Text[ L"groupsbar" ] 	= 'g';
+			Text[ L"downloadgroups" ] = 'g';
+			Text[ L"bandwidthwidget" ] = 'o';
+			Text[ L"monitorbar" ]	= 'o';
+			Text[ L"dragbar" ]		= 'r';
+			Text[ L"splitter" ]		= 'r';
+			Text[ L"listitem" ]		= 'w';
+			Text[ L"rowsize" ]		= 'w';
+			Text[ L"roundedselect" ] = 'c';
+			Text[ L"highlightchamfer" ] = 'c';
+			Text[ L"buttonedge" ]	= 'e';
+			Text[ L"buttonmap" ] 	= 'e';
+			Text[ L"icongrid" ]		= 'i';
+			Text[ L"librarytiles" ]	= 'i';
 		}
 
 		switch( Text[ strName ] )
@@ -2193,28 +2193,27 @@ BOOL CSkin::LoadFonts(CXMLElement* pBase, const CString& strPath)
 			if ( strLanguage.IsEmpty() ||
 				( Settings.General.Language.CompareNoCase( strLanguage ) == 0 ) )
 			{
-				CString strName		= pXML->GetAttributeValue( _T("name") );
+				CString strName		= pXML->GetAttributeValue( _T("name") ).MakeLower();
 				CString strFace		= pXML->GetAttributeValue( _T("face") );
 				CString strSize		= pXML->GetAttributeValue( _T("size") );
 				CString strWeight	= pXML->GetAttributeValue( _T("weight") );
 				CFont* pFont		= NULL;
 
 				if ( strName.GetLength() < 6 ) continue;
-				strName.MakeLower();
 
 				// Specifiable Fonts:
 				SwitchMap( Font )
 				{
-					Font[ _T("system") ]			= 'd';
-					Font[ _T("system.default") ]	= 'd';
-					Font[ _T("system.plain") ]		= 'd';
-					Font[ _T("system.bold") ]		= 'b';
-					Font[ _T("panel.caption") ]		= 'p';
-					Font[ _T("navbar.caption") ]	= 'n';
-					Font[ _T("richdoc.default") ]	= 'r';
-					Font[ _T("rich.default") ]		= 'r';
-					Font[ _T("richdoc.heading") ]	= 'h';
-					Font[ _T("rich.heading") ]		= 'h';
+					Font[ L"system" ]			= 'd';
+					Font[ L"system.default" ]	= 'd';
+					Font[ L"system.plain" ]		= 'd';
+					Font[ L"system.bold" ]		= 'b';
+					Font[ L"panel.caption" ]	= 'p';
+					Font[ L"navbar.caption" ]	= 'n';
+					Font[ L"richdoc.default" ]	= 'r';
+					Font[ L"rich.default" ]		= 'r';
+					Font[ L"richdoc.heading" ]	= 'h';
+					Font[ L"rich.heading" ]		= 'h';
 				}
 
 				switch( Font[ strName ] )

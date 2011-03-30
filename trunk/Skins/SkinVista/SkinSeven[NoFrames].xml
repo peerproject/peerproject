@@ -150,10 +150,7 @@
 
 <watermarks>
   <watermark target="CCoolMenu" path="Seven\MenuBkg.png"/>
-  <watermark target="CCoolMenu.Hover" path="Seven\MenuHover.png"/>
-  <watermark target="CCoolMenu.Hover.Edge" path="Seven\MenuHoverEdge.png"/>
-  <watermark target="CCoolMenu.Disabled" path="Seven\MenuDisabled.png"/>
-  <watermark target="CCoolMenu.Disabled.Edge" path="Seven\MenuDisabledEdge.png"/>
+  <!--watermark target="CCoolMenu.Hover" path="Seven\MenuHover.png"-->
   <watermark target="CCoolMenuBar" path="Seven\RibbonMenubar.png"/>
   <watermark target="CWndTabBar" path="Seven\RibbonTaskbar.png"/>
   <watermark target="CMonitorBar" path="Seven\RibbonMonitorBkg.png"/>

@@ -1,7 +1,7 @@
 //
 // PageSettingsGnutella.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -102,11 +102,10 @@ BOOL CGnutellaSettingsPage::OnInitDialog()
 {
 	CSettingsPage::OnInitDialog();
 
-	//Load initial values from the settings variables
-	m_bG2Today			= Settings.Gnutella2.EnableToday;
+	m_bG2Today			= Settings.Gnutella2.Enabled;
 	m_bG2Always			= Settings.Gnutella2.EnableAlways;
 
-	m_bG1Today			= Settings.Gnutella1.EnableToday;
+	m_bG1Today			= Settings.Gnutella1.Enabled;
 	m_bG1Always			= Settings.Gnutella1.EnableAlways;
 
 	m_bDeflateHub2Hub	= Settings.Gnutella.DeflateHub2Hub;
@@ -273,10 +272,10 @@ void CGnutellaSettingsPage::OnOK()
 	if ( ( Settings.GetOutgoingBandwidth() < 2 ) )
 		m_bG1Today = m_bG1Always = FALSE;
 
-	//Load values into the settings variables
-	Settings.Gnutella2.EnableToday		= m_bG2Today != FALSE;
+	// Load values into the settings variables
+	Settings.Gnutella2.Enabled			= m_bG2Today != FALSE;
 	Settings.Gnutella2.EnableAlways		= m_bG2Always != FALSE;
-	Settings.Gnutella1.EnableToday		= m_bG1Today != FALSE;
+	Settings.Gnutella1.Enabled			= m_bG1Today != FALSE;
 	Settings.Gnutella1.EnableAlways		= m_bG1Always != FALSE;
 	Settings.Gnutella.DeflateHub2Hub	= m_bDeflateHub2Hub != FALSE;
 	Settings.Gnutella.DeflateLeaf2Hub	= m_bDeflateLeaf2Hub != FALSE;

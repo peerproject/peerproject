@@ -501,7 +501,7 @@ void CCollectionFile::Render(CString& strBuffer) const
 	}
 
 	strBuffer += _T("</table>\n</body>\n</html>");
- }
+}
 
 /////////////////////////////////////////////////////////////////////////////
 // CCollectionFile::File construction

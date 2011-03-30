@@ -1,7 +1,7 @@
 //
 // WndPacket.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -22,7 +22,7 @@
 #include "G1Packet.h"
 #include "G2Packet.h"
 #include "EDPacket.h"
-//#include "DCPacket.h"
+#include "DCPacket.h"
 #include "BTPacket.h"
 
 class CLiveItem;
@@ -41,6 +41,7 @@ public:
 	CPacketWnd(CChildWnd* pOwner = NULL);
 	virtual ~CPacketWnd();
 
+public:
 	void SmartDump(const CPacket* pPacket, const SOCKADDR_IN* pAddress, BOOL bUDP, BOOL bOutgoing, DWORD_PTR nNeighbourUnique = 0);
 	virtual void OnSkinChange();
 

@@ -1,7 +1,7 @@
 //
 // EDClients.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -125,6 +125,13 @@ void CEDClients::Clear()
 	ASSERT( m_pFirst == NULL );
 	ASSERT( m_pLast == NULL );
 	ASSERT( m_nCount == 0 );
+}
+
+int CEDClients::GetCount() const
+{
+	CQuickLock oLock( m_pSection );
+
+	return m_nCount;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -349,7 +356,7 @@ void CEDClients::OnRun()
 
 	if ( Settings.eDonkey.ServerWalk &&
 		 Network.IsConnected() &&
-		 Settings.eDonkey.EnableToday )
+		 Settings.eDonkey.Enabled )
 		RunGlobalStatsRequests( tNow );
 
 	for ( CEDClient* pClient = m_pFirst ; pClient ; )
@@ -369,7 +376,7 @@ BOOL CEDClients::OnAccept(CConnection* pConnection)
 {
 	ASSERT( pConnection != NULL );
 
-	if ( ! Network.IsConnected() || ( Settings.Connection.RequireForTransfers && ! Settings.eDonkey.EnableToday ) )
+	if ( ! Network.IsConnected() || ( Settings.Connection.RequireForTransfers && ! Settings.eDonkey.Enabled ) )
 	{
 		theApp.Message( MSG_ERROR, IDS_ED2K_CLIENT_DISABLED,
 			(LPCTSTR)pConnection->m_sAddress );
