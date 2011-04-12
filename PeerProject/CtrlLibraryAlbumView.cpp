@@ -1,7 +1,7 @@
 //
 // CtrlLibraryAlbumView.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -149,7 +149,8 @@ void CLibraryAlbumView::Update()
 	DWORD nCookie		= GetFolderCookie();
 	BOOL bChanged		= m_pStyle != m_pStaticStyle;
 
-	if ( Settings.Library.ShowVirtual )	pSchema = NULL;
+	if ( Settings.Library.ShowVirtual )
+		pSchema = NULL;
 
 	CLibraryAlbumTrack** pList = m_pList + m_nCount - 1;
 
@@ -636,7 +637,7 @@ void CLibraryAlbumView::OnPaint()
 	}
 	else // Non-music
 	{
-		//  Title, Artist, Length
+		// Title, Artist, Length
 		CLibraryAlbumTrack::PaintText( pBuffer, rcLine,  0,  66, IDS_LIBRARY_ALBUM_TITLE );
 		CLibraryAlbumTrack::PaintText( pBuffer, rcLine, 66,  88, IDS_LIBRARY_ALBUM_ARTIST );
 		CLibraryAlbumTrack::PaintText( pBuffer, rcLine, 88, 100, IDS_TIP_SIZE, TRUE );
@@ -1123,7 +1124,7 @@ BOOL CLibraryAlbumTrack::Update(CLibraryFile* pFile)
 						if ( ! strSize.IsEmpty() )
 						{
 							int nCount = 1;
-							for( int nIndex = 4 ; nIndex < strSize.GetLength() ; nIndex++ )
+							for ( int nIndex = 4 ; nIndex < strSize.GetLength() ; nIndex++ )
 							{
 								if ( strSize[ nIndex ] == ',' )
 								{
@@ -1366,7 +1367,8 @@ BOOL CLibraryAlbumTrack::LockRating()
 		dlg.Add( m_nIndex );
 		return dlg.DoModal( 2 ) == IDOK;
 	}
-	else if ( m_nSetRating >= 0 && m_nSetRating <= 6 )
+
+	if ( m_nSetRating >= 0 && m_nSetRating <= 6 )
 	{
 		CQuickLock oLock( Library.m_pSection );
 		CLibraryFile* pFile = Library.LookupFile( m_nIndex );
@@ -1378,8 +1380,6 @@ BOOL CLibraryAlbumTrack::LockRating()
 		Library.Update();
 		return TRUE;
 	}
-	else
-	{
-		return FALSE;
-	}
+
+	return FALSE;
 }

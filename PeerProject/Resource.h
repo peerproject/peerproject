@@ -95,6 +95,8 @@
 #define IDI_CONTACT_TWITTER                 209	// richdoc#
 #define IDI_CONTACT_FACEBOOK                210	// richdoc#
 #define IDI_FAVICON                         212	// richdoc#
+#define IDI_INCOMING                        214
+#define IDI_OUTGOING                        215
 
 // Cursor Resources:
 
@@ -850,8 +852,16 @@
 #define IDS_GENERAL_RETRY                   20016		// 20240
 #define IDS_GENERAL_ABORT                   20017		// 20239
 #define IDS_GENERAL_TRYAGAIN                20018		// 20242
-#define IDS_GENERAL_FILE                    20020
-#define IDS_GENERAL_FILES                   20021
+#define IDS_FILE                            20020
+#define IDS_FILES                           20021
+#define IDS_FILES_ALL                       20022		// 20841 IDS_UPLOAD_QUEUE_COMPLETE
+#define IDS_FILES_NONE                      20023		// Unused
+#define IDS_FILES_LARGE                     20024		// 20850 IDS_UPLOAD_QUEUE_LARGE_FILES
+#define IDS_FILES_MEDIUM                    20025		// 20851 IDS_UPLOAD_QUEUE_MEDIUM_FILES
+#define IDS_FILES_SMALL                     20026		// 20852 IDS_UPLOAD_QUEUE_SMALL_FILES
+#define IDS_FILES_PARTIAL                   20027		// 20853 IDS_UPLOAD_QUEUE_PARTIAL_FILES
+#define IDS_FILES_LIBRARY                   20028		// 20849 IDS_UPLOAD_QUEUE_LIBRARY
+#define IDS_FILES_TYPE                      20029		// Unused
 #define IDS_DAY_EVERYDAY                    20050		// 20200
 #define IDS_DAY_MONDAY                      20051		// 20201
 #define IDS_DAY_TUESDAY                     20052		// 20202
@@ -860,7 +870,7 @@
 #define IDS_DAY_FRIDAY                      20055		// 20205
 #define IDS_DAY_SATURDAY                    20056		// 20206
 #define IDS_DAY_SUNDAY                      20057		// 20207
-#define IDS_RATING_NORATING                 20060		// 20210
+#define IDS_RATING_NONE                     20060		// 20210
 #define IDS_RATING_1                        20061		// 20211
 #define IDS_RATING_2                        20062		// 20212
 #define IDS_RATING_3                        20063		// 20213
@@ -1534,9 +1544,9 @@
 #define IDS_UPLOAD_PUSH_BUSY                20836		// 16348
 #define IDS_UPLOAD_PUSH_FILENOTFOUND        20837		// 16334
 #define IDS_UPLOAD_QUEUED                   20838		// 16333
-#define IDS_UPLOAD_QUEUE_NEW                20840		// 16374
-#define IDS_UPLOAD_QUEUE_COMPLETE           20841		// 16376
-#define IDS_UPLOAD_QUEUE_DROP               20842		// 16358
+#define IDS_UPLOAD_QUEUE_DROP               20840		// 16358
+#define IDS_UPLOAD_QUEUE_NEW                20841		// 16374
+#define IDS_UPLOAD_QUEUE_COMPLETE           20842		// 16376
 #define IDS_UPLOAD_QUEUE_DC_GUARD           20843
 #define IDS_UPLOAD_QUEUE_ED2K_CORE          20844		// 16367
 #define IDS_UPLOAD_QUEUE_ED2K_GUARD         20845		// 16369

@@ -1,7 +1,7 @@
 //
 // WndChild.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -37,8 +37,8 @@ BEGIN_MESSAGE_MAP(CChildWnd, CMDIChildWnd)
 	//{{AFX_MSG_MAP(CChildWnd)
 	ON_WM_CREATE()
 	ON_WM_DESTROY()
-	ON_WM_ERASEBKGND()
 	ON_WM_SIZE()
+	ON_WM_ERASEBKGND()
 	ON_WM_SYSCOMMAND()
 	ON_WM_MDIACTIVATE()
 	ON_WM_NCRBUTTONUP()
@@ -50,8 +50,8 @@ BEGIN_MESSAGE_MAP(CChildWnd, CMDIChildWnd)
 	ON_WM_NCLBUTTONUP()
 	ON_WM_NCMOUSEMOVE()
 	ON_WM_NCLBUTTONDBLCLK()
-	ON_MESSAGE(WM_SETTEXT, OnSetText)
 	ON_WM_HELPINFO()
+	ON_MESSAGE(WM_SETTEXT, OnSetText)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -63,14 +63,14 @@ CChildWnd* CChildWnd::m_pCmdMsg = NULL;
 
 CChildWnd::CChildWnd()
 	: m_nResID			( 0 )
-	, m_bTabMode		( FALSE )
-	, m_bGroupMode		( FALSE )
-	, m_pGroupParent	( NULL )
-	, m_nGroupSize		( 0.5f )
-	, m_bPanelMode		( FALSE )
-	, m_bAlert			( FALSE )
 	, m_pSkin			( NULL )
 	, m_pMainWndCache	( NULL )
+	, m_pGroupParent	( NULL )
+	, m_nGroupSize		( 0.5f )
+	, m_bGroupMode		( FALSE )
+	, m_bTabMode		( FALSE )
+	, m_bPanelMode		( FALSE )
+	, m_bAlert			( FALSE )
 {
 }
 
@@ -192,7 +192,8 @@ BOOL CChildWnd::LoadState(LPCTSTR pszName, BOOL bDefaultMaximise)
 
 		return TRUE;
 	}
-	else if ( m_bPanelMode || bDefaultMaximise )	// was m_bGroupMode
+
+	if ( m_bPanelMode || bDefaultMaximise )		// Was m_bGroupMode
 	{
 		if ( m_bTabMode )
 		{
@@ -219,15 +220,14 @@ BOOL CChildWnd::SaveState(LPCTSTR pszName)
 		theApp.WriteProfileInt( _T("Windows"), strName, (int)( m_nGroupSize * 1000 ) );
 		return TRUE;
 	}
-	else if ( ! m_bPanelMode )
+
+	if ( ! m_bPanelMode )
 	{
 		Settings.SaveWindow( pszName, this );
 		return TRUE;
 	}
-	else
-	{
-		return FALSE;
-	}
+
+	return FALSE;
 }
 
 BOOL CChildWnd::SetAlert(BOOL bAlert)
@@ -415,8 +415,6 @@ void CChildWnd::OnNcPaint()
 
 BOOL CChildWnd::OnNcActivate(BOOL bActive)
 {
-	// if ( bActive ) OnMDIActivate( TRUE, this, NULL );
-
 	if ( m_pSkin )
 	{
 		BOOL bVisible = IsWindowVisible();
@@ -466,10 +464,8 @@ LRESULT CChildWnd::OnSetText(WPARAM /*wParam*/, LPARAM /*lParam*/)
 		if ( m_pSkin ) m_pSkin->OnSetText( this );
 		return lResult;
 	}
-	else
-	{
-		return Default();
-	}
+
+	return Default();
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -480,7 +476,7 @@ void CChildWnd::OnSkinChange()
 	m_pSkin = Skin.GetWindowSkin( this );
 	OnSize( 0, 0, 0 );
 
-	//ToDo: Remove this mode?
+	// ToDo: Remove this mode?
 	CoolInterface.EnableTheme( this, ( m_pSkin == NULL ) &&
 		( Settings.General.GUIMode == GUI_WINDOWED ) );
 
@@ -553,10 +549,9 @@ BOOL CChildWnd::PreTranslateMessage(MSG* pMsg)
 	return CMDIChildWnd::PreTranslateMessage( pMsg );
 }
 
-// Note: Child Window NOT implemented
-//BOOL CChildWnd::DestroyWindow()
-//{
-//	RemoveSkin();
-//
-//	return CMDIChildWnd::DestroyWindow();
-//}
+BOOL CChildWnd::DestroyWindow()
+{
+	RemoveSkin();
+
+	return CMDIChildWnd::DestroyWindow();
+}

@@ -1,7 +1,7 @@
 //
 // QueryHashTable.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -218,7 +218,7 @@ bool CQueryHashTable::Merge(const CQueryHashTable* pSource)
 
 bool CQueryHashTable::Merge(const CQueryHashGroup* pSource)
 {
-	if ( ! m_pHash || !pSource->m_pHash )
+	if ( ! m_pHash || ! pSource->m_pHash )
 		return false;
 
 	if ( m_nHash == pSource->m_nHash )
@@ -696,10 +696,7 @@ bool CQueryHashTable::OnPatch(CPacket* pPacket)
 	if ( pPacket->m_nLength < 5 )
 		return false;
 
-	if ( ! m_pHash )
-		return false;
-
-	if ( ! m_pBuffer )
+	if ( ! m_pHash || ! m_pBuffer )
 		return false;
 
 	BYTE nSequence		= pPacket->ReadByte();
@@ -1049,7 +1046,7 @@ void CQueryHashTable::AddFile(const CPeerProjectFile& oFile)
 
 	CStringList oKeywords;
 	MakeKeywords( oFile.GetSearchName(), oKeywords );
-	for ( POSITION pos = oKeywords.GetHeadPosition(); pos; )
+	for ( POSITION pos = oKeywords.GetHeadPosition() ; pos ; )
 	{
 		AddExactString( oKeywords.GetNext( pos ) );
 	}
@@ -1098,7 +1095,7 @@ void CQueryHashTable::Add(LPCTSTR pszString, int nStart, int nLength)
 	if ( ! nLength || ! bWord && nLength < 4 )
 		return;
 
-	DWORD tNow = GetTickCount();
+	const DWORD tNow = GetTickCount();
 
 	//TRACE( _T("[QHT] \"%hs\"\n"), (LPCSTR)CT2A( CString( pszString + nStart, nLength ) ) );
 	DWORD nHash	= HashWord( pszString, nStart, nLength, m_nBits );
@@ -1213,7 +1210,7 @@ bool CQueryHashTable::Check(const CQuerySearch* pSearch) const
 		{
 			++nWords;
 
-			if ( CheckHash(*iKeyword) )
+			if ( CheckHash( *iKeyword ) )
 				++nWordHits;
 		}
 	}
@@ -1228,8 +1225,8 @@ bool CQueryHashTable::Check(const CQuerySearch* pSearch) const
 
 DWORD CQueryHashTable::HashWord(LPCTSTR pszString, size_t nStart, size_t nLength, DWORD nBits)
 {
-	DWORD nNumber	= 0;
-	int nByte		= 0;
+	DWORD nNumber = 0;
+	int nByte = 0;
 
 	for ( pszString += nStart ; nLength ; --nLength, ++pszString )
 	{

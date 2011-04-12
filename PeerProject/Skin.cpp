@@ -1554,7 +1554,7 @@ BOOL CSkin::Apply(LPCTSTR pszName, CDialog* pDialog, UINT nIconID, CToolTipCtrl*
 		if ( pWnd->IsKindOf( RUNTIME_CLASS( CSettingsPage ) ) )
 			continue;
 
-		strCaption += szClass;
+		strCaption += szClass;	// Cookie
 	}
 
 	if ( Settings.General.DialogScan )
@@ -1587,9 +1587,7 @@ BOOL CSkin::Apply(LPCTSTR pszName, CDialog* pDialog, UINT nIconID, CToolTipCtrl*
 		strCaption.Replace( _T("\n"), _T("{n}") );
 		strCaption.Replace( _T("\r"), _T("") );
 		strCaption.Replace( _T("&"), _T("_") );
-		CString strTempCaption;
-		CXMLNode::ValueToString( strCaption, strTempCaption );
-		strCaption = strTempCaption;
+		strCaption = CXMLNode::ValueToString( strCaption );
 		nBytes = WideCharToMultiByte( CP_ACP, 0, strCaption, strCaption.GetLength(), NULL, 0, NULL, NULL );
 		pBytes = new CHAR[nBytes];
 		WideCharToMultiByte( CP_ACP, 0, strCaption, strCaption.GetLength(), pBytes, nBytes, NULL, NULL );
@@ -1645,9 +1643,7 @@ BOOL CSkin::Apply(LPCTSTR pszName, CDialog* pDialog, UINT nIconID, CToolTipCtrl*
 				strCaption.Replace( _T("\n"), _T("{n}") );
 				strCaption.Replace( _T("\r"), _T("") );
 				strCaption.Replace( _T("&"), _T("_") );
-				CString strTemp;
-				CXMLNode::ValueToString( strCaption, strTemp );
-				strCaption = strTemp;
+				strCaption = CXMLNode::ValueToString( strCaption );
 				pFile.Write( "\t\t<control caption=\"", 20 );
 				int nBytes = WideCharToMultiByte( CP_ACP, 0, strCaption, strCaption.GetLength(), NULL, 0, NULL, NULL );
 				LPSTR pBytes = new CHAR[nBytes];
@@ -2026,6 +2022,8 @@ BOOL CSkin::LoadColorScheme(CXMLElement* pBase)
 	pColors.SetAt( _T("system.base.network.dc"), &Colors.m_crNetworkDC );
 	pColors.SetAt( _T("system.base.network.up"), &Colors.m_crNetworkUp );
 	pColors.SetAt( _T("system.base.network.down"), &Colors.m_crNetworkDown );
+	pColors.SetAt( _T("system.base.network.in"), &Colors.m_crNetworkDown );
+	pColors.SetAt( _T("system.base.network.out"), &Colors.m_crNetworkUp );
 	pColors.SetAt( _T("system.base.security.allow"), &Colors.m_crSecurityAllow );
 	pColors.SetAt( _T("system.base.security.deny"), &Colors.m_crSecurityDeny );
 

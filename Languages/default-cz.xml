@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Czech Skin File -->
 
-<!-- Translation based on default-en.xml r65 (Shareaza 2.2.5.7) -->
+<!-- Translation based on default-en.xml r66 (Shareaza 2.2.5.7) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -464,7 +464,7 @@
 	</menu>
 	<!-- MAIN WINDOW MENU BAR -->
 	<menu name="CMainWnd.DropMenu" type="bar">
-		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160;">
+		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160;">
 			<item id="ID_TOOLS_SETTINGS" text="_Nastavení..."/>
 			<menu text="_Web">
 				<item id="ID_NETWORK_CONNECT" text="_Připojit" shortcut="Ctrl+G"/>
@@ -2609,6 +2609,8 @@
 	<string id="20014" value="Ukončit"/>
 	<string id="20020" value="Soubor"/>
 	<string id="20021" value="Soubory"/>
+	<string id="20022" value="Všechny Soubory"/>
+	<string id="20029" value="%s Soubory"/>
 	<string id="20050" value="Každý Den"/>
 	<string id="20051" value="Pondělí"/>
 	<string id="20052" value="Úterý"/>
@@ -3240,9 +3242,10 @@
 	<string id="20836" value="Odmítám urgentní žádost %s protože již je příliš spojení pro odesílání."/>
 	<string id="20837" value="Odkaz vynucené žádost od %s požaduje neznámý soubor, i tak se připojuji..."/>
 	<string id="20838" value="Zaneprázdněné odesílání &quot;%s&quot; do %s, ve frontě #%i ze %i (&quot;%s&quot;.."/>
-	<string id="20840" value="Nová fronta"/>
-	<string id="20841" value="Všechny soubory"/>
-	<string id="20842" value="Spojení pro odesílání %s bylo ztraceno, zajišťuji pozici ve frontě."/>
+	<string id="20840" value="Spojení pro odesílání %s bylo ztraceno, zajišťuji pozici ve frontě."/>
+	<string id="20841" value="Nová fronta"/>
+	<string id="20842" value="Všechny soubory"/>
+	<string id="20843" value="DC++ Guard"/>
 	<string id="20844" value="Střední eDonkey"/>
 	<string id="20845" value="eDonkey Guard"/>
 	<string id="20846" value="Částečné eDonkey"/>
@@ -4494,13 +4497,14 @@
 		<column from="Failures" to="Výpadky"/>
 	</list>
 	<list name="CPacketWnd">
+		<column from="Time" to="Čas"/>
 		<column from="Address" to="Adresa"/>
 		<column from="Protocol" to="Protokol"/>
 		<column from="Type" to="Typ"/>
-		<column from="T/H" to=""/>
+		<column from="TTL/Hops" to=""/>
+		<column from="GUID" to=""/>
 		<column from="Hex" to=""/>
 		<column from="ASCII" to=""/>
-		<column from="G1-ID" to=""/>
 	</list>
 	<list name="CSearchMonitorWnd">
 		<column from="Search" to="Hledat"/>

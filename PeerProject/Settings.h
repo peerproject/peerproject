@@ -286,6 +286,7 @@ public:
 		bool		DeleteUPnPPorts;		// Delete forwarded ports on shutdown (UPnP)
 		bool		SkipWANPPPSetup;		// Skip WANPPPConn1 device setup (UPnP)
 		bool		SkipWANIPSetup;			// Skip WANIPConn1 device setup (UPnP)
+		DWORD		ZLibCompressionLevel;	// ZLib compression level: 0-9
 	} Connection;
 
 	struct sBandwidth

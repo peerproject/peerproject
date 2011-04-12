@@ -1,7 +1,7 @@
 //
 // RelatedSearch.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -113,7 +113,7 @@ CRelatedSearch::~CRelatedSearch()
 
 BOOL CRelatedSearch::CanSearchForThis()
 {
-	return IsHashed();
+	return HasHash();
 }
 
 BOOL CRelatedSearch::RunSearchForThis()
@@ -220,7 +220,7 @@ CString CRelatedSearch::Tokenise(LPCTSTR psz)
 	CString str, strTemp(psz);
 
 	// Remove diacritics
-	int nSource = FoldString( MAP_COMPOSITE, psz, -1, NULL, 0 ); //_tcslen( psz );
+	int nSource = FoldString( MAP_COMPOSITE, psz, -1, NULL, 0 );	//_tcslen( psz );
 	FoldString( MAP_COMPOSITE, psz, -1, strTemp.GetBuffer( nSource ), nSource );
 	strTemp.ReleaseBuffer( nSource );
 	psz = strTemp.GetBuffer( nSource );

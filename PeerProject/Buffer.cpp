@@ -99,9 +99,9 @@ void CBuffer::Insert(const DWORD nOffset, const void * pData, const size_t nLeng
 
 	// Now that there is nLength of free space in the buffer at nOffset, copy the given memory to fill it
 	CopyMemory(
-		m_pBuffer + nOffset,	// Destination is at the offset in the buffer
-		pData,					// Source is the given pointer to the memory to insert
-		nLength );				// Length is the length of that memory
+		m_pBuffer + nOffset,			// Destination is at the offset in the buffer
+		pData,							// Source is the given pointer to the memory to insert
+		nLength );						// Length is the length of that memory
 
 	// Add the length of the new memory to the total length in the buffer
 	m_nLength += static_cast< DWORD >( nLength );
@@ -689,7 +689,7 @@ BOOL CBuffer::Ungzip()
 //
 // Side Effect: This function allocates a new z_stream structure that gets cleaned up when the stream is finished.
 // Call InflateStreamCleanup() to close the stream and delete the z_stream structure before the stream has finished.
-bool CBuffer::InflateStreamTo( CBuffer& oBuffer, z_streamp& pStream )
+bool CBuffer::InflateStreamTo( CBuffer& oBuffer, z_streamp& pStream, BOOL* pbEndOfStream)
 {
 	// Report success if there was nothing to decompress
 	if ( ! m_nLength )
@@ -698,7 +698,7 @@ bool CBuffer::InflateStreamTo( CBuffer& oBuffer, z_streamp& pStream )
 	// Check if a z_stream structure has been allocated
 	if ( ! pStream )
 	{
-		// Create a new z_stream sructure to store state information
+		// Create a new z_stream structure to store state information
 		pStream = new z_stream;
 
 		// Initialize it to zero
@@ -737,8 +737,7 @@ bool CBuffer::InflateStreamTo( CBuffer& oBuffer, z_streamp& pStream )
 		// Call ZLib inflate to decompress all the available data
 		nResult = inflate( pStream, Z_SYNC_FLUSH );
 
-		// This shouldn't happen, but check to make sure the stream state
-		// hasn't been damaged from somewhere else
+		// Shouldn't happen, but check to make sure the stream state hasn't been damaged from somewhere else
 		ASSERT( nResult != Z_STREAM_ERROR );
 
 		switch ( nResult )
@@ -761,18 +760,19 @@ bool CBuffer::InflateStreamTo( CBuffer& oBuffer, z_streamp& pStream )
 			pStream->total_out = 0ul;
 			pStream->total_in = 0ul;
 		}
-	} while ( pStream->avail_out == 0u );	// Check if everything available was decompressed
+	} while ( pStream->avail_out == 0u );			// Check if everything available was decompressed
 
-	// If there was not enough data to decompress anything inflate() returns
-	// Z_BUF_ERROR, ignore this error and try again next time.
+	// If there was not enough data to decompress anything inflate() returns Z_BUF_ERROR, ignore this error and try again next time
 	if ( nResult == Z_BUF_ERROR )
 		nResult = Z_OK;
 
-	// Check if the stream needs to be closed.
+	// Check if the stream needs to be closed
 	if ( nResult != Z_OK )
 		InflateStreamCleanup( pStream );	// Close ZLib
 
-	// Report result
+	if ( pbEndOfStream )
+		*pbEndOfStream = ( nResult == Z_STREAM_END );
+
 	return ( nResult == Z_OK || nResult == Z_STREAM_END );
 }
 

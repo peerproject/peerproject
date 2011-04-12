@@ -58,7 +58,7 @@ public:
 	CString			GetValue() const;
 	void			SetValue(LPCTSTR pszValue);
 	static CString	StringToValue(LPCTSTR& pszXML, int nLength);
-	static void		ValueToString(const CString& strValue, CString& strXML);
+	static CString	ValueToString(const CString& strValue);
 	static void		UniformString(CString& str);
 
 	friend class	CXMLElement;

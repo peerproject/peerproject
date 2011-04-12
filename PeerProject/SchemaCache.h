@@ -84,6 +84,8 @@ public:
 	static CXMLElement* AutoDetectSchema(LPCTSTR pszInfo);
 	static CXMLElement* AutoDetectAudio(LPCTSTR pszInfo);
 
+	CString GetFilter(LPCTSTR pszURI) const;
+
 private:
 	typedef CMap< CString, const CString&, CSchemaPtr, CSchemaPtr > CSchemaMap;
 	CSchemaMap m_pURIs;

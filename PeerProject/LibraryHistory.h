@@ -1,7 +1,7 @@
 //
 // LibraryHistory.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -65,7 +65,6 @@ protected:
 	CList< CLibraryRecent* > m_pList;
 
 	CLibraryRecent*	GetByPath(LPCTSTR pszPath) const;
-//	void			ClearTodays();
 	void			Prune();
 };
 
@@ -74,7 +73,6 @@ class CLibraryRecent : public CPeerProjectFile
 {
 public:
 	FILETIME					m_tAdded;
-//	BOOL						m_bToday;
 	CLibraryFile*				m_pFile;
 	CString						m_sSources;
 	Hashes::Sha1ManagedHash		m_oSHA1;

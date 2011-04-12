@@ -2086,7 +2086,7 @@ void CMainWnd::OnUpdateTabConnect(CCmdUI* /*pCmdUI*/)
 	else if ( Network.IsConnected() )
 	{
 		if ( pItem ) pItem->SetCheck( TRUE );
-		if ( pItem ) pItem->SetTextColor( Colors.m_crCmdText == 0 ?  Colors.m_crTextStatus : Colors.m_crCmdText );
+		if ( pItem ) pItem->SetTextColor( Colors.m_crCmdText == 0 ? Colors.m_crTextStatus : Colors.m_crCmdText );
 		m_wndTabBar.SetMessage( (UINT)0 );
 		nTextID	= IDS_NETWORK_CONNECTING;
 		nTipID	= ID_NETWORK_DISCONNECT;
@@ -2094,7 +2094,7 @@ void CMainWnd::OnUpdateTabConnect(CCmdUI* /*pCmdUI*/)
 	else
 	{
 		if ( pItem ) pItem->SetCheck( FALSE );
-		if ( pItem ) pItem->SetTextColor( Colors.m_crCmdText == 0 ?  Colors.m_crTextStatus : Colors.m_crCmdText );
+		if ( pItem ) pItem->SetTextColor( Colors.m_crCmdText == 0 ? Colors.m_crTextStatus : Colors.m_crCmdText );
 		if ( m_wndToolBar.IsVisible() ) m_wndTabBar.SetMessage( IDS_TABBAR_NOT_CONNECTED );
 		nTextID	= IDS_NETWORK_CONNECT;
 		nTipID	= ID_NETWORK_CONNECT;
@@ -2371,7 +2371,7 @@ void CMainWnd::OnToolsSeedTorrent()
 {
 	CFileDialog dlgFile( TRUE, _T("torrent"),
 		( Settings.Downloads.TorrentPath + _T("\\.") ), OFN_HIDEREADONLY,
-		_T("Torrent Files|*.torrent|All Files|*.*||"), this );
+		_T("Torrent Files|*.torrent|") + LoadString( IDS_FILES_ALL ) + _T("|*.*||"), this );
 
 	if ( dlgFile.DoModal() != IDOK ) return;
 
@@ -3027,7 +3027,7 @@ void CMainWnd::ShowTrayPopup(LPCTSTR szText, LPCTSTR szTitle, DWORD dwIcon, UINT
 	}
 
 	m_pTray.dwInfoFlags = dwIcon | ( theApp.m_bIsVistaOrNewer ? NIIF_LARGE_ICON : 0 );
-	m_pTray.uTimeout = uTimeout * 1000;   // Convert time to ms
+	m_pTray.uTimeout = uTimeout * 1000;		// Convert time to ms
 
 	m_bTrayIcon = Shell_NotifyIcon( NIM_MODIFY, &m_pTray );
 

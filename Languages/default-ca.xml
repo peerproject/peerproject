@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Catalan Skin File -->
 
-<!-- Translation based on default-en.xml r65 -->
+<!-- Translation based on default-en.xml r66 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -495,7 +495,7 @@
 	</menu>
 	<!-- MAIN WINDOW MENU BAR -->
 	<menu name="CMainWnd.DropMenu" type="bar">
-		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160;">
+		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160;">
 			<item id="ID_TOOLS_SETTINGS" text="_Configuració..."/>
 			<menu text="_Xarxa">
 				<item id="ID_NETWORK_CONNECT" text="_Connecta" shortcut="Ctrl+G"/>
@@ -2657,6 +2657,8 @@
 	<string id="20014" value="Finalitza"/>
 	<string id="20020" value="Arxiu"/>
 	<string id="20021" value="Arxius"/>
+	<string id="20022" value="Tots els arxius"/>
+	<string id="20029" value="Arxius %s"/>
 	<string id="20050" value="Cada Dis"/>
 	<string id="20051" value="Dilluns"/>
 	<string id="20052" value="Dimarts"/>
@@ -3291,9 +3293,10 @@
 	<string id="20836" value="Reajustant la petició push a %s perquè té massa connexions de pujada."/>
 	<string id="20837" value="La petició push des de %s demana un arxiu desconegut, connectant de totes maneres..."/>
 	<string id="20838" value="Molt ocupat per a pujar &quot;%s&quot; a %s, cua #%i de %i (&quot;%s&quot;.."/>
-	<string id="20840" value="Nova cua"/>
-	<string id="20841" value="Tots els arxius"/>
-	<string id="20842" value="Connexió de pujada a %s ha estat perduda, preservant Connexió en cua."/>
+	<string id="20840" value="Connexió de pujada a %s ha estat perduda, preservant Connexió en cua."/>
+	<string id="20841" value="Nova cua"/>
+	<string id="20842" value="Tots els arxius"/>
+	<string id="20843" value="Guàrdia DC++"/>
 	<string id="20844" value="Cua eDonkey"/>
 	<string id="20845" value="Guàrdia eDonkey"/>
 	<string id="20846" value="Parcials eDonkey"/>
@@ -4547,13 +4550,14 @@
 		<column from="Failures" to="Errors"/>
 	</list>
 	<list name="CPacketWnd">
+		<column from="Time" to="Hora"/>
 		<column from="Address" to="Adreça"/>
 		<column from="Protocol" to="Protocol"/>
 		<column from="Type" to="Tipus"/>
-		<column from="T/H" to=""/>
+		<column from="TTL/Hops" to=""/>
+		<column from="GUID" to=""/>
 		<column from="Hex" to=""/>
 		<column from="ASCII" to=""/>
-		<column from="G1-ID" to=""/>
 	</list>
 	<list name="CSearchMonitorWnd">
 		<column from="Search" to="Cercar"/>

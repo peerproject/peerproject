@@ -149,14 +149,14 @@ void CSettings::Load()
 
 	Add( _T("Fonts"), _T("DefaultFont"), &Fonts.DefaultFont, theApp.m_bIsVistaOrNewer ? _T("Segoe UI") : _T("Tahoma") );
 	Add( _T("Fonts"), _T("SystemLogFont"), &Fonts.SystemLogFont, theApp.m_bIsVistaOrNewer ? _T("Segoe UI") : _T("Tahoma") );
-	Add( _T("Fonts"), _T("PacketDumpFont"), &Fonts.PacketDumpFont, _T("Lucida Console") );
+	Add( _T("Fonts"), _T("PacketDumpFont"), &Fonts.PacketDumpFont, theApp.m_bIsVistaOrNewer ? _T("Consolas") : _T("Lucida Console") );
 	Add( _T("Fonts"), _T("FontSize"), &Fonts.FontSize, 11, 1, 10, 12, _T(" pt") );
 
 	Add( _T("Library"), _T("CreateGhosts"), &Library.CreateGhosts, true );
 	Add( _T("Library"), _T("FilterURI"), &Library.FilterURI );
 	Add( _T("Library"), _T("HashWindow"), &Library.HashWindow, true );
 	Add( _T("Library"), _T("HighPriorityHash"), &Library.HighPriorityHash, true );
-	Add( _T("Library"), _T("HighPriorityHashing"), &Library.HighPriorityHashing, 24, 1, 2, 100, _T(" MB/s") );
+	Add( _T("Library"), _T("HighPriorityHashing"), &Library.HighPriorityHashing, 32, 1, 2, 100, _T(" MB/s") );
 	Add( _T("Library"), _T("HistoryDays"), &Library.HistoryDays, 10, 1, 0, 365, _T(" d") );
 	Add( _T("Library"), _T("HistoryTotal"), &Library.HistoryTotal, 36, 1, 0, 120, _T(" files") );
 	Add( _T("Library"), _T("LastUsedView"), &Library.LastUsedView );
@@ -294,6 +294,7 @@ void CSettings::Load()
 	Add( _T("Connection"), _T("TimeoutConnect"), &Connection.TimeoutConnect, 15*1000, 1000, 1, 2*60, _T(" s") );
 	Add( _T("Connection"), _T("TimeoutHandshake"), &Connection.TimeoutHandshake, 40*1000, 1000, 1, 5*60, _T(" s") );
 	Add( _T("Connection"), _T("TimeoutTraffic"), &Connection.TimeoutTraffic, 140*1000, 1000, 10, 60*60, _T(" s") );
+	Add( _T("Connection"), _T("ZLibCompressionLevel"), &Connection.ZLibCompressionLevel, 7, 1, 0, 9 );
 
 	Add( _T("Bandwidth"), _T("Downloads"), &Bandwidth.Downloads, 0 );
 	Add( _T("Bandwidth"), _T("HubIn"), &Bandwidth.HubIn, 0, 128, 0, 8192, _T(" Kb/s") );
@@ -517,7 +518,7 @@ void CSettings::Load()
 	Add( _T("Downloads"), _T("StaggardStart"), &Downloads.StaggardStart, false );
 	Add( _T("Downloads"), _T("StartDroppingFailedSourcesNumber"), &Downloads.StartDroppingFailedSourcesNumber, 20, 1, 0, 50 );
 	Add( _T("Downloads"), _T("StarveGiveUp"), &Downloads.StarveGiveUp, 3, 1, 3, 120, _T(" h") );
-	Add( _T("Downloads"), _T("StarveTimeout"), &Downloads.StarveTimeout, 45*60, 60, 45, 24*60, _T(" m") );
+	Add( _T("Downloads"), _T("StarveTimeout"), &Downloads.StarveTimeout, 45*60*1000, 60*1000, 30, 24*60, _T(" m") );
 	Add( _T("Downloads"), _T("VerifyED2K"), &Downloads.VerifyED2K, true );
 	Add( _T("Downloads"), _T("VerifyFiles"), &Downloads.VerifyFiles, true );
 	Add( _T("Downloads"), _T("VerifyTiger"), &Downloads.VerifyTiger, true );
@@ -538,7 +539,7 @@ void CSettings::Load()
 	Add( _T("Uploads"), _T("FreeBandwidthValue"), &Uploads.FreeBandwidthValue, 20*128, 128, 0, 4096, _T(" Kb/s") );
 	Add( _T("Uploads"), _T("HubUnshare"), &Uploads.HubUnshare, true );
 	Add( _T("Uploads"), _T("MaxPerHost"), &Uploads.MaxPerHost, 2, 1, 1, 64 );
-	Add( _T("Uploads"), _T("PreviewQuality"), &Uploads.PreviewQuality, 70, 1, 5, 100, _T("%") );
+	Add( _T("Uploads"), _T("PreviewQuality"), &Uploads.PreviewQuality, 80, 1, 5, 100, _T("%") );
 	Add( _T("Uploads"), _T("PreviewTransfers"), &Uploads.PreviewTransfers, 3, 1, 1, 64 );
 	Add( _T("Uploads"), _T("QueuePollMax"), &Uploads.QueuePollMax, 120*1000, 1000, 30, 180, _T(" s") );
 	Add( _T("Uploads"), _T("QueuePollMin"), &Uploads.QueuePollMin, 45*1000, 1000, 0, 60, _T(" s") );

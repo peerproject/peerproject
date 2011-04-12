@@ -1,7 +1,7 @@
 //
 // WndSettingsSheet.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2006.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -342,7 +342,7 @@ BOOL CSettingsSheet::SkinMe(LPCTSTR pszSkin, UINT nIcon, BOOL bLanguage)
 	CalcWindowRect( &rcWindow );
 	SetWindowPos( &wndTop, 0, 0, rcWindow.Width(), rcWindow.Height(), SWP_NOMOVE|SWP_NOZORDER );
 
-	CRect rcTree( LEFTMARGIN, 1, LISTWIDTH, m_szPages.cy );	// Skin.m_nBanner
+	CRect rcTree( LEFTMARGIN, 0, LISTWIDTH, m_szPages.cy + 1 );	// Skin.m_nBanner
 	m_wndTree.MoveWindow( &rcTree );
 	m_wndTree.SetBkColor( Colors.m_crDialogMenu );
 	m_wndTree.SetTextColor( Colors.m_crDialogMenuText );
@@ -388,7 +388,7 @@ void CSettingsSheet::OnSelectPage(NMHDR* pNotify, LRESULT *pResult)
 {
 	*pResult = NULL;
 
-	if ( ( ((NM_TREEVIEW*) pNotify )->itemNew.state & TVIS_SELECTED ) == 0 ) return;
+	if ( ( ((NM_TREEVIEW*)pNotify )->itemNew.state & TVIS_SELECTED ) == 0 ) return;
 	CSettingsPage* pPage = (CSettingsPage*)m_wndTree.GetItemData( m_wndTree.GetSelectedItem() );
 	if ( pPage == NULL || pPage == m_pPage ) return;
 
@@ -404,7 +404,7 @@ void CSettingsSheet::OnPaint()
 void CSettingsSheet::DoPaint(CDC& dc)
 {
 	// Draw Splitter Bar
-	CRect rc( LEFTMARGIN, Skin.m_nBanner + 1, 0, 0 );
+	CRect rc( LEFTMARGIN, Skin.m_nBanner, 0, 0 );
 
 	rc.left		+= LISTWIDTH;
 	rc.right	= rc.left + LISTDIVIDER;
@@ -466,7 +466,7 @@ BOOL CSettingsSheet::OnCommand(WPARAM wParam, LPARAM lParam)
 		OnOK();
 		return TRUE;
 	}
-	else if ( LOWORD( wParam ) == IDCANCEL )
+	if ( LOWORD( wParam ) == IDCANCEL )
 	{
 		OnCancel();
 		return TRUE;

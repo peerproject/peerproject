@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Norwegian Skin File -->
 
-<!-- Translation based on default-en.xml r65 (Shareaza 2.2.0.2) -->
+<!-- Translation based on default-en.xml r66 (Shareaza 2.2.0.2) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -454,7 +454,7 @@
 	</menu>
 	<!-- MAIN WINDOW MENU BAR -->
 	<menu name="CMainWnd.DropMenu" type="bar">
-		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160;">
+		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160;">
 			<item id="ID_TOOLS_SETTINGS" text="_Innstillinger..."/>
 			<menu text="_Nettverk">
 				<item id="ID_NETWORK_CONNECT" text="Koble til" shortcut="Ctrl+G"/>
@@ -2428,6 +2428,8 @@
 	<string id="20018" value="Prøv Igjen"/>
 	<string id="20020" value="Fil"/>
 	<string id="20021" value="Filer"/>
+	<string id="20022" value="Alle Filer"/>
+	<string id="20029" value="%s Filer"/>
 	<string id="20050" value="Hver Dag"/>
 	<string id="20051" value="Mandag"/>
 	<string id="20052" value="Tirsdag"/>
@@ -3029,9 +3031,10 @@
 	<string id="20836" value="Nekter push forespørsel til %s fordi den har for mange opplastings koblinger."/>
 	<string id="20837" value="Legacy push forespørsel fra %s forespurte en ukjent fil, kobler til likevel..."/>
 	<string id="20838" value="For opptatt til å laste opp &quot;%s&quot; til %s, satt i kø ved #%i av %i (&quot;%s&quot;.."/>
-	<string id="20840" value="Ny kø"/>
-	<string id="20841" value="Alle filer"/>
-	<string id="20842" value="Opplastingskobling til %s mistet, lagrer kø-posisjon."/>
+	<string id="20840" value="Opplastingskobling til %s mistet, lagrer kø-posisjon."/>
+	<string id="20841" value="Ny kø"/>
+	<string id="20842" value="Alle filer"/>
+	<string id="20843" value="DC++ Guard"/>
 	<string id="20844" value="eDonkey Core"/>
 	<string id="20845" value="eDonkey Guard"/>
 	<string id="20846" value="eDonkey Partials"/>
@@ -4281,13 +4284,14 @@
 		<column from="Failures" to="Svikt"/>
 	</list>
 	<list name="CPacketWnd">
+		<column from="Time" to="Tid"/>
 		<column from="Address" to="Adresse"/>
 		<column from="Protocol" to="Protokoll"/>
 		<column from="Type" to=""/>
-		<column from="T/H" to=""/>
+		<column from="TTL/Hops" to=""/>
+		<column from="GUID" to=""/>
 		<column from="Hex" to=""/>
 		<column from="ASCII" to=""/>
-		<column from="G1-ID" to=""/>
 	</list>
 	<list name="CSearchMonitorWnd">
 		<column from="Search" to="Søk"/>
@@ -4304,7 +4308,7 @@
 		<column from="Status" to=""/>
 		<column from="Client" to="Klient"/>
 		<column from="Country" to="Land"/>
-		<column from="Time" to=""/>
+		<column from="Time" to="Tid"/>
 	</list>
 	<list name="CSecurityWnd">
 		<column from="Address / Content" to="Adresse / Inn"/>

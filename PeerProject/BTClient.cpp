@@ -728,6 +728,7 @@ CString CBTClient::GetUserAgentAzureusStyle(LPBYTE pVendor, size_t nVendor)
 		Vendors[ L"PC" ] = L"CacheLogic";
 		Vendors[ L"PD" ] = L"Pando";
 		Vendors[ L"PE" ] = L"PeerProject";
+		Vendors[ L"PP" ] = L"PeerProject";
 		Vendors[ L"PT" ] = L"PHPTracker";
 		Vendors[ L"pX" ] = L"pHoeniX";
 		Vendors[ L"qB" ] = L"qBittorrent";

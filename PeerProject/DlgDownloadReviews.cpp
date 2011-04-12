@@ -1,7 +1,7 @@
 //
 // DlgDownloadReviews.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -66,6 +66,9 @@ BOOL CDownloadReviewDlg::OnInitDialog()
 {
 	CSkinDialog::OnInitDialog();
 
+	// Set window icon, translation
+	SkinMe( L"CDownloadReviewDlg", IDR_MEDIAFRAME );
+
 	CRect rcList;
 	m_wndReviews.GetClientRect( &rcList );
 	rcList.right -= GetSystemMetrics( SM_CXVSCROLL );
@@ -126,7 +129,7 @@ BOOL CDownloadReviewDlg::OnInitDialog()
 		int nRating = min( pReview->m_nFileRating, 6 );
 		nRating = max ( nRating, 0 );
 		CString strRating;
-		LoadString( strRating, IDS_RATING_NORATING + nRating );
+		LoadString( strRating, IDS_RATING_NONE + nRating );
 		pItem->Set( 1, strRating );
 
 		pItem->Set( 2, pReview->m_sFileComments );
@@ -141,9 +144,6 @@ BOOL CDownloadReviewDlg::OnInitDialog()
 	//m_wndReviews.SetFont( &theApp.m_gdiFontBold );
 
 	pReviews.Apply( &m_wndReviews, TRUE );
-
-	// Set window icon
-	SkinMe( NULL, IDR_MEDIAFRAME );
 
 	UpdateData( FALSE );
 

@@ -70,6 +70,8 @@ void CPropertyPageAdv::OnPaint()
 	if ( Settings.General.LanguageRTL )
 		SetLayout( dc.m_hDC, LAYOUT_RTL );
 
+	// ToDo: Skin tabs background, see CIRCTabCtrl::DrawTabThemed() ?
+
 	if ( m_nIcon >= 0 )
 		ShellIcons.Draw( &dc, m_nIcon, 48, 4, 4 );
 
@@ -140,29 +142,34 @@ HBRUSH CPropertyPageAdv::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 	if ( nCtlColor == CTLCOLOR_STATIC && Skin.m_bmDialogPanel.m_hObject )
 	{
 		const int nID = pWnd->GetDlgCtrlID();
-		if ( nID != IDC_STATIC )
+		if ( nID != IDC_STATIC || ( pWnd->GetStyle() & SS_REALSIZEIMAGE ) )		// || ( pWnd->GetStyle() & SS_ICON )
 		{
-			if ( nID >= IDC_STATIC_1 && nID <= IDC_STATIC_9 )
-				return CreateSolidBrush( Colors.m_crDialogPanel );		// Wizard Icons (SS_REALSIZEIMAGE/ES_READONLY conflict)
+			// Handle exceptions:
+			// Skip disabled edit boxes (but not selectable metadata or icons, note SS_REALSIZEIMAGE/ES_READONLY conflict)
+			if ( ( pWnd->GetStyle() & ES_READONLY ) && ! ( pWnd->GetStyle() & WS_BORDER ) && nID != IDC_STATIC )
+				return hbr;
 
-			if ( ( pWnd->GetStyle() & ES_READONLY ) && ! ( pWnd->GetStyle() & WS_BORDER ) )
-				return hbr; 											// Skip disabled edit boxes (but not selectable metadata)
+			// Obsolete skinning fix for checkbox labels, dynamic text, etc., for reference
+		//	CRect rc;
+		//	pWnd->GetWindowRect( &rc );
+		//	CRect rcPos = rc;
+		//	pWnd->ScreenToClient( &rc );
+		//	ScreenToClient( &rcPos );
+		//	CoolInterface.DrawWatermark( pDC, &rc, &Skin.m_bmDialogPanel, FALSE, -rcPos.left, -rcPos.top );
 
-			if ( nID == IDC_TORRENT_COUNT )
-			{
-				pDC->SetTextColor( Colors.m_crDialogPanelText );
-				pDC->SetBkMode( TRANSPARENT );
-				return CreateSolidBrush( Colors.m_crDialogPanel );		// Dynamic text exceptions workaround	ToDo: Fix this properly!
-			}
-
-			// Checkbox label skinning fix, etc.
+			// Offset background image brush to mimic transparency
 			CRect rc;
-			pWnd->GetWindowRect( rc );
-			ScreenToClient( rc );
-			CoolInterface.DrawWatermark( pDC, &rc, &Skin.m_bmDialogPanel, FALSE, -rc.left, -rc.top );
+			pWnd->GetWindowRect( &rc );
+			ScreenToClient( &rc );
+			pDC->SetBrushOrg( -rc.left, -rc.top );
+
+			hbr = Skin.m_brDialogPanel;
 		}
+		else	// Static text	(Note, use IDC_STATIC_1+ for an IDC_STATIC to avoid NULL brush)
+			hbr = (HBRUSH)GetStockObject( NULL_BRUSH );
+
+		pDC->SetTextColor( Colors.m_crDialogPanelText );
 		pDC->SetBkMode( TRANSPARENT );
-		hbr = (HBRUSH)GetStockObject( NULL_BRUSH );
 	}
 	else if ( nCtlColor == CTLCOLOR_STATIC || nCtlColor == CTLCOLOR_DLG )
 	{
@@ -173,6 +180,7 @@ HBRUSH CPropertyPageAdv::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 
 	return hbr;
 }
+
 
 // CPropertySheetAdv
 
@@ -189,8 +197,8 @@ BEGIN_MESSAGE_MAP(CPropertySheetAdv, CPropertySheet)
 	ON_WM_NCMOUSEMOVE()
 	ON_WM_SIZE()
 //	ON_WM_ERASEBKGND()
-	ON_MESSAGE(WM_SETTEXT, &CPropertySheetAdv::OnSetText)
 	ON_WM_HELPINFO()
+	ON_MESSAGE(WM_SETTEXT, &CPropertySheetAdv::OnSetText)
 END_MESSAGE_MAP()
 
 CPropertySheetAdv::CPropertySheetAdv()
@@ -241,8 +249,8 @@ LRESULT CPropertySheetAdv::OnNcHitTest(CPoint point)
 {
 	if ( m_pSkin )
 		return m_pSkin->OnNcHitTest( this, point, ( GetStyle() & WS_THICKFRAME ) ? TRUE : FALSE );
-	else
-		return CPropertySheet::OnNcHitTest( point );
+
+	return CPropertySheet::OnNcHitTest( point );
 }
 
 BOOL CPropertySheetAdv::OnNcActivate(BOOL bActive)
@@ -256,8 +264,8 @@ BOOL CPropertySheetAdv::OnNcActivate(BOOL bActive)
 		m_pSkin->OnNcActivate( this, bActive || ( m_nFlags & WF_STAYACTIVE ) );
 		return bResult;
 	}
-	else
-		return CPropertySheet::OnNcActivate( bActive );
+
+	return CPropertySheet::OnNcActivate( bActive );
 }
 
 void CPropertySheetAdv::OnNcPaint()
@@ -319,13 +327,18 @@ BOOL CPropertySheetAdv::OnHelpInfo(HELPINFO* /*pHelpInfo*/)
 	return FALSE;
 }
 
+// ToDo: Handle background of tab control, clashes with below skinning
 //BOOL CPropertySheetAdv::OnEraseBkgnd(CDC* pDC)
 //{
 //	if ( m_pSkin && m_pSkin->OnEraseBkgnd( this, pDC ) ) return TRUE;
 //
 //	CRect rc;
 //	GetClientRect( &rc );
-//	pDC->FillSolidRect( &rc, Colors.m_crDialogPanel );
+//
+//	if ( Skin.m_bmDialogPanel.m_hObject )
+//		CoolInterface.DrawWatermark( pDC, &rc, &Skin.m_bmDialog );
+//	else
+//		pDC->FillSolidRect( &rc, Colors.m_crDialog );
 //
 //	return TRUE;
 //}

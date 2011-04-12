@@ -290,7 +290,7 @@ void	SafeMessageLoop();
 BOOL	IsUserFullscreen();
 
 // Handle "-noskin" flag
-void	ClearSkins();
+//void	ClearSkins();
 
 struct CompareNums
 {

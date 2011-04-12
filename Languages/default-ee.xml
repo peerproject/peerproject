@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Estonian Skin File -->
 
-<!-- Translation based on default-en.xml r65 (Shareaza 2.2.2.9) -->
+<!-- Translation based on default-en.xml r66 (Shareaza 2.2.2.9) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -464,7 +464,7 @@
 	</menu>
 	<!-- MAIN WINDOW MENU BAR -->
 	<menu name="CMainWnd.DropMenu" type="bar">
-		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160;">
+		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160;">
 			<item id="ID_TOOLS_SETTINGS" text="_Seaded..."/>
 			<menu text="_Võrk">
 				<item id="ID_NETWORK_CONNECT" text="_Ühenda" shortcut="Ctrl+G"/>
@@ -2527,6 +2527,8 @@
 	<string id="20013" value="Vaikimisi"/>
 	<string id="20020" value="Faili"/>
 	<string id="20021" value="Failid"/>
+	<string id="20022" value="Kõik Failid"/>
+	<string id="20029" value="%s Failid"/>
 	<string id="20050" value="Iga Päev"/>
 	<string id="20051" value="Esmaspäev"/>
 	<string id="20052" value="Teisipäev"/>
@@ -3141,9 +3143,10 @@
 	<string id="20836" value="Keeldun tõuke päringust %s kuna sellel on liiga palju kliente."/>
 	<string id="20837" value="Tõuke päring aadressilt %s küsitud tundmatut faili, ühendan sellegipoolest..."/>
 	<string id="20838" value="Hõivatud, et üleslaadida &quot;%s&quot; serverile %s, järjekorras #%i  %i (&quot;%s&quot;.."/>
-	<string id="20840" value="Uus Rivi"/>
-	<string id="20841" value="Kõik Failid"/>
-	<string id="20842" value="Üleslaadimisühendus %s katkenud, säilitan järjekorda."/>
+	<string id="20840" value="Üleslaadimisühendus %s katkenud, säilitan järjekorda."/>
+	<string id="20841" value="Uus Rivi"/>
+	<string id="20842" value="Kõik Failid"/>
+	<string id="20845" value="DC++ Valvur"/>
 	<string id="20844" value="eDonkey Tuum"/>
 	<string id="20845" value="eDonkey Valvur"/>
 	<string id="20846" value="eDonkey Poolikud"/>
@@ -4388,13 +4391,14 @@
 		<column from="Failures" to="Tõrked"/>
 	</list>
 	<list name="CPacketWnd">
+		<column from="Time" to="Aeg"/>
 		<column from="Address" to="Aadress"/>
 		<column from="Protocol" to="Protokoll"/>
 		<column from="Type" to="Tüüp"/>
-		<column from="T/H" to=""/>
+		<column from="TTL/Hops" to=""/>
+		<column from="GUID" to=""/>
 		<column from="Hex" to=""/>
 		<column from="ASCII" to=""/>
-		<column from="G1-ID" to=""/>
 	</list>
 	<list name="CSearchMonitorWnd">
 		<column from="Search" to="Otsing"/>
@@ -4411,7 +4415,7 @@
 		<column from="Status" to="Olek"/>
 		<column from="Client" to="Klient"/>
 		<column from="Country" to="Piirkond"/>
-		<column from="Time" to=""/>
+		<column from="Time" to="Aeg"/>
 	</list>
 	<list name="CSecurityWnd">
 		<column from="Address / Content" to="Aadress / Sisu"/>

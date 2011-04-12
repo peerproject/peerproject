@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Croatian Skin File -->
 
-<!-- Translation based on default-en.xml r65 (Shareaza 2.2.0.2) -->
+<!-- Translation based on default-en.xml r66 (Shareaza 2.2.0.2) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -455,7 +455,7 @@
 	</menu>
 	<!-- MAIN WINDOW MENU BAR -->
 	<menu name="CMainWnd.DropMenu" type="bar">
-		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160;">
+		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160;">
 			<item id="ID_TOOLS_SETTINGS" text="_Postavke..."/>
 			<menu text="_Mreža">
 				<item id="ID_NETWORK_CONNECT" text="_Spoji" shortcut="Ctrl+S"/>
@@ -2490,6 +2490,8 @@
 	<string id="20012" value="Prilagodi"/>
 	<string id="20020" value="Datoteka"/>
 	<string id="20021" value="Datoteke"/>
+	<string id="20022" value="Sve Datoteke"/>
+	<string id="20029" value="%s Datoteke"/>
 	<string id="20050" value="Svaki Dan"/>
 	<string id="20051" value="Ponedjeljek"/>
 	<string id="20052" value="Utorak"/>
@@ -3093,9 +3095,10 @@
 	<string id="20836" value="Refusing push request to %s because it has too many upload connections."/>
 	<string id="20837" value="Legacy push request from %s requested an unknown file, connecting anyway..."/>
 	<string id="20838" value="Too busy to upload &quot;%s&quot; to %s, queued at #%i of %i (&quot;%s&quot;.."/>
-	<string id="20840" value="New Queue"/>
-	<string id="20841" value="Sve Datoteke"/>
-	<string id="20842" value="Upload connection to %s was lost, preserving queue position."/>
+	<string id="20840" value="Upload connection to %s was lost, preserving queue position."/>
+	<string id="20841" value="New Queue"/>
+	<string id="20842" value="Sve Datoteke"/>
+	<string id="20843" value="DC++ Guard"/>
 	<string id="20844" value="eDonkey Core"/>
 	<string id="20845" value="eDonkey Guard"/>
 	<string id="20846" value="eDonkey Partials"/>
@@ -4337,13 +4340,14 @@
 		<column from="Failures" to="Neuspjesi"/>
 	</list>
 	<list name="CPacketWnd">
+		<column from="Time" to="Vrijeme"/>
 		<column from="Address" to="Adresa"/>
 		<column from="Protocol" to="Protokol"/>
 		<column from="Type" to="Vrsta"/>
-		<column from="T/H" to=""/>
+		<column from="TTL/Hops" to=""/>
+		<column from="GUID" to=""/>
 		<column from="Hex" to=""/>
 		<column from="ASCII" to=""/>
-		<column from="G1-ID" to=""/>
 	</list>
 	<list name="CSearchMonitorWnd">
 		<column from="Search" to="Traži"/>
@@ -4360,7 +4364,7 @@
 		<column from="Status" to="Stanje"/>
 		<column from="Client" to="Klijent"/>
 		<column from="Country" to="Država"/>
-		<column from="Time" to=""/>
+		<column from="Time" to="Vrijeme"/>
 	</list>
 	<list name="CSecurityWnd">
 		<column from="Address / Content" to="Adresa / Sadržaj"/>

@@ -874,7 +874,8 @@ void CTigerTree::BeginFile(uint32 nHeight, uint64 nLength)
 
 	SetupAndAllocate( nHeight, nLength );
 
-	if ( m_pStackBase == NULL ) m_pStackBase = new CTigerNode[ STACK_SIZE ];
+	if ( m_pStackBase == NULL )
+		m_pStackBase = new CTigerNode[ STACK_SIZE ];
 	m_pStackTop	= m_pStackBase;
 	m_nBlockPos = 0;
 }
@@ -904,9 +905,7 @@ void CTigerTree::AddToFile(LPCVOID pInput, uint32 nLength)
 		}
 
 		if ( m_nBlockPos >= m_nBlockCount )
-		{
 			BlocksToNode();
-		}
 
 		pBlock += nBlock;
 		nLength -= nBlock;
@@ -1169,11 +1168,22 @@ BOOL CTigerTree::FromBytesLevel1(const uint8* pInput, uint32 nInput, uint32 nHei
 {
 	CSectionLock oLock( &m_pSection );
 
-	SetupAndAllocate( nHeight, nLength );
+	uint32 nCount = nInput / TIGER_SIZE;
+	if ( nInput % TIGER_SIZE != 0 )
+	{
+		// Not a full level
+		Clear();
+		return FALSE;
+	}
+
+	uint32 nCountHeight = 1;
+	for ( uint32 nStep = 1 ; nStep < nCount ; nStep *= 2 )
+		nCountHeight++;
+
+	SetupAndAllocate( min( nCountHeight, nHeight ), nLength );
 
 	CTigerNode* pBase = m_pNode + m_nNodeCount - m_nNodeBase;
 
-	uint32 nCount = nInput / TIGER_SIZE;
 	if ( nCount != m_nBaseUsed )
 	{
 		// Not a first level
@@ -1370,7 +1380,8 @@ void CTigerTree::BlocksToNode()
 {
 	if ( m_pStackTop == m_pStackBase ) return;
 
-	while ( m_pStackTop - 1 > m_pStackBase ) Collapse();
+	while ( m_pStackTop - 1 > m_pStackBase )
+		Collapse();
 
 	CTigerNode* pNode	= m_pNode + m_nNodeCount - m_nNodeBase + m_nNodePos++;
 

@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Hungarian Skin File -->
 
-<!-- Translation based on default-en.xml r65 -->
+<!-- Translation based on default-en.xml r66 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -494,7 +494,7 @@
 	</menu>
 	<!-- MAIN WINDOW MENU BAR -->
 	<menu name="CMainWnd.DropMenu" type="bar">
-		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160;">
+		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160;">
 			<item id="ID_TOOLS_SETTINGS" text="_Beállítások..."/>
 			<menu text="_Hálózat">
 				<item id="ID_NETWORK_CONNECT" text="Kapcsolódás" shortcut="Ctrl+G"/>
@@ -2651,6 +2651,8 @@
 	<string id="20014" value="Befejezve"/>
 	<string id="20020" value="Fájl"/>
 	<string id="20021" value="Fájlok"/>
+	<string id="20022" value="Minden Fájl"/>
+	<string id="20029" value="%s Fájlok"/>
 	<string id="20050" value="Minden Nap"/>
 	<string id="20051" value="Hétfő"/>
 	<string id="20052" value="Kedd"/>
@@ -3285,9 +3287,10 @@
 	<string id="20836" value="Push request megtagadása, mert túl sok feltöltési kapcsolata van %s."/>
 	<string id="20837" value="%s egy push requestet kért egy ismeretlem fájlhhozhoz, azért kapcsolódok..."/>
 	<string id="20838" value="Nem tudom még feltölteni: &quot;%s&quot; ide: %s, sorbanáll: #%i / %i (&quot;%s&quot;.."/>
-	<string id="20840" value="Új sor"/>
-	<string id="20841" value="Minden fájl"/>
-	<string id="20842" value="Feltöltési kapcsolat megszakadt, megtartom a régi helyet a sorban: %s."/>
+	<string id="20840" value="Feltöltési kapcsolat megszakadt, megtartom a régi helyet a sorban: %s."/>
+	<string id="20841" value="Új sor"/>
+	<string id="20842" value="Minden fájl"/>
+	<string id="20843" value="DC++ őr"/>
 	<string id="20844" value="eDonkey mag"/>
 	<string id="20845" value="eDonkey őr"/>
 	<string id="20846" value="eDonkey félkész"/>
@@ -4583,13 +4586,14 @@
 		<column from="Failures" to="Hibák"/>
 	</list>
 	<list name="CPacketWnd">
+		<column from="Time" to="Idő"/>
 		<column from="Address" to="Cím"/>
 		<column from="Protocol" to="Protokoll"/>
 		<column from="Type" to="Típus"/>
-		<column from="T/H" to=""/>
+		<column from="TTL/Hops" to=""/>
+		<column from="GUID" to=""/>
 		<column from="Hex" to=""/>
 		<column from="ASCII" to=""/>
-		<column from="G1-ID" to=""/>
 	</list>
 	<list name="CSearchMonitorWnd">
 		<column from="Search" to="Keresés"/>

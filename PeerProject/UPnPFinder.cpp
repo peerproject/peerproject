@@ -1,7 +1,7 @@
 //
 // UPnPFinder.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -44,7 +44,8 @@ CUPnPFinder::CUPnPFinder()
 	, m_tLastEvent	( GetTickCount() )
 	, m_bDisableWANIPSetup( Settings.Connection.SkipWANIPSetup == TRUE )
 	, m_bDisableWANPPPSetup( Settings.Connection.SkipWANPPPSetup == TRUE )
-{}
+{
+}
 
 bool CUPnPFinder::Init()
 {
@@ -89,9 +90,9 @@ bool CUPnPFinder::AreServicesHealthy()
 
 	// Open a handle to the Service Control Manager database
 	SC_HANDLE schSCManager = OpenSCManager(
-		NULL,				// local machine
+		NULL,				// Local machine
 		NULL,				// ServicesActive database
-		GENERIC_READ );		// for enumeration and status lookup
+		GENERIC_READ );		// For enumeration and status lookup
 
 	if ( schSCManager == NULL )
 		return false;
@@ -253,7 +254,7 @@ void CUPnPFinder::AddDevice(DevicePointer device, bool bAddChilds, int nLevel)
 		return;
 	}
 
-	//We are going to add a device
+	// We are going to add a device
 	CComBSTR bsFriendlyName, bsUniqueName;
 
 	m_tLastEvent = GetTickCount();
@@ -347,10 +348,10 @@ bool CUPnPFinder::OnSearchComplete()
 		}
 		else
 			theApp.Message( MSG_INFO, L"Found no UPnP gateway devices - will retry with different parameters" );
-		return false; // no devices found
+		return false;	// No devices found
 	}
 
-	for ( std::size_t pos = 0; pos < m_pDevices.size(); pos++ )
+	for ( std::size_t pos = 0 ; pos < m_pDevices.size() ; pos++ )
 	{
 		GetDeviceServices( m_pDevices[ pos ] );
 		StartPortMapping();
@@ -471,11 +472,9 @@ HRESULT CUPnPFinder::MapPort(const ServicePointer& service)
 	// ports is to use WANPPPConnection. If we hadn't skipped WANIPConnection,
 	// some routers could remove the previously forwarded ports as if WANIPConnection
 	// and WANPPPConnection are mutually exclusive.
-	// The problem is that it's unclear if the order of services is always the same...
-	// But looks like it is.
+	// The problem is that it's unclear if the order of services is always the same, but looks like it is.
 	// WANEthernetLinkConfig is not a good criterion to detect an ADSL device.
-	// Thus, we first skip WANIPConnection service and if we fail afterwards,
-	// we try to use it as a last resort.
+	// Thus, first skip WANIPConnection service and if we fail afterwards, try to use it as a last resort.
 	if ( ! m_bADSL )
 	{
 		m_bADSL = !( strServiceId.Find( L"urn:upnp-org:serviceId:WANEthLinkC" ) == -1 ) ||
@@ -561,8 +560,8 @@ void CUPnPFinder::StartPortMapping()
 
 void CUPnPFinder::DeletePorts()
 {
-   if ( ! m_bInited )
-	   return;
+	if ( ! m_bInited )
+		return;
 	std::for_each( m_pServices.begin(), m_pServices.end(), boost::bind( &CUPnPFinder::DeleteExistingPortMappings, this, _1 ) );
 }
 
@@ -811,7 +810,7 @@ HRESULT CUPnPFinder::InvokeAction(ServicePointer pService,
 
 	vaArray.pparray = &psaArgs;
 
-	for( INT_PTR nArg = 0 ; nArg < nArgs ; nArg++ )
+	for ( INT_PTR nArg = 0 ; nArg < nArgs ; nArg++ )
 	{
 		nPos = nArg + 1;
 		hr = SafeArrayPutElement( psaArgs, &nPos, ppVars[ nArg ] );
@@ -1033,7 +1032,7 @@ INT_PTR	CUPnPFinder::GetStringFromOutArgs(const VARIANT* pvaOutArgs, CString& st
 	if ( bInvalid || nLBound > nUBound ) return -1;
 
 	strArgs = strResult;
-	return  nUBound - nLBound + 1;
+	return nUBound - nLBound + 1;
 }
 
 // Get SafeArray bounds
@@ -1084,7 +1083,7 @@ void CUPnPFinder::DestroyVars(const INT_PTR nCount, VARIANT*** pppVars)
 
 
 ///////////////////////////////////////////////////////////////////
-//   CDeviceFinderCallback
+//	CDeviceFinderCallback
 //
 
 // Called when a device is added
@@ -1129,7 +1128,7 @@ HRESULT CDeviceFinderCallback::SearchComplete(LONG /*nFindData*/)
 
 
 ////////////////////////////////////////////////////////////////////////////////
-//   CServiceCallback
+//	CServiceCallback
 
 //! Called when the state variable is changed
 //! \arg pus             COM interface pointer of the service;

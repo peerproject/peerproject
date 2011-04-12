@@ -1,7 +1,7 @@
 //
 // WndChild.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -37,18 +37,20 @@ class CChildWnd : public CMDIChildWnd
 public:
 	CChildWnd();
 
-	UINT			m_nResID;
 	BOOL			m_bTabMode;
 	BOOL			m_bGroupMode;
 	CChildWnd*		m_pGroupParent;
 	float			m_nGroupSize;
 	BOOL			m_bPanelMode;
 	BOOL			m_bAlert;
-	CSkinWindow*	m_pSkin;
 
 private:
 	CMainWnd*		m_pMainWndCache;
 	static CChildWnd*	m_pCmdMsg;
+
+protected:
+	CSkinWindow*	m_pSkin;
+	UINT			m_nResID;
 
 // Operations
 public:
@@ -66,14 +68,14 @@ public:
 	virtual void	OnSkinChange();
 	virtual void	OnQuerySearch(const CQuerySearch* pSearch);
 	virtual BOOL	OnQueryHits(const CQueryHit* pHits);
-	virtual void	SanityCheck();
 	virtual BOOL	OnPush(const Hashes::Guid& pClientID, CConnection* pConnection);
 	virtual HRESULT	GetGenericView(IGenericView** ppView);
-	virtual BOOL	PreTranslateMessage(MSG* pMsg);
-
+	virtual BOOL    DestroyWindow();
+	virtual void	SanityCheck();
 
 protected:
 	virtual BOOL	Create(UINT nID, BOOL bVisible = TRUE);
+	virtual BOOL	PreTranslateMessage(MSG* pMsg);
 	virtual BOOL	OnCmdMsg(UINT nID, int nCode, void* pExtra, AFX_CMDHANDLERINFO* pHandlerInfo);
 
 	//{{AFX_MSG(CChildWnd)

@@ -175,7 +175,7 @@ BOOL CPeerProjectURL::ParseRoot(LPCTSTR pszURL, BOOL bResolve)
 {
 	CString strRoot( pszURL );
 	const int nRoot = strRoot.Find( _T(":") ) + 1;
-	if ( nRoot < 2 ) return FALSE;
+	if ( nRoot < 3 ) return FALSE;
 	strRoot = strRoot.Left( nRoot ).MakeLower();
 
 	SwitchMap( Root )
@@ -198,6 +198,7 @@ BOOL CPeerProjectURL::ParseRoot(LPCTSTR pszURL, BOOL bResolve)
 		Root[ L"gnutella1:" ] = 'u';
 		Root[ L"gnutella2:" ] = 'u';
 		Root[ L"mp2p:" ]	= 'p';
+	//	Root[ L"adc:" ] 	= 'd';
 		Root[ L"dchub:" ]	= 'd';
 		Root[ L"dcfile:" ]	= 'c';
 		Root[ L"foxy:" ]	= 'x';
@@ -245,12 +246,9 @@ BOOL CPeerProjectURL::ParseRoot(LPCTSTR pszURL, BOOL bResolve)
 		SkipSlashes( pszURL, nRoot );
 		return ParsePiolet( pszURL );
 	case 'd':	// dchub://1.2.3.4:411
-		m_nProtocol	= PROTOCOL_DC;
-		m_nPort = DC_DEFAULT_PORT;
-		SkipSlashes( pszURL, nRoot + 2 );
-		return ParsePeerProjectHost( pszURL, FALSE );
+		return ParseDCHub( pszURL, bResolve );
 	case 'c':	// dcfile://
-		return ParseDC( pszURL, FALSE );
+		return ParseDCFile( pszURL, FALSE );
 	case 'x':	// foxy://download?
 		pszURL += nRoot;
 		if ( ! _tcsnicmp( pszURL, _T("//download?"), 11 ) )			// Original
@@ -571,7 +569,23 @@ BOOL CPeerProjectURL::ParseED2KFTP(LPCTSTR pszURL, BOOL bResolve)
 //////////////////////////////////////////////////////////////////////
 // CPeerProjectURL DC
 
-BOOL CPeerProjectURL::ParseDC(LPCTSTR pszURL, BOOL bResolve)
+BOOL CPeerProjectURL::ParseDCHub(LPCTSTR pszURL, BOOL /*bResolve*/)
+{
+	Clear();
+
+	m_nPort = DC_DEFAULT_PORT;
+
+	SkipSlashes( pszURL, 8 );	// "dchub://"  ToDo: "adc://"
+
+	if ( ! ParsePeerProjectHost( pszURL, FALSE ) )
+		return FALSE;
+
+	m_nProtocol = PROTOCOL_DC;
+
+	return TRUE;
+}
+
+BOOL CPeerProjectURL::ParseDCFile(LPCTSTR pszURL, BOOL bResolve)
 {
 	Clear();
 
@@ -718,10 +732,12 @@ BOOL CPeerProjectURL::ParseMagnet(LPCTSTR pszURL)
 					  _tcsnicmp( strValue, _T("https://"), 8 ) == 0 ||
 					  _tcsnicmp( strValue, _T("http%3A//"), 9 ) == 0 ||
 					  _tcsnicmp( strValue, _T("ftp://"), 6 ) == 0 ||
-					  _tcsnicmp( strValue, _T("ftp%3A//"), 8 ) == 0 )
+					  _tcsnicmp( strValue, _T("ftp%3A//"), 8 ) == 0 ||
+					  _tcsnicmp( strValue, _T("dchub://"), 8 ) == 0 ||
+					  _tcsnicmp( strValue, _T("dchub%3A//"), 8 ) == 0 )
 			{
 				strValue.Replace( _T(" "), _T("%20") );
-				strValue.Replace( _T("p%3A//"), _T("p://") );
+				strValue.Replace( _T("%3A//"), _T("://") );
 
 				if ( _tcsicmp( strKey, _T("xt") ) == 0 )
 				{
@@ -791,7 +807,7 @@ BOOL CPeerProjectURL::ParseMagnet(LPCTSTR pszURL)
 
 	delete pTorrent;
 
-	if ( IsHashed() || ! m_sURL.IsEmpty() )
+	if ( HasHash() || ! m_sURL.IsEmpty() )
 	{
 		m_nAction = uriDownload;
 		return TRUE;
@@ -944,7 +960,7 @@ BOOL CPeerProjectURL::ParsePeerProjectFile(LPCTSTR pszURL)
 		}
 	}
 
-	if ( IsHashed() || ! m_sURL.IsEmpty() )
+	if ( HasHash() || ! m_sURL.IsEmpty() )
 	{
 		m_nAction = uriDownload;
 		return TRUE;
@@ -1127,7 +1143,7 @@ BOOL CPeerProjectURL::ParsePiolet(LPCTSTR pszURL)
 
 	if ( _tcsnicmp( pszURL, _T("file|"), 5 ) == 0 )
 		return ParsePioletFile( pszURL + 5 );
-	else if ( _tcsnicmp( pszURL, _T("|file|"), 6 ) == 0 )
+	if ( _tcsnicmp( pszURL, _T("|file|"), 6 ) == 0 )
 		return ParsePioletFile( pszURL + 6 );
 
 	return FALSE;

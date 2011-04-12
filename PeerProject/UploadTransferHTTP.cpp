@@ -761,7 +761,7 @@ BOOL CUploadTransferHTTP::RequestSharedFile(CLibraryFile* pFile, CSingleLock& oL
 	m_bTigerTree = bool( m_oTiger );
 	m_bMetadata  = ( pFile->m_pMetadata != NULL && ( pFile->m_bMetadataAuto == FALSE || pFile->m_nVirtualSize > 0 ) );
 
-	if ( ! IsHashed() )
+	if ( ! HasHash() )
 		m_sLocations.Empty();
 
 	if ( m_nLength == SIZE_UNKNOWN )
@@ -1187,7 +1187,7 @@ BOOL CUploadTransferHTTP::OpenFileSendHeaders()
 		Write( _P("Content-Encoding: backwards\r\n") );
 	}
 
-	if ( IsHashed() )
+	if ( HasHash() )
 		SendFileHeaders();
 
 	Write( _P("\r\n") );
@@ -1415,8 +1415,10 @@ BOOL CUploadTransferHTTP::RequestTigerTreeRaw(CTigerTree* pTigerTree, BOOL bDele
 
 	if ( m_bRange )
 	{
-		if ( m_nOffset >= nSerialTree ) m_nLength = SIZE_UNKNOWN;
-		else m_nLength = min( m_nLength, nSerialTree - m_nOffset );
+		if ( m_nOffset >= nSerialTree )
+			m_nLength = SIZE_UNKNOWN;
+		else
+			m_nLength = min( m_nLength, nSerialTree - m_nOffset );
 	}
 	else
 	{
@@ -1542,8 +1544,10 @@ BOOL CUploadTransferHTTP::RequestTigerTreeDIME(CTigerTree* pTigerTree, int nDept
 
 	if ( m_bRange )
 	{
-		if ( m_nOffset >= (QWORD)pDIME.m_nLength ) m_nLength = SIZE_UNKNOWN;
-		else m_nLength = min( m_nLength, pDIME.m_nLength - m_nOffset );
+		if ( m_nOffset >= (QWORD)pDIME.m_nLength )
+			m_nLength = SIZE_UNKNOWN;
+		else
+			m_nLength = min( m_nLength, pDIME.m_nLength - m_nOffset );
 	}
 	else
 	{
@@ -1756,7 +1760,8 @@ BOOL CUploadTransferHTTP::RequestHostBrowse()
 
 	m_bDeflate = m_bDeflate && pBuffer.Deflate( TRUE );
 
-	if ( m_bDeflate ) Write( _P("Content-Encoding: deflate\r\n") );
+	if ( m_bDeflate )
+		Write( _P("Content-Encoding: deflate\r\n") );
 
 	CString strLength;
 	strLength.Format( _T("Content-Length: %lu\r\n\r\n"), pBuffer.m_nLength );

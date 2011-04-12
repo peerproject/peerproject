@@ -1,7 +1,7 @@
 //
 // G2Neighbour.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2006.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -30,17 +30,21 @@ public:
 	CG2Neighbour(CNeighbour* pBase);
 	virtual ~CG2Neighbour();
 
+public:
 	virtual BOOL	Send(CPacket* pPacket, BOOL bRelease = TRUE, BOOL bBuffered = FALSE);
 	virtual BOOL	SendQuery(const CQuerySearch* pSearch, CPacket* pPacket, BOOL bLocal);
+
+	virtual DWORD   GetUserCount() const { return m_nLeafCount; }
+	virtual DWORD   GetUserLimit() const { return m_nLeafLimit; }
 
 	BOOL			OnPing(CG2Packet* pPacket, BOOL bTCP = TRUE);
 	BOOL			OnPong(CG2Packet* pPacket, BOOL bTCP = TRUE);
 	BOOL			OnPacket(CG2Packet* pPacket);
 	void			SendLNI();
-	BOOL			OnLNI(CG2Packet* pPacket);
 	void			SendKHL();
-	BOOL			OnKHL(CG2Packet* pPacket);
 	void			SendHAW();
+	BOOL			OnLNI(CG2Packet* pPacket);
+	BOOL			OnKHL(CG2Packet* pPacket);
 	BOOL			OnHAW(CG2Packet* pPacket);
 	BOOL			OnQuery(CG2Packet* pPacket);
 	BOOL			OnQueryAck(CG2Packet* pPacket);

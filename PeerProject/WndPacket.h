@@ -54,8 +54,10 @@ protected:
 	BOOL				m_bTypeG1[nTypeG1Size];
 	BOOL				m_bTypeG2[nTypeG2Size];
 	BOOL				m_bTypeED;
+	BOOL				m_bTypeDC;
+	BOOL				m_bTypeBT;
+	CImageList			m_gdiImageList;
 	CListCtrl			m_wndList;
-//	CImageList			m_gdiImageList;
 	CLiveListSizer		m_pSizer;
 	CFont				m_pFont;
 	CCoolMenu*			m_pCoolMenu;

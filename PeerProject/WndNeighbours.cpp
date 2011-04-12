@@ -134,6 +134,21 @@ int CNeighboursWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	m_wndList.SetExtendedStyle( LVS_EX_DOUBLEBUFFER|LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP|LVS_EX_LABELTIP|LVS_EX_SUBITEMIMAGES );
 
+	m_wndList.InsertColumn( COL_ADDRESS, _T("Address"),	LVCFMT_LEFT,	110 );
+	m_wndList.InsertColumn( COL_PORT,	 _T("Port"), 	LVCFMT_CENTER,	 42 );
+	m_wndList.InsertColumn( COL_TIME,	 _T("Time"),	LVCFMT_CENTER,	 56 );
+	m_wndList.InsertColumn( COL_TRAFFIC, _T("Traffic"), LVCFMT_CENTER,	 84 );
+	m_wndList.InsertColumn( COL_TOTAL,	 _T("Total"),	LVCFMT_CENTER,	 96 );
+	m_wndList.InsertColumn( COL_PACKETS, _T("Packets"),	LVCFMT_CENTER,	 70 );
+	m_wndList.InsertColumn( COL_FLOW,	 _T("Flow"), 	LVCFMT_CENTER,	  0 );
+	m_wndList.InsertColumn( COL_LEAVES,	 _T("Leaves"),	LVCFMT_CENTER,	 52 );
+	m_wndList.InsertColumn( COL_MODE,	 _T("Mode"), 	LVCFMT_CENTER,	 84 );
+	m_wndList.InsertColumn( COL_CLIENT,	 _T("Client"),	LVCFMT_LEFT,	110 );
+	m_wndList.InsertColumn( COL_NAME,	 _T("Name"), 	LVCFMT_LEFT,	100 );
+	m_wndList.InsertColumn( COL_COUNTRY, _T("Country"),	LVCFMT_LEFT,	 54 );
+
+	//CLiveList::Sort( &m_wndList, COL_MODE ); // Does not work
+
 // Obsolete for reference:
 //	CBitmap bmImages;
 //	//bmProtocols.LoadBitmap( IDB_PROTOCOLS );
@@ -169,23 +184,6 @@ int CNeighboursWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 //	CoolInterface.LoadIconsTo( m_gdiImageList, protocolIDs );
 //	CoolInterface.LoadFlagsTo( m_gdiImageList );
 //	m_wndList.SetImageList( &m_gdiImageList, LVSIL_SMALL );
-
-	m_wndList.InsertColumn( COL_ADDRESS, _T("Address"),	LVCFMT_LEFT,	110 );
-	m_wndList.InsertColumn( COL_PORT,	 _T("Port"), 	LVCFMT_CENTER,	 42 );
-	m_wndList.InsertColumn( COL_TIME,	 _T("Time"),	LVCFMT_CENTER,	 56 );
-	m_wndList.InsertColumn( COL_TRAFFIC, _T("Traffic"), LVCFMT_CENTER,	 84 );
-	m_wndList.InsertColumn( COL_TOTAL,	 _T("Total"),	LVCFMT_CENTER,	 96 );
-	m_wndList.InsertColumn( COL_PACKETS, _T("Packets"),	LVCFMT_CENTER,	 70 );
-	m_wndList.InsertColumn( COL_FLOW,	 _T("Flow"), 	LVCFMT_CENTER,	  0 );
-	m_wndList.InsertColumn( COL_LEAVES,	 _T("Leaves"),	LVCFMT_CENTER,	 52 );
-	m_wndList.InsertColumn( COL_MODE,	 _T("Mode"), 	LVCFMT_CENTER,	 84 );
-	m_wndList.InsertColumn( COL_CLIENT,	 _T("Client"),	LVCFMT_LEFT,	110 );
-	m_wndList.InsertColumn( COL_NAME,	 _T("Name"), 	LVCFMT_LEFT,	100 );
-	m_wndList.InsertColumn( COL_COUNTRY, _T("Country"),	LVCFMT_LEFT,	 54 );
-
-	m_wndList.SetFont( &theApp.m_gdiFont );
-
-	//CLiveList::Sort( &m_wndList, COL_MODE ); // Does not work
 
 	LoadState( _T("CNeighboursWnd"), FALSE );
 
@@ -254,7 +252,7 @@ void CNeighboursWnd::Update()
 			break;
 		}
 
-		pItem->Set( 2, str );
+		pItem->Set( COL_TIME, str );
 
 		pNeighbour->Measure();
 
@@ -272,6 +270,14 @@ void CNeighboursWnd::Update()
 		if ( pNeighbour->m_nState >= nrsConnected )
 		{
 			pItem->SetImage( pNeighbour->m_nProtocol );
+
+			if ( pNeighbour->GetUserCount() )
+			{
+				if ( pNeighbour->GetUserLimit() )
+					pItem->Format( COL_LEAVES, _T("%u/%u"), pNeighbour->GetUserCount(), pNeighbour->GetUserLimit() );
+				else
+					pItem->Format( COL_LEAVES, _T("%u"), pNeighbour->GetUserCount() );
+			}
 
 			if ( pNeighbour->m_nProtocol == PROTOCOL_G1 )
 			{
@@ -310,45 +316,20 @@ void CNeighboursWnd::Update()
 					break;
 				}
 				pItem->Set( COL_MODE, str );
-
-				if ( pG2->m_nLeafCount > 0 )
-				{
-					if ( pG2->m_nLeafLimit > 0 )
-						pItem->Format( COL_LEAVES, _T("%u/%u"), pG2->m_nLeafCount, pG2->m_nLeafLimit );
-					else
-						pItem->Format( COL_LEAVES, _T("%u"), pG2->m_nLeafCount );
-				}
-				else if ( pG2->m_nNodeType != ntLeaf )
-				{
-					pItem->Set( COL_LEAVES, _T("?") );
-				}
 			}
 			else if ( pNeighbour->m_nProtocol == PROTOCOL_ED2K )
 			{
 				CEDNeighbour* pED2K = static_cast<CEDNeighbour*>(pNeighbour);
 
+				LoadString( str, pED2K->m_nClientID > 0 ? CEDPacket::IsLowID( pED2K->m_nClientID ) ?
+					IDS_NEIGHBOUR_ED2K_LOWID : IDS_NEIGHBOUR_ED2K_HIGHID : IDS_NEIGHBOUR_ED2K_SERVER );
+				pItem->Set( COL_CLIENT, str );
+
 				pItem->Set( COL_MODE, _T("eDonkey2000") );
-
-				if ( pED2K->m_nClientID > 0 )
-				{
-					if ( pED2K->m_nUserLimit > 0 )
-						pItem->Format( COL_LEAVES, _T("%u/%u"), pED2K->m_nUserCount, pED2K->m_nUserLimit );
-					else
-						pItem->Format( COL_LEAVES, _T("%u"), pED2K->m_nUserCount );
-
-					LoadString( str, CEDPacket::IsLowID( pED2K->m_nClientID ) ? IDS_NEIGHBOUR_ED2K_LOWID : IDS_NEIGHBOUR_ED2K_HIGHID );
-					pItem->Set( COL_CLIENT, str );
-				}
-				else
-				{
-					LoadString ( str,IDS_NEIGHBOUR_ED2K_SERVER );
-					pItem->Set( COL_CLIENT, str );
-				}
 			}
 			else if ( pNeighbour->m_nProtocol == PROTOCOL_DC )
 			{
 				//CDCNeighbour* pDC = static_cast< CDCNeighbour* >( pNeighbour );
-				// ToDo: Get users count for COL_LEAVES
 
 				pItem->Set( COL_MODE, _T("NMDC Hub") );		// ToDo: Support ADC mode hubs (adc://)
 			}
@@ -359,7 +340,7 @@ void CNeighboursWnd::Update()
 		pItem->Set( COL_COUNTRY, pNeighbour->m_sCountry );
 		const int nFlagIndex = Flags.GetFlagIndex( pNeighbour->m_sCountry );
 		if ( nFlagIndex >= 0 )
-			pItem->SetImage( PROTOCOL_LAST + nFlagIndex, COL_COUNTRY );
+			pItem->SetImage( COL_COUNTRY, PROTOCOL_LAST + nFlagIndex );
 	}
 
 	pLiveList.Apply( &m_wndList, TRUE );
@@ -466,7 +447,7 @@ void CNeighboursWnd::OnNeighboursCopy()
 	}
 	else if ( pNeighbour->m_nProtocol == PROTOCOL_DC )
 	{
-		strURL.Format( _T("dchub://%s:%u"),
+		strURL.Format( _T("dchub://%s:%u/"),
 			(LPCTSTR)pNeighbour->m_sAddress, htons( pNeighbour->m_pHost.sin_port ) );
 	}
 
@@ -639,8 +620,11 @@ void CNeighboursWnd::OnSkinChange()
 {
 	OnSize( 0, 0, 0 );
 	CPanelWnd::OnSkinChange();
+
+	// Columns, Toolbar, Font
 	Settings.LoadList( _T("CNeighboursWnd"), &m_wndList );
 	Skin.CreateToolBar( _T("CNeighboursWnd"), &m_wndToolBar );
+	m_wndList.SetFont( &theApp.m_gdiFont );
 
 	CoolInterface.LoadIconsTo( m_gdiImageList, protocolIDs );
 	CoolInterface.LoadFlagsTo( m_gdiImageList );

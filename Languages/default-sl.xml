@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Slovenian Skin File -->
 
-<!-- Translation based on default-en.xml r65 (Shareaza 2.2.2.12) -->
+<!-- Translation based on default-en.xml r66 (Shareaza 2.2.2.12) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -455,7 +455,7 @@
 	</menu>
 	<!-- MAIN WINDOW MENU BAR -->
 	<menu name="CMainWnd.DropMenu" type="bar">
-		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160;">
+		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160;">
 			<item id="ID_TOOLS_SETTINGS" text="_Settings..."/>
 			<menu text="_Omrežje">
 				<item id="ID_NETWORK_CONNECT" text="_Poveži se" shortcut="Ctrl+G"/>
@@ -2520,6 +2520,8 @@
 	<string id="20013" value="Privzeto"/>
 	<string id="20020" value="Datoteka"/>
 	<string id="20021" value="Datoteke"/>
+	<string id="20022" value="Vse Datoteke"/>
+	<string id="20029" value="%s Datoteke"/>
 	<string id="20050" value="Vsak Dan"/>
 	<string id="20051" value="ponedeljek"/>
 	<string id="20052" value="torek"/>
@@ -3134,9 +3136,10 @@
 	<string id="20836" value="Zavračam potisno prošnjo (push request) do %s, ker ima preveliko število povezav za nalaganje."/>
 	<string id="20837" value="Zapuščinska (legacy) potisna prošnja od %s je prosila za neznano datoteko, kljub temu se povezujem..."/>
 	<string id="20838" value="Prezaposlen za nalaganje &quot;%s&quot; do %s, v čakalni vrsti pri #%i od %i (&quot;%s&quot;.."/>
-	<string id="20840" value="Nova čakalna vrsta"/>
-	<string id="20841" value="Vse datoteke"/>
-	<string id="20842" value="Povezava za nalaganje do  %s je bila izgubljena, obdržujem mesto v čakalni vrsti."/>
+	<string id="20840" value="Povezava za nalaganje do  %s je bila izgubljena, obdržujem mesto v čakalni vrsti."/>
+	<string id="20841" value="Nova čakalna vrsta"/>
+	<string id="20842" value="Vse datoteke"/>
+	<string id="20843" value="DC++ zaščitnik"/>
 	<string id="20844" value="eDonkey jedro"/>
 	<string id="20845" value="eDonkey zaščitnik"/>
 	<string id="20846" value="eDonkey delne datoteke"/>
@@ -4386,13 +4389,14 @@
 		<column from="Failures" to="Neuspešno"/>
 	</list>
 	<list name="CPacketWnd">
+		<column from="Time" to="Čas"/>
 		<column from="Address" to="Naslov"/>
 		<column from="Protocol" to="Protokol"/>
 		<column from="Type" to="Tip"/>
-		<column from="T/H" to=""/>
+		<column from="TTL/Hops" to=""/>
+		<column from="GUID" to=""/>
 		<column from="Hex" to=""/>
 		<column from="ASCII" to=""/>
-		<column from="G1-ID" to=""/>
 	</list>
 	<list name="CSearchMonitorWnd">
 		<column from="Search" to="Iskanje"/>
@@ -4409,7 +4413,7 @@
 		<column from="Status" to=""/>
 		<column from="Client" to="Odjemalec"/>
 		<column from="Country" to="Država"/>
-		<column from="Time" to=""/>
+		<column from="Time" to="Čas"/>
 	</list>
 	<list name="CSecurityWnd">
 		<column from="Address / Content" to="Naslov / Vsebina"/>

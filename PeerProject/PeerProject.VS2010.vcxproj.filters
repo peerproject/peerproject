@@ -1437,6 +1437,12 @@
     <None Include="Res\Open.ico">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="Res\PacketIn.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Res\PacketOut.ico">
+      <Filter>Resource Files</Filter>
+    </None>
     <None Include="Res\Packets.ico">
       <Filter>Resource Files</Filter>
     </None>

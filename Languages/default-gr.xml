@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Greek Skin File -->
 
-<!-- Translation based on default-en.xml r65 -->
+<!-- Translation based on default-en.xml r66 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -500,7 +500,7 @@
 	</menu>
 	<!-- MAIN WINDOW MENU BAR -->
 	<menu name="CMainWnd.DropMenu" type="bar">
-		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160;">
+		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160;">
 			<item id="ID_TOOLS_SETTINGS" text="__Ρυθμίσεις..."/>
 			<menu text="_Δίκτυα">
 				<item id="ID_NETWORK_CONNECT" text="_Σύνδεση" shortcut="Ctrl+G"/>
@@ -2727,6 +2727,8 @@
 	<string id="20014" value="Τέλος"/>
 	<string id="20020" value="Αρχείο"/>
 	<string id="20021" value="Αρχεία"/>
+	<string id="20022" value="Όλα τα Αρχεία"/>
+	<string id="20029" value="%s Αρχεία"/>
 	<string id="20050" value="Κάθε μέρα"/>
 	<string id="20051" value="Δευτέρα"/>
 	<string id="20052" value="Τρίτη"/>
@@ -3360,9 +3362,10 @@
 	<string id="20836" value="Άρνηση αίτησης προώθησης προς %s, επειδή έχει πάρα πολλές συνδέσεις αποστολής."/>
 	<string id="20837" value="Σύνδεση με %s, παρά την παρωχημένη του αίτηση προώθησης για ένα άγνωστο αρχείο..."/>
 	<string id="20838" value="Έλλειψη πόρων για αποστολή του &quot;%s&quot; προς %s, ανάρτηση της αποστολής στο #%i του %i (&quot;%s&quot;.."/>
-	<string id="20840" value="Νέα Ουρά"/>
-	<string id="20841" value="Όλα τα Αρχεία"/>
-	<string id="20842" value="Απώλεια σύνδεσης αποστολής προς %s, διατήρηση θέσης του στην ουρά."/>
+	<string id="20840" value="Απώλεια σύνδεσης αποστολής προς %s, διατήρηση θέσης του στην ουρά."/>
+	<string id="20841" value="Νέα Ουρά"/>
+	<string id="20842" value="Όλα τα Αρχεία"/>
+	<string id="20843" value="DC++ Φρουρός"/>
 	<string id="20844" value="ED2K Κύρια"/>
 	<string id="20845" value="ED2K Φρουρός"/>
 	<string id="20846" value="ED2K Ημιτελών"/>
@@ -4657,13 +4660,14 @@
 		<column from="Failures" to="Αποτυχίες"/>
 	</list>
 	<list name="CPacketWnd">
+		<column from="Time" to="Ημερομηνία"/>
 		<column from="Address" to="Διεύθυνση"/>
 		<column from="Protocol" to="Πρωτόκολλο"/>
 		<column from="Type" to="Τύπος"/>
-		<column from="T/H" to="T/H"/>
+		<column from="TTL/Hops" to="TTL/Hops"/>
+		<column from="GUID" to="GUID"/>
 		<column from="Hex" to="Hex"/>
 		<column from="ASCII" to="ASCII"/>
-		<column from="G1-ID" to="G1-ID"/>
 	</list>
 	<list name="CSearchMonitorWnd">
 		<column from="Search" to="Αναζήτηση"/>

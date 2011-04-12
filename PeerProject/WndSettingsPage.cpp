@@ -1,7 +1,7 @@
 //
 // WndSettingsPage.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -144,7 +144,7 @@ BOOL CSettingsPage::OnInitDialog()
 	m_wndToolTip.Create( this );
 	m_wndToolTip.Activate( TRUE );
 	m_wndToolTip.SetMaxTipWidth( 200 );
-	m_wndToolTip.SetDelayTime( TTDT_AUTOPOP, 20*1000 );	// Show tooltips for 20 seconds
+	m_wndToolTip.SetDelayTime( TTDT_AUTOPOP, 20*1000 );		// Show tooltips for 20 seconds
 
 	return TRUE;
 }
@@ -152,7 +152,7 @@ BOOL CSettingsPage::OnInitDialog()
 void CSettingsPage::OnSkinChange()
 {
 	if ( ! IsWindow( GetSafeHwnd() ) )
-		return;	// No created page yet
+		return;		// No created page yet
 
 	if ( m_sName.IsEmpty() )
 		m_sName = GetRuntimeClass()->m_lpszClassName;
@@ -242,29 +242,22 @@ HBRUSH CSettingsPage::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 		pDC->SetTextColor( Colors.m_crDialogText );
 		pDC->SetBkMode( TRANSPARENT );
 
-		if ( pWnd->GetDlgCtrlID() != IDC_STATIC )						// Named controls  (Dynamic handling)
+		if ( pWnd->GetDlgCtrlID() != IDC_STATIC )						// Named controls  (Dynamic handling)	 // || ( pWnd->GetStyle() & SS_REALSIZEIMAGE ) || ( pWnd->GetStyle() & SS_ICON )
 		{
 			if ( ! pWnd->IsWindowEnabled() || ( pWnd->GetStyle() & ES_READONLY ) )
-				return Skin.m_brDialog;									// Skip disabled edit boxes
-
-			const int nCtrlID = pWnd->GetDlgCtrlID();
-			if ( nCtrlID == IDC_SKIN_NAME || nCtrlID == IDC_SKIN_AUTHOR || nCtrlID == IDC_TIP_ALPHA )
-				return Skin.m_brDialog;									// Dynamic text exceptions workaround + slider	ToDo: improve this?
+				if ( pWnd->GetDlgCtrlID() != IDC_REMOTE_URL )
+					return Skin.m_brDialog;								// Skip disabled edit boxes (Not disabled text)
 
 			//TCHAR szName[24];
-			//GetClassName( pWnd->GetSafeHwnd(), szName, 24 );			// Alt detection method
+			//GetClassName( pWnd->GetSafeHwnd(), szName, 24 );			// Alt detection method for exceptions
 			//if ( _tcsistr( szName, _T("Static") ) )					// "Static" "Button" "ListBox" "ComboBox" "Edit" "RICHEDIT" etc
 
-			if ( ! ( pWnd->GetStyle() & WS_GROUP ) )					// Skip buggy Group Boxes to target Checkboxes
-			{
-				if ( pWnd->GetStyle() & (BS_AUTOCHECKBOX|WS_TABSTOP) )	// Checkbox label skinning workaround
-				{
-					CRect rc;
-					pWnd->GetWindowRect( rc );
-					ScreenToClient( rc );
-					CoolInterface.DrawWatermark( pDC, &rc, &Skin.m_bmDialog, FALSE, -rc.left, -rc.top );
-				}
-			}
+			// Offset background image brush to mimic transparency
+			CRect rc;
+			pWnd->GetWindowRect( &rc );
+			ScreenToClient( &rc );
+			pDC->SetBrushOrg( -rc.left, -rc.top );
+			return Skin.m_brDialog;
 		}
 
 		hbr = (HBRUSH)GetStockObject( NULL_BRUSH );
@@ -319,8 +312,8 @@ void CEditPath::OnLButtonDblClk(UINT nFlags, CPoint point)
 	if ( strPath.IsEmpty() )
 		return;
 
-	if ( strPath.GetLength() > 252 )
-		strPath = CString( _T("\\\\?\\") ) + strPath;	// Very long path (255+ char support) etc.
+	if ( strPath.GetLength() > MAX_PATH )
+		strPath = CString( _T("\\\\?\\") ) + strPath;	// Very long path (255+ char support)
 
 	if ( PathIsDirectory( strPath ) )
 		ShellExecute( GetSafeHwnd(), NULL, strPath, NULL, NULL, SW_SHOWDEFAULT );

@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default French Skin File -->
 
-<!-- Translation based on default-en.xml r65 -->
+<!-- Translation based on default-en.xml r66 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -159,8 +159,8 @@
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Supprimer"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="Nettoyer"/>
 		<separator/>
-		<button id="ID_DOWNLOADS_EDIT" text="Info du torrent"/>
-		<button id="ID_DOWNLOADS_MONITOR" text="Afficher le moniteur"/>
+		<button id="ID_DOWNLOADS_EDIT" text="Info "/>
+		<button id="ID_DOWNLOADS_MONITOR" text="Moniteur"/>
 		<rightAlign/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Nettoyer terminés"/>
 	</toolbar>
@@ -174,10 +174,10 @@
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Supprimer"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="Nettoyer"/>
 		<separator/>
-		<button id="ID_DOWNLOADS_EDIT" text="Info du torrent"/>
-		<button id="ID_DOWNLOADS_MONITOR" text="Afficher le moniteur"/>
+		<button id="ID_DOWNLOADS_EDIT" text="Info "/>
+		<button id="ID_DOWNLOADS_MONITOR" text="Moniteur"/>
 		<rightAlign/>
-		<button id="ID_TOOLS_DOWNLOAD" text="Ajouter un télécharg./torrent..."/>
+		<button id="ID_TOOLS_DOWNLOAD" text="Ajouter un télécharg..."/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Nettoyer terminés"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_FILTER_MENU" text="Filtrer"/>
@@ -536,7 +536,7 @@
 	</menu>
 	<!-- MAIN WINDOW MENU BAR -->
 	<menu name="CMainWnd.DropMenu" type="bar">
-		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160;">
+		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160;">
 			<item id="ID_TOOLS_SETTINGS" text="Réglage_s..."/>
 			<menu text="_Réseau">
 				<item id="ID_NETWORK_CONNECT" text="Connect" shortcut="Ctrl+G"/>
@@ -1215,12 +1215,15 @@
 		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="_Ouvrir"/>
 		<item id="ID_DOWNLOADS_FOLDER" text="Ouvrir _folder"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="_Stopper le seed"/>
+		<separator/>
+		<item id="ID_DOWNLOADS_FILE_DELETE" text="S_upprimer les Fichiers"/>
+		<item id="ID_DOWNLOADS_URI" text="Get Magnet Link (_URI)"/>
 		<item id="ID_DOWNLOADS_HELP" text="Ai_de..."/>
 		<separator/>
 		<item id="ID_DOWNLOADS_EDIT" text="_Propriétés..."/>
 	</menu>
 	<menu name="CDownloadsWnd.Default">
-		<item id="ID_TOOLS_DOWNLOAD" text="Start nouveau download"/>
+		<item id="ID_TOOLS_DOWNLOAD" text="Start nouveau télécharg."/>
 		<item id="ID_TOOLS_SEEDTORRENT" text="Seed nouveau torrent"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Nettoyer"/>
 		<separator/>
@@ -2788,6 +2791,8 @@
 	<string id="20014" value="Terminer"/>
 	<string id="20020" value="Fichier "/>
 	<string id="20021" value="Fichiers "/>
+	<string id="20022" value="Tous les Fichiers"/>
+	<string id="20029" value="Fichiers %s"/>
 	<string id="20050" value="Tous les Jours"/>
 	<string id="20051" value="Lundi"/>
 	<string id="20052" value="Mardi"/>
@@ -3430,9 +3435,10 @@
 	<string id="20836" value="Refus d'une demande poussée pour %s, il y a trop de connexions d'envoi."/>
 	<string id="20837" value="La demande poussée en provenance de %s est une demande d'un fichier inconnu, connexion acceptée tout de même..."/>
 	<string id="20838" value="Trop occupé pour envoyer « %s » à %s, mis en file d'attente à la position #%i de %i (« %s »)."/>
-	<string id="20840" value="Nouvelle file d'attente"/>
-	<string id="20841" value="Tous les fichiers"/>
-	<string id="20842" value="L'envoi d'une connexion vers %s a été perdu, position dans la file d'attente préservée."/>
+	<string id="20840" value="L'envoi d'une connexion vers %s a été perdu, position dans la file d'attente préservée."/>
+	<string id="20841" value="Nouvelle file d'attente"/>
+	<string id="20842" value="Tous les fichiers"/>
+	<string id="20843" value="DC++ garde"/>
 	<string id="20844" value="eDonkey noyau"/>
 	<string id="20845" value="eDonkey garde"/>
 	<string id="20846" value="eDonkey partiels"/>
@@ -4129,7 +4135,8 @@
 		<control/>
 		<control caption="Télécharger"/>
 		<control caption="Annuler"/>
-		<control caption="Ouvrir un _Torrent"/>
+		<control caption="Ouvrir _Torrent"/>
+		<control/>
 	</dialog>
 	<dialog name="CNewSearchDlg" cookie="EdCoBuBu" caption="Nouvelle recherche|Chercher encore|Trouver dans la bibliothèque">
 		<control/>
@@ -4534,7 +4541,7 @@
 		<control caption="Peers (Incomplets)&#160;:"/>
 		<control caption="Mode&#160;:"/>
 		<control caption="Inemployé|Déterminer|Traqueur unique|Multi-traqueur|Multi-tracker (défini)"/>
-		<control caption="Q_uérir&#160;:"/>
+		<control caption="Q_uérir"/>
 	</dialog>
 	<dialog name="CTorrentGeneralPage" cookie="EdEdEdEdEdCoEdBuStStStStBuStStSt" caption="Torrent">
 		<control/>
@@ -4737,13 +4744,14 @@
 		<column from="Failures" to="Échecs"/>
 	</list>
 	<list name="CPacketWnd">
+		<column from="Time" to="Temps"/>
 		<column from="Address" to="Adresse"/>
 		<column from="Protocol" to="Protocole"/>
 		<column from="Type" to="Type"/>
-		<column from="T/H" to=""/>
+		<column from="TTL/Hops" to=""/>
+		<column from="GUID" to=""/>
 		<column from="Hex" to=""/>
 		<column from="ASCII" to=""/>
-		<column from="G1-ID" to=""/>
 	</list>
 	<list name="CSearchMonitorWnd">
 		<column from="Search" to="Recherche"/>

@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Italian Skin File -->
 
-<!-- Translation based on default-en.xml r65 -->
+<!-- Translation based on default-en.xml r66 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -517,7 +517,7 @@
 	</menu>
 	<!-- MAIN WINDOW MENU BAR -->
 	<menu name="CMainWnd.DropMenu" type="bar">
-		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160;">
+		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160;">
 			<item id="ID_TOOLS_SETTINGS" text="_Opzioni..."/>
 			<menu text="_Rete">
 				<item id="ID_NETWORK_CONNECT" text="Connetti" shortcut="Ctrl+G"/>
@@ -2711,6 +2711,8 @@
 	<string id="20018" value="Riprova"/>
 	<string id="20020" value="File"/>
 	<string id="20021" value="Files"/>
+	<string id="20022" value="Tutti i File"/>
+	<string id="20029" value="Files di %s"/>
 	<string id="20050" value="Ogni Giorno Dìs"/>
 	<string id="20051" value="Lunedì"/>
 	<string id="20052" value="Martedì"/>
@@ -3355,9 +3357,10 @@
 	<string id="20836" value="Richiesta push da %s rifiutata perchè ci sono troppe connessioni in upload."/>
 	<string id="20837" value="Richiest push da %s di un file sconosciuto, connessione in corso..."/>
 	<string id="20838" value="Troppo occupato per l'upload di &quot;%s&quot; a %s, accodato a #%i di %i (&quot;%s&quot;.."/>
-	<string id="20840" value="Nuova coda"/>
-	<string id="20841" value="Tutti i file"/>
-	<string id="20842" value="La connessione in upload a %s è persa, la posizione in coda viene conservata."/>
+	<string id="20840" value="La connessione in upload a %s è persa, la posizione in coda viene conservata."/>
+	<string id="20841" value="Nuova coda"/>
+	<string id="20842" value="Tutti i file"/>
+	<string id="20843" value="Guardia DC++"/>
 	<string id="20844" value="Core eDonkey"/>
 	<string id="20845" value="Guardia eDonkey"/>
 	<string id="20846" value="Parziali eDonkey"/>
@@ -4655,13 +4658,14 @@
 		<column from="Failures" to="Errori"/>
 	</list>
 	<list name="CPacketWnd">
+		<column from="Time" to="Ora"/>
 		<column from="Address" to="Indirizzo"/>
 		<column from="Protocol" to="Protocollo"/>
 		<column from="Type" to="Tipo"/>
-		<column from="T/H" to="T/H"/>
+		<column from="TTL/Hops" to="TTL/Hops"/>
+		<column from="GUID" to="GUID"/>
 		<column from="Hex" to="Hex"/>
 		<column from="ASCII" to="ASCII"/>
-		<column from="G1-ID" to="ID-G1"/>
 	</list>
 	<list name="CSearchMonitorWnd">
 		<column from="Search" to="Ricerca"/>

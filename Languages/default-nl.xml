@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Dutch Skin File -->
 
-<!-- Translation based on default-en.xml r65 -->
+<!-- Translation based on default-en.xml r66 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -521,7 +521,7 @@
 	</menu>
 	<!-- MAIN WINDOW MENU BAR -->
 	<menu name="CMainWnd.DropMenu" type="bar">
-		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160;">
+		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160;">
 			<item id="ID_TOOLS_SETTINGS" text="_Instellingen..."/>
 			<menu text="_Netwerk">
 				<item id="ID_NETWORK_CONNECT" text="_Verbinden..." shortcut="Ctrl+G"/>
@@ -2733,6 +2733,8 @@
 	<string id="20014" value="Beëindig"/>
 	<string id="20020" value="Bestand"/>
 	<string id="20021" value="Bestanden"/>
+	<string id="20022" value="Alle Bestanden"/>
+	<string id="20029" value="%s Bestanden"/>
 	<string id="20050" value="Elke Dag"/>
 	<string id="20051" value="Maandag"/>
 	<string id="20052" value="Dinsdag"/>
@@ -3365,9 +3367,10 @@
 	<string id="20836" value="Pushaanvraag door %s is geweigerd omdat er te veel uploadverbindingen zijn."/>
 	<string id="20837" value="Verouderde pushaanvraag van %s heeft een onbekend bestand aangevraagd, wordt toch verbonden..."/>
 	<string id="20838" value="Te druk om &quot;%s&quot; te uploaden naar %s, het is in de wachtrij geplaatst op #%i van %i (&quot;%s&quot;.."/>
-	<string id="20840" value="Nieuwe wachtrij"/>
-	<string id="20841" value="Alle bestanden"/>
-	<string id="20842" value="Upload verbinding met %s is verloren gegaan, wachtrij positie wordt behouden."/>
+	<string id="20840" value="Upload verbinding met %s is verloren gegaan, wachtrij positie wordt behouden."/>
+	<string id="20841" value="Nieuwe wachtrij"/>
+	<string id="20842" value="Alle bestanden"/>
+	<string id="20843" value="DC++ bescherming"/>
 	<string id="20844" value="eDonkey kern"/>
 	<string id="20845" value="eDonkey bescherming"/>
 	<string id="20846" value="eDonkey gedeelte"/>
@@ -4666,13 +4669,14 @@
 		<column from="Failures" to="Mislukkingen"/>
 	</list>
 	<list name="CPacketWnd">
+		<column from="Time" to="Tijd"/>
 		<column from="Address" to="Adres"/>
 		<column from="Protocol" to="Protocol"/>
 		<column from="Type" to="Type"/>
-		<column from="T/H" to="T/H"/>
+		<column from="TTL/Hops" to="TTL/Hops"/>
+		<column from="GUID" to="GUID"/>
 		<column from="Hex" to="Hex"/>
 		<column from="ASCII" to="ASCII"/>
-		<column from="G1-ID" to="G1-ID"/>
 	</list>
 	<list name="CSearchMonitorWnd">
 		<column from="Search" to="Zoeken"/>

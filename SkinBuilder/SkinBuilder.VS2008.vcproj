@@ -68,8 +68,8 @@
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="_DEBUG"
-				Culture="1033"
 				AdditionalIncludeDirectories="$(IntDir)"
+				Culture="1033"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
@@ -155,8 +155,8 @@
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="WIN64;_DEBUG"
-				Culture="1033"
 				AdditionalIncludeDirectories="$(IntDir)"
+				Culture="1033"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
@@ -240,8 +240,8 @@
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="NDEBUG"
-				Culture="1033"
 				AdditionalIncludeDirectories="$(IntDir)"
+				Culture="1033"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
@@ -324,8 +324,8 @@
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="WIN64;NDEBUG"
-				Culture="1033"
 				AdditionalIncludeDirectories="$(IntDir)"
+				Culture="1033"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"

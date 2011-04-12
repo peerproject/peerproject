@@ -4806,6 +4806,14 @@
 				>
 			</File>
 			<File
+				RelativePath="Res\PacketIn.ico"
+				>
+			</File>
+			<File
+				RelativePath="Res\PacketOut.ico"
+				>
+			</File>
+			<File
 				RelativePath="Res\Packets.ico"
 				>
 			</File>

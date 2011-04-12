@@ -54,7 +54,7 @@ CDownloadWithSearch::~CDownloadWithSearch()
 
 BOOL CDownloadWithSearch::FindSourcesAllowed(DWORD tNow) const
 {
-	if ( tNow > m_tSearchTime && tNow - m_tSearchTime > 15*1000 )
+	if ( tNow > m_tSearchTime + 15*1000 )
 		return TRUE;
 
 	return FALSE;
@@ -69,8 +69,8 @@ BOOL CDownloadWithSearch::FindMoreSources()
 
 	if ( CanSearch() )
 	{
-		DWORD tNow = GetTickCount();
-		if ( tNow - m_tSearchTime > ( Settings.Downloads.SearchPeriod / 4 ) )
+		const DWORD tNow = GetTickCount();
+		if ( tNow > m_tSearchTime + ( Settings.Downloads.SearchPeriod / 4 ) )
 		{
 			m_tSearchTime = tNow;
 			if ( IsSearching() )
@@ -93,18 +93,18 @@ void CDownloadWithSearch::RunSearch(DWORD tNow)
 		return;
 	}
 
-	if ( tNow > m_tSearchTime && tNow - m_tSearchTime < Settings.Downloads.SearchPeriod )
+	if ( tNow < m_tSearchTime + Settings.Downloads.SearchPeriod )
 	{
 		StartManualSearch();
 	}
-	else if ( tNow > m_tSearchCheck && tNow - m_tSearchCheck >= 1000 )
+	else if ( tNow > m_tSearchCheck + 1000 )
 	{
 		BOOL bFewSources = GetEffectiveSourceCount() < Settings.Downloads.MinSources;
-		BOOL bDataStarve = ( tNow > m_tReceived ? tNow - m_tReceived : 0 ) > Settings.Downloads.StarveTimeout * 1000;
+		BOOL bDataStarve = tNow > m_tReceived + Settings.Downloads.StarveTimeout;	// ~45 Minutes
 
 		m_tSearchCheck = tNow;
 
-		if ( IsPaused() == FALSE && ( bFewSources || bDataStarve ) )
+		if ( ! IsPaused() && ( bFewSources || bDataStarve ) )
 			StartAutomaticSearch();
 		else
 			StopSearch();
@@ -148,7 +148,7 @@ BOOL CDownloadWithSearch::CanSearch() const
 
 	if ( Settings.Gnutella1.Enabled && m_oSHA1 )
 		return TRUE;
-	if ( Settings.Gnutella2.Enabled && IsHashed() )
+	if ( Settings.Gnutella2.Enabled && HasHash() )
 		return TRUE;
 	if ( Settings.eDonkey.Enabled && m_oED2K )
 		return TRUE;

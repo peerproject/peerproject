@@ -1,7 +1,7 @@
 //
 // DownloadTransferDC.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2011
+// This file is part of PeerProject (peerproject.org) © 2010-2011
 // Portions copyright Shareaza Development Team, 2010.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -219,7 +219,7 @@ BOOL CDownloadTransferDC::OnRun()
 
 			if ( m_pClient->IsOnline() )
 				return StartNextFragment();
-	
+
 			return m_pClient->Connect();
 		}
 		break;
@@ -292,12 +292,11 @@ BOOL CDownloadTransferDC::ReadTiger()
 	if ( pInput->m_nLength < m_nTigerLength )
 		return TRUE;	// Not yet
 
-	if ( ! m_pDownload->SetTigerTree( pInput->m_pBuffer, pInput->m_nLength, TRUE ) )
-		return FALSE;	// Wrong hash
+	const BOOL bTiger = m_pDownload->SetTigerTree( pInput->m_pBuffer, pInput->m_nLength, TRUE );
 
 	pInput->Clear();
 
-	return StartNextFragment();
+	return bTiger ? StartNextFragment() : FALSE;
 }
 
 BOOL CDownloadTransferDC::OnDownload(const std::string& strType, const std::string& strFilename, QWORD nOffset, QWORD nLength, const std::string& strOptions)

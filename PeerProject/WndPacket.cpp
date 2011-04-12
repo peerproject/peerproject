@@ -23,9 +23,10 @@
 #include "Neighbours.h"
 #include "Neighbour.h"
 #include "WndPacket.h"
-#include "Colors.h"
-#include "CoolMenu.h"
 #include "LiveList.h"
+#include "CoolMenu.h"
+#include "CoolInterface.h"
+#include "Colors.h"
 #include "Skin.h"
 
 #ifdef _DEBUG
@@ -33,6 +34,20 @@
 static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
 #endif	// Filename
+
+// Set Column Order
+enum {
+	COL_TIME,
+	COL_ADDRESS,
+	COL_PROTOCOL,
+	COL_TYPE,
+	COL_HOPS,
+	COL_GUID,
+	COL_HEX,
+	COL_ASCII,
+	COL_LAST  // Column Count
+};
+
 
 IMPLEMENT_SERIAL(CPacketWnd, CPanelWnd, 0)
 
@@ -47,7 +62,7 @@ BEGIN_MESSAGE_MAP(CPacketWnd, CPanelWnd)
 	ON_WM_TIMER()
 	ON_NOTIFY(NM_CUSTOMDRAW, IDC_PACKETS, OnCustomDrawList)
 	ON_UPDATE_COMMAND_UI(ID_SYSTEM_CLEAR, OnUpdateSystemClear)
-	ON_UPDATE_COMMAND_UI_RANGE(1, 3200, OnUpdateBlocker)
+	ON_UPDATE_COMMAND_UI_RANGE(1, 3500, OnUpdateBlocker)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -81,13 +96,14 @@ G2_PACKET CPacketWnd::m_nG2[nTypeG2Size] = {
 
 CPacketWnd::CPacketWnd(CChildWnd* pOwner)
 {
-	m_pOwner	= pOwner;
-	m_bPaused	= TRUE;
+	m_pOwner  = pOwner;
+	m_bPaused = TRUE;
 	Create( IDR_PACKETFRAME );
 }
 
 CPacketWnd::~CPacketWnd()
 {
+//	theApp.m_pPacketWnd = NULL;
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -103,30 +119,21 @@ int CPacketWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_pSizer.Attach( &m_wndList );
 
 	m_wndList.SetExtendedStyle(
-		LVS_EX_DOUBLEBUFFER|LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP|LVS_EX_LABELTIP );
-
-	m_pFont.CreateFont( -(int)(Settings.Fonts.FontSize - 1), 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE,
-		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, theApp.m_nFontQuality,
-		DEFAULT_PITCH|FF_DONTCARE, Settings.Fonts.PacketDumpFont );
-
-	m_wndList.SetFont( &m_pFont );
-
-	CWnd* pWnd = CWnd::FromHandle( (HWND)m_wndList.SendMessage( LVM_GETHEADER ) );
-	pWnd->SetFont( &theApp.m_gdiFont );
-
-	LoadState( _T("CPacketWnd"), TRUE );
+		LVS_EX_DOUBLEBUFFER|LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP|LVS_EX_LABELTIP|LVS_EX_SUBITEMIMAGES );
 
 	CRect rcList;
 	m_wndList.GetClientRect( &rcList );
-	m_wndList.InsertColumn( 0, _T("Time"), LVCFMT_CENTER, 60, -1 );
-	m_wndList.InsertColumn( 1, _T("Address"), LVCFMT_LEFT, 115, -1 );
-	m_wndList.InsertColumn( 2, _T("Protocol"), LVCFMT_CENTER, 55, 0 );
-	m_wndList.InsertColumn( 3, _T("Type"), LVCFMT_CENTER, 50, 1 );
-	m_wndList.InsertColumn( 4, _T("TTL/Hops"), LVCFMT_CENTER, 60, 2 );
-	m_wndList.InsertColumn( 5, _T("Hex"), LVCFMT_LEFT, 50, 3 );
-	m_wndList.InsertColumn( 6, _T("ASCII"), LVCFMT_LEFT,
-		rcList.Width() - 440 - GetSystemMetrics( SM_CXVSCROLL ) - 1, 4 );
-	m_wndList.InsertColumn( 7, _T("G1-ID"), LVCFMT_LEFT, 50, 5 );
+
+	m_wndList.InsertColumn( COL_TIME,	_T("Time"), 	LVCFMT_CENTER,	80, -1 );
+	m_wndList.InsertColumn( COL_ADDRESS, _T("Address"), LVCFMT_LEFT,	110, -1 );
+	m_wndList.InsertColumn( COL_PROTOCOL, _T("Protocol"), LVCFMT_CENTER, 80, 0 );
+	m_wndList.InsertColumn( COL_TYPE,	_T("Type"), 	LVCFMT_CENTER,	80, 1 );
+	m_wndList.InsertColumn( COL_HOPS,	_T("TTL/Hops"), LVCFMT_CENTER,	50, 2 );
+	m_wndList.InsertColumn( COL_GUID,	_T("GUID"), 	LVCFMT_LEFT,	50, 5 );
+	m_wndList.InsertColumn( COL_HEX,	_T("Hex"),		LVCFMT_LEFT,	50, 3 );
+	m_wndList.InsertColumn( COL_ASCII,	_T("ASCII"),	LVCFMT_LEFT,	rcList.Width() - 540, 4 );
+
+	LoadState();
 
 	m_pCoolMenu		= NULL;
 	m_nInputFilter	= 0;
@@ -136,6 +143,8 @@ int CPacketWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	for ( int nType = 0 ; nType < nTypeG1Size ; nType++ ) m_bTypeG1[ nType ] = TRUE;
 	for ( int nType = 0 ; nType < nTypeG2Size ; nType++ ) m_bTypeG2[ nType ] = TRUE;
 	m_bTypeED = TRUE;
+	m_bTypeDC = TRUE;
+	m_bTypeBT = TRUE;
 
 	SetTimer( 2, 500, NULL );
 
@@ -166,122 +175,130 @@ void CPacketWnd::OnDestroy()
 void CPacketWnd::OnSkinChange()
 {
 	CPanelWnd::OnSkinChange();
+
+	// Columns
 	Settings.LoadList( _T("CPacketWnd"), &m_wndList );
+
+	// Fonts
+	if ( m_pFont.m_hObject ) m_pFont.DeleteObject();
+	m_pFont.CreateFont( -(int)(Settings.Fonts.FontSize /*- 1*/), 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE,
+		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, theApp.m_nFontQuality,
+		DEFAULT_PITCH|FF_DONTCARE, Settings.Fonts.PacketDumpFont );
+	m_wndList.SetFont( &m_pFont );
+	m_wndList.GetHeaderCtrl()->SetFont( &theApp.m_gdiFont );
+
+	// Icons
+	CoolInterface.LoadIconsTo( m_gdiImageList, protocolIDs );
+	VERIFY( m_gdiImageList.SetImageCount( m_gdiImageList.GetImageCount() + 2 ) );
+	VERIFY( m_gdiImageList.Replace( PROTOCOL_LAST + 0, CoolInterface.ExtractIcon( IDI_INCOMING ) ) != -1 );
+	VERIFY( m_gdiImageList.Replace( PROTOCOL_LAST + 1, CoolInterface.ExtractIcon( IDI_OUTGOING ) ) != -1 );
+	m_wndList.SetImageList( &m_gdiImageList, LVSIL_SMALL );
 }
+
 
 /////////////////////////////////////////////////////////////////////////////
 // CPacketWnd operations
 
 void CPacketWnd::SmartDump(const CPacket* pPacket, const SOCKADDR_IN* pAddress, BOOL bUDP, BOOL bOutgoing, DWORD_PTR nNeighbourUnique)
 {
-	if ( m_bPaused || m_hWnd == NULL ) return;
+	if ( m_bPaused || m_hWnd == NULL )
+		return;
 
 	if ( nNeighbourUnique )
 	{
 		if ( bOutgoing )
 		{
-			if ( m_nOutputFilter && m_nOutputFilter != nNeighbourUnique ) return;
+			if ( m_nOutputFilter && m_nOutputFilter != nNeighbourUnique )
+				return;
 		}
 		else
 		{
-			if ( m_nInputFilter && m_nInputFilter != nNeighbourUnique ) return;
+			if ( m_nInputFilter && m_nInputFilter != nNeighbourUnique )
+				return;
 		}
 	}
 	else
 	{
 		if ( bOutgoing )
 		{
-			if ( m_nOutputFilter ) return;
+			if ( m_nOutputFilter )
+				return;
 		}
 		else
 		{
-			if ( m_nInputFilter ) return;
+			if ( m_nInputFilter )
+				return;
 		}
 	}
-
-	CG1Packet* pPacketG1 = ( pPacket->m_nProtocol == PROTOCOL_G1 ) ? (CG1Packet*)pPacket : NULL;
-	CG2Packet* pPacketG2 = ( pPacket->m_nProtocol == PROTOCOL_G2 ) ? (CG2Packet*)pPacket : NULL;
-	CEDPacket* pPacketED = ( pPacket->m_nProtocol == PROTOCOL_ED2K ) ? (CEDPacket*)pPacket : NULL;
-	CDCPacket* pPacketDC = ( pPacket->m_nProtocol == PROTOCOL_DC ) ? (CDCPacket*)pPacket : NULL;
-	CBTPacket* pPacketBT = ( pPacket->m_nProtocol == PROTOCOL_BT ) ? (CBTPacket*)pPacket : NULL;
 
 	switch ( pPacket->m_nProtocol )
 	{
 	case PROTOCOL_G1:
-		if ( ! m_bTypeG1[ pPacketG1->m_nTypeIndex ] )
+		if ( ! m_bTypeG1[ ((CG1Packet*)pPacket)->m_nTypeIndex ] )
 			return;
 		break;
 
 	case PROTOCOL_G2:
 		for ( int nType = 0 ; nType < nTypeG2Size ; nType++ )
 		{
-			if ( pPacketG2->IsType( m_nG2[ nType ] ) )
+			if ( ((CG2Packet*)pPacket)->IsType( m_nG2[ nType ] ) )
 			{
-				if ( ! m_bTypeG2[ nType ] ) return;
+				if ( ! m_bTypeG2[ nType ] )
+					return;
 				break;
 			}
 		}
 		break;
 
 	case PROTOCOL_ED2K:
-		// ToDo: Filter ED2K packets
-		if ( ! m_bTypeED ) return;
+		// Filter ED2K packets?
+		if ( ! m_bTypeED )
+			return;
 		break;
 
-	//default:
-	//	;
+	case PROTOCOL_DC:
+		// Filter DC++ packets?
+		if ( ! m_bTypeDC )
+			return;
+		break;
+
+	case PROTOCOL_BT:
+		// Filter BitTorrent packets?
+		if ( ! m_bTypeBT )
+			return;
+		break;
 	}
 
-	CSingleLock pLock( &m_pSection, TRUE );
-
-	if ( m_bPaused ) return;
-
-	CLiveItem* pItem = new CLiveItem( 8, bOutgoing );
+	CLiveItem* pItem = new CLiveItem( COL_LAST, bOutgoing );
 
 	CTime pNow( CTime::GetCurrentTime() );
 	CString strNow;
 	strNow.Format( _T("%0.2i:%0.2i:%0.2i"),
 		pNow.GetHour(), pNow.GetMinute(), pNow.GetSecond() );
-	pItem->Set( 0, strNow );
+	const CString sAddress( inet_ntoa( pAddress->sin_addr ) );
+	const CString sProtocol( protocolAbbr[ pPacket->m_nProtocol ] );
 
-	if ( ! bUDP )
+	pItem->Set( COL_TIME,	strNow );
+	pItem->Set( COL_ADDRESS, bUDP ? _T("(") + sAddress + _T(")") : sAddress );
+	pItem->Set( COL_PROTOCOL, sProtocol + ( bUDP ? _T(" UDP") : _T(" TCP") ) );
+	pItem->Set( COL_TYPE,	pPacket->GetType() );
+	pItem->Set( COL_HEX,	pPacket->ToHex() );
+	pItem->Set( COL_ASCII,	pPacket->ToASCII() );
+
+	pItem->SetImage( COL_TIME, PROTOCOL_LAST + ( bOutgoing ? 1 : 0 ) );
+	pItem->SetImage( COL_PROTOCOL, pPacket->m_nProtocol );
+
+	if ( pPacket->m_nProtocol == PROTOCOL_G1 )
 	{
-		pItem->Set( 1, CString( inet_ntoa( pAddress->sin_addr ) ) );
-		if ( pPacketG2 )
-			pItem->Set( 2, _T("G2 TCP") );
-		else if ( pPacketG1 )
-			pItem->Set( 2, _T("G1 TCP") );
-		else if ( pPacketED )
-			pItem->Set( 2, _T("ED2K TCP") );
-		else if ( pPacketDC )
-			pItem->Set( 2, _T("DC++ TCP") );
-		else if ( pPacketBT )
-			pItem->Set( 2, _T("BT TCP") );
+		pItem->Format( COL_HOPS, _T("%u/%u"), ((CG1Packet*)pPacket)->m_nTTL, ((CG1Packet*)pPacket)->m_nHops );
+		pItem->Set( COL_GUID, ((CG1Packet*)pPacket)->GetGUID() );
 	}
-	else
+	else if ( pPacket->m_nLength )
 	{
-		pItem->Set( 1, _T("(") + CString( inet_ntoa( pAddress->sin_addr ) ) + _T(")") );
-		if ( pPacketG2 )
-			pItem->Set( 2, _T("G2 UDP") );
-		else if ( pPacketG1 )
-			pItem->Set( 2, _T("G1 UDP") );
-		else if ( pPacketED )
-			pItem->Set( 2, _T("ED2K UDP") );
-		else if ( pPacketDC )
-			pItem->Set( 2, _T("DC++ UDP") );
-		else if ( pPacketBT )
-			pItem->Set( 2, _T("BT UDP") );
+		pItem->Format( COL_GUID, _T("(%u)"), pPacket->m_nLength );
 	}
 
-	pItem->Set( 3, pPacket->GetType() );
-	pItem->Set( 5, pPacket->ToHex() );
-	pItem->Set( 6, pPacket->ToASCII() );
-
-	if ( pPacketG1 )
-	{
-		pItem->Format( 4, _T("%u/%u"), unsigned( pPacketG1->m_nTTL ), unsigned( pPacketG1->m_nHops ) );
-		pItem->Set( 7, pPacketG1->GetGUID() );
-	}
+	CSingleLock pLock( &m_pSection, TRUE );
 
 	m_pQueue.AddTail( pItem );
 }
@@ -356,7 +373,7 @@ void CPacketWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 {
 	CSingleLock pLock( &Network.m_pSection, TRUE );
 
-	CMenu pMenu, pHosts[2], pTypes1, pTypes2, pTypes3;
+	CMenu pMenu, pHosts[2], pTypesG1, pTypesG2, pTypesED, pTypesDC, pTypesBT;
 
 	for ( int nGroup = 0 ; nGroup < 2 ; nGroup++ )
 	{
@@ -379,40 +396,44 @@ void CPacketWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 			pHosts[nGroup].AppendMenu( MF_STRING|MF_GRAYED, 999, _T("No Neighbours") );
 	}
 
-	pTypes1.CreatePopupMenu();
-
+	pTypesG1.CreatePopupMenu();
 	for ( int nType = 0 ; nType < nTypeG1Size ; nType++ )
 	{
-		if ( m_bTypeG1[ nType ] )
-			pTypes1.AppendMenu( MF_STRING|MF_CHECKED, 3000 + nType, CG1Packet::m_pszPackets[ nType ] );
-		else
-			pTypes1.AppendMenu( MF_STRING, 3000 + nType, CG1Packet::m_pszPackets[ nType ] );
+		pTypesG1.AppendMenu( MF_STRING|( m_bTypeG1[ nType ] ? MF_CHECKED : 0 ), 3000 + nType, CG1Packet::m_pszPackets[ nType ] );
 	}
 
-	pTypes2.CreatePopupMenu();
-
+	pTypesG2.CreatePopupMenu();
 	for ( int nType = 0 ; nType < nTypeG2Size ; nType++ )
 	{
 		CStringA tmp;
 		tmp.Append( (LPCSTR)&m_nG2[ nType ], G2_TYPE_LEN( m_nG2[ nType ] ) );
-		if ( m_bTypeG2[ nType ] )
-			pTypes2.AppendMenu( MF_STRING|MF_CHECKED, 3100 + nType, CString( tmp ) );
-		else
-			pTypes2.AppendMenu( MF_STRING, 3100 + nType, CString( tmp ) );
+		pTypesG2.AppendMenu( MF_STRING|( m_bTypeG2[ nType ] ? MF_CHECKED : 0 ), 3100 + nType, CString( tmp ) );
 	}
 
-	pTypes3.CreatePopupMenu();
-	if ( m_bTypeED )
-		pTypes3.AppendMenu( MF_STRING|MF_CHECKED, 3200, CString( "All" ) );
-	else
-		pTypes3.AppendMenu( MF_STRING, 3200, CString( "All" ) );
+// ToDo: Filter packet types for other networks
+//	pTypesED.CreatePopupMenu();
+//	pTypesED.AppendMenu( MF_STRING|( m_bTypeED ? MF_CHECKED : 0 ), 3300, LoadString( IDS_GENERAL_ALL ) );
+//
+//	pTypesDC.CreatePopupMenu();
+//	pTypesDC.AppendMenu( MF_STRING|( m_bTypeDC ? MF_CHECKED : 0 ), 3400, LoadString( IDS_GENERAL_ALL ) );
+//
+//	pTypesBT.CreatePopupMenu();
+//	pTypesBT.AppendMenu( MF_STRING|( m_bTypeBT ? MF_CHECKED : 0 ), 3500, LoadString( IDS_GENERAL_ALL ) );
+
+	const CString strType = Settings.General.Language.Left(2) == _T("en") ? L"Types" : LoadString( IDS_TIP_TYPE );
 
 	pMenu.CreatePopupMenu();
-	pMenu.AppendMenu( MF_STRING|MF_POPUP, (UINT_PTR)pHosts[0].GetSafeHmenu(), _T("Incoming") );
-	pMenu.AppendMenu( MF_STRING|MF_POPUP, (UINT_PTR)pHosts[1].GetSafeHmenu(), _T("Outgoing") );
-	pMenu.AppendMenu( MF_STRING|MF_POPUP, (UINT_PTR)pTypes1.GetSafeHmenu(), _T("G1 Types") );
-	pMenu.AppendMenu( MF_STRING|MF_POPUP, (UINT_PTR)pTypes2.GetSafeHmenu(), _T("G2 Types") );
-	pMenu.AppendMenu( MF_STRING|MF_POPUP, (UINT_PTR)pTypes3.GetSafeHmenu(), _T("ED2K Types") );
+	pMenu.AppendMenu( MF_STRING|MF_POPUP, (UINT_PTR)pHosts[0].GetSafeHmenu(), _T("&Incoming") );
+	pMenu.AppendMenu( MF_STRING|MF_POPUP, (UINT_PTR)pHosts[1].GetSafeHmenu(), _T("&Outgoing") );
+	pMenu.AppendMenu( MF_SEPARATOR, ID_SEPARATOR );
+	pMenu.AppendMenu( MF_STRING|MF_POPUP, (UINT_PTR)pTypesG1.GetSafeHmenu(), _T("&G1 ") + strType );
+	pMenu.AppendMenu( MF_STRING|MF_POPUP, (UINT_PTR)pTypesG2.GetSafeHmenu(), _T("G&2 ") + strType );
+//	pMenu.AppendMenu( MF_STRING|MF_POPUP, (UINT_PTR)pTypesED.GetSafeHmenu(), _T("&ED2K ") + strType );
+//	pMenu.AppendMenu( MF_STRING|MF_POPUP, (UINT_PTR)pTypesDC.GetSafeHmenu(), _T("&DC ") + strType );
+//	pMenu.AppendMenu( MF_STRING|MF_POPUP, (UINT_PTR)pTypesBT.GetSafeHmenu(), _T("&BT ") + strType );
+	pMenu.AppendMenu( MF_STRING|( m_bTypeED ? MF_CHECKED : 0 ), 3300, _T("&ED2K ") + strType );
+	pMenu.AppendMenu( MF_STRING|( m_bTypeDC ? MF_CHECKED : 0 ), 3400, _T("&DC ") + strType );
+	pMenu.AppendMenu( MF_STRING|( m_bTypeBT ? MF_CHECKED : 0 ), 3500, _T("&BT ") + strType );
 	pMenu.AppendMenu( MF_SEPARATOR, ID_SEPARATOR );
 	pMenu.AppendMenu( MF_STRING | ( m_bPaused ? MF_CHECKED : 0 ), 1, _T("&Pause Display") );
 	pMenu.AppendMenu( MF_STRING, ID_SYSTEM_CLEAR, _T("&Clear Buffer") );
@@ -484,15 +505,33 @@ void CPacketWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 		return;
 	}
 
-	if ( nCmd == 3200 )
+	if ( nCmd == 3300 )
 	{
-		nCmd -= 3200;
-
-		if ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 )
-			m_bTypeED = ( nCmd == nCmd ) ? TRUE : FALSE;
-		else
+	//	nCmd -= 3300;
+	//	if ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 )
+	//		m_bTypeED = TRUE;	//( nCmd == nCmd ) ? TRUE : FALSE;
+	//	else
 			m_bTypeED = ! m_bTypeED;
+		return;
+	}
 
+	if ( nCmd == 3400 )
+	{
+	//	nCmd -= 3400;
+	//	if ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 )
+	//		m_bTypeDC = TRUE;	//( nCmd == nCmd ) ? TRUE : FALSE;
+	//	else
+			m_bTypeDC = ! m_bTypeDC;
+		return;
+	}
+
+	if ( nCmd == 3500 )
+	{
+	//	nCmd -= 3500;
+	//	if ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 )
+	//		m_bTypeBT = TRUE;	//( nCmd == nCmd ) ? TRUE : FALSE;
+	//	else
+			m_bTypeBT = ! m_bTypeBT;
 		return;
 	}
 

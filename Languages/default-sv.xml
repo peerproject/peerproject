@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Swedish Skin File -->
 
-<!-- Translation based on default-en.xml r65 -->
+<!-- Translation based on default-en.xml r66 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -465,7 +465,7 @@
 	</menu>
 	<!-- MAIN WINDOW MENU BAR -->
 	<menu name="CMainWnd.DropMenu" type="bar">
-		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160;">
+		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160;">
 			<item id="ID_TOOLS_SETTINGS" text="_Inställningar…"/>
 			<menu text="_Nätverk">
 				<item id="ID_NETWORK_CONNECT" text="_Anslut" shortcut="Ctrl+G"/>
@@ -2640,6 +2640,8 @@
 	<string id="20014" value="Avsluta"/>
 	<string id="20020" value="Fil"/>
 	<string id="20021" value="Filer"/>
+	<string id="20022" value="Alla Filer"/>
+	<string id="20029" value="%s Filer"/>
 	<string id="20050" value="Varje Dag"/>
 	<string id="20051" value="Måndag"/>
 	<string id="20052" value="Tisdag"/>
@@ -3272,9 +3274,10 @@
 	<string id="20836" value="Vägrar anslutningsbegäran till %s eftersom den har för många uppladdningsanslutningar."/>
 	<string id="20837" value="Nedärvd anslutningsbegäran från %s begärde en okänd fil, ansluter ändå…"/>
 	<string id="20838" value="För upptagen med att ladda upp &quot;%s&quot; till %s, kölagd som #%i av %i (&quot;%s&quot;.."/>
-	<string id="20840" value="Ny kö"/>
-	<string id="20841" value="Fullständiga filer"/>
-	<string id="20842" value="Uppladdningsanslutning. till %s förlorades, bevarar kölagd position."/>
+	<string id="20840" value="Uppladdningsanslutning. till %s förlorades, bevarar kölagd position."/>
+	<string id="20841" value="Ny kö"/>
+	<string id="20842" value="Fullständiga filer"/>
+	<string id="20843" value="DC++-vakt"/>
 	<string id="20844" value="eDonkey-kärna"/>
 	<string id="20845" value="eDonkey-vakt"/>
 	<string id="20846" value="eDonkey-ofullständig"/>
@@ -4571,13 +4574,14 @@
 		<column from="Failures" to="Fel"/>
 	</list>
 	<list name="CPacketWnd">
+		<column from="Time" to="Tid"/>
 		<column from="Address" to="Adress"/>
 		<column from="Protocol" to="Protokoll"/>
 		<column from="Type" to="Typ"/>
-		<column from="T/H" to="T/H"/>
+		<column from="TTL/Hops" to="TTL/Hops"/>
+		<column from="GUID" to="GUID"/>
 		<column from="Hex" to="Hex"/>
 		<column from="ASCII" to="ASCII"/>
-		<column from="G1-ID" to="G1-ID"/>
 	</list>
 	<list name="CSearchMonitorWnd">
 		<column from="Search" to="Sök"/>

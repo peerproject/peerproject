@@ -566,7 +566,7 @@ void CSchedulerWnd::OnSchedulerExport()
 void CSchedulerWnd::OnSchedulerImport()
 {
 	CFileDialog dlg( TRUE, _T("xml"), NULL, OFN_HIDEREADONLY|OFN_OVERWRITEPROMPT,
-		_T("XML Scheduler Files|*.xml|All Files|*.*||") );
+		_T("XML Scheduler Files|*.xml|") + LoadString( IDS_FILES_ALL ) + _T("|*.*||") );
 
 	if ( dlg.DoModal() != IDOK ) return;
 

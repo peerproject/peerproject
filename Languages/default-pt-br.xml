@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Brazilian Portuguese Skin File -->
 
-<!-- Translation based on default-en.xml r65 -->
+<!-- Translation based on default-en.xml r66 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -521,7 +521,7 @@
 	</menu>
 	<!-- MAIN WINDOW MENU BAR -->
 	<menu name="CMainWnd.DropMenu" type="bar">
-		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160;">
+		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160;">
 			<item id="ID_TOOLS_SETTINGS" text="Configurações..."/>
 			<menu text="_Red">
 				<item id="ID_NETWORK_CONNECT" text="Conectar" shortcut="Ctrl+G"/>
@@ -2747,6 +2747,8 @@
 	<string id="20018" value="Tentar de Novo"/>
 	<string id="20020" value="Arquivo"/>
 	<string id="20021" value="Arquivos"/>
+	<string id="20022" value="Todos os Arquivos"/>
+	<string id="20029" value="Arquivos de %s"/>
 	<string id="20050" value="Todos los Dias"/>
 	<string id="20051" value="Segunda"/>
 	<string id="20052" value="Terça"/>
@@ -3407,9 +3409,10 @@
 	<string id="20836" value="Recusando o pedido de push %s porque este tem muitas conexões de upload."/>
 	<string id="20837" value="Pedido push legacy de %s requisitou um arquivo desconhecido, conectando mesmo assim..."/>
 	<string id="20838" value="Muito ocupado para enviar &quot;%s&quot; para %s. Esperando na fila na posição #%i de %i (&quot;%s&quot;.."/>
-	<string id="20840" value="Nova Fila"/>
-	<string id="20841" value="Todos os Arquivos"/>
-	<string id="20842" value="Conexão de upload com %s foi perdida, preservando a posição na fila de espera."/>
+	<string id="20840" value="Conexão de upload com %s foi perdida, preservando a posição na fila de espera."/>
+	<string id="20841" value="Nova Fila"/>
+	<string id="20842" value="Todos os Arquivos"/>
+	<string id="20843" value="Proteção DC++"/>
 	<string id="20844" value="Núcleo eDonkey"/>
 	<string id="20845" value="Proteção eDonkey"/>
 	<string id="20846" value="Parciais eDonkey"/>
@@ -4705,13 +4708,14 @@
 		<column from="Failures" to="Falhas"/>
 	</list>
 	<list name="CPacketWnd">
+		<column from="Time" to="Horário"/>
 		<column from="Address" to="Endereços"/>
 		<column from="Protocol" to="Protocolo"/>
 		<column from="Type" to="Tipo"/>
-		<column from="T/H" to="T/H"/>
+		<column from="TTL/Hops" to="TTL/Hops"/>
+		<column from="GUID" to="GUID"/>
 		<column from="Hex" to="Hex"/>
 		<column from="ASCII" to="ASCII"/>
-		<column from="G1-ID" to="G1-ID"/>
 	</list>
 	<list name="CSearchMonitorWnd">
 		<column from="Search" to="Busca"/>

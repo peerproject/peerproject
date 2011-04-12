@@ -108,11 +108,11 @@ void CPeerProjectCommandLineInfo::ParseParam(const TCHAR* pszParam, BOOL bFlag, 
 			m_bNoAlphaWarning = TRUE;
 			return;
 		}
-		if ( ! lstrcmpi( pszParam, _T("noskin") ) )
-		{
-			ClearSkins();
-			return;
-		}
+	//	if ( ! lstrcmpi( pszParam, _T("noskin") ) )
+	//	{
+	//		ClearSkins();
+	//		return;
+	//	}
 		if ( ! lstrcmpi( pszParam, _T("basic") ) )
 		{
 			m_nGUIMode = GUI_BASIC;
@@ -275,7 +275,7 @@ BOOL CPeerProjectApp::InitInstance()
 			_T(" -tray\t\tStart application quietly in system tray\n")
 			_T(" -nosplash\tDisable startup splash screen\n")
 			_T(" -nowarn\t\tSkip debug version warning dialog\n")
-			_T(" -noskin\t\tDisable all skins and languages\n")
+		//	_T(" -noskin\t\tDisable all skins and languages\n")
 			_T(" -basic\t\tStart application in Basic mode\n")
 			_T(" -tabbed\t\tStart application in Tabbed mode\n")
 			_T(" -windowed\tStart application in Windowed mode\n")
@@ -1593,6 +1593,7 @@ BOOL CPeerProjectApp::InternalURI(LPCTSTR pszURI)
 			! _tcsnicmp( strURI, _T("btc:"), 4 ) ||
 			! _tcsnicmp( strURI, _T("irc:"), 4 ) ||
 			! _tcsnicmp( strURI, _T("aim:"), 4 ) ||
+		//	! _tcsnicmp( strURI, _T("adc:"), 4 ) ||
 			! _tcsnicmp( strURI, _T("dchub:"), 6 ) ||
 			! _tcsnicmp( strURI, _T("dcfile:"), 7 ) ||
 			! _tcsnicmp( strURI, _T("mailto:"), 7 ) ||
@@ -3046,37 +3047,37 @@ BOOL IsUserFullscreen()
 	return FALSE;
 }
 
-void ClearSkins()
-{
-	// Commandline "-noskin" reset
-	HKEY hRoot;
-	if ( RegOpenKeyEx( HKEY_LOCAL_MACHINE, REGISTRY_KEY, 0, KEY_ALL_ACCESS, &hRoot ) != ERROR_SUCCESS )
-		return;
-	RegDeleteKey( hRoot, _T("\\Settings\\Language") );
-	RegDeleteKey( hRoot, _T("\\Settings\\LanguageRTL") );
-
-	// Prefer native Vista+ way
-	OSVERSIONINFOEX pVersion = { sizeof( OSVERSIONINFOEX ) };
-	GetVersionEx( (OSVERSIONINFO*)&pVersion );
-	if ( pVersion.dwMajorVersion > 5 )
-	{
-		RegDeleteTree( hRoot, _T("\\Skins") );
-		RegDeleteTree( hRoot, _T("\\Toolbars") );
-		RegDeleteTree( hRoot, _T("\\Windows") );
-		RegDeleteTree( hRoot, _T("\\ListStates") );
-		RegDeleteTree( hRoot, _T("\\Interface") );
-	}
-	else // XP/2000
-	{
-		SHDeleteKey( hRoot, _T("\\Skins") );
-		SHDeleteKey( hRoot, _T("\\Toolbars") );
-		SHDeleteKey( hRoot, _T("\\Windows") );
-		SHDeleteKey( hRoot, _T("\\ListStates") );
-		SHDeleteKey( hRoot, _T("\\Interface") );
-	}
-
-	RegCloseKey( hRoot );
-}
+//void ClearSkins()
+//{
+//	// Commandline "-noskin" reset
+//	HKEY hRoot;
+//	if ( RegOpenKeyEx( HKEY_LOCAL_MACHINE, REGISTRY_KEY, 0, KEY_ALL_ACCESS, &hRoot ) != ERROR_SUCCESS )
+//		return;
+//	RegDeleteKey( hRoot, _T("\\Settings\\Language") );
+//	RegDeleteKey( hRoot, _T("\\Settings\\LanguageRTL") );
+//
+//	// Prefer native Vista+ way
+//	OSVERSIONINFOEX pVersion = { sizeof( OSVERSIONINFOEX ) };
+//	GetVersionEx( (OSVERSIONINFO*)&pVersion );
+//	if ( pVersion.dwMajorVersion > 5 )
+//	{
+//		RegDeleteTree( hRoot, _T("\\Skins") );
+//		RegDeleteTree( hRoot, _T("\\Toolbars") );
+//		RegDeleteTree( hRoot, _T("\\Windows") );
+//		RegDeleteTree( hRoot, _T("\\ListStates") );
+//		RegDeleteTree( hRoot, _T("\\Interface") );
+//	}
+//	else // XP/2000
+//	{
+//		SHDeleteKey( hRoot, _T("\\Skins") );
+//		SHDeleteKey( hRoot, _T("\\Toolbars") );
+//		SHDeleteKey( hRoot, _T("\\Windows") );
+//		SHDeleteKey( hRoot, _T("\\ListStates") );
+//		SHDeleteKey( hRoot, _T("\\Interface") );
+//	}
+//
+//	RegCloseKey( hRoot );
+//}
 
 
 template <>

@@ -1,7 +1,7 @@
 //
 // WndDiscovery.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -19,11 +19,11 @@
 #include "StdAfx.h"
 #include "PeerProject.h"
 #include "Settings.h"
-#include "Network.h"
-#include "DiscoveryServices.h"
-#include "LiveList.h"
 #include "WndDiscovery.h"
+#include "DiscoveryServices.h"
 #include "DlgDiscoveryService.h"
+#include "Network.h"
+#include "LiveList.h"
 #include "Skin.h"
 
 #ifdef _DEBUG
@@ -62,7 +62,6 @@ BEGIN_MESSAGE_MAP(CDiscoveryWnd, CPanelWnd)
 	ON_COMMAND(ID_DISCOVERY_ADVERTISE, OnDiscoveryAdvertise)
 	ON_UPDATE_COMMAND_UI(ID_DISCOVERY_BROWSE, OnUpdateDiscoveryBrowse)
 	ON_COMMAND(ID_DISCOVERY_BROWSE, OnDiscoveryBrowse)
-
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -114,8 +113,6 @@ int CDiscoveryWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_wndList.InsertColumn( 8, _T("Updates"), LVCFMT_CENTER, 55, 7 );
 	m_wndList.InsertColumn( 9, _T("Failures"), LVCFMT_CENTER, 55, 8 );
 	m_wndList.InsertColumn( 10, _T("Pong"), LVCFMT_CENTER, 150, 9 );
-
-	m_wndList.SetFont( &theApp.m_gdiFont );
 
 	LoadState( _T("CDiscoveryWnd"), TRUE );
 
@@ -258,6 +255,7 @@ void CDiscoveryWnd::OnSkinChange()
 	CPanelWnd::OnSkinChange();
 	Settings.LoadList( _T("CDiscoveryWnd"), &m_wndList, 3 );
 	Skin.CreateToolBar( _T("CDiscoveryWnd"), &m_wndToolBar );
+	m_wndList.SetFont( &theApp.m_gdiFont );
 }
 
 void CDiscoveryWnd::OnSize(UINT nType, int cx, int cy)
@@ -271,7 +269,7 @@ void CDiscoveryWnd::OnSize(UINT nType, int cx, int cy)
 
 void CDiscoveryWnd::OnTimer(UINT_PTR nIDEvent)
 {
-	if ( ( nIDEvent == 1 ) && ( IsPartiallyVisible() ) )
+	if ( nIDEvent == 1 && IsPartiallyVisible() )
 		Update();
 }
 
@@ -298,7 +296,7 @@ void CDiscoveryWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 
 void CDiscoveryWnd::OnUpdateDiscoveryQuery(CCmdUI* pCmdUI)
 {
-	if (  m_wndList.GetSelectedCount() == 1 )
+	if ( m_wndList.GetSelectedCount() == 1 )
 	{
 		CDiscoveryService* pService = GetItem( m_wndList.GetNextItem( -1, LVIS_SELECTED ) );
 		if ( pService && pService->m_nType != CDiscoveryService::dsBlocked )
@@ -349,8 +347,7 @@ void CDiscoveryWnd::OnUpdateDiscoveryAdvertise(CCmdUI* pCmdUI)
 void CDiscoveryWnd::OnDiscoveryAdvertise()
 {
 	CSingleLock pLock( &Network.m_pSection, FALSE );
-	if ( ! pLock.Lock( 250 ) )
-		return;
+	if ( ! pLock.Lock( 250 ) ) return;
 
 	CDiscoveryService* pService = GetItem( m_wndList.GetNextItem( -1, LVIS_SELECTED ) );
 
@@ -366,8 +363,7 @@ void CDiscoveryWnd::OnUpdateDiscoveryBrowse(CCmdUI* pCmdUI)
 void CDiscoveryWnd::OnDiscoveryBrowse()
 {
 	CSingleLock pLock( &Network.m_pSection, FALSE );
-	if ( ! pLock.Lock( 250 ) )
-		return;
+	if ( ! pLock.Lock( 250 ) ) return;
 
 	CDiscoveryService* pService = GetItem( m_wndList.GetNextItem( -1, LVIS_SELECTED ) );
 	CString strURL;
@@ -389,8 +385,7 @@ void CDiscoveryWnd::OnUpdateDiscoveryRemove(CCmdUI* pCmdUI)
 void CDiscoveryWnd::OnDiscoveryRemove()
 {
 	CSingleLock pLock( &Network.m_pSection, FALSE );
-	if ( ! pLock.Lock( 250 ) )
-		return;
+	if ( ! pLock.Lock( 250 ) ) return;
 
 	for ( int nItem = -1 ; ( nItem = m_wndList.GetNextItem( nItem, LVIS_SELECTED ) ) >= 0 ; )
 	{

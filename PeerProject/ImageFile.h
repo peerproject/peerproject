@@ -1,7 +1,7 @@
 //
 // ImageFile.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -43,8 +43,7 @@ public:
 	BOOL	LoadFromBitmap(HBITMAP hBitmap, BOOL bScanOnly = FALSE);	// Get image copy from HBITMAP (24/32-bit only)
 	BOOL	LoadFromResource(HINSTANCE hInstance, UINT nResourceID, LPCTSTR pszType, BOOL bScanOnly = FALSE, BOOL bPartialOk = FALSE);
 	BOOL	SaveToMemory(LPCTSTR pszType, int nQuality, LPBYTE* ppBuffer, DWORD* pnLength);
-//	BOOL	SaveToFile(LPCTSTR pszType, int nQuality, HANDLE hFile, DWORD* pnLength = NULL);
-//	BOOL	SaveToFile(LPCTSTR pszFile, int nQuality);
+	BOOL    SaveToFile(LPCTSTR pszFile, int nQuality, DWORD* pnLength = NULL);
 	DWORD	GetSerialSize() const;
 	void	Serialize(CArchive& ar);
 	BOOL	FitTo(int nNewWidth, int nNewHeight);

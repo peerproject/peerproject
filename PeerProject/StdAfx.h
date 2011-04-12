@@ -465,6 +465,19 @@ const LPCTSTR protocolNames[] =
 	_T("Kademlia")
 };
 
+const LPCTSTR protocolAbbr[] =
+{
+	_T(""),
+	_T("G1"),
+	_T("G2"),
+	_T("ED2K"),
+	_T("HTTP"),
+	_T("FTP"),
+	_T("DC"),
+	_T("BT"),
+	_T("KAD")
+};
+
 // Legacy mapping
 //struct ProtocolCmdIDMapEntry
 //{

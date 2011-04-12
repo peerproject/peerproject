@@ -1,7 +1,7 @@
 //
 // PagePropertyAdv.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2006.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -31,7 +31,7 @@ public:
 	CPropertyPageAdv(UINT nIDD);
 
 protected:
-	int	m_nIcon;
+	int 	m_nIcon;
 
 	void	PaintStaticHeader(CDC* pDC, CRect* prc, LPCTSTR psz);
 
@@ -58,7 +58,7 @@ public:
 protected:
 	CSkinWindow*	m_pSkin;
 
-	void SetTabTitle(CPropertyPage* pPage, CString& strTitle);
+	void	SetTabTitle(CPropertyPage* pPage, CString& strTitle);
 	virtual BOOL OnInitDialog();
 
 	afx_msg void OnNcCalcSize(BOOL bCalcValidRects, NCCALCSIZE_PARAMS FAR* lpncsp);
@@ -70,9 +70,9 @@ protected:
 	afx_msg void OnNcLButtonDblClk(UINT nHitTest, CPoint point);
 	afx_msg void OnNcMouseMove(UINT nHitTest, CPoint point);
 	afx_msg void OnSize(UINT nType, int cx, int cy);
-	afx_msg LRESULT OnSetText(WPARAM wParam, LPARAM lParam);
-	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
+//	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
 	afx_msg BOOL OnHelpInfo(HELPINFO* pHelpInfo);
+	afx_msg LRESULT OnSetText(WPARAM wParam, LPARAM lParam);
 
 	DECLARE_MESSAGE_MAP()
 

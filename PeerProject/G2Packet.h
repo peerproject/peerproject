@@ -1,7 +1,7 @@
 //
 // G2Packet.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -17,6 +17,8 @@
 //
 
 #pragma once
+
+//#define G2_PACKET_DUMP		// Better Packet Dump window, causes connection problems!
 
 #include "Packet.h"
 
@@ -230,7 +232,11 @@ public:
 	virtual void	WriteString(LPCTSTR pszString, BOOL bNull = TRUE);
 	virtual int		GetStringLen(LPCTSTR pszString) const;
 	virtual void	ToBuffer(CBuffer* pBuffer, bool bTCP = true) const;
+
+#ifdef _DEBUG
 	virtual void	Debug(LPCTSTR pszReason) const;
+#endif
+
 public:
 	static CG2Packet* ReadBuffer(CBuffer* pBuffer);
 
@@ -245,10 +251,10 @@ public:
 
 	virtual CString GetType() const;
 
-//#ifdef DEBUG_G2
-//	virtual CString ToASCII() const;
-//	CString Dump(DWORD nTotal);
-//#endif // DEBUG_G2
+#ifdef G2_PACKET_DUMP
+	virtual CString ToASCII() const;
+	CString Dump(DWORD nTotal);
+#endif
 
 // Packet Pool
 protected:

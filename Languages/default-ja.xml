@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Japanese Skin File -->
 
-<!-- Translation based on default-en.xml r65 (Shareaza 2.2.0.2) -->
+<!-- Translation based on default-en.xml r66 (Shareaza 2.2.0.2) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -463,7 +463,7 @@
 	</menu>
 	<!-- MAIN WINDOW MENU BAR -->
 	<menu name="CMainWnd.DropMenu" type="bar">
-		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160;">
+		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160;">
 			<item id="ID_TOOLS_SETTINGS" text="設定..."/>
 			<menu text="ネットワーク(_N)">
 				<item id="ID_NETWORK_CONNECT" text="接続(_C)" shortcut="Ctrl+G"/>
@@ -2559,6 +2559,8 @@
 	<string id="20013" value="デフォルト"/>
 	<string id="20020" value="ファイル"/>
 	<string id="20021" value="ファイル"/>
+	<string id="20022" value="全てのファイル"/>
+	<string id="20029" value="%sファイル"/>
 	<string id="20050" value="毎日曜"/>
 	<string id="20051" value="月曜"/>
 	<string id="20052" value="火曜"/>
@@ -3177,9 +3179,10 @@
 	<string id="20836" value="あまりに多すぎるアップロード接続を持っているため %s へのプッシュ要求を拒否しました"/>
 	<string id="20837" value="%s からのレガシープッシュ要求は未知のファイルを要求していますが、接続試行しています..."/>
 	<string id="20838" value="&quot;%s&quot; を %s へアップロードするにはビジーすぎる為、キュー(#%i/%i)で順番待ちしています(&quot;%s&quot;."/>
-	<string id="20840" value="新規キュー"/>
-	<string id="20841" value="全てのファイル"/>
-	<string id="20842" value="%s へのアップロード接続が失われた為、キュー位置を保存しています"/>
+	<string id="20840" value="%s へのアップロード接続が失われた為、キュー位置を保存しています"/>
+	<string id="20841" value="新規キュー"/>
+	<string id="20842" value="全てのファイル"/>
+	<string id="20843" value="DC++ガード"/>
 	<string id="20844" value="eDonkeyコア"/>
 	<string id="20845" value="eDonkeyガード"/>
 	<string id="20846" value="eDonkey部品"/>
@@ -4434,13 +4437,14 @@
 		<column from="Failures" to="失敗"/>
 	</list>
 	<list name="CPacketWnd">
+		<column from="Time" to="時間"/>
 		<column from="Address" to="アドレス"/>
 		<column from="Protocol" to="プロトコル"/>
 		<column from="Type" to="種類"/>
-		<column from="T/H" to="T/H"/>
+		<column from="TTL/Hops" to="TTL/Hops"/>
+		<column from="GUID" to="GUID"/>
 		<column from="Hex" to="16進値"/>
 		<column from="ASCII" to="ASCII値"/>
-		<column from="G1-ID" to="G1-ID"/>
 	</list>
 	<list name="CSearchMonitorWnd">
 		<column from="Search" to="検索"/>

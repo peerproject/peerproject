@@ -1,7 +1,7 @@
 //
 // LibraryDictionary.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -38,6 +38,8 @@ public:
 	void					Clear();
 	void					Serialize(CArchive& ar, int nVersion);
 	CFileList*				Search(const CQuerySearch* pSearch, int nMaximum = 0, bool bLocal = false, bool bAvailableOnly = true);
+
+	INT_PTR 				GetWordCount() const { return m_oWordMap.GetCount(); }	// For Debug Benchmark
 
 private:
 	typedef CMap< CString, const CString&, CFileList*, CFileList*& > CWordMap;

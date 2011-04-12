@@ -1,7 +1,7 @@
 //
 // DlgDownloadSheet.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2006.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -18,8 +18,9 @@
 
 #include "StdAfx.h"
 #include "PeerProject.h"
-#include "CoolInterface.h"
 #include "DlgDownloadSheet.h"
+#include "CoolInterface.h"
+#include "Colors.h"
 
 #include "PageDownloadEdit.h"
 #include "PageDownloadActions.h"
@@ -36,6 +37,8 @@ static char THIS_FILE[] = __FILE__;
 IMPLEMENT_DYNAMIC(CDownloadSheet, CPropertySheetAdv)
 
 BEGIN_MESSAGE_MAP(CDownloadSheet, CPropertySheetAdv)
+//	ON_WM_ERASEBKGND()
+//	ON_WM_CTLCOLOR()
 END_MESSAGE_MAP()
 
 
@@ -96,19 +99,17 @@ BOOL CDownloadSheet::OnInitDialog()
 	SetFont( &CoolInterface.m_fntNormal );
 	SetIcon( theApp.LoadIcon( IDI_PROPERTIES ), TRUE );
 
-	CString strCaption;
-	LoadString( strCaption, IDS_DOWNLOAD_PROPERTIES );
-	SetWindowText( strCaption );
+	SetWindowText( LoadString( IDS_DOWNLOAD_PROPERTIES ) );
 
 	if ( GetDlgItem( IDOK ) )
 	{
 		CRect rc;
 
-		GetDlgItem( 0x3021 )->GetWindowRect( &rc );	// Apply Position for OK
+		GetDlgItem( 0x3021 )->GetWindowRect( &rc );		// Apply Position for OK
 		ScreenToClient( &rc );
 		GetDlgItem( IDOK )->SetWindowPos( NULL, rc.left + 1, rc.top, 0, 0, SWP_NOSIZE|SWP_NOZORDER|SWP_NOACTIVATE );
 
-		GetDlgItem( 0x0009 )->GetWindowRect( &rc );	// Help Position for Cancel
+		GetDlgItem( 0x0009 )->GetWindowRect( &rc );		// Help Position for Cancel
 		ScreenToClient( &rc );
 		GetDlgItem( IDCANCEL )->SetWindowPos( NULL, rc.left, rc.top, 0, 0, SWP_NOSIZE|SWP_NOZORDER|SWP_NOACTIVATE );
 	}
@@ -118,3 +119,42 @@ BOOL CDownloadSheet::OnInitDialog()
 
 	return bResult;
 }
+
+// ToDo: Override background of tab control in PagePropertyAdv, otherwise clashes with below skinning
+
+//BOOL CDownloadSheet::OnEraseBkgnd(CDC* pDC)
+//{
+//	if ( m_pSkin && ! theApp.m_bClosing && m_pSkin->OnEraseBkgnd( this, pDC ) ) return TRUE;
+//
+//	CRect rc;
+//	GetClientRect( &rc );
+////	rc.top = Skin.m_nBanner;	// No banner in properties window?
+//
+//	if ( Skin.m_bmDialog.m_hObject )
+//		CoolInterface.DrawWatermark( pDC, &rc, &Skin.m_bmDialog );
+//	else
+//		pDC->FillSolidRect( &rc, Colors.m_crDialog );
+//
+//	return TRUE;
+//}
+
+//HBRUSH CDownloadSheet::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
+//{
+//	HBRUSH hbr = CWnd::OnCtlColor( pDC, pWnd, nCtlColor );
+//
+//	if ( Skin.m_bmDialog.m_hObject )	// && nCtlColor == CTLCOLOR_BTN )	// Buttons (edge)
+//	{
+//			CRect rc;
+//			pWnd->GetWindowRect( &rc );
+//			CRect rcPos = rc;
+//			pWnd->ScreenToClient( &rc );
+//			ScreenToClient( &rcPos );
+//		//	if ( rcPos.top > Skin.m_nBanner )
+//		//		rcPos.top -= Skin.m_nBanner;
+//
+//			CoolInterface.DrawWatermark( pDC, &rc, &Skin.m_bmDialog, FALSE, -rcPos.left, -rcPos.top );
+//			hbr = (HBRUSH)GetStockObject( NULL_BRUSH );
+//	}
+//
+//	return hbr;
+//}

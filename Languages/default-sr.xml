@@ -3,7 +3,7 @@
 
 <!-- PeerProject/ПеерПројецт Default Serbian Skin File -->
 
-<!-- Translation based on default-en.xml r65 -->
+<!-- Translation based on default-en.xml r66 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -462,7 +462,7 @@
 	</menu>
 	<!-- MAIN WINDOW MENU BAR -->
 	<menu name="CMainWnd.DropMenu" type="bar">
-		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160;">
+		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160;">
 			<item id="ID_TOOLS_SETTINGS" text="_Settings..."/>
 			<menu text="_Mreža">
 				<item id="ID_NETWORK_CONNECT" text="_Повежи се" shortcut="Ctrl+G"/>
@@ -2542,6 +2542,8 @@
 	<string id="20012" value="Прилагоди"/>
 	<string id="20020" value="фајл"/>
 	<string id="20021" value="фајлова"/>
+	<string id="20022" value="Sve фајлова"/>
+	<string id="20029" value="%s фајлова"/>
 	<string id="20050" value="Сваки дан"/>
 	<string id="20051" value="Ponedjeljek"/>
 	<string id="20052" value="Utorak"/>
@@ -3099,9 +3101,10 @@
 	<string id="20836" value="Refusing push request to %s because it has too many upload connections."/>
 	<string id="20837" value="Legacy push request from %s requested an unknown file, connecting anyway..."/>
 	<string id="20838" value="Too busy to upload &quot;%s&quot; to %s, queued at #%i of %i (&quot;%s&quot;.."/>
-	<string id="20840" value="New Queue"/>
-	<string id="20841" value="Sve Datoteke"/>
-	<string id="20842" value="Upload connection to %s was lost, preserving queue position."/>
+	<string id="20840" value="Upload connection to %s was lost, preserving queue position."/>
+	<string id="20841" value="Radhë të Reja"/>
+	<string id="20842" value="Sve фајлова"/>
+	<string id="20843" value="DC++ Guard"/>
 	<string id="20844" value="eDonkey Core"/>
 	<string id="20845" value="eDonkey Guard"/>
 	<string id="20846" value="eDonkey Partials"/>
@@ -4345,13 +4348,14 @@
 		<column from="Failures" to="Neuspesi"/>
 	</list>
 	<list name="CPacketWnd">
+		<column from="Time" to="Vreme"/>
 		<column from="Address" to="Adresa"/>
 		<column from="Protocol" to="Protokol"/>
 		<column from="Type" to="Vrsta"/>
-		<column from="T/H" to=""/>
+		<column from="TTL/Hops" to=""/>
+		<column from="GUID" to=""/>
 		<column from="Hex" to=""/>
 		<column from="ASCII" to=""/>
-		<column from="G1-ID" to=""/>
 	</list>
 	<list name="CSearchMonitorWnd">
 		<column from="Search" to="Traži"/>

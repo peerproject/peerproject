@@ -1,7 +1,7 @@
 //
 // DlgDeleteFile.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2006.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -83,7 +83,7 @@ BOOL CDeleteFileDlg::OnInitDialog()
 {
 	CSkinDialog::OnInitDialog();
 
-	SkinMe( NULL, ID_LIBRARY_DELETE );
+	SkinMe( L"CDeleteFileDlg", ID_LIBRARY_DELETE );
 
 	if ( m_bAll )
 	{
@@ -138,7 +138,7 @@ void CDeleteFileDlg::OnDeleteAll()
 {
 	UpdateData( TRUE );
 	if ( m_nOption != 1 )
-		m_bAll = TRUE; // Can't all if misnamed
+		m_bAll = TRUE;	// Can't all if misnamed
 	CDialog::OnOK();
 }
 
@@ -210,7 +210,7 @@ void CDeleteFileDlg::Create(CDownload* pDownload, BOOL bShare)
 		pFile->Ghost();
 	}
 
-	if ( pFile != NULL ) // If we got ghost file, update its info too
+	if ( pFile != NULL )	// If we got ghost file, update its info too
 	{
 		Apply( pFile );
 		Library.Update();

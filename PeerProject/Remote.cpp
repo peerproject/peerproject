@@ -366,12 +366,14 @@ void CRemote::Output(LPCTSTR pszName)
 
 		if ( nStart < 0 )
 		{
-			if ( bDisplay ) m_sResponse += strBody;
+			if ( bDisplay )
+				m_sResponse += strBody;
 			break;
 		}
 		else if ( nStart >= 0 )
 		{
-			if ( bDisplay && nStart > 0 ) m_sResponse += strBody.Left( nStart );
+			if ( bDisplay && nStart > 0 )
+				m_sResponse += strBody.Left( nStart );
 			strBody = strBody.Mid( nStart + 2 );
 		}
 
@@ -392,7 +394,8 @@ void CRemote::Output(LPCTSTR pszName)
 		{
 			strKey = strKey.Mid( 1 );
 			strKey.Trim();
-			if ( m_pKeys.Lookup( strKey, strValue ) ) m_sResponse += strValue;
+			if ( m_pKeys.Lookup( strKey, strValue ) )
+				m_sResponse += strValue;
 		}
 		else if ( strKey.GetAt( 0 ) == '?' )
 		{
@@ -1005,14 +1008,9 @@ void CRemote::PageDownloads()
 							pDownload->Resume();
 
 							if ( pSource->m_bPushOnly )
-							{
 								pSource->PushRequest();
-							}
-							else
-							{
-								if ( CDownloadTransfer* pTransfer = pSource->CreateTransfer() )
-									pTransfer->Initiate();
-							}
+							else if ( CDownloadTransfer* pTransfer = pSource->CreateTransfer() )
+								pTransfer->Initiate();
 						}
 					}
 					else if ( strModifyAction == _T("forget") )
@@ -1324,6 +1322,15 @@ void CRemote::PageNetworkNetwork(int nID, bool* pbConnect, LPCTSTR pszName)
 		}
 		Add( _T("row_time"), str );
 
+		if ( pNeighbour->GetUserCount() )
+		{
+			if ( pNeighbour->GetUserLimit() )
+				str.Format( _T("%i/%i"), pNeighbour->GetUserCount(), pNeighbour->GetUserLimit() );
+			else
+				str.Format( _T("%i"), pNeighbour->GetUserCount() );
+			Add( _T("row_leaves"), str );
+		}
+
 		if ( pNeighbour->m_nProtocol == PROTOCOL_G1 )
 		{
 		//	CG1Neighbour* pG1 = reinterpret_cast<CG1Neighbour*>(pNeighbour);
@@ -1362,43 +1369,27 @@ void CRemote::PageNetworkNetwork(int nID, bool* pbConnect, LPCTSTR pszName)
 			}
 
 			Add( _T("row_mode"), str );
-
-			if ( pG2->m_nLeafCount > 0 )
-			{
-				if ( pG2->m_nLeafLimit > 0 )
-					str.Format( _T("%i/%i"), pG2->m_nLeafCount, pG2->m_nLeafLimit );
-				else
-					str.Format( _T("%i"), pG2->m_nLeafCount );
-
-				Add( _T("row_leaves"), str );
-			}
-
 			str.Empty();
-			if ( pG2->m_pProfile != NULL ) str = pG2->m_pProfile->GetNick();
+
+			if ( pG2->m_pProfile )
+				str = pG2->m_pProfile->GetNick();
 		}
 		else if ( pNeighbour->m_nProtocol == PROTOCOL_ED2K )
 		{
 			CEDNeighbour* pED2K = static_cast<CEDNeighbour*>(pNeighbour);
 
 			if ( pED2K->m_nClientID > 0 )
-			{
-				if ( pED2K->m_nUserLimit > 0 )
-					str.Format( _T("%i/%i"), pED2K->m_nUserCount, pED2K->m_nUserLimit );
-				else
-					str.Format( _T("%i"), pED2K->m_nUserCount );
-
-				Add( _T("row_leaves"), str );
-				CString strText1, strText2;
-				LoadString( strText1, IDS_NEIGHBOUR_ED2K_LOWID );
-				LoadString( strText2, IDS_NEIGHBOUR_ED2K_HIGHID );
-				Add( _T("row_mode"), CEDPacket::IsLowID( pED2K->m_nClientID ) ? strText1 : strText2 );
-			}
+				LoadString( str, CEDPacket::IsLowID( pED2K->m_nClientID ) ? IDS_NEIGHBOUR_ED2K_LOWID : IDS_NEIGHBOUR_ED2K_HIGHID );
 			else
-			{
-				Add( _T("row_mode"), _T("eDonkey2000") );
-			}
+				str = _T("eDonkey2000");
+
+			Add( _T("row_mode"), str );
 
 			str = pED2K->m_sServerName;
+		}
+		else if ( pNeighbour->m_nProtocol == PROTOCOL_DC )
+		{
+			str = pNeighbour->m_sServerName;
 		}
 
 		Add( _T("row_nick"), str );

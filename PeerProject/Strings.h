@@ -65,6 +65,8 @@ CString URLEncode(LPCTSTR pszInput);
 
 // Decode "hello%20world" back to "hello world"
 CString URLDecode(LPCTSTR pszInput);
+CString URLDecode(__in const CStringA& strInput);
+CString URLDecode(__in_bcount(nInput) LPCSTR psInput, __in int nInput);
 
 // Decodes properly encoded URLs
 CString URLDecodeANSI(LPCTSTR pszInput);

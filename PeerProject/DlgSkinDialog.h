@@ -1,7 +1,7 @@
 //
 // DlgSkinDialog.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -36,7 +36,8 @@ protected:
 	CStatic			m_oBanner;		// Banner to add (id=IDC_BANNER, bitmap=IDB_BANNER)
 	BOOL			m_bAutoBanner;	// Add banner to top of dialog (default = yes)
 
-	void EnableBanner(BOOL bEnable);
+	void EnableBanner(BOOL bEnable = TRUE);
+
 	//int GetBannerHeight() const	// Using Skin.m_nBanner instead
 	//{
 	//	if ( CStatic* pBanner = (CStatic*)GetDlgItem( IDC_BANNER ) )
@@ -59,13 +60,13 @@ protected:
 	afx_msg void OnNcLButtonUp(UINT nHitTest, CPoint point);
 	afx_msg void OnNcLButtonDblClk(UINT nHitTest, CPoint point);
 	afx_msg void OnNcMouseMove(UINT nHitTest, CPoint point);
+	afx_msg void OnWindowPosChanging(WINDOWPOS* lpwndpos);
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
-	afx_msg LRESULT OnSetText(WPARAM wParam, LPARAM lParam);
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
-	afx_msg void OnWindowPosChanging(WINDOWPOS* lpwndpos);
 	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg BOOL OnHelpInfo(HELPINFO* pHelpInfo);
+	afx_msg LRESULT OnSetText(WPARAM wParam, LPARAM lParam);
 
 	DECLARE_MESSAGE_MAP()
 };

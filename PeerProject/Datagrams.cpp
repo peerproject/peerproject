@@ -679,7 +679,6 @@ BOOL CDatagrams::OnDatagram(const SOCKADDR_IN* pHost, const BYTE* pBuffer, DWORD
 
 				if ( bHandled )
 					return TRUE;
-
 			}
 			// ToDo: Detect obfuscated eMule packets
 		}

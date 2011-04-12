@@ -156,7 +156,6 @@ int CHostCacheWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 #endif
 	m_wndList.SetFont( &theApp.m_gdiFont );
 
-	Settings.LoadList( _T("CHostCacheWnd"), &m_wndList );
 	LoadState( _T("CHostCacheWnd"), TRUE );
 
 	CWaitCursor pCursor;
@@ -237,7 +236,7 @@ void CHostCacheWnd::Update(BOOL bForce)
 			pItem->Set( COL_COUNTRY, pHost->m_sCountry );
 			const int nFlagIndex = Flags.GetFlagIndex( pHost->m_sCountry );
 			if ( nFlagIndex >= 0 )
-				pItem->SetImage( PROTOCOL_LAST + nFlagIndex, COL_COUNTRY );
+				pItem->SetImage( COL_COUNTRY, PROTOCOL_LAST + nFlagIndex );
 		}
 #ifdef _DEBUG
 		if ( pHost->m_nKeyValue ) pItem->Format( COL_DBG_KEY, _T("%u"), pHost->m_nKeyValue);
@@ -649,13 +648,12 @@ void CHostCacheWnd::OnHostcacheDCCache()
 
 void CHostCacheWnd::OnHostcacheImport()
 {
-	// ToDo: Import/Export any host cache list from gui (incl. G1/G2)
-	// ToDo: Localize it
+	// ToDo: Import/Export any host cache list from gui (incl. G1/G2), and Localize it
 	CFileDialog dlg( TRUE, _T("met"), NULL, OFN_HIDEREADONLY,
 		_T("eDonkey2000 MET files|*.met|")
 		_T("Kademlia Nodes files|nodes.dat|")
 		_T("DC++ hub lists|*.xml.bz2|")
-		_T("All Files|*.*||"), this );
+		+ LoadString( IDS_FILES_ALL ) + _T("|*.*||"), this );
 
 	if ( dlg.DoModal() != IDOK ) return;
 

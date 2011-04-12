@@ -1,7 +1,7 @@
 //
 // DownloadTask.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -108,9 +108,9 @@ dtask CDownloadTask::GetTaskType() const
 	return m_nTask;
 }
 
-const CHttpRequest* CDownloadTask::GetRequest() const
+CString CDownloadTask::GetRequest() const
 {
-	return m_pRequest;
+	return m_sURL;
 }
 
 
@@ -130,8 +130,9 @@ void CDownloadTask::PreviewRequest(CDownload* pDownload, LPCTSTR szURL)
 	CDownloadTask* pTask = new CDownloadTask( pDownload, dtaskPreviewRequest );
 	if ( ! pTask ) return;		// Out of memory
 
+	pTask->m_sURL = szURL;
 	pTask->m_pRequest = new CHttpRequest();
-	pTask->m_pRequest->SetURL( szURL );
+	pTask->m_pRequest->SetURL( pTask->m_sURL );
 	pTask->m_pRequest->AddHeader( _T("Accept"), _T("image/jpeg") );
 	pTask->m_pRequest->LimitContentLength( Settings.Search.MaxPreviewLength );
 
@@ -608,6 +609,5 @@ CBuffer* CDownloadTask::IsPreviewAnswerValid() const
 		return NULL;
 	}
 
-	CBuffer* pBuffer = m_pRequest->GetResponseBuffer();
-	return pBuffer;
+	return m_pRequest->GetResponseBuffer();
 }

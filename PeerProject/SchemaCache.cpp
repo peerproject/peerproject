@@ -1,7 +1,7 @@
 //
 // SchemaCache.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -226,4 +226,45 @@ CXMLElement* CSchemaCache::AutoDetectAudio(LPCTSTR pszInfo)
 	pXML->AddAttribute( _T("bitrate"), strValue );
 
 	return pXML;
+}
+
+CString CSchemaCache::GetFilter(LPCTSTR pszURI) const
+{
+	if ( CSchemaPtr pSchema = Get( pszURI ) )
+	{
+		LPCTSTR pszURIType;
+		if ( pszURI == CSchema::uriAllFiles )
+			pszURIType = NULL;
+		else if ( pszURI == CSchema::uriApplicationAll )
+			pszURIType = CSchema::uriApplication;
+		else if ( pszURI == CSchema::uriVideoAll )
+			pszURIType = CSchema::uriVideo;
+		else if ( pszURI == CSchema::uriMusicAll )
+			pszURIType = CSchema::uriAudio;
+		else if ( pszURI == CSchema::uriImageAll )
+			pszURIType = CSchema::uriImage;
+		else if ( pszURI == CSchema::uriArchiveAll )
+			pszURIType = CSchema::uriArchive;
+		else if ( pszURI == CSchema::uriDocumentAll )
+			pszURIType = CSchema::uriDocument;
+		else
+		{
+			ASSERT( FALSE );
+			return CString();
+		}
+
+		CString sTypes;
+		if ( CSchemaPtr pSchemaType = Get( pszURIType ) )
+		{
+			sTypes = pSchemaType->m_sTypeFilter;
+			sTypes.Replace( _T("||"), _T(";*") );
+			sTypes.Insert( 1, _T('*') );
+		}
+		else
+			sTypes = _T("|*.*|");
+
+		return pSchema->m_sHeaderTitle + sTypes;
+	}
+
+	return CString();
 }

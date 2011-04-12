@@ -292,7 +292,7 @@ bool CDownload::IsShared() const
 {
 	return m_bShared ||
 		( Settings.Gnutella1.Enabled && m_oSHA1 ) ||
-		( Settings.Gnutella2.Enabled && IsHashed() ) ||
+		( Settings.Gnutella2.Enabled && HasHash() ) ||
 		( Settings.eDonkey.Enabled && m_oED2K ) ||
 		( Settings.DC.Enabled && m_oTiger ) ||
 		( Settings.BitTorrent.Enabled && IsTorrent() && ( IsSeeding() || IsStarted() ) );

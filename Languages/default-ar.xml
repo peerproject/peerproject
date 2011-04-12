@@ -3,7 +3,7 @@
 
 <!-- PeerProject Arabic Language Skin File -->
 
-<!-- Translation based on default-en.xml r65 -->
+<!-- Translation based on default-en.xml r66 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -493,7 +493,7 @@
 	</menu>
 	<!-- MAIN WINDOW MENU BAR -->
 	<menu name="CMainWnd.DropMenu" type="bar">
-		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160;">
+		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160;">
 			<item id="ID_TOOLS_SETTINGS" text="إ_عدادات ..."/>
 			<menu text="_شبكة">
 				<item id="ID_NETWORK_CONNECT" text="_إتصال" shortcut="Ctrl+G" />
@@ -2657,13 +2657,15 @@
 	<string id="20006" value="&amp;Next" />
 	<string id="20008" value="Close" />
 	<string id="20009" value="/" />	<!-- "1 of 10" -->
-	<string id="20010" value="All" />
+	<string id="20010" value="جميع" />
 	<string id="20011" value="تلقائيا" />
 	<string id="20012" value="مخصص" />
 	<string id="20013" value="Default" />
 	<string id="20014" value="Finish" />
 	<string id="20020" value="ملف" />
 	<string id="20021" value="الملفات" />
+	<string id="20022" value="جميع الملفات" />
+	<string id="20029" value="الملفات %s" />
 	<string id="20050" value="كل يوم" />
 	<string id="20051" value="الاثنين" />
 	<string id="20052" value="الثلاثاء" />
@@ -3297,9 +3299,9 @@
 	<string id="20836" value="Refusing push request to %s because it has too many upload connections." />
 	<string id="20837" value="Legacy push request from %s requested an unknown file, connecting anyway..." />
 	<string id="20838" value="Too busy to upload &quot;%s&quot; to %s, queued at #%i of %i (&quot;%s&quot;.." />
-	<string id="20840" value="New Queue" />
-	<string id="20841" value="All Files" />
-	<string id="20842" value="Upload connection to %s was lost, preserving queue position." />
+	<string id="20840" value="Upload connection to %s was lost, preserving queue position." />
+<!--	<string id="20841" value="New Queue" />
+	<string id="20842" value="All Files" />
 	<string id="20844" value="eDonkey Core" />
 	<string id="20845" value="eDonkey Guard" />
 	<string id="20846" value="eDonkey Partials" />
@@ -3318,7 +3320,7 @@
 	<string id="20859" value="Closing upload connection %s due to lack of traffic." />
 	<string id="20860" value="Uploading tiger-tree data for &quot;%s&quot; to %s." />
 	<string id="20861" value="Removed upload of &quot;%s&quot; to %s." />
-	<string id="20862" value="إضافة" />
+-->	<string id="20862" value="إضافة" />
 	<string id="20864" value="إستعراض" />
 	<string id="20865" value="إتصال" />
 	<string id="20866" value="اسم الملف:" />
@@ -4581,13 +4583,14 @@
 		<column from="Failures" to="الفشل" />
 	</list>
 	<list name="CPacketWnd">
+		<column from="Time" to="الوقت" />
 		<column from="Address" to="العنوان" />
 		<column from="Protocol" to="البروتوكول" />
 		<column from="Type" to="النوع" />
-		<column from="T/H" to="" />
+		<column from="TTL/Hops" to="" />
+		<column from="GUID" to="" />
 		<column from="Hex" to="" />
 		<column from="ASCII" to="" />
-		<column from="G1-ID" to="" />
 	</list>
 	<list name="CSearchMonitorWnd">
 		<column from="Search" to="بحث" />

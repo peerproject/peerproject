@@ -73,7 +73,6 @@ CShakeNeighbour::~CShakeNeighbour()
 // Called by CNeighboursWithConnect::ConnectTo
 // Takes an IP address and port number to connect to, the automatic setting (do), and true if (do)
 // Connects the socket in this object to the remote computer
-// Returns false if the connection could not be made
 BOOL CShakeNeighbour::ConnectTo(const IN_ADDR* pAddress, WORD nPort, BOOL bAutomatic, BOOL bNoUltraPeer)
 {
 	// Connect the socket in this object to the given ip address and port number
@@ -103,7 +102,6 @@ BOOL CShakeNeighbour::ConnectTo(const IN_ADDR* pAddress, WORD nPort, BOOL bAutom
 	// Add this CShakeNeighbour object to the list of them
 	Neighbours.Add( this );
 
-	// The connection was made without error
 	return TRUE;
 }
 

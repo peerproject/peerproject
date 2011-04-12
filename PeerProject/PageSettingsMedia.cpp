@@ -1,7 +1,7 @@
 //
 // PageSettingsMedia.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -24,12 +24,17 @@
 #include "PageSettingsMedia.h"
 #include "PageSettingsPlugins.h"
 #include "DlgMediaVis.h"
+#include "SchemaCache.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
 #endif	// Filename
+
+#define INTERNAL_INDEX	1
+#define CUSTOM_INDEX	0
+
 
 IMPLEMENT_DYNCREATE(CMediaSettingsPage, CSettingsPage)
 
@@ -43,6 +48,7 @@ BEGIN_MESSAGE_MAP(CMediaSettingsPage, CSettingsPage)
 	ON_CBN_EDITCHANGE(IDC_MEDIA_TYPES, OnEditChangeMediaTypes)
 	ON_CBN_SELCHANGE(IDC_MEDIA_TYPES, OnSelChangeMediaTypes)
 	ON_CBN_SELCHANGE(IDC_MEDIA_SERVICE, OnSelChangeMediaService)
+	ON_WM_DESTROY()
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -83,6 +89,11 @@ void CMediaSettingsPage::Update()
 {
 	UpdateData();
 
+	const BOOL bInternal = ( m_wndServices.GetCurSel() == INTERNAL_INDEX );
+	GetDlgItem( IDC_MEDIA_PLAY )->EnableWindow( bInternal );
+	GetDlgItem( IDC_MEDIA_ENQUEUE )->EnableWindow( bInternal );
+	GetDlgItem( IDC_MEDIA_VIS )->EnableWindow( bInternal );
+
 	m_wndList.EnableWindow( m_bEnablePlay || m_bEnableEnqueue );
 	m_wndAdd.EnableWindow( ( m_bEnablePlay || m_bEnableEnqueue ) && m_wndList.GetWindowTextLength() > 0 );
 	m_wndRemove.EnableWindow( ( m_bEnablePlay || m_bEnableEnqueue ) && m_wndList.GetCurSel() >= 0 );
@@ -97,52 +108,32 @@ BOOL CMediaSettingsPage::OnInitDialog()
 
 	m_bEnablePlay		= Settings.MediaPlayer.EnablePlay;
 	m_bEnableEnqueue	= Settings.MediaPlayer.EnableEnqueue;
-	m_nSelected			= 3;	// Default PeerProject Media Player
 
 	for ( string_set::const_iterator i = Settings.MediaPlayer.FileTypes.begin() ;
-		i != Settings.MediaPlayer.FileTypes.end(); i++ )
+		i != Settings.MediaPlayer.FileTypes.end() ; ++i )
 	{
 		m_wndList.AddString( *i );
 	}
 
-	CString str;
-	LoadString( str, IDS_GENERAL_CUSTOM );
-	str.Insert( 0, '(' );
-	str.Append( _T("\x2026)") );
-	m_wndServices.AddString( str );
-	LoadString( str, IDS_MEDIA_SMPLAYER );
-	m_wndServices.AddString( str );
+	m_wndServices.AddString( _T("(") + LoadString( IDS_GENERAL_CUSTOM ) + _T("\x2026)") );
+	m_wndServices.AddString( LoadString( IDS_MEDIA_SMPLAYER ) );
+	int nSelected = INTERNAL_INDEX;
 
-	int nCount = 0;
-	for( string_set::const_reverse_iterator i = Settings.MediaPlayer.ServicePath.rbegin() ; i != Settings.MediaPlayer.ServicePath.rend() ; ++i )
+	for ( string_set::const_iterator i = Settings.MediaPlayer.ServicePath.begin() ;
+		i != Settings.MediaPlayer.ServicePath.end() ; ++i )
 	{
-		m_sServicePath[nCount] = *i;
-		int nBackSlash = m_sServicePath[nCount].ReverseFind( '\\' );
-		str = m_sServicePath[nCount].Mid( nBackSlash + 1 );
-		int nAstrix= str.ReverseFind( '*' );
+		CString sPlayer = *i;
+		int nAstrix = sPlayer.ReverseFind( _T('*') );
+		sPlayer.Remove( _T('*') );
 
-		if( nAstrix != -1 )	// Selected player
-		{
-			m_nSelected	= nCount;
-			str.Remove('*');
-		}
+		int nIndex = m_wndServices.AddString( PathFindFileName( sPlayer ) );
+		if( nAstrix != -1 )		// Selected player
+			nSelected = nIndex;
 
-		m_wndServices.InsertString( 2+nCount, str );
-		m_sServicePath[nCount].Remove('*');
-		nCount++;
+		m_wndServices.SetItemDataPtr( nIndex, new CString( sPlayer ) );
 	}
 
-	if ( m_nSelected == 3 ) // Default
-	{
-		m_wndServices.SetCurSel( 1 );
-	}
-	else // Custom player
-	{
-		m_wndServices.SetCurSel( m_nSelected + 2 );
-		GetDlgItem( IDC_MEDIA_PLAY )->EnableWindow( FALSE );
-		GetDlgItem( IDC_MEDIA_ENQUEUE )->EnableWindow( FALSE );
-		GetDlgItem( IDC_MEDIA_VIS )->EnableWindow( FALSE );
-	}
+	m_wndServices.SetCurSel( nSelected );
 
 	UpdateData( FALSE );
 
@@ -188,6 +179,8 @@ void CMediaSettingsPage::OnMediaAdd()
 
 void CMediaSettingsPage::OnMediaRemove()
 {
+	UpdateData();
+
 	int nItem = m_wndList.GetCurSel();
 	if ( nItem >= 0 )
 		m_wndList.DeleteString( nItem );
@@ -197,46 +190,49 @@ void CMediaSettingsPage::OnMediaRemove()
 
 void CMediaSettingsPage::OnMediaVis()
 {
+	UpdateData();
+
 	CMediaVisDlg dlg( NULL );
 	dlg.DoModal();
+}
+
+void CMediaSettingsPage::OnDestroy()
+{
+	const int nCount = m_wndServices.GetCount();
+	for ( int i = 0 ; i < nCount ; ++i )
+	{
+		delete (CString*)m_wndServices.GetItemDataPtr( i );
+	}
+
+	CSettingsPage::OnDestroy();
 }
 
 void CMediaSettingsPage::OnOK()
 {
 	UpdateData();
 
-	Settings.MediaPlayer.EnablePlay		= m_bEnablePlay != FALSE;
-	Settings.MediaPlayer.EnableEnqueue	= m_bEnableEnqueue != FALSE;
+	Settings.MediaPlayer.EnablePlay		= ( m_bEnablePlay != FALSE );
+	Settings.MediaPlayer.EnableEnqueue	= ( m_bEnableEnqueue != FALSE );
 	Settings.MediaPlayer.ServicePath.clear();
 
-	CString str = _T("*");
-	for( int i = 0 ; i < 3 && ! m_sServicePath[i].IsEmpty() ; ++i )
+	// Re-add previous external mediaplayers.  ToDo: Some way to clear them?
+
+	int nSelected = m_wndServices.GetCurSel();
+	if ( nSelected == CUSTOM_INDEX )
+		nSelected = INTERNAL_INDEX;
+
+	const int nCount = m_wndServices.GetCount();
+	for ( int i = 0 ; i < nCount ; ++i )
 	{
-		if( i == m_nSelected )
-			m_sServicePath[i] += _T("*");
-		Settings.MediaPlayer.ServicePath.insert( str + m_sServicePath[i] );
-		str += _T("*");
+		CString* psPlayer = (CString*)m_wndServices.GetItemDataPtr( i );
+		if ( ! psPlayer )
+			continue;
+		if ( i == nSelected )
+			*psPlayer += _T("*");
+		Settings.MediaPlayer.ServicePath.insert( *psPlayer );
 	}
 
-	CString strRegData;
-
-	if ( m_nSelected == 3 )		// PeerProject Media Player is selected
-		Settings.MediaPlayer.ShortPaths = FALSE;
-	else
-		strRegData = _T("-");
-
-		// Starting from v.0.8.5 VLC player reads unicode paths
-		//CString strExecutable;
-		//m_wndServices.GetWindowText( strExecutable );
-		//Settings.MediaPlayer.ShortPaths = ToLower( strExecutable ) == _T("vlc.exe");
-
-	theApp.WriteProfileString( _T("Plugins"), Settings.MediaPlayer.AviPreviewCLSID, strRegData );
-	theApp.WriteProfileString( _T("Plugins"), Settings.MediaPlayer.MediaServicesCLSID, strRegData );
-	theApp.WriteProfileString( _T("Plugins"), Settings.MediaPlayer.Mp3PreviewCLSID, strRegData );
-	theApp.WriteProfileString( _T("Plugins"), Settings.MediaPlayer.Mpeg1PreviewCLSID, strRegData );
-	theApp.WriteProfileString( _T("Plugins"), Settings.MediaPlayer.VisCLSID, strRegData );
-	theApp.WriteProfileString( _T("Plugins"), Settings.MediaPlayer.VisWrapperCLSID, strRegData );
-//	theApp.WriteProfileString( _T("Plugins"), Settings.MediaPlayer.VisSoniqueCLSID, strRegData );
+	Settings.MediaPlayer.ShortPaths = ( nSelected != INTERNAL_INDEX );	// No MAX_LENGTH issues with internal service only?
 
 	CSettingsSheet* pSheet = GetSheet();
 	for ( INT_PTR nPage = 0 ; nPage < pSheet->GetPageCount() ; nPage++ )
@@ -269,83 +265,58 @@ void CMediaSettingsPage::OnOK()
 
 void CMediaSettingsPage::OnSelChangeMediaService()
 {
-	const int nCustomIndex = 0;
-	int nSelected = m_wndServices.GetCurSel();
+	UpdateData();
 
-	if ( nSelected == nCustomIndex ) // Not default (1)
+	int nSelected = m_wndServices.GetCurSel();
+	if ( nSelected == CUSTOM_INDEX )		// Custom Media Player selected
 	{
-		CFileDialog dlg( TRUE, _T("exe"), _T("") , OFN_HIDEREADONLY|OFN_FILEMUSTEXIST,
-			_T("Executable Files|*.exe;*.com|All Files|*.*||"), this );
+		CFileDialog dlg( TRUE, _T("exe"), _T(""), OFN_HIDEREADONLY|OFN_FILEMUSTEXIST,
+			_T("Executable Files|*.exe|") + LoadString( IDS_FILES_ALL ) + _T("|*.*||"), this );
+		//	SchemaCache.GetFilter( CSchema::uriApplicationAll ) +
+		//	SchemaCache.GetFilter( CSchema::uriAllFiles ) +
+		//	_T("|"), this );
 
 		if ( dlg.DoModal() != IDOK )
 		{
-			m_wndServices.SetCurSel( 0 );
+			m_wndServices.SetCurSel( INTERNAL_INDEX );
+			Update();
 			return;
 		}
 
-		// List only keeps 5 items
-		if ( m_wndServices.GetCount() == 5 )
+		CString sNewPlayer = dlg.GetPathName();
+
+		const int nCount = m_wndServices.GetCount();
+		for ( int i = 0 ; i < nCount ; ++i )
 		{
-			m_wndServices.DeleteString( 4 );	//FIFO
-			m_wndServices.InsertString( 2, dlg.GetFileName() );
-			m_wndServices.SetCurSel( 2 );
+			CString* psPlayer = (CString*)m_wndServices.GetItemDataPtr( i );
+			if ( ! psPlayer )
+				continue;
 
-			m_sServicePath[2] = m_sServicePath[1];
-			m_sServicePath[1] = m_sServicePath[0];
-			m_sServicePath[0] = dlg.GetPathName();
-			m_nSelected = 0;
+			if ( psPlayer->CompareNoCase( sNewPlayer ) == 0 )	// Duplicate
+			{
+				m_wndServices.SetCurSel( i );
+				Update();
+				return;
+			}
 		}
-		else
-		{
-			m_wndServices.InsertString( 2, dlg.GetFileName() );
-			m_wndServices.SetCurSel( 2 );
 
-			int i = 0 ;
-			//while( ! m_sServicePath[i].IsEmpty() ) ++i;
-			if ( m_sServicePath[0].IsEmpty() )
-			{
-				m_sServicePath[0] = dlg.GetPathName();
-			}
-			else if ( m_sServicePath[1].IsEmpty() )
-			{
-				m_sServicePath[1] = m_sServicePath[0];
-				m_sServicePath[0] = dlg.GetPathName();
-			}
-			else
-			{
-				m_sServicePath[2] = m_sServicePath[1];
-				m_sServicePath[1] = m_sServicePath[0];
-				m_sServicePath[0] = dlg.GetPathName();
-			}
-
-			m_nSelected = i;
-		}
+		const int nIndex = m_wndServices.AddString( PathFindFileName( sNewPlayer ) );
+		m_wndServices.SetItemDataPtr( nIndex, new CString( sNewPlayer ) );
+		m_wndServices.SetCurSel( nIndex );
 
 		m_bEnablePlay = m_bEnableEnqueue = FALSE;
-		UpdateData( FALSE );
-
-		GetDlgItem( IDC_MEDIA_PLAY )->EnableWindow( FALSE );
-		GetDlgItem( IDC_MEDIA_ENQUEUE )->EnableWindow( FALSE );
-		GetDlgItem( IDC_MEDIA_VIS )->EnableWindow( FALSE );
 	}
-	else if ( nSelected == 1 ) // PeerProject Media Player selected
+	else if ( nSelected == INTERNAL_INDEX )		// PeerProject Media Player selected
 	{
-		m_nSelected = 3;
 		m_bEnablePlay = m_bEnableEnqueue = TRUE;
-		UpdateData( FALSE );
-
-		GetDlgItem( IDC_MEDIA_PLAY )->EnableWindow( TRUE );
-		GetDlgItem( IDC_MEDIA_ENQUEUE )->EnableWindow( TRUE );
-		GetDlgItem( IDC_MEDIA_VIS )->EnableWindow( TRUE );
 	}
-	else // Not PeerProject default, not custom
+	else	// Previous player, not PeerProject default or new custom
 	{
-		m_nSelected = nSelected - 2;
 		m_bEnablePlay = m_bEnableEnqueue = FALSE;
-		UpdateData( FALSE );
-
-		GetDlgItem( IDC_MEDIA_PLAY )->EnableWindow( FALSE );
-		GetDlgItem( IDC_MEDIA_ENQUEUE )->EnableWindow( FALSE );
-		GetDlgItem( IDC_MEDIA_VIS )->EnableWindow( FALSE );
 	}
+
+	UpdateData( FALSE );
+	Update();
+
+	Invalidate();	// Clear artifacts if skinned
 }

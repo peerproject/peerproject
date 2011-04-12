@@ -1,7 +1,7 @@
 //
 // DlgMediaVis.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -77,7 +77,7 @@ BOOL CMediaVisDlg::OnInitDialog()
 
 	CSkinDialog::OnInitDialog();
 
-	SkinMe( NULL, ID_MEDIA_VIS );
+	SkinMe( L"CMediaVisDlg", ID_MEDIA_VIS );
 
 	CRect rc;
 	m_wndList.GetClientRect( &rc );
@@ -238,8 +238,8 @@ void CMediaVisDlg::OnSetup()
 	int nItem = m_wndList.GetNextItem( -1, LVIS_SELECTED );
 	if ( nItem < 0 ) return;
 
-	CString strCLSID	= m_wndList.GetItemText( nItem, 1 );
-	CString strPath		= m_wndList.GetItemText( nItem, 2 );
+	CString strCLSID = m_wndList.GetItemText( nItem, 1 );
+	CString strPath  = m_wndList.GetItemText( nItem, 2 );
 
 	CLSID pCLSID;
 	if ( ! Hashes::fromGuid( strCLSID, &pCLSID ) ) return;
@@ -291,24 +291,24 @@ void CMediaVisDlg::OnSetup()
 
 void CMediaVisDlg::OnOK()
 {
-	int nItem = m_wndList.GetNextItem( -1, LVIS_SELECTED );
+	const int nItem = m_wndList.GetNextItem( -1, LVIS_SELECTED );
 	CString strCLSID, strPath;
 
 	UpdateData( TRUE );
 
 	if ( nItem >= 0 )
 	{
-		strCLSID	= m_wndList.GetItemText( nItem, 1 );
-		strPath		= m_wndList.GetItemText( nItem, 2 );
+		strCLSID = m_wndList.GetItemText( nItem, 1 );
+		strPath  = m_wndList.GetItemText( nItem, 2 );
 	}
 
 	if ( Settings.MediaPlayer.VisCLSID != strCLSID ||
-		 Settings.MediaPlayer.VisPath != strPath ||
-		 Settings.MediaPlayer.VisSize != (DWORD)( m_nSize - 1 ) )
+		 Settings.MediaPlayer.VisPath  != strPath ||
+		 Settings.MediaPlayer.VisSize  != (DWORD)( m_nSize - 1 ) )
 	{
-		Settings.MediaPlayer.VisCLSID	= strCLSID;
-		Settings.MediaPlayer.VisPath	= strPath;
-		Settings.MediaPlayer.VisSize	= m_nSize - 1;
+		Settings.MediaPlayer.VisCLSID = strCLSID;
+		Settings.MediaPlayer.VisPath  = strPath;
+		Settings.MediaPlayer.VisSize  = m_nSize - 1;
 
 		Settings.Save();
 		CSkinDialog::OnOK();
