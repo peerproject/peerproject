@@ -114,6 +114,9 @@
 	<resource code="208" id="IDI_CONTACT_GOOGLE"/>
 	<resource code="209" id="IDI_CONTACT_TWITTER"/>
 	<resource code="210" id="IDI_CONTACT_FACEBOOK"/>
+	<resource code="212" id="IDI_FAVICON"/>
+	<resource code="214" id="IDI_INCOMING"/>
+	<resource code="215" id="IDI_OUTGOING"/>
 	<!-- Bitmaps -->
 	<resource code="300" id="IDB_MENUBAR"/>
 	<resource code="306" id="IDB_PROTOCOLS"/>

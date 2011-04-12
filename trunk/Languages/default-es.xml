@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Spanish (International) Skin File -->
 
-<!-- Translation based on default-en.xml r65 -->
+<!-- Translation based on default-en.xml r66 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -469,7 +469,7 @@
 	</menu>
 	<!-- MAIN WINDOW MENU BAR -->
 	<menu name="CMainWnd.DropMenu" type="bar">
-		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160;">
+		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160;">
 			<item id="ID_TOOLS_SETTINGS" text="Configuración..."/>
 			<menu text="_Red">
 				<item id="ID_NETWORK_CONNECT" text="Conectar" shortcut="Ctrl+G"/>
@@ -2616,6 +2616,8 @@
 	<string id="20014" value="Finalizar"/>
 	<string id="20020" value="Archivo"/>
 	<string id="20021" value="Archivos"/>
+	<string id="20022" value="Todos Los Archivos"/>
+	<string id="20029" value="Archivos de %s"/>
 	<string id="20050" value="Todos los Dias"/>
 	<string id="20051" value="Lunes"/>
 	<string id="20052" value="Martes"/>
@@ -3256,9 +3258,10 @@
 	<string id="20836" value="Rechazando petición push a %s porque tiene demasiadas conexiones de subida."/>
 	<string id="20837" value="Petición push %s pidio un archivo desconocido, conectando de todas maneras..."/>
 	<string id="20838" value="Muy ocupado para subir &quot;%s&quot; a %s, cola #%i of %i (&quot;%s&quot;)."/>
-	<string id="20840" value="Nueva Cola"/>
-	<string id="20841" value="Todos Los Archivos"/>
-	<string id="20842" value="Conexión de subida a %s fue perdida, preservando conexión en cola."/>
+	<string id="20840" value="Conexión de subida a %s fue perdida, preservando conexión en cola."/>
+	<string id="20841" value="Nueva Cola"/>
+	<string id="20842" value="Todos Los Archivos"/>
+	<string id="20843" value="DC++ Guard"/>
 	<string id="20844" value="eDonkey Core"/>
 	<string id="20845" value="eDonkey Guard"/>
 	<string id="20846" value="Parciales eDonkey"/>
@@ -4554,13 +4557,14 @@
 		<column from="Failures" to="Fallos"/>
 	</list>
 	<list name="CPacketWnd">
+		<column from="Time" to="Tiempo"/>
 		<column from="Address" to="Dirección"/>
 		<column from="Protocol" to="Protocolo"/>
 		<column from="Type" to="Tipo"/>
-		<column from="T/H" to=""/>
+		<column from="TTL/Hops" to=""/>
+		<column from="GUID" to=""/>
 		<column from="Hex" to=""/>
 		<column from="ASCII" to=""/>
-		<column from="G1-ID" to=""/>
 	</list>
 	<list name="CSearchMonitorWnd">
 		<column from="Search" to="Buscar"/>

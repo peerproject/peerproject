@@ -65,8 +65,9 @@ protected:
 	BOOL	ParseRoot(LPCTSTR pszURL, BOOL bResolve);
 	BOOL	ParseHTTP(LPCTSTR pszURL, BOOL bResolve);
 	BOOL	ParseFTP(LPCTSTR pszURL, BOOL bResolve);
-	BOOL	ParseED2KFTP(LPCTSTR pszURL, BOOL bResolve);
-	BOOL	ParseDC(LPCTSTR pszURL, BOOL bResolve);
+	BOOL	ParseED2KFTP(LPCTSTR pszURL, BOOL bResolve);	// ed2kftp://[client_id@]address:port/md4_hash/size/
+	BOOL	ParseDCFile(LPCTSTR pszURL, BOOL bResolve); 	// dcfile://address:port/login/TTH:tiger_hash/size/
+	BOOL	ParseDCHub(LPCTSTR pszURL, BOOL bResolve);  	// dchub://address:port	 (adc://)
 	BOOL	ParseBTC(LPCTSTR pszURL, BOOL bResolve);
 	BOOL	ParseMagnet(LPCTSTR pszURL);
 	BOOL	ParsePeerProject(LPCTSTR pszURL);

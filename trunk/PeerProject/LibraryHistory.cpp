@@ -1,7 +1,7 @@
 //
 // LibraryHistory.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -159,17 +159,6 @@ void CLibraryHistory::Submit(CLibraryFile* pFile)
 }
 
 //////////////////////////////////////////////////////////////////////
-// CLibraryHistory clear today flags
-
-//void CLibraryHistory::ClearTodays()
-//{
-//	for ( POSITION pos = GetIterator() ; pos ; )
-//	{
-//		GetNext( pos )->m_bToday = FALSE;
-//	}
-//}
-
-//////////////////////////////////////////////////////////////////////
 // CLibraryHistory prune list to a fixed size
 
 void CLibraryHistory::Prune()
@@ -182,18 +171,19 @@ void CLibraryHistory::Prune()
 		POSITION posCur = pos;
 		CLibraryRecent* pRecent = m_pList.GetPrev( pos );
 
+		if ( ! pRecent->m_pFile )
+			continue;	// Keep unverified files
+
 		DWORD nDays = (DWORD)( ( MAKEQWORD( tNow.dwLowDateTime, tNow.dwHighDateTime ) -
 			 MAKEQWORD( pRecent->m_tAdded.dwLowDateTime, pRecent->m_tAdded.dwHighDateTime ) ) /
 			 ( 10000000ull * 60 * 60 * 24 ) );
-		if ( nDays > Settings.Library.HistoryDays )
+		if ( nDays > Settings.Library.HistoryDays ||
+			 GetCount() > (int)Settings.Library.HistoryTotal )
 		{
 			delete pRecent;
 			m_pList.RemoveAt( posCur );
 		}
 	}
-
-	while ( GetCount() > (int)Settings.Library.HistoryTotal )
-		delete m_pList.RemoveTail();
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -233,7 +223,8 @@ void CLibraryHistory::Serialize(CArchive& ar, int nVersion)
 	{
 		for ( pos = GetIterator() ; pos ; )
 		{
-			if ( GetNext( pos )->m_pFile != NULL ) nCount ++;
+			CLibraryRecent* pRecent = GetNext( pos );
+			if ( pRecent->m_pFile != NULL ) nCount ++;
 		}
 
 		ar.WriteCount( nCount );
@@ -289,31 +280,28 @@ void CLibraryHistory::Serialize(CArchive& ar, int nVersion)
 //////////////////////////////////////////////////////////////////////
 // CLibraryRecent construction
 
-CLibraryRecent::CLibraryRecent() :
-//	m_bToday	( FALSE ),
-	m_pFile		( NULL )
+CLibraryRecent::CLibraryRecent()
+	: m_pFile		( NULL )
 {
-	ZeroMemory( &m_tAdded, sizeof(FILETIME) );
+	ZeroMemory( &m_tAdded, sizeof( m_tAdded ) );
 }
 
-CLibraryRecent::CLibraryRecent(
-	LPCTSTR pszPath,
+CLibraryRecent::CLibraryRecent( LPCTSTR pszPath,
 	const Hashes::Sha1ManagedHash& oSHA1,
 	const Hashes::TigerManagedHash& oTiger,
 	const Hashes::Ed2kManagedHash& oED2K,
 	const Hashes::BtManagedHash& oBTH,
 	const Hashes::Md5ManagedHash& oMD5,
-	LPCTSTR pszSources ) :
-//	m_bToday	( TRUE ),
-	m_pFile		( NULL ),
-	m_sSources	( pszSources ),
-	m_oSHA1		( oSHA1 ),
-	m_oTiger	( oTiger ),
-	m_oED2K		( oED2K ),
-	m_oBTH		( oBTH ),
-	m_oMD5		( oMD5 )
+	LPCTSTR pszSources )
+	: m_pFile		( NULL )
+	, m_sSources	( pszSources )
+	, m_oSHA1		( oSHA1 )
+	, m_oTiger		( oTiger )
+	, m_oED2K		( oED2K )
+	, m_oBTH		( oBTH )
+	, m_oMD5		( oMD5 )
 {
-	m_sPath		= pszPath;
+	m_sPath = pszPath;
 	GetSystemTimeAsFileTime( &m_tAdded );
 }
 

@@ -224,7 +224,7 @@ CString URLEncode(LPCTSTR pszInputT)
 {
 	// Setup two strings, one with all the hexidecimal digits, the other with all the characters to find and encode
 	static LPCTSTR pszHex	= _T("0123456789ABCDEF");		// A string with all the hexidecimal digits
-	static LPCSTR pszUnsafe	= "<>\"#%{}|\\^~[]+?&@=:,";		// A string with all the characters unsafe for a URL
+	static LPCSTR pszUnsafe	= "<>\"#%{}|\\^~[]+?&@=:,$";	// A string with all the characters unsafe for a URL
 
 	// The output string starts blank
 	CString strOutput;
@@ -304,18 +304,25 @@ CString URLDecode(LPCTSTR pszInput)
 	return URLDecodeANSI( pszInput );
 }
 
+CString URLDecode(__in const CStringA& strInput)
+{
+	return URLDecode( (LPCTSTR)UTF8Decode( strInput ) );
+}
+
+CString URLDecode(__in_bcount(nInput) LPCSTR psInput, __in int nInput)
+{
+	return URLDecode( (LPCTSTR)UTF8Decode( psInput, nInput ) );
+}
+
 // Decodes a properly formatted URI, then UTF-8 decodes it
 CString URLDecodeANSI(LPCTSTR pszInput)
 {
 	TCHAR szHex[3] = { 0, 0, 0 };		// A 3 character long array filled with 3 null terminators
-	CString strOutput;					// The output string, which starts out blank
+	CStringA strOutput;					// The output string, which starts out blank
 	int nHex;							// The hex code of the character we found
 
-	// Allocate a new CHAR array big enough to hold the input characters and a null terminator
-	LPSTR pszBytes = new CHAR[ _tcslen( pszInput ) + 1 ];
-
-	// Point the output string pointer at this array
-	LPSTR pszOutput = pszBytes;
+	int nLength = (int)_tcslen( pszInput );
+	LPSTR pszOutput = strOutput.GetBuffer( nLength + 1 );
 
 	// Loop for each character of input text
 	for ( ; *pszInput ; pszInput++ )
@@ -323,23 +330,74 @@ CString URLDecodeANSI(LPCTSTR pszInput)
 		if ( *pszInput == '%' )			// Encountered the start of something like %20
 		{
 			// Copy characters like "20" into szHex, making sure neither are null
-			if ( ( szHex[0] = pszInput[1] ) == 0 ) break;
-			if ( ( szHex[1] = pszInput[2] ) == 0 ) break;
-
-			// Read the text like "20" as a number, and store it in nHex
-			if ( _stscanf( szHex, _T("%x"), &nHex ) != 1 ) break;
-			if ( nHex < 1 ) break;		// Make sure the number isn't 0 or negative
-
-			// That number is the code of a character, copy it into the output string
-			*pszOutput++ = CHAR( nHex );	// And then move the output pointer to the next spot
-
-			// Move the input pointer past the two characters of the "20"
-			pszInput += 2;
+			if ( ( szHex[0] = pszInput[1] ) != 0 &&
+				 ( szHex[1] = pszInput[2] ) != 0 &&
+				 _stscanf( szHex, _T("%x"), &nHex ) == 1 &&
+				 nHex > 0 )
+			{
+				*pszOutput++ = (CHAR)nHex;
+				pszInput += 2;	// "20"
+			}
+			else
+			{
+				*pszOutput++ = '%';
+			}
 		}
 		else if ( *pszInput == '+' )	// Encountered shorthand for a space
 		{
 			// Add a space to the output text, and move the pointer forward
 			*pszOutput++ = ' ';
+		}
+		else if ( *pszInput == '&' )
+		{
+			if ( pszInput[ 1 ] == '#' )
+			{
+				if ( _stscanf( pszInput + 2, _T("%lu;"), &nHex ) == 1 && nHex > 0 )
+				{
+					*pszOutput++ = (CHAR)nHex;
+					while ( *pszInput && *pszInput != ';' )
+						++pszInput;
+				}
+				else
+				{
+					*pszOutput++ = '&';
+					*pszOutput++ = '#';
+				}
+			}
+			else if ( _tcsnicmp( pszInput + 1, _T("quot;"), 5 ) == 0 )
+			{
+				*pszOutput++ = '\"';
+				pszInput += 5;
+			}
+			else if ( _tcsnicmp( pszInput + 1, _T("apos;"), 5 ) == 0 )
+			{
+				*pszOutput++ = '\'';
+				pszInput += 5;
+			}
+			else if ( _tcsnicmp( pszInput + 1, _T("lt;"), 3 ) == 0 )
+			{
+				*pszOutput++ = '<';
+				pszInput += 3;
+			}
+			else if ( _tcsnicmp( pszInput + 1, _T("gt;"), 3 ) == 0 )
+			{
+				*pszOutput++ = '>';
+				pszInput += 3;
+			}
+			else if ( _tcsnicmp( pszInput + 1, _T("nbsp;"), 5 ) == 0 )
+			{
+				*pszOutput++ = ' ';
+				pszInput += 5;
+			}
+			else if ( _tcsnicmp( pszInput + 1, _T("amp;"), 4 ) == 0 )
+			{
+				*pszOutput++ = '&';
+				pszInput += 4;
+			}
+			else
+			{
+				*pszOutput++ = '&';
+			}
 		}
 		else	// Normal character
 		{
@@ -348,59 +406,95 @@ CString URLDecodeANSI(LPCTSTR pszInput)
 		}
 	}
 
-	// Cap off the output text with a null terminator
-	*pszOutput = 0;
+	*pszOutput = 0;		// Null terminator
 
-	// Copy the text from pszBytes into strOutput, converting it into Unicode
-	int nLength = MultiByteToWideChar( CP_UTF8, 0, pszBytes, -1, NULL, 0 );
-	MultiByteToWideChar( CP_UTF8, 0, pszBytes, -1, strOutput.GetBuffer( nLength ), nLength );
-
-	// Close the output string, we are done editing its buffer directly
 	strOutput.ReleaseBuffer();
-
-	// Free the memory we allocated above
-	delete [] pszBytes;
-
-	return strOutput;
+	return UTF8Decode( strOutput );
 }
 
 // Decodes encoded characters in a unicode string
 CString URLDecodeUnicode(LPCTSTR pszInput)
 {
-	// Setup local variables useful for the conversion
 	TCHAR szHex[3] = { 0, 0, 0 };		// A 3 character long array filled with 3 null terminators
 	CString strOutput;					// The output string, which starts out blank
 	int nHex;							// The hex code of the character we found
 
-	// Allocate a new CHAR array big enough to hold the input characters and a null terminator
-	LPTSTR pszBytes = strOutput.GetBuffer( static_cast< int >( _tcslen( pszInput ) ) );
-
-	// Point the output string pointer at this array
-	LPTSTR pszOutput = pszBytes;
+	int nLength = (int)_tcslen( pszInput );
+	LPTSTR pszOutput = strOutput.GetBuffer( nLength + 1 );
 
 	// Loop for each character of input text
-	for ( ; *pszInput ; pszInput++ )
+	for ( ; *pszInput ; ++pszInput )
 	{
 		if ( *pszInput == '%' )			// Encounterd the start of something like %20
 		{
-			// Copy characters like "20" into szHex, making sure neither are null
-			if ( ( szHex[0] = pszInput[1] ) == 0 ) break;
-			if ( ( szHex[1] = pszInput[2] ) == 0 ) break;
-
-			// Read the text like "20" as a number, and store it in nHex
-			if ( _stscanf( szHex, _T("%x"), &nHex ) != 1 ) break;
-			if ( nHex < 1 ) break;		// Make sure the number isn't 0 or negative
-
-			// That number is the code of a character, copy it into the output string
-			*pszOutput++ = WCHAR( nHex ); // And then move the output pointer to the next spot
-
-			// Move the input pointer past the two characters of the "20"
-			pszInput += 2;
+			if ( ( szHex[0] = pszInput[1] ) != 0 &&
+				( szHex[1] = pszInput[2] ) != 0 &&
+				_stscanf( szHex, _T("%x"), &nHex ) == 1 &&
+				nHex > 0 )
+			{
+				*pszOutput++ = (TCHAR)nHex;
+				pszInput += 2;	// Skip "20"
+			}
+			else
+			{
+				*pszOutput++ = '%';
+			}
 		}
 		else if ( *pszInput == '+' )	// Encountered shorthand for a space
 		{
 			// Add a space to the output text, and move the pointer forward
 			*pszOutput++ = ' ';
+		}
+		else if ( *pszInput == '&' )
+		{
+			if ( pszInput[ 1 ] == '#' )
+			{
+				if ( _stscanf( pszInput + 2, _T("%lu;"), &nHex ) == 1 && nHex > 0 )
+				{
+					*pszOutput++ = (CHAR)nHex;
+					while ( *pszInput && *pszInput != ';' )
+						++pszInput;
+				}
+				else
+				{
+					*pszOutput++ = '&';
+					*pszOutput++ = '#';
+				}
+			}
+			else if ( _tcsnicmp( pszInput + 1, _T("quot;"), 5 ) == 0 )
+			{
+				*pszOutput++ = '\"';
+				pszInput += 5;
+			}
+			else if ( _tcsnicmp( pszInput + 1, _T("apos;"), 5 ) == 0 )
+			{
+				*pszOutput++ = '\'';
+				pszInput += 5;
+			}
+			else if ( _tcsnicmp( pszInput + 1, _T("lt;"), 3 ) == 0 )
+			{
+				*pszOutput++ = '<';
+				pszInput += 3;
+			}
+			else if ( _tcsnicmp( pszInput + 1, _T("gt;"), 3 ) == 0 )
+			{
+				*pszOutput++ = '>';
+				pszInput += 3;
+			}
+			else if ( _tcsnicmp( pszInput + 1, _T("nbsp;"), 5 ) == 0 )
+			{
+				*pszOutput++ = ' ';
+				pszInput += 5;
+			}
+			else if ( _tcsnicmp( pszInput + 1, _T("amp;"), 4 ) == 0 )
+			{
+				*pszOutput++ = '&';
+				pszInput += 4;
+			}
+			else
+			{
+				*pszOutput++ = '&';
+			}
 		}
 		else	// Normal character
 		{
@@ -409,9 +503,9 @@ CString URLDecodeUnicode(LPCTSTR pszInput)
 		}
 	}
 
-	// Close and return the string
-	*pszOutput = 0;						// End the output text with a null terminator
-	strOutput.ReleaseBuffer();			// Release direct access to the buffer of the CString object
+	*pszOutput = 0;					// Null terminator
+
+	strOutput.ReleaseBuffer();		// Release direct access to the buffer of CString object
 
 	return strOutput;
 }
@@ -534,3 +628,117 @@ BOOL StartsWith(const CString& sInput, LPCTSTR pszText, size_t nLen)
 	return ( (size_t)sInput.GetLength() >= nLen ) &&
 		! _tcsnicmp( (LPCTSTR)sInput, pszText, nLen );
 }
+
+//CString LoadFile(LPCTSTR pszPath)
+//{
+//	CString strXML;
+//
+//	CFile pFile;
+//	if ( ! pFile.Open( pszPath, CFile::modeRead ) )
+//		return strXML;	// File open error
+//
+//	DWORD nByte = (DWORD)pFile.GetLength();
+//	if ( nByte > 4096 * 1024 )
+//		return strXML;	// File too big (>4MB)
+//
+//	BYTE* pBuf = new BYTE[ nByte ];
+//	try
+//	{
+//		pFile.Read( pBuf, nByte );
+//	}
+//	catch ( CException* pException )
+//	{
+//		// File read error
+//		pFile.Abort();
+//		pException->Delete();
+//		delete [] pBuf;
+//		return strXML;
+//	}
+//	pFile.Close();
+//
+//	BYTE* pByte = pBuf;
+//	if ( nByte >= 2 &&
+//		( ( pByte[0] == 0xFE && pByte[1] == 0xFF ) ||
+//		  ( pByte[0] == 0xFF && pByte[1] == 0xFE ) ) )
+//	{
+//		nByte = nByte / 2 - 1;
+//		if ( pByte[0] == 0xFE && pByte[1] == 0xFF )
+//		{
+//			pByte += 2;
+//			for ( DWORD nSwap = 0 ; nSwap < nByte ; nSwap ++ )
+//			{
+//				register CHAR nTemp = pByte[ ( nSwap << 1 ) + 0 ];
+//				pByte[ ( nSwap << 1 ) + 0 ] = pByte[ ( nSwap << 1 ) + 1 ];
+//				pByte[ ( nSwap << 1 ) + 1 ] = nTemp;
+//			}
+//		}
+//		else
+//		{
+//			pByte += 2;
+//		}
+//
+//		CopyMemory( strXML.GetBuffer( nByte ), pByte, nByte * sizeof( TCHAR ) );
+//		strXML.ReleaseBuffer( nByte );
+//	}
+//	else
+//	{
+//		if ( nByte >= 3 && pByte[0] == 0xEF && pByte[1] == 0xBB && pByte[2] == 0xBF )
+//		{
+//			pByte += 3;
+//			nByte -= 3;
+//		}
+//
+//		strXML = UTF8Decode( (LPCSTR)pByte, nByte );
+//	}
+//	delete [] pBuf;
+//
+//	return strXML;
+//}
+//
+//BOOL ReplaceNoCase(CString& sInStr, LPCTSTR pszOldStr, LPCTSTR pszNewStr)
+//{
+//	BOOL bModified = FALSE;
+//	DWORD nInLength = sInStr.GetLength();
+//	LPCTSTR pszInStr = sInStr;
+//
+//	CString result;
+//	result.Preallocate( nInLength );
+//
+//	TCHAR nOldChar = pszOldStr[ 0 ];
+//	for ( DWORD nPos = 0 ; nPos < nInLength ; )
+//	{
+//		TCHAR nChar = pszInStr[ nPos ];
+//		if ( ToLower( nChar ) == nOldChar )
+//		{
+//			DWORD nOffset = 0;
+//			while ( TCHAR nChar2 = pszOldStr[ ++nOffset ] )
+//			{
+//				if ( nChar2 != ToLower( pszInStr[ nPos + nOffset ] ) )
+//				{
+//					result.AppendChar( nChar );
+//					++nPos;
+//					break;
+//				}
+//			}
+//			nPos += nOffset;
+//			result.Append( pszNewStr );
+//			bModified = TRUE;
+//		}
+//		else
+//		{
+//			result.AppendChar( nChar );
+//			++nPos;
+//		}
+//	}
+//
+//	sInStr = result;
+//
+//	return bModified;
+//}
+//
+//CString HostToString(const SOCKADDR_IN* pHost)
+//{
+//	CString sHost;
+//	sHost.Format( _T("%s:%hu"), CString( inet_ntoa( pHost->sin_addr ) ), ntohs( pHost->sin_port ) );
+//	return sHost;
+//}

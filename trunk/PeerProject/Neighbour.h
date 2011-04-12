@@ -125,11 +125,15 @@ protected:
 	z_streamp	m_pZSOutput;			// Pointer to the zlib z_stream structure for compression
 	BOOL		m_bZFlush;				// True to flush the compressed output buffer to the remote computer
 	DWORD		m_tZOutput;				// The time that Zlib last compressed something
+	BOOL		m_bZInputEOS;			// Got End Of Stream while decompressing incoming data
 
 // Operations
 public:
 	DWORD		GetMaxTTL() const;		// Get maximum TTL which is safe for both sides
 	void		GetCompression(float* pnInRate, float* pnOutRate);	// Calculate average compression rate in either direction for this connection
+
+	virtual DWORD GetUserCount() const { return 0; }	// Returns hub/server leaf/user count variable
+	virtual DWORD GetUserLimit() const { return 0; }	// Returns hub/server leaf/user limit variable
 
 	virtual void Close(UINT nError = IDS_CONNECTION_CLOSED);
 	virtual void DelayClose(UINT nError);	// Send the buffer then close the socket, record the error given

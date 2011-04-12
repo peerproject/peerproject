@@ -1194,6 +1194,8 @@
     <None Include="Res\NavbarRTL.bmp" />
     <None Include="Res\Network.ico" />
     <None Include="Res\Open.ico" />
+    <None Include="Res\PacketIn.ico" />
+    <None Include="Res\PacketOut.ico" />
     <None Include="Res\Packets.ico" />
     <None Include="Res\PanelMark.bmp" />
     <None Include="Res\Partial.ico" />

@@ -179,13 +179,20 @@ void CLiveItem::Set(int nColumn, LPCTSTR pszText)
 	m_pColumn[ nColumn ] = pszText;
 }
 
-void CLiveItem::SetImage(int nImage, int nColumn)
+void CLiveItem::SetImage(int nColumn, int nImage)
 {
 	ASSERT_VALID( this );
 	ASSERT( nColumn >= 0 && nColumn < m_pColumn.GetSize() );
+	if ( nColumn >= m_pColumn.GetSize() )
+		return;
 
 	m_bModified = ( m_nImage[ nColumn ] != nImage );
 	m_nImage[ nColumn ] = nImage;
+}
+
+void CLiveItem::SetImage(UINT nImage)
+{
+	SetImage( 0, nImage );
 }
 
 void CLiveItem::SetMaskOverlay(UINT nMaskOverlay)
@@ -454,15 +461,12 @@ int CALLBACK CLiveList::SortCallback(LPARAM lParam1, LPARAM lParam2, LPARAM lPar
 bool CLiveList::Less(const CLiveItemPtr& _Left, const CLiveItemPtr& _Right, int nSortColumn)
 {
 	if ( nSortColumn < 0 )
-	{
 		return ( CLiveList::SortProc( _Left->m_pColumn[ - nSortColumn - 1 ],
 			_Right->m_pColumn[ - nSortColumn - 1 ] ) < 0 );
-	}
-	else if ( nSortColumn > 0 )
-	{
+
+	if ( nSortColumn > 0 )
 		return ( CLiveList::SortProc( _Right->m_pColumn[ nSortColumn - 1 ],
 			_Left->m_pColumn[ nSortColumn - 1 ] ) < 0 );
-	}
 
 	return false;
 }

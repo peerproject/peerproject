@@ -41,7 +41,8 @@ public:
 #endif
 
 	void	Set(int nColumn, LPCTSTR pszText);
-	void	SetImage(int nImage, int nColumn = 0);
+	void	SetImage(int nColumn, int nImage);
+	void	SetImage(UINT nImage);	// Default column 0
 	void	SetMaskOverlay(UINT nMaskOverlay);
 	void	Format(int nColumn, LPCTSTR pszFormat, ...);
 	int		Add(CListCtrl* pCtrl, int nItem, int nColumns);
@@ -103,8 +104,8 @@ public:
 
 // Sort Helpers
 	static void			Sort(CListCtrl* pCtrl, int nColumn = -1, BOOL bGraphic = TRUE);
-	static int CALLBACK	SortCallback(LPARAM lParam1, LPARAM lParam2, LPARAM lParamSort);
 	static int			SortProc(LPCTSTR sA, LPCTSTR sB, BOOL bNumeric = FALSE);
+	static int CALLBACK	SortCallback(LPARAM lParam1, LPARAM lParam2, LPARAM lParamSort);
 	static bool			Less(const CLiveItemPtr& _Left, const CLiveItemPtr& _Right, int nSortColumn);
 	static inline BOOL	IsNumber(LPCTSTR pszString);
 

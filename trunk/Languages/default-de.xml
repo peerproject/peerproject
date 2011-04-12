@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default German Skin File -->
 
-<!-- Translation based on default-en.xml r65 -->
+<!-- Translation based on default-en.xml r66 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -527,7 +527,7 @@
 	</menu>
 	<!-- MAIN WINDOW MENU BAR -->
 	<menu name="CMainWnd.DropMenu" type="bar">
-		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160;">
+		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160;">
 			<item id="ID_TOOLS_SETTINGS" text="_Einstellungen..."/>
 			<menu text="_Netzwerk">
 				<item id="ID_NETWORK_CONNECT" text="_Verbinden" shortcut="Strg+G"/>
@@ -2775,6 +2775,8 @@
 	<string id="20014" value="Abschließen"/>
 	<string id="20020" value="Datei"/>
 	<string id="20021" value="Dateien"/>
+	<string id="20022" value="Alle Dateien"/>
+	<string id="20029" value="%s Dateien"/>
 	<string id="20050" value="Jeden Tag"/>
 	<string id="20051" value="Montag"/>
 	<string id="20052" value="Dienstag"/>
@@ -3432,9 +3434,10 @@
 	<string id="20836" value="Push-request zu %s verweigert, weil kein Upload-Slot frei ist."/>
 	<string id="20837" value="Push-Request(alt) von %s hat eine unbekannte Datei angefordert, trotzdem verbinden..."/>
 	<string id="20838" value="Kein freier Uploadslot um &quot;%s&quot; an %s hochzuladen, Warteschlange auf Position #%i von %i (&quot;%s&quot;.."/>
-	<string id="20840" value="Neue Warteschlange"/>
-	<string id="20841" value="Alle Dateien"/>
-	<string id="20842" value="Upload-Verbindung mit %s unterbrochen, Warteschlangenposition wird erhalten."/>
+	<string id="20840" value="Upload-Verbindung mit %s unterbrochen, Warteschlangenposition wird erhalten."/>
+	<string id="20841" value="Neue Warteschlange"/>
+	<string id="20842" value="Alle Dateien"/>
+	<string id="20843" value="DC++-Guard"/>
 	<string id="20844" value="eDonkey-Core"/>
 	<string id="20845" value="eDonkey-Guard"/>
 	<string id="20846" value="eDonkey (unvollständige Dateien)"/>
@@ -4731,13 +4734,14 @@
 		<column from="Failures" to="Fehler"/>
 	</list>
 	<list name="CPacketWnd">
+		<column from="Time" to="Zeit"/>
 		<column from="Address" to="Adresse"/>
 		<column from="Protocol" to="Protokoll"/>
 		<column from="Type" to="Typ"/>
-		<column from="T/H" to="TTL/Hops"/>
+		<column from="TTL/Hops" to="TTL/Hops"/>
+		<column from="GUID" to="GUID"/>
 		<column from="Hex" to="Hex"/>
 		<column from="ASCII" to="ASCII"/>
-		<column from="G1-ID" to="G1-ID"/>
 	</list>
 	<list name="CSearchMonitorWnd">
 		<column from="Search" to="Suche"/>

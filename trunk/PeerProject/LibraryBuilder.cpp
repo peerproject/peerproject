@@ -605,10 +605,10 @@ bool CLibraryBuilder::HashFile(LPCTSTR szPath, HANDLE hFile)
 		pFile->SetShared( false );
 	}
 
-	Library.AddFile( pFile );
-
 	if ( pDownload )
 		pFile->UpdateMetadata( pDownload );
+
+	Library.AddFile( pFile );
 
 	oLibraryLock.Unlock();
 

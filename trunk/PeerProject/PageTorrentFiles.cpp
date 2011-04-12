@@ -53,10 +53,10 @@ BEGIN_MESSAGE_MAP(CTorrentFilesPage, CPropertyPageAdv)
 	ON_WM_PAINT()
 	ON_WM_TIMER()
 	ON_WM_DESTROY()
-	ON_NOTIFY(NM_CUSTOMDRAW, IDC_TORRENT_FILES, &CTorrentFilesPage::OnCustomDrawList)
-	ON_NOTIFY(HDN_ITEMCLICK, 0, OnSortColumn)
-	ON_NOTIFY(LVN_ITEMCHANGED, IDC_TORRENT_FILES, &CTorrentFilesPage::OnCheckbox)
 	ON_NOTIFY(NM_DBLCLK, IDC_TORRENT_FILES, &CTorrentFilesPage::OnNMDblclkTorrentFiles)
+	ON_NOTIFY(NM_CUSTOMDRAW, IDC_TORRENT_FILES, &CTorrentFilesPage::OnCustomDrawList)
+	ON_NOTIFY(LVN_ITEMCHANGED, IDC_TORRENT_FILES, &CTorrentFilesPage::OnCheckbox)
+	ON_NOTIFY(HDN_ITEMCLICK, 0, OnSortColumn)
 END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
@@ -218,21 +218,27 @@ void CTorrentFilesPage::OnSortColumn(NMHDR* pNotifyStruct, LRESULT* /*pResult*/)
 
 	HD_NOTIFY *pHDN = (HD_NOTIFY *)pNotifyStruct;
 
-	if( pHDN->iButton != 0 ) return;	// Verify header clicked with left mouse button
+	if ( pHDN->iButton != 0 ) return;	// Verify header clicked with left mouse button
 
 	CLiveList::Sort( &m_wndFiles, pHDN->iItem, FALSE );
 }
 
 void CTorrentFilesPage::OnNMDblclkTorrentFiles(NMHDR *pNMHDR, LRESULT *pResult)
 {
-	LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
+	CPoint pt;
+	GetCursorPos( &pt );
+	m_wndFiles.ScreenToClient( &pt );
+	if ( pt.x > 16 )	// Ignore checkbox
+	{
+		LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
 
-	CString strIndex = m_wndFiles.GetItemText( pNMItemActivate->iItem, COL_INDEX );
+		const int nIndex = _wtoi( m_wndFiles.GetItemText( pNMItemActivate->iItem, COL_INDEX ) );
 
-	CSingleLock oLock( &Transfers.m_pSection, TRUE );
-	CDownload* pDownload = ((CDownloadSheet*)GetParent())->m_pDownload;
-	if ( Downloads.Check( pDownload ) )
-		pDownload->Launch( _wtoi( strIndex ), &oLock, FALSE );
+		CSingleLock oLock( &Transfers.m_pSection, TRUE );
+		CDownload* pDownload = ((CDownloadSheet*)GetParent())->m_pDownload;
+		if ( Downloads.Check( pDownload ) )
+			pDownload->Launch( nIndex, &oLock, FALSE );
+	}
 
 	*pResult = 0;
 }
@@ -241,18 +247,11 @@ BOOL CTorrentFilesPage::OnApply()
 {
 // Unused ComboListCtrl Priority Column:
 //	CSingleLock oLock( &Transfers.m_pSection, TRUE );
-//
 //	CDownload* pDownload = ((CDownloadSheet*)GetParent())->m_pDownload;
-//	if ( ! Downloads.Check( pDownload ) || ! pDownload->IsTorrent() )
-//		return FALSE;
-//
+//	if ( ! Downloads.Check( pDownload ) || ! pDownload->IsTorrent() ) return FALSE;
 //	if ( CComPtr< CFragmentedFile > pFragFile = pDownload->GetFile() )
-//	{
 //		for ( DWORD i = 0 ; i < pFragFile->GetCount() ; ++i )
-//		{
 //			pFragFile->SetPriority( i, m_wndFiles.GetColumnData( i, COL_INDEX ) );
-//		}
-//	}
 
 	return CPropertyPageAdv::OnApply();
 }
@@ -277,13 +276,13 @@ void CTorrentFilesPage::UpdateCount()
 		}
 
 		if ( nActiveCount != 1 )
-			m_sFilecount.Format( L"%u %s:   %s", nActiveCount, LoadString( IDS_GENERAL_FILES ), Settings.SmartVolume( nActiveSize ) );
+			m_sFilecount.Format( L"%u %s:   %s", nActiveCount, LoadString( IDS_FILES ), Settings.SmartVolume( nActiveSize ) );
 		else
-			m_sFilecount.Format( L"1 %s:   %u B", LoadString( IDS_GENERAL_FILE ), nActiveSize );
+			m_sFilecount.Format( L"1 %s:   %u B", LoadString( IDS_FILE ), nActiveSize );
 	}
 	else
 	{
-		m_sFilecount.Format( L"1 %s:   %u B", LoadString( IDS_GENERAL_FILE ), pFragFile->GetTotal() );
+		m_sFilecount.Format( L"1 %s:   %u B", LoadString( IDS_FILE ), pFragFile->GetTotal() );
 	}
 
 	UpdateData( FALSE );
@@ -293,7 +292,7 @@ void CTorrentFilesPage::UpdateCount()
 void CTorrentFilesPage::Update()
 {
 	CSingleLock oLock( &Transfers.m_pSection );
-	if ( ! oLock.Lock( 250 ) )
+	if ( ! oLock.Lock( 100 ) )
 		return;
 
 	CDownload* pDownload = ((CDownloadSheet*)GetParent())->m_pDownload;
@@ -302,19 +301,16 @@ void CTorrentFilesPage::Update()
 
 	if ( CComPtr< CFragmentedFile > pFragFile = pDownload->GetFile() )
 	{
-		CString sIndex, sCompleted;
-		UINT nIndex;
+		const int nCount = pFragFile->GetCount();
+		CString strCompleted;
+		int nIndex;
 
-		for ( DWORD i = 0 ; i < pFragFile->GetCount() ; ++i )
+		for ( int i = 0 ; i < nCount ; ++i )
 		{
-			sIndex = m_wndFiles.GetItemText( i, COL_INDEX );
-			nIndex = _wtoi( sIndex );
+			nIndex = _wtoi( m_wndFiles.GetItemText( i, COL_INDEX ) );
+			strCompleted.Format( _T("%.2f%%"), pFragFile->GetProgress( nIndex ) );
 
-			float fProgress = pFragFile->GetProgress( nIndex );
-			if ( fProgress >= 0.0 )
-				sCompleted.Format( _T("%.2f%%"), fProgress );
-
-			m_wndFiles.SetItemText( i, COL_STATUS, sCompleted );
+			m_wndFiles.SetItemText( i, COL_STATUS, strCompleted );
 		}
 	}
 }

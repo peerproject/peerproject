@@ -89,7 +89,7 @@ BOOL CImageFile::LoadFromResource(HINSTANCE hInstance, UINT nResourceID, LPCTSTR
 
 	HMODULE hModule = (HMODULE)hInstance;
 	HRSRC hRes = FindResource( hModule, MAKEINTRESOURCE( nResourceID ), pszType );
-	if ( hRes  )
+	if ( hRes )
 	{
 		DWORD nSize			= SizeofResource( hModule, hRes );
 		HGLOBAL hMemory		= LoadResource( hModule, hRes );
@@ -227,7 +227,7 @@ BOOL CImageFile::LoadFromBitmap(HBITMAP hBitmap, BOOL bScanOnly)
 #ifndef WIN64
 	if ( m_nComponents == 4 && theApp.m_bIsWin2000 )
 		AlphaToRGB( RGB( 255,255,255 ) );
-#endif
+#endif	// No x64
 
 	m_bLoaded = TRUE;
 
@@ -240,33 +240,20 @@ BOOL CImageFile::LoadFromBitmap(HBITMAP hBitmap, BOOL bScanOnly)
 
 BOOL CImageFile::SaveToMemory(LPCTSTR pszType, int nQuality, LPBYTE* ppBuffer, DWORD* pnLength)
 {
-	if ( ! m_bLoaded ) return FALSE;
+	if ( ! m_bLoaded )
+		return FALSE;
+
 	return ImageServices.SaveToMemory( this, pszType, nQuality, ppBuffer, pnLength );
 }
 
-//BOOL CImageFile::SaveToFile(LPCTSTR pszType, int nQuality, HANDLE hFile, DWORD* pnLength)
-//{
-//	if ( ! m_bLoaded ) return FALSE;
-//	return ImageServices.SaveToFile( this, pszType, nQuality, hFile, pnLength );
-//}
+BOOL CImageFile::SaveToFile(LPCTSTR pszFile, int nQuality, DWORD* pnLength)
+{
+	if ( ! m_bLoaded )
+		return FALSE;
 
-//BOOL CImageFile::SaveToFile(LPCTSTR pszFile, int nQuality)
-//{
-//	if ( ! m_bLoaded ) return FALSE;
-//
-//	HANDLE hFile = CreateFile( pszFile, GENERIC_WRITE, 0,
-//		NULL, CREATE_NEW, FILE_ATTRIBUTE_NORMAL, NULL );
-//
-//	if ( hFile == INVALID_HANDLE_VALUE ) return FALSE;
-//
-//	BOOL bResult = ImageServices.SaveToFile( this, pszFile, nQuality, hFile );
-//
-//	CloseHandle( hFile );
-//
-//	if ( ! bResult ) DeleteFile( pszFile );
-//
-//	return bResult;
-//}
+	return ImageServices.SaveToFile( this, pszFile, nQuality, pnLength );
+}
+
 
 /////////////////////////////////////////////////////////////////////////////
 // CImageFile serialization

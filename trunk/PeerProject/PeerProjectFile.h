@@ -1,7 +1,7 @@
 //
 // PeerProjectFile.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -65,8 +65,8 @@ public:
 	// Are files sufficiently unequal? (diffrent sizes or hashes)
 	bool operator!=(const CPeerProjectFile& pFile) const;
 
-	// Are some hashes present?
-	inline bool IsHashed() const throw()
+	// Are any hashes available?
+	inline bool HasHash() const
 	{
 		return m_oSHA1 || m_oTiger || m_oED2K || m_oBTH || m_oMD5;
 	}

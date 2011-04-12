@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Chinese (Simplified) Skin File -->
 
-<!-- Translation based on default-en.xml r65 (Shareaza r6092) -->
+<!-- Translation based on default-en.xml r66 (Shareaza r6092) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -495,7 +495,7 @@
 	</menu>
 	<!-- MAIN WINDOW MENU BAR -->
 	<menu name="CMainWnd.DropMenu" type="bar">
-		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160;">
+		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160;">
 			<item id="ID_TOOLS_SETTINGS" text="设置... &#160; "/>
 			<menu text="网络(_N)">
 				<item id="ID_NETWORK_CONNECT" text="连接(_C)" shortcut="Ctrl+G"/>
@@ -2586,6 +2586,8 @@
 	<string id="20013" value="默认"/>
 	<string id="20020" value="文件"/>
 	<string id="20021" value="文件"/>
+	<string id="20022" value="所有文件"/>
+	<string id="20029" value="%s文件"/>
 	<string id="20050" value="星期每天"/>
 	<string id="20051" value="星期一"/>
 	<string id="20052" value="星期二"/>
@@ -3220,9 +3222,10 @@
 	<string id="20836" value="拒绝到 %s 的获取请求，因为已经有太多上传连接。"/>
 	<string id="20837" value="继承来自 %s 主机查询未知文件的外送连接，无条件连接..."/>
 	<string id="20838" value="过于繁忙不能上传 &quot;%s&quot; 到 %s ，队列中的位置 #%i 总 %i (&quot;%s&quot;.。"/>
-	<string id="20840" value="新建队列"/>
-	<string id="20841" value="所有文件"/>
-	<string id="20842" value="连接到 %s 的上传已丢失，保存队列位置。"/>
+	<string id="20840" value="连接到 %s 的上传已丢失，保存队列位置。"/>
+	<string id="20841" value="新建队列"/>
+	<string id="20842" value="所有文件"/>
+	<string id="20843" value="DC++ 保护"/>
 	<string id="20844" value="eDonkey 内核"/>
 	<string id="20845" value="eDonkey 保护"/>
 	<string id="20846" value="eDonkey 部分"/>
@@ -4475,13 +4478,14 @@
 		<column from="Failures" to="失败"/>
 	</list>
 	<list name="CPacketWnd">
+		<column from="Time" to="时间"/>
 		<column from="Address" to="地址"/>
 		<column from="Protocol" to="协议"/>
 		<column from="Type" to="类型"/>
-		<column from="T/H" to="T/H"/>
+		<column from="TTL/Hops" to="TTL/Hops"/>
+		<column from="GUID" to="GUID"/>
 		<column from="Hex" to="Hex"/>
 		<column from="ASCII" to="ASCII"/>
-		<column from="G1-ID" to="G1-ID"/>
 	</list>
 	<list name="CSearchMonitorWnd">
 		<column from="Search" to="搜索"/>

@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Finnish Skin File -->
 
-<!-- Translation based on default-en.xml r65 (Shareaza 2.1.3.7) -->
+<!-- Translation based on default-en.xml r66 (Shareaza 2.1.3.7) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -447,7 +447,7 @@
 	</menu>
 	<!-- MAIN WINDOW MENU BAR -->
 	<menu name="CMainWnd.DropMenu" type="bar">
-		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160;">
+		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160;">
 			<item id="ID_TOOLS_SETTINGS" text="_Asetukset..."/>
 			<menu text="_Verkko">
 				<item id="ID_NETWORK_CONNECT" text="_Yhdistä" shortcut="Ctrl+G"/>
@@ -2197,13 +2197,14 @@
 		<column from="Failures" to=""/>
 	</list>
 	<list name="CPacketWnd">
+		<column from="Time" to="Aika"/>
 		<column from="Address" to=""/>
 		<column from="Protocol" to=""/>
 		<column from="Type" to=""/>
-		<column from="T/H" to=""/>
+		<column from="TTL/Hops" to=""/>
+		<column from="GUID" to=""/>
 		<column from="Hex" to=""/>
 		<column from="ASCII" to=""/>
-		<column from="G1-ID" to=""/>
 	</list>
 	<list name="CSearchMonitorWnd">
 		<column from="Search" to=""/>

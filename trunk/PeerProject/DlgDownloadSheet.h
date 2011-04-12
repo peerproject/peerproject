@@ -1,7 +1,7 @@
 //
 // DlgDownloadSheet.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2006.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -34,13 +34,16 @@ public:
 	virtual INT_PTR DoModal(int nPage = -1);
 
 protected:
-	CString			m_sDownloadTitle;
-	CString			m_sActionsTitle;
-	CString			m_sGeneralTitle;
 	CString			m_sFilesTitle;
 	CString			m_sTrackersTitle;
+	CString			m_sGeneralTitle;
+	CString			m_sDownloadTitle;
+	CString			m_sActionsTitle;
 
-	virtual BOOL OnInitDialog();
+	virtual BOOL	OnInitDialog();
+
+//	afx_msg BOOL	OnEraseBkgnd(CDC* pDC);
+//	afx_msg HBRUSH	OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 
 	DECLARE_MESSAGE_MAP()
 };

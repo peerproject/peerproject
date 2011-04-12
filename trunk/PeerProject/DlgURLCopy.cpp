@@ -80,7 +80,7 @@ BOOL CURLCopyDlg::OnInitDialog()
 {
 	CSkinDialog::OnInitDialog();
 
-	SkinMe( NULL, IDI_WEB_URL );
+	SkinMe( L"CURLCopyDlg", IDI_WEB_URL );
 
 	m_wndIncludeSelf.ShowWindow( ( Network.IsListening() && m_pFile->m_sURL.IsEmpty() ) ? SW_SHOW : SW_HIDE );
 

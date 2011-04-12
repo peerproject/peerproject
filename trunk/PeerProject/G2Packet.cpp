@@ -519,142 +519,144 @@ CString CG2Packet::GetType() const
 	return CString( sType );
 }
 
-//#ifdef DEBUG_G2
-//
-//CString CG2Packet::ToASCII() const
-//{
-//	if ( ! m_bCompound )
-//		return CPacket::ToASCII();
-//
-//	CString sASCII;
-//
-//	DWORD nOrigPosition = m_nPosition;
-//	const_cast< CG2Packet* >( this )->m_nPosition = 0;
-//	try
-//	{
-//		sASCII = const_cast< CG2Packet* >( this )->Dump( m_nLength );
-//	}
-//	catch ( CException* pException )
-//	{
-//		pException->Delete();
-//	}
-//	const_cast< CG2Packet* >( this )->m_nPosition = nOrigPosition;
-//
-//	return sASCII;
-//}
-//
-//CString CG2Packet::Dump(DWORD nTotal)
-//{
-//	CString sASCII;
-//
-//	G2_PACKET nType;
-//	DWORD nLength;
-//	BOOL bCompound;
-//	while ( m_nPosition < nTotal && ReadPacket( nType, nLength, &bCompound ) )
-//	{
-//		DWORD nOffset = m_nPosition + nLength;
-//
-//		if ( ! sASCII.IsEmpty() ) sASCII += _T(", ");
-//
-//		CStringA sType;
-//		sType.Append( (LPCSTR)&nType, G2_TYPE_LEN( nType ) );
-//		sASCII += sType;
-//
-//		if ( nLength )
-//		{
-//			CString sTmp;
-//			sTmp.Format( _T("[%u]="), nLength );
-//			sASCII += sTmp;
-//
-//			if ( bCompound )
-//				sASCII += _T("{ ") + Dump( m_nPosition + nLength ) + _T(" }");
-//			else if ( nType == G2_PACKET_HUB_STATUS )
-//			{
-//				WORD nLeafCount = ReadShortBE();
-//				WORD nLeafLimit = ReadShortBE();
-//				sTmp.Format( _T("%u/%u"), nLeafCount, nLeafLimit );
-//				sASCII += sTmp;
-//			}
-//			else if ( nType == G2_PACKET_TIMESTAMP )
-//			{
-//				DWORD tSeen = ReadLongBE();
-//				sTmp.Format( _T("%u"), tSeen );
-//				sASCII += sTmp;
-//			}
-//			else if ( nType == G2_PACKET_QUERY_DONE )
-//			{
-//				DWORD nAddress = ReadLongLE();
-//				WORD nPort = 0;
-//				if ( nLength >= 6 )
-//					nPort = ReadShortBE();
-//				WORD nLeaves = 0;
-//				if ( nLength >= 8 )
-//					nLeaves = ReadShortBE();
-//				sTmp.Format( _T("%hs:%u/%u"), inet_ntoa( *(IN_ADDR*)&nAddress ), nPort, nLeaves );
-//				sASCII += sTmp;
-//			}
-//			else if ( nType == G2_PACKET_QUERY_SEARCH )
-//			{
-//				DWORD nAddress = ReadLongLE();
-//				WORD nPort = ReadShortBE();
-//				DWORD tSeen = 0;
-//				if ( nLength >= 10 )
-//					tSeen = ReadLongBE();
-//				sTmp.Format( _T("%hs:%u+%u"), inet_ntoa( *(IN_ADDR*)&nAddress ), nPort, tSeen );
-//				sASCII += sTmp;
-//			}
-//			else if ( nType == G2_PACKET_LIBRARY_STATUS )
-//			{
-//				DWORD nFileCount = ReadLongBE();
-//				DWORD nFileVolume = ReadLongBE();
-//				sTmp.Format( _T("%lu/%lu"), nFileCount, nFileVolume );
-//				sASCII += sTmp;
-//			}
-//			else if ( nType == G2_PACKET_NODE_ADDRESS || nType == G2_PACKET_UDP )
-//			{
-//				DWORD nAddress = ReadLongLE();
-//				WORD nPort = ReadShortBE();
-//				sTmp.Format( _T("%hs:%u"), inet_ntoa( *(IN_ADDR*)&nAddress ), nPort );
-//				sASCII += sTmp;
-//			}
-//			else
-//			{
-//				CStringA sDump;
-//				char* c = sDump.GetBuffer( nLength );
-//				for ( DWORD i = 0 ; i < nLength ; ++i )
-//				{
-//					c[ i ] = ( m_pBuffer[ m_nPosition + i ] < ' ' ) ? '.' : m_pBuffer[ m_nPosition + i ];
-//				}
-//				sDump.ReleaseBuffer( nLength );
-//				sASCII += _T("\"") + UTF8Decode( (LPCSTR)sDump, nLength ) + _T("\"");
-//			}
-//		}
-//
-//		m_nPosition = nOffset;
-//	}
-//
-//	return sASCII;
-//}
-//
-//#endif // DEBUG_G2
+#ifdef G2_PACKET_DUMP	// Packet Dump Window assist, causes connection problems!
 
+CString CG2Packet::ToASCII() const
+{
+	if ( ! m_bCompound )
+		return CPacket::ToASCII();
+
+	CString sASCII;
+
+	DWORD nOrigPosition = m_nPosition;
+	const_cast< CG2Packet* >( this )->m_nPosition = 0;
+	try
+	{
+		sASCII = const_cast< CG2Packet* >( this )->Dump( m_nLength );
+	}
+	catch ( CException* pException )
+	{
+		pException->Delete();
+	}
+	const_cast< CG2Packet* >( this )->m_nPosition = nOrigPosition;
+
+	return sASCII;
+}
+
+CString CG2Packet::Dump(DWORD nTotal)
+{
+	CString sASCII;
+
+	G2_PACKET nType;
+	DWORD nLength;
+	BOOL bCompound;
+	while ( m_nPosition < nTotal && ReadPacket( nType, nLength, &bCompound ) )
+	{
+		DWORD nOffset = m_nPosition + nLength;
+
+		if ( ! sASCII.IsEmpty() ) sASCII += _T(", ");
+
+		CStringA sType;
+		sType.Append( (LPCSTR)&nType, G2_TYPE_LEN( nType ) );
+		sASCII += sType;
+
+		if ( nLength )
+		{
+			CString sTmp;
+			sTmp.Format( _T("[%u]="), nLength );
+			sASCII += sTmp;
+
+			if ( bCompound )
+				sASCII += _T("{ ") + Dump( m_nPosition + nLength ) + _T(" }");
+			else if ( nType == G2_PACKET_HUB_STATUS )
+			{
+				WORD nLeafCount = ReadShortBE();
+				WORD nLeafLimit = ReadShortBE();
+				sTmp.Format( _T("%u/%u"), nLeafCount, nLeafLimit );
+				sASCII += sTmp;
+			}
+			else if ( nType == G2_PACKET_TIMESTAMP )
+			{
+				DWORD tSeen = ReadLongBE();
+				sTmp.Format( _T("%u"), tSeen );
+				sASCII += sTmp;
+			}
+			else if ( nType == G2_PACKET_QUERY_DONE )
+			{
+				DWORD nAddress = ReadLongLE();
+				WORD nPort = 0;
+				if ( nLength >= 6 )
+					nPort = ReadShortBE();
+				WORD nLeaves = 0;
+				if ( nLength >= 8 )
+					nLeaves = ReadShortBE();
+				sTmp.Format( _T("%hs:%u/%u"), inet_ntoa( *(IN_ADDR*)&nAddress ), nPort, nLeaves );
+				sASCII += sTmp;
+			}
+			else if ( nType == G2_PACKET_QUERY_SEARCH )
+			{
+				DWORD nAddress = ReadLongLE();
+				WORD nPort = ReadShortBE();
+				DWORD tSeen = 0;
+				if ( nLength >= 10 )
+					tSeen = ReadLongBE();
+				sTmp.Format( _T("%hs:%u+%u"), inet_ntoa( *(IN_ADDR*)&nAddress ), nPort, tSeen );
+				sASCII += sTmp;
+			}
+			else if ( nType == G2_PACKET_LIBRARY_STATUS )
+			{
+				DWORD nFileCount = ReadLongBE();
+				DWORD nFileVolume = ReadLongBE();
+				sTmp.Format( _T("%lu/%lu"), nFileCount, nFileVolume );
+				sASCII += sTmp;
+			}
+			else if ( nType == G2_PACKET_NODE_ADDRESS || nType == G2_PACKET_UDP )
+			{
+				DWORD nAddress = ReadLongLE();
+				WORD nPort = ReadShortBE();
+				sTmp.Format( _T("%hs:%u"), inet_ntoa( *(IN_ADDR*)&nAddress ), nPort );
+				sASCII += sTmp;
+			}
+			else
+			{
+				CStringA sDump;
+				char* c = sDump.GetBuffer( nLength );
+				for ( DWORD i = 0 ; i < nLength ; ++i )
+				{
+					c[ i ] = ( m_pBuffer[ m_nPosition + i ] < ' ' ) ? '.' : m_pBuffer[ m_nPosition + i ];
+				}
+				sDump.ReleaseBuffer( nLength );
+				sASCII += _T("\"") + UTF8Decode( (LPCSTR)sDump, nLength ) + _T("\"");
+			}
+		}
+
+		m_nPosition = nOffset;
+	}
+
+	return sASCII;
+}
+
+#endif // G2_PACKET_DUMP
+
+#ifdef _DEBUG
 void CG2Packet::Debug(LPCTSTR pszReason) const
 {
-#ifdef _DEBUG
 	CString strOutput;
 	strOutput.Format( L"[G2] %s Type: %s", pszReason, GetType() );
 	CPacket::Debug( strOutput );
-#else
-	pszReason;
-#endif
 }
+#endif	// _DEBUG
 
 //////////////////////////////////////////////////////////////////////
 // CDatagrams G2UDP packet handler
 
 BOOL CG2Packet::OnPacket(const SOCKADDR_IN* pHost)
 {
+//	Statistics.Current.Gnutella2.Incoming++;	// ToDo: ?
+
 	SmartDump( pHost, TRUE, FALSE );
+
+	if ( ! Settings.Gnutella2.Enabled && Settings.Connection.RequireForTransfers ) return TRUE;
 
 	// Is it neigbour's packet or stranger's packet?
 	CNeighbour* pNeighbour = Neighbours.Get( pHost->sin_addr );
@@ -701,12 +703,14 @@ BOOL CG2Packet::OnPacket(const SOCKADDR_IN* pHost)
 		return OnDiscovery( pHost );
 	case G2_PACKET_KHL:
 		return OnKHL( pHost );
+#ifdef _DEBUG
 	default:
 		CString tmp;
 		tmp.Format( _T("Received unexpected UDP packet from %s:%u"),
 			(LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ),
 			htons( pHost->sin_port ) );
 		Debug( tmp );
+#endif
 	}
 
 	return TRUE;
@@ -754,7 +758,7 @@ BOOL CG2Packet::OnQuery(const SOCKADDR_IN* pHost)
 		theApp.Message( MSG_INFO, IDS_PROTOCOL_BAD_QUERY,
 			(LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ) );
 		Statistics.Current.Gnutella2.Dropped++;
-		Debug( _T("Malformed query.") );
+		DEBUG_ONLY( Debug( _T("Malformed query.") ) );
 		return FALSE;
 	}
 
@@ -862,7 +866,7 @@ BOOL CG2Packet::OnCommonHit(const SOCKADDR_IN* pHost)
 
 	if ( pHits == NULL )
 	{
-		Debug( _T("Malformed Hit") );
+		DEBUG_ONLY( Debug( _T("Malformed Hit") ) );
 		theApp.Message( MSG_ERROR, IDS_PROTOCOL_BAD_HIT,
 			(LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ) );
 		Statistics.Current.Gnutella2.Dropped++;
@@ -873,7 +877,7 @@ BOOL CG2Packet::OnCommonHit(const SOCKADDR_IN* pHost)
 	// If it doesn't we'll drop it.
 	if ( pHits->m_pAddress.S_un.S_addr != pHost->sin_addr.S_un.S_addr )
 	{
-		Debug( _T("Hit sender IP does not match \"NA\"") );
+		DEBUG_ONLY( Debug( _T("Hit sender IP does not match \"Node Address\"") ) );
 		theApp.Message( MSG_ERROR, IDS_PROTOCOL_BAD_HIT,
 			(LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ) );
 		Statistics.Current.Gnutella2.Dropped++;
@@ -883,7 +887,7 @@ BOOL CG2Packet::OnCommonHit(const SOCKADDR_IN* pHost)
 
 	if ( Security.IsDenied( &pHits->m_pAddress ) )
 	{
-		Debug( _T("Security manager denied Hit") );
+		DEBUG_ONLY( Debug( _T("Security manager denied Hit") ) );
 		theApp.Message( MSG_ERROR, IDS_PROTOCOL_BAD_HIT,
 			(LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ) );
 		Statistics.Current.Gnutella2.Dropped++;
@@ -1367,7 +1371,6 @@ BOOL CG2Packet::OnKHLA(const SOCKADDR_IN* pHost)
 				(IN_ADDR*)&nAddress, nPort, tSeen, strVendor );
 			if ( pCached != NULL )
 				nCount++;
-
 		}
 		else if ( nType == G2_PACKET_TIMESTAMP && nLength >= 4 )
 		{

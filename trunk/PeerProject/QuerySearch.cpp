@@ -168,7 +168,7 @@ CG1Packet* CQuerySearch::ToG1Packet(DWORD nTTL) const
 		else
 			bSep = true;
 
-		pPacket->WriteString( m_pXML->ToString( TRUE ), ! IsHashed() );
+		pPacket->WriteString( m_pXML->ToString( TRUE ), ! HasHash() );
 	}
 
 	// GGEP extension (last)
@@ -197,7 +197,7 @@ CG1Packet* CQuerySearch::ToG1Packet(DWORD nTTL) const
 			pItem->WriteUTF8( strFullQuery );
 		}
 
-		if ( IsHashed() )
+		if ( HasHash() )
 		{
 			if ( m_oSHA1.isValid() )
 			{
@@ -309,7 +309,7 @@ CG2Packet* CQuerySearch::ToG2Packet(SOCKADDR_IN* pUDP, DWORD nKey) const
 		pPacket->Write( m_oBTH );
 	}
 
-	if ( ! IsHashed() && ! m_sG2Keywords.IsEmpty() )
+	if ( ! HasHash() && ! m_sG2Keywords.IsEmpty() )
 	{
 		// Randomly select keywords or exact search string
 		if ( m_sSearch.IsEmpty() || GetRandomNum( FALSE, TRUE ) )
@@ -518,8 +518,8 @@ BOOL CQuerySearch::WriteHashesToEDPacket(CEDPacket* pPacket, BOOL bUDP) const
 	CSingleLock pLock( &Transfers.m_pSection );
 	if ( ! pLock.Lock( 250 ) ) return FALSE;
 
-	int nFiles = 1; // There's one hash in the packet to begin with
-	DWORD tNow = GetTickCount();
+	int nFiles = 1;		// There's one hash in the packet to begin with
+	const DWORD tNow = GetTickCount();
 
 	// Run through all active downloads
 	for ( POSITION pos = Downloads.GetIterator() ; pos ; )
@@ -543,7 +543,7 @@ BOOL CQuerySearch::WriteHashesToEDPacket(CEDPacket* pPacket, BOOL bUDP) const
 				if ( nSources < ( Settings.Downloads.SourcesWanted / 4u ) )
 				{
 					BOOL bFewSources = nSources < Settings.Downloads.MinSources;
-					BOOL bDataStarve = ( tNow > pDownload->m_tReceived ? tNow - pDownload->m_tReceived : 0 ) > Settings.Downloads.StarveTimeout * 1000;
+					BOOL bDataStarve = tNow < pDownload->m_tReceived + Settings.Downloads.StarveTimeout;	// ~45 Minutes
 
 					if ( bFewSources || bDataStarve || nFiles < 10 )
 					{
@@ -1085,7 +1085,7 @@ BOOL CQuerySearch::CheckValid(bool bExpression)
 
 	// Searches by hash are ok
 	bool bHashOk = false;
-	if ( IsHashed() )
+	if ( HasHash() )
 	{
 		if ( m_oURNs.empty() )
 		{
@@ -1271,7 +1271,7 @@ BOOL CQuerySearch::Match(LPCTSTR pszFilename, LPCTSTR pszSchemaURI, CXMLElement*
 			if ( MatchMetadataShallow( pszSchemaURI, pXML, &bReject ) )
 			{
 				// If searching in Local library return true
-				if ( ! IsHashed() && ! m_oSimilarED2K )
+				if ( ! HasHash() && ! m_oSimilarED2K )
 					return TRUE;
 
 				// Otherwise, only return WordMatch when negative terms are used to filter out filenames from the search window
@@ -1745,10 +1745,8 @@ void CQuerySearch::MakeKeywords(CString& strPhrase, bool bExpression)
 						nPrevWord += nDistance + 1;
 						continue;
 					}
-					else
-					{
-						str += strPhrase.Mid( nPrevWord, nPos - nDistance - nPrevWord );
-					}
+
+					str += strPhrase.Mid( nPrevWord, nPos - nDistance - nPrevWord );
 				}
 				else
 				{

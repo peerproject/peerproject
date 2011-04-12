@@ -1137,7 +1137,7 @@ BOOL CQueryHit::CheckValid() const
 		return FALSE;
 	}
 
-	if ( ! IsHashed() )
+	if ( ! HasHash() )
 	{
 		theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("Got bogus hit packet. No hash") );
 		return FALSE;

@@ -72,7 +72,7 @@ CNeighbour::CNeighbour(PROTOCOLID nProtocol)
 	, m_nMaxTTL 		( (DWORD)-1 )
 	, m_bDynamicQuerying( FALSE )
 	, m_bUltrapeerQueryRouting( FALSE )
-	, m_sLocalePref		( _T("") )
+//	, m_sLocalePref		( _T("") )		// Unused X-Locale-Pref
 	, m_bRequeries		( TRUE )
 	, m_bExtProbes		( FALSE )
 	// Zero time, packet and file counts
@@ -96,6 +96,7 @@ CNeighbour::CNeighbour(PROTOCOLID nProtocol)
 	, m_pZSInput		( NULL )
 	, m_pZSOutput		( NULL )
 	, m_bZFlush 		( FALSE )
+	, m_bZInputEOS		( FALSE )
 	, m_tZOutput		( 0 )
 {
 	m_bAutoDelete = TRUE;
@@ -144,6 +145,7 @@ CNeighbour::CNeighbour(PROTOCOLID nProtocol, CNeighbour* pBase)
 	, m_pZSInput		( NULL )
 	, m_pZSOutput		( NULL )
 	, m_bZFlush 		( pBase->m_bZFlush )
+	, m_bZInputEOS		( pBase->m_bZInputEOS )
 	, m_tZOutput		( pBase->m_tZOutput )
 {
 	AttachTo( pBase );
@@ -257,7 +259,7 @@ BOOL CNeighbour::SendQuery(const CQuerySearch* pSearch, CPacket* pPacket, BOOL b
 		m_tLastQuery = static_cast< DWORD >( time( NULL ) );
 
 	// Send the packet to the remote computer
-	Send( pPacket, FALSE, ! bLocal ); // Submit !bLocal as the value for bBuffered (do)
+	Send( pPacket, FALSE, ! bLocal );	// Submit !bLocal as the value for bBuffered (do)
 
 	return TRUE;
 }
@@ -353,33 +355,33 @@ void CNeighbour::OnDropped()
 // CNeighbour compressed read and write handlerss
 
 // Read data waiting in the socket into the input buffer, and decompress it into the zlib input buffer
-// Return false if error
 BOOL CNeighbour::OnRead()
 {
 	// Read the bytes waiting in our end of the socket into the input buffer
-	CConnection::OnRead();
+	if ( ! CConnection::OnRead() )
+		return FALSE;
 
 	CLockedBuffer pInput( GetInput() );
 
 	// If compression is off, we're done, return true now
 	// Otherwise, compression is on, the bytes we read into the input buffer are compressed, and we have to decompress them
-	if ( m_pZInput == NULL || pInput->m_nLength == 0 ) return TRUE;
+	if ( m_pZInput == NULL || pInput->m_nLength == 0 )
+		return TRUE;
 
 	// Store original buffer size
 	DWORD nLength = m_pZInput->m_nLength;
 
 	// Try to decompress the stream
-	pInput->InflateStreamTo( *m_pZInput, m_pZSInput );
+	m_bZInputEOS = FALSE;
+	bool bSuccess = pInput->InflateStreamTo( *m_pZInput, m_pZSInput, &m_bZInputEOS );
 
 	// Calculate how much was decompressed
 	m_nZInput += m_pZInput->m_nLength - nLength;
 
-	// Report success
-	return TRUE;
+	return bSuccess ? TRUE : FALSE;
 }
 
 // Compress data and send it to the connected computer
-// Return false if error
 BOOL CNeighbour::OnWrite()
 {
 	// If we're not sending compressed data to the remote computer, just call CConnection::OnWrite to send the output buffer
@@ -395,7 +397,7 @@ BOOL CNeighbour::OnWrite()
 	{
 		// Zero the z_stream structure and set it up for compression
 		ZeroMemory( pStream, sizeof(z_stream) );
-		if ( deflateInit( pStream, 6 ) != Z_OK )
+		if ( deflateInit( pStream, Settings.Connection.ZLibCompressionLevel ) != Z_OK )
 		{
 			// There was an error setting up zlib, clean up and leave now
 			delete pStream;
@@ -457,14 +459,13 @@ BOOL CNeighbour::OnWrite()
 		else if ( m_bZFlush )
 		{
 			// Zlib didn't compress anything, and the flush flag is true
-			m_bZFlush = FALSE;	// Make the flush flag false
+			m_bZFlush = FALSE;		// Make the flush flag false
 		}
 
 		// Send the contents of the output buffer to the remote computer
 		CConnection::OnWrite();
 	}
 
-	// Report success
 	return TRUE;
 }
 

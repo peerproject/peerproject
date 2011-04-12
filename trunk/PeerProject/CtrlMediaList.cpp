@@ -754,7 +754,7 @@ void CMediaListCtrl::OnUpdateMediaSave(CCmdUI* pCmdUI)
 void CMediaListCtrl::OnMediaSave()
 {
 	CFileDialog dlg( FALSE, _T("m3u"), NULL, OFN_HIDEREADONLY|OFN_ENABLESIZING,
-		_T("Media Playlists|*.m3u|All Files|*.*||"), this );
+		_T("Media Playlists|*.m3u|") + LoadString( IDS_FILES_ALL ) + _T("|*.*||"), this );
 
 	if ( dlg.DoModal() != IDOK ) return;
 

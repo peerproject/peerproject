@@ -292,13 +292,13 @@ DWORD CDownloadWithFile::MoveFile(LPCTSTR pszDestination, LPPROGRESS_ROUTINE lpP
 					if ( pFile->m_nSize == m_pFile->GetLength( nIndex ) )
 					{
 						bDuplicate = TRUE;
-						if ( nCount == 1 && IsHashed() &&
+						if ( nCount == 1 && HasHash() &&
 							( validAndUnequal( m_oSHA1, pFile->m_oSHA1 ) ||
 							  validAndUnequal( m_oTiger, pFile->m_oTiger ) ||
 							  validAndUnequal( m_oED2K, pFile->m_oED2K ) ||
 							  validAndUnequal( m_oBTH, pFile->m_oBTH ) ) )
 							bDuplicate = FALSE;
-						//else if ( m_pFile->GetAt( nIndex )->IsHashed() )
+						//else if ( m_pFile->GetAt( nIndex )->HasHash() )
 						// ToDo: Otherwise get temp hash or byte confirmation ?
 					}
 				}

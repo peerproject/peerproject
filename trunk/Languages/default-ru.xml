@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Russian Skin File -->
 
-<!-- Translation based on default-en.xml r65 -->
+<!-- Translation based on default-en.xml r66 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -522,7 +522,7 @@
 	</menu>
 	<!-- MAIN WINDOW MENU BAR -->
 	<menu name="CMainWnd.DropMenu" type="bar">
-		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160;">
+		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160;">
 			<item id="ID_TOOLS_SETTINGS" text="_Установки..."/>
 			<menu text="_Сети">
 				<item id="ID_NETWORK_CONNECT" text="_Подключиться" shortcut="Ctrl+G"/>
@@ -2744,6 +2744,8 @@
 	<string id="20018" value="Повторить снова"/>
 	<string id="20020" value="Файл"/>
 	<string id="20021" value="Файлы"/>
+	<string id="20022" value="Все файлы"/>
+	<string id="20029" value="%s файлы"/>
 	<string id="20050" value="Каждый день"/>
 	<string id="20051" value="Понедельник"/>
 	<string id="20052" value="Вторник"/>
@@ -3387,9 +3389,10 @@
 	<string id="20836" value="Отвергнут запрос активной доставки для %s, потому что он имеет слишком много соединений для раздач."/>
 	<string id="20837" value="С %s получен устарелый запрос на активную доставку неизвестного файла, всё-таки соединяю..."/>
 	<string id="20838" value="Слишком занят для раздачи «%s» на %s, ставлю в очередь под номером %i из %i («%s»)."/>
-	<string id="20840" value="Новая очередь"/>
-	<string id="20841" value="Все файлы"/>
-	<string id="20842" value="Соединение раздачи на %s оборвано, сохраняю позицию в очереди."/>
+	<string id="20840" value="Соединение раздачи на %s оборвано, сохраняю позицию в очереди."/>
+	<string id="20841" value="Новая очередь"/>
+	<string id="20842" value="Все файлы"/>
+	<string id="20843" value="Охраняющяя DC++"/>
 	<string id="20844" value="Ядро eDonkey"/>
 	<string id="20845" value="Охраняющяя eDonkey"/>
 	<string id="20846" value="Частичные eDonkey"/>
@@ -4685,13 +4688,14 @@
 		<column from="Failures" to="Отказов"/>
 	</list>
 	<list name="CPacketWnd">
+		<column from="Time" to="Время"/>
 		<column from="Address" to="Адрес"/>
 		<column from="Protocol" to="Протокол"/>
 		<column from="Type" to="Тип"/>
-		<column from="T/H" to=""/>
+		<column from="TTL/Hops" to=""/>
+		<column from="GUID" to="G1 ИД"/>
 		<column from="Hex" to=""/>
 		<column from="ASCII" to=""/>
-		<column from="G1-ID" to="G1-ИД"/>
 	</list>
 	<list name="CSearchMonitorWnd">
 		<column from="Search" to="Поиск"/>

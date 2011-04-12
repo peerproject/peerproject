@@ -1,7 +1,7 @@
 //
 // DlgURLExport.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -144,8 +144,8 @@ void CURLExportDlg::OnSave()
 
 	LPCTSTR pszExt = ( m_sFormat.Find( '<' ) >= 0 ) ? _T("htm") : _T("txt");
 	LPCTSTR pszFilter = ( m_sFormat.Find( '<' ) >= 0 ) ?
-		_T("HTML Files|*.htm;*.html|Text Files|*.txt|All Files|*.*||") :
-		_T("Text Files|*.txt|HTML Files|*.htm;*.html|All Files|*.*||");
+		_T("HTML Files|*.htm;*.html|Text Files|*.txt|") + LoadString( IDS_FILES_ALL ) + _T("|*.*||") :
+		_T("Text Files|*.txt|HTML Files|*.htm;*.html|") + LoadString( IDS_FILES_ALL ) + _T("|*.*||");
 
 	CFileDialog dlg( FALSE, pszExt, NULL, OFN_HIDEREADONLY|OFN_OVERWRITEPROMPT,
 		pszFilter, this );

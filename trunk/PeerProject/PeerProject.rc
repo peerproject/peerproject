@@ -138,10 +138,12 @@ IDI_BROWSE				ICON		"Res\\Browse.ico"
 IDI_WEB_URL				ICON		"Res\\WebURL.ico"
 IDI_WORLD				ICON		"Res\\World.ico"
 IDI_SKIN				ICON		"Res\\Skin.ico"
+IDI_FLAG_ENGLISH		ICON		"Res\\FlagEnglish.ico"
+IDI_UPDOWN_ARROW		ICON		"Res\\UpDownArrow.ico"
 IDI_POINTER_ARROW_IN	ICON		"Res\\PointerArrowIn.ico"
 IDI_POINTER_ARROW_OUT	ICON		"Res\\PointerArrowOut.ico"
-IDI_UPDOWN_ARROW		ICON		"Res\\UpDownArrow.ico"
-IDI_FLAG_ENGLISH		ICON		"Res\\FlagEnglish.ico"
+//IDI_INCOMING			ICON		"Res\\PacketIn.ico"
+//IDI_OUTGOING			ICON		"Res\\PacketOut.ico"
 IDI_COMPUTER			ICON		"Res\\Computer.ico"
 IDI_CHECKMARK			ICON		"Res\\Checkmark.ico"
 IDI_EXECUTABLE			ICON		"Res\\Executable.ico"
@@ -573,7 +575,7 @@ BEGIN
 	COMBOBOX		IDC_DOWNLOADS_BANDWIDTH_LIMIT,204,114,60,68,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
 	LTEXT			"Maximum Queue Length:",IDC_STATIC,156,130,108,8,SS_CENTERIMAGE
 	COMBOBOX		IDC_DOWNLOADS_QUEUE_LIMIT,204,141,60,65,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
-	GROUPBOX		"Enforcement:",IDC_STATIC,6,168,270,36,WS_GROUP
+	GROUPBOX		"&Enforcement:",IDC_STATIC,6,168,270,36,WS_GROUP
 	CONTROL			"Only download/upload from networks that are currently connected.",IDC_REQUIRE_CONNECT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,15,180,250,15
 END
 
@@ -678,13 +680,13 @@ BEGIN
 	LTEXT			"This QuickStart wizard can help configure the software in a few simple steps, \neven if you haven't used PeerProject or other P2P client before.",IDC_STATIC,10,25,265,20
 	LTEXT			"More advanced users can access the full range of PeerProject's options via the Tools menu.  Click Exit at any time to leave the wizard.",IDC_STATIC,10,50,265,25
 	LTEXT			"This wizard will assist you to:",IDC_STATIC,10,80,265,10
-	ICON			IDI_WIZARD_DOT,IDC_STATIC_1,15,94,16,16,SS_REALSIZEIMAGE	// Not true static for skin workaround
+	ICON			IDI_WIZARD_DOT,IDC_STATIC,15,94,16,16,SS_REALSIZEIMAGE
 	LTEXT			"Tell PeerProject about your Internet connection",IDC_STATIC,30,94,245,10,SS_CENTERIMAGE
-	ICON			IDI_WIZARD_DOT,IDC_STATIC_2,15,108,16,16,SS_REALSIZEIMAGE
+	ICON			IDI_WIZARD_DOT,IDC_STATIC,15,108,16,16,SS_REALSIZEIMAGE
 	LTEXT			"Connect to your choice of P2P networks",IDC_STATIC,30,108,245,10,SS_CENTERIMAGE
-	ICON			IDI_WIZARD_DOT,IDC_STATIC_3,15,122,16,16,SS_REALSIZEIMAGE
+	ICON			IDI_WIZARD_DOT,IDC_STATIC,15,122,16,16,SS_REALSIZEIMAGE
 	LTEXT			"Choose which files to share, and",IDC_STATIC,30,122,245,10,SS_CENTERIMAGE
-	ICON			IDI_WIZARD_DOT,IDC_STATIC_4,15,136,16,16,SS_REALSIZEIMAGE
+	ICON			IDI_WIZARD_DOT,IDC_STATIC,15,136,16,16,SS_REALSIZEIMAGE
 	LTEXT			"Get started using PeerProject.",IDC_STATIC,30,136,245,10,SS_CENTERIMAGE
 END
 
@@ -3641,8 +3643,20 @@ BEGIN
 	IDS_GENERAL_IGNORE			"Ignore"
 	IDS_GENERAL_RETRY			"Retry"
 	IDS_GENERAL_TRYAGAIN		"Try Again"
-	IDS_GENERAL_FILE			"File"
-	IDS_GENERAL_FILES			"Files"
+END
+
+STRINGTABLE
+BEGIN
+	IDS_FILE					"File"
+	IDS_FILES					"Files"
+	IDS_FILES_ALL				"All Files"
+	IDS_FILES_NONE				"No Files"
+	IDS_FILES_LARGE				"Large Files"
+	IDS_FILES_MEDIUM			"Medium Files"
+	IDS_FILES_SMALL 			"Small Files"
+	IDS_FILES_PARTIAL			"Partial Files"
+	IDS_FILES_LIBRARY			"Library Files"
+	IDS_FILES_TYPE				"%s Files"
 END
 
 STRINGTABLE
@@ -3655,7 +3669,7 @@ BEGIN
 	IDS_DAY_THURSDAY			"Thursday"
 	IDS_DAY_TUESDAY				"Tuesday"
 	IDS_DAY_WEDNESDAY			"Wednesday"
-	IDS_RATING_NORATING			"(No Rating)"
+	IDS_RATING_NONE 			"(No Rating)"
 	IDS_RATING_1				"Fake / Corrupt"
 	IDS_RATING_2				"Poor"
 	IDS_RATING_3				"Average"
@@ -4092,7 +4106,7 @@ STRINGTABLE
 BEGIN
 	IDS_MEDIAVIS_NOVIS			"(No Visualisation)"
 	IDS_MEDIA_EMPTY				"There is no file playing.  Double-click a media file in your library to play it."
-	IDS_MEDIA_FILTER			"All Media Files|*.3gp;*.aac;*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.flac;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.flv;*.mkv;*.mpeg;*.mpg;*.m1v;*.mp2;*.mp4;*.mpa;*.mpe;*.wmv|Video Files|*.avi;*.asf;*.flv;*.ogm;*.mkv;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv;*.3gp|Audio Files|*.aac;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.flac;*.wma;*.rm;*.mp3;*.ogg;*.ogm|MIDI Files|*.mid;*.rmi;*.midi|CD Audio Tracks|*.cda|Image Files|*.bmp;*.gif;*.jpeg;*.jpg;*.png;|Playlists|*.asx;*.wax;*.m3u;*.wvx;*.wmx|All Files|*.*||"
+	IDS_MEDIA_FILTER			"All Media Files|*.3gp;*.aac;*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.flac;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.flv;*.divx;*.mkv;*.mov;*.mpeg;*.mpg;*.m1v;*.mp2;*.mp4;*.mpa;*.mpe;*.webm;*.wmv|Video Files|*.avi;*.asf;*.divx;*.flv;*.ogm;*.mkv;*.mov;*.mpeg;*.mpg;*.m1v;*.mp2;*.mp4;*.mpa;*.mpe;*.webm;*.wmv;*.3gp|Audio Files|*.aac;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.flac;*.wma;*.rm;*.mp3;*.ogg;*.ogm|MIDI Files|*.midi;*.mid;*.rmi|CD Audio Tracks|*.cda|Image Files|*.bmp;*.gif;*.jpeg;*.jpg;*.png;|Playlists|*.asx;*.wax;*.m3u;*.wvx;*.wmx|All Files|*.*||"
 	IDS_MEDIA_LOAD_FAIL			"Unable to load media file ""%s"""
 	IDS_MEDIA_LOAD_FAIL_HELP	"The file may be damaged, or you may not have the necessary codecs to play it."
 	IDS_MEDIA_PARTIAL_RENDER	"Part of the file could not be played, you may need to install additional codecs.\n(Try a codec pack from www.codecs.com)"
@@ -4516,16 +4530,16 @@ BEGIN
 	IDS_UPLOAD_QUEUE_ED2K_PARTIALS "eDonkey Partials"
 	IDS_UPLOAD_QUEUE_HISTORY	"Completed Uploads"
 	IDS_UPLOAD_QUEUE_HTTP_GUARD "HTTP Guard"
-	IDS_UPLOAD_QUEUE_LARGE_FILES "Large Files"
 	IDS_UPLOAD_QUEUE_LIBRARY	"Library Files"
+	IDS_UPLOAD_QUEUE_LARGE_FILES "Large Files"
 	IDS_UPLOAD_QUEUE_MEDIUM_FILES "Medium Files"
+	IDS_UPLOAD_QUEUE_SMALL_FILES "Small Files"
+	IDS_UPLOAD_QUEUE_PARTIAL_FILES "Partial Files"
+	IDS_UPLOAD_QUEUE_PARTIAL	"Partial"
 	IDS_UPLOAD_QUEUE_NEW		"New Queue"
 	IDS_UPLOAD_QUEUE_QUEUE		"Queue"
-	IDS_UPLOAD_QUEUE_PARTIAL	"Partial"
-	IDS_UPLOAD_QUEUE_PARTIAL_FILES "Partial Files"
-	IDS_UPLOAD_QUEUE_SMALL_FILES "Small Files"
-	IDS_UPLOAD_QUEUE_TIMEOUT	"Offline queued upload host %s expired, removing."
 	IDS_UPLOAD_QUEUE_TORRENT	"Torrent Uploads"
+	IDS_UPLOAD_QUEUE_TIMEOUT	"Offline queued upload host %s expired, removing."
 END
 
 STRINGTABLE

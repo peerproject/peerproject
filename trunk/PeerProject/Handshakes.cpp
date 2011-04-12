@@ -1,7 +1,7 @@
 //
 // Handshakes.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -253,10 +253,11 @@ BOOL CHandshakes::IsConnectedTo(const IN_ADDR* pAddress) const
 		const CHandshake* pHandshake = m_pList.GetNext( pos );
 
 		// If the IP address in the list handshake object matches the one given this method, we've found it
-		if ( pHandshake->m_pHost.sin_addr.S_un.S_addr == pAddress->S_un.S_addr ) return TRUE;
+		if ( pHandshake->m_pHost.sin_addr.S_un.S_addr == pAddress->S_un.S_addr )
+			return TRUE;
 	}
 
-	return FALSE;	// We didn't find it
+	return FALSE;	// Not found
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -268,7 +269,7 @@ void CHandshakes::Substitute(CHandshake* pOld, CHandshake* pNew)
 {
 	// Find the position of the pointer to the old handshake object in the m_pList list
 	POSITION pos = m_pList.Find( pOld );
-	ASSERT( pos != NULL ); // Make sure we found something
+	ASSERT( pos != NULL );	// Make sure we found something
 
 	// Set the new pointer at this position, overwriting the old pointer there
 	m_pList.SetAt( pos, pNew );
@@ -379,7 +380,6 @@ BOOL CHandshakes::AcceptConnection()
 		CreateHandshake( hSocket, &pHost );
 	}
 
-	// Report success
 	return TRUE;
 }
 
@@ -426,11 +426,8 @@ int CALLBACK CHandshakes::AcceptCheck(IN LPWSABUF lpCallerId,
 		theApp.Message( MSG_ERROR, IDS_NETWORK_SECURITY_DENIED, (LPCTSTR)strHost );
 		return CF_REJECT;
 	}
-	else // The IP address is not on that watch list
-	{
-		// Tell WSAAccept we should try to accept this connection
-		return CF_ACCEPT;
-	}
+
+	return CF_ACCEPT;
 }
 
 //////////////////////////////////////////////////////////////////////

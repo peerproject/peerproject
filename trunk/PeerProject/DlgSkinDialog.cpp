@@ -22,6 +22,7 @@
 #include "DlgSkinDialog.h"
 #include "CoolInterface.h"
 #include "Colors.h"
+//#include "Images.h"
 #include "Skin.h"
 #include "SkinWindow.h"
 
@@ -47,9 +48,10 @@ BEGIN_MESSAGE_MAP(CSkinDialog, CDialog)
 	ON_WM_SIZE()
 	ON_WM_ERASEBKGND()
 	ON_WM_CTLCOLOR()
-	ON_MESSAGE(WM_SETTEXT, OnSetText)
 	ON_WM_CREATE()
 	ON_WM_HELPINFO()
+//	ON_WM_UPDATEUISTATE()
+	ON_MESSAGE(WM_SETTEXT, OnSetText)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -80,7 +82,7 @@ void CSkinDialog::EnableBanner(BOOL bEnable)
 		m_oBanner.DestroyWindow();
 
 		// Move all controls up
-		for ( CWnd* pChild = GetWindow( GW_CHILD ); pChild;
+		for ( CWnd* pChild = GetWindow( GW_CHILD ) ; pChild ;
 			pChild = pChild->GetNextWindow() )
 		{
 			CRect rc;
@@ -105,7 +107,7 @@ void CSkinDialog::EnableBanner(BOOL bEnable)
 			SWP_NOACTIVATE | SWP_NOMOVE | SWP_NOZORDER );
 
 		// Move all controls down
-		for ( CWnd* pChild = GetWindow( GW_CHILD ); pChild;
+		for ( CWnd* pChild = GetWindow( GW_CHILD ) ; pChild ;
 			pChild = pChild->GetNextWindow() )
 		{
 			CRect rc;
@@ -197,8 +199,8 @@ LRESULT CSkinDialog::OnNcHitTest(CPoint point)
 {
 	if ( m_pSkin && ! theApp.m_bClosing )
 		return m_pSkin->OnNcHitTest( this, point, ( GetStyle() & WS_THICKFRAME ) ? TRUE : FALSE );
-	else
-		return CDialog::OnNcHitTest( point );
+
+	return CDialog::OnNcHitTest( point );
 }
 
 BOOL CSkinDialog::OnNcActivate(BOOL bActive)
@@ -288,64 +290,75 @@ HBRUSH CSkinDialog::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 	HBRUSH hbr = CDialog::OnCtlColor( pDC, pWnd, nCtlColor );
 
 	// Skinned dialog controls
-	if ( nCtlColor == CTLCOLOR_STATIC && Skin.m_bmDialog.m_hObject )
+	if ( Skin.m_bmDialog.m_hObject && ( nCtlColor == CTLCOLOR_STATIC || nCtlColor == CTLCOLOR_BTN ) )
 	{
-		if ( pWnd->GetDlgCtrlID() != IDC_STATIC )					// Named controls  (Dynamic handling)
+	// Obsolete Handling:
+	//	if ( pWnd->GetDlgCtrlID() != IDC_STATIC )					// Named controls  (Dynamic handling)
+	//	{
+	//		//if ( ! pWnd->IsWindowEnabled() || ( pWnd->GetStyle() & ES_READONLY ) )	// (Note SS_REALSIZEIMAGE conflict)
+	//		//	return Skin.m_brDialog;								// Skip disabled edit boxes
+	//
+	//		// Handle exceptions (Icons)
+	//		const int nCtrlID = pWnd->GetDlgCtrlID();
+	//		if ( nCtrlID == IDC_MONITOR_ICON || nCtrlID == IDC_INFO_ICON )	// || nCtrlID == IDC_BANDWIDTH_SLIDER )
+	//			return Skin.m_brDialog;								// Dynmic controls (UploadQueue slider, variable icon, etc.)
+	//
+	//		//TCHAR szName[24];
+	//		//GetClassName( pWnd->GetSafeHwnd(), szName, 24 );		// Alt detection method
+	//		//if ( _tcsistr( szName, _T("Static") ) )				// "Button" "ListBox" "ComboBox" "Edit" "RICHEDIT" etc
+	//
+	//		// Skinning fix for checkbox labels, dynamic text, etc.
+	//		CRect rc;
+	//		pWnd->GetWindowRect( &rc );
+	//		CRect rcPos = rc;
+	//		pWnd->ScreenToClient( &rc );
+	//		ScreenToClient( &rcPos );
+	//		rcPos.top -= Skin.m_nBanner;
+	//
+	//		CoolInterface.DrawWatermark( pDC, &rc, &Skin.m_bmDialog, FALSE, -rcPos.left, -rcPos.top );
+	//		//pDC->BitBlt( 0, 0, rc.right, rc.bottom, pWnd->GetDC(), 0, 0, SRCCOPY );
+	//	}
+	//	else if ( pWnd->GetStyle() & SS_ICON )						// Static icon handling 32
+	//		return Skin.m_brDialog;
+
+		if ( pWnd->GetDlgCtrlID() != IDC_STATIC || ( pWnd->GetStyle() & SS_ICON ) )		// || ( pWnd->GetStyle() & SS_REALSIZEIMAGE ) )
 		{
-			if ( ! pWnd->IsWindowEnabled() || ( pWnd->GetStyle() & ES_READONLY ) )	// (Note SS_REALSIZEIMAGE conflict)
-				return Skin.m_brDialog;								// Skip disabled edit boxes
-
-			const int nCtrlID = pWnd->GetDlgCtrlID();
-			if ( nCtrlID == IDC_MONITOR_ICON || nCtrlID == IDC_INFO_ICON || nCtrlID == IDC_BANDWIDTH_SLIDER )
-				return Skin.m_brDialog;								// Dynmic controls (UploadQueue slider, variable icon, etc.)
-
-			if ( nCtrlID == IDC_MONITOR_SOURCES || nCtrlID == IDC_MONITOR_VOLUME ||
-				nCtrlID == IDC_MONITOR_SPEED || nCtrlID == IDC_MONITOR_TIME )
-			{
-				pDC->SetTextColor( Colors.m_crDialogText );
-				pDC->SetBkMode( TRANSPARENT );
-				return Skin.m_brDialog;								// Dynamic text exceptions workaround	ToDo: Fix this properly!
-			}
-
-			if ( nCtrlID == IDC_URL_MAGNET || nCtrlID == IDC_URL_ED2K ||
-				nCtrlID == IDC_URL_HOST || nCtrlID == IDC_INFO_TEXT )
-			{
-				pDC->SetTextColor( Colors.m_crDialogText );
-				pDC->SetBkMode( TRANSPARENT );
-				return CreateSolidBrush( Colors.m_crDialog );		// Dynamic text exceptions workaround	ToDo: Fix this properly!
-			}
-
-			//TCHAR szName[24];
-			//GetClassName( pWnd->GetSafeHwnd(), szName, 24 );		// Alt detection method
-			//if ( _tcsistr( szName, _T("Static") ) )				// "Button" "ListBox" "ComboBox" "Edit" "RICHEDIT" etc
-
-			// Checkbox label skinning fix, etc.
+			// Offset background image brush to mimic transparency
 			CRect rc;
-			pWnd->GetWindowRect( rc );
-			ScreenToClient( rc );
+			pWnd->GetWindowRect( &rc );
+			ScreenToClient( &rc );
+			rc.top -= Skin.m_nBanner;
+			pDC->SetBrushOrg( -rc.left, -rc.top );
 
-			CoolInterface.DrawWatermark( pDC, &rc, &Skin.m_bmDialog, FALSE, -rc.left, -rc.top );
-			//pDC->BitBlt( 0, 0, rc.right, rc.bottom, pWnd->GetDC(), 0, 0, SRCCOPY );
+			hbr = Skin.m_brDialog;
 		}
-		else if ( pWnd->GetStyle() & SS_ICON )						// Static icon handling 32 (improve?)
-			return Skin.m_brDialog;
+		else	// Static text
+			hbr = (HBRUSH)GetStockObject( NULL_BRUSH );
 
 		pDC->SetTextColor( Colors.m_crDialogText );
 		pDC->SetBkMode( TRANSPARENT );
-		hbr = (HBRUSH)GetStockObject( NULL_BRUSH );
 	}
-	else if ( nCtlColor == CTLCOLOR_STATIC || nCtlColor == CTLCOLOR_DLG  )	// Unskinned default behavior
+	else if ( nCtlColor == CTLCOLOR_STATIC || nCtlColor == CTLCOLOR_DLG )	// Unskinned default behavior
 	{
 		pDC->SetTextColor( Colors.m_crDialogText );
 		pDC->SetBkColor( Colors.m_crDialog );
 		if ( Skin.m_brDialog.m_hObject )
 			hbr = Skin.m_brDialog;
-		else  // Pre-run message boxes (startup help/warning screens initial null used as white brush in some areas)
+		else	// Pre-run message boxes (startup help/warning screens initial null used as white brush in some areas)
 			hbr = CreateSolidBrush( Colors.m_crDialog );
 	}
 
 	return hbr;
 }
+
+//void CSkinDialog::OnUpdateUIState(UINT nAction, UINT nUIElement)
+//{
+//	CDialog::OnUpdateUIState( nAction, nUIElement );
+//
+//	// Obsolete workaround fix for skinned repaint bug when Alt key is first pressed (Accelerators activated)
+//	if ( nAction == 2 && Skin.m_bmDialog.m_hObject )
+//		Invalidate();
+//}
 
 #define SNAP_SIZE 6
 
@@ -353,8 +366,7 @@ void CSkinDialog::OnWindowPosChanging(WINDOWPOS* lpwndpos)
 {
 	CDialog::OnWindowPosChanging( lpwndpos );
 
-	HMONITOR hMonitor = MonitorFromWindow( GetSafeHwnd(),
-		MONITOR_DEFAULTTOPRIMARY );
+	HMONITOR hMonitor = MonitorFromWindow( GetSafeHwnd(), MONITOR_DEFAULTTOPRIMARY );
 
 	MONITORINFO oMonitor = {0};
 	oMonitor.cbSize = sizeof( MONITORINFO );

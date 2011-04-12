@@ -4,7 +4,7 @@
 <!-- PeerProject Default Afrikaans Skin File -->
 <!-- Weergawe: 27 Oktober 2005 vir Shareaza 2.2.0.2 -->
 
-<!-- Translation based on default-en.xml r65 -->
+<!-- Translation based on default-en.xml r66 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -493,7 +493,7 @@
 	</menu>
 	<!-- MAIN WINDOW MENU BAR -->
 	<menu name="CMainWnd.DropMenu" type="bar">
-		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160;">
+		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160;">
 			<item id="ID_TOOLS_SETTINGS" text="_Verstellings..."/>
 			<menu text="_Netwerk">
 				<item id="ID_NETWORK_CONNECT" text="_Konnekteer" shortcut="Ctrl+G"/>
@@ -2676,6 +2676,8 @@
 	<string id="20014" value="Finish"/>
 	<string id="20020" value="Lêer"/>
 	<string id="20021" value="Lêers"/>
+	<string id="20022" value="Alle Lêers"/>
+	<string id="20029" value="%s Lêers"/>
 	<string id="20050" value="Elke Dag"/>
 	<string id="20051" value="Maandag"/>
 	<string id="20052" value="Dinsdag"/>
@@ -3309,9 +3311,10 @@
 	<string id="20836" value="Druk-versoek na %s word geweier omdat dit te veel oplaai-konneksies het."/>
 	<string id="20837" value="Verouderde druk-navraag ontvang vanaf %s vra 'n onbekende lêer, konnekteer in elk geval..."/>
 	<string id="20838" value="Te besig vir oplaai van &quot;%s&quot; na %s, wag in posisie #%i van %i (&quot;%s&quot;.."/>
-	<string id="20840" value="Nuwe Waglys"/>
-	<string id="20841" value="Alle Lêers"/>
-	<string id="20842" value="Oplaaikonneksie aan %s is verloor, behou waglysposisie."/>
+	<string id="20840" value="Oplaaikonneksie aan %s is verloor, behou waglysposisie."/>
+	<string id="20841" value="Nuwe Waglys"/>
+	<string id="20842" value="Alle Lêers"/>
+	<string id="20843" value="DC++ Beskerming"/>
 	<string id="20844" value="eDonkey Kern"/>
 	<string id="20845" value="eDonkey Beskerming"/>
 	<string id="20846" value="eDonkey Gedeeltelikes"/>
@@ -4560,13 +4563,14 @@
 		<column from="Failures" to="Mislukkings"/>
 	</list>
 	<list name="CPacketWnd">
+		<column from="Time" to="Tyd"/>
 		<column from="Address" to="Adres"/>
 		<column from="Protocol" to="Protokol"/>
 		<column from="Type" to="Tipe"/>
-		<column from="T/H" to="T/H"/>
+		<column from="TTL/Hops" to="TTL/Hops"/>
+		<column from="GUID" to="GUID"/>
 		<column from="Hex" to="Hex"/>
 		<column from="ASCII" to="ASCII"/>
-		<column from="G1-ID" to="G1-ID"/>
 	</list>
 	<list name="CSearchMonitorWnd">
 		<column from="Search" to="Soek"/>
@@ -4583,7 +4587,7 @@
 		<column from="Status" to="Status"/>
 		<column from="Client" to="Program"/>
 		<column from="Country" to="Anderland"/>
-		<column from="Time" to=""/>
+		<column from="Time" to="Tyd"/>
 	</list>
 	<list name="CSecurityWnd">
 		<column from="Address / Content" to="Adres / Inhoud"/>

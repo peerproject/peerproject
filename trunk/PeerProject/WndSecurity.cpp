@@ -510,7 +510,7 @@ void CSecurityWnd::OnUpdateSecurityExport(CCmdUI* pCmdUI)
 void CSecurityWnd::OnSecurityExport()
 {
 	CFileDialog dlg( FALSE, _T("xml"), NULL, OFN_HIDEREADONLY|OFN_OVERWRITEPROMPT,
-		_T("XML Security Files|*.xml|NET Security Files|*.net|All Files|*.*||") );
+		_T("XML Security Files|*.xml|NET Security Files|*.net|") + LoadString( IDS_FILES_ALL ) + _T("|*.*||") );
 
 	if ( dlg.DoModal() != IDOK ) return;
 
@@ -579,7 +579,7 @@ void CSecurityWnd::OnSecurityExport()
 void CSecurityWnd::OnSecurityImport()
 {
 	CFileDialog dlg( TRUE, _T("xml"), NULL, OFN_HIDEREADONLY|OFN_OVERWRITEPROMPT,
-		_T("Security Rules|*.xml;*.net|XML Files|*.xml|NET Files|*.net|All Files|*.*||") );
+		_T("Security Rules|*.xml;*.net|XML Files|*.xml|NET Files|*.net|") + LoadString( IDS_FILES_ALL ) + _T("|*.*||") );
 
 	if ( dlg.DoModal() != IDOK ) return;
 

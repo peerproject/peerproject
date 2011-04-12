@@ -214,69 +214,60 @@ CString CXMLNode::StringToValue(LPCTSTR& pszXML, int nLength)
 //////////////////////////////////////////////////////////////////////
 // CXMLNode value to string
 
-#define V2S_APPEND(x,y)	\
-	if ( (x) > nOut ) \
-	{ \
-		strXML.ReleaseBuffer( nLen + nOut ); \
-		nOut += (x) + 16; \
-		pszOut = strXML.GetBuffer( nLen + nOut ) + nLen; \
-	} \
-	{ for ( LPCTSTR pszIn = (y) ; *pszIn ; nOut--, nLen++ ) *pszOut++ = *pszIn++; }
-
-void CXMLNode::ValueToString(const CString& strValue, CString& strXML)
+CString CXMLNode::ValueToString(const CString& strValue)
 {
-	int nLen = strXML.GetLength();
-	int nOut = strValue.GetLength();
-	LPTSTR pszOut = strXML.GetBuffer( nLen + nOut ) + nLen;
-	LPCTSTR pszValue = strValue;
-	for ( int i = nOut ; i != 0 ; --i, ++pszValue )
-	{
-		int nChar = (int)(unsigned short)*pszValue;
+	bool bChanged = false;
 
-		switch ( nChar )
+	CString strXML;
+	LPTSTR pszXML = strXML.GetBuffer( strValue.GetLength() * 8 + 1 );
+
+	for ( LPCTSTR pszValue = strValue ; *pszValue ; ++pszValue )
+	{
+		switch ( *pszValue )
 		{
-		case '&':
-			V2S_APPEND( 5, _T("&amp;") );
+		case _T('\"'):
+			_tcscpy( pszXML, _T("&quot;") );
+			 pszXML += 6;
+			bChanged = true;
 			break;
-		case '\"':
-			V2S_APPEND( 6, _T("&quot;") );
+		case _T('\''):
+			_tcscpy( pszXML, _T("&apos;") );
+			 pszXML += 6;
+			bChanged = true;
 			break;
-		case '\'':
-			V2S_APPEND( 6, _T("&apos;") );
+		case _T('<'):
+			_tcscpy( pszXML, _T("&lt;") );
+			pszXML += 4;
+			bChanged = true;
 			break;
-		case '<':
-			V2S_APPEND( 4, _T("&lt;") );
+		case _T('>'):
+			_tcscpy( pszXML, _T("&gt;") );
+			pszXML += 4;
+			bChanged = true;
 			break;
-		case '>':
-			V2S_APPEND( 4, _T("&gt;") );
+		case _T('&'):
+			_tcscpy( pszXML, _T("&amp;") );
+			pszXML += 5;
+			bChanged = true;
 			break;
 		default:
-			if ( nChar > 127 )
+			if ( *pszValue < 32 || *pszValue > 127 )
 			{
-				CString strItem;
-				strItem.Format( _T("&#%lu;"), nChar );
-				V2S_APPEND( strItem.GetLength(), strItem );
+				pszXML += _stprintf_s( pszXML, 9, _T("&#%lu;"), *pszValue );
+				bChanged = true;
+				break;
 			}
-			else if ( nOut > 0 )
-			{
-				*pszOut++ = WCHAR( nChar );
-				nOut--;
-				nLen++;
-			}
-			else
-			{
-				strXML.ReleaseBuffer( nLen + nOut );
-				nOut += 16;
-				pszOut = strXML.GetBuffer( nLen + nOut ) + nLen;
-				*pszOut++ = WCHAR( nChar );
-				nOut--;
-				nLen++;
-			}
+
+			*pszXML++ = *pszValue;
 			break;
 		}
 	}
 
-	strXML.ReleaseBuffer( nLen );
+	*pszXML = 0;
+
+	strXML.ReleaseBuffer();
+
+	return bChanged ? strXML : strValue;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -479,7 +470,7 @@ void CXMLElement::ToString(CString& strXML, BOOL bNewline) const
 		pElement->ToString( strXML, bNewline );
 	}
 
-	ValueToString( m_sValue, strXML );
+	strXML += ValueToString( m_sValue );
 
 	strXML.Append( _PT("</") );
 	strXML.Append( m_sName );
@@ -1015,9 +1006,7 @@ CXMLAttribute* CXMLAttribute::Clone(CXMLElement* pParent) const
 
 void CXMLAttribute::ToString(CString& strXML) const
 {
-	strXML += m_sName + _T("=\"");
-	ValueToString( m_sValue, strXML );
-	strXML += '\"';
+	strXML += m_sName + _T("=\"") + ValueToString( m_sValue ) + _T('\"');
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -1032,7 +1021,7 @@ BOOL CXMLAttribute::ParseString(LPCTSTR& strXML)
 
 	if ( ParseMatch( strXML, _T("\"") ) )
 	{
-		LPCTSTR pszQuote = _tcschr( strXML,  '\"' );
+		LPCTSTR pszQuote = _tcschr( strXML, '\"' );
 		if ( ! pszQuote || *pszQuote != '\"' )
 			return FALSE;
 
@@ -1043,7 +1032,7 @@ BOOL CXMLAttribute::ParseString(LPCTSTR& strXML)
 
 	if ( ParseMatch( strXML, _T("'") ) )
 	{
-		LPCTSTR pszQuote = _tcschr( strXML,  '\'' );
+		LPCTSTR pszQuote = _tcschr( strXML, '\'' );
 		if ( ! pszQuote || *pszQuote != '\'' )
 			return FALSE;
 

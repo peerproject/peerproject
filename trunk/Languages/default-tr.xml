@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Turkish Skin File -->
 
-<!-- Translation based on default-en.xml r65 -->
+<!-- Translation based on default-en.xml r66 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -493,7 +493,7 @@
 	</menu>
 	<!-- MAIN WINDOW MENU BAR -->
 	<menu name="CMainWnd.DropMenu" type="bar">
-		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160;">
+		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160;">
 			<item id="ID_TOOLS_SETTINGS" text="A_yarları..."/>
 			<menu text="_Ağ">
 				<item id="ID_NETWORK_CONNECT" text="Bağlan" shortcut="Ctrl+G"/>
@@ -2659,6 +2659,8 @@
 	<string id="20014" value="Sona erdir"/>
 	<string id="20020" value="Dosya"/>
 	<string id="20021" value="Dosyaları"/>
+	<string id="20022" value="Tüm Dosyalar"/>
+	<string id="20029" value="%s Dosyalar"/>
 	<string id="20050" value="Her Gün"/>
 	<string id="20051" value="Pazartesi"/>
 	<string id="20052" value="Salı"/>
@@ -3300,9 +3302,10 @@
 	<string id="20836" value="%s'de istek reddediliyor çünkü çok fazla aktarım bağlantısı var."/>
 	<string id="20837" value="%s 'den kalan sıkıştırma isteği bilinmeyen bir dosya istedi, yine de bağlanıyor..."/>
 	<string id="20838" value="&quot;%s&quot;'in %s'a aktarımı fazla yoğun, #%i 'den %i 'ye (&quot;%s&quot;. sıralandı."/>
-	<string id="20840" value="Yeni Sıra"/>
-	<string id="20841" value="Tüm Dosyalar"/>
-	<string id="20842" value="%s'e aktarım bağlantısı kesildi, pozisyon sırası hazırlanıyor."/>
+	<string id="20840" value="%s'e aktarım bağlantısı kesildi, pozisyon sırası hazırlanıyor."/>
+	<string id="20841" value="Yeni Sıra"/>
+	<string id="20842" value="Tüm Dosyalar"/>
+	<string id="20843" value="eDonkey Koruma"/>
 	<string id="20844" value="eDonkey Çekirdeği"/>
 	<string id="20845" value="eDonkey Koruma"/>
 	<string id="20846" value="eDonkey Bölümleri"/>
@@ -4598,13 +4601,14 @@
 		<column from="Failures" to="Sorunlar"/>
 	</list>
 	<list name="CPacketWnd">
+		<column from="Time" to="Zaman"/>
 		<column from="Address" to="Adres"/>
 		<column from="Protocol" to="Protokol"/>
 		<column from="Type" to="Tür"/>
-		<column from="T/H" to="T/H"/>
+		<column from="TTL/Hops" to="TTL/Hops"/>
+		<column from="GUID" to="GUID"/>
 		<column from="Hex" to="Hex"/>
 		<column from="ASCII" to="ASCII"/>
-		<column from="G1-ID" to="G1-ID"/>
 	</list>
 	<list name="CSearchMonitorWnd">
 		<column from="Search" to="Ara"/>

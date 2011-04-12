@@ -1,7 +1,7 @@
 //
 // ZLib.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -21,6 +21,7 @@
 
 #include "StdAfx.h"
 #include "PeerProject.h"
+#include "Settings.h"
 #include "ZLib.h"
 
 #ifdef _DEBUG
@@ -51,7 +52,7 @@ auto_array< BYTE > CZLib::Compress(LPCVOID pInput, DWORD nInput, DWORD* pnOutput
 	}
 
 	// Compress the data at pInput into pBuffer, putting how many bytes it wrote under pnOutput
-	const int nRes = compress( pBuffer.get(), pnOutput, (const BYTE *)pInput, nInput );
+	const int nRes = compress2( pBuffer.get(), pnOutput, (const BYTE *)pInput, nInput, Settings.Connection.ZLibCompressionLevel );
 
 	if ( nRes != Z_OK )
 	{

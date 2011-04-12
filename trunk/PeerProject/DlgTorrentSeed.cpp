@@ -79,7 +79,7 @@ BOOL CTorrentSeedDlg::OnInitDialog()
 {
 	CSkinDialog::OnInitDialog();
 
-	SkinMe( NULL, IDR_MAINFRAME );
+	SkinMe( L"CTorrentSeedDlg", IDR_MAINFRAME );
 
 	if ( Settings.General.LanguageRTL )
 		m_wndProgress.ModifyStyleEx( WS_EX_LAYOUTRTL, 0, 0 );

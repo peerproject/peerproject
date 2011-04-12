@@ -1,7 +1,7 @@
 //
 // DownloadWithExtras.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2006.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -405,40 +405,26 @@ void CDownloadWithExtras::OnPreviewRequestComplete(const CDownloadTask* pTask)
 	if ( ( pBuffer = pTask->IsPreviewAnswerValid() ) == NULL )
 		return;
 
-	CImageFile pImage;
-	DWORD nBuffer = pBuffer->m_nLength;
-	auto_array< BYTE > pBytes( new BYTE[ nBuffer ] );
-	CopyMemory( pBytes.get(), pBuffer->m_pBuffer, nBuffer );
-	CString strURN = pTask->GetRequest()->GetHeader( L"X-Previewed-URN" );
+	const CString strPath = m_sPath + _T(".png");
 
-	if ( ! pImage.LoadFromMemory( L".jpg", pBytes.get(), nBuffer, FALSE, TRUE ) )
+	if ( CBuffer* pBuffer = pTask->IsPreviewAnswerValid() )
 	{
-		theApp.Message( MSG_ERROR, IDS_SEARCH_DETAILS_PREVIEW_FAILED, (LPCTSTR)strURN );
-		return;
+		CImageFile pImage;
+
+		if ( pImage.LoadFromMemory( L".jpg", pBuffer->m_pBuffer, pBuffer->m_nLength, FALSE, TRUE ) &&
+			pImage.SaveToFile( (LPCTSTR)strPath, 100 ) )
+		{
+			// Make it hidden, so the files won't be shared
+			SetFileAttributes( (LPCTSTR)strPath, FILE_ATTRIBUTE_HIDDEN|FILE_ATTRIBUTE_SYSTEM );
+
+			m_bGotPreview = TRUE;
+			m_bWaitingPreview = TRUE;
+
+			return;
+		}
 	}
 
-	BYTE* pBuffer2 = NULL;
-	DWORD nImageSize = 0;
-
-	if ( ! pImage.SaveToMemory( _T(".png"), Settings.Uploads.PreviewQuality, (LPBYTE*)&pBuffer2, &nImageSize ) )
-	{
-		theApp.Message( MSG_ERROR, IDS_SEARCH_DETAILS_PREVIEW_FAILED, (LPCTSTR)strURN );
-		return;
-	}
-
-	CFile pFile;
-	CString strPath = m_sPath + _T(".png");
-	if ( pFile.Open( strPath, CFile::modeCreate|CFile::modeWrite ) )
-	{
-		pFile.Write( pBuffer2, nImageSize );
-		pFile.Close();
-
-		// Make it hidden, so the files won't be shared
-		SetFileAttributes( (LPCTSTR)strPath, FILE_ATTRIBUTE_HIDDEN|FILE_ATTRIBUTE_SYSTEM );
-	}
-	delete [] pBuffer2;
-	m_bGotPreview = TRUE;
-	m_bWaitingPreview = TRUE;
+	theApp.Message( MSG_ERROR, IDS_SEARCH_DETAILS_PREVIEW_FAILED, (LPCTSTR)pTask->GetRequest() );
 }
 
 //////////////////////////////////////////////////////////////////////

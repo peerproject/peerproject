@@ -92,26 +92,26 @@ void CLibrary::AddFile(CLibraryFile* pFile)
 {
 	LibraryMaps.OnFileAdd( pFile );
 
-	if ( pFile->m_oSHA1 )
+	if ( pFile->HasHash() )
 		LibraryDictionary.AddFile( *pFile );
 
 	if ( pFile->IsAvailable() )
 	{
-		if ( pFile->m_oSHA1 || pFile->m_oTiger || pFile->m_oMD5 || pFile->m_oED2K || pFile->m_oBTH )
+		if ( pFile->IsHashed() )
 		{
 			LibraryHistory.Submit( pFile );
 			GetAlbumRoot()->OrganiseFile( pFile );
-		}
 
-		if ( ! pFile->IsHashed() )
-		{
-			LibraryBuilder.Add( pFile );	// Hash the file and add it again
-		}
-		else if ( pFile->IsNewFile() )		// The new file was hashed
-		{
-			pFile->m_bNewFile = FALSE;
+			if ( pFile->IsNewFile() )			// The new file was hashed
+			{
+				pFile->m_bNewFile = FALSE;
 
-			CheckDuplicates( pFile );		// Check for duplicates (malware)
+				CheckDuplicates( pFile );		// Check for duplicates (malware)
+			}
+		}
+		else
+		{
+			LibraryBuilder.Add( pFile );		// Hash the file and add it again
 		}
 	}
 	else
@@ -319,6 +319,10 @@ BOOL CLibrary::Load()
 {
 	CSingleLock pLock( &m_pSection, TRUE );
 
+#ifdef _DEBUG
+	const __int64 nBenchmarkStart = GetMicroCount();
+#endif
+
 	FILETIME pFileTime1 = { 0, 0 }, pFileTime2 = { 0, 0 };
 	CFile pFile1, pFile2;
 	BOOL bFile1, bFile2;
@@ -380,6 +384,16 @@ BOOL CLibrary::Load()
 	LibraryFolders.CreateAlbumTree();
 	LibraryHashDB.Create();
 	LibraryBuilder.BoostPriority( Settings.Library.HighPriorityHash );
+
+#ifdef _DEBUG
+	const __int64 nBenchmarkEnd = GetMicroCount();
+	theApp.Message( MSG_DEBUG, _T("Library load time : %I64i ms. Files: %d, Keywords: %d, Names: %d, Paths: %d\n"),
+		( nBenchmarkEnd - nBenchmarkStart ) / 1000,
+		LibraryMaps.GetFileCount(),
+		LibraryDictionary.GetWordCount(),
+		LibraryMaps.GetNameCount(),
+		LibraryMaps.GetPathCount() );
+#endif
 
 	Update();
 

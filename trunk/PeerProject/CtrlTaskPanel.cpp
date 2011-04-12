@@ -1,7 +1,7 @@
 //
 // CtrlTaskPanel.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -144,8 +144,8 @@ void CTaskPanel::SetStretchBox(CTaskBox* pBox)
 
 void CTaskPanel::SetMargin(int nMargin, int nCurve)
 {
-	m_nMargin	= nMargin;
-	m_nCurve	= nCurve;
+	m_nMargin = nMargin;
+	m_nCurve  = nCurve;
 }
 
 void CTaskPanel::SetWatermark(HBITMAP hBitmap)
@@ -215,7 +215,7 @@ void CTaskPanel::OnPaint()
 		dc.FillSolidRect( &rc, Colors.m_crTaskPanelBack );
 		CRect rcShadow( rc );
 		rcShadow.bottom = rcShadow.top + 1;
-		dc.FillSolidRect( &rcShadow, RGB( 92, 131, 200 ) ); // The top pixel row from BannerMark.bmp
+		dc.FillSolidRect( &rcShadow, RGB( 92, 131, 200 ) );		// The top pixel row from BannerMark.bmp (?)
 
 		GetWindowRect( &rc );
 		ScreenToClient( &rc );
@@ -270,7 +270,7 @@ void CTaskPanel::Layout(CRect& rcClient)
 			pBox->SetWindowPos( NULL, rcBox.left, rcBox.top, rcBox.Width(), rcBox.Height(),
 				SWP_SHOWWINDOW | SWP_NOZORDER | SWP_NOACTIVATE );
 
-			for( CWnd* pChild = pBox->GetWindow( GW_CHILD ); pChild;
+			for ( CWnd* pChild = pBox->GetWindow( GW_CHILD ) ; pChild ;
 				pChild = pChild->GetWindow( GW_HWNDNEXT ) )
 			{
 				pChild->ShowWindow( pBox->m_bOpen ? SW_SHOW : SW_HIDE );
@@ -292,15 +292,15 @@ void CTaskPanel::Layout(CRect& rcClient)
 // CTaskBox construction
 
 CTaskBox::CTaskBox()
+	: m_pPanel		( NULL )
+	, m_hIcon		( NULL )
+	, m_nHeight		( 0 )
+	, m_bVisible	( TRUE )
+	, m_bOpen		( TRUE )
+	, m_bHover		( FALSE )
+	, m_bPrimary	( FALSE )
+	, m_bCaptionCurve ( TRUE )
 {
-	m_pPanel		= NULL;
-	m_nHeight		= 0;
-	m_bVisible		= TRUE;
-	m_bOpen			= TRUE;
-	m_bHover		= FALSE;
-	m_bPrimary		= FALSE;
-	m_hIcon			= NULL;
-	m_bCaptionCurve	= TRUE;
 }
 
 CTaskBox::~CTaskBox()
@@ -315,8 +315,8 @@ BOOL CTaskBox::Create(CTaskPanel* pPanel, int nHeight, LPCTSTR pszCaption, UINT 
 {
 	CRect rect( 0, 0, 0, 0 );
 
-	m_pPanel	= pPanel;
-	m_nHeight	= nHeight;
+	m_pPanel  = pPanel;
+	m_nHeight = nHeight;
 
 	if ( pPanel->m_hWnd )
 	{
@@ -394,7 +394,7 @@ void CTaskBox::SetCaptionmark(HBITMAP hBitmap, BOOL bDefault)
 
 	if ( hBitmap != NULL )
 		m_bmCaptionmark.Attach( hBitmap );
-	else if ( bDefault && m_bPrimary && Colors.m_crTaskBoxPrimaryBack == RGB( 30, 87, 199 ) )
+	else if ( bDefault && m_bPrimary && Colors.m_crTaskBoxPrimaryBack == RGB( 30, 87, 199 ) )	// RGB_DEFAULT_CASE ?
 		m_bmCaptionmark.LoadBitmap( IDB_TASKBOX_CAPTION );
 
 	m_bCaptionCurve = TRUE;

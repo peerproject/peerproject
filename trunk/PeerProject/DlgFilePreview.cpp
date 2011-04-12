@@ -183,7 +183,7 @@ void CFilePreviewDlg::OnSkinChange(BOOL bSet)
 
 		if ( bSet )
 		{
-			pDlg->SkinMe( NULL, ID_DOWNLOADS_LAUNCH_COPY );
+			pDlg->SkinMe( L"CFilePreviewDlg", ID_DOWNLOADS_LAUNCH_COPY );
 			pDlg->Invalidate();
 		}
 		else
@@ -212,7 +212,7 @@ BOOL CFilePreviewDlg::OnInitDialog()
 {
 	CSkinDialog::OnInitDialog();
 
-	SkinMe( NULL, ID_DOWNLOADS_LAUNCH_COPY );
+	SkinMe( L"CFilePreviewDlg", ID_DOWNLOADS_LAUNCH_COPY );
 
 	m_nRange	= 100;
 	m_nPosition	= 0;

@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Albanian Skin File -->
 
-<!-- Translation based on default-en.xml r65 -->
+<!-- Translation based on default-en.xml r66 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -517,7 +517,7 @@
 	</menu>
 	<!-- MAIN WINDOW MENU BAR -->
 	<menu name="CMainWnd.DropMenu" type="bar">
-		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160;">
+		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160;">
 			<item id="ID_TOOLS_SETTINGS" text="_Kuadrot..."/>
 			<menu text="_Rrjeti">
 				<item id="ID_NETWORK_CONNECT" text="_Lidhu" shortcut="Ctrl+G"/>
@@ -2722,6 +2722,8 @@
 	<string id="20018" value="Provo Përsëri"/>
 	<string id="20020" value="Skedë"/>
 	<string id="20021" value="Skedë"/>
+	<string id="20022" value="Të Gjitha Skedë"/>
+	<string id="20029" value="%s Skedë"/>
 	<string id="20050" value="Çdo Ditë"/>
 	<string id="20051" value="e Hënë"/>
 	<string id="20052" value="e Martë"/>
@@ -3110,6 +3112,7 @@
 	<string id="20796" value="Skedat që shpërndahen në Internet"/>
 	<string id="20798" value="PeerProject mbaroi shkarkimin e versionit të ri (%s). A doni të përmirësoni tani?\n\nNëse zgjidhni Po, PeerProject do të mbyllet përkohësisht deri në instalimin e përmirësimit."/>
 	<string id="20799" value="Nuk diktohet asnjë verion i ri i PeerProject-s."/>
+	<!-- Missing Upload Queue Strings -->
 	<string id="20862" value="Shto"/>
 	<string id="20864" value="&amp;Shfleto"/>
 	<string id="20865" value="&amp;Lidhu"/>
@@ -4379,13 +4382,14 @@
 		<column from="Failures" to="Dështimet"/>
 	</list>
 	<list name="CPacketWnd">
+		<column from="Time" to="Kohë"/>
 		<column from="Address" to="Adresa"/>
 		<column from="Protocol" to="Protokolli"/>
 		<column from="Type" to="Lloji"/>
-		<column from="T/H" to="T/H"/>
+		<column from="TTL/Hops" to="TTL/Hops"/>
+		<column from="GUID" to="GUID"/>
 		<column from="Hex" to="Hex"/>
 		<column from="ASCII" to="ASCII"/>
-		<column from="G1-ID" to="GI-ID"/>
 	</list>
 	<list name="CSearchMonitorWnd">
 		<column from="Search" to="Kërkimi"/>

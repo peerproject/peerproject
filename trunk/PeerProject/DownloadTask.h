@@ -1,7 +1,7 @@
 //
 // DownloadTask.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -50,7 +50,7 @@ public:
 	bool				HasSucceeded() const;
 	DWORD				GetFileError() const;
 	dtask				GetTaskType() const;
-	const CHttpRequest*	GetRequest() const;
+	CString				GetRequest() const;
 	CBuffer*			IsPreviewAnswerValid() const;
 
 protected:
@@ -64,6 +64,7 @@ protected:
 	CString				m_sDestination;
 	DWORD				m_nFileError;
 	QWORD				m_nSize;
+	CString				m_sURL;
 	CDownload*			m_pDownload;
 	CString				m_sMergeFilename;	// Source filename
 	Fragments::List		m_oMergeGaps;		// Missed ranges in source file

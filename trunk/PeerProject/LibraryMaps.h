@@ -1,7 +1,7 @@
 //
 // LibraryMaps.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -34,7 +34,9 @@ public:
 
 	POSITION		GetFileIterator() const;
 	CLibraryFile*	GetNextFile(POSITION& pos) const;
-	INT_PTR			GetFileCount() const { return m_pIndexMap.GetCount(); }
+	INT_PTR 		GetFileCount() const { return m_pIndexMap.GetCount(); }
+	INT_PTR 		GetNameCount() const { return m_pNameMap.GetCount(); }	// For Debug Benchmark
+	INT_PTR 		GetPathCount() const { return m_pPathMap.GetCount(); }	// For Debug Benchmark
 	void			GetStatistics(DWORD* pnFiles, QWORD* pnVolume);
 
 	CLibraryFile*	LookupFile(DWORD_PTR nIndex, BOOL bSharedOnly = FALSE, BOOL bAvailableOnly = FALSE) const;
@@ -87,7 +89,6 @@ protected:
 
 	friend class CLibrary;
 	friend class CLibraryBuilder;
-	friend class CLibraryFile;
 };
 
 extern CLibraryMaps LibraryMaps;

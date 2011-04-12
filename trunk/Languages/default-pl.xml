@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Polish Skin File -->
 
-<!-- Translation based on default-en.xml r65 (Shareaza 2.1.2.7) -->
+<!-- Translation based on default-en.xml r66 (Shareaza 2.1.2.7) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -455,7 +455,7 @@
 	</menu>
 	<!-- MAIN WINDOW MENU BAR -->
 	<menu name="CMainWnd.DropMenu" type="bar">
-		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160;">
+		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160;">
 			<item id="ID_TOOLS_SETTINGS" text="_Ustawienia..."/>
 			<menu text="Sieć">
 				<item id="ID_NETWORK_CONNECT" text="Połącz" shortcut="Ctrl+G"/>
@@ -2435,6 +2435,8 @@
 	<string id="20014" value="Finisz"/> <!-- oryg.: "Finish" ? -->
 	<string id="20020" value="Plik"/>
 	<string id="20021" value="Pliki"/>
+	<string id="20022" value="Wszystkie Pliki"/>
+	<string id="20029" value="%s Pliki"/>
 	<string id="20050" value="Każdy Dzień"/>
 	<string id="20051" value="Poniedziałek"/>
 	<string id="20052" value="Wtorek"/>
@@ -2911,8 +2913,9 @@
 	<string id="20796" value="Files shared over the Internet"/>
 	<string id="20798" value="PeerProject zakończyła pobieranie następnej wersji programu (%s).  Czy chciałbyś upgradeować teraz?\n\nJeżeli wybierzesz tak, PeerProject chwilowo zamknie się na czas instalacji aktualizacji."/>
 	<string id="20811" value="Wysyłania eDonkey nie powinny być anulowane. Czy jesteś pewien, że chcesz anulować to wysyłanie?"/>
-	<string id="20840" value="Nowa kolejka"/>
-	<string id="20841" value="Wszystkie pliki"/>
+	<string id="20841" value="Nowa kolejka"/>
+	<string id="20842" value="Wszystkie pliki"/>
+	<string id="20843" value="DC++ Guard"/>
 	<string id="20844" value="eDonkey Core"/>
 	<string id="20845" value="eDonkey Guard"/>
 	<string id="20846" value="eDonkey Partials"/>
@@ -4202,13 +4205,14 @@
 		<column from="Failures" to="Niepowodzeń"/>
 	</list>
 	<list name="CPacketWnd">
+		<column from="Time" to="Czas"/>
 		<column from="Address" to="Adres"/>
 		<column from="Protocol" to="Protokół"/>
 		<column from="Type" to="Typ"/>
-		<column from="T/H" to="T/H"/>
+		<column from="TTL/Hops" to="TTL/Hops"/>
+		<column from="GUID" to="GUID"/>
 		<column from="Hex" to="Hex"/>
 		<column from="ASCII" to="ASCII"/>
-		<column from="G1-ID" to="G1-ID"/>
 	</list>
 	<list name="CSearchMonitorWnd">
 		<column from="Search" to="Szukaj"/>

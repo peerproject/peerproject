@@ -1,7 +1,7 @@
 //
 // CtrlCoolMenuBar.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -124,7 +124,8 @@ BOOL CCoolMenuBarCtrl::OpenMenuChar(UINT nChar)
 		if ( toupper( *pszChar ) == toupper( nChar ) )
 		{
 			pMenu.Detach();
-			if ( ( m_pSelect = GetIndex( nItem ) ) != NULL ) PostMessage( WM_TIMER, 5 );
+			if ( ( m_pSelect = GetIndex( nItem ) ) != NULL )
+				PostMessage( WM_TIMER, 5 );
 			return TRUE;
 		}
 	}
@@ -149,10 +150,13 @@ void CCoolMenuBarCtrl::ShowMenu()
 		return;
 	}
 
-	// ToDo: Is this Menu detection still valid?
+	// Detect "_Window" menu to add any child windows  (Found using default commands layout)
+	// Note: Ensure this menu detection method is still valid/unique in all languages
 	const UINT nFirstID = pMenu->GetMenuItemID( 0 );
-	if ( nFirstID == ID_WINDOW_NAVBAR || nFirstID == ID_WINDOW_CASCADE )
+	if ( nFirstID == ID_WINDOW_NAVBAR || nFirstID == ID_WINDOW_CASCADE )	// Tabbed/Windowed modes
 		UpdateWindowMenu( pMenu );
+	else if ( nFirstID == ID_TOOLS_SETTINGS )								// Get DropMenu submenu
+		UpdateWindowMenu( pMenu->GetSubMenu( 4 ) );
 
 	m_pDown = m_pHot;
 	Invalidate();
@@ -198,16 +202,14 @@ void CCoolMenuBarCtrl::ShowMenu()
 
 void CCoolMenuBarCtrl::UpdateWindowMenu(CMenu* pMenu)
 {
-	const UINT nMenuItemCount = (UINT)pMenu->GetMenuItemCount();
-	for ( UINT nItem = 0 ; nItem < nMenuItemCount ; nItem++ )
+	// Add child windows list to detected "_Window" menu
+
+	// Clear any previously added entries
+	for ( UINT nIndex = pMenu->GetMenuItemCount() - 1 ; nIndex ; nIndex-- )
 	{
-		if ( pMenu->GetMenuItemID( nItem ) >= AFX_IDM_FIRST_MDICHILD )
-		{
-			for ( UINT nRemove = nItem ; nRemove < nMenuItemCount ; )
-				pMenu->RemoveMenu( nItem, MF_BYPOSITION );
-			pMenu->RemoveMenu( nItem - 1, MF_BYPOSITION );
+		if ( pMenu->GetMenuItemID( nIndex ) < AFX_IDM_FIRST_MDICHILD && pMenu->GetMenuItemID( nIndex ) != ID_SEPARATOR )
 			break;
-		}
+		pMenu->RemoveMenu( nIndex, MF_BYPOSITION );
 	}
 
 	CMDIFrameWnd* pFrame = (CMDIFrameWnd*)AfxGetMainWnd();
@@ -226,7 +228,7 @@ void CCoolMenuBarCtrl::UpdateWindowMenu(CMenu* pMenu)
 	CMDIChildWnd* pActive = pFrame->MDIGetActive();
 	BOOL bSeparator = TRUE;
 
-	for ( UINT nIndex = 1, nID = AFX_IDM_FIRST_MDICHILD ; nIndex <= 10 ; nIndex++, nID++ )
+	for ( UINT nIndex = 1, nID = AFX_IDM_FIRST_MDICHILD ; nIndex <= 12 ; nIndex++, nID++ )
 	{
 		CWnd* pWnd = pClient->GetDlgItem( nID );
 		if ( ! pWnd ) break;
@@ -266,7 +268,7 @@ void CCoolMenuBarCtrl::ShiftMenu(int nOffset)
 		if ( nIndex >= GetCount() ) nIndex = 0;
 	}
 
-	PostMessage( WM_CANCELMODE, 0, 0 );	// Settings.WINE.MenuFix (No SendMessage)
+	PostMessage( WM_CANCELMODE, 0, 0 );		// Settings.WINE.MenuFix (No SendMessage)
 
 	m_pSelect = GetIndex( static_cast< int >( nIndex ) );
 	m_pHot = m_pDown = NULL;
@@ -382,7 +384,7 @@ BOOL CCoolMenuBarCtrl::OnMenuMessage(MSG* pMsg)
 				m_pHot	= pHit;
 				m_pDown	= NULL;
 
-				PostMessage( WM_CANCELMODE, 0, 0 );	// Settings.WINE.MenuFix (No SendMessage)
+				PostMessage( WM_CANCELMODE, 0, 0 );		// Settings.WINE.MenuFix (No SendMessage)
 				PostMessage( WM_TIMER, 4 );
 				return TRUE;
 			}
@@ -409,7 +411,7 @@ BOOL CCoolMenuBarCtrl::OnMenuMessage(MSG* pMsg)
 			if ( pHit == NULL )
 			{
 				m_pHot = m_pDown = NULL;
-				PostMessage( WM_CANCELMODE, 0, 0 );	// Settings.WINE.MenuFix (No SendMessage)
+				PostMessage( WM_CANCELMODE, 0, 0 );		// Settings.WINE.MenuFix (No SendMessage)
 				return TRUE;
 			}
 			else if ( pHit == m_pDown )
@@ -435,8 +437,8 @@ BOOL CCoolMenuBarCtrl::OnMenuMessage(MSG* pMsg)
 			return TRUE;
 		}
 		break;
-	default:
-		break;
+	//default:
+	//	break;
 	}
 
 	return FALSE;

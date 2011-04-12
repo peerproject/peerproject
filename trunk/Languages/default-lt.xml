@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Lithuanian Skin File -->
 
-<!-- Translation based on default-en.xml r65 -->
+<!-- Translation based on default-en.xml r66 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -518,7 +518,7 @@
 	</menu>
 	<!-- MAIN WINDOW MENU BAR -->
 	<menu name="CMainWnd.DropMenu" type="bar">
-		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160;">
+		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160;">
 		<item id="ID_TOOLS_SETTINGS" text="Nuostatos..."/>
 		<menu text="_Tinklas">
 			<item id="ID_NETWORK_CONNECT" text="Jungtis" shortcut="Ctrl+G"/>
@@ -2719,6 +2719,8 @@
 	<string id="20014" value="Baigti"/>
 	<string id="20020" value="Failą"/>
 	<string id="20021" value="Failai"/>
+	<string id="20022" value="Visi Failai"/>
+	<string id="20029" value="%s Failai"/>
 	<string id="20050" value="Kiekvienas Dienių"/>
 	<string id="20051" value="Pirmadienis"/>
 	<string id="20052" value="Antradienis"/>
@@ -3358,9 +3360,10 @@
 	<string id="20836" value="Adresatui %s atsakyta sukurti įstūmiančiojo išsiuntimo ryšį, nes jo susijungimų skaičius per didelis."/>
 	<string id="20837" value="Pasenusi įstūmiančiojo ryšio užklausa iš adresato %s nežinomam failui išsiųsti, leidžiama jungtis..."/>
 	<string id="20838" value="Per daug užimtas išsiųsti failą „%s“ adresatui %s, pastatyta į eilę Nr. %i iš %i vietų („%s“)."/>
-	<string id="20840" value="Nauja eilė"/>
-	<string id="20841" value="Visi failai"/>
-	<string id="20842" value="Išsiunčiant failą, ryšys su %s nutrūko, išsaugoma vieta eilėje."/>
+	<string id="20840" value="Išsiunčiant failą, ryšys su %s nutrūko, išsaugoma vieta eilėje."/>
+	<string id="20841" value="Nauja eilė"/>
+	<string id="20842" value="Visi failai"/>
+	<string id="20843" value="DC++ saugančioji"/>
 	<string id="20844" value="eDonkey branduolys"/>
 	<string id="20845" value="eDonkey saugančioji"/>
 	<string id="20846" value="eDonkey daliniai"/>
@@ -4656,9 +4659,11 @@
 		<column from="Failures" to="Nesėkmių"/>
 	</list>
 	<list name="CPacketWnd">
+		<column from="Time" to="Laikas"/>
 		<column from="Address" to="Adresas"/>
 		<column from="Protocol" to="Protokolas"/>
 		<column from="Type" to="Tipas"/>
+		<column from="GUID" to="GUID"/>
 		<column from="Hex" to="16-tainė iškloja"/>
 		<column from="ASCII" to="ASCII iškloja"/>
 	</list>

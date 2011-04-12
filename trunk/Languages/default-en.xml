@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default English Skin File -->
 
-<!-- Translation based on default-en.xml r65 -->
+<!-- Translation based on default-en.xml r66 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -559,7 +559,7 @@
 	</menu>
 	<!-- MAIN WINDOW MENU BAR -->
 	<menu name="CMainWnd.DropMenu" type="bar">
-		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160;">
+		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160;">
 			<item id="ID_TOOLS_SETTINGS" text="_Settings..."/>
 			<menu text="_Network">
 				<item id="ID_NETWORK_CONNECT" text="_Connect" shortcut="Ctrl+G"/>
@@ -2862,6 +2862,14 @@
 	<string id="20018" value="Try Again"/>
 	<string id="20020" value="File"/>
 	<string id="20021" value="Files"/>
+	<string id="20022" value="All Files"/>
+	<string id="20023" value="No Files"/>
+	<string id="20024" value="Large Files"/>
+	<string id="20025" value="Medium Files"/>
+	<string id="20026" value="Small Files"/>
+	<string id="20027" value="Partial Files"/>
+	<string id="20028" value="Library Files"/>
+	<string id="20029" value="%s Files"/>
 	<string id="20050" value="Every Day"/>
 	<string id="20051" value="Monday"/>
 	<string id="20052" value="Tuesday"/>
@@ -3540,9 +3548,10 @@
 	<string id="20836" value="Refusing push request to %s because it has too many upload connections."/>
 	<string id="20837" value="Legacy push request from %s requested an unknown file, connecting anyway..."/>
 	<string id="20838" value="Too busy to upload &quot;%s&quot; to %s, queued at #%i of %i (&quot;%s&quot;)."/>
-	<string id="20840" value="New Queue"/>
-	<string id="20841" value="All Files"/>
-	<string id="20842" value="Upload connection to %s was lost, preserving queue position."/>
+	<string id="20840" value="Upload connection to %s was lost, preserving queue position."/>
+	<string id="20841" value="New Queue"/>
+	<string id="20842" value="All Files"/>
+	<string id="20843" value="DC++ Guard"/>
 	<string id="20844" value="eDonkey Core"/>
 	<string id="20845" value="eDonkey Guard"/>
 	<string id="20846" value="eDonkey Partials"/>
@@ -4859,13 +4868,14 @@
 		<column from="Failures" to=""/>
 	</list>
 	<list name="CPacketWnd">
+		<column from="Time" to=""/>
 		<column from="Address" to=""/>
 		<column from="Protocol" to=""/>
 		<column from="Type" to=""/>
-		<column from="T/H" to=""/>
+		<column from="TTL/Hops" to=""/>
+		<column from="GUID" to=""/>
 		<column from="Hex" to=""/>
 		<column from="ASCII" to=""/>
-		<column from="G1-ID" to=""/>
 	</list>
 	<list name="CSearchMonitorWnd">
 		<column from="Search" to=""/>

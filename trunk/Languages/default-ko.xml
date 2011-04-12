@@ -523,7 +523,7 @@
 	</menu>
 	<!-- MAIN WINDOW MENU BAR -->
 	<menu name="CMainWnd.DropMenu" type="bar">
-		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160;">
+		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160;">
 			<item id="ID_TOOLS_SETTINGS" text="설정... &#160; "/>
 			<menu text="_Network">
 				<item id="ID_NETWORK_CONNECT" text="연결" shortcut="Ctrl+G"/>
@@ -1996,6 +1996,8 @@
 	<string id="20018" value="다시 시도"/>
 	<string id="20020" value="파일"/>
 	<string id="20021" value="파일"/>
+	<string id="20022" value="모든 파일"/>
+	<string id="20029" value="%s 파일"/>
 	<string id="20050" value="매일"/>
 	<string id="20051" value="월요일"/>
 	<string id="20052" value="화요일"/>
@@ -2632,9 +2634,10 @@
 	<string id="20836" value="Refusing push request to %s because it has too many upload connections."/>
 	<string id="20837" value="Legacy push request from %s requested an unknown file, connecting anyway..."/>
 	<string id="20838" value="Too busy to upload &quot;%s&quot; to %s, queued at #%i of %i (&quot;%s&quot;.."/>
-	<string id="20840" value="New Queue"/>
-	<string id="20841" value="모든 파일"/>
-	<string id="20842" value="Upload connection to %s was lost, preserving queue position."/>
+	<string id="20840" value="Upload connection to %s was lost, preserving queue position."/>
+	<string id="20841" value="New 대기열"/>
+	<string id="20842" value="모든 파일"/>
+	<string id="20843" value="DC++ Guard"/>
 	<string id="20844" value="eDonkey Core"/>
 	<string id="20845" value="eDonkey Guard"/>
 	<string id="20846" value="eDonkey Partials"/>
@@ -2644,7 +2647,7 @@
 	<string id="20850" value="Large Files"/>
 	<string id="20851" value="Medium Files"/>
 	<string id="20852" value="Small Files"/>
-	<string id="20853" value="Partial Files"/>
+	<string id="20853" value="부분 Files"/>
 	<string id="20854" value="부분"/>
 	<string id="20855" value="대기열"/>
 	<string id="20856" value="Torrent Uploads"/>
@@ -3739,13 +3742,14 @@
 		<column from="Failures" to="실패"/>
 	</list>
 	<list name="CPacketWnd">
+		<column from="Time" to="타임"/>
 		<column from="Address" to="주소"/>
 		<column from="Protocol" to="프로토콜"/>
 		<column from="Type" to="유형"/>
-		<column from="T/H" to=""/>
+		<column from="TTL/Hops" to=""/>
+		<column from="GUID" to=""/>
 		<column from="Hex" to=""/>
 		<column from="ASCII" to=""/>
-		<column from="G1-ID" to=""/>
 	</list>
 	<list name="CSearchMonitorWnd">
 		<column from="Search" to="검색"/>

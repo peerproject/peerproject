@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Hebrew Skin File -->
 
-<!-- Translation based on default-en.xml r65 -->
+<!-- Translation based on default-en.xml r66 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -72,7 +72,7 @@ gap i newline
 	</menu>
 	<!-- MAIN WINDOW MENU BAR -->
 	<menu name="CMainWnd.DropMenu" type="bar">
-		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160;">
+		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160;">
 			<item id="ID_TOOLS_SETTINGS" text="ה_גדרות שרזה..."/>
 			<menu text="‪_רשת">
 				<item id="ID_NETWORK_CONNECT" text="הת_חבר" shortcut="Ctrl+G"/>
@@ -2119,6 +2119,8 @@ gap i newline
 	<string id="20014" value="לגמור"/>
 	<string id="20020" value="קובץ"/>
 	<string id="20021" value="קבצים"/>
+	<string id="20022" value="‪כל הקבצים"/>
+	<string id="20029" value="‪%s הקבצים"/>
 	<string id="20050" value="‪שכל יום"/>
 	<string id="20051" value="‪שני"/>
 	<string id="20052" value="‪שלישי"/>
@@ -2477,8 +2479,8 @@ gap i newline
 	<string id="20798" value="‪?האם אתה מעוניין לשדרג כעת .(%s) שרזה סיים להוריד את הגרסא החדשהnnאם תבחר כן, שרזה תסגר באופן זמני, למהלך ההתקנה"/>
 	<string id="20811" value="?העלאות של אידונקי2000 לא אמורות להיות מבוטלות. האם הינך בטוח/ה שברצונך לבטל את העלאות"/>
 	<string id="20834" value="‪מרכז אידונקי"/>
-	<string id="20840" value="‪תור חדש"/>
-	<string id="20841" value="‪כל הקבצים"/>
+	<string id="20841" value="‪תור חדש"/>
+	<string id="20842" value="‪כל הקבצים"/>
 	<string id="20845" value="‪השומר של אידונקי"/>
 	<string id="20846" value="‪קבצים חלקיים של אידונקי"/>
 	<string id="20847" value="‪העלאות שהסתיימו"/>
@@ -3717,13 +3719,14 @@ gap i newline
 		<column from="Failures" to="תקלות"/>
 	</list>
 	<list name="CPacketWnd">
+		<column from="Time" to="זמן"/>
 		<column from="Address" to="כתובת"/>
 		<column from="Protocol" to="פרוטוקול"/>
 		<column from="Type" to="סוג"/>
-		<column from="T/H" to=""/>
+		<column from="TTL/Hops" to=""/>
+		<column from="GUID" to=""/>
 		<column from="Hex" to=""/>
 		<column from="ASCII" to=""/>
-		<column from="G1-ID" to=""/>
 	</list>
 	<list name="CSearchMonitorWnd">
 		<column from="Search" to="חיפוש"/>

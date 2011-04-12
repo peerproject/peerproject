@@ -390,9 +390,11 @@ BOOL CDownloadWithSources::AddSourceBT(const Hashes::BtGuid& oGUID, const IN_ADD
 
 BOOL CDownloadWithSources::AddSourceURL(LPCTSTR pszURL, BOOL bURN, FILETIME* pLastSeen, int nRedirectionCount, BOOL bFailed)
 {
-	if ( pszURL == NULL ) return FALSE;
-	if ( *pszURL == 0 ) return FALSE;
-	if ( nRedirectionCount > 5 ) return FALSE; // No more than 5 redirections
+	if ( pszURL == NULL || *pszURL == 0 )
+		return FALSE;
+
+	if ( nRedirectionCount > 5 )
+		return FALSE;	// No more than 5 redirections
 
 	BOOL bHashAuth = FALSE;
 	BOOL bValidated = FALSE;
@@ -404,12 +406,26 @@ BOOL CDownloadWithSources::AddSourceURL(LPCTSTR pszURL, BOOL bURN, FILETIME* pLa
 		pszURL++;
 	}
 
-	if ( ! pURL.Parse( pszURL ) ) return FALSE;
+	if ( ! pURL.Parse( pszURL ) )
+		return FALSE;	// Wrong URL
+
+	if ( pURL.m_nAction == CPeerProjectURL::uriHost &&
+		 pURL.m_nProtocol == PROTOCOL_DC )
+	{
+		// Connect to specified DC++ hub for future searches
+		Network.ConnectTo( pURL.m_sName, pURL.m_nPort, PROTOCOL_DC );
+		return FALSE;
+	}
+
+	if ( pURL.m_nAction != CPeerProjectURL::uriDownload &&
+		 pURL.m_nAction != CPeerProjectURL::uriSource )
+		return FALSE;	// Wrong URL type
 
 	if ( bURN )
 	{
 		if ( Network.IsFirewalledAddress( &pURL.m_pAddress, TRUE ) ||
-			 Network.IsReserved( &pURL.m_pAddress ) ) return FALSE;
+			 Network.IsReserved( &pURL.m_pAddress ) )
+			 return FALSE;
 	}
 
 	CQuickLock pLock( Transfers.m_pSection );
@@ -753,7 +769,7 @@ CString	CDownloadWithSources::GetTopFailedSources(int nMaximum, PROTOCOLID nProt
 
 				strSources += str;
 				str = pResult->m_sURL.Mid( nPos + 1, nPosSlash - nPos - 1 );
-				if ( str != _T("6346") )
+				if ( _tstoi( str ) != GNUTELLA_DEFAULT_PORT )	// "6346"
 				{
 					strSources += ':';
 					strSources += str;
@@ -828,7 +844,7 @@ CFailedSource* CDownloadWithSources::LookupFailedSource(LPCTSTR pszUrl, bool bRe
 			if ( pResult->m_bLocal )
 				break;
 
-			if ( bReliable ) // Not used at the moment anywhere, we check that explicitly
+			if ( bReliable )	// Not used anywhere at the moment, we check that explicitly
 			{
 				INT_PTR nTotalVotes = pResult->m_nNegativeVotes + pResult->m_nPositiveVotes;
 				if ( nTotalVotes > 20 && pResult->m_nNegativeVotes / nTotalVotes > 2 / 3 )
@@ -899,7 +915,7 @@ void CDownloadWithSources::ExpireFailedSources()
 				m_pFailedSources.RemoveAt( posThis );
 			}
 			else
-				break; // We appended to tail, so we do not need to move further
+				break;	// We appended to tail, so we do not need to move further
 		}
 	}
 }

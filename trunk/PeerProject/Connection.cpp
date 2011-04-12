@@ -1,7 +1,7 @@
 //
 // Connection.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -227,7 +227,7 @@ BOOL CConnection::ConnectTo(const IN_ADDR* pAddress, WORD nPort)
 		NULL, NULL, NULL, NULL ) )	// No advanced features
 	{
 		// If no error occurs, WSAConnect returns 0, so if we're here an error happened
-		int nError = WSAGetLastError(); // Get the last Windows Sockets error number
+		int nError = WSAGetLastError();		// Get the last Windows Sockets error number
 
 		// An error of "would block" is normal because connections can't be made instantly and this is a non-blocking socket
 		if ( nError != WSAEWOULDBLOCK )
@@ -250,7 +250,7 @@ BOOL CConnection::ConnectTo(const IN_ADDR* pAddress, WORD nPort)
 	// Record one more outgoing connection in the statistics
 	Statistics.Current.Connections.Outgoing++;
 
-	// The connection was successfully attempted
+	// Connection successfully attempted
 	return TRUE;
 }
 
@@ -367,19 +367,18 @@ BOOL CConnection::DoRun()
 	// If the FD_CONNECT network event has occurred
 	if ( pEvents.lNetworkEvents & FD_CONNECT )
 	{
-		// If there is a nonzero error code for the connect operation
+		// If there is a nonzero error code for the connect operation, this connection was dropped
 		if ( pEvents.iErrorCode[ FD_CONNECT_BIT ] != 0 )
 		{
 			Statistics.Current.Connections.Errors++;
 
-			// This connection was dropped
 			OnDropped();
 			return FALSE;
 		}
 
 		// The socket is now connected
 		m_bConnected = TRUE;
-		m_tConnected = m_mInput.tLast = m_mOutput.tLast = GetTickCount(); // Store the time 3 places
+		m_tConnected = m_mInput.tLast = m_mOutput.tLast = GetTickCount();	// Store the time 3 places
 
 		// Call CShakeNeighbour::OnConnected to start reading the handshake
 		if ( ! OnConnected() )
@@ -409,7 +408,7 @@ BOOL CConnection::DoRun()
 	{
 		// theApp.Message( MSG_DEBUG, _T("socket close() error %i"), pEvents.iErrorCode[ FD_CLOSE_BIT ] );
 		// Call OnDropped, telling it true if there is a close error
-		OnDropped(); // True if there is an nonzero error code for the close bit
+		OnDropped();	// True if there is an nonzero error code for the close bit
 		return FALSE;
 	}
 
@@ -484,8 +483,8 @@ BOOL CConnection::OnRead()
 	if ( m_nDelayCloseReason )
 		return TRUE;
 
-	DWORD tNow		= GetTickCount();	// The time right now
-	DWORD nLimit	= ~0ul;				// Make the limit huge
+	const DWORD tNow = GetTickCount();	// The time right now
+	DWORD nLimit = ~0ul;				// Make the limit huge
 
 	// If we need to worry about throttling bandwidth, calculate nLimit, the number of bytes we are allowed to read now
 	if ( m_mInput.pLimit							// If there is a limit
@@ -508,7 +507,6 @@ BOOL CConnection::OnRead()
 		Statistics.Current.Downloads.Volume += ( nTotal / 1024 );	// For Home tab display
 	}
 
-	// Report success
 	return TRUE;
 }
 
@@ -528,8 +526,8 @@ BOOL CConnection::OnWrite()
 	if ( m_pOutput->m_nLength == 0 )
 		return TRUE;
 
-	DWORD tNow		= GetTickCount();	// The time right now
-	DWORD nLimit	= ~0ul;				// Make the limit huge
+	const DWORD tNow = GetTickCount();	// The time right now
+	DWORD nLimit = ~0ul;				// Make the limit huge
 
 	// If we need to worry about throttling bandwidth, calculate nLimit, the number of bytes we are allowed to write now
 	if ( m_mOutput.pLimit							// If there is a limit
@@ -551,7 +549,6 @@ BOOL CConnection::OnWrite()
 		Statistics.Current.Bandwidth.Outgoing += nTotal;
 	}
 
-	// Report success
 	return TRUE;
 }
 
@@ -562,7 +559,7 @@ BOOL CConnection::OnWrite()
 void CConnection::Measure()
 {
 	// Time period for bytes
-	DWORD tCutoff = GetTickCount() - METER_PERIOD;
+	const DWORD tCutoff = GetTickCount() - METER_PERIOD;
 
 	// Calculate Input and Output seperately
 	m_mInput.nMeasure  = m_mInput.CalculateUsage( tCutoff )  / ( METER_PERIOD / METER_SECOND );
@@ -573,7 +570,7 @@ void CConnection::Measure()
 void CConnection::MeasureIn()
 {
 	// Time period for bytes
-	DWORD tCutoff = GetTickCount() - METER_PERIOD;
+	const DWORD tCutoff = GetTickCount() - METER_PERIOD;
 
 	// Calculate input speed
 	m_mInput.nMeasure  = m_mInput.CalculateUsage( tCutoff )  / ( METER_PERIOD / METER_SECOND );
@@ -583,7 +580,7 @@ void CConnection::MeasureIn()
 void CConnection::MeasureOut()
 {
 	// Time period for bytes
-	DWORD tCutoff = GetTickCount() - METER_PERIOD;
+	const DWORD tCutoff = GetTickCount() - METER_PERIOD;
 
 	// Calculate output speed
 	m_mOutput.nMeasure = m_mOutput.CalculateUsage( tCutoff ) / ( METER_PERIOD / METER_SECOND );
@@ -597,7 +594,7 @@ BOOL CConnection::ReadHeaders()
 {
 	// Move the first line from the m_pInput buffer to strLine and do the contents of the while loop
 	CString strLine;
-	while ( Read( strLine ) ) // ReadLine will return false when there are no more lines
+	while ( Read( strLine ) )	// ReadLine will return false when there are no more lines
 	{
 		// If the line is more than 256 KB, change it to the line too long error code
 		if ( strLine.GetLength() > 256 * 1024 ) strLine = _T("#LINE_TOO_LONG#");
@@ -614,7 +611,7 @@ BOOL CConnection::ReadHeaders()
 			// Call the OnHeadersComplete method for the most advanced class that inherits from CConnection
 			return OnHeadersComplete();
 		}
-		else if ( _istspace( strLine.GetAt( 0 ) ) ) // Get the first character in the string, and see if its a space
+		else if ( _istspace( strLine.GetAt( 0 ) ) )		// Get the first character in the string, and see if its a space
 		{
 			// The line starts with a space
 
@@ -630,7 +627,7 @@ BOOL CConnection::ReadHeaders()
 					return FALSE;
 			}
 		}
-		else if ( nPos > 1 && nPos < 64 ) // ":a" is 0 and "a:a" is 1, but "aa:a" is greater than 1
+		else if ( nPos > 1 && nPos < 64 )	// ":a" is 0 and "a:a" is 1, but "aa:a" is greater than 1
 		{
 			// The colon is at a distance greater than 1 and less than 64
 
@@ -639,7 +636,6 @@ BOOL CConnection::ReadHeaders()
 			CString strValue	= strLine.Mid( nPos + 1 );
 			m_sLastHeader = strHeader;
 
-			// Trim whitespace from both ends of the value, and ensure it still has length
 			strValue.Trim();
 			if ( strValue.IsEmpty() ) continue;
 
@@ -687,12 +683,11 @@ BOOL CConnection::OnHeaderLine(CString& strHeader, CString& strValue)
 		if ( ! m_bInitiated && nColon > 0 )
 		{
 			// Read the number after the colon into nPort
-			int nPort = GNUTELLA_DEFAULT_PORT; // Start out nPort as the default value, 6346
-			if ( _stscanf( strValue.Mid( nColon + 1 ), _T("%lu"), &nPort ) == 1 // Make sure 1 number was found
-				&& nPort != 0 ) // Make sure the found number isn't 0
+			int nPort = GNUTELLA_DEFAULT_PORT;	// Start out nPort as the default value, 6346
+			if ( _stscanf( strValue.Mid( nColon + 1 ), _T("%lu"), &nPort ) == 1 && nPort != 0 )		// Make sure 1 number was found, and isn't 0
 			{
 				// Save the found port number in m_pHost
-				m_pHost.sin_port = htons( u_short( nPort ) ); // Convert Windows little endian to big for the Internet with htons
+				m_pHost.sin_port = htons( u_short( nPort ) );	// Convert Windows little endian to big for the Internet with htons
 			}
 		}
 	}
@@ -868,8 +863,8 @@ void CConnection::TCPBandwidthMeter::Add( const DWORD nBytes, const DWORD tNow )
 		// More than the minimum time interval
 		// Store the time and total in a new array slot
 		nPosition = ( nPosition + 1 ) % METER_LENGTH;	// Move to the next position in the array
-		pTimes	[ nPosition ]	= tNow;					// Record the new time
-		pHistory[ nPosition ]	= nBytes;				// Store the #bytes next to it
+		pHistory[ nPosition ] = nBytes; 				// Store the #bytes next to it
+		pTimes	[ nPosition ] = tNow;					// Record the new time
 		tLastSlot = tNow;								// We just wrote some history information
 	}
 	nTotal += nBytes;	// Add the #bytes to the total
