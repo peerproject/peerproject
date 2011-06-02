@@ -42,8 +42,8 @@ class CDownloadTask : public CAppThread
 public:
 	static void			Copy(CDownload* pDownload);
 	static void			PreviewRequest(CDownload* pDownload, LPCTSTR szURL);
-	static void			MergeFile(CDownload* pDownload, LPCTSTR szPath,
-						BOOL bValidation = TRUE, const Fragments::List* pGaps = NULL);
+	static void			MergeFile(CDownload* pDownload, CList< CString >* pFiles, BOOL bValidation = TRUE, const Fragments::List* pGaps = NULL);
+	static void			MergeFile(CDownload* pDownload, LPCTSTR szPath, BOOL bValidation = TRUE, const Fragments::List* pGaps = NULL);
 
 	void				Abort();
 	bool				WasAborted() const;
@@ -51,6 +51,7 @@ public:
 	DWORD				GetFileError() const;
 	dtask				GetTaskType() const;
 	CString				GetRequest() const;
+	float				GetProgress() const;	// Get progress of current operation (0-100%)
 	CBuffer*			IsPreviewAnswerValid() const;
 
 protected:
@@ -59,6 +60,7 @@ protected:
 
 	dtask				m_nTask;
 	CHttpRequest*		m_pRequest;
+//	CString				m_sURL;				// Request URL
 	bool				m_bSuccess;
 	CString				m_sFilename;
 	CString				m_sDestination;
@@ -66,10 +68,11 @@ protected:
 	QWORD				m_nSize;
 	CString				m_sURL;
 	CDownload*			m_pDownload;
-	CString				m_sMergeFilename;	// Source filename
+	CList< CString >	m_oMergeFiles;		// Source filename(s)
 	Fragments::List		m_oMergeGaps;		// Missed ranges in source file
 	BOOL				m_bMergeValidation;	// Run validation after merging
 	POSITION			m_posTorrentFile;	// Torrent file list current position
+	float				m_fProgress;		// Progress of current operation (0-100%)
 	CEvent*				m_pEvent;
 
 	static DWORD CALLBACK CopyProgressRoutine(LARGE_INTEGER TotalFileSize,
@@ -79,10 +82,11 @@ protected:
 		LPVOID lpData);
 
 	void				Construct(CDownload* pDownload);
+	void				RunPreviewRequest();
+//	void				RunAllocate();
 	void				RunCopy();
 	void				RunMerge();
-//	void				RunAllocate();
-	void				RunPreviewRequest();
+	void				RunMergeFile(CDownload* pDownload, LPCTSTR szFilename, BOOL bMergeValidation, const Fragments::List& oMissedGaps, float fProgress = 100.0f);
 	void				CreatePathForFile(const CString& strBase, const CString& strPath);
 	BOOL				CopyFile(HANDLE hSource, LPCTSTR pszTarget, QWORD nLength);
 	BOOL				CopyFileToBatch(HANDLE hSource, QWORD nOffset, QWORD nLength, LPCTSTR pszPath);

@@ -1687,7 +1687,8 @@ void CLibraryTreeView::OnLibraryExplore()
 	CString strPath = m_pSelFirst->m_pPhysical->m_sPath;
 	pLock.Unlock();
 
-	CFileExecutor::Execute( strPath, TRUE );
+//	CFileExecutor::Execute( strPath );
+	ShellExecute( AfxGetMainWnd()->GetSafeHwnd(), NULL, strPath, NULL, NULL, SW_SHOWNORMAL );
 }
 
 void CLibraryTreeView::OnUpdateLibraryScan(CCmdUI* pCmdUI)
@@ -1832,15 +1833,17 @@ void CLibraryTreeView::OnUpdateLibraryFolderEnqueue(CCmdUI* pCmdUI)
 
 void CLibraryTreeView::OnLibraryFolderEnqueue()
 {
-	CList< CString > pList;
+	CStringList pList;		// CList< CString >
 
 	{
 		CSingleLock oLock( &Library.m_pSection );
-		if ( ! oLock.Lock( 100 ) ) return;
+		if ( ! oLock.Lock( 200 ) ) return;
 
 		for ( CLibraryTreeItem* pItem = m_pSelFirst ; pItem ; pItem = pItem->m_pSelNext )
 		{
-			if ( LibraryFolders.CheckAlbum( pItem->m_pVirtual ) )
+			if ( LibraryFolders.CheckAlbum( pItem->m_pVirtual ) &&
+				 pItem->m_pVirtual->GetFileCount() > 0 &&
+				 ! CheckURI( pItem->m_pVirtual->m_sSchemaURI, CSchema::uriGhostFolder ) )
 			{
 				for ( POSITION pos = pItem->m_pVirtual->GetFileIterator() ; pos ; )
 				{
@@ -1851,11 +1854,7 @@ void CLibraryTreeView::OnLibraryFolderEnqueue()
 		}
 	}
 
-	for ( POSITION pos = pList.GetHeadPosition() ; pos ; )
-	{
-		CString strPath = pList.GetNext( pos );
-		CFileExecutor::Enqueue( strPath );
-	}
+	CFileExecutor::Enqueue( pList );
 }
 
 void CLibraryTreeView::OnUpdateLibraryFolderMetadata(CCmdUI* pCmdUI)

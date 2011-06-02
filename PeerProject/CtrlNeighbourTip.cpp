@@ -1,5 +1,5 @@
 //
-// CtrlNeighbourTip.cpp : implementation file
+// CtrlNeighbourTip.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
@@ -19,13 +19,13 @@
 #include "Stdafx.h"
 #include "PeerProject.h"
 #include "Settings.h"
+#include "CtrlNeighbourTip.h"
 #include "Neighbours.h"
 #include "Neighbour.h"
 #include "Network.h"
 #include "GProfile.h"
 #include "Colors.h"
 #include "CoolInterface.h"
-#include "CtrlNeighbourTip.h"
 #include "GraphLine.h"
 #include "GraphItem.h"
 #include "Flags.h"
@@ -155,10 +155,11 @@ void CNeighbourTipCtrl::OnCalcSize(CDC* pDC)
 	}
 
 	if ( ! pNeighbour->m_sUserAgent.IsEmpty() )
-	{
-		AddSize( pDC, pNeighbour->m_sUserAgent );
-		m_sz.cy += TIP_TEXTHEIGHT;
-	}
+		str = pNeighbour->m_sUserAgent;
+	else
+		str = L"(" + (CString)protocolNames[ pNeighbour->m_nProtocol ] + L")";
+	AddSize( pDC, str );
+	m_sz.cy += TIP_TEXTHEIGHT;
 
 	m_sz.cy += TIP_RULE;
 	m_sz.cy += TIP_TEXTHEIGHT * 6 - 2;
@@ -168,8 +169,8 @@ void CNeighbourTipCtrl::OnCalcSize(CDC* pDC)
 	if ( nCompIn > 0 || nCompOut > 0 )
 		m_sz.cy += TIP_TEXTHEIGHT;
 
+	m_sz.cy += 40;	// Graph?
 	m_sz.cx = max( m_sz.cx, 128 + 160 );
-	m_sz.cy += 40;
 }
 
 /////////////////////////////////////////////////////////////////////////////

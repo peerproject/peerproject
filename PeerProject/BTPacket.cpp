@@ -23,6 +23,7 @@
 #include "BTPacket.h"
 #include "Buffer.h"
 #include "Datagrams.h"
+#include "Statistics.h"
 #include "HostCache.h"
 #include "GProfile.h"
 
@@ -305,6 +306,8 @@ BOOL CBTPacket::OnPacket(const SOCKADDR_IN* pHost)
 {
 	ASSERT( m_nType == BT_PACKET_EXTENSION );
 	ASSERT( m_nExtension == BT_EXTENSION_NOP );
+
+	Statistics.Current.BitTorrent.Incoming++;
 
 	SmartDump( pHost, TRUE, FALSE );
 

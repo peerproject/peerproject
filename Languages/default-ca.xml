@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Catalan Skin File -->
 
-<!-- Translation based on default-en.xml r66 -->
+<!-- Translation based on default-en.xml r67 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2402,8 +2402,8 @@
 	<tip id="ID_LIBRARY_ALBUM_DELETE" message="Esborra l'àlbum seleccionat."/>
 	<tip id="ID_LIBRARY_ALBUM_OPEN" message="Obre l'àlbum seleccionat."/>
 	<tip id="ID_LIBRARY_ALBUM_PROPERTIES" message="Mostra o edita les propietats de l'àlbum seleccionat"/>
-	<tip id="ID_LIBRARY_BITZI_DOWNLOAD" message="Adquireix la metainformació des de Bitzi(TM)..."/>
-	<tip id="ID_LIBRARY_BITZI_WEB" message="Mostra el resum de Bitzi(TM) a la web."/>
+	<tip id="ID_LIBRARY_BITZI_DOWNLOAD" message="Adquireix la metainformació des de Bitzi™..."/>
+	<tip id="ID_LIBRARY_BITZI_WEB" message="Mostra el resum de Bitzi™ a la web."/>
 	<tip id="ID_LIBRARY_COLUMNS" message="Selecciona quines columnes de metainformació s'han de mostrar."/>
 	<tip id="ID_LIBRARY_COPY" message="Copia arxius a altra carpeta de col·lecció..."/>
 	<tip id="ID_LIBRARY_CREATETORRENT" message="Crea un .torrent per a aquest arxiu i puja-lo a un lloc web."/>
@@ -2763,13 +2763,13 @@
 	<string id="20184" value="Preguntant per comunicació privada con..."/>
 	<string id="20185" value="Usuari autentificat"/>
 	<string id="20186" value="Connexió per push de %s, ha estat aceptada, negociant sessió..."/>
-	<string id="20188" value="Demanant un push de %s..."/>
-	<string id="20190" value="La connexió ha fallat per transmetre informació invàlida."/>
-	<string id="20191" value="Resposta desconeguda: %s"/>
-	<string id="20192" value="PeerProject no està connectat."/>
-	<string id="20193" value="Comanda no coneguda %s."/>
-	<string id="20194" value="Aquesta plantilla no té cap personalització."/>
-	<string id="20195" value="Aquesta plantilla no és vàlida."/>
+	<string id="20187" value="Demanant un push de %s..."/>
+	<string id="20188" value="La connexió ha fallat per transmetre informació invàlida."/>
+	<string id="20189" value="Resposta desconeguda: %s"/>
+	<string id="20190" value="PeerProject no està connectat."/>
+	<string id="20191" value="Comanda no coneguda %s."/>
+	<string id="20196" value="Aquesta plantilla no té cap personalització."/>
+	<string id="20197" value="Aquesta plantilla no és vàlida."/>
 	<string id="20199" value="(tancant després de transferències)"/>
 	<string id="20200" value="&quot;%s&quot; ha estat agregat a la cua de descàrregues, i té %i fonts."/>
 	<string id="20201" value="L'arxiu %s ja s'està descarregant, afegint fonts..."/>
@@ -2927,14 +2927,15 @@
 	<string id="20372" value="Ràtio de pings rebuts/enviats de Gnutella"/>
 	<string id="20373" value="Ràtio de pongs rebuts/enviats de Gnutella"/>
 	<string id="20374" value="Cerques locals de Gnutella"/>
-	<string id="20375" value="Paquets de Gnutella marcats"/>
-	<string id="20376" value="Total de banda ampla rebuda genérica"/>
-	<string id="20377" value="Total de banda ampla transmesa genérica"/>
-	<string id="20378" value="Ample de banda total de recepció TCP"/>
-	<string id="20379" value="Ample de banda total de transmició TCP"/>
-	<string id="20380" value="Ample de banda total de recepció UDP"/>
-	<string id="20381" value="Ample de banda total de transmissió UDP"/>
-	<string id="20382" value="Banda ampla de pujada"/>
+	<string id="20375" value="Cerques locals de Gnutella"/>
+	<string id="20376" value="Paquets de Gnutella marcats"/>
+	<string id="20377" value="Total de banda ampla rebuda genérica"/>
+	<string id="20378" value="Total de banda ampla transmesa genérica"/>
+	<string id="20379" value="Ample de banda total de recepció TCP"/>
+	<string id="20380" value="Ample de banda total de transmició TCP"/>
+	<string id="20381" value="Ample de banda total de recepció UDP"/>
+	<string id="20382" value="Ample de banda total de transmissió UDP"/>
+	<string id="20383" value="Banda ampla de pujada"/>
 	<string id="20384" value="Compte de pujades"/>
 	<string id="20385" value="La connexió amb l'amfitrió a veí %s ha tornat enrere perquè és un mode leaf protegit."/>
 	<string id="20386" value="Tancant la connexió surplus amb %s amb hint amfitrió  (%s port %i)."/>
@@ -3104,8 +3105,8 @@
 	<string id="20582" value="El veí %s ha enviat un paquet de pong amb mida invàlida, Ignorant..."/>
 	<string id="20583" value="El veí %s ha enviat un push incorrecte."/>
 	<string id="20584" value="El veí %s ha enviat un paquet amb mida excesiva, tancant la connexió."/>
-	<string id="20585" value="%s ha enviat un paquet desconegut (0x%.2x)."/>
-	<string id="20586" value="%s ha enviat un pong invàlid."/>
+	<string id="20586" value="%s ha enviat un paquet desconegut (0x%.2x)."/>
+	<string id="20587" value="%s ha enviat un pong invàlid."/>
 	<string id="20588" value="El veí %s ha enviat un push a una adreça sota tallafocs, ignorant..."/>
 	<string id="20590" value="L'accès remot està deshabilitat."/>
 	<string id="20591" value="http://%s:%i/remote - Nom d'usuari i contrasenya?"/>
@@ -3325,13 +3326,14 @@
 	<string id="20870" value="PeerProject no ha entés l'URL &quot;%s&quot;."/>
 	<string id="20871" value="Rebuts URL &quot;%s&quot;"/>
 	<string id="20872" value="tipus:"/>
-	<string id="20874" value="No "/>
-	<string id="20875" value="URL:"/>
+	<string id="20874" value="URL:"/>
+	<string id="20875" value="No "/>
 	<string id="20880" value="Edita el meu perfil"/>
-	<string id="20881" value="El canvi de vista tancarà totes les finestres que tens obertes. Vols canviar ara?"/>
-	<string id="20882" value="El servei UPnP Device Host Service no està sent executat. Aquest servei està re requerit per la instal·lació.\nHas de configurar el llançament d'aquest servei del Windows al mode automàtic."/>
-	<string id="20884" value="No hi ha URN disponible"/>
-	<string id="20885" value="El canvi de direcció de la interfície requereix un reinici de l'aplicació.\nols sortir ara? (Necessitaràs tornar a inciar PeerProject manualment)"/>
+	<string id="20881" value="%u Arxius seleccionats. Estàs segur?"/>
+	<string id="20882" value="No hi ha URN disponible"/>
+	<string id="20883" value="El servei UPnP Device Host Service no està sent executat. Aquest servei està re requerit per la instal·lació.\nHas de configurar el llançament d'aquest servei del Windows al mode automàtic."/>
+	<string id="20885" value="El canvi de vista tancarà totes les finestres que tens obertes. Vols canviar ara?"/>
+	<string id="20886" value="El canvi de direcció de la interfície requereix un reinici de l'aplicació.\nols sortir ara? (Necessitaràs tornar a inciar PeerProject manualment)"/>
 	<string id="20890" value="Benvingut/uda a PeerProject"/>
 	<string id="20891" value="Sortir"/>
 	<string id="20892" value="Si us plau, esperi: Actualitzant la llista de servidors d'eDonkey..."/>

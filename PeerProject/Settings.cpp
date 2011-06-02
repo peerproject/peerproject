@@ -154,21 +154,23 @@ void CSettings::Load()
 
 	Add( _T("Library"), _T("CreateGhosts"), &Library.CreateGhosts, true );
 	Add( _T("Library"), _T("FilterURI"), &Library.FilterURI );
+//	Add( _T("Library"), _T("LastUsedView"), &Library.LastUsedView );
 	Add( _T("Library"), _T("HashWindow"), &Library.HashWindow, true );
 	Add( _T("Library"), _T("HighPriorityHash"), &Library.HighPriorityHash, true );
 	Add( _T("Library"), _T("HighPriorityHashing"), &Library.HighPriorityHashing, 32, 1, 2, 100, _T(" MB/s") );
-	Add( _T("Library"), _T("HistoryDays"), &Library.HistoryDays, 10, 1, 0, 365, _T(" d") );
-	Add( _T("Library"), _T("HistoryTotal"), &Library.HistoryTotal, 36, 1, 0, 120, _T(" files") );
-	Add( _T("Library"), _T("LastUsedView"), &Library.LastUsedView );
 	Add( _T("Library"), _T("LowPriorityHashing"), &Library.LowPriorityHashing, 4, 1, 1, 50, _T(" MB/s") );
+	Add( _T("Library"), _T("HistoryDays"), &Library.HistoryDays, 10, 1, 0, 365, _T(" d") );
+	Add( _T("Library"), _T("HistoryTotal"), &Library.HistoryTotal, 36, 1, 0, 150, _T(" files") );
 	Add( _T("Library"), _T("QueryRouteSize"), &Library.QueryRouteSize, 20, 1, 8, 24 );
 	Add( _T("Library"), _T("MarkFileAsDownload"), &Library.MarkFileAsDownload, true );
+	Add( _T("Library"), _T("ManyFilesWarning"), &Library.ManyFilesWarning, 0, 1, 0, 2 );
+	Add( _T("Library"), _T("ManyFilesCount"), &Library.ManyFilesCount, 18, 1, 0, 1000, _T(" files") );
 	Add( _T("Library"), _T("MaliciousFileCount"), &Library.MaliciousFileCount, 5, 1, 2, 50, _T(" files") );
 	Add( _T("Library"), _T("MaliciousFileSize"), &Library.MaliciousFileSize, 2*MegaByte, KiloByte, KiloByte, 10*MegaByte, _T(" KB") );
 	Add( _T("Library"), _T("MaliciousFileTypes"), &Library.MaliciousFileTypes, _T("|exe|com|bat|vbs|scr|zip|rar|ace|7z|cab|lzh|tar|tgz|bz2|wmv|") );
-	Add( _T("Library"), _T("PanelSize"), &Library.PanelSize, 120, 1, 0, 1024, _T(" px") );
 	Add( _T("Library"), _T("PrivateTypes"), &Library.PrivateTypes, _T("|vbs|js|jc!|fb!|bc!|!ut|db3|dbx|part|partial|pst|reget|getright|pif|lnk|url|pd|sd|wab|m4p|infodb|racestats|svn|chk|tmp|temp|ini|inf|log|old|manifest|met|bak|$$$|---|~~~|###|__incomplete___|") );
 	Add( _T("Library"), _T("SafeExecute"), &Library.SafeExecute, _T("|3gp|7z|aac|ace|ape|asf|avi|bmp|cbr|cbz|co|collection|divx|flv|gif|iso|jpg|jpeg|lit|mid|mov|m1v|m2v|m3u|m4a|mka|mkv|mp2|mp3|mp4|mpa|mpe|mpg|mpeg|ogg|ogm|pdf|png|psk|qt|rar|rm|sks|swf|rtf|tar|tgz|torrent|txt|wav|zip|") );
+	Add( _T("Library"), _T("SchemaURI"), &Library.SchemaURI, CSchema::uriAudio );
 	Add( _T("Library"), _T("ScanAPE"), &Library.ScanAPE, true );
 	Add( _T("Library"), _T("ScanASF"), &Library.ScanASF, true );
 	Add( _T("Library"), _T("ScanAVI"), &Library.ScanAVI, true );
@@ -180,15 +182,15 @@ void CSettings::Load()
 	Add( _T("Library"), _T("ScanMSI"), &Library.ScanMSI, true );
 	Add( _T("Library"), _T("ScanOGG"), &Library.ScanOGG, true );
 	Add( _T("Library"), _T("ScanPDF"), &Library.ScanPDF, true );
-	Add( _T("Library"), _T("SchemaURI"), &Library.SchemaURI, CSchema::uriAudio );
 	Add( _T("Library"), _T("ShowCoverArt"), &Library.ShowCoverArt, true );
 	Add( _T("Library"), _T("ShowPanel"), &Library.ShowPanel, true );
 	Add( _T("Library"), _T("ShowVirtual"), &Library.ShowVirtual, true );
-	Add( _T("Library"), _T("SourceExpire"), &Library.SourceExpire, 24*60*60, 60, 60, 7*24*60*60, _T(" m") );
 	Add( _T("Library"), _T("SourceMesh"), &Library.SourceMesh, true );
-	Add( _T("Library"), _T("ThumbSize"), &Library.ThumbSize, 128, 1, 16, 256, _T(" px") );
+	Add( _T("Library"), _T("SourceExpire"), &Library.SourceExpire, 24*60*60, 60, 60, 7*24*60*60, _T(" m") );
 	Add( _T("Library"), _T("TigerHeight"), &Library.TigerHeight, 9, 1, 1, 64 );
+	Add( _T("Library"), _T("ThumbSize"), &Library.ThumbSize, 128, 1, 16, 256, _T(" px") );
 	Add( _T("Library"), _T("TreeSize"), &Library.TreeSize, 200, 1, 0, 1024, _T(" px") );
+	Add( _T("Library"), _T("PanelSize"), &Library.PanelSize, 120, 1, 0, 1024, _T(" px") );
 	Add( _T("Library"), _T("URLExportFormat"), &Library.URLExportFormat, _T("<a href=\"magnet:?xt=urn:bitprint:[SHA1].[TIGER]&amp;xt=urn:ed2khash:[ED2K]&amp;xt=urn:md5:[MD5]&amp;xl=[ByteSize]&amp;dn=[NameURI]\">[Name]</a><br>") );
 	Add( _T("Library"), _T("UseCustomFolders"), &Library.UseCustomFolders, true );
 	Add( _T("Library"), _T("UseFolderGUID"), &Library.UseFolderGUID, true );
@@ -265,7 +267,7 @@ void CSettings::Load()
 	Add( _T("Web"), _T("Piolet"), &Web.Piolet, true );
 
 	Add( _T("Connection"), _T("AutoConnect"), &Connection.AutoConnect, true );
-	Add( _T("Connection"), _T("ConnectThrottle"), &Connection.ConnectThrottle, 0, 1, 0, 500, _T(" ms") );
+	Add( _T("Connection"), _T("ConnectThrottle"), &Connection.ConnectThrottle, 0, 1, 0, 1000, _T(" ms") );
 	Add( _T("Connection"), _T("DeleteFirewallException"), &Connection.DeleteFirewallException, false );
 	Add( _T("Connection"), _T("DeleteUPnPPorts"), &Connection.DeleteUPnPPorts, true );
 	Add( _T("Connection"), _T("DetectConnectionLoss"), &Connection.DetectConnectionLoss, true );

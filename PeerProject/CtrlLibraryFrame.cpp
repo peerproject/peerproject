@@ -1,7 +1,7 @@
 //
 // CtrlLibraryFrame.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -144,7 +144,7 @@ int CLibraryFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_wndViewTop.SetBarStyle( m_wndViewTop.GetBarStyle() | CBRS_TOOLTIPS );
 	m_wndViewTop.SetOwner( GetOwner() );
 
-	if ( ! m_wndViewBottom.Create( this, WS_CHILD|WS_CLIPSIBLINGS|WS_VISIBLE|CBRS_NOALIGN, AFX_IDW_TOOLBAR ) ) return -1;
+	if ( ! m_wndViewBottom.Create( this, WS_CHILD|WS_CLIPSIBLINGS|WS_VISIBLE|CBRS_NOALIGN /*, AFX_IDW_TOOLBAR*/ ) ) return -1;
 	m_wndViewBottom.SetBarStyle( m_wndViewBottom.GetBarStyle() | CBRS_TOOLTIPS|CBRS_BORDER_TOP );
 	m_wndViewBottom.SetOwner( GetOwner() );
 
@@ -153,11 +153,10 @@ int CLibraryFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_wndBottomDynamic.SetOwner( GetOwner() );
 
 	if ( ! m_wndSearch.Create( WS_CHILD|WS_CLIPSIBLINGS|WS_TABSTOP|ES_AUTOHSCROLL, rcTypes, &m_wndViewBottom, IDC_SEARCH_BOX, _T("Search"), _T("Search.%.2i") ) ) return -1;
-	m_wndSearch.SetFont( &CoolInterface.m_fntNormal );
+	//m_wndSearch.SetFont( &CoolInterface.m_fntNormal );
 	//m_wndSearch.SetRegistryKey( _T("Search"), _T("Search.%.2i") );
 
-	if ( ! m_wndSaveOption.Create( NULL, WS_CHILD|WS_CLIPSIBLINGS|WS_TABSTOP|BS_AUTOCHECKBOX, rcTypes, &m_wndBottomDynamic,
-		ID_SHAREMONKEY_SAVE_OPTION ) ) return -1;
+	if ( ! m_wndSaveOption.Create( NULL, WS_CHILD|WS_CLIPSIBLINGS|WS_TABSTOP|BS_AUTOCHECKBOX, rcTypes, &m_wndBottomDynamic, ID_SHAREMONKEY_SAVE_OPTION ) ) return -1;
 	m_wndSaveOption.EnableWindow( FALSE );
 	m_wndSaveOption.SetCheck( Settings.WebServices.ShareMonkeySaveThumbnail );
 	m_wndSaveOption.SetFont( &CoolInterface.m_fntNormal);
@@ -207,6 +206,8 @@ void CLibraryFrame::OnSkinChange()
 	m_wndTreeBottom.ShowWindow( Settings.Library.ShowVirtual ? SW_SHOW : SW_HIDE );
 	m_wndTreeTypes.ShowWindow( Settings.Library.ShowVirtual ? SW_HIDE : SW_SHOW );
 	m_wndHeader.OnSkinChange();
+
+	m_wndSearch.SetFont( &CoolInterface.m_fntNormal );
 
 	CLibraryView* pView = m_pView;
 	CPanelCtrl* pPanel  = m_pPanel;
@@ -402,7 +403,6 @@ BOOL CLibraryFrame::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 	GetCursorPos( &point );
 	GetClientRect( &rcClient );
 	ClientToScreen( &rcClient );
-
 
 	rc.SetRect(	Settings.General.LanguageRTL ? rcClient.right - m_nTreeSize - Skin.m_nSplitter :
 				rcClient.left + m_nTreeSize,
@@ -748,12 +748,12 @@ BOOL CLibraryFrame::Update(BOOL bForce, BOOL bBestView)
 
 	m_bUpdating = TRUE;
 
-	m_nFolderCookie		= GetTickCount();
+	m_nFolderCookie = GetTickCount();
 	m_wndTree.Update( m_nFolderCookie );
-	CLibraryTreeItem* pFolderSelection	= m_wndTree.GetFirstSelected();
+	CLibraryTreeItem* pFolderSelection = m_wndTree.GetFirstSelected();
 
-	CLibraryView* pFirstView	= NULL;
-	CLibraryView* pBestView		= NULL;
+	CLibraryView* pFirstView = NULL;
+	CLibraryView* pBestView  = NULL;
 	CString strBest;
 
 	if ( pFolderSelection != NULL && pFolderSelection->m_pVirtual != NULL )

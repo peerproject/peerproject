@@ -56,7 +56,7 @@ CDCClient::CDCClient(LPCTSTR szNick)
 	if ( szNick ) m_sNick = szNick;
 	m_sUserAgent = _T("DC++");
 
-	m_mInput.pLimit = &Settings.Bandwidth.Request;
+	m_mInput.pLimit  = &Settings.Bandwidth.Request;
 	m_mOutput.pLimit = &Settings.Bandwidth.Request;
 
 	DCClients.Add( this );
@@ -649,6 +649,7 @@ BOOL CDCClient::OnError(const std::string& strParams)
 	//	return FALSE;
 
 	TRACE( "[DC++] Got $Error: \"%s\"\n", strParams.c_str() );
+	strParams;	// Unused Release Builds
 
 	return TRUE;
 }

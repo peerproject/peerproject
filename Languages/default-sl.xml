@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Slovenian Skin File -->
 
-<!-- Translation based on default-en.xml r66 (Shareaza 2.2.2.12) -->
+<!-- Translation based on default-en.xml r67 (Shareaza 2.2.2.12) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2278,8 +2278,8 @@
 	<tip id="ID_LIBRARY_ALBUM_DELETE" message="Zbriši izbrano albumsko mapo."/>
 	<tip id="ID_LIBRARY_ALBUM_OPEN" message="Odpri izbrano albumsko mapo."/>
 	<tip id="ID_LIBRARY_ALBUM_PROPERTIES" message="Poglej in uredi lastnosti izbranih albumskih map..."/>
-	<tip id="ID_LIBRARY_BITZI_DOWNLOAD" message="Prenesi metapodatke za izbrane datoteke od sistema Bitzi(TM)..."/>
-	<tip id="ID_LIBRARY_BITZI_WEB" message="Ogled Bitzi(TM) kart za izbrane datoteke na spletu."/>
+	<tip id="ID_LIBRARY_BITZI_DOWNLOAD" message="Prenesi metapodatke za izbrane datoteke od sistema Bitzi™..."/>
+	<tip id="ID_LIBRARY_BITZI_WEB" message="Ogled Bitzi™ kart za izbrane datoteke na spletu."/>
 	<tip id="ID_LIBRARY_COLUMNS" message="Izberi stolpce z metapodatki za prikaz..."/>
 	<tip id="ID_LIBRARY_COPY" message="Kopiranje izbranih datotek v drugo knjižnično mapo..."/>
 	<tip id="ID_LIBRARY_CREATETORRENT" message="Ustvari .torrent za to datoteko za naložitev (upload) na spletno stran."/>
@@ -2626,13 +2626,13 @@
 	<string id="20184" value="Naprošam po zasebnem pogovoru z uporabnikom..."/>
 	<string id="20185" value="Avtenticiran uporabnik"/>
 	<string id="20186" value="Potrdil potisno povezavo od %s, rokovanje v teku..."/>
-	<string id="20188" value="Naprošam po potisni povezavi za požarnim zidom od %s..."/>
-	<string id="20190" value="Zaradi neveljavnih podatkov pri pretoku podatkov, povezava ni uspela."/>
-	<string id="20191" value="Prejet je bil neznan odgovor: %s"/>
-	<string id="20192" value="Niste povezani."/>
-	<string id="20193" value="Neznan ukaz &quot;%s&quot;."/>
-	<string id="20194" value="Predloga ne vsebuje prilagoditev."/>
-	<string id="20195" value="Predloga je neveljavna."/>
+	<string id="20187" value="Naprošam po potisni povezavi za požarnim zidom od %s..."/>
+	<string id="20188" value="Zaradi neveljavnih podatkov pri pretoku podatkov, povezava ni uspela."/>
+	<string id="20189" value="Prejet je bil neznan odgovor: %s"/>
+	<string id="20190" value="Niste povezani."/>
+	<string id="20191" value="Neznan ukaz &quot;%s&quot;."/>
+	<string id="20196" value="Predloga ne vsebuje prilagoditev."/>
+	<string id="20197" value="Predloga je neveljavna."/>
 	<string id="20199" value="(zapiram po prenosih)"/>
 	<string id="20200" value="Dodal &quot;%s&quot; preosnemu seznamu s številom virov %i."/>
 	<string id="20201" value="Datoteka &quot;%s&quot; se že prenaša, dodajam vire."/>
@@ -2785,14 +2785,15 @@
 	<string id="20370" value="Prejeti Gnutella paketi"/>
 	<string id="20371" value="Prenešeni Gnutella paketi"/>
 	<string id="20374" value="Lokalne poizvedbe sistema Gnutella"/>
-	<string id="20375" value="Preusmerjeni Gnutella paketi"/>
-	<string id="20376" value="Skupna generična pasovna širina za prejemanje"/>
-	<string id="20377" value="Skupna generična pasovna širina za oddajanje"/>
-	<string id="20378" value="Skupna TCP vhodna pasovna širina"/>
-	<string id="20379" value="Skupna TCP izhodna pasovna širina"/>
-	<string id="20380" value="Skupna UDP vhodna pasovna širina"/>
-	<string id="20381" value="Skupna UDP izhodna pasovna širina"/>
-	<string id="20382" value="Pasovna širina za nalaganje (upload)"/>
+	<string id="20375" value="Lokalne poizvedbe sistema Gnutella"/>
+	<string id="20376" value="Preusmerjeni Gnutella paketi"/>
+	<string id="20377" value="Skupna generična pasovna širina za prejemanje"/>
+	<string id="20378" value="Skupna generična pasovna širina za oddajanje"/>
+	<string id="20379" value="Skupna TCP vhodna pasovna širina"/>
+	<string id="20380" value="Skupna TCP izhodna pasovna širina"/>
+	<string id="20381" value="Skupna UDP vhodna pasovna širina"/>
+	<string id="20382" value="Skupna UDP izhodna pasovna širina"/>
+	<string id="20383" value="Pasovna širina za nalaganje (upload)"/>
 	<string id="20384" value="Števec naloženih (upload) datotek"/>
 	<string id="20385" value="Povezujem soseda %s vračam se v način zaščitenega lista (shielded leaf mode)."/>
 	<string id="20386" value="Zapiram odvečne povezave z %s in z gostiteljskim namigom (%s vrata %i)."/>
@@ -2952,8 +2953,8 @@
 	<string id="20582" value="Sosed %s je posredoval pong paket z neveljavno dolžino, ignoriram."/>
 	<string id="20583" value="Sosed %s je posredoval potisni paket (push packet) z neveljavno dolžino, ignoriram."/>
 	<string id="20584" value="Sosed %s je posredoval paket prekomerne velikosti, končujem povezavo."/>
-	<string id="20585" value="Sosed %s je posredoval neprepoznaven paket (0x%.2x), ignoriram."/>
-	<string id="20586" value="Sosed %s je posredoval pong z neveljavnimi naslovnimi podatki (invalid address data), ignoriram."/>
+	<string id="20586" value="Sosed %s je posredoval neprepoznaven paket (0x%.2x), ignoriram."/>
+	<string id="20587" value="Sosed %s je posredoval pong z neveljavnimi naslovnimi podatki (invalid address data), ignoriram."/>
 	<string id="20588" value="Sosed %s je posredoval potisno (push) prošnjo v naslov, ki je za požarnim zidom, ignoriram."/>
 	<string id="20590" value="Oddaljen dostop je onemogočen."/>
 	<string id="20591" value="http://%s:%i/remote - Vnesti morate uporabniško ime in geslo."/>
@@ -3167,12 +3168,13 @@
 	<string id="20870" value="Razčlenba (parsanje) URL-ja: PeerProject ne razume tega URL-ja."/>
 	<string id="20871" value="Sprejel URL &quot;%s&quot;"/>
 	<string id="20872" value="Tip:"/>
-	<string id="20874" value="Nedoločen"/>
-	<string id="20875" value="URL:"/>
+	<string id="20874" value="URL:"/>
+	<string id="20875" value="Nedoločen"/>
 	<string id="20880" value="Uredi moj profil"/>
-	<string id="20881" value="Spreminjanje pogleda bo zaprlo morebitna okna, ki jim imate odprte. Želite spremeniti takoj?"/>
-	<string id="20884" value="URN ni na voljo"/>
-	<string id="20885" value="Sprememba smeri vmesnika zahteva ponovni zagon. \nProgram PeerProject boste morali zagnati ročno. Želite končati program?"/>
+	<string id="20881" value="%u izbranih datotek. Ali ste prepričani?"/>
+	<string id="20882" value="URN ni na voljo"/>
+	<string id="20885" value="Spreminjanje pogleda bo zaprlo morebitna okna, ki jim imate odprte. Želite spremeniti takoj?"/>
+	<string id="20886" value="Sprememba smeri vmesnika zahteva ponovni zagon. \nProgram PeerProject boste morali zagnati ročno. Želite končati program?"/>
 	<string id="20890" value="Dobrodošli v PeerProject"/>
 	<string id="20891" value="Izhod"/>
 	<string id="20895" value="Niste še določili hitrosti za povezavo. Pred nadaljevanjem boste morali ali izbrati tip medmrežne povezave ali ročno vnesti hitrost povezave."/>

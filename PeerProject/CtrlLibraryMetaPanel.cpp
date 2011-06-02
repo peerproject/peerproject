@@ -1,7 +1,7 @@
 //
 // CtrlLibraryMetaPanel.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -34,8 +34,8 @@
 #include "ImageFile.h"
 #include "CtrlLibraryFrame.h"
 #include "CtrlLibraryMetaPanel.h"
-#include "FileExecutor.h"
 #include "DlgFilePropertiesSheet.h"
+#include "FileExecutor.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -362,12 +362,15 @@ void CLibraryMetaPanel::OnPaint()
 			}
 			str += _T('\x2026');
 		}
-		else if ( nLimit <= 0 ) str.Empty();
+		else if ( nLimit <= 0 )
+			str.Empty();
 	}
-	else str.Empty();
+	else
+		str.Empty();
 
 	DrawText( &dc, rcWork.left + 68, rcWork.top, str, &m_rcFolder );
-	if ( m_sFolder.Find( '\\' ) < 0 ) m_rcFolder.SetRectEmpty();
+	if ( m_sFolder.Find( '\\' ) < 0 )
+		m_rcFolder.SetRectEmpty();
 	rcWork.top += 18;
 
 	m_pMetadata->Paint( &dc, &rcWork );
@@ -414,8 +417,8 @@ CMetaPanel* CLibraryMetaPanel::GetServicePanel()
 {
 	if ( m_pServiceData )
 		return m_pServiceData;
-	else
-		return m_pMetadata;
+
+	return m_pMetadata;
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -434,12 +437,12 @@ BOOL CLibraryMetaPanel::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 		SetCursor( AfxGetApp()->LoadCursor( IDC_HAND ) );
 		return TRUE;
 	}
-	else if ( m_nSelected > 0 && m_rcRating.PtInRect( point ) )
+	if ( m_nSelected > 0 && m_rcRating.PtInRect( point ) )
 	{
 		SetCursor( AfxGetApp()->LoadCursor( IDC_HAND ) );
 		return TRUE;
 	}
-	else if ( m_pMetadata->HitTest( point, TRUE ) )
+	if ( m_pMetadata->HitTest( point, TRUE ) )
 	{
 		SetCursor( AfxGetApp()->LoadCursor( IDC_HAND ) );
 		return TRUE;
@@ -466,7 +469,8 @@ void CLibraryMetaPanel::OnLButtonUp(UINT nFlags, CPoint point)
 			}
 			else if ( LibraryFolders.CheckFolder( pFolder, TRUE ) )
 			{
-				CFileExecutor::Execute( m_sFolder, TRUE );
+			//	CFileExecutor::Execute( m_sFolder );
+				ShellExecute( AfxGetMainWnd()->GetSafeHwnd(), NULL, m_sFolder, NULL, NULL, SW_SHOWNORMAL );
 			}
 		}
 	}
@@ -534,7 +538,7 @@ void CLibraryMetaPanel::OnRun()
 		m_pSection.Lock();
 
 		// If nothing changes
-		if ( ( m_sPath == strPath ) && ( m_sThumbnailURL == strURL ) )
+		if ( strPath == m_sPath && strURL == m_sThumbnailURL )
 		{
 			m_sThumb = strURL.IsEmpty() ? strPath : strURL;
 

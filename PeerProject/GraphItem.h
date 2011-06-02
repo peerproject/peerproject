@@ -1,7 +1,7 @@
 //
 // GraphItem.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -92,6 +92,7 @@ public:
 #define GRC_GNUTELLA_DROPPED			42
 #define GRC_GNUTELLA_LOST				43
 #define GRC_GNUTELLA_QUERIES			44
+#define GRC_GNUTELLA_QUERIES_PROCESSED	45
 
 #define GRC_GNUTELLA_PINGS				51
 #define GRC_GNUTELLA_PONGS				52

@@ -23,8 +23,8 @@
 #include "PeerProject.h"
 #include "Settings.h"
 #include "Handshakes.h"
-#include "Connection.h"
 #include "Handshake.h"
+#include "Connection.h"
 #include "Network.h"
 #include "Security.h"
 #include "Datagrams.h"
@@ -227,7 +227,7 @@ BOOL CHandshakes::PushTo(IN_ADDR* pAddress, WORD nPort, DWORD nIndex)
 		m_pList.AddTail( pHandshake );
 		return TRUE;
 	}
-	else // We couldn't connect to that IP address and port number
+	else // Couldn't connect to that IP address and port number
 	{
 		// Delete the handshake object we just made, and report failure
 		delete pHandshake;
@@ -284,7 +284,7 @@ void CHandshakes::Remove(CHandshake* pHandshake)
 {
 	// Find the position of the handshake pointer in the m_pList list
 	POSITION pos = m_pList.Find( pHandshake );
-	ASSERT( pos != NULL ); // Make sure we found it
+	ASSERT( pos != NULL );	// Make sure we found it
 
 	// Remove its pointer from the list, and delete the object
 	m_pList.RemoveAt( pos );
@@ -302,7 +302,7 @@ void CHandshakes::OnRun()
 	while ( IsThreadEnabled() && IsValid() )
 	{
 		// Wait for a computer to call us, which fires the wakeup event
-		Doze( 1000 ); // Give up after a second
+		Doze( 1000 );	// Give up after a second
 
 		// Accept the connection from the remote computer, making a new CHandshake object for it in the list
 		while ( AcceptConnection() );
@@ -366,19 +366,18 @@ BOOL CHandshakes::AcceptConnection()
 	// Use an interlocked function to do this in a thread-safe way
 	InterlockedIncrement( (PLONG)&m_nStableCount );
 
-	// If the remote computer's IP address is blocked or banned
-	if ( Security.IsDenied( &pHost.sin_addr ) )
-	{
-		CNetwork::CloseSocket( hSocket, true );
+	// Skip if remote computer's IP address is blocked  (Redundant check?)
+	//if ( Security.IsDenied( &pHost.sin_addr ) )
+	//{
+	//	CNetwork::CloseSocket( hSocket, true );
+	//
+	//	// Report that this connection was denied for security reasons
+	//	theApp.Message( MSG_ERROR, IDS_NETWORK_SECURITY_DENIED, (LPCTSTR)CString( inet_ntoa( pHost.sin_addr ) ) );
+	//	return TRUE;
+	//}
 
-		// Report that this connection was denied for security reasons
-		theApp.Message( MSG_ERROR, IDS_NETWORK_SECURITY_DENIED, (LPCTSTR)CString( inet_ntoa( pHost.sin_addr ) ) );
-	}
-	else // The IP address is not blocked
-	{
-		// Make a new handshake object with the received socket and IP address, and add it to the list
-		CreateHandshake( hSocket, &pHost );
-	}
+	// Make a new handshake object with the received socket and IP address, and add it to the list
+	CreateHandshake( hSocket, &pHost );
 
 	return TRUE;
 }
@@ -412,8 +411,8 @@ int CALLBACK CHandshakes::AcceptCheck(IN LPWSABUF lpCallerId,
 	IN DWORD_PTR /*dwCallbackData*/)
 {
 	// If the address of the remote computer is unknown or too short, reject the connection
-	if ( lpCallerId == NULL )                    return CF_REJECT; // WSAAccept didn't get the remote computer's IP and port
-	if ( lpCallerId->len < sizeof(SOCKADDR_IN) ) return CF_REJECT; // The IP and port aren't long enough
+	if ( lpCallerId == NULL )                    return CF_REJECT;	// WSAAccept didn't get the remote computer's IP and port
+	if ( lpCallerId->len < sizeof(SOCKADDR_IN) ) return CF_REJECT;	// The IP and port aren't long enough
 
 	// Copy out the IP address and port number of the remote computer
 	SOCKADDR_IN* pHost = (SOCKADDR_IN*)lpCallerId->buf;
@@ -436,14 +435,14 @@ int CALLBACK CHandshakes::AcceptCheck(IN LPWSABUF lpCallerId,
 // If we've accepted at least one connection, update the discovery services (do)
 void CHandshakes::RunStableUpdate()
 {
-	// If we've listened for and accepted at least one stable connection
-	if ( m_nStableCount > 0 )
-	{
-		// If there isn't a record of when we first connected yet, set it to the current time.
-		if ( m_tStableTime == 0 )
-			m_tStableTime = (DWORD)time( NULL );	// The function time( NULL ) resolves to the number of seconds since 1970
+	// We've listened for and accepted at least one stable connection
+	if ( m_nStableCount < 1 )
+		return;
 
-		// Update the discovery services (do)
-		DiscoveryServices.Update();
-	}
+	// If there's no record yet of when we first connected, set the current time.
+	if ( m_tStableTime == 0 )
+		m_tStableTime = (DWORD)time( NULL );	// The function time( NULL ) resolves to the number of seconds since 1970
+
+	// Update the discovery services (do)
+	DiscoveryServices.Update();
 }

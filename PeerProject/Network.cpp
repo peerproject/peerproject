@@ -332,6 +332,9 @@ BOOL CNetwork::AcquireLocalAddress(LPCTSTR pszHeader)
 
 BOOL CNetwork::AcquireLocalAddress(const IN_ADDR& pAddress)
 {
+	if ( m_pHost.sin_addr.s_addr == pAddress.s_addr )
+		return TRUE;	// No change
+
 	if ( pAddress.s_addr == INADDR_ANY ||
 		 pAddress.s_addr == INADDR_NONE )
 		return FALSE;
@@ -343,6 +346,7 @@ BOOL CNetwork::AcquireLocalAddress(const IN_ADDR& pAddress)
 	if ( ! m_pHostAddresses.Find( pAddress.s_addr ) )
 		m_pHostAddresses.AddTail( pAddress.s_addr );
 
+	// ToDo: Verify given address before trusting
 	m_pHost.sin_addr = pAddress;
 
 	return TRUE;
@@ -644,29 +648,35 @@ void CNetwork::OnRun()
 	{
 		while ( IsThreadEnabled() )
 		{
-			Sleep( 50 );
 			Doze( 100 );
 
 			if ( ! theApp.m_bLive )
 			{
-				Sleep( 500 );	// Sleep(0)
+				Sleep( 0 );
 				continue;
 			}
 
 			if ( theApp.m_pUPnPFinder && theApp.m_pUPnPFinder->IsAsyncFindRunning() )
 			{
-			//	Sleep( 0 );
+				Sleep( 0 );
 				continue;
 			}
 
-			if ( IsThreadEnabled() && m_pSection.Lock() )
+		//	// Refresh UPnP port mappings	(ToDo:?)
+		//	DWORD tNow = GetTickCount();
+		//	if ( Settings.Connection.EnableUPnP &&
+		//		 tNow > m_tUPnPMap + Settings.Connection.UPnPRefreshTime )
+		//	{
+		//		MapPorts();
+		//		continue;
+		//	}
+
+			if ( m_pSection.Lock() )
 			{
 				Datagrams.OnRun();
 				SearchManager.OnRun();
 				QueryHashMaster.Build();
-
-				if ( CrawlSession.m_bActive )
-					CrawlSession.OnRun();
+				CrawlSession.OnRun();
 
 				m_pSection.Unlock();
 			}

@@ -35,6 +35,7 @@
 #include "GProfile.h"
 #include "Datagrams.h"
 #include "Transfers.h"
+#include "Statistics.h"
 #include "VendorCache.h"
 
 #ifdef _DEBUG
@@ -176,6 +177,8 @@ void CBTClient::Send(CBTPacket* pPacket, BOOL bRelease)
 	{
 		ASSERT( pPacket->m_nProtocol == PROTOCOL_BT );
 
+		Statistics.Current.BitTorrent.Outgoing++;
+
 		pPacket->SmartDump( &m_pHost, FALSE, TRUE );
 
 		Write( pPacket );
@@ -192,11 +195,11 @@ BOOL CBTClient::OnRun()
 {
 	CTransfer::OnRun();
 
-	DWORD tNow = GetTickCount();
+	const DWORD tNow = GetTickCount();
 
 	if ( ! m_bConnected )
 	{
-		if ( tNow - m_tConnected > Settings.Connection.TimeoutConnect )
+		if ( tNow >= m_tConnected + Settings.Connection.TimeoutConnect )
 		{
 			Close( IDS_BT_CLIENT_CONNECT_TIMEOUT );
 			return FALSE;
@@ -204,7 +207,7 @@ BOOL CBTClient::OnRun()
 	}
 	else if ( ! m_bOnline )
 	{
-		if ( tNow - m_tConnected > Settings.Connection.TimeoutHandshake )
+		if ( tNow >= m_tConnected + Settings.Connection.TimeoutHandshake )
 		{
 			Close( IDS_BT_CLIENT_HANDSHAKE_TIMEOUT );
 			return FALSE;
@@ -212,19 +215,19 @@ BOOL CBTClient::OnRun()
 	}
 	else
 	{
-		if ( tNow - m_mInput.tLast > Settings.BitTorrent.LinkTimeout * 2 )
+		if ( tNow >= m_mInput.tLast + Settings.BitTorrent.LinkTimeout * 2 )
 		{
 			Close( IDS_BT_CLIENT_LOST );
 			return FALSE;
 		}
-		if ( tNow - m_tLastKeepAlive > Settings.BitTorrent.LinkPing )
+		if ( tNow >= m_tLastKeepAlive + Settings.BitTorrent.LinkPing )
 		{
 			Send( CBTPacket::New( BT_PACKET_KEEPALIVE ) );
 			m_tLastKeepAlive = tNow;
 		}
 
 		ASSERT ( m_pUploadTransfer != NULL );
-		if ( tNow > m_tLastUtPex + Settings.BitTorrent.UtPexPeriod )
+		if ( tNow >= m_tLastUtPex + Settings.BitTorrent.UtPexPeriod )
 		{
 			SendUtPex( m_tLastUtPex );
 			m_tLastUtPex = tNow;
@@ -997,6 +1000,8 @@ CDownloadSource* CBTClient::GetSource() const
 
 BOOL CBTClient::OnPacket(CBTPacket* pPacket)
 {
+	Statistics.Current.BitTorrent.Incoming++;
+
 	pPacket->SmartDump( &m_pHost, FALSE, FALSE );
 
 	switch ( pPacket->m_nType )

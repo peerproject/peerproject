@@ -1,7 +1,7 @@
 //
 // PageDownloadActions.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -59,13 +59,13 @@ CDownloadActionsPage::~CDownloadActionsPage()
 void CDownloadActionsPage::DoDataExchange(CDataExchange* pDX)
 {
 	CPropertyPageAdv::DoDataExchange(pDX);
+	DDX_Control(pDX, IDC_CANCEL_DOWNLOAD, m_wndCancelDownload);
+	DDX_Control(pDX, IDC_MERGE_AND_VERIFY, m_wndMergeVerify);
+	DDX_Control(pDX, IDC_COMPLETE_AND_VERIFY, m_wndCompleteVerify);
 	DDX_Control(pDX, IDC_FORGET_VERIFY, m_wndForgetVerify);
 	DDX_Control(pDX, IDC_FORGET_SOURCES, m_wndForgetSources);
 	DDX_Text(pDX, IDC_ERASE_FROM, m_sEraseFrom);
 	DDX_Text(pDX, IDC_ERASE_TO, m_sEraseTo);
-	DDX_Control(pDX, IDC_COMPLETE_AND_VERIFY, m_wndCompleteVerify);
-	DDX_Control(pDX, IDC_MERGE_AND_VERIFY, m_wndMergeVerify);
-	DDX_Control(pDX, IDC_CANCEL_DOWNLOAD, m_wndCancelDownload);
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -75,11 +75,11 @@ HBRUSH CDownloadActionsPage::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 {
 	HBRUSH hbr = CPropertyPageAdv::OnCtlColor( pDC, pWnd, nCtlColor );
 
-	if ( pWnd == &m_wndForgetVerify ||
-		 pWnd == &m_wndForgetSources ||
-		 pWnd == &m_wndCompleteVerify ||
+	if ( pWnd == &m_wndCancelDownload ||
 		 pWnd == &m_wndMergeVerify ||
-		 pWnd == &m_wndCancelDownload )
+		 pWnd == &m_wndCompleteVerify ||
+		 pWnd == &m_wndForgetVerify ||
+		 pWnd == &m_wndForgetSources )
 	{
 		pDC->SelectObject( &theApp.m_gdiFontLine );
 		pDC->SetTextColor( Colors.m_crTextLink );
@@ -94,11 +94,11 @@ BOOL CDownloadActionsPage::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 	CPoint point;
 
 	GetCursorPos( &point );
-	m_wndForgetVerify.GetWindowRect( &rcCtrl1 );
-	m_wndForgetSources.GetWindowRect( &rcCtrl2 );
+	m_wndCancelDownload.GetWindowRect( &rcCtrl1 );
+	m_wndMergeVerify.GetWindowRect( &rcCtrl2 );
 	m_wndCompleteVerify.GetWindowRect( &rcCtrl3 );
-	m_wndMergeVerify.GetWindowRect( &rcCtrl4 );
-	m_wndCancelDownload.GetWindowRect( &rcCtrl5 );
+	m_wndForgetVerify.GetWindowRect( &rcCtrl4 );
+	m_wndForgetSources.GetWindowRect( &rcCtrl5 );
 
 	if ( rcCtrl1.PtInRect( point ) ||
 		 rcCtrl2.PtInRect( point ) ||
@@ -119,33 +119,32 @@ void CDownloadActionsPage::OnLButtonUp(UINT nFlags, CPoint point)
 
 	CRect rcCtrl1, rcCtrl2, rcCtrl3, rcCtrl4, rcCtrl5;
 
-	m_wndForgetVerify.GetWindowRect( &rcCtrl1 );
+	m_wndCancelDownload.GetWindowRect( &rcCtrl1 );
 	ScreenToClient( &rcCtrl1 );
-	m_wndForgetSources.GetWindowRect( &rcCtrl2 );
+	m_wndMergeVerify.GetWindowRect( &rcCtrl2 );
 	ScreenToClient( &rcCtrl2 );
 	m_wndCompleteVerify.GetWindowRect( &rcCtrl3 );
 	ScreenToClient( &rcCtrl3 );
-	m_wndMergeVerify.GetWindowRect( &rcCtrl4 );
+	m_wndForgetVerify.GetWindowRect( &rcCtrl4 );
 	ScreenToClient( &rcCtrl4 );
-	m_wndCancelDownload.GetWindowRect( &rcCtrl5 );
+	m_wndForgetSources.GetWindowRect( &rcCtrl5 );
 	ScreenToClient( &rcCtrl5 );
 
 	if ( rcCtrl1.PtInRect( point ) )
-		OnForgetVerify();
+		OnCancelDownload();
 	else if ( rcCtrl2.PtInRect( point ) )
-		OnForgetSources();
+		OnMergeAndVerify();
 	else if ( rcCtrl3.PtInRect( point ) )
 		OnCompleteVerify();
 	else if ( rcCtrl4.PtInRect( point ) )
-		OnMergeAndVerify();
+		OnForgetVerify();
 	else if ( rcCtrl5.PtInRect( point ) )
-		OnCancelDownload();
+		OnForgetSources();
 }
 
 void CDownloadActionsPage::OnErase()
 {
 	QWORD nFrom = 0, nTo = 0;
-	CString strMessage;
 
 	UpdateData();
 
@@ -153,8 +152,7 @@ void CDownloadActionsPage::OnErase()
 		 _stscanf( m_sEraseTo, _T("%I64i"), &nTo ) != 1 ||
 		 nTo < nFrom )
 	{
-		LoadString( strMessage, IDS_DOWNLOAD_EDIT_BAD_RANGE );
-		AfxMessageBox( strMessage, MB_ICONEXCLAMATION );
+		MsgBox( IDS_DOWNLOAD_EDIT_BAD_RANGE, MB_ICONEXCLAMATION );
 		return;
 	}
 
@@ -169,24 +167,20 @@ void CDownloadActionsPage::OnErase()
 	{
 		pDownload->ClearVerification();
 		pLock.Unlock();
-		CString strFormat;
-		LoadString( strFormat, IDS_DOWNLOAD_EDIT_ERASED );
-		strMessage.Format( strFormat, nErased );
-		AfxMessageBox( strMessage, MB_ICONINFORMATION );
+		CString strMessage;
+		strMessage.Format( LoadString( IDS_DOWNLOAD_EDIT_ERASED ), nErased );
+		MsgBox( strMessage, MB_ICONINFORMATION );
 	}
 	else
 	{
 		pLock.Unlock();
-		LoadString( strMessage, IDS_DOWNLOAD_EDIT_CANT_ERASE );
-		AfxMessageBox( strMessage, MB_ICONEXCLAMATION );
+		MsgBox( IDS_DOWNLOAD_EDIT_CANT_ERASE, MB_ICONEXCLAMATION );
 	}
 }
 
 void CDownloadActionsPage::OnForgetVerify()
 {
-	CString strMessage;
-	LoadString( strMessage, IDS_DOWNLOAD_EDIT_FORGET_VERIFY );
-	if ( AfxMessageBox( strMessage, MB_ICONQUESTION|MB_YESNO ) != IDYES ) return;
+	if ( MsgBox( IDS_DOWNLOAD_EDIT_FORGET_VERIFY, MB_ICONQUESTION|MB_YESNO ) != IDYES ) return;
 
 	CSingleLock pLock( &Transfers.m_pSection, TRUE );
 	CDownload* pDownload = ((CDownloadSheet*)GetParent())->m_pDownload;
@@ -197,9 +191,7 @@ void CDownloadActionsPage::OnForgetVerify()
 
 void CDownloadActionsPage::OnForgetSources()
 {
-	CString strMessage;
-	LoadString( strMessage, IDS_DOWNLOAD_EDIT_FORGET_SOURCES );
-	if ( AfxMessageBox( strMessage, MB_ICONQUESTION|MB_YESNO ) != IDYES ) return;
+	if ( MsgBox( IDS_DOWNLOAD_EDIT_FORGET_SOURCES, MB_ICONQUESTION|MB_YESNO ) != IDYES ) return;
 
 	CSingleLock pLock( &Transfers.m_pSection, TRUE );
 	CDownload* pDownload = ((CDownloadSheet*)GetParent())->m_pDownload;
@@ -216,21 +208,17 @@ void CDownloadActionsPage::OnCompleteVerify()
 	CDownload* pDownload = ((CDownloadSheet*)GetParent())->m_pDownload;
 	if ( ! Downloads.Check( pDownload ) || pDownload->IsTasking() ) return;
 
-	if ( pDownload->NeedTigerTree() && pDownload->NeedHashset() &&
-		! pDownload->IsTorrent() )
+	if ( pDownload->NeedTigerTree() && pDownload->NeedHashset() && ! pDownload->IsTorrent() )
 	{
 		pLock.Unlock();
-		CString strMessage;
-		LoadString( strMessage, IDS_DOWNLOAD_EDIT_COMPLETE_NOHASH );
-		AfxMessageBox( strMessage, MB_ICONEXCLAMATION );
+		MsgBox( IDS_DOWNLOAD_EDIT_COMPLETE_NOHASH, MB_ICONEXCLAMATION );
 		return;
 	}
 	else
 	{
 		pLock.Unlock();
-		CString strMessage;
-		LoadString( strMessage, IDS_DOWNLOAD_EDIT_COMPLETE_VERIFY );
-		if ( AfxMessageBox( strMessage, MB_ICONQUESTION|MB_YESNO ) != IDYES ) return;
+		if ( AfxMessageBox( IDS_DOWNLOAD_EDIT_COMPLETE_VERIFY, MB_ICONQUESTION|MB_YESNO ) != IDYES )
+			return;
 	}
 
 	pLock.Lock();
@@ -243,27 +231,25 @@ void CDownloadActionsPage::OnCompleteVerify()
 
 void CDownloadActionsPage::OnMergeAndVerify()
 {
-	CString strMessage, strFormat;
-
 	CSingleLock pLock( &Transfers.m_pSection, TRUE );
+
 	CDownload* pDownload = ((CDownloadSheet*)GetParent())->m_pDownload;
 	if ( ! Downloads.Check( pDownload ) ||
-		pDownload->IsCompleted() ||
-		pDownload->IsTasking() ||
-		! pDownload->PrepareFile() )
+		 pDownload->IsCompleted() ||
+		 pDownload->IsTasking() ||
+		 ! pDownload->PrepareFile() )
 	{
 		// Download almost completed
 		pLock.Unlock();
 		return;
 	}
 	if ( pDownload->NeedTigerTree() &&
-		pDownload->NeedHashset() &&
+		 pDownload->NeedHashset() &&
 		! pDownload->IsTorrent() )
 	{
 		// No hashsets
 		pLock.Unlock();
-		LoadString( strMessage, IDS_DOWNLOAD_EDIT_COMPLETE_NOHASH );
-		AfxMessageBox( strMessage, MB_ICONEXCLAMATION );
+		MsgBox( IDS_DOWNLOAD_EDIT_COMPLETE_NOHASH, MB_ICONEXCLAMATION );
 		return;
 	}
 	const Fragments::List oList( pDownload->GetEmptyFragmentList() );
@@ -276,8 +262,7 @@ void CDownloadActionsPage::OnMergeAndVerify()
 	if ( ! Downloads.Check( pDownload ) || pDownload->IsTasking() )
 	{
 		pLock.Unlock();
-		LoadString( strMessage, IDS_DOWNLOAD_EDIT_ACTIVE_TASK );
-		AfxMessageBox( strMessage, MB_ICONEXCLAMATION );
+		MsgBox( IDS_DOWNLOAD_EDIT_ACTIVE_TASK, MB_ICONEXCLAMATION );
 		return;
 	}
 
@@ -287,20 +272,37 @@ void CDownloadActionsPage::OnMergeAndVerify()
 	CString strExt( PathFindExtension( pDownload->m_sName ) );
 	if ( ! strExt.IsEmpty() ) strExt = strExt.Mid( 1 );
 	CFileDialog dlgSelectFile( TRUE, strExt, pDownload->m_sName,
-		OFN_HIDEREADONLY | OFN_FILEMUSTEXIST | OFN_PATHMUSTEXIST | OFN_NOCHANGEDIR,
-		NULL, this );
+		OFN_HIDEREADONLY | OFN_FILEMUSTEXIST | OFN_PATHMUSTEXIST | OFN_NOCHANGEDIR |
+		OFN_ALLOWMULTISELECT, NULL, this );
+
+	CAutoPtr< TCHAR > szFiles( new TCHAR[ 2048 ] );
+	*szFiles = 0;
+	dlgSelectFile.GetOFN().lpstrFile = szFiles;
+	dlgSelectFile.GetOFN().nMaxFile = 2048;
+
 	if ( dlgSelectFile.DoModal() == IDOK )
 	{
 		pLock.Lock();
 		if ( ! Downloads.Check( pDownload ) || pDownload->IsTasking() )
 		{
 			pLock.Unlock();
-			LoadString( strMessage, IDS_DOWNLOAD_EDIT_ACTIVE_TASK );
-			AfxMessageBox( strMessage, MB_ICONEXCLAMATION );
+			MsgBox( IDS_DOWNLOAD_EDIT_ACTIVE_TASK, MB_ICONEXCLAMATION );
 			return;
 		}
 
-		CDownloadTask::MergeFile( pDownload, dlgSelectFile.GetPathName() );
+		CList< CString > oFiles;
+		CString sFolder = (LPCTSTR)szFiles;
+		for ( LPCTSTR szFile = szFiles ; *szFile ; )
+		{
+			szFile += _tcslen( szFile ) + 1;
+			if ( *szFile )	// Folder + files
+				oFiles.AddTail( sFolder + _T("\\") + szFile );
+			else	// Single file
+				oFiles.AddTail( sFolder );
+		}
+
+		if ( oFiles.GetCount() )
+			CDownloadTask::MergeFile( pDownload, &oFiles );
 
 		pLock.Unlock();
 	}
@@ -308,9 +310,7 @@ void CDownloadActionsPage::OnMergeAndVerify()
 
 void CDownloadActionsPage::OnCancelDownload()
 {
-	CString strMessage;
-	LoadString( strMessage, IDS_DOWNLOAD_EDIT_CANCEL_DOWNLOAD );
-	if ( AfxMessageBox( strMessage, MB_ICONQUESTION|MB_YESNO ) != IDYES ) return;
+	if ( MsgBox( IDS_DOWNLOAD_EDIT_CANCEL_DOWNLOAD, MB_ICONQUESTION|MB_YESNO ) != IDYES ) return;
 
 	CSingleLock pLock( &Transfers.m_pSection, TRUE );
 	CDownload* pDownload = ((CDownloadSheet*)GetParent())->m_pDownload;

@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Swedish Skin File -->
 
-<!-- Translation based on default-en.xml r66 -->
+<!-- Translation based on default-en.xml r67 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2382,8 +2382,8 @@
 	<tip id="ID_LIBRARY_ALBUM_DELETE" message="Radera de valda albummapparna."/>
 	<tip id="ID_LIBRARY_ALBUM_OPEN" message="Öppna de valda albummapparna."/>
 	<tip id="ID_LIBRARY_ALBUM_PROPERTIES" message="Visa och ändra egenskaper för de valda albummapparna…"/>
-	<tip id="ID_LIBRARY_BITZI_DOWNLOAD" message="Ladda ned metadata för de valda filerna från Bitzi(TM)…"/>
-	<tip id="ID_LIBRARY_BITZI_WEB" message="Visa Bitzi(TM)-biljett för den valda filen på webben."/>
+	<tip id="ID_LIBRARY_BITZI_DOWNLOAD" message="Ladda ned metadata för de valda filerna från Bitzi™…"/>
+	<tip id="ID_LIBRARY_BITZI_WEB" message="Visa Bitzi™-biljett för den valda filen på webben."/>
 	<tip id="ID_LIBRARY_COLUMNS" message="Välj en metadatakolumn att visa…"/>
 	<tip id="ID_LIBRARY_COPY" message="Kopiera de valda filerna till en annan biblioteksmapp…"/>
 	<tip id="ID_LIBRARY_CREATETORRENT" message="Skapa en .torrent-fil för uppladdning till en webbsida."/>
@@ -2746,13 +2746,13 @@
 	<string id="20184" value="Begär privat konversation med användaren…"/>
 	<string id="20185" value="Bestyrkad användare"/>
 	<string id="20186" value="Accapterade anslutningsbegäran från %s, skakar hand…"/>
-	<string id="20188" value="Begär en anslutningsbegäran från %s…"/>
-	<string id="20190" value="Anslutning misslyckades p.g.a. felaktig data på linjen."/>
-	<string id="20191" value="Mottog okänt svar: %s"/>
-	<string id="20192" value="Du är inte ansluten."/>
-	<string id="20193" value="Okänt kommando från &quot;%s&quot;."/>
-	<string id="20194" value="Denna mall är inte anpassad."/>
-	<string id="20195" value="Denna mall är ogiltig."/>
+	<string id="20187" value="Begär en anslutningsbegäran från %s…"/>
+	<string id="20188" value="Anslutning misslyckades p.g.a. felaktig data på linjen."/>
+	<string id="20189" value="Mottog okänt svar: %s"/>
+	<string id="20190" value="Du är inte ansluten."/>
+	<string id="20191" value="Okänt kommando från &quot;%s&quot;."/>
+	<string id="20196" value="Denna mall är inte anpassad."/>
+	<string id="20197" value="Denna mall är ogiltig."/>
 	<string id="20199" value="(stänger efter överföringar)"/>
 	<string id="20200" value="Lade till &quot;%s&quot; till nedladdningslistan med %i källor."/>
 	<string id="20201" value="Filen &quot;%s&quot; laddas redan ned, lägger till källor."/>
@@ -2909,14 +2909,15 @@
 	<string id="20372" value="Gnutella - proportion av mottagna/skickade pings"/>
 	<string id="20373" value="Gnutella - proportion av mottagna/skickade pongs"/>
 	<string id="20374" value="Gnutella lokala frågor"/>
-	<string id="20375" value="Gnutellapaket routade"/>
-	<string id="20376" value="Total allmän mottagningsbandbredd"/>
-	<string id="20377" value="Total allmän sändningsbandbredd"/>
-	<string id="20378" value="Total TCP-mottagningsbandbredd"/>
-	<string id="20379" value="Total TCP-sändningsbandbredd"/>
-	<string id="20380" value="Total UDP-mottagningsbandbredd"/>
-	<string id="20381" value="Total UDP-sändningsbandbredd"/>
-	<string id="20382" value="Uppladdningsbandbredd"/>
+	<string id="20375" value="Gnutella lokala frågor"/>
+	<string id="20376" value="Gnutellapaket routade"/>
+	<string id="20377" value="Total allmän mottagningsbandbredd"/>
+	<string id="20378" value="Total allmän sändningsbandbredd"/>
+	<string id="20379" value="Total TCP-mottagningsbandbredd"/>
+	<string id="20380" value="Total TCP-sändningsbandbredd"/>
+	<string id="20381" value="Total UDP-mottagningsbandbredd"/>
+	<string id="20382" value="Total UDP-sändningsbandbredd"/>
+	<string id="20383" value="Uppladdningsbandbredd"/>
 	<string id="20384" value="Uppladdningsöverföringar"/>
 	<string id="20385" value="Anslutande granne %s byter till skyddat lövläge."/>
 	<string id="20386" value="Stänger överflödig anslutning från %s med värdtips (%s port %i)."/>
@@ -3086,8 +3087,8 @@
 	<string id="20582" value="Grannen %s skickade ett pongpaket med felaktig längd, ignorerar."/>
 	<string id="20583" value="Grannen %s skickade ett paket för anslutningsbegämed felaktig längd, ignorerar."/>
 	<string id="20584" value="Grannen %s skickade ett paket med för stor storlek, släpper anslutning."/>
-	<string id="20585" value="Grannen %s skickade vidare ett felaktigt paket (0x%.2x), ignorerar."/>
-	<string id="20586" value="Grannen %s skickade ett pongpaket med en felaktig adress, ignorerar."/>
+	<string id="20586" value="Grannen %s skickade vidare ett felaktigt paket (0x%.2x), ignorerar."/>
+	<string id="20587" value="Grannen %s skickade ett pongpaket med en felaktig adress, ignorerar."/>
 	<string id="20588" value="Grannen %s skickade vidare en anslutningsbegäran till en adress bakom brandvägg, ignorerar."/>
 	<string id="20590" value="Fjärråtkomst är avstängd."/>
 	<string id="20591" value="http://%s:%i/remote - välja ett användarnamn och lösenord."/>
@@ -3306,13 +3307,14 @@
 	<string id="20870" value="Kan inte tolka URL: PeerProject förstår inte denna URL."/>
 	<string id="20871" value="Mottog URL &quot;%s&quot;"/>
 	<string id="20872" value="Typ:"/>
-	<string id="20874" value="Ospecifierad"/>
-	<string id="20875" value="URL:"/>
+	<string id="20874" value="URL:"/>
+	<string id="20875" value="Ospecifierad"/>
 	<string id="20880" value="Redigera min profil"/>
-	<string id="20881" value="Vid vyändring stängs alla öppna fönster. Vill du ändra vy nu?"/>
-	<string id="20882" value="Värdtjänsten för UPnP-enheter körs inte. Tjänsten är nödvöndig för installationen.\nDu behöver ställa in automatisk uppstart för tjänsten."/>
-	<string id="20884" value="Ingen URN tillgänglig"/>
-	<string id="20885" value="Att ändra gränssnittets riktning kräver omstart. \nDu måste starta om PeerProject manuellt. Avsluta nu?"/>
+	<string id="20881" value="%u filer valt. Är du säker?"/>
+	<string id="20882" value="Ingen URN tillgänglig"/>
+	<string id="20883" value="Värdtjänsten för UPnP-enheter körs inte. Tjänsten är nödvöndig för installationen.\nDu behöver ställa in automatisk uppstart för tjänsten."/>
+	<string id="20885" value="Vid vyändring stängs alla öppna fönster. Vill du ändra vy nu?"/>
+	<string id="20886" value="Att ändra gränssnittets riktning kräver omstart. \nDu måste starta om PeerProject manuellt. Avsluta nu?"/>
 	<string id="20890" value="Välkommen till PeerProject"/>
 	<string id="20891" value="Avsluta"/>
 	<string id="20892" value="Var god vänta: Uppdaterar eDonkey serverlista..."/>

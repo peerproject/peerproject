@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Polish Skin File -->
 
-<!-- Translation based on default-en.xml r66 (Shareaza 2.1.2.7) -->
+<!-- Translation based on default-en.xml r67 (Shareaza 2.1.2.7) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2177,8 +2177,8 @@
 	<tip id="ID_LIBRARY_ALBUM_DELETE" message="Usuń zaznaczony folder albumu."/>
 	<tip id="ID_LIBRARY_ALBUM_OPEN" message="Otwórz zaznaczony folder albumu."/>
 	<tip id="ID_LIBRARY_ALBUM_PROPERTIES" message="Pokaż i edytuj właściwości zaznaczonego folderu albumu..."/>
-	<tip id="ID_LIBRARY_BITZI_DOWNLOAD" message="Pobierz metadane dla zaznaczonego(ych) pliku(ów) od Bitzi(TM)..."/>
-	<tip id="ID_LIBRARY_BITZI_WEB" message="Pokaż bilet Bitzi(TM) dla zaznaczonego pliku."/>
+	<tip id="ID_LIBRARY_BITZI_DOWNLOAD" message="Pobierz metadane dla zaznaczonego(ych) pliku(ów) od Bitzi™..."/>
+	<tip id="ID_LIBRARY_BITZI_WEB" message="Pokaż bilet Bitzi™ dla zaznaczonego pliku."/>
 	<tip id="ID_LIBRARY_COLUMNS" message="Wybierz kolumny metadanych do wyświetlenia..."/>
 	<tip id="ID_LIBRARY_COPY" message="Skopiuj zaznaczony plik do innego folderu zasobów..."/>
 	<tip id="ID_LIBRARY_CREATETORRENT" message="Stwórz plik .torrent dla tego pliku do wysłania na stronę internetową."/>
@@ -2541,13 +2541,13 @@
 	<string id="20184" value="Żądanie prywatnej rozmowy z użytkownikiem..."/>
 	<string id="20185" value="Autentykacja użytkownika potwierdzona"/>
 	<string id="20186" value="Zaakceptowano połącznie typu push od %s, witanie..."/> <!-- Jak powiedzieć ładnie push? Accepted push connection? -->
-	<string id="20188" value="Requesting a firewalled push connection from %s..."/>
-	<string id="20190" value="Connection failed due to invalid data on the wire."/>
-	<string id="20191" value="Received an unknown response: %s"/>
-	<string id="20192" value="Nie jesteś połączony."/>
-	<string id="20193" value="Unrecognised command &quot;%s&quot;."/>
-	<string id="20194" value="This template does not have any customizations."/>
-	<string id="20195" value="This template is invalid."/>
+	<string id="20187" value="Requesting a firewalled push connection from %s..."/>
+	<string id="20188" value="Connection failed due to invalid data on the wire."/>
+	<string id="20189" value="Received an unknown response: %s"/>
+	<string id="20190" value="Nie jesteś połączony."/>
+	<string id="20191" value="Unrecognised command &quot;%s&quot;."/>
+	<string id="20196" value="This template does not have any customizations."/>
+	<string id="20197" value="This template is invalid."/>
 	<string id="20199" value="(zamykanie po zakończeniu transferów)"/>
 	<string id="20207" value="Czy jesteś pewien(a), że chcesz anulować/abort wszystkie pobierania w tej grupie?"/>
 	<string id="20222" value="Wpisałeś wartośc hasha eDonkey, jednakże jest on nieprawidłowa. Proszę sprawdzić i spróbować ponownie."/>
@@ -2633,16 +2633,17 @@
 	<string id="20371" value="Przesłano pakiety Gnutelli"/>
 	<string id="20372" value="Gnutella, współczynnik Pingów odebranych/wysłanych"/>
 	<string id="20373" value="Gnutella, współczynnik Pongów odebranych/wysłanych"/>
-	<string id="20374" value="Gnutella Local Queries"/>
-	<string id="20375" value="Gnutella Packets Routed"/>
-	<string id="20376" value="Total Generic Receive Bandwidth"/>
-	<string id="20377" value="Total Generic Transmit Bandwidth"/>
-	<string id="20378" value="Total TCP Receive Bandwidth"/>
-	<string id="20379" value="Total TCP Transmit Bandwidth"/>
-	<string id="20380" value="Total UDP Receive Bandwidth"/>
-	<string id="20381" value="Total UDP Transmit Bandwidth"/>
-	<string id="20382" value="Upload Bandwidth"/>
-	<string id="20384" value="Upload Transfer Count"/>
+<!--	<string id="20374" value="Gnutella Queries Incoming"/>
+	<string id="20375" value="Gnutella Queries Processed"/>
+	<string id="20376" value="Gnutella Packets Routed"/>
+	<string id="20377" value="Total Generic Receive Bandwidth"/>
+	<string id="20378" value="Total Generic Transmit Bandwidth"/>
+	<string id="20379" value="Total TCP Receive Bandwidth"/>
+	<string id="20380" value="Total TCP Transmit Bandwidth"/>
+	<string id="20381" value="Total UDP Receive Bandwidth"/>
+	<string id="20382" value="Total UDP Transmit Bandwidth"/>
+	<string id="20383" value="Upload Bandwidth"/>
+-->	<string id="20384" value="Upload Transfer Count"/>
 	<string id="20400" value="PeerProject oblicza hash'e dla %Iu plików:"/>
 	<string id="20402" value="Dodaj"/>
 	<string id="20403" value="Kanały"/>
@@ -2939,13 +2940,14 @@
 	<string id="20870" value="Unable to parse URL: PeerProject does not understand this URL."/>
 	<string id="20871" value="Received URL &quot;%s&quot;"/>
 	<string id="20872" value="Typ:"/>
-	<string id="20874" value="Nieokreślony"/>
-	<string id="20875" value="URL:"/>
+	<string id="20874" value="URL:"/>
+	<string id="20875" value="Nieokreślony"/>
 	<string id="20880" value="Edytuj mój profil"/>
-	<string id="20881" value="Zmiana widoku spowoduje zamknięcie wszystkich okien. Czy chciałbyś zrobić to teraz?"/>
-	<string id="20882" value="Usługa UPnP Device Host nie funkcjonuje. Ta usługa jest konieczna do wykonania ustawień.\nTrzeba ustawić sposób uruchomienia usługi na automatyczny."/>
-	<string id="20884" value="No URN available"/>
-	<string id="20885" value="Changing interface direction requires restart. \nYou will need to start PeerProject manually.\n\nExit now?"/>
+	<string id="20881" value="%u wybranych plików. Czy na pewno?"/>
+	<string id="20882" value="No URN available"/>
+	<string id="20883" value="Usługa UPnP Device Host nie funkcjonuje. Ta usługa jest konieczna do wykonania ustawień.\nTrzeba ustawić sposób uruchomienia usługi na automatyczny."/>
+	<string id="20885" value="Zmiana widoku spowoduje zamknięcie wszystkich okien. Czy chciałbyś zrobić to teraz?"/>
+	<string id="20886" value="Changing interface direction requires restart. \nYou will need to start PeerProject manually.\n\nExit now?"/>
 	<string id="20890" value="Witaj w PeerProjecte"/>
 	<string id="20891" value="Wyjście"/>
 	<string id="20892" value="Proszę czekać: Aktualizowanie listy serwera eDonkey..."/>

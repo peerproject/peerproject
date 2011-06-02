@@ -1,7 +1,7 @@
 //
 // NeighboursBase.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -33,30 +33,21 @@ protected:
 	CNeighboursBase();
 	virtual ~CNeighboursBase();
 
-
 public:
-	DWORD m_nBandwidthIn;	// Total number of bytes transferred through all the sockets, in each direction
-	DWORD m_nBandwidthOut;
-
-	POSITION    GetIterator()          const;	// Call GetIterator to get the POSITION value
-	CNeighbour* GetNext(POSITION& pos) const;	// Give the POSITION to GetNext to get the neighbour beneath it and move to the next one
-	CNeighbour* Get(DWORD_PTR nUnique) const;	// Lookup a neighbour by its unique number, like 2, 3, 4, and so on
+	POSITION    GetIterator() const;				// Call GetIterator to get the POSITION value
+	CNeighbour* GetNext(POSITION& pos) const;		// Give the POSITION to GetNext to get the neighbour beneath it and move to the next one
+	CNeighbour* Get(DWORD_PTR nUnique) const;		// Lookup a neighbour by its unique number, like 2, 3, 4, and so on
 	CNeighbour* Get(const IN_ADDR& pAddress) const;	// Lookup a neighbour by the remote computer's IP address
 	CNeighbour* GetNewest(PROTOCOLID nProtocol, int nState, int nNodeType) const;	// Finds the newest neighbour object
 
 	// Count how many computers we are connected to, specifying various filtering characteristics
 	// pass -1 to not filter by protocol, state, or node type
 	DWORD GetCount(PROTOCOLID nProtocol, int nState, int nNodeType) const;
-	//BOOL NeighbourExists(PROTOCOLID nProtocol, int nState, int nNodeType) const; // Use this if you just want to know if there are any or not
+	//BOOL NeighbourExists(PROTOCOLID nProtocol, int nState, int nNodeType) const;	// Use this if you just want to know if there are any or not
 
 	// Add and remove neighbour objects from the list
 	virtual void Add(CNeighbour* pNeighbour);
 	virtual void Remove(CNeighbour* pNeighbour);
-
-	inline DWORD GetStableCount() const
-	{
-		return m_nStableCount;
-	}
 
 protected:
 	// Methods implemented by several classes in the CNeighbours inheritance column
@@ -71,7 +62,4 @@ private:
 	CAMap	m_pNeighbours;	// The list of remote computers we are connected to
 	CNMap	m_pIndex;		// Additional index
 	DWORD	m_nRunCookie;	// OnRun uses this to run each neighbour once even if GetNext returns the same one more than once in the loop
-	DWORD	m_nStableCount;	// The number of connections we have older than 1.5 seconds and finished with the handshake
-	DWORD	m_nLeafCount;	// The number of connections we have that are down to leaf nodes below us
-	DWORD	m_nLeafContent;	// The total size in bytes of all of the files all of these leaves are sharing
 };

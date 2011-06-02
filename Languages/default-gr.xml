@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Greek Skin File -->
 
-<!-- Translation based on default-en.xml r66 -->
+<!-- Translation based on default-en.xml r67 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2467,8 +2467,8 @@
 	<tip id="ID_LIBRARY_ALBUM_DELETE" message="Διαγραφή επιλεγμένου album."/>
 	<tip id="ID_LIBRARY_ALBUM_OPEN" message="Άνοιγμα επιλεγμένου album."/>
 	<tip id="ID_LIBRARY_ALBUM_PROPERTIES" message="Προβολή και επεξεργασία ιδιοτήτων επιλεγμένου album..."/>
-	<tip id="ID_LIBRARY_BITZI_DOWNLOAD" message="Λήψη metadata για τα επιλεγμένα αρχεία από το Bitzi(TM)..."/>
-	<tip id="ID_LIBRARY_BITZI_WEB" message="Προβολή Bitzi(TM) ticket για το επιλεγμένο αρχείο."/>
+	<tip id="ID_LIBRARY_BITZI_DOWNLOAD" message="Λήψη metadata για τα επιλεγμένα αρχεία από το Bitzi™..."/>
+	<tip id="ID_LIBRARY_BITZI_WEB" message="Προβολή Bitzi™ ticket για το επιλεγμένο αρχείο."/>
 	<tip id="ID_LIBRARY_COLUMNS" message="Επιλογή στηλών metadata που θα εμφανίζονται..."/>
 	<tip id="ID_LIBRARY_COPY" message="Αντιγραφή επιλεγμένων αρχείων σε άλλο φάκελο της Βιβλιοθήκης..."/>
 	<tip id="ID_LIBRARY_CREATETORRENT" message="Δημιουργία .torrent αυτού του αρχείου για αποστολή σε έναν ιστότοπο."/>
@@ -2833,13 +2833,13 @@
 	<string id="20184" value="Αίτηση Συνομιλία με Χρήστης με τον χρήστη..."/>
 	<string id="20185" value="Πιστοποιημένος χρήστης"/>
 	<string id="20186" value="Αποδοχή σύνδεσης προώθησης από %s, χειραψία..."/>
-	<string id="20188" value="Αίτηση προς %s για σύνδεση προώθησης πίσω από firewall..."/>
-	<string id="20190" value="Αποτυχία σύνδεσης, λόγω μη έγκυρων δεδομένων στο καλώδιο."/>
-	<string id="20191" value="Παραλαβή άγνωστης απάντησης: %s"/>
-	<string id="20192" value="Δεν είστε ενωμένοι."/>
-	<string id="20193" value="Μη αναγνωρίσιμη εντολή &quot;%s&quot;."/>
-	<string id="20194" value="Αυτό το πρότυπο δεν έχει επιλογές προσαρμογής."/>
-	<string id="20195" value="Αυτό το πρότυπο δεν είναι έγκυρο."/>
+	<string id="20187" value="Αίτηση προς %s για σύνδεση προώθησης πίσω από firewall..."/>
+	<string id="20188" value="Αποτυχία σύνδεσης, λόγω μη έγκυρων δεδομένων στο καλώδιο."/>
+	<string id="20189" value="Παραλαβή άγνωστης απάντησης: %s"/>
+	<string id="20190" value="Δεν είστε ενωμένοι."/>
+	<string id="20191" value="Μη αναγνωρίσιμη εντολή &quot;%s&quot;."/>
+	<string id="20196" value="Αυτό το πρότυπο δεν έχει επιλογές προσαρμογής."/>
+	<string id="20197" value="Αυτό το πρότυπο δεν είναι έγκυρο."/>
 	<string id="20199" value="(κλείσιμο μετά τις μεταφορές)"/>
 	<string id="20200" value="Προσθήκη του &quot;%s&quot; στην ουρά λήψης με %i πηγές."/>
 	<string id="20201" value="Το αρχείο &quot;%s&quot; ήδη λαμβάνεται, συμψηφισμός πηγών."/>
@@ -2996,14 +2996,15 @@
 	<string id="20372" value="Αναλογία Ληφθέντων/Σταλμένων Pings Gnutella"/>
 	<string id="20373" value="Αναλογία Ληφθέντων/Σταλμένων Pongs Gnutella"/>
 	<string id="20374" value="Τοπικές Ερωτήσεις Gnutella"/>
-	<string id="20375" value="Δρομολογηθέντα Πακέτα Gnutella"/>
-	<string id="20376" value="Συνολικό εύρος ζώνης Παραλαβής πάσης φύσεως"/>
-	<string id="20377" value="Συνολικό εύρος ζώνης Αποστολής πάσης φύσεως"/>
-	<string id="20378" value="Συνολικό εύρος ζώνης Παραλαβής TCP"/>
-	<string id="20379" value="Συνολικό εύρος ζώνης Αποστολής TCP"/>
-	<string id="20380" value="Συνολικό εύρος ζώνης Παραλαβής UDP"/>
-	<string id="20381" value="Συνολικό εύρος ζώνης Αποστολής UDP"/>
-	<string id="20382" value="Εύρος ζώνης Αποστολής"/>
+	<string id="20375" value="Τοπικές Ερωτήσεις Gnutella"/>
+	<string id="20376" value="Δρομολογηθέντα Πακέτα Gnutella"/>
+	<string id="20377" value="Συνολικό εύρος ζώνης Παραλαβής πάσης φύσεως"/>
+	<string id="20378" value="Συνολικό εύρος ζώνης Αποστολής πάσης φύσεως"/>
+	<string id="20379" value="Συνολικό εύρος ζώνης Παραλαβής TCP"/>
+	<string id="20380" value="Συνολικό εύρος ζώνης Αποστολής TCP"/>
+	<string id="20381" value="Συνολικό εύρος ζώνης Παραλαβής UDP"/>
+	<string id="20382" value="Συνολικό εύρος ζώνης Αποστολής UDP"/>
+	<string id="20383" value="Εύρος ζώνης Αποστολής"/>
 	<string id="20384" value="Μετρητής Upload Transfer Count"/>
 	<string id="20385" value="Υπαναχώρηση σε θωρακισμένο του συνδεόμενου κόμβου %s."/>
 	<string id="20386" value="Κλείσιμο πλεονάζουσας σύνδεσης από %s με host hint (%s θύρα %i)."/>
@@ -3174,8 +3175,8 @@
 	<string id="20582" value="Αγνόηση πακέτου pong με μη έγκυρο μήκος, προωθημένο από τον γείτονα %s."/>
 	<string id="20583" value="Αγνόηση πακέτου push με μη έγκυρο μήκος, προωθημένο από τον γείτονα %s."/>
 	<string id="20584" value="Απόρριψη σύνδεσης με τον γείτονα %s, λόγω προώθησης πακέτου υπερβολικού μεγέθους."/>
-	<string id="20585" value="Αγνόηση μη αναγνωρίσιμου πακέτου, προωθημένου από τον γείτονα %s (0x%.2x)."/>
-	<string id="20586" value="Αγνόηση πακέτου pong με μη έγκυρα δεδομένα διεύθυνσης, προωθημένο από τον γείτονα %s."/>
+	<string id="20586" value="Αγνόηση μη αναγνωρίσιμου πακέτου, προωθημένου από τον γείτονα %s (0x%.2x)."/>
+	<string id="20587" value="Αγνόηση πακέτου pong με μη έγκυρα δεδομένα διεύθυνσης, προωθημένο από τον γείτονα %s."/>
 	<string id="20588" value="Αγνόηση πακέτου αίτησης push προς διεύθυνση πίσω από firewall, προωθημένο από τον γείτονα %s."/>
 	<string id="20590" value="Η απομακρυσμένη πρόσβαση είναι απενεργοποιημένη."/>
 	<string id="20591" value="http://%s:%i/remote - Πρέπει να διαλέξετε ένα όνομα και έναν κωδικό."/>
@@ -3394,13 +3395,14 @@
 	<string id="20870" value="Αδυναμία ανάλυσης URL: Μη κατανοητό URL."/>
 	<string id="20871" value="Ληφθέντες URL &quot;%s&quot;"/>
 	<string id="20872" value="Τύπος:"/>
-	<string id="20874" value="Απροσδιόριστο"/>
-	<string id="20875" value="URL:"/>
+	<string id="20874" value="URL:"/>
+	<string id="20875" value="Απροσδιόριστο"/>
 	<string id="20880" value="Επεξεργασία Προφίλ"/>
-	<string id="20881" value="Η αλλαγή της προβολής θα κλείσει ό,τι παράθυρα έχετε ανοιχτά. Θέλετε να γίνει τώρα;"/>
-	<string id="20882" value="Η υπηρεσία Host για συσκευές UPnP δεν τρέχει. Η υπηρεσία απαιτείται για την επίτευξη της ρύθμισης.nΧρειάζεται να θέσετε τον τύπο εκκίνησης της υπηρεσίας στο αυτόματο."/>
-	<string id="20884" value="Μη διαθέσιμο URN"/>
-	<string id="20885" value="Η αλλαγή της κατεύθυνσης χρειάζεται επανεκκίνηση.\nΘα χρειαστεί να εκκινήσετε το PeerProject χειροκίνητα. Έξοδος;"/>
+	<string id="20881" value="%u Αρχεία επιλέξει. Είσαι σίγουρος;"/>
+	<string id="20882" value="Μη διαθέσιμο URN"/>
+	<string id="20883" value="Η υπηρεσία Host για συσκευές UPnP δεν τρέχει. Η υπηρεσία απαιτείται για την επίτευξη της ρύθμισης.nΧρειάζεται να θέσετε τον τύπο εκκίνησης της υπηρεσίας στο αυτόματο."/>
+	<string id="20885" value="Η αλλαγή της προβολής θα κλείσει ό,τι παράθυρα έχετε ανοιχτά. Θέλετε να γίνει τώρα;"/>
+	<string id="20886" value="Η αλλαγή της κατεύθυνσης χρειάζεται επανεκκίνηση.\nΘα χρειαστεί να εκκινήσετε το PeerProject χειροκίνητα. Έξοδος;"/>
 	<string id="20890" value="Καλώς ήρθατε στο PeerProject"/>
 	<string id="20891" value="E&amp;xit"/>
 	<string id="20892" value="Παρακαλώ περιμένετε: Ενημέρωση λίστας ED2K server..."/>

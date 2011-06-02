@@ -1,7 +1,7 @@
 //
 // DlgMessage.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2009-2010
+// This file is part of PeerProject (peerproject.org) © 2009-2011
 // Portions copyright Shareaza Development Team, 2009.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -68,7 +68,8 @@ BOOL CMessageDlg::OnInitDialog()
 	dc.DrawText( m_sText, &rcCalc, DT_CALCRECT | DT_WORDBREAK | DT_NOPREFIX );
 	dc.SelectObject( pOldFont );
 	rcCalc.bottom += 16;
-	if ( rcCalc.Height() < 64 ) rcCalc.bottom = rc.top + 64;
+	if ( rcCalc.Height() < 64 )
+		rcCalc.bottom = rc.top + 64;
 	int delta_height = rcCalc.Height() - rc.Height();
 	m_pText.MoveWindow( &rcCalc );
 
@@ -353,48 +354,48 @@ INT_PTR CMessageDlg::DoModal()
 			// 0 - ask, 1 - ok, 2 - cancel
 			if ( *m_pnDefault == 1 )
 				return IDOK;
-			else if ( *m_pnDefault == 2 )
+			if ( *m_pnDefault == 2 )
 				return IDCANCEL;
 			break;
 		case MB_ABORTRETRYIGNORE:
 			// 0 - ask, 1 - abort, 2 - retry, 3 - ignore
 			if ( *m_pnDefault == 1 )
 				return IDABORT;
-			else if ( *m_pnDefault == 2 )
+			if ( *m_pnDefault == 2 )
 				return IDRETRY;
-			else if ( *m_pnDefault == 3 )
+			if ( *m_pnDefault == 3 )
 				return IDIGNORE;
 			break;
 		case MB_YESNOCANCEL:
 			// 0 - ask, 1 - no, 2 - yes, 3 - cancel
 			if ( *m_pnDefault == 1 )
 				return IDNO;
-			else if ( *m_pnDefault == 2 )
+			if ( *m_pnDefault == 2 )
 				return IDYES;
-			else if ( *m_pnDefault == 3 )
+			if ( *m_pnDefault == 3 )
 				return IDCANCEL;
 			break;
 		case MB_YESNO:
 			// 0 - ask, 1 - no, 2 - yes
 			if ( *m_pnDefault == 1 )
 				return IDNO;
-			else if ( *m_pnDefault == 2 )
+			if ( *m_pnDefault == 2 )
 				return IDYES;
 			break;
 		case MB_RETRYCANCEL:
 			// 0 - ask, 1 - retry, 2 - cancel
 			if ( *m_pnDefault == 1 )
 				return IDRETRY;
-			else if ( *m_pnDefault == 2 )
+			if ( *m_pnDefault == 2 )
 				return IDCANCEL;
 			break;
 		case MB_CANCELTRYCONTINUE:
 			// 0 - ask, 1 - cancel, 2 - try again, 3 - continue
 			if ( *m_pnDefault == 1 )
 				return IDCANCEL;
-			else if ( *m_pnDefault == 2 )
+			if ( *m_pnDefault == 2 )
 				return IDTRYAGAIN;
-			else if ( *m_pnDefault == 3 )
+			if ( *m_pnDefault == 3 )
 				return IDCONTINUE;
 			break;
 		}
@@ -470,9 +471,7 @@ INT_PTR MsgBox(LPCTSTR lpszText, UINT nType, UINT /*nIDHelp*/, DWORD* pnDefault)
 	return dlg.DoModal();
 }
 
-INT_PTR MsgBox(UINT nIDPrompt, UINT nType, UINT nIDHelp, DWORD* pnDefault)
+INT_PTR MsgBox(UINT nIDPrompt, UINT nType, UINT /*nIDHelp*/, DWORD* pnDefault)
 {
-	CString strText;
-	Skin.LoadString( strText, nIDPrompt );
-	return MsgBox( (LPCTSTR)strText, nType, nIDHelp, pnDefault );
+	return MsgBox( LoadString( nIDPrompt ), nType, NULL, pnDefault );
 }

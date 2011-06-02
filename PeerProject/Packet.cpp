@@ -1,7 +1,7 @@
 //
 // Packet.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -174,7 +174,7 @@ void CPacket::WriteString(LPCTSTR pszString, BOOL bNull)
 	WideCharToMultiByte( CP_ACP, 0, pszString, -1, pszByte.get(), nByte, NULL, NULL );
 
 	// Write the ANSI text into the end of the packet
-	Write( pszByte.get(), nByte - ( bNull ? 0 : 1 ) ); // If bNull is true, also write the null terminator which got converted
+	Write( pszByte.get(), nByte - ( bNull ? 0 : 1 ) );		// If bNull is true, also write the null terminator which got converted
 }
 
 // Determines how many bytes of ANSI text it would turn into when converted
@@ -185,7 +185,7 @@ int CPacket::GetStringLen(LPCTSTR pszString) const
 	if ( *pszString == 0 ) return 0;
 
 	// Find the number of characters in the text
-	int nLength = static_cast< int >( _tcslen( pszString ) ); // Same as lstrlen, doesn't include null terminator
+	int nLength = static_cast< int >( _tcslen( pszString ) );	// Same as lstrlen, doesn't include null terminator
 
 	// Find out how many ANSI bytes the text would convert into, and return that number
 	nLength = WideCharToMultiByte( CP_ACP, 0, pszString, nLength, NULL, 0, NULL, NULL );
@@ -218,7 +218,7 @@ void CPacket::WriteStringUTF8(LPCTSTR pszString, BOOL bNull)
 	WideCharToMultiByte( CP_UTF8, 0, pszString, -1, pszByte.get(), nByte, NULL, NULL );
 
 	// Write the ASCII text into the end of the packet
-	Write( pszByte.get(), nByte - ( bNull ? 0 : 1 ) ); // If bNull is true, also write the null terminator which got converted
+	Write( pszByte.get(), nByte - ( bNull ? 0 : 1 ) );	// If bNull is true, also write the null terminator which got converted
 }
 
 // Determines how many bytes of ASCII text it would turn into when converted with the UTF8 code page
@@ -297,7 +297,7 @@ CString CPacket::ToHex() const
 
 	// Make a string and open it to write the characters in it directly, for speed
 	CString strDump;
-	LPTSTR pszDump = strDump.GetBuffer( m_nLength * 3 ); // Each byte will become 3 characters
+	LPTSTR pszDump = strDump.GetBuffer( m_nLength * 3 );	// Each byte will become 3 characters
 
 	// Loop i down each byte in the packet
 	for ( DWORD i = 0 ; i < m_nLength ; i++ )
@@ -348,19 +348,17 @@ CString CPacket::ToASCII() const
 //////////////////////////////////////////////////////////////////////
 // CPacket debugging
 
-// Classes that inherit from CPacket override this with their own Debug methods that record debugging information
+// Classes that inherit from CPacket override this with their own Debug-only methods that record debugging information
 // Takes text that describes what happened
+#ifdef _DEBUG
 void CPacket::Debug(LPCTSTR pszReason) const
 {
-#ifdef _DEBUG
 	if ( m_nLength )
 		theApp.Message( MSG_DEBUG, _T("%s Size: %u bytes ASCII: %s HEX: %s"), pszReason, m_nLength, (LPCTSTR)ToASCII(), (LPCTSTR)ToHex() );
 	else
 		theApp.Message( MSG_DEBUG, _T("%s Size: %u bytes"), pszReason, m_nLength );
-#else
-	UNUSED_ALWAYS(pszReason);
-#endif
 }
+#endif	// Debug
 
 //////////////////////////////////////////////////////////////////////
 // CPacket smart dumping
@@ -370,8 +368,8 @@ void CPacket::Debug(LPCTSTR pszReason) const
 void CPacket::SmartDump(const SOCKADDR_IN* pAddress, BOOL bUDP, BOOL bOutgoing, DWORD_PTR nNeighbourUnique) const
 {
 	// Get exclusive access to the program's critical section while this method runs
-	CSingleLock pLock( &theApp.m_pSection ); // When the method exits, pLock will go out of scope, be destructed, and release the lock
-	if ( pLock.Lock( 50 ) ) // If we wait more than 1/20th of a second for access, Lock will return false so we can just give up
+	CSingleLock pLock( &theApp.m_pSection );	// When the method exits, pLock will go out of scope, be destructed, and release the lock
+	if ( pLock.Lock( 50 ) )		// If we wait more than 1/20th of a second for access, Lock will return false so we can just give up
 	{
 		// Get a pointer to the main PeerProject window
 		if ( CMainWnd* pMainWnd = theApp.SafeMainWnd() )
@@ -452,10 +450,9 @@ CPacketPool::~CPacketPool()
 void CPacketPool::Clear()
 {
 	// Loop from the end of the pointer array back to the start
-	for (
-		INT_PTR nIndex = m_pPools.GetSize() - 1;	// GetSize returns the number of pointers in the array, start nIndex on the last one
-		nIndex >= 0; 				// If nIndex reaches 0, loop one more time, when it's -1, don't do the loop anymore
-		nIndex-- )					// Move back one index in the pointer array
+	// GetSize returns the number of pointers in the array, start nIndex on the last one
+	// Iterate back one index in the pointer array, including 0, stop when it's -1
+	for ( INT_PTR nIndex = m_pPools.GetSize() - 1 ; nIndex >= 0 ; nIndex-- )
 	{
 		// Point pPool at the packet pool at that position in the array
 		CPacket* pPool = m_pPools.GetAt( nIndex );

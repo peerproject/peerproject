@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Albanian Skin File -->
 
-<!-- Translation based on default-en.xml r66 -->
+<!-- Translation based on default-en.xml r67 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2458,8 +2458,8 @@
 	<tip id="ID_LIBRARY_ALBUM_DELETE" message="Fshin dosjen e zgjedhur me albume."/>
 	<tip id="ID_LIBRARY_ALBUM_OPEN" message="Hap dosjen e zgjedhur me albume."/>
 	<tip id="ID_LIBRARY_ALBUM_PROPERTIES" message="Tregon dhe editon vetitë e dosjes së zgjedhur me albume..."/>
-	<tip id="ID_LIBRARY_BITZI_DOWNLOAD" message="Shkarkon metadatat për skedën e zgjedhur me Bitzi(TM)..."/>
-	<tip id="ID_LIBRARY_BITZI_WEB" message="Tregon biletën Bitzi(TM) në rrjet për skedën e zgjedhur."/>
+	<tip id="ID_LIBRARY_BITZI_DOWNLOAD" message="Shkarkon metadatat për skedën e zgjedhur me Bitzi™..."/>
+	<tip id="ID_LIBRARY_BITZI_WEB" message="Tregon biletën Bitzi™ në rrjet për skedën e zgjedhur."/>
 	<tip id="ID_LIBRARY_COLUMNS" message="Zgjedh kolonat me metadatat që do të shfaqen..."/>
 	<tip id="ID_LIBRARY_COPY" message="Kopjon skedën e zgjedhur në një dosje tjetër në librari..."/>
 	<tip id="ID_LIBRARY_CREATETORRENT" message="Krijon një .torrent për skedën që ajo të ngarkohet në truall."/>
@@ -2779,8 +2779,8 @@
 	<string id="20161" value="E pamundur të krijohet një lidhje te %s."/>
 	<string id="20163" value="Lidhja u mbyll."/>
 	<string id="20167" value="Nis një lidhje te %s..."/>
-	<string id="20194" value="Kjo tempujkë nuk të jep mundësi zgjedhjeje."/>
-	<string id="20195" value="Kjo tempujkë është jokorrekte."/>
+	<string id="20196" value="Kjo tempujkë nuk të jep mundësi zgjedhjeje."/>
+	<string id="20197" value="Kjo tempujkë është jokorrekte."/>
 	<string id="20199" value="(mbylle pas transferimit)"/>
 	<string id="20222" value="Ju shkruat një vlerë hashi për eDonkey, gjithsesi nuk ka vlerë. Ju lutemi rishikoni dhe provoni përsëri."/>
 	<string id="20224" value="Ju lutemi shkruani një kufi të vlefshëm për të fshirë.  Fusha &quot;nga&quot; është bajti i parë për t'u fshirë, fusha &quot;fundit&quot; është bajti i fundit për t'u fshirë."/>
@@ -2826,6 +2826,7 @@
 	<string id="20355" value="A jeni i sigurt që ky filtër të fshihet?"/>
 	<string id="20356" value="Filtri i quajtur &quot;%s&quot; ekziston që më parë, a doni të zëvendësohet?"/>
 	<string id="20358" value="Ju lutemi emërtoni filtrin tuaj."/>
+	<!-- Missing Graph Strings -->
 	<string id="20385" value="Fqinji në lidhje %s po kthehet pas në gjethe nyje me mburojë."/>
 	<string id="20386" value="Po mbyll lidhjen tepricë nga %s me këshillë hosti (%s porti %i)."/>
 	<string id="20387" value="Fqinji nyjë %s nuk na pranon si nyje, po mbyll lidhjen."/>
@@ -2961,8 +2962,8 @@
 	<string id="20581" value="Fqinji %s përcolli një paketë ping me gjatësi invalide, përbuzje."/>
 	<string id="20582" value="Fqinji %s përcolli një paketë pong me gjatësi invalide, përbuzje."/>
 	<string id="20584" value="Fqinji %s përcolli një paketë me masë të tepërt, lëshim i lidhjes."/>
-	<string id="20585" value="Fqinji %s përcolli një paketë të panjohur (0x%.2x), përbuzje."/>
-	<string id="20586" value="Fqinji %s përcolli një pong me të dhëna adrese invalide, përbuzje."/>
+	<string id="20586" value="Fqinji %s përcolli një paketë të panjohur (0x%.2x), përbuzje."/>
+	<string id="20587" value="Fqinji %s përcolli një pong me të dhëna adrese invalide, përbuzje."/>
 	<string id="20590" value="Hyrja në largësi është çaktivizuar."/>
 	<string id="20591" value="http://%s:%i/remote - një emër përdoruesi dhe fjalëkalimi."/>
 	<string id="20592" value="Nuk mund të pranoj lidhjet, URLi pa vlerë."/>
@@ -3120,13 +3121,14 @@
 	<string id="20867" value="Hosti:"/>
 	<string id="20868" value="Porti:"/>
 	<string id="20872" value="Lloji:"/>
-	<string id="20874" value="I pacaktuar"/>
-	<string id="20875" value="URLi:"/>
+	<string id="20874" value="URLi:"/>
+	<string id="20875" value="I pacaktuar"/>
 	<string id="20880" value="Edito Profilin Tim"/>
-	<string id="20881" value="Ndryshimi i pamjes do i mbyllë gjithë dritaret e hapura. A jeni i sigurt për këtë?"/>
-	<string id="20882" value="UPnP Device Host Service is not running. This service is required to perform the setup.\nYou need to set the startup type of the service to automatic."/>
-	<string id="20884" value="Asnjë URN me vlerë"/>
-	<string id="20885" value="Ndryshimi i drejtimit të ndërfaqes kërkon rinisje. \nPeerProject-n duhet ta nisni vetë. A doni të dilni?"/>
+	<string id="20881" value="%u skedës e zgjedhur. A jeni i sigurt?"/>
+	<string id="20882" value="Asnjë URN me vlerë"/>
+	<string id="20883" value="UPnP Device Host Service is not running. This service is required to perform the setup.\nYou need to set the startup type of the service to automatic."/>
+	<string id="20885" value="Ndryshimi i pamjes do i mbyllë gjithë dritaret e hapura. A jeni i sigurt për këtë?"/>
+	<string id="20886" value="Ndryshimi i drejtimit të ndërfaqes kërkon rinisje. \nPeerProject-n duhet ta nisni vetë. A doni të dilni?"/>
 	<string id="20890" value="Mirë se erdhe te PeerProject"/>
 	<string id="20891" value="Dalje"/>
 	<string id="20892" value="Palun oodake: Updating eDonkey server list..."/>

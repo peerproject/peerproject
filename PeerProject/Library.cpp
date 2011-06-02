@@ -575,8 +575,7 @@ BOOL CLibrary::IsBadFile(LPCTSTR pszFilenameOnly, LPCTSTR pszPathOnly, DWORD dwF
 
 		if ( pszFilenameOnly )
 		{
-			if ( _tcsicmp( pszFilenameOnly, _T("SThumbs.dat") ) == 0 ||				// Ignore our thumbnail database
-				_tcsicmp( pszFilenameOnly, _T("Thumbs.db") ) == 0 ||				// Ignore windows thumbnail database
+			if ( _tcsicmp( pszFilenameOnly, _T("Thumbs.db") ) == 0 ||				// Ignore windows thumbnail database
 				_tcsicmp( pszFilenameOnly, _T("dxva_sig.txt") ) == 0 ||				// Ignore video tag-file
 				_tcsnicmp( pszFilenameOnly, _T("~uTorrentPartFile_"), 18 ) == 0 ||	// uTorrent part files
 				_tcsnicmp( pszFilenameOnly, _T("___ARESTRA___"), 13 ) == 0 ||		// Ares Galaxy partials

@@ -20,8 +20,11 @@
 
 #include "Neighbour.h"
 
+class CPacket;
 class CG2Packet;
 class CHubHorizonGroup;
+class CQuerySearch;
+class CRouteCache;
 
 
 class CG2Neighbour : public CNeighbour
@@ -92,10 +95,9 @@ protected:
 	DWORD				m_tLastHAWOut;			// Time when HAW packet sent
 	DWORD				m_nCountHAWIn;			// Number of HAW packets recievied
 	DWORD				m_nCountHAWOut;			// Number of HAW packets sent
+	DWORD				m_tLastQueryIn;			// Time when Q2 packet recievied
+	DWORD				m_nCountQueryIn;		// Number of Q2 packets recievied
 	CList< CG2Packet* >	m_pOutbound;			// Queue of outbound packets
-	int					m_nQueryLimiter;		// Counter for query limiting
-	DWORD				m_tQueryTimer;			// Timer for query limiting
-	BOOL				m_bBlacklisted;			// Has this client been over-querying.
 	BOOL				m_bFirewalled;			// Is the client reporting they are firewalled from /LNI/FW
 
 protected:

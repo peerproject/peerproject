@@ -1,7 +1,7 @@
 //
 // EDPartImporter.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -106,7 +106,8 @@ int CEDPartImporter::Run()
 
 	Message( IDS_ED2K_EPI_FINISHED, m_nCount );
 
-	if ( m_nCount ) Downloads.Save();
+	if ( m_nCount )
+		Downloads.Save();
 
 	if ( bCOM )
 		OleUninitialize();
@@ -320,6 +321,7 @@ BOOL CEDPartImporter::ImportFile(LPCTSTR pszPath, LPCTSTR pszFile)
 	CFileStatus pStatus;
 	if ( ! pData.GetStatus( pStatus ) )
 		return FALSE;
+
 	pData.Close();
 
 	struct tm ptmTemp = {};
@@ -336,10 +338,10 @@ BOOL CEDPartImporter::ImportFile(LPCTSTR pszPath, LPCTSTR pszFile)
 	CDownload* pDownload = Downloads.Add();
 	if ( ! pDownload ) return FALSE;
 
+	pDownload->m_sName			= strName;
+	pDownload->m_nSize			= nSize;
 	pDownload->m_oED2K			= oED2K;
 	pDownload->m_bED2KTrusted	= true; // .part use trusted hashes
-	pDownload->m_nSize			= nSize;
-	pDownload->m_sName			= strName;
 	pDownload->Pause();
 
 	BYTE* pHashset = NULL;
@@ -355,6 +357,10 @@ BOOL CEDPartImporter::ImportFile(LPCTSTR pszPath, LPCTSTR pszFile)
 	DownloadGroups.Link( pDownload );
 
 	Message( IDS_ED2K_EPI_COPY_START, (LPCTSTR)strPath, (LPCTSTR)pDownload->m_sPath );
+
+//	CList < CString > oFiles;
+//	oFiles.AddHead( strPath );
+//	CDownloadTask::MergeFile( pDownload, &oFiles, FALSE, &oGaps );
 
 	CDownloadTask::MergeFile( pDownload, strPath, FALSE, &oGaps );
 

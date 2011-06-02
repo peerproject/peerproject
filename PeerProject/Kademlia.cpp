@@ -1,7 +1,7 @@
 //
 // Kademlia.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -54,8 +54,8 @@ BOOL CKademlia::Bootstrap(const SOCKADDR_IN* pHost, bool bKad2)
 {
 	if ( bKad2 )
 		return Send( pHost, KADEMLIA2_BOOTSTRAP_REQ );
-	else
-		return SendMyDetails( pHost, KADEMLIA_BOOTSTRAP_REQ, false );
+
+	return SendMyDetails( pHost, KADEMLIA_BOOTSTRAP_REQ, false );
 }
 
 BOOL CKademlia::SendMyDetails(const SOCKADDR_IN* pHost, BYTE nType, bool bKad2)
@@ -169,8 +169,14 @@ BOOL CKademlia::OnPacket(const SOCKADDR_IN* pHost, CEDPacket* pPacket)
 		return OnPacket_KADEMLIA2_PING( pHost, pPacket );
 	case KADEMLIA2_PONG:
 		return OnPacket_KADEMLIA2_PONG( pHost, pPacket );
+#ifdef _DEBUG
 	default:
-		pPacket->Debug( _T("Unknown KAD UDP opcode.") );
+		CString str;
+		str.Format( _T("Unknown KAD packet from %s:%u."),
+			(LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ),
+			htons( pHost->sin_port ) );
+		pPacket->Debug( str );
+#endif
 	}
 	return FALSE;
 }

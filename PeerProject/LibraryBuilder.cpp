@@ -375,7 +375,7 @@ void CLibraryBuilder::OnRun()
 	{
 		if ( ! theApp.m_bLive )
 		{
-			Sleep( 5000 );	// Delay load at startup	Sleep(0)?
+			Sleep( 4000 );	// Delay load at startup	Sleep(0)?
 			continue;
 		}
 
@@ -385,75 +385,80 @@ void CLibraryBuilder::OnRun()
 			Sleep( 100 );	// Max 10 files per second
 
 		CString sPath;
-		DWORD nIndex = GetNextFileToHash( sPath );
+		const DWORD nIndex = GetNextFileToHash( sPath );
+		if ( ! nIndex )
+			continue;
 
-		if ( nIndex )
 		{
-			{
-				CQuickLock pLock( m_pSection );
-				m_sPath = sPath;
-			}
+			CQuickLock pLock( m_pSection );
+			m_sPath = sPath;
+		}
 
-			HANDLE hFile = CreateFile( sPath, GENERIC_READ,
-				FILE_SHARE_READ | FILE_SHARE_DELETE, NULL,
-				OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL | FILE_FLAG_SEQUENTIAL_SCAN, NULL );
-			VERIFY_FILE_ACCESS( hFile, sPath )
-			if ( hFile != INVALID_HANDLE_VALUE )
-			{
-				theApp.Message( MSG_DEBUG, _T("Hashing: %s"), (LPCTSTR)sPath );
+		HANDLE hFile = CreateFile( sPath, GENERIC_READ,
+			FILE_SHARE_READ | FILE_SHARE_DELETE, NULL,
+			OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL | FILE_FLAG_SEQUENTIAL_SCAN, NULL );
+		VERIFY_FILE_ACCESS( hFile, sPath )
+		if ( hFile != INVALID_HANDLE_VALUE )
+		{
+			theApp.Message( MSG_DEBUG, _T("Hashing: %s"), (LPCTSTR)sPath );
 
-				// ToDo: We need MD5 hash of the audio file without tags
-				if ( HashFile( sPath, hFile ) )
+			// ToDo: We need MD5 hash of the audio file without tags
+			if ( HashFile( sPath, hFile ) )
+			{
+				nAttempts = 0;
+				SetFilePointer( hFile, 0, NULL, FILE_BEGIN );
+
+				try
 				{
-					nAttempts = 0;
-					SetFilePointer( hFile, 0, NULL, FILE_BEGIN );
 					ExtractMetadata( nIndex, sPath, hFile );
-
-					ExtractPluginMetadata( nIndex, sPath );
-
-					CThumbCache::Cache( sPath );
-
-					// Done
-					Remove( nIndex );
 				}
-				else
+				catch ( CException* pException )
 				{
-					if ( ++nAttempts > 4 || m_bSkip )
-					{
-						Remove( nIndex );
-						nAttempts = 0;
-					}
-					else
-						Skip( nIndex );
+					pException->Delete();
 				}
 
-				CloseHandle( hFile );
+				ExtractPluginMetadata( nIndex, sPath );
+
+				CThumbCache::Cache( sPath );
+
+				// Done
+				Remove( nIndex );
+			}
+			else if ( ++nAttempts > 4 || m_bSkip )
+			{
+				Remove( nIndex );
+				nAttempts = 0;
 			}
 			else
 			{
-				DWORD err = GetLastError();
-				if ( err == ERROR_FILE_NOT_FOUND || err == ERROR_PATH_NOT_FOUND )
-				{
-					Remove( nIndex );	// Fatal error
-				}
-				else
-				{
-					if ( ++nAttempts > 4 || m_bSkip )
-					{
-						Remove( nIndex );
-						nAttempts = 0;
-					}
-					else
-						Skip( nIndex );
-				}
+				Skip( nIndex );
 			}
 
+			CloseHandle( hFile );
+		}
+		else
+		{
+			DWORD err = GetLastError();
+			if ( err == ERROR_FILE_NOT_FOUND || err == ERROR_PATH_NOT_FOUND )
 			{
-				CQuickLock pLock( m_pSection );
-				m_sPath.Empty();
-				m_nProgress = 0;
-				m_bSkip = false;
+				Remove( nIndex );	// Fatal error
 			}
+			else if ( ++nAttempts > 4 || m_bSkip )
+			{
+				Remove( nIndex );
+				nAttempts = 0;
+			}
+			else
+			{
+				Skip( nIndex );
+			}
+		}
+
+		{
+			CQuickLock pLock( m_pSection );
+			m_sPath.Empty();
+			m_nProgress = 0;
+			m_bSkip = false;
 		}
 	}
 }
@@ -475,8 +480,8 @@ bool CLibraryBuilder::HashFile(LPCTSTR szPath, HANDLE hFile)
 	if ( Settings.Library.VirtualFiles )
 		bVirtual = DetectVirtualFile( szPath, hFile, nFileBase, nFileSize );
 
-	nSizeLow	= (DWORD)( nFileBase & 0xFFFFFFFF );
-	nSizeHigh	= (DWORD)( nFileBase >> 32 );
+	nSizeLow  = (DWORD)( nFileBase & 0xFFFFFFFF );
+	nSizeHigh = (DWORD)( nFileBase >> 32 );
 	SetFilePointer( hFile, nSizeLow, (PLONG)&nSizeHigh, FILE_BEGIN );
 
 	auto_ptr< CFileHash > pFileHash( new CFileHash( nFileSize ) );
@@ -486,13 +491,15 @@ bool CLibraryBuilder::HashFile(LPCTSTR szPath, HANDLE hFile)
 	// Reset statistics if passed more than 10 seconds
 	LARGE_INTEGER count1;
 	QueryPerformanceCounter( &count1 );
-	if ( ( ( ( count1.QuadPart - m_nLastCall.QuadPart ) * 1000000ull ) /
-		m_nFreq.QuadPart) > 10000 )
+	if ( ( ( ( count1.QuadPart - m_nLastCall.QuadPart ) * 1000000ull ) / m_nFreq.QuadPart ) > 10000 )
 	{
 		m_nLastCall.QuadPart = count1.QuadPart;
 		m_nElapsed = 0;
 		m_nReaded = 0;
 	}
+
+	if ( theApp.m_bIsVistaOrNewer )
+		::SetThreadPriority( GetCurrentThread(), THREAD_MODE_BACKGROUND_BEGIN );
 
 	void* pBuffer = VirtualAlloc( NULL, MAX_HASH_BUFFER_SIZE, MEM_COMMIT, PAGE_READWRITE );
 	DWORD nBlock;
@@ -552,6 +559,9 @@ bool CLibraryBuilder::HashFile(LPCTSTR szPath, HANDLE hFile)
 
 		nLength -= nBlock;
 	}
+
+	if ( theApp.m_bIsVistaOrNewer )
+		::SetThreadPriority( GetCurrentThread(), THREAD_MODE_BACKGROUND_END );
 
 	{
 		CQuickLock pLock( m_pSection );
@@ -757,7 +767,7 @@ bool CLibraryBuilder::DetectVirtualID3v2(HANDLE hFile, QWORD& nOffset, QWORD& nL
 	nLength -= nTagSize;
 
 	// Remove leading zeroes
-	nPosLow = (LONG)( ( nOffset ) & 0xFFFFFFFF );
+	nPosLow  = (LONG)( ( nOffset ) & 0xFFFFFFFF );
 	nPosHigh = (LONG)( ( nOffset ) >> 32 );
 	SetFilePointer( hFile, nPosLow, &nPosHigh, FILE_BEGIN );
 	CHAR szByte;
@@ -774,8 +784,8 @@ bool CLibraryBuilder::DetectVirtualAPEHeader(HANDLE hFile, QWORD& nOffset, QWORD
 	APE_HEADER pHeader = {};
 	DWORD nRead;
 
-	LONG nPosLow	= (LONG)( ( nOffset ) & 0xFFFFFFFF );
-	LONG nPosHigh	= (LONG)( ( nOffset ) >> 32 );
+	LONG nPosLow  = (LONG)( ( nOffset ) & 0xFFFFFFFF );
+	LONG nPosHigh = (LONG)( ( nOffset ) >> 32 );
 	SetFilePointer( hFile, nPosLow, &nPosHigh, FILE_BEGIN );
 
 	if ( ! ReadFile( hFile, &pHeader, sizeof(pHeader), &nRead, NULL ) )
@@ -817,8 +827,8 @@ bool CLibraryBuilder::DetectVirtualAPEFooter(HANDLE hFile, QWORD& nOffset, QWORD
 		return false;
 
 	DWORD nRead;
-	LONG nPosLow	= (LONG)( ( nOffset + nLength - sizeof(pFooter) ) & 0xFFFFFFFF );
-	LONG nPosHigh	= (LONG)( ( nOffset + nLength - sizeof(pFooter) ) >> 32 );
+	LONG nPosLow  = (LONG)( ( nOffset + nLength - sizeof(pFooter) ) & 0xFFFFFFFF );
+	LONG nPosHigh = (LONG)( ( nOffset + nLength - sizeof(pFooter) ) >> 32 );
 
 	SetFilePointer( hFile, nPosLow, &nPosHigh, FILE_BEGIN );
 	if ( ! ReadFile( hFile, &pFooter, sizeof(pFooter), &nRead, NULL ) )
@@ -841,7 +851,7 @@ bool CLibraryBuilder::DetectVirtualLyrics(HANDLE hFile, QWORD& nOffset, QWORD& n
 {
 	typedef struct Lyrics3v2
 	{
-		CHAR	nSize[6];
+		CHAR nSize[6];
 		struct LyricsTag
 		{
 			CHAR szID[6];
@@ -865,8 +875,8 @@ bool CLibraryBuilder::DetectVirtualLyrics(HANDLE hFile, QWORD& nOffset, QWORD& n
 		return false;
 
 	const char cLyrics[ 7 ] = "LYRICS";
-	const char cVersion[ 4 ] = "200"; // version 2.00
-	const char cEnd[ 4 ] = "END"; // version 1.00
+	const char cVersion[ 4 ] = "200";	// version 2.00
+	const char cEnd[ 4 ] = "END";		// version 1.00
 
 	if ( memcmp( pFooter.Tag.szID, cLyrics, 6 ) )
 		return false;
@@ -935,9 +945,9 @@ bool CLibraryBuilder::DetectVirtualLAME(HANDLE hFile, QWORD& nOffset, QWORD& nLe
 
 	int nVbrHeaderOffset = GetVbrHeaderOffset( nId, nMode );
 	LARGE_INTEGER nNewOffset = { 0 };
-	nNewOffset.LowPart = (LONG)( ( nOffset + nVbrHeaderOffset ) & 0xFFFFFFFF );
 	nNewOffset.HighPart = (LONG)( ( nOffset + nVbrHeaderOffset ) >> 32 );
-	nNewOffset.LowPart = SetFilePointer( hFile, nNewOffset.LowPart, &(nNewOffset.HighPart), FILE_BEGIN );
+	nNewOffset.LowPart  = (LONG)( ( nOffset + nVbrHeaderOffset ) & 0xFFFFFFFF );
+	nNewOffset.LowPart  = SetFilePointer( hFile, nNewOffset.LowPart, &(nNewOffset.HighPart), FILE_BEGIN );
 
 	if ( nNewOffset.LowPart == INVALID_SET_FILE_POINTER && GetLastError() != NO_ERROR )
 		return false;
@@ -1101,7 +1111,15 @@ bool CLibraryBuilder::RefreshMetadata(const CString& sPath)
 	if ( hFile != INVALID_HANDLE_VALUE )
 	{
 		SetFilePointer( hFile, 0, NULL, FILE_BEGIN );
-		bResult |= ExtractMetadata( nIndex, sPath, hFile );
+
+		try
+		{
+			bResult |= ExtractMetadata( nIndex, sPath, hFile );
+		}
+		catch ( CException* pException )
+		{
+			pException->Delete();
+		}
 
 		CloseHandle( hFile );
 	}

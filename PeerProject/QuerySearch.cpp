@@ -855,7 +855,7 @@ void CQuerySearch::ReadGGEP(CG1Packet* pPacket)
 	}
 	else
 	{
-		pPacket->Debug( _T("G1 Malformed GGEP.") );
+		DEBUG_ONLY( pPacket->Debug( _T("G1 Malformed GGEP.") ) );
 	//	theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("[G1] Got query packet with malformed GGEP") );
 	}
 }
@@ -1124,10 +1124,9 @@ BOOL CQuerySearch::CheckValid(bool bExpression)
 	}
 
 	if ( m_oKeywordHashList.size() )
-	{
 		return TRUE;
-	}
-	else if ( ! m_oWords.empty() )
+
+	if ( ! m_oWords.empty() )
 	{
 		// Setting up Common keyword list
 		static const LPCTSTR common[] =
@@ -1177,17 +1176,16 @@ BOOL CQuerySearch::CheckValid(bool bExpression)
 			{
 				nValidCharacters = nLength * 2;
 			}
-			else if ( 0x3041 <= szChar && 0x30fe >= szChar ) // These regions are for Japanese Hiragana/Katakana chars(3Bytes).
-			{												// Because of number of chars exist in that region,
-															// they are counted as 2byte chars to make only 2
-															// or longer chars are accepted on Query.
+			else if ( 0x3041 <= szChar && 0x30fe >= szChar ) // These regions are for Japanese Hiragana/Katakana chars (3Bytes).
+			{												// Because of number of chars exist in that region they are counted as 2byte chars,
+															// making only 2 or longer chars accepted on Query.
 				nValidCharacters = nLength * 2;
 				bExtendChar = true;							// Set Extended char flag
 			}
 			else if ( 0x800 <= szChar && 0xffff >= szChar)  // Check if the char is 3 byte length in UTF8 (non-char will not reach here)
 			{
 				nValidCharacters = nLength * 3;
-				bExtendChar = true;							// set Extended char flag
+				bExtendChar = true;							// Set Extended char flag
 			}
 			else if ( nLength > 2 )
 			{
@@ -1205,14 +1203,14 @@ BOOL CQuerySearch::CheckValid(bool bExpression)
 				if ( std::find_if( common, common + commonWords, FindStr( *pWord ) ) != common + commonWords )
 					// If the keyword is matched to one of the common keyword set in common[] array.
 				{
-					// Common term. Don't count it as valid keywords, instead count it as common keywords
+					// Common term.  Don't count it as valid keywords, instead count it as common keywords
 					nCommonWords++;
 					DWORD nHash = CQueryHashTable::HashWord( pWord->first, 0, pWord->second, 32 );
 					m_oKeywordHashList.push_back( nHash );
 				}
 				else
 				{
-					// check if it is valid search term.
+					// Check if it is valid search term.
 					// NOTE: code below will filter and narrowing down more. it has to be in one of the condition
 					//			1. It is 4byte or longer in UTF8 string (Japanese Hiragana/Katakana
 					//				are both 3 byte char too however they are counted as 2byte char)
@@ -1227,12 +1225,13 @@ BOOL CQuerySearch::CheckValid(bool bExpression)
 			}
 		}
 
-		if ( m_pSchema != NULL ) // if schema has been selected
-			nValidWords += ( nCommonWords > 1 ) ? 1 : 0; // make it accept query, if there are 2 or more different common words.
-		else // no schema
-			nValidWords += ( nCommonWords > 2 ) ? 1 : 0; // make it accept query, if there are 3 or more different common words.
+		if ( m_pSchema != NULL )	// Schema has been selected
+			nValidWords += ( nCommonWords > 1 ) ? 1 : 0;	// Make it accept query, if there are 2 or more different common words.
+		else	// No schema
+			nValidWords += ( nCommonWords > 2 ) ? 1 : 0;	// Make it accept query, if there are 3 or more different common words.
 
-		if ( nValidWords ) return TRUE;
+		if ( nValidWords )
+			return TRUE;
 
 #ifdef LAN_MODE
 		return TRUE;
@@ -1327,25 +1326,21 @@ TRISTATE CQuerySearch::MatchMetadata(LPCTSTR pszSchemaURI, CXMLElement* pXML) co
 
 		if ( ! strSearch.IsEmpty() )
 		{
-			if ( ! strTarget.IsEmpty() )
-			{
-				if ( pMember->m_bNumeric )
-				{
-					if ( ! NumberMatch( strTarget, strSearch ) )
-						return TRI_FALSE;
-				}
-				else
-				{
-					if ( ! WordMatch( strTarget, strSearch ) )
-						return TRI_FALSE;
-				}
+			if ( strTarget.IsEmpty() )
+				return TRI_FALSE;
 
-				nCount++;
+			if ( pMember->m_bNumeric )
+			{
+				if ( ! NumberMatch( strTarget, strSearch ) )
+					return TRI_FALSE;
 			}
 			else
 			{
-				return TRI_FALSE;
+				if ( ! WordMatch( strTarget, strSearch ) )
+					return TRI_FALSE;
 			}
+
+			nCount++;
 		}
 	}
 
@@ -1368,7 +1363,7 @@ BOOL CQuerySearch::MatchMetadataShallow(LPCTSTR pszSchemaURI, CXMLElement* pXML,
 				CString strTarget = pMember->GetValueFrom( pXML, _T(""), FALSE );
 				if ( WordMatch( strTarget, m_sKeywords, bReject ) )
 					return TRUE;
-				else if ( bReject && *bReject )
+				if ( bReject && *bReject )
 					return FALSE;
 			}
 		}
@@ -1383,7 +1378,7 @@ BOOL CQuerySearch::MatchMetadataShallow(LPCTSTR pszSchemaURI, CXMLElement* pXML,
 
 			if ( WordMatch( strTarget, m_sKeywords, bReject ) )
 				return TRUE;
-			else if ( bReject && *bReject )
+			if ( bReject && *bReject )
 				return FALSE;
 		}
 	}
@@ -1673,9 +1668,9 @@ void CQuerySearch::BuildG2PosKeywords()
 // to ease keyword matching, allowing user to type as in the natural language.
 // Spacebar key is not a convenient way to separate keywords with IME,
 // and user may not know how application is keywording their files.
+// ToDo: "minus" words and quoted phrases for asian languages may not work correctly in all cases.
 //
 // The function splits katakana, hiragana and CJK phrases out of the input string.
-// ToDo: "minus" words and quoted phrases for asian languages may not work correctly in all cases.
 void CQuerySearch::MakeKeywords(CString& strPhrase, bool bExpression)
 {
 	if ( strPhrase.IsEmpty() ) return;

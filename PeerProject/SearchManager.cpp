@@ -1,7 +1,7 @@
 //
 // SearchManager.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -19,11 +19,13 @@
 #include "StdAfx.h"
 #include "PeerProject.h"
 #include "Settings.h"
-#include "Network.h"
 #include "SearchManager.h"
 #include "ManagedSearch.h"
 #include "QuerySearch.h"
 #include "QueryHit.h"
+#include "Network.h"
+#include "Neighbour.h"
+#include "Neighbours.h"
 #include "HostCache.h"
 #include "G2Packet.h"
 
@@ -106,7 +108,7 @@ CSearchPtr CSearchManager::Find(const Hashes::Guid& oGUID) const
 void CSearchManager::OnRun()
 {
 	// Don't run too often to avoid excess CPU use (and router flooding)
-	DWORD tNow = GetTickCount();
+	const DWORD tNow = GetTickCount();
 	if ( ( tNow - m_tLastTick ) < 125 ) return;
 	m_tLastTick = tNow;
 
@@ -114,7 +116,7 @@ void CSearchManager::OnRun()
 	if ( ! Network.IsWellConnected() ) return;
 
 	CSingleLock pLock( &m_pSection );
-	if ( ! pLock.Lock( 200 ) ) return;
+	if ( ! pLock.Lock( 120 ) ) return;
 
 	const int nPriorityFactor[ 3 ] = { 8, 4, 1 };
 
@@ -202,13 +204,8 @@ BOOL CSearchManager::OnQueryAck(CG2Packet* pPacket, const SOCKADDR_IN* pAddress,
 		{
 			if ( nLength >= 4 )
 				nRetryAfter = pPacket->ReadLongBE();
-			else if ( nLength >= 2 )
+			else	// if ( nLength >= 2 )
 				nRetryAfter = pPacket->ReadShortBE();
-
-			CQuickLock oLock( HostCache.Gnutella2.m_pSection );
-
-			if ( CHostCacheHostPtr pHost = HostCache.Gnutella2.Find( (IN_ADDR*)&nFromIP ) )
-				pHost->m_tRetryAfter = tNow + nRetryAfter;
 		}
 		else if ( nType == G2_PACKET_FROM_ADDRESS && nLength >= 4 )
 		{
@@ -227,6 +224,26 @@ BOOL CSearchManager::OnQueryAck(CG2Packet* pPacket, const SOCKADDR_IN* pAddress,
 		_T("Processing query acknowledgement from %s (time adjust %+d seconds): %d hubs, %d leaves, %d suggested hubs, retry after %d seconds."),
 		(LPCTSTR)CString( inet_ntoa( pAddress->sin_addr ) ), tAdjust,
 		nHubs, nLeaves, nSuggestedHubs, nRetryAfter );
+
+	// Update host cache
+	if ( nFromIP && nRetryAfter )
+	{
+		CQuickLock oLock( HostCache.Gnutella2.m_pSection );
+		if ( CHostCacheHostPtr pHost = HostCache.Gnutella2.Find( (IN_ADDR*)&nFromIP ) )
+		{
+			pHost->m_tRetryAfter = tNow + nRetryAfter;
+		}
+	}
+
+	// Update neighbours
+	if ( nFromIP && nRetryAfter )
+	{
+		CQuickLock oLock( Network.m_pSection );
+		if ( CNeighbour* pNeighbour = Neighbours.Get( *(IN_ADDR*)&nFromIP ) )
+		{
+			pNeighbour->m_tLastQuery = max( pNeighbour->m_tLastQuery, tNow + nRetryAfter );
+		}
+	}
 
 	CSingleLock oLock( &m_pSection );
 	if ( ! oLock.Lock( 150 ) )

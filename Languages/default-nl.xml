@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Dutch Skin File -->
 
-<!-- Translation based on default-en.xml r66 -->
+<!-- Translation based on default-en.xml r67 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2456,8 +2456,8 @@
 	<tip id="ID_LIBRARY_ALBUM_DELETE" message="Verwijder het geselecteerde album."/>
 	<tip id="ID_LIBRARY_ALBUM_OPEN" message="Open het geselecteerde album."/>
 	<tip id="ID_LIBRARY_ALBUM_PROPERTIES" message="Toon en wijzig de eigenschappen van het geselecteerde album..."/>
-	<tip id="ID_LIBRARY_BITZI_DOWNLOAD" message="Download metadata voor de geselecteerde bestand(en) vanaf Bitzi..."/>
-	<tip id="ID_LIBRARY_BITZI_WEB" message="Toon het Bitzi ticket voor het geselecteerde bestand op het internet."/>
+	<tip id="ID_LIBRARY_BITZI_DOWNLOAD" message="Download metadata voor de geselecteerde bestand(en) vanaf Bitzi™..."/>
+	<tip id="ID_LIBRARY_BITZI_WEB" message="Toon het Bitzi™ ticket voor het geselecteerde bestand op het internet."/>
 	<tip id="ID_LIBRARY_COLUMNS" message="Selecteer de te tonen metadata kolommen..."/>
 	<tip id="ID_LIBRARY_COPY" message="Kopieër de geselecteerde bestanden naar een andere map van je bibliotheek..."/>
 	<tip id="ID_LIBRARY_CREATETORRENT" message="Maak een torrent voor dit bestand om het te uploaden naar een website."/>
@@ -2839,13 +2839,13 @@
 	<string id="20184" value="Privé gesprek met gebruiker wordt aangevraagd..."/>
 	<string id="20185" value="Bevestigde gebruiker"/>
 	<string id="20186" value="Pushverbinding vanaf %s is geaccepteerd, bezig met handschudden..."/>
-	<string id="20188" value="Een gefirewallde pushverbinding is aangevraagd aan %s..."/>
-	<string id="20190" value="Verbinding is mislukt vanwege ongeldige data op de kabel."/>
-	<string id="20191" value="Er is een onbekend antwoord ontvangen: %s"/>
-	<string id="20192" value="Je bent niet verbonden."/>
-	<string id="20193" value="Onbekend commando &quot;%s&quot;."/>
-	<string id="20194" value="Deze sjabloon is niet aanpasbaar."/>
-	<string id="20195" value="Deze sjabloon is ongeldig."/>
+	<string id="20187" value="Een gefirewallde pushverbinding is aangevraagd aan %s..."/>
+	<string id="20188" value="Verbinding is mislukt vanwege ongeldige data op de kabel."/>
+	<string id="20189" value="Er is een onbekend antwoord ontvangen: %s"/>
+	<string id="20190" value="Je bent niet verbonden."/>
+	<string id="20191" value="Onbekend commando &quot;%s&quot;."/>
+	<string id="20196" value="Deze sjabloon is niet aanpasbaar."/>
+	<string id="20197" value="Deze sjabloon is ongeldig."/>
 	<string id="20199" value="(bezig met afsluiten na verkeer)"/>
 	<string id="20200" value="&quot;%s&quot; toegevoegd aan downloadwachtrij met %i bron(nen)."/>
 	<string id="20201" value="Het bestand &quot;%s&quot; wordt al gedownload, bronnen toegevoegd."/>
@@ -3002,14 +3002,15 @@
 	<string id="20372" value="Gnutella Ratio van Ontvangen/Verzonden Pings"/>
 	<string id="20373" value="Gnutella Ratio van Ontvangen/Verzonden Pongs"/>
 	<string id="20374" value="Lokale Gnutella zoekopdrachten"/>
-	<string id="20375" value="Doorgestuurde Gnutella pakketten (gerouted)"/>
-	<string id="20376" value="Totale generieke ontvangstbandbreedte"/>
-	<string id="20377" value="Totale generieke verzendbandbreedte"/>
-	<string id="20378" value="Totale TCP ontvangstbandbreedte"/>
-	<string id="20379" value="Totale TCP verzendbandbreedte"/>
-	<string id="20380" value="Totale UDP ontvangstbandbreedte"/>
-	<string id="20381" value="Totale UDP verzendbandbreedte"/>
-	<string id="20382" value="Uploadbandbreedte"/>
+	<string id="20375" value="Lokale Gnutella zoekopdrachten"/>
+	<string id="20376" value="Doorgestuurde Gnutella pakketten (gerouted)"/>
+	<string id="20377" value="Totale generieke ontvangstbandbreedte"/>
+	<string id="20378" value="Totale generieke verzendbandbreedte"/>
+	<string id="20379" value="Totale TCP ontvangstbandbreedte"/>
+	<string id="20380" value="Totale TCP verzendbandbreedte"/>
+	<string id="20381" value="Totale UDP ontvangstbandbreedte"/>
+	<string id="20382" value="Totale UDP verzendbandbreedte"/>
+	<string id="20383" value="Uploadbandbreedte"/>
 	<string id="20384" value="Aantal uploadoverdrachten"/>
 	<string id="20385" value="Verbinden met bron %s terugvallen op shielded leaf modus."/>
 	<string id="20386" value="Overbodige verbinding vanaf %s wordt gesloten met een bron hint (%s port %i)."/>
@@ -3179,8 +3180,8 @@
 	<string id="20582" value="Bron %s heeft een pong pakket doorgestuurd met een ongeldige lengte, het wordt genegeerd."/>
 	<string id="20583" value="Bron %s heeft een pushpakket met een ongeldige lengte doorgestuurd, het wordt genegeerd."/>
 	<string id="20584" value="Bron %s heeft een te groot pakket doorgestuurd, de verbinding wordt verbroken."/>
-	<string id="20585" value="Bron %s heeft een onherkenbaar pakket doorgestuurd (0x%.2x), het wordt genegeerd."/>
-	<string id="20586" value="Bron %s heeft een pong pakket met een ongeldig data adres doorgestuurd, het wordt genegeerd."/>
+	<string id="20586" value="Bron %s heeft een onherkenbaar pakket doorgestuurd (0x%.2x), het wordt genegeerd."/>
+	<string id="20587" value="Bron %s heeft een pong pakket met een ongeldig data adres doorgestuurd, het wordt genegeerd."/>
 	<string id="20588" value="Bron %s heeft een pushaanvraag doorgestuurd naar een adres met een firewall, het wordt genegeerd."/>
 	<string id="20590" value="Web Interface is uitgeschakeld."/>
 	<string id="20591" value="http://%s:%i/remote - Gebruikersnaam en wachtwoord kiezen."/>
@@ -3399,13 +3400,14 @@
 	<string id="20870" value="Niet mogelijk om URL te ontleden omdat PeerProject deze URL niet begrijpt."/>
 	<string id="20871" value="Ontvangen URL &quot;%s&quot;"/>
 	<string id="20872" value="Type:"/>
-	<string id="20874" value="Niet gespecificeerd"/>
-	<string id="20875" value="URL:"/>
+	<string id="20874" value="URL:"/>
+	<string id="20875" value="Niet gespecificeerd"/>
 	<string id="20880" value="Mijn profiel aanpassen"/>
-	<string id="20881" value="Als je van stijl verandert, worden alle geopende vensters gesloten. Wil je nu veranderen?"/>
-	<string id="20882" value="UPnP Device Host Service is not running. This service is required to perform the setup.\nYou need to set the startup type of the service to automatic."/>
-	<string id="20884" value="Geen URN beschikbaar"/>
-	<string id="20885" value="Veranderen van leesrichting vereist het heropstarten van PeerProject.\nJe zal PeerProject zelf opnieuw moeten starten. Nu afsluiten?"/>
+	<string id="20881" value="%u bestanden geselecteerd. Ben je zeker?"/>
+	<string id="20882" value="Geen URN beschikbaar"/>
+	<string id="20883" value="UPnP Device Host Service is not running. This service is required to perform the setup.\nYou need to set the startup type of the service to automatic."/>
+	<string id="20885" value="Als je van stijl verandert, worden alle geopende vensters gesloten. Wil je nu veranderen?"/>
+	<string id="20886" value="Veranderen van leesrichting vereist het heropstarten van PeerProject.\nJe zal PeerProject zelf opnieuw moeten starten. Nu afsluiten?"/>
 	<string id="20890" value="Welkom bij PeerProject"/>
 	<string id="20891" value="&amp;Sluiten"/>
 	<string id="20892" value="Even wachten: De eDonkey server lijst aan het vernieuwen..."/>

@@ -1,7 +1,7 @@
 //
 // EDPacket.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -20,16 +20,17 @@
 #include "PeerProject.h"
 #include "Settings.h"
 #include "EDPacket.h"
-#include "Buffer.h"
-#include "ZLib.h"
-#include "Schema.h"
-#include "XML.h"
-#include "Network.h"
-#include "SharedFile.h"
 #include "EDClient.h"
 #include "EDClients.h"
 #include "EDNeighbour.h"
+#include "Buffer.h"
+#include "Network.h"
 #include "Kademlia.h"
+#include "SharedFile.h"
+#include "Statistics.h"
+#include "Schema.h"
+#include "XML.h"
+#include "ZLib.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -223,7 +224,7 @@ void CEDPacket::WriteFile(const CPeerProjectFile* pPeerProjectFile, QWORD nSize,
 	}
 
 	// Set the number of tags present
-	DWORD nTags = 2; // File name and size are always present
+	DWORD nTags = 2;	// File name and size are always present
 	if ( nSize > MAX_SIZE_32BIT ) nTags++;
 	if ( pClient ) nTags += 2; //3;
 	if ( ! strType.IsEmpty() ) nTags++;
@@ -393,7 +394,8 @@ CString CEDPacket::GetType() const
 {
 	for ( ED2K_PACKET_DESC* pType = m_pszTypes ; pType->nType ; pType++ )
 	{
-		if ( pType->nType == m_nType ) return pType->pszName;
+		if ( pType->nType == m_nType )
+			return pType->pszName;
 	}
 
 	CString tmp;
@@ -401,9 +403,9 @@ CString CEDPacket::GetType() const
 	return tmp;
 }
 
+#ifdef _DEBUG
 void CEDPacket::Debug(LPCTSTR pszReason) const
 {
-#ifdef _DEBUG
 	if ( m_nType == ED2K_C2C_SENDINGPART ) return;
 	if ( m_nType == ED2K_C2C_HASHSETANSWER ) return;
 	if ( m_nType == ED2K_C2C_COMPRESSEDPART ) return;
@@ -411,10 +413,8 @@ void CEDPacket::Debug(LPCTSTR pszReason) const
 	CString strOutput;
 	strOutput.Format( L"[ED2K] %s Proto: 0x%x Type: %s", pszReason, int( m_nEdProtocol ), GetType() );
 	CPacket::Debug( strOutput );
-#else
-	pszReason;
-#endif
 }
+#endif	// Debug
 
 
 //////////////////////////////////////////////////////////////////////
@@ -519,7 +519,7 @@ void CEDTag::Write(CEDPacket* pPacket, BOOL bUnicode, BOOL bSmallTags)
 
 	if ( m_nType == ED2K_TAG_STRING )
 	{
-		if ( bSmallTags )// If we're supporting small tags
+		if ( bSmallTags )	// When supporting small tags
 		{
 			int nLength;
 			if ( bUnicode )
@@ -556,7 +556,7 @@ void CEDTag::Write(CEDPacket* pPacket, BOOL bUnicode, BOOL bSmallTags)
 	}
 	else if ( m_nType == ED2K_TAG_INT )
 	{
-		if ( bSmallTags )// If we're supporting small tags
+		if ( bSmallTags )	// When supporting small tags
 		{	// Use a short tag
 			if ( m_nValue <= 0xFF )
 			{	// Use a 8 bit int
@@ -592,7 +592,7 @@ void CEDTag::Write(CEDPacket* pPacket, BOOL bUnicode, BOOL bSmallTags)
 	}
 	else
 	{
-		ASSERT( FALSE ); // Unsupported tag
+		ASSERT( FALSE );	// Unsupported tag
 	}
 }
 
@@ -701,7 +701,7 @@ BOOL CEDTag::Read(CEDPacket* pPacket, BOOL bUnicode)
 		}
 		else
 		{
-			theApp.Message( MSG_DEBUG, _T("Unrecognised ED2K tag type 0x%02x"), m_nType );
+			theApp.Message( MSG_DEBUG, _T("Unknown ED2K tag type 0x%02x"), m_nType );
 			return FALSE;
 		}
 	}
@@ -835,7 +835,7 @@ BOOL CEDTag::Read(CFile* pFile)
 		}
 		else
 		{
-			theApp.Message( MSG_DEBUG, _T("Unrecognised ED2K tag type 0x%02x"), m_nType );
+			theApp.Message( MSG_DEBUG, _T("Unknown ED2K tag type 0x%02x"), m_nType );
 			return FALSE;
 		}
 	}
@@ -845,6 +845,8 @@ BOOL CEDTag::Read(CFile* pFile)
 
 BOOL CEDPacket::OnPacket(const SOCKADDR_IN* pHost)
 {
+	Statistics.Current.eDonkey.Incoming++;
+
 	switch ( m_nEdProtocol )
 	{
 	case ED2K_PROTOCOL_EDONKEY:
@@ -853,14 +855,14 @@ BOOL CEDPacket::OnPacket(const SOCKADDR_IN* pHost)
 
 	case ED2K_PROTOCOL_KAD:
 		return Kademlia.OnPacket( pHost, this );
-
+#ifdef _DEBUG
 	case ED2K_PROTOCOL_REVCONNECT:
 		// ToDo: Implement RevConnect KAD
 		Debug( _T("RevConnect KAD not implemented.") );
 		break;
-
 	default:
-		;
+		Debug( _T("Unknown ED2K/KAD Protocol.") );
+#endif	// Debug
 	}
 
 	return FALSE;
@@ -892,8 +894,11 @@ ED2K_PACKET_DESC CEDPacket::m_pszTypes[] =
 	{ ED2K_C2SG_SERVERSTATUSREQUEST,_T("GetStatus") },
 	{ ED2K_S2CG_SERVERSTATUS,		_T("Status") },
 	{ ED2K_C2SG_SEARCHREQUEST,		_T("Search") },
+	{ ED2K_C2SG_SEARCHREQUEST2,		_T("Search 2") },
+	{ ED2K_C2SG_SEARCHREQUEST3,		_T("Search 3") },
 	{ ED2K_S2CG_SEARCHRESULT,		_T("Result") },
 	{ ED2K_C2SG_GETSOURCES,			_T("FindSource") },
+	{ ED2K_C2SG_GETSOURCES2,		_T("Find Source 2") },
 	{ ED2K_S2CG_FOUNDSOURCES,		_T("Sources") },
 	{ ED2K_C2SG_CALLBACKREQUEST,	_T("Push1") },
 

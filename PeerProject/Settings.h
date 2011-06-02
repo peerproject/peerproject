@@ -153,7 +153,9 @@ public:
 		bool		HighPriorityHash;		// Use high priority hashing or not
 		DWORD		HighPriorityHashing;	// desired speed in MB/s when hashing with hi priority
 		DWORD		LowPriorityHashing;		// desired speed in MB/s when hashing with low priority
-		DWORD		MaliciousFileCount;		// Minimum number of duplicate files required to trigger warning
+		DWORD		ManyFilesWarning;		// Too many files selected warning.  0 -ask user, 1 -no, 2 -yes
+		DWORD		ManyFilesCount;			// Minimum number of selected files to trigger warning  (TOO_MANY_FILES_LIMIT)
+		DWORD		MaliciousFileCount;		// Minimum number of duplicate files to trigger warning
 		DWORD		MaliciousFileSize;		// Size range for which to trigger malicious software search
 		string_set	MaliciousFileTypes;		// Malicious software file extensions
 		bool		MarkFileAsDownload;		// Mark downloaded file using NTFS stream as Internet Explorer
@@ -226,8 +228,8 @@ public:
 		MediaZoom	Zoom;
 		double		Aspect;
 		double		Volume;
-		bool		ListVisible;
 		DWORD		ListSize;
+		bool		ListVisible;
 		bool		StatusVisible;
 		CString		MediaServicesCLSID;
 		CString		Mpeg1PreviewCLSID;
@@ -238,8 +240,8 @@ public:
 		CString		VisCLSID;
 		CString		VisPath;
 		DWORD		VisSize;
-		string_set	ServicePath;			// Keeps track of 3 different players:	"*kmplayer.exe|**wmplayer.exe*|***vlc.exe" begining astrix shows the order and tailing shows selected
 		bool		ShortPaths;				// Some players differently handle unicode paths but they can launch files using 8.3 paths
+		string_set	ServicePath;			// Keeps track of external players, trailing asterisk indicates selected
 	} MediaPlayer;
 
 	struct sWeb

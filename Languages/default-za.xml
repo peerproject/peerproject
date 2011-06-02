@@ -4,7 +4,7 @@
 <!-- PeerProject Default Afrikaans Skin File -->
 <!-- Weergawe: 27 Oktober 2005 vir Shareaza 2.2.0.2 -->
 
-<!-- Translation based on default-en.xml r66 -->
+<!-- Translation based on default-en.xml r67 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2426,8 +2426,8 @@
 	<tip id="ID_LIBRARY_ALBUM_DELETE" message="Skrap die geselekteerde albumgids."/>
 	<tip id="ID_LIBRARY_ALBUM_OPEN" message="Open die geselekteerde albumgids."/>
 	<tip id="ID_LIBRARY_ALBUM_PROPERTIES" message="Vertoon of verander die kenmerke van die geselekteerde albumgids..."/>
-	<tip id="ID_LIBRARY_BITZI_DOWNLOAD" message="Laai metadata vir die geselekteerde lêer(s) af vanaf Bitzi(TM)..."/>
-	<tip id="ID_LIBRARY_BITZI_WEB" message="Vertoon die Bitzi(TM) kaartjie vir die geselekteerde lêer op die web."/>
+	<tip id="ID_LIBRARY_BITZI_DOWNLOAD" message="Laai metadata vir die geselekteerde lêer(s) af vanaf Bitzi™..."/>
+	<tip id="ID_LIBRARY_BITZI_WEB" message="Vertoon die Bitzi™ kaartjie vir die geselekteerde lêer op die web."/>
 	<tip id="ID_LIBRARY_COLUMNS" message="Selekteer metadata-kolomme om te vertoon..."/>
 	<tip id="ID_LIBRARY_COPY" message="Kopieer die geselekteerde lêers na 'n ander biblioteek gids..."/>
 	<tip id="ID_LIBRARY_CREATETORRENT" message="Skep 'n .torrent vir hierdie lêer vir oplaai na 'n webblad."/>
@@ -2782,13 +2782,13 @@
 	<string id="20184" value="Privaatgesprek met gebruiker word versoek..."/>
 	<string id="20185" value="Geldige gebruiker"/>
 	<string id="20186" value="Drukkonneksie van %s goedgekeur, besig om blad te skud..."/>
-	<string id="20188" value="Versoek 'n drukkonneksie agter 'n netskans vanaf %s..."/>
-	<string id="20190" value="Konneksie het misluk as gevolg van foutiewe data op die lyn."/>
-	<string id="20191" value="Onbekende antwoord ontvang: %s"/>
-	<string id="20192" value="Jy is nie gekonnekteer nie."/>
-	<string id="20193" value="Onherkenbare bevel &quot;%s&quot;."/>
-	<string id="20194" value="This template does not have any customizations."/>
-	<string id="20195" value="This template is invalid."/>
+	<string id="20187" value="Versoek 'n drukkonneksie agter 'n netskans vanaf %s..."/>
+	<string id="20188" value="Konneksie het misluk as gevolg van foutiewe data op die lyn."/>
+	<string id="20189" value="Onbekende antwoord ontvang: %s"/>
+	<string id="20190" value="Jy is nie gekonnekteer nie."/>
+	<string id="20191" value="Onherkenbare bevel &quot;%s&quot;."/>
+	<string id="20196" value="This template does not have any customizations."/>
+	<string id="20197" value="This template is invalid."/>
 	<string id="20199" value="(verlaat na oordragte)"/>
 	<string id="20200" value="Die lêer &quot;%s&quot; word op die aflaai lys gevoeg met %i bron(ne)."/>
 	<string id="20201" value="Die lêer &quot;%s&quot; is alreeds besig om af te laai, bronne word bygevoeg."/>
@@ -2946,14 +2946,15 @@
 	<string id="20372" value="Gnutella Ratio of Received/Sent Pings"/>
 	<string id="20373" value="Gnutella Ratio of Received/Sent Pongs"/>
 	<string id="20374" value="Gnutella Lokale Navrae"/>
-	<string id="20375" value="Gnutella Pakkies Geroeteer"/>
-	<string id="20376" value="Totale Generiese Ontvangsbandwydte"/>
-	<string id="20377" value="Totale Generiese Stuurbandwydte"/>
-	<string id="20378" value="Totale TCP Ontvang Bandwydte"/>
-	<string id="20379" value="Totale TCP Stuur Bandwydte"/>
-	<string id="20380" value="Totale UDP Ontvang Bandwydte"/>
-	<string id="20381" value="Totale UDP Stuur Bandwydte"/>
-	<string id="20382" value="Oplaai Bandwydte"/>
+	<string id="20375" value="Gnutella Lokale Navrae"/>
+	<string id="20376" value="Gnutella Pakkies Geroeteer"/>
+	<string id="20377" value="Totale Generiese Ontvangsbandwydte"/>
+	<string id="20378" value="Totale Generiese Stuurbandwydte"/>
+	<string id="20379" value="Totale TCP Ontvang Bandwydte"/>
+	<string id="20380" value="Totale TCP Stuur Bandwydte"/>
+	<string id="20381" value="Totale UDP Ontvang Bandwydte"/>
+	<string id="20382" value="Totale UDP Stuur Bandwydte"/>
+	<string id="20383" value="Oplaai Bandwydte"/>
 	<string id="20384" value="Oplaai Oordragte Hoeveelheid"/>
 	<string id="20385" value="Gasheer %s is besig om terug te val na geskermde kliëntmodus."/>
 	<string id="20386" value="Oormaat konneksies van %s met gasheer word gesluit (%s poort %i)."/>
@@ -3123,8 +3124,8 @@
 	<string id="20582" value="Gasheer %s het 'n pong pakkie met 'n foutiewe grootte aangestuur, oorgesien."/>
 	<string id="20583" value="Gasheer %s het 'n druk-pakkie met 'n foutiewe lengte aangestuur, oorgesien."/>
 	<string id="20584" value="Gasheer %s het 'n te groot pakkie aangestuur, konneksie word gesluit."/>
-	<string id="20585" value="Gasheer %s het 'n vreemde pakkie aangestuur (0x%.2x), oorgesien."/>
-	<string id="20586" value="Gasheer %s het 'n pong pakkie met foutiewe adresdata aangestuur, oorgesien."/>
+	<string id="20586" value="Gasheer %s het 'n vreemde pakkie aangestuur (0x%.2x), oorgesien."/>
+	<string id="20587" value="Gasheer %s het 'n pong pakkie met foutiewe adresdata aangestuur, oorgesien."/>
 	<string id="20588" value="Gasheer %s het 'n druk-aanvraag aangestuur na 'n gasheer agter 'n netskans, oorgesien."/>
 	<string id="20590" value="Web toegang is afgeskakel."/>
 	<string id="20591" value="http://%s:%i/remote - Jy moet 'n gebruikersnaam en wagwoord kies."/>
@@ -3343,12 +3344,13 @@
 	<string id="20870" value="Kan nie URL gebruik nie: PeerProject verstaan nie hierdie URL nie."/>
 	<string id="20871" value="URL &quot;%s&quot; ontvang"/>
 	<string id="20872" value="Tipe:"/>
-	<string id="20874" value="Nie Gespesifiseer"/>
-	<string id="20875" value="URL:"/>
+	<string id="20874" value="URL:"/>
+	<string id="20875" value="Nie Gespesifiseer"/>
 	<string id="20880" value="Verander My Profiel"/>
-	<string id="20881" value="Verandering van die aansig sal enige oop vensters toemaak.  Wil jy nou verander?"/>
-	<string id="20884" value="Geen URN beskikbaar"/>
-	<string id="20885" value="Verandering van die koppelvlak rigting vereis die oorbegin van PeerProject. \nJy sal weer PeerProject met die hand moet begin. Verlaat PeerProject nou?"/>
+	<string id="20881" value="%u lêers gekies. Is jy seker?"/>
+	<string id="20882" value="Geen URN beskikbaar"/>
+	<string id="20885" value="Verandering van die aansig sal enige oop vensters toemaak.  Wil jy nou verander?"/>
+	<string id="20886" value="Verandering van die koppelvlak rigting vereis die oorbegin van PeerProject. \nJy sal weer PeerProject met die hand moet begin. Verlaat PeerProject nou?"/>
 	<string id="20890" value="Welkom by PeerProject"/>
 	<string id="20891" value="Maak Toe"/>
 	<string id="20895" value="Jy het nog nie 'n konneksie-spoed gespesifiseer nie.  Voor jy aangaan, selekteer asseblief jou internet konneksietipe, of sleutel 'n konneksiespoed in."/>

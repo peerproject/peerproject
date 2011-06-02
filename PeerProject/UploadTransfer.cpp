@@ -49,10 +49,10 @@ CUploadTransfer::CUploadTransfer(PROTOCOLID nProtocol)
 	, m_nFileBase		( 0 )
 	, m_bFilePartial	( FALSE )
 	, m_bLive			( TRUE )
+	, m_bStopTransfer	( FALSE )
 	, m_nRequests		( 0 )
 	, m_nUploaded		( 0 )
 	, m_tContent		( 0 )
-	, m_bStopTransfer	( FALSE )
 	, m_tRotateTime		( 0 )
 	, m_tAverageTime	( 0 )
 	, m_nAveragePos		( 0 )
@@ -451,7 +451,7 @@ BOOL CUploadTransfer::RequestPartial(CDownload* pFile)
 	if ( validAndUnequal( m_oMD5, pFile->m_oMD5 ) ) return FALSE;
 
 	m_sName	= pFile->m_sName;
-	if ( ! pFile->IsTorrent() || pFile->IsSingleFileTorrent() )
+	if ( ! pFile->IsMultiFileTorrent() )
 		m_sPath	= pFile->GetPath( 0 );
 	m_nFileBase	= 0;
 	m_nSize	= pFile->m_nSize;

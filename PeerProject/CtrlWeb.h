@@ -1,7 +1,7 @@
 //
 // CtrlWeb.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -23,11 +23,12 @@ class CCoolMenu;
 
 class CWebCtrl : public CWnd
 {
+	DECLARE_DYNAMIC(CWebCtrl)
+
 // Construction
 public:
 	CWebCtrl();
 	virtual ~CWebCtrl();
-	DECLARE_DYNAMIC(CWebCtrl)
 
 // Operations
 public:
@@ -45,24 +46,15 @@ protected:
 	BOOL					m_bSandbox;
 	DWORD					m_tFrame;
 
-// Message Map
-protected:
-	DECLARE_MESSAGE_MAP()
-	virtual BOOL PreTranslateMessage(MSG* pMsg);
-	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
-	afx_msg void OnDestroy();
-	afx_msg void OnSize(UINT nType, int cx, int cy);
-	afx_msg void OnPaint();
-
 // Menu Driver
-protected:
-	void					EnterMenu(POINT* pPoint);
-	static LRESULT PASCAL	WebWndProc(HWND hWnd, UINT nMsg, WPARAM wParam, LPARAM lParam);
 protected:
 	CCoolMenu*				m_pMenu;
 	HWND					m_hWndThis;
 	WNDPROC					m_pWndProc;
 	static CWebCtrl*		m_pThis;
+
+	void					EnterMenu(POINT* pPoint);
+	static LRESULT PASCAL	WebWndProc(HWND hWnd, UINT nMsg, WPARAM wParam, LPARAM lParam);
 
 // Event Handlers
 protected:
@@ -70,8 +62,18 @@ protected:
 	virtual void BeforeNavigate2(LPDISPATCH pDispatch, VARIANT* pvURL, VARIANT* pvFlags, VARIANT* pvTargetFrameName, VARIANT* pvPostData, VARIANT* pvHeaders, VARIANT_BOOL* pvCancel);
 	virtual void OnNewWindow2(LPDISPATCH* ppDisp, VARIANT_BOOL* bCancel);
 
-// Control Site
+// Message Map
 protected:
+	virtual BOOL PreTranslateMessage(MSG* pMsg);
+	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
+	afx_msg void OnDestroy();
+	afx_msg void OnSize(UINT nType, int cx, int cy);
+	afx_msg void OnPaint();
+
+	DECLARE_MESSAGE_MAP()
+
+// Control Site
+public:
 	class DocSite : public COleControlSite
 	{
 	public:

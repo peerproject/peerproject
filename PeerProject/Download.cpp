@@ -526,8 +526,7 @@ void CDownload::OnRun()
 	}
 
 	// Don't save Downloads with many sources too often, since it's slow
-	if ( tNow - m_tSaved >=
-		( GetCount() > 20 ? 5 * Settings.Downloads.SaveInterval : Settings.Downloads.SaveInterval ) )
+	if ( tNow >= m_tSaved + ( GetCount() > 20 ? 5 * Settings.Downloads.SaveInterval : Settings.Downloads.SaveInterval ) )
 	{
 		if ( IsModified() )
 		{
@@ -632,8 +631,8 @@ void CDownload::OnMoved()
 	m_sPath.Empty();
 
 	// Download finalized, tracker notified, set flags that we completed
-	m_bComplete		= true;
-	m_tCompleted	= GetTickCount();
+	m_bComplete  = true;
+	m_tCompleted = GetTickCount();
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -703,8 +702,11 @@ BOOL CDownload::Save(BOOL bFlush)
 {
 	CSingleLock pTransfersLock( &Transfers.m_pSection, TRUE );
 
-	if ( m_sPath.IsEmpty() )	// From incomplete folder
-		m_sPath = Settings.Downloads.IncompletePath + _T("\\") + GetFilename() + _T(".pd");	//.sd
+	if ( m_sPath.Right( 3 ) != L".pd" )		// Remove imported .sd files, .pd will be created below
+		DeleteFileEx( LPCTSTR( m_sPath ), FALSE, FALSE, FALSE );
+
+	if ( m_sPath.IsEmpty() || m_sPath.Right( 3 ) != L".pd" )		// From incomplete folder or .sd imports
+		m_sPath = Settings.Downloads.IncompletePath + _T("\\") + GetFilename() + _T(".pd");
 
 	// Escape Windows path length limit with \\?\ if needed?
 	//const CString strPath = ( m_sPath.GetLength() > ( MAX_PATH - 4 ) ) ? ( _T("\\\\?\\")  + m_sPath ) : m_sPath;
@@ -803,7 +805,7 @@ void CDownload::Serialize(CArchive& ar, int nVersion)	// DOWNLOAD_SER_VERSION
 				if ( strncmp( szID, "SDL", 3 ) != 0 )	// Shareaza import or pre r60?
 					AfxThrowUserException();
 			ar >> nVersion;
-			if ( nVersion <= 0 || nVersion > DOWNLOAD_SER_VERSION )
+			if ( nVersion < 1 || nVersion > DOWNLOAD_SER_VERSION )
 				AfxThrowUserException();
 		}
 	}
@@ -821,7 +823,6 @@ void CDownload::Serialize(CArchive& ar, int nVersion)	// DOWNLOAD_SER_VERSION
 		ar << m_bPaused;
 		ar << m_bBoosted;
 		ar << m_bShared;
-
 		ar << m_nSerID;
 	}
 	else // Loading
@@ -849,7 +850,7 @@ void CDownload::Serialize(CArchive& ar, int nVersion)	// DOWNLOAD_SER_VERSION
 
 //void CDownload::SerializeOld(CArchive& ar, int nVersion)	// DOWNLOAD_SER_VERSION < 11
 //{
-//	// nVersion < 11 (Very old Shareaza!)
+//	// nVersion < 11 (Very old Shareaza)
 //
 //	ASSERT( ar.IsLoading() );
 //
@@ -903,7 +904,7 @@ BOOL CDownload::Launch(int nIndex, CSingleLock* pLock, BOOL bForceOriginal)
 	if ( nIndex < 0 && IsCompleted() && ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 ) != 0 )
 	{
 		// Shift key opens file externally, folder on multifile torrents
-		const CString strPath = ( IsTorrent() && ! IsSingleFileTorrent() ) ?
+		const CString strPath = IsMultiFileTorrent() ?
 			GetPath( 0 ).Left( GetPath( 0 ).ReverseFind( '\\' ) + 1 ) : GetPath( 0 );
 		ShellExecute( AfxGetMainWnd()->GetSafeHwnd(),
 			_T("open"), strPath, NULL, NULL, SW_SHOWNORMAL );
@@ -923,16 +924,14 @@ BOOL CDownload::Launch(int nIndex, CSingleLock* pLock, BOOL bForceOriginal)
 	if ( IsCompleted() )
 	{
 		// Run complete file
+
 		if ( m_bVerify == TRI_FALSE )
 		{
-			CString strFormat, strMessage;
-			LoadString( strFormat, IDS_LIBRARY_VERIFY_FAIL );
-			strMessage.Format( strFormat, (LPCTSTR)strName );
-
 			if ( pLock ) pLock->Unlock();
 
-			INT_PTR nResponse = AfxMessageBox( strMessage,
-				MB_ICONEXCLAMATION | MB_YESNOCANCEL | MB_DEFBUTTON2 );
+			CString strMessage;
+			strMessage.Format( LoadString( IDS_LIBRARY_VERIFY_FAIL ), (LPCTSTR)strName );
+			INT_PTR nResponse = AfxMessageBox( strMessage, MB_ICONEXCLAMATION | MB_YESNOCANCEL | MB_DEFBUTTON2 );
 
 			if ( pLock ) pLock->Lock();
 
@@ -944,7 +943,7 @@ BOOL CDownload::Launch(int nIndex, CSingleLock* pLock, BOOL bForceOriginal)
 
 		if ( pLock ) pLock->Unlock();
 
-		bResult = CFileExecutor::Execute( strPath, FALSE, strExt );
+		bResult = CFileExecutor::Execute( strPath, strExt );
 
 		if ( pLock ) pLock->Lock();
 	}
@@ -974,7 +973,7 @@ BOOL CDownload::Launch(int nIndex, CSingleLock* pLock, BOOL bForceOriginal)
 		// Run file as is
 		if ( pLock ) pLock->Unlock();
 
-		bResult = CFileExecutor::Execute( strPath, FALSE, strExt );
+		bResult = CFileExecutor::Execute( strPath, strExt );
 
 		if ( pLock ) pLock->Lock();
 	}
@@ -998,7 +997,7 @@ BOOL CDownload::Enqueue(int nIndex, CSingleLock* pLock)
 		const CString strName = GetName( nIndex );
 		const CString strExt = strName.Mid( strName.ReverseFind( '.' ) );
 
-		bResult = CFileExecutor::Enqueue( strPath, FALSE, strExt );
+		bResult = CFileExecutor::Enqueue( strPath, strExt );
 
 		if ( pLock ) pLock->Lock();
 	}

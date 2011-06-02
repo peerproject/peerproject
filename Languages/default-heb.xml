@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Hebrew Skin File -->
 
-<!-- Translation based on default-en.xml r66 -->
+<!-- Translation based on default-en.xml r67 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1860,8 +1860,8 @@ gap i newline
 	<tip id="ID_LIBRARY_ALBUM_DELETE" message="מחק את תיקיית האלבום הנבחרת"/>
 	<tip id="ID_LIBRARY_ALBUM_OPEN" message="פתח את תיקיית האלבום הנבחרת"/>
 	<tip id="ID_LIBRARY_ALBUM_PROPERTIES" message="הצג וערוך מאפיינים של תיקיית האלבום הנבחרת"/>
-	<tip id="ID_LIBRARY_BITZI_DOWNLOAD" message="הורד metadata לקובץ/ים הנבחר/ים מ-Bitzi(TM)..."/>
-	<tip id="ID_LIBRARY_BITZI_WEB" message="הצג את כרטיס ה-Bitzi(TM) לקובץ הנבחר ברשת."/>
+	<tip id="ID_LIBRARY_BITZI_DOWNLOAD" message="הורד metadata לקובץ/ים הנבחר/ים מ-Bitzi™..."/>
+	<tip id="ID_LIBRARY_BITZI_WEB" message="הצג את כרטיס ה-Bitzi™ לקובץ הנבחר ברשת."/>
 	<tip id="ID_LIBRARY_COLUMNS" message="בחר את עמודות המידע שתרצה להציג"/>
 	<tip id="ID_LIBRARY_COPY" message="העתק את הקצבים הנבחרים לתיקייה אחרת בספריה"/>
 	<tip id="ID_LIBRARY_CREATETORRENT" message="צור טורנט לקובץ זה בכדי להעלותו לאתר"/>
@@ -2177,11 +2177,11 @@ gap i newline
 	<string id="20184" value="‪‪...מבקש שיחה פרטית עם המשתמש"/>
 	<string id="20185" value="‪משתמש מאומת"/>
 	<string id="20186" value="‪לוחץ יד %s -מ push אושר חיבור"/>
-	<string id="20188" value="‪%s -מוגן חומת אש מ push מבקש חיבור"/>
-	<string id="20190" value="‪.ההתחברות נכשלה בעקבות מידע שגוי בכבל התקשורת"/>
-	<string id="20191" value="‪%s :התקבלה תגובה לא מוכרת"/>
-	<string id="20192" value="‪.אתה אינך מחובר"/>
-	<string id="20193" value="‪&quot;%s&quot;.פקודה בלתי מזוהה"/>
+	<string id="20187" value="‪%s -מוגן חומת אש מ push מבקש חיבור"/>
+	<string id="20188" value="‪.ההתחברות נכשלה בעקבות מידע שגוי בכבל התקשורת"/>
+	<string id="20189" value="‪%s :התקבלה תגובה לא מוכרת"/>
+	<string id="20190" value="‪.אתה אינך מחובר"/>
+	<string id="20191" value="‪&quot;%s&quot;.פקודה בלתי מזוהה"/>
 	<string id="20199" value="‪(סוגר בסיום ההעברות)"/>
 	<string id="20201" value="‪כבר בהורדה, מוסיף מקורות &quot;%s&quot; הקובץ"/>
 	<string id="20207" value="‪?האם אתה בטוח שברצונך לבטל או להפסיק את כל ההורדות בקבוצה"/>
@@ -2213,15 +2213,16 @@ gap i newline
 	<string id="20369" value="‪פקטים של גנוטלה אבדו"/>
 	<string id="20370" value="‪פקטים של גנוטלה התקבלו"/>
 	<string id="20371" value="‪פקטים של גנוטלה נשלחו"/>
-	<string id="20374" value="‪Gnutella Local Queries"/>
-	<string id="20375" value="‪פקטים של גנוטלה הועברו בראוטר"/>
-	<string id="20376" value="‪סך רוחב פס קבלה ג'נרית"/>
-	<string id="20377" value="‪סך רוחב פס שידור ג'נרי"/>
-	<string id="20378" value="‪כולל לקבלה TCP רוחב פס"/>
-	<string id="20379" value="‪כולל לשליחה TCP רוחב פס"/>
-	<string id="20380" value="‪כולל לקבלה UDP רוחב פס"/>
-	<string id="20381" value="‪כולל לשליחה UDP רוחב פס"/>
-	<string id="20382" value="‪רוחב-פס להעברות"/>
+	<string id="20374" value="‪Gnutella Queries Incoming"/>
+	<string id="20375" value="‪Gnutella Queries Processed"/>
+	<string id="20376" value="‪פקטים של גנוטלה הועברו בראוטר"/>
+	<string id="20377" value="‪סך רוחב פס קבלה ג'נרית"/>
+	<string id="20378" value="‪סך רוחב פס שידור ג'נרי"/>
+	<string id="20379" value="‪כולל לקבלה TCP רוחב פס"/>
+	<string id="20380" value="‪כולל לשליחה TCP רוחב פס"/>
+	<string id="20381" value="‪כולל לקבלה UDP רוחב פס"/>
+	<string id="20382" value="‪כולל לשליחה UDP רוחב פס"/>
+	<string id="20383" value="‪רוחב-פס להעברות"/>
 	<string id="20384" value="‪סכום העלאות שהועברו"/>
 	<string id="20400" value="‪PeerProject is creating hashes for %Iu files:" />
 	<string id="20410" value="‪סייר בספריית השיתוף שלך בשרזה"/>
@@ -2503,12 +2504,13 @@ gap i newline
 	<string id="20870" value="‪.שרזה לא מבין את כתובת אינטרנט זו ,URL נכשל לפענח את הכתובת"/>
 	<string id="20871" value="‪&quot;%s&quot;.URL קבלת כתובת"/>
 	<string id="20872" value="‪:סוג"/>
-	<string id="20874" value="‪לא מוגדר"/>
-	<string id="20875" value="‪URL כתובת:"/>
+	<string id="20874" value="‪URL כתובת:"/>
+	<string id="20875" value="‪לא מוגדר"/>
 	<string id="20880" value="‪ערוך את הפרופיל שלי"/>
-	<string id="20881" value="‪שינוי התצוגה יסגור את כל החלונות הפתוחים, אתה רוצה לשנות את התצוגה כעת?"/>
-	<string id="20884" value="‪זמין URN אין"/>
-	<string id="20885" value=".Changing interface direction requires restart\n.You will need to start PeerProject manually\n\n? Exit now"/>
+	<string id="20881" value="קבצים שנבחרו. האם אתה בטוח? %u"/>
+	<string id="20882" value="‪זמין URN אין"/>
+	<string id="20885" value="‪שינוי התצוגה יסגור את כל החלונות הפתוחים, אתה רוצה לשנות את התצוגה כעת?"/>
+	<string id="20886" value=".Changing interface direction requires restart\n.You will need to start PeerProject manually\n\n? Exit now"/>
 	<string id="20890" value="‪ברוכים הבאים לשרזה"/>
 	<string id="20891" value="‪יציאה"/>
 	<string id="20898" value="‪?לא בחרת אף תיקייה לשיתוף, האם הינך מעוניין להמשיך"/>

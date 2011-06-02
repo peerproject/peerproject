@@ -384,33 +384,37 @@ BOOL CUploads::OnAccept(CConnection* pConnection)
 {
 	CSingleLock oTransfersLock( &Transfers.m_pSection );
 	if ( ! oTransfersLock.Lock( 250 ) )
-		return FALSE;
-
-	if ( Settings.Remote.Enable &&
-		( pConnection->StartsWith( _P("GET /remote/") ) ||
-		  pConnection->StartsWith( _P("GET /remote HTTP") ) ) )		// User entered remote page into browser, but forgot trailing '/'
 	{
+		theApp.Message( MSG_INFO, _T("Rejecting incoming connection from %s, network core overloaded."), (LPCTSTR)pConnection->m_sAddress );
+		return FALSE;
+	}
+
+	if ( pConnection->StartsWith( _P("GET /remote/") ) ||
+		 pConnection->StartsWith( _P("GET /remote HTTP") ) )		// User entered remote page into browser, but forgot trailing '/'
+	{
+		if ( ! Settings.Remote.Enable )
+		{
+			theApp.Message( MSG_ERROR, _T("Rejecting incoming connection from %s, remote interface disabled."), (LPCTSTR)pConnection->m_sAddress );
+			return FALSE;
+		}
+
 		new CRemote( pConnection );
 		return TRUE;
 	}
-	else if ( Settings.Uploads.MaxPerHost > 0 )
+
+	CUploadTransfer* pUpload = new CUploadTransferHTTP();
+
+	for ( POSITION pos = GetIterator() ; pos ; )
 	{
-		CUploadTransfer* pUpload = new CUploadTransferHTTP();
+		CUploadTransfer* pTest = GetNext( pos );
 
-		for ( POSITION pos = GetIterator() ; pos ; )
-		{
-			CUploadTransfer* pTest = GetNext( pos );
-
-			if ( pTest->m_pHost.sin_addr.S_un.S_addr == pConnection->m_pHost.sin_addr.S_un.S_addr )
-				pTest->m_bLive = FALSE;
-		}
-
-		pUpload->AttachTo( pConnection );
-
-		return TRUE;
+		if ( pTest->m_pHost.sin_addr.S_un.S_addr == pConnection->m_pHost.sin_addr.S_un.S_addr )
+			pTest->m_bLive = FALSE;
 	}
 
-	return FALSE;
+	pUpload->AttachTo( pConnection );
+
+	return TRUE;
 }
 
 void CUploads::OnRename(LPCTSTR pszSource, LPCTSTR pszTarget)

@@ -1,7 +1,7 @@
 //
 // CtrlWeb.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -15,6 +15,8 @@
 // See the GNU Affero General Public License 3.0 (AGPLv3) for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
+
+// Uses Internet Explorer for viewing Library Collection files
 
 #include "StdAfx.h"
 #include "PeerProject.h"
@@ -122,7 +124,7 @@ HRESULT CWebCtrl::Navigate(LPCTSTR lpszURL, DWORD dwFlags, LPCTSTR lpszTargetFra
 	}
 
 	return m_pBrowser->Navigate( bstrURL, COleVariant( (long) dwFlags, VT_I4 ),
-	COleVariant( lpszTargetFrameName, VT_BSTR ), vPostData,
+		COleVariant( lpszTargetFrameName, VT_BSTR ), vPostData,
 		COleVariant( lpszHeaders, VT_BSTR ) );
 }
 
@@ -488,14 +490,10 @@ STDMETHODIMP CWebCtrl::DocSite::XServiceProvider::QueryService(REFGUID guidServi
 	{
 		if ( riid == IID_IInternetSecurityManager )
 			return pThis->ExternalQueryInterface( &riid, ppv );
-		else
-			return E_NOINTERFACE;
+		return E_NOINTERFACE;
 	}
-	else
-	{
-		// return SVC_E_UNKNOWNSERVICE;
-		return E_UNEXPECTED;
-	}
+
+	return E_UNEXPECTED;	// SVC_E_UNKNOWNSERVICE ?
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -530,16 +528,16 @@ STDMETHODIMP CWebCtrl::DocSite::XInternetSecurityManager::ProcessUrlAction(LPCWS
 
 	if ( wcsncmp( pwszUrl, L"p2p-col://", 10 ) == 0 )
 	{
-		if (	( dwAction >= URLACTION_ACTIVEX_MIN && dwAction <= URLACTION_ACTIVEX_MAX )
-			||	( dwAction >= URLACTION_SHELL_MIN && dwAction <= URLACTION_SHELL_MAX )
-			||	( dwAction >= URLACTION_INFODELIVERY_MIN && dwAction <= URLACTION_INFODELIVERY_MAX )
-			||	( dwAction >= URLACTION_HTML_MIN && dwAction <= URLACTION_HTML_MAX )
-			||	( dwAction >= URLACTION_DOWNLOAD_MIN && dwAction <= URLACTION_DOWNLOAD_MAX ) )
+		if ( ( dwAction >= URLACTION_ACTIVEX_MIN && dwAction <= URLACTION_ACTIVEX_MAX ) ||
+			 ( dwAction >= URLACTION_SHELL_MIN && dwAction <= URLACTION_SHELL_MAX ) ||
+			 ( dwAction >= URLACTION_INFODELIVERY_MIN && dwAction <= URLACTION_INFODELIVERY_MAX ) ||
+			 ( dwAction >= URLACTION_HTML_MIN && dwAction <= URLACTION_HTML_MAX ) ||
+			 ( dwAction >= URLACTION_DOWNLOAD_MIN && dwAction <= URLACTION_DOWNLOAD_MAX ) )
 		{
 			*pBool = URLPOLICY_DISALLOW;
 			return S_OK;
 		}
-		else if ( dwAction >= URLACTION_SCRIPT_MIN && dwAction <= URLACTION_SCRIPT_MAX )
+		if ( dwAction >= URLACTION_SCRIPT_MIN && dwAction <= URLACTION_SCRIPT_MAX )
 		{
 			*pBool = ( dwAction == URLACTION_SCRIPT_RUN ) ? URLPOLICY_ALLOW : URLPOLICY_DISALLOW;
 			return S_OK;

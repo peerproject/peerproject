@@ -1,7 +1,7 @@
 //
 // WndHashProgressBar.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -39,8 +39,8 @@ BEGIN_MESSAGE_MAP(CHashProgressBar, CWnd)
 	//{{AFX_MSG_MAP(CHashProgressBar)
 	ON_WM_CREATE()
 	ON_WM_DESTROY()
-	ON_WM_PAINT()
 	ON_WM_TIMER()
+	ON_WM_PAINT()
 	ON_WM_ERASEBKGND()
 	ON_WM_LBUTTONDOWN()
 	//}}AFX_MSG_MAP
@@ -54,19 +54,13 @@ END_MESSAGE_MAP()
 // CHashProgressBar construction
 
 CHashProgressBar::CHashProgressBar()
-	: m_pParent	( NULL )
-	, m_hIcon	( NULL )
-	, m_nFlash	( 0 )
+	: m_nFlash	( 0 )
+//	, m_nAlpha	( 0 )
 {
 }
 
 /////////////////////////////////////////////////////////////////////////////
 // CHashProgressBar operations
-
-void CHashProgressBar::Create(CWnd* pParent)
-{
-	m_pParent = pParent;
-}
 
 void CHashProgressBar::Run()
 {
@@ -80,9 +74,9 @@ void CHashProgressBar::Run()
 		return;
 	}
 
-	m_sCurrent = LibraryBuilder.GetCurrent();
-	const int nPos = m_sCurrent.ReverseFind( '\\' );
-	if ( nPos > 0 ) m_sCurrent = m_sCurrent.Mid( nPos + 1 );
+	CString sCurrent = LibraryBuilder.GetCurrent();
+	if ( ! sCurrent.IsEmpty() )
+		m_sCurrent = PathFindFileName( sCurrent );
 
 	if ( m_hWnd == NULL )
 	{
@@ -110,7 +104,7 @@ void CHashProgressBar::Update()
 
 		CClientDC dc( this );
 		CFont* pOld = (CFont*)dc.SelectObject( &CoolInterface.m_fntCaption );
-		CSize sz = dc.GetTextExtent( m_sPrevious );
+		CSize sz = dc.GetTextExtent( m_sCurrent );
 		dc.SelectObject( pOld );
 
 		int nWidth = 4 + 32 + sz.cx + 3;
@@ -130,6 +124,8 @@ void CHashProgressBar::Show(int nWidth, BOOL /*bShow*/)
 	rc.top	= rc.bottom - WINDOW_HEIGHT - 4;
 	SetWindowPos( &wndTopMost, rc.left, rc.top, nWidth, WINDOW_HEIGHT,
 		SWP_SHOWWINDOW | SWP_NOACTIVATE );
+
+//	SetTimer( 2, 5, NULL );		// ToDo: Rapid fade-in
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -137,7 +133,8 @@ void CHashProgressBar::Show(int nWidth, BOOL /*bShow*/)
 
 int CHashProgressBar::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
-	if ( CWnd::OnCreate( lpCreateStruct ) == -1 ) return -1;
+	if ( CWnd::OnCreate( lpCreateStruct ) == -1 )
+		return -1;
 
 	OnSkinChange();
 
@@ -151,6 +148,8 @@ void CHashProgressBar::OnDestroy()
 {
 	KillTimer( 1 );
 
+//	m_nAlpha = 0;
+
 	CWnd::OnDestroy();
 }
 
@@ -159,17 +158,23 @@ void CHashProgressBar::OnSkinChange()
 	HBITMAP hBitmap = Skin.GetWatermark( _T("CHashProgressBar") );
 	if ( m_bmImage.m_hObject ) m_bmImage.DeleteObject();
 	if ( hBitmap != NULL )	m_bmImage.Attach( hBitmap );
-
-	m_hIcon = (HICON)LoadImage( AfxGetResourceHandle(),
-		MAKEINTRESOURCE(IDI_SEARCH_FOLDER), IMAGE_ICON, 32, 32, 0 );
 }
 
 void CHashProgressBar::OnPaint()
 {
-	CPaintDC dc( this );
+//	CPaintDC dcClient( this );
+//
+//	Draw( &dcClient );
+//}
 
+//void CHashProgressBar::Draw(CDC* pDC)
+//{
 	CRect rcClient;
 	GetClientRect( &rcClient );
+
+//	CDC dc;
+//	dc.CreateCompatibleDC( pDC );
+	CPaintDC dc( this );
 
 	dc.Draw3dRect( &rcClient, Colors.m_crTipBorder, Colors.m_crTipBorder );
 	rcClient.DeflateRect( 1, 1 );
@@ -182,7 +187,10 @@ void CHashProgressBar::OnPaint()
 	// Icon
 	if( ! ShellIcons.Draw( &dc, ShellIcons.Get( m_sCurrent, 32 ), 32,
 			rcClient.left + 5, rcClient.top + 4, ( m_bmImage.m_hObject ? CLR_NONE : Colors.m_crTipBack ) ) )
-		DrawIconEx( dc, rcClient.left + 5, rcClient.top + 4, m_hIcon, 32, 32, 0, NULL, DI_NORMAL );
+	{
+		HICON hIcon = (HICON)LoadImage( AfxGetResourceHandle(), MAKEINTRESOURCE(IDI_SEARCH_FOLDER), IMAGE_ICON, 32, 32, 0 );
+		DrawIconEx( dc, rcClient.left + 5, rcClient.top + 4, hIcon, 32, 32, 0, NULL, DI_NORMAL );
+	}
 
 	// Text
 	CFont* pOld = dc.SelectObject( &CoolInterface.m_fntNormal );
@@ -206,7 +214,7 @@ void CHashProgressBar::OnPaint()
 //	dc.SelectObject( &CoolInterface.m_fntCaption );
 	rcText.top = rcText.bottom + 4;
 	rcText.bottom = rcClient.bottom - 10;
-	dc.DrawText( m_sPrevious, rcText,
+	dc.DrawText( m_sCurrent, rcText,
 		DT_LEFT | DT_SINGLELINE | DT_END_ELLIPSIS );
 
 	dc.SelectObject( pOld );
@@ -222,6 +230,9 @@ void CHashProgressBar::OnPaint()
 	dc.Draw3dRect( &rcProgress, Colors.m_crFragmentPass, Colors.m_crFragmentPass );
 	rcProgress.top--;
 	dc.Draw3dRect( &rcProgress, Colors.m_crFragmentPass, Colors.m_crTipText );
+
+//	pDC->BitBlt( rcClient.left, rcClient.top, rcClient.Width(), rcClient.Height(),
+//		&dc, 0, 0, SRCCOPY );
 }
 
 BOOL CHashProgressBar::OnEraseBkgnd(CDC* /*pDC*/)
@@ -231,6 +242,34 @@ BOOL CHashProgressBar::OnEraseBkgnd(CDC* /*pDC*/)
 
 void CHashProgressBar::OnTimer(UINT_PTR /*nIDEvent*/)
 {
+	//if ( nIDEvent == 2 )	// Fade In
+	//{
+	//	m_nAlpha += 2;
+	//	if ( m_nAlpha >= Settings.Interface.TipAlpha )
+	//	{
+	//		m_nAlpha = Settings.Interface.TipAlpha;
+	//		KillTimer( 2 );
+	//	}
+	//
+	//	SetLayeredWindowAttributes( NULL, m_nAlpha, LWA_ALPHA );
+	//
+	//	return;
+	//}
+
+	//if ( nIDEvent == 3 )	// Fade Out
+	//{
+	//	m_nAlpha -= 2;
+	//	if ( m_nAlpha < 5 )
+	//	{
+	//		m_nAlpha = 0;
+	//		KillTimer( 3 );
+	//	}
+	//
+	//	SetLayeredWindowAttributes( NULL, m_nAlpha, LWA_ALPHA );
+	//
+	//	return;
+	//}
+
 	CRect rcClient;
 	GetClientRect( &rcClient );
 	if ( m_nFlash % 15 == 1 )	// Cycle text 3x per 2 seconds

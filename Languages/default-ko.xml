@@ -3,7 +3,7 @@
 
 <!-- PeerProject Korean Language Skin File -->
 
-<!-- Translation based on default-en.xml r64 --> <!--Machine Translated!-->
+<!-- Translation based on default-en.xml r67 --> <!--Machine Translated!-->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2102,13 +2102,13 @@
 	<string id="20184" value="Requesting private conversation with user..."/>
 	<string id="20185" value="인증된 사용자"/>
 	<string id="20186" value="Accepted push connection from %s, handshaking..."/>
-	<string id="20188" value="Requesting a firewalled push connection from %s..."/>
-	<string id="20190" value="Connection failed due to invalid data on the wire."/>
-	<string id="20191" value="Received an unknown response: %s"/>
-	<string id="20192" value="You're not connected."/>
-	<string id="20193" value="Unrecognised command &quot;%s&quot;."/>
-	<string id="20194" value="This template does not have any customizations."/>
-	<string id="20195" value="This template is invalid."/>
+	<string id="20187" value="Requesting a firewalled push connection from %s..."/>
+	<string id="20188" value="Connection failed due to invalid data on the wire."/>
+	<string id="20189" value="Received an unknown response: %s"/>
+	<string id="20190" value="You're not connected."/>
+	<string id="20191" value="Unrecognised command &quot;%s&quot;."/>
+	<string id="20196" value="This template does not have any customizations."/>
+	<string id="20197" value="This template is invalid."/>
 	<string id="20199" value="(전송 후 종료)"/>
 	<string id="20200" value="Added &quot;%s&quot; to download queue with %i sources."/>
 	<string id="20201" value="The file &quot;%s&quot; is already being downloaded, adding sources."/>
@@ -2164,7 +2164,7 @@
 	<string id="20258" value="Receiving tiger-tree data from %s (%s)..."/>
 	<string id="20259" value="Requesting metadata for &quot;%s&quot; from %s..."/>
 	<string id="20260" value="다운로드 등록"/>
-	<string id="20261" value="Download host %s responded with %s (%s)."/>
+<!--	<string id="20261" value="Download host %s responded with %s (%s)."/>
 	<string id="20262" value="Download host %s responded with an invalid HTTP response."/>
 	<string id="20263" value="Host %s is pushing download &quot;%s&quot;, accepting."/>
 	<string id="20264" value="Sending push request for download &quot;%s&quot;..."/>
@@ -2265,15 +2265,16 @@
 	<string id="20371" value="Gnutella Packets Transmitted"/>
 	<string id="20372" value="Gnutella Ratio of Received/Sent Pings"/>
 	<string id="20373" value="Gnutella Ratio of Received/Sent Pongs"/>
-	<string id="20374" value="Gnutella Local Queries"/>
-	<string id="20375" value="Gnutella Packets Routed"/>
-	<string id="20376" value="Total Generic Receive Bandwidth"/>
-	<string id="20377" value="Total Generic Transmit Bandwidth"/>
-	<string id="20378" value="Total TCP Receive Bandwidth"/>
-	<string id="20379" value="Total TCP Transmit Bandwidth"/>
-	<string id="20380" value="Total UDP Receive Bandwidth"/>
-	<string id="20381" value="Total UDP Transmit Bandwidth"/>
-	<string id="20382" value="Upload Bandwidth"/>
+	<string id="20374" value="Gnutella Queries Incoming"/>
+	<string id="20375" value="Gnutella Queries Processed"/>
+	<string id="20376" value="Gnutella Packets Routed"/>
+	<string id="20377" value="Total Generic Receive Bandwidth"/>
+	<string id="20378" value="Total Generic Transmit Bandwidth"/>
+	<string id="20379" value="Total TCP Receive Bandwidth"/>
+	<string id="20380" value="Total TCP Transmit Bandwidth"/>
+	<string id="20381" value="Total UDP Receive Bandwidth"/>
+	<string id="20382" value="Total UDP Transmit Bandwidth"/>
+	<string id="20383" value="Upload Bandwidth"/>
 	<string id="20384" value="Upload Transfer Count"/>
 	<string id="20385" value="Connecting neighbor %s falling back to shielded leaf mode."/>
 	<string id="20386" value="Closing surplus connection from %s with host hint (%s port %i)."/>
@@ -2290,7 +2291,7 @@
 	<string id="20397" value="Connection to %s rejected (%s)."/>
 	<string id="20398" value="Closing surplus connection from %s."/>
 	<string id="20399" value="Timed out handshaking with %s."/>
-	<string id="20400" value="PeerProject is creating hashes for %Iu files:"/>
+-->	<string id="20400" value="PeerProject is creating hashes for %Iu files:"/>
 	<string id="20401" value="나의 선택을 다음 번에 기억"/>
 	<string id="20402" value="추가"/>
 	<string id="20403" value="채"/>
@@ -2446,8 +2447,8 @@
 	<string id="20582" value="Neighbor %s forwarded a pong packet with invalid length, ignoring."/>
 	<string id="20583" value="Neighbor %s forwarded a push packet with invalid length, ignoring."/>
 	<string id="20584" value="Neighbor %s forwarded a packet of excessive size, dropping connection."/>
-	<string id="20585" value="Neighbor %s forwarded an unrecognised packet (0x%.2x), ignoring."/>
-	<string id="20586" value="Neighbor %s forwarded a pong with invalid address data, ignoring."/>
+	<string id="20586" value="Neighbor %s forwarded an unrecognised packet (0x%.2x), ignoring."/>
+	<string id="20587" value="Neighbor %s forwarded a pong with invalid address data, ignoring."/>
 	<string id="20588" value="Neighbor %s forwarded a push request to a firewalled address, ignoring."/>
 	<string id="20590" value="Remote access is disabled."/>
 	<string id="20591" value="http://%s:%i/remote - Username/password required."/>
@@ -2643,11 +2644,11 @@
 	<string id="20846" value="eDonkey Partials"/>
 	<string id="20847" value="Completed Uploads"/>
 	<string id="20848" value="HTTP Guard"/>
-	<string id="20849" value="Library Files"/>
-	<string id="20850" value="Large Files"/>
-	<string id="20851" value="Medium Files"/>
-	<string id="20852" value="Small Files"/>
-	<string id="20853" value="부분 Files"/>
+	<string id="20849" value="Library 파일"/>
+	<string id="20850" value="Large 파일"/>
+	<string id="20851" value="Medium 파일"/>
+	<string id="20852" value="Small 파일"/>
+	<string id="20853" value="부분 파일"/>
 	<string id="20854" value="부분"/>
 	<string id="20855" value="대기열"/>
 	<string id="20856" value="Torrent Uploads"/>
@@ -2665,14 +2666,13 @@
 	<string id="20869" value="Unable to display URL action dialog because PeerProject is busy."/>
 	<string id="20870" value="Unable to parse URL: PeerProject does not understand this URL."/>
 	<string id="20871" value="Received URL &quot;%s&quot;"/>
-	<string id="20872" value="Type:"/>
-	<string id="20874" value="Unspecified"/>
-	<string id="20875" value="URL:"/>
-	<string id="20880" value="Edit My Profile"/>
-	<string id="20881" value="Changing view will close any windows you have open. Would you like to change now?"/>
-	<string id="20882" value="UPnP Device Host Service is not running. This service is required to perform the setup.\nYou need to set the startup type of the service to automatic."/>
-	<string id="20884" value="No URN available"/>
+	<string id="20872" value="종류:"/>
+	<string id="20874" value="URL:"/>
+	<string id="20875" value="지정되지 않음"/>
+	<string id="20880" value="내 프로필 수정"/>
+	<string id="20881" value="%u 파일을 선택했습니다. 당신은 확실한가요?"/>
 	<string id="20890" value="에 오신 것을 환영합니다 PeerProject (피어 프로젝트)."/>
+	<!-- Missing Warning Messages -->
 	<!-- Missing Wizard Strings -->
 	<string id="20899" value="살짜리"/>
 </strings>

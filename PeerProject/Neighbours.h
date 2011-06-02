@@ -1,7 +1,7 @@
 //
 // Neighbours.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -24,21 +24,17 @@
 #include "NeighboursWithConnect.h"
 
 // Complete the CNeighbours inheritance column, calling Close on each neighbour when the program exits
-class CNeighbours : public CNeighboursWithConnect // End the inheritance column CNeighbours : CNeighboursWithConnect : Routing : ED2K : G2 : G1 : CNeighboursBase
+// End the inheritance column CNeighbours : CNeighboursWithConnect : Routing : ED2K : G2 : G1 : CNeighboursBase
+
+class CNeighbours : public CNeighboursWithConnect
 {
 
 public:
-	// Set up and clean up anything CNeighbours adds to the CNeighbours class
 	CNeighbours();
 	virtual ~CNeighbours();
 
 public:
-	// Methods implimented by several classes in the CNeighbours inheritance column
-	virtual void Connect(); // Set the ping route duration and setup the hub horizon pool
-	virtual void Close();   // Call Close on each neighbour in the list, 0 member variables, and clear the ping route and pong caches
-	virtual void OnRun();   // Call DoRun on each neighbour in the list, and maintain the network auto connection
-
-	// Let CNeighbour and CShakeNeighbour look at the private members of the CNeighbours class
+	// Let CNeighbour and CShakeNeighbour look at private members of CNeighbours class
 	friend class CNeighbour;
 	friend class CShakeNeighbour;
 };

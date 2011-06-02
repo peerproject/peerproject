@@ -1,7 +1,7 @@
 //
 // CtrlLibraryThumbView.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -405,7 +405,8 @@ BOOL CLibraryThumbView::SelectTo(CLibraryThumbItem* pThumb)
 		bChanged = DeselectAll();
 	}
 
-	if ( m_nSelected == 0 ) m_pFirst = NULL;
+	if ( m_nSelected == 0 )
+		m_pFirst = NULL;
 
 	return bChanged;
 }
@@ -829,7 +830,7 @@ void CLibraryThumbView::StartThread()
 			nCount++;
 	}
 
-	if ( nCount == 0 ) // all thumbnails extracted
+	if ( nCount == 0 )	// All thumbnails extracted
 		return;
 
 	BeginThread( "CtrlLibraryThumbView" );
@@ -859,19 +860,16 @@ void CLibraryThumbView::OnRun()
 					bWaiting = true;
 
 					CSingleLock oLock( &Library.m_pSection, FALSE );
-					if ( oLock.Lock( 100 ) )
+					if ( ! oLock.Lock( 100 ) ) break;
+
+					if ( CLibraryFile* pFile = Library.LookupFile( m_pList[ i ]->m_nIndex ) )
 					{
-						if ( CLibraryFile* pFile = Library.LookupFile( m_pList[ i ]->m_nIndex ) )
-						{
-							nIndex	= pFile->m_nIndex;
-							strPath	= pFile->GetPath();
-							oLock.Unlock();
-							break;
-						}
+						nIndex	= pFile->m_nIndex;
+						strPath	= pFile->GetPath();
 						oLock.Unlock();
-					}
-					else
 						break;
+					}
+					oLock.Unlock();
 				}
 			}
 		}
@@ -930,7 +928,7 @@ CLibraryThumbItem::CLibraryThumbItem(CLibraryFile* pFile)
 	m_bShared	= pFile->IsShared();
 	m_bSelected	= FALSE;
 	m_nThumb	= thumbWaiting;
-	m_nShell	= ShellIcons.Get( m_sText, 48 );	//THUMB_ICON Size
+	m_nShell	= ShellIcons.Get( m_sText, 48 );	// THUMB_ICON Size
 }
 
 CLibraryThumbItem::~CLibraryThumbItem()

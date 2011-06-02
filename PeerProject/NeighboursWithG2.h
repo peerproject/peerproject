@@ -1,7 +1,7 @@
 //
 // NeighboursWithG2.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -27,10 +27,11 @@ class CG2Neighbour;
 class CG2Packet;
 
 // Add methods helpful for Gnutella that need to look at the list of computers we're connected to
-class CNeighboursWithG2 : public CNeighboursWithG1 // Continue the inheritance column CNeighbours : CNeighboursWithConnect : Routing : ED2K : G2 : G1 : CNeighboursBase
+// Continue the inheritance column CNeighbours : CNeighboursWithConnect : Routing : ED2K : G2 : G1 : CNeighboursBase
+class CNeighboursWithG2 : public CNeighboursWithG1
 {
 protected:
-	// Constructor/destructor don't do anything: Nothing that CNeighboursWithG2 adds to CNeighbours needs to be set up or put away
+	// Constructor/destructor don't do anything
 	CNeighboursWithG2();
 	virtual ~CNeighboursWithG2();
 
@@ -41,7 +42,7 @@ public:
 
 public:
 	// Make and return a query web packet with IP addresses from the neighbours list and the Gnutella2 host cache
-	CG2Packet* CreateQueryWeb(const Hashes::Guid& oGUID, bool bWithHubs, CNeighbour* pExcept = NULL);
+	CG2Packet* CreateQueryWeb(const Hashes::Guid& oGUID, bool bWithHubs, CNeighbour* pExcept = NULL, bool bDone = true);
 
 	// Return a random Gnutella2 hub neighbour that isn't pExcept and doesn't know about pGUID
 	CG2Neighbour* GetRandomHub(CG2Neighbour* pExcept, const Hashes::Guid& oGUID);

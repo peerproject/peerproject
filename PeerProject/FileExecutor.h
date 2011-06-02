@@ -27,8 +27,11 @@ class CFileExecutor
 public:
 	// Is file extension safe to execute?  TRI_TRUE -safe, TRI_FALSE -dangerous, TRI_UNKNOWN -dangerous and cancel
 	static TRISTATE IsSafeExecute(LPCTSTR szExt, LPCTSTR szFile = NULL);
-	static BOOL		Execute(LPCTSTR pszFile, BOOL bSkipSecurityCheck = FALSE, LPCTSTR pszExt = NULL);
-	static BOOL		Enqueue(LPCTSTR pszFiles, BOOL bSkipSecurityCheck = FALSE, LPCTSTR pszExt = NULL);
+	static TRISTATE	IsVerified(LPCTSTR szFile);
+	static BOOL		Execute(LPCTSTR pszFile, LPCTSTR pszExt = NULL);
+	static BOOL		Execute(const CStringList& pList);
+	static BOOL		Enqueue(LPCTSTR pszFiles, LPCTSTR pszExt = NULL);
+	static BOOL		Enqueue(const CStringList& pList);
 //	static BOOL		ShowBitziTicket(DWORD nFile);	// Moved to WebServices
 //	static BOOL		DisplayURL(LPCTSTR pszURL);
 
@@ -42,6 +45,6 @@ protected:
 	// Is file a video, audio or image file?
 	static void DetectFileType(LPCTSTR pszFile, LPCTSTR szType, bool& bVideo, bool& bAudio, bool& bImage);
 
-	// Extracts custom players form settings
-	static int FillServices(CString sServicePaths[]);
+	// Extract custom mediaplayers from settings
+	static CString GetCustomPlayer();
 };

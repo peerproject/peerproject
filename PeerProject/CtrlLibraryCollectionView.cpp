@@ -1,7 +1,7 @@
 //
 // CtrlLibraryCollectionView.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -66,14 +66,14 @@ END_MESSAGE_MAP()
 
 CLibraryCollectionView::CLibraryCollectionView()
 {
-	m_nCommandID = ID_LIBRARY_VIEW_COLLECTION;
+	m_nCommandID	= ID_LIBRARY_VIEW_COLLECTION;
 
 	m_nWebIndex		= 0;
 	m_pWebCtrl		= NULL;
 	m_pCollection	= new CCollectionFile();
 
 	m_xExternal.m_pView = this;
-	m_pszToolBar = _T("CLibraryCollectionView");
+	m_pszToolBar	= _T("CLibraryCollectionView");
 }
 
 CLibraryCollectionView::~CLibraryCollectionView()
@@ -268,7 +268,8 @@ void CLibraryCollectionView::OnLibraryFolderDownload()
 		pFile->Download();
 	}
 
-	if ( ! Network.IsWellConnected() ) Network.Connect( TRUE );
+	if ( ! Network.IsWellConnected() )
+		Network.Connect( TRUE );
 	PostUpdate();
 }
 
@@ -382,7 +383,7 @@ STDMETHODIMP CLibraryCollectionView::External::XView::Open(BSTR sURN, VARIANT_BO
 			{
 				CString strPath = pFile->GetPath();
 				oLock.Unlock();
-				*pbResult = CFileExecutor::Execute( strPath, FALSE ) ? VARIANT_TRUE : VARIANT_FALSE;
+				*pbResult = CFileExecutor::Execute( strPath ) ? VARIANT_TRUE : VARIANT_FALSE;
 			}
 			else
 			{
@@ -431,9 +432,7 @@ STDMETHODIMP CLibraryCollectionView::External::XView::DownloadAll()
 	METHOD_PROLOGUE(CLibraryCollectionView::External, View)
 	if ( pThis->m_bLockdown ) return S_OK;
 
-	CString strMessage;
-	LoadString( strMessage, IDS_LIBRARY_COLLECTION_DOWNLOAD_ALL );
-	INT_PTR nResponse = AfxMessageBox( strMessage, MB_ICONQUESTION|MB_YESNOCANCEL );
+	INT_PTR nResponse = AfxMessageBox( LoadString( IDS_LIBRARY_COLLECTION_DOWNLOAD_ALL ), MB_ICONQUESTION|MB_YESNOCANCEL );
 
 	if ( nResponse == IDYES )
 		pThis->m_pView->PostMessage( WM_COMMAND, ID_LIBRARY_FOLDER_DOWNLOAD );
@@ -455,7 +454,6 @@ STDMETHODIMP CLibraryCollectionView::External::XView::get_MissingCount(LONG *pnC
 
 void CLibraryCollectionView::External::CheckLockdown()
 {
-	CString strMessage;
-	LoadString( strMessage, IDS_LIBRARY_COLLECTION_LOCKDOWN );
-	if ( AfxMessageBox( strMessage, MB_YESNO|MB_DEFBUTTON2|MB_ICONEXCLAMATION ) == IDYES ) m_bLockdown = TRUE;
+	if ( AfxMessageBox( LoadString( IDS_LIBRARY_COLLECTION_LOCKDOWN ), MB_YESNO|MB_DEFBUTTON2|MB_ICONEXCLAMATION ) == IDYES )
+		m_bLockdown = TRUE;
 }

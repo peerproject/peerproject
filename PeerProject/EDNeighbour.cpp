@@ -1,7 +1,7 @@
 //
 // EDNeighbour.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -53,13 +53,13 @@ static char THIS_FILE[]=__FILE__;
 
 CEDNeighbour::CEDNeighbour() : CNeighbour( PROTOCOL_ED2K )
 {
-	m_nNodeType		= ntHub;
-	m_nClientID		= 0;
+	m_nNodeType 	= ntHub;
+	m_nClientID 	= 0;
 	m_nUserCount	= 0;
 	m_nUserLimit	= 0;
 	m_nFileLimit	= 2000;
-	m_nTCPFlags		= 0;
-	m_nUDPFlags		= 0;
+	m_nTCPFlags 	= 0;
+	m_nUDPFlags 	= 0;
 	m_nFilesSent	= 0;
 }
 
@@ -138,11 +138,11 @@ BOOL CEDNeighbour::OnRun()
 	if ( ! CNeighbour::OnRun() )
 		return FALSE;
 
-	DWORD tNow = GetTickCount();
-
 	if ( m_nState == nrsConnected && m_nClientID == 0 )
 	{
-		if ( tNow - m_tConnected > Settings.Connection.TimeoutHandshake )
+		const DWORD tNow = GetTickCount();
+
+		if ( tNow > m_tConnected + Settings.Connection.TimeoutHandshake )
 		{
 			Close( IDS_HANDSHAKE_TIMEOUT );
 			return FALSE;
@@ -278,7 +278,8 @@ BOOL CEDNeighbour::OnPacket(CEDPacket* pPacket)
 	case ED2K_S2C_FOUNDSOURCES:
 		return OnFoundSources( pPacket );
 	default:
-		pPacket->Debug( _T("Unknown") );
+		DEBUG_ONLY( pPacket->Debug( _T("Unknown ED2K packet from ") + m_sAddress ) );
+		break;
 	}
 
 	return TRUE;
@@ -352,12 +353,16 @@ BOOL CEDNeighbour::OnIdChange(CEDPacket* pPacket)
 
 	if ( ! CEDPacket::IsLowID( m_nClientID ) )
 	{
-		if ( Settings.Connection.InHost.IsEmpty() )
-			Network.m_pHost.sin_addr.S_un.S_addr = m_nClientID;
+	//	if ( Settings.Connection.InHost.IsEmpty() )
+	//		Network.m_pHost.sin_addr.S_un.S_addr = m_nClientID;
+
+		IN_ADDR pMyAddress;
+		pMyAddress.s_addr = m_nClientID;
+		Network.AcquireLocalAddress( pMyAddress );
 	}
 	else
 	{
-		if ( Settings.eDonkey.ForceHighID && Network.IsStable() && !Network.IsFirewalled() )
+		if ( Settings.eDonkey.ForceHighID && Network.IsStable() && ! Network.IsFirewalled() )
 		{
 			// We got a low ID when we should have gotten a high ID.
 			// Most likely, the user's router needs to get a few UDP packets before it opens up.
@@ -424,8 +429,8 @@ BOOL CEDNeighbour::OnServerStatus(CEDPacket* pPacket)
 {
 	if ( pPacket->GetRemaining() < 8 ) return TRUE;
 
-	m_nUserCount	= pPacket->ReadLongLE();
-	m_nFileCount	= pPacket->ReadLongLE();
+	m_nUserCount = pPacket->ReadLongLE();
+	m_nFileCount = pPacket->ReadLongLE();
 
 	CQuickLock oLock( HostCache.eDonkey.m_pSection );
 
@@ -460,7 +465,7 @@ BOOL CEDNeighbour::OnServerIdent(CEDPacket* pPacket)
 		switch ( pTag.m_nKey )
 		{
 		case ED2K_ST_SERVERNAME:
-			// if ( pTag.m_nType == ED2K_TAG_STRING ) // "Short strings" may be possible...
+			//if ( pTag.m_nType == ED2K_TAG_STRING )	// "Short strings" may be possible...
 			m_sServerName = pTag.m_sValue;
 			break;
 		case ED2K_ST_DESCRIPTION:
@@ -475,16 +480,18 @@ BOOL CEDNeighbour::OnServerIdent(CEDPacket* pPacket)
 		//case ED2K_ST_UDPFLAGS:
 		//	nUDPFlags = pTag.m_nValue;
 		//	break;
+#ifdef _DEBUG
 		default:
 			CString str;
-			str.Format( _T("Unrecognised packet opcode (in CEDNeighbour::OnServerIdent) IP: %s Opcode: 0x%x:0x%x"),
+			str.Format( _T("Unknown ED2K Server Ident packet from %s  (Opcode 0x%x:0x%x)"),
 				LPCTSTR( m_sAddress ), int( pTag.m_nKey ), int( pTag.m_nType ) );
 			pPacket->Debug( str );
+#endif	// Debug
 		}
 	}
 
 	if ( *m_oGUID.begin() == 0x2A2A2A2A )
-		m_sUserAgent = _T("eFarm Server");
+		m_sUserAgent = _T("eFarm Server");		// Very obsolete http://sourceforge.net/projects/efarm/
 	else
 		m_sUserAgent = _T("eDonkey2000 Server");
 
@@ -574,7 +581,7 @@ BOOL CEDNeighbour::OnSearchResults(CEDPacket* pPacket)
 	{
 		if ( pPacket->m_nLength != 17 && pPacket->m_nLength != 5 )
 		{
-			pPacket->Debug( _T("BadSearchResult") );
+			DEBUG_ONLY( pPacket->Debug( _T("BadSearchResult") ) );
 			theApp.Message( MSG_ERROR, IDS_PROTOCOL_BAD_HIT, (LPCTSTR)m_sAddress );
 			Statistics.Current.eDonkey.Dropped++;
 			m_nDropCount++;
@@ -606,7 +613,7 @@ BOOL CEDNeighbour::OnFoundSources(CEDPacket* pPacket)
 	{
 		if ( pPacket->m_nLength != 17 && pPacket->m_nLength != 5 )
 		{
-			pPacket->Debug( _T("BadSearchResult") );
+			DEBUG_ONLY( pPacket->Debug( _T("BadSearchResult") ) );
 			theApp.Message( MSG_ERROR, IDS_PROTOCOL_BAD_HIT, (LPCTSTR)m_sAddress );
 			Statistics.Current.eDonkey.Dropped++;
 			m_nDropCount++;
@@ -699,7 +706,7 @@ void CEDNeighbour::SendSharedFiles()
 	}
 	pLibraryLock.Unlock();
 
-	*(DWORD*)pPacket->m_pBuffer = m_nFilesSent;	// Correct the number of files sent
+	*(DWORD*)pPacket->m_pBuffer = m_nFilesSent;		// Correct the number of files sent
 
 	if ( bDeflate )
 		pPacket->Deflate(); 	// ZLIB compress if available
@@ -732,7 +739,7 @@ BOOL CEDNeighbour::SendSharedDownload(CDownload* pDownload)
 
 	Send( pPacket );
 
-	// Increment the number of files sent
+	// Increment number of files sent
 	m_nFilesSent ++;
 
 	return TRUE;

@@ -1,7 +1,7 @@
 //
 // WndHashProgressBar.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -27,19 +27,18 @@ public:
 	CHashProgressBar();
 
 protected:
-	CWnd*		m_pParent;
 	CBitmap		m_bmImage;
-	HICON		m_hIcon;
-	int			m_nFlash;
 	CString		m_sCurrent;				// Name of file currently hashing
 	CString		m_sPrevious;			// Name of last file currently hashed
+	int			m_nFlash;
+//	BYTE		m_nAlpha;
 
 public:
 	void		Run();
 
 protected:
-	void		Create(CWnd* pParent);
 	void		Show(int nWidth, BOOL bShow);
+//	void		Draw(CDC* pDC);			// Redraw window and calculate width
 	void		Update();
 	void		OnSkinChange();
 

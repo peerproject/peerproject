@@ -1,7 +1,7 @@
 //
 // Packet.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -99,11 +99,13 @@ public:
 	virtual CString ToHex() const;		// Express the bytes of the packet in base 16 with spaces, like "08 C0 12 AF"
 	virtual CString ToASCII() const;	// Express the bytes of the packet as ASCII characters, like "abc..fgh.i", spaces replace low characters
 
-	// Inheriting classes will override this to (do)
-	virtual void Debug(LPCTSTR pszReason) const;
+#ifdef _DEBUG
+	// Inheriting classes will override this in Debug (do)
+	virtual void    Debug(LPCTSTR pszReason) const;
+#endif
 
 	// Gives this packet and related objects to each window in the tab bar for them to process it
-	virtual void SmartDump(const SOCKADDR_IN* pAddress, BOOL bUDP, BOOL bOutgoing, DWORD_PTR nNeighbourUnique = 0) const;
+	virtual void	SmartDump(const SOCKADDR_IN* pAddress, BOOL bUDP, BOOL bOutgoing, DWORD_PTR nNeighbourUnique = 0) const;
 
 	// Compute the SHA hash of the bytes of the packet
 	virtual BOOL	GetRazaHash(Hashes::Sha1Hash& oHash, DWORD nLength = 0xFFFFFFFF) const;

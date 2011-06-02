@@ -1,7 +1,7 @@
 //
 // NeighboursBase.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -38,12 +38,7 @@ static char THIS_FILE[]=__FILE__;
 
 // When the program makes the CNeighbours object, this constructor initializes the member variables defined in CNeighboursBase
 CNeighboursBase::CNeighboursBase()
-	: m_nRunCookie    ( 5 )	// Start the run cookie as 5, OnRun will make it 6, 7, 8 and so on
-	, m_nStableCount  ( 0 )	// We don't have any stable connections to remote computers yet
-	, m_nLeafCount    ( 0 )	// We aren't connected to any leaves yet
-	, m_nLeafContent  ( 0 )	// When we do have leaf connetions, the total size of their shared files
-	, m_nBandwidthIn  ( 0 )	// Start the bandwidth totals at 0
-	, m_nBandwidthOut ( 0 )
+	: m_nRunCookie    ( 5 )		// Start the run cookie as 5, OnRun will increment it 6+
 {
 	m_pNeighbours.InitHashTable( GetBestHashTableSize( 300 ) );
 	m_pIndex.InitHashTable( GetBestHashTableSize( 300 ) );
@@ -83,7 +78,6 @@ CNeighbour* CNeighboursBase::GetNext(POSITION& pos) const
 
 // Takes a key value as a DWORD (do)
 // Finds the CNeighbour object that was entered into m_pUniques with that value
-// Returns it, or null if not found
 CNeighbour* CNeighboursBase::Get(DWORD_PTR nUnique) const
 {
 	ASSUME_LOCK( Network.m_pSection );
@@ -112,9 +106,10 @@ CNeighbour* CNeighboursBase::GetNewest(PROTOCOLID nProtocol, int nState, int nNo
 {
 	ASSUME_LOCK( Network.m_pSection );
 
-	DWORD tCurrent = GetTickCount();
+	const DWORD tNow = GetTickCount();
 	DWORD tMinTime = 0xffffffff;
-	CNeighbour* pMinNeighbour = NULL;
+	CNeighbour* pNewestNeighbour = NULL;
+
 	for ( POSITION pos = GetIterator() ; pos ; )
 	{
 		CNeighbour* pNeighbour = GetNext( pos );
@@ -122,15 +117,16 @@ CNeighbour* CNeighboursBase::GetNewest(PROTOCOLID nProtocol, int nState, int nNo
 			 ( nState < 0 || nState == pNeighbour->m_nState ) &&
 			 ( nNodeType < 0 || nNodeType == pNeighbour->m_nNodeType ) )
 		{
-			DWORD tTime = tCurrent - pNeighbour->m_tConnected;
+			DWORD tTime = tNow - pNeighbour->m_tConnected;
 			if ( tTime < tMinTime )
 			{
 				tMinTime = tTime;
-				pMinNeighbour = pNeighbour;
+				pNewestNeighbour = pNeighbour;
 			}
 		}
 	}
-	return pMinNeighbour;
+
+	return pNewestNeighbour;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -138,10 +134,9 @@ CNeighbour* CNeighboursBase::GetNewest(PROTOCOLID nProtocol, int nState, int nNo
 
 // Takes a protocol, like Gnutella, a state, like connecting, and a node connection type, like we are both ultrapeers
 // Counts the number of neighbours in the list that match these criteria, pass -1 to count them all
-// Returns the number found
 DWORD CNeighboursBase::GetCount(PROTOCOLID nProtocol, int nState, int nNodeType) const
 {
-	DWORD nCount = 0;	// Start count at 0
+	DWORD nCount = 0;
 
 	CSingleLock pLock( &Network.m_pSection, FALSE );
 	if ( pLock.Lock( 200 ) )
@@ -162,12 +157,8 @@ DWORD CNeighboursBase::GetCount(PROTOCOLID nProtocol, int nState, int nNodeType)
 				}
 			}
 		}
-
-		// Let another thread gain exclusive access to the network object (do)
-		pLock.Unlock();
 	}
 
-	// Return the number of neighbours we found in the list that match the given qualities
 	return nCount;
 }
 
@@ -214,17 +205,12 @@ void CNeighboursBase::Connect()
 // Calls Close on all the neighbours in the list, and resets member variables back to 0
 void CNeighboursBase::Close()
 {
+	ASSUME_LOCK( Network.m_pSection );
+
 	for ( POSITION pos = GetIterator() ; pos ; )
 	{
 		GetNext( pos )->Close();
 	}
-
-	// Reset member variables back to 0
-	m_nStableCount	= 0;
-	m_nLeafCount	= 0;
-	m_nLeafContent	= 0;
-	m_nBandwidthIn	= 0;
-	m_nBandwidthOut	= 0;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -234,17 +220,6 @@ void CNeighboursBase::Close()
 // Calls DoRun on neighbours in the list, and totals statistics from them
 void CNeighboursBase::OnRun()
 {
-	// Calculate time from now
-	DWORD tNow = GetTickCount();		// The tick count now, the number of milliseconds since the user turned the computer on
-	DWORD tEstablish = tNow - 1500; 	// The tick count 1.5 seconds ago
-
-	// Make local variables to mirror member variables, and start them all out as 0
-	int nStableCount    = 0;
-	int nLeafCount      = 0;
-	DWORD nLeafContent  = 0;
-	DWORD nBandwidthIn  = 0;
-	DWORD nBandwidthOut = 0;
-
 	// Have the loop test each neighbour's run cookie count against the next number
 	m_nRunCookie++;			// The first time this runs, it will take the value from 5 to 6
 	bool bUpdated = true;	// Indicate if stats were updated
@@ -253,8 +228,8 @@ void CNeighboursBase::OnRun()
 	while ( bUpdated )
 	{
 		// Make sure this thread is the only one accessing the network object
-		CSingleLock pLock( &Network.m_pSection, FALSE );
-		if ( ! pLock.Lock( 200 ) ) continue;
+		CSingleLock pLock( &Network.m_pSection );
+		if ( ! pLock.Lock( 150 ) ) continue;
 
 		// Indicate if stats were updated
 		bUpdated = false;
@@ -271,41 +246,16 @@ void CNeighboursBase::OnRun()
 				// Give it the current run cookie count so we don't run it twice, even if GetNext is weird or broken
 				pNeighbour->m_nRunCookie = m_nRunCookie;
 
-				// If the socket has been open for 1.5 seconds and we've finished the handshake, count this neighbour as stable
-				if ( pNeighbour->m_nState == nrsConnected &&	// This neighbour has finished the handshake with us, and
-					pNeighbour->m_tConnected < tEstablish )		// Our socket to it connected before 1.5 seconds ago
-					nStableCount++;								// Count this as a stable connection
-
-				// If this connection is down to a leaf
-				if ( pNeighbour->m_nNodeType == ntLeaf )
-				{
-					// Count the leaf and add the number of bytes it's sharing to the total we're keeping of that
-					nLeafCount++;								// Count one more leaf
-					nLeafContent += pNeighbour->m_nFileVolume;	// Add the number of bytes of files this leaf is sharing to the total
-				}
-
-				// Have this neighbour measure its bandwidth, compute the totals, and then we'll save them in the member variables
-				pNeighbour->Measure(); // Calls CConnection::Measure, which edits the values in the TCP bandwidth meter structure
-				nBandwidthIn	+= pNeighbour->m_mInput.nMeasure;	// We started these out as 0, and will save the totals in the CNeighbours object
-				nBandwidthOut	+= pNeighbour->m_mOutput.nMeasure;
-
 				// Send and receive data with this remote computer through the socket
-				pNeighbour->DoRun(); // Calls CConnection::DoRun
+				pNeighbour->DoRun();	// Calls CConnection::DoRun
 
 				// We found a neighbour with a nonmatching run cookie count, updated it, and processed it
 				// Defer any other updates until next run through the loop, allowing the network object to be unlocked
-				bUpdated = true;	// Set bUpdated to true
-				break;				// Break out of the for loop
+				bUpdated = true;		// Set bUpdated to true
+				break;					// Break out of the for loop
 			}
 		}
 	}
-
-	// Save the values we calculated in local variables into the corresponding member variables
-	m_nStableCount	= nStableCount;
-	m_nLeafCount	= nLeafCount;
-	m_nLeafContent	= nLeafContent;
-	m_nBandwidthIn	= nBandwidthIn;
-	m_nBandwidthOut	= nBandwidthOut;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -335,7 +285,7 @@ void CNeighboursBase::Remove(CNeighbour* pNeighbour)
 	Network.NodeRoute->Remove( pNeighbour );
 
 	// Remove the neighbour object from the map
-	for ( POSITION pos = m_pNeighbours.GetStartPosition(); pos; )
+	for ( POSITION pos = m_pNeighbours.GetStartPosition() ; pos ; )
 	{
 		CNeighbour* pCurNeighbour = NULL;
 		IN_ADDR nCurAddress = {};

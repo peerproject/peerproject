@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Turkish Skin File -->
 
-<!-- Translation based on default-en.xml r66 -->
+<!-- Translation based on default-en.xml r67 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2397,8 +2397,8 @@
 	<tip id="ID_LIBRARY_ALBUM_DELETE" message="Seçilmiş albüm klasörlerini sil."/>
 	<tip id="ID_LIBRARY_ALBUM_OPEN" message="Seçilmiş albüm klasörlerini aç."/>
 	<tip id="ID_LIBRARY_ALBUM_PROPERTIES" message="Seçilmiş albüm klasörlerinin özelliklerini göster ve yayınla..."/>
-	<tip id="ID_LIBRARY_BITZI_DOWNLOAD" message="Bitzi(TM)'den seçilmiş dosya verilerini indir..."/>
-	<tip id="ID_LIBRARY_BITZI_WEB" message="Seçilmiş dosyanın Bitzi(TM) etiketini web'de göster"/>
+	<tip id="ID_LIBRARY_BITZI_DOWNLOAD" message="Bitzi™'den seçilmiş dosya verilerini indir..."/>
+	<tip id="ID_LIBRARY_BITZI_WEB" message="Seçilmiş dosyanın Bitzi™ etiketini web'de göster"/>
 	<tip id="ID_LIBRARY_COLUMNS" message="Seçilmiş veri sütunlarını görüntüle..."/>
 	<tip id="ID_LIBRARY_COPY" message="Seçilmiş klasörleri, başka bir kütüphane klasörüne kopyala..."/>
 	<tip id="ID_LIBRARY_CREATETORRENT" message="Websitesinden bu dosyanın aktarımı için bir .torrent oluştur."/>
@@ -2765,13 +2765,13 @@
 	<string id="20184" value="Kullanıcıyla özel konuşma isteniyor..."/>
 	<string id="20185" value="Kullanıcı doğrulandı"/>
 	<string id="20186" value="%s'den sıkıştırılmış bağlantı istendi, anlaşılıyor..."/>
-	<string id="20188" value="%s'den güvenlik duvarlı sıkıştırılmış bağlantı isteniyor..."/>
-	<string id="20190" value="Bağlantı geçersiz veri nedeniyle kurulamadı."/>
-	<string id="20191" value="Bilinmeyen yanıt alındı: %s"/>
-	<string id="20192" value="Bağlı Değildiniz."/>
-	<string id="20193" value="&quot;%s&quot; tanınmayan komut."/>
-	<string id="20194" value="Bu template'in herhangi bir kişiselleştirilmesi bulunmamaktadır."/>
-	<string id="20195" value="Bu template geçersizdir."/>
+	<string id="20187" value="%s'den güvenlik duvarlı sıkıştırılmış bağlantı isteniyor..."/>
+	<string id="20188" value="Bağlantı geçersiz veri nedeniyle kurulamadı."/>
+	<string id="20189" value="Bilinmeyen yanıt alındı: %s"/>
+	<string id="20190" value="Bağlı Değildiniz."/>
+	<string id="20191" value="&quot;%s&quot; tanınmayan komut."/>
+	<string id="20196" value="Bu template'in herhangi bir kişiselleştirilmesi bulunmamaktadır."/>
+	<string id="20197" value="Bu template geçersizdir."/>
 	<string id="20199" value="(Transferden sonra kapat)"/>
 	<string id="20200" value="&quot;%s&quot; %i kaynak(lar) ile indirme sırasına eklendi."/>
 	<string id="20201" value="&quot;%s&quot; dosyası indirme edilmeye hazırlanıyor, kaynaklar ekleniyor."/>
@@ -2929,14 +2929,15 @@
 	<string id="20372" value="Alınan ve gönderilen Gnutella ping oranı"/>
 	<string id="20373" value="Alınan ve gönderilen Gnutella pong oranı"/>
 	<string id="20374" value="Gnutella Yerel Sorguları"/>
-	<string id="20375" value="Gnutella Paketler Yönlendirildi"/>
-	<string id="20376" value="Toplam Alım Bantgenişliği"/>
-	<string id="20377" value="Toplam Gönderim Bantgenişliği"/>
-	<string id="20378" value="Toplam TCP Alım Bantgenişliği"/>
-	<string id="20379" value="Toplam TCP Gönderim Bantgenişliği"/>
-	<string id="20380" value="Toplam UDP Alım Bantgenişliği"/>
-	<string id="20381" value="Toplam UDP Gönderim Bantgenişliği"/>
-	<string id="20382" value="Aktarım Bantgenişliği"/>
+	<string id="20375" value="Gnutella Yerel Sorguları"/>
+	<string id="20376" value="Gnutella Paketler Yönlendirildi"/>
+	<string id="20377" value="Toplam Alım Bantgenişliği"/>
+	<string id="20378" value="Toplam Gönderim Bantgenişliği"/>
+	<string id="20379" value="Toplam TCP Alım Bantgenişliği"/>
+	<string id="20380" value="Toplam TCP Gönderim Bantgenişliği"/>
+	<string id="20381" value="Toplam UDP Alım Bantgenişliği"/>
+	<string id="20382" value="Toplam UDP Gönderim Bantgenişliği"/>
+	<string id="20383" value="Aktarım Bantgenişliği"/>
 	<string id="20384" value="Aktarım Transfer Sayısı"/>
 	<string id="20385" value="%s komşunun koruma düğümü olduğundan bağlantı geri alınıyor."/>
 	<string id="20386" value="%s ile Host arasındaki aşırı bağlantı kapatılıyor."/>
@@ -3114,8 +3115,8 @@
 	<string id="20582" value="Komşu %s geçersiz uzunlukta bir pong paketi gönderdi, görmezlikten geliniyor."/>
 	<string id="20583" value="Komşu %s geçersiz uzunlukta bir sıkıştırma paketi gönderdi, görmezlikten geliniyor."/>
 	<string id="20584" value="Komşu %s büyük boyutlu bir paket gönderdi, bağlantı kesiliyor."/>
-	<string id="20585" value="Komşu %s onaylanmayan bir paket gönderdi(0x%.2x), görmezlikten geliniyor."/>
-	<string id="20586" value="Komşu %s geçersiz adres verisiyle bir pong gönderdi, görmezlikten geliniyor."/>
+	<string id="20586" value="Komşu %s onaylanmayan bir paket gönderdi(0x%.2x), görmezlikten geliniyor."/>
+	<string id="20587" value="Komşu %s geçersiz adres verisiyle bir pong gönderdi, görmezlikten geliniyor."/>
 	<string id="20588" value="Komşu %s güvenlik duvarına sıkıştırılmış bir istek gönderdi, görmezlikten geliniyor."/>
 	<string id="20590" value="Uzaktan erişim engellendi."/>
 	<string id="20591" value="http://%s:%i/remote - Bir kullanıcı adı ve şifresi seçmelisiniz."/>
@@ -3334,13 +3335,14 @@
 	<string id="20870" value="URL ayrıştırılamaz : PeerProject bu URL'yi anlamıyor."/>
 	<string id="20871" value="&quot;%s&quot; URL alındı"/>
 	<string id="20872" value="Tür:"/>
-	<string id="20874" value="Açıklanmayan"/>
-	<string id="20875" value="URL:"/>
+	<string id="20874" value="URL:"/>
+	<string id="20875" value="Açıklanmayan"/>
 	<string id="20880" value="Profilimi Düzenle"/>
-	<string id="20881" value="Görüntü Değiştirme açıldığında pencereler kapanacaktır. Şimdi değiştirmek ister misin?"/>
-	<string id="20882" value="UPnP Cihazları Host Servisi etkin değildir. Bu hizmet cihazların kurulumu için gereklidir.\nHizmetin başlama biçimini automatiğe ayarlamanız gerekmektedir.utomatic."/>
-	<string id="20884" value="URN kullanılamaz"/>
-	<string id="20885" value="Arayüz yönetimi değiştirildiğinde yeniden başlama gerekir. \nPeerProject elle başlatmanız gerekecek. Şimdi çık?"/>
+	<string id="20881" value="%u Dosyalar seçildi. Emin misiniz?"/>
+	<string id="20882" value="URN kullanılamaz"/>
+	<string id="20883" value="UPnP Cihazları Host Servisi etkin değildir. Bu hizmet cihazların kurulumu için gereklidir.\nHizmetin başlama biçimini automatiğe ayarlamanız gerekmektedir.utomatic."/>
+	<string id="20885" value="Görüntü Değiştirme açıldığında pencereler kapanacaktır. Şimdi değiştirmek ister misin?"/>
+	<string id="20886" value="Arayüz yönetimi değiştirildiğinde yeniden başlama gerekir. \nPeerProject elle başlatmanız gerekecek. Şimdi çık?"/>
 	<string id="20890" value="PeerProject'ya Hoşgeldiniz"/>
 	<string id="20891" value="Çıkış"/>
 	<string id="20892" value="Lütfen bekleyiniz: eDonkey sunucu listesi güncellenmektedir..."/>

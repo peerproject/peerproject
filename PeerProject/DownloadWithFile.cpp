@@ -162,10 +162,8 @@ void CDownloadWithFile::ClearFileError()
 
 BOOL CDownloadWithFile::OpenFile()
 {
-	ASSERT( ! m_sName.IsEmpty() );
-
 	if ( m_sName.IsEmpty() )
-		return TRUE;	// Start download without known name...
+		return TRUE;	// Start download without known name (Magnet)
 
 	if ( IsFileOpen() )
 		return TRUE;
@@ -427,6 +425,7 @@ QWORD CDownloadWithFile::InvalidateFileRange(QWORD nOffset, QWORD nLength)
 float CDownloadWithFile::GetProgress() const
 {
 	if ( m_nSize == 0 || m_nSize == SIZE_UNKNOWN ) return 0;
+	if ( IsMoving() ) return m_pTask->GetProgress();
 	if ( m_nSize == GetVolumeComplete() ) return 100.0f;
 	return float( GetVolumeComplete() * 10000 / m_nSize ) / 100.0f;
 }

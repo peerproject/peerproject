@@ -53,7 +53,6 @@ CDownloads::CDownloads()
 	, m_nTransfers			( 0ul )
 	, m_nBandwidth			( 0ul )
 	, m_tLastConnect		( 0ul )
-	, m_bClosing			( false )
 	, m_nRunCookie			( 0 )
 	, m_tBandwidthLastCalc	( 0ul )
 	, m_nLimitGeneric		( 0ul )
@@ -62,6 +61,7 @@ CDownloads::CDownloads()
 	, m_nBTTryingCount		( 0ul )
 	, m_bAllowMoreDownloads	( true )
 	, m_bAllowMoreTransfers	( true )
+	, m_bClosing			( false )
 {
 }
 
@@ -1222,10 +1222,7 @@ void CDownloads::Load()
 	const CString strRoot = Settings.Downloads.IncompletePath + _T("\\");
 
 	WIN32_FIND_DATA pFind = {};
-	HANDLE hSearch = FindFirstFile( strRoot + _T("*.pd"), &pFind );
-	if ( hSearch == INVALID_HANDLE_VALUE )			// Try imported Shareaza files
-		hSearch = FindFirstFile( strRoot + _T("*.sd"), &pFind );
-
+	HANDLE hSearch = FindFirstFile( strRoot + _T("*.?d"), &pFind );		// .pd files + .sd Shareaza imports
 	if ( hSearch != INVALID_HANDLE_VALUE )
 	{
 		do

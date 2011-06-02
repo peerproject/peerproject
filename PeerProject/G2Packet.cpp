@@ -244,14 +244,9 @@ BOOL CG2Packet::ReadPacket(G2_PACKET& nType, DWORD& nLength, BOOL* pbCompound)
 	Read( &nType, nTypeLen + 1 );
 
 	if ( pbCompound )
-	{
 		*pbCompound = ( nFlags & G2_FLAG_COMPOUND ) == G2_FLAG_COMPOUND;
-	}
-	else
-	{
-		if ( nFlags & G2_FLAG_COMPOUND )
-			SkipCompound( nLength );
-	}
+	else if ( nFlags & G2_FLAG_COMPOUND )
+		SkipCompound( nLength );
 
 	return TRUE;
 }
@@ -429,7 +424,7 @@ void CG2Packet::ToBuffer(CBuffer* pBuffer, bool /*bTCP*/) const
 
 	BYTE nFlags = ( nLenLen << 6 ) + ( nTypeLen << 3 );
 
-	if ( m_bCompound ) nFlags |= G2_FLAG_COMPOUND;
+	if ( m_bCompound )  nFlags |= G2_FLAG_COMPOUND;
 	if ( m_bBigEndian ) nFlags |= G2_FLAG_BIG_ENDIAN;
 
 	// Abort if the buffer isn't big enough for the packet
@@ -636,7 +631,7 @@ CString CG2Packet::Dump(DWORD nTotal)
 	return sASCII;
 }
 
-#endif // G2_PACKET_DUMP
+#endif	// Bad G2_PACKET_DUMP
 
 #ifdef _DEBUG
 void CG2Packet::Debug(LPCTSTR pszReason) const
@@ -645,14 +640,14 @@ void CG2Packet::Debug(LPCTSTR pszReason) const
 	strOutput.Format( L"[G2] %s Type: %s", pszReason, GetType() );
 	CPacket::Debug( strOutput );
 }
-#endif	// _DEBUG
+#endif	// Debug
 
 //////////////////////////////////////////////////////////////////////
 // CDatagrams G2UDP packet handler
 
 BOOL CG2Packet::OnPacket(const SOCKADDR_IN* pHost)
 {
-//	Statistics.Current.Gnutella2.Incoming++;	// ToDo: ?
+	Statistics.Current.Gnutella2.Incoming++;
 
 	SmartDump( pHost, TRUE, FALSE );
 
@@ -705,12 +700,12 @@ BOOL CG2Packet::OnPacket(const SOCKADDR_IN* pHost)
 		return OnKHL( pHost );
 #ifdef _DEBUG
 	default:
-		CString tmp;
-		tmp.Format( _T("Received unexpected UDP packet from %s:%u"),
+		CString str;
+		str.Format( _T("Received unexpected UDP packet from %s:%u"),
 			(LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ),
 			htons( pHost->sin_port ) );
-		Debug( tmp );
-#endif
+		Debug( str );
+#endif	// Debug
 	}
 
 	return TRUE;
@@ -751,19 +746,21 @@ BOOL CG2Packet::OnPong(const SOCKADDR_IN* pHost)
 
 BOOL CG2Packet::OnQuery(const SOCKADDR_IN* pHost)
 {
-	CQuerySearchPtr pSearch = CQuerySearch::FromPacket( this, pHost );
+	Statistics.Current.Gnutella2.Queries++;
 
-	if ( ! pSearch || ! pSearch->m_bUDP )
+	CQuerySearchPtr pSearch = CQuerySearch::FromPacket( this, pHost );
+	if ( ! pSearch ||							// Malformed query		// || pSearch->m_bDropMe
+		 ! pSearch->m_bUDP )					// Forbid query with firewalled return address
 	{
-		theApp.Message( MSG_INFO, IDS_PROTOCOL_BAD_QUERY,
-			(LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ) );
+		DEBUG_ONLY( Debug( ! pSearch->m_bUDP ? _T("Firewalled Query.") : _T("Malformed Query.") ) );
+		theApp.Message( MSG_WARNING, IDS_PROTOCOL_BAD_QUERY, (LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ) );
+
 		Statistics.Current.Gnutella2.Dropped++;
-		DEBUG_ONLY( Debug( _T("Malformed query.") ) );
 		return FALSE;
 	}
 
 	if ( Security.IsDenied( &pSearch->m_pEndpoint.sin_addr ) ||
-		! Settings.Gnutella2.Enabled )
+		( ! Settings.Gnutella2.Enabled && Settings.Connection.RequireForTransfers ) )	// Drop this requirement?
 	{
 		Statistics.Current.Gnutella2.Dropped++;
 		return FALSE;
@@ -812,14 +809,29 @@ BOOL CG2Packet::OnQuery(const SOCKADDR_IN* pHost)
 		return TRUE;
 	}
 
+	if ( ! Neighbours.CheckQuery( pSearch ) )	// Flood
+	{
+		// Ack without hub list with retry time
+		Datagrams.Send( &pSearch->m_pEndpoint,
+			Neighbours.CreateQueryWeb( pSearch->m_oGUID, false, NULL, false ) );
+
+		theApp.Message( MSG_WARNING, IDS_PROTOCOL_EXCEEDS_LIMIT,
+			(LPCTSTR)( CString( inet_ntoa( pHost->sin_addr ) ) + _T(" [UDP]") ),
+			(LPCTSTR)CString( inet_ntoa( pSearch->m_pEndpoint.sin_addr ) ) );
+
+		Statistics.Current.Gnutella2.Dropped++;
+		return TRUE;
+	}
+
 	Neighbours.RouteQuery( pSearch, this, NULL, TRUE );
 
 	Network.OnQuerySearch( new CLocalSearch( pSearch, PROTOCOL_G2 ) );
 
 	// Ack with hub list
-	Datagrams.Send( &pSearch->m_pEndpoint, Neighbours.CreateQueryWeb( pSearch->m_oGUID, true ), TRUE );
+	Datagrams.Send( &pSearch->m_pEndpoint, Neighbours.CreateQueryWeb( pSearch->m_oGUID, true ) );
 
-	Statistics.Current.Gnutella2.Queries++;
+	Statistics.Current.Gnutella2.QueriesProcessed++;
+
 	return TRUE;
 }
 
@@ -887,7 +899,7 @@ BOOL CG2Packet::OnCommonHit(const SOCKADDR_IN* pHost)
 
 	if ( Security.IsDenied( &pHits->m_pAddress ) )
 	{
-		DEBUG_ONLY( Debug( _T("Security manager denied Hit") ) );
+	//	DEBUG_ONLY( Debug( _T("Security manager denied Hit") ) );
 		theApp.Message( MSG_ERROR, IDS_PROTOCOL_BAD_HIT,
 			(LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ) );
 		Statistics.Current.Gnutella2.Dropped++;
@@ -950,11 +962,8 @@ BOOL CG2Packet::OnQueryKeyRequest(const SOCKADDR_IN* pHost)
 		}
 	}
 
-	CString strNode( inet_ntoa( *(IN_ADDR*)&nRequestedAddress ) );
-	theApp.Message( MSG_DEBUG, _T("Node %s asked for a query key for node %s:%i"),
-		(LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ), (LPCTSTR)strNode, nRequestedPort );
-
-	if ( Network.IsFirewalledAddress( (IN_ADDR*)&nRequestedAddress, TRUE ) || 0 == nRequestedPort ) return TRUE;
+	if ( Network.IsFirewalledAddress( (IN_ADDR*)&nRequestedAddress, TRUE ) || ! nRequestedPort )
+		return TRUE;
 
 	DWORD nKey = Network.QueryKeys->Create( nRequestedAddress );
 
@@ -970,6 +979,10 @@ BOOL CG2Packet::OnQueryKeyRequest(const SOCKADDR_IN* pHost)
 	}
 
 	Datagrams.Send( (IN_ADDR*)&nRequestedAddress, nRequestedPort, pAnswer, TRUE );
+
+	theApp.Message( MSG_DEBUG, _T("Node %s asked for a query key (0x%08x) for node %s:%i"),
+		(LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ), nKey,
+		(LPCTSTR)CString( inet_ntoa( *(IN_ADDR*)&nRequestedAddress ) ), nRequestedPort );
 
 	return TRUE;
 }
@@ -1022,7 +1035,7 @@ BOOL CG2Packet::OnQueryKeyAnswer(const SOCKADDR_IN* pHost)
 
 			if ( pOut == NULL )
 			{
-				theApp.Message( MSG_ERROR, _T("Memory allocation error in CDatagrams::OnQueryKeyAnswer()") );
+			//	theApp.Message( MSG_DEBUG, _T("Memory allocation error in CDatagrams::OnQueryKeyAnswer()") );
 				return TRUE;
 			}
 
@@ -1380,8 +1393,7 @@ BOOL CG2Packet::OnKHLA(const SOCKADDR_IN* pHost)
 		{
 			IN_ADDR pMyAddress;
 			pMyAddress.s_addr = ReadLongLE();
-			if ( Network.m_pHost.sin_addr.s_addr == 0 )
-				Network.AcquireLocalAddress( pMyAddress );
+			Network.AcquireLocalAddress( pMyAddress );
 		}
 
 		m_nPosition = nNext;

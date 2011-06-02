@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Hungarian Skin File -->
 
-<!-- Translation based on default-en.xml r66 -->
+<!-- Translation based on default-en.xml r67 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2391,8 +2391,8 @@
 	<tip id="ID_LIBRARY_ALBUM_DELETE" message="Törli a kiválasztott mappát."/>
 	<tip id="ID_LIBRARY_ALBUM_OPEN" message="Album megnyitása."/>
 	<tip id="ID_LIBRARY_ALBUM_PROPERTIES" message="A kiválasztott mappa tulajdonságainak szerkesztése..."/>
-	<tip id="ID_LIBRARY_BITZI_DOWNLOAD" message="Metaadat letöltésea Bitzi(TM)-ről..."/>
-	<tip id="ID_LIBRARY_BITZI_WEB" message="Bitzi(TM) ticket megnézése."/>
+	<tip id="ID_LIBRARY_BITZI_DOWNLOAD" message="Metaadat letöltésea Bitzi™-ről..."/>
+	<tip id="ID_LIBRARY_BITZI_WEB" message="Bitzi™ ticket megnézése."/>
 	<tip id="ID_LIBRARY_COLUMNS" message="Milyen oszlopokat kívánsz megjeleníteni..."/>
 	<tip id="ID_LIBRARY_COPY" message="A kiválasztott fájlok másolása egy másik mappába..."/>
 	<tip id="ID_LIBRARY_CREATETORRENT" message=".torrent fájl létrehozása ehhez a fájl(ok)hoz."/>
@@ -2757,13 +2757,13 @@
 	<string id="20184" value="Privát beszélgetés kezdeményezése..."/>
 	<string id="20185" value="Hitelesített felhasználó"/>
 	<string id="20186" value="Push kapcsolódás elfogadása: %s, viszontválsz..."/>
-	<string id="20188" value="Tűzfalas push kapcsolat kérése: %s..."/>
-	<string id="20190" value="Kapcsolódás nem sikerült az érvénytelen adat miatt."/>
-	<string id="20191" value="Ismeretlen választ kaptam: %s"/>
-	<string id="20192" value="Nincs kapcsolat."/>
-	<string id="20193" value="Ismeretlen parancs &quot;%s&quot;."/>
-	<string id="20194" value="Ez a sablon semmi egyedi beállítást nem tartalmaz."/>
-	<string id="20195" value="Ez a sablon érvénytelen."/>
+	<string id="20187" value="Tűzfalas push kapcsolat kérése: %s..."/>
+	<string id="20188" value="Kapcsolódás nem sikerült az érvénytelen adat miatt."/>
+	<string id="20189" value="Ismeretlen választ kaptam: %s"/>
+	<string id="20190" value="Nincs kapcsolat."/>
+	<string id="20191" value="Ismeretlen parancs &quot;%s&quot;."/>
+	<string id="20196" value="Ez a sablon semmi egyedi beállítást nem tartalmaz."/>
+	<string id="20197" value="Ez a sablon érvénytelen."/>
 	<string id="20199" value="(forgalom után bezárás)"/>
 	<string id="20200" value="&quot;%s&quot; a letöltési sorhoz lett hozzáadva %i forrással."/>
 	<string id="20201" value="A(z) &quot;%s&quot; már a letöltési listában van, forrás hozzáadása."/>
@@ -2921,14 +2921,15 @@
 	<string id="20372" value="Gnutella elküldött/fogadott pingek aránya"/>
 	<string id="20373" value="Gnutella elküldött/fogadott pongok aránya"/>
 	<string id="20374" value="Gnutella helyi kérvények"/>
-	<string id="20375" value="Gnutella csomagok irányítva"/>
-	<string id="20376" value="Teljes letöltési sávszél"/>
-	<string id="20377" value="Teljes feltöltési sávszél"/>
-	<string id="20378" value="Teljes TCP letöltési sávszél"/>
-	<string id="20379" value="Teljes TCP feltöltési sávszél"/>
-	<string id="20380" value="Teljes UDP letöltési sávszél"/>
-	<string id="20381" value="Teljes UDP feltöltési sávszél"/>
-	<string id="20382" value="Feltöltési sávszél"/>
+	<string id="20375" value="Gnutella helyi kérvények"/>
+	<string id="20376" value="Gnutella csomagok irányítva"/>
+	<string id="20377" value="Teljes letöltési sávszél"/>
+	<string id="20378" value="Teljes feltöltési sávszél"/>
+	<string id="20379" value="Teljes TCP letöltési sávszél"/>
+	<string id="20380" value="Teljes TCP feltöltési sávszél"/>
+	<string id="20381" value="Teljes UDP letöltési sávszél"/>
+	<string id="20382" value="Teljes UDP feltöltési sávszél"/>
+	<string id="20383" value="Feltöltési sávszél"/>
 	<string id="20384" value="Feltöltési forgalom száma"/>
 	<string id="20385" value="Kapcsolódás: %s, visszatérés álcázott(shielded) leaf módba."/>
 	<string id="20386" value="Felesleges kapcsolat bezárása: %s  (%s port %i)."/>
@@ -3099,8 +3100,8 @@
 	<string id="20582" value="%s érvénytelen hosszúságú pong csomagot küldött tovább, ignorálás."/>
 	<string id="20583" value="%s egy érvénytelen hosszúságú csomagot küldött tovább, ignorálás."/>
 	<string id="20584" value="%s túl nagy csomagot küldött tovább, kapcsolat megszakítása."/>
-	<string id="20585" value="%s ismeretlen csomagot küldött tovább (0x%.2x), ignorálás."/>
-	<string id="20586" value="%s érvénytelen címmel rendelkező pong csomagot küldött tovább, ignorálás."/>
+	<string id="20586" value="%s ismeretlen csomagot küldött tovább (0x%.2x), ignorálás."/>
+	<string id="20587" value="%s érvénytelen címmel rendelkező pong csomagot küldött tovább, ignorálás."/>
 	<string id="20588" value="%s továbbküldött egy push request-et egy tűzfallal védett címre, ignorálás."/>
 	<string id="20590" value="Távoli használat kikapcsolva."/>
 	<string id="20591" value="http://%s:%i/remote - Egy felhasználónevet és egy jelszót kell választania."/>
@@ -3319,13 +3320,14 @@
 	<string id="20870" value="A PeerProject nem ismeri ezt a fajta URL-t."/>
 	<string id="20871" value="URL fogadva: &quot;%s&quot;"/>
 	<string id="20872" value="Típus:"/>
-	<string id="20874" value="Nincs meghatározva"/>
-	<string id="20875" value="URL:"/>
+	<string id="20874" value="URL:"/>
+	<string id="20875" value="Nincs meghatározva"/>
 	<string id="20880" value="Saját adatlap szerkesztése"/>
-	<string id="20881" value="A kinézet megváltoztatása bezár minden megnyitott ablakot. Most akarja megvátoztatni?"/>
-	<string id="20882" value="Az UPnP szolgáltatás nem fut. Ez a szolgáltatás szükséges a beállításokhoz.nÁllítsa be, hogy automatikusan el tudjon indulni."/>
-	<string id="20884" value="Nincs elérhető URN"/>
-	<string id="20885" value="A szövegirány megváltoztatásához újra kell indítani a programot. \nEzt kézzel kell megtennie. Be akarja most zárni a PeerProject?"/>
+	<string id="20881" value="%u fájlok kép kiválasztva. Biztos vagy benne?"/>
+	<string id="20882" value="Nincs elérhető URN"/>
+	<string id="20883" value="Az UPnP szolgáltatás nem fut. Ez a szolgáltatás szükséges a beállításokhoz.nÁllítsa be, hogy automatikusan el tudjon indulni."/>
+	<string id="20885" value="A kinézet megváltoztatása bezár minden megnyitott ablakot. Most akarja megvátoztatni?"/>
+	<string id="20886" value="A szövegirány megváltoztatásához újra kell indítani a programot. \nEzt kézzel kell megtennie. Be akarja most zárni a PeerProject?"/>
 	<string id="20890" value="Üdvözlöm a PeerProject"/>
 	<string id="20891" value="Kilépés"/>
 	<string id="20892" value="Várakozás: eDonkey szerverlista frissítése..."/>

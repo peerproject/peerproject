@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default French Skin File -->
 
-<!-- Translation based on default-en.xml r66 -->
+<!-- Translation based on default-en.xml r67 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2529,8 +2529,8 @@
 	<tip id="ID_LIBRARY_ALBUM_DELETE" message="Supprimer le dossier &#171;&#160;album&#160;&#187; sélectionné."/>
 	<tip id="ID_LIBRARY_ALBUM_OPEN" message="Ouvrir le dossier &#171;&#160;album&#160;&#187; sélectionné."/>
 	<tip id="ID_LIBRARY_ALBUM_PROPERTIES" message="Voir et modifier les propriétés du dossier &#171;&#160;album&#160;&#187; sélectionné."/>
-	<tip id="ID_LIBRARY_BITZI_DOWNLOAD" message="Télécharger les métadonnées depuis Bitzi(TM) pour cette sélection de fichiers..."/>
-	<tip id="ID_LIBRARY_BITZI_WEB" message="Voir le billet Bitzi(TM) sur le web pour le fichier sélectionné."/>
+	<tip id="ID_LIBRARY_BITZI_DOWNLOAD" message="Télécharger les métadonnées depuis Bitzi™ pour cette sélection de fichiers..."/>
+	<tip id="ID_LIBRARY_BITZI_WEB" message="Voir le billet Bitzi™ sur le web pour le fichier sélectionné."/>
 	<tip id="ID_LIBRARY_COLUMNS" message="Sélectionner les colonnes de métadonnées à afficher..."/>
 	<tip id="ID_LIBRARY_COPY" message="Copier vers un autre dossier de la bibliothèque cette sélection de fichiers..."/>
 	<tip id="ID_LIBRARY_CREATETORRENT" message="Créer un .torrent à envoyer à un site web pour ce fichier."/>
@@ -2897,13 +2897,13 @@
 	<string id="20184" value="Demande une conversation privée avec l'utilisateur..."/>
 	<string id="20185" value="Utilisateur authentifié"/>
 	<string id="20186" value="Connexion poussée en provenance de %s acceptée, poignée de main..."/>
-	<string id="20188" value="Demande une connexion poussée depuis derrière un pare-feu de %s..."/>
-	<string id="20190" value="Une donnée invalide a causé un échec de connexion."/>
-	<string id="20191" value="Réception d'une réponse inconnue : %s"/>
-	<string id="20192" value="Vous n'êtes pas connecté."/>
-	<string id="20193" value="Commande non reconnue « %s »."/>
-	<string id="20194" value="Ce gabarit n'est pas spécialisé."/>
-	<string id="20195" value="Ce gabarit est invalide."/>
+	<string id="20187" value="Demande une connexion poussée depuis derrière un pare-feu de %s..."/>
+	<string id="20188" value="Une donnée invalide a causé un échec de connexion."/>
+	<string id="20189" value="Réception d'une réponse inconnue : %s"/>
+	<string id="20190" value="Vous n'êtes pas connecté."/>
+	<string id="20191" value="Commande non reconnue « %s »."/>
+	<string id="20196" value="Ce gabarit n'est pas spécialisé."/>
+	<string id="20197" value="Ce gabarit est invalide."/>
 	<string id="20199" value="(quitter à la fin des transferts)"/>
 	<string id="20200" value="Ajout de « %s » avec %i source(s) à la liste des téléchargements."/>
 	<string id="20201" value="Le fichier « %s » est déjà en téléchargement, ajout des sources."/>
@@ -3061,14 +3061,15 @@
 	<string id="20372" value="Gnutella Ratio Pings reçus/transmis"/>
 	<string id="20373" value="Gnutella Ratio Pongs reçus/transmis"/>
 	<string id="20374" value="Requêtes locales Gnutella"/>
-	<string id="20375" value="Paquets Gnutella routés"/>
-	<string id="20376" value="Bande passante entrante totale"/>
-	<string id="20377" value="Bande passante sortante totale"/>
-	<string id="20378" value="Bande passante TCP totale"/>
-	<string id="20379" value="Bande passante TCP transmise"/>
-	<string id="20380" value="Bande passante TCP reçue"/>
-	<string id="20381" value="Bande passante UDP totale"/>
-	<string id="20382" value="Bande passante envois"/>
+	<string id="20375" value="Requêtes locales Gnutella"/>
+	<string id="20376" value="Paquets Gnutella routés"/>
+	<string id="20377" value="Bande passante entrante totale"/>
+	<string id="20378" value="Bande passante sortante totale"/>
+	<string id="20379" value="Bande passante TCP totale"/>
+	<string id="20380" value="Bande passante TCP transmise"/>
+	<string id="20381" value="Bande passante TCP reçue"/>
+	<string id="20382" value="Bande passante UDP totale"/>
+	<string id="20383" value="Bande passante envois"/>
 	<string id="20384" value="Décompte des envois"/>
 	<string id="20385" value="Connexion au voisin %s, retour en mode « leaf » protégé."/>
 	<string id="20386" value="Fermeture du surplus de connexion avec %s, sur le conseil de l'hôte (%s port %i)."/>
@@ -3246,8 +3247,8 @@
 	<string id="20582" value="Le voisin %s a fait suivre un paquet de pong de longueur invalide, on l'ignore."/>
 	<string id="20583" value="Le voisin %s a fait suivre un paquet poussé d'une longueur invalide, on l'ignore."/>
 	<string id="20584" value="Le voisin %s a fait suivre un paquet de taille excessive, connexion abandonnée."/>
-	<string id="20585" value="Le voisin %s a fait suivre un paquet inconnu (0x%.2x), ignore."/>
-	<string id="20586" value="Le voisin %s a fait suivre un paquet de pong avec adresse invalide, ignore."/>
+	<string id="20586" value="Le voisin %s a fait suivre un paquet inconnu (0x%.2x), ignore."/>
+	<string id="20587" value="Le voisin %s a fait suivre un paquet de pong avec adresse invalide, ignore."/>
 	<string id="20588" value="Le voisin %s a fait suivre une demande poussée à une adresse derrière un pare-feu, on l'ignore."/>
 	<string id="20590" value="L'accès à distance est désactivé."/>
 	<string id="20591" value="http://%s:%i/remote - Nom d'utilisateur et passe ?"/>
@@ -3467,13 +3468,14 @@
 	<string id="20870" value="Impossible d'analyser cette URL : PeerProject ne reconnaît pas cette URL."/>
 	<string id="20871" value="Adresse reçue « %s »"/>
 	<string id="20872" value="Type :"/>
-	<string id="20874" value="Non spécifié"/>
-	<string id="20875" value="URL :"/>
+	<string id="20874" value="URL :"/>
+	<string id="20875" value="Non spécifié"/>
 	<string id="20880" value="Éditer mon profil"/>
-	<string id="20881" value="Changer de vue fermera toutes les fenêtres ouvertes actuellement. Voulez-vous changer la vue maintenant ?"/>
-	<string id="20882" value="Le service UPnP n'est pas actif sur votre ordinateur.\nVeuillez régler le service pour qu'il démarre automatiquement (Windows Service Startup type)."/>
-	<string id="20884" value="Pas d'URN disponible"/>
-	<string id="20885" value="Changer la direction de l'interface exige un redémarrage. \nVous aurez besoin de redémarrer manuellement. Quitter maintenant ?"/>
+	<string id="20881" value="%u Fichiers sélectionnés. Etes-vous sûr ?"/>
+	<string id="20882" value="Pas d'URN disponible"/>
+	<string id="20883" value="Le service UPnP n'est pas actif sur votre ordinateur.\nVeuillez régler le service pour qu'il démarre automatiquement (Windows Service Startup type)."/>
+	<string id="20885" value="Changer de vue fermera toutes les fenêtres ouvertes actuellement. Voulez-vous changer la vue maintenant ?"/>
+	<string id="20886" value="Changer la direction de l'interface exige un redémarrage. \nVous aurez besoin de redémarrer manuellement. Quitter maintenant ?"/>
 	<string id="20890" value="PeerProject vous souhaite la bienvenue !"/>
 	<string id="20891" value="&amp;Quitter"/>
 	<string id="20892" value="Veuillez patienter : mise à jour de la liste d'hôtes eDonkey ..."/>

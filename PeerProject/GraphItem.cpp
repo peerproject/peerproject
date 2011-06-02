@@ -1,7 +1,7 @@
 //
 // GraphItem.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -45,8 +45,8 @@ static char THIS_FILE[]=__FILE__;
 CGraphItem::CGraphItem(DWORD nCode, float nMultiplier, COLORREF nColor)
 {
 	m_nCode		= nCode;
-	m_nMultiplier = nMultiplier;
 	m_nColor	= nColor;
+	m_nMultiplier = nMultiplier;
 
 	m_nData		= 64;
 	m_pData		= new DWORD[ m_nData ];
@@ -309,10 +309,16 @@ QWORD CGraphItem::GetValue(const DWORD nCode, const float nMultiplier)
 		nValue = (long double)Statistics.Last.Gnutella1.Lost + Statistics.Last.Gnutella2.Lost;
 		Network.m_pSection.Unlock();
 		break;
-	case GRC_GNUTELLA_QUERIES:
+	case GRC_GNUTELLA_QUERIES:	// Incoming
 		if ( ! Network.m_pSection.Lock( 20 ) ) break;
 		Statistics.Update();
 		nValue = (long double)Statistics.Last.Gnutella1.Queries + Statistics.Last.Gnutella2.Queries;
+		Network.m_pSection.Unlock();
+		break;
+	case GRC_GNUTELLA_QUERIES_PROCESSED:
+		if ( ! Network.m_pSection.Lock( 20 ) ) break;
+		Statistics.Update();
+		nValue = (long double)Statistics.Last.Gnutella1.QueriesProcessed + Statistics.Last.Gnutella2.QueriesProcessed;
 		Network.m_pSection.Unlock();
 		break;
 
@@ -377,6 +383,7 @@ const GRAPHITEM CGraphItem::m_pItemDesc[] =
 	{ GRC_GNUTELLA_DROPPED, IDS_GRAPH_GNUTELLA_DROPPED, 0, 1.0f },
 	{ GRC_GNUTELLA_LOST, IDS_GRAPH_GNUTELLA_LOST, 0, 1.0f },
 	{ GRC_GNUTELLA_QUERIES, IDS_GRAPH_GNUTELLA_QUERIES, 0, 1.0f },
+	{ GRC_GNUTELLA_QUERIES_PROCESSED, IDS_GRAPH_GNUTELLA_QUERIES_PROCESSED, 0, 1.0f },
 
 	{ GRC_GNUTELLA_PINGS, IDS_GRAPH_GNUTELLA_PINGS, 3, 1.0f },
 	{ GRC_GNUTELLA_PONGS, IDS_GRAPH_GNUTELLA_PONGS, 3, 1.0f },

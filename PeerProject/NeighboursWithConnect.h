@@ -1,7 +1,7 @@
 //
 // NeighboursWithConnect.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -30,38 +30,41 @@ class CConnection;
 class CNeighboursWithConnect : public CNeighboursWithRouting
 {
 protected:
-	CNeighboursWithConnect(); // Zero the tick counts in the m_tPresent array
+	CNeighboursWithConnect();
 	virtual ~CNeighboursWithConnect();
 
 public:
+	DWORD	m_nBandwidthIn;			// All neighbours average incoming speed (bytes/second)
+	DWORD	m_nBandwidthOut;		// All neighbours average outgoing speed (bytes/second)
+
 	// Determine our role on the Gnutella2 network
-	BOOL  IsG2Leaf();							// True if we are acting as a Gnutella2 leaf on at least one connection
-	BOOL  IsG2Hub();							// True if we are acting as a Gnutella2 hub on at least one connection
-	DWORD IsG2HubCapable(BOOL bIgnoreTime = FALSE, BOOL bDebug = FALSE);		// True if computer and Internet connection are powerful enough to become a Gnutella2 hub
+	bool  IsG2Leaf() const;								// Are we acting as a Gnutella2 leaf on at least one connection
+	bool  IsG2Hub() const;								// Are we acting as a Gnutella2 hub on at least one connection
+	DWORD IsG2HubCapable(BOOL bIgnoreTime = FALSE, BOOL bDebug = FALSE) const;			// True if computer/connection are sufficient to become a Gnutella2 hub 		(bIgnoreTime unused, bDebug pre-run info)
 
 	// Determine our role on the Gnutella network
-	BOOL  IsG1Leaf();							// True if we are acting as a Gnutella leaf on at least one connection
-	BOOL  IsG1Ultrapeer();						// True if we are acting as a Gnutella ultrapeer on at least one connection
-	DWORD IsG1UltrapeerCapable(BOOL bIgnoreTime = FALSE, BOOL bDebug = FALSE);	// True if computer and Internet connection are powerful enough to become a Gnutella ultrapeer
+	bool  IsG1Leaf() const;								// Are we acting as a Gnutella leaf on at least one connection
+	bool  IsG1Ultrapeer() const;						// Are we acting as a Gnutella ultrapeer on at least one connection
+	DWORD IsG1UltrapeerCapable(BOOL bIgnoreTime = FALSE, BOOL bDebug = FALSE) const;	// True if computer/connection are sufficient to become a Gnutella ultrapeer	(bIgnoreTime unused, bDebug pre-run info)
 
-	DWORD CalculateSystemPerformanceScore(BOOL bDebug);	// Hub "Points"
+	DWORD CalculateSystemPerformanceScore(BOOL bDebug) const;	// Hub promotion "Points"
+
+	DWORD GetStableCount() const;
 
 	// Determine our needs on the given network, Gnutella or Gnutella2
-	BOOL NeedMoreHubs(PROTOCOLID nProtocol);	// True if we need more hub connections on the given network
-	BOOL NeedMoreLeafs(PROTOCOLID nProtocol);	// True if we need more leaf connections on the given network
-	BOOL IsHubLoaded(PROTOCOLID nProtocol);		// True if we have more than 75% of the number of hub connections settings says is our limit
+	bool  NeedMoreHubs(PROTOCOLID nProtocol) const;		// Do we need more hub connections on the given network
+	bool  NeedMoreLeafs(PROTOCOLID nProtocol) const;	// Do we need more leaf connections on the given network
+	//bool  IsHubLoaded(PROTOCOLID nProtocol) const;	// Do we have more than 75% of the number of hub connections settings says is our limit
 
 protected:
 	// Member variables that tell our current role on the Gnutella and Gnutella2 networks
-	BOOL m_bG2Leaf;				// True if we are a leaf to at least one computer on the Gnutella2 network
-	BOOL m_bG2Hub;				// True if we are a hub to at least one computer on the Gnutella2 network
-	BOOL m_bG1Leaf;				// True if we are a leaf to at least one computer on the Gnutella network
-	BOOL m_bG1Ultrapeer;		// True if we are an ultrapeer to at least one computer on the Gnutella network
-
-	DWORD m_tHubG2Promotion;	// Time we were promoted to a G2 hub
-	DWORD m_tPresent[8];		// The tick count when we last connected to a hub for each network,
-								// Index is a protocol identifier, like 1 Gnutella, 2 Gnutella2, and 3 eDonkey2000
-
+	BOOL  m_bG2Leaf;					// Are we a leaf to at least one computer on the Gnutella2 network
+	BOOL  m_bG2Hub;						// Are we a hub to at least one computer on the Gnutella2 network
+	BOOL  m_bG1Leaf;					// Are we a leaf to at least one computer on the Gnutella network
+	BOOL  m_bG1Ultrapeer;				// Are we an ultrapeer to at least one computer on the Gnutella network
+	DWORD m_nStableCount;				// Number of connections we have older than 1.5 seconds and finished with the handshake
+	DWORD m_tHubG2Promotion;			// Time we were promoted to a G2 hub
+	DWORD m_tPresent[ PROTOCOL_LAST ];	// Tick count when we last connected to a hub for each network
 
 public:
 	// Connect to a computer at an IP address, and accept a connection from a computer that has connected to us
@@ -69,10 +72,12 @@ public:
 	CNeighbour* OnAccept(CConnection* pConnection);
 
 	// Methods implimented by several classes in the CNeighbours inheritance column
-	virtual void OnRun();		// Call DoRun on each neighbour in the list, and maintain the network auto connection
+	virtual void OnRun();				// Call DoRun on each neighbour in the list, and maintain the network auto connection
+	virtual void Close();
 
 protected:
 	// Make new connections and close existing ones
+	void MaintainNodeStatus();					// Determine our node status
 	void Maintain();							// Count how many connections we have, and initiate or close them to match the ideal numbers in settings
 	void PeerPrune(PROTOCOLID nProtocol);		// Close hub to hub connections when we get demoted to the leaf role (do)
 };

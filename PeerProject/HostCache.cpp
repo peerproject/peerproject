@@ -1465,7 +1465,8 @@ bool CHostCacheHost::IsThrottled(const DWORD tNow) const
 	if ( m_pAddress.s_addr == INADDR_ANY && Network.GetResolveCount() > 3 )
 		return true;
 
-	if ( tNow < m_tConnect + Settings.Connection.ConnectThrottle )
+	if ( Settings.Connection.ConnectThrottle &&			// 0 default, ~250ms if limited
+		 tNow - m_tConnect < Settings.Connection.ConnectThrottle / 1000 )
 		return true;
 
 	switch ( m_nProtocol )

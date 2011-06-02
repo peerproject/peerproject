@@ -501,8 +501,15 @@ BOOL CEDClients::OnPacket(const SOCKADDR_IN* pHost, CEDPacket* pPacket)
 			}
 		}
 		break;
+
+#ifdef _DEBUG
 	default:
-		pPacket->Debug( _T("Unknown ED2K UDP opcode.") );
+		CString tmp;
+		tmp.Format( _T("Unknown ED2K UDP packet from %s:%u."),
+			(LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ),
+			htons( pHost->sin_port ) );
+		pPacket->Debug( tmp );
+#endif	// Debug
 	}
 
 	return TRUE;
@@ -662,9 +669,9 @@ void CEDClients::RunGlobalStatsRequests(DWORD tNow)
 		{
 			CHostCacheHostPtr pHost = (*i);
 
-			//CString strT;
-			//strT.Format( _T("  -Name:%s Last Stats:%d UDP flags:%08X"), pHost->m_sName, pHost->m_tStats, pHost->m_nUDPFlags );
-			//theApp.Message( MSG_INFO, strT );
+			//CString str;
+			//str.Format( _T("  -Name:%s Last Stats:%d UDP flags:%08X"), pHost->m_sName, pHost->m_tStats, pHost->m_nUDPFlags );
+			//theApp.Message( MSG_INFO, str );
 
 			// Check if this server could be asked for stats
 			if ( ( pHost->CanQuery( tSecs ) ) &&													// If it hasn't been searched recently
