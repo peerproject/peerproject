@@ -1,7 +1,7 @@
 //
 // CtrlLibraryThumbView.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -19,6 +19,7 @@
 #pragma once
 
 #include "CtrlLibraryFileView.h"
+#include "Library.h"
 
 class CLibraryThumbItem;
 class CLibraryFile;
@@ -70,8 +71,8 @@ protected:
 	void				UpdateScroll();
 	void				ScrollBy(int nDelta);
 	void				ScrollTo(int nDelta);
-	CLibraryThumbItem*	HitTest(const CPoint& point) const;
 	BOOL				GetItemRect(CLibraryThumbItem* pThumb, CRect* pRect);
+	CLibraryThumbItem*	HitTest(const CPoint& point) const;
 
 	void				StartThread();
 	void				StopThread();

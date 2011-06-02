@@ -122,13 +122,13 @@ CDownloadSource::CDownloadSource(const CDownload* pDownload, const CQueryHit* pH
 	// If we got hit with BitTorrent hash
 	// and url now looks like btc://
 	// but hit was received from G1/G2 search
-	// and download is a single file torrent or isnt a torrent
+	// and download isn't a multifile torrent
 	// then change hit (back) to G1/G2 protocol
 
 	if ( pHit->m_oBTH &&
 		m_nProtocol == PROTOCOL_BT &&
-		( pHit->m_nProtocol == PROTOCOL_G1 || pHit->m_nProtocol == PROTOCOL_G2 ) &&
-		( pDownload->IsSingleFileTorrent() || ! pDownload->IsTorrent() ) )
+		! pDownload->IsMultiFileTorrent() &&
+		( pHit->m_nProtocol == PROTOCOL_G2 || pHit->m_nProtocol == PROTOCOL_G1 ) )
 	{
 		m_nProtocol = pHit->m_nProtocol;
 		m_sURL = pHit->GetURL( m_pAddress, m_nPort );
@@ -739,7 +739,7 @@ BOOL CDownloadSource::CheckHash(const Hashes::Sha1Hash& oSHA1)
 	}
 	else
 	{
-		if ( m_pDownload->IsTorrent() && ! m_pDownload->IsSingleFileTorrent() ) return TRUE;
+		if ( m_pDownload->IsMultiFileTorrent() ) return TRUE;
 
 		m_pDownload->m_oSHA1 = oSHA1;
 	}
@@ -758,7 +758,7 @@ BOOL CDownloadSource::CheckHash(const Hashes::TigerHash& oTiger)
 	}
 	else
 	{
-		if ( m_pDownload->IsTorrent() && ! m_pDownload->IsSingleFileTorrent() ) return TRUE;
+		if ( m_pDownload->IsMultiFileTorrent() ) return TRUE;
 
 		m_pDownload->m_oTiger = oTiger;
 	}
@@ -777,7 +777,7 @@ BOOL CDownloadSource::CheckHash(const Hashes::Ed2kHash& oED2K)
 	}
 	else
 	{
-		if ( m_pDownload->IsTorrent() && ! m_pDownload->IsSingleFileTorrent() ) return TRUE;
+		if ( m_pDownload->IsMultiFileTorrent() ) return TRUE;
 
 		m_pDownload->m_oED2K = oED2K;
 	}
@@ -815,7 +815,7 @@ BOOL CDownloadSource::CheckHash(const Hashes::Md5Hash& oMD5)
 	}
 	else
 	{
-		if ( m_pDownload->IsTorrent() && ! m_pDownload->IsSingleFileTorrent() ) return TRUE;
+		if ( m_pDownload->IsMultiFileTorrent() ) return TRUE;
 
 		m_pDownload->m_oMD5 = oMD5;
 	}

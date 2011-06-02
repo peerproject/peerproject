@@ -37,6 +37,22 @@ static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
 #endif	// Filename
 
+// ToDo: Make these skinnable options ?
+//#define SPLIT_SIZE	6				// Skin.m_nSplitter
+#define HEADER_HEIGHT	17
+#define STATUS_HEIGHT	18
+#define SIZE_INTERNAL	1982
+#define SIZE_BARSLIDE	1983
+#define TOOLBAR_STICK	3000
+#define TOOLBAR_ANIMATE	800
+#define META_DELAY		10000
+#define TIME_FACTOR		1000000
+#define ONE_SECOND		10000000
+
+#define UPDATE_TIMER	100				// ms delay for controls display
+#define VOLUME_KEY_MULTIPLIER 5
+
+
 #ifndef WM_APPCOMMAND
 
 #define WM_APPCOMMAND					0x319
@@ -48,12 +64,10 @@ static char THIS_FILE[]=__FILE__;
 #define APPCOMMAND_MEDIA_STOP			13
 #define APPCOMMAND_MEDIA_PLAY_PAUSE		14
 #define FAPPCOMMAND_MASK				0x8000
-#define GET_APPCOMMAND_LPARAM(lParam) ((short)(HIWORD(lParam) & ~FAPPCOMMAND_MASK))
+#define GET_APPCOMMAND_LPARAM(lParam)	((short)(HIWORD(lParam) & ~FAPPCOMMAND_MASK))
 
 #endif // WM_APPCOMMAND
 
-#define VOLUME_KEY_MULTIPLIER 5
-#define UPDATE_TIMER 100				// ms delay for controls display
 
 IMPLEMENT_DYNAMIC(CMediaFrame, CWnd)
 
@@ -111,18 +125,6 @@ BEGIN_MESSAGE_MAP(CMediaFrame, CWnd)
 	ON_MESSAGE(WM_APPCOMMAND, OnMediaKey)
 END_MESSAGE_MAP()
 
-// ToDo: Make these skinnable options ?
-//#define SPLIT_SIZE	6		// Skin.m_nSplitter
-#define HEADER_HEIGHT	17
-#define STATUS_HEIGHT	18
-#define SIZE_INTERNAL	1982
-#define SIZE_BARSLIDE	1983
-#define TOOLBAR_STICK	3000
-#define TOOLBAR_ANIMATE	800
-#define META_DELAY		10000
-#define TIME_FACTOR		1000000
-#define ONE_SECOND		10000000
-
 CMediaFrame* CMediaFrame::g_pMediaFrame = NULL;
 
 
@@ -153,8 +155,8 @@ CMediaFrame::CMediaFrame()
 	m_rcStatus.SetRectEmpty();
 	m_bScreenSaverEnabled = TRUE;
 	m_nVidAC = m_nVidDC = 0;
-	m_nPowerSchemeId = 0;
-	m_nScreenSaverTime = 0;
+	m_nPowerSchemeId	= 0;
+	m_nScreenSaverTime	= 0;
 	ZeroMemory( &m_CurrentGP, sizeof(GLOBAL_POWER_POLICY) );
 	ZeroMemory( &m_CurrentPP, sizeof(POWER_POLICY) );
 
@@ -1810,11 +1812,11 @@ void CMediaFrame::UpdateState()
 	if ( m_nState >= smsOpen )
 	{
 		m_nLength = 0;
-		m_pPlayer->GetLength( &m_nLength );
+		if ( m_pPlayer ) m_pPlayer->GetLength( &m_nLength );
 		const int nLength = (int)( m_nLength / TIME_FACTOR );
 
 		m_nPosition = 0;
-		m_pPlayer->GetPosition( &m_nPosition );
+		if ( m_pPlayer ) m_pPlayer->GetPosition( &m_nPosition );
 		const int nPosition = (int)( m_nPosition / TIME_FACTOR );
 
 		m_wndPosition.EnableWindow( TRUE );
@@ -1829,7 +1831,7 @@ void CMediaFrame::UpdateState()
 		if ( ! m_bMute )
 		{
 			Settings.MediaPlayer.Volume = 1.0f;
-			m_pPlayer->GetVolume( &Settings.MediaPlayer.Volume );
+			if ( m_pPlayer ) m_pPlayer->GetVolume( &Settings.MediaPlayer.Volume );
 		}
 
 		if ( m_nState == smsPlaying && nPosition >= nLength && nPosition != 0 )
@@ -1922,13 +1924,13 @@ void CMediaFrame::OnNewCurrent(NMHDR* /*pNotify*/, LRESULT* pResult)
 			Settings.MediaPlayer.Volume = nVolume;
 			m_pPlayer->SetVolume( m_bMute ? 0 : nVolume );
 		}
-		else if ( bCorrupted ) // File was corrupted, move to the next file
+		else if ( bCorrupted )	// File was corrupted, move to the next file
 		{
 			nCurrent = m_wndList.GetNext( FALSE );
 			if ( m_wndList.GetItemCount() != 1 )
 				m_wndList.SetCurrent( nCurrent );
 			else if ( m_pPlayer )
-				Cleanup();	// Cleanup when no exception happened but file couldn't be opened
+				Cleanup();		// Cleanup when no exception happened but file couldn't be opened
 		}
 		else
 		{

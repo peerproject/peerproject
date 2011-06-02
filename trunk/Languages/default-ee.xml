@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Estonian Skin File -->
 
-<!-- Translation based on default-en.xml r66 (Shareaza 2.2.2.9) -->
+<!-- Translation based on default-en.xml r67 (Shareaza 2.2.2.9) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2286,8 +2286,8 @@
 	<tip id="ID_LIBRARY_ALBUM_DELETE" message="Kustuta valitud Albumi kaust."/>
 	<tip id="ID_LIBRARY_ALBUM_OPEN" message="Ava valitud Albumi kaust."/>
 	<tip id="ID_LIBRARY_ALBUM_PROPERTIES" message="Vaata ja muuda valitud Albumi kausta omadusi..."/>
-	<tip id="ID_LIBRARY_BITZI_DOWNLOAD" message="Tõmba Bitzist(TM) valitud faili kohta andmebaas ..."/>
-	<tip id="ID_LIBRARY_BITZI_WEB" message="Vaata Bitzi(TM) infot valitud faili kohta."/>
+	<tip id="ID_LIBRARY_BITZI_DOWNLOAD" message="Tõmba Bitzist™ valitud faili kohta andmebaas ..."/>
+	<tip id="ID_LIBRARY_BITZI_WEB" message="Vaata Bitzi™ infot valitud faili kohta."/>
 	<tip id="ID_LIBRARY_COLUMNS" message="Vali andmebaasi info, mida kuvada..."/>
 	<tip id="ID_LIBRARY_COPY" message="Kopeeri valitud failid raamatukogu teise kausta..."/>
 	<tip id="ID_LIBRARY_CREATETORRENT" message="Loo .torrent fail mida jagada."/>
@@ -2633,13 +2633,13 @@
 	<string id="20184" value="Palun kasutajaga privaatvestlust..."/>
 	<string id="20185" value="Kasutaja tuvastatud "/>
 	<string id="20186" value="Nõustunud tõukepäringuga %s, kinnitan..."/>
-	<string id="20188" value="Saadan tulemüüritud päringu %s..."/>
-	<string id="20190" value="Ühendus katkes, vigased andmed."/>
-	<string id="20191" value="Tundmatu vastus: %s"/>
-	<string id="20192" value="Sa ei ole ühendatud."/>
-	<string id="20193" value="Tundmatu käsklus &quot;%s&quot;."/>
-	<string id="20194" value="Sellel mallil ei ole muutmis võimalusi."/>
-	<string id="20195" value="See mall on vale."/>
+	<string id="20187" value="Saadan tulemüüritud päringu %s..."/>
+	<string id="20188" value="Ühendus katkes, vigased andmed."/>
+	<string id="20189" value="Tundmatu vastus: %s"/>
+	<string id="20190" value="Sa ei ole ühendatud."/>
+	<string id="20191" value="Tundmatu käsklus &quot;%s&quot;."/>
+	<string id="20196" value="Sellel mallil ei ole muutmis võimalusi."/>
+	<string id="20197" value="See mall on vale."/>
 	<string id="20199" value="(Sulgub peale ülekannet)"/>
 	<string id="20200" value="Lisatud &quot;%s&quot; allalaadimis järjekorda %i allikale."/>
 	<string id="20201" value="Faili &quot;%s&quot; juba tõmmatakse, lisan allikaid."/>
@@ -2792,14 +2792,15 @@
 	<string id="20370" value="Vastuvõetud Gnutella Paketid"/>
 	<string id="20371" value="Ülekantud Gnutella Paketid"/>
 	<string id="20374" value="Gnutella Kohalikud Järjekorrad"/>
-	<string id="20375" value="Vahendatud Gnutella Paketid"/>
-	<string id="20376" value="Kokku Sissetulevad Ühendused"/>
-	<string id="20377" value="Kõik Ülekandekiirused Kokku"/>
-	<string id="20378" value="Kokku TCP Vastuvõetud Andmemahud"/>
-	<string id="20379" value="Kokku TCP Ülekantud Andmemahud"/>
-	<string id="20380" value="Kokku UDP Vastuvõetud Andmemahud"/>
-	<string id="20381" value="Kokku UDP Ülekantud Andmemahud"/>
-	<string id="20382" value="Üleslaadimiste Maht"/>
+	<string id="20375" value="Gnutella Kohalikud Järjekorrad"/>
+	<string id="20376" value="Vahendatud Gnutella Paketid"/>
+	<string id="20377" value="Kokku Sissetulevad Ühendused"/>
+	<string id="20378" value="Kõik Ülekandekiirused Kokku"/>
+	<string id="20379" value="Kokku TCP Vastuvõetud Andmemahud"/>
+	<string id="20380" value="Kokku TCP Ülekantud Andmemahud"/>
+	<string id="20381" value="Kokku UDP Vastuvõetud Andmemahud"/>
+	<string id="20382" value="Kokku UDP Ülekantud Andmemahud"/>
+	<string id="20383" value="Üleslaadimiste Maht"/>
 	<string id="20384" value="Üleslaadimiste Arvesti"/>
 	<string id="20385" value="Ühendan %s langen tagasi kaitstud leaf mode."/>
 	<string id="20386" value="Sulgen üleliigse ühenduse %s serveri vihjega (%s port %i)."/>
@@ -2959,8 +2960,8 @@
 	<string id="20582" value="%s saatis vigase pong paketi, ignoreerin."/>
 	<string id="20583" value="%s saatis vigase suurusega paketi, ignoreerin."/>
 	<string id="20584" value="%s saatis liiga suure infopaketi, katkestan ühenduse."/>
-	<string id="20585" value="%s saatis tundmatu paketi (0x%.2x), ignoreerin."/>
-	<string id="20586" value="%s saatis vigase aadressiga andme pongi, ignoreerin."/>
+	<string id="20586" value="%s saatis tundmatu paketi (0x%.2x), ignoreerin."/>
+	<string id="20587" value="%s saatis vigase aadressiga andme pongi, ignoreerin."/>
 	<string id="20588" value="%s saatis päringu tulemüüri aadressiga, ignoreerin."/>
 	<string id="20590" value="Kaugtöö ei ole käivitatud."/>
 	<string id="20591" value="http://%s:%i/remote - Sa pead valima kasutajanime ja salasõna."/>
@@ -3174,12 +3175,13 @@
 	<string id="20870" value="Ei suuda tuvastada URL: PeerProject ei suuda seda URL-i lugeda."/>
 	<string id="20871" value="Vastuvõetud URL &quot;%s&quot;"/>
 	<string id="20872" value="Tüüp:"/>
-	<string id="20874" value="Täpsustamata"/>
-	<string id="20875" value="URL:"/>
+	<string id="20874" value="URL:"/>
+	<string id="20875" value="Täpsustamata"/>
 	<string id="20880" value="Muuda Minu Profiili"/>
-	<string id="20881" value="Vaadete muutmine sulgeb kõik avatud aknad. Kas soovid kohe muuta?"/>
-	<string id="20884" value="URN-i ei ole saadaval"/>
-	<string id="20885" value="Kasutajaliidese suundade muutmine nõuab taaskäivitust.\na pead PeerProject käsits taaskäivitama. Välju nüüd?"/>
+	<string id="20881" value="%u faili valitud. Oled sa kindel?"/>
+	<string id="20882" value="URN-i ei ole saadaval"/>
+	<string id="20885" value="Vaadete muutmine sulgeb kõik avatud aknad. Kas soovid kohe muuta?"/>
+	<string id="20886" value="Kasutajaliidese suundade muutmine nõuab taaskäivitust.\na pead PeerProject käsits taaskäivitama. Välju nüüd?"/>
 	<string id="20890" value="Teretulemast PeerProjectsse"/>
 	<string id="20891" value="Välju"/>
 	<string id="20895" value="Sa ei ole veel oma internetiühenduse kiirust täpsustanud. Enne jätkamist, vali kas Interneti ühenduse tüüp või kiirus."/>

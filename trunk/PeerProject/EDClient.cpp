@@ -225,9 +225,6 @@ void CEDClient::Remove()
 
 	Close();
 
-	//if ( Settings.General.Debug && Settings.General.DebugLog )
-	//	theApp.Message( MSG_DEBUG, _T("CEDClient::Remove(): %x"), this );
-
 	delete this;
 }
 
@@ -745,9 +742,7 @@ BOOL CEDClient::OnPacket(CEDPacket* pPacket)
 		}
 	}
 
-	CString str;
-	str.Format( _T("Unrecognised packet type (in CEDClient::OnPacket) IP: %s"), LPCTSTR( m_sAddress ) );
-	pPacket->Debug( str );
+	DEBUG_ONLY( pPacket->Debug( _T("Unknown ED2K packet from ") + m_sAddress ) );
 
 	return TRUE;
 }
@@ -954,6 +949,7 @@ BOOL CEDClient::OnHello(CEDPacket* pPacket)
 				m_bEmLargeFile	= (pTag.m_nValue >> 4 ) & 0x01;
 			}
 			break;
+#ifdef _DEBUG
 		case ED2K_CT_UNKNOWN1:
 		case ED2K_CT_UNKNOWN2:
 		case ED2K_CT_UNKNOWN3:
@@ -966,10 +962,11 @@ BOOL CEDClient::OnHello(CEDPacket* pPacket)
 			else
 			{
 				CString str;
-				str.Format( _T("Unrecognised packet opcode (in CEDClient::OnHello) IP: %s Opcode: 0x%x:0x%x"),
+				str.Format( _T("Unknown ED2K Hello packet from %s  (Opcode 0x%x:0x%x)"),
 					LPCTSTR( m_sAddress ), int( pTag.m_nKey ), int( pTag.m_nType ) );
 				pPacket->Debug( str );
 			}
+#endif	// Debug
 		}
 	}
 
@@ -1123,11 +1120,13 @@ BOOL CEDClient::OnEmuleInfo(CEDPacket* pPacket)
 			// eMule Plus version
 			//if ( pTag.m_nType == ED2K_TAG_INT ) m_nPlusVers = (DWORD)pTag.m_nValue;
 			break;
+#ifdef _DEBUG
 		default:
 			CString str;
-			str.Format( _T("Unrecognised packet opcode (in CEDClient::OnEmuleInfo) IP: %s Opcode: 0x%x:0x%x"),
+			str.Format( _T("Unknown ED2K info packet from %s  (Opcode 0x%x:0x%x)"),
 				LPCTSTR( m_sAddress ), int( pTag.m_nKey ), int( pTag.m_nType ) );
 			pPacket->Debug( str );
+#endif
 		}
 	}
 
@@ -2040,8 +2039,8 @@ BOOL CEDClient::OnRequestPreview(CEDPacket* pPacket)
 			else
 			{
 				theApp.Message( MSG_ERROR, IDS_UPLOAD_PREVIEW_EMPTY, (LPCTSTR)m_sAddress, (LPCTSTR)pFile->m_sName );
-				Send( pReply );	// Not an image packet
-				return TRUE;
+				Send( pReply );
+				return TRUE;	// Not an image packet
 			}
 
 			BYTE* pBuffer = NULL;
@@ -2189,7 +2188,7 @@ BOOL CEDClient::OnSourceRequest(CEDPacket* pPacket)
 
 		if ( pStart == NULL )
 		{
-			theApp.Message( MSG_ERROR, _T("Memory allocation error in CEDClient::OnSourceRequest()") );
+		//	theApp.Message( MSG_DEBUG, _T("Memory allocation error in CEDClient::OnSourceRequest()") );
 			pReply->Release();
 			return TRUE;
 		}

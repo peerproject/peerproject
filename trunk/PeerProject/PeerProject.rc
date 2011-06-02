@@ -3255,7 +3255,7 @@ BEGIN
 	ID_DOWNLOADS_SETTINGS		"Configure download settings..."
 	ID_DOWNLOADS_SHARE			"Share this partially downloaded file with other users."
 	ID_DOWNLOADS_SHOW_SOURCES	"Display sources which are not currently being used."
-	ID_DOWNLOADS_SOURCES		"Search for more sources for selected downloads."
+	ID_DOWNLOADS_SOURCES		"Search for more sources for selected downloads.  (Jumpstart stalled downloads)"
 	ID_DOWNLOADS_URI			"Copy the P2P Link of the selected file. (URI)"
 	ID_DOWNLOADS_VIEW_REVIEWS	"View reviews for the selected download."
 END
@@ -3995,26 +3995,27 @@ BEGIN
 	IDS_GRAPH_UPLOADS_TRANSFERS "Upload Transfer Count"
 	IDS_GRAPH_TOTAL_BANDWIDTH_IN "Total Generic Receive Bandwidth"
 	IDS_GRAPH_TOTAL_BANDWIDTH_OUT "Total Generic Transmit Bandwidth"
-	IDS_GRAPH_TOTAL_BANDWIDTH_TCP_IN "Total TCP Receive Bandwidth"
+	IDS_GRAPH_TOTAL_BANDWIDTH_TCP_IN  "Total TCP Receive Bandwidth"
 	IDS_GRAPH_TOTAL_BANDWIDTH_TCP_OUT "Total TCP Transmit Bandwidth"
-	IDS_GRAPH_TOTAL_BANDWIDTH_UDP_IN "Total UDP Receive Bandwidth"
+	IDS_GRAPH_TOTAL_BANDWIDTH_UDP_IN  "Total UDP Receive Bandwidth"
 	IDS_GRAPH_TOTAL_BANDWIDTH_UDP_OUT "Total UDP Transmit Bandwidth"
 END
 
 STRINGTABLE
 BEGIN
-	IDS_GRAPH_GNUTELLA_BANDWIDTH_IN "Gnutella Receive Bandwidth"
+	IDS_GRAPH_GNUTELLA_BANDWIDTH_IN  "Gnutella Receive Bandwidth"
 	IDS_GRAPH_GNUTELLA_BANDWIDTH_OUT "Gnutella Transmit Bandwidth"
 	IDS_GRAPH_GNUTELLA_CONNECTIONS "Gnutella Connections (Total)"
 	IDS_GRAPH_GNUTELLA_CONNECTIONS_ALL "Gnutella Connections (Active)"
-	IDS_GRAPH_GNUTELLA_PACKETS_IN "Gnutella Packets Received"
+	IDS_GRAPH_GNUTELLA_PACKETS_IN  "Gnutella Packets Received"
 	IDS_GRAPH_GNUTELLA_PACKETS_OUT "Gnutella Packets Transmitted"
 	IDS_GRAPH_GNUTELLA_PINGS	"Gnutella Ratio of Received/Sent Pings"
 	IDS_GRAPH_GNUTELLA_PONGS	"Gnutella Ratio of Received/Sent Pongs"
 	IDS_GRAPH_GNUTELLA_DROPPED	"Gnutella Packets Dropped"
 	IDS_GRAPH_GNUTELLA_LOST		"Gnutella Packets Lost"
-	IDS_GRAPH_GNUTELLA_QUERIES	"Gnutella Local Queries"
 	IDS_GRAPH_GNUTELLA_ROUTED	"Gnutella Packets Routed"
+	IDS_GRAPH_GNUTELLA_QUERIES	"Gnutella Queries (Incoming)"
+	IDS_GRAPH_GNUTELLA_QUERIES_PROCESSED "Gnutella Queries (Processed)"
 END
 
 STRINGTABLE
@@ -4241,6 +4242,7 @@ BEGIN
 	IDS_PROTOCOL_SIZE_PONG		"Neighbor %s forwarded a pong packet with invalid length, ignoring."
 	IDS_PROTOCOL_SIZE_PUSH		"Neighbor %s forwarded a push packet with invalid length, ignoring."
 	IDS_PROTOCOL_TOO_LARGE		"Neighbor %s forwarded a packet of excessive size, dropping connection."
+	IDS_PROTOCOL_EXCEEDS_LIMIT	"Received a flood packet from %s for %s which exceeds query limits, ignoring."
 	IDS_PROTOCOL_UNKNOWN		"Neighbor %s forwarded an unrecognised packet (0x%.2x), ignoring."
 	IDS_PROTOCOL_ZERO_PONG		"Neighbor %s forwarded a pong with invalid address data, ignoring."
 	IDS_PROTOCOL_ZERO_PUSH		"Neighbor %s forwarded a push request to a firewalled address, ignoring."
@@ -4249,7 +4251,7 @@ END
 STRINGTABLE
 BEGIN
 	IDS_NEW_FOLDER				"New Folder"
-	IDS_NOURNAVAILABLE			"No URN available"
+	IDS_NO_URN_AVAILABLE		"No URN available"
 	IDS_PROFILE_NO_LOCATION 	"You haven't entered your location in your user profile.\n\nIt's a good idea to enter your location so that other users can see which country you are from.  Note that entering a location does not reveal any compromising information.\n\nAre you sure you want to continue without entering your location?"
 	IDS_PROFILE_NO_NICK			"You haven't entered a screen name in your user profile."
 	IDS_PROFILE_NO_VITALS		"You have not selected your age and gender.  Are you sure you want to continue without doing this?"
@@ -4533,7 +4535,7 @@ BEGIN
 	IDS_UPLOAD_QUEUE_LIBRARY	"Library Files"
 	IDS_UPLOAD_QUEUE_LARGE_FILES "Large Files"
 	IDS_UPLOAD_QUEUE_MEDIUM_FILES "Medium Files"
-	IDS_UPLOAD_QUEUE_SMALL_FILES "Small Files"
+	IDS_UPLOAD_QUEUE_SMALL_FILES  "Small Files"
 	IDS_UPLOAD_QUEUE_PARTIAL_FILES "Partial Files"
 	IDS_UPLOAD_QUEUE_PARTIAL	"Partial"
 	IDS_UPLOAD_QUEUE_NEW		"New Queue"
@@ -4564,6 +4566,7 @@ BEGIN
 	IDS_UPGRADE_LAUNCH			"PeerProject has finished downloading the next PeerProject version (%s).  Would you like to upgrade now?\n\nIf you select Yes, PeerProject will close temporarily while the upgrade is installed."
 	IDS_UPGRADE_NO_NEW			"Update: No new version detected."
 	IDS_USER_PROFILE			"User Profile"
+	IDS_TOO_MANY_FILES			"%u Files selected.  Are you sure?"
 	IDS_VIEW_MODE_CONFIRM		"Changing views may close some windows. \nWould you like to proceed now?"
 	IDS_WARNING_RTL				"Changing interface direction requires restart. \nYou will need to start PeerProject manually. Exit now?"
 END

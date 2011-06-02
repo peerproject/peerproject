@@ -973,14 +973,17 @@
 #define IDS_CHAT_PRIVATE_START              20184		// 17033
 #define IDS_CHAT_PROFILE_ACCEPTED           20185		// 17032
 #define IDS_CHAT_PUSH_DONE                  20186		// 17027
-#define IDS_CHAT_PUSH_SENT                  20188		// 17026
-#define IDS_CHAT_PROTOCOL_X                 20190		// 16457
-#define IDS_CHAT_RESPONSE_X                 20191		// 16458
-#define IDS_CHAT_UNCONNECTED_X              20192		// 16459
-#define IDS_CHAT_UNRECOGNISED_X             20193		// 16452
-#define IDS_COLLECTION_WIZARD_NOCUSTOM      20194		// 7101
-#define IDS_COLLECTION_WIZARD_NOTVALID      20195		// 7100
-#define IDS_COPIED_TO_CLIPBOARD             20196
+#define IDS_CHAT_PUSH_SENT                  20187		// 17026
+#define IDS_CHAT_PROTOCOL_X                 20188		// 16457
+#define IDS_CHAT_RESPONSE_X                 20189		// 16458
+#define IDS_CHAT_UNCONNECTED_X              20190		// 16459
+#define IDS_CHAT_UNRECOGNISED_X             20191		// 16452
+#define IDS_CHAT_CAPTCHA_ACCEPTED           20192
+#define IDS_CHAT_CAPTCHA_DENIED             20193
+#define IDS_CHAT_CAPTCHA_REQUEST            20194
+#define IDS_COLLECTION_WIZARD_NOCUSTOM      20196		// 7101
+#define IDS_COLLECTION_WIZARD_NOTVALID      20197		// 7100
+#define IDS_COPIED_TO_CLIPBOARD             20198
 #define IDS_CLOSING_AFTER                   20199		// 8005
 #define IDS_DOWNLOAD_ADDED                  20200		// 16256
 #define IDS_DOWNLOAD_ALREADY                20201		// 16283
@@ -1143,14 +1146,15 @@
 #define IDS_GRAPH_GNUTELLA_PINGS            20372		// 16536
 #define IDS_GRAPH_GNUTELLA_PONGS            20373		// 16537
 #define IDS_GRAPH_GNUTELLA_QUERIES          20374		// 16528
-#define IDS_GRAPH_GNUTELLA_ROUTED           20375		// 16525
-#define IDS_GRAPH_TOTAL_BANDWIDTH_IN        20376		// 16512
-#define IDS_GRAPH_TOTAL_BANDWIDTH_OUT       20377		// 16513
-#define IDS_GRAPH_TOTAL_BANDWIDTH_TCP_IN    20378		// 16532
-#define IDS_GRAPH_TOTAL_BANDWIDTH_TCP_OUT   20379		// 16533
-#define IDS_GRAPH_TOTAL_BANDWIDTH_UDP_IN    20380		// 16534
-#define IDS_GRAPH_TOTAL_BANDWIDTH_UDP_OUT   20381		// 16535
-#define IDS_GRAPH_UPLOADS_BANDWIDTH         20382		// 16522
+#define IDS_GRAPH_GNUTELLA_QUERIES_PROCESSED 20375
+#define IDS_GRAPH_GNUTELLA_ROUTED           20376		// 16525
+#define IDS_GRAPH_TOTAL_BANDWIDTH_IN        20377		// 16512
+#define IDS_GRAPH_TOTAL_BANDWIDTH_OUT       20378		// 16513
+#define IDS_GRAPH_TOTAL_BANDWIDTH_TCP_IN    20379		// 16532
+#define IDS_GRAPH_TOTAL_BANDWIDTH_TCP_OUT   20380		// 16533
+#define IDS_GRAPH_TOTAL_BANDWIDTH_UDP_IN    20381		// 16534
+#define IDS_GRAPH_TOTAL_BANDWIDTH_UDP_OUT   20382		// 16535
+#define IDS_GRAPH_UPLOADS_BANDWIDTH         20383		// 16522
 #define IDS_GRAPH_UPLOADS_TRANSFERS         20384		// 16521
 #define IDS_HANDSHAKE_BACK2LEAF             20385		// 16153
 #define IDS_HANDSHAKE_BOOTSTRAP             20386		// 16147
@@ -1330,8 +1334,9 @@
 #define IDS_PROTOCOL_SIZE_PONG              20582		// 16196
 #define IDS_PROTOCOL_SIZE_PUSH              20583		// 16203
 #define IDS_PROTOCOL_TOO_LARGE              20584		// 16192
-#define IDS_PROTOCOL_UNKNOWN                20585		// 16199
-#define IDS_PROTOCOL_ZERO_PONG              20586		// 16200
+#define IDS_PROTOCOL_EXCEEDS_LIMIT          20585
+#define IDS_PROTOCOL_UNKNOWN                20586		// 16199
+#define IDS_PROTOCOL_ZERO_PONG              20587		// 16200
 #define IDS_PROTOCOL_ZERO_PUSH              20588		// 16211
 #define IDS_REMOTE_DISABLED                 20590		// 19000
 #define IDS_REMOTE_ENABLED                  20591		// 19001
@@ -1576,14 +1581,15 @@
 #define IDS_URL_PARSE_ERROR                 20870		// 16769
 #define IDS_URL_RECEIVED                    20871		// 16768
 #define IDS_URL_TYPE                        20872		// 16779
-#define IDS_URL_UNSPECIFIED                 20874		// 16780
-#define IDS_URL_URL                         20875		// 16778
+#define IDS_URL_URL                         20874		// 16778
+#define IDS_URL_UNSPECIFIED                 20875		// 16780
 #define IDS_USER_PROFILE                    20880		// 8003
-#define IDS_VIEW_MODE_CONFIRM               20881		// 8011
-#define IDS_UPNP_SERVICES_ERROR             20882		// 16815
-#define IDS_SHAREMONKEY_MESSAGE             20883		// 20014
-#define IDS_NOURNAVAILABLE                  20884		// 20000
-#define IDS_WARNING_RTL                     20885		// 20003
+#define IDS_TOO_MANY_FILES                  20881
+#define IDS_NO_URN_AVAILABLE                20882		// 20000
+#define IDS_UPNP_SERVICES_ERROR             20883		// 16815
+#define IDS_SHAREMONKEY_MESSAGE             20884		// 20014
+#define IDS_VIEW_MODE_CONFIRM               20885		// 8011
+#define IDS_WARNING_RTL                     20886		// 20003
 #define IDS_WIZARD                          20890		// 8001
 #define IDS_WIZARD_EXIT                     20891		// 16809
 #define IDS_WIZARD_ED2K                     20892		// 16814

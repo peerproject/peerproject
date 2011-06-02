@@ -287,20 +287,21 @@ BOOL CSettingsSheet::OnInitDialog()
 
 void CSettingsSheet::BuildTree()
 {
-	HTREEITEM hGroup = NULL;
+	HTREEITEM hGroup = TVI_ROOT;
 
 	for ( int nPage = 0 ; nPage < GetPageCount() ; nPage++ )
 	{
 		CSettingsPage* pPage = GetPage( nPage );
 
-		if ( pPage->m_bGroup ) hGroup = NULL;
+		if ( pPage->m_bGroup ) hGroup = TVI_ROOT;
 
 		HTREEITEM hItem = m_wndTree.InsertItem(
 			TVIF_PARAM|TVIF_TEXT|TVIF_STATE,
 			pPage->m_sCaption, 0, 0, TVIS_EXPANDED|(TVIS_BOLD*pPage->m_bGroup),
 			TVIS_EXPANDED|TVIS_BOLD, (LPARAM)pPage, hGroup, TVI_LAST );
 
-		if ( pPage->m_bGroup ) hGroup = hItem;
+		if ( pPage->m_bGroup )
+			hGroup = hItem;
 
 		if ( pPage == m_pPage )
 			m_wndTree.SelectItem( hItem );

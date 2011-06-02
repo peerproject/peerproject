@@ -1,7 +1,7 @@
 //
 // NeighboursWithRouting.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -31,12 +31,26 @@ class CQuerySearch;
 class CNeighboursWithRouting : public CNeighboursWithED2K
 {
 protected:
-	CNeighboursWithRouting();			// The constructor and destructor don't do anything
+	CNeighboursWithRouting();			// Constructor and destructor don't do anything
 	virtual ~CNeighboursWithRouting();
 
+	typedef struct
+	{
+		IN_ADDR	m_pAddress;
+		DWORD	m_nTime;
+	} CIPTime;
+
+	CList< CIPTime > m_pQueries;
+
 public:
+	virtual void Connect();
+
 	// Send a packet to all the computers we're connected to
 	int Broadcast(CPacket* pPacket, CNeighbour* pExcept = NULL, BOOL bGGEP = FALSE);
+
+	// Limit queries by endpoint addresses
+	bool CheckQuery(const CQuerySearch* pSearch);
+
 	// Send a query packet to all the computers we're connected to, translating it to Gnutella and Gnutella2 for computers running that software
 	int RouteQuery(const CQuerySearch* pSearch, CPacket* pPacket, CNeighbour* pFrom, BOOL bToHubs);
 };

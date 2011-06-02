@@ -1,7 +1,7 @@
 //
 // PageFileGeneral.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -19,11 +19,11 @@
 #include "StdAfx.h"
 #include "PeerProject.h"
 #include "Settings.h"
+#include "PageFileGeneral.h"
 #include "Library.h"
 #include "SharedFolder.h"
 #include "SharedFile.h"
 #include "ShellIcons.h"
-#include "PageFileGeneral.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -95,13 +95,13 @@ BOOL CFileGeneralPage::OnInitDialog()
 		m_sSize.Format( _T("%s  (%I64i)"), Settings.SmartVolume( pFile->GetSize() ), pFile->GetSize() );
 		m_sIndex.Format( _T("# %lu"), pFile->m_nIndex );
 
-		m_sSHA1  = pFile->m_oSHA1.toShortUrn();
+		m_sSHA1	 = pFile->m_oSHA1.toShortUrn();
 		m_sTiger = pFile->m_oTiger.toShortUrn();
-		m_sED2K = pFile->m_oED2K.toShortUrn();
-		m_sMD5  = pFile->m_oMD5.toShortUrn();
+		m_sED2K	 = pFile->m_oED2K.toShortUrn();
+		m_sMD5	 = pFile->m_oMD5.toShortUrn();
 
 		if ( m_sSHA1.IsEmpty() && m_sED2K.IsEmpty() && m_sTiger.IsEmpty() && m_sMD5.IsEmpty() )
-			LoadString( m_sSHA1, IDS_NOURNAVAILABLE );
+			LoadString( m_sSHA1, IDS_NO_URN_AVAILABLE );
 
 		CString strDate, strTime;
 		SYSTEMTIME pTime;

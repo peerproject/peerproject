@@ -50,7 +50,7 @@ BEGIN_MESSAGE_MAP(CSkinDialog, CDialog)
 	ON_WM_CTLCOLOR()
 	ON_WM_CREATE()
 	ON_WM_HELPINFO()
-//	ON_WM_UPDATEUISTATE()
+//	ON_WM_UPDATEUISTATE()	// Alt-keypress
 	ON_MESSAGE(WM_SETTEXT, OnSetText)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
@@ -69,6 +69,8 @@ CSkinDialog::CSkinDialog(UINT nResID, CWnd* pParent, BOOL bAutoBanner)
 void CSkinDialog::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
+
+//	if ( m_oBanner.m_hWnd ) DDX_Control(pDX, IDC_BANNER, m_oBanner);
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -206,11 +208,12 @@ LRESULT CSkinDialog::OnNcHitTest(CPoint point)
 BOOL CSkinDialog::OnNcActivate(BOOL bActive)
 {
 	if ( m_pSkin && ! theApp.m_bClosing )
+	{
 		m_pSkin->OnNcActivate( this, IsWindowEnabled() && ( bActive || ( m_nFlags & WF_STAYACTIVE ) ) );
-	else
-		return CDialog::OnNcActivate( bActive );
+		return TRUE;
+	}
 
-	return TRUE;
+	return CDialog::OnNcActivate( bActive );
 }
 
 void CSkinDialog::OnNcPaint()
@@ -380,6 +383,23 @@ void CSkinDialog::OnWindowPosChanging(WINDOWPOS* lpwndpos)
 		lpwndpos->x = oMonitor.rcWork.right - lpwndpos->cx;
 	if ( abs( lpwndpos->y + lpwndpos->cy - oMonitor.rcWork.bottom ) < SNAP_SIZE )
 		lpwndpos->y = oMonitor.rcWork.bottom - lpwndpos->cy;
+
+	// ToDo: Verify this is needed to fix a banner resize bug  (+ DoDataExchange above)
+	//if ( m_oBanner.m_hWnd )
+	//{
+	//	if ( HBITMAP hBitmap = m_oBanner.GetBitmap() )
+	//	{
+	//		BITMAP bm = {};
+	//		GetObject( hBitmap, sizeof( BITMAP ), &bm );
+	//		CRect rcBanner;
+	//		GetClientRect( &rcBanner );
+	//		if ( Settings.General.LanguageRTL )
+	//			rcBanner.left -= bm.bmWidth - rcBanner.Width();
+	//		rcBanner.right = rcBanner.left + bm.bmWidth;
+	//		rcBanner.bottom = rcBanner.top + bm.bmHeight;
+	//		m_oBanner.MoveWindow( rcBanner );
+	//	}
+	//}
 }
 
 int CSkinDialog::OnCreate(LPCREATESTRUCT lpCreateStruct)

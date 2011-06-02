@@ -229,18 +229,34 @@ BOOL CDatagrams::Send(const SOCKADDR_IN* pHost, CPacket* pPacket, BOOL bRelease,
 		return FALSE;
 	}
 
-	pPacket->SmartDump( pHost, TRUE, TRUE );
-
 	if ( pPacket->m_nProtocol != PROTOCOL_G2 )
 	{
 		CBuffer pBuffer;
 		pPacket->ToBuffer( &pBuffer, false );
 
+		m_nOutPackets++;
+		switch ( pPacket->m_nProtocol )
+		{
+		case PROTOCOL_G1:
+			Statistics.Current.Gnutella1.Outgoing++;
+			break;
+		case PROTOCOL_ED2K:
+			Statistics.Current.eDonkey.Outgoing++;
+			break;
+		case PROTOCOL_DC:
+			Statistics.Current.DC.Outgoing++;
+			break;
+		case PROTOCOL_BT:
+			Statistics.Current.BitTorrent.Outgoing++;
+			break;
+		//default:
+		//	;	// Other?
+		}
+
+		pPacket->SmartDump( pHost, TRUE, TRUE );
 		if ( bRelease ) pPacket->Release();
 
 		CNetwork::SendTo( m_hSocket, (LPSTR)pBuffer.m_pBuffer, pBuffer.m_nLength, pHost );
-
-		m_nOutPackets++;
 
 		return TRUE;
 	}
@@ -268,7 +284,8 @@ BOOL CDatagrams::Send(const SOCKADDR_IN* pHost, CPacket* pPacket, BOOL bRelease,
 	CDatagramOut* pDG = m_pOutputFree;
 	m_pOutputFree = m_pOutputFree->m_pNextHash;
 
-	if ( m_nInFrags < 1 ) bAck = FALSE;
+	if ( m_nInFrags < 1 )
+		bAck = FALSE;
 
 	pDG->Create( pHost, (CG2Packet*)pPacket, m_nSequence++, m_pBufferFree, bAck );
 
@@ -301,6 +318,7 @@ BOOL CDatagrams::Send(const SOCKADDR_IN* pHost, CPacket* pPacket, BOOL bRelease,
 	*pHash = pDG;
 
 	m_nOutPackets++;
+	Statistics.Current.Gnutella2.Outgoing++;
 
 #ifdef DEBUG_UDP
 	theApp.Message( MSG_DEBUG, _T("UDP: Queued SGP (#%i) x%i for %s:%lu"),
@@ -309,6 +327,7 @@ BOOL CDatagrams::Send(const SOCKADDR_IN* pHost, CPacket* pPacket, BOOL bRelease,
 		htons( pDG->m_pHost.sin_port ) );
 #endif
 
+	pPacket->SmartDump( pHost, TRUE, TRUE );
 	if ( bRelease ) pPacket->Release();
 
 	TryWrite();
@@ -454,13 +473,15 @@ BOOL CDatagrams::TryWrite()
 					(LPCTSTR)CString( inet_ntoa( pDG->m_pHost.sin_addr ) ),
 					htons( pDG->m_pHost.sin_port ) );
 #endif
-				if( ! pDG->m_bAck ) Remove( pDG );
+				if( ! pDG->m_bAck )
+					Remove( pDG );
 
 				break;
 			}
 		}
 
-		if ( pDG == NULL ) break;
+		if ( pDG == NULL )
+			break;
 	}
 
 	if ( m_mOutput.pHistory && nTotal )
@@ -590,7 +611,7 @@ BOOL CDatagrams::TryRead()
 			strText += ( ( m_pReadBuffer[ i ] < ' ' ) ? '.' : (char)m_pReadBuffer[ i ] );
 		}
 		theApp.Message( MSG_DEBUG | MSG_FACILITY_INCOMING,
-			_T("UDP: Recieved unknown packet (%i bytes) from %s: "),
+			_T("UDP: Recieved unknown packet (%i bytes) from %s:  %s"),
 			nLength, (LPCTSTR)CString( inet_ntoa( pFrom.sin_addr ) ), strText );
 		return TRUE;
 	}
@@ -622,7 +643,7 @@ BOOL CDatagrams::OnDatagram(const SOCKADDR_IN* pHost, const BYTE* pBuffer, DWORD
 				catch ( CException* pException )
 				{
 					pException->Delete();
-					pPacket->Debug( _T("Malformed packet.") );
+					DEBUG_ONLY( pPacket->Debug( _T("Malformed packet.") ) );
 				}
 				pPacket->Release();
 
@@ -673,7 +694,7 @@ BOOL CDatagrams::OnDatagram(const SOCKADDR_IN* pHost, const BYTE* pBuffer, DWORD
 				catch ( CException* pException )
 				{
 					pException->Delete();
-					pPacket->Debug( _T("Malformed packet.") );
+					DEBUG_ONLY( pPacket->Debug( _T("Malformed packet.") ) );
 				}
 				pPacket->Release();
 
@@ -721,7 +742,7 @@ BOOL CDatagrams::OnDatagram(const SOCKADDR_IN* pHost, const BYTE* pBuffer, DWORD
 //	CString strText, strTmp;
 //	strText.Format( _T("UDP: Recieved unknown packet (%i bytes) from %s"),
 //		nLength, (LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ) );
-//	for ( DWORD i = 0; i < nLength && i < 80; i++ )
+//	for ( DWORD i = 0 ; i < nLength && i < 80 ; i++ )
 //	{
 //		if ( ! i ) strText += _T(": ");
 //		strText += ( ( pBuffer[ i ] < ' ' ) ? '.' : (char)pBuffer[ i ] );
@@ -769,10 +790,10 @@ BOOL CDatagrams::OnReceiveSGP(const SOCKADDR_IN* pHost, const SGP_HEADER* pHeade
 	CDatagramIn* pDG = *pHash;
 	for ( ; pDG ; pDG = pDG->m_pNextHash )
 	{
-		if (	pDG->m_pHost.sin_addr.S_un.S_addr == pHost->sin_addr.S_un.S_addr &&
-				pDG->m_pHost.sin_port == pHost->sin_port &&
-				pDG->m_nSequence == pHeader->nSequence &&
-				pDG->m_nCount == pHeader->nCount )
+		if ( pDG->m_pHost.sin_addr.S_un.S_addr == pHost->sin_addr.S_un.S_addr &&
+			 pDG->m_pHost.sin_port == pHost->sin_port &&
+			 pDG->m_nSequence == pHeader->nSequence &&
+			 pDG->m_nCount == pHeader->nCount )
 		{
 			if ( pDG->Add( pHeader->nPart, &pHeader[1], nLength ) )
 			{
@@ -787,7 +808,7 @@ BOOL CDatagrams::OnReceiveSGP(const SOCKADDR_IN* pHost, const SGP_HEADER* pHeade
 					catch ( CException* pException )
 					{
 						pException->Delete();
-						pPacket->Debug( _T("Malformed packet.") );
+						DEBUG_ONLY( pPacket->Debug( _T("Malformed packet.") ) );
 					}
 					pPacket->Release();
 				}
@@ -833,7 +854,7 @@ BOOL CDatagrams::OnReceiveSGP(const SOCKADDR_IN* pHost, const SGP_HEADER* pHeade
 			catch ( CException* pException )
 			{
 				pException->Delete();
-				pPacket->Debug( _T("Malformed packet.") );
+				DEBUG_ONLY( pPacket->Debug( _T("Malformed packet.") ) );
 			}
 			pPacket->Release();
 		}
@@ -901,13 +922,13 @@ BOOL CDatagrams::OnAcknowledgeSGP(const SOCKADDR_IN* pHost, const SGP_HEADER* pH
 
 void CDatagrams::ManagePartials()
 {
-	DWORD tNow = GetTickCount();
+	const DWORD tNow = GetTickCount();
 
 	for ( CDatagramIn* pDG = m_pInputLast ; pDG ; )
 	{
 		CDatagramIn* pNext = pDG->m_pNextTime;
 
-		if ( tNow - pDG->m_tStarted > Settings.Gnutella2.UdpInExpire )
+		if ( tNow >= pDG->m_tStarted + Settings.Gnutella2.UdpInExpire )
 			Remove( pDG );
 
 		pDG = pNext;

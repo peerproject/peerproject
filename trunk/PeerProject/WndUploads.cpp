@@ -1,7 +1,7 @@
 //
 // WndUploads.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -175,7 +175,13 @@ void CUploadsWnd::OnSkinChange()
 void CUploadsWnd::OnTimer(UINT_PTR nIDEvent)
 {
 	// Reset Selection Timer event (posted by ctrluploads)
-	if ( nIDEvent == 5 ) m_tSel	= 0;
+	if ( nIDEvent == 5 )
+	{
+		m_tSel = 0;
+		return;
+	}
+
+	const DWORD tNow = GetTickCount();
 
 	// Clear event (5 second timer)
 	if ( nIDEvent == 4 )
@@ -183,33 +189,31 @@ void CUploadsWnd::OnTimer(UINT_PTR nIDEvent)
 		CSingleLock pLock( &Transfers.m_pSection );
 		if ( ! pLock.Lock( 10 ) ) return;
 
-		DWORD tNow = GetTickCount();
-		BOOL bCull = Uploads.GetCount( NULL ) > 75;
+		const BOOL bCull = Uploads.GetCount( NULL ) > 75;
 
 		for ( POSITION pos = Uploads.GetIterator() ; pos ; )
 		{
 			CUploadTransfer* pUpload = Uploads.GetNext( pos );
 
-			if ( pUpload->m_nState == upsNull &&
-				 tNow - pUpload->m_tConnected > Settings.Uploads.ClearDelay )
+			if ( pUpload->m_nState == upsNull && tNow > pUpload->m_tConnected + Settings.Uploads.ClearDelay )
 			{
 				if ( Settings.Uploads.AutoClear || pUpload->m_nUploaded == 0 || bCull )
 					pUpload->Remove( FALSE );
 			}
 		}
+		return;
 	}
 
 	// Update event (2 second timer)
 	if ( nIDEvent == 2 )
 	{
-		DWORD tNow = GetTickCount();
-
 		// If the window is visible or hasn't been updated in 10 seconds
-		if ( ( IsWindowVisible() && IsActive( FALSE ) ) || ( ( tNow - m_tLastUpdate ) > 10*1000 ) )
+		if ( ( IsWindowVisible() && IsActive( FALSE ) ) || tNow > m_tLastUpdate + 10*1000 )
 		{
 			m_wndUploads.Update();
 			m_tLastUpdate = tNow;
 		}
+		return;
 	}
 }
 
@@ -584,8 +588,8 @@ void CUploadsWnd::OnUploadsChat()
 				ChatWindows.OpenPrivate( Hashes::Guid(), &pFile->GetActive()->m_pHost, FALSE, PROTOCOL_G2 );
 			else if ( pFile->GetActive()->m_nProtocol == PROTOCOL_ED2K )// ED2K chat.
 				ChatWindows.OpenPrivate( Hashes::Guid(), &pFile->GetActive()->m_pHost, FALSE, PROTOCOL_ED2K );
-			else		// Should never be called
-				theApp.Message( MSG_ERROR, _T("Error while initiating chat- Unable to select protocol") );
+			//else		// Should never be called
+			//	theApp.Message( MSG_DEBUG, _T("Error while initiating chat- Unable to select protocol") );
 		}
 	}
 }
@@ -703,12 +707,12 @@ BOOL CUploadsWnd::PreTranslateMessage(MSG* pMsg)
 			GetManager()->Open( RUNTIME_CLASS(CDownloadsWnd) );
 			return TRUE;
 		}
-		else if ( pMsg->wParam == VK_DELETE )	// Cancel uploads
+		if ( pMsg->wParam == VK_DELETE )	// Cancel uploads
 		{
 			OnUploadsClear();
 			return TRUE;
 		}
-		else if ( pMsg->wParam == VK_ESCAPE )	// Clear selections
+		if ( pMsg->wParam == VK_ESCAPE )	// Clear selections
 		{
 			for ( POSITION posFile = UploadFiles.GetIterator() ; posFile ; )
 			{

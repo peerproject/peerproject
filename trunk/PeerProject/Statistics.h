@@ -1,7 +1,7 @@
 //
 // Statistics.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -23,7 +23,7 @@ class CStatistics
 // Construction
 public:
 	CStatistics();
-	virtual ~CStatistics();
+	~CStatistics();
 
 // Attributes
 public:
@@ -68,7 +68,8 @@ public:
 			QWORD	Routed;
 			QWORD	Dropped;
 			QWORD	Lost;
-			QWORD	Queries;
+			QWORD	Queries;	// Incoming
+			QWORD	QueriesProcessed;
 			QWORD	PingsSent;
 			QWORD	PingsReceived;
 			QWORD	PongsSent;
@@ -80,12 +81,11 @@ public:
 			QWORD	Outgoing;
 			QWORD	Incoming;
 			QWORD	Dropped;
-		} eDonkey;
+		} BitTorrent, eDonkey, DC;
 	}
 	Ever, Today, Last, Current;
 
 	DWORD	m_tSeconds;
-//	DWORD	m_tUpdate;
 
 // Operations
 public:

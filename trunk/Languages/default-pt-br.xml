@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Brazilian Portuguese Skin File -->
 
-<!-- Translation based on default-en.xml r66 -->
+<!-- Translation based on default-en.xml r67 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2483,8 +2483,8 @@
 	<tip id="ID_LIBRARY_ALBUM_DELETE" message="Apagar a pasta do álbum selecionada."/>
 	<tip id="ID_LIBRARY_ALBUM_OPEN" message="Abrir a pasta do álbum selecionada."/>
 	<tip id="ID_LIBRARY_ALBUM_PROPERTIES" message="Ver e editar as propriedades da pasta do álbum selecionada..."/>
-	<tip id="ID_LIBRARY_BITZI_DOWNLOAD" message="Baixar metadata para o(s) arquivo(s) selecionado(s) do Bitzi(TM)..."/>
-	<tip id="ID_LIBRARY_BITZI_WEB" message="Ver na rede o ticket Bitzi(TM) do arquivo selecionado."/>
+	<tip id="ID_LIBRARY_BITZI_DOWNLOAD" message="Baixar metadata para o(s) arquivo(s) selecionado(s) do Bitzi™..."/>
+	<tip id="ID_LIBRARY_BITZI_WEB" message="Ver na rede o ticket Bitzi™ do arquivo selecionado."/>
 	<tip id="ID_LIBRARY_COLUMNS" message="Selecionar as colunas de metadata a serem exibidas..."/>
 	<tip id="ID_LIBRARY_COPY" message="Copiar os arquivos selecionados para outra pasta na biblioteca..."/>
 	<tip id="ID_LIBRARY_CREATETORRENT" message="Criar um .torrent para este arquivo para fazer upload para um site."/>
@@ -2853,13 +2853,13 @@
 	<string id="20184" value="Pedindo uma conversação particular com o usuário..."/>
 	<string id="20185" value="Usuário autenticado"/>
 	<string id="20186" value="Aceita conexão push de %s, iniciando..."/>
-	<string id="20188" value="Pedindo uma conexão push com firewall de %s..."/>
-	<string id="20190" value="A conexão falhou devido a dados inválidos na linha."/>
-	<string id="20191" value="Recebeu uma resposta desconhecida: %s"/>
-	<string id="20192" value="Você não está conectado."/>
-	<string id="20193" value="Comando desconhecido &quot;%s&quot;."/>
-	<string id="20194" value="Este template não tem quaisquer modificações."/>
-	<string id="20195" value="Este template é inválido."/>
+	<string id="20187" value="Pedindo uma conexão push com firewall de %s..."/>
+	<string id="20188" value="A conexão falhou devido a dados inválidos na linha."/>
+	<string id="20189" value="Recebeu uma resposta desconhecida: %s"/>
+	<string id="20190" value="Você não está conectado."/>
+	<string id="20191" value="Comando desconhecido &quot;%s&quot;."/>
+	<string id="20196" value="Este template não tem quaisquer modificações."/>
+	<string id="20197" value="Este template é inválido."/>
 	<string id="20199" value="(fechando após as transferências)"/>
 	<string id="20200" value="Foi &quot;%s&quot; adicionado a fila de download com %i fontes."/>
 	<string id="20201" value="O arquivo &quot;%s&quot; já está sendo baixado, adicionando fontes."/>
@@ -3017,14 +3017,15 @@
 	<string id="20372" value="Ratio Gnutella de Pings Recebidos/Enviados"/>
 	<string id="20373" value="Ratio Gnutella de Pongs Recebidos/Enviados"/>
 	<string id="20374" value="Pesquisas Locais Gnutella"/>
-	<string id="20375" value="Pacotes Gnutella Roteados"/>
-	<string id="20376" value="Banda Genérica de Recepção Total"/>
-	<string id="20377" value="Banda Genérica de Transmissão Total"/>
-	<string id="20378" value="Total de Banda TCP Recebida"/>
-	<string id="20379" value="Total de Banda TCP Transmitida"/>
-	<string id="20380" value="Total de Banda UDP Recebida"/>
-	<string id="20381" value="Total de Banda UDP Transmitida"/>
-	<string id="20382" value="Banda de Upload"/>
+	<string id="20375" value="Pesquisas Locais Gnutella"/>
+	<string id="20376" value="Pacotes Gnutella Roteados"/>
+	<string id="20377" value="Banda Genérica de Recepção Total"/>
+	<string id="20378" value="Banda Genérica de Transmissão Total"/>
+	<string id="20379" value="Total de Banda TCP Recebida"/>
+	<string id="20380" value="Total de Banda TCP Transmitida"/>
+	<string id="20381" value="Total de Banda UDP Recebida"/>
+	<string id="20382" value="Total de Banda UDP Transmitida"/>
+	<string id="20383" value="Banda de Upload"/>
 	<string id="20384" value="Contagem das Transferências de Upload"/>
 	<string id="20385" value="O Vizinho conectando %s está voltando ao modo de leaf node protegido."/>
 	<string id="20386" value="Fechando conexão supérflua de %s com a dica do host (%s porta %i)."/>
@@ -3203,8 +3204,8 @@
 	<string id="20582" value="O Vizinho %s repassou um pacote pong com comprimento inválido, ignorando."/>
 	<string id="20583" value="O Vizinho %s repassou uma conexão de push com comprimento inválido, ignorando."/>
 	<string id="20584" value="O Vizinho %s repassou um pacote de tamanho excessivo, derrubando conexão."/>
-	<string id="20585" value="O Vizinho %s repassou um pacote desconhecido (0x%.2x), ignorando."/>
-	<string id="20586" value="O Vizinho %s repassou um pong com dados de endereço inválidos, ignorando."/>
+	<string id="20586" value="O Vizinho %s repassou um pacote desconhecido (0x%.2x), ignorando."/>
+	<string id="20587" value="O Vizinho %s repassou um pong com dados de endereço inválidos, ignorando."/>
 	<string id="20588" value="O Vizinho %s enviou uma requisição de push para um endereço atrás de um firewall, ignorando."/>
 	<string id="20590" value="O acesso remoto está desativado."/>
 	<string id="20591" value="http://%s:%i/remote - Escolher um nome de usuário e senha."/>
@@ -3441,13 +3442,14 @@
 	<string id="20870" value="Impossível analisar URL: PeerProject não entende esta URL."/>
 	<string id="20871" value="Recebida URL &quot;%s&quot;"/>
 	<string id="20872" value="Tipo:"/>
-	<string id="20874" value="Não Especificado"/>
-	<string id="20875" value="URL:"/>
+	<string id="20874" value="URL:"/>
+	<string id="20875" value="Não Especificado"/>
 	<string id="20880" value="Editar o Meu Perfil"/>
-	<string id="20881" value="Mudar a visualização fechará quaisquer janelas que estejam abertas. Você gostaria de mudar agora?"/>
-	<string id="20882" value="O serviço de host de Dispositivo UPnP não está rodando. Este serviço é requerido para fazer a configuração.\nVocê precisa configurar o tipo de inicialização do serviço para automático."/>
-	<string id="20884" value="Nenhuma URN disponível"/>
-	<string id="20885" value="Mudar a direção da interface requer reiniciar. \nVocê precisará iniciar o PeerProject manualmente. Sair agora?"/>
+	<string id="20881" value="%u Arquivos selecionadas. Você tem certeza?"/>
+	<string id="20882" value="Nenhuma URN disponível"/>
+	<string id="20883" value="O serviço de host de Dispositivo UPnP não está rodando. Este serviço é requerido para fazer a configuração.\nVocê precisa configurar o tipo de inicialização do serviço para automático."/>
+	<string id="20885" value="Mudar a visualização fechará quaisquer janelas que estejam abertas. Você gostaria de mudar agora?"/>
+	<string id="20886" value="Mudar a direção da interface requer reiniciar. \nVocê precisará iniciar o PeerProject manualmente. Sair agora?"/>
 	<string id="20890" value="Bem-vindo ao PeerProject"/>
 	<string id="20891" value="Sair"/>
 	<string id="20892" value="Por favor espere: Atualizando a lista de servidores do eDonkey..."/>

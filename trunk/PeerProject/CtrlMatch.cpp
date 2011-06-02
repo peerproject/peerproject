@@ -65,9 +65,9 @@ BEGIN_MESSAGE_MAP(CMatchCtrl, CWnd)
 	ON_WM_SETFOCUS()
 	ON_WM_KILLFOCUS()
 	ON_WM_GETDLGCODE()
+	ON_NOTIFY(HDN_ENDDRAG, IDC_MATCH_HEADER, OnChangeHeader)
 	ON_NOTIFY(HDN_ITEMCHANGEDW, IDC_MATCH_HEADER, OnChangeHeader)
 	ON_NOTIFY(HDN_ITEMCHANGEDA, IDC_MATCH_HEADER, OnChangeHeader)
-	ON_NOTIFY(HDN_ENDDRAG, IDC_MATCH_HEADER, OnChangeHeader)
 	ON_NOTIFY(HDN_ITEMCLICKW, IDC_MATCH_HEADER, OnClickHeader)
 	ON_NOTIFY(HDN_ITEMCLICKA, IDC_MATCH_HEADER, OnClickHeader)
 END_MESSAGE_MAP()
@@ -168,9 +168,11 @@ int CMatchCtrl::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 void CMatchCtrl::OnDestroy()
 {
+	SaveColumnState();
+
+	m_pStars.DeleteImageList();
 	m_wndTip.DestroyWindow();
 
-	SaveColumnState();
 	CWnd::OnDestroy();
 }
 
@@ -724,7 +726,7 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 	BOOL bLeftMargin = TRUE;
 
 	COLORREF crWnd	= Colors.m_crWindow;
-	COLORREF crText	= bSelected ? Colors.m_crHiText : Colors.m_crText ;
+	COLORREF crText	= bSelected ? Colors.m_crHiText : Colors.m_crText;
 	COLORREF crBack	= crWnd ;
 	COLORREF crLeftMargin = crBack ;
 
@@ -732,7 +734,7 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 	{
 		// Pale red background for collections
 		if ( Colors.m_crSearchCollection )
-			crWnd = crBack = Colors.m_crSearchCollection ;
+			crWnd = crBack = Colors.m_crSearchCollection;
 		else
 			crWnd = crBack = CColors::CalculateColor( crBack, RGB( 254, 120, 10 ), 25 );
 	}
@@ -740,7 +742,7 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 	{
 		// Pale grey background for torrents, if extra torrent option is enabled
 		if ( Colors.m_crSearchTorrent )
-			crWnd = crBack = Colors.m_crSearchTorrent ;
+			crWnd = crBack = Colors.m_crSearchTorrent;
 		else
 			crWnd = crBack = CColors::CalculateColor( crBack, RGB( 244, 242, 240 ), 10 );
 	}
@@ -748,7 +750,7 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 	{
 		// Gold highlight for highly rated files
 		if ( Colors.m_crSearchHighrated )
-			crWnd = crBack = Colors.m_crSearchHighrated ;
+			crWnd = crBack = Colors.m_crSearchHighrated;
 		else
 			crWnd = crBack = CColors::CalculateColor( crBack, RGB( 255, 250, 50 ), 20 );
 	}

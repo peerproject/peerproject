@@ -86,9 +86,8 @@ CG2Neighbour::CG2Neighbour(CNeighbour* pBase)
 	, m_tLastHAWOut			( 0 )
 	, m_nCountHAWIn			( 0 )
 	, m_nCountHAWOut		( 0 )
-	, m_nQueryLimiter		( 40 )
-	, m_tQueryTimer			( 0 )
-	, m_bBlacklisted		( FALSE )
+	, m_tLastQueryIn		( 0 )
+	, m_nCountQueryIn		( 0 )
 {
 	theApp.Message( MSG_INFO, IDS_HANDSHAKE_ONLINE_G2, (LPCTSTR)m_sAddress,
 		m_sUserAgent.IsEmpty() ? _T("Unknown") : (LPCTSTR)m_sUserAgent );
@@ -150,7 +149,7 @@ BOOL CG2Neighbour::OnRun()
 	const DWORD tNow = GetTickCount();
 
 	// Check incoming LNI traffic
-	if ( m_nCountLNIIn == 0 && tNow - m_tConnected > Settings.Gnutella2.LNIPeriod * 3 )
+	if ( m_nCountLNIIn == 0 && tNow > m_tConnected + ( Settings.Gnutella2.LNIPeriod * 3 ) )
 	{
 		// No LNI packet was received during 3 periods (dead or anonymous host)
 		Close( IDS_CONNECTION_TIMEOUT_TRAFFIC );
@@ -158,8 +157,8 @@ BOOL CG2Neighbour::OnRun()
 	}
 
 	// Is it time to send TCP ping? Don't ping neighbour if we recently got any packets.
-	if ( tNow - m_tLastPingOut >= Settings.Gnutella2.PingRate &&
-		 tNow - m_tLastPacket >= Settings.Connection.TimeoutTraffic / 2 )
+	if ( tNow >= m_tLastPingOut + Settings.Gnutella2.PingRate &&
+		 tNow >= m_tLastPacket + Settings.Connection.TimeoutTraffic / 2 )
 	{
 		Send( CG2Packet::New( G2_PACKET_PING ) );
 		m_tLastPingOut = tNow;
@@ -170,7 +169,7 @@ BOOL CG2Neighbour::OnRun()
 	// we perform limited "two hop" ping ourself using this neighbour
 	if ( Network.IsListening() && Network.IsFirewalled(CHECK_UDP) &&
 		m_nCountRelayPingOut < 3 &&
-		tNow - m_tLastRelayPingOut >= Settings.Gnutella2.PingRate )
+		tNow >= m_tLastRelayPingOut + Settings.Gnutella2.PingRate )
 	{
 		CG2Packet* pPing = CG2Packet::New( G2_PACKET_PING, TRUE );
 		pPing->WritePacket( G2_PACKET_UDP, 6 );
@@ -182,38 +181,18 @@ BOOL CG2Neighbour::OnRun()
 	}
 
 	// Is it time to send LNI?
-	if ( tNow - m_tLastLNIOut > Settings.Gnutella2.LNIPeriod )
+	if ( tNow > m_tLastLNIOut + Settings.Gnutella2.LNIPeriod )
 		SendLNI();
 
 	// Is it time to send KHL?
-	if ( tNow - m_tLastKHLOut > Settings.Gnutella2.KHLPeriod * ( Neighbours.IsG2Leaf() ? 3 : 1 ) )
+	if ( tNow > m_tLastKHLOut + ( Settings.Gnutella2.KHLPeriod * ( Neighbours.IsG2Leaf() ? 3 : 1 ) ) )
 		SendKHL();
 
 	// Is it time to send HAW?
-	if ( tNow - m_tLastHAWOut > Settings.Gnutella2.HAWPeriod &&
+	if ( tNow > m_tLastHAWOut + Settings.Gnutella2.HAWPeriod &&
 			m_nNodeType == ntNode && ! Neighbours.IsG2Leaf() &&
 			( Neighbours.IsG2Hub() || Neighbours.IsG2HubCapable() ) )
 		SendHAW();
-
-	// Update allowed queries based on the node type
-	if ( m_nNodeType == ntLeaf )
-	{
-		if ( ( tNow - m_tQueryTimer ) > ( 5*60*1000 ) )
-		{
-			if ( m_nQueryLimiter < 60 )
-				m_nQueryLimiter ++;
-			m_tQueryTimer = tNow;
-		}
-	}
-	else // Hub
-	{
-		if ( ( tNow - m_tQueryTimer ) > 1000 )
-		{
-			if ( m_nQueryLimiter < 240 )
-				m_nQueryLimiter += 10;
-			m_tQueryTimer = tNow;
-		}
-	}
 
 	return TRUE;
 }
@@ -468,7 +447,7 @@ BOOL CG2Neighbour::OnPing(CG2Packet* pPacket, BOOL bTCP)
 			return TRUE;
 
 		// This is a direct ping packet
-		if ( tNow - m_tLastPingIn < Settings.Gnutella1.PingFlood )
+		if ( tNow < m_tLastPingIn + Settings.Gnutella1.PingFlood )
 			return TRUE;	// We are flooded
 		m_tLastPingIn = tNow;
 		m_nCountPingIn++;
@@ -490,7 +469,7 @@ BOOL CG2Neighbour::OnPing(CG2Packet* pPacket, BOOL bTCP)
 	else if ( bRelay && bTCP )
 	{
 		// This is a TCP relayed ping packet
-		if ( tNow - m_tLastRelayedPingIn < Settings.Gnutella1.PingFlood )
+		if ( tNow < m_tLastRelayedPingIn + Settings.Gnutella1.PingFlood )
 			return TRUE;	// We are flooded
 		m_tLastRelayedPingIn = tNow;
 		m_nCountRelayedPingIn++;
@@ -504,7 +483,7 @@ BOOL CG2Neighbour::OnPing(CG2Packet* pPacket, BOOL bTCP)
 	else if ( ! bRelay && bTCP )
 	{
 		// This is a TCP relayed ping request packet
-		if ( tNow - m_tLastRelayPingIn < Settings.Gnutella1.PingFlood )
+		if ( tNow < m_tLastRelayPingIn + Settings.Gnutella1.PingFlood )
 			return TRUE;	// We are flooded
 		m_tLastRelayPingIn = tNow;
 		m_nCountRelayPingIn++;
@@ -512,7 +491,7 @@ BOOL CG2Neighbour::OnPing(CG2Packet* pPacket, BOOL bTCP)
 		BYTE* pRelay = pPacket->WriteGetPointer( 7, 0 );
 		if ( pRelay == NULL )
 		{
-			theApp.Message( MSG_ERROR, _T("Memory allocation error in CG2Neighbour::OnPing()") );
+		//	theApp.Message( MSG_DEBUG, _T("Memory allocation error in CG2Neighbour::OnPing()") );
 			return TRUE;
 		}
 
@@ -680,8 +659,13 @@ BOOL CG2Neighbour::OnLNI(CG2Packet* pPacket)
 		case G2_PACKET_NODE_ADDRESS:
 			if ( nLength >= 6 )
 			{
-				m_pHost.sin_addr.S_un.S_addr = pPacket->ReadLongLE();
-				m_pHost.sin_port = htons( pPacket->ReadShortBE() );
+				DWORD nAddress = pPacket->ReadLongLE();
+				WORD nPort = pPacket->ReadShortBE();
+				if ( nPort && nAddress )	// Skip 0.0.0.0:0
+				{
+					m_pHost.sin_addr.s_addr = nAddress;
+					m_pHost.sin_port = htons( nPort );
+				}
 			}
 			break;
 		case G2_PACKET_NODE_GUID:
@@ -930,18 +914,19 @@ BOOL CG2Neighbour::ParseKHLPacket(CG2Packet* pPacket, const SOCKADDR_IN* pHost)
 									nLeafLimit = pPacket->ReadShortBE();
 							}
 							break;
-						// Obsolete: Morpheus specific
-						//case G2_PACKET_NODE_GUID:			// Morpheus
+						case G2_PACKET_NODE_GUID:
+						// Obsolete for Morpheus
 						//	if ( nInner >= 16 )
 						//		pPacket->Read( oNodeID );
-						//	break;
-						//case G2_PACKET_LIBRARY_STATUS:	// Morpheus
+							break;
+						case G2_PACKET_LIBRARY_STATUS:
+						// Obsolete for Morpheus
 						//	if ( nInner >= 8 )
 						//	{
 						//		nFileCount	= pPacket->ReadLongBE();
 						//		nFileVolume	= pPacket->ReadLongBE();
 						//	}
-						//	break;
+							break;
 						default:
 							bInvalid = TRUE;
 						}
@@ -1001,8 +986,7 @@ BOOL CG2Neighbour::ParseKHLPacket(CG2Packet* pPacket, const SOCKADDR_IN* pHost)
 			{
 				IN_ADDR pMyAddress;
 				pMyAddress.s_addr = pPacket->ReadLongLE();
-				if ( Network.m_pHost.sin_addr.s_addr == 0 )
-					Network.AcquireLocalAddress( pMyAddress );
+				Network.AcquireLocalAddress( pMyAddress );
 			}
 			else
 			{
@@ -1150,8 +1134,13 @@ BOOL CG2Neighbour::SendQuery(const CQuerySearch* pSearch, CPacket* pPacket, BOOL
 
 BOOL CG2Neighbour::OnQuery(CG2Packet* pPacket)
 {
+	DWORD tPrevQueryIn = m_tLastQueryIn;
+	m_tLastQueryIn = GetTickCount();
+	m_nCountQueryIn++;
+	Statistics.Current.Gnutella2.Queries++;		// All Incoming
+
 	CQuerySearchPtr pSearch = CQuerySearch::FromPacket( pPacket );
-	if ( ! pSearch )
+	if ( ! pSearch )	// || pSearch->m_bDropMe
 	{
 		DEBUG_ONLY( pPacket->Debug( _T("Malformed Query.") ) );
 		theApp.Message( MSG_WARNING, IDS_PROTOCOL_BAD_QUERY, _T("G2"), (LPCTSTR)m_sAddress );
@@ -1172,38 +1161,24 @@ BOOL CG2Neighbour::OnQuery(CG2Packet* pPacket)
 		return TRUE;
 	}
 
-	// Check for excessive source searching
-	if ( pSearch->m_oSHA1 || pSearch->m_oED2K || pSearch->m_oBTH || pSearch->m_oMD5 )
+	if ( Security.IsDenied( &pSearch->m_pEndpoint.sin_addr ) )
 	{
-		// Update allowed query operations, check for bad client
-		if ( m_nQueryLimiter > -60 )
-		{
-			m_nQueryLimiter--;
-		}
-		else if ( ! m_bBlacklisted && ( m_nNodeType == ntLeaf ) )
-		{
-			// Abusive client
-			m_bBlacklisted = TRUE;
-			theApp.Message( MSG_NOTICE, _T("Blacklisting %s due to excess traffic"), (LPCTSTR)m_sAddress );
-			//Security.Ban( &m_pHost.sin_addr, ban30Mins, FALSE );
-		}
-
-		if ( m_bBlacklisted || m_nQueryLimiter < 0 )
-		{
-			// Too many FMS operations
-			if ( ! m_bBlacklisted )
-				theApp.Message( MSG_DEBUG, _T("Dropping excess query traffic from %s"), (LPCTSTR)m_sAddress );
-
-			Statistics.Current.Gnutella2.Dropped++;
-			m_nDropCount++;
-			return TRUE;
-		}
+		Statistics.Current.Gnutella2.Dropped++;
+		m_nDropCount++;
+		return TRUE;
 	}
 
-	// Removed checks for old wrapped queries: G2_PACKET_QUERY_WRAP deprecated
-
-	if ( ! Network.QueryRoute->Add( pSearch->m_oGUID, this ) )
+	if ( ( bUseUDP && ! Neighbours.CheckQuery( pSearch ) ) ||	// Too many UDP queries for one return address
+		 ( m_nNodeType == ntLeaf && m_tLastQueryIn < tPrevQueryIn + 5 * 1000 ) )	// Too many queries for this leaf (maximum 1 query per 5 seconds)
 	{
+		// Ack without hub list with retry time
+		if ( m_nNodeType == ntLeaf )
+			Send( Neighbours.CreateQueryWeb( pSearch->m_oGUID, false, NULL, false ) );
+
+		theApp.Message( MSG_WARNING, IDS_PROTOCOL_EXCEEDS_LIMIT,
+			(LPCTSTR)( CString( inet_ntoa( m_pHost.sin_addr ) ) + _T(" [TCP]") ),
+			(LPCTSTR)CString( inet_ntoa( pSearch->m_pEndpoint.sin_addr ) ) );
+
 		Statistics.Current.Gnutella2.Dropped++;
 		m_nDropCount++;
 		return TRUE;
@@ -1221,7 +1196,7 @@ BOOL CG2Neighbour::OnQuery(CG2Packet* pPacket)
 	if ( m_nNodeType == ntLeaf )
 		Send( Neighbours.CreateQueryWeb( pSearch->m_oGUID, true, this ), TRUE, FALSE );
 
-	Statistics.Current.Gnutella2.Queries++;
+	Statistics.Current.Gnutella2.QueriesProcessed++;
 
 	return TRUE;
 }
@@ -1318,12 +1293,12 @@ BOOL CG2Neighbour::OnQueryKeyAns(CG2Packet* pPacket)
 
 		if ( nType == G2_PACKET_QUERY_KEY && nLength >= 4 )
 		{
-			nKey = pPacket->ReadLongBE();
+			nKey	 = pPacket->ReadLongBE();
 		}
 		else if ( nType == G2_PACKET_QUERY_ADDRESS && nLength >= 6 )
 		{
-			nAddress	= pPacket->ReadLongLE();
-			nPort		= pPacket->ReadShortBE();
+			nAddress = pPacket->ReadLongLE();
+			nPort	 = pPacket->ReadShortBE();
 		}
 		else if ( nType == G2_PACKET_QUERY_CACHED )
 		{
@@ -1361,7 +1336,7 @@ bool CG2Neighbour::OnPush(CG2Packet* pPacket)
 	{
 		// Ignore packet and return that it was handled
 		theApp.Message( MSG_NOTICE, IDS_PROTOCOL_SIZE_PUSH, m_sAddress );
-		pPacket->Debug( _T("BadPush") );
+		DEBUG_ONLY( pPacket->Debug( _T("BadPush") ) );
 		++Statistics.Current.Gnutella2.Dropped;
 		++m_nDropCount;
 		return true;

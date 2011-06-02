@@ -1,7 +1,7 @@
 //
 // G1Packet.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -61,12 +61,12 @@ public:
 
 public:
 	// Change the packet's TTL and hop counts
-	BOOL Hop();	// Make sure the TTL is 2 or more, and then make it one less and the hops count one more
+	BOOL Hop();		// Make sure the TTL is 2 or more, and then make it one less and the hops count one more
 
 	// Hash the packet
 	void         CacheHash();                                       // Calculate a simple hash of the packet payload in m_nHash
 	// ?????????? Redefinition of default Parameter!
-	virtual BOOL GetRazaHash(Hashes::Sha1Hash& oHash, DWORD nLength = 0) const; // Compute the SHA hash of the packet GUID, type byte, and payload
+	virtual BOOL	GetRazaHash(Hashes::Sha1Hash& oHash, DWORD nLength = 0) const; // Compute the SHA hash of the packet GUID, type byte, and payload
 
 	// Get the packet's type, GUID, and all its bytes
 	virtual CString GetType() const;				// Returns a pointer to a text literal like "Ping" or "Pong"
@@ -75,8 +75,10 @@ public:
 	virtual void	Reset();
 	virtual void    ToBuffer(CBuffer* pBuffer, bool bTCP = true) const; // Adds the Gnutella packet header and payload into the given CBuffer object
 
+#ifdef _DEBUG
 	// Record information about the packet for debugging purposes
 	virtual void	Debug(LPCTSTR pszReason) const;	// Writes debug information about the packet into the PeerProject.log file
+#endif
 
 public:
 	// Convert between the various ways the program expresses packet types, like ping and pong
@@ -99,12 +101,12 @@ public:
 
 protected:
 	// Create a nested class, CG1PacketPool, that holds arrays of Gnutella packets we can use quickly
-	class CG1PacketPool : public CPacketPool // Inherit from CPacketPool to get methods to create arrays of packets and break them off for speedy use
+	class CG1PacketPool : public CPacketPool	// Inherit from CPacketPool to get methods to create arrays of packets and break them off for speedy use
 	{
 
 	public:
 		// Delete this CG1PacketPool object
-		virtual ~CG1PacketPool() { Clear(); } // Call the Clear method to free all the arrays of packets
+		virtual ~CG1PacketPool() { Clear(); }	// Call the Clear method to free all the arrays of packets
 
 	protected:
 		// Create a new array of packets, and free one
@@ -149,7 +151,7 @@ public:
 	inline virtual void Delete()
 	{
 		// Tell the pool to delete this packet
-		POOL.Delete( this ); // All it will really do is link it back into the list of packets we can use later
+		POOL.Delete( this );	// All it will really do is link it back into the list of packets we can use later
 	}
 
 	// Packet handler
@@ -188,7 +190,7 @@ inline void CG1Packet::CG1PacketPool::FreePoolImpl(CPacket* pPacket)
 }
 
 // Those are all the structures we need special alignment for
-#pragma pack() // Same as pragma pack(pop)
+#pragma pack()	// Same as pragma pack(pop)
 
 // Gnutella packet type codes, m_nType in the header will be one of these values to show the type
 #define G1_PACKET_PING			0x00	// Ping packet

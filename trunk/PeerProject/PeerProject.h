@@ -97,7 +97,6 @@ public:
 	BOOL			m_bMenuWasVisible;			// For the menus in media player window
 	DWORD			m_nWindowsVersion;			// Windows version
 	DWORD			m_nWindowsVersionMinor;		// Windows minor version
-	QWORD			m_nPhysicalMemory;			// Physical RAM installed
 	CAutoPtr< CUPnPFinder > m_pUPnPFinder;
 	TRISTATE		m_bUPnPPortsForwarded;		// UPnP values are assigned when the discovery is complete
 	TRISTATE		m_bUPnPDeviceConnected;		// or when the service notifies

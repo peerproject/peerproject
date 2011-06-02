@@ -313,14 +313,15 @@ void CDownloadsWnd::OnSize(UINT nType, int cx, int cy)
 void CDownloadsWnd::OnTimer(UINT_PTR nIDEvent)
 {
 	// Reset Selection Timer event (posted by ctrldownloads)
-	if ( nIDEvent == 5 ) m_tSel = 0;
+	if ( nIDEvent == 5 )
+		m_tSel = 0;
 
 	// Clear Completed event (10 second timer)
 	if ( nIDEvent == 4 )
 	{
 		const DWORD tNow = GetTickCount();
 
-		if ( ( tNow - m_tMoreSourcesTimer ) > 8*60*1000 )
+		if ( tNow > m_tMoreSourcesTimer + 6*60*1000 )	// 6 minute limit
 		{
 			if ( m_nMoreSourcesLimiter < 15 )
 				m_nMoreSourcesLimiter++;
@@ -384,9 +385,9 @@ void CDownloadsWnd::OnTimer(UINT_PTR nIDEvent)
 					CString sPreview = pDownload->m_sPath + L".png";
 					pLock.Unlock();
 
-					CFileExecutor::Execute( sPreview, TRUE );
+					CFileExecutor::Execute( sPreview );
 
-					break; // Show next preview on next update
+					break;	// Show next preview on next update
 				}
 			}
 		}
@@ -457,7 +458,7 @@ void CDownloadsWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 			Skin.TrackPopupMenu( _T("CDownloadsWnd.Source"), point, ID_TRANSFERS_CONNECT );
 			return;
 		}
-		else if ( pDownload )
+		if ( pDownload )
 		{
 			if ( pDownload->IsSeeding() )
 			{
@@ -486,6 +487,9 @@ BOOL CDownloadsWnd::PreTranslateMessage(MSG* pMsg)
 {
 	if ( pMsg->message == WM_KEYDOWN )
 	{
+		if ( pMsg->wParam == VK_SHIFT || pMsg->wParam == VK_CONTROL )	// Skip async keys
+			return TRUE;
+
 		if ( pMsg->wParam == VK_TAB )	// Toggle window focus to Uploads
 		{
 			GetManager()->Open( RUNTIME_CLASS(CUploadsWnd) );
@@ -564,7 +568,7 @@ BOOL CDownloadsWnd::Select(CDownload* pSelect)
 void CDownloadsWnd::Prepare()
 {
 	const DWORD tNow = GetTickCount();
-	if ( tNow - m_tSel < 250 ) return;
+	if ( tNow < m_tSel + 250 ) return;
 
 	m_nSelectedDownloads = 0;
 	m_bSelAny = m_bSelDownload = m_bSelSource = m_bSelTrying = m_bSelPaused = FALSE;
@@ -841,14 +845,15 @@ void CDownloadsWnd::OnDownloadsClearIncomplete()
 	for ( POSITION pos = Downloads.GetIterator() ; pos ; )
 	{
 		CDownload* pDownload = Downloads.GetNext( pos );
-		if ( ! pDownload->m_bSelected ) continue;
+		if ( ! pDownload->m_bSelected || pDownload->IsCompleted() || pDownload->IsSeeding() )
+			continue;
 
 		pDownload->m_bClearing = TRUE;	// Indicate marked for deletion (may take awhile)
 		pList.AddTail( pDownload );
 	}
 
-	pLock.Unlock();	// Break if above takes too long
-	m_wndDownloads.Update();
+	pLock.Unlock();				// Break if above takes too long
+	m_wndDownloads.Update();	// Show Clearing status
 
 	while ( ! pList.IsEmpty() )
 	{
@@ -980,7 +985,7 @@ void CDownloadsWnd::OnUpdateDownloadsRemotePreview(CCmdUI* pCmdUI)
 	}
 
 	if ( nSelected == 1 && ! pDownload->IsTasking() )
-		Prepare();	// ToDo: Why not just run this?
+		Prepare();	// Why not just run this?
 	else
 		m_bSelRemotePreviewCapable = FALSE;
 
@@ -1275,9 +1280,7 @@ void CDownloadsWnd::OnDownloadsMergeLocal()
 	if ( pDownload->NeedTigerTree() && pDownload->NeedHashset() && ! pDownload->IsTorrent() )
 	{
 		pLock.Unlock();
-		CString strMessage;
-		LoadString( strMessage, IDS_DOWNLOAD_EDIT_COMPLETE_NOHASH );
-		AfxMessageBox( strMessage, MB_ICONEXCLAMATION );
+		AfxMessageBox( IDS_DOWNLOAD_EDIT_COMPLETE_NOHASH, MB_ICONEXCLAMATION );
 		return; 	// No hashsets
 	}
 
@@ -1287,28 +1290,71 @@ void CDownloadsWnd::OnDownloadsMergeLocal()
 
 	pLock.Unlock();
 
-	// Select file
+	// Select file(s)
 	CString strExt( PathFindExtension( pDownload->m_sName ) );
 	if ( ! strExt.IsEmpty() ) strExt = strExt.Mid( 1 );
-	CFileDialog dlgSelectFile( TRUE, strExt, pDownload->m_sName,
-		OFN_HIDEREADONLY | OFN_FILEMUSTEXIST | OFN_PATHMUSTEXIST | OFN_NOCHANGEDIR, NULL, this );
-	if ( dlgSelectFile.DoModal() == IDOK )
+
+	if ( pDownload->IsMultiFileTorrent() )
 	{
+		CFileDialog dlgSelectFile( TRUE, strExt, pDownload->m_sName,
+			OFN_HIDEREADONLY | OFN_FILEMUSTEXIST | OFN_PATHMUSTEXIST | OFN_NOCHANGEDIR |
+			OFN_ALLOWMULTISELECT, NULL, this );
+
+		CAutoPtr< TCHAR > szFiles( new TCHAR[ 2048 ] );
+		*szFiles = 0;
+		dlgSelectFile.GetOFN().lpstrFile = szFiles;
+		dlgSelectFile.GetOFN().nMaxFile = 2048;
+
+		if ( dlgSelectFile.DoModal() != IDOK )
+			return;
+
 		if ( ! pLock.Lock( 500 ) )
 			return;
+
 		if ( ! Downloads.Check( pDownload ) || pDownload->IsTasking() )
 		{
 			pLock.Unlock();
-			CString strMessage;
-			LoadString( strMessage, IDS_DOWNLOAD_EDIT_ACTIVE_TASK );
-			AfxMessageBox( strMessage, MB_ICONEXCLAMATION );
+			AfxMessageBox( IDS_DOWNLOAD_EDIT_ACTIVE_TASK, MB_ICONEXCLAMATION );
+			return;
+		}
+
+		CList< CString > oFiles;
+		CString sFolder = (LPCTSTR)szFiles;
+		for ( LPCTSTR szFile = szFiles; *szFile ; )
+		{
+			szFile += _tcslen( szFile ) + 1;
+			if ( *szFile )	// Folder + files
+				oFiles.AddTail( sFolder + _T("\\") + szFile );
+			else	// Single file
+				oFiles.AddTail( sFolder );
+		}
+
+		if ( oFiles.GetCount() )
+			CDownloadTask::MergeFile( pDownload, &oFiles );
+	}
+	else	// Single File
+	{
+		CFileDialog dlgSelectFile( TRUE, strExt, pDownload->m_sName,
+			OFN_HIDEREADONLY | OFN_FILEMUSTEXIST | OFN_PATHMUSTEXIST | OFN_NOCHANGEDIR,
+			NULL, this );
+
+		if ( dlgSelectFile.DoModal() != IDOK )
+			return;
+
+		if ( ! pLock.Lock( 500 ) )
+			return;
+
+		if ( ! Downloads.Check( pDownload ) || pDownload->IsTasking() )
+		{
+			pLock.Unlock();
+			AfxMessageBox( IDS_DOWNLOAD_EDIT_ACTIVE_TASK, MB_ICONEXCLAMATION );
 			return;
 		}
 
 		CDownloadTask::MergeFile( pDownload, dlgSelectFile.GetPathName() );
-
-		pLock.Unlock();
 	}
+
+	pLock.Unlock();
 
 	Update();
 }
@@ -1449,7 +1495,8 @@ void CDownloadsWnd::OnDownloadsMonitor()
 	for ( POSITION pos = Downloads.GetIterator() ; pos ; )
 	{
 		CDownload* pDownload = Downloads.GetNext( pos );
-		if ( pDownload->m_bSelected ) pList.AddTail( pDownload );
+		if ( pDownload->m_bSelected )
+			pList.AddTail( pDownload );
 	}
 
 	while ( ! pList.IsEmpty() )
@@ -1659,8 +1706,8 @@ void CDownloadsWnd::OnTransfersChat()
 					ChatWindows.OpenPrivate( Hashes::Guid(), &pSource->m_pAddress, pSource->m_nPort, FALSE, PROTOCOL_G2 );
 				else if ( pSource->m_nProtocol == PROTOCOL_ED2K )					// ED2K chat
 					ChatWindows.OpenPrivate( Hashes::Guid(), &pSource->m_pAddress, pSource->m_nPort, pSource->m_bPushOnly, pSource->m_nProtocol, &pSource->m_pServerAddress, pSource->m_nServerPort );
-				else		// Should never be called
-					theApp.Message( MSG_ERROR, _T("Error while initiating chat- Unable to select protocol") );
+				//else		// Should never be called
+				//	theApp.Message( MSG_DEBUG, _T("Error while initiating chat- Unable to select protocol") );
 			}
 		}
 	}
@@ -1761,7 +1808,7 @@ void CDownloadsWnd::OnDownloadsFileDelete()
 			}
 
 			// Attempt orphan root folder for torrents
-			if ( nCount > 1 )	// pDownload->IsTorrent() && ! pDownload->IsSingleFileTorrent()
+			if ( nCount > 1 )	// pDownload->IsMultiFileTorrent()
 			{
 				CString strPath = pDownload->GetPath( 0 );
 				strPath = strPath.Left( strPath.ReverseFind( '\\' ) );
@@ -1840,10 +1887,7 @@ void CDownloadsWnd::OnDownloadsClearCompleted()
 
 void CDownloadsWnd::OnDownloadsClearPaused()
 {
-	CString strMessage;
-	LoadString( strMessage, IDS_DOWNLOAD_CONFIRM_CLEAR_PAUSED );
-
-	if ( AfxMessageBox( strMessage, MB_ICONQUESTION|MB_YESNO|MB_DEFBUTTON2 ) == IDYES )
+	if ( AfxMessageBox( IDS_DOWNLOAD_CONFIRM_CLEAR_PAUSED, MB_ICONQUESTION|MB_YESNO|MB_DEFBUTTON2 ) == IDYES )
 	{
 		Downloads.ClearPaused();
 		Update();
@@ -2112,6 +2156,9 @@ void CDownloadsWnd::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 		CancelDrag();
 		OnSetCursor( NULL, 0, 0 );
 	}
+
+	if ( nChar == VK_SHIFT || nChar == VK_CONTROL )		// Skip async keys
+		return;
 
 	CPanelWnd::OnKeyDown( nChar, nRepCnt, nFlags );
 }

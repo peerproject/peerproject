@@ -389,11 +389,12 @@ int CMainWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	SetIcon( CoolInterface.ExtractIcon( IDR_MAINFRAME, FALSE ), FALSE );
 
 	// Status Bar
-	UINT wID[2] = { ID_SEPARATOR, ID_SEPARATOR };
+	UINT wID[2] = { ID_SEPARATOR, ID_SEPARATOR };	// wID[3] + ID_SEPARATOR
 	if ( ! m_wndStatusBar.Create( this ) ) return -1;
-	m_wndStatusBar.SetIndicators( wID, 2 );
+	m_wndStatusBar.SetIndicators( wID, 2 );		// 2 = _countof( wID )
 	m_wndStatusBar.SetPaneInfo( 0, ID_SEPARATOR, SBPS_STRETCH, 0 );
-	m_wndStatusBar.SetPaneInfo( 1, ID_SEPARATOR, SBPS_NORMAL, 220 );	// Status Panel Width (lower-right)
+	m_wndStatusBar.SetPaneInfo( 1, ID_SEPARATOR, SBPS_NORMAL, 220 );	// Status Panel Width (lower-right corner)
+	//m_wndStatusBar.SetPaneInfo( 2, ID_SEPARATOR, SBPS_NORMAL, 120 );	// IP address status panel?
 
 	EnableDocking( CBRS_ALIGN_ANY );
 
@@ -642,8 +643,8 @@ void CMainWnd::SetGUIMode(int nMode, BOOL bSaveState)
 			m_wndNavBar.GetWindowRect( &rcBar );
 		else
 			m_wndToolBar.GetWindowRect( &rcBar );
-		rcBar.left	= rcWnd.right - 128;
-		rcBar.right	= rcWnd.right;
+		rcBar.left  = rcWnd.right - 128;
+		rcBar.right = rcWnd.right;
 
 		DockControlBar( &m_wndMonitorBar, AFX_IDW_DOCKBAR_TOP, &rcBar );
 		ShowControlBar( &m_wndMonitorBar, nMode == GUI_WINDOWED, TRUE );
@@ -1250,20 +1251,17 @@ LRESULT CMainWnd::OnVersionCheck(WPARAM wParam, LPARAM /*lParam*/)
 		}
 		else
 		{
-			CString strMessage;
-			LoadString( strMessage, IDS_UPGRADE_NO_NEW );
 			if ( VersionChecker.IsVerbose() )
-				AfxMessageBox( strMessage, MB_ICONINFORMATION | MB_OK );
+				AfxMessageBox( LoadString( IDS_UPGRADE_NO_NEW ), MB_ICONINFORMATION | MB_OK );
 			else
-				ShowTrayPopup( strMessage );
+				ShowTrayPopup( LoadString( IDS_UPGRADE_NO_NEW ) );
 		}
 	}
 
-	if ( wParam == VC_UPGRADE && VersionChecker.m_sUpgradePath.GetLength() )
+	if ( wParam == VC_UPGRADE && ! VersionChecker.m_sUpgradePath.IsEmpty() )
 	{
-		CString strFormat, strMessage;
-		LoadString( strFormat, IDS_UPGRADE_LAUNCH );
-		strMessage.Format( strFormat, (LPCTSTR)Settings.VersionCheck.UpgradeFile );
+		CString strMessage;
+		strMessage.Format( LoadString( IDS_UPGRADE_LAUNCH ), (LPCTSTR)Settings.VersionCheck.UpgradeFile );
 		if ( AfxMessageBox( strMessage, MB_ICONQUESTION|MB_YESNO ) == IDYES )
 		{
 			ShellExecute( GetSafeHwnd(), _T("open"), VersionChecker.m_sUpgradePath,
@@ -1405,17 +1403,14 @@ void CMainWnd::UpdateMessages()
 			LoadString( strMessage, IDS_STATUS_BAR_DISCONNECTED );
 		}
 
-		if ( Settings.VersionCheck.Quote.GetLength() )
-		{
-			strMessage += _T("  ");
-			strMessage += Settings.VersionCheck.Quote;
-		}
+		if ( ! Settings.VersionCheck.Quote.IsEmpty() )
+			strMessage += _T("  ") + Settings.VersionCheck.Quote;
 
 		if ( m_nIDLastMessage == AFX_IDS_IDLEMESSAGE )
 		{
 			CString strOld;
 			m_wndStatusBar.GetWindowText( strOld );
-			if ( strOld != strMessage )
+			if ( strMessage != strOld )
 				m_wndStatusBar.SetWindowText( strMessage );
 		}
 
@@ -1433,9 +1428,19 @@ void CMainWnd::UpdateMessages()
 
 		CString strOld;
 		m_wndStatusBar.GetPaneText( 1, strOld );
-		if ( strOld != strStatusbar )
+		if ( strStatusbar != strOld )
 			m_wndStatusBar.SetPaneText( 1, strStatusbar );
 	}
+
+	// StatusBar pane 2  (Display IP address?)
+	//{
+	//	CString strStatusbar( HostToString( &Network.m_pHost ) );
+	//
+	//	CString strOld;
+	//	m_wndStatusBar.GetPaneText( 2, strOld );
+	//	if ( strStatusbar != strOld )
+	//		m_wndStatusBar.SetPaneText( 2, strStatusbar );
+	//}
 
 	// Tray
 	if ( m_bTrayIcon && m_bTrayUpdate )
@@ -1610,7 +1615,7 @@ void CMainWnd::OnUpdateNetworkConnect(CCmdUI* pCmdUI)
 	UINT nTextID = 0;
 
 	if ( Network.IsConnected() &&
-		( Network.IsWellConnected() ||	// If well connected or only BitTorrent is enabled (G1, G2, eDonkey, DC are disabled) say connected
+		( Network.IsWellConnected() ||		// If networks well connected or only BitTorrent is enabled say connected
 		( Settings.BitTorrent.Enabled && ! Settings.Gnutella2.Enabled && ! Settings.Gnutella1.Enabled && ! Settings.eDonkey.Enabled && ! Settings.DC.Enabled ) ) )
 	{
 		nTextID = IDS_NETWORK_CONNECTED;
@@ -1689,10 +1694,7 @@ void CMainWnd::OnNetworkG2()
 {
 	if ( Settings.Gnutella2.Enabled )
 	{
-		CString strMessage;
-		LoadString( strMessage, IDS_NETWORK_DISABLE_G2 );
-
-		if ( AfxMessageBox( strMessage, MB_ICONEXCLAMATION|MB_YESNO|MB_DEFBUTTON2 ) != IDYES )
+		if ( AfxMessageBox( LoadString( IDS_NETWORK_DISABLE_G2 ), MB_ICONEXCLAMATION|MB_YESNO|MB_DEFBUTTON2 ) != IDYES )
 			return;
 	}
 
@@ -1712,7 +1714,7 @@ void CMainWnd::OnUpdateNetworkG1(CCmdUI* pCmdUI)
 	pCmdUI->SetCheck( Settings.Gnutella1.Enabled );
 #ifdef LAN_MODE
 	pCmdUI->Enable( FALSE );
-#else // LAN_MODE
+#else // No LAN_MODE
 	pCmdUI->Enable( Settings.GetOutgoingBandwidth() >= 2 );
 #endif // LAN_MODE
 }
@@ -1727,9 +1729,7 @@ void CMainWnd::OnNetworkG1()
 
 	if ( ! Settings.Gnutella1.EnableAlways )
 	{
-		CString strMessage;
-		LoadString( strMessage, IDS_NETWORK_UNLIMIT );
-		if ( AfxMessageBox( strMessage, MB_ICONQUESTION|MB_YESNO ) == IDYES )
+		if ( AfxMessageBox( LoadString( IDS_NETWORK_UNLIMIT ), MB_ICONQUESTION|MB_YESNO ) == IDYES )
 			Settings.Gnutella1.EnableAlways = true;
 	}
 
@@ -1737,7 +1737,7 @@ void CMainWnd::OnNetworkG1()
 		Network.Connect( TRUE );
 	else
 		DiscoveryServices.Execute( FALSE, PROTOCOL_G1, FALSE );
-#endif // LAN_MOD
+#endif // No LAN_MOD
 }
 
 void CMainWnd::OnUpdateNetworkED2K(CCmdUI* pCmdUI)
@@ -1745,7 +1745,7 @@ void CMainWnd::OnUpdateNetworkED2K(CCmdUI* pCmdUI)
 	pCmdUI->SetCheck( Settings.eDonkey.Enabled );
 #ifdef LAN_MODE
 	pCmdUI->Enable( FALSE );
-#else  // LAN_MOD
+#else  // No LAN_MOD
 	pCmdUI->Enable( Settings.GetOutgoingBandwidth() >= 2 );
 #endif // LAN_MOD
 }
@@ -1760,15 +1760,13 @@ void CMainWnd::OnNetworkED2K()
 
 	if ( ! Settings.eDonkey.EnableAlways )
 	{
-		CString strMessage;
-		LoadString( strMessage, IDS_NETWORK_UNLIMIT );
-		if ( AfxMessageBox( strMessage, MB_ICONQUESTION|MB_YESNO ) == IDYES )
+		if ( AfxMessageBox( LoadString( IDS_NETWORK_UNLIMIT ), MB_ICONQUESTION|MB_YESNO ) == IDYES )
 			Settings.eDonkey.EnableAlways = true;
 	}
 
 	if ( ! Network.IsConnected() )
 		Network.Connect( TRUE );
-#endif // LAN_MOD
+#endif // No LAN_MOD
 }
 
 void CMainWnd::OnUpdateNetworkDC(CCmdUI* pCmdUI)
@@ -1798,15 +1796,13 @@ void CMainWnd::OnNetworkDC()
 
 	if ( ! Settings.DC.EnableAlways )
 	{
-		CString strMessage;
-		LoadString( strMessage, IDS_NETWORK_UNLIMIT );
-		if ( AfxMessageBox( strMessage, MB_ICONQUESTION|MB_YESNO ) == IDYES )
+		if ( AfxMessageBox( LoadString( IDS_NETWORK_UNLIMIT ), MB_ICONQUESTION|MB_YESNO ) == IDYES )
 			Settings.DC.EnableAlways = true;
 	}
 
 	if ( ! Network.IsConnected() )
 		Network.Connect( TRUE );
-#endif // LAN_MOD
+#endif // No LAN_MOD
 }
 
 void CMainWnd::OnUpdateNetworkAutoClose(CCmdUI* pCmdUI)
@@ -1860,9 +1856,7 @@ void CMainWnd::OnUpdateViewBasic(CCmdUI* pCmdUI)
 void CMainWnd::OnViewBasic()
 {
 	if ( Settings.General.GUIMode == GUI_BASIC ) return;
-	//CString strMessage;
-	//LoadString( strMessage, IDS_VIEW_MODE_CONFIRM );
-	//if ( AfxMessageBox( strMessage, MB_ICONQUESTION|MB_YESNO ) != IDYES ) return;
+	//if ( AfxMessageBox( LoadString( IDS_VIEW_MODE_CONFIRM ), MB_ICONQUESTION|MB_YESNO ) != IDYES ) return;
 	CWaitCursor pCursor;
 	SetGUIMode( GUI_BASIC );
 }
@@ -1875,9 +1869,7 @@ void CMainWnd::OnUpdateViewTabbed(CCmdUI* pCmdUI)
 void CMainWnd::OnViewTabbed()
 {
 	if ( Settings.General.GUIMode == GUI_TABBED ) return;
-	//CString strMessage;
-	//LoadString( strMessage, IDS_VIEW_MODE_CONFIRM );
-	//if ( AfxMessageBox( strMessage, MB_ICONQUESTION|MB_YESNO ) != IDYES ) return;
+	//if ( AfxMessageBox( LoadString( IDS_VIEW_MODE_CONFIRM ), MB_ICONQUESTION|MB_YESNO ) != IDYES ) return;
 	CWaitCursor pCursor;
 	SetGUIMode( GUI_TABBED );
 }
@@ -1890,9 +1882,7 @@ void CMainWnd::OnUpdateViewWindowed(CCmdUI* pCmdUI)
 void CMainWnd::OnViewWindowed()
 {
 	if ( Settings.General.GUIMode == GUI_WINDOWED ) return;
-	//CString strMessage;
-	//LoadString( strMessage, IDS_VIEW_MODE_CONFIRM );
-	//if ( AfxMessageBox( strMessage, MB_ICONQUESTION|MB_YESNO ) != IDYES ) return;
+	//if ( AfxMessageBox( LoadString( IDS_VIEW_MODE_CONFIRM ), MB_ICONQUESTION|MB_YESNO ) != IDYES ) return;
 	CWaitCursor pCursor;
 	SetGUIMode( GUI_WINDOWED );
 }
@@ -2115,12 +2105,9 @@ void CMainWnd::OnTabConnect()
 {
 	if ( Network.IsConnected() )
 	{
-		CString strMessage;
-		LoadString( strMessage, IDS_NETWORK_DISCONNECT_CONFIRM );
-
 		if ( ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 ) ||
 			 ! Network.IsWellConnected() ||
-			AfxMessageBox( strMessage, MB_ICONQUESTION|MB_YESNO ) == IDYES )
+			 AfxMessageBox( LoadString( IDS_NETWORK_DISCONNECT_CONFIRM ), MB_ICONQUESTION|MB_YESNO ) == IDYES )
 		{
 			Network.Disconnect();
 		}
@@ -2827,8 +2814,8 @@ LRESULT CMainWnd::OnNcHitTest(CPoint point)
 {
 	if ( m_pSkin )
 		return m_pSkin->OnNcHitTest( this, point, TRUE );
-	else
-		return CMDIFrameWnd::OnNcHitTest( point );
+
+	return CMDIFrameWnd::OnNcHitTest( point );
 }
 
 void CMainWnd::OnNcPaint()

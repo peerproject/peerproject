@@ -172,7 +172,6 @@ CPeerProjectApp::CPeerProjectApp()
 	, m_bLimitedConnections 	( true )
 	, m_nWindowsVersion			( 0ul )
 	, m_nWindowsVersionMinor	( 0ul )
-	, m_nPhysicalMemory			( 0ull )
 	, m_bUPnPPortsForwarded 	( TRI_UNKNOWN )
 	, m_bUPnPDeviceConnected	( TRI_UNKNOWN )
 	, m_bMenuWasVisible			( FALSE )
@@ -451,7 +450,6 @@ BOOL CPeerProjectApp::InitInstance()
 			SplashAbort();
 			if ( AfxMessageBox( IDS_SCHEMA_LOAD_ERROR, MB_ICONWARNING|MB_OKCANCEL ) != IDOK )
 				return FALSE;
-			SplashStep( L"Metadata Schemas" );
 		}
 		if ( ! Settings.MediaPlayer.FileTypes.size() )
 		{
@@ -1179,11 +1177,6 @@ void CPeerProjectApp::InitResources()
 	// Load LibGFL in a custom way, so PeerProject plugins can use this library too when not in their search path (From Plugins folder, and when running inside Visual Studio)
 	m_hLibGFL = CustomLoadLibrary( _T("LibGFL290.dll") );
 
-	// Use GlobalMemoryStatusEx if possible (WinXP)
-	MEMORYSTATUSEX pMemory = {};
-	pMemory.dwLength = sizeof(pMemory);
-	if ( GlobalMemoryStatusEx( &pMemory ) )
-		m_nPhysicalMemory = pMemory.ullTotalPhys;
 
 	//
 	// Setup default fonts:
@@ -1667,11 +1660,10 @@ BOOL CPeerProjectApp::InternalURI(LPCTSTR pszURI)
 	//		{
 	//			CString strPath = pFile->GetPath();
 	//			oLock.Unlock();
-	//			CFileExecutor::Execute( strPath, FALSE );
+	//			CFileExecutor::Execute( strPath );
 	//			return TRUE;
 	//		}
 	//	}
-	//	oLock.Unlock();
 	//}
 	//else if ( ! _tcsnicmp( strURI, _T("command:windowptr:"), 18 ) ) // Unused but useful? "command:windowptr:"
 	//{

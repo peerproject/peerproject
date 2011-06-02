@@ -1,7 +1,7 @@
 //
 // NeighboursWithRouting.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -41,14 +41,19 @@ static char THIS_FILE[]=__FILE__;
 //////////////////////////////////////////////////////////////////////
 // CNeighboursWithRouting construction
 
-// Nothing that CNeighboursWithRouting adds to CNeighbours needs to be setup
 CNeighboursWithRouting::CNeighboursWithRouting()
 {
 }
 
-// Nothing that CNeighboursWithRouting adds to CNeighbours needs to be put away
 CNeighboursWithRouting::~CNeighboursWithRouting()
 {
+}
+
+void CNeighboursWithRouting::Connect()
+{
+	CNeighboursWithED2K::Connect();
+
+	m_pQueries.RemoveAll();
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -92,6 +97,28 @@ int CNeighboursWithRouting::Broadcast(CPacket* pPacket, CNeighbour* pExcept, BOO
 	return nCount;
 }
 
+bool CNeighboursWithRouting::CheckQuery(const CQuerySearch* pSearch)
+{
+	CIPTime pThisQuery;
+	pThisQuery.m_pAddress = pSearch->m_pEndpoint.sin_addr;
+	pThisQuery.m_nTime = GetTickCount();
+
+	for ( POSITION pos = m_pQueries.GetHeadPosition(); pos; )
+	{
+		POSITION posOrig = pos;
+		const CIPTime& pLastQuery = m_pQueries.GetNext( pos );
+
+		if ( pThisQuery.m_nTime >= pLastQuery.m_nTime + 5 * 1000 )	// Maximum 1 query per 5 seconds
+			m_pQueries.RemoveAt( posOrig );		// Remove old
+		else if ( pThisQuery.m_pAddress.s_addr == pLastQuery.m_pAddress.s_addr )
+			return false;	// Too early
+	}
+
+	m_pQueries.AddHead( pThisQuery );
+
+	return true;
+}
+
 //////////////////////////////////////////////////////////////////////
 // CNeighboursWithRouting query dispatch
 
@@ -100,7 +127,6 @@ int CNeighboursWithRouting::Broadcast(CPacket* pPacket, CNeighbour* pExcept, BOO
 // Returns the number of computers we sent the packet to
 int CNeighboursWithRouting::RouteQuery(const CQuerySearch* pSearch, CPacket* pPacket, CNeighbour* pFrom, BOOL bToHubs)
 {
-	// Local variables
 	BOOL bHubLoop = FALSE; // We'll set this to true if this is a Gnutella Q2 packet and we found at least one Gnutella2 computer
 	int nCount = 0;        // We'll count how many neighbours we send the packet to
 	POSITION pos;          // Position used looping down the list of neighbours
@@ -133,7 +159,7 @@ int CNeighboursWithRouting::RouteQuery(const CQuerySearch* pSearch, CPacket* pPa
 		CNeighbour* pNeighbour = (CNeighbour*)GetNext( pos );
 
 		// If this is the neighbour we got the packet from, or if we're still doing the handshake with this neighbour
-		if ( pNeighbour == pFrom )                 continue; // Skip the rest of the code in this loop and go back to the top
+		if ( pNeighbour == pFrom )                 continue;	// Skip the rest of the code in this loop and go back to the top
 		if ( pNeighbour->m_nState < nrsConnected ) continue;
 
 		// This neighbour is running Gnutella software
@@ -207,7 +233,7 @@ int CNeighboursWithRouting::RouteQuery(const CQuerySearch* pSearch, CPacket* pPa
 	if ( bHubLoop )
 	{
 		// (do)
-		if ( pSearch->m_bUDP == FALSE && !Network.IsFirewalled(CHECK_UDP) )
+		if ( pSearch->m_bUDP == FALSE && ! Network.IsFirewalled(CHECK_UDP) )
 		{
 			pG2 = pG2->Clone();
 			if ( pG2Q2 != pPacket ) pG2Q2->Release();
@@ -217,7 +243,7 @@ int CNeighboursWithRouting::RouteQuery(const CQuerySearch* pSearch, CPacket* pPa
 
 			if ( pPtr == NULL )
 			{
-				theApp.Message( MSG_ERROR, _T("Memory allocation error in CNeighboursWithRouting::RouteQuery()") );
+			//	theApp.Message( MSG_DEBUG, _T("Memory allocation error in CNeighboursWithRouting::RouteQuery()") );
 				return 0;
 			}
 
@@ -249,10 +275,10 @@ int CNeighboursWithRouting::RouteQuery(const CQuerySearch* pSearch, CPacket* pPa
 			CNeighbour* pNeighbour = (CNeighbour*)GetNext( pos );
 
 			// If this computer should get the packet
-			if ( pNeighbour != pFrom                    && // This isn't the computer we got the packet from, and
-				 pNeighbour->m_nState >= nrsConnected   && // We're done with the handshake with this computer, and
-				 pNeighbour->m_nProtocol == PROTOCOL_G2 && // This computer is running Gnutella2 software, and
-				 pNeighbour->m_nNodeType != ntLeaf )       // This computer isn't a leaf below us
+			if ( pNeighbour != pFrom                    &&	// This isn't the computer we got the packet from, and
+				 pNeighbour->m_nState >= nrsConnected   &&	// We're done with the handshake with this computer, and
+				 pNeighbour->m_nProtocol == PROTOCOL_G2 &&	// This computer is running Gnutella2 software, and
+				 pNeighbour->m_nNodeType != ntLeaf )		// This computer isn't a leaf below us
 			{
 				// Send the packet to this computer
 				if ( pNeighbour->SendQuery( pSearch, pG2, FALSE ) )
@@ -275,6 +301,5 @@ int CNeighboursWithRouting::RouteQuery(const CQuerySearch* pSearch, CPacket* pPa
 			Statistics.Current.Gnutella2.Routed++;
 	}
 
-	// Return the number of packets we sent
-	return nCount;
+	return nCount;		// Packets sent
 }

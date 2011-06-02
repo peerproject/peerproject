@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Japanese Skin File -->
 
-<!-- Translation based on default-en.xml r66 (Shareaza 2.2.0.2) -->
+<!-- Translation based on default-en.xml r67 (Shareaza 2.2.0.2) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2312,8 +2312,8 @@
 	<tip id="ID_LIBRARY_ALBUM_DELETE" message="選択したアルバムフォルダを削除します"/>
 	<tip id="ID_LIBRARY_ALBUM_OPEN" message="選択したアルバムフォルダを開きます"/>
 	<tip id="ID_LIBRARY_ALBUM_PROPERTIES" message="選択したアルバムフォルダのプロパティを表示・編集します..."/>
-	<tip id="ID_LIBRARY_BITZI_DOWNLOAD" message="Bitzi(TM)から選択したファイル用のメタデータをダウンロードします..."/>
-	<tip id="ID_LIBRARY_BITZI_WEB" message="ウェブ上で選択したファイル用のBitzi(TM) ticketを表示します"/>
+	<tip id="ID_LIBRARY_BITZI_DOWNLOAD" message="Bitzi™から選択したファイル用のメタデータをダウンロードします..."/>
+	<tip id="ID_LIBRARY_BITZI_WEB" message="ウェブ上で選択したファイル用のBitzi™ ticketを表示します"/>
 	<tip id="ID_LIBRARY_COLUMNS" message="表示するメタデータカラムを選択します..."/>
 	<tip id="ID_LIBRARY_COPY" message="選択したファイルを別のライブラリフォルダにコピーします..."/>
 	<tip id="ID_LIBRARY_CREATETORRENT" message="ウェブサイトへアップロードするための.torrentファイルを作成します"/>
@@ -2665,13 +2665,13 @@
 	<string id="20184" value="ユーザとの個人的な会話を要求しています..."/>
 	<string id="20185" value="認証済みユーザ"/>
 	<string id="20186" value="%s からのプッシュ接続を受け付けました。ハンドシェイクしています..."/>
-	<string id="20188" value="%s からのファイアーウォールされたプッシュ接続を要求しています..."/>
-	<string id="20190" value="無効なデータが配信されたため接続に失敗しました"/>
-	<string id="20191" value="未知の応答を受信しました: %s"/>
-	<string id="20192" value="未接続です"/>
-	<string id="20193" value="認識できないコマンド &quot;%s&quot;"/>
-	<string id="20194" value="このテンプレートは全くカスタマイズされていません。"/>
-	<string id="20195" value="このテンプレートは無効です。"/>
+	<string id="20187" value="%s からのファイアーウォールされたプッシュ接続を要求しています..."/>
+	<string id="20188" value="無効なデータが配信されたため接続に失敗しました"/>
+	<string id="20189" value="未知の応答を受信しました: %s"/>
+	<string id="20190" value="未接続です"/>
+	<string id="20191" value="認識できないコマンド &quot;%s&quot;"/>
+	<string id="20196" value="このテンプレートは全くカスタマイズされていません。"/>
+	<string id="20197" value="このテンプレートは無効です。"/>
 	<string id="20199" value="(転送後に閉じます)"/>
 	<string id="20200" value="ダウンロードキューに &quot;%s&quot; を追加しました(ソース数:  %i)"/>
 	<string id="20201" value="ファイル &quot;%s&quot; は既にダウンロード中の為、ソースの追加を行います"/>
@@ -2826,14 +2826,15 @@
 	<string id="20372" value="Gnutella Ping受信/送信比率"/>
 	<string id="20373" value="Gnutella Pong受信/送信比率"/>
 	<string id="20374" value="Gnutellaローカル問い合わせ"/>
-	<string id="20375" value="Gnutellaパケット発送"/>
-	<string id="20376" value="総受信帯域幅"/>
-	<string id="20377" value="総送信帯域幅"/>
-	<string id="20378" value="総TCP受信帯域幅"/>
-	<string id="20379" value="総TCP送信帯域幅"/>
-	<string id="20380" value="総UDP受信帯域幅"/>
-	<string id="20381" value="総UDP送信帯域幅"/>
-	<string id="20382" value="アップロード帯域幅"/>
+	<string id="20375" value="Gnutellaローカル問い合わせ"/>
+	<string id="20376" value="Gnutellaパケット発送"/>
+	<string id="20377" value="総受信帯域幅"/>
+	<string id="20378" value="総送信帯域幅"/>
+	<string id="20379" value="総TCP受信帯域幅"/>
+	<string id="20380" value="総TCP送信帯域幅"/>
+	<string id="20381" value="総UDP受信帯域幅"/>
+	<string id="20382" value="総UDP送信帯域幅"/>
+	<string id="20383" value="アップロード帯域幅"/>
 	<string id="20384" value="アップロード転送数"/>
 	<string id="20385" value="保護されたリーフノードへ退行している近隣 %s へ接続中です"/>
 	<string id="20386" value="%s との余剰接続を閉じています。ホストヒント (%s ポート %i)"/>
@@ -2994,8 +2995,8 @@
 	<string id="20582" value="近隣 %s が不正な長さのpongパケットを転送した為、無視しています"/>
 	<string id="20583" value="近隣 %s が不正な長さのプッシュパケットを転送した為、無視しています"/>
 	<string id="20584" value="近隣 %s が大きすぎるパケットを転送した為、接続を中止しました"/>
-	<string id="20585" value="近隣 %s が認識できないパケット (0x%.2x)を転送した為、無視しています"/>
-	<string id="20586" value="近隣 %s が無効なアドレスデータでpongした為、無視しています"/>
+	<string id="20586" value="近隣 %s が認識できないパケット (0x%.2x)を転送した為、無視しています"/>
+	<string id="20587" value="近隣 %s が無効なアドレスデータでpongした為、無視しています"/>
 	<string id="20588" value="近隣 %s がファイアーウォールされたアドレスにプッシュ要求を転送した為、無視しています"/>
 	<string id="20590" value="リモートアクセスが無効になりました"/>
 	<string id="20591" value="http://%s:%i/remote - ユーザー名とパスワードを入力しなければなりません"/>
@@ -3211,13 +3212,14 @@
 	<string id="20870" value="URLの解析に失敗しました: PeerProjectはこのURLを理解できません"/>
 	<string id="20871" value="URL &quot;%s&quot; を受信しました"/>
 	<string id="20872" value="種類:"/>
-	<string id="20874" value="不特定"/>
-	<string id="20875" value="URL:"/>
+	<string id="20874" value="URL:"/>
+	<string id="20875" value="不特定"/>
 	<string id="20880" value="プロフィールを編集"/>
-	<string id="20881" value="画面表示の変更は現在開いている全てのウィンドウを閉じます。今すぐ変更しますか?"/>
-	<string id="20882" value="UPnPデバイスホストサービスが実行されていません。 これはセットアップを行うために必ず必要になるサービスです。nこのサービスがWindowsのスタートアップで自動実行されるように設定しておかなければなりません。"/>
-	<string id="20884" value="利用可能なURNがありません"/>
-	<string id="20885" value="インターフェースの変更を適用するにはPeerProjectの再起動が必要になります。nあなたはPeerProjectを手動で再起動しなければなりません。今すぐPeerProjectを終了しますか?"/>
+	<string id="20881" value="%u ファイルが選択されました。あなたはよろしいですか？"/>
+	<string id="20882" value="利用可能なURNがありません"/>
+	<string id="20883" value="UPnPデバイスホストサービスが実行されていません。 これはセットアップを行うために必ず必要になるサービスです。nこのサービスがWindowsのスタートアップで自動実行されるように設定しておかなければなりません。"/>
+	<string id="20885" value="画面表示の変更は現在開いている全てのウィンドウを閉じます。今すぐ変更しますか?"/>
+	<string id="20886" value="インターフェースの変更を適用するにはPeerProjectの再起動が必要になります。nあなたはPeerProjectを手動で再起動しなければなりません。今すぐPeerProjectを終了しますか?"/>
 	<string id="20890" value="PeerProjectへようこそ"/>
 	<string id="20891" value="終了(&amp;X)"/>
 	<string id="20892" value="暫くお待ち下さい: Donkey2000サーバーリストを更新しています..."/>

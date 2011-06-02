@@ -311,12 +311,12 @@ BOOL CHostBrowser::OnRun()
 {
 	CTransfer::OnRun();
 
-	DWORD nNow = GetTickCount();
+	const DWORD tNow = GetTickCount();
 
 	switch ( m_nState )
 	{
 	case hbsConnecting:
-		if ( nNow - m_tConnected > Settings.Connection.TimeoutConnect * 2 )
+		if ( tNow >= m_tConnected + Settings.Connection.TimeoutConnect * 2 )
 		{
 			OnDropped();
 			return FALSE;
@@ -324,7 +324,7 @@ BOOL CHostBrowser::OnRun()
 		break;
 	case hbsRequesting:
 	case hbsHeaders:
-		if ( nNow - m_tConnected > Settings.Connection.TimeoutHandshake * 3 )
+		if ( tNow >= m_tConnected + Settings.Connection.TimeoutHandshake * 3 )
 		{
 			theApp.Message( MSG_ERROR, IDS_BROWSE_TIMEOUT, m_sAddress );
 			Stop();
@@ -332,7 +332,7 @@ BOOL CHostBrowser::OnRun()
 		}
 		break;
 	case hbsContent:
-		if ( nNow - m_mInput.tLast > Settings.Connection.TimeoutTraffic )
+		if ( tNow >= m_mInput.tLast + Settings.Connection.TimeoutTraffic )
 		{
 			theApp.Message( MSG_ERROR, IDS_BROWSE_TIMEOUT, m_sAddress );
 			Stop();
@@ -791,14 +791,15 @@ BOOL CHostBrowser::OnPacket(CG2Packet* pPacket)
 		}
 		break;
 
+#ifdef _DEBUG
 	default:
-		CString tmp;
-		tmp.Format( _T("Received unexpected G2 Browse packet from %s:%u"),
+		CString str;
+		str.Format( _T("Unknown G2 Browse packet from %s:%u"),
 			(LPCTSTR)CString( inet_ntoa( m_pHost.sin_addr ) ),
 			htons( m_pHost.sin_port ) );
-		pPacket->Debug( tmp );
+		pPacket->Debug( str );
+#endif	// Debug
 	}
-
 	return TRUE;
 }
 

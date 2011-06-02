@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Chinese (Simplified) Skin File -->
 
-<!-- Translation based on default-en.xml r66 (Shareaza r6092) -->
+<!-- Translation based on default-en.xml r67 (Shareaza r6092) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2344,8 +2344,8 @@
 	<tip id="ID_LIBRARY_ALBUM_DELETE" message="删除选定的专辑文件夹。"/>
 	<tip id="ID_LIBRARY_ALBUM_OPEN" message="打开选定的专辑文件夹。"/>
 	<tip id="ID_LIBRARY_ALBUM_PROPERTIES" message="查看或编辑选定专辑文件夹的属性..."/>
-	<tip id="ID_LIBRARY_BITZI_DOWNLOAD" message="从 Bitzi(TM) 下载选定文件的元数据..."/>
-	<tip id="ID_LIBRARY_BITZI_WEB" message="查看选定文件在网络上的 Bitzi(TM)。"/>
+	<tip id="ID_LIBRARY_BITZI_DOWNLOAD" message="从 Bitzi™ 下载选定文件的元数据..."/>
+	<tip id="ID_LIBRARY_BITZI_WEB" message="查看选定文件在网络上的 Bitzi™。"/>
 	<tip id="ID_LIBRARY_COLUMNS" message="选择显示元数据列设置..."/>
 	<tip id="ID_LIBRARY_COPY" message="将选定的文件复制到收藏中其它的文件夹..."/>
 	<tip id="ID_LIBRARY_CREATETORRENT" message="为此文件创建一个 .torrent 文件以上传至网页。"/>
@@ -2692,13 +2692,13 @@
 	<string id="20184" value="请求与用户进行私人会话..."/>
 	<string id="20185" value="已认证的用户"/>
 	<string id="20186" value="接受来自 %s 的获取连接，握手中..."/>
-	<string id="20188" value="向  %s 请求获取连接..."/>
-	<string id="20190" value="因为网络传输中的错误数据导致连接失败。"/>
-	<string id="20191" value="接收到未知回应: %s"/>
-	<string id="20192" value="您还未连接。"/>
-	<string id="20193" value="不能识别命令 &quot;%s&quot;."/>
-	<string id="20194" value="此模板无任何自定义设置。"/>
-	<string id="20195" value="此模板无效。"/>
+	<string id="20187" value="向  %s 请求获取连接..."/>
+	<string id="20188" value="因为网络传输中的错误数据导致连接失败。"/>
+	<string id="20189" value="接收到未知回应: %s"/>
+	<string id="20190" value="您还未连接。"/>
+	<string id="20191" value="不能识别命令 &quot;%s&quot;."/>
+	<string id="20196" value="此模板无任何自定义设置。"/>
+	<string id="20197" value="此模板无效。"/>
 	<string id="20199" value="(传送后关闭)"/>
 	<string id="20200" value="添加 &quot;%s&quot; 的 %i 个资源到下载队列。"/>
 	<string id="20201" value="&quot;%s&quot; 文件正被下载，仅作为资源被添加。"/>
@@ -2853,14 +2853,15 @@
 	<string id="20372" value="发送/接受 Ping 的 Gnutella 频率"/>
 	<string id="20373" value="发送/接受 Pong 的 Gnutella 频率"/>
 	<string id="20374" value="Gnutella 本地查询"/>
-	<string id="20375" value="路由的 Gnutella 数据包"/>
-	<string id="20376" value="全部接收带宽"/>
-	<string id="20377" value="全部传送带宽"/>
-	<string id="20378" value="全部 TCP 接收带宽"/>
-	<string id="20379" value="全部 TCP 传送带宽"/>
-	<string id="20380" value="全部 UDP 接收带宽"/>
-	<string id="20381" value="全部 UDP 传送带宽"/>
-	<string id="20382" value="上传带宽"/>
+	<string id="20375" value="Gnutella 本地查询"/>
+	<string id="20376" value="路由的 Gnutella 数据包"/>
+	<string id="20377" value="全部接收带宽"/>
+	<string id="20378" value="全部传送带宽"/>
+	<string id="20379" value="全部 TCP 接收带宽"/>
+	<string id="20380" value="全部 TCP 传送带宽"/>
+	<string id="20381" value="全部 UDP 接收带宽"/>
+	<string id="20382" value="全部 UDP 传送带宽"/>
+	<string id="20383" value="上传带宽"/>
 	<string id="20384" value="上传传送计数"/>
 	<string id="20385" value="到邻居 %s 主机的连接失败使得退回到屏蔽子端模式。"/>
 	<string id="20386" value="按照主机意图，关闭到 %s 主机的剩余连接 (%s 主机的 %i 端口)。"/>
@@ -3021,8 +3022,8 @@
 	<string id="20582" value="邻居 %s 主机发来的 pong 数据包尺寸不匹配，忽略数据包。"/>
 	<string id="20583" value="邻居 %s 主机发来非法的获取数据包，忽略数据包。"/>
 	<string id="20584" value="邻居 %s 主机发来的数据包超过尺寸，断开连接。"/>
-	<string id="20585" value="邻居 %s 主机发来未被识别的数据包 (0x%.2x)，忽略数据包。"/>
-	<string id="20586" value="邻居 %s 主机发来非法的 pong 地址，忽略数据包。"/>
+	<string id="20586" value="邻居 %s 主机发来未被识别的数据包 (0x%.2x)，忽略数据包。"/>
+	<string id="20587" value="邻居 %s 主机发来非法的 pong 地址，忽略数据包。"/>
 	<string id="20588" value="邻居主机 %s 前送了请求到防火墙阻隔的地址，正被忽略。"/>
 	<string id="20590" value="远程访问已禁用。"/>
 	<string id="20591" value="http://%s:%i/remote - 您必须选择一个用户名和密码。"/>
@@ -3253,13 +3254,14 @@
 	<string id="20870" value="未能粘贴链接: PeerProject 不能识别此链接。"/>
 	<string id="20871" value="已接收链接 &quot;%s&quot;"/>
 	<string id="20872" value="类型:"/>
-	<string id="20874" value="未指定"/>
-	<string id="20875" value="链接:"/>
+	<string id="20874" value="链接:"/>
+	<string id="20875" value="未指定"/>
 	<string id="20880" value="编辑个人资料"/>
-	<string id="20881" value="更改显示模式将关闭您已经打开的窗口。您要立即更改吗？"/>
-	<string id="20882" value="UPnP Device Host 服务未运行。请重新设置该服务。\n您需要将该服务的启动类型设置为&quot;自动&quot;。"/>
-	<string id="20884" value="无 URN 可用"/>
-	<string id="20885" value="变更界面方向需要重新启动。\n您需要手动启动 PeerProject。立即退出？"/>
+	<string id="20881" value="%u 张影像选择。你肯定吗？"/>
+	<string id="20882" value="无 URN 可用"/>
+	<string id="20883" value="UPnP Device Host 服务未运行。请重新设置该服务。\n您需要将该服务的启动类型设置为&quot;自动&quot;。"/>
+	<string id="20885" value="更改显示模式将关闭您已经打开的窗口。您要立即更改吗？"/>
+	<string id="20886" value="变更界面方向需要重新启动。\n您需要手动启动 PeerProject。立即退出？"/>
 	<string id="20890" value="欢迎来到 PeerProject"/>
 	<string id="20891" value="退出(_X)"/>
 	<string id="20892" value="请稍候: 更新 edonkey 服务器列表..."/>

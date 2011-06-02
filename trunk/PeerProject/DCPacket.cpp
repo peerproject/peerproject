@@ -54,15 +54,13 @@ void CDCPacket::ToBuffer(CBuffer* pBuffer, bool /*bTCP*/) const
 }
 
 #ifdef _DEBUG
-
 void CDCPacket::Debug(LPCTSTR pszReason) const
 {
 	CString strOutput;
 	strOutput.Format( L"[DC++] %s ", pszReason );
 	CPacket::Debug( strOutput );
 }
-
-#endif // _DEBUG
+#endif	// Debug
 
 BOOL CDCPacket::OnPacket(const SOCKADDR_IN* pHost)
 {
@@ -71,20 +69,18 @@ BOOL CDCPacket::OnPacket(const SOCKADDR_IN* pHost)
 	if ( m_nLength > 4 && memcmp( m_pBuffer, "$SR ", 4 ) == 0 )
 	{
 		if ( ! OnCommonHit( pHost ) )
-		{
-			theApp.Message( MSG_ERROR, IDS_PROTOCOL_BAD_HIT,
-				(LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ) );
-		}
+			theApp.Message( MSG_ERROR, IDS_PROTOCOL_BAD_HIT, (LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ) );
+
 		return TRUE;
 	}
 
 #ifdef _DEBUG
-	CString tmp;
-	tmp.Format( _T("Unknown packet from %s:%u."),
+	CString str;
+	str.Format( _T("Unknown DC packet from %s:%u."),
 		(LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ),
 		htons( pHost->sin_port ) );
-	Debug( tmp );
-#endif // _DEBUG
+	Debug( str );
+#endif	// Debug
 
 	return FALSE;	// Unknown packet
 }

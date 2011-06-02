@@ -145,8 +145,7 @@ void CFragmentedFile::Dump(CDumpContext& dc) const
 //////////////////////////////////////////////////////////////////////
 // CFragmentedFile open
 
-BOOL CFragmentedFile::Open(LPCTSTR pszFile, QWORD nOffset, QWORD nLength,
-	BOOL bWrite, LPCTSTR pszName, int nPriority)
+BOOL CFragmentedFile::Open(LPCTSTR pszFile, QWORD nOffset, QWORD nLength, BOOL bWrite, LPCTSTR pszName, int nPriority)
 {
 	if ( ! pszFile || ! *pszFile )
 	{
@@ -160,8 +159,7 @@ BOOL CFragmentedFile::Open(LPCTSTR pszFile, QWORD nOffset, QWORD nLength,
 	m_nFileError = ERROR_SUCCESS;
 
 	CVirtualFile::iterator pItr = std::find( m_oFile.begin(), m_oFile.end(), pszFile );
-	bool bNew = ( pItr == m_oFile.end() );
-	if ( bNew )
+	if ( pItr == m_oFile.end() )	// bNew
 	{
 		// Use new
 		CVirtualFilePart part;
@@ -176,11 +174,10 @@ BOOL CFragmentedFile::Open(LPCTSTR pszFile, QWORD nOffset, QWORD nLength,
 		m_oFile.push_back( part );
 		pItr = --m_oFile.end();
 	}
-	else
+	else if ( (*pItr).m_pFile )		// Already opened
 	{
 		// Use existing
-		if ( (*pItr).m_pFile )	// Already opened
-			return ! bWrite || (*pItr).m_pFile->EnsureWrite();
+		return ! bWrite || (*pItr).m_pFile->EnsureWrite();
 	}
 
 	CTransferFile* pFile = NULL;
@@ -308,8 +305,14 @@ BOOL CFragmentedFile::Open(const CBTInfo& oInfo, const BOOL bWrite,	CString& str
 		CString strSource;
 		if ( i < nCount )
 		{
-			// Reopen file
+			// Reopen partial file
 			strSource = m_oFile[ i ].m_sPath;
+			if ( ! PathFileExists( strSource ) && ! StartsWith( strSource, Settings.Downloads.IncompletePath ) )
+			{
+				strSource = Settings.Downloads.IncompletePath + L"\\" + PathFindFileName( strSource );
+				if ( ! PathFileExists( strSource ) )
+					strSource = m_oFile[ i ].m_sPath;	// Fallback failed too, use proper path for error message below
+			}
 		}
 		else if ( bWrite )
 		{
@@ -761,39 +764,48 @@ void CFragmentedFile::Serialize(CArchive& ar, int nVersion)
 	{
 		SerializeIn1( ar, m_oFList, nVersion );
 
-		if ( nVersion > 40 )
+		if ( nVersion < 40 )
+			return;		// Old Shareaza import?
+
+		DWORD count = 0;
+		CString strPath;
+		QWORD nOffset = 0;
+		QWORD nLength = 0;
+		BOOL bWrite = FALSE;
+		CString strName( m_pDownload ? m_pDownload->m_sName : CString() );
+		int nPriority = prNormal;
+
+		ar >> count;
+		for ( DWORD i = 0 ; i < count ; ++i )
 		{
-			DWORD count = 0;
-			ar >> count;
-			for ( DWORD i = 0 ; i < count ; ++i )
+			ar >> strPath;
+			ar >> nOffset;
+			ar >> nLength;
+			ar >> bWrite;
+			ar >> strName;
+			ar >> nPriority;
+
+			if ( strPath.IsEmpty() || strName.IsEmpty() ||
+				bWrite < FALSE || bWrite > TRUE ||
+				nPriority < prUnwanted || nPriority > prHigh )
+				AfxThrowArchiveException( CArchiveException::genericException );
+
+			if ( ! StartsWith( strPath, Settings.Downloads.IncompletePath ) )
 			{
-				CString sPath;
-				ar >> sPath;
-				QWORD nOffset = 0;
-				ar >> nOffset;
-				QWORD nLength = 0;
-				ar >> nLength;
-				BOOL bWrite = FALSE;
-				ar >> bWrite;
-				CString sName( m_pDownload ? m_pDownload->m_sName : CString() );
-				int nPriority = prNormal;
-				ar >> sName;
-				ar >> nPriority;
-
-				if ( sPath.IsEmpty() || sName.IsEmpty() ||
-					bWrite < FALSE || bWrite > TRUE ||
-					nPriority < prUnwanted || nPriority > prHigh )
-					AfxThrowArchiveException( CArchiveException::genericException );
-
-				if ( ! Open( sPath, nOffset, nLength, bWrite, sName, nPriority ) )
-				{
-					theApp.Message( MSG_ERROR, IDS_DOWNLOAD_FILE_OPEN_ERROR, sPath );
-					AfxThrowFileException( CFileException::fileNotFound );
-				}
+				// Update path for user-imported partials
+				const CString strNewPath = Settings.Downloads.IncompletePath + L"\\" + PathFindFileName( strPath );
+				if ( PathFileExists( strNewPath ) )
+					strPath = strNewPath;
 			}
 
-			ASSERT_VALID( this );
+			if ( ! Open( strPath, nOffset, nLength, bWrite, strName, nPriority ) )
+			{
+				theApp.Message( MSG_ERROR, IDS_DOWNLOAD_FILE_OPEN_ERROR, strPath );
+				AfxThrowFileException( CFileException::fileNotFound );
+			}
 		}
+
+		ASSERT_VALID( this );
 	}
 }
 

@@ -3,7 +3,7 @@
 
 <!-- PeerProject UK English Skin File -->
 
-<!-- Translation based on default-en.xml r65 -->
+<!-- Translation based on default-en.xml r67 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -734,8 +734,8 @@
 	<string id="20582" value="Neighbour %s forwarded a pong packet with invalid length, ignoring."/>
 	<string id="20583" value="Neighbour %s forwarded a push packet with invalid length, ignoring."/>
 	<string id="20584" value="Neighbour %s forwarded a packet of excessive size, dropping connection."/>
-	<string id="20585" value="Neighbour %s forwarded an unrecognised packet (0x%.2x), ignoring."/>
-	<string id="20586" value="Neighbour %s forwarded a pong with invalid address data, ignoring."/>
+	<string id="20586" value="Neighbour %s forwarded an unrecognised packet (0x%.2x), ignoring."/>
+	<string id="20587" value="Neighbour %s forwarded a pong with invalid address data, ignoring."/>
 	<string id="20588" value="Neighbour %s forwarded a push request to a firewalled address, ignoring."/>
 	<string id="20702" value="Connected to %lu neighbours. %s in local library."/>
 	<string id="20703" value="Hub mode with %lu neighbours. %s in local library."/>

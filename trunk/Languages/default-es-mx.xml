@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Spanish (Mexican) Skin File -->
 
-<!-- Translation based on default-en.xml r66 -->
+<!-- Translation based on default-en.xml r67 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -421,6 +421,33 @@
 		<button id="ID_CHAT_DISCONNECT" text="Desconectar"/>
 	</toolbar>
 	<!-- WEBSERVICES -->
+	<toolbar name="WebServices.ShareMonkey">
+		<button id="ID_SHAREMONKEY_DOWNLOAD" text="Obtener datos"/>
+		<separator/>
+		<button id="ID_SHAREMONKEY_PREVIOUS" text="Anterior"/>
+		<button id="ID_SHAREMONKEY_NEXT" text="Siguiente"/>
+		<separator/>
+		<button id="ID_SHAREMONKEY_PRICES" text="Premiar"/>
+		<button id="ID_SHAREMONKEY_COMPARE" text="Comparar"/>
+		<button id="ID_SHAREMONKEY_BUY" text="Compar"/>
+	</toolbar>
+	<toolbar name="WebServices.ShareMonkey.WithSave">
+		<button id="ID_SHAREMONKEY_DOWNLOAD" text="Obtener datos"/>
+		<button id="ID_SHAREMONKEY_SAVE" text="Guardar"/>
+		<control id="ID_SHAREMONKEY_SAVE_OPTION" text="Guardar previsualizacion" width="100" checked="true"/>
+		<separator/>
+		<button id="ID_SHAREMONKEY_PREVIOUS" text="Anterior"/>
+		<button id="ID_SHAREMONKEY_NEXT" text="Siguiente"/>
+		<separator/>
+		<button id="ID_SHAREMONKEY_PRICES" text="Premiar"/>
+		<button id="ID_SHAREMONKEY_COMPARE" text="Comparar"/>
+		<button id="ID_SHAREMONKEY_BUY" text="Compar"/>
+	</toolbar>
+	<toolbar name="WebServices.MusicBrainz">
+		<button id="ID_MUSICBRAINZ_MATCHES" text="Ver coincidencias de album"/>
+		<button id="ID_MUSICBRAINZ_ALBUMS" text="Ver todos los albums"/>
+		<separator/>
+	</toolbar>
 	<!-- IMAGE VIEWER PLUGIN WINDOW -->
 	<toolbar name="ImageViewerWnd">
 		<button id="PluginID_ImageViewer_BestFit" text="Mejor ajuste"/>
@@ -2352,8 +2379,8 @@
 	<tip id="ID_LIBRARY_ALBUM_DELETE" message="Borrar la carpeta virtual o album."/>
 	<tip id="ID_LIBRARY_ALBUM_OPEN" message="Abrir el album."/>
 	<tip id="ID_LIBRARY_ALBUM_PROPERTIES" message="Ver o editar propiedades..."/>
-	<tip id="ID_LIBRARY_BITZI_DOWNLOAD" message="Adquirir la metadata de Bitzi(TM)..."/>
-	<tip id="ID_LIBRARY_BITZI_WEB" message="Ver el reporte de Bitzi(TM) en la web."/>
+	<tip id="ID_LIBRARY_BITZI_DOWNLOAD" message="Adquirir la metadata de Bitzi™..."/>
+	<tip id="ID_LIBRARY_BITZI_WEB" message="Ver el reporte de Bitzi™ en la web."/>
 	<tip id="ID_LIBRARY_COLUMNS" message="Seleccionar las columnas de metadata a mostrar..."/>
 	<tip id="ID_LIBRARY_COPY" message="Copiar archivos..."/>
 	<tip id="ID_LIBRARY_CREATETORRENT" message="Crear un .torrent para este archivo y subirlo a un sitio."/>
@@ -2714,13 +2741,13 @@
 	<string id="20184" value="Preguntando por comunicación privada con..."/>
 	<string id="20185" value="Usuario autentificado"/>
 	<string id="20186" value="Conexión por push de %s, fué aceptada, negociando sesión..."/>
-	<string id="20188" value="Pidiendo un push de %s..."/>
-	<string id="20190" value="La conexión falló por información inválida."/>
-	<string id="20191" value="Respuesta desconocida: %s"/>
-	<string id="20192" value="PeerProject no está conectado."/>
-	<string id="20193" value="Comando no conocido %s."/>
-	<string id="20194" value="Este template no tiene ningún cambio."/>
-	<string id="20195" value="Este template es invalido."/>
+	<string id="20187" value="Pidiendo un push de %s..."/>
+	<string id="20188" value="La conexión falló por información inválida."/>
+	<string id="20189" value="Respuesta desconocida: %s"/>
+	<string id="20190" value="PeerProject no está conectado."/>
+	<string id="20191" value="Comando no conocido %s."/>
+	<string id="20196" value="Este template no tiene ningún cambio."/>
+	<string id="20197" value="Este template es invalido."/>
 	<string id="20199" value="(cerrando después de transferencias)"/>
 	<string id="20200" value="&quot;%s&quot; fué agregado a la cola de descargas, y tiene %i fuente(s)."/>
 	<string id="20201" value="El archivo %s ya se esta descargando, agregando fuentes."/>
@@ -2877,14 +2904,15 @@
 	<string id="20372" value="Gnutella Ratio of Received/Sent Pings"/>
 	<string id="20373" value="Gnutella Ratio of Received/Sent Pongs"/>
 	<string id="20374" value="Búsquedas locales de Gnutella"/>
-	<string id="20375" value="Paquetes Gnutella Ruteados"/>
-	<string id="20376" value="Total Banda Ancha Recibida Genérica"/>
-	<string id="20377" value="Total Banda Ancha Transmitida Genérica"/>
-	<string id="20378" value="Ancho de banda total de recepción TCP"/>
-	<string id="20379" value="Ancho de banda total de transmición TCP"/>
-	<string id="20380" value="Ancho de banda total de recepción UDP"/>
-	<string id="20381" value="Ancho de banda total de transmición UDP"/>
-	<string id="20382" value="Banda Ancha de Subida"/>
+	<string id="20375" value="Búsquedas locales de Gnutella"/>
+	<string id="20376" value="Paquetes Gnutella Ruteados"/>
+	<string id="20377" value="Total Banda Ancha Recibida Genérica"/>
+	<string id="20378" value="Total Banda Ancha Transmitida Genérica"/>
+	<string id="20379" value="Ancho de banda total de recepción TCP"/>
+	<string id="20380" value="Ancho de banda total de transmición TCP"/>
+	<string id="20381" value="Ancho de banda total de recepción UDP"/>
+	<string id="20382" value="Ancho de banda total de transmición UDP"/>
+	<string id="20383" value="Banda Ancha de Subida"/>
 	<string id="20384" value="Cuenta Transferencia de Subida"/>
 	<string id="20385" value="Conectando a vecino %s pero es un nodo leaf ."/>
 	<string id="20386" value="Cerrando surplus conexión con %s con host hint (%s puerto %i)."/>
@@ -3061,8 +3089,8 @@
 	<string id="20582" value="Neighbour %s remitio un paquete de pong con tamao invalido, ignorando."/>
 	<string id="20583" value="El vecino %s envió un push incorrecto."/>
 	<string id="20584" value="El vecino %s remitio un paquete con tama o excesivo, cerrando conexión."/>
-	<string id="20585" value="%s envió un paquete desconocido (0x%.2x)."/>
-	<string id="20586" value="%s envió un pong inválido."/>
+	<string id="20586" value="%s envió un paquete desconocido (0x%.2x)."/>
+	<string id="20587" value="%s envió un pong inválido."/>
 	<string id="20588" value="El vecino %s envió un push a dirección inalcansable."/>
 	<string id="20590" value="El Acceso Remoto esta deshabilitado."/>
 	<string id="20591" value="http://%s:%i/remote - ¿Nombre de usuario y contraseña?"/>
@@ -3282,13 +3310,14 @@
 	<string id="20870" value="PeerProject no entendió el URL."/>
 	<string id="20871" value="URL &quot;%s&quot; recibido"/>
 	<string id="20872" value="Tipo:"/>
-	<string id="20874" value="No"/>
-	<string id="20875" value="URL:"/>
+	<string id="20874" value="URL:"/>
+	<string id="20875" value="No"/>
 	<string id="20880" value="Editar Mi Perfil"/>
-	<string id="20881" value="Cambiado de vista va a cerrar todas las ventanas que tienes abiertas. ¿Deseas cambiar ahora?"/>
-	<string id="20882" value="El servicio de red para Dispositivo UPnP no está ejecutado. Este servicio es requerido completar la configuración.nNecesitas completar el inicio del servicio como automático."/>
-	<string id="20884" value="No hay URN disponible"/>
-	<string id="20885" value="Cambiando la dirección de interface requiere reiniciar.\nVas a necesitar reiniciar PeerProject manualmente. \n\n¿ Salir ahora ?"/>
+	<string id="20881" value="%u Archivos seleccionados. ¿Estás seguro?"/>
+	<string id="20882" value="No hay URN disponible"/>
+	<string id="20883" value="El servicio de red para Dispositivo UPnP no está ejecutado. Este servicio es requerido completar la configuración.nNecesitas completar el inicio del servicio como automático."/>
+	<string id="20885" value="Cambiado de vista va a cerrar todas las ventanas que tienes abiertas. ¿Deseas cambiar ahora?"/>
+	<string id="20886" value="Cambiando la dirección de interface requiere reiniciar.\nVas a necesitar reiniciar PeerProject manualmente. \n\n¿ Salir ahora ?"/>
 	<string id="20890" value="Bienvenido a PeerProject"/>
 	<string id="20891" value="Salir"/>
 	<string id="20892" value="Por favor espera: Actualizando lista de servidores eDonkey..."/>

@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default English Skin File -->
 
-<!-- Translation based on default-en.xml r66 -->
+<!-- Translation based on default-en.xml r67 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2977,14 +2977,14 @@
 	<string id="20184" value="Requesting private conversation with user..."/>
 	<string id="20185" value="Authenticated user"/>
 	<string id="20186" value="Accepted push connection from %s, handshaking..."/>
-	<string id="20188" value="Requesting a firewalled push connection from %s..."/>
-	<string id="20190" value="Connection failed due to invalid data on the wire."/>
-	<string id="20191" value="Received an unknown response: %s"/>
-	<string id="20192" value="You're not connected."/>
-	<string id="20193" value="Unrecognised command &quot;%s&quot;."/>
-	<string id="20194" value="This template does not have any customizations."/>
-	<string id="20195" value="This template is invalid."/>
-	<string id="20196" value="Text copied to Clipboard:"/>
+	<string id="20187" value="Requesting a firewalled push connection from %s..."/>
+	<string id="20188" value="Connection failed due to invalid data on the wire."/>
+	<string id="20189" value="Received an unknown response: %s"/>
+	<string id="20190" value="You're not connected."/>
+	<string id="20191" value="Unrecognised command &quot;%s&quot;."/>
+	<string id="20196" value="This template does not have any customizations."/>
+	<string id="20197" value="This template is invalid."/>
+	<string id="20198" value="Text copied to Clipboard:"/>
 	<string id="20199" value="(closing after transfers)"/>
 	<string id="20200" value="Added &quot;%s&quot; to download queue with %i sources."/>
 	<string id="20201" value="The file &quot;%s&quot; is already being downloaded, adding sources."/>
@@ -3146,15 +3146,16 @@
 	<string id="20371" value="Gnutella Packets Transmitted"/>
 	<string id="20372" value="Gnutella Ratio of Received/Sent Pings"/>
 	<string id="20373" value="Gnutella Ratio of Received/Sent Pongs"/>
-	<string id="20374" value="Gnutella Local Queries"/>
-	<string id="20375" value="Gnutella Packets Routed"/>
-	<string id="20376" value="Total Generic Receive Bandwidth"/>
-	<string id="20377" value="Total Generic Transmit Bandwidth"/>
-	<string id="20378" value="Total TCP Receive Bandwidth"/>
-	<string id="20379" value="Total TCP Transmit Bandwidth"/>
-	<string id="20380" value="Total UDP Receive Bandwidth"/>
-	<string id="20381" value="Total UDP Transmit Bandwidth"/>
-	<string id="20382" value="Upload Bandwidth"/>
+	<string id="20374" value="Gnutella Queries Incoming"/>
+	<string id="20375" value="Gnutella Queries Processed"/>
+	<string id="20376" value="Gnutella Packets Routed"/>
+	<string id="20377" value="Total Generic Receive Bandwidth"/>
+	<string id="20378" value="Total Generic Transmit Bandwidth"/>
+	<string id="20379" value="Total TCP Receive Bandwidth"/>
+	<string id="20380" value="Total TCP Transmit Bandwidth"/>
+	<string id="20381" value="Total UDP Receive Bandwidth"/>
+	<string id="20382" value="Total UDP Transmit Bandwidth"/>
+	<string id="20383" value="Upload Bandwidth"/>
 	<string id="20384" value="Upload Transfer Count"/>
 	<string id="20385" value="Connecting neighbor %s falling back to shielded leaf mode."/>
 	<string id="20386" value="Closing surplus connection from %s with host hint (%s port %i)."/>
@@ -3334,8 +3335,9 @@
 	<string id="20582" value="Neighbor %s forwarded a pong packet with invalid length, ignoring."/>
 	<string id="20583" value="Neighbor %s forwarded a push packet with invalid length, ignoring."/>
 	<string id="20584" value="Neighbor %s forwarded a packet of excessive size, dropping connection."/>
-	<string id="20585" value="Neighbor %s forwarded an unrecognised packet (0x%.2x), ignoring."/>
-	<string id="20586" value="Neighbor %s forwarded a pong with invalid address data, ignoring."/>
+	<string id="20585" value="Received a packet from %s for %s which exceeds query limits, ignoring."/>
+	<string id="20586" value="Neighbor %s forwarded an unrecognised packet (0x%.2x), ignoring."/>
+	<string id="20587" value="Neighbor %s forwarded a pong with invalid address data, ignoring."/>
 	<string id="20588" value="Neighbor %s forwarded a push request to a firewalled address, ignoring."/>
 	<string id="20590" value="Remote access is disabled."/>
 	<string id="20591" value="http://%s:%i/remote - Username/password required."/>
@@ -3580,14 +3582,15 @@
 	<string id="20870" value="Unable to parse URL: PeerProject does not understand this URL."/>
 	<string id="20871" value="Received URL &quot;%s&quot;"/>
 	<string id="20872" value="Type:"/>
-	<string id="20874" value="Unspecified"/>
-	<string id="20875" value="URL:"/>
+	<string id="20874" value="URL:"/>
+	<string id="20875" value="Unspecified"/>
 	<string id="20880" value="Edit My Profile"/>
-	<string id="20881" value="Changing view will close any windows you have open. Would you like to change now?"/>
-	<string id="20882" value="UPnP Device Host Service is not running. This service is required to perform the setup.\nYou need to set the startup type of the service to automatic."/>
-	<string id="20883" value="This option uses services provided by ShareMonkey.com for recognizing information about selected files.\n\nPeerProject will transmit file details and your location in order to query the ShareMonkey database.\nIf you are concerned about privacy, you may wish to consult ShareMonkey.com policies.\n\nWould you like to proceed?"/>
-	<string id="20884" value="No URN available"/>
-	<string id="20885" value="Changing interface direction requires restart.\nYou will need to start PeerProject manually.\n\nExit now ?"/>
+	<string id="20881" value="%u Files selected.  Are you sure?"/>
+	<string id="20882" value="No URN available"/>
+	<string id="20883" value="UPnP Device Host Service is not running. This service is required to perform the setup.\nYou need to set the startup type of the service to automatic."/>
+	<string id="20884" value="This option uses services provided by ShareMonkey.com for recognizing information about selected files.\n\nPeerProject will transmit file details and your location in order to query the ShareMonkey database.\nIf you are concerned about privacy, you may wish to consult ShareMonkey.com policies.\n\nWould you like to proceed?"/>
+	<string id="20885" value="Changing view will close any windows you have open. Would you like to change now?"/>
+	<string id="20886" value="Changing interface direction requires restart.\nYou will need to start PeerProject manually.\n\nExit now ?"/>
 	<string id="20890" value="Welcome to PeerProject"/>
 	<string id="20891" value="E&amp;xit"/>
 	<string id="20892" value="Please wait: Updating eDonkey server list..."/>

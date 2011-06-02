@@ -274,19 +274,15 @@ BOOL CDownloadsCtrl::IsExpandable(CDownload* pDownload)
 		return FALSE;
 
 	if ( Settings.Downloads.ShowSources )
-	{
 		return ( pDownload->GetSourceCount() > 0 );
-	}
-	else
-	{
-		for ( POSITION posSource = pDownload->GetIterator() ; posSource ; )
-		{
-			CDownloadSource* pSource = pDownload->GetNext( posSource );
 
-			if ( pSource->IsConnected() )
-				return TRUE;
-		}
+	for ( POSITION posSource = pDownload->GetIterator() ; posSource ; )
+	{
+		CDownloadSource* pSource = pDownload->GetNext( posSource );
+		if ( pSource->IsConnected() )
+			return TRUE;
 	}
+
 	return FALSE;
 }
 
@@ -294,9 +290,9 @@ void CDownloadsCtrl::SelectTo(int nIndex)
 {
 	ASSUME_LOCK( Transfers.m_pSection );
 
-	BOOL bRight		= GetAsyncKeyState( VK_RBUTTON ) & 0x8000;
-	BOOL bControl	= GetAsyncKeyState( VK_CONTROL ) & 0x8000;
-	BOOL bShift		= GetAsyncKeyState( VK_SHIFT ) & 0x8000;
+	const BOOL bRight	= GetAsyncKeyState( VK_RBUTTON ) & 0x8000;
+	const BOOL bControl	= GetAsyncKeyState( VK_CONTROL ) & 0x8000;
+	const BOOL bShift	= GetAsyncKeyState( VK_SHIFT ) & 0x8000;
 
 	if ( ! bShift && ! bControl && ! bRight )
 	{
@@ -1101,9 +1097,8 @@ void CDownloadsCtrl::PaintDownload(CDC& dc, const CRect& rcRow, CDownload* pDown
 			rcCell.left += 16;
 
 			// Draw file icon
-			if ( pDownload->IsTorrent() && ! pDownload->IsSingleFileTorrent() )
+			if ( pDownload->IsMultiFileTorrent() )	// Special case
 			{
-				// Special case torrent package
 				CoolInterface.Draw( &dc, IDI_MULTIFILE, 16,
 					rcCell.left, rcCell.top, crLeftMargin, pDownload->m_bSelected );
 			}

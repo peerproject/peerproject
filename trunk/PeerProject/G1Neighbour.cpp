@@ -205,8 +205,8 @@ BOOL CG1Neighbour::OnRun()
 		return FALSE;
 
 	// Send a ping if we haven't sent one in awhile
-	DWORD tNow = GetTickCount();
-	if ( tNow - m_tLastPingOut > Settings.Gnutella1.PingRate )
+	const DWORD tNow = GetTickCount();
+	if ( tNow > m_tLastPingOut + Settings.Gnutella1.PingRate )
 		SendPing( tNow );
 
 	// Stay connected to the remote computer
@@ -438,9 +438,10 @@ BOOL CG1Neighbour::OnPing(CG1Packet* pPacket)
 	// If the packet has 1 hop left to live, and has travelled 0 hops yet somehow was sent to us, it must be a keep alive packet
 	BOOL bIsKeepAlive = ( pPacket->m_nTTL == 1 && pPacket->m_nHops == 0 );
 
+	const DWORD tNow = GetTickCount();
+
 	// If we got the most recent ping less than 3 seconds ago, and this isn't a keep alive packet
-	DWORD dwNow = GetTickCount();
-	if ( dwNow - m_tLastPingIn < Settings.Gnutella1.PingFlood && ! bIsKeepAlive )
+	if ( tNow <= m_tLastPingIn + Settings.Gnutella1.PingFlood && ! bIsKeepAlive )
 	{
 		// Drop it, but stay connected
 		Statistics.Current.Gnutella1.Dropped++;
@@ -502,7 +503,7 @@ BOOL CG1Neighbour::OnPing(CG1Packet* pPacket)
 	LibraryMaps.GetStatistics( &nMyFiles, &nMyVolume );
 
 	// Save information from this ping packet in the CG1Neighbour object
-	m_tLastPingIn   = dwNow;						// Record that we last got a ping packet from this remote computer right now
+	m_tLastPingIn   = tNow;						// Record that we last got a ping packet from this remote computer right now
 	m_nLastPingHops = pPacket->m_nHops + 1; 		// Save the hop count from the packet, making it one more (do)
 	m_pLastPingID   = pPacket->m_oGUID; 			// Save the packet's GUID
 
@@ -754,9 +755,9 @@ BOOL CG1Neighbour::OnPong(CG1Packet* pPacket)
 	}
 
 	// Tell the neighbours object about this pong packet (do)
-	BYTE nHops = pPacket->m_nHops + 1;
-	nHops = min( nHops, PONG_NEEDED_BUFFER - 1u );
-	if ( ! bLocal ) Neighbours.OnG1Pong( this, (IN_ADDR*)&nAddress, nPort, nHops + 1, nFiles, nVolume );
+	BYTE nHops = (BYTE)min( pPacket->m_nHops + 1, PONG_NEEDED_BUFFER - 1 );
+	if ( ! bLocal )
+		Neighbours.OnG1Pong( this, (IN_ADDR*)&nAddress, nPort, nHops + 1, nFiles, nVolume );
 
 	return TRUE;	// This method always returns true
 }
@@ -787,15 +788,15 @@ void CG1Neighbour::OnNewPong(CPongItem* pPong)
 BOOL CG1Neighbour::OnBye(CG1Packet* pPacket)
 {
 	// Setup local variables
-	CString strReason; // The reason the remote computer must disconnect, we'll read this from the byte packet it sent us
-	WORD nReason = 0;  // A number code that goes along with the reason
+	CString strReason;	// The reason the remote computer must disconnect, we'll read this from the byte packet it sent us
+	WORD nReason = 0;	// A number code that goes along with the reason
 
 	// If the packet has a payload 3 bytes long or longer
 	if ( pPacket->m_nLength >= 3 )
 	{
 		// Read the reason number, and then the reason text
 		nReason   = pPacket->ReadShortLE(); // 2 bytes
-		strReason = pPacket->ReadStringASCII();  // ASCII byte characters until a null terminating 0 byte
+		strReason = pPacket->ReadStringASCII(); 	// ASCII byte characters until a null terminating 0 byte
 	}
 
 	// Loop the index nChar for each character in the text
@@ -805,7 +806,7 @@ BOOL CG1Neighbour::OnBye(CG1Packet* pPacket)
 		if ( strReason[nChar] < 32 )
 		{
 			// Chop off the text before the weird character
-			strReason = strReason.Left( nChar ); // Left clips the given number of characters from the left side of the string
+			strReason = strReason.Left( nChar );	// Left clips the given number of characters from the left side of the string
 			break;
 		}
 	}
@@ -834,7 +835,7 @@ BOOL CG1Neighbour::OnVendor(CG1Packet* pPacket)
 		// Don't do anything with this packet
 		Statistics.Current.Gnutella1.Dropped++;
 		m_nDropCount++;
-		return TRUE; // Stay connected to the remote computer
+		return TRUE;	// Stay connected to the remote computer
 	}
 
 	// Read the vendor, function, and version numbers from the packet payload
@@ -860,7 +861,7 @@ BOOL CG1Neighbour::OnVendor(CG1Packet* pPacket)
 			pReply->WriteLongBE( 'PEER' );
 			pReply->WriteLongBE( 'RAZA' );
 			pReply->WriteLongBE( 'BEAR' );
-			Send( pReply ); // Send the reply packet to the remote computer
+			Send( pReply );		// Send the reply packet to the remote computer
 		}
 		// Vendor is the ASCII text "RAZA" for Shareaza
 		else if ( nVendor == 'RAZA' || nVendor == 'AZAR' ) // It's backwards because of network byte order (Confirm?)
@@ -876,7 +877,7 @@ BOOL CG1Neighbour::OnVendor(CG1Packet* pPacket)
 			pReply->WriteShortLE( 1 );
 			pReply->WriteShortLE( 0x0003 );
 			pReply->WriteShortLE( 1 );
-			Send( pReply ); // Send the reply packet to the remote computer
+			Send( pReply );		// Send the reply packet to the remote computer
 		}
 		// Vendor is the ASCII text "PEER" for PeerProject
 		else if ( nVendor == 'PEER' || nVendor == 'REEP' ) // It's backwards because of network byte order (Confirm?)
@@ -908,7 +909,7 @@ BOOL CG1Neighbour::OnVendor(CG1Packet* pPacket)
 			pReply->WriteShortLE( 1 );
 			pReply->WriteShortLE( 0x000C );
 			pReply->WriteShortLE( 1 );
-			Send( pReply ); // Send the reply packet to the remote computer
+			Send( pReply );		// Send the reply packet to the remote computer
 		}
 	}
 	else if ( nVendor == 'RAZA' || nVendor == 'PEER')	// The vendor "RAZA" is Shareaza, and the function isn't 0xFFFF
@@ -1160,7 +1161,7 @@ bool CG1Neighbour::OnPush(CG1Packet* pPacket)
 
 	// Check that remote client has a port number, isn't firewalled or using a
 	// reserved address
-	if ( !nPort
+	if ( ! nPort
 		|| Network.IsFirewalledAddress( (IN_ADDR*)&nAddress )
 		|| Network.IsReserved( (IN_ADDR*)&nAddress ) )
 	{
@@ -1185,7 +1186,7 @@ bool CG1Neighbour::OnPush(CG1Packet* pPacket)
 			theApp.Message( MSG_ERROR, IDS_PROTOCOL_GGEP_REQUIRED, m_sAddress );
 			++Statistics.Current.Gnutella1.Dropped;
 			++m_nDropCount;
-			return TRUE;
+			return true;
 		}
 
 		// This push packet does have a GGEP block
@@ -1267,6 +1268,8 @@ void CG1Neighbour::SendG2Push(const Hashes::Guid& oGUID, CPacket* pPacket)
 // Returns false if the remote computer sent a malformed packet and we should disconnect from it, true otherwise
 BOOL CG1Neighbour::OnQuery(CG1Packet* pPacket)
 {
+	Statistics.Current.Gnutella1.Queries++;		// All Incoming
+
 	// If packet payload is too long
 	if ( pPacket->m_nLength > Settings.Gnutella1.MaximumQuery )
 	{
@@ -1274,7 +1277,7 @@ BOOL CG1Neighbour::OnQuery(CG1Packet* pPacket)
 		theApp.Message( MSG_ERROR, IDS_PROTOCOL_TOO_LARGE, (LPCTSTR)m_sAddress );
 		Statistics.Current.Gnutella1.Dropped++;
 		m_nDropCount++;
-		return FALSE; // Disconnect from the remote computer
+		return FALSE;	// Disconnect from the remote computer
 	}
 
 	// If this connection is to a leaf below us, and this packet has travelled across the Internet before
@@ -1302,13 +1305,13 @@ BOOL CG1Neighbour::OnQuery(CG1Packet* pPacket)
 	if ( ! pSearch )
 	{
 		// The CQuerySearch class rejected the search, drop the packet
-// ToDo: FIX THIS REPEATED "MALFORMATTED PACKET" TRIGGERING!!
+// ToDo: Fix this repeated "MALFORMATTED PACKET" triggering?
 //#ifdef _DEBUG
 		theApp.Message( MSG_INFO, IDS_PROTOCOL_BAD_QUERY, _T("G1"), (LPCTSTR)m_sAddress );
+		DEBUG_ONLY( pPacket->Debug( _T("Malformed Query.") ) );
 //#endif
 		Statistics.Current.Gnutella1.Dropped++;
 		m_nDropCount++;
-		pPacket->Debug( _T("Malformed Query.") );
 		return TRUE;	// Stay connected to the remote computer
 	}
 
@@ -1320,7 +1323,8 @@ BOOL CG1Neighbour::OnQuery(CG1Packet* pPacket)
 	Network.OnQuerySearch( new CLocalSearch( pSearch, this ) );
 
 	// Delete the local object, and record another Gnutella query packet processed
-	Statistics.Current.Gnutella1.Queries++;
+	Statistics.Current.Gnutella1.QueriesProcessed++;
+
 	return TRUE;	// Stay connected to the remote computer
 }
 
@@ -1353,7 +1357,7 @@ BOOL CG1Neighbour::SendQuery(const CQuerySearch* pSearch, CPacket* pPacket, BOOL
 BOOL CG1Neighbour::OnHit(CG1Packet* pPacket)
 {
 	// If the packet is too short
-	if ( pPacket->m_nLength <= 27 )
+	if ( pPacket->m_nLength <= 27 )		// 11 + Hashes::Guid::byteCount
 	{
 		// Drop it
 		theApp.Message( MSG_ERROR, IDS_PROTOCOL_BAD_HIT, (LPCTSTR)m_sAddress );
@@ -1362,6 +1366,6 @@ BOOL CG1Neighbour::OnHit(CG1Packet* pPacket)
 		return TRUE;	// Stay connected to the remote computer
 	}
 
-	// Have OnCommonHit process the query hit packet, and return the result it does (do)
+	// Have OnCommonHit process the query hit packet, and return its result (do)
 	return OnCommonHit( pPacket );
 }

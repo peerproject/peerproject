@@ -1,7 +1,7 @@
 //
 // PageSettingsAdvanced.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -21,8 +21,8 @@
 #include "StdAfx.h"
 #include "PeerProject.h"
 #include "Settings.h"
-#include "LiveList.h"
 #include "PageSettingsAdvanced.h"
+#include "LiveList.h"
 #include "Skin.h"
 
 #ifdef _DEBUG
@@ -37,8 +37,8 @@ BEGIN_MESSAGE_MAP(CAdvancedSettingsPage, CSettingsPage)
 	ON_WM_DESTROY()
 	ON_NOTIFY(LVN_ITEMCHANGED, IDC_PROPERTIES, OnItemChangedProperties)
 	ON_NOTIFY(LVN_COLUMNCLICK, IDC_PROPERTIES, OnColumnClickProperties)
-	ON_EN_CHANGE(IDC_VALUE, OnChangeValue)
 	ON_BN_CLICKED(IDC_DEFAULT_VALUE, OnBnClickedDefaultValue)
+	ON_EN_CHANGE(IDC_VALUE, OnChangeValue)
 END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
@@ -80,7 +80,7 @@ BOOL CAdvancedSettingsPage::OnInitDialog()
 	AddSettings();
 
 	CLiveList::Sort( &m_wndList, 0 );
-	//CLiveList::Sort( &m_wndList, 0 );	//Repeat
+	//CLiveList::Sort( &m_wndList, 0 );	// Repeat
 
 	UpdateInputArea();
 
@@ -313,7 +313,7 @@ CAdvancedSettingsPage::EditItem::EditItem(CSettings::Item* pItem) :
 {
 	m_sName += L".";
 	m_sName += pItem->m_szName;
-	if ( !IsDefault() )
+	if ( ! IsDefault() )
 		m_sName += L"*";
 }
 

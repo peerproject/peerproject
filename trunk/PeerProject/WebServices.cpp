@@ -543,12 +543,10 @@ static char THIS_FILE[]=__FILE__;
 
 BOOL CWebServices::ShowBitziTicket(DWORD nIndex)
 {
-	CString str;
-
 	if ( ! Settings.WebServices.BitziOkay )
 	{
-		Skin.LoadString( str, IDS_LIBRARY_BITZI_MESSAGE );
-		if ( AfxMessageBox( str, MB_ICONQUESTION|MB_YESNO ) != IDYES ) return FALSE;
+		if ( AfxMessageBox( LoadString( IDS_LIBRARY_BITZI_MESSAGE ), MB_ICONQUESTION|MB_YESNO ) != IDYES )
+			return FALSE;
 		Settings.WebServices.BitziOkay = TRUE;
 		Settings.Save();
 	}
@@ -560,15 +558,15 @@ BOOL CWebServices::ShowBitziTicket(DWORD nIndex)
 
 	if ( ! pFile->m_oSHA1 || ! pFile->m_oTiger || ! pFile->m_oED2K )
 	{
-		CString strFormat;
-		Skin.LoadString( strFormat, IDS_LIBRARY_BITZI_HASHED );
-		str.Format( strFormat, (LPCTSTR)pFile->m_sName );
+		CString strMessage;
+		strMessage.Format( LoadString( IDS_LIBRARY_BITZI_HASHED ), (LPCTSTR)pFile->m_sName );
 		pLock.Unlock();
-		AfxMessageBox( str, MB_ICONINFORMATION );
+		AfxMessageBox( strMessage, MB_ICONINFORMATION );
 		return FALSE;
 	}
 
 	CString strURL = Settings.WebServices.BitziWebView;
+	CString str;
 	CFile hFile;
 
 	if ( hFile.Open( pFile->GetPath(), CFile::modeRead|CFile::shareDenyNone ) )
@@ -581,7 +579,6 @@ BOOL CWebServices::ShowBitziTicket(DWORD nIndex)
 			BYTE nBuffer[20];
 			int nPeek = hFile.Read( nBuffer, 20 );
 			hFile.Close();
-			str.Empty();
 
 			for ( int nByte = 0 ; nByte < nPeek ; nByte++ )
 			{

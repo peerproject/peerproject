@@ -19,9 +19,13 @@
 //! \file	StdAfx.h
 //! \brief	Standard header for precompiled header feature.
 //!
-//! Includes MFC header files. Contains several global definitions.
+//! Includes MFC header files. Contains many global definitions.
 
 #pragma once
+
+
+// ToDo: Visual C++ Express Editions uncomment this line  (See ReadMe.txt for setup)
+//#define VC_EXPRESS
 
 
 //
@@ -128,7 +132,7 @@
 #include <afxhtml.h>		// MFC HTML
 #include <afxpriv.h>		// MFC UI
 #include <afxole.h>			// MFC OLE
-#include <afxocc.h>			// MFC OCC	(for fontmanager/ctrlweb)
+#include <afxocc.h>			// MFC OCC	(fontmanager/ctrlweb)
 //#include <../src/mfc/occimpl.h>	// MFC OCC substitute for VCExpress+WDK?
 #include <../src/mfc/afximpl.h>
 
@@ -143,15 +147,15 @@
 #include <math.h>			// Math
 #include <winsvc.h>			// Services (excluded by VC_EXTRALEAN)
 #include <shlwapi.h>		// Windows Shell API
-#include <exdispid.h>		// Internet Explorer DISPIDs
 #include <mmsystem.h>		// Multimedia
+#include <exdispid.h>		// Internet Explorer DISPID_ Messages (ctrlweb)
 #include <winioctl.h>		// Sparse files support
-#include <atltime.h>		// Time classes
-#include <atlenc.h>			// Base64Encode, UUEncode etc.
 #include <atlfile.h>		// Thin file classes
+#include <atltime.h>		// Time classes
+//#include <atlenc.h>		// Base64Encode, UUEncode etc.
 
 // If header is not found, install Windows SDK from microsoft.com
-// ( Vista SDK or later (6.0+) -previously XP Platform SDK )
+// ( Vista SDK 6.0 or later -previously XP Platform SDK )
 
 #include <netfw.h>
 #include <upnp.h>

@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Chinese (Traditional) Skin File -->
 
-<!-- Translation based on default-en.xml r66 (Shareaza 2.2.2.12) -->
+<!-- Translation based on default-en.xml r67 (Shareaza 2.2.2.12) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2278,8 +2278,8 @@
 	<tip id="ID_LIBRARY_ALBUM_DELETE" message="刪除選擇的專輯資料夾."/>
 	<tip id="ID_LIBRARY_ALBUM_OPEN" message="開啟選擇的專輯資料夾."/>
 	<tip id="ID_LIBRARY_ALBUM_PROPERTIES" message="檢視與編輯選擇的專輯資料夾的屬性..."/>
-	<tip id="ID_LIBRARY_BITZI_DOWNLOAD" message="正在從 Bitzi(TM) 為選擇的檔案下載解釋資料..."/>
-	<tip id="ID_LIBRARY_BITZI_WEB" message="View the Bitzi(TM) ticket for the selected file on the web."/>
+	<tip id="ID_LIBRARY_BITZI_DOWNLOAD" message="正在從 Bitzi™ 為選擇的檔案下載解釋資料..."/>
+	<tip id="ID_LIBRARY_BITZI_WEB" message="View the Bitzi™ ticket for the selected file on the web."/>
 	<tip id="ID_LIBRARY_COLUMNS" message="選擇要顯示的解釋資料欄位..."/>
 	<tip id="ID_LIBRARY_COPY" message="複製選擇的檔案至另一個收藏資料夾..."/>
 	<tip id="ID_LIBRARY_CREATETORRENT" message="為這個檔案建立 torrent 檔以上傳至網站."/>
@@ -2627,13 +2627,13 @@
 	<string id="20184" value="正在請求與該使用者私人對話..."/>
 	<string id="20185" value="已授權的使用者"/>
 	<string id="20186" value="接受來自於 %s 的推播連線, 信號交換中..."/>
-	<string id="20188" value="正在要求來自於 %s 的受到防火牆保護的推播連線"/>
-	<string id="20190" value="連線失敗, 因為電話線有無效的資料."/>
-	<string id="20191" value="接收到未知的回應: %s"/>
-	<string id="20192" value="您還尚未連線."/>
-	<string id="20193" value="無法辨認的命令 &quot;%s&quot;."/>
-	<string id="20194" value="這個樣版沒有任何可自訂部分."/>
-	<string id="20195" value="這個樣版是無效."/>
+	<string id="20187" value="正在要求來自於 %s 的受到防火牆保護的推播連線"/>
+	<string id="20188" value="連線失敗, 因為電話線有無效的資料."/>
+	<string id="20189" value="接收到未知的回應: %s"/>
+	<string id="20190" value="您還尚未連線."/>
+	<string id="20191" value="無法辨認的命令 &quot;%s&quot;."/>
+	<string id="20196" value="這個樣版沒有任何可自訂部分."/>
+	<string id="20197" value="這個樣版是無效."/>
 	<string id="20199" value="(傳輸後關閉)"/>
 	<string id="20200" value="已新增 &quot;%s&quot; 到下載排隊隊伍, 有 %i 個來源."/>
 	<string id="20201" value="此檔案 &quot;%s&quot; 已經正在被下載, 新增來源."/>
@@ -2738,17 +2738,17 @@
 	<string id="20317" value="Submitting GWebCache &quot;%s&quot; to a random GWebCache..."/>
 	<string id="20318" value="正在傳送 GWebCache 更新至服務service &quot;%s&quot;..."/>
 	<string id="20319" value="GWeb快取交易成功 (&quot;%s&quot;.."/>
-	<string id="20320" value="來自於 % 的輸入連線是一個 eDonkey2000 客戶端連結."/>
-	<string id="20321" value="從 %s (id=%x) 收到了一個 錯誤格式的 eDonkey2000 封包."/>
-	<string id="20322" value="與 %s 的 eDonkey2000 client 連線已閒置, 關閉了."/>
-	<string id="20323" value="正在啟始 eDonkey2000 客戶端連線至 %s..."/>
-	<string id="20324" value="與 eDonkey2000 客戶端 %s 的連線逾時."/>
-	<string id="20325" value="正在拒絕來自於 %s 的 eDonkey2000 客戶端連結, 因為 eDonkey2000 被停用了."/>
-	<string id="20326" value="與 %s 的 eDonkey2000 客戶端連線已關閉."/>
-	<string id="20327" value="與eDonkey2000 客戶端 %s 信號交換時發生錯誤."/>
-	<string id="20328" value="與 eDonkey2000 客戶端 %s 的信號交換逾時."/>
-	<string id="20329" value="正在送出 &quot;%s&quot; 的 eDonkey2000 hashset 至 %s..."/>
-	<string id="20330" value="eDonkey2000 客戶端 %s 有錯誤的 GUID, 放棄信號交換."/>
+	<string id="20320" value="來自於 % 的輸入連線是一個 eDonkey 客戶端連結."/>
+	<string id="20321" value="從 %s (id=%x) 收到了一個 錯誤格式的 eDonkey 封包."/>
+	<string id="20322" value="與 %s 的 eDonkey client 連線已閒置, 關閉了."/>
+	<string id="20323" value="正在啟始 eDonkey 客戶端連線至 %s..."/>
+	<string id="20324" value="與 eDonkey 客戶端 %s 的連線逾時."/>
+	<string id="20325" value="正在拒絕來自於 %s 的 eDonkey 客戶端連結, 因為 eDonkey 被停用了."/>
+	<string id="20326" value="與 %s 的 eDonkey 客戶端連線已關閉."/>
+	<string id="20327" value="與eDonkey 客戶端 %s 信號交換時發生錯誤."/>
+	<string id="20328" value="與 eDonkey 客戶端 %s 的信號交換逾時."/>
+	<string id="20329" value="正在送出 &quot;%s&quot; 的 eDonkey hashset 至 %s..."/>
+	<string id="20330" value="eDonkey 客戶端 %s 有錯誤的 GUID, 放棄信號交換."/>
 	<string id="20331" value="這個檔案已經在 PeerProject 的下載清單."/>
 	<string id="20332" value="無法開啟 part 檔 &quot;%s&quot;."/>
 	<string id="20333" value="檔案複製完成"/>
@@ -2760,16 +2760,16 @@
 	<string id="20339" value="找到部分檔 &quot;%s&quot;, 匯入中..."/>
 	<string id="20340" value="程序完成, %i 部分下載成功匯入."/>
 	<string id="20341" value="掃瞄資料夾中: quot;%squot;..."/>
-	<string id="20342" value="開始 eDonkey2000 partial 下載匯入程序..."/>
+	<string id="20342" value="開始 eDonkey partial 下載匯入程序..."/>
 	<string id="20344" value="找到下載 &quot;%s&quot;, 大小 %s."/>
-	<string id="20345" value="已連線至 eDonkey2000 伺服器 %s, 信號交換中..."/>
-	<string id="20346" value="正在啟始連線至 eDonkey2000 伺服器於 %s..."/>
-	<string id="20347" value="eDonkey2000 伺服器 %s 已更改我們的用戶端 ID, 由 %lu 到 %lu."/>
-	<string id="20348" value="eDonkey2000 伺服器 %s 表示自己為 quot;%squot;."/>
+	<string id="20345" value="已連線至 eDonkey 伺服器 %s, 信號交換中..."/>
+	<string id="20346" value="正在啟始連線至 eDonkey 伺服器於 %s..."/>
+	<string id="20347" value="eDonkey 伺服器 %s 已更改我們的用戶端 ID, 由 %lu 到 %lu."/>
+	<string id="20348" value="eDonkey 伺服器 %s 表示自己為 quot;%squot;."/>
 	<string id="20349" value="ED2K[%s] %s"/>
-	<string id="20350" value="eDonkey2000 伺服器 %s 上線, 用戶端 ID 是 %lu."/>
-	<string id="20351" value="eDonkey2000 伺服器 %s 已經拒絕連線."/>
-	<string id="20352" value="eDonkey2000 伺服器 %s 拒絕連線."/>
+	<string id="20350" value="eDonkey 伺服器 %s 上線, 用戶端 ID 是 %lu."/>
+	<string id="20351" value="eDonkey 伺服器 %s 已經拒絕連線."/>
+	<string id="20352" value="eDonkey 伺服器 %s 拒絕連線."/>
 	<string id="20354" value="檔案屬性"/>
 	<string id="20355" value="您要刪除這個過濾嗎?"/>
 	<string id="20356" value="已經有稱為&quot;%s&quot;.的過濾存在, 您要置換它嗎?"/>
@@ -2786,14 +2786,15 @@
 	<string id="20370" value="已接收的 Gnutella 封包"/>
 	<string id="20371" value="已傳送的 Gnutella 封包"/>
 	<string id="20374" value="Gnutella 本地詢問"/>
-	<string id="20375" value="Gnutella 封包 Routed"/>
-	<string id="20376" value="總計一般接收頻寬"/>
-	<string id="20377" value="總計一般傳送頻寬"/>
-	<string id="20378" value="總計 TCP 接收頻寬"/>
-	<string id="20379" value="總計 TCP 傳送頻寬"/>
-	<string id="20380" value="總計 UDP 接收頻寬"/>
-	<string id="20381" value="總計 UDP 傳送頻寬"/>
-	<string id="20382" value="上傳頻寬"/>
+	<string id="20375" value="Gnutella 本地詢問"/>
+	<string id="20376" value="Gnutella 封包 Routed"/>
+	<string id="20377" value="總計一般接收頻寬"/>
+	<string id="20378" value="總計一般傳送頻寬"/>
+	<string id="20379" value="總計 TCP 接收頻寬"/>
+	<string id="20380" value="總計 TCP 傳送頻寬"/>
+	<string id="20381" value="總計 UDP 接收頻寬"/>
+	<string id="20382" value="總計 UDP 傳送頻寬"/>
+	<string id="20383" value="上傳頻寬"/>
 	<string id="20384" value="上傳傳輸數"/>
 	<string id="20385" value="Connecting neighbour %s falling back to shielded 葉節點節點."/>
 	<string id="20386" value="正在關閉 surplus 連線 from %s with host hint (%s 連接埠 %i)."/>
@@ -2953,8 +2954,8 @@
 	<string id="20582" value="鄰居 %s 轉送了一個無效長度的 pong 封包, 忽略."/>
 	<string id="20583" value="鄰居 %s 轉送了一個無效長度的推播封包, 忽略中."/>
 	<string id="20584" value="鄰居 %s 轉送了一個過大的封包大小, 正在忽略連線."/>
-	<string id="20585" value="鄰居 %s 轉送了一個無法辨認的封包 (0x%.2x), 忽略中."/>
-	<string id="20586" value="鄰居 %s 轉送了一個無效位址資料的 pong, 忽略中."/>
+	<string id="20586" value="鄰居 %s 轉送了一個無法辨認的封包 (0x%.2x), 忽略中."/>
+	<string id="20587" value="鄰居 %s 轉送了一個無效位址資料的 pong, 忽略中."/>
 	<string id="20588" value="鄰居 %s 轉送了一個推播要求至 a firewalled 位址, 忽略中."/>
 	<string id="20590" value="遠端操控已經停用"/>
 	<string id="20591" value="http://%s:%i/remote - 您必須選擇一個使用者名稱與密碼"/>
@@ -3168,13 +3169,14 @@
 	<string id="20870" value="無法解析 URL: PeerProject 不了解這個 URL."/>
 	<string id="20871" value="接收到 URL &quot;%s&quot;"/>
 	<string id="20872" value="類型:"/>
-	<string id="20874" value="沒有特別指定"/>
-	<string id="20875" value="URL:"/>
+	<string id="20874" value="URL:"/>
+	<string id="20875" value="沒有特別指定"/>
 	<string id="20880" value="編輯我的個人檔案"/>
-	<string id="20881" value="切換檢視方式將關閉任何已開啟的視窗. 您確定要切換嗎?"/>
-	<string id="20882" value="UPnP Device Host 服务未运行.请重新设置该服务.\n您需要将该服务的启动类型设置为&quot;自动&quot;."/>
-	<string id="20884" value="沒有可用的 URN"/>
-	<string id="20885" value="改變介面顯示方向需要重新啟動 PeerProject.\n您必須要手動啟動. 現在要離開嗎?"/>
+	<string id="20881" value="%u 張影像選擇。你肯定嗎？"/>
+	<string id="20882" value="沒有可用的 URN"/>
+	<string id="20883" value="UPnP Device Host 服务未运行.请重新设置该服务.\n您需要将该服务的启动类型设置为&quot;自动&quot;."/>
+	<string id="20885" value="切換檢視方式將關閉任何已開啟的視窗. 您確定要切換嗎?"/>
+	<string id="20886" value="改變介面顯示方向需要重新啟動 PeerProject.\n您必須要手動啟動. 現在要離開嗎?"/>
 	<string id="20890" value="歡迎使用 PeerProject"/>
 	<string id="20891" value="離開"/>
 	<string id="20892" value="请稍候: 更新 edonkey 服务器列表..."/>

@@ -278,7 +278,7 @@ CQueryHit* CQueryHit::FromG1Packet(CG1Packet* pPacket, int* pnHops)
 			bBogus = TRUE;
 
 		if ( bBogus )
-			pPacket->Debug( _T("Malformed hit.") );
+			DEBUG_ONLY( pPacket->Debug( _T("Bogus hit.") ) );
 	}
 	catch ( CException* pException )
 	{
@@ -890,7 +890,7 @@ CQueryHit* CQueryHit::FromDCPacket(CDCPacket* pPacket)
 		pHit->m_pVendor = VendorCache.m_pNull;
 
 	// Hub
-	pHit->m_bPush		= TRI_TRUE;	// Always
+	pHit->m_bPush		= TRI_TRUE;		// Always
 	pHit->m_pAddress	= *(const IN_ADDR*)&nHubAddress;
 	pHit->m_nPort		= (WORD)nHubPort;
 	pHit->m_sCountry	= theApp.GetCountryCode( *(const IN_ADDR*)&nHubAddress );
@@ -1156,7 +1156,7 @@ void CQueryHit::ReadG1Packet(CG1Packet* pPacket)
 	m_nSize		= pPacket->ReadLongLE();
 	m_bSize		= TRUE;
 
-	if ( Settings.Gnutella1.QueryHitUTF8 ) //Support UTF-8 Query
+	if ( Settings.Gnutella1.QueryHitUTF8 )	// Support UTF-8 Query
 		m_sName	= pPacket->ReadStringUTF8();
 	else
 		m_sName	= pPacket->ReadStringASCII();
@@ -1643,7 +1643,7 @@ bool CQueryHit::ReadG2Packet(CG2Packet* pPacket, DWORD nLength)
 			case G2_PACKET_BOGUS:
 #ifndef LAN_MODE
 				m_bBogus = TRUE;
-#endif // LAN_MODE
+#endif // LAN
 				break;
 
 			case G2_PACKET_COLLECTION:

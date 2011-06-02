@@ -127,13 +127,16 @@ void CTransfers::Remove(CTransfer* pTransfer)
 
 void CTransfers::OnRun()
 {
+//	if ( theApp.m_bIsVistaOrNewer )
+//		::SetThreadPriority( GetCurrentThread(), THREAD_MODE_BACKGROUND_BEGIN );	// Too Aggressive
+
 	while ( IsThreadEnabled() )
 	{
-		Doze( Settings.General.MinTransfersRest );
+		Sleep( Settings.General.MinTransfersRest );		// Doze?
 
 		if ( ! theApp.m_bLive )
 		{
-			Sleep( 500 );	// Sleep(0) ?
+			Sleep( 0 );
 			continue;
 		}
 
@@ -177,7 +180,7 @@ void CTransfers::OnRunTransfers()
 		return;
 
 	// Overload protection: Spend no more than 300 ms here at once
-	DWORD nBegin = GetTickCount();
+	const DWORD nBegin = GetTickCount();
 	CSingleLock oLock( &m_pSection, FALSE );
 	if ( ! oLock.Lock( 250 ) )
 		return;

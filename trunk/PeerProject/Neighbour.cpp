@@ -278,7 +278,7 @@ BOOL CNeighbour::OnRun()
 
 	if ( m_nState == nrsConnecting )
 	{
-		if ( tNow - m_tConnected > Settings.Connection.TimeoutConnect )
+		if ( tNow >= m_tConnected + Settings.Connection.TimeoutConnect )
 		{
 			Close( IDS_CONNECTION_TIMEOUT_CONNECT );
 			return FALSE;
@@ -286,7 +286,7 @@ BOOL CNeighbour::OnRun()
 	}
 	else if ( m_nState < nrsConnected )
 	{
-		if ( tNow - m_tConnected > Settings.Connection.TimeoutHandshake )
+		if ( tNow >= m_tConnected + Settings.Connection.TimeoutHandshake )
 		{
 			Close( IDS_HANDSHAKE_TIMEOUT );
 			return FALSE;
@@ -296,7 +296,7 @@ BOOL CNeighbour::OnRun()
 	{
 		if ( m_nProtocol != PROTOCOL_ED2K &&	// ED2K has no keep-alive
 			 m_nProtocol != PROTOCOL_DC &&		// DC++ has no keep-alive
-			 tNow - m_tLastPacket > Settings.Connection.TimeoutTraffic )
+			 tNow >= m_tLastPacket + Settings.Connection.TimeoutTraffic )
 		{
 			// Close the connection, citing traffic timeout as the reason, and return false
 			Close( IDS_CONNECTION_TIMEOUT_TRAFFIC );
@@ -421,7 +421,8 @@ BOOL CNeighbour::OnWrite()
 
 	// If it's been more than 2 seconds since we've flushed the compressed output buffer to the remote computer, set the flag to do it next
 	const DWORD tNow = GetTickCount();
-	if ( tNow - m_tZOutput >= Z_TIMER ) m_bZFlush = TRUE;
+	if ( tNow >= m_tZOutput + Z_TIMER )
+		m_bZFlush = TRUE;
 
 	// Loop until all the data in ZOutput has been compressed into Output
 	while ( ( m_pZOutput->m_nLength && ! pOutput->m_nLength )	// ZOutput has data to compress and Output is empty
@@ -486,7 +487,7 @@ BOOL CNeighbour::OnCommonHit(CPacket* pPacket)
 
 	if ( pHits == NULL )
 	{
-		pPacket->Debug( _T("Malformed Hit") );
+		DEBUG_ONLY( pPacket->Debug( _T("Malformed Hit") ) );
 		theApp.Message( MSG_ERROR, IDS_PROTOCOL_BAD_HIT, (LPCTSTR)m_sAddress );
 		m_nDropCount++;
 		if ( m_nProtocol == PROTOCOL_G1 )
@@ -498,7 +499,7 @@ BOOL CNeighbour::OnCommonHit(CPacket* pPacket)
 
 	if ( Security.IsDenied( &pHits->m_pAddress ) )
 	{
-		pPacket->Debug( _T("Security manager denied Hit") );
+	//	DEBUG_ONLY( pPacket->Debug( _T("Security manager denied Hit") ) );
 		theApp.Message( MSG_ERROR, IDS_PROTOCOL_BAD_HIT, (LPCTSTR)m_sAddress );
 		m_nDropCount++;
 		if ( m_nProtocol == PROTOCOL_G1 )
@@ -596,6 +597,6 @@ void CNeighbour::GetCompression(float* pnInRate, float* pnOutRate)
 
 DWORD CNeighbour::GetMaxTTL() const
 {
-	return ( m_nMaxTTL != (DWORD)-1 ) ? min( m_nMaxTTL, Settings.Gnutella1.SearchTTL ) :
-		Settings.Gnutella1.SearchTTL;
+	return ( m_nMaxTTL != (DWORD)-1 ) ?
+		min( m_nMaxTTL, Settings.Gnutella1.SearchTTL ) : Settings.Gnutella1.SearchTTL;
 }

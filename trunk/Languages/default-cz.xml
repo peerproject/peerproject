@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Czech Skin File -->
 
-<!-- Translation based on default-en.xml r66 (Shareaza 2.2.5.7) -->
+<!-- Translation based on default-en.xml r67 (Shareaza 2.2.5.7) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2353,8 +2353,8 @@
 	<tip id="ID_LIBRARY_ALBUM_DELETE" message="Vymazat označené album ve složce."/>
 	<tip id="ID_LIBRARY_ALBUM_OPEN" message="Otevřít označené album ve složce."/>
 	<tip id="ID_LIBRARY_ALBUM_PROPERTIES" message="Prohlížet a upravit vlastnosti označeného alba ve složce..."/>
-	<tip id="ID_LIBRARY_BITZI_DOWNLOAD" message="Stahovat popisky pro vybraný soubor(y) z Bitzi(TM)..."/>
-	<tip id="ID_LIBRARY_BITZI_WEB" message="Prohlížet záznam Bitzi(TM) pro vybraný soubor na webu."/>
+	<tip id="ID_LIBRARY_BITZI_DOWNLOAD" message="Stahovat popisky pro vybraný soubor(y) z Bitzi™..."/>
+	<tip id="ID_LIBRARY_BITZI_WEB" message="Prohlížet záznam Bitzi™ pro vybraný soubor na webu."/>
 	<tip id="ID_LIBRARY_COLUMNS" message="Vybrat popisky sloupce které budou zobrazeny..."/>
 	<tip id="ID_LIBRARY_COPY" message="Kopírovat vybrané soubory do další složky knihovny..."/>
 	<tip id="ID_LIBRARY_CREATETORRENT" message="Vytvořit .torrent pro tento soubor, můžete jej tak poskytnout na webu."/>
@@ -2715,13 +2715,13 @@
 	<string id="20184" value="Žádám o soukromou konverzaci s uživatelem..."/>
 	<string id="20185" value="Ověření uživatele "/>
 	<string id="20186" value="Přijato připojení od %s, komunikuji..."/>
-	<string id="20188" value="Žádám firewall o povolení k připojení do %s..."/>
-	<string id="20190" value="Spojení selhalo kvůli nesprávným datům na lince."/>
-	<string id="20191" value="Přijata nesrozumitelná odpověď: %s"/>
-	<string id="20192" value="Nejste připojeni."/>
-	<string id="20193" value="Nepřípustný příkaz &quot;%s&quot;."/>
-	<string id="20194" value="Tato šablona neobsahuje žádné přizpůsobení."/>
-	<string id="20195" value="Tato šablona je neplatná."/>
+	<string id="20187" value="Žádám firewall o povolení k připojení do %s..."/>
+	<string id="20188" value="Spojení selhalo kvůli nesprávným datům na lince."/>
+	<string id="20189" value="Přijata nesrozumitelná odpověď: %s"/>
+	<string id="20190" value="Nejste připojeni."/>
+	<string id="20191" value="Nepřípustný příkaz &quot;%s&quot;."/>
+	<string id="20196" value="Tato šablona neobsahuje žádné přizpůsobení."/>
+	<string id="20197" value="Tato šablona je neplatná."/>
 	<string id="20199" value="(zavřít po dokončení přenosu)"/>
 	<string id="20200" value="Přidávám &quot;%s&quot; pro stahování z fronty od zdroje %i."/>
 	<string id="20201" value="Tento soubor &quot;%s&quot; se již stahuje, přidávám další zdroje."/>
@@ -2877,14 +2877,15 @@
 	<string id="20372" value="Poměr Gnutella přijatých/odeslaných Pings"/>
 	<string id="20373" value="Poměr Gnutella přijatých/odeslaných Pongs"/>
 	<string id="20374" value="Místní dotazy Gnutelly"/>
-	<string id="20375" value="Přesměrované pakety Gnutelly"/>
-	<string id="20376" value="Celková šířka pásma pro příjem"/>
-	<string id="20377" value="Celková šířka pásma pro přenos"/>
-	<string id="20378" value="Celková šířka pásma TCP pro příjem"/>
-	<string id="20379" value="Celková šířka pásma TCP pro přenos"/>
-	<string id="20380" value="Celková šířka pásma UDP pro příjem"/>
-	<string id="20381" value="Celková šířka pásma UDP pro přenos"/>
-	<string id="20382" value="Šířka pásma pro odesílání"/>
+	<string id="20375" value="Místní dotazy Gnutelly"/>
+	<string id="20376" value="Přesměrované pakety Gnutelly"/>
+	<string id="20377" value="Celková šířka pásma pro příjem"/>
+	<string id="20378" value="Celková šířka pásma pro přenos"/>
+	<string id="20379" value="Celková šířka pásma TCP pro příjem"/>
+	<string id="20380" value="Celková šířka pásma TCP pro přenos"/>
+	<string id="20381" value="Celková šířka pásma UDP pro příjem"/>
+	<string id="20382" value="Celková šířka pásma UDP pro přenos"/>
+	<string id="20383" value="Šířka pásma pro odesílání"/>
 	<string id="20384" value="Počet spojení pro odesílání"/>
 	<string id="20385" value="Sousední spojení %s vypadlo zpět do chráněného režimu."/>
 	<string id="20386" value="Zůstávající spojení z %s bylo pokynem hosta ukonečno (%s port %i)."/>
@@ -3054,8 +3055,8 @@
 	<string id="20582" value="Soused %s poslal pong na paket s nesprávnou délkou, ignoruji."/>
 	<string id="20583" value="Soused %s poslal paket s nesprávnou délkou, ignoruji."/>
 	<string id="20584" value="Soused %s odeslal paket nadměrné velikosti, spadlo spojení."/>
-	<string id="20585" value="Soused %s poslal neznámý paket (0x%.2x), ignoruji."/>
-	<string id="20586" value="Soused %s poslal pong s nesprávnými adresnými daty, ignoruji."/>
+	<string id="20586" value="Soused %s poslal neznámý paket (0x%.2x), ignoruji."/>
+	<string id="20587" value="Soused %s poslal pong s nesprávnými adresnými daty, ignoruji."/>
 	<string id="20588" value="Soused %s násilím prosadil žádost na adresu firewallu, ignoruji."/>
 	<string id="20590" value="Vzdálený přístup je vypnutý."/>
 	<string id="20591" value="http://%s:%i/remote - Musíte zadat uživatelské jméno a heslo."/>
@@ -3274,13 +3275,14 @@
 	<string id="20870" value="Nelze analyzovat URL: PeerProject nerozumí tomuto URL."/>
 	<string id="20871" value="Přijato URL &quot;%s&quot;"/>
 	<string id="20872" value="Typ:"/>
-	<string id="20874" value="Nespecifikované"/>
-	<string id="20875" value="URL:"/>
+	<string id="20874" value="URL:"/>
+	<string id="20875" value="Nespecifikované"/>
 	<string id="20880" value="Upravit vlastní profil"/>
-	<string id="20881" value="Změna prohlížeče musí zavřít všechna okna které máte otevřená. Chcete pokračovat"/>
-	<string id="20882" value="Služba UPnP zařízení není spuštěna. Tato služba je nutná pro nastavení zařízení.\nNastavte typ spouštění této služby na automatický."/>
-	<string id="20884" value="Žadné URN není dostupné"/>
-	<string id="20885" value="Změna směru vyžaduje restart.\nBudete muset spustit PeerProject ručně. Ukončit?"/>
+	<string id="20881" value="%u vybraných souborů. Jste si jisti?"/>
+	<string id="20882" value="Žadné URN není dostupné"/>
+	<string id="20883" value="Služba UPnP zařízení není spuštěna. Tato služba je nutná pro nastavení zařízení.\nNastavte typ spouštění této služby na automatický."/>
+	<string id="20885" value="Změna prohlížeče musí zavřít všechna okna které máte otevřená. Chcete pokračovat"/>
+	<string id="20886" value="Změna směru vyžaduje restart.\nBudete muset spustit PeerProject ručně. Ukončit?"/>
 	<string id="20890" value="Vítejte v PeerProject"/>
 	<string id="20891" value="K&amp;onec"/>
 	<string id="20892" value="Prosím čekejte, aktualizuji seznam eDonkey serverů..."/>

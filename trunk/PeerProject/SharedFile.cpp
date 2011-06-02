@@ -268,7 +268,7 @@ BOOL CLibraryFile::IsRatedOnly() const
 
 BOOL CLibraryFile::IsHashed() const
 {
-	return m_oSHA1 && m_oTiger && m_oMD5 && m_oED2K; // m_oBTH ignored
+	return m_oSHA1 && m_oTiger && m_oMD5 && m_oED2K;	// m_oBTH ignored
 }
 
 BOOL CLibraryFile::IsNewFile() const
@@ -762,9 +762,7 @@ void CLibraryFile::Serialize(CArchive& ar, int nVersion)
 		ar >> m_nIndex;
 
 		//if ( nVersion >= 17 )
-		//{
-		ar >> m_nSize;
-		//}
+			ar >> m_nSize;
 		//else
 		//{
 		//	DWORD nSize;
@@ -775,9 +773,7 @@ void CLibraryFile::Serialize(CArchive& ar, int nVersion)
 		ReadArchive( ar, &m_pTime, sizeof(m_pTime) );
 
 		//if ( nVersion >= 5 )
-		//{
 			ar >> m_bShared;
-		//}
 		//else
 		//{
 		//	BYTE bShared;
@@ -874,7 +870,7 @@ void CLibraryFile::Serialize(CArchive& ar, int nVersion)
 				CSharedSource* pSource = new CSharedSource();
 				if ( pSource == NULL )
 				{
-					theApp.Message( MSG_ERROR, _T("Memory allocation error in CLibraryFile::Serialize") );
+				//	theApp.Message( MSG_DEBUG, _T("Memory allocation error in CLibraryFile::Serialize") );
 					break;
 				}
 				pSource->Serialize( ar, nVersion );
@@ -1285,13 +1281,14 @@ STDMETHODIMP CLibraryFile::XLibraryFile::put_Metadata(ISXMLElement FAR* pXML)
 STDMETHODIMP CLibraryFile::XLibraryFile::Execute()
 {
 	METHOD_PROLOGUE( CLibraryFile, LibraryFile )
-	return CFileExecutor::Execute( pThis->GetPath(), TRUE ) ? S_OK : E_FAIL;
+	return CFileExecutor::Execute( pThis->GetPath() ) ? S_OK : E_FAIL;
 }
 
 STDMETHODIMP CLibraryFile::XLibraryFile::SmartExecute()
 {
+	// ToDo: Remove this redundant function
 	METHOD_PROLOGUE( CLibraryFile, LibraryFile )
-	return CFileExecutor::Execute( pThis->GetPath(), FALSE ) ? S_OK : E_FAIL;
+	return CFileExecutor::Execute( pThis->GetPath() ) ? S_OK : E_FAIL;
 }
 
 STDMETHODIMP CLibraryFile::XLibraryFile::Delete()

@@ -1,7 +1,7 @@
 //
 // DownloadGroup.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -133,10 +133,9 @@ BOOL CDownloadGroup::Link(CDownload* pDownload)
 		}
 	}
 
-	if ( pDownload->IsTorrent() && ! pDownload->IsSingleFileTorrent() &&
-		CheckURI( m_sSchemaURI, CSchema::uriBitTorrent ) )	// Multifile Torrent Package addition to Schema (Was m_bTorrent)
+	if ( pDownload->IsMultiFileTorrent() && CheckURI( m_sSchemaURI, CSchema::uriBitTorrent ) )
 	{
-		// Filter by BitTorrent flag last
+		// Filter by BitTorrent flag last  (Multifile Torrent Package addition to Schema, was m_bTorrent)
 		Add( pDownload );
 		return TRUE;
 	}
@@ -194,7 +193,7 @@ void CDownloadGroup::SetSchema(LPCTSTR pszURI, BOOL bRemoveOldFilters)
 		{
 			if ( CSchemaPtr pOldSchema = SchemaCache.Get( m_sSchemaURI ) )
 			{
-				for ( LPCTSTR start = pOldSchema->m_sTypeFilter; *start; start++ )
+				for ( LPCTSTR start = pOldSchema->m_sTypeFilter ; *start ; start++ )
 				{
 					LPCTSTR c = _tcschr( start, _T('|') );
 					int len = c ? (int) ( c - start ) : (int) _tcslen( start );
@@ -237,7 +236,7 @@ void CDownloadGroup::SetDefaultFilters()
 {
 	if ( CSchemaPtr pSchema = SchemaCache.Get( m_sSchemaURI ) )
 	{
-		for ( LPCTSTR start = pSchema->m_sTypeFilter; *start; start++ )
+		for ( LPCTSTR start = pSchema->m_sTypeFilter ; *start ; start++ )
 		{
 			LPCTSTR c = _tcschr( start, _T('|') );
 			int len = c ? (int) ( c - start ) : (int) _tcslen( start );

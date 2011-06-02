@@ -56,6 +56,8 @@ protected:
 	BOOL				m_bTypeED;
 	BOOL				m_bTypeDC;
 	BOOL				m_bTypeBT;
+	BOOL				m_bTCP;
+	BOOL				m_bUDP;
 	CImageList			m_gdiImageList;
 	CListCtrl			m_wndList;
 	CLiveListSizer		m_pSizer;

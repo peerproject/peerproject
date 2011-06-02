@@ -106,7 +106,8 @@ BOOL CChatSession::Connect()
 		return TRUE;
 
 	// If we are already connected/handshaking/connecting, don't try again.
-	if ( m_nState > cssNull ) return FALSE;
+	if ( m_nState > cssNull )
+		return FALSE;
 
 	if ( m_bMustPush )
 	{
@@ -308,12 +309,11 @@ void CChatSession::OnDropped()
 
 BOOL CChatSession::OnRun()
 {
+	// ED2K chat sessions don't have real connections, ED2K Client just puts the packets into the buffer.
 	if ( m_nProtocol == PROTOCOL_ED2K )
-	{
-		// ed2k chat sessions don't have real connections, ED2K Client just puts the packets into the buffer.
 		return ( ReadPacketsED2K() && SendPacketsED2K() );
-	}
-	else if ( m_nState > cssNull && m_nState < cssActive )
+
+	if ( m_nState > cssNull && m_nState < cssActive )
 	{
 		DWORD nDelay = GetTickCount() - m_tConnected;
 
@@ -517,17 +517,14 @@ BOOL CChatSession::ReadPacketsED2K()
 		{
 			// Note: This isn't a "real" packet parser. Message packets are simply dumped into
 			// the input buffer by the EDClient, so all packets should be valid ED2K chat messages.
-			if ( ( pPacket->m_nEdProtocol == ED2K_PROTOCOL_EDONKEY ) &&
-				( pPacket->m_nType == ED2K_C2C_MESSAGE ) )
+			if ( pPacket->m_nEdProtocol == ED2K_PROTOCOL_EDONKEY &&
+				 pPacket->m_nType == ED2K_C2C_MESSAGE )
 			{
 				bSuccess = OnChatMessage( pPacket );
 			}
 			else
 			{
-				CString str;
-				str.Format( _T("Unrecognised packet - IP: %s - in CChatSession::ReadPacketsED2K"),
-					LPCTSTR( m_sAddress ) );
-				pPacket->Debug( str );
+				DEBUG_ONLY( pPacket->Debug( _T("Unknown ED2K Chat packet from ") + m_sAddress ) );
 			}
 		}
 		catch ( CException* pException )
@@ -860,11 +857,13 @@ BOOL CChatSession::OnPacket(CG2Packet* pPacket)
 	//	return TRUE;	// ToDo: Away?
 	}
 
-	CString tmp;
-	tmp.Format( _T("Received unexpected G2 Chat packet from %s:%u"),
+#ifdef _DEBUG
+	CString str;
+	str.Format( _T("Unknown G2 Chat packet from %s:%u"),
 		(LPCTSTR)CString( inet_ntoa( m_pHost.sin_addr ) ),
 		htons( m_pHost.sin_port ) );
-	pPacket->Debug( tmp );
+	pPacket->Debug( str );
+#endif	// Debug
 
 	return TRUE;
 }
@@ -1031,7 +1030,7 @@ BOOL CChatSession::OnChatAnswer(CG2Packet* pPacket)
 
 		case G2_PACKET_CHAT_DENY:
 			StatusMessage( 1, IDS_CHAT_PRIVATE_REFUSED, m_sUserNick );
-			ret = FALSE; // Close connection
+			ret = FALSE;	// Close connection
 			break;
 
 		case G2_PACKET_CHAT_AWAY:

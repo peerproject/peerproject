@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default German Skin File -->
 
-<!-- Translation based on default-en.xml r66 -->
+<!-- Translation based on default-en.xml r67 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -180,7 +180,7 @@
 		<button id="ID_TOOLS_DOWNLOAD" text="Download / Torrent hinzufügen..."/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Aufräumen"/>
 		<separator/>
-		<button id="ID_DOWNLOADS_FILTER_MENU" text="Downloadfilter"/>
+		<button id="ID_DOWNLOADS_FILTER_MENU" text="Filtern"/>
 	</toolbar>
 	<!-- UPLOADS WINDOW -->
 	<toolbar name="CUploadsWnd.Basic">
@@ -203,7 +203,7 @@
 		<rightAlign/>
 		<button id="ID_UPLOADS_CLEAR_COMPLETED" text="Aufräumen"/>
 		<separator/>
-		<button id="ID_UPLOADS_FILTER_MENU" text="Uploadfilter"/>
+		<button id="ID_UPLOADS_FILTER_MENU" text="Filtern"/>
 	</toolbar>
 	<!-- LIBRARY FRAME -->
 	<toolbar name="CLibraryTree.Top">
@@ -875,7 +875,7 @@
 				<item id="ID_HELP_CODEC" text="_Codec-Hilfe"/>
 			</menu>
 			<separator/>
-			<menu text="_Websites">
+			<menu text="_Webseiten">
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProjekt's Homepage"/>
 				<item id="ID_HELP_FORUMS" text="PeerProjekt-_Forum"/>
 				<item id="ID_HELP_FORUMS_LOCAL" text="_Deutsch Forum"/>
@@ -2515,8 +2515,8 @@
 	<tip id="ID_LIBRARY_ALBUM_DELETE" message="Das markierte Album löschen."/>
 	<tip id="ID_LIBRARY_ALBUM_OPEN" message="Das Album öffnen."/>
 	<tip id="ID_LIBRARY_ALBUM_PROPERTIES" message="Die Eigenschaften des markierten Albums anzeigen und bearbeiten..."/>
-	<tip id="ID_LIBRARY_BITZI_DOWNLOAD" message="Metadaten für die markierte(n) Datei(en) von Bitzi(TM) herunterladen..." tip="Metadaten suchen"/>
-	<tip id="ID_LIBRARY_BITZI_WEB" message="Das Bitzi(TM)-Ticket für die markierte Datei im Browser anzeigen." tip="Bitzi-Ticket anzeigen"/>
+	<tip id="ID_LIBRARY_BITZI_DOWNLOAD" message="Metadaten für die markierte(n) Datei(en) von Bitzi™ herunterladen..." tip="Metadaten suchen"/>
+	<tip id="ID_LIBRARY_BITZI_WEB" message="Das Bitzi™-Ticket für die markierte Datei im Browser anzeigen." tip="Bitzi-Ticket anzeigen"/>
 	<tip id="ID_LIBRARY_COLUMNS" message="Spalten zum Anzeigen der Metadaten auswählen..." tip="Spalten auswählen..."/>
 	<tip id="ID_LIBRARY_COPY" message="Die markierten Dateien in einen anderen Ordner kopieren..." tip="Dateien kopieren..."/>
 	<tip id="ID_LIBRARY_CREATETORRENT" message="Einen .torrent für diese Datei erstellen, um sie auf eine Webseite hochzuladen."/>
@@ -2881,13 +2881,13 @@
 	<string id="20184" value="Private Unterhaltung mit Benutzer anfordern..."/>
 	<string id="20185" value="Authentifizierter Benutzer "/>
 	<string id="20186" value="Push-Verbindung von %s akzeptiert, handshaking..."/>
-	<string id="20188" value="Push-Verbindung von %s anfordern..."/>
-	<string id="20190" value="Verbindung wegen ungültiger Daten in der Leitung fehlgeschlagen"/>
-	<string id="20191" value="Unbekannte Antwort empfangen: %s"/>
-	<string id="20192" value="Sie sind nicht verbunden."/>
-	<string id="20193" value="Unbekanntes Kommando &quot;%s&quot;."/>
-	<string id="20194" value="Diese Vorlage kann nicht angepasst werden."/>
-	<string id="20195" value="Diese Vorlage ist ungültig."/>
+	<string id="20187" value="Push-Verbindung von %s anfordern..."/>
+	<string id="20188" value="Verbindung wegen ungültiger Daten in der Leitung fehlgeschlagen"/>
+	<string id="20189" value="Unbekannte Antwort empfangen: %s"/>
+	<string id="20190" value="Sie sind nicht verbunden."/>
+	<string id="20191" value="Unbekanntes Kommando &quot;%s&quot;."/>
+	<string id="20196" value="Diese Vorlage kann nicht angepasst werden."/>
+	<string id="20197" value="Diese Vorlage ist ungültig."/>
 	<string id="20199" value="(Nach Transfer schließen)"/>
 	<string id="20200" value="&quot;%s&quot; zur Downloadliste mit %i Quelle(n) hinzugefügt."/>
 	<string id="20201" value="Die Datei &quot;%s&quot; wird schon heruntergeladen, Quellen hinzugefügt."/>
@@ -3044,14 +3044,15 @@
 	<string id="20372" value="Gnutella-Ratio empfangener / gesendeter Pings"/>
 	<string id="20373" value="Gnutella-Ratio empfangener / gesendeter Pongs"/>
 	<string id="20374" value="Lokale Gnutella-Anfragen"/>
-	<string id="20375" value="Geroutete Gnutella-Pakete"/>
-	<string id="20376" value="Gesamte Empfangsgeschwindigkeit"/>
-	<string id="20377" value="Gesamte Sendegeschwindigkeit"/>
-	<string id="20378" value="Gesamte TCP-Empfangsgeschwindigkeit"/>
-	<string id="20379" value="Gesamte TCP-Sendegeschwindigkeit"/>
-	<string id="20380" value="Gesamte UDP-Empfangsgeschwindigkeit"/>
-	<string id="20381" value="Gesamte UDP-Sendegeschwindigkeit"/>
-	<string id="20382" value="Uploadgeschwindigkeit"/>
+	<string id="20375" value="Lokale Gnutella-Anfragen"/>
+	<string id="20376" value="Geroutete Gnutella-Pakete"/>
+	<string id="20377" value="Gesamte Empfangsgeschwindigkeit"/>
+	<string id="20378" value="Gesamte Sendegeschwindigkeit"/>
+	<string id="20379" value="Gesamte TCP-Empfangsgeschwindigkeit"/>
+	<string id="20380" value="Gesamte TCP-Sendegeschwindigkeit"/>
+	<string id="20381" value="Gesamte UDP-Empfangsgeschwindigkeit"/>
+	<string id="20382" value="Gesamte UDP-Sendegeschwindigkeit"/>
+	<string id="20383" value="Uploadgeschwindigkeit"/>
 	<string id="20384" value="Anzahl Uploadtransfers"/>
 	<string id="20385" value="Verbindung mit %s herstellen. Rückkehr in den shielded-leaf Modus."/>
 	<string id="20386" value="Überflüssige Verbindung mit %s geschlossen, Host-Liste übertragen (%s Port %i)."/>
@@ -3229,8 +3230,8 @@
 	<string id="20582" value="Host %s hat ein Pong-Paket mit ungültiger Länge weitergeleitet, ignoriert."/>
 	<string id="20583" value="Host %s hat ein push-Paket mit ungültiger Länge weitergeleitet, ignoriert."/>
 	<string id="20584" value="Host %s hat ein zu großes Paket weitergeleitet, Verbindung getrennt."/>
-	<string id="20585" value="Host %s hat ein unbekanntes Paket weitergeleitet (0x%.2x), ignoriert."/>
-	<string id="20586" value="Host %s hat einen Pong mit ungültigen Adressdaten weitergeleitet, ignoriert."/>
+	<string id="20586" value="Host %s hat ein unbekanntes Paket weitergeleitet (0x%.2x), ignoriert."/>
+	<string id="20587" value="Host %s hat einen Pong mit ungültigen Adressdaten weitergeleitet, ignoriert."/>
 	<string id="20588" value="Host %s hat einen push-request an eine Adresse mit geschlossener Firewall weitergeleitet, ignoriert."/>
 	<string id="20590" value="Remote-Zugriff ist deaktiviert."/>
 	<string id="20591" value="http://%s:%i/remote - Benutzername und Passwort angeben."/>
@@ -3466,13 +3467,14 @@
 	<string id="20870" value="Auswertung der URL nicht möglich: PeerProjekt versteht die URL nicht."/>
 	<string id="20871" value="URL &quot;%s&quot; empfangen"/>
 	<string id="20872" value="Typ:"/>
-	<string id="20874" value="Undefiniert"/>
-	<string id="20875" value="URL:"/>
+	<string id="20874" value="URL:"/>
+	<string id="20875" value="Undefiniert"/>
 	<string id="20880" value="Mein Profil bearbeiten"/>
-	<string id="20881" value="Das Wechseln der Ansicht schließt alle offenen Fenster. Wollen Sie die Ansicht jetzt wechseln?"/>
-	<string id="20882" value="SSDP-Host-Service ist nicht gestartet. Dieser Dienst wird benötigt, um die Installation durchzuführen.\nEs ist erforderlich, dass das Merkmal dieses Dienstes auf Automatisch eingestellt ist."/>
-	<string id="20884" value="Keine URN verfügbar."/>
-	<string id="20885" value="Der Wechsel der Schreibrichtung erfordert einen Neustart.\nJetzt beenden?"/>
+	<string id="20881" value="%u Dateien ausgewählt. Sind Sie sicher?"/>
+	<string id="20882" value="Keine URN verfügbar."/>
+	<string id="20883" value="SSDP-Host-Service ist nicht gestartet. Dieser Dienst wird benötigt, um die Installation durchzuführen.\nEs ist erforderlich, dass das Merkmal dieses Dienstes auf Automatisch eingestellt ist."/>
+	<string id="20885" value="Das Wechseln der Ansicht schließt alle offenen Fenster. Wollen Sie die Ansicht jetzt wechseln?"/>
+	<string id="20886" value="Der Wechsel der Schreibrichtung erfordert einen Neustart.\nJetzt beenden?"/>
 	<string id="20890" value="Willkommen bei PeerProjekt"/>
 	<string id="20891" value="&amp;Schließen"/>
 	<string id="20892" value="Bitte warten: eDonkey-Server-Liste wird aktualisiert..."/>

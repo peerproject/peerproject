@@ -3,7 +3,7 @@
 
 <!-- PeerProject/ПеерПројецт Default Serbian Skin File -->
 
-<!-- Translation based on default-en.xml r66 -->
+<!-- Translation based on default-en.xml r67 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2302,8 +2302,8 @@
 	<tip id="ID_LIBRARY_ALBUM_DELETE" message="Obriši odabranu fasciklu albuma."/>
 	<tip id="ID_LIBRARY_ALBUM_OPEN" message="Otvori odabranu fasciklu albuma."/>
 	<tip id="ID_LIBRARY_ALBUM_PROPERTIES" message="Pogledaj i uredi svojstva selektovane album fascikle..."/>
-	<tip id="ID_LIBRARY_BITZI_DOWNLOAD" message="Skini metadata za selektovanu datoteku(e) sa Bitzi(TM)..."/>
-	<tip id="ID_LIBRARY_BITZI_WEB" message="Pogledaj Bitzi(TM) ticket za selektovanu datoteku na netu."/>
+	<tip id="ID_LIBRARY_BITZI_DOWNLOAD" message="Skini metadata za selektovanu datoteku(e) sa Bitzi™..."/>
+	<tip id="ID_LIBRARY_BITZI_WEB" message="Pogledaj Bitzi™ ticket za selektovanu datoteku na netu."/>
 	<tip id="ID_LIBRARY_COLUMNS" message="Selektuj metadata kolone za prikaz..."/>
 	<tip id="ID_LIBRARY_COPY" message="Kopiraj selektovane datoteke u drugu fasciklu kolekcije..."/>
 	<tip id="ID_LIBRARY_CREATETORRENT" message="Create a .torrent for this file to upload to a website."/>
@@ -2615,11 +2615,11 @@
 	<string id="20184" value="Tražim Privatni Razgovor..."/>
 	<string id="20185" value="Korisnik potvrđen"/>
 	<string id="20186" value=" %s Prihvatio Spajanje, Razmjenjujemo Pozdrave..."/>
-	<string id="20188" value="Tražim spajanje preko vatrozida na %s..."/>
-	<string id="20190" value="Povezivanje nije uspelo zbog čudnih podataka."/>
-	<string id="20191" value="Primljen nepoznati odgovor: %s"/>
-	<string id="20192" value="Niste spojeni."/>
-	<string id="20193" value="Nepoznata naredba &quot;%s&quot;."/>
+	<string id="20187" value="Tražim spajanje preko vatrozida na %s..."/>
+	<string id="20188" value="Povezivanje nije uspelo zbog čudnih podataka."/>
+	<string id="20189" value="Primljen nepoznati odgovor: %s"/>
+	<string id="20190" value="Niste spojeni."/>
+	<string id="20191" value="Nepoznata naredba &quot;%s&quot;."/>
 	<string id="20199" value="(zatvaram kad završim)"/>
 	<string id="20200" value="Dodano &quot;%s&quot; u skidanje sa %i izvorom(a)."/>
 	<string id="20201" value="Datoteka &quot;%s&quot; se već skida, dodajem nove izvore."/>
@@ -2766,20 +2766,21 @@
 	<string id="20365" value="Gnutella Transmit Bandwidth"/>
 	<string id="20366" value="Gnutella Veze (Total)"/>
 	<string id="20367" value="Gnutella Veze (Active)"/>
-	<string id="20368" value="Gnutella Packets Dropped"/>
+<!--	<string id="20368" value="Gnutella Packets Dropped"/>
 	<string id="20369" value="Gnutella Packets Lost"/>
 	<string id="20370" value="Gnutella Packets Received"/>
 	<string id="20371" value="Gnutella Packets Transmitted"/>
-	<string id="20374" value="Gnutella Local Queries"/>
-	<string id="20375" value="Gnutella Packets Routed"/>
-	<string id="20376" value="Total Generic Receive Bandwidth"/>
-	<string id="20377" value="Total Generic Transmit Bandwidth"/>
-	<string id="20378" value="Total TCP Receive Bandwidth"/>
-	<string id="20379" value="Total TCP Transmit Bandwidth"/>
-	<string id="20380" value="Total UDP Receive Bandwidth"/>
-	<string id="20381" value="Total UDP Transmit Bandwidth"/>
-	<string id="20382" value="Upload Bandwidth"/>
-	<string id="20384" value="Upload Transfer Count"/>
+	<string id="20374" value="Gnutella Queries Incoming"/>
+	<string id="20375" value="Gnutella Queries Processed"/>
+	<string id="20376" value="Gnutella Packets Routed"/>
+	<string id="20377" value="Total Generic Receive Bandwidth"/>
+	<string id="20378" value="Total Generic Transmit Bandwidth"/>
+	<string id="20379" value="Total TCP Receive Bandwidth"/>
+	<string id="20380" value="Total TCP Transmit Bandwidth"/>
+	<string id="20381" value="Total UDP Receive Bandwidth"/>
+	<string id="20382" value="Total UDP Transmit Bandwidth"/>
+	<string id="20383" value="Upload Bandwidth"/>
+-->	<string id="20384" value="Upload Transfer Count"/>
 	<string id="20385" value="Spojeni sused %s prelazi u zaštićeni leaf način."/>
 	<string id="20386" value="Prekidam višak veza sa %s with host hint (%s port %i)."/>
 	<string id="20387" value="Hub sused %s vas ne prihvata kao hub, prekidam vezu."/>
@@ -3132,12 +3133,13 @@
 	<!--string id="20870" value="Unable to parse URL: PeerProject does not understand this URL."-->
 	<string id="20871" value="Primljen URL &quot;%s&quot;"/>
 	<string id="20872" value="Vrsta:"/>
-	<string id="20874" value="Neodređeno"/>
-	<string id="20875" value="URL:"/>
+	<string id="20874" value="URL:"/>
+	<string id="20875" value="Neodređeno"/>
 	<string id="20880" value="Promeni Moj Profil"/>
-	<string id="20881" value="Menjanje pogleda zatvara sve otvorene prozore. Želite li nastaviti s promenom pogleda?"/>
-	<string id="20884" value="Nema dostupnog URN-a"/>
-	<string id="20885" value="Changing interface direction requires restart. \nYou will need to start PeerProject manually. Exit now?"/>
+	<string id="20881" value="Додадени фајлови: %u изабрана. Јесте ли сигурни?"/>
+	<string id="20882" value="Nema dostupnog URN-a"/>
+	<string id="20885" value="Menjanje pogleda zatvara sve otvorene prozore. Želite li nastaviti s promenom pogleda?"/>
+	<string id="20886" value="Changing interface direction requires restart. \nYou will need to start PeerProject manually. Exit now?"/>
 	<string id="20890" value="Dobrodošli u PeerProject"/>
 	<string id="20891" value="Izlaz"/>
 	<string id="20895" value="Još mi niste zadali brzinu spajanja.Molim Vas da odaberete tip veze prema internetu, ili ručno upišete brzinu."/>

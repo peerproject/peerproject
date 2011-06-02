@@ -71,6 +71,7 @@ CCoolBarCtrl::CCoolBarCtrl()
 	, m_bBold		( FALSE )
 	, m_bDragForward( FALSE )
 	, m_pSyncObject	( NULL )
+	, m_tLastUpdate ( 0 )
 	, m_dwHoverTime	( 0 )
 	, m_bBuffered	( FALSE )
 	, m_bMenuGray	( FALSE )
@@ -282,11 +283,11 @@ UINT CCoolBarCtrl::ThrowMenu(UINT nID, CMenu* pMenu, CWnd* pParent, BOOL bComman
 
 	if ( bCommand ) nFlags |= TPM_RETURNCMD;
 
-#if 1
+//#if 1		// Why?
 	CoolMenu.RegisterEdge( Settings.General.LanguageRTL ? rcButton.right : rcButton.left,
 		rcButton.bottom, rcButton.Width() );
 	bRight = FALSE;
-#endif
+//#endif
 
 	nFlags |= ( bRight ? TPM_RIGHTALIGN : TPM_LEFTALIGN );
 
@@ -307,7 +308,7 @@ void CCoolBarCtrl::OnUpdated()
 	{
 		CSize czLast = m_czLast;
 
-		if ( CalcFixedLayout( FALSE, TRUE ) != czLast && m_hWnd)
+		if ( CalcFixedLayout( FALSE, TRUE ) != czLast && m_hWnd )
 		{
 			CMDIFrameWnd* pOwner = (CMDIFrameWnd*)GetOwner();
 
@@ -329,7 +330,8 @@ void CCoolBarCtrl::OnUpdated()
 
 int CCoolBarCtrl::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
-	if ( CControlBar::OnCreate( lpCreateStruct ) == -1 ) return -1;
+	if ( CControlBar::OnCreate( lpCreateStruct ) == -1 )
+		return -1;
 
 //	if ( Skin.m_bMenuBorders )
 	m_dwStyle |= CBRS_BORDER_3D;
@@ -701,6 +703,11 @@ HBRUSH CCoolBarCtrl::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 
 void CCoolBarCtrl::OnUpdateCmdUI(CFrameWnd* pTarget, BOOL bDisableIfNoHndler)
 {
+	const DWORD tNow = GetTickCount();
+	if ( tNow < m_tLastUpdate + 500 )	// Only refresh occasionally (Twice per second?)
+		return;
+	m_tLastUpdate = tNow;
+
 	UINT nIndex		= 0;
 	BOOL bChanged	= FALSE;
 	BOOL bLocked	= FALSE;
@@ -731,9 +738,11 @@ void CCoolBarCtrl::OnUpdateCmdUI(CFrameWnd* pTarget, BOOL bDisableIfNoHndler)
 		bChanged |= pItem->m_bChanged;
 	}
 
-	if ( bLocked ) m_pSyncObject->Unlock();
+	if ( bLocked )
+		m_pSyncObject->Unlock();
 
-	if ( bChanged ) OnUpdated();
+	if ( bChanged )
+		OnUpdated();
 }
 
 void CCoolBarCtrl::OnMouseMove(UINT nFlags, CPoint point)

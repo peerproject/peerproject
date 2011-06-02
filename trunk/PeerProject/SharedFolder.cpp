@@ -1,7 +1,7 @@
 //
 // SharedFolder.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -127,13 +127,14 @@ CLibraryFolder* CLibraryFolder::GetFolderByName(LPCTSTR pszName) const
 
 	if ( strNextName.IsEmpty() )
 		return pOutput;
-	else
-		return pOutput->GetFolderByName( strNextName );
+
+	return pOutput->GetFolderByName( strNextName );
 }
 
 CLibraryFolder* CLibraryFolder::GetFolderByPath(LPCTSTR pszPath) const
 {
-	if ( m_sPath.CompareNoCase( pszPath ) == 0 ) return (CLibraryFolder*)this;
+	if ( m_sPath.CompareNoCase( pszPath ) == 0 )
+		return (CLibraryFolder*)this;
 
 	for ( POSITION pos = GetFolderIterator() ; pos ; )
 	{
@@ -313,7 +314,7 @@ void CLibraryFolder::Serialize(CArchive& ar, int nVersion)
 			CLibraryFolder* pFolder = new CLibraryFolder( this );
 			if ( pFolder == NULL )
 			{
-				theApp.Message( MSG_ERROR, _T("Memory allocation error in CLibraryFolder::Serialize") );
+			//	theApp.Message( MSG_DEBUG, _T("Memory allocation error in CLibraryFolder::Serialize") );
 				break;
 			}
 			pFolder->Serialize( ar, nVersion );
@@ -332,14 +333,14 @@ void CLibraryFolder::Serialize(CArchive& ar, int nVersion)
 			CLibraryFile* pFile = new CLibraryFile( this );
 			if ( pFile == NULL )
 			{
-				theApp.Message( MSG_ERROR, _T("Memory allocation error in CLibraryFolder::Serialize") );
+			//	theApp.Message( MSG_DEBUG, _T("Memory allocation error in CLibraryFolder::Serialize") );
 				break;
 			}
 			pFile->Serialize( ar, nVersion );
 
 			m_pFiles.SetAt( pFile->GetNameLC(), pFile );
 
-			m_nFiles	++;
+			m_nFiles++;
 			m_nVolume	+= pFile->m_nSize;
 		}
 	}
@@ -359,8 +360,8 @@ CString CLibraryFolder::GetRelativeName() const
 {
 	if ( m_pParent )
 		return m_pParent->GetRelativeName() + _T("\\") + m_sName;
-	else
-		return m_sName;
+
+	return m_sName;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -532,20 +533,17 @@ BOOL CLibraryFolder::IsChanged()
 	{
 		switch ( WaitForSingleObject( m_hMonitor, 0 ) )
 		{
-		case WAIT_TIMEOUT:
-			// No changes
+		case WAIT_TIMEOUT:		// No changes
 			break;
 
-		case WAIT_OBJECT_0:
-			// Changes detected
+		case WAIT_OBJECT_0:		// Changes detected
 			bChanged = TRUE;
 
 			// Reset monitor
 			if ( FindNextChangeNotification( m_hMonitor ) )
 				break;
 
-		default:
-			// Errors
+		default:				// Errors
 			CloseMonitor();
 		}
 	}

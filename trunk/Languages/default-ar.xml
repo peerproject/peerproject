@@ -3,7 +3,7 @@
 
 <!-- PeerProject Arabic Language Skin File -->
 
-<!-- Translation based on default-en.xml r66 -->
+<!-- Translation based on default-en.xml r67 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2405,8 +2405,8 @@
 	<tip id="ID_LIBRARY_ALBUM_DELETE" message="حذف مجلد الألبوم المحدد" />
 	<tip id="ID_LIBRARY_ALBUM_OPEN" message="فتح مجلد الألبوم المحدد" />
 	<tip id="ID_LIBRARY_ALBUM_PROPERTIES" message="عرض و تحرير الخصائص لمجلد الألبوم المحدد..." />
-	<tip id="ID_LIBRARY_BITZI_DOWNLOAD" message="تحميل بيانات التعريف للملف المحدد من Bitzi(TM)..." />
-	<tip id="ID_LIBRARY_BITZI_WEB" message="عرض بطاقة Bitzi(TM) للملف المحدد على الشبكة" />
+	<tip id="ID_LIBRARY_BITZI_DOWNLOAD" message="تحميل بيانات التعريف للملف المحدد من Bitzi™..." />
+	<tip id="ID_LIBRARY_BITZI_WEB" message="عرض بطاقة Bitzi™ للملف المحدد على الشبكة" />
 	<tip id="ID_LIBRARY_COLUMNS" message="تحديد أعمدة بيانات التعريف للعرض..." />
 	<tip id="ID_LIBRARY_COPY" message="إنسخ الملفات المحددة إلى مجلد مكتبة آخر..." />
 	<tip id="ID_LIBRARY_CREATETORRENT" message="إنشاء .torrent لهذا الملف لرفعه إلى أي موقع على الشبكة" />
@@ -2771,13 +2771,13 @@
 	<string id="20184" value="Requesting private conversation with user..." />
 	<string id="20185" value="Authenticated user " />
 	<string id="20186" value="Accepted push connection from %s, handshaking..." />
-	<string id="20188" value="Requesting a firewalled push connection from %s..." />
-	<string id="20190" value="Connection failed due to invalid data on the wire." />
-	<string id="20191" value="Received an unknown response: %s" />
-	<string id="20192" value="You're not connected." />
-	<string id="20193" value="Unrecognised command &quot;%s&quot;." />
-	<string id="20194" value="لا يوجد في هذا القالب أي تخصيص" />
-	<string id="20195" value="هذا القالب غير صالح" />
+	<string id="20187" value="Requesting a firewalled push connection from %s..." />
+	<string id="20188" value="Connection failed due to invalid data on the wire." />
+	<string id="20189" value="Received an unknown response: %s" />
+	<string id="20190" value="You're not connected." />
+	<string id="20191" value="Unrecognised command &quot;%s&quot;." />
+	<string id="20196" value="لا يوجد في هذا القالب أي تخصيص" />
+	<string id="20197" value="هذا القالب غير صالح" />
 	<string id="20199" value="(الإغلاق بعد عمليات النقل)" />
 	<string id="20200" value="Added &quot;%s&quot; to download queue with %i sources." />
 	<string id="20201" value="The file &quot;%s&quot; is already being downloaded, adding sources." />
@@ -2919,7 +2919,7 @@
 	<string id="20355" value="هل تريد فعلا حذف هذا المرشح ؟" />
 	<string id="20356" value="هناك مرشح بالإسم &quot;%s&quot; ، هل تريد إستبداله ؟" />
 	<string id="20358" value="الرجاء وضع إسم للمرشح" />
-	<string id="20360" value="Connection Errors (%)" />
+<!--	<string id="20360" value="Connection Errors (%)" />
 	<string id="20361" value="Download Bandwidth" />
 	<string id="20362" value="Download File Count" />
 	<string id="20363" value="Download Transfer Count" />
@@ -2933,15 +2933,16 @@
 	<string id="20371" value="Gnutella Packets Transmitted" />
 	<string id="20372" value="Gnutella Ratio of Received/Sent Pings" />
 	<string id="20373" value="Gnutella Ratio of Received/Sent Pongs" />
-	<string id="20374" value="Gnutella Local Queries" />
-	<string id="20375" value="Gnutella Packets Routed" />
-	<string id="20376" value="Total Generic Receive Bandwidth" />
-	<string id="20377" value="Total Generic Transmit Bandwidth" />
-	<string id="20378" value="Total TCP Receive Bandwidth" />
-	<string id="20379" value="Total TCP Transmit Bandwidth" />
-	<string id="20380" value="Total UDP Receive Bandwidth" />
-	<string id="20381" value="Total UDP Transmit Bandwidth" />
-	<string id="20382" value="Upload Bandwidth" />
+	<string id="20374" value="Gnutella Queries Incoming" />
+	<string id="20375" value="Gnutella Queries Processed" />
+	<string id="20376" value="Gnutella Packets Routed" />
+	<string id="20377" value="Total Generic Receive Bandwidth" />
+	<string id="20378" value="Total Generic Transmit Bandwidth" />
+	<string id="20379" value="Total TCP Receive Bandwidth" />
+	<string id="20380" value="Total TCP Transmit Bandwidth" />
+	<string id="20381" value="Total UDP Receive Bandwidth" />
+	<string id="20382" value="Total UDP Transmit Bandwidth" />
+	<string id="20383" value="Upload Bandwidth" />
 	<string id="20384" value="Upload Transfer Count" />
 	<string id="20385" value="Connecting neighbour %s falling back to shielded leaf mode." />
 	<string id="20386" value="Closing surplus connection from %s with host hint (%s port %i)." />
@@ -2963,7 +2964,7 @@
 	<string id="20403" value="Channels"/>
 	<string id="20404" value="Chat:"/>
 	<string id="20405" value="Please respect others while using this service. Press Connect below to start."/>
-	<string id="20406" value="Welcome to the PeerProject IRC Chatrooms"/>
+-->	<string id="20406" value="Welcome to the PeerProject IRC Chatrooms"/>
 	<string id="20407" value="إزالة" />
 	<string id="20408" value="Users"/>
 	<string id="20410" value="Exploring Your PeerProject Library" />
@@ -3112,8 +3113,8 @@
 	<string id="20582" value="Neighbour %s forwarded a pong packet with invalid length, ignoring." />
 	<string id="20583" value="Neighbour %s forwarded a push packet with invalid length, ignoring." />
 	<string id="20584" value="Neighbour %s forwarded a packet of excessive size, dropping connection." />
-	<string id="20585" value="Neighbour %s forwarded an unrecognised packet (0x%.2x), ignoring." />
-	<string id="20586" value="Neighbour %s forwarded a pong with invalid address data, ignoring." />
+	<string id="20586" value="Neighbour %s forwarded an unrecognised packet (0x%.2x), ignoring." />
+	<string id="20587" value="Neighbour %s forwarded a pong with invalid address data, ignoring." />
 	<string id="20588" value="Neighbour %s forwarded a push request to a firewalled address, ignoring." />
 	<string id="20590" value="Remote access is disabled." />
 	<string id="20591" value="http://%s:%i/remote - username/password required." />
@@ -3330,14 +3331,12 @@
 	<string id="20870" value="Unable to parse URL: PeerProject does not understand this URL." />
 	<string id="20871" value="Received URL &quot;%s&quot;" />
 	<string id="20872" value="النوع:" />
-	<string id="20874" value="Unspecified" />
-	<string id="20875" value="الرابط:" />
+	<string id="20874" value="الرابط:" />
+	<string id="20875" value="Unspecified" />
 	<string id="20880" value="تحرير وضعيتي" />
-	<string id="20881" value="Changing view will close any windows you have open. Would you like to change now?" />
-	<string id="20882" value="UPnP Device Host Service is not running. This service is required to perform the setup.nYou need to set the startup type of the service to automatic." />
-	<string id="20884" value="No URN available" />
-	<string id="20885" value="Changing interface direction requires restart.\nYou will need to start PeerProject manually.\n\nExit now ?" />
+	<string id="20881" value="الملفات المختارة. هل أنت متأكد؟ %u"/>
 	<string id="20890" value="مرحبا بك مع PeerProject" />
+	<!-- Missing Warning Messages -->
 	<!-- Missing Wizard Strings -->
 </strings>
 <!-- Localized Dialog Text, "cookie" verifies that the skin matches current dialog -->

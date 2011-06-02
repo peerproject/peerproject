@@ -249,7 +249,7 @@ void CFilePreviewDlg::OnTimer(UINT_PTR nIDEvent)
 		CString strExecute = m_sExecute;
 		m_sExecute.Empty();
 		pLock.Unlock();
-		CFileExecutor::Execute( strExecute, TRUE );
+		CFileExecutor::Execute( strExecute );
 		return;
 	}
 

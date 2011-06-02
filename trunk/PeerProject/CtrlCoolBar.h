@@ -1,7 +1,7 @@
 //
 // CtrlCoolBar.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -35,15 +35,16 @@ public:
 // Attributes
 protected:
 	CList< CCoolBarItem* >	m_pItems;
+	CBitmap			m_bmImage;
 	int				m_nHeight;
 	BOOL			m_bStretch;
 	BOOL			m_bGripper;
 	BOOL			m_bBold;
 	BOOL			m_bDragForward;
-	CBitmap			m_bmImage;
 	BOOL			m_bBuffered;
 	BOOL			m_bMenuGray;
 	CSyncObject*	m_pSyncObject;
+	DWORD			m_tLastUpdate;
 	DWORD			m_dwHoverTime;
 	CCoolBarItem*	m_pDown;
 	CCoolBarItem*	m_pHot;
@@ -95,7 +96,7 @@ protected:
 
 // Implementation
 protected:
-	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnDestroy();
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
 	afx_msg void OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar);
@@ -141,8 +142,8 @@ protected:
 	BOOL		m_bChanged;
 
 protected:
-	void	Paint(CDC* pDC, CRect& rc, BOOL bDown, BOOL bHot, BOOL bMenuGray, BOOL bTransparent);
-	void	DrawText(CDC* pDC, CRect& rc, BOOL bDown, BOOL bHot, BOOL bMenuGray, BOOL bTransparent);
+	void		Paint(CDC* pDC, CRect& rc, BOOL bDown, BOOL bHot, BOOL bMenuGray, BOOL bTransparent);
+	void		DrawText(CDC* pDC, CRect& rc, BOOL bDown, BOOL bHot, BOOL bMenuGray, BOOL bTransparent);
 
 // Operations
 public:

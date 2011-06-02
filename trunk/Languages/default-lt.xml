@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Lithuanian Skin File -->
 
-<!-- Translation based on default-en.xml r66 -->
+<!-- Translation based on default-en.xml r67 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2458,8 +2458,8 @@
 	<tip id="ID_LIBRARY_ALBUM_DELETE" message="Pašalinti pasirinktą albumo katalogą."/>
 	<tip id="ID_LIBRARY_ALBUM_OPEN" message="Atverti pasirinktą albumo katalogą."/>
 	<tip id="ID_LIBRARY_ALBUM_PROPERTIES" message="Peržiūrėti ir taisyti pasirinkto albumo katalogo ypatybes..."/>
-	<tip id="ID_LIBRARY_BITZI_DOWNLOAD" message="Parsisiųsti pasirinkto failo(-ų) meta duomenis iš Bitzi(TM)..."/>
-	<tip id="ID_LIBRARY_BITZI_WEB" message="Peržiūrėti pasirinkto failo Bitzi(TM) etiketę internete."/>
+	<tip id="ID_LIBRARY_BITZI_DOWNLOAD" message="Parsisiųsti pasirinkto failo(-ų) meta duomenis iš Bitzi™..."/>
+	<tip id="ID_LIBRARY_BITZI_WEB" message="Peržiūrėti pasirinkto failo Bitzi™ etiketę internete."/>
 	<tip id="ID_LIBRARY_COLUMNS" message="Pasirinkti, kuriuos meta duomenų stulpelius rodyti..."/>
 	<tip id="ID_LIBRARY_COPY" message="Kopijuoti pasirinktus failus į kitą kolekcijos aplanką..."/>
 	<tip id="ID_LIBRARY_CREATETORRENT" message="Sukurti šiam failui .torrent, kurį talpinsite į svetainę."/>
@@ -2825,13 +2825,13 @@
 	<string id="20184" value="Prašoma privataus pokalbio su naudotoju..."/>
 	<string id="20185" value="Paliudytasis naudotojas"/>
 	<string id="20186" value="Priimtas įstumiantysis ryšys su %s, patvirtinama..."/>
-	<string id="20188" value="Prašoma užmegzti įstūmiantįjį ryšį per užkardą su adresatu %s..."/>
-	<string id="20190" value="Ryšio užmegzti nepavyko dėl klaidų perdavimo linijoje."/>
-	<string id="20191" value="Gautas nežinomas atsakymas: %s"/>
-	<string id="20192" value="Jūs nesate prisijungę."/>
-	<string id="20193" value="Neatpažinta komanda „%s“."/>
-	<string id="20194" value="Šiame šablone nėra derinimo."/>
-	<string id="20195" value="Šis šablonas yra klaidingas."/>
+	<string id="20187" value="Prašoma užmegzti įstūmiantįjį ryšį per užkardą su adresatu %s..."/>
+	<string id="20188" value="Ryšio užmegzti nepavyko dėl klaidų perdavimo linijoje."/>
+	<string id="20189" value="Gautas nežinomas atsakymas: %s"/>
+	<string id="20190" value="Jūs nesate prisijungę."/>
+	<string id="20191" value="Neatpažinta komanda „%s“."/>
+	<string id="20196" value="Šiame šablone nėra derinimo."/>
+	<string id="20197" value="Šis šablonas yra klaidingas."/>
 	<string id="20199" value="(baigiamas darbas nelikus siuntimų)"/>
 	<string id="20200" value="Adresatas „%s“ įtrauktas į parsisiuntimo eilę su %i šaltinių(-iais)."/>
 	<string id="20201" value="Failas „%s“ jau yra atsisiunčiamų failų sąraše, pridedama kaip šaltinis."/>
@@ -2989,14 +2989,15 @@
 	<string id="20372" value="Gnutella gautų/išsiųstų ping santykis"/>
 	<string id="20373" value="Gnutella gautų/išsiųstų pong santykis"/>
 	<string id="20374" value="Gnutella vietinės užklausos"/>
-	<string id="20375" value="Gnutella nukreipti paketai"/>
-	<string id="20376" value="Bendra gavimų greitaveika"/>
-	<string id="20377" value="Bendra išsiuntimų greitaveika"/>
-	<string id="20378" value="Bendra TCP gavimų greitaveika"/>
-	<string id="20379" value="Bendra TCP išsiuntimų greitaveika"/>
-	<string id="20380" value="Bendra UDP gavimų greitaveika"/>
-	<string id="20381" value="Bendra UDP išsiuntimų greitaveika"/>
-	<string id="20382" value="Išsiuntimų greitaveika"/>
+	<string id="20375" value="Gnutella vietinės užklausos"/>
+	<string id="20376" value="Gnutella nukreipti paketai"/>
+	<string id="20377" value="Bendra gavimų greitaveika"/>
+	<string id="20378" value="Bendra išsiuntimų greitaveika"/>
+	<string id="20379" value="Bendra TCP gavimų greitaveika"/>
+	<string id="20380" value="Bendra TCP išsiuntimų greitaveika"/>
+	<string id="20381" value="Bendra UDP gavimų greitaveika"/>
+	<string id="20382" value="Bendra UDP išsiuntimų greitaveika"/>
+	<string id="20383" value="Išsiuntimų greitaveika"/>
 	<string id="20384" value="Išsiunčiamų failų išsiuntimų skaičius"/>
 	<string id="20385" value="Kaimynas adresu %s ryšio užmezgimo metu grįžo į apsaugotos atšakos veikseną."/>
 	<string id="20386" value="Nutraukiamas pridėtinis ryšys su %s, adresatas atsiuntė patarimą (%s prievadas %i)."/>
@@ -3173,8 +3174,8 @@
 	<string id="20582" value="Kaimynas adresu %s persiuntė neteisingo dydžio pong paketą, ignoruojama."/>
 	<string id="20583" value="Kaimynas adresu %s persiuntė neteisingo dydžio įstūmiantįjį paketą, ignoruojama."/>
 	<string id="20584" value="Kaimynas adresu %s persiuntė pernelyg didelį paketą, ryšys nutraukiamas."/>
-	<string id="20585" value="Kaimynas adresu %s persiuntė neatpažintą paketą (0x%.2x), ignoruojama."/>
-	<string id="20586" value="Kaimynas adresu %s persiuntė pong paketą su netesingais adreso duomenimis, ignoruojama."/>
+	<string id="20586" value="Kaimynas adresu %s persiuntė neatpažintą paketą (0x%.2x), ignoruojama."/>
+	<string id="20587" value="Kaimynas adresu %s persiuntė pong paketą su netesingais adreso duomenimis, ignoruojama."/>
 	<string id="20588" value="Kaimynas adresu %s persiuntė įstūmiančiojo susijungimo užklausą adresatui už užkardos, ignoruojama."/>
 	<string id="20590" value="Nuotolinė prieiga neįgalinta."/>
 	<string id="20591" value="http://%s:%i/remote - įrašyti naudotojo vardą ir slaptažodį."/>
@@ -3392,13 +3393,14 @@
 	<string id="20870" value="Neįmanoma išnagrinėti URL: „PeerProject“ nesupranta šio adreso."/>
 	<string id="20871" value="Gautas URL, adresas „%s“"/>
 	<string id="20872" value="Tipas:"/>
-	<string id="20874" value="Nenurodyta"/>
-	<string id="20875" value="URL adr.:"/>
+	<string id="20874" value="URL adr.:"/>
+	<string id="20875" value="Nenurodyta"/>
 	<string id="20880" value="Taisyti savo profilį"/>
-	<string id="20881" value="Pakeitus peržiūros būdą, visi atverti langai bus uždaryti. Ar norite keisti tuoj pat?"/>
-	<string id="20882" value="UPnP Device Host tarnyba neveikia. Ši tarnyba yra reikalinga derinimo atlikimui.\nJums reikėtų nustatyti šios tarnybos startavimo tipą į automatinį."/>
-	<string id="20884" value="Nėra universalių šaltinių vardų."/>
-	<string id="20885" value="Sąsajos krypties pakeitimui reikalinga startuoti iš naujo. \nJums reikės paleisti „PeerProject“ programą rankiniu būdu. Ar baigti darbą dabar?"/>
+	<string id="20881" value="%u failai eiga. Ar tikrai?"/>
+	<string id="20882" value="Nėra universalių šaltinių vardų."/>
+	<string id="20883" value="UPnP Device Host tarnyba neveikia. Ši tarnyba yra reikalinga derinimo atlikimui.\nJums reikėtų nustatyti šios tarnybos startavimo tipą į automatinį."/>
+	<string id="20885" value="Pakeitus peržiūros būdą, visi atverti langai bus uždaryti. Ar norite keisti tuoj pat?"/>
+	<string id="20886" value="Sąsajos krypties pakeitimui reikalinga startuoti iš naujo. \nJums reikės paleisti „PeerProject“ programą rankiniu būdu. Ar baigti darbą dabar?"/>
 	<string id="20890" value="Sveiki! Čia „PeerProject“"/>
 	<string id="20891" value="&amp;Užverti"/>
 	<string id="20892" value="Prašome palaukti: Atnaujinamas eDonkey serverių sąrašas..."/>

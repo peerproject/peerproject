@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Norwegian Skin File -->
 
-<!-- Translation based on default-en.xml r66 (Shareaza 2.2.0.2) -->
+<!-- Translation based on default-en.xml r67 (Shareaza 2.2.0.2) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2184,8 +2184,8 @@
 	<tip id="ID_LIBRARY_ALBUM_DELETE" message="Slett valgte mappe."/>
 	<tip id="ID_LIBRARY_ALBUM_OPEN" message="Åpne valgte mappe."/>
 	<tip id="ID_LIBRARY_ALBUM_PROPERTIES" message="Vis og endre egenskapene til valgte mappe..."/>
-	<tip id="ID_LIBRARY_BITZI_DOWNLOAD" message="Last ned metadata for valgte fil(er) fra Bitzi(TM)..."/>
-	<tip id="ID_LIBRARY_BITZI_WEB" message="Søk med Bitzi(TM) ticket for informasjon om valgte fil på nettet."/>
+	<tip id="ID_LIBRARY_BITZI_DOWNLOAD" message="Last ned metadata for valgte fil(er) fra Bitzi™..."/>
+	<tip id="ID_LIBRARY_BITZI_WEB" message="Søk med Bitzi™ ticket for informasjon om valgte fil på nettet."/>
 	<tip id="ID_LIBRARY_COLUMNS" message="Velg hvilke metadata-kolonner som skal vises."/>
 	<tip id="ID_LIBRARY_COPY" message="Kopier valgte filer til en annen mappe..."/>
 	<tip id="ID_LIBRARY_CREATETORRENT" message="Lag en .torrent for denne filen."/>
@@ -2526,11 +2526,11 @@
 	<string id="20184" value="Sender forespørsel om privat samtale med bruker..."/>
 	<string id="20185" value="Bekrefter bruker"/>
 	<string id="20186" value="Godtok push-kobling fra %s, starter håndtrykk..."/>
-	<string id="20188" value="Sender forespørsel om brannmur push-kobling fra %s..."/>
-	<string id="20190" value="Kobling avbrutt på grunn av ugyldig data på nettet."/>
-	<string id="20191" value="Mottok et ukjent svar: %s"/>
-	<string id="20192" value="Du er ikke koblet til."/>
-	<string id="20193" value="Ukjent kommando &quot;%s&quot;."/>
+	<string id="20187" value="Sender forespørsel om brannmur push-kobling fra %s..."/>
+	<string id="20188" value="Kobling avbrutt på grunn av ugyldig data på nettet."/>
+	<string id="20189" value="Mottok et ukjent svar: %s"/>
+	<string id="20190" value="Du er ikke koblet til."/>
+	<string id="20191" value="Ukjent kommando &quot;%s&quot;."/>
 	<string id="20199" value="(Avslutter etter overføring)"/>
 	<string id="20200" value="La til &quot;%s&quot; til nedlastingskø med %i kilder."/>
 	<string id="20201" value="Filen &quot;%s&quot; blir allerede lastet ned, legger til kilder."/>
@@ -2682,14 +2682,15 @@
 	<string id="20370" value="Gnutella-pakker mottatt"/>
 	<string id="20371" value="Gnutella-pakker overført"/>
 	<string id="20374" value="Gnutella lokale forespørsler"/>
-	<string id="20375" value="Gnutella-pakker routed"/>
-	<string id="20376" value="Total generisk mottaksbåndbredde"/>
-	<string id="20377" value="Total generisk overføringsbåndbredde"/>
-	<string id="20378" value="Total TCP mottatt båndbredde"/>
-	<string id="20379" value="Total TCP overført bånbredde"/>
-	<string id="20380" value="Total UDP mottatt båndbredde"/>
-	<string id="20381" value="Total UDP overført båndbredde"/>
-	<string id="20382" value="Opplastingsbåndbredde"/>
+	<string id="20375" value="Gnutella lokale forespørsler"/>
+	<string id="20376" value="Gnutella-pakker routed"/>
+	<string id="20377" value="Total generisk mottaksbåndbredde"/>
+	<string id="20378" value="Total generisk overføringsbåndbredde"/>
+	<string id="20379" value="Total TCP mottatt båndbredde"/>
+	<string id="20380" value="Total TCP overført bånbredde"/>
+	<string id="20381" value="Total UDP mottatt båndbredde"/>
+	<string id="20382" value="Total UDP overført båndbredde"/>
+	<string id="20383" value="Opplastingsbåndbredde"/>
 	<string id="20384" value="Antall opplastinger"/>
 	<string id="20385" value="Tilkoblet nabo %s går tilbake til vernet leaf mode."/>
 	<string id="20386" value="Lukker overskuddskobling fra %s med vert-hint (%s port %i)."/>
@@ -2849,8 +2850,8 @@
 	<string id="20582" value="Nabo %s videresendte en pong-pakke med ugyldig lengde, ignorerer."/>
 	<string id="20583" value="Nabo %s videresendte en push-pakke med ugyldig lengde, ignorerer."/>
 	<string id="20584" value="Nabo %s videresendte en overdreven stor pakke, lukker kobling."/>
-	<string id="20585" value="Nabo %s videresendte en ukjent pakke (0x%.2x), ignorerer."/>
-	<string id="20586" value="Nabo %s videresendte et pong med ugyldig adresse data, ignorerer."/>
+	<string id="20586" value="Nabo %s videresendte en ukjent pakke (0x%.2x), ignorerer."/>
+	<string id="20587" value="Nabo %s videresendte et pong med ugyldig adresse data, ignorerer."/>
 	<string id="20588" value="Nabo %s videresendte en push-anmodning til en adresse bak brannmur, ignorerer."/>
 	<string id="20590" value="Fjern konsoll er AV."/>
 	<string id="20591" value="http://%s:%i/remote - velge et brukernavn og et passord."/>
@@ -3062,12 +3063,13 @@
 	<string id="20870" value="Kan ikke motta URL: PeerProject gjenkjenner ikke denne URL."/>
 	<string id="20871" value="Mottar URL &quot;%s&quot;"/>
 	<string id="20872" value="Type:"/>
-	<string id="20874" value="Ikke spesifisert"/>
-	<string id="20875" value="URL:"/>
+	<string id="20874" value="URL:"/>
+	<string id="20875" value="Ikke spesifisert"/>
 	<string id="20880" value="Endre min profil"/>
-	<string id="20881" value="Når du endrer utseende vil alle åpne vinduer lukkes. Vil du endre nå?"/>
-	<string id="20884" value="URN ikke tilgjengelig"/>
-	<string id="20885" value="Forandring av grensesnittets retning krever omstart. \nDu må starte PeerProject på nytt manuelt. Avslutte nå?"/>
+	<string id="20881" value="%u filer valgt. Er du sikker?"/>
+	<string id="20882" value="URN ikke tilgjengelig"/>
+	<string id="20885" value="Når du endrer utseende vil alle åpne vinduer lukkes. Vil du endre nå?"/>
+	<string id="20886" value="Forandring av grensesnittets retning krever omstart. \nDu må starte PeerProject på nytt manuelt. Avslutte nå?"/>
 	<string id="20890" value="Velkommen til PeerProject"/>
 	<string id="20891" value="Avslutt"/>
 	<string id="20895" value="Du har ikke spesifisert tilkoblingshastigheten. Før du fortsetter, vennligst velg din type internett tilkobling eller skriv inn tilkoblingshastigheten."/>

@@ -142,7 +142,7 @@ void CFilePropertiesDlg::Update()
 	}
 	else
 	{
-		LoadString( m_sSHA1, IDS_NOURNAVAILABLE );
+		LoadString( m_sSHA1, IDS_NO_URN_AVAILABLE );
 	}
 
 	m_sTiger = pFile->m_oTiger.toShortUrn();

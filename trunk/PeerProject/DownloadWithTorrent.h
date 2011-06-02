@@ -1,7 +1,7 @@
 //
 // DownloadWithTorrent.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -59,18 +59,19 @@ private:
 	CList< CUploadTransferBT* >	m_pTorrentUploads;
 	DWORD						m_tTorrentChoke;
 
-	CList< CBTTrackerRequest* >	m_pRequests;		// In-process tracker requests
-	CMutex						m_pRequestsSection;	// m_pRequests guard
+	CList< CBTTrackerRequest* >	m_pRequests;			// In-process tracker requests
+	CMutex						m_pRequestsSection; 	// m_pRequests guard
 
 // Operations
 public:
 	void			AddUpload(CUploadTransferBT* pUpload);
 	void			RemoveUpload(CUploadTransferBT* pUpload);
 	BOOL			SeedTorrent(CString& sErrorMessage);
+	float			GetRatio() const;
 	bool			IsSeeding() const;
 	bool			IsTorrent() const;
 	bool			IsSingleFileTorrent() const;
-	float			GetRatio() const;
+	bool			IsMultiFileTorrent() const;
 	BOOL			UploadExists(in_addr* pIP) const;
 	BOOL			UploadExists(const Hashes::BtGuid& oGUID) const;
 	void			OnTrackerEvent(bool bSuccess, LPCTSTR pszReason, LPCTSTR pszTip = NULL);
@@ -78,15 +79,15 @@ public:
 	CDownloadTransferBT*	CreateTorrentTransfer(CBTClient* pClient);
 	CBTPacket*		CreateBitfieldPacket();
 	BOOL			SetTorrent(const CBTInfo& oTorrent);
-	BOOL			GenerateTorrentDownloadID();			//Generate Peer ID
+	BOOL			GenerateTorrentDownloadID();			// Generate Peer ID
 protected:
 	bool			RunTorrent(DWORD tNow);
 	void			SendCompleted();
 	void			CloseTorrent();
 	void			CloseTorrentUploads();
 	BOOL 			CheckTorrentRatio() const;
-	virtual BOOL	FindMoreSources();
 	void			OnFinishedTorrentBlock(DWORD nBlock);
+	virtual BOOL	FindMoreSources();
 	virtual void	Serialize(CArchive& ar, int nVersion);
 private:
 	TCHAR			GenerateCharacter() const;
@@ -97,5 +98,5 @@ private:
 	void			Add(CBTTrackerRequest* pRequest);		// Add tracker request for counting
 	void			Remove(CBTTrackerRequest* pRequest);	// Remove tracker request
 
-	friend class CBTTrackerRequest;	// Add(),Remove()
+	friend class CBTTrackerRequest;		// Add(),Remove()
 };
