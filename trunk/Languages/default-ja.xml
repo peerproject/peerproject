@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Japanese Skin File -->
 
-<!-- Translation based on default-en.xml r67 (Shareaza 2.2.0.2) -->
+<!-- Translation based on default-en.xml r68 (Shareaza 2.2.0.2) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -893,7 +893,7 @@
 		</menu>
 		<separator/>
 		<item id="ID_HOSTCACHE_IMPORT" text="METファイルをインポート(_I)..."/>
-		<item id="ID_HOSTCACHE_ED2K_DOWNLOAD" text="METをダウンロード..."/>
+		<item id="ID_HOSTCACHE_FILE_DOWNLOAD" text="METをダウンロード..."/>
 	</menu>
 	<!-- SEARCH WINDOW -->
 	<menu name="CSearchWnd.Basic">
@@ -1452,7 +1452,13 @@
 	</menu>
 	<!-- SYSTEM WINDOW -->
 	<menu name="CSystemWnd">
-		<item id="ID_SYSTEM_VERBOSE" text="冗長モード(_V)"/>
+		<menu id="ID_SYSTEM_VERBOSE" text="冗長モード(_V)"/>
+			<item id="ID_SYSTEM_VERBOSE_ERROR" text="_Error"/>
+			<item id="ID_SYSTEM_VERBOSE_WARNING" text="_Warning"/>
+			<item id="ID_SYSTEM_VERBOSE_NOTICE" text="_Notice"/>
+			<item id="ID_SYSTEM_VERBOSE_INFO" text="_Info"/>
+			<item id="ID_SYSTEM_VERBOSE_DEBUG" text="_Debug"/>
+		</menu>
 		<item id="ID_SYSTEM_TIMESTAMP" text="タイムスタンプ(_P)"/>
 		<separator/>
 		<item id="ID_SYSTEM_COPY" text="_Copy" shortcut="Ctrl+C"/>
@@ -2301,7 +2307,7 @@
 	<tip id="ID_HOSTCACHE_CONNECT" message="選択したホストへ接続します"/>
 	<tip id="ID_HOSTCACHE_DISCONNECT" message="選択した近隣から切断します"/>
 	<tip id="ID_HOSTCACHE_ED2K_CACHE" message="eDonkey2000サーバーを表示します"/>
-	<tip id="ID_HOSTCACHE_ED2K_DOWNLOAD" message="eDonkey2000 &quot;server.met&quot; ファイルをダウンロードします..."/>
+	<tip id="ID_HOSTCACHE_FILE_DOWNLOAD" message="eDonkey2000 &quot;server.met&quot; ファイルをダウンロードします..."/>
 	<tip id="ID_HOSTCACHE_G1_CACHE" message="Gnutella1キャッシュホストを表示します"/>
 	<tip id="ID_HOSTCACHE_G2_CACHE" message="Gnutella2キャッシュホストを表示します"/>
 	<tip id="ID_HOSTCACHE_G2_HORIZON" message="Gnutella2水平ハブを表示します"/>
@@ -3219,7 +3225,7 @@
 	<string id="20882" value="利用可能なURNがありません"/>
 	<string id="20883" value="UPnPデバイスホストサービスが実行されていません。 これはセットアップを行うために必ず必要になるサービスです。nこのサービスがWindowsのスタートアップで自動実行されるように設定しておかなければなりません。"/>
 	<string id="20885" value="画面表示の変更は現在開いている全てのウィンドウを閉じます。今すぐ変更しますか?"/>
-	<string id="20886" value="インターフェースの変更を適用するにはPeerProjectの再起動が必要になります。nあなたはPeerProjectを手動で再起動しなければなりません。今すぐPeerProjectを終了しますか?"/>
+	<string id="20886" value="インターフェースの変更を適用するにはPeerProjectの再起動が必要になります。\n\n今すぐPeerProjectを終了しますか?"/>
 	<string id="20890" value="PeerProjectへようこそ"/>
 	<string id="20891" value="終了(&amp;X)"/>
 	<string id="20892" value="暫くお待ち下さい: Donkey2000サーバーリストを更新しています..."/>
@@ -4182,7 +4188,7 @@
 		<control caption="OK"/>
 		<control caption="キャンセル"/>
 	</dialog>
-	<dialog name="CDonkeyServersDlg" cookie="StEdmsBuBu" caption="Server.metファイルのダウンロード">
+	<dialog name="CUpdateServersDlg" cookie="StEdmsBuBu" caption="Server.metファイルのダウンロード">
 		<control caption="ローカルサーバリストを更新する為にウェブからeDonkey2000 server.metファイルをダウンロードします"/>
 		<control/>
 		<control/>

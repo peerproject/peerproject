@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Hebrew Skin File -->
 
-<!-- Translation based on default-en.xml r67 -->
+<!-- Translation based on default-en.xml r68 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -33,7 +33,478 @@ gap i newline
 />
 
 <!-- Toolbar Definitions -->
-
+<toolbars>
+	<!-- MAIN WINDOW -->
+	<toolbar name="CMainWnd.Basic">
+		<button id="ID_NETWORK_CONNECT" text="‪‪התחבר"/>
+		<separator/>
+		<button id="ID_TAB_HOME" text="ראשי"/>
+		<button id="ID_TAB_SEARCH" text="‪חיפוש"/>
+		<button id="ID_TAB_TRANSFERS" text="‪הורדות"/>
+		<button id="ID_TAB_LIBRARY" text="‪‪ספרייה"/>
+		<button id="ID_TAB_MEDIA" text="‪‪נגן מדיה"/>
+	</toolbar>
+	<toolbar name="CMainWnd.Tabbed">
+		<button id="ID_TAB_CONNECT" text="‪התחבר"/>
+		<separator/>
+		<button id="ID_TAB_HOME" text="‪ראשי"/>
+		<button id="ID_TAB_SEARCH" text="‪חיפוש"/>
+		<button id="ID_TAB_TRANSFERS" text="‪העברות"/>
+		<button id="ID_TAB_NETWORK" text="‪רשת"/>
+		<button id="ID_TAB_LIBRARY" text="‪ספרייה"/>
+		<button id="ID_TAB_MEDIA" text="‪נגן מדיה"/>
+		<button id="ID_TAB_IRC" text="חדר שיחה"/>
+	</toolbar>
+	<toolbar name="CMainWnd.Windowed">
+		<button id="ID_NETWORK_CONNECT" text="‪התחבר"/>
+		<button id="ID_NETWORK_DISCONNECT"/>
+		<separator/>
+		<button id="ID_TAB_HOME"/>
+		<button id="ID_VIEW_SYSTEM"/>
+		<button id="ID_VIEW_NEIGHBOURS"/>
+		<button id="ID_VIEW_DOWNLOADS"/>
+		<button id="ID_VIEW_UPLOADS"/>
+		<button id="ID_VIEW_LIBRARY"/>
+		<button id="ID_VIEW_MEDIA"/>
+		<button id="ID_TAB_IRC"/>
+		<separator/>
+		<button id="ID_VIEW_SCHEDULER"/>
+		<button id="ID_VIEW_SECURITY"/>
+		<button id="ID_VIEW_HOSTS"/>
+		<button id="ID_VIEW_DISCOVERY"/>
+		<button id="ID_VIEW_TRAFFIC"/>
+		<button id="ID_VIEW_PACKETS"/>
+		<button id="ID_VIEW_SEARCH_MONITOR"/>
+		<button id="ID_VIEW_RESULTS_MONITOR"/>
+		<separator/>
+		<button id="ID_WINDOW_CASCADE"/>
+		<button id="ID_WINDOW_TILE_HORZ"/>
+		<button id="ID_WINDOW_TILE_VERT"/>
+		<separator/>
+		<button id="ID_TOOLS_SETTINGS"/>
+		<button id="ID_TOOLS_DOWNLOAD"/>
+		<button id="ID_NETWORK_SEARCH" text="‪חיפוש חדש"/>
+	</toolbar>
+	<!-- SEARCH WINDOW -->
+	<toolbar name="CSearchWnd.Panel.Basic">
+		<button id="ID_SEARCH_DOWNLOAD" text="‪הורד"/>
+		<button id="ID_BROWSE_LAUNCH" text="‪עיין במשתמש"/>
+		<rightAlign/>
+		<button id="ID_SEARCH_FILTER_RAW"  text="‪:מסנן" tip="הקלד מספר מילים לסינון תוצאות החיפוש"/>
+		<control id="IDC_FILTER_BOX" width="80"/>
+		<separator/>
+		<button id="ID_SEARCH_DETAILS" text="‪הצג פרטי חיפוש"/>
+	</toolbar>
+	<toolbar name="CSearchWnd.Panel">
+		<button id="ID_SEARCH_DOWNLOAD" text="‪הורד"/>
+		<separator/>
+		<button id="ID_BROWSE_LAUNCH" text="‪עיין במשתמש"/>
+		<button id="ID_SECURITY_BAN" text="Ban"/>
+		<rightAlign/>
+		<button id="ID_SEARCH_FILTER_RAW"  text="‪:מסנן" tip="הקלד מספר מילים לסינון תוצאות החיפוש"/>
+		<control id="IDC_FILTER_BOX" width="80"/>
+		<separator/>
+		<button id="ID_SEARCH_DETAILS" text="‪הצג פרטי חיפוש"/>
+		<button id="ID_SEARCH_PANEL" text="‪הצג לוח חיפוש"/>
+	</toolbar>
+	<toolbar name="CSearchWnd.Full">
+		<button id="ID_SEARCH_SEARCH" text="‪חפש שוב..."/>
+		<button id="ID_SEARCH_STOP" text="‪הפסק חיפוש"/>
+		<separator/>
+		<button id="ID_SEARCH_DOWNLOAD" text="‪הורד"/>
+		<button id="ID_BROWSE_LAUNCH" text="‪עיין במשתמש"/>
+		<button id="ID_SECURITY_BAN" text="Ban"/>
+		<rightAlign/>
+		<button id="ID_SEARCH_FILTER_RAW"  text="‪:מסנן" tip="הקלד מספר מילים לסינון תוצאות החיפוש"/>
+		<control id="IDC_FILTER_BOX" width="80"/>
+		<separator/>
+		<button id="ID_SEARCH_DETAILS" text="‪הצג פרטי חיפוש"/>
+		<button id="ID_SEARCH_PANEL" text="‪הצג לוח חיפוש"/>
+	</toolbar>
+	<!-- BROWSE HOST WINDOW -->
+	<toolbar name="CBrowseHeaderCtrl">
+		<button id="ID_BROWSE_PROFILE" text="‪פרופיל"/>
+		<button id="ID_BROWSE_FILES" text="‪קבצים משותפים"/>
+	</toolbar>
+	<toolbar name="CBrowseTree.Top">
+		<button id="ID_LIBRARY_TREE_PHYSICAL" text="‪תקיות"/>
+		<button id="ID_LIBRARY_TREE_VIRTUAL" text="‪ארגונית"/>
+	</toolbar>
+	<toolbar name="CBrowseHostWnd.Basic">
+		<button id="ID_SEARCH_DOWNLOAD" text="‪הורד קובץ"/>
+		<button id="ID_SEARCH_CHAT" text="‪שוחח עם משתמש"/>
+		<rightAlign/>
+		<button id="ID_SEARCH_FILTER_RAW" text="‪‪:מסנן" tip="הקלד מספר מילים לסינון תוצאות החיפוש"/>
+		<control id="IDC_FILTER_BOX" width="80"/>
+		<separator/>
+		<button id="ID_SEARCH_DETAILS" text="‪הצג פרטים"/>
+	</toolbar>
+	<toolbar name="CBrowseHostWnd">
+		<button id="ID_SEARCH_DOWNLOAD" text="‪הורד קובץ"/>
+		<button id="ID_BROWSE_STOP" text="‪הפסק"/>
+		<button id="ID_BROWSE_REFRESH" text="‪רענן"/>
+		<separator/>
+		<button id="ID_SEARCH_CHAT" text="‪שוחח עם משתמש"/>
+		<rightAlign/>
+		<button id="ID_SEARCH_FILTER_RAW" text="‪‪:מסנן" tip="הקלד מספר מילים לסינון תוצאות החיפוש"/>
+		<control id="IDC_FILTER_BOX" width="80"/>
+		<separator/>
+		<button id="ID_SEARCH_DETAILS" text="‪הצג פרטים"/>
+	</toolbar>
+	<!-- DOWNLOADS WINDOW -->
+	<toolbar name="CDownloadsWnd.Basic">
+		<button id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="‪פתח או הפעל"/>
+		<button id="ID_DOWNLOADS_LAUNCH_COPY" text="‪תצוגה מקדימה"/>
+		<separator/>
+		<button id="ID_DOWNLOADS_FILE_DELETE" text="‪מחק קובץ"/>
+		<button id="ID_DOWNLOADS_RESUME" text="‪המשך הורדה"/>
+		<button id="ID_DOWNLOADS_PAUSE" text="‪השהה הורדה"/>
+		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="‪בטל הורדה"/>
+		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="‪נקה הורדה"/>
+		<separator/>
+		<button id="ID_DOWNLOADS_EDIT" text="‪מידע הטורנט"/>
+		<button id="ID_DOWNLOADS_MONITOR" text="‪(הצג משגוח (מוניטור"/>
+		<rightAlign/>
+		<button id="ID_DOWNLOADS_CLEAR_COMPLETED" text="‪נקה הורדות שהסתיימו"/>
+	</toolbar>
+	<toolbar name="CDownloadsWnd">
+		<button id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="‪פתח או הפעל"/>
+		<button id="ID_DOWNLOADS_LAUNCH" text="‪תצוגה מקדימה"/>
+		<separator/>
+		<button id="ID_DOWNLOADS_FILE_DELETE" text="‪מחק קובץ"/>
+		<button id="ID_DOWNLOADS_RESUME" text="‪המשך הורדה"/>
+		<button id="ID_DOWNLOADS_PAUSE" text="‪השהה הורדה"/>
+		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="‪בטל הורדה"/>
+		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="‪נקה הורדה"/>
+		<separator/>
+		<button id="ID_DOWNLOADS_EDIT" text="‪מידע הטורנט"/>
+		<button id="ID_DOWNLOADS_MONITOR" text="‪(הצג משגוח (מוניטור"/>
+		<rightAlign/>
+		<button id="ID_TOOLS_DOWNLOAD" text="‪הוסף הורדה/טורנט"/>
+		<button id="ID_DOWNLOADS_CLEAR_COMPLETED" text="‪נקה הורדות שהסתיימו"/>
+		<separator/>
+		<button id="ID_DOWNLOADS_FILTER_MENU" text="‪מסנן"/>
+	</toolbar>
+	<!-- UPLOADS WINDOW -->
+	<toolbar name="CUploadsWnd.Basic">
+		<button id="ID_BROWSE_LAUNCH" text="‪עיין במשתמש"/>
+		<button id="ID_UPLOADS_CHAT" text="‪שוחח עם משתמש"/>
+		<rightAlign/>
+		<button id="ID_UPLOADS_CLEAR_COMPLETED" text="נקה העלאות שהסתיימו"/>
+	</toolbar>
+	<toolbar name="CUploadsWnd">
+		<button id="ID_UPLOADS_LAUNCH" text="‪פתח או הפעל"/>
+		<separator/>
+		<button id="ID_UPLOADS_START" text="‪התחל כעת"/>
+		<button id="ID_UPLOADS_CLEAR" text="‪נקה העלאה"/>
+		<separator/>
+		<button id="ID_BROWSE_LAUNCH" text="‪עיין במשתמש"/>
+		<button id="ID_UPLOADS_CHAT" text="‪שוחח עם משתמש"/>
+		<button id="ID_SECURITY_" text="‪חסום משתמש"/>
+		<rightAlign/>
+		<button id="ID_UPLOADS_CLEAR_COMPLETED" text="‪נקה העלאות שהסתיימו"/>
+		<separator/>
+		<button id="ID_UPLOADS_FILTER_MENU" text="‪מסנן"/>
+	</toolbar>
+	<!-- LIBRARY FRAME -->
+	<toolbar name="CLibraryTree.Top">
+		<button id="ID_LIBRARY_TREE_PHYSICAL" text="‪תקיות"/>
+		<button id="ID_LIBRARY_TREE_VIRTUAL" text="‪ארגונית"/>
+	</toolbar>
+	<toolbar name="CLibraryTree.Virtual">
+		<button id="ID_LIBRARY_FOLDERS" text="‪...שתף קבצים"/>
+	</toolbar>
+	<toolbar name="CLibraryHeaderBar.Physical">
+		<button id="ID_LIBRARY_PARENT" text="‪תיקיה מכילה"/>
+		<button id="ID_LIBRARY_VIEW" text="‪תצוגה"/>
+	</toolbar>
+	<toolbar name="CLibraryHeaderBar.Virtual">
+		<button id="ID_LIBRARY_PARENT" text="‪תיקיה מכילה"/>
+		<button id="ID_LIBRARY_VIEW" text="‪תצוגה"/>
+	</toolbar>
+	<!-- LIBRARY VIEWS -->
+	<toolbar name="CLibraryTileView.Physical">
+		<button id="ID_LIBRARY_FOLDERS" text="‪...שתף קבצים"/>
+		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="‪חפש"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
+		<separator/>
+		<button id="ID_LIBRARY_PANEL" text="‪הצג פרטים"/>
+	</toolbar>
+	<toolbar name="CLibraryTileView.Virtual">
+		<button id="ID_LIBRARY_FOLDER_NEW" text="‪...צור אלבום"/>
+		<button id="ID_LIBRARY_ALBUM_DELETE" text="‪מחק אלבום"/>
+		<rightAlign/>
+		<separator/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="‪חפש"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
+		<separator/>
+		<button id="ID_LIBRARY_PANEL" text="‪הצג פרטים"/>
+	</toolbar>
+	<toolbar name="CLibraryFileView.Physical.Basic">
+		<button id="ID_LIBRARY_LAUNCH" text="‪פתח או הפעל"/>
+		<button id="ID_LIBRARY_ENQUEUE" text="‪הוסף לרשימת השמעה"/>
+		<separator/>
+		<button id="ID_WEBSERVICES_LIST" text="שרותי רשת"/>
+		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="‪חפש"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
+		<separator/>
+		<button id="ID_LIBRARY_PANEL" text="‪הצג פרטים"/>
+	</toolbar>
+	<toolbar name="CLibraryFileView.Physical">
+		<button id="ID_LIBRARY_LAUNCH" text="‪פתח או הפעל"/>
+		<button id="ID_LIBRARY_ENQUEUE" text="‪הוסף לרשימת השמעה"/>
+		<separator/>
+		<button id="ID_LIBRARY_PROPERTIES" text="Properties"/>
+		<separator/>
+		<button id="ID_LIBRARY_PROPERTIES" text="‪מאפיינים"/>
+		<separator/>
+		<button id="ID_LIBRARY_MOVE" text="‪העבר"/>
+		<button id="ID_LIBRARY_COPY" text="‪העתק"/>
+		<button id="ID_LIBRARY_DELETE" text="‪מחק"/>
+		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="‪חפש"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
+		<separator/>
+		<button id="ID_LIBRARY_PANEL" text="‪הצג פרטים"/>
+	</toolbar>
+	<toolbar name="CLibraryFileView.Virtual.Basic">
+		<button id="ID_LIBRARY_LAUNCH" text="‪פתח או הפעל"/>
+		<button id="ID_LIBRARY_ENQUEUE" text="‪הוסף לרשימת השמעה"/>
+		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="‪נגן אלבום"/>
+		<separator/>
+		<button id="ID_WEBSERVICES_LIST" text="שרותי רשת"/>
+		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="‪חפש"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
+		<separator/>
+		<button id="ID_LIBRARY_PANEL" text="‪הצג פרטים"/>
+	</toolbar>
+	<toolbar name="CLibraryFileView.Virtual">
+		<button id="ID_LIBRARY_LAUNCH" text="‪פתח או הפעל"/>
+		<button id="ID_LIBRARY_ENQUEUE" text="‪הוסף לרשימת השמעה"/>
+		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="‪נגן אלבום"/>
+		<separator/>
+		<button id="ID_LIBRARY_PROPERTIES" text="מאפייניפ"/>
+		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="‪חפש"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
+		<separator/>
+		<button id="ID_LIBRARY_PANEL" text="‪הצג פרטים"/>
+	</toolbar>
+	<toolbar name="CLibraryCollectionView.Virtual">
+		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="‪נגן אלבום מלא"/>
+		<separator/>
+		<button id="ID_LIBRARY_FOLDER_DOWNLOAD" text="‪הורד את כל הקבצים"/>
+		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="‪חפש"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
+		<separator/>
+		<button id="ID_LIBRARY_PANEL" text="‪הצג פרטים"/>
+	</toolbar>
+	<!-- MEDIA WINDOW -->
+	<toolbar name="CMediaFrame.Basic">
+		<button id="ID_MEDIA_PLAY" text="‪נגן"/>
+		<button id="ID_MEDIA_PAUSE" text="‪השהה" visible="false"/>
+		<button id="ID_MEDIA_STOP" text="‪עצור"/>
+		<separator/>
+		<label text="‪:מיקום" tip="עבור למיקום אחר בקובץ המדיה"/>
+		<control id="IDC_MEDIA_POSITION" width="190" height="22"/>
+		<label text="‪:עוצמה" tip="כוונן את עוצמת הקול"/>
+		<control id="IDC_MEDIA_VOLUME" width="50" height="22"/>
+		<separator/>
+		<button id="ID_MEDIA_OPEN" text="‪פתח קובץ"/>
+		<rightAlign/>
+		<button id="ID_MEDIA_NEXT" text="‪הבא"/>
+		<button id="ID_MEDIA_PREVIOUS" text="‪הקודם"/>
+		<separator/>
+		<button id="ID_MEDIA_PLAYLIST" text="‪רשימת השמעה"/>
+	</toolbar>
+	<toolbar name="CMediaFrame">
+		<button id="ID_MEDIA_PLAY" text="‪נגן"/>
+		<button id="ID_MEDIA_PAUSE" text="‪השהה" visible="false"/>
+		<button id="ID_MEDIA_STOP" text="‪עצור"/>
+		<separator/>
+		<label text="‪:מיקום" tip="עבור למיקום אחר בקובץ המדיה"/>
+		<control id="IDC_MEDIA_POSITION" width="190" height="22"/>
+		<label text="‪:מהירות" tip="כוונן את מהירות השמעת קובץ המדיה"/>
+		<control id="IDC_MEDIA_SPEED" width="40" height="22"/>
+		<label text="‪:עוצמה" tip="כוונן את עוצמת הקול"/>
+		<control id="IDC_MEDIA_VOLUME" width="50" height="22"/>
+		<separator/>
+		<button id="ID_MEDIA_OPEN" text="‪פתח"/>
+		<separator/>
+		<button id="ID_MEDIA_FULLSCREEN"/>
+		<button id="ID_MEDIA_ZOOM"/>
+		<button id="ID_MEDIA_VIS"/>
+		<rightAlign/>
+		<button id="ID_MEDIA_NEXT"/>
+		<button id="ID_MEDIA_PREVIOUS"/>
+		<separator/>
+		<button id="ID_MEDIA_PLAYLIST" text="‪רשימת השמעה"/>
+	</toolbar>
+	<toolbar name="CMediaList">
+		<button id="ID_MEDIA_ADD"/>
+		<button id="ID_MEDIA_REMOVE"/>
+		<rightAlign/>
+		<button id="ID_MEDIA_CLEAR" text="‪נקה"/>
+		<button id="ID_MEDIA_SAVE" text="‪שמור"/>
+	</toolbar>
+	<!-- IRC WINDOW -->
+	<toolbar name="CIRCFrame">
+		<button id="ID_IRC_SENDTEXT" text="Send" tip="Post Your Comments"/>
+		<separator/>
+		<button id="ID_IRC_CLOSETAB" text="Close" tip="Exit Current Channel Window"/>
+		<rightAlign/>
+		<button id="ID_IRC_CONNECT" text="התחבר" tip="התחבר לחדר שיחה"/>
+		<button id="ID_IRC_DISCONNECT" text="התנתק" tip="התנתק מחדר שיחה"/>
+		<separator/>
+		<button id="ID_IRC_SETTINGS" text="הגדרות" tip="כוון הגדרות חדר השיחה"/>
+	</toolbar>
+	<!-- NEIGHBOURS WINDOW -->
+	<toolbar name="CNeighboursWnd.Basic">
+		<button id="ID_BROWSE_LAUNCH" text="‪עיין במשתמש"/>
+		<button id="ID_NEIGHBOURS_CHAT" text="‪שוחח עם משתמש"/>
+		<rightAlign/>
+		<button id="ID_NETWORK_G2" text="‪גנוטלה 2"/>
+		<button id="ID_NETWORK_G1" text="‪גנוטלה "/>
+		<button id="ID_NETWORK_ED2K" text="‪אי-דונקי 2000"/>
+		<separator/>
+		<button id="ID_NEIGHBOURS_SETTINGS" text="‪הגדרות"/>
+	</toolbar>
+	<toolbar name="CNeighboursWnd">
+		<button id="ID_NETWORK_CONNECT_TO" text="‪התחבר אל"/>
+		<button id="ID_NEIGHBOURS_DISCONNECT" text="‪התנתק"/>
+		<separator/>
+		<button id="ID_SECURITY_BAN" text="חסום מארח (הוסט)"/>
+		<rightAlign/>
+		<button id="ID_NETWORK_G2" text="‪גנוטלה 2"/>
+		<button id="ID_NETWORK_G1" text="גנוטלה "/>
+		<button id="ID_NETWORK_ED2K" text="‪אי-דונקי"/>
+		<button id="ID_NETWORK_DC" text="DC++"/>
+		<separator/>
+		<button id="ID_NEIGHBOURS_SETTINGS" text="‪הגדרות"/>
+	</toolbar>
+	<!-- SECURITY WINDOW -->
+	<toolbar name="CSecurityWnd">
+		<button id="ID_SECURITY_ADD" text="הוספת כלל"/>
+		<separator/>
+		<button id="ID_SECURITY_EDIT" text="עריכת כלל"/>
+		<button id="ID_SECURITY_REMOVE" text="הסר כלל"/>
+		<separator/>
+		<button id="ID_SECURITY_MOVE_UP" text="העבר למעלה"/>
+		<button id="ID_SECURITY_MOVE_DOWN" text="הזז למטה"/>
+			<rightAlign/>
+		<button id="ID_SECURITY_RESET" text="איפוס צפיות"/>
+		<separator/>
+		<button id="ID_SECURITY_IMPORT" text="ייבוא ​​רשימה"/>
+		<button id="ID_SECURITY_EXPORT" text="ייצוא רשימת"/>
+	</toolbar>
+	<!-- SCHEDULER WINDOW -->
+	<toolbar name="CSchedulerWnd">
+		<button id="ID_SCHEDULER_ADD" text="הוסף משימה"/>
+		<separator/>
+		<button id="ID_SCHEDULER_EDIT" text="ערוך משימה"/>
+		<button id="ID_SCHEDULER_REMOVE" text="הסר משימה"/>
+		<separator/>
+		<button id="ID_SCHEDULER_ACTIVATE" text="להפעיל"/>
+		<button id="ID_SCHEDULER_DEACTIVATE" text="בטל"/>
+		<rightAlign/>
+		<button id="ID_SCHEDULER_REMOVE_ALL" text="הסר הכל"/>
+		<separator/>
+		<button id="ID_SCHEDULER_IMPORT" text="ייבוא ​​רשימה"/>
+		<button id="ID_SCHEDULER_EXPORT" text="ייצוא רשימת"/>
+	</toolbar>
+	<!-- HIT MONITOR WINDOW -->
+	<toolbar name="CHitMonitorWnd">
+		<button id="ID_SEARCH_DOWNLOAD" text="‪הורד"/>
+		<button id="ID_HITMONITOR_SEARCH" text="‪שלח בקשת חיפוש חוזרת"/>
+		<separator/>
+		<button id="ID_HITMONITOR_PAUSE" text="‪השהה"/>
+		<button id="ID_HITMONITOR_CLEAR" text="‪נקה"/>
+		<rightAlign/>
+		<label text="‪:מסנן" tip="הקלד מספר מילים לסינון התוצאות"/>
+		<control id="IDC_FILTER_BOX" width="80"/>
+		<button id="ID_SEARCH_FILTER_RAW" text="‪...עוד"/>
+	</toolbar>
+	<!-- HOST CACHE WINDOW -->
+	<toolbar name="CHostCacheWnd">
+		<button id="ID_HOSTCACHE_CONNECT" text="‪התחבר אל"/>
+		<button id="ID_HOSTCACHE_DISCONNECT" text="‪התנתק"/>
+		<button id="ID_HOSTCACHE_REMOVE" text="‪הסר"/>
+		<rightAlign/>
+		<button id="ID_HOSTCACHE_G2_HORIZON" text="‪אשכול גנוטלה 2"/>
+		<button id="ID_HOSTCACHE_G2_CACHE" text="‪מטמון גנוטלה 2"/>
+		<button id="ID_HOSTCACHE_G1_CACHE" text="‪מטמון גנוטלה 1"/>
+		<button id="ID_HOSTCACHE_ED2K_CACHE" text="‪מטמון אי-דונקי"/>
+		<button id="ID_HOSTCACHE_DC_CACHE" text="מטמון אי-דונקי"/>
+	<!-- <button id="ID_HOSTCACHE_BT_CACHE" text="מטמון ביטורנט"/> -->
+	<!-- <button id="ID_HOSTCACHE_KAD_CACHE" text="מטמון קדמילה"/> -->
+	</toolbar>
+	<!-- IRC WINDOW -->
+	<toolbar name="CIRCFrame">
+		<button id="ID_IRC_SENDTEXT" text="לשלוח" tip="תגובות לפרסום שלך"/>
+		<separator/>
+		<button id="ID_IRC_CLOSETAB" text="סגור" tip="השאירו חלון ערוץ נוכחית"/>
+			<rightAlign/>
+		<button id="ID_IRC_CONNECT" text="לחבר" tip="חיבור ה-IRC"/>
+		<button id="ID_IRC_DISCONNECT" text="לנתק" tip="התנתקות IRC"/>
+		<separator/>
+		<button id="ID_IRC_SETTINGS" text="הגדרות" tip="קביעת תצורה של הגדרות ה-IRC"/>
+	</toolbar>
+	<!-- PRIVATE CHAT WINDOW -->
+	<toolbar name="CPrivateChatFrame">
+		<button id="ID_CHAT_BOLD"/>
+		<button id="ID_CHAT_ITALIC"/>
+		<button id="ID_CHAT_UNDERLINE"/>
+		<button id="ID_CHAT_COLOR"/>
+		<button id="ID_CHAT_EMOTICONS" text=" &#160; "/>
+		<separator/>
+		<button id="ID_CHAT_BROWSE" text="עיין במשתמש"/>
+		<button id="ID_CHAT_PRIORITY" text="הענק עדיפות"/>
+		<!-- <button id="ID_CHAT_SEND_FILE" text="Send File"/> -->
+			<rightAlign/>
+		<button id="ID_CHAT_CONNECT" text="התחבר" visible="false"/>
+		<button id="ID_CHAT_DISCONNECT" text="התנתק"/>
+	</toolbar>
+	<!-- WEBSERVICES -->
+	<toolbar name="WebServices.ShareMonkey">
+		<button id="ID_SHAREMONKEY_DOWNLOAD" text="השג מידע"/>
+		<separator/>
+		<button id="ID_SHAREMONKEY_PREVIOUS" text="הקודם"/>
+		<button id="ID_SHAREMONKEY_NEXT" text="הבא"/>
+		<separator/>
+		<button id="ID_SHAREMONKEY_PRICES" text="השג מחירים"/>
+		<button id="ID_SHAREMONKEY_COMPARE" text="השווה"/>
+		<button id="ID_SHAREMONKEY_BUY" text="קנה"/>
+	</toolbar>
+	<toolbar name="WebServices.ShareMonkey.WithSave">
+		<button id="ID_SHAREMONKEY_DOWNLOAD" text="השג מידע"/>
+		<button id="ID_SHAREMONKEY_SAVE" text="שמור"/>
+		<separator/>
+		<button id="ID_SHAREMONKEY_PREVIOUS" text="הקודם"/>
+		<button id="ID_SHAREMONKEY_NEXT" text="הבה"/>
+		<separator/>
+		<button id="ID_SHAREMONKEY_PRICES" text="השג מחירים"/>
+		<button id="ID_SHAREMONKEY_COMPARE" text="השווה"/>
+		<button id="ID_SHAREMONKEY_BUY" text="קנה"/>
+	</toolbar>
+	<toolbar name="WebServices.MusicBrainz">
+		<button id="ID_MUSICBRAINZ_MATCHES" text="הצג "/>
+		<button id="ID_MUSICBRAINZ_ALBUMS" text="הצג את כל האלבומים"/>
+		<separator/>
+	</toolbar>
+	<!-- IMAGE VIEWER PLUGIN WINDOW -->
+	<toolbar name="ImageViewerWnd">
+		<button id="PluginID_ImageViewer_BestFit" text="התאמה מיטבית"/>
+		<button id="PluginID_ImageViewer_FullSize" text="גודל מקורי"/>
+		<separator/>
+		<button id="PluginID_ImageViewer_Refresh" text="רענן"/>
+		<rightAlign/>
+		<button id="PluginID_ImageViewer_Close" text="סגור"/>
+	</toolbar>
+</toolbars>
 <!-- Menu Definitions -->
 <menus>
 	<!-- TAB BAR POPUP MENUS -->
@@ -527,7 +998,7 @@ gap i newline
 		</menu>
 		<separator/>
 		<item id="ID_HOSTCACHE_IMPORT" text="_ייבא קובץ MET..."/>
-		<item id="ID_HOSTCACHE_ED2K_DOWNLOAD" text="ה_ורד MET..."/>
+		<item id="ID_HOSTCACHE_FILE_DOWNLOAD" text="ה_ורד MET..."/>
 	</menu>
 	<!-- SEARCH WINDOW -->
 	<menu name="CSearchWnd.Basic">
@@ -1849,7 +2320,7 @@ gap i newline
 	<tip id="ID_HOSTCACHE_CONNECT" message="התחבר לכתובות הנבחרות"/>
 	<tip id="ID_HOSTCACHE_DISCONNECT" message="התנתק מהשכנים הנבחרים"/>
 	<tip id="ID_HOSTCACHE_ED2K_CACHE" message="הצג שרתים של אידונקי"/>
-	<tip id="ID_HOSTCACHE_ED2K_DOWNLOAD" message="של אידונקי2000 &quot;server.met&quot; הורד קובץ"/>
+	<tip id="ID_HOSTCACHE_FILE_DOWNLOAD" message="של אידונקי2000 &quot;server.met&quot; הורד קובץ"/>
 	<tip id="ID_HOSTCACHE_G1_CACHE" message="הצג כתובות של גנוטלה1"/>
 	<tip id="ID_HOSTCACHE_G2_CACHE" message="הצג כתובות של גנוטלה2"/>
 	<tip id="ID_HOSTCACHE_G2_HORIZON" message="של גנוטלה2 horizon hubs הצג"/>
@@ -2510,7 +2981,7 @@ gap i newline
 	<string id="20881" value="קבצים שנבחרו. האם אתה בטוח? %u"/>
 	<string id="20882" value="‪זמין URN אין"/>
 	<string id="20885" value="‪שינוי התצוגה יסגור את כל החלונות הפתוחים, אתה רוצה לשנות את התצוגה כעת?"/>
-	<string id="20886" value=".Changing interface direction requires restart\n.You will need to start PeerProject manually\n\n? Exit now"/>
+	<string id="20886" value=" שינוי הכיוון של ממשק מחייב הפעלה מחדש. \n\n צא עכשיו? \n\n\nChanging interface direction requires restart.\n\nExit now?"/>
 	<string id="20890" value="‪ברוכים הבאים לשרזה"/>
 	<string id="20891" value="‪יציאה"/>
 	<string id="20898" value="‪?לא בחרת אף תיקייה לשיתוף, האם הינך מעוניין להמשיך"/>
@@ -3466,7 +3937,7 @@ gap i newline
 		<control caption="אישור"/>
 		<control caption="ביטול"/>
 	</dialog>
-	<dialog name="CDonkeyServersDlg" cookie="StEdmsBuBu" caption="Server.met הורד קובץ">
+	<dialog name="CUpdateServersDlg" cookie="StEdmsBuBu" caption="Server.met הורד קובץ">
 		<control caption="מהרשת בכדי לרענן את רשימת השרתים server.met הורד לאידונקי את"/>
 		<control/>
 		<control/>

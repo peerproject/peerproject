@@ -158,7 +158,6 @@ void CRemoteSettingsPage::OnBnClickedRemoteEnable()
 	}
 
 	m_wndURL.SetWindowText( strURL );
-
 }
 
 HBRUSH CRemoteSettingsPage::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
@@ -186,10 +185,8 @@ BOOL CRemoteSettingsPage::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 		SetCursor( AfxGetApp()->LoadCursor( IDC_HAND ) );
 		return TRUE;
 	}
-	else
-	{
-		return CSettingsPage::OnSetCursor( pWnd, nHitTest, message );
-	}
+
+	return CSettingsPage::OnSetCursor( pWnd, nHitTest, message );
 }
 
 void CRemoteSettingsPage::OnLButtonUp(UINT nFlags, CPoint point)

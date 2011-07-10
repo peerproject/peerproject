@@ -30,7 +30,7 @@ class CQueryKeys;
 class CQuerySearch;
 class CQueryHit;
 
-enum // It is used from CNetwork::IsFirewalled
+enum	// Used from CNetwork::IsFirewalled
 {
 	CHECK_BOTH, CHECK_TCP, CHECK_UDP
 };
@@ -57,6 +57,7 @@ public:
 	DWORD			m_tLastConnect;			// Last time a neighbor connection attempt was made
 	DWORD			m_tLastED2KServerHop;	// Last time ed2k server was changed
 protected:
+	mutable CCriticalSection m_pHostAddressSection;
 	CStringA		m_sHostName;
 	CList< ULONG >	m_pHostAddresses;
 	DWORD			m_nSequence;
@@ -153,22 +154,22 @@ public:
 	bool		IsConnected() const throw();
 	bool		IsListening() const;
 	bool		IsWellConnected() const;
-	bool		IsStable() const;
-	BOOL		IsFirewalled(int nCheck = CHECK_UDP) const;
-	DWORD		GetStableTime() const;
 	BOOL		IsConnectedTo(const IN_ADDR* pAddress) const;
+	BOOL		IsFirewalled(int nCheck = CHECK_UDP) const;
+	bool		IsStable() const;
+	DWORD		GetStableTime() const;
 	BOOL		ReadyToTransfer(DWORD tNow) const;		// Are we ready to start downloading?
 
-	BOOL		Connect(BOOL bAutoConnect = FALSE);
 	void		Disconnect();
+	BOOL		Connect(BOOL bAutoConnect = FALSE);
 	BOOL		ConnectTo(LPCTSTR pszAddress, int nPort = 0, PROTOCOLID nProtocol = PROTOCOL_NULL, BOOL bNoUltraPeer = FALSE);
 	BOOL		AcquireLocalAddress(SOCKET hSocket);
 	BOOL		AcquireLocalAddress(LPCTSTR pszHeader);
 	BOOL		AcquireLocalAddress(const IN_ADDR& pAddress);
-	BOOL		Resolve(LPCTSTR pszHost, int nPort, SOCKADDR_IN* pHost, BOOL bNames = TRUE) const;
+	static BOOL	Resolve(LPCTSTR pszHost, int nPort, SOCKADDR_IN* pHost, BOOL bNames = TRUE);
 	BOOL		AsyncResolve(LPCTSTR pszAddress, WORD nPort, PROTOCOLID nProtocol, BYTE nCommand);
-	UINT		GetResolveCount() const;		// Pending network name resolves queue size
-	BOOL		IsReserved(const IN_ADDR* pAddress, bool bCheckLocal=true) const;
+	UINT		GetResolveCount() const;				// Pending network name resolves queue size
+	BOOL		IsReserved(const IN_ADDR* pAddress, bool bCheckLocal = true) const;
 	BOOL		IsFirewalledAddress(const IN_ADDR* pAddress, BOOL bIncludeSelf = FALSE) const;
 	WORD		RandomPort() const;
 	void		CreateID(Hashes::Guid& oID);

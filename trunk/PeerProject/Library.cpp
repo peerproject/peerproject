@@ -241,12 +241,28 @@ CFileList* CLibrary::Search(const CQuerySearch* pSearch, int nMaximum, bool bLoc
 {
 	ASSUME_LOCK( m_pSection );
 
-	CFileList* pHits = LibraryMaps.Search( pSearch, nMaximum, bLocal, bAvailableOnly );
+	if ( pSearch == NULL )
+	{
+		// Host browsing
+		ASSERT( ! bLocal );
+		return LibraryMaps.Browse( nMaximum );
+	}
 
-	if ( pHits == NULL && pSearch != NULL )
-		pHits = LibraryDictionary.Search( pSearch, nMaximum, bLocal, bAvailableOnly );
+	if ( pSearch->m_bWhatsNew )
+	{
+		// "Whats New" search
+		ASSERT( ! bLocal );
+		return LibraryMaps.WhatsNew( pSearch, nMaximum );
+	}
 
-	return pHits;
+	// Hash or exactly filename+size search
+	if ( CFileList* pHits = LibraryMaps.LookupFilesByHash( pSearch, ! bLocal, bAvailableOnly, nMaximum ) )
+	{
+		return pHits;
+	}
+
+	// Regular keywords search
+	return LibraryDictionary.Search( pSearch, nMaximum, bLocal, bAvailableOnly );
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -269,19 +285,32 @@ void CLibrary::StopThread()
 }
 
 //////////////////////////////////////////////////////////////////////
-// CLibrary load from disk
+// CLibrary serialize
 
-BOOL CLibrary::SafeReadTime(CFile& pFile, FILETIME* pFileTime) throw()
+void CLibrary::Serialize(CArchive& ar)
 {
-	__try
+	int nVersion = LIBRARY_SER_VERSION;
+
+	if ( ar.IsStoring() )
 	{
-		return pFile.Read( pFileTime, sizeof(FILETIME) ) == sizeof(FILETIME);
+		ar << nVersion;
 	}
-	__except( EXCEPTION_EXECUTE_HANDLER )
+	else // Loading
 	{
+		ar >> nVersion;
+		if ( nVersion < 29 || nVersion > LIBRARY_SER_VERSION )	// Allow Shareaza imports? Downgrades?
+			AfxThrowUserException();
 	}
-	return FALSE;
+
+	LibraryDictionary.Serialize( ar, nVersion );
+	LibraryMaps.Serialize1( ar, nVersion );
+	LibraryFolders.Serialize( ar, nVersion );
+	LibraryHistory.Serialize( ar, nVersion );
+	LibraryMaps.Serialize2( ar, nVersion );
 }
+
+//////////////////////////////////////////////////////////////////////
+// CLibrary load from disk
 
 BOOL CLibrary::SafeSerialize(CArchive& ar) throw()
 {
@@ -315,59 +344,57 @@ BOOL CLibrary::SafeSerialize(CArchive& ar) throw()
 	return FALSE;
 }
 
+BOOL CLibrary::SafeReadTime(CFile& pFile, FILETIME* pFileTime) throw()
+{
+	__try
+	{
+		return pFile.Read( pFileTime, sizeof(FILETIME) ) == sizeof(FILETIME);
+	}
+	__except( EXCEPTION_EXECUTE_HANDLER )
+	{
+	}
+	return FALSE;
+}
+
 BOOL CLibrary::Load()
 {
-	CSingleLock pLock( &m_pSection, TRUE );
-
 #ifdef _DEBUG
 	const __int64 nBenchmarkStart = GetMicroCount();
 #endif
 
-	FILETIME pFileTime1 = { 0, 0 }, pFileTime2 = { 0, 0 };
-	CFile pFile1, pFile2;
-	BOOL bFile1, bFile2;
+	CSingleLock pLock( &m_pSection, TRUE );
+
+	BOOL bFileDat, bFileBak;
+	CFile pFileDat, pFileBak;
+	FILETIME pFileDatTime = { 0, 0 }, pFileBakTime = { 0, 0 };
 
 	const CString strPath = Settings.General.UserPath + _T("\\Data\\");
 
-	bFile1 = pFile1.Open( strPath + _T("Library1.dat"), CFile::modeRead );
-	bFile2 = pFile2.Open( strPath + _T("Library2.dat"), CFile::modeRead );
+	bFileDat = pFileDat.Open( strPath + _T("Library.dat"), CFile::modeRead ) && SafeReadTime( pFileDat, &pFileDatTime );
+	bFileBak = pFileBak.Open( strPath + _T("Library.bak"), CFile::modeRead ) && SafeReadTime( pFileBak, &pFileBakTime );
 
-	if ( bFile1 || bFile2 )
+	// Try legacy format fallback
+	if ( ! bFileDat && ! bFileBak )
+		bFileDat = pFileDat.Open( strPath + _T("Library1.dat"), CFile::modeRead ) && SafeReadTime( pFileDat, &pFileDatTime );
+
+	if ( bFileDat && bFileBak )
 	{
-		if ( bFile1 )
-			bFile1 = SafeReadTime( pFile1, &pFileTime1 );
+		// .dat/.bak files are saved alternately for safe redundancy, so prefer latest one
+		CFile* pPreferred = ( ( CompareFileTime( &pFileDatTime, &pFileBakTime ) >= 0 ) ? &pFileDat : &pFileBak );
 
-		if ( bFile2 )
-			bFile2 = SafeReadTime( pFile2, &pFileTime2 );
-	}
-	else
-	{
-		bFile1 = pFile1.Open( strPath + _T("Library.dat"), CFile::modeRead );
-		pFileTime1.dwHighDateTime++;
-	}
-
-	if ( bFile1 || bFile2 )
-	{
-		CFile* pNewest	=  ( bFile1 && bFile2 ) ?
-			( ( CompareFileTime( &pFileTime1, &pFileTime2 ) >= 0 ) ? &pFile1 : &pFile2 ) :
-			( bFile1 ? &pFile1 : &pFile2 );
-
-		CArchive ar1( pNewest, CArchive::load, 262144 );			// 256 KB buffer
-		if ( ! SafeSerialize( ar1 ) )
+		CArchive ar( pPreferred, CArchive::load, 262144 );		// 256 KB buffer
+		if ( ! SafeSerialize( ar ) )
 		{
-			if ( pNewest == &pFile1 && bFile2 )
-				pNewest = &pFile2;
-			else if ( pNewest == &pFile2 && bFile1 )
-				pNewest = &pFile1;
-			else
-				pNewest = NULL;
+			pPreferred = pPreferred == &pFileDat ? &pFileBak : &pFileDat;
 
-			if ( pNewest != NULL )
-			{
-				CArchive ar2( pNewest, CArchive::load, 262144 );	// 256 KB buffer
-				SafeSerialize( ar2 );
-			}
+			CArchive ar2( pPreferred, CArchive::load, 262144 );
+			SafeSerialize( ar2 );
 		}
+	}
+	else if ( bFileDat || bFileBak )
+	{
+		CArchive ar( bFileDat ? &pFileDat : &pFileBak, CArchive::load, 262144 );
+		SafeSerialize( ar );
 	}
 	else
 	{
@@ -410,14 +437,13 @@ BOOL CLibrary::Load()
 
 BOOL CLibrary::Save()
 {
-	CSingleLock pLock( &m_pSection, TRUE );
+	CString strFile = Settings.General.UserPath +
+		( m_nFileSwitch ? _T("\\Data\\Library.bak") : _T("\\Data\\Library.dat") );
 
-	CString strFile;
-	strFile.Format( _T("%s\\Data\\Library%i.dat"),
-		(LPCTSTR)Settings.General.UserPath, m_nFileSwitch + 1 );
-
-	m_nFileSwitch = ( m_nFileSwitch == 0 ) ? 1 : 0;
+	m_nFileSwitch = m_nFileSwitch ? 0 : 1;
 	m_nSaveTime = GetTickCount();
+
+	CSingleLock pLock( &m_pSection, TRUE );
 
 	CFile pFile;
 	if ( ! pFile.Open( strFile, CFile::modeWrite|CFile::modeCreate ) )
@@ -464,31 +490,6 @@ BOOL CLibrary::Save()
 	m_nSaveCookie = m_nUpdateCookie;
 	theApp.Message( MSG_DEBUG, _T("Library successfully saved to: %s"), strFile );
 	return TRUE;
-}
-
-//////////////////////////////////////////////////////////////////////
-// CLibrary serialize
-
-void CLibrary::Serialize(CArchive& ar)
-{
-	int nVersion = LIBRARY_SER_VERSION;
-
-	if ( ar.IsStoring() )
-	{
-		ar << nVersion;
-	}
-	else // Loading
-	{
-		ar >> nVersion;
-		if ( nVersion < 1000 || nVersion > LIBRARY_SER_VERSION )
-			AfxThrowUserException();
-	}
-
-	LibraryDictionary.Serialize( ar, nVersion );
-	LibraryMaps.Serialize1( ar, nVersion );
-	LibraryFolders.Serialize( ar, nVersion );
-	LibraryHistory.Serialize( ar, nVersion );
-	LibraryMaps.Serialize2( ar, nVersion );
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -551,6 +552,9 @@ BOOL CLibrary::ThreadScan()
 
 	return bChanged;
 }
+
+//////////////////////////////////////////////////////////////////////
+// CLibrary sanity check
 
 BOOL CLibrary::IsBadFile(LPCTSTR pszFilenameOnly, LPCTSTR pszPathOnly, DWORD dwFileAttributes)
 {

@@ -58,6 +58,21 @@ public:
 		return ( m_pURIs.Lookup( strURI, pSchema ) ) ? pSchema : NULL;
 	}
 
+	CSchemaPtr GuessByFilename(LPCTSTR pszFile) const
+	{
+		if ( ! pszFile || ! *pszFile )
+			return NULL;
+
+		LPCTSTR pszExt = PathFindExtension( pszFile );
+		if ( ! *pszExt )
+			return NULL;
+
+		const CSchemaMap::CPair* pPair = m_pTypeFilters.PLookup(
+			CString( pszExt + 1 ).MakeLower() );
+
+		return pPair ? pPair->value : NULL;
+	}
+
 	CSchemaPtr Guess(LPCTSTR pszName) const
 	{
 		if ( ! pszName || ! *pszName ) return NULL;
@@ -79,12 +94,10 @@ public:
 		return ( m_pTypeFilters.PLookup( sType ) != NULL );
 	}
 
-	// Decode metadata and Schema from text or XML deflated or plain
-	CXMLElement* Decode(BYTE* pszData, DWORD nLength, CSchemaPtr& pSchema);
-	static CXMLElement* AutoDetectSchema(LPCTSTR pszInfo);
-	static CXMLElement* AutoDetectAudio(LPCTSTR pszInfo);
-
 	CString GetFilter(LPCTSTR pszURI) const;
+
+	// Detect schema and normilize resulting XML
+	bool Normalize(CSchemaPtr& pSchema, CXMLElement*& pXML) const;
 
 private:
 	typedef CMap< CString, const CString&, CSchemaPtr, CSchemaPtr > CSchemaMap;

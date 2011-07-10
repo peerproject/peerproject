@@ -1,7 +1,7 @@
 ﻿//
 // CtrlWndTabBar.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -388,6 +388,7 @@ CWndTabBar::TabItem* CWndTabBar::HitTest(const CPoint& point, CRect* pItemRect) 
 	CRect rcItem( rc.left + 3, rc.top + 1, 0, rc.bottom - 1 );
 	rcItem.right = static_cast< LONG >( ( rc.Width() - 3 * m_pItems.GetCount() ) / m_pItems.GetCount() + 3 );
 	rcItem.right = min( rcItem.right, m_nMaximumWidth );
+	const int nOffset = rcItem.right;
 
 	for ( POSITION pos = m_pItems.GetHeadPosition() ; pos ; )
 	{
@@ -397,7 +398,7 @@ CWndTabBar::TabItem* CWndTabBar::HitTest(const CPoint& point, CRect* pItemRect) 
 			if ( pItemRect ) *pItemRect = rcItem;
 			return pItem;
 		}
-		rcItem.OffsetRect( rcItem.Width() + 3, 0 );
+		rcItem.OffsetRect( nOffset, 0 );
 	}
 
 	return NULL;
@@ -498,7 +499,7 @@ void CWndTabBar::OnMouseMove(UINT nFlags, CPoint point)
 	CRect rc;
 	TabItem* pItem = HitTest( point, &rc );
 
-	rc.DeflateRect( 2, 2 );
+	rc.DeflateRect( 3, 3 );
 	rc.left = rc.right - 15;
 	if ( m_bCloseButton != rc.PtInRect( point ) )
 	{
@@ -910,22 +911,23 @@ void CWndTabBar::TabItem::Paint(CWndTabBar* pBar, CDC* pDC, CRect* pRect, BOOL b
 
 	rc.left += 20;
 
-	if ( ( bSelected || ( bHot && rc.Width() > 70 ) ) && Settings.General.GUIMode != GUI_WINDOWED )	// ID_CHILD_CLOSE "X"
+	// ID_CHILD_CLOSE "X"
+	if ( ( bSelected || ( bHot && rc.Width() > 70 ) ) && Settings.General.GUIMode != GUI_WINDOWED )
 	{
-		ptImage.x = rc.right - 18;
+		rc.right -= 16;
+		ptImage.x = rc.right;
 		CoolInterface.DrawEx( pDC, pBar->m_nCloseImage,
 			ptImage, CSize( 0, 0 ), crBack, Colors.m_crShadow, ( bHot && pBar->m_bCloseButton ) ? ILD_NORMAL : ILD_BLEND50 );
 		pDC->ExcludeClipRect( ptImage.x, ptImage.y, ptImage.x + 16, ptImage.y + 16 );
-		rc.right -= 20;
 		if ( crBack != CLR_NONE )
-			pDC->FillSolidRect( rc.right, rc.top, 20, rc.Height(), crBack );
+			pDC->FillSolidRect( rc.right, rc.top, 18, rc.Height(), crBack );
 	}
 
 	CString strText = m_sCaption;
 
 	if ( pDC->GetTextExtent( strText ).cx > rc.Width() )
 	{
-		while ( pDC->GetTextExtent( strText + _T('\x2026') ).cx > rc.Width() && strText.GetLength() )
+		while ( pDC->GetTextExtent( strText + _T('\x2026') ).cx > rc.Width() && ! strText.IsEmpty() )
 		{
 			strText = strText.Left( strText.GetLength() - 1 );
 		}

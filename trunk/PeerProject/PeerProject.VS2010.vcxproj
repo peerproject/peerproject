@@ -911,7 +911,6 @@
     <ClCompile Include="DlgDeleteFile.cpp" />
     <ClCompile Include="DlgDiscoveryService.cpp" />
     <ClCompile Include="DlgDonkeyImport.cpp" />
-    <ClCompile Include="DlgDonkeyServers.cpp" />
     <ClCompile Include="DlgDownload.cpp" />
     <ClCompile Include="DlgDownloadGroup.cpp" />
     <ClCompile Include="DlgDownloadMonitor.cpp" />
@@ -949,6 +948,7 @@
     <ClCompile Include="DlgSkinDialog.cpp" />
     <ClCompile Include="DlgSplash.cpp" />
     <ClCompile Include="DlgTorrentSeed.cpp" />
+    <ClCompile Include="DlgUpdateServers.cpp" />
     <ClCompile Include="DlgUpgrade.cpp" />
     <ClCompile Include="DlgURLAction.cpp" />
     <ClCompile Include="DlgURLCopy.cpp" />
@@ -1554,7 +1554,6 @@
     <ClInclude Include="DlgDeleteFile.h" />
     <ClInclude Include="DlgDiscoveryService.h" />
     <ClInclude Include="DlgDonkeyImport.h" />
-    <ClInclude Include="DlgDonkeyServers.h" />
     <ClInclude Include="DlgDownload.h" />
     <ClInclude Include="DlgDownloadGroup.h" />
     <ClInclude Include="DlgDownloadMonitor.h" />
@@ -1592,6 +1591,7 @@
     <ClInclude Include="DlgSkinDialog.h" />
     <ClInclude Include="DlgSplash.h" />
     <ClInclude Include="DlgTorrentSeed.h" />
+    <ClInclude Include="DlgUpdateServers.h" />
     <ClInclude Include="DlgUpgrade.h" />
     <ClInclude Include="DlgURLAction.h" />
     <ClInclude Include="DlgURLCopy.h" />

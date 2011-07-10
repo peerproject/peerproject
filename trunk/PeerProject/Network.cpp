@@ -101,6 +101,7 @@ BOOL CNetwork::IsSelfIP(const IN_ADDR& nAddress) const
 		 theApp.m_nUPnPExternalAddress.s_addr == nAddress.s_addr )
 		return TRUE;
 
+	CQuickLock oHALock( m_pHostAddressSection );
 	return ( m_pHostAddresses.Find( nAddress.s_addr ) != NULL );
 }
 
@@ -158,19 +159,17 @@ bool CNetwork::IsWellConnected() const
 
 bool CNetwork::IsStable() const
 {
-#ifdef LAN_MODE
-	return IsListening();
-#else
+	if ( Settings.Experimental.LAN_Mode )
+		return IsListening();
+
 	return IsListening() && IsWellConnected();
-#endif // LAN_MOD
 }
 
 BOOL CNetwork::IsFirewalled(int nCheck) const
 {
-#ifdef LAN_MODE
-	UNUSED_ALWAYS( nCheck );
-	return FALSE;
-#else // No LAN_MOD
+	if ( Settings.Experimental.LAN_Mode )
+		return FALSE;
+
 	if ( Settings.Connection.FirewallState == CONNECTION_OPEN )		// CHECK_BOTH, CHECK_TCP, CHECK_UDP
 		return FALSE;			// We know we are not firewalled on both TCP and UDP
 	if ( Settings.Connection.FirewallState == CONNECTION_OPEN_TCPONLY && nCheck == CHECK_TCP )
@@ -190,7 +189,6 @@ BOOL CNetwork::IsFirewalled(int nCheck) const
 	}
 
 	return TRUE;				// We know we are firewalled
-#endif // No LAN_MOD
 }
 
 DWORD CNetwork::GetStableTime() const
@@ -339,15 +337,18 @@ BOOL CNetwork::AcquireLocalAddress(const IN_ADDR& pAddress)
 		 pAddress.s_addr == INADDR_NONE )
 		return FALSE;
 
-	if ( IsFirewalledAddress( &pAddress ) )
-		return FALSE;
+	CQuickLock oHALock( m_pHostAddressSection );
 
 	// Add new address to address list
 	if ( ! m_pHostAddresses.Find( pAddress.s_addr ) )
 		m_pHostAddresses.AddTail( pAddress.s_addr );
 
-	// ToDo: Verify given address before trusting
-	m_pHost.sin_addr = pAddress;
+	if ( IsFirewalledAddress( &pAddress ) )
+		return FALSE;
+
+	// Allow real IP only	ToDo: Verify given address before trusting?
+	if ( m_pHost.sin_addr.s_addr != pAddress.s_addr )
+		m_pHost.sin_addr.s_addr = pAddress.s_addr;
 
 	return TRUE;
 }
@@ -364,7 +365,7 @@ void CNetwork::CreateID(Hashes::Guid& oID)
 //////////////////////////////////////////////////////////////////////
 // CNetwork name resolution
 
-BOOL CNetwork::Resolve(LPCTSTR pszHost, int nPort, SOCKADDR_IN* pHost, BOOL bNames) const
+BOOL CNetwork::Resolve(LPCTSTR pszHost, int nPort, SOCKADDR_IN* pHost, BOOL bNames)
 {
 	ZeroMemory( pHost, sizeof(*pHost) );
 	pHost->sin_family	= PF_INET;
@@ -477,13 +478,16 @@ BOOL CNetwork::IsFirewalledAddress(const IN_ADDR* pAddress, BOOL bIncludeSelf) c
 	if ( ! pAddress ) return TRUE;
 	if ( bIncludeSelf && IsSelfIP( *pAddress ) ) return TRUE;
 	if ( ! pAddress->S_un.S_addr ) return TRUE;							// 0.0.0.0
-#ifdef LAN_MODE
-	if ( ( pAddress->S_un.S_addr & 0xFFFF ) == 0xA8C0 ) return FALSE;	// 192.168.0.0/16
-	if ( ( pAddress->S_un.S_addr & 0xF0FF ) == 0x10AC ) return FALSE;	// 172.16.0.0/12
-	if ( ( pAddress->S_un.S_addrs & 0xFFFF ) == 0xFEA9 ) return FALSE;	// 169.254.0.0/16
-	if ( ( pAddress->S_un.S_addr & 0xFF ) == 0x0A ) return FALSE;		// 10.0.0.0/8
-	return TRUE;
-#else // No LAN_MODE
+
+	if ( Settings.Experimental.LAN_Mode )
+	{
+		if ( ( pAddress->S_un.S_addr & 0xFFFF ) == 0xA8C0 ) return FALSE;	// 192.168.0.0/16
+		if ( ( pAddress->S_un.S_addr & 0xF0FF ) == 0x10AC ) return FALSE;	// 172.16.0.0/12
+		if ( ( pAddress->S_un.S_addr & 0xFFFF ) == 0xFEA9 ) return FALSE;	// 169.254.0.0/16
+		if ( ( pAddress->S_un.S_addr & 0xFF ) == 0x0A ) return FALSE;		// 10.0.0.0/8
+		return TRUE;
+	}
+
 	if ( ! Settings.Connection.IgnoreLocalIP ) return FALSE;
 	if ( ( pAddress->S_un.S_addr & 0xFFFF ) == 0xA8C0 ) return TRUE;	// 192.168.0.0/16
 	if ( ( pAddress->S_un.S_addr & 0xF0FF ) == 0x10AC ) return TRUE;	// 172.16.0.0/12
@@ -491,7 +495,6 @@ BOOL CNetwork::IsFirewalledAddress(const IN_ADDR* pAddress, BOOL bIncludeSelf) c
 	if ( ( pAddress->S_un.S_addr & 0xFF ) == 0x0A ) return TRUE;		// 10.0.0.0/8
 	if ( ( pAddress->S_un.S_addr & 0xFF ) == 0x7F ) return TRUE;		// 127.0.0.0/8
 	return FALSE;
-#endif // LAN_MODE
 }
 
 // Returns TRUE if the IP address is reserved.
@@ -593,17 +596,23 @@ bool CNetwork::PreRun()
 
 	m_bConnected = true;
 
+	// Map ports using NAT UPnP and Control Point UPnP methods and acquire external IP on success, sets random port if needed
+	//MapPorts();	ToDo: UPnP update
+
+	Resolve( Settings.Connection.InHost, Settings.Connection.InPort, &m_pHost );
+
+	// Get host name
 	gethostname( m_sHostName.GetBuffer( 255 ), 255 );
 	m_sHostName.ReleaseBuffer();
+
+	// Get all IPs
 	if ( hostent* h = gethostbyname( m_sHostName ) )
 	{
 		for ( char** p = h->h_addr_list ; p && *p ; p++ )
 		{
-			m_pHostAddresses.AddTail( *(ULONG*)*p );
+			AcquireLocalAddress( *(IN_ADDR*)*p );
 		}
 	}
-
-	Resolve( Settings.Connection.InHost, Settings.Connection.InPort, &m_pHost );
 
 	if ( /*IsFirewalled()*/ Settings.Connection.FirewallState == CONNECTION_FIREWALLED )	// Temp disable ?
 		theApp.Message( MSG_INFO, IDS_NETWORK_FIREWALLED );
@@ -663,9 +672,8 @@ void CNetwork::OnRun()
 			}
 
 		//	// Refresh UPnP port mappings	(ToDo:?)
-		//	DWORD tNow = GetTickCount();
-		//	if ( Settings.Connection.EnableUPnP &&
-		//		 tNow > m_tUPnPMap + Settings.Connection.UPnPRefreshTime )
+		//	const DWORD tNow = GetTickCount();
+		//	if ( Settings.Connection.EnableUPnP && tNow > m_tUPnPMap + Settings.Connection.UPnPRefreshTime )
 		//	{
 		//		MapPorts();
 		//		continue;
@@ -711,9 +719,14 @@ void CNetwork::PostRun()
 
 	ClearJobs();
 
-	m_pHostAddresses.RemoveAll();
-
 	DiscoveryServices.Stop();
+
+	//DeletePorts();  ToDo:?
+
+	{
+		CQuickLock oHALock( m_pHostAddressSection );
+		m_pHostAddresses.RemoveAll();
+	}
 
 	// Indicate regular application to Windows when not connected (non-server)
 	SetThreadExecutionState( ES_CONTINUOUS );
@@ -1207,22 +1220,20 @@ bool CNetwork::ProcessQueryHits(CNetwork::CJob& oJob)
 
 void CNetwork::UDPHostCache(IN_ADDR* pAddress, WORD nPort)
 {
-	CG1Packet* pPing = CG1Packet::New( G1_PACKET_PING, 1, Hashes::Guid( MyProfile.oGUID ) );
-
-	CGGEPBlock pBlock;
-	CGGEPItem* pItem;
-
-	pItem = pBlock.Add( GGEP_HEADER_SUPPORT_CACHE_PONGS );
-	pItem->WriteByte( Neighbours.IsG1Ultrapeer() ? 1 : 0 );
-
-	pBlock.Write( pPing );
-	Datagrams.Send( pAddress, nPort, pPing, TRUE, NULL, FALSE );
+	if ( CG1Packet* pPing = CG1Packet::New( G1_PACKET_PING, 1, Hashes::Guid( MyProfile.oGUID ) ) )
+	{
+		CGGEPBlock pBlock;
+		if ( CGGEPItem* pItem = pBlock.Add( GGEP_HEADER_SUPPORT_CACHE_PONGS ) )
+			pItem->WriteByte( Neighbours.IsG1Ultrapeer() ? GGEP_SCP_ULTRAPEER : GGEP_SCP_LEAF );
+		pBlock.Write( pPing );
+		Datagrams.Send( pAddress, nPort, pPing, TRUE, NULL, FALSE );
+	}
 }
 
 void CNetwork::UDPKnownHubCache(IN_ADDR* pAddress, WORD nPort)
 {
-	CG2Packet* pKHLR = CG2Packet::New( G2_PACKET_KHL_REQ );
-	Datagrams.Send( pAddress, nPort, pKHLR, TRUE, NULL, FALSE );
+	if ( CG2Packet* pKHLR = CG2Packet::New( G2_PACKET_KHL_REQ ) )
+		Datagrams.Send( pAddress, nPort, pKHLR, TRUE, NULL, FALSE );
 }
 
 

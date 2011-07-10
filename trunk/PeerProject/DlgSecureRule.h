@@ -54,15 +54,17 @@ public:
 	int		m_nExpireM;
 	int		m_nAction;
 	int		m_nExpire;
-	CString	m_sComment;
-	CString	m_sContent;
 	int		m_nType;	// Dropdown Box Select
 	int		m_nMatch;	// Radio Button Select
+	CString	m_sComment;
+	CString	m_sContent;
 	//}}AFX_DATA
 
 	CSecureRule*	m_pRule;
+	CToolTipCtrl	m_ToolTip;	// Netmask hint
 	BOOL			m_bNew;
 
+	BOOL	GetClipboardAddress();
 	void	ShowGroup(CWnd* pWnd, BOOL bShow);
 
 // Overrides

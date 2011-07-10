@@ -30,8 +30,8 @@
 #include "Colors.h"
 #include "Schema.h"
 #include "SchemaCache.h"
-#include "CtrlLibraryThumbView.h"
 #include "PeerProjectDataSource.h"
+#include "CtrlLibraryThumbView.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE

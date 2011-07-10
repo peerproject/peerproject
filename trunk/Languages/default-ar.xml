@@ -3,7 +3,7 @@
 
 <!-- PeerProject Arabic Language Skin File -->
 
-<!-- Translation based on default-en.xml r67 -->
+<!-- Translation based on default-en.xml r68 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -946,7 +946,7 @@
 	</menu>
 	<separator />
 	<item id="ID_HOSTCACHE_IMPORT" text="تصدير ملف _MET..." />
-	<item id="ID_HOSTCACHE_ED2K_DOWNLOAD" text="تحميل  MET..." />
+	<item id="ID_HOSTCACHE_FILE_DOWNLOAD" text="تحميل  MET..." />
 	</menu>
 	<!-- SEARCH WINDOW -->
 	<menu name="CSearchWnd.Basic">
@@ -1509,7 +1509,13 @@
 	</menu>
 	<!-- SYSTEM WINDOW -->
 	<menu name="CSystemWnd">
-		<item id="ID_SYSTEM_VERBOSE" text="_نمط مسهب" />
+		<menu id="ID_SYSTEM_VERBOSE" text="_نمط مسهب" />
+			<item id="ID_SYSTEM_VERBOSE_ERROR" text="_Error"/>
+			<item id="ID_SYSTEM_VERBOSE_WARNING" text="_Warning"/>
+			<item id="ID_SYSTEM_VERBOSE_NOTICE" text="_Notice"/>
+			<item id="ID_SYSTEM_VERBOSE_INFO" text="_Info"/>
+			<item id="ID_SYSTEM_VERBOSE_DEBUG" text="_Debug"/>
+		</menu>
 		<item id="ID_SYSTEM_TIMESTAMP" text="طبعةالوق_ت" />
 		<separator />
 		<item id="ID_SYSTEM_COPY" text="_نسخ" shortcut="Ctrl+C" />
@@ -2394,7 +2400,7 @@
 	<tip id="ID_HOSTCACHE_CONNECT" message="الإتصال مع المضيف(ين) المحدد" />
 	<tip id="ID_HOSTCACHE_DISCONNECT" message="قطع الإتصال من الجوار المحدد" />
 	<tip id="ID_HOSTCACHE_ED2K_CACHE" message="إظهار خادمات eDonkey" />
-	<tip id="ID_HOSTCACHE_ED2K_DOWNLOAD" message="تحميل ملف eDonkey &quot;server.met&quot;..." />
+	<tip id="ID_HOSTCACHE_FILE_DOWNLOAD" message="تحميل ملف eDonkey &quot;server.met&quot;..." />
 	<tip id="ID_HOSTCACHE_G1_CACHE" message="إظهار المضيف المخزن مؤقتا لـ Gnutella1" />
 	<tip id="ID_HOSTCACHE_G2_CACHE" message="إظهار المضيف المخزن مؤقتا لـ Gnutella2" />
 	<tip id="ID_HOSTCACHE_G2_HORIZON" message="إظهار محاور الأفق لـ Gnutella2" />
@@ -3335,6 +3341,7 @@
 	<string id="20875" value="Unspecified" />
 	<string id="20880" value="تحرير وضعيتي" />
 	<string id="20881" value="الملفات المختارة. هل أنت متأكد؟ %u"/>
+	<string id="20886" value=" تغيير الاتجاه واجهة يتطلب إعادة التشغيل. \n\n الخروج الآن؟ \n\n\nChanging interface direction requires restart.\n\nExit now?"/>
 	<string id="20890" value="مرحبا بك مع PeerProject" />
 	<!-- Missing Warning Messages -->
 	<!-- Missing Wizard Strings -->
@@ -4328,8 +4335,8 @@
 		<control caption="حسنا" />
 		<control caption="إلغاء الأمر" />
 	</dialog>
-	<dialog name="CDonkeyServersDlg" cookie="StEdmsBuBu" caption=" Server.met تحميل ملف">
-		<control caption="You can download an eDonkey server.met file from the web to refresh your local list of servers." />
+	<dialog name="CUpdateServersDlg" cookie="StEdmsBuBu" caption=" Server.met تحميل ملف">
+		<control caption="You can download a file from the web to refresh your local list of servers.\nSuch as eDonkey server.met, DC++ hublist.xml.bz2, etc." />
 		<control />
 		<control />
 		<control caption="حسنا" />

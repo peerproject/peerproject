@@ -1,7 +1,7 @@
 //
 // GGEP.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -92,10 +92,7 @@ CGGEPItem* CGGEPBlock::Find(LPCTSTR pszID, DWORD nMinLength) const
 
 	for ( CGGEPItem* pItem = m_pFirst ; pItem ; pItem = pItem->m_pNext )
 	{
-		// think GGEP is Case sensitive so the original code is wrong
-		//if ( pItem->m_sID.CompareNoCase( pszID ) == 0 && pItem->m_nLength >= nMinLength )
-		//	return pItem;
-		if ( pItem->m_sID.Compare( pszID ) == 0 && pItem->m_nLength >= nMinLength )
+		if ( pItem->m_sID.Compare( pszID ) == 0 && pItem->m_nLength >= nMinLength )			// GGEP is Case sensitive
 			return pItem;
 	}
 
@@ -312,11 +309,48 @@ void CGGEPItem::WriteByte(BYTE nValue)
 	Write( &nValue, 1 );
 }
 
+void CGGEPItem::WriteShort(WORD nValue)
+{
+	Write( &nValue, 2 );
+}
+
+void CGGEPItem::WriteLong(DWORD nValue)
+{
+	Write( &nValue, 4 );
+}
+
+void CGGEPItem::WriteInt64(QWORD nValue)
+{
+	Write( &nValue, 8 );
+}
+
 void CGGEPItem::WriteUTF8(const CString& strText)
 {
 	CBuffer pBuffer;
 	pBuffer.Print( strText, CP_UTF8 );
 	Write( pBuffer.m_pBuffer, pBuffer.m_nLength );
+}
+
+void CGGEPItem::WriteVary(QWORD nValue)
+{
+	int nLength;
+	if (      nValue & 0xff00000000000000ui64 )
+		nLength = 8;
+	else if ( nValue & 0x00ff000000000000ui64 )
+		nLength = 7;
+	else if ( nValue & 0x0000ff0000000000ui64 )
+		nLength = 6;
+	else if ( nValue & 0x000000ff00000000ui64 )
+		nLength = 5;
+	else if ( nValue & 0x00000000ff000000ui64 )
+		nLength = 4;
+	else if ( nValue & 0x0000000000ff0000ui64 )
+		nLength = 3;
+	else if ( nValue & 0x000000000000ff00ui64 )
+		nLength = 2;
+	else
+		nLength = 1;
+	Write( &nValue, nLength );
 }
 
 //////////////////////////////////////////////////////////////////////

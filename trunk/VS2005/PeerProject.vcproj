@@ -28,9 +28,9 @@
 			>
 			<Tool
 				Name="VCCustomBuildTool"
-				Description="Copying LibGFL290 dll..."
-				CommandLine="xcopy &quot;$(SolutionDir)..\Services\LibGFL\$(PlatformName)\LibGFL290.dll&quot; &quot;$(OutDir)&quot; /y /q&#x0D;&#x0A;"
-				Outputs="$(OutDir)LibGFL290.dll"
+				Description="Copying LibGFL dll..."
+				CommandLine="xcopy &quot;$(SolutionDir)..\Services\LibGFL\$(PlatformName)\LibGFL340.dll&quot; &quot;$(OutDir)&quot; /y /q&#x0D;&#x0A;"
+				Outputs="$(OutDir)LibGFL340.dll"
 				ExecutionBucket="1"
 			/>
 			<Tool
@@ -125,9 +125,9 @@
 			>
 			<Tool
 				Name="VCCustomBuildTool"
-				Description="Copying LibGFL290 dll..."
-				CommandLine="xcopy &quot;..\Services\LibGFL\$(PlatformName)\LibGFL290.dll&quot; &quot;$(OutDir)&quot; /y /q&#x0D;&#x0A;"
-				Outputs="$(OutDir)LibGFL290.dll"
+				Description="Copying LibGFL dll..."
+				CommandLine="xcopy &quot;..\Services\LibGFL\$(PlatformName)\LibGFL340.dll&quot; &quot;$(OutDir)&quot; /y /q&#x0D;&#x0A;"
+				Outputs="$(OutDir)LibGFL340.dll"
 				ExecutionBucket="1"
 			/>
 			<Tool
@@ -224,9 +224,9 @@
 			>
 			<Tool
 				Name="VCCustomBuildTool"
-				Description="Copying LibGFL290 dll..."
-				CommandLine="xcopy &quot;..\Services\LibGFL\$(PlatformName)\LibGFL290.dll&quot; &quot;$(OutDir)&quot; /y /q&#x0D;&#x0A;"
-				Outputs="$(OutDir)LibGFL290.dll"
+				Description="Copying LibGFL dll..."
+				CommandLine="xcopy &quot;..\Services\LibGFL\$(PlatformName)\LibGFL340.dll&quot; &quot;$(OutDir)&quot; /y /q&#x0D;&#x0A;"
+				Outputs="$(OutDir)LibGFL340.dll"
 				ExecutionBucket="1"
 			/>
 			<Tool
@@ -322,9 +322,9 @@
 			>
 			<Tool
 				Name="VCCustomBuildTool"
-				Description="Copying LibGFL290 dll..."
-				CommandLine="xcopy &quot;..\Services\LibGFL\$(PlatformName)\LibGFL290.dll&quot; &quot;$(OutDir)&quot; /y /q&#x0D;&#x0A;"
-				Outputs="$(OutDir)LibGFL290.dll"
+				Description="Copying LibGFL dll..."
+				CommandLine="xcopy &quot;..\Services\LibGFL\$(PlatformName)\LibGFL340.dll&quot; &quot;$(OutDir)&quot; /y /q&#x0D;&#x0A;"
+				Outputs="$(OutDir)LibGFL340.dll"
 				ExecutionBucket="1"
 			/>
 			<Tool
@@ -1491,10 +1491,6 @@
 					>
 				</File>
 				<File
-					RelativePath="..\PeerProject\DlgDonkeyServers.cpp"
-					>
-				</File>
-				<File
 					RelativePath="..\PeerProject\DlgDownload.cpp"
 					>
 				</File>
@@ -1636,6 +1632,10 @@
 				</File>
 				<File
 					RelativePath="..\PeerProject\DlgTorrentSeed.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\PeerProject\DlgUpdateServers.cpp"
 					>
 				</File>
 				<File
@@ -3201,10 +3201,6 @@
 					>
 				</File>
 				<File
-					RelativePath="..\PeerProject\DlgDonkeyServers.h"
-					>
-				</File>
-				<File
 					RelativePath="..\PeerProject\DlgDownload.h"
 					>
 				</File>
@@ -3346,6 +3342,10 @@
 				</File>
 				<File
 					RelativePath="..\PeerProject\DlgTorrentSeed.h"
+					>
+				</File>
+				<File
+					RelativePath="..\PeerProject\DlgUpdateServers.h"
 					>
 				</File>
 				<File

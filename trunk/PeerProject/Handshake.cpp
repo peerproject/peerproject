@@ -51,7 +51,6 @@ static char THIS_FILE[]=__FILE__;
 // CHandshake construction
 
 // Make a new CHandshake object
-// Initializes the member variables with default values
 CHandshake::CHandshake()
 	: m_bPushing ( FALSE )
 {
@@ -158,9 +157,9 @@ BOOL CHandshake::OnConnected()
 
 	// Compose the GIV string, which is like "GIV index:guid/" with two newlines at the end (do)
 	CString strGIV;
-	strGIV.Format(		// Like sprintf, "%.2X" formats a byte into 2 hexidecimal characters ("ff")
+	strGIV.Format(			// Like sprintf, "%.2X" formats a byte into 2 hexidecimal characters ("ff")
 		_T("GIV %u:%.2X%.2X%.2X%.2X%.2X%.2X%.2X%.2X%.2X%.2X%.2X%.2X%.2X%.2X%.2X%.2X/\n\n"),
-		m_nIndex,											// Our index on the Gnutella network (do)
+		m_nIndex,										// Our index on the Gnutella network (do)
 		int( oID[0] ),  int( oID[1] ),  int( oID[2] ),  int( oID[3] ),		// Our GUID
 		int( oID[4] ),  int( oID[5] ),  int( oID[6] ),  int( oID[7] ),
 		int( oID[8] ),  int( oID[9] ),  int( oID[10] ), int( oID[11] ),
@@ -168,10 +167,14 @@ BOOL CHandshake::OnConnected()
 
 	// Print the string into the output buffer, and write the output buffer to the remote computer
 	Write( strGIV );
+
+	LogOutgoing();
+
 	OnWrite();
 
 	// Record that we uploaded the giv, and report success
 	theApp.Message( MSG_INFO, IDS_UPLOAD_GIV, (LPCTSTR)m_sAddress );
+
 	return TRUE;
 }
 

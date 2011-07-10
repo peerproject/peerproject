@@ -102,7 +102,7 @@ void CColors::CalculateColors(BOOL bCustom)
 
 	m_crTaskPanelBack			= RGB( 122, 161, 230 );
 	m_crTaskBoxCaptionBack		= RGB( 250, 250, 255 );
-	m_crTaskBoxPrimaryBack		= RGB( 30, 87, 199 );
+	m_crTaskBoxPrimaryBack		= RGB( 30, 87, 199 );	// RGB_DEFAULT_CASE ?
 	m_crTaskBoxCaptionText		= RGB( 34, 93, 217 );
 	m_crTaskBoxPrimaryText		= RGB( 255, 255, 255 );
 	m_crTaskBoxCaptionHover		= RGB( 84, 143, 255 );

@@ -1,7 +1,7 @@
 //
 // DlgDiscoveryService.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -152,7 +152,7 @@ void CDiscoveryServiceDlg::OnOK()
 		m_pService->m_bGnutella2 = TRUE;
 		break;
 	case 4:
-		m_pService->m_nType = CDiscoveryService::dsServerMet;
+		m_pService->m_nType = CDiscoveryService::dsServerList;
 		break;
 	default:
 		m_pService->m_nType = CDiscoveryService::dsBlocked;

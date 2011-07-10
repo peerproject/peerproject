@@ -132,7 +132,6 @@
 	<vendor code="ED2K">
 		<title>eMule</title>
 		<link>http://emule-project.net/</link>
-		<capability name="edonkey2000"/>
 		<capability name="chatFlag"/>
 		<capability name="ed2k"/>
 	</vendor>
@@ -244,6 +243,7 @@
 
 	<vendor code="MACT">
 		<title>Mactella</title>
+		<note>Discontinued</note>
 	</vendor>
 
 	<vendor code="MESH">
@@ -265,19 +265,19 @@
 		<link>http://www.morpheus.com/</link>
 	</vendor>
 
-	<vendor code="MNAP">
-		<title>MyNapster</title>
-		<link>http://www.mynapster.com/</link>
-	</vendor>
-<!--
-	<vendor code="MOOD">
-		<title>MoodAmp</title>
-		<link>http://www.moodamp.com/</link>
-	</vendor>
--->
 	<vendor code="MRPH">
 		<title>Morpheus</title>
 		<link>http://www.morpheus.com/</link>
+	</vendor>
+
+	<vendor code="MNAP">
+		<title>MyNapster</title>
+	<!--	<link>http://www.mynapster.com/</link>	-->
+	</vendor>
+
+	<vendor code="MOOD">
+		<title>MoodAmp</title>
+	<!--	<link>http://www.moodamp.com/</link>	-->
 	</vendor>
 
 	<vendor code="MUTE">
@@ -289,6 +289,7 @@
 	<vendor code="MXIE">
 		<title>mxie</title>
 	<!--	<link>http://www.mxie.com/</link> -->
+		<capability name="g1"/>
 	</vendor>
 
 	<vendor code="NAPS">
@@ -322,6 +323,9 @@
 	<vendor code="QAZA">
 		<title>Quazaa</title>
 		<link>http://quazaa.sourceforge.net/</link>
+		<capability name="htmlHostBrowse"/>
+		<capability name="chatFlag"/>
+		<capability name="extended"/>
 		<capability name="g2"/>
 		<capability name="ed2k"/>
 		<capability name="bt"/>
@@ -330,6 +334,9 @@
 	<vendor code="QAZB">
 		<title>Quazaa Beta</title>
 		<link>http://quazaa.sourceforge.net/</link>
+		<capability name="htmlHostBrowse"/>
+		<capability name="chatFlag"/>
+		<capability name="extended"/>
 		<capability name="g2"/>
 		<capability name="ed2k"/>
 		<capability name="bt"/>
@@ -368,12 +375,12 @@
 
 	<vendor code="TOAD">
 		<title>ToadNode</title>
-		<link>http://www.toadnode.com/</link>
+	<!--	<link>http://www.toadnode.com/</link>	-->
 	</vendor>
 
 	<vendor code="XOLO">
 		<title>Xolox</title>
-		<link>http://www.xolox.nl/</link>
+	<!--	<link>http://www.xolox.nl/</link>	-->
 	</vendor>
 
 	<vendor code="XTLA">

@@ -13,26 +13,26 @@
 
 // Icon Window Resources:
 
-#define IDR_MAINFRAME                       120	// Application Icon
-#define IDR_HOMEFRAME                       121	// richdoc#
-#define IDR_DOWNLOADSFRAME                  122	// richdoc#
+#define IDR_MAINFRAME                       120		// Application Icon
+#define IDR_HOMEFRAME                       121		// richdoc#
+#define IDR_DOWNLOADSFRAME                  122		// richdoc#
 #define IDR_UPLOADSFRAME                    123
 #define IDR_LIBRARYFRAME                    124
 #define IDR_MEDIAFRAME                      125
 #define IDR_IRCFRAME                        126
-#define IDR_CHATFRAME                       127	// richdoc#
+#define IDR_CHATFRAME                       127		// richdoc#
 #define IDR_CHANSFRAME                      128
 #define IDR_USERSFRAME                      129
-#define IDR_SEARCHFRAME                     130	// richdoc#
+#define IDR_SEARCHFRAME                     130		// richdoc#
 #define IDR_SEARCHPADFRAME                  131
 #define IDR_SEARCHMONITORFRAME              132
 #define IDR_HITMONITORFRAME                 133
 #define IDR_HOSTCACHEFRAME                  134
 #define IDR_BROWSEHOSTFRAME                 135
-#define IDR_NEIGHBOURSFRAME                 136	// richdoc#
-#define IDR_DISCOVERYFRAME                  137	// richdoc#
-#define IDR_SECURITYFRAME                   138	// richdoc#
-#define IDR_SCHEDULERFRAME                  139	// richdoc#
+#define IDR_NEIGHBOURSFRAME                 136		// richdoc#
+#define IDR_DISCOVERYFRAME                  137		// richdoc#
+#define IDR_SECURITYFRAME                   138		// richdoc#
+#define IDR_SCHEDULERFRAME                  139		// richdoc#
 #define IDR_SYSTEMFRAME                     140
 #define IDR_TRAFFICFRAME                    141
 #define IDR_PACKETFRAME                     142
@@ -64,9 +64,9 @@
 #define IDI_FILE                            176
 #define IDI_FAKE                            177
 #define IDI_BUSY                            178
-#define IDI_FIREWALLED                      180	// richdoc#
+#define IDI_FIREWALLED                      180		// richdoc#
 #define IDI_FLAG_ENGLISH                    181
-#define IDI_HELP                            182	// richdoc#
+#define IDI_HELP                            182		// richdoc#
 #define IDI_HASH                            183
 #define IDI_LOCKED                          184
 #define IDI_NOTASK                          185
@@ -79,22 +79,22 @@
 #define IDI_RATING_FAKE                     193
 #define IDI_SEARCH_ARTIST                   194
 #define IDI_SEARCH_FOLDER                   195
-#define IDI_SKIN                            196	// richdoc#
-#define IDI_STAR                            197	// richdoc#
+#define IDI_SKIN                            196		// richdoc#
+#define IDI_STAR                            197		// richdoc#
 #define IDI_TICK                            198
 #define IDI_UNSTABLE                        199
 #define IDI_WIZARD_DOT                      200
-#define IDI_WEB_URL                         201	// richdoc#
+#define IDI_WEB_URL                         201		// richdoc#
 #define IDI_WORLD                           202
-#define IDI_MAIL                            203	// richdoc#
-#define IDI_CONTACT_AOL                     204	// richdoc#
-#define IDI_CONTACT_ICQ                     205	// richdoc#
-#define IDI_CONTACT_MSN                     206	// richdoc#
-#define IDI_CONTACT_YAHOO                   207	// richdoc#
-#define IDI_CONTACT_GOOGLE                  208	// richdoc#
-#define IDI_CONTACT_TWITTER                 209	// richdoc#
-#define IDI_CONTACT_FACEBOOK                210	// richdoc#
-#define IDI_FAVICON                         212	// richdoc#
+#define IDI_MAIL                            203		// richdoc#
+#define IDI_CONTACT_AOL                     204		// richdoc#
+#define IDI_CONTACT_ICQ                     205		// richdoc#
+#define IDI_CONTACT_MSN                     206		// richdoc#
+#define IDI_CONTACT_YAHOO                   207		// richdoc#
+#define IDI_CONTACT_GOOGLE                  208		// richdoc#
+#define IDI_CONTACT_TWITTER                 209		// richdoc#
+#define IDI_CONTACT_FACEBOOK                210		// richdoc#
+#define IDI_FAVICON                         212		// richdoc#
 #define IDI_INCOMING                        214
 #define IDI_OUTGOING                        215
 
@@ -111,17 +111,17 @@
 
 // Bitmap/PNG Resources:
 
-#define IDB_MENUBAR                         300	// Command Images
-#define IDB_REMOTE_SKIN                     301	// richdoc#
-#define IDB_NAVBAR_IMAGE                    302	// richdoc#
+#define IDB_MENUBAR                         300		// Command Images
+#define IDB_REMOTE_SKIN                     301		// richdoc#
+#define IDB_NAVBAR_IMAGE                    302		// richdoc#
 #define IDB_NAVBAR_IMAGE_RTL                303
-#define IDB_NAVBAR_ALPHA                    304	// richdoc#
+#define IDB_NAVBAR_ALPHA                    304		// richdoc#
 #define IDB_NAVBAR_ALPHA_RTL                305
 #define IDB_PROTOCOLS                       306
 #define IDB_IRCICONS                        307
 #define IDB_SOCIAL                          308
 #define IDB_CHILDFRAME                      309
-#define IDB_BANNER                          310 // richdoc#
+#define IDB_BANNER                          310		// richdoc#
 #define IDB_BANNER_MARK                     312
 #define IDB_BOX_MARK                        313
 #define IDB_PANEL_MARK                      314
@@ -135,9 +135,9 @@
 #define IDB_TASKBOX_CAPTION                 324
 #define IDB_TASKPANEL_FOOTER                325
 #define IDB_MUSICBRAINZ_LOGO                328
-#define IDR_LARGE_LOGO                      330	// richdoc#
-#define IDR_HOME_HEADER                     332 // richdoc#
-#define IDR_HOME_HEADER_REPEAT              333 // richdoc#
+#define IDR_LARGE_LOGO                      330		// richdoc#
+#define IDR_HOME_HEADER                     332		// richdoc#
+#define IDR_HOME_HEADER_REPEAT              333		// richdoc#
 
 // XML/HTML/GZIP Resources:
 
@@ -222,7 +222,7 @@
 #define IDD_COLLECTION_EXPORT               622
 #define IDD_DISCOVERY_SERVICE               623
 #define IDD_DONKEY_IMPORT                   624
-#define IDD_DONKEY_SERVERS                  625
+#define IDD_UPDATE_SERVERS                  625
 #define IDD_TORRENT_SEED                    626
 #define IDD_CONNECT_TO                      627
 #define IDD_FILTER_SAVE_AS                  628
@@ -819,7 +819,7 @@
 #define IDC_CHECK_FRI                       1725
 #define IDC_CHECK_SAT                       1726
 #define IDC_CHECK_SUN                       1727
-// Generic Workarounds:
+// Generic Workarounds (unused):
 #define IDC_STATIC_0                        1800
 #define IDC_STATIC_1                        1801
 #define IDC_STATIC_2                        1802
@@ -833,1180 +833,1182 @@
 
 // String Resources:
 
-#define IDS_PEERPROJECT                     20000		// Prior to r60:
-#define IDS_GENERAL_YES                     20001		// 20006
-#define IDS_GENERAL_NO                      20002		// 20005
-#define IDS_GENERAL_OK                      20003		// 20237
-#define IDS_GENERAL_CANCEL                  20004		// 20238
-#define IDS_GENERAL_BACK                    20005		// 20010
-#define IDS_GENERAL_NEXT                    20006		// 20011
-#define IDS_GENERAL_CONTINUE                20007		// 20243
-#define IDS_GENERAL_CLOSE                   20008		// 20001
-#define IDS_GENERAL_OF                      20009		// 20002
-#define IDS_GENERAL_ALL                     20010		// 20013
-#define IDS_GENERAL_AUTO                    20011		// 20007
-#define IDS_GENERAL_CUSTOM                  20012		// 20009
-#define IDS_GENERAL_DEFAULT                 20013		// 20008
-#define IDS_GENERAL_FINISH                  20014		// 20012
-#define IDS_GENERAL_IGNORE                  20015		// 20241
-#define IDS_GENERAL_RETRY                   20016		// 20240
-#define IDS_GENERAL_ABORT                   20017		// 20239
-#define IDS_GENERAL_TRYAGAIN                20018		// 20242
+#define IDS_PEERPROJECT                     20000
+#define IDS_GENERAL_YES                     20001
+#define IDS_GENERAL_NO                      20002
+#define IDS_GENERAL_OK                      20003
+#define IDS_GENERAL_CANCEL                  20004
+#define IDS_GENERAL_BACK                    20005
+#define IDS_GENERAL_NEXT                    20006
+#define IDS_GENERAL_CONTINUE                20007
+#define IDS_GENERAL_CLOSE                   20008
+#define IDS_GENERAL_OF                      20009
+#define IDS_GENERAL_ALL                     20010
+#define IDS_GENERAL_AUTO                    20011
+#define IDS_GENERAL_CUSTOM                  20012
+#define IDS_GENERAL_DEFAULT                 20013
+#define IDS_GENERAL_FINISH                  20014
+#define IDS_GENERAL_IGNORE                  20015
+#define IDS_GENERAL_RETRY                   20016
+#define IDS_GENERAL_ABORT                   20017
+#define IDS_GENERAL_TRYAGAIN                20018
 #define IDS_FILE                            20020
 #define IDS_FILES                           20021
-#define IDS_FILES_ALL                       20022		// 20841 IDS_UPLOAD_QUEUE_COMPLETE
-#define IDS_FILES_NONE                      20023		// Unused
-#define IDS_FILES_LARGE                     20024		// 20850 IDS_UPLOAD_QUEUE_LARGE_FILES
-#define IDS_FILES_MEDIUM                    20025		// 20851 IDS_UPLOAD_QUEUE_MEDIUM_FILES
-#define IDS_FILES_SMALL                     20026		// 20852 IDS_UPLOAD_QUEUE_SMALL_FILES
-#define IDS_FILES_PARTIAL                   20027		// 20853 IDS_UPLOAD_QUEUE_PARTIAL_FILES
-#define IDS_FILES_LIBRARY                   20028		// 20849 IDS_UPLOAD_QUEUE_LIBRARY
-#define IDS_FILES_TYPE                      20029		// Unused
-#define IDS_DAY_EVERYDAY                    20050		// 20200
-#define IDS_DAY_MONDAY                      20051		// 20201
-#define IDS_DAY_TUESDAY                     20052		// 20202
-#define IDS_DAY_WEDNESDAY                   20053		// 20203
-#define IDS_DAY_THURSDAY                    20054		// 20204
-#define IDS_DAY_FRIDAY                      20055		// 20205
-#define IDS_DAY_SATURDAY                    20056		// 20206
-#define IDS_DAY_SUNDAY                      20057		// 20207
-#define IDS_RATING_NONE                     20060		// 20210
-#define IDS_RATING_1                        20061		// 20211
-#define IDS_RATING_2                        20062		// 20212
-#define IDS_RATING_3                        20063		// 20213
-#define IDS_RATING_4                        20064		// 20214
-#define IDS_RATING_5                        20065		// 20215
-#define IDS_RATING_6                        20066		// 20216
-#define IDS_PRIORITY_OFF                    20070		// 148
-#define IDS_PRIORITY_LOW                    20071		// 149
-#define IDS_PRIORITY_NORMAL                 20072		// 150
-#define IDS_PRIORITY_HIGH                   20074		// 151
-#define IDS_BETA_EXPIRED                    20080		// 8010
-#define IDS_BITZI_CLOSE                     20081		// 16784
-#define IDS_BITZI_FINISHED                  20082		// 16783
-#define IDS_BITZI_REQUESTING                20083		// 16781
-#define IDS_BITZI_SUCCESS                   20084		// 16782
-#define IDS_BROWSE_CLOSED                   20100		// 16942
-#define IDS_BROWSE_BAD_RESPONSE             20101		// 16935
-#define IDS_BROWSE_CANT_CONNECT             20102		// 8164
-#define IDS_BROWSE_CANT_CONNECT_TO          20103		// 16929
-#define IDS_BROWSE_CANT_PUSH_TO             20104		// 16931
-#define IDS_BROWSE_CONNECTING               20105		// 8160
-#define IDS_BROWSE_CONNECTING_TO            20106		// 16928
-#define IDS_BROWSE_DOWNLOADING              20107		// 8163
-#define IDS_BROWSE_DOWNLOADING_FROM         20108		// 16936
-#define IDS_BROWSE_DROPPED                  20109		// 16940
-#define IDS_BROWSE_FINISHED                 20110		// 16939
-#define IDS_BROWSE_INTRO_FORMAT             20111		// 16944
-#define IDS_BROWSE_HTTPCODE                 20112		// 16934
-#define IDS_BROWSE_NOT_HTTP                 20113		// 16933
-#define IDS_BROWSE_NOT_SUPPORTED            20114		// 8165
-#define IDS_BROWSE_PACKET_ERROR             20115		// 16938
-#define IDS_BROWSE_PUSHED                   20116		// 8161
-#define IDS_BROWSE_PUSHED_TO                20117		// 16930
-#define IDS_BROWSE_REQUESTING               20118		// 8162
-#define IDS_BROWSE_SENT_REQUEST             20119		// 16932
-#define IDS_BROWSE_TIMEOUT                  20120		// 16941
-#define IDS_BROWSE_TITLE_FORMAT             20121		// 16943
-#define IDS_BT_CLIENT_ONLINE                20122		// 17479
-#define IDS_BT_CLIENT_ACCEPTED              20123		// 17472
-#define IDS_BT_CLIENT_CONNECTING            20124		// 17486
-#define IDS_BT_CLIENT_CONNECT_TIMEOUT       20125		// 17473
-#define IDS_BT_CLIENT_DROP_CONNECTED        20126		// 17507
-#define IDS_BT_CLIENT_DROP_CONNECTING       20127		// 17505
-#define IDS_BT_CLIENT_DROP_HANDSHAKE        20128		// 17506
-#define IDS_BT_CLIENT_DUPLICATE             20129		// 17510
-#define IDS_BT_CLIENT_EXCHANGE              20130		// 17490
-#define IDS_BT_CLIENT_EXTENDED              20131		// 17489
-#define IDS_BT_CLIENT_HANDSHAKE_TIMEOUT     20132		// 17474
-#define IDS_BT_CLIENT_HANDSHAKING           20133		// 17487
-#define IDS_BT_CLIENT_MAX_CONNECTIONS       20134		// 17511
-#define IDS_BT_CLIENT_INACTIVE_FILE         20135		// 17480
-#define IDS_BT_CLIENT_UNKNOWN_FILE          20136		// 17478
-#define IDS_BT_CLIENT_WRONG_FILE            20137		// 17477
-#define IDS_BT_CLIENT_WRONG_GUID            20138		// 17476
-#define IDS_BT_CLIENT_LOST                  20139		// 17475
-#define IDS_BT_ENCODING                     20140		// 17513
-#define IDS_BT_PRIVATE                      20141		// 17512
-#define IDS_BT_SEED_ALREADY                 20142		// 17491
-#define IDS_BT_SEED_COPY_FAIL               20143		// 17496
-#define IDS_BT_SEED_CREATE_FAIL             20144		// 17493
-#define IDS_BT_SEED_ERROR                   20145		// 17497
-#define IDS_BT_SEED_PARSE_ERROR             20146		// 17492
-#define IDS_BT_SEED_SOURCE_LOST             20147		// 17494
-#define IDS_BT_SEED_SOURCE_SIZE             20148		// 17495
-#define IDS_BT_SEED_VERIFY_FAIL             20149		// 17498
-#define IDS_BT_TRACKER_DOWN                 20150		// 17501
-#define IDS_BT_TRACKER_MULTI                20151		// 17503
-#define IDS_BT_TRACK_CHANGE                 20152		// 17488
-#define IDS_BT_TRACK_ERROR                  20153		// 17483
-#define IDS_BT_TRACK_PARSE_ERROR            20154		// 17484
-#define IDS_BT_TRACK_SUCCESS                20155		// 17485
-#define IDS_BT_UPDATE_CONVERTING            20156		// 17515
-#define IDS_BT_UPDATE_TITLE                 20157		// 17514
-#define IDS_BT_PREFETCH_ERROR               20158		// 17482
-#define IDS_BT_PREFETCH_FILE                20159		// 17481
-#define IDS_CHAT_ACCEPTED_X                 20160		// 16454
-#define IDS_CHAT_CANT_CONNECT               20161		// 17025
-#define IDS_CHAT_CANT_PUSH                  20162		// 17039
-#define IDS_CHAT_CLOSED                     20163		// 17038
-#define IDS_CHAT_CLOSED_X                   20164		// 16450
-#define IDS_CHAT_CONNECTED                  20165		// 17028
-#define IDS_CHAT_CONNECTED_X                20166		// 16448
-#define IDS_CHAT_CONNECTING_TO              20167		// 17024
-#define IDS_CHAT_CONNECTING_X               20168		// 16453
-#define IDS_CHAT_CONNECT_FAIL_X             20169		// 16456
-#define IDS_CHAT_DROPPED                    20170		// 17037
-#define IDS_CHAT_DROPPED_X                  20171		// 16451
-#define IDS_CHAT_HANDSHAKE_FAIL             20172		// 17029
-#define IDS_CHAT_HANDSHAKE_G1               20173		// 17030
-#define IDS_CHAT_HANDSHAKE_G2               20174		// 17031
-#define IDS_CHAT_NEED_PROFILE               20175		// 17042
-#define IDS_CHAT_NOT_CONNECTED_1            20176		// 17040
-#define IDS_CHAT_NOT_CONNECTED_2            20177		// 17041
-#define IDS_CHAT_NICK_X                     20178		// 16455
-#define IDS_CHAT_ONLINE_X                   20179		// 16449
-#define IDS_CHAT_PRIORITY_GRANTED           20180		// 17043
-#define IDS_CHAT_PRIVATE_AWAY               20181		// 17036
-#define IDS_CHAT_PRIVATE_ONLINE             20182		// 17034
-#define IDS_CHAT_PRIVATE_REFUSED            20183		// 17035
-#define IDS_CHAT_PRIVATE_START              20184		// 17033
-#define IDS_CHAT_PROFILE_ACCEPTED           20185		// 17032
-#define IDS_CHAT_PUSH_DONE                  20186		// 17027
-#define IDS_CHAT_PUSH_SENT                  20187		// 17026
-#define IDS_CHAT_PROTOCOL_X                 20188		// 16457
-#define IDS_CHAT_RESPONSE_X                 20189		// 16458
-#define IDS_CHAT_UNCONNECTED_X              20190		// 16459
-#define IDS_CHAT_UNRECOGNISED_X             20191		// 16452
+#define IDS_FILES_ALL                       20022	// IDS_UPLOAD_QUEUE_COMPLETE
+#define IDS_FILES_NONE                      20023	// Unused
+#define IDS_FILES_LARGE                     20024	// IDS_UPLOAD_QUEUE_LARGE_FILES
+#define IDS_FILES_MEDIUM                    20025	// IDS_UPLOAD_QUEUE_MEDIUM_FILES
+#define IDS_FILES_SMALL                     20026	// IDS_UPLOAD_QUEUE_SMALL_FILES
+#define IDS_FILES_PARTIAL                   20027	// IDS_UPLOAD_QUEUE_PARTIAL_FILES
+#define IDS_FILES_LIBRARY                   20028	// IDS_UPLOAD_QUEUE_LIBRARY
+#define IDS_FILES_TYPE                      20029	// Unused
+#define IDS_DAY_EVERYDAY                    20050
+#define IDS_DAY_MONDAY                      20051
+#define IDS_DAY_TUESDAY                     20052
+#define IDS_DAY_WEDNESDAY                   20053
+#define IDS_DAY_THURSDAY                    20054
+#define IDS_DAY_FRIDAY                      20055
+#define IDS_DAY_SATURDAY                    20056
+#define IDS_DAY_SUNDAY                      20057
+#define IDS_RATING_NONE                     20060
+#define IDS_RATING_1                        20061
+#define IDS_RATING_2                        20062
+#define IDS_RATING_3                        20063
+#define IDS_RATING_4                        20064
+#define IDS_RATING_5                        20065
+#define IDS_RATING_6                        20066
+#define IDS_PRIORITY_OFF                    20070
+#define IDS_PRIORITY_LOW                    20071
+#define IDS_PRIORITY_NORMAL                 20072
+#define IDS_PRIORITY_HIGH                   20074
+#define IDS_BETA_EXPIRED                    20080
+#define IDS_BITZI_CLOSE                     20081
+#define IDS_BITZI_FINISHED                  20082
+#define IDS_BITZI_REQUESTING                20083
+#define IDS_BITZI_SUCCESS                   20084
+#define IDS_BROWSE_CLOSED                   20100
+#define IDS_BROWSE_BAD_RESPONSE             20101
+#define IDS_BROWSE_CANT_CONNECT             20102
+#define IDS_BROWSE_CANT_CONNECT_TO          20103
+#define IDS_BROWSE_CANT_PUSH_TO             20104
+#define IDS_BROWSE_CONNECTING               20105
+#define IDS_BROWSE_CONNECTING_TO            20106
+#define IDS_BROWSE_DOWNLOADING              20107
+#define IDS_BROWSE_DOWNLOADING_FROM         20108
+#define IDS_BROWSE_DROPPED                  20109
+#define IDS_BROWSE_FINISHED                 20110
+#define IDS_BROWSE_INTRO_FORMAT             20111
+#define IDS_BROWSE_HTTPCODE                 20112
+#define IDS_BROWSE_NOT_HTTP                 20113
+#define IDS_BROWSE_NOT_SUPPORTED            20114
+#define IDS_BROWSE_PACKET_ERROR             20115
+#define IDS_BROWSE_PUSHED                   20116
+#define IDS_BROWSE_PUSHED_TO                20117
+#define IDS_BROWSE_REQUESTING               20118
+#define IDS_BROWSE_SENT_REQUEST             20119
+#define IDS_BROWSE_TIMEOUT                  20120
+#define IDS_BROWSE_TITLE_FORMAT             20121
+#define IDS_BT_CLIENT_ONLINE                20122
+#define IDS_BT_CLIENT_ACCEPTED              20123
+#define IDS_BT_CLIENT_CONNECTING            20124
+#define IDS_BT_CLIENT_CONNECT_TIMEOUT       20125
+#define IDS_BT_CLIENT_DROP_CONNECTED        20126
+#define IDS_BT_CLIENT_DROP_CONNECTING       20127
+#define IDS_BT_CLIENT_DROP_HANDSHAKE        20128
+#define IDS_BT_CLIENT_DUPLICATE             20129
+#define IDS_BT_CLIENT_EXCHANGE              20130
+#define IDS_BT_CLIENT_EXTENDED              20131
+#define IDS_BT_CLIENT_HANDSHAKE_TIMEOUT     20132
+#define IDS_BT_CLIENT_HANDSHAKING           20133
+#define IDS_BT_CLIENT_MAX_CONNECTIONS       20134
+#define IDS_BT_CLIENT_INACTIVE_FILE         20135
+#define IDS_BT_CLIENT_UNKNOWN_FILE          20136
+#define IDS_BT_CLIENT_WRONG_FILE            20137
+#define IDS_BT_CLIENT_WRONG_GUID            20138
+#define IDS_BT_CLIENT_LOST                  20139
+#define IDS_BT_ENCODING                     20140
+#define IDS_BT_PRIVATE                      20141
+#define IDS_BT_SEED_ALREADY                 20142
+#define IDS_BT_SEED_COPY_FAIL               20143
+#define IDS_BT_SEED_CREATE_FAIL             20144
+#define IDS_BT_SEED_ERROR                   20145
+#define IDS_BT_SEED_PARSE_ERROR             20146
+#define IDS_BT_SEED_SOURCE_LOST             20147
+#define IDS_BT_SEED_SOURCE_SIZE             20148
+#define IDS_BT_SEED_VERIFY_FAIL             20149
+#define IDS_BT_TRACKER_DOWN                 20150
+#define IDS_BT_TRACKER_MULTI                20151
+#define IDS_BT_TRACK_CHANGE                 20152
+#define IDS_BT_TRACK_ERROR                  20153
+#define IDS_BT_TRACK_PARSE_ERROR            20154
+#define IDS_BT_TRACK_SUCCESS                20155
+#define IDS_BT_UPDATE_CONVERTING            20156
+#define IDS_BT_UPDATE_TITLE                 20157
+#define IDS_BT_PREFETCH_ERROR               20158
+#define IDS_BT_PREFETCH_FILE                20159
+#define IDS_CHAT_ACCEPTED_X                 20160
+#define IDS_CHAT_CANT_CONNECT               20161
+#define IDS_CHAT_CANT_PUSH                  20162
+#define IDS_CHAT_CLOSED                     20163
+#define IDS_CHAT_CLOSED_X                   20164
+#define IDS_CHAT_CONNECTED                  20165
+#define IDS_CHAT_CONNECTED_X                20166
+#define IDS_CHAT_CONNECTING_TO              20167
+#define IDS_CHAT_CONNECTING_X               20168
+#define IDS_CHAT_CONNECT_FAIL_X             20169
+#define IDS_CHAT_DROPPED                    20170
+#define IDS_CHAT_DROPPED_X                  20171
+#define IDS_CHAT_HANDSHAKE_FAIL             20172
+#define IDS_CHAT_HANDSHAKE_G1               20173
+#define IDS_CHAT_HANDSHAKE_G2               20174
+#define IDS_CHAT_NEED_PROFILE               20175
+#define IDS_CHAT_NOT_CONNECTED_1            20176
+#define IDS_CHAT_NOT_CONNECTED_2            20177
+#define IDS_CHAT_NICK_X                     20178
+#define IDS_CHAT_ONLINE_X                   20179
+#define IDS_CHAT_PRIORITY_GRANTED           20180
+#define IDS_CHAT_PRIVATE_AWAY               20181
+#define IDS_CHAT_PRIVATE_ONLINE             20182
+#define IDS_CHAT_PRIVATE_REFUSED            20183
+#define IDS_CHAT_PRIVATE_START              20184
+#define IDS_CHAT_PROFILE_ACCEPTED           20185
+#define IDS_CHAT_PUSH_DONE                  20186
+#define IDS_CHAT_PUSH_SENT                  20187
+#define IDS_CHAT_PROTOCOL_X                 20188
+#define IDS_CHAT_RESPONSE_X                 20189
+#define IDS_CHAT_UNCONNECTED_X              20190
+#define IDS_CHAT_UNRECOGNISED_X             20191
 #define IDS_CHAT_CAPTCHA_ACCEPTED           20192
 #define IDS_CHAT_CAPTCHA_DENIED             20193
 #define IDS_CHAT_CAPTCHA_REQUEST            20194
-#define IDS_COLLECTION_WIZARD_NOCUSTOM      20196		// 7101
-#define IDS_COLLECTION_WIZARD_NOTVALID      20197		// 7100
+#define IDS_COLLECTION_WIZARD_NOCUSTOM      20196
+#define IDS_COLLECTION_WIZARD_NOTVALID      20197
 #define IDS_COPIED_TO_CLIPBOARD             20198
-#define IDS_CLOSING_AFTER                   20199		// 8005
-#define IDS_DOWNLOAD_ADDED                  20200		// 16256
-#define IDS_DOWNLOAD_ALREADY                20201		// 16283
-#define IDS_DOWNLOAD_BAD_PUSH               20202		// 16284
-#define IDS_DOWNLOAD_BOOST                  20203		// 16295
-#define IDS_DOWNLOAD_BUSY                   20204		// 16280
-#define IDS_DOWNLOAD_CANT_MOVE              20205		// 16292
-#define IDS_DOWNLOAD_CANT_RESOLVE           20206		// 16294
-#define IDS_DOWNLOAD_CLEAR_GROUP            20207		// 16365
-#define IDS_DOWNLOAD_CLOSING_EXTRA          20208		// 16307
-#define IDS_DOWNLOAD_CLOSING_OVERFLOW       20209		// 16308
-#define IDS_DOWNLOAD_COMPLETED              20210		// 16257
-#define IDS_DOWNLOAD_CONFIRM_CLEAR          20211		// 16281
-#define IDS_DOWNLOAD_CONFIRM_CLEAR_PAUSED   20212		// 16299
-#define IDS_DOWNLOAD_CONFIRM_DELETE         20213		// 16300
-#define IDS_DOWNLOAD_CONNECTED              20214		// 16266
-#define IDS_DOWNLOAD_CONNECTING             20215		// 16264
-#define IDS_DOWNLOAD_CONNECT_ERROR          20216		// 16265
-#define IDS_DOWNLOAD_CONTENT                20217		// 16279
-#define IDS_DOWNLOAD_DISABLED               20218		// 16282
-#define IDS_DOWNLOAD_DISK_SPACE             20219		// 16318
-#define IDS_DOWNLOAD_DROPPED                20220		// 16278
-#define IDS_DOWNLOAD_EDIT_ACTIVE_TASK       20221		// 18515
-#define IDS_DOWNLOAD_EDIT_BAD_ED2K          20222		// 18499
-#define IDS_DOWNLOAD_EDIT_BAD_HASH          20223		// 18514
-#define IDS_DOWNLOAD_EDIT_BAD_RANGE         20224		// 18505
-#define IDS_DOWNLOAD_EDIT_BAD_SHA1          20225		// 18497
-#define IDS_DOWNLOAD_EDIT_BAD_TIGER         20226		// 18498
-#define IDS_DOWNLOAD_EDIT_CANCEL_DOWNLOAD   20227		// 18511
-#define IDS_DOWNLOAD_EDIT_CANT_ERASE        20228		// 18506
-#define IDS_DOWNLOAD_EDIT_CHANGE_HASH       20230		// 18513
-#define IDS_DOWNLOAD_EDIT_CHANGE_SHA1       20231		// 18500
-#define IDS_DOWNLOAD_EDIT_CHANGE_ED2K       20232		// 18502
-#define IDS_DOWNLOAD_EDIT_CHANGE_TIGER      20233		// 18501
-#define IDS_DOWNLOAD_EDIT_CHANGE_SIZE       20234		// 18512
-#define IDS_DOWNLOAD_EDIT_COMPLETE_NOHASH   20235		// 18509
-#define IDS_DOWNLOAD_EDIT_COMPLETE_VERIFY   20236		// 18510
-#define IDS_DOWNLOAD_EDIT_FORGET_SOURCES    20237		// 18504
-#define IDS_DOWNLOAD_EDIT_FORGET_VERIFY     20238		// 18503
-#define IDS_DOWNLOAD_EDIT_ERASED            20240		// 18507
-#define IDS_DOWNLOAD_EDIT_RENAME            20241		// 18496
-#define IDS_DOWNLOAD_FILENOTFOUND           20242		// 16272
-#define IDS_DOWNLOAD_FILE_CREATE            20243		// 16261
-#define IDS_DOWNLOAD_FILE_CREATE_ERROR      20244		// 16262
-#define IDS_DOWNLOAD_FILE_OPEN_ERROR        20245		// 16263
-#define IDS_DOWNLOAD_FRAGMENT_END           20246		// 16268
-#define IDS_DOWNLOAD_FRAGMENT_OVERLAP       20247		// 16269
-#define IDS_DOWNLOAD_FRAGMENT_REQUEST       20248		// 16267
-#define IDS_DOWNLOAD_GROUP                  20250		// 16255
-#define IDS_DOWNLOAD_GROUP_DEFAULT          20251		// 16254
-#define IDS_DOWNLOAD_NEW_GROUP              20252		// 16413
-#define IDS_DOWNLOAD_HASHSET_CORRUPT        20253		// 16314
-#define IDS_DOWNLOAD_HASHSET_ERROR          20254		// 16312
-#define IDS_DOWNLOAD_HASHSET_READY          20255		// 16313
-#define IDS_DOWNLOAD_HASHSET_REQUEST        20256		// 16311
-#define IDS_DOWNLOAD_INFLATE_ERROR          20257		// 16315
-#define IDS_DOWNLOAD_METADATA_RECV          20258		// 16310
-#define IDS_DOWNLOAD_METADATA_REQUEST       20259		// 16309
-#define IDS_DOWNLOAD_PROPERTIES             20260		// 8014
-#define IDS_DOWNLOAD_HTTPCODE               20261		// 16274
-#define IDS_DOWNLOAD_NOHTTP                 20262		// 16273
-#define IDS_DOWNLOAD_PUSHED                 20263		// 16286
-#define IDS_DOWNLOAD_PUSH_SENT              20264		// 16289
-#define IDS_DOWNLOAD_QUEUED                 20265		// 16298
-#define IDS_DOWNLOAD_QUEUE_DROP             20266		// 16317
-#define IDS_DOWNLOAD_QUEUE_HUGE             20267		// 18508
-#define IDS_DOWNLOAD_QUEUE_TIMEOUT          20268		// 16316
-#define IDS_DOWNLOAD_REQUEST_TIMEOUT        20269		// 16270
-#define IDS_DOWNLOAD_REMOVE                 20270		// 16260
-#define IDS_DOWNLOAD_MOVED                  20271		// 16291
-#define IDS_DOWNLOAD_PAUSED                 20272		// 16258
-#define IDS_DOWNLOAD_RESUMED                20273		// 16259
-#define IDS_DOWNLOAD_RESOLVING              20274		// 16293
-#define IDS_DOWNLOAD_SOURCES                20275		// 16288
-#define IDS_DOWNLOAD_SOURCES_CONNECTED      20276		// 16287
-#define IDS_DOWNLOAD_TIGER_CORRUPT          20280		// 16304
-#define IDS_DOWNLOAD_TIGER_MISMATCH         20281		// 16305
-#define IDS_DOWNLOAD_TIGER_RANGE            20282		// 16302
-#define IDS_DOWNLOAD_TIGER_READY            20283		// 16306
-#define IDS_DOWNLOAD_TIGER_RECV             20284		// 16303
-#define IDS_DOWNLOAD_TIGER_REQUEST          20285		// 16301
-#define IDS_DOWNLOAD_TRAFFIC_TIMEOUT        20286		// 16271
-#define IDS_DOWNLOAD_USEFUL_RANGE           20290		// 16290
-#define IDS_DOWNLOAD_UNKNOWN_PUSH           20291		// 16285
-#define IDS_DOWNLOAD_VERIFY_DROP            20292		// 16319
-#define IDS_DOWNLOAD_VERIFY_FAIL            20293		// 16297
-#define IDS_DOWNLOAD_VERIFY_SUCCESS         20294		// 16296
-#define IDS_DOWNLOAD_WRONG_HASH             20295		// 16275
-#define IDS_DOWNLOAD_WRONG_RANGE            20296		// 16277
-#define IDS_DOWNLOAD_WRONG_SIZE             20297		// 16276
-#define IDS_DOWNLOAD_416_WITHOUT_RANGE      20298		// 16378
-#define IDS_CONNECTION_ACCEPTED             20300		// 16128
-#define IDS_CONNECTION_ALREADY_ABORT        20301		// 16138
-#define IDS_CONNECTION_ALREADY_REFUSE       20302		// 16137
-#define IDS_CONNECTION_ATTEMPTING           20303		// 16129
-#define IDS_CONNECTION_BYE                  20304		// 16139
-#define IDS_CONNECTION_CLOSED               20305		// 16134
-#define IDS_CONNECTION_CONNECTED            20306		// 16133
-#define IDS_CONNECTION_CONNECT_FAIL         20307		// 16130
-#define IDS_CONNECTION_DROPPED              20308		// 16136
-#define IDS_CONNECTION_PEERPRUNE            20309		// 16141
-#define IDS_CONNECTION_REFUSED              20310		// 16135
-#define IDS_CONNECTION_TIMEOUT_CONNECT      20311		// 16131
-#define IDS_CONNECTION_TIMEOUT_TRAFFIC      20312		// 16132
-#define IDS_DISCOVERY_BOOTSTRAP             20313		// 16864
-#define IDS_DISCOVERY_FAILED                20314		// 16867
-#define IDS_DISCOVERY_FAIL_REMOVE           20315		// 16868
-#define IDS_DISCOVERY_QUERY                 20316		// 16865
-#define IDS_DISCOVERY_SUBMIT                20317		// 16871
-#define IDS_DISCOVERY_UPDATING              20318		// 16870
-#define IDS_DISCOVERY_WEB_SUCCESS           20319		// 16866
-#define IDS_ED2K_CLIENT_ACCEPTED            20320		// 17227
-#define IDS_ED2K_CLIENT_BAD_PACKET          20321		// 17226
-#define IDS_ED2K_CLIENT_CLOSED              20322		// 17229
-#define IDS_ED2K_CLIENT_CONNECTING          20323		// 17230
-#define IDS_ED2K_CLIENT_CONNECT_TIMEOUT     20324		// 17232
-#define IDS_ED2K_CLIENT_DISABLED            20325		// 17234
-#define IDS_ED2K_CLIENT_DROPPED             20326		// 17225
-#define IDS_ED2K_CLIENT_HANDSHAKE_FAIL      20327		// 17224
-#define IDS_ED2K_CLIENT_HANDSHAKE_TIMEOUT   20328		// 17233
-#define IDS_ED2K_CLIENT_SENT_HASHSET        20329		// 17228
-#define IDS_ED2K_CLIENT_WRONG_GUID          20330		// 17231
-#define IDS_ED2K_EPI_ALREADY                20331		// 17259
-#define IDS_ED2K_EPI_CANT_OPEN_PART         20332		// 17253
-#define IDS_ED2K_EPI_COPY_FINISHED          20333		// 17257
-#define IDS_ED2K_EPI_COPY_START             20334		// 17256
-#define IDS_ED2K_EPI_DISK_SPACE             20335		// 17260
-#define IDS_ED2K_EPI_FILE_CREATED           20336		// 17258
-#define IDS_ED2K_EPI_FILE_FAILED            20337		// 17251
-#define IDS_ED2K_EPI_FILE_OLD               20338		// 17255
-#define IDS_ED2K_EPI_FILE_START             20339		// 17252
-#define IDS_ED2K_EPI_FINISHED               20340		// 17249
-#define IDS_ED2K_EPI_FOLDER                 20341		// 17250
-#define IDS_ED2K_EPI_START                  20342		// 17248
-#define IDS_ED2K_EPI_DETECTED               20344		// 17254
-#define IDS_ED2K_SERVER_CONNECTED           20345		// 17217
-#define IDS_ED2K_SERVER_CONNECTING          20346		// 17216
-#define IDS_ED2K_SERVER_IDCHANGE            20347		// 17221
-#define IDS_ED2K_SERVER_IDENT               20348		// 17222
-#define IDS_ED2K_SERVER_MESSAGE             20349		// 17218
-#define IDS_ED2K_SERVER_ONLINE              20350		// 17220
-#define IDS_ED2K_SERVER_REFUSED             20351		// 17219
-#define IDS_ED2K_SERVER_REJECTED            20352		// 17223
-#define IDS_FILE_PROPERTIES                 20354		// 8002
-#define IDS_FILTER_DELETE_CONFIRM           20355		// 7006
-#define IDS_FILTER_REPLACE                  20356		// 7004
-#define IDS_FILTER_NO_NAME                  20358		// 7005
-#define IDS_GRAPH_CONNECTION_ERRORS         20360		// 16538
-#define IDS_GRAPH_DOWNLOADS_BANDWIDTH       20361		// 16520
-#define IDS_GRAPH_DOWNLOADS_FILES           20362		// 16518
-#define IDS_GRAPH_DOWNLOADS_TRANSFERS       20363		// 16519
-#define IDS_GRAPH_GNUTELLA_BANDWIDTH_IN     20364		// 16516
-#define IDS_GRAPH_GNUTELLA_BANDWIDTH_OUT    20365		// 16517
-#define IDS_GRAPH_GNUTELLA_CONNECTIONS      20366		// 16514
-#define IDS_GRAPH_GNUTELLA_CONNECTIONS_ALL  20367		// 16515
-#define IDS_GRAPH_GNUTELLA_DROPPED          20368		// 16526
-#define IDS_GRAPH_GNUTELLA_LOST             20369		// 16527
-#define IDS_GRAPH_GNUTELLA_PACKETS_IN       20370		// 16523
-#define IDS_GRAPH_GNUTELLA_PACKETS_OUT      20371		// 16524
-#define IDS_GRAPH_GNUTELLA_PINGS            20372		// 16536
-#define IDS_GRAPH_GNUTELLA_PONGS            20373		// 16537
-#define IDS_GRAPH_GNUTELLA_QUERIES          20374		// 16528
+#define IDS_CLOSING_AFTER                   20199
+#define IDS_DOWNLOAD_ADDED                  20200
+#define IDS_DOWNLOAD_ALREADY                20201
+#define IDS_DOWNLOAD_BAD_PUSH               20202
+#define IDS_DOWNLOAD_BOOST                  20203
+#define IDS_DOWNLOAD_BUSY                   20204
+#define IDS_DOWNLOAD_CANT_MOVE              20205
+#define IDS_DOWNLOAD_CANT_RESOLVE           20206
+#define IDS_DOWNLOAD_CLEAR_GROUP            20207
+#define IDS_DOWNLOAD_CLOSING_EXTRA          20208
+#define IDS_DOWNLOAD_CLOSING_OVERFLOW       20209
+#define IDS_DOWNLOAD_COMPLETED              20210
+#define IDS_DOWNLOAD_CONFIRM_CLEAR          20211
+#define IDS_DOWNLOAD_CONFIRM_CLEAR_PAUSED   20212
+#define IDS_DOWNLOAD_CONFIRM_DELETE         20213
+#define IDS_DOWNLOAD_CONNECTED              20214
+#define IDS_DOWNLOAD_CONNECTING             20215
+#define IDS_DOWNLOAD_CONNECT_ERROR          20216
+#define IDS_DOWNLOAD_CONTENT                20217
+#define IDS_DOWNLOAD_DISABLED               20218
+#define IDS_DOWNLOAD_DISK_SPACE             20219
+#define IDS_DOWNLOAD_DROPPED                20220
+#define IDS_DOWNLOAD_EDIT_ACTIVE_TASK       20221
+#define IDS_DOWNLOAD_EDIT_BAD_ED2K          20222
+#define IDS_DOWNLOAD_EDIT_BAD_HASH          20223
+#define IDS_DOWNLOAD_EDIT_BAD_RANGE         20224
+#define IDS_DOWNLOAD_EDIT_BAD_SHA1          20225
+#define IDS_DOWNLOAD_EDIT_BAD_TIGER         20226
+#define IDS_DOWNLOAD_EDIT_CANCEL_DOWNLOAD   20227
+#define IDS_DOWNLOAD_EDIT_CANT_ERASE        20228
+#define IDS_DOWNLOAD_EDIT_CHANGE_HASH       20230
+#define IDS_DOWNLOAD_EDIT_CHANGE_SHA1       20231
+#define IDS_DOWNLOAD_EDIT_CHANGE_ED2K       20232
+#define IDS_DOWNLOAD_EDIT_CHANGE_TIGER      20233
+#define IDS_DOWNLOAD_EDIT_CHANGE_SIZE       20234
+#define IDS_DOWNLOAD_EDIT_COMPLETE_NOHASH   20235
+#define IDS_DOWNLOAD_EDIT_COMPLETE_VERIFY   20236
+#define IDS_DOWNLOAD_EDIT_FORGET_SOURCES    20237
+#define IDS_DOWNLOAD_EDIT_FORGET_VERIFY     20238
+#define IDS_DOWNLOAD_EDIT_ERASED            20240
+#define IDS_DOWNLOAD_EDIT_RENAME            20241
+#define IDS_DOWNLOAD_FILENOTFOUND           20242
+#define IDS_DOWNLOAD_FILE_CREATE            20243
+#define IDS_DOWNLOAD_FILE_CREATE_ERROR      20244
+#define IDS_DOWNLOAD_FILE_OPEN_ERROR        20245
+#define IDS_DOWNLOAD_FRAGMENT_END           20246
+#define IDS_DOWNLOAD_FRAGMENT_OVERLAP       20247
+#define IDS_DOWNLOAD_FRAGMENT_REQUEST       20248
+#define IDS_DOWNLOAD_DC_HUBLIST             20249
+#define IDS_DOWNLOAD_GROUP                  20250
+#define IDS_DOWNLOAD_GROUP_DEFAULT          20251
+#define IDS_DOWNLOAD_NEW_GROUP              20252
+#define IDS_DOWNLOAD_HASHSET_CORRUPT        20253
+#define IDS_DOWNLOAD_HASHSET_ERROR          20254
+#define IDS_DOWNLOAD_HASHSET_READY          20255
+#define IDS_DOWNLOAD_HASHSET_REQUEST        20256
+#define IDS_DOWNLOAD_INFLATE_ERROR          20257
+#define IDS_DOWNLOAD_METADATA_RECV          20258
+#define IDS_DOWNLOAD_METADATA_REQUEST       20259
+#define IDS_DOWNLOAD_PROPERTIES             20260
+#define IDS_DOWNLOAD_HTTPCODE               20261
+#define IDS_DOWNLOAD_NOHTTP                 20262
+#define IDS_DOWNLOAD_PUSHED                 20263
+#define IDS_DOWNLOAD_PUSH_SENT              20264
+#define IDS_DOWNLOAD_QUEUED                 20265
+#define IDS_DOWNLOAD_QUEUE_DROP             20266
+#define IDS_DOWNLOAD_QUEUE_HUGE             20267
+#define IDS_DOWNLOAD_QUEUE_TIMEOUT          20268
+#define IDS_DOWNLOAD_REQUEST_TIMEOUT        20269
+#define IDS_DOWNLOAD_REMOVE                 20270
+#define IDS_DOWNLOAD_MOVED                  20271
+#define IDS_DOWNLOAD_PAUSED                 20272
+#define IDS_DOWNLOAD_RESUMED                20273
+#define IDS_DOWNLOAD_RESOLVING              20274
+#define IDS_DOWNLOAD_SOURCES                20275
+#define IDS_DOWNLOAD_SOURCES_CONNECTED      20276
+#define IDS_DOWNLOAD_TIGER_CORRUPT          20280
+#define IDS_DOWNLOAD_TIGER_MISMATCH         20281
+#define IDS_DOWNLOAD_TIGER_RANGE            20282
+#define IDS_DOWNLOAD_TIGER_READY            20283
+#define IDS_DOWNLOAD_TIGER_RECV             20284
+#define IDS_DOWNLOAD_TIGER_REQUEST          20285
+#define IDS_DOWNLOAD_TRAFFIC_TIMEOUT        20286
+#define IDS_DOWNLOAD_USEFUL_RANGE           20290
+#define IDS_DOWNLOAD_UNKNOWN_PUSH           20291
+#define IDS_DOWNLOAD_VERIFY_DROP            20292
+#define IDS_DOWNLOAD_VERIFY_FAIL            20293
+#define IDS_DOWNLOAD_VERIFY_SUCCESS         20294
+#define IDS_DOWNLOAD_WRONG_HASH             20295
+#define IDS_DOWNLOAD_WRONG_RANGE            20296
+#define IDS_DOWNLOAD_WRONG_SIZE             20297
+#define IDS_DOWNLOAD_416_WITHOUT_RANGE      20298
+#define IDS_CONNECTION_ACCEPTED             20300
+#define IDS_CONNECTION_ALREADY_ABORT        20301
+#define IDS_CONNECTION_ALREADY_REFUSE       20302
+#define IDS_CONNECTION_ATTEMPTING           20303
+#define IDS_CONNECTION_BYE                  20304
+#define IDS_CONNECTION_CLOSED               20305
+#define IDS_CONNECTION_CONNECTED            20306
+#define IDS_CONNECTION_CONNECT_FAIL         20307
+#define IDS_CONNECTION_DROPPED              20308
+#define IDS_CONNECTION_PEERPRUNE            20309
+#define IDS_CONNECTION_REFUSED              20310
+#define IDS_CONNECTION_TIMEOUT_CONNECT      20311
+#define IDS_CONNECTION_TIMEOUT_TRAFFIC      20312
+#define IDS_DISCOVERY_BOOTSTRAP             20313
+#define IDS_DISCOVERY_FAILED                20314
+#define IDS_DISCOVERY_FAIL_REMOVE           20315
+#define IDS_DISCOVERY_QUERY                 20316
+#define IDS_DISCOVERY_SUBMIT                20317
+#define IDS_DISCOVERY_UPDATING              20318
+#define IDS_DISCOVERY_WEB_SUCCESS           20319
+#define IDS_ED2K_CLIENT_ACCEPTED            20320
+#define IDS_ED2K_CLIENT_BAD_PACKET          20321
+#define IDS_ED2K_CLIENT_CLOSED              20322
+#define IDS_ED2K_CLIENT_CONNECTING          20323
+#define IDS_ED2K_CLIENT_CONNECT_TIMEOUT     20324
+#define IDS_ED2K_CLIENT_DISABLED            20325
+#define IDS_ED2K_CLIENT_DROPPED             20326
+#define IDS_ED2K_CLIENT_HANDSHAKE_FAIL      20327
+#define IDS_ED2K_CLIENT_HANDSHAKE_TIMEOUT   20328
+#define IDS_ED2K_CLIENT_SENT_HASHSET        20329
+#define IDS_ED2K_CLIENT_WRONG_GUID          20330
+#define IDS_ED2K_EPI_ALREADY                20331
+#define IDS_ED2K_EPI_CANT_OPEN_PART         20332
+#define IDS_ED2K_EPI_COPY_FINISHED          20333
+#define IDS_ED2K_EPI_COPY_START             20334
+#define IDS_ED2K_EPI_DISK_SPACE             20335
+#define IDS_ED2K_EPI_FILE_CREATED           20336
+#define IDS_ED2K_EPI_FILE_FAILED            20337
+#define IDS_ED2K_EPI_FILE_OLD               20338
+#define IDS_ED2K_EPI_FILE_START             20339
+#define IDS_ED2K_EPI_FINISHED               20340
+#define IDS_ED2K_EPI_FOLDER                 20341
+#define IDS_ED2K_EPI_START                  20342
+#define IDS_ED2K_EPI_DETECTED               20344
+#define IDS_ED2K_SERVER_CONNECTED           20345
+#define IDS_ED2K_SERVER_CONNECTING          20346
+#define IDS_ED2K_SERVER_IDCHANGE            20347
+#define IDS_ED2K_SERVER_IDENT               20348
+#define IDS_ED2K_SERVER_MESSAGE             20349
+#define IDS_ED2K_SERVER_ONLINE              20350
+#define IDS_ED2K_SERVER_REFUSED             20351
+#define IDS_ED2K_SERVER_REJECTED            20352
+#define IDS_FILE_PROPERTIES                 20354
+#define IDS_FILTER_DELETE_CONFIRM           20355
+#define IDS_FILTER_REPLACE                  20356
+#define IDS_FILTER_NO_NAME                  20358
+#define IDS_GRAPH_CONNECTION_ERRORS         20360
+#define IDS_GRAPH_DOWNLOADS_BANDWIDTH       20361
+#define IDS_GRAPH_DOWNLOADS_FILES           20362
+#define IDS_GRAPH_DOWNLOADS_TRANSFERS       20363
+#define IDS_GRAPH_GNUTELLA_BANDWIDTH_IN     20364
+#define IDS_GRAPH_GNUTELLA_BANDWIDTH_OUT    20365
+#define IDS_GRAPH_GNUTELLA_CONNECTIONS      20366
+#define IDS_GRAPH_GNUTELLA_CONNECTIONS_ALL  20367
+#define IDS_GRAPH_GNUTELLA_DROPPED          20368
+#define IDS_GRAPH_GNUTELLA_LOST             20369
+#define IDS_GRAPH_GNUTELLA_PACKETS_IN       20370
+#define IDS_GRAPH_GNUTELLA_PACKETS_OUT      20371
+#define IDS_GRAPH_GNUTELLA_PINGS            20372
+#define IDS_GRAPH_GNUTELLA_PONGS            20373
+#define IDS_GRAPH_GNUTELLA_QUERIES          20374
 #define IDS_GRAPH_GNUTELLA_QUERIES_PROCESSED 20375
-#define IDS_GRAPH_GNUTELLA_ROUTED           20376		// 16525
-#define IDS_GRAPH_TOTAL_BANDWIDTH_IN        20377		// 16512
-#define IDS_GRAPH_TOTAL_BANDWIDTH_OUT       20378		// 16513
-#define IDS_GRAPH_TOTAL_BANDWIDTH_TCP_IN    20379		// 16532
-#define IDS_GRAPH_TOTAL_BANDWIDTH_TCP_OUT   20380		// 16533
-#define IDS_GRAPH_TOTAL_BANDWIDTH_UDP_IN    20381		// 16534
-#define IDS_GRAPH_TOTAL_BANDWIDTH_UDP_OUT   20382		// 16535
-#define IDS_GRAPH_UPLOADS_BANDWIDTH         20383		// 16522
-#define IDS_GRAPH_UPLOADS_TRANSFERS         20384		// 16521
-#define IDS_HANDSHAKE_BACK2LEAF             20385		// 16153
-#define IDS_HANDSHAKE_BOOTSTRAP             20386		// 16147
-#define IDS_HANDSHAKE_CANTBEPEER            20387		// 16152
-#define IDS_HANDSHAKE_FAIL                  20388		// 16146
-#define IDS_HANDSHAKE_GOTLEAF               20389		// 16155
-#define IDS_HANDSHAKE_GOTPEER               20390		// 16154
-#define IDS_HANDSHAKE_IAMLEAF               20391		// 16151
-#define IDS_HANDSHAKE_NEEDAPEER             20392		// 16157
-#define IDS_HANDSHAKE_NOTG2                 20393		// 16159
-#define IDS_HANDSHAKE_NOULTRAPEER           20394		// 16156
-#define IDS_HANDSHAKE_ONLINE                20395		// 16145
-#define IDS_HANDSHAKE_ONLINE_G2             20396		// 16158
-#define IDS_HANDSHAKE_REJECTED              20397		// 16148
-#define IDS_HANDSHAKE_SURPLUS               20398		// 16150
-#define IDS_HANDSHAKE_TIMEOUT               20399		// 16144
-#define IDS_HASH_MESSAGE                    20400		// 8208
-#define IDS_INFO_REMEMBER                   20401		// 20244
-#define IDS_IRC_ADDCHANNEL                  20402		// 17020
-#define IDS_IRC_CHANLIST                    20403		// 17019
-#define IDS_IRC_HEADERINPUT                 20404		// 17017
-#define IDS_IRC_HEADERSUBTITLE              20405		// 17016
-#define IDS_IRC_HEADERTITLE                 20406		// 17015
-#define IDS_IRC_REMOVECHANNEL               20407		// 17021
-#define IDS_IRC_USERLIST                    20408		// 17018
-#define IDS_LIBHEAD_HOME                    20410		// 8288
-#define IDS_LIBHEAD_EXPLORE_FOLDER          20411		// 8289
-#define IDS_LIBHEAD_EXPLORE_MANY            20412		// 8290
-#define IDS_LIBPANEL_MULTIPLE_FILES         20413		// 8292
-#define IDS_LIBPANEL_MULTIPLE_FOLDERS       20414		// 8291
-#define IDS_LIBPANEL_NO_SELECTION           20415		// 8293
-#define IDS_LIBPANEL_RATE_FILE              20416		// 8295
-#define IDS_LIBPANEL_RECENT_ADDITIONS       20417		// 8294
-#define IDS_LIBRARY_ALBUM_ALBUM             20418		// 20234
-#define IDS_LIBRARY_ALBUM_ARTIST            20419		// 20235
-#define IDS_LIBRARY_ALBUM_BITRATE           20420		// 20233
-#define IDS_LIBRARY_ALBUM_LENGTH            20421		// 20232
-#define IDS_LIBRARY_ALBUM_RATING            20422		// 20236
-#define IDS_LIBRARY_ALBUM_TITLE             20423		// 20231
-#define IDS_LIBRARY_ALBUM_TRACK             20424		// 20230
-#define IDS_LIBRARY_COLLECTION_CANT_INSTALL 20425		// 16404
-#define IDS_LIBRARY_COLLECTION_DOWNLOAD_ALL 20426		// 16406
-#define IDS_LIBRARY_COLLECTION_INSTALLED    20427		// 16403
-#define IDS_LIBRARY_COLLECTION_INVALID      20428		// 16402
-#define IDS_LIBRARY_COLLECTION_LOCKDOWN     20429		// 16407
-#define IDS_LIBRARY_CONFIRM_EXECUTE         20430		// 16384
-#define IDS_LIBRARY_DELETE                  20431		// 16389
-#define IDS_LIBRARY_DELETE_FAIL             20432		// 16399
-#define IDS_LIBRARY_DOWNLOADS_ADD           20433		// 16395
-#define IDS_LIBRARY_DOWNLOADS_SHARE         20434		// 16396
-#define IDS_LIBRARY_ENQUEUE                 20435		// 16390
-#define IDS_LIBRARY_FOLDER_DELETE           20436		// 16397
-#define IDS_LIBRARY_GHOST_FILE              20437		// 16412
-#define IDS_LIBRARY_METADATA_EDIT           20438		// 16386
-#define IDS_LIBRARY_METADATA_MANY           20439		// 16385
-#define IDS_LIBRARY_MOVE_FAIL               20440		// 16411
-#define IDS_LIBRARY_RENAME_FAIL             20441		// 16398
-#define IDS_LIBRARY_TARGET_EXISTS           20442		// 16400
-#define IDS_LIBRARY_TYPE_FILTER_ALL         20443		// 16401
-#define IDS_LIBRARY_URI_COPY                20444		// 16408
-#define IDS_LIBRARY_URI_EXPORT              20445		// 16409
-#define IDS_LIBRARY_VERIFY_FAIL             20446		// 16393
-#define IDS_LIBRARY_VERIFY_FIX              20447		// 16394
-#define IDS_LIBRARY_BITZI_HASHED            20448		// 16387
-#define IDS_LIBRARY_BITZI_MESSAGE           20449		// 16388
-#define IDS_LIBRARY_SUBFOLDER_IN_LIBRARY    20450		// 16410
-#define IDS_MEDIA_EMPTY                     20451		// 16997
-#define IDS_MEDIA_FILTER                    20452		// 16993
-#define IDS_MEDIA_LOAD_FAIL                 20453		// 16994
-#define IDS_MEDIA_LOAD_FAIL_HELP            20454		// 16995
-#define IDS_MEDIA_PARTIAL_RENDER            20455		// 16996
-#define IDS_MEDIA_PLAYLIST                  20456		// 16999
-#define IDS_MEDIA_PLUGIN_CREATE             20457		// 16992
-#define IDS_MEDIA_SMPLAYER                  20458		// 16991
-#define IDS_MEDIA_TIMESPLIT                 20459		// 16990
-#define IDS_MEDIA_TITLE                     20460		// 16998
-#define IDS_MEDIAVIS_NOVIS                  20461		// 16785
-//#define IDS_MONITOR_COMPLETED             20462		// 8226
-//#define IDS_MONITOR_DOWNLOADING           20463		// 8222
-//#define IDS_MONITOR_MOVING                20464		// 8224
-//#define IDS_MONITOR_PAUSED                20465		// 8223
-//#define IDS_MONITOR_SOURCING              20466		// 8221
-//#define IDS_MONITOR_VERIFY                20467		// 8225
-#define IDS_MONITOR_ACTION_CANCEL           20470		// 8233
-#define IDS_MONITOR_ACTION_OPEN             20471		// 8232
-#define IDS_MONITOR_COMPLETED_WORD          20472		// 8239
-#define IDS_MONITOR_ESTIMATED_TIME          20473		// 8236
-#define IDS_MONITOR_NUMBER_REVIEWS          20474		// 8241
-#define IDS_MONITOR_NUMBER_SOURCES          20475		// 8240
-#define IDS_MONITOR_NO_SOURCES              20476		// 8231
-#define IDS_MONITOR_TIME_DH                 20477		// 8227
-#define IDS_MONITOR_TIME_HM                 20478		// 8228
-#define IDS_MONITOR_TIME_MS                 20479		// 8229
-#define IDS_MONITOR_TIME_S                  20480		// 8230
-#define IDS_MONITOR_TOTAL_SPEED             20481		// 8235
-#define IDS_MONITOR_VOLUME_DOWNLOADED       20482		// 8237
-#define IDS_MONITOR_VOLUME_UPLOADED         20483		// 8238
-#define IDS_MONITORBAR_LIMIT_IN             20484		// 8244
-#define IDS_MONITORBAR_LIMIT_OUT            20485		// 8245
-#define IDS_MULTIPLE                        20490		// 7003
-#define IDS_MULTIPLE_VALUES                 20491		// 7002
-#define IDS_PROFILE_NO_LOCATION             20494		// 16805
-#define IDS_PROFILE_NO_NICK                 20495		// 16804
-#define IDS_PROFILE_NO_VITALS               20496		// 16808
-#define IDS_NEW_FOLDER                      20499		// 20245
-#define IDS_NEIGHBOURS_CONNECT              20500		// 16392
-#define IDS_NEIGHBOURS_NOT_CONNECTED        20501		// 16391
-#define IDS_NEIGHBOUR_CLOSING               20502		// 17120
-#define IDS_NEIGHBOUR_COMPRESSION           20503		// 17113
-#define IDS_NEIGHBOUR_COMPRESSION_DF        20504		// 17115
-#define IDS_NEIGHBOUR_COMPRESSION_NONE      20505		// 17116
-#define IDS_NEIGHBOUR_CONNECTING            20506		// 17117
-#define IDS_NEIGHBOUR_CURRENT               20507		// 17111
-#define IDS_NEIGHBOUR_ED2K_HIGH             20510		// 17107
-#define IDS_NEIGHBOUR_ED2K_HIGHID           20511		// 17130
-#define IDS_NEIGHBOUR_ED2K_LOW              20512		// 17106
-#define IDS_NEIGHBOUR_ED2K_LOWID            20513		// 17129
-#define IDS_NEIGHBOUR_ED2K_SERVER           20514		// 17128
-#define IDS_NEIGHBOUR_G1LEAF                20515		// 17124
-#define IDS_NEIGHBOUR_G1PEER                20516		// 17122
-#define IDS_NEIGHBOUR_G1PP                  20517		// 17100
-#define IDS_NEIGHBOUR_G1LU                  20518		// 17101
-#define IDS_NEIGHBOUR_G1UL                  20519		// 17102
-#define IDS_NEIGHBOUR_G1ULTRA               20520		// 17123
-#define IDS_NEIGHBOUR_G2HUB                 20521		// 17126
-#define IDS_NEIGHBOUR_G2LEAF                20522		// 17127
-#define IDS_NEIGHBOUR_G2PEER                20524		// 17125
-#define IDS_NEIGHBOUR_G2LH                  20525		// 17104
-#define IDS_NEIGHBOUR_G2HH                  20526		// 17103
-#define IDS_NEIGHBOUR_G2HL                  20527		// 17105
-#define IDS_NEIGHBOUR_HANDSHAKE             20530		// 17108
-#define IDS_NEIGHBOUR_HANDSHAKING           20531		// 17118
-#define IDS_NEIGHBOUR_INBOUND               20532		// 17109
-#define IDS_NEIGHBOUR_OUTBOUND              20533		// 17110
-#define IDS_NEIGHBOUR_TOTAL                 20534		// 17112
-#define IDS_NEIGHBOUR_RATIO                 20535		// 17114
-#define IDS_NEIGHBOUR_REJECTED              20536		// 17119
-#define IDS_NEIGHBOUR_UNKNOWN               20538		// 17121
-#define IDS_NETWORK_CONNECT                 20540		// 8069
-#define IDS_NETWORK_CONNECTING              20541		// 8070
-#define IDS_NETWORK_CONNECTED               20542		// 8071
-#define IDS_NETWORK_DISCONNECT              20543		// 8072
-#define IDS_NETWORK_DISCONNECTING           20544		// 16066
-#define IDS_NETWORK_DISCONNECTED            20545		// 16067
-#define IDS_NETWORK_DISCONNECT_CONFIRM      20546		// 16079
-#define IDS_NETWORK_DISABLE_G2              20547		// 16085
-#define IDS_NETWORK_CANT_LISTEN             20548		// 16065
-#define IDS_NETWORK_CANT_OUTGOING           20549		// 16070
-#define IDS_NETWORK_BANDWIDTH_LOW           20550		// 16087
-#define IDS_NETWORK_FIREWALLED              20551		// 16071
-#define IDS_NETWORK_FORCE_HUB               20552		// 16083
-#define IDS_NETWORK_LISTENING_TCP           20553		// 16068
-#define IDS_NETWORK_LISTENING_UDP           20554		// 16072
-#define IDS_NETWORK_OUTGOING                20555		// 16069
-#define IDS_NETWORK_RESOLVE_FAIL            20556		// 16074
-#define IDS_NETWORK_RESOLVING               20557		// 16073
-#define IDS_NETWORK_SEARCH_SENT             20558		// 16081
-#define IDS_NETWORK_SECURITY_ALREADY_BLOCKED 20560		// 16077
-#define IDS_NETWORK_SECURITY_BLOCKED        20561		// 16078
-#define IDS_NETWORK_SECURITY_DENIED         20562		// 16075
-#define IDS_NETWORK_SECURITY_OUTGOING       20563		// 16076
-#define IDS_NETWORK_STARTUP                 20564		// 16064
-#define IDS_NETWORK_UNLIMIT                 20565		// 16080
-#define IDS_NETWORK_UPNP_FAILED             20566		// 16063
-#define IDS_PROTOCOL_BAD_HIT                20570		// 16202
-#define IDS_PROTOCOL_BAD_QUERY              20571		// 16201
-#define IDS_PROTOCOL_HIGH_TTL               20572		// 16194
-#define IDS_PROTOCOL_NO_TTL                 20573		// 16193
-#define IDS_PROTOCOL_GGEP_REQUIRED          20574		// 16212
-#define IDS_PROTOCOL_QRP_FAILED             20575		// 16209
-#define IDS_PROTOCOL_QRP_SENT               20576		// 16213
-#define IDS_PROTOCOL_QRP_UNEXPECTED         20577		// 16208
-#define IDS_PROTOCOL_QRP_UPDATED            20578		// 16210
-#define IDS_PROTOCOL_PACKET_DUMP            20579		// 16197
-#define IDS_PROTOCOL_LEAF_FORWARD           20580		// 16198
-#define IDS_PROTOCOL_SIZE_PING              20581		// 16195
-#define IDS_PROTOCOL_SIZE_PONG              20582		// 16196
-#define IDS_PROTOCOL_SIZE_PUSH              20583		// 16203
-#define IDS_PROTOCOL_TOO_LARGE              20584		// 16192
+#define IDS_GRAPH_GNUTELLA_ROUTED           20376
+#define IDS_GRAPH_TOTAL_BANDWIDTH_IN        20377
+#define IDS_GRAPH_TOTAL_BANDWIDTH_OUT       20378
+#define IDS_GRAPH_TOTAL_BANDWIDTH_TCP_IN    20379
+#define IDS_GRAPH_TOTAL_BANDWIDTH_TCP_OUT   20380
+#define IDS_GRAPH_TOTAL_BANDWIDTH_UDP_IN    20381
+#define IDS_GRAPH_TOTAL_BANDWIDTH_UDP_OUT   20382
+#define IDS_GRAPH_UPLOADS_BANDWIDTH         20383
+#define IDS_GRAPH_UPLOADS_TRANSFERS         20384
+#define IDS_HANDSHAKE_BACK2LEAF             20385
+#define IDS_HANDSHAKE_BOOTSTRAP             20386
+#define IDS_HANDSHAKE_CANTBEPEER            20387
+#define IDS_HANDSHAKE_FAIL                  20388
+#define IDS_HANDSHAKE_GOTLEAF               20389
+#define IDS_HANDSHAKE_GOTPEER               20390
+#define IDS_HANDSHAKE_IAMLEAF               20391
+#define IDS_HANDSHAKE_NEEDAPEER             20392
+#define IDS_HANDSHAKE_NOTG2                 20393
+#define IDS_HANDSHAKE_NOULTRAPEER           20394
+#define IDS_HANDSHAKE_ONLINE                20395
+#define IDS_HANDSHAKE_ONLINE_G2             20396
+#define IDS_HANDSHAKE_REJECTED              20397
+#define IDS_HANDSHAKE_SURPLUS               20398
+#define IDS_HANDSHAKE_TIMEOUT               20399
+#define IDS_HASH_MESSAGE                    20400
+#define IDS_INFO_REMEMBER                   20401
+#define IDS_IRC_ADDCHANNEL                  20402
+#define IDS_IRC_CHANLIST                    20403
+#define IDS_IRC_HEADERINPUT                 20404
+#define IDS_IRC_HEADERSUBTITLE              20405
+#define IDS_IRC_HEADERTITLE                 20406
+#define IDS_IRC_REMOVECHANNEL               20407
+#define IDS_IRC_USERLIST                    20408
+#define IDS_LIBHEAD_HOME                    20410
+#define IDS_LIBHEAD_EXPLORE_FOLDER          20411
+#define IDS_LIBHEAD_EXPLORE_MANY            20412
+#define IDS_LIBPANEL_MULTIPLE_FILES         20413
+#define IDS_LIBPANEL_MULTIPLE_FOLDERS       20414
+#define IDS_LIBPANEL_NO_SELECTION           20415
+#define IDS_LIBPANEL_RATE_FILE              20416
+#define IDS_LIBPANEL_RECENT_ADDITIONS       20417
+#define IDS_LIBRARY_ALBUM_ALBUM             20418
+#define IDS_LIBRARY_ALBUM_ARTIST            20419
+#define IDS_LIBRARY_ALBUM_BITRATE           20420
+#define IDS_LIBRARY_ALBUM_LENGTH            20421
+#define IDS_LIBRARY_ALBUM_RATING            20422
+#define IDS_LIBRARY_ALBUM_TITLE             20423
+#define IDS_LIBRARY_ALBUM_TRACK             20424
+#define IDS_LIBRARY_COLLECTION_CANT_INSTALL 20425
+#define IDS_LIBRARY_COLLECTION_DOWNLOAD_ALL 20426
+#define IDS_LIBRARY_COLLECTION_INSTALLED    20427
+#define IDS_LIBRARY_COLLECTION_INVALID      20428
+#define IDS_LIBRARY_COLLECTION_LOCKDOWN     20429
+#define IDS_LIBRARY_CONFIRM_EXECUTE         20430
+#define IDS_LIBRARY_DELETE                  20431
+#define IDS_LIBRARY_DELETE_FAIL             20432
+#define IDS_LIBRARY_DOWNLOADS_ADD           20433
+#define IDS_LIBRARY_DOWNLOADS_SHARE         20434
+#define IDS_LIBRARY_ENQUEUE                 20435
+#define IDS_LIBRARY_FOLDER_DELETE           20436
+#define IDS_LIBRARY_GHOST_FILE              20437
+#define IDS_LIBRARY_METADATA_EDIT           20438
+#define IDS_LIBRARY_METADATA_MANY           20439
+#define IDS_LIBRARY_MOVE_FAIL               20440
+#define IDS_LIBRARY_RENAME_FAIL             20441
+#define IDS_LIBRARY_TARGET_EXISTS           20442
+#define IDS_LIBRARY_TYPE_FILTER_ALL         20443
+#define IDS_LIBRARY_URI_COPY                20444
+#define IDS_LIBRARY_URI_EXPORT              20445
+#define IDS_LIBRARY_VERIFY_FAIL             20446
+#define IDS_LIBRARY_VERIFY_FIX              20447
+#define IDS_LIBRARY_BITZI_HASHED            20448
+#define IDS_LIBRARY_BITZI_MESSAGE           20449
+#define IDS_LIBRARY_SUBFOLDER_IN_LIBRARY    20450
+#define IDS_MEDIA_EMPTY                     20451
+#define IDS_MEDIA_FILTER                    20452
+#define IDS_MEDIA_LOAD_FAIL                 20453
+#define IDS_MEDIA_LOAD_FAIL_HELP            20454
+#define IDS_MEDIA_PARTIAL_RENDER            20455
+#define IDS_MEDIA_PLAYLIST                  20456
+#define IDS_MEDIA_PLUGIN_CREATE             20457
+#define IDS_MEDIA_SMPLAYER                  20458
+#define IDS_MEDIA_TIMESPLIT                 20459
+#define IDS_MEDIA_TITLE                     20460
+#define IDS_MEDIAVIS_NOVIS                  20461
+//#define IDS_MONITOR_COMPLETED             20462
+//#define IDS_MONITOR_DOWNLOADING           20463
+//#define IDS_MONITOR_MOVING                20464
+//#define IDS_MONITOR_PAUSED                20465
+//#define IDS_MONITOR_SOURCING              20466
+//#define IDS_MONITOR_VERIFY                20467
+#define IDS_MONITOR_ACTION_CANCEL           20470
+#define IDS_MONITOR_ACTION_OPEN             20471
+#define IDS_MONITOR_COMPLETED_WORD          20472
+#define IDS_MONITOR_ESTIMATED_TIME          20473
+#define IDS_MONITOR_NUMBER_REVIEWS          20474
+#define IDS_MONITOR_NUMBER_SOURCES          20475
+#define IDS_MONITOR_NO_SOURCES              20476
+#define IDS_MONITOR_TIME_DH                 20477
+#define IDS_MONITOR_TIME_HM                 20478
+#define IDS_MONITOR_TIME_MS                 20479
+#define IDS_MONITOR_TIME_S                  20480
+#define IDS_MONITOR_TOTAL_SPEED             20481
+#define IDS_MONITOR_VOLUME_DOWNLOADED       20482
+#define IDS_MONITOR_VOLUME_UPLOADED         20483
+#define IDS_MONITORBAR_LIMIT_IN             20484
+#define IDS_MONITORBAR_LIMIT_OUT            20485
+#define IDS_MULTIPLE                        20490
+#define IDS_MULTIPLE_VALUES                 20491
+#define IDS_PROFILE_NO_LOCATION             20494
+#define IDS_PROFILE_NO_NICK                 20495
+#define IDS_PROFILE_NO_VITALS               20496
+#define IDS_NEW_FOLDER                      20499
+#define IDS_NEIGHBOURS_CONNECT              20500
+#define IDS_NEIGHBOURS_NOT_CONNECTED        20501
+#define IDS_NEIGHBOUR_CLOSING               20502
+#define IDS_NEIGHBOUR_COMPRESSION           20503
+#define IDS_NEIGHBOUR_COMPRESSION_DF        20504
+#define IDS_NEIGHBOUR_COMPRESSION_NONE      20505
+#define IDS_NEIGHBOUR_CONNECTING            20506
+#define IDS_NEIGHBOUR_CURRENT               20507
+#define IDS_NEIGHBOUR_ED2K_HIGH             20510
+#define IDS_NEIGHBOUR_ED2K_HIGHID           20511
+#define IDS_NEIGHBOUR_ED2K_LOW              20512
+#define IDS_NEIGHBOUR_ED2K_LOWID            20513
+#define IDS_NEIGHBOUR_ED2K_SERVER           20514
+#define IDS_NEIGHBOUR_G1LEAF                20515
+#define IDS_NEIGHBOUR_G1PEER                20516
+#define IDS_NEIGHBOUR_G1PP                  20517
+#define IDS_NEIGHBOUR_G1LU                  20518
+#define IDS_NEIGHBOUR_G1UL                  20519
+#define IDS_NEIGHBOUR_G1ULTRA               20520
+#define IDS_NEIGHBOUR_G2HUB                 20521
+#define IDS_NEIGHBOUR_G2LEAF                20522
+#define IDS_NEIGHBOUR_G2PEER                20524
+#define IDS_NEIGHBOUR_G2LH                  20525
+#define IDS_NEIGHBOUR_G2HH                  20526
+#define IDS_NEIGHBOUR_G2HL                  20527
+#define IDS_NEIGHBOUR_HANDSHAKE             20530
+#define IDS_NEIGHBOUR_HANDSHAKING           20531
+#define IDS_NEIGHBOUR_INBOUND               20532
+#define IDS_NEIGHBOUR_OUTBOUND              20533
+#define IDS_NEIGHBOUR_TOTAL                 20534
+#define IDS_NEIGHBOUR_RATIO                 20535
+#define IDS_NEIGHBOUR_REJECTED              20536
+#define IDS_NEIGHBOUR_UNKNOWN               20538
+#define IDS_NETWORK_CONNECT                 20540
+#define IDS_NETWORK_CONNECTING              20541
+#define IDS_NETWORK_CONNECTED               20542
+#define IDS_NETWORK_DISCONNECT              20543
+#define IDS_NETWORK_DISCONNECTING           20544
+#define IDS_NETWORK_DISCONNECTED            20545
+#define IDS_NETWORK_DISCONNECT_CONFIRM      20546
+#define IDS_NETWORK_DISABLE_G2              20547
+#define IDS_NETWORK_CANT_LISTEN             20548
+#define IDS_NETWORK_CANT_OUTGOING           20549
+#define IDS_NETWORK_BANDWIDTH_LOW           20550
+#define IDS_NETWORK_FIREWALLED              20551
+#define IDS_NETWORK_FORCE_HUB               20552
+#define IDS_NETWORK_LISTENING_TCP           20553
+#define IDS_NETWORK_LISTENING_UDP           20554
+#define IDS_NETWORK_OUTGOING                20555
+#define IDS_NETWORK_RESOLVE_FAIL            20556
+#define IDS_NETWORK_RESOLVING               20557
+#define IDS_NETWORK_SEARCH_SENT             20558
+#define IDS_NETWORK_SECURITY_ALREADY_BLOCKED 20560
+#define IDS_NETWORK_SECURITY_BLOCKED        20561
+#define IDS_NETWORK_SECURITY_DENIED         20562
+#define IDS_NETWORK_SECURITY_OUTGOING       20563
+#define IDS_NETWORK_STARTUP                 20564
+#define IDS_NETWORK_UNLIMIT                 20565
+#define IDS_NETWORK_UPNP_FAILED             20566
+#define IDS_PROTOCOL_BAD_HIT                20570
+#define IDS_PROTOCOL_BAD_QUERY              20571
+#define IDS_PROTOCOL_HIGH_TTL               20572
+#define IDS_PROTOCOL_NO_TTL                 20573
+#define IDS_PROTOCOL_GGEP_REQUIRED          20574
+#define IDS_PROTOCOL_QRP_FAILED             20575
+#define IDS_PROTOCOL_QRP_SENT               20576
+#define IDS_PROTOCOL_QRP_UNEXPECTED         20577
+#define IDS_PROTOCOL_QRP_UPDATED            20578
+#define IDS_PROTOCOL_PACKET_DUMP            20579
+#define IDS_PROTOCOL_LEAF_FORWARD           20580
+#define IDS_PROTOCOL_SIZE_PING              20581
+#define IDS_PROTOCOL_SIZE_PONG              20582
+#define IDS_PROTOCOL_SIZE_PUSH              20583
+#define IDS_PROTOCOL_TOO_LARGE              20584
 #define IDS_PROTOCOL_EXCEEDS_LIMIT          20585
-#define IDS_PROTOCOL_UNKNOWN                20586		// 16199
-#define IDS_PROTOCOL_ZERO_PONG              20587		// 16200
-#define IDS_PROTOCOL_ZERO_PUSH              20588		// 16211
-#define IDS_REMOTE_DISABLED                 20590		// 19000
-#define IDS_REMOTE_ENABLED                  20591		// 19001
-#define IDS_REMOTE_UNAVAILABLE              20592		// 19002
+#define IDS_PROTOCOL_UNKNOWN                20586
+#define IDS_PROTOCOL_ZERO_PONG              20587
+#define IDS_PROTOCOL_ZERO_PUSH              20588
+#define IDS_REMOTE_DISABLED                 20590
+#define IDS_REMOTE_ENABLED                  20591
+#define IDS_REMOTE_UNAVAILABLE              20592
 #define IDS_SECURITY_ACCEPT                 20593
 #define IDS_SECURITY_DENY                   20594
 #define IDS_SECURITY_NOEXPIRE               20595
 #define IDS_SECURITY_DEFAULT                20596
-#define IDS_SECURITY_REMOVE_CONFIRM         20597		// 13001
-#define IDS_SCHEMA_LOAD_ERROR               20598		// 7007
-#define IDS_SCHEMAS                         20599		// 7001
-#define IDS_SCHEDULER_BANDWIDTH_FULL        20600		// 20250
-#define IDS_SCHEDULER_BANDWIDTH_LIMITED	    20601		// 20601
-#define IDS_SCHEDULER_BANDWIDTH_STOP        20602		// 20252
-#define IDS_SCHEDULER_SYSTEM_EXIT           20603		// 20253
-#define IDS_SCHEDULER_SYSTEM_SHUTDOWN       20604		// 20254
-#define IDS_SCHEDULER_SYSTEM_DIALUP_OFF     20605		// 20255
-#define IDS_SCHEDULER_SYSTEM_NOTICE         20606		// 20256
-#define IDS_SCHEDULER_REMINDER_NOTICE       20607		// 20257
-#define IDS_SCHEDULER_REMOVEALL_CONFIRM     20608		// 20258
-#define IDS_SCHEDULER_TIME_PASSED           20609		// 20259
-#define IDS_SCHEDULER_SELECTADAY            20610		// 20261
-#define IDS_SCHEDULER_SELECTTASK            20611		// 20260
-#define IDS_SCHEDULER_TASK_ACTIVE           20612		// 20262
-#define IDS_SCHEDULER_TASK_INACTIVE         20613		// 20263
-#define IDS_SCHEDULER_TASK_WAITING          20614		// 20264
-#define IDS_SCHEDULER_TASK_DONETODAY        20615		// 20266
-#define IDS_SCHEDULER_TASK_DONE             20616		// 20265
-#define IDS_SCHEDULER_TASK_NONE             20618		// 20268
-#define IDS_SEARCH_ACTIVE                   20620		// 8133
-#define IDS_SEARCH_AGAIN                    20621		// 8128
-#define IDS_SEARCH_ALL_NETWORKS             20622		// 8167
-#define IDS_SEARCH_CLEAR_PREVIOUS           20623		// 8134
-#define IDS_SEARCH_DETAILS_EMPTY            20624		// 8096
-#define IDS_SEARCH_DETAILS_WRITES           20625		// 8101
-#define IDS_SEARCH_DETAILS_RATES            20626		// 8102
-#define IDS_SEARCH_DETAILS_PREVIEW          20627		// 8103
-#define IDS_SEARCH_DETAILS_PREVIEWING       20628		// 8104
-#define IDS_SEARCH_DETAILS_PREVIEW_FAILED   20629		// 8105
-#define IDS_SEARCH_DETAILS_REVIEWS_MANY     20630		// 8100
-#define IDS_SEARCH_DETAILS_REVIEWS_ONE      20631		// 8099
-#define IDS_SEARCH_DETAILS_SOURCES_MANY     20632		// 8098
-#define IDS_SEARCH_DETAILS_SOURCES_ONE      20633		// 8097
-#define IDS_SEARCH_EMPTY                    20634		// 8131
-#define IDS_SEARCH_FILTERED                 20635		// 8132
-#define IDS_SEARCH_NONE                     20636		// 8129
-#define IDS_SEARCH_NO_METADATA              20637		// 8135
-#define IDS_SEARCH_NO_SCHEMA                20638		// 8137
-#define IDS_SEARCH_PAD_CLEAR_HISTORY        20640		// 8179
-#define IDS_SEARCH_PAD_HEADER               20641		// 8176
-#define IDS_SEARCH_PAD_TYPE                 20642		// 8178
-#define IDS_SEARCH_PAD_WORDS                20643		// 8177
-#define IDS_SEARCH_PANEL_ADVANCED           20644		// 8159
-#define IDS_SEARCH_PANEL_AFT                20645		// 8147
-#define IDS_SEARCH_PANEL_CLEAR              20646		// 8158
-#define IDS_SEARCH_PANEL_FILTERED           20647		// 8168
-#define IDS_SEARCH_PANEL_HIDE               20648		// 8142
-#define IDS_SEARCH_PANEL_INPUT_CAPTION      20650		// 8156
-#define IDS_SEARCH_PANEL_INPUT_1            20651		// 8148
-#define IDS_SEARCH_PANEL_INPUT_2            20652		// 8149
-#define IDS_SEARCH_PANEL_INPUT_3            20653		// 8166
-#define IDS_SEARCH_PANEL_INPUT_4            20654		// 8180
-#define IDS_SEARCH_PANEL_INPUT_5            20655		// 8181
-#define IDS_SEARCH_PANEL_MORE               20656		// 8145
-#define IDS_SEARCH_PANEL_SHOW               20657		// 8141
-#define IDS_SEARCH_PANEL_START              20658		// 8144
-#define IDS_SEARCH_PANEL_STOP               20659		// 8146
-#define IDS_SEARCH_PANEL_RESULTS_NONE       20660		// 8154
-#define IDS_SEARCH_PANEL_RESULTS_ACTIVE     20661		// 8152
-#define IDS_SEARCH_PANEL_RESULTS_INACTIVE   20662		// 8153
-#define IDS_SEARCH_PANEL_RESULTS_CAPTION    20663		// 8157
-#define IDS_SEARCH_PANEL_RESULTS_FORMAT     20664		// 8155
-#define IDS_SEARCH_PANEL_RESULTS_FOUND      20665		// 8151
-#define IDS_SEARCH_PANEL_RESULTS_STATUS     20666		// 8150
-#define IDS_SEARCH_PANEL_SEARCHING          20668		// 8143
-#define IDS_SEARCH_PLAIN_TEXT               20669		// 8136
-#define IDS_SEARCH_WORKING                  20670		// 8130
-#define IDS_SELECT_ED2K_TEMP_FOLDER         20672		// 20217
-#define IDS_SETTINGS_AUTOMATIC_IP           20673		// 16811
-#define IDS_SETTINGS_FILEPATH_NOT_SAME      20674		// 16818
-#define IDS_SETTINGS_FILEPATH_TOO_LONG      20675		// 16817
-#define IDS_SETTINGS_INCOMPLETE_LIBRARY     20676		// 16819
-#define IDS_SETTINGS_NEED_BANDWIDTH         20677		// 16807
-#define IDS_SETTINGS_WARN_QUEUELIMIT        20678		// 16816
-#define IDS_SETTINGS                        20680		// 8000
-#define IDS_SKIN_LOAD                       20681		// 153
-#define IDS_SKIN_ERROR                      20682		// 152
-#define IDS_SKIN_DELETE                     20684		// 8009
-#define IDS_STATUS_ACTIVE                   20700		// 20118
-#define IDS_STATUS_BAR_BANDWIDTH            20701		// 8067
-#define IDS_STATUS_BAR_CONNECTED            20702		// 8064
-#define IDS_STATUS_BAR_CONNECTED_HUB        20703		// 8062
-#define IDS_STATUS_BAR_CONNECTED_HUB_UP     20704		// 8060
-#define IDS_STATUS_BAR_CONNECTED_SIMPLE     20705		// 8063
-#define IDS_STATUS_BAR_CONNECTED_UP         20706		// 8061
-#define IDS_STATUS_BAR_CONNECTING           20707		// 8065
-#define IDS_STATUS_BAR_DISCONNECTED         20708		// 8066
+#define IDS_SECURITY_REMOVE_CONFIRM         20597
+#define IDS_SCHEMA_LOAD_ERROR               20598
+#define IDS_SCHEMAS                         20599
+#define IDS_SCHEDULER_BANDWIDTH_FULL        20600
+#define IDS_SCHEDULER_BANDWIDTH_LIMITED	    20601
+#define IDS_SCHEDULER_BANDWIDTH_STOP        20602
+#define IDS_SCHEDULER_SYSTEM_EXIT           20603
+#define IDS_SCHEDULER_SYSTEM_SHUTDOWN       20604
+#define IDS_SCHEDULER_SYSTEM_DIALUP_OFF     20605
+#define IDS_SCHEDULER_SYSTEM_NOTICE         20606
+#define IDS_SCHEDULER_REMINDER_NOTICE       20607
+#define IDS_SCHEDULER_REMOVEALL_CONFIRM     20608
+#define IDS_SCHEDULER_TIME_PASSED           20609
+#define IDS_SCHEDULER_SELECTADAY            20610
+#define IDS_SCHEDULER_SELECTTASK            20611
+#define IDS_SCHEDULER_TASK_ACTIVE           20612
+#define IDS_SCHEDULER_TASK_INACTIVE         20613
+#define IDS_SCHEDULER_TASK_WAITING          20614
+#define IDS_SCHEDULER_TASK_DONETODAY        20615
+#define IDS_SCHEDULER_TASK_DONE             20616
+#define IDS_SCHEDULER_TASK_NONE             20618
+#define IDS_SECURITY_NETMASK                20619
+#define IDS_SEARCH_ACTIVE                   20620
+#define IDS_SEARCH_AGAIN                    20621
+#define IDS_SEARCH_ALL_NETWORKS             20622
+#define IDS_SEARCH_CLEAR_PREVIOUS           20623
+#define IDS_SEARCH_DETAILS_EMPTY            20624
+#define IDS_SEARCH_DETAILS_WRITES           20625
+#define IDS_SEARCH_DETAILS_RATES            20626
+#define IDS_SEARCH_DETAILS_PREVIEW          20627
+#define IDS_SEARCH_DETAILS_PREVIEWING       20628
+#define IDS_SEARCH_DETAILS_PREVIEW_FAILED   20629
+#define IDS_SEARCH_DETAILS_REVIEWS_MANY     20630
+#define IDS_SEARCH_DETAILS_REVIEWS_ONE      20631
+#define IDS_SEARCH_DETAILS_SOURCES_MANY     20632
+#define IDS_SEARCH_DETAILS_SOURCES_ONE      20633
+#define IDS_SEARCH_EMPTY                    20634
+#define IDS_SEARCH_FILTERED                 20635
+#define IDS_SEARCH_NONE                     20636
+#define IDS_SEARCH_NO_METADATA              20637
+#define IDS_SEARCH_NO_SCHEMA                20638
+#define IDS_SEARCH_PAD_CLEAR_HISTORY        20640
+#define IDS_SEARCH_PAD_HEADER               20641
+#define IDS_SEARCH_PAD_TYPE                 20642
+#define IDS_SEARCH_PAD_WORDS                20643
+#define IDS_SEARCH_PANEL_ADVANCED           20644
+#define IDS_SEARCH_PANEL_AFT                20645
+#define IDS_SEARCH_PANEL_CLEAR              20646
+#define IDS_SEARCH_PANEL_FILTERED           20647
+#define IDS_SEARCH_PANEL_HIDE               20648
+#define IDS_SEARCH_PANEL_INPUT_CAPTION      20650
+#define IDS_SEARCH_PANEL_INPUT_1            20651
+#define IDS_SEARCH_PANEL_INPUT_2            20652
+#define IDS_SEARCH_PANEL_INPUT_3            20653
+#define IDS_SEARCH_PANEL_INPUT_4            20654
+#define IDS_SEARCH_PANEL_INPUT_5            20655
+#define IDS_SEARCH_PANEL_MORE               20656
+#define IDS_SEARCH_PANEL_SHOW               20657
+#define IDS_SEARCH_PANEL_START              20658
+#define IDS_SEARCH_PANEL_STOP               20659
+#define IDS_SEARCH_PANEL_RESULTS_NONE       20660
+#define IDS_SEARCH_PANEL_RESULTS_ACTIVE     20661
+#define IDS_SEARCH_PANEL_RESULTS_INACTIVE   20662
+#define IDS_SEARCH_PANEL_RESULTS_CAPTION    20663
+#define IDS_SEARCH_PANEL_RESULTS_FORMAT     20664
+#define IDS_SEARCH_PANEL_RESULTS_FOUND      20665
+#define IDS_SEARCH_PANEL_RESULTS_STATUS     20666
+#define IDS_SEARCH_PANEL_SEARCHING          20668
+#define IDS_SEARCH_PLAIN_TEXT               20669
+#define IDS_SEARCH_WORKING                  20670
+#define IDS_SELECT_ED2K_TEMP_FOLDER         20672
+#define IDS_SETTINGS_AUTOMATIC_IP           20673
+#define IDS_SETTINGS_FILEPATH_NOT_SAME      20674
+#define IDS_SETTINGS_FILEPATH_TOO_LONG      20675
+#define IDS_SETTINGS_INCOMPLETE_LIBRARY     20676
+#define IDS_SETTINGS_NEED_BANDWIDTH         20677
+#define IDS_SETTINGS_WARN_QUEUELIMIT        20678
+#define IDS_SETTINGS                        20680
+#define IDS_SKIN_LOAD                       20681
+#define IDS_SKIN_ERROR                      20682
+#define IDS_SKIN_DELETE                     20684
+#define IDS_STATUS_ACTIVE                   20700
+#define IDS_STATUS_BAR_BANDWIDTH            20701
+#define IDS_STATUS_BAR_CONNECTED            20702
+#define IDS_STATUS_BAR_CONNECTED_HUB        20703
+#define IDS_STATUS_BAR_CONNECTED_HUB_UP     20704
+#define IDS_STATUS_BAR_CONNECTED_SIMPLE     20705
+#define IDS_STATUS_BAR_CONNECTED_UP         20706
+#define IDS_STATUS_BAR_CONNECTING           20707
+#define IDS_STATUS_BAR_DISCONNECTED         20708
 #define IDS_STATUS_CLEARING                 20710
-#define IDS_STATUS_CANTMOVE                 20711		// 20116
-#define IDS_STATUS_CHOKED                   20712		// 20136
-#define IDS_STATUS_ENQUEUE                  20713		// 20108
-#define IDS_STATUS_FILEERROR                20714		// 20115
-#define IDS_STATUS_HASHSET                  20715		// 20105
-#define IDS_STATUS_METADATA                 20716		// 20106
-#define IDS_STATUS_RESPONSE                 20717		// 20102
-#define IDS_STATUS_MOVING                   20718		// 20113
-#define IDS_STATUS_CREATING                 20719		// 20121
-#define IDS_STATUS_COMPLETED                20720		// 20111
-#define IDS_STATUS_CONNECTING               20721		// 20100
-#define IDS_STATUS_DOWNLOADING              20722		// 20103
-#define IDS_STATUS_BUSY                     20723		// 20107
-#define IDS_STATUS_NEXT                     20724		// 20137
-#define IDS_STATUS_Q                        20725		// 20138
-#define IDS_STATUS_QUEUED                   20726		// 20109
-#define IDS_STATUS_PAUSED                   20727		// 20114
-#define IDS_STATUS_PENDING                  20728		// 20119
-#define IDS_STATUS_REQUESTING               20729		// 20101
-#define IDS_STATUS_SEARCHING                20730		// 20120
-#define IDS_STATUS_SEEDING                  20731		// 20112
-#define IDS_STATUS_SOURCE                   20732		// 20130
-#define IDS_STATUS_SOURCES                  20733		// 20134
-#define IDS_STATUS_SOURCES_FEW              20734		// 20132
-#define IDS_STATUS_SOURCES_ONES             20735		// 20131
-#define IDS_STATUS_NOSOURCES                20736		// 20135
-#define IDS_STATUS_TIGERTREE                20740		// 20104
-#define IDS_STATUS_TORRENT                  20741		// 20122
-#define IDS_STATUS_TRACKERDOWN              20742		// 20123
-#define IDS_STATUS_UNINTERESTED             20743		// 20127
-#define IDS_STATUS_UNKNOWN                  20744		// 20110
-#define IDS_STATUS_UNSUPPORTED              20745		// 20126
-#define IDS_STATUS_UNVERIFIED               20746		// 20125
-#define IDS_STATUS_VERIFIED                 20747		// 20124
-#define IDS_STATUS_VERIFYING                20748		// 20117
-#define IDS_SYSTEM_MESSAGE                  20750		// 8004
-#define IDS_TABBAR_CONNECTED                20751		// 8007
-#define IDS_TABBAR_NOT_CONNECTED            20752		// 8006
-#define IDS_TEMPLATE_DELETE                 20755		// 7102
-#define IDS_TIP_ACTIVE                      20760		// 8325
-#define IDS_TIP_INACTIVE                    20761		// 8324
-#define IDS_TIP_BOGUS                       20762		// 8313
-#define IDS_TIP_EXISTS_BLACKLISTED          20763		// 8315
-#define IDS_TIP_EXISTS_DELETED              20764		// 8314
-#define IDS_TIP_EXISTS_DOWNLOAD             20765		// 8312
-#define IDS_TIP_EXISTS_LIBRARY              20766		// 8311
-#define IDS_TIP_FILE_BUSY                   20767		// 8334
-#define IDS_TIP_FILE_FIREWALLED             20768		// 8335
-#define IDS_TIP_FILE_UNSTABLE               20769		// 8336
-#define IDS_TIP_FOLDER                      20770		// 8330
-#define IDS_TIP_HITS                        20771		// 8316
-#define IDS_TIP_LOCATION                    20772		// 8306
-#define IDS_TIP_LIBRARY_PERCENT             20773		// 8329
-#define IDS_TIP_NA                          20774		// 8304
-#define IDS_TIP_NEXT                        20775		// 8326
-#define IDS_TIP_NOHASHSET                   20776		// 8338
-#define IDS_TIP_PARTIAL                     20777		// 8309
-#define IDS_TIP_QUEUE                       20778		// 8310
-#define IDS_TIP_SIZE                        20780		// 8308
-#define IDS_TIP_SOURCE_BUSY                 20781		// 8331
-#define IDS_TIP_SOURCE_FIREWALLED           20782		// 8332
-#define IDS_TIP_SOURCE_UNSTABLE             20783		// 8333
-#define IDS_TIP_SPEED                       20784		// 8321
-#define IDS_TIP_STATUS                      20785		// 8320
-#define IDS_TIP_TODAYTOTAL                  20786		// 8318
-#define IDS_TIP_TOTAL_FILES                 20787		// 8327
-#define IDS_TIP_TOTAL_VOLUME                20788		// 8328
-#define IDS_TIP_TRANSFER                    20789		// 8319
-#define IDS_TIP_TYPE                        20790		// 8307
-#define IDS_TIP_UNTRUSTED                   20791		// 8337
-#define IDS_TIP_UPLOADS                     20792		// 8317
-#define IDS_TIP_URL                         20793		// 8322
-#define IDS_TIP_USERAGENT                   20794		// 8323
-#define IDS_TRAY_TIP                        20795		// 8068
-#define IDS_FOLDER_TIP                      20796		// 13000
-#define IDS_UPGRADE_LAUNCH                  20798		// 8008
-#define IDS_UPGRADE_NO_NEW                  20799		// 8013
-#define IDS_UPLOAD_ABOUT                    20800		// 16339
-#define IDS_UPLOAD_ACCEPTED                 20801		// 16332
-#define IDS_UPLOAD_BROWSE                   20802		// 16341
-#define IDS_UPLOAD_BROWSER                  20803		// 16336
-#define IDS_UPLOAD_BROWSE_BUSY              20804		// 16356
-#define IDS_UPLOAD_BROWSE_DENIED            20805		// 16340
-#define IDS_UPLOAD_BUSY_FAST                20806		// 16347
-#define IDS_UPLOAD_BUSY_HOST                20807		// 16351
-#define IDS_UPLOAD_BUSY_OLD                 20808		// 16327
-#define IDS_UPLOAD_BUSY_QUEUE               20809		// 16360
-#define IDS_UPLOAD_BAD_RANGE                20810		// 16338
-#define IDS_UPLOAD_CANCEL_ED2K              20811		// 16362
-#define IDS_UPLOAD_CANTOPEN                 20812		// 16329
-#define IDS_UPLOAD_CONNECT                  20813		// 16321
-#define IDS_UPLOAD_CONNECT_ERROR            20814		// 16322
-#define IDS_UPLOAD_CONTENT                  20815		// 16330
-#define IDS_UPLOAD_DROPPED                  20816		// 16323
-#define IDS_UPLOAD_DROPPED_NEWER            20817		// 16344
-#define IDS_UPLOAD_DROPPED_OLDER            20818		// 16343
-#define IDS_UPLOAD_DISABLED                 20819		// 16361
-#define IDS_UPLOAD_DELETED                  20820		// 16345
-#define IDS_UPLOAD_FILE                     20821		// 16357
-#define IDS_UPLOAD_FILENOTFOUND             20822		// 16325
-#define IDS_UPLOAD_FINISHED                 20823		// 16331
-#define IDS_UPLOAD_GIV                      20824		// 16328
-#define IDS_UPLOAD_HASH_MISMATCH            20825		// 16326
-#define IDS_UPLOAD_HEADERS                  20826		// 16337
-#define IDS_UPLOAD_METADATA_SEND            20827		// 16350
-#define IDS_UPLOAD_NOHTTP                   20828		// 16320
-#define IDS_UPLOAD_PARTIAL_CONTENT          20830		// 16346
-#define IDS_UPLOAD_PREVIEW_BUSY             20832		// 16353
-#define IDS_UPLOAD_PREVIEW_DYNAMIC          20833		// 16355
-#define IDS_UPLOAD_PREVIEW_EMPTY            20834		// 16354
-#define IDS_UPLOAD_PREVIEW_SEND             20835		// 16352
-#define IDS_UPLOAD_PUSH_BUSY                20836		// 16348
-#define IDS_UPLOAD_PUSH_FILENOTFOUND        20837		// 16334
-#define IDS_UPLOAD_QUEUED                   20838		// 16333
-#define IDS_UPLOAD_QUEUE_DROP               20840		// 16358
-#define IDS_UPLOAD_QUEUE_NEW                20841		// 16374
-#define IDS_UPLOAD_QUEUE_COMPLETE           20842		// 16376
+#define IDS_STATUS_CANTMOVE                 20711
+#define IDS_STATUS_CHOKED                   20712
+#define IDS_STATUS_ENQUEUE                  20713
+#define IDS_STATUS_FILEERROR                20714
+#define IDS_STATUS_HASHSET                  20715
+#define IDS_STATUS_METADATA                 20716
+#define IDS_STATUS_RESPONSE                 20717
+#define IDS_STATUS_MOVING                   20718
+#define IDS_STATUS_CREATING                 20719
+#define IDS_STATUS_COMPLETED                20720
+#define IDS_STATUS_CONNECTING               20721
+#define IDS_STATUS_DOWNLOADING              20722
+#define IDS_STATUS_BUSY                     20723
+#define IDS_STATUS_NEXT                     20724
+#define IDS_STATUS_Q                        20725
+#define IDS_STATUS_QUEUED                   20726
+#define IDS_STATUS_PAUSED                   20727
+#define IDS_STATUS_PENDING                  20728
+#define IDS_STATUS_REQUESTING               20729
+#define IDS_STATUS_SEARCHING                20730
+#define IDS_STATUS_SEEDING                  20731
+#define IDS_STATUS_SOURCE                   20732
+#define IDS_STATUS_SOURCES                  20733
+#define IDS_STATUS_SOURCES_FEW              20734
+#define IDS_STATUS_SOURCES_ONES             20735
+#define IDS_STATUS_NOSOURCES                20736
+#define IDS_STATUS_TIGERTREE                20740
+#define IDS_STATUS_TORRENT                  20741
+#define IDS_STATUS_TRACKERDOWN              20742
+#define IDS_STATUS_UNINTERESTED             20743
+#define IDS_STATUS_UNKNOWN                  20744
+#define IDS_STATUS_UNSUPPORTED              20745
+#define IDS_STATUS_UNVERIFIED               20746
+#define IDS_STATUS_VERIFIED                 20747
+#define IDS_STATUS_VERIFYING                20748
+#define IDS_SYSTEM_MESSAGE                  20750
+#define IDS_TABBAR_CONNECTED                20751
+#define IDS_TABBAR_NOT_CONNECTED            20752
+#define IDS_TEMPLATE_DELETE                 20755
+#define IDS_TIP_ACTIVE                      20760
+#define IDS_TIP_INACTIVE                    20761
+#define IDS_TIP_BOGUS                       20762
+#define IDS_TIP_EXISTS_BLACKLISTED          20763
+#define IDS_TIP_EXISTS_DELETED              20764
+#define IDS_TIP_EXISTS_DOWNLOAD             20765
+#define IDS_TIP_EXISTS_LIBRARY              20766
+#define IDS_TIP_FILE_BUSY                   20767
+#define IDS_TIP_FILE_FIREWALLED             20768
+#define IDS_TIP_FILE_UNSTABLE               20769
+#define IDS_TIP_FOLDER                      20770
+#define IDS_TIP_HITS                        20771
+#define IDS_TIP_LOCATION                    20772
+#define IDS_TIP_LIBRARY_PERCENT             20773
+#define IDS_TIP_NA                          20774
+#define IDS_TIP_NEXT                        20775
+#define IDS_TIP_NOHASHSET                   20776
+#define IDS_TIP_PARTIAL                     20777
+#define IDS_TIP_QUEUE                       20778
+#define IDS_TIP_SIZE                        20780
+#define IDS_TIP_SOURCE_BUSY                 20781
+#define IDS_TIP_SOURCE_FIREWALLED           20782
+#define IDS_TIP_SOURCE_UNSTABLE             20783
+#define IDS_TIP_SPEED                       20784
+#define IDS_TIP_STATUS                      20785
+#define IDS_TIP_TODAYTOTAL                  20786
+#define IDS_TIP_TOTAL_FILES                 20787
+#define IDS_TIP_TOTAL_VOLUME                20788
+#define IDS_TIP_TRANSFER                    20789
+#define IDS_TIP_TYPE                        20790
+#define IDS_TIP_UNTRUSTED                   20791
+#define IDS_TIP_UPLOADS                     20792
+#define IDS_TIP_URL                         20793
+#define IDS_TIP_USERAGENT                   20794
+#define IDS_TRAY_TIP                        20795
+#define IDS_FOLDER_TIP                      20796
+#define IDS_UPGRADE_LAUNCH                  20798
+#define IDS_UPGRADE_NO_NEW                  20799
+#define IDS_UPLOAD_ABOUT                    20800
+#define IDS_UPLOAD_ACCEPTED                 20801
+#define IDS_UPLOAD_BROWSE                   20802
+#define IDS_UPLOAD_BROWSER                  20803
+#define IDS_UPLOAD_BROWSE_BUSY              20804
+#define IDS_UPLOAD_BROWSE_DENIED            20805
+#define IDS_UPLOAD_BUSY_FAST                20806
+#define IDS_UPLOAD_BUSY_HOST                20807
+#define IDS_UPLOAD_BUSY_OLD                 20808
+#define IDS_UPLOAD_BUSY_QUEUE               20809
+#define IDS_UPLOAD_BAD_RANGE                20810
+#define IDS_UPLOAD_CANCEL_ED2K              20811
+#define IDS_UPLOAD_CANTOPEN                 20812
+#define IDS_UPLOAD_CONNECT                  20813
+#define IDS_UPLOAD_CONNECT_ERROR            20814
+#define IDS_UPLOAD_CONTENT                  20815
+#define IDS_UPLOAD_DROPPED                  20816
+#define IDS_UPLOAD_DROPPED_NEWER            20817
+#define IDS_UPLOAD_DROPPED_OLDER            20818
+#define IDS_UPLOAD_DISABLED                 20819
+#define IDS_UPLOAD_DELETED                  20820
+#define IDS_UPLOAD_FILE                     20821
+#define IDS_UPLOAD_FILENOTFOUND             20822
+#define IDS_UPLOAD_FINISHED                 20823
+#define IDS_UPLOAD_GIV                      20824
+#define IDS_UPLOAD_HASH_MISMATCH            20825
+#define IDS_UPLOAD_HEADERS                  20826
+#define IDS_UPLOAD_METADATA_SEND            20827
+#define IDS_UPLOAD_NOHTTP                   20828
+#define IDS_UPLOAD_PARTIAL_CONTENT          20830
+#define IDS_UPLOAD_PREVIEW_BUSY             20832
+#define IDS_UPLOAD_PREVIEW_DYNAMIC          20833
+#define IDS_UPLOAD_PREVIEW_EMPTY            20834
+#define IDS_UPLOAD_PREVIEW_SEND             20835
+#define IDS_UPLOAD_PUSH_BUSY                20836
+#define IDS_UPLOAD_PUSH_FILENOTFOUND        20837
+#define IDS_UPLOAD_QUEUED                   20838
+#define IDS_UPLOAD_QUEUE_DROP               20840
+#define IDS_UPLOAD_QUEUE_NEW                20841
+#define IDS_UPLOAD_QUEUE_COMPLETE           20842
 #define IDS_UPLOAD_QUEUE_DC_GUARD           20843
-#define IDS_UPLOAD_QUEUE_ED2K_CORE          20844		// 16367
-#define IDS_UPLOAD_QUEUE_ED2K_GUARD         20845		// 16369
-#define IDS_UPLOAD_QUEUE_ED2K_PARTIALS      20846		// 16368
-#define IDS_UPLOAD_QUEUE_HISTORY            20847		// 16364
-#define IDS_UPLOAD_QUEUE_HTTP_GUARD         20848		// 16377
-#define IDS_UPLOAD_QUEUE_LIBRARY            20849		// 16379
-#define IDS_UPLOAD_QUEUE_LARGE_FILES        20850		// 16372
-#define IDS_UPLOAD_QUEUE_MEDIUM_FILES       20851		// 16371
-#define IDS_UPLOAD_QUEUE_SMALL_FILES        20852		// 16370
-#define IDS_UPLOAD_QUEUE_PARTIAL_FILES      20853		// 16373
-#define IDS_UPLOAD_QUEUE_PARTIAL            20854		// 16375
-#define IDS_UPLOAD_QUEUE_QUEUE              20855		// 16366
-#define IDS_UPLOAD_QUEUE_TORRENT            20856		// 16363
-#define IDS_UPLOAD_QUEUE_TIMEOUT            20857		// 16359
-#define IDS_UPLOAD_REQUEST_TIMEOUT          20858		// 16324
-#define IDS_UPLOAD_TRAFFIC_TIMEOUT          20859		// 16342
-#define IDS_UPLOAD_TIGER_SEND               20860		// 16349
-#define IDS_UPLOAD_REMOVE                   20861		// 16335
-#define IDS_URL_ADD                         20862		// 16776
-#define IDS_URL_BROWSE                      20864		// 16775
-#define IDS_URL_CONNECT                     20865		// 16774
-#define IDS_URL_FILENAME                    20866		// 16777
-#define IDS_URL_HOST                        20867		// 16772
-#define IDS_URL_PORT                        20868		// 16773
-#define IDS_URL_BUSY                        20869		// 16770
-#define IDS_URL_PARSE_ERROR                 20870		// 16769
-#define IDS_URL_RECEIVED                    20871		// 16768
-#define IDS_URL_TYPE                        20872		// 16779
-#define IDS_URL_URL                         20874		// 16778
-#define IDS_URL_UNSPECIFIED                 20875		// 16780
-#define IDS_USER_PROFILE                    20880		// 8003
+#define IDS_UPLOAD_QUEUE_ED2K_CORE          20844
+#define IDS_UPLOAD_QUEUE_ED2K_GUARD         20845
+#define IDS_UPLOAD_QUEUE_ED2K_PARTIALS      20846
+#define IDS_UPLOAD_QUEUE_HISTORY            20847
+#define IDS_UPLOAD_QUEUE_HTTP_GUARD         20848
+#define IDS_UPLOAD_QUEUE_LIBRARY            20849
+#define IDS_UPLOAD_QUEUE_LARGE_FILES        20850
+#define IDS_UPLOAD_QUEUE_MEDIUM_FILES       20851
+#define IDS_UPLOAD_QUEUE_SMALL_FILES        20852
+#define IDS_UPLOAD_QUEUE_PARTIAL_FILES      20853
+#define IDS_UPLOAD_QUEUE_PARTIAL            20854
+#define IDS_UPLOAD_QUEUE_QUEUE              20855
+#define IDS_UPLOAD_QUEUE_TORRENT            20856
+#define IDS_UPLOAD_QUEUE_TIMEOUT            20857
+#define IDS_UPLOAD_REQUEST_TIMEOUT          20858
+#define IDS_UPLOAD_TRAFFIC_TIMEOUT          20859
+#define IDS_UPLOAD_TIGER_SEND               20860
+#define IDS_UPLOAD_REMOVE                   20861
+#define IDS_URL_ADD                         20862
+#define IDS_URL_BROWSE                      20864
+#define IDS_URL_CONNECT                     20865
+#define IDS_URL_FILENAME                    20866
+#define IDS_URL_HOST                        20867
+#define IDS_URL_PORT                        20868
+#define IDS_URL_BUSY                        20869
+#define IDS_URL_PARSE_ERROR                 20870
+#define IDS_URL_RECEIVED                    20871
+#define IDS_URL_TYPE                        20872
+#define IDS_URL_URL                         20874
+#define IDS_URL_UNSPECIFIED                 20875
+#define IDS_USER_PROFILE                    20880
 #define IDS_TOO_MANY_FILES                  20881
-#define IDS_NO_URN_AVAILABLE                20882		// 20000
-#define IDS_UPNP_SERVICES_ERROR             20883		// 16815
-#define IDS_SHAREMONKEY_MESSAGE             20884		// 20014
-#define IDS_VIEW_MODE_CONFIRM               20885		// 8011
-#define IDS_WARNING_RTL                     20886		// 20003
-#define IDS_WIZARD                          20890		// 8001
-#define IDS_WIZARD_EXIT                     20891		// 16809
-#define IDS_WIZARD_ED2K                     20892		// 16814
-#define IDS_WIZARD_DISCOVERY                20893		// 16813
-#define IDS_WIZARD_UPNP_SETUP               20894		// 16812
-#define IDS_WIZARD_NEED_SPEED               20895		// 16800
-#define IDS_WIZARD_PORT_FORWARD             20896		// 16806
-#define IDS_WIZARD_SHARE_ALREADY            20897		// 16803
-#define IDS_WIZARD_SHARE_CONFIRM            20898		// 16802
-#define IDS_WIZARD_YEARS_OLD                20899		// 16810
+#define IDS_NO_URN_AVAILABLE                20882
+#define IDS_UPNP_SERVICES_ERROR             20883
+#define IDS_SHAREMONKEY_MESSAGE             20884
+#define IDS_VIEW_MODE_CONFIRM               20885
+#define IDS_WARNING_RTL                     20886
+#define IDS_WIZARD                          20890
+#define IDS_WIZARD_EXIT                     20891
+#define IDS_WIZARD_ED2K                     20892
+#define IDS_WIZARD_DISCOVERY                20893
+#define IDS_WIZARD_UPNP_SETUP               20894
+#define IDS_WIZARD_NEED_SPEED               20895
+#define IDS_WIZARD_PORT_FORWARD             20896
+#define IDS_WIZARD_SHARE_ALREADY            20897
+#define IDS_WIZARD_SHARE_CONFIRM            20898
+#define IDS_WIZARD_YEARS_OLD                20899
 
 // Command ID Resources
 
-#define ID_TAB_HOME                         40001		// 32780
-#define ID_TAB_CONNECT                      40002		// 32918
-#define ID_TAB_TRANSFERS                    40003		// 32917
-#define ID_TAB_SEARCH                       40004		// 33038
-#define ID_TAB_NETWORK                      40005		// 32915
-#define ID_TAB_LIBRARY                      40006		// 32916
-#define ID_TAB_MEDIA                        40007		// 33000
-#define ID_TAB_IRC                          40008		// 33232
-#define ID_BROWSE_FILES                     40010		// 33037
-#define ID_BROWSE_LAUNCH                    40011		// 32939
-#define ID_BROWSE_PROFILE                   40012		// 33036
-#define ID_BROWSE_REFRESH                   40013		// 32938
-#define ID_BROWSE_STOP                      40014		// 32937
-#define ID_CHAT_BOLD                        40015		// 33047
-#define ID_CHAT_ITALIC                      40016		// 33048
-#define ID_CHAT_UNDERLINE                   40017		// 33049
-#define ID_CHAT_COLOR                       40018		// 33046
-#define ID_CHAT_EMOTICONS                   40019		// 33053
-#define ID_CHAT_BROWSE                      40020		// 33045
-#define ID_CHAT_CLEAR                       40021		// 33052
-#define ID_CHAT_CONNECT                     40022		// 33043
-#define ID_CHAT_DISCONNECT                  40023		// 33044
-#define ID_CHAT_PRIORITY                    40024		// 33051
-#define ID_CHAT_SEND_FILE                   40025		// 33050
-#define ID_CHAT_TIMESTAMP                   40026		// 33074
-#define ID_CHILD_CLOSE                      40030		// 32870
-#define ID_CHILD_MAXIMISE                   40031		// 32872
-#define ID_CHILD_MINIMISE                   40032		// 32873
-#define ID_CHILD_RESTORE                    40033		// 32871
-#define ID_CHECKMARK                        40034		// 32774
-#define ID_DISCOVERY_ADD                    40040		// 32927
-#define ID_DISCOVERY_REMOVE                 40041		// 32926
-#define ID_DISCOVERY_EDIT                   40042		// 32924
-#define ID_DISCOVERY_QUERY                  40043		// 32925
-#define ID_DISCOVERY_ADVERTISE              40044		// 32931
-#define ID_DISCOVERY_BLOCKED                40045		// 32928
-#define ID_DISCOVERY_BROWSE                 40046		// 32932
-#define ID_DISCOVERY_GNUTELLA               40047		// 32929
-#define ID_DISCOVERY_SERVERMET              40048		// 32923
-#define ID_DISCOVERY_WEBCACHE               40049		// 32930
-#define ID_DOWNLOADS_ADD_SOURCE             40050		// 32945
-#define ID_DOWNLOADS_AUTO_CLEAR             40051		// 32952
-#define ID_DOWNLOADS_BOOST                  40052		// 32943
-#define ID_DOWNLOADS_CLEAR                  40053		// 32825
-#define ID_DOWNLOADS_CLEAR_COMPLETE         40054		// 33101
-#define ID_DOWNLOADS_CLEAR_COMPLETED        40055		// 32822
-#define ID_DOWNLOADS_CLEAR_INCOMPLETE       40056		// 33100
-#define ID_DOWNLOADS_CLEAR_PAUSED           40057		// 32842
-#define ID_DOWNLOADS_EDIT                   40058		// 33112
-#define ID_DOWNLOADS_ENQUEUE                40059		// 32942
-#define ID_DOWNLOADS_FILE_DELETE            40060		// 32951
-#define ID_DOWNLOADS_FILTER_ACTIVE          40061		// 32978
-#define ID_DOWNLOADS_FILTER_ALL             40062		// 32977
-#define ID_DOWNLOADS_FILTER_MENU            40063		// 33098
-#define ID_DOWNLOADS_FILTER_PAUSED          40064		// 32981
-#define ID_DOWNLOADS_FILTER_QUEUED          40065		// 32979
-#define ID_DOWNLOADS_FILTER_SEEDS           40066		// 32982
-#define ID_DOWNLOADS_FILTER_SOURCES         40067		// 32980
-#define ID_DOWNLOADS_FOLDER                 40068		// 32941
-#define ID_DOWNLOADS_HELP                   40069		// 33097
-#define ID_DOWNLOADS_LAUNCH                 40070		// 32824
-#define ID_DOWNLOADS_LAUNCH_COMPLETE        40071		// 32823
-#define ID_DOWNLOADS_LAUNCH_COPY            40072		// 32940
-#define ID_DOWNLOADS_MERGE                  40073		// 32944
-#define ID_DOWNLOADS_MONITOR                40074		// 32950
-#define ID_DOWNLOADS_MOVE_UP                40075		// 32948
-#define ID_DOWNLOADS_MOVE_DOWN              40076		// 32949
-#define ID_DOWNLOADS_MOVE_TOP               40077		// 32946
-#define ID_DOWNLOADS_MOVE_BOTTOM            40078		// 32947
-#define ID_DOWNLOADS_RATE                   40079		// 33105
-#define ID_DOWNLOADS_PAUSE                  40080		// 32826
-#define ID_DOWNLOADS_RESUME                 40081		// 32827
-#define ID_DOWNLOADS_REMOTE_PREVIEW         40082		// 32841
-#define ID_DOWNLOADS_SHARE                  40083		// 33054
-#define ID_DOWNLOADS_SOURCES                40084		// 32828
-#define ID_DOWNLOADS_SHOW_SOURCES           40085		// 32953
-#define ID_DOWNLOADS_VIEW_REVIEWS           40086		// 32829
-#define ID_DOWNLOADS_SETTINGS               40088		// 32976
-#define ID_DOWNLOADS_URI                    40089		// 33060
-#define ID_DOWNLOAD_GROUP_CLEAR             40090		// 33094
-#define ID_DOWNLOAD_GROUP_MOVELEFT          40091		// 33087
-#define ID_DOWNLOAD_GROUP_MOVERIGHT         40092		// 33088
-#define ID_DOWNLOAD_GROUP_NEW               40093		// 33089
-#define ID_DOWNLOAD_GROUP_OPEN              40094		// 33095
-#define ID_DOWNLOAD_GROUP_PAUSE             40095		// 33092
-#define ID_DOWNLOAD_GROUP_PROPERTIES        40096		// 33091
-#define ID_DOWNLOAD_GROUP_REMOVE            40097		// 33090
-#define ID_DOWNLOAD_GROUP_RESUME            40098		// 33093
-#define ID_DOWNLOAD_GROUP_SHOW              40099		// 33096
-#define ID_OPEN_DOWNLOADS_FOLDER            40100		// 32821
-#define ID_HELP_ABOUT                       40101		// 32772
-#define ID_HELP_CODEC                       40102		// 33126
-#define ID_HELP_CONNECTIONFAIL              40103		// 33132
-#define ID_HELP_DISKWRITEFAIL               40104		// 33131
-#define ID_HELP_DISKSPACE                   40105		// 33130
-#define ID_HELP_DONATE                      40106		// 33128
-#define ID_HELP_DONKEYSERVERS               40107		// 33133
-#define ID_HELP_FAKESHAREAZA                40108		// 33134
-#define ID_HELP_FAQ                         40109		// 32858
-#define ID_HELP_FORUMS                      40110		// 33120
-#define ID_HELP_FORUMS_LOCAL                40111		// 33121
-#define ID_HELP_GUIDE                       40112		// 32859
-#define ID_HELP_HOMEPAGE                    40113		// 32851
-#define ID_HELP_PROMOTE                     40114		// 33064
-#define ID_HELP_ROUTER                      40115		// 33123
-#define ID_HELP_SCHEDULER                   40116		// 33124
-#define ID_HELP_SECURITY                    40117		// 33125
-#define ID_HELP_TEST                        40118		// 33127
-#define ID_HELP_UPDATE                      40119		// 33122
-#define ID_HELP_VERSION_CHECK               40120		// 32773
-#define ID_HELP_WEB_1                       40121		// 32852
-#define ID_HELP_WEB_2                       40122		// 32853
-#define ID_HELP_WEB_3                       40123		// 32854
-#define ID_HELP_WEB_4                       40124		// 32855
-#define ID_HELP_WEB_5                       40125		// 32856
-#define ID_HELP_WEB_6                       40126		// 32857
-#define ID_HELP_WARNINGS                    40128		// 33063
-#define ID_HOSTCACHE_CONNECT                40130		// 32800
-#define ID_HOSTCACHE_DISCONNECT             40131		// 32801
-#define ID_HOSTCACHE_G2_HORIZON             40132		// 32803
-#define ID_HOSTCACHE_G2_CACHE               40133		// 32804
-#define ID_HOSTCACHE_G1_CACHE               40134		// 32805
-#define ID_HOSTCACHE_DC_CACHE               40135		// 32806
-#define ID_HOSTCACHE_BT_CACHE               40136		// 32862
-#define ID_HOSTCACHE_KAD_CACHE              40137		// 32861
-#define ID_HOSTCACHE_ED2K_CACHE             40138		// 33076
-#define ID_HOSTCACHE_ED2K_DOWNLOAD          40139		// 33078
-#define ID_HOSTCACHE_IMPORT                 40140		// 33077
-#define ID_HOSTCACHE_REMOVE                 40141		// 32802
-#define ID_HOSTCACHE_PRIORITY               40142		// 33079
-#define ID_HITMONITOR_CLEAR                 40144		// 32817
-#define ID_HITMONITOR_PAUSE                 40145		// 32818
-#define ID_HITMONITOR_SEARCH                40146		// 32819
-#define ID_IMPORT_DOWNLOADS                 40148		// 1211
-#define ID_IRC_CONNECT                      40150		// 33203
-#define ID_IRC_DISCONNECT                   40151		// 33204
-#define ID_IRC_CLOSETAB                     40152		// 33227
-#define ID_IRC_SETTINGS                     40153		// 33228
-#define ID_IRC_SENDTEXT                     40154		// 33229
-#define ID_IRC_EDITBOX                      40155		// 33207
-#define ID_IRC_ADD                          40156		// 33205
-#define ID_IRC_REMOVE                       40158		// 33206
-#define ID_IRC_OP                           40160		// 33216
-#define ID_IRC_DEOP                         40161		// 33217
-#define ID_IRC_VOICE                        40162		// 33218
-#define ID_IRC_DEVOICE                      40163		// 33219
-#define ID_IRC_SLAP                         40164		// 33226
-#define ID_IRC_BAN                          40165		// 33222
-#define ID_IRC_KICK                         40166		// 33220
-#define ID_IRC_KICKWHY                      40167		// 33221
-#define ID_IRC_BANKICK                      40168		// 33223
-#define ID_IRC_BANKICKWHY                   40169		// 33224
-#define ID_IRC_UNBAN                        40170		// 33225
-#define ID_IRC_IGNORE                       40171		// 33214
-#define ID_IRC_UNIGNORE                     40172		// 33215
-#define ID_IRC_INFO                         40173		// 33208
-#define ID_IRC_PING                         40174		// 33211
-#define ID_IRC_QUERY                        40175		// 33210
-#define ID_IRC_TIME                         40176		// 33212
-#define ID_IRC_VERSION                      40177		// 33213
-#define ID_IRC_WHOIS                        40178		// 33209
-#define ID_IRC_BROWSE                       40179		// 33230
-#define ID_LIBRARY_ALBUM_OPEN               40200		// 33033
-#define ID_LIBRARY_ALBUM_DELETE             40201		// 33031
-#define ID_LIBRARY_ALBUM_PROPERTIES         40202		// 33032
-#define ID_LIBRARY_BITZI_DOWNLOAD           40203		// 32908
-#define ID_LIBRARY_BITZI_WEB                40204		// 32907
-#define ID_LIBRARY_COLUMNS                  40205		// 32840
-#define ID_LIBRARY_CREATETORRENT            40206		// 33102
-#define ID_LIBRARY_EXPORT_COLLECTION        40207		// 33109
-#define ID_LIBRARY_EXPLORE                  40208		// 32834
-#define ID_LIBRARY_ENQUEUE                  40209		// 32906
-#define ID_LIBRARY_LAUNCH                   40210		// 32956
-#define ID_LIBRARY_LAUNCH_FOLDER            40211		// 33029
-#define ID_LIBRARY_FOLDER_NEW               40212		// 32996
-#define ID_LIBRARY_FOLDER_DELETE            40213		// 32995
-#define ID_LIBRARY_FOLDER_DOWNLOAD          40214		// 33107
-#define ID_LIBRARY_FOLDER_ENQUEUE           40215		// 33030
-#define ID_LIBRARY_FOLDER_METADATA          40216		// 32998
-#define ID_LIBRARY_FOLDER_FILE_PROPERTIES   40217		// 33056
-#define ID_LIBRARY_FOLDER_PROPERTIES        40218		// 32994
-#define ID_LIBRARY_FOLDERS                  40220		// 33034
-#define ID_LIBRARY_HASH_PRIORITY            40221		// 32966
-#define ID_LIBRARY_PANEL                    40222		// 32993
-#define ID_LIBRARY_PARENT                   40224		// 32992
-#define ID_LIBRARY_PROPERTIES               40225		// 32839
-#define ID_LIBRARY_DELETE                   40226		// 32905
-#define ID_LIBRARY_COPY                     40227		// 32904
-#define ID_LIBRARY_MOVE                     40228		// 32903
-#define ID_LIBRARY_ADD                      40230		// 32838
-#define ID_LIBRARY_REMOVE                   40231		// 32837
-#define ID_LIBRARY_RENAME                   40232		// 32968
-#define ID_LIBRARY_REBUILD                  40233		// 33057
-#define ID_LIBRARY_REBUILD_ANSI             40234		// 33111
-#define ID_LIBRARY_REFRESH                  40235		// 32902
-#define ID_LIBRARY_REFRESH_METADATA         40236		// 32909
-#define ID_LIBRARY_SCAN                     40237		// 32835
-#define ID_LIBRARY_SEARCH                   40238		// 33104
-#define ID_LIBRARY_SEARCH_QUICK             40239		// 33103
-#define ID_LIBRARY_SEED_TORRENT             40240		// 33110
-#define ID_LIBRARY_SELECT_ALL               40241		// 32957
-#define ID_LIBRARY_SHARED_FILE              40242		// 32836
-#define ID_LIBRARY_SHARED_FOLDER            40243		// 32985
-#define ID_LIBRARY_TREE_PHYSICAL            40244		// 32983
-#define ID_LIBRARY_TREE_VIRTUAL             40245		// 32984
-#define ID_LIBRARY_UNLINK                   40246		// 32997
-#define ID_LIBRARY_URI                      40248		// 32910
-#define ID_LIBRARY_VIEW                     40250		// 32986
-#define ID_LIBRARY_VIEW_ALBUM               40251		// 32991
-#define ID_LIBRARY_VIEW_COLLECTION          40252		// 33108
-#define ID_LIBRARY_VIEW_DETAIL              40253		// 32987
-#define ID_LIBRARY_VIEW_HOME                40254		// 33061
-#define ID_LIBRARY_VIEW_ICON                40255		// 32989
-#define ID_LIBRARY_VIEW_LIST                40256		// 32988
-#define ID_LIBRARY_VIEW_THUMBNAIL           40257		// 32990
-#define ID_LIBRARY_VIEW_TILE                40258		// 33028
-#define ID_MEDIA_ADD                        40260		// 33022
-#define ID_MEDIA_ADD_FOLDER                 40261		// 33055
-#define ID_MEDIA_ASPECT_4_3                 40262		// 33019
-#define ID_MEDIA_ASPECT_16_9                40263		// 33020
-#define ID_MEDIA_ASPECT_DEFAULT             40264		// 33018
-#define ID_MEDIA_CLEAR                      40265		// 33024
-#define ID_MEDIA_CLOSE                      40266		// 33002
-#define ID_MEDIA_EXPORT_COLLECTION          40267		// 33026
-#define ID_MEDIA_FULLSCREEN                 40268		// 33012
-#define ID_MEDIA_MUTE                       40270		// 33113
-#define ID_MEDIA_OPEN                       40271		// 33001
-#define ID_MEDIA_NEXT                       40272		// 33006
-#define ID_MEDIA_PREVIOUS                   40273		// 33005
-#define ID_MEDIA_PAUSE                      40274		// 33016
-#define ID_MEDIA_PLAY                       40275		// 33003
-#define ID_MEDIA_PLAYLIST                   40276		// 33027
-#define ID_MEDIA_PROPERTIES                 40278		// 33137
-#define ID_MEDIA_RATE                       40279		// 33138
-#define ID_MEDIA_RANDOM                     40280		// 33013
-#define ID_MEDIA_REPEAT                     40281		// 33014
-#define ID_MEDIA_REMOVE                     40282		// 33023
-#define ID_MEDIA_SAVE                       40283		// 33025
-#define ID_MEDIA_SELECT                     40284		// 33021
-#define ID_MEDIA_SIZE_ONE                   40285		// 33009
-#define ID_MEDIA_SIZE_TWO                   40286		// 33010
-#define ID_MEDIA_SIZE_HALF                  40287		// 33011
-#define ID_MEDIA_SIZE_FILL                  40288		// 33007
-#define ID_MEDIA_SIZE_DISTORT               40289		// 33008
-#define ID_MEDIA_SETTINGS                   40290		// 33015
-#define ID_MEDIA_STATE_PAUSE                40291		// 33201
-#define ID_MEDIA_STATE_PLAY                 40292		// 33202
-#define ID_MEDIA_STATE_STOP                 40293		// 33200
-#define ID_MEDIA_STATUS                     40294		// 33075
-#define ID_MEDIA_STOP                       40295		// 33004
-#define ID_MEDIA_VIS                        40296		// 33040
-#define ID_MEDIA_ZOOM                       40298		// 33017
-#define ID_MONITOR_CLOSE                    40300		// 32960
-#define ID_MOVETAB_FIRST                    40301		// 32876
-#define ID_MOVETAB_LAST                     40302		// 32877
-#define ID_MOVETAB_LEFT                     40303		// 32874
-#define ID_MOVETAB_RIGHT                    40304		// 32875
-#define ID_NEIGHBOURS_CHAT                  40310		// 32885
-#define ID_NEIGHBOURS_DISCONNECT            40311		// 32792
-#define ID_NEIGHBOURS_SETTINGS              40312		// 32965
-#define ID_NEIGHBOURS_VIEW_ALL              40314		// 32793
-#define ID_NEIGHBOURS_VIEW_INCOMING         40315		// 32794
-#define ID_NEIGHBOURS_VIEW_OUTGOING         40316		// 32795
-#define ID_NEIGHBOURS_URI                   40318		// 32958
-#define ID_NETWORK_G2                       40320		// 33080
-#define ID_NETWORK_G1                       40321		// 33081
-#define ID_NETWORK_ED2K                     40322		// 33082
-#define ID_NETWORK_KAD                      40323		// 33106
-#define ID_NETWORK_DC                       40324		// 33086
-#define ID_NETWORK_BT                       40325		// 33085
-#define ID_NETWORK_HTTP                     40326		// 33083
-#define ID_NETWORK_FTP                      40327		// 33084
-#define ID_NETWORK_NULL                     40328		// 33058
-#define ID_NETWORK_CONNECT                  40330		// 32777
-#define ID_NETWORK_CONNECT_TO               40331		// 32798
-#define ID_NETWORK_DISCONNECT               40332		// 32778
-#define ID_NETWORK_BROWSE_TO                40333		// 32964
+#define ID_TAB_HOME                         40001
+#define ID_TAB_CONNECT                      40002
+#define ID_TAB_TRANSFERS                    40003
+#define ID_TAB_SEARCH                       40004
+#define ID_TAB_NETWORK                      40005
+#define ID_TAB_LIBRARY                      40006
+#define ID_TAB_MEDIA                        40007
+#define ID_TAB_IRC                          40008
+#define ID_BROWSE_FILES                     40010
+#define ID_BROWSE_LAUNCH                    40011
+#define ID_BROWSE_PROFILE                   40012
+#define ID_BROWSE_REFRESH                   40013
+#define ID_BROWSE_STOP                      40014
+#define ID_CHAT_BOLD                        40015
+#define ID_CHAT_ITALIC                      40016
+#define ID_CHAT_UNDERLINE                   40017
+#define ID_CHAT_COLOR                       40018
+#define ID_CHAT_EMOTICONS                   40019
+#define ID_CHAT_BROWSE                      40020
+#define ID_CHAT_CLEAR                       40021
+#define ID_CHAT_CONNECT                     40022
+#define ID_CHAT_DISCONNECT                  40023
+#define ID_CHAT_PRIORITY                    40024
+#define ID_CHAT_SEND_FILE                   40025
+#define ID_CHAT_TIMESTAMP                   40026
+#define ID_CHILD_CLOSE                      40030
+#define ID_CHILD_MAXIMISE                   40031
+#define ID_CHILD_MINIMISE                   40032
+#define ID_CHILD_RESTORE                    40033
+#define ID_CHECKMARK                        40034
+#define ID_DISCOVERY_ADD                    40040
+#define ID_DISCOVERY_REMOVE                 40041
+#define ID_DISCOVERY_EDIT                   40042
+#define ID_DISCOVERY_QUERY                  40043
+#define ID_DISCOVERY_ADVERTISE              40044
+#define ID_DISCOVERY_BLOCKED                40045
+#define ID_DISCOVERY_BROWSE                 40046
+#define ID_DISCOVERY_GNUTELLA               40047
+#define ID_DISCOVERY_SERVERMET              40048
+#define ID_DISCOVERY_WEBCACHE               40049
+#define ID_DOWNLOADS_ADD_SOURCE             40050
+#define ID_DOWNLOADS_AUTO_CLEAR             40051
+#define ID_DOWNLOADS_BOOST                  40052
+#define ID_DOWNLOADS_CLEAR                  40053
+#define ID_DOWNLOADS_CLEAR_COMPLETE         40054
+#define ID_DOWNLOADS_CLEAR_COMPLETED        40055
+#define ID_DOWNLOADS_CLEAR_INCOMPLETE       40056
+#define ID_DOWNLOADS_CLEAR_PAUSED           40057
+#define ID_DOWNLOADS_EDIT                   40058
+#define ID_DOWNLOADS_ENQUEUE                40059
+#define ID_DOWNLOADS_FILE_DELETE            40060
+#define ID_DOWNLOADS_FILTER_ACTIVE          40061
+#define ID_DOWNLOADS_FILTER_ALL             40062
+#define ID_DOWNLOADS_FILTER_MENU            40063
+#define ID_DOWNLOADS_FILTER_PAUSED          40064
+#define ID_DOWNLOADS_FILTER_QUEUED          40065
+#define ID_DOWNLOADS_FILTER_SEEDS           40066
+#define ID_DOWNLOADS_FILTER_SOURCES         40067
+#define ID_DOWNLOADS_FOLDER                 40068
+#define ID_DOWNLOADS_HELP                   40069
+#define ID_DOWNLOADS_LAUNCH                 40070
+#define ID_DOWNLOADS_LAUNCH_COMPLETE        40071
+#define ID_DOWNLOADS_LAUNCH_COPY            40072
+#define ID_DOWNLOADS_MERGE                  40073
+#define ID_DOWNLOADS_MONITOR                40074
+#define ID_DOWNLOADS_MOVE_UP                40075
+#define ID_DOWNLOADS_MOVE_DOWN              40076
+#define ID_DOWNLOADS_MOVE_TOP               40077
+#define ID_DOWNLOADS_MOVE_BOTTOM            40078
+#define ID_DOWNLOADS_RATE                   40079
+#define ID_DOWNLOADS_PAUSE                  40080
+#define ID_DOWNLOADS_RESUME                 40081
+#define ID_DOWNLOADS_REMOTE_PREVIEW         40082
+#define ID_DOWNLOADS_SHARE                  40083
+#define ID_DOWNLOADS_SOURCES                40084
+#define ID_DOWNLOADS_SHOW_SOURCES           40085
+#define ID_DOWNLOADS_VIEW_REVIEWS           40086
+#define ID_DOWNLOADS_SETTINGS               40088
+#define ID_DOWNLOADS_URI                    40089
+#define ID_DOWNLOAD_GROUP_CLEAR             40090
+#define ID_DOWNLOAD_GROUP_MOVELEFT          40091
+#define ID_DOWNLOAD_GROUP_MOVERIGHT         40092
+#define ID_DOWNLOAD_GROUP_NEW               40093
+#define ID_DOWNLOAD_GROUP_OPEN              40094
+#define ID_DOWNLOAD_GROUP_PAUSE             40095
+#define ID_DOWNLOAD_GROUP_PROPERTIES        40096
+#define ID_DOWNLOAD_GROUP_REMOVE            40097
+#define ID_DOWNLOAD_GROUP_RESUME            40098
+#define ID_DOWNLOAD_GROUP_SHOW              40099
+#define ID_OPEN_DOWNLOADS_FOLDER            40100
+#define ID_HELP_ABOUT                       40101
+#define ID_HELP_CODEC                       40102
+#define ID_HELP_CONNECTIONFAIL              40103
+#define ID_HELP_DISKWRITEFAIL               40104
+#define ID_HELP_DISKSPACE                   40105
+#define ID_HELP_DONATE                      40106
+#define ID_HELP_DONKEYSERVERS               40107
+#define ID_HELP_FAKESHAREAZA                40108
+#define ID_HELP_FAQ                         40109
+#define ID_HELP_FORUMS                      40110
+#define ID_HELP_FORUMS_LOCAL                40111
+#define ID_HELP_GUIDE                       40112
+#define ID_HELP_HOMEPAGE                    40113
+#define ID_HELP_PROMOTE                     40114
+#define ID_HELP_ROUTER                      40115
+#define ID_HELP_SCHEDULER                   40116
+#define ID_HELP_SECURITY                    40117
+#define ID_HELP_TEST                        40118
+#define ID_HELP_UPDATE                      40119
+#define ID_HELP_VERSION_CHECK               40120
+#define ID_HELP_WEB_1                       40121
+#define ID_HELP_WEB_2                       40122
+#define ID_HELP_WEB_3                       40123
+#define ID_HELP_WEB_4                       40124
+#define ID_HELP_WEB_5                       40125
+#define ID_HELP_WEB_6                       40126
+#define ID_HELP_WARNINGS                    40128
+#define ID_HOSTCACHE_CONNECT                40130
+#define ID_HOSTCACHE_DISCONNECT             40131
+#define ID_HOSTCACHE_G2_HORIZON             40132
+#define ID_HOSTCACHE_G2_CACHE               40133
+#define ID_HOSTCACHE_G1_CACHE               40134
+#define ID_HOSTCACHE_DC_CACHE               40135
+#define ID_HOSTCACHE_BT_CACHE               40136
+#define ID_HOSTCACHE_KAD_CACHE              40137
+#define ID_HOSTCACHE_ED2K_CACHE             40138
+#define ID_HOSTCACHE_FILE_DOWNLOAD          40139
+#define ID_HOSTCACHE_IMPORT                 40140
+#define ID_HOSTCACHE_REMOVE                 40141
+#define ID_HOSTCACHE_PRIORITY               40142
+#define ID_HITMONITOR_CLEAR                 40144
+#define ID_HITMONITOR_PAUSE                 40145
+#define ID_HITMONITOR_SEARCH                40146
+#define ID_IMPORT_DOWNLOADS                 40148
+#define ID_IRC_CONNECT                      40150
+#define ID_IRC_DISCONNECT                   40151
+#define ID_IRC_CLOSETAB                     40152
+#define ID_IRC_SETTINGS                     40153
+#define ID_IRC_SENDTEXT                     40154
+#define ID_IRC_EDITBOX                      40155
+#define ID_IRC_ADD                          40156
+#define ID_IRC_REMOVE                       40158
+#define ID_IRC_OP                           40160
+#define ID_IRC_DEOP                         40161
+#define ID_IRC_VOICE                        40162
+#define ID_IRC_DEVOICE                      40163
+#define ID_IRC_SLAP                         40164
+#define ID_IRC_BAN                          40165
+#define ID_IRC_KICK                         40166
+#define ID_IRC_KICKWHY                      40167
+#define ID_IRC_BANKICK                      40168
+#define ID_IRC_BANKICKWHY                   40169
+#define ID_IRC_UNBAN                        40170
+#define ID_IRC_IGNORE                       40171
+#define ID_IRC_UNIGNORE                     40172
+#define ID_IRC_INFO                         40173
+#define ID_IRC_PING                         40174
+#define ID_IRC_QUERY                        40175
+#define ID_IRC_TIME                         40176
+#define ID_IRC_VERSION                      40177
+#define ID_IRC_WHOIS                        40178
+#define ID_IRC_BROWSE                       40179
+#define ID_LIBRARY_ALBUM_OPEN               40200
+#define ID_LIBRARY_ALBUM_DELETE             40201
+#define ID_LIBRARY_ALBUM_PROPERTIES         40202
+#define ID_LIBRARY_BITZI_DOWNLOAD           40203
+#define ID_LIBRARY_BITZI_WEB                40204
+#define ID_LIBRARY_COLUMNS                  40205
+#define ID_LIBRARY_CREATETORRENT            40206
+#define ID_LIBRARY_EXPORT_COLLECTION        40207
+#define ID_LIBRARY_EXPLORE                  40208
+#define ID_LIBRARY_ENQUEUE                  40209
+#define ID_LIBRARY_LAUNCH                   40210
+#define ID_LIBRARY_LAUNCH_FOLDER            40211
+#define ID_LIBRARY_FOLDER_NEW               40212
+#define ID_LIBRARY_FOLDER_DELETE            40213
+#define ID_LIBRARY_FOLDER_DOWNLOAD          40214
+#define ID_LIBRARY_FOLDER_ENQUEUE           40215
+#define ID_LIBRARY_FOLDER_METADATA          40216
+#define ID_LIBRARY_FOLDER_FILE_PROPERTIES   40217
+#define ID_LIBRARY_FOLDER_PROPERTIES        40218
+#define ID_LIBRARY_FOLDERS                  40220
+#define ID_LIBRARY_HASH_PRIORITY            40221
+#define ID_LIBRARY_PANEL                    40222
+#define ID_LIBRARY_PARENT                   40224
+#define ID_LIBRARY_PROPERTIES               40225
+#define ID_LIBRARY_DELETE                   40226
+#define ID_LIBRARY_COPY                     40227
+#define ID_LIBRARY_MOVE                     40228
+#define ID_LIBRARY_ADD                      40230
+#define ID_LIBRARY_REMOVE                   40231
+#define ID_LIBRARY_RENAME                   40232
+#define ID_LIBRARY_REBUILD                  40233
+#define ID_LIBRARY_REBUILD_ANSI             40234
+#define ID_LIBRARY_REFRESH                  40235
+#define ID_LIBRARY_REFRESH_METADATA         40236
+#define ID_LIBRARY_SCAN                     40237
+#define ID_LIBRARY_SEARCH                   40238
+#define ID_LIBRARY_SEARCH_QUICK             40239
+#define ID_LIBRARY_SEED_TORRENT             40240
+#define ID_LIBRARY_SELECT_ALL               40241
+#define ID_LIBRARY_SHARED_FILE              40242
+#define ID_LIBRARY_SHARED_FOLDER            40243
+#define ID_LIBRARY_TREE_PHYSICAL            40244
+#define ID_LIBRARY_TREE_VIRTUAL             40245
+#define ID_LIBRARY_UNLINK                   40246
+#define ID_LIBRARY_URI                      40248
+#define ID_LIBRARY_VIEW                     40250
+#define ID_LIBRARY_VIEW_ALBUM               40251
+#define ID_LIBRARY_VIEW_COLLECTION          40252
+#define ID_LIBRARY_VIEW_DETAIL              40253
+#define ID_LIBRARY_VIEW_HOME                40254
+#define ID_LIBRARY_VIEW_ICON                40255
+#define ID_LIBRARY_VIEW_LIST                40256
+#define ID_LIBRARY_VIEW_THUMBNAIL           40257
+#define ID_LIBRARY_VIEW_TILE                40258
+#define ID_MEDIA_ADD                        40260
+#define ID_MEDIA_ADD_FOLDER                 40261
+#define ID_MEDIA_ASPECT_4_3                 40262
+#define ID_MEDIA_ASPECT_16_9                40263
+#define ID_MEDIA_ASPECT_DEFAULT             40264
+#define ID_MEDIA_CLEAR                      40265
+#define ID_MEDIA_CLOSE                      40266
+#define ID_MEDIA_EXPORT_COLLECTION          40267
+#define ID_MEDIA_FULLSCREEN                 40268
+#define ID_MEDIA_MUTE                       40270
+#define ID_MEDIA_OPEN                       40271
+#define ID_MEDIA_NEXT                       40272
+#define ID_MEDIA_PREVIOUS                   40273
+#define ID_MEDIA_PAUSE                      40274
+#define ID_MEDIA_PLAY                       40275
+#define ID_MEDIA_PLAYLIST                   40276
+#define ID_MEDIA_PROPERTIES                 40278
+#define ID_MEDIA_RATE                       40279
+#define ID_MEDIA_RANDOM                     40280
+#define ID_MEDIA_REPEAT                     40281
+#define ID_MEDIA_REMOVE                     40282
+#define ID_MEDIA_SAVE                       40283
+#define ID_MEDIA_SELECT                     40284
+#define ID_MEDIA_SIZE_ONE                   40285
+#define ID_MEDIA_SIZE_TWO                   40286
+#define ID_MEDIA_SIZE_HALF                  40287
+#define ID_MEDIA_SIZE_FILL                  40288
+#define ID_MEDIA_SIZE_DISTORT               40289
+#define ID_MEDIA_SETTINGS                   40290
+#define ID_MEDIA_STATE_PAUSE                40291
+#define ID_MEDIA_STATE_PLAY                 40292
+#define ID_MEDIA_STATE_STOP                 40293
+#define ID_MEDIA_STATUS                     40294
+#define ID_MEDIA_STOP                       40295
+#define ID_MEDIA_VIS                        40296
+#define ID_MEDIA_ZOOM                       40298
+#define ID_MONITOR_CLOSE                    40300
+#define ID_MOVETAB_FIRST                    40301
+#define ID_MOVETAB_LAST                     40302
+#define ID_MOVETAB_LEFT                     40303
+#define ID_MOVETAB_RIGHT                    40304
+#define ID_NEIGHBOURS_CHAT                  40310
+#define ID_NEIGHBOURS_DISCONNECT            40311
+#define ID_NEIGHBOURS_SETTINGS              40312
+#define ID_NEIGHBOURS_VIEW_ALL              40314
+#define ID_NEIGHBOURS_VIEW_INCOMING         40315
+#define ID_NEIGHBOURS_VIEW_OUTGOING         40316
+#define ID_NEIGHBOURS_URI                   40318
+#define ID_NETWORK_G2                       40320
+#define ID_NETWORK_G1                       40321
+#define ID_NETWORK_ED2K                     40322
+#define ID_NETWORK_KAD                      40323
+#define ID_NETWORK_DC                       40324
+#define ID_NETWORK_BT                       40325
+#define ID_NETWORK_HTTP                     40326
+#define ID_NETWORK_FTP                      40327
+#define ID_NETWORK_NULL                     40328
+#define ID_NETWORK_CONNECT                  40330
+#define ID_NETWORK_CONNECT_TO               40331
+#define ID_NETWORK_DISCONNECT               40332
+#define ID_NETWORK_BROWSE_TO                40333
 #define ID_NETWORK_CHAT_TO                  40334
-#define ID_NETWORK_SEARCH                   40335		// 32799
-#define ID_NETWORK_EXIT                     40336		// 32776
-#define ID_NETWORK_AUTO_CLOSE               40337		// 32881
-#define ID_SEARCHMONITOR_CLEAR              40338		// 32816
-#define ID_SEARCHMONITOR_PAUSE              40339		// 32815
-#define ID_SEARCH_SEARCH                    40340		// 32810
-#define ID_SEARCH_STOP                      40341		// 32911
-#define ID_SEARCH_CLEAR                     40342		// 32912
-#define ID_SEARCH_CHAT                      40343		// 32860
-#define ID_SEARCH_COLUMNS                   40344		// 32809
-#define ID_SEARCH_DETAILS                   40345		// 33062
-#define ID_SEARCH_DOWNLOAD                  40346		// 32811
-#define ID_SEARCH_DOWNLOADNOW               40348		// 32812
-#define ID_SEARCH_FILTER                    40350		// 32813
-#define ID_SEARCH_FILTER_RAW                40351		// 32954
-#define ID_SEARCH_FILTER_REMOVE             40352		// 32814
-#define ID_SEARCH_FOR_ALBUM                 40353		// 33072
-#define ID_SEARCH_FOR_ARTIST                40354		// 33071
-#define ID_SEARCH_FOR_SERIES                40355		// 33073
-#define ID_SEARCH_FOR_SIMILAR               40356		// 33070
-#define ID_SEARCH_FOR_THIS                  40357		// 33069
-#define ID_SEARCH_PANEL                     40358		// 32955
-#define ID_SEARCH_URI                       40359		// 32808
-#define ID_SECURITY_BAN                     40360		// 32900
-#define ID_SECURITY_ADD                     40361		// 32893
-#define ID_SECURITY_EDIT                    40362		// 32890
-#define ID_SECURITY_REMOVE                  40363		// 32891
-#define ID_SECURITY_RESET                   40364		// 32892
-#define ID_SECURITY_IMPORT                  40365		// 32896
-#define ID_SECURITY_EXPORT                  40366		// 32897
-#define ID_SECURITY_MOVE_UP                 40367		// 32898
-#define ID_SECURITY_MOVE_DOWN               40368		// 32899
-#define ID_SECURITY_POLICY_ACCEPT           40369		// 32894
-#define ID_SECURITY_POLICY_DENY             40370		// 32895
-#define ID_SCHEDULER_ADD                    40371		// 33320
-#define ID_SCHEDULER_EDIT                   40372		// 33321
-#define ID_SCHEDULER_REMOVE                 40373		// 33322
-#define ID_SCHEDULER_REMOVE_ALL             40374		// 33325
-#define ID_SCHEDULER_IMPORT                 40375		// 33326
-#define ID_SCHEDULER_EXPORT                 40376		// 33327
-#define ID_SCHEDULER_ACTIVATE               40377		// 33323
-#define ID_SCHEDULER_DEACTIVATE             40378		// 33324
-#define ID_SYSTEM_CLEAR                     40380		// 32887
-#define ID_SYSTEM_COPY                      40381		// 32886
-#define ID_SYSTEM_TEST                      40382		// 33041
-#define ID_SYSTEM_TIMESTAMP                 40384		// 32935
-#define ID_SYSTEM_VERBOSE                   40385		// 32934
-#define ID_SYSTEM_VERBOSE_INFO              40386		// 33317
-#define ID_SYSTEM_VERBOSE_NOTICE            40387		// 33316
-#define ID_SYSTEM_VERBOSE_DEBUG             40388		// 33318
-#define ID_SYSTEM_VERBOSE_WARNING           40389		// 33315
-#define ID_SYSTEM_VERBOSE_ERROR             40390		// 33314
-#define ID_SHELL_MENU                       40392		// 33059
-#define ID_TOOLS_SETTINGS                   40400		// 32779
-#define ID_TOOLS_WIZARD                     40401		// 32869
-#define ID_TOOLS_LANGUAGE                   40402		// 32972
-#define ID_TOOLS_PROFILE                    40403		// 33035
-#define ID_TOOLS_SKIN                       40404		// 32933
-#define ID_TOOLS_RESKIN                     40405		// 32959
-#define ID_TOOLS_SEEDTORRENT                40406		// 33117
-#define ID_TOOLS_RESEEDTORRENT              40407		// 33118
-#define ID_TOOLS_CREATETORRENT              40408		// 33119
-#define ID_TOOLS_DOWNLOAD                   40409		// 32914
-#define ID_TRAFFIC_WINDOW                   40410		// 32884
-#define ID_TRAFFIC_AXIS                     40411		// 32865
-#define ID_TRAFFIC_CLEAR                    40412		// 32868
-#define ID_TRAFFIC_GRID                     40413		// 32864
-#define ID_TRAFFIC_LEGEND                   40414		// 32866
-#define ID_TRAFFIC_SETUP                    40415		// 32867
-#define ID_TRANSFERS_CHAT                   40416		// 32879
-#define ID_TRANSFERS_CONNECT                40417		// 32936
-#define ID_TRANSFERS_DISCONNECT             40418		// 32848
-#define ID_TRANSFERS_FORGET                 40419		// 32849
-#define ID_TRAY_OPEN                        40420		// 32880
-#define ID_UPLOADS_START                    40421		// 32974
-#define ID_UPLOADS_LAUNCH                   40422		// 32843
-#define ID_UPLOADS_CHAT                     40423		// 32878
-#define ID_UPLOADS_CLEAR                    40424		// 32846
-#define ID_UPLOADS_CLEAR_COMPLETED          40425		// 32845
-#define ID_UPLOADS_AUTO_CLEAR               40426		// 32882
-#define ID_UPLOADS_DISCONNECT               40428		// 32844
-#define ID_UPLOADS_FILTER_ALL               40430		// 33065
-#define ID_UPLOADS_FILTER_ACTIVE            40431		// 33066
-#define ID_UPLOADS_FILTER_HISTORY           40432		// 33068
-#define ID_UPLOADS_FILTER_QUEUED            40433		// 33067
-#define ID_UPLOADS_FILTER_TORRENT           40434		// 33115
-#define ID_UPLOADS_FILTER_MENU              40435		// 33099
-#define ID_UPLOADS_FOLDER                   40436		// 32820
-#define ID_UPLOADS_HELP                     40437		// 32850
-#define ID_UPLOADS_SETTINGS                 40438		// 32975
-#define ID_VIEW_BASIC                       40440		// 32781
-#define ID_VIEW_TABBED                      40441		// 32920
-#define ID_VIEW_WINDOWED                    40442		// 32921
-#define ID_VIEW_DOWNLOADS                   40443		// 32786
-#define ID_VIEW_UPLOADS                     40444		// 32787
-#define ID_VIEW_LIBRARY                     40445		// 32785
-#define ID_VIEW_MEDIA                       40446		// 32999
-#define ID_VIEW_NEIGHBOURS                  40448		// 32783
-#define ID_VIEW_HOSTS                       40450		// 32788
-#define ID_VIEW_PACKETS                     40451		// 32789
-#define ID_VIEW_DISCOVERY                   40452		// 32922
-#define ID_VIEW_RESULTS_MONITOR             40453		// 32797
-#define ID_VIEW_SEARCH_MONITOR              40454		// 32796
-#define ID_VIEW_SECURITY                    40455		// 32790
-#define ID_VIEW_SCHEDULER                   40456		// 32791
-#define ID_VIEW_SYSTEM                      40457		// 32782
-#define ID_VIEW_TRAFFIC                     40458		// 32784
-#define ID_WINDOW_NAVBAR                    40460		// 32883
-#define ID_WINDOW_TOOLBAR                   40461		// 32961
-#define ID_WINDOW_TABBAR                    40462		// 32962
-#define ID_WINDOW_MONITOR                   40463		// 32963
-#define ID_WINDOW_REMOTE                    40464		// 33114
+#define ID_NETWORK_SEARCH                   40335
+#define ID_NETWORK_EXIT                     40336
+#define ID_NETWORK_AUTO_CLOSE               40337
+#define ID_SEARCHMONITOR_CLEAR              40338
+#define ID_SEARCHMONITOR_PAUSE              40339
+#define ID_SEARCH_SEARCH                    40340
+#define ID_SEARCH_STOP                      40341
+#define ID_SEARCH_CLEAR                     40342
+#define ID_SEARCH_CHAT                      40343
+#define ID_SEARCH_COLUMNS                   40344
+#define ID_SEARCH_DETAILS                   40345
+#define ID_SEARCH_DOWNLOAD                  40346
+#define ID_SEARCH_DOWNLOADNOW               40348
+#define ID_SEARCH_FILTER                    40350
+#define ID_SEARCH_FILTER_RAW                40351
+#define ID_SEARCH_FILTER_REMOVE             40352
+#define ID_SEARCH_FOR_ALBUM                 40353
+#define ID_SEARCH_FOR_ARTIST                40354
+#define ID_SEARCH_FOR_SERIES                40355
+#define ID_SEARCH_FOR_SIMILAR               40356
+#define ID_SEARCH_FOR_THIS                  40357
+#define ID_SEARCH_PANEL                     40358
+#define ID_SEARCH_URI                       40359
+#define ID_SECURITY_BAN                     40360
+#define ID_SECURITY_ADD                     40361
+#define ID_SECURITY_EDIT                    40362
+#define ID_SECURITY_REMOVE                  40363
+#define ID_SECURITY_RESET                   40364
+#define ID_SECURITY_IMPORT                  40365
+#define ID_SECURITY_EXPORT                  40366
+#define ID_SECURITY_MOVE_UP                 40367
+#define ID_SECURITY_MOVE_DOWN               40368
+#define ID_SECURITY_POLICY_ACCEPT           40369
+#define ID_SECURITY_POLICY_DENY             40370
+#define ID_SCHEDULER_ADD                    40371
+#define ID_SCHEDULER_EDIT                   40372
+#define ID_SCHEDULER_REMOVE                 40373
+#define ID_SCHEDULER_REMOVE_ALL             40374
+#define ID_SCHEDULER_IMPORT                 40375
+#define ID_SCHEDULER_EXPORT                 40376
+#define ID_SCHEDULER_ACTIVATE               40377
+#define ID_SCHEDULER_DEACTIVATE             40378
+#define ID_SYSTEM_CLEAR                     40380
+#define ID_SYSTEM_COPY                      40381
+#define ID_SYSTEM_TEST                      40382
+#define ID_SYSTEM_TIMESTAMP                 40384
+#define ID_SYSTEM_VERBOSE                   40385
+#define ID_SYSTEM_VERBOSE_INFO              40386
+#define ID_SYSTEM_VERBOSE_NOTICE            40387
+#define ID_SYSTEM_VERBOSE_DEBUG             40388
+#define ID_SYSTEM_VERBOSE_WARNING           40389
+#define ID_SYSTEM_VERBOSE_ERROR             40390
+#define ID_SHELL_MENU                       40392
+#define ID_TOOLS_SETTINGS                   40400
+#define ID_TOOLS_WIZARD                     40401
+#define ID_TOOLS_LANGUAGE                   40402
+#define ID_TOOLS_PROFILE                    40403
+#define ID_TOOLS_SKIN                       40404
+#define ID_TOOLS_RESKIN                     40405
+#define ID_TOOLS_SEEDTORRENT                40406
+#define ID_TOOLS_RESEEDTORRENT              40407
+#define ID_TOOLS_CREATETORRENT              40408
+#define ID_TOOLS_DOWNLOAD                   40409
+#define ID_TRAFFIC_WINDOW                   40410
+#define ID_TRAFFIC_AXIS                     40411
+#define ID_TRAFFIC_CLEAR                    40412
+#define ID_TRAFFIC_GRID                     40413
+#define ID_TRAFFIC_LEGEND                   40414
+#define ID_TRAFFIC_SETUP                    40415
+#define ID_TRANSFERS_CHAT                   40416
+#define ID_TRANSFERS_CONNECT                40417
+#define ID_TRANSFERS_DISCONNECT             40418
+#define ID_TRANSFERS_FORGET                 40419
+#define ID_TRAY_OPEN                        40420
+#define ID_UPLOADS_START                    40421
+#define ID_UPLOADS_LAUNCH                   40422
+#define ID_UPLOADS_CHAT                     40423
+#define ID_UPLOADS_CLEAR                    40424
+#define ID_UPLOADS_CLEAR_COMPLETED          40425
+#define ID_UPLOADS_AUTO_CLEAR               40426
+#define ID_UPLOADS_DISCONNECT               40428
+#define ID_UPLOADS_FILTER_ALL               40430
+#define ID_UPLOADS_FILTER_ACTIVE            40431
+#define ID_UPLOADS_FILTER_HISTORY           40432
+#define ID_UPLOADS_FILTER_QUEUED            40433
+#define ID_UPLOADS_FILTER_TORRENT           40434
+#define ID_UPLOADS_FILTER_MENU              40435
+#define ID_UPLOADS_FOLDER                   40436
+#define ID_UPLOADS_HELP                     40437
+#define ID_UPLOADS_SETTINGS                 40438
+#define ID_VIEW_BASIC                       40440
+#define ID_VIEW_TABBED                      40441
+#define ID_VIEW_WINDOWED                    40442
+#define ID_VIEW_DOWNLOADS                   40443
+#define ID_VIEW_UPLOADS                     40444
+#define ID_VIEW_LIBRARY                     40445
+#define ID_VIEW_MEDIA                       40446
+#define ID_VIEW_NEIGHBOURS                  40448
+#define ID_VIEW_HOSTS                       40450
+#define ID_VIEW_PACKETS                     40451
+#define ID_VIEW_DISCOVERY                   40452
+#define ID_VIEW_RESULTS_MONITOR             40453
+#define ID_VIEW_SEARCH_MONITOR              40454
+#define ID_VIEW_SECURITY                    40455
+#define ID_VIEW_SCHEDULER                   40456
+#define ID_VIEW_SYSTEM                      40457
+#define ID_VIEW_TRAFFIC                     40458
+#define ID_WINDOW_NAVBAR                    40460
+#define ID_WINDOW_TOOLBAR                   40461
+#define ID_WINDOW_TABBAR                    40462
+#define ID_WINDOW_MONITOR                   40463
+#define ID_WINDOW_REMOTE                    40464
 // WebServices:
-#define ID_WEBSERVICES_LIST                 40480		// 33300
-#define ID_WEBSERVICES_SHAREMONKEY          40481		// 33301
-#define ID_WEBSERVICES_MUSICBRAINZ          40482		// 33310
-#define ID_SHAREMONKEY_DOWNLOAD             40483		// 33302
-#define ID_SHAREMONKEY_SAVE                 40484		// 33303
-#define ID_SHAREMONKEY_SAVE_OPTION          40485		// 33309
-#define ID_SHAREMONKEY_PREVIOUS             40486		// 33304
-#define ID_SHAREMONKEY_NEXT                 40487		// 33305
-#define ID_SHAREMONKEY_COMPARE              40488		// 33307
-#define ID_SHAREMONKEY_PRICES               40489		// 33306
-#define ID_SHAREMONKEY_BUY                  40490		// 33308
-#define ID_MUSICBRAINZ_MATCHES              40491		// 33311
-#define ID_MUSICBRAINZ_ALBUMS               40492		// 33312
+#define ID_WEBSERVICES_LIST                 40480
+#define ID_WEBSERVICES_SHAREMONKEY          40481
+#define ID_WEBSERVICES_MUSICBRAINZ          40482
+#define ID_SHAREMONKEY_DOWNLOAD             40483
+#define ID_SHAREMONKEY_SAVE                 40484
+#define ID_SHAREMONKEY_SAVE_OPTION          40485
+#define ID_SHAREMONKEY_PREVIOUS             40486
+#define ID_SHAREMONKEY_NEXT                 40487
+#define ID_SHAREMONKEY_COMPARE              40488
+#define ID_SHAREMONKEY_PRICES               40489
+#define ID_SHAREMONKEY_BUY                  40490
+#define ID_MUSICBRAINZ_MATCHES              40491
+#define ID_MUSICBRAINZ_ALBUMS               40492
 // Plugins Skinning:
 #define PluginID_Custom                     40500
 #define PluginID_ImageViewer_FullSize       40501

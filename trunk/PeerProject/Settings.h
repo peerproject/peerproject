@@ -338,8 +338,9 @@ public:
 		bool		DeflateLeaf2Hub;
 		bool		DeflateHub2Leaf;
 		DWORD		MaxResults;				// Maximum new results we want on single Search button press
-		DWORD		MaximumPacket;			// Drop packets large than specified (32...256 KB)
 		DWORD		MaxHits;				// Maximum file hits in search result (divided to packets by HitsPerPacket)
+		DWORD		MaxHitWords;			// Maximum number of words in a hit filename
+		DWORD		MaximumPacket;			// Drop packets large than specified (32-256 KB)
 		DWORD		HitsPerPacket;			// Maximum file hits in single search result packet
 		DWORD		RouteCache;				// Life time of node route (seconds)
 		DWORD		HostCacheSize;			// Number of hosts of each type in Host cache
@@ -352,7 +353,8 @@ public:
 	{
 		DWORD		ClientMode;				// Desired mode of operation: MODE_AUTO, MODE_LEAF, MODE_ULTRAPEER
 		bool		Enabled;				// Was Gnutella1.EnableToday
-		bool		EnableAlways;			// Do  Gnutella1.EnableStartup ?  Or EnableDefult?
+		bool		EnableAlways;			// Do  Gnutella1.EnableStartup or EnableDefault?
+		bool		ShowInterface;			// Allow hiding some UI features
 		DWORD		NumHubs;				// Number of ultrapeers a leaf has
 		DWORD		NumLeafs;				// Number of leafs an ultrapeer has
 		DWORD		NumPeers;				// Number of peers an ultrapeer has
@@ -363,11 +365,6 @@ public:
 		DWORD		TranslateTTL;
 		DWORD		MaximumTTL;
 		DWORD		MaximumQuery;
-		bool		StrictPackets;
-		bool		EnableGGEP;
-		bool		EnableOOB;
-		bool		VendorMsg;
-		DWORD		QueryThrottle;
 		DWORD		RequeryDelay;
 		DWORD		HostCount;				// Number of hosts in X-Try-Ultrapeers
 		DWORD		HostExpire;
@@ -375,9 +372,15 @@ public:
 		DWORD		PingRate;
 		DWORD		PongCache;
 		DWORD		PongCount;
+		bool		EnableGGEP;
+		bool		EnableOOB;
+		bool		VendorMsg;
 	//	DWORD		HitQueueLimit;			// Protect G1 clients from badly configured queues
 		bool		QueryHitUTF8;			// Use UTF-8 encoding to read Gnutella1 QueryHit packets
 		bool		QuerySearchUTF8;		// Use UTF-8 encoding to create Gnutella1 Query packets
+		DWORD		QueryThrottle;
+		DWORD		QueryGlobalThrottle;	// Multicast query rate (ticks)
+		DWORD		MulticastPingRate;		// Multicast ping rate (ticks)
 		DWORD		MaxHostsInPongs;		// The number of hosts included in the response of pings having SCP GGEP block
 	} Gnutella1;
 
@@ -386,6 +389,7 @@ public:
 		DWORD		ClientMode;				// Desired mode of operation: MODE_AUTO, MODE_LEAF, MODE_HUB
 		bool		Enabled;				// Was Gnutella2.EnableToday
 		bool		EnableAlways;			// Do  Gnutella2.EnableStartup ?
+	//	bool		ShowInterface;			// Never allow hiding some UI features
 		bool		HubVerified;
 		DWORD		NumHubs;				// Number of hubs a leaf has
 		DWORD		NumLeafs;				// Number of leafs a hub has
@@ -419,6 +423,7 @@ public:
 	{
 		bool		Enabled;				// Was eDonkey.EnableToday
 		bool		EnableAlways;			// Do  eDonkey.EnableStartup ?
+		bool		ShowInterface;			// Allow hiding some UI features
 		bool		FastConnect;			// Try connecting to 2 servers to get online faster
 		bool		ForceHighID;			// Reconnect if low-id. (once only)
 		DWORD		NumServers;				// 1 Connection
@@ -457,17 +462,19 @@ public:
 	{
 		bool		Enabled;				// Was DC.EnableToday
 		bool		EnableAlways;			// Do  DC.EnableStartup ?
-		bool		ShowInterface;			// Hide experimental DC++ by default, but expose interface elements for development
+		bool		ShowInterface;			// Allow hiding some UI features
 		DWORD		NumServers;				// Default 1 hub
 		DWORD		QueryThrottle;			// Throttle for DC++ neighbor searches (s), default 2 min delay
 		DWORD		ReAskTime;				// How often to re-ask a remote client about download (ms), default every minute
 		DWORD		DequeueTime;			// Timeout for remote client confirmation of upload queue (ms), default 5 min
+		CString		HubListURL;				// Default hublist.xml.bz2 location
 	} DC;
 
 	struct sBitTorrent
 	{
 		bool		Enabled;				// Was BitTorrent.EnableToday
 		bool		EnableAlways;			// Do  BitTorrent.EnableStartup ?
+	//	bool		ShowInterface;			// Never allow hiding some UI features?
 		CString		TorrentCreatorPath;		// Location of the program used to create .torrent files
 		CString		DefaultTracker;
 		DWORD		DefaultTrackerPeriod;	// Delay between tracker contact attempts if one is not specified by tracker
@@ -637,7 +644,7 @@ public:
 	struct sExperimental
 	{
 		bool		EnableDIPPSupport;		// Handle GDNA host cache exchange
-		bool		TestBTPartials;
+		bool		LAN_Mode;				// Local Private Network optimizations  (Force G2 only, was #ifdef LAN_MODE)
 	} Experimental;
 
 

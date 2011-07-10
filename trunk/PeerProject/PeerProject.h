@@ -52,7 +52,7 @@ public:
 
 	BOOL			m_bHelp;
 	BOOL			m_bTray;
-//	BOOL			m_bWait;
+	BOOL			m_bWait;
 	BOOL			m_bNoSplash;
 	BOOL			m_bNoAlphaWarning;
 	INT				m_nGUIMode;
@@ -101,7 +101,7 @@ public:
 	TRISTATE		m_bUPnPPortsForwarded;		// UPnP values are assigned when the discovery is complete
 	TRISTATE		m_bUPnPDeviceConnected;		// or when the service notifies
 	IN_ADDR			m_nUPnPExternalAddress;		// UPnP current external address
-	DWORD			m_nLastInput;				// Time of last input event (in secs)
+	DWORD			m_nLastInput;				// Time of last input event (in secs) (Chat idling)
 	HHOOK			m_hHookKbd;
 	HHOOK			m_hHookMouse;
 	UINT			m_nMouseWheel;				// System-defined number of lines to move with mouse wheel
@@ -169,6 +169,7 @@ public:
 	void			ShowStartupText();
 	void			SplashStep(LPCTSTR pszMessage = NULL, int nMax = 0, bool bClosing = false);
 	void			SplashAbort();
+	BOOL			KeepAlive();
 
 	virtual CDocument* OpenDocumentFile(LPCTSTR lpszFileName);	// Open file or url. Returns NULL always.
 	static BOOL		Open(LPCTSTR lpszFileName);					// Open file or url (generic function)
@@ -195,6 +196,8 @@ protected:
 
 	virtual BOOL	InitInstance();
 	virtual int		ExitInstance();
+	virtual BOOL	Register();
+	virtual BOOL	Unregister();
 	virtual void	WinHelp(DWORD dwData, UINT nCmd = HELP_CONTEXT);
 
 	void			GetVersionNumber();
@@ -203,7 +206,7 @@ protected:
 	void			LoadCountry();		// Load the GeoIP library for mapping IPs to countries
 	void			FreeCountry();		// Free GeoIP resources
 
-//	BOOL			ParseCommandLine();	// Parse and execute command-line parameters
+	BOOL			ParseCommandLine();	// Parse and execute command-line parameters
 
 	DECLARE_MESSAGE_MAP()
 
@@ -218,10 +221,12 @@ extern CPeerProjectApp theApp;
 // Utility Functions
 //
 
+CRuntimeClass* AfxClassForName(LPCTSTR pszClass);
+
 // Post message to main window in safe way
 BOOL	PostMainWndMessage(UINT Msg, WPARAM wParam = NULL, LPARAM lParam = NULL);
 
-CRuntimeClass* AfxClassForName(LPCTSTR pszClass);
+BOOL	IsRunAsAdmin();		// Detect Administrative privileges
 
 CString	LoadString(UINT nID);
 BOOL	LoadString(CString& str, UINT nID);
@@ -285,11 +290,24 @@ CString BrowseForFolder(LPCTSTR szTitle, LPCTSTR szInitialPath = NULL, HWND hWnd
 // Do message loop
 void	SafeMessageLoop();
 
+// Start Windows service
+//BOOL AreServiceHealthy(LPCTSTR szService);
+
 // Detect external fullscreen application
 BOOL	IsUserFullscreen();
 
 // Handle "-noskin" flag
-//void	ClearSkins();
+void	ClearSkins();
+
+//typedef enum
+//{
+//	sNone		= 0,
+//	sNumeric	= 1,
+//	sRegular	= 2,
+//	sKanji		= 4,
+//	sHiragana	= 8,
+//	sKatakana	= 16
+//} ScriptType;
 
 struct CompareNums
 {
@@ -367,9 +385,9 @@ const LPCTSTR RT_GZIP = _T("GZIP");
 #define WM_TORRENT				(WM_APP+118)	// Open torrent file ( WPARAM: LPTSTR szFilename, LPARAM: unused )
 #define WM_IMPORT				(WM_APP+119)	// Import hub list file ( WPARAM: LPTSTR szFilename, LPARAM: unused )
 
-// WM_COPYDATA types
-//#define COPYDATA_SCHEDULER	0				// Scheduler task ( lpData: LPCTSTR szTaskData - encoded string ) - Note Windows scheduling not implemented.
-//#define COPYDATA_OPEN			1				// Open file ( lpData: LPCTSTR szFilename - file name or URL )
+// WM_COPYDATA types - Note Windows scheduling not implemented.
+//#define COPYDATA_SCHEDULER	0				// Scheduler task ( lpData: LPCTSTR szTaskData - encoded string )
+#define COPYDATA_OPEN			1				// Open file ( lpData: LPCTSTR szFilename - file name or URL )
 
 // Ranges
 #define ID_PLUGIN_FIRST			27000

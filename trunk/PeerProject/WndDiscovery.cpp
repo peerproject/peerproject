@@ -32,6 +32,22 @@ static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
 #endif	// Filename
 
+// Set Column Order
+enum {
+	COL_ADDRESS,
+	COL_TYPE,
+	COL_TIME,
+	COL_HOSTS,
+	COL_HOSTS_TOTAL,
+	COL_URLS,
+	COL_URLS_TOTAL,
+	COL_ACCESSES,
+	COL_UPDATES,
+	COL_FAILURES,
+	COL_PONG,
+	COL_LAST	// Column Count
+};
+
 IMPLEMENT_SERIAL(CDiscoveryWnd, CPanelWnd, 0)
 
 BEGIN_MESSAGE_MAP(CDiscoveryWnd, CPanelWnd)
@@ -102,17 +118,17 @@ int CDiscoveryWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	AddIcon( IDI_FIREWALLED, m_gdiImageList );
 	m_wndList.SetImageList( &m_gdiImageList, LVSIL_SMALL );
 
-	m_wndList.InsertColumn( 0, _T("Address"), LVCFMT_LEFT, 260, -1 );
-	m_wndList.InsertColumn( 1, _T("Type"), LVCFMT_CENTER, 80, 0 );
-	m_wndList.InsertColumn( 2, _T("Last Access"), LVCFMT_CENTER, 130, 1 );
-	m_wndList.InsertColumn( 3, _T("Hosts"), LVCFMT_CENTER, 50, 2 );
-	m_wndList.InsertColumn( 4, _T("Total Hosts"), LVCFMT_CENTER, 70, 3 );
-	m_wndList.InsertColumn( 5, _T("URLs"), LVCFMT_CENTER, 50, 4 );
-	m_wndList.InsertColumn( 6, _T("Total URLs"), LVCFMT_CENTER, 70, 5 );
-	m_wndList.InsertColumn( 7, _T("Accesses"), LVCFMT_CENTER, 70, 6 );
-	m_wndList.InsertColumn( 8, _T("Updates"), LVCFMT_CENTER, 55, 7 );
-	m_wndList.InsertColumn( 9, _T("Failures"), LVCFMT_CENTER, 55, 8 );
-	m_wndList.InsertColumn( 10, _T("Pong"), LVCFMT_CENTER, 150, 9 );
+	m_wndList.InsertColumn( COL_ADDRESS,	_T("Address"),	LVCFMT_LEFT,	260, -1 );
+	m_wndList.InsertColumn( COL_TYPE,		_T("Type"), 	LVCFMT_CENTER,	80, 0 );
+	m_wndList.InsertColumn( COL_TIME,		_T("Last Access"), LVCFMT_CENTER, 130, 1 );
+	m_wndList.InsertColumn( COL_HOSTS,		_T("Hosts"),	LVCFMT_CENTER,	50, 2 );
+	m_wndList.InsertColumn( COL_HOSTS_TOTAL, _T("Total Hosts"), LVCFMT_CENTER, 70, 3 );
+	m_wndList.InsertColumn( COL_URLS,		_T("URLs"), 	LVCFMT_CENTER,	50, 4 );
+	m_wndList.InsertColumn( COL_URLS_TOTAL, _T("Total URLs"), LVCFMT_CENTER, 70, 5 );
+	m_wndList.InsertColumn( COL_ACCESSES,	_T("Accesses"),	LVCFMT_CENTER,	70, 6 );
+	m_wndList.InsertColumn( COL_UPDATES,	_T("Updates"),	LVCFMT_CENTER,	55, 7 );
+	m_wndList.InsertColumn( COL_FAILURES,	_T("Failures"),	LVCFMT_CENTER,	55, 8 );
+	m_wndList.InsertColumn( COL_PONG,		_T("Pong"), 	LVCFMT_CENTER,	150, 9 );
 
 	LoadState( _T("CDiscoveryWnd"), TRUE );
 
@@ -146,7 +162,7 @@ void CDiscoveryWnd::Update()
 	if ( ! pLock.Lock( 250 ) )
 		return;
 
-	CLiveList pLiveList( 11 );
+	CLiveList pLiveList( COL_LAST );
 
 	for ( POSITION pos = DiscoveryServices.GetIterator() ; pos ; )
 	{
@@ -158,14 +174,14 @@ void CDiscoveryWnd::Update()
 		{
 			if ( ! m_bShowGnutella ) continue;
 			pItem = pLiveList.Add( pService );
-			pItem->Set( 1, _T("Bootstrap") );
+			pItem->Set( COL_TYPE, _T("Bootstrap") );
 			pItem->SetImage( 0 );
 		}
 		else if ( pService->m_nType == CDiscoveryService::dsWebCache )
 		{
 			if ( ! m_bShowWebCache ) continue;
 			pItem = pLiveList.Add( pService );
-			pItem->Set( 1, _T("GWebCache") );
+			pItem->Set( COL_TYPE, _T("GWebCache") );
 			if ( pService->m_bGnutella2 && pService->m_bGnutella1 )
 			{
 				pItem->SetImage( 2 );			// Multi-colored icon
@@ -180,18 +196,18 @@ void CDiscoveryWnd::Update()
 					pItem->SetImage( 3 );		// Blank
 			}
 		}
-		else if ( pService->m_nType == CDiscoveryService::dsServerMet )
+		else if ( pService->m_nType == CDiscoveryService::dsServerList )
 		{
 			if ( ! m_bShowServerMet ) continue;
 			pItem = pLiveList.Add( pService );
-			pItem->Set( 1, _T("Server.met") );
+			pItem->Set( COL_TYPE, _T("Server.met") );
 			pItem->SetImage( 3 );
 		}
 		else if ( pService->m_nType == CDiscoveryService::dsBlocked )
 		{
 			if ( ! m_bShowBlocked ) continue;
 			pItem = pLiveList.Add( pService );
-			pItem->Set( 1, _T("Blocked") );
+			pItem->Set( COL_TYPE, _T("Blocked") );	// ToDo: Translate?
 			pItem->SetImage( 5 );
 		}
 		else
@@ -199,36 +215,35 @@ void CDiscoveryWnd::Update()
 			continue;
 		}
 
-		pItem->Set( 0, pService->m_sAddress );
+		pItem->Set( COL_ADDRESS, pService->m_sAddress );
 
 		if ( pService->m_tAccessed )
 		{
 			CTime pTime( (time_t)pService->m_tAccessed );
-			pItem->Set( 2, pTime.Format( _T("%Y-%m-%d %H:%M:%S") ) );
+			pItem->Set( COL_TIME, pTime.Format( _T("%Y-%m-%d %H:%M:%S") ) );
 		}
-		else
+		else if ( pService->m_nType != CDiscoveryService::dsBlocked )
 		{
-			if ( pService->m_nType != CDiscoveryService::dsBlocked )
-				pItem->Set( 2, _T("0 - Never") );
+			pItem->Set( COL_TIME, _T(" - ") );
 		}
 
 		if ( pService->m_nType != CDiscoveryService::dsBlocked )
 		{
-			pItem->Format( 7, _T("%u"), pService->m_nAccesses );
-			pItem->Format( 9, _T("%u"), pService->m_nFailures );
+			pItem->Format( COL_ACCESSES, _T("%u"), pService->m_nAccesses );
+			pItem->Format( COL_FAILURES, _T("%u"), pService->m_nFailures );
 
 			if ( pService->m_tAccessed )
 			{
-				pItem->Format( 3, _T("%u"), pService->m_nHosts );
-				pItem->Format( 4, _T("%u"), pService->m_nTotalHosts );
-				pItem->Format( 8, _T("%u"), pService->m_nUpdates );
-				pItem->Format( 5, _T("%u"), pService->m_nURLs );
-				pItem->Format( 6, _T("%u"), pService->m_nTotalURLs );
+				pItem->Format( COL_HOSTS,		_T("%u"), pService->m_nHosts );
+				pItem->Format( COL_HOSTS_TOTAL,	_T("%u"), pService->m_nTotalHosts );
+				pItem->Format( COL_URLS,		_T("%u"), pService->m_nURLs );
+				pItem->Format( COL_URLS_TOTAL,	_T("%u"), pService->m_nTotalURLs );
+				pItem->Format( COL_UPDATES, 	_T("%u"), pService->m_nUpdates );
 
 				if ( ! pService->m_sPong.IsEmpty() &&
 					pService->m_nType == CDiscoveryService::dsWebCache && pService->m_bGnutella2 )
 				{
-					pItem->Set( 10, pService->m_sPong );
+					pItem->Set( COL_PONG, pService->m_sPong );
 				}
 			}
 		}

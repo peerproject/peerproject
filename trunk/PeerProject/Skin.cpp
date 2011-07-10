@@ -1603,7 +1603,7 @@ BOOL CSkin::Apply(LPCTSTR pszName, CDialog* pDialog, UINT nIconID, CToolTipCtrl*
 			GetClassName( pWnd->GetSafeHwnd(), szClass, 64 );
 			strCaption.Empty();
 
-			// Skip added banner	Todo: Remove this ?
+			// Skip added banner
 			if ( _tcsnicmp( szClass, _T("St"), 3 ) == 0 &&
 				IDC_BANNER == pWnd->GetDlgCtrlID() )
 				continue;
@@ -1689,7 +1689,7 @@ BOOL CSkin::Apply(LPCTSTR pszName, CDialog* pDialog, UINT nIconID, CToolTipCtrl*
 		TCHAR szClass[3] = { 0, 0, 0 };
 		GetClassName( pWnd->GetSafeHwnd(), szClass, 3 );
 
-		// Skip added banner	ToDo: Remove this?
+		// Skip added banner
 		if ( _tcsnicmp( szClass, _T("St"), 3 ) == 0 &&
 			IDC_BANNER == pWnd->GetDlgCtrlID() )
 		{

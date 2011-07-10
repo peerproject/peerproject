@@ -1,7 +1,7 @@
 //
 // WndSearchMonitor.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -22,11 +22,11 @@
 #include "QuerySearch.h"
 #include "WndSearchMonitor.h"
 #include "WndSearch.h"
-#include "LiveList.h"
-#include "XML.h"
-#include "Skin.h"
-#include "Security.h"
 #include "WndBrowseHost.h"
+#include "LiveList.h"
+#include "Security.h"
+#include "Skin.h"
+#include "XML.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -212,15 +212,15 @@ void CSearchMonitorWnd::OnQuerySearch(const CQuerySearch* pSearch)
 
 	CLiveItem* pItem = new CLiveItem( 4, NULL );
 
-	CString strSearch	= pSearch->m_sSearch;
-	CString strSchema	= _T("-");
-	CString strURN		= _T("-");
-	CString strNode 	= _T("-");
+	CString strSearch= pSearch->m_sSearch;
+	CString strSchema;
+	CString strURN;
+	CString strNode;
 
 //	LoadString( strSchema, IDS_NEIGHBOUR_COMPRESSION_NONE );	// ToDo: Generic "None" translation ?
 //	LoadString( strURN, IDS_NEIGHBOUR_COMPRESSION_NONE );
 
-	CString strSize;	//= _T("-");
+	CString strSize;
 	if ( pSearch->m_nMinSize > 100 )
 	{
 		strSize = Settings.SmartVolume( pSearch->m_nMinSize );
@@ -236,7 +236,7 @@ void CSearchMonitorWnd::OnQuerySearch(const CQuerySearch* pSearch)
 		strSize = _T("< ") + Settings.SmartVolume( pSearch->m_nMaxSize );
 	}
 
-	CString strNetwork 	= _T("-");
+	CString strNetwork = _T("-");
 	if ( pSearch->m_nProtocol > PROTOCOL_NULL )
 	{
 		if ( pSearch->m_nProtocol == PROTOCOL_G1 )
@@ -256,27 +256,33 @@ void CSearchMonitorWnd::OnQuerySearch(const CQuerySearch* pSearch)
 
 	if ( pSearch->m_oSHA1 && pSearch->m_oTiger )
 		strURN	= _T("bitprint:") + pSearch->m_oSHA1.toString() + '.' + pSearch->m_oTiger.toString();
-	else if ( pSearch->m_oSHA1 )
-		strURN = pSearch->m_oSHA1.toShortUrn();
 	else if ( pSearch->m_oTiger )
 		strURN = pSearch->m_oTiger.toShortUrn();
+	else if ( pSearch->m_oSHA1 )
+		strURN = pSearch->m_oSHA1.toShortUrn();
 	else if ( pSearch->m_oED2K )
 		strURN = pSearch->m_oED2K.toShortUrn();
 	else if ( pSearch->m_oBTH )
 		strURN = pSearch->m_oBTH.toShortUrn();
 	else if ( pSearch->m_oMD5 )
 		strURN = pSearch->m_oMD5.toShortUrn();
+	else
+		strURN = _T("-");
+
+	if ( pSearch->m_bWhatsNew )
+		strSearch = _T("What's New?");
 
 	if ( pSearch->m_pXML )
 	{
-		strSearch += ' ';
+		strSearch += _T('«');
 		strSearch += pSearch->m_pXML->GetRecursiveWords();
-
-		strSchema = pSearch->m_pXML->GetAttributeValue( CXMLAttribute::schemaName, _T("") );
-
-		int nSlash = strSchema.ReverseFind( '/' );
-		if ( nSlash > 0 ) strSchema = strSchema.Mid( nSlash + 1 );
+		strSearch += _T('»');
 	}
+
+	if ( pSearch->m_pSchema )
+		strSchema = pSearch->m_pSchema->m_sTitle;
+	else
+		strSchema = _T("-");
 
 	// ToDo: Add proper Size and Network columns to HitMonitor instead
 	if ( strSize.GetLength() > 1 )

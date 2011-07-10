@@ -1,7 +1,7 @@
 //
 // DocReader.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions Copyright Shareaza Development Team, 2002-2007.
 // Originally Created by:	Rolandas Rudomanskis
 //
@@ -29,15 +29,15 @@ LPCWSTR	CDocReader::uriDocument		= L"http://www.shareaza.com/schemas/wordProcess
 LPCWSTR	CDocReader::uriSpreadsheet	= L"http://www.shareaza.com/schemas/spreadsheet.xsd";
 LPCWSTR CDocReader::uriPresentation	= L"http://www.shareaza.com/schemas/presentation.xsd";
 
-LPCWSTR	CDocReader::msWordExt		= L".doc.dot.docx";
-LPCWSTR	CDocReader::msExcelExt		= L".xls.xlt.xla";
-LPCWSTR	CDocReader::msPPointExt		= L".ppt.pot.ppa";
+LPCWSTR	CDocReader::msWordExt		= L".doc.dot.docx.docm";
+LPCWSTR	CDocReader::msExcelExt		= L".xls.xlt.xla.xlsx";
+LPCWSTR	CDocReader::msPPointExt		= L".ppt.pot.ppa.pptx";
 LPCWSTR	CDocReader::msProjectExt	= L".mpp.mpt";
 LPCWSTR	CDocReader::msVisioExt		= L".vsd.vst";
 LPCWSTR	CDocReader::ooWriterExt		= L".odt.ott.sxw.stw";
 LPCWSTR	CDocReader::ooCalcExt		= L".ods.ots.sxc.stc";
 LPCWSTR	CDocReader::ooImpressExt	= L".odp.otp.sxi.sti";
- 
+
 
 // CDocReader
 CDocReader::CDocReader()
@@ -77,14 +77,14 @@ STDMETHODIMP CDocReader::Process(BSTR sFile, ISXMLElement* pXML)
 		LeaveCritical();
 		return E_UNEXPECTED;
 	}
-	if ( pszFormat[ 0 ] == 'M' ) // Microsoft
+	if ( pszFormat[ 0 ] == 'M' )	// Microsoft
 	{
 		if ( wcslen( pszExt ) == 5 && pszExt[4] == 'x' )
 			hr = ProcessNewMSDocument( sFile, pXML, pszSchema, pszFormat );
 		else
 			hr = ProcessMSDocument( sFile, pXML, pszSchema, pszFormat );
 	}
-	else if ( pszFormat[ 0 ] == 'O' ) // OpenOffice or OpenDocument
+	else if ( pszFormat[ 0 ] == 'O' )	// OpenOffice or OpenDocument
 		hr = ProcessOODocument( sFile, pXML, pszSchema, pszFormat );
 
 	DllRelease();
@@ -98,7 +98,6 @@ STDMETHODIMP CDocReader::ProcessMSDocument(BSTR bsFile, ISXMLElement* pXML, LPCW
 	ODS(_T("CDocReader::ProcessMSDocument\n"));
 	HRESULT hr;
 	BSTR bsValue = NULL;
-	BSTR bsName = NULL;
 	LPCWSTR pszSingular = NULL;
 	CString sTemp;
 	LONG nCount = 0;
@@ -123,22 +122,20 @@ STDMETHODIMP CDocReader::ProcessMSDocument(BSTR bsFile, ISXMLElement* pXML, LPCW
 
 	sTemp.Append( CW2T(pszSingular), static_cast< int >( wcslen( pszSingular ) - 4 ) );
 	sTemp.Append( _T("s") );
-	bsName = CComBSTR( sTemp );
 
 	// Get a pointer to elements node and create a root element
 	ISXMLElement* pPlural;
 	ISXMLElements* pElements;
 
 	pXML->get_Elements( &pElements );
-	pElements->Create( bsName, &pPlural );
+	pElements->Create( CComBSTR( sTemp ), &pPlural );
 	pElements->Release();
-	SysFreeString( bsName );
 
 	// Add root element attributes
 	ISXMLAttributes* pAttributes;
 	pPlural->get_Attributes( &pAttributes );
-	pAttributes->Add( L"xmlns:xsi", L"http://www.w3.org/2001/XMLSchema-instance" );
-	pAttributes->Add( L"xsi:noNamespaceSchemaLocation", W2OLE((LPWSTR)pszSchema) );
+	pAttributes->Add( CComBSTR( L"xmlns:xsi" ), CComBSTR( L"http://www.w3.org/2001/XMLSchema-instance" ) );
+	pAttributes->Add( CComBSTR( L"xsi:noNamespaceSchemaLocation" ), W2OLE((LPWSTR)pszSchema) );
 	pAttributes->Release();
 
 	// Create inner element describing metadata
@@ -146,29 +143,27 @@ STDMETHODIMP CDocReader::ProcessMSDocument(BSTR bsFile, ISXMLElement* pXML, LPCW
 	pPlural->get_Elements( &pElements );
 
 	sTemp = sTemp.Left( sTemp.GetLength() - 1 );
-	bsName = CComBSTR( sTemp );
-	pElements->Create( bsName, &pSingular );
+	pElements->Create( CComBSTR( sTemp ), &pSingular );
 	pElements->Release();
-	SysFreeString( bsName );
 
 	// Get attributes and add all metadata
 	pSingular->get_Attributes( &pAttributes );
 
 	hr = m_pDocProps->m_pSummProps->get_Author( &bsValue );
 	if ( SUCCEEDED(hr) )
-		pAttributes->Add( L"author", bsValue );
+		pAttributes->Add( CComBSTR( L"author" ), bsValue );
 
 	hr = m_pDocProps->m_pSummProps->get_Title( &bsValue );
 	if ( SUCCEEDED(hr) )
-		pAttributes->Add( L"title", bsValue );
+		pAttributes->Add( CComBSTR( L"title" ), bsValue );
 
 	hr = m_pDocProps->m_pSummProps->get_Subject( &bsValue );
 	if ( SUCCEEDED(hr) )
-		pAttributes->Add( L"subject", bsValue );
+		pAttributes->Add( CComBSTR( L"subject" ), bsValue );
 
 	hr = m_pDocProps->m_pSummProps->get_Keywords( &bsValue );
 	if ( SUCCEEDED(hr) )
-		pAttributes->Add( L"keywords", bsValue );
+		pAttributes->Add( CComBSTR( L"keywords" ), bsValue );
 
 	wchar_t buffer[40];
 
@@ -179,7 +174,7 @@ STDMETHODIMP CDocReader::ProcessMSDocument(BSTR bsFile, ISXMLElement* pXML, LPCW
 		{
 			_ltow( nCount, buffer, 10 );
 			bsValue = CComBSTR(buffer);
-			pAttributes->Add( L"slides", bsValue );
+			pAttributes->Add( CComBSTR( L"slides" ), bsValue );
 		}
 	}
 	else
@@ -194,7 +189,7 @@ STDMETHODIMP CDocReader::ProcessMSDocument(BSTR bsFile, ISXMLElement* pXML, LPCW
 		{
 			_ltow( nCount, buffer, 10 );
 			bsValue = CComBSTR(buffer);
-			pAttributes->Add( L"pages", bsValue );
+			pAttributes->Add( CComBSTR( L"pages" ), bsValue );
 		}
 	}
 
@@ -203,38 +198,35 @@ STDMETHODIMP CDocReader::ProcessMSDocument(BSTR bsFile, ISXMLElement* pXML, LPCW
 		// PeerProject will shorten it to 100 characters, so there's nothing we can do
 		hr = m_pDocProps->m_pSummProps->get_Comments( &bsValue );
 		if ( SUCCEEDED(hr) )
-			pAttributes->Add( L"comments", bsValue );
+			pAttributes->Add( CComBSTR( L"comments" ), bsValue );
 
 		hr = m_pDocProps->m_pSummProps->get_Version( &bsValue );
 		if ( SUCCEEDED(hr) )
 		{
 			if ( _wcsnicmp( bsValue, L"0.0", 3 ) != 0 )
-				pAttributes->Add( L"version", bsValue );
+				pAttributes->Add( CComBSTR( L"version" ), bsValue );
 		}
 
 		hr = m_pDocProps->m_pSummProps->get_RevisionNumber( &bsValue );
 		if ( SUCCEEDED(hr) )
-			pAttributes->Add( L"revision", bsValue );
+			pAttributes->Add( CComBSTR( L"revision" ), bsValue );
 	}
 
 	hr = m_pDocProps->m_pSummProps->get_Company( &bsValue );
 	if ( SUCCEEDED(hr) )
 	{
 		if ( pszSchema == CDocReader::uriBook )
-			pAttributes->Add( L"publisher", bsValue );
+			pAttributes->Add( CComBSTR( L"publisher" ), bsValue );
 		else
-			pAttributes->Add( L"copyright", bsValue );
+			pAttributes->Add( CComBSTR( L"copyright" ), bsValue );
 	}
 
 	// Now add some internal data
 
-	sTemp = pszFormat;
-	bsName = CComBSTR( sTemp );
-	pAttributes->Add( L"format", bsName );
-	SysFreeString( bsName );
+	pAttributes->Add( CComBSTR( L"format" ), CComBSTR( pszFormat ) );
 
 	if ( pszSchema == CDocReader::uriBook )
-		pAttributes->Add( L"back", L"Digital" );
+		pAttributes->Add( CComBSTR( L"back" ), CComBSTR( L"Digital" ) );
 
 	// Cleanup
 	pAttributes->Release();
@@ -328,7 +320,6 @@ STDMETHODIMP CDocReader::ProcessNewMSDocument(BSTR bsFile, ISXMLElement* pXML, L
 	// unzClose( pFile );
 
 	BSTR bsValue = NULL;
-	BSTR bsName = NULL;
 	LPCWSTR pszSingular = NULL;
 	CString sTemp;
 
@@ -336,22 +327,20 @@ STDMETHODIMP CDocReader::ProcessNewMSDocument(BSTR bsFile, ISXMLElement* pXML, L
 
 	sTemp.Append( CW2T(pszSingular), static_cast< int>( wcslen( pszSingular ) - 4 ) );
 	sTemp.Append( _T("s") );
-	bsName = CComBSTR( sTemp );
 
 	// Get a pointer to elements node and create a root element
 	ISXMLElement* pPlural;
 	ISXMLElements* pDestElements;
 
 	pXML->get_Elements( &pDestElements );
-	pDestElements->Create( bsName, &pPlural );
+	pDestElements->Create( CComBSTR( sTemp ), &pPlural );
 	pDestElements->Release();
-	SysFreeString( bsName );
 
 	// Add root element attributes
 	ISXMLAttributes* pAttributes;
 	pPlural->get_Attributes( &pAttributes );
-	pAttributes->Add( L"xmlns:xsi", L"http://www.w3.org/2001/XMLSchema-instance" );
-	pAttributes->Add( L"xsi:noNamespaceSchemaLocation", W2OLE((LPWSTR)pszSchema) );
+	pAttributes->Add( CComBSTR( L"xmlns:xsi" ), CComBSTR( L"http://www.w3.org/2001/XMLSchema-instance" ) );
+	pAttributes->Add( CComBSTR( L"xsi:noNamespaceSchemaLocation" ), W2OLE((LPWSTR)pszSchema) );
 	pAttributes->Release();
 
 	// Create inner element describing metadata
@@ -359,37 +348,35 @@ STDMETHODIMP CDocReader::ProcessNewMSDocument(BSTR bsFile, ISXMLElement* pXML, L
 	pPlural->get_Elements( &pDestElements );
 
 	sTemp = sTemp.Left( sTemp.GetLength() - 1 );
-	bsName = CComBSTR( sTemp );
-	pDestElements->Create( bsName, &pSingular );
+	pDestElements->Create( CComBSTR( sTemp ), &pSingular );
 	pDestElements->Release();
-	SysFreeString( bsName );
 
 	// Get attributes and add all metadata
 	pSingular->get_Attributes( &pAttributes );
 
 	ISXMLElement* pData = NULL;
 
-	HRESULT hr = pElements->get_ByName( L"dc:creator", &pData );
+	HRESULT hr = pElements->get_ByName( CComBSTR( L"dc:creator" ), &pData );
 	if ( SUCCEEDED(hr) && pData )
 	{
 		if ( SUCCEEDED(pData->get_Value( &bsValue )) )
-			pAttributes->Add( L"author", bsValue );
+			pAttributes->Add( CComBSTR( L"author" ), bsValue );
 		pData->Release();
 	}
 
-	hr = pElements->get_ByName( L"dc:title", &pData );
+	hr = pElements->get_ByName( CComBSTR( L"dc:title" ), &pData );
 	if ( SUCCEEDED(hr) && pData )
 	{
 		if ( SUCCEEDED(pData->get_Value( &bsValue )) )
-			pAttributes->Add( L"title", bsValue );
+			pAttributes->Add( CComBSTR( L"title" ), bsValue );
 		pData->Release();
 	}
 
-	hr = pElements->get_ByName( L"dc:subject", &pData );
+	hr = pElements->get_ByName( CComBSTR( L"dc:subject" ), &pData );
 	if ( SUCCEEDED(hr) && pData )
 	{
 		if ( SUCCEEDED(pData->get_Value( &bsValue )) )
-			pAttributes->Add( L"subject", bsValue );
+			pAttributes->Add( CComBSTR( L"subject" ), bsValue );
 		pData->Release();
 	}
 
@@ -397,7 +384,7 @@ STDMETHODIMP CDocReader::ProcessNewMSDocument(BSTR bsFile, ISXMLElement* pXML, L
 	CComBSTR bsKeywords;
 	do
 	{
-		hr = pElements->get_ByName( L"cp:keywords", &pData );
+		hr = pElements->get_ByName( CComBSTR( L"cp:keywords" ), &pData );
 		if ( SUCCEEDED(hr) && pData )
 		{
 			if ( pData && SUCCEEDED(pData->get_Value( &bsValue )) )
@@ -418,21 +405,21 @@ STDMETHODIMP CDocReader::ProcessNewMSDocument(BSTR bsFile, ISXMLElement* pXML, L
 		}
 	}
 	while ( pData );
-	if ( bsKeywords ) pAttributes->Add( L"keywords", bsKeywords );
+	if ( bsKeywords ) pAttributes->Add( CComBSTR( L"keywords" ), bsKeywords );
 
-	hr = pElements->get_ByName( L"dc:description", &pData );
+	hr = pElements->get_ByName( CComBSTR( L"dc:description" ), &pData );
 	if ( SUCCEEDED(hr) && pData )
 	{
 		if ( SUCCEEDED(pData->get_Value( &bsValue )) )
-			pAttributes->Add( L"comments", bsValue );
+			pAttributes->Add( CComBSTR( L"comments" ), bsValue );
 		pData->Release();
 	}
 
-	hr = pElements->get_ByName( L"cp:revision", &pData );
+	hr = pElements->get_ByName( CComBSTR( L"cp:revision" ), &pData );
 	if ( SUCCEEDED(hr) && pData )
 	{
 		if ( SUCCEEDED(pData->get_Value( &bsValue )) )
-			pAttributes->Add( L"revision", bsValue );
+			pAttributes->Add( CComBSTR( L"revision" ), bsValue );
 		pData->Release();
 	}
 
@@ -455,7 +442,7 @@ STDMETHODIMP CDocReader::ProcessNewMSDocument(BSTR bsFile, ISXMLElement* pXML, L
 				pElements = NULL;
 
 				if ( FAILED( pInputXML->get_Elements( &pElements ) ) || pElements == NULL )
-					; // Do nothing, cleanup later
+					;	// Do nothing, cleanup later
 				else
 					bSecondFile = true;
 			}
@@ -466,35 +453,32 @@ STDMETHODIMP CDocReader::ProcessNewMSDocument(BSTR bsFile, ISXMLElement* pXML, L
 
 	if ( bSecondFile )
 	{
-		hr = pElements->get_ByName( L"Pages", &pData );
+		hr = pElements->get_ByName( CComBSTR( L"Pages" ), &pData );
 		if ( SUCCEEDED(hr) && pData )
 		{
 			if ( SUCCEEDED(pData->get_Value( &bsValue )) )
-				pAttributes->Add( L"pages", bsValue );
+				pAttributes->Add( CComBSTR( L"pages" ), bsValue );
 			pData->Release();
 		}
-		hr = pElements->get_ByName( L"Slides", &pData );
+		hr = pElements->get_ByName( CComBSTR( L"Slides" ), &pData );
 		if ( SUCCEEDED(hr) && pData )
 		{
 			if ( SUCCEEDED(pData->get_Value( &bsValue )) )
-				pAttributes->Add( L"slides", bsValue );
+				pAttributes->Add( CComBSTR( L"slides" ), bsValue );
 			pData->Release();
 		}
-		hr = pElements->get_ByName( L"Company", &pData );
+		hr = pElements->get_ByName( CComBSTR( L"Company" ), &pData );
 		if ( SUCCEEDED(hr) && pData )
 		{
 			if ( SUCCEEDED(pData->get_Value( &bsValue )) )
-				pAttributes->Add( L"copyright", bsValue );
+				pAttributes->Add( CComBSTR( L"copyright" ), bsValue );
 			pData->Release();
 		}
 	}
 
 	// Now add some internal data
 
-	sTemp = pszFormat;
-	bsName = CComBSTR( sTemp );
-	pAttributes->Add( L"format", bsName );
-	SysFreeString( bsName );
+	pAttributes->Add( CComBSTR( L"format" ), CComBSTR( pszFormat ) );
 
 	// Cleanup destination
 	pAttributes->Release();
@@ -573,7 +557,7 @@ STDMETHODIMP CDocReader::ProcessOODocument(BSTR bsFile, ISXMLElement* pXML, LPCW
 	ISXMLElement* pMeta;
 
 	// Get root element of metadata
-	if ( FAILED( pElements->get_ByName( L"office:meta", &pMeta ) ) || pMeta == NULL )
+	if ( FAILED( pElements->get_ByName( CComBSTR( L"office:meta" ), &pMeta ) ) || pMeta == NULL )
 	{
 		pElements->Release();
 		pInputXML->Delete();
@@ -593,7 +577,6 @@ STDMETHODIMP CDocReader::ProcessOODocument(BSTR bsFile, ISXMLElement* pXML, LPCW
 	}
 
 	BSTR bsValue = NULL;
-	BSTR bsName = NULL;
 	LPCWSTR pszSingular = NULL;
 	CString sTemp;
 
@@ -601,22 +584,20 @@ STDMETHODIMP CDocReader::ProcessOODocument(BSTR bsFile, ISXMLElement* pXML, LPCW
 
 	sTemp.Append( CW2T(pszSingular), static_cast< int>( wcslen( pszSingular ) - 4 ) );
 	sTemp.Append( _T("s") );
-	bsName = CComBSTR( sTemp );
 
 	// Get a pointer to elements node and create a root element
 	ISXMLElement* pPlural;
 	ISXMLElements* pDestElements;
 
 	pXML->get_Elements( &pDestElements );
-	pDestElements->Create( bsName, &pPlural );
+	pDestElements->Create( CComBSTR( sTemp ), &pPlural );
 	pDestElements->Release();
-	SysFreeString( bsName );
 
 	// Add root element attributes
 	ISXMLAttributes* pAttributes;
 	pPlural->get_Attributes( &pAttributes );
-	pAttributes->Add( L"xmlns:xsi", L"http://www.w3.org/2001/XMLSchema-instance" );
-	pAttributes->Add( L"xsi:noNamespaceSchemaLocation", W2OLE((LPWSTR)pszSchema) );
+	pAttributes->Add( CComBSTR( L"xmlns:xsi" ), CComBSTR( L"http://www.w3.org/2001/XMLSchema-instance" ) );
+	pAttributes->Add( CComBSTR( L"xsi:noNamespaceSchemaLocation" ), W2OLE((LPWSTR)pszSchema) );
 	pAttributes->Release();
 
 	// Create inner element describing metadata
@@ -624,37 +605,35 @@ STDMETHODIMP CDocReader::ProcessOODocument(BSTR bsFile, ISXMLElement* pXML, LPCW
 	pPlural->get_Elements( &pDestElements );
 
 	sTemp = sTemp.Left( sTemp.GetLength() - 1 );
-	bsName = CComBSTR( sTemp );
-	pDestElements->Create( bsName, &pSingular );
+	pDestElements->Create( CComBSTR( sTemp ), &pSingular );
 	pDestElements->Release();
-	SysFreeString( bsName );
 
 	// Get attributes and add all metadata
 	pSingular->get_Attributes( &pAttributes );
 
 	ISXMLElement* pData = NULL;
 
-	HRESULT hr = pMetaElements->get_ByName( L"meta:initial-creator", &pData );
+	HRESULT hr = pMetaElements->get_ByName( CComBSTR( L"meta:initial-creator" ), &pData );
 	if ( SUCCEEDED(hr) && pData )
 	{
 		if ( SUCCEEDED(pData->get_Value( &bsValue )) )
-			pAttributes->Add( L"author", bsValue );
+			pAttributes->Add( CComBSTR( L"author" ), bsValue );
 		pData->Release();
 	}
 
-	hr = pMetaElements->get_ByName( L"dc:title", &pData );
+	hr = pMetaElements->get_ByName( CComBSTR( L"dc:title" ), &pData );
 	if ( SUCCEEDED(hr) && pData )
 	{
 		if ( SUCCEEDED(pData->get_Value( &bsValue )) )
-			pAttributes->Add( L"title", bsValue );
+			pAttributes->Add( CComBSTR( L"title" ), bsValue );
 		pData->Release();
 	}
 
-	hr = pMetaElements->get_ByName( L"dc:subject", &pData );
+	hr = pMetaElements->get_ByName( CComBSTR( L"dc:subject" ), &pData );
 	if ( SUCCEEDED(hr) && pData )
 	{
 		if ( SUCCEEDED(pData->get_Value( &bsValue )) )
-			pAttributes->Add( L"subject", bsValue );
+			pAttributes->Add( CComBSTR( L"subject" ), bsValue );
 		pData->Release();
 	}
 
@@ -662,7 +641,7 @@ STDMETHODIMP CDocReader::ProcessOODocument(BSTR bsFile, ISXMLElement* pXML, LPCW
 	CComBSTR bsKeywords;
 	do
 	{
-		hr = pMetaElements->get_ByName( L"meta:keyword", &pData );
+		hr = pMetaElements->get_ByName( CComBSTR( L"meta:keyword" ), &pData );
 		if ( SUCCEEDED(hr) && pData )
 		{
 			if ( pData && SUCCEEDED(pData->get_Value( &bsValue )) )
@@ -683,26 +662,26 @@ STDMETHODIMP CDocReader::ProcessOODocument(BSTR bsFile, ISXMLElement* pXML, LPCW
 		}
 	}
 	while ( pData );
-	if ( bsKeywords ) pAttributes->Add( L"keywords", bsKeywords );
+	if ( bsKeywords ) pAttributes->Add( CComBSTR( L"keywords" ), bsKeywords );
 
-	hr = pMetaElements->get_ByName( L"dc:description", &pData );
+	hr = pMetaElements->get_ByName( CComBSTR( L"dc:description" ), &pData );
 	if ( SUCCEEDED(hr) && pData )
 	{
 		// Should be abstract by definition but it corresponds to comments in MS documents
 		if ( SUCCEEDED(pData->get_Value( &bsValue )) )
-			pAttributes->Add( L"comments", bsValue );
+			pAttributes->Add( CComBSTR( L"comments" ), bsValue );
 		pData->Release();
 	}
 
-	hr = pMetaElements->get_ByName( L"dc:language", &pData );
+	hr = pMetaElements->get_ByName( CComBSTR( L"dc:language" ), &pData );
 	if ( SUCCEEDED(hr) && pData )
 	{
 		if ( pData && SUCCEEDED(pData->get_Value( &bsValue )) )
-			pAttributes->Add( L"language", bsValue );
+			pAttributes->Add( CComBSTR( L"language" ), bsValue );
 		pData->Release();
 	}
 
-	hr = pMetaElements->get_ByName( L"meta:document-statistic", &pData );
+	hr = pMetaElements->get_ByName( CComBSTR( L"meta:document-statistic" ), &pData );
 	if ( SUCCEEDED(hr) && pData )
 	{
 		ISXMLAttributes* pStatAttributes;
@@ -710,15 +689,15 @@ STDMETHODIMP CDocReader::ProcessOODocument(BSTR bsFile, ISXMLElement* pXML, LPCW
 		if ( SUCCEEDED(hr) && pStatAttributes )
 		{
 			ISXMLAttribute* pAttribute;
-			if ( SUCCEEDED(pStatAttributes->get_ByName( L"meta:page-count", &pAttribute )) &&
+			if ( SUCCEEDED(pStatAttributes->get_ByName( CComBSTR( L"meta:page-count" ), &pAttribute )) &&
 				 pAttribute )
 			{
 				if ( SUCCEEDED(pAttribute->get_Value( &bsValue )) )
 				{
 					if ( pszSchema == CDocReader::uriPresentation )
-						pAttributes->Add( L"slides", bsValue );
+						pAttributes->Add( CComBSTR( L"slides" ), bsValue );
 					else
-						pAttributes->Add( L"pages", bsValue );
+						pAttributes->Add( CComBSTR( L"pages" ), bsValue );
 				}
 				pAttribute->Release();
 			}
@@ -730,12 +709,10 @@ STDMETHODIMP CDocReader::ProcessOODocument(BSTR bsFile, ISXMLElement* pXML, LPCW
 	// Now add some internal data
 
 	sTemp = pszFormat;
-	bsName = CComBSTR( sTemp );
-	pAttributes->Add( L"format", bsName );
-	SysFreeString( bsName );
+	pAttributes->Add( CComBSTR( L"format" ), CComBSTR( pszFormat ) );
 
 	if ( pszSchema == CDocReader::uriBook )
-		pAttributes->Add( L"back", L"Digital" );
+		pAttributes->Add( CComBSTR( L"back" ), CComBSTR( L"Digital" ) );
 
 	// Cleanup destination
 	pAttributes->Release();
@@ -1152,7 +1129,7 @@ STDMETHODIMP CDocReader::GetOOThumbnail(BSTR bsFile, IMAGESERVICEDATA* pParams, 
 						nError = unzReadCurrentFile( pFile, pBuffer, nBufferSize );
 						if ( nError < 0 )
 							break;
-						else if ( nError > 0 )
+						if ( nError > 0 )
 						{
 							hr = FileStream->Write( (void*)pBuffer, nBufferSize, (ULONG*)&nBytesWritten );
 							if ( FAILED(hr) || nBufferSize != nBytesWritten ) break;
@@ -1503,19 +1480,19 @@ LPWSTR CDocReader::GetSchema(BSTR sFile, LPCWSTR pszExt)
 		{
 			return (LPWSTR)CDocReader::uriBook;
 		}
-		else if ( _wcsnicmp( msWordExt, pszExt, 4 ) == 0 ||
+		if ( _wcsnicmp( msWordExt, pszExt, 4 ) == 0 ||
 				wcsstr( msProjectExt, pszExt ) != NULL ||
 				wcsstr( msVisioExt, pszExt ) != NULL ||
 				wcsstr( ooWriterExt, pszExt ) != NULL )
 		{
 			return (LPWSTR)CDocReader::uriDocument;
 		}
-		else if ( _wcsnicmp( msPPointExt, pszExt, 4 ) == 0 ||
+		if ( _wcsnicmp( msPPointExt, pszExt, 4 ) == 0 ||
 				wcsstr( ooImpressExt, pszExt ) != NULL )
 		{
 			return (LPWSTR)CDocReader::uriPresentation;
 		}
-		else if ( _wcsnicmp( msExcelExt, pszExt, 4 ) == 0 ||
+		if ( _wcsnicmp( msExcelExt, pszExt, 4 ) == 0 ||
 				wcsstr( ooCalcExt, pszExt ) != NULL )
 		{
 			return (LPWSTR)CDocReader::uriSpreadsheet;
@@ -1593,8 +1570,8 @@ HRESULT CDocReader::
 		// This function will open the OLE file in transacted read mode,
 		// which covers cases where the file is in use or is on a read-only share.
 		// We can't save after the open so we force the read-only flag on...
-		if (((hr == STG_E_ACCESSDENIED) || (hr == STG_E_SHAREVIOLATION)) &&
-			(m_dwFlags & dsoOptionOpenReadOnlyIfNoWriteAccess))
+		if ( ( hr == STG_E_ACCESSDENIED || hr == STG_E_SHAREVIOLATION ) &&
+			(m_dwFlags & dsoOptionOpenReadOnlyIfNoWriteAccess) )
 		{
 			m_fReadOnly = TRUE;
 			hr = StgOpenStorage(m_bstrFileName, NULL,
@@ -1616,7 +1593,7 @@ HRESULT CDocReader::
 
 		// If we failed to gain write access, try to just read access if caller wants us to.
 		// This only works for access block, not share violations...
-		if ( ( hr == STG_E_ACCESSDENIED ) && ( ! m_fReadOnly ) &&
+		if ( hr == STG_E_ACCESSDENIED && ! m_fReadOnly &&
 			 ( m_dwFlags & dsoOptionOpenReadOnlyIfNoWriteAccess ) )
 		{
 			m_fReadOnly = TRUE;
@@ -1655,7 +1632,7 @@ HRESULT CDocReader::
 
 	// If caller requests full save on close, try it. Note that this is the
 	// only place where Close will return an error (and NOT close)...
-	if (SaveBeforeClose != VARIANT_FALSE)
+	if ( SaveBeforeClose != VARIANT_FALSE )
 	{
 		HRESULT hr = Save();
 		RETURN_ON_FAILURE(hr);
@@ -1822,7 +1799,7 @@ HRESULT CDocReader::
 	CHECK_NULL_RETURN(m_pPropSetStg, E_DOCUMENTNOTOPEN);
 
 	if ( m_bstrFileName != NULL && m_cFilePartIdx > 0 )
-		*pbstrPath = SysAllocStringLen(m_bstrFileName, m_cFilePartIdx);
+		*pbstrPath = SysAllocStringLen( m_bstrFileName, m_cFilePartIdx );
 
 	return S_OK;
 }
@@ -1835,7 +1812,7 @@ HRESULT CDocReader::
 {
 	ODS(_T("CDocReader::CDocumentProperties::get_IsOleFile\n"));
 	CHECK_NULL_RETURN(pIsOleFile, E_POINTER);
-	*pIsOleFile = ((m_pStorage) ? VARIANT_TRUE : VARIANT_FALSE);
+	*pIsOleFile = ( (m_pStorage) ? VARIANT_TRUE : VARIANT_FALSE );
 	return S_OK;
 }
 
@@ -1859,7 +1836,7 @@ HRESULT CDocReader::
 	RETURN_ON_FAILURE(hr);
 
 	hr = StringFromCLSID(stat.clsid, &pwszCLSID);
-	if (SUCCEEDED(hr)) *pbstrCLSID = SysAllocString(pwszCLSID);
+	if ( SUCCEEDED(hr) ) *pbstrCLSID = SysAllocString(pwszCLSID);
 
 	FREE_COTASKMEM(pwszCLSID);
 	return hr;
@@ -1885,7 +1862,7 @@ HRESULT CDocReader::
 	RETURN_ON_FAILURE(hr);
 
 	hr = ProgIDFromCLSID(stat.clsid, &pwszProgID);
-	if (SUCCEEDED(hr)) *pbstrProgID = SysAllocString(pwszProgID);
+	if ( SUCCEEDED(hr) ) *pbstrProgID = SysAllocString(pwszProgID);
 
 	FREE_COTASKMEM(pwszProgID);
 	return hr;
@@ -1905,7 +1882,7 @@ HRESULT CDocReader::
 	CHECK_NULL_RETURN(m_pPropSetStg, E_DOCUMENTNOTOPEN);
 	CHECK_NULL_RETURN(m_pStorage, E_MUSTHAVESTORAGE);
 
-	if (SUCCEEDED(ReadFmtUserTypeStg(m_pStorage, &cf, NULL)) == TRUE)
+	if ( SUCCEEDED(ReadFmtUserTypeStg(m_pStorage, &cf, NULL)) == TRUE )
 	{
 		TCHAR szName[ MAX_PATH ] = {};
 		int i = GetClipboardFormatName( cf, szName, MAX_PATH );
@@ -2307,7 +2284,7 @@ HRESULT CDocReader::CDocumentProperties::
 	ULONG ul = 0;
 	ODS(_T("CSummaryProperties::get_Version\n"));
 	CHECK_NULL_RETURN(pbstrVersion, E_POINTER); *pbstrVersion = NULL;
-	if (SUCCEEDED(ReadProperty(m_pDocPropList, PID_VERSION, VT_I4, (void**)&ul)))
+	if ( SUCCEEDED(ReadProperty(m_pDocPropList, PID_VERSION, VT_I4, (void**)&ul)) )
 	{
 		TCHAR szVersion[128];
 		wsprintf(szVersion, _T("%d.%d"), (LONG)(HIWORD(ul)), (LONG)(LOWORD(ul)));
@@ -2348,10 +2325,11 @@ HRESULT CDocReader::CDocumentProperties::
 
 	// We only do this once (when loading from file)...
 	TRACE2("CSummaryProperties::LoadProperties(ReadOnly=%d, Flags=%d)\n", fIsReadOnly, dwFlags);
-	ASSERT(m_pSummPropList == NULL); ASSERT(m_pDocPropList == NULL);
+	ASSERT( m_pSummPropList == NULL );
+	ASSERT( m_pDocPropList == NULL );
 
 	// First, load the FMTID_SummaryInformation properties...
-	hr = OpenPropertyStorage(pPropSS, FMTID_SummaryInformation, fIsReadOnly, dwFlags, &pProps);
+	hr = OpenPropertyStorage( pPropSS, FMTID_SummaryInformation, fIsReadOnly, dwFlags, &pProps );
 
 	if ( SUCCEEDED(hr) )
 	{
@@ -2368,7 +2346,7 @@ HRESULT CDocReader::CDocumentProperties::
 		// with no properties. Otherwise we return error that propset is invalid...
 		if (hr == STG_E_FILENOTFOUND)
 		{ // We allow partial open if NoAutoCreate is set.
-			if ((fIsReadOnly) || (dwFlags & dsoOptionDontAutoCreate))
+			if ( (fIsReadOnly) || (dwFlags & dsoOptionDontAutoCreate) )
 			{
 				fIsReadOnly = TRUE;
 				hr = S_FALSE;
@@ -2394,7 +2372,7 @@ HRESULT CDocReader::CDocumentProperties::
 		// In cases where the propset is not in the file and it is read-only open
 		// or a case where DontAutoCreate flag is used, we just treat as read-only
 		// with no properties. Otherwise we return error that propset is invalid...
-		if (hr == STG_E_FILENOTFOUND)
+		if ( hr == STG_E_FILENOTFOUND )
 		{	// We allow partial open if NoAutoCreate is set.
 			if ( (fIsReadOnly) || (dwFlags & dsoOptionDontAutoCreate) )
 			{
@@ -2508,7 +2486,7 @@ HRESULT CDocReader::CDocumentProperties::
 		// no properties to start with (NTFS5 files mostly, since normal
 		// Office/OLE files will have at least one summ/docsumm prop...
 		if ( ( *ppPropList == NULL ) && SUCCEEDED(hr) )
-		*ppPropList = pitem;
+			*ppPropList = pitem;
 	}
 	else
 	{
@@ -2534,7 +2512,7 @@ HRESULT CDocReader::CDocumentProperties::
 	CHECK_FLAG_RETURN(m_fReadOnly, E_DOCUMENTREADONLY);
 
 	// Save the Summary properties..
-	if (m_pSummPropList)
+	if ( m_pSummPropList )
 	{
 		hr = OpenPropertyStorage(m_pPropSetStg, FMTID_SummaryInformation, FALSE, 0, &pProps);
 		if ( SUCCEEDED(hr) )
@@ -2629,9 +2607,9 @@ BOOL CDocReader::CDocumentProperties::
 	while ( pitem )
 	{
 		if ( pitem->IsDirty() )
-		{ 
+		{
 			fDirty = TRUE;
-			break; 
+			break;
 		}
 		pitem = pitem->GetNextProperty();
 	}
@@ -2673,7 +2651,7 @@ void CDocReader::CDocumentProperties::
 	}
 
 	m_pDocPropList = NULL;
-	while (m_pDocPropList)
+	while ( m_pDocPropList )
 	{
 		pnext = m_pDocPropList->GetNextProperty();
 		m_pDocPropList->Disconnect();

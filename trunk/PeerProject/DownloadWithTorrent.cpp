@@ -26,6 +26,7 @@
 #include "Download.h"
 #include "DownloadTask.h"
 #include "DownloadSource.h"
+#include "DownloadGroups.h"
 #include "DownloadWithTorrent.h"
 #include "DownloadTransferBT.h"
 #include "UploadTransferBT.h"
@@ -70,8 +71,6 @@ CDownloadWithTorrent::CDownloadWithTorrent()
 	, m_tTorrentSources		( 0 )
 {
 	// Generate random Key value
-	m_sKey = _T("");
-
 	for ( int nChar = 1 ; nChar < 6 ; nChar++ )
 	{
 		m_sKey += GenerateCharacter();
@@ -309,41 +308,46 @@ void CDownloadWithTorrent::Serialize(CArchive& ar, int nVersion)
 //////////////////////////////////////////////////////////////////////
 // CDownloadWithTorrent set torrent
 
-BOOL CDownloadWithTorrent::SetTorrent(const CBTInfo& oTorrent)
+BOOL CDownloadWithTorrent::SetTorrent(const CBTInfo* pTorrent)
 {
-	if ( &m_pTorrent != &oTorrent )
+	ASSUME_LOCK( Transfers.m_pSection );
+
+	if ( IsMoving() || IsCompleted() )
+		return FALSE;
+
+	if ( pTorrent )
 	{
-		if ( IsTorrent() ) return FALSE;
-		if ( ! oTorrent.IsAvailable() )	return FALSE;
+		if ( ! pTorrent->IsAvailable() )
+			return FALSE;
 
-		m_pTorrent = oTorrent;
+		m_pTorrent = *pTorrent;
 	}
-
-	if ( m_nSize == SIZE_UNKNOWN && m_pTorrent.m_nSize != SIZE_UNKNOWN )
-		m_nSize = m_pTorrent.m_nSize;
-
-	if ( m_sName.IsEmpty() && ! m_pTorrent.m_sName.IsEmpty() )
-		m_sName = m_pTorrent.m_sName;
 
 	m_oBTH = m_pTorrent.m_oBTH;
 	m_bBTHTrusted = true;
 
-	if ( ! m_oTiger && m_pTorrent.m_oTiger )
+	if ( m_pTorrent.m_nSize != SIZE_UNKNOWN )
+		m_nSize = m_pTorrent.m_nSize;
+
+	if ( ! m_pTorrent.m_sName.IsEmpty() )
+		Rename( m_pTorrent.m_sName );
+
+	if ( m_pTorrent.m_oTiger )
 	{
 		m_oTiger = m_pTorrent.m_oTiger;
 		m_bTigerTrusted = true;
 	}
-	if ( ! m_oSHA1 && m_pTorrent.m_oSHA1 )
+	if ( m_pTorrent.m_oSHA1 )
 	{
 		m_oSHA1 = m_pTorrent.m_oSHA1;
 		m_bSHA1Trusted = true;
 	}
-	if ( ! m_oED2K && m_pTorrent.m_oED2K )
+	if ( m_pTorrent.m_oED2K )
 	{
 		m_oED2K = m_pTorrent.m_oED2K;
 		m_bED2KTrusted = true;
 	}
-	if ( ! m_oMD5 && m_pTorrent.m_oMD5 )
+	if ( m_pTorrent.m_oMD5 )
 	{
 		m_oMD5 = m_pTorrent.m_oMD5;
 		m_bMD5Trusted = true;
@@ -351,16 +355,28 @@ BOOL CDownloadWithTorrent::SetTorrent(const CBTInfo& oTorrent)
 
 	m_nTorrentSize	= m_pTorrent.m_nBlockSize;
 	m_nTorrentBlock	= m_pTorrent.m_nBlockCount;
-	m_pTorrentBlock	= new BYTE[ m_nTorrentBlock ];
 
-	ZeroMemory( m_pTorrentBlock, sizeof(BYTE) * m_nTorrentBlock );
-	SetModified();
+	delete [] m_pTorrentBlock;
+	m_pTorrentBlock = new BYTE[ m_nTorrentBlock ];
+	memset( m_pTorrentBlock, TRI_UNKNOWN, m_nTorrentBlock );
+	m_nTorrentSuccess = 0;
 
 	if ( CreateDirectory( Settings.Downloads.TorrentPath ) )
 	{
 		LibraryFolders.AddFolder( Settings.Downloads.TorrentPath, FALSE );
 		m_pTorrent.SaveTorrentFile( Settings.Downloads.TorrentPath );
 	}
+
+	// Add sources from torrents - DWK
+	for ( POSITION pos = m_pTorrent.m_sURLs.GetHeadPosition() ; pos ; )
+	{
+		AddSourceURLs( m_pTorrent.m_sURLs.GetNext( pos ) );
+	}
+
+	SetModified();
+
+	// Re-link Download Group
+	DownloadGroups.Link( static_cast< CDownload* >( this ) );
 
 	return TRUE;
 }
@@ -669,8 +685,8 @@ CDownloadTransferBT* CDownloadWithTorrent::CreateTorrentTransfer(CBTClient* pCli
 
 	if ( pSource == NULL )
 	{
-		pSource = new CDownloadSource( (CDownload*)this, pClient->m_oGUID,
-			&pClient->m_pHost.sin_addr, htons( pClient->m_pHost.sin_port ) );
+		pSource = new CDownloadSource( static_cast< CDownload* >( this ),
+			pClient->m_oGUID, &pClient->m_pHost.sin_addr, htons( pClient->m_pHost.sin_port ) );
 		pSource->m_bPushOnly = !(pClient->m_bInitiated);
 
 		if ( ! AddSourceInternal( pSource ) )
@@ -766,7 +782,7 @@ void CDownloadWithTorrent::ChokeTorrent(DWORD tNow)
 	{
 		// We might need to 'push' a connection if we don't have enough upload connections
 		if ( (DWORD)m_pTorrentUploads.GetCount() < Settings.BitTorrent.UploadCount * 2 &&
-			(DWORD)m_pTorrentUploads.GetCount() != GetBTSourceCount() &&
+			 (DWORD)m_pTorrentUploads.GetCount() != GetBTSourceCount() &&
 			CanStartTransfers( tNow ) )
 		{
 			theApp.Message( MSG_DEBUG, _T("Attempting to push-start a BitTorrent upload for %s"), m_pTorrent.m_sName );
@@ -869,7 +885,7 @@ void CDownloadWithTorrent::ChokeTorrent(DWORD tNow)
 		if ( pTransfer->m_nProtocol != PROTOCOL_BT ) continue;
 
 		pTransfer->SetChoke( pTransfer->m_bInterested == TRUE &&
-							 pSelected.Find( pTransfer->m_pClient ) == NULL );
+			pSelected.Find( pTransfer->m_pClient ) == NULL );
 	}
 }
 
@@ -882,7 +898,7 @@ BOOL CDownloadWithTorrent::FindMoreSources()
 	{
 		ASSERT( IsTorrent() );
 
-		if ( GetTickCount() - m_tTorrentSources > 15000 )
+		if ( GetTickCount() > m_tTorrentSources + 15000 )
 		{
 			SendUpdate( min( Settings.BitTorrent.DownloadConnections * 4ul, 100ul ) );
 			return TRUE;

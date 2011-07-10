@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Polish Skin File -->
 
-<!-- Translation based on default-en.xml r67 (Shareaza 2.1.2.7) -->
+<!-- Translation based on default-en.xml r68 (Shareaza 2.1.2.7) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -789,7 +789,7 @@
 		</menu>
 		<separator/>
 		<item id="ID_HOSTCACHE_IMPORT" text="Importuj plik MET..."/>
-		<item id="ID_HOSTCACHE_ED2K_DOWNLOAD" text="Pobierz MET..."/>
+		<item id="ID_HOSTCACHE_FILE_DOWNLOAD" text="Pobierz MET..."/>
 	</menu>
 	<!-- SEARCH WINDOW -->
 	<menu name="CSearchWnd.Basic">
@@ -1344,8 +1344,16 @@
 	</menu>
 	<!-- SYSTEM WINDOW -->
 	<menu name="CSystemWnd">
-		<item id="ID_SYSTEM_VERBOSE" text="Tryb gadatliwy"/>
+		<menu id="ID_SYSTEM_VERBOSE" text="Tryb gadatliwy"/>
+			<item id="ID_SYSTEM_VERBOSE_ERROR" text="_Error"/>
+			<item id="ID_SYSTEM_VERBOSE_WARNING" text="_Warning"/>
+			<item id="ID_SYSTEM_VERBOSE_NOTICE" text="_Notice"/>
+			<item id="ID_SYSTEM_VERBOSE_INFO" text="_Info"/>
+			<item id="ID_SYSTEM_VERBOSE_DEBUG" text="_Debug"/>
+		</menu>
 		<item id="ID_SYSTEM_TIMESTAMP" text="Znacznik czasu"/>
+		<separator/>
+		<item id="ID_SYSTEM_COPY" text="_Copy" shortcut="Ctrl+C"/>
 		<separator/>
 		<item id="ID_SYSTEM_CLEAR" text="Wyczyść bufor"/>
 	</menu>
@@ -2166,7 +2174,7 @@
 	<tip id="ID_HOSTCACHE_CONNECT" message="Podłącz do zaznaczonego hosta(ów)."/>
 	<tip id="ID_HOSTCACHE_DISCONNECT" message="Odłącz od zaznaczonego(ych) sąsiada (sąsiadów)."/>
 	<tip id="ID_HOSTCACHE_ED2K_CACHE" message="Pokaż serwery eDonkey2000."/>
-	<tip id="ID_HOSTCACHE_ED2K_DOWNLOAD" message="Pobierz plik &quot;server.met&quot;..."/>
+	<tip id="ID_HOSTCACHE_FILE_DOWNLOAD" message="Pobierz plik &quot;server.met&quot;..."/>
 	<tip id="ID_HOSTCACHE_G1_CACHE" message="Pokaż hosty Gnutella1 w cache'u."/>
 	<tip id="ID_HOSTCACHE_G2_CACHE" message="Pokaż hosty Gnutella2 w cache'u."/>
 	<tip id="ID_HOSTCACHE_G2_HORIZON" message="Pokaż Gromade hubów Gnutella2."/>
@@ -2768,7 +2776,7 @@
 	<string id="20590" value="Zdalny dostęp jest wyłączony."/>
 	<string id="20591" value="http://%s:%i/remote - Musisz wybrać nazwę użytkownika i hasło."/>
 	<string id="20592" value="Unable to accept connections, URL unavailable."/>
-	<string id="20597" value="Czy jesteś pewny, że chcesz usunąć zaznaczone reguły bezpieczeństwa? To jest nieodwracalne."/>
+	<string id="20597" value="Czy jesteś pewny, że chcesz usunąć zaznaczone reguły bezpieczeństwa?"/>
 	<string id="20599" value="&amp;Schematy"/>	<!-- wzorce? wyszukiwania? Schema - schematy? -->
 	<!-- Missing Scheduler/Security Strings -->
 	<string id="20620" value="PeerProject aktywnie przeszukuje sieć..."/>
@@ -2947,7 +2955,7 @@
 	<string id="20882" value="No URN available"/>
 	<string id="20883" value="Usługa UPnP Device Host nie funkcjonuje. Ta usługa jest konieczna do wykonania ustawień.\nTrzeba ustawić sposób uruchomienia usługi na automatyczny."/>
 	<string id="20885" value="Zmiana widoku spowoduje zamknięcie wszystkich okien. Czy chciałbyś zrobić to teraz?"/>
-	<string id="20886" value="Changing interface direction requires restart. \nYou will need to start PeerProject manually.\n\nExit now?"/>
+	<string id="20886" value="Changing interface direction requires restart.\n\nExit now?"/>
 	<string id="20890" value="Witaj w PeerProjecte"/>
 	<string id="20891" value="Wyjście"/>
 	<string id="20892" value="Proszę czekać: Aktualizowanie listy serwera eDonkey..."/>
@@ -3952,7 +3960,7 @@
 		<control caption="OK"/>
 		<control caption="Anuluj"/>
 	</dialog>
-	<dialog name="CDonkeyServersDlg" cookie="StEdmsBuBu" caption="Download Server.met File">
+	<dialog name="CUpdateServersDlg" cookie="StEdmsBuBu" caption="Download Server List File">
 		<control caption="Możesz pobrać plik server.met eDonkeya z sieci web aby odświeżyć swoją lokalną liste serwerów eD2k."/>
 		<control/>
 		<control/>

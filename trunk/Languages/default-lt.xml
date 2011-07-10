@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Lithuanian Skin File -->
 
-<!-- Translation based on default-en.xml r67 -->
+<!-- Translation based on default-en.xml r68 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -972,7 +972,7 @@
 		</menu>
 		<separator/>
 		<item id="ID_HOSTCACHE_IMPORT" text="_Importuoti MET failą..."/>
-		<item id="ID_HOSTCACHE_ED2K_DOWNLOAD" text="Parsisiųsti _MET..."/>
+		<item id="ID_HOSTCACHE_FILE_DOWNLOAD" text="Parsisiųsti _MET..."/>
 	</menu>
 	<!-- SEARCH WINDOW -->
 	<menu name="CSearchWnd.Basic">
@@ -2447,7 +2447,7 @@
 	<tip id="ID_HOSTCACHE_CONNECT" message="Jungtis prie pasirinkto adresato(-ų)."/>
 	<tip id="ID_HOSTCACHE_DISCONNECT" message="Atsijungti nuo pasirinkto kaimyno(-ų)."/>
 	<tip id="ID_HOSTCACHE_ED2K_CACHE" message="Rodyti eDonkey serverius."/>
-	<tip id="ID_HOSTCACHE_ED2K_DOWNLOAD" message="Parsisiųsti eDonkey „server.met“ failą..."/>
+	<tip id="ID_HOSTCACHE_FILE_DOWNLOAD" message="Parsisiųsti eDonkey „server.met“ failą..."/>
 	<tip id="ID_HOSTCACHE_G1_CACHE" message="Rodyti Gnutella1 tinklo adresatus, esančius laikinoje talpykloje."/>
 	<tip id="ID_HOSTCACHE_G2_CACHE" message="Rodyti Gnutella2 tinklo adresatus, esančius laikinoje talpykloje."/>
 	<tip id="ID_HOSTCACHE_G2_HORIZON" message="Rodyti Gnutella2 tinklo kertinius mazgus."/>
@@ -3180,7 +3180,7 @@
 	<string id="20590" value="Nuotolinė prieiga neįgalinta."/>
 	<string id="20591" value="http://%s:%i/remote - įrašyti naudotojo vardą ir slaptažodį."/>
 	<string id="20592" value="Neįmanoma priimti susijungimų, nuoroda nepasiekiama."/>
-	<string id="20597" value="Ar tikrai norite ištrinti pasirinktas saugos taisykles? Šio žingsnio negalėsite atšaukti."/>
+	<string id="20597" value="Ar tikrai norite ištrinti pasirinktas saugos taisykles?"/>
 	<string id="20599" value="&amp;Schemos"/>
 	<!-- Missing Scheduler/Security Strings -->
 	<string id="20620" value="„PeerProject“ aktyviai ieško tinkle..."/>
@@ -4406,7 +4406,7 @@
 		<control caption="Gerai"/>
 		<control caption="Atšaukti"/>
 	</dialog>
-	<dialog name="CDonkeyServersDlg" cookie="StEdmsBuBu" caption="Server.met failo parsisiuntimas">
+	<dialog name="CUpdateServersDlg" cookie="StEdmsBuBu" caption="Server.met failo parsisiuntimas">
 		<control caption="Jūs galite parsisiųsti eDonkey server.met failą iš interneto, jei norite atnaujinti vietinį serverių sąrašą."/>
 		<control/>
 		<control/>

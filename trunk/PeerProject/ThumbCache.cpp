@@ -1,7 +1,7 @@
 //
 // ThumbCache.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -49,7 +49,7 @@ void CThumbCache::InitDatabase()
 			 L"Filename TEXT UNIQUE NOT NULL PRIMARY KEY, "
 			 L"FileSize INTEGER NOT NULL, "
 			 L"LastWriteTime INTEGER NOT NULL, "
-			 L"Image BLOB NOT NULL, " // as JPEG
+			 L"Image BLOB NOT NULL, "	// as JPEG
 			 L"Flags INTEGER DEFAULT 0 NULL, "
 			 L"SHA1 TEXT NULL, TTH TEXT NULL, ED2K TEXT NULL, MD5 TEXT NULL); "
 			 L"CREATE INDEX IDX_SHA1 ON Files(SHA1 ASC); "
@@ -57,7 +57,11 @@ void CThumbCache::InitDatabase()
 			 L"CREATE INDEX IDX_ED2K ON Files(ED2K ASC); "
 			 L"CREATE INDEX IDX_MD5 ON Files(MD5 ASC);" ) )
 	{
+		// Cleanup existing
+		theApp.KeepAlive();
+		db->Exec( L"PRAGMA journal_mode=OFF" );		// No temp "-journal" rollback file (slow if large)
 		db->Exec( L"VACUUM;");
+		theApp.KeepAlive();
 	}
 }
 

@@ -1036,8 +1036,8 @@ msgstr ""
 msgid "_Import MET File..."
 msgstr "导入 MET 文件(_I)..."
 
-#: chostcachewnd;item;id_hostcache_ed2k_download
-msgid "Download MET..."
+#: chostcachewnd;item;id_hostcache_file_download
+msgid "Download MET/Hublist..."
 msgstr "下载 MET..."
 
 #: csearchwnd.basic;item;id_search_download csearchwnd;item;id_search_download cbrowsehostwnd.basic;item;id_search_download cbrowsehostwnd;item;id_search_download chitmonitorwnd;item;id_search_download cdownloaddlg;control;6
@@ -3160,8 +3160,8 @@ msgstr "断开选定邻居的连接。"
 msgid "Show eDonkey servers."
 msgstr "显示 edonkey 服务器。"
 
-#: message;id_hostcache_ed2k_download
-msgid "Download an eDonkey \"server.met\" file..."
+#: message;id_hostcache_file_download
+msgid "Download an eDonkey \"server.met\" or DC++ \"hublist.xml.bz2\" file..."
 msgstr "下载 edonkey \"server.met\" 文件..."
 
 #: message;id_hostcache_g1_cache
@@ -3206,11 +3206,11 @@ msgstr "查看或编辑选定专辑文件夹的属性..."
 
 #: message;id_library_bitzi_download
 msgid "Download metadata for selected files from Bitzi™..."
-msgstr "从 Bitzi(TM) 下载选定文件的元数据..."
+msgstr "从 Bitzi™ 下载选定文件的元数据..."
 
 #: message;id_library_bitzi_web
 msgid "View Bitzi™ ticket for the selected file on the web."
-msgstr "查看选定文件在网络上的 Bitzi(TM)。"
+msgstr "查看选定文件在网络上的 Bitzi™。"
 
 #: message;id_library_columns message;id_search_columns
 msgid "Select metadata columns to be displayed..."
@@ -4108,11 +4108,11 @@ msgstr "是"
 msgid "No"
 msgstr "否"
 
-#: string;20003 csettingsheet;control;2 cqueuepropertiesdlg;control;37 cprofilemanagerdlg;control;2 csavefilterasdlg;control;2 cdiscoveryservicedlg;control;5 cfilecopydlg;control;7 cfolderpropertiesdlg;control;7 cgraphlistdlg;control;16 cgraphitemdlg;control;1 csecureruledlg;control;33 cscheduletaskdlg;control;1 cschemacolumnsdlg;control;3 csharemanagerdlg;control;5 cpromotedlg;control;7 cexistingfiledlg;control;8 cclosemodedlg;control;5 cdonkeyserversdlg;control;4 cdownloadgroupdlg;control;14 cmediavisdlg;control;5 cdecodemetadatadlg;control;8 cselectdialog;control;3 circinputdlg;control;2 cdownloadreviewdlg;control;1 caboutdlg;control;7
+#: string;20003 csettingsheet;control;2 cqueuepropertiesdlg;control;37 cprofilemanagerdlg;control;2 csavefilterasdlg;control;2 cdiscoveryservicedlg;control;5 cfilecopydlg;control;7 cfolderpropertiesdlg;control;7 cgraphlistdlg;control;16 cgraphitemdlg;control;1 csecureruledlg;control;33 cscheduletaskdlg;control;1 cschemacolumnsdlg;control;3 csharemanagerdlg;control;5 cpromotedlg;control;7 cexistingfiledlg;control;8 cclosemodedlg;control;5 cupdateserversdlg;control;4 cdownloadgroupdlg;control;14 cmediavisdlg;control;5 cdecodemetadatadlg;control;8 cselectdialog;control;3 circinputdlg;control;2 cdownloadreviewdlg;control;1 caboutdlg;control;7
 msgid "OK"
 msgstr "确定"
 
-#: string;20004 string;20470 csettingsheet;control;3 cqueuepropertiesdlg;control;38 cprofilemanagerdlg;control;3 cconnecttodlg;control;8 cnewsearchdlg;control;4 cfiltersearchdlg;control;30 csavefilterasdlg;control;3 cdiscoveryservicedlg;control;6 cdownloadmonitordlg;control;14 cfilecopydlg;control;8 cfolderpropertiesdlg;control;8 cgraphlistdlg;control;17 cgraphitemdlg;control;2 csecureruledlg;control;34 cscheduletaskdlg;control;2 cschemacolumnsdlg;control;4 csharemanagerdlg;control;6 curlcopydlg;control;6 curlexportdlg;control;10 curlactiondlg;control;12 cbitzidownloaddlg;control;4 cfilepreviewdlg;control;6 cexistingfiledlg;control;9 cclosemodedlg;control;6 cdonkeyserversdlg;control;5 cdeletefiledlg;control;5 ctorrentseeddlg;control;4 cdownloadgroupdlg;control;15 cmediavisdlg;control;6 cdecodemetadatadlg;control;9 cselectdialog;control;4 circinputdlg;control;3
+#: string;20004 string;20470 csettingsheet;control;3 cqueuepropertiesdlg;control;38 cprofilemanagerdlg;control;3 cconnecttodlg;control;8 cnewsearchdlg;control;4 cfiltersearchdlg;control;30 csavefilterasdlg;control;3 cdiscoveryservicedlg;control;6 cdownloadmonitordlg;control;14 cfilecopydlg;control;8 cfolderpropertiesdlg;control;8 cgraphlistdlg;control;17 cgraphitemdlg;control;2 csecureruledlg;control;34 cscheduletaskdlg;control;2 cschemacolumnsdlg;control;4 csharemanagerdlg;control;6 curlcopydlg;control;6 curlexportdlg;control;10 curlactiondlg;control;12 cbitzidownloaddlg;control;4 cfilepreviewdlg;control;6 cexistingfiledlg;control;9 cclosemodedlg;control;6 cupdateserversdlg;control;5 cdeletefiledlg;control;5 ctorrentseeddlg;control;4 cdownloadgroupdlg;control;15 cmediavisdlg;control;6 cdecodemetadatadlg;control;9 cselectdialog;control;4 circinputdlg;control;3
 msgid "Cancel"
 msgstr "取消"
 
@@ -4596,35 +4596,35 @@ msgstr "已认证的用户"
 msgid "Accepted push connection from %s, handshaking..."
 msgstr "接受来自 %s 的获取连接，握手中..."
 
-#: string;20188
+#: string;20187
 msgid "Requesting a firewalled push connection from %s..."
 msgstr "向  %s 请求获取连接..."
 
-#: string;20190
+#: string;20188
 msgid "Connection failed due to invalid data on the wire."
 msgstr "因为网络传输中的错误数据导致连接失败。"
 
-#: string;20191
+#: string;20189
 msgid "Received an unknown response: %s"
 msgstr "接收到未知回应: %s"
 
-#: string;20192
+#: string;20190
 msgid "You're not connected."
 msgstr "您还未连接。"
 
-#: string;20193
+#: string;20191
 msgid "Unrecognised command \"%s\"."
 msgstr "不能识别命令 \"%s\"."
 
-#: string;20194
+#: string;20196
 msgid "This template does not have any customizations."
 msgstr "此模板无任何自定义设置。"
 
-#: string;20195
+#: string;20197
 msgid "This template is invalid."
 msgstr "此模板无效。"
 
-#: string;20196
+#: string;20198
 msgid "Text copied to Clipboard:"
 msgstr ""
 
@@ -5276,35 +5276,35 @@ msgstr "发送/接受 Pong 的 Gnutella 频率"
 msgid "Gnutella Local Queries"
 msgstr "Gnutella 本地查询"
 
-#: string;20375
+#: string;20376
 msgid "Gnutella Packets Routed"
 msgstr "路由的 Gnutella 数据包"
 
-#: string;20376
+#: string;20377
 msgid "Total Generic Receive Bandwidth"
 msgstr "全部接收带宽"
 
-#: string;20377
+#: string;20378
 msgid "Total Generic Transmit Bandwidth"
 msgstr "全部传送带宽"
 
-#: string;20378
+#: string;20379
 msgid "Total TCP Receive Bandwidth"
 msgstr "全部 TCP 接收带宽"
 
-#: string;20379
+#: string;20380
 msgid "Total TCP Transmit Bandwidth"
 msgstr "全部 TCP 传送带宽"
 
-#: string;20380
+#: string;20381
 msgid "Total UDP Receive Bandwidth"
 msgstr "全部 UDP 接收带宽"
 
-#: string;20381
+#: string;20382
 msgid "Total UDP Transmit Bandwidth"
 msgstr "全部 UDP 传送带宽"
 
-#: string;20382
+#: string;20383
 msgid "Upload Bandwidth"
 msgstr "上传带宽"
 
@@ -5980,11 +5980,11 @@ msgstr "邻居 %s 主机发来非法的获取数据包，忽略数据包。"
 msgid "Neighbor %s forwarded a packet of excessive size, dropping connection."
 msgstr "邻居 %s 主机发来的数据包超过尺寸，断开连接。"
 
-#: string;20585
+#: string;20586
 msgid "Neighbor %s forwarded an unrecognised packet (0x%.2x), ignoring."
 msgstr "邻居 %s 主机发来未被识别的数据包 (0x%.2x)，忽略数据包。"
 
-#: string;20586
+#: string;20587
 msgid "Neighbor %s forwarded a pong with invalid address data, ignoring."
 msgstr "邻居 %s 主机发来非法的 pong 地址，忽略数据包。"
 
@@ -6021,7 +6021,7 @@ msgid "Default Policy"
 msgstr ""
 
 #: string;20597
-msgid "Are you sure you want to delete the selected security rules?\\n\\nThis cannot be undone."
+msgid "Are you sure you wish to delete selected security rules?"
 msgstr ""
 
 #: string;20598
@@ -6913,7 +6913,7 @@ msgid "No URN available"
 msgstr "无 URN 可用"
 
 #: string;20885
-msgid "Changing interface direction requires restart.\\nYou will need to start PeerProject manually.\\n\\nExit now ?"
+msgid "Changing interface direction requires restart.\\n\\nExit now?"
 msgstr "变更界面方向需要重新启动。\\n您需要手动启动 PeerProject。立即退出？"
 
 #: string;20890
@@ -7533,7 +7533,7 @@ msgid "Gnutella Network:"
 msgstr "原始的 Gnutella 网络:"
 
 #: cnetworkssettingspage;control;7
-msgid "The original Gnutella network is less feature-rich than G2, and has fewer files than eDonkey, yet remains a valuable resource. (Limewire)"
+msgid "The original Gnutella network is less feature-rich than G2, and returns search spam, yet remains a valuable resource. (Limewire)"
 msgstr "尽管原始 Gnutella 网络比 Gnutella2 特性少，但依旧保留了可观的资源。"
 
 #: cnetworkssettingspage;control;8
@@ -7981,7 +7981,7 @@ msgid "Connect to Gnutella"
 msgstr "连接到原始的 Gnutella"
 
 #: cwizardnetworkspage;control;5
-msgid "The original Gnutella network (G1) is less feature-rich than Gnutella2, with less files than ED2K, yet remains a valuable source. (LimeWire)"
+msgid "The original Gnutella network (G1) is less feature-rich than G2, with more unwanted spam, yet remains a valuable resource. (LimeWire)"
 msgstr "尽管原始 Gnutella 网络比 Gnutella2 特性少，文件比 edonkey 要少，但依旧保留了可观的资源。"
 
 #: cwizardnetworkspage;control;6
@@ -9016,12 +9016,12 @@ msgstr "立即关闭 PeerProject"
 msgid "Shut down PeerProject after any downloads and uploads finish"
 msgstr "传送完成后关闭 PeerProject"
 
-#: dialog;cdonkeyserversdlg
-msgid "Download Server.met File"
+#: dialog;cupdateserversdlg
+msgid "Download Server List File"
 msgstr "下载 Server.met 文件"
 
-#: cdonkeyserversdlg;control;1
-msgid "You can download an eDonkey server.met file from the web to refresh your local list of servers."
+#: cupdateserversdlg;control;1
+msgid "You can download a file from the web to refresh your local list of servers.\\nSuch as eDonkey server.met, DC++ hublist.xml.bz2, etc."
 msgstr "您能从网络上下载 edonkey server.met 文件来刷新您的本地服务器列表。"
 
 #: cdeletefiledlg;control;1
@@ -9509,8 +9509,8 @@ msgid "Protocol"
 msgstr "协议"
 
 #: column;t/h
-msgid "T/H"
-msgstr "T/H"
+msgid "TTL/Hops"
+msgstr "TTL/Hops"
 
 #: column;hex
 msgid "Hex"
@@ -9521,8 +9521,8 @@ msgid "ASCII"
 msgstr "ASCII"
 
 #: column;g1-id
-msgid "G1-ID"
-msgstr "G1-ID"
+msgid "GUID"
+msgstr "GUID"
 
 #: column;urn
 msgid "URN"

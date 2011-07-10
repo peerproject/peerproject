@@ -19,11 +19,11 @@
 #include "StdAfx.h"
 #include "PeerProject.h"
 #include "Settings.h"
-#include "CoolInterface.h"
 #include "WndChild.h"
 #include "WndMain.h"
 #include "Skin.h"
 #include "SkinWindow.h"
+#include "CoolInterface.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -93,6 +93,23 @@ BOOL CChildWnd::Create(UINT nID, BOOL bVisible)
 		WS_OVERLAPPEDWINDOW | ( bVisible ? WS_VISIBLE : 0 ) |
 		WS_CLIPCHILDREN | WS_CLIPSIBLINGS );
 }
+
+//void CChildWnd::GetWindowText(CString& rString)
+//{
+//	if ( m_sCaption.IsEmpty() )
+//		CMDIChildWnd::GetWindowText( m_sCaption );
+//
+//	rString = m_sCaption;
+//}
+//
+//void CChildWnd::SetWindowText(LPCTSTR lpszString)
+//{
+//	if ( m_sCaption != lpszString )
+//	{
+//		m_sCaption = lpszString;
+//		CMDIChildWnd::SetWindowText( lpszString );
+//	}
+//}
 
 CMainWnd* CChildWnd::GetMainWnd()
 {
@@ -498,24 +515,6 @@ void CChildWnd::OnSkinChange()
 			SWP_NOMOVE|SWP_NOSIZE|SWP_NOACTIVATE|SWP_NOZORDER|SWP_FRAMECHANGED );
 		if ( m_pSkin ) m_pSkin->OnSize( this );
 	}
-}
-
-void CChildWnd::OnQuerySearch(const CQuerySearch* /*pSearch*/)
-{
-}
-
-BOOL CChildWnd::OnQueryHits(const CQueryHit* /*pHits*/)
-{
-	return FALSE;
-}
-
-void CChildWnd::SanityCheck()
-{
-}
-
-BOOL CChildWnd::OnPush(const Hashes::Guid& /*oClientID*/, CConnection* /*pConnection*/)
-{
-	return FALSE;
 }
 
 HRESULT CChildWnd::GetGenericView(IGenericView** ppView)

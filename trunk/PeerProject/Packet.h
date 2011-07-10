@@ -45,19 +45,19 @@ public:
 	PROTOCOLID m_nProtocol;			// The network this packet is on, like Gnutella or eDonkey2000
 
 	// List pointer and reference count
-	CPacket* m_pNext;	// Unused packets in the packet pool are linked together from m_pFree, through each packet's m_pNext pointer
+	CPacket* m_pNext;		// Unused packets in the packet pool are linked together from m_pFree, through each packet's m_pNext pointer
 
 public:
 
 	// Packet data
-	BYTE* m_pBuffer;	// A pointer to memory we allocated to hold the bytes of the payload of the packet, this is not a CBuffer object
-	DWORD m_nBuffer;	// The size of the allocated block of memory that holds the payload
-	DWORD m_nLength;	// The number of bytes of data we've written into the allocated block of memory
-	DWORD m_nPosition;	// What byte we are on, this position index is remembered by the packet between calls to methods
-	BOOL  m_bBigEndian;	// True if the bytes of the packet are in big endian format, which is the default
+	BYTE* m_pBuffer;		// A pointer to memory we allocated to hold the bytes of the payload of the packet, this is not a CBuffer object
+	DWORD m_nBuffer;		// The size of the allocated block of memory that holds the payload
+	DWORD m_nLength;		// The number of bytes of data we've written into the allocated block of memory
+	DWORD m_nPosition;		// What byte we are on, this position index is remembered by the packet between calls to methods
+	BOOL  m_bBigEndian; 	// True if the bytes of the packet are in big endian format, which is the default
 
 	// Set the position a given distance forwards from the start, or backwards from the end
-	enum { seekStart, seekEnd };
+	enum { seekStart, seekEnd, seekCurrent };
 
 public:
 	// Reset this packet object to make it like it was when it came from the constructor
@@ -70,6 +70,10 @@ public:
 	// Packet position and length
 	void Seek(DWORD nPosition, int nRelative = seekStart);	// Set the position the given distance from the given end
 	void Shorten(DWORD nLength);				// Shorten the packet to the given number of bytes
+	void Remove(DWORD nLength);					// Remove data from packet start
+	BOOL Compare(const void* szString, DWORD nLength, DWORD nOffset = 0) const; 	// Compare content of packet buffer with string at specified offset (case-sensetive)
+	int Find(BYTE c, DWORD nOffset = 0) const;	// Find character inside packet buffer.  Returns character offset or -1 if not found.
+	BYTE GetAt(DWORD nOffset) const;			// Get character at specified (range-safe) offset from packet buffer
 
 	virtual CString ReadString(UINT cp, DWORD nMaximum = 0xFFFFFFFF);
 
@@ -107,12 +111,11 @@ public:
 	// Gives this packet and related objects to each window in the tab bar for them to process it
 	virtual void	SmartDump(const SOCKADDR_IN* pAddress, BOOL bUDP, BOOL bOutgoing, DWORD_PTR nNeighbourUnique = 0) const;
 
+	// Obsolete placeholders:
 	// Compute the SHA hash of the bytes of the packet
-	virtual BOOL	GetRazaHash(Hashes::Sha1Hash& oHash, DWORD nLength = 0xFFFFFFFF) const;
-
-	// Does nothing (do)
-	void			RazaSign();
-	BOOL			RazaVerify() const;
+	//virtual BOOL	GetPacketHash(Hashes::Sha1Hash& oHash, DWORD nLength = 0xFFFFFFFF) const;
+	//void			RazaSign();
+	//BOOL			RazaVerify() const;
 
 public:
 	// Get current position
@@ -137,10 +140,10 @@ public:
 		if ( m_nPosition + nLength > m_nLength ) AfxThrowUserException();
 
 		// Copy memory from the packet to the given buffer
-		CopyMemory(
-			pData,                   // Destination is the given pointer
-			m_pBuffer + m_nPosition, // Source is our position in the packet
-			nLength );               // Size is the requested length
+		CopyMemory( pData, m_pBuffer + m_nPosition, nLength );
+			// Destination is the given pointer
+			// Source is our position in the packet
+			// Size is the requested length
 
 		// Move our position in the packet beyond the data we just copied out
 		m_nPosition += nLength;

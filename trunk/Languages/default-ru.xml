@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Russian Skin File -->
 
-<!-- Translation based on default-en.xml r67 -->
+<!-- Translation based on default-en.xml r68 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -988,7 +988,7 @@
 		</menu>
 		<separator/>
 		<item id="ID_HOSTCACHE_IMPORT" text="_Импорт MET файла..."/>
-		<item id="ID_HOSTCACHE_ED2K_DOWNLOAD" text="_Загрузить MET..."/>
+		<item id="ID_HOSTCACHE_FILE_DOWNLOAD" text="_Загрузить MET..."/>
 	</menu>
 	<!-- SEARCH WINDOW -->
 	<menu name="CSearchWnd.Basic">
@@ -2469,7 +2469,7 @@
 	<tip id="ID_HOSTCACHE_CONNECT" message="Соединится с помеченным хостом(и)."/>
 	<tip id="ID_HOSTCACHE_DISCONNECT" message="Отключиться от помеченного хоста(ов)."/>
 	<tip id="ID_HOSTCACHE_ED2K_CACHE" message="Показать eDonkey серверы."/>
-	<tip id="ID_HOSTCACHE_ED2K_DOWNLOAD" message="Загрузить файл eDonkey «server.met»..."/>
+	<tip id="ID_HOSTCACHE_FILE_DOWNLOAD" message="Загрузить файл eDonkey «server.met»..."/>
 	<tip id="ID_HOSTCACHE_G1_CACHE" message="Показать кэшированные хосты Gnutella1."/>
 	<tip id="ID_HOSTCACHE_G2_CACHE" message="Показать кэшированные хосты Gnutella2."/>
 	<tip id="ID_HOSTCACHE_G2_HORIZON" message="Показать верхние узлы Gnutella2."/>
@@ -3208,7 +3208,7 @@
 	<string id="20590" value="Удаленный доступ отключен."/>
 	<string id="20591" value="http://%s:%i/remote - выбрать имя пользователя и пароль."/>
 	<string id="20592" value="Невозможно принять соединений, ссылка недоступна."/>
-	<string id="20597" value="Уверены, что хотите удалить выбранные правила безопасности? Действие будет необратимое."/>
+	<string id="20597" value="Уверены, что хотите удалить выбранные правила безопасности?"/>
 	<string id="20599" value="Схемы"/>
 	<!-- Missing Scheduler/Security Strings -->
 	<string id="20620" value="PeerProject активно ищет файлы в сети ..."/>
@@ -3430,7 +3430,7 @@
 	<string id="20882" value="Нет доступных ссылок"/>
 	<string id="20883" value="Служба «UPnP Device Host Service» не запущена. Эта служба необходима для настройки.\nВам нужно установить тип загрузки этой службы на автоматический."/>
 	<string id="20885" value="При смене вида все открытые Вами окна будут закрыты. Хотите ли переключить сейчас?"/>
-	<string id="20886" value="Для смены направления интерфейса Вы должны вручную перезапустить PeerProject.?Выйти сейчас?"/>
+	<string id="20886" value="Для смены направления интерфейса Вы должны вручную перезапустить PeerProject.\n\n?Выйти сейчас?"/>
 	<string id="20890" value="Добро пожаловать в PeerProject"/>
 	<string id="20891" value="Выход"/>
 	<string id="20892" value="Подождите: Обновляется список серверов eDonkey..."/>
@@ -4436,7 +4436,7 @@
 		<control caption="OK"/>
 		<control caption="Отмена"/>
 	</dialog>
-	<dialog name="CDonkeyServersDlg" cookie="StEdmsBuBu" caption="Загрузить Server.met файл">
+	<dialog name="CUpdateServersDlg" cookie="StEdmsBuBu" caption="Загрузить Server.met файл">
 		<control caption="Вы можете загрузить eDonkey server.met файл из веба, чтобы обновить Ваш список серверов."/>
 		<control/>
 		<control/>

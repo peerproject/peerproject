@@ -88,14 +88,15 @@ BOOL CNetworksSettingsPage::OnInitDialog()
 
 	UpdateData( FALSE );
 
-#ifdef LAN_MODE
-	GetDlgItem( IDC_G2_ENABLE )->EnableWindow( FALSE );
-	GetDlgItem( IDC_G1_ENABLE )->EnableWindow( FALSE );
-	GetDlgItem( IDC_ED2K_ENABLE )->EnableWindow( FALSE );
-	m_wndG2Setup.EnableWindow( FALSE );
-	m_wndG1Setup.EnableWindow( FALSE );
-	m_wndEDSetup.EnableWindow( FALSE );
-#endif // LAN_MODE
+	if ( Settings.Experimental.LAN_Mode )	// #ifdef LAN_MODE
+	{
+		GetDlgItem( IDC_G2_ENABLE )->EnableWindow( FALSE );
+		GetDlgItem( IDC_G1_ENABLE )->EnableWindow( FALSE );
+		GetDlgItem( IDC_ED2K_ENABLE )->EnableWindow( FALSE );
+		m_wndG2Setup.EnableWindow( FALSE );
+		m_wndG1Setup.EnableWindow( FALSE );
+		m_wndEDSetup.EnableWindow( FALSE );
+	}
 
 	return TRUE;
 }

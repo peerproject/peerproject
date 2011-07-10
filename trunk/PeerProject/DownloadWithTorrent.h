@@ -78,8 +78,9 @@ public:
 	void			ChokeTorrent(DWORD tNow = 0);
 	CDownloadTransferBT*	CreateTorrentTransfer(CBTClient* pClient);
 	CBTPacket*		CreateBitfieldPacket();
-	BOOL			SetTorrent(const CBTInfo& oTorrent);
 	BOOL			GenerateTorrentDownloadID();			// Generate Peer ID
+	// Apply new .torrent file to download or update from existing one
+	BOOL			SetTorrent(const CBTInfo* pTorrent = NULL);
 protected:
 	bool			RunTorrent(DWORD tNow);
 	void			SendCompleted();

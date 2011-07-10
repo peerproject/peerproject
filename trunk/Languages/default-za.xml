@@ -4,7 +4,7 @@
 <!-- PeerProject Default Afrikaans Skin File -->
 <!-- Weergawe: 27 Oktober 2005 vir Shareaza 2.2.0.2 -->
 
-<!-- Translation based on default-en.xml r67 -->
+<!-- Translation based on default-en.xml r68 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -947,7 +947,7 @@
 		</menu>
 		<separator/>
 		<item id="ID_HOSTCACHE_IMPORT" text="_Trek MET Lêer In..."/>
-		<item id="ID_HOSTCACHE_ED2K_DOWNLOAD" text="Laai MET Af..."/>
+		<item id="ID_HOSTCACHE_FILE_DOWNLOAD" text="Laai MET Af..."/>
 	</menu>
 	<!-- SEARCH WINDOW -->
 	<menu name="CSearchWnd.Basic">
@@ -2415,7 +2415,7 @@
 	<tip id="ID_HOSTCACHE_CONNECT" message="Konnekteer aan die geselekteerde gashere."/>
 	<tip id="ID_HOSTCACHE_DISCONNECT" message="Diskonnekteer die geselekteerde gasheer konneksie(s)."/>
 	<tip id="ID_HOSTCACHE_ED2K_CACHE" message="Vertoon eDonkey2000 bedieners."/>
-	<tip id="ID_HOSTCACHE_ED2K_DOWNLOAD" message="Laai 'n eDonkey2000 &quot;server.met&quot; lêer af..."/>
+	<tip id="ID_HOSTCACHE_FILE_DOWNLOAD" message="Laai 'n eDonkey2000 &quot;server.met&quot; lêer af..."/>
 	<tip id="ID_HOSTCACHE_G1_CACHE" message="Vertoon Gnutella1 gasheer kasgeheue."/>
 	<tip id="ID_HOSTCACHE_G2_CACHE" message="Vertoon Gnutella2 gasheer kasgeheue."/>
 	<tip id="ID_HOSTCACHE_G2_HORIZON" message="Vertoon Gnutella2 horison hubs."/>
@@ -3350,7 +3350,7 @@
 	<string id="20881" value="%u lêers gekies. Is jy seker?"/>
 	<string id="20882" value="Geen URN beskikbaar"/>
 	<string id="20885" value="Verandering van die aansig sal enige oop vensters toemaak.  Wil jy nou verander?"/>
-	<string id="20886" value="Verandering van die koppelvlak rigting vereis die oorbegin van PeerProject. \nJy sal weer PeerProject met die hand moet begin. Verlaat PeerProject nou?"/>
+	<string id="20886" value="Verandering van die koppelvlak rigting vereis die oorbegin van PeerProject.\n\nVerlaat PeerProject nou?"/>
 	<string id="20890" value="Welkom by PeerProject"/>
 	<string id="20891" value="Maak Toe"/>
 	<string id="20895" value="Jy het nog nie 'n konneksie-spoed gespesifiseer nie.  Voor jy aangaan, selekteer asseblief jou internet konneksietipe, of sleutel 'n konneksiespoed in."/>
@@ -4310,7 +4310,7 @@
 		<control caption="OK"/>
 		<control caption="Cancel"/>
 	</dialog>
-	<dialog name="CDonkeyServersDlg" cookie="StEdmsBuBu" caption="Laai Server.met Lêer af">
+	<dialog name="CUpdateServersDlg" cookie="StEdmsBuBu" caption="Laai Server.met Lêer af">
 		<control caption="Jy kan 'n eDonkey2000 server.met lêer van die web aflaai om jou lokale lys van bedienders te verfris."/>
 		<control/>
 		<control/>

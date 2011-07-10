@@ -1,7 +1,7 @@
 //
 // CtrlLibraryFrame.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -45,13 +45,13 @@ public:
 
 	virtual BOOL	Create(CWnd* pParentWnd);
 	virtual BOOL	OnCmdMsg(UINT nID, int nCode, void* pExtra, AFX_CMDHANDLERINFO* pHandlerInfo);
+	void			OnSkinChange();
 	void			OnViewSelection();
 	void			SetView(CLibraryView* pView, BOOL bUpdate = TRUE, BOOL bUser = TRUE);
-	void			OnSkinChange();
 	BOOL			Update(BOOL bForce = TRUE, BOOL bBestView = TRUE);
-	BOOL			Display(CLibraryFolder* pFolder);
-	BOOL			Display(CAlbumFolder* pFolder);
-	BOOL			Display(CLibraryFile* pFile);
+	BOOL			Display(const CLibraryFolder* pFolder);
+	BOOL			Display(const CAlbumFolder* pFolder);
+	BOOL			Display(const CLibraryFile* pFile);
 	BOOL			Select(DWORD nObject);
 	BOOL			SetDynamicBar(LPCTSTR pszName);
 	void			HideDynamicBar();
@@ -152,12 +152,12 @@ protected:
 	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
 	afx_msg BOOL OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message);
 	afx_msg BOOL OnMouseWheel(UINT nFlags, short zDelta, CPoint pt);
+	afx_msg void OnTimer(UINT_PTR nIDEvent);
 	afx_msg void OnLibraryRefresh();
 	afx_msg void OnUpdateLibraryTreePhysical(CCmdUI* pCmdUI);
 	afx_msg void OnLibraryTreePhysical();
 	afx_msg void OnUpdateLibraryTreeVirtual(CCmdUI* pCmdUI);
 	afx_msg void OnLibraryTreeVirtual();
-	afx_msg void OnTimer(UINT_PTR nIDEvent);
 	afx_msg void OnUpdateLibraryPanel(CCmdUI* pCmdUI);
 	afx_msg void OnLibraryPanel();
 	afx_msg void OnUpdateShowWebServices(CCmdUI* pCmdUI);

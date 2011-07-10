@@ -3,7 +3,7 @@
 
 <!-- PeerProject Korean Language Skin File -->
 
-<!-- Translation based on default-en.xml r67 --> <!--Machine Translated!-->
+<!-- Translation based on default-en.xml r68 --> <!--Machine Translated!-->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1000,7 +1000,7 @@
 		</menu>
 		<separator/>
 		<item id="ID_HOSTCACHE_IMPORT" text="_Import MET File..."/>
-		<item id="ID_HOSTCACHE_ED2K_DOWNLOAD" text="Download MET..."/>
+		<item id="ID_HOSTCACHE_FILE_DOWNLOAD" text="Download MET/Hublist..."/>
 	</menu>
 	<!-- SEARCH WINDOW -->
 	<menu name="CSearchWnd.Basic">
@@ -3035,7 +3035,7 @@
 		<control caption="Connect to Gnutella2 (Default)"/>
 		<control caption="The Gnutella2 network (G2) is PeerProject&apos;s premiere network, offering more features and performance than any other P2P net. (Shareaza)"/>
 		<control caption="Connect to Gnutella"/>
-		<control caption="The original Gnutella network (G1) is less feature-rich than Gnutella2, with less files than ED2K, yet remains a valuable source. (LimeWire)"/>
+		<control caption="The original Gnutella network (G1) is less feature-rich than G2, with more unwanted spam, yet remains a valuable resource. (LimeWire)"/>
 		<control caption="Connect to eDonkey2000"/>
 		<control caption="The eDonkey network (ED2K) is a popular server-based network.  While not as feature-rich or fast as G2, ED2K has a vast file collection. (eMule)"/>
 		<control caption="Associate .Torrent Files  (Handle BitTorrent links by default)"/>
@@ -3496,8 +3496,8 @@
 		<control caption="OK"/>
 		<control caption="취소"/>
 	</dialog>
-	<dialog name="CDonkeyServersDlg" cookie="StEdmsBuBu" caption="Download Server.met File">
-		<control caption="You can download an eDonkey server.met file from the web to refresh your local list of servers."/>
+	<dialog name="CUpdateServersDlg" cookie="StEdmsBuBu" caption="Download Server List File">
+		<control caption="You can download a file from the web to refresh your local list of servers.\nSuch as eDonkey server.met, DC++ hublist.xml.bz2, etc."/>
 		<control/>
 		<control/>
 		<control caption="OK"/>

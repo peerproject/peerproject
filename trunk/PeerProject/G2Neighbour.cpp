@@ -1027,8 +1027,8 @@ void CG2Neighbour::SendHAW()
 		CNeighbour* pNeighbour = Neighbours.GetNext( pos );
 
 		if ( pNeighbour != this &&
-			pNeighbour->m_nState == nrsConnected &&
-			pNeighbour->m_nNodeType == ntLeaf )
+			 pNeighbour->m_nState == nrsConnected &&
+			 pNeighbour->m_nNodeType == ntLeaf )
 		{
 			nLeafs++;
 		}
@@ -1140,10 +1140,13 @@ BOOL CG2Neighbour::OnQuery(CG2Packet* pPacket)
 	Statistics.Current.Gnutella2.Queries++;		// All Incoming
 
 	CQuerySearchPtr pSearch = CQuerySearch::FromPacket( pPacket );
-	if ( ! pSearch )	// || pSearch->m_bDropMe
+	if ( ! pSearch  || pSearch->m_bDropMe )
 	{
-		DEBUG_ONLY( pPacket->Debug( _T("Malformed Query.") ) );
-		theApp.Message( MSG_WARNING, IDS_PROTOCOL_BAD_QUERY, _T("G2"), (LPCTSTR)m_sAddress );
+		if ( ! pSearch )
+		{
+			theApp.Message( MSG_WARNING, IDS_PROTOCOL_BAD_QUERY, _T("G2"), (LPCTSTR)m_sAddress );
+			DEBUG_ONLY( pPacket->Debug( _T("G2 Malformed Query.") ) );
+		}
 		Statistics.Current.Gnutella2.Dropped++;
 		m_nDropCount++;
 		return TRUE;
@@ -1370,7 +1373,7 @@ bool CG2Neighbour::OnPush(CG2Packet* pPacket)
 	// Setup push connection
 	Handshakes.PushTo( (IN_ADDR*)&nAddress, nPort );
 
-	// Return that packet was handled
+	// Packet was handled
 	return true;
 }
 

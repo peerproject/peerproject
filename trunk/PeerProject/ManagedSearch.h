@@ -33,6 +33,7 @@ public:
 	CManagedSearch(CQuerySearch* pSearch = NULL, int nPriority = 0);
 	virtual ~CManagedSearch();
 
+public:
 	typedef CMap< DWORD, DWORD, DWORD, DWORD > CDwordDwordMap;
 
 	enum { spHighest, spMedium, spLowest, spMax };
@@ -94,6 +95,7 @@ public:
 protected:
 	int				m_nPriority;
 	BOOL			m_bActive;
+	DWORD			m_tLastG1;				// Time a G1 multicast search was sent
 	DWORD			m_tLastG2;				// Time a G2 hub was last searched
 	DWORD			m_tExecute;				// Search execute time (ticks)
 	CQuerySearchPtr m_pSearch;				// Search handler
@@ -101,6 +103,7 @@ protected:
 	CDwordDwordMap	m_pG1Nodes;				// Pair of IP and last sent packet TTL
 
 	BOOL	ExecuteNeighbours(const DWORD tTicks, const DWORD tSecs);
+	BOOL	ExecuteG1Mesh(const DWORD tTicks = 0, const DWORD tSecs = 0);
 	BOOL	ExecuteG2Mesh(const DWORD tTicks, const DWORD tSecs);
 	BOOL	ExecuteDonkeyMesh(const DWORD tTicks, const DWORD tSecs);
 };

@@ -17,11 +17,13 @@
 //
 
 #include "StdAfx.h"
+#include "Settings.h"
 #include "PeerProject.h"
-#include "Download.h"
 #include "PeerProjectURL.h"
 #include "DlgDownload.h"
-#include "Settings.h"
+#include "Download.h"
+#include "Downloads.h"
+#include "Transfers.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -63,7 +65,6 @@ BOOL CDownloadDlg::OnInitDialog()
 	CSkinDialog::OnInitDialog();
 
 	SkinMe( _T("CDownloadDlg"), IDR_DOWNLOADSFRAME );
-	m_wndTorrentFile.EnableWindow( m_pDownload == NULL );
 
 	if ( OpenClipboard() )
 	{
@@ -114,7 +115,23 @@ void CDownloadDlg::OnTorrentFile()
 
 	if ( dlg.DoModal() != IDOK ) return;
 
-	theApp.OpenTorrent( dlg.GetPathName() );
+	if ( ! m_pDownload )
+	{
+		theApp.OpenTorrent( dlg.GetPathName() );
+	}
+	else	// Update existing torrent
+	{
+		CBTInfo pInfo;
+		if ( ! pInfo.LoadTorrentFile( dlg.GetPathName() ) )
+			return;
+
+		CSingleLock pTransfersLock( &Transfers.m_pSection );
+		if ( pTransfersLock.Lock( 2000 ) )
+		{
+			if ( Downloads.Check( m_pDownload ) )
+				m_pDownload->SetTorrent( &pInfo );
+		}
+	}
 
 	EndDialog( IDCANCEL );
 }

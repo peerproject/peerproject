@@ -52,16 +52,19 @@ inline CXMLElement* CXMLNode::GetParent() const
 
 inline CString CXMLNode::GetName() const
 {
+	ASSERT( ! m_sName.IsEmpty() );
 	return m_sName;
 }
 
-inline void CXMLNode::SetName(LPCTSTR pszValue)
+inline void CXMLNode::SetName(LPCTSTR pszName)
 {
-	m_sName = pszValue;
+	ASSERT( pszName && *pszName );
+	m_sName = pszName;
 }
 
 inline BOOL CXMLNode::IsNamed(LPCTSTR pszName) const
 {
+	ASSERT( pszName && *pszName );
 	if ( this == NULL ) return FALSE;
 	return m_sName.CompareNoCase( pszName ) == 0;
 }
@@ -123,6 +126,7 @@ inline CXMLElement* CXMLElement::GetNextElement(POSITION& pos) const
 
 inline CXMLElement* CXMLElement::GetElementByName(LPCTSTR pszName) const
 {
+	ASSERT( pszName && *pszName );
 	for ( POSITION pos = GetElementIterator() ; pos ; )
 	{
 		CXMLElement* pElement = GetNextElement( pos );
@@ -133,6 +137,7 @@ inline CXMLElement* CXMLElement::GetElementByName(LPCTSTR pszName) const
 
 inline CXMLElement* CXMLElement::GetElementByName(LPCTSTR pszName, BOOL bCreate)
 {
+	ASSERT( pszName && *pszName );
 	for ( POSITION pos = GetElementIterator() ; pos ; )
 	{
 		CXMLElement* pElement = GetNextElement( pos );
@@ -175,21 +180,21 @@ inline CXMLAttribute* CXMLElement::GetNextAttribute(POSITION& pos) const
 
 inline CXMLAttribute* CXMLElement::GetAttribute(LPCTSTR pszName) const
 {
+	ASSERT( pszName && *pszName );
 	CXMLAttribute* pAttribute = NULL;
 	return m_pAttributes.Lookup( CString( pszName ).MakeLower(), pAttribute ) ? pAttribute : NULL;
 }
 
 inline CString CXMLElement::GetAttributeValue(LPCTSTR pszName, LPCTSTR pszDefault) const
 {
-	CXMLAttribute* pAttribute = GetAttribute( pszName );
-	CString strResult;
+	ASSERT( pszName && *pszName );
+	if ( CXMLAttribute* pAttribute = GetAttribute( pszName ) )
+		return pAttribute->m_sValue;
 
-	if ( pAttribute )
-		strResult = pAttribute->m_sValue;
-	else if ( pszDefault )
-		strResult = pszDefault;
+	if ( pszDefault )
+		return pszDefault;
 
-	return strResult;
+	return CString();
 }
 
 inline void CXMLElement::RemoveAttribute(CXMLAttribute* pAttribute)
@@ -202,8 +207,8 @@ inline void CXMLElement::RemoveAttribute(CXMLAttribute* pAttribute)
 
 inline void CXMLElement::DeleteAttribute(LPCTSTR pszName)
 {
-	CXMLAttribute* pAttribute = GetAttribute( pszName );
-	if ( pAttribute )
+	ASSERT( pszName && *pszName );
+	if ( CXMLAttribute* pAttribute = GetAttribute( pszName ) )
 	{
 		pAttribute->Delete();
 

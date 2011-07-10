@@ -872,7 +872,7 @@
 		</menu>
 		<separator/>
 		<item id="ID_HOSTCACHE_IMPORT" text="_Tuo MET Tiedosto..."/>
-		<item id="ID_HOSTCACHE_ED2K_DOWNLOAD" text="Lataa MET..."/>
+		<item id="ID_HOSTCACHE_FILE_DOWNLOAD" text="Lataa MET..."/>
 	</menu>
 	<!-- SEARCH WINDOW -->
 	<menu name="CSearchWnd.Basic">
@@ -1431,8 +1431,16 @@
 	</menu>
 	<!-- SYSTEM WINDOW -->
 	<menu name="CSystemWnd">
-		<item id="ID_SYSTEM_VERBOSE" text="_Laaja Tila"/>
+		<menu id="ID_SYSTEM_VERBOSE" text="_Laaja Tila"/>
+			<item id="ID_SYSTEM_VERBOSE_ERROR" text="_Error"/>
+			<item id="ID_SYSTEM_VERBOSE_WARNING" text="_Warning"/>
+			<item id="ID_SYSTEM_VERBOSE_NOTICE" text="_Notice"/>
+			<item id="ID_SYSTEM_VERBOSE_INFO" text="_Info"/>
+			<item id="ID_SYSTEM_VERBOSE_DEBUG" text="_Debug"/>
+		</menu>
 		<item id="ID_SYSTEM_TIMESTAMP" text="Aikaleim_a"/>
+		<separator/>
+		<item id="ID_SYSTEM_COPY" text="_Copy" shortcut="Ctrl+C"/>
 		<separator/>
 		<item id="ID_SYSTEM_CLEAR" text="Tyhjennä _Puskuri"/>
 	</menu>

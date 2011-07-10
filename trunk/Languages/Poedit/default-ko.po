@@ -1036,9 +1036,9 @@ msgstr "_Kademlia Cache"
 msgid "_Import MET File..."
 msgstr "_Import MET File..."
 
-#: chostcachewnd;item;id_hostcache_ed2k_download
-msgid "Download MET..."
-msgstr "Download MET..."
+#: chostcachewnd;item;id_hostcache_file_download
+msgid "Download MET/Hublist..."
+msgstr "Download MET/Hublist..."
 
 #: csearchwnd.basic;item;id_search_download csearchwnd;item;id_search_download cbrowsehostwnd.basic;item;id_search_download cbrowsehostwnd;item;id_search_download chitmonitorwnd;item;id_search_download cdownloaddlg;control;6
 msgid "_Download"
@@ -3160,9 +3160,9 @@ msgstr "Disconnect from the selected neighbor."
 msgid "Show eDonkey servers."
 msgstr "Show eDonkey servers."
 
-#: message;id_hostcache_ed2k_download
-msgid "Download an eDonkey \"server.met\" file..."
-msgstr "Download an eDonkey \"server.met\" file..."
+#: message;id_hostcache_file_download
+msgid "Download an eDonkey \"server.met\" or DC++ \"hublist.xml.bz2\" file..."
+msgstr "Download an eDonkey \"server.met\" or DC++ \"hublist.xml.bz2\" file..."
 
 #: message;id_hostcache_g1_cache
 msgid "Show Gnutella1 cached hosts."
@@ -4108,11 +4108,11 @@ msgstr "Yes"
 msgid "No"
 msgstr "No"
 
-#: string;20003 csettingsheet;control;2 cqueuepropertiesdlg;control;37 cprofilemanagerdlg;control;2 csavefilterasdlg;control;2 cdiscoveryservicedlg;control;5 cfilecopydlg;control;7 cfolderpropertiesdlg;control;7 cgraphlistdlg;control;16 cgraphitemdlg;control;1 csecureruledlg;control;33 cscheduletaskdlg;control;1 cschemacolumnsdlg;control;3 csharemanagerdlg;control;5 cpromotedlg;control;7 cexistingfiledlg;control;8 cclosemodedlg;control;5 cdonkeyserversdlg;control;4 cdownloadgroupdlg;control;14 cmediavisdlg;control;5 cdecodemetadatadlg;control;8 cselectdialog;control;3 circinputdlg;control;2 cdownloadreviewdlg;control;1 caboutdlg;control;7
+#: string;20003 csettingsheet;control;2 cqueuepropertiesdlg;control;37 cprofilemanagerdlg;control;2 csavefilterasdlg;control;2 cdiscoveryservicedlg;control;5 cfilecopydlg;control;7 cfolderpropertiesdlg;control;7 cgraphlistdlg;control;16 cgraphitemdlg;control;1 csecureruledlg;control;33 cscheduletaskdlg;control;1 cschemacolumnsdlg;control;3 csharemanagerdlg;control;5 cpromotedlg;control;7 cexistingfiledlg;control;8 cclosemodedlg;control;5 cupdateserversdlg;control;4 cdownloadgroupdlg;control;14 cmediavisdlg;control;5 cdecodemetadatadlg;control;8 cselectdialog;control;3 circinputdlg;control;2 cdownloadreviewdlg;control;1 caboutdlg;control;7
 msgid "OK"
 msgstr "OK"
 
-#: string;20004 string;20470 csettingsheet;control;3 cqueuepropertiesdlg;control;38 cprofilemanagerdlg;control;3 cconnecttodlg;control;8 cnewsearchdlg;control;4 cfiltersearchdlg;control;30 csavefilterasdlg;control;3 cdiscoveryservicedlg;control;6 cdownloadmonitordlg;control;14 cfilecopydlg;control;8 cfolderpropertiesdlg;control;8 cgraphlistdlg;control;17 cgraphitemdlg;control;2 csecureruledlg;control;34 cscheduletaskdlg;control;2 cschemacolumnsdlg;control;4 csharemanagerdlg;control;6 curlcopydlg;control;6 curlexportdlg;control;10 curlactiondlg;control;12 cbitzidownloaddlg;control;4 cfilepreviewdlg;control;6 cexistingfiledlg;control;9 cclosemodedlg;control;6 cdonkeyserversdlg;control;5 cdeletefiledlg;control;5 ctorrentseeddlg;control;4 cdownloadgroupdlg;control;15 cmediavisdlg;control;6 cdecodemetadatadlg;control;9 cselectdialog;control;4 circinputdlg;control;3
+#: string;20004 string;20470 csettingsheet;control;3 cqueuepropertiesdlg;control;38 cprofilemanagerdlg;control;3 cconnecttodlg;control;8 cnewsearchdlg;control;4 cfiltersearchdlg;control;30 csavefilterasdlg;control;3 cdiscoveryservicedlg;control;6 cdownloadmonitordlg;control;14 cfilecopydlg;control;8 cfolderpropertiesdlg;control;8 cgraphlistdlg;control;17 cgraphitemdlg;control;2 csecureruledlg;control;34 cscheduletaskdlg;control;2 cschemacolumnsdlg;control;4 csharemanagerdlg;control;6 curlcopydlg;control;6 curlexportdlg;control;10 curlactiondlg;control;12 cbitzidownloaddlg;control;4 cfilepreviewdlg;control;6 cexistingfiledlg;control;9 cclosemodedlg;control;6 cupdateserversdlg;control;5 cdeletefiledlg;control;5 ctorrentseeddlg;control;4 cdownloadgroupdlg;control;15 cmediavisdlg;control;6 cdecodemetadatadlg;control;9 cselectdialog;control;4 circinputdlg;control;3
 msgid "Cancel"
 msgstr "Cancel"
 
@@ -4596,35 +4596,35 @@ msgstr "Authenticated user"
 msgid "Accepted push connection from %s, handshaking..."
 msgstr "Accepted push connection from %s, handshaking..."
 
-#: string;20188
+#: string;20187
 msgid "Requesting a firewalled push connection from %s..."
 msgstr "Requesting a firewalled push connection from %s..."
 
-#: string;20190
+#: string;20188
 msgid "Connection failed due to invalid data on the wire."
 msgstr "Connection failed due to invalid data on the wire."
 
-#: string;20191
+#: string;20189
 msgid "Received an unknown response: %s"
 msgstr "Received an unknown response: %s"
 
-#: string;20192
+#: string;20190
 msgid "You're not connected."
 msgstr "You're not connected."
 
-#: string;20193
+#: string;20191
 msgid "Unrecognised command \"%s\"."
 msgstr "Unrecognised command \"%s\"."
 
-#: string;20194
+#: string;20196
 msgid "This template does not have any customizations."
 msgstr "This template does not have any customizations."
 
-#: string;20195
+#: string;20197
 msgid "This template is invalid."
 msgstr "This template is invalid."
 
-#: string;20196
+#: string;20198
 msgid "Text copied to Clipboard:"
 msgstr "Text copied to Clipboard:"
 
@@ -5276,35 +5276,35 @@ msgstr "Gnutella Ratio of Received/Sent Pongs"
 msgid "Gnutella Local Queries"
 msgstr "Gnutella Local Queries"
 
-#: string;20375
+#: string;20376
 msgid "Gnutella Packets Routed"
 msgstr "Gnutella Packets Routed"
 
-#: string;20376
+#: string;20377
 msgid "Total Generic Receive Bandwidth"
 msgstr "Total Generic Receive Bandwidth"
 
-#: string;20377
+#: string;20378
 msgid "Total Generic Transmit Bandwidth"
 msgstr "Total Generic Transmit Bandwidth"
 
-#: string;20378
+#: string;20379
 msgid "Total TCP Receive Bandwidth"
 msgstr "Total TCP Receive Bandwidth"
 
-#: string;20379
+#: string;20380
 msgid "Total TCP Transmit Bandwidth"
 msgstr "Total TCP Transmit Bandwidth"
 
-#: string;20380
+#: string;20381
 msgid "Total UDP Receive Bandwidth"
 msgstr "Total UDP Receive Bandwidth"
 
-#: string;20381
+#: string;20382
 msgid "Total UDP Transmit Bandwidth"
 msgstr "Total UDP Transmit Bandwidth"
 
-#: string;20382
+#: string;20383
 msgid "Upload Bandwidth"
 msgstr "Upload Bandwidth"
 
@@ -5980,11 +5980,11 @@ msgstr "Neighbor %s forwarded a push packet with invalid length, ignoring."
 msgid "Neighbor %s forwarded a packet of excessive size, dropping connection."
 msgstr "Neighbor %s forwarded a packet of excessive size, dropping connection."
 
-#: string;20585
+#: string;20586
 msgid "Neighbor %s forwarded an unrecognised packet (0x%.2x), ignoring."
 msgstr "Neighbor %s forwarded an unrecognised packet (0x%.2x), ignoring."
 
-#: string;20586
+#: string;20587
 msgid "Neighbor %s forwarded a pong with invalid address data, ignoring."
 msgstr "Neighbor %s forwarded a pong with invalid address data, ignoring."
 
@@ -6021,8 +6021,8 @@ msgid "Default Policy"
 msgstr "Default Policy"
 
 #: string;20597
-msgid "Are you sure you want to delete the selected security rules?\\n\\nThis cannot be undone."
-msgstr "Are you sure you want to delete the selected security rules?\\n\\nThis cannot be undone."
+msgid "Are you sure you wish to delete selected security rules?"
+msgstr "Are you sure you wish to delete selected security rules?"
 
 #: string;20598
 msgid "Failed to load Library metadata schemas. Please reinstall application. Continue loading?"
@@ -6913,8 +6913,8 @@ msgid "No URN available"
 msgstr "No URN available"
 
 #: string;20885
-msgid "Changing interface direction requires restart.\\nYou will need to start PeerProject manually.\\n\\nExit now ?"
-msgstr "Changing interface direction requires restart.\\nYou will need to start PeerProject manually.\\n\\nExit now ?"
+msgid "Changing interface direction requires restart.\\n\\nExit now?"
+msgstr "Changing interface direction requires restart.\\n\\nExit now?"
 
 #: string;20890
 msgid "Welcome to PeerProject"
@@ -7533,8 +7533,8 @@ msgid "Gnutella Network:"
 msgstr "Gnutella Network:"
 
 #: cnetworkssettingspage;control;7
-msgid "The original Gnutella network is less feature-rich than G2, and has fewer files than eDonkey, yet remains a valuable resource. (Limewire)"
-msgstr "The original Gnutella network is less feature-rich than G2, and has fewer files than eDonkey, yet remains a valuable resource. (Limewire)"
+msgid "The original Gnutella network is less feature-rich than G2, and returns search spam, yet remains a valuable resource. (Limewire)"
+msgstr "The original Gnutella network is less feature-rich than G2, and returns search spam, yet remains a valuable resource. (Limewire)"
 
 #: cnetworkssettingspage;control;8
 msgid "Connect to Gnutella (G1)"
@@ -7981,8 +7981,8 @@ msgid "Connect to Gnutella"
 msgstr "Connect to Gnutella"
 
 #: cwizardnetworkspage;control;5
-msgid "The original Gnutella network (G1) is less feature-rich than Gnutella2, with less files than ED2K, yet remains a valuable source. (LimeWire)"
-msgstr "The original Gnutella network (G1) is less feature-rich than Gnutella2, with less files than ED2K, yet remains a valuable source. (LimeWire)"
+msgid "The original Gnutella network (G1) is less feature-rich than G2, with more unwanted spam, yet remains a valuable resource. (LimeWire)"
+msgstr "The original Gnutella network (G1) is less feature-rich than G2, with more unwanted spam, yet remains a valuable resource. (LimeWire)"
 
 #: cwizardnetworkspage;control;6
 msgid "Connect to eDonkey2000"
@@ -9016,13 +9016,13 @@ msgstr "Shut down PeerProject immediately"
 msgid "Shut down PeerProject after any downloads and uploads finish"
 msgstr "Shut down PeerProject after any downloads and uploads finish"
 
-#: dialog;cdonkeyserversdlg
-msgid "Download Server.met File"
-msgstr "Download Server.met File"
+#: dialog;cupdateserversdlg
+msgid "Download Server List File"
+msgstr "Download Server List File"
 
-#: cdonkeyserversdlg;control;1
-msgid "You can download an eDonkey server.met file from the web to refresh your local list of servers."
-msgstr "You can download an eDonkey server.met file from the web to refresh your local list of servers."
+#: cupdateserversdlg;control;1
+msgid "You can download a file from the web to refresh your local list of servers.\\nSuch as eDonkey server.met, DC++ hublist.xml.bz2, etc."
+msgstr "You can download a file from the web to refresh your local list of servers.\\nSuch as eDonkey server.met, DC++ hublist.xml.bz2, etc."
 
 #: cdeletefiledlg;control;1
 msgid "Confirm deletion of this file:"
@@ -9509,8 +9509,8 @@ msgid "Protocol"
 msgstr "Protocol"
 
 #: column;t/h
-msgid "T/H"
-msgstr "T/H"
+msgid "TTL/Hops"
+msgstr "TTL/Hops"
 
 #: column;hex
 msgid "Hex"
@@ -9521,8 +9521,8 @@ msgid "ASCII"
 msgstr "ASCII"
 
 #: column;g1-id
-msgid "G1-ID"
-msgstr "G1-ID"
+msgid "GUID"
+msgstr "GUID"
 
 #: column;urn
 msgid "URN"

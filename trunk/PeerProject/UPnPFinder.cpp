@@ -29,16 +29,16 @@ static char THIS_FILE[] = __FILE__;
 #endif	// Filename
 
 CUPnPFinder::CUPnPFinder()
-	: m_pDevices	()
-	, m_pServices	()
+	: m_pDevices	( )
+	, m_pServices	( )
 	, m_bCOM		( false )
 	, m_nAsyncFindHandle( 0 )
 	, m_bAsyncFindRunning( false )
 	, m_bADSL		( false )
 	, m_bADSLFailed	( false )
 	, m_bPortIsFree	( true )
-	, m_sLocalIP	()
-	, m_sExternalIP	()
+	, m_sLocalIP	( )
+	, m_sExternalIP	( )
 	, m_bInited 	( false )
 	, m_bSecondTry	( false )
 	, m_tLastEvent	( GetTickCount() )
@@ -215,7 +215,7 @@ void CUPnPFinder::StopAsyncFind()
 // Start the discovery of the UPnP gateway devices
 void CUPnPFinder::StartDiscovery(bool bSecondTry)
 {
-	if ( bSecondTry && m_bSecondTry ) // already did 2 tries
+	if ( bSecondTry && m_bSecondTry )	// Already did 2 tries
 		return;
 
 	if ( ! Init() )
@@ -225,9 +225,8 @@ void CUPnPFinder::StartDiscovery(bool bSecondTry)
 		theApp.Message( MSG_INFO, L"Trying to setup port forwardings with UPnP...");
 
 	// On tests, in some cases the search for WANConnectionDevice had no results and only a search for InternetGatewayDevice
-	// showed up the UPnP root Device which contained the WANConnectionDevice as a child. I'm not sure if there are cases
-	// where search for InternetGatewayDevice only would have similar bad effects, but to be sure we do "normal" search first
-	// and one for InternetGateWayDevice as fallback
+	// showed up the UPnP root Device which contained the WANConnectionDevice as a child.  Not sure if there are cases where
+	// a search for InternetGatewayDevice only would have similar bad effects, but to be sure we do "normal" search first, then fallback
 	static const CString strDeviceType1( L"urn:schemas-upnp-org:device:WANConnectionDevice:1");
 	static const CString strDeviceType2( L"urn:schemas-upnp-org:device:InternetGatewayDevice:1");
 
@@ -356,7 +355,7 @@ bool CUPnPFinder::OnSearchComplete()
 		GetDeviceServices( m_pDevices[ pos ] );
 		StartPortMapping();
 
-		if ( ! m_bPortIsFree ) // warn only once
+		if ( ! m_bPortIsFree )	// Warn only once
 		{
 			// Add more descriptive explanation!!!
 			CString strMessage;
@@ -728,7 +727,7 @@ void CUPnPFinder::DeleteExistingPortMappings(ServicePointer pService)
 		}
 
 		if ( FAILED( hrDel ) )
-			nEntry++; // Entries are pushed from bottom to top after success
+			nEntry++;			// Entries are pushed from bottom to top after success
 		if ( nEntry > 30 )
 		{
 			// ToDo: FIXME. This is a sanitize check,
@@ -752,7 +751,7 @@ void CUPnPFinder::CreatePortMappings(ServicePointer pService)
 	strFormatString = L"|VT_BSTR=|VT_UI2=%s|VT_BSTR=%s|VT_UI2=%s|VT_BSTR=%s|"
 		L"VT_BOOL=True|VT_BSTR=PeerProject %s|VT_UI4=0|";
 
-	if ( Settings.Connection.InPort == 0 ) // random port
+	if ( Settings.Connection.InPort == 0 )	// Random port
 		Settings.Connection.InPort = Network.RandomPort();
 
 	strPort.Format( L"%hu", Settings.Connection.InPort );
@@ -821,8 +820,7 @@ HRESULT CUPnPFinder::InvokeAction(ServicePointer pService,
 
 	if ( SUCCEEDED( hr ) )
 	{
-		// In connection services return value is empty
-		// when OUT arguments are returned
+		// In connection services return value is empty when OUT arguments are returned
 		if ( vaRet.vt != VT_EMPTY )
 		{
 			bool bInvalid = false;
@@ -862,9 +860,7 @@ HRESULT CUPnPFinder::InvokeAction(ServicePointer pService,
 }
 
 // Creates a SafeArray
-// vt--VariantType
-// nArgs--Number of Arguments
-// ppsa--Created safearray
+// vt--VariantType, nArgs--Number of Arguments, ppsa--Created safearray
 HRESULT CUPnPFinder::CreateSafeArray(const VARTYPE vt, const ULONG nArgs, SAFEARRAY** ppsa)
 {
 	SAFEARRAYBOUND aDim[ 1 ];
@@ -891,7 +887,7 @@ HRESULT CUPnPFinder::CreateSafeArray(const VARTYPE vt, const ULONG nArgs, SAFEAR
 // The most common types used for UPnP values are:
 //		VT_BSTR, VT_UI2, VT_UI4, VT_BOOL
 // Returns: number of arguments or -1 if invalid string/values.
-
+//
 INT_PTR CUPnPFinder::CreateVarFromString(const CString& strArgs, VARIANT*** pppVars)
 {
 	if ( strArgs.IsEmpty() )
@@ -963,12 +959,12 @@ INT_PTR CUPnPFinder::CreateVarFromString(const CString& strArgs, VARIANT*** pppV
 		}
 		else
 		{
-			bInvalid = TRUE; // no other types are supported
+			bInvalid = TRUE;	// No other types are supported
 			break;
 		}
 	}
 
-	if ( bInvalid ) // cleanup if invalid
+	if ( bInvalid )		// Cleanup if invalid
 	{
 		DestroyVars( nArgs, pppVars );
 		return -1;
@@ -979,7 +975,7 @@ INT_PTR CUPnPFinder::CreateVarFromString(const CString& strArgs, VARIANT*** pppV
 // Creates a string in format "|variant_type1=value1|variant_type2=value2|"
 // from OUT variant returned by service.
 // Returns: number of arguments or -1 if not applicable.
-
+//
 INT_PTR	CUPnPFinder::GetStringFromOutArgs(const VARIANT* pvaOutArgs, CString& strArgs)
 {
 	LONG nLBound = 0L, nUBound = 0L;
@@ -987,7 +983,7 @@ INT_PTR	CUPnPFinder::GetStringFromOutArgs(const VARIANT* pvaOutArgs, CString& st
 	bool bInvalid = FAILED( hr );
 	CString strResult, strToken;
 
-	if ( ! bInvalid ) // We have got the bounds of the arguments
+	if ( ! bInvalid )	// We have got the bounds of the arguments
 	{
 		CComVariant vaOutElement;
 		strResult = '|';
@@ -1195,38 +1191,40 @@ HRESULT CServiceCallback::ServiceInstanceDied(IUPnPService* pService)
 
 CString translateUPnPResult(HRESULT hr)
 {
-	static std::map<HRESULT, std::string> messages;
-
 	if ( hr >= UPNP_E_ACTION_SPECIFIC_BASE && hr <= UPNP_E_ACTION_SPECIFIC_MAX )
 	{
 		CString strResult;
 		strResult.Format( L"Non-Standard Device Error: %i",
-						 ( hr - UPNP_E_ACTION_SPECIFIC_BASE ) + FAULT_ACTION_SPECIFIC_BASE );
+			( hr - UPNP_E_ACTION_SPECIFIC_BASE ) + FAULT_ACTION_SPECIFIC_BASE );
 		return strResult;
 	}
 
-	messages[ 0 ] = "";
-	messages[ UPNP_E_ROOT_ELEMENT_EXPECTED ] =      "Root Element Expected";
-	messages[ UPNP_E_DEVICE_ELEMENT_EXPECTED ] =    "Device Element Expected";
-	messages[ UPNP_E_SERVICE_ELEMENT_EXPECTED ] =   "Service Element Expected";
-	messages[ UPNP_E_SERVICE_NODE_INCOMPLETE ] =    "Service Node Incomplete";
-	messages[ UPNP_E_DEVICE_NODE_INCOMPLETE ] =     "Device Node Incomplete";
-	messages[ UPNP_E_ICON_ELEMENT_EXPECTED ] =      "Icon Element Expected";
-	messages[ UPNP_E_ICON_NODE_INCOMPLETE ] =       "Icon Node Incomplete";
-	messages[ UPNP_E_INVALID_ACTION ] =             "Invalid Action";
-	messages[ UPNP_E_INVALID_ARGUMENTS ] =          "Invalid Arguments";
-	messages[ UPNP_E_OUT_OF_SYNC ] =                "Out of Sync";
-	messages[ UPNP_E_ACTION_REQUEST_FAILED ] =      "Action Request Failed";
-	messages[ UPNP_E_TRANSPORT_ERROR ] =            "Transport Error";
-	messages[ UPNP_E_VARIABLE_VALUE_UNKNOWN ] =     "Variable Value Unknown";
-	messages[ UPNP_E_INVALID_VARIABLE ] =           "Invalid Variable";
-	messages[ UPNP_E_DEVICE_ERROR ] =               "Device Error";
-	messages[ UPNP_E_PROTOCOL_ERROR ] =             "Protocol Error";
-	messages[ UPNP_E_ERROR_PROCESSING_RESPONSE ] =  "Error Processing Response";
-	messages[ UPNP_E_DEVICE_TIMEOUT ] =             "Device Timeout";
-	messages[ UPNP_E_INVALID_DOCUMENT ] =           "Invalid Document";
-	messages[ UPNP_E_EVENT_SUBSCRIPTION_FAILED ] =  "Event Subscription Failed";
-	messages[ E_FAIL ] =                            "Generic failure";
+	static std::map<HRESULT, std::string> messages;
+	if ( messages.empty() )
+	{
+		messages[ 0 ] = "";
+		messages[ UPNP_E_ROOT_ELEMENT_EXPECTED ] =		"Root Element Expected";
+		messages[ UPNP_E_DEVICE_ELEMENT_EXPECTED ] =	"Device Element Expected";
+		messages[ UPNP_E_SERVICE_ELEMENT_EXPECTED ] =	"Service Element Expected";
+		messages[ UPNP_E_SERVICE_NODE_INCOMPLETE ] =	"Service Node Incomplete";
+		messages[ UPNP_E_DEVICE_NODE_INCOMPLETE ] = 	"Device Node Incomplete";
+		messages[ UPNP_E_ICON_ELEMENT_EXPECTED ] =		"Icon Element Expected";
+		messages[ UPNP_E_ICON_NODE_INCOMPLETE ] =		"Icon Node Incomplete";
+		messages[ UPNP_E_INVALID_ACTION ] = 			"Invalid Action";
+		messages[ UPNP_E_INVALID_ARGUMENTS ] =			"Invalid Arguments";
+		messages[ UPNP_E_OUT_OF_SYNC ] =				"Out of Sync";
+		messages[ UPNP_E_ACTION_REQUEST_FAILED ] =		"Action Request Failed";
+		messages[ UPNP_E_TRANSPORT_ERROR ] =			"Transport Error";
+		messages[ UPNP_E_VARIABLE_VALUE_UNKNOWN ] = 	"Variable Value Unknown";
+		messages[ UPNP_E_INVALID_VARIABLE ] =			"Invalid Variable";
+		messages[ UPNP_E_DEVICE_ERROR ] =				"Device Error";
+		messages[ UPNP_E_PROTOCOL_ERROR ] = 			"Protocol Error";
+		messages[ UPNP_E_ERROR_PROCESSING_RESPONSE ] =	"Error Processing Response";
+		messages[ UPNP_E_DEVICE_TIMEOUT ] = 			"Device Timeout";
+		messages[ UPNP_E_INVALID_DOCUMENT ] =			"Invalid Document";
+		messages[ UPNP_E_EVENT_SUBSCRIPTION_FAILED ] =	"Event Subscription Failed";
+		messages[ E_FAIL ] =							"Generic failure";
+	}
 
 	return CString( messages[ hr ].c_str() );
 }

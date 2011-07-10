@@ -49,7 +49,6 @@ CDownloadReviewDlg::CDownloadReviewDlg(CWnd* pParent, CDownload* pDownload) : CS
 
 CDownloadReviewDlg::~CDownloadReviewDlg()
 {
-
 }
 
 void CDownloadReviewDlg::DoDataExchange(CDataExchange* pDX)

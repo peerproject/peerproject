@@ -1,7 +1,7 @@
 //
 // VersionChecker.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -20,9 +20,10 @@
 
 #include "HttpRequest.h"
 
+class CLibraryFile;
 
-class CVersionChecker :
-	public CThreadImpl
+
+class CVersionChecker : public CThreadImpl
 {
 // Construction
 public:
@@ -35,19 +36,18 @@ public:
 	CString		m_sUpgradePath;
 
 protected:
-	bool			m_bVerbose;
-	CHttpRequest	m_pRequest;
-	CMap< CString, const CString&, CString, CString& >	m_pResponse;
+	CMap< CString, const CString&, CString, CString& > m_pResponse;
+	CHttpRequest m_pRequest;
+	bool		m_bVerbose;
 
 // Operations
 public:
 	BOOL		Start();
 	void		Stop();
-	static void ClearVersionCheck();
 	void		ForceCheck();
+	static void ClearVersionCheck();
 	void		SetNextCheck(int nDays);
-	BOOL		CheckUpgradeHash(const Hashes::Sha1Hash& oHash, LPCTSTR pszPath);
-	BOOL		CheckUpgradeHash();
+    BOOL		CheckUpgradeHash(const CLibraryFile* pFile = NULL);
 
 	inline bool	IsUpgradeAvailable() const throw()
 	{
@@ -60,8 +60,8 @@ public:
 	}
 
 protected:
-	BOOL		NeedToCheck();
 	void		OnRun();
+	BOOL		NeedToCheck();
 	BOOL		ExecuteRequest();
 	void		ProcessResponse();
 };

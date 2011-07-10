@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Norwegian Skin File -->
 
-<!-- Translation based on default-en.xml r67 (Shareaza 2.2.0.2) -->
+<!-- Translation based on default-en.xml r68 (Shareaza 2.2.0.2) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -788,7 +788,7 @@
 		</menu>
 		<separator/>
 		<item id="ID_HOSTCACHE_IMPORT" text="Åpne MET fil..."/>
-		<item id="ID_HOSTCACHE_ED2K_DOWNLOAD" text="Last ned MET..."/>
+		<item id="ID_HOSTCACHE_FILE_DOWNLOAD" text="Last ned MET..."/>
 	</menu>
 	<!-- SEARCH WINDOW -->
 	<menu name="CSearchWnd.Basic">
@@ -1344,8 +1344,16 @@
 	</menu>
 	<!-- SYSTEM WINDOW -->
 	<menu name="CSystemWnd">
-		<item id="ID_SYSTEM_VERBOSE" text="Vis alt"/>
+		<menu id="ID_SYSTEM_VERBOSE" text="Vis alt"/>
+			<item id="ID_SYSTEM_VERBOSE_ERROR" text="_Error"/>
+			<item id="ID_SYSTEM_VERBOSE_WARNING" text="_Warning"/>
+			<item id="ID_SYSTEM_VERBOSE_NOTICE" text="_Notice"/>
+			<item id="ID_SYSTEM_VERBOSE_INFO" text="_Info"/>
+			<item id="ID_SYSTEM_VERBOSE_DEBUG" text="_Debug"/>
+		</menu>
 		<item id="ID_SYSTEM_TIMESTAMP" text="Tidsstempel"/>
+		<separator/>
+		<item id="ID_SYSTEM_COPY" text="_Copy" shortcut="Ctrl+C"/>
 		<separator/>
 		<item id="ID_SYSTEM_CLEAR" text="Oppdater buffer"/>
 	</menu>
@@ -2173,7 +2181,7 @@
 	<tip id="ID_HOSTCACHE_CONNECT" message="Koble til valgte vert."/>
 	<tip id="ID_HOSTCACHE_DISCONNECT" message="Koble fra valgte nabo."/>
 	<tip id="ID_HOSTCACHE_ED2K_CACHE" message="Vis eDonkey2000-servere."/>
-	<tip id="ID_HOSTCACHE_ED2K_DOWNLOAD" message="Last ned en eDonkey2000 &quot;server.met&quot; fil..."/>
+	<tip id="ID_HOSTCACHE_FILE_DOWNLOAD" message="Last ned en eDonkey2000 &quot;server.met&quot; fil..."/>
 	<tip id="ID_HOSTCACHE_G1_CACHE" message="Vis Gnutella1-vertene."/>
 	<tip id="ID_HOSTCACHE_G2_CACHE" message="Vis Gnutella2-vertene."/>
 	<tip id="ID_HOSTCACHE_G2_HORIZON" message="Vis Gnutella2 horizon-hubene."/>
@@ -3069,7 +3077,7 @@
 	<string id="20881" value="%u filer valgt. Er du sikker?"/>
 	<string id="20882" value="URN ikke tilgjengelig"/>
 	<string id="20885" value="Når du endrer utseende vil alle åpne vinduer lukkes. Vil du endre nå?"/>
-	<string id="20886" value="Forandring av grensesnittets retning krever omstart. \nDu må starte PeerProject på nytt manuelt. Avslutte nå?"/>
+	<string id="20886" value="Forandring av grensesnittets retning krever omstart.\n\nAvslutte nå?"/>
 	<string id="20890" value="Velkommen til PeerProject"/>
 	<string id="20891" value="Avslutt"/>
 	<string id="20895" value="Du har ikke spesifisert tilkoblingshastigheten. Før du fortsetter, vennligst velg din type internett tilkobling eller skriv inn tilkoblingshastigheten."/>
@@ -4031,7 +4039,7 @@
 		<control caption="OK"/>
 		<control caption="Avbryt"/>
 	</dialog>
-	<dialog name="CDonkeyServersDlg" cookie="StEdmsBuBu" caption="Last ned server.met fil">
+	<dialog name="CUpdateServersDlg" cookie="StEdmsBuBu" caption="Last ned server.met fil">
 		<control caption="Du kan laste ned en eDonkey2000 server.met fil fra nettet for å oppdatere listen med servere."/>
 		<control/>
 		<control/>

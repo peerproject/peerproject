@@ -334,15 +334,11 @@ BOOL CDownloadWithSources::AddSourceHit(const CQueryHit* pHit, BOOL bForce)
 
 	if ( Settings.Downloads.Metadata && m_pXML == NULL )
 	{
-		if ( pHit->m_pXML != NULL && ! pHit->m_sSchemaPlural.IsEmpty() )
+		if ( pHit->m_pXML && pHit->m_pSchema )
 		{
-			m_pXML = new CXMLElement( NULL, pHit->m_sSchemaPlural );
-			m_pXML->AddAttribute( _T("xmlns:xsi"), CXMLAttribute::xmlnsInstance );
-			m_pXML->AddAttribute( CXMLAttribute::schemaName, pHit->m_sSchemaURI );
+			m_pXML = pHit->m_pSchema->Instantiate( TRUE );
 			m_pXML->AddElement( pHit->m_pXML->Clone() );
-
-			if ( CSchemaPtr pSchema = SchemaCache.Get( pHit->m_sSchemaURI ) )
-				pSchema->Validate( m_pXML, TRUE );
+			pHit->m_pSchema->Validate( m_pXML, TRUE );
 		}
 	}
 
@@ -610,7 +606,7 @@ BOOL CDownloadWithSources::AddSourceInternal(CDownloadSource* pSource)
 			CDownloadSource* pExisting = GetNext( posSource );
 
 			ASSERT( pSource != pExisting );
-			if ( pExisting->Equals( pSource ) )	// IPs and ports are equal
+			if ( pExisting->Equals( pSource ) ) 	// IPs and ports are equal
 			{
 				bool bExistingHTTPSource = pExisting->IsHTTPSource();
 
@@ -777,7 +773,7 @@ CString	CDownloadWithSources::GetTopFailedSources(int nMaximum, PROTOCOLID nProt
 
 				if ( nMaximum == 1 )
 					break;
-				else if ( nMaximum > 1 )
+				if ( nMaximum > 1 )
 					nMaximum--;
 			}
 		}
@@ -792,8 +788,7 @@ BOOL CDownloadWithSources::OnQueryHits(const CQueryHit* pHits)
 {
 	for ( const CQueryHit* pHit = pHits ; pHit ; pHit = pHit->m_pNext )
 	{
-	//	if ( ! pHit->m_sURL.IsEmpty() )	// Obsolete
-			AddSourceHit( pHit );
+		AddSourceHit( pHit );
 	}
 
 	return TRUE;

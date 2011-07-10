@@ -1,7 +1,7 @@
 //
 // Plugins.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2006.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -22,6 +22,7 @@
 
 class CPlugin;
 class CChildWnd;
+class CLibraryFile;
 
 
 class CPlugins : public CThreadImpl
@@ -47,14 +48,20 @@ public:
 
 	// IGeneralPlugin mirroring:
 	void		OnSkinChanged();
+
 	// ICommandPlugin mirroring:
 	void		RegisterCommands();
 	void		InsertCommands();
 	BOOL		OnCommand(CChildWnd* pActiveWnd, UINT nCommandID);
 	BOOL		OnUpdate(CChildWnd* pActiveWnd, CCmdUI* pCmdUI);
+
 	// IExecutePlugin mirroring:
 	BOOL		OnExecuteFile(LPCTSTR pszFile, BOOL bUseImageViewer = FALSE);
 	BOOL		OnEnqueueFile(LPCTSTR pszFile);
+
+	// ILibraryPlugin mirroring
+	BOOL		OnNewFile(CLibraryFile* pFile);
+
 	// IChatPlugin mirroring:
 	BOOL		OnChatMessage(LPCTSTR pszChatID, BOOL bOutgoing, LPCTSTR pszFrom, LPCTSTR pszTo, LPCTSTR pszMessage);
 
@@ -103,6 +110,7 @@ public:
 	CComPtr< IGeneralPlugin >	m_pPlugin;
 	CComPtr< ICommandPlugin >	m_pCommand;
 	CComPtr< IExecutePlugin >	m_pExecute;
+	CComPtr< ILibraryPlugin >	m_pLibrary;
 	CComPtr< IChatPlugin >		m_pChat;
 
 	BOOL		Start();

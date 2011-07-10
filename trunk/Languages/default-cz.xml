@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Czech Skin File -->
 
-<!-- Translation based on default-en.xml r67 (Shareaza 2.2.5.7) -->
+<!-- Translation based on default-en.xml r68 (Shareaza 2.2.5.7) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -908,7 +908,7 @@
 		</menu>
 		<separator/>
 		<item id="ID_HOSTCACHE_IMPORT" text="_Import souboru MET..."/>
-		<item id="ID_HOSTCACHE_ED2K_DOWNLOAD" text="Stažení MET..."/>
+		<item id="ID_HOSTCACHE_FILE_DOWNLOAD" text="Stažení MET..."/>
 	</menu>
 	<!-- SEARCH WINDOW -->
 	<menu name="CSearchWnd.Basic">
@@ -1474,7 +1474,13 @@
 	</menu>
 	<!-- SYSTEM WINDOW -->
 	<menu name="CSystemWnd">
-		<item id="ID_SYSTEM_VERBOSE" text="_Podrobný režim"/>
+		<menu id="ID_SYSTEM_VERBOSE" text="_Podrobný režim"/>
+			<item id="ID_SYSTEM_VERBOSE_ERROR" text="_Error"/>
+			<item id="ID_SYSTEM_VERBOSE_WARNING" text="_Warning"/>
+			<item id="ID_SYSTEM_VERBOSE_NOTICE" text="_Notice"/>
+			<item id="ID_SYSTEM_VERBOSE_INFO" text="_Info"/>
+			<item id="ID_SYSTEM_VERBOSE_DEBUG" text="_Debug"/>
+		</menu>
 		<item id="ID_SYSTEM_TIMESTAMP" text="Ča_sová značka"/>
 		<separator/>
 		<item id="ID_SYSTEM_COPY" text="_Kopírovat" shortcut="Ctrl+C"/>
@@ -2342,7 +2348,7 @@
 	<tip id="ID_HOSTCACHE_CONNECT" message="Připojit k označenému hostiteli."/>
 	<tip id="ID_HOSTCACHE_DISCONNECT" message="Odpojit označené okolní počítače."/>
 	<tip id="ID_HOSTCACHE_ED2K_CACHE" message="Ukázat servery eDonkey."/>
-	<tip id="ID_HOSTCACHE_ED2K_DOWNLOAD" message="Stáhnout z eDonkey &quot;server.met&quot; soubor..."/>
+	<tip id="ID_HOSTCACHE_FILE_DOWNLOAD" message="Stáhnout z eDonkey &quot;server.met&quot; soubor..."/>
 	<tip id="ID_HOSTCACHE_G1_CACHE" message="Ukázat cache hosta Gnutelly1."/>
 	<tip id="ID_HOSTCACHE_G2_CACHE" message="Ukázat cache hosta Gnutelly2."/>
 	<tip id="ID_HOSTCACHE_G2_HORIZON" message="Ukázat perspektivní uzle Gnutelly2."/>
@@ -4245,7 +4251,7 @@
 		<control caption="OK"/>
 		<control caption="Zrušit"/>
 	</dialog>
-	<dialog name="CDonkeyServersDlg" cookie="StEdmsBuBu" caption="Stáhnout soubor .met ze serveru">
+	<dialog name="CUpdateServersDlg" cookie="StEdmsBuBu" caption="Stáhnout soubor .met ze serveru">
 		<control caption="Můžete stáhnout soubor .met ze serveru eDonkey na webu a obnovit tak váš místní seznam."/>
 		<control/>
 		<control/>

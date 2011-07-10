@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Greek Skin File -->
 
-<!-- Translation based on default-en.xml r67 -->
+<!-- Translation based on default-en.xml r68 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -971,7 +971,7 @@
 		</menu>
 		<separator/>
 		<item id="ID_HOSTCACHE_IMPORT" text="_Εισαγωγή αρχείου MET..."/>
-		<item id="ID_HOSTCACHE_ED2K_DOWNLOAD" text="Λήψη αρχείου MET..."/>
+		<item id="ID_HOSTCACHE_FILE_DOWNLOAD" text="Λήψη αρχείου MET..."/>
 	</menu>
 	<!-- SEARCH WINDOW -->
 	<menu name="CSearchWnd.Basic">
@@ -2456,7 +2456,7 @@
 	<tip id="ID_HOSTCACHE_CONNECT" message="Σύνδεση στους επιλεγμένους hosts."/>
 	<tip id="ID_HOSTCACHE_DISCONNECT" message="Αποσύνδεση από τους επιλεγμένους γείτονες."/>
 	<tip id="ID_HOSTCACHE_ED2K_CACHE" message="Προβολή των servers του ED2K."/>
-	<tip id="ID_HOSTCACHE_ED2K_DOWNLOAD" message="Λήψη ενός αρχείου &quot;server.met&quot; του ED2K..."/>
+	<tip id="ID_HOSTCACHE_FILE_DOWNLOAD" message="Λήψη ενός αρχείου &quot;server.met&quot; του ED2K..."/>
 	<tip id="ID_HOSTCACHE_G1_CACHE" message="Προβολή cached hosts του Gnutella."/>
 	<tip id="ID_HOSTCACHE_G2_CACHE" message="Προβολή cached hosts του Gnutella2."/>
 	<tip id="ID_HOSTCACHE_G2_HORIZON" message="Προβολή κόμβων horizon του Gnutella2."/>
@@ -3181,7 +3181,7 @@
 	<string id="20590" value="Η απομακρυσμένη πρόσβαση είναι απενεργοποιημένη."/>
 	<string id="20591" value="http://%s:%i/remote - Πρέπει να διαλέξετε ένα όνομα και έναν κωδικό."/>
 	<string id="20592" value="Αδυναμία υποδοχής συνδέσεων, μη διαθέσιμο URL."/>
-	<string id="20597" value="Θέλετε σίγουρα να διαγράψετε τους επιλεγμένους κανόνες ασφαλείας; Αυτό δεν μπορεί να αναιρεθεί!"/>
+	<string id="20597" value="Θέλετε σίγουρα να διαγράψετε τους επιλεγμένους κανόνες ασφαλείας;"/>
 	<string id="20599" value="&amp;Schemas"/>
 	<!-- Missing Scheduler/Security Strings -->
 	<string id="20620" value="Ενεργή αναζήτηση..."/>
@@ -3402,7 +3402,7 @@
 	<string id="20882" value="Μη διαθέσιμο URN"/>
 	<string id="20883" value="Η υπηρεσία Host για συσκευές UPnP δεν τρέχει. Η υπηρεσία απαιτείται για την επίτευξη της ρύθμισης.nΧρειάζεται να θέσετε τον τύπο εκκίνησης της υπηρεσίας στο αυτόματο."/>
 	<string id="20885" value="Η αλλαγή της προβολής θα κλείσει ό,τι παράθυρα έχετε ανοιχτά. Θέλετε να γίνει τώρα;"/>
-	<string id="20886" value="Η αλλαγή της κατεύθυνσης χρειάζεται επανεκκίνηση.\nΘα χρειαστεί να εκκινήσετε το PeerProject χειροκίνητα. Έξοδος;"/>
+	<string id="20886" value="Η αλλαγή της κατεύθυνσης χρειάζεται επανεκκίνηση.\n\nΈξοδος;"/>
 	<string id="20890" value="Καλώς ήρθατε στο PeerProject"/>
 	<string id="20891" value="E&amp;xit"/>
 	<string id="20892" value="Παρακαλώ περιμένετε: Ενημέρωση λίστας ED2K server..."/>
@@ -4408,7 +4408,7 @@
 		<control caption="OK"/>
 		<control caption="Άκυρο"/>
 	</dialog>
-	<dialog name="CDonkeyServersDlg" cookie="StEdmsBuBu" caption="Λήψη Αρχείου Server.met">
+	<dialog name="CUpdateServersDlg" cookie="StEdmsBuBu" caption="Λήψη Αρχείου Server.met">
 		<control caption="Μπορείτε να λάβετε ένα αρχείο server.met του ED2K από το Διαδίκτυο για να ανανεώσετε την τοπική λίστα servers."/>
 		<control/>
 		<control/>

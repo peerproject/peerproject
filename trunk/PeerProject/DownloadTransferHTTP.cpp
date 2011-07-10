@@ -155,8 +155,8 @@ DWORD CDownloadTransferHTTP::GetAverageSpeed()
 
 	if ( m_nState == dtsDownloading )
 	{
-		DWORD nTime = GetTickCount() - m_tContent;
-		if ( nTime )
+		const DWORD nTime = GetTickCount() - m_tContent;
+		if ( nTime > 1 )
 			m_pSource->m_nSpeed = (DWORD)( ( m_nPosition * 1000 ) / nTime );
 	}
 
@@ -308,7 +308,7 @@ BOOL CDownloadTransferHTTP::SendRequest()
 		Write( strLine );
 	}
 
-	Write( _P("Connection: Keep-Alive\r\n") ); // BearShare assumes close
+	Write( _P("Connection: Keep-Alive\r\n") );	// BearShare assumes close
 
 	if ( Settings.Gnutella2.Enabled )
 		Write( _P("X-Features: g2/1.0\r\n") );
@@ -585,7 +585,8 @@ BOOL CDownloadTransferHTTP::ReadResponseLine()
 	if ( ! Read( strLine ) ) return TRUE;
 	if ( strLine.IsEmpty() ) return TRUE;
 
-	if ( strLine.GetLength() > HTTP_HEADER_MAX_LINE ) strLine = _T("#LINE_TOO_LONG#");
+	if ( strLine.GetLength() > HTTP_HEADER_MAX_LINE )
+		strLine = _T("#LINE_TOO_LONG#");
 
 	theApp.Message( MSG_DEBUG | MSG_FACILITY_INCOMING, _T("%s >> DOWNLOAD RESPONSE: %s"), (LPCTSTR)m_sAddress, (LPCTSTR)strLine );
 
@@ -1099,8 +1100,8 @@ BOOL CDownloadTransferHTTP::OnHeaderLine(CString& strHeader, CString& strValue)
 		m_pSource->SetGnutella( 1 );
 		break;
 
-	default:
-		// Unknown Headers?
+	default:		// Unknown Headers?
+		theApp.Message( MSG_DEBUG, _T("Unknown header: %s"), (LPCTSTR)strCase );
 		break;
 	}
 
@@ -1126,14 +1127,16 @@ BOOL CDownloadTransferHTTP::OnHeadersComplete()
 		Close( TRI_FALSE );
 		return FALSE;
 	}
-	else if ( m_bRedirect )
+
+	if ( m_bRedirect )
 	{
 		int nRedirectionCount = m_pSource->m_nRedirectionCount;
 		m_pDownload->AddSourceURL( m_sRedirectionURL, m_bHashMatch, NULL, nRedirectionCount + 1 );
 		Close( TRI_FALSE );
 		return FALSE;
 	}
-	else if ( ! m_pSource->CanInitiate( TRUE, TRUE ) )
+
+	if ( ! m_pSource->CanInitiate( TRUE, TRUE ) )
 	{
 		theApp.Message( MSG_ERROR, IDS_DOWNLOAD_DISABLED,
 			(LPCTSTR)m_pDownload->GetDisplayName(), (LPCTSTR)m_sAddress, (LPCTSTR)m_sUserAgent );
@@ -1615,25 +1618,29 @@ BOOL CDownloadTransferHTTP::ReadFlush()
 
 	if ( m_nContentLength == SIZE_UNKNOWN ) m_nContentLength = 0;
 
-	DWORD nRemove = (DWORD)min( pInput->m_nLength, m_nContentLength );
+	const DWORD nRemove = (DWORD)min( pInput->m_nLength, m_nContentLength );
 	m_nContentLength -= nRemove;
 
 	pInput->Remove( nRemove );
 
-	if ( m_nContentLength == 0 )
-	{
-		if ( m_bQueueFlag )
-		{
-			SetState( dtsQueued );
-			if ( ! m_pDownload->IsBoosted() )
-				m_mInput.pLimit = m_mOutput.pLimit = &Settings.Bandwidth.Request;
-			m_tRequest = GetTickCount() + m_nRetryDelay;
+	if ( m_nContentLength != 0 )
+		return TRUE;
 
-			theApp.Message( MSG_INFO, IDS_DOWNLOAD_QUEUED,
-				(LPCTSTR)m_sAddress, m_nQueuePos, m_nQueueLen,
-				(LPCTSTR)m_sQueueName );
-		}
-		else if ( m_bRangeFault && ! m_bGotRanges )
+	if ( m_bQueueFlag )
+	{
+		SetState( dtsQueued );
+		if ( ! m_pDownload->IsBoosted() )
+			m_mInput.pLimit = m_mOutput.pLimit = &Settings.Bandwidth.Request;
+		m_tRequest = GetTickCount() + m_nRetryDelay;
+
+		theApp.Message( MSG_INFO, IDS_DOWNLOAD_QUEUED,
+				(LPCTSTR)m_sAddress, m_nQueuePos, m_nQueueLen, (LPCTSTR)m_sQueueName );
+		return TRUE;
+	}
+
+	if ( m_bRangeFault )
+	{
+		if ( ! m_bGotRanges )
 		{
 			// A "requested range unavailable" error but the source doesn't
 			// advertise available ranges: don't guess, try again later
@@ -1641,21 +1648,18 @@ BOOL CDownloadTransferHTTP::ReadFlush()
 			Close( TRI_TRUE );
 			return FALSE;
 		}
-		else if ( m_bRangeFault && m_bGotRanges && m_nRequests >= 2 )
+
+		if ( m_nRequests > 1 )
 		{
 			// Made two requests already and the source does advertise available ranges,
-			// but we still managed to request a wrong one.  // ToDo: Determine if/why this is still happening
+			// but we still managed to request a wrong one.  ToDo: Determine if/why this is still happening
 			theApp.Message( MSG_ERROR, _T("BUG: PeerProject requested a fragment from host %s, although it knew that the host doesn't have that fragment") , (LPCTSTR)m_sAddress );
 			Close( TRI_TRUE );
 			return FALSE;
 		}
-		else
-		{
-			return StartNextFragment();
-		}
 	}
 
-	return TRUE;
+	return StartNextFragment();
 }
 
 //////////////////////////////////////////////////////////////////////

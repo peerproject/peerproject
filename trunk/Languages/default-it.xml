@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Italian Skin File -->
 
-<!-- Translation based on default-en.xml r67 -->
+<!-- Translation based on default-en.xml r68 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -952,7 +952,7 @@
 		</menu>
 		<separator/>
 		<item id="ID_HOSTCACHE_IMPORT" text="Importa file MET..."/>
-		<item id="ID_HOSTCACHE_ED2K_DOWNLOAD" text="Scarica file MET..."/>
+		<item id="ID_HOSTCACHE_FILE_DOWNLOAD" text="Scarica file MET..."/>
 	</menu>
 	<!-- SEARCH WINDOW -->
 	<menu name="CSearchWnd.Basic">
@@ -2436,7 +2436,7 @@
 	<tip id="ID_HOSTCACHE_CONNECT" message="Connetti all'host selezionato."/>
 	<tip id="ID_HOSTCACHE_DISCONNECT" message="Disconnetti l'host selezionato."/>
 	<tip id="ID_HOSTCACHE_ED2K_CACHE" message="Mostra i server eDonkey."/>
-	<tip id="ID_HOSTCACHE_ED2K_DOWNLOAD" message="Scarica un file &quot;server.met&quot; di eDonkey..."/>
+	<tip id="ID_HOSTCACHE_FILE_DOWNLOAD" message="Scarica un file &quot;server.met&quot; di eDonkey..."/>
 	<tip id="ID_HOSTCACHE_G1_CACHE" message="Mostra cache host di Gnutella1."/>
 	<tip id="ID_HOSTCACHE_G2_CACHE" message="Mostra cache host di Gnutella2."/>
 	<tip id="ID_HOSTCACHE_G2_HORIZON" message="Mostra orizzonte hub Gnutella2."/>
@@ -3175,7 +3175,7 @@
 	<string id="20590" value="Accesso remoto è disabilitato."/>
 	<string id="20591" value="http://%s:%i/remote - Scegliere un nome utente e password."/>
 	<string id="20592" value="Impossibile accettare connessioni, URL non disponibile."/>
-	<string id="20597" value="Sei sicuro di voler cancellare le regole di sicurezza selezionate? Ciò non può essere annullato."/>
+	<string id="20597" value="Sei sicuro di voler cancellare le regole di sicurezza selezionate?"/>
 	<string id="20599" value="&amp;Schemi"/>
 	<!-- Missing Scheduler/Security Strings -->
 	<string id="20620" value="PeerProject sta cercando nella rete..."/>
@@ -3397,7 +3397,7 @@
 	<string id="20882" value="Nessuna URN disponibile"/>
 	<string id="20883" value="Il servizio Host di periferiche Plug and Play universali non è attivo. Questo servizio è richiesto per effettuare la configurazione.nDevi impostare il tipo di avvio del servizio su automatico."/>
 	<string id="20885" value="Cambiando la visualizzazione qualsiasi finestra aperta si chiuderà. Desideri cambiare ora?"/>
-	<string id="20886" value="Cambiare la direzione dell'interfaccia richiede il riavvio di PeerProject.\novrai lanciare PeerProject manualmente. Vuoi uscire ora?"/>
+	<string id="20886" value="Cambiare la direzione dell'interfaccia richiede il riavvio di PeerProject.\n\nVuoi uscire ora?"/>
 	<string id="20890" value="Benvenuto su PeerProject"/>
 	<string id="20891" value="Esci"/>
 	<string id="20892" value="Attendere: Aggiornamento della lista dei server eDonkey..."/>
@@ -4405,7 +4405,7 @@
 		<control caption="OK"/>
 		<control caption="Annulla"/>
 	</dialog>
-	<dialog name="CDonkeyServersDlg" cookie="StEdmsBuBu" caption="Scarica file server.met">
+	<dialog name="CUpdateServersDlg" cookie="StEdmsBuBu" caption="Scarica file server.met">
 		<control caption="Puoi scaricare il file server.met di eDonkey dal web per aggiornare la tua lista locale dei server."/>
 		<control/>
 		<control/>

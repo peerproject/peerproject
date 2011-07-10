@@ -22,7 +22,7 @@
 #include "WndSettingsSheet.h"
 #include "PageSettingsNetworks.h"
 #include "PageSettingsDonkey.h"
-#include "DlgDonkeyServers.h"
+#include "DlgUpdateServers.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -146,7 +146,8 @@ void CDonkeySettingsPage::OnServerWalk()
 
 void CDonkeySettingsPage::OnDiscoveryGo()
 {
-	CDonkeyServersDlg dlg;
+	CUpdateServersDlg dlg;
+	//dlg.m_sURL = Settings.eDonkey.ServerListURL;
 	dlg.DoModal();
 }
 

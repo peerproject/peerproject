@@ -397,7 +397,7 @@ BEGIN
 	CONTROL			"Connect to Gnutella2  (G2)",IDC_G2_ENABLE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,15,73,145,10
 	RTEXT			"Configure Gnutella2",IDC_G2_SETUP,165,73,100,10
 	GROUPBOX		"Gnutella Network:",IDC_STATIC,6,95,270,55,WS_GROUP
-	LTEXT			"The original Gnutella network is less feature-rich than G2, and has \nfewer files than eDonkey, yet remains a valuable resource.    (Limewire)",IDC_STATIC,15,109,250,18
+	LTEXT			"The original Gnutella network is less feature-rich than G2, and returns search spam, yet remains a valuable resource.    (Limewire)",IDC_STATIC,15,109,250,18
 	CONTROL			"Connect to Gnutella  (G1)",IDC_G1_ENABLE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,15,132,145,10
 	RTEXT			"Configure Gnutella",IDC_G1_SETUP,165,132,100,10
 	GROUPBOX		"eDonkey Network:",IDC_STATIC,6,155,270,55,WS_GROUP
@@ -447,6 +447,26 @@ BEGIN
 	CONTROL			"Hub to Hub",IDC_DEFLATE_HUB2HUB,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,186,186,80,10
 END
 
+//IDD_SETTINGS_DC DIALOGEX 0, 0, 282, 220
+//STYLE DS_SETFONT | WS_CHILD | WS_DISABLED | WS_CAPTION
+//CAPTION "DC++"
+//FONT 8, "Tahoma"
+//BEGIN
+//	GROUPBOX		"&DC++ Network:",IDC_STATIC,6,5,270,48,WS_GROUP
+//	CONTROL			"Connect to DC++ now",IDC_ENABLE_TODAY,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,18,200,10
+//	CONTROL			"Connect to DC++ at startup",IDC_ENABLE_ALWAYS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,34,200,10
+//	GROUPBOX		"&Hubs:",IDC_STATIC,6,58,270,38,WS_GROUP
+//	RTEXT			"Connect to no more than:",IDC_STATIC,17,73,95,12,SS_CENTERIMAGE
+//	EDITTEXT		IDC_LINKS,122,73,35,12,ES_AUTOHSCROLL | ES_NUMBER
+//	CONTROL			"Spin1",IDC_LINKS_SPIN,"msctls_updown32",UDS_SETBUDDYINT | UDS_AUTOBUDDY | UDS_ALIGNRIGHT | UDS_ARROWKEYS | UDS_NOTHOUSANDS,158,73,11,12
+//	LTEXT			"DC++ hubs.",IDC_STATIC,166,73,100,12,SS_CENTERIMAGE
+//	GROUPBOX		"&Info:",IDC_STATIC,6,101,270,64,WS_GROUP
+//	LTEXT			"DC++ works by connecting to specific ""hub"" communities.  Please select hubs from the ""Hostcache"" advanced view window, otherwise one will be randomly selected.\n\nDC++ can be hidden entirely from the Advanced setting DC.ShowInterface.",IDC_STATIC,14,114,250,58
+//	GROUPBOX		"&Tools:",IDC_STATIC,6,170,270,38,WS_GROUP
+//	PUSHBUTTON		"Download...",IDC_DISCOVERY_GO,13,183,60,15
+//	LTEXT			"Update DC++ hubs from the web.  (hublist.xml.bz2)",IDC_STATIC,80,183,185,15,SS_CENTERIMAGE
+//END
+
 IDD_SETTINGS_DONKEY DIALOGEX 0, 0, 282, 220
 STYLE DS_SETFONT | WS_CHILD | WS_DISABLED | WS_CAPTION
 CAPTION "eDonkey"
@@ -468,16 +488,16 @@ BEGIN
 	LTEXT			"search results.",IDC_STATIC,166,130,100,12,SS_CENTERIMAGE
 	CONTROL			"Update global server list from the connected server",IDC_LEARN_ED2K_SERVERS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,148,251,10
 	GROUPBOX		"eDonkey &Tools:",IDC_STATIC,6,170,270,38,WS_GROUP
-	PUSHBUTTON		"Download...",IDC_DISCOVERY_GO,13,183,57,15
-	LTEXT			"Update eDonkey server list from the web.  (MET file)",IDC_STATIC,80,183,185,15,SS_CENTERIMAGE
+	PUSHBUTTON		"Download...",IDC_DISCOVERY_GO,13,183,60,15
+	LTEXT			"Update eDonkey server list from the web.  (.MET file)",IDC_STATIC,80,183,185,15,SS_CENTERIMAGE
 END
 
-IDD_DONKEY_SERVERS DIALOGEX 0, 0, 292, 94
+IDD_UPDATE_SERVERS DIALOGEX 0, 0, 292, 94
 STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
-CAPTION "Download Server.met File"
+CAPTION "Download Server List File"
 FONT 8, "Tahoma"
 BEGIN
-	LTEXT			"You can download an eDonkey server.met file from the web to refresh your local list of servers.",IDC_STATIC,10,10,270,20
+	LTEXT			"You can download a file from the web to refresh your local list of servers.\nSuch as eDonkey server.met, DC++ hublist.xml.bz2, etc.",IDC_STATIC,10,10,270,20
 	EDITTEXT		IDC_URL,10,35,270,12,ES_AUTOHSCROLL
 	CONTROL			"Progress1",IDC_PROGRESS,"msctls_progress32",WS_BORDER,10,55,270,10
 	DEFPUSHBUTTON	"OK",IDOK,180,72,50,14
@@ -720,7 +740,7 @@ BEGIN
 	CONTROL			"Connect to Gnutella2  (Default)",IDC_G2_ENABLE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,10,36,260,10
 	LTEXT			"The Gnutella2 network (G2) is PeerProject's premiere network, offering more features and performance than any other P2P net.   (~Shareaza)",IDC_STATIC,27,47,250,18
 	CONTROL			"Connect to Gnutella",IDC_G1_ENABLE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,10,70,260,10
-	LTEXT			"The original Gnutella network (G1) is less feature-rich than Gnutella2, with less files than ED2K, yet remains a valuable source.   (~LimeWire)",IDC_STATIC,27,81,250,18
+	LTEXT			"The original Gnutella network (G1) is less feature-rich than G2, with \nmore unwanted spam, yet remains a valuable resource.   (~LimeWire)",IDC_STATIC,27,81,250,18
 	CONTROL			"Connect to eDonkey2000",IDC_ED2K_ENABLE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,10,104,260,10
 	LTEXT			"The eDonkey network (ED2K) is a popular server-based system.  While not as feature-rich or fast as G2, ED2K has a vast file collection.   (~eMule)",IDC_STATIC,27,115,254,18
 	CONTROL			"Handle BitTorrent by default   (Associate .Torrent Files)",IDC_URI_TORRENT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,10,138,260,10
@@ -972,15 +992,15 @@ BEGIN
 	EDITTEXT		IDC_RULE_COMMENT,60,40,115,12,ES_AUTOHSCROLL
 	GROUPBOX		"&Network Address:",IDC_GROUP_NETWORK,5,65,180,55,WS_GROUP
 	LTEXT			"IP Address:",IDC_STATIC,14,81,40,12,SS_CENTERIMAGE | NOT WS_GROUP
-	EDITTEXT		IDC_IP_1,60,81,25,12,ES_CENTER | ES_AUTOHSCROLL
-	EDITTEXT		IDC_IP_2,90,81,25,12,ES_CENTER | ES_AUTOHSCROLL
-	EDITTEXT		IDC_IP_3,120,81,25,12,ES_CENTER | ES_AUTOHSCROLL
-	EDITTEXT		IDC_IP_4,150,81,25,12,ES_CENTER | ES_AUTOHSCROLL
+	EDITTEXT		IDC_IP_1,60,81,25,12,ES_CENTER | ES_NUMBER
+	EDITTEXT		IDC_IP_2,90,81,25,12,ES_CENTER | ES_NUMBER
+	EDITTEXT		IDC_IP_3,120,81,25,12,ES_CENTER | ES_NUMBER
+	EDITTEXT		IDC_IP_4,150,81,25,12,ES_CENTER | ES_NUMBER
 	LTEXT			"Netmask:",IDC_STATIC,14,100,40,12,SS_CENTERIMAGE | NOT WS_GROUP
-	EDITTEXT		IDC_MASK_1,60,100,25,12,ES_CENTER | ES_AUTOHSCROLL
-	EDITTEXT		IDC_MASK_2,90,100,25,12,ES_CENTER | ES_AUTOHSCROLL
-	EDITTEXT		IDC_MASK_3,120,100,25,12,ES_CENTER | ES_AUTOHSCROLL
-	EDITTEXT		IDC_MASK_4,150,100,25,12,ES_CENTER | ES_AUTOHSCROLL
+	EDITTEXT		IDC_MASK_1,60,100,25,12,ES_CENTER | ES_NUMBER
+	EDITTEXT		IDC_MASK_2,90,100,25,12,ES_CENTER | ES_NUMBER
+	EDITTEXT		IDC_MASK_3,120,100,25,12,ES_CENTER | ES_NUMBER
+	EDITTEXT		IDC_MASK_4,150,100,25,12,ES_CENTER | ES_NUMBER
 	GROUPBOX		"&Content Filter:",IDC_GROUP_CONTENT,5,65,180,55,WS_GROUP
 	EDITTEXT		IDC_RULE_CONTENT,14,81,162,12,ES_AUTOHSCROLL
 	CONTROL			"Match Any",IDC_RULE_MATCH_ANY,"Button",BS_AUTORADIOBUTTON | WS_GROUP,14,100,51,12
@@ -2009,7 +2029,7 @@ BEGIN
 		BOTTOMMARGIN, 213
 	END
 
-	IDD_DONKEY_SERVERS, DIALOG
+	IDD_UPDATE_SERVERS, DIALOG
 	BEGIN
 		LEFTMARGIN, 7
 		RIGHTMARGIN, 285
@@ -3313,7 +3333,7 @@ BEGIN
 	ID_HOSTCACHE_DISCONNECT		"Disconnect from selected neighbors."
 	ID_HOSTCACHE_BT_CACHE		"Show BitTorrent cached hosts."
 	ID_HOSTCACHE_ED2K_CACHE		"Show eDonkey servers."
-	ID_HOSTCACHE_ED2K_DOWNLOAD	"Download an eDonkey ""server.met"" file..."
+	ID_HOSTCACHE_FILE_DOWNLOAD	"Download an eDonkey ""server.met"" or DC++ ""hublist.xml.bz2"" file..."
 	ID_HOSTCACHE_DC_CACHE		"Show DC++ cached hubs."
 	ID_HOSTCACHE_G1_CACHE		"Show Gnutella1 cached hosts."
 	ID_HOSTCACHE_G2_CACHE		"Show Gnutella2 cached hosts."
@@ -3882,6 +3902,7 @@ STRINGTABLE
 BEGIN
 	IDS_DOWNLOAD_GROUP			"Drag'n'drop files to the %s group"
 	IDS_DOWNLOAD_GROUP_DEFAULT	"Default download group.  (Show all files)"
+	IDS_DOWNLOAD_DC_HUBLIST 	"Download DC++ hublist from the web now?\n\n(Open from Transfers tab.)"
 	IDS_DOWNLOAD_FILENOTFOUND	"Download host %s does not have the file ""%s""."
 	IDS_DOWNLOAD_FILE_CREATE	"Creating file ""%s"" for download."
 	IDS_DOWNLOAD_FILE_CREATE_ERROR "Unable to create local file ""%s"" for download, aborting."
@@ -4262,7 +4283,8 @@ BEGIN
 	IDS_SECURITY_DENY			"Deny"
 	IDS_SECURITY_NOEXPIRE		"Never"
 	IDS_SECURITY_DEFAULT		"Default Policy"
-	IDS_SECURITY_REMOVE_CONFIRM	"Are you sure you want to delete the selected security rules?\n\nThis cannot be undone."
+	IDS_SECURITY_NETMASK		"Last number is 254,252,248,240,224,192,128, or 0.  Others must be 255.\n\n(For Netmasked IP ranges.)"
+	IDS_SECURITY_REMOVE_CONFIRM	"Are you sure you wish to delete selected security rules?"
 	IDS_SCHEMA_LOAD_ERROR		"Failed to load Library metadata schemas.  Please reinstall application.\n\nContinue loading?"
 	IDS_SCHEMAS					"&Schemas"
 END
@@ -4567,8 +4589,8 @@ BEGIN
 	IDS_UPGRADE_NO_NEW			"Update: No new version detected."
 	IDS_USER_PROFILE			"User Profile"
 	IDS_TOO_MANY_FILES			"%u Files selected.  Are you sure?"
-	IDS_VIEW_MODE_CONFIRM		"Changing views may close some windows. \nWould you like to proceed now?"
-	IDS_WARNING_RTL				"Changing interface direction requires restart. \nYou will need to start PeerProject manually. Exit now?"
+	IDS_VIEW_MODE_CONFIRM		"Changing views may close some windows.\nWould you like to proceed now?"
+	IDS_WARNING_RTL				"Changing interface direction requires restart.\n\nExit now?"
 END
 
 STRINGTABLE

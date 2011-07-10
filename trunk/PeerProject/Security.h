@@ -20,20 +20,39 @@
 
 class CPeerProjectFile;
 
+class CLiveList;
 class CSecureRule;
 class CQuerySearch;
 class CXMLElement;
 
 
-#define SECURITY_SER_VERSION	1000	//5
+#define SECURITY_SER_VERSION	1000	// 5
 // nVersion History:
 // 5 - extended security rule type (ryo-oh-ki)
 // 1000 - Added banCustom (PeerProject 1.0) (5+)
 
-enum
-{
-	banSession, ban5Mins, ban30Mins, ban2Hours, banWeek, banCustom, banForever
+// Set Column Order
+enum {
+	COL_SECURITY_CONTENT,
+	COL_SECURITY_HITS,
+	COL_SECURITY_NUM,
+	COL_SECURITY_ACTION,
+	COL_SECURITY_EXPIRES,
+	COL_SECURITY_TYPE,
+	COL_SECURITY_COMMENT,
+	COL_SECURITY_LAST	// Column Count
 };
+
+enum {
+	banSession,
+	ban5Mins,
+	ban30Mins,
+	ban2Hours,
+	banWeek,
+	banCustom,
+	banForever
+};
+
 
 class CSecurity
 {
@@ -56,33 +75,29 @@ protected:
 		BYTE	m_nScore;
 	} CComplain;
 	typedef CMap< DWORD, DWORD, CComplain*, CComplain* > CComplainMap;
+//	typedef std::map< DWORD, CSecureRule* > CAddressRuleMap;
+//	typedef std::map< CString, CSecureRule* > CHashRuleMap;
 
 	CComplainMap				m_Complains;
+//	CHashRuleMap				m_pHashRules;	// Consolidated blacklist filters (Unimplemented)
+//	CAddressRuleMap				m_pIPRules;		// Consolidated single-IP filters (Unimplemented)
 	CList< CSecureRule* >		m_pRules;
-	std::set< DWORD >			m_Cache;	// Known good addresses
+	std::set< DWORD >			m_Cache;		// Known good addresses
 
 // Operations
 public:
+	INT_PTR			GetCount() const;
 	POSITION		GetIterator() const;
 	CSecureRule*	GetNext(POSITION& pos) const;
-	INT_PTR			GetCount() const;
 	BOOL			Check(CSecureRule* pRule) const;
 	void			Add(CSecureRule* pRule);
 	void			Remove(CSecureRule* pRule);
 	void			MoveUp(CSecureRule* pRule);
 	void			MoveDown(CSecureRule* pRule);
 
-	inline void		Ban(const IN_ADDR* pAddress, int nBanLength, BOOL bMessage = TRUE, LPCTSTR szComment = NULL)
-	{
-		BanHelper( pAddress, NULL, nBanLength, bMessage, szComment );
-	}
+	void			Ban(const CPeerProjectFile* pFile, int nBanLength, BOOL bMessage = TRUE /*, LPCTSTR szComment = NULL*/);
+	void			Ban(const IN_ADDR* pAddress, int nBanLength, BOOL bMessage = TRUE, LPCTSTR szComment = NULL);
 
-	inline void		Ban(const CPeerProjectFile* pFile, int nBanLength, BOOL bMessage = TRUE, LPCTSTR szComment = NULL)
-	{
-		BanHelper( NULL, pFile, nBanLength, bMessage, szComment );
-	}
-
-	void			Clear();
 	bool			Complain(const IN_ADDR* pAddress, int nBanLength = ban5Mins, int nExpire = 15, int nCount = 3);
 	BOOL			IsDenied(const IN_ADDR* pAddress);
 	BOOL			IsDenied(LPCTSTR pszContent);
@@ -91,7 +106,9 @@ public:
 	BOOL			Import(LPCTSTR pszFile);
 	BOOL			Load();
 	BOOL			Save();
+	void			Clear();
 	void			Expire();
+	CLiveList*		GetList() const;	// Creates new CLiveList object filled by all security rules
 
 	// Don't ban GPL breakers, but don't offer leaf slots to them. Ban others.
 	BOOL			IsClientBad(const CString& sUserAgent) const;
@@ -100,7 +117,7 @@ public:
 	BOOL			IsVendorBlocked(const CString& sVendor) const;		// G1/G2 code
 
 protected:
-	void			BanHelper(const IN_ADDR* pAddress, const CPeerProjectFile* pFile, int nBanLength, BOOL bMessage, LPCTSTR szComment);
+	CSecureRule*	NewBanRule(int nBanLength = 0, CString sComment = L"") const;
 	CSecureRule*	GetGUID(const GUID& oGUID) const;
 	CXMLElement*	ToXML(BOOL bRules = TRUE);
 	BOOL			FromXML(CXMLElement* pXML);
@@ -115,9 +132,9 @@ public:
 	CSecureRule& operator=(const CSecureRule& pRule);
 	~CSecureRule();
 
-	typedef enum { srAddress, srContentAny, srContentAll, srContentRegExp, srContentHash, srSizeType } RuleType;
+	typedef enum { srAddress, srContentAny, srContentAll, srContentRegExp, srContentHash, srSizeType, srExternal } RuleType;
 	enum { srNull, srAccept, srDeny };
-	enum { srIndefinite = 0, srSession = 1 };
+	enum { srIndefinite, srSession, srTimed };
 
 	RuleType	m_nType;
 	BYTE		m_nAction;
@@ -142,11 +159,12 @@ public:
 	CString 	GetContentWords() const;
 	void		SetContentWords(const CString& strContent);
 	void		Serialize(CArchive& ar, int nVersion);
+	void		ToList(CLiveList* pLiveList, int nCount, DWORD tNow) const;		// Adds new item to CLiveList object
 
 	CXMLElement* ToXML();
 	BOOL		FromXML(CXMLElement* pXML);
-	CString		ToGnucleusString() const;
 	BOOL		FromGnucleusString(CString& str);
+	CString		ToGnucleusString() const;
 };
 
 // An adult filter class, used in searches, chat, etc

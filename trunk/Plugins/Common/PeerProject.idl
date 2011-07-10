@@ -1,22 +1,19 @@
 //
 // PeerProject.idl
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2002-2008.
+// This file is part of PeerProject (peerproject.org) © 2008-2011
+// Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
-// of the License, or later version (at your option).
+// modify it under the terms of the GNU Affero General Public License
+// as published by the Free Software Foundation (fsf.org);
+// either version 3 of the License, or later version at your option.
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License 3.0
-// along with PeerProject; if not, write to Free Software Foundation, Inc.
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// (http://www.gnu.org/licenses/agpl.html)
 //
 
 import "ShObjIdl.idl";
@@ -76,7 +73,6 @@ library PeerProject
 
 		[id(10)] HRESULT Delete();
 		[id(11)] HRESULT IsNamed( [in] BSTR sName, [out,retval] VARIANT_BOOL* pbResult );
-
 	};
 
 	[
@@ -643,13 +639,23 @@ library PeerProject
 		[id(24),propput] HRESULT Metadata( [in] ISXMLElement* pXML );
 
 		[id(30)] HRESULT Execute();
-		[id(31)] HRESULT SmartExecute();
 		[id(32)] HRESULT Delete();
 		[id(33)] HRESULT Rename( [in] BSTR sNewName );
 		[id(34)] HRESULT Copy( [in] BSTR sNewPath );
 		[id(35)] HRESULT Move( [in] BSTR sNewPath );
 
 		[id(36)] HRESULT MergeMetadata( [in] ISXMLElement* pXML, [in] VARIANT_BOOL bOverwrite, [out,retval] VARIANT_BOOL* pbValue );
+	};
+
+	//
+	// Library Notification Plugin
+	//
+
+	[ uuid(8065EF37-F0EA-4898-BBBD-D37798DE83CC), oleautomation ]
+	interface ILibraryPlugin : IUnknown
+	{
+		// PeerProject added library file (return S_OK to cancel event route)
+		HRESULT OnNewFile( [in] ILibraryFile* pFile );		// Library file
 	};
 
 	//

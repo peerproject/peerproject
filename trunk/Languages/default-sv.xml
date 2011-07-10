@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Swedish Skin File -->
 
-<!-- Translation based on default-en.xml r67 -->
+<!-- Translation based on default-en.xml r68 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -918,7 +918,7 @@
 		</menu>
 		<separator/>
 		<item id="ID_HOSTCACHE_IMPORT" text="_Importera MET-fil…"/>
-		<item id="ID_HOSTCACHE_ED2K_DOWNLOAD" text="Ladda ned MET…"/>
+		<item id="ID_HOSTCACHE_FILE_DOWNLOAD" text="Ladda ned MET…"/>
 	</menu>
 	<!-- SEARCH WINDOW -->
 	<menu name="CSearchWnd.Basic">
@@ -1483,7 +1483,13 @@
 	</menu>
 	<!-- SYSTEM WINDOW -->
 	<menu name="CSystemWnd">
-		<item id="ID_SYSTEM_VERBOSE" text="_Detaljerat läge"/>
+		<menu id="ID_SYSTEM_VERBOSE" text="_Detaljerat läge"/>
+			<item id="ID_SYSTEM_VERBOSE_ERROR" text="_Error"/>
+			<item id="ID_SYSTEM_VERBOSE_WARNING" text="_Warning"/>
+			<item id="ID_SYSTEM_VERBOSE_NOTICE" text="_Notice"/>
+			<item id="ID_SYSTEM_VERBOSE_INFO" text="_Info"/>
+			<item id="ID_SYSTEM_VERBOSE_DEBUG" text="_Debug"/>
+		</menu>
 		<item id="ID_SYSTEM_TIMESTAMP" text="_Tidsstämpel"/>
 		<separator/>
 		<item id="ID_SYSTEM_COPY" text="_Kopiera" shortcut="Ctrl+C"/>
@@ -2371,7 +2377,7 @@
 	<tip id="ID_HOSTCACHE_CONNECT" message="Anslut till de valda värdarna."/>
 	<tip id="ID_HOSTCACHE_DISCONNECT" message="Koppla ifrån de valda grannarna."/>
 	<tip id="ID_HOSTCACHE_ED2K_CACHE" message="Visa eDonkey-servrar"/>
-	<tip id="ID_HOSTCACHE_ED2K_DOWNLOAD" message="Ladda ned eDonkey &quot;Server.met&quot;-fil.."/>
+	<tip id="ID_HOSTCACHE_FILE_DOWNLOAD" message="Ladda ned eDonkey &quot;Server.met&quot;-fil.."/>
 	<tip id="ID_HOSTCACHE_G1_CACHE" message="Visa Gnutella1s värdar i cachen."/>
 	<tip id="ID_HOSTCACHE_G2_CACHE" message="Visa Gnutella2s värdar i cachen."/>
 	<tip id="ID_HOSTCACHE_G2_HORIZON" message="Visa Gnutella2-horizontnaven."/>
@@ -3093,7 +3099,7 @@
 	<string id="20590" value="Fjärråtkomst är avstängd."/>
 	<string id="20591" value="http://%s:%i/remote - välja ett användarnamn och lösenord."/>
 	<string id="20592" value="Kan inte acceptera anslutningar. URL otillgänlig."/>
-	<string id="20597" value="Är du säker p å att du vill radera de valda säkerhetsreglerna? Detta kan inte ångras."/>
+	<string id="20597" value="Är du säker p å att du vill radera de valda säkerhetsreglerna?"/>
 	<string id="20599" value="&amp;Scheman"/>
 	<!-- Missing Scheduler/Security Strings -->
 	<string id="20620" value="PeerProject söker aktivt på nätverket…"/>
@@ -3314,7 +3320,7 @@
 	<string id="20882" value="Ingen URN tillgänglig"/>
 	<string id="20883" value="Värdtjänsten för UPnP-enheter körs inte. Tjänsten är nödvöndig för installationen.\nDu behöver ställa in automatisk uppstart för tjänsten."/>
 	<string id="20885" value="Vid vyändring stängs alla öppna fönster. Vill du ändra vy nu?"/>
-	<string id="20886" value="Att ändra gränssnittets riktning kräver omstart. \nDu måste starta om PeerProject manuellt. Avsluta nu?"/>
+	<string id="20886" value="Att ändra gränssnittets riktning kräver omstart.\n\nAvsluta nu?"/>
 	<string id="20890" value="Välkommen till PeerProject"/>
 	<string id="20891" value="Avsluta"/>
 	<string id="20892" value="Var god vänta: Uppdaterar eDonkey serverlista..."/>
@@ -4321,7 +4327,7 @@
 		<control caption="OK"/>
 		<control caption="Avbryt"/>
 	</dialog>
-	<dialog name="CDonkeyServersDlg" cookie="StEdmsBuBu" caption="Ladda ned Server.met-fil">
+	<dialog name="CUpdateServersDlg" cookie="StEdmsBuBu" caption="Ladda ned Server.met-fil">
 		<control caption="Du kan ladda ned en eDonkey Server.met-fil från webben för att uppdatera din lokala serverlista."/>
 		<control/>
 		<control/>

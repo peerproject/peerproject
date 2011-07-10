@@ -1,7 +1,7 @@
 //
 // PropID.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions Copyright 7Zip (7-zip.org)
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -25,7 +25,7 @@
 enum
 {
   kpidNoProperty = 0,
-
+  kpidMainSubfile = 1,
   kpidHandlerItemIndex = 2,
   kpidPath,
   kpidName,
@@ -73,6 +73,13 @@ enum
   kpidChecksum,
   kpidCharacts,
   kpidVa,
+  kpidId,
+  kpidShortName,
+  kpidCreatorApp,
+  kpidSectorSize,
+  kpidPosixAttrib,
+  kpidLink,
+  kpidError,
 
   kpidTotalSize = 0x1100,
   kpidFreeSpace,

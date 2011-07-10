@@ -1,7 +1,7 @@
 //
 // QueryHashTable.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2006.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -18,8 +18,8 @@
 
 #pragma once
 
-class CPacket;
 class CBuffer;
+class CPacket;
 class CNeighbour;
 class CPeerProjectFile;
 class CQueryHashGroup;
@@ -54,7 +54,6 @@ public:
 protected:
 	// Split word to keywords (Katakana/Hiragana/Kanji helper)
 	static void		MakeKeywords(const CString& strWord, WORD nWordType, CStringList& oKeywords);
-	static DWORD	HashNumber(DWORD nNumber, int nBits);
 
 // Operations
 public:
@@ -66,17 +65,14 @@ public:
 	bool	OnPacket(CPacket* pPacket);
 	void	AddFile(const CPeerProjectFile& oFile);		// Add filename and hashes split on keywords
 	void	AddHashes(const CPeerProjectFile& oFile);	// Add file hashes
-	void	AddString(const CString& strString);		// Add string with streaming
 	void	AddExactString(const CString& strString);	// Add string exactly
-	bool	CheckString(const CString& strString) const;
-	bool	Check(const CQuerySearch* pSearch) const;
+	DWORD	HashWord(LPCTSTR pszString, size_t nStart, size_t nLength) const;	// Hash string (MUST BE LOWERCASED)
 	bool	CheckHash(const DWORD nHash) const;
+	bool	Check(const CQuerySearch* pSearch) const;
 	int		GetPercent() const;
 	void	Draw(HDC hDC, const RECT* pRC);
 protected:
 	bool	OnReset(CPacket* pPacket);
 	bool	OnPatch(CPacket* pPacket);
-	void	Add(LPCTSTR pszString, int nStart, int nLength);
-	void	AddExact(LPCTSTR pszString, int nStart, int nLength);
 //	bool	PatchToOldShareaza(const CQueryHashTable* pTarget, CNeighbour* pNeighbour);
 };

@@ -749,12 +749,14 @@ BOOL CG2Packet::OnQuery(const SOCKADDR_IN* pHost)
 	Statistics.Current.Gnutella2.Queries++;
 
 	CQuerySearchPtr pSearch = CQuerySearch::FromPacket( this, pHost );
-	if ( ! pSearch ||							// Malformed query		// || pSearch->m_bDropMe
+	if ( ! pSearch || pSearch->m_bDropMe ||		// Malformed query
 		 ! pSearch->m_bUDP )					// Forbid query with firewalled return address
 	{
-		DEBUG_ONLY( Debug( ! pSearch->m_bUDP ? _T("Firewalled Query.") : _T("Malformed Query.") ) );
-		theApp.Message( MSG_WARNING, IDS_PROTOCOL_BAD_QUERY, (LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ) );
-
+		if ( ! pSearch || ! pSearch->m_bUDP )
+		{
+			DEBUG_ONLY( Debug( ! pSearch->m_bUDP ? _T("G2 Firewalled Query.") : _T("G2 Malformed Query.") ) );
+			theApp.Message( MSG_WARNING, IDS_PROTOCOL_BAD_QUERY, _T("G2"), (LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ) );
+		}
 		Statistics.Current.Gnutella2.Dropped++;
 		return FALSE;
 	}
@@ -878,9 +880,8 @@ BOOL CG2Packet::OnCommonHit(const SOCKADDR_IN* pHost)
 
 	if ( pHits == NULL )
 	{
+		theApp.Message( MSG_ERROR, IDS_PROTOCOL_BAD_HIT, (LPCTSTR)HostToString( pHost ) );
 		DEBUG_ONLY( Debug( _T("Malformed Hit") ) );
-		theApp.Message( MSG_ERROR, IDS_PROTOCOL_BAD_HIT,
-			(LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ) );
 		Statistics.Current.Gnutella2.Dropped++;
 		return FALSE;
 	}
@@ -889,22 +890,19 @@ BOOL CG2Packet::OnCommonHit(const SOCKADDR_IN* pHost)
 	// If it doesn't we'll drop it.
 	if ( pHits->m_pAddress.S_un.S_addr != pHost->sin_addr.S_un.S_addr )
 	{
+		theApp.Message( MSG_ERROR, IDS_PROTOCOL_BAD_HIT, (LPCTSTR)HostToString( pHost ) );
 		DEBUG_ONLY( Debug( _T("Hit sender IP does not match \"Node Address\"") ) );
-		theApp.Message( MSG_ERROR, IDS_PROTOCOL_BAD_HIT,
-			(LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ) );
 		Statistics.Current.Gnutella2.Dropped++;
 		pHits->Delete();
-		return FALSE;
+		return TRUE;
 	}
 
 	if ( Security.IsDenied( &pHits->m_pAddress ) )
 	{
 	//	DEBUG_ONLY( Debug( _T("Security manager denied Hit") ) );
-		theApp.Message( MSG_ERROR, IDS_PROTOCOL_BAD_HIT,
-			(LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ) );
 		Statistics.Current.Gnutella2.Dropped++;
 		pHits->Delete();
-		return FALSE;
+		return TRUE;
 	}
 
 	if ( ! pHits->m_bBogus )
@@ -936,7 +934,7 @@ BOOL CG2Packet::OnQueryKeyRequest(const SOCKADDR_IN* pHost)
 	}
 
 	DWORD nRequestedAddress = pHost->sin_addr.S_un.S_addr;
-	WORD nRequestedPort = ntohs( pHost->sin_port );
+	WORD  nRequestedPort  = ntohs( pHost->sin_port );
 	DWORD nSendingAddress = pHost->sin_addr.S_un.S_addr;
 
 	if ( m_bCompound )
@@ -1494,7 +1492,7 @@ BOOL CG2Packet::OnKHLR(const SOCKADDR_IN* pHost)
 	}
 
 	pKHLA->WritePacket( G2_PACKET_YOURIP, 4 );
-	pKHLA->WriteLongLE( pHost->sin_addr.S_un.S_addr );		// 4
+	pKHLA->WriteLongLE( pHost->sin_addr.S_un.S_addr );	// 4
 
 	Datagrams.Send( pHost, pKHLA );
 

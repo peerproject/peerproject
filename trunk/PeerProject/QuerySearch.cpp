@@ -63,7 +63,7 @@ CQuerySearch::CQuerySearch(BOOL bGUID)
 	, m_bWantPFS	( TRUE )
 	, m_bAndG1		( Settings.Gnutella1.Enabled )
 	, m_bUDP		( FALSE )
-	, m_nTTL		( 0 )
+	, m_nHops		( 0 )
 	, m_nKey		( 0 )
 	, m_bFirewall	( false )
 	, m_bDynamic	( false )
@@ -73,10 +73,11 @@ CQuerySearch::CQuerySearch(BOOL bGUID)
 	, m_bPartial	( false )
 	, m_bNoProxy	( false )
 	, m_bExtQuery	( false )
-	, m_nMeta		( 0 )
+	, m_bWhatsNew	( false )
+	, m_bDropMe 	( false )
 	, m_oWords		( )
 	, m_oNegWords	( )
-	, m_nProtocol	( PROTOCOL_ANY ) // Monitor display
+	, m_nProtocol	( PROTOCOL_ANY )	// Monitor display
 {
 	if ( bGUID ) Network.CreateID( m_oGUID );
 
@@ -88,7 +89,7 @@ CQuerySearch::CQuerySearch(BOOL bGUID)
 
 CQuerySearch::~CQuerySearch()
 {
-	if ( m_pXML ) delete m_pXML;
+	delete m_pXML;
 }
 
 
@@ -101,13 +102,15 @@ CG1Packet* CQuerySearch::ToG1Packet(DWORD nTTL) const
 		( nTTL ? min( nTTL, Settings.Gnutella1.SearchTTL ) : Settings.Gnutella1.SearchTTL ),
 		m_oGUID );
 
+	BOOL bWhatsNew = FALSE;
+	const BOOL bFirewall = Network.IsFirewalled( CHECK_TCP );
+	const BOOL bOOB = ( Settings.Gnutella1.EnableOOB && ! Network.IsFirewalled( CHECK_UDP ) );
+
 	WORD nFlags = G1_QF_TAG | G1_QF_BIN_HASH | G1_QF_DYNAMIC;
-	if ( CG1Packet::IsFirewalled() )
-	{
+	if ( bFirewall )
 		nFlags |= G1_QF_FIREWALLED;
-		// ToDo: nFlags |= G1_QF_FWTRANS;
-	}
-	if ( CG1Packet::IsOOBEnabled() )	// Currently disabled by default.  ToDo: Verify and enable Out of Band query hits
+	// ToDo: nFlags |= G1_QF_FWTRANS;
+	if ( bOOB )		// Currently disabled by default.  ToDo: Verify and enable Out of Band query hits
 		nFlags |= G1_QF_OOB;
 	if ( m_bWantXML )
 		nFlags |= G1_QF_XML;
@@ -118,7 +121,7 @@ CG1Packet* CQuerySearch::ToG1Packet(DWORD nTTL) const
 	{
 		strQuery = m_sPosKeywords;
 	}
-	else if ( m_pSchema != NULL && m_pXML != NULL )
+	else if ( m_pSchema && m_pXML )
 	{
 		strQuery = m_pSchema->GetIndexedWords( m_pXML->GetFirstElement() );
 		MakeKeywords( strQuery, false );
@@ -132,6 +135,14 @@ CG1Packet* CQuerySearch::ToG1Packet(DWORD nTTL) const
 		if ( nPos > 0 )
 			strQuery = strQuery.Left( nPos );
 	}
+
+	if ( strQuery.IsEmpty() && ! HasHash() )
+	{
+		// Whats New search
+		bWhatsNew = TRUE;
+		strQuery = _T( WHAT_IS_NEW_QUERY_STRING );
+	}
+
 	if ( ! strQuery.IsEmpty() )
 	{
 		if ( Settings.Gnutella1.QuerySearchUTF8 )
@@ -139,36 +150,52 @@ CG1Packet* CQuerySearch::ToG1Packet(DWORD nTTL) const
 		else
 			pPacket->WriteString( strQuery );
 	}
-	else
+	else	// Hash search
+	{
 		pPacket->WriteString( _T( DEFAULT_URN_QUERY ) );
+	}
 
-	bool bSep = false;
-
-	// HUGE extension
-	// Deprecated. Replaced by GGEP_HEADER_HASH (G1_QF_BIN_HASH).
-	// if ( m_oSHA1 )
-	//	strExtra = m_oSHA1.toUrn();
-	//else if ( m_oTiger )
-	//	strExtra = m_oTiger.toUrn();
-	//else if ( m_oED2K )
-	//	strExtra = m_oED2K.toUrn();
-	//else if ( m_oMD5 )
-	//	strExtra = m_oMD5.toUrn();
-	//else if ( m_oBTH )
-	//	strExtra = m_oBTH.toUrn();
-	//else
-	//	strExtra = _T("urn:");
+	// HUGE extension  -Deprecated, replaced by GGEP_HEADER_HASH (G1_QF_BIN_HASH).
+	if ( ! m_bBinHash || ! Settings.Gnutella1.EnableGGEP )
+	{
+		if ( m_oSHA1 && m_oTiger )
+		{
+			pPacket->WriteString( _T("urn:bitprint:") + m_oSHA1.toString() + _T('.') + m_oTiger.toString(), FALSE );
+			pPacket->WriteByte( G1_PACKET_HIT_SEP );
+		}
+		else if ( m_oSHA1 )
+		{
+			pPacket->WriteString( _T("urn:sha1:") + m_oSHA1.toString(), FALSE );
+			pPacket->WriteByte( G1_PACKET_HIT_SEP );
+		}
+		else if ( m_oTiger )
+		{
+			pPacket->WriteString( _T("urn:ttroot:") + m_oTiger.toString(), FALSE );
+			pPacket->WriteByte( G1_PACKET_HIT_SEP );
+		}
+		if ( m_oED2K )
+		{
+			pPacket->WriteString( m_oED2K.toUrn(), FALSE );
+			pPacket->WriteByte( G1_PACKET_HIT_SEP );
+		}
+		if ( m_oMD5 )
+		{
+			pPacket->WriteString( m_oMD5.toUrn(), FALSE );
+			pPacket->WriteByte( G1_PACKET_HIT_SEP );
+		}
+		if ( m_oBTH )
+		{
+			pPacket->WriteString( m_oBTH.toUrn(), FALSE );
+			pPacket->WriteByte( G1_PACKET_HIT_SEP );
+		}
+	}
 
 	// XML extension
 
 	if ( m_pXML )
 	{
-		if ( bSep )
-			pPacket->WriteByte( G1_PACKET_HIT_SEP );
-		else
-			bSep = true;
-
-		pPacket->WriteString( m_pXML->ToString( TRUE ), ! HasHash() );
+		pPacket->WriteString( m_pXML->ToString( TRUE ), FALSE );
+		pPacket->WriteByte( G1_PACKET_HIT_SEP );
 	}
 
 	// GGEP extension (last)
@@ -179,17 +206,39 @@ CG1Packet* CQuerySearch::ToG1Packet(DWORD nTTL) const
 
 		// ToDo: GGEP_HEADER_QUERY_KEY_SUPPORT + query key
 
-		// ToDo: GGEP_HEADER_FEATURE_QUERY
-
 		// ToDo: GGEP_HEADER_NO_PROXY
 
-		// ToDo: GGEP_HEADER_META
+		// GGEP_HEADER_META
+		if ( m_pSchema )
+		{
+			BYTE nMeta = 0;
+			if ( m_pSchema->CheckURI( CSchema::uriAudio ) )
+				nMeta = GGEP_META_AUDIO;
+			else if ( m_pSchema->CheckURI( CSchema::uriVideo ) )
+				nMeta = GGEP_META_VIDEO;
+			else if ( m_pSchema->CheckURI( CSchema::uriDocument ) )
+				nMeta = GGEP_META_DOCUMENTS;
+			else if ( m_pSchema->CheckURI( CSchema::uriImage ) )
+				nMeta = GGEP_META_IMAGES;
+			else if ( m_pSchema->CheckURI( CSchema::uriApplication ) )
+				nMeta = GGEP_META_WINDOWS;
+			if ( nMeta )
+			{
+				if ( CGGEPItem* pItem = pBlock.Add( GGEP_HEADER_META ) )
+				{
+					pItem->WriteByte( nMeta );
+				}
+			}
+		}
 
-		if ( CG1Packet::IsOOBEnabled() )				// OOB currently disabled by default.  ToDo: Verify and enable Out of Band query hits
+		if ( bOOB )				// Currently disabled by default.  ToDo: Verify and enable Out of Band query hits
 			pBlock.Add( GGEP_HEADER_SECURE_OOB );
 
 		if ( m_bWantPFS )
 			pBlock.Add( GGEP_HEADER_PARTIAL_RESULT_PREFIX );
+
+		if ( bWhatsNew )
+			pBlock.Add( GGEP_HEADER_FEATURE_QUERY );
 
 		if ( ! strFullQuery.IsEmpty() )
 		{
@@ -197,52 +246,44 @@ CG1Packet* CQuerySearch::ToG1Packet(DWORD nTTL) const
 			pItem->WriteUTF8( strFullQuery );
 		}
 
-		if ( HasHash() )
+		if ( m_bBinHash )
 		{
-			if ( m_oSHA1.isValid() )
+			if ( m_oSHA1 && m_oTiger )
 			{
-				if ( m_oTiger.isValid() )
-				{
-					CGGEPItem* pItem = pBlock.Add( GGEP_HEADER_HASH );
-					pItem->WriteByte( GGEP_H_BITPRINT );
-					pItem->Write( &m_oSHA1[ 0 ], 20 );
-					pItem->Write( &m_oTiger[ 0 ], 24 );
-				}
-				else
-				{
-					CGGEPItem* pItem = pBlock.Add( GGEP_HEADER_HASH );
-					pItem->WriteByte( GGEP_H_SHA1 );
-					pItem->Write( &m_oSHA1[ 0 ], 20 );
-				}
+				CGGEPItem* pItem = pBlock.Add( GGEP_HEADER_HASH );
+				pItem->WriteByte( GGEP_H_BITPRINT );
+				pItem->Write( &m_oSHA1[ 0 ], 20 );
+				pItem->Write( &m_oTiger[ 0 ], 24 );
 			}
-			else if ( m_oMD5.isValid() )
+			else if ( m_oSHA1 )
+			{
+				CGGEPItem* pItem = pBlock.Add( GGEP_HEADER_HASH );
+				pItem->WriteByte( GGEP_H_SHA1 );
+				pItem->Write( &m_oSHA1[ 0 ], 20 );
+			}
+			if ( m_oMD5 )
 			{
 				CGGEPItem* pItem = pBlock.Add( GGEP_HEADER_HASH );
 				pItem->WriteByte( GGEP_H_MD5 );
 				pItem->Write( &m_oMD5[ 0 ], 16 );
 			}
-			else if ( m_oED2K.isValid() )
+			if ( m_oED2K )
 			{
 				CGGEPItem* pItem = pBlock.Add( GGEP_HEADER_URN );
 				pItem->WriteUTF8( CString( _T("ed2k:") ) + m_oED2K.toString() );
 			}
-			else if ( m_oBTH.isValid() )
+			if ( m_oBTH )
 			{
 				CGGEPItem* pItem = pBlock.Add( GGEP_HEADER_URN );
 				pItem->WriteUTF8( CString( _T("btih:") ) + m_oBTH.toString() );
 			}
 		}
 
-		if ( ! pBlock.IsEmpty() )
-		{
-			if ( bSep )
-				pPacket->WriteByte( G1_PACKET_HIT_SEP );
-
-			pBlock.Write( pPacket );
-		}
+		pBlock.Write( pPacket );
 	}
 
-	pPacket->WriteByte( 0 );	// Like LimeWire does
+	// End of hit  (like Limewire)
+	pPacket->WriteByte( 0 );
 
 	return pPacket;
 }
@@ -623,16 +664,16 @@ CDCPacket* CQuerySearch::ToDCPacket() const
 //////////////////////////////////////////////////////////////////////
 // CQuerySearch from packet root
 
-CQuerySearchPtr CQuerySearch::FromPacket(CPacket* pPacket, const SOCKADDR_IN* pEndpoint)
+CQuerySearchPtr CQuerySearch::FromPacket(CPacket* pPacket, const SOCKADDR_IN* pEndpoint, BOOL bGUID)
 {
-	CQuerySearchPtr pSearch = new CQuerySearch( FALSE );
+	CQuerySearchPtr pSearch = new CQuerySearch( bGUID );
 
 	try
 	{
 		if ( pPacket->m_nProtocol == PROTOCOL_G1 )
 		{
 			pSearch->m_nProtocol = PROTOCOL_G1; 	// Display convenience
-			if ( pSearch->ReadG1Packet( (CG1Packet*)pPacket ) )
+			if ( pSearch->ReadG1Packet( (CG1Packet*)pPacket, pEndpoint ) )
 				return pSearch;
 		}
 		else if ( pPacket->m_nProtocol == PROTOCOL_G2 )
@@ -644,9 +685,15 @@ CQuerySearchPtr CQuerySearch::FromPacket(CPacket* pPacket, const SOCKADDR_IN* pE
 				if ( pSearch->ReadG2Packet( (CG2Packet*)pPacket, pEndpoint ) )
 					return pSearch;
 		}
-		//else
+		else if ( pPacket->m_nProtocol == PROTOCOL_DC )
+		{
+			pSearch->m_nProtocol = PROTOCOL_DC; 	// Display convenience
+		//	if ( pSearch->ReadDCPacket( (CDCPacket*)pPacket, pEndpoint ) )
+		//		return pSearch;
+		}
+		//else if ( pPacket->m_nProtocol == PROTOCOL_ED2K )
 		//{
-		//	pSearch->m_nProtocol = PROTOCOL_ED2K;	// Assume?
+		//	pSearch->m_nProtocol = PROTOCOL_ED2K;
 		//}
 	}
 	catch ( CException* pException )
@@ -660,9 +707,12 @@ CQuerySearchPtr CQuerySearch::FromPacket(CPacket* pPacket, const SOCKADDR_IN* pE
 //////////////////////////////////////////////////////////////////////
 // CQuerySearch from G1 packet
 
-BOOL CQuerySearch::ReadG1Packet(CG1Packet* pPacket)
+BOOL CQuerySearch::ReadG1Packet(CG1Packet* pPacket, const SOCKADDR_IN* pEndpoint)
 {
-	m_nTTL = pPacket->m_nHops + 2;
+	m_nHops = pPacket->m_nHops;
+
+	if ( pEndpoint )
+		m_pEndpoint = *pEndpoint;
 
 	if ( pPacket->m_nProtocol == PROTOCOL_G2 )
 	{
@@ -697,6 +747,13 @@ BOOL CQuerySearch::ReadG1Packet(CG1Packet* pPacket)
 	else
 		m_sKeywords = m_sSearch	= pPacket->ReadStringASCII();
 
+	if ( ! CheckOverflow( m_sSearch ) )
+	{
+		// Overflow
+		m_bDropMe = true;
+		return TRUE;
+	}
+
 	while ( pPacket->GetRemaining() )
 	{
 		BYTE nPeek = pPacket->PeekByte();
@@ -716,27 +773,33 @@ BOOL CQuerySearch::ReadG1Packet(CG1Packet* pPacket)
 
 			break;
 		}
-		else if ( nPeek == 0 || nPeek == G1_PACKET_HIT_SEP )
+		else if ( nPeek == 'u' )
+		{
+			// HUGE extensions
+			pPacket->ReadHUGE( this );
+		}
+		else if ( nPeek == '<' || nPeek == '{' )
+		{
+			// XML extensions
+			pPacket->ReadXML( m_pSchema, m_pXML );
+		}
+		else	// if ( nPeek == 0 || nPeek == G1_PACKET_HIT_SEP )
 		{
 			// Skip extra null or separate byte
 			pPacket->ReadByte();
 		}
-		else
-		{
-			// HUGE, XML extensions
-			ReadExtension( pPacket );
-		}
+	}
+
+	// Legacy detection of "Whats New" search
+	if ( m_sSearch.CompareNoCase( _T( WHAT_IS_NEW_QUERY_STRING ) ) == 0 )
+	{
+		m_sSearch.Empty();
+		m_bWhatsNew = true;
 	}
 
 	m_bAndG1 = TRUE;
 
-	if ( ! CheckValid( false ) )
-	{
-		theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("[G1] Got invalid query packet") );
-		return FALSE;
-	}
-
-	return TRUE;
+	return CheckValid( false );
 }
 
 void CQuerySearch::ReadGGEP(CG1Packet* pPacket)
@@ -829,7 +892,25 @@ void CQuerySearch::ReadGGEP(CG1Packet* pPacket)
 			}
 			else if ( pItemPos->IsNamed( GGEP_HEADER_META ) )
 			{
-				m_nMeta = pItemPos->m_pBuffer[0];
+				switch ( pItemPos->m_pBuffer[0] & 0xfc )
+				{
+				case GGEP_META_AUDIO:
+					m_pSchema = SchemaCache.Get( CSchema::uriAudio );
+					break;
+				case GGEP_META_VIDEO:
+					m_pSchema = SchemaCache.Get( CSchema::uriVideo );
+					break;
+				case GGEP_META_DOCUMENTS:
+					m_pSchema = SchemaCache.Get( CSchema::uriDocument );
+					break;
+				case GGEP_META_IMAGES:
+					m_pSchema = SchemaCache.Get( CSchema::uriImage );
+					break;
+				case GGEP_META_WINDOWS:
+				case GGEP_META_UNIX:
+					m_pSchema = SchemaCache.Get( CSchema::uriApplication );
+					break;
+				}
 			}
 			else if ( pItemPos->IsNamed( GGEP_HEADER_PARTIAL_RESULT_PREFIX ) )
 			{
@@ -842,6 +923,10 @@ void CQuerySearch::ReadGGEP(CG1Packet* pPacket)
 			else if ( pItemPos->IsNamed( GGEP_HEADER_EXTENDED_QUERY ) )
 			{
 				m_bExtQuery = true;
+			}
+			else if ( pItemPos->IsNamed( GGEP_HEADER_FEATURE_QUERY ) )
+			{
+				m_bWhatsNew = true;
 			}
 			else
 				theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("[G1] Got query packet with unknown GGEP \"%s\" (%d bytes)"), pItemPos->m_sID, pItemPos->m_nLength );
@@ -858,61 +943,6 @@ void CQuerySearch::ReadGGEP(CG1Packet* pPacket)
 		DEBUG_ONLY( pPacket->Debug( _T("G1 Malformed GGEP.") ) );
 	//	theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("[G1] Got query packet with malformed GGEP") );
 	}
-}
-
-void CQuerySearch::ReadExtension(CG1Packet* pPacket)
-{
-	// Find length of extension (till packet end or G1_PACKET_HIT_SEP byte)
-	DWORD nLength = 0;
-	DWORD nRemaining = pPacket->GetRemaining();
-	const BYTE* pData = pPacket->GetCurrent();
-	for ( ; *pData != G1_PACKET_HIT_SEP &&
-		nLength < nRemaining ; pData++, nLength++ );
-
-	// Read extension
-	auto_array< BYTE > pszData( new BYTE[ nLength + 1] );
-	pPacket->Read( pszData.get(), nLength );
-	pszData[ nLength ] = 0;
-
-	// Skip G1_PACKET_HIT_SEP byte
-	if ( nLength != nRemaining )
-		pPacket->ReadByte();
-
-	if ( nLength >= 4 && _strnicmp( (LPCSTR)pszData.get(), "urn:", 4 ) == 0 )
-	{
-		CString strURN( pszData.get() );
-
-		Hashes::Sha1Hash	oSHA1;
-		Hashes::TigerHash	oTiger;
-		Hashes::Ed2kHash	oED2K;
-		Hashes::BtHash		oBTH;
-		Hashes::Md5Hash		oMD5;
-
-		if ( strURN.GetLength() == 4 );			// Got empty urn
-		else if ( oSHA1.fromUrn(  strURN ) );	// Got SHA1
-		else if ( oTiger.fromUrn( strURN ) );	// Got Tiger
-		else if ( oED2K.fromUrn(  strURN ) );	// Got ED2K
-		else if ( oMD5.fromUrn(   strURN ) );	// Got MD5
-		else if ( oBTH.fromUrn(   strURN ) );	// Got BTH base32
-		else if ( oBTH.fromUrn< Hashes::base16Encoding >( strURN ) );	// Got BTH base16
-		else
-			theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("[G1] Got query packet with unknown URN \"%s\" (%d bytes)"), strURN, nLength );
-
-		if ( oSHA1  && ! m_oSHA1 )  m_oSHA1  = oSHA1;
-		if ( oTiger && ! m_oTiger ) m_oTiger = oTiger;
-		if ( oED2K  && ! m_oED2K )  m_oED2K  = oED2K;
-		if ( oBTH   && ! m_oBTH )   m_oBTH   = oBTH;
-		if ( oMD5   && ! m_oMD5 )   m_oMD5   = oMD5;
-	}
-	else if ( nLength && ! m_pXML )
-	{
-		m_pSchema = NULL;
-		m_pXML = SchemaCache.Decode( pszData.get(), nLength, m_pSchema );
-		if ( ! m_pXML )
-			theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("[G1] Got query packet with malformed XML \"%hs\" (%d bytes)"), pszData.get(), nLength );
-	}
-	else
-		theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("[G1] Got query packet with unknown part \"%hs\" (%d bytes)"), pszData.get(), nLength );
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -1076,17 +1106,194 @@ BOOL CQuerySearch::ReadG2Packet(CG2Packet* pPacket, const SOCKADDR_IN* pEndpoint
 	return CheckValid( true );
 }
 
+//BOOL CQuerySearch::ReadDCPacket(CDCPacket* pPacket, const SOCKADDR_IN* pEndpoint)
+//{
+//	// Active user
+//	// $Search SenderIP:SenderPort (F|T)?(F|T)?Size?Type?String|
+//	// Passive user
+//	// $Search Hub:Nick (F|T)?(F|T)?Size?Type?String|
+//
+//	if ( pPacket->GetRemaining() < 24 )		// Too short
+//	{
+//		theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("[DC] Got too short query packet (%d bytes)"), pPacket->GetRemaining() );
+//		return FALSE;
+//	}
+//
+//	if ( pEndpoint )
+//		m_pEndpoint = *pEndpoint;
+//
+//	LPSTR szAddress = (LPSTR)&pPacket->m_pBuffer[ 8 ];
+//	pPacket->m_pBuffer[ pPacket->m_nLength - 1 ] = 0;	// ASCIIZ
+//
+//	LPSTR szPort = strchr( szAddress , ':' );
+//	if ( ! szPort ) return FALSE;
+//	*szPort++ = 0;
+//
+//	LPSTR szFlag1 = strchr( szPort, ' ' );
+//	if ( ! szFlag1 ) return FALSE;
+//	*szFlag1++ = 0;
+//
+//	LPSTR szFlag2 = strchr( szFlag1, '?' );
+//	if ( ! szFlag2 ) return FALSE;
+//	*szFlag2++ = 0;
+//
+//	LPSTR szSize = strchr( szFlag2, '?' );
+//	if ( ! szSize ) return FALSE;
+//	*szSize++ = 0;
+//
+//	LPSTR szType = strchr( szSize, '?' );
+//	if ( ! szType ) return FALSE;
+//	*szType++ = 0;
+//
+//	LPSTR szString = strchr( szType, '?' );
+//	if ( ! szString ) return FALSE;
+//	*szString++ = 0;
+//
+//	IN_ADDR nAddress;
+//	nAddress.s_addr = inet_addr( szAddress );
+//	int nPort = atoi( szPort );
+//	if ( nAddress.s_addr == INADDR_NONE || nPort <= 0 || nPort > USHRT_MAX )
+//	{
+//		// Passive user request (send answer via TCP)
+//		m_bUDP = FALSE;
+//		m_sUserNick = UTF8Decode( szPort );
+//	}
+//	else
+//	{
+//		// Active user request (send answer via UDP)
+//		m_bUDP = TRUE;
+//		m_sUserNick.Empty();
+//		m_pEndpoint.sin_addr = nAddress;
+//		m_pEndpoint.sin_port = htons( (WORD)nPort );
+//	}
+//
+//	bool bSizeRestriced = ( *szFlag1 == 'T' );
+//	bool bIsMaxSize = ( *szFlag2 == 'T' );
+//	if ( ( ! bSizeRestriced && *szFlag1 != 'F' ) ||
+//		 ( ! bIsMaxSize     && *szFlag2 != 'F' ) )
+//		return FALSE;
+//	QWORD nSize = 0;
+//	if ( sscanf_s( szSize, "%I64u", &nSize ) != 1 )
+//		return FALSE;
+//	int nType = atoi( szType );
+//	if ( nType < 1 )
+//		return FALSE;
+//
+//	if ( bSizeRestriced )
+//	{
+//		if ( bIsMaxSize )
+//			m_nMaxSize = nSize;
+//		else
+//			m_nMinSize = nSize;
+//	}
+//	else if ( nSize )
+//	{
+//		m_nMinSize = m_nMaxSize = nSize;
+//	}
+//
+//	if ( nType == 9 )	// Hash search
+//	{
+//		if ( _strnicmp( szString, "TTH:", 4 ) != 0 )
+//			return FALSE;	// Unknown hash prefix
+//
+//		if ( ! m_oTiger.fromString( CA2W( szString + 4 ) ) )
+//			return FALSE;	// Invalid TigerTree hash encoding
+//	}
+//	else	// Keywords search
+//	{
+//		m_sSearch = UTF8Decode( szString );
+//		m_sSearch.Replace( _T('$'), _T(' ') );
+//
+//		switch ( nType )
+//		{
+//		case 1:		// Any file
+//			break;
+//		case 2:		// Audio
+//			m_pSchema = SchemaCache.Get( CSchema::uriAudio );
+//			break;
+//		case 3:		// Archive
+//			m_pSchema = SchemaCache.Get( CSchema::uriArchive );
+//			break;
+//		case 4:		// Document
+//			m_pSchema = SchemaCache.Get( CSchema::uriDocument );
+//			break;
+//		case 5:		// Executable
+//			m_pSchema = SchemaCache.Get( CSchema::uriApplication );
+//			break;
+//		case 6:		// Image
+//			m_pSchema = SchemaCache.Get( CSchema::uriImage );
+//			break;
+//		case 7:		// Video
+//			m_pSchema = SchemaCache.Get( CSchema::uriVideo );
+//			break;
+//		case 8:		// Folders
+//			m_pSchema = SchemaCache.Get( CSchema::uriFolder );
+//			break;
+//		case 9:		// TTH (see above)
+//			break;
+//		case 10:	// DVD/CD
+//			m_pSchema = SchemaCache.Get( CSchema::uriROM );
+//			break;
+//		//default:	// Unknown
+//		//	;
+//		}
+//	}
+//
+//	return CheckValid( true );
+//}
+
 //////////////////////////////////////////////////////////////////////
 // CQuerySearch validity check
+
+CQuerySearch::CHistoryMap CQuerySearch::m_oSearchHistory;
+
+#define OVERFLOW_HISTORY	20
+#define OVERFLOW_TIMEOUT	10	// Maximum one same search per 10 seconds
+
+BOOL CQuerySearch::CheckOverflow(const CString& sSearch)
+{
+	if ( sSearch.IsEmpty() )
+		return TRUE;
+
+	DWORD tNow = static_cast< DWORD >( time( NULL ) );
+
+	if ( m_oSearchHistory.GetCount() > OVERFLOW_HISTORY )
+	{
+		for ( const CHistoryMap::CPair* pData = m_oSearchHistory.PGetFirstAssoc() ; pData ; pData = m_oSearchHistory.PGetNextAssoc( pData ) )
+		{
+			if ( tNow - pData->value > OVERFLOW_TIMEOUT )
+			{
+				// In range
+				m_oSearchHistory.RemoveKey( pData->key );
+				break;
+			}
+		}
+	}
+
+	if ( const CHistoryMap::CPair* pData = m_oSearchHistory.PLookup( sSearch ) )
+	{
+		if ( tNow - pData->value < OVERFLOW_TIMEOUT )
+		{
+			// Too often
+			m_oSearchHistory.SetAt( sSearch, tNow );
+			return FALSE;
+		}
+	}
+
+	m_oSearchHistory.SetAt( sSearch, tNow );
+	return TRUE;
+}
 
 BOOL CQuerySearch::CheckValid(bool bExpression)
 {
 	BuildWordList( bExpression );
 
 	// Searches by hash are ok
-	bool bHashOk = false;
 	if ( HasHash() )
 	{
+		if ( m_bWhatsNew )
+			return FALSE;	// Invalid hashed "Whats New" search
+
 		if ( m_oURNs.empty() )
 		{
 			if ( m_oSHA1 )
@@ -1119,8 +1326,6 @@ BOOL CQuerySearch::CheckValid(bool bExpression)
 				m_oURNs.push_back( CQueryHashTable::HashWord( strurn, 0, strurn.GetLength(), 32 ) );
 			}
 		}
-
-		bHashOk = true;
 	}
 
 	if ( m_oKeywordHashList.size() )
@@ -1128,36 +1333,19 @@ BOOL CQuerySearch::CheckValid(bool bExpression)
 
 	if ( ! m_oWords.empty() )
 	{
-		// Setting up Common keyword list
-		static const LPCTSTR common[] =
-		{
-			L"mp3", L"ogg", L"ac3",
-			L"jpg", L"gif", L"png", L"bmp", L"pdf",
-			L"mpg", L"avi", L"mkv", L"wmv", L"mov", L"ogm", L"mpa", L"mpv", L"m2v", L"mp2",
-			L"exe", L"zip", L"rar", L"iso", L"bin", L"cue", L"img", L"lzh", L"bz2", L"rpm", L"deb",
-			L"dvd", L"mpeg", L"divx", L"xvid", L"mp4",
-			L"xxx", L"sex", L"fuck",
-			L"torrent"
-		};
-		static const size_t commonWords = sizeof common / sizeof common[ 0 ];
-
-		bool bExtendChar;	// Flag used for extended char
-		TCHAR szChar;
-		int nLength;
 		DWORD nValidWords = 0;
 		DWORD nCommonWords = 0;
-		size_t nValidCharacters = 0;
 
 		// Check we aren't just searching for broad terms - set counters, etc
 		for ( const_iterator pWord = begin() ; pWord != end() ; pWord++ )
 		{
-			nValidCharacters = 0;
-			szChar = *(pWord->first);
-			nLength = int(pWord->second);
+			TCHAR  szChar = *(pWord->first);
+			size_t nLength = int(pWord->second);
+			size_t nValidCharacters = 0;
 
-			bExtendChar = false;	// Clear the flag used for extended char
+			bool bExtendChar = false;	// Clear the flag used for extended char
 			// NOTE: Because of how oWord acts, each keyword in oWords gets sorted in ascending order with HEX code of char,
-			// thus Extended chars are always located at end of oWords. Which means it is not necessary to Clear the flag inside the loop.
+			// thus Extended chars are always located at end of oWords.  Therefore it is not necessary to Clear the flag inside the loop.
 
 			// After the char inspection:
 			if ( ! IsCharacter( szChar ) )	// Check if the char is valid
@@ -1190,55 +1378,56 @@ BOOL CQuerySearch::CheckValid(bool bExpression)
 			else if ( nLength > 2 )
 			{
 				// char inspection
-				bool bWord =false;
-				bool bDigit =false;
-				bool bMix =false;
-				IsType(&szChar, 0, nLength, bWord, bDigit, bMix);
+				bool bWord, bDigit, bMix;
+				IsType( &szChar, 0, nLength, bWord, bDigit, bMix );
 				if ( bWord || bMix )
 					nValidCharacters = nLength;
 			}
 
 			if ( nValidCharacters > 2 )		// If char is longer than 3byte in utf8 (Gnutella standard)
 			{
-				if ( std::find_if( common, common + commonWords, FindStr( *pWord ) ) != common + commonWords )
-					// If the keyword is matched to one of the common keyword set in common[] array.
-				{
-					// Common term.  Don't count it as valid keywords, instead count it as common keywords
+				// Setup Common keyword list
+				static const CString strCommom =
+					L"dvd xxx sex fuck porn";
+
+				const CString strWord = CString( pWord->first, (int)pWord->second ).MakeLower();
+
+				// Obsolete
+				//static const LPCTSTR common[] =
+				//{
+				//	L"mp3", L"ogg", L"ac3",
+				//	L"jpg", L"gif", L"png", L"bmp", L"pdf",
+				//	L"avi", L"mpg", L"mkv", L"wmv", L"mov", L"ogm",
+				//	L"exe", L"zip", L"rar", L"iso", L"bin",
+				//	L"dvd", L"divx", L"xvid", L"mpeg", L"mp4",
+				//	L"xxx", L"sex", L"fuck",
+				//	L"torrent"
+				//};
+				//static const size_t commonWords = sizeof common / sizeof common[ 0 ];
+				//if ( std::find_if( common, common + commonWords, FindStr( *pWord ) ) != common + commonWords ) nCommonWords++;
+
+				// Detect if the keyword is matched to common keywords/extensions
+				if ( nValidCharacters < 8 && SchemaCache.IsFilter( strWord ) || strCommom.Find( strWord ) )
 					nCommonWords++;
-					DWORD nHash = CQueryHashTable::HashWord( pWord->first, 0, pWord->second, 32 );
-					m_oKeywordHashList.push_back( nHash );
-				}
 				else
-				{
-					// Check if it is valid search term.
-					// NOTE: code below will filter and narrowing down more. it has to be in one of the condition
-					//			1. It is 4byte or longer in UTF8 string (Japanese Hiragana/Katakana
-					//				are both 3 byte char too however they are counted as 2byte char)
-					//			2. Query has Schema with it(File type specified)
-					//			3. the string contains extended char(3byte length char used in Asia region )
+					nValidWords++;
+
+					// NOTE: code below will filter and narrow down more.
+					//			1. It is 4byte or longer in UTF8 string
+					//			2. Query has Schema with it (File type specified)
+					//			3. The string contains extended char (3byte length char used in Asia region)
 					//if ( nValidCharacters > 3 || m_pSchema != NULL || bExtendChar ) nValidWords++;
 
-					nValidWords++;	// count any 3char or longer as valid keywords
-					DWORD nHash = CQueryHashTable::HashWord( pWord->first, 0, pWord->second, 32 );
-					m_oKeywordHashList.push_back( nHash );
-				}
+				DWORD nHash = CQueryHashTable::HashWord( pWord->first, 0, pWord->second, 32 );
+				m_oKeywordHashList.push_back( nHash );
 			}
 		}
 
-		if ( m_pSchema != NULL )	// Schema has been selected
-			nValidWords += ( nCommonWords > 1 ) ? 1 : 0;	// Make it accept query, if there are 2 or more different common words.
-		else	// No schema
-			nValidWords += ( nCommonWords > 2 ) ? 1 : 0;	// Make it accept query, if there are 3 or more different common words.
-
-		if ( nValidWords )
+		if ( nValidWords || nCommonWords > 2 || ( m_pSchema ) && nCommonWords > 1 )
 			return TRUE;
-
-#ifdef LAN_MODE
-		return TRUE;
-#endif // LAN_MODE
 	}
 
-	if ( bHashOk )
+	if ( HasHash() || m_bWhatsNew || Settings.Experimental.LAN_Mode )
 		return TRUE;
 
 	m_oKeywordHashList.clear();
@@ -1250,51 +1439,60 @@ BOOL CQuerySearch::CheckValid(bool bExpression)
 //////////////////////////////////////////////////////////////////////
 // CQuerySearch matching
 
-BOOL CQuerySearch::Match(LPCTSTR pszFilename, LPCTSTR pszSchemaURI, CXMLElement* pXML, const CPeerProjectFile* pFile) const
+BOOL CQuerySearch::Match(LPCTSTR pszFilename, LPCTSTR pszSchemaURI, const CXMLElement* pXML, const CPeerProjectFile* pFile) const
 {
-	if ( pFile->m_nSize == SIZE_UNKNOWN || pFile->m_nSize < m_nMinSize || pFile->m_nSize > m_nMaxSize )
+	if ( pFile->m_nSize == SIZE_UNKNOWN ||
+		 pFile->m_nSize < m_nMinSize ||
+		 pFile->m_nSize > m_nMaxSize ||
+		 *this != *pFile )
 		return FALSE;
 
 	if ( *this == *pFile )
 		return TRUE;
 
-	if ( pszSchemaURI && *pszSchemaURI && pXML )
+	if ( pszSchemaURI && *pszSchemaURI )
 	{
-		TRISTATE bResult = MatchMetadata( pszSchemaURI, pXML );
-		if ( bResult != TRI_UNKNOWN && ! Settings.Search.SchemaTypes )
-			return ( bResult == TRI_TRUE );
+		if ( m_pSchema && ! m_pSchema->CheckURI( pszSchemaURI ) )
+			return FALSE;
 
-		if ( ! m_sKeywords.IsEmpty() )
+		if ( pXML )
 		{
-			bool bReject = false;
-			if ( MatchMetadataShallow( pszSchemaURI, pXML, &bReject ) )
-			{
-				// If searching in Local library return true
-				if ( ! HasHash() && ! m_oSimilarED2K )
-					return TRUE;
+			TRISTATE bResult = MatchMetadata( pszSchemaURI, pXML );
+			if ( bResult != TRI_UNKNOWN && ! Settings.Search.SchemaTypes )
+				return ( bResult == TRI_TRUE );
 
-				// Otherwise, only return WordMatch when negative terms are used to filter out filenames from the search window
-				BOOL bNegative = FALSE;
-				if ( m_sKeywords.GetLength() > 1 )
+			if ( ! m_sKeywords.IsEmpty() )
+			{
+				bool bReject = false;
+				if ( MatchMetadataShallow( pszSchemaURI, pXML, &bReject ) )
 				{
-					int nMinusPos = -1;
-					while ( ! bNegative )
+					// If searching in Local library return true
+					if ( ! HasHash() && ! m_oSimilarED2K )
+						return TRUE;
+
+					// Otherwise, only return WordMatch when negative terms are used to filter out filenames from the search window
+					BOOL bNegative = FALSE;
+					if ( m_sKeywords.GetLength() > 1 )
 					{
-						nMinusPos = m_sKeywords.Find( '-', nMinusPos + 1 );
-						if ( nMinusPos != -1 )
+						int nMinusPos = -1;
+						while ( ! bNegative )
 						{
-							bNegative = ( IsCharacter( m_sKeywords.GetAt( nMinusPos + 1 ) ) != 0 );
-							if ( nMinusPos > 0 )
-								bNegative &= ( IsCharacter( m_sKeywords.GetAt( nMinusPos - 1 ) ) == 0 );
+							nMinusPos = m_sKeywords.Find( '-', nMinusPos + 1 );
+							if ( nMinusPos != -1 )
+							{
+								bNegative = ( IsCharacter( m_sKeywords.GetAt( nMinusPos + 1 ) ) != 0 );
+								if ( nMinusPos > 0 )
+									bNegative &= ( IsCharacter( m_sKeywords.GetAt( nMinusPos - 1 ) ) == 0 );
+							}
+							else
+								break;
 						}
-						else
-							break;
 					}
+					return bNegative ? WordMatch( pszFilename, m_sKeywords ) : TRUE;
 				}
-				return bNegative ? WordMatch( pszFilename, m_sKeywords ) : TRUE;
+				else if ( bReject )
+					return FALSE;
 			}
-			else if ( bReject )
-				return FALSE;
 		}
 	}
 
@@ -1305,7 +1503,7 @@ BOOL CQuerySearch::Match(LPCTSTR pszFilename, LPCTSTR pszSchemaURI, CXMLElement*
 	return m_sKeywords.GetLength() && WordMatch( pszFilename, m_sKeywords );
 }
 
-TRISTATE CQuerySearch::MatchMetadata(LPCTSTR pszSchemaURI, CXMLElement* pXML) const
+TRISTATE CQuerySearch::MatchMetadata(LPCTSTR pszSchemaURI, const CXMLElement* pXML) const
 {
 	if ( ! m_pSchema || ! m_pXML )
 		return TRI_UNKNOWN;
@@ -1314,12 +1512,12 @@ TRISTATE CQuerySearch::MatchMetadata(LPCTSTR pszSchemaURI, CXMLElement* pXML) co
 	if ( ! m_pSchema->CheckURI( pszSchemaURI ) )
 		return TRI_FALSE;
 
-	CXMLElement* pRoot = m_pXML->GetFirstElement();
 	int nCount = 0;
+	const CXMLElement* pRoot = m_pXML->GetFirstElement();
 
 	for ( POSITION pos = m_pSchema->GetMemberIterator() ; pos ; )
 	{
-		CSchemaMember* pMember = m_pSchema->GetNextMember( pos );
+		const CSchemaMember* pMember = m_pSchema->GetNextMember( pos );
 
 		CString strSearch = pMember->GetValueFrom( pRoot );
 		CString strTarget = pMember->GetValueFrom( pXML );
@@ -1347,7 +1545,7 @@ TRISTATE CQuerySearch::MatchMetadata(LPCTSTR pszSchemaURI, CXMLElement* pXML) co
 	return ( nCount > 0 ) ? TRI_TRUE : TRI_UNKNOWN;
 }
 
-BOOL CQuerySearch::MatchMetadataShallow(LPCTSTR pszSchemaURI, CXMLElement* pXML, bool* bReject) const
+BOOL CQuerySearch::MatchMetadataShallow(LPCTSTR pszSchemaURI, const CXMLElement* pXML, bool* bReject) const
 {
 	if ( ! pXML || m_sSearch.IsEmpty() )
 		return FALSE;
@@ -1372,7 +1570,7 @@ BOOL CQuerySearch::MatchMetadataShallow(LPCTSTR pszSchemaURI, CXMLElement* pXML,
 	{
 		for ( POSITION pos = pXML->GetAttributeIterator() ; pos ; )
 		{
-			CXMLAttribute* pAttribute = pXML->GetNextAttribute( pos );
+			const CXMLAttribute* pAttribute = pXML->GetNextAttribute( pos );
 
 			CString strTarget = pAttribute->GetValue();
 
@@ -1580,59 +1778,22 @@ void CQuerySearch::BuildWordList(bool bExpression, bool /*bLocal*/ )
 	}
 
 	// Split search string to keywords
-	if ( m_sKeywords.IsEmpty() )
-		m_sKeywords = m_sSearch;
-	MakeKeywords( m_sKeywords, bExpression );
+	CString sKeywords = m_sSearch;
 
 	// Split metadata to keywords
-	if ( m_pXML )
+	if ( m_pXML && m_pSchema )
 	{
-		if ( CXMLElement* pXML = m_pXML->GetFirstElement() )
+		CString strWords = m_pSchema->GetIndexedWords( m_pXML->GetFirstElement() );
+		if ( ! strWords.IsEmpty() )
 		{
-			if ( m_pSchema != NULL )
-			{
-				for ( POSITION pos = m_pSchema->GetMemberIterator() ; pos ; )
-				{
-					CSchemaMember* pMember = m_pSchema->GetNextMember( pos );
-
-					if ( pMember->m_bIndexed )
-					{
-						// Quick hack for bitrate problem.
-						if ( pMember->m_sName.CompareNoCase( _T("bitrate") ) == 0 )
-						{
-							// Do nothing.
-						}
-						else if ( CXMLAttribute* pAttribute = pXML->GetAttribute( pMember->m_sName ) )
-						{
-							ToLower( pAttribute->m_sValue );
-							CString strKeywords = pAttribute->m_sValue;
-							MakeKeywords( strKeywords, bExpression );
-							if ( ! strKeywords.IsEmpty() )
-								m_sKeywords += L" " + strKeywords;
-						}
-					}
-					else
-					{
-						if ( CXMLAttribute* pAttribute = pXML->GetAttribute( pMember->m_sName ) )
-							ToLower( pAttribute->m_sValue );
-							//MakeKeywords( pAttribute->m_sValue, bExpression );
-					}
-				}
-			}
-			else
-			{
-				for ( POSITION pos = pXML->GetAttributeIterator() ; pos ; )
-				{
-					CXMLAttribute* pAttribute = pXML->GetNextAttribute( pos );
-					ToLower( pAttribute->m_sValue );
-					CString strKeywords = pAttribute->m_sValue;
-					MakeKeywords( strKeywords, bExpression );
-					if ( ! strKeywords.IsEmpty() )
-						m_sKeywords += L" " + strKeywords;
-				}
-			}
+			if ( ! sKeywords.IsEmpty() )
+				sKeywords += _T(" ");
+			sKeywords += strWords;
 		}
 	}
+	sKeywords.TrimRight();
+
+	m_sKeywords = MakeKeywords( sKeywords, bExpression );
 
 	// Build word pos/neg tables (m_oWords/m_oNegWords) from m_sKeywords
 	BuildWordTable();
@@ -1650,7 +1811,8 @@ void CQuerySearch::BuildG2PosKeywords()
 	// Create string with positive keywords.
 	for ( const_iterator pWord = begin() ; pWord != end() ; pWord++ )
 	{
-		m_sPosKeywords.AppendFormat( _T("%s "), LPCTSTR( CString( pWord->first, int(pWord->second) ) ) );
+		m_sPosKeywords.Append( pWord->first, int(pWord->second) );
+		m_sPosKeywords += _T(' ');
 	}
 
 	m_sG2Keywords = m_sPosKeywords;	// Copy Positive keywords string to G2 keywords string.
@@ -1659,7 +1821,9 @@ void CQuerySearch::BuildG2PosKeywords()
 	// Append negative keywords to G2 keywords string.
 	for ( const_iterator pWord = beginNeg() ; pWord != endNeg() ; pWord++ )
 	{
-		m_sG2Keywords.AppendFormat( _T("-%s "), LPCTSTR( CString( pWord->first, int(pWord->second) ) ) );
+		m_sG2Keywords += _T('-');
+		m_sG2Keywords.Append( pWord->first, int(pWord->second) );
+		m_sG2Keywords += _T(' ');
 	}
 	m_sG2Keywords.TrimRight();		// Trim off extra space char at the end of string.
 }
@@ -1668,12 +1832,14 @@ void CQuerySearch::BuildG2PosKeywords()
 // to ease keyword matching, allowing user to type as in the natural language.
 // Spacebar key is not a convenient way to separate keywords with IME,
 // and user may not know how application is keywording their files.
-// ToDo: "minus" words and quoted phrases for asian languages may not work correctly in all cases.
 //
 // The function splits katakana, hiragana and CJK phrases out of the input string.
-void CQuerySearch::MakeKeywords(CString& strPhrase, bool bExpression)
+// ToDo: "minus" words and quoted phrases for asian languages may not work correctly in all cases.
+//
+CString CQuerySearch::MakeKeywords(const CString& strPhrase, bool bExpression)
 {
-	if ( strPhrase.IsEmpty() ) return;
+	if ( strPhrase.IsEmpty() )
+		return CString();
 
 	CString str( L" " );
 	LPCTSTR pszPtr = strPhrase;
@@ -1690,52 +1856,61 @@ void CQuerySearch::MakeKeywords(CString& strPhrase, bool bExpression)
 		boundary[ 1 ] = sNone;
 
 		if ( IsKanji( *pszPtr ) )
-			boundary[ 1 ] = (ScriptType)( boundary[ 1 ] | sKanji);
+			boundary[ 1 ] = (ScriptType)( boundary[ 1 ] | sKanji );
 		if ( IsKatakana( *pszPtr ) )
-			boundary[ 1 ] = (ScriptType)( boundary[ 1 ] | sKatakana);
+			boundary[ 1 ] = (ScriptType)( boundary[ 1 ] | sKatakana );
 		if ( IsHiragana( *pszPtr ) )
-			boundary[ 1 ] = (ScriptType)( boundary[ 1 ] | sHiragana);
+			boundary[ 1 ] = (ScriptType)( boundary[ 1 ] | sHiragana );
 		if ( IsCharacter( *pszPtr ) )
-			boundary[ 1 ] = (ScriptType)( boundary[ 1 ] | sRegular);
-		// For now, disable Numeric Detection in order not to split strings like "peerproject2" to "peerproject 2"
+			boundary[ 1 ] = (ScriptType)( boundary[ 1 ] | sRegular );
+		// For now, disable Numeric Detection in order not to split strings like "word2" to "word 2"
 		//if ( _istdigit( *pszPtr ) )
 		//	boundary[ 1 ] = (ScriptType)( boundary[ 1 ] | sNumeric);
 
-		if ( ( boundary[ 1 ] & (sHiragana | sKatakana) ) == (sHiragana | sKatakana) && ( boundary[ 0 ] & (sHiragana | sKatakana) ) )
+		if ( ( boundary[ 1 ] & ( sHiragana | sKatakana ) ) == ( sHiragana | sKatakana ) &&
+			 ( boundary[ 0 ] & ( sHiragana | sKatakana ) ) )
 			boundary[ 1 ] = boundary[ 0 ];
 
-		bool bCharacter = ( boundary[ 1 ] & sRegular )||
-			bExpression && ( *pszPtr == '-' || *pszPtr == '"' );
-		if ( ! ( boundary[ 0 ] & sRegular ) && *pszPtr == '-' ) bNegative = TRUE;
-		else if ( *pszPtr == ' ' ) bNegative = FALSE;
+		bool bCharacter = ( boundary[ 1 ] & sRegular ) ||
+			bExpression && ( *pszPtr == _T('-') || *pszPtr == _T('"') );
 
-		int nDistance = !bCharacter ? 1 : 0;
+		if ( ! ( boundary[ 0 ] & sRegular ) && *pszPtr == _T('-') )
+			bNegative = TRUE;
+		else if ( *pszPtr == _T(' ') )
+			bNegative = FALSE;
+
+		int nDistance = ! bCharacter ? 1 : 0;
 
 		if ( ! bCharacter || boundary[ 0 ] != boundary[ 1 ] && nPos  )
 		{
 			if ( nPos > nPrevWord )
 			{
-				ASSERT( ! str.IsEmpty() );
-				TCHAR sz = TCHAR( str.Right( 2 ).GetAt( 0 ) );
-				if ( boundary[ 0 ] && _tcschr( L" -\"", sz ) != NULL &&
-					!_istdigit( TCHAR( str.Right( nPos < 3 ? 1 : 3 ).GetAt( 0 ) ) ) )
+				const int len = str.GetLength();
+				ASSERT( len );
+				const TCHAR last1 = str.GetAt( len - 1 );
+				const TCHAR last2 = ( len > 1 ) ? str.GetAt( len - 2 ) : 0;
+				const TCHAR last3 = ( len > 2 ) ? str.GetAt( len - 3 ) : 0;
+
+				if ( boundary[ 0 ] &&
+					( last2 == _T(' ') || last2 == _T('-') || last2 == _T('"') ) &&
+					! _istdigit( ( nPos < 3 ) ? last1 : last3 ) )
 				{
 					// Join two phrases if the previous was a sigle characters word.
 					// The idea of joining single characters breaks GDF compatibility completely,
 					// but because PeerProject (Shareaza 2.2+) is not really following GDF about
 					// word length limit for ASIAN chars, merging is necessary to be done.
 				}
-				else if ( str.Right( 1 ) != ' ' && bCharacter )
+				else if ( last1 != _T(' ') && bCharacter )
 				{
-					if ( ( str.Right( 1 ) != '-' || str.Right( 1 ) != '"' || *pszPtr == '"' ) &&
-						( ! bNegative || !( boundary[ 0 ] & ( sHiragana | sKatakana | sKanji ) ) ) )
-						str.Append( L" " );
+					if ( ( last1 != _T('-') || last1 != _T('"') || *pszPtr == _T('"') ) &&
+						( ! bNegative || ! ( boundary[ 0 ] & ( sHiragana | sKatakana | sKanji ) ) ) )
+						str += _T(' ');
 				}
 				ASSERT( strPhrase.GetLength() > nPos - 1 );
-				if ( _tcschr( L"-", strPhrase.GetAt( nPos - 1 ) ) != NULL && nPos > 1 )
+				if ( strPhrase.GetAt( nPos - 1 ) == _T('-') && nPos > 1 )
 				{
 					ASSERT( strPhrase.GetLength() > nPos - 2 );
-					if ( *pszPtr != ' ' && strPhrase.GetAt( nPos - 2 ) != ' ' )
+					if ( *pszPtr != _T(' ') && strPhrase.GetAt( nPos - 2 ) != _T(' ') )
 					{
 						nPrevWord += nDistance + 1;
 						continue;
@@ -1746,38 +1921,40 @@ void CQuerySearch::MakeKeywords(CString& strPhrase, bool bExpression)
 				else
 				{
 					str += strPhrase.Mid( nPrevWord, nPos - nPrevWord );
-					if ( boundary[ 1 ] == sNone && ! bCharacter || *pszPtr == ' ' || ! bExpression ||
+					if ( boundary[ 1 ] == sNone && ! bCharacter || *pszPtr == _T(' ') || ! bExpression ||
 						( ( boundary[ 0 ] & ( sHiragana | sKatakana | sKanji ) ) && ! bNegative ) )
-						str.Append( L" " );
+						str += _T(' ');
 					else if ( ! bNegative && ( ( boundary[ 0 ] & ( sHiragana | sKatakana | sKanji ) ) ||
 						( boundary[ 0 ] & ( sHiragana | sKatakana | sKanji ) ) !=
 						( boundary[ 1 ] & ( sHiragana | sKatakana | sKanji ) ) ) )
-						str.Append( L" " );
+						str += _T(' ');
 				}
 			}
 			nPrevWord = nPos + nDistance;
 		}
 	}
 
-	ASSERT( ! str.IsEmpty() );
-	TCHAR sz = TCHAR( str.Right( 2 ).GetAt( 0 ) );
-	if ( boundary[ 0 ] && _tcschr( L" -\"", sz ) != NULL &&
-		 boundary[ 1 ] )
+	const int len = str.GetLength();
+	ASSERT( len );
+	const TCHAR last1 = str.GetAt( len - 1 );
+	const TCHAR last2 = ( len > 1 ) ? str.GetAt( len - 2 ) : 0;
+
+	if ( boundary[ 0 ] && boundary[ 1 ] &&
+		( last2 == _T(' ') || last2 == _T('-') || last2 == _T('"') ) )
 	{
 		// Join two phrases if the previous was a sigle characters word.
 		// The idea of joining single characters breaks GDF compatibility completely,
 		// but because PeerProject (Shareaza 2.2+) is not really following GDF about
 		// word length limit for ASIAN chars, merging is necessary to be done.
 	}
-	else if ( str.Right( 1 ) != ' ' && boundary[ 1 ] )
+	else if ( boundary[ 1 ] && last1 != _T(' ') )
 	{
-		if ( ( str.Right( 1 ) != '-' || str.Right( 1 ) != '"' ) && ! bNegative )
-			str.Append( L" " );
+		if ( ( last1 != _T('-') || last1 != _T('"') ) && ! bNegative )
+			str += _T(' ');
 	}
 	str += strPhrase.Mid( nPrevWord, nPos - nPrevWord );
 
-	strPhrase = str.TrimLeft().TrimRight( L" -" );
-	return;
+	return str.Trim().TrimRight( L" -" );
 }
 
 // Function makes a set of keywords separated by space using a sliding window algorithm to match asian words
@@ -1819,8 +1996,7 @@ void CQuerySearch::BuildWordTable()
 	m_oWords.clear();
 	m_oNegWords.clear();
 
-	m_sKeywords.TrimRight();
-
+	m_sKeywords.Trim();
 	if ( m_sKeywords.IsEmpty() )
 		return;
 
@@ -1894,7 +2070,7 @@ void CQuerySearch::BuildWordTable()
 //////////////////////////////////////////////////////////////////////
 // CQuerySearch serialization
 
-#define QUERYSEARCH_SER_VERSION		1000	//8
+#define QUERYSEARCH_SER_VERSION		1000	// 8
 // nVersion History:
 // 8 - Added m_nMinSize & m_nMaxSize - Shareaza 2.2 (ryo-oh-ki)
 // 1000 - Added m_nProtocol for display (PeerProject 1.0) (8)

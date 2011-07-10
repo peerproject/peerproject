@@ -921,10 +921,11 @@ void CDownloadsWnd::OnDownloadsClearComplete()
 		{
 			pDownload->m_bClearing = TRUE;	// Indicate marked for removal (may take awhile)
 			pList.AddTail( pDownload );
+			if ( theApp.KeepAlive() )
+				m_wndDownloads.Update();
 		}
 	}
 
-	// Stop freezing GUI ?
 	pLock.Unlock();
 	m_wndDownloads.Update();
 
@@ -934,6 +935,8 @@ void CDownloadsWnd::OnDownloadsClearComplete()
 		pDownload = pList.RemoveHead();
 		pDownload->Remove();
 		pLock.Unlock();
+		if ( theApp.KeepAlive() )
+			m_wndDownloads.Update();
 	}
 
 	Update();

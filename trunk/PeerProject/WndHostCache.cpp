@@ -26,7 +26,7 @@
 #include "Neighbour.h"
 #include "VendorCache.h"
 #include "WndHostCache.h"
-#include "DlgDonkeyServers.h"
+#include "DlgUpdateServers.h"
 #include "DlgURLCopy.h"
 #include "LiveList.h"
 #include "CoolInterface.h"
@@ -45,12 +45,12 @@ enum {
 	COL_ADDRESS,
 	COL_PORT,
 	COL_SEEN,
-	COL_CLIENT,
-	COL_NAME,
-	COL_INFO,
 	COL_FAILURES,
 	COL_USERS,
 	COL_MAXUSERS,
+	COL_NAME,
+	COL_INFO,
+	COL_CLIENT,
 	COL_COUNTRY,
 #ifdef _DEBUG
 	COL_DBG_KEY,
@@ -93,12 +93,12 @@ BEGIN_MESSAGE_MAP(CHostCacheWnd, CPanelWnd)
 	ON_COMMAND(ID_HOSTCACHE_KAD_CACHE, OnHostcacheKADCache)
 	ON_UPDATE_COMMAND_UI(ID_HOSTCACHE_DC_CACHE, OnUpdateHostcacheDCCache)
 	ON_COMMAND(ID_HOSTCACHE_DC_CACHE, OnHostcacheDCCache)
-	ON_COMMAND(ID_HOSTCACHE_IMPORT, OnHostcacheImport)
-	ON_COMMAND(ID_HOSTCACHE_ED2K_DOWNLOAD, OnHostcacheEd2kDownload)
 	ON_UPDATE_COMMAND_UI(ID_HOSTCACHE_PRIORITY, OnUpdateHostcachePriority)
 	ON_COMMAND(ID_HOSTCACHE_PRIORITY, OnHostcachePriority)
 	ON_UPDATE_COMMAND_UI(ID_NEIGHBOURS_URI, OnUpdateNeighboursCopy)
 	ON_COMMAND(ID_NEIGHBOURS_URI, OnNeighboursCopy)
+	ON_COMMAND(ID_HOSTCACHE_FILE_DOWNLOAD, OnHostcacheFileDownload)
+	ON_COMMAND(ID_HOSTCACHE_IMPORT, OnHostcacheImport)
 END_MESSAGE_MAP()
 
 
@@ -129,7 +129,7 @@ int CHostCacheWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_wndToolBar.SetBarStyle( m_wndToolBar.GetBarStyle() | CBRS_TOOLTIPS | CBRS_BORDER_TOP );
 
 	m_wndList.Create( WS_VISIBLE|LVS_ICON|LVS_AUTOARRANGE|LVS_REPORT|LVS_SHOWSELALWAYS,
-		rectDefault, this, IDC_HOSTS, COL_LAST );	// Ensure enum includes 3 additional debug columns or not
+		rectDefault, this, IDC_HOSTS, COL_LAST );		// Ensure enum includes 3 additional debug columns or not
 
 	m_pSizer.Attach( &m_wndList );
 
@@ -142,12 +142,12 @@ int CHostCacheWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_wndList.InsertColumn( COL_ADDRESS,	_T("Address"),	LVCFMT_LEFT,	140 );
 	m_wndList.InsertColumn( COL_PORT,		_T("Port"), 	LVCFMT_CENTER,	 60 );
 	m_wndList.InsertColumn( COL_SEEN,		_T("Last Seen"), LVCFMT_CENTER,	128 );
-	m_wndList.InsertColumn( COL_CLIENT, 	_T("Client"),	LVCFMT_CENTER,	100 );
-	m_wndList.InsertColumn( COL_NAME,		_T("Name"), 	LVCFMT_LEFT,	140 );
-	m_wndList.InsertColumn( COL_INFO,		_T("Description"), LVCFMT_LEFT,	140 );
 	m_wndList.InsertColumn( COL_FAILURES,	_T("Failures"),	LVCFMT_CENTER,	 60 );
 	m_wndList.InsertColumn( COL_USERS,		_T("CurUsers"),	LVCFMT_CENTER,	 60 );
 	m_wndList.InsertColumn( COL_MAXUSERS,	_T("MaxUsers"),	LVCFMT_CENTER,	 60 );
+	m_wndList.InsertColumn( COL_NAME,		_T("Name"), 	LVCFMT_LEFT,	140 );
+	m_wndList.InsertColumn( COL_INFO,		_T("Description"), LVCFMT_LEFT,	140 );
+	m_wndList.InsertColumn( COL_CLIENT, 	_T("Client"),	LVCFMT_CENTER,	100 );
 	m_wndList.InsertColumn( COL_COUNTRY,	_T("Country"),	LVCFMT_LEFT,	 60 );
 #ifdef _DEBUG
 	m_wndList.InsertColumn( COL_DBG_KEY,	_T("Key"),		LVCFMT_RIGHT, 0 );
@@ -247,7 +247,7 @@ void CHostCacheWnd::Update(BOOL bForce)
 
 	m_wndList.Apply();
 
-	m_tLastUpdate = GetTickCount();				// Update timer
+	m_tLastUpdate = GetTickCount();			// Update timer
 }
 
 CHostCacheHostPtr CHostCacheWnd::GetItem(int nItem)
@@ -395,8 +395,7 @@ void CHostCacheWnd::OnUpdateHostCacheDisconnect(CCmdUI* pCmdUI)
 		 m_nMode == PROTOCOL_ED2K || m_nMode == PROTOCOL_NULL )
 	{
 		// Lock Network objects until we are finished with them
-		// Note - This needs to be locked before the HostCache object
-		// to avoid deadlocks with the network thread
+		// Note this needs to be locked before the HostCache object to avoid deadlocks with the network thread
 		CQuickLock oNetworkLock( Network.m_pSection );
 
 		// Lock HostCache objects until we are finished with them
@@ -427,8 +426,7 @@ void CHostCacheWnd::OnHostCacheDisconnect()
 		 m_nMode == PROTOCOL_ED2K || m_nMode == PROTOCOL_NULL )
 	{
 		// Lock Network objects until we are finished with them
-		// Note - This needs to be locked before the HostCache object
-		// to avoid deadlocks with the network thread
+		// Note this needs to be locked before the HostCache object to avoid deadlocks with the network thread
 		CQuickLock oNetworkLock( Network.m_pSection );
 
 		// Lock HostCache objects until we are finished with them
@@ -581,6 +579,13 @@ void CHostCacheWnd::OnHostcacheG2Cache()
 
 void CHostCacheWnd::OnUpdateHostcacheG1Cache(CCmdUI* pCmdUI)
 {
+	if ( Settings.Experimental.LAN_Mode || ! Settings.Gnutella1.ShowInterface && ! Settings.Gnutella1.Enabled )
+	{
+		if ( CCoolBarItem* pcCmdUI = CCoolBarItem::FromCmdUI( pCmdUI ) )
+			pcCmdUI->Show( FALSE );
+		return;
+	}
+
 	pCmdUI->SetCheck( m_nMode == PROTOCOL_G1 );
 }
 
@@ -593,6 +598,13 @@ void CHostCacheWnd::OnHostcacheG1Cache()
 
 void CHostCacheWnd::OnUpdateHostcacheEd2kCache(CCmdUI* pCmdUI)
 {
+	if ( Settings.Experimental.LAN_Mode || ! Settings.eDonkey.ShowInterface && ! Settings.eDonkey.Enabled )
+	{
+		if ( CCoolBarItem* pcCmdUI = CCoolBarItem::FromCmdUI( pCmdUI ) )
+			pcCmdUI->Show( FALSE );
+		return;
+	}
+
 	pCmdUI->SetCheck( m_nMode == PROTOCOL_ED2K );
 }
 
@@ -603,20 +615,15 @@ void CHostCacheWnd::OnHostcacheEd2kCache()
 	Update( TRUE );
 }
 
-void CHostCacheWnd::OnUpdateHostcacheBTCache(CCmdUI* pCmdUI)
-{
-	pCmdUI->SetCheck( m_nMode == PROTOCOL_BT );
-}
-
-void CHostCacheWnd::OnHostcacheBTCache()
-{
-	Settings.Gnutella.HostCacheView = m_nMode = PROTOCOL_BT;
-	m_wndList.DeleteAllItems();
-	Update( TRUE );
-}
-
 void CHostCacheWnd::OnUpdateHostcacheKADCache(CCmdUI* pCmdUI)
 {
+	if ( Settings.Experimental.LAN_Mode )	// || ! Settings.KAD.ShowInterface && ! Settings.KAD.Enabled
+	{
+		if ( CCoolBarItem* pcCmdUI = CCoolBarItem::FromCmdUI( pCmdUI ) )
+			pcCmdUI->Show( FALSE );
+		return;
+	}
+
 	pCmdUI->SetCheck( m_nMode == PROTOCOL_KAD );
 }
 
@@ -629,7 +636,7 @@ void CHostCacheWnd::OnHostcacheKADCache()
 
 void CHostCacheWnd::OnUpdateHostcacheDCCache(CCmdUI* pCmdUI)
 {
-	if ( ! Settings.DC.ShowInterface )
+	if ( Settings.Experimental.LAN_Mode || ! Settings.DC.ShowInterface && ! Settings.DC.Enabled )
 	{
 		if ( CCoolBarItem* pcCmdUI = CCoolBarItem::FromCmdUI( pCmdUI ) )
 			pcCmdUI->Show( FALSE );
@@ -646,6 +653,18 @@ void CHostCacheWnd::OnHostcacheDCCache()
 	Update( TRUE );
 }
 
+void CHostCacheWnd::OnUpdateHostcacheBTCache(CCmdUI* pCmdUI)
+{
+	pCmdUI->SetCheck( m_nMode == PROTOCOL_BT );
+}
+
+void CHostCacheWnd::OnHostcacheBTCache()
+{
+	Settings.Gnutella.HostCacheView = m_nMode = PROTOCOL_BT;
+	m_wndList.DeleteAllItems();
+	Update( TRUE );
+}
+
 void CHostCacheWnd::OnHostcacheImport()
 {
 	// ToDo: Import/Export any host cache list from gui (incl. G1/G2), and Localize it
@@ -653,6 +672,7 @@ void CHostCacheWnd::OnHostcacheImport()
 		_T("eDonkey2000 MET files|*.met|")
 		_T("Kademlia Nodes files|nodes.dat|")
 		_T("DC++ hub lists|*.xml.bz2|")
+	//	_T("G2 cache lists|*cache.xml|")
 		+ LoadString( IDS_FILES_ALL ) + _T("|*.*||"), this );
 
 	if ( dlg.DoModal() != IDOK ) return;
@@ -663,9 +683,13 @@ void CHostCacheWnd::OnHostcacheImport()
 	Update( TRUE );
 }
 
-void CHostCacheWnd::OnHostcacheEd2kDownload()
+void CHostCacheWnd::OnHostcacheFileDownload()
 {
-	CDonkeyServersDlg dlg;
+	CUpdateServersDlg dlg;
+	if ( m_nMode == PROTOCOL_DC )
+		dlg.m_sURL = Settings.DC.HubListURL;
+	//else
+	//	dlg.m_sURL = Settings.eDonkey.ServerListURL;
 	if ( dlg.DoModal() == IDOK )
 		Update( TRUE );
 }

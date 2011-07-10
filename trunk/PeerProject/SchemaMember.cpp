@@ -1,7 +1,7 @@
 //
 // SchemaMember.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -34,21 +34,21 @@ static char THIS_FILE[]=__FILE__;
 // CSchemaMember construction
 
 CSchemaMember::CSchemaMember(CSchema* pSchema)
-	: m_pSchema 	(pSchema)
-	, m_bNumeric	(FALSE)
-	, m_bYear		(FALSE)
-	, m_bGUID		(FALSE)
-	, m_bIndexed	(FALSE)
-	, m_bSearched	(FALSE)
-	, m_nMinOccurs	(0)
-	, m_nMaxOccurs	(0)
-	, m_nMaxLength	(128)
-	, m_bPrompt 	(FALSE)
-	, m_nFormat 	(smfNone)
-	, m_nColumnWidth(60)
-	, m_nColumnAlign(LVCFMT_LEFT)
-	, m_bHidden 	(FALSE)
-	, m_bBoolean	(FALSE)
+	: m_pSchema 	( pSchema )
+	, m_bNumeric	( FALSE )
+	, m_bYear		( FALSE )
+	, m_bGUID		( FALSE )
+	, m_bIndexed	( FALSE )
+	, m_bSearched	( FALSE )
+	, m_nMinOccurs	( 0 )
+	, m_nMaxOccurs	( 0 )
+	, m_nMaxLength	( 128 )
+	, m_bPrompt 	( FALSE )
+	, m_nFormat 	( smfNone )
+	, m_nColumnWidth( 60 )
+	, m_nColumnAlign( LVCFMT_LEFT )
+	, m_bHidden 	( FALSE )
+	, m_bBoolean	( FALSE )
 {
 }
 
@@ -72,7 +72,7 @@ CString CSchemaMember::GetNextItem(POSITION& pos) const
 //////////////////////////////////////////////////////////////////////
 // CSchemaMember value lookup
 
-CString CSchemaMember::GetValueFrom(CXMLElement* pBase, LPCTSTR pszDefault, BOOL bFormat, BOOL bNoValidation) const
+CString CSchemaMember::GetValueFrom(const CXMLElement* pBase, LPCTSTR pszDefault, BOOL bFormat, BOOL bNoValidation) const
 {
 	// ToDo: OPTIMIZE: This could all be done with LPCTSTR pointers instead of CString
 	CString strValue;
@@ -114,12 +114,12 @@ CString CSchemaMember::GetValueFrom(CXMLElement* pBase, LPCTSTR pszDefault, BOOL
 		else if ( m_bBoolean )
 		{
 			if ( strValue == L"1" ||
-					strValue.CompareNoCase( L"true" ) == 0 ||
-					strValue.CompareNoCase( L"yes" ) == 0 )
+				 strValue.CompareNoCase( L"true" ) == 0 ||
+				 strValue.CompareNoCase( L"yes" ) == 0 )
 				strValue = L"true";
 			else if ( strValue == L"0" ||
-					strValue.CompareNoCase( L"false" ) == 0 ||
-					strValue.CompareNoCase( L"no" ) == 0 )
+				 strValue.CompareNoCase( L"false" ) == 0 ||
+				 strValue.CompareNoCase( L"no" ) == 0 )
 				strValue = L"false";
 			else
 				strValue = ( pszDefault ? pszDefault : _T("") );
@@ -226,18 +226,15 @@ BOOL CSchemaMember::LoadSchema(CXMLElement* pRoot, CXMLElement* pElement)
 	_stscanf( strValue, L"%i", &m_nMaxOccurs );
 
 	if ( pElement->GetElementCount() )
-	{
 		return LoadType( pElement->GetFirstElement() );
-	}
-	else if ( ! m_sType.IsEmpty() )
+
+	if ( ! m_sType.IsEmpty() )
 	{
 		CXMLElement* pType = m_pSchema->GetType( pRoot, m_sType );
 		return pType ? LoadType( pType ) : TRUE;
 	}
-	else
-	{
-		return FALSE;
-	}
+
+	return FALSE;
 }
 
 BOOL CSchemaMember::LoadType(CXMLElement* pType)
@@ -245,7 +242,8 @@ BOOL CSchemaMember::LoadType(CXMLElement* pType)
 	CString strName = pType->GetName();
 
 	if ( strName.CompareNoCase( L"simpleType" ) &&
-		 strName.CompareNoCase( L"complexType" ) ) return FALSE;
+		 strName.CompareNoCase( L"complexType" ) )
+		return FALSE;
 
 	m_sType = pType->GetAttributeValue( L"base", L"" );
 	ToLower( m_sType );

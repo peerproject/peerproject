@@ -120,13 +120,15 @@ void CFileExecutor::DetectFileType(LPCTSTR pszFile, LPCTSTR szType, bool& bVideo
 	if ( GetFileAttributes( pszFile ) & FILE_ATTRIBUTE_DIRECTORY )
 		return;
 
-	CSchemaPtr pSchema;
-	if ( ( pSchema = SchemaCache.Get( CSchema::uriAudio ) ) != NULL && pSchema->FilterType( szType ) )
-		bAudio = true;
-	else if ( ( pSchema = SchemaCache.Get( CSchema::uriVideo ) ) != NULL && pSchema->FilterType( szType ) )
-		bVideo = true;
-	else if ( ( pSchema = SchemaCache.Get( CSchema::uriImage ) ) != NULL && pSchema->FilterType( szType ) )
-		bImage = true;
+	if ( CSchemaPtr pSchema = SchemaCache.GuessByFilename( szType ) )
+	{
+		if ( pSchema->CheckURI( CSchema::uriAudio ) )
+			bAudio = true;
+		else if ( pSchema->CheckURI( CSchema::uriVideo ) )
+			bVideo = true;
+		else if ( pSchema->CheckURI( CSchema::uriImage ) )
+			bImage = true;
+	}
 
 	// Detect type by MIME "Content Type"
 	if ( ! bAudio && ! bVideo && ! bImage )
@@ -151,8 +153,7 @@ void CFileExecutor::DetectFileType(LPCTSTR pszFile, LPCTSTR szType, bool& bVideo
 	if ( ! bAudio && ! bVideo && ! bImage )
 	{
 		CQuickLock oLock( Library.m_pSection );
-		CLibraryFile* pFile = LibraryMaps.LookupFileByPath( pszFile );
-		if ( pFile )
+		if ( CLibraryFile* pFile = LibraryMaps.LookupFileByPath( pszFile ) )
 		{
 			if ( pFile->IsSchemaURI( CSchema::uriAudio ) )
 				bAudio = true;
@@ -258,9 +259,9 @@ BOOL CFileExecutor::Execute(LPCTSTR pszFile, LPCTSTR pszExt)
 
 	TRISTATE bVerified = IsVerified( pszFile );
 	if ( bVerified == TRI_UNKNOWN )
-		return FALSE;	// Cancel operation
+		return FALSE;		// Cancel operation
 	if ( bVerified == TRI_FALSE )
-		return TRUE;	// Skip file
+		return TRUE;		// Skip file
 
 	CString strType;
 	if ( ! ( GetFileAttributes( pszFile ) & FILE_ATTRIBUTE_DIRECTORY ) )
@@ -273,12 +274,17 @@ BOOL CFileExecutor::Execute(LPCTSTR pszFile, LPCTSTR pszExt)
 	{
 		if ( CLibraryWnd* pWnd = GetLibraryWindow() )
 			pWnd->OnCollection( pszFile );
-		return TRUE;	// Skip file
+		return TRUE;		// Skip file
 	}
+
+	// Internal list exceptions
+	if ( ( strType == L".bz2" && CString( PathFindFileName( pszFile ) ).MakeLower() == L"hublist.xml.bz2" ) || strType == L".met" )
+		if ( theApp.OpenImport( pszFile ) )
+			return TRUE;	// Skip file
 
 	// Open known file types (links)
 	if ( theApp.Open( pszFile ) )
-		return TRUE;	// Skip file
+		return TRUE;		// Skip file
 
 	// Prepare partials
 	bool bPartial = false;

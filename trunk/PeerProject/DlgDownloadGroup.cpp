@@ -1,7 +1,7 @@
 //
 // DlgDownloadGroup.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -158,7 +158,7 @@ void CDownloadGroupDlg::OnFilterRemove()
 	{
 		nNewSelected = m_wndFilterList.DeleteString( nItem );
 		if ( nItem == 0 && nNewSelected > 0 )
-			nNewSelected = 0; // First one
+			nNewSelected = 0;	// First one
 		else
 			nNewSelected = nItem - 1;
 	}
@@ -188,19 +188,17 @@ void CDownloadGroupDlg::OnCbnCloseupSchemas()
 	// Remove old schema filters (preserve custom ones)
 	if ( CSchemaPtr pOldSchema = SchemaCache.Get( m_sOldSchemaURI ) )
 	{
-		for ( LPCTSTR start = pOldSchema->m_sTypeFilter; *start; start++ )
+		for ( POSITION pos = pOldSchema->GetFilterIterator() ; pos ; )
 		{
-			LPCTSTR c = _tcschr( start, _T('|') );
-			int len = c ? (int) ( c - start ) : (int) _tcslen( start );
-			if ( len > 0 )
+			CString strFilter;
+			BOOL bResult;
+			pOldSchema->GetNextFilter( pos, strFilter, bResult );
+			if ( bResult )
 			{
-				CString strOldFilter( start, len );
-				while ( POSITION pos = oList.Find( strOldFilter ) )
+				strFilter.Insert( 0, _T('.') );
+				while ( POSITION pos = oList.Find( strFilter ) )
 					oList.RemoveAt( pos );
 			}
-			if ( ! c )
-				break;
-			start = c;
 		}
 
 		strNameOld = ( ! pOldSchema->m_sHeaderTitle.IsEmpty() ?
@@ -210,15 +208,16 @@ void CDownloadGroupDlg::OnCbnCloseupSchemas()
 	// Add new schema filters
 	if ( CSchemaPtr pNewSchema = SchemaCache.Get( m_wndSchemas.GetSelectedURI() ) )
 	{
-		for ( LPCTSTR start = pNewSchema->m_sTypeFilter; *start; start++ )
+		for ( POSITION pos = pNewSchema->GetFilterIterator() ; pos ; )
 		{
-			LPCTSTR c = _tcschr( start, _T('|') );
-			int len = c ? (int) ( c - start ) : (int) _tcslen( start );
-			if ( len > 0 )
-				oList.AddTail( CString( start, len ) );
-			if ( ! c )
-				break;
-			start = c;
+			CString strFilter;
+			BOOL bResult;
+			pNewSchema->GetNextFilter( pos, strFilter, bResult );
+			if ( bResult )
+			{
+				strFilter.Insert( 0, _T('.') );
+				oList.AddTail( strFilter );
+			}
 		}
 
 		strNameNew = ( ! pNewSchema->m_sHeaderTitle.IsEmpty() ?

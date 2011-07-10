@@ -170,7 +170,6 @@ CScheduleTask::CScheduleTask(BOOL bCreate)
 	, m_tScheduleDateTime ( 0 )
 	, m_sDescription	( "" )
 {
-
 	if ( bCreate )
 		CoCreateGuid( &m_pGUID );
 }

@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Dutch Skin File -->
 
-<!-- Translation based on default-en.xml r67 -->
+<!-- Translation based on default-en.xml r68 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -971,7 +971,7 @@
 		</menu>
 		<separator/>
 		<item id="ID_HOSTCACHE_IMPORT" text="MET bestand _importeren..."/>
-		<item id="ID_HOSTCACHE_ED2K_DOWNLOAD" text="MET downloaden..."/>
+		<item id="ID_HOSTCACHE_FILE_DOWNLOAD" text="MET downloaden..."/>
 	</menu>
 	<!-- SEARCH WINDOW -->
 	<menu name="CSearchWnd.Basic">
@@ -2445,7 +2445,7 @@
 	<tip id="ID_HOSTCACHE_CONNECT" message="Verbinden met de geselecteerde gastheren."/>
 	<tip id="ID_HOSTCACHE_DISCONNECT" message="De verbinding verbreken met de geselecteerde gastheren."/>
 	<tip id="ID_HOSTCACHE_ED2K_CACHE" message="Toon eDonkey Servers."/>
-	<tip id="ID_HOSTCACHE_ED2K_DOWNLOAD" message="Download een eDonkey &quot;server.met&quot; bestand..."/>
+	<tip id="ID_HOSTCACHE_FILE_DOWNLOAD" message="Download een eDonkey &quot;server.met&quot; bestand..."/>
 	<tip id="ID_HOSTCACHE_G1_CACHE" message="Gnutella1 gecachede gastheren tonen."/>
 	<tip id="ID_HOSTCACHE_G2_CACHE" message="Gnutella2 gecachede gastheren tonen."/>
 	<tip id="ID_HOSTCACHE_G2_HORIZON" message="Gnutella2 horizon hubs tonen."/>
@@ -3186,7 +3186,7 @@
 	<string id="20590" value="Web Interface is uitgeschakeld."/>
 	<string id="20591" value="http://%s:%i/remote - Gebruikersnaam en wachtwoord kiezen."/>
 	<string id="20592" value="Niet mogelijk om verbindingen te accepteren, de URL is niet beschikbaar."/>
-	<string id="20597" value="Ben je zeker dat je deze veiligheidsregels wilt verwijderen? Dit kan niet ongedaan worden gemaakt."/>
+	<string id="20597" value="Ben je zeker dat je deze veiligheidsregels wilt verwijderen?"/>
 	<string id="20599" value="&amp;Schemas"/>
 	<!-- Missing Scheduler/Security Strings -->
 	<string id="20620" value="PeerProject is actief aan het zoeken op het netwerk..."/>
@@ -3407,7 +3407,7 @@
 	<string id="20882" value="Geen URN beschikbaar"/>
 	<string id="20883" value="UPnP Device Host Service is not running. This service is required to perform the setup.\nYou need to set the startup type of the service to automatic."/>
 	<string id="20885" value="Als je van stijl verandert, worden alle geopende vensters gesloten. Wil je nu veranderen?"/>
-	<string id="20886" value="Veranderen van leesrichting vereist het heropstarten van PeerProject.\nJe zal PeerProject zelf opnieuw moeten starten. Nu afsluiten?"/>
+	<string id="20886" value="Veranderen van leesrichting vereist het heropstarten van PeerProject.\n\nNu afsluiten?"/>
 	<string id="20890" value="Welkom bij PeerProject"/>
 	<string id="20891" value="&amp;Sluiten"/>
 	<string id="20892" value="Even wachten: De eDonkey server lijst aan het vernieuwen..."/>
@@ -4416,7 +4416,7 @@
 		<control caption="OK"/>
 		<control caption="Annuleren"/>
 	</dialog>
-	<dialog name="CDonkeyServersDlg" cookie="StEdmsBuBu" caption="Server.met bestand downloaden">
+	<dialog name="CUpdateServersDlg" cookie="StEdmsBuBu" caption="Server.met bestand downloaden">
 		<control caption="Je kunt een eDonkey Server.met bestand downloaden van het internet om je lokale lijst met servers te verversen."/>
 		<control/>
 		<control/>

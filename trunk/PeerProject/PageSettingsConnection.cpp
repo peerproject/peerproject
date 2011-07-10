@@ -169,9 +169,8 @@ BOOL CConnectionSettingsPage::OnInitDialog()
 	m_wndTimeoutConnection.SetRange( 1, 480 );
 	m_wndTimeoutHandshake.SetRange( 1, 480 );
 
-#ifdef LAN_MODE
-	GetDlgItem( IDC_IGNORE_LOCAL )->EnableWindow( FALSE );
-#endif // LAN_MODE
+	if ( Settings.Experimental.LAN_Mode )	// #ifdef LAN_MODE
+		GetDlgItem( IDC_IGNORE_LOCAL )->EnableWindow( FALSE );
 
 	UpdateData( FALSE );
 

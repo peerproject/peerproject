@@ -1,7 +1,7 @@
 //
 // WndSecurity.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -25,37 +25,36 @@ class CSecureRule;
 
 class CSecurityWnd : public CPanelWnd
 {
+	DECLARE_SERIAL(CSecurityWnd)
+
 public:
 	CSecurityWnd();
 	virtual ~CSecurityWnd();
-
-	DECLARE_SERIAL(CSecurityWnd)
 
 // Attributes
 protected:
 	CCoolBarCtrl	m_wndToolBar;
 	CListCtrl		m_wndList;
-	CImageList		m_gdiImageList;
 	CLiveListSizer	m_pSizer;
-	DWORD			tLastUpdate;
+	CImageList		m_gdiImageList;
+	DWORD			m_tLastUpdate;
 
 // Operations
-public:
-	void			Update(int nColumn = -1, BOOL bSort = TRUE);
-	CSecureRule*	GetItem(int nItem);
-	virtual void	OnSkinChange();
+protected:
+	CSecureRule* GetItem(int nItem);
+	void		 Update(int nColumn = -1, BOOL bSort = TRUE);
 
 // Overrides
-public:
+protected:
 	//{{AFX_VIRTUAL(CSecurityWnd)
-	public:
 	virtual BOOL PreTranslateMessage(MSG* pMsg);
+	virtual void OnSkinChange();
 	//}}AFX_VIRTUAL
 
 // Implementation
 protected:
 	//{{AFX_MSG(CSecurityWnd)
-	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnDestroy();
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg void OnTimer(UINT_PTR nIDEvent);

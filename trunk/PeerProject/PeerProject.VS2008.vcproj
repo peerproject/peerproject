@@ -2123,10 +2123,6 @@
 					>
 				</File>
 				<File
-					RelativePath="DlgDonkeyServers.cpp"
-					>
-				</File>
-				<File
 					RelativePath="DlgDownload.cpp"
 					>
 				</File>
@@ -2272,6 +2268,10 @@
 				</File>
 				<File
 					RelativePath="DlgTorrentSeed.cpp"
+					>
+				</File>
+				<File
+					RelativePath="DlgUpdateServers.cpp"
 					>
 				</File>
 				<File
@@ -3896,10 +3896,6 @@
 					>
 				</File>
 				<File
-					RelativePath="DlgDonkeyServers.h"
-					>
-				</File>
-				<File
 					RelativePath="DlgDownload.h"
 					>
 				</File>
@@ -4045,6 +4041,10 @@
 				</File>
 				<File
 					RelativePath="DlgTorrentSeed.h"
+					>
+				</File>
+				<File
+					RelativePath="DlgUpdateServers.h"
 					>
 				</File>
 				<File

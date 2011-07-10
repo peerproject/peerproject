@@ -1,7 +1,7 @@
 //
 // NeighboursWithG1.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -16,11 +16,16 @@
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
+// Adds the ping route and pong caches to the CNeighbours object, and methods to route Gnutella ping and pong packets
+// http://sourceforge.net/apps/mediawiki/shareaza/index.php?title=Developers.Code.CNeighboursWithG1
+
 #pragma once
 
 #include "NeighboursBase.h"
-#include "RouteCache.h"
 #include "PongCache.h"
+#include "QuerySearch.h"
+#include "RouteCache.h"
+
 
 class CNeighbour;
 class CG1Neighbour;
@@ -35,13 +40,19 @@ protected:
 	CNeighboursWithG1();			// Setup ping route and pong caches
 	virtual ~CNeighboursWithG1();	// Delete ping route and pong cache objects
 
-public:
+private:
 	CRouteCache	m_pPingRoute;
 	CPongCache	m_pPongCache;
+	DWORD		m_tLastPingOut; 	// When we last sent a multicast ping packet
 
 public:
 	void OnG1Ping();					// Relay ping and pong packets to other neighbours
 	void OnG1Pong(CG1Neighbour* pFrom, IN_ADDR* pAddress, WORD nPort, BYTE nHops, DWORD nFiles, DWORD nVolume);
+
+	// Send multicast ping
+	void SendPing();
+	// Send multicast query
+	void SendQuery(CQuerySearchPtr pSearch);
 
 	BOOL AddPingRoute(const Hashes::Guid& oGUID, const CG1Neighbour* pNeighbour);
 	CG1Neighbour* GetPingRoute(const Hashes::Guid& oGUID);
@@ -53,4 +64,5 @@ protected:
 	virtual void Remove(CNeighbour* pNeighbour);	// Remove a neighbour from the ping route and pong caches, network object, and the list
 	virtual void Connect(); 			// Sets the ping route duration from settings
 	virtual void Close();				// Call Close on each neighbour in the list, reset member variables to 0, and clear the ping route and pong caches
+	virtual void OnRun();
 };

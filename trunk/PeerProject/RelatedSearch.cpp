@@ -51,7 +51,7 @@ CRelatedSearch::CRelatedSearch(CMatchFile* pFile)
 		m_oMD5		= pFile->m_oMD5;
 		m_sName		= pFile->m_sName;
 
-		m_pSchema	= SchemaCache.Get( pFile->GetBestSchemaURI() );
+		m_pSchema	= pFile->GetBestSchema();
 		m_pXML		= NULL;
 		m_bXML		= FALSE;
 

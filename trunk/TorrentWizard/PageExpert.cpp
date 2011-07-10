@@ -132,7 +132,7 @@ BOOL CExpertPage::OnInitDialog()
 			m_wndTracker2.AddString( strURL );
 		}
 	}
-	
+
 	m_sTracker = theApp.GetProfileString( _T("Trackers"), _T("Last") );
 
 
@@ -190,13 +190,13 @@ LRESULT CExpertPage::OnWizardNext()
 			return -1;
 		}
 	}
-	
+
 	if ( m_sTracker.GetLength() > 15 &&
 		m_wndTracker.FindStringExact( -1, m_sTracker ) < 0 )
 	{
 		m_wndTracker.AddString( m_sTracker );	// Populate Combo-box
 		m_wndTracker2.AddString( m_sTracker );
-		
+
 		CString strName;
 		int nCount = theApp.GetProfileInt( _T("Trackers"), _T("Count"), 0 );
 		strName.Format( _T("%.3i.URL"), ++nCount );
@@ -210,7 +210,7 @@ LRESULT CExpertPage::OnWizardNext()
 	{
 		m_wndTracker.AddString( m_sTracker2 );
 		m_wndTracker2.AddString( m_sTracker2 );
-		
+
 		CString strName;
 		int nCount = theApp.GetProfileInt( _T("Trackers"), _T("Count"), 0 );
 		strName.Format( _T("%.3i.URL"), ++nCount );

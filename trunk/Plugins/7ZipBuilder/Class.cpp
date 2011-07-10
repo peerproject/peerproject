@@ -1,7 +1,7 @@
 //
 // Class.cpp : Implementation of CClass (7z)
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions Copyright Shareaza Development Team, 2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -165,7 +165,7 @@ STDMETHODIMP C7ZipBuilder::Process(/*[in]*/ BSTR sFile, /*[in]*/ ISXMLElement* p
 		return E_POINTER;
 
 	if ( ! fnCreateObject )
-		return E_NOTIMPL;	// 7zxr.dll not loaded
+		return E_NOTIMPL;	// 7zxa.dll not loaded
 
 	CComPtr <ISXMLElements> pISXMLRootElements;
 	HRESULT hr = pXML->get_Elements(&pISXMLRootElements);
@@ -208,7 +208,7 @@ STDMETHODIMP C7ZipBuilder::Process(/*[in]*/ BSTR sFile, /*[in]*/ ISXMLElement* p
 	CComPtr< IInArchive > pIInArchive;
 	hr = fnCreateObject( &CLSID_CFormat7z, &IID_IInArchive, (void**)&pIInArchive );
 	if ( FAILED( hr ) )
-		return E_NOTIMPL;			// Bad 7zxr.dll version?
+		return E_NOTIMPL;			// Bad 7zxa.dll version?
 
 	hr = pIInArchive->Open( static_cast< IInStream* >( &oInStream ), NULL, NULL );
 	if ( hr != S_OK )				// S_FALSE - unknown format

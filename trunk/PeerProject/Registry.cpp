@@ -1,7 +1,7 @@
 //
 // Registry.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -34,7 +34,8 @@ CString CRegistry::GetString(LPCTSTR pszSection, LPCTSTR pszName, LPCTSTR pszDef
 	CString strSection( pszSubKey ? pszSubKey : _T("Software\\PeerProject\\PeerProject") );
 	if ( pszSection && *pszSection )
 	{
-		strSection += _T("\\");
+		if ( pszSection[0] != _T('\\') )
+			strSection += _T("\\");
 		strSection += pszSection;
 	}
 
@@ -42,8 +43,7 @@ CString CRegistry::GetString(LPCTSTR pszSection, LPCTSTR pszName, LPCTSTR pszDef
 	DWORD nType = 0, nSize = 0;
 	LONG nErrorCode = SHRegGetUSValue( (LPCTSTR)strSection, pszName, &nType,
 		NULL, &nSize, bIgnoreHKCU, NULL, 0 );
-	if ( nErrorCode == ERROR_SUCCESS && nType == REG_SZ && nSize >= sizeof( TCHAR ) &&
-		( nSize & 1 ) == 0 )
+	if ( nErrorCode == ERROR_SUCCESS && nType == REG_SZ && nSize >= sizeof( TCHAR ) && ( nSize & 1 ) == 0 )
 	{
 		CString strValue;
 		nErrorCode = SHRegGetUSValue( (LPCTSTR)strSection, pszName, &nType,
@@ -64,7 +64,8 @@ DWORD CRegistry::GetDword(LPCTSTR pszSection, LPCTSTR pszName, DWORD nDefault, L
 	CString strSection( pszSubKey ? pszSubKey : _T("Software\\PeerProject\\PeerProject") );
 	if ( pszSection && *pszSection )
 	{
-		strSection += _T("\\");
+		if ( pszSection[0] != _T('\\') )
+			strSection += _T("\\");
 		strSection += pszSection;
 	}
 
@@ -74,9 +75,7 @@ DWORD CRegistry::GetDword(LPCTSTR pszSection, LPCTSTR pszName, DWORD nDefault, L
 	LONG nErrorCode = SHRegGetUSValue( (LPCTSTR)strSection, pszName, &nType,
 		(PBYTE)&nValue, &nSize, FALSE, NULL, 0 );
 	if ( nErrorCode == ERROR_SUCCESS && nType == REG_DWORD && nSize == sizeof( nValue ) )
-	{
 		return nValue;
-	}
 
 	return nDefault;
 }
@@ -89,13 +88,13 @@ BOOL CRegistry::SetString(LPCTSTR pszSection, LPCTSTR pszName, LPCTSTR pszValue,
 	CString strSection( pszSubKey ? pszSubKey : _T("Software\\PeerProject\\PeerProject") );
 	if ( pszSection && *pszSection )
 	{
-		strSection += _T("\\");
+		if ( pszSection[0] != _T('\\') )
+			strSection += _T("\\");
 		strSection += pszSection;
 	}
 
 	LONG nErrorCode = SHRegSetUSValue( (LPCTSTR)strSection, pszName, REG_SZ,
-		(LPCVOID)pszValue, ( lstrlen( pszValue ) + 1 ) * sizeof( TCHAR ),
-		SHREGSET_FORCE_HKCU );
+		(LPCVOID)pszValue, ( lstrlen( pszValue ) + 1 ) * sizeof( TCHAR ), SHREGSET_FORCE_HKCU );
 	return ( nErrorCode == ERROR_SUCCESS );
 }
 
@@ -107,11 +106,46 @@ BOOL CRegistry::SetDword(LPCTSTR pszSection, LPCTSTR pszName, DWORD nValue, LPCT
 	CString strSection( pszSubKey ? pszSubKey : _T("Software\\PeerProject\\PeerProject") );
 	if ( pszSection && *pszSection )
 	{
-		strSection += _T("\\");
+		if ( pszSection[0] != _T('\\') )
+			strSection += _T("\\");
 		strSection += pszSection;
 	}
 
 	LONG nErrorCode = SHRegSetUSValue( (LPCTSTR)strSection, pszName, REG_DWORD,
 		(LPCVOID)&nValue, sizeof( nValue ), SHREGSET_FORCE_HKCU );
 	return ( nErrorCode == ERROR_SUCCESS );
+}
+
+//////////////////////////////////////////////////////////////////////
+// CRegistry recursively delete key
+
+void CRegistry::DeleteKey(HKEY hParent, LPCTSTR pszKey)
+{
+	HKEY hKey;
+	if ( RegOpenKeyEx( hParent, pszKey, 0, KEY_ALL_ACCESS, &hKey ) ) return;
+
+	CArray< CString > pList;
+
+	for ( DWORD nIndex = 0 ; ; nIndex++ )
+	{
+		DWORD dwName = 64;	// Input parameter in TCHARs
+		TCHAR szName[64];
+
+		LRESULT lResult = RegEnumKeyEx( hKey, nIndex, szName, &dwName, NULL, NULL, 0, NULL );
+		if ( lResult != ERROR_SUCCESS ) break;
+
+		szName[ dwName ] = 0;
+		pList.Add( szName );
+		DeleteKey( hKey, szName );
+	}
+
+	for ( int nItem = pList.GetSize() - 1 ; nItem >= 0 ; nItem-- )
+	{
+		RegDeleteKey( hKey, pList.GetAt( nItem ) );
+	}
+
+	if ( lstrlen( pszKey ) > 25 )	// Handle likely initial non-recursive value
+		RegDeleteKey( HKEY_CURRENT_USER, pszKey );
+
+	RegCloseKey( hKey );
 }

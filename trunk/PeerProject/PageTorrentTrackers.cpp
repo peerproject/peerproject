@@ -1,7 +1,7 @@
 //
 // PageTorrentTrackers.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2006.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -112,8 +112,8 @@ BOOL CTorrentTrackersPage::OnInitDialog()
 	rc.right -= GetSystemMetrics( SM_CXVSCROLL );
 	CoolInterface.SetImageListTo( m_wndTrackers, LVSIL_SMALL );
 	m_wndTrackers.SetExtendedStyle( LVS_EX_DOUBLEBUFFER|LVS_EX_HEADERDRAGDROP|LVS_EX_FULLROWSELECT|LVS_EX_LABELTIP );
-	m_wndTrackers.InsertColumn( 0, _T("Tracker"), LVCFMT_LEFT, rc.right - 78, -1 );
-	m_wndTrackers.InsertColumn( 1, _T("Status"), LVCFMT_CENTER, 78, 0 );
+	m_wndTrackers.InsertColumn( 0, _T("Tracker"), LVCFMT_LEFT, rc.right - 82, -1 );
+	m_wndTrackers.InsertColumn( 1, _T("Status"), LVCFMT_CENTER, 82, 0 );
 	m_wndTrackers.InsertColumn( 2, _T("Type"), LVCFMT_CENTER, 0, 0 );
 	Skin.Translate( _T("CTorrentTrackerList"), m_wndTrackers.GetHeaderCtrl() );
 
@@ -140,9 +140,11 @@ BOOL CTorrentTrackersPage::OnInitDialog()
 
 		// Display status
 		CString sStatus, sType = _T("Announce");
-		if ( oInfo.GetTrackerAddress( nTracker ).Left(6) == _T("udp://") )
+		if ( oInfo.GetTrackerAddress( nTracker ).GetAt( 0 ) == _T('*') )	// Tagged for display only (udp:// etc.)
 		{
-			sType = _T("UDP");
+			if ( oInfo.GetTrackerAddress( nTracker ).Left( 7 ) == _T("*udp://") )
+				sType = _T("UDP");
+
 			// ToDo: Add UDP tracker support
 			LoadString( sStatus, IDS_STATUS_UNSUPPORTED );
 		}

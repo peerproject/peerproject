@@ -128,9 +128,18 @@ BOOL CDatagrams::Listen()
 			(LPCTSTR)CString( inet_ntoa( saHost.sin_addr ) ), htons( saHost.sin_port ) );
 	}
 
+	// Multi-cast ports:
+	// eD2K: 224.0.0.1:5000
+	// LimeWire: 234.21.81.1:6347
+
+	ip_mreq mr = {};
+	mr.imr_multiaddr.s_addr = inet_addr( DEFAULT_G1_MCAST_ADDRESS );
+	VERIFY( setsockopt( m_hSocket, IPPROTO_IP, IP_ADD_MEMBERSHIP,
+		(char FAR *)&mr, sizeof( mr ) ) == 0 );
+
 	WSAEventSelect( m_hSocket, Network.GetWakeupEvent(), FD_READ );
 
-	m_nBufferBuffer	= Settings.Gnutella2.UdpBuffers; // 256;
+	m_nBufferBuffer	= Settings.Gnutella2.UdpBuffers;	// 256
 	m_pBufferBuffer	= new CBuffer[ m_nBufferBuffer ];
 	m_pBufferFree	= m_pBufferBuffer;
 	m_nBufferFree	= m_nBufferBuffer;
@@ -142,7 +151,7 @@ BOOL CDatagrams::Listen()
 		pBuffer->m_pNext = ( nPos == 1 ) ? NULL : ( pBuffer + 1 );
 	}
 
-	m_nInputBuffer	= Settings.Gnutella2.UdpInFrames; // 128;
+	m_nInputBuffer	= Settings.Gnutella2.UdpInFrames;	// 128
 	m_pInputBuffer	= new CDatagramIn[ m_nInputBuffer ];
 	m_pInputFree	= m_pInputBuffer;
 
@@ -153,7 +162,7 @@ BOOL CDatagrams::Listen()
 		pDGI->m_pNextHash = ( nPos == 1 ) ? NULL : ( pDGI + 1 );
 	}
 
-	m_nOutputBuffer	= Settings.Gnutella2.UdpOutFrames; // 128;
+	m_nOutputBuffer	= Settings.Gnutella2.UdpOutFrames;	// 128
 	m_pOutputBuffer	= new CDatagramOut[ m_nOutputBuffer ];
 	m_pOutputFree	= m_pOutputBuffer;
 
@@ -591,14 +600,10 @@ BOOL CDatagrams::TryRead()
 	m_mInput.nTotal += nLength;
 	Statistics.Current.Bandwidth.Incoming += nLength;
 
-	if ( Security.IsDenied( &pFrom.sin_addr ) )
-		return TRUE;
-
-	if ( Network.IsFirewalledAddress( &pFrom.sin_addr, Settings.Connection.IgnoreOwnUDP ) )
+	if ( Network.IsFirewalledAddress( &pFrom.sin_addr, Settings.Connection.IgnoreOwnUDP ) ||
+		 Security.IsDenied( &pFrom.sin_addr ) )
 	{
-		theApp.Message( MSG_DEBUG | MSG_FACILITY_INCOMING,
-			_T("UDP: Dropped datagram (%i bytes) from %s."),
-			nLength, (LPCTSTR)CString( inet_ntoa( pFrom.sin_addr ) ) );
+		// UDP: Dropped datagram
 		return TRUE;
 	}
 

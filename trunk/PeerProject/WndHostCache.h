@@ -81,7 +81,6 @@ protected:
 	afx_msg void OnHostcacheG1Cache();
 	afx_msg void OnUpdateHostcacheEd2kCache(CCmdUI* pCmdUI);
 	afx_msg void OnHostcacheEd2kCache();
-	afx_msg void OnHostcacheEd2kDownload();
 	afx_msg void OnUpdateHostcacheBTCache(CCmdUI* pCmdUI);
 	afx_msg void OnHostcacheBTCache();
 	afx_msg void OnUpdateHostcacheKADCache(CCmdUI* pCmdUI);
@@ -92,6 +91,7 @@ protected:
 	afx_msg void OnHostcachePriority();
 	afx_msg void OnUpdateNeighboursCopy(CCmdUI *pCmdUI);
 	afx_msg void OnNeighboursCopy();
+	afx_msg void OnHostcacheFileDownload();
 	afx_msg void OnHostcacheImport();
 	afx_msg void OnDestroy();
 

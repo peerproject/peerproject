@@ -1,7 +1,7 @@
 //
 // LibraryList.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2006.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -27,9 +27,9 @@ class CLibraryListItem
 public:
 	CLibraryListItem();
 	CLibraryListItem(DWORD val);
-	CLibraryListItem(CLibraryFile* val);
 	CLibraryListItem(CAlbumFolder* val);
 	CLibraryListItem(CLibraryFolder* val);
+	CLibraryListItem(const CLibraryFile* val);
 	CLibraryListItem(const CLibraryListItem& val);
 	bool operator == (const CLibraryListItem& val) const;
 	bool operator != (const CLibraryListItem& val) const;
@@ -42,7 +42,7 @@ public:
 public:
 	enum {
 		Empty = 0, LibraryFile, AlbumFolder, LibraryFolder
-	}					Type;
+	}	Type;
 
 protected:
 	union {

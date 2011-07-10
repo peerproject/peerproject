@@ -1,12 +1,11 @@
-M http://grantgalitz.com/Beacon/gwc.php
 M http://aniraws.com/bootstrap/skulls.php
-M http://gwc.frodoslair.net/skulls/skulls
-M http://gweb.4octets.co.uk/skulls.php
-M http://gweb2.4octets.co.uk/gwc.php
-M http://gwc.lame.net/gwcii.php
+M http://witch.frodoslair.net/gwc/Beacon2/gwc.php
+M http://gwebcache.ns1.net/
+M http://cache.leite.us/
 
 2 http://cache.trillinux.org/g2/bazooka.php
 2 http://dkac.trillinux.org/dkac/dkac.php
+2 http://silvers.zyns.com/gwc/dkac.php 
 2 http://brov.mine.nu/Beacon/gwc.php
 2 http://gwc2.wodi.org/skulls.php
 2 http://gwc.dyndns.info:28960/gwc.php
@@ -15,60 +14,52 @@ M http://gwc.lame.net/gwcii.php
 2 http://cache2.bazookanetworks.com/g2/bazooka.php
 2 http://midian.jayl.de/g2/bazooka.php
 2 http://cache.wru.pl/skulls.php
-2 http://gwebcache.ns1.net/
 2 http://cache.pongwar.com/
+2 http://cache.ce3c.be/
 
+1 http://beacon.numberzero.org/gwc.php 
 1 http://gwc.ak-electron.eu:12050/
 1 http://gwc.glucolene.com:8080/
 1 http://gwc.dietpac.com:8080/
-1 http://leet.gtkg.org:8080/gwc/
-1 http://ein.gtkg.net:8080/gwc/
-1 http://zwei.gtkg.net:8080/gwc/
-1 http://drei.gtkg.net:8080/gwc/
-1 http://sissy.gtkg.org:8080/gwc/
-1 http://gnutelladev1.udp-host-cache.com:8080/gwc/
-1 http://secondary.udp-host-cache.com:8080/gwc/
-1 http://tertiary.udp-host-cache.com:8080/gwc/
+# http://leet.gtkg.org:8080/gwc/
+# http://ein.gtkg.net:8080/gwc/
+# http://zwei.gtkg.net:8080/gwc/
+# http://drei.gtkg.net:8080/gwc/
+# http://sissy.gtkg.org:8080/gwc/
+# http://gnutelladev1.udp-host-cache.com:8080/gwc/
+# http://secondary.udp-host-cache.com:8080/gwc/
+# http://tertiary.udp-host-cache.com:8080/gwc/
 
-U uhc:uhc2.limewire.com:20181
-U uhc:uhc.udp-host-cache.com:9999
 U uhc:yin.cloud.bishopston.net:33558
 U uhc:yang.cloud.bishopston.net:33558
-U uhc:leet.gtkg.org:1337
-U uhc:ein.gtkg.net:60666
-U uhc:drei.gtkg.net:62666
-U uhc:sissy.gtkg.org:51557
-U uhc:ec2-67-202-41-17.compute-1.amazonaws.com:1337
-U uhc:ec2-72-44-40-255.z-2.compute-1.amazonaws.com:9999
-U uhc:ec2-72-44-47-123.z-2.compute-1.amazonaws.com:9999
+# uhc:uhc.udp-host-cache.com:9999
+# uhc:uhc2.limewire.com:20181
+# uhc:leet.gtkg.org:1337
+# uhc:ein.gtkg.net:60666
+# uhc:drei.gtkg.net:62666
+# uhc:sissy.gtkg.org:51557
+# uhc:ec2-67-202-41-17.compute-1.amazonaws.com:1337
+# uhc:ec2-72-44-40-255.z-2.compute-1.amazonaws.com:9999
+# uhc:ec2-72-44-47-123.z-2.compute-1.amazonaws.com:9999
 
 D http://peerates.net/servers.php
 D http://www.gruk.org/server.met
 D http://www.emule-server.de/server.met/max/server.met
 D http://ocbmaurice.dyndns.org/pl/slist.pl/server.met?download/server-best.met
-D http://elboiler.p2pforum.it/server.met
+# http://dchublist.com/hublist.xml.bz2
 
 X http://gwebcache.spearforensics.com/
 X http://bbs.robertwoolley.co.uk/gwebcache/gcache.php
-X http://gwc.frodoslair.net.nyud.net/skulls/skulls.php
-X http://gwc.eod.cc.nyud.net/skulls.php
-X http://gwc.nickstallman.net.nyud.net/
-X http://gwc.nickstallman.net/beta.php
-X http://gwc.nickstallman.net/
-X http://gwc1.nickstallman.net/
-X http://gwc2.nickstallman.net/
-X http://gwebcache.ns1.net/index.php
-X http://gwc.iblinx.com:2108/gwc/cgi-bin/fc
 X http://fischaleck.net/cache/mcache.php
-X http://reukiodo.dyndns.org/gwebcache/gwcii.php
+X http://fascination77.free.fr/cachechu/
 X http://portal.homeunix.org/Beacon/gwc.php
+X http://gwc.eod.cc.nyud.net/skulls.php
 X http://www.lo7.wroc.pl/~stash/g2-moved/bazooka.php
-X http://www.myfoxy.net/gwc/cgi-bin/fc
-X http://gwc.gofoxy.net:2108/gwc/cgi-bin/fc
-X http://gwc.pantheraproject.net/gwc.php
+# http://www.myfoxy.net/gwc/cgi-bin/fc
+# http://gwc.gofoxy.net:2108/gwc/cgi-bin/fc
 
 #
-# Last updated April 2010
+# Last updated July 2011
 #
 # Keep at least four gwebcache links and one link to a .met file
 # or they'll keep getting added every time they're removed
@@ -76,9 +67,10 @@ X http://gwc.pantheraproject.net/gwc.php
 # A letter and space must precede each link to indicate the type of service:
 # D = eDonkey server.met file, M = multinetwork gwebcache,
 # 2 = Gnutella2 gwebcache, 1 = Gnutella gwebcache (obsolete)
-# X = banned, U = BootStrap(uhc, ukhl, gnutella1 host, gnutella2 host)
+# X = banned, U = BootStrap (uhc, ukhl, gnutella1 host, gnutella2 host)
 #
 # Delete this file and PeerProject will use internal defaults.
 #
-# Live Status at http://gcachescan.jonatkins.com and http://kevogod.trillinux.org
-# Get latest version at http://PeerProject.svn.sourceforge.net/viewvc/*checkout*/PeerProject/trunk/Data/DefaultServices.dat
+# Test: http://gofoxy.net/gwc/cgi-bin/fc?get=1&net=gnutella2&client=TEST1.0
+# Live Status at http://gwebcaches.pongwar.com and http://gcachescan.jonatkins.com
+# Latest version at http://PeerProject.svn.sourceforge.net/viewvc/*checkout*/PeerProject/trunk/Data/DefaultServices.dat

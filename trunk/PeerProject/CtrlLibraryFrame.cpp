@@ -278,7 +278,7 @@ void CLibraryFrame::OnSize(UINT nType, int cx, int cy)
 		m_nPanelSize = max( 0, rc.Height() - Skin.m_nToolbarHeight * 2 - m_nHeaderSize - Skin.m_nSplitter );
 
 	HDWP hDWP = BeginDeferWindowPos(
-		7 + ( m_pView != NULL ) + ( m_pPanel != NULL ) + ( m_nHeaderSize > 0 ) );
+		7 + ( m_pView ? 1 : 0 ) + ( m_pPanel ? 1 : 0 ) + ( m_nHeaderSize > 0 ) );
 
 	DeferWindowPos( hDWP, m_wndTreeTop.GetSafeHwnd(), NULL,
 		rc.left, rc.top, m_nTreeSize, Skin.m_nToolbarHeight, SWP_NOZORDER );
@@ -304,7 +304,7 @@ void CLibraryFrame::OnSize(UINT nType, int cx, int cy)
 	DeferWindowPos( hDWP, m_wndTree.GetSafeHwnd(), NULL,
 		rc.left, rc.top + Skin.m_nToolbarHeight, m_nTreeSize, rc.Height() - Skin.m_nToolbarHeight * 2, SWP_NOZORDER );
 
-	if ( m_pView != NULL )
+	if ( m_pView )
 	{
 		int nTop = rc.top + Skin.m_nToolbarHeight - 1;
 
@@ -325,7 +325,7 @@ void CLibraryFrame::OnSize(UINT nType, int cx, int cy)
 			rc.Width() - m_nTreeSize - Skin.m_nSplitter, nHeight, SWP_NOZORDER|SWP_SHOWWINDOW );
 	}
 
-	if ( m_pPanel != NULL )
+	if ( m_pPanel )
 	{
 		DeferWindowPos( hDWP, m_pPanel->GetSafeHwnd(), NULL,
 			rc.left + m_nTreeSize + Skin.m_nSplitter, rc.bottom - Skin.m_nToolbarHeight - m_nPanelSize,
@@ -367,7 +367,7 @@ void CLibraryFrame::OnPaint()
 		dc.FillSolidRect( rc.left, rc.top + 2, rc.Width(), rc.Height() - 2, Colors.m_crSysBtnFace );
 	}
 
-	if ( m_pPanel != NULL )
+	if ( m_pPanel )
 	{
 		rc.SetRect(	rcClient.left + m_nTreeSize + Skin.m_nSplitter,
 					rcClient.bottom - Skin.m_nToolbarHeight - m_nPanelSize - Skin.m_nSplitter,
@@ -417,7 +417,7 @@ BOOL CLibraryFrame::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 		return TRUE;
 	}
 
-	if ( m_pPanel != NULL )
+	if ( m_pPanel )
 	{
 		rc.SetRect(	Settings.General.LanguageRTL ? rcClient.left :
 					rcClient.left + m_nTreeSize + Skin.m_nSplitter,
@@ -709,12 +709,12 @@ void CLibraryFrame::SetPanel(CPanelCtrl* pPanel)
 
 CMetaPanel*	CLibraryFrame::GetPanelData()
 {
-	if ( m_pPanel == NULL ) return NULL; // Panel is hidden
+	if ( ! m_pPanel ) return NULL;	// Panel is hidden
 
 	if ( m_pPanel->IsKindOf( RUNTIME_CLASS( CLibraryMetaPanel ) ) )
 	{
 		CLibraryMetaPanel* pDataPanel = static_cast< CLibraryMetaPanel* >( m_pPanel );
-		if ( pDataPanel != NULL )
+		if ( pDataPanel )
 			return pDataPanel->GetServicePanel();
 	}
 	return NULL;
@@ -722,12 +722,12 @@ CMetaPanel*	CLibraryFrame::GetPanelData()
 
 void CLibraryFrame::SetPanelData(CMetaPanel* pPanel)
 {
-	if ( m_pPanel == NULL ) return; // Panel is hidden
+	if ( ! m_pPanel ) return;	// Panel is hidden
 
 	if ( m_pPanel->IsKindOf( RUNTIME_CLASS( CLibraryMetaPanel ) ) )
 	{
 		CLibraryMetaPanel* pDataPanel = static_cast< CLibraryMetaPanel* >( m_pPanel );
-		if ( pDataPanel != NULL )
+		if ( pDataPanel )
 		{
 			pDataPanel->SetServicePanel( pPanel );
 			UpdatePanel( TRUE );
@@ -770,7 +770,7 @@ BOOL CLibraryFrame::Update(BOOL bForce, BOOL bBestView)
 		{
 			CString sViewName( pView->GetRuntimeClass()->m_lpszClassName );
 
-			if ( pFirstView == NULL ||
+			if ( ! pFirstView ||
 				( pFolderSelection && pFolderSelection->m_pPhysical &&
 				sViewName.CompareNoCase( Settings.Library.LastUsedView ) == 0 ) )
 				pFirstView = pView;
@@ -782,7 +782,7 @@ BOOL CLibraryFrame::Update(BOOL bForce, BOOL bBestView)
 
 	int nHeaderSize = m_wndHeader.Update();
 
-	if ( bBestView && pBestView != NULL )
+	if ( bBestView && pBestView )
 	{
 		if ( pBestView->IsKindOf( RUNTIME_CLASS(CLibraryCollectionView) ) )
 			nHeaderSize = 0;
@@ -848,32 +848,32 @@ void CLibraryFrame::UpdatePanel(BOOL bForce)
 	}
 }
 
-BOOL CLibraryFrame::Display(CLibraryFolder* pFolder)
+BOOL CLibraryFrame::Display(const CLibraryFolder* pFolder)
 {
 	if ( Settings.Library.ShowVirtual != FALSE ) OnLibraryTreePhysical();
 	return m_wndTree.SelectFolder( pFolder );
 }
 
-BOOL CLibraryFrame::Display(CAlbumFolder* pFolder)
+BOOL CLibraryFrame::Display(const CAlbumFolder* pFolder)
 {
 	if ( Settings.Library.ShowVirtual != TRUE ) OnLibraryTreeVirtual();
 	return m_wndTree.SelectFolder( pFolder );
 }
 
-BOOL CLibraryFrame::Display(CLibraryFile* pFile)
+BOOL CLibraryFrame::Display(const CLibraryFile* pFile)
 {
 	if ( Settings.Library.ShowVirtual )
 	{
-		CAlbumFolder* pRoot = Library.GetAlbumRoot();
-		if ( CAlbumFolder* pFolder = pRoot ? pRoot->FindFile( pFile ) : NULL )
+		const CAlbumFolder* pRoot = Library.GetAlbumRoot();
+		if ( const CAlbumFolder* pFolder = pRoot ? pRoot->FindFile( pFile ) : NULL )
 			Display( pFolder );
 		else
-			Display( pFile->m_pFolder );
+			Display( pFile->GetFolderPtr() );
 	}
 	else
 	{
 		Settings.Library.FilterURI.Empty();
-		Display( pFile->m_pFolder );
+		Display( pFile->GetFolderPtr() );
 	}
 
 	return Select( pFile->m_nIndex );
@@ -881,7 +881,7 @@ BOOL CLibraryFrame::Display(CLibraryFile* pFile)
 
 BOOL CLibraryFrame::Select(DWORD nObject)
 {
-	if ( m_pView == NULL ) return FALSE;
+	if ( ! m_pView ) return FALSE;
 	return m_pView->Select( nObject );
 }
 
@@ -1020,7 +1020,7 @@ void CLibraryFrame::OnToolbarEscape()
 	if ( GetFocus() == &m_wndSearch )
 	{
 		m_wndSearch.SetWindowText( _T("") );
-		if ( m_pView != NULL )
+		if ( m_pView )
 			m_pView->SetFocus();
 	}
 }
@@ -1136,7 +1136,7 @@ void CLibraryFrame::RunLocalSearch(CQuerySearch* pSearch)
 
 			if ( Settings.Search.SchemaTypes && pSearch->m_pSchema != NULL )
 			{
-				if ( pSearch->m_pSchema->FilterType( pFile->m_sName, TRUE ) == FALSE )
+				if ( ! pSearch->m_pSchema->FilterType( pFile->m_sName ) )
 					pFile = NULL;
 			}
 
@@ -1158,7 +1158,7 @@ void CLibraryFrame::OnSetFocus(CWnd* pOldWnd)
 {
 	CWnd::OnSetFocus( pOldWnd );
 
-	if ( m_pView != NULL && IsWindow( m_pView->m_hWnd ) && m_pView->IsWindowVisible() )
+	if ( m_pView && IsWindow( m_pView->m_hWnd ) && m_pView->IsWindowVisible() )
 		m_pView->SetFocus();
 }
 

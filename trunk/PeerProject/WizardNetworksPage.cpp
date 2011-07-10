@@ -22,8 +22,9 @@
 #include "WizardNetworksPage.h"
 #include "Network.h"
 #include "HostCache.h"
+#include "Downloads.h"
 #include "PeerProjectURL.h"
-#include "DlgDonkeyServers.h"
+#include "DlgUpdateServers.h"
 #include "DlgHelp.h"
 #include "Skin.h"
 
@@ -83,10 +84,11 @@ BOOL CWizardNetworksPage::OnInitDialog()
 	m_bEDEnable = Settings.eDonkey.EnableAlways;
 	m_bHandleTorrents = Settings.Web.Torrent;
 
-#ifdef LAN_MODE
-	GetDlgItem( IDC_G1_ENABLE )->EnableWindow( FALSE );
-	GetDlgItem( IDC_ED2K_ENABLE )->EnableWindow( FALSE );
-#endif // LAN_MOD
+	if ( Settings.Experimental.LAN_Mode )	// #ifdef LAN_MODE
+	{
+		GetDlgItem( IDC_G1_ENABLE )->EnableWindow( FALSE );
+		GetDlgItem( IDC_ED2K_ENABLE )->EnableWindow( FALSE );
+	}
 
 	UpdateData( FALSE );
 
@@ -134,17 +136,38 @@ LRESULT CWizardNetworksPage::OnWizardNext()
 		CPeerProjectURL::Register();
 	}
 
-	Settings.Gnutella2.EnableAlways	= m_bG2Enable != FALSE;
 	Settings.Gnutella2.Enabled		= m_bG2Enable != FALSE;
-	Settings.Gnutella1.EnableAlways	= m_bG1Enable != FALSE;
+	Settings.Gnutella2.EnableAlways	= m_bG2Enable != FALSE;
 	Settings.Gnutella1.Enabled		= m_bG1Enable != FALSE;
-	Settings.eDonkey.EnableAlways	= m_bEDEnable != FALSE;
+	Settings.Gnutella1.EnableAlways	= m_bG1Enable != FALSE;
 	Settings.eDonkey.Enabled		= m_bEDEnable != FALSE;
+	Settings.eDonkey.EnableAlways	= m_bEDEnable != FALSE;
 
+	// Load server.met from web if needed
 	if ( m_bEDEnable && HostCache.eDonkey.GetCount() < 3 )
 	{
-		CDonkeyServersDlg dlg;
+		CUpdateServersDlg dlg;
+	//	dlg.m_sURL = Settings.eDonkey.ServerListURL;
 		dlg.DoModal();
+	}
+
+	// Load hublist.xml.bz2 from web if needed, various ways
+	if ( HostCache.DC.GetCount() < 5 &&
+		! ( PathFileExists( Settings.General.UserPath + _T("\\Data\\hublist.xml.bz2") ) &&
+			theApp.OpenImport( Settings.General.UserPath + _T("\\Data\\hublist.xml.bz2") ) ) )
+	{
+		CUpdateServersDlg dlg;
+		dlg.m_sURL = Settings.DC.HubListURL;
+		if ( dlg.DoModal() != IDOK &&
+			AfxMessageBox( IDS_DOWNLOAD_DC_HUBLIST, MB_ICONQUESTION | MB_YESNO ) == IDYES )
+		{
+			CPeerProjectURL pURL;
+		//	pURL.Parse( Settings.DC.HubListURL );
+			pURL.m_sURL = Settings.DC.HubListURL;
+			pURL.m_sName = L"hublist.xml.bz2";
+			pURL.m_nAction = CPeerProjectURL::uriDownload;
+			Downloads.Add( pURL );
+		}
 	}
 
 	if ( ! Network.IsConnected() && ( m_bG2Enable || m_bG1Enable || m_bEDEnable ) )

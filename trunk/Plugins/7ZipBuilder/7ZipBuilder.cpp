@@ -1,7 +1,7 @@
 //
 // 7ZipBuilder.cpp : Implementation of DLL Exports.
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions Copyright Shareaza Development Team, 2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -32,59 +32,60 @@ public :
 	DECLARE_REGISTRY_APPID_RESOURCEID( IDR_APP, "{C2D1E91C-5C0B-4F01-BA5A-447D1F28A53B}" )
 
 protected:
-	HMODULE	m_h7zxr;
+	HMODULE	m_h7zx;
 
-	bool Load7zxr();
-	void Unload7zxr();
+	bool Load7zx();
+	void Unload7zx();
 };
 
 CModule::CModule() :
-	m_h7zxr( NULL )
+	m_h7zx( NULL )
 {
-	if ( ! Load7zxr() )
-		Unload7zxr();
+	if ( ! Load7zx() )
+		Unload7zx();
 }
 
 CModule::~CModule()
 {
-	Unload7zxr();
+	Unload7zx();
 }
 
-bool CModule::Load7zxr()
+bool CModule::Load7zx()
 {
-	m_h7zxr = LoadLibrary( _T("7zxr.dll") );
-	if ( ! m_h7zxr )
+	LPCTSTR sz7zxa = _T("7zxa.dll");
+	m_h7zx = LoadLibrary( sz7zxa );
+	if ( ! m_h7zx )
 	{
 		TCHAR szPath[ MAX_PATH ] = {};
 		GetModuleFileName( _AtlBaseModule.GetModuleInstance(), szPath, MAX_PATH );
 		LPTSTR c = _tcsrchr( szPath, _T('\\') );
 		if ( ! c )
 			return false;
-		lstrcpy( c + 1, _T("7zxr.dll") );
-		m_h7zxr = LoadLibrary( szPath );
-		if ( ! m_h7zxr )
+		lstrcpy( c + 1, sz7zxa );
+		m_h7zx = LoadLibrary( szPath );
+		if ( ! m_h7zx )
 		{
 			*c = _T('\0');
 			c = _tcsrchr( szPath, _T('\\') );
 			if ( ! c )
 				return false;
-			lstrcpy( c + 1, _T("7zxr.dll") );
-			m_h7zxr = LoadLibrary( szPath );
-			if ( ! m_h7zxr )
+			lstrcpy( c + 1, sz7zxa );
+			m_h7zx = LoadLibrary( szPath );
+			if ( ! m_h7zx )
 				return false;
 		}
 	}
-	fnCreateObject = (tCreateObject)GetProcAddress( m_h7zxr, "CreateObject");
+	fnCreateObject = (tCreateObject)GetProcAddress( m_h7zx, "CreateObject" );
 	return ( fnCreateObject != NULL );
 }
 
-void CModule::Unload7zxr()
+void CModule::Unload7zx()
 {
-	if ( m_h7zxr )
+	if ( m_h7zx )
 	{
 		fnCreateObject = NULL;
-		FreeLibrary( m_h7zxr );
-		m_h7zxr = NULL;
+		FreeLibrary( m_h7zx );
+		m_h7zx = NULL;
 	}
 }
 
@@ -122,7 +123,7 @@ STDAPI DllInstall(BOOL bInstall, LPCWSTR pszCmdLine)
 
 	if ( pszCmdLine != NULL )
 	{
-#if defined(_MSC_VER) && (_MSC_VER >= 1500)	// No VS2005
+#if defined(_MSC_VER) && (_MSC_VER >= 1500)		// No VS2005
 		if ( _wcsnicmp(pszCmdLine, szUserSwitch, _countof(szUserSwitch)) == 0 )
 			AtlSetPerUserRegistration(true);
 #endif

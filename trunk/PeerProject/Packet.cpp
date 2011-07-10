@@ -83,11 +83,13 @@ void CPacket::Reset()
 // Moves the position this packet object remembers to that distance from the start or end
 void CPacket::Seek(DWORD nPosition, int nRelative)
 {
-	// Set the position forwards from the start
+	// Set the position forwards from the start, or backwards from the end, or from current position
 	if ( nRelative == seekStart )
-		m_nPosition = min( m_nLength, nPosition );	// Move position in the object to the given position, making sure it's in the data
-	else // Set the position backwards from the end
+		m_nPosition = min( m_nLength, nPosition );				// Move position in the object to the given position, making sure it's in the data
+	else if ( nRelative == seekEnd )
 		m_nPosition = min( m_nLength, m_nLength - nPosition );	// Move position in the object to nPosition from the end (Length - Position from start)
+	else //if ( nRelative == seekCurrent )
+		m_nPosition = min( m_nLength, m_nPosition + nPosition );
 }
 
 // Takes a number of bytes
@@ -95,8 +97,54 @@ void CPacket::Seek(DWORD nPosition, int nRelative)
 void CPacket::Shorten(DWORD nLength)
 {
 	// If the given length is within the data of the packet, shorten the packet and our position in it
-	m_nLength	= min( m_nLength, nLength );     // Record that there are only nLength bytes of packet data written in the buffer
-	m_nPosition	= min( m_nPosition, m_nLength ); // Make sure this doesn't move our position beyond the bytes of the packet
+	m_nLength	= min( m_nLength, nLength );		// Record that there are only nLength bytes of packet data written in the buffer
+	m_nPosition	= min( m_nPosition, m_nLength );	// Make sure this doesn't move our position beyond the bytes of the packet
+}
+
+void CPacket::Remove(DWORD nLength)
+{
+	if ( nLength >= m_nLength )
+	{
+		m_nPosition = 0;
+		m_nLength = 0;
+	}
+	else if ( nLength )
+	{
+		if ( m_nPosition > nLength )
+			m_nPosition -= nLength;
+		else
+			m_nPosition = 0;
+		m_nLength -= nLength;
+		MoveMemory( m_pBuffer, m_pBuffer + nLength, m_nLength );
+	}
+}
+
+BOOL CPacket::Compare(const void* szString, DWORD nLength, DWORD nOffset) const
+{
+	if ( nOffset + nLength > m_nLength )
+		return FALSE;
+
+	return ( memcmp( m_pBuffer + nOffset, szString, nLength ) == 0 );
+}
+
+int CPacket::Find(BYTE c, DWORD nOffset) const
+{
+	if ( nOffset >= m_nLength )
+		return -1;
+
+	BYTE* p = (BYTE*)memchr( m_pBuffer + nOffset, c, m_nLength - nOffset );
+	if ( ! p )
+		return -1;
+
+	return (int)( p - m_pBuffer );
+}
+
+BYTE CPacket::GetAt(DWORD nOffset) const
+{
+	if ( nOffset >= m_nLength )
+		return 0;
+
+	return m_pBuffer[ nOffset ];
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -104,7 +152,6 @@ void CPacket::Shorten(DWORD nLength)
 
 // Takes the number of bytes to look at from our position in the packet as ASCII text
 // Reads those up to the next null terminator as text
-// Returns a string
 CString CPacket::ReadString(UINT cp, DWORD nMaximum)
 {
 	// We'll convert the ANSI text in the packet into wide characters, and return them in this string
@@ -112,14 +159,14 @@ CString CPacket::ReadString(UINT cp, DWORD nMaximum)
 
 	// If maximum would have us read beyond the end of the packet, make it smaller to read to the end of the packet
 	nMaximum = min( nMaximum, m_nLength - m_nPosition );
-	if ( ! nMaximum ) return strString;	// If that would have us read nothing, return the new blank string
+	if ( ! nMaximum ) return strString; 	// If that would have us read nothing, return the new blank string
 
 	// Setup pointers to look at bytes in the packet
 	LPCSTR pszInput	= (LPCSTR)m_pBuffer + m_nPosition; // Point pszInput at our position inside the buffer
-	LPCSTR pszScan  = pszInput;			// Start out pszScan at the same spot, it will find the next null terminator
+	LPCSTR pszScan  = pszInput;		// Start out pszScan at the same spot, it will find the next null terminator
 
 	// Loop for each byte in the packet at and beyond our position in it, searching for a null terminator
-	DWORD nLength = 0; // When this loop is done, nLength will be the number of ANSI bytes we moved over before finding the null terminator
+	DWORD nLength = 0;				// When this loop is done, nLength will be the number of ANSI bytes we moved over before finding the null terminator
 	for ( ; nLength < nMaximum ; nLength++ )
 	{
 		// Move the position pointer in this CPacket object to the next byte
@@ -389,41 +436,40 @@ void CPacket::SmartDump(const SOCKADDR_IN* pAddress, BOOL bUDP, BOOL bOutgoing, 
 }
 
 //////////////////////////////////////////////////////////////////////
-// CPacket RAZA signatures	(ToDo: Rename?)
+// CPacket signatures	(Obsolete unused placeholders)
 
-// Takes the number of bytes in this packet to hash
-// Computs the SHA hash of those bytes
-// Writes the hash under the given pointer and returns true, or false on error
-BOOL CPacket::GetRazaHash(Hashes::Sha1Hash& oHash, DWORD nLength) const
-{
-	// If the caller didn't specify a length, we'll hash all the bytes in the packet
-	if ( nLength == 0xFFFFFFFF ) nLength = m_nLength;
-
-	// Make sure the caller didn't ask to hash more bytes than the packet contains
-	if ( (DWORD)m_nLength < nLength ) return FALSE;
-
-	// Make a new local CSHA object to use to hash the data
-	CSHA pSHA;
-	pSHA.Add( m_pBuffer, nLength );	// Add the bytes of the packet to those it needs to hash
-	pSHA.Finish();					// Tell it that's all we have
-	pSHA.GetHash( &oHash[ 0 ] );	// Ask it to write the hash under the pHash pointer
-	oHash.validate();
-
-	return TRUE;					// Report success
-}
-
-// Does nothing, and is not overriden by any inheritng class (do)
-void CPacket::RazaSign()
-{
-	// Do nothing (do)
-}
-
-// Does nothing, and is not overriden by any inheritng class (do)
-BOOL CPacket::RazaVerify() const
-{
-	// Always return false (do)
-	return FALSE;
-}
+// Obsolete: Computes the SHA hash of bytes in packet
+// Takes the number of bytes in this packet to hash, writes the hash under the given pointer and returns true, or false on error
+//BOOL CPacket::GetPacketHash(Hashes::Sha1Hash& oHash, DWORD nLength) const
+//{
+//	// If the caller didn't specify a length, we'll hash all the bytes in the packet
+//	if ( nLength == 0xFFFFFFFF ) nLength = m_nLength;
+//
+//	// Make sure the caller didn't ask to hash more bytes than the packet contains
+//	if ( (DWORD)m_nLength < nLength ) return FALSE;
+//
+//	// Make a new local CSHA object to use to hash the data
+//	CSHA pSHA;
+//	pSHA.Add( m_pBuffer, nLength );	// Add the bytes of the packet to those it needs to hash
+//	pSHA.Finish();					// Tell it that's all we have
+//	pSHA.GetHash( &oHash[ 0 ] );	// Ask it to write the hash under the pHash pointer
+//	oHash.validate();
+//
+//	return TRUE;					// Report success
+//}
+//
+// Placeholder. Does nothing, and is not overriden by any inheriting class (do)
+//void CPacket::RazaSign()
+//{
+//	// Do nothing (do)
+//}
+//
+// Placeholder. Does nothing, and is not overriden by any inheriting class (do)
+//BOOL CPacket::RazaVerify() const
+//{
+//	// Always return false (do)
+//	return FALSE;
+//}
 
 //////////////////////////////////////////////////////////////////////
 // CPacketPool construction
@@ -432,8 +478,8 @@ BOOL CPacket::RazaVerify() const
 CPacketPool::CPacketPool()
 {
 	// Set member variables to null and 0 defaults
-	m_pFree = NULL;	// No pointer to a CPacket object
-	m_nFree = 0;    // Start the count at 0 (do)
+	m_pFree = NULL; 	// No pointer to a CPacket object
+	m_nFree = 0;		// Start the count at 0 (do)
 }
 
 // Delete this packet pool

@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Slovenian Skin File -->
 
-<!-- Translation based on default-en.xml r67 (Shareaza 2.2.2.12) -->
+<!-- Translation based on default-en.xml r68 (Shareaza 2.2.2.12) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -879,7 +879,7 @@
 		</menu>
 		<separator/>
 		<item id="ID_HOSTCACHE_IMPORT" text="_Uvozi datoteko MET..."/>
-		<item id="ID_HOSTCACHE_ED2K_DOWNLOAD" text="Prenesi MET..."/>
+		<item id="ID_HOSTCACHE_FILE_DOWNLOAD" text="Prenesi MET..."/>
 	</menu>
 	<!-- SEARCH WINDOW -->
 	<menu name="CSearchWnd.Basic">
@@ -1436,8 +1436,16 @@
 	</menu>
 	<!-- SYSTEM WINDOW -->
 	<menu name="CSystemWnd">
-		<item id="ID_SYSTEM_VERBOSE" text="_Verbose način"/>
+		<menu id="ID_SYSTEM_VERBOSE" text="_Verbose način"/>
+			<item id="ID_SYSTEM_VERBOSE_ERROR" text="_Error"/>
+			<item id="ID_SYSTEM_VERBOSE_WARNING" text="_Warning"/>
+			<item id="ID_SYSTEM_VERBOSE_NOTICE" text="_Notice"/>
+			<item id="ID_SYSTEM_VERBOSE_INFO" text="_Info"/>
+			<item id="ID_SYSTEM_VERBOSE_DEBUG" text="_Debug"/>
+		</menu>
 		<item id="ID_SYSTEM_TIMESTAMP" text="Ča_sovni žig"/>
+		<separator/>
+		<item id="ID_SYSTEM_COPY" text="_Copy" shortcut="Ctrl+C"/>
 		<separator/>
 		<item id="ID_SYSTEM_CLEAR" text="_Počisti predponilnik"/>
 	</menu>
@@ -2267,7 +2275,7 @@
 	<tip id="ID_HOSTCACHE_CONNECT" message="Povezava na izbrane gostitelje."/>
 	<tip id="ID_HOSTCACHE_DISCONNECT" message="Prekinitev povezave z izbranega gostitelja."/>
 	<tip id="ID_HOSTCACHE_ED2K_CACHE" message="Prikaz eDonkey2000 strežnikov."/>
-	<tip id="ID_HOSTCACHE_ED2K_DOWNLOAD" message="Prenos eDonkey2000 &quot;server.met&quot; datoteke..."/>
+	<tip id="ID_HOSTCACHE_FILE_DOWNLOAD" message="Prenos eDonkey2000 &quot;server.met&quot; datoteke..."/>
 	<tip id="ID_HOSTCACHE_G1_CACHE" message="Prikaz medpomnenjih gostiteljev sistema Gnutella1."/>
 	<tip id="ID_HOSTCACHE_G2_CACHE" message="Prikaz medpomnenjih gostiteljev sistema Gnutella2."/>
 	<tip id="ID_HOSTCACHE_G2_HORIZON" message="Prikaz obzornih zvezdišč (horizon hubs) sistema Gnutella2."/>
@@ -3174,7 +3182,7 @@
 	<string id="20881" value="%u izbranih datotek. Ali ste prepričani?"/>
 	<string id="20882" value="URN ni na voljo"/>
 	<string id="20885" value="Spreminjanje pogleda bo zaprlo morebitna okna, ki jim imate odprte. Želite spremeniti takoj?"/>
-	<string id="20886" value="Sprememba smeri vmesnika zahteva ponovni zagon. \nProgram PeerProject boste morali zagnati ročno. Želite končati program?"/>
+	<string id="20886" value="Sprememba smeri vmesnika zahteva ponovni zagon.\n\nŽelite končati program?"/>
 	<string id="20890" value="Dobrodošli v PeerProject"/>
 	<string id="20891" value="Izhod"/>
 	<string id="20895" value="Niste še določili hitrosti za povezavo. Pred nadaljevanjem boste morali ali izbrati tip medmrežne povezave ali ročno vnesti hitrost povezave."/>
@@ -4136,7 +4144,7 @@
 		<control caption="V redu"/>
 		<control caption="Prekliči"/>
 	</dialog>
-	<dialog name="CDonkeyServersDlg" cookie="StEdmsBuBu" caption="Prenesi datoteko Server.met">
+	<dialog name="CUpdateServersDlg" cookie="StEdmsBuBu" caption="Prenesi datoteko Server.met">
 		<control caption="Prenesete lahko eDonkey2000 server.met datoteko iz spleta. S tem boste osvežili lokalni seznam strežnikov tega omrežja."/>
 		<control/>
 		<control/>

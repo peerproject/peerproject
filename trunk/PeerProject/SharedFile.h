@@ -1,7 +1,7 @@
 //
 // SharedFile.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -49,7 +49,6 @@ public:
 	DWORD			m_nSelectCookie;
 	DWORD			m_nListCookie;
 	DWORD			m_nIndex;
-	CLibraryFolder*	m_pFolder;				// NULL for Ghost files
 	FILETIME		m_pTime;
 	QWORD			m_nVirtualBase;
 	QWORD			m_nVirtualSize;
@@ -69,18 +68,23 @@ public:
 	BOOL			m_bBogus;
 	CList< CSharedSource* >		m_pSources;
 	// Search helper variables
-	mutable DWORD				m_nHitsToday;
-	mutable DWORD				m_nHitsTotal;
-	mutable DWORD				m_nSearchCookie;
-	mutable DWORD				m_nSearchWords;
-	mutable DWORD				m_nCollIndex;
-	mutable const CLibraryFile*	m_pNextHit;
+	CLibraryFile*	m_pNextHit;
+	DWORD			m_nHitsToday;
+	DWORD			m_nHitsTotal;
+	DWORD			m_nSearchCookie;
+	DWORD			m_nSearchWords;
+	DWORD			m_nCollIndex;
 	int				m_nIcon16;
 	BOOL			m_bNewFile;
 
 	CString			GetPath() const;
 	CString			GetFolder() const;
 	CString 		GetSearchName() const;
+	const CLibraryFolder* GetFolderPtr() const;
+
+	bool			IsPrivateTorrent() const;
+	DWORD			GetCreationTime();				// Get network wide file creation time (seconds, as time())
+	BOOL			SetCreationTime(DWORD tTime);	// Set network wide file creation time (seconds, as time())
 	BOOL			CheckFileAttributes(QWORD nSize, BOOL bSharedOnly, BOOL bAvailableOnly) const;
 	void			SetShared(bool bShared, bool bOverride = false);
 	bool			IsShared(bool bIgnoreOverride = false) const;
@@ -90,8 +94,8 @@ public:
 	BOOL			IsSchemaURI(LPCTSTR pszURI) const;
 	BOOL			IsRated() const;		// File rated or commented
 	BOOL			IsRatedOnly() const;	// File rated but has no metadata
-	//BOOL			IsPeerTagged() const;	// Permissiveness  ToDo: PeerTags
-	BOOL			IsHashed() const;
+//	BOOL			IsPeerTagged() const;	// Permissiveness  ToDo: PeerTags
+	BOOL			IsHashed() const;		// File fully hashed
 	BOOL			IsNewFile() const;
 	BOOL			IsReadable() const;
 	BOOL			Rebuild();
@@ -108,6 +112,31 @@ public:
 	CSharedSource*	AddAlternateSource(LPCTSTR pszURL, FILETIME* tSeen = NULL);
 	CSharedSource*	AddAlternateSources(LPCTSTR pszURL);
 	CString			GetAlternateSources(CList< CString >* pState, int nMaximum, PROTOCOLID nProtocol);
+
+	// Adds file data to string array using template. Supported template variables:
+	// $meta:name$		- file name
+	// $meta:comments$	- file comments
+	// $meta:hours$		- hours as decimal from file metadata "minutes" or "seconds" field
+	// $meta:minutes$	- minutes as decimal from file metadata "minutes" or "seconds" field
+	// $meta:seconds$	- seconds as  decimal from file metadata "minutes" or "seconds" field
+	// $meta:time$		- time as string "hours:minutes:seconds" from file metadata "minutes" or "seconds" field
+	// $meta:track$		- track as decimal
+	// $meta:*$			- other file metadata fields as is
+	// $meta:sizebytes$	- file size in bytes
+	// $meta:size$		- file size in KB or MB
+	// $meta:sha1$		- file SHA1 hash
+	// $meta:gnutella$	- file SHA1 link (gnutella://)
+	// $meta:tiger$		- file Tiger hash
+	// $meta:bitprint$	- file SHA1.Tiger hash
+	// $meta:ed2khash$	- file ED2K hash
+	// $meta:ed2k$		- file ED2K link (ed2k://|file|)
+	// $meta:md5$		- file MD5 hash
+	// $meta:btih$		- file BitTorrnet info hash
+	// $meta:magnet$	- file magnet-link
+	// $meta:number$	- file number in string array
+	// Unknown variables will be replaced by "N/A" string.
+	// Adds file data to string array using template.
+	//BOOL			PrepareDoc(LPCTSTR pszTemplate, CArray< CString >& oDocs);
 
 	inline CString GetNameLC() const
 	{
@@ -127,19 +156,21 @@ public:
 	}
 
 protected:
-	TRISTATE	m_bShared;
+	TRISTATE		m_bShared;
+	CLibraryFolder*	m_pFolder;			// NULL for Ghost files
+	DWORD			m_tCreateTime;		// Cached network wide file creation time (seconds, as time())
 
-	void		Serialize(CArchive& ar, int nVersion);
-	BOOL		ThreadScan(CSingleLock& pLock, DWORD nScanCookie, QWORD nSize, FILETIME* pTime/*, LPCTSTR pszMetaData*/);
-	void		OnDelete(BOOL bDeleteGhost = FALSE, TRISTATE bCreateGhost = TRI_UNKNOWN);
-	void		Ghost();
-	BOOL		OnVerifyDownload(
-					const Hashes::Sha1ManagedHash& oSHA1,
-					const Hashes::TigerManagedHash& oTiger,
-					const Hashes::Ed2kManagedHash& oED2K,
-					const Hashes::BtManagedHash& oBTH,
-					const Hashes::Md5ManagedHash& oMD5,
-					LPCTSTR pszSources);
+	void			Serialize(CArchive& ar, int nVersion);
+	BOOL			ThreadScan(CSingleLock& pLock, DWORD nScanCookie, QWORD nSize, FILETIME* pTime/*, LPCTSTR pszMetaData*/);
+	void			OnDelete(BOOL bDeleteGhost = FALSE, TRISTATE bCreateGhost = TRI_UNKNOWN);
+	void			Ghost();
+	BOOL			OnVerifyDownload(
+						const Hashes::Sha1ManagedHash& oSHA1,
+						const Hashes::TigerManagedHash& oTiger,
+						const Hashes::Ed2kManagedHash& oED2K,
+						const Hashes::BtManagedHash& oBTH,
+						const Hashes::Md5ManagedHash& oMD5,
+						LPCTSTR pszSources);
 
 	BEGIN_INTERFACE_PART(LibraryFile, ILibraryFile)
 		DECLARE_DISPATCH()
@@ -160,7 +191,6 @@ protected:
 		STDMETHOD(get_Metadata)(ISXMLElement FAR* FAR* ppXML);
 		STDMETHOD(put_Metadata)(ISXMLElement FAR* pXML);
 		STDMETHOD(Execute)();
-		STDMETHOD(SmartExecute)();
 		STDMETHOD(Delete)();
 		STDMETHOD(Rename)(BSTR sNewName);
 		STDMETHOD(Copy)(BSTR sNewPath);
@@ -177,7 +207,7 @@ protected:
 	friend class CDeleteFileDlg;
 };
 
-typedef CList< const CLibraryFile* > CFileList;
+typedef CList< CLibraryFile* > CFileList;
 typedef CMap< DWORD_PTR, DWORD_PTR, CLibraryFile*, CLibraryFile* > CIndexMap;
 typedef CMap< CString, const CString&, CLibraryFile*, CLibraryFile* > CFileMap;
 

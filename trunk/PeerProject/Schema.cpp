@@ -44,7 +44,7 @@ CSchema::CSchema()
 	, m_nIcon32 	( -1 )
 	, m_nIcon48 	( -1 )
 {
-	m_sDonkeyType.Empty();
+	m_pTypeFilters.InitHashTable( 127 );
 }
 
 CSchema::~CSchema()
@@ -54,6 +54,48 @@ CSchema::~CSchema()
 
 //////////////////////////////////////////////////////////////////////
 // CSchema member access
+
+BOOL CSchema::FilterType(LPCTSTR pszFile) const
+{
+	if ( m_pTypeFilters.IsEmpty() )
+		return FALSE;
+
+	LPCTSTR pszExt = PathFindExtension( pszFile );
+	if ( ! *pszExt )
+		return FALSE;
+
+	const CStringBoolMap::CPair* pPair = m_pTypeFilters.PLookup(
+		CString( pszExt + 1 ).MakeLower() );
+
+	return pPair && pPair->value;
+}
+
+CString CSchema::GetFilterSet() const
+{
+	CString sFilters = _T("|");
+	for ( POSITION pos = m_pTypeFilters.GetStartPosition() ; pos ; )
+	{
+		CString sType;
+		BOOL bResult;
+		m_pTypeFilters.GetNextAssoc( pos, sType, bResult );
+		if ( bResult )
+		{
+			sFilters += sType;
+			sFilters += _T('|');
+		}
+	}
+	return sFilters;
+}
+
+POSITION CSchema::GetFilterIterator() const
+{
+	return m_pTypeFilters.GetStartPosition();
+}
+
+void CSchema::GetNextFilter(POSITION& pos, CString& sType, BOOL& bResult) const
+{
+	m_pTypeFilters.GetNextAssoc( pos, sType, bResult );
+}
 
 POSITION CSchema::GetMemberIterator() const
 {
@@ -126,9 +168,8 @@ void CSchema::Clear()
 BOOL CSchema::Load(LPCTSTR pszFile)
 {
 	CString strFile( pszFile );
-
-	int nSlash = strFile.Find( '.' );
-	if ( nSlash >= 0 ) strFile = strFile.Left( nSlash );
+	PathRemoveExtension( strFile.GetBuffer() );
+	strFile.ReleaseBuffer();
 
 	if ( ! LoadSchema( strFile + _T(".xsd") ) ) return FALSE;
 
@@ -494,16 +535,11 @@ void CSchema::LoadDescriptorTypeFilter(CXMLElement* pElement)
 		if ( pType->GetName().CompareNoCase( _T("type") ) == 0 )
 		{
 			CString strType = pType->GetAttributeValue( _T("extension"), _T("") );
-			if ( ! strType.IsEmpty() )
-			{
-				ToLower( strType );
-				m_sTypeFilter += _T("|.") + strType;
-			}
-			else
-			{
+			if ( strType.IsEmpty() )
 				strType = pType->GetAttributeValue( _T("keyword"), _T("") );
-				m_sTypeFilter += _T("|") + strType;
-			}
+
+			BOOL bResult = TRUE;
+			m_pTypeFilters.SetAt( strType.MakeLower(), bResult );
 		}
 	}
 }
@@ -736,8 +772,10 @@ CString CSchema::GetIndexedWords(CXMLElement* pXML) const
 
 			if ( ! strMember.IsEmpty() )
 			{
-				if ( ! str.IsEmpty() ) str += ' ';
-				str += strMember;
+				if ( str.IsEmpty() )
+					str += strMember;
+				else
+					str += _T(' ') + strMember;
 			}
 		}
 	}

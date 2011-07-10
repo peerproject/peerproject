@@ -161,7 +161,7 @@ BOOL CURLActionDlg::OnInitDialog()
 		case CDiscoveryService::dsWebCache:
 			m_sHashValue = _T("GWebCache");
 			break;
-		case CDiscoveryService::dsServerMet:
+		case CDiscoveryService::dsServerList:
 			m_sHashValue = _T("Server.met URL");
 			break;
 		}

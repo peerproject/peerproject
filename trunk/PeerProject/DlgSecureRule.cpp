@@ -45,8 +45,8 @@ CSecureRuleDlg::CSecureRuleDlg(CWnd* pParent, CSecureRule* pRule)
 	, m_nExpireD	( 0 )
 	, m_nExpireH	( 0 )
 	, m_nExpireM	( 0 )
+	, m_nExpire 	( 0 )
 	, m_nAction 	( -1 )
-	, m_nExpire 	( -1 )
 	, m_nType		( -1 )
 	, m_nMatch		( -1 )
 	, m_bNew		( FALSE )
@@ -67,17 +67,17 @@ void CSecureRuleDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_RULE_CONTENT, m_wndContent);
 	DDX_Control(pDX, IDC_GROUP_CONTENT, m_wndGroupContent);
 	DDX_Control(pDX, IDC_GROUP_NETWORK, m_wndGroupNetwork);
-	DDX_Control(pDX, IDC_EXPIRE_M, m_wndExpireM);
-	DDX_Control(pDX, IDC_EXPIRE_H, m_wndExpireH);
-	DDX_Control(pDX, IDC_EXPIRE_D, m_wndExpireD);
-	DDX_Control(pDX, IDC_MASK_4, m_wndMask4);
-	DDX_Control(pDX, IDC_MASK_3, m_wndMask3);
-	DDX_Control(pDX, IDC_MASK_2, m_wndMask2);
-	DDX_Control(pDX, IDC_MASK_1, m_wndMask1);
-	DDX_Control(pDX, IDC_IP_4, m_wndIP4);
-	DDX_Control(pDX, IDC_IP_3, m_wndIP3);
-	DDX_Control(pDX, IDC_IP_2, m_wndIP2);
 	DDX_Control(pDX, IDC_IP_1, m_wndIP1);
+	DDX_Control(pDX, IDC_IP_2, m_wndIP2);
+	DDX_Control(pDX, IDC_IP_3, m_wndIP3);
+	DDX_Control(pDX, IDC_IP_4, m_wndIP4);
+	DDX_Control(pDX, IDC_MASK_1, m_wndMask1);
+	DDX_Control(pDX, IDC_MASK_2, m_wndMask2);
+	DDX_Control(pDX, IDC_MASK_3, m_wndMask3);
+	DDX_Control(pDX, IDC_MASK_4, m_wndMask4);
+	DDX_Control(pDX, IDC_EXPIRE_D, m_wndExpireD);
+	DDX_Control(pDX, IDC_EXPIRE_H, m_wndExpireH);
+	DDX_Control(pDX, IDC_EXPIRE_M, m_wndExpireM);
 	DDX_Text(pDX, IDC_EXPIRE_D, m_nExpireD);
 	DDX_Text(pDX, IDC_EXPIRE_H, m_nExpireH);
 	DDX_Text(pDX, IDC_EXPIRE_M, m_nExpireM);
@@ -98,6 +98,16 @@ BOOL CSecureRuleDlg::OnInitDialog()
 	CSkinDialog::OnInitDialog();
 
 	SkinMe( _T("CSecureRuleDlg"), IDR_SECURITYFRAME );
+
+	if ( m_ToolTip.Create(this) )
+	{
+		m_ToolTip.AddTool( &m_wndMask1, IDS_SECURITY_NETMASK );
+		m_ToolTip.AddTool( &m_wndMask2, IDS_SECURITY_NETMASK );
+		m_ToolTip.AddTool( &m_wndMask3, IDS_SECURITY_NETMASK );
+		m_ToolTip.AddTool( &m_wndMask4, IDS_SECURITY_NETMASK );
+
+		m_ToolTip.Activate( TRUE );
+	}
 
 	if ( ! m_pRule )
 	{
@@ -146,16 +156,12 @@ BOOL CSecureRuleDlg::OnInitDialog()
 		m_sContent = m_pRule->GetContentWords();
 		break;
 	case CSecureRule::srContentHash:
-		m_nType  = 1;
-		m_nMatch = 0;
-		m_sContent = m_pRule->GetContentWords();
-		break;
 	case CSecureRule::srSizeType:
+	case CSecureRule::srExternal:
+	default:
 		m_nType  = 1;
 		m_nMatch = 0;
 		m_sContent = m_pRule->GetContentWords();
-		break;
-	//default: ?
 	}
 
 	m_sComment = m_pRule->m_sComment;
@@ -230,6 +236,25 @@ BOOL CSecureRuleDlg::PreTranslateMessage(MSG* pMsg)
 		{
 			if ( pFocus == pwIP[ nByte ] || pFocus == pwMask[ nByte ] )
 			{
+				if ( pMsg->wParam == '*' )
+				{
+					if ( pFocus != pwIP[ nByte ] ) return TRUE;
+					pwIP[ nByte ]->SetWindowText( _T("*") );
+					pwMask[ nByte ]->SetWindowText( _T("0") );
+					pwIP[ nByte ]->SetSel( 0, 1 );
+					pwMask[ nByte ]->SetSel( 0, 1 );
+					return TRUE;
+				}
+
+				CString str;
+				pFocus->GetWindowText( str );
+				if ( _tstoi( str ) > 255 )
+				{
+					pFocus->SetWindowText( _T("255") );
+					if ( pMsg->wParam != '.' )
+						return TRUE;
+				}
+
 				if ( pMsg->wParam == '.' )
 				{
 					if ( nByte == 3 ) return TRUE;
@@ -248,33 +273,131 @@ BOOL CSecureRuleDlg::PreTranslateMessage(MSG* pMsg)
 					return TRUE;
 				}
 
-				if ( pMsg->wParam == '*' )
-				{
-					if ( pFocus != pwIP[ nByte ] ) return TRUE;
-					pwIP[ nByte ]->SetWindowText( _T("*") );
-					pwMask[ nByte ]->SetWindowText( _T("0") );
-					pwIP[ nByte ]->SetSel( 0, 1 );
-					pwMask[ nByte ]->SetSel( 0, 1 );
-					return TRUE;
-				}
-
-				if ( pMsg->wParam >= 32 && ! _istdigit( (TCHAR)pMsg->wParam ) )
+				if ( pMsg->wParam >= 32 && ! _istdigit( (TCHAR)pMsg->wParam ) )		// Redundant ES_NUMBER check
 					return TRUE;
 
 				break;
 			}
 		}
 	}
+	else if ( pMsg->message == WM_KEYDOWN && pMsg->wParam == 'V' && ( GetAsyncKeyState( VK_CONTROL ) & 0x8000 ) )
+	{
+		if ( GetClipboardAddress() )
+			return TRUE;
+	}
+
+	m_ToolTip.RelayEvent(pMsg);
 
 	return CSkinDialog::PreTranslateMessage(pMsg);
+}
+
+BOOL CSecureRuleDlg::GetClipboardAddress()
+{
+	CWnd* pFocus = GetFocus();
+
+	BOOL bMask;
+	if ( pFocus == &m_wndIP1 || pFocus == &m_wndIP2 || pFocus == &m_wndIP3 || pFocus == &m_wndIP4 )
+		bMask = FALSE;
+	else if ( pFocus == &m_wndMask1 || pFocus == &m_wndMask2 || pFocus == &m_wndMask3 | pFocus == &m_wndMask4 )
+		bMask = TRUE;
+	else
+		return FALSE;
+
+	CString str;
+	pFocus->GetWindowText( str );
+
+	if ( OpenClipboard() )
+	{
+		if ( HGLOBAL hData = GetClipboardData( CF_UNICODETEXT ) )
+		{
+			size_t nData = GlobalSize( hData );
+			LPVOID pData = GlobalLock( hData );
+
+			LPTSTR pszData = str.GetBuffer( (int)( nData + 1 ) / 2 + 1 );
+			CopyMemory( pszData, pData, nData );
+			pszData[ ( nData + 1 ) / 2 ] = 0;
+			str.ReleaseBuffer();
+			GlobalUnlock( hData );
+		}
+
+		CloseClipboard();
+		str.Trim( _T(" \t\r\n") );
+
+		if ( str.GetLength() > 16 && ! str.Find( _T("/255.") ) > 6 )
+			return TRUE;	// Assume bad string, but should handle ip+mask too
+	}
+
+	// Handle copy/pasted IP
+	if ( str.GetLength() > 8 && str.Find( _T('.') ) > 1 )
+	{
+		CString strIP[4] = { _T(""), _T(""), _T(""), _T("") };
+		for ( int i = 0, c = 0 ; c < 4 && i < str.GetLength() ; i++ )
+		{
+			TCHAR Ch = str.GetAt( i );
+			if ( _istdigit( Ch ) )
+			{
+				strIP[c].AppendChar( Ch );
+				if ( strIP[c].GetLength() > 3 || _tstoi( strIP[c] ) > 255 )
+					break;
+				continue;
+			}
+			if ( Ch == _T('.') && ! strIP[c].IsEmpty() )
+			{
+				c++;
+				continue;
+			}
+
+			return TRUE;
+		}
+
+		if ( ! strIP[2].IsEmpty() )
+		{
+			if ( ! bMask )
+			{
+				m_wndIP1.SetWindowText( strIP[0] );
+				m_wndIP2.SetWindowText( strIP[1] );
+				m_wndIP3.SetWindowText( strIP[2] );
+				m_wndIP4.SetWindowText( strIP[3] );
+			}
+			else
+			{
+				m_wndMask1.SetWindowText( _T("255") );
+				m_wndMask2.SetWindowText( strIP[1] );
+				m_wndMask3.SetWindowText( strIP[2] );
+				m_wndMask4.SetWindowText( strIP[3] );
+
+				if (  strIP[0] != _T("255") || strIP[1] != _T("255") || ( ! strIP[3].IsEmpty() &&
+					( strIP[2] != _T("255") && strIP[3] != _T("0") ) ||
+					( strIP[3] != _T("255") && strIP[3] != _T("254") && strIP[3] != _T("252") && strIP[3] != _T("248") && strIP[3] != _T("240") && strIP[3] != _T("224") && strIP[3] != _T("192") && strIP[3] != _T("128") && strIP[3] != _T("0") ) ||
+					( strIP[2] != _T("254") && strIP[2] != _T("252") && strIP[2] != _T("248") && strIP[2] != _T("240") && strIP[2] != _T("224") && strIP[2] != _T("192") && strIP[2] != _T("128") && strIP[2] != _T("0") ) ) )
+					AfxMessageBox( IDS_SECURITY_NETMASK );
+			}
+			return TRUE;
+		}
+	}
+
+	if ( str.GetLength() > 3 )
+		str = str.Left( 3 );
+	for ( int i = 0 ; i < str.GetLength() ; i++ )
+	{
+		if ( ! _istdigit( str.GetAt( i ) ) )
+			return TRUE;
+	}
+
+	if ( str.GetLength() == 3 && _tstoi( str ) > 255 )
+		str = _T("255");
+	pFocus->SetWindowText( str );
+
+	return TRUE;
 }
 
 void CSecureRuleDlg::OnOK()
 {
 	UpdateData( TRUE );
 
-	if ( m_nType == 0 )
+	if ( m_nType == 0 )		// srAddress (by dropdown index)
 	{
+		BOOL bWarning = FALSE;
 		m_pRule->m_nType = CSecureRule::srAddress;
 		CEdit* pwIP[4]		= { &m_wndIP1, &m_wndIP2, &m_wndIP3, &m_wndIP4 };
 		CEdit* pwMask[4]	= { &m_wndMask1, &m_wndMask2, &m_wndMask3, &m_wndMask4 };
@@ -289,8 +412,27 @@ void CSecureRuleDlg::OnOK()
 
 			pwMask[ nByte ]->GetWindowText( strItem );
 			if ( _stscanf( strItem, _T("%lu"), &nValue ) != 1 ) nValue = 0;
-			m_pRule->m_nMask[ nByte ] = (BYTE)min( 255ul, nValue );
+			switch ( nValue )
+			{
+			case 255:
+			case 254:
+			case 252:
+			case 248:
+			case 240:
+			case 224:
+			case 192:
+			case 128:
+			case 0:
+				m_pRule->m_nMask[ nByte ] = (BYTE)nValue;
+				break;
+			default:
+				m_pRule->m_nMask[ nByte ] = 255;
+				pwMask[ nByte ]->SetWindowText( _T("255") );
+				bWarning = TRUE;
+			}
 		}
+		if ( bWarning )
+			AfxMessageBox( IDS_SECURITY_NETMASK );
 	}
 	else if ( m_nType == 1 && ! m_sContent.IsEmpty() )
 	{
@@ -298,6 +440,8 @@ void CSecureRuleDlg::OnOK()
 			m_pRule->m_nType = CSecureRule::srSizeType;
 		else if ( StartsWith( m_sContent, _T("urn:"), 4 ) && m_sContent.GetLength() > 20 )
 			m_pRule->m_nType = CSecureRule::srContentHash;
+		else if ( StartsWith( m_sContent, _T("hostiles."), 9 ) || PathFileExists( Settings.General.UserPath + _T("\\Data\\") + m_sContent ) || PathFileExists( m_sContent ) )
+			m_pRule->m_nType = CSecureRule::srExternal;
 		else if ( m_sContent.FindOneOf( _T("/:<>|\"") ) >= 0 )
 			MsgBox( LoadString( IDS_BT_ENCODING ) );	// ToDo: Better response (return)
 		else

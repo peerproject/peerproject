@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Chinese (Simplified) Skin File -->
 
-<!-- Translation based on default-en.xml r67 (Shareaza r6092) -->
+<!-- Translation based on default-en.xml r68 (Shareaza r6092) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -920,7 +920,7 @@
 		</menu>
 		<separator/>
 		<item id="ID_HOSTCACHE_IMPORT" text="导入 MET 文件(_I)..."/>
-		<item id="ID_HOSTCACHE_ED2K_DOWNLOAD" text="下载 MET..."/>
+		<item id="ID_HOSTCACHE_FILE_DOWNLOAD" text="下载 MET..."/>
 	</menu>
 	<!-- SEARCH WINDOW -->
 	<menu name="CSearchWnd.Basic">
@@ -1477,8 +1477,16 @@
 	</menu>
 	<!-- SYSTEM WINDOW -->
 	<menu name="CSystemWnd">
-		<item id="ID_SYSTEM_VERBOSE" text="详细模式(_M)"/>
+		<menu id="ID_SYSTEM_VERBOSE" text="详细模式(_M)"/>
+			<item id="ID_SYSTEM_VERBOSE_ERROR" text="_Error"/>
+			<item id="ID_SYSTEM_VERBOSE_WARNING" text="_Warning"/>
+			<item id="ID_SYSTEM_VERBOSE_NOTICE" text="_Notice"/>
+			<item id="ID_SYSTEM_VERBOSE_INFO" text="_Info"/>
+			<item id="ID_SYSTEM_VERBOSE_DEBUG" text="_Debug"/>
+		</menu>
 		<item id="ID_SYSTEM_TIMESTAMP" text="时间戳(_P)"/>
+		<separator/>
+		<item id="ID_SYSTEM_COPY" text="复制" shortcut="Ctrl+C"/>
 		<separator/>
 		<item id="ID_SYSTEM_CLEAR" text="清除缓存(_B)"/>
 	</menu>
@@ -2333,7 +2341,7 @@
 	<tip id="ID_HOSTCACHE_CONNECT" message="连接到选定的主机。"/>
 	<tip id="ID_HOSTCACHE_DISCONNECT" message="断开选定邻居的连接。"/>
 	<tip id="ID_HOSTCACHE_ED2K_CACHE" message="显示 edonkey 服务器。"/>
-	<tip id="ID_HOSTCACHE_ED2K_DOWNLOAD" message="下载 edonkey &quot;server.met&quot; 文件..."/>
+	<tip id="ID_HOSTCACHE_FILE_DOWNLOAD" message="下载 edonkey &quot;server.met&quot; 文件..."/>
 	<tip id="ID_HOSTCACHE_G1_CACHE" message="显示 Gnutella1 缓存中的主机。"/>
 	<tip id="ID_HOSTCACHE_G2_CACHE" message="显示 Gnutella2 缓存缓存中的主机。"/>
 	<tip id="ID_HOSTCACHE_G2_HORIZON" message="显示 Gnutella2 同级集端。"/>
@@ -3261,7 +3269,7 @@
 	<string id="20882" value="无 URN 可用"/>
 	<string id="20883" value="UPnP Device Host 服务未运行。请重新设置该服务。\n您需要将该服务的启动类型设置为&quot;自动&quot;。"/>
 	<string id="20885" value="更改显示模式将关闭您已经打开的窗口。您要立即更改吗？"/>
-	<string id="20886" value="变更界面方向需要重新启动。\n您需要手动启动 PeerProject。立即退出？"/>
+	<string id="20886" value="变更界面方向需要重新启动。\n\n立即退出？"/>
 	<string id="20890" value="欢迎来到 PeerProject"/>
 	<string id="20891" value="退出(_X)"/>
 	<string id="20892" value="请稍候: 更新 edonkey 服务器列表..."/>
@@ -4225,7 +4233,7 @@
 		<control caption="确定"/>
 		<control caption="取消"/>
 	</dialog>
-	<dialog name="CDonkeyServersDlg" cookie="StEdmsBuBu" caption="下载 Server.met 文件">
+	<dialog name="CUpdateServersDlg" cookie="StEdmsBuBu" caption="下载 Server.met 文件">
 		<control caption="您能从网络上下载 edonkey server.met 文件来刷新您的本地服务器列表。"/>
 		<control/>
 		<control/>

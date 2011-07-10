@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Estonian Skin File -->
 
-<!-- Translation based on default-en.xml r67 (Shareaza 2.2.2.9) -->
+<!-- Translation based on default-en.xml r68 (Shareaza 2.2.2.9) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -893,7 +893,7 @@
 		</menu>
 		<separator/>
 		<item id="ID_HOSTCACHE_IMPORT" text="_Impordi MET Fail..."/>
-		<item id="ID_HOSTCACHE_ED2K_DOWNLOAD" text="Tõmba MET..."/>
+		<item id="ID_HOSTCACHE_FILE_DOWNLOAD" text="Tõmba MET..."/>
 	</menu>
 	<!-- SEARCH WINDOW -->
 	<menu name="CSearchWnd.Basic">
@@ -1449,8 +1449,16 @@
 	</menu>
 	<!-- SYSTEM WINDOW -->
 	<menu name="CSystemWnd">
-		<item id="ID_SYSTEM_VERBOSE" text="_Infotihe Olek"/>
+		<menu id="ID_SYSTEM_VERBOSE" text="_Infotihe Olek"/>
+			<item id="ID_SYSTEM_VERBOSE_ERROR" text="_Error"/>
+			<item id="ID_SYSTEM_VERBOSE_WARNING" text="_Warning"/>
+			<item id="ID_SYSTEM_VERBOSE_NOTICE" text="_Notice"/>
+			<item id="ID_SYSTEM_VERBOSE_INFO" text="_Info"/>
+			<item id="ID_SYSTEM_VERBOSE_DEBUG" text="_Debug"/>
+		</menu>
 		<item id="ID_SYSTEM_TIMESTAMP" text="Ajastu_s"/>
+		<separator/>
+		<item id="ID_SYSTEM_COPY" text="_Copy" shortcut="Ctrl+C"/>
 		<separator/>
 		<item id="ID_SYSTEM_CLEAR" text="Puhasta _Puhver"/>
 	</menu>
@@ -2275,7 +2283,7 @@
 	<tip id="ID_HOSTCACHE_CONNECT" message="Ühenda valitud serveriga."/>
 	<tip id="ID_HOSTCACHE_DISCONNECT" message="Katkesta ühendus valitud serveriga."/>
 	<tip id="ID_HOSTCACHE_ED2K_CACHE" message="Näita eDonkey2000 servereid."/>
-	<tip id="ID_HOSTCACHE_ED2K_DOWNLOAD" message="Tõmba eDonkey2000 &quot;server.met&quot; fail..."/>
+	<tip id="ID_HOSTCACHE_FILE_DOWNLOAD" message="Tõmba eDonkey2000 &quot;server.met&quot; fail..."/>
 	<tip id="ID_HOSTCACHE_G1_CACHE" message="Näita Gnutella1 cached servereid."/>
 	<tip id="ID_HOSTCACHE_G2_CACHE" message="Näita Gnutella2 cached servereid."/>
 	<tip id="ID_HOSTCACHE_G2_HORIZON" message="Näita Gnutella2 horizon hube."/>
@@ -3181,7 +3189,7 @@
 	<string id="20881" value="%u faili valitud. Oled sa kindel?"/>
 	<string id="20882" value="URN-i ei ole saadaval"/>
 	<string id="20885" value="Vaadete muutmine sulgeb kõik avatud aknad. Kas soovid kohe muuta?"/>
-	<string id="20886" value="Kasutajaliidese suundade muutmine nõuab taaskäivitust.\na pead PeerProject käsits taaskäivitama. Välju nüüd?"/>
+	<string id="20886" value="Kasutajaliidese suundade muutmine nõuab taaskäivitust.\n\nVälju nüüd?"/>
 	<string id="20890" value="Teretulemast PeerProjectsse"/>
 	<string id="20891" value="Välju"/>
 	<string id="20895" value="Sa ei ole veel oma internetiühenduse kiirust täpsustanud. Enne jätkamist, vali kas Interneti ühenduse tüüp või kiirus."/>
@@ -4138,7 +4146,7 @@
 		<control caption="OK"/>
 		<control caption="Tühista"/>
 	</dialog>
-	<dialog name="CDonkeyServersDlg" cookie="StEdmsBuBu" caption="Tõmba Server.met Fail">
+	<dialog name="CUpdateServersDlg" cookie="StEdmsBuBu" caption="Tõmba Server.met Fail">
 		<control caption="Tõmba weebist eDonkey2000 server.met fail, et värskendada oma kohalikke serverite nimekirja."/>
 		<control/>
 		<control/>

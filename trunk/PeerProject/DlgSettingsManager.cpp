@@ -1,7 +1,7 @@
 //
 // DlgSettingsManager.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -97,7 +97,7 @@ void CSettingsManagerDlg::OnSkinChange(BOOL bSet)
 
 	m_pThis->SkinMe( _T("CSettingSheet"), IDR_MAINFRAME );
 
-	for ( INT_PTR i = 0; i < m_pThis->GetPageCount(); ++i )
+	for ( INT_PTR i = 0 ; i < m_pThis->GetPageCount() ; ++i )
 	{
 		CSettingsPage* pPage = m_pThis->GetPage( i );
 		pPage->OnSkinChange();
@@ -108,7 +108,7 @@ void CSettingsManagerDlg::OnSkinChange(BOOL bSet)
 
 INT_PTR CSettingsManagerDlg::DoModal(LPCTSTR pszWindow)
 {
-	BOOL bAdvanced			= Settings.General.GUIMode != GUI_BASIC;
+	const BOOL bAdvanced	= Settings.General.GUIMode != GUI_BASIC;
 
 	CRichSettingsPage		gGeneral( _T("CGeneralSettingsGroup") );
 	CGeneralSettingsPage	pGeneral;
@@ -125,6 +125,7 @@ INT_PTR CSettingsManagerDlg::DoModal(LPCTSTR pszWindow)
 	CNetworksSettingsPage	gNetworks;
 	CGnutellaSettingsPage	pGnutella;
 	CDonkeySettingsPage		pDonkey;
+//	CDCSettingsPage 		pDC;
 	CBitTorrentSettingsPage	pTorrent;
 	CSkinsSettingsPage		pSkins;
 	CPluginsSettingsPage	pPlugins;
@@ -148,10 +149,14 @@ INT_PTR CSettingsManagerDlg::DoModal(LPCTSTR pszWindow)
 	{
 		AddGroup( &gNetworks ); 	// IDD_SETTINGS_NETWORKS
 		AddPage( &pGnutella );		// IDD_SETTINGS_GNUTELLA
-#ifndef LAN_MODE
-		AddPage( &pDonkey );		// IDD_SETTINGS_DONKEY
-		AddPage( &pTorrent );		// IDD_SETTINGS_BITTORRENT
-#endif //LAN_MOD
+		if ( ! Settings.Experimental.LAN_Mode )
+		{
+			//if ( Settings.eDonkey.ShowInterface )
+			AddPage( &pDonkey );	// IDD_SETTINGS_DONKEY
+			//if ( Settings.DC.ShowInterface )
+			//	AddPage( &pDC );	// IDD_SETTINGS_DC
+			AddPage( &pTorrent );	// IDD_SETTINGS_BITTORRENT
+		}
 	}
 	AddGroup( &pSkins );			// IDD_SETTINGS_SKINS
 	if ( bAdvanced )
@@ -220,7 +225,7 @@ void CSettingsManagerDlg::OnApply()
 }
 
 
-// Obsolete:
+// Obsolete Banner Method:
 //void CSettingsManagerDlg::DoPaint(CDC& dc)
 //{
 //	CRect rc;

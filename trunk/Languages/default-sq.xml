@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Albanian Skin File -->
 
-<!-- Translation based on default-en.xml r67 -->
+<!-- Translation based on default-en.xml r68 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -959,7 +959,7 @@
 		</menu>
 		<separator/>
 		<item id="ID_HOSTCACHE_IMPORT" text="_Importo skedën MET..."/>
-		<item id="ID_HOSTCACHE_ED2K_DOWNLOAD" text="Shkarko skedën MET..."/>
+		<item id="ID_HOSTCACHE_FILE_DOWNLOAD" text="Shkarko skedën MET..."/>
 	</menu>
 	<!-- SEARCH WINDOW -->
 	<menu name="CSearchWnd.Basic">
@@ -2447,7 +2447,7 @@
 	<tip id="ID_HOSTCACHE_CONNECT" message="Lidhet te hosti i zgjedhur."/>
 	<tip id="ID_HOSTCACHE_DISCONNECT" message="Shkëputet nga hosti i zgjedhur."/>
 	<tip id="ID_HOSTCACHE_ED2K_CACHE" message="Tregon serverat eDonkey."/>
-	<tip id="ID_HOSTCACHE_ED2K_DOWNLOAD" message="Shkarkon skedën nga eDonkey &quot;server.met&quot;..."/>
+	<tip id="ID_HOSTCACHE_FILE_DOWNLOAD" message="Shkarkon skedën nga eDonkey &quot;server.met&quot;..."/>
 	<tip id="ID_HOSTCACHE_G1_CACHE" message="Tregon hostet në depot e Gnutella1."/>
 	<tip id="ID_HOSTCACHE_G2_CACHE" message="Tregon hostet në depot e Gnutella2."/>
 	<tip id="ID_HOSTCACHE_G2_HORIZON" message="Tregon nyjet në horizont të Gnutella2."/>
@@ -2967,7 +2967,7 @@
 	<string id="20590" value="Hyrja në largësi është çaktivizuar."/>
 	<string id="20591" value="http://%s:%i/remote - një emër përdoruesi dhe fjalëkalimi."/>
 	<string id="20592" value="Nuk mund të pranoj lidhjet, URLi pa vlerë."/>
-	<string id="20597" value="A jeni i sigurt se doni të fshini rregullat e zgjedhur të sigurisë?  Kjo nuk mund të çbëhet."/>
+	<string id="20597" value="A jeni i sigurt se doni të fshini rregullat e zgjedhur të sigurisë?"/>
 	<string id="20599" value="&amp;Skema"/>
 	<!-- Missing Scheduler/Security Strings -->
 	<string id="20620" value="PeerProject kërkon me ngulm në rrjet..."/>
@@ -3128,7 +3128,7 @@
 	<string id="20882" value="Asnjë URN me vlerë"/>
 	<string id="20883" value="UPnP Device Host Service is not running. This service is required to perform the setup.\nYou need to set the startup type of the service to automatic."/>
 	<string id="20885" value="Ndryshimi i pamjes do i mbyllë gjithë dritaret e hapura. A jeni i sigurt për këtë?"/>
-	<string id="20886" value="Ndryshimi i drejtimit të ndërfaqes kërkon rinisje. \nPeerProject-n duhet ta nisni vetë. A doni të dilni?"/>
+	<string id="20886" value="Ndryshimi i drejtimit të ndërfaqes kërkon rinisje.\n\nA doni të dilni?"/>
 	<string id="20890" value="Mirë se erdhe te PeerProject"/>
 	<string id="20891" value="Dalje"/>
 	<string id="20892" value="Palun oodake: Updating eDonkey server list..."/>
@@ -4130,7 +4130,7 @@
 		<control caption="OK"/>
 		<control caption="Anulo"/>
 	</dialog>
-	<dialog name="CDonkeyServersDlg" cookie="StEdmsBuBu" caption="Shkarkoni Skedën Server.met">
+	<dialog name="CUpdateServersDlg" cookie="StEdmsBuBu" caption="Shkarkoni Skedën Server.met">
 		<control caption="Skeda server.met e eDonkey mund të shkarkohet nga ky rrjet për të rifreskuar listën lokale me serverat tuaj."/>
 		<control/>
 		<control/>

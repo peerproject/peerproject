@@ -19,7 +19,6 @@
 #include "StdAfx.h"
 #include "PeerProject.h"
 #include "Settings.h"
-#include "Registry.h"
 #include "PeerProjectURL.h"
 #include "Transfer.h"
 #include "QuerySearch.h"
@@ -27,6 +26,7 @@
 #include "Network.h"
 #include "BTInfo.h"
 #include "Skin.h"
+#include "Registry.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -202,7 +202,7 @@ BOOL CPeerProjectURL::ParseRoot(LPCTSTR pszURL, BOOL bResolve)
 		Root[ L"dchub:" ]	= 'd';
 		Root[ L"dcfile:" ]	= 'c';
 		Root[ L"foxy:" ]	= 'x';
-	//	Root[ L"irc:" ]		= 'i';
+		Root[ L"irc:" ]		= 'i';
 	}
 
 	switch( Root[ strRoot ] )
@@ -258,13 +258,16 @@ BOOL CPeerProjectURL::ParseRoot(LPCTSTR pszURL, BOOL bResolve)
 		else
 			return FALSE;	// Unknown
 		return ParseMagnet( pszURL );
-//	case 'i':	// irc://irc.server:port/channel?key
-//		return FALSE;	// ToDo: IRC link support
-//	default:
-//		return FALSE;	// Unknown? See http://en.wikipedia.org/wiki/URI_scheme
+	case 'i':	// irc://irc.server:port/channel?key
+	//	SkipSlashes( pszURL, nRoot );
+		return FALSE;	// ToDo: IRC link support
+	default:
+		if ( IsValidIP( CString( pszURL ).Trim( _T(" \t\r\n/") ) ) )
+			return ParsePeerProject( pszURL );
+		//return FALSE;		// Unknown? See http://en.wikipedia.org/wiki/URI_scheme
 	}
 
-// Legacy method for verification, to be deleted
+// Obsolete method, to be deleted
 //	if ( ! _tcsnicmp( pszURL, _T("http://"), 7 ) ||
 //		 ! _tcsnicmp( pszURL, _T("https://"), 8 ) )
 //		return ParseHTTP( pszURL, bResolve );
@@ -333,7 +336,7 @@ BOOL CPeerProjectURL::ParseRoot(LPCTSTR pszURL, BOOL bResolve)
 //		SkipSlashes( pszURL, 5 );
 //		return ParsePiolet( pszURL );
 //	}
-//	else if ( _tcsnicmp( pszURL, _T("foxy:"), 5 ) == 0 )	// Foxy
+//	else if ( _tcsnicmp( pszURL, _T("foxy:"), 5 ) == 0 )			// Foxy
 //	{
 //		pszURL += 5;
 //		if ( ! _tcsnicmp( pszURL, _T("//download?"), 11 ) )			// Original
@@ -347,7 +350,7 @@ BOOL CPeerProjectURL::ParseRoot(LPCTSTR pszURL, BOOL bResolve)
 //			return ParseMagnet( pszURL );
 //		}
 //	}
-//	else if ( ! _tcsnicmp( pszURL, _T("dchub://"), 8 ) )	// dchub://1.2.3.4:411
+//	else if ( ! _tcsnicmp( pszURL, _T("dchub://"), 8 ) )			// dchub://1.2.3.4:411
 //	{
 //		SkipSlashes( pszURL, 8 );
 //		m_nPort = DC_DEFAULT_PORT;
@@ -390,6 +393,10 @@ BOOL CPeerProjectURL::ParseHTTP(LPCTSTR pszURL, BOOL bResolve)
 		m_sAddress	= strURL;
 		m_sPath 	= _T("/");
 	}
+
+	// Detect mistaken IP:port
+	if ( m_sPath == _T("/") && m_sAddress.Find( _T(':') ) > 8 && IsValidIP( m_sAddress ) )
+		return ParsePeerProject( m_sAddress );
 
 	const int nAt = m_sAddress.Find( _T('@') );
 	if ( nAt >= 0 ) m_sAddress = m_sAddress.Mid( nAt + 1 );
@@ -843,10 +850,12 @@ BOOL CPeerProjectURL::ParsePeerProject(LPCTSTR pszURL)
 		return ParsePeerProjectHost( pszURL + 7, TRUE );
 	if ( ! _tcsnicmp( pszURL, _T("chat:"), 5 ) )
 		return ParsePeerProjectHost( pszURL + 5, TRUE );
+	if ( ! _tcsnicmp( pszURL, _T("http://"), 7 ) )
+		return ParsePeerProjectHost( pszURL + 7, TRUE );
 	if ( ! _tcsnicmp( pszURL, _T("gwc:"), 4 ) )
 		return ParseDiscovery( pszURL + 4, CDiscoveryService::dsWebCache );
 	if ( ! _tcsnicmp( pszURL, _T("meturl:"), 7 ) )
-		return ParseDiscovery( pszURL + 7, CDiscoveryService::dsServerMet );
+		return ParseDiscovery( pszURL + 7, CDiscoveryService::dsServerList );
 	if ( ! _tcsnicmp( pszURL, _T("url:"), 4 ) )
 		return Parse( pszURL + 4 );
 	if ( ! _tcsnicmp( pszURL, _T("uhc:"), 4 ) ||
@@ -986,9 +995,9 @@ BOOL CPeerProjectURL::ParseDonkey(LPCTSTR pszURL)
 	if ( ! _tcsnicmp( pszURL, _T("|server|"), 8 ) )
 		return ParseDonkeyServer( pszURL + 8 );
 	if ( ! _tcsnicmp( pszURL, _T("|meturl|"), 8 ) )
-		return ParseDiscovery( pszURL + 8, CDiscoveryService::dsServerMet );
+		return ParseDiscovery( pszURL + 8, CDiscoveryService::dsServerList );
 	if ( ! _tcsnicmp( pszURL, _T("|serverlist|"), 12 ) )
-		return ParseDiscovery( pszURL + 12, CDiscoveryService::dsServerMet );
+		return ParseDiscovery( pszURL + 12, CDiscoveryService::dsServerList );
 	if ( ! _tcsnicmp( pszURL, _T("|search|"), 8 ) )
 	{
 		// ed2k://|search|text_to_find|/
@@ -1304,7 +1313,7 @@ CQuerySearchPtr CPeerProjectURL::ToQuery() const
 /////////////////////////////////////////////////////////////////////////////
 // CPeerProjectURL shell registration
 
-void CPeerProjectURL::Register(BOOL bOnStartup)
+void CPeerProjectURL::Register(/*BOOL bRegister,*/ BOOL bOnStartup)
 {
 	RegisterShellType( _T("Classes"), _T("peerproject"), _T("URL:PeerProject P2P"), NULL, _T("PeerProject"), _T("URL"), IDR_MAINFRAME );
 //	RegisterShellType( _T("Classes"), _T("shareaza"), _T("URL:PeerProject P2P"), NULL, _T("PeerProject"), _T("URL"), IDR_MAINFRAME );
@@ -1405,9 +1414,7 @@ void CPeerProjectURL::Register(BOOL bOnStartup)
 /////////////////////////////////////////////////////////////////////////////
 // CPeerProjectURL shell registration helper
 
-BOOL CPeerProjectURL::RegisterShellType(LPCTSTR pszRoot, LPCTSTR pszProtocol, LPCTSTR pszName,
-									 LPCTSTR pszType, LPCTSTR pszApplication, LPCTSTR pszTopic,
-									 UINT nIDIcon, BOOL bOverwrite)
+BOOL CPeerProjectURL::RegisterShellType(LPCTSTR pszRoot, LPCTSTR pszProtocol, LPCTSTR pszName, LPCTSTR pszType, LPCTSTR pszApplication, LPCTSTR pszTopic, UINT nIDIcon, BOOL bOverwrite)
 {
 	HKEY hKey, hSub1, hSub2, hSub3, hSub4;
 	CString strSubKey, strValue;
@@ -1518,16 +1525,6 @@ BOOL CPeerProjectURL::RegisterShellType(LPCTSTR pszRoot, LPCTSTR pszProtocol, LP
 	return TRUE;
 }
 
-BOOL CPeerProjectURL::IsRegistered(LPCTSTR pszProtocol)
-{
-	CString strSubKey;
-	strSubKey.Format( _T("Software\\Classes\\%s"), pszProtocol );
-	CString strPath = CRegistry::GetString( _T("shell\\open\\command"), NULL, NULL, strSubKey );
-
-	return _tcsistr( strPath, theApp.m_strBinaryPath ) != NULL ||
-		CRegistry::GetString( _T("shell\\open\\ddeexec\\Application"), NULL, NULL, strSubKey ) == _T("PeerProject");
-}
-
 BOOL CPeerProjectURL::UnregisterShellType(LPCTSTR pszRoot, LPCTSTR pszProtocol)
 {
 	if ( pszRoot == NULL ) return FALSE;
@@ -1538,42 +1535,25 @@ BOOL CPeerProjectURL::UnregisterShellType(LPCTSTR pszRoot, LPCTSTR pszProtocol)
 	else
 		strSubKey.Format( _T("Software\\%s\\%s"), pszRoot, pszProtocol );
 
-	if ( ! IsRegistered( pszProtocol ) )
-		return FALSE;
+	if ( pszProtocol )
+	{
+		CString strSubKey;
+		strSubKey.Format( _T("Software\\Classes\\%s"), pszProtocol );
+		CString strPath = CRegistry::GetString( _T("shell\\open\\command"), NULL, NULL, strSubKey );
 
-	DeleteKey( HKEY_CURRENT_USER, (LPCTSTR)strSubKey );
-	RegDeleteKey( HKEY_CURRENT_USER, (LPCTSTR)strSubKey );
+		if ( _tcsistr( strPath, theApp.m_strBinaryPath ) != NULL ||
+			CRegistry::GetString( _T("shell\\open\\ddeexec\\Application"), NULL, NULL, strSubKey ) == _T("PeerProject") )
+		{
+			CRegistry::DeleteKey( HKEY_CURRENT_USER, (LPCTSTR)strSubKey );
+		//	RegDeleteKey( HKEY_CURRENT_USER, (LPCTSTR)strSubKey );	// Not needed
+		}
+	}
 
 	return TRUE;
 }
 
-void CPeerProjectURL::DeleteKey(HKEY hParent, LPCTSTR pszKey)
-{
-	CArray< CString > pList;
-	HKEY hKey;
-
-	if ( RegOpenKeyEx( hParent, pszKey, 0, KEY_ALL_ACCESS, &hKey ) ) return;
-
-	for ( DWORD dwIndex = 0 ; ; dwIndex++ )
-	{
-		DWORD dwName = 64;	// Input parameter in TCHARs
-		TCHAR szName[64];
-
-		LRESULT lResult = RegEnumKeyEx( hKey, dwIndex, szName, &dwName, NULL, NULL, 0, NULL );
-		if ( lResult != ERROR_SUCCESS ) break;
-
-		szName[ dwName ] = 0;
-		pList.Add( szName );
-		DeleteKey( hKey, szName );
-	}
-
-	for ( int nItem = 0 ; nItem < pList.GetSize() ; nItem++ )
-	{
-		RegDeleteKey( hKey, pList.GetAt( nItem ) );
-	}
-
-	RegCloseKey( hKey );
-}
+// Moved to CRegistry::DeleteKey(HKEY, LPCTSTR)
+//void CPeerProjectURL::DeleteKey(HKEY hParent, LPCTSTR pszKey)
 
 /////////////////////////////////////////////////////////////////////////////
 // CPeerProjectURL magnet registration helper

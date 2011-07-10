@@ -1,7 +1,7 @@
 //
 // CtrlLibraryTreeView.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -64,12 +64,12 @@ public:
 	int					GetSelectedCount() const;
 	CLibraryTreeItem*	GetFirstSelected() const;
 	CLibraryTreeItem*	GetLastSelected() const;
-	CLibraryTreeItem*	GetFolderItem(void* pSearch, CLibraryTreeItem* pParent = NULL);
+	CLibraryTreeItem*	GetFolderItem(LPCVOID pSearch, CLibraryTreeItem* pParent = NULL);
 	CLibraryTreeItem*	HitTest(const POINT& point, RECT* pRect = NULL) const;
 	BOOL				GetRect(CLibraryTreeItem* pItem, RECT* pRect);
 	void				SetVirtual(BOOL bVirtual);
 	BOOL				Update(DWORD nSelectCookie);
-	BOOL				SelectFolder(LPVOID pSearch);
+	BOOL				SelectFolder(LPCVOID pSearch);
 
 protected:
 	void				Clear();

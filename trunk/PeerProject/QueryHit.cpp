@@ -60,10 +60,6 @@ CQueryHit::CQueryHit(PROTOCOLID nProtocol, const Hashes::Guid& oSearchID)
 	, m_bChat		( FALSE )
 	, m_bBrowseHost	( FALSE )
 	, m_nGroup		( 0 )
-//	, m_bSHA1		( FALSE )
-//	, m_bTiger		( FALSE )
-//	, m_bED2K		( FALSE )
-//	, m_bBTH		( FALSE )
 	, m_nIndex		( 0 )
 	, m_bSize		( FALSE )
 	, m_nHitSources	( 0 )
@@ -73,6 +69,7 @@ CQueryHit::CQueryHit(PROTOCOLID nProtocol, const Hashes::Guid& oSearchID)
 	, m_nUpQueue	( 0 )
 	, m_nRating		( 0 )
 	, m_pXML		( NULL )
+	, m_pSchema		( NULL )
 	, m_bCollection	( FALSE )
 	, m_bBogus		( FALSE )
 	, m_bMatched	( FALSE )
@@ -89,6 +86,7 @@ CQueryHit::CQueryHit(PROTOCOLID nProtocol, const Hashes::Guid& oSearchID)
 CQueryHit::CQueryHit(const CQueryHit& pHit)
 	: m_pNext		( NULL )
 	, m_pXML		( NULL )
+	, m_pSchema		( NULL )
 {
 	*this = pHit;
 }
@@ -107,6 +105,7 @@ CQueryHit* CQueryHit::FromG1Packet(CG1Packet* pPacket, int* pnHops)
 	CQueryHit* pLastHit		= NULL;
 	CXMLElement* pXML		= NULL;
 	Hashes::Guid oQueryID;
+
 	try
 	{
 		if ( pPacket->m_nProtocol == PROTOCOL_G2 )
@@ -133,18 +132,16 @@ CQueryHit* CQueryHit::FromG1Packet(CG1Packet* pPacket, int* pnHops)
 			theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("[G1] Got hit packet with zero hit counter") );
 			AfxThrowUserException();
 		}
-		WORD nPort = pPacket->ReadShortLE();
+		WORD  nPort = pPacket->ReadShortLE();
 		DWORD nAddress = pPacket->ReadLongLE();
 		DWORD nSpeed = pPacket->ReadLongLE();
+		BOOL  bBrowseHost = FALSE;
 
-		BOOL bBogus = FALSE;
 		while ( nCount-- )
 		{
-			CQueryHit* pHit = new CQueryHit( PROTOCOL_G1, oQueryID );
-
-			if ( pFirstHit ) pLastHit->m_pNext = pHit;
-			else pFirstHit = pHit;
-			pLastHit = pHit;
+			CAutoPtr< CQueryHit > pHit( new CQueryHit( PROTOCOL_G1, oQueryID ) );
+			if ( ! pHit )
+				AfxThrowMemoryException();
 
 			pHit->m_pAddress	= (IN_ADDR&)nAddress;
 			pHit->m_sCountry	= theApp.GetCountryCode( pHit->m_pAddress );
@@ -152,14 +149,16 @@ CQueryHit* CQueryHit::FromG1Packet(CG1Packet* pPacket, int* pnHops)
 			pHit->m_nSpeed		= nSpeed;
 
 			pHit->ReadG1Packet( pPacket );
-			if ( pHit->m_bBogus )
-				bBogus = TRUE;
+
+			if ( pFirstHit )
+				pLastHit = pLastHit->m_pNext = pHit.Detach();
+			else
+				pLastHit = pFirstHit = pHit.Detach();
 		}
 
 		// Read Vendor Code
 		CVendor* pVendor = VendorCache.m_pNull;
-		BYTE nPublicSize = 0;
-		if ( pPacket->GetRemaining() >= 16u + 5u )
+		if ( pPacket->GetRemaining() >= Hashes::Guid::byteCount + 4u )
 		{
 			CHAR szaVendor[ 4 ];
 			pPacket->Read( szaVendor, 4 );
@@ -174,14 +173,15 @@ CQueryHit* CQueryHit::FromG1Packet(CG1Packet* pPacket, int* pnHops)
 			pVendor = VendorCache.Lookup( szVendor );
 			if ( ! pVendor )
 				pVendor = VendorCache.m_pNull;
-			nPublicSize	= pPacket->ReadByte();
+			else if ( pVendor->m_bBrowseFlag )
+				bBrowseHost = TRUE;
 		}
 
-		BOOL bBrowseHost = FALSE;
-		if ( pVendor && pVendor->m_bBrowseFlag )
-			bBrowseHost = TRUE;
+		BYTE nPublicSize = 0;
+		if ( pPacket->GetRemaining() >= Hashes::Guid::byteCount + 1u )
+			nPublicSize = pPacket->ReadByte();
 
-		if ( pPacket->GetRemaining() < nPublicSize + 16u )
+		if ( pPacket->GetRemaining() < Hashes::Guid::byteCount + nPublicSize )
 		{
 			theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("[G1] Got hit packet with invalid size of public data") );
 			AfxThrowUserException();
@@ -190,8 +190,8 @@ CQueryHit* CQueryHit::FromG1Packet(CG1Packet* pPacket, int* pnHops)
 		BYTE nFlags[2] = { 0, 0 };
 		if ( nPublicSize >= 2 )
 		{
-			nFlags[0]	= pPacket->ReadByte();
-			nFlags[1]	= pPacket->ReadByte();
+			nFlags[0] = pPacket->ReadByte();
+			nFlags[1] = pPacket->ReadByte();
 			nPublicSize -= 2;
 		}
 
@@ -200,24 +200,24 @@ CQueryHit* CQueryHit::FromG1Packet(CG1Packet* pPacket, int* pnHops)
 		{
 			nXMLSize = pPacket->ReadShortLE();
 			nPublicSize -= 2;
-			if ( nPublicSize + nXMLSize + 16u > pPacket->GetRemaining() )
-			{
-				theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("[G1] Got hit packet with invalid size of XML data") );
-				AfxThrowUserException();
-			}
+		//	if ( nPublicSize + nXMLSize + Hashes::Guid::byteCount > pPacket->GetRemaining() )
+		//		theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("[G1] Got hit packet with invalid size of XML data") );
 		}
 
+		// Skip extra data
 		while ( nPublicSize-- )
 			pPacket->ReadByte();
 
 		BOOL bChat = FALSE;
 		if ( pVendor && pVendor->m_bChatFlag &&
-			pPacket->GetRemaining() >= 16u + nXMLSize + 1u )
+			 pPacket->GetRemaining() >= Hashes::Guid::byteCount + nXMLSize + 1u )
 		{
-			bChat = ( pPacket->PeekByte() == 1 );
+			BYTE nPeek = pPacket->PeekByte();
+			if ( nPeek != GGEP_MAGIC )
+				bChat = ( nPeek & G1_QHD_CHAT ) != 0;
 		}
 
-		if ( pPacket->GetRemaining() < 16u + nXMLSize )
+		if ( pPacket->GetRemaining() < Hashes::Guid::byteCount + nXMLSize )
 			nXMLSize = 0;
 
 		if ( ( nFlags[0] & G1_QHD_GGEP ) && ( nFlags[1] & G1_QHD_GGEP ) )
@@ -232,6 +232,15 @@ CQueryHit* CQueryHit::FromG1Packet(CG1Packet* pPacket, int* pnHops)
 					if ( pGGEP.Find( GGEP_HEADER_CHAT ) )
 						bChat = TRUE;
 				}
+				if ( pPacket->GetRemaining() < Hashes::Guid::byteCount + nXMLSize )
+				{
+					nXMLSize = 0;
+					if ( pPacket->GetRemaining() < Hashes::Guid::byteCount )
+					{
+						theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("[G1] Got hit packet without GUID") );
+						AfxThrowUserException();
+					}
+				}
 			}
 			else
 			{
@@ -242,16 +251,10 @@ CQueryHit* CQueryHit::FromG1Packet(CG1Packet* pPacket, int* pnHops)
 
 		if ( nXMLSize > 0 )
 		{
-			pPacket->Seek( 16 + nXMLSize, CG1Packet::seekEnd );
+			pPacket->Seek( Hashes::Guid::byteCount + nXMLSize, CG1Packet::seekEnd );
 			pXML = ReadXML( pPacket, nXMLSize );
-			if ( pXML == NULL && nXMLSize > 1 )
-			{
-				CString strVendorName;
-				if ( pVendor )
-					strVendorName = pVendor->m_sName;
-
-				theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, L"[G1] Invalid compressed metadata. Vendor: %s", strVendorName );
-			}
+			if ( ! pXML && nXMLSize > 4 )
+				theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, L"[G1] Invalid compressed metadata.  Vendor: %s", ( pVendor ) ? pVendor->m_sName : L"?" );
 		}
 
 		if ( ! nPort || Network.IsFirewalledAddress( (IN_ADDR*)&nAddress ) )
@@ -262,23 +265,22 @@ CQueryHit* CQueryHit::FromG1Packet(CG1Packet* pPacket, int* pnHops)
 
 		// Read client ID
 		Hashes::Guid oClientID;
-		pPacket->Seek( 16, CG1Packet::seekEnd );
+		pPacket->Seek( Hashes::Guid::byteCount, CG1Packet::seekEnd );
 		pPacket->Read( oClientID );
 
 		DWORD nIndex = 0;
-		for ( pLastHit = pFirstHit ; pLastHit ; pLastHit = pLastHit->m_pNext, nIndex++ )
+		for ( CQueryHit* pHit = pFirstHit ; pHit ; pHit = pHit->m_pNext, nIndex++ )
 		{
-			pLastHit->ParseAttributes( oClientID, pVendor, nFlags, bChat, bBrowseHost );
-			pLastHit->Resolve();
+			pHit->ParseAttributes( oClientID, pVendor, nFlags, bChat, bBrowseHost );
+
+			pHit->Resolve();
+
 			if ( pXML )
-				pLastHit->ParseXML( pXML, nIndex );
+				pHit->ParseXML( pXML, nIndex );
+
+			if ( ! pHit->m_bBogus && ! pHit->CheckValid() )
+				pHit->m_bBogus = TRUE;
 		}
-
-		if ( CheckBogus( pFirstHit ) )
-			bBogus = TRUE;
-
-		if ( bBogus )
-			DEBUG_ONLY( pPacket->Debug( _T("Bogus hit.") ) );
 	}
 	catch ( CException* pException )
 	{
@@ -308,6 +310,7 @@ CQueryHit* CQueryHit::FromG2Packet(CG2Packet* pPacket, int* pnHops)
 	}
 
 	CQueryHit* pFirstHit	= NULL;
+	CQueryHit* pLastHit		= NULL;
 	CXMLElement* pXML		= NULL;
 
 	Hashes::Guid oSearchID;
@@ -322,8 +325,11 @@ CQueryHit* CQueryHit::FromG2Packet(CG2Packet* pPacket, int* pnHops)
 	BOOL		bPeerChat	= FALSE;
 	bool		bSpam		= false;
 	CVendor*	pVendor		= VendorCache.m_pNull;
-	CString		strNick;
 	DWORD		nGroupState[8][4] = {};
+	BOOL		bCompound;
+	CString		strNick;
+	G2_PACKET	nType;
+	DWORD		nLength;
 
 	typedef std::pair< DWORD, u_short > AddrPortPair;
 	typedef std::map< DWORD, u_short >::iterator NodeIter;
@@ -333,11 +339,6 @@ CQueryHit* CQueryHit::FromG2Packet(CG2Packet* pPacket, int* pnHops)
 
 	try
 	{
-		CQueryHit* pLastHit = NULL;
-		BOOL bCompound;
-		G2_PACKET nType;
-		DWORD nLength;
-
 		while ( pPacket->ReadPacket( nType, nLength, &bCompound ) )
 		{
 			DWORD nSkip = pPacket->m_nPosition + nLength;
@@ -357,14 +358,16 @@ CQueryHit* CQueryHit::FromG2Packet(CG2Packet* pPacket, int* pnHops)
 			case G2_PACKET_HIT_DESCRIPTOR:
 				if ( bCompound )
 				{
-					CQueryHit* pHit = new CQueryHit( PROTOCOL_G2 );
+					CAutoPtr< CQueryHit > pHit( new CQueryHit( PROTOCOL_G2 ) );
+					if ( ! pHit )
+						AfxThrowMemoryException();
+
+					pHit->ReadG2Packet( pPacket, nLength );
+
 					if ( pFirstHit )
-						pLastHit->m_pNext = pHit;
+						pLastHit = pLastHit->m_pNext = pHit.Detach();
 					else
-						pFirstHit = pHit;
-					pLastHit = pHit;
-					if ( ! pHit->ReadG2Packet( pPacket, nLength ) )
-						AfxThrowUserException();
+						pLastHit = pFirstHit = pHit.Detach();
 				}
 				else
 				{
@@ -463,7 +466,7 @@ CQueryHit* CQueryHit::FromG2Packet(CG2Packet* pPacket, int* pnHops)
 				break;
 
 			case G2_PACKET_NODE_GUID:
-				if ( nLength == 16 )
+				if ( nLength == Hashes::Guid::byteCount )
 				{
 					pPacket->Read( oClientID );
 					oClientID.validate();
@@ -553,9 +556,7 @@ CQueryHit* CQueryHit::FromG2Packet(CG2Packet* pPacket, int* pnHops)
 				break;
 
 			case G2_PACKET_PEER_FIREWALLED:
-#ifndef LAN_MODE
 				bPush = TRUE;
-#endif // LAN_MODE
 				break;
 
 			case G2_PACKET_PEER_STATUS:
@@ -608,19 +609,16 @@ CQueryHit* CQueryHit::FromG2Packet(CG2Packet* pPacket, int* pnHops)
 			*pnHops = nHops;
 
 		pPacket->Read( oSearchID );
-		oSearchID.validate();
 	}
 	catch ( CException* pException )
 	{
 		pException->Delete();
-		if ( pXML )
-			delete pXML;
-		if ( pFirstHit )
-			pFirstHit->Delete();
+		if ( pXML ) delete pXML;
+		if ( pFirstHit ) pFirstHit->Delete();
 		return NULL;
 	}
 
-	if ( ! bPush )
+	if ( ! bPush && ! Settings.Experimental.LAN_Mode )
 		bPush = ( nPort == 0 || Network.IsFirewalledAddress( (IN_ADDR*)&nAddress ) );
 
 	DWORD nIndex = 0;
@@ -656,44 +654,29 @@ CQueryHit* CQueryHit::FromG2Packet(CG2Packet* pPacket, int* pnHops)
 		if ( pXML )
 			pHit->ParseXML( pXML, nIndex );
 
-		// These files always must have metadata in PeerProject/Shareaza clients
-		if ( pHit->m_pVendor->m_bExtended &&
-			! pHit->m_pXML && ! pHit->m_sName.IsEmpty() )
-		{
-			LPCTSTR pszExt = PathFindExtension( (LPCTSTR)pHit->m_sName );
-			if ( _tcsicmp( pszExt, L".wma" ) == 0 ||
-				 _tcsicmp( pszExt, L".wmv" ) == 0 )
-			{
-				bSpam = true;
-			}
-		}
+		if ( ! pHit->m_bBogus && ! pHit->CheckValid() )
+			pHit->m_bBogus = TRUE;
 	}
 
 	if ( bSpam )
 	{
-#ifndef LAN_MODE
-		if ( pFirstHit )
+		if ( pFirstHit && ! Settings.Experimental.LAN_Mode )
 		{
 			for ( CQueryHit* pHit = pFirstHit ; pHit ; pHit = pHit->m_pNext )
 			{
 				pHit->m_bBogus = TRUE;
 			}
 		}
-#endif // LAN_MODE
 	}
-	else if ( ! CheckBogus( pFirstHit ) )
+	else
 	{
 		// Now add all hub list to the route cache
-		for ( NodeIter iter = pTestNodeList.begin( ) ;
-			  iter != pTestNodeList.end( ) ; iter++ )
+		for ( NodeIter iter = pTestNodeList.begin() ;
+			  iter != pTestNodeList.end() ; iter++ )
 		{
-			SOCKADDR_IN pHub;
-
-			pHub.sin_addr.S_un.S_addr	= iter->first;
-			pHub.sin_port				= iter->second;
-
-			oClientID[15]++;
-			oClientID.validate();
+			SOCKADDR_IN pHub = { AF_INET };
+			pHub.sin_addr.s_addr = iter->first;
+			pHub.sin_port = iter->second;
 			Network.NodeRoute->Add( oClientID, &pHub );
 		}
 	}
@@ -729,30 +712,31 @@ CQueryHit* CQueryHit::FromEDPacket(CEDPacket* pPacket, const SOCKADDR_IN* pServe
 
 			while ( nCount-- > 0 && pPacket->GetRemaining() >= Hashes::Ed2kHash::byteCount + 10 )
 			{
-				auto_ptr< CQueryHit >pHit( new CQueryHit( PROTOCOL_ED2K, oSearchID ) );
+				CAutoPtr< CQueryHit >pHit( new CQueryHit( PROTOCOL_ED2K, oSearchID ) );
+				if ( ! pHit )
+					AfxThrowMemoryException();
 
-				// Enable chat for ed2k hits
 				pHit->m_bBrowseHost = TRUE;
 				pHit->m_bChat = TRUE;
 
 				pHit->m_pVendor = VendorCache.Lookup( _T("ED2K") );
 				if ( ! pHit->m_pVendor ) pHit->m_pVendor = VendorCache.m_pNull;
+
 				pHit->ReadEDPacket( pPacket, pServer, bUnicode );
 				pHit->Resolve();
 
 				if ( pHit->m_bPush == TRI_TRUE )
-					pHit->m_nPort		= 0;
-					//pHit->m_sNick		= _T("(Low ID)");
+					pHit->m_nPort = 0;
+					//pHit->m_sNick = _T("(Low ID)");
 
 				if ( pFirstHit )
-					pLastHit->m_pNext = pHit.get();
+					pLastHit = pLastHit->m_pNext = pHit.Detach();
 				else
-					pFirstHit = pHit.get();
-				pLastHit = pHit.release();
+					pLastHit = pFirstHit = pHit.Detach();
 			}
 		}
-		else if (	pPacket->m_nType == ED2K_S2C_FOUNDSOURCES ||
-					pPacket->m_nType == ED2K_S2CG_FOUNDSOURCES )
+		else if ( pPacket->m_nType == ED2K_S2C_FOUNDSOURCES ||
+				  pPacket->m_nType == ED2K_S2CG_FOUNDSOURCES )
 		{
 			if ( pPacket->GetRemaining() < Hashes::Ed2kHash::byteCount + 1 )
 				AfxThrowUserException();
@@ -762,34 +746,32 @@ CQueryHit* CQueryHit::FromEDPacket(CEDPacket* pPacket, const SOCKADDR_IN* pServe
 
 			while ( nCount-- > 0 && pPacket->GetRemaining() >= 6 )
 			{
-				auto_ptr< CQueryHit >pHit( new CQueryHit( PROTOCOL_ED2K, oSearchID ) );
+				CAutoPtr< CQueryHit >pHit( new CQueryHit( PROTOCOL_ED2K, oSearchID ) );
+				if ( ! pHit )
+					AfxThrowMemoryException();
 
-				// Enable chat for ed2k hits
 				pHit->m_bBrowseHost = TRUE;
 				pHit->m_bChat = TRUE;
 
 				pHit->m_oED2K = oHash;
 				pHit->m_pVendor = VendorCache.Lookup( _T("ED2K") );
 				if ( ! pHit->m_pVendor ) pHit->m_pVendor = VendorCache.m_pNull;
+
 				pHit->ReadEDAddress( pPacket, pServer );
 				pHit->Resolve();
 
 				if ( pFirstHit )
-					pLastHit->m_pNext = pHit.get();
+					pLastHit = pLastHit->m_pNext = pHit.Detach();
 				else
-					pFirstHit = pHit.get();
-				pLastHit = pHit.release();
+					pLastHit = pFirstHit = pHit.Detach();
 			}
 		}
-
-		// Enable chat for ed2k hits
-		//pFirstHit->m_bChat = TRUE;
-
-		//CheckBogus( pFirstHit );
 	}
 	catch ( CException* pException )
 	{
 		pException->Delete();
+		if ( pFirstHit ) pFirstHit->Delete();
+		return NULL;
 	}
 
 	return pFirstHit;
@@ -871,7 +853,7 @@ CQueryHit* CQueryHit::FromDCPacket(CDCPacket* pPacket)
 		Security.IsDenied( (const IN_ADDR*)&nHubAddress ) )
 		return FALSE;	// Unaccessible hub
 
-	CQueryHit* pHit = new CQueryHit( PROTOCOL_DC );
+	CAutoPtr< CQueryHit > pHit( new CQueryHit( PROTOCOL_DC ) );
 	if ( ! pHit )
 		return FALSE;	// Out of memory
 
@@ -897,134 +879,7 @@ CQueryHit* CQueryHit::FromDCPacket(CDCPacket* pPacket)
 
 	pHit->Resolve();
 
-	return pHit;
-}
-
-
-//////////////////////////////////////////////////////////////////////
-// CQueryHit bogus checking
-
-BOOL CQueryHit::CheckBogus(CQueryHit* pFirstHit)
-{
-	typedef std::vector< std::wstring > StringList;
-	std::wstring strTemp;
-
-	if ( pFirstHit == NULL ) return TRUE;
-
-	StringList pList;
-	if ( pFirstHit->m_oSHA1 )
-	{
-		strTemp.assign( pFirstHit->m_oSHA1.toUrn() );
-		pList.push_back( strTemp );
-	}
-	if ( pFirstHit->m_oED2K )
-	{
-		strTemp.assign( pFirstHit->m_oED2K.toUrn() );
-		pList.push_back( strTemp );
-	}
-	if ( pFirstHit->m_oBTH )
-	{
-		strTemp.assign( pFirstHit->m_oBTH.toUrn() );
-		pList.push_back( strTemp );
-	}
-	if ( pFirstHit->m_oMD5 )
-	{
-		strTemp.assign( pFirstHit->m_oMD5.toUrn() );
-		pList.push_back( strTemp );
-	}
-
-	for ( CQueryHit* pHit = pFirstHit->m_pNext ; pHit ; pHit = pHit->m_pNext )
-	{
-		if ( pHit->m_oSHA1 )
-		{
-			strTemp.assign( pHit->m_oSHA1.toUrn() );
-			pList.push_back( strTemp );
-		}
-		if ( pHit->m_oED2K )
-		{
-			strTemp.assign( pHit->m_oED2K.toUrn() );
-			pList.push_back( strTemp );
-		}
-		if ( pHit->m_oBTH )
-		{
-			strTemp.assign( pHit->m_oBTH.toUrn() );
-			pList.push_back( strTemp );
-		}
-		if ( pHit->m_oMD5 )
-		{
-			strTemp.assign( pHit->m_oMD5.toUrn() );
-			pList.push_back( strTemp );
-		}
-	}
-
-	size_t nBogus = pList.size();
-
-	StringList::iterator it, it2;
-	bool bDuplicate = false;
-
-	for ( it = pList.begin() ; it != pList.end() && ! it->empty() ; )
-	{
-		for ( it2 = it + 1 ; it2 != pList.end() ; )
-		{
-			if ( *it2 == *it )
-			{
-				it2 = pList.erase( it2 );	// Remove duplicates
-				bDuplicate = true;
-			}
-			else
-			{
-				++it2;
-			}
-		}
-		if ( bDuplicate )
-		{
-			it = pList.erase( it );
-			bDuplicate = false;
-		}
-		else
-		{
-			++it;
-		}
-	}
-
-	nBogus -= pList.size();
-
-	if ( nBogus == 0 ) return FALSE;
-
-	for ( CQueryHit* pHit = pFirstHit ; pHit ; pHit = pHit->m_pNext )
-	{
-		if ( pHit->m_oSHA1 )
-			strTemp.assign( pHit->m_oSHA1.toUrn() );
-		else if ( pHit->m_oED2K )
-			strTemp.assign( pHit->m_oED2K.toUrn() );
-		else if ( pHit->m_oBTH )
-			strTemp.assign( pHit->m_oBTH.toUrn() );
-		else if ( pHit->m_oMD5 )
-			strTemp.assign( pHit->m_oMD5.toUrn() );
-		else
-			continue;
-
-		if ( std::find( pList.begin(), pList.end(), strTemp ) == pList.end() )
-			pHit->m_bBogus = TRUE;
-	}
-
-	theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("Got bogus hit packet. Cross-hit hash check failed") );
-
-	return TRUE;
-}
-
-BOOL CQueryHit::HasBogusMetadata()
-{
-	if ( m_pXML )
-	{
-		if ( CXMLAttribute* pAttribute = m_pXML->GetAttribute( L"title" ) )
-		{
-			CString sValue = pAttribute->GetValue();
-			if ( _tcsnistr( (LPCTSTR)sValue, L"not related", 11 ) )
-				return TRUE;
-		}
-	}
-	return FALSE;
+	return pHit.Detach();
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -1114,33 +969,71 @@ BOOL CQueryHit::CheckValid() const
 {
 	if ( m_sName.GetLength() > 160 )
 	{
-		theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("Got bogus hit packet. Too long filename: %d symbols"), m_sName.GetLength() );
-		return FALSE;
-	}
-
-	int nCurWord = 0, nMaxWord = 0;
-	for ( LPCTSTR pszName = m_sName ; *pszName ; pszName++ )
-	{
-		if ( _istgraph( *pszName ) )
-		{
-			nCurWord++;
-			nMaxWord = max( nMaxWord, nCurWord );
-		}
-		else
-		{
-			nCurWord = 0;
-		}
-	}
-	if ( nMaxWord > 100 )
-	{
-		theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("Got bogus hit packet. Too many words: %d"), nMaxWord );
+		theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("Got bogus hit packet from %s.  Name too long (%d), file \"%s\"."), (LPCTSTR)CString( inet_ntoa( m_pAddress ) ), m_sName.GetLength(), m_sName );
 		return FALSE;
 	}
 
 	if ( ! HasHash() )
 	{
-		theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("Got bogus hit packet. No hash") );
+		theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("Got bogus hit packet from %s. No hash. File \"%s\"."), (LPCTSTR)CString( inet_ntoa( m_pAddress ) ), m_sName );
 		return FALSE;
+	}
+
+	// These files always must have metadata in PeerProject/Shareaza clients
+	if ( m_pVendor && m_pVendor->m_bExtended && ! m_pXML && ! m_sName.IsEmpty() )
+	{
+		int nPos = m_sName.ReverseFind( _T('.') );
+		if ( nPos >= 0 )
+		{
+			CString sExt = m_sName.Mid( nPos + 1 );
+			if ( sExt.CompareNoCase( _T("wma") ) == 0 ||
+				 sExt.CompareNoCase( _T("wmv") ) == 0 )
+			{
+				theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("Got bogus hit packet from %s. No metadata in extended client. File \"%s\"."), (LPCTSTR)CString( inet_ntoa( m_pAddress ) ), m_sName );
+				return FALSE;
+			}
+		}
+	}
+
+	int nCurWord = 0, nWords = 1;
+	for ( LPCTSTR pszName = m_sName ; *pszName ; pszName++ )
+	{
+		if ( _istgraph( *pszName ) && *pszName != _T('_') &&
+			*pszName != _T('-') && *pszName != _T('+') &&
+			*pszName != _T('.') && *pszName != _T(',') &&
+			*pszName != _T('(') && *pszName != _T(')') &&
+			*pszName != _T('[') && *pszName != _T(']') )
+		{
+			if ( ++nCurWord > 50 )
+			{
+				theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("Got bogus hit packet from %s.  Word too long in name (50+).  File \"%s\"."), (LPCTSTR)CString( inet_ntoa( m_pAddress ) ), m_sName );
+				return FALSE;
+			}
+		}
+		else if ( nCurWord )
+		{
+			nWords++;
+			nCurWord = 0;
+		}
+	}
+
+	if ( nWords > Settings.Gnutella.MaxHitWords )	// ~30
+	{
+		theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("Got bogus hit packet from %s.  Too many words in name (%d).  File \"%s\"."), (LPCTSTR)CString( inet_ntoa( m_pAddress ) ), nWords, m_sName );
+		return FALSE;
+	}
+
+	if ( m_pXML )
+	{
+		if ( CXMLAttribute* pAttribute = m_pXML->GetAttribute( L"title" ) )
+		{
+			CString sValue = pAttribute->GetValue();
+			if ( _tcsnistr( (LPCTSTR)sValue, L"not related", 11 ) )
+			{
+				theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("Got bogus hit packet from %s.  Bogus metadata: \"%s\".  File \"%s\"."), (LPCTSTR)CString( inet_ntoa( m_pAddress ) ), sValue, m_sName );
+				return FALSE;
+			}
+		}
 	}
 
 	return TRUE;
@@ -1152,7 +1045,6 @@ BOOL CQueryHit::CheckValid() const
 void CQueryHit::ReadG1Packet(CG1Packet* pPacket)
 {
 	m_nIndex	= pPacket->ReadLongLE();
-
 	m_nSize		= pPacket->ReadLongLE();
 	m_bSize		= TRUE;
 
@@ -1170,26 +1062,28 @@ void CQueryHit::ReadG1Packet(CG1Packet* pPacket)
 			// GGEP extension
 			ReadGGEP( pPacket );
 		}
-		else if ( nPeek == G1_PACKET_HIT_SEP )
-		{
-			// Skip extra separator byte
-			pPacket->ReadByte();
-		}
 		else if ( nPeek == 0 )
 		{
 			// End of hit
 			pPacket->ReadByte();
 			break;
 		}
-		else
+		else if ( nPeek == 'u' )
 		{
-			// HUGE, XML extensions
-			ReadExtension( pPacket );
+			// HUGE extensions
+			pPacket->ReadHUGE( this );
+		}
+		else if ( nPeek == '<' || nPeek == '{' )
+		{
+			// XML extensions
+			pPacket->ReadXML( m_pSchema, m_pXML );
+		}
+		else	// if ( nPeek == G1_PACKET_HIT_SEP )
+		{
+			// Skip extra separator byte
+			pPacket->ReadByte();
 		}
 	}
-
-	if ( ! CheckValid() )
-		m_bBogus = TRUE;
 }
 
 void CQueryHit::ReadGGEP(CG1Packet* pPacket)
@@ -1207,7 +1101,8 @@ void CQueryHit::ReadGGEP(CG1Packet* pPacket)
 		Hashes::Md5Hash		oMD5;
 
 		CGGEPItem* pItemPos = pGGEP.GetFirst();
-		for ( BYTE nItemCount = 0 ; pItemPos && nItemCount < pGGEP.GetCount() ;	nItemCount++, pItemPos = pItemPos->m_pNext )
+		for ( BYTE nItemCount = 0 ; pItemPos && nItemCount < pGGEP.GetCount() ;
+			nItemCount++, pItemPos = pItemPos->m_pNext )
 		{
 			if ( pItemPos->IsNamed( GGEP_HEADER_HASH ) )
 			{
@@ -1277,7 +1172,6 @@ void CQueryHit::ReadGGEP(CG1Packet* pPacket)
 				if ( pItemPos->m_nLength <= 8 )
 				{
 					QWORD nFileSize = 0;
-
 					pItemPos->Read( &nFileSize, pItemPos->m_nLength );
 
 					m_nSize = nFileSize ? nFileSize : SIZE_UNKNOWN;		// Is this right?  Was "if (m_nSize != 0)"
@@ -1303,16 +1197,15 @@ void CQueryHit::ReadGGEP(CG1Packet* pPacket)
 			}
 			else
 			{
-				theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH,
-					_T("[G1] Got hit packet with unknown GGEP \"%s\" (%d bytes)"), pItemPos->m_sID, pItemPos->m_nLength );
+				DEBUG_ONLY( theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH,
+					_T("[G1] Got hit packet with unknown GGEP \"%s\" (%d bytes)"), pItemPos->m_sID, pItemPos->m_nLength ) );
 			}
 
-			if ( validAndUnequal( oSHA1, m_oSHA1 ) ||
-				 validAndUnequal( oTiger, m_oTiger ) ||
-				 validAndUnequal( oED2K, m_oED2K ) ||
-				 validAndUnequal( oMD5, m_oMD5 ) ||
-				 validAndUnequal( oBTH, m_oBTH ) )
-				m_bBogus = TRUE;	// Hash mess
+		//	if ( validAndUnequal( oSHA1, m_oSHA1 ) ||
+		//		 validAndUnequal( oTiger, m_oTiger ) ||
+		//		 validAndUnequal( oED2K, m_oED2K ) ||
+		//		 validAndUnequal( oBTH, m_oBTH ) )
+		//		m_bBogus = TRUE;	// Hash mess (Obsolete check?)
 		}
 
 		if ( oSHA1  && ! m_oSHA1 )  m_oSHA1  = oSHA1;
@@ -1329,72 +1222,6 @@ void CQueryHit::ReadGGEP(CG1Packet* pPacket)
 	}
 }
 
-void CQueryHit::ReadExtension(CG1Packet* pPacket)
-{
-	// Find length of extension (till packet end, G1_PACKET_HIT_SEP or null bytes)
-	DWORD nLength = 0;
-	DWORD nRemaining = pPacket->GetRemaining();
-	const BYTE* pData = pPacket->GetCurrent();
-	for ( ; *pData != G1_PACKET_HIT_SEP && *pData != 0 &&
-		nLength < nRemaining; pData++, nLength++ );
-
-	// Read extension
-	auto_array< BYTE > pszData( new BYTE[ nLength + 1] );
-	pPacket->Read( pszData.get(), nLength );
-	pszData[ nLength ] = 0;
-
-	// Skip G1_PACKET_HIT_SEP byte
-	if ( *pData == G1_PACKET_HIT_SEP )
-		pPacket->ReadByte();
-
-	if ( nLength >= 4 && _strnicmp( (LPCSTR)pszData.get(), "urn:", 4 ) == 0 )
-	{
-		CString strURN( pszData.get() );
-
-		Hashes::Sha1Hash	oSHA1;
-		Hashes::TigerHash	oTiger;
-		Hashes::Ed2kHash	oED2K;
-		Hashes::BtHash		oBTH;
-		Hashes::Md5Hash		oMD5;
-
-		if ( strURN.GetLength() == 4 );			// Got empty urn
-		else if ( oSHA1.fromUrn(  strURN ) );	// Got SHA1
-		else if ( oTiger.fromUrn( strURN ) );	// Got Tiger
-		else if ( oED2K.fromUrn(  strURN ) );	// Got ED2K
-		else if ( oMD5.fromUrn(   strURN ) );	// Got MD5
-		else if ( oBTH.fromUrn(   strURN ) );	// Got BTH base32
-		else if ( oBTH.fromUrn< Hashes::base16Encoding >( strURN ) );	// Got BTH base16
-		else
-			theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("[G1] Got hit packet with unknown URN \"%s\" (%d bytes)"), strURN, nLength );
-
-		if ( oSHA1  && ! m_oSHA1 )  m_oSHA1  = oSHA1;
-		if ( oTiger && ! m_oTiger ) m_oTiger = oTiger;
-		if ( oED2K  && ! m_oED2K )  m_oED2K  = oED2K;
-		if ( oBTH   && ! m_oBTH )   m_oBTH   = oBTH;
-		if ( oMD5   && ! m_oMD5 )   m_oMD5   = oMD5;
-	}
-	else if ( nLength && ! m_pXML )
-	{
-		CSchemaPtr pSchema = NULL;
-		m_pXML = SchemaCache.Decode( pszData.get(), nLength, pSchema );
-		if ( m_pXML )
-		{
-			m_sSchemaPlural	= pSchema->m_sPlural;
-			m_sSchemaURI = pSchema->GetURI();
-		}
-		else
-		{
-			theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH,
-				_T("[G1] Got hit packet with malformed XML \"%hs\" (%d bytes)"), pszData.get(), nLength );
-		}
-	}
-	else
-	{
-		theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH,
-			_T("[G1] Got hit packet with unknown part \"%hs\" (%d bytes)"), pszData.get(), nLength );
-	}
-}
-
 //////////////////////////////////////////////////////////////////////
 // CQueryHit G1 attributes suffix
 
@@ -1405,6 +1232,8 @@ void CQueryHit::ParseAttributes(const Hashes::Guid& oClientID, CVendor* pVendor,
 	m_bChat			= bChat;
 	m_bBrowseHost	= bBrowseHost;
 
+	// Flags: 'I understand' first byte, 'Yes/No' - second byte
+	// REMEMBER THAT THE PUSH BIT IS SET OPPOSITE THAN THE OTHERS
 	if ( nFlags[1] & G1_QHD_PUSH )
 		m_bPush		= ( nFlags[0] & G1_QHD_PUSH ) ? TRI_TRUE : TRI_FALSE;
 	if ( nFlags[0] & G1_QHD_BUSY )
@@ -1413,263 +1242,239 @@ void CQueryHit::ParseAttributes(const Hashes::Guid& oClientID, CVendor* pVendor,
 		m_bStable	= ( nFlags[1] & G1_QHD_STABLE ) ? TRI_TRUE : TRI_FALSE;
 	if ( nFlags[0] & G1_QHD_SPEED )
 		m_bMeasured	= ( nFlags[1] & G1_QHD_SPEED ) ? TRI_TRUE : TRI_FALSE;
+
+	if ( Settings.Experimental.LAN_Mode )
+		m_bPush = TRI_FALSE;	// No push in LAN mode
 }
 
 //////////////////////////////////////////////////////////////////////
 // CQueryHit G2 result entry reader
 
-bool CQueryHit::ReadG2Packet(CG2Packet* pPacket, DWORD nLength)
+void CQueryHit::ReadG2Packet(CG2Packet* pPacket, DWORD nLength)
 {
 	DWORD nPacket, nEnd = pPacket->m_nPosition + nLength;
 	G2_PACKET nType;
 
 	m_bResolveURL = FALSE;
 
-	try
+	while ( pPacket->m_nPosition < nEnd && pPacket->ReadPacket( nType, nPacket ) )
 	{
-		while ( pPacket->m_nPosition < nEnd && pPacket->ReadPacket( nType, nPacket ) )
+		DWORD nSkip = pPacket->m_nPosition + nPacket;
+
+		switch ( nType )
 		{
-			DWORD nSkip = pPacket->m_nPosition + nPacket;
-
-			switch ( nType )
+		case G2_PACKET_URN:
 			{
-			case G2_PACKET_URN:
+				CString strURN = pPacket->ReadString( nPacket ); // Null terminated
+				if ( strURN.GetLength() == (int)nPacket )
 				{
-					CString strURN = pPacket->ReadString( nPacket ); // Null terminated
-					if ( strURN.GetLength() == (int)nPacket )
-					{
-						theApp.Message( MSG_DEBUG, _T("[G2] Hit Error: Got malformed URN (%s)"), (LPCTSTR)strURN );
-						AfxThrowUserException();
-					}
-					nPacket -= strURN.GetLength() + 1;
-					if ( nPacket >= 20 && strURN == _T("sha1") )
-					{
-						pPacket->Read( m_oSHA1 );
-						m_oSHA1.validate();
-					}
-					else if ( nPacket >= 44 && ( strURN == _T("bp") || strURN == _T("bitprint") ) )
-					{
-						pPacket->Read( m_oSHA1 );
-						m_oSHA1.validate();
-
-						pPacket->Read( m_oTiger );
-						m_oTiger.validate();
-					}
-					else if ( nPacket >= 24 && ( strURN == _T("ttr") || strURN == _T("tree:tiger/") ) )
-					{
-						pPacket->Read( m_oTiger );
-						m_oTiger.validate();
-					}
-					else if ( nPacket >= 16 && strURN == _T("ed2k") )
-					{
-						pPacket->Read( m_oED2K );
-						m_oED2K.validate();
-					}
-					else if ( nPacket >= 20 && strURN == _T("btih") )
-					{
-						pPacket->Read( m_oBTH );
-						m_oBTH.validate();
-					}
-					else if ( nPacket >= 16 && strURN == _T("md5") )
-					{
-						pPacket->Read( m_oMD5 );
-						m_oMD5.validate();
-					}
-					else
-					{
-						theApp.Message( MSG_DEBUG, _T("[G2] Hit Error: Got unknown URN (%s)"), (LPCTSTR)strURN );
-						AfxThrowUserException();
-					}
-				}
-				break;
-
-			case G2_PACKET_URL:
-				if ( nPacket == 0 )
-					m_bResolveURL = TRUE;
-				else
-					m_sURL = pPacket->ReadString( nPacket );
-				break;
-
-			case G2_PACKET_DESCRIPTIVE_NAME:
-				if ( m_bSize )
-				{
-					m_sName = pPacket->ReadString( nPacket );
-				}
-				else if ( nPacket > 4 )
-				{
-					m_bSize	= TRUE;
-					m_nSize = pPacket->ReadLongBE();
-					m_sName = pPacket->ReadString( nPacket - 4 );
-				}
-				else
-				{
-					theApp.Message( MSG_DEBUG, _T("[G2] Hit Error: Got invalid descriptive name") );
+					theApp.Message( MSG_DEBUG, _T("[G2] Hit Error: Got malformed URN (%s)"), (LPCTSTR)strURN );
 					AfxThrowUserException();
 				}
-				break;
-
-			case G2_PACKET_METADATA:
-				if ( nPacket > 0 )
+				nPacket -= strURN.GetLength() + 1;
+				if ( nPacket >= 20 && strURN == _T("sha1") )
 				{
-					CString strXML = pPacket->ReadString( nPacket ); // Not null terminated
-					if ( strXML.GetLength() != (int)nPacket )
-					{
-						theApp.Message( MSG_DEBUG, _T("[G2] Hit Error: Got too short metadata (%s)"), (LPCTSTR)strXML );
-						AfxThrowUserException();
-					}
-					if ( CXMLElement* pXML = CXMLElement::FromString( strXML ) )
-					{
-						if ( CXMLAttribute* pURI = pXML->GetAttribute( CXMLAttribute::schemaName ) )
-						{
-							m_sSchemaPlural		= pXML->GetName();
-							m_sSchemaURI		= pURI->GetValue();
-							CXMLElement* pChild	= pXML->GetFirstElement();
-							if ( pChild != NULL && ! m_sSchemaPlural.IsEmpty() && ! m_sSchemaURI.IsEmpty() )
-							{
-								m_pXML->Delete();
-								m_pXML = pChild->Detach();
-							}
-						}
-						else if ( CSchemaPtr pSchema = SchemaCache.Guess( pXML->GetName() ) )
-						{
-							m_pXML->Delete();
-							m_sSchemaPlural	= pSchema->m_sPlural;
-							m_sSchemaURI	= pSchema->GetURI();
-							m_pXML			= pXML;
-							pXML			= NULL;
-						}
-						else
-						{
-							theApp.Message( MSG_DEBUG,
-								_T("[G2] Hit Error: Got unknown metadata schema (%s)"), (LPCTSTR)strXML );
-						}
-						pXML->Delete();
-					}
-					else
-					{
-						theApp.Message( MSG_DEBUG,
-							_T("[G2] Hit Error: Got invalid metadata (%s)"), (LPCTSTR)strXML );
-						AfxThrowUserException();
-					}
+					pPacket->Read( m_oSHA1 );
+					m_oSHA1.validate();
+				}
+				else if ( nPacket >= 44 && ( strURN == _T("bp") || strURN == _T("bitprint") ) )
+				{
+					pPacket->Read( m_oSHA1 );
+					m_oSHA1.validate();
+
+					pPacket->Read( m_oTiger );
+					m_oTiger.validate();
+				}
+				else if ( nPacket >= 24 && ( strURN == _T("ttr") || strURN == _T("tree:tiger/") ) )
+				{
+					pPacket->Read( m_oTiger );
+					m_oTiger.validate();
+				}
+				else if ( nPacket >= 16 && strURN == _T("ed2k") )
+				{
+					pPacket->Read( m_oED2K );
+					m_oED2K.validate();
+				}
+				else if ( nPacket >= 20 && strURN == _T("btih") )
+				{
+					pPacket->Read( m_oBTH );
+					m_oBTH.validate();
+				}
+				else if ( nPacket >= 16 && strURN == _T("md5") )
+				{
+					pPacket->Read( m_oMD5 );
+					m_oMD5.validate();
 				}
 				else
 				{
-					theApp.Message( MSG_DEBUG,
-						_T("[G2] Hit Error: Got empty metadata") );
+					theApp.Message( MSG_DEBUG, _T("[G2] Hit Error: Got unknown URN (%s)"), (LPCTSTR)strURN );
+					AfxThrowUserException();
 				}
-				break;
-
-			case G2_PACKET_SIZE:
-				if ( nPacket == 4 )
-				{
-					m_bSize	= TRUE;
-					m_nSize = pPacket->ReadLongBE();
-				}
-				else if ( nPacket == 8 )
-				{
-					m_bSize	= TRUE;
-					m_nSize = pPacket->ReadInt64();
-				}
-				else
-					theApp.Message( MSG_DEBUG, _T("[G2] Hit Error: Got invalid packet size") );
-				break;
-
-			case G2_PACKET_GROUP_ID:
-				if ( nPacket >= 1 )
-				{
-					m_nGroup = pPacket->ReadByte();
-					if ( m_nGroup < 0 ) m_nGroup = 0;
-					if ( m_nGroup > 7 ) m_nGroup = 7;
-				}
-				else
-				{
-					theApp.Message( MSG_DEBUG,
-						_T("[G2] Hit Error: Got invalid group id") );
-				}
-				break;
-
-			case G2_PACKET_OBJECT_ID:
-				if ( nPacket >= 4 )
-					m_nIndex = pPacket->ReadLongBE();
-				else
-					theApp.Message( MSG_DEBUG, _T("[G2] Hit Error: Got invalid object id") );
-				break;
-
-			case G2_PACKET_CACHED_SOURCES:
-				if ( nPacket >= 2 )
-					m_nHitSources += pPacket->ReadShortBE();
-				else
-					theApp.Message( MSG_DEBUG, _T("[G2] Hit Error: Got invalid cached sources") );
-				break;
-
-			case G2_PACKET_PARTIAL:
-				if ( nPacket >= 4 )
-					m_nPartial = pPacket->ReadLongBE();
-				else
-					theApp.Message( MSG_DEBUG, _T("[G2] Hit Error: Got invalid partial") );
-				break;
-
-			case G2_PACKET_COMMENT:
-				{
-					CString strXML = pPacket->ReadString( nPacket ); // Not null terminated
-					if ( strXML.GetLength() != (int)nPacket )
-					{
-						theApp.Message( MSG_DEBUG, _T("[G2] Hit Error: Got too short comment (%s)"), (LPCTSTR)strXML );
-						AfxThrowUserException();
-					}
-					if ( CXMLElement* pComment = CXMLElement::FromString( strXML ) )
-					{
-						m_nRating = -1;
-						_stscanf( pComment->GetAttributeValue( _T("rating") ), _T("%i"), &m_nRating );
-						m_nRating = max( 0, min( 6, m_nRating + 1 ) );
-						m_sComments = pComment->GetValue();
-						m_sComments.Replace( _T("{n}"), _T("\r\n") );
-						delete pComment;
-					}
-					else
-					{
-						theApp.Message( MSG_DEBUG, _T("[G2] Hit Error: Got invalid comment (%s)"), (LPCTSTR)strXML );
-						AfxThrowUserException();
-					}
-				}
-				break;
-
-			case G2_PACKET_PREVIEW_URL:
-				m_bPreview = TRUE;
-				if ( nPacket != 0 )
-					m_sPreview = pPacket->ReadString( nPacket );
-				break;
-
-			case G2_PACKET_BOGUS:
-#ifndef LAN_MODE
-				m_bBogus = TRUE;
-#endif // LAN
-				break;
-
-			case G2_PACKET_COLLECTION:
-				m_bCollection = TRUE;
-				break;
-
-			default:
-				theApp.Message( MSG_DEBUG,
-					_T("[G2] Hit Error: Got unknown type (0x%08I64x +%u)"), nType, pPacket->m_nPosition - 8 );
 			}
+			break;
 
-			pPacket->m_nPosition = nSkip;
+		case G2_PACKET_URL:
+			if ( nPacket == 0 )
+				m_bResolveURL = TRUE;
+			else
+				m_sURL = pPacket->ReadString( nPacket );
+			break;
+
+		case G2_PACKET_DESCRIPTIVE_NAME:
+			if ( m_bSize )
+			{
+				m_sName = pPacket->ReadString( nPacket );
+			}
+			else if ( nPacket > 4 )
+			{
+				m_bSize	= TRUE;
+				m_nSize = pPacket->ReadLongBE();
+				m_sName = pPacket->ReadString( nPacket - 4 );
+			}
+			else
+			{
+				theApp.Message( MSG_DEBUG, _T("[G2] Hit Error: Got invalid descriptive name") );
+				AfxThrowUserException();
+			}
+			break;
+
+		case G2_PACKET_METADATA:
+			if ( nPacket > 0 )
+			{
+				CString strXML = pPacket->ReadString( nPacket );	// Not null terminated
+				if ( strXML.GetLength() != (int)nPacket )
+				{
+					theApp.Message( MSG_DEBUG, _T("[G2] Hit Error: Got too short metadata (%s)"), (LPCTSTR)strXML );
+					AfxThrowUserException();
+				}
+				if ( m_pXML )
+				{
+					theApp.Message( MSG_DEBUG, _T("[G2] Hit Error: Got extra metadata (%s)"), (LPCTSTR)strXML );
+				}
+				else if ( ( m_pXML = CXMLElement::FromString( strXML ) ) != NULL )
+				{
+					if ( ! SchemaCache.Normalize( m_pSchema, m_pXML ) )
+					{
+						m_pXML->Delete();
+						m_pXML = NULL;
+						theApp.Message( MSG_DEBUG, _T("[G2] Hit Error: Got unknown metadata schema (%s)"), (LPCTSTR)strXML );
+					}
+				}
+				else
+				{
+					theApp.Message( MSG_DEBUG,
+						_T("[G2] Hit Error: Got invalid metadata (%s)"), (LPCTSTR)strXML );
+					AfxThrowUserException();
+				}
+			}
+			else
+			{
+				theApp.Message( MSG_DEBUG,
+					_T("[G2] Hit Error: Got empty metadata") );
+			}
+			break;
+
+		case G2_PACKET_SIZE:
+			if ( nPacket == 4 )
+			{
+				m_bSize	= TRUE;
+				m_nSize = pPacket->ReadLongBE();
+			}
+			else if ( nPacket == 8 )
+			{
+				m_bSize	= TRUE;
+				m_nSize = pPacket->ReadInt64();
+			}
+			else
+				theApp.Message( MSG_DEBUG, _T("[G2] Hit Error: Got invalid packet size") );
+			break;
+
+		case G2_PACKET_GROUP_ID:
+			if ( nPacket >= 1 )
+			{
+				m_nGroup = pPacket->ReadByte();
+				if ( m_nGroup < 0 ) m_nGroup = 0;
+				if ( m_nGroup > 7 ) m_nGroup = 7;
+			}
+			else
+			{
+				theApp.Message( MSG_DEBUG,
+					_T("[G2] Hit Error: Got invalid group id") );
+			}
+			break;
+
+		case G2_PACKET_OBJECT_ID:
+			if ( nPacket >= 4 )
+				m_nIndex = pPacket->ReadLongBE();
+			else
+				theApp.Message( MSG_DEBUG, _T("[G2] Hit Error: Got invalid object id") );
+			break;
+
+		case G2_PACKET_CACHED_SOURCES:
+			if ( nPacket >= 2 )
+				m_nHitSources += pPacket->ReadShortBE();
+			else
+				theApp.Message( MSG_DEBUG, _T("[G2] Hit Error: Got invalid cached sources") );
+			break;
+
+		case G2_PACKET_PARTIAL:
+			if ( nPacket >= 4 )
+				m_nPartial = pPacket->ReadLongBE();
+			else
+				theApp.Message( MSG_DEBUG, _T("[G2] Hit Error: Got invalid partial") );
+			break;
+
+		case G2_PACKET_COMMENT:
+			{
+				CString strXML = pPacket->ReadString( nPacket ); // Not null terminated
+				if ( strXML.GetLength() != (int)nPacket )
+				{
+					theApp.Message( MSG_DEBUG, _T("[G2] Hit Error: Got too short comment (%s)"), (LPCTSTR)strXML );
+					AfxThrowUserException();
+				}
+				if ( CXMLElement* pComment = CXMLElement::FromString( strXML ) )
+				{
+					m_nRating = -1;
+					_stscanf( pComment->GetAttributeValue( _T("rating") ), _T("%i"), &m_nRating );
+					m_nRating = max( 0, min( 6, m_nRating + 1 ) );
+					m_sComments = pComment->GetValue();
+					m_sComments.Replace( _T("{n}"), _T("\r\n") );
+					delete pComment;
+				}
+				else
+				{
+					theApp.Message( MSG_DEBUG, _T("[G2] Hit Error: Got invalid comment (%s)"), (LPCTSTR)strXML );
+					AfxThrowUserException();
+				}
+			}
+			break;
+
+		case G2_PACKET_PREVIEW_URL:
+			m_bPreview = TRUE;
+			if ( nPacket != 0 )
+				m_sPreview = pPacket->ReadString( nPacket );
+			break;
+
+		case G2_PACKET_BOGUS:
+			if ( ! Settings.Experimental.LAN_Mode )
+				m_bBogus = TRUE;
+			break;
+
+		case G2_PACKET_COLLECTION:
+			m_bCollection = TRUE;
+			break;
+
+		default:
+			theApp.Message( MSG_DEBUG,
+				_T("[G2] Hit Error: Got unknown type (0x%08I64x +%u)"), nType, pPacket->m_nPosition - 8 );
 		}
 
-		if ( ! m_oSHA1 && ! m_oTiger && ! m_oED2K && ! m_oBTH && ! m_oMD5 )
-		{
-			theApp.Message( MSG_DEBUG, _T("[G2] Hit Error: Got no hash") );
-			AfxThrowUserException();
-		}
-		return true;
+		pPacket->m_nPosition = nSkip;
 	}
-	catch ( CException* pException )
-	{
-		pException->Delete();
-		return false;
-	}
+
+	if ( ! HasHash() )
+		AfxThrowUserException();
+		//theApp.Message( MSG_DEBUG, _T("[G2] Hit Error: Got no hash") );
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -1677,7 +1482,7 @@ bool CQueryHit::ReadG2Packet(CG2Packet* pPacket, DWORD nLength)
 
 void CQueryHit::ReadEDPacket(CEDPacket* pPacket, const SOCKADDR_IN* pServer, BOOL bUnicode)
 {
-	CString strLength(_T("")), strBitrate(_T("")), strCodec(_T(""));
+	CString strLength, strBitrate, strCodec, strTitle, strArtist, strAlbum;
 	DWORD nLength = 0;
 	pPacket->Read( m_oED2K );
 
@@ -1685,8 +1490,7 @@ void CQueryHit::ReadEDPacket(CEDPacket* pPacket, const SOCKADDR_IN* pServer, BOO
 
 	DWORD nTags = pPacket->ReadLongLE();
 
-	ULARGE_INTEGER nSize;
-	nSize.QuadPart = 0;
+	ULARGE_INTEGER nSize = {};
 
 	while ( nTags-- > 0 )
 	{
@@ -1697,12 +1501,12 @@ void CQueryHit::ReadEDPacket(CEDPacket* pPacket, const SOCKADDR_IN* pServer, BOO
 		if ( ! pTag.Read( pPacket, bUnicode ) )
 			AfxThrowUserException();
 
-		if ( pTag.m_nKey == ED2K_FT_FILENAME )
+		switch ( pTag.m_nKey )
 		{
+		case ED2K_FT_FILENAME:
 			m_sName = pTag.m_sValue;
-		}
-		else if ( pTag.m_nKey == ED2K_FT_FILESIZE )
-		{
+			break;
+		case ED2K_FT_FILESIZE:
 			if ( pTag.m_nValue <= 0xFFFFFFFF )
 			{
 				nSize.LowPart = (DWORD)pTag.m_nValue;
@@ -1712,49 +1516,54 @@ void CQueryHit::ReadEDPacket(CEDPacket* pPacket, const SOCKADDR_IN* pServer, BOO
 				nSize.LowPart =  (DWORD)(   pTag.m_nValue & 0x00000000FFFFFFFF );
 				nSize.HighPart = (DWORD)( ( pTag.m_nValue & 0xFFFFFFFF00000000 ) >> 32 );
 			}
-		}
-		else if ( pTag.m_nKey == ED2K_FT_FILESIZE_HI )
-		{
+			break;
+		case ED2K_FT_FILESIZE_HI:
 			nSize.HighPart = (DWORD)pTag.m_nValue;
-		}
-		else if ( pTag.m_nKey == ED2K_FT_LASTSEENCOMPLETE )
-		{
-			//theApp.Message( MSG_NOTICE,_T("Last seen complete"));
-		}
-		else if ( pTag.m_nKey == ED2K_FT_SOURCES )
-		{
+			break;
+		case ED2K_FT_SOURCES:
 			m_nHitSources = (DWORD)pTag.m_nValue;
 			if ( m_nHitSources == 0 )
 				m_bResolveURL = FALSE;
 			else
 				m_nHitSources--;
-		}
-		else if ( pTag.m_nKey == ED2K_FT_COMPLETE_SOURCES )
-		{
+			break;
+		case ED2K_FT_COMPLETE_SOURCES:
 			// Assume this file is 50% complete. (Can't tell yet, but at least this will warn the user)
-			if ( ! pTag.m_nValue && m_bSize ) //If there are no complete sources
+			if ( ! pTag.m_nValue && m_bSize )	// If there are no complete sources
 				m_nPartial = (DWORD)m_nSize >> 2;
 				//theApp.Message( MSG_NOTICE, _T("ED2K_FT_COMPLETESOURCES tag reports no complete sources.") );
 			//else
 				//theApp.Message( MSG_NOTICE, _T("ED2K_FT_COMPLETESOURCES tag reports complete sources present.") );
-		}
-		else if ( pTag.m_nKey == ED2K_FT_LENGTH )
-		{
+			break;
+		case ED2K_FT_MAXSOURCES:
+		case ED2K_FT_LASTSEENCOMPLETE:
+			//theApp.Message( MSG_NOTICE,_T("Last seen complete"));
+			break;
+		case ED2K_FT_LENGTH:
 			// New style Length (DWORD)
 			nLength = (DWORD)pTag.m_nValue;
-		}
-		else if ( ( pTag.m_nKey == ED2K_FT_BITRATE ) )
-		{
+			break;
+		case ED2K_FT_BITRATE:
 			// New style Bitrate
 			strBitrate.Format( _T("%I64u"), pTag.m_nValue );
-		}
-		else if  ( ( pTag.m_nKey == ED2K_FT_CODEC ) )
-		{
+			break;
+		case ED2K_FT_CODEC:
 			// New style Codec
 			strCodec = pTag.m_sValue;
-		}
-		else if  ( pTag.m_nKey == ED2K_FT_FILERATING )
-		{
+			break;
+		case ED2K_FT_TITLE:
+			strTitle = pTag.m_sValue;
+			break;
+		case ED2K_FT_ARTIST:
+			strArtist = pTag.m_sValue;
+			break;
+		case ED2K_FT_ALBUM:
+			strAlbum = pTag.m_sValue;
+			break;
+		case ED2K_FT_FILECOMMENT:
+			m_sComments = pTag.m_sValue;	// Is this sufficient?
+			break;
+		case ED2K_FT_FILERATING:
 			// File Rating
 			// The server returns rating as a full range (1-255).
 			// If the majority of ratings are "very good", take it up to "excellent"
@@ -1774,53 +1583,62 @@ void CQueryHit::ReadEDPacket(CEDPacket* pPacket, const SOCKADDR_IN* pServer, BOO
 			else							// Fake
 				m_nRating = 1;
 
-			// the percentage of clients that have given ratings is:
+			// The percentage of clients that have given ratings is:
 			// = ( pTag.m_nValue >> 8 ) & 0xFF;
 			// ToDo: We could use this value in the future to weight the rating...
-		}
-		// ToDo: Maybe ignore these keys? They seem to have a lot of bad values...
-		else if ( ( pTag.m_nKey == 0 ) &&
-				  ( pTag.m_nType == ED2K_TAG_STRING ) &&
-				  ( pTag.m_sKey == _T("length") ) )
-		{
-			// Old style Length-  (As a string- x:x:x, x:x or x)
-			DWORD nSecs = 0, nMins = 0, nHours = 0;
+			break;
 
-			if ( pTag.m_sValue.GetLength() < 3 )
-				_stscanf( pTag.m_sValue, _T("%i"), &nSecs );
-			else if ( pTag.m_sValue.GetLength() < 6 )
-				_stscanf( pTag.m_sValue, _T("%i:%i"), &nMins, &nSecs );
-			else
-				_stscanf( pTag.m_sValue, _T("%i:%i:%i"), &nHours, &nMins, &nSecs );
+		case 0:		// ToDo: Maybe ignore these old style keys? They seem to have a lot of bad values...
+			if ( pTag.m_nType == ED2K_TAG_STRING && pTag.m_sKey == _T("length") )
+			{
+				// Old style Length-  (As a string- x:x:x, x:x or x)
+				DWORD nSecs = 0, nMins = 0, nHours = 0;
 
-			nLength = (nHours * 60 * 60) + (nMins * 60) + (nSecs);
-		}
-		else if ( ( pTag.m_nKey == 0 ) &&
-				  ( pTag.m_nType == ED2K_TAG_INT ) &&
-				  ( pTag.m_sKey == _T("bitrate") ) )
-		{
-			// Old style Bitrate
-			strBitrate.Format( _T("%I64u"), pTag.m_nValue );
-		}
-		else if ( ( pTag.m_nKey == 0 ) &&
-				  ( pTag.m_nType == ED2K_TAG_STRING ) &&
-				  ( pTag.m_sKey == _T("codec") ) )
-		{
-			// Old style Codec
-			strCodec = pTag.m_sValue;
-		}
-		//else	// Debug check.  Remove this when it's working
-		//{
-		//	CString s;
-		//	s.Format ( _T("Tag: %u sTag: %s Type: %u"), pTag.m_nKey, pTag.m_sKey, pTag.m_nType );
-		//	theApp.Message( MSG_NOTICE, s );
+				if ( pTag.m_sValue.GetLength() < 3 )
+					_stscanf( pTag.m_sValue, _T("%i"), &nSecs );
+				else if ( pTag.m_sValue.GetLength() < 6 )
+					_stscanf( pTag.m_sValue, _T("%i:%i"), &nMins, &nSecs );
+				else
+					_stscanf( pTag.m_sValue, _T("%i:%i:%i"), &nHours, &nMins, &nSecs );
 
-		//	if ( pTag.m_nType == 2 )
-		//		s.Format ( _T("Value: %s"), pTag.m_sValue);
-		//	else
-		//		s.Format ( _T("Value: %d"), pTag.m_nValue);
-		//	theApp.Message( MSG_NOTICE, s );
-		//}
+				nLength = (nHours * 60 * 60) + (nMins * 60) + (nSecs);
+			}
+			else if ( pTag.m_nType == ED2K_TAG_INT && pTag.m_sKey == _T("bitrate") )
+			{
+				// Old style Bitrate
+				strBitrate.Format( _T("%I64u"), pTag.m_nValue );
+			}
+			else if ( pTag.m_nType == ED2K_TAG_STRING && pTag.m_sKey == _T("codec") )
+			{
+				// Old style Codec
+				strCodec = pTag.m_sValue;
+			}
+			else if ( pTag.m_nType == ED2K_TAG_STRING && pTag.m_sKey == _T("title") )
+			{
+				strTitle = pTag.m_sValue;
+			}
+			else if ( pTag.m_nType == ED2K_TAG_STRING && pTag.m_sKey == _T("artist") )
+			{
+				strArtist = pTag.m_sValue;
+			}
+			else if ( pTag.m_nType == ED2K_TAG_STRING && pTag.m_sKey == _T("album") )
+			{
+				strAlbum = pTag.m_sValue;
+			}
+			break;
+		//default:	// Debug check.  Remove this when working
+			//{
+			//	CString s;
+			//	s.Format ( _T("Tag: %u sTag: %s Type: %u"), pTag.m_nKey, pTag.m_sKey, pTag.m_nType );
+			//	theApp.Message( MSG_NOTICE, s );
+
+			//	if ( pTag.m_nType == 2 )
+			//		s.Format ( _T("Value: %s"), pTag.m_sValue);
+			//	else
+			//		s.Format ( _T("Value: %d"), pTag.m_nValue);
+			//	theApp.Message( MSG_NOTICE, s );
+			//}
+		}
 	}
 
 	if ( nSize.QuadPart )
@@ -1836,122 +1654,62 @@ void CQueryHit::ReadEDPacket(CEDPacket* pPacket, const SOCKADDR_IN* pServer, BOO
 	}
 
 	// Verify and set metadata
-	CString strType;
 
 	// Check we have a valid name
 	if ( ! m_sName.IsEmpty() )
 	{
-		int nExtPos = m_sName.ReverseFind( '.' );
-		if ( nExtPos != -1 )
+		// Determine type
+		m_pSchema = SchemaCache.GuessByFilename( m_sName );
+		if ( m_pSchema )
 		{
-			strType = m_sName.Mid( nExtPos );
-			ToLower( strType );
+			if ( m_pXML ) m_pXML->Delete();
+			m_pXML = new CXMLElement( NULL, m_pSchema->m_sSingular );
+
+			if ( m_pSchema->CheckURI( CSchema::uriAudio ) )
+			{
+				// Audio
+				if ( nLength > 0 )
+				{
+					strLength.Format( _T("%lu"), nLength );
+					m_pXML->AddAttribute( _T("seconds"), strLength );
+				}
+
+				if ( ! strBitrate.IsEmpty() )
+					m_pXML->AddAttribute( _T("bitrate"), strBitrate );
+
+				//if ( ! strCodec.IsEmpty() )
+				//	m_pXML->AddAttribute( _T("codec"), strCodec );
+			}
+			else if ( m_pSchema->CheckURI( CSchema::uriVideo ) )
+			{
+				// Video
+				if ( nLength > 0 )
+				{
+					strLength.Format( _T("%.3f"), (double)nLength / (double)60 );
+					m_pXML->AddAttribute( _T("minutes"), strLength );
+				}
+
+				//if ( ! strBitrate.IsEmpty() )
+				//	m_pXML->AddAttribute( _T("bitrate"), strBitrate );
+
+				if ( strCodec.GetLength() )
+					m_pXML->AddAttribute( _T("codec"), strCodec );
+			}
+			// else Detect other schemas' metadata?
+
+			if ( ! strTitle.IsEmpty() )
+				m_pXML->AddAttribute( _T("title"), strArtist );
+
+			if ( ! strArtist.IsEmpty() )
+				m_pXML->AddAttribute( _T("artist"), strArtist );
+
+			if ( ! strAlbum.IsEmpty() )
+				m_pXML->AddAttribute( _T("album"), strAlbum );
 		}
 	}
 	else
 	{
 		m_bBogus = TRUE;
-	}
-
-	// If we can determine type, we can add metadata
-	if ( ! strType.IsEmpty() )
-	{
-		// Determine type
-		CSchemaPtr pSchema = NULL;
-
-		if ( ( pSchema = SchemaCache.Get( CSchema::uriAudio ) ) != NULL &&
-			 pSchema->FilterType( strType ) )
-		{	// Audio
-			m_sSchemaURI = CSchema::uriAudio;
-
-			// Add metadata
-			if ( nLength > 0 )
-			{
-				strLength.Format( _T("%lu"), nLength );
-				if ( m_pXML == NULL ) m_pXML = new CXMLElement( NULL, _T("audio") );
-				m_pXML->AddAttribute( _T("seconds"), strLength );
-			}
-			if ( ! strBitrate.IsEmpty() )
-			{
-				if ( m_pXML == NULL ) m_pXML = new CXMLElement( NULL, _T("audio") );
-				m_pXML->AddAttribute( _T("bitrate"), strBitrate );
-			}
-			//if ( ! strCodec.IsEmpty() )
-			//{
-			//	m_sSchemaURI = CSchema::uriVideo;
-			//	if ( m_pXML == NULL ) m_pXML = new CXMLElement( NULL, _T("audio") );
-			//	m_pXML->AddAttribute( _T("codec"), strCodec );
-			//}
-		}
-		else if ( ( pSchema = SchemaCache.Get( CSchema::uriVideo ) ) != NULL &&
-				  pSchema->FilterType( strType ) )
-		{	// Video
-			m_sSchemaURI = CSchema::uriVideo;
-
-			// Add metadata
-			if ( nLength > 0 )
-			{
-				double nMins = (double)nLength / (double)60;
-				strLength.Format( _T("%.3f"), nMins );
-				if ( m_pXML == NULL ) m_pXML = new CXMLElement( NULL, _T("video") );
-				m_pXML->AddAttribute( _T("minutes"), strLength );
-			}
-			//if ( ! strBitrate.IsEmpty() )
-			//{
-			//	if ( m_pXML == NULL ) m_pXML = new CXMLElement( NULL, _T("video") );
-			//	m_pXML->AddAttribute( _T("bitrate"), strBitrate );
-			//}
-			if ( ! strCodec.IsEmpty() )
-			{
-				if ( m_pXML == NULL ) m_pXML = new CXMLElement( NULL, _T("video") );
-				m_pXML->AddAttribute( _T("codec"), strCodec );
-			}
-		}
-		else if ( ( pSchema = SchemaCache.Get( CSchema::uriApplication ) ) != NULL &&
-				  pSchema->FilterType( strType ) )
-		{	// Application
-			m_sSchemaURI = CSchema::uriApplication;
-		}
-		else if ( ( pSchema = SchemaCache.Get( CSchema::uriArchive ) ) != NULL &&
-				  pSchema->FilterType( strType ) )
-		{	// Archive
-			m_sSchemaURI = CSchema::uriArchive;
-		}
-		else if ( ( pSchema = SchemaCache.Get( CSchema::uriImage ) ) != NULL &&
-					pSchema->FilterType( strType ) )
-		{	// Image
-			m_sSchemaURI = CSchema::uriImage;
-		}
-		else if ( ( pSchema = SchemaCache.Get( CSchema::uriBook ) ) != NULL &&
-					pSchema->FilterType( strType ) )
-		{	// eBook
-			m_sSchemaURI = CSchema::uriBook;
-		}
-		else if ( ( pSchema = SchemaCache.Get( CSchema::uriDocument ) ) != NULL &&
-					pSchema->FilterType( strType ) )
-		{	// Document
-			m_sSchemaURI = CSchema::uriDocument;
-		}
-		else if ( ( pSchema = SchemaCache.Get( CSchema::uriPresentation ) ) != NULL &&
-					pSchema->FilterType( strType ) )
-		{	// Presentation
-			m_sSchemaURI = CSchema::uriPresentation;
-		}
-		else if ( ( pSchema = SchemaCache.Get( CSchema::uriSpreadsheet ) ) != NULL &&
-					pSchema->FilterType( strType ) )
-		{	// Spreadsheet
-			m_sSchemaURI = CSchema::uriSpreadsheet;
-		}
-		else if ( ( pSchema = SchemaCache.Get( CSchema::uriROM ) ) != NULL &&
-					pSchema->FilterType( strType ) )
-		{	// ROM Image
-			m_sSchemaURI = CSchema::uriROM;
-		}
-		else if ( ( pSchema = SchemaCache.Get( CSchema::uriCollection ) ) != NULL &&
-					pSchema->FilterType( strType ) )
-		{	// Collection
-			m_sSchemaURI = CSchema::uriCollection;
-		}
 	}
 }
 
@@ -1970,7 +1728,11 @@ void CQueryHit::ReadEDAddress(CEDPacket* pPacket, const SOCKADDR_IN* pServer)
 	*i++ = m_nPort;
 	m_oClientID.validate();
 
-	if ( nAddress == 0 )
+	if ( Settings.Experimental.LAN_Mode )
+	{
+		m_bPush = TRI_FALSE;	// No push in LAN mode
+	}
+	else if ( nAddress == 0 )
 	{
 		m_bResolveURL = FALSE;
 		m_bPush = TRI_UNKNOWN;
@@ -2003,7 +1765,7 @@ void CQueryHit::Resolve()
 		m_nHitSources ++;
 		return;
 	}
-	else if ( ! m_bResolveURL )
+	if ( ! m_bResolveURL )
 		return;
 
 	m_nHitSources++;
@@ -2026,7 +1788,7 @@ void CQueryHit::Resolve()
 		}
 		return;
 	}
-	else if ( m_nProtocol == PROTOCOL_DC )
+	if ( m_nProtocol == PROTOCOL_DC )
 	{
 		m_sURL.Format( _T("dcfile://%s:%u/%s/TTH:%s/%I64u/"),
 			(LPCTSTR)CString( inet_ntoa( m_pAddress ) ), m_nPort,
@@ -2061,39 +1823,27 @@ void CQueryHit::Resolve()
 
 BOOL CQueryHit::ParseXML(CXMLElement* pMetaData, DWORD nRealIndex)
 {
-	CString strRealIndex;
-	strRealIndex.Format( _T("%i"), nRealIndex );
-
-	for ( POSITION pos1 = pMetaData->GetElementIterator() ; pos1 && ! m_pXML ; )
+	for ( POSITION pos1 = pMetaData->GetElementIterator() ; pos1 ; )
 	{
 		CXMLElement* pXML = pMetaData->GetNextElement( pos1 );
 
 		for ( POSITION pos2 = pXML->GetElementIterator() ; pos2 ; )
 		{
-			CXMLElement* pHit		= pXML->GetNextElement( pos2 );
-			CXMLAttribute* pIndex	= pHit->GetAttribute( _T("index") );
+			CXMLElement* pHit = pXML->GetNextElement( pos2 );
 
-			if ( pIndex != NULL && pIndex->GetValue() == strRealIndex )
+			CString sIndex = pHit->GetAttributeValue( _T("index"), _T("-1") );
+			if ( _tstoi( sIndex ) == (int)nRealIndex )
 			{
-				m_sSchemaPlural	= pXML->GetName();
-				m_sSchemaURI	= pXML->GetAttributeValue( CXMLAttribute::schemaName, _T("") );
-
-				if ( ! m_sSchemaPlural.IsEmpty() && ! m_sSchemaURI.IsEmpty() )
-				{
-					if ( m_pXML ) delete m_pXML;
+				if ( m_pXML ) m_pXML->Delete();
+				m_pXML = NULL;
+				if ( SchemaCache.Normalize( m_pSchema, pHit ) )
 					m_pXML = pHit->Detach();
-					pIndex->Delete();
-
-					if ( HasBogusMetadata() )
-						m_bBogus = TRUE;
-				}
-
-				break;
+				return TRUE;
 			}
 		}
 	}
 
-	return m_pXML != NULL;
+	return FALSE;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -2127,10 +1877,9 @@ CQueryHit& CQueryHit::operator=(const CQueryHit& pOther)
 	m_nUpSlots		= pOther.m_nUpSlots;
 	m_nUpQueue		= pOther.m_nUpQueue;
 	m_bCollection	= pOther.m_bCollection;
-	m_sSchemaURI	= pOther.m_sSchemaURI;
-	m_sSchemaPlural	= pOther.m_sSchemaPlural;
 	if ( m_pXML ) delete m_pXML;
 	m_pXML			= pOther.m_pXML ? pOther.m_pXML->Clone() : NULL;
+	m_pSchema		= pOther.m_pSchema;
 	m_nRating		= pOther.m_nRating;
 	m_sComments		= pOther.m_sComments;
 	m_bBogus		= pOther.m_bBogus;
@@ -2184,7 +1933,7 @@ int CQueryHit::GetRating()
 //////////////////////////////////////////////////////////////////////
 // CQueryHit serialize
 
-void CQueryHit::Serialize(CArchive& ar, int nVersion)
+void CQueryHit::Serialize(CArchive& ar, int nVersion)	// MATCHLIST_SER_VERSION
 {
 	if ( ar.IsStoring() )
 	{
@@ -2228,12 +1977,9 @@ void CQueryHit::Serialize(CArchive& ar, int nVersion)
 		ar << m_sPreview;
 		ar << m_bCollection;
 
-		if ( m_pXML == NULL )
-			m_sSchemaURI.Empty();
-		ar << m_sSchemaURI;
-		ar << m_sSchemaPlural;
-		if ( ! m_sSchemaURI.IsEmpty() )
-			m_pXML->Serialize( ar );
+		ar << ( ( m_pSchema && m_pXML ) ? m_pSchema->GetURI() : CString() );
+		ar << ( ( m_pSchema && m_pXML ) ? m_pSchema->m_sPlural : CString() );
+		if ( m_pSchema && m_pXML ) m_pXML->Serialize( ar );
 		ar << m_nRating;
 		ar << m_sComments;
 
@@ -2304,11 +2050,13 @@ void CQueryHit::Serialize(CArchive& ar, int nVersion)
 		//if ( nVersion >= 11 )
 			ar >> m_bCollection;
 
-		ar >> m_sSchemaURI;
-		ar >> m_sSchemaPlural;
+		CString sSchemaURI, sSchemaPlural;
+		ar >> sSchemaURI;
+		ar >> sSchemaPlural;	// Unused
 
-		if ( ! m_sSchemaURI.IsEmpty() )
+		if ( ! sSchemaURI.IsEmpty() )
 		{
+			m_pSchema = SchemaCache.Get( sSchemaURI );
 			m_pXML = new CXMLElement();
 			m_pXML->Serialize( ar );
 		}
